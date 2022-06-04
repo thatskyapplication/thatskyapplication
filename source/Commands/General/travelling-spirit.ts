@@ -26,8 +26,7 @@ export default class implements Command {
           description: "The RSN to return the clan of.",
           required: true
         }
-      ],
-      defaultPermission: false
+      ]
     };
   }
 }
