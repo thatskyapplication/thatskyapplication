@@ -17,14 +17,20 @@ export default class implements Command {
   get commandData(): ApplicationCommandData {
     return {
       name: this.name,
-      description: "Returns the clan of an account.",
+      description: "Returns the friendship tree of a Travelling Spirit.",
       type: this.type,
       options: [
         {
           type: ApplicationCommandOptionType.String,
           name: "name",
-          description: "The RSN to return the clan of.",
-          required: true
+          description: "The name of the Travelling Spirit.",
+          required: true,
+          choices: [
+            {
+              name: "Sassy Drifter",
+              value: "Sassy Drifter"
+            }
+          ]
         }
       ]
     };
