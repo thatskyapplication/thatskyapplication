@@ -1,0 +1,7 @@
+.DS_Store
+.env
+.eslintcache
+test.js
+test.ts
+node_modules/
+sourceJS/

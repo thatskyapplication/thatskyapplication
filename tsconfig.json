@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "exactOptionalPropertyTypes": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noUncheckedIndexedAccess": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "allowUmdGlobalAccess": false,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "noResolve": false,
+    "resolveJsonModule": true,
+    "declaration": false,
+    "downlevelIteration": false,
+    "emitBOM": false,
+    "importHelpers": false,
+    "importsNotUsedAsValues": "error",
+    "newLine": "lf",
+    "noEmit": false,
+    "noEmitHelpers": false,
+    "noEmitOnError": false,
+    "outDir": "sourceJS",
+    "removeComments": false,
+    "sourceMap": false,
+    "allowJs": false,
+    "checkJs": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": false,
+    "lib": [
+      "ESNext"
+    ],
+    "target": "ESNext"
+  }
+}

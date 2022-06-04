@@ -1,0 +1,9 @@
+{
+  "name": "Caelus",
+  "script": "npm",
+  "args": "start",
+  "time": true,
+  "watch": true,
+  "max_restarts": 5,
+  "autorestart": true
+}
