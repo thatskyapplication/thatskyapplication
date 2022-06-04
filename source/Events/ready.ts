@@ -50,6 +50,7 @@ export const event: Event<typeof name> = {
     embed.setAuthor({ iconURL: json.author.avatar_url, name: json.author.login, url: json.author.html_url });
     embed.setDescription(`Running [\`${commitHash.slice(0, 7)}\`](${json.html_url}) on [\`${branch}\`](https://github.com/${repository}/tree/${encodeURIComponent(branch)}) at ${Formatters.time(Math.floor(Date.now() / 1000), Formatters.TimestampStyles.ShortDateTime)}.\n${json.commit.message}`);
     embed.setTimestamp();
+    await Caelus.applyCommands();
     await Caelus.log({ embeds: [embed] });
   }
 };
