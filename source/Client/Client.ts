@@ -82,15 +82,6 @@ class Caelus<T extends boolean> extends Client<T> {
       const { logChannel } = this;
       const applicationCommands = await logChannel.guild.commands.set(Object.values(commands).map(({ commandData }) => commandData));
       this.consoleLog(applicationCommands.map(({ name, type }) => `Set ${name} as a ${type} application command.`).join("\n"));
-
-      const applicationCommandsPermissions = await logChannel.guild.commands.permissions.set({
-        fullPermissions: applicationCommands.map(({ id }) => ({
-          id,
-          permissions: []
-        }))
-      });
-
-      this.consoleLog(applicationCommandsPermissions.map((_, id) => `Set the permissions of ${applicationCommands.get(id)!.name}.`).join("\n"));
       this.consoleLog("Finished applying commands!");
     } catch (error) {
       this.log("Failed to apply commands.", error);
