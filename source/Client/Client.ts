@@ -1,6 +1,7 @@
 import { unlink, writeFile } from "node:fs/promises";
 import { inspect } from "node:util";
 import { Client, ClientOptions, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits } from "discord.js";
+import commands from "../Commands/index.js";
 import { logChannelId } from "../Utility/Constants.js";
 
 interface LogOptions {
@@ -27,11 +28,10 @@ class Caelus<T extends boolean> extends Client<T> {
     const content = typeof message === "string" ? message : message.content;
     const output = error || content;
     if (output) this.consoleLog(output, stamp);
-    const channel = this.channels.resolve(logChannelId);
-    if (!(channel instanceof TextChannel)) throw new Error("Attempting to log in a non-text channel.");
-    const me = await channel.guild.members.fetch(this.user.id);
+    const { logChannel } = this;
+    const me = await logChannel.guild.members.fetch(this.user.id);
 
-    if (!channel.permissionsFor(me).has([
+    if (!logChannel.permissionsFor(me).has([
       PermissionFlagsBits.AttachFiles,
       PermissionFlagsBits.EmbedLinks,
       PermissionFlagsBits.SendMessages,
@@ -61,7 +61,7 @@ class Caelus<T extends boolean> extends Client<T> {
 
     for (const embed of embeds) embed.setColor(me.displayColor);
 
-    await channel.send({
+    await logChannel.send({
       allowedMentions: { parse: [] },
       content: content ? `${stamp} ${content}` : null,
       embeds,
@@ -69,6 +69,32 @@ class Caelus<T extends boolean> extends Client<T> {
     });
 
     if (files.length > 0) await unlink(potentialFileName);
+  }
+
+  get logChannel(): TextChannel {
+    const channel = this.channels.resolve(logChannelId);
+    if (!(channel instanceof TextChannel)) throw new Error("Attempting to log in a non-text channel.");
+    return channel;
+  }
+
+  async applyCommands(): Promise<void> {
+    try {
+      const { logChannel } = this;
+      const applicationCommands = await logChannel.guild.commands.set(Object.values(commands).map(({ commandData }) => commandData));
+      this.consoleLog(applicationCommands.map(({ name, type }) => `Set ${name} as a ${type} application command.`).join("\n"));
+
+      const applicationCommandsPermissions = await logChannel.guild.commands.permissions.set({
+        fullPermissions: applicationCommands.map(({ id }) => ({
+          id,
+          permissions: []
+        }))
+      });
+
+      this.consoleLog(applicationCommandsPermissions.map((_, id) => `Set the permissions of ${applicationCommands.get(id)!.name}.`).join("\n"));
+      this.consoleLog("Finished applying commands!");
+    } catch (error) {
+      this.log("Failed to apply commands.", error);
+    }
   }
 }
 
