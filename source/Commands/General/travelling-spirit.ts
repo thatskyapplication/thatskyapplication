@@ -1,10 +1,15 @@
 import { EmbedBuilder } from "@discordjs/builders";
-import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction } from "discord.js";
 import Caelus from "../../Client/Client.js";
 import { travellingSpirits } from "../../Utility/Constants.js";
-import type { Command } from "../index.js";
+import type { AutocompleteCommand } from "../index.js";
 
-export default class implements Command {
+const autocompleteOptions = Object.values(travellingSpirits).map(({ name }) => ({
+  name,
+  value: name
+}));
+
+export default class implements AutocompleteCommand {
   readonly name = "travelling-spirit";
   readonly type = ApplicationCommandType.ChatInput;
 
@@ -36,6 +41,12 @@ export default class implements Command {
     await interaction.reply({ embeds: [embed], ephemeral: true });
   }
 
+  async autocomplete(interaction: AutocompleteInteraction<"cached">): Promise<void> {
+    const focused = interaction.options.getFocused();
+    if (typeof focused === "number") return;
+    interaction.respond(autocompleteOptions.filter(({ name }) => name.startsWith(focused)));
+  }
+
   get commandData(): ApplicationCommandData {
     return {
       name: this.name,
@@ -47,16 +58,7 @@ export default class implements Command {
           name: "name",
           description: "The name of the Travelling Spirit.",
           required: true,
-          choices: [
-            {
-              name: "Sassy Drifter",
-              value: "Sassy Drifter"
-            },
-            {
-              name: "Stretching Guru",
-              value: "Stretching Guru"
-            }
-          ]
+          autocomplete: true
         }
       ]
     };

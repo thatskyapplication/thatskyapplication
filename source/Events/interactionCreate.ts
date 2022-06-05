@@ -35,5 +35,20 @@ export const event: Event<typeof name> = {
 
       return;
     }
+
+    if (interaction.isAutocomplete()) {
+      const { commandName } = interaction;
+
+      if (!isCommandName(commandName)) {
+        Caelus.log(`Received an unknown chat input command interaction (\`${interaction.commandName}\`).`);
+        return;
+      }
+
+      try {
+        await commands[commandName].autocomplete(interaction);
+      } catch (error) {
+        Caelus.log(`Error autocompleting \`/${commandName}\`.`, error);
+      }
+    }
   }
 };

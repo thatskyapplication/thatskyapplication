@@ -20,4 +20,8 @@ export interface Command {
   get commandData(): ApplicationCommandData;
 }
 
+export interface AutocompleteCommand extends Command {
+  autocomplete(interaction: AutocompleteInteraction<"cached">): Promise<void>;
+}
+
 export default commands;
