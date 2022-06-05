@@ -1,5 +1,4 @@
-import { EmbedBuilder } from "@discordjs/builders";
-import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder } from "discord.js";
 import Caelus from "../../Client/Client.js";
 import { travellingSpirits } from "../../Utility/Constants.js";
 import type { AutocompleteCommand } from "../index.js";
