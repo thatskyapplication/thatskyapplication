@@ -40,7 +40,7 @@ export default class implements AutocompleteCommand {
   async autocomplete(interaction: AutocompleteInteraction<"cached">): Promise<void> {
     const focused = interaction.options.getFocused();
     if (typeof focused === "number") return;
-    interaction.respond(autocompleteOptions.filter(({ name }) => name.startsWith(focused)));
+    await interaction.respond(autocompleteOptions.filter(({ name }) => name.startsWith(focused)));
   }
 
   get commandData(): ApplicationCommandData {
