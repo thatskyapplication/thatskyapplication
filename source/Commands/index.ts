@@ -1,4 +1,4 @@
-import type { ApplicationCommandData, ChatInputCommandInteraction, UserContextMenuCommandInteraction } from "discord.js";
+import type { ApplicationCommandData, AutocompleteInteraction, ChatInputCommandInteraction } from "discord.js";
 
 // General
 import travelling_spirit from "./General/travelling-spirit.js";
