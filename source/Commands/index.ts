@@ -16,7 +16,7 @@ export function isCommandName(commandName: string): commandName is CommandName {
 export interface Command {
   name: CommandName;
   type: number;
-  handle(interaction: ChatInputCommandInteraction<"cached"> | UserContextMenuCommandInteraction<"cached">): Promise<void>;
+  handle(interaction: ChatInputCommandInteraction<"cached">): Promise<void>;
   get commandData(): ApplicationCommandData;
 }
 
