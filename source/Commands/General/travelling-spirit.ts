@@ -4,7 +4,9 @@ import Caelus from "../../Client/Client.js";
 import { travellingSpirits } from "../../Utility/Constants.js";
 import type { AutocompleteCommand } from "../index.js";
 
-const autocompleteOptions = Object.values(travellingSpirits).map(({ name }) => ({
+const travellingSpiritsValues = Object.values(travellingSpirits);
+
+const autocompleteOptions = travellingSpiritsValues.map(({ name }) => ({
   name,
   value: name
 }));
@@ -19,25 +21,19 @@ export default class implements AutocompleteCommand {
 
   async execute(interaction: ChatInputCommandInteraction<"cached">): Promise<void> {
     const name = interaction.options.getString("name", true);
-    const embed = new EmbedBuilder();
+    const travellingSpirit = travellingSpiritsValues.find(travellingSpirit => travellingSpirit.name === name);
 
-    switch (name) {
-      case "Sassy Drifter":
-        embed.setImage(travellingSpirits.sassyDrifter.image);
-        embed.setURL(travellingSpirits.sassyDrifter.url);
-        break;
-      case "Stretching Guru":
-        embed.setImage(travellingSpirits.stretchingGuru.image);
-        embed.setURL(travellingSpirits.stretchingGuru.url);
-        break;
-      default:
-        await interaction.reply({ content: "Woah, it seems we have not encountered that Travelling Spirit yet. How strange!" });
-        Caelus.log(`Encountered \`${name}\` as a Travelling Spirit, but had no record of it.`);
-        return;
+    if (!travellingSpirit) {
+      await interaction.reply({ content: "Woah, it seems we have not encountered that Travelling Spirit yet. How strange!" });
+      Caelus.log(`Encountered \`${name}\` as a Travelling Spirit, but had no record of it.`);
+      return;
     }
 
+    const embed = new EmbedBuilder();
     embed.setColor((await interaction.guild.members.fetch(Caelus.user.id)).displayColor);
+    embed.setImage(travellingSpirit.image);
     embed.setTitle(name);
+    embed.setURL(travellingSpirit.url);
     await interaction.reply({ embeds: [embed], ephemeral: true });
   }
 
