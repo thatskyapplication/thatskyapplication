@@ -12,7 +12,7 @@ export const event: Event<typeof name> = {
     if (!interaction.inCachedGuild()) return;
 
     if (interaction.isChatInputCommand()) {
-      const commandName = interaction.commandName;
+      const { commandName } = interaction;
 
       if (!isCommandName(commandName)) {
         Caelus.log(`Received an unknown chat input command interaction (\`${interaction.commandName}\`).`);
