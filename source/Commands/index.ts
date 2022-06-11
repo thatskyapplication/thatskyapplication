@@ -18,7 +18,7 @@ export function isCommandName(commandName: string): commandName is CommandName {
 }
 
 export function isAutocompleteCommand(command: Command): command is AutocompleteCommand {
-  return isCommandName(command.name) && "autocomplete" in commands;
+  return isCommandName(command.name) && "autocomplete" in command;
 }
 
 export interface Command {
