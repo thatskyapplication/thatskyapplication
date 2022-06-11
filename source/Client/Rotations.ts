@@ -16,7 +16,7 @@ export default new class {
             Notification.send(LightEvent.PollutedGeyser);
             break;
           case 30:
-            Notification.send(LightEvent.PollutedGeyser);
+            Notification.send(LightEvent.Grandma);
             break;
           case 45:
             Notification.send(LightEvent.Turtle);
