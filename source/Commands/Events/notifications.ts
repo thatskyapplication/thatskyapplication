@@ -41,7 +41,7 @@ export default class implements Command {
       return;
     }
 
-    if (!role.mentionable || channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) {
+    if (!role.mentionable && !channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) {
       await interaction.reply({
         content: `Cannot mention the ${role} role.`,
         ephemeral: true
