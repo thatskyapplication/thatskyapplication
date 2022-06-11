@@ -1,7 +1,7 @@
-import { Events } from "discord.js";
+import { Events, InteractionType } from "discord.js";
 import type { Event } from "./index.js";
 import Caelus from "../Client/Client.js";
-import commands, { isCommandName } from "../Commands/index.js";
+import commands, { isAutocompleteCommand, isCommandName } from "../Commands/index.js";
 
 const name = Events.InteractionCreate;
 
@@ -18,7 +18,7 @@ export const event: Event<typeof name> = {
         Caelus.log(`Received an unknown chat input command interaction (\`${interaction.commandName}\`).`);
 
         interaction.reply({
-          content: "This command is drifting away with the souls of the underworld...",
+          content: "A dark crab appeared out of nowhere and gobbled this command up. It doesn't seem to exist.",
           ephemeral: true
         });
 
@@ -36,16 +36,23 @@ export const event: Event<typeof name> = {
       return;
     }
 
-    if (interaction.isAutocomplete()) {
+    if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
       const { commandName } = interaction;
 
       if (!isCommandName(commandName)) {
-        Caelus.log(`Received an unknown chat input command interaction (\`${interaction.commandName}\`).`);
+        Caelus.log(`Received an unknown command autocomplete interaction (\`${interaction.commandName}\`).`);
+        return;
+      }
+
+      const command = commands[commandName];
+
+      if (!isAutocompleteCommand(command)) {
+        Caelus.log(`Received an unknown command via autocomplete (\`${interaction.commandName}\`).`);
         return;
       }
 
       try {
-        await commands[commandName].autocomplete(interaction);
+        await command.autocomplete(interaction);
       } catch (error) {
         Caelus.log(`Error autocompleting \`/${commandName}\`.`, error);
       }
