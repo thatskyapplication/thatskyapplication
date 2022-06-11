@@ -58,7 +58,6 @@ export default class Notification {
         No: insertId,
         "Guild ID": interaction.guildId,
         "Channel ID": channel.id,
-        [event]: role.id,
         "Polluted Geyser": event === LightEvent.PollutedGeyser ? role.id : null,
         "Grandma": event === LightEvent.Grandma ? role.id : null,
         "Turtle": event === LightEvent.Turtle ? role.id : null
