@@ -81,7 +81,7 @@ export default class implements Command {
       return;
     }
 
-    if ((event === LightEvent.PollutedGeyser && notification.pollutedGeyser === null) || (event === LightEvent.Grandma && notification.grandma === null) || (event === LightEvent.Turtle && notification.turtle === null)) {
+    if ((event === LightEvent.PollutedGeyser && notification.pollutedGeyserChannelId === null && notification.pollutedGeyserRoleId === null) || (event === LightEvent.Grandma && notification.grandmaChannelId === null && notification.grandmaRoleId === null) || (event === LightEvent.Turtle && notification.turtleChannelId === null && notification.turtleRoleId === null)) {
       await interaction.reply({
         content: `${event} notifications are not already set. There was nothing to do.`,
         ephemeral: true

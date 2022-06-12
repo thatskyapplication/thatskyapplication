@@ -4,10 +4,12 @@ import Caelus, { Maria } from "../Client/Client.js";
 interface NotificationData {
   No: number;
   "Guild ID": string;
-  "Channel ID": string;
-  "Polluted Geyser": string | null;
-  Grandma: string | null;
-  Turtle: string | null;
+  "Polluted Geyser Channel ID": string | null;
+  "Polluted Geyser Role ID": string | null;
+  "Grandma Channel ID": string | null;
+  "Grandma Role ID": string | null;
+  "Turtle Channel ID": string | null;
+  "Turtle Role ID": string | null;
 }
 
 export const LightEvent = {
@@ -24,31 +26,35 @@ export default class Notification {
   static readonly cache = new Collection<number, Notification>();
   readonly No: NotificationData["No"];
   readonly guildId: NotificationData["Guild ID"];
-  readonly channelId: NotificationData["Channel ID"];
-  readonly pollutedGeyser: NotificationData["Polluted Geyser"];
-  readonly grandma: NotificationData["Grandma"];
-  readonly turtle: NotificationData["Turtle"];
+  readonly pollutedGeyserChannelId: NotificationData["Polluted Geyser Channel ID"];
+  readonly pollutedGeyserRoleId: NotificationData["Polluted Geyser Role ID"];
+  readonly grandmaChannelId: NotificationData["Grandma Channel ID"];
+  readonly grandmaRoleId: NotificationData["Grandma Role ID"];
+  readonly turtleChannelId: NotificationData["Turtle Channel ID"];
+  readonly turtleRoleId: NotificationData["Turtle Role ID"];
 
   constructor(notification: NotificationData) {
     this.No = notification.No;
     this.guildId = notification["Guild ID"];
-    this.channelId = notification["Channel ID"];
-    this.pollutedGeyser = notification["Polluted Geyser"];
-    this.grandma = notification.Grandma;
-    this.turtle = notification.Turtle;
+    this.pollutedGeyserChannelId = notification["Polluted Geyser Channel ID"];
+    this.pollutedGeyserRoleId = notification["Polluted Geyser Role ID"];
+    this.grandmaChannelId = notification["Grandma Channel ID"];
+    this.grandmaRoleId = notification["Grandma Role ID"];
+    this.turtleChannelId = notification["Turtle Channel ID"];
+    this.turtleRoleId = notification["Turtle Role ID"];
   }
 
   static async setup(interaction: ChatInputCommandInteraction<"cached">, event: typeof LightEvent[keyof typeof LightEvent], channel: NewsChannel | TextChannel, role: Role): Promise<void> {
     const notification = this.cache.find(({ guildId }) => guildId === interaction.guildId);
 
     if (notification) {
-      await Maria.query(`UPDATE \`Notifications\` SET \`Channel ID\` = ?, \`${event}\` = ? WHERE \`No\` = ?;`, [
+      await Maria.query(`UPDATE \`Notifications\` SET \`${event} Channel ID\` = ?, \`${event} Role ID\` = ? WHERE \`No\` = ?;`, [
         channel.id,
         role.id,
         notification.No
       ]);
     } else {
-      const { insertId } = await Maria.query(`INSERT INTO \`Notifications\` SET \`Guild ID\` = ?, \`Channel ID\` = ?, \`${event}\` = ?;`, [
+      const { insertId } = await Maria.query(`INSERT INTO \`Notifications\` SET \`Guild ID\` = ?, \`${event} Channel ID\` = ?, \`${event} Role ID\` = ?;`, [
         interaction.guildId,
         channel.id,
         role.id
@@ -57,10 +63,12 @@ export default class Notification {
       const newNotification = new this({
         No: insertId,
         "Guild ID": interaction.guildId,
-        "Channel ID": channel.id,
-        "Polluted Geyser": event === LightEvent.PollutedGeyser ? role.id : null,
-        "Grandma": event === LightEvent.Grandma ? role.id : null,
-        "Turtle": event === LightEvent.Turtle ? role.id : null
+        "Polluted Geyser Channel ID": event === LightEvent.PollutedGeyser ? channel.id : null,
+        "Polluted Geyser Role ID": event === LightEvent.PollutedGeyser ? role.id : null,
+        "Grandma Channel ID": event === LightEvent.Grandma ? channel.id : null,
+        "Grandma Role ID": event === LightEvent.Grandma ? role.id : null,
+        "Turtle Channel ID": event === LightEvent.Turtle ? channel.id : null,
+        "Turtle Role ID": event === LightEvent.Turtle ? role.id : null
       });
 
       this.cache.set(newNotification.No, newNotification);
@@ -73,24 +81,28 @@ export default class Notification {
   }
 
   static async send(type: typeof LightEvent[keyof typeof LightEvent]): Promise<void> {
-    for (const { channelId, pollutedGeyser, grandma, turtle } of this.cache.values()) {
-      const channel = Caelus.channels.resolve(channelId);
-      if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildNews)) continue;
+    for (const { pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId } of this.cache.values()) {
+      let channelId;
       let roleId;
 
       switch (type) {
         case LightEvent.PollutedGeyser:
-          roleId = pollutedGeyser;
+          channelId = pollutedGeyserChannelId;
+          roleId = pollutedGeyserRoleId;
           break;
         case LightEvent.Grandma:
-          roleId = grandma;
+          channelId = grandmaChannelId;
+          roleId = grandmaRoleId;
           break;
         case LightEvent.Turtle:
-          roleId = turtle;
+          channelId = turtleChannelId;
+          roleId = turtleRoleId;
           break;
       }
 
-      if (!roleId) continue;
+      if (!roleId || !channelId) continue;
+      const channel = Caelus.channels.resolve(channelId);
+      if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildNews)) continue;
       await channel.send(`${Formatters.roleMention(roleId)} is starting soon!`).catch(() => null);
     }
   }
