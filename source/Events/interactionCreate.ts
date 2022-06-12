@@ -1,6 +1,7 @@
 import { Events, InteractionType } from "discord.js";
 import type { Event } from "./index.js";
 import Caelus from "../Client/Client.js";
+import { rolesSelectMenuCustomId } from "../Commands/General/roles.js";
 import commands, { isAutocompleteCommand, isCommandName } from "../Commands/index.js";
 
 const name = Events.InteractionCreate;
@@ -32,6 +33,26 @@ export const event: Event<typeof name> = {
         const interactionResponseBody = { content: "An error was encountered. Rest easy, it's being tracked!", ephemeral: true };
         interaction.deferred || interaction.replied ? interaction.followUp(interactionResponseBody) : interaction.reply(interactionResponseBody);
       }
+
+      return;
+    }
+
+    if (interaction.isSelectMenu()) {
+      try {
+        if (interaction.customId === rolesSelectMenuCustomId) return await commands.roles.apply(interaction);
+      } catch (error) {
+        Caelus.log(`Error performing \`${interaction.customId}\`.`, error);
+        const interactionResponseBody = { content: "An error was encountered. Rest easy, it's being tracked!", ephemeral: true };
+        (interaction.deferred || interaction.replied ? interaction.followUp(interactionResponseBody) : interaction.reply(interactionResponseBody)).catch(() => null);
+        return;
+      }
+
+      Caelus.log(`Received an unknown select menu interaction (\`${interaction.customId}\`).`);
+
+      interaction.reply({
+        content: "We interact with a lot of options here. But that option... we have no idea what that is.",
+        ephemeral: true
+      });
 
       return;
     }

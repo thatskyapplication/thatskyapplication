@@ -4,10 +4,12 @@ import type { ApplicationCommandData, AutocompleteInteraction, ChatInputCommandI
 import notifications from "./Events/notifications.js";
 
 // General
+import roles from "./General/roles.js";
 import travelling_spirit from "./General/travelling-spirit.js";
 
 const commands = {
   "travelling-spirit": new travelling_spirit(),
+  roles: new roles(),
   notifications: new notifications()
 } as const;
 
