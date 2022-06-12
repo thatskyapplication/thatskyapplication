@@ -34,6 +34,18 @@ export default class implements Command {
       return;
     }
 
+    const notification = Notification.cache.find(({ guildId }) => interaction.guildId === guildId);
+
+    if (notification && ((event === LightEvent.PollutedGeyser && notification.pollutedGeyserChannelId === channel.id && notification.pollutedGeyserRoleId === role.id) || (event === LightEvent.Grandma && notification.grandmaChannelId === channel.id && notification.grandmaRoleId === role.id) || (event === LightEvent.Turtle && notification.turtleChannelId === channel.id && notification.turtleRoleId === role.id))) {
+      await interaction.reply({
+        allowedMentions: { parse: [] },
+        content: `${event} notifications are already set to mention the role ${role} in ${channel}. There was nothing to do.`,
+        ephemeral: true
+      });
+
+      return;
+    }
+
     if (!channel.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages])) {
       await interaction.reply({
         content: `\`View Channel\` & \`Send Messages\` are required for ${channel}.`,
