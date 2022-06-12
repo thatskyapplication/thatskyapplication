@@ -11,6 +11,8 @@ export default class implements Command {
     switch (interaction.options.getSubcommand()) {
       case "setup":
         return await this.setup(interaction);
+      case "unset":
+        return await this.unset(interaction);
     }
   }
 
@@ -50,10 +52,54 @@ export default class implements Command {
       return;
     }
 
-    await Notification.create(interaction, event, channel, role);
+    await Notification.setup(interaction, event, channel, role);
+  }
+
+  async unset(interaction: ChatInputCommandInteraction<"cached">): Promise<void> {
+    const notification = Notification.cache.find(({ guildId }) => interaction.guildId === guildId);
+
+    if (!notification) {
+      interaction.reply({
+        content: "This server has nothing set up.",
+        ephemeral: true
+      });
+
+      return;
+    }
+
+    const { options } = interaction;
+    const event = options.getString("event", true);
+
+    if (!isEvent(event)) {
+      Caelus.log(`Received an unknown notification event: ${event} whilst setting up notifications.`);
+
+      await interaction.reply({
+        content: "The dark dragon has obeliterated this event. It's gone... for now.",
+        ephemeral: true
+      });
+
+      return;
+    }
+
+    if ((event === LightEvent.PollutedGeyser && notification.pollutedGeyser === null) || (event === LightEvent.Grandma && notification.grandma === null) || (event === LightEvent.Turtle && notification.turtle === null)) {
+      await interaction.reply({
+        content: `${event} notifications are not already set. There was nothing to do.`,
+        ephemeral: true
+      });
+
+      return;
+    }
+
+    // @ts-expect-error Currently not implemented.
+    await notification.unset(interaction, event);
   }
 
   get commandData(): ApplicationCommandData {
+    const choices = Object.values(LightEvent).map(lightEvent => ({
+      name: lightEvent,
+      value: lightEvent
+    }));
+
     return {
       name: this.name,
       description: "The command to set up notifications for events.",
@@ -67,22 +113,9 @@ export default class implements Command {
             {
               type: ApplicationCommandOptionType.String,
               name: "event",
-              description: "The event to configure.",
+              description: "The event to set.",
               required: true,
-              choices: [
-                {
-                  name: LightEvent.PollutedGeyser,
-                  value: LightEvent.PollutedGeyser
-                },
-                {
-                  name: LightEvent.Grandma,
-                  value: LightEvent.Grandma
-                },
-                {
-                  name: LightEvent.Turtle,
-                  value: LightEvent.Turtle
-                }
-              ]
+              choices
             },
             {
               type: ApplicationCommandOptionType.Channel,
@@ -99,6 +132,20 @@ export default class implements Command {
               name: "role",
               description: "The role to mention.",
               required: true
+            }
+          ]
+        },
+        {
+          type: ApplicationCommandOptionType.Subcommand,
+          name: "unset",
+          description: "Unsets a notifications in the server.",
+          options: [
+            {
+              type: ApplicationCommandOptionType.String,
+              name: "event",
+              description: "The event to unset.",
+              required: true,
+              choices
             }
           ]
         }

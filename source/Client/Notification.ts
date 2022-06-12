@@ -38,7 +38,7 @@ export default class Notification {
     this.turtle = notification.Turtle;
   }
 
-  static async create(interaction: ChatInputCommandInteraction<"cached">, event: typeof LightEvent[keyof typeof LightEvent], channel: NewsChannel | TextChannel, role: Role): Promise<void> {
+  static async setup(interaction: ChatInputCommandInteraction<"cached">, event: typeof LightEvent[keyof typeof LightEvent], channel: NewsChannel | TextChannel, role: Role): Promise<void> {
     const notification = this.cache.find(({ guildId }) => guildId === interaction.guildId);
 
     if (notification) {
