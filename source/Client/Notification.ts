@@ -80,6 +80,16 @@ export default class Notification {
     });
   }
 
+  async unset(interaction: ChatInputCommandInteraction<"cached">, event: typeof LightEvent[keyof typeof LightEvent]): Promise<void> {
+    await Maria.query(`UPDATE \`Notifications\` SET \`${event} Channel ID\` = ?, \`${event} Role ID\` = ? WHERE \`No\` = ?;`, [
+      null,
+      null,
+      this.No
+    ]);
+
+    await interaction.reply(`${event} notifications have been unset.`);
+  }
+
   static async send(type: typeof LightEvent[keyof typeof LightEvent]): Promise<void> {
     for (const { pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId } of this.cache.values()) {
       let channelId;

@@ -59,7 +59,7 @@ export default class implements Command {
     const notification = Notification.cache.find(({ guildId }) => interaction.guildId === guildId);
 
     if (!notification) {
-      interaction.reply({
+      await interaction.reply({
         content: "This server has nothing set up.",
         ephemeral: true
       });
@@ -90,7 +90,6 @@ export default class implements Command {
       return;
     }
 
-    // @ts-expect-error Currently not implemented.
     await notification.unset(interaction, event);
   }
 
@@ -138,7 +137,7 @@ export default class implements Command {
         {
           type: ApplicationCommandOptionType.Subcommand,
           name: "unset",
-          description: "Unsets a notifications in the server.",
+          description: "Unsets a notification in the server.",
           options: [
             {
               type: ApplicationCommandOptionType.String,
