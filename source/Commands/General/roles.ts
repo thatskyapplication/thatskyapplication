@@ -50,7 +50,7 @@ export default class implements Command {
 
     selectMenu.setCustomId(rolesSelectMenuCustomId);
     selectMenu.setMaxValues(options.size);
-    selectMenu.setMinValues(1);
+    selectMenu.setMinValues(0);
 
     selectMenu.setOptions(options.map((roleId, event) => ({
       default: interaction.member.roles.cache.has(roleId),
