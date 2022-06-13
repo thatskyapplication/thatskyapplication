@@ -36,5 +36,11 @@ export const travellingSpirits = {
     image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/5b/Traveling_gratitude_forest.png/revision/latest?cb=20220317115709",
     season: Season.Belonging,
     url: "https://sky-children-of-the-light.fandom.com/wiki/Provoking_Performer"
+  },
+  leapingDancer: {
+    name: "Leaping Dancer",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/7d/SoG_valley_TS.PNG/revision/latest?cb=20220317115709",
+    season: Season.Belonging,
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Leaping_Dancer"
   }
 } as const;
