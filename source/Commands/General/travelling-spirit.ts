@@ -23,8 +23,11 @@ export default class implements AutocompleteCommand {
     const travellingSpirit = travellingSpiritsValues.find(travellingSpirit => travellingSpirit.name === name);
 
     if (!travellingSpirit) {
-      await interaction.reply({ content: "Woah, it seems we have not encountered that Travelling Spirit yet. How strange!", ephemeral: true });
-      Caelus.log(`Encountered \`${name}\` as a Travelling Spirit, but had no record of it.`);
+      await interaction.reply({
+        content: "Woah, it seems we have not encountered that Travelling Spirit yet. How strange!",
+        ephemeral: true
+      });
+
       return;
     }
 
