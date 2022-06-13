@@ -5,11 +5,6 @@ import type { AutocompleteCommand } from "../index.js";
 
 const travellingSpiritsValues = Object.values(travellingSpirits);
 
-const autocompleteOptions = travellingSpiritsValues.map(({ name }) => ({
-  name,
-  value: name
-}));
-
 export default class implements AutocompleteCommand {
   readonly name = "travelling-spirit";
   readonly type = ApplicationCommandType.ChatInput;
@@ -41,8 +36,11 @@ export default class implements AutocompleteCommand {
 
   async autocomplete(interaction: AutocompleteInteraction<"cached">): Promise<void> {
     const focused = interaction.options.getFocused();
-    // @ts-expect-error `focused` should only be a string. The type is incorrect.
-    await interaction.respond(autocompleteOptions.filter(({ name }) => name.toUpperCase().startsWith(focused.toUpperCase())));
+
+    await interaction.respond(travellingSpiritsValues.filter(({ name, season }) => {
+      // @ts-expect-error `focused` should only be a string. The type is incorrect.
+      return name.toUpperCase().startsWith(focused.toUpperCase()) || season.toUpperCase().startsWith(focused.toUpperCase());
+    }).map(({ name }) => ({ name, value: name })));
   }
 
   get commandData(): ApplicationCommandData {
