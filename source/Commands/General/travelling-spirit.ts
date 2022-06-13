@@ -39,7 +39,7 @@ export default class implements AutocompleteCommand {
   async autocomplete(interaction: AutocompleteInteraction<"cached">): Promise<void> {
     const focused = interaction.options.getFocused();
     // @ts-expect-error `focused` should only be a string. The type is incorrect.
-    await interaction.respond(autocompleteOptions.filter(({ name }) => name.startsWith(focused)));
+    await interaction.respond(autocompleteOptions.filter(({ name }) => name.toUpperCase().startsWith(focused.toUpperCase())));
   }
 
   get commandData(): ApplicationCommandData {
