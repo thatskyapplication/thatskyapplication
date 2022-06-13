@@ -2,7 +2,9 @@ import process from "node:process";
 import { EmbedBuilder, Events, Formatters } from "discord.js";
 import fetch from "node-fetch";
 import type { Event } from "./index.js";
-import Caelus from "../Client/Client.js";
+import Caelus, { Maria } from "../Client/Client.js";
+import Notification from "../Client/Notification.js";
+import Rotations from "../Client/Rotations.js";
 import { repository, startupMessage } from "../Utility/Constants.js";
 
 interface Commit {
@@ -32,10 +34,30 @@ const branch = process.env.BRANCH;
 const commitHash = process.env.COMMIT_HASH;
 const githubToken = process.env.GITHUB_TOKEN;
 
+async function collectFromDatabase(): Promise<void> {
+  try {
+    await Maria.getConnection();
+    await collectNotifications();
+  } catch (error) {
+    Caelus.consoleLog(error);
+    process.exit(1);
+  }
+}
+
+async function collectNotifications(): Promise<void> {
+  for (const notificationPacket of await Maria.query("SELECT * FROM `Notifications`;")) {
+    const notification = new Notification(notificationPacket);
+    Notification.cache.set(notification.No, notification);
+  }
+
+  Rotations.clock();
+}
+
 export const event: Event<typeof name> = {
   name,
   once: true,
   async fire(): Promise<void> {
+    await collectFromDatabase();
     if (!branch || !commitHash || !githubToken) return Caelus.log(startupMessage);
 
     const json = await fetch(`https://api.github.com/repos/${repository}/commits/${commitHash}`, {

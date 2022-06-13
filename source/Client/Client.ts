@@ -1,6 +1,8 @@
 import { unlink, writeFile } from "node:fs/promises";
+import process from "node:process";
 import { inspect } from "node:util";
 import { Client, ClientOptions, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits } from "discord.js";
+import { createPool } from "mariadb";
 import commands from "../Commands/index.js";
 import { logChannelId } from "../Utility/Constants.js";
 
@@ -8,6 +10,13 @@ interface LogOptions {
   content?: string;
   embeds?: EmbedBuilder[];
 }
+
+export const Maria = createPool({
+  user: process.env.MARIA_USER,
+  password: process.env.MARIA_PASSWORD,
+  host: process.env.MARIA_HOST,
+  database: process.env.MARIA_DATABASE
+});
 
 class Caelus<T extends boolean> extends Client<T> {
   constructor(options: ClientOptions) {
