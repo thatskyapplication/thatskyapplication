@@ -42,5 +42,11 @@ export const travellingSpirits = {
     image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/7d/SoG_valley_TS.PNG/revision/latest?cb=20220317115709",
     season: Season.Belonging,
     url: "https://sky-children-of-the-light.fandom.com/wiki/Leaping_Dancer"
+  },
+  crabWalker: {
+    name: "Crab Walker",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fd/SoE_crab_walk_TS_info.PNG/revision/latest?cb=20220317115709",
+    season: Season.Enchantment,
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Crab_Walker"
   }
 } as const;
