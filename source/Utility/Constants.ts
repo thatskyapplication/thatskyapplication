@@ -43,6 +43,12 @@ export const travellingSpirits = {
     season: Season.Belonging,
     url: "https://sky-children-of-the-light.fandom.com/wiki/Leaping_Dancer"
   },
+  salutingProtector: {
+    name: "Saluting Protector",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/62/Traveling_Spirit_Price_Chart_-_Spirit_53.webp/revision/latest?cb=20220317115709",
+    season: Season.Belonging,
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Saluting_Protector"
+  },
   crabWalker: {
     name: "Crab Walker",
     image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fd/SoE_crab_walk_TS_info.PNG/revision/latest?cb=20220317115709",
