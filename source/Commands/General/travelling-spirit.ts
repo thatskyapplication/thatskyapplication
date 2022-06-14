@@ -1,4 +1,4 @@
-import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder } from "discord.js";
+import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder, formatEmoji } from "discord.js";
 import Caelus from "../../Client/Client.js";
 import { travellingSpirits } from "../../Utility/Constants.js";
 import type { AutocompleteCommand } from "../index.js";
@@ -29,7 +29,7 @@ export default class implements AutocompleteCommand {
     const embed = new EmbedBuilder();
     embed.setColor((await interaction.guild.members.fetch(Caelus.user.id)).displayColor);
     embed.setImage(travellingSpirit.image);
-    embed.setTitle(name);
+    embed.setTitle(`${formatEmoji(travellingSpirit.season.emoji)} ${name}`);
     embed.setURL(travellingSpirit.url);
     await interaction.reply({ embeds: [embed] });
   }
@@ -38,7 +38,7 @@ export default class implements AutocompleteCommand {
     const focused = interaction.options.getFocused().toUpperCase();
 
     await interaction.respond(travellingSpiritsValues.filter(({ name, season }) => {
-      return name.toUpperCase().startsWith(focused) || season.toUpperCase().startsWith(focused);
+      return name.toUpperCase().startsWith(focused) || season.name.toUpperCase().startsWith(focused);
     }).map(({ name }) => ({ name, value: name })));
   }
 

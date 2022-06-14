@@ -2,6 +2,11 @@ export const repository = "Jiralite/Caelus" as const;
 export const startupMessage = "Twirling in the air~" as const;
 export const logChannelId = "982748638793064501" as const;
 
+const enum Emoji {
+  Gratitude = "651170389115928587",
+  Enchantment = "700863707785330789"
+}
+
 const enum Season {
   Gratitude = "Gratitude",
   Lightseekers = "Lightseekers",
@@ -22,37 +27,55 @@ export const travellingSpirits = {
   sassyDrifter: {
     name: "Sassy Drifter",
     image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b5/Gratitude_Isle_Sassy.png/revision/latest?cb=20220317115709",
-    season: Season.Gratitude,
+    season: {
+      name: Season.Gratitude,
+      emoji: Emoji.Gratitude
+    },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Sassy_Drifter"
   },
   stretchingGuru: {
     name: "Stretching Guru",
     image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/73/Gratitude_Prairie.png/revision/latest?cb=20220317115709",
-    season: Season.Gratitude,
+    season: {
+      name: Season.Gratitude,
+      emoji: Emoji.Gratitude
+    },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Stretching_Guru"
   },
   provokingPerformer: {
     name: "Provoking Performer",
     image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/5b/Traveling_gratitude_forest.png/revision/latest?cb=20220317115709",
-    season: Season.Gratitude,
+    season: {
+      name: Season.Gratitude,
+      emoji: Emoji.Gratitude
+    },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Provoking_Performer"
   },
   leapingDancer: {
     name: "Leaping Dancer",
     image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/7d/SoG_valley_TS.PNG/revision/latest?cb=20220317115709",
-    season: Season.Gratitude,
+    season: {
+      name: Season.Gratitude,
+      emoji: Emoji.Gratitude
+    },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Leaping_Dancer"
   },
   salutingProtector: {
     name: "Saluting Protector",
     image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/62/Traveling_Spirit_Price_Chart_-_Spirit_53.webp/revision/latest?cb=20220317115709",
-    season: Season.Gratitude,
+    season: {
+      name: Season.Gratitude,
+      emoji: Emoji.Gratitude
+    },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Saluting_Protector"
   },
   crabWalker: {
     name: "Crab Walker",
     image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fd/SoE_crab_walk_TS_info.PNG/revision/latest?cb=20220317115709",
-    season: Season.Enchantment,
+    season: {
+      name: Season.Enchantment,
+      emoji: Emoji.Enchantment
+    },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Crab_Walker"
   }
 } as const;
