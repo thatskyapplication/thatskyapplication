@@ -4,6 +4,7 @@ export const logChannelId = "982748638793064501" as const;
 
 const enum Emoji {
   Gratitude = "651170389115928587",
+  LightSeekers = "651170389359198208",
   Enchantment = "700863707785330789"
 }
 
@@ -24,6 +25,9 @@ const enum Season {
 }
 
 const enum Expression {
+  // Friend expressions
+  Carry = "Carry",
+  // Regular expressions
   Karate = "Katate",
   Leap = "Leap",
   CrabWalk = "Crab walk",
@@ -101,6 +105,17 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Greeting_Shaman",
     expression: Expression.Greeting,
+    stance: null
+  },
+  piggybackLightseeker: {
+    name: "Piggyback Lightseeker",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d6/Traveling_lightseekers_isle.png/revision/latest?cb=20220317115709",
+    season: {
+      name: Season.Lightseekers,
+      emoji: Emoji.LightSeekers
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Piggyback_Lightseeker",
+    expression: Expression.Carry,
     stance: null
   },
   crabWalker: {
