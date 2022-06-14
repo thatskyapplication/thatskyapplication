@@ -26,6 +26,7 @@ const enum Season {
 
 const enum Expression {
   // Friend expressions
+  DoubleFive = "Double-Five",
   Carry = "Carry",
   // Regular expressions
   Karate = "Katate",
@@ -116,6 +117,17 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Piggyback_Lightseeker",
     expression: Expression.Carry,
+    stance: null
+  },
+  doublefiveLightCatcher: {
+    name: "Doublefive Light Catcher",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/2e/Traveling_Lightseekers_Prairie.png/revision/latest?cb=20220317115709",
+    season: {
+      name: Season.Lightseekers,
+      emoji: Emoji.LightSeekers
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Piggyback_Lightseeker",
+    expression: Expression.DoubleFive,
     stance: null
   },
   crabWalker: {
