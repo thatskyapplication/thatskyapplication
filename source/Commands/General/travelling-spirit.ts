@@ -31,7 +31,7 @@ export default class implements AutocompleteCommand {
     embed.setImage(travellingSpirit.image);
     embed.setTitle(name);
     embed.setURL(travellingSpirit.url);
-    await interaction.reply({ embeds: [embed], ephemeral: true });
+    await interaction.reply({ embeds: [embed] });
   }
 
   async autocomplete(interaction: AutocompleteInteraction<"cached">): Promise<void> {
