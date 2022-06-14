@@ -28,6 +28,7 @@ const enum Expression {
   Leap = "Leap",
   CrabWalk = "Crab walk",
   Dismiss = "Dismiss",
+  Greeting = "Greeting",
   Yoga = "Yoga"
 }
 
@@ -89,6 +90,17 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Saluting_Protector",
     expression: Expression.Dismiss,
+    stance: null
+  },
+  greetingShaman: {
+    name: "Greeting Shaman",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/68/Gratitude-vault.png/revision/latest?cb=20220317115709",
+    season: {
+      name: Season.Gratitude,
+      emoji: Emoji.Gratitude
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Greeting_Shaman",
+    expression: Expression.Greeting,
     stance: null
   },
   crabWalker: {
