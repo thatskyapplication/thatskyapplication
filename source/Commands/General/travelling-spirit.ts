@@ -35,11 +35,10 @@ export default class implements AutocompleteCommand {
   }
 
   async autocomplete(interaction: AutocompleteInteraction<"cached">): Promise<void> {
-    const focused = interaction.options.getFocused();
+    const focused = interaction.options.getFocused().toUpperCase();
 
     await interaction.respond(travellingSpiritsValues.filter(({ name, season }) => {
-      // @ts-expect-error `focused` should only be a string. The type is incorrect.
-      return name.toUpperCase().startsWith(focused.toUpperCase()) || season.toUpperCase().startsWith(focused.toUpperCase());
+      return name.toUpperCase().startsWith(focused) || season.toUpperCase().startsWith(focused);
     }).map(({ name }) => ({ name, value: name })));
   }
 
