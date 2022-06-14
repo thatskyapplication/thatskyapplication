@@ -23,6 +23,18 @@ const enum Season {
   Performance = "Performance"
 }
 
+const enum Expression {
+  Karate = "Katate",
+  Leap = "Leap",
+  CrabWalk = "Crab walk",
+  Dismiss = "Dismiss",
+  Yoga = "Yoga"
+}
+
+const enum Stance {
+  Sassy = "Sassy"
+}
+
 export const travellingSpirits = {
   sassyDrifter: {
     name: "Sassy Drifter",
@@ -31,7 +43,9 @@ export const travellingSpirits = {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
     },
-    url: "https://sky-children-of-the-light.fandom.com/wiki/Sassy_Drifter"
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Sassy_Drifter",
+    expression: null,
+    stance: Stance.Sassy
   },
   stretchingGuru: {
     name: "Stretching Guru",
@@ -40,7 +54,9 @@ export const travellingSpirits = {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
     },
-    url: "https://sky-children-of-the-light.fandom.com/wiki/Stretching_Guru"
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Stretching_Guru",
+    expression: Expression.Yoga,
+    stance: null
   },
   provokingPerformer: {
     name: "Provoking Performer",
@@ -49,7 +65,9 @@ export const travellingSpirits = {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
     },
-    url: "https://sky-children-of-the-light.fandom.com/wiki/Provoking_Performer"
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Provoking_Performer",
+    expression: Expression.Karate,
+    stance: null
   },
   leapingDancer: {
     name: "Leaping Dancer",
@@ -58,7 +76,9 @@ export const travellingSpirits = {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
     },
-    url: "https://sky-children-of-the-light.fandom.com/wiki/Leaping_Dancer"
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Leaping_Dancer",
+    expression: Expression.Leap,
+    stance: null
   },
   salutingProtector: {
     name: "Saluting Protector",
@@ -67,7 +87,9 @@ export const travellingSpirits = {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
     },
-    url: "https://sky-children-of-the-light.fandom.com/wiki/Saluting_Protector"
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Saluting_Protector",
+    expression: Expression.Dismiss,
+    stance: null
   },
   crabWalker: {
     name: "Crab Walker",
@@ -76,6 +98,8 @@ export const travellingSpirits = {
       name: Season.Enchantment,
       emoji: Emoji.Enchantment
     },
-    url: "https://sky-children-of-the-light.fandom.com/wiki/Crab_Walker"
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Crab_Walker",
+    expression: Expression.CrabWalk,
+    stance: null
   }
 } as const;
