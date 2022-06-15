@@ -39,7 +39,8 @@ const enum Expression {
   CrabWalk = "Crab walk",
   Dismiss = "Dismiss",
   Greeting = "Greeting",
-  Yoga = "Yoga"
+  Yoga = "Yoga",
+  Shush = "Shush"
 }
 
 const enum Stance {
@@ -188,7 +189,7 @@ export const travellingSpirits = {
       emoji: Emoji.LightSeekers
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Shushing_Light_Scholar",
-    expression: null,
+    expression: Expression.Shush,
     stance: null,
     call: null
   },
