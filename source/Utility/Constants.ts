@@ -61,7 +61,7 @@ const enum Stance {
 export const travellingSpirits = {
   sassyDrifter: {
     name: "Sassy Drifter",
-    attachment: readFileSync(new URL("../../../Images/Sassy_Drifter.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Sassy_Drifter.webp", import.meta.url)),
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -73,7 +73,7 @@ export const travellingSpirits = {
   },
   stretchingGuru: {
     name: "Stretching Guru",
-    attachment: readFileSync(new URL("../../../Images/Stretching_Guru.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Stretching_Guru.webp", import.meta.url)),
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -85,7 +85,7 @@ export const travellingSpirits = {
   },
   provokingPerformer: {
     name: "Provoking Performer",
-    attachment: readFileSync(new URL("../../../Images/Provoking_Performer.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Provoking_Performer.webp", import.meta.url)),
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -97,7 +97,7 @@ export const travellingSpirits = {
   },
   leapingDancer: {
     name: "Leaping Dancer",
-    attachment: readFileSync(new URL("../../../Images/Leaping_Dancer.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Leaping_Dancer.webp", import.meta.url)),
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -109,7 +109,7 @@ export const travellingSpirits = {
   },
   salutingProtector: {
     name: "Saluting Protector",
-    attachment: readFileSync(new URL("../../../Images/Saluting_Protector.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Saluting_Protector.webp", import.meta.url)),
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -121,7 +121,7 @@ export const travellingSpirits = {
   },
   greetingShaman: {
     name: "Greeting Shaman",
-    attachment: readFileSync(new URL("../../../Images/Greeting_Shaman.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Greeting_Shaman.webp", import.meta.url)),
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -133,7 +133,7 @@ export const travellingSpirits = {
   },
   piggybackLightseeker: {
     name: "Piggyback Lightseeker",
-    attachment: readFileSync(new URL("../../../Images/Piggyback_Lightseeker.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Piggyback_Lightseeker.webp", import.meta.url)),
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -145,7 +145,7 @@ export const travellingSpirits = {
   },
   doublefiveLightCatcher: {
     name: "Doublefive Light Catcher",
-    attachment: readFileSync(new URL("../../../Images/Doublefive_Light_Catcher.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Doublefive_Light_Catcher.webp", import.meta.url)),
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -157,7 +157,7 @@ export const travellingSpirits = {
   },
   laidbackPioneer: {
     name: "Laidback Pioneer",
-    attachment: readFileSync(new URL("../../../Images/Laidback_Pioneer.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Laidback_Pioneer.webp", import.meta.url)),
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -169,7 +169,7 @@ export const travellingSpirits = {
   },
   twirlingChampion: {
     name: "Twirling Champion",
-    attachment: readFileSync(new URL("../../../Images/Twirling_Champion.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Twirling_Champion.webp", import.meta.url)),
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -181,7 +181,7 @@ export const travellingSpirits = {
   },
   crabWhisperer: {
     name: "Crab Whisperer",
-    attachment: readFileSync(new URL("../../../Images/Crab_Whisperer.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Crab_Whisperer.webp", import.meta.url)),
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -193,7 +193,7 @@ export const travellingSpirits = {
   },
   shushingLightScholar: {
     name: "Shushing Light Scholar",
-    attachment: readFileSync(new URL("../../../Images/Shushing_Light_Scholar.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Shushing_Light_Scholar.webp", import.meta.url)),
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -205,7 +205,7 @@ export const travellingSpirits = {
   },
   boogieKid: {
     name: "Boogie Kid",
-    attachment: readFileSync(new URL("../../../Images/Boogie_Kid.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Boogie_Kid.webp", import.meta.url)),
     season: {
       name: Season.Belonging,
       emoji: Emoji.Belonging
@@ -217,7 +217,7 @@ export const travellingSpirits = {
   },
   confettiCousin: {
     name: "Confetti Cousin",
-    attachment: readFileSync(new URL("../../../Images/Confetti_Cousin.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Confetti_Cousin.webp", import.meta.url)),
     season: {
       name: Season.Belonging,
       emoji: Emoji.Belonging
@@ -229,7 +229,7 @@ export const travellingSpirits = {
   },
   hairtousleTeen: {
     name: "Hairtousle Teen",
-    attachment: readFileSync(new URL("../../../Images/Hairtousle_Teen.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Hairtousle_Teen.webp", import.meta.url)),
     season: {
       name: Season.Belonging,
       emoji: Emoji.Belonging
@@ -241,7 +241,7 @@ export const travellingSpirits = {
   },
   sparklerParent: {
     name: "Sparkler Parent",
-    attachment: readFileSync(new URL("../../../Images/Sparkler_Parent.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Sparkler_Parent.webp", import.meta.url)),
     season: {
       name: Season.Belonging,
       emoji: Emoji.Belonging
@@ -253,7 +253,7 @@ export const travellingSpirits = {
   },
   pleafulParent: {
     name: "Pleaful Parent",
-    attachment: readFileSync(new URL("../../../Images/Pleaful_Parent.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Pleaful_Parent.webp", import.meta.url)),
     season: {
       name: Season.Belonging,
       emoji: Emoji.Belonging
@@ -265,7 +265,7 @@ export const travellingSpirits = {
   },
   wiseGrandparent: {
     name: "Wise Grandparent",
-    attachment: readFileSync(new URL("../../../Images/Wise_Grandparent.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Wise_Grandparent.webp", import.meta.url)),
     season: {
       name: Season.Belonging,
       emoji: Emoji.Belonging
@@ -277,7 +277,7 @@ export const travellingSpirits = {
   },
   crabWalker: {
     name: "Crab Walker",
-    attachment: readFileSync(new URL("../../../Images/Crab_Walker.webp", import.meta.url)),
+    attachment: readFileSync(new URL("../../Images/Crab_Walker.webp", import.meta.url)),
     season: {
       name: Season.Enchantment,
       emoji: Emoji.Enchantment
