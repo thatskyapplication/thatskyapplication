@@ -27,12 +27,13 @@ export default class implements AutocompleteCommand {
     }
 
     const me = await interaction.guild?.members.fetch(Caelus.user.id);
+    const travellingSpiritAttachmentName = travellingSpirit.name.replaceAll(" ", "_");
     const embed = new EmbedBuilder();
     embed.setColor(me?.displayColor ?? 0);
-    embed.setImage(`${travellingSpirit.image}?cb=${Date.now()}`);
+    embed.setImage(`attachment://${travellingSpiritAttachmentName}.webp`);
     embed.setTitle(`${formatEmoji(travellingSpirit.season.emoji)} ${name}`);
     embed.setURL(travellingSpirit.url);
-    await interaction.reply({ embeds: [embed] });
+    await interaction.reply({ embeds: [embed], files: [{ attachment: travellingSpirit.attachment, name: `${travellingSpiritAttachmentName}.webp` }] });
   }
 
   async autocomplete(interaction: AutocompleteInteraction): Promise<void> {

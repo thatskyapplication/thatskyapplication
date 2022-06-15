@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import { URL } from "node:url";
+
 export const repository = "Jiralite/Caelus" as const;
 export const startupMessage = "Twirling in the air~" as const;
 export const logChannelId = "982748638793064501" as const;
@@ -58,7 +61,7 @@ const enum Stance {
 export const travellingSpirits = {
   sassyDrifter: {
     name: "Sassy Drifter",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b5/Gratitude_Isle_Sassy.png/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Sassy_Drifter.webp", import.meta.url)),
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -70,7 +73,7 @@ export const travellingSpirits = {
   },
   stretchingGuru: {
     name: "Stretching Guru",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/73/Gratitude_Prairie.png/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Stretching_Guru.webp", import.meta.url)),
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -82,7 +85,7 @@ export const travellingSpirits = {
   },
   provokingPerformer: {
     name: "Provoking Performer",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/5b/Traveling_gratitude_forest.png/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Provoking_Performer.webp", import.meta.url)),
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -94,7 +97,7 @@ export const travellingSpirits = {
   },
   leapingDancer: {
     name: "Leaping Dancer",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/7d/SoG_valley_TS.PNG/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Leaping_Dancer.webp", import.meta.url)),
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -106,7 +109,7 @@ export const travellingSpirits = {
   },
   salutingProtector: {
     name: "Saluting Protector",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/62/Traveling_Spirit_Price_Chart_-_Spirit_53.webp/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Saluting_Protector.webp", import.meta.url)),
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -118,7 +121,7 @@ export const travellingSpirits = {
   },
   greetingShaman: {
     name: "Greeting Shaman",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/68/Gratitude-vault.png/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Greeting_Shaman.webp", import.meta.url)),
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -130,7 +133,7 @@ export const travellingSpirits = {
   },
   piggybackLightseeker: {
     name: "Piggyback Lightseeker",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d6/Traveling_lightseekers_isle.png/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Piggyback_Lightseeker.webp", import.meta.url)),
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -142,19 +145,19 @@ export const travellingSpirits = {
   },
   doublefiveLightCatcher: {
     name: "Doublefive Light Catcher",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/2e/Traveling_Lightseekers_Prairie.png/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Doublefive_Light_Catcher.webp", import.meta.url)),
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
     },
-    url: "https://sky-children-of-the-light.fandom.com/wiki/Piggyback_Lightseeker",
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Doublefive_Light_Catcher",
     expression: Expression.DoubleFive,
     stance: null,
     call: null
   },
   laidbackPioneer: {
     name: "Laidback Pioneer",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/80/CA8E9927-7226-405C-83C7-FCFC8BA3066A.png/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Laidback_Pioneer.webp", import.meta.url)),
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -166,7 +169,7 @@ export const travellingSpirits = {
   },
   twirlingChampion: {
     name: "Twirling Champion",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/97/SoL_Valley_TS_placeholder.PNG/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Twirling_Champion.webp", import.meta.url)),
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -178,7 +181,7 @@ export const travellingSpirits = {
   },
   crabWhisperer: {
     name: "Crab Whisperer",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/Traveling_lightseekers_wasteland_map.png/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Crab_Whisperer.webp", import.meta.url)),
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -190,7 +193,7 @@ export const travellingSpirits = {
   },
   shushingLightScholar: {
     name: "Shushing Light Scholar",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/21/Vaultshush.png/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Shushing_Light_Scholar.webp", import.meta.url)),
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -202,7 +205,7 @@ export const travellingSpirits = {
   },
   boogieKid: {
     name: "Boogie Kid",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/64/SoB_Isle_TS_placeholder.PNG/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Boogie_Kid.webp", import.meta.url)),
     season: {
       name: Season.Belonging,
       emoji: Emoji.Belonging
@@ -214,7 +217,7 @@ export const travellingSpirits = {
   },
   confettiCousin: {
     name: "Confetti Cousin",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/2f/SoB_Prairie_TS_placeholder.png/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Confetti_Cousin.webp", import.meta.url)),
     season: {
       name: Season.Belonging,
       emoji: Emoji.Belonging
@@ -226,7 +229,7 @@ export const travellingSpirits = {
   },
   hairtousleTeen: {
     name: "Hairtousle Teen",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/23/SoB_Forest_TS_placeholder.PNG/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Hairtousle_Teen.webp", import.meta.url)),
     season: {
       name: Season.Belonging,
       emoji: Emoji.Belonging
@@ -238,7 +241,7 @@ export const travellingSpirits = {
   },
   sparklerParent: {
     name: "Sparkler Parent",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/6c/Belonging_sparkler_prices.png/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Sparkler_Parent.webp", import.meta.url)),
     season: {
       name: Season.Belonging,
       emoji: Emoji.Belonging
@@ -250,7 +253,7 @@ export const travellingSpirits = {
   },
   pleafulParent: {
     name: "Pleaful Parent",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/31/Belonging_Wasteland.png/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Pleaful_Parent.webp", import.meta.url)),
     season: {
       name: Season.Belonging,
       emoji: Emoji.Belonging
@@ -262,7 +265,7 @@ export const travellingSpirits = {
   },
   wiseGrandparent: {
     name: "Wise Grandparent",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/c8/Traveling_belonging_wise.png/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Wise_Grandparent.webp", import.meta.url)),
     season: {
       name: Season.Belonging,
       emoji: Emoji.Belonging
@@ -274,7 +277,7 @@ export const travellingSpirits = {
   },
   crabWalker: {
     name: "Crab Walker",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fd/SoE_crab_walk_TS_info.PNG/revision/latest",
+    attachment: readFileSync(new URL("../../../Images/Crab_Walker.webp", import.meta.url)),
     season: {
       name: Season.Enchantment,
       emoji: Emoji.Enchantment
