@@ -88,8 +88,8 @@ class Caelus<T extends boolean> extends Client<T> {
 
   async applyCommands(): Promise<void> {
     try {
-      const { logChannel } = this;
-      const applicationCommands = await logChannel.guild.commands.set(Object.values(commands).map(({ commandData }) => commandData));
+      if (!this.isReady()) throw new Error("Client applying commands when not ready.");
+      const applicationCommands = await this.application.commands.set(Object.values(commands).map(({ commandData }) => commandData));
       this.consoleLog(applicationCommands.map(({ name, type }) => `Set ${name} as a ${type} application command.`).join("\n"));
       this.consoleLog("Finished applying commands!");
     } catch (error) {
