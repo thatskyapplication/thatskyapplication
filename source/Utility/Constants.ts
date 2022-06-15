@@ -37,6 +37,7 @@ const enum Expression {
   Karate = "Katate",
   Leap = "Leap",
   Twirl = "Twirl",
+  Confetti = "Confetti",
   Boogie = "Boogie",
   CrabWalk = "Crab walk",
   Dismiss = "Dismiss",
@@ -204,6 +205,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Boogie_Kid",
     expression: Expression.Boogie,
+    stance: null,
+    call: null
+  },
+  confettiCousin: {
+    name: "Confetti Cousin",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/2f/SoB_Prairie_TS_placeholder.png/revision/latest",
+    season: {
+      name: Season.Belonging,
+      emoji: Emoji.Belonging
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Confetti_Cousin",
+    expression: Expression.Confetti,
     stance: null,
     call: null
   },
