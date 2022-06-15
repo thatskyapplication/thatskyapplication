@@ -51,7 +51,8 @@ const enum Expression {
 
 const enum Stance {
   Sassy = "Sassy",
-  Laidback = "Laidback"
+  Laidback = "Laidback",
+  Wise = "Wise"
 }
 
 export const travellingSpirits = {
@@ -257,6 +258,18 @@ export const travellingSpirits = {
     url: "https://sky-children-of-the-light.fandom.com/wiki/Pleaful_Parent",
     expression: Expression.DontGo,
     stance: null,
+    call: null
+  },
+  wiseGrandparent: {
+    name: "Wise Grandparent",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/c8/Traveling_belonging_wise.png/revision/latest",
+    season: {
+      name: Season.Belonging,
+      emoji: Emoji.Belonging
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Wise Grandparent",
+    expression: null,
+    stance: Stance.Wise,
     call: null
   },
   crabWalker: {
