@@ -67,7 +67,7 @@ export default class implements Command {
 
     if (!role.mentionable && !channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) {
       await interaction.reply({
-        content: `Cannot mention the ${role} role.`,
+        content: `Cannot mention the ${role} role. Ensure \`Mention @everyone, @here and All Roles\` permission is enabled for ${Caelus.user} in the channel or make the role mentionable.`,
         ephemeral: true
       });
 
