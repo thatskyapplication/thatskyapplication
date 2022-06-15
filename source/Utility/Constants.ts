@@ -43,6 +43,7 @@ const enum Expression {
   CrabWalk = "Crab walk",
   Dismiss = "Dismiss",
   Greeting = "Greeting",
+  DontGo = "Don't go!",
   Yoga = "Yoga",
   Shush = "Shush",
   Sparkler = "Sparkler"
@@ -243,6 +244,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Sparkler_Parent",
     expression: Expression.Sparkler,
+    stance: null,
+    call: null
+  },
+  pleafulParent: {
+    name: "Pleaful Parent",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/31/Belonging_Wasteland.png/revision/latest",
+    season: {
+      name: Season.Belonging,
+      emoji: Emoji.Belonging
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Pleaful_Parent",
+    expression: Expression.DontGo,
     stance: null,
     call: null
   },
