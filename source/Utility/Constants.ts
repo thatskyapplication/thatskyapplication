@@ -44,7 +44,8 @@ const enum Expression {
   Dismiss = "Dismiss",
   Greeting = "Greeting",
   Yoga = "Yoga",
-  Shush = "Shush"
+  Shush = "Shush",
+  Sparkler = "Sparkler"
 }
 
 const enum Stance {
@@ -230,6 +231,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Hairtousle_Teen",
     expression: Expression.HairTousle,
+    stance: null,
+    call: null
+  },
+  sparklerParent: {
+    name: "Sparkler Parent",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/6c/Belonging_sparkler_prices.png/revision/latest",
+    season: {
+      name: Season.Belonging,
+      emoji: Emoji.Belonging
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Sparkler_Parent",
+    expression: Expression.Sparkler,
     stance: null,
     call: null
   },
