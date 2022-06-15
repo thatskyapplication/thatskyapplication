@@ -180,6 +180,18 @@ export const travellingSpirits = {
     stance: null,
     call: Call.Crab
   },
+  shushingLightScholar: {
+    name: "Shushing Light Scholar",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/21/Vaultshush.png/revision/latest?cb=20201013143236",
+    season: {
+      name: Season.Lightseekers,
+      emoji: Emoji.LightSeekers
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Shushing_Light_Scholar",
+    expression: null,
+    stance: null,
+    call: null
+  },
   crabWalker: {
     name: "Crab Walker",
     image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fd/SoE_crab_walk_TS_info.PNG/revision/latest?cb=20220317115709",
