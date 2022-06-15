@@ -38,7 +38,8 @@ const enum Expression {
 }
 
 const enum Stance {
-  Sassy = "Sassy"
+  Sassy = "Sassy",
+  Laidback = "Laidback"
 }
 
 export const travellingSpirits = {
@@ -129,6 +130,17 @@ export const travellingSpirits = {
     url: "https://sky-children-of-the-light.fandom.com/wiki/Piggyback_Lightseeker",
     expression: Expression.DoubleFive,
     stance: null
+  },
+  laidbackPioneer: {
+    name: "Laidback Pioneer",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/80/CA8E9927-7226-405C-83C7-FCFC8BA3066A.png/revision/latest?cb=20220317115709",
+    season: {
+      name: Season.Lightseekers,
+      emoji: Emoji.LightSeekers
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Laidback_Pioneer",
+    expression: null,
+    stance: Stance.Laidback
   },
   crabWalker: {
     name: "Crab Walker",
