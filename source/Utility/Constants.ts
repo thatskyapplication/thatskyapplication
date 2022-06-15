@@ -267,7 +267,7 @@ export const travellingSpirits = {
       name: Season.Belonging,
       emoji: Emoji.Belonging
     },
-    url: "https://sky-children-of-the-light.fandom.com/wiki/Wise Grandparent",
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Wise_Grandparent",
     expression: null,
     stance: Stance.Wise,
     call: null
