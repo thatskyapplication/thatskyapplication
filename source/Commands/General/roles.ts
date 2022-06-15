@@ -9,7 +9,18 @@ export default class implements Command {
   readonly name = "roles";
   readonly type = ApplicationCommandType.ChatInput;
 
-  async handle(interaction: ChatInputCommandInteraction<"cached">): Promise<void> {
+  async handle(interaction: ChatInputCommandInteraction): Promise<void> {
+    if (!interaction.inCachedGuild()) {
+      Caelus.log(`The \`/${this.name}\` command was used in an uncached guild, somehow.`, interaction);
+
+      await interaction.reply({
+        content: `There is no \`/${this.name}\` command in Ba Sing Se.`,
+        ephemeral: true
+      });
+
+      return;
+    }
+
     return await this.execute(interaction);
   }
 
@@ -124,7 +135,8 @@ export default class implements Command {
     return {
       name: this.name,
       description: "Self-assign roles!",
-      type: this.type
+      type: this.type,
+      dmPermission: false
     };
   }
 }

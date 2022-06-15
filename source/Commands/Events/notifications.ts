@@ -7,7 +7,18 @@ export default class implements Command {
   readonly name = "notifications";
   readonly type = ApplicationCommandType.ChatInput;
 
-  async handle(interaction: ChatInputCommandInteraction<"cached">): Promise<void> {
+  async handle(interaction: ChatInputCommandInteraction): Promise<void> {
+    if (!interaction.inCachedGuild()) {
+      Caelus.log(`The \`/${this.name}\` command was used in an uncached guild, somehow.`, interaction);
+
+      await interaction.reply({
+        content: `There is no \`/${this.name}\` command in Ba Sing Se.`,
+        ephemeral: true
+      });
+
+      return;
+    }
+
     switch (interaction.options.getSubcommand()) {
       case "setup":
         return await this.setup(interaction);
@@ -160,7 +171,8 @@ export default class implements Command {
           ]
         }
       ],
-      defaultMemberPermissions: PermissionFlagsBits.ManageGuild
+      defaultMemberPermissions: PermissionFlagsBits.ManageGuild,
+      dmPermission: false
     };
   }
 }

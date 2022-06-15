@@ -10,8 +10,6 @@ export const event: Event<typeof name> = {
   name,
   once: false,
   async fire(interaction): Promise<void> {
-    if (!interaction.inCachedGuild()) return;
-
     if (interaction.isChatInputCommand()) {
       const { commandName } = interaction;
 
@@ -39,6 +37,17 @@ export const event: Event<typeof name> = {
 
     if (interaction.isSelectMenu()) {
       try {
+        if (!interaction.inCachedGuild()) {
+          Caelus.log(`Attempted to perform \`${interaction.customId}\` via a select menu interaction in an uncached guild.`, interaction);
+
+          await interaction.reply({
+            content: "This option does not exist in Ba Sing Se.",
+            ephemeral: true
+          });
+
+          return;
+        }
+
         if (interaction.customId === rolesSelectMenuCustomId) return await commands.roles.apply(interaction);
       } catch (error) {
         Caelus.log(`Error performing \`${interaction.customId}\`.`, error);
