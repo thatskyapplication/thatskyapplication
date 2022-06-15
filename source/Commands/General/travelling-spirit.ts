@@ -28,9 +28,9 @@ export default class implements AutocompleteCommand {
 
     const embed = new EmbedBuilder();
     embed.setColor((await interaction.guild.members.fetch(Caelus.user.id)).displayColor);
-    embed.setImage(travellingSpirit.image);
+    embed.setImage(`${travellingSpirit.image}?cb=${Date.now()}`);
     embed.setTitle(`${formatEmoji(travellingSpirit.season.emoji)} ${name}`);
-    embed.setURL(`${travellingSpirit.url}?cd=${Date.now()}`);
+    embed.setURL(travellingSpirit.url);
     await interaction.reply({ embeds: [embed] });
   }
 
