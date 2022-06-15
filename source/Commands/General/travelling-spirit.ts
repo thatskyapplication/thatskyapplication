@@ -9,11 +9,11 @@ export default class implements AutocompleteCommand {
   readonly name = "travelling-spirit";
   readonly type = ApplicationCommandType.ChatInput;
 
-  async handle(interaction: ChatInputCommandInteraction<"cached">): Promise<void> {
+  async handle(interaction: ChatInputCommandInteraction): Promise<void> {
     return await this.execute(interaction);
   }
 
-  async execute(interaction: ChatInputCommandInteraction<"cached">): Promise<void> {
+  async execute(interaction: ChatInputCommandInteraction): Promise<void> {
     const name = interaction.options.getString("name", true);
     const travellingSpirit = travellingSpiritsValues.find(travellingSpirit => travellingSpirit.name === name);
 
@@ -26,15 +26,16 @@ export default class implements AutocompleteCommand {
       return;
     }
 
+    const me = await interaction.guild?.members.fetch(Caelus.user.id);
     const embed = new EmbedBuilder();
-    embed.setColor((await interaction.guild.members.fetch(Caelus.user.id)).displayColor);
+    embed.setColor(me?.displayColor ?? 0);
     embed.setImage(travellingSpirit.image);
     embed.setTitle(`${formatEmoji(travellingSpirit.season.emoji)} ${name}`);
     embed.setURL(travellingSpirit.url);
     await interaction.reply({ embeds: [embed] });
   }
 
-  async autocomplete(interaction: AutocompleteInteraction<"cached">): Promise<void> {
+  async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
     const focused = interaction.options.getFocused().toUpperCase();
 
     await interaction.respond(travellingSpiritsValues.filter(({ name, season, expression, stance }) => {

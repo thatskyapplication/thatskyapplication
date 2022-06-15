@@ -26,12 +26,12 @@ export function isAutocompleteCommand(command: Command): command is Autocomplete
 export interface Command {
   name: CommandName;
   type: number;
-  handle(interaction: ChatInputCommandInteraction<"cached">): Promise<void>;
+  handle(interaction: ChatInputCommandInteraction): Promise<void>;
   get commandData(): ApplicationCommandData;
 }
 
 export interface AutocompleteCommand extends Command {
-  autocomplete(interaction: AutocompleteInteraction<"cached">): Promise<void>;
+  autocomplete(interaction: AutocompleteInteraction): Promise<void>;
 }
 
 export default commands;
