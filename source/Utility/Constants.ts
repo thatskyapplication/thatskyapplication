@@ -31,6 +31,7 @@ const enum Expression {
   // Regular expressions
   Karate = "Katate",
   Leap = "Leap",
+  Twirl = "Twirl",
   CrabWalk = "Crab walk",
   Dismiss = "Dismiss",
   Greeting = "Greeting",
@@ -141,6 +142,17 @@ export const travellingSpirits = {
     url: "https://sky-children-of-the-light.fandom.com/wiki/Laidback_Pioneer",
     expression: null,
     stance: Stance.Laidback
+  },
+  twirlingChampion: {
+    name: "Twirling Champion",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/97/SoL_Valley_TS_placeholder.PNG/revision/latest?cb=20220317115709",
+    season: {
+      name: Season.Lightseekers,
+      emoji: Emoji.LightSeekers
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Twirling_Champion",
+    expression: Expression.Twirl,
+    stance: null
   },
   crabWalker: {
     name: "Crab Walker",
