@@ -5,6 +5,7 @@ export const logChannelId = "982748638793064501" as const;
 const enum Emoji {
   Gratitude = "651170389115928587",
   LightSeekers = "651170389359198208",
+  Belonging = "651170575955263559",
   Enchantment = "700863707785330789"
 }
 
@@ -36,6 +37,7 @@ const enum Expression {
   Karate = "Katate",
   Leap = "Leap",
   Twirl = "Twirl",
+  Boogie = "Boogie",
   CrabWalk = "Crab walk",
   Dismiss = "Dismiss",
   Greeting = "Greeting",
@@ -190,6 +192,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Shushing_Light_Scholar",
     expression: Expression.Shush,
+    stance: null,
+    call: null
+  },
+  boogieKid: {
+    name: "Boogie Kid",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/64/SoB_Isle_TS_placeholder.PNG/revision/latest",
+    season: {
+      name: Season.Belonging,
+      emoji: Emoji.Belonging
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Boogie_Kid",
+    expression: Expression.Boogie,
     stance: null,
     call: null
   },
