@@ -51,7 +51,7 @@ export default class implements AutocompleteCommand {
         {
           type: ApplicationCommandOptionType.String,
           name: "name",
-          description: "The name, expression, stance or season of the Travelling Spirit.",
+          description: "The name, season, expression, stance or call of the Travelling Spirit.",
           required: true,
           autocomplete: true
         }
