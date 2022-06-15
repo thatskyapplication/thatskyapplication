@@ -32,6 +32,7 @@ const enum Call {
 const enum Expression {
   // Friend expressions
   DoubleFive = "Double-Five",
+  HairTousle = "Hair tousle",
   Carry = "Carry",
   // Regular expressions
   Karate = "Katate",
@@ -217,6 +218,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Confetti_Cousin",
     expression: Expression.Confetti,
+    stance: null,
+    call: null
+  },
+  hairtousleTeen: {
+    name: "Hairtousle Teen",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/23/SoB_Forest_TS_placeholder.PNG/revision/latest",
+    season: {
+      name: Season.Belonging,
+      emoji: Emoji.Belonging
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Hairtousle_Teen",
+    expression: Expression.HairTousle,
     stance: null,
     call: null
   },
