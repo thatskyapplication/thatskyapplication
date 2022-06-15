@@ -24,6 +24,10 @@ const enum Season {
   Performance = "Performance"
 }
 
+const enum Call {
+  Crab = "Crab"
+}
+
 const enum Expression {
   // Friend expressions
   DoubleFive = "Double-Five",
@@ -53,7 +57,8 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Sassy_Drifter",
     expression: null,
-    stance: Stance.Sassy
+    stance: Stance.Sassy,
+    call: null
   },
   stretchingGuru: {
     name: "Stretching Guru",
@@ -64,7 +69,8 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Stretching_Guru",
     expression: Expression.Yoga,
-    stance: null
+    stance: null,
+    call: null
   },
   provokingPerformer: {
     name: "Provoking Performer",
@@ -75,7 +81,8 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Provoking_Performer",
     expression: Expression.Karate,
-    stance: null
+    stance: null,
+    call: null
   },
   leapingDancer: {
     name: "Leaping Dancer",
@@ -86,7 +93,8 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Leaping_Dancer",
     expression: Expression.Leap,
-    stance: null
+    stance: null,
+    call: null
   },
   salutingProtector: {
     name: "Saluting Protector",
@@ -97,7 +105,8 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Saluting_Protector",
     expression: Expression.Dismiss,
-    stance: null
+    stance: null,
+    call: null
   },
   greetingShaman: {
     name: "Greeting Shaman",
@@ -108,7 +117,8 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Greeting_Shaman",
     expression: Expression.Greeting,
-    stance: null
+    stance: null,
+    call: null
   },
   piggybackLightseeker: {
     name: "Piggyback Lightseeker",
@@ -119,7 +129,8 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Piggyback_Lightseeker",
     expression: Expression.Carry,
-    stance: null
+    stance: null,
+    call: null
   },
   doublefiveLightCatcher: {
     name: "Doublefive Light Catcher",
@@ -130,7 +141,8 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Piggyback_Lightseeker",
     expression: Expression.DoubleFive,
-    stance: null
+    stance: null,
+    call: null
   },
   laidbackPioneer: {
     name: "Laidback Pioneer",
@@ -141,7 +153,8 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Laidback_Pioneer",
     expression: null,
-    stance: Stance.Laidback
+    stance: Stance.Laidback,
+    call: null
   },
   twirlingChampion: {
     name: "Twirling Champion",
@@ -152,7 +165,20 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Twirling_Champion",
     expression: Expression.Twirl,
-    stance: null
+    stance: null,
+    call: null
+  },
+  crabWhisperer: {
+    name: "Crab Whisperer",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/Traveling_lightseekers_wasteland_map.png/revision/latest?cb=20220317115709",
+    season: {
+      name: Season.Lightseekers,
+      emoji: Emoji.LightSeekers
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Crab_Whisperer",
+    expression: null,
+    stance: null,
+    call: Call.Crab
   },
   crabWalker: {
     name: "Crab Walker",
@@ -163,6 +189,7 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Crab_Walker",
     expression: Expression.CrabWalk,
-    stance: null
+    stance: null,
+    call: null
   }
 } as const;
