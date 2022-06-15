@@ -30,7 +30,7 @@ export default class implements AutocompleteCommand {
     embed.setColor((await interaction.guild.members.fetch(Caelus.user.id)).displayColor);
     embed.setImage(travellingSpirit.image);
     embed.setTitle(`${formatEmoji(travellingSpirit.season.emoji)} ${name}`);
-    embed.setURL(travellingSpirit.url);
+    embed.setURL(`${travellingSpirit.url}?cd=${Date.now()}`);
     await interaction.reply({ embeds: [embed] });
   }
 

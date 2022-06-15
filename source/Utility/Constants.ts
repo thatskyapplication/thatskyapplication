@@ -50,7 +50,7 @@ const enum Stance {
 export const travellingSpirits = {
   sassyDrifter: {
     name: "Sassy Drifter",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b5/Gratitude_Isle_Sassy.png/revision/latest?cb=20220317115709",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b5/Gratitude_Isle_Sassy.png/revision/latest",
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -62,7 +62,7 @@ export const travellingSpirits = {
   },
   stretchingGuru: {
     name: "Stretching Guru",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/73/Gratitude_Prairie.png/revision/latest?cb=20220317115709",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/73/Gratitude_Prairie.png/revision/latest",
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -74,7 +74,7 @@ export const travellingSpirits = {
   },
   provokingPerformer: {
     name: "Provoking Performer",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/5b/Traveling_gratitude_forest.png/revision/latest?cb=20220317115709",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/5b/Traveling_gratitude_forest.png/revision/latest",
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -86,7 +86,7 @@ export const travellingSpirits = {
   },
   leapingDancer: {
     name: "Leaping Dancer",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/7d/SoG_valley_TS.PNG/revision/latest?cb=20220317115709",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/7d/SoG_valley_TS.PNG/revision/latest",
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -98,7 +98,7 @@ export const travellingSpirits = {
   },
   salutingProtector: {
     name: "Saluting Protector",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/62/Traveling_Spirit_Price_Chart_-_Spirit_53.webp/revision/latest?cb=20220317115709",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/62/Traveling_Spirit_Price_Chart_-_Spirit_53.webp/revision/latest",
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -110,7 +110,7 @@ export const travellingSpirits = {
   },
   greetingShaman: {
     name: "Greeting Shaman",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/68/Gratitude-vault.png/revision/latest?cb=20220317115709",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/68/Gratitude-vault.png/revision/latest",
     season: {
       name: Season.Gratitude,
       emoji: Emoji.Gratitude
@@ -122,7 +122,7 @@ export const travellingSpirits = {
   },
   piggybackLightseeker: {
     name: "Piggyback Lightseeker",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d6/Traveling_lightseekers_isle.png/revision/latest?cb=20220317115709",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d6/Traveling_lightseekers_isle.png/revision/latest",
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -134,7 +134,7 @@ export const travellingSpirits = {
   },
   doublefiveLightCatcher: {
     name: "Doublefive Light Catcher",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/2e/Traveling_Lightseekers_Prairie.png/revision/latest?cb=20220317115709",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/2e/Traveling_Lightseekers_Prairie.png/revision/latest",
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -146,7 +146,7 @@ export const travellingSpirits = {
   },
   laidbackPioneer: {
     name: "Laidback Pioneer",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/80/CA8E9927-7226-405C-83C7-FCFC8BA3066A.png/revision/latest?cb=20220317115709",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/80/CA8E9927-7226-405C-83C7-FCFC8BA3066A.png/revision/latest",
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -158,7 +158,7 @@ export const travellingSpirits = {
   },
   twirlingChampion: {
     name: "Twirling Champion",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/97/SoL_Valley_TS_placeholder.PNG/revision/latest?cb=20220317115709",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/97/SoL_Valley_TS_placeholder.PNG/revision/latest",
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -170,7 +170,7 @@ export const travellingSpirits = {
   },
   crabWhisperer: {
     name: "Crab Whisperer",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/Traveling_lightseekers_wasteland_map.png/revision/latest?cb=20220317115709",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/Traveling_lightseekers_wasteland_map.png/revision/latest",
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -182,7 +182,7 @@ export const travellingSpirits = {
   },
   shushingLightScholar: {
     name: "Shushing Light Scholar",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/21/Vaultshush.png/revision/latest?cb=20201013143236",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/21/Vaultshush.png/revision/latest",
     season: {
       name: Season.Lightseekers,
       emoji: Emoji.LightSeekers
@@ -194,7 +194,7 @@ export const travellingSpirits = {
   },
   crabWalker: {
     name: "Crab Walker",
-    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fd/SoE_crab_walk_TS_info.PNG/revision/latest?cb=20220317115709",
+    image: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fd/SoE_crab_walk_TS_info.PNG/revision/latest",
     season: {
       name: Season.Enchantment,
       emoji: Emoji.Enchantment
