@@ -41,7 +41,7 @@ export default class implements AutocompleteCommand {
 
     await interaction.respond(travellingSpiritsValues.filter(({ name, season, expression, stance, call }) => {
       return name.toUpperCase().startsWith(focused) || expression?.toUpperCase().startsWith(focused) || stance?.toUpperCase().startsWith(focused) || call?.toUpperCase().startsWith(focused) || season.name.toUpperCase().startsWith(focused);
-    }).map(({ name }) => ({ name, value: name })));
+    }).map(({ name }) => ({ name, value: name })).slice(0, 25));
   }
 
   get commandData(): ApplicationCommandData {
