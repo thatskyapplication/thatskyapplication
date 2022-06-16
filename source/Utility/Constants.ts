@@ -40,6 +40,7 @@ const enum Expression {
   Carry = "Carry",
   // Regular expressions
   Welcome = "Welcome",
+  Nod = "Nod",
   BlowKiss = "Blow kiss",
   Karate = "Katate",
   Leap = "Leap",
@@ -351,6 +352,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Thoughtful_Director",
     expression: Expression.Thinking,
+    stance: null,
+    call: null
+  },
+  noddingMuralist: {
+    name: "Nodding Muralist",
+    attachment: readFileSync(new URL("../../Images/Nodding_Muralist.webp", import.meta.url)),
+    season: {
+      name: Season.Enchantment,
+      emoji: Emoji.Enchantment
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Nodding_Muralist",
+    expression: Expression.Nod,
     stance: null,
     call: null
   },
