@@ -43,6 +43,7 @@ const enum Expression {
   Nod = "Nod",
   BlowKiss = "Blow kiss",
   Karate = "Karate",
+  Shrug = "Shrug",
   Leap = "Leap",
   Twirl = "Twirl",
   Confetti = "Confetti",
@@ -364,6 +365,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Nodding_Muralist",
     expression: Expression.Nod,
+    stance: null,
+    call: null
+  },
+  indifferentAlchemist: {
+    name: "Indifferent Alchemist",
+    attachment: readFileSync(new URL("../../Images/Indifferent_Alchemist.webp", import.meta.url)),
+    season: {
+      name: Season.Enchantment,
+      emoji: Emoji.Enchantment
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Indifferent_Alchemist",
+    expression: Expression.Shrug,
     stance: null,
     call: null
   },
