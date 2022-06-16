@@ -42,7 +42,7 @@ const enum Expression {
   Welcome = "Welcome",
   Nod = "Nod",
   BlowKiss = "Blow kiss",
-  Karate = "Katate",
+  Karate = "Karate",
   Leap = "Leap",
   Twirl = "Twirl",
   Confetti = "Confetti",
