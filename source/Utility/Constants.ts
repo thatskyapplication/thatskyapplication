@@ -55,6 +55,7 @@ const enum Expression {
   Dismiss = "Dismiss",
   Greeting = "Greeting",
   DontGo = "Don't go!",
+  Scare = "Scare",
   Yoga = "Yoga",
   Shush = "Shush",
   Sparkler = "Sparkler",
@@ -389,6 +390,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Crab_Walker",
     expression: Expression.CrabWalk,
+    stance: null,
+    call: null
+  },
+  scarecrowFarmer: {
+    name: "Scarecrow Farmer",
+    attachment: readFileSync(new URL("../../Images/Scarecrow_Farmer.webp", import.meta.url)),
+    season: {
+      name: Season.Enchantment,
+      emoji: Emoji.Enchantment
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Scarecrow_Farmer",
+    expression: Expression.Scare,
     stance: null,
     call: null
   }
