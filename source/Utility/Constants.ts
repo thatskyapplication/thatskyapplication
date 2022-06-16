@@ -40,6 +40,7 @@ const enum Expression {
   Carry = "Carry",
   // Regular expressions
   Welcome = "Welcome",
+  BlowKiss = "Blow kiss",
   Karate = "Katate",
   Leap = "Leap",
   Twirl = "Twirl",
@@ -299,6 +300,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Festival_Spin_Dancer",
     expression: Expression.Dance,
+    stance: null,
+    call: null
+  },
+  admiringActor: {
+    name: "Admiring Actor",
+    attachment: readFileSync(new URL("../../Images/Admiring_Actor.webp", import.meta.url)),
+    season: {
+      name: Season.Rhythm,
+      emoji: Emoji.Rhythm
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Admiring_Actor",
+    expression: Expression.BlowKiss,
     stance: null,
     call: null
   },
