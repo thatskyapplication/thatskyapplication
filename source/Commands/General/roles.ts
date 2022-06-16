@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ApplicationCommandData, ApplicationCommandType, ChatInputCommandInteraction, Collection, MessageActionRowComponentBuilder, SelectMenuBuilder, SelectMenuInteraction, Snowflake } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandData, ApplicationCommandType, ChatInputCommandInteraction, Collection, MessageActionRowComponentBuilder, PermissionsBitField, SelectMenuBuilder, SelectMenuInteraction, Snowflake } from "discord.js";
 import Caelus from "../../Client/Client.js";
 import Notification, { LightEvent } from "../../Client/Notification.js";
 import type { Command } from "../index.js";
@@ -38,6 +38,15 @@ export default class implements Command {
     if (!notification) {
       await interaction.reply({
         content: "This server hasn't set up self-role assignment.",
+        ephemeral: true
+      });
+
+      return;
+    }
+
+    if (!(await interaction.guild.members.fetch(Caelus.user.id)).permissions.has(PermissionsBitField.Flags.ManageRoles)) {
+      await interaction.reply({
+        content: "Missing the `Manage Roles` permission.",
         ephemeral: true
       });
 
