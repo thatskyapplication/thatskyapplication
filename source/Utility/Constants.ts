@@ -47,6 +47,7 @@ const enum Expression {
   Confetti = "Confetti",
   Boogie = "Boogie",
   Dance = "Dance",
+  Juggle = "Juggle",
   CrabWalk = "Crab walk",
   Dismiss = "Dismiss",
   Greeting = "Greeting",
@@ -312,6 +313,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Admiring_Actor",
     expression: Expression.BlowKiss,
+    stance: null,
+    call: null
+  },
+  troupeJuggler: {
+    name: "Troupe Juggler",
+    attachment: readFileSync(new URL("../../Images/Troupe_Juggler.webp", import.meta.url)),
+    season: {
+      name: Season.Rhythm,
+      emoji: Emoji.Rhythm
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Troupe_Juggler",
+    expression: Expression.Juggle,
     stance: null,
     call: null
   },
