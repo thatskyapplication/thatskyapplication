@@ -26,12 +26,12 @@ export default class Notification {
   static readonly cache = new Collection<number, Notification>();
   readonly No: NotificationData["No"];
   readonly guildId: NotificationData["Guild ID"];
-  readonly pollutedGeyserChannelId: NotificationData["Polluted Geyser Channel ID"];
-  readonly pollutedGeyserRoleId: NotificationData["Polluted Geyser Role ID"];
-  readonly grandmaChannelId: NotificationData["Grandma Channel ID"];
-  readonly grandmaRoleId: NotificationData["Grandma Role ID"];
-  readonly turtleChannelId: NotificationData["Turtle Channel ID"];
-  readonly turtleRoleId: NotificationData["Turtle Role ID"];
+  pollutedGeyserChannelId: NotificationData["Polluted Geyser Channel ID"];
+  pollutedGeyserRoleId: NotificationData["Polluted Geyser Role ID"];
+  grandmaChannelId: NotificationData["Grandma Channel ID"];
+  grandmaRoleId: NotificationData["Grandma Role ID"];
+  turtleChannelId: NotificationData["Turtle Channel ID"];
+  turtleRoleId: NotificationData["Turtle Role ID"];
 
   constructor(notification: NotificationData) {
     this.No = notification.No;
@@ -53,6 +53,21 @@ export default class Notification {
         role.id,
         notification.No
       ]);
+
+      switch (event) {
+        case LightEvent.PollutedGeyser:
+          notification.pollutedGeyserChannelId = channel.id;
+          notification.pollutedGeyserRoleId = role.id;
+          break;
+        case LightEvent.Grandma:
+          notification.grandmaChannelId = channel.id;
+          notification.grandmaRoleId = role.id;
+          break;
+        case LightEvent.Turtle:
+          notification.turtleChannelId = channel.id;
+          notification.turtleRoleId = channel.id;
+          break;
+      }
     } else {
       const { insertId } = await Maria.query(`INSERT INTO \`Notifications\` SET \`Guild ID\` = ?, \`${event} Channel ID\` = ?, \`${event} Role ID\` = ?;`, [
         interaction.guildId,
