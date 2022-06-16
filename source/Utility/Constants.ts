@@ -59,7 +59,8 @@ const enum Expression {
   Yoga = "Yoga",
   Shush = "Shush",
   Sparkler = "Sparkler",
-  Thinking = "Thinking"
+  Thinking = "Thinking",
+  Doze = "Doze"
 }
 
 const enum Stance {
@@ -402,6 +403,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Scarecrow_Farmer",
     expression: Expression.Scare,
+    stance: null,
+    call: null
+  },
+  snoozingCarpenter: {
+    name: "Snoozing Carpenter",
+    attachment: readFileSync(new URL("../../Images/Snoozing_Carpenter.webp", import.meta.url)),
+    season: {
+      name: Season.Enchantment,
+      emoji: Emoji.Enchantment
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Snoozing_Carpenter",
+    expression: Expression.Doze,
     stance: null,
     call: null
   }
