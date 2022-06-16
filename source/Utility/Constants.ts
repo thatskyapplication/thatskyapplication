@@ -55,7 +55,8 @@ const enum Expression {
   DontGo = "Don't go!",
   Yoga = "Yoga",
   Shush = "Shush",
-  Sparkler = "Sparkler"
+  Sparkler = "Sparkler",
+  Thinking = "Thinking"
 }
 
 const enum Stance {
@@ -338,6 +339,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Respectful_Pianist",
     expression: Expression.Respect,
+    stance: null,
+    call: null
+  },
+  thoughtfulDirector: {
+    name: "Thoughtful Director",
+    attachment: readFileSync(new URL("../../Images/Thoughtful_Director.webp", import.meta.url)),
+    season: {
+      name: Season.Rhythm,
+      emoji: Emoji.Rhythm
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Thoughtful_Director",
+    expression: Expression.Thinking,
     stance: null,
     call: null
   },
