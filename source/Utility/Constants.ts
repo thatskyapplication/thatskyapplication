@@ -49,6 +49,7 @@ const enum Expression {
   Dance = "Dance",
   Juggle = "Juggle",
   CrabWalk = "Crab walk",
+  Respect = "Respect",
   Dismiss = "Dismiss",
   Greeting = "Greeting",
   DontGo = "Don't go!",
@@ -325,6 +326,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Troupe_Juggler",
     expression: Expression.Juggle,
+    stance: null,
+    call: null
+  },
+  respectfulPianist: {
+    name: "Respectful Pianist",
+    attachment: readFileSync(new URL("../../Images/Respectful_Pianist.webp", import.meta.url)),
+    season: {
+      name: Season.Rhythm,
+      emoji: Emoji.Rhythm
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Respectful_Pianist",
+    expression: Expression.Respect,
     stance: null,
     call: null
   },
