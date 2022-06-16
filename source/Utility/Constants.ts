@@ -45,6 +45,7 @@ const enum Expression {
   Twirl = "Twirl",
   Confetti = "Confetti",
   Boogie = "Boogie",
+  Dance = "Dance",
   CrabWalk = "Crab walk",
   Dismiss = "Dismiss",
   Greeting = "Greeting",
@@ -286,6 +287,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Troupe_Greeter",
     expression: Expression.Welcome,
+    stance: null,
+    call: null
+  },
+  festivalSpinDancer: {
+    name: "Festival Spin Dancer",
+    attachment: readFileSync(new URL("../../Images/Festival_Spin_Dancer.webp", import.meta.url)),
+    season: {
+      name: Season.Rhythm,
+      emoji: Emoji.Rhythm
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Festival_Spin_Dancer",
+    expression: Expression.Dance,
     stance: null,
     call: null
   },
