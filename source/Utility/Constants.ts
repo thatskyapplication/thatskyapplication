@@ -9,6 +9,7 @@ const enum Emoji {
   Gratitude = "651170389115928587",
   LightSeekers = "651170389359198208",
   Belonging = "651170575955263559",
+  Rhythm = "670096804443848714",
   Enchantment = "700863707785330789"
 }
 
@@ -38,6 +39,7 @@ const enum Expression {
   HairTousle = "Hair tousle",
   Carry = "Carry",
   // Regular expressions
+  Welcome = "Welcome",
   Karate = "Katate",
   Leap = "Leap",
   Twirl = "Twirl",
@@ -273,6 +275,18 @@ export const travellingSpirits = {
     url: "https://sky-children-of-the-light.fandom.com/wiki/Wise_Grandparent",
     expression: null,
     stance: Stance.Wise,
+    call: null
+  },
+  troupeGreeter: {
+    name: "Troupe Greeter",
+    attachment: readFileSync(new URL("../../Images/Troupe_Greeter.webp", import.meta.url)),
+    season: {
+      name: Season.Rhythm,
+      emoji: Emoji.Rhythm
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Troupe_Greeter",
+    expression: Expression.Welcome,
+    stance: null,
     call: null
   },
   crabWalker: {
