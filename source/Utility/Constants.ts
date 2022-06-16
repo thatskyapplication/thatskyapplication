@@ -38,6 +38,7 @@ const enum Expression {
   DoubleFive = "Double-Five",
   HairTousle = "Hair tousle",
   Carry = "Carry",
+  PlayFight = "Play fight",
   // Regular expressions
   Welcome = "Welcome",
   Nod = "Nod",
@@ -415,6 +416,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Snoozing_Carpenter",
     expression: Expression.Doze,
+    stance: null,
+    call: null
+  },
+  playfightingHerbalist: {
+    name: "Playfighting Herbalist",
+    attachment: readFileSync(new URL("../../Images/Playfighting_Herbalist.webp", import.meta.url)),
+    season: {
+      name: Season.Enchantment,
+      emoji: Emoji.Enchantment
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Playfighting_Herbalist",
+    expression: Expression.PlayFight,
     stance: null,
     call: null
   }
