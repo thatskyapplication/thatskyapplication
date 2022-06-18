@@ -1,4 +1,4 @@
-import type { ApplicationCommandData, AutocompleteInteraction, ChatInputCommandInteraction } from "discord.js";
+import type { ApplicationCommandData, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction } from "discord.js";
 
 // Events
 import notifications from "./Events/notifications.js";
@@ -25,7 +25,7 @@ export function isAutocompleteCommand(command: Command): command is Autocomplete
 
 export interface Command {
   name: CommandName;
-  type: number;
+  type: ApplicationCommandType;
   handle(interaction: ChatInputCommandInteraction): Promise<void>;
   get commandData(): ApplicationCommandData;
 }
