@@ -70,6 +70,7 @@ const enum Expression {
   Sparkler = "Sparkler",
   Thinking = "Thinking",
   Doze = "Doze",
+  Balance = "Balance",
   DeepBreath = "DeepBreath"
 }
 
@@ -534,6 +535,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Prophet_of_Earth",
     expression: Expression.DustOff,
+    stance: null,
+    call: null
+  },
+  prophetOfAir: {
+    name: "Prophet of Air",
+    attachment: readFileSync(new URL("../../Images/Prophet_of_Air.webp", import.meta.url)),
+    season: {
+      name: Season.Prophecy,
+      emoji: Emoji.Prophecy
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Prophet_of_Air",
+    expression: Expression.Balance,
     stance: null,
     call: null
   }
