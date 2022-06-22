@@ -69,7 +69,8 @@ const enum Expression {
 const enum Stance {
   Sassy = "Sassy",
   Laidback = "Laidback",
-  Wise = "Wise"
+  Wise = "Wise",
+  Timid = "Timid"
 }
 
 export const travellingSpirits = {
@@ -444,5 +445,17 @@ export const travellingSpirits = {
     expression: null,
     stance: null,
     call: Call.Jellyfish
+  },
+  timidBookworm: {
+    name: "Timid Bookworm",
+    attachment: readFileSync(new URL("../../Images/Timid_Bookworm.webp", import.meta.url)),
+    season: {
+      name: Season.Sanctuary,
+      emoji: Emoji.Sanctuary
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Timid_Bookworm",
+    expression: null,
+    stance: Stance.Timid,
+    call: null
   }
 } as const;
