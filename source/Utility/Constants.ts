@@ -54,6 +54,7 @@ const enum Expression {
   Dance = "Dance",
   Juggle = "Juggle",
   CrabWalk = "Crab walk",
+  Rally = "Rally",
   Respect = "Respect",
   Dismiss = "Dismiss",
   Greeting = "Greeting",
@@ -456,6 +457,18 @@ export const travellingSpirits = {
     url: "https://sky-children-of-the-light.fandom.com/wiki/Timid_Bookworm",
     expression: null,
     stance: Stance.Timid,
+    call: null
+  },
+  rallyingThrillseeker: {
+    name: "Rallying Thrillseeker",
+    attachment: readFileSync(new URL("../../Images/Rallying_Thrillseeker.webp", import.meta.url)),
+    season: {
+      name: Season.Sanctuary,
+      emoji: Emoji.Sanctuary
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Rallying_Thrillseeker",
+    expression: Expression.Rally,
+    stance: null,
     call: null
   }
 } as const;
