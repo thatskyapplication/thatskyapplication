@@ -11,7 +11,8 @@ const enum Emoji {
   Belonging = "651170575955263559",
   Rhythm = "670096804443848714",
   Enchantment = "700863707785330789",
-  Sanctuary = "730940479197282355"
+  Sanctuary = "730940479197282355",
+  Prophecy = "764257791664979980"
 }
 
 const enum Season {
@@ -67,7 +68,8 @@ const enum Expression {
   Shush = "Shush",
   Sparkler = "Sparkler",
   Thinking = "Thinking",
-  Doze = "Doze"
+  Doze = "Doze",
+  DeepBreath = "DeepBreath"
 }
 
 const enum Stance {
@@ -507,6 +509,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Chill_Sunbather",
     expression: Expression.BellyScratch,
+    stance: null,
+    call: null
+  },
+  prophetOfWater: {
+    name: "Prophet of Water",
+    attachment: readFileSync(new URL("../../Images/Prophet_of_Water.webp", import.meta.url)),
+    season: {
+      name: Season.Prophecy,
+      emoji: Emoji.Prophecy
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Prophet_of_Water",
+    expression: Expression.DeepBreath,
     stance: null,
     call: null
   }
