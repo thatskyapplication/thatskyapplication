@@ -64,6 +64,7 @@ const enum Expression {
   Greeting = "Greeting",
   DontGo = "Don't go!",
   Scare = "Scare",
+  DustOff = "Dust off",
   Yoga = "Yoga",
   Shush = "Shush",
   Sparkler = "Sparkler",
@@ -521,6 +522,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Prophet_of_Water",
     expression: Expression.DeepBreath,
+    stance: null,
+    call: null
+  },
+  prophetOfEarth: {
+    name: "Prophet of Earth",
+    attachment: readFileSync(new URL("../../Images/Prophet_of_Earth.webp", import.meta.url)),
+    season: {
+      name: Season.Prophecy,
+      emoji: Emoji.Prophecy
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Prophet_of_Earth",
+    expression: Expression.DustOff,
     stance: null,
     call: null
   }
