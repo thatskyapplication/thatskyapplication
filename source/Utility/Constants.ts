@@ -47,6 +47,7 @@ const enum Expression {
   BlowKiss = "Blow kiss",
   Karate = "Karate",
   Shrug = "Shrug",
+  Grouchy = "Grouchy",
   Leap = "Leap",
   Twirl = "Twirl",
   Confetti = "Confetti",
@@ -468,6 +469,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Rallying_Thrillseeker",
     expression: Expression.Rally,
+    stance: null,
+    call: null
+  },
+  hikingGrouch: {
+    name: "Hiking Grouch",
+    attachment: readFileSync(new URL("../../Images/Hiking_Grouch.webp", import.meta.url)),
+    season: {
+      name: Season.Sanctuary,
+      emoji: Emoji.Sanctuary
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Hiking_Grouch",
+    expression: Expression.Grouchy,
     stance: null,
     call: null
   }
