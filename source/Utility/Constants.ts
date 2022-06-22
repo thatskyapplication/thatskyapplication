@@ -10,7 +10,8 @@ const enum Emoji {
   LightSeekers = "651170389359198208",
   Belonging = "651170575955263559",
   Rhythm = "670096804443848714",
-  Enchantment = "700863707785330789"
+  Enchantment = "700863707785330789",
+  Sanctuary = "730940479197282355"
 }
 
 const enum Season {
@@ -30,7 +31,8 @@ const enum Season {
 }
 
 const enum Call {
-  Crab = "Crab"
+  Crab = "Crab",
+  Jellyfish = "Jellyfish"
 }
 
 const enum Expression {
@@ -430,5 +432,17 @@ export const travellingSpirits = {
     expression: Expression.PlayFight,
     stance: null,
     call: null
+  },
+  jellyWhisperer: {
+    name: "Jelly Whisperer",
+    attachment: readFileSync(new URL("../../Images/Jelly_Whisperer.webp", import.meta.url)),
+    season: {
+      name: Season.Sanctuary,
+      emoji: Emoji.Sanctuary
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Jelly_Whisperer",
+    expression: null,
+    stance: null,
+    call: Call.Jellyfish
   }
 } as const;
