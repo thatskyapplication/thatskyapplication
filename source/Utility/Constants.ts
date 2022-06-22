@@ -45,6 +45,7 @@ const enum Expression {
   Welcome = "Welcome",
   Nod = "Nod",
   BlowKiss = "Blow kiss",
+  Grateful = "Grateful",
   Karate = "Karate",
   Shrug = "Shrug",
   Grouchy = "Grouchy",
@@ -481,6 +482,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Hiking_Grouch",
     expression: Expression.Grouchy,
+    stance: null,
+    call: null
+  },
+  gratefulShellCollector: {
+    name: "Grateful Shell Collector",
+    attachment: readFileSync(new URL("../../Images/Grateful_Shell_Collector.webp", import.meta.url)),
+    season: {
+      name: Season.Sanctuary,
+      emoji: Emoji.Sanctuary
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Grateful_Shell_Collector",
+    expression: Expression.Grateful,
     stance: null,
     call: null
   }
