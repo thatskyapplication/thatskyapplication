@@ -65,6 +65,7 @@ const enum Expression {
   DontGo = "Don't go!",
   Scare = "Scare",
   DustOff = "Dust off",
+  ChestPound = "Chest pound",
   Yoga = "Yoga",
   Shush = "Shush",
   Sparkler = "Sparkler",
@@ -547,6 +548,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Prophet_of_Air",
     expression: Expression.Balance,
+    stance: null,
+    call: null
+  },
+  prophetOfFire: {
+    name: "Prophet of Fire",
+    attachment: readFileSync(new URL("../../Images/Prophet_of_Fire.webp", import.meta.url)),
+    season: {
+      name: Season.Prophecy,
+      emoji: Emoji.Prophecy
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Prophet_of_Fire",
+    expression: Expression.ChestPound,
     stance: null,
     call: null
   }
