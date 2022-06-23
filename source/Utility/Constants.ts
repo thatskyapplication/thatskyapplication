@@ -52,6 +52,7 @@ const enum Expression {
   Karate = "Karate",
   Shrug = "Shrug",
   Grouchy = "Grouchy",
+  Peek = "Peek",
   Leap = "Leap",
   Twirl = "Twirl",
   Confetti = "Confetti",
@@ -587,6 +588,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Dancing_Performer",
     expression: Expression.ShowDance,
+    stance: null,
+    call: null
+  },
+  peekingPostman: {
+    name: "Peeking Postman",
+    attachment: readFileSync(new URL("../../Images/Peeking_Postman.webp", import.meta.url)),
+    season: {
+      name: Season.Dreams,
+      emoji: Emoji.Dreams
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Peeking_Postman",
+    expression: Expression.Peek,
     stance: null,
     call: null
   }
