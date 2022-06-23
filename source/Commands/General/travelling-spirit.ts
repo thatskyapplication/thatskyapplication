@@ -28,12 +28,20 @@ export default class implements AutocompleteCommand {
 
     const me = await interaction.guild?.members.fetch(Caelus.user.id);
     const travellingSpiritAttachmentName = travellingSpirit.name.replaceAll(" ", "_");
+    const files = [];
     const embed = new EmbedBuilder();
     embed.setColor(me?.displayColor ?? 0);
+
+    if (travellingSpirit.attachment === null) {
+      embed.setDescription("⚠️ This spirit has not yet returned.");
+    } else {
+      files.push({ attachment: travellingSpirit.attachment, name: `${travellingSpiritAttachmentName}.webp` });
+    }
+
     embed.setImage(`attachment://${travellingSpiritAttachmentName}.webp`);
     embed.setTitle(`${formatEmoji(travellingSpirit.season.emoji)} ${name}`);
     embed.setURL(travellingSpirit.url);
-    await interaction.reply({ embeds: [embed], files: [{ attachment: travellingSpirit.attachment, name: `${travellingSpiritAttachmentName}.webp` }] });
+    await interaction.reply({ embeds: [embed], files });
   }
 
   async autocomplete(interaction: AutocompleteInteraction): Promise<void> {

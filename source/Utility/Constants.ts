@@ -61,6 +61,7 @@ const enum Expression {
   CrabWalk = "Crab walk",
   Rally = "Rally",
   SpinTrick = "Spin trick",
+  ShowDance = "Show dance",
   Respect = "Respect",
   Dismiss = "Dismiss",
   Greeting = "Greeting",
@@ -574,6 +575,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Spinning_Mentor",
     expression: Expression.SpinTrick,
+    stance: null,
+    call: null
+  },
+  dancingPerformer: {
+    name: "Dancing Performer",
+    attachment: null,
+    season: {
+      name: Season.Dreams,
+      emoji: Emoji.Dreams
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Dancing_Performer",
+    expression: Expression.ShowDance,
     stance: null,
     call: null
   }
