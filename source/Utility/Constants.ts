@@ -12,7 +12,8 @@ const enum Emoji {
   Rhythm = "670096804443848714",
   Enchantment = "700863707785330789",
   Sanctuary = "730940479197282355",
-  Prophecy = "764257791664979980"
+  Prophecy = "764257791664979980",
+  Dreams = "788247970050473994"
 }
 
 const enum Season {
@@ -59,6 +60,7 @@ const enum Expression {
   Juggle = "Juggle",
   CrabWalk = "Crab walk",
   Rally = "Rally",
+  SpinTrick = "Spin trick",
   Respect = "Respect",
   Dismiss = "Dismiss",
   Greeting = "Greeting",
@@ -560,6 +562,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Prophet_of_Fire",
     expression: Expression.ChestPound,
+    stance: null,
+    call: null
+  },
+  spinningMentor: {
+    name: "Spinning Mentor",
+    attachment: readFileSync(new URL("../../Images/Spinning_Mentor.webp", import.meta.url)),
+    season: {
+      name: Season.Dreams,
+      emoji: Emoji.Dreams
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Spinning_Mentor",
+    expression: Expression.SpinTrick,
     stance: null,
     call: null
   }
