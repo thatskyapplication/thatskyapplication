@@ -43,6 +43,7 @@ const enum Expression {
   HairTousle = "Hair tousle",
   Carry = "Carry",
   PlayFight = "Play fight",
+  Bearhug = "Bearhug",
   // Regular expressions
   Welcome = "Welcome",
   Nod = "Nod",
@@ -600,6 +601,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Peeking_Postman",
     expression: Expression.Peek,
+    stance: null,
+    call: null
+  },
+  bearhugHermit: {
+    name: "Bearhug Hermit",
+    attachment: null,
+    season: {
+      name: Season.Dreams,
+      emoji: Emoji.Dreams
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Bearhug_Hermit",
+    expression: Expression.Bearhug,
     stance: null,
     call: null
   }
