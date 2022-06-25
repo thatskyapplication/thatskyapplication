@@ -97,6 +97,7 @@ const enum Expression {
   HandRub = "Hand rub",
   Voilà = "Voilà",
   Navigate = "Navigate",
+  CalmDown = "Calm down",
   Anxious = "Anxious"
 }
 
@@ -838,6 +839,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Anxious_Angler",
     expression: Expression.Anxious,
+    stance: null,
+    call: null
+  },
+  ceasingCommodore: {
+    name: "Ceasing Commodore",
+    attachment: null,
+    season: {
+      name: Season.Abyss,
+      emoji: Emoji.Abyss
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Ceasing_Commodore",
+    expression: Expression.CalmDown,
     stance: null,
     call: null
   }
