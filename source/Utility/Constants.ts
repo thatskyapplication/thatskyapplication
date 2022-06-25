@@ -13,7 +13,8 @@ const enum Emoji {
   Enchantment = "700863707785330789",
   Sanctuary = "730940479197282355",
   Prophecy = "764257791664979980",
-  Dreams = "788247970050473994"
+  Dreams = "788247970050473994",
+  Assembly = "822639786522968094"
 }
 
 const enum Season {
@@ -54,6 +55,7 @@ const enum Expression {
   Shrug = "Shrug",
   Grouchy = "Grouchy",
   Peek = "Peek",
+  Facepalm = "Faceplam",
   Leap = "Leap",
   Twirl = "Twirl",
   Confetti = "Confetti",
@@ -613,6 +615,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Bearhug_Hermit",
     expression: Expression.Bearhug,
+    stance: null,
+    call: null
+  },
+  baffledBotanist: {
+    name: "Baffled Botanist",
+    attachment: null,
+    season: {
+      name: Season.Assembly,
+      emoji: Emoji.Assembly
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Baffled_Botanist",
+    expression: Expression.Facepalm,
     stance: null,
     call: null
   }
