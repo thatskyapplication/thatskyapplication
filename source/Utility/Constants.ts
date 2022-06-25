@@ -56,6 +56,7 @@ const enum Expression {
   Shrug = "Shrug",
   Grouchy = "Grouchy",
   Peek = "Peek",
+  Eww = "Eww",
   Facepalm = "Faceplam",
   Leap = "Leap",
   Twirl = "Twirl",
@@ -640,6 +641,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Scolding_Student",
     expression: Expression.Scold,
+    stance: null,
+    call: null
+  },
+  scaredyCadet: {
+    name: "Scaredy Cadet",
+    attachment: null,
+    season: {
+      name: Season.Assembly,
+      emoji: Emoji.Assembly
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Scaredy_Cadet",
+    expression: Expression.Eww,
     stance: null,
     call: null
   }
