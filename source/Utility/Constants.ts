@@ -89,7 +89,8 @@ const enum Expression {
   Beckon = "Beckon",
   Gloat = "Gloat",
   Stretch = "Stretch",
-  Slouch = "Slouch"
+  Slouch = "Slouch",
+  Sneeze = "Sneeze"
 }
 
 const enum Stance {
@@ -745,6 +746,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Slouching_Soldier",
     expression: Expression.Slouch,
+    stance: null,
+    call: null
+  },
+  sneezingGeographer: {
+    name: "Sneezing Geographer",
+    attachment: null,
+    season: {
+      name: Season.LittlePrince,
+      emoji: Emoji.LittlePrince
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Sneezing_Geographer",
+    expression: Expression.Sneeze,
     stance: null,
     call: null
   }
