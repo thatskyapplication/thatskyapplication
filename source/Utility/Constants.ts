@@ -16,7 +16,8 @@ const enum Emoji {
   Dreams = "788247970050473994",
   Assembly = "822639786522968094",
   LittlePrince = "862033729529708614",
-  Flight = "893606036324384768"
+  Flight = "893606036324384768",
+  Abyss = "932731569473466418"
 }
 
 const enum Season {
