@@ -98,6 +98,7 @@ const enum Expression {
   Voilà = "Voilà",
   Navigate = "Navigate",
   CalmDown = "Calm down",
+  EvilLaugh = "Evil laugh",
   Ouch = "Ouch",
   Anxious = "Anxious"
 }
@@ -864,6 +865,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Bumbling_Boatswain",
     expression: Expression.Ouch,
+    stance: null,
+    call: null
+  },
+  cacklingCannoneer: {
+    name: "Cackling Cannoneer",
+    attachment: null,
+    season: {
+      name: Season.Abyss,
+      emoji: Emoji.Abyss
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Cackling_Cannoneer",
+    expression: Expression.EvilLaugh,
     stance: null,
     call: null
   }
