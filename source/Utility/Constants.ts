@@ -92,7 +92,8 @@ const enum Expression {
   Stretch = "Stretch",
   Slouch = "Slouch",
   Sneeze = "Sneeze",
-  HandRub = "Hand rub"
+  HandRub = "Hand rub",
+  Navigate = "Navigate"
 }
 
 const enum Stance {
@@ -772,6 +773,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Star_Collector",
     expression: Expression.HandRub,
+    stance: null,
+    call: null
+  },
+  livelyNavigator: {
+    name: "Lively Navigator",
+    attachment: null,
+    season: {
+      name: Season.Flight,
+      emoji: Emoji.Flight
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Lively_Navigator",
+    expression: Expression.Navigate,
     stance: null,
     call: null
   }
