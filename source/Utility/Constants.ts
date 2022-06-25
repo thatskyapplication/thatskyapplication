@@ -86,7 +86,8 @@ const enum Expression {
   Balance = "Balance",
   DeepBreath = "DeepBreath",
   Bubbles = "Bubbles",
-  Beckon = "Beckon"
+  Beckon = "Beckon",
+  Gloat = "Gloat"
 }
 
 const enum Stance {
@@ -706,6 +707,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Beckoning_Ruler",
     expression: Expression.Beckon,
+    stance: null,
+    call: null
+  },
+  gloatingNarcissist: {
+    name: "Gloating Narcissist",
+    attachment: null,
+    season: {
+      name: Season.LittlePrince,
+      emoji: Emoji.LittlePrince
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Gloating_Narcissist",
+    expression: Expression.Gloat,
     stance: null,
     call: null
   }
