@@ -102,7 +102,8 @@ const enum Expression {
   CalmDown = "Calm down",
   EvilLaugh = "Evil laugh",
   Ouch = "Ouch",
-  Anxious = "Anxious"
+  Anxious = "Anxious",
+  Awww = "Awww"
 }
 
 const enum Stance {
@@ -891,6 +892,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Frantic_Stagehand",
     expression: Expression.Handshake,
+    stance: null,
+    call: null
+  },
+  forgetfulStoryteller: {
+    name: "Forgetful Storyteller",
+    attachment: null,
+    season: {
+      name: Season.Performance,
+      emoji: Emoji.Performance
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Forgetful_Storyteller",
+    expression: Expression.Awww,
     stance: null,
     call: null
   }
