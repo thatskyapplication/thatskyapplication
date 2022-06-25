@@ -101,7 +101,8 @@ const enum Stance {
   Sassy = "Sassy",
   Laidback = "Laidback",
   Wise = "Wise",
-  Timid = "Timid"
+  Timid = "Timid",
+  Tinker = "Tinker"
 }
 
 export const travellingSpirits = {
@@ -800,5 +801,17 @@ export const travellingSpirits = {
     expression: null,
     stance: null,
     call: Call.BabyManta
+  },
+  tinkeringChimesmith: {
+    name: "Tinkering Chimesmith",
+    attachment: null,
+    season: {
+      name: Season.Flight,
+      emoji: Emoji.Flight
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Tinkering_Chimesmith",
+    expression: null,
+    stance: Stance.Tinker,
+    call: null
   }
 } as const;
