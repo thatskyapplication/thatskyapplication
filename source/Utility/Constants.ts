@@ -48,6 +48,7 @@ const enum Expression {
   // Regular expressions
   Welcome = "Welcome",
   Nod = "Nod",
+  Scold = "Scold",
   BlowKiss = "Blow kiss",
   Grateful = "Grateful",
   BellyScratch = "Belly scratch",
@@ -627,6 +628,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Baffled_Botanist",
     expression: Expression.Facepalm,
+    stance: null,
+    call: null
+  },
+  scoldingStudent: {
+    name: "Scolding Student",
+    attachment: null,
+    season: {
+      name: Season.Assembly,
+      emoji: Emoji.Assembly
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Scolding_Student",
+    expression: Expression.Scold,
     stance: null,
     call: null
   }
