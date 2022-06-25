@@ -51,6 +51,7 @@ const enum Expression {
   PlayFight = "Play fight",
   Bearhug = "Bearhug",
   Handshake = "Handshake",
+  DuetDance = "Duet dance",
   // Regular expressions
   Welcome = "Welcome",
   Nod = "Nod",
@@ -917,6 +918,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Mellow_Musician",
     expression: Expression.Headbob,
+    stance: null,
+    call: null
+  },
+  modestDancer: {
+    name: "Modest Dancer",
+    attachment: null,
+    season: {
+      name: Season.Performance,
+      emoji: Emoji.Performance
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Modest_Dancer",
+    expression: Expression.DuetDance,
     stance: null,
     call: null
   }
