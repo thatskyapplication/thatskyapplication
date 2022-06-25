@@ -87,7 +87,8 @@ const enum Expression {
   DeepBreath = "DeepBreath",
   Bubbles = "Bubbles",
   Beckon = "Beckon",
-  Gloat = "Gloat"
+  Gloat = "Gloat",
+  Stretch = "Stretch"
 }
 
 const enum Stance {
@@ -719,6 +720,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Gloating_Narcissist",
     expression: Expression.Gloat,
+    stance: null,
+    call: null
+  },
+  stretchingLamplighter: {
+    name: "Stretching Lamplighter",
+    attachment: null,
+    season: {
+      name: Season.LittlePrince,
+      emoji: Emoji.LittlePrince
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Stretching_Lamplighter",
+    expression: Expression.Stretch,
     stance: null,
     call: null
   }
