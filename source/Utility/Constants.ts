@@ -96,7 +96,8 @@ const enum Expression {
   Sneeze = "Sneeze",
   HandRub = "Hand rub",
   Voilà = "Voilà",
-  Navigate = "Navigate"
+  Navigate = "Navigate",
+  Anxious = "Anxious"
 }
 
 const enum Stance {
@@ -825,6 +826,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Talented_Builder",
     expression: Expression.Voilà,
+    stance: null,
+    call: null
+  },
+  anxiousAngler: {
+    name: "Anxious Angler",
+    attachment: null,
+    season: {
+      name: Season.Abyss,
+      emoji: Emoji.Abyss
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Anxious_Angler",
+    expression: Expression.Anxious,
     stance: null,
     call: null
   }
