@@ -14,7 +14,8 @@ const enum Emoji {
   Sanctuary = "730940479197282355",
   Prophecy = "764257791664979980",
   Dreams = "788247970050473994",
-  Assembly = "822639786522968094"
+  Assembly = "822639786522968094",
+  LittlePrince = "862033729529708614"
 }
 
 const enum Season {
