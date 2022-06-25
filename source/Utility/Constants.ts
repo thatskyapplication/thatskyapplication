@@ -37,7 +37,8 @@ const enum Season {
 
 const enum Call {
   Crab = "Crab",
-  Jellyfish = "Jellyfish"
+  Jellyfish = "Jellyfish",
+  BabyManta = "Baby manta"
 }
 
 const enum Expression {
@@ -787,5 +788,17 @@ export const travellingSpirits = {
     expression: Expression.Navigate,
     stance: null,
     call: null
+  },
+  lightWhisperer: {
+    name: "Light Whisperer",
+    attachment: null,
+    season: {
+      name: Season.Flight,
+      emoji: Emoji.Flight
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Light_Whisperer",
+    expression: null,
+    stance: null,
+    call: Call.BabyManta
   }
 } as const;
