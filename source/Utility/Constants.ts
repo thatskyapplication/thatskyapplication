@@ -17,7 +17,8 @@ const enum Emoji {
   Assembly = "822639786522968094",
   LittlePrince = "862033729529708614",
   Flight = "893606036324384768",
-  Abyss = "932731569473466418"
+  Abyss = "932731569473466418",
+  Performance = "958109222778847302"
 }
 
 const enum Season {
@@ -49,6 +50,7 @@ const enum Expression {
   Carry = "Carry",
   PlayFight = "Play fight",
   Bearhug = "Bearhug",
+  Handshake = "Handshake",
   // Regular expressions
   Welcome = "Welcome",
   Nod = "Nod",
@@ -877,6 +879,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Cackling_Cannoneer",
     expression: Expression.EvilLaugh,
+    stance: null,
+    call: null
+  },
+  franticStagehand: {
+    name: "Frantic Stagehand",
+    attachment: null,
+    season: {
+      name: Season.Performance,
+      emoji: Emoji.Performance
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Frantic_Stagehand",
+    expression: Expression.Handshake,
     stance: null,
     call: null
   }
