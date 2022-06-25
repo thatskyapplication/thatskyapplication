@@ -28,7 +28,7 @@ const enum Season {
   Prophecy = "Prophecy",
   Dreams = "Dreams",
   Assembly = "Assembly",
-  TheLittlePrince = "The Little Prince",
+  LittlePrince = "The Little Prince",
   Flight = "Flight",
   Abyss = "Abyss",
   Performance = "Performance"
