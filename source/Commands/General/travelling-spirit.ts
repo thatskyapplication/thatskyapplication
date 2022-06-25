@@ -27,20 +27,29 @@ export default class implements AutocompleteCommand {
     }
 
     const me = await interaction.guild?.members.fetch(Caelus.user.id);
+    const travellingSpiritAttachmentName = travellingSpirit.name.replaceAll(" ", "_");
+    const files = [];
     const embed = new EmbedBuilder();
     embed.setColor(me?.displayColor ?? 0);
-    embed.setImage(travellingSpirit.image);
+
+    if (travellingSpirit.attachment === null) {
+      embed.setDescription("⚠️ This spirit has not yet returned.");
+    } else {
+      files.push({ attachment: travellingSpirit.attachment, name: `${travellingSpiritAttachmentName}.webp` });
+    }
+
+    embed.setImage(`attachment://${travellingSpiritAttachmentName}.webp`);
     embed.setTitle(`${formatEmoji(travellingSpirit.season.emoji)} ${name}`);
     embed.setURL(travellingSpirit.url);
-    await interaction.reply({ embeds: [embed] });
+    await interaction.reply({ embeds: [embed], files });
   }
 
   async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
     const focused = interaction.options.getFocused().toUpperCase();
 
-    await interaction.respond(travellingSpiritsValues.filter(({ name, season, expression, stance }) => {
-      return name.toUpperCase().startsWith(focused) || expression?.toUpperCase().startsWith(focused) || stance?.toUpperCase().startsWith(focused) || season.name.toUpperCase().startsWith(focused);
-    }).map(({ name }) => ({ name, value: name })));
+    await interaction.respond(travellingSpiritsValues.filter(({ name, season, expression, stance, call }) => {
+      return name.toUpperCase().startsWith(focused) || expression?.toUpperCase().startsWith(focused) || stance?.toUpperCase().startsWith(focused) || call?.toUpperCase().startsWith(focused) || season.name.toUpperCase().startsWith(focused);
+    }).map(({ name }) => ({ name, value: name })).slice(0, 25));
   }
 
   get commandData(): ApplicationCommandData {
@@ -52,7 +61,7 @@ export default class implements AutocompleteCommand {
         {
           type: ApplicationCommandOptionType.String,
           name: "name",
-          description: "The name, expression, stance or season of the Travelling Spirit.",
+          description: "The name, season, expression, stance or call of the Travelling Spirit.",
           required: true,
           autocomplete: true
         }
