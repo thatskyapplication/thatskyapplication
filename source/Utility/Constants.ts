@@ -52,6 +52,7 @@ const enum Expression {
   BlowKiss = "Blow kiss",
   Grateful = "Grateful",
   BellyScratch = "Belly scratch",
+  Chuckle = "Chuckle",
   Karate = "Karate",
   Shrug = "Shrug",
   Grouchy = "Grouchy",
@@ -666,6 +667,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Marching_Adventurer",
     expression: Expression.March,
+    stance: null,
+    call: null
+  },
+  chucklingScout: {
+    name: "Chuckling Scout",
+    attachment: null,
+    season: {
+      name: Season.Assembly,
+      emoji: Emoji.Assembly
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Chuckling_Scout",
+    expression: Expression.Chuckle,
     stance: null,
     call: null
   }
