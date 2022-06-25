@@ -103,6 +103,7 @@ const enum Expression {
   EvilLaugh = "Evil laugh",
   Ouch = "Ouch",
   Anxious = "Anxious",
+  Headbob = "Headbob",
   Awww = "Awww"
 }
 
@@ -904,6 +905,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Forgetful_Storyteller",
     expression: Expression.Awww,
+    stance: null,
+    call: null
+  },
+  mellowMusician: {
+    name: "Mellow Musician",
+    attachment: null,
+    season: {
+      name: Season.Performance,
+      emoji: Emoji.Performance
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Mellow_Musician",
+    expression: Expression.Headbob,
     stance: null,
     call: null
   }
