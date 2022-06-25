@@ -75,6 +75,7 @@ const enum Expression {
   Scare = "Scare",
   DustOff = "Dust off",
   ChestPound = "Chest pound",
+  March = "March",
   Yoga = "Yoga",
   Shush = "Shush",
   Sparkler = "Sparkler",
@@ -653,6 +654,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Scaredy_Cadet",
     expression: Expression.Eww,
+    stance: null,
+    call: null
+  },
+  marchingAdventurer: {
+    name: "Marching Adventurer",
+    attachment: null,
+    season: {
+      name: Season.Assembly,
+      emoji: Emoji.Assembly
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Marching_Adventurer",
+    expression: Expression.March,
     stance: null,
     call: null
   }
