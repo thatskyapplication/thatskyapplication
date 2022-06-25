@@ -90,7 +90,8 @@ const enum Expression {
   Gloat = "Gloat",
   Stretch = "Stretch",
   Slouch = "Slouch",
-  Sneeze = "Sneeze"
+  Sneeze = "Sneeze",
+  HandRub = "Hand rub"
 }
 
 const enum Stance {
@@ -758,6 +759,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Sneezing_Geographer",
     expression: Expression.Sneeze,
+    stance: null,
+    call: null
+  },
+  starCollector: {
+    name: "Star Collector",
+    attachment: null,
+    season: {
+      name: Season.LittlePrince,
+      emoji: Emoji.LittlePrince
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Star_Collector",
+    expression: Expression.HandRub,
     stance: null,
     call: null
   }
