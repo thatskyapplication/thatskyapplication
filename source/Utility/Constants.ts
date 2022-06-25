@@ -83,7 +83,8 @@ const enum Expression {
   Thinking = "Thinking",
   Doze = "Doze",
   Balance = "Balance",
-  DeepBreath = "DeepBreath"
+  DeepBreath = "DeepBreath",
+  Bubbles = "Bubbles"
 }
 
 const enum Stance {
@@ -679,6 +680,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Chuckling_Scout",
     expression: Expression.Chuckle,
+    stance: null,
+    call: null
+  },
+  daydreamForester: {
+    name: "Daydream Forester",
+    attachment: readFileSync(new URL("../../Images/Daydream_Forester.webp", import.meta.url)),
+    season: {
+      name: Season.Assembly,
+      emoji: Emoji.Assembly
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Daydream_Forester",
+    expression: Expression.Bubbles,
     stance: null,
     call: null
   }
