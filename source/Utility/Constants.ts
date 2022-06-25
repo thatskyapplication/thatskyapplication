@@ -85,7 +85,8 @@ const enum Expression {
   Doze = "Doze",
   Balance = "Balance",
   DeepBreath = "DeepBreath",
-  Bubbles = "Bubbles"
+  Bubbles = "Bubbles",
+  Beckon = "Beckon"
 }
 
 const enum Stance {
@@ -693,6 +694,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Daydream_Forester",
     expression: Expression.Bubbles,
+    stance: null,
+    call: null
+  },
+  beckoningRuler: {
+    name: "Beckoning Ruler",
+    attachment: null,
+    season: {
+      name: Season.LittlePrince,
+      emoji: Emoji.LittlePrince
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Beckoning_Ruler",
+    expression: Expression.Beckon,
     stance: null,
     call: null
   }
