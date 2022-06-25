@@ -94,6 +94,7 @@ const enum Expression {
   Slouch = "Slouch",
   Sneeze = "Sneeze",
   HandRub = "Hand rub",
+  Voilà = "Voilà",
   Navigate = "Navigate"
 }
 
@@ -812,6 +813,18 @@ export const travellingSpirits = {
     url: "https://sky-children-of-the-light.fandom.com/wiki/Tinkering_Chimesmith",
     expression: null,
     stance: Stance.Tinker,
+    call: null
+  },
+  talentedBuilder: {
+    name: "Talented Builder",
+    attachment: null,
+    season: {
+      name: Season.Flight,
+      emoji: Emoji.Flight
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Talented_Builder",
+    expression: Expression.Voilà,
+    stance: null,
     call: null
   }
 } as const;
