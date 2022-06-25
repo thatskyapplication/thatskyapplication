@@ -98,6 +98,7 @@ const enum Expression {
   Voilà = "Voilà",
   Navigate = "Navigate",
   CalmDown = "Calm down",
+  Ouch = "Ouch",
   Anxious = "Anxious"
 }
 
@@ -851,6 +852,18 @@ export const travellingSpirits = {
     },
     url: "https://sky-children-of-the-light.fandom.com/wiki/Ceasing_Commodore",
     expression: Expression.CalmDown,
+    stance: null,
+    call: null
+  },
+  bumblingBoatswain: {
+    name: "Bumbling Boatswain",
+    attachment: null,
+    season: {
+      name: Season.Abyss,
+      emoji: Emoji.Abyss
+    },
+    url: "https://sky-children-of-the-light.fandom.com/wiki/Bumbling_Boatswain",
+    expression: Expression.Ouch,
     stance: null,
     call: null
   }
