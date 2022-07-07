@@ -5,12 +5,12 @@ import notifications from "./Events/notifications.js";
 
 // General
 import roles from "./General/roles.js";
-import travelling_spirit from "./General/travelling-spirit.js";
+import spirit from "./General/spirit.js";
 
 const commands = {
-  "travelling-spirit": new travelling_spirit(),
+  notifications: new notifications(),
   roles: new roles(),
-  notifications: new notifications()
+  spirit: new spirit()
 } as const;
 
 export type CommandName = keyof typeof commands;

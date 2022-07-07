@@ -1,12 +1,10 @@
 import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder, formatEmoji } from "discord.js";
 import Caelus from "../../Client/Client.js";
-import { travellingSpirits } from "../../Utility/Constants.js";
+import Spirits from "../../Client/Spirit.js";
 import type { AutocompleteCommand } from "../index.js";
 
-const travellingSpiritsValues = Object.values(travellingSpirits);
-
 export default class implements AutocompleteCommand {
-  readonly name = "travelling-spirit";
+  readonly name = "spirit";
   readonly type = ApplicationCommandType.ChatInput;
 
   async handle(interaction: ChatInputCommandInteraction): Promise<void> {
@@ -15,11 +13,11 @@ export default class implements AutocompleteCommand {
 
   async execute(interaction: ChatInputCommandInteraction): Promise<void> {
     const name = interaction.options.getString("name", true);
-    const travellingSpirit = travellingSpiritsValues.find(travellingSpirit => travellingSpirit.name === name);
+    const spirit = Spirits.find(spirit => spirit.name === name);
 
-    if (!travellingSpirit) {
+    if (!spirit) {
       await interaction.reply({
-        content: "Woah, it seems we have not encountered that Travelling Spirit yet. How strange!",
+        content: "Woah, it seems we have not encountered that spirit yet. How strange!",
         ephemeral: true
       });
 
@@ -27,27 +25,27 @@ export default class implements AutocompleteCommand {
     }
 
     const me = await interaction.guild?.members.fetch(Caelus.user.id);
-    const travellingSpiritAttachmentName = travellingSpirit.name.replaceAll(" ", "_");
+    const spiritAttachmentName = spirit.name.replaceAll(" ", "_");
     const files = [];
     const embed = new EmbedBuilder();
     embed.setColor(me?.displayColor ?? 0);
 
-    if (travellingSpirit.attachment === null) {
+    if (spirit.attachment === null) {
       embed.setDescription("⚠️ This spirit has not yet returned.");
     } else {
-      files.push({ attachment: travellingSpirit.attachment, name: `${travellingSpiritAttachmentName}.webp` });
+      files.push({ attachment: spirit.attachment, name: `${spiritAttachmentName}.webp` });
     }
 
-    embed.setImage(`attachment://${travellingSpiritAttachmentName}.webp`);
-    embed.setTitle(`${formatEmoji(travellingSpirit.season.emoji)} ${name}`);
-    embed.setURL(travellingSpirit.url);
+    embed.setImage(`attachment://${spiritAttachmentName}.webp`);
+    embed.setTitle(`${formatEmoji(spirit.season.emoji)} ${name}`);
+    embed.setURL(spirit.url);
     await interaction.reply({ embeds: [embed], files });
   }
 
   async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
     const focused = interaction.options.getFocused().toUpperCase();
 
-    await interaction.respond(travellingSpiritsValues.filter(({ name, season, expression, stance, call }) => {
+    await interaction.respond(Spirits.filter(({ name, season, expression, stance, call }) => {
       return name.toUpperCase().startsWith(focused) || expression?.toUpperCase().startsWith(focused) || stance?.toUpperCase().startsWith(focused) || call?.toUpperCase().startsWith(focused) || season.name.toUpperCase().startsWith(focused);
     }).map(({ name }) => ({ name, value: name })).slice(0, 25));
   }
@@ -55,13 +53,13 @@ export default class implements AutocompleteCommand {
   get commandData(): ApplicationCommandData {
     return {
       name: this.name,
-      description: "Returns the friendship tree of a Travelling Spirit.",
+      description: "Returns the friendship tree of a spirit.",
       type: this.type,
       options: [
         {
           type: ApplicationCommandOptionType.String,
           name: "name",
-          description: "The name, season, expression, stance or call of the Travelling Spirit.",
+          description: "The name, season, expression, stance or call of the spirit.",
           required: true,
           autocomplete: true
         }
