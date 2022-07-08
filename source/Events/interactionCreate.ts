@@ -29,7 +29,7 @@ export const event: Event<typeof name> = {
       } catch (error) {
         Caelus.log(`Error running command \`/${commandName}\`.`, error);
         const interactionResponseBody = { content: "An error was encountered. Rest easy, it's being tracked!", ephemeral: true };
-        interaction.deferred || interaction.replied ? interaction.followUp(interactionResponseBody) : interaction.reply(interactionResponseBody);
+        (interaction.deferred || interaction.replied ? interaction.followUp(interactionResponseBody) : interaction.reply(interactionResponseBody)).catch(() => null);
       }
 
       return;
