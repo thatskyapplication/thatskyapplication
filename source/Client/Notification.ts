@@ -102,6 +102,21 @@ export default class Notification {
       this.No
     ]);
 
+    switch (event) {
+      case LightEvent.PollutedGeyser:
+        this.pollutedGeyserChannelId = null;
+        this.pollutedGeyserRoleId = null;
+        break;
+      case LightEvent.Grandma:
+        this.grandmaChannelId = null;
+        this.grandmaRoleId = null;
+        break;
+      case LightEvent.Turtle:
+        this.turtleChannelId = null;
+        this.turtleRoleId = null;
+        break;
+    }
+
     await interaction.reply(`${event} notifications have been unset.`);
   }
 
