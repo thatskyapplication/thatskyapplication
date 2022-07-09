@@ -1,7 +1,6 @@
-import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChannelType, ChatInputCommandInteraction, EmbedBuilder, Formatters, NewsChannel, PermissionFlagsBits, TextChannel } from "discord.js";
+import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChannelType, ChatInputCommandInteraction, NewsChannel, PermissionFlagsBits, TextChannel } from "discord.js";
 import Caelus from "../../Client/Client.js";
 import Notification, { isEvent, LightEvent } from "../../Client/Notification.js";
-import { Emoji } from "../../Utility/Constants.js";
 import type { Command } from "../index.js";
 
 export default class implements Command {
@@ -40,38 +39,7 @@ export default class implements Command {
       });
     }
 
-    // @ts-expect-error https://github.com/discordjs/discord.js/pull/8258
-    const me = await interaction.guild.members.fetchMe();
-    const { pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId } = notification;
-    const pollutedGeyserChannel = pollutedGeyserChannelId ? interaction.guild.channels.resolve(pollutedGeyserChannelId) : null;
-    const pollutedGeyserRole = pollutedGeyserRoleId ? interaction.guild.roles.resolve(pollutedGeyserRoleId) : null;
-    const grandmaChannel = grandmaChannelId ? interaction.guild.channels.resolve(grandmaChannelId) : null;
-    const grandmaRole = grandmaRoleId ? interaction.guild.roles.resolve(grandmaRoleId) : null;
-    const turtleChannel = turtleChannelId ? interaction.guild.channels.resolve(turtleChannelId) : null;
-    const turtleRole = turtleRoleId ? interaction.guild.roles.resolve(turtleRoleId) : null;
-    const embed = new EmbedBuilder();
-    embed.setColor(me.displayColor);
-
-    embed.setFields([
-      {
-        name: LightEvent.PollutedGeyser,
-        value: `${pollutedGeyserChannel ?? "No channel"}\n${pollutedGeyserRole ?? "No role"}\n${pollutedGeyserChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (pollutedGeyserRole?.mentionable && pollutedGeyserChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? `${Formatters.formatEmoji(Emoji.TGCCheck)} Sending!` : "⚠️ Stopped!"}`,
-        inline: true
-      },
-      {
-        name: LightEvent.Grandma,
-        value: `${grandmaChannel ?? "No channel"}\n${grandmaRole ?? "No role"}\n${grandmaChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (grandmaRole?.mentionable && grandmaChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? `${Formatters.formatEmoji(Emoji.TGCCheck)} Sending!` : "⚠️ Stopped!"}`,
-        inline: true
-      },
-      {
-        name: LightEvent.Turtle,
-        value: `${turtleChannel ?? "No channel"}\n${turtleRole ?? "No role"}\n${turtleChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (turtleRole?.mentionable && turtleChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? `${Formatters.formatEmoji(Emoji.TGCCheck)} Sending!` : "⚠️ Stopped!"}`,
-        inline: true
-      }
-    ]);
-
-    embed.setTitle(interaction.guild.name);
-    await interaction.reply({ embeds: [embed], ephemeral: true });
+    await interaction.reply({ embeds: [await notification.overview()], ephemeral: true });
   }
 
   async setup(interaction: ChatInputCommandInteraction<"cached">): Promise<void> {

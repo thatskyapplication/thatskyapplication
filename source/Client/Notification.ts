@@ -1,5 +1,6 @@
-import { ChannelType, ChatInputCommandInteraction, Collection, NewsChannel, PermissionFlagsBits, Role, TextChannel } from "discord.js";
+import { ChannelType, ChatInputCommandInteraction, Collection, EmbedBuilder, Formatters, NewsChannel, PermissionFlagsBits, Role, TextChannel } from "discord.js";
 import Caelus, { Maria } from "../Client/Client.js";
+import { Emoji } from "../Utility/Constants.js";
 
 interface NotificationData {
   No: number;
@@ -45,7 +46,7 @@ export default class Notification {
   }
 
   static async setup(interaction: ChatInputCommandInteraction<"cached">, event: typeof LightEvent[keyof typeof LightEvent], channel: NewsChannel | TextChannel, role: Role): Promise<void> {
-    const notification = this.cache.find(({ guildId }) => guildId === interaction.guildId);
+    let notification = this.cache.find(({ guildId }) => guildId === interaction.guildId);
 
     if (notification) {
       await Maria.query(`UPDATE \`Notifications\` SET \`${event} Channel ID\` = ?, \`${event} Role ID\` = ? WHERE \`No\` = ?;`, [
@@ -75,7 +76,7 @@ export default class Notification {
         role.id
       ]);
 
-      const newNotification = new this({
+      notification = new this({
         No: insertId,
         "Guild ID": interaction.guildId,
         "Polluted Geyser Channel ID": event === LightEvent.PollutedGeyser ? channel.id : null,
@@ -86,12 +87,13 @@ export default class Notification {
         "Turtle Role ID": event === LightEvent.Turtle ? role.id : null
       });
 
-      this.cache.set(newNotification.No, newNotification);
+      this.cache.set(notification.No, notification);
     }
 
     await interaction.reply({
       allowedMentions: { parse: [] },
-      content: `${event} notifications have been set up in ${channel}. The ${role} role will be mentioned.`
+      content: `${event} notifications have been set up in ${channel}. The ${role} role will be mentioned.`,
+      embeds: [await notification.overview()]
     });
   }
 
@@ -117,7 +119,10 @@ export default class Notification {
         break;
     }
 
-    await interaction.reply(`${event} notifications have been unset.`);
+    await interaction.reply({
+      content: `${event} notifications have been unset.`,
+      embeds: [await this.overview()]
+    });
   }
 
   static async send(type: typeof LightEvent[keyof typeof LightEvent]): Promise<void> {
@@ -151,5 +156,41 @@ export default class Notification {
       if (!channel.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (!role.mentionable && !channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))) continue;
       await channel.send(`${role} is starting soon!`).catch(() => null);
     }
+  }
+
+  async overview(): Promise<EmbedBuilder> {
+    const { guildId, pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId } = this;
+    const guild = Caelus.guilds.resolve(guildId);
+    // @ts-expect-error https://github.com/discordjs/discord.js/pull/8258
+    const me = await guild?.members.fetchMe();
+    const pollutedGeyserChannel = pollutedGeyserChannelId ? guild?.channels.resolve(pollutedGeyserChannelId) : null;
+    const pollutedGeyserRole = pollutedGeyserRoleId ? guild?.roles.resolve(pollutedGeyserRoleId) : null;
+    const grandmaChannel = grandmaChannelId ? guild?.channels.resolve(grandmaChannelId) : null;
+    const grandmaRole = grandmaRoleId ? guild?.roles.resolve(grandmaRoleId) : null;
+    const turtleChannel = turtleChannelId ? guild?.channels.resolve(turtleChannelId) : null;
+    const turtleRole = turtleRoleId ? guild?.roles.resolve(turtleRoleId) : null;
+    const embed = new EmbedBuilder();
+    embed.setColor(me?.displayColor ?? 0);
+
+    embed.setFields([
+      {
+        name: LightEvent.PollutedGeyser,
+        value: `${pollutedGeyserChannelId ? Formatters.channelMention(pollutedGeyserChannelId) : "No channel"}\n${pollutedGeyserRoleId ? Formatters.roleMention(pollutedGeyserRoleId) : "No role"}\n${pollutedGeyserChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (pollutedGeyserRole?.mentionable && pollutedGeyserChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? `${Formatters.formatEmoji(Emoji.TGCCheck)} Sending!` : "⚠️ Stopped!"}`,
+        inline: true
+      },
+      {
+        name: LightEvent.Grandma,
+        value: `${grandmaChannelId ? Formatters.channelMention(grandmaChannelId) : "No channel"}\n${grandmaRoleId ? Formatters.roleMention(grandmaRoleId) : "No role"}\n${grandmaChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (grandmaRole?.mentionable && grandmaChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? `${Formatters.formatEmoji(Emoji.TGCCheck)} Sending!` : "⚠️ Stopped!"}`,
+        inline: true
+      },
+      {
+        name: LightEvent.Turtle,
+        value: `${turtleChannelId ? Formatters.channelMention(turtleChannelId) : "No channel"}\n${turtleRoleId ? Formatters.roleMention(turtleRoleId) : "No role"}\n${turtleChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (turtleRole?.mentionable && turtleChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? `${Formatters.formatEmoji(Emoji.TGCCheck)} Sending!` : "⚠️ Stopped!"}`,
+        inline: true
+      }
+    ]);
+
+    embed.setTitle(guild?.name ?? guildId);
+    return embed;
   }
 }
