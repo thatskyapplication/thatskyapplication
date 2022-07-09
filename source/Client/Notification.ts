@@ -65,7 +65,7 @@ export default class Notification {
           break;
         case LightEvent.Turtle:
           notification.turtleChannelId = channel.id;
-          notification.turtleRoleId = channel.id;
+          notification.turtleRoleId = role.id;
           break;
       }
     } else {
