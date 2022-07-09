@@ -20,11 +20,26 @@ export default class implements Command {
     }
 
     switch (interaction.options.getSubcommand()) {
+      case "overview":
+        return await this.overview(interaction);
       case "setup":
         return await this.setup(interaction);
       case "unset":
         return await this.unset(interaction);
     }
+  }
+
+  async overview(interaction: ChatInputCommandInteraction<"cached">): Promise<void> {
+    const notification = Notification.cache.find(({ guildId }) => interaction.guildId === guildId);
+
+    if (!notification) {
+      return void await interaction.reply({
+        content: "This server has nothing set up.",
+        ephemeral: true
+      });
+    }
+
+    await interaction.reply({ embeds: [await notification.overview()], ephemeral: true });
   }
 
   async setup(interaction: ChatInputCommandInteraction<"cached">): Promise<void> {
@@ -126,6 +141,11 @@ export default class implements Command {
       description: "The command to set up notifications for events.",
       type: this.type,
       options: [
+        {
+          type: ApplicationCommandOptionType.Subcommand,
+          name: "overview",
+          description: "Shows the notifications in this server."
+        },
         {
           type: ApplicationCommandOptionType.Subcommand,
           name: "setup",

@@ -3,6 +3,7 @@ export const startupMessage = "Twirling in the air~" as const;
 export const logChannelId = "994581628804403250" as const;
 
 export const enum Emoji {
+  TGCCheck = "597899975548076052",
   Gratitude = "651170389115928587",
   Lightseekers = "651170389359198208",
   Belonging = "651170575955263559",
