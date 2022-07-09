@@ -1,4 +1,4 @@
-import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder, formatEmoji } from "discord.js";
+import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder, Formatters } from "discord.js";
 import Caelus from "../../Client/Client.js";
 import Spirits from "../../Client/Spirit.js";
 import type { AutocompleteCommand } from "../index.js";
@@ -37,7 +37,7 @@ export default class implements AutocompleteCommand {
     }
 
     embed.setImage(`attachment://${spiritAttachmentName}.webp`);
-    embed.setTitle(`${formatEmoji(spirit.season.emoji)} ${name}`);
+    embed.setTitle(`${Formatters.formatEmoji(spirit.season.emoji)} ${name}`);
     embed.setURL(spirit.url);
     await interaction.reply({ embeds: [embed], files });
   }
