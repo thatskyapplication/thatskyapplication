@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "date-fns-tz": "^1.3.4",
-    "discord.js": "^14.0.0-dev.1656158629-c4653f9",
+    "discord.js": "^14.0.0-dev.1657325401-33ae7df",
     "dotenv": "^16.0.1",
     "mariadb": "^3.0.0",
     "node-fetch": "^3.2.5"

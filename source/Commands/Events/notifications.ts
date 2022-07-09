@@ -1,6 +1,7 @@
-import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChannelType, ChatInputCommandInteraction, NewsChannel, PermissionFlagsBits, TextChannel } from "discord.js";
+import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChannelType, ChatInputCommandInteraction, EmbedBuilder, Formatters, NewsChannel, PermissionFlagsBits, TextChannel } from "discord.js";
 import Caelus from "../../Client/Client.js";
 import Notification, { isEvent, LightEvent } from "../../Client/Notification.js";
+import { Emoji } from "../../Utility/Constants.js";
 import type { Command } from "../index.js";
 
 export default class implements Command {
@@ -20,11 +21,57 @@ export default class implements Command {
     }
 
     switch (interaction.options.getSubcommand()) {
+      case "overview":
+        return await this.overview(interaction);
       case "setup":
         return await this.setup(interaction);
       case "unset":
         return await this.unset(interaction);
     }
+  }
+
+  async overview(interaction: ChatInputCommandInteraction<"cached">): Promise<void> {
+    const notification = Notification.cache.find(({ guildId }) => interaction.guildId === guildId);
+
+    if (!notification) {
+      return void await interaction.reply({
+        content: "This server has nothing set up.",
+        ephemeral: true
+      });
+    }
+
+    // @ts-expect-error https://github.com/discordjs/discord.js/pull/8258
+    const me = await interaction.guild.members.fetchMe();
+    const { pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId } = notification;
+    const pollutedGeyserChannel = pollutedGeyserChannelId ? interaction.guild.channels.resolve(pollutedGeyserChannelId) : null;
+    const pollutedGeyserRole = pollutedGeyserRoleId ? interaction.guild.roles.resolve(pollutedGeyserRoleId) : null;
+    const grandmaChannel = grandmaChannelId ? interaction.guild.channels.resolve(grandmaChannelId) : null;
+    const grandmaRole = grandmaRoleId ? interaction.guild.roles.resolve(grandmaRoleId) : null;
+    const turtleChannel = turtleChannelId ? interaction.guild.channels.resolve(turtleChannelId) : null;
+    const turtleRole = turtleRoleId ? interaction.guild.roles.resolve(turtleRoleId) : null;
+    const embed = new EmbedBuilder();
+    embed.setColor(me.displayColor);
+
+    embed.setFields([
+      {
+        name: LightEvent.PollutedGeyser,
+        value: `Channel: ${pollutedGeyserChannel ?? "None"}\nRole: ${pollutedGeyserRole ?? "None"}\n${pollutedGeyserChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (pollutedGeyserRole?.mentionable && pollutedGeyserChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? `${Formatters.formatEmoji(Emoji.TGCCheck)} Sending!` : "⚠️ Stopped!"}`,
+        inline: true
+      },
+      {
+        name: LightEvent.Grandma,
+        value: `Channel: ${grandmaChannel ?? "None"}\nRole: ${grandmaRole ?? "None"}\n${grandmaChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (grandmaRole?.mentionable && grandmaChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? `${Formatters.formatEmoji(Emoji.TGCCheck)} Sending!` : "⚠️ Stopped!"}`,
+        inline: true
+      },
+      {
+        name: LightEvent.Turtle,
+        value: `Channel: ${turtleChannel ?? "None"}\nRole: ${turtleRole ?? "None"}\n${turtleChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (turtleRole?.mentionable && turtleChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? `${Formatters.formatEmoji(Emoji.TGCCheck)} Sending!}` : "⚠️ Stopped!"}`,
+        inline: true
+      }
+    ]);
+
+    embed.setTitle(interaction.guild.name);
+    await interaction.reply({ embeds: [embed], ephemeral: true });
   }
 
   async setup(interaction: ChatInputCommandInteraction<"cached">): Promise<void> {
@@ -126,6 +173,11 @@ export default class implements Command {
       description: "The command to set up notifications for events.",
       type: this.type,
       options: [
+        {
+          type: ApplicationCommandOptionType.Subcommand,
+          name: "overview",
+          description: "Shows the notifications in this server."
+        },
         {
           type: ApplicationCommandOptionType.Subcommand,
           name: "setup",
