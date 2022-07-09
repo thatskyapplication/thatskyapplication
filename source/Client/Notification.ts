@@ -106,7 +106,7 @@ export default class Notification {
   }
 
   static async send(type: typeof LightEvent[keyof typeof LightEvent]): Promise<void> {
-    for (const { pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId } of this.cache.values()) {
+    for (const { guildId, pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId } of this.cache.values()) {
       let channelId;
       let roleId;
 
@@ -126,7 +126,7 @@ export default class Notification {
       }
 
       if (!channelId || !roleId) continue;
-      const channel = Caelus.channels.resolve(channelId);
+      const channel = Caelus.guilds.resolve(guildId)?.channels.resolve(channelId);
       if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildNews)) continue;
       const role = channel.guild.roles.resolve(roleId);
       if (!role) continue;
