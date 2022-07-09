@@ -1,4 +1,4 @@
-import { ChannelType, ChatInputCommandInteraction, Collection, Formatters, NewsChannel, Role, TextChannel } from "discord.js";
+import { ChannelType, ChatInputCommandInteraction, Collection, NewsChannel, PermissionFlagsBits, Role, TextChannel } from "discord.js";
 import Caelus, { Maria } from "../Client/Client.js";
 
 interface NotificationData {
@@ -125,10 +125,16 @@ export default class Notification {
           break;
       }
 
-      if (!roleId || !channelId) continue;
+      if (!channelId || !roleId) continue;
       const channel = Caelus.channels.resolve(channelId);
       if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildNews)) continue;
-      await channel.send(`${Formatters.roleMention(roleId)} is starting soon!`).catch(() => null);
+      const role = channel.guild.roles.resolve(roleId);
+      if (!role) continue;
+
+      // @ts-expect-error https://github.com/discordjs/discord.js/pull/8258
+      const me = await channel.guild.members.fetchMe();
+      if (!channel.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (!role.mentionable && !channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))) continue;
+      await channel.send(`${role} is starting soon!`).catch(() => null);
     }
   }
 }
