@@ -65,7 +65,7 @@ export default class implements Command {
       },
       {
         name: LightEvent.Turtle,
-        value: `Channel: ${turtleChannel ?? "None"}\nRole: ${turtleRole ?? "None"}\n${turtleChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (turtleRole?.mentionable && turtleChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? `${Formatters.formatEmoji(Emoji.TGCCheck)} Sending!}` : "⚠️ Stopped!"}`,
+        value: `Channel: ${turtleChannel ?? "None"}\nRole: ${turtleRole ?? "None"}\n${turtleChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (turtleRole?.mentionable && turtleChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? `${Formatters.formatEmoji(Emoji.TGCCheck)} Sending!` : "⚠️ Stopped!"}`,
         inline: true
       }
     ]);
