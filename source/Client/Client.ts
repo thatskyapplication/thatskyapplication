@@ -32,13 +32,12 @@ class Caelus<T extends boolean> extends Client<T> {
   async log(message: LogOptions): Promise<void>;
 
   async log(message: string | LogOptions, error?: any): Promise<void> {
-    if (!this.isReady()) throw new Error("Client logging when not ready.");
     let stamp = new Date().toISOString();
     const content = typeof message === "string" ? message : message.content;
     const output = error || content;
     if (output) this.consoleLog(output, stamp);
     const { logChannel } = this;
-    const me = await logChannel.guild.members.fetch(this.user.id);
+    const me = await logChannel.guild.members.fetchMe();
 
     if (!logChannel.permissionsFor(me).has([
       PermissionFlagsBits.AttachFiles,
@@ -106,4 +105,4 @@ class Caelus<T extends boolean> extends Client<T> {
   }
 }
 
-export default new Caelus<true>({ intents: [GatewayIntentBits.Guilds] });
+export default new Caelus({ intents: [GatewayIntentBits.Guilds] });

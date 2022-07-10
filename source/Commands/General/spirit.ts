@@ -1,5 +1,4 @@
 import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder, Formatters } from "discord.js";
-import Caelus from "../../Client/Client.js";
 import Spirits from "../../Client/Spirit.js";
 import type { AutocompleteCommand } from "../index.js";
 
@@ -22,7 +21,7 @@ export default class implements AutocompleteCommand {
       });
     }
 
-    const me = await interaction.guild?.members.fetch(Caelus.user.id);
+    const me = await interaction.guild?.members.fetchMe();
     const spiritAttachmentName = spirit.name.replaceAll(" ", "_");
     const files = [];
     const embed = new EmbedBuilder();

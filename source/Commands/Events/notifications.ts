@@ -45,7 +45,7 @@ export default class implements Command {
     const event = options.getString("event", true);
     const channel = options.getChannel("channel", true) as TextChannel | NewsChannel; // From restrictions placed in the command.
     const role = options.getRole("role", true);
-    const me = await channel.guild.members.fetch(Caelus.user.id);
+    const me = await channel.guild.members.fetchMe();
 
     if (!isEvent(event)) {
       Caelus.log(`Received an unknown notification event: ${event} whilst setting up notifications.`);

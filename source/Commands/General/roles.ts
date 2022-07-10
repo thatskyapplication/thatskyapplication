@@ -40,7 +40,7 @@ export default class implements Command {
       });
     }
 
-    if (!(await interaction.guild.members.fetch(Caelus.user.id)).permissions.has(PermissionsBitField.Flags.ManageRoles)) {
+    if (!(await interaction.guild.members.fetchMe()).permissions.has(PermissionsBitField.Flags.ManageRoles)) {
       return void await interaction.reply({
         content: "Missing the `Manage Roles` permission.",
         ephemeral: true

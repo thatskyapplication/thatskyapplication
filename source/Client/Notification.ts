@@ -150,8 +150,6 @@ export default class Notification {
       if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildNews)) continue;
       const role = channel.guild.roles.resolve(roleId);
       if (!role) continue;
-
-      // @ts-expect-error https://github.com/discordjs/discord.js/pull/8258
       const me = await channel.guild.members.fetchMe();
       if (!channel.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (!role.mentionable && !channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))) continue;
       await channel.send(`${role} is starting soon!`).catch(() => null);
@@ -161,7 +159,6 @@ export default class Notification {
   async overview(): Promise<EmbedBuilder> {
     const { guildId, pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId } = this;
     const guild = Caelus.guilds.resolve(guildId);
-    // @ts-expect-error https://github.com/discordjs/discord.js/pull/8258
     const me = await guild?.members.fetchMe();
     const pollutedGeyserChannel = pollutedGeyserChannelId ? guild?.channels.resolve(pollutedGeyserChannelId) : null;
     const pollutedGeyserRole = pollutedGeyserRoleId ? guild?.roles.resolve(pollutedGeyserRoleId) : null;
