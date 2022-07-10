@@ -11,12 +11,10 @@ export default class implements Command {
     if (!interaction.inCachedGuild()) {
       Caelus.log(`The \`/${this.name}\` command was used in an uncached guild, somehow.`, interaction);
 
-      await interaction.reply({
+      return void await interaction.reply({
         content: `There is no \`/${this.name}\` command in Ba Sing Se.`,
         ephemeral: true
       });
-
-      return;
     }
 
     switch (interaction.options.getSubcommand()) {
@@ -52,41 +50,33 @@ export default class implements Command {
     if (!isEvent(event)) {
       Caelus.log(`Received an unknown notification event: ${event} whilst setting up notifications.`);
 
-      await interaction.reply({
+      return void await interaction.reply({
         content: "The dark dragon has obeliterated this event. It's gone... for now.",
         ephemeral: true
       });
-
-      return;
     }
 
     const notification = Notification.cache.find(({ guildId }) => interaction.guildId === guildId);
 
     if (notification && ((event === LightEvent.PollutedGeyser && notification.pollutedGeyserChannelId === channel.id && notification.pollutedGeyserRoleId === role.id) || (event === LightEvent.Grandma && notification.grandmaChannelId === channel.id && notification.grandmaRoleId === role.id) || (event === LightEvent.Turtle && notification.turtleChannelId === channel.id && notification.turtleRoleId === role.id))) {
-      await interaction.reply({
+      return void await interaction.reply({
         content: `${event} notifications are already set to mention the role ${role} in ${channel}. There was nothing to do.`,
         ephemeral: true
       });
-
-      return;
     }
 
     if (!channel.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages])) {
-      await interaction.reply({
+      return void await interaction.reply({
         content: `\`View Channel\` & \`Send Messages\` are required for ${channel}.`,
         ephemeral: true
       });
-
-      return;
     }
 
     if (!role.mentionable && !channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) {
-      await interaction.reply({
+      return void await interaction.reply({
         content: `Cannot mention the ${role} role. Ensure \`Mention @everyone, @here and All Roles\` permission is enabled for ${Caelus.user} in the channel or make the role mentionable.`,
         ephemeral: true
       });
-
-      return;
     }
 
     await Notification.setup(interaction, event, channel, role);
@@ -96,12 +86,10 @@ export default class implements Command {
     const notification = Notification.cache.find(({ guildId }) => interaction.guildId === guildId);
 
     if (!notification) {
-      await interaction.reply({
+      return void await interaction.reply({
         content: "This server has nothing set up.",
         ephemeral: true
       });
-
-      return;
     }
 
     const { options } = interaction;
@@ -110,21 +98,17 @@ export default class implements Command {
     if (!isEvent(event)) {
       Caelus.log(`Received an unknown notification event: ${event} whilst setting up notifications.`);
 
-      await interaction.reply({
+      return void await interaction.reply({
         content: "The dark dragon has obeliterated this event. It's gone... for now.",
         ephemeral: true
       });
-
-      return;
     }
 
     if ((event === LightEvent.PollutedGeyser && notification.pollutedGeyserChannelId === null && notification.pollutedGeyserRoleId === null) || (event === LightEvent.Grandma && notification.grandmaChannelId === null && notification.grandmaRoleId === null) || (event === LightEvent.Turtle && notification.turtleChannelId === null && notification.turtleRoleId === null)) {
-      await interaction.reply({
+      return void await interaction.reply({
         content: `${event} notifications are not already set. There was nothing to do.`,
         ephemeral: true
       });
-
-      return;
     }
 
     await notification.unset(interaction, event);

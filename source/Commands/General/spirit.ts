@@ -16,12 +16,10 @@ export default class implements AutocompleteCommand {
     const spirit = Spirits.find(spirit => spirit.name === name);
 
     if (!spirit) {
-      await interaction.reply({
+      return void await interaction.reply({
         content: "Woah, it seems we have not encountered that spirit yet. How strange!",
         ephemeral: true
       });
-
-      return;
     }
 
     const me = await interaction.guild?.members.fetch(Caelus.user.id);

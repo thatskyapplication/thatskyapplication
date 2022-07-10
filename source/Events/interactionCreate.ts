@@ -40,12 +40,10 @@ export const event: Event<typeof name> = {
         if (!interaction.inCachedGuild()) {
           Caelus.log(`Attempted to perform \`${interaction.customId}\` via a select menu interaction in an uncached guild.`, interaction);
 
-          await interaction.reply({
+          return void await interaction.reply({
             content: "This option does not exist in Ba Sing Se.",
             ephemeral: true
           });
-
-          return;
         }
 
         if (interaction.customId === rolesSelectMenuCustomId) return await commands.roles.apply(interaction);

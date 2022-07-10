@@ -13,12 +13,10 @@ export default class implements Command {
     if (!interaction.inCachedGuild()) {
       Caelus.log(`The \`/${this.name}\` command was used in an uncached guild, somehow.`, interaction);
 
-      await interaction.reply({
+      return void await interaction.reply({
         content: `There is no \`/${this.name}\` command in Ba Sing Se.`,
         ephemeral: true
       });
-
-      return;
     }
 
     return await this.execute(interaction);
@@ -36,32 +34,26 @@ export default class implements Command {
     const notification = Notification.cache.find(({ guildId }) => guildId === interaction.guildId);
 
     if (!notification) {
-      await interaction.reply({
+      return void await interaction.reply({
         content: "This server hasn't set up self-role assignment.",
         ephemeral: true
       });
-
-      return;
     }
 
     if (!(await interaction.guild.members.fetch(Caelus.user.id)).permissions.has(PermissionsBitField.Flags.ManageRoles)) {
-      await interaction.reply({
+      return void await interaction.reply({
         content: "Missing the `Manage Roles` permission.",
         ephemeral: true
       });
-
-      return;
     }
 
     const options = this.populate(notification);
 
     if (options.size === 0) {
-      await interaction.reply({
+      return void await interaction.reply({
         content: "There are no roles to self-assign.",
         ephemeral: true
       });
-
-      return;
     }
 
     const content = "Self-assign roles to receive notifications!";
@@ -92,12 +84,10 @@ export default class implements Command {
     const notification = Notification.cache.find(({ guildId }) => guildId === interaction.guildId);
 
     if (!notification) {
-      await interaction.reply({
+      return void await interaction.reply({
         content: "A strange error occured. This is being tracked.",
         ephemeral: true
       });
-
-      return;
     }
 
     const roles = interaction.values;
