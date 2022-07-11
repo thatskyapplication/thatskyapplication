@@ -11,12 +11,15 @@ interface NotificationData {
   "Grandma Role ID": string | null;
   "Turtle Channel ID": string | null;
   "Turtle Role ID": string | null;
+  "Shard Eruption Channel ID": string | null;
+  "Shard Eruption Role ID": string | null;
 }
 
 export const LightEvent = {
   PollutedGeyser: "Polluted Geyser",
   Grandma: "Grandma",
-  Turtle: "Turtle"
+  Turtle: "Turtle",
+  ShardEruption: "Shard Eruption"
 } as const;
 
 export function isEvent(event: string): event is typeof LightEvent[keyof typeof LightEvent] {
@@ -33,6 +36,8 @@ export default class Notification {
   grandmaRoleId: NotificationData["Grandma Role ID"];
   turtleChannelId: NotificationData["Turtle Channel ID"];
   turtleRoleId: NotificationData["Turtle Role ID"];
+  shardEruptionChannelId: NotificationData["Shard Eruption Channel ID"];
+  shardEruptionRoleId: NotificationData["Shard Eruption Role ID"];
 
   constructor(notification: NotificationData) {
     this.No = notification.No;
@@ -43,6 +48,8 @@ export default class Notification {
     this.grandmaRoleId = notification["Grandma Role ID"];
     this.turtleChannelId = notification["Turtle Channel ID"];
     this.turtleRoleId = notification["Turtle Role ID"];
+    this.shardEruptionChannelId = notification["Shard Eruption Channel ID"];
+    this.shardEruptionRoleId = notification["Shard Eruption Role ID"];
   }
 
   static async setup(interaction: ChatInputCommandInteraction<"cached">, event: typeof LightEvent[keyof typeof LightEvent], channel: NewsChannel | TextChannel, role: Role): Promise<void> {
@@ -68,6 +75,10 @@ export default class Notification {
           notification.turtleChannelId = channel.id;
           notification.turtleRoleId = role.id;
           break;
+        case LightEvent.ShardEruption:
+          notification.shardEruptionChannelId = channel.id;
+          notification.shardEruptionRoleId = role.id;
+          break;
       }
     } else {
       const { insertId } = await Maria.query(`INSERT INTO \`Notifications\` SET \`Guild ID\` = ?, \`${event} Channel ID\` = ?, \`${event} Role ID\` = ?;`, [
@@ -84,7 +95,9 @@ export default class Notification {
         "Grandma Channel ID": event === LightEvent.Grandma ? channel.id : null,
         "Grandma Role ID": event === LightEvent.Grandma ? role.id : null,
         "Turtle Channel ID": event === LightEvent.Turtle ? channel.id : null,
-        "Turtle Role ID": event === LightEvent.Turtle ? role.id : null
+        "Turtle Role ID": event === LightEvent.Turtle ? role.id : null,
+        "Shard Eruption Channel ID": event === LightEvent.ShardEruption ? channel.id : null,
+        "Shard Eruption Role ID": event === LightEvent.ShardEruption ? role.id : null
       });
 
       this.cache.set(notification.No, notification);
@@ -117,6 +130,10 @@ export default class Notification {
         this.turtleChannelId = null;
         this.turtleRoleId = null;
         break;
+      case LightEvent.ShardEruption:
+        this.shardEruptionChannelId = null;
+        this.shardEruptionRoleId = null;
+        break;
     }
 
     await interaction.reply({
@@ -126,7 +143,7 @@ export default class Notification {
   }
 
   static async send(type: typeof LightEvent[keyof typeof LightEvent]): Promise<void> {
-    for (const { guildId, pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId } of this.cache.values()) {
+    for (const { guildId, pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId, shardEruptionChannelId, shardEruptionRoleId } of this.cache.values()) {
       let channelId;
       let roleId;
 
@@ -143,6 +160,10 @@ export default class Notification {
           channelId = turtleChannelId;
           roleId = turtleRoleId;
           break;
+        case LightEvent.ShardEruption:
+          channelId = shardEruptionChannelId;
+          roleId = shardEruptionRoleId;
+          break;
       }
 
       if (!channelId || !roleId) continue;
@@ -157,7 +178,7 @@ export default class Notification {
   }
 
   async overview(): Promise<EmbedBuilder> {
-    const { guildId, pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId } = this;
+    const { guildId, pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId, shardEruptionChannelId, shardEruptionRoleId } = this;
     const guild = Caelus.guilds.resolve(guildId);
     const me = await guild?.members.fetchMe();
     const pollutedGeyserChannel = pollutedGeyserChannelId ? guild?.channels.resolve(pollutedGeyserChannelId) : null;
@@ -166,6 +187,8 @@ export default class Notification {
     const grandmaRole = grandmaRoleId ? guild?.roles.resolve(grandmaRoleId) : null;
     const turtleChannel = turtleChannelId ? guild?.channels.resolve(turtleChannelId) : null;
     const turtleRole = turtleRoleId ? guild?.roles.resolve(turtleRoleId) : null;
+    const shardEruptionChannel = shardEruptionChannelId ? guild?.channels.resolve(shardEruptionChannelId) : null;
+    const shardEruptionRole = shardEruptionRoleId ? guild?.roles.resolve(shardEruptionRoleId) : null;
     const embed = new EmbedBuilder();
     embed.setColor(me?.displayColor ?? 0);
 
@@ -183,6 +206,11 @@ export default class Notification {
       {
         name: LightEvent.Turtle,
         value: `${turtleChannelId ? Formatters.channelMention(turtleChannelId) : "No channel"}\n${turtleRoleId ? Formatters.roleMention(turtleRoleId) : "No role"}\n${me && (turtleChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (turtleRole?.mentionable && turtleChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))) ? `${Formatters.formatEmoji(Emoji.TGCCheck)} Sending!` : "⚠️ Stopped!"}`,
+        inline: true
+      },
+      {
+        name: LightEvent.ShardEruption,
+        value: `${shardEruptionChannelId ? Formatters.channelMention(shardEruptionChannelId) : "No channel"}\n${shardEruptionRoleId ? Formatters.roleMention(shardEruptionRoleId) : "No role"}\n${me && (shardEruptionChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (shardEruptionRole?.mentionable && shardEruptionChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))) ? `${Formatters.formatEmoji(Emoji.TGCCheck)} Sending!` : "⚠️ Stopped!"}`,
         inline: true
       }
     ]);

@@ -58,7 +58,7 @@ export default class implements Command {
 
     const notification = Notification.cache.find(({ guildId }) => interaction.guildId === guildId);
 
-    if (notification && ((event === LightEvent.PollutedGeyser && notification.pollutedGeyserChannelId === channel.id && notification.pollutedGeyserRoleId === role.id) || (event === LightEvent.Grandma && notification.grandmaChannelId === channel.id && notification.grandmaRoleId === role.id) || (event === LightEvent.Turtle && notification.turtleChannelId === channel.id && notification.turtleRoleId === role.id))) {
+    if (notification && ((event === LightEvent.PollutedGeyser && notification.pollutedGeyserChannelId === channel.id && notification.pollutedGeyserRoleId === role.id) || (event === LightEvent.Grandma && notification.grandmaChannelId === channel.id && notification.grandmaRoleId === role.id) || (event === LightEvent.Turtle && notification.turtleChannelId === channel.id && notification.turtleRoleId === role.id) || (event === LightEvent.ShardEruption && notification.shardEruptionChannelId === channel.id && notification.shardEruptionRoleId === role.id))) {
       return void await interaction.reply({
         content: `${event} notifications are already set to mention the role ${role} in ${channel}. There was nothing to do.`,
         ephemeral: true
@@ -104,7 +104,7 @@ export default class implements Command {
       });
     }
 
-    if ((event === LightEvent.PollutedGeyser && notification.pollutedGeyserChannelId === null && notification.pollutedGeyserRoleId === null) || (event === LightEvent.Grandma && notification.grandmaChannelId === null && notification.grandmaRoleId === null) || (event === LightEvent.Turtle && notification.turtleChannelId === null && notification.turtleRoleId === null)) {
+    if ((event === LightEvent.PollutedGeyser && notification.pollutedGeyserChannelId === null && notification.pollutedGeyserRoleId === null) || (event === LightEvent.Grandma && notification.grandmaChannelId === null && notification.grandmaRoleId === null) || (event === LightEvent.Turtle && notification.turtleChannelId === null && notification.turtleRoleId === null) || (event === LightEvent.ShardEruption && notification.shardEruptionChannelId === null && notification.shardEruptionRoleId === null)) {
       return void await interaction.reply({
         content: `${event} notifications are not already set. There was nothing to do.`,
         ephemeral: true

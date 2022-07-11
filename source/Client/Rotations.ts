@@ -10,17 +10,25 @@ export default new class {
       const minutes = date.getUTCMinutes();
       const seconds = date.getUTCSeconds();
 
-      if (hours % 2 === 0 && seconds === 0) {
-        switch (minutes) {
-          case 0:
-            Notification.send(LightEvent.PollutedGeyser);
-            break;
-          case 30:
-            Notification.send(LightEvent.Grandma);
-            break;
-          case 45:
-            Notification.send(LightEvent.Turtle);
-            break;
+      if (seconds === 0) {
+        if (hours % 2 === 0) {
+          switch (minutes) {
+            case 0:
+              Notification.send(LightEvent.PollutedGeyser);
+              break;
+            case 30:
+              Notification.send(LightEvent.Grandma);
+              break;
+            case 45:
+              Notification.send(LightEvent.Turtle);
+              break;
+          }
+        } else {
+          switch (minutes) {
+            case 20:
+              Notification.send(LightEvent.ShardEruption);
+              break;
+          }
         }
       }
     }, 1000);
