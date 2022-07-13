@@ -25,7 +25,7 @@ export default new class {
           }
         } else {
           switch (minutes) {
-            case 20:
+            case 4:
               Notification.send(LightEvent.ShardEruption);
               break;
           }
