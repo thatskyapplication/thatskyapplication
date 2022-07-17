@@ -18,3 +18,16 @@ export const enum Emoji {
   Abyss = "932731569473466418",
   Performance = "958109222778847302"
 }
+
+export const MAXIMUM_WINGED_LIGHT = 198 as const;
+
+export const WingedLightRealm = {
+  IslesOfDawn: 9,
+  DaylightPrairie: 21,
+  HiddenForest: 19,
+  ValleyOfTriumph: 17,
+  GoldenWasteland: 18,
+  VaultOfKnowledge: 11,
+  EyeOfEden: 10,
+  Orbit: 1
+} as const;
