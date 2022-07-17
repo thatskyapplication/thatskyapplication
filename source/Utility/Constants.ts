@@ -21,6 +21,17 @@ export const enum Emoji {
 
 export const MAXIMUM_WINGED_LIGHT = 198 as const;
 
+export enum Realm {
+  IslesOfDawn = "Isles of Dawn",
+  DaylightPrairie = "Daylight Prairie",
+  HiddenForest = "Hidden Forest",
+  ValleyOfTriumph = "Valley Of Triumph",
+  GoldenWasteland = "Golden Wasteland",
+  VaultOfKnowledge = "Vault Of Knowledge",
+  EyeOfEden = "Eye of Eden",
+  Orbit = "Orbit"
+}
+
 export const WingedLightRealm = {
   IslesOfDawn: 9,
   DaylightPrairie: 21,

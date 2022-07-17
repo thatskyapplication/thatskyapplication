@@ -1,5 +1,5 @@
 import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
-import { MAXIMUM_WINGED_LIGHT, WingedLightRealm } from "../../Utility/Constants.js";
+import { MAXIMUM_WINGED_LIGHT, Realm, WingedLightRealm } from "../../Utility/Constants.js";
 import type { Command } from "../index.js";
 
 export default class implements Command {
@@ -13,38 +13,58 @@ export default class implements Command {
   async execute(interaction: ChatInputCommandInteraction): Promise<void> {
     const { options } = interaction;
     const wingedLight = options.getInteger("winged-light", true);
-    const realm1 = options.getString("realm-1");
-    const realm2 = options.getString("realm-2");
-    const realm3 = options.getString("realm-3");
-    const realm4 = options.getString("realm-4");
-    const realm5 = options.getString("realm-5");
-    const realm6 = options.getString("realm-6");
-    const realm7 = options.getString("realm-7");
-    const realm8 = options.getString("realm-8");
-
-    if ([realm1, realm2, realm3, realm4, realm5, realm6, realm7, realm8].every(realm => realm === null)) {
-      // TODO: Implement realm logic.
-    }
-
+    const realm1 = options.getString("realm-1") as Realm | null;
+    const realm2 = options.getString("realm-2") as Realm | null;
+    const realm3 = options.getString("realm-3") as Realm | null;
+    const realm4 = options.getString("realm-4") as Realm | null;
+    const realm5 = options.getString("realm-5") as Realm | null;
+    const realm6 = options.getString("realm-6") as Realm | null;
+    const realm7 = options.getString("realm-7") as Realm | null;
+    const realm8 = options.getString("realm-8") as Realm | null;
+    const realms = [realm1, realm2, realm3, realm4, realm5, realm6, realm7, realm8];
+    const realmsFiltered = realms.filter(Boolean) as Realm[];
+    if (realms.some(realm => realm !== null) && new Set(realmsFiltered).size !== realmsFiltered.length) return void await interaction.reply("Duplicate realms detected. Make sure to only provide unique realms!");
+    const path = (realmsFiltered.length === 0 ? Object.values(Realm) : realmsFiltered);
     let calculation = `Started with ${wingedLight} wing buff${wingedLight === 1 ? "" : "s"}.\n`;
     let accumulation = wingedLight;
-    calculation += `Isles of Dawn: ${accumulation += WingedLightRealm.IslesOfDawn}\n`;
-    calculation += `Daylight Prairie: ${accumulation += WingedLightRealm.DaylightPrairie}\n`;
-    calculation += `Hidden Forest: ${accumulation += WingedLightRealm.HiddenForest}\n`;
-    calculation += `Valley of Triumph: ${accumulation += WingedLightRealm.ValleyOfTriumph}\n`;
-    calculation += `Golden Wasteland: ${accumulation += WingedLightRealm.GoldenWasteland}\n`;
-    calculation += `Vault of Knowledge: ${accumulation += WingedLightRealm.VaultOfKnowledge}\n`;
-    calculation += `Eye of Eden: ${accumulation += WingedLightRealm.EyeOfEden}\n`;
-    calculation += `Orbit: ${accumulation += WingedLightRealm.Orbit}\n\n`;
+
+    for (const realm of path) {
+      switch (realm) {
+        case Realm.IslesOfDawn:
+          calculation += `Isles of Dawn: ${accumulation += WingedLightRealm.IslesOfDawn}\n`;
+          break;
+        case Realm.DaylightPrairie:
+          calculation += `Daylight Prairie: ${accumulation += WingedLightRealm.DaylightPrairie}\n`;
+          break;
+        case Realm.HiddenForest:
+          calculation += `Hidden Forest: ${accumulation += WingedLightRealm.HiddenForest}\n`;
+          break;
+        case Realm.ValleyOfTriumph:
+          calculation += `Valley of Triumph: ${accumulation += WingedLightRealm.ValleyOfTriumph}\n`;
+          break;
+        case Realm.GoldenWasteland:
+          calculation += `Golden Wasteland: ${accumulation += WingedLightRealm.GoldenWasteland}\n`;
+          break;
+        case Realm.VaultOfKnowledge:
+          calculation += `Vault of Knowledge: ${accumulation += WingedLightRealm.VaultOfKnowledge}\n`;
+          break;
+        case Realm.EyeOfEden:
+          calculation += `Eye of Eden: ${accumulation += WingedLightRealm.EyeOfEden}\n`;
+          break;
+        case Realm.Orbit:
+          calculation += `Orbit: ${accumulation += WingedLightRealm.Orbit}\n`;
+          break;
+      }
+    }
+
     calculation += `You should have ${accumulation} winged light.`;
     await interaction.reply(calculation);
   }
 
   get commandData(): ApplicationCommandData {
-    const realms = Object.keys(WingedLightRealm);
     const wingedLightInRealms = Object.values(WingedLightRealm).reduce((wingedLightRealm, wingedLight) => wingedLightRealm + wingedLight, 0);
 
-    const choices = realms.map(realm => ({
+    const choices = Object.values(Realm).map(realm => ({
       name: realm,
       value: realm
     }));
