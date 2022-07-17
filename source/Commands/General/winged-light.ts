@@ -1,4 +1,4 @@
-import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, EmbedBuilder } from "discord.js";
 import { MAXIMUM_WINGED_LIGHT, Realm, WingedLightCount } from "../../Utility/Constants.js";
 import type { Command } from "../index.js";
 
@@ -25,36 +25,38 @@ export default class implements Command {
     if (realms.some(realm => realm !== null) && new Set(realmsFiltered).size !== realmsFiltered.length) return void await interaction.reply("Duplicate realms detected. Make sure to only provide unique realms!");
     const path = (realmsFiltered.length === 0 ? Object.values(Realm) : realmsFiltered);
     let accumulation = wingedLight;
-    let calculation = `Started with ${wingedLight} wing buff${wingedLight === 1 ? "" : "s"}. Reborn with ${accumulation += WingedLightCount.Orbit} winged light.\n`;
+    const me = await interaction.guild?.members.fetchMe();
+    const embed = new EmbedBuilder();
+    embed.setDescription(`Started with ${wingedLight} wing buff${wingedLight === 1 ? "" : "s"}.\nReborn with ${accumulation += WingedLightCount.Orbit} winged light.`);
+    embed.setColor(me?.displayColor ?? 0);
 
     for (const realm of path) {
       switch (realm) {
         case Realm.IslesOfDawn:
-          calculation += `Isles of Dawn: ${accumulation += WingedLightCount.IslesOfDawn}\n`;
+          embed.addFields({ name: "Isles of Dawn", value: String(accumulation += WingedLightCount.IslesOfDawn) });
           break;
         case Realm.DaylightPrairie:
-          calculation += `Daylight Prairie: ${accumulation += WingedLightCount.DaylightPrairie}\n`;
+          embed.addFields({ name: "Daylight Prairie", value: String(accumulation += WingedLightCount.DaylightPrairie) });
           break;
         case Realm.HiddenForest:
-          calculation += `Hidden Forest: ${accumulation += WingedLightCount.HiddenForest}\n`;
+          embed.addFields({ name: "Hidden Forest", value: String(accumulation += WingedLightCount.HiddenForest) });
           break;
         case Realm.ValleyOfTriumph:
-          calculation += `Valley of Triumph: ${accumulation += WingedLightCount.ValleyOfTriumph}\n`;
+          embed.addFields({ name: "Valley of Triumph", value: String(accumulation += WingedLightCount.ValleyOfTriumph) });
           break;
         case Realm.GoldenWasteland:
-          calculation += `Golden Wasteland: ${accumulation += WingedLightCount.GoldenWasteland}\n`;
+          embed.addFields({ name: "Golden Wasteland", value: String(accumulation += WingedLightCount.GoldenWasteland) });
           break;
         case Realm.VaultOfKnowledge:
-          calculation += `Vault of Knowledge: ${accumulation += WingedLightCount.VaultOfKnowledge}\n`;
+          embed.addFields({ name: "Vault of Knowledge", value: String(accumulation += WingedLightCount.VaultOfKnowledge) });
           break;
         case Realm.EyeOfEden:
-          calculation += `Eye of Eden: ${accumulation += WingedLightCount.EyeOfEden}\n`;
+          embed.addFields({ name: "Eye of Eden", value: String(accumulation += WingedLightCount.EyeOfEden) });
           break;
       }
     }
 
-    calculation += `\nYou should have ${accumulation} winged light.`;
-    await interaction.reply(calculation);
+    await interaction.reply({ embeds: [embed] });
   }
 
   get commandData(): ApplicationCommandData {
