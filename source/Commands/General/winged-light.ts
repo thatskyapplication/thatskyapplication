@@ -25,7 +25,7 @@ export default class implements Command {
     if (realms.some(realm => realm !== null) && new Set(realmsFiltered).size !== realmsFiltered.length) return void await interaction.reply("Duplicate realms detected. Make sure to only provide unique realms!");
     const path = (realmsFiltered.length === 0 ? Object.values(Realm) : realmsFiltered);
     let accumulation = wingedLight;
-    let calculation = `Started with ${wingedLight} wing buff${wingedLight === 1 ? "" : "s"}. Reborn with ${accumulation += WingedLightCount.Orbit} winged light.`;
+    let calculation = `Started with ${wingedLight} wing buff${wingedLight === 1 ? "" : "s"}. Reborn with ${accumulation += WingedLightCount.Orbit} winged light.\n`;
 
     for (const realm of path) {
       switch (realm) {
@@ -53,7 +53,7 @@ export default class implements Command {
       }
     }
 
-    calculation += `You should have ${accumulation} winged light.`;
+    calculation += `\nYou should have ${accumulation} winged light.`;
     await interaction.reply(calculation);
   }
 
