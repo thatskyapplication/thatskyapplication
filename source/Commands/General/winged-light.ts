@@ -59,7 +59,8 @@ export default class implements Command {
           name: "winged-light",
           description: "The winged light one has after death in Eden, before being reborn.",
           maxValue: MAXIMUM_WINGED_LIGHT - wingedLightInRealms,
-          minValue: 0
+          minValue: 0,
+          required: true
         },
         {
           type: ApplicationCommandOptionType.String,
