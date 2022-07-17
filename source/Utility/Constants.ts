@@ -28,11 +28,10 @@ export enum Realm {
   ValleyOfTriumph = "Valley Of Triumph",
   GoldenWasteland = "Golden Wasteland",
   VaultOfKnowledge = "Vault Of Knowledge",
-  EyeOfEden = "Eye of Eden",
-  Orbit = "Orbit"
+  EyeOfEden = "Eye of Eden"
 }
 
-export const WingedLightRealm = {
+export const WingedLightCount = {
   IslesOfDawn: 9,
   DaylightPrairie: 21,
   HiddenForest: 19,
