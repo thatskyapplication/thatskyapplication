@@ -6,11 +6,13 @@ import notifications from "./Events/notifications.js";
 // General
 import roles from "./General/roles.js";
 import spirit from "./General/spirit.js";
+import winged_light from "./General/winged-light.js";
 
 const commands = {
   notifications: new notifications(),
   roles: new roles(),
-  spirit: new spirit()
+  spirit: new spirit(),
+  "winged-light": new winged_light()
 } as const;
 
 export type CommandName = keyof typeof commands;

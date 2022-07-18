@@ -4,6 +4,7 @@ export const logChannelId = "994581628804403250" as const;
 
 export const enum Emoji {
   TGCCheck = "597899975548076052",
+  SkyGiveLight = "632233908603453498",
   Gratitude = "651170389115928587",
   Lightseekers = "651170389359198208",
   Belonging = "651170575955263559",
@@ -18,3 +19,26 @@ export const enum Emoji {
   Abyss = "932731569473466418",
   Performance = "958109222778847302"
 }
+
+export const MAXIMUM_WINGED_LIGHT = 198 as const;
+
+export enum Realm {
+  IslesOfDawn = "Isles of Dawn",
+  DaylightPrairie = "Daylight Prairie",
+  HiddenForest = "Hidden Forest",
+  ValleyOfTriumph = "Valley of Triumph",
+  GoldenWasteland = "Golden Wasteland",
+  VaultOfKnowledge = "Vault of Knowledge",
+  EyeOfEden = "Eye of Eden"
+}
+
+export const WingedLightCount = {
+  IslesOfDawn: 9,
+  DaylightPrairie: 21,
+  HiddenForest: 19,
+  ValleyOfTriumph: 17,
+  GoldenWasteland: 18,
+  VaultOfKnowledge: 11,
+  EyeOfEden: 10,
+  Orbit: 1
+} as const;
