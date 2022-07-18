@@ -27,8 +27,8 @@ export default class implements Command {
     let accumulation = wingedLight;
     const me = await interaction.guild?.members.fetchMe();
     const embed = new EmbedBuilder();
-    embed.setDescription(`Started with ${wingedLight} wing buff${wingedLight === 1 ? "" : "s"}.\nReborn with ${accumulation += WingedLightCount.Orbit} winged light.`);
     embed.setColor(me?.displayColor ?? 0);
+    embed.setDescription(`Started with ${wingedLight} wing buff${wingedLight === 1 ? "" : "s"}.\nReborn with ${accumulation += WingedLightCount.Orbit} winged light.`);
 
     for (const realm of path) {
       switch (realm) {
@@ -56,6 +56,7 @@ export default class implements Command {
       }
     }
 
+    embed.addFields({ name: "Total", value: `You should have ${accumulation} winged light.` });
     await interaction.reply({ embeds: [embed] });
   }
 
