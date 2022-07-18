@@ -28,7 +28,7 @@ export default class implements Command {
     const me = await interaction.guild?.members.fetchMe();
     const embed = new EmbedBuilder();
     embed.setColor(me?.displayColor ?? 0);
-    embed.setDescription(`Started with ${wingedLight} wing buff${wingedLight === 1 ? "" : "s"}.\nReborn with ${accumulation += WingedLightCount.Orbit} winged light.`);
+    embed.setDescription(`Started with ${wingedLight} wing buff${wingedLight === 1 ? "" : "s"}.\nReborn with ${accumulation += WingedLightCount.Orbit} winged light. (+${WingedLightCount.Orbit})`);
 
     for (const realm of path) {
       switch (realm) {
