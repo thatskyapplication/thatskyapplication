@@ -33,25 +33,25 @@ export default class implements Command {
     for (const realm of path) {
       switch (realm) {
         case Realm.IslesOfDawn:
-          embed.addFields({ name: "Isles of Dawn", value: String(accumulation += WingedLightCount.IslesOfDawn) });
+          embed.addFields({ name: "Isles of Dawn", value: `${accumulation += WingedLightCount.IslesOfDawn} (+${WingedLightCount.IslesOfDawn})` });
           break;
         case Realm.DaylightPrairie:
-          embed.addFields({ name: "Daylight Prairie", value: String(accumulation += WingedLightCount.DaylightPrairie) });
+          embed.addFields({ name: "Daylight Prairie", value: `${accumulation += WingedLightCount.DaylightPrairie} (+${WingedLightCount.DaylightPrairie})` });
           break;
         case Realm.HiddenForest:
-          embed.addFields({ name: "Hidden Forest", value: String(accumulation += WingedLightCount.HiddenForest) });
+          embed.addFields({ name: "Hidden Forest", value: `${accumulation += WingedLightCount.HiddenForest} (+${WingedLightCount.HiddenForest})` });
           break;
         case Realm.ValleyOfTriumph:
-          embed.addFields({ name: "Valley of Triumph", value: String(accumulation += WingedLightCount.ValleyOfTriumph) });
+          embed.addFields({ name: "Valley of Triumph", value: `${accumulation += WingedLightCount.ValleyOfTriumph} (+${WingedLightCount.ValleyOfTriumph})` });
           break;
         case Realm.GoldenWasteland:
-          embed.addFields({ name: "Golden Wasteland", value: String(accumulation += WingedLightCount.GoldenWasteland) });
+          embed.addFields({ name: "Golden Wasteland", value: `${accumulation += WingedLightCount.GoldenWasteland} (+${WingedLightCount.GoldenWasteland})` });
           break;
         case Realm.VaultOfKnowledge:
-          embed.addFields({ name: "Vault of Knowledge", value: String(accumulation += WingedLightCount.VaultOfKnowledge) });
+          embed.addFields({ name: "Vault of Knowledge", value: `${accumulation += WingedLightCount.VaultOfKnowledge} (+${WingedLightCount.VaultOfKnowledge})` });
           break;
         case Realm.EyeOfEden:
-          embed.addFields({ name: "Eye of Eden", value: String(accumulation += WingedLightCount.EyeOfEden) });
+          embed.addFields({ name: "Eye of Eden", value: `${accumulation += WingedLightCount.EyeOfEden} (+${WingedLightCount.EyeOfEden})` });
           break;
       }
     }
