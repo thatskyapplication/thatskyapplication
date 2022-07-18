@@ -1,5 +1,5 @@
-import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, EmbedBuilder } from "discord.js";
-import { MAXIMUM_WINGED_LIGHT, Realm, WingedLightCount } from "../../Utility/Constants.js";
+import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, EmbedBuilder, Formatters } from "discord.js";
+import { Emoji, MAXIMUM_WINGED_LIGHT, Realm, WingedLightCount } from "../../Utility/Constants.js";
 import type { Command } from "../index.js";
 
 export default class implements Command {
@@ -56,7 +56,7 @@ export default class implements Command {
       }
     }
 
-    embed.addFields({ name: "Total", value: `You should have ${accumulation} winged light.` });
+    embed.addFields({ name: "Total", value: `${Formatters.formatEmoji(Emoji.SkyGiveLight)} You should have ${accumulation} winged light.` });
     await interaction.reply({ embeds: [embed] });
   }
 
