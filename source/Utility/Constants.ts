@@ -26,9 +26,9 @@ export enum Realm {
   IslesOfDawn = "Isles of Dawn",
   DaylightPrairie = "Daylight Prairie",
   HiddenForest = "Hidden Forest",
-  ValleyOfTriumph = "Valley Of Triumph",
+  ValleyOfTriumph = "Valley of Triumph",
   GoldenWasteland = "Golden Wasteland",
-  VaultOfKnowledge = "Vault Of Knowledge",
+  VaultOfKnowledge = "Vault of Knowledge",
   EyeOfEden = "Eye of Eden"
 }
 
