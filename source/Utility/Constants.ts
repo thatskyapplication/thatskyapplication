@@ -1,6 +1,6 @@
-export const repository = "Jiralite/Caelus" as const;
-export const startupMessage = "Twirling in the air~" as const;
-export const logChannelId = "994581628804403250" as const;
+export const REPOSITORY = "Jiralite/Caelus" as const;
+export const STARTUP_MESSAGE = "Twirling in the air~" as const;
+export const LOG_CHANNEL_ID = "994581628804403250" as const;
 
 export const enum Emoji {
   TGCCheck = "597899975548076052",
@@ -20,8 +20,6 @@ export const enum Emoji {
   Performance = "958109222778847302"
 }
 
-export const MAXIMUM_WINGED_LIGHT = 198 as const;
-
 export enum Realm {
   IslesOfDawn = "Isles of Dawn",
   DaylightPrairie = "Daylight Prairie",
@@ -31,6 +29,8 @@ export enum Realm {
   VaultOfKnowledge = "Vault of Knowledge",
   EyeOfEden = "Eye of Eden"
 }
+
+export const MAXIMUM_WINGED_LIGHT = 198 as const;
 
 export const WingedLightCount = {
   IslesOfDawn: 9,

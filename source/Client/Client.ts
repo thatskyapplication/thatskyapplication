@@ -4,7 +4,7 @@ import { inspect } from "node:util";
 import { Client, ClientOptions, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits } from "discord.js";
 import { createPool } from "mariadb";
 import commands from "../Commands/index.js";
-import { logChannelId } from "../Utility/Constants.js";
+import { LOG_CHANNEL_ID } from "../Utility/Constants.js";
 
 interface LogOptions {
   content?: string;
@@ -80,7 +80,7 @@ class Caelus<T extends boolean> extends Client<T> {
   }
 
   get logChannel(): TextChannel {
-    const channel = this.channels.resolve(logChannelId);
+    const channel = this.channels.resolve(LOG_CHANNEL_ID);
     if (!(channel instanceof TextChannel)) throw new Error("Attempting to log in a non-text channel.");
     return channel;
   }
