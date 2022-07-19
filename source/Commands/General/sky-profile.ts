@@ -53,7 +53,7 @@ export default class implements Command {
 
   async setIconURL(interaction: ChatInputCommandInteraction): Promise<void> {
     const iconURL = interaction.options.getString("icon-url", true);
-    if (!iconURL.startsWith("https://")) return void await interaction.reply("Please use a valid URL!");
+    if (!iconURL.startsWith("https://")) return void await interaction.reply({ content: "Please use a valid URL!", ephemeral: true });
     await Profile.set(interaction, { iconURL });
   }
 
@@ -64,7 +64,7 @@ export default class implements Command {
 
   async setThumbnail(interaction: ChatInputCommandInteraction): Promise<void> {
     const thumbnail = interaction.options.getString("thumbnail", true);
-    if (!thumbnail.startsWith("https://")) return void await interaction.reply("Please use a valid URL!");
+    if (!thumbnail.startsWith("https://")) return void await interaction.reply({ content: "Please use a valid URL!", ephemeral: true });
     await Profile.set(interaction, { thumbnail });
   }
 
