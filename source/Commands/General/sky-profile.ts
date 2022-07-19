@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, ModalActionRowComponentBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, CacheType, ChatInputCommandInteraction, ModalActionRowComponentBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, UserContextMenuCommandInteraction } from "discord.js";
 import Profile from "../../Client/Profile.js";
 import type { Command } from "../index.js";
 
@@ -40,7 +40,7 @@ export default class implements Command {
     await interaction.showModal(modal);
   }
 
-  async show(interaction: ChatInputCommandInteraction): Promise<void> {
+  async show(interaction: ChatInputCommandInteraction<CacheType> | UserContextMenuCommandInteraction<CacheType>): Promise<void> {
     const user = interaction.options.getUser("user");
     const profile = Profile.cache.find(({ userId }) => (user?.id ?? interaction.user.id) === userId);
 
@@ -51,7 +51,7 @@ export default class implements Command {
       });
     }
 
-    await interaction.reply({ embeds: [await profile.show(interaction)], ephemeral: true });
+    await interaction.reply({ embeds: [await profile.show(interaction.guild)], ephemeral: true });
   }
 
   get commandData(): ApplicationCommandData {

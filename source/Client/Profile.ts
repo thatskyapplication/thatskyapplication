@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Collection, EmbedBuilder, ModalSubmitInteraction } from "discord.js";
+import { Collection, EmbedBuilder, Guild, ModalSubmitInteraction } from "discord.js";
 import { Maria } from "../Client/Client.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 
@@ -50,9 +50,9 @@ export default class Profile {
     });
   }
 
-  async show(interaction: ChatInputCommandInteraction): Promise<EmbedBuilder> {
+  async show(guild: Guild | null): Promise<EmbedBuilder> {
     const embed = new EmbedBuilder();
-    const me = await interaction.guild?.members.fetchMe();
+    const me = await guild?.members.fetchMe();
     embed.setColor(me?.displayColor ?? 0);
     embed.setDescription(this.description);
     return embed;

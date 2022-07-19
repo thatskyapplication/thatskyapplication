@@ -4,7 +4,7 @@ import Caelus from "../Client/Client.js";
 import Profile from "../Client/Profile.js";
 import { rolesSelectMenuCustomId } from "../Commands/General/roles.js";
 import { SKY_PROFILE_MODAL } from "../Commands/General/sky-profile.js";
-import commands, { isAutocompleteCommand, isCommandName } from "../Commands/index.js";
+import commands, { isAutocompleteCommand, isChatInputCommand, isCommandName, isUserContextMenuCommand } from "../Commands/index.js";
 
 const name = Events.InteractionCreate;
 
@@ -26,8 +26,15 @@ export const event: Event<typeof name> = {
         return;
       }
 
+      const command = commands[commandName];
+
+      if (!isChatInputCommand(command)) {
+        Caelus.log(`Received an unknown user context menu command interaction (\`${interaction.commandName}\`).`);
+        return;
+      }
+
       try {
-        await commands[commandName].handle(interaction);
+        await command.handle(interaction);
       } catch (error) {
         Caelus.log(`Error running command \`/${commandName}\`.`, error);
         const interactionResponseBody = { content: "An error was encountered. Rest easy, it's being tracked!", ephemeral: true };
@@ -35,6 +42,36 @@ export const event: Event<typeof name> = {
       }
 
       return;
+    }
+
+    if (interaction.isUserContextMenuCommand()) {
+      const { commandName } = interaction;
+
+      if (!isCommandName(commandName)) {
+        Caelus.log(`Received an unknown user context menu command interaction (\`${interaction.commandName}\`).`);
+
+        interaction.reply({
+          content: "A dark dragon appeared and striked the user. The command flew away.",
+          ephemeral: true
+        });
+
+        return;
+      }
+
+      const command = commands[commandName];
+
+      if (!isUserContextMenuCommand(command)) {
+        Caelus.log(`Received an unknown user context menu command interaction (\`${interaction.commandName}\`).`);
+        return;
+      }
+
+      try {
+        await command.userContextMenu(interaction);
+      } catch (error) {
+        Caelus.log(`Error running command \`${commandName}\`.`, error);
+        const interactionResponseBody = { content: "An error was encountered. Rest easy, it's being tracked!", ephemeral: true };
+        (interaction.deferred || interaction.replied ? interaction.followUp(interactionResponseBody) : interaction.reply(interactionResponseBody)).catch(() => null);
+      }
     }
 
     if (interaction.isSelectMenu()) {
