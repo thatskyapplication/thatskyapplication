@@ -33,7 +33,6 @@ export default class implements Command {
     textInput.setCustomId(SKY_PROFILE_TEXT_INPUT_DESCRIPTION);
     textInput.setLabel("Type a lovely description about your Skykid.");
     textInput.setMaxLength(4000);
-    textInput.setRequired();
     textInput.setStyle(TextInputStyle.Paragraph);
     actionRow.setComponents(textInput);
     modal.setComponents(actionRow);
