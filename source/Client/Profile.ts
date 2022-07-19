@@ -8,6 +8,10 @@ interface ProfileData {
   Description: string | null;
 }
 
+interface ProfileSetData {
+  description: string;
+}
+
 export default class Profile {
   static readonly cache = new Collection<number, Profile>();
   readonly No: ProfileData["No"];
@@ -20,9 +24,8 @@ export default class Profile {
     this.description = notification.Description;
   }
 
-  static async set(interaction: ModalSubmitInteraction): Promise<void> {
+  static async set(interaction: ModalSubmitInteraction, { description }: ProfileSetData): Promise<void> {
     let profile = this.cache.find(({ userId }) => userId === interaction.user.id);
-    const description = interaction.fields.getTextInputValue(SKY_PROFILE_TEXT_INPUT_DESCRIPTION).trim();
 
     if (profile) {
       await Maria.query("UPDATE `Profiles` SET `Description` = ? WHERE `No` = ?;", [
@@ -50,6 +53,11 @@ export default class Profile {
       content: "Your profile has been updated!",
       ephemeral: true
     });
+  }
+
+  static async setDescription(interaction: ModalSubmitInteraction): Promise<void> {
+    const description = interaction.fields.getTextInputValue(SKY_PROFILE_TEXT_INPUT_DESCRIPTION).trim();
+    return this.set(interaction, { description });
   }
 
   async show(guild: Guild | null): Promise<EmbedBuilder> {

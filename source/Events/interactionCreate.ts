@@ -127,7 +127,7 @@ export const event: Event<typeof name> = {
 
     if (interaction.type === InteractionType.ModalSubmit) {
       try {
-        if (interaction.customId === SKY_PROFILE_MODAL) return await Profile.set(interaction);
+        if (interaction.customId === SKY_PROFILE_MODAL) return await Profile.setDescription(interaction);
       } catch (error) {
         Caelus.log(`Error performing \`${interaction.customId}\`.`, error);
         const interactionResponseBody = { content: "An error was encountered. Rest easy, it's being tracked!", ephemeral: true };
