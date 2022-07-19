@@ -70,6 +70,8 @@ export default class implements Command {
 
   async show(interaction: ChatInputCommandInteraction<CacheType> | UserContextMenuCommandInteraction<CacheType>): Promise<void> {
     const user = interaction.options.getUser("user");
+    const ephemeral = interaction instanceof UserContextMenuCommandInteraction;
+    if (user?.bot) return void await interaction.reply({ content: "Do bots have Sky profiles? Hm. Who knows?", ephemeral });
     const profile = Profile.cache.find(({ userId }) => (user?.id ?? interaction.user.id) === userId);
 
     if (!profile) {
@@ -79,7 +81,7 @@ export default class implements Command {
       });
     }
 
-    await interaction.reply({ embeds: [await profile.show(interaction.guild)], ephemeral: true });
+    await interaction.reply({ embeds: [await profile.show(interaction.guild)], ephemeral });
   }
 
   get commandData(): ApplicationCommandData {
