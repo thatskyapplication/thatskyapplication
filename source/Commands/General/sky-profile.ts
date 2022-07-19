@@ -111,7 +111,7 @@ export default class implements Command {
             {
               type: ApplicationCommandOptionType.String,
               name: "name",
-              description: "Set the name of your Skykid.",
+              description: "Provide your in-game name.",
               required: true,
               maxLength: SKY_MAXIMUM_NAME_LENGTH
             }
@@ -125,7 +125,7 @@ export default class implements Command {
             {
               type: ApplicationCommandOptionType.String,
               name: "icon-url",
-              description: "Set the icon URL of your Skykid.",
+              description: "Provide a URL to show as your author icon.",
               required: true,
               minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
               maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH
@@ -140,7 +140,7 @@ export default class implements Command {
             {
               type: ApplicationCommandOptionType.String,
               name: "thumbnail",
-              description: "Set the thumbnail of your Skykid.",
+              description: "Provide a URL to show as your thumbnail.",
               required: true,
               minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
               maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH
