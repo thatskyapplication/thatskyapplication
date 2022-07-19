@@ -1,5 +1,7 @@
-import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, ModalActionRowComponentBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
 import type { Command } from "../index.js";
+
+const SKY_PROFILE_DESCRIPTION_CUSTOM_ID = "SKY_PROFILE_DESCRIPTION";
 
 export default class implements Command {
   readonly name = "sky-profile";
@@ -13,7 +15,18 @@ export default class implements Command {
   }
 
   async set(interaction: ChatInputCommandInteraction): Promise<void> {
-    await interaction.reply("Woaaaaaaaaaaaaaahhhhhhhhhhhhhhhhhh.");
+    const modal = new ModalBuilder();
+    const actionRow = new ActionRowBuilder<ModalActionRowComponentBuilder>();
+    const textInput = new TextInputBuilder();
+    textInput.setCustomId(SKY_PROFILE_DESCRIPTION_CUSTOM_ID);
+    textInput.setLabel("Type your description here!");
+    textInput.setMaxLength(4096);
+    textInput.setPlaceholder("Feel free to describe your Skykid here.");
+    textInput.setRequired();
+    textInput.setStyle(TextInputStyle.Paragraph);
+    actionRow.setComponents(textInput);
+    modal.setComponents(actionRow);
+    await interaction.showModal(modal);
   }
 
   get commandData(): ApplicationCommandData {
@@ -28,9 +41,10 @@ export default class implements Command {
           description: "Set your Sky profile!",
           options: [
             {
-              type: ApplicationCommandOptionType.String,
+              type: ApplicationCommandOptionType.Boolean,
               name: "description",
-              description: "Sets the description of your profile."
+              description: "Sets the description of your profile.",
+              required: true
             }
           ]
         }
