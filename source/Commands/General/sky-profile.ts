@@ -21,6 +21,8 @@ export default class implements Command {
         content: "Oh, you don't want to set a description now? That's fine. Maybe later!",
         ephemeral: true
       });
+
+      return;
     }
 
     const modal = new ModalBuilder();
