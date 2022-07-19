@@ -20,7 +20,7 @@ export default class implements Command {
     const textInput = new TextInputBuilder();
     textInput.setCustomId(SKY_PROFILE_DESCRIPTION_CUSTOM_ID);
     textInput.setLabel("Type your description here!");
-    textInput.setMaxLength(4096);
+    textInput.setMaxLength(4000);
     textInput.setPlaceholder("Feel free to describe your Skykid here.");
     textInput.setRequired();
     textInput.setStyle(TextInputStyle.Paragraph);
