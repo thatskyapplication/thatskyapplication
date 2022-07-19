@@ -16,8 +16,8 @@ export default class implements Command {
     switch (interaction.options.getSubcommand()) {
       case "set-description":
         return await this.setDescription(interaction);
-      case "set-icon-url":
-        return await this.setIconURL(interaction);
+      case "set-icon":
+        return await this.setIcon(interaction);
       case "set-name":
         return await this.setName(interaction);
       case "set-thumbnail":
@@ -51,10 +51,10 @@ export default class implements Command {
     await interaction.showModal(modal);
   }
 
-  async setIconURL(interaction: ChatInputCommandInteraction): Promise<void> {
-    const iconURL = interaction.options.getString("icon-url", true);
-    if (!iconURL.startsWith("https://")) return void await interaction.reply({ content: "Please use a valid URL!", ephemeral: true });
-    await Profile.set(interaction, { iconURL });
+  async setIcon(interaction: ChatInputCommandInteraction): Promise<void> {
+    const icon = interaction.options.getString("icon", true);
+    if (!icon.startsWith("https://")) return void await interaction.reply({ content: "Please use a valid URL!", ephemeral: true });
+    await Profile.set(interaction, { icon });
   }
 
   async setName(interaction: ChatInputCommandInteraction): Promise<void> {
@@ -119,12 +119,12 @@ export default class implements Command {
         },
         {
           type: ApplicationCommandOptionType.Subcommand,
-          name: "set-icon-url",
-          description: "Set the icon URL of your Skykid in your Sky profile!",
+          name: "set-icon",
+          description: "Set the icon of your Skykid in your Sky profile!",
           options: [
             {
               type: ApplicationCommandOptionType.String,
-              name: "icon-url",
+              name: "icon",
               description: "Provide a URL to show as your author icon.",
               required: true,
               minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,

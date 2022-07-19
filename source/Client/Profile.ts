@@ -7,14 +7,14 @@ interface ProfileData {
   No: number;
   "User ID": string;
   Name: string | null;
-  "Icon URL": string | null;
+  "Icon": string | null;
   Thumbnail: string | null;
   Description: string | null;
 }
 
 interface ProfileSetData {
   name?: string;
-  iconURL?: string;
+  icon?: string;
   thumbnail?: string;
   description?: string;
 }
@@ -24,7 +24,7 @@ export default class Profile {
   readonly No: ProfileData["No"];
   readonly userId: ProfileData["User ID"];
   name: ProfileData["Name"];
-  iconURL: ProfileData["Icon URL"];
+  icon: ProfileData["Icon"];
   thumbnail: ProfileData["Thumbnail"];
   description: ProfileData["Description"];
 
@@ -32,7 +32,7 @@ export default class Profile {
     this.No = profile.No;
     this.userId = profile["User ID"];
     this.name = profile.Name;
-    this.iconURL = profile["Icon URL"];
+    this.icon = profile.Icon;
     this.thumbnail = profile.Thumbnail;
     this.description = profile.Description;
   }
@@ -40,28 +40,28 @@ export default class Profile {
   static async set(interaction: ChatInputCommandInteraction | ModalSubmitInteraction, data: ProfileSetData): Promise<void> {
     let profile = this.cache.find(({ userId }) => userId === interaction.user.id);
     const name = data.name ?? profile?.name ?? null;
-    const iconURL = data.iconURL ?? profile?.iconURL ?? null;
+    const icon = data.icon ?? profile?.icon ?? null;
     const thumbnail = data.thumbnail ?? profile?.thumbnail ?? null;
     const description = data.description ?? profile?.description ?? null;
 
     if (profile) {
-      await Maria.query("UPDATE `Profiles` SET `Name` = ?, `Icon URL` = ?, `Thumbnail` = ?, `Description` = ? WHERE `No` = ?;", [
+      await Maria.query("UPDATE `Profiles` SET `Name` = ?, `Icon` = ?, `Thumbnail` = ?, `Description` = ? WHERE `No` = ?;", [
         name,
-        iconURL,
+        icon,
         thumbnail,
         description,
         profile.No
       ]);
 
       profile.name = name;
-      profile.iconURL = iconURL;
+      profile.icon = icon;
       profile.thumbnail = thumbnail;
       profile.description = description;
     } else {
-      const { insertId } = await Maria.query("INSERT INTO `Profiles` SET `User ID` = ?, `Name` = ?, `Icon URL` = ?, `Thumbnail` = ?, `Description` = ?;", [
+      const { insertId } = await Maria.query("INSERT INTO `Profiles` SET `User ID` = ?, `Name` = ?, `Icon` = ?, `Thumbnail` = ?, `Description` = ?;", [
         interaction.user.id,
         name,
-        iconURL,
+        icon,
         thumbnail,
         description
       ]);
@@ -70,7 +70,7 @@ export default class Profile {
         No: insertId,
         "User ID": interaction.user.id,
         Name: name,
-        "Icon URL": iconURL,
+        Icon: icon,
         Thumbnail: thumbnail,
         Description: description
       });
@@ -96,7 +96,7 @@ export default class Profile {
 
     if (this.name) {
       const embedAuthorOptions: EmbedAuthorOptions = { name: this.name };
-      if (this.iconURL) embedAuthorOptions.iconURL = this.iconURL;
+      if (this.icon) embedAuthorOptions.iconURL = this.icon;
       embed.setAuthor(embedAuthorOptions);
     }
 
