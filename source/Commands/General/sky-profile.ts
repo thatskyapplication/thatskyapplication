@@ -1,7 +1,8 @@
 import { ActionRowBuilder, ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, ModalActionRowComponentBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
 import type { Command } from "../index.js";
 
-const SKY_PROFILE_DESCRIPTION_CUSTOM_ID = "SKY_PROFILE_DESCRIPTION";
+const SKY_PROFILE_MODAL_CUSTOM_ID = "SKY_PROFILE_MODAL";
+const SKY_PROFILE_TEXT_INPUT_CUSTOM_ID = "SKY_PROFILE_DESCRIPTION";
 
 export default class implements Command {
   readonly name = "sky-profile";
@@ -18,10 +19,11 @@ export default class implements Command {
     const modal = new ModalBuilder();
     const actionRow = new ActionRowBuilder<ModalActionRowComponentBuilder>();
     const textInput = new TextInputBuilder();
-    textInput.setCustomId(SKY_PROFILE_DESCRIPTION_CUSTOM_ID);
-    textInput.setLabel("Type your description here!");
+    modal.setCustomId(SKY_PROFILE_MODAL_CUSTOM_ID);
+    modal.setTitle("Set your Sky profile description!");
+    textInput.setCustomId(SKY_PROFILE_TEXT_INPUT_CUSTOM_ID);
+    textInput.setLabel("Type up a lovely description about your Skykid.");
     textInput.setMaxLength(4000);
-    textInput.setPlaceholder("Feel free to describe your Skykid here.");
     textInput.setRequired();
     textInput.setStyle(TextInputStyle.Paragraph);
     actionRow.setComponents(textInput);
