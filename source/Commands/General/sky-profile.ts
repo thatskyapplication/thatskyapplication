@@ -70,7 +70,7 @@ export default class implements Command {
 
   async show(interaction: ChatInputCommandInteraction<CacheType> | UserContextMenuCommandInteraction<CacheType>): Promise<void> {
     const user = interaction.options.getUser("user");
-    const ephemeral = interaction instanceof UserContextMenuCommandInteraction;
+    const ephemeral = interaction.isChatInputCommand() ? interaction.options.getBoolean("ephemeral") ?? false : true;
     if (user?.bot) return void await interaction.reply({ content: "Do bots have Sky profiles? Hm. Who knows?", ephemeral });
     const profile = Profile.cache.find(({ userId }) => (user?.id ?? interaction.user.id) === userId);
 
@@ -156,6 +156,11 @@ export default class implements Command {
               type: ApplicationCommandOptionType.User,
               name: "user",
               description: "The user whose Sky profile you wish to see."
+            },
+            {
+              type: ApplicationCommandOptionType.Boolean,
+              name: "ephemeral",
+              description: "Whether the response should be ephemeral. By default, the response is shown."
             }
           ]
         }
