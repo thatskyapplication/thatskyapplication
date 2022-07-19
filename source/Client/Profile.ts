@@ -22,7 +22,7 @@ export default class Profile {
 
   static async set(interaction: ModalSubmitInteraction): Promise<void> {
     let profile = this.cache.find(({ userId }) => userId === interaction.user.id);
-    const description = interaction.fields.getTextInputValue(SKY_PROFILE_TEXT_INPUT_DESCRIPTION);
+    const description = interaction.fields.getTextInputValue(SKY_PROFILE_TEXT_INPUT_DESCRIPTION).trim();
 
     if (profile) {
       await Maria.query("UPDATE `Profiles` SET `Description` = ? WHERE `No` = ?;", [
