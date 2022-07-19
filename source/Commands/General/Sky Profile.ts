@@ -2,9 +2,6 @@ import { ApplicationCommandData, ApplicationCommandType, CacheType, UserContextM
 import type { UserContextMenuCommand } from "../index.js";
 import commands from "../index.js";
 
-export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL";
-export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION";
-
 export default class implements UserContextMenuCommand {
   readonly name = "Sky Profile";
   readonly type = ApplicationCommandType.User;
