@@ -5,7 +5,8 @@ import type { Command } from "../index.js";
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL";
 export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION";
 const SKY_MAXIMUM_NAME_LENGTH = 16;
-const SKY_MAXIMUM_ICON_URL_LENGTH = 150;
+const SKY_MINIMUM_IMAGE_URL_LENGTH = 9;
+const SKY_MAXIMUM_IMAGE_URL_LENGTH = 150;
 
 export default class implements Command {
   readonly name = "sky-profile";
@@ -19,6 +20,8 @@ export default class implements Command {
         return await this.setIconURL(interaction);
       case "set-name":
         return await this.setName(interaction);
+      case "set-thumbnail":
+        return await this.setThumbnail(interaction);
       case "show":
         return await this.show(interaction);
     }
@@ -50,12 +53,19 @@ export default class implements Command {
 
   async setIconURL(interaction: ChatInputCommandInteraction): Promise<void> {
     const iconURL = interaction.options.getString("icon-url", true);
+    if (iconURL.startsWith("https://")) return void await interaction.reply("Please use a valid URL!");
     await Profile.set(interaction, { iconURL });
   }
 
   async setName(interaction: ChatInputCommandInteraction): Promise<void> {
     const name = interaction.options.getString("name", true);
     await Profile.set(interaction, { name });
+  }
+
+  async setThumbnail(interaction: ChatInputCommandInteraction): Promise<void> {
+    const thumbnail = interaction.options.getString("thumbnail", true);
+    if (thumbnail.startsWith("https://")) return void await interaction.reply("Please use a valid URL!");
+    await Profile.set(interaction, { thumbnail });
   }
 
   async show(interaction: ChatInputCommandInteraction<CacheType> | UserContextMenuCommandInteraction<CacheType>): Promise<void> {
@@ -115,7 +125,23 @@ export default class implements Command {
               name: "icon-url",
               description: "Set the icon URL of your Skykid.",
               required: true,
-              maxLength: SKY_MAXIMUM_ICON_URL_LENGTH
+              minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
+              maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH
+            }
+          ]
+        },
+        {
+          type: ApplicationCommandOptionType.Subcommand,
+          name: "set-thumbnail",
+          description: "Set the thumbnail of your Skykid in your Sky profile!",
+          options: [
+            {
+              type: ApplicationCommandOptionType.String,
+              name: "thumbnail",
+              description: "Set the thumbnail of your Skykid.",
+              required: true,
+              minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
+              maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH
             }
           ]
         },

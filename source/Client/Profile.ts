@@ -8,12 +8,14 @@ interface ProfileData {
   "User ID": string;
   Name: string | null;
   "Icon URL": string | null;
+  Thumbnail: string | null;
   Description: string | null;
 }
 
 interface ProfileSetData {
   name?: string;
   iconURL?: string;
+  thumbnail?: string;
   description?: string;
 }
 
@@ -23,6 +25,7 @@ export default class Profile {
   readonly userId: ProfileData["User ID"];
   name: ProfileData["Name"];
   iconURL: ProfileData["Icon URL"];
+  thumbnail: ProfileData["Thumbnail"];
   description: ProfileData["Description"];
 
   constructor(profile: ProfileData) {
@@ -30,6 +33,7 @@ export default class Profile {
     this.userId = profile["User ID"];
     this.name = profile.Name;
     this.iconURL = profile["Icon URL"];
+    this.thumbnail = profile.Thumbnail;
     this.description = profile.Description;
   }
 
@@ -37,24 +41,28 @@ export default class Profile {
     let profile = this.cache.find(({ userId }) => userId === interaction.user.id);
     const name = data.name ?? profile?.name ?? null;
     const iconURL = data.iconURL ?? profile?.iconURL ?? null;
+    const thumbnail = data.thumbnail ?? profile?.thumbnail ?? null;
     const description = data.description ?? profile?.description ?? null;
 
     if (profile) {
-      await Maria.query("UPDATE `Profiles` SET `Name` = ?, `Icon URL` = ?, `Description` = ? WHERE `No` = ?;", [
+      await Maria.query("UPDATE `Profiles` SET `Name` = ?, `Icon URL` = ?, `Thumbnail` = ?, `Description` = ? WHERE `No` = ?;", [
         name,
         iconURL,
+        thumbnail,
         description,
         profile.No
       ]);
 
       profile.name = name;
       profile.iconURL = iconURL;
+      profile.thumbnail = thumbnail;
       profile.description = description;
     } else {
-      const { insertId } = await Maria.query("INSERT INTO `Profiles` SET `User ID` = ?, `Name` = ?, `Icon URL` = ?, `Description` = ?;", [
+      const { insertId } = await Maria.query("INSERT INTO `Profiles` SET `User ID` = ?, `Name` = ?, `Icon URL` = ?, `Thumbnail` = ?, `Description` = ?;", [
         interaction.user.id,
         name,
         iconURL,
+        thumbnail,
         description
       ]);
 
@@ -63,6 +71,7 @@ export default class Profile {
         "User ID": interaction.user.id,
         Name: name,
         "Icon URL": iconURL,
+        Thumbnail: thumbnail,
         Description: description
       });
 
@@ -93,6 +102,7 @@ export default class Profile {
 
     embed.setColor(me?.displayColor ?? 0);
     embed.setDescription(this.description || `Hi! I'm an amazing Skykid. ${Emoji.TGCBlueSparkles}`);
+    embed.setThumbnail(this.thumbnail);
     return embed;
   }
 }
