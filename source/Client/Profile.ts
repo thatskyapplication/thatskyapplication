@@ -12,7 +12,7 @@ export default class Profile {
   static readonly cache = new Collection<number, Profile>();
   readonly No: ProfileData["No"];
   readonly userId: ProfileData["User ID"];
-  readonly description: ProfileData["Description"];
+  description: ProfileData["Description"];
 
   constructor(notification: ProfileData) {
     this.No = notification.No;
@@ -29,6 +29,8 @@ export default class Profile {
         description,
         profile.No
       ]);
+
+      profile.description = description;
     } else {
       const { insertId } = await Maria.query("INSERT INTO `Profiles` SET `User ID` = ?, `Description` = ?;", [
         interaction.user.id,
