@@ -46,7 +46,7 @@ export default class implements Command {
 
     if (!profile) {
       return void await interaction.reply({
-        content: `${user === null ? `${user} does` : "You do"} not have a Sky profile! Why not create one?`,
+        content: `${user === null ? "You do" : `${user} does`} not have a Sky profile! Why not create one?`,
         ephemeral: true
       });
     }
