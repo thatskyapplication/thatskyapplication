@@ -61,6 +61,7 @@ export default class Profile {
 
     await interaction.reply({
       content: "Your profile has been updated!",
+      embeds: [await profile.show(interaction.guild)],
       ephemeral: true
     });
   }
