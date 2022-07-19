@@ -17,12 +17,10 @@ export default class implements Command {
 
   async set(interaction: ChatInputCommandInteraction): Promise<void> {
     if (!interaction.options.getBoolean("description", true)) {
-      await interaction.reply({
+      return void await interaction.reply({
         content: "Oh, you don't want to set a description now? That's fine. Maybe later!",
         ephemeral: true
       });
-
-      return;
     }
 
     const modal = new ModalBuilder();
