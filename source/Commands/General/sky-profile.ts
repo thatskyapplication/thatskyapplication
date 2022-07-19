@@ -11,14 +11,14 @@ export default class implements Command {
 
   async handle(interaction: ChatInputCommandInteraction): Promise<void> {
     switch (interaction.options.getSubcommand()) {
-      case "set":
-        return await this.set(interaction);
+      case "set-description":
+        return await this.setDescription(interaction);
       case "show":
         return await this.show(interaction);
     }
   }
 
-  async set(interaction: ChatInputCommandInteraction): Promise<void> {
+  async setDescription(interaction: ChatInputCommandInteraction): Promise<void> {
     if (!interaction.options.getBoolean("description", true)) {
       return void await interaction.reply({
         content: "Oh, you don't want to set a description now? That's fine. Maybe later!",
