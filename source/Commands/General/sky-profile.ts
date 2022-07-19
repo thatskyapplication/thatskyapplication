@@ -4,6 +4,7 @@ import type { Command } from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL";
 export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION";
+const SKY_MAXIMUM_NAME_LENGTH = 16;
 
 export default class implements Command {
   readonly name = "sky-profile";
@@ -13,6 +14,8 @@ export default class implements Command {
     switch (interaction.options.getSubcommand()) {
       case "set-description":
         return await this.setDescription(interaction);
+      case "set-name":
+        return await this.setName(interaction);
       case "show":
         return await this.show(interaction);
     }
@@ -40,6 +43,11 @@ export default class implements Command {
     actionRow.setComponents(textInput);
     modal.setComponents(actionRow);
     await interaction.showModal(modal);
+  }
+
+  async setName(interaction: ChatInputCommandInteraction): Promise<void> {
+    const name = interaction.options.getString("name", true);
+    await Profile.set(interaction, { name });
   }
 
   async show(interaction: ChatInputCommandInteraction<CacheType> | UserContextMenuCommandInteraction<CacheType>): Promise<void> {
@@ -72,6 +80,20 @@ export default class implements Command {
               name: "description",
               description: "Choose whether to set the description of your Sky profile.",
               required: true
+            }
+          ]
+        },
+        {
+          type: ApplicationCommandOptionType.Subcommand,
+          name: "set-name",
+          description: "Set the name of your Skykid in your Sky profile!",
+          options: [
+            {
+              type: ApplicationCommandOptionType.String,
+              name: "name",
+              description: "Set the name of your Skykid.",
+              required: true,
+              maxLength: SKY_MAXIMUM_NAME_LENGTH
             }
           ]
         },
