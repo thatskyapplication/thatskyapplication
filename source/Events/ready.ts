@@ -4,6 +4,7 @@ import fetch from "node-fetch";
 import type { Event } from "./index.js";
 import Caelus, { Maria } from "../Client/Client.js";
 import Notification from "../Client/Notification.js";
+import Profile from "../Client/Profile.js";
 import Rotations from "../Client/Rotations.js";
 import { REPOSITORY, STARTUP_MESSAGE } from "../Utility/Constants.js";
 
@@ -38,6 +39,7 @@ async function collectFromDatabase(): Promise<void> {
   try {
     await Maria.getConnection();
     await collectNotifications();
+    await collectProfiles();
   } catch (error) {
     Caelus.consoleLog(error);
     process.exit(1);
@@ -51,6 +53,13 @@ async function collectNotifications(): Promise<void> {
   }
 
   Rotations.clock();
+}
+
+async function collectProfiles(): Promise<void> {
+  for (const profilePacket of await Maria.query("SELECT * FROM `Profiles`;")) {
+    const profile = new Profile(profilePacket);
+    Profile.cache.set(profile.No, profile);
+  }
 }
 
 export const event: Event<typeof name> = {

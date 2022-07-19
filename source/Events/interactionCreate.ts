@@ -1,7 +1,9 @@
 import { Events, InteractionType } from "discord.js";
 import type { Event } from "./index.js";
 import Caelus from "../Client/Client.js";
+import Profile from "../Client/Profile.js";
 import { rolesSelectMenuCustomId } from "../Commands/General/roles.js";
+import { SKY_PROFILE_MODAL } from "../Commands/General/sky-profile.js";
 import commands, { isAutocompleteCommand, isCommandName } from "../Commands/index.js";
 
 const name = Events.InteractionCreate;
@@ -84,6 +86,26 @@ export const event: Event<typeof name> = {
       } catch (error) {
         Caelus.log(`Error autocompleting \`/${commandName}\`.`, error);
       }
+    }
+
+    if (interaction.type === InteractionType.ModalSubmit) {
+      try {
+        if (interaction.customId === SKY_PROFILE_MODAL) return await Profile.set(interaction);
+      } catch (error) {
+        Caelus.log(`Error performing \`${interaction.customId}\`.`, error);
+        const interactionResponseBody = { content: "An error was encountered. Rest easy, it's being tracked!", ephemeral: true };
+        (interaction.deferred || interaction.replied ? interaction.followUp(interactionResponseBody) : interaction.reply(interactionResponseBody)).catch(() => null);
+        return;
+      }
+
+      Caelus.log(`Received an unknown modal interaction (\`${interaction.customId}\`).`);
+
+      interaction.reply({
+        content: "It seems the heavens have opened. But inside... there was nothing to be found for that modal you submitted.",
+        ephemeral: true
+      });
+
+      return;
     }
   }
 };
