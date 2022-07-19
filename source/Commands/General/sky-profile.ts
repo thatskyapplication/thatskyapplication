@@ -81,8 +81,7 @@ export default class implements Command {
             {
               type: ApplicationCommandOptionType.User,
               name: "user",
-              description: "The user whose Sky profile you wish to see.",
-              required: true
+              description: "The user whose Sky profile you wish to see."
             }
           ]
         }
