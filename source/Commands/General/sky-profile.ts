@@ -26,6 +26,7 @@ export default class implements Command {
       });
     }
 
+    const profile = Profile.cache.find(({ userId }) => interaction.user.id === userId);
     const modal = new ModalBuilder();
     const actionRow = new ActionRowBuilder<ModalActionRowComponentBuilder>();
     const textInput = new TextInputBuilder();
@@ -35,6 +36,7 @@ export default class implements Command {
     textInput.setLabel("Type a lovely description about your Skykid.");
     textInput.setMaxLength(4000);
     textInput.setStyle(TextInputStyle.Paragraph);
+    if (profile?.description) textInput.setValue(profile.description);
     actionRow.setComponents(textInput);
     modal.setComponents(actionRow);
     await interaction.showModal(modal);
@@ -62,13 +64,13 @@ export default class implements Command {
       options: [
         {
           type: ApplicationCommandOptionType.Subcommand,
-          name: "set",
-          description: "Set your Sky profile!",
+          name: "set-description",
+          description: "Set the description of your Sky profile!",
           options: [
             {
               type: ApplicationCommandOptionType.Boolean,
               name: "description",
-              description: "Sets the description of your profile.",
+              description: "Choose whether to set the description of your Sky profile.",
               required: true
             }
           ]
