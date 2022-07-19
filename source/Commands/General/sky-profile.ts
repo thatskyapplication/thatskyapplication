@@ -71,6 +71,11 @@ export default class implements Command {
               required: true
             }
           ]
+        },
+        {
+          type: ApplicationCommandOptionType.Subcommand,
+          name: "show",
+          description: "Shows the Sky profile of someone."
         }
       ]
     };
