@@ -41,11 +41,12 @@ export default class implements Command {
   }
 
   async show(interaction: ChatInputCommandInteraction): Promise<void> {
-    const profile = Profile.cache.find(({ userId }) => interaction.user.id === userId);
+    const user = interaction.options.getUser("user");
+    const profile = Profile.cache.find(({ userId }) => (user?.id ?? interaction.user.id) === userId);
 
     if (!profile) {
       return void await interaction.reply({
-        content: "This server has nothing set up.",
+        content: `${user === null ? `${user} does` : "You do"} not have a Sky profile! Why not create one?`,
         ephemeral: true
       });
     }
@@ -75,7 +76,15 @@ export default class implements Command {
         {
           type: ApplicationCommandOptionType.Subcommand,
           name: "show",
-          description: "Shows the Sky profile of someone."
+          description: "Shows the Sky profile of someone.",
+          options: [
+            {
+              type: ApplicationCommandOptionType.User,
+              name: "user",
+              description: "The user whose Sky profile you wish to see.",
+              required: true
+            }
+          ]
         }
       ]
     };
