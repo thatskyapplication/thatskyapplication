@@ -5,12 +5,14 @@ import notifications from "./Events/notifications.js";
 
 // General
 import roles from "./General/roles.js";
+import sky_profile from "./General/sky-profile.js";
 import spirit from "./General/spirit.js";
 import winged_light from "./General/winged-light.js";
 
 const commands = {
   notifications: new notifications(),
   roles: new roles(),
+  "sky-profile": new sky_profile(),
   spirit: new spirit(),
   "winged-light": new winged_light()
 } as const;
