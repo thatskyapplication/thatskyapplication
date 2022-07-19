@@ -1,4 +1,4 @@
-import { Collection, ModalSubmitInteraction } from "discord.js";
+import { ChatInputCommandInteraction, Collection, EmbedBuilder, ModalSubmitInteraction } from "discord.js";
 import { Maria } from "../Client/Client.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 
@@ -48,5 +48,13 @@ export default class Profile {
       content: "Your profile has been updated!",
       ephemeral: true
     });
+  }
+
+  async show(interaction: ChatInputCommandInteraction): Promise<EmbedBuilder> {
+    const embed = new EmbedBuilder();
+    const me = await interaction.guild?.members.fetchMe();
+    embed.setColor(me?.displayColor ?? 0);
+    embed.setDescription(this.description);
+    return embed;
   }
 }

@@ -1,4 +1,5 @@
 import { ActionRowBuilder, ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, ModalActionRowComponentBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
+import Profile from "../../Client/Profile.js";
 import type { Command } from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL";
@@ -12,6 +13,8 @@ export default class implements Command {
     switch (interaction.options.getSubcommand()) {
       case "set":
         return await this.set(interaction);
+      case "show":
+        return await this.show(interaction);
     }
   }
 
@@ -35,6 +38,19 @@ export default class implements Command {
     actionRow.setComponents(textInput);
     modal.setComponents(actionRow);
     await interaction.showModal(modal);
+  }
+
+  async show(interaction: ChatInputCommandInteraction): Promise<void> {
+    const profile = Profile.cache.find(({ userId }) => interaction.user.id === userId);
+
+    if (!profile) {
+      return void await interaction.reply({
+        content: "This server has nothing set up.",
+        ephemeral: true
+      });
+    }
+
+    await interaction.reply({ embeds: [await profile.show(interaction)], ephemeral: true });
   }
 
   get commandData(): ApplicationCommandData {
