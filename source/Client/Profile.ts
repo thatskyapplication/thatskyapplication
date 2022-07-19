@@ -73,6 +73,7 @@ export default class Profile {
   async show(guild: Guild | null): Promise<EmbedBuilder> {
     const embed = new EmbedBuilder();
     const me = await guild?.members.fetchMe();
+    if (this.name) embed.setAuthor({ name: this.name });
     embed.setColor(me?.displayColor ?? 0);
     embed.setDescription(this.description);
     return embed;
