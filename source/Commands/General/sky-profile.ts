@@ -5,6 +5,7 @@ import type { Command } from "../index.js";
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL";
 export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION";
 const SKY_MAXIMUM_NAME_LENGTH = 16;
+const SKY_MAXIMUM_ICON_URL_LENGTH = 150;
 
 export default class implements Command {
   readonly name = "sky-profile";
@@ -14,6 +15,8 @@ export default class implements Command {
     switch (interaction.options.getSubcommand()) {
       case "set-description":
         return await this.setDescription(interaction);
+      case "set-icon-url":
+        return await this.setIconURL(interaction);
       case "set-name":
         return await this.setName(interaction);
       case "show":
@@ -43,6 +46,11 @@ export default class implements Command {
     actionRow.setComponents(textInput);
     modal.setComponents(actionRow);
     await interaction.showModal(modal);
+  }
+
+  async setIconURL(interaction: ChatInputCommandInteraction): Promise<void> {
+    const iconURL = interaction.options.getString("icon-url", true);
+    await Profile.set(interaction, { iconURL });
   }
 
   async setName(interaction: ChatInputCommandInteraction): Promise<void> {
@@ -94,6 +102,20 @@ export default class implements Command {
               description: "Set the name of your Skykid.",
               required: true,
               maxLength: SKY_MAXIMUM_NAME_LENGTH
+            }
+          ]
+        },
+        {
+          type: ApplicationCommandOptionType.Subcommand,
+          name: "set-icon-url",
+          description: "Set the icon URL of your Skykid in your Sky profile!",
+          options: [
+            {
+              type: ApplicationCommandOptionType.String,
+              name: "icon-url",
+              description: "Set the icon URL of your Skykid.",
+              required: true,
+              maxLength: SKY_MAXIMUM_ICON_URL_LENGTH
             }
           ]
         },

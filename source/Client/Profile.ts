@@ -1,16 +1,19 @@
-import { ChatInputCommandInteraction, Collection, EmbedBuilder, Guild, ModalSubmitInteraction } from "discord.js";
+import { ChatInputCommandInteraction, Collection, EmbedAuthorOptions, EmbedBuilder, Guild, ModalSubmitInteraction } from "discord.js";
 import { Maria } from "../Client/Client.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
+import { Emoji } from "../Utility/Constants.js";
 
 interface ProfileData {
   No: number;
   "User ID": string;
   Name: string | null;
+  "Icon URL": string | null;
   Description: string | null;
 }
 
 interface ProfileSetData {
   name?: string;
+  iconURL?: string;
   description?: string;
 }
 
@@ -19,33 +22,39 @@ export default class Profile {
   readonly No: ProfileData["No"];
   readonly userId: ProfileData["User ID"];
   name: ProfileData["Name"];
+  iconURL: ProfileData["Icon URL"];
   description: ProfileData["Description"];
 
   constructor(profile: ProfileData) {
     this.No = profile.No;
     this.userId = profile["User ID"];
     this.name = profile.Name;
+    this.iconURL = profile["Icon URL"];
     this.description = profile.Description;
   }
 
   static async set(interaction: ChatInputCommandInteraction | ModalSubmitInteraction, data: ProfileSetData): Promise<void> {
     let profile = this.cache.find(({ userId }) => userId === interaction.user.id);
     const name = data.name ?? profile?.name ?? null;
+    const iconURL = data.iconURL ?? profile?.iconURL ?? null;
     const description = data.description ?? profile?.description ?? null;
 
     if (profile) {
-      await Maria.query("UPDATE `Profiles` SET `Name` = ?, `Description` = ? WHERE `No` = ?;", [
+      await Maria.query("UPDATE `Profiles` SET `Name` = ?, `Icon URL` = ?, `Description` = ? WHERE `No` = ?;", [
         name,
+        iconURL,
         description,
         profile.No
       ]);
 
       profile.name = name;
+      profile.iconURL = iconURL;
       profile.description = description;
     } else {
-      const { insertId } = await Maria.query("INSERT INTO `Profiles` SET `User ID` = ?, `Name` = ?, `Description` = ?;", [
+      const { insertId } = await Maria.query("INSERT INTO `Profiles` SET `User ID` = ?, `Name` = ?, `Icon URL` = ?, `Description` = ?;", [
         interaction.user.id,
         name,
+        iconURL,
         description
       ]);
 
@@ -53,6 +62,7 @@ export default class Profile {
         No: insertId,
         "User ID": interaction.user.id,
         Name: name,
+        "Icon URL": iconURL,
         Description: description
       });
 
@@ -74,9 +84,15 @@ export default class Profile {
   async show(guild: Guild | null): Promise<EmbedBuilder> {
     const embed = new EmbedBuilder();
     const me = await guild?.members.fetchMe();
-    if (this.name) embed.setAuthor({ name: this.name });
+
+    if (this.name) {
+      const embedAuthorOptions: EmbedAuthorOptions = { name: this.name };
+      if (this.iconURL) embedAuthorOptions.iconURL = this.iconURL;
+      embed.setAuthor(embedAuthorOptions);
+    }
+
     embed.setColor(me?.displayColor ?? 0);
-    embed.setDescription(this.description);
+    embed.setDescription(this.description || `Hi! I'm an amazing Skykid. ${Emoji.TGCBlueSparkles}`);
     return embed;
   }
 }
