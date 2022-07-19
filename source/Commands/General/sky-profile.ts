@@ -22,7 +22,7 @@ export default class implements Command {
     modal.setCustomId(SKY_PROFILE_MODAL_CUSTOM_ID);
     modal.setTitle("Set your Sky profile description!");
     textInput.setCustomId(SKY_PROFILE_TEXT_INPUT_CUSTOM_ID);
-    textInput.setLabel("Type up a lovely description about your Skykid.");
+    textInput.setLabel("Type a lovely description about your Skykid.");
     textInput.setMaxLength(4000);
     textInput.setRequired();
     textInput.setStyle(TextInputStyle.Paragraph);
