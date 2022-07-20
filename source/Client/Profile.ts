@@ -7,7 +7,7 @@ interface ProfileData {
   No: number;
   "User ID": string;
   Name: string | null;
-  "Icon": string | null;
+  Icon: string | null;
   Thumbnail: string | null;
   Description: string | null;
 }
