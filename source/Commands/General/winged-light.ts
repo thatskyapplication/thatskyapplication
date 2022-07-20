@@ -20,7 +20,8 @@ export default class implements Command {
     const realm5 = options.getString("realm-5") as Realm | null;
     const realm6 = options.getString("realm-6") as Realm | null;
     const realm7 = options.getString("realm-7") as Realm | null;
-    const realms = [realm1, realm2, realm3, realm4, realm5, realm6, realm7];
+    const realm8 = options.getString("realm-8") as Realm | null;
+    const realms = [realm1, realm2, realm3, realm4, realm5, realm6, realm7, realm8];
     const realmsFiltered = realms.filter(Boolean) as Realm[];
     if (realms.some(realm => realm !== null) && new Set(realmsFiltered).size !== realmsFiltered.length) return void await interaction.reply("Duplicate realms detected. Make sure to only provide unique realms!");
     const path = (realmsFiltered.length === 0 ? Object.values(Realm) : realmsFiltered);
@@ -52,6 +53,9 @@ export default class implements Command {
           break;
         case Realm.EyeOfEden:
           embed.addFields({ name: "Eye of Eden", value: `${accumulation += WingedLightCount.EyeOfEden} (+${WingedLightCount.EyeOfEden})` });
+          break;
+        case Realm.AncientMemory:
+          embed.addFields({ name: "Ancient Memory", value: `${accumulation += WingedLightCount.AncientMemory} (+${WingedLightCount.AncientMemory})` });
           break;
       }
     }
@@ -121,6 +125,12 @@ export default class implements Command {
           type: ApplicationCommandOptionType.String,
           name: "realm-7",
           description: "The seventh realm to calculate winged light from.",
+          choices
+        },
+        {
+          type: ApplicationCommandOptionType.String,
+          name: "realm-8",
+          description: "The eighth realm to calculate winged light from.",
           choices
         }
       ]
