@@ -35,6 +35,7 @@
     "lib": [
       "ESNext"
     ],
-    "target": "ESNext"
+    "target": "ESNext",
+    "skipLibCheck": true
   }
 }
