@@ -28,10 +28,11 @@ export enum Realm {
   ValleyOfTriumph = "Valley of Triumph",
   GoldenWasteland = "Golden Wasteland",
   VaultOfKnowledge = "Vault of Knowledge",
-  EyeOfEden = "Eye of Eden"
+  EyeOfEden = "Eye of Eden",
+  AncientMemory = "Ancient Memory"
 }
 
-export const MAXIMUM_WINGED_LIGHT = 198 as const;
+export const MAXIMUM_WINGED_LIGHT = 199 as const;
 
 export const WingedLightCount = {
   IslesOfDawn: 9,
@@ -41,5 +42,6 @@ export const WingedLightCount = {
   GoldenWasteland: 18,
   VaultOfKnowledge: 11,
   EyeOfEden: 10,
+  AncientMemory: 1,
   Orbit: 1
 } as const;
