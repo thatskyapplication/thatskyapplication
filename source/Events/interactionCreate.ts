@@ -29,7 +29,7 @@ export const event: Event<typeof name> = {
       const command = commands[commandName];
 
       if (!isChatInputCommand(command)) {
-        Caelus.log(`Received an unknown user context menu command interaction (\`${interaction.commandName}\`).`);
+        Caelus.log(`Received an unknown chat input command interaction (\`${interaction.commandName}\`).`);
         return;
       }
 
