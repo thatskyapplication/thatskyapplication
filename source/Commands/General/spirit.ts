@@ -46,6 +46,11 @@ export default class implements AutocompleteCommand {
         inline: true
       },
       {
+        name: "Offer",
+        value: spirit.offer === null ? "Unknown" : `${formatEmoji(Emoji.Candle)}${spirit.offer.candles} ${formatEmoji(Emoji.Heart)}${spirit.offer.hearts} ${formatEmoji(Emoji.AscendedCandle)}${spirit.offer.ascendedCandles}`,
+        inline: true
+      },
+      {
         name: "Expression",
         value: spirit.expression ?? "None",
         inline: true
@@ -58,11 +63,6 @@ export default class implements AutocompleteCommand {
       {
         name: "Call",
         value: spirit.call ?? "None",
-        inline: true
-      },
-      {
-        name: "Offer",
-        value: spirit.offer === null ? "Unknown" : `${formatEmoji(Emoji.Candle)}${spirit.offer.candles}\n${formatEmoji(Emoji.Heart)}${spirit.offer.hearts}\n${formatEmoji(Emoji.AscendedCandle)}${spirit.offer.ascendedCandles}`,
         inline: true
       }
     );
