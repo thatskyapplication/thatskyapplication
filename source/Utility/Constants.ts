@@ -18,7 +18,10 @@ export const enum Emoji {
   LittlePrince = "862033729529708614",
   Flight = "893606036324384768",
   Abyss = "932731569473466418",
-  Performance = "958109222778847302"
+  Performance = "958109222778847302",
+  Candle = "1003029936015147168",
+  Heart = "1003031293283553310",
+  AscendedCandle = "1003031656887762944"
 }
 
 export enum Realm {

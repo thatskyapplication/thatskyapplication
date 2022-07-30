@@ -132,9 +132,16 @@ const enum Stance {
   Tinker = "Tinker"
 }
 
+interface SpiritOffer {
+  candles: number;
+  hearts: number;
+  ascendedCandles: number;
+}
+
 interface SpiritDataBase {
   name: SpiritName;
   realm: Realm;
+  offer?: SpiritOffer;
 }
 
 interface SpiritDataBaseWithExpression extends SpiritDataBase {
@@ -160,6 +167,7 @@ interface SpiritSeason {
 class Spirit {
   readonly name: SpiritData["name"];
   readonly realm: SpiritData["realm"];
+  readonly offer: Exclude<SpiritData["offer"], undefined> | null;
   readonly attachment: Buffer | null;
   readonly url: string;
   readonly expression: SpiritDataBaseWithExpression["expression"] | null;
@@ -170,6 +178,7 @@ class Spirit {
     const underscoredName = spirit.name.replaceAll(" ", "_");
     this.name = spirit.name;
     this.realm = spirit.realm;
+    this.offer = spirit.offer ?? null;
 
     try {
       this.attachment = readFileSync(new URL(`../../Images/${underscoredName}.webp`, import.meta.url));
@@ -198,56 +207,56 @@ class SeasonalSpirit extends Spirit {
 }
 
 export default [
-  new SeasonalSpirit({ name: "Sassy Drifter", season: Season.Gratitude, stance: Stance.Sassy, realm: Realm.IslesOfDawn }),
-  new SeasonalSpirit({ name: "Stretching Guru", season: Season.Gratitude, expression: Expression.Yoga, realm: Realm.DaylightPrairie }),
-  new SeasonalSpirit({ name: "Provoking Performer", season: Season.Gratitude, expression: Expression.Karate, realm: Realm.HiddenForest }),
-  new SeasonalSpirit({ name: "Leaping Dancer", season: Season.Gratitude, expression: Expression.Leap, realm: Realm.ValleyOfTriumph }),
-  new SeasonalSpirit({ name: "Saluting Protector", season: Season.Gratitude, expression: Expression.Dismiss, realm: Realm.GoldenWasteland }),
-  new SeasonalSpirit({ name: "Greeting Shaman", season: Season.Gratitude, expression: Expression.Greeting, realm: Realm.VaultOfKnowledge }),
-  new SeasonalSpirit({ name: "Piggyback Lightseeker", season: Season.Lightseekers, expression: Expression.Carry, realm: Realm.IslesOfDawn }),
-  new SeasonalSpirit({ name: "Doublefive Light Catcher", season: Season.Lightseekers, expression: Expression.DoubleFive, realm: Realm.DaylightPrairie }),
-  new SeasonalSpirit({ name: "Laidback Pioneer", season: Season.Lightseekers, stance: Stance.Laidback, realm: Realm.HiddenForest }),
-  new SeasonalSpirit({ name: "Twirling Champion", season: Season.Lightseekers, expression: Expression.Twirl, realm: Realm.ValleyOfTriumph }),
-  new SeasonalSpirit({ name: "Crab Whisperer", season: Season.Lightseekers, call: Call.Crab, realm: Realm.GoldenWasteland }),
-  new SeasonalSpirit({ name: "Shushing Light Scholar", season: Season.Lightseekers, expression: Expression.Shush, realm: Realm.VaultOfKnowledge }),
-  new SeasonalSpirit({ name: "Boogie Kid", season: Season.Belonging, expression: Expression.Boogie, realm: Realm.IslesOfDawn }),
-  new SeasonalSpirit({ name: "Confetti Cousin", season: Season.Belonging, expression: Expression.Confetti, realm: Realm.DaylightPrairie }),
-  new SeasonalSpirit({ name: "Hairtousle Teen", season: Season.Belonging, expression: Expression.HairTousle, realm: Realm.HiddenForest }),
-  new SeasonalSpirit({ name: "Sparkler Parent", season: Season.Belonging, expression: Expression.Sparkler, realm: Realm.ValleyOfTriumph }),
-  new SeasonalSpirit({ name: "Pleaful Parent", season: Season.Belonging, expression: Expression.DontGo, realm: Realm.GoldenWasteland }),
-  new SeasonalSpirit({ name: "Wise Grandparent", season: Season.Belonging, stance: Stance.Wise, realm: Realm.VaultOfKnowledge }),
-  new SeasonalSpirit({ name: "Troupe Greeter", season: Season.Rhythm, expression: Expression.Welcome, realm: Realm.IslesOfDawn }),
-  new SeasonalSpirit({ name: "Festival Spin Dancer", season: Season.Rhythm, expression: Expression.Dance, realm: Realm.DaylightPrairie }),
-  new SeasonalSpirit({ name: "Admiring Actor", season: Season.Rhythm, expression: Expression.BlowKiss, realm: Realm.HiddenForest }),
-  new SeasonalSpirit({ name: "Troupe Juggler", season: Season.Rhythm, expression: Expression.Juggle, realm: Realm.ValleyOfTriumph }),
-  new SeasonalSpirit({ name: "Respectful Pianist", season: Season.Rhythm, expression: Expression.Respect, realm: Realm.GoldenWasteland }),
-  new SeasonalSpirit({ name: "Thoughtful Director", season: Season.Rhythm, expression: Expression.Thinking, realm: Realm.VaultOfKnowledge }),
-  new SeasonalSpirit({ name: "Nodding Muralist", season: Season.Enchantment, expression: Expression.Nod, realm: Realm.GoldenWasteland }),
-  new SeasonalSpirit({ name: "Indifferent Alchemist", season: Season.Enchantment, expression: Expression.Shrug, realm: Realm.GoldenWasteland }),
-  new SeasonalSpirit({ name: "Crab Walker", season: Season.Enchantment, expression: Expression.CrabWalk, realm: Realm.GoldenWasteland }),
-  new SeasonalSpirit({ name: "Scarecrow Farmer", season: Season.Enchantment, expression: Expression.Scare, realm: Realm.GoldenWasteland }),
-  new SeasonalSpirit({ name: "Snoozing Carpenter", season: Season.Enchantment, expression: Expression.Doze, realm: Realm.GoldenWasteland }),
-  new SeasonalSpirit({ name: "Playfighting Herbalist", season: Season.Enchantment, expression: Expression.PlayFight, realm: Realm.GoldenWasteland }),
-  new SeasonalSpirit({ name: "Jelly Whisperer", season: Season.Sanctuary, call: Call.Jellyfish, realm: Realm.DaylightPrairie }),
-  new SeasonalSpirit({ name: "Timid Bookworm", season: Season.Sanctuary, stance: Stance.Timid, realm: Realm.DaylightPrairie }),
-  new SeasonalSpirit({ name: "Rallying Thrillseeker", season: Season.Sanctuary, expression: Expression.Rally, realm: Realm.DaylightPrairie }),
-  new SeasonalSpirit({ name: "Hiking Grouch", season: Season.Sanctuary, expression: Expression.Grouchy, realm: Realm.DaylightPrairie }),
-  new SeasonalSpirit({ name: "Grateful Shell Collector", season: Season.Sanctuary, expression: Expression.Grateful, realm: Realm.DaylightPrairie }),
-  new SeasonalSpirit({ name: "Chill Sunbather", season: Season.Sanctuary, expression: Expression.BellyScratch, realm: Realm.DaylightPrairie }),
-  new SeasonalSpirit({ name: "Prophet of Water", season: Season.Prophecy, expression: Expression.DeepBreath, realm: Realm.IslesOfDawn }),
-  new SeasonalSpirit({ name: "Prophet of Earth", season: Season.Prophecy, expression: Expression.DustOff, realm: Realm.IslesOfDawn }),
-  new SeasonalSpirit({ name: "Prophet of Air", season: Season.Prophecy, expression: Expression.Balance, realm: Realm.IslesOfDawn }),
-  new SeasonalSpirit({ name: "Prophet of Fire", season: Season.Prophecy, expression: Expression.ChestPound, realm: Realm.IslesOfDawn }),
-  new SeasonalSpirit({ name: "Spinning Mentor", season: Season.Dreams, expression: Expression.SpinTrick, realm: Realm.ValleyOfTriumph }),
+  new SeasonalSpirit({ name: "Sassy Drifter", season: Season.Gratitude, stance: Stance.Sassy, realm: Realm.IslesOfDawn, offer: { candles: 87, hearts: 0, ascendedCandles: 2 } }),
+  new SeasonalSpirit({ name: "Stretching Guru", season: Season.Gratitude, expression: Expression.Yoga, realm: Realm.DaylightPrairie, offer: { candles: 104, hearts: 13, ascendedCandles: 2 } }),
+  new SeasonalSpirit({ name: "Provoking Performer", season: Season.Gratitude, expression: Expression.Karate, realm: Realm.HiddenForest, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Leaping Dancer", season: Season.Gratitude, expression: Expression.Leap, realm: Realm.ValleyOfTriumph, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Saluting Protector", season: Season.Gratitude, expression: Expression.Dismiss, realm: Realm.GoldenWasteland, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Greeting Shaman", season: Season.Gratitude, expression: Expression.Greeting, realm: Realm.VaultOfKnowledge, offer: { candles: 112, hearts: 13, ascendedCandles: 2 } }),
+  new SeasonalSpirit({ name: "Piggyback Lightseeker", season: Season.Lightseekers, expression: Expression.Carry, realm: Realm.IslesOfDawn, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Doublefive Light Catcher", season: Season.Lightseekers, expression: Expression.DoubleFive, realm: Realm.DaylightPrairie, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Laidback Pioneer", season: Season.Lightseekers, stance: Stance.Laidback, realm: Realm.HiddenForest, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Twirling Champion", season: Season.Lightseekers, expression: Expression.Twirl, realm: Realm.ValleyOfTriumph, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Crab Whisperer", season: Season.Lightseekers, call: Call.Crab, realm: Realm.GoldenWasteland, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Shushing Light Scholar", season: Season.Lightseekers, expression: Expression.Shush, realm: Realm.VaultOfKnowledge, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Boogie Kid", season: Season.Belonging, expression: Expression.Boogie, realm: Realm.IslesOfDawn, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Confetti Cousin", season: Season.Belonging, expression: Expression.Confetti, realm: Realm.DaylightPrairie, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Hairtousle Teen", season: Season.Belonging, expression: Expression.HairTousle, realm: Realm.HiddenForest, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Sparkler Parent", season: Season.Belonging, expression: Expression.Sparkler, realm: Realm.ValleyOfTriumph, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Pleaful Parent", season: Season.Belonging, expression: Expression.DontGo, realm: Realm.GoldenWasteland, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Wise Grandparent", season: Season.Belonging, stance: Stance.Wise, realm: Realm.VaultOfKnowledge, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Troupe Greeter", season: Season.Rhythm, expression: Expression.Welcome, realm: Realm.IslesOfDawn, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Festival Spin Dancer", season: Season.Rhythm, expression: Expression.Dance, realm: Realm.DaylightPrairie, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Admiring Actor", season: Season.Rhythm, expression: Expression.BlowKiss, realm: Realm.HiddenForest, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Troupe Juggler", season: Season.Rhythm, expression: Expression.Juggle, realm: Realm.ValleyOfTriumph, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Respectful Pianist", season: Season.Rhythm, expression: Expression.Respect, realm: Realm.GoldenWasteland, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Thoughtful Director", season: Season.Rhythm, expression: Expression.Thinking, realm: Realm.VaultOfKnowledge, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Nodding Muralist", season: Season.Enchantment, expression: Expression.Nod, realm: Realm.GoldenWasteland, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Indifferent Alchemist", season: Season.Enchantment, expression: Expression.Shrug, realm: Realm.GoldenWasteland, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Crab Walker", season: Season.Enchantment, expression: Expression.CrabWalk, realm: Realm.GoldenWasteland, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Scarecrow Farmer", season: Season.Enchantment, expression: Expression.Scare, realm: Realm.GoldenWasteland, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Snoozing Carpenter", season: Season.Enchantment, expression: Expression.Doze, realm: Realm.GoldenWasteland, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Playfighting Herbalist", season: Season.Enchantment, expression: Expression.PlayFight, realm: Realm.GoldenWasteland, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Jelly Whisperer", season: Season.Sanctuary, call: Call.Jellyfish, realm: Realm.DaylightPrairie, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Timid Bookworm", season: Season.Sanctuary, stance: Stance.Timid, realm: Realm.DaylightPrairie, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Rallying Thrillseeker", season: Season.Sanctuary, expression: Expression.Rally, realm: Realm.DaylightPrairie, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Hiking Grouch", season: Season.Sanctuary, expression: Expression.Grouchy, realm: Realm.DaylightPrairie, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Grateful Shell Collector", season: Season.Sanctuary, expression: Expression.Grateful, realm: Realm.DaylightPrairie, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Chill Sunbather", season: Season.Sanctuary, expression: Expression.BellyScratch, realm: Realm.DaylightPrairie, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Prophet of Water", season: Season.Prophecy, expression: Expression.DeepBreath, realm: Realm.IslesOfDawn, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Prophet of Earth", season: Season.Prophecy, expression: Expression.DustOff, realm: Realm.IslesOfDawn, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Prophet of Air", season: Season.Prophecy, expression: Expression.Balance, realm: Realm.IslesOfDawn, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Prophet of Fire", season: Season.Prophecy, expression: Expression.ChestPound, realm: Realm.IslesOfDawn, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
+  new SeasonalSpirit({ name: "Spinning Mentor", season: Season.Dreams, expression: Expression.SpinTrick, realm: Realm.ValleyOfTriumph, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
   new SeasonalSpirit({ name: "Dancing Performer", season: Season.Dreams, expression: Expression.ShowDance, realm: Realm.ValleyOfTriumph }),
-  new SeasonalSpirit({ name: "Peeking Postman", season: Season.Dreams, expression: Expression.Peek, realm: Realm.ValleyOfTriumph }),
+  new SeasonalSpirit({ name: "Peeking Postman", season: Season.Dreams, expression: Expression.Peek, realm: Realm.ValleyOfTriumph, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
   new SeasonalSpirit({ name: "Bearhug Hermit", season: Season.Dreams, expression: Expression.Bearhug, realm: Realm.ValleyOfTriumph }),
   new SeasonalSpirit({ name: "Baffled Botanist", season: Season.Assembly, expression: Expression.Facepalm, realm: Realm.HiddenForest }),
   new SeasonalSpirit({ name: "Scolding Student", season: Season.Assembly, expression: Expression.Scold, realm: Realm.HiddenForest }),
   new SeasonalSpirit({ name: "Scaredy Cadet", season: Season.Assembly, expression: Expression.Eww, realm: Realm.HiddenForest }),
   new SeasonalSpirit({ name: "Marching Adventurer", season: Season.Assembly, expression: Expression.March, realm: Realm.HiddenForest }),
   new SeasonalSpirit({ name: "Chuckling Scout", season: Season.Assembly, expression: Expression.Chuckle, realm: Realm.HiddenForest }),
-  new SeasonalSpirit({ name: "Daydream Forester", season: Season.Assembly, expression: Expression.Bubbles, realm: Realm.HiddenForest }),
+  new SeasonalSpirit({ name: "Daydream Forester", season: Season.Assembly, expression: Expression.Bubbles, realm: Realm.HiddenForest, offer: { candles: 0, hearts: 0, ascendedCandles: 0 } }),
   new SeasonalSpirit({ name: "Beckoning Ruler", season: Season.LittlePrince, expression: Expression.Beckon, realm: Realm.VaultOfKnowledge }),
   new SeasonalSpirit({ name: "Gloating Narcissist", season: Season.LittlePrince, expression: Expression.Gloat, realm: Realm.VaultOfKnowledge }),
   new SeasonalSpirit({ name: "Stretching Lamplighter", season: Season.LittlePrince, expression: Expression.Stretch, realm: Realm.VaultOfKnowledge }),
