@@ -11,8 +11,8 @@ export default class implements AutocompleteCommand {
   }
 
   async execute(interaction: ChatInputCommandInteraction): Promise<void> {
-    const name = interaction.options.getString("name", true);
-    const spirit = Spirits.find(spirit => spirit.name === name);
+    const query = interaction.options.getString("query", true);
+    const spirit = Spirits.find(({ name }) => name === query);
 
     if (!spirit) {
       return void await interaction.reply({
@@ -34,7 +34,7 @@ export default class implements AutocompleteCommand {
     }
 
     embed.setImage(`attachment://${spiritAttachmentName}.webp`);
-    embed.setTitle(`${Formatters.formatEmoji(spirit.season.emoji)} ${name}`);
+    embed.setTitle(`${Formatters.formatEmoji(spirit.season.emoji)} ${spirit.name}`);
     embed.setURL(spirit.url);
     await interaction.reply({ embeds: [embed], files });
   }
@@ -55,7 +55,7 @@ export default class implements AutocompleteCommand {
       options: [
         {
           type: ApplicationCommandOptionType.String,
-          name: "name",
+          name: "query",
           description: "The name, season, expression, stance or call of the spirit.",
           required: true,
           autocomplete: true
