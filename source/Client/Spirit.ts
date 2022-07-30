@@ -179,6 +179,10 @@ class Spirit {
     this.stance = "stance" in spirit ? spirit.stance : null;
     this.call = "call" in spirit ? spirit.call : null;
   }
+
+  isSeasonalSpirit(): this is SeasonalSpirit {
+    return "season" in this;
+  }
 }
 
 class SeasonalSpirit extends Spirit {
