@@ -33,6 +33,29 @@ export default class implements AutocompleteCommand {
       files.push({ attachment: spirit.attachment, name: `${spiritAttachmentName}.webp` });
     }
 
+    embed.setFields(
+      {
+        name: "Realm",
+        value: "It's somewhere. Just don't know where.",
+        inline: true
+      },
+      {
+        name: "Expression",
+        value: spirit.expression ?? "None",
+        inline: true
+      },
+      {
+        name: "Stance",
+        value: spirit.stance ?? "None",
+        inline: true
+      },
+      {
+        name: "Call",
+        value: spirit.call ?? "None",
+        inline: true
+      }
+    );
+
     embed.setImage(`attachment://${spiritAttachmentName}.webp`);
     embed.setTitle(`${spirit.isSeasonalSpirit() ? `${Formatters.formatEmoji(spirit.season.emoji)}` : ""}${spirit.name}`);
     embed.setURL(spirit.url);
