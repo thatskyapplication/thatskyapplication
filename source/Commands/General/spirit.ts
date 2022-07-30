@@ -62,7 +62,7 @@ export default class implements AutocompleteCommand {
       },
       {
         name: "Offer",
-        value: `${Emoji.Candle}${spirit.offer.candles}\n${Emoji.Heart}${spirit.offer.hearts}\n${Emoji.AscendedCandle}${spirit.offer.ascendedCandles}`,
+        value: spirit.offer === null ? "Unknown" : `${Emoji.Candle}${spirit.offer.candles}\n${Emoji.Heart}${spirit.offer.hearts}\n${Emoji.AscendedCandle}${spirit.offer.ascendedCandles}`,
         inline: true
       }
     );
