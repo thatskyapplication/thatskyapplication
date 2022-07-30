@@ -65,7 +65,7 @@ async function collectProfiles(): Promise<void> {
 export const event: Event<typeof name> = {
   name,
   once: true,
-  async fire(): Promise<void> {
+  async fire() {
     await collectFromDatabase();
     if (!branch || !commitHash || !githubToken) return Caelus.log(STARTUP_MESSAGE);
 

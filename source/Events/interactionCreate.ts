@@ -10,8 +10,7 @@ const name = Events.InteractionCreate;
 
 export const event: Event<typeof name> = {
   name,
-  once: false,
-  async fire(interaction): Promise<void> {
+  async fire(interaction) {
     if (interaction.isChatInputCommand()) {
       const { commandName } = interaction;
 
