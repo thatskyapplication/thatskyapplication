@@ -1,4 +1,4 @@
-import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder, Formatters } from "discord.js";
+import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder, formatEmoji, Formatters } from "discord.js";
 import Spirits from "../../Client/Spirit.js";
 import { Emoji } from "../../Utility/Constants.js";
 import type { AutocompleteCommand } from "../index.js";
@@ -62,7 +62,7 @@ export default class implements AutocompleteCommand {
       },
       {
         name: "Offer",
-        value: spirit.offer === null ? "Unknown" : `${Emoji.Candle}${spirit.offer.candles}\n${Emoji.Heart}${spirit.offer.hearts}\n${Emoji.AscendedCandle}${spirit.offer.ascendedCandles}`,
+        value: spirit.offer === null ? "Unknown" : `${formatEmoji(Emoji.Candle)}${spirit.offer.candles}\n${formatEmoji(Emoji.Heart)}${spirit.offer.hearts}\n${formatEmoji(Emoji.AscendedCandle)}${spirit.offer.ascendedCandles}`,
         inline: true
       }
     );
