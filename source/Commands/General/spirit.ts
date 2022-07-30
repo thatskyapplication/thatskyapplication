@@ -36,7 +36,7 @@ export default class implements AutocompleteCommand {
     embed.setFields(
       {
         name: "Realm",
-        value: "It's somewhere. Just don't know where.",
+        value: spirit.realm,
         inline: true
       },
       {
