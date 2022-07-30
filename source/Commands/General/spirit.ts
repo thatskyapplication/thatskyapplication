@@ -42,7 +42,7 @@ export default class implements AutocompleteCommand {
   async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
     const focused = interaction.options.getFocused().toUpperCase();
 
-    await interaction.respond(Spirits.filter(({ name, season, expression, stance, call }) => {
+    await interaction.respond(focused === "" ? [] : Spirits.filter(({ name, season, expression, stance, call }) => {
       return name.toUpperCase().startsWith(focused) || expression?.toUpperCase().startsWith(focused) || stance?.toUpperCase().startsWith(focused) || call?.toUpperCase().startsWith(focused) || season.name.toUpperCase().startsWith(focused);
     }).map(({ name }) => ({ name, value: name })).slice(0, 25));
   }
