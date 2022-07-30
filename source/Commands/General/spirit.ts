@@ -34,7 +34,7 @@ export default class implements AutocompleteCommand {
     }
 
     embed.setImage(`attachment://${spiritAttachmentName}.webp`);
-    embed.setTitle(`${Formatters.formatEmoji(spirit.season.emoji)} ${spirit.name}`);
+    embed.setTitle(`${"season" in spirit ? `${Formatters.formatEmoji(spirit.season.emoji)}` : ""}${spirit.name}`);
     embed.setURL(spirit.url);
     await interaction.reply({ embeds: [embed], files });
   }
@@ -42,8 +42,10 @@ export default class implements AutocompleteCommand {
   async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
     const focused = interaction.options.getFocused().toUpperCase();
 
-    await interaction.respond(focused === "" ? [] : Spirits.filter(({ name, season, expression, stance, call }) => {
-      return name.toUpperCase().startsWith(focused) || expression?.toUpperCase().startsWith(focused) || stance?.toUpperCase().startsWith(focused) || call?.toUpperCase().startsWith(focused) || season.name.toUpperCase().startsWith(focused);
+    await interaction.respond(focused === "" ? [] : Spirits.filter(spirit => {
+      const { name, expression, stance, call } = spirit;
+      const seasonName = "season" in spirit ? spirit.season.name.toUpperCase() : null;
+      return name.toUpperCase().startsWith(focused) || expression?.toUpperCase().startsWith(focused) || stance?.toUpperCase().startsWith(focused) || call?.toUpperCase().startsWith(focused) || seasonName?.startsWith(focused);
     }).map(({ name }) => ({ name, value: name })).slice(0, 25));
   }
 
