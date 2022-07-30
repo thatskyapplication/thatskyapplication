@@ -40,6 +40,11 @@ export default class implements AutocompleteCommand {
         inline: true
       },
       {
+        name: "Season",
+        value: spirit.isSeasonalSpirit() ? `${Formatters.formatEmoji(spirit.season.emoji)} ${spirit.season.name}` : "None",
+        inline: true
+      },
+      {
         name: "Expression",
         value: spirit.expression ?? "None",
         inline: true
@@ -57,7 +62,7 @@ export default class implements AutocompleteCommand {
     );
 
     embed.setImage(`attachment://${spiritAttachmentName}.webp`);
-    embed.setTitle(`${spirit.isSeasonalSpirit() ? `${Formatters.formatEmoji(spirit.season.emoji)}` : ""}${spirit.name}`);
+    embed.setTitle(spirit.name);
     embed.setURL(spirit.url);
     await interaction.reply({ embeds: [embed], files });
   }
