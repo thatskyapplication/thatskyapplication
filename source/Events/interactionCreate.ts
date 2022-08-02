@@ -1,4 +1,4 @@
-import { Events, InteractionType } from "discord.js";
+import { Events } from "discord.js";
 import type { Event } from "./index.js";
 import Caelus from "../Client/Client.js";
 import Profile from "../Client/Profile.js";
@@ -102,7 +102,7 @@ export const event: Event<typeof name> = {
       return;
     }
 
-    if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
+    if (interaction.isAutocomplete()) {
       const { commandName } = interaction;
 
       if (!isCommandName(commandName)) {
@@ -124,7 +124,7 @@ export const event: Event<typeof name> = {
       }
     }
 
-    if (interaction.type === InteractionType.ModalSubmit) {
+    if (interaction.isModalSubmit()) {
       try {
         if (interaction.customId === SKY_PROFILE_MODAL) return await Profile.setDescription(interaction);
       } catch (error) {

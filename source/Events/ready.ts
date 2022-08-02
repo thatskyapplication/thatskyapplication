@@ -1,5 +1,5 @@
 import process from "node:process";
-import { EmbedBuilder, Events, Formatters } from "discord.js";
+import { EmbedBuilder, Events, time, TimestampStyles } from "discord.js";
 import fetch from "node-fetch";
 import type { Event } from "./index.js";
 import Caelus, { Maria } from "../Client/Client.js";
@@ -79,7 +79,7 @@ export const event: Event<typeof name> = {
     if ("message" in json) return Caelus.log(STARTUP_MESSAGE);
     const embed = new EmbedBuilder();
     embed.setAuthor({ iconURL: json.author.avatar_url, name: json.author.login, url: json.author.html_url });
-    embed.setDescription(`Running [\`${commitHash.slice(0, 7)}\`](${json.html_url}) on [\`${branch}\`](https://github.com/${REPOSITORY}/tree/${encodeURIComponent(branch)}) at ${Formatters.time(Math.floor(Date.now() / 1000), Formatters.TimestampStyles.ShortDateTime)}.\n${json.commit.message}`);
+    embed.setDescription(`Running [\`${commitHash.slice(0, 7)}\`](${json.html_url}) on [\`${branch}\`](https://github.com/${REPOSITORY}/tree/${encodeURIComponent(branch)}) at ${time(Math.floor(Date.now() / 1000), TimestampStyles.ShortDateTime)}.\n${json.commit.message}`);
     embed.setTimestamp();
     await Caelus.applyCommands();
     await Caelus.log({ embeds: [embed] });

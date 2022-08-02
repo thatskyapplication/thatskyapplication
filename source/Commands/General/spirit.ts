@@ -1,4 +1,4 @@
-import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder, formatEmoji, Formatters } from "discord.js";
+import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder, formatEmoji } from "discord.js";
 import Spirits from "../../Client/Spirit.js";
 import { Emoji } from "../../Utility/Constants.js";
 import type { AutocompleteCommand } from "../index.js";
@@ -42,7 +42,7 @@ export default class implements AutocompleteCommand {
       },
       {
         name: "Season",
-        value: spirit.isSeasonalSpirit() ? `${Formatters.formatEmoji(spirit.season.emoji)} ${spirit.season.name}` : "None",
+        value: spirit.isSeasonalSpirit() ? `${formatEmoji(spirit.season.emoji)} ${spirit.season.name}` : "None",
         inline: true
       },
       {
