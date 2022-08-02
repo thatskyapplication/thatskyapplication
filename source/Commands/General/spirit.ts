@@ -1,5 +1,6 @@
-import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder, Formatters } from "discord.js";
+import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder, formatEmoji, Formatters } from "discord.js";
 import Spirits from "../../Client/Spirit.js";
+import { Emoji } from "../../Utility/Constants.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export default class implements AutocompleteCommand {
@@ -28,13 +29,46 @@ export default class implements AutocompleteCommand {
     embed.setColor(me?.displayColor ?? 0);
 
     if (spirit.attachment === null) {
-      embed.setDescription("⚠️ This spirit has not yet returned.");
+      if (spirit.isSeasonalSpirit()) embed.setDescription("⚠️ This spirit has not yet returned.");
     } else {
       files.push({ attachment: spirit.attachment, name: `${spiritAttachmentName}.webp` });
     }
 
+    embed.setFields(
+      {
+        name: "Realm",
+        value: spirit.realm,
+        inline: true
+      },
+      {
+        name: "Season",
+        value: spirit.isSeasonalSpirit() ? `${Formatters.formatEmoji(spirit.season.emoji)} ${spirit.season.name}` : "None",
+        inline: true
+      },
+      {
+        name: "Offer",
+        value: spirit.offer === null ? "Unknown" : `${formatEmoji(Emoji.Candle)}${spirit.offer.candles} ${formatEmoji(Emoji.Heart)}${spirit.offer.hearts} ${formatEmoji(Emoji.AscendedCandle)}${spirit.offer.ascendedCandles}`,
+        inline: true
+      },
+      {
+        name: "Expression",
+        value: spirit.expression ?? "None",
+        inline: true
+      },
+      {
+        name: "Stance",
+        value: spirit.stance ?? "None",
+        inline: true
+      },
+      {
+        name: "Call",
+        value: spirit.call ?? "None",
+        inline: true
+      }
+    );
+
     embed.setImage(`attachment://${spiritAttachmentName}.webp`);
-    embed.setTitle(`${Formatters.formatEmoji(spirit.season.emoji)} ${spirit.name}`);
+    embed.setTitle(spirit.name);
     embed.setURL(spirit.url);
     await interaction.reply({ embeds: [embed], files });
   }
@@ -42,8 +76,10 @@ export default class implements AutocompleteCommand {
   async autocomplete(interaction: AutocompleteInteraction): Promise<void> {
     const focused = interaction.options.getFocused().toUpperCase();
 
-    await interaction.respond(focused === "" ? [] : Spirits.filter(({ name, season, expression, stance, call }) => {
-      return name.toUpperCase().startsWith(focused) || expression?.toUpperCase().startsWith(focused) || stance?.toUpperCase().startsWith(focused) || call?.toUpperCase().startsWith(focused) || season.name.toUpperCase().startsWith(focused);
+    await interaction.respond(focused === "" ? [] : Spirits.filter(spirit => {
+      const { name, expression, stance, call } = spirit;
+      const seasonName = spirit.isSeasonalSpirit() ? spirit.season.name.toUpperCase() : null;
+      return name.toUpperCase().startsWith(focused) || expression?.toUpperCase().startsWith(focused) || stance?.toUpperCase().startsWith(focused) || call?.toUpperCase().startsWith(focused) || seasonName?.startsWith(focused);
     }).map(({ name }) => ({ name, value: name })).slice(0, 25));
   }
 
