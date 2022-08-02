@@ -213,7 +213,7 @@ export default [
   new SeasonalSpirit({ name: "Sassy Drifter", season: Season.Gratitude, stance: Stance.Sassy, realm: Realm.IslesOfDawn, offer: { candles: 87, hearts: 0, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Stretching Guru", season: Season.Gratitude, expression: Expression.Yoga, realm: Realm.DaylightPrairie, offer: { candles: 104, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Provoking Performer", season: Season.Gratitude, expression: Expression.Karate, realm: Realm.HiddenForest, offer: { candles: 104, hearts: 13, ascendedCandles: 2 } }),
-  new SeasonalSpirit({ name: "Leaping Dancer", season: Season.Gratitude, expression: Expression.Leap, realm: Realm.ValleyOfTriumph, offer: { candles: 107, hearts: 13, ascendedCandles: 2 } }),
+  new SeasonalSpirit({ name: "Leaping Dancer", season: Season.Gratitude, expression: Expression.Leap, realm: Realm.ValleyOfTriumph, offer: { candles: 107, hearts: 13, ascendedCandles: 2 }, keywords: ["fox", "fox mask"] }),
   new SeasonalSpirit({ name: "Saluting Protector", season: Season.Gratitude, expression: Expression.Dismiss, realm: Realm.GoldenWasteland, offer: { candles: 145, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Greeting Shaman", season: Season.Gratitude, expression: Expression.Greeting, realm: Realm.VaultOfKnowledge, offer: { candles: 112, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Piggyback Lightseeker", season: Season.Lightseekers, expression: Expression.Carry, realm: Realm.IslesOfDawn, offer: { candles: 123, hearts: 8, ascendedCandles: 2 } }),
