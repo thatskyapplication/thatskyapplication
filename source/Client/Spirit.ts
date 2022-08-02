@@ -142,6 +142,7 @@ interface SpiritDataBase {
   name: SpiritName;
   realm: Realm;
   offer?: SpiritOffer;
+  keywords?: string[];
 }
 
 interface SpiritDataBaseWithExpression extends SpiritDataBase {
@@ -168,6 +169,7 @@ class Spirit {
   readonly name: SpiritData["name"];
   readonly realm: SpiritData["realm"];
   readonly offer: Exclude<SpiritData["offer"], undefined> | null;
+  readonly keywords: NonNullable<SpiritData["keywords"]>;
   readonly attachment: Buffer | null;
   readonly url: string;
   readonly expression: SpiritDataBaseWithExpression["expression"] | null;
@@ -179,6 +181,7 @@ class Spirit {
     this.name = spirit.name;
     this.realm = spirit.realm;
     this.offer = spirit.offer ?? null;
+    this.keywords = spirit.keywords ?? [];
 
     try {
       this.attachment = readFileSync(new URL(`../../Images/${underscoredName}.webp`, import.meta.url));
@@ -207,15 +210,15 @@ class SeasonalSpirit extends Spirit {
 }
 
 export default [
-  new SeasonalSpirit({ name: "Sassy Drifter", season: Season.Gratitude, stance: Stance.Sassy, realm: Realm.IslesOfDawn, offer: { candles: 87, hearts: 0, ascendedCandles: 2 } }),
+  new SeasonalSpirit({ name: "Sassy Drifter", season: Season.Gratitude, stance: Stance.Sassy, realm: Realm.IslesOfDawn, offer: { candles: 87, hearts: 0, ascendedCandles: 2 }, keywords: ["weasel", "weasel mask"] }),
   new SeasonalSpirit({ name: "Stretching Guru", season: Season.Gratitude, expression: Expression.Yoga, realm: Realm.DaylightPrairie, offer: { candles: 104, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Provoking Performer", season: Season.Gratitude, expression: Expression.Karate, realm: Realm.HiddenForest, offer: { candles: 104, hearts: 13, ascendedCandles: 2 } }),
-  new SeasonalSpirit({ name: "Leaping Dancer", season: Season.Gratitude, expression: Expression.Leap, realm: Realm.ValleyOfTriumph, offer: { candles: 107, hearts: 13, ascendedCandles: 2 } }),
+  new SeasonalSpirit({ name: "Leaping Dancer", season: Season.Gratitude, expression: Expression.Leap, realm: Realm.ValleyOfTriumph, offer: { candles: 107, hearts: 13, ascendedCandles: 2 }, keywords: ["fox", "fox mask"] }),
   new SeasonalSpirit({ name: "Saluting Protector", season: Season.Gratitude, expression: Expression.Dismiss, realm: Realm.GoldenWasteland, offer: { candles: 145, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Greeting Shaman", season: Season.Gratitude, expression: Expression.Greeting, realm: Realm.VaultOfKnowledge, offer: { candles: 112, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Piggyback Lightseeker", season: Season.Lightseekers, expression: Expression.Carry, realm: Realm.IslesOfDawn, offer: { candles: 123, hearts: 8, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Doublefive Light Catcher", season: Season.Lightseekers, expression: Expression.DoubleFive, realm: Realm.DaylightPrairie, offer: { candles: 126, hearts: 7, ascendedCandles: 2 } }),
-  new SeasonalSpirit({ name: "Laidback Pioneer", season: Season.Lightseekers, stance: Stance.Laidback, realm: Realm.HiddenForest, offer: { candles: 151, hearts: 0, ascendedCandles: 2 } }),
+  new SeasonalSpirit({ name: "Laidback Pioneer", season: Season.Lightseekers, stance: Stance.Laidback, realm: Realm.HiddenForest, offer: { candles: 151, hearts: 0, ascendedCandles: 2 }, keywords: ["umbrella"] }),
   new SeasonalSpirit({ name: "Twirling Champion", season: Season.Lightseekers, expression: Expression.Twirl, realm: Realm.ValleyOfTriumph, offer: { candles: 131, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Crab Whisperer", season: Season.Lightseekers, call: Call.Crab, realm: Realm.GoldenWasteland, offer: { candles: 190, hearts: 0, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Shushing Light Scholar", season: Season.Lightseekers, expression: Expression.Shush, realm: Realm.VaultOfKnowledge, offer: { candles: 96, hearts: 13, ascendedCandles: 2 } }),
@@ -238,7 +241,7 @@ export default [
   new SeasonalSpirit({ name: "Snoozing Carpenter", season: Season.Enchantment, expression: Expression.Doze, realm: Realm.GoldenWasteland, offer: { candles: 112, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Playfighting Herbalist", season: Season.Enchantment, expression: Expression.PlayFight, realm: Realm.GoldenWasteland, offer: { candles: 195, hearts: 10, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Jelly Whisperer", season: Season.Sanctuary, call: Call.Jellyfish, realm: Realm.DaylightPrairie, offer: { candles: 135, hearts: 15, ascendedCandles: 2 } }),
-  new SeasonalSpirit({ name: "Timid Bookworm", season: Season.Sanctuary, stance: Stance.Timid, realm: Realm.DaylightPrairie, offer: { candles: 140, hearts: 0, ascendedCandles: 2 } }),
+  new SeasonalSpirit({ name: "Timid Bookworm", season: Season.Sanctuary, stance: Stance.Timid, realm: Realm.DaylightPrairie, offer: { candles: 140, hearts: 0, ascendedCandles: 2 }, keywords: ["butterfly", "butterfly cape"] }),
   new SeasonalSpirit({ name: "Rallying Thrillseeker", season: Season.Sanctuary, expression: Expression.Rally, realm: Realm.DaylightPrairie, offer: { candles: 125, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Hiking Grouch", season: Season.Sanctuary, expression: Expression.Grouchy, realm: Realm.DaylightPrairie, offer: { candles: 139, hearts: 29, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Grateful Shell Collector", season: Season.Sanctuary, expression: Expression.Grateful, realm: Realm.DaylightPrairie, offer: { candles: 162, hearts: 13, ascendedCandles: 2 } }),
@@ -249,15 +252,15 @@ export default [
   new SeasonalSpirit({ name: "Prophet of Fire", season: Season.Prophecy, expression: Expression.ChestPound, realm: Realm.IslesOfDawn, offer: { candles: 202, hearts: 26, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Spinning Mentor", season: Season.Dreams, expression: Expression.SpinTrick, realm: Realm.ValleyOfTriumph, offer: { candles: 169, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Dancing Performer", season: Season.Dreams, expression: Expression.ShowDance, realm: Realm.ValleyOfTriumph }),
-  new SeasonalSpirit({ name: "Peeking Postman", season: Season.Dreams, expression: Expression.Peek, realm: Realm.ValleyOfTriumph, offer: { candles: 217, hearts: 13, ascendedCandles: 2 } }),
-  new SeasonalSpirit({ name: "Bearhug Hermit", season: Season.Dreams, expression: Expression.Bearhug, realm: Realm.ValleyOfTriumph }),
+  new SeasonalSpirit({ name: "Peeking Postman", season: Season.Dreams, expression: Expression.Peek, realm: Realm.ValleyOfTriumph, offer: { candles: 217, hearts: 13, ascendedCandles: 2 }, keywords: ["rabbit", "rabbit mask"] }),
+  new SeasonalSpirit({ name: "Bearhug Hermit", season: Season.Dreams, expression: Expression.Bearhug, realm: Realm.ValleyOfTriumph, keywords: ["yeti"] }),
   new SeasonalSpirit({ name: "Baffled Botanist", season: Season.Assembly, expression: Expression.Facepalm, realm: Realm.HiddenForest }),
-  new SeasonalSpirit({ name: "Scolding Student", season: Season.Assembly, expression: Expression.Scold, realm: Realm.HiddenForest }),
-  new SeasonalSpirit({ name: "Scaredy Cadet", season: Season.Assembly, expression: Expression.Eww, realm: Realm.HiddenForest }),
+  new SeasonalSpirit({ name: "Scolding Student", season: Season.Assembly, expression: Expression.Scold, realm: Realm.HiddenForest, keywords: ["clover", "clover cape"] }),
+  new SeasonalSpirit({ name: "Scaredy Cadet", season: Season.Assembly, expression: Expression.Eww, realm: Realm.HiddenForest, keywords: ["hammock"] }),
   new SeasonalSpirit({ name: "Marching Adventurer", season: Season.Assembly, expression: Expression.March, realm: Realm.HiddenForest }),
   new SeasonalSpirit({ name: "Chuckling Scout", season: Season.Assembly, expression: Expression.Chuckle, realm: Realm.HiddenForest }),
   new SeasonalSpirit({ name: "Daydream Forester", season: Season.Assembly, expression: Expression.Bubbles, realm: Realm.HiddenForest, offer: { candles: 112, hearts: 13, ascendedCandles: 2 } }),
-  new SeasonalSpirit({ name: "Beckoning Ruler", season: Season.LittlePrince, expression: Expression.Beckon, realm: Realm.VaultOfKnowledge }),
+  new SeasonalSpirit({ name: "Beckoning Ruler", season: Season.LittlePrince, expression: Expression.Beckon, realm: Realm.VaultOfKnowledge, keywords: ["frog", "frog mask"] }),
   new SeasonalSpirit({ name: "Gloating Narcissist", season: Season.LittlePrince, expression: Expression.Gloat, realm: Realm.VaultOfKnowledge }),
   new SeasonalSpirit({ name: "Stretching Lamplighter", season: Season.LittlePrince, expression: Expression.Stretch, realm: Realm.VaultOfKnowledge }),
   new SeasonalSpirit({ name: "Slouching Soldier", season: Season.LittlePrince, expression: Expression.Slouch, realm: Realm.VaultOfKnowledge }),
