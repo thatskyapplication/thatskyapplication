@@ -1,7 +1,7 @@
 import type { Buffer } from "node:buffer";
 import { readFileSync } from "node:fs";
 import { URL } from "node:url";
-import { Emoji, Realm } from "../Utility/Constants.js";
+import { Emoji, Realm, WIKI_URL } from "../Utility/Constants.js";
 
 function resolveSeasonEmoji(season: Season): Emoji {
   switch (season) {
@@ -189,7 +189,7 @@ class Spirit {
       this.attachment = null;
     }
 
-    this.url = `https://sky-children-of-the-light.fandom.com/wiki/${underscoredName}`;
+    this.url = new URL(underscoredName, WIKI_URL).toString();
     this.expression = "expression" in spirit ? spirit.expression : null;
     this.stance = "stance" in spirit ? spirit.stance : null;
     this.call = "call" in spirit ? spirit.call : null;
