@@ -77,9 +77,9 @@ export default class implements AutocompleteCommand {
     const focused = interaction.options.getFocused().toUpperCase();
 
     await interaction.respond(focused === "" ? [] : Spirits.filter(spirit => {
-      const { name, expression, stance, call } = spirit;
+      const { name, keywords, expression, stance, call } = spirit;
       const seasonName = spirit.isSeasonalSpirit() ? spirit.season.name.toUpperCase() : null;
-      return name.toUpperCase().startsWith(focused) || expression?.toUpperCase().startsWith(focused) || stance?.toUpperCase().startsWith(focused) || call?.toUpperCase().startsWith(focused) || seasonName?.startsWith(focused);
+      return name.toUpperCase().startsWith(focused) || keywords.some(keyword => keyword.toUpperCase() === focused) || expression?.toUpperCase().startsWith(focused) || stance?.toUpperCase().startsWith(focused) || call?.toUpperCase().startsWith(focused) || seasonName?.startsWith(focused);
     }).map(({ name }) => ({ name, value: name })).slice(0, 25));
   }
 

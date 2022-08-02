@@ -142,6 +142,7 @@ interface SpiritDataBase {
   name: SpiritName;
   realm: Realm;
   offer?: SpiritOffer;
+  keywords?: string[];
 }
 
 interface SpiritDataBaseWithExpression extends SpiritDataBase {
@@ -168,6 +169,7 @@ class Spirit {
   readonly name: SpiritData["name"];
   readonly realm: SpiritData["realm"];
   readonly offer: Exclude<SpiritData["offer"], undefined> | null;
+  readonly keywords: NonNullable<SpiritData["keywords"]>;
   readonly attachment: Buffer | null;
   readonly url: string;
   readonly expression: SpiritDataBaseWithExpression["expression"] | null;
@@ -179,6 +181,7 @@ class Spirit {
     this.name = spirit.name;
     this.realm = spirit.realm;
     this.offer = spirit.offer ?? null;
+    this.keywords = spirit.keywords ?? [];
 
     try {
       this.attachment = readFileSync(new URL(`../../Images/${underscoredName}.webp`, import.meta.url));
