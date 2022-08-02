@@ -253,7 +253,7 @@ export default [
   new SeasonalSpirit({ name: "Spinning Mentor", season: Season.Dreams, expression: Expression.SpinTrick, realm: Realm.ValleyOfTriumph, offer: { candles: 169, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Dancing Performer", season: Season.Dreams, expression: Expression.ShowDance, realm: Realm.ValleyOfTriumph }),
   new SeasonalSpirit({ name: "Peeking Postman", season: Season.Dreams, expression: Expression.Peek, realm: Realm.ValleyOfTriumph, offer: { candles: 217, hearts: 13, ascendedCandles: 2 } }),
-  new SeasonalSpirit({ name: "Bearhug Hermit", season: Season.Dreams, expression: Expression.Bearhug, realm: Realm.ValleyOfTriumph }),
+  new SeasonalSpirit({ name: "Bearhug Hermit", season: Season.Dreams, expression: Expression.Bearhug, realm: Realm.ValleyOfTriumph, keywords: ["yeti"] }),
   new SeasonalSpirit({ name: "Baffled Botanist", season: Season.Assembly, expression: Expression.Facepalm, realm: Realm.HiddenForest }),
   new SeasonalSpirit({ name: "Scolding Student", season: Season.Assembly, expression: Expression.Scold, realm: Realm.HiddenForest }),
   new SeasonalSpirit({ name: "Scaredy Cadet", season: Season.Assembly, expression: Expression.Eww, realm: Realm.HiddenForest }),
