@@ -241,7 +241,7 @@ export default [
   new SeasonalSpirit({ name: "Snoozing Carpenter", season: Season.Enchantment, expression: Expression.Doze, realm: Realm.GoldenWasteland, offer: { candles: 112, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Playfighting Herbalist", season: Season.Enchantment, expression: Expression.PlayFight, realm: Realm.GoldenWasteland, offer: { candles: 195, hearts: 10, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Jelly Whisperer", season: Season.Sanctuary, call: Call.Jellyfish, realm: Realm.DaylightPrairie, offer: { candles: 135, hearts: 15, ascendedCandles: 2 } }),
-  new SeasonalSpirit({ name: "Timid Bookworm", season: Season.Sanctuary, stance: Stance.Timid, realm: Realm.DaylightPrairie, offer: { candles: 140, hearts: 0, ascendedCandles: 2 } }),
+  new SeasonalSpirit({ name: "Timid Bookworm", season: Season.Sanctuary, stance: Stance.Timid, realm: Realm.DaylightPrairie, offer: { candles: 140, hearts: 0, ascendedCandles: 2 }, keywords: ["butterfly", "butterfly cape"] }),
   new SeasonalSpirit({ name: "Rallying Thrillseeker", season: Season.Sanctuary, expression: Expression.Rally, realm: Realm.DaylightPrairie, offer: { candles: 125, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Hiking Grouch", season: Season.Sanctuary, expression: Expression.Grouchy, realm: Realm.DaylightPrairie, offer: { candles: 139, hearts: 29, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Grateful Shell Collector", season: Season.Sanctuary, expression: Expression.Grateful, realm: Realm.DaylightPrairie, offer: { candles: 162, hearts: 13, ascendedCandles: 2 } }),
