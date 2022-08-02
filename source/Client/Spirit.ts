@@ -218,7 +218,7 @@ export default [
   new SeasonalSpirit({ name: "Greeting Shaman", season: Season.Gratitude, expression: Expression.Greeting, realm: Realm.VaultOfKnowledge, offer: { candles: 112, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Piggyback Lightseeker", season: Season.Lightseekers, expression: Expression.Carry, realm: Realm.IslesOfDawn, offer: { candles: 123, hearts: 8, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Doublefive Light Catcher", season: Season.Lightseekers, expression: Expression.DoubleFive, realm: Realm.DaylightPrairie, offer: { candles: 126, hearts: 7, ascendedCandles: 2 } }),
-  new SeasonalSpirit({ name: "Laidback Pioneer", season: Season.Lightseekers, stance: Stance.Laidback, realm: Realm.HiddenForest, offer: { candles: 151, hearts: 0, ascendedCandles: 2 } }),
+  new SeasonalSpirit({ name: "Laidback Pioneer", season: Season.Lightseekers, stance: Stance.Laidback, realm: Realm.HiddenForest, offer: { candles: 151, hearts: 0, ascendedCandles: 2 }, keywords: ["umbrella"] }),
   new SeasonalSpirit({ name: "Twirling Champion", season: Season.Lightseekers, expression: Expression.Twirl, realm: Realm.ValleyOfTriumph, offer: { candles: 131, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Crab Whisperer", season: Season.Lightseekers, call: Call.Crab, realm: Realm.GoldenWasteland, offer: { candles: 190, hearts: 0, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: "Shushing Light Scholar", season: Season.Lightseekers, expression: Expression.Shush, realm: Realm.VaultOfKnowledge, offer: { candles: 96, hearts: 13, ascendedCandles: 2 } }),
