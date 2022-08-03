@@ -1,6 +1,5 @@
 import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChannelType, ChatInputCommandInteraction, NewsChannel, PermissionFlagsBits, TextChannel } from "discord.js";
-import Caelus from "../../Client/Client.js";
-import Notification, { isEvent, LightEvent } from "../../Client/Notification.js";
+import Notification, { isEvent, LightEvent } from "../../Structures/Notification.js";
 import type { Command } from "../index.js";
 
 export default class implements Command {
@@ -9,7 +8,7 @@ export default class implements Command {
 
   async handle(interaction: ChatInputCommandInteraction): Promise<void> {
     if (!interaction.inCachedGuild()) {
-      Caelus.log(`The \`/${this.name}\` command was used in an uncached guild, somehow.`, interaction);
+      interaction.client.log(`The \`/${this.name}\` command was used in an uncached guild, somehow.`, interaction);
 
       return void await interaction.reply({
         content: `There is no \`/${this.name}\` command in Ba Sing Se.`,
@@ -48,7 +47,7 @@ export default class implements Command {
     const me = await channel.guild.members.fetchMe();
 
     if (!isEvent(event)) {
-      Caelus.log(`Received an unknown notification event: ${event} whilst setting up notifications.`);
+      interaction.client.log(`Received an unknown notification event: ${event} whilst setting up notifications.`);
 
       return void await interaction.reply({
         content: "The dark dragon has obeliterated this event. It's gone... for now.",
@@ -74,7 +73,7 @@ export default class implements Command {
 
     if (!role.mentionable && !channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) {
       return void await interaction.reply({
-        content: `Cannot mention the ${role} role. Ensure \`Mention @everyone, @here and All Roles\` permission is enabled for ${Caelus.user} in the channel or make the role mentionable.`,
+        content: `Cannot mention the ${role} role. Ensure \`Mention @everyone, @here and All Roles\` permission is enabled for ${interaction.client.user} in the channel or make the role mentionable.`,
         ephemeral: true
       });
     }
@@ -96,7 +95,7 @@ export default class implements Command {
     const event = options.getString("event", true);
 
     if (!isEvent(event)) {
-      Caelus.log(`Received an unknown notification event: ${event} whilst setting up notifications.`);
+      interaction.client.log(`Received an unknown notification event: ${event} whilst setting up notifications.`);
 
       return void await interaction.reply({
         content: "The dark dragon has obeliterated this event. It's gone... for now.",

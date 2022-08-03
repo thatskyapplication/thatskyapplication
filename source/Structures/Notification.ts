@@ -1,5 +1,6 @@
-import { channelMention, ChannelType, ChatInputCommandInteraction, Collection, EmbedBuilder, formatEmoji, NewsChannel, PermissionFlagsBits, Role, roleMention, TextChannel } from "discord.js";
-import Caelus, { Maria } from "../Client/Client.js";
+import { channelMention, ChannelType, ChatInputCommandInteraction, Client, Collection, EmbedBuilder, formatEmoji, NewsChannel, PermissionFlagsBits, Role, roleMention, TextChannel } from "discord.js";
+import Base from "./Base.js";
+import { Maria } from "../Caelus.js";
 import { Emoji } from "../Utility/Constants.js";
 
 interface NotificationData {
@@ -26,7 +27,7 @@ export function isEvent(event: string): event is typeof LightEvent[keyof typeof 
   return Object.values(LightEvent).includes(event as typeof LightEvent[keyof typeof LightEvent]);
 }
 
-export default class Notification {
+export default class Notification extends Base {
   static readonly cache = new Collection<number, Notification>();
   readonly No: NotificationData["No"];
   readonly guildId: NotificationData["Guild ID"];
@@ -39,7 +40,8 @@ export default class Notification {
   shardEruptionChannelId: NotificationData["Shard Eruption Channel ID"];
   shardEruptionRoleId: NotificationData["Shard Eruption Role ID"];
 
-  constructor(notification: NotificationData) {
+  constructor(client: Client<true>, notification: NotificationData) {
+    super(client);
     this.No = notification.No;
     this.guildId = notification["Guild ID"];
     this.pollutedGeyserChannelId = notification["Polluted Geyser Channel ID"];
@@ -87,7 +89,7 @@ export default class Notification {
         role.id
       ]);
 
-      notification = new this({
+      notification = new this(interaction.client, {
         No: insertId,
         "Guild ID": interaction.guildId,
         "Polluted Geyser Channel ID": event === LightEvent.PollutedGeyser ? channel.id : null,
@@ -142,44 +144,43 @@ export default class Notification {
     });
   }
 
-  static async send(type: typeof LightEvent[keyof typeof LightEvent]): Promise<void> {
-    for (const { guildId, pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId, shardEruptionChannelId, shardEruptionRoleId } of this.cache.values()) {
-      let channelId;
-      let roleId;
+  async send(type: typeof LightEvent[keyof typeof LightEvent]): Promise<void> {
+    const { guildId, pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId, shardEruptionChannelId, shardEruptionRoleId } = this;
+    let channelId;
+    let roleId;
 
-      switch (type) {
-        case LightEvent.PollutedGeyser:
-          channelId = pollutedGeyserChannelId;
-          roleId = pollutedGeyserRoleId;
-          break;
-        case LightEvent.Grandma:
-          channelId = grandmaChannelId;
-          roleId = grandmaRoleId;
-          break;
-        case LightEvent.Turtle:
-          channelId = turtleChannelId;
-          roleId = turtleRoleId;
-          break;
-        case LightEvent.ShardEruption:
-          channelId = shardEruptionChannelId;
-          roleId = shardEruptionRoleId;
-          break;
-      }
-
-      if (!channelId || !roleId) continue;
-      const channel = Caelus.guilds.resolve(guildId)?.channels.resolve(channelId);
-      if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildNews)) continue;
-      const role = channel.guild.roles.resolve(roleId);
-      if (!role) continue;
-      const me = await channel.guild.members.fetchMe();
-      if (!channel.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (!role.mentionable && !channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))) continue;
-      await channel.send(`${role} is starting soon!`).catch(() => null);
+    switch (type) {
+      case LightEvent.PollutedGeyser:
+        channelId = pollutedGeyserChannelId;
+        roleId = pollutedGeyserRoleId;
+        break;
+      case LightEvent.Grandma:
+        channelId = grandmaChannelId;
+        roleId = grandmaRoleId;
+        break;
+      case LightEvent.Turtle:
+        channelId = turtleChannelId;
+        roleId = turtleRoleId;
+        break;
+      case LightEvent.ShardEruption:
+        channelId = shardEruptionChannelId;
+        roleId = shardEruptionRoleId;
+        break;
     }
+
+    if (!channelId || !roleId) return;
+    const channel = this.client.guilds.resolve(guildId)?.channels.resolve(channelId);
+    if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildNews)) return;
+    const role = channel.guild.roles.resolve(roleId);
+    if (!role) return;
+    const me = await channel.guild.members.fetchMe();
+    if (!channel.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (!role.mentionable && !channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))) return;
+    await channel.send(`${role} is starting soon!`).catch(() => null);
   }
 
   async overview(): Promise<EmbedBuilder> {
     const { guildId, pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId, shardEruptionChannelId, shardEruptionRoleId } = this;
-    const guild = Caelus.guilds.resolve(guildId);
+    const guild = this.client.guilds.resolve(guildId);
     const me = await guild?.members.fetchMe();
     const pollutedGeyserChannel = pollutedGeyserChannelId ? guild?.channels.resolve(pollutedGeyserChannelId) : null;
     const pollutedGeyserRole = pollutedGeyserRoleId ? guild?.roles.resolve(pollutedGeyserRoleId) : null;

@@ -1,5 +1,6 @@
-import { ChatInputCommandInteraction, Collection, EmbedAuthorOptions, EmbedBuilder, Guild, ModalSubmitInteraction } from "discord.js";
-import { Maria } from "../Client/Client.js";
+import { ChatInputCommandInteraction, Client, Collection, EmbedAuthorOptions, EmbedBuilder, Guild, ModalSubmitInteraction } from "discord.js";
+import Base from "./Base.js";
+import { Maria } from "../Caelus.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import { Emoji } from "../Utility/Constants.js";
 
@@ -19,7 +20,7 @@ interface ProfileSetData {
   description?: string;
 }
 
-export default class Profile {
+export default class Profile extends Base {
   static readonly cache = new Collection<number, Profile>();
   readonly No: ProfileData["No"];
   readonly userId: ProfileData["User ID"];
@@ -28,7 +29,8 @@ export default class Profile {
   thumbnail: ProfileData["Thumbnail"];
   description: ProfileData["Description"];
 
-  constructor(profile: ProfileData) {
+  constructor(client: Client<true>, profile: ProfileData) {
+    super(client);
     this.No = profile.No;
     this.userId = profile["User ID"];
     this.name = profile.Name;
@@ -66,7 +68,7 @@ export default class Profile {
         description
       ]);
 
-      profile = new this({
+      profile = new this(interaction.client, {
         No: insertId,
         "User ID": interaction.user.id,
         Name: name,
