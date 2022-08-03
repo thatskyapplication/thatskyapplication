@@ -1,6 +1,5 @@
 import { ActionRowBuilder, ApplicationCommandData, ApplicationCommandType, ChatInputCommandInteraction, Collection, MessageActionRowComponentBuilder, PermissionsBitField, SelectMenuBuilder, SelectMenuInteraction, Snowflake } from "discord.js";
-import Caelus from "../../Client/Client.js";
-import Notification, { LightEvent } from "../../Client/Notification.js";
+import Notification, { LightEvent } from "../../Structures/Notification.js";
 import type { Command } from "../index.js";
 
 export const rolesSelectMenuCustomId = "SELFROLE" as const;
@@ -11,7 +10,7 @@ export default class implements Command {
 
   async handle(interaction: ChatInputCommandInteraction): Promise<void> {
     if (!interaction.inCachedGuild()) {
-      Caelus.log(`The \`/${this.name}\` command was used in an uncached guild, somehow.`, interaction);
+      interaction.client.log(`The \`/${this.name}\` command was used in an uncached guild, somehow.`, interaction);
 
       return void await interaction.reply({
         content: `There is no \`/${this.name}\` command in Ba Sing Se.`,
@@ -121,7 +120,7 @@ export default class implements Command {
         ephemeral: true
       });
     } catch (error) {
-      Caelus.log("Error during applying self-roles.", error);
+      interaction.client.log("Error during applying self-roles.", error);
 
       await interaction.reply({
         content: "Error during self-role assignment. This is being tracked, so don't worry!",

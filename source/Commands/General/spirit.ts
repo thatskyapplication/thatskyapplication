@@ -1,5 +1,5 @@
 import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder, formatEmoji } from "discord.js";
-import Spirits from "../../Client/Spirit.js";
+import Spirits from "../../Structures/Spirit.js";
 import { Emoji } from "../../Utility/Constants.js";
 import type { AutocompleteCommand } from "../index.js";
 

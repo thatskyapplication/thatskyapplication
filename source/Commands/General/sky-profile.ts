@@ -1,5 +1,5 @@
 import { ActionRowBuilder, ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, CacheType, ChatInputCommandInteraction, ModalActionRowComponentBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, UserContextMenuCommandInteraction } from "discord.js";
-import Profile from "../../Client/Profile.js";
+import Profile from "../../Structures/Profile.js";
 import type { Command } from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL";
