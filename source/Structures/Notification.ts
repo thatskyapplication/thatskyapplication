@@ -1,6 +1,5 @@
 import { channelMention, ChannelType, ChatInputCommandInteraction, Client, Collection, EmbedBuilder, formatEmoji, NewsChannel, PermissionFlagsBits, Role, roleMention, TextChannel } from "discord.js";
 import Base from "./Base.js";
-import { Maria } from "../Caelus.js";
 import { Emoji } from "../Utility/Constants.js";
 
 interface NotificationData {
@@ -58,7 +57,7 @@ export default class Notification extends Base {
     let notification = this.cache.find(({ guildId }) => guildId === interaction.guildId);
 
     if (notification) {
-      await Maria.query(`UPDATE \`Notifications\` SET \`${event} Channel ID\` = ?, \`${event} Role ID\` = ? WHERE \`No\` = ?;`, [
+      await interaction.client.Maria.query(`UPDATE \`Notifications\` SET \`${event} Channel ID\` = ?, \`${event} Role ID\` = ? WHERE \`No\` = ?;`, [
         channel.id,
         role.id,
         notification.No
@@ -83,7 +82,7 @@ export default class Notification extends Base {
           break;
       }
     } else {
-      const { insertId } = await Maria.query(`INSERT INTO \`Notifications\` SET \`Guild ID\` = ?, \`${event} Channel ID\` = ?, \`${event} Role ID\` = ?;`, [
+      const { insertId } = await interaction.client.Maria.query(`INSERT INTO \`Notifications\` SET \`Guild ID\` = ?, \`${event} Channel ID\` = ?, \`${event} Role ID\` = ?;`, [
         interaction.guildId,
         channel.id,
         role.id
@@ -113,7 +112,7 @@ export default class Notification extends Base {
   }
 
   async unset(interaction: ChatInputCommandInteraction<"cached">, event: typeof LightEvent[keyof typeof LightEvent]): Promise<void> {
-    await Maria.query(`UPDATE \`Notifications\` SET \`${event} Channel ID\` = ?, \`${event} Role ID\` = ? WHERE \`No\` = ?;`, [
+    await interaction.client.Maria.query(`UPDATE \`Notifications\` SET \`${event} Channel ID\` = ?, \`${event} Role ID\` = ? WHERE \`No\` = ?;`, [
       null,
       null,
       this.No

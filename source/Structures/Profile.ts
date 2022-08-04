@@ -1,6 +1,5 @@
 import { ChatInputCommandInteraction, Client, Collection, EmbedAuthorOptions, EmbedBuilder, Guild, ModalSubmitInteraction } from "discord.js";
 import Base from "./Base.js";
-import { Maria } from "../Caelus.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import { Emoji } from "../Utility/Constants.js";
 
@@ -47,7 +46,7 @@ export default class Profile extends Base {
     const description = data.description ?? profile?.description ?? null;
 
     if (profile) {
-      await Maria.query("UPDATE `Profiles` SET `Name` = ?, `Icon` = ?, `Thumbnail` = ?, `Description` = ? WHERE `No` = ?;", [
+      await interaction.client.Maria.query("UPDATE `Profiles` SET `Name` = ?, `Icon` = ?, `Thumbnail` = ?, `Description` = ? WHERE `No` = ?;", [
         name,
         icon,
         thumbnail,
@@ -60,7 +59,7 @@ export default class Profile extends Base {
       profile.thumbnail = thumbnail;
       profile.description = description;
     } else {
-      const { insertId } = await Maria.query("INSERT INTO `Profiles` SET `User ID` = ?, `Name` = ?, `Icon` = ?, `Thumbnail` = ?, `Description` = ?;", [
+      const { insertId } = await interaction.client.Maria.query("INSERT INTO `Profiles` SET `User ID` = ?, `Name` = ?, `Icon` = ?, `Thumbnail` = ?, `Description` = ?;", [
         interaction.user.id,
         name,
         icon,

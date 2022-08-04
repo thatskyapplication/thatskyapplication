@@ -3,7 +3,7 @@ import process from "node:process";
 import { URL } from "node:url";
 import { inspect } from "node:util";
 import { Client, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits } from "discord.js";
-import { createPool } from "mariadb";
+import { createPool, Pool } from "mariadb";
 import commands from "./Commands/index.js";
 import type { Event } from "./Events/index.js";
 import { LOG_CHANNEL_ID } from "./Utility/Constants.js";
@@ -18,25 +18,26 @@ interface LogOptions {
 
 declare module "discord.js" {
   interface Client {
+    Maria: Pool;
     log(message: string, error?: any): Promise<void>;
     log(message: LogOptions): Promise<void>;
     applyCommands(): Promise<void>;
   }
 }
 
-export const Maria = createPool({
+Client.prototype.Maria = createPool({
   user: process.env.MARIA_USER,
   password: process.env.MARIA_PASSWORD,
   host: process.env.MARIA_HOST,
   database: process.env.MARIA_DATABASE
 });
 
-Client.prototype.log = async (message, error?): Promise<void> => {
+Client.prototype.log = async function (message, error?) {
   let stamp = new Date().toISOString();
   const content = typeof message === "string" ? message : message.content;
   const output = error || content;
   if (output) consoleLog(output, stamp);
-  const logChannel = Client.prototype.channels.cache.get(LOG_CHANNEL_ID);
+  const logChannel = this.channels.cache.get(LOG_CHANNEL_ID);
   if (!(logChannel instanceof TextChannel)) throw new Error("Attempting to log in a non-text channel.");
   const me = await logChannel.guild.members.fetchMe();
 
@@ -80,22 +81,22 @@ Client.prototype.log = async (message, error?): Promise<void> => {
   if (files.length > 0) await unlink(potentialFileName);
 };
 
-Client.prototype.applyCommands = async (): Promise<void> => {
+Client.prototype.applyCommands = async function (): Promise<void> {
   try {
-    if (!Client.prototype.isReady()) throw new Error("Client applying commands when not ready.");
-    const fetchedCommands = await Client.prototype.application.commands.fetch({ cache: false });
+    if (!this.isReady()) throw new Error("Client applying commands when not ready.");
+    const fetchedCommands = await this.application.commands.fetch({ cache: false });
     const commandData = Object.values(commands).map(({ commandData }) => commandData);
 
     if (fetchedCommands.size !== commandData.length || fetchedCommands.some(fetchedCommand => {
       const localCommand = commandData.find(({ name }) => name === fetchedCommand.name);
       return !localCommand || !fetchedCommand.equals(localCommand, true);
     })) {
-      const applicationCommands = await Client.prototype.application.commands.set(commandData);
+      const applicationCommands = await this.application.commands.set(commandData);
       consoleLog(applicationCommands.map(({ name, type }) => `Set ${name} as a ${type} application command.`).join("\n"));
       consoleLog("Finished applying commands!");
     }
   } catch (error) {
-    Client.prototype.log("Failed to apply commands.", error);
+    this.log("Failed to apply commands.", error);
   }
 };
 

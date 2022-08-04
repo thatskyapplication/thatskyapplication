@@ -2,7 +2,6 @@ import process from "node:process";
 import { Client, EmbedBuilder, Events, time, TimestampStyles } from "discord.js";
 import fetch from "node-fetch";
 import type { Event } from "./index.js";
-import { Maria } from "../Caelus.js";
 import Notification from "../Structures/Notification.js";
 import Profile from "../Structures/Profile.js";
 import Rotations from "../Structures/Rotations.js";
@@ -38,7 +37,7 @@ const githubToken = process.env.GITHUB_TOKEN;
 
 async function collectFromDatabase(client: Client<true>): Promise<void> {
   try {
-    await Maria.getConnection();
+    await client.Maria.getConnection();
     await collectNotifications(client);
     await collectProfiles(client);
   } catch (error) {
@@ -48,7 +47,7 @@ async function collectFromDatabase(client: Client<true>): Promise<void> {
 }
 
 async function collectNotifications(client: Client<true>): Promise<void> {
-  for (const notificationPacket of await Maria.query("SELECT * FROM `Notifications`;")) {
+  for (const notificationPacket of await client.Maria.query("SELECT * FROM `Notifications`;")) {
     const notification = new Notification(client, notificationPacket);
     Notification.cache.set(notification.No, notification);
   }
@@ -57,7 +56,7 @@ async function collectNotifications(client: Client<true>): Promise<void> {
 }
 
 async function collectProfiles(client: Client<true>): Promise<void> {
-  for (const profilePacket of await Maria.query("SELECT * FROM `Profiles`;")) {
+  for (const profilePacket of await client.Maria.query("SELECT * FROM `Profiles`;")) {
     const profile = new Profile(client, profilePacket);
     Profile.cache.set(profile.No, profile);
   }
