@@ -81,7 +81,7 @@ Client.prototype.log = async function (message, error?) {
   if (files.length > 0) await unlink(potentialFileName);
 };
 
-Client.prototype.applyCommands = async function (): Promise<void> {
+Client.prototype.applyCommands = async function () {
   try {
     if (!this.isReady()) throw new Error("Client applying commands when not ready.");
     const fetchedCommands = await this.application.commands.fetch({ cache: false });
