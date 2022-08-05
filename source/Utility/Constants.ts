@@ -2,6 +2,7 @@ export const REPOSITORY = "Jiralite/Caelus" as const;
 export const STARTUP_MESSAGE = "Twirling in the air~" as const;
 export const LOG_CHANNEL_ID = "994581628804403250" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki/" as const;
+export const MAXIMUM_WINGED_LIGHT = 200 as const;
 
 export const enum Emoji {
   TGCBlueSparkles = "597899298520170501",
@@ -36,8 +37,6 @@ export enum Realm {
   AncientMemory = "Ancient Memory"
 }
 
-export const MAXIMUM_WINGED_LIGHT = 199 as const;
-
 export const WingedLightCount = {
   IslesOfDawn: 9,
   DaylightPrairie: 21,
@@ -46,6 +45,6 @@ export const WingedLightCount = {
   GoldenWasteland: 18,
   VaultOfKnowledge: 11,
   EyeOfEden: 10,
-  AncientMemory: 1,
+  AncientMemory: 2,
   Orbit: 1
 } as const;
