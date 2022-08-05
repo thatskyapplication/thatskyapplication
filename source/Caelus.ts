@@ -29,7 +29,9 @@ Client.prototype.Maria = createPool({
   user: process.env.MARIA_USER,
   password: process.env.MARIA_PASSWORD,
   host: process.env.MARIA_HOST,
-  database: process.env.MARIA_DATABASE
+  database: process.env.MARIA_DATABASE,
+  bigIntAsNumber: true,
+  insertIdAsNumber: true
 });
 
 Client.prototype.log = async function (message, error?) {
