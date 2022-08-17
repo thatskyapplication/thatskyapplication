@@ -7,11 +7,7 @@ export default class implements AutocompleteCommand {
   readonly name = "spirit";
   readonly type = ApplicationCommandType.ChatInput;
 
-  async handle(interaction: ChatInputCommandInteraction): Promise<void> {
-    return await this.execute(interaction);
-  }
-
-  async execute(interaction: ChatInputCommandInteraction): Promise<void> {
+  async chatInput(interaction: ChatInputCommandInteraction): Promise<void> {
     const query = interaction.options.getString("query", true);
     const spirit = Spirits.find(({ name }) => name === query);
 

@@ -14,7 +14,7 @@ export const event: Event<typeof name> = {
       const { commandName } = interaction;
 
       if (!isCommandName(commandName)) {
-        interaction.client.log(`Received an unknown chat input command interaction (\`${interaction.commandName}\`).`);
+        interaction.client.log(`Received an unknown chat input command interaction (\`${commandName}\`).`);
 
         interaction.reply({
           content: "A dark crab appeared out of nowhere and gobbled this command up. It doesn't seem to exist.",
@@ -27,12 +27,12 @@ export const event: Event<typeof name> = {
       const command = commands[commandName];
 
       if (!isChatInputCommand(command)) {
-        interaction.client.log(`Received an unknown chat input command interaction (\`${interaction.commandName}\`).`);
+        interaction.client.log(`Received an unknown chat input command interaction (\`${commandName}\`).`);
         return;
       }
 
       try {
-        await command.handle(interaction);
+        await command.chatInput(interaction);
       } catch (error) {
         interaction.client.log(`Error running command \`/${commandName}\`.`, error);
         const interactionResponseBody = { content: "An error was encountered. Rest easy, it's being tracked!", ephemeral: true };
@@ -46,7 +46,7 @@ export const event: Event<typeof name> = {
       const { commandName } = interaction;
 
       if (!isCommandName(commandName)) {
-        interaction.client.log(`Received an unknown user context menu command interaction (\`${interaction.commandName}\`).`);
+        interaction.client.log(`Received an unknown user context menu command interaction (\`${commandName}\`).`);
 
         interaction.reply({
           content: "A dark dragon appeared and striked the user. The command flew away.",
@@ -59,7 +59,7 @@ export const event: Event<typeof name> = {
       const command = commands[commandName];
 
       if (!isUserContextMenuCommand(command)) {
-        interaction.client.log(`Received an unknown user context menu command interaction (\`${interaction.commandName}\`).`);
+        interaction.client.log(`Received an unknown user context menu command interaction (\`${commandName}\`).`);
         return;
       }
 

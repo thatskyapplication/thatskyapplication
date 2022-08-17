@@ -1,14 +1,14 @@
 import { ActionRowBuilder, ApplicationCommandData, ApplicationCommandType, ChatInputCommandInteraction, Collection, MessageActionRowComponentBuilder, PermissionsBitField, SelectMenuBuilder, SelectMenuInteraction, Snowflake } from "discord.js";
 import Notification, { LightEvent } from "../../Structures/Notification.js";
-import type { Command } from "../index.js";
+import type { ChatInputCommand } from "../index.js";
 
 export const rolesSelectMenuCustomId = "SELFROLE" as const;
 
-export default class implements Command {
+export default class implements ChatInputCommand {
   readonly name = "roles";
   readonly type = ApplicationCommandType.ChatInput;
 
-  async handle(interaction: ChatInputCommandInteraction): Promise<void> {
+  async chatInput(interaction: ChatInputCommandInteraction): Promise<void> {
     if (!interaction.inCachedGuild()) {
       interaction.client.log(`The \`/${this.name}\` command was used in an uncached guild, somehow.`, interaction);
 

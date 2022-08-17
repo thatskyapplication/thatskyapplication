@@ -1,6 +1,6 @@
-import { ActionRowBuilder, ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, CacheType, ChatInputCommandInteraction, ModalActionRowComponentBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, UserContextMenuCommandInteraction } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, ModalActionRowComponentBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, UserContextMenuCommandInteraction } from "discord.js";
 import Profile from "../../Structures/Profile.js";
-import type { Command } from "../index.js";
+import type { ChatInputCommand } from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL";
 export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION";
@@ -8,11 +8,11 @@ const SKY_MAXIMUM_NAME_LENGTH = 16;
 const SKY_MINIMUM_IMAGE_URL_LENGTH = 9;
 const SKY_MAXIMUM_IMAGE_URL_LENGTH = 150;
 
-export default class implements Command {
+export default class implements ChatInputCommand {
   readonly name = "sky-profile";
   readonly type = ApplicationCommandType.ChatInput;
 
-  async handle(interaction: ChatInputCommandInteraction): Promise<void> {
+  async chatInput(interaction: ChatInputCommandInteraction): Promise<void> {
     switch (interaction.options.getSubcommand()) {
       case "set-description":
         return await this.setDescription(interaction);
@@ -68,7 +68,7 @@ export default class implements Command {
     await Profile.set(interaction, { thumbnail });
   }
 
-  async show(interaction: ChatInputCommandInteraction<CacheType> | UserContextMenuCommandInteraction<CacheType>): Promise<void> {
+  async show(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction): Promise<void> {
     const user = interaction.options.getUser("user");
     const ephemeral = interaction.isChatInputCommand() ? interaction.options.getBoolean("ephemeral") ?? false : true;
     if (user?.bot) return void await interaction.reply({ content: "Do bots have Sky profiles? Hm. Who knows?", ephemeral });

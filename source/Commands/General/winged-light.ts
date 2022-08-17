@@ -1,16 +1,12 @@
 import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, EmbedBuilder, formatEmoji } from "discord.js";
 import { Emoji, MAXIMUM_WINGED_LIGHT, Realm, WingedLightCount } from "../../Utility/Constants.js";
-import type { Command } from "../index.js";
+import type { ChatInputCommand } from "../index.js";
 
-export default class implements Command {
+export default class implements ChatInputCommand {
   readonly name = "winged-light";
   readonly type = ApplicationCommandType.ChatInput;
 
-  async handle(interaction: ChatInputCommandInteraction): Promise<void> {
-    return await this.execute(interaction);
-  }
-
-  async execute(interaction: ChatInputCommandInteraction): Promise<void> {
+  async chatInput(interaction: ChatInputCommandInteraction): Promise<void> {
     const { options } = interaction;
     const wingedLight = options.getInteger("winged-light", true);
     const realm1 = options.getString("realm-1") as Realm | null;

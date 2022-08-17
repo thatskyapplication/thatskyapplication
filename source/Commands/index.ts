@@ -26,16 +26,16 @@ export function isCommandName(commandName: string): commandName is CommandName {
   return commandName in commands;
 }
 
-export function isChatInputCommand(command: BaseCommandData): command is Command {
-  return isCommandName(command.name) && command.type === ApplicationCommandType.ChatInput;
+export function isChatInputCommand(command: BaseCommandData): command is ChatInputCommand {
+  return command.type === ApplicationCommandType.ChatInput;
 }
 
 export function isAutocompleteCommand(command: BaseCommandData): command is AutocompleteCommand {
-  return isCommandName(command.name) && "autocomplete" in command;
+  return "autocomplete" in command;
 }
 
 export function isUserContextMenuCommand(command: BaseCommandData): command is UserContextMenuCommand {
-  return isCommandName(command.name) && command.type === ApplicationCommandType.User;
+  return command.type === ApplicationCommandType.User;
 }
 
 interface BaseCommandData {
@@ -44,12 +44,11 @@ interface BaseCommandData {
   get commandData(): ApplicationCommandData;
 }
 
-export interface Command extends BaseCommandData {
-  handle(interaction: ChatInputCommandInteraction): Promise<void>;
-  execute?(interaction: ChatInputCommandInteraction): Promise<void>;
+export interface ChatInputCommand extends BaseCommandData {
+  chatInput(interaction: ChatInputCommandInteraction): Promise<void>;
 }
 
-export interface AutocompleteCommand extends Command {
+export interface AutocompleteCommand extends ChatInputCommand {
   autocomplete(interaction: AutocompleteInteraction): Promise<void>;
 }
 
