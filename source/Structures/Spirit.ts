@@ -324,7 +324,7 @@ export default [
   new SeasonalSpirit({ name: SpiritName.PeekingPostman, season: Season.Dreams, expression: Expression.Peek, realm: Realm.ValleyOfTriumph, offer: { candles: 217, hearts: 13, ascendedCandles: 2 }, keywords: ["rabbit", "rabbit mask"] }),
   new SeasonalSpirit({ name: SpiritName.BearhugHermit, season: Season.Dreams, expression: Expression.Bearhug, realm: Realm.ValleyOfTriumph, keywords: ["yeti"] }),
   new SeasonalSpirit({ name: SpiritName.BaffledBotanist, season: Season.Assembly, expression: Expression.Facepalm, realm: Realm.HiddenForest }),
-  new SeasonalSpirit({ name: SpiritName.ScoldingStudent, season: Season.Assembly, expression: Expression.Scold, realm: Realm.HiddenForest, keywords: ["clover", "clover cape"] }),
+  new SeasonalSpirit({ name: SpiritName.ScoldingStudent, season: Season.Assembly, expression: Expression.Scold, realm: Realm.HiddenForest, offer: { candles: 157, hearts: 13, ascendedCandles: 2 }, keywords: ["clover", "clover cape"] }),
   new SeasonalSpirit({ name: SpiritName.ScaredyCadet, season: Season.Assembly, expression: Expression.Eww, realm: Realm.HiddenForest, keywords: ["hammock"] }),
   new SeasonalSpirit({ name: SpiritName.MarchingAdventurer, season: Season.Assembly, expression: Expression.March, realm: Realm.HiddenForest }),
   new SeasonalSpirit({ name: SpiritName.ChucklingScout, season: Season.Assembly, expression: Expression.Chuckle, realm: Realm.HiddenForest }),
