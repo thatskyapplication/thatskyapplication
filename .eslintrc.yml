@@ -1,5 +1,7 @@
 root: true
 parser: "@typescript-eslint/parser"
+parserOptions:
+  project: ./tsconfig.json
 env:
   node: true
 extends:
@@ -7,6 +9,7 @@ extends:
   - plugin:@typescript-eslint/recommended
 plugins:
   - "@typescript-eslint"
+  - deprecation
   - import
 reportUnusedDisableDirectives: true
 rules:
@@ -42,6 +45,7 @@ rules:
     - 2
     - double
     - avoidEscape: true
+  deprecation/deprecation: 2
   import/first: 2
   import/newline-after-import: 2
   import/no-duplicates: 2
