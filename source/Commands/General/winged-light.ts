@@ -77,8 +77,8 @@ export default class implements ChatInputCommand {
       },
       description: "Calculates how much winged light one should possess.",
       descriptionLocalizations: {
-        "en-GB": this.name,
-        "en-US": this.name,
+        "en-GB": "Calculates how much winged light one should possess.",
+        "en-US": "Calculates how much winged light one should possess.",
         "es-ES": "Calcula cuántas luces aladas debería poseer alguien."
       },
       type: this.type,
