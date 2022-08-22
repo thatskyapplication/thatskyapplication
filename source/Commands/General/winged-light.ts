@@ -70,13 +70,33 @@ export default class implements ChatInputCommand {
 
     return {
       name: this.name,
+      nameLocalizations: {
+        "en-GB": this.name,
+        "en-US": this.name,
+        "es-ES": "luz-alada"
+      },
       description: "Calculates how much winged light one should possess.",
+      descriptionLocalizations: {
+        "en-GB": this.name,
+        "en-US": this.name,
+        "es-ES": "Calcula cuántas luces aladas debería poseer alguien."
+      },
       type: this.type,
       options: [
         {
           type: ApplicationCommandOptionType.Integer,
           name: "winged-light",
+          nameLocalizations: {
+            "en-GB": "winged-light",
+            "en-US": "winged-light",
+            "es-ES": "luz-alada"
+          },
           description: "The winged light one has after death in Eden, before being reborn.",
+          descriptionLocalizations: {
+            "en-GB": "The winged light one has after death in Eden, before being reborn.",
+            "en-US": "The winged light one has after death in Eden, before being reborn.",
+            "es-ES": "La luz alada que alguien tiene después de morir en Edén, antes de renacer"
+          },
           maxValue: MAXIMUM_WINGED_LIGHT - wingedLightInRealms,
           minValue: 0,
           required: true
@@ -84,49 +104,129 @@ export default class implements ChatInputCommand {
         {
           type: ApplicationCommandOptionType.String,
           name: "realm-1",
+          nameLocalizations: {
+            "en-GB": "realm-1",
+            "en-US": "realm-1",
+            "es-ES": "reino-1"
+          },
           description: "The first realm to calculate winged light from.",
+          descriptionLocalizations: {
+            "en-GB": "The first realm to calculate winged light from.",
+            "en-US": "The first realm to calculate winged light from.",
+            "es-ES": "El primer reino a partir del cual calculamos la luz alada"
+          },
           choices
         },
         {
           type: ApplicationCommandOptionType.String,
           name: "realm-2",
+          nameLocalizations: {
+            "en-GB": "realm-2",
+            "en-US": "realm-2",
+            "es-ES": "reino-2"
+          },
           description: "The second realm to calculate winged light from.",
+          descriptionLocalizations: {
+            "en-GB": "The second realm to calculate winged light from.",
+            "en-US": "The second realm to calculate winged light from.",
+            "es-ES": "El segundo reino a partir del cual calculamos la luz alada"
+          },
           choices
         },
         {
           type: ApplicationCommandOptionType.String,
           name: "realm-3",
+          nameLocalizations: {
+            "en-GB": "realm-3",
+            "en-US": "realm-3",
+            "es-ES": "reino-3"
+          },
           description: "The third realm to calculate winged light from.",
+          descriptionLocalizations: {
+            "en-GB": "The third realm to calculate winged light from.",
+            "en-US": "The third realm to calculate winged light from.",
+            "es-ES": "El tercer reino a partir del cual calculamos la luz alada"
+          },
           choices
         },
         {
           type: ApplicationCommandOptionType.String,
           name: "realm-4",
+          nameLocalizations: {
+            "en-GB": "realm-4",
+            "en-US": "realm-4",
+            "es-ES": "reino-4"
+          },
           description: "The fourth realm to calculate winged light from.",
+          descriptionLocalizations: {
+            "en-GB": "The fourth realm to calculate winged light from.",
+            "en-US": "The fourth realm to calculate winged light from.",
+            "es-ES": "El cuarto reino a partir del cual calculamos la luz alada"
+          },
           choices
         },
         {
           type: ApplicationCommandOptionType.String,
           name: "realm-5",
+          nameLocalizations: {
+            "en-GB": "realm-5",
+            "en-US": "realm-5",
+            "es-ES": "reino-5"
+          },
           description: "The fifth realm to calculate winged light from.",
+          descriptionLocalizations: {
+            "en-GB": "The fifth realm to calculate winged light from.",
+            "en-US": "The fifth realm to calculate winged light from.",
+            "es-ES": "El quinto reino a partir del cual calculamos la luz alada"
+          },
           choices
         },
         {
           type: ApplicationCommandOptionType.String,
           name: "realm-6",
+          nameLocalizations: {
+            "en-GB": "realm-6",
+            "en-US": "realm-6",
+            "es-ES": "reino-6"
+          },
           description: "The sixth realm to calculate winged light from.",
+          descriptionLocalizations: {
+            "en-GB": "The sixth realm to calculate winged light from.",
+            "en-US": "The sixth realm to calculate winged light from.",
+            "es-ES": "El sexto reino a partir del cual calculamos la luz alada"
+          },
           choices
         },
         {
           type: ApplicationCommandOptionType.String,
           name: "realm-7",
+          nameLocalizations: {
+            "en-GB": "realm-7",
+            "en-US": "realm-7",
+            "es-ES": "reino-7"
+          },
           description: "The seventh realm to calculate winged light from.",
+          descriptionLocalizations: {
+            "en-GB": "The seventh realm to calculate winged light from.",
+            "en-US": "The seventh realm to calculate winged light from.",
+            "es-ES": "El séptimo reino a partir del cual calculamos la luz alada"
+          },
           choices
         },
         {
           type: ApplicationCommandOptionType.String,
           name: "realm-8",
+          nameLocalizations: {
+            "en-GB": "realm-8",
+            "en-US": "realm-8",
+            "es-ES": "reino-8"
+          },
           description: "The eighth realm to calculate winged light from.",
+          descriptionLocalizations: {
+            "en-GB": "The eighth realm to calculate winged light from.",
+            "en-US": "The eighth realm to calculate winged light from.",
+            "es-ES": "El octavo reino a partir del cual calculamos la luz alada"
+          },
           choices
         }
       ]
