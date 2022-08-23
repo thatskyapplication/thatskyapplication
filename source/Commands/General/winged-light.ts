@@ -1,6 +1,6 @@
 import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, EmbedBuilder, formatEmoji } from "discord.js";
 import { Emoji, MAXIMUM_WINGED_LIGHT, Realm, realmTranslations, WingedLightCount } from "../../Utility/Constants.js";
-import { isRealm, notNull } from "../../Utility/Utility.js";
+import { isRealm, notNull, realmToString } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default class implements ChatInputCommand {
@@ -36,28 +36,28 @@ export default class implements ChatInputCommand {
     for (const realm of path) {
       switch (realm) {
         case Realm.IslesOfDawn:
-          embed.addFields({ name: "Isles of Dawn", value: `${accumulation += WingedLightCount.IslesOfDawn} (+${WingedLightCount.IslesOfDawn})` });
+          embed.addFields({ name: realmToString(realm, interaction.locale), value: `${accumulation += WingedLightCount.IslesOfDawn} (+${WingedLightCount.IslesOfDawn})` });
           break;
         case Realm.DaylightPrairie:
-          embed.addFields({ name: "Daylight Prairie", value: `${accumulation += WingedLightCount.DaylightPrairie} (+${WingedLightCount.DaylightPrairie})` });
+          embed.addFields({ name: realmToString(realm, interaction.locale), value: `${accumulation += WingedLightCount.DaylightPrairie} (+${WingedLightCount.DaylightPrairie})` });
           break;
         case Realm.HiddenForest:
-          embed.addFields({ name: "Hidden Forest", value: `${accumulation += WingedLightCount.HiddenForest} (+${WingedLightCount.HiddenForest})` });
+          embed.addFields({ name: realmToString(realm, interaction.locale), value: `${accumulation += WingedLightCount.HiddenForest} (+${WingedLightCount.HiddenForest})` });
           break;
         case Realm.ValleyOfTriumph:
-          embed.addFields({ name: "Valley of Triumph", value: `${accumulation += WingedLightCount.ValleyOfTriumph} (+${WingedLightCount.ValleyOfTriumph})` });
+          embed.addFields({ name: realmToString(realm, interaction.locale), value: `${accumulation += WingedLightCount.ValleyOfTriumph} (+${WingedLightCount.ValleyOfTriumph})` });
           break;
         case Realm.GoldenWasteland:
-          embed.addFields({ name: "Golden Wasteland", value: `${accumulation += WingedLightCount.GoldenWasteland} (+${WingedLightCount.GoldenWasteland})` });
+          embed.addFields({ name: realmToString(realm, interaction.locale), value: `${accumulation += WingedLightCount.GoldenWasteland} (+${WingedLightCount.GoldenWasteland})` });
           break;
         case Realm.VaultOfKnowledge:
-          embed.addFields({ name: "Vault of Knowledge", value: `${accumulation += WingedLightCount.VaultOfKnowledge} (+${WingedLightCount.VaultOfKnowledge})` });
+          embed.addFields({ name: realmToString(realm, interaction.locale), value: `${accumulation += WingedLightCount.VaultOfKnowledge} (+${WingedLightCount.VaultOfKnowledge})` });
           break;
         case Realm.EyeOfEden:
-          embed.addFields({ name: "Eye of Eden", value: `${accumulation += WingedLightCount.EyeOfEden} (+${WingedLightCount.EyeOfEden})` });
+          embed.addFields({ name: realmToString(realm, interaction.locale), value: `${accumulation += WingedLightCount.EyeOfEden} (+${WingedLightCount.EyeOfEden})` });
           break;
         case Realm.AncientMemory:
-          embed.addFields({ name: "Ancient Memory", value: `${accumulation += WingedLightCount.AncientMemory} (+${WingedLightCount.AncientMemory})` });
+          embed.addFields({ name: realmToString(realm, interaction.locale), value: `${accumulation += WingedLightCount.AncientMemory} (+${WingedLightCount.AncientMemory})` });
           break;
       }
     }
