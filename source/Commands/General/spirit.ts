@@ -1,6 +1,7 @@
 import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder, formatEmoji } from "discord.js";
 import Spirits from "../../Structures/Spirit.js";
 import { Emoji } from "../../Utility/Constants.js";
+import { realmToString } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export default class implements AutocompleteCommand {
@@ -33,7 +34,7 @@ export default class implements AutocompleteCommand {
     embed.setFields(
       {
         name: "Realm",
-        value: spirit.realm,
+        value: realmToString(spirit.realm, interaction.locale),
         inline: true
       },
       {

@@ -1,5 +1,6 @@
 import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, EmbedBuilder, formatEmoji } from "discord.js";
-import { Emoji, MAXIMUM_WINGED_LIGHT, Realm, WingedLightCount } from "../../Utility/Constants.js";
+import { Emoji, MAXIMUM_WINGED_LIGHT, Realm, realmTranslations, WingedLightCount } from "../../Utility/Constants.js";
+import { isRealm, notNull } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default class implements ChatInputCommand {
@@ -9,18 +10,23 @@ export default class implements ChatInputCommand {
   async chatInput(interaction: ChatInputCommandInteraction): Promise<void> {
     const { options } = interaction;
     const wingedLight = options.getInteger("winged-light", true);
-    const realm1 = options.getString("realm-1") as Realm | null;
-    const realm2 = options.getString("realm-2") as Realm | null;
-    const realm3 = options.getString("realm-3") as Realm | null;
-    const realm4 = options.getString("realm-4") as Realm | null;
-    const realm5 = options.getString("realm-5") as Realm | null;
-    const realm6 = options.getString("realm-6") as Realm | null;
-    const realm7 = options.getString("realm-7") as Realm | null;
-    const realm8 = options.getString("realm-8") as Realm | null;
-    const realms = [realm1, realm2, realm3, realm4, realm5, realm6, realm7, realm8];
-    const realmsFiltered = realms.filter(Boolean) as Realm[];
-    if (realms.some(realm => realm !== null) && new Set(realmsFiltered).size !== realmsFiltered.length) return void await interaction.reply("Duplicate realms detected. Make sure to only provide unique realms!");
-    const path = (realmsFiltered.length === 0 ? Object.values(Realm) : realmsFiltered);
+    const realm1 = options.getInteger("realm-1");
+    const realm2 = options.getInteger("realm-2");
+    const realm3 = options.getInteger("realm-3");
+    const realm4 = options.getInteger("realm-4");
+    const realm5 = options.getInteger("realm-5");
+    const realm6 = options.getInteger("realm-6");
+    const realm7 = options.getInteger("realm-7");
+    const realm8 = options.getInteger("realm-8");
+    const realms = [realm1, realm2, realm3, realm4, realm5, realm6, realm7, realm8].filter(notNull);
+
+    if (!realms.every(isRealm)) {
+      interaction.client.log("Received an unknown realm.", realms);
+      return void await interaction.reply("Unknown realm detected. How odd? We can't do anything about this...");
+    }
+
+    if (new Set(realms).size !== realms.length) return void await interaction.reply("Duplicate realms detected. Make sure to only provide unique realms!");
+    const path = (realms.length === 0 ? Object.values(Realm) : realms);
     let accumulation = wingedLight;
     const me = await interaction.guild?.members.fetchMe();
     const embed = new EmbedBuilder();
@@ -64,7 +70,8 @@ export default class implements ChatInputCommand {
     const wingedLightInRealms = Object.values(WingedLightCount).reduce((wingedLightCount, wingedLight) => wingedLightCount + wingedLight, 0);
 
     const choices = Object.values(Realm).map(realm => ({
-      name: realm,
+      name: realmTranslations[realm]["en-GB"],
+      nameLocalizations: realmTranslations[realm],
       value: realm
     }));
 
@@ -102,7 +109,7 @@ export default class implements ChatInputCommand {
           required: true
         },
         {
-          type: ApplicationCommandOptionType.String,
+          type: ApplicationCommandOptionType.Integer,
           name: "realm-1",
           nameLocalizations: {
             "en-GB": "realm-1",
@@ -118,7 +125,7 @@ export default class implements ChatInputCommand {
           choices
         },
         {
-          type: ApplicationCommandOptionType.String,
+          type: ApplicationCommandOptionType.Integer,
           name: "realm-2",
           nameLocalizations: {
             "en-GB": "realm-2",
@@ -134,7 +141,7 @@ export default class implements ChatInputCommand {
           choices
         },
         {
-          type: ApplicationCommandOptionType.String,
+          type: ApplicationCommandOptionType.Integer,
           name: "realm-3",
           nameLocalizations: {
             "en-GB": "realm-3",
@@ -150,7 +157,7 @@ export default class implements ChatInputCommand {
           choices
         },
         {
-          type: ApplicationCommandOptionType.String,
+          type: ApplicationCommandOptionType.Integer,
           name: "realm-4",
           nameLocalizations: {
             "en-GB": "realm-4",
@@ -166,7 +173,7 @@ export default class implements ChatInputCommand {
           choices
         },
         {
-          type: ApplicationCommandOptionType.String,
+          type: ApplicationCommandOptionType.Integer,
           name: "realm-5",
           nameLocalizations: {
             "en-GB": "realm-5",
@@ -182,7 +189,7 @@ export default class implements ChatInputCommand {
           choices
         },
         {
-          type: ApplicationCommandOptionType.String,
+          type: ApplicationCommandOptionType.Integer,
           name: "realm-6",
           nameLocalizations: {
             "en-GB": "realm-6",
@@ -198,7 +205,7 @@ export default class implements ChatInputCommand {
           choices
         },
         {
-          type: ApplicationCommandOptionType.String,
+          type: ApplicationCommandOptionType.Integer,
           name: "realm-7",
           nameLocalizations: {
             "en-GB": "realm-7",
@@ -214,7 +221,7 @@ export default class implements ChatInputCommand {
           choices
         },
         {
-          type: ApplicationCommandOptionType.String,
+          type: ApplicationCommandOptionType.Integer,
           name: "realm-8",
           nameLocalizations: {
             "en-GB": "realm-8",

@@ -1,7 +1,7 @@
 import type { Buffer } from "node:buffer";
 import { readFileSync } from "node:fs";
 import { URL } from "node:url";
-import { Emoji, Realm, WIKI_URL } from "../Utility/Constants.js";
+import { Emoji, Realm, RealmValue, WIKI_URL } from "../Utility/Constants.js";
 
 function resolveSeasonEmoji(season: Season): Emoji {
   switch (season) {
@@ -209,7 +209,7 @@ interface SpiritOffer {
 
 interface SpiritDataBase {
   name: SpiritName;
-  realm: Realm;
+  realm: RealmValue;
   offer?: SpiritOffer;
   keywords?: string[];
 }
