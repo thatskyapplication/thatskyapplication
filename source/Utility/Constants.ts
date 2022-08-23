@@ -46,25 +46,39 @@ export const realmTranslations = {
     [Locale.SpanishES]: "Isla del Amanecer"
   },
   [Realm.DaylightPrairie]: {
-    [Locale.EnglishGB]: "Daylight Prairie"
+    [Locale.EnglishGB]: "Daylight Prairie",
+    [Locale.EnglishUS]: "Daylight Prairie",
+    [Locale.SpanishES]: "Planicie de Luz de Día"
   },
   [Realm.HiddenForest]: {
-    [Locale.EnglishGB]: "Hidden Forest"
+    [Locale.EnglishGB]: "Hidden Forest",
+    [Locale.EnglishUS]: "Hidden Forest",
+    [Locale.SpanishES]: "Bosque Escondido"
   },
   [Realm.ValleyOfTriumph]: {
-    [Locale.EnglishGB]: "Valley Of Triumph"
+    [Locale.EnglishGB]: "Valley Of Triumph",
+    [Locale.EnglishUS]: "Valley Of Triumph",
+    [Locale.SpanishES]: "Valle del Triunfo"
   },
   [Realm.GoldenWasteland]: {
-    [Locale.EnglishGB]: "Golden Wasteland"
+    [Locale.EnglishGB]: "Golden Wasteland",
+    [Locale.EnglishUS]: "Golden Wasteland",
+    [Locale.SpanishES]: "Páramo Dorado"
   },
   [Realm.VaultOfKnowledge]: {
-    [Locale.EnglishGB]: "Vault of Knowledge"
+    [Locale.EnglishGB]: "Vault of Knowledge",
+    [Locale.EnglishUS]: "Vault of Knowledge",
+    [Locale.SpanishES]: "Bóveda del Conocimiento"
   },
   [Realm.EyeOfEden]: {
-    [Locale.EnglishGB]: "Eye of Eden"
+    [Locale.EnglishGB]: "Eye of Eden",
+    [Locale.EnglishUS]: "Eye of Eden",
+    [Locale.SpanishES]: "Ojo de edén"
   },
   [Realm.AncientMemory]: {
-    [Locale.EnglishGB]: "Ancient Memory"
+    [Locale.EnglishGB]: "Ancient Memory",
+    [Locale.EnglishUS]: "Ancient Memory",
+    [Locale.SpanishES]: "Memoria antigua"
   }
 } as const;
 
