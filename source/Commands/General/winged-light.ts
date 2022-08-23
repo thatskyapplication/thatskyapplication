@@ -102,7 +102,7 @@ export default class implements ChatInputCommand {
           descriptionLocalizations: {
             "en-GB": "The winged light one has after death in Eden, before being reborn.",
             "en-US": "The winged light one has after death in Eden, before being reborn.",
-            "es-ES": "La luz alada que alguien tiene después de morir en Edén, antes de renacer"
+            "es-ES": "La luz alada que alguien tiene después de morir en Edén, antes de renacer."
           },
           maxValue: MAXIMUM_WINGED_LIGHT - wingedLightInRealms,
           minValue: 0,
@@ -120,7 +120,7 @@ export default class implements ChatInputCommand {
           descriptionLocalizations: {
             "en-GB": "The first realm to calculate winged light from.",
             "en-US": "The first realm to calculate winged light from.",
-            "es-ES": "El primer reino a partir del cual calculamos la luz alada"
+            "es-ES": "El primer reino a partir del cual calculamos la luz alada."
           },
           choices
         },
@@ -136,7 +136,7 @@ export default class implements ChatInputCommand {
           descriptionLocalizations: {
             "en-GB": "The second realm to calculate winged light from.",
             "en-US": "The second realm to calculate winged light from.",
-            "es-ES": "El segundo reino a partir del cual calculamos la luz alada"
+            "es-ES": "El segundo reino a partir del cual calculamos la luz alada."
           },
           choices
         },
@@ -152,7 +152,7 @@ export default class implements ChatInputCommand {
           descriptionLocalizations: {
             "en-GB": "The third realm to calculate winged light from.",
             "en-US": "The third realm to calculate winged light from.",
-            "es-ES": "El tercer reino a partir del cual calculamos la luz alada"
+            "es-ES": "El tercer reino a partir del cual calculamos la luz alada."
           },
           choices
         },
@@ -168,7 +168,7 @@ export default class implements ChatInputCommand {
           descriptionLocalizations: {
             "en-GB": "The fourth realm to calculate winged light from.",
             "en-US": "The fourth realm to calculate winged light from.",
-            "es-ES": "El cuarto reino a partir del cual calculamos la luz alada"
+            "es-ES": "El cuarto reino a partir del cual calculamos la luz alada."
           },
           choices
         },
@@ -184,7 +184,7 @@ export default class implements ChatInputCommand {
           descriptionLocalizations: {
             "en-GB": "The fifth realm to calculate winged light from.",
             "en-US": "The fifth realm to calculate winged light from.",
-            "es-ES": "El quinto reino a partir del cual calculamos la luz alada"
+            "es-ES": "El quinto reino a partir del cual calculamos la luz alada."
           },
           choices
         },
@@ -200,7 +200,7 @@ export default class implements ChatInputCommand {
           descriptionLocalizations: {
             "en-GB": "The sixth realm to calculate winged light from.",
             "en-US": "The sixth realm to calculate winged light from.",
-            "es-ES": "El sexto reino a partir del cual calculamos la luz alada"
+            "es-ES": "El sexto reino a partir del cual calculamos la luz alada."
           },
           choices
         },
@@ -216,7 +216,7 @@ export default class implements ChatInputCommand {
           descriptionLocalizations: {
             "en-GB": "The seventh realm to calculate winged light from.",
             "en-US": "The seventh realm to calculate winged light from.",
-            "es-ES": "El séptimo reino a partir del cual calculamos la luz alada"
+            "es-ES": "El séptimo reino a partir del cual calculamos la luz alada."
           },
           choices
         },
@@ -232,7 +232,7 @@ export default class implements ChatInputCommand {
           descriptionLocalizations: {
             "en-GB": "The eighth realm to calculate winged light from.",
             "en-US": "The eighth realm to calculate winged light from.",
-            "es-ES": "El octavo reino a partir del cual calculamos la luz alada"
+            "es-ES": "El octavo reino a partir del cual calculamos la luz alada."
           },
           choices
         }
