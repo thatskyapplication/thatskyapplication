@@ -93,15 +93,7 @@ export default class implements ChatInputCommand {
         {
           type: ApplicationCommandOptionType.Subcommand,
           name: "set-description",
-          description: "Set the description of your Sky profile!",
-          options: [
-            {
-              type: ApplicationCommandOptionType.Boolean,
-              name: "description",
-              description: "Choose whether to set the description of your Sky profile.",
-              required: true
-            }
-          ]
+          description: "Set the description of your Sky profile!"
         },
         {
           type: ApplicationCommandOptionType.Subcommand,
