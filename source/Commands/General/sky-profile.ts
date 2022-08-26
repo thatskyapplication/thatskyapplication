@@ -28,13 +28,6 @@ export default class implements ChatInputCommand {
   }
 
   async setDescription(interaction: ChatInputCommandInteraction): Promise<void> {
-    if (!interaction.options.getBoolean("description", true)) {
-      return void await interaction.reply({
-        content: "Oh, you don't want to set a description now? That's fine. Maybe later!",
-        ephemeral: true
-      });
-    }
-
     const profile = Profile.cache.find(({ userId }) => interaction.user.id === userId);
     const modal = new ModalBuilder();
     const actionRow = new ActionRowBuilder<ModalActionRowComponentBuilder>();
