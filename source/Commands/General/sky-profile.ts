@@ -28,13 +28,6 @@ export default class implements ChatInputCommand {
   }
 
   async setDescription(interaction: ChatInputCommandInteraction): Promise<void> {
-    if (!interaction.options.getBoolean("description", true)) {
-      return void await interaction.reply({
-        content: "Oh, you don't want to set a description now? That's fine. Maybe later!",
-        ephemeral: true
-      });
-    }
-
     const profile = Profile.cache.find(({ userId }) => interaction.user.id === userId);
     const modal = new ModalBuilder();
     const actionRow = new ActionRowBuilder<ModalActionRowComponentBuilder>();
@@ -93,15 +86,7 @@ export default class implements ChatInputCommand {
         {
           type: ApplicationCommandOptionType.Subcommand,
           name: "set-description",
-          description: "Set the description of your Sky profile!",
-          options: [
-            {
-              type: ApplicationCommandOptionType.Boolean,
-              name: "description",
-              description: "Choose whether to set the description of your Sky profile.",
-              required: true
-            }
-          ]
+          description: "Set the description of your Sky profile!"
         },
         {
           type: ApplicationCommandOptionType.Subcommand,
