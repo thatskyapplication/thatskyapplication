@@ -92,6 +92,6 @@ export const WingedLightCount = {
   GoldenWasteland: 18,
   VaultOfKnowledge: 11,
   EyeOfEden: 10,
-  AncientMemory: 3,
+  AncientMemory: 5,
   Orbit: 1
 } as const;
