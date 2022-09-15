@@ -290,7 +290,7 @@ export default [
   new SeasonalSpirit({ name: SpiritName.LaidbackPioneer, season: Season.Lightseekers, stance: Stance.Laidback, realm: Realm.HiddenForest, offer: { candles: 151, hearts: 0, ascendedCandles: 2 }, keywords: ["umbrella"] }),
   new SeasonalSpirit({ name: SpiritName.TwirlingChampion, season: Season.Lightseekers, expression: Expression.Twirl, realm: Realm.ValleyOfTriumph, offer: { candles: 131, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: SpiritName.CrabWhisperer, season: Season.Lightseekers, call: Call.Crab, realm: Realm.GoldenWasteland, offer: { candles: 190, hearts: 0, ascendedCandles: 2 } }),
-  new SeasonalSpirit({ name: SpiritName.ShushingLightScholar, season: Season.Lightseekers, expression: Expression.Shush, realm: Realm.VaultOfKnowledge, offer: { candles: 96, hearts: 13, ascendedCandles: 2 } }),
+  new SeasonalSpirit({ name: SpiritName.ShushingLightScholar, season: Season.Lightseekers, expression: Expression.Shush, realm: Realm.VaultOfKnowledge, offer: { candles: 108, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: SpiritName.BoogieKid, season: Season.Belonging, expression: Expression.Boogie, realm: Realm.IslesOfDawn, offer: { candles: 103, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: SpiritName.ConfettiCousin, season: Season.Belonging, expression: Expression.Confetti, realm: Realm.DaylightPrairie, offer: { candles: 115, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: SpiritName.HairtousleTeen, season: Season.Belonging, expression: Expression.HairTousle, realm: Realm.HiddenForest, offer: { candles: 148, hearts: 9, ascendedCandles: 2 } }),
