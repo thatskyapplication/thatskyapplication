@@ -1,140 +1,168 @@
-import { ActionRowBuilder, ApplicationCommandData, ApplicationCommandType, ChatInputCommandInteraction, Collection, MessageActionRowComponentBuilder, PermissionsBitField, SelectMenuBuilder, SelectMenuInteraction, Snowflake } from "discord.js";
+import type { ApplicationCommandData, ChatInputCommandInteraction, MessageActionRowComponentBuilder, SelectMenuInteraction, Snowflake } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandType, Collection, PermissionsBitField, SelectMenuBuilder } from "discord.js";
 import Notification, { LightEvent } from "../../Structures/Notification.js";
 import type { ChatInputCommand } from "../index.js";
 
 export const rolesSelectMenuCustomId = "SELFROLE" as const;
 
 export default class implements ChatInputCommand {
-  readonly name = "roles";
-  readonly type = ApplicationCommandType.ChatInput;
+	public readonly name = "roles";
 
-  async chatInput(interaction: ChatInputCommandInteraction): Promise<void> {
-    if (!interaction.inCachedGuild()) {
-      interaction.client.log(`The \`/${this.name}\` command was used in an uncached guild, somehow.`, interaction);
+	public readonly type = ApplicationCommandType.ChatInput;
 
-      return void await interaction.reply({
-        content: `There is no \`/${this.name}\` command in Ba Sing Se.`,
-        ephemeral: true
-      });
-    }
+	public async chatInput(interaction: ChatInputCommandInteraction) {
+		if (!interaction.inCachedGuild()) {
+			void interaction.client.log(`The \`/${this.name}\` command was used in an uncached guild, somehow.`, interaction);
 
-    return await this.execute(interaction);
-  }
+			await interaction.reply({
+				content: `There is no \`/${this.name}\` command in Ba Sing Se.`,
+				ephemeral: true,
+			});
 
-  populate(notification: Notification): Collection<typeof LightEvent[keyof typeof LightEvent], Snowflake> {
-    const roles = new Collection<typeof LightEvent[keyof typeof LightEvent], Snowflake>();
-    if (notification.pollutedGeyserChannelId && notification.pollutedGeyserRoleId) roles.set(LightEvent.PollutedGeyser, notification.pollutedGeyserRoleId);
-    if (notification.grandmaChannelId && notification.grandmaRoleId) roles.set(LightEvent.Grandma, notification.grandmaRoleId);
-    if (notification.turtleChannelId && notification.turtleRoleId) roles.set(LightEvent.Turtle, notification.turtleRoleId);
-    return roles;
-  }
+			return;
+		}
 
-  async execute(interaction: ChatInputCommandInteraction<"cached">): Promise<void> {
-    const notification = Notification.cache.find(({ guildId }) => guildId === interaction.guildId);
+		await this.execute(interaction);
+	}
 
-    if (!notification) {
-      return void await interaction.reply({
-        content: "This server hasn't set up self-role assignment.",
-        ephemeral: true
-      });
-    }
+	public populate(notification: Notification): Collection<typeof LightEvent[keyof typeof LightEvent], Snowflake> {
+		const roles = new Collection<typeof LightEvent[keyof typeof LightEvent], Snowflake>();
 
-    if (!(await interaction.guild.members.fetchMe()).permissions.has(PermissionsBitField.Flags.ManageRoles)) {
-      return void await interaction.reply({
-        content: "Missing the `Manage Roles` permission.",
-        ephemeral: true
-      });
-    }
+		if (notification.pollutedGeyserChannelId && notification.pollutedGeyserRoleId) {
+			roles.set(LightEvent.PollutedGeyser, notification.pollutedGeyserRoleId);
+		}
 
-    const options = this.populate(notification);
+		if (notification.grandmaChannelId && notification.grandmaRoleId) {
+			roles.set(LightEvent.Grandma, notification.grandmaRoleId);
+		}
 
-    if (options.size === 0) {
-      return void await interaction.reply({
-        content: "There are no roles to self-assign.",
-        ephemeral: true
-      });
-    }
+		if (notification.turtleChannelId && notification.turtleRoleId) {
+			roles.set(LightEvent.Turtle, notification.turtleRoleId);
+		}
 
-    const content = "Self-assign roles to receive notifications!";
-    const actionRow = new ActionRowBuilder<MessageActionRowComponentBuilder>();
-    const selectMenu = new SelectMenuBuilder();
+		return roles;
+	}
 
-    selectMenu.setCustomId(rolesSelectMenuCustomId);
-    selectMenu.setMaxValues(options.size);
-    selectMenu.setMinValues(0);
+	public async execute(interaction: ChatInputCommandInteraction<"cached">) {
+		const notification = Notification.cache.find(({ guildId }) => guildId === interaction.guildId);
 
-    selectMenu.setOptions(options.map((roleId, event) => ({
-      default: interaction.member.roles.cache.has(roleId),
-      label: event,
-      value: roleId
-    })));
+		if (!notification) {
+			await interaction.reply({
+				content: "This server hasn't set up self-role assignment.",
+				ephemeral: true,
+			});
 
-    selectMenu.setPlaceholder("Select some roles!");
-    actionRow.setComponents(selectMenu);
+			return;
+		}
 
-    await interaction.reply({
-      content,
-      components: [actionRow],
-      ephemeral: true
-    });
-  }
+		if (!(await interaction.guild.members.fetchMe()).permissions.has(PermissionsBitField.Flags.ManageRoles)) {
+			await interaction.reply({
+				content: "Missing the `Manage Roles` permission.",
+				ephemeral: true,
+			});
 
-  async apply(interaction: SelectMenuInteraction<"cached">): Promise<void> {
-    const notification = Notification.cache.find(({ guildId }) => guildId === interaction.guildId);
+			return;
+		}
 
-    if (!notification) {
-      return void await interaction.reply({
-        content: "A strange error occured. This is being tracked.",
-        ephemeral: true
-      });
-    }
+		const options = this.populate(notification);
 
-    const roles = interaction.values;
-    const rolesToSet = interaction.member.roles.cache.clone().map(({ id }) => id);
-    const rolesAdded: Snowflake[] = [];
-    const rolesRemoved: Snowflake[] = [];
+		if (options.size === 0) {
+			await interaction.reply({
+				content: "There are no roles to self-assign.",
+				ephemeral: true,
+			});
 
-    for (const role of roles) {
-      if (!rolesToSet.includes(role)) {
-        rolesToSet.push(role);
-        rolesAdded.push(role);
-      }
-    }
+			return;
+		}
 
-    for (const roleId of this.populate(notification).filter(eventRoleId => !roles.some(id => id === eventRoleId)).values()) {
-      if (rolesToSet.includes(roleId)) {
-        rolesToSet.splice(rolesToSet.findIndex(role => role === roleId), 1);
-        rolesRemoved.push(roleId);
-      }
-    }
+		const content = "Self-assign roles to receive notifications!";
+		const actionRow = new ActionRowBuilder<MessageActionRowComponentBuilder>();
+		const selectMenu = new SelectMenuBuilder();
+		selectMenu.setCustomId(rolesSelectMenuCustomId);
+		selectMenu.setMaxValues(options.size);
+		selectMenu.setMinValues(0);
 
-    try {
-      await interaction.member.roles.set(rolesToSet);
-      let content = "";
-      if (rolesAdded.length > 0) content = `Roles added: ${rolesAdded.map(role => interaction.guild.roles.resolve(role)).join(" & ")}\n`;
-      if (rolesRemoved.length > 0) content += `Roles removed: ${rolesRemoved.map(role => interaction.guild.roles.resolve(role)).join(" & ")}`;
-      content ||= "No roles were changed.";
+		selectMenu.setOptions(options.map((roleId, event) => ({
+			default: interaction.member.roles.cache.has(roleId),
+			label: event,
+			value: roleId,
+		})));
 
-      await interaction.reply({
-        content,
-        ephemeral: true
-      });
-    } catch (error) {
-      interaction.client.log("Error during applying self-roles.", error);
+		selectMenu.setPlaceholder("Select some roles!");
+		actionRow.setComponents(selectMenu);
 
-      await interaction.reply({
-        content: "Error during self-role assignment. This is being tracked, so don't worry!",
-        ephemeral: true
-      });
-    }
-  }
+		await interaction.reply({
+			content,
+			components: [actionRow],
+			ephemeral: true,
+		});
+	}
 
-  get commandData(): ApplicationCommandData {
-    return {
-      name: this.name,
-      description: "Self-assign roles!",
-      type: this.type,
-      dmPermission: false
-    };
-  }
+	public async apply(interaction: SelectMenuInteraction<"cached">) {
+		const notification = Notification.cache.find(({ guildId }) => guildId === interaction.guildId);
+
+		if (!notification) {
+			await interaction.reply({
+				content: "A strange error occured. This is being tracked.",
+				ephemeral: true,
+			});
+
+			return;
+		}
+
+		const roles = interaction.values;
+		const rolesToSet = interaction.member.roles.cache.clone().map(({ id }) => id);
+		const rolesAdded: Snowflake[] = [];
+		const rolesRemoved: Snowflake[] = [];
+
+		for (const role of roles) {
+			if (!rolesToSet.includes(role)) {
+				rolesToSet.push(role);
+				rolesAdded.push(role);
+			}
+		}
+
+		for (const roleId of this.populate(notification).filter((eventRoleId) => !roles.includes(eventRoleId)).values()) {
+			if (rolesToSet.includes(roleId)) {
+				rolesToSet.splice(rolesToSet.indexOf(roleId), 1);
+				rolesRemoved.push(roleId);
+			}
+		}
+
+		try {
+			await interaction.member.roles.set(rolesToSet);
+			let content = "";
+
+			if (rolesAdded.length > 0) {
+				content = `Roles added: ${rolesAdded.map((role) => interaction.guild.roles.resolve(role)).join(" & ")}\n`;
+			}
+
+			if (rolesRemoved.length > 0) {
+				content += `Roles removed: ${rolesRemoved.map((role) => interaction.guild.roles.resolve(role)).join(" & ")}`;
+			}
+
+			content ||= "No roles were changed.";
+
+			await interaction.reply({
+				content,
+				ephemeral: true,
+			});
+		} catch (error) {
+			void interaction.client.log("Error during applying self-roles.", error);
+
+			await interaction.reply({
+				content: "Error during self-role assignment. This is being tracked, so don't worry!",
+				ephemeral: true,
+			});
+		}
+	}
+
+	public get commandData(): ApplicationCommandData {
+		return {
+			name: this.name,
+			description: "Self-assign roles!",
+			type: this.type,
+			dmPermission: false,
+		};
+	}
 }

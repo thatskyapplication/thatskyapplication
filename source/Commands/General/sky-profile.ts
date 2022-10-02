@@ -1,155 +1,197 @@
-import { ActionRowBuilder, ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, ModalActionRowComponentBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, UserContextMenuCommandInteraction } from "discord.js";
+import type { ApplicationCommandData, ChatInputCommandInteraction, ModalActionRowComponentBuilder, UserContextMenuCommandInteraction } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
 import Profile from "../../Structures/Profile.js";
 import type { ChatInputCommand } from "../index.js";
 
-export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL";
-export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION";
-const SKY_MAXIMUM_NAME_LENGTH = 16;
-const SKY_MINIMUM_IMAGE_URL_LENGTH = 9;
-const SKY_MAXIMUM_IMAGE_URL_LENGTH = 150;
+export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
+export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as const;
+const SKY_MAXIMUM_NAME_LENGTH = 16 as const;
+const SKY_MINIMUM_IMAGE_URL_LENGTH = 9 as const;
+const SKY_MAXIMUM_IMAGE_URL_LENGTH = 150 as const;
 
 export default class implements ChatInputCommand {
-  readonly name = "sky-profile";
-  readonly type = ApplicationCommandType.ChatInput;
+	public readonly name = "sky-profile";
 
-  async chatInput(interaction: ChatInputCommandInteraction): Promise<void> {
-    switch (interaction.options.getSubcommand()) {
-      case "set-description":
-        return await this.setDescription(interaction);
-      case "set-icon":
-        return await this.setIcon(interaction);
-      case "set-name":
-        return await this.setName(interaction);
-      case "set-thumbnail":
-        return await this.setThumbnail(interaction);
-      case "show":
-        return await this.show(interaction);
-    }
-  }
+	public readonly type = ApplicationCommandType.ChatInput;
 
-  async setDescription(interaction: ChatInputCommandInteraction): Promise<void> {
-    const profile = Profile.cache.find(({ userId }) => interaction.user.id === userId);
-    const modal = new ModalBuilder();
-    const actionRow = new ActionRowBuilder<ModalActionRowComponentBuilder>();
-    const textInput = new TextInputBuilder();
-    modal.setCustomId(SKY_PROFILE_MODAL);
-    modal.setTitle("Set your Sky profile description!");
-    textInput.setCustomId(SKY_PROFILE_TEXT_INPUT_DESCRIPTION);
-    textInput.setLabel("Type a lovely description about your Skykid.");
-    textInput.setMaxLength(4000);
-    textInput.setStyle(TextInputStyle.Paragraph);
-    if (profile?.description) textInput.setValue(profile.description);
-    actionRow.setComponents(textInput);
-    modal.setComponents(actionRow);
-    await interaction.showModal(modal);
-  }
+	public async chatInput(interaction: ChatInputCommandInteraction) {
+		switch (interaction.options.getSubcommand()) {
+			case "set-description":
+				await this.setDescription(interaction);
+				return;
+			case "set-icon":
+				await this.setIcon(interaction);
+				return;
+			case "set-name":
+				await this.setName(interaction);
+				return;
+			case "set-thumbnail":
+				await this.setThumbnail(interaction);
+				return;
+			case "show":
+				await this.show(interaction);
+		}
+	}
 
-  async setIcon(interaction: ChatInputCommandInteraction): Promise<void> {
-    const icon = interaction.options.getString("icon", true);
-    if (!icon.startsWith("https://")) return void await interaction.reply({ content: "Please use a valid URL!", ephemeral: true });
-    await Profile.set(interaction, { icon });
-  }
+	public async setDescription(interaction: ChatInputCommandInteraction) {
+		const profile = Profile.cache.find(({ userId }) => interaction.user.id === userId);
+		const modal = new ModalBuilder();
+		const actionRow = new ActionRowBuilder<ModalActionRowComponentBuilder>();
+		const textInput = new TextInputBuilder();
+		modal.setCustomId(SKY_PROFILE_MODAL);
+		modal.setTitle("Set your Sky profile description!");
+		textInput.setCustomId(SKY_PROFILE_TEXT_INPUT_DESCRIPTION);
+		textInput.setLabel("Type a lovely description about your Skykid.");
+		textInput.setMaxLength(4_000);
+		textInput.setStyle(TextInputStyle.Paragraph);
 
-  async setName(interaction: ChatInputCommandInteraction): Promise<void> {
-    const name = interaction.options.getString("name", true);
-    await Profile.set(interaction, { name });
-  }
+		if (profile?.description) {
+			textInput.setValue(profile.description);
+		}
 
-  async setThumbnail(interaction: ChatInputCommandInteraction): Promise<void> {
-    const thumbnail = interaction.options.getString("thumbnail", true);
-    if (!thumbnail.startsWith("https://")) return void await interaction.reply({ content: "Please use a valid URL!", ephemeral: true });
-    await Profile.set(interaction, { thumbnail });
-  }
+		actionRow.setComponents(textInput);
+		modal.setComponents(actionRow);
+		await interaction.showModal(modal);
+	}
 
-  async show(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction): Promise<void> {
-    const user = interaction.options.getUser("user");
-    const ephemeral = interaction.isChatInputCommand() ? interaction.options.getBoolean("ephemeral") ?? false : true;
-    if (user?.bot) return void await interaction.reply({ content: "Do bots have Sky profiles? Hm. Who knows?", ephemeral });
-    const profile = Profile.cache.find(({ userId }) => (user?.id ?? interaction.user.id) === userId);
+	public async setIcon(interaction: ChatInputCommandInteraction) {
+		const icon = interaction.options.getString("icon", true);
 
-    if (!profile) {
-      return void await interaction.reply({
-        content: `${user === null ? "You do" : `${user} does`} not have a Sky profile! Why not ${user === null ? "" : "ask them to"} create one?`,
-        ephemeral: true
-      });
-    }
+		if (!icon.startsWith("https://")) {
+			await interaction.reply({
+				content: "Please use a valid URL!",
+				ephemeral: true,
+			});
 
-    await interaction.reply({ embeds: [await profile.show(interaction.guild)], ephemeral });
-  }
+			return;
+		}
 
-  get commandData(): ApplicationCommandData {
-    return {
-      name: this.name,
-      description: "The command related to everything about your Sky profile.",
-      type: this.type,
-      options: [
-        {
-          type: ApplicationCommandOptionType.Subcommand,
-          name: "set-description",
-          description: "Set the description of your Sky profile!"
-        },
-        {
-          type: ApplicationCommandOptionType.Subcommand,
-          name: "set-name",
-          description: "Set the name of your Skykid in your Sky profile!",
-          options: [
-            {
-              type: ApplicationCommandOptionType.String,
-              name: "name",
-              description: "Provide your in-game name.",
-              required: true,
-              maxLength: SKY_MAXIMUM_NAME_LENGTH
-            }
-          ]
-        },
-        {
-          type: ApplicationCommandOptionType.Subcommand,
-          name: "set-icon",
-          description: "Set the icon of your Skykid in your Sky profile!",
-          options: [
-            {
-              type: ApplicationCommandOptionType.String,
-              name: "icon",
-              description: "Provide a URL to show as your author icon.",
-              required: true,
-              minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
-              maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH
-            }
-          ]
-        },
-        {
-          type: ApplicationCommandOptionType.Subcommand,
-          name: "set-thumbnail",
-          description: "Set the thumbnail of your Skykid in your Sky profile!",
-          options: [
-            {
-              type: ApplicationCommandOptionType.String,
-              name: "thumbnail",
-              description: "Provide a URL to show as your thumbnail.",
-              required: true,
-              minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
-              maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH
-            }
-          ]
-        },
-        {
-          type: ApplicationCommandOptionType.Subcommand,
-          name: "show",
-          description: "Shows the Sky profile of someone.",
-          options: [
-            {
-              type: ApplicationCommandOptionType.User,
-              name: "user",
-              description: "The user whose Sky profile you wish to see."
-            },
-            {
-              type: ApplicationCommandOptionType.Boolean,
-              name: "ephemeral",
-              description: "Whether the response should be ephemeral. By default, the response is shown."
-            }
-          ]
-        }
-      ]
-    };
-  }
+		await Profile.set(interaction, { icon });
+	}
+
+	public async setName(interaction: ChatInputCommandInteraction) {
+		const name = interaction.options.getString("name", true);
+		await Profile.set(interaction, { name });
+	}
+
+	public async setThumbnail(interaction: ChatInputCommandInteraction) {
+		const thumbnail = interaction.options.getString("thumbnail", true);
+
+		if (!thumbnail.startsWith("https://")) {
+			await interaction.reply({
+				content: "Please use a valid URL!",
+				ephemeral: true,
+			});
+
+			return;
+		}
+
+		await Profile.set(interaction, { thumbnail });
+	}
+
+	public async show(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
+		const user = interaction.options.getUser("user");
+		const ephemeral = interaction.isChatInputCommand() ? interaction.options.getBoolean("ephemeral") ?? false : true;
+
+		if (user?.bot) {
+			await interaction.reply({
+				content: "Do bots have Sky profiles? Hm. Who knows?",
+				ephemeral,
+			});
+
+			return;
+		}
+
+		const profile = Profile.cache.find(({ userId }) => (user?.id ?? interaction.user.id) === userId);
+
+		if (!profile) {
+			await interaction.reply({
+				content: `${user === null ? "You do" : `${user} does`} not have a Sky profile! Why not ${user === null ? "" : "ask them to"} create one?`,
+				ephemeral: true,
+			});
+
+			return;
+		}
+
+		await interaction.reply({
+			embeds: [await profile.show(interaction.guild)],
+			ephemeral,
+		});
+	}
+
+	public get commandData(): ApplicationCommandData {
+		return {
+			name: this.name,
+			description: "The command related to everything about your Sky profile.",
+			type: this.type,
+			options: [
+				{
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "set-description",
+					description: "Set the description of your Sky profile!",
+				},
+				{
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "set-name",
+					description: "Set the name of your Skykid in your Sky profile!",
+					options: [
+						{
+							type: ApplicationCommandOptionType.String,
+							name: "name",
+							description: "Provide your in-game name.",
+							required: true,
+							maxLength: SKY_MAXIMUM_NAME_LENGTH,
+						},
+					],
+				},
+				{
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "set-icon",
+					description: "Set the icon of your Skykid in your Sky profile!",
+					options: [
+						{
+							type: ApplicationCommandOptionType.String,
+							name: "icon",
+							description: "Provide a URL to show as your author icon.",
+							required: true,
+							minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
+							maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH,
+						},
+					],
+				},
+				{
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "set-thumbnail",
+					description: "Set the thumbnail of your Skykid in your Sky profile!",
+					options: [
+						{
+							type: ApplicationCommandOptionType.String,
+							name: "thumbnail",
+							description: "Provide a URL to show as your thumbnail.",
+							required: true,
+							minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
+							maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH,
+						},
+					],
+				},
+				{
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "show",
+					description: "Shows the Sky profile of someone.",
+					options: [
+						{
+							type: ApplicationCommandOptionType.User,
+							name: "user",
+							description: "The user whose Sky profile you wish to see.",
+						},
+						{
+							type: ApplicationCommandOptionType.Boolean,
+							name: "ephemeral",
+							description: "Whether the response should be ephemeral. By default, the response is shown.",
+						},
+					],
+				},
+			],
+		};
+	}
 }

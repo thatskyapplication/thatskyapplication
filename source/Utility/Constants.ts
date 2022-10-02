@@ -5,37 +5,37 @@ export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki/" as 
 export const MAXIMUM_WINGED_LIGHT = 206 as const;
 
 export enum RealmString {
-  IslesOfDawn = "Isles of Dawn",
-  DaylightPrairie = "Daylight Prairie",
-  HiddenForest = "Hidden Forest",
-  ValleyOfTriumph = "Valley of Triumph",
-  GoldenWasteland = "Golden Wasteland",
-  VaultOfKnowledge = "Vault of Knowledge",
-  EyeOfEden = "Eye of Eden",
-  AncientMemory = "Ancient Memory"
+	IslesOfDawn = "Isles of Dawn",
+	DaylightPrairie = "Daylight Prairie",
+	HiddenForest = "Hidden Forest",
+	ValleyOfTriumph = "Valley of Triumph",
+	GoldenWasteland = "Golden Wasteland",
+	VaultOfKnowledge = "Vault of Knowledge",
+	EyeOfEden = "Eye of Eden",
+	AncientMemory = "Ancient Memory",
 }
 
 export const Realm = {
-  IslesOfDawn: 0,
-  DaylightPrairie: 1,
-  HiddenForest: 2,
-  ValleyOfTriumph: 3,
-  GoldenWasteland: 4,
-  VaultOfKnowledge: 5,
-  EyeOfEden: 6,
-  AncientMemory: 7
+	IslesOfDawn: 0,
+	DaylightPrairie: 1,
+	HiddenForest: 2,
+	ValleyOfTriumph: 3,
+	GoldenWasteland: 4,
+	VaultOfKnowledge: 5,
+	EyeOfEden: 6,
+	AncientMemory: 7,
 } as const;
 
 export type RealmValue = typeof Realm[keyof typeof Realm];
 
 export const WingedLightCount = {
-  IslesOfDawn: 9,
-  DaylightPrairie: 21,
-  HiddenForest: 19,
-  ValleyOfTriumph: 17,
-  GoldenWasteland: 18,
-  VaultOfKnowledge: 11,
-  EyeOfEden: 10,
-  AncientMemory: 6,
-  Orbit: 1
+	IslesOfDawn: 9,
+	DaylightPrairie: 21,
+	HiddenForest: 19,
+	ValleyOfTriumph: 17,
+	GoldenWasteland: 18,
+	VaultOfKnowledge: 11,
+	EyeOfEden: 10,
+	AncientMemory: 6,
+	Orbit: 1,
 } as const;

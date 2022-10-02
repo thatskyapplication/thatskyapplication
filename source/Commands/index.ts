@@ -1,5 +1,6 @@
 /* eslint-disable import/order */
-import { ApplicationCommandData, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, UserContextMenuCommandInteraction } from "discord.js";
+import type { ApplicationCommandData, AutocompleteInteraction, ChatInputCommandInteraction, UserContextMenuCommandInteraction } from "discord.js";
+import { ApplicationCommandType } from "discord.js";
 
 // Events
 import notifications from "./Events/notifications.js";
@@ -12,48 +13,48 @@ import spirit from "./General/spirit.js";
 import winged_light from "./General/winged-light.js";
 
 const commands = {
-  notifications: new notifications(),
-  roles: new roles(),
-  "Sky Profile": new Sky_Profile(),
-  "sky-profile": new sky_profile(),
-  spirit: new spirit(),
-  "winged-light": new winged_light()
+	notifications: new notifications(),
+	roles: new roles(),
+	"Sky Profile": new Sky_Profile(),
+	"sky-profile": new sky_profile(),
+	spirit: new spirit(),
+	"winged-light": new winged_light(),
 } as const;
 
 export type CommandName = keyof typeof commands;
 
 export function isCommandName(commandName: string): commandName is CommandName {
-  return commandName in commands;
+	return commandName in commands;
 }
 
 export function isChatInputCommand(command: BaseCommandData): command is ChatInputCommand {
-  return command.type === ApplicationCommandType.ChatInput;
+	return command.type === ApplicationCommandType.ChatInput;
 }
 
 export function isAutocompleteCommand(command: BaseCommandData): command is AutocompleteCommand {
-  return "autocomplete" in command;
+	return "autocomplete" in command;
 }
 
 export function isUserContextMenuCommand(command: BaseCommandData): command is UserContextMenuCommand {
-  return command.type === ApplicationCommandType.User;
+	return command.type === ApplicationCommandType.User;
 }
 
 interface BaseCommandData {
-  name: CommandName;
-  type: ApplicationCommandType;
-  get commandData(): ApplicationCommandData;
+	name: CommandName;
+	type: ApplicationCommandType;
+	get commandData(): ApplicationCommandData;
 }
 
 export interface ChatInputCommand extends BaseCommandData {
-  chatInput(interaction: ChatInputCommandInteraction): Promise<void>;
+	chatInput(interaction: ChatInputCommandInteraction): Promise<void>;
 }
 
 export interface AutocompleteCommand extends ChatInputCommand {
-  autocomplete(interaction: AutocompleteInteraction): Promise<void>;
+	autocomplete(interaction: AutocompleteInteraction): Promise<void>;
 }
 
 export interface UserContextMenuCommand extends BaseCommandData {
-  userContextMenu(interaction: UserContextMenuCommandInteraction): Promise<void>;
+	userContextMenu(interaction: UserContextMenuCommandInteraction): Promise<void>;
 }
 
 export default commands;

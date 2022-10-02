@@ -1,108 +1,106 @@
-import { ChatInputCommandInteraction, Client, Collection, EmbedAuthorOptions, EmbedBuilder, Guild, ModalSubmitInteraction } from "discord.js";
-import Base from "./Base.js";
+import type { ChatInputCommandInteraction, Client, EmbedAuthorOptions, Guild, ModalSubmitInteraction } from "discord.js";
+import { Collection, EmbedBuilder } from "discord.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
+import Base from "./Base.js";
 
 interface ProfileData {
-  No: number;
-  "User ID": string;
-  Name: string | null;
-  Icon: string | null;
-  Thumbnail: string | null;
-  Description: string | null;
+	No: number;
+	"User ID": string;
+	Name: string | null;
+	Icon: string | null;
+	Thumbnail: string | null;
+	Description: string | null;
 }
 
 interface ProfileSetData {
-  name?: string;
-  icon?: string;
-  thumbnail?: string;
-  description?: string;
+	name?: string;
+	icon?: string;
+	thumbnail?: string;
+	description?: string;
 }
 
 export default class Profile extends Base {
-  static readonly cache = new Collection<number, Profile>();
-  readonly No: ProfileData["No"];
-  readonly userId: ProfileData["User ID"];
-  name: ProfileData["Name"];
-  icon: ProfileData["Icon"];
-  thumbnail: ProfileData["Thumbnail"];
-  description: ProfileData["Description"];
+	public static readonly cache = new Collection<number, Profile>();
 
-  constructor(client: Client<true>, profile: ProfileData) {
-    super(client);
-    this.No = profile.No;
-    this.userId = profile["User ID"];
-    this.name = profile.Name;
-    this.icon = profile.Icon;
-    this.thumbnail = profile.Thumbnail;
-    this.description = profile.Description;
-  }
+	public readonly No: ProfileData["No"];
 
-  static async set(interaction: ChatInputCommandInteraction | ModalSubmitInteraction, data: ProfileSetData): Promise<void> {
-    let profile = this.cache.find(({ userId }) => userId === interaction.user.id);
-    const name = data.name ?? profile?.name ?? null;
-    const icon = data.icon ?? profile?.icon ?? null;
-    const thumbnail = data.thumbnail ?? profile?.thumbnail ?? null;
-    const description = data.description ?? profile?.description ?? null;
+	public readonly userId: ProfileData["User ID"];
 
-    if (profile) {
-      await interaction.client.Maria.query("UPDATE `Profiles` SET `Name` = ?, `Icon` = ?, `Thumbnail` = ?, `Description` = ? WHERE `No` = ?;", [
-        name,
-        icon,
-        thumbnail,
-        description,
-        profile.No
-      ]);
+	public name: ProfileData["Name"];
 
-      profile.name = name;
-      profile.icon = icon;
-      profile.thumbnail = thumbnail;
-      profile.description = description;
-    } else {
-      const { insertId } = await interaction.client.Maria.query("INSERT INTO `Profiles` SET `User ID` = ?, `Name` = ?, `Icon` = ?, `Thumbnail` = ?, `Description` = ?;", [
-        interaction.user.id,
-        name,
-        icon,
-        thumbnail,
-        description
-      ]);
+	public icon: ProfileData["Icon"];
 
-      profile = new this(interaction.client, {
-        No: insertId,
-        "User ID": interaction.user.id,
-        Name: name,
-        Icon: icon,
-        Thumbnail: thumbnail,
-        Description: description
-      });
+	public thumbnail: ProfileData["Thumbnail"];
 
-      this.cache.set(profile.No, profile);
-    }
+	public description: ProfileData["Description"];
 
-    await interaction.reply({
-      content: "Your profile has been updated!",
-      embeds: [await profile.show(interaction.guild)],
-      ephemeral: true
-    });
-  }
+	public constructor(client: Client<true>, profile: ProfileData) {
+		super(client);
+		this.No = profile.No;
+		this.userId = profile["User ID"];
+		this.name = profile.Name;
+		this.icon = profile.Icon;
+		this.thumbnail = profile.Thumbnail;
+		this.description = profile.Description;
+	}
 
-  static async setDescription(interaction: ModalSubmitInteraction): Promise<void> {
-    const description = interaction.fields.getTextInputValue(SKY_PROFILE_TEXT_INPUT_DESCRIPTION).trim();
-    return this.set(interaction, { description });
-  }
+	public static async set(interaction: ChatInputCommandInteraction | ModalSubmitInteraction, data: ProfileSetData) {
+		let profile = this.cache.find(({ userId }) => userId === interaction.user.id);
+		const name = data.name ?? profile?.name ?? null;
+		const icon = data.icon ?? profile?.icon ?? null;
+		const thumbnail = data.thumbnail ?? profile?.thumbnail ?? null;
+		const description = data.description ?? profile?.description ?? null;
 
-  async show(guild: Guild | null): Promise<EmbedBuilder> {
-    const embed = new EmbedBuilder();
-    const me = await guild?.members.fetchMe();
+		if (profile) {
+			await interaction.client.Maria.query("UPDATE `Profiles` SET `Name` = ?, `Icon` = ?, `Thumbnail` = ?, `Description` = ? WHERE `No` = ?;", [name, icon, thumbnail, description, profile.No]);
+			profile.name = name;
+			profile.icon = icon;
+			profile.thumbnail = thumbnail;
+			profile.description = description;
+		} else {
+			const { insertId } = await interaction.client.Maria.query("INSERT INTO `Profiles` SET `User ID` = ?, `Name` = ?, `Icon` = ?, `Thumbnail` = ?, `Description` = ?;", [interaction.user.id, name, icon, thumbnail, description]);
 
-    if (this.name) {
-      const embedAuthorOptions: EmbedAuthorOptions = { name: this.name };
-      if (this.icon) embedAuthorOptions.iconURL = this.icon;
-      embed.setAuthor(embedAuthorOptions);
-    }
+			profile = new this(interaction.client, {
+				No: insertId,
+				"User ID": interaction.user.id,
+				Name: name,
+				Icon: icon,
+				Thumbnail: thumbnail,
+				Description: description,
+			});
 
-    embed.setColor(me?.displayColor ?? 0);
-    embed.setDescription(this.description || "Hi! I'm an amazing Skykid.");
-    embed.setThumbnail(this.thumbnail);
-    return embed;
-  }
+			this.cache.set(profile.No, profile);
+		}
+
+		await interaction.reply({
+			content: "Your profile has been updated!",
+			embeds: [await profile.show(interaction.guild)],
+			ephemeral: true,
+		});
+	}
+
+	public static async setDescription(interaction: ModalSubmitInteraction) {
+		const description = interaction.fields.getTextInputValue(SKY_PROFILE_TEXT_INPUT_DESCRIPTION).trim();
+		return this.set(interaction, { description });
+	}
+
+	public async show(guild: Guild | null) {
+		const embed = new EmbedBuilder();
+		const me = await guild?.members.fetchMe();
+
+		if (this.name) {
+			const embedAuthorOptions: EmbedAuthorOptions = { name: this.name };
+
+			if (this.icon) {
+				embedAuthorOptions.iconURL = this.icon;
+			}
+
+			embed.setAuthor(embedAuthorOptions);
+		}
+
+		embed.setColor(me?.displayColor ?? 0);
+		embed.setDescription(this.description ?? "Hi! I'm an amazing Skykid.");
+		embed.setThumbnail(this.thumbnail);
+		return embed;
+	}
 }

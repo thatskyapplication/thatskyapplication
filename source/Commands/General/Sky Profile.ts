@@ -1,19 +1,21 @@
-import { ApplicationCommandData, ApplicationCommandType, UserContextMenuCommandInteraction } from "discord.js";
+import type { ApplicationCommandData, UserContextMenuCommandInteraction } from "discord.js";
+import { ApplicationCommandType } from "discord.js";
 import type { UserContextMenuCommand } from "../index.js";
 import commands from "../index.js";
 
 export default class implements UserContextMenuCommand {
-  readonly name = "Sky Profile";
-  readonly type = ApplicationCommandType.User;
+	public readonly name = "Sky Profile";
 
-  async userContextMenu(interaction: UserContextMenuCommandInteraction): Promise<void> {
-    return await commands["sky-profile"].show(interaction);
-  }
+	public readonly type = ApplicationCommandType.User;
 
-  get commandData(): ApplicationCommandData {
-    return {
-      name: this.name,
-      type: this.type
-    };
-  }
+	public async userContextMenu(interaction: UserContextMenuCommandInteraction) {
+		await commands["sky-profile"].show(interaction);
+	}
+
+	public get commandData(): ApplicationCommandData {
+		return {
+			name: this.name,
+			type: this.type,
+		};
+	}
 }
