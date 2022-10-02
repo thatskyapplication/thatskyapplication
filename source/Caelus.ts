@@ -75,7 +75,7 @@ Client.prototype.log = async function (message, error?) {
 
   await logChannel.send({
     allowedMentions: { parse: [] },
-    content: content ? `${stamp} ${content}` : null,
+    content: content ? `${stamp} ${content}` : undefined,
     embeds,
     files
   });
@@ -102,7 +102,7 @@ Client.prototype.applyCommands = async function () {
   }
 };
 
-const Caelus = new Client({ intents: [GatewayIntentBits.Guilds] });
+const Caelus = new Client({ intents: GatewayIntentBits.Guilds });
 
 for (const file of (await readdir(eventsPath)).filter(file => file !== "index.js")) {
   const { name, once, fire } = (await import(eventsPath + file)).event as Event;

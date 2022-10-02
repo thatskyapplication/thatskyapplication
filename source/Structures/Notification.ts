@@ -168,7 +168,7 @@ export default class Notification extends Base {
 
     if (!channelId || !roleId) return;
     const channel = this.client.guilds.resolve(guildId)?.channels.resolve(channelId);
-    if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildNews)) return;
+    if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildAnnouncement)) return;
     const role = channel.guild.roles.resolve(roleId);
     if (!role) return;
     const me = await channel.guild.members.fetchMe();

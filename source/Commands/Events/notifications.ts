@@ -148,7 +148,7 @@ export default class implements ChatInputCommand {
               required: true,
               channelTypes: [
                 ChannelType.GuildText,
-                ChannelType.GuildNews
+                ChannelType.GuildAnnouncement
               ]
             },
             {
