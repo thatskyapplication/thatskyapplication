@@ -1,6 +1,5 @@
-import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder, formatEmoji } from "discord.js";
+import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, EmbedBuilder } from "discord.js";
 import Spirits from "../../Structures/Spirit.js";
-import { Emoji } from "../../Utility/Constants.js";
 import { realmToString } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 
@@ -39,12 +38,12 @@ export default class implements AutocompleteCommand {
       },
       {
         name: "Season",
-        value: spirit.isSeasonalSpirit() ? `${formatEmoji(spirit.season.emoji)} ${spirit.season.name}` : "None",
+        value: spirit.isSeasonalSpirit() ? spirit.season.name : "None",
         inline: true
       },
       {
         name: "Offer",
-        value: spirit.offer === null ? "Unknown" : `${formatEmoji(Emoji.Candle)}${spirit.offer.candles} ${formatEmoji(Emoji.Heart)}${spirit.offer.hearts} ${formatEmoji(Emoji.AscendedCandle)}${spirit.offer.ascendedCandles}`,
+        value: spirit.offer === null ? "Unknown" : `${spirit.offer.candles} candle${spirit.offer.candles > 1 ? "s" : ""}\n${spirit.offer.hearts} heart${spirit.offer.hearts > 1 ? "s" : ""}\n${spirit.offer.ascendedCandles} ascended candle${spirit.offer.ascendedCandles > 1 ? "s" : ""}`,
         inline: true
       },
       {

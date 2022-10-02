@@ -1,38 +1,7 @@
 import type { Buffer } from "node:buffer";
 import { readFileSync } from "node:fs";
 import { URL } from "node:url";
-import { Emoji, Realm, RealmValue, WIKI_URL } from "../Utility/Constants.js";
-
-function resolveSeasonEmoji(season: Season): Emoji {
-  switch (season) {
-    case Season.Gratitude:
-      return Emoji.Gratitude;
-    case Season.Lightseekers:
-      return Emoji.Lightseekers;
-    case Season.Belonging:
-      return Emoji.Belonging;
-    case Season.Rhythm:
-      return Emoji.Rhythm;
-    case Season.Enchantment:
-      return Emoji.Enchantment;
-    case Season.Sanctuary:
-      return Emoji.Sanctuary;
-    case Season.Prophecy:
-      return Emoji.Prophecy;
-    case Season.Dreams:
-      return Emoji.Dreams;
-    case Season.Assembly:
-      return Emoji.Assembly;
-    case Season.LittlePrince:
-      return Emoji.LittlePrince;
-    case Season.Flight:
-      return Emoji.Flight;
-    case Season.Abyss:
-      return Emoji.Abyss;
-    case Season.Performance:
-      return Emoji.Performance;
-  }
-}
+import { Realm, RealmValue, WIKI_URL } from "../Utility/Constants.js";
 
 const enum SpiritName {
   SassyDrifter = "Sassy Drifter",
@@ -231,7 +200,6 @@ type SeasonalSpiritData = SpiritData & { season: Season };
 
 interface SpiritSeason {
   name: Season;
-  emoji: Emoji;
 }
 
 class Spirit {
@@ -274,7 +242,7 @@ class SeasonalSpirit extends Spirit {
 
   constructor(spirit: SeasonalSpiritData) {
     super(spirit);
-    this.season = { name: spirit.season, emoji: resolveSeasonEmoji(spirit.season) };
+    this.season = { name: spirit.season };
   }
 }
 

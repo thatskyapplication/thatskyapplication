@@ -1,6 +1,5 @@
-import { channelMention, ChannelType, ChatInputCommandInteraction, Client, Collection, EmbedBuilder, formatEmoji, NewsChannel, PermissionFlagsBits, Role, roleMention, TextChannel } from "discord.js";
+import { channelMention, ChannelType, ChatInputCommandInteraction, Client, Collection, EmbedBuilder, NewsChannel, PermissionFlagsBits, Role, roleMention, TextChannel } from "discord.js";
 import Base from "./Base.js";
-import { Emoji } from "../Utility/Constants.js";
 
 interface NotificationData {
   No: number;
@@ -195,22 +194,22 @@ export default class Notification extends Base {
     embed.setFields([
       {
         name: LightEvent.PollutedGeyser,
-        value: `${pollutedGeyserChannelId ? channelMention(pollutedGeyserChannelId) : "No channel"}\n${pollutedGeyserRoleId ? roleMention(pollutedGeyserRoleId) : "No role"}\n${me && (pollutedGeyserChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (pollutedGeyserRole?.mentionable && pollutedGeyserChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))) ? `${formatEmoji(Emoji.TGCCheck)} Sending!` : "⚠️ Stopped!"}`,
+        value: `${pollutedGeyserChannelId ? channelMention(pollutedGeyserChannelId) : "No channel"}\n${pollutedGeyserRoleId ? roleMention(pollutedGeyserRoleId) : "No role"}\n${me && (pollutedGeyserChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (pollutedGeyserRole?.mentionable && pollutedGeyserChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))) ? "✅ Sending!" : "⚠️ Stopped!"}`,
         inline: true
       },
       {
         name: LightEvent.Grandma,
-        value: `${grandmaChannelId ? channelMention(grandmaChannelId) : "No channel"}\n${grandmaRoleId ? roleMention(grandmaRoleId) : "No role"}\n${me && (grandmaChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (grandmaRole?.mentionable && grandmaChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))) ? `${formatEmoji(Emoji.TGCCheck)} Sending!` : "⚠️ Stopped!"}`,
+        value: `${grandmaChannelId ? channelMention(grandmaChannelId) : "No channel"}\n${grandmaRoleId ? roleMention(grandmaRoleId) : "No role"}\n${me && (grandmaChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (grandmaRole?.mentionable && grandmaChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))) ? "✅ Sending!" : "⚠️ Stopped!"}`,
         inline: true
       },
       {
         name: LightEvent.Turtle,
-        value: `${turtleChannelId ? channelMention(turtleChannelId) : "No channel"}\n${turtleRoleId ? roleMention(turtleRoleId) : "No role"}\n${me && (turtleChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (turtleRole?.mentionable && turtleChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))) ? `${formatEmoji(Emoji.TGCCheck)} Sending!` : "⚠️ Stopped!"}`,
+        value: `${turtleChannelId ? channelMention(turtleChannelId) : "No channel"}\n${turtleRoleId ? roleMention(turtleRoleId) : "No role"}\n${me && (turtleChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (turtleRole?.mentionable && turtleChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))) ? "✅ Sending!" : "⚠️ Stopped!"}`,
         inline: true
       },
       {
         name: LightEvent.ShardEruption,
-        value: `${shardEruptionChannelId ? channelMention(shardEruptionChannelId) : "No channel"}\n${shardEruptionRoleId ? roleMention(shardEruptionRoleId) : "No role"}\n${me && (shardEruptionChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (shardEruptionRole?.mentionable && shardEruptionChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))) ? `${formatEmoji(Emoji.TGCCheck)} Sending!` : "⚠️ Stopped!"}`,
+        value: `${shardEruptionChannelId ? channelMention(shardEruptionChannelId) : "No channel"}\n${shardEruptionRoleId ? roleMention(shardEruptionRoleId) : "No role"}\n${me && (shardEruptionChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || (shardEruptionRole?.mentionable && shardEruptionChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))) ? "✅ Sending!" : "⚠️ Stopped!"}`,
         inline: true
       }
     ]);

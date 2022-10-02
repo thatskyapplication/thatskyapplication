@@ -1,5 +1,5 @@
-import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, EmbedBuilder, formatEmoji } from "discord.js";
-import { Emoji, MAXIMUM_WINGED_LIGHT, Realm, realmTranslations, WingedLightCount } from "../../Utility/Constants.js";
+import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, EmbedBuilder } from "discord.js";
+import { MAXIMUM_WINGED_LIGHT, Realm, realmTranslations, WingedLightCount } from "../../Utility/Constants.js";
 import { isRealm, notNull, realmToString } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -62,7 +62,7 @@ export default class implements ChatInputCommand {
       }
     }
 
-    embed.addFields({ name: "Total", value: `${formatEmoji(Emoji.SkyGiveLight)} You should have ${accumulation} winged light.` });
+    embed.addFields({ name: "Total", value: `You should have ${accumulation} winged light.` });
     await interaction.reply({ embeds: [embed] });
   }
 

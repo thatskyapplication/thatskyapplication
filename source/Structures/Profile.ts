@@ -1,7 +1,6 @@
 import { ChatInputCommandInteraction, Client, Collection, EmbedAuthorOptions, EmbedBuilder, Guild, ModalSubmitInteraction } from "discord.js";
 import Base from "./Base.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
-import { Emoji } from "../Utility/Constants.js";
 
 interface ProfileData {
   No: number;
@@ -102,7 +101,7 @@ export default class Profile extends Base {
     }
 
     embed.setColor(me?.displayColor ?? 0);
-    embed.setDescription(this.description || `Hi! I'm an amazing Skykid. ${Emoji.TGCBlueSparkles}`);
+    embed.setDescription(this.description || "Hi! I'm an amazing Skykid.");
     embed.setThumbnail(this.thumbnail);
     return embed;
   }
