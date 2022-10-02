@@ -4,7 +4,7 @@ export const REPOSITORY = "Jiralite/Caelus" as const;
 export const STARTUP_MESSAGE = "Twirling in the air~" as const;
 export const LOG_CHANNEL_ID = "994581628804403250" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki/" as const;
-export const MAXIMUM_WINGED_LIGHT = 205 as const;
+export const MAXIMUM_WINGED_LIGHT = 206 as const;
 
 export const enum Emoji {
   TGCBlueSparkles = "597899298520170501",

@@ -329,7 +329,7 @@ export default [
   new SeasonalSpirit({ name: SpiritName.MarchingAdventurer, season: Season.Assembly, expression: Expression.March, realm: Realm.HiddenForest }),
   new SeasonalSpirit({ name: SpiritName.ChucklingScout, season: Season.Assembly, expression: Expression.Chuckle, realm: Realm.HiddenForest }),
   new SeasonalSpirit({ name: SpiritName.DaydreamForester, season: Season.Assembly, expression: Expression.Bubbles, realm: Realm.HiddenForest, offer: { candles: 112, hearts: 13, ascendedCandles: 2 } }),
-  new SeasonalSpirit({ name: SpiritName.BeckoningRuler, season: Season.LittlePrince, expression: Expression.Beckon, realm: Realm.VaultOfKnowledge, keywords: ["frog", "frog mask"] }),
+  new SeasonalSpirit({ name: SpiritName.BeckoningRuler, season: Season.LittlePrince, expression: Expression.Beckon, realm: Realm.VaultOfKnowledge, keywords: ["frog", "frog mask"], offer: { candles: 103, hearts: 13, ascendedCandles: 2 } }),
   new SeasonalSpirit({ name: SpiritName.GloatingNarcissist, season: Season.LittlePrince, expression: Expression.Gloat, realm: Realm.VaultOfKnowledge }),
   new SeasonalSpirit({ name: SpiritName.StretchingLamplighter, season: Season.LittlePrince, expression: Expression.Stretch, realm: Realm.VaultOfKnowledge }),
   new SeasonalSpirit({ name: SpiritName.SlouchingSoldier, season: Season.LittlePrince, expression: Expression.Slouch, realm: Realm.VaultOfKnowledge }),
