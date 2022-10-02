@@ -33,7 +33,7 @@ export default class implements AutocompleteCommand {
     embed.setFields(
       {
         name: "Realm",
-        value: realmToString(spirit.realm, interaction.locale),
+        value: realmToString(spirit.realm),
         inline: true
       },
       {
