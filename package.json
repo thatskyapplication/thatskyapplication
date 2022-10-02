@@ -6,7 +6,7 @@
     "build": "npm install && npm run-script clean && tsc",
     "clean": "rimraf sourceJS/",
     "prepare": "husky install",
-    "start": "npm run-script build && BRANCH=$(git rev-parse --abbrev-ref HEAD) COMMIT_HASH=$(git rev-parse HEAD) ENVIRONMENT=Production node --require dotenv/config sourceJS/Caelus.js",
+    "start": "npm run-script build && BRANCH=$(git rev-parse --abbrev-ref HEAD) COMMIT_HASH=$(git rev-parse HEAD) node --require dotenv/config sourceJS/Caelus.js",
     "test": "eslint . && tsc"
   },
   "dependencies": {
