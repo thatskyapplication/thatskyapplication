@@ -28,11 +28,12 @@ export default new class {
               break;
           }
         } else {
-          switch (minutes) {
-            case 4:
-              sendNotification(LightEvent.ShardEruption);
-              break;
-          }
+          // Pause this for now. It seems things have changed to every 4 hours?
+          // switch (minutes) {
+          //   case 4:
+          //     sendNotification(LightEvent.ShardEruption);
+          //     break;
+          // }
         }
       }
     }, 1000);
