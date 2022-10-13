@@ -1,7 +1,6 @@
 import type { Buffer } from "node:buffer";
 import { readFileSync } from "node:fs";
 import { URL } from "node:url";
-import type { RealmValue } from "../Utility/Constants.js";
 import { Realm, WIKI_URL } from "../Utility/Constants.js";
 
 const enum SpiritName {
@@ -179,7 +178,7 @@ interface SpiritOffer {
 
 interface SpiritDataBase {
 	name: SpiritName;
-	realm: RealmValue;
+	realm: Realm;
 	offer?: SpiritOffer;
 	keywords?: string[];
 }

@@ -1,6 +1,6 @@
 import type { ApplicationCommandData, ChatInputCommandInteraction } from "discord.js";
 import { ApplicationCommandOptionType, ApplicationCommandType, EmbedBuilder } from "discord.js";
-import { MAXIMUM_WINGED_LIGHT, Realm, RealmString, WingedLightCount } from "../../Utility/Constants.js";
+import { MAXIMUM_WINGED_LIGHT, Realm, WingedLightCount } from "../../Utility/Constants.js";
 import { isRealm, notNull } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -12,14 +12,14 @@ export default class implements ChatInputCommand {
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { options } = interaction;
 		const wingedLight = options.getInteger("winged-light", true);
-		const realm1 = options.getInteger("realm-1");
-		const realm2 = options.getInteger("realm-2");
-		const realm3 = options.getInteger("realm-3");
-		const realm4 = options.getInteger("realm-4");
-		const realm5 = options.getInteger("realm-5");
-		const realm6 = options.getInteger("realm-6");
-		const realm7 = options.getInteger("realm-7");
-		const realm8 = options.getInteger("realm-8");
+		const realm1 = options.getString("realm-1");
+		const realm2 = options.getString("realm-2");
+		const realm3 = options.getString("realm-3");
+		const realm4 = options.getString("realm-4");
+		const realm5 = options.getString("realm-5");
+		const realm6 = options.getString("realm-6");
+		const realm7 = options.getString("realm-7");
+		const realm8 = options.getString("realm-8");
 		const realms = [realm1, realm2, realm3, realm4, realm5, realm6, realm7, realm8].filter(notNull);
 
 		if (!realms.every(isRealm)) {
@@ -44,56 +44,56 @@ export default class implements ChatInputCommand {
 			switch (realm) {
 				case Realm.IslesOfDawn:
 					embed.addFields({
-						name: RealmString.IslesOfDawn,
+						name: realm,
 						value: `${accumulation += WingedLightCount.IslesOfDawn} (+${WingedLightCount.IslesOfDawn})`,
 					});
 
 					break;
 				case Realm.DaylightPrairie:
 					embed.addFields({
-						name: RealmString.DaylightPrairie,
+						name: Realm.DaylightPrairie,
 						value: `${accumulation += WingedLightCount.DaylightPrairie} (+${WingedLightCount.DaylightPrairie})`,
 					});
 
 					break;
 				case Realm.HiddenForest:
 					embed.addFields({
-						name: RealmString.HiddenForest,
+						name: realm,
 						value: `${accumulation += WingedLightCount.HiddenForest} (+${WingedLightCount.HiddenForest})`,
 					});
 
 					break;
 				case Realm.ValleyOfTriumph:
 					embed.addFields({
-						name: RealmString.ValleyOfTriumph,
+						name: realm,
 						value: `${accumulation += WingedLightCount.ValleyOfTriumph} (+${WingedLightCount.ValleyOfTriumph})`,
 					});
 
 					break;
 				case Realm.GoldenWasteland:
 					embed.addFields({
-						name: RealmString.GoldenWasteland,
+						name: realm,
 						value: `${accumulation += WingedLightCount.GoldenWasteland} (+${WingedLightCount.GoldenWasteland})`,
 					});
 
 					break;
 				case Realm.VaultOfKnowledge:
 					embed.addFields({
-						name: RealmString.VaultOfKnowledge,
+						name: realm,
 						value: `${accumulation += WingedLightCount.VaultOfKnowledge} (+${WingedLightCount.VaultOfKnowledge})`,
 					});
 
 					break;
 				case Realm.EyeOfEden:
 					embed.addFields({
-						name: RealmString.EyeOfEden,
+						name: realm,
 						value: `${accumulation += WingedLightCount.EyeOfEden} (+${WingedLightCount.EyeOfEden})`,
 					});
 
 					break;
 				case Realm.AncientMemory:
 					embed.addFields({
-						name: RealmString.AncientMemory,
+						name: realm,
 						value: `${accumulation += WingedLightCount.AncientMemory} (+${WingedLightCount.AncientMemory})`,
 					});
 
@@ -112,9 +112,9 @@ export default class implements ChatInputCommand {
 	public get commandData(): ApplicationCommandData {
 		const wingedLightInRealms = Object.values(WingedLightCount).reduce((wingedLightCount, wingedLight) => wingedLightCount + wingedLight, 0);
 
-		const choices = Object.values(RealmString).map((realm, No) => ({
+		const choices = Object.values(Realm).map((realm) => ({
 			name: realm,
-			value: No,
+			value: realm,
 		}));
 
 		return {
@@ -131,49 +131,49 @@ export default class implements ChatInputCommand {
 					required: true,
 				},
 				{
-					type: ApplicationCommandOptionType.Integer,
+					type: ApplicationCommandOptionType.String,
 					name: "realm-1",
 					description: "The first realm to calculate winged light from.",
 					choices,
 				},
 				{
-					type: ApplicationCommandOptionType.Integer,
+					type: ApplicationCommandOptionType.String,
 					name: "realm-2",
 					description: "The second realm to calculate winged light from.",
 					choices,
 				},
 				{
-					type: ApplicationCommandOptionType.Integer,
+					type: ApplicationCommandOptionType.String,
 					name: "realm-3",
 					description: "The third realm to calculate winged light from.",
 					choices,
 				},
 				{
-					type: ApplicationCommandOptionType.Integer,
+					type: ApplicationCommandOptionType.String,
 					name: "realm-4",
 					description: "The fourth realm to calculate winged light from.",
 					choices,
 				},
 				{
-					type: ApplicationCommandOptionType.Integer,
+					type: ApplicationCommandOptionType.String,
 					name: "realm-5",
 					description: "The fifth realm to calculate winged light from.",
 					choices,
 				},
 				{
-					type: ApplicationCommandOptionType.Integer,
+					type: ApplicationCommandOptionType.String,
 					name: "realm-6",
 					description: "The sixth realm to calculate winged light from.",
 					choices,
 				},
 				{
-					type: ApplicationCommandOptionType.Integer,
+					type: ApplicationCommandOptionType.String,
 					name: "realm-7",
 					description: "The seventh realm to calculate winged light from.",
 					choices,
 				},
 				{
-					type: ApplicationCommandOptionType.Integer,
+					type: ApplicationCommandOptionType.String,
 					name: "realm-8",
 					description: "The eighth realm to calculate winged light from.",
 					choices,

@@ -4,7 +4,7 @@ export const LOG_CHANNEL_ID = "994581628804403250" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki/" as const;
 export const MAXIMUM_WINGED_LIGHT = 206 as const;
 
-export enum RealmString {
+export enum Realm {
 	IslesOfDawn = "Isles of Dawn",
 	DaylightPrairie = "Daylight Prairie",
 	HiddenForest = "Hidden Forest",
@@ -14,19 +14,6 @@ export enum RealmString {
 	EyeOfEden = "Eye of Eden",
 	AncientMemory = "Ancient Memory",
 }
-
-export const Realm = {
-	IslesOfDawn: 0,
-	DaylightPrairie: 1,
-	HiddenForest: 2,
-	ValleyOfTriumph: 3,
-	GoldenWasteland: 4,
-	VaultOfKnowledge: 5,
-	EyeOfEden: 6,
-	AncientMemory: 7,
-} as const;
-
-export type RealmValue = typeof Realm[keyof typeof Realm];
 
 export const WingedLightCount = {
 	IslesOfDawn: 9,
