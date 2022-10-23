@@ -12,6 +12,16 @@ export default class implements ChatInputCommand {
 		const { options } = interaction;
 		const start = options.getInteger("start", true);
 		const goal = options.getInteger("goal", true);
+
+		if (start >= goal) {
+			await interaction.reply({
+				content: "The goal has already been achieved.",
+				ephemeral: true,
+			});
+
+			return;
+		}
+
 		const amountRequired = goal - start;
 		const amountRequiredString = `${amountRequired} seasonal candle${amountRequired === 1 ? "" : "s"}`;
 		const resultWithoutSeasonPass = Math.ceil(amountRequired / SEASONAL_CANDLES_PER_DAY);
