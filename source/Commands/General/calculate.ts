@@ -11,7 +11,7 @@ export default class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
-			case "seasonal-candle":
+			case "seasonal-candles":
 				await this.seasonalCandles(interaction);
 				return;
 			case "winged-light":
