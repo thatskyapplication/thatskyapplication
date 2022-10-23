@@ -165,6 +165,7 @@ export default class implements ChatInputCommand {
 							name: "start",
 							description: "The starting number of seasonal candles.",
 							minValue: 0,
+							maxValue: 1_000,
 							required: true,
 						},
 						{
@@ -172,6 +173,7 @@ export default class implements ChatInputCommand {
 							name: "goal",
 							description: "The desired number of seasonal candles.",
 							minValue: 0,
+							maxValue: 1_000,
 							required: true,
 						},
 					],
