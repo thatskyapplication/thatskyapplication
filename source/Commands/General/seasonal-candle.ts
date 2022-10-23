@@ -18,7 +18,7 @@ export default class implements ChatInputCommand {
 		const resultWithoutSeasonPassString = `${resultWithoutSeasonPass} day${resultWithoutSeasonPass === 1 ? "" : "s"}`;
 		const resultWithSeasonPass = Math.ceil(amountRequired / SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS);
 		const resultWithSeasonPassString = `${resultWithSeasonPass} day${resultWithSeasonPass === 1 ? "" : "s"}`;
-		await interaction.reply(`Start: ${start}\nGoal${goal}\n\nIt would take ${resultWithoutSeasonPassString} to receive ${amountRequiredString}.\nWith a Season Pass, it would take ${resultWithSeasonPassString} to receive ${amountRequiredString}.`);
+		await interaction.reply(`Start: ${start}\nGoal: ${goal}\n\nIt would take ${resultWithoutSeasonPassString} to receive ${amountRequiredString}.\nWith a Season Pass, it would take ${resultWithSeasonPassString} to receive ${amountRequiredString}.`);
 	}
 
 	public get commandData(): ApplicationCommandData {
