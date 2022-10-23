@@ -7,6 +7,7 @@ import notifications from "./Events/notifications.js";
 
 // General
 import roles from "./General/roles.js";
+import seasonal_candle from "./General/seasonal-candle.js";
 import Sky_Profile from "./General/Sky Profile.js";
 import sky_profile from "./General/sky-profile.js";
 import spirit from "./General/spirit.js";
@@ -15,6 +16,7 @@ import winged_light from "./General/winged-light.js";
 const commands = {
 	notifications: new notifications(),
 	roles: new roles(),
+	"seasonal-candle": new seasonal_candle(),
 	"Sky Profile": new Sky_Profile(),
 	"sky-profile": new sky_profile(),
 	spirit: new spirit(),

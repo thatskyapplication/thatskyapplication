@@ -3,6 +3,10 @@ export const STARTUP_MESSAGE = "Twirling in the air~" as const;
 export const LOG_CHANNEL_ID = "994581628804403250" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki/" as const;
 export const MAXIMUM_WINGED_LIGHT = 206 as const;
+// 4 from quests and 1 from candle running.
+export const SEASONAL_CANDLES_PER_DAY = 5;
+// As well as the above but with an extra seaonal candle a day from the meditation shrine.
+export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
 
 export enum Realm {
 	IslesOfDawn = "Isles of Dawn",
