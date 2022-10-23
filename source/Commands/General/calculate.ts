@@ -158,7 +158,7 @@ export default class implements ChatInputCommand {
 				{
 					type: ApplicationCommandOptionType.Subcommand,
 					name: "seasonal-candles",
-					description: "A calculator for seasonal candles.",
+					description: "Calculates the number of days it would take to achieve a number of seasonal candles.",
 					options: [
 						{
 							type: ApplicationCommandOptionType.Integer,
