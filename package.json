@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm install && tsc",
     "prepare": "husky install",
-    "start": "BRANCH=$(git rev-parse --abbrev-ref HEAD) COMMIT_HASH=$(git rev-parse HEAD) node --require dotenv/config sourceJS/Caelus.js",
+    "start": "node --require dotenv/config sourceJS/Caelus.js",
     "test": "eslint . && tsc"
   },
   "dependencies": {
