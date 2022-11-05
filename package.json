@@ -3,10 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npm install && npm run-script clean && tsc",
-    "clean": "rimraf sourceJS/",
+    "build": "npm install && tsc",
     "prepare": "husky install",
-    "start": "npm run-script build && BRANCH=$(git rev-parse --abbrev-ref HEAD) COMMIT_HASH=$(git rev-parse HEAD) node --require dotenv/config sourceJS/Caelus.js",
+    "start": "BRANCH=$(git rev-parse --abbrev-ref HEAD) COMMIT_HASH=$(git rev-parse HEAD) node --require dotenv/config sourceJS/Caelus.js",
     "test": "eslint . && tsc"
   },
   "dependencies": {
@@ -21,7 +20,6 @@
     "eslint": "^8.24.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
-    "rimraf": "^3.0.2",
     "typescript": "^4.8.4"
   }
 }
