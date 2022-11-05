@@ -8,8 +8,8 @@ on:
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 jobs:
-  deply:
-  name: Deploy Caelus
+  deploy:
+    name: Deploy Caelus
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
