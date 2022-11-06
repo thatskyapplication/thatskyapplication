@@ -2,4 +2,7 @@ Dockerfile
 .dockerignore
 node_modules/
 .git
-sourceJS
+sourceJS/
+**/.DS_Store
+**/test.ts
+**/.env
