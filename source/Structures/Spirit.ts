@@ -661,7 +661,7 @@ export default [
 		expression: Expression.DeepBreath,
 		realm: Realm.IslesOfDawn,
 		offer: {
-			candles: 187,
+			candles: 201,
 			hearts: 13,
 			ascendedCandles: 2,
 		},
