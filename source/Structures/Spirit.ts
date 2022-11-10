@@ -144,7 +144,7 @@ const enum Expression {
 	Thinking = "Thinking",
 	Doze = "Doze",
 	Balance = "Balance",
-	DeepBreath = "DeepBreath",
+	DeepBreath = "Deep breath",
 	Bubbles = "Bubbles",
 	Beckon = "Beckon",
 	Gloat = "Gloat",
