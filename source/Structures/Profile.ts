@@ -58,13 +58,13 @@ export default class Profile {
 	}
 
 	public static async fetch(userId: Snowflake) {
-		const profilePackets = await pg<RawProfileData>(Table.Profiles).where("user_id", userId);
+		const [profilePacket] = await pg<RawProfileData>(Table.Profiles).where("user_id", userId);
 
-		if (profilePackets.length === 0) {
+		if (!profilePacket) {
 			throw new Error("No profile found.");
 		}
 
-		return new this(profilePackets[0]);
+		return new this(profilePacket);
 	}
 
 	public static async set(interaction: ChatInputCommandInteraction | ModalSubmitInteraction, data: ProfileSetData) {
