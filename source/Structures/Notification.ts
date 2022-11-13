@@ -1,168 +1,134 @@
-import type { ChatInputCommandInteraction, Client, NewsChannel, Role, TextChannel } from "discord.js";
+import type { ChatInputCommandInteraction, Client, Guild, Snowflake } from "discord.js";
 import { channelMention, ChannelType, Collection, EmbedBuilder, PermissionFlagsBits, roleMention } from "discord.js";
-import Base from "./Base.js";
+import { pg } from "../Caelus.js";
+import { Table } from "../Utility/Constants.js";
+
+export interface RawNotificationData {
+	id: number;
+	guild_id: Snowflake;
+	polluted_geyser_channel_id: Snowflake | null;
+	polluted_geyser_role_id: Snowflake | null;
+	grandma_channel_id: Snowflake | null;
+	grandma_role_id: Snowflake | null;
+	turtle_channel_id: Snowflake | null;
+	turtle_role_id: Snowflake | null;
+}
 
 interface NotificationData {
-	No: number;
-	"Guild ID": string;
-	"Polluted Geyser Channel ID": string | null;
-	"Polluted Geyser Role ID": string | null;
-	"Grandma Channel ID": string | null;
-	"Grandma Role ID": string | null;
-	"Turtle Channel ID": string | null;
-	"Turtle Role ID": string | null;
-	"Shard Eruption Channel ID": string | null;
-	"Shard Eruption Role ID": string | null;
+	id: RawNotificationData["id"];
+	guildId: RawNotificationData["guild_id"];
+	pollutedGeyserChannelId: RawNotificationData["polluted_geyser_channel_id"];
+	pollutedGeyserRoleId: RawNotificationData["polluted_geyser_role_id"];
+	grandmaChannelId: RawNotificationData["grandma_channel_id"];
+	grandmaRoleId: RawNotificationData["grandma_role_id"];
+	turtleChannelId: RawNotificationData["turtle_channel_id"];
+	turtleRoleId: RawNotificationData["turtle_role_id"];
 }
 
-export const LightEvent = {
-	PollutedGeyser: "Polluted Geyser",
-	Grandma: "Grandma",
-	Turtle: "Turtle",
-	ShardEruption: "Shard Eruption",
-} as const;
+type NotificationPatchData = Omit<RawNotificationData, "id" | "guild_id">;
+export type NotificationInsertQuery = Partial<NotificationPatchData> & Pick<RawNotificationData, "guild_id">;
+export type NotificationUpdateQuery = Omit<NotificationInsertQuery, "guild_id">;
 
-export function isEvent(event: string): event is typeof LightEvent[keyof typeof LightEvent] {
-	return Object.values(LightEvent).includes(event as typeof LightEvent[keyof typeof LightEvent]);
+export enum NotificationEvent {
+	PollutedGeyser = "Polluted Geyser",
+	Grandma = "Grandma",
+	Turtle = "Turtle",
 }
 
-export default class Notification extends Base {
+export function isEvent(event: string): event is NotificationEvent {
+	return Object.values(NotificationEvent).includes(event as NotificationEvent);
+}
+
+export default class Notification {
 	public static readonly cache = new Collection<number, Notification>();
 
-	public readonly No: NotificationData["No"];
+	public readonly id: NotificationData["id"];
 
-	public readonly guildId: NotificationData["Guild ID"];
+	public readonly guildId: NotificationData["guildId"];
 
-	public pollutedGeyserChannelId: NotificationData["Polluted Geyser Channel ID"];
+	public pollutedGeyserChannelId!: NotificationData["pollutedGeyserChannelId"];
 
-	public pollutedGeyserRoleId: NotificationData["Polluted Geyser Role ID"];
+	public pollutedGeyserRoleId!: NotificationData["pollutedGeyserRoleId"];
 
-	public grandmaChannelId: NotificationData["Grandma Channel ID"];
+	public grandmaChannelId!: NotificationData["grandmaChannelId"];
 
-	public grandmaRoleId: NotificationData["Grandma Role ID"];
+	public grandmaRoleId!: NotificationData["grandmaRoleId"];
 
-	public turtleChannelId: NotificationData["Turtle Channel ID"];
+	public turtleChannelId!: NotificationData["turtleChannelId"];
 
-	public turtleRoleId: NotificationData["Turtle Role ID"];
+	public turtleRoleId!: NotificationData["turtleRoleId"];
 
-	public shardEruptionChannelId: NotificationData["Shard Eruption Channel ID"];
-
-	public shardEruptionRoleId: NotificationData["Shard Eruption Role ID"];
-
-	public constructor(client: Client<true>, notification: NotificationData) {
-		super(client);
-		this.No = notification.No;
-		this.guildId = notification["Guild ID"];
-		this.pollutedGeyserChannelId = notification["Polluted Geyser Channel ID"];
-		this.pollutedGeyserRoleId = notification["Polluted Geyser Role ID"];
-		this.grandmaChannelId = notification["Grandma Channel ID"];
-		this.grandmaRoleId = notification["Grandma Role ID"];
-		this.turtleChannelId = notification["Turtle Channel ID"];
-		this.turtleRoleId = notification["Turtle Role ID"];
-		this.shardEruptionChannelId = notification["Shard Eruption Channel ID"];
-		this.shardEruptionRoleId = notification["Shard Eruption Role ID"];
+	public constructor(notification: RawNotificationData) {
+		this.id = notification.id;
+		this.guildId = notification.guild_id;
+		this.patch(notification);
 	}
 
-	public static async setup(interaction: ChatInputCommandInteraction<"cached">, event: typeof LightEvent[keyof typeof LightEvent], channel: NewsChannel | TextChannel, role: Role) {
-		let notification = this.cache.find(({ guildId }) => guildId === interaction.guildId);
+	private patch(data: NotificationPatchData) {
+		this.pollutedGeyserChannelId = data.polluted_geyser_channel_id;
+		this.pollutedGeyserRoleId = data.polluted_geyser_role_id;
+		this.grandmaChannelId = data.grandma_channel_id;
+		this.grandmaRoleId = data.grandma_role_id;
+		this.turtleChannelId = data.turtle_channel_id;
+		this.turtleRoleId = data.turtle_role_id;
+	}
+
+	public static async setup(interaction: ChatInputCommandInteraction<"cached">, data: NotificationInsertQuery | NotificationUpdateQuery) {
+		const { guild, guildId } = interaction;
+		let notification = this.cache.find((cachedNotification) => cachedNotification.guildId === guildId);
 
 		if (notification) {
-			await interaction.client.Maria.query(`UPDATE \`Notifications\` SET \`${event} Channel ID\` = ?, \`${event} Role ID\` = ? WHERE \`No\` = ?;`, [channel.id, role.id, notification.No]);
+			const [notificationPacket] = await pg<RawNotificationData>(Table.Notifications)
+				.update(data)
+				.where("id", notification.id)
+				.returning("*");
 
-			switch (event) {
-				case LightEvent.PollutedGeyser:
-					notification.pollutedGeyserChannelId = channel.id;
-					notification.pollutedGeyserRoleId = role.id;
-					break;
-				case LightEvent.Grandma:
-					notification.grandmaChannelId = channel.id;
-					notification.grandmaRoleId = role.id;
-					break;
-				case LightEvent.Turtle:
-					notification.turtleChannelId = channel.id;
-					notification.turtleRoleId = role.id;
-					break;
-				case LightEvent.ShardEruption:
-					notification.shardEruptionChannelId = channel.id;
-					notification.shardEruptionRoleId = role.id;
-					break;
-			}
+			notification.patch(notificationPacket);
 		} else {
-			const { insertId } = await interaction.client.Maria.query(`INSERT INTO \`Notifications\` SET \`Guild ID\` = ?, \`${event} Channel ID\` = ?, \`${event} Role ID\` = ?;`, [interaction.guildId, channel.id, role.id]);
-
-			notification = new this(interaction.client, {
-				No: insertId,
-				"Guild ID": interaction.guildId,
-				"Polluted Geyser Channel ID": event === LightEvent.PollutedGeyser ? channel.id : null,
-				"Polluted Geyser Role ID": event === LightEvent.PollutedGeyser ? role.id : null,
-				"Grandma Channel ID": event === LightEvent.Grandma ? channel.id : null,
-				"Grandma Role ID": event === LightEvent.Grandma ? role.id : null,
-				"Turtle Channel ID": event === LightEvent.Turtle ? channel.id : null,
-				"Turtle Role ID": event === LightEvent.Turtle ? role.id : null,
-				"Shard Eruption Channel ID": event === LightEvent.ShardEruption ? channel.id : null,
-				"Shard Eruption Role ID": event === LightEvent.ShardEruption ? role.id : null,
-			});
-
-			this.cache.set(notification.No, notification);
+			const [notificationPacket] = await pg<RawNotificationData>(Table.Notifications).insert(data, "*");
+			notification = new this(notificationPacket);
+			this.cache.set(notification.id, notification);
 		}
 
 		await interaction.reply({
-			allowedMentions: { parse: [] },
-			// eslint-disable-next-line @typescript-eslint/no-base-to-string
-			content: `${event} notifications have been set up in ${channel}. The ${role} role will be mentioned.`,
-			embeds: [await notification.overview()],
+			content: "Notifications have been modified.",
+			embeds: [await notification.overview(guild)],
 		});
 	}
 
-	public async unset(interaction: ChatInputCommandInteraction<"cached">, event: typeof LightEvent[keyof typeof LightEvent]) {
-		await interaction.client.Maria.query(`UPDATE \`Notifications\` SET \`${event} Channel ID\` = ?, \`${event} Role ID\` = ? WHERE \`No\` = ?;`, [null, null, this.No]);
+	public async unset(interaction: ChatInputCommandInteraction<"cached">, data: NotificationUpdateQuery) {
+		const { guild, guildId } = interaction;
 
-		switch (event) {
-			case LightEvent.PollutedGeyser:
-				this.pollutedGeyserChannelId = null;
-				this.pollutedGeyserRoleId = null;
-				break;
-			case LightEvent.Grandma:
-				this.grandmaChannelId = null;
-				this.grandmaRoleId = null;
-				break;
-			case LightEvent.Turtle:
-				this.turtleChannelId = null;
-				this.turtleRoleId = null;
-				break;
-			case LightEvent.ShardEruption:
-				this.shardEruptionChannelId = null;
-				this.shardEruptionRoleId = null;
-				break;
-		}
+		const [notificationPacket] = await pg<RawNotificationData>(Table.Notifications)
+			.update(data)
+			.where("guild_id", guildId)
+			.returning("*");
+
+		this.patch(notificationPacket);
 
 		await interaction.reply({
-			content: `${event} notifications have been unset.`,
-			embeds: [await this.overview()],
+			content: "Notifications have been modified.",
+			embeds: [await this.overview(guild)],
 		});
 	}
 
-	public async send(type: typeof LightEvent[keyof typeof LightEvent]) {
-		const { guildId, pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId, shardEruptionChannelId, shardEruptionRoleId } = this;
+	public async send(client: Client<true>, type: NotificationEvent) {
+		const { guildId, pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId } = this;
 		let channelId;
 		let roleId;
 
 		switch (type) {
-			case LightEvent.PollutedGeyser:
+			case NotificationEvent.PollutedGeyser:
 				channelId = pollutedGeyserChannelId;
 				roleId = pollutedGeyserRoleId;
 				break;
-			case LightEvent.Grandma:
+			case NotificationEvent.Grandma:
 				channelId = grandmaChannelId;
 				roleId = grandmaRoleId;
 				break;
-			case LightEvent.Turtle:
+			case NotificationEvent.Turtle:
 				channelId = turtleChannelId;
 				roleId = turtleRoleId;
-				break;
-			case LightEvent.ShardEruption:
-				channelId = shardEruptionChannelId;
-				roleId = shardEruptionRoleId;
 				break;
 		}
 
@@ -170,18 +136,20 @@ export default class Notification extends Base {
 			return;
 		}
 
-		const channel = this.client.guilds.resolve(guildId)?.channels.resolve(channelId);
+		const channel = client.guilds.resolve(guildId)?.channels.resolve(channelId);
 
 		if (!channel || channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildAnnouncement) {
 			return;
 		}
 
 		const role = channel.guild.roles.resolve(roleId);
+
 		if (!role) {
 			return;
 		}
 
 		const me = await channel.guild.members.fetchMe();
+
 		if (!channel.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || !role.mentionable && !channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) {
 			return;
 		}
@@ -189,45 +157,35 @@ export default class Notification extends Base {
 		await channel.send(`${role} is starting soon!`).catch(() => null);
 	}
 
-	public async overview() {
-		const { guildId, pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId, shardEruptionChannelId, shardEruptionRoleId } = this;
-		const guild = this.client.guilds.resolve(guildId);
-		const me = await guild?.members.fetchMe();
+	public async overview(guild: Guild) {
+		const me = await guild.members.fetchMe();
+		const { pollutedGeyserChannelId, pollutedGeyserRoleId, grandmaChannelId, grandmaRoleId, turtleChannelId, turtleRoleId } = this;
 		const pollutedGeyserChannel = pollutedGeyserChannelId ? guild?.channels.resolve(pollutedGeyserChannelId) : null;
 		const pollutedGeyserRole = pollutedGeyserRoleId ? guild?.roles.resolve(pollutedGeyserRoleId) : null;
 		const grandmaChannel = grandmaChannelId ? guild?.channels.resolve(grandmaChannelId) : null;
 		const grandmaRole = grandmaRoleId ? guild?.roles.resolve(grandmaRoleId) : null;
 		const turtleChannel = turtleChannelId ? guild?.channels.resolve(turtleChannelId) : null;
 		const turtleRole = turtleRoleId ? guild?.roles.resolve(turtleRoleId) : null;
-		const shardEruptionChannel = shardEruptionChannelId ? guild?.channels.resolve(shardEruptionChannelId) : null;
-		const shardEruptionRole = shardEruptionRoleId ? guild?.roles.resolve(shardEruptionRoleId) : null;
-		const embed = new EmbedBuilder();
-		embed.setColor(me?.displayColor ?? 0);
 
-		embed.setFields([
-			{
-				name: LightEvent.PollutedGeyser,
-				value: `${pollutedGeyserChannelId ? channelMention(pollutedGeyserChannelId) : "No channel"}\n${pollutedGeyserRoleId ? roleMention(pollutedGeyserRoleId) : "No role"}\n${me && (pollutedGeyserChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || pollutedGeyserRole?.mentionable && pollutedGeyserChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? "✅ Sending!" : "⚠️ Stopped!"}`,
-				inline: true,
-			},
-			{
-				name: LightEvent.Grandma,
-				value: `${grandmaChannelId ? channelMention(grandmaChannelId) : "No channel"}\n${grandmaRoleId ? roleMention(grandmaRoleId) : "No role"}\n${me && (grandmaChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || grandmaRole?.mentionable && grandmaChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? "✅ Sending!" : "⚠️ Stopped!"}`,
-				inline: true,
-			},
-			{
-				name: LightEvent.Turtle,
-				value: `${turtleChannelId ? channelMention(turtleChannelId) : "No channel"}\n${turtleRoleId ? roleMention(turtleRoleId) : "No role"}\n${me && (turtleChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || turtleRole?.mentionable && turtleChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? "✅ Sending!" : "⚠️ Stopped!"}`,
-				inline: true,
-			},
-			{
-				name: LightEvent.ShardEruption,
-				value: `${shardEruptionChannelId ? channelMention(shardEruptionChannelId) : "No channel"}\n${shardEruptionRoleId ? roleMention(shardEruptionRoleId) : "No role"}\n${me && (shardEruptionChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || shardEruptionRole?.mentionable && shardEruptionChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? "✅ Sending!" : "⚠️ Stopped!"}`,
-				inline: true,
-			},
-		]);
-
-		embed.setTitle(guild?.name ?? guildId);
-		return embed;
+		return new EmbedBuilder()
+			.setColor(me.displayColor)
+			.setFields(
+				{
+					name: NotificationEvent.PollutedGeyser,
+					value: `${pollutedGeyserChannelId ? channelMention(pollutedGeyserChannelId) : "No channel"}\n${pollutedGeyserRoleId ? roleMention(pollutedGeyserRoleId) : "No role"}\n${me && (pollutedGeyserChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || pollutedGeyserRole?.mentionable && pollutedGeyserChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? "✅ Sending!" : "⚠️ Stopped!"}`,
+					inline: true,
+				},
+				{
+					name: NotificationEvent.Grandma,
+					value: `${grandmaChannelId ? channelMention(grandmaChannelId) : "No channel"}\n${grandmaRoleId ? roleMention(grandmaRoleId) : "No role"}\n${me && (grandmaChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || grandmaRole?.mentionable && grandmaChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? "✅ Sending!" : "⚠️ Stopped!"}`,
+					inline: true,
+				},
+				{
+					name: NotificationEvent.Turtle,
+					value: `${turtleChannelId ? channelMention(turtleChannelId) : "No channel"}\n${turtleRoleId ? roleMention(turtleRoleId) : "No role"}\n${me && (turtleChannel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) || turtleRole?.mentionable && turtleChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) ? "✅ Sending!" : "⚠️ Stopped!"}`,
+					inline: true,
+				},
+			)
+			.setTitle(guild.name);
 	}
 }

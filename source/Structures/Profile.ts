@@ -1,15 +1,25 @@
-import type { ChatInputCommandInteraction, Client, EmbedAuthorOptions, Guild, ModalSubmitInteraction } from "discord.js";
-import { Collection, EmbedBuilder } from "discord.js";
+import type { ChatInputCommandInteraction, EmbedAuthorOptions, Guild, ModalSubmitInteraction, Snowflake } from "discord.js";
+import { EmbedBuilder } from "discord.js";
+import { pg } from "../Caelus.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
-import Base from "./Base.js";
+import { Table } from "../Utility/Constants.js";
+
+interface RawProfileData {
+	id: number;
+	user_id: Snowflake;
+	name: string | null;
+	icon: string | null;
+	thumbnail: string | null;
+	description: string | null;
+}
 
 interface ProfileData {
-	No: number;
-	"User ID": string;
-	Name: string | null;
-	Icon: string | null;
-	Thumbnail: string | null;
-	Description: string | null;
+	id: RawProfileData["id"];
+	userId: RawProfileData["user_id"];
+	name: RawProfileData["name"];
+	icon: RawProfileData["icon"];
+	thumbnail: RawProfileData["thumbnail"];
+	description: RawProfileData["description"];
 }
 
 interface ProfileSetData {
@@ -19,62 +29,58 @@ interface ProfileSetData {
 	description?: string;
 }
 
-export default class Profile extends Base {
-	public static readonly cache = new Collection<number, Profile>();
+export default class Profile {
+	public readonly id: ProfileData["id"];
 
-	public readonly No: ProfileData["No"];
+	public readonly userId: ProfileData["userId"];
 
-	public readonly userId: ProfileData["User ID"];
+	public name: ProfileData["name"];
 
-	public name: ProfileData["Name"];
+	public icon: ProfileData["icon"];
 
-	public icon: ProfileData["Icon"];
+	public thumbnail: ProfileData["thumbnail"];
 
-	public thumbnail: ProfileData["Thumbnail"];
+	public description: ProfileData["description"];
 
-	public description: ProfileData["Description"];
+	public constructor(profile: RawProfileData) {
+		this.id = profile.id;
+		this.userId = profile.user_id;
+		this.name = profile.name;
+		this.icon = profile.icon;
+		this.thumbnail = profile.thumbnail;
+		this.description = profile.description;
+	}
 
-	public constructor(client: Client<true>, profile: ProfileData) {
-		super(client);
-		this.No = profile.No;
-		this.userId = profile["User ID"];
-		this.name = profile.Name;
-		this.icon = profile.Icon;
-		this.thumbnail = profile.Thumbnail;
-		this.description = profile.Description;
+	public static async fetch(userId: Snowflake) {
+		const profilePackets = await pg<RawProfileData>(Table.Profiles).where("user_id", userId);
+
+		if (profilePackets.length === 0) {
+			throw new Error("No profile found.");
+		}
+
+		return new this(profilePackets[0]);
 	}
 
 	public static async set(interaction: ChatInputCommandInteraction | ModalSubmitInteraction, data: ProfileSetData) {
-		let profile = this.cache.find(({ userId }) => userId === interaction.user.id);
-		const name = data.name ?? profile?.name ?? null;
-		const icon = data.icon ?? profile?.icon ?? null;
-		const thumbnail = data.thumbnail ?? profile?.thumbnail ?? null;
-		const description = data.description ?? profile?.description ?? null;
+		let profile = await this.fetch(interaction.user.id).catch(() => null);
 
 		if (profile) {
-			await interaction.client.Maria.query("UPDATE `Profiles` SET `Name` = ?, `Icon` = ?, `Thumbnail` = ?, `Description` = ? WHERE `No` = ?;", [name, icon, thumbnail, description, profile.No]);
-			profile.name = name;
-			profile.icon = icon;
-			profile.thumbnail = thumbnail;
-			profile.description = description;
+			await pg<RawProfileData>(Table.Profiles)
+				.update(data)
+				.where("id", profile.id)
+				.returning("*");
 		} else {
-			const { insertId } = await interaction.client.Maria.query("INSERT INTO `Profiles` SET `User ID` = ?, `Name` = ?, `Icon` = ?, `Thumbnail` = ?, `Description` = ?;", [interaction.user.id, name, icon, thumbnail, description]);
+			const [profilePacket] = await pg<RawProfileData>(Table.Profiles).insert({
+				...data,
+				user_id: interaction.user.id,
+			}, "*");
 
-			profile = new this(interaction.client, {
-				No: insertId,
-				"User ID": interaction.user.id,
-				Name: name,
-				Icon: icon,
-				Thumbnail: thumbnail,
-				Description: description,
-			});
-
-			this.cache.set(profile.No, profile);
+			profile = new this(profilePacket);
 		}
 
 		await interaction.reply({
 			content: "Your profile has been updated!",
-			embeds: [await profile.show(interaction.guild)],
+			embeds: [await profile.embed(interaction.guild)],
 			ephemeral: true,
 		});
 	}
@@ -84,9 +90,13 @@ export default class Profile extends Base {
 		return this.set(interaction, { description });
 	}
 
-	public async show(guild: Guild | null) {
-		const embed = new EmbedBuilder();
+	public async embed(guild: Guild | null) {
 		const me = await guild?.members.fetchMe();
+
+		const embed = new EmbedBuilder()
+			.setColor(me?.displayColor ?? 0)
+			.setDescription(this.description ?? "Hi! I'm an amazing Skykid.")
+			.setThumbnail(this.thumbnail);
 
 		if (this.name) {
 			const embedAuthorOptions: EmbedAuthorOptions = { name: this.name };
@@ -98,9 +108,6 @@ export default class Profile extends Base {
 			embed.setAuthor(embedAuthorOptions);
 		}
 
-		embed.setColor(me?.displayColor ?? 0);
-		embed.setDescription(this.description ?? "Hi! I'm an amazing Skykid.");
-		embed.setThumbnail(this.thumbnail);
 		return embed;
 	}
 }

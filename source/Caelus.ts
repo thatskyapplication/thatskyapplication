@@ -4,8 +4,7 @@ import process from "node:process";
 import { URL } from "node:url";
 import { inspect } from "node:util";
 import { Client, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits } from "discord.js";
-import type { Pool } from "mariadb";
-import { createPool } from "mariadb";
+import knex from "knex";
 import commands from "./Commands/index.js";
 import type { Event } from "./Events/index.js";
 import { LOG_CHANNEL_ID } from "./Utility/Constants.js";
@@ -20,20 +19,15 @@ interface LogOptions {
 
 declare module "discord.js" {
 	interface Client {
-		Maria: Pool;
 		log(message: string, error?: any): Promise<void>;
 		log(message: LogOptions): Promise<void>;
 		applyCommands(): Promise<void>;
 	}
 }
 
-Client.prototype.Maria = createPool({
-	user: process.env.MARIA_USER,
-	password: process.env.MARIA_PASSWORD,
-	host: process.env.MARIA_HOST,
-	database: process.env.MARIA_DATABASE,
-	bigIntAsNumber: true,
-	insertIdAsNumber: true,
+export const pg = knex({
+	client: "pg",
+	connection: process.env.DATABASE_URL,
 });
 
 // eslint-disable-next-line func-names

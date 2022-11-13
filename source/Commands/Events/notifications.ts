@@ -1,6 +1,7 @@
 import type { ApplicationCommandData, ChatInputCommandInteraction, NewsChannel, TextChannel } from "discord.js";
 import { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, PermissionFlagsBits } from "discord.js";
-import Notification, { isEvent, LightEvent } from "../../Structures/Notification.js";
+import type { NotificationInsertQuery, NotificationUpdateQuery } from "../../Structures/Notification.js";
+import Notification, { isEvent, NotificationEvent } from "../../Structures/Notification.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default class implements ChatInputCommand {
@@ -45,7 +46,7 @@ export default class implements ChatInputCommand {
 		}
 
 		await interaction.reply({
-			embeds: [await notification.overview()],
+			embeds: [await notification.overview(interaction.guild)],
 			ephemeral: true,
 		});
 	}
@@ -63,18 +64,6 @@ export default class implements ChatInputCommand {
 
 			await interaction.reply({
 				content: "The dark dragon has obeliterated this event. It's gone... for now.",
-				ephemeral: true,
-			});
-
-			return;
-		}
-
-		const notification = Notification.cache.find(({ guildId }) => interaction.guildId === guildId);
-
-		if (notification && (event === LightEvent.PollutedGeyser && notification.pollutedGeyserChannelId === channel.id && notification.pollutedGeyserRoleId === role.id || event === LightEvent.Grandma && notification.grandmaChannelId === channel.id && notification.grandmaRoleId === role.id || event === LightEvent.Turtle && notification.turtleChannelId === channel.id && notification.turtleRoleId === role.id || event === LightEvent.ShardEruption && notification.shardEruptionChannelId === channel.id && notification.shardEruptionRoleId === role.id)) {
-			await interaction.reply({
-				// eslint-disable-next-line @typescript-eslint/no-base-to-string
-				content: `${event} notifications are already set to mention the role ${role} in ${channel}. There was nothing to do.`,
 				ephemeral: true,
 			});
 
@@ -100,7 +89,24 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		await Notification.setup(interaction, event, channel, role);
+		const data: NotificationInsertQuery & NotificationUpdateQuery = { guild_id: interaction.guildId };
+
+		switch (event) {
+			case NotificationEvent.PollutedGeyser:
+				data.polluted_geyser_channel_id = channel.id;
+				data.polluted_geyser_role_id = role.id;
+				break;
+			case NotificationEvent.Grandma:
+				data.grandma_channel_id = channel.id;
+				data.grandma_role_id = role.id;
+				break;
+			case NotificationEvent.Turtle:
+				data.turtle_channel_id = channel.id;
+				data.turtle_role_id = role.id;
+				break;
+		}
+
+		await Notification.setup(interaction, data);
 	}
 
 	public async unset(interaction: ChatInputCommandInteraction<"cached">) {
@@ -129,22 +135,30 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		if (event === LightEvent.PollutedGeyser && notification.pollutedGeyserChannelId === null && notification.pollutedGeyserRoleId === null || event === LightEvent.Grandma && notification.grandmaChannelId === null && notification.grandmaRoleId === null || event === LightEvent.Turtle && notification.turtleChannelId === null && notification.turtleRoleId === null || event === LightEvent.ShardEruption && notification.shardEruptionChannelId === null && notification.shardEruptionRoleId === null) {
-			await interaction.reply({
-				content: `${event} notifications are not already set. There was nothing to do.`,
-				ephemeral: true,
-			});
+		const data: NotificationUpdateQuery = {};
 
-			return;
+		switch (event) {
+			case NotificationEvent.PollutedGeyser:
+				data.polluted_geyser_channel_id = null;
+				data.polluted_geyser_role_id = null;
+				break;
+			case NotificationEvent.Grandma:
+				data.grandma_channel_id = null;
+				data.grandma_role_id = null;
+				break;
+			case NotificationEvent.Turtle:
+				data.turtle_channel_id = null;
+				data.turtle_role_id = null;
+				break;
 		}
 
-		await notification.unset(interaction, event);
+		await notification.unset(interaction, data);
 	}
 
 	public get commandData(): ApplicationCommandData {
-		const choices = Object.values(LightEvent).map((lightEvent) => ({
-			name: lightEvent,
-			value: lightEvent,
+		const choices = Object.values(NotificationEvent).map((notificationEvent) => ({
+			name: notificationEvent,
+			value: notificationEvent,
 		}));
 
 		return {

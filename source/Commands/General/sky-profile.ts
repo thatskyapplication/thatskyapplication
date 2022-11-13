@@ -1,4 +1,4 @@
-import type { ApplicationCommandData, ChatInputCommandInteraction, ModalActionRowComponentBuilder, UserContextMenuCommandInteraction } from "discord.js";
+import type { ApplicationCommandData, ChatInputCommandInteraction, UserContextMenuCommandInteraction } from "discord.js";
 import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
 import Profile from "../../Structures/Profile.js";
 import type { ChatInputCommand } from "../index.js";
@@ -34,23 +34,25 @@ export default class implements ChatInputCommand {
 	}
 
 	public async setDescription(interaction: ChatInputCommandInteraction) {
-		const profile = Profile.cache.find(({ userId }) => interaction.user.id === userId);
-		const modal = new ModalBuilder();
-		const actionRow = new ActionRowBuilder<ModalActionRowComponentBuilder>();
-		const textInput = new TextInputBuilder();
-		modal.setCustomId(SKY_PROFILE_MODAL);
-		modal.setTitle("Set your Sky profile description!");
-		textInput.setCustomId(SKY_PROFILE_TEXT_INPUT_DESCRIPTION);
-		textInput.setLabel("Type a lovely description about your Skykid.");
-		textInput.setMaxLength(4_000);
-		textInput.setStyle(TextInputStyle.Paragraph);
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+
+		const textInput = new TextInputBuilder()
+			.setCustomId(SKY_PROFILE_TEXT_INPUT_DESCRIPTION)
+			.setLabel("Type a lovely description about your Skykid.")
+			.setMaxLength(4_000)
+			.setStyle(TextInputStyle.Paragraph);
 
 		if (profile?.description) {
 			textInput.setValue(profile.description);
 		}
 
-		actionRow.setComponents(textInput);
-		modal.setComponents(actionRow);
+		const actionRow = new ActionRowBuilder<TextInputBuilder>().setComponents(textInput);
+
+		const modal = new ModalBuilder()
+			.setComponents(actionRow)
+			.setCustomId(SKY_PROFILE_MODAL)
+			.setTitle("Set your Sky profile description!");
+
 		await interaction.showModal(modal);
 	}
 
@@ -91,7 +93,7 @@ export default class implements ChatInputCommand {
 
 	public async show(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
 		const user = interaction.options.getUser("user");
-		const ephemeral = interaction.isChatInputCommand() ? interaction.options.getBoolean("ephemeral") ?? false : true;
+		const ephemeral = interaction.isUserContextMenuCommand() || (interaction.options.getBoolean("ephemeral") ?? false);
 
 		if (user?.bot) {
 			await interaction.reply({
@@ -102,7 +104,7 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		const profile = Profile.cache.find(({ userId }) => (user?.id ?? interaction.user.id) === userId);
+		const profile = await Profile.fetch(user?.id ?? interaction.user.id).catch(() => null);
 
 		if (!profile) {
 			await interaction.reply({
@@ -114,7 +116,7 @@ export default class implements ChatInputCommand {
 		}
 
 		await interaction.reply({
-			embeds: [await profile.show(interaction.guild)],
+			embeds: [await profile.embed(interaction.guild)],
 			ephemeral,
 		});
 	}

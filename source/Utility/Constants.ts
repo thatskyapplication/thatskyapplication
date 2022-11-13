@@ -6,6 +6,11 @@ export const SEASONAL_CANDLES_PER_DAY = 5;
 // As well as the above but with an extra seaonal candle a day from the meditation shrine.
 export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
 
+export enum Table {
+	Notifications = "notifications",
+	Profiles = "profiles",
+}
+
 export enum Realm {
 	IslesOfDawn = "Isles of Dawn",
 	DaylightPrairie = "Daylight Prairie",

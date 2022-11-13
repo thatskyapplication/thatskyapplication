@@ -1,6 +1,6 @@
 import type { ApplicationCommandData, ChatInputCommandInteraction, MessageActionRowComponentBuilder, SelectMenuInteraction, Snowflake } from "discord.js";
 import { ActionRowBuilder, ApplicationCommandType, Collection, PermissionsBitField, SelectMenuBuilder } from "discord.js";
-import Notification, { LightEvent } from "../../Structures/Notification.js";
+import Notification, { NotificationEvent } from "../../Structures/Notification.js";
 import type { ChatInputCommand } from "../index.js";
 
 export const rolesSelectMenuCustomId = "SELFROLE" as const;
@@ -25,19 +25,19 @@ export default class implements ChatInputCommand {
 		await this.execute(interaction);
 	}
 
-	public populate(notification: Notification): Collection<typeof LightEvent[keyof typeof LightEvent], Snowflake> {
-		const roles = new Collection<typeof LightEvent[keyof typeof LightEvent], Snowflake>();
+	public populate(notification: Notification) {
+		const roles = new Collection<NotificationEvent, Snowflake>();
 
 		if (notification.pollutedGeyserChannelId && notification.pollutedGeyserRoleId) {
-			roles.set(LightEvent.PollutedGeyser, notification.pollutedGeyserRoleId);
+			roles.set(NotificationEvent.PollutedGeyser, notification.pollutedGeyserRoleId);
 		}
 
 		if (notification.grandmaChannelId && notification.grandmaRoleId) {
-			roles.set(LightEvent.Grandma, notification.grandmaRoleId);
+			roles.set(NotificationEvent.Grandma, notification.grandmaRoleId);
 		}
 
 		if (notification.turtleChannelId && notification.turtleRoleId) {
-			roles.set(LightEvent.Turtle, notification.turtleRoleId);
+			roles.set(NotificationEvent.Turtle, notification.turtleRoleId);
 		}
 
 		return roles;
