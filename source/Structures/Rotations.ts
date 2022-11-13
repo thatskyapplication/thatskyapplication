@@ -9,7 +9,7 @@ function sendNotification(client: Client<true>, type: NotificationEvent) {
 	}
 }
 
-export default new class {
+export default new (class {
 	public clock(client: Client<true>): void {
 		setInterval(() => {
 			const date = time.utcToZonedTime(Date.now(), "America/Los_Angeles");
@@ -32,4 +32,4 @@ export default new class {
 			}
 		}, 1_000);
 	}
-}();
+})();

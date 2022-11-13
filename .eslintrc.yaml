@@ -11,6 +11,7 @@ extends:
   - "@jiralite/eslint-config-neon/module"
   - "@jiralite/eslint-config-neon/node"
   - "@jiralite/eslint-config-neon/typescript"
+  - "@jiralite/eslint-config-neon/prettier"
 plugins:
   - "@typescript-eslint"
 reportUnusedDisableDirectives: true

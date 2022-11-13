@@ -1,6 +1,12 @@
 import type { ApplicationCommandData, ChatInputCommandInteraction } from "discord.js";
 import { ApplicationCommandOptionType, ApplicationCommandType, EmbedBuilder } from "discord.js";
-import { MAXIMUM_WINGED_LIGHT, Realm, SEASONAL_CANDLES_PER_DAY, SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS, WingedLightCount } from "../../Utility/Constants.js";
+import {
+	MAXIMUM_WINGED_LIGHT,
+	Realm,
+	SEASONAL_CANDLES_PER_DAY,
+	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
+	WingedLightCount,
+} from "../../Utility/Constants.js";
 import { isRealm, notNull } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -39,7 +45,10 @@ export default class implements ChatInputCommand {
 		const resultWithoutSeasonPassString = `${resultWithoutSeasonPass} day${resultWithoutSeasonPass === 1 ? "" : "s"}`;
 		const resultWithSeasonPass = Math.ceil(amountRequired / SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS);
 		const resultWithSeasonPassString = `${resultWithSeasonPass} day${resultWithSeasonPass === 1 ? "" : "s"}`;
-		await interaction.reply(`Start: ${start}\nGoal: ${goal}\n\nIt would take ${resultWithoutSeasonPassString} to receive ${amountRequiredString}.\nWith a Season Pass, it would take ${resultWithSeasonPassString} to receive ${amountRequiredString}.`);
+
+		await interaction.reply(
+			`Start: ${start}\nGoal: ${goal}\n\nIt would take ${resultWithoutSeasonPassString} to receive ${amountRequiredString}.\nWith a Season Pass, it would take ${resultWithSeasonPassString} to receive ${amountRequiredString}.`,
+		);
 	}
 
 	public async wingedLight(interaction: ChatInputCommandInteraction) {
@@ -69,65 +78,68 @@ export default class implements ChatInputCommand {
 		const path = realms.length === 0 ? Object.values(Realm) : realms;
 		let accumulation = wingedLight;
 		const me = await interaction.guild?.members.fetchMe();
-		const embed = new EmbedBuilder();
-		embed.setColor(me?.displayColor ?? 0);
-		embed.setDescription(`Started with ${wingedLight} wing buff${wingedLight === 1 ? "" : "s"}.\nReborn with ${accumulation += WingedLightCount.Orbit} winged light (+${WingedLightCount.Orbit}).`);
+		const embed = new EmbedBuilder()
+			.setColor(me?.displayColor ?? 0)
+			.setDescription(
+				`Started with ${wingedLight} wing buff${wingedLight === 1 ? "" : "s"}.\nReborn with ${(accumulation +=
+					WingedLightCount.Orbit)} winged light (+${WingedLightCount.Orbit}).`,
+			);
 
 		for (const realm of path) {
 			switch (realm) {
 				case Realm.IslesOfDawn:
 					embed.addFields({
 						name: realm,
-						value: `${accumulation += WingedLightCount.IslesOfDawn} (+${WingedLightCount.IslesOfDawn})`,
+						value: `${(accumulation += WingedLightCount.IslesOfDawn)} (+${WingedLightCount.IslesOfDawn})`,
 					});
 
 					break;
 				case Realm.DaylightPrairie:
 					embed.addFields({
 						name: Realm.DaylightPrairie,
-						value: `${accumulation += WingedLightCount.DaylightPrairie} (+${WingedLightCount.DaylightPrairie})`,
+						value: `${(accumulation += WingedLightCount.DaylightPrairie)} (+${WingedLightCount.DaylightPrairie})`,
 					});
 
 					break;
 				case Realm.HiddenForest:
 					embed.addFields({
 						name: realm,
-						value: `${accumulation += WingedLightCount.HiddenForest} (+${WingedLightCount.HiddenForest})`,
+						value: `${(accumulation += WingedLightCount.HiddenForest)} (+${WingedLightCount.HiddenForest})`,
 					});
 
 					break;
 				case Realm.ValleyOfTriumph:
 					embed.addFields({
 						name: realm,
-						value: `${accumulation += WingedLightCount.ValleyOfTriumph} (+${WingedLightCount.ValleyOfTriumph})`,
+						value: `${(accumulation += WingedLightCount.ValleyOfTriumph)} (+${WingedLightCount.ValleyOfTriumph})`,
 					});
 
 					break;
 				case Realm.GoldenWasteland:
 					embed.addFields({
 						name: realm,
-						value: `${accumulation += WingedLightCount.GoldenWasteland} (+${WingedLightCount.GoldenWasteland})`,
+						value: `${(accumulation += WingedLightCount.GoldenWasteland)} (+${WingedLightCount.GoldenWasteland})`,
 					});
 
 					break;
 				case Realm.VaultOfKnowledge:
 					embed.addFields({
 						name: realm,
-						value: `${accumulation += WingedLightCount.VaultOfKnowledge} (+${WingedLightCount.VaultOfKnowledge})`,
+						value: `${(accumulation += WingedLightCount.VaultOfKnowledge)} (+${WingedLightCount.VaultOfKnowledge})`,
 					});
 
 					break;
 				case Realm.EyeOfEden:
 					embed.addFields({
 						name: realm,
-						value: `${accumulation += WingedLightCount.EyeOfEden} (+${WingedLightCount.EyeOfEden})`,
+						value: `${(accumulation += WingedLightCount.EyeOfEden)} (+${WingedLightCount.EyeOfEden})`,
 					});
 
 					break;
 				case Realm.AncientMemory:
 					embed.addFields({
 						name: realm,
-						value: `${accumulation += WingedLightCount.AncientMemory} (+${WingedLightCount.AncientMemory})`,
+						value: `${(accumulation += WingedLightCount.AncientMemory)} (+${WingedLightCount.AncientMemory})`,
 					});
 
 					break;
@@ -143,7 +155,10 @@ export default class implements ChatInputCommand {
 	}
 
 	public get commandData(): ApplicationCommandData {
-		const wingedLightInRealms = Object.values(WingedLightCount).reduce((wingedLightCount, wingedLight) => wingedLightCount + wingedLight, 0);
+		const wingedLightInRealms = Object.values(WingedLightCount).reduce(
+			(wingedLightCount, wingedLight) => wingedLightCount + wingedLight,
+			0,
+		);
 
 		const choices = Object.values(Realm).map((realm) => ({
 			name: realm,

@@ -51,7 +51,12 @@ export default class implements AutocompleteCommand {
 			},
 			{
 				name: "Offer",
-				value: spirit.offer === null ? "Unknown" : `${spirit.offer.candles} candle${spirit.offer.candles > 1 ? "s" : ""}\n${spirit.offer.hearts} heart${spirit.offer.hearts > 1 ? "s" : ""}\n${spirit.offer.ascendedCandles} ascended candle${spirit.offer.ascendedCandles > 1 ? "s" : ""}`,
+				value:
+					spirit.offer === null
+						? "Unknown"
+						: `${spirit.offer.candles} candle${spirit.offer.candles > 1 ? "s" : ""}\n${spirit.offer.hearts} heart${
+								spirit.offer.hearts > 1 ? "s" : ""
+						  }\n${spirit.offer.ascendedCandles} ascended candle${spirit.offer.ascendedCandles > 1 ? "s" : ""}`,
 				inline: true,
 			},
 			{
@@ -84,15 +89,29 @@ export default class implements AutocompleteCommand {
 	public async autocomplete(interaction: AutocompleteInteraction) {
 		const focused = interaction.options.getFocused().toUpperCase();
 
-		await interaction.respond(focused === "" ? [] : Spirits.filter((spirit) => {
-			const { name, keywords, expression, stance, call } = spirit;
-			const seasonName = spirit.isSeasonalSpirit() ? spirit.season.name.toUpperCase() : null;
-			// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-			return name.toUpperCase().includes(focused) || keywords.some((keyword) => keyword.toUpperCase().includes(focused)) || expression?.toUpperCase().includes(focused) || stance?.toUpperCase().includes(focused) || call?.toUpperCase().includes(focused) || seasonName?.includes(focused);
-		}).map(({ name }) => ({
-			name,
-			value: name,
-		})).slice(0, 25));
+		await interaction.respond(
+			focused === ""
+				? []
+				: Spirits.filter((spirit) => {
+						const { name, keywords, expression, stance, call } = spirit;
+						const seasonName = spirit.isSeasonalSpirit() ? spirit.season.name.toUpperCase() : null;
+						/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+						return (
+							name.toUpperCase().includes(focused) ||
+							keywords.some((keyword) => keyword.toUpperCase().includes(focused)) ||
+							expression?.toUpperCase().includes(focused) ||
+							stance?.toUpperCase().includes(focused) ||
+							call?.toUpperCase().includes(focused) ||
+							seasonName?.includes(focused)
+						);
+						/* eslint-enable @typescript-eslint/prefer-nullish-coalescing */
+				  })
+						.map(({ name }) => ({
+							name,
+							value: name,
+						}))
+						.slice(0, 25),
+		);
 	}
 
 	public get commandData(): ApplicationCommandData {

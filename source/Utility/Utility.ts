@@ -6,7 +6,7 @@ export function consoleLog(consoleLog: any, stamp = new Date().toISOString()): v
 	console.log(inspect(consoleLog, false, Number.POSITIVE_INFINITY, true));
 }
 
-export function notNull<T>(value: (T | null)): value is T {
+export function notNull<T>(value: T | null): value is T {
 	return value !== null;
 }
 

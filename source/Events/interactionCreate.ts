@@ -1,8 +1,13 @@
 import type { Interaction } from "discord.js";
 import { Events, InteractionType } from "discord.js";
-import { rolesSelectMenuCustomId } from "../Commands/General/roles.js";
+import { ROLES_SELECT_MENU_CUSTOM_ID } from "../Commands/General/roles.js";
 import { SKY_PROFILE_MODAL } from "../Commands/General/sky-profile.js";
-import commands, { isAutocompleteCommand, isChatInputCommand, isCommandName, isUserContextMenuCommand } from "../Commands/index.js";
+import commands, {
+	isAutocompleteCommand,
+	isChatInputCommand,
+	isCommandName,
+	isUserContextMenuCommand,
+} from "../Commands/index.js";
 import Profile from "../Structures/Profile.js";
 import { consoleLog } from "../Utility/Utility.js";
 import type { Event } from "./index.js";
@@ -110,7 +115,10 @@ export const event: Event<typeof name> = {
 		if (interaction.isSelectMenu()) {
 			try {
 				if (!interaction.inCachedGuild()) {
-					void interaction.client.log(`Attempted to perform \`${interaction.customId}\` via a select menu interaction in an uncached guild.`, interaction);
+					void interaction.client.log(
+						`Attempted to perform \`${interaction.customId}\` via a select menu interaction in an uncached guild.`,
+						interaction,
+					);
 
 					await interaction.reply({
 						content: "This option does not exist in Ba Sing Se.",
@@ -120,7 +128,7 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (interaction.customId === rolesSelectMenuCustomId) {
+				if (interaction.customId === ROLES_SELECT_MENU_CUSTOM_ID) {
 					await commands.roles.apply(interaction);
 					return;
 				}
@@ -143,7 +151,10 @@ export const event: Event<typeof name> = {
 			const { commandName } = interaction;
 
 			if (!isCommandName(commandName)) {
-				void interaction.client.log(`Received an unknown command autocomplete interaction (\`${interaction.commandName}\`).`);
+				void interaction.client.log(
+					`Received an unknown command autocomplete interaction (\`${interaction.commandName}\`).`,
+				);
+
 				return;
 			}
 
@@ -177,7 +188,8 @@ export const event: Event<typeof name> = {
 			void interaction.client.log(`Received an unknown modal interaction (\`${interaction.customId}\`).`);
 
 			void interaction.reply({
-				content: "It seems the heavens have opened. But inside... there was nothing to be found for that modal you submitted.",
+				content:
+					"It seems the heavens have opened. But inside... there was nothing to be found for that modal you submitted.",
 				ephemeral: true,
 			});
 		}

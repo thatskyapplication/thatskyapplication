@@ -1,2 +1,3 @@
 "*.ts":
-  - eslint --cache --fix
+  - prettier --write
+  - eslint --fix

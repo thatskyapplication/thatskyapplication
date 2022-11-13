@@ -1,5 +1,10 @@
 /* eslint-disable import/order */
-import type { ApplicationCommandData, AutocompleteInteraction, ChatInputCommandInteraction, UserContextMenuCommandInteraction } from "discord.js";
+import type {
+	ApplicationCommandData,
+	AutocompleteInteraction,
+	ChatInputCommandInteraction,
+	UserContextMenuCommandInteraction,
+} from "discord.js";
 import { ApplicationCommandType } from "discord.js";
 
 // Events

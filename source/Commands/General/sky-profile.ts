@@ -1,5 +1,16 @@
-import type { ApplicationCommandData, ChatInputCommandInteraction, UserContextMenuCommandInteraction } from "discord.js";
-import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
+import type {
+	ApplicationCommandData,
+	ChatInputCommandInteraction,
+	UserContextMenuCommandInteraction,
+} from "discord.js";
+import {
+	ActionRowBuilder,
+	ApplicationCommandOptionType,
+	ApplicationCommandType,
+	ModalBuilder,
+	TextInputBuilder,
+	TextInputStyle,
+} from "discord.js";
 import Profile from "../../Structures/Profile.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -108,7 +119,9 @@ export default class implements ChatInputCommand {
 
 		if (!profile) {
 			await interaction.reply({
-				content: `${user === null ? "You do" : `${user} does`} not have a Sky profile! Why not ${user === null ? "" : "ask them to"} create one?`,
+				content: `${user === null ? "You do" : `${user} does`} not have a Sky profile! Why not ${
+					user === null ? "" : "ask them to"
+				} create one?`,
 				ephemeral: true,
 			});
 

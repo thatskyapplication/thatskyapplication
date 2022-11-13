@@ -1,4 +1,10 @@
-import type { ChatInputCommandInteraction, EmbedAuthorOptions, Guild, ModalSubmitInteraction, Snowflake } from "discord.js";
+import type {
+	ChatInputCommandInteraction,
+	EmbedAuthorOptions,
+	Guild,
+	ModalSubmitInteraction,
+	Snowflake,
+} from "discord.js";
 import { EmbedBuilder } from "discord.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import { Table } from "../Utility/Constants.js";
@@ -78,10 +84,13 @@ export default class Profile {
 
 			profile.patch(profilePacket);
 		} else {
-			const [profilePacket] = await pg<RawProfileData>(Table.Profiles).insert({
-				...data,
-				user_id: interaction.user.id,
-			}, "*");
+			const [profilePacket] = await pg<RawProfileData>(Table.Profiles).insert(
+				{
+					...data,
+					user_id: interaction.user.id,
+				},
+				"*",
+			);
 
 			profile = new this(profilePacket);
 		}

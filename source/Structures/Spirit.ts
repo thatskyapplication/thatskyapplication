@@ -196,7 +196,7 @@ interface SpiritDataBaseWithCall extends SpiritDataBase {
 }
 
 type SpiritData = SpiritDataBaseWithCall | SpiritDataBaseWithExpression | SpiritDataBaseWithStance;
-type SeasonalSpiritData = SpiritData & { season: Season; };
+type SeasonalSpiritData = SpiritData & { season: Season };
 
 interface SpiritSeason {
 	name: Season;

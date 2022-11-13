@@ -41,7 +41,16 @@ Client.prototype.log = async function (message, error?) {
 
 	const me = await logChannel.guild.members.fetchMe();
 
-	if (!logChannel.permissionsFor(me).has([PermissionFlagsBits.AttachFiles, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel])) {
+	if (
+		!logChannel
+			.permissionsFor(me)
+			.has([
+				PermissionFlagsBits.AttachFiles,
+				PermissionFlagsBits.EmbedLinks,
+				PermissionFlagsBits.SendMessages,
+				PermissionFlagsBits.ViewChannel,
+			])
+	) {
 		throw new Error("Missing permissions to log.");
 	}
 
@@ -90,12 +99,19 @@ Client.prototype.applyCommands = async function () {
 		const fetchedCommands = await this.application.commands.fetch({ cache: false });
 		const commandData = Object.values(commands).map(({ commandData }) => commandData);
 
-		if (fetchedCommands.size !== commandData.length || fetchedCommands.some((fetchedCommand) => {
-			const localCommand = commandData.find(({ name }) => name === fetchedCommand.name);
-			return !localCommand || !fetchedCommand.equals(localCommand, true);
-		})) {
+		if (
+			fetchedCommands.size !== commandData.length ||
+			fetchedCommands.some((fetchedCommand) => {
+				const localCommand = commandData.find(({ name }) => name === fetchedCommand.name);
+				return !localCommand || !fetchedCommand.equals(localCommand, true);
+			})
+		) {
 			const applicationCommands = await this.application.commands.set(commandData);
-			consoleLog(applicationCommands.map(({ name, type }) => `Set ${name} as a ${type} application command.`).join("\n"));
+
+			consoleLog(
+				applicationCommands.map(({ name, type }) => `Set ${name} as a ${type} application command.`).join("\n"),
+			);
+
 			consoleLog("Finished applying commands!");
 		}
 	} catch (error) {

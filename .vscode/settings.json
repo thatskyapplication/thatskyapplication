@@ -1,10 +1,10 @@
 {
-  "editor.codeActionsOnSave": {
-    "source.fixAll": true
-  },
-  "editor.defaultFormatter": "vscode.typescript-language-features",
-  "editor.formatOnSave": true,
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.preferences.importModuleSpecifierEnding": "js",
-  "typescript.tsdk": "node_modules/typescript/lib"
+	"editor.codeActionsOnSave": {
+		"source.fixAll": true
+	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"typescript.preferences.importModuleSpecifierEnding": "js",
+	"typescript.tsdk": "node_modules/typescript/lib"
 }

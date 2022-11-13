@@ -1,9 +1,21 @@
-import type { ApplicationCommandData, ChatInputCommandInteraction, MessageActionRowComponentBuilder, SelectMenuInteraction, Snowflake } from "discord.js";
-import { ActionRowBuilder, ApplicationCommandType, Collection, PermissionsBitField, SelectMenuBuilder } from "discord.js";
+import type {
+	ApplicationCommandData,
+	ChatInputCommandInteraction,
+	MessageActionRowComponentBuilder,
+	SelectMenuInteraction,
+	Snowflake,
+} from "discord.js";
+import {
+	ActionRowBuilder,
+	ApplicationCommandType,
+	Collection,
+	PermissionsBitField,
+	SelectMenuBuilder,
+} from "discord.js";
 import Notification, { NotificationEvent } from "../../Structures/Notification.js";
 import type { ChatInputCommand } from "../index.js";
 
-export const rolesSelectMenuCustomId = "SELFROLE" as const;
+export const ROLES_SELECT_MENU_CUSTOM_ID = "SELFROLE" as const;
 
 export default class implements ChatInputCommand {
 	public readonly name = "roles";
@@ -75,24 +87,23 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		const content = "Self-assign roles to receive notifications!";
-		const actionRow = new ActionRowBuilder<MessageActionRowComponentBuilder>();
-		const selectMenu = new SelectMenuBuilder();
-		selectMenu.setCustomId(rolesSelectMenuCustomId);
-		selectMenu.setMaxValues(options.size);
-		selectMenu.setMinValues(0);
+		const selectMenu = new SelectMenuBuilder()
+			.setCustomId(ROLES_SELECT_MENU_CUSTOM_ID)
+			.setMaxValues(options.size)
+			.setMinValues(0)
+			.setOptions(
+				options.map((roleId, event) => ({
+					default: interaction.member.roles.cache.has(roleId),
+					label: event,
+					value: roleId,
+				})),
+			)
+			.setPlaceholder("Select some roles!");
 
-		selectMenu.setOptions(options.map((roleId, event) => ({
-			default: interaction.member.roles.cache.has(roleId),
-			label: event,
-			value: roleId,
-		})));
-
-		selectMenu.setPlaceholder("Select some roles!");
-		actionRow.setComponents(selectMenu);
+		const actionRow = new ActionRowBuilder<MessageActionRowComponentBuilder>().setComponents(selectMenu);
 
 		await interaction.reply({
-			content,
+			content: "Self-assign roles to receive notifications!",
 			components: [actionRow],
 			ephemeral: true,
 		});
@@ -122,7 +133,9 @@ export default class implements ChatInputCommand {
 			}
 		}
 
-		for (const roleId of this.populate(notification).filter((eventRoleId) => !roles.includes(eventRoleId)).values()) {
+		for (const roleId of this.populate(notification)
+			.filter((eventRoleId) => !roles.includes(eventRoleId))
+			.values()) {
 			if (rolesToSet.includes(roleId)) {
 				rolesToSet.splice(rolesToSet.indexOf(roleId), 1);
 				rolesRemoved.push(roleId);
