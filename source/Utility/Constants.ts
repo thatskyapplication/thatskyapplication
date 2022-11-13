@@ -1,4 +1,4 @@
-export const LOG_CHANNEL_ID = "994581628804403250" as const;
+export const LOG_CHANNEL_ID = "1040806599293407263" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki/" as const;
 export const MAXIMUM_WINGED_LIGHT = 206 as const;
 // 4 from quests and 1 from candle running.
