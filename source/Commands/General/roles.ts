@@ -39,19 +39,12 @@ export default class implements ChatInputCommand {
 
 	public populate(notification: Notification) {
 		const roles = new Collection<NotificationEvent, Snowflake>();
-
-		if (notification.pollutedGeyserChannelId && notification.pollutedGeyserRoleId) {
+		if (notification.pollutedGeyserChannelId && notification.pollutedGeyserRoleId)
 			roles.set(NotificationEvent.PollutedGeyser, notification.pollutedGeyserRoleId);
-		}
-
-		if (notification.grandmaChannelId && notification.grandmaRoleId) {
+		if (notification.grandmaChannelId && notification.grandmaRoleId)
 			roles.set(NotificationEvent.Grandma, notification.grandmaRoleId);
-		}
-
-		if (notification.turtleChannelId && notification.turtleRoleId) {
+		if (notification.turtleChannelId && notification.turtleRoleId)
 			roles.set(NotificationEvent.Turtle, notification.turtleRoleId);
-		}
-
 		return roles;
 	}
 
@@ -145,15 +138,10 @@ export default class implements ChatInputCommand {
 		try {
 			await interaction.member.roles.set(rolesToSet);
 			let content = "";
-
-			if (rolesAdded.length > 0) {
+			if (rolesAdded.length > 0)
 				content = `Roles added: ${rolesAdded.map((role) => interaction.guild.roles.resolve(role)).join(" & ")}\n`;
-			}
-
-			if (rolesRemoved.length > 0) {
+			if (rolesRemoved.length > 0)
 				content += `Roles removed: ${rolesRemoved.map((role) => interaction.guild.roles.resolve(role)).join(" & ")}`;
-			}
-
 			content ||= "No roles were changed.";
 
 			await interaction.reply({

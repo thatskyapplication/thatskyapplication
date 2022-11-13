@@ -143,30 +143,18 @@ export default class Notification {
 				break;
 		}
 
-		if (!channelId || !roleId) {
-			return;
-		}
-
+		if (!channelId || !roleId) return;
 		const channel = client.guilds.resolve(guildId)?.channels.resolve(channelId);
-
-		if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildAnnouncement)) {
-			return;
-		}
-
+		if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildAnnouncement)) return;
 		const role = channel.guild.roles.resolve(roleId);
-
-		if (!role) {
-			return;
-		}
-
+		if (!role) return;
 		const me = await channel.guild.members.fetchMe();
 
 		if (
 			!channel.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) ||
 			(!role.mentionable && !channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))
-		) {
+		)
 			return;
-		}
 
 		await channel.send(`${role} is starting soon!`).catch(() => null);
 	}

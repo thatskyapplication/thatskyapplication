@@ -65,11 +65,7 @@ export default class Profile {
 
 	public static async fetch(userId: Snowflake) {
 		const [profilePacket] = await pg<RawProfileData>(Table.Profiles).where("user_id", userId);
-
-		if (!profilePacket) {
-			throw new Error("No profile found.");
-		}
-
+		if (!profilePacket) throw new Error("No profile found.");
 		return new this(profilePacket);
 	}
 
@@ -117,11 +113,7 @@ export default class Profile {
 
 		if (this.name) {
 			const embedAuthorOptions: EmbedAuthorOptions = { name: this.name };
-
-			if (this.icon) {
-				embedAuthorOptions.iconURL = this.icon;
-			}
-
+			if (this.icon) embedAuthorOptions.iconURL = this.icon;
 			embed.setAuthor(embedAuthorOptions);
 		}
 

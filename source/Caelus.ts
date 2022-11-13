@@ -28,17 +28,9 @@ Client.prototype.log = async function (message, error?) {
 	let stamp = new Date().toISOString();
 	const content = typeof message === "string" ? message : message.content;
 	const output = error || content;
-
-	if (output) {
-		consoleLog(output, stamp);
-	}
-
+	if (output) consoleLog(output, stamp);
 	const logChannel = this.channels.cache.get(LOG_CHANNEL_ID);
-
-	if (!(logChannel instanceof TextChannel)) {
-		throw new TypeError("Attempting to log in a non-text channel.");
-	}
-
+	if (!(logChannel instanceof TextChannel)) return;
 	const me = await logChannel.guild.members.fetchMe();
 
 	if (
@@ -50,9 +42,8 @@ Client.prototype.log = async function (message, error?) {
 				PermissionFlagsBits.SendMessages,
 				PermissionFlagsBits.ViewChannel,
 			])
-	) {
-		throw new Error("Missing permissions to log.");
-	}
+	)
+		return;
 
 	stamp = `\`[${stamp}]\``;
 	const embeds = typeof message !== "string" && "embeds" in message ? message.embeds ?? [] : [];
@@ -66,16 +57,12 @@ Client.prototype.log = async function (message, error?) {
 			await writeFile(potentialFileName, inspectedError);
 			files.push(potentialFileName);
 		} else {
-			const embed = new EmbedBuilder();
-			embed.setDescription(`\`\`\`xl\n${inspectedError}\n\`\`\``);
-			embed.setTitle("Error");
+			const embed = new EmbedBuilder().setDescription(`\`\`\`xl\n${inspectedError}\n\`\`\``).setTitle("Error");
 			embeds.push(embed);
 		}
 	}
 
-	for (const embed of embeds) {
-		embed.setColor(me.displayColor);
-	}
+	for (const embed of embeds) embed.setColor(me.displayColor);
 
 	await logChannel.send({
 		allowedMentions: { parse: [] },
@@ -84,18 +71,13 @@ Client.prototype.log = async function (message, error?) {
 		files,
 	});
 
-	if (files.length > 0) {
-		await unlink(potentialFileName);
-	}
+	if (files.length > 0) await unlink(potentialFileName);
 };
 
 // eslint-disable-next-line func-names
 Client.prototype.applyCommands = async function () {
 	try {
-		if (!this.isReady()) {
-			throw new Error("Client applying commands when not ready.");
-		}
-
+		if (!this.isReady()) throw new Error("Client applying commands when not ready.");
 		const fetchedCommands = await this.application.commands.fetch({ cache: false });
 		const commandData = Object.values(commands).map(({ commandData }) => commandData);
 

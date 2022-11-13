@@ -28,9 +28,7 @@ export default class implements AutocompleteCommand {
 		embed.setColor(me?.displayColor ?? 0);
 
 		if (spirit.attachment === null) {
-			if (spirit.isSeasonalSpirit()) {
-				embed.setDescription("⚠️ This spirit has not yet returned.");
-			}
+			if (spirit.isSeasonalSpirit()) embed.setDescription("⚠️ This spirit has not yet returned.");
 		} else {
 			files.push({
 				attachment: spirit.attachment,

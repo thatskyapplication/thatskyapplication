@@ -4,9 +4,7 @@ import type { Client } from "discord.js";
 import Notification, { NotificationEvent } from "./Notification.js";
 
 function sendNotification(client: Client<true>, type: NotificationEvent) {
-	for (const notification of Notification.cache.values()) {
-		void notification.send(client, type);
-	}
+	for (const notification of Notification.cache.values()) void notification.send(client, type);
 }
 
 export default new (class {

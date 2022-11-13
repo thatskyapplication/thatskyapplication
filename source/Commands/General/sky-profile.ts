@@ -53,10 +53,7 @@ export default class implements ChatInputCommand {
 			.setMaxLength(4_000)
 			.setStyle(TextInputStyle.Paragraph);
 
-		if (profile?.description) {
-			textInput.setValue(profile.description);
-		}
-
+		if (profile?.description) textInput.setValue(profile.description);
 		const actionRow = new ActionRowBuilder<TextInputBuilder>().setComponents(textInput);
 
 		const modal = new ModalBuilder()
