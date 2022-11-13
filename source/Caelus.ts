@@ -1,10 +1,8 @@
 import { readdir, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import process from "node:process";
 import { URL } from "node:url";
 import { inspect } from "node:util";
 import { Client, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits } from "discord.js";
-import knex from "knex";
 import commands from "./Commands/index.js";
 import type { Event } from "./Events/index.js";
 import { LOG_CHANNEL_ID } from "./Utility/Constants.js";
@@ -24,11 +22,6 @@ declare module "discord.js" {
 		applyCommands(): Promise<void>;
 	}
 }
-
-export const pg = knex({
-	client: "pg",
-	connection: process.env.DATABASE_URL,
-});
 
 // eslint-disable-next-line func-names
 Client.prototype.log = async function (message, error?) {

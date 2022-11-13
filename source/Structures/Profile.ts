@@ -1,8 +1,8 @@
 import type { ChatInputCommandInteraction, EmbedAuthorOptions, Guild, ModalSubmitInteraction, Snowflake } from "discord.js";
 import { EmbedBuilder } from "discord.js";
-import { pg } from "../Caelus.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import { Table } from "../Utility/Constants.js";
+import pg from "../pg.js";
 
 interface RawProfileData {
 	id: number;

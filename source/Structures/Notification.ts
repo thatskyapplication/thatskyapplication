@@ -1,7 +1,7 @@
 import type { ChatInputCommandInteraction, Client, Guild, Snowflake } from "discord.js";
 import { channelMention, ChannelType, Collection, EmbedBuilder, PermissionFlagsBits, roleMention } from "discord.js";
-import { pg } from "../Caelus.js";
 import { Table } from "../Utility/Constants.js";
+import pg from "../pg.js";
 
 export interface RawNotificationData {
 	id: number;

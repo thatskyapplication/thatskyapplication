@@ -1,11 +1,11 @@
 import process from "node:process";
 import type { Client } from "discord.js";
 import { Events } from "discord.js";
-import { pg } from "../Caelus.js";
 import type { RawNotificationData } from "../Structures/Notification.js";
 import Notification from "../Structures/Notification.js";
 import Rotations from "../Structures/Rotations.js";
 import { consoleLog } from "../Utility/Utility.js";
+import pg from "../pg.js";
 import type { Event } from "./index.js";
 
 const name = Events.ClientReady;
