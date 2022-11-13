@@ -47,6 +47,7 @@ export default class Profile {
 	public constructor(profile: RawProfileData) {
 		this.id = profile.id;
 		this.userId = profile.user_id;
+		this.patch(profile);
 	}
 
 	private patch(data: ProfilePatchData) {
