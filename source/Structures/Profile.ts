@@ -29,26 +29,31 @@ interface ProfileSetData {
 	description?: string;
 }
 
+type ProfilePatchData = Omit<RawProfileData, "id" | "user_id">;
+
 export default class Profile {
 	public readonly id: ProfileData["id"];
 
 	public readonly userId: ProfileData["userId"];
 
-	public name: ProfileData["name"];
+	public name!: ProfileData["name"];
 
-	public icon: ProfileData["icon"];
+	public icon!: ProfileData["icon"];
 
-	public thumbnail: ProfileData["thumbnail"];
+	public thumbnail!: ProfileData["thumbnail"];
 
-	public description: ProfileData["description"];
+	public description!: ProfileData["description"];
 
 	public constructor(profile: RawProfileData) {
 		this.id = profile.id;
 		this.userId = profile.user_id;
-		this.name = profile.name;
-		this.icon = profile.icon;
-		this.thumbnail = profile.thumbnail;
-		this.description = profile.description;
+	}
+
+	private patch(data: ProfilePatchData) {
+		this.name = data.name;
+		this.icon = data.icon;
+		this.thumbnail = data.thumbnail;
+		this.description = data.description;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -65,10 +70,12 @@ export default class Profile {
 		let profile = await this.fetch(interaction.user.id).catch(() => null);
 
 		if (profile) {
-			await pg<RawProfileData>(Table.Profiles)
+			const [profilePacket] = await pg<RawProfileData>(Table.Profiles)
 				.update(data)
 				.where("id", profile.id)
 				.returning("*");
+
+			profile.patch(profilePacket);
 		} else {
 			const [profilePacket] = await pg<RawProfileData>(Table.Profiles).insert({
 				...data,
