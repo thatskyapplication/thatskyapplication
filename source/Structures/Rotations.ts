@@ -2,6 +2,7 @@ import { setInterval } from "node:timers";
 import time from "date-fns-tz";
 import type { Client } from "discord.js";
 import DailyGuides from "./DailyGuides.js";
+import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import Notification, { NotificationEvent } from "./Notification.js";
 
 function sendNotification(client: Client<true>, type: NotificationEvent) {
@@ -18,7 +19,8 @@ export default new (class {
 
 			if (seconds === 0) {
 				if (hours === 0 && minutes === 0) {
-					DailyGuides.reset();
+					void DailyGuides.reset();
+					void DailyGuidesDistribution.reset();
 				}
 
 				if (hours % 2 === 0) {

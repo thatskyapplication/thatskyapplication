@@ -1,5 +1,6 @@
 import { Events, MessageFlags } from "discord.js";
 import DailyGuides from "../Structures/DailyGuides.js";
+import DailyGuidesDistribution from "../Structures/DailyGuidesDistribution.js";
 import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID } from "../Utility/Constants.js";
 import type { Event } from "./index.js";
 
@@ -28,24 +29,24 @@ export const event: Event<typeof name> = {
 				transformedContent.includes("SOCIAL LIGHT") ||
 				transformedContent.includes("BLOOM SAPLING")
 			) {
-				DailyGuides.parseQuests(content, attachments);
+				void DailyGuides.parseQuests(content, attachments);
 				return;
 			}
 
 			if (transformedContent.includes("TREASURE CANDLE")) {
-				DailyGuides.parseTreasureCandles(content, attachments);
+				void DailyGuides.parseTreasureCandles(content, attachments);
 				return;
 			}
 
 			if (transformedContent.includes("SEASONAL CANDLE")) {
-				DailyGuides.parseSeasonalCandles(attachments);
+				void DailyGuides.parseSeasonalCandles(attachments);
 				return;
 			}
 
 			if (transformedContent.includes("SHATTERING SHARD LOCATION"))
-				DailyGuides.parseShardEruption(content, attachments);
+				void DailyGuides.parseShardEruption(content, attachments);
 
-			void DailyGuides.healthCheck(client);
+			void DailyGuidesDistribution.distribute(client);
 		}
 	},
 };
