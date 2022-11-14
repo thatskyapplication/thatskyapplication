@@ -1,6 +1,6 @@
 import { utcToZonedTime } from "date-fns-tz/esm";
 import type { ChatInputCommandInteraction, Client, Guild, Snowflake } from "discord.js";
-import { ChannelType, embedLength, hyperlink, PermissionFlagsBits, EmbedBuilder } from "discord.js";
+import { channelMention, ChannelType, embedLength, hyperlink, PermissionFlagsBits, EmbedBuilder } from "discord.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides from "./DailyGuides.js";
 
@@ -103,17 +103,20 @@ export default class DailyGuidesDistribution {
 
 	public async overview(guild: Guild) {
 		const me = await guild.members.fetchMe();
-		const channel = this.channelId ? guild.channels.resolve(this.channelId) : null;
+		const { channelId } = this;
+		const channel = channelId ? guild.channels.resolve(channelId) : null;
 
 		return new EmbedBuilder()
 			.setColor(me.displayColor)
 			.setFields({
 				name: "Daily Guides Status",
-				value: channel
-					?.permissionsFor(me)
-					.has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages | PermissionFlagsBits.EmbedLinks)
-					? "✅ Sending!"
-					: "⚠️ Stopped!",
+				value: `${channelId ? channelMention(channelId) : "No channel"}\n${
+					channel
+						?.permissionsFor(me)
+						.has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages | PermissionFlagsBits.EmbedLinks)
+						? "✅ Sending!"
+						: "⚠️ Stopped!"
+				}`,
 				inline: true,
 			})
 			.setTitle(guild.name);
