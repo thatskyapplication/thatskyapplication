@@ -17,7 +17,6 @@ interface DailyGuideTreasureCandle {
 type ShardEruptionRealm = Exclude<Realm, Realm.IslesOfDawn | Realm.EyeOfEden | Realm.AncientMemory>;
 
 interface ShardEruption {
-	any: boolean | null;
 	realm: ShardEruptionRealm | null;
 	map: string | null;
 	dangerous: boolean | null;
@@ -35,16 +34,6 @@ function isShardEruptionRealm(rawRealm: string): rawRealm is ShardEruptionRealm 
 	return false;
 }
 
-const DEFAULT_SHARD_ERUPTION = {
-	any: null,
-	realm: null,
-	map: null,
-	dangerous: null,
-	timestamps: null,
-	data: null,
-	url: null,
-} as const;
-
 export default new (class DailyGuides {
 	public message: Message<true> | null = null;
 
@@ -60,7 +49,7 @@ export default new (class DailyGuides {
 
 	public seasonalCandles: string | null = null;
 
-	public shardEruption: ShardEruption = { ...DEFAULT_SHARD_ERUPTION };
+	public shardEruption: ShardEruption | null = null;
 
 	public reset() {
 		this.message = null;
@@ -70,7 +59,7 @@ export default new (class DailyGuides {
 		this.quest4 = null;
 		this.treasureCandles = null;
 		this.seasonalCandles = null;
-		this.shardEruption = { ...DEFAULT_SHARD_ERUPTION };
+		this.shardEruption = null;
 	}
 
 	public async healthCheck(client: Client<true>) {
@@ -111,24 +100,23 @@ export default new (class DailyGuides {
 				embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
 			}
 
-			if (shardEruption.any !== null && !embed.data.fields?.some(({ name }) => name === "Shard Eruption")) {
+			if (shardEruption !== null && !embed.data.fields?.some(({ name }) => name === "Shard Eruption")) {
+				const { realm, map, dangerous, timestamps, data, url } = shardEruption;
+
 				embed.addFields(
 					{
 						name: "Shard Eruption",
-						value: shardEruption
-							? `Location: ${hyperlink(
-									`${shardEruption.realm} (${shardEruption.map})`,
-									shardEruption.url!,
-							  )}\nDangerous: ${shardEruption.dangerous ? "✅" : "❎"}\nData: ${hyperlink(
-									"link",
-									shardEruption.data!,
-							  )}`
-							: "None",
+						value:
+							realm !== null && map !== null && dangerous !== null && data !== null && url !== null
+								? `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${
+										dangerous ? "✅" : "❎"
+								  }\nData: ${hyperlink("link", data)}`
+								: "None",
 						inline: true,
 					},
 					{
 						name: "Timestamps",
-						value: shardEruption.timestamps!,
+						value: timestamps ? timestamps : "Unknown",
 						inline: true,
 					},
 				);
@@ -205,7 +193,15 @@ export default new (class DailyGuides {
 
 	public parseShardEruption(content: string, attachments: Collection<Snowflake, Attachment>) {
 		if (content.includes("THERE ARE NO SHARDS")) {
-			this.shardEruption.any = false;
+			this.shardEruption = {
+				realm: null,
+				map: null,
+				dangerous: null,
+				timestamps: null,
+				data: null,
+				url: null,
+			};
+
 			return;
 		}
 
@@ -224,20 +220,22 @@ export default new (class DailyGuides {
 		if (regex?.groups) {
 			const { realm, map, color, timestamps, data } = regex.groups;
 
-			if (isShardEruptionRealm(realm)) {
-				this.shardEruption.realm = realm;
-			} else {
+			if (!isShardEruptionRealm(realm)) {
 				consoleLog("Failed to parse the shard eruption realm.");
+				return;
 			}
 
-			this.shardEruption.any = true;
-			this.shardEruption.map = map;
-			this.shardEruption.dangerous = color.toUpperCase() === "RED";
-			// https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1961
-			// eslint-disable-next-line unicorn/prefer-string-replace-all
-			this.shardEruption.timestamps = timestamps.replace(/ to /gi, " - ").replace(/1\. |2\. |3\. /g, "");
-			this.shardEruption.data = data;
-			this.shardEruption.url = url;
+			this.shardEruption = {
+				realm,
+				map,
+				dangerous: color.toUpperCase() === "RED",
+				// https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1961
+				// eslint-disable-next-line unicorn/prefer-string-replace-all
+				timestamps: timestamps.replace(/ to /gi, " - ").replace(/1\. |2\. |3\. /g, ""),
+				data,
+				url,
+			};
+
 			return;
 		}
 
