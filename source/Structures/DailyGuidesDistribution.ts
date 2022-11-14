@@ -86,10 +86,19 @@ export default class DailyGuidesDistribution {
 	}
 
 	public static async unset(interaction: ChatInputCommandInteraction<"cached">) {
-		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
+		const { guild, guildId } = interaction;
+
+		const [dailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
 			.update({ channel_id: null, message_id: null })
-			.where("guild_id", interaction.guildId)
+			.where("guild_id", guildId)
 			.returning("*");
+
+		const dailyGuidesDistribution = new this(dailyGuidesDistributionPacket);
+
+		await interaction.reply({
+			content: "Daily guides have been unset.",
+			embeds: [await dailyGuidesDistribution.overview(guild)],
+		});
 	}
 
 	public async overview(guild: Guild) {
