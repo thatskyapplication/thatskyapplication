@@ -192,8 +192,8 @@ export default class DailyGuidesDistribution {
 			// We need to check if we should update the embed, if it exists.
 			const message = await channel.messages.fetch(messageId!).catch(() => null);
 
-			if (message?.embeds[0] && message.embeds[0].length !== embedLength(embed.data)) {
-				await message.edit({ embeds: [embed] });
+			if (message?.embeds[0]) {
+				if (message.embeds[0].length !== embedLength(embed.data)) await message.edit({ embeds: [embed] });
 			} else {
 				// There is no existing message. Send one.
 				const { id } = await channel.send({ embeds: [embed] });
