@@ -25,7 +25,8 @@ export const event: Event<typeof name> = {
 			if (
 				transformedContent.includes("QUEST") ||
 				transformedContent.includes("RAINBOW") ||
-				transformedContent.includes("SOCIAL LIGHT")
+				transformedContent.includes("SOCIAL LIGHT") ||
+				transformedContent.includes("BLOOM SAPLING")
 			) {
 				DailyGuides.parseQuests(content, attachments);
 			}
