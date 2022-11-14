@@ -9,6 +9,7 @@ export const event: Event<typeof name> = {
 	name,
 	async fire(message) {
 		const { attachments, channelId, content, client, flags, reference } = message;
+
 		if (
 			channelId === Channel.dailyGuides &&
 			flags.has(MessageFlags.Crossposted) &&
