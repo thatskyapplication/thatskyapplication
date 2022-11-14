@@ -101,7 +101,9 @@ Client.prototype.applyCommands = async function () {
 	}
 };
 
-const Caelus = new Client({ intents: GatewayIntentBits.Guilds });
+const Caelus = new Client({
+	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMessages | GatewayIntentBits.MessageContent,
+});
 
 for (const file of (await readdir(eventsPath)).filter((file) => file !== "index.js")) {
 	const { name, once, fire } = (await import(join(String(eventsPath), file))).event as Event;

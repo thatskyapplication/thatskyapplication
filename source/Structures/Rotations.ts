@@ -1,6 +1,7 @@
 import { setInterval } from "node:timers";
 import time from "date-fns-tz";
 import type { Client } from "discord.js";
+import DailyGuides from "./DailyGuides.js";
 import Notification, { NotificationEvent } from "./Notification.js";
 
 function sendNotification(client: Client<true>, type: NotificationEvent) {
@@ -15,17 +16,23 @@ export default new (class {
 			const minutes = date.getUTCMinutes();
 			const seconds = date.getUTCSeconds();
 
-			if (seconds === 0 && hours % 2 === 0) {
-				switch (minutes) {
-					case 0:
-						sendNotification(client, NotificationEvent.PollutedGeyser);
-						break;
-					case 30:
-						sendNotification(client, NotificationEvent.Grandma);
-						break;
-					case 45:
-						sendNotification(client, NotificationEvent.Turtle);
-						break;
+			if (seconds === 0) {
+				if (hours === 0 && minutes === 0) {
+					DailyGuides.reset();
+				}
+
+				if (hours % 2 === 0) {
+					switch (minutes) {
+						case 0:
+							sendNotification(client, NotificationEvent.PollutedGeyser);
+							break;
+						case 30:
+							sendNotification(client, NotificationEvent.Grandma);
+							break;
+						case 45:
+							sendNotification(client, NotificationEvent.Turtle);
+							break;
+					}
 				}
 			}
 		}, 1_000);
