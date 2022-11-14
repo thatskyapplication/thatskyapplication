@@ -93,11 +93,11 @@ export default class DailyGuidesDistribution {
 			.where("guild_id", guildId)
 			.returning("*");
 
-		const dailyGuidesDistribution = new this(dailyGuidesDistributionPacket);
-
 		await interaction.reply({
-			content: "Daily guides have been unset.",
-			embeds: [await dailyGuidesDistribution.overview(guild)],
+			content: dailyGuidesDistributionPacket
+				? "There were no daily guide updates in this server."
+				: "Daily guides have been unset.",
+			embeds: dailyGuidesDistributionPacket ? [await new this(dailyGuidesDistributionPacket).overview(guild)] : [],
 		});
 	}
 
