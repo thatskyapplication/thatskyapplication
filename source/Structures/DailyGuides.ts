@@ -103,23 +103,18 @@ export default new (class DailyGuides {
 			if (shardEruption !== null && !embed.data.fields?.some(({ name }) => name === "Shard Eruption")) {
 				const { realm, map, dangerous, timestamps, data, url } = shardEruption;
 
-				embed.addFields(
-					{
-						name: "Shard Eruption",
-						value:
-							realm !== null && map !== null && dangerous !== null && data !== null && url !== null
-								? `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${
-										dangerous ? "✅" : "❎"
-								  }\nData: ${hyperlink("link", data)}`
-								: "None",
-						inline: true,
-					},
-					{
-						name: "Timestamps",
-						value: timestamps ? timestamps : "Unknown",
-						inline: true,
-					},
-				);
+				embed.addFields({
+					name: "Shard Eruption",
+					value:
+						realm !== null && map !== null && dangerous !== null && data !== null && url !== null
+							? `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${
+									dangerous ? "✅" : "❎"
+							  }\nData: ${hyperlink("link", data)}`
+							: "None",
+					inline: true,
+				});
+
+				if (timestamps) embed.addFields({ name: "Timestamps", value: timestamps, inline: true });
 			}
 
 			if (oldLength !== embedLength(embed.data)) await this.message.edit({ embeds: [embed] });
@@ -192,7 +187,7 @@ export default new (class DailyGuides {
 	}
 
 	public parseShardEruption(content: string, attachments: Collection<Snowflake, Attachment>) {
-		if (content.includes("THERE ARE NO SHARDS")) {
+		if (content.toUpperCase().includes("THERE ARE NO SHARDS")) {
 			this.shardEruption = {
 				realm: null,
 				map: null,

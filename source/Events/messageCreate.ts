@@ -42,9 +42,8 @@ export const event: Event<typeof name> = {
 				return;
 			}
 
-			if (transformedContent.includes("SHATTERING SHARD LOCATION")) {
+			if (transformedContent.includes("SHATTERING SHARD LOCATION"))
 				DailyGuides.parseShardEruption(content, attachments);
-			}
 
 			void DailyGuides.healthCheck(client);
 		}
