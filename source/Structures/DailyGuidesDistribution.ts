@@ -134,7 +134,6 @@ export default class DailyGuidesDistribution {
 		const date = utcToZonedTime(Date.now(), "America/Los_Angeles");
 
 		const embed = new EmbedBuilder()
-			// .setColor((await channel.guild.members.fetchMe()).displayColor)
 			.setFields(
 				{ name: quest1.content, value: hyperlink("Image", quest1.url) },
 				{ name: quest2.content, value: hyperlink("Image", quest2.url) },
