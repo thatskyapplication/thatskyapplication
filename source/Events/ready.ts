@@ -5,7 +5,7 @@ import type { NotificationPacket } from "../Structures/Notification.js";
 import Notification from "../Structures/Notification.js";
 import Rotations from "../Structures/Rotations.js";
 import { consoleLog } from "../Utility/Utility.js";
-import pg from "../pg.js";
+import pg, { Table } from "../pg.js";
 import type { Event } from "./index.js";
 
 const name = Events.ClientReady;
@@ -20,7 +20,7 @@ async function collectFromDatabase(client: Client<true>) {
 }
 
 async function collectNotifications(client: Client<true>) {
-	for (const notificationPacket of await pg<NotificationPacket>("notifications")) {
+	for (const notificationPacket of await pg<NotificationPacket>(Table.Notifications)) {
 		const notification = new Notification(notificationPacket);
 		Notification.cache.set(notification.id, notification);
 	}
