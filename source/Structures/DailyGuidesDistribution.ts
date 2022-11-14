@@ -1,4 +1,4 @@
-import time from "date-fns-tz";
+import { utcToZonedTime } from "date-fns-tz/esm";
 import type { ChatInputCommandInteraction, Client, Guild, Snowflake } from "discord.js";
 import { ChannelType, embedLength, hyperlink, PermissionFlagsBits, EmbedBuilder } from "discord.js";
 import pg, { Table } from "../pg.js";
@@ -119,7 +119,7 @@ export default class DailyGuidesDistribution {
 		// Require all quests and treasure candles to start.
 		if (!quest1 || !quest2 || !quest3 || !quest4 || !treasureCandles) return;
 		// Let's build our embed.
-		const date = time.utcToZonedTime(Date.now(), "America/Los_Angeles");
+		const date = utcToZonedTime(Date.now(), "America/Los_Angeles");
 
 		const embed = new EmbedBuilder()
 			// .setColor((await channel.guild.members.fetchMe()).displayColor)
