@@ -7,8 +7,7 @@ import type {
 } from "discord.js";
 import { EmbedBuilder } from "discord.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
-import { Table } from "../Utility/Constants.js";
-import pg from "../pg.js";
+import pg, { Table } from "../pg.js";
 
 interface RawProfileData {
 	id: number;
