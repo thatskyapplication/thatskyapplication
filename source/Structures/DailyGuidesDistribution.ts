@@ -95,8 +95,8 @@ export default class DailyGuidesDistribution {
 
 		await interaction.reply({
 			content: dailyGuidesDistributionPacket
-				? "There were no daily guide updates in this server."
-				: "Daily guides have been unset.",
+				? "Daily guides have been unset."
+				: "There were no daily guide updates in this server.",
 			embeds: dailyGuidesDistributionPacket ? [await new this(dailyGuidesDistributionPacket).overview(guild)] : [],
 		});
 	}
