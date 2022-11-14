@@ -96,9 +96,8 @@ export default new (class DailyGuides {
 			const embed = EmbedBuilder.from(this.message.embeds[0]);
 			const oldLength = embedLength(embed.data);
 
-			if (seasonalCandles && !embed.data.fields?.some(({ name }) => name === "Seasonal Candles")) {
+			if (seasonalCandles && !embed.data.fields?.some(({ name }) => name === "Seasonal Candles"))
 				embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
-			}
 
 			if (shardEruption !== null && !embed.data.fields?.some(({ name }) => name === "Shard Eruption")) {
 				const { realm, map, dangerous, timestamps, data, url } = shardEruption;
