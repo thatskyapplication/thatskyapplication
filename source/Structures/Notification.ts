@@ -2,7 +2,7 @@ import type { ChatInputCommandInteraction, Client, Guild, Snowflake } from "disc
 import { channelMention, ChannelType, Collection, EmbedBuilder, PermissionFlagsBits, roleMention } from "discord.js";
 import pg, { Table } from "../pg.js";
 
-export interface RawNotificationData {
+export interface NotificationPacket {
 	id: number;
 	guild_id: Snowflake;
 	polluted_geyser_channel_id: Snowflake | null;
@@ -14,18 +14,18 @@ export interface RawNotificationData {
 }
 
 interface NotificationData {
-	id: RawNotificationData["id"];
-	guildId: RawNotificationData["guild_id"];
-	pollutedGeyserChannelId: RawNotificationData["polluted_geyser_channel_id"];
-	pollutedGeyserRoleId: RawNotificationData["polluted_geyser_role_id"];
-	grandmaChannelId: RawNotificationData["grandma_channel_id"];
-	grandmaRoleId: RawNotificationData["grandma_role_id"];
-	turtleChannelId: RawNotificationData["turtle_channel_id"];
-	turtleRoleId: RawNotificationData["turtle_role_id"];
+	id: NotificationPacket["id"];
+	guildId: NotificationPacket["guild_id"];
+	pollutedGeyserChannelId: NotificationPacket["polluted_geyser_channel_id"];
+	pollutedGeyserRoleId: NotificationPacket["polluted_geyser_role_id"];
+	grandmaChannelId: NotificationPacket["grandma_channel_id"];
+	grandmaRoleId: NotificationPacket["grandma_role_id"];
+	turtleChannelId: NotificationPacket["turtle_channel_id"];
+	turtleRoleId: NotificationPacket["turtle_role_id"];
 }
 
-type NotificationPatchData = Omit<RawNotificationData, "id" | "guild_id">;
-export type NotificationInsertQuery = Partial<NotificationPatchData> & Pick<RawNotificationData, "guild_id">;
+type NotificationPatchData = Omit<NotificationPacket, "id" | "guild_id">;
+export type NotificationInsertQuery = Partial<NotificationPatchData> & Pick<NotificationPacket, "guild_id">;
 export type NotificationUpdateQuery = Omit<NotificationInsertQuery, "guild_id">;
 
 export enum NotificationEvent {
@@ -57,7 +57,7 @@ export default class Notification {
 
 	public turtleRoleId!: NotificationData["turtleRoleId"];
 
-	public constructor(notification: RawNotificationData) {
+	public constructor(notification: NotificationPacket) {
 		this.id = notification.id;
 		this.guildId = notification.guild_id;
 		this.patch(notification);
@@ -80,14 +80,14 @@ export default class Notification {
 		let notification = this.cache.find((cachedNotification) => cachedNotification.guildId === guildId);
 
 		if (notification) {
-			const [notificationPacket] = await pg<RawNotificationData>(Table.Notifications)
+			const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications)
 				.update(data)
 				.where("id", notification.id)
 				.returning("*");
 
 			notification.patch(notificationPacket);
 		} else {
-			const [notificationPacket] = await pg<RawNotificationData>(Table.Notifications).insert(data, "*");
+			const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications).insert(data, "*");
 			notification = new this(notificationPacket);
 			this.cache.set(notification.id, notification);
 		}
@@ -101,7 +101,7 @@ export default class Notification {
 	public async unset(interaction: ChatInputCommandInteraction<"cached">, data: NotificationUpdateQuery) {
 		const { guild, guildId } = interaction;
 
-		const [notificationPacket] = await pg<RawNotificationData>(Table.Notifications)
+		const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications)
 			.update(data)
 			.where("guild_id", guildId)
 			.returning("*");

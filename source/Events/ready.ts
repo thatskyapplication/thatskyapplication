@@ -1,7 +1,7 @@
 import process from "node:process";
 import type { Client } from "discord.js";
 import { Events } from "discord.js";
-import type { RawNotificationData } from "../Structures/Notification.js";
+import type { NotificationPacket } from "../Structures/Notification.js";
 import Notification from "../Structures/Notification.js";
 import Rotations from "../Structures/Rotations.js";
 import { consoleLog } from "../Utility/Utility.js";
@@ -20,7 +20,7 @@ async function collectFromDatabase(client: Client<true>) {
 }
 
 async function collectNotifications(client: Client<true>) {
-	for (const notificationPacket of await pg<RawNotificationData>("notifications")) {
+	for (const notificationPacket of await pg<NotificationPacket>("notifications")) {
 		const notification = new Notification(notificationPacket);
 		Notification.cache.set(notification.id, notification);
 	}

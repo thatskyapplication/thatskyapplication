@@ -9,7 +9,7 @@ import { EmbedBuilder } from "discord.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import pg, { Table } from "../pg.js";
 
-interface RawProfileData {
+interface ProfilePacket {
 	id: number;
 	user_id: Snowflake;
 	name: string | null;
@@ -19,12 +19,12 @@ interface RawProfileData {
 }
 
 interface ProfileData {
-	id: RawProfileData["id"];
-	userId: RawProfileData["user_id"];
-	name: RawProfileData["name"];
-	icon: RawProfileData["icon"];
-	thumbnail: RawProfileData["thumbnail"];
-	description: RawProfileData["description"];
+	id: ProfilePacket["id"];
+	userId: ProfilePacket["user_id"];
+	name: ProfilePacket["name"];
+	icon: ProfilePacket["icon"];
+	thumbnail: ProfilePacket["thumbnail"];
+	description: ProfilePacket["description"];
 }
 
 interface ProfileSetData {
@@ -34,7 +34,7 @@ interface ProfileSetData {
 	description?: string;
 }
 
-type ProfilePatchData = Omit<RawProfileData, "id" | "user_id">;
+type ProfilePatchData = Omit<ProfilePacket, "id" | "user_id">;
 
 export default class Profile {
 	public readonly id: ProfileData["id"];
@@ -49,7 +49,7 @@ export default class Profile {
 
 	public description!: ProfileData["description"];
 
-	public constructor(profile: RawProfileData) {
+	public constructor(profile: ProfilePacket) {
 		this.id = profile.id;
 		this.userId = profile.user_id;
 		this.patch(profile);
@@ -63,7 +63,7 @@ export default class Profile {
 	}
 
 	public static async fetch(userId: Snowflake) {
-		const [profilePacket] = await pg<RawProfileData>(Table.Profiles).where("user_id", userId);
+		const [profilePacket] = await pg<ProfilePacket>(Table.Profiles).where("user_id", userId);
 		if (!profilePacket) throw new Error("No profile found.");
 		return new this(profilePacket);
 	}
@@ -72,14 +72,14 @@ export default class Profile {
 		let profile = await this.fetch(interaction.user.id).catch(() => null);
 
 		if (profile) {
-			const [profilePacket] = await pg<RawProfileData>(Table.Profiles)
+			const [profilePacket] = await pg<ProfilePacket>(Table.Profiles)
 				.update(data)
 				.where("id", profile.id)
 				.returning("*");
 
 			profile.patch(profilePacket);
 		} else {
-			const [profilePacket] = await pg<RawProfileData>(Table.Profiles).insert(
+			const [profilePacket] = await pg<ProfilePacket>(Table.Profiles).insert(
 				{
 					...data,
 					user_id: interaction.user.id,
