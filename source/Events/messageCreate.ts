@@ -29,6 +29,7 @@ export const event: Event<typeof name> = {
 				transformedContent.includes("BLOOM SAPLING")
 			) {
 				DailyGuides.parseQuests(content, attachments);
+				return;
 			}
 
 			if (transformedContent.includes("TREASURE CANDLE")) {
