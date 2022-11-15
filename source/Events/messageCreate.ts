@@ -14,7 +14,7 @@ export const event: Event<typeof name> = {
 
 		if (
 			channelId === Channel.dailyGuides &&
-			flags.has(MessageFlags.Crossposted) &&
+			flags.has(MessageFlags.IsCrosspost) &&
 			reference?.guildId === INFOGRAPHICS_DATABASE_GUILD_ID
 		) {
 			const transformedContent = content.toUpperCase();
