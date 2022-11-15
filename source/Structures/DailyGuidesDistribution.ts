@@ -124,9 +124,10 @@ export default class DailyGuidesDistribution {
 
 	public static async distribute(client: Client<true>) {
 		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles, shardEruption } = DailyGuides;
-		const dailyGuidesDistributionPackets = await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
-			.whereNotNull("channel_id")
-			.whereNotNull("message_id");
+
+		const dailyGuidesDistributionPackets = await pg<DailyGuidesDistributionPacket>(
+			Table.DailyGuidesDistribution,
+		).whereNotNull("channel_id");
 
 		// Require all quests and treasure candles to start.
 		if (!quest1 || !quest2 || !quest3 || !quest4 || !treasureCandles) return;
@@ -170,7 +171,7 @@ export default class DailyGuidesDistribution {
 
 		// Distribute!
 		for (const dailyGuidesDistributionPacket of dailyGuidesDistributionPackets) {
-			// There is definitely a channel id and a message id. The query specified this.
+			// There is definitely a channel id. The query specified this.
 			const dailyGuidesDistribution = new DailyGuidesDistribution(dailyGuidesDistributionPacket);
 			const { guildId, channelId, messageId } = dailyGuidesDistribution;
 			const channel = client.guilds.resolve(guildId)?.channels.resolve(channelId!);
@@ -190,7 +191,7 @@ export default class DailyGuidesDistribution {
 			// Add guild-specific colour.
 			embed.setColor(me.displayColor);
 			// We need to check if we should update the embed, if it exists.
-			const message = await channel.messages.fetch(messageId!).catch(() => null);
+			const message = messageId ? await channel.messages.fetch(messageId).catch(() => null) : null;
 
 			if (message?.embeds[0]) {
 				if (message.embeds[0].length !== embedLength(embed.data)) await message.edit({ embeds: [embed] });
