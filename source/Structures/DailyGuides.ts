@@ -106,7 +106,7 @@ export default new (class DailyGuides {
 		// https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1961
 		// eslint-disable-next-line unicorn/prefer-string-replace-all
 		let parsedContent = content.replace(new RegExp(FormattingPatterns.Emoji, "g"), "").replace(/\*|_/g, "").trim();
-		if (parsedContent.includes("\nhttp")) parsedContent = parsedContent.slice(0, parsedContent.indexOf("\n"));
+		if (parsedContent.includes("\nhttp")) parsedContent = parsedContent.slice(0, parsedContent.indexOf("\n")).trim();
 		const data = { content: parsedContent, url };
 
 		if (!this.quest1) {
