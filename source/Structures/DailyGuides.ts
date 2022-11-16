@@ -97,7 +97,7 @@ export default new (class DailyGuides {
 		this.shardEruption = data.shard_eruption;
 	}
 
-	public async parse({ attachments, channelId, content, client, flags, reference }: Message<true>) {
+	public async parse({ attachments, channelId, content, client, flags, reference }: Message<true>, updateNow = true) {
 		if (
 			channelId === Channel.dailyGuides &&
 			flags.has(MessageFlags.IsCrosspost) &&
@@ -106,40 +106,26 @@ export default new (class DailyGuides {
 			const transformedContent = content.toUpperCase();
 
 			if (transformedContent.includes("DAILY QUEST") && transformedContent.length <= 20) {
-				// This is redundant.
-				return;
-			}
-
-			if (
+				// This is the general photo of quests. This is redundant.
+			} else if (
 				transformedContent.includes("QUEST") ||
 				transformedContent.includes("RAINBOW") ||
 				transformedContent.includes("SOCIAL LIGHT") ||
 				transformedContent.includes("BLOOM SAPLING")
 			) {
 				await this.parseQuests(content, attachments);
-				await DailyGuidesDistribution.distribute(client);
-				return;
-			}
-
-			if (transformedContent.includes("TREASURE CANDLE")) {
+			} else if (transformedContent.includes("TREASURE CANDLE")) {
 				await this.parseTreasureCandles(content, attachments);
-				await DailyGuidesDistribution.distribute(client);
-				return;
-			}
-
-			if (transformedContent.includes("SEASONAL CANDLE")) {
+			} else if (transformedContent.includes("SEASONAL CANDLE")) {
 				await this.parseSeasonalCandles(attachments);
-				await DailyGuidesDistribution.distribute(client);
-				return;
-			}
-
-			if (transformedContent.includes("SHATTERING SHARD LOCATION")) {
+			} else if (transformedContent.includes("SHATTERING SHARD LOCATION")) {
 				await this.parseShardEruption(content, attachments);
-				await DailyGuidesDistribution.distribute(client);
+			} else {
+				consoleLog("Intercepted an unparsed message.");
 				return;
 			}
 
-			consoleLog("Intercepted an unparsed message.");
+			if (updateNow) await DailyGuidesDistribution.distribute(client);
 		}
 	}
 
@@ -313,6 +299,7 @@ export default new (class DailyGuides {
 		});
 
 		await this.reset();
-		for (const message of messages.values()) await this.parse(message);
+		for (const message of messages.values()) await this.parse(message, false);
+		await DailyGuidesDistribution.distribute(client);
 	}
 })();
