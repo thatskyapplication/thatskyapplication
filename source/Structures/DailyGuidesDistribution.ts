@@ -160,7 +160,7 @@ export default class DailyGuidesDistribution {
 				value:
 					realm !== null && map !== null && dangerous !== null && data !== null && url !== null
 						? `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${
-								dangerous ? "✅" : "❎"
+								dangerous ? "✅" : "❌"
 						  }\nData: ${hyperlink("link", data)}`
 						: "None",
 				inline: true,
