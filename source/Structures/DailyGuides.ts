@@ -156,7 +156,9 @@ export default new (class DailyGuides {
 			return;
 		}
 
-		const realm = content.slice(content.indexOf("|") + 2);
+		let realm = content.slice(content.indexOf("|") + 2);
+		// Ugh.
+		if (realm === "Valley Of Triumph") realm = Realm.ValleyOfTriumph;
 
 		if (!isRealm(realm)) {
 			consoleLog("Failed to parse the realm the treasure candles are in.");
