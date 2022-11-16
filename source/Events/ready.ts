@@ -1,6 +1,8 @@
 import process from "node:process";
 import type { Client } from "discord.js";
 import { Events } from "discord.js";
+import type { DailyGuidesPacket } from "../Structures/DailyGuides.js";
+import DailyGuides from "../Structures/DailyGuides.js";
 import type { NotificationPacket } from "../Structures/Notification.js";
 import Notification from "../Structures/Notification.js";
 import Rotations from "../Structures/Rotations.js";
@@ -13,6 +15,7 @@ const name = Events.ClientReady;
 async function collectFromDatabase(client: Client<true>) {
 	try {
 		await collectNotifications(client);
+		await collectDailyGuides();
 	} catch (error) {
 		consoleLog(error);
 		process.exit(1);
@@ -26,6 +29,11 @@ async function collectNotifications(client: Client<true>) {
 	}
 
 	Rotations.clock(client);
+}
+
+async function collectDailyGuides() {
+	const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides);
+	DailyGuides.patch(dailyGuidesPacket);
 }
 
 export const event: Event<typeof name> = {
