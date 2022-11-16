@@ -1,3 +1,4 @@
+export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 export const LOG_CHANNEL_ID = "1040806599293407263" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki/" as const;
 export const MAXIMUM_WINGED_LIGHT = 206 as const;
@@ -9,6 +10,10 @@ export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
 
 export const enum Channel {
 	dailyGuides = "1041420071614042152",
+}
+
+export const enum User {
+	Jiralite = "618976181026422814",
 }
 
 export enum Realm {

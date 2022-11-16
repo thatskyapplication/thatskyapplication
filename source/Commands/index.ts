@@ -7,6 +7,9 @@ import type {
 } from "discord.js";
 import { ApplicationCommandType } from "discord.js";
 
+// Developer
+import developer from "./Developer/developer.js";
+
 // Events
 import daily_guides from "./Events/daily-guides.js";
 import notifications from "./Events/notifications.js";
@@ -21,6 +24,7 @@ import spirit from "./General/spirit.js";
 const commands = {
 	calculate: new calculate(),
 	"daily-guides": new daily_guides(),
+	developer: new developer(),
 	notifications: new notifications(),
 	roles: new roles(),
 	"Sky Profile": new Sky_Profile(),
@@ -49,6 +53,7 @@ export function isUserContextMenuCommand(command: BaseCommandData): command is U
 interface BaseCommandData {
 	name: CommandName;
 	type: ApplicationCommandType;
+	developer?: boolean;
 	get commandData(): ApplicationCommandData;
 }
 

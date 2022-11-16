@@ -1,8 +1,10 @@
-import type { Attachment, Collection, Snowflake } from "discord.js";
-import { FormattingPatterns } from "discord.js";
-import { Realm } from "../Utility/Constants.js";
+import { zonedTimeToUtc } from "date-fns-tz/esm";
+import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
+import { ChannelType, MessageFlags, SnowflakeUtil, FormattingPatterns } from "discord.js";
+import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Realm } from "../Utility/Constants.js";
 import { consoleLog, isRealm } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
+import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 
 export interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;
@@ -93,6 +95,52 @@ export default new (class DailyGuides {
 		this.treasureCandles = data.treasure_candles;
 		this.seasonalCandles = data.seasonal_candles;
 		this.shardEruption = data.shard_eruption;
+	}
+
+	public async parse({ attachments, channelId, content, client, flags, reference }: Message<true>) {
+		if (
+			channelId === Channel.dailyGuides &&
+			flags.has(MessageFlags.IsCrosspost) &&
+			reference?.guildId === INFOGRAPHICS_DATABASE_GUILD_ID
+		) {
+			const transformedContent = content.toUpperCase();
+
+			if (transformedContent.includes("DAILY QUEST") && transformedContent.length <= 20) {
+				// This is redundant.
+				return;
+			}
+
+			if (
+				transformedContent.includes("QUEST") ||
+				transformedContent.includes("RAINBOW") ||
+				transformedContent.includes("SOCIAL LIGHT") ||
+				transformedContent.includes("BLOOM SAPLING")
+			) {
+				await this.parseQuests(content, attachments);
+				await DailyGuidesDistribution.distribute(client);
+				return;
+			}
+
+			if (transformedContent.includes("TREASURE CANDLE")) {
+				await this.parseTreasureCandles(content, attachments);
+				await DailyGuidesDistribution.distribute(client);
+				return;
+			}
+
+			if (transformedContent.includes("SEASONAL CANDLE")) {
+				await this.parseSeasonalCandles(attachments);
+				await DailyGuidesDistribution.distribute(client);
+				return;
+			}
+
+			if (transformedContent.includes("SHATTERING SHARD LOCATION")) {
+				await this.parseShardEruption(content, attachments);
+				await DailyGuidesDistribution.distribute(client);
+				return;
+			}
+
+			consoleLog("Intercepted an unparsed message.");
+		}
 	}
 
 	public async parseQuests(content: string, attachments: Collection<Snowflake, Attachment>) {
@@ -246,5 +294,25 @@ export default new (class DailyGuides {
 		}
 
 		consoleLog("Failed to parse shard eruptions.");
+	}
+
+	public async reCheck(client: Client<true>) {
+		const channel = client.channels.resolve(Channel.dailyGuides);
+		if (channel?.type !== ChannelType.GuildText) return;
+		const date = new Date();
+
+		const messages = await channel.messages.fetch({
+			after: String(
+				SnowflakeUtil.generate({
+					timestamp: zonedTimeToUtc(
+						Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 0),
+						"America/Los_Angeles",
+					),
+				}),
+			),
+		});
+
+		await this.reset();
+		for (const message of messages.values()) await this.parse(message);
 	}
 })();
