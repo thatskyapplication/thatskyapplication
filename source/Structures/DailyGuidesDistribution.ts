@@ -22,6 +22,8 @@ type DailyGuidesDistributionPatchData = Omit<DailyGuidesDistributionPacket, "id"
 type DailyGuidesDistributionInsertQuery = Omit<DailyGuidesDistributionPacket, "id" | "message_id">;
 type DailyGuidesDistributionUpdateQuery = Omit<DailyGuidesDistributionInsertQuery, "guild_id">;
 
+export const SHARD_ERUPTION_NAME = "Shard Eruption" as const;
+
 export default class DailyGuidesDistribution {
 	public readonly id: DailyGuidesDistributionData["id"];
 
@@ -156,7 +158,7 @@ export default class DailyGuidesDistribution {
 			const { realm, map, dangerous, timestamps, data, url } = shardEruption;
 
 			embed.addFields({
-				name: "Shard Eruption",
+				name: SHARD_ERUPTION_NAME,
 				value:
 					realm !== null && map !== null && dangerous !== null && data !== null && url !== null
 						? `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${
@@ -167,6 +169,8 @@ export default class DailyGuidesDistribution {
 			});
 
 			if (timestamps) embed.addFields({ name: "Timestamps", value: timestamps, inline: true });
+		} else {
+			embed.addFields({ name: SHARD_ERUPTION_NAME, value: "Unknown" });
 		}
 
 		// Distribute!
