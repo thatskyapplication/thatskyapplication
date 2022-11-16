@@ -2,7 +2,7 @@ import { zonedTimeToUtc } from "date-fns-tz/esm";
 import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
 import { ChannelType, MessageFlags, SnowflakeUtil, FormattingPatterns } from "discord.js";
 import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Realm } from "../Utility/Constants.js";
-import { consoleLog, isRealm } from "../Utility/Utility.js";
+import { consoleLog } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 
@@ -32,14 +32,14 @@ interface DailyGuideQuest {
 }
 
 interface DailyGuideTreasureCandle {
-	realm: Realm;
+	realm: ValidRealm;
 	url: string;
 }
 
-type ShardEruptionRealm = Exclude<Realm, Realm.IslesOfDawn | Realm.EyeOfEden | Realm.AncientMemory>;
+type ValidRealm = Exclude<Realm, Realm.IslesOfDawn | Realm.EyeOfEden | Realm.AncientMemory>;
 
 interface ShardEruption {
-	realm: ShardEruptionRealm | null;
+	realm: ValidRealm | null;
 	map: string | null;
 	dangerous: boolean | null;
 	timestamps: string | null;
@@ -47,13 +47,16 @@ interface ShardEruption {
 	url: string | null;
 }
 
-function isShardEruptionRealm(rawRealm: string): rawRealm is ShardEruptionRealm {
+function resolveRealm(rawRealm: string) {
+	const upperRawRealm = rawRealm.toUpperCase();
+
 	for (const realm of Object.values(Realm)) {
-		if ([Realm.IslesOfDawn, Realm.EyeOfEden, Realm.AncientMemory].includes(realm)) continue;
-		if (realm === rawRealm) return true;
+		if (realm.toUpperCase() !== upperRawRealm) continue;
+		if (Realm.IslesOfDawn === realm || Realm.EyeOfEden === realm || Realm.AncientMemory === realm) continue;
+		return realm;
 	}
 
-	return false;
+	return null;
 }
 
 export default new (class DailyGuides {
@@ -190,17 +193,16 @@ export default new (class DailyGuides {
 			return;
 		}
 
-		let realm = content.slice(content.indexOf("|") + 2);
-		// Ugh.
-		if (realm === "Valley Of Triumph") realm = Realm.ValleyOfTriumph;
+		const realm = content.slice(content.indexOf("|") + 2);
+		const resolvedRealm = resolveRealm(realm);
 
-		if (!isRealm(realm)) {
+		if (!resolvedRealm) {
 			consoleLog("Failed to parse the realm the treasure candles are in.");
 			return;
 		}
 
 		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-			.update({ treasure_candles: { realm, url } })
+			.update({ treasure_candles: { realm: resolvedRealm, url } })
 			.returning("*");
 
 		this.patch(dailyGuidesPacket);
@@ -254,8 +256,9 @@ export default new (class DailyGuides {
 
 		if (regex?.groups) {
 			const { realm, map, color, timestamps, data } = regex.groups;
+			const resolvedRealm = resolveRealm(realm);
 
-			if (!isShardEruptionRealm(realm)) {
+			if (!resolvedRealm) {
 				consoleLog("Failed to parse the shard eruption realm.");
 				return;
 			}
@@ -263,7 +266,7 @@ export default new (class DailyGuides {
 			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
 				.update({
 					shard_eruption: {
-						realm,
+						realm: resolvedRealm,
 						map,
 						dangerous: color.toUpperCase() === "RED",
 						// https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1961
