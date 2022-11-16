@@ -155,7 +155,7 @@ export default new (class DailyGuides {
 		// eslint-disable-next-line unicorn/prefer-string-replace-all
 		let parsedContent = content.replace(new RegExp(FormattingPatterns.Emoji, "g"), "").replace(/\*|_/g, "").trim();
 		if (parsedContent.includes("\nhttp")) parsedContent = parsedContent.slice(0, parsedContent.indexOf("\n")).trim();
-		const data = { content: parsedContent, url };
+		const data = { content: parsedContent.replace(/  +/g, " "), url };
 
 		if (!this.quest1) {
 			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
