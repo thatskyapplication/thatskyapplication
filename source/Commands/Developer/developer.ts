@@ -9,7 +9,7 @@ export default class implements ChatInputCommand {
 
 	public readonly type = ApplicationCommandType.ChatInput;
 
-	public developer = true;
+	public readonly developer = true;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
