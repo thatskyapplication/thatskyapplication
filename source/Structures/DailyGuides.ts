@@ -302,7 +302,7 @@ export default new (class DailyGuides {
 		});
 
 		await this.reset();
-		for (const message of messages.values()) await this.parse(message, false);
+		for (const message of messages.reverse().values()) await this.parse(message, false);
 		await DailyGuidesDistribution.distribute(client);
 	}
 })();
