@@ -181,7 +181,7 @@ export default class DailyGuidesDistribution {
 			const channel = client.guilds.resolve(guildId)?.channels.resolve(channelId!);
 
 			if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildAnnouncement))
-				return;
+				continue;
 
 			const me = await channel.guild.members.fetchMe();
 
@@ -190,7 +190,7 @@ export default class DailyGuidesDistribution {
 					.permissionsFor(me)
 					.has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages | PermissionFlagsBits.EmbedLinks)
 			)
-				return;
+				continue;
 
 			// Add guild-specific colour.
 			embed.setColor(me.displayColor);
