@@ -160,10 +160,10 @@ export default class DailyGuidesDistribution {
 			embed.addFields({
 				name: SHARD_ERUPTION_NAME,
 				value:
-					realm !== null && map !== null && dangerous !== null && data !== null && url !== null
-						? `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${
-								dangerous ? "✅" : "❌"
-						  }\nData: ${hyperlink("link", data)}`
+					realm !== null && map !== null && dangerous !== null && url !== null
+						? `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${dangerous ? "✅" : "❌"}${
+								data ? `\nData: ${hyperlink("link", data)}` : ""
+						  }`
 						: "None",
 				inline: true,
 			});

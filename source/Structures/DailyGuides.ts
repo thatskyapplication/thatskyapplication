@@ -250,7 +250,8 @@ export default new (class DailyGuides {
 		}
 
 		const regex =
-			/\*\*realm\*\*:\s*(?<realm>[ a-z]+)\n\*\*map\*\*:\s*(?<map>[ a-z]+)\n\*\*shard colou?r\*\*:\s*(?<color>red|black).+\n+\*\*shard timestamps\*\*.+\n(?<timestamps>.+\n.+\n.+)\n\n\*\*shard data\*\*.+\n(?<data>https:\/\/[\d./a-z]+)/i.exec(
+			// eslint-disable-next-line unicorn/no-unsafe-regex
+			/\*\*realm\*\*:\s*(?<realm>[ a-z]+)\n\*\*map\*\*:\s*(?<map>[ a-z]+)\n\*\*shard colou?r\*\*:\s*(?<color>red|black).+\n+\*\*shard timestamps\*\*.+\n(?<timestamps>.+\n.+\n.+)(?:\n\n\*\*shard data\*\*.+\n(?<data>https:\/\/[\d./a-z]+))?/i.exec(
 				content,
 			);
 
@@ -272,7 +273,7 @@ export default new (class DailyGuides {
 						// https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1961
 						// eslint-disable-next-line unicorn/prefer-string-replace-all
 						timestamps: timestamps.replace(/ to /gi, " - ").replace(/1\. |2\. |3\. /g, ""),
-						data,
+						data: data ?? null,
 						url,
 					},
 				})
