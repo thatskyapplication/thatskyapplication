@@ -131,27 +131,27 @@ export default class DailyGuidesDistribution {
 			Table.DailyGuidesDistribution,
 		).whereNotNull("channel_id");
 
-		// Require all quests and treasure candles to start.
-		if (!quest1 || !quest2 || !quest3 || !quest4 || !treasureCandles) return;
 		// Let's build our embed.
 		const date = time.utcToZonedTime(Date.now(), "America/Los_Angeles");
 
-		const embed = new EmbedBuilder()
-			.setFields(
-				{ name: quest1.content, value: hyperlink("Image", quest1.url) },
-				{ name: quest2.content, value: hyperlink("Image", quest2.url) },
-				{ name: quest3.content, value: hyperlink("Image", quest3.url) },
-				{ name: quest4.content, value: hyperlink("Image", quest4.url) },
-				{ name: `Treasure Candles - ${treasureCandles.realm}`, value: hyperlink("Image", treasureCandles.url) },
-			)
-			.setTitle(
-				`${String(date.getUTCDate()).padStart(2, "0")}/${String(date.getUTCMonth() + 1).padStart(
-					2,
-					"0",
-				)}/${date.getUTCFullYear()}`,
-			);
+		const embed = new EmbedBuilder().setTitle(
+			`${String(date.getUTCDate()).padStart(2, "0")}/${String(date.getUTCMonth() + 1).padStart(
+				2,
+				"0",
+			)}/${date.getUTCFullYear()}`,
+		);
 
-		// Other data may have been caught. Let's check that.
+		if (quest1) embed.addFields({ name: quest1.content, value: hyperlink("Image", quest1.url) });
+		if (quest2) embed.addFields({ name: quest2.content, value: hyperlink("Image", quest2.url) });
+		if (quest3) embed.addFields({ name: quest3.content, value: hyperlink("Image", quest3.url) });
+		if (quest4) embed.addFields({ name: quest4.content, value: hyperlink("Image", quest4.url) });
+
+		if (treasureCandles)
+			embed.addFields({
+				name: `Treasure Candles - ${treasureCandles.realm}`,
+				value: hyperlink("Image", treasureCandles.url),
+			});
+
 		if (seasonalCandles) embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
 
 		if (shardEruption) {
