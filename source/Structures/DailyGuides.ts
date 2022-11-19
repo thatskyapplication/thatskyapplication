@@ -100,7 +100,7 @@ export default new (class DailyGuides {
 		this.shardEruption = data.shard_eruption;
 	}
 
-	public async parse({ attachments, channelId, content, client, flags, reference }: Message<true>, updateNow = true) {
+	public async parse({ attachments, channelId, client, content, flags, reference }: Message<true>, updateNow = true) {
 		if (
 			channelId === Channel.dailyGuides &&
 			flags.has(MessageFlags.IsCrosspost) &&
