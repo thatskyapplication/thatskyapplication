@@ -144,6 +144,7 @@ export default new (class DailyGuides {
 		// eslint-disable-next-line unicorn/prefer-string-replace-all
 		let parsedContent = content
 			.replace(new RegExp(FormattingPatterns.Emoji, "g"), "")
+			.replace(/daily\s+quest\s+guide\s+-\s+/i, "")
 			.replace(/\*|_/g, "")
 			.replace(/\s+by\s+\w+\n/, "\n")
 			.trim();
