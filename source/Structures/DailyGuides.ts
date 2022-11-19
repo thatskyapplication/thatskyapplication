@@ -108,8 +108,9 @@ export default new (class DailyGuides {
 	public async parse({ attachments, channelId, client, content, flags, reference }: Message<true>, updateNow = true) {
 		if (
 			channelId === Channel.dailyGuides &&
+			reference?.guildId === INFOGRAPHICS_DATABASE_GUILD_ID &&
 			flags.has(MessageFlags.IsCrosspost) &&
-			reference?.guildId === INFOGRAPHICS_DATABASE_GUILD_ID
+			!flags.has(MessageFlags.SourceMessageDeleted)
 		) {
 			const transformedContent = content.toUpperCase();
 
