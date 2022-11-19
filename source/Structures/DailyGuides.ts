@@ -1,4 +1,4 @@
-import { zonedTimeToUtc } from "date-fns-tz/esm";
+import time from "date-fns-tz";
 import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
 import { ChannelType, MessageFlags, SnowflakeUtil, FormattingPatterns } from "discord.js";
 import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Realm } from "../Utility/Constants.js";
@@ -289,17 +289,14 @@ export default new (class DailyGuides {
 	public async reCheck(client: Client<true>) {
 		const channel = client.channels.resolve(Channel.dailyGuides);
 		if (channel?.type !== ChannelType.GuildText) return;
-		const date = new Date();
+		const date = time.utcToZonedTime(Date.now(), "America/Los_Angeles");
+		date.setUTCHours(0);
+		date.setUTCMinutes(0);
+		date.setUTCSeconds(0);
+		date.setUTCMilliseconds(0);
 
 		const messages = await channel.messages.fetch({
-			after: String(
-				SnowflakeUtil.generate({
-					timestamp: zonedTimeToUtc(
-						Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 0),
-						"America/Los_Angeles",
-					),
-				}),
-			),
+			after: String(SnowflakeUtil.generate({ timestamp: time.zonedTimeToUtc(date, "America/Los_Angeles") })),
 		});
 
 		await this.reset();
