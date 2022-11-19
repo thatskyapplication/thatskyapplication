@@ -120,10 +120,7 @@ export const event: Event<typeof name> = {
 						interaction,
 					);
 
-					await interaction.reply({
-						content: "This option does not exist in Ba Sing Se.",
-						ephemeral: true,
-					});
+					await interaction.reply({ content: "This option does not exist in Ba Sing Se.", ephemeral: true });
 
 					return;
 				}

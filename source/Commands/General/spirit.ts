@@ -24,64 +24,37 @@ export default class implements AutocompleteCommand {
 		const me = await interaction.guild?.members.fetchMe();
 		const spiritAttachmentName = spirit.name.replaceAll(" ", "_");
 		const files = [];
-		const embed = new EmbedBuilder();
-		embed.setColor(me?.displayColor ?? 0);
+		const embed = new EmbedBuilder().setColor(me?.displayColor ?? 0);
 
 		if (spirit.attachment === null) {
 			if (spirit.isSeasonalSpirit()) embed.setDescription("⚠️ This spirit has not yet returned.");
 		} else {
-			files.push({
-				attachment: spirit.attachment,
-				name: `${spiritAttachmentName}.webp`,
-			});
+			files.push({ attachment: spirit.attachment, name: `${spiritAttachmentName}.webp` });
 		}
 
-		embed.setFields(
-			{
-				name: "Realm",
-				value: spirit.realm,
-				inline: true,
-			},
-			{
-				name: "Season",
-				value: spirit.isSeasonalSpirit() ? spirit.season.name : "None",
-				inline: true,
-			},
-			{
-				name: "Offer",
-				value:
-					spirit.offer === null
-						? "Unknown"
-						: `${spirit.offer.candles} candle${spirit.offer.candles > 1 ? "s" : ""}\n${spirit.offer.hearts} heart${
-								spirit.offer.hearts > 1 ? "s" : ""
-						  }\n${spirit.offer.ascendedCandles} ascended candle${spirit.offer.ascendedCandles > 1 ? "s" : ""}`,
-				inline: true,
-			},
-			{
-				name: "Expression",
-				value: spirit.expression ?? "None",
-				inline: true,
-			},
-			{
-				name: "Stance",
-				value: spirit.stance ?? "None",
-				inline: true,
-			},
-			{
-				name: "Call",
-				value: spirit.call ?? "None",
-				inline: true,
-			},
-		);
+		embed
+			.setFields(
+				{ name: "Realm", value: spirit.realm, inline: true },
+				{ name: "Season", value: spirit.isSeasonalSpirit() ? spirit.season.name : "None", inline: true },
+				{
+					name: "Offer",
+					value:
+						spirit.offer === null
+							? "Unknown"
+							: `${spirit.offer.candles} candle${spirit.offer.candles > 1 ? "s" : ""}\n${spirit.offer.hearts} heart${
+									spirit.offer.hearts > 1 ? "s" : ""
+							  }\n${spirit.offer.ascendedCandles} ascended candle${spirit.offer.ascendedCandles > 1 ? "s" : ""}`,
+					inline: true,
+				},
+				{ name: "Expression", value: spirit.expression ?? "None", inline: true },
+				{ name: "Stance", value: spirit.stance ?? "None", inline: true },
+				{ name: "Call", value: spirit.call ?? "None", inline: true },
+			)
+			.setImage(`attachment://${spiritAttachmentName}.webp`)
+			.setTitle(spirit.name)
+			.setURL(spirit.url);
 
-		embed.setImage(`attachment://${spiritAttachmentName}.webp`);
-		embed.setTitle(spirit.name);
-		embed.setURL(spirit.url);
-
-		await interaction.reply({
-			embeds: [embed],
-			files,
-		});
+		await interaction.reply({ embeds: [embed], files });
 	}
 
 	public async autocomplete(interaction: AutocompleteInteraction) {
@@ -104,10 +77,7 @@ export default class implements AutocompleteCommand {
 						);
 						/* eslint-enable @typescript-eslint/prefer-nullish-coalescing */
 				  })
-						.map(({ name }) => ({
-							name,
-							value: name,
-						}))
+						.map(({ name }) => ({ name, value: name }))
 						.slice(0, 25),
 		);
 	}

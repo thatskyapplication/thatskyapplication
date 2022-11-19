@@ -68,11 +68,7 @@ export default class implements ChatInputCommand {
 		const icon = interaction.options.getString("icon", true);
 
 		if (!icon.startsWith("https://")) {
-			await interaction.reply({
-				content: "Please use a valid URL!",
-				ephemeral: true,
-			});
-
+			await interaction.reply({ content: "Please use a valid URL!", ephemeral: true });
 			return;
 		}
 
@@ -88,11 +84,7 @@ export default class implements ChatInputCommand {
 		const thumbnail = interaction.options.getString("thumbnail", true);
 
 		if (!thumbnail.startsWith("https://")) {
-			await interaction.reply({
-				content: "Please use a valid URL!",
-				ephemeral: true,
-			});
-
+			await interaction.reply({ content: "Please use a valid URL!", ephemeral: true });
 			return;
 		}
 

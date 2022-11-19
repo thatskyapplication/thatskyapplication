@@ -12,12 +12,7 @@ export default class implements ChatInputCommand {
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		if (!interaction.inCachedGuild()) {
 			void interaction.client.log(`The \`/${this.name}\` command was used in an uncached guild, somehow.`, interaction);
-
-			await interaction.reply({
-				content: `There is no \`/${this.name}\` command in Ba Sing Se.`,
-				ephemeral: true,
-			});
-
+			await interaction.reply({ content: `There is no \`/${this.name}\` command in Ba Sing Se.`, ephemeral: true });
 			return;
 		}
 
@@ -37,11 +32,7 @@ export default class implements ChatInputCommand {
 		const notification = Notification.cache.find(({ guildId }) => interaction.guildId === guildId);
 
 		if (!notification) {
-			await interaction.reply({
-				content: "This server has nothing set up.",
-				ephemeral: true,
-			});
-
+			await interaction.reply({ content: "This server has nothing set up.", ephemeral: true });
 			return;
 		}
 
@@ -113,11 +104,7 @@ export default class implements ChatInputCommand {
 		const notification = Notification.cache.find(({ guildId }) => interaction.guildId === guildId);
 
 		if (!notification) {
-			await interaction.reply({
-				content: "This server has nothing set up.",
-				ephemeral: true,
-			});
-
+			await interaction.reply({ content: "This server has nothing set up.", ephemeral: true });
 			return;
 		}
 

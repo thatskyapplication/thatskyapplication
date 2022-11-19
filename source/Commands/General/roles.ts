@@ -19,12 +19,7 @@ export default class implements ChatInputCommand {
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		if (!interaction.inCachedGuild()) {
 			void interaction.client.log(`The \`/${this.name}\` command was used in an uncached guild, somehow.`, interaction);
-
-			await interaction.reply({
-				content: `There is no \`/${this.name}\` command in Ba Sing Se.`,
-				ephemeral: true,
-			});
-
+			await interaction.reply({ content: `There is no \`/${this.name}\` command in Ba Sing Se.`, ephemeral: true });
 			return;
 		}
 
@@ -46,31 +41,19 @@ export default class implements ChatInputCommand {
 		const notification = Notification.cache.find(({ guildId }) => guildId === interaction.guildId);
 
 		if (!notification) {
-			await interaction.reply({
-				content: "This server hasn't set up self-role assignment.",
-				ephemeral: true,
-			});
-
+			await interaction.reply({ content: "This server hasn't set up self-role assignment.", ephemeral: true });
 			return;
 		}
 
 		if (!(await interaction.guild.members.fetchMe()).permissions.has(PermissionsBitField.Flags.ManageRoles)) {
-			await interaction.reply({
-				content: "Missing the `Manage Roles` permission.",
-				ephemeral: true,
-			});
-
+			await interaction.reply({ content: "Missing the `Manage Roles` permission.", ephemeral: true });
 			return;
 		}
 
 		const options = this.populate(notification);
 
 		if (options.size === 0) {
-			await interaction.reply({
-				content: "There are no roles to self-assign.",
-				ephemeral: true,
-			});
-
+			await interaction.reply({ content: "There are no roles to self-assign.", ephemeral: true });
 			return;
 		}
 
@@ -100,11 +83,7 @@ export default class implements ChatInputCommand {
 		const notification = Notification.cache.find(({ guildId }) => guildId === interaction.guildId);
 
 		if (!notification) {
-			await interaction.reply({
-				content: "A strange error occured. This is being tracked.",
-				ephemeral: true,
-			});
-
+			await interaction.reply({ content: "A strange error occured. This is being tracked.", ephemeral: true });
 			return;
 		}
 

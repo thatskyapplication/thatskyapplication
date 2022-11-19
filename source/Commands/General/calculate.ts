@@ -31,11 +31,7 @@ export default class implements ChatInputCommand {
 		const goal = options.getInteger("goal", true);
 
 		if (start >= goal) {
-			await interaction.reply({
-				content: "The goal has already been achieved.",
-				ephemeral: true,
-			});
-
+			await interaction.reply({ content: "The goal has already been achieved.", ephemeral: true });
 			return;
 		}
 
@@ -78,6 +74,7 @@ export default class implements ChatInputCommand {
 		const path = realms.length === 0 ? Object.values(Realm) : realms;
 		let accumulation = wingedLight;
 		const me = await interaction.guild?.members.fetchMe();
+
 		const embed = new EmbedBuilder()
 			.setColor(me?.displayColor ?? 0)
 			.setDescription(
@@ -160,10 +157,7 @@ export default class implements ChatInputCommand {
 			0,
 		);
 
-		const choices = Object.values(Realm).map((realm) => ({
-			name: realm,
-			value: realm,
-		}));
+		const choices = Object.values(Realm).map((realm) => ({ name: realm, value: realm }));
 
 		return {
 			name: this.name,

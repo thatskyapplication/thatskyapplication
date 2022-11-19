@@ -108,10 +108,7 @@ export default class Notification {
 
 		this.patch(notificationPacket);
 
-		await interaction.reply({
-			content: "Notifications have been modified.",
-			embeds: [await this.overview(guild)],
-		});
+		await interaction.reply({ content: "Notifications have been modified.", embeds: [await this.overview(guild)] });
 	}
 
 	public async send(client: Client<true>, type: NotificationEvent) {
