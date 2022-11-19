@@ -79,6 +79,15 @@ export default new (class DailyGuides {
 
 	public shardEruption: DailyGuidesData["shardEruption"] = null;
 
+	public get todayTimestamp() {
+		const date = time.utcToZonedTime(Date.now(), "America/Los_Angeles");
+		date.setUTCHours(0);
+		date.setUTCMinutes(0);
+		date.setUTCSeconds(0);
+		date.setUTCMilliseconds(0);
+		return time.zonedTimeToUtc(date, "America/Los_Angeles").getTime();
+	}
+
 	public async reset() {
 		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
 			.update({
@@ -105,37 +114,43 @@ export default new (class DailyGuides {
 		this.shardEruption = data.shard_eruption;
 	}
 
-	public async parse({ attachments, channelId, client, content, flags, reference }: Message<true>, updateNow = true) {
-		if (
+	public validToParse({ channelId, flags, reference }: Message) {
+		return Boolean(
 			channelId === Channel.dailyGuides &&
-			reference?.guildId === INFOGRAPHICS_DATABASE_GUILD_ID &&
-			flags.has(MessageFlags.IsCrosspost) &&
-			!flags.has(MessageFlags.SourceMessageDeleted)
+				reference?.guildId === INFOGRAPHICS_DATABASE_GUILD_ID &&
+				flags.has(MessageFlags.IsCrosspost) &&
+				reference.messageId &&
+				SnowflakeUtil.timestampFrom(reference.messageId) >= this.todayTimestamp,
+		);
+	}
+
+	public async parse(message: Message<true>, updateNow = true) {
+		if (!this.validToParse(message)) return;
+		const { attachments, client, content, flags } = message;
+		if (flags.has(MessageFlags.SourceMessageDeleted)) return;
+		const transformedContent = content.toUpperCase();
+
+		if (transformedContent.includes("DAILY QUEST") && transformedContent.length <= 20) {
+			// This is the general photo of quests. This is redundant.
+		} else if (
+			transformedContent.includes("QUEST") ||
+			transformedContent.includes("RAINBOW") ||
+			transformedContent.includes("SOCIAL LIGHT") ||
+			transformedContent.includes("BLOOM SAPLING")
 		) {
-			const transformedContent = content.toUpperCase();
-
-			if (transformedContent.includes("DAILY QUEST") && transformedContent.length <= 20) {
-				// This is the general photo of quests. This is redundant.
-			} else if (
-				transformedContent.includes("QUEST") ||
-				transformedContent.includes("RAINBOW") ||
-				transformedContent.includes("SOCIAL LIGHT") ||
-				transformedContent.includes("BLOOM SAPLING")
-			) {
-				await this.parseQuests(content, attachments);
-			} else if (transformedContent.includes("TREASURE CANDLE")) {
-				await this.parseTreasureCandles(content, attachments);
-			} else if (transformedContent.includes("SEASONAL CANDLE")) {
-				await this.parseSeasonalCandles(attachments);
-			} else if (transformedContent.includes("SHATTERING SHARD LOCATION")) {
-				await this.parseShardEruption(content, attachments);
-			} else {
-				consoleLog("Intercepted an unparsed message.");
-				return;
-			}
-
-			if (updateNow) await DailyGuidesDistribution.distribute(client);
+			await this.parseQuests(content, attachments);
+		} else if (transformedContent.includes("TREASURE CANDLE")) {
+			await this.parseTreasureCandles(content, attachments);
+		} else if (transformedContent.includes("SEASONAL CANDLE")) {
+			await this.parseSeasonalCandles(attachments);
+		} else if (transformedContent.includes("SHATTERING SHARD LOCATION")) {
+			await this.parseShardEruption(content, attachments);
+		} else {
+			consoleLog("Intercepted an unparsed message.");
+			return;
 		}
+
+		if (updateNow) await DailyGuidesDistribution.distribute(client);
 	}
 
 	public async parseQuests(content: string, attachments: Collection<Snowflake, Attachment>) {
@@ -308,17 +323,13 @@ export default new (class DailyGuides {
 	public async reCheck(client: Client<true>) {
 		const channel = client.channels.resolve(Channel.dailyGuides);
 		if (channel?.type !== ChannelType.GuildText) return;
-		const date = time.utcToZonedTime(Date.now(), "America/Los_Angeles");
-		date.setUTCHours(0);
-		date.setUTCMinutes(0);
-		date.setUTCSeconds(0);
-		date.setUTCMilliseconds(0);
 
 		const messages = await channel.messages.fetch({
-			after: String(SnowflakeUtil.generate({ timestamp: time.zonedTimeToUtc(date, "America/Los_Angeles") })),
+			after: String(SnowflakeUtil.generate({ timestamp: this.todayTimestamp })),
 		});
 
 		await this.reset();
+		// We care about the daily quest order.
 		for (const message of messages.reverse().values()) await this.parse(message, false);
 		await DailyGuidesDistribution.distribute(client);
 	}

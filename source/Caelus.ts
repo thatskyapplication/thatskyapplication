@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { URL } from "node:url";
 import { inspect } from "node:util";
 import type { ApplicationCommandData, Snowflake, ApplicationCommand, Collection, Guild } from "discord.js";
-import { Client, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits } from "discord.js";
+import { Partials, Client, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits } from "discord.js";
 import commands from "./Commands/index.js";
 import type { Event } from "./Events/index.js";
 import { DEVELOPER_GUILD_ID, LOG_CHANNEL_ID } from "./Utility/Constants.js";
@@ -122,6 +122,7 @@ Client.prototype.applyCommands = async function () {
 
 const Caelus = new Client({
 	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMessages | GatewayIntentBits.MessageContent,
+	partials: [Partials.Message],
 });
 
 for (const file of (await readdir(eventsPath)).filter((file) => file !== "index.js")) {
