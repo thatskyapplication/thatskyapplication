@@ -59,6 +59,11 @@ function resolveRealm(rawRealm: string) {
 	return null;
 }
 
+const treasureCandleRealmRegularExpression = new RegExp(
+	`rotation\\s+\\d{1,2}\\s+\\|\\s+(?<realm>${Object.values(Realm).join("|").replaceAll(" ", "\\s+")})`,
+	"i",
+);
+
 export default new (class DailyGuides {
 	public quest1: DailyGuidesData["quest1"] = null;
 
@@ -199,19 +204,26 @@ export default new (class DailyGuides {
 			return;
 		}
 
-		const realm = content.slice(content.indexOf("|") + 2);
-		const resolvedRealm = resolveRealm(realm);
+		const regex = treasureCandleRealmRegularExpression.exec(content);
 
-		if (!resolvedRealm) {
-			consoleLog("Failed to parse the realm the treasure candles are in.");
+		if (regex?.groups) {
+			const { realm } = regex.groups;
+			const resolvedRealm = resolveRealm(realm);
+
+			if (!resolvedRealm) {
+				consoleLog("Failed to parse the realm the treasure candles are in.");
+				return;
+			}
+
+			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
+				.update({ treasure_candles: { realm: resolvedRealm, url } })
+				.returning("*");
+
+			this.patch(dailyGuidesPacket);
 			return;
 		}
 
-		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-			.update({ treasure_candles: { realm: resolvedRealm, url } })
-			.returning("*");
-
-		this.patch(dailyGuidesPacket);
+		consoleLog("Failed to parse the treasure candles.");
 	}
 
 	public async parseSeasonalCandles(attachments: Collection<Snowflake, Attachment>) {
