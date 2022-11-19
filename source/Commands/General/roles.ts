@@ -1,10 +1,4 @@
-import type {
-	ApplicationCommandData,
-	ChatInputCommandInteraction,
-	MessageActionRowComponentBuilder,
-	SelectMenuInteraction,
-	Snowflake,
-} from "discord.js";
+import type { ApplicationCommandData, ChatInputCommandInteraction, SelectMenuInteraction, Snowflake } from "discord.js";
 import {
 	ActionRowBuilder,
 	ApplicationCommandType,
@@ -93,7 +87,7 @@ export default class implements ChatInputCommand {
 			)
 			.setPlaceholder("Select some roles!");
 
-		const actionRow = new ActionRowBuilder<MessageActionRowComponentBuilder>().setComponents(selectMenu);
+		const actionRow = new ActionRowBuilder<SelectMenuBuilder>().setComponents(selectMenu);
 
 		await interaction.reply({
 			content: "Self-assign roles to receive notifications!",
