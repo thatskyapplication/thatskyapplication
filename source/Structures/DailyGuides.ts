@@ -1,3 +1,4 @@
+import { AsyncQueue } from "@sapphire/async-queue";
 import time from "date-fns-tz";
 import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
 import { ChannelType, MessageFlags, SnowflakeUtil, FormattingPatterns } from "discord.js";
@@ -88,6 +89,8 @@ export default new (class DailyGuides {
 		return time.zonedTimeToUtc(date, "America/Los_Angeles").getTime();
 	}
 
+	public readonly queue = new AsyncQueue();
+
 	public async reset() {
 		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
 			.update({
@@ -124,14 +127,17 @@ export default new (class DailyGuides {
 		);
 	}
 
-	public async parse(message: Message<true>, updateNow = true) {
+	public async parse(message: Message<true>) {
 		if (!this.validToParse(message)) return;
 		const { attachments, client, content, flags } = message;
 		if (flags.has(MessageFlags.SourceMessageDeleted)) return;
 		const transformedContent = content.toUpperCase();
+		await this.queue.wait();
 
 		if (transformedContent.includes("DAILY QUEST") && transformedContent.length <= 20) {
 			// This is the general photo of quests. This is redundant.
+			this.queue.shift();
+			return;
 		} else if (
 			transformedContent.includes("QUEST") ||
 			transformedContent.includes("RAINBOW") ||
@@ -147,10 +153,12 @@ export default new (class DailyGuides {
 			await this.parseShardEruption(content, attachments);
 		} else {
 			consoleLog("Intercepted an unparsed message.");
+			this.queue.shift();
 			return;
 		}
 
-		if (updateNow) await DailyGuidesDistribution.distribute(client);
+		if (this.queue.queued === 0) await DailyGuidesDistribution.distribute(client);
+		this.queue.shift();
 	}
 
 	public async parseQuests(content: string, attachments: Collection<Snowflake, Attachment>) {
@@ -331,7 +339,6 @@ export default new (class DailyGuides {
 
 		await this.reset();
 		// We care about the daily quest order.
-		for (const message of messages.reverse().values()) await this.parse(message, false);
-		await DailyGuidesDistribution.distribute(client);
+		for (const message of messages.reverse().values()) void this.parse(message);
 	}
 })();
