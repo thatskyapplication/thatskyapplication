@@ -173,9 +173,9 @@ export default new (class DailyGuides {
 		// eslint-disable-next-line unicorn/prefer-string-replace-all
 		let parsedContent = content
 			.replace(new RegExp(FormattingPatterns.Emoji, "g"), "")
+			.replace(/\*|_/g, "")
 			// eslint-disable-next-line unicorn/no-unsafe-regex
 			.replace(/(?:days\s+of\s+rainbow\s\d{4}\s+-\s+)?daily\s+quest,?\s+(?:guide\s+-\s+)?/i, "")
-			.replace(/\*|_/g, "")
 			.replace(/\s+by\s+\w+\n/, "\n")
 			.trim();
 
