@@ -565,6 +565,7 @@ export default [
 		season: Season.Dreams,
 		expression: Expression.Bearhug,
 		realm: Realm.ValleyOfTriumph,
+		offer: { candles: 190, hearts: 8, ascendedCandles: 2 },
 		keywords: ["yeti"],
 	}),
 	new SeasonalSpirit({
