@@ -1,7 +1,7 @@
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 export const LOG_CHANNEL_ID = "1040806599293407263" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki/" as const;
-export const MAXIMUM_WINGED_LIGHT = 206 as const;
+export const MAXIMUM_WINGED_LIGHT = 207 as const;
 // 4 from quests and 1 from candle running.
 export const SEASONAL_CANDLES_PER_DAY = 5;
 // As well as the above but with an extra seaonal candle a day from the meditation shrine.
