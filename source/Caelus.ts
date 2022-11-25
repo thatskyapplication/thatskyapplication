@@ -64,14 +64,9 @@ Client.prototype.log = async function (message, error?) {
 	}
 
 	for (const embed of embeds) embed.setColor(me.displayColor);
-
-	await logChannel.send({
-		allowedMentions: { parse: [] },
-		content: content ? `${stamp} ${content}` : undefined,
-		embeds,
-		files,
-	});
-
+	const payload: Parameters<TextChannel["send"]>[0] = { allowedMentions: { parse: [] }, embeds, files };
+	if (content) payload.content = `${stamp} ${content}`;
+	await logChannel.send(payload);
 	if (files.length > 0) await unlink(potentialFileName);
 };
 

@@ -8,7 +8,10 @@ export enum Table {
 	Profiles = "profiles",
 }
 
+const { DATABASE_URL } = process.env;
+if (!DATABASE_URL) throw new Error("Databse URL missing.");
+
 export default knex({
 	client: "pg",
-	connection: process.env.DATABASE_URL,
+	connection: DATABASE_URL,
 });
