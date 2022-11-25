@@ -34,7 +34,7 @@ interface DailyGuideQuest {
 
 interface DailyGuideTreasureCandle {
 	realm: ValidRealm;
-	url: string;
+	url: string[];
 }
 
 type ValidRealm = Exclude<Realm, Realm.IslesOfDawn | Realm.EyeOfEden | Realm.AncientMemory>;
@@ -241,7 +241,12 @@ export default new (class DailyGuides {
 			}
 
 			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-				.update({ treasure_candles: { realm: resolvedRealm, url } })
+				.update({
+					treasure_candles: {
+						realm: resolvedRealm,
+						url: this.treasureCandles ? [...this.treasureCandles.url, url] : [url],
+					},
+				})
 				.returning("*");
 
 			this.patch(dailyGuidesPacket);

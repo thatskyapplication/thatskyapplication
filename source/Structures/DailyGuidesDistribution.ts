@@ -149,7 +149,7 @@ export default class DailyGuidesDistribution {
 		if (treasureCandles)
 			embed.addFields({
 				name: `Treasure Candles - ${treasureCandles.realm}`,
-				value: hyperlink("Image", treasureCandles.url),
+				value: treasureCandles.url.map((url, index) => hyperlink(`Image ${index + 1}`, url)).join("\n"),
 			});
 
 		if (seasonalCandles) embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
