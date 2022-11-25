@@ -34,7 +34,12 @@ interface DailyGuideQuest {
 
 interface DailyGuideTreasureCandle {
 	realm: ValidRealm;
-	url: string[];
+	data: TreasureCandleData[];
+}
+
+interface TreasureCandleData {
+	content: string;
+	url: string;
 }
 
 type ValidRealm = Exclude<Realm, Realm.IslesOfDawn | Realm.EyeOfEden | Realm.AncientMemory>;
@@ -60,8 +65,8 @@ function resolveRealm(rawRealm: string) {
 	return null;
 }
 
-const treasureCandleRealmRegularExpression = new RegExp(
-	`rotation\\s+\\d{1,2}\\s+\\|\\s+(?<realm>${Object.values(Realm).join("|").replaceAll(" ", "\\s+")})`,
+const treasureCandleRegularExpression = new RegExp(
+	`(?<rotation>rotation\\s+\\d{1,2})\\s+\\|\\s+(?<realm>${Object.values(Realm).join("|").replaceAll(" ", "\\s+")})`,
 	"i",
 );
 
@@ -229,22 +234,30 @@ export default new (class DailyGuides {
 			return;
 		}
 
-		const regex = treasureCandleRealmRegularExpression.exec(content);
+		const regex = treasureCandleRegularExpression.exec(content);
 
 		if (regex?.groups) {
-			const { realm } = regex.groups;
+			const { rotation, realm } = regex.groups;
+			const resolvedRotation = rotation.replace(/  +/g, " ");
 			const resolvedRealm = resolveRealm(realm);
+
+			if (!resolvedRotation) {
+				consoleLog("Failed to parse the rotation of a set of treasure candles.");
+				return;
+			}
 
 			if (!resolvedRealm) {
 				consoleLog("Failed to parse the realm the treasure candles are in.");
 				return;
 			}
 
+			const data = { content: resolvedRotation, url };
+
 			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
 				.update({
 					treasure_candles: {
 						realm: resolvedRealm,
-						url: this.treasureCandles ? [...this.treasureCandles.url, url] : [url],
+						data: this.treasureCandles ? [...this.treasureCandles.data, data] : [data],
 					},
 				})
 				.returning("*");
