@@ -329,9 +329,7 @@ export default new (class DailyGuides {
 						realm: resolvedRealm,
 						map,
 						dangerous: color.toUpperCase() === "RED",
-						// https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1961
-						// eslint-disable-next-line unicorn/prefer-string-replace-all
-						timestamps: timestamps.replace(/ to /gi, " - ").replace(/1\. |2\. |3\. /g, ""),
+						timestamps: timestamps.replaceAll(/ to /gi, " - ").replaceAll(/1\. |2\. |3\. /g, ""),
 						data: data ?? null,
 						url,
 					},
