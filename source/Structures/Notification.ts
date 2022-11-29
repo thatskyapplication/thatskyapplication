@@ -107,7 +107,6 @@ export default class Notification {
 			.returning("*");
 
 		this.patch(notificationPacket);
-
 		await interaction.reply({ content: "Notifications have been modified.", embeds: [await this.overview(guild)] });
 	}
 
