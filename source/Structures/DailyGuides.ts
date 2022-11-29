@@ -174,18 +174,16 @@ export default new (class DailyGuides {
 			return;
 		}
 
-		// https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1961
-		// eslint-disable-next-line unicorn/prefer-string-replace-all
 		let parsedContent = content
-			.replace(new RegExp(FormattingPatterns.Emoji, "g"), "")
-			.replace(/\*|_/g, "")
+			.replaceAll(new RegExp(FormattingPatterns.Emoji, "g"), "")
+			.replaceAll(/\*|_/g, "")
 			// eslint-disable-next-line unicorn/no-unsafe-regex
 			.replace(/(?:days\s+of\s+rainbow\s\d{4}\s+-\s+)?daily\s+quest,?\s+(?:guide\s+-\s+)?/i, "")
 			.replace(/\s+by\s+\w+\n/, "\n")
 			.trim();
 
 		if (/\n<?https?/.test(parsedContent)) parsedContent = parsedContent.slice(0, parsedContent.indexOf("\n")).trim();
-		const data = { content: parsedContent.replace(/  +/g, " "), url };
+		const data = { content: parsedContent.replaceAll(/  +/g, " "), url };
 
 		if (!this.quest1) {
 			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
@@ -238,7 +236,7 @@ export default new (class DailyGuides {
 
 		if (regex?.groups) {
 			const { rotation, realm } = regex.groups;
-			const resolvedRotation = rotation.replace(/  +/g, " ");
+			const resolvedRotation = rotation.replaceAll(/  +/g, " ");
 			const resolvedRealm = resolveRealm(realm);
 
 			if (!resolvedRotation) {
