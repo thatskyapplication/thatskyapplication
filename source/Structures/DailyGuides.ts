@@ -68,7 +68,7 @@ function resolveRealm(rawRealm: string) {
 const regularExpressionRealms = Object.values(Realm).join("|").replaceAll(" ", "\\s+");
 
 const dailyGuideDaysRegularExpression = new RegExp(
-	`(?<days>days\\s+of\\s+(?:bloom|rainbow))\\s+\\d{4}\\s+-\\s+.+(?<realm>${regularExpressionRealms})`,
+	`days\\s+of\\s+(?<days>bloom|rainbow)\\s+\\d{4}\\s+-\\s+.+(?<realm>${regularExpressionRealms}|wind paths|sanctuary islands|hermit valley|treasure reef|starlight desert)`,
 	"i",
 );
 
@@ -193,7 +193,7 @@ export default new (class DailyGuides {
 
 		if (regex?.groups) {
 			const { days, realm } = regex.groups;
-			const day = days.replaceAll(/  +/g, " ");
+			const day = days.toUpperCase();
 			const resolvedRealm = resolveRealm(realm);
 
 			if (!day || !resolvedRealm) {
@@ -201,7 +201,16 @@ export default new (class DailyGuides {
 				return;
 			}
 
-			parsedContent = `${day} - ${resolvedRealm}`;
+			switch (day) {
+				case "BLOOM":
+					parsedContent = "Admire the sapling";
+					break;
+				case "RAINBOW":
+					parsedContent = "Find the candles at the end of the rainbow";
+					break;
+			}
+
+			parsedContent += ` - ${resolvedRealm}`;
 		}
 
 		if (/\n<?https?/.test(parsedContent)) parsedContent = parsedContent.slice(0, parsedContent.indexOf("\n")).trim();
