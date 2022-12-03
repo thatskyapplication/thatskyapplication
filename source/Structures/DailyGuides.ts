@@ -65,8 +65,15 @@ function resolveRealm(rawRealm: string) {
 	return null;
 }
 
+const regularExpressionRealms = Object.values(Realm).join("|").replaceAll(" ", "\\s+");
+
+const dailyGuideDaysRegularExpression = new RegExp(
+	`(?<days>days\\s+of\\s+(?:bloom|rainbow))\\s+\\d{4}\\s+-\\s+.+(?<realm>${regularExpressionRealms})`,
+	"i",
+);
+
 const treasureCandleRegularExpression = new RegExp(
-	`(?<rotation>rotation\\s+\\d{1,2})\\s+\\|\\s+(?<realm>${Object.values(Realm).join("|").replaceAll(" ", "\\s+")})`,
+	`(?<rotation>rotation\\s+\\d{1,2})\\s+\\|\\s+(?<realm>${regularExpressionRealms})`,
 	"i",
 );
 
@@ -178,9 +185,24 @@ export default new (class DailyGuides {
 			.replaceAll(new RegExp(FormattingPatterns.Emoji, "g"), "")
 			.replaceAll(/\*|_/g, "")
 			// eslint-disable-next-line unicorn/no-unsafe-regex
-			.replace(/(?:days\s+of\s+rainbow\s\d{4}\s+-\s+)?daily\s+quest,?\s+(?:guide\s+-\s+)?/i, "")
+			.replace(/daily\s+quest,?\s+(?:guide\s+-\s+)?/i, "")
 			.replace(/\s+by\s+\w+\n/, "\n")
 			.trim();
+
+		const regex = dailyGuideDaysRegularExpression.exec(parsedContent);
+
+		if (regex?.groups) {
+			const { days, realm } = regex.groups;
+			const day = days.replaceAll(/  +/g, " ");
+			const resolvedRealm = resolveRealm(realm);
+
+			if (!day || !resolvedRealm) {
+				consoleLog("Failed to parse the Days of X.");
+				return;
+			}
+
+			parsedContent = `${day} - ${resolvedRealm}`;
+		}
 
 		if (/\n<?https?/.test(parsedContent)) parsedContent = parsedContent.slice(0, parsedContent.indexOf("\n")).trim();
 		const data = { content: parsedContent.replaceAll(/  +/g, " "), url };
