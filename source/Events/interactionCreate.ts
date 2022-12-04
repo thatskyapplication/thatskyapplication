@@ -112,7 +112,7 @@ export const event: Event<typeof name> = {
 			return;
 		}
 
-		if (interaction.isSelectMenu()) {
+		if (interaction.isStringSelectMenu()) {
 			try {
 				if (!interaction.inCachedGuild()) {
 					void interaction.client.log(
