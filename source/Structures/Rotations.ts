@@ -12,10 +12,12 @@ function sendNotification(client: Client<true>, type: NotificationEvent) {
 export default new (class {
 	public clock(client: Client<true>): void {
 		setInterval(() => {
-			const date = time.utcToZonedTime(Date.now(), "America/Los_Angeles");
-			const hours = date.getUTCHours();
-			const minutes = date.getUTCMinutes();
-			const seconds = date.getUTCSeconds();
+			const now = Date.now();
+			const dateTime = time.utcToZonedTime(now, "America/Los_Angeles");
+			const date = dateTime.getUTCDate();
+			const hours = dateTime.getUTCHours();
+			const minutes = dateTime.getUTCMinutes();
+			const seconds = dateTime.getUTCSeconds();
 
 			if (seconds === 0) {
 				if (hours === 0 && minutes === 0) {
@@ -36,6 +38,16 @@ export default new (class {
 							break;
 					}
 				}
+
+				if (
+					// AURORA concert start date.
+					Date.UTC(2_022, 11, 8, 20, 30) <= now &&
+					// AURORA concert end date.
+					Date.UTC(2_023, 0, 3, 8) > now &&
+					// We'll send a notification 15 minutes before each concert.
+					((date === 8 && hours === 20 && minutes === 15) || (hours % 4 === 3 && minutes === 45))
+				)
+					sendNotification(client, NotificationEvent.Concert);
 			}
 		}, 1_000);
 	}

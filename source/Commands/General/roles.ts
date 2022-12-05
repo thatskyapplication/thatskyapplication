@@ -28,12 +28,23 @@ export default class implements ChatInputCommand {
 
 	public populate(notification: Notification) {
 		const roles = new Collection<NotificationEvent, Snowflake>();
-		if (notification.pollutedGeyserChannelId && notification.pollutedGeyserRoleId)
-			roles.set(NotificationEvent.PollutedGeyser, notification.pollutedGeyserRoleId);
-		if (notification.grandmaChannelId && notification.grandmaRoleId)
-			roles.set(NotificationEvent.Grandma, notification.grandmaRoleId);
-		if (notification.turtleChannelId && notification.turtleRoleId)
-			roles.set(NotificationEvent.Turtle, notification.turtleRoleId);
+		const {
+			pollutedGeyserChannelId,
+			pollutedGeyserRoleId,
+			grandmaChannelId,
+			grandmaRoleId,
+			turtleChannelId,
+			turtleRoleId,
+			concertChannelId,
+			concertRoleId,
+		} = notification;
+
+		if (pollutedGeyserChannelId && pollutedGeyserRoleId)
+			roles.set(NotificationEvent.PollutedGeyser, pollutedGeyserRoleId);
+
+		if (grandmaChannelId && grandmaRoleId) roles.set(NotificationEvent.Grandma, grandmaRoleId);
+		if (turtleChannelId && turtleRoleId) roles.set(NotificationEvent.Turtle, turtleRoleId);
+		if (concertChannelId && concertRoleId) roles.set(NotificationEvent.Concert, concertRoleId);
 		return roles;
 	}
 
