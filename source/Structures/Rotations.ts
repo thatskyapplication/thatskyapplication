@@ -14,7 +14,6 @@ export default new (class {
 		setInterval(() => {
 			const now = Date.now();
 			const dateTime = time.utcToZonedTime(now, "America/Los_Angeles");
-			const date = dateTime.getUTCDate();
 			const hours = dateTime.getUTCHours();
 			const minutes = dateTime.getUTCMinutes();
 			const seconds = dateTime.getUTCSeconds();
@@ -40,12 +39,11 @@ export default new (class {
 				}
 
 				if (
-					// AURORA concert start date.
-					Date.UTC(2_022, 11, 8, 20, 30) <= now &&
 					// AURORA concert end date.
 					Date.UTC(2_023, 0, 3, 8) > now &&
 					// We'll send a notification 15 minutes before each concert.
-					((date === 8 && hours === 20 && minutes === 15) || (hours % 4 === 3 && minutes === 45))
+					hours % 4 === 3 &&
+					minutes === 45
 				)
 					sendNotification(client, NotificationEvent.Concert);
 			}
