@@ -73,7 +73,7 @@ const dailyGuideDaysRegularExpression = new RegExp(
 );
 
 const treasureCandleRegularExpression = new RegExp(
-	`(?<rotation>rotation\\s+\\d{1,2})\\s+\\|\\s+(?<realm>${regularExpressionRealms})`,
+	`(?<rotation>rotation\\s+\\d{1,2})\\s*\\|\\s*(?<realm>${regularExpressionRealms})`,
 	"i",
 );
 
