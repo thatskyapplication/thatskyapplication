@@ -9,12 +9,17 @@ const bonkMessages = [
 	"BONK! {{bonkee}} was destroyed by {{bonker}}.",
 	"A terrifying, mystical force bonked {{bonkee}}. {{bonker}} is pleased.",
 	"{{bonker}} attempted to bonk {{bonkee}}. {{bonker}} was successful.",
+	"{{bonker}} attempted to bonk {{bonkee}}. {{bonker}} was not successful.",
 	"There was a 1% chance that {{bonkee}} would be bonked. {{bonker}} is that 1%. BONK.",
 	"How extraordinary! A MASSIVE, HUGE BONK was applied to the forehead of {{bonkee}} by {{bonker}}.",
 	"{{bonker}} took a flight, hiked mountains, conquered deserts, all to bonk {{bonkee}}. It was probably worth it.",
 	"Due to unfortunate weather conditions, {{bonker}} fell into a hole. They did not manage to bonk {{bonkee}}. {{bonkee}} fell into a separate hole, though.",
 	"{{bonker}} has bonked {{bonkee}}. Finally! You deserve it, my friend.",
 	"{{bonker}} bonked {{bonkee}}. This is the only physical touch you'll ever receive.",
+	"{{bonker}} hooked up with El Guapo, a pirate, and some sort of squirrel to figure out how to bonk {{bonkee}}. They're still working on it.",
+	"{{bonkee}} escaped the almighty bonk of {{bonker}}. Is this the final bonk by {{bonker}}?",
+	"We love {{bonkee}}, but {{bonker}} has other thoughts. BONK!",
+	"{{bonkeee}} got BONKED by the BONKER called {{bonker}} with the BONKINATOR BONKTHOUSAND. B O N K.",
 ] as const;
 
 export default class implements ChatInputCommand {
