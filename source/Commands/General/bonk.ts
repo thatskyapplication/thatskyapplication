@@ -122,6 +122,10 @@ const bonks = [
 			"{{bonker}} is on their way to bonk {{bonkee}}, but finds a box of doughnuts! After weighing the odds, {{bonker}} feasts on the doughnuts instead.",
 		successful: false,
 	},
+	{
+		message: "It's time to bonk {{bonkee}}. {{bonker}} did the deed.",
+		successful: true,
+	},
 ] as const;
 
 export default class implements ChatInputCommand {
