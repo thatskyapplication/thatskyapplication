@@ -27,6 +27,15 @@ export default class implements ChatInputCommand {
 		const user = options.getUser("user", true);
 		const member = options.getMember("member");
 
+		if (user.id === interaction.user.id) {
+			await interaction.reply({
+				content: `No self-bonking! Bad!`,
+				ephemeral: true,
+			});
+
+			return;
+		}
+
 		if (!member) {
 			await interaction.reply({
 				content: `${user} is not in this server to be bonked.`,
