@@ -117,6 +117,11 @@ const bonks = [
 			"{{bonker}} runs to {{bonkee}} but they accidentally hug each other! {{bonker}} sneaked in a lil' bonk, though.",
 		successful: true,
 	},
+	{
+		message:
+			"{{bonker}} is on their way to bonk {{bonkee}}, but finds a box of doughnuts! After weighing the odds, {{bonker}} feasts on the doughnuts instead.",
+		successful: false,
+	},
 ] as const;
 
 export default class implements ChatInputCommand {
