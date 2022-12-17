@@ -24,6 +24,7 @@ const bonkMessages = [
 	"{{bonker}} entered the nearby building, scaled to its peak, and dove off the top to bonk {{bonkee}}'s forehead at terminal velocity.",
 	"{{bonker}} was about to bonk {{bonkee}}, but {{bonkee}} turned around and bonked {{bonker}} instead. Oh, how the tables have turned!",
 	"A wild {{bonker}} appeared! {{bonker}} BONKED {{bonkee}} then mysteriously disappeared...",
+	"Roses are red, violets are blue, {{bonker}} bonked {{bonkee}}, and jumped on them too.",
 ] as const;
 
 export default class implements ChatInputCommand {
