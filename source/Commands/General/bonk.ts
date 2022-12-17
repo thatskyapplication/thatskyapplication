@@ -19,7 +19,7 @@ const bonkMessages = [
 	"{{bonker}} hooked up with El Guapo, a pirate, and some sort of squirrel to figure out how to bonk {{bonkee}}. They're still working on it.",
 	"{{bonkee}} escaped the almighty bonk of {{bonker}}. Is this the final bonk by {{bonker}}?",
 	"We love {{bonkee}}, but {{bonker}} has other thoughts. BONK!",
-	"{{bonkeee}} got BONKED by the BONKER called {{bonker}} with the BONKINATOR BONKTHOUSAND. B O N K.",
+	"{{bonkee}} got BONKED by the BONKER called {{bonker}} with the BONKINATOR BONKTHOUSAND. B O N K.",
 ] as const;
 
 export default class implements ChatInputCommand {
