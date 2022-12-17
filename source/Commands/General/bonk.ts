@@ -25,7 +25,7 @@ export default class implements ChatInputCommand {
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { options } = interaction;
 		const user = options.getUser("user", true);
-		const member = options.getMember("member");
+		const member = options.getMember("user");
 
 		if (user.id === interaction.user.id) {
 			await interaction.reply({
