@@ -9,7 +9,10 @@ interface BonkPacket {
 }
 
 const bonks = [
-	{ message: "{{bonker}} bonked {{bonkee}}. Bonk bonk bonk.", successful: true },
+	{
+		message: "{{bonker}} bonked {{bonkee}}. Bonk bonk bonk.",
+		successful: true,
+	},
 	{
 		message: "An ethereal force bonked {{bonkee}} on the head. A shrill giggle can be heard from {{bonker}}.",
 		successful: true,
@@ -19,11 +22,26 @@ const bonks = [
 			"{{bonker}} proceeded to bonk {{bonkee}}, but slipped and fell on some bananas. The only thing they bonked was their own head.",
 		successful: false,
 	},
-	{ message: "BONK! {{bonkee}} was destroyed by {{bonker}}.", successful: true },
-	{ message: "A terrifying, mystical force bonked {{bonkee}}. {{bonker}} is pleased.", successful: true },
-	{ message: "{{bonker}} attempted to bonk {{bonkee}}. {{bonker}} was successful.", successful: true },
-	{ message: "{{bonker}} attempted to bonk {{bonkee}}. {{bonker}} was not successful.", successful: false },
-	{ message: "There was a 1% chance that {{bonkee}} would be bonked. {{bonker}} is that 1%. BONK.", successful: true },
+	{
+		message: "BONK! {{bonkee}} was destroyed by {{bonker}}.",
+		successful: true,
+	},
+	{
+		message: "A terrifying, mystical force bonked {{bonkee}}. {{bonker}} is pleased.",
+		successful: true,
+	},
+	{
+		message: "{{bonker}} attempted to bonk {{bonkee}}. {{bonker}} was successful.",
+		successful: true,
+	},
+	{
+		message: "{{bonker}} attempted to bonk {{bonkee}}. {{bonker}} was not successful.",
+		successful: false,
+	},
+	{
+		message: "There was a 1% chance that {{bonkee}} would be bonked. {{bonker}} is that 1%. BONK.",
+		successful: true,
+	},
 	{
 		message: "How extraordinary! A MASSIVE, HUGE BONK was applied to the forehead of {{bonkee}} by {{bonker}}.",
 		successful: true,
@@ -38,8 +56,14 @@ const bonks = [
 			"Due to unfortunate weather conditions, {{bonker}} fell into a hole. They did not manage to bonk {{bonkee}}. {{bonkee}} fell into a separate hole, though.",
 		successful: false,
 	},
-	{ message: "{{bonker}} has bonked {{bonkee}}. Finally! You deserve it, my friend.", successful: true },
-	{ message: "{{bonker}} bonked {{bonkee}}. This is the only physical touch you'll ever receive.", successful: true },
+	{
+		message: "{{bonker}} has bonked {{bonkee}}. Finally! You deserve it, my friend.",
+		successful: true,
+	},
+	{
+		message: "{{bonker}} bonked {{bonkee}}. This is the only physical touch you'll ever receive.",
+		successful: true,
+	},
 	{
 		message:
 			"{{bonker}} hooked up with El Guapo, a pirate, and some sort of squirrel to figure out how to bonk {{bonkee}}. They're still working on it.",
@@ -49,7 +73,10 @@ const bonks = [
 		message: "{{bonkee}} escaped the almighty bonk of {{bonker}}. Is this the final bonk by {{bonker}}?",
 		successful: false,
 	},
-	{ message: "We love {{bonkee}}, but {{bonker}} has other thoughts. BONK!", successful: true },
+	{
+		message: "We love {{bonkee}}, but {{bonker}} has other thoughts. BONK!",
+		successful: true,
+	},
 	{
 		message: "{{bonkee}} got BONKED by the BONKER called {{bonker}} with the BONKINATOR BONKTHOUSAND. B O N K.",
 		successful: true,
