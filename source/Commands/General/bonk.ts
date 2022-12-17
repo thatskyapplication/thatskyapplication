@@ -25,6 +25,25 @@ export default class implements ChatInputCommand {
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { options } = interaction;
 		const user = options.getUser("user", true);
+		const member = options.getMember("member");
+
+		if (!member) {
+			await interaction.reply({
+				content: `${user} is not in this server to be bonked.`,
+				ephemeral: true,
+			});
+
+			return;
+		}
+
+		if (user.bot) {
+			await interaction.reply({
+				content: `${user} is a bot. They're pretty tough. Immune to bonks, I'd say.`,
+				ephemeral: true,
+			});
+
+			return;
+		}
 
 		await interaction.reply(
 			bonkMessages[Math.floor(Math.random() * bonkMessages.length)]
