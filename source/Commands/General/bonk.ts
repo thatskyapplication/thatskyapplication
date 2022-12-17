@@ -4,9 +4,9 @@ import type { ChatInputCommand } from "../index.js";
 
 const bonkMessages = [
 	"{{bonker}} bonked {{bonkee}}. Bonk bonk bonk.",
-	"An ethereal force bonked {{bonkee}} on the head.",
+	"An ethereal force bonked {{bonkee}} on the head. A shrill giggle can be heard from {{bonker}}.",
 	"{{bonker}} proceeded to bonk {{bonkee}}, but slipped and fell on some bananas. The only thing they bonked was their own head.",
-	"BONK! {{bonkee}} was destroyed.",
+	"BONK! {{bonkee}} was destroyed by {{bonker}}.",
 	"A terrifying, mystical force bonked {{bonkee}}. {{bonker}} is pleased.",
 	"{{bonker}} attempted to bonk {{bonkee}}. {{bonker}} was successful.",
 	"There was a 1% chance that {{bonkee}} would be bonked. {{bonker}} is that 1%. BONK.",
