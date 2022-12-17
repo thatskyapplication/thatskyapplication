@@ -117,7 +117,7 @@ export default class implements ChatInputCommand {
 		}
 
 		const { message, successful } = bonks[Math.floor(Math.random() * bonks.length)];
-		let bonkMessage = message;
+		let bonkMessage = message.replaceAll("{{bonker}}", String(interaction.user)).replaceAll("{{bonkee}}", String(user));
 
 		if (successful) {
 			const [{ count }] = await pg<BonkPacket>(Table.Bonks)
