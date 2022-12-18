@@ -2,6 +2,7 @@ import process from "node:process";
 import knex from "knex";
 
 export enum Table {
+	Bonks = "bonks",
 	DailyGuides = "daily_guides",
 	DailyGuidesDistribution = "daily_guides_distribution",
 	Notifications = "notifications",
