@@ -1,10 +1,15 @@
-import type { ApplicationCommandData, ChatInputCommandInteraction, SelectMenuInteraction, Snowflake } from "discord.js";
+import type {
+	ApplicationCommandData,
+	ChatInputCommandInteraction,
+	Snowflake,
+	StringSelectMenuInteraction,
+} from "discord.js";
 import {
+	StringSelectMenuBuilder,
 	ActionRowBuilder,
 	ApplicationCommandType,
 	Collection,
 	PermissionsBitField,
-	SelectMenuBuilder,
 } from "discord.js";
 import Notification, { NotificationEvent } from "../../Structures/Notification.js";
 import type { ChatInputCommand } from "../index.js";
@@ -68,7 +73,7 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		const selectMenu = new SelectMenuBuilder()
+		const selectMenu = new StringSelectMenuBuilder()
 			.setCustomId(ROLES_SELECT_MENU_CUSTOM_ID)
 			.setMaxValues(options.size)
 			.setMinValues(0)
@@ -81,7 +86,7 @@ export default class implements ChatInputCommand {
 			)
 			.setPlaceholder("Select some roles!");
 
-		const actionRow = new ActionRowBuilder<SelectMenuBuilder>().setComponents(selectMenu);
+		const actionRow = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(selectMenu);
 
 		await interaction.reply({
 			content: "Self-assign roles to receive notifications!",
@@ -90,7 +95,7 @@ export default class implements ChatInputCommand {
 		});
 	}
 
-	public async apply(interaction: SelectMenuInteraction<"cached">) {
+	public async apply(interaction: StringSelectMenuInteraction<"cached">) {
 		const notification = Notification.cache.find(({ guildId }) => guildId === interaction.guildId);
 
 		if (!notification) {
