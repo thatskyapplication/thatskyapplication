@@ -341,7 +341,7 @@ export default new (class DailyGuides {
 
 		const regex =
 			// eslint-disable-next-line unicorn/no-unsafe-regex
-			/\*\*realm\*\*:\s*(?<realm>[ a-z]+)\n\*\*map\*\*:\s*(?<map>[ '()a-z]+)\n\*\*shard colou?r\*\*:\s*(?<color>red|black).+\n+\*\*shard timestamps\*\*.+\n(?<timestamps>.+\n.+\n.+)(?:\n\n\*\*shard data\*\*.+\n(?<data>https:\/\/[\d./a-z]+))?/i.exec(
+			/\*\*realm\*\*:\s*(?<realm>[ a-z]+)\n\*\*map\*\*:\s*(?<map>[ '()/a-z]+)\n\*\*shard colou?r\*\*:\s*(?<color>red|black).+\n+\*\*shard timestamps\*\*.+\n(?<timestamps>.+\n.+\n.+)(?:\n\n\*\*shard data\*\*.+\n(?<data>https:\/\/[\d./a-z]+))?/i.exec(
 				content,
 			);
 
