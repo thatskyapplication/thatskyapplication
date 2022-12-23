@@ -1,8 +1,19 @@
 import type { ApplicationCommandData, ChatInputCommandInteraction } from "discord.js";
-import { ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
+import {
+	TextInputStyle,
+	ActionRowBuilder,
+	ModalBuilder,
+	TextInputBuilder,
+	ApplicationCommandOptionType,
+	ApplicationCommandType,
+} from "discord.js";
 import DailyGuides from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import type { ChatInputCommand } from "../index.js";
+
+const D_DAILY_GUIDES_QUEST_1_MODAL = "D_DAILY_GUIDES_QUEST_1_MODAL" as const;
+const D_DAILY_GUIDES_QUEST_1_TEXT_INPUT_CONTENT = "D_DAILY_GUIDES_QUEST_1_TEXT_INPUT_CONTENT" as const;
+const D_DAILY_GUIDES_QUEST_1_TEXT_INPUT_URL = "D_DAILY_GUIDES_QUEST_1_TEXT_INPUT_URL" as const;
 
 export default class implements ChatInputCommand {
 	public readonly name = "d-daily-guides";
@@ -12,12 +23,17 @@ export default class implements ChatInputCommand {
 	public readonly developer = true;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		switch (interaction.options.getSubcommand()) {
+		const { options } = interaction;
+
+		switch (options.getSubcommandGroup() ?? options.getSubcommand()) {
 			case "distribute":
 				await this.distribute(interaction);
 				return;
 			case "parse":
 				await this.parse(interaction);
+				return;
+			case "set":
+				await this.set(interaction);
 		}
 	}
 
@@ -30,6 +46,40 @@ export default class implements ChatInputCommand {
 	public async parse(interaction: ChatInputCommandInteraction) {
 		await interaction.reply("Parsing daily guides.");
 		await DailyGuides.reCheck(interaction.client);
+	}
+
+	public async set(interaction: ChatInputCommandInteraction) {
+		switch (interaction.options.getSubcommand()) {
+			case "quest-1":
+				await this.setQuest1(interaction);
+		}
+	}
+
+	public async setQuest1(interaction: ChatInputCommandInteraction) {
+		const { quest1 } = DailyGuides;
+
+		const textInput = new TextInputBuilder()
+			.setCustomId(D_DAILY_GUIDES_QUEST_1_TEXT_INPUT_CONTENT)
+			.setLabel("The description of the first quest.")
+			.setRequired()
+			.setStyle(TextInputStyle.Short)
+			.setValue(quest1?.content ?? "");
+
+		const textInput2 = new TextInputBuilder()
+			.setCustomId(D_DAILY_GUIDES_QUEST_1_TEXT_INPUT_URL)
+			.setLabel("The URL of the first quest.")
+			.setRequired()
+			.setStyle(TextInputStyle.Short)
+			.setValue(quest1?.url ?? "");
+
+		const actionRow = new ActionRowBuilder<TextInputBuilder>().setComponents(textInput, textInput2);
+
+		const modal = new ModalBuilder()
+			.setTitle("Quest 1")
+			.setCustomId(D_DAILY_GUIDES_QUEST_1_MODAL)
+			.setComponents(actionRow);
+
+		await interaction.showModal(modal);
 	}
 
 	public get commandData(): ApplicationCommandData {
@@ -47,6 +97,18 @@ export default class implements ChatInputCommand {
 					type: ApplicationCommandOptionType.Subcommand,
 					name: "distribute",
 					description: "Manually distributes daily guides.",
+				},
+				{
+					type: ApplicationCommandOptionType.SubcommandGroup,
+					name: "set",
+					description: "Manually sets daily guides data.",
+					options: [
+						{
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "quest-1",
+							description: "Set the first quest data.",
+						},
+					],
 				},
 			],
 			defaultMemberPermissions: 0n,
