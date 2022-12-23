@@ -72,12 +72,13 @@ export default class implements ChatInputCommand {
 			.setStyle(TextInputStyle.Short)
 			.setValue(quest1?.url ?? "");
 
-		const actionRow = new ActionRowBuilder<TextInputBuilder>().setComponents(textInput, textInput2);
+		const actionRow = new ActionRowBuilder<TextInputBuilder>().setComponents(textInput);
+		const actionRow2 = new ActionRowBuilder<TextInputBuilder>().setComponents(textInput2);
 
 		const modal = new ModalBuilder()
-			.setTitle("Quest 1")
+			.setComponents(actionRow, actionRow2)
 			.setCustomId(D_DAILY_GUIDES_QUEST_1_MODAL)
-			.setComponents(actionRow);
+			.setTitle("Quest 1");
 
 		await interaction.showModal(modal);
 	}
