@@ -8,7 +8,7 @@ import type {
 import { ApplicationCommandType } from "discord.js";
 
 // Developer
-import developer from "./Developer/developer.js";
+import d_daily_guides from "./Developer/d-daily-guides.js";
 
 // Events
 import daily_guides from "./Events/daily-guides.js";
@@ -25,8 +25,8 @@ import spirit from "./General/spirit.js";
 const commands = {
 	bonk: new bonk(),
 	calculate: new calculate(),
+	"d-daily-guides": new d_daily_guides(),
 	"daily-guides": new daily_guides(),
-	developer: new developer(),
 	notifications: new notifications(),
 	roles: new roles(),
 	"Sky Profile": new Sky_Profile(),

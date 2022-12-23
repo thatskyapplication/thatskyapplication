@@ -9,6 +9,7 @@ import commands, {
 	isUserContextMenuCommand,
 } from "../Commands/index.js";
 import Profile from "../Structures/Profile.js";
+import { User } from "../Utility/Constants.js";
 import { consoleLog } from "../Utility/Utility.js";
 import type { Event } from "./index.js";
 
@@ -68,6 +69,11 @@ export const event: Event<typeof name> = {
 
 			const command = commands[commandName];
 
+			if ("developer" in command && command.developer && interaction.user.id !== User.Jiralite) {
+				await interaction.reply("Disallowed.");
+				return;
+			}
+
 			if (!isChatInputCommand(command)) {
 				void interaction.client.log(`Received an unknown chat input command interaction (\`${commandName}\`).`);
 				return;
@@ -98,6 +104,11 @@ export const event: Event<typeof name> = {
 
 			const command = commands[commandName];
 
+			if ("developer" in command && command.developer && interaction.user.id !== User.Jiralite) {
+				await interaction.reply("Disallowed.");
+				return;
+			}
+
 			if (!isUserContextMenuCommand(command)) {
 				void interaction.client.log(`Received an unknown user context menu command interaction (\`${commandName}\`).`);
 				return;
@@ -121,7 +132,6 @@ export const event: Event<typeof name> = {
 					);
 
 					await interaction.reply({ content: "This option does not exist in Ba Sing Se.", ephemeral: true });
-
 					return;
 				}
 
