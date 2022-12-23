@@ -1,5 +1,6 @@
-import type { ApplicationCommandData, ChatInputCommandInteraction } from "discord.js";
+import type { ApplicationCommandData, ChatInputCommandInteraction, ModalSubmitInteraction } from "discord.js";
 import {
+	codeBlock,
 	TextInputStyle,
 	ActionRowBuilder,
 	ModalBuilder,
@@ -11,7 +12,7 @@ import DailyGuides from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import type { ChatInputCommand } from "../index.js";
 
-const D_DAILY_GUIDES_QUEST_1_MODAL = "D_DAILY_GUIDES_QUEST_1_MODAL" as const;
+export const D_DAILY_GUIDES_QUEST_1_MODAL = "D_DAILY_GUIDES_QUEST_1_MODAL" as const;
 const D_DAILY_GUIDES_QUEST_1_TEXT_INPUT_CONTENT = "D_DAILY_GUIDES_QUEST_1_TEXT_INPUT_CONTENT" as const;
 const D_DAILY_GUIDES_QUEST_1_TEXT_INPUT_URL = "D_DAILY_GUIDES_QUEST_1_TEXT_INPUT_URL" as const;
 
@@ -81,6 +82,17 @@ export default class implements ChatInputCommand {
 			.setTitle("Quest 1");
 
 		await interaction.showModal(modal);
+	}
+
+	public async parseQuest1(interaction: ModalSubmitInteraction) {
+		const { fields } = interaction;
+		const content = fields.getTextInputValue(D_DAILY_GUIDES_QUEST_1_TEXT_INPUT_CONTENT);
+		const url = fields.getTextInputValue(D_DAILY_GUIDES_QUEST_1_TEXT_INPUT_URL);
+		await DailyGuides.updateQuest1({ content, url });
+
+		await interaction.reply(
+			`Successfully updated quest 1.\n${codeBlock("JSON", JSON.stringify(DailyGuides.quest1, null, 2))}`,
+		);
 	}
 
 	public get commandData(): ApplicationCommandData {

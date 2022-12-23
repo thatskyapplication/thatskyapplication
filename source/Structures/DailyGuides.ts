@@ -336,11 +336,7 @@ export default new (class DailyGuides {
 		const data = { content: output, url };
 
 		if (!this.quest1) {
-			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-				.update({ quest1: data })
-				.returning("*");
-
-			this.patch(dailyGuidesPacket);
+			await this.updateQuest1(data);
 			return;
 		}
 
@@ -372,6 +368,11 @@ export default new (class DailyGuides {
 		}
 
 		consoleLog("Attempted to parse a daily quest despite all quest variables exhausted.");
+	}
+
+	public async updateQuest1(data: DailyGuideQuest) {
+		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides).update({ quest1: data }).returning("*");
+		this.patch(dailyGuidesPacket);
 	}
 
 	public async parseTreasureCandles(content: string, attachments: Collection<Snowflake, Attachment>) {
