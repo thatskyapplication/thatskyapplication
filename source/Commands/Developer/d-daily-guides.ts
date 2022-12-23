@@ -45,7 +45,7 @@ export default class implements ChatInputCommand {
 				{
 					type: ApplicationCommandOptionType.Subcommand,
 					name: "distribute",
-					description: "Manually re-checks to distribute daily guides.",
+					description: "Manually distributes daily guides.",
 				},
 			],
 			defaultMemberPermissions: 0n,
