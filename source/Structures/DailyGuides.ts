@@ -106,6 +106,8 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 	},
 ] as const;
 
+export type QuestNumber = 1 | 2 | 3 | 4;
+
 function resolveRealm(rawRealm: string) {
 	const upperRawRealm = rawRealm.toUpperCase();
 
@@ -336,42 +338,33 @@ export default new (class DailyGuides {
 		const data = { content: output, url };
 
 		if (!this.quest1) {
-			await this.updateQuest1(data);
+			await this.updateQuest(data, 1);
 			return;
 		}
 
 		if (!this.quest2) {
-			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-				.update({ quest2: data })
-				.returning("*");
-
-			this.patch(dailyGuidesPacket);
+			await this.updateQuest(data, 2);
 			return;
 		}
 
 		if (!this.quest3) {
-			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-				.update({ quest3: data })
-				.returning("*");
-
-			this.patch(dailyGuidesPacket);
+			await this.updateQuest(data, 3);
 			return;
 		}
 
 		if (!this.quest4) {
-			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-				.update({ quest4: data })
-				.returning("*");
-
-			this.patch(dailyGuidesPacket);
+			await this.updateQuest(data, 4);
 			return;
 		}
 
 		consoleLog("Attempted to parse a daily quest despite all quest variables exhausted.");
 	}
 
-	public async updateQuest1(data: DailyGuideQuest) {
-		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides).update({ quest1: data }).returning("*");
+	public async updateQuest(questData: DailyGuideQuest, number: QuestNumber) {
+		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
+			.update({ [`quest${number}`]: questData })
+			.returning("*");
+
 		this.patch(dailyGuidesPacket);
 	}
 
