@@ -9,7 +9,7 @@ import {
 	ApplicationCommandType,
 } from "discord.js";
 import type { QuestNumber } from "../../Structures/DailyGuides.js";
-import DailyGuides from "../../Structures/DailyGuides.js";
+import DailyGuides, { isQuestNumber, QUEST_NUMBER } from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -67,11 +67,18 @@ export default class implements ChatInputCommand {
 			case "quest-2":
 			case "quest-3":
 			case "quest-4":
-				await this.setQuest(interaction, Number(subcommand.slice(-1)) as QuestNumber);
+				await this.setQuest(interaction);
 		}
 	}
 
-	public async setQuest(interaction: ChatInputCommandInteraction, number: QuestNumber) {
+	public async setQuest(interaction: ChatInputCommandInteraction) {
+		const number = interaction.options.getInteger("number", true);
+
+		if (!isQuestNumber(number)) {
+			await interaction.reply(`Detected an unknown quest number: ${number}.`);
+			return;
+		}
+
 		const { quest1, quest2, quest3, quest4 } = DailyGuides;
 		let quest;
 		let modalCustomId;
@@ -187,8 +194,16 @@ export default class implements ChatInputCommand {
 					options: [
 						{
 							type: ApplicationCommandOptionType.Subcommand,
-							name: "quest-1",
-							description: "Set the first quest data.",
+							name: "quest",
+							description: "Set the quest data.",
+							options: [
+								{
+									type: ApplicationCommandOptionType.Integer,
+									name: "number",
+									description: "The quest number to set the data of.",
+									choices: QUEST_NUMBER.map((questNumber) => ({ name: String(questNumber), value: questNumber })),
+								},
+							],
 						},
 						{
 							type: ApplicationCommandOptionType.Subcommand,
