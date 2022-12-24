@@ -63,10 +63,7 @@ export default class implements ChatInputCommand {
 		const subcommand = interaction.options.getSubcommand();
 
 		switch (subcommand) {
-			case "quest-1":
-			case "quest-2":
-			case "quest-3":
-			case "quest-4":
+			case "quest":
 				await this.setQuest(interaction);
 		}
 	}
@@ -202,6 +199,7 @@ export default class implements ChatInputCommand {
 									name: "number",
 									description: "The quest number to set the data of.",
 									choices: QUEST_NUMBER.map((questNumber) => ({ name: String(questNumber), value: questNumber })),
+									required: true,
 								},
 							],
 						},
