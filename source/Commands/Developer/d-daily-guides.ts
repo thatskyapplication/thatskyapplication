@@ -205,21 +205,6 @@ export default class implements ChatInputCommand {
 								},
 							],
 						},
-						{
-							type: ApplicationCommandOptionType.Subcommand,
-							name: "quest-2",
-							description: "Set the second quest data.",
-						},
-						{
-							type: ApplicationCommandOptionType.Subcommand,
-							name: "quest-3",
-							description: "Set the third quest data.",
-						},
-						{
-							type: ApplicationCommandOptionType.Subcommand,
-							name: "quest-4",
-							description: "Set the fourth quest data.",
-						},
 					],
 				},
 			],
