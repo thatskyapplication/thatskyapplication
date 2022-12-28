@@ -50,7 +50,10 @@ export default class implements ChatInputCommand {
 			})}`,
 		).then(async ({ body }) => body.json());
 
-		await interaction.reply({ content: `${user}, ${interaction.user} hugged you!`, files: [response.results[0].url] });
+		await interaction.reply({
+			content: `${user}, ${interaction.user} hugged you!`,
+			files: [response.results[0].media_formats.gif.url],
+		});
 	}
 
 	public get commandData(): ApplicationCommandData {
