@@ -4,6 +4,22 @@ import { makeURLSearchParams, ApplicationCommandOptionType, ApplicationCommandTy
 import { request } from "undici";
 import type { ChatInputCommand } from "../index.js";
 
+interface TenorResponse {
+	results: TenorResult[];
+}
+
+interface TenorResult {
+	media_formats: TenorMediaFormat;
+}
+
+interface TenorMediaFormat {
+	gif: TenorMediaObject;
+}
+
+interface TenorMediaObject {
+	url: string;
+}
+
 const { TENOR_KEY } = process.env;
 if (!TENOR_KEY) throw new Error("Tenor API key missing.");
 
@@ -13,7 +29,7 @@ export default class implements ChatInputCommand {
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { options } = interaction;
+		const { client, locale, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
 
@@ -36,14 +52,13 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		const response = await request(
+		const response: TenorResponse = await request(
 			`https://tenor.googleapis.com/v2/search?${makeURLSearchParams({
 				key: TENOR_KEY,
 				// eslint-disable-next-line id-length
 				q: "anime hug",
-				client_key: "Caelus",
-				country: "LT",
-				locale: "en-GB",
+				client_key: client.user.username,
+				locale,
 				media_filter: "gif",
 				random: true,
 				limit: 1,
