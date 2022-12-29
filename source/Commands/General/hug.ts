@@ -1,6 +1,12 @@
 import process from "node:process";
 import type { ApplicationCommandData, ChatInputCommandInteraction } from "discord.js";
-import { makeURLSearchParams, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
+import {
+	PermissionFlagsBits,
+	PermissionsBitField,
+	makeURLSearchParams,
+	ApplicationCommandOptionType,
+	ApplicationCommandType,
+} from "discord.js";
 import { request } from "undici";
 import type { ChatInputCommand } from "../index.js";
 
@@ -57,6 +63,17 @@ export default class implements ChatInputCommand {
 
 		if (!member) {
 			await interaction.reply({ content: `${user} is not in this server to be hugged.`, ephemeral: true });
+			return;
+		}
+
+		if (
+			!(
+				typeof member.permissions === "string"
+					? new PermissionsBitField(BigInt(member.permissions))
+					: member.permissions
+			).has(PermissionFlagsBits.ViewChannel)
+		) {
+			await interaction.reply({ content: `${user} is not around for the hug! .`, ephemeral: true });
 			return;
 		}
 
