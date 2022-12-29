@@ -1,6 +1,7 @@
 import process from "node:process";
 import type { ApplicationCommandData, ChatInputCommandInteraction } from "discord.js";
 import {
+	EmbedBuilder,
 	PermissionFlagsBits,
 	makeURLSearchParams,
 	ApplicationCommandOptionType,
@@ -51,7 +52,7 @@ export default class implements ChatInputCommand {
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { channel, client, locale, options } = interaction;
+		const { channel, client, guild, locale, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
 
@@ -97,10 +98,11 @@ export default class implements ChatInputCommand {
 			})}`,
 		).then(async ({ body }) => body.json());
 
-		await interaction.reply({
-			content: `${user}, ${interaction.user} hugged you!`,
-			files: [response.results[0].media_formats.gif.url],
-		});
+		const embed = new EmbedBuilder()
+			.setColor((await guild?.members.fetchMe())?.displayColor ?? 0)
+			.setImage(response.results[0].media_formats.gif.url);
+
+		await interaction.reply({ content: `${user}, ${interaction.user} hugged you!`, embeds: [embed] });
 	}
 
 	public get commandData(): ApplicationCommandData {
