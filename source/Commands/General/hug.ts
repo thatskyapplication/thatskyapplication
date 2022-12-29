@@ -2,7 +2,6 @@ import process from "node:process";
 import type { ApplicationCommandData, ChatInputCommandInteraction } from "discord.js";
 import {
 	PermissionFlagsBits,
-	PermissionsBitField,
 	makeURLSearchParams,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
@@ -52,7 +51,7 @@ export default class implements ChatInputCommand {
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { client, locale, options } = interaction;
+		const { channel, client, locale, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
 
@@ -67,13 +66,12 @@ export default class implements ChatInputCommand {
 		}
 
 		if (
-			!(
-				typeof member.permissions === "string"
-					? new PermissionsBitField(BigInt(member.permissions))
-					: member.permissions
-			).has(PermissionFlagsBits.ViewChannel)
+			channel &&
+			"user" in member &&
+			!channel.isDMBased() &&
+			!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
 		) {
-			await interaction.reply({ content: `${user} is not around for the hug! .`, ephemeral: true });
+			await interaction.reply({ content: `${user} is not around for the hug!`, ephemeral: true });
 			return;
 		}
 
