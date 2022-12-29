@@ -23,6 +23,23 @@ interface TenorMediaObject {
 const { TENOR_KEY } = process.env;
 if (!TENOR_KEY) throw new Error("Tenor API key missing.");
 
+const QUERIES = [
+	"anime hug",
+	"anime hugs",
+	"manga hug",
+	"anime cuddle",
+	"manga cuddle",
+	"anime boy hug",
+	"anime girl hug",
+	"anime tight hug",
+	"anime long hug",
+	"anime sudden hug",
+	"anime hug sad",
+	"anime hug happy",
+	"anime wholesome hug",
+	"anime jump hug",
+] as const;
+
 export default class implements ChatInputCommand {
 	public readonly name = "hug";
 
@@ -56,7 +73,7 @@ export default class implements ChatInputCommand {
 			`https://tenor.googleapis.com/v2/search?${makeURLSearchParams({
 				key: TENOR_KEY,
 				// eslint-disable-next-line id-length
-				q: "anime hug",
+				q: QUERIES[Math.floor(Math.random() * QUERIES.length)],
 				client_key: client.user.username,
 				locale,
 				media_filter: "gif",
