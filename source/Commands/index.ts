@@ -17,6 +17,7 @@ import notifications from "./Events/notifications.js";
 // General
 import bonk from "./General/bonk.js";
 import calculate from "./General/calculate.js";
+import hug from "./General/hug.js";
 import roles from "./General/roles.js";
 import Sky_Profile from "./General/Sky Profile.js";
 import sky_profile from "./General/sky-profile.js";
@@ -27,6 +28,7 @@ const commands = {
 	calculate: new calculate(),
 	"d-daily-guides": new d_daily_guides(),
 	"daily-guides": new daily_guides(),
+	hug: new hug(),
 	notifications: new notifications(),
 	roles: new roles(),
 	"Sky Profile": new Sky_Profile(),
