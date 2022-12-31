@@ -1,5 +1,5 @@
 import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
-import { ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
+import { PermissionFlagsBits, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -134,7 +134,7 @@ export default class implements ChatInputCommand {
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { options } = interaction;
+		const { channel, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
 
@@ -145,6 +145,16 @@ export default class implements ChatInputCommand {
 
 		if (!member) {
 			await interaction.reply({ content: `${user} is not in this server to be bonked.`, ephemeral: true });
+			return;
+		}
+
+		if (
+			channel &&
+			"user" in member &&
+			!channel.isDMBased() &&
+			!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
+		) {
+			await interaction.reply({ content: `${user} is not around for the bonk!`, ephemeral: true });
 			return;
 		}
 
@@ -167,7 +177,7 @@ export default class implements ChatInputCommand {
 				.merge({ count: pg.raw("?? + 1", `${Table.Bonks}.count`) })
 				.returning("count");
 
-			if (count % 50 === 0) bonkMessage += `\n${user} has been bonked ${count} times!`;
+			if (count % 25 === 0) bonkMessage += `\n${user} has been bonked ${count} times!`;
 		}
 
 		await interaction.reply(bonkMessage);
