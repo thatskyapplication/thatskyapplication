@@ -167,7 +167,7 @@ export default class implements ChatInputCommand {
 				.merge({ count: pg.raw("?? + 1", `${Table.Bonks}.count`) })
 				.returning("count");
 
-			if (count % 50 === 0) bonkMessage += `\n${user} has been bonked ${count} times!`;
+			if (count % 25 === 0) bonkMessage += `\n${user} has been bonked ${count} times!`;
 		}
 
 		await interaction.reply(bonkMessage);
