@@ -1,5 +1,5 @@
 import process from "node:process";
-import type { ApplicationCommandData, ChatInputCommandInteraction } from "discord.js";
+import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
 import {
 	EmbedBuilder,
 	PermissionFlagsBits,
@@ -8,7 +8,13 @@ import {
 	ApplicationCommandType,
 } from "discord.js";
 import { request } from "undici";
+import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
+
+interface HugPacket {
+	user_id: Snowflake;
+	count: number;
+}
 
 interface TenorResponse {
 	results: TenorResult[];
@@ -98,11 +104,20 @@ export default class implements ChatInputCommand {
 			})}`,
 		).then(async ({ body }) => body.json());
 
+		let hugMessage = `${user}, ${interaction.user} hugged you!`;
+
 		const embed = new EmbedBuilder()
 			.setColor((await guild?.members.fetchMe())?.displayColor ?? 0)
 			.setImage(response.results[0].media_formats.gif.url);
 
-		await interaction.reply({ content: `${user}, ${interaction.user} hugged you!`, embeds: [embed] });
+		const [{ count }] = await pg<HugPacket>(Table.Hugs)
+			.insert({ user_id: user.id, count: 1 })
+			.onConflict("user_id")
+			.merge({ count: pg.raw("?? + 1", `${Table.Hugs}.count`) })
+			.returning("count");
+
+		if (count % 25 === 0) hugMessage += `\n${user} has been hugged ${count} times!`;
+		await interaction.reply({ content: hugMessage, embeds: [embed] });
 	}
 
 	public get commandData(): ApplicationCommandData {
