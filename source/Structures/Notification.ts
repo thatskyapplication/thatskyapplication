@@ -11,8 +11,6 @@ export interface NotificationPacket {
 	grandma_role_id: Snowflake | null;
 	turtle_channel_id: Snowflake | null;
 	turtle_role_id: Snowflake | null;
-	concert_channel_id: Snowflake | null;
-	concert_role_id: Snowflake | null;
 }
 
 interface NotificationData {
@@ -24,8 +22,6 @@ interface NotificationData {
 	grandmaRoleId: NotificationPacket["grandma_role_id"];
 	turtleChannelId: NotificationPacket["turtle_channel_id"];
 	turtleRoleId: NotificationPacket["turtle_role_id"];
-	concertChannelId: NotificationPacket["concert_channel_id"];
-	concertRoleId: NotificationPacket["concert_role_id"];
 }
 
 type NotificationPatchData = Omit<NotificationPacket, "id" | "guild_id">;
@@ -36,7 +32,6 @@ export enum NotificationEvent {
 	PollutedGeyser = "Polluted Geyser",
 	Grandma = "Grandma",
 	Turtle = "Turtle",
-	Concert = "Concert",
 }
 
 export function isEvent(event: string): event is NotificationEvent {
@@ -62,10 +57,6 @@ export default class Notification {
 
 	public turtleRoleId!: NotificationData["turtleRoleId"];
 
-	public concertChannelId!: NotificationData["concertChannelId"];
-
-	public concertRoleId!: NotificationData["concertRoleId"];
-
 	public constructor(notification: NotificationPacket) {
 		this.id = notification.id;
 		this.guildId = notification.guild_id;
@@ -79,8 +70,6 @@ export default class Notification {
 		this.grandmaRoleId = data.grandma_role_id;
 		this.turtleChannelId = data.turtle_channel_id;
 		this.turtleRoleId = data.turtle_role_id;
-		this.concertChannelId = data.concert_channel_id;
-		this.concertRoleId = data.concert_role_id;
 	}
 
 	public static async setup(
@@ -130,8 +119,6 @@ export default class Notification {
 			grandmaRoleId,
 			turtleChannelId,
 			turtleRoleId,
-			concertChannelId,
-			concertRoleId,
 		} = this;
 		let channelId;
 		let roleId;
@@ -148,10 +135,6 @@ export default class Notification {
 			case NotificationEvent.Turtle:
 				channelId = turtleChannelId;
 				roleId = turtleRoleId;
-				break;
-			case NotificationEvent.Concert:
-				channelId = concertChannelId;
-				roleId = concertRoleId;
 				break;
 		}
 
@@ -180,8 +163,6 @@ export default class Notification {
 			grandmaRoleId,
 			turtleChannelId,
 			turtleRoleId,
-			concertChannelId,
-			concertRoleId,
 		} = this;
 		const pollutedGeyserChannel = pollutedGeyserChannelId ? guild?.channels.resolve(pollutedGeyserChannelId) : null;
 		const pollutedGeyserRole = pollutedGeyserRoleId ? guild?.roles.resolve(pollutedGeyserRoleId) : null;
@@ -189,8 +170,6 @@ export default class Notification {
 		const grandmaRole = grandmaRoleId ? guild?.roles.resolve(grandmaRoleId) : null;
 		const turtleChannel = turtleChannelId ? guild?.channels.resolve(turtleChannelId) : null;
 		const turtleRole = turtleRoleId ? guild?.roles.resolve(turtleRoleId) : null;
-		const concertChannel = concertChannelId ? guild?.channels.resolve(concertChannelId) : null;
-		const concertRole = concertRoleId ? guild?.roles.resolve(concertRoleId) : null;
 
 		return new EmbedBuilder()
 			.setColor(me.displayColor)
@@ -236,21 +215,6 @@ export default class Notification {
 							?.permissionsFor(me)
 							.has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) ||
 							(turtleRole?.mentionable && turtleChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)))
-							? "✅ Sending!"
-							: "⚠️ Stopped!"
-					}`,
-					inline: true,
-				},
-				{
-					name: NotificationEvent.Concert,
-					value: `${concertChannelId ? channelMention(concertChannelId) : "No channel"}\n${
-						concertRoleId ? roleMention(concertRoleId) : "No role"
-					}\n${
-						me &&
-						(concertChannel
-							?.permissionsFor(me)
-							.has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) ||
-							(concertRole?.mentionable && concertChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)))
 							? "✅ Sending!"
 							: "⚠️ Stopped!"
 					}`,

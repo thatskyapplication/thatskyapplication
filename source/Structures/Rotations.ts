@@ -37,15 +37,6 @@ export default new (class {
 							break;
 					}
 				}
-
-				if (
-					// AURORA concert end date.
-					Date.UTC(2_023, 0, 3, 8) > now &&
-					// We'll send a notification 15 minutes before each concert.
-					hours % 4 === 3 &&
-					minutes === 45
-				)
-					sendNotification(client, NotificationEvent.Concert);
 			}
 		}, 1_000);
 	}

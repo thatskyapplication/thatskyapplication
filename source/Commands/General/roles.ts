@@ -40,8 +40,6 @@ export default class implements ChatInputCommand {
 			grandmaRoleId,
 			turtleChannelId,
 			turtleRoleId,
-			concertChannelId,
-			concertRoleId,
 		} = notification;
 
 		if (pollutedGeyserChannelId && pollutedGeyserRoleId)
@@ -49,7 +47,6 @@ export default class implements ChatInputCommand {
 
 		if (grandmaChannelId && grandmaRoleId) roles.set(NotificationEvent.Grandma, grandmaRoleId);
 		if (turtleChannelId && turtleRoleId) roles.set(NotificationEvent.Turtle, turtleRoleId);
-		if (concertChannelId && concertRoleId) roles.set(NotificationEvent.Concert, concertRoleId);
 		return roles;
 	}
 

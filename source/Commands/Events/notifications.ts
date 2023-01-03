@@ -95,10 +95,6 @@ export default class implements ChatInputCommand {
 				data.turtle_channel_id = channel.id;
 				data.turtle_role_id = role.id;
 				break;
-			case NotificationEvent.Concert:
-				data.concert_channel_id = channel.id;
-				data.concert_role_id = role.id;
-				break;
 		}
 
 		await Notification.setup(interaction, data);
@@ -140,10 +136,6 @@ export default class implements ChatInputCommand {
 			case NotificationEvent.Turtle:
 				data.turtle_channel_id = null;
 				data.turtle_role_id = null;
-				break;
-			case NotificationEvent.Concert:
-				data.concert_channel_id = null;
-				data.concert_role_id = null;
 				break;
 		}
 
