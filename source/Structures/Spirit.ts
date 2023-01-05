@@ -573,6 +573,7 @@ export default [
 		season: Season.Assembly,
 		expression: Expression.Facepalm,
 		realm: Realm.HiddenForest,
+		offer: { candles: 127, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.ScoldingStudent,
