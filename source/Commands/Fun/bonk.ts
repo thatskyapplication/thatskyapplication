@@ -66,7 +66,11 @@ const bonks = [
 	},
 	{
 		message:
-			"{{bonker}} hooked up with El Guapo, a pirate, and some sort of squirrel to figure out how to bonk {{bonkee}}. They're still working on it.",
+			"{{bonker}} hooked up with {{entry1}}, {{entry2}}, and {{entry3}} to figure out how to bonk {{bonkee}}. They're still working on it.",
+		entries: [
+			["El Guapo", "a pirate", "some sort of squirrel"],
+			["Dracula", "Pope Francis", "a pet lizard"],
+		] satisfies [string, string, string][],
 		successful: false,
 	},
 	{
@@ -165,11 +169,6 @@ const bonks = [
 	},
 	{
 		message:
-			"{{bonker}} hooked up with Dracula, Pope Francis, and a pet lizard to figure out how to bonk {{bonkee}}. They're still working on it.",
-		successful: false,
-	},
-	{
-		message:
 			"{{bonker}} jumped on a trampoline, somersaulted 14 times, entered a dive position, and bonked {{bonkee}}. It was a perfect landing.",
 		successful: true,
 	},
@@ -214,8 +213,19 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		const { message, successful } = bonks[Math.floor(Math.random() * bonks.length)];
+		const bonk = bonks[Math.floor(Math.random() * bonks.length)];
+		const { message, successful } = bonk;
 		let bonkMessage = message.replaceAll("{{bonker}}", String(interaction.user)).replaceAll("{{bonkee}}", String(user));
+
+		if ("entries" in bonk) {
+			const { entries } = bonk;
+			const [entry1, entry2, entry3] = entries[Math.floor(Math.random() * entries.length)];
+
+			bonkMessage = bonkMessage
+				.replace("{{entry1}}", entry1)
+				.replace("{{entry2}}", entry2)
+				.replace("{{entry3}}", entry3);
+		}
 
 		if (successful) {
 			const [{ count }] = await pg<BonkPacket>(Table.Bonks)
