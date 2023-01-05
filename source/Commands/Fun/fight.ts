@@ -2,6 +2,17 @@ import type { ApplicationCommandData, ChatInputCommandInteraction } from "discor
 import { PermissionFlagsBits, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
 import type { ChatInputCommand } from "../index.js";
 
+const fights = [
+	{
+		message: "PEW PEW! {{fighter}} picked a fight with {{fightee}}.",
+		successful: true,
+	},
+	{
+		message: "COLLATERAL DAMAGE! {{fighter}} picked a fight with {{fightee}}.",
+		successful: true,
+	},
+] as const;
+
 export default class implements ChatInputCommand {
 	public readonly name = "fight";
 
@@ -41,7 +52,11 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		await interaction.reply({ content: `PEW PEW! ${interaction.user} picked a fight with ${user}.` });
+		await interaction.reply({
+			content: fights[Math.floor(Math.random() * fights.length)].message
+				.replaceAll("{{fighter}}", String(interaction.user))
+				.replaceAll("{{fightee}}", String(user)),
+		});
 	}
 
 	public get commandData(): ApplicationCommandData {
