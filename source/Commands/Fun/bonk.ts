@@ -70,6 +70,9 @@ const bonks = [
 		entries: [
 			["El Guapo", "a pirate", "some sort of squirrel"],
 			["Dracula", "Pope Francis", "a pet lizard"],
+			["a moth", "the captain of the underworld", "Perry the Platypus"],
+			["Ed Sheeran", "a local microwave from a local fishing shop", "a piece of sentient bubble wrap"],
+			["a duck", "A ganster in Japan", "a piece of sentient bubble wrap"],
 		] satisfies [string, string, string][],
 		successful: false,
 	},
