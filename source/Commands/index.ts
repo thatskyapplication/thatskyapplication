@@ -16,6 +16,7 @@ import notifications from "./Events/notifications.js";
 
 // Fun
 import bonk from "./Fun/bonk.js";
+import fight from "./Fun/fight.js";
 import hug from "./Fun/hug.js";
 
 // General
@@ -30,6 +31,7 @@ const commands = {
 	calculate: new calculate(),
 	"d-daily-guides": new d_daily_guides(),
 	"daily-guides": new daily_guides(),
+	fight: new fight(),
 	hug: new hug(),
 	notifications: new notifications(),
 	roles: new roles(),
