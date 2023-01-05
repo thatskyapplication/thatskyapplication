@@ -126,6 +126,53 @@ const bonks = [
 		message: "It's time to bonk {{bonkee}}. {{bonker}} did the deed.",
 		successful: true,
 	},
+	{
+		message: "PEW PEW! {{bonker}} bonked {{bonkee}}.",
+		successful: true,
+	},
+	{
+		message: "COLLATERAL DAMAGE! {{bonker}} bonked {{bonkee}}.",
+		successful: true,
+	},
+	{
+		message: "{{bonker}} used bonk! It's super effective! {{bonkee}} took a lot of damage!",
+		successful: true,
+	},
+	{
+		message: "{{bonker}} used bonk! It didn't affect {{bonkee}}...",
+		successful: false,
+	},
+	{
+		message: "{{bonker}} used bonk! It's not very effective... {{bonkee}} didn't take that much damage.",
+		successful: true,
+	},
+	{
+		message: "{{bonker}} bonked {{bonkee}}, but at what cost?",
+		successful: true,
+	},
+	{
+		message: "Roses are red,\nViolets are blue,\n{{bonker}} bonked {{bonkee}},\nAnd smacked them up too.",
+		successful: true,
+	},
+	{
+		message:
+			"A bee lands on {{bonkee}}'s head, but flies off after a few seconds. Taking advantage of the situation, {{bonker}} bonks {{bonkee}} anyway.",
+		successful: true,
+	},
+	{
+		message: "{{bonkee}} can deal with the bad nights, but not when {{bonker}} bonks them. BONK.",
+		successful: true,
+	},
+	{
+		message:
+			"{{bonker}} hooked up with Dracula, Pope Francis, and a pet lizard to figure out how to bonk {{bonkee}}. They're still working on it.",
+		successful: false,
+	},
+	{
+		message:
+			"{{bonker}} jumped on a trampoline, somersaulted 14 times, entered a dive position, and bonked {{bonkee}}. It was a perfect landing.",
+		successful: true,
+	},
 ] as const;
 
 export default class implements ChatInputCommand {
