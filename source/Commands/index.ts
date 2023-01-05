@@ -14,10 +14,12 @@ import d_daily_guides from "./Developer/d-daily-guides.js";
 import daily_guides from "./Events/daily-guides.js";
 import notifications from "./Events/notifications.js";
 
+// Fun
+import bonk from "./Fun/bonk.js";
+import hug from "./Fun/hug.js";
+
 // General
-import bonk from "./General/bonk.js";
 import calculate from "./General/calculate.js";
-import hug from "./General/hug.js";
 import roles from "./General/roles.js";
 import Sky_Profile from "./General/Sky Profile.js";
 import sky_profile from "./General/sky-profile.js";
