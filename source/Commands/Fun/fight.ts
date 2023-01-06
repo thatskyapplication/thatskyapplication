@@ -16,10 +16,15 @@ if (!TENOR_KEY) throw new Error("Tenor API key missing.");
 const QUERIES = [
 	"anime fight",
 	"manga fight",
+	"anime sword fight",
+	"anime fist fight",
+	"anime magic fight",
+	"anime gun fight",
 	"anime fighting",
 	"anime kill",
 	"anime destroy",
 	"anime slam",
+	"anime smash",
 ] as const satisfies Readonly<string[]>;
 
 export default class implements ChatInputCommand {
