@@ -13,6 +13,15 @@ import type { ChatInputCommand, TenorResponse } from "../index.js";
 const { TENOR_KEY } = process.env;
 if (!TENOR_KEY) throw new Error("Tenor API key missing.");
 
+const QUERIES = [
+	"anime fight",
+	"manga fight",
+	"anime fighting",
+	"anime kill",
+	"anime destroy",
+	"anime slam",
+] as const satisfies Readonly<string[]>;
+
 export default class implements ChatInputCommand {
 	public readonly name = "fight";
 
@@ -56,7 +65,7 @@ export default class implements ChatInputCommand {
 			`https://tenor.googleapis.com/v2/search?${makeURLSearchParams({
 				key: TENOR_KEY,
 				// eslint-disable-next-line id-length
-				q: "anime fight",
+				q: QUERIES[Math.floor(Math.random() * QUERIES.length)],
 				client_key: client.user.username,
 				locale,
 				media_filter: "gif",
