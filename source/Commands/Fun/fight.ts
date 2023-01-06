@@ -1,17 +1,17 @@
+import process from "node:process";
 import type { ApplicationCommandData, ChatInputCommandInteraction } from "discord.js";
-import { PermissionFlagsBits, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
-import type { ChatInputCommand } from "../index.js";
+import {
+	EmbedBuilder,
+	makeURLSearchParams,
+	PermissionFlagsBits,
+	ApplicationCommandOptionType,
+	ApplicationCommandType,
+} from "discord.js";
+import { request } from "undici";
+import type { ChatInputCommand, TenorResponse } from "../index.js";
 
-const fights = [
-	{
-		message: "PEW PEW! {{fighter}} picked a fight with {{fightee}}.",
-		successful: true,
-	},
-	{
-		message: "COLLATERAL DAMAGE! {{fighter}} picked a fight with {{fightee}}.",
-		successful: true,
-	},
-] as const;
+const { TENOR_KEY } = process.env;
+if (!TENOR_KEY) throw new Error("Tenor API key missing.");
 
 export default class implements ChatInputCommand {
 	public readonly name = "fight";
@@ -19,7 +19,7 @@ export default class implements ChatInputCommand {
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { channel, options } = interaction;
+		const { channel, client, guild, locale, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
 
@@ -52,11 +52,24 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		await interaction.reply({
-			content: fights[Math.floor(Math.random() * fights.length)].message
-				.replaceAll("{{fighter}}", String(interaction.user))
-				.replaceAll("{{fightee}}", String(user)),
-		});
+		const response: TenorResponse = await request(
+			`https://tenor.googleapis.com/v2/search?${makeURLSearchParams({
+				key: TENOR_KEY,
+				// eslint-disable-next-line id-length
+				q: "anime fight",
+				client_key: client.user.username,
+				locale,
+				media_filter: "gif",
+				random: true,
+				limit: 1,
+			})}`,
+		).then(async ({ body }) => body.json());
+
+		const embed = new EmbedBuilder()
+			.setColor((await guild?.members.fetchMe())?.displayColor ?? 0)
+			.setImage(response.results[0].media_formats.gif.url);
+
+		await interaction.reply({ content: `${interaction.user} is fighting ${user}!`, embeds: [embed] });
 	}
 
 	public get commandData(): ApplicationCommandData {

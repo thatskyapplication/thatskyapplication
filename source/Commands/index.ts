@@ -77,4 +77,20 @@ export interface UserContextMenuCommand extends BaseCommandData {
 	userContextMenu(interaction: UserContextMenuCommandInteraction): Promise<void>;
 }
 
+export interface TenorResponse {
+	results: TenorResult[];
+}
+
+interface TenorResult {
+	media_formats: TenorMediaFormat;
+}
+
+interface TenorMediaFormat {
+	gif: TenorMediaObject;
+}
+
+interface TenorMediaObject {
+	url: string;
+}
+
 export default commands;

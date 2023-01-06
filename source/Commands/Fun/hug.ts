@@ -9,27 +9,11 @@ import {
 } from "discord.js";
 import { request } from "undici";
 import pg, { Table } from "../../pg.js";
-import type { ChatInputCommand } from "../index.js";
+import type { ChatInputCommand, TenorResponse } from "../index.js";
 
 interface HugPacket {
 	user_id: Snowflake;
 	count: number;
-}
-
-interface TenorResponse {
-	results: TenorResult[];
-}
-
-interface TenorResult {
-	media_formats: TenorMediaFormat;
-}
-
-interface TenorMediaFormat {
-	gif: TenorMediaObject;
-}
-
-interface TenorMediaObject {
-	url: string;
 }
 
 const { TENOR_KEY } = process.env;
