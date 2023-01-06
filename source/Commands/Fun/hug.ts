@@ -34,7 +34,7 @@ const QUERIES = [
 	"anime hug happy",
 	"anime wholesome hug",
 	"anime jump hug",
-] as const;
+] as const satisfies Readonly<string[]>;
 
 export default class implements ChatInputCommand {
 	public readonly name = "hug";
