@@ -1,23 +1,13 @@
-import process from "node:process";
 import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
-import {
-	EmbedBuilder,
-	makeURLSearchParams,
-	PermissionFlagsBits,
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
-} from "discord.js";
-import { request } from "undici";
+import { EmbedBuilder, PermissionFlagsBits, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
+import { search } from "../../Utility/Tenor.js";
 import pg, { Table } from "../../pg.js";
-import type { ChatInputCommand, TenorResponse } from "../index.js";
+import type { ChatInputCommand } from "../index.js";
 
 interface FightPacket {
 	user_id: Snowflake;
 	count: number;
 }
-
-const { TENOR_KEY } = process.env;
-if (!TENOR_KEY) throw new Error("Tenor API key missing.");
 
 const QUERIES = [
 	"anime fight",
@@ -72,18 +62,11 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		const response: TenorResponse = await request(
-			`https://tenor.googleapis.com/v2/search?${makeURLSearchParams({
-				key: TENOR_KEY,
-				// eslint-disable-next-line id-length
-				q: QUERIES[Math.floor(Math.random() * QUERIES.length)],
-				client_key: client.user.username,
-				locale,
-				media_filter: "gif",
-				random: true,
-				limit: 1,
-			})}`,
-		).then(async ({ body }) => body.json());
+		const response = await search({
+			query: QUERIES[Math.floor(Math.random() * QUERIES.length)],
+			clientKey: client.user.username,
+			locale,
+		});
 
 		let fightMessage = `${interaction.user} is fighting ${user}!`;
 
