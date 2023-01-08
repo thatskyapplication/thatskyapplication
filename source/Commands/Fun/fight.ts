@@ -2,8 +2,8 @@ import process from "node:process";
 import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
 import {
 	EmbedBuilder,
-	PermissionFlagsBits,
 	makeURLSearchParams,
+	PermissionFlagsBits,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 } from "discord.js";
@@ -11,7 +11,7 @@ import { request } from "undici";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand, TenorResponse } from "../index.js";
 
-interface HugPacket {
+interface FightPacket {
 	user_id: Snowflake;
 	count: number;
 }
@@ -20,24 +20,21 @@ const { TENOR_KEY } = process.env;
 if (!TENOR_KEY) throw new Error("Tenor API key missing.");
 
 const QUERIES = [
-	"anime hug",
-	"anime hugs",
-	"manga hug",
-	"anime cuddle",
-	"manga cuddle",
-	"anime boy hug",
-	"anime girl hug",
-	"anime tight hug",
-	"anime long hug",
-	"anime sudden hug",
-	"anime hug sad",
-	"anime hug happy",
-	"anime wholesome hug",
-	"anime jump hug",
+	"anime fight",
+	"manga fight",
+	"anime sword fight",
+	"anime fist fight",
+	"anime magic fight",
+	"anime gun fight",
+	"anime fighting",
+	"anime kill",
+	"anime destroy",
+	"anime slam",
+	"anime smash",
 ] as const satisfies Readonly<string[]>;
 
 export default class implements ChatInputCommand {
-	public readonly name = "hug";
+	public readonly name = "fight";
 
 	public readonly type = ApplicationCommandType.ChatInput;
 
@@ -47,12 +44,12 @@ export default class implements ChatInputCommand {
 		const member = options.getMember("user");
 
 		if (user.id === interaction.user.id) {
-			await interaction.reply({ content: `Share the love! Hug someone other than yourself!`, ephemeral: true });
+			await interaction.reply({ content: `No harm self! No no no!`, ephemeral: true });
 			return;
 		}
 
 		if (!member) {
-			await interaction.reply({ content: `${user} is not in this server to be hugged.`, ephemeral: true });
+			await interaction.reply({ content: `${user} is not in this server to fight.`, ephemeral: true });
 			return;
 		}
 
@@ -62,13 +59,13 @@ export default class implements ChatInputCommand {
 			!channel.isDMBased() &&
 			!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
 		) {
-			await interaction.reply({ content: `${user} is not around for the hug!`, ephemeral: true });
+			await interaction.reply({ content: `${user} is not around for the fight!`, ephemeral: true });
 			return;
 		}
 
 		if (user.bot) {
 			await interaction.reply({
-				content: `${user} is a bot. They're pretty emotionless. Immune to hugs, I'd say.`,
+				content: `${user} is a bot. They're pretty durable. Immune to fights, I'd say.`,
 				ephemeral: true,
 			});
 
@@ -88,32 +85,32 @@ export default class implements ChatInputCommand {
 			})}`,
 		).then(async ({ body }) => body.json());
 
-		let hugMessage = `${user}, ${interaction.user} hugged you!`;
+		let fightMessage = `${interaction.user} is fighting ${user}!`;
 
 		const embed = new EmbedBuilder()
 			.setColor((await guild?.members.fetchMe())?.displayColor ?? 0)
 			.setImage(response.results[0].media_formats.gif.url);
 
-		const [{ count }] = await pg<HugPacket>(Table.Hugs)
+		const [{ count }] = await pg<FightPacket>(Table.Fights)
 			.insert({ user_id: user.id, count: 1 })
 			.onConflict("user_id")
-			.merge({ count: pg.raw("?? + 1", `${Table.Hugs}.count`) })
+			.merge({ count: pg.raw("?? + 1", `${Table.Fights}.count`) })
 			.returning("count");
 
-		if (count % 25 === 0) hugMessage += `\n${user} has been hugged ${count} times!`;
-		await interaction.reply({ content: hugMessage, embeds: [embed] });
+		if (count % 25 === 0) fightMessage += `\n${user} has been fought ${count} times!`;
+		await interaction.reply({ content: fightMessage, embeds: [embed] });
 	}
 
 	public get commandData(): ApplicationCommandData {
 		return {
 			name: this.name,
-			description: "Hug someone!",
+			description: "Fight someone!",
 			type: this.type,
 			options: [
 				{
 					type: ApplicationCommandOptionType.User,
 					name: "user",
-					description: "The individual to be hugged.",
+					description: "The individual to fight.",
 					required: true,
 				},
 			],

@@ -16,6 +16,7 @@ import notifications from "./Events/notifications.js";
 
 // Fun
 import bonk from "./Fun/bonk.js";
+import fight from "./Fun/fight.js";
 import hug from "./Fun/hug.js";
 
 // General
@@ -30,6 +31,7 @@ const commands = {
 	calculate: new calculate(),
 	"d-daily-guides": new d_daily_guides(),
 	"daily-guides": new daily_guides(),
+	fight: new fight(),
 	hug: new hug(),
 	notifications: new notifications(),
 	roles: new roles(),
@@ -73,6 +75,22 @@ export interface AutocompleteCommand extends ChatInputCommand {
 
 export interface UserContextMenuCommand extends BaseCommandData {
 	userContextMenu(interaction: UserContextMenuCommandInteraction): Promise<void>;
+}
+
+export interface TenorResponse {
+	results: TenorResult[];
+}
+
+interface TenorResult {
+	media_formats: TenorMediaFormat;
+}
+
+interface TenorMediaFormat {
+	gif: TenorMediaObject;
+}
+
+interface TenorMediaObject {
+	url: string;
 }
 
 export default commands;

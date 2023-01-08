@@ -5,6 +5,7 @@ export enum Table {
 	Bonks = "bonks",
 	DailyGuides = "daily_guides",
 	DailyGuidesDistribution = "daily_guides_distribution",
+	Fights = "fights",
 	Hugs = "hugs",
 	Notifications = "notifications",
 	Profiles = "profiles",
