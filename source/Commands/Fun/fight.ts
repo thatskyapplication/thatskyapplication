@@ -1,5 +1,5 @@
 import process from "node:process";
-import type { ApplicationCommandData, ChatInputCommandInteraction } from "discord.js";
+import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
 import {
 	EmbedBuilder,
 	makeURLSearchParams,
@@ -8,7 +8,13 @@ import {
 	ApplicationCommandType,
 } from "discord.js";
 import { request } from "undici";
+import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand, TenorResponse } from "../index.js";
+
+interface FightPacket {
+	user_id: Snowflake;
+	count: number;
+}
 
 const { TENOR_KEY } = process.env;
 if (!TENOR_KEY) throw new Error("Tenor API key missing.");
@@ -79,11 +85,20 @@ export default class implements ChatInputCommand {
 			})}`,
 		).then(async ({ body }) => body.json());
 
+		let fightMessage = `${interaction.user} is fighting ${user}!`;
+
 		const embed = new EmbedBuilder()
 			.setColor((await guild?.members.fetchMe())?.displayColor ?? 0)
 			.setImage(response.results[0].media_formats.gif.url);
 
-		await interaction.reply({ content: `${interaction.user} is fighting ${user}!`, embeds: [embed] });
+		const [{ count }] = await pg<FightPacket>(Table.Fights)
+			.insert({ user_id: user.id, count: 1 })
+			.onConflict("user_id")
+			.merge({ count: pg.raw("?? + 1", `${Table.Fights}.count`) })
+			.returning("count");
+
+		if (count % 25 === 0) fightMessage += `\n${user} has been fought ${count} times!`;
+		await interaction.reply({ content: fightMessage, embeds: [embed] });
 	}
 
 	public get commandData(): ApplicationCommandData {
