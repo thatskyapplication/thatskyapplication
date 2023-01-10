@@ -372,10 +372,16 @@ export default new (class DailyGuides {
 		if (regex?.groups) {
 			const { realm, map, color, timestamps, memory, data } = regex.groups;
 			const resolvedRealm = resolveRealm(realm);
+			const dangerous = color.toUpperCase() === "RED";
 			const resolvedMemory = resolveMemory(memory);
 
-			if (!resolvedRealm || !resolvedMemory) {
+			if (!resolvedRealm) {
 				consoleLog("Failed to parse the shard eruption realm.");
+				return;
+			}
+
+			if (dangerous && !resolvedMemory) {
+				consoleLog("Failed to parse the shard eruption memory.");
 				return;
 			}
 
@@ -384,7 +390,7 @@ export default new (class DailyGuides {
 					shard_eruption: {
 						realm: resolvedRealm,
 						map,
-						dangerous: color.toUpperCase() === "RED",
+						dangerous,
 						timestamps: timestamps.replaceAll(/ to /gi, " - ").replaceAll(/1\. |2\. |3\. /g, ""),
 						memory: resolvedMemory,
 						data: data ?? null,
