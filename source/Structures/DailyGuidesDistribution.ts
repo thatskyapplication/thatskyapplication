@@ -155,15 +155,15 @@ export default class DailyGuidesDistribution {
 		if (seasonalCandles) embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
 
 		if (shardEruption) {
-			const { realm, map, dangerous, timestamps, data, url } = shardEruption;
+			const { realm, map, dangerous, timestamps, memory, data, url } = shardEruption;
 
 			embed.addFields({
 				name: SHARD_ERUPTION_NAME,
 				value:
-					realm !== null && map !== null && dangerous !== null && url !== null
-						? `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${dangerous ? "✅" : "❌"}${
-								data ? `\nData: ${hyperlink("link", data)}` : ""
-						  }`
+					realm !== null && map !== null && dangerous !== null && memory !== null && url !== null
+						? `Location: ${hyperlink(`${realm} (${map})`, url)}\nMemory: ${memory}\nDangerous: ${
+								dangerous ? "✅" : "❌"
+						  }${data ? `\nData: ${hyperlink("link", data)}` : ""}`
 						: "None",
 				inline: true,
 			});

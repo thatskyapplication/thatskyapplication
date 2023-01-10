@@ -44,11 +44,21 @@ interface TreasureCandleData {
 
 type ValidRealm = Exclude<Realm, Realm.IslesOfDawn | Realm.EyeOfEden | Realm.AncientMemory>;
 
+enum ShardMemory {
+	Jellyfish = "Jellyfish",
+	DarkCrab = "Crabs",
+	Manta = "Manta",
+	DarkDragon = "Krill",
+	Whale = "Whale",
+	Elder = "Elder",
+}
+
 interface ShardEruption {
 	realm: ValidRealm | null;
 	map: string | null;
 	dangerous: boolean | null;
 	timestamps: string | null;
+	memory: ShardMemory | null;
 	data: string | null;
 	url: string | null;
 }
@@ -60,6 +70,19 @@ function resolveRealm(rawRealm: string) {
 		if (realm.toUpperCase() !== upperRawRealm) continue;
 		if (Realm.IslesOfDawn === realm || Realm.EyeOfEden === realm || Realm.AncientMemory === realm) continue;
 		return realm;
+	}
+
+	return null;
+}
+
+function resolveMemory(rawMemory: string) {
+	// eslint-disable-next-line unicorn/better-regex, prefer-named-capture-group
+	const upperRawMemory = /\[y\] ([a-z]+)/i.exec(rawMemory)?.[1].toUpperCase();
+	if (!upperRawMemory) return null;
+
+	for (const memory of Object.values(ShardMemory)) {
+		if (memory.toUpperCase() !== upperRawMemory) continue;
+		return memory;
 	}
 
 	return null;
@@ -161,7 +184,7 @@ export default new (class DailyGuides {
 			await this.parseTreasureCandles(content, attachments);
 		} else if (transformedContent.includes("SEASONAL CANDLE")) {
 			await this.parseSeasonalCandles(attachments);
-		} else if (transformedContent.includes("SHATTERING SHARD LOCATION")) {
+		} else if (transformedContent.includes("SHATTERING SHARD SUMMARY")) {
 			await this.parseShardEruption(content, attachments);
 		} else {
 			consoleLog("Intercepted an unparsed message.");
@@ -322,6 +345,7 @@ export default new (class DailyGuides {
 						map: null,
 						dangerous: null,
 						timestamps: null,
+						memory: null,
 						data: null,
 						url: null,
 					},
@@ -341,15 +365,16 @@ export default new (class DailyGuides {
 
 		const regex =
 			// eslint-disable-next-line unicorn/no-unsafe-regex
-			/\*\*realm\*\*:\s*(?<realm>[ a-z]+)\n\*\*map\*\*:\s*(?<map>[ '()/a-z]+)\n\*\*shard colou?r\*\*:\s*(?<color>red|black).+\n+\*\*shard timestamps\*\*.+\n(?<timestamps>.+\n.+\n.+)(?:\n\n\*\*shard data\*\*.+\n(?<data>https:\/\/[\d./a-z]+))?/i.exec(
+			/\*\*realm\*\*:\s*(?<realm>[ a-z]+)\n\*\*map\*\*:\s*(?<map>[ '()/a-z]+)\n\*\*shard colou?r\*\*:\s*(?<color>red|black).+\n\n```timestamps.+```(?<timestamps>.+\n.+\n.+)\n\n```shard memory```(?<memory>.+\n.+\n.+\n.+\n.+\n.+)(?:\n\n```shard data.+```(?<data>https:\/\/[\d./a-z]+))?/i.exec(
 				content,
 			);
 
 		if (regex?.groups) {
-			const { realm, map, color, timestamps, data } = regex.groups;
+			const { realm, map, color, timestamps, memory, data } = regex.groups;
 			const resolvedRealm = resolveRealm(realm);
+			const resolvedMemory = resolveMemory(memory);
 
-			if (!resolvedRealm) {
+			if (!resolvedRealm || !resolvedMemory) {
 				consoleLog("Failed to parse the shard eruption realm.");
 				return;
 			}
@@ -361,6 +386,7 @@ export default new (class DailyGuides {
 						map,
 						dangerous: color.toUpperCase() === "RED",
 						timestamps: timestamps.replaceAll(/ to /gi, " - ").replaceAll(/1\. |2\. |3\. /g, ""),
+						memory: resolvedMemory,
 						data: data ?? null,
 						url,
 					},
