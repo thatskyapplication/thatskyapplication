@@ -184,7 +184,10 @@ export default new (class DailyGuides {
 			await this.parseTreasureCandles(content, attachments);
 		} else if (transformedContent.includes("SEASONAL CANDLE")) {
 			await this.parseSeasonalCandles(attachments);
-		} else if (transformedContent.includes("SHATTERING SHARD SUMMARY")) {
+		} else if (
+			transformedContent.includes("SHATTERING SHARD SUMMARY") ||
+			transformedContent.includes("SHATTERING SHARD LOCATION")
+		) {
 			await this.parseShardEruption(content, attachments);
 		} else {
 			consoleLog("Intercepted an unparsed message.");
