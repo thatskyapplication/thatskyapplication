@@ -8,174 +8,141 @@ interface BonkPacket {
 	count: number;
 }
 
-const bonks = [
-	{
-		message: "{{bonker}} bonked {{bonkee}}. Bonk bonk bonk.",
-		successful: true,
-	},
-	{
-		message: "An ethereal force bonked {{bonkee}} on the head. A shrill giggle can be heard from {{bonker}}.",
-		successful: true,
-	},
-	{
-		message:
-			"{{bonker}} proceeded to bonk {{bonkee}}, but slipped and fell on some bananas. The only thing they bonked was their own head.",
-		successful: false,
-	},
-	{
-		message: "BONK! {{bonkee}} was destroyed by {{bonker}}.",
-		successful: true,
-	},
-	{
-		message: "A terrifying, mystical force bonked {{bonkee}}. {{bonker}} is pleased.",
-		successful: true,
-	},
-	{
-		message: "{{bonker}} attempted to bonk {{bonkee}}. {{bonker}} was successful.",
-		successful: true,
-	},
-	{
-		message: "{{bonker}} attempted to bonk {{bonkee}}. {{bonker}} was not successful.",
-		successful: false,
-	},
-	{
-		message: "There was a 1% chance that {{bonkee}} would be bonked. {{bonker}} is that 1%. BONK.",
-		successful: true,
-	},
-	{
-		message: "How extraordinary! A MASSIVE, HUGE BONK was applied to the forehead of {{bonkee}} by {{bonker}}.",
-		successful: true,
-	},
-	{
-		message:
-			"{{bonker}} took a flight, hiked mountains, conquered deserts, all to bonk {{bonkee}}. It was probably worth it.",
-		successful: true,
-	},
-	{
-		message:
-			"Due to unfortunate weather conditions, {{bonker}} fell into a hole. They did not manage to bonk {{bonkee}}. {{bonkee}} fell into a separate hole, though.",
-		successful: false,
-	},
-	{
-		message: "{{bonker}} has bonked {{bonkee}}. Finally! You deserve it, my friend.",
-		successful: true,
-	},
-	{
-		message: "{{bonker}} bonked {{bonkee}}. This is the only physical touch you'll ever receive.",
-		successful: true,
-	},
-	{
-		message:
-			"{{bonker}} hooked up with {{entry1}}, {{entry2}}, and {{entry3}} to figure out how to bonk {{bonkee}}. They're still working on it.",
-		entries: [
-			["El Guapo", "a pirate", "some sort of squirrel"],
-			["Dracula", "Pope Francis", "a pet lizard"],
-			["a moth", "the captain of the underworld", "Perry the Platypus"],
-			["Ed Sheeran", "a local microwave from a local fishing shop", "a piece of sentient bubble wrap"],
-			["a duck", "the Yakuza", "a piece of sentient bubble wrap"],
-		] satisfies [string, string, string][],
-		successful: false,
-	},
-	{
-		message: "{{bonkee}} escaped the almighty bonk of {{bonker}}. Is this the final bonk by {{bonker}}?",
-		successful: false,
-	},
-	{
-		message: "We love {{bonkee}}, but {{bonker}} has other thoughts. BONK!",
-		successful: true,
-	},
-	{
-		message: "{{bonkee}} got BONKED by the BONKER called {{bonker}} with the BONKINATOR BONKTHOUSAND. B O N K.",
-		successful: true,
-	},
-	{
-		message:
-			"It's a beautiful night, {{bonker}}'s looking for something dumb to do. Hey {{bonkee}}, {{bonker}}'s gonna BONK you! *BONK*",
-		successful: true,
-	},
-	{
-		message:
-			"{{bonker}} entered the nearby building, scaled to its peak, and dove off the top to bonk {{bonkee}}'s forehead at terminal velocity.",
-		successful: true,
-	},
-	{
-		message:
-			"{{bonker}} was about to bonk {{bonkee}}, but {{bonkee}} turned around and bonked {{bonker}} instead. Oh, how the tables have turned!",
-		successful: false,
-	},
-	{
-		message: "A wild {{bonker}} appeared! {{bonker}} BONKED {{bonkee}} then mysteriously disappeared...",
-		successful: true,
-	},
-	{
-		message: "Roses are red, violets are blue, {{bonker}} bonked {{bonkee}}, and jumped on them too.",
-		successful: true,
-	},
-	{
-		message: "{{bonker}} picked {{bonkee}} up, threw them into the air, and bonked them into outer space.",
-		successful: true,
-	},
-	{
-		message: "Somebody was lurking in the shadows. It was {{bonker}} and they just bonked {{bonkee}}.",
-		successful: true,
-	},
-	{
-		message:
-			"{{bonker}} runs to {{bonkee}} but they accidentally hug each other! {{bonker}} sneaked in a lil' bonk, though.",
-		successful: true,
-	},
-	{
-		message:
-			"{{bonker}} is on their way to bonk {{bonkee}}, but finds a box of doughnuts! After weighing the odds, {{bonker}} feasts on the doughnuts instead.",
-		successful: false,
-	},
-	{
-		message: "It's time to bonk {{bonkee}}. {{bonker}} did the deed.",
-		successful: true,
-	},
-	{
-		message: "PEW PEW! {{bonker}} bonked {{bonkee}}.",
-		successful: true,
-	},
-	{
-		message: "COLLATERAL DAMAGE! {{bonker}} bonked {{bonkee}}.",
-		successful: true,
-	},
-	{
-		message: "{{bonker}} used bonk! It's super effective! {{bonkee}} took a lot of damage!",
-		successful: true,
-	},
-	{
-		message: "{{bonker}} used bonk! It didn't affect {{bonkee}}...",
-		successful: false,
-	},
-	{
-		message: "{{bonker}} used bonk! It's not very effective... {{bonkee}} didn't take that much damage.",
-		successful: true,
-	},
-	{
-		message: "{{bonker}} bonked {{bonkee}}, but at what cost?",
-		successful: true,
-	},
-	{
-		message: "Roses are red,\nViolets are blue,\n{{bonker}} bonked {{bonkee}},\nAnd smacked them up too.",
-		successful: true,
-	},
-	{
-		message:
-			"A bee lands on {{bonkee}}'s head, but flies off after a few seconds. Taking advantage of the situation, {{bonker}} bonks {{bonkee}} anyway.",
-		successful: true,
-	},
-	{
-		message: "{{bonkee}} can deal with the bad nights, but not when {{bonker}} bonks them. BONK.",
-		successful: true,
-	},
-	{
-		message:
-			"{{bonker}} jumped on a trampoline, somersaulted 14 times, entered a dive position, and bonked {{bonkee}}. It was a perfect landing.",
-		successful: true,
-	},
-] as const;
+const bonks = {
+	successful: [
+		{
+			message: "{{bonker}} bonked {{bonkee}}. Bonk bonk bonk.",
+		},
+		{
+			message: "An ethereal force bonked {{bonkee}} on the head. A shrill giggle can be heard from {{bonker}}.",
+		},
+		{
+			message: "BONK! {{bonkee}} was destroyed by {{bonker}}.",
+		},
+		{
+			message: "A terrifying, mystical force bonked {{bonkee}}. {{bonker}} is pleased.",
+		},
+		{
+			message: "{{bonker}} attempted to bonk {{bonkee}}. {{bonker}} was successful.",
+		},
+		{
+			message: "There was a 1% chance that {{bonkee}} would be bonked. {{bonker}} is that 1%. BONK.",
+		},
+		{
+			message: "How extraordinary! A MASSIVE, HUGE BONK was applied to the forehead of {{bonkee}} by {{bonker}}.",
+		},
+		{
+			message:
+				"{{bonker}} took a flight, hiked mountains, conquered deserts, all to bonk {{bonkee}}. It was probably worth it.",
+		},
+		{
+			message: "{{bonker}} has bonked {{bonkee}}. Finally! You deserve it, my friend.",
+		},
+		{
+			message: "{{bonker}} bonked {{bonkee}}. This is the only physical touch you'll ever receive.",
+		},
+		{
+			message: "We love {{bonkee}}, but {{bonker}} has other thoughts. BONK!",
+		},
+		{
+			message: "{{bonkee}} got BONKED by the BONKER called {{bonker}} with the BONKINATOR BONKTHOUSAND. B O N K.",
+		},
+		{
+			message:
+				"It's a beautiful night, {{bonker}}'s looking for something dumb to do. Hey {{bonkee}}, {{bonker}}'s gonna BONK you! *BONK*",
+		},
+		{
+			message:
+				"{{bonker}} entered the nearby building, scaled to its peak, and dove off the top to bonk {{bonkee}}'s forehead at terminal velocity.",
+		},
+		{
+			message: "A wild {{bonker}} appeared! {{bonker}} BONKED {{bonkee}} then mysteriously disappeared...",
+		},
+		{
+			message: "Roses are red, violets are blue, {{bonker}} bonked {{bonkee}}, and jumped on them too.",
+		},
+		{
+			message: "{{bonker}} picked {{bonkee}} up, threw them into the air, and bonked them into outer space.",
+		},
+		{
+			message: "Somebody was lurking in the shadows. It was {{bonker}} and they just bonked {{bonkee}}.",
+		},
+		{
+			message:
+				"{{bonker}} runs to {{bonkee}} but they accidentally hug each other! {{bonker}} sneaked in a lil' bonk, though.",
+		},
+		{
+			message: "It's time to bonk {{bonkee}}. {{bonker}} did the deed.",
+		},
+		{
+			message: "PEW PEW! {{bonker}} bonked {{bonkee}}.",
+		},
+		{
+			message: "COLLATERAL DAMAGE! {{bonker}} bonked {{bonkee}}.",
+		},
+		{
+			message: "{{bonker}} used bonk! It's super effective! {{bonkee}} took a lot of damage!",
+		},
+		{
+			message: "{{bonker}} used bonk! It's not very effective... {{bonkee}} didn't take that much damage.",
+		},
+		{
+			message: "{{bonker}} bonked {{bonkee}}, but at what cost?",
+		},
+		{
+			message: "Roses are red,\nViolets are blue,\n{{bonker}} bonked {{bonkee}},\nAnd smacked them up too.",
+		},
+		{
+			message:
+				"A bee lands on {{bonkee}}'s head, but flies off after a few seconds. Taking advantage of the situation, {{bonker}} bonks {{bonkee}} anyway.",
+		},
+		{
+			message: "{{bonkee}} can deal with the bad nights, but not when {{bonker}} bonks them. BONK.",
+		},
+		{
+			message:
+				"{{bonker}} jumped on a trampoline, somersaulted 14 times, entered a dive position, and bonked {{bonkee}}. It was a perfect landing.",
+		},
+	],
+	unsuccessful: [
+		{
+			message:
+				"{{bonker}} proceeded to bonk {{bonkee}}, but slipped and fell on some bananas. The only thing they bonked was their own head.",
+		},
+		{
+			message: "{{bonker}} attempted to bonk {{bonkee}}. {{bonker}} was not successful.",
+		},
+		{
+			message:
+				"Due to unfortunate weather conditions, {{bonker}} fell into a hole. They did not manage to bonk {{bonkee}}. {{bonkee}} fell into a separate hole, though.",
+		},
+		{
+			message:
+				"{{bonker}} hooked up with {{entry1}}, {{entry2}}, and {{entry3}} to figure out how to bonk {{bonkee}}. They're still working on it.",
+			entries: [
+				["El Guapo", "a pirate", "some sort of squirrel"],
+				["Dracula", "Pope Francis", "a pet lizard"],
+				["a moth", "the captain of the underworld", "Perry the Platypus"],
+				["Ed Sheeran", "a local microwave from a local fishing shop", "a piece of sentient bubble wrap"],
+				["a duck", "the Yakuza", "a piece of sentient bubble wrap"],
+			] satisfies [string, string, string][],
+		},
+		{
+			message: "{{bonkee}} escaped the almighty bonk of {{bonker}}. Is this the final bonk by {{bonker}}?",
+		},
+		{
+			message:
+				"{{bonker}} was about to bonk {{bonkee}}, but {{bonkee}} turned around and bonked {{bonker}} instead. Oh, how the tables have turned!",
+		},
+		{
+			message:
+				"{{bonker}} is on their way to bonk {{bonkee}}, but finds a box of doughnuts! After weighing the odds, {{bonker}} feasts on the doughnuts instead.",
+		},
+		{
+			message: "{{bonker}} used bonk! It didn't affect {{bonkee}}...",
+		},
+	],
+} as const;
 
 export default class implements ChatInputCommand {
 	public readonly name = "bonk";
@@ -216,8 +183,18 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		const bonk = bonks[Math.floor(Math.random() * bonks.length)];
-		const { message, successful } = bonk;
+		let decidingBonk;
+		let successful = false;
+
+		if (Math.random() < 0.1) {
+			decidingBonk = bonks.unsuccessful;
+		} else {
+			decidingBonk = bonks.successful;
+			successful = true;
+		}
+
+		const bonk = decidingBonk[Math.floor(Math.random() * decidingBonk.length)];
+		const { message } = bonk;
 		let bonkMessage = message.replaceAll("{{bonker}}", String(interaction.user)).replaceAll("{{bonkee}}", String(user));
 
 		if ("entries" in bonk) {
