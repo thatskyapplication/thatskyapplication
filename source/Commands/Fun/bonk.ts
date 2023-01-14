@@ -124,7 +124,7 @@ const bonks = {
 				["Dracula", "Pope Francis", "a pet lizard"],
 				["a moth", "the captain of the underworld", "Perry the Platypus"],
 				["Ed Sheeran", "a local microwave from a local fishing shop", "a piece of sentient bubble wrap"],
-				["a duck", "the Yakuza", "a piece of sentient bubble wrap"],
+				["a duck", "the Yakuza", "a bubble that cannot be popped"],
 			] satisfies [string, string, string][],
 		},
 		{
