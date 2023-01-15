@@ -2,7 +2,8 @@ import { inspect } from "node:util";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
-import { Realm } from "./Constants.js";
+import { ShardMemory } from "../Structures/DailyGuides.js";
+import { Map, Realm, VALID_REALM } from "./Constants.js";
 
 dayjs.extend(timezone);
 dayjs.extend(utc);
@@ -22,4 +23,27 @@ export function todayDate() {
 
 export function isRealm(realm: string): realm is Realm {
 	return Object.values(Realm).includes(realm as Realm);
+}
+
+export function resolveValidRealm(realm: string) {
+	const upperRealm = realm.toUpperCase();
+	return Object.values(VALID_REALM).find((validRealm) => validRealm.toUpperCase() === upperRealm) ?? null;
+}
+
+export function resolveMap(rawMap: string) {
+	const upperRawMap = rawMap.toUpperCase();
+
+	// Account for wonderful inconsistencies.
+	switch (upperRawMap) {
+		case "FOREST'S BROOK":
+			return Map.ForestBrook;
+		case "RACE END":
+			return Map.Coliseum;
+	}
+
+	return Object.values(Map).find((map) => map.toUpperCase() === upperRawMap) ?? null;
+}
+
+export function resolveShardEruptionMemory(memory: string) {
+	return Object.values(ShardMemory).find((shardMemory) => shardMemory === memory) ?? null;
 }

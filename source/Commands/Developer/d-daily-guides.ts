@@ -9,8 +9,9 @@ import {
 	ApplicationCommandType,
 } from "discord.js";
 import type { QuestNumber } from "../../Structures/DailyGuides.js";
-import DailyGuides, { isQuestNumber, QUEST_NUMBER } from "../../Structures/DailyGuides.js";
+import DailyGuides, { ShardMemory, isQuestNumber, QUEST_NUMBER } from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
+import { resolveShardEruptionMemory } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 export const D_DAILY_GUIDES_QUEST_1_MODAL = "D_DAILY_GUIDES_QUEST_1_MODAL" as const;
@@ -65,6 +66,9 @@ export default class implements ChatInputCommand {
 		switch (subcommand) {
 			case "quest":
 				await this.setQuest(interaction);
+				return;
+			case "shard-eruption-extra":
+				await this.shardEruptionExtra(interaction);
 		}
 	}
 
@@ -168,6 +172,35 @@ export default class implements ChatInputCommand {
 		);
 	}
 
+	public async shardEruptionExtra(interaction: ChatInputCommandInteraction) {
+		const { options } = interaction;
+		const reward = options.getNumber("reward");
+		const memory = options.getString("memory");
+		const url = options.getString("url");
+		const data = options.getString("data");
+
+		const resolvedMemory = memory ? resolveShardEruptionMemory(memory) : null;
+
+		if (!resolvedMemory) {
+			await interaction.reply("Cannot interpret the provided memory.");
+			return;
+		}
+
+		await DailyGuides.updateShardEruption({
+			reward,
+			memory: resolvedMemory,
+			url,
+			data,
+		});
+
+		await interaction.reply(
+			`Successfully updated the shard eruption data.\n${codeBlock(
+				"JSON",
+				JSON.stringify(DailyGuides.shardEruptionExtra, null, 2),
+			)}`,
+		);
+	}
+
 	public get commandData(): ApplicationCommandData {
 		return {
 			name: this.name,
@@ -200,6 +233,35 @@ export default class implements ChatInputCommand {
 									description: "The quest number to set the data of.",
 									choices: QUEST_NUMBER.map((questNumber) => ({ name: String(questNumber), value: questNumber })),
 									required: true,
+								},
+							],
+						},
+						{
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "shard-eruption-extra",
+							description: "Set the extra shard eruption data.",
+							options: [
+								{
+									type: ApplicationCommandOptionType.Number,
+									name: "reward",
+									description: "The reward of the shard eruption.",
+									minValue: 0.5,
+								},
+								{
+									type: ApplicationCommandOptionType.String,
+									name: "memory",
+									description: "The memory of the shard eruption.",
+									choices: Object.values(ShardMemory).map((shardMemory) => ({ name: shardMemory, value: shardMemory })),
+								},
+								{
+									type: ApplicationCommandOptionType.String,
+									name: "url",
+									description: "The URL of the image of the shard eruption's location.",
+								},
+								{
+									type: ApplicationCommandOptionType.String,
+									name: "data",
+									description: "The message link of the data of the shard eruption.",
 								},
 							],
 						},

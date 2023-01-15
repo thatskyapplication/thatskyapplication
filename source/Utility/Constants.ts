@@ -69,6 +69,16 @@ export enum Map {
 	VaultSummit = "Vault Summit",
 }
 
+export const VALID_REALM = [
+	Realm.DaylightPrairie,
+	Realm.HiddenForest,
+	Realm.ValleyOfTriumph,
+	Realm.GoldenWasteland,
+	Realm.VaultOfKnowledge,
+] as const;
+
+export type ValidRealm = (typeof VALID_REALM)[number];
+
 export const WingedLightCount = {
 	IslesOfDawn: 9,
 	DaylightPrairie: 21,
