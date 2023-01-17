@@ -72,6 +72,15 @@ const enum SpiritName {
 	ForgetfulStoryteller = "Forgetful Storyteller",
 	MellowMusician = "Mellow Musician",
 	ModestDancer = "Modest Dancer",
+	// Season of Shattering - not sure how to add this.
+	RunningWayferer = "Running Wayferer",
+	MindfulMiner = "Mindful Miner",
+	WarriorOfLove = "Warrior of Love",
+	SeedOfHope = "Seed of Hope",
+	BereftVeteran = "Bereft Veteran",
+	PleadingChild = "Pleading Child",
+	TiptoeingTeaBrewer = "Tiptoeing Tea-Brewer",
+	WoundedWarrior = "Wounded Warrior",
 }
 
 const enum Season {
@@ -88,6 +97,9 @@ const enum Season {
 	Flight = "Flight",
 	Abyss = "Abyss",
 	Performance = "Performance",
+	Shattering = "Shattering",
+	Aurora = "AURORA",
+	Remembrance = "Remembrance",
 }
 
 const enum Call {
@@ -121,7 +133,7 @@ const enum Expression {
 	Eww = "Eww",
 	Facepalm = "Faceplam",
 	Leap = "Leap",
-	Twirl = "Twirl",
+	TripleAxel = "Triple axel",
 	Confetti = "Confetti",
 	Boogie = "Boogie",
 	Dance = "Dance",
@@ -160,6 +172,16 @@ const enum Expression {
 	Anxious = "Anxious",
 	Headbob = "Headbob",
 	Awww = "Awww",
+	WavingLight = "Waving light",
+	RaiseTheRoof = "Raise the roof",
+	Twirl = "Twirl",
+	RhythmicClap = "Rhythmic clap",
+	Conduct = "Conduct",
+	SilentClap = "Silent clap",
+	Skipping = "Skipping",
+	Pleading = "Pleading",
+	Tiptoeing = "Tiptoeing",
+	Grieving = "Grieving",
 }
 
 const enum Stance {
@@ -168,6 +190,7 @@ const enum Stance {
 	Wise = "Wise",
 	Timid = "Timid",
 	Tinker = "Tinker",
+	Injured = "Injured",
 }
 
 interface SpiritOffer {
@@ -324,7 +347,7 @@ export default [
 	new SeasonalSpirit({
 		name: SpiritName.TwirlingChampion,
 		season: Season.Lightseekers,
-		expression: Expression.Twirl,
+		expression: Expression.TripleAxel,
 		realm: Realm.ValleyOfTriumph,
 		offer: { candles: 131, hearts: 13, ascendedCandles: 2 },
 	}),
@@ -718,5 +741,54 @@ export default [
 		season: Season.Performance,
 		expression: Expression.DuetDance,
 		realm: Realm.ValleyOfTriumph,
+	}),
+	// Season of Shattering - not sure how to add this.
+	new SeasonalSpirit({
+		name: SpiritName.RunningWayferer,
+		season: Season.Aurora,
+		expression: Expression.WavingLight,
+		realm: Realm.ValleyOfTriumph,
+	}),
+	new SeasonalSpirit({
+		name: SpiritName.MindfulMiner,
+		season: Season.Aurora,
+		expression: Expression.RaiseTheRoof,
+		realm: Realm.ValleyOfTriumph,
+	}),
+	new SeasonalSpirit({
+		name: SpiritName.WarriorOfLove,
+		season: Season.Aurora,
+		expression: Expression.Twirl,
+		realm: Realm.ValleyOfTriumph,
+	}),
+	new SeasonalSpirit({
+		name: SpiritName.SeedOfHope,
+		season: Season.Aurora,
+		expression: Expression.RhythmicClap,
+		realm: Realm.ValleyOfTriumph,
+	}),
+	new SeasonalSpirit({
+		name: SpiritName.BereftVeteran,
+		season: Season.Remembrance,
+		expression: Expression.Grieving,
+		realm: Realm.VaultOfKnowledge,
+	}),
+	new SeasonalSpirit({
+		name: SpiritName.PleadingChild,
+		season: Season.Remembrance,
+		expression: Expression.Pleading,
+		realm: Realm.VaultOfKnowledge,
+	}),
+	new SeasonalSpirit({
+		name: SpiritName.TiptoeingTeaBrewer,
+		season: Season.Remembrance,
+		expression: Expression.Tiptoeing,
+		realm: Realm.VaultOfKnowledge,
+	}),
+	new SeasonalSpirit({
+		name: SpiritName.WoundedWarrior,
+		season: Season.Remembrance,
+		stance: Stance.Injured,
+		realm: Realm.VaultOfKnowledge,
 	}),
 ] as const;
