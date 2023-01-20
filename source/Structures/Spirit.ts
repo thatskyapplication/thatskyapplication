@@ -131,7 +131,7 @@ const enum Expression {
 	Grouchy = "Grouchy",
 	Peek = "Peek",
 	Eww = "Eww",
-	Facepalm = "Faceplam",
+	Facepalm = "Facepalm",
 	Leap = "Leap",
 	TripleAxel = "Triple axel",
 	Confetti = "Confetti",

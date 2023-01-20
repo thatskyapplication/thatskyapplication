@@ -12,7 +12,7 @@ export enum Table {
 }
 
 const { DATABASE_URL } = process.env;
-if (!DATABASE_URL) throw new Error("Databse URL missing.");
+if (!DATABASE_URL) throw new Error("Database URL missing.");
 
 export default knex({
 	client: "pg",

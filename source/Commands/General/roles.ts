@@ -96,7 +96,7 @@ export default class implements ChatInputCommand {
 		const notification = Notification.cache.find(({ guildId }) => guildId === interaction.guildId);
 
 		if (!notification) {
-			await interaction.reply({ content: "A strange error occured. This is being tracked.", ephemeral: true });
+			await interaction.reply({ content: "A strange error occurred. This is being tracked.", ephemeral: true });
 			return;
 		}
 
