@@ -59,9 +59,6 @@ const bonks = {
 			message: "A wild {{bonker}} appeared! {{bonker}} BONKED {{bonkee}} then mysteriously disappeared...",
 		},
 		{
-			message: "Roses are red, violets are blue, {{bonker}} bonked {{bonkee}}, and jumped on them too.",
-		},
-		{
 			message: "{{bonker}} picked {{bonkee}} up, threw them into the air, and bonked them into outer space.",
 		},
 		{
