@@ -208,7 +208,7 @@ export default class implements ChatInputCommand {
 		}
 
 		if (successful) {
-			await pg<BonkPacket>(Table.Bonks).insert({ bonker_id: user.id, bonkee_id: user.id });
+			await pg<BonkPacket>(Table.Bonks).insert({ bonker_id: interaction.user.id, bonkee_id: user.id });
 		}
 
 		await interaction.reply(bonkMessage);
