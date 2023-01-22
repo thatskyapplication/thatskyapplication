@@ -4,8 +4,8 @@ import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
 interface BonkPacket {
-	user_id: Snowflake;
-	count: number;
+	bonker_id: Snowflake;
+	bonkee_id: Snowflake;
 }
 
 const bonks = {
@@ -208,13 +208,7 @@ export default class implements ChatInputCommand {
 		}
 
 		if (successful) {
-			const [{ count }] = await pg<BonkPacket>(Table.Bonks)
-				.insert({ user_id: user.id, count: 1 })
-				.onConflict("user_id")
-				.merge({ count: pg.raw("?? + 1", `${Table.Bonks}.count`) })
-				.returning("count");
-
-			if (count % 25 === 0) bonkMessage += `\n${user} has been bonked ${count} times!`;
+			await pg<BonkPacket>(Table.Bonks).insert({ bonker_id: user.id, bonkee_id: user.id });
 		}
 
 		await interaction.reply(bonkMessage);
