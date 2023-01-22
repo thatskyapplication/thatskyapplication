@@ -100,6 +100,9 @@ const bonks = {
 			message:
 				"{{bonker}} jumped on a trampoline, somersaulted 14 times, entered a dive position, and bonked {{bonkee}}. It was a perfect landing.",
 		},
+		{
+			message: "{{bonker}} bonked {{bonkee}}. It was a total headshot.",
+		},
 	],
 	unsuccessful: [
 		{
