@@ -5,8 +5,9 @@ import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
 interface HugPacket {
-	user_id: Snowflake;
-	count: number;
+	hugger_id: Snowflake;
+	huggee_id: Snowflake;
+	timestamp: Date;
 }
 
 const QUERIES = [
@@ -32,7 +33,7 @@ export default class implements ChatInputCommand {
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { channel, client, guild, locale, options } = interaction;
+		const { channel, client, createdAt, guild, locale, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
 
@@ -71,20 +72,17 @@ export default class implements ChatInputCommand {
 			locale,
 		});
 
-		let hugMessage = `${user}, ${interaction.user} hugged you!`;
-
 		const embed = new EmbedBuilder()
 			.setColor((await guild?.members.fetchMe())?.displayColor ?? 0)
 			.setImage(response.results[0].media_formats.gif.url);
 
-		const [{ count }] = await pg<HugPacket>(Table.Hugs)
-			.insert({ user_id: user.id, count: 1 })
-			.onConflict("user_id")
-			.merge({ count: pg.raw("?? + 1", `${Table.Hugs}.count`) })
-			.returning("count");
+		await pg<HugPacket>(Table.Hugs).insert({
+			hugger_id: interaction.user.id,
+			huggee_id: user.id,
+			timestamp: createdAt,
+		});
 
-		if (count % 25 === 0) hugMessage += `\n${user} has been hugged ${count} times!`;
-		await interaction.reply({ content: hugMessage, embeds: [embed] });
+		await interaction.reply({ content: `${user}, ${interaction.user} hugged you!`, embeds: [embed] });
 	}
 
 	public get commandData(): ApplicationCommandData {
