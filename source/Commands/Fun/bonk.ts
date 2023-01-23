@@ -6,6 +6,7 @@ import type { ChatInputCommand } from "../index.js";
 interface BonkPacket {
 	bonker_id: Snowflake;
 	bonkee_id: Snowflake;
+	timestamp: Date;
 }
 
 const bonks = {
@@ -150,7 +151,7 @@ export default class implements ChatInputCommand {
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { channel, options } = interaction;
+		const { channel, createdAt, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
 
@@ -208,7 +209,11 @@ export default class implements ChatInputCommand {
 		}
 
 		if (successful) {
-			await pg<BonkPacket>(Table.Bonks).insert({ bonker_id: interaction.user.id, bonkee_id: user.id });
+			await pg<BonkPacket>(Table.Bonks).insert({
+				bonker_id: interaction.user.id,
+				bonkee_id: user.id,
+				timestamp: createdAt,
+			});
 		}
 
 		await interaction.reply(bonkMessage);
