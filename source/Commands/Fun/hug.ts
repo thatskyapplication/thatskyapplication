@@ -38,7 +38,7 @@ export default class implements ChatInputCommand {
 		const member = options.getMember("user");
 
 		if (user.id === interaction.user.id) {
-			await interaction.reply({ content: `Share the love! Hug someone other than yourself!`, ephemeral: true });
+			await interaction.reply({ content: "Share the love! Hug someone other than yourself!", ephemeral: true });
 			return;
 		}
 

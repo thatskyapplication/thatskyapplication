@@ -35,7 +35,7 @@ export default class implements ChatInputCommand {
 		const member = options.getMember("user");
 
 		if (user.id === interaction.user.id) {
-			await interaction.reply({ content: `No harm self! No no no!`, ephemeral: true });
+			await interaction.reply({ content: "No harm self! No no no!", ephemeral: true });
 			return;
 		}
 
