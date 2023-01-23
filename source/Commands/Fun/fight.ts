@@ -5,8 +5,9 @@ import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
 interface FightPacket {
-	user_id: Snowflake;
-	count: number;
+	fighter_id: Snowflake;
+	fightee_id: Snowflake;
+	timestamp: Date;
 }
 
 const QUERIES = [
@@ -29,7 +30,7 @@ export default class implements ChatInputCommand {
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { channel, client, guild, locale, options } = interaction;
+		const { channel, client, createdAt, guild, locale, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
 
@@ -68,20 +69,17 @@ export default class implements ChatInputCommand {
 			locale,
 		});
 
-		let fightMessage = `${interaction.user} is fighting ${user}!`;
-
 		const embed = new EmbedBuilder()
 			.setColor((await guild?.members.fetchMe())?.displayColor ?? 0)
 			.setImage(response.results[0].media_formats.gif.url);
 
-		const [{ count }] = await pg<FightPacket>(Table.Fights)
-			.insert({ user_id: user.id, count: 1 })
-			.onConflict("user_id")
-			.merge({ count: pg.raw("?? + 1", `${Table.Fights}.count`) })
-			.returning("count");
+		await pg<FightPacket>(Table.Fights).insert({
+			fighter_id: interaction.user.id,
+			fightee_id: user.id,
+			timestamp: createdAt,
+		});
 
-		if (count % 25 === 0) fightMessage += `\n${user} has been fought ${count} times!`;
-		await interaction.reply({ content: fightMessage, embeds: [embed] });
+		await interaction.reply({ content: `${interaction.user} is fighting ${user}!`, embeds: [embed] });
 	}
 
 	public get commandData(): ApplicationCommandData {
