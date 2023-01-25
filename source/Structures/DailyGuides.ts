@@ -177,7 +177,7 @@ export default new (class DailyGuides {
 			transformedContent.includes("QUEST") ||
 			transformedContent.includes("RAINBOW") ||
 			transformedContent.includes("SOCIAL LIGHT") ||
-			transformedContent.includes("BLOOM SAPLING")
+			transformedContent.includes("SAPLING")
 		) {
 			await this.parseQuests(content, attachments);
 		} else if (transformedContent.includes("TREASURE CANDLE")) {
