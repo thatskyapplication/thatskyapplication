@@ -81,8 +81,6 @@ function resolveMap(rawMap: string) {
 
 	// Account for wonderful inconsistencies.
 	switch (upperRawMap) {
-		case "BOAT":
-			return Map.ForgottenArk;
 		case "FOREST'S BROOK":
 			return Map.ForestBrook;
 		case "RACE END":

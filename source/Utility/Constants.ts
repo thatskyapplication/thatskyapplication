@@ -51,6 +51,7 @@ export enum Map {
 
 	// Golden Wasteland
 	Battlefield = "Battlefield",
+	Boat = "Boat",
 	BrokenTemple = "Broken Temple",
 	ForgottenArk = "Forgotten Ark",
 	Graveyard = "Graveyard",
