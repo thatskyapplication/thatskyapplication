@@ -212,6 +212,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("RIDE A MANTA")) return "Ride a Manta";
 		if (upperPureContent.includes("LIGHT BLOOM")) return "Recharge from a Light Bloom";
 		if (upperPureContent.includes("RAINBOW")) return "Find the Candles at the End of the Rainbow";
+		if (upperPureContent.includes("CATCH THE LIGHT")) return "Catch the Light";
 		if (upperPureContent.includes("ORANGE LIGHT")) return "Collect Orange Light";
 		if (upperPureContent.includes("SAPLING")) return "Admire the Sapling";
 
