@@ -84,7 +84,7 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 		interval: 8,
 		// 2 hours and 10 minutes.
 		offset: 7_800_000,
-		maps: [Map.VillageIslands, Map.Boneyard, Map.IceRink, Map.Battlefield, Map.StarlightDesert],
+		maps: [Map.KoiPond, Map.Boneyard, Map.IceRink, Map.Battlefield, Map.StarlightDesert],
 	},
 	{
 		noShardWeekDay: [1, 2], // Monday, Tuesday
