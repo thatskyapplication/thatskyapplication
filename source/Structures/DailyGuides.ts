@@ -219,6 +219,9 @@ export default new (class DailyGuides {
 
 	private resolveDailyGuideContent(pureContent: string) {
 		const upperPureContent = pureContent.toUpperCase();
+		if (upperPureContent.includes("BOW AT A PLAYER") || upperPureContent.includes("BOW TO A PLAYER"))
+			return "Bow at a Player";
+
 		if (upperPureContent.includes("HUG A FRIEND")) return "Hug a Friend";
 		if (upperPureContent.includes("EXPRESSION NEAR A FRIEND")) return "Use an Expression Near a Friend";
 		if (upperPureContent.includes("RIDE A MANTA")) return "Ride a Manta";
