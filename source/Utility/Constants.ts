@@ -27,6 +27,44 @@ export enum Realm {
 	AncientMemory = "Ancient Memory",
 }
 
+export enum Map {
+	// Daylight Prairie
+	BirdNest = "Bird Nest",
+	ButterflyFields = "Butterfly Fields",
+	Cave = "Cave",
+	KoiPond = "Koi Pond",
+	SanctuaryIslands = "Sanctuary Islands",
+
+	// Hidden Forest
+	Boneyard = "Boneyard",
+	ElevatedClearing = "Elevated Clearing",
+	ForestBrook = "Forest Brook",
+	ForestClearing = "Forest Clearing",
+	ForestEnd = "Forest End",
+	WindPaths = "Wind Paths",
+
+	// Valley of Triumph
+	IceRink = "Ice Rink",
+	Citadel = "Citadel",
+	Coliseum = "Coliseum",
+	HermitValley = "Hermit Valley",
+	VillageOfDreams = "Village of Dreams",
+
+	// Golden Wasteland
+	Battlefield = "Battlefield",
+	Boat = "Boat",
+	BrokenTemple = "Broken Temple",
+	ForgottenArk = "Forgotten Ark",
+	Graveyard = "Graveyard",
+	TreasureReef = "Treasure Reef",
+
+	// Vault of Knowledge
+	SpiritMantas = "Spirit Mantas",
+	StarlightDesert = "Starlight Desert",
+	VaultSecondFloor = "Vault Second Floor",
+	VaultSummit = "Vault Summit",
+}
+
 export const WingedLightCount = {
 	IslesOfDawn: 9,
 	DaylightPrairie: 21,

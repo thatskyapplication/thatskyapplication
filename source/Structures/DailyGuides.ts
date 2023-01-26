@@ -1,11 +1,12 @@
 import { AsyncQueue } from "@sapphire/async-queue";
 import time from "date-fns-tz";
 import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
-import { ChannelType, MessageFlags, SnowflakeUtil, FormattingPatterns } from "discord.js";
-import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Realm } from "../Utility/Constants.js";
+import { ChannelType, MessageFlags, SnowflakeUtil } from "discord.js";
+import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm } from "../Utility/Constants.js";
 import { consoleLog } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
+import { SpiritName } from "./Spirit.js";
 
 export interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;
@@ -75,6 +76,20 @@ function resolveRealm(rawRealm: string) {
 	return null;
 }
 
+function resolveMap(rawMap: string) {
+	const upperRawMap = rawMap.toUpperCase();
+
+	// Account for wonderful inconsistencies.
+	switch (upperRawMap) {
+		case "FOREST'S BROOK":
+			return Map.ForestBrook;
+		case "RACE END":
+			return Map.Coliseum;
+	}
+
+	return Object.values(Map).find((map) => map.toUpperCase() === upperRawMap) ?? null;
+}
+
 function resolveMemory(rawMemory: string) {
 	// eslint-disable-next-line unicorn/better-regex, prefer-named-capture-group
 	const upperRawMemory = /\[y\] ([a-z]+)/i.exec(rawMemory)?.[1].toUpperCase();
@@ -89,11 +104,7 @@ function resolveMemory(rawMemory: string) {
 }
 
 const regularExpressionRealms = Object.values(Realm).join("|").replaceAll(" ", "\\s+");
-
-const dailyGuideDaysRegularExpression = new RegExp(
-	`days\\s+of\\s+(?<days>bloom|rainbow)\\s+\\d{4}\\s+-\\s+.+(?<realm>${regularExpressionRealms}|wind paths|sanctuary islands|hermit valley|treasure reef|starlight desert)`,
-	"i",
-);
+const mapRegExp = Object.values(Map).join("|").replaceAll(" ", "\\s+");
 
 const treasureCandleRegularExpression = new RegExp(
 	`(?<rotation>rotation\\s+\\d{1,2})\\s*\\|\\s*(?<realm>${regularExpressionRealms})`,
@@ -199,6 +210,46 @@ export default new (class DailyGuides {
 		this.queue.shift();
 	}
 
+	private resolveDailyGuideContent(pureContent: string) {
+		const upperPureContent = pureContent.toUpperCase();
+		if (upperPureContent.includes("BOW AT A PLAYER") || upperPureContent.includes("BOW TO A PLAYER"))
+			return "Bow at a Player";
+
+		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) return "Knock over 5 Dark Creatures Crabs";
+		if (upperPureContent.includes("FOLLOW A FRIEND")) return "Follow a Friend";
+		if (upperPureContent.includes("HUG A FRIEND")) return "Hug a Friend";
+		if (upperPureContent.includes("WAVE TO A FRIEND")) return "Wave to a Friend";
+		if (upperPureContent.includes("HOLD THE HAND")) return "Hold the Hand of a Friend";
+		if (upperPureContent.includes("ACQUAINTANCE")) return "Make a New Acquaintance";
+		if (upperPureContent.includes("HIGH-FIVE")) return "High-Five a Friend";
+		if (upperPureContent.includes("EXPRESSION NEAR A FRIEND")) return "Use an Expression Near a Friend";
+		if (upperPureContent.includes("BENCH")) return "Sit at a bench with a stranger.";
+		if (upperPureContent.includes("RIDE A MANTA")) return "Ride a Manta";
+		if (upperPureContent.includes("DARK DRAGON")) return "Face the Dark Dragon";
+		if (upperPureContent.includes("RECHARGE FROM A LIGHT BLOOM")) return "Recharge from a Light Bloom";
+		if (upperPureContent.includes("RECHARGE FROM A JELLYFISH")) return "Recharge from a Jellyfish";
+		if (upperPureContent.includes("RAINBOW")) return "Find the Candles at the End of the Rainbow";
+		if (upperPureContent.includes("CATCH THE LIGHT")) return "Catch the Light";
+		if (upperPureContent.includes("MEDITATION")) return "Meditate";
+		if (upperPureContent.includes("BLUE LIGHT")) return "Collect Blue Light";
+		if (upperPureContent.includes("GREEN LIGHT")) return "Collect Green Light";
+		if (upperPureContent.includes("ORANGE LIGHT")) return "Collect Orange Light";
+		if (upperPureContent.includes("PURPLE LIGHT")) return "Collect Purple Light";
+		if (upperPureContent.includes("RED LIGHT")) return "Collect Red Light";
+		if (upperPureContent.includes("SAPLING")) return "Admire the Sapling";
+		if (upperPureContent.includes("SOCIAL LIGHT")) return "Visit the Social Light area";
+		if (upperPureContent.includes("SCAVENGER HUNT")) return "Complete the Hoop Scavenger Hunt";
+		if (upperPureContent.includes("RACE DOWN THE SLOPES")) return "Race Down the Slopes with the Skater";
+		if (upperPureContent.includes("RACE DOWN THE MOUNTAIN")) return "Race Down the Mountain with the Skater";
+		if (upperPureContent.includes("PRACTICE WITH THE SKATER")) return "Practice with the Skater";
+		if (upperPureContent.includes("REHEARSE FOR A PERFORMANCE")) return "Rehearse for a Performance with the Skater";
+
+		for (const spiritName of Object.values(SpiritName))
+			if (upperPureContent.replaceAll("’", "'").includes(spiritName.toUpperCase())) return `Relive ${spiritName}`;
+
+		return null;
+	}
+
 	public async parseQuests(content: string, attachments: Collection<Snowflake, Attachment>) {
 		const url = attachments.first()?.url;
 
@@ -207,40 +258,31 @@ export default new (class DailyGuides {
 			return;
 		}
 
-		let parsedContent = content
-			.replaceAll(new RegExp(FormattingPatterns.Emoji, "g"), "")
-			.replaceAll(/\*|_/g, "")
-			// eslint-disable-next-line unicorn/no-unsafe-regex
-			.replace(/daily\s+quest,?\s+(?:guide\s+-\s+)?/i, "")
-			.replace(/\s+\(?by\s+.+\n/i, "\n")
-			.trim();
+		// Remove the message link, if any.
+		const pureContent = /\n<?https?/.test(content) ? content.slice(0, content.indexOf("\n")).trim() : content;
 
-		const regex = dailyGuideDaysRegularExpression.exec(parsedContent);
+		// Attempt to manually set the daily guide.
+		const dailyGuideContent = this.resolveDailyGuideContent(pureContent);
 
-		if (regex?.groups) {
-			const { days, realm } = regex.groups;
-			const day = days.toUpperCase();
-			const resolvedRealm = resolveRealm(realm);
+		// Attempt to find a realm.
+		const potentialRealmRegExp = new RegExp(`(${regularExpressionRealms})`, "i").exec(pureContent)?.[1] ?? null;
+		const realm = potentialRealmRegExp ? resolveRealm(potentialRealmRegExp) : null;
 
-			if (!day || !resolvedRealm) {
-				consoleLog("Failed to parse the Days of X.");
-				return;
-			}
+		// Attempt to find a map.
+		const potentialMapRegExp = new RegExp(`(${mapRegExp})`, "i").exec(pureContent)?.[1] ?? null;
+		const map = potentialMapRegExp ? resolveMap(potentialMapRegExp) : null;
 
-			switch (day) {
-				case "BLOOM":
-					parsedContent = "Admire the sapling";
-					break;
-				case "RAINBOW":
-					parsedContent = "Find the candles at the end of the rainbow";
-					break;
-			}
+		// Generate the final output.
+		let output = null;
+		if (dailyGuideContent) output = `${dailyGuideContent}${realm ? ` - ${realm}` : ""}${map ? ` - ${map}` : ""}`;
 
-			parsedContent += ` - ${resolvedRealm}`;
+		// Fallback in case of no output.
+		if (!output) {
+			consoleLog("Failed to match a daily quest. Falling back to original string.");
+			output = pureContent;
 		}
 
-		if (/\n<?https?/.test(parsedContent)) parsedContent = parsedContent.slice(0, parsedContent.indexOf("\n")).trim();
-		const data = { content: parsedContent.replaceAll(/  +/g, " "), url };
+		const data = { content: output, url };
 
 		if (!this.quest1) {
 			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)

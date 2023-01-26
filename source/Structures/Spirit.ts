@@ -3,7 +3,57 @@ import { readFileSync } from "node:fs";
 import { URL } from "node:url";
 import { Realm, WIKI_URL } from "../Utility/Constants.js";
 
-const enum SpiritName {
+export enum SpiritName {
+	// Isles of Dawn
+	PointingCandlemaker = "Pointing Candlemaker",
+	UsheringStargazer = "Ushering Stargazer",
+	RejectingVoyager = "Rejecting Voyager",
+
+	// Daylight Prairie
+	ButterflyCharmer = "Butterfly Charmer",
+	ApplaudingBellmaker = "Applauding Bellmaker",
+	WavingBellmaker = "Waving Bellmaker",
+	SlumberingShipwright = "Slumbering Shipwright",
+	LaughingLightCatcher = "Laughing Light Catcher",
+	BirdWhisperer = "Bird Whisperer",
+	ExhaustedDockWorker = "Exhausted Dock Worker",
+	CeremonialWorshipper = "Ceremonial Worshipper",
+
+	// Hidden Forest
+	ShiveringTrailblazer = "Shivering Trailblazer",
+	BlushingProspector = "Blushing Prospector",
+	HideNSeekPioneer = "Hide'n'Seek Pioneer",
+	PoutyPorter = "Pouty Porter",
+	DismayedHunter = "Dismayed Hunter",
+	ApologeticLumberjack = "Apologetic Lumberjack",
+	TearfulLightMiner = "Tearful Light Miner",
+	WhaleWhisperer = "Whale Whisperer",
+
+	// Valley of Triumph
+	ConfidentSightseer = "Confident Sightseer",
+	HandstandingThrillseeker = "Handstanding Thrillseeker",
+	MantaWhisperer = "Manta Whisperer",
+	BackflippingChampion = "Backflipping Champion",
+	CheerfulSpectator = "Cheerful Spectator",
+	BowingMedalist = "Bowing Medalist",
+	ProudVictor = "	Proud Victor",
+
+	// Golden Wasteland
+	FrightenedRefugee = "Frightened Refugee",
+	FaintingWarrior = "Fainting Warrior",
+	CourageousSoldier = "Courageous Soldier",
+	StealthySurvivor = "Stealthy Survivor",
+	SalutingCaptain = "Saluting Captain",
+	LookoutScout = "Lookout Scout",
+
+	// Vault of Knowledge
+	PrayingAcolyte = "Praying Acolyte",
+	LevitatingAdept = "Levitating Adept",
+	PoliteScholar = "Polite Scholar",
+	MemoryWhisperer = "Memory Whisperer",
+	MeditatingMonastic = "Meditating Monastic",
+
+	// Seasonal Spirits
 	SassyDrifter = "Sassy Drifter",
 	StretchingGuru = "Stretching Guru",
 	ProvokingPerformer = "Provoking Performer",
