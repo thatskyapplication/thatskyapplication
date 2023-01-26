@@ -224,6 +224,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("FOLLOW A FRIEND")) return "Follow a Friend";
 		if (upperPureContent.includes("HUG A FRIEND")) return "Hug a Friend";
 		if (upperPureContent.includes("WAVE TO A FRIEND")) return "Wave to a Friend";
+		if (upperPureContent.includes("HOLD THE HAND")) return "Hold the Hand of a Friend";
 		if (upperPureContent.includes("HIGH-FIVE")) return "High-Five a Friend";
 		if (upperPureContent.includes("EXPRESSION NEAR A FRIEND")) return "Use an Expression Near a Friend";
 		if (upperPureContent.includes("BENCH")) return "Sit at a bench with a stranger.";
