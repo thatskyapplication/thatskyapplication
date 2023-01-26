@@ -1,7 +1,7 @@
 import { AsyncQueue } from "@sapphire/async-queue";
 import time from "date-fns-tz";
 import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
-import { ChannelType, MessageFlags, SnowflakeUtil } from "discord.js";
+import { FormattingPatterns, ChannelType, MessageFlags, SnowflakeUtil } from "discord.js";
 import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm } from "../Utility/Constants.js";
 import { consoleLog } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
@@ -211,7 +211,8 @@ export default new (class DailyGuides {
 	}
 
 	private resolveDailyGuideContent(pureContent: string) {
-		const upperPureContent = pureContent.toUpperCase();
+		const upperPureContent = pureContent.replaceAll(new RegExp(FormattingPatterns.Emoji, "gi"), "").toUpperCase();
+
 		if (upperPureContent.includes("BOW AT A PLAYER") || upperPureContent.includes("BOW TO A PLAYER"))
 			return "Bow at a Player";
 
