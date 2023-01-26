@@ -27,6 +27,14 @@ export enum Realm {
 	AncientMemory = "Ancient Memory",
 }
 
+export enum Map {
+	SanctuaryIslands = "Sanctuary Islands",
+	WindPaths = "Wind Paths",
+	HermitValley = "Hermit Valley",
+	TreasureReef = "TreasureReef",
+	StarlightDesert = "StarlightDesert",
+}
+
 export const WingedLightCount = {
 	IslesOfDawn: 9,
 	DaylightPrairie: 21,

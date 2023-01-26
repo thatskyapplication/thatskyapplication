@@ -2,7 +2,7 @@ import { AsyncQueue } from "@sapphire/async-queue";
 import time from "date-fns-tz";
 import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
 import { ChannelType, MessageFlags, SnowflakeUtil, FormattingPatterns } from "discord.js";
-import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Realm } from "../Utility/Constants.js";
+import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm } from "../Utility/Constants.js";
 import { consoleLog } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
@@ -75,6 +75,11 @@ function resolveRealm(rawRealm: string) {
 	return null;
 }
 
+function resolveMap(rawMap: string) {
+	const upperRawMap = rawMap.toUpperCase();
+	return Object.values(Map).find(map => map.toUpperCase() === upperRawMap) ?? null; 
+}
+
 function resolveMemory(rawMemory: string) {
 	// eslint-disable-next-line unicorn/better-regex, prefer-named-capture-group
 	const upperRawMemory = /\[y\] ([a-z]+)/i.exec(rawMemory)?.[1].toUpperCase();
@@ -89,6 +94,7 @@ function resolveMemory(rawMemory: string) {
 }
 
 const regularExpressionRealms = Object.values(Realm).join("|").replaceAll(" ", "\\s+");
+const mapRegExp = Object.values(Map).join("|").replaceAll(" ", "\\s+");
 
 const dailyGuideDaysRegularExpression = new RegExp(
 	`days\\s+of\\s+(?<days>bloom|rainbow)\\s+\\d{4}\\s+-\\s+.+(?<realm>${regularExpressionRealms}|wind paths|sanctuary islands|hermit valley|treasure reef|starlight desert)`,
@@ -207,40 +213,68 @@ export default new (class DailyGuides {
 			return;
 		}
 
-		let parsedContent = content
-			.replaceAll(new RegExp(FormattingPatterns.Emoji, "g"), "")
-			.replaceAll(/\*|_/g, "")
-			// eslint-disable-next-line unicorn/no-unsafe-regex
-			.replace(/daily\s+quest,?\s+(?:guide\s+-\s+)?/i, "")
-			.replace(/\s+\(?by\s+.+\n/i, "\n")
-			.trim();
+		// Remove the message link, if any.
+		const pureContent = /\n<?https?/.test(content) ? content.slice(0, content.indexOf("\n")).trim() : content;
 
-		const regex = dailyGuideDaysRegularExpression.exec(parsedContent);
+		// Define output variables.
+		let dailyGuideContent = null;
+		let realm = null;
+		let map = null;
+		let output = null;
 
-		if (regex?.groups) {
-			const { days, realm } = regex.groups;
-			const day = days.toUpperCase();
-			const resolvedRealm = resolveRealm(realm);
+		// Attempt to manually set the daily guide.
+		if (pureContent.toUpperCase().includes("SAPLING")) dailyGuideContent = "Admire the sapling";
 
-			if (!day || !resolvedRealm) {
-				consoleLog("Failed to parse the Days of X.");
-				return;
+		// Attempt to find a realm.
+		const potentialRealmRegExp = new RegExp(`(${regularExpressionRealms})`, "i").exec(pureContent)?.[1] ?? null;
+		realm = potentialRealmRegExp ? resolveRealm(potentialRealmRegExp) : null;
+
+		// Attempt to find a map.
+		const potentialMapRegExp = new RegExp(`(${mapRegExp})`, "i").exec(pureContent)?.[1] ?? null;
+		map = potentialMapRegExp ? resolveMap(potentialMapRegExp) : null;
+
+		// Generate the final output.
+		if (dailyGuideContent) output = `${dailyGuideContent}${realm ? ` - ${realm}` : ""}${map ? ` - ${map}` : ""}`;
+
+		// Fallback in case of no output.
+		if (!output) {
+			let parsedContent = pureContent
+				.replaceAll(new RegExp(FormattingPatterns.Emoji, "g"), "")
+				.replaceAll(/\*|_/g, "")
+				// eslint-disable-next-line unicorn/no-unsafe-regex
+				.replace(/daily\s+quest,?\s+(?:guide\s+-\s+)?/i, "")
+				.replace(/\s+\(?by\s+.+\n/i, "\n")
+				.trim();
+
+			const regex = dailyGuideDaysRegularExpression.exec(pureContent);
+
+			if (regex?.groups) {
+				const { days, realm: realmRegex } = regex.groups;
+				const day = days.toUpperCase();
+				const resolvedRealm = resolveRealm(realmRegex);
+
+				if (!day || !resolvedRealm) {
+					consoleLog("Failed to parse the Days of X.");
+					return;
+				}
+
+				switch (day) {
+					case "BLOOM":
+						parsedContent = "Admire the sapling";
+						break;
+					case "RAINBOW":
+						parsedContent = "Find the candles at the end of the rainbow";
+						break;
+				}
+
+				parsedContent += ` - ${resolvedRealm}`;
 			}
 
-			switch (day) {
-				case "BLOOM":
-					parsedContent = "Admire the sapling";
-					break;
-				case "RAINBOW":
-					parsedContent = "Find the candles at the end of the rainbow";
-					break;
-			}
-
-			parsedContent += ` - ${resolvedRealm}`;
+			if (/\n<?https?/.test(parsedContent)) parsedContent = parsedContent.slice(0, parsedContent.indexOf("\n")).trim();
+			output = parsedContent.replaceAll(/  +/g, " ");
 		}
 
-		if (/\n<?https?/.test(parsedContent)) parsedContent = parsedContent.slice(0, parsedContent.indexOf("\n")).trim();
-		const data = { content: parsedContent.replaceAll(/  +/g, " "), url };
+		const data = { content: output, url };
 
 		if (!this.quest1) {
 			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
