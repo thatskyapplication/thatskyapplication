@@ -226,7 +226,10 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("RAINBOW")) return "Find the Candles at the End of the Rainbow";
 		if (upperPureContent.includes("CATCH THE LIGHT")) return "Catch the Light";
 		if (upperPureContent.includes("MEDITATION")) return "Meditate";
+		if (upperPureContent.includes("BLUE LIGHT")) return "Collect Blue Light";
+		if (upperPureContent.includes("GREEN LIGHT")) return "Collect Green Light";
 		if (upperPureContent.includes("ORANGE LIGHT")) return "Collect Orange Light";
+		if (upperPureContent.includes("RED LIGHT")) return "Collect Red Light";
 		if (upperPureContent.includes("SAPLING")) return "Admire the Sapling";
 
 		for (const spiritName of Object.values(SpiritName))
