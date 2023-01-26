@@ -229,6 +229,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("BLUE LIGHT")) return "Collect Blue Light";
 		if (upperPureContent.includes("GREEN LIGHT")) return "Collect Green Light";
 		if (upperPureContent.includes("ORANGE LIGHT")) return "Collect Orange Light";
+		if (upperPureContent.includes("PURPLE LIGHT")) return "Collect Purple Light";
 		if (upperPureContent.includes("RED LIGHT")) return "Collect Red Light";
 		if (upperPureContent.includes("SAPLING")) return "Admire the Sapling";
 
