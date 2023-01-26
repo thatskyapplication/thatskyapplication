@@ -1,4 +1,4 @@
-import type { ChatInputCommandInteraction, Client, Guild, Snowflake } from "discord.js";
+import type { ChatInputCommandInteraction, Client, Guild, GuildMember, Snowflake } from "discord.js";
 import { channelMention, ChannelType, Collection, EmbedBuilder, PermissionFlagsBits, roleMention } from "discord.js";
 import pg, { Table } from "../pg.js";
 
@@ -164,63 +164,39 @@ export default class Notification {
 			turtleChannelId,
 			turtleRoleId,
 		} = this;
-		const pollutedGeyserChannel = pollutedGeyserChannelId ? guild?.channels.resolve(pollutedGeyserChannelId) : null;
-		const pollutedGeyserRole = pollutedGeyserRoleId ? guild?.roles.resolve(pollutedGeyserRoleId) : null;
-		const grandmaChannel = grandmaChannelId ? guild?.channels.resolve(grandmaChannelId) : null;
-		const grandmaRole = grandmaRoleId ? guild?.roles.resolve(grandmaRoleId) : null;
-		const turtleChannel = turtleChannelId ? guild?.channels.resolve(turtleChannelId) : null;
-		const turtleRole = turtleRoleId ? guild?.roles.resolve(turtleRoleId) : null;
 
 		return new EmbedBuilder()
 			.setColor(me.displayColor)
 			.setFields(
 				{
 					name: NotificationEvent.PollutedGeyser,
-					value: `${pollutedGeyserChannelId ? channelMention(pollutedGeyserChannelId) : "No channel"}\n${
-						pollutedGeyserRoleId ? roleMention(pollutedGeyserRoleId) : "No role"
-					}\n${
-						me &&
-						(pollutedGeyserChannel
-							?.permissionsFor(me)
-							.has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) ||
-							(pollutedGeyserRole?.mentionable &&
-								pollutedGeyserChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)))
-							? "✅ Sending!"
-							: "⚠️ Stopped!"
-					}`,
+					value: this.overviewValue(me, pollutedGeyserChannelId, pollutedGeyserRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.Grandma,
-					value: `${grandmaChannelId ? channelMention(grandmaChannelId) : "No channel"}\n${
-						grandmaRoleId ? roleMention(grandmaRoleId) : "No role"
-					}\n${
-						me &&
-						(grandmaChannel
-							?.permissionsFor(me)
-							.has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) ||
-							(grandmaRole?.mentionable && grandmaChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)))
-							? "✅ Sending!"
-							: "⚠️ Stopped!"
-					}`,
+					value: this.overviewValue(me, grandmaChannelId, grandmaRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.Turtle,
-					value: `${turtleChannelId ? channelMention(turtleChannelId) : "No channel"}\n${
-						turtleRoleId ? roleMention(turtleRoleId) : "No role"
-					}\n${
-						me &&
-						(turtleChannel
-							?.permissionsFor(me)
-							.has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) ||
-							(turtleRole?.mentionable && turtleChannel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)))
-							? "✅ Sending!"
-							: "⚠️ Stopped!"
-					}`,
+					value: this.overviewValue(me, turtleChannelId, turtleRoleId),
 					inline: true,
 				},
 			)
 			.setTitle(guild.name);
+	}
+
+	private overviewValue(me: GuildMember, channelId: Snowflake | null, roleId: Snowflake | null) {
+		const channel = channelId ? me.guild.channels.resolve(channelId) : null;
+		const role = roleId ? me.guild.roles.resolve(roleId) : null;
+
+		return `${channelId ? channelMention(channelId) : "No channel"}\n${roleId ? roleMention(roleId) : "No role"}\n${
+			me &&
+			(channel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) ||
+				(role?.mentionable && channel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)))
+				? "✅ Sending!"
+				: "⚠️ Stopped!"
+		}`;
 	}
 }
