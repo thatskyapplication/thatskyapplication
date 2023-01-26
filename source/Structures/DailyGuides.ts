@@ -209,6 +209,7 @@ export default new (class DailyGuides {
 	private resolveDailyGuideContent(pureContent: string) {
 		const upperPureContent = pureContent.toUpperCase();
 		if (upperPureContent.includes("EXPRESSION NEAR A FRIEND")) return "Use an Expression Near a Friend";
+		if (upperPureContent.includes("RIDE A MANTA")) return "Ride a Manta";
 		if (upperPureContent.includes("LIGHT BLOOM")) return "Recharge from a Light Bloom";
 		if (upperPureContent.includes("ORANGE LIGHT")) return "Collect Orange Light";
 		if (upperPureContent.includes("SAPLING")) return "Admire the Sapling";
