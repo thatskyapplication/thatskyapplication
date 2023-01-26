@@ -223,7 +223,9 @@ export default new (class DailyGuides {
 		let output = null;
 
 		// Attempt to manually set the daily guide.
-		if (pureContent.toUpperCase().includes("SAPLING")) dailyGuideContent = "Admire the sapling";
+		const upperPureContent = pureContent.toUpperCase();
+		if (upperPureContent.includes("ORANGE LIGHT")) dailyGuideContent = "Collect Orange Light";
+		if (upperPureContent.includes("SAPLING")) dailyGuideContent = "Admire the sapling";
 
 		// Attempt to find a realm.
 		const potentialRealmRegExp = new RegExp(`(${regularExpressionRealms})`, "i").exec(pureContent)?.[1] ?? null;
