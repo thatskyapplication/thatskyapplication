@@ -1,7 +1,7 @@
 import { AsyncQueue } from "@sapphire/async-queue";
 import time from "date-fns-tz";
 import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
-import { ChannelType, MessageFlags, SnowflakeUtil, FormattingPatterns } from "discord.js";
+import { ChannelType, MessageFlags, SnowflakeUtil } from "discord.js";
 import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm } from "../Utility/Constants.js";
 import { consoleLog } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
@@ -105,11 +105,6 @@ function resolveMemory(rawMemory: string) {
 
 const regularExpressionRealms = Object.values(Realm).join("|").replaceAll(" ", "\\s+");
 const mapRegExp = Object.values(Map).join("|").replaceAll(" ", "\\s+");
-
-const dailyGuideDaysRegularExpression = new RegExp(
-	`days\\s+of\\s+(?<days>bloom|rainbow)\\s+\\d{4}\\s+-\\s+.+(?<realm>${regularExpressionRealms}|wind paths|sanctuary islands|hermit valley|treasure reef|starlight desert)`,
-	"i",
-);
 
 const treasureCandleRegularExpression = new RegExp(
 	`(?<rotation>rotation\\s+\\d{1,2})\\s*\\|\\s*(?<realm>${regularExpressionRealms})`,
@@ -283,39 +278,8 @@ export default new (class DailyGuides {
 
 		// Fallback in case of no output.
 		if (!output) {
-			let parsedContent = pureContent
-				.replaceAll(new RegExp(FormattingPatterns.Emoji, "g"), "")
-				.replaceAll(/\*|_/g, "")
-				// eslint-disable-next-line unicorn/no-unsafe-regex
-				.replace(/daily\s+quest,?\s+(?:guide\s+-\s+)?/i, "")
-				.replace(/\s+\(?by\s+.+/i, "\n")
-				.trim();
-
-			const regex = dailyGuideDaysRegularExpression.exec(pureContent);
-
-			if (regex?.groups) {
-				const { days, realm: realmRegex } = regex.groups;
-				const day = days.toUpperCase();
-				const resolvedRealm = resolveRealm(realmRegex);
-
-				if (!day || !resolvedRealm) {
-					consoleLog("Failed to parse the Days of X.");
-					return;
-				}
-
-				switch (day) {
-					case "BLOOM":
-						parsedContent = "Admire the sapling";
-						break;
-					case "RAINBOW":
-						parsedContent = "Find the candles at the end of the rainbow";
-						break;
-				}
-
-				parsedContent += ` - ${resolvedRealm}`;
-			}
-
-			output = parsedContent.replaceAll(/  +/g, " ");
+			consoleLog("Failed to match a daily quest. Falling back to original string.");
+			output = pureContent;
 		}
 
 		const data = { content: output, url };
