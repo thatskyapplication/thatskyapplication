@@ -206,6 +206,18 @@ export default new (class DailyGuides {
 		this.queue.shift();
 	}
 
+	private resolveDailyGuideContent(pureContent: string) {
+		const upperPureContent = pureContent.toUpperCase();
+		if (upperPureContent.includes("LIGHT BLOOM")) return "Recharge from a Light Bloom";
+		if (upperPureContent.includes("ORANGE LIGHT")) return "Collect Orange Light";
+		if (upperPureContent.includes("SAPLING")) return "Admire the Sapling";
+
+		for (const spiritName of Object.values(SpiritName))
+			if (upperPureContent.includes(spiritName.toUpperCase())) return `Relive ${spiritName}`;
+
+		return null;
+	}
+
 	public async parseQuests(content: string, attachments: Collection<Snowflake, Attachment>) {
 		const url = attachments.first()?.url;
 
@@ -217,33 +229,19 @@ export default new (class DailyGuides {
 		// Remove the message link, if any.
 		const pureContent = /\n<?https?/.test(content) ? content.slice(0, content.indexOf("\n")).trim() : content;
 
-		// Define output variables.
-		let dailyGuideContent = null;
-		let realm = null;
-		let map = null;
-		let output = null;
-
 		// Attempt to manually set the daily guide.
-		const upperPureContent = pureContent.toUpperCase();
-		if (upperPureContent.includes("ORANGE LIGHT")) dailyGuideContent = "Collect Orange Light";
-		if (upperPureContent.includes("SAPLING")) dailyGuideContent = "Admire the sapling";
-
-		for (const spiritName of Object.values(SpiritName)) {
-			if (upperPureContent.includes(spiritName.toUpperCase())) {
-				dailyGuideContent = `Relive ${spiritName}`;
-				break;
-			}
-		}
+		const dailyGuideContent = this.resolveDailyGuideContent(pureContent);
 
 		// Attempt to find a realm.
 		const potentialRealmRegExp = new RegExp(`(${regularExpressionRealms})`, "i").exec(pureContent)?.[1] ?? null;
-		realm = potentialRealmRegExp ? resolveRealm(potentialRealmRegExp) : null;
+		const realm = potentialRealmRegExp ? resolveRealm(potentialRealmRegExp) : null;
 
 		// Attempt to find a map.
 		const potentialMapRegExp = new RegExp(`(${mapRegExp})`, "i").exec(pureContent)?.[1] ?? null;
-		map = potentialMapRegExp ? resolveMap(potentialMapRegExp) : null;
+		const map = potentialMapRegExp ? resolveMap(potentialMapRegExp) : null;
 
 		// Generate the final output.
+		let output = null;
 		if (dailyGuideContent) output = `${dailyGuideContent}${realm ? ` - ${realm}` : ""}${map ? ` - ${map}` : ""}`;
 
 		// Fallback in case of no output.
