@@ -243,7 +243,7 @@ export default new (class DailyGuides {
 				.replaceAll(/\*|_/g, "")
 				// eslint-disable-next-line unicorn/no-unsafe-regex
 				.replace(/daily\s+quest,?\s+(?:guide\s+-\s+)?/i, "")
-				.replace(/\s+\(?by\s+.+\n/i, "\n")
+				.replace(/\s+\(?by\s+.+/i, "\n")
 				.trim();
 
 			const regex = dailyGuideDaysRegularExpression.exec(pureContent);
@@ -270,7 +270,6 @@ export default new (class DailyGuides {
 				parsedContent += ` - ${resolvedRealm}`;
 			}
 
-			if (/\n<?https?/.test(parsedContent)) parsedContent = parsedContent.slice(0, parsedContent.indexOf("\n")).trim();
 			output = parsedContent.replaceAll(/  +/g, " ");
 		}
 
