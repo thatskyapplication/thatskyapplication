@@ -2,7 +2,7 @@ import time from "date-fns-tz";
 import type { ChatInputCommandInteraction, Client, Guild, Snowflake } from "discord.js";
 import { channelMention, ChannelType, embedLength, hyperlink, PermissionFlagsBits, EmbedBuilder } from "discord.js";
 import pg, { Table } from "../pg.js";
-import DailyGuides from "./DailyGuides.js";
+import DailyGuides, { getShardEruption } from "./DailyGuides.js";
 
 export interface DailyGuidesDistributionPacket {
 	id: number;
@@ -170,7 +170,22 @@ export default class DailyGuidesDistribution {
 
 			if (timestamps) embed.addFields({ name: "Timestamps", value: timestamps, inline: true });
 		} else {
-			embed.addFields({ name: SHARD_ERUPTION_NAME, value: "Unknown" });
+			const shardEruptionPrediction = getShardEruption();
+
+			if (shardEruptionPrediction) {
+				const { realm, map, dangerous, timestamps } = shardEruptionPrediction;
+
+				embed.addFields(
+					{
+						name: `${SHARD_ERUPTION_NAME} Prediction`,
+						value: `Location: ${realm} (${map})\nDangerous: ${dangerous ? "✅" : "❌"}`,
+						inline: true,
+					},
+					{ name: "Timestamps", value: timestamps, inline: true },
+				);
+			} else {
+				embed.addFields({ name: SHARD_ERUPTION_NAME, value: "Unknown" });
+			}
 		}
 
 		// Distribute!

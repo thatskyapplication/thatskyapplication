@@ -1,9 +1,8 @@
 import { AsyncQueue } from "@sapphire/async-queue";
-import time from "date-fns-tz";
 import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
-import { FormattingPatterns, ChannelType, MessageFlags, SnowflakeUtil } from "discord.js";
+import { time, TimestampStyles, FormattingPatterns, ChannelType, MessageFlags, SnowflakeUtil } from "discord.js";
 import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm } from "../Utility/Constants.js";
-import { consoleLog } from "../Utility/Utility.js";
+import { consoleLog, todayTimestamp } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import { SpiritName } from "./Spirit.js";
@@ -43,7 +42,15 @@ interface TreasureCandleData {
 	url: string;
 }
 
-type ValidRealm = Exclude<Realm, Realm.IslesOfDawn | Realm.EyeOfEden | Realm.AncientMemory>;
+const VALID_REALM = [
+	Realm.DaylightPrairie,
+	Realm.HiddenForest,
+	Realm.ValleyOfTriumph,
+	Realm.GoldenWasteland,
+	Realm.VaultOfKnowledge,
+] as const;
+
+type ValidRealm = (typeof VALID_REALM)[number];
 
 enum ShardMemory {
 	Jellyfish = "Jellyfish",
@@ -62,6 +69,73 @@ interface ShardEruption {
 	memory: ShardMemory | null;
 	data: string | null;
 	url: string | null;
+}
+
+const SHARD_ERUPTION_PREDICTION_DATA = [
+	{
+		noShardWeekDay: [6, 7], // Saturday, Sunday
+		interval: 8,
+		// 1 hour and 50 minutes.
+		offset: 6_600_000,
+		maps: [Map.ButterflyFields, Map.ForestBrook, Map.IceRink, Map.BrokenTemple, Map.StarlightDesert],
+	},
+	{
+		noShardWeekDay: [7, 1], // Sunday, Monday
+		interval: 8,
+		// 2 hours and 10 minutes.
+		offset: 7_800_000,
+		maps: [Map.VillageIslands, Map.Boneyard, Map.IceRink, Map.Battlefield, Map.StarlightDesert],
+	},
+	{
+		noShardWeekDay: [1, 2], // Monday, Tuesday
+		interval: 6,
+		// 7 hours and 40 minutes.
+		offset: 27_600_000,
+		maps: [Map.Cave, Map.ForestEnd, Map.VillageOfDreams, Map.Graveyard, Map.JellyfishCove],
+	},
+	{
+		noShardWeekDay: [2, 3], // Tuesday, Wednesday
+		interval: 6,
+		// 2 hours and 20 minutes.
+		offset: 8_400_000,
+		maps: [Map.BirdNest, Map.Treehouse, Map.VillageOfDreams, Map.CrabFields, Map.JellyfishCove],
+	},
+	{
+		noShardWeekDay: [3, 4], // Wednesday, Thursday
+		interval: 6,
+		// 3 hours and 30 minutes.
+		offset: 12_600_000,
+		maps: [Map.SanctuaryIslands, Map.ElevatedClearing, Map.HermitValley, Map.ForgottenArk, Map.JellyfishCove],
+	},
+] as const;
+
+export function getShardEruption() {
+	const date = todayTimestamp();
+	const dayOfMonth = date.getUTCDate();
+	const dayOfWeek = date.getUTCDay();
+	const dangerous = dayOfMonth % 2 === 1;
+	const infoIndex = dangerous ? (((dayOfMonth - 1) / 2) % 3) + 2 : (dayOfMonth / 2) % 2;
+	const { noShardWeekDay, interval, offset, maps } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex];
+	// @ts-expect-error Too narrow.
+	const noShardDay = noShardWeekDay.includes(dayOfWeek);
+	if (noShardDay) return null;
+	const realmIndex = (dayOfMonth - 1) % 5;
+	let startTime = date.getTime() + offset;
+	let timestamps = "";
+
+	while (startTime < date.getTime() + 72_000_000) {
+		const start = time((startTime + 520_000) / 1_000, TimestampStyles.LongTime);
+		const end = time((startTime + 14_400_000) / 1_000, TimestampStyles.LongTime);
+		timestamps += `${start} - ${end}\n`;
+		startTime += interval * 3_600_000;
+	}
+
+	return {
+		realm: VALID_REALM[realmIndex],
+		map: maps[realmIndex],
+		dangerous,
+		timestamps: timestamps.trim(),
+	};
 }
 
 function resolveRealm(rawRealm: string) {
@@ -126,15 +200,6 @@ export default new (class DailyGuides {
 
 	public shardEruption: DailyGuidesData["shardEruption"] = null;
 
-	public get todayTimestamp() {
-		const date = time.utcToZonedTime(Date.now(), "America/Los_Angeles");
-		date.setUTCHours(0);
-		date.setUTCMinutes(0);
-		date.setUTCSeconds(0);
-		date.setUTCMilliseconds(0);
-		return time.zonedTimeToUtc(date, "America/Los_Angeles").getTime();
-	}
-
 	public readonly queue = new AsyncQueue();
 
 	public async reset() {
@@ -169,7 +234,7 @@ export default new (class DailyGuides {
 				reference?.guildId === INFOGRAPHICS_DATABASE_GUILD_ID &&
 				flags.has(MessageFlags.IsCrosspost) &&
 				reference.messageId &&
-				SnowflakeUtil.timestampFrom(reference.messageId) >= this.todayTimestamp,
+				SnowflakeUtil.timestampFrom(reference.messageId) >= todayTimestamp().getTime(),
 		);
 	}
 
@@ -457,7 +522,7 @@ export default new (class DailyGuides {
 		if (channel?.type !== ChannelType.GuildText) return;
 
 		const messages = await channel.messages.fetch({
-			after: String(SnowflakeUtil.generate({ timestamp: this.todayTimestamp })),
+			after: String(SnowflakeUtil.generate({ timestamp: todayTimestamp() })),
 		});
 
 		await this.reset();

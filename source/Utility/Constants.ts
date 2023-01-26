@@ -33,14 +33,17 @@ export enum Map {
 	ButterflyFields = "Butterfly Fields",
 	Cave = "Cave",
 	KoiPond = "Koi Pond",
+	VillageIslands = "Village Islands",
 	SanctuaryIslands = "Sanctuary Islands",
 
 	// Hidden Forest
 	Boneyard = "Boneyard",
+	CrabFields = "Crab Fields",
 	ElevatedClearing = "Elevated Clearing",
 	ForestBrook = "Forest Brook",
 	ForestClearing = "Forest Clearing",
 	ForestEnd = "Forest End",
+	Treehouse = "Treehouse",
 	WindPaths = "Wind Paths",
 
 	// Valley of Triumph
@@ -59,6 +62,7 @@ export enum Map {
 	TreasureReef = "Treasure Reef",
 
 	// Vault of Knowledge
+	JellyfishCove = "Jellyfish Cove",
 	SpiritMantas = "Spirit Mantas",
 	StarlightDesert = "Starlight Desert",
 	VaultSecondFloor = "Vault Second Floor",
