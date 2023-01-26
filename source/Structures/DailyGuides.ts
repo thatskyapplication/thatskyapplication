@@ -78,6 +78,17 @@ function resolveRealm(rawRealm: string) {
 
 function resolveMap(rawMap: string) {
 	const upperRawMap = rawMap.toUpperCase();
+
+	// Account for wonderful inconsistencies.
+	switch (upperRawMap) {
+		case "BOAT":
+			return Map.ForgottenArk;
+		case "FOREST'S BROOK":
+			return Map.ForestBrook;
+		case "RACE END":
+			return Map.Coliseum;
+	}
+
 	return Object.values(Map).find((map) => map.toUpperCase() === upperRawMap) ?? null;
 }
 
@@ -214,6 +225,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("LIGHT BLOOM")) return "Recharge from a Light Bloom";
 		if (upperPureContent.includes("RAINBOW")) return "Find the Candles at the End of the Rainbow";
 		if (upperPureContent.includes("CATCH THE LIGHT")) return "Catch the Light";
+		if (upperPureContent.includes("MEDITATION")) return "Meditate";
 		if (upperPureContent.includes("ORANGE LIGHT")) return "Collect Orange Light";
 		if (upperPureContent.includes("SAPLING")) return "Admire the Sapling";
 

@@ -28,11 +28,39 @@ export enum Realm {
 }
 
 export enum Map {
+	// Daylight Prairie
+	BirdNest = "Bird Nest",
+	ButterflyFields = "Butterfly Fields",
+	Cave = "Cave",
+	KoiPond = "Koi Pond",
 	SanctuaryIslands = "Sanctuary Islands",
+
+	// Hidden Forest
+	Boneyard = "Boneyard",
+	ElevatedClearing = "Elevated Clearing",
+	ForestBrook = "Forest Brook",
+	ForestClearing = "Forest Clearing",
+	ForestEnd = "Forest End",
 	WindPaths = "Wind Paths",
+
+	// Valley of Triumph
+	IceRink = "Ice Rink",
+	Citadel = "Citadel",
+	Coliseum = "Coliseum",
 	HermitValley = "Hermit Valley",
+
+	// Golden Wasteland
+	Battlefield = "Battlefield",
+	BrokenTemple = "Broken Temple",
+	ForgottenArk = "Forgotten Ark",
+	Graveyard = "Graveyard",
 	TreasureReef = "TreasureReef",
+
+	// Vault of Knowledge
+	SpiritMantas = "Spirit Mantas",
 	StarlightDesert = "StarlightDesert",
+	VaultSecondFloor = "Vault Second Floor",
+	VaultSummit = "Vault Summit",
 }
 
 export const WingedLightCount = {
