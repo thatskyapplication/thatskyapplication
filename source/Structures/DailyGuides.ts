@@ -226,6 +226,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("HIGH-FIVE")) return "High-Five a Friend";
 		if (upperPureContent.includes("EXPRESSION NEAR A FRIEND")) return "Use an Expression Near a Friend";
 		if (upperPureContent.includes("RIDE A MANTA")) return "Ride a Manta";
+		if (upperPureContent.includes("DARK DRAGON")) return "Face the Dark Dragon";
 		if (upperPureContent.includes("LIGHT BLOOM")) return "Recharge from a Light Bloom";
 		if (upperPureContent.includes("RAINBOW")) return "Find the Candles at the End of the Rainbow";
 		if (upperPureContent.includes("CATCH THE LIGHT")) return "Catch the Light";
