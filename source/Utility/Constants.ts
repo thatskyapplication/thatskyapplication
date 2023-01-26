@@ -48,6 +48,7 @@ export enum Map {
 	Citadel = "Citadel",
 	Coliseum = "Coliseum",
 	HermitValley = "Hermit Valley",
+	VillageOfDreams = "Village of Dreams",
 
 	// Golden Wasteland
 	Battlefield = "Battlefield",
