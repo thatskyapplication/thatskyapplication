@@ -221,6 +221,7 @@ export default new (class DailyGuides {
 			return "Bow at a Player";
 
 		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) return "Knock over 5 Dark Creatures Crabs";
+		if (upperPureContent.includes("FOLLOW A FRIEND")) return "Follow a Friend";
 		if (upperPureContent.includes("HUG A FRIEND")) return "Hug a Friend";
 		if (upperPureContent.includes("EXPRESSION NEAR A FRIEND")) return "Use an Expression Near a Friend";
 		if (upperPureContent.includes("RIDE A MANTA")) return "Ride a Manta";
