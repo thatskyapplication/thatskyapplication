@@ -213,7 +213,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("SAPLING")) return "Admire the Sapling";
 
 		for (const spiritName of Object.values(SpiritName))
-			if (upperPureContent.includes(spiritName.toUpperCase())) return `Relive ${spiritName}`;
+			if (upperPureContent.replaceAll("’", "'").includes(spiritName.toUpperCase())) return `Relive ${spiritName}`;
 
 		return null;
 	}
