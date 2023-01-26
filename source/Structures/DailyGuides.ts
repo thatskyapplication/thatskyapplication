@@ -77,7 +77,7 @@ function resolveRealm(rawRealm: string) {
 
 function resolveMap(rawMap: string) {
 	const upperRawMap = rawMap.toUpperCase();
-	return Object.values(Map).find(map => map.toUpperCase() === upperRawMap) ?? null; 
+	return Object.values(Map).find((map) => map.toUpperCase() === upperRawMap) ?? null;
 }
 
 function resolveMemory(rawMemory: string) {
