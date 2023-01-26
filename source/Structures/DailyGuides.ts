@@ -236,6 +236,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("PURPLE LIGHT")) return "Collect Purple Light";
 		if (upperPureContent.includes("RED LIGHT")) return "Collect Red Light";
 		if (upperPureContent.includes("SAPLING")) return "Admire the Sapling";
+		if (upperPureContent.includes("SCAVENGER HUNT")) return "Complete the Hoop Scavenger Hunt";
 
 		for (const spiritName of Object.values(SpiritName))
 			if (upperPureContent.replaceAll("’", "'").includes(spiritName.toUpperCase())) return `Relive ${spiritName}`;
