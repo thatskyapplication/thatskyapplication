@@ -54,11 +54,11 @@ export enum Map {
 	BrokenTemple = "Broken Temple",
 	ForgottenArk = "Forgotten Ark",
 	Graveyard = "Graveyard",
-	TreasureReef = "TreasureReef",
+	TreasureReef = "Treasure Reef",
 
 	// Vault of Knowledge
 	SpiritMantas = "Spirit Mantas",
-	StarlightDesert = "StarlightDesert",
+	StarlightDesert = "Starlight Desert",
 	VaultSecondFloor = "Vault Second Floor",
 	VaultSummit = "Vault Summit",
 }
