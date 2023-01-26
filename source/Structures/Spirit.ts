@@ -3,7 +3,8 @@ import { readFileSync } from "node:fs";
 import { URL } from "node:url";
 import { Realm, WIKI_URL } from "../Utility/Constants.js";
 
-const enum SpiritName {
+export enum SpiritName {
+	ApologeticLumberjack = "Apologetic Lumberjack",
 	SassyDrifter = "Sassy Drifter",
 	StretchingGuru = "Stretching Guru",
 	ProvokingPerformer = "Provoking Performer",

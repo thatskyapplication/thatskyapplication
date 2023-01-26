@@ -6,6 +6,7 @@ import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm } from "../Utility/
 import { consoleLog } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
+import { SpiritName } from "./Spirit.js";
 
 export interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;
@@ -226,6 +227,13 @@ export default new (class DailyGuides {
 		const upperPureContent = pureContent.toUpperCase();
 		if (upperPureContent.includes("ORANGE LIGHT")) dailyGuideContent = "Collect Orange Light";
 		if (upperPureContent.includes("SAPLING")) dailyGuideContent = "Admire the sapling";
+
+		for (const spiritName of Object.values(SpiritName)) {
+			if (upperPureContent.includes(spiritName.toUpperCase())) {
+				dailyGuideContent = `Relive ${spiritName}`;
+				break;
+			}
+		}
 
 		// Attempt to find a realm.
 		const potentialRealmRegExp = new RegExp(`(${regularExpressionRealms})`, "i").exec(pureContent)?.[1] ?? null;
