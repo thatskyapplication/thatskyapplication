@@ -9,6 +9,12 @@ function sendNotification(client: Client<true>, type: NotificationEvent) {
 	for (const notification of Notification.cache.values()) void notification.send(client, type);
 }
 
+async function dailyReset(client: Client<true>) {
+	await DailyGuides.reset();
+	await DailyGuidesDistribution.reset();
+	await DailyGuidesDistribution.distribute(client);
+}
+
 export default new (class {
 	public clock(client: Client<true>): void {
 		setInterval(() => {
@@ -19,10 +25,7 @@ export default new (class {
 			const seconds = dateTime.getUTCSeconds();
 
 			if (seconds === 0) {
-				if (hours === 0 && minutes === 0) {
-					void DailyGuides.reset();
-					void DailyGuidesDistribution.reset();
-				}
+				if (hours === 0 && minutes === 0) void dailyReset(client);
 
 				if (hours % 2 === 0) {
 					switch (minutes) {
