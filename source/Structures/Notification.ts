@@ -188,13 +188,13 @@ export default class Notification {
 	}
 
 	private overviewValue(me: GuildMember, channelId: Snowflake | null, roleId: Snowflake | null) {
-		const channel = channelId ? me.guild.channels.resolve(channelId) : null;
-		const role = roleId ? me.guild.roles.resolve(roleId) : null;
+		const { channels, roles } = me.guild;
+		const channel = channelId ? channels.resolve(channelId) : null;
+		const role = roleId ? roles.resolve(roleId) : null;
 
 		return `${channelId ? channelMention(channelId) : "No channel"}\n${roleId ? roleMention(roleId) : "No role"}\n${
-			me &&
-			(channel?.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) ||
-				(role?.mentionable && channel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)))
+			channel?.permissionsFor(me).has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages) ||
+			(role?.mentionable && channel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))
 				? "✅ Sending!"
 				: "⚠️ Stopped!"
 		}`;
