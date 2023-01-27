@@ -215,17 +215,19 @@ export default class DailyGuidesDistribution {
 					);
 				}
 
-				// Add guild-specific colour.
-				embed.setColor(me.displayColor);
+				// Add guild-specific colour (an object is made to avoid overwriting colour).
+				const finalEmbed = { ...embed.toJSON(), color: me.displayColor };
+
 				// We need to check if we should update the embed, if it exists.
 				const message = messageId ? await channel.messages.fetch(messageId).catch(() => null) : null;
 
 				if (message?.embeds[0]) {
-					if (!message.embeds[0].equals(embed.data)) return message.edit({ embeds: [embed] });
+					// Currently does not work as expected due to https://github.com/discordjs/discord.js/issues/9095.
+					if (!message.embeds[0].equals(finalEmbed)) return message.edit({ embeds: [finalEmbed] });
 					return null;
 				} else {
 					// There is no existing message. Send one.
-					const { id } = await channel.send({ embeds: [embed] });
+					const { id } = await channel.send({ embeds: [finalEmbed] });
 
 					const [newDailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(
 						Table.DailyGuidesDistribution,
