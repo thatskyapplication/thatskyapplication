@@ -22,8 +22,9 @@ export default class implements ChatInputCommand {
 	}
 
 	public async distribute(interaction: ChatInputCommandInteraction) {
-		await interaction.reply("Distributing daily guides.");
+		await interaction.reply("Distributing daily guides...");
 		await DailyGuidesDistribution.distribute(interaction.client);
+		await interaction.editReply("Distributed daily guides.");
 	}
 
 	public async parse(interaction: ChatInputCommandInteraction) {

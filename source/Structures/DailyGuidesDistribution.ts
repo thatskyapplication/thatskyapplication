@@ -1,6 +1,7 @@
 import time from "date-fns-tz";
 import type { ChatInputCommandInteraction, Client, Guild, Snowflake } from "discord.js";
 import { channelMention, ChannelType, hyperlink, PermissionFlagsBits, EmbedBuilder } from "discord.js";
+import { consoleLog } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides, { getShardEruption } from "./DailyGuides.js";
 
@@ -189,44 +190,66 @@ export default class DailyGuidesDistribution {
 		}
 
 		// Distribute!
-		for (const dailyGuidesDistributionPacket of dailyGuidesDistributionPackets) {
-			// There is definitely a channel id. The query specified this.
-			const dailyGuidesDistribution = new DailyGuidesDistribution(dailyGuidesDistributionPacket);
-			const { guildId, channelId, messageId } = dailyGuidesDistribution;
-			const channel = client.guilds.resolve(guildId)?.channels.resolve(channelId!);
+		const distributions = await Promise.allSettled(
+			dailyGuidesDistributionPackets.map(async (dailyGuidesDistributionPacket) => {
+				// There is definitely a channel id. The query specified this.
+				const dailyGuidesDistribution = new DailyGuidesDistribution(dailyGuidesDistributionPacket);
+				const { guildId, channelId, messageId } = dailyGuidesDistribution;
+				const channel = client.channels.resolve(channelId!);
 
-			if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildAnnouncement))
-				continue;
+				if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildAnnouncement)) {
+					throw new Error(
+						`Guild id ${guildId} had no detctable channel id ${channelId}, or was not a text channel or an announcement channel.`,
+					);
+				}
 
-			const me = await channel.guild.members.fetchMe();
+				const me = await channel.guild.members.fetchMe();
 
-			if (
-				!channel
-					.permissionsFor(me)
-					.has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages | PermissionFlagsBits.EmbedLinks)
-			)
-				continue;
+				if (
+					!channel
+						.permissionsFor(me)
+						.has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages | PermissionFlagsBits.EmbedLinks)
+				) {
+					throw new Error(
+						`Guild id ${guildId} did not have suitable permissions in channel id ${channelId} (View Channel, Send Messages, Embed Links).`,
+					);
+				}
 
-			// Add guild-specific colour.
-			embed.setColor(me.displayColor);
-			// We need to check if we should update the embed, if it exists.
-			const message = messageId ? await channel.messages.fetch(messageId).catch(() => null) : null;
+				// Add guild-specific colour.
+				embed.setColor(me.displayColor);
+				// We need to check if we should update the embed, if it exists.
+				const message = messageId ? await channel.messages.fetch(messageId).catch(() => null) : null;
 
-			if (message?.embeds[0]) {
-				if (!message.embeds[0].equals(embed.data)) await message.edit({ embeds: [embed] });
-			} else {
-				// There is no existing message. Send one.
-				const { id } = await channel.send({ embeds: [embed] });
+				if (message?.embeds[0]) {
+					if (!message.embeds[0].equals(embed.data)) return message.edit({ embeds: [embed] });
+					return null;
+				} else {
+					// There is no existing message. Send one.
+					const { id } = await channel.send({ embeds: [embed] });
 
-				const [newDailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(
-					Table.DailyGuidesDistribution,
-				)
-					.update({ message_id: id })
-					.where("guild_id", guildId)
-					.returning("*");
+					const [newDailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(
+						Table.DailyGuidesDistribution,
+					)
+						.update({ message_id: id })
+						.where("guild_id", guildId)
+						.returning("*");
 
-				dailyGuidesDistribution.patch(newDailyGuidesDistributionPacket);
-			}
+					dailyGuidesDistribution.patch(newDailyGuidesDistributionPacket);
+					return newDailyGuidesDistributionPacket;
+				}
+			}),
+		);
+
+		const rejected = [];
+		for (const settled of distributions) if (settled.status === "rejected") rejected.push(settled.reason);
+		consoleLog("- - - - - Distribution Status Start - - - - -");
+
+		if (rejected.length > 0) {
+			for (const reject of rejected) consoleLog(reject);
+		} else {
+			consoleLog("All good.");
 		}
+
+		consoleLog("- - - - - Distribution Status End - - - - -");
 	}
 }
