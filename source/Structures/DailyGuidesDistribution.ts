@@ -213,7 +213,7 @@ export default class DailyGuidesDistribution {
 			const message = messageId ? await channel.messages.fetch(messageId).catch(() => null) : null;
 
 			if (message?.embeds[0]) {
-				if (message.embeds[0].equals(embed.data)) await message.edit({ embeds: [embed] });
+				if (!message.embeds[0].equals(embed.data)) await message.edit({ embeds: [embed] });
 			} else {
 				// There is no existing message. Send one.
 				const { id } = await channel.send({ embeds: [embed] });
