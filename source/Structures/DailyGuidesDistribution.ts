@@ -127,6 +127,7 @@ export default class DailyGuidesDistribution {
 
 	public static async distribute(client: Client<true>) {
 		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles, shardEruption } = DailyGuides;
+		const shard = shardEruption ?? getShardEruption();
 
 		const dailyGuidesDistributionPackets = await pg<DailyGuidesDistributionPacket>(
 			Table.DailyGuidesDistribution,
@@ -155,38 +156,23 @@ export default class DailyGuidesDistribution {
 
 		if (seasonalCandles) embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
 
-		if (shardEruption) {
-			const { realm, map, dangerous, timestamps, memory, data, url } = shardEruption;
+		if (shard) {
+			const { realm, map, dangerous, timestamps, memory, data, url } = shard;
+			let location = `${realm} (${map})`;
+			if (url) location = hyperlink(location, url);
 
-			embed.addFields({
-				name: SHARD_ERUPTION_NAME,
-				value:
-					realm !== null && map !== null && dangerous !== null && url !== null
-						? `Location: ${hyperlink(`${realm} (${map})`, url)}${memory ? `\nMemory: ${memory}` : ""}\nDangerous: ${
-								dangerous ? "✅" : "❌"
-						  }${data ? `\nData: ${hyperlink("link", data)}` : ""}`
-						: "None",
-				inline: true,
-			});
-
-			if (timestamps) embed.addFields({ name: "Timestamps", value: timestamps, inline: true });
+			embed.addFields(
+				{
+					name: SHARD_ERUPTION_NAME,
+					value: `${location}${memory ? `\nMemory: ${memory}` : ""}\nDangerous: ${dangerous ? "✅" : "❌"}${
+						data ? `\nData: ${hyperlink("link", data)}` : ""
+					}`,
+					inline: true,
+				},
+				{ name: "Timestamps", value: timestamps, inline: true },
+			);
 		} else {
-			const shardEruptionPrediction = getShardEruption();
-
-			if (shardEruptionPrediction) {
-				const { realm, map, dangerous, timestamps } = shardEruptionPrediction;
-
-				embed.addFields(
-					{
-						name: `${SHARD_ERUPTION_NAME} Prediction`,
-						value: `Location: ${realm} (${map})\nDangerous: ${dangerous ? "✅" : "❌"}`,
-						inline: true,
-					},
-					{ name: "Timestamps", value: timestamps, inline: true },
-				);
-			} else {
-				embed.addFields({ name: SHARD_ERUPTION_NAME, value: "Unknown" });
-			}
+			embed.addFields({ name: SHARD_ERUPTION_NAME, value: "None" });
 		}
 
 		// Distribute!

@@ -62,13 +62,13 @@ enum ShardMemory {
 }
 
 interface ShardEruption {
-	realm: ValidRealm | null;
-	map: string | null;
-	dangerous: boolean | null;
-	timestamps: string | null;
+	realm: ValidRealm;
+	map: string;
+	dangerous: boolean;
+	timestamps: string;
 	memory: ShardMemory | null;
 	data: string | null;
-	url: string | null;
+	url: string;
 }
 
 const SHARD_ERUPTION_PREDICTION_DATA = [
@@ -135,6 +135,12 @@ export function getShardEruption() {
 		map: maps[realmIndex],
 		dangerous,
 		timestamps: timestamps.trim(),
+		// Unknown from prediction.
+		memory: null,
+		// Unknown from prediction.
+		data: null,
+		// Unknown from prediction.
+		url: null,
 	};
 }
 
@@ -448,25 +454,7 @@ export default new (class DailyGuides {
 	}
 
 	public async parseShardEruption(content: string, attachments: Collection<Snowflake, Attachment>) {
-		if (content.toUpperCase().includes("THERE ARE NO SHARDS")) {
-			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-				.update({
-					shard_eruption: {
-						realm: null,
-						map: null,
-						dangerous: null,
-						timestamps: null,
-						memory: null,
-						data: null,
-						url: null,
-					},
-				})
-				.returning("*");
-
-			this.patch(dailyGuidesPacket);
-			return;
-		}
-
+		if (content.toUpperCase().includes("THERE ARE NO SHARDS")) return;
 		const url = attachments.first()?.url;
 
 		if (!url) {
