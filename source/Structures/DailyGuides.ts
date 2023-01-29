@@ -433,7 +433,7 @@ export default new (class DailyGuides {
 	}
 
 	public async parseShardEruption(content: string, attachments: Collection<Snowflake, Attachment>) {
-		const shardEruption = this.shardEruption;
+		const { shardEruption } = this;
 		if (!shardEruption) return;
 		let reward = null;
 		let memory = null;
