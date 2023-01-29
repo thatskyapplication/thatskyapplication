@@ -14,7 +14,7 @@ export interface DailyGuidesPacket {
 	quest4: DailyGuideQuest | null;
 	treasure_candles: DailyGuideTreasureCandle | null;
 	seasonal_candles: string | null;
-	shard_eruption: ShardEruption | null;
+	shard_eruption_extra: ShardEruptionExtra | null;
 }
 
 interface DailyGuidesData {
@@ -24,7 +24,7 @@ interface DailyGuidesData {
 	quest4: DailyGuidesPacket["quest4"];
 	treasureCandles: DailyGuidesPacket["treasure_candles"];
 	seasonalCandles: DailyGuidesPacket["seasonal_candles"];
-	shardEruption: DailyGuidesPacket["shard_eruption"];
+	shardEruptionExtra: DailyGuidesPacket["shard_eruption_extra"];
 }
 
 interface DailyGuideQuest {
@@ -54,21 +54,18 @@ type ValidRealm = (typeof VALID_REALM)[number];
 
 enum ShardMemory {
 	Jellyfish = "Jellyfish",
-	DarkCrab = "Crabs",
+	DarkCrab = "Crab",
 	Manta = "Manta",
 	DarkDragon = "Krill",
 	Whale = "Whale",
 	Elder = "Elder",
 }
 
-interface ShardEruption {
-	realm: ValidRealm;
-	map: string;
-	dangerous: boolean;
-	timestamps: string;
+interface ShardEruptionExtra {
+	reward: string | null;
 	memory: ShardMemory | null;
 	data: string | null;
-	url: string;
+	url: string | null;
 }
 
 const SHARD_ERUPTION_PREDICTION_DATA = [
@@ -109,41 +106,6 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 	},
 ] as const;
 
-export function getShardEruption() {
-	const date = todayTimestamp();
-	const dayOfMonth = date.getUTCDate();
-	const dayOfWeek = date.getUTCDay();
-	const dangerous = dayOfMonth % 2 === 1;
-	const infoIndex = dangerous ? (((dayOfMonth - 1) / 2) % 3) + 2 : (dayOfMonth / 2) % 2;
-	const { noShardWeekDay, interval, offset, maps } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex];
-	// @ts-expect-error Too narrow.
-	const noShardDay = noShardWeekDay.includes(dayOfWeek);
-	if (noShardDay) return null;
-	const realmIndex = (dayOfMonth - 1) % 5;
-	let startTime = date.getTime() + offset;
-	let timestamps = "";
-
-	while (startTime < date.getTime() + 72_000_000) {
-		const start = time((startTime + 520_000) / 1_000, TimestampStyles.LongTime);
-		const end = time((startTime + 14_400_000) / 1_000, TimestampStyles.LongTime);
-		timestamps += `${start} - ${end}\n`;
-		startTime += interval * 3_600_000;
-	}
-
-	return {
-		realm: VALID_REALM[realmIndex],
-		map: maps[realmIndex],
-		dangerous,
-		timestamps: timestamps.trim(),
-		// Unknown from prediction.
-		memory: null,
-		// Unknown from prediction.
-		data: null,
-		// Unknown from prediction.
-		url: null,
-	};
-}
-
 function resolveRealm(rawRealm: string) {
 	const upperRawRealm = rawRealm.toUpperCase();
 
@@ -170,19 +132,6 @@ function resolveMap(rawMap: string) {
 	return Object.values(Map).find((map) => map.toUpperCase() === upperRawMap) ?? null;
 }
 
-function resolveMemory(rawMemory: string) {
-	// eslint-disable-next-line unicorn/better-regex, prefer-named-capture-group
-	const upperRawMemory = /\[y\] ([a-z]+)/i.exec(rawMemory)?.[1].toUpperCase();
-	if (!upperRawMemory) return null;
-
-	for (const memory of Object.values(ShardMemory)) {
-		if (memory.toUpperCase() !== upperRawMemory) continue;
-		return memory;
-	}
-
-	return null;
-}
-
 const regularExpressionRealms = Object.values(Realm).join("|").replaceAll(" ", "\\s+");
 const mapRegExp = Object.values(Map).join("|").replaceAll(" ", "\\s+");
 
@@ -204,7 +153,36 @@ export default new (class DailyGuides {
 
 	public seasonalCandles: DailyGuidesData["seasonalCandles"] = null;
 
-	public shardEruption: DailyGuidesData["shardEruption"] = null;
+	public get shardEruption() {
+		const date = todayTimestamp();
+		const dayOfMonth = date.getUTCDate();
+		const dayOfWeek = date.getUTCDay();
+		const dangerous = dayOfMonth % 2 === 1;
+		const infoIndex = dangerous ? (((dayOfMonth - 1) / 2) % 3) + 2 : (dayOfMonth / 2) % 2;
+		const { noShardWeekDay, interval, offset, maps } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex];
+		// @ts-expect-error Too narrow.
+		const noShardDay = noShardWeekDay.includes(dayOfWeek);
+		if (noShardDay) return null;
+		const realmIndex = (dayOfMonth - 1) % 5;
+		let startTime = date.getTime() + offset;
+		let timestamps = "";
+
+		while (startTime < date.getTime() + 72_000_000) {
+			const start = time((startTime + 520_000) / 1_000, TimestampStyles.LongTime);
+			const end = time((startTime + 14_400_000) / 1_000, TimestampStyles.LongTime);
+			timestamps += `${start} - ${end}\n`;
+			startTime += interval * 3_600_000;
+		}
+
+		return {
+			realm: VALID_REALM[realmIndex],
+			map: maps[realmIndex],
+			dangerous,
+			timestamps: timestamps.trim(),
+		};
+	}
+
+	public shardEruptionExtra: DailyGuidesData["shardEruptionExtra"] = null;
 
 	public readonly queue = new AsyncQueue();
 
@@ -217,7 +195,7 @@ export default new (class DailyGuides {
 				quest4: null,
 				treasure_candles: null,
 				seasonal_candles: null,
-				shard_eruption: null,
+				shard_eruption_extra: null,
 			})
 			.returning("*");
 
@@ -231,7 +209,7 @@ export default new (class DailyGuides {
 		this.quest4 = data.quest4;
 		this.treasureCandles = data.treasure_candles;
 		this.seasonalCandles = data.seasonal_candles;
-		this.shardEruption = data.shard_eruption;
+		this.shardEruptionExtra = data.shard_eruption_extra;
 	}
 
 	public validToParse({ channelId, flags, reference }: Message) {
@@ -455,55 +433,44 @@ export default new (class DailyGuides {
 	}
 
 	public async parseShardEruption(content: string, attachments: Collection<Snowflake, Attachment>) {
-		if (content.toUpperCase().includes("THERE ARE NO SHARDS")) return;
-		const url = attachments.first()?.url;
+		const shardEruption = this.shardEruption;
+		if (!shardEruption) return;
+		let reward = null;
+		let memory = null;
+		let data = null;
 
-		if (!url) {
-			consoleLog("Failed to fetch the shard eruption location.");
+		for (const line of content.split("\n")) {
+			const upperLine = line.toUpperCase();
+
+			if (upperLine.includes("**REWARD**:"))
+				reward = line.slice(line.indexOf(":") + 2, line.includes("<:") ? line.indexOf("<:") - 1 : line.length);
+
+			if (upperLine.includes(`[Y] ${ShardMemory.Jellyfish.toUpperCase()}`)) memory = ShardMemory.Jellyfish;
+			if (upperLine.includes(`[Y] ${ShardMemory.DarkCrab.toUpperCase()}`)) memory = ShardMemory.DarkCrab;
+			if (upperLine.includes(`[Y] ${ShardMemory.Manta.toUpperCase()}`)) memory = ShardMemory.Manta;
+			if (upperLine.includes(`[Y] ${ShardMemory.DarkDragon.toUpperCase()}`)) memory = ShardMemory.DarkDragon;
+			if (upperLine.includes(`[Y] ${ShardMemory.Whale.toUpperCase()}`)) memory = ShardMemory.Whale;
+			if (upperLine.includes(`[Y] ${ShardMemory.Elder.toUpperCase()}`)) memory = ShardMemory.Elder;
+			if (upperLine.includes("SHARD DATA")) data = line.slice(line.lastIndexOf("`") + 1);
+		}
+
+		if (shardEruption.dangerous && !memory) {
+			consoleLog("Failed to parse the shard eruption memory.");
 			return;
 		}
 
-		const regex =
-			// eslint-disable-next-line unicorn/no-unsafe-regex
-			/\*\*realm\*\*:\s*(?<realm>[ a-z]+)\n\*\*map\*\*:\s*(?<map>[ '()/a-z]+)\n\*\*shard colou?r\*\*:\s*(?<color>red|black).+\n\n```timestamps.+```(?<timestamps>.+\n.+\n.+)\n\n```shard memory```(?<memory>.+\n.+\n.+\n.+\n.+\n.+)(?:\n\n```shard data.+```(?<data>https:\/\/[\d./a-z]+))?/i.exec(
-				content,
-			);
+		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
+			.update({
+				shard_eruption_extra: {
+					reward,
+					memory,
+					data,
+					url: attachments.first()?.url ?? null,
+				},
+			})
+			.returning("*");
 
-		if (regex?.groups) {
-			const { realm, map, color, timestamps, memory, data } = regex.groups;
-			const resolvedRealm = resolveRealm(realm);
-			const dangerous = color.toUpperCase() === "RED";
-			const resolvedMemory = resolveMemory(memory);
-
-			if (!resolvedRealm) {
-				consoleLog("Failed to parse the shard eruption realm.");
-				return;
-			}
-
-			if (dangerous && !resolvedMemory) {
-				consoleLog("Failed to parse the shard eruption memory.");
-				return;
-			}
-
-			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-				.update({
-					shard_eruption: {
-						realm: resolvedRealm,
-						map,
-						dangerous,
-						timestamps: timestamps.replaceAll(/ to /gi, " - ").replaceAll(/1\. |2\. |3\. /g, ""),
-						memory: resolvedMemory,
-						data: data ?? null,
-						url,
-					},
-				})
-				.returning("*");
-
-			this.patch(dailyGuidesPacket);
-			return;
-		}
-
-		consoleLog("Failed to parse shard eruptions.");
+		this.patch(dailyGuidesPacket);
 	}
 
 	public async reCheck(client: Client<true>) {

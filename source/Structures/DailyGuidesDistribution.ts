@@ -3,7 +3,7 @@ import type { ChatInputCommandInteraction, Client, Guild, Snowflake } from "disc
 import { channelMention, ChannelType, hyperlink, PermissionFlagsBits, EmbedBuilder } from "discord.js";
 import { consoleLog } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
-import DailyGuides, { getShardEruption } from "./DailyGuides.js";
+import DailyGuides from "./DailyGuides.js";
 
 export interface DailyGuidesDistributionPacket {
 	id: number;
@@ -126,8 +126,8 @@ export default class DailyGuidesDistribution {
 	}
 
 	public static async distribute(client: Client<true>) {
-		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles, shardEruption } = DailyGuides;
-		const shard = shardEruption ?? getShardEruption();
+		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles, shardEruption, shardEruptionExtra } =
+			DailyGuides;
 
 		const dailyGuidesDistributionPackets = await pg<DailyGuidesDistributionPacket>(
 			Table.DailyGuidesDistribution,
@@ -156,8 +156,9 @@ export default class DailyGuidesDistribution {
 
 		if (seasonalCandles) embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
 
-		if (shard) {
-			const { realm, map, dangerous, timestamps, memory, data, url } = shard;
+		if (shardEruption) {
+			const { realm, map, dangerous, timestamps } = shardEruption;
+			const { reward, memory, data, url } = shardEruptionExtra ?? {};
 			let location = `${realm} (${map})`;
 			if (url) location = hyperlink(location, url);
 
@@ -165,8 +166,8 @@ export default class DailyGuidesDistribution {
 				{
 					name: SHARD_ERUPTION_NAME,
 					value: `${location}${memory ? `\nMemory: ${memory}` : ""}\nDangerous: ${dangerous ? "✅" : "❌"}${
-						data ? `\nData: ${hyperlink("link", data)}` : ""
-					}`,
+						reward ? reward : ""
+					}${data ? `\nData: ${hyperlink("link", data)}` : ""}`,
 					inline: true,
 				},
 				{ name: "Timestamps", value: timestamps, inline: true },
