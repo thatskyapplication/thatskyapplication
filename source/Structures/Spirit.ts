@@ -123,7 +123,7 @@ export enum SpiritName {
 	MellowMusician = "Mellow Musician",
 	ModestDancer = "Modest Dancer",
 	// Season of Shattering - not sure how to add this.
-	RunningWayferer = "Running Wayferer",
+	RunningWayfarer = "Running Wayfarer",
 	MindfulMiner = "Mindful Miner",
 	WarriorOfLove = "Warrior of Love",
 	SeedOfHope = "Seed of Hope",
@@ -794,7 +794,7 @@ export default [
 	}),
 	// Season of Shattering - not sure how to add this.
 	new SeasonalSpirit({
-		name: SpiritName.RunningWayferer,
+		name: SpiritName.RunningWayfarer,
 		season: Season.Aurora,
 		expression: Expression.WavingLight,
 		realm: Realm.ValleyOfTriumph,

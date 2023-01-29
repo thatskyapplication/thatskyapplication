@@ -54,7 +54,7 @@ export default class implements ChatInputCommand {
 			void interaction.client.log(`Received an unknown notification event: ${event} whilst setting up notifications.`);
 
 			await interaction.reply({
-				content: "The dark dragon has obeliterated this event. It's gone... for now.",
+				content: "The dark dragon has obliterated this event. It's gone... for now.",
 				ephemeral: true,
 			});
 
@@ -115,7 +115,7 @@ export default class implements ChatInputCommand {
 			void interaction.client.log(`Received an unknown notification event: ${event} whilst setting up notifications.`);
 
 			await interaction.reply({
-				content: "The dark dragon has obeliterated this event. It's gone... for now.",
+				content: "The dark dragon has obliterated this event. It's gone... for now.",
 				ephemeral: true,
 			});
 

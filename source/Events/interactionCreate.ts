@@ -95,7 +95,7 @@ export const event: Event<typeof name> = {
 				void interaction.client.log(`Received an unknown user context menu command interaction (\`${commandName}\`).`);
 
 				void interaction.reply({
-					content: "A dark dragon appeared and striked the user. The command flew away.",
+					content: "A dark dragon appeared and struck the user. The command flew away.",
 					ephemeral: true,
 				});
 

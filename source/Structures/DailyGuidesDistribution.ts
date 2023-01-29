@@ -186,7 +186,7 @@ export default class DailyGuidesDistribution {
 
 				if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildAnnouncement)) {
 					throw new Error(
-						`Guild id ${guildId} had no detctable channel id ${channelId}, or was not a text channel or an announcement channel.`,
+						`Guild id ${guildId} had no detectable channel id ${channelId}, or was not a text channel or an announcement channel.`,
 					);
 				}
 
