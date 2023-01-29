@@ -315,6 +315,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("RACE DOWN THE MOUNTAIN")) return "Race Down the Mountain with the Skater";
 		if (upperPureContent.includes("PRACTICE WITH THE SKATER")) return "Practice with the Skater";
 		if (upperPureContent.includes("REHEARSE FOR A PERFORMANCE")) return "Rehearse for a Performance with the Skater";
+		if (upperPureContent.includes("RELIVE A SPIRIT'S MEMORY")) return "Relive a Spirit's Memories";
 
 		for (const spiritName of Object.values(SpiritName))
 			if (upperPureContent.replaceAll("’", "'").includes(spiritName.toUpperCase())) return `Relive ${spiritName}`;
