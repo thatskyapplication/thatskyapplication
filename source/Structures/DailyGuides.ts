@@ -454,11 +454,6 @@ export default new (class DailyGuides {
 			if (upperLine.includes("SHARD DATA")) data = line.slice(line.lastIndexOf("`") + 1);
 		}
 
-		if (shardEruption.dangerous && !memory) {
-			consoleLog("Failed to parse the shard eruption memory.");
-			return;
-		}
-
 		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
 			.update({
 				shard_eruption_extra: {
