@@ -166,7 +166,7 @@ export default class DailyGuidesDistribution {
 				{
 					name: SHARD_ERUPTION_NAME,
 					value: `${location}${memory ? `\nMemory: ${memory}` : ""}\nDangerous: ${dangerous ? "✅" : "❌"}${
-						reward ? reward : ""
+						reward ? `\nReward: ${reward} ${dangerous ? "ascended candles" : "pieces of light"}` : ""
 					}${data ? `\nData: ${hyperlink("link", data)}` : ""}`,
 					inline: true,
 				},
