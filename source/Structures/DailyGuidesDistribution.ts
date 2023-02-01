@@ -23,7 +23,7 @@ type DailyGuidesDistributionPatchData = Omit<DailyGuidesDistributionPacket, "id"
 type DailyGuidesDistributionInsertQuery = Omit<DailyGuidesDistributionPacket, "id" | "message_id">;
 type DailyGuidesDistributionUpdateQuery = Omit<DailyGuidesDistributionInsertQuery, "guild_id">;
 
-export const SHARD_ERUPTION_NAME = "Shard Eruption" as const;
+const SHARD_ERUPTION_NAME = "Shard Eruption" as const;
 
 export default class DailyGuidesDistribution {
 	public readonly id: DailyGuidesDistributionData["id"];
