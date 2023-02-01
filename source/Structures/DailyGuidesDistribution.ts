@@ -159,13 +159,13 @@ export default class DailyGuidesDistribution {
 		if (shardEruption) {
 			const { realm, map, dangerous, timestamps } = shardEruption;
 			const { reward, memory, data, url } = shardEruptionExtra ?? {};
-			let location = `Location: ${realm} (${map})`;
+			let location = `${realm} (${map})`;
 			if (url) location = hyperlink(location, url);
 
 			embed.addFields(
 				{
 					name: SHARD_ERUPTION_NAME,
-					value: `${location}${memory ? `\nMemory: ${memory}` : ""}\nDangerous: ${dangerous ? "✅" : "❌"}${
+					value: `Location: ${location}${memory ? `\nMemory: ${memory}` : ""}\nDangerous: ${dangerous ? "✅" : "❌"}${
 						reward ? `\nReward: ${reward} ${dangerous ? "ascended candles" : "pieces of light"}` : ""
 					}${data ? `\nData: ${hyperlink("link", data)}` : ""}`,
 					inline: true,
