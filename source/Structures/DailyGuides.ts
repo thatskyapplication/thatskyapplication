@@ -441,10 +441,8 @@ export default new (class DailyGuides {
 
 		for (const line of content.split("\n")) {
 			const upperLine = line.toUpperCase();
-
-			if (upperLine.includes("**REWARD**:"))
-				reward = line.slice(line.indexOf(":") + 2, line.includes("<:") ? line.indexOf("<:") - 1 : line.length);
-
+			// eslint-disable-next-line prefer-named-capture-group
+			if (upperLine.includes("**REWARD**:")) reward = /(\d{1,3}(?:\.\d)?)/.exec(line)?.[1] ?? null;
 			if (upperLine.includes(`[Y] ${ShardMemory.Jellyfish.toUpperCase()}`)) memory = ShardMemory.Jellyfish;
 			if (upperLine.includes(`[Y] ${ShardMemory.DarkCrab.toUpperCase()}`)) memory = ShardMemory.DarkCrab;
 			if (upperLine.includes(`[Y] ${ShardMemory.Manta.toUpperCase()}`)) memory = ShardMemory.Manta;
