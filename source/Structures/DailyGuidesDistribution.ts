@@ -159,7 +159,7 @@ export default class DailyGuidesDistribution {
 		if (shardEruption) {
 			const { realm, map, dangerous, timestamps } = shardEruption;
 			const { reward, memory, data, url } = shardEruptionExtra ?? {};
-			let location = `${realm} (${map})`;
+			let location = `Location: ${realm} (${map})`;
 			if (url) location = hyperlink(location, url);
 
 			embed.addFields(
