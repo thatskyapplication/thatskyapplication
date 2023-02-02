@@ -7,7 +7,7 @@ const { TENOR_KEY } = process.env;
 if (!TENOR_KEY) throw new Error("Tenor API key missing.");
 
 interface TenorSearchOptions {
-	query: string;
+	q: string;
 	clientKey: string;
 	/**
 	 * @privateRemarks
@@ -33,17 +33,17 @@ interface TenorMediaObject {
 	url: string;
 }
 
-export async function search({ query, clientKey, locale }: TenorSearchOptions): Promise<TenorResponse> {
+// eslint-disable-next-line id-length
+export async function search({ q, clientKey, locale }: TenorSearchOptions): Promise<TenorResponse> {
 	const { body } = await request(
 		`https://tenor.googleapis.com/v2/search?${makeURLSearchParams({
 			key: TENOR_KEY,
 			// eslint-disable-next-line id-length
-			q: query,
+			q,
 			client_key: clientKey,
 			locale,
 			media_filter: "gif",
-			random: true,
-			limit: 1,
+			limit: 50,
 		})}`,
 	);
 

@@ -14,13 +14,9 @@ const QUERIES = [
 	"anime hug",
 	"anime hugs",
 	"manga hug",
-	"anime cuddle",
-	"manga cuddle",
 	"anime boy hug",
 	"anime girl hug",
 	"anime tight hug",
-	"anime long hug",
-	"anime sudden hug",
 	"anime hug sad",
 	"anime hug happy",
 	"anime wholesome hug",
@@ -66,15 +62,16 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		const response = await search({
-			query: QUERIES[Math.floor(Math.random() * QUERIES.length)],
+		const { results } = await search({
+			// eslint-disable-next-line id-length
+			q: QUERIES[Math.floor(Math.random() * QUERIES.length)],
 			clientKey: client.user.username,
 			locale,
 		});
 
 		const embed = new EmbedBuilder()
 			.setColor((await guild?.members.fetchMe())?.displayColor ?? 0)
-			.setImage(response.results[0].media_formats.gif.url);
+			.setImage(results[Math.floor(Math.random() * results.length)].media_formats.gif.url);
 
 		await pg<HugPacket>(Table.Hugs).insert({
 			hugger_id: interaction.user.id,

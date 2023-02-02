@@ -12,7 +12,6 @@ interface FightPacket {
 
 const QUERIES = [
 	"anime fight",
-	"manga fight",
 	"anime sword fight",
 	"anime fist fight",
 	"anime magic fight",
@@ -20,8 +19,6 @@ const QUERIES = [
 	"anime fighting",
 	"anime kill",
 	"anime destroy",
-	"anime slam",
-	"anime smash",
 ] as const satisfies Readonly<string[]>;
 
 export default class implements ChatInputCommand {
@@ -63,15 +60,16 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		const response = await search({
-			query: QUERIES[Math.floor(Math.random() * QUERIES.length)],
+		const { results } = await search({
+			// eslint-disable-next-line id-length
+			q: QUERIES[Math.floor(Math.random() * QUERIES.length)],
 			clientKey: client.user.username,
 			locale,
 		});
 
 		const embed = new EmbedBuilder()
 			.setColor((await guild?.members.fetchMe())?.displayColor ?? 0)
-			.setImage(response.results[0].media_formats.gif.url);
+			.setImage(results[Math.floor(Math.random() * results.length)].media_formats.gif.url);
 
 		await pg<FightPacket>(Table.Fights).insert({
 			fighter_id: interaction.user.id,
