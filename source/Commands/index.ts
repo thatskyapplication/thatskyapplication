@@ -16,6 +16,7 @@ import notifications from "./Events/notifications.js";
 
 // Fun
 import bonk from "./Fun/bonk.js";
+import Gift_Heart from "./Fun/Gift Heart.js";
 import fight from "./Fun/fight.js";
 import heart from "./Fun/heart.js";
 import hug from "./Fun/hug.js";
@@ -33,6 +34,7 @@ const commands = {
 	"d-daily-guides": new d_daily_guides(),
 	"daily-guides": new daily_guides(),
 	fight: new fight(),
+	"Gift Heart": new Gift_Heart(),
 	heart: new heart(),
 	hug: new hug(),
 	notifications: new notifications(),

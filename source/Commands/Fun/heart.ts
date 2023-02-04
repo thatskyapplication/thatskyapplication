@@ -1,4 +1,9 @@
-import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
+import type {
+	ApplicationCommandData,
+	ChatInputCommandInteraction,
+	Snowflake,
+	UserContextMenuCommandInteraction,
+} from "discord.js";
 import {
 	time,
 	TimestampStyles,
@@ -22,6 +27,10 @@ export default class implements ChatInputCommand {
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
+		await this.gift(interaction);
+	}
+
+	public async gift(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
 		const { channel, createdAt, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
