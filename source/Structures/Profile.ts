@@ -7,6 +7,7 @@ import type {
 } from "discord.js";
 import { EmbedBuilder } from "discord.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
+import commands from "../Commands/index.js";
 import pg, { Table } from "../pg.js";
 
 interface ProfilePacket {
@@ -104,10 +105,12 @@ export default class Profile {
 
 	public async embed(guild: Guild | null) {
 		const me = await guild?.members.fetchMe();
+		const hearts = await commands.heart.heartCount(this.userId);
 
 		const embed = new EmbedBuilder()
 			.setColor(me?.displayColor ?? 0)
 			.setDescription(this.description ?? "Hi! I'm an amazing Skykid.")
+			.setFooter({ text: `Hearts: ${hearts}` })
 			.setThumbnail(this.thumbnail);
 
 		if (this.name) {
