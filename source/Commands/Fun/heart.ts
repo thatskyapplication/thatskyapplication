@@ -90,7 +90,7 @@ export default class implements ChatInputCommand {
 
 		if (timestamp && timestamp.getTime() >= todayDate().getTime()) {
 			await interaction.reply({
-				content: `You have already given a heart today!\nYou can give another heart ${time(
+				content: `You have already gifted a heart today!\nYou can give another heart ${time(
 					Math.floor((todayDate().getTime() + 86_400_000) / 1_000),
 					TimestampStyles.RelativeTime,
 				)}.`,
