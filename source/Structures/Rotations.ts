@@ -1,9 +1,14 @@
 import { setInterval } from "node:timers";
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone.js";
+import utc from "dayjs/plugin/utc.js";
 import type { Client } from "discord.js";
-import { todayDate } from "../Utility/Utility.js";
 import DailyGuides from "./DailyGuides.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import Notification, { NotificationEvent } from "./Notification.js";
+
+dayjs.extend(timezone);
+dayjs.extend(utc);
 
 function sendNotification(client: Client<true>, type: NotificationEvent) {
 	for (const notification of Notification.cache.values()) void notification.send(client, type);
@@ -18,7 +23,7 @@ async function dailyReset(client: Client<true>) {
 export default new (class {
 	public clock(client: Client<true>): void {
 		setInterval(() => {
-			const dateTime = todayDate();
+			const dateTime = dayjs.tz(Date.now(), "America/Los_Angeles").toDate();
 			const hours = dateTime.getUTCHours();
 			const minutes = dateTime.getUTCMinutes();
 			const seconds = dateTime.getUTCSeconds();
