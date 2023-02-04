@@ -20,31 +20,29 @@ async function dailyReset(client: Client<true>) {
 	await DailyGuidesDistribution.distribute(client);
 }
 
-export default new (class {
-	public clock(client: Client<true>): void {
-		setInterval(() => {
-			const dateTime = dayjs.tz(Date.now(), "America/Los_Angeles").toDate();
-			const hours = dateTime.getUTCHours();
-			const minutes = dateTime.getUTCMinutes();
-			const seconds = dateTime.getUTCSeconds();
+export default function heartbeat(client: Client<true>): void {
+	setInterval(() => {
+		const dateTime = dayjs.tz(Date.now(), "America/Los_Angeles").toDate();
+		const hours = dateTime.getUTCHours();
+		const minutes = dateTime.getUTCMinutes();
+		const seconds = dateTime.getUTCSeconds();
 
-			if (seconds === 0) {
-				if (hours === 0 && minutes === 0) void dailyReset(client);
+		if (seconds === 0) {
+			if (hours === 0 && minutes === 0) void dailyReset(client);
 
-				if (hours % 2 === 0) {
-					switch (minutes) {
-						case 0:
-							sendNotification(client, NotificationEvent.PollutedGeyser);
-							break;
-						case 30:
-							sendNotification(client, NotificationEvent.Grandma);
-							break;
-						case 45:
-							sendNotification(client, NotificationEvent.Turtle);
-							break;
-					}
+			if (hours % 2 === 0) {
+				switch (minutes) {
+					case 0:
+						sendNotification(client, NotificationEvent.PollutedGeyser);
+						break;
+					case 30:
+						sendNotification(client, NotificationEvent.Grandma);
+						break;
+					case 45:
+						sendNotification(client, NotificationEvent.Turtle);
+						break;
 				}
 			}
-		}, 1_000);
-	}
-})();
+		}
+	}, 1_000);
+}
