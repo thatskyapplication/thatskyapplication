@@ -1,6 +1,11 @@
 import { inspect } from "node:util";
-import time from "date-fns-tz";
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone.js";
+import utc from "dayjs/plugin/utc.js";
 import { Realm } from "./Constants.js";
+
+dayjs.extend(timezone);
+dayjs.extend(utc);
 
 export function consoleLog(consoleLog: any, stamp = new Date().toISOString()): void {
 	console.log(`- - - - - ${stamp} - - - - -`);
@@ -11,13 +16,8 @@ export function notNull<T>(value: T | null): value is T {
 	return value !== null;
 }
 
-export function todayTimestamp() {
-	const date = time.utcToZonedTime(Date.now(), "America/Los_Angeles");
-	date.setUTCHours(0);
-	date.setUTCMinutes(0);
-	date.setUTCSeconds(0);
-	date.setUTCMilliseconds(0);
-	return time.zonedTimeToUtc(date, "America/Los_Angeles");
+export function todayDate() {
+	return dayjs.tz(Date.now(), "America/Los_Angeles").hour(0).minute(0).second(0).millisecond(0).toDate();
 }
 
 export function isRealm(realm: string): realm is Realm {

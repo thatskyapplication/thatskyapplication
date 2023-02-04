@@ -2,7 +2,7 @@ import { AsyncQueue } from "@sapphire/async-queue";
 import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
 import { time, TimestampStyles, FormattingPatterns, ChannelType, MessageFlags, SnowflakeUtil } from "discord.js";
 import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm } from "../Utility/Constants.js";
-import { consoleLog, todayTimestamp } from "../Utility/Utility.js";
+import { consoleLog, todayDate } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import { SpiritName } from "./Spirit.js";
@@ -154,7 +154,7 @@ export default new (class DailyGuides {
 	public seasonalCandles: DailyGuidesData["seasonalCandles"] = null;
 
 	public get shardEruption() {
-		const date = todayTimestamp();
+		const date = todayDate();
 		const dayOfMonth = date.getUTCDate();
 		const dayOfWeek = date.getUTCDay();
 		const dangerous = dayOfMonth % 2 === 1;
@@ -218,7 +218,7 @@ export default new (class DailyGuides {
 				reference?.guildId === INFOGRAPHICS_DATABASE_GUILD_ID &&
 				flags.has(MessageFlags.IsCrosspost) &&
 				reference.messageId &&
-				SnowflakeUtil.timestampFrom(reference.messageId) >= todayTimestamp().getTime(),
+				SnowflakeUtil.timestampFrom(reference.messageId) >= todayDate().getTime(),
 		);
 	}
 
@@ -471,7 +471,7 @@ export default new (class DailyGuides {
 		if (channel?.type !== ChannelType.GuildText) return;
 
 		const messages = await channel.messages.fetch({
-			after: String(SnowflakeUtil.generate({ timestamp: todayTimestamp() })),
+			after: String(SnowflakeUtil.generate({ timestamp: todayDate() })),
 		});
 
 		await this.reset();

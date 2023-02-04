@@ -1,6 +1,6 @@
 import { setInterval } from "node:timers";
-import time from "date-fns-tz";
 import type { Client } from "discord.js";
+import { todayDate } from "../Utility/Utility.js";
 import DailyGuides from "./DailyGuides.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import Notification, { NotificationEvent } from "./Notification.js";
@@ -18,8 +18,7 @@ async function dailyReset(client: Client<true>) {
 export default new (class {
 	public clock(client: Client<true>): void {
 		setInterval(() => {
-			const now = Date.now();
-			const dateTime = time.utcToZonedTime(now, "America/Los_Angeles");
+			const dateTime = todayDate();
 			const hours = dateTime.getUTCHours();
 			const minutes = dateTime.getUTCMinutes();
 			const seconds = dateTime.getUTCSeconds();

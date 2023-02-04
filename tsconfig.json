@@ -11,7 +11,7 @@
 		"noUnusedParameters": true,
 		"strict": true,
 		"module": "ESNext",
-		"moduleResolution": "Node",
+		"moduleResolution": "NodeNext",
 		"importsNotUsedAsValues": "error",
 		"newLine": "lf",
 		"outDir": "sourceJS",

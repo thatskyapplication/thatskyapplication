@@ -1,7 +1,6 @@
-import time from "date-fns-tz";
 import type { ChatInputCommandInteraction, Client, Guild, Snowflake } from "discord.js";
 import { channelMention, ChannelType, hyperlink, PermissionFlagsBits, EmbedBuilder } from "discord.js";
-import { consoleLog } from "../Utility/Utility.js";
+import { consoleLog, todayDate } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides from "./DailyGuides.js";
 
@@ -134,7 +133,7 @@ export default class DailyGuidesDistribution {
 		).whereNotNull("channel_id");
 
 		// Let's build our embed.
-		const date = time.utcToZonedTime(Date.now(), "America/Los_Angeles");
+		const date = todayDate();
 
 		const embed = new EmbedBuilder().setTitle(
 			`${String(date.getUTCDate()).padStart(2, "0")}/${String(date.getUTCMonth() + 1).padStart(
