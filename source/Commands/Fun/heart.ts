@@ -36,7 +36,7 @@ export default class implements ChatInputCommand {
 		}
 	}
 
-	private async heartCount(gifteeId: Snowflake) {
+	public async heartCount(gifteeId: Snowflake) {
 		return (await pg<HeartPacket>(Table.Hearts).select().where({ giftee_id: gifteeId })).length;
 	}
 
