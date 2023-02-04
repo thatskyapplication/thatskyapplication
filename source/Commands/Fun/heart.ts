@@ -82,7 +82,13 @@ export default class implements ChatInputCommand {
 			timestamp: createdAt,
 		});
 
-		await interaction.reply(`Sending a heart to ${user}. ${interaction.user} is such a nice person!`);
+		const hearts = (await pg<HeartPacket>(Table.Hearts).select().where({ giftee_id: user.id })).length;
+
+		await interaction.reply(
+			`Sending a heart to ${user}. ${interaction.user} is such a nice person!\n${user} now has ${hearts} heart${
+				hearts > 1 ? "s" : ""
+			}.`,
+		);
 	}
 
 	public get commandData(): ApplicationCommandData {
