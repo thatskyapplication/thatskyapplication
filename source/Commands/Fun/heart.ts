@@ -27,7 +27,10 @@ export default class implements ChatInputCommand {
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		await this.gift(interaction);
+		switch (interaction.options.getSubcommand()) {
+			case "gift":
+				await this.gift(interaction);
+		}
 	}
 
 	public async gift(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
@@ -107,10 +110,17 @@ export default class implements ChatInputCommand {
 			type: this.type,
 			options: [
 				{
-					type: ApplicationCommandOptionType.User,
-					name: "user",
-					description: "The user to give a heart to.",
-					required: true,
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "gift",
+					description: "Choose someone to gift your heart to!",
+					options: [
+						{
+							type: ApplicationCommandOptionType.User,
+							name: "user",
+							description: "The user to give a heart to.",
+							required: true,
+						},
+					],
 				},
 			],
 			dmPermission: false,
