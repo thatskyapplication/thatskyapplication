@@ -28,9 +28,21 @@ export default class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
+			case "count":
+				await this.count(interaction);
+				return;
 			case "gift":
 				await this.gift(interaction);
 		}
+	}
+
+	private async heartCount(gifteeId: Snowflake) {
+		return (await pg<HeartPacket>(Table.Hearts).select().where({ giftee_id: gifteeId })).length;
+	}
+
+	public async count(interaction: ChatInputCommandInteraction) {
+		const hearts = await this.heartCount(interaction.user.id);
+		await interaction.reply(`You have ${hearts} heart${hearts > 1 ? "s" : ""}.`);
 	}
 
 	public async gift(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
@@ -94,7 +106,7 @@ export default class implements ChatInputCommand {
 			timestamp: createdAt,
 		});
 
-		const hearts = (await pg<HeartPacket>(Table.Hearts).select().where({ giftee_id: user.id })).length;
+		const hearts = await this.heartCount(user.id);
 
 		await interaction.reply(
 			`Sending a heart to ${user}. ${interaction.user} is such a nice person!\n${user} now has ${hearts} heart${
@@ -121,6 +133,11 @@ export default class implements ChatInputCommand {
 							required: true,
 						},
 					],
+				},
+				{
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "count",
+					description: "Count the number of hearts you have!",
 				},
 			],
 			dmPermission: false,
