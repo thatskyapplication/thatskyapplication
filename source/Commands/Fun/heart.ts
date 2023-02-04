@@ -21,6 +21,12 @@ interface HeartPacket {
 	timestamp: Date;
 }
 
+const HEARTS = [
+	"Sending a heart to {{giftee}}. {{gifter}} is such a nice person!",
+	"A heart a day keeps the dark dragon away! {{giftee}} received a heart from {{gifter}}!",
+	"A wholesome heart delivered to {{giftee}} from {{gifter}}!",
+] as const;
+
 export default class implements ChatInputCommand {
 	public readonly name = "heart";
 
@@ -108,11 +114,11 @@ export default class implements ChatInputCommand {
 
 		const hearts = await this.heartCount(user.id);
 
-		await interaction.reply(
-			`Sending a heart to ${user}. ${interaction.user} is such a nice person!\n${user} now has ${hearts} heart${
-				hearts > 1 ? "s" : ""
-			}.`,
-		);
+		const heartMessage = HEARTS[Math.floor(Math.random() * HEARTS.length)]
+			.replaceAll("{{gifter}}", String(interaction.user))
+			.replaceAll("{{giftee}}", String(user));
+
+		await interaction.reply(`${heartMessage}\n${user} now has ${hearts} heart${hearts > 1 ? "s" : ""}.`);
 	}
 
 	public get commandData(): ApplicationCommandData {
