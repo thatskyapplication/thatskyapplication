@@ -25,7 +25,7 @@ const HEARTS = [
 	"Sending a heart to {{giftee}}. {{gifter}} is such a nice person!",
 	"A heart a day keeps the dark dragon away! {{giftee}} received a heart from {{gifter}}!",
 	"A wholesome heart delivered to {{giftee}} from {{gifter}}!",
-] as const;
+] as const satisfies Readonly<string[]>;
 
 export default class implements ChatInputCommand {
 	public readonly name = "heart";
