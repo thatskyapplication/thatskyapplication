@@ -17,6 +17,7 @@ import notifications from "./Events/notifications.js";
 // Fun
 import bonk from "./Fun/bonk.js";
 import fight from "./Fun/fight.js";
+import heart from "./Fun/heart.js";
 import hug from "./Fun/hug.js";
 
 // General
@@ -32,6 +33,7 @@ const commands = {
 	"d-daily-guides": new d_daily_guides(),
 	"daily-guides": new daily_guides(),
 	fight: new fight(),
+	heart: new heart(),
 	hug: new hug(),
 	notifications: new notifications(),
 	roles: new roles(),
