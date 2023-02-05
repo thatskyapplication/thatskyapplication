@@ -61,9 +61,7 @@ export default class implements ChatInputCommand {
 	}
 
 	public async set(interaction: ChatInputCommandInteraction) {
-		const subcommand = interaction.options.getSubcommand();
-
-		switch (subcommand) {
+		switch (interaction.options.getSubcommand()) {
 			case "quest":
 				await this.setQuest(interaction);
 				return;
