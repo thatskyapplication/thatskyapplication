@@ -22,16 +22,16 @@ async function dailyReset(client: Client<true>) {
 
 export default function heartbeat(client: Client<true>): void {
 	setInterval(() => {
-		const dateTime = dayjs.tz(Date.now(), "America/Los_Angeles").toDate();
-		const hours = dateTime.getUTCHours();
-		const minutes = dateTime.getUTCMinutes();
-		const seconds = dateTime.getUTCSeconds();
+		const date = dayjs.tz(Date.now(), "America/Los_Angeles");
+		const hour = date.hour();
+		const minute = date.minute();
+		const second = date.second();
 
-		if (seconds === 0) {
-			if (hours === 0 && minutes === 0) void dailyReset(client);
+		if (second === 0) {
+			if (hour === 0 && minute === 0) void dailyReset(client);
 
-			if (hours % 2 === 0) {
-				switch (minutes) {
+			if (hour % 2 === 0) {
+				switch (minute) {
 					case 0:
 						sendNotification(client, NotificationEvent.PollutedGeyser);
 						break;
