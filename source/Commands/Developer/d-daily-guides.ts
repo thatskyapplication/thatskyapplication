@@ -178,7 +178,6 @@ export default class implements ChatInputCommand {
 		const memory = options.getString("memory");
 		const url = options.getString("url");
 		const data = options.getString("data");
-
 		const resolvedMemory = memory ? resolveShardEruptionMemory(memory) : null;
 
 		if (!resolvedMemory) {
