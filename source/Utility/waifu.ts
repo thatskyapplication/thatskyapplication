@@ -5,9 +5,9 @@ interface WaifuResponse {
 }
 
 export const enum WaifuCategory {
-	Hug = "Hug",
-	Kick = "Kick",
-	Slap = "Slap",
+	Hug = "hug",
+	Kick = "kick",
+	Slap = "slap",
 }
 
 export default async function waifu(endpoint: WaifuCategory): Promise<WaifuResponse> {
