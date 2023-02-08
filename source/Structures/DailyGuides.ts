@@ -475,7 +475,6 @@ export default new (class DailyGuides {
 		});
 
 		await this.reset();
-		// We care about the daily quest order.
-		for (const message of messages.reverse().values()) void this.parse(message);
+		await Promise.all(messages.map(async (message) => this.parse(message)));
 	}
 })();
