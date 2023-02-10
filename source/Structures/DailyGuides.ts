@@ -1,8 +1,9 @@
 import { AsyncQueue } from "@sapphire/async-queue";
 import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
 import { time, TimestampStyles, FormattingPatterns, ChannelType, MessageFlags, SnowflakeUtil } from "discord.js";
-import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm } from "../Utility/Constants.js";
-import { consoleLog, todayDate } from "../Utility/Utility.js";
+import type { ValidRealm } from "../Utility/Constants.js";
+import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm, VALID_REALM } from "../Utility/Constants.js";
+import { consoleLog, resolveMap, resolveValidRealm, todayDate } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import { SpiritName } from "./Spirit.js";
@@ -42,17 +43,7 @@ interface TreasureCandleData {
 	url: string;
 }
 
-const VALID_REALM = [
-	Realm.DaylightPrairie,
-	Realm.HiddenForest,
-	Realm.ValleyOfTriumph,
-	Realm.GoldenWasteland,
-	Realm.VaultOfKnowledge,
-] as const;
-
-type ValidRealm = (typeof VALID_REALM)[number];
-
-enum ShardMemory {
+export enum ShardMemory {
 	Jellyfish = "Jellyfish",
 	DarkCrab = "Crab",
 	Manta = "Manta",
@@ -62,10 +53,10 @@ enum ShardMemory {
 }
 
 interface ShardEruptionExtra {
-	reward: string | null;
+	reward: number | null;
 	memory: ShardMemory | null;
-	data: string | null;
 	url: string | null;
+	data: string | null;
 }
 
 const SHARD_ERUPTION_PREDICTION_DATA = [
@@ -106,31 +97,8 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 	},
 ] as const;
 
-function resolveRealm(rawRealm: string) {
-	const upperRawRealm = rawRealm.toUpperCase();
-
-	for (const realm of Object.values(Realm)) {
-		if (realm.toUpperCase() !== upperRawRealm) continue;
-		if (Realm.IslesOfDawn === realm || Realm.EyeOfEden === realm || Realm.AncientMemory === realm) continue;
-		return realm;
-	}
-
-	return null;
-}
-
-function resolveMap(rawMap: string) {
-	const upperRawMap = rawMap.toUpperCase();
-
-	// Account for wonderful inconsistencies.
-	switch (upperRawMap) {
-		case "FOREST'S BROOK":
-			return Map.ForestBrook;
-		case "RACE END":
-			return Map.Coliseum;
-	}
-
-	return Object.values(Map).find((map) => map.toUpperCase() === upperRawMap) ?? null;
-}
+export const QUEST_NUMBER = [1, 2, 3, 4] as const;
+export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
 const regularExpressionRealms = Object.values(Realm).join("|").replaceAll(" ", "\\s+");
 const mapRegExp = Object.values(Map).join("|").replaceAll(" ", "\\s+");
@@ -317,7 +285,7 @@ export default new (class DailyGuides {
 
 		// Attempt to find a realm.
 		const potentialRealmRegExp = new RegExp(`(${regularExpressionRealms})`, "i").exec(pureContent)?.[1] ?? null;
-		const realm = potentialRealmRegExp ? resolveRealm(potentialRealmRegExp) : null;
+		const realm = potentialRealmRegExp ? resolveValidRealm(potentialRealmRegExp) : null;
 
 		// Attempt to find a map.
 		const potentialMapRegExp = new RegExp(`(${mapRegExp})`, "i").exec(pureContent)?.[1] ?? null;
@@ -336,42 +304,34 @@ export default new (class DailyGuides {
 		const data = { content: output, url };
 
 		if (!this.quest1) {
-			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-				.update({ quest1: data })
-				.returning("*");
-
-			this.patch(dailyGuidesPacket);
+			await this.updateQuest(data, 1);
 			return;
 		}
 
 		if (!this.quest2) {
-			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-				.update({ quest2: data })
-				.returning("*");
-
-			this.patch(dailyGuidesPacket);
+			await this.updateQuest(data, 2);
 			return;
 		}
 
 		if (!this.quest3) {
-			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-				.update({ quest3: data })
-				.returning("*");
-
-			this.patch(dailyGuidesPacket);
+			await this.updateQuest(data, 3);
 			return;
 		}
 
 		if (!this.quest4) {
-			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-				.update({ quest4: data })
-				.returning("*");
-
-			this.patch(dailyGuidesPacket);
+			await this.updateQuest(data, 4);
 			return;
 		}
 
 		consoleLog("Attempted to parse a daily quest despite all quest variables exhausted.");
+	}
+
+	public async updateQuest(questData: DailyGuideQuest, number: QuestNumber) {
+		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
+			.update({ [`quest${number}`]: questData })
+			.returning("*");
+
+		this.patch(dailyGuidesPacket);
 	}
 
 	public async parseTreasureCandles(content: string, attachments: Collection<Snowflake, Attachment>) {
@@ -387,7 +347,7 @@ export default new (class DailyGuides {
 		if (regex?.groups) {
 			const { rotation, realm } = regex.groups;
 			const resolvedRotation = rotation.replaceAll(/  +/g, " ");
-			const resolvedRealm = resolveRealm(realm);
+			const resolvedRealm = resolveValidRealm(realm);
 
 			if (!resolvedRotation) {
 				consoleLog("Failed to parse the rotation of a set of treasure candles.");
@@ -442,7 +402,7 @@ export default new (class DailyGuides {
 		for (const line of content.split("\n")) {
 			const upperLine = line.toUpperCase();
 			// eslint-disable-next-line prefer-named-capture-group
-			if (upperLine.includes("**REWARD**:")) reward = /(\d{1,3}(?:\.\d)?)/.exec(line)?.[1] ?? null;
+			if (upperLine.includes("**REWARD**:")) reward = Number(/(\d{1,3}(?:\.\d)?)/.exec(line)?.[1]) ?? null;
 			if (upperLine.includes(`[Y] ${ShardMemory.Jellyfish.toUpperCase()}`)) memory = ShardMemory.Jellyfish;
 			if (upperLine.includes(`[Y] ${ShardMemory.DarkCrab.toUpperCase()}`)) memory = ShardMemory.DarkCrab;
 			if (upperLine.includes(`[Y] ${ShardMemory.Manta.toUpperCase()}`)) memory = ShardMemory.Manta;
@@ -452,15 +412,22 @@ export default new (class DailyGuides {
 			if (upperLine.includes("SHARD DATA")) data = line.slice(line.lastIndexOf("`") + 1);
 		}
 
+		if (typeof reward === "number" && Number.isNaN(reward)) {
+			consoleLog(`Failed to convert the reward to a number. Received: ${reward}.`);
+			reward = null;
+		}
+
+		await this.updateShardEruption({
+			reward,
+			memory,
+			data,
+			url: attachments.first()?.url ?? null,
+		});
+	}
+
+	public async updateShardEruption(shardEruptionExtra: ShardEruptionExtra) {
 		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-			.update({
-				shard_eruption_extra: {
-					reward,
-					memory,
-					data,
-					url: attachments.first()?.url ?? null,
-				},
-			})
+			.update({ shard_eruption_extra: shardEruptionExtra })
 			.returning("*");
 
 		this.patch(dailyGuidesPacket);

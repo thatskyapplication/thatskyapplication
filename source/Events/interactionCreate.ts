@@ -1,5 +1,11 @@
 import type { Interaction } from "discord.js";
 import { Events, InteractionType } from "discord.js";
+import {
+	D_DAILY_GUIDES_QUEST_1_MODAL,
+	D_DAILY_GUIDES_QUEST_2_MODAL,
+	D_DAILY_GUIDES_QUEST_3_MODAL,
+	D_DAILY_GUIDES_QUEST_4_MODAL,
+} from "../Commands/Developer/d-daily-guides.js";
 import { ROLES_SELECT_MENU_CUSTOM_ID } from "../Commands/General/roles.js";
 import { SKY_PROFILE_MODAL } from "../Commands/General/sky-profile.js";
 import commands, {
@@ -182,9 +188,31 @@ export const event: Event<typeof name> = {
 		}
 
 		if (interaction.isModalSubmit()) {
+			const { customId } = interaction;
+
 			try {
-				if (interaction.customId === SKY_PROFILE_MODAL) {
+				if (customId === SKY_PROFILE_MODAL) {
 					await Profile.setDescription(interaction);
+					return;
+				}
+
+				if (D_DAILY_GUIDES_QUEST_1_MODAL === customId) {
+					await commands["d-daily-guides"].parseQuest(interaction, 1);
+					return;
+				}
+
+				if (D_DAILY_GUIDES_QUEST_2_MODAL === customId) {
+					await commands["d-daily-guides"].parseQuest(interaction, 2);
+					return;
+				}
+
+				if (D_DAILY_GUIDES_QUEST_3_MODAL === customId) {
+					await commands["d-daily-guides"].parseQuest(interaction, 3);
+					return;
+				}
+
+				if (D_DAILY_GUIDES_QUEST_4_MODAL === customId) {
+					await commands["d-daily-guides"].parseQuest(interaction, 4);
 					return;
 				}
 			} catch (error) {
@@ -192,7 +220,7 @@ export const event: Event<typeof name> = {
 				return;
 			}
 
-			void interaction.client.log(`Received an unknown modal interaction (\`${interaction.customId}\`).`);
+			void interaction.client.log(`Received an unknown modal interaction (\`${customId}\`).`);
 
 			void interaction.reply({
 				content:
