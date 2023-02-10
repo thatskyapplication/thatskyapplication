@@ -1,6 +1,6 @@
 import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
 import { EmbedBuilder, PermissionFlagsBits, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
-import { search } from "../../Utility/Tenor.js";
+import waifu, { WaifuCategory } from "../../Utility/waifu.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -10,24 +10,13 @@ interface FightPacket {
 	timestamp: Date;
 }
 
-const QUERIES = [
-	"anime fight",
-	"anime sword fight",
-	"anime fist fight",
-	"anime magic fight",
-	"anime gun fight",
-	"anime fighting",
-	"anime kill",
-	"anime destroy",
-] as const satisfies Readonly<string[]>;
-
 export default class implements ChatInputCommand {
 	public readonly name = "fight";
 
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { channel, client, createdAt, guild, locale, options } = interaction;
+		const { channel, createdAt, guild, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
 
@@ -60,16 +49,8 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		const { results } = await search({
-			// eslint-disable-next-line id-length
-			q: QUERIES[Math.floor(Math.random() * QUERIES.length)],
-			clientKey: client.user.username,
-			locale,
-		});
-
-		const embed = new EmbedBuilder()
-			.setColor((await guild?.members.fetchMe())?.displayColor ?? 0)
-			.setImage(results[Math.floor(Math.random() * results.length)].media_formats.gif.url);
+		const { url } = await waifu(Math.random() < 0.5 ? WaifuCategory.Kick : WaifuCategory.Slap);
+		const embed = new EmbedBuilder().setColor((await guild?.members.fetchMe())?.displayColor ?? 0).setImage(url);
 
 		await pg<FightPacket>(Table.Fights).insert({
 			fighter_id: interaction.user.id,

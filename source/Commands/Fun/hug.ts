@@ -1,6 +1,6 @@
 import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
 import { EmbedBuilder, PermissionFlagsBits, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
-import { search } from "../../Utility/Tenor.js";
+import waifu, { WaifuCategory } from "../../Utility/waifu.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -10,26 +10,13 @@ interface HugPacket {
 	timestamp: Date;
 }
 
-const QUERIES = [
-	"anime hug",
-	"anime hugs",
-	"manga hug",
-	"anime boy hug",
-	"anime girl hug",
-	"anime tight hug",
-	"anime hug sad",
-	"anime hug happy",
-	"anime wholesome hug",
-	"anime jump hug",
-] as const satisfies Readonly<string[]>;
-
 export default class implements ChatInputCommand {
 	public readonly name = "hug";
 
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { channel, client, createdAt, guild, locale, options } = interaction;
+		const { channel, createdAt, guild, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
 
@@ -62,16 +49,8 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		const { results } = await search({
-			// eslint-disable-next-line id-length
-			q: QUERIES[Math.floor(Math.random() * QUERIES.length)],
-			clientKey: client.user.username,
-			locale,
-		});
-
-		const embed = new EmbedBuilder()
-			.setColor((await guild?.members.fetchMe())?.displayColor ?? 0)
-			.setImage(results[Math.floor(Math.random() * results.length)].media_formats.gif.url);
+		const { url } = await waifu(WaifuCategory.Hug);
+		const embed = new EmbedBuilder().setColor((await guild?.members.fetchMe())?.displayColor ?? 0).setImage(url);
 
 		await pg<HugPacket>(Table.Hugs).insert({
 			hugger_id: interaction.user.id,

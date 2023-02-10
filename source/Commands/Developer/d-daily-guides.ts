@@ -56,8 +56,9 @@ export default class implements ChatInputCommand {
 	}
 
 	public async parse(interaction: ChatInputCommandInteraction) {
-		await interaction.reply("Parsing daily guides.");
+		await interaction.reply("Parsing daily guides...");
 		await DailyGuides.reCheck(interaction.client);
+		await interaction.editReply("Parsed daily guides.");
 	}
 
 	public async set(interaction: ChatInputCommandInteraction) {

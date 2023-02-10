@@ -245,7 +245,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("ACQUAINTANCE")) return "Make a New Acquaintance";
 		if (upperPureContent.includes("HIGH-FIVE")) return "High-Five a Friend";
 		if (upperPureContent.includes("EXPRESSION NEAR A FRIEND")) return "Use an Expression Near a Friend";
-		if (upperPureContent.includes("BENCH")) return "Sit at a bench with a stranger.";
+		if (upperPureContent.includes("BENCH")) return "Sit at a bench with a stranger";
 		if (upperPureContent.includes("RIDE A MANTA")) return "Ride a Manta";
 		if (upperPureContent.includes("DARK DRAGON")) return "Face the Dark Dragon";
 		if (upperPureContent.includes("RECHARGE FROM A LIGHT BLOOM")) return "Recharge from a Light Bloom";
@@ -446,7 +446,6 @@ export default new (class DailyGuides {
 		});
 
 		await this.reset();
-		// We care about the daily quest order.
-		for (const message of messages.reverse().values()) void this.parse(message);
+		await Promise.all(messages.map(async (message) => this.parse(message)));
 	}
 })();
