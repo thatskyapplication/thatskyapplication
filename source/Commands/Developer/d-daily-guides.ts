@@ -184,12 +184,7 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		await DailyGuides.updateShardEruption({
-			reward,
-			memory: resolvedMemory,
-			url,
-			data,
-		});
+		await DailyGuides.updateShardEruption({ reward, memory: resolvedMemory, url, data });
 
 		await interaction.reply(
 			`Successfully updated the shard eruption data.\n${codeBlock(
