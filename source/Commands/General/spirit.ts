@@ -42,7 +42,7 @@ export default class implements AutocompleteCommand {
 						spirit.offer === null
 							? "Unknown"
 							: `${spirit.offer.candles} candle${spirit.offer.candles > 1 ? "s" : ""}\n${spirit.offer.hearts} heart${
-									spirit.offer.hearts > 1 ? "s" : ""
+									spirit.offer.hearts === 1 ? "" : "s"
 							  }\n${spirit.offer.ascendedCandles} ascended candle${spirit.offer.ascendedCandles > 1 ? "s" : ""}`,
 					inline: true,
 				},

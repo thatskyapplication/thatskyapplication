@@ -48,7 +48,7 @@ export default class implements ChatInputCommand {
 
 	public async count(interaction: ChatInputCommandInteraction) {
 		const hearts = await this.heartCount(interaction.user.id);
-		await interaction.reply(`You have ${hearts} heart${hearts > 1 ? "s" : ""}.`);
+		await interaction.reply(`You have ${hearts} heart${hearts === 1 ? "" : "s"}.`);
 	}
 
 	public async gift(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
@@ -118,7 +118,7 @@ export default class implements ChatInputCommand {
 			.replaceAll("{{gifter}}", String(interaction.user))
 			.replaceAll("{{giftee}}", String(user));
 
-		await interaction.reply(`${heartMessage}\n${user} now has ${hearts} heart${hearts > 1 ? "s" : ""}.`);
+		await interaction.reply(`${heartMessage}\n${user} now has ${hearts} heart${hearts === 1 ? "" : "s"}.`);
 	}
 
 	public get commandData(): ApplicationCommandData {
