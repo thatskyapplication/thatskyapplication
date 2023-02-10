@@ -100,10 +100,6 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
-export function isQuestNumber(questNumber: number): questNumber is QuestNumber {
-	return QUEST_NUMBER.includes(questNumber as QuestNumber);
-}
-
 const regularExpressionRealms = Object.values(Realm).join("|").replaceAll(" ", "\\s+");
 const mapRegExp = Object.values(Map).join("|").replaceAll(" ", "\\s+");
 

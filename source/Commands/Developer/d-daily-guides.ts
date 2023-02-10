@@ -9,7 +9,7 @@ import {
 	ApplicationCommandType,
 } from "discord.js";
 import type { QuestNumber } from "../../Structures/DailyGuides.js";
-import DailyGuides, { ShardMemory, isQuestNumber, QUEST_NUMBER } from "../../Structures/DailyGuides.js";
+import DailyGuides, { ShardMemory, QUEST_NUMBER } from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import { resolveShardEruptionMemory } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
@@ -26,6 +26,10 @@ const D_DAILY_GUIDES_QUEST_3_TEXT_INPUT_URL = "D_DAILY_GUIDES_QUEST_3_TEXT_INPUT
 export const D_DAILY_GUIDES_QUEST_4_MODAL = "D_DAILY_GUIDES_QUEST_4_MODAL" as const;
 const D_DAILY_GUIDES_QUEST_4_TEXT_INPUT_CONTENT = "D_DAILY_GUIDES_QUEST_4_TEXT_INPUT_CONTENT" as const;
 const D_DAILY_GUIDES_QUEST_4_TEXT_INPUT_URL = "D_DAILY_GUIDES_QUEST_4_TEXT_INPUT_URL" as const;
+
+function isQuestNumber(questNumber: number): questNumber is QuestNumber {
+	return QUEST_NUMBER.includes(questNumber as QuestNumber);
+}
 
 export default class implements ChatInputCommand {
 	public readonly name = "d-daily-guides";
