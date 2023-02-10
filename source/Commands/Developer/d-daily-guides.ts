@@ -67,7 +67,7 @@ export default class implements ChatInputCommand {
 				await this.setQuest(interaction);
 				return;
 			case "shard-eruption-extra":
-				await this.shardEruptionExtra(interaction);
+				await this.setShardEruptionExtra(interaction);
 		}
 	}
 
@@ -171,7 +171,7 @@ export default class implements ChatInputCommand {
 		);
 	}
 
-	public async shardEruptionExtra(interaction: ChatInputCommandInteraction) {
+	public async setShardEruptionExtra(interaction: ChatInputCommandInteraction) {
 		const { options } = interaction;
 		const reward = options.getNumber("reward");
 		const memory = options.getString("memory");
