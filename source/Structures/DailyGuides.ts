@@ -228,7 +228,7 @@ export default new (class DailyGuides {
 	}
 
 	private resolveDailyGuideContent(pureContent: string) {
-		const upperPureContent = pureContent.replaceAll(new RegExp(FormattingPatterns.Emoji, "gi"), "").toUpperCase();
+		const upperPureContent = pureContent.toUpperCase();
 
 		if (upperPureContent.includes("BOW AT A PLAYER") || upperPureContent.includes("BOW TO A PLAYER"))
 			return "Bow at a Player";
@@ -278,7 +278,9 @@ export default new (class DailyGuides {
 		}
 
 		// Remove the message link, if any.
-		const pureContent = /\n<?https?/.test(content) ? content.slice(0, content.indexOf("\n")).trim() : content;
+		const pureContent = (/\n<?https?/.test(content) ? content.slice(0, content.indexOf("\n")) : content)
+			.replaceAll(new RegExp(FormattingPatterns.Emoji, "gi"), "")
+			.trim();
 
 		// Attempt to manually set the daily guide.
 		const dailyGuideContent = this.resolveDailyGuideContent(pureContent);
