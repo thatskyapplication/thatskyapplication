@@ -2,7 +2,6 @@ import { inspect } from "node:util";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
-import { ShardMemory } from "../Structures/DailyGuides.js";
 import { Map, Realm, VALID_REALM } from "./Constants.js";
 
 dayjs.extend(timezone);
@@ -42,8 +41,4 @@ export function resolveMap(rawMap: string) {
 	}
 
 	return Object.values(Map).find((map) => map.toUpperCase() === upperRawMap) ?? null;
-}
-
-export function resolveShardEruptionMemory(memory: string) {
-	return Object.values(ShardMemory).find((shardMemory) => shardMemory === memory) ?? null;
 }

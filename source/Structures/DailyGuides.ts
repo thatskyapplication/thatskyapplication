@@ -15,7 +15,6 @@ export interface DailyGuidesPacket {
 	quest4: DailyGuideQuest | null;
 	treasure_candles: DailyGuideTreasureCandle | null;
 	seasonal_candles: string | null;
-	shard_eruption_extra: ShardEruptionExtra | null;
 }
 
 interface DailyGuidesData {
@@ -25,7 +24,6 @@ interface DailyGuidesData {
 	quest4: DailyGuidesPacket["quest4"];
 	treasureCandles: DailyGuidesPacket["treasure_candles"];
 	seasonalCandles: DailyGuidesPacket["seasonal_candles"];
-	shardEruptionExtra: DailyGuidesPacket["shard_eruption_extra"];
 }
 
 interface DailyGuideQuest {
@@ -43,57 +41,71 @@ interface TreasureCandleData {
 	url: string;
 }
 
-export enum ShardMemory {
-	Jellyfish = "Jellyfish",
-	DarkCrab = "Crab",
-	Manta = "Manta",
-	DarkDragon = "Krill",
-	Whale = "Whale",
-	Elder = "Elder",
-}
-
-interface ShardEruptionExtra {
-	reward: number | null;
-	memory: ShardMemory | null;
-	url: string | null;
-	data: string | null;
-}
-
 const SHARD_ERUPTION_PREDICTION_DATA = [
 	{
 		noShardWeekDay: [6, 7], // Saturday, Sunday
 		interval: 8,
 		// 1 hour and 50 minutes.
 		offset: 6_600_000,
-		maps: [Map.ButterflyFields, Map.ForestBrook, Map.IceRink, Map.BrokenTemple, Map.StarlightDesert],
+		area: [
+			{ map: Map.ButterflyFields, url: "https://i.gyazo.com/19930feb1be18cafc73dcd4f76aa5ad2.webp", reward: 200 },
+			{ map: Map.ForestBrook, url: "https://i.gyazo.com/502c327fe0a7a4fe4943004cccd09388.webp", reward: 200 },
+			{ map: Map.IceRink, url: "https://i.gyazo.com/2f40f4818a530b06ed5de970a6bf4351.webp", reward: 200 },
+			{ map: Map.BrokenTemple, url: "https://i.gyazo.com/f36eb44e3d55fa70fb34169a1fa40d99.webp", reward: 200 },
+			{ map: Map.StarlightDesert, url: "https://i.gyazo.com/71878ab538f11edbe0b82a51145a0dd2.webp", reward: 200 },
+		],
 	},
 	{
 		noShardWeekDay: [7, 1], // Sunday, Monday
 		interval: 8,
 		// 2 hours and 10 minutes.
 		offset: 7_800_000,
-		maps: [Map.KoiPond, Map.Boneyard, Map.IceRink, Map.Battlefield, Map.StarlightDesert],
+		area: [
+			{ map: Map.KoiPond, url: "https://i.gyazo.com/7ba7af41ad9295ef176ff5b3afdb8b23.webp", reward: 200 },
+			{ map: Map.Boneyard, url: "https://i.gyazo.com/72efea087458097b0afc03f5eca62da2.webp", reward: 200 },
+			{ map: Map.IceRink, url: "https://i.gyazo.com/2f40f4818a530b06ed5de970a6bf4351.webp", reward: 200 },
+			{ map: Map.Battlefield, url: "https://i.gyazo.com/40a1add1741413e45781c96e916aa80a.webp", reward: 200 },
+			{ map: Map.StarlightDesert, url: "https://i.gyazo.com/71878ab538f11edbe0b82a51145a0dd2.webp", reward: 200 },
+		],
 	},
 	{
 		noShardWeekDay: [1, 2], // Monday, Tuesday
 		interval: 6,
 		// 7 hours and 40 minutes.
 		offset: 27_600_000,
-		maps: [Map.Cave, Map.ForestEnd, Map.VillageOfDreams, Map.Graveyard, Map.JellyfishCove],
+		area: [
+			{ map: Map.Cave, url: "https://i.gyazo.com/5dd6597f82decdb0d878eda81683c564.webp", reward: 2 },
+			{ map: Map.ForestEnd, url: "https://i.gyazo.com/9cef57ca70eddd12cb95641da2d5e384.webp", reward: 2.5 },
+			{ map: Map.VillageOfDreams, url: "https://i.gyazo.com/cde4340bca0211820d100e42671c80e0.webp", reward: 2.5 },
+			{ map: Map.Graveyard, url: "https://i.gyazo.com/46301cb5e5eb31043c75b3b2f46ee8ec.png", reward: null },
+			{ map: Map.JellyfishCove, url: "https://i.gyazo.com/0b39ab966a0aa9e51b05fcd2a130c54b.webp", reward: 3.5 },
+		],
 	},
 	{
 		noShardWeekDay: [2, 3], // Tuesday, Wednesday
 		interval: 6,
 		// 2 hours and 20 minutes.
 		offset: 8_400_000,
-		maps: [Map.BirdNest, Map.Treehouse, Map.VillageOfDreams, Map.CrabFields, Map.JellyfishCove],
+		area: [
+			{ map: Map.BirdNest, url: "https://i.gyazo.com/bd856ba3effe737c3f4e928af2e12a54.webp", reward: 2.5 },
+			{ map: Map.Treehouse, url: "https://i.gyazo.com/e46b7c1b85e409b993875ef50bbf245f.webp", reward: 3.5 },
+			{ map: Map.VillageOfDreams, url: "https://i.gyazo.com/cde4340bca0211820d100e42671c80e0.webp", reward: 2.5 },
+			{ map: Map.CrabFields, url: "https://i.gyazo.com/f17e546074ee72ad677bbb0a3492ec7f.webp", reward: 2.5 },
+			{ map: Map.JellyfishCove, url: "https://i.gyazo.com/0b39ab966a0aa9e51b05fcd2a130c54b.webp", reward: 3.5 },
+		],
 	},
 	{
 		noShardWeekDay: [3, 4], // Wednesday, Thursday
 		interval: 6,
 		// 3 hours and 30 minutes.
 		offset: 12_600_000,
-		maps: [Map.SanctuaryIslands, Map.ElevatedClearing, Map.HermitValley, Map.ForgottenArk, Map.JellyfishCove],
+		area: [
+			{ map: Map.SanctuaryIslands, url: "https://i.gyazo.com/31c7665bb358dee7ac5442bb1b916efe.webp", reward: 3.5 },
+			{ map: Map.ElevatedClearing, url: "https://i.gyazo.com/130b7887552630347cfc11d91ce39d6f.webp", reward: null },
+			{ map: Map.HermitValley, url: "https://i.gyazo.com/1e9e902a101162495815f40cb030cdfe.webp", reward: 3.5 },
+			{ map: Map.ForgottenArk, url: "https://i.gyazo.com/2e470de7e0258f64fdd71971bef67d36.webp", reward: 3.5 },
+			{ map: Map.JellyfishCove, url: "https://i.gyazo.com/0b39ab966a0aa9e51b05fcd2a130c54b.webp", reward: 3.5 },
+		],
 	},
 ] as const;
 
@@ -127,11 +139,12 @@ export default new (class DailyGuides {
 		const dayOfWeek = date.getUTCDay();
 		const dangerous = dayOfMonth % 2 === 1;
 		const infoIndex = dangerous ? (((dayOfMonth - 1) / 2) % 3) + 2 : (dayOfMonth / 2) % 2;
-		const { noShardWeekDay, interval, offset, maps } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex];
+		const { noShardWeekDay, interval, offset, area } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex];
 		// @ts-expect-error Too narrow.
 		const noShardDay = noShardWeekDay.includes(dayOfWeek);
 		if (noShardDay) return null;
 		const realmIndex = (dayOfMonth - 1) % 5;
+		const { map, url, reward } = area[realmIndex];
 		let startTime = date.getTime() + offset;
 		let timestamps = "";
 
@@ -142,15 +155,8 @@ export default new (class DailyGuides {
 			startTime += interval * 3_600_000;
 		}
 
-		return {
-			realm: VALID_REALM[realmIndex],
-			map: maps[realmIndex],
-			dangerous,
-			timestamps: timestamps.trim(),
-		};
+		return { realm: VALID_REALM[realmIndex], map, dangerous, reward, timestamps: timestamps.trim(), url };
 	}
-
-	public shardEruptionExtra: DailyGuidesData["shardEruptionExtra"] = null;
 
 	public readonly queue = new AsyncQueue();
 
@@ -163,7 +169,6 @@ export default new (class DailyGuides {
 				quest4: null,
 				treasure_candles: null,
 				seasonal_candles: null,
-				shard_eruption_extra: null,
 			})
 			.returning("*");
 
@@ -177,7 +182,6 @@ export default new (class DailyGuides {
 		this.quest4 = data.quest4;
 		this.treasureCandles = data.treasure_candles;
 		this.seasonalCandles = data.seasonal_candles;
-		this.shardEruptionExtra = data.shard_eruption_extra;
 	}
 
 	public validToParse({ channelId, flags, reference }: Message) {
@@ -197,8 +201,11 @@ export default new (class DailyGuides {
 		const transformedContent = content.toUpperCase();
 		await this.queue.wait();
 
-		if (transformedContent.includes("DAILY QUEST") && transformedContent.length <= 20) {
-			// This is the general photo of quests. This is redundant.
+		if (
+			(transformedContent.includes("DAILY QUEST") && transformedContent.length <= 20) ||
+			transformedContent.includes("SHATTERING SHARD SUMMARY")
+		) {
+			// This is the general photo of quests or the shard eruption infographic. This is redundant.
 			this.queue.shift();
 			return;
 		} else if (
@@ -212,11 +219,6 @@ export default new (class DailyGuides {
 			await this.parseTreasureCandles(content, attachments);
 		} else if (transformedContent.includes("SEASONAL CANDLE")) {
 			await this.parseSeasonalCandles(attachments);
-		} else if (
-			transformedContent.includes("SHATTERING SHARD SUMMARY") ||
-			transformedContent.includes("SHATTERING SHARD LOCATION")
-		) {
-			await this.parseShardEruption(content, attachments);
 		} else {
 			consoleLog("Intercepted an unparsed message.");
 			this.queue.shift();
@@ -389,47 +391,6 @@ export default new (class DailyGuides {
 
 		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
 			.update({ seasonal_candles: url })
-			.returning("*");
-
-		this.patch(dailyGuidesPacket);
-	}
-
-	public async parseShardEruption(content: string, attachments: Collection<Snowflake, Attachment>) {
-		const { shardEruption } = this;
-		if (!shardEruption) return;
-		let reward = null;
-		let memory = null;
-		let data = null;
-
-		for (const line of content.split("\n")) {
-			const upperLine = line.toUpperCase();
-			// eslint-disable-next-line prefer-named-capture-group
-			if (upperLine.includes("**REWARD**:")) reward = Number(/(\d{1,3}(?:\.\d)?)/.exec(line)?.[1]) ?? null;
-			if (upperLine.includes(`[Y] ${ShardMemory.Jellyfish.toUpperCase()}`)) memory = ShardMemory.Jellyfish;
-			if (upperLine.includes(`[Y] ${ShardMemory.DarkCrab.toUpperCase()}`)) memory = ShardMemory.DarkCrab;
-			if (upperLine.includes(`[Y] ${ShardMemory.Manta.toUpperCase()}`)) memory = ShardMemory.Manta;
-			if (upperLine.includes(`[Y] ${ShardMemory.DarkDragon.toUpperCase()}`)) memory = ShardMemory.DarkDragon;
-			if (upperLine.includes(`[Y] ${ShardMemory.Whale.toUpperCase()}`)) memory = ShardMemory.Whale;
-			if (upperLine.includes(`[Y] ${ShardMemory.Elder.toUpperCase()}`)) memory = ShardMemory.Elder;
-			if (upperLine.includes("SHARD DATA")) data = line.slice(line.lastIndexOf("`") + 1);
-		}
-
-		if (typeof reward === "number" && Number.isNaN(reward)) {
-			consoleLog(`Failed to convert the reward to a number. Received: ${reward}.`);
-			reward = null;
-		}
-
-		await this.updateShardEruption({
-			reward,
-			memory,
-			data,
-			url: attachments.first()?.url ?? null,
-		});
-	}
-
-	public async updateShardEruption(shardEruptionExtra: ShardEruptionExtra) {
-		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-			.update({ shard_eruption_extra: shardEruptionExtra })
 			.returning("*");
 
 		this.patch(dailyGuidesPacket);

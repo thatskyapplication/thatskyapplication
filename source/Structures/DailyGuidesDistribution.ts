@@ -125,8 +125,7 @@ export default class DailyGuidesDistribution {
 	}
 
 	public static async distribute(client: Client<true>) {
-		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles, shardEruption, shardEruptionExtra } =
-			DailyGuides;
+		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles, shardEruption } = DailyGuides;
 
 		const dailyGuidesDistributionPackets = await pg<DailyGuidesDistributionPacket>(
 			Table.DailyGuidesDistribution,
@@ -156,19 +155,14 @@ export default class DailyGuidesDistribution {
 		if (seasonalCandles) embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
 
 		if (shardEruption) {
-			const { realm, map, dangerous, timestamps } = shardEruption;
-			const { reward, memory, data, url } = shardEruptionExtra ?? {};
-			let location = `${realm} (${map})`;
-			if (url) location = hyperlink(location, url);
+			const { realm, map, dangerous, reward, timestamps, url } = shardEruption;
 
 			embed.addFields(
 				{
 					name: SHARD_ERUPTION_NAME,
-					value: `Location: ${location}${memory ? `\nMemory: ${memory}` : ""}\nDangerous: ${dangerous ? "✅" : "❌"}${
-						typeof reward === "number"
-							? `\nReward: ${reward} ${dangerous ? "ascended candles" : "pieces of light"}`
-							: ""
-					}${data ? `\nData: ${hyperlink("link", data)}` : ""}`,
+					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${dangerous ? "✅" : "❌"}${
+						reward ? `\nReward: ${reward} ${dangerous ? "ascended candles" : "pieces of light"}` : ""
+					}`,
 					inline: true,
 				},
 				{ name: "Timestamps", value: timestamps, inline: true },
