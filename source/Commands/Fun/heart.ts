@@ -22,8 +22,14 @@ interface HeartPacket {
 }
 
 const HEARTS = [
-	"Sending a heart to {{giftee}}. {{gifter}} is such a nice person!",
-	"A heart a day keeps the dark dragon away! {{giftee}} received a heart from {{gifter}}!",
+	"{{gifter}} sent a heart to {{giftee}}. How lucky!",
+	"A heart from {{gifter}} to {{giftee}}. That was nice of them!",
+	"Incoming heart from {{gifter}} to {{giftee}}!",
+	"{{gifter}} sent {{giftee}} a heart! What a good friend!",
+	"Sent {{giftee}} a heart. How nice of {{gifter}}!",
+	"{{gifter}} sent a heart to {{giftee}}. They're pretty lucky!",
+	"Sent {{giftee}} a heart. {{gifter}} is lucky to have a friend like you!",
+	"{{gifter}}, sending a heart each day keeps the dark dragon away from {{giftee}}!",
 	"A wholesome heart delivered to {{giftee}} from {{gifter}}!",
 ] as const satisfies Readonly<string[]>;
 
