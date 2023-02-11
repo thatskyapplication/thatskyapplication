@@ -38,7 +38,6 @@ export enum Map {
 
 	// Hidden Forest
 	Boneyard = "Boneyard",
-	CrabFields = "Crab Fields",
 	ElevatedClearing = "Elevated Clearing",
 	ForestBrook = "Forest Brook",
 	ForestClearing = "Forest Clearing",
@@ -57,6 +56,7 @@ export enum Map {
 	Battlefield = "Battlefield",
 	Boat = "Boat",
 	BrokenTemple = "Broken Temple",
+	CrabFields = "Crab Fields",
 	ForgottenArk = "Forgotten Ark",
 	Graveyard = "Graveyard",
 	TreasureReef = "Treasure Reef",
