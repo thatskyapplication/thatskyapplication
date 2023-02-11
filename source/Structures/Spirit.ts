@@ -302,7 +302,7 @@ class Spirit {
 		this.keywords = spirit.keywords ?? [];
 
 		try {
-			this.attachment = readFileSync(new URL(`../../Images/${underscoredName}.webp`, import.meta.url));
+			this.attachment = readFileSync(new URL(`../../Images/Spirits/${underscoredName}.webp`, import.meta.url));
 		} catch {
 			this.attachment = null;
 		}
