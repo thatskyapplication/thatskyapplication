@@ -11,7 +11,8 @@ import {
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 } from "discord.js";
-import { todayDate } from "../../Utility/Utility.js";
+import { Emoji } from "../../Utility/Constants.js";
+import { resolveCurrencyEmoji, todayDate } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -53,8 +54,13 @@ export default class implements ChatInputCommand {
 	}
 
 	public async count(interaction: ChatInputCommandInteraction) {
-		const hearts = await this.heartCount(interaction.user.id);
-		await interaction.reply(`You have ${hearts} heart${hearts === 1 ? "" : "s"}.`);
+		await interaction.reply(
+			`You have ${resolveCurrencyEmoji({
+				interaction,
+				emoji: Emoji.Heart,
+				number: await this.heartCount(interaction.user.id),
+			})}.`,
+		);
 	}
 
 	public async gift(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
@@ -63,12 +69,23 @@ export default class implements ChatInputCommand {
 		const member = options.getMember("user");
 
 		if (user.id === interaction.user.id) {
-			await interaction.reply({ content: "You cannot give hearts to yourself!", ephemeral: true });
+			await interaction.reply({
+				content: `You cannot gift a ${resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart })} to yourself!`,
+				ephemeral: true,
+			});
+
 			return;
 		}
 
 		if (!member) {
-			await interaction.reply({ content: `${user} is not in this server to give a heart to.`, ephemeral: true });
+			await interaction.reply({
+				content: `${user} is not in this server to gift a ${resolveCurrencyEmoji({
+					interaction,
+					emoji: Emoji.Heart,
+				})} to.`,
+				ephemeral: true,
+			});
+
 			return;
 		}
 
@@ -78,7 +95,11 @@ export default class implements ChatInputCommand {
 			!channel.isDMBased() &&
 			!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
 		) {
-			await interaction.reply({ content: `${user} is not around to receive the heart!`, ephemeral: true });
+			await interaction.reply({
+				content: `${user} is not around to receive the ${resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart })}!`,
+				ephemeral: true,
+			});
+
 			return;
 		}
 
@@ -102,7 +123,10 @@ export default class implements ChatInputCommand {
 
 		if (timestamp && timestamp.getTime() >= todayDate().getTime()) {
 			await interaction.reply({
-				content: `You have already gifted a heart today!\nYou can give another heart ${time(
+				content: `You have already gifted a ${resolveCurrencyEmoji({
+					interaction,
+					emoji: Emoji.Heart,
+				})} today!\nYou can give another ${resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart })} ${time(
 					Math.floor((todayDate().getTime() + 86_400_000) / 1_000),
 					TimestampStyles.RelativeTime,
 				)}.`,
@@ -124,7 +148,9 @@ export default class implements ChatInputCommand {
 			.replaceAll("{{gifter}}", String(interaction.user))
 			.replaceAll("{{giftee}}", String(user));
 
-		await interaction.reply(`${heartMessage}\n${user} now has ${hearts} heart${hearts === 1 ? "" : "s"}.`);
+		await interaction.reply(
+			`${heartMessage}\n${user} now has ${resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart, number: hearts })}.`,
+		);
 	}
 
 	public get commandData(): ApplicationCommandData {

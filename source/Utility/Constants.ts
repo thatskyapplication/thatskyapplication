@@ -12,6 +12,12 @@ export const enum Channel {
 	dailyGuides = "1041420071614042152",
 }
 
+export const enum Emoji {
+	Candle = "1074399446537879685",
+	Heart = "1074399455043932240",
+	AscendedCandle = "1074399464627912755",
+}
+
 export const enum User {
 	Jiralite = "618976181026422814",
 }

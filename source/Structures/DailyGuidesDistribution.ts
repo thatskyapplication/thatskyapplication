@@ -1,6 +1,7 @@
-import type { ChatInputCommandInteraction, Client, Guild, Snowflake } from "discord.js";
+import type { APIEmbed, ChatInputCommandInteraction, Client, Guild, Snowflake } from "discord.js";
 import { channelMention, ChannelType, hyperlink, PermissionFlagsBits, EmbedBuilder } from "discord.js";
-import { consoleLog, todayDate } from "../Utility/Utility.js";
+import { Emoji } from "../Utility/Constants.js";
+import { consoleLog, resolveCurrencyEmoji, todayDate } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides from "./DailyGuides.js";
 
@@ -154,23 +155,6 @@ export default class DailyGuidesDistribution {
 
 		if (seasonalCandles) embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
 
-		if (shardEruption) {
-			const { realm, map, dangerous, reward, timestamps, url } = shardEruption;
-
-			embed.addFields(
-				{
-					name: SHARD_ERUPTION_NAME,
-					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${dangerous ? "✅" : "❌"}${
-						reward ? `\nReward: ${reward} ${dangerous ? "ascended candles" : "pieces of light"}` : ""
-					}`,
-					inline: true,
-				},
-				{ name: "Timestamps", value: timestamps, inline: true },
-			);
-		} else {
-			embed.addFields({ name: SHARD_ERUPTION_NAME, value: "None" });
-		}
-
 		// Distribute!
 		const distributions = await Promise.allSettled(
 			dailyGuidesDistributionPackets.map(async (dailyGuidesDistributionPacket) => {
@@ -198,7 +182,30 @@ export default class DailyGuidesDistribution {
 				}
 
 				// Add guild-specific colour (an object is made to avoid overwriting colour).
-				const finalEmbed = { ...embed.toJSON(), color: me.displayColor };
+				const finalEmbed: APIEmbed = { ...embed.toJSON(), color: me.displayColor };
+
+				if (shardEruption) {
+					const { realm, map, dangerous, reward, timestamps, url } = shardEruption;
+
+					const rewardString = reward
+						? reward === 200
+							? "200 pieces of light"
+							: resolveCurrencyEmoji({ member: me, emoji: Emoji.AscendedCandle, number: reward })
+						: "";
+
+					finalEmbed.fields = [
+						{
+							name: SHARD_ERUPTION_NAME,
+							value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${dangerous ? "✅" : "❌"}${
+								reward ? `\n${rewardString}` : ""
+							}`,
+							inline: true,
+						},
+						{ name: "Timestamps", value: timestamps, inline: true },
+					];
+				} else {
+					finalEmbed.fields = [{ name: SHARD_ERUPTION_NAME, value: "None" }];
+				}
 
 				// We need to check if we should update the embed, if it exists.
 				const message = messageId ? await channel.messages.fetch(messageId).catch(() => null) : null;

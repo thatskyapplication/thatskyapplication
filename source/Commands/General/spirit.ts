@@ -1,6 +1,8 @@
 import type { ApplicationCommandData, AutocompleteInteraction, ChatInputCommandInteraction } from "discord.js";
 import { ApplicationCommandOptionType, ApplicationCommandType, EmbedBuilder } from "discord.js";
 import Spirits from "../../Structures/Spirit.js";
+import { Emoji } from "../../Utility/Constants.js";
+import { resolveCurrencyEmoji } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export default class implements AutocompleteCommand {
@@ -41,9 +43,19 @@ export default class implements AutocompleteCommand {
 					value:
 						spirit.offer === null
 							? "Unknown"
-							: `${spirit.offer.candles} candle${spirit.offer.candles > 1 ? "s" : ""}\n${spirit.offer.hearts} heart${
-									spirit.offer.hearts === 1 ? "" : "s"
-							  }\n${spirit.offer.ascendedCandles} ascended candle${spirit.offer.ascendedCandles > 1 ? "s" : ""}`,
+							: `${resolveCurrencyEmoji({
+									interaction,
+									emoji: Emoji.Candle,
+									number: spirit.offer.candles,
+							  })}\n${resolveCurrencyEmoji({
+									interaction,
+									emoji: Emoji.Heart,
+									number: spirit.offer.hearts,
+							  })}\n${resolveCurrencyEmoji({
+									interaction,
+									emoji: Emoji.AscendedCandle,
+									number: spirit.offer.ascendedCandles,
+							  })}`,
 					inline: true,
 				},
 				{ name: "Expression", value: spirit.expression ?? "None", inline: true },
