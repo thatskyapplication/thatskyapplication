@@ -39,7 +39,7 @@ export function resolveCurrencyEmoji(options: CurrencyEmojiOptions) {
 				options.interaction.appPermissions!.has(PermissionFlagsBits.UseExternalEmojis))) ||
 		("member" in options && options.member.permissions.has(PermissionFlagsBits.UseExternalEmojis))
 	)
-		return `${formatEmoji(options.emoji)}${resolvedEmojiString}`;
+		return `${resolvedEmojiString}${formatEmoji(options.emoji)}`;
 
 	const plural = typeof options.number === "undefined" ? false : options.number !== 1;
 	if (typeof options.number === "number") resolvedEmojiString += " ";
