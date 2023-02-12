@@ -108,8 +108,8 @@ export default class implements ChatInputCommand {
 
 		if (!profile) {
 			await interaction.reply({
-				content: `${user === null ? "You do" : `${user} does`} not have a Sky profile! Why not ${
-					user === null ? "" : "ask them to"
+				content: `${user === null ? "You do" : `${user} does`} not have a Sky profile! Why not${
+					user === null ? "" : " ask them to"
 				} create one?`,
 				ephemeral: true,
 			});
