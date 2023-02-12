@@ -47,14 +47,17 @@ export default class implements AutocompleteCommand {
 									interaction,
 									emoji: Emoji.Candle,
 									number: spirit.offer.candles,
+									forceEmojiOnLeft: true,
 							  })}\n${resolveCurrencyEmoji({
 									interaction,
 									emoji: Emoji.Heart,
 									number: spirit.offer.hearts,
+									forceEmojiOnLeft: true,
 							  })}\n${resolveCurrencyEmoji({
 									interaction,
 									emoji: Emoji.AscendedCandle,
 									number: spirit.offer.ascendedCandles,
+									forceEmojiOnLeft: true,
 							  })}`,
 					inline: true,
 				},

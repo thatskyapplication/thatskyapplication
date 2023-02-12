@@ -27,10 +27,12 @@ interface CurrencyEmojiOptions {
 	member?: GuildMember;
 	emoji: Emoji.Candle | Emoji.Heart | Emoji.AscendedCandle;
 	number?: number;
+	forceEmojiOnLeft?: boolean;
 }
 
 export function resolveCurrencyEmoji(options: CurrencyEmojiOptions) {
 	let resolvedEmojiString = typeof options.number === "undefined" ? "" : String(options.number);
+	const forceEmojiOnLeft = options.forceEmojiOnLeft ?? false;
 
 	if (
 		("interaction" in options &&
@@ -39,7 +41,9 @@ export function resolveCurrencyEmoji(options: CurrencyEmojiOptions) {
 				options.interaction.appPermissions!.has(PermissionFlagsBits.UseExternalEmojis))) ||
 		("member" in options && options.member.permissions.has(PermissionFlagsBits.UseExternalEmojis))
 	)
-		return `${resolvedEmojiString}${formatEmoji(options.emoji)}`;
+		return forceEmojiOnLeft
+			? `${formatEmoji(options.emoji)}${resolvedEmojiString}`
+			: `${resolvedEmojiString}${formatEmoji(options.emoji)}`;
 
 	const plural = typeof options.number === "undefined" ? false : options.number !== 1;
 	if (typeof options.number === "number") resolvedEmojiString += " ";
