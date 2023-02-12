@@ -105,11 +105,12 @@ export default class implements ChatInputCommand {
 		}
 
 		const profile = await Profile.fetch(user?.id ?? interaction.user.id).catch(() => null);
+		const userIsInvoker = user === null || user.id === interaction.user.id;
 
 		if (!profile) {
 			await interaction.reply({
-				content: `${user === null ? "You do" : `${user} does`} not have a Sky profile! Why not${
-					user === null ? "" : " ask them to"
+				content: `${userIsInvoker ? "You do" : `${user} does`} not have a Sky profile! Why not${
+					userIsInvoker ? "" : " ask them to"
 				} create one?`,
 				ephemeral: true,
 			});
