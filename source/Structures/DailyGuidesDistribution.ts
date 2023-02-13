@@ -1,4 +1,4 @@
-import type { APIEmbed, ChatInputCommandInteraction, Client, Guild, Snowflake } from "discord.js";
+import type { ChatInputCommandInteraction, Client, Guild, GuildMember, Snowflake } from "discord.js";
 import { channelMention, ChannelType, hyperlink, PermissionFlagsBits, EmbedBuilder } from "discord.js";
 import { Emoji } from "../Utility/Constants.js";
 import { consoleLog, resolveCurrencyEmoji, todayDate } from "../Utility/Utility.js";
@@ -125,22 +125,20 @@ export default class DailyGuidesDistribution {
 			.setTitle(guild.name);
 	}
 
-	public static async distribute(client: Client<true>) {
+	public static embed(me: GuildMember) {
 		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles, shardEruption } = DailyGuides;
-
-		const dailyGuidesDistributionPackets = await pg<DailyGuidesDistributionPacket>(
-			Table.DailyGuidesDistribution,
-		).whereNotNull("channel_id");
 
 		// Let's build our embed.
 		const date = todayDate();
 
-		const embed = new EmbedBuilder().setTitle(
-			`${String(date.getUTCDate()).padStart(2, "0")}/${String(date.getUTCMonth() + 1).padStart(
-				2,
-				"0",
-			)}/${date.getUTCFullYear()}`,
-		);
+		const embed = new EmbedBuilder()
+			.setTitle(
+				`${String(date.getUTCDate()).padStart(2, "0")}/${String(date.getUTCMonth() + 1).padStart(
+					2,
+					"0",
+				)}/${date.getUTCFullYear()}`,
+			)
+			.setColor(me.displayColor);
 
 		if (quest1) embed.addFields({ name: quest1.content, value: hyperlink("Image", quest1.url) });
 		if (quest2) embed.addFields({ name: quest2.content, value: hyperlink("Image", quest2.url) });
@@ -155,7 +153,37 @@ export default class DailyGuidesDistribution {
 
 		if (seasonalCandles) embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
 
-		// Distribute!
+		if (shardEruption) {
+			const { realm, map, dangerous, reward, timestamps, url } = shardEruption;
+
+			const rewardString = reward
+				? reward === 200
+					? "200 pieces of light"
+					: resolveCurrencyEmoji({ member: me, emoji: Emoji.AscendedCandle, number: reward })
+				: "";
+
+			embed.addFields(
+				{
+					name: SHARD_ERUPTION_NAME,
+					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${dangerous ? "✅" : "❌"}${
+						reward ? `\n${rewardString}` : ""
+					}`,
+					inline: true,
+				},
+				{ name: "Timestamps", value: timestamps, inline: true },
+			);
+		} else {
+			embed.addFields({ name: SHARD_ERUPTION_NAME, value: "None" });
+		}
+
+		return embed;
+	}
+
+	public static async distribute(client: Client<true>) {
+		const dailyGuidesDistributionPackets = await pg<DailyGuidesDistributionPacket>(
+			Table.DailyGuidesDistribution,
+		).whereNotNull("channel_id");
+
 		const distributions = await Promise.allSettled(
 			dailyGuidesDistributionPackets.map(async (dailyGuidesDistributionPacket) => {
 				// There is definitely a channel id. The query specified this.
@@ -181,42 +209,19 @@ export default class DailyGuidesDistribution {
 					);
 				}
 
-				// Add guild-specific colour (an object is made to avoid overwriting colour).
-				const finalEmbed: APIEmbed = { ...embed.toJSON(), color: me.displayColor };
-
-				if (shardEruption) {
-					const { realm, map, dangerous, reward, timestamps, url } = shardEruption;
-
-					const rewardString = reward
-						? reward === 200
-							? "200 pieces of light"
-							: resolveCurrencyEmoji({ member: me, emoji: Emoji.AscendedCandle, number: reward })
-						: "";
-
-					finalEmbed.fields!.push(
-						{
-							name: SHARD_ERUPTION_NAME,
-							value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${dangerous ? "✅" : "❌"}${
-								reward ? `\n${rewardString}` : ""
-							}`,
-							inline: true,
-						},
-						{ name: "Timestamps", value: timestamps, inline: true },
-					);
-				} else {
-					finalEmbed.fields!.push({ name: SHARD_ERUPTION_NAME, value: "None" });
-				}
+				// Retrieve our guild-specific embed.
+				const embed = this.embed(me);
 
 				// We need to check if we should update the embed, if it exists.
 				const message = messageId ? await channel.messages.fetch(messageId).catch(() => null) : null;
 
 				if (message?.embeds[0]) {
 					// Currently does not work as expected due to https://github.com/discordjs/discord.js/issues/9095.
-					if (!message.embeds[0].equals(finalEmbed)) return message.edit({ embeds: [finalEmbed] });
+					if (!message.embeds[0].equals(embed.data)) return message.edit({ embeds: [embed] });
 					return null;
 				} else {
 					// There is no existing message. Send one.
-					const { id } = await channel.send({ embeds: [finalEmbed] });
+					const { id } = await channel.send({ embeds: [embed] });
 
 					const [newDailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(
 						Table.DailyGuidesDistribution,
