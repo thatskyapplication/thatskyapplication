@@ -258,6 +258,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("RED LIGHT")) return "Collect Red Light";
 		if (upperPureContent.includes("SAPLING")) return "Admire the Sapling";
 		if (upperPureContent.includes("SOCIAL LIGHT")) return "Visit the Social Light Area";
+		if (upperPureContent.includes("POLLUTED GEYSER")) return "Visit the Polluted Geyser";
 		if (upperPureContent.includes("SCAVENGER HUNT")) return "Complete the Hoop Scavenger Hunt";
 		if (upperPureContent.includes("RACE DOWN THE SLOPES")) return "Race Down the Slopes with the Skater";
 		if (upperPureContent.includes("RACE DOWN THE MOUNTAIN")) return "Race Down the Mountain with the Skater";
