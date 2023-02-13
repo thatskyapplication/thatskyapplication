@@ -193,7 +193,7 @@ export default class DailyGuidesDistribution {
 							: resolveCurrencyEmoji({ member: me, emoji: Emoji.AscendedCandle, number: reward })
 						: "";
 
-					finalEmbed.fields = [
+					finalEmbed.fields!.push(
 						{
 							name: SHARD_ERUPTION_NAME,
 							value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${dangerous ? "✅" : "❌"}${
@@ -202,9 +202,9 @@ export default class DailyGuidesDistribution {
 							inline: true,
 						},
 						{ name: "Timestamps", value: timestamps, inline: true },
-					];
+					);
 				} else {
-					finalEmbed.fields = [{ name: SHARD_ERUPTION_NAME, value: "None" }];
+					finalEmbed.fields!.push({ name: SHARD_ERUPTION_NAME, value: "None" });
 				}
 
 				// We need to check if we should update the embed, if it exists.
