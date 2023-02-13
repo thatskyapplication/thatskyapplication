@@ -127,8 +127,6 @@ export default class DailyGuidesDistribution {
 
 	public static embed(me: GuildMember) {
 		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles, shardEruption } = DailyGuides;
-
-		// Let's build our embed.
 		const date = todayDate();
 
 		const embed = new EmbedBuilder()
