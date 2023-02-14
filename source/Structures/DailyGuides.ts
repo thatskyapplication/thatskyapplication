@@ -160,22 +160,23 @@ export default new (class DailyGuides {
 
 	public readonly queue = new AsyncQueue();
 
-	public async reset() {
-		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-			.update({
-				quest1: null,
-				quest2: null,
-				quest3: null,
-				quest4: null,
-				treasure_candles: null,
-				seasonal_candles: null,
-			})
-			.returning("*");
+	public async reset(insert = false) {
+		const data = {
+			quest1: null,
+			quest2: null,
+			quest3: null,
+			quest4: null,
+			treasure_candles: null,
+			seasonal_candles: null,
+		};
 
+		let query = pg<DailyGuidesPacket>(Table.DailyGuides);
+		query = insert ? query.insert(data) : query.update(data);
+		const [dailyGuidesPacket] = await query.returning("*");
 		this.patch(dailyGuidesPacket!);
 	}
 
-	public patch(data: Partial<DailyGuidesPacket> = {}) {
+	public patch(data: Partial<DailyGuidesPacket>) {
 		if ("quest1" in data) this.quest1 = data.quest1;
 		if ("quest2" in data) this.quest2 = data.quest2;
 		if ("quest3" in data) this.quest3 = data.quest3;

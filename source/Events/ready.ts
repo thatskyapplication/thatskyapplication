@@ -30,7 +30,12 @@ async function collectNotifications() {
 
 async function collectDailyGuides() {
 	const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides);
-	DailyGuides.patch(dailyGuidesPacket);
+
+	if (dailyGuidesPacket) {
+		DailyGuides.patch(dailyGuidesPacket);
+	} else {
+		await DailyGuides.reset(true);
+	}
 }
 
 export const event: Event<typeof name> = {
