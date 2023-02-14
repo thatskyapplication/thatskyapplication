@@ -1,13 +1,14 @@
 import type { ApplicationCommandData, ChatInputCommandInteraction } from "discord.js";
 import { ApplicationCommandOptionType, ApplicationCommandType, EmbedBuilder } from "discord.js";
 import {
+	Emoji,
 	MAXIMUM_WINGED_LIGHT,
 	Realm,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	WingedLightCount,
 } from "../../Utility/Constants.js";
-import { isRealm, notNull } from "../../Utility/Utility.js";
+import { isRealm, notNull, resolveCurrencyEmoji } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default class implements ChatInputCommand {
@@ -75,12 +76,19 @@ export default class implements ChatInputCommand {
 		let accumulation = wingedLight;
 		const me = await interaction.guild?.members.fetchMe();
 
-		const embed = new EmbedBuilder()
-			.setColor(me?.displayColor ?? 0)
-			.setDescription(
-				`Started with ${wingedLight} wing buff${wingedLight === 1 ? "" : "s"}.\nReborn with ${(accumulation +=
-					WingedLightCount.Orbit)} winged light (+${WingedLightCount.Orbit}).`,
-			);
+		const embed = new EmbedBuilder().setColor(me?.displayColor ?? 0).setDescription(
+			`Started with ${resolveCurrencyEmoji({
+				interaction,
+				emoji: Emoji.WingedLight,
+				number: wingedLight,
+				includeSpaceInEmoji: true,
+			})}.\nReborn with ${resolveCurrencyEmoji({
+				interaction,
+				emoji: Emoji.WingedLight,
+				number: (accumulation += WingedLightCount.Orbit),
+				includeSpaceInEmoji: true,
+			})} (+${WingedLightCount.Orbit}).`,
+		);
 
 		for (const realm of path) {
 			switch (realm) {
@@ -145,7 +153,12 @@ export default class implements ChatInputCommand {
 
 		embed.addFields({
 			name: "Total",
-			value: `You should have ${accumulation} winged light.`,
+			value: `You should have ${resolveCurrencyEmoji({
+				interaction,
+				emoji: Emoji.WingedLight,
+				number: accumulation,
+				includeSpaceInEmoji: true,
+			})}.`,
 		});
 
 		await interaction.reply({ embeds: [embed] });

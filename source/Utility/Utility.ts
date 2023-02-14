@@ -25,30 +25,40 @@ export function todayDate() {
 interface CurrencyEmojiOptions {
 	interaction?: BaseInteraction;
 	member?: GuildMember;
-	emoji: Emoji.Candle | Emoji.Heart | Emoji.AscendedCandle;
+	emoji: Emoji;
 	number?: number;
 	forceEmojiOnLeft?: boolean;
+	includeSpaceInEmoji?: boolean;
 }
 
-export function resolveCurrencyEmoji(options: CurrencyEmojiOptions) {
-	let resolvedEmojiString = typeof options.number === "undefined" ? "" : String(options.number);
-	const forceEmojiOnLeft = options.forceEmojiOnLeft ?? false;
+export function resolveCurrencyEmoji({
+	interaction,
+	member,
+	emoji,
+	number,
+	forceEmojiOnLeft = false,
+	includeSpaceInEmoji = false,
+}: CurrencyEmojiOptions) {
+	if (typeof interaction === "undefined" && typeof member === "undefined")
+		throw new Error("Both interaction and member were not defined. At least one must be defined.");
+
+	let resolvedEmojiString = typeof number === "undefined" ? "" : String(number);
 
 	if (
-		("interaction" in options &&
-			(!options.interaction.inGuild() ||
+		(interaction &&
+			(!interaction.inGuild() ||
 				// This is always present.
-				options.interaction.appPermissions!.has(PermissionFlagsBits.UseExternalEmojis))) ||
-		("member" in options && options.member.permissions.has(PermissionFlagsBits.UseExternalEmojis))
+				interaction.appPermissions!.has(PermissionFlagsBits.UseExternalEmojis))) ||
+		member!.permissions.has(PermissionFlagsBits.UseExternalEmojis)
 	)
 		return forceEmojiOnLeft
-			? `${formatEmoji(options.emoji)}${resolvedEmojiString}`
-			: `${resolvedEmojiString}${formatEmoji(options.emoji)}`;
+			? `${formatEmoji(emoji)}${includeSpaceInEmoji ? " " : ""}${resolvedEmojiString}`
+			: `${resolvedEmojiString}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji)}`;
 
-	const plural = typeof options.number === "undefined" ? false : options.number !== 1;
-	if (typeof options.number === "number") resolvedEmojiString += " ";
+	const plural = typeof number === "undefined" ? false : number !== 1;
+	if (typeof number === "number") resolvedEmojiString += " ";
 
-	switch (options.emoji) {
+	switch (emoji) {
 		case Emoji.Candle:
 			resolvedEmojiString += "candle";
 			break;
@@ -57,6 +67,9 @@ export function resolveCurrencyEmoji(options: CurrencyEmojiOptions) {
 			break;
 		case Emoji.AscendedCandle:
 			resolvedEmojiString += "ascended candle";
+			break;
+		case Emoji.WingedLight:
+			resolvedEmojiString += "winged light";
 			break;
 	}
 
