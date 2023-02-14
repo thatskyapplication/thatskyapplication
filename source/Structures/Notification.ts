@@ -85,10 +85,10 @@ export default class Notification {
 				.where("id", notification.id)
 				.returning("*");
 
-			notification.patch(notificationPacket);
+			notification.patch(notificationPacket!);
 		} else {
 			const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications).insert(data, "*");
-			notification = new this(notificationPacket);
+			notification = new this(notificationPacket!);
 			this.cache.set(notification.id, notification);
 		}
 
@@ -106,7 +106,7 @@ export default class Notification {
 			.where("guild_id", guildId)
 			.returning("*");
 
-		this.patch(notificationPacket);
+		this.patch(notificationPacket!);
 		await interaction.reply({ content: "Notifications have been modified.", embeds: [await this.overview(guild)] });
 	}
 

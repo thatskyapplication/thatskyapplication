@@ -1,5 +1,6 @@
 import { readdir, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import process from "node:process";
 import { URL } from "node:url";
 import { inspect } from "node:util";
 import type {
@@ -13,7 +14,7 @@ import type {
 import { Partials, Client, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits } from "discord.js";
 import commands from "./Commands/index.js";
 import type { Event } from "./Events/index.js";
-import { DEVELOPER_GUILD_ID, LOG_CHANNEL_ID } from "./Utility/Constants.js";
+import { DEVELOPER_GUILD_ID, LOG_CHANNEL_ID, production } from "./Utility/Constants.js";
 import { consoleLog } from "./Utility/Utility.js";
 
 const eventsPath = new URL("Events/", import.meta.url);
@@ -111,8 +112,8 @@ class Caelus extends Client {
 			if (!developerGuild) throw new Error("Could not find the developer guild.");
 			const fetchedGlobalCommands = await this.application.commands.fetch({ cache: false });
 			const fetchedDeveloperCommands = await developerGuild.commands.fetch({ cache: false });
-			const globalCommandData: ApplicationCommandData[] = [];
-			const developerCommandData: ApplicationCommandData[] = [];
+			const globalCommandData = [];
+			const developerCommandData = [];
 
 			for (const command of Object.values(commands)) {
 				if ("developer" in command && command.developer) {
@@ -140,4 +141,6 @@ for (const file of (await readdir(eventsPath)).filter((file) => file !== "index.
 	client[once ? "once" : "on"](name, fire);
 }
 
-void client.login();
+const { DISCORD_TOKEN, DEVELOPMENT_DISCORD_TOKEN } = process.env;
+const token = production ? DISCORD_TOKEN : DEVELOPMENT_DISCORD_TOKEN;
+void client.login(token);

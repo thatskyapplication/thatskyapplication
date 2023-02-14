@@ -194,13 +194,13 @@ export default class implements ChatInputCommand {
 			successful = true;
 		}
 
-		const bonk = decidingBonk[Math.floor(Math.random() * decidingBonk.length)];
+		const bonk = decidingBonk[Math.floor(Math.random() * decidingBonk.length)]!;
 		const { message } = bonk;
 		let bonkMessage = message.replaceAll("{{bonker}}", String(interaction.user)).replaceAll("{{bonkee}}", String(user));
 
 		if ("entries" in bonk) {
 			const { entries } = bonk;
-			const [entry1, entry2, entry3] = entries[Math.floor(Math.random() * entries.length)];
+			const [entry1, entry2, entry3] = entries[Math.floor(Math.random() * entries.length)]!;
 
 			bonkMessage = bonkMessage
 				.replace("{{entry1}}", entry1)

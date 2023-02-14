@@ -139,12 +139,12 @@ export default new (class DailyGuides {
 		const dayOfWeek = date.getUTCDay();
 		const dangerous = dayOfMonth % 2 === 1;
 		const infoIndex = dangerous ? (((dayOfMonth - 1) / 2) % 3) + 2 : (dayOfMonth / 2) % 2;
-		const { noShardWeekDay, interval, offset, area } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex];
+		const { noShardWeekDay, interval, offset, area } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex]!;
 		// @ts-expect-error Too narrow.
 		const noShardDay = noShardWeekDay.includes(dayOfWeek);
 		if (noShardDay) return null;
 		const realmIndex = (dayOfMonth - 1) % 5;
-		const { map, url, reward } = area[realmIndex];
+		const { map, url, reward } = area[realmIndex]!;
 		let startTime = date.getTime() + offset;
 		let timestamps = "";
 
@@ -172,16 +172,16 @@ export default new (class DailyGuides {
 			})
 			.returning("*");
 
-		this.patch(dailyGuidesPacket);
+		this.patch(dailyGuidesPacket!);
 	}
 
-	public patch(data: DailyGuidesPacket) {
-		this.quest1 = data.quest1;
-		this.quest2 = data.quest2;
-		this.quest3 = data.quest3;
-		this.quest4 = data.quest4;
-		this.treasureCandles = data.treasure_candles;
-		this.seasonalCandles = data.seasonal_candles;
+	public patch(data: Partial<DailyGuidesPacket> = {}) {
+		if ("quest1" in data) this.quest1 = data.quest1;
+		if ("quest2" in data) this.quest2 = data.quest2;
+		if ("quest3" in data) this.quest3 = data.quest3;
+		if ("quest4" in data) this.quest4 = data.quest4;
+		if ("treasure_candles" in data) this.treasureCandles = data.treasure_candles;
+		if ("seasonal_candles" in data) this.seasonalCandles = data.seasonal_candles;
 	}
 
 	public validToParse({ channelId, flags, reference }: Message) {
@@ -336,7 +336,7 @@ export default new (class DailyGuides {
 			.update({ [`quest${number}`]: questData })
 			.returning("*");
 
-		this.patch(dailyGuidesPacket);
+		this.patch(dailyGuidesPacket!);
 	}
 
 	public async parseTreasureCandles(content: string, attachments: Collection<Snowflake, Attachment>) {
@@ -351,8 +351,8 @@ export default new (class DailyGuides {
 
 		if (regex?.groups) {
 			const { rotation, realm } = regex.groups;
-			const resolvedRotation = rotation.replaceAll(/  +/g, " ");
-			const resolvedRealm = resolveValidRealm(realm);
+			const resolvedRotation = rotation!.replaceAll(/  +/g, " ");
+			const resolvedRealm = resolveValidRealm(realm!);
 
 			if (!resolvedRotation) {
 				consoleLog("Failed to parse the rotation of a set of treasure candles.");
@@ -375,7 +375,7 @@ export default new (class DailyGuides {
 				})
 				.returning("*");
 
-			this.patch(dailyGuidesPacket);
+			this.patch(dailyGuidesPacket!);
 			return;
 		}
 
@@ -394,7 +394,7 @@ export default new (class DailyGuides {
 			.update({ seasonal_candles: url })
 			.returning("*");
 
-		this.patch(dailyGuidesPacket);
+		this.patch(dailyGuidesPacket!);
 	}
 
 	public async reCheck(client: Client<true>) {

@@ -73,13 +73,13 @@ export default class DailyGuidesDistribution {
 				.where("id", dailyGuidesDistribution.id)
 				.returning("*");
 
-			dailyGuidesDistribution.patch(dailyGuidesDistributionPacket);
+			dailyGuidesDistribution.patch(dailyGuidesDistributionPacket!);
 		} else {
 			const [dailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(
 				Table.DailyGuidesDistribution,
 			).insert(data, "*");
 
-			dailyGuidesDistribution = new this(dailyGuidesDistributionPacket);
+			dailyGuidesDistribution = new this(dailyGuidesDistributionPacket!);
 		}
 
 		await interaction.reply({
@@ -228,7 +228,7 @@ export default class DailyGuidesDistribution {
 						.where("guild_id", guildId)
 						.returning("*");
 
-					dailyGuidesDistribution.patch(newDailyGuidesDistributionPacket);
+					dailyGuidesDistribution.patch(newDailyGuidesDistributionPacket!);
 					return newDailyGuidesDistributionPacket;
 				}
 			}),

@@ -78,7 +78,7 @@ export default class Profile {
 				.where("id", profile.id)
 				.returning("*");
 
-			profile.patch(profilePacket);
+			profile.patch(profilePacket!);
 		} else {
 			const [profilePacket] = await pg<ProfilePacket>(Table.Profiles).insert(
 				{
@@ -88,7 +88,7 @@ export default class Profile {
 				"*",
 			);
 
-			profile = new this(profilePacket);
+			profile = new this(profilePacket!);
 		}
 
 		await interaction.reply({

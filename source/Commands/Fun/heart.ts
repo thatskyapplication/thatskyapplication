@@ -144,8 +144,10 @@ export default class implements ChatInputCommand {
 
 		const hearts = await this.heartCount(user.id);
 
-		const heartMessage = HEARTS[Math.floor(Math.random() * HEARTS.length)]
-			.replaceAll("heart", resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart }))
+		const heartMessage = HEARTS[Math.floor(Math.random() * HEARTS.length)]!.replaceAll(
+			"heart",
+			resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart }),
+		)
 			.replaceAll("{{gifter}}", String(interaction.user))
 			.replaceAll("{{giftee}}", String(user));
 
