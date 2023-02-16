@@ -1,6 +1,13 @@
 import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
-import { EmbedBuilder, PermissionFlagsBits, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
-import waifu, { WaifuCategory } from "../../Utility/waifu.js";
+import {
+	makeURLSearchParams,
+	EmbedBuilder,
+	PermissionFlagsBits,
+	ApplicationCommandOptionType,
+	ApplicationCommandType,
+} from "discord.js";
+import { request } from "undici";
+import { RESOURCES_VERSION } from "../../Utility/Constants.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -9,6 +16,23 @@ interface HugPacket {
 	huggee_id: Snowflake;
 	timestamp: Date;
 }
+
+interface GitHubContentResponse {
+	download_url: string;
+}
+
+const huggingURLs = (
+	(await (
+		await request(
+			`https://api.github.com/repos/thatskyapplication/resources/contents/hugs?${makeURLSearchParams({
+				ref: RESOURCES_VERSION,
+			})}`,
+			{
+				headers: { "user-agent": "Caelus" },
+			},
+		)
+	).body.json()) as GitHubContentResponse[]
+).map(({ download_url }) => download_url);
 
 export default class implements ChatInputCommand {
 	public readonly name = "hug";
@@ -49,7 +73,7 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		const { url } = await waifu(WaifuCategory.Hug);
+		const url = huggingURLs[Math.floor(Math.random() * huggingURLs.length)]!;
 		const embed = new EmbedBuilder().setColor((await guild?.members.fetchMe())?.displayColor ?? 0).setImage(url);
 
 		await pg<HugPacket>(Table.Hugs).insert({
