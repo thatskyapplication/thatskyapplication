@@ -707,6 +707,7 @@ export default [
 		season: Season.LittlePrince,
 		expression: Expression.Slouch,
 		realm: Realm.VaultOfKnowledge,
+		offer: { candles: 140, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.SneezingGeographer,
