@@ -13,14 +13,14 @@
 		"dayjs": "^1.11.7",
 		"discord.js": "^14.7.1",
 		"dotenv": "^16.0.3",
-		"knex": "^2.4.0",
-		"pg": "^8.8.0",
-		"undici": "^5.15.0"
+		"knex": "^2.4.2",
+		"pg": "^8.9.0",
+		"undici": "^5.19.1"
 	},
 	"devDependencies": {
 		"@jiralite/eslint-config-neon": "^0.1.38",
-		"eslint": "^8.31.0",
-		"prettier": "^2.8.2",
-		"typescript": "^4.9.4"
+		"eslint": "^8.34.0",
+		"prettier": "^2.8.4",
+		"typescript": "^4.9.5"
 	}
 }
