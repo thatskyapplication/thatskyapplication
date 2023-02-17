@@ -1,7 +1,6 @@
-import type { Buffer } from "node:buffer";
-import { readFileSync } from "node:fs";
 import { URL } from "node:url";
 import { Realm, WIKI_URL } from "../Utility/Constants.js";
+import { fetchResources, ResourceType } from "../Utility/externalAPIs.js";
 
 export enum SpiritName {
 	// Isles of Dawn
@@ -275,6 +274,8 @@ interface SpiritSeason {
 	name: Season;
 }
 
+const spiritURLs = await fetchResources(ResourceType.Spirits);
+
 class Spirit {
 	public readonly name: SpiritData["name"];
 
@@ -284,7 +285,7 @@ class Spirit {
 
 	public readonly keywords: NonNullable<SpiritData["keywords"]>;
 
-	public readonly attachment: Buffer | null;
+	public readonly attachment: string | null;
 
 	public readonly url: string;
 
@@ -300,13 +301,7 @@ class Spirit {
 		this.realm = spirit.realm;
 		this.offer = spirit.offer ?? null;
 		this.keywords = spirit.keywords ?? [];
-
-		try {
-			this.attachment = readFileSync(new URL(`../../Images/${underscoredName}.webp`, import.meta.url));
-		} catch {
-			this.attachment = null;
-		}
-
+		this.attachment = spiritURLs.find((url) => url.includes(underscoredName)) ?? null;
 		this.url = new URL(underscoredName, WIKI_URL).toString();
 		this.expression = "expression" in spirit ? spirit.expression : null;
 		this.stance = "stance" in spirit ? spirit.stance : null;

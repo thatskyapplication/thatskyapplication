@@ -1,13 +1,6 @@
 import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
-import {
-	makeURLSearchParams,
-	EmbedBuilder,
-	PermissionFlagsBits,
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
-} from "discord.js";
-import { request } from "undici";
-import { RESOURCES_VERSION } from "../../Utility/Constants.js";
+import { EmbedBuilder, PermissionFlagsBits, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
+import { fetchResources, ResourceType } from "../../Utility/externalAPIs.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -17,22 +10,7 @@ interface HugPacket {
 	timestamp: Date;
 }
 
-interface GitHubContentResponse {
-	download_url: string;
-}
-
-const huggingURLs = (
-	(await (
-		await request(
-			`https://api.github.com/repos/thatskyapplication/resources/contents/hugs?${makeURLSearchParams({
-				ref: RESOURCES_VERSION,
-			})}`,
-			{
-				headers: { "user-agent": "Caelus" },
-			},
-		)
-	).body.json()) as GitHubContentResponse[]
-).map(({ download_url }) => download_url);
+const huggingURLs = await fetchResources(ResourceType.Hugs);
 
 export default class implements ChatInputCommand {
 	public readonly name = "hug";

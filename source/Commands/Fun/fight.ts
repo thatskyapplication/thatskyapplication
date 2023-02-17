@@ -1,6 +1,6 @@
 import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
 import { EmbedBuilder, PermissionFlagsBits, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
-import waifu, { WaifuCategory } from "../../Utility/waifu.js";
+import { waifu, WaifuCategory } from "../../Utility/externalAPIs.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 

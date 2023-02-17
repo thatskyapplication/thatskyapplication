@@ -23,18 +23,8 @@ export default class implements AutocompleteCommand {
 			return;
 		}
 
-		const me = await interaction.guild?.members.fetchMe();
-		const spiritAttachmentName = spirit.name.replaceAll(" ", "_");
-		const files = [];
-		const embed = new EmbedBuilder().setColor(me?.displayColor ?? 0);
-
-		if (spirit.attachment === null) {
-			if (spirit.isSeasonalSpirit()) embed.setDescription("⚠️ This spirit has not yet returned.");
-		} else {
-			files.push({ attachment: spirit.attachment, name: `${spiritAttachmentName}.webp` });
-		}
-
-		embed
+		const embed = new EmbedBuilder()
+			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
 			.setFields(
 				{ name: "Realm", value: spirit.realm, inline: true },
 				{ name: "Season", value: spirit.isSeasonalSpirit() ? spirit.season.name : "None", inline: true },
@@ -65,11 +55,14 @@ export default class implements AutocompleteCommand {
 				{ name: "Stance", value: spirit.stance ?? "None", inline: true },
 				{ name: "Call", value: spirit.call ?? "None", inline: true },
 			)
-			.setImage(`attachment://${spiritAttachmentName}.webp`)
+			.setImage(spirit.attachment)
 			.setTitle(spirit.name)
 			.setURL(spirit.url);
 
-		await interaction.reply({ embeds: [embed], files });
+		if (spirit.attachment === null && spirit.isSeasonalSpirit())
+			embed.setDescription("⚠️ This spirit has not yet returned.");
+
+		await interaction.reply({ embeds: [embed] });
 	}
 
 	public async autocomplete(interaction: AutocompleteInteraction) {
