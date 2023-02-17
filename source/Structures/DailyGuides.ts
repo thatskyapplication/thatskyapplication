@@ -101,7 +101,7 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 		offset: 12_600_000,
 		area: [
 			{ map: Map.SanctuaryIslands, url: "https://i.gyazo.com/31c7665bb358dee7ac5442bb1b916efe.webp", reward: 3.5 },
-			{ map: Map.ElevatedClearing, url: "https://i.gyazo.com/130b7887552630347cfc11d91ce39d6f.webp", reward: null },
+			{ map: Map.ElevatedClearing, url: "https://i.gyazo.com/555353e7806735a23b09133192c35fdf.png", reward: 3.5 },
 			{ map: Map.HermitValley, url: "https://i.gyazo.com/1e9e902a101162495815f40cb030cdfe.webp", reward: 3.5 },
 			{ map: Map.ForgottenArk, url: "https://i.gyazo.com/2e470de7e0258f64fdd71971bef67d36.webp", reward: 3.5 },
 			{ map: Map.JellyfishCove, url: "https://i.gyazo.com/0b39ab966a0aa9e51b05fcd2a130c54b.webp", reward: 3.5 },
