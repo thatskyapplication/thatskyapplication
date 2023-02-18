@@ -55,11 +55,11 @@ export default class implements AutocompleteCommand {
 				{ name: "Stance", value: spirit.stance ?? "None", inline: true },
 				{ name: "Call", value: spirit.call ?? "None", inline: true },
 			)
-			.setImage(spirit.attachment)
+			.setImage(spirit.imageURL)
 			.setTitle(spirit.name)
-			.setURL(spirit.url);
+			.setURL(spirit.wikiURL);
 
-		if (spirit.attachment === null && spirit.isSeasonalSpirit())
+		if (spirit.imageURL === null && spirit.isSeasonalSpirit())
 			embed.setDescription("⚠️ This spirit has not yet returned.");
 
 		await interaction.reply({ embeds: [embed] });

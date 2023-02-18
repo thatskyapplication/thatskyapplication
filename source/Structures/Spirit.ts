@@ -285,9 +285,9 @@ class Spirit {
 
 	public readonly keywords: NonNullable<SpiritData["keywords"]>;
 
-	public readonly attachment: string | null;
+	public readonly imageURL: string | null;
 
-	public readonly url: string;
+	public readonly wikiURL: string;
 
 	public readonly expression: SpiritDataBaseWithExpression["expression"] | null;
 
@@ -296,16 +296,12 @@ class Spirit {
 	public readonly call: SpiritDataBaseWithCall["call"] | null;
 
 	public constructor(spirit: SpiritData) {
-		const underscoredName = spirit.name.replaceAll(" ", "_");
 		this.name = spirit.name;
 		this.realm = spirit.realm;
 		this.offer = spirit.offer ?? null;
 		this.keywords = spirit.keywords ?? [];
-
-		this.attachment =
-			resourceData.find(({ downloadURL }) => downloadURL.includes(underscoredName))?.downloadURL ?? null;
-
-		this.url = new URL(underscoredName, WIKI_URL).toString();
+		this.imageURL = resourceData.find(({ name }) => name.includes(spirit.name))?.downloadURL ?? null;
+		this.wikiURL = new URL(spirit.name.replaceAll(" ", "_"), WIKI_URL).toString();
 		this.expression = "expression" in spirit ? spirit.expression : null;
 		this.stance = "stance" in spirit ? spirit.stance : null;
 		this.call = "call" in spirit ? spirit.call : null;
