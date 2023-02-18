@@ -155,7 +155,7 @@ export default new (class DailyGuides {
 			startTime += interval * 3_600_000;
 		}
 
-		return { realm: VALID_REALM[realmIndex], map, dangerous, reward, timestamps: timestamps.trim(), url };
+		return { realm: VALID_REALM[realmIndex]!, map, dangerous, reward, timestamps: timestamps.trim(), url };
 	}
 
 	public readonly queue = new AsyncQueue();
