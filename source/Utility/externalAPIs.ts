@@ -3,11 +3,13 @@ import { request } from "undici";
 import { RESOURCES_VERSION } from "./Constants.js";
 
 interface GitHubContentResponse {
+	name: string;
 	download_url: string;
 }
 
 export const enum ResourceType {
 	Hugs = "hugs",
+	Shards = "shards",
 	Spirits = "spirits",
 }
 
@@ -34,5 +36,5 @@ export async function fetchResources(type: ResourceType) {
 				{ headers: { "user-agent": "Caelus", "x-github-api-version": "2022-11-28" } },
 			)
 		).body.json()) as GitHubContentResponse[]
-	).map(({ download_url }) => download_url);
+	).map(({ name, download_url }) => ({ name, downloadURL: download_url }));
 }

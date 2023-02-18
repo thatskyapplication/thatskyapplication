@@ -10,7 +10,9 @@ interface HugPacket {
 	timestamp: Date;
 }
 
-const huggingURLs = await fetchResources(ResourceType.Hugs);
+const huggingURLs = (await fetchResources(ResourceType.Hugs))
+	.filter(({ name }) => !name.includes("README"))
+	.map(({ downloadURL }) => downloadURL);
 
 export default class implements ChatInputCommand {
 	public readonly name = "hug";

@@ -274,7 +274,7 @@ interface SpiritSeason {
 	name: Season;
 }
 
-const spiritURLs = await fetchResources(ResourceType.Spirits);
+const resourceData = (await fetchResources(ResourceType.Spirits)).filter(({ name }) => !name.includes("README"));
 
 class Spirit {
 	public readonly name: SpiritData["name"];
@@ -301,7 +301,10 @@ class Spirit {
 		this.realm = spirit.realm;
 		this.offer = spirit.offer ?? null;
 		this.keywords = spirit.keywords ?? [];
-		this.attachment = spiritURLs.find((url) => url.includes(underscoredName)) ?? null;
+
+		this.attachment =
+			resourceData.find(({ downloadURL }) => downloadURL.includes(underscoredName))?.downloadURL ?? null;
+
 		this.url = new URL(underscoredName, WIKI_URL).toString();
 		this.expression = "expression" in spirit ? spirit.expression : null;
 		this.stance = "stance" in spirit ? spirit.stance : null;

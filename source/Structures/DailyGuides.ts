@@ -4,6 +4,7 @@ import { time, TimestampStyles, FormattingPatterns, ChannelType, MessageFlags, S
 import type { ValidRealm } from "../Utility/Constants.js";
 import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm, VALID_REALM } from "../Utility/Constants.js";
 import { consoleLog, resolveMap, resolveValidRealm, todayDate } from "../Utility/Utility.js";
+import { fetchResources, ResourceType } from "../Utility/externalAPIs.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import { SpiritName } from "./Spirit.js";
@@ -41,32 +42,36 @@ interface TreasureCandleData {
 	url: string;
 }
 
+const resourceData = (await fetchResources(ResourceType.Shards)).filter(({ name }) => !name.includes("README"));
+
+function resolveShardEruptionMapURL(map: Map) {
+	const data = resourceData.find(({ name }) => name.includes(map));
+	if (!data) throw new Error(`Cannot find the ${map} resource.`);
+	return data.downloadURL;
+}
+
 const SHARD_ERUPTION_PREDICTION_DATA = [
 	{
 		noShardWeekDay: [6, 7], // Saturday, Sunday
 		interval: 8,
 		// 1 hour and 50 minutes.
 		offset: 6_600_000,
-		area: [
-			{ map: Map.ButterflyFields, url: "https://i.gyazo.com/19930feb1be18cafc73dcd4f76aa5ad2.webp", reward: 200 },
-			{ map: Map.ForestBrook, url: "https://i.gyazo.com/502c327fe0a7a4fe4943004cccd09388.webp", reward: 200 },
-			{ map: Map.IceRink, url: "https://i.gyazo.com/2f40f4818a530b06ed5de970a6bf4351.webp", reward: 200 },
-			{ map: Map.BrokenTemple, url: "https://i.gyazo.com/f36eb44e3d55fa70fb34169a1fa40d99.webp", reward: 200 },
-			{ map: Map.StarlightDesert, url: "https://i.gyazo.com/71878ab538f11edbe0b82a51145a0dd2.webp", reward: 200 },
-		],
+		area: [Map.ButterflyFields, Map.ForestBrook, Map.IceRink, Map.BrokenTemple, Map.StarlightDesert].map((map) => ({
+			map,
+			url: resolveShardEruptionMapURL(map),
+			reward: 200,
+		})),
 	},
 	{
 		noShardWeekDay: [7, 1], // Sunday, Monday
 		interval: 8,
 		// 2 hours and 10 minutes.
 		offset: 7_800_000,
-		area: [
-			{ map: Map.KoiPond, url: "https://i.gyazo.com/7ba7af41ad9295ef176ff5b3afdb8b23.webp", reward: 200 },
-			{ map: Map.Boneyard, url: "https://i.gyazo.com/72efea087458097b0afc03f5eca62da2.webp", reward: 200 },
-			{ map: Map.IceRink, url: "https://i.gyazo.com/2f40f4818a530b06ed5de970a6bf4351.webp", reward: 200 },
-			{ map: Map.Battlefield, url: "https://i.gyazo.com/40a1add1741413e45781c96e916aa80a.webp", reward: 200 },
-			{ map: Map.StarlightDesert, url: "https://i.gyazo.com/71878ab538f11edbe0b82a51145a0dd2.webp", reward: 200 },
-		],
+		area: [Map.KoiPond, Map.Boneyard, Map.IceRink, Map.Battlefield, Map.StarlightDesert].map((map) => ({
+			map,
+			url: resolveShardEruptionMapURL(map),
+			reward: 200,
+		})),
 	},
 	{
 		noShardWeekDay: [1, 2], // Monday, Tuesday
@@ -74,11 +79,11 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 		// 7 hours and 40 minutes.
 		offset: 27_600_000,
 		area: [
-			{ map: Map.Cave, url: "https://i.gyazo.com/5dd6597f82decdb0d878eda81683c564.webp", reward: 2 },
-			{ map: Map.ForestEnd, url: "https://i.gyazo.com/9cef57ca70eddd12cb95641da2d5e384.webp", reward: 2.5 },
-			{ map: Map.VillageOfDreams, url: "https://i.gyazo.com/cde4340bca0211820d100e42671c80e0.webp", reward: 2.5 },
-			{ map: Map.Graveyard, url: "https://i.gyazo.com/46301cb5e5eb31043c75b3b2f46ee8ec.png", reward: null },
-			{ map: Map.JellyfishCove, url: "https://i.gyazo.com/0b39ab966a0aa9e51b05fcd2a130c54b.webp", reward: 3.5 },
+			{ map: Map.Cave, url: resolveShardEruptionMapURL(Map.Cave), reward: 2 },
+			{ map: Map.ForestEnd, url: resolveShardEruptionMapURL(Map.ForestEnd), reward: 2.5 },
+			{ map: Map.VillageOfDreams, url: resolveShardEruptionMapURL(Map.VillageOfDreams), reward: 2.5 },
+			{ map: Map.Graveyard, url: resolveShardEruptionMapURL(Map.Graveyard), reward: null },
+			{ map: Map.JellyfishCove, url: resolveShardEruptionMapURL(Map.JellyfishCove), reward: 3.5 },
 		],
 	},
 	{
@@ -87,11 +92,11 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 		// 2 hours and 20 minutes.
 		offset: 8_400_000,
 		area: [
-			{ map: Map.BirdNest, url: "https://i.gyazo.com/bd856ba3effe737c3f4e928af2e12a54.webp", reward: 2.5 },
-			{ map: Map.Treehouse, url: "https://i.gyazo.com/e46b7c1b85e409b993875ef50bbf245f.webp", reward: 3.5 },
-			{ map: Map.VillageOfDreams, url: "https://i.gyazo.com/cde4340bca0211820d100e42671c80e0.webp", reward: 2.5 },
-			{ map: Map.CrabFields, url: "https://i.gyazo.com/f17e546074ee72ad677bbb0a3492ec7f.webp", reward: 2.5 },
-			{ map: Map.JellyfishCove, url: "https://i.gyazo.com/0b39ab966a0aa9e51b05fcd2a130c54b.webp", reward: 3.5 },
+			{ map: Map.BirdNest, url: resolveShardEruptionMapURL(Map.BirdNest), reward: 2.5 },
+			{ map: Map.Treehouse, url: resolveShardEruptionMapURL(Map.Treehouse), reward: 3.5 },
+			{ map: Map.VillageOfDreams, url: resolveShardEruptionMapURL(Map.VillageOfDreams), reward: 2.5 },
+			{ map: Map.CrabFields, url: resolveShardEruptionMapURL(Map.CrabFields), reward: 2.5 },
+			{ map: Map.JellyfishCove, url: resolveShardEruptionMapURL(Map.JellyfishCove), reward: 3.5 },
 		],
 	},
 	{
@@ -100,11 +105,11 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 		// 3 hours and 30 minutes.
 		offset: 12_600_000,
 		area: [
-			{ map: Map.SanctuaryIslands, url: "https://i.gyazo.com/31c7665bb358dee7ac5442bb1b916efe.webp", reward: 3.5 },
-			{ map: Map.ElevatedClearing, url: "https://i.gyazo.com/555353e7806735a23b09133192c35fdf.png", reward: 3.5 },
-			{ map: Map.HermitValley, url: "https://i.gyazo.com/1e9e902a101162495815f40cb030cdfe.webp", reward: 3.5 },
-			{ map: Map.ForgottenArk, url: "https://i.gyazo.com/2e470de7e0258f64fdd71971bef67d36.webp", reward: 3.5 },
-			{ map: Map.JellyfishCove, url: "https://i.gyazo.com/0b39ab966a0aa9e51b05fcd2a130c54b.webp", reward: 3.5 },
+			{ map: Map.SanctuaryIslands, url: resolveShardEruptionMapURL(Map.SanctuaryIslands), reward: 3.5 },
+			{ map: Map.ElevatedClearing, url: resolveShardEruptionMapURL(Map.ElevatedClearing), reward: 3.5 },
+			{ map: Map.HermitValley, url: resolveShardEruptionMapURL(Map.HermitValley), reward: 3.5 },
+			{ map: Map.ForgottenArk, url: resolveShardEruptionMapURL(Map.ForgottenArk), reward: 3.5 },
+			{ map: Map.JellyfishCove, url: resolveShardEruptionMapURL(Map.JellyfishCove), reward: 3.5 },
 		],
 	},
 ] as const;
