@@ -82,7 +82,7 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 			{ map: Map.Cave, url: resolveShardEruptionMapURL(Map.Cave), reward: 2 },
 			{ map: Map.ForestEnd, url: resolveShardEruptionMapURL(Map.ForestEnd), reward: 2.5 },
 			{ map: Map.VillageOfDreams, url: resolveShardEruptionMapURL(Map.VillageOfDreams), reward: 2.5 },
-			{ map: Map.Graveyard, url: resolveShardEruptionMapURL(Map.Graveyard), reward: null },
+			{ map: Map.Graveyard, url: resolveShardEruptionMapURL(Map.Graveyard), reward: 2 },
 			{ map: Map.JellyfishCove, url: resolveShardEruptionMapURL(Map.JellyfishCove), reward: 3.5 },
 		],
 	},
