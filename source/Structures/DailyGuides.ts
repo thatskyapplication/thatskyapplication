@@ -314,6 +314,9 @@ export default new (class DailyGuides {
 
 		const data = { content: output, url };
 
+		// Duplicate check in case of manually updating.
+		if ([this.quest1, this.quest2, this.quest3, this.quest4].some((quest) => quest?.content === data.content)) return;
+
 		if (!this.quest1) {
 			await this.updateQuest(data, 1);
 			return;
