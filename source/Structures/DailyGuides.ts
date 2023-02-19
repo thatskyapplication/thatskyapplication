@@ -365,6 +365,9 @@ export default new (class DailyGuides {
 				return;
 			}
 
+			// Duplicate check in case of manually updating.
+			if (this.treasureCandles?.data.some(({ content }) => content === resolvedRotation)) return;
+
 			if (!resolvedRealm) {
 				consoleLog("Failed to parse the realm the treasure candles are in.");
 				return;
