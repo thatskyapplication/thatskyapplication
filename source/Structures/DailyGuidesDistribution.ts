@@ -154,19 +154,13 @@ export default class DailyGuidesDistribution {
 		if (shardEruption) {
 			const { realm, map, dangerous, reward, timestamps, url } = shardEruption;
 
-			const rewardString = reward
-				? `\nReward: ${
-						reward === 200
-							? "200 pieces of light"
-							: resolveCurrencyEmoji({ member: me, emoji: Emoji.AscendedCandle, number: reward })
-				  }`
-				: null;
-
 			embed.addFields(
 				{
 					name: SHARD_ERUPTION_NAME,
-					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${dangerous ? "✅" : "❌"}${
-						rewardString ? rewardString : ""
+					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${dangerous ? "✅" : "❌"}\nReward: ${
+						reward === 200
+							? "200 pieces of light"
+							: resolveCurrencyEmoji({ member: me, emoji: Emoji.AscendedCandle, number: reward })
 					}`,
 					inline: true,
 				},
