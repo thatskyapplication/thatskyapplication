@@ -122,6 +122,7 @@ export default class implements ChatInputCommand {
 		const textInput2 = new TextInputBuilder()
 			.setCustomId(textInput2CustomId)
 			.setLabel("The URL of the first quest.")
+			.setRequired(false)
 			.setStyle(TextInputStyle.Short)
 			.setValue(quest?.url ?? "");
 
