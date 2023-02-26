@@ -52,7 +52,7 @@ function resolveShardEruptionMapURL(map: Map) {
 
 const SHARD_ERUPTION_PREDICTION_DATA = [
 	{
-		noShardWeekDay: [6, 7], // Saturday, Sunday
+		noShardWeekDay: [6, 0], // Saturday, Sunday
 		interval: 8,
 		// 1 hour and 50 minutes.
 		offset: 6_600_000,
@@ -63,7 +63,7 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 		})),
 	},
 	{
-		noShardWeekDay: [7, 1], // Sunday, Monday
+		noShardWeekDay: [0, 1], // Sunday, Monday
 		interval: 8,
 		// 2 hours and 10 minutes.
 		offset: 7_800_000,
