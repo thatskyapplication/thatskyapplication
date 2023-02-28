@@ -5,6 +5,8 @@ import type {
 	UserContextMenuCommandInteraction,
 } from "discord.js";
 import {
+	userMention,
+	EmbedBuilder,
 	time,
 	TimestampStyles,
 	PermissionFlagsBits,
@@ -46,6 +48,9 @@ export default class implements ChatInputCommand {
 				return;
 			case "gift":
 				await this.gift(interaction);
+				break;
+			case "history":
+				await this.history(interaction);
 		}
 	}
 
@@ -156,12 +161,73 @@ export default class implements ChatInputCommand {
 		);
 	}
 
+	public async history(interaction: ChatInputCommandInteraction) {
+		const hearts = (
+			await pg<HeartPacket>(Table.Hearts)
+				.select()
+				.where({ gifter_id: interaction.user.id })
+				.orWhere({ giftee_id: interaction.user.id })
+		).reverse();
+
+		if (hearts.length === 0) {
+			await interaction.reply({
+				content: `You have ${resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart, number: 0 })}.`,
+				ephemeral: true,
+			});
+
+			return;
+		}
+
+		const heartsGifted = hearts.filter((heart) => heart.gifter_id === interaction.user.id);
+		const heartsReceived = hearts.filter((heart) => heart.giftee_id === interaction.user.id);
+
+		const embed = new EmbedBuilder()
+			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
+			.setDescription(
+				`Gifted: ${resolveCurrencyEmoji({
+					interaction,
+					emoji: Emoji.Heart,
+					number: heartsGifted.length,
+				})}\nReceived: ${resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart, number: heartsReceived.length })}`,
+			)
+			.setFields(
+				{
+					name: "Gifted",
+					value: this.historyList(heartsReceived, false),
+				},
+				{
+					name: "Received",
+					value: this.historyList(heartsReceived, false),
+				},
+			)
+			.setTitle("Heart History");
+
+		await interaction.reply({ embeds: [embed] });
+	}
+
+	private historyList(hearts: HeartPacket[], gifted: boolean) {
+		return hearts
+			.map(
+				(heart) =>
+					`${userMention(gifted ? heart.giftee_id : heart.gifter_id)}: ${time(
+						Math.floor(heart.timestamp.getTime() / 1_000),
+						TimestampStyles.ShortDate,
+					)} (${time(Math.floor(heart.timestamp.getTime() / 1_000), TimestampStyles.RelativeTime)})`,
+			)
+			.join("\n");
+	}
+
 	public get commandData(): ApplicationCommandData {
 		return {
 			name: this.name,
 			description: "Feeling generous? You have one heart to give per day!",
 			type: this.type,
 			options: [
+				{
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "count",
+					description: "Count the number of hearts you have!",
+				},
 				{
 					type: ApplicationCommandOptionType.Subcommand,
 					name: "gift",
@@ -177,8 +243,8 @@ export default class implements ChatInputCommand {
 				},
 				{
 					type: ApplicationCommandOptionType.Subcommand,
-					name: "count",
-					description: "Count the number of hearts you have!",
+					name: "history",
+					description: "Display a history of your hearts!",
 				},
 			],
 			dmPermission: false,
