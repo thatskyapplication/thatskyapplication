@@ -193,7 +193,7 @@ export default class implements ChatInputCommand {
 			.setFields(
 				{
 					name: "Gifted",
-					value: this.historyList(heartsGifted, false),
+					value: this.historyList(heartsGifted, true),
 				},
 				{
 					name: "Received",
