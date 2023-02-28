@@ -178,8 +178,8 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		const heartsGifted = hearts.filter((heart) => heart.gifter_id === interaction.user.id).slice(0, 15);
-		const heartsReceived = hearts.filter((heart) => heart.giftee_id === interaction.user.id).slice(0, 15);
+		const heartsGifted = hearts.filter((heart) => heart.gifter_id === interaction.user.id);
+		const heartsReceived = hearts.filter((heart) => heart.giftee_id === interaction.user.id);
 
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
@@ -193,11 +193,11 @@ export default class implements ChatInputCommand {
 			.setFields(
 				{
 					name: "Gifted",
-					value: this.historyList(heartsGifted, true),
+					value: this.historyList(heartsGifted.slice(0, 15), true),
 				},
 				{
 					name: "Received",
-					value: this.historyList(heartsReceived, false),
+					value: this.historyList(heartsReceived.slice(0, 15), false),
 				},
 			)
 			.setTitle("Heart History");
