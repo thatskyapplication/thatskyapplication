@@ -1,4 +1,10 @@
 import process from "node:process";
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone.js";
+import utc from "dayjs/plugin/utc.js";
+
+dayjs.extend(timezone);
+dayjs.extend(utc);
 
 export const production = process.env.NODE_ENV === "production";
 export const RESOURCES_VERSION = "0.12.0" as const;
@@ -6,11 +12,11 @@ export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 export const LOG_CHANNEL_ID = "1040806599293407263" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki/" as const;
 export const MAXIMUM_WINGED_LIGHT = 210 as const;
-// 4 from quests and 1 from candle running.
 export const SEASONAL_CANDLES_PER_DAY = 5;
-// As well as the above but with an extra seasonal candle a day from the meditation shrine.
 export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
 export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
+export const doubleSeasonalLightEventStartTimestamp = dayjs.tz("2023-03-06 00:00:00", "America/Los_Angeles").valueOf();
+export const doubleSeasonalLightEventEndTimestamp = dayjs.tz("2023-03-13 00:00:00", "America/Los_Angeles").valueOf();
 
 export const enum Channel {
 	dailyGuides = "1041420071614042152",

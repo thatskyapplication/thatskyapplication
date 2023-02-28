@@ -1,15 +1,26 @@
+import { ApplicationCommandOptionType, ApplicationCommandType, EmbedBuilder, time, TimestampStyles } from "discord.js";
 import type { ApplicationCommandData, ChatInputCommandInteraction } from "discord.js";
-import { ApplicationCommandOptionType, ApplicationCommandType, EmbedBuilder } from "discord.js";
 import {
 	Emoji,
 	MAXIMUM_WINGED_LIGHT,
 	Realm,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
+	doubleSeasonalLightEventEndTimestamp,
+	doubleSeasonalLightEventStartTimestamp,
 	WingedLightCount,
 } from "../../Utility/Constants.js";
-import { isRealm, notNull, resolveCurrencyEmoji } from "../../Utility/Utility.js";
+import { isRealm, notNull, resolveCurrencyEmoji, todayDate } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
+
+const doubleSeasonalLightEventStart = time(
+	Math.floor(doubleSeasonalLightEventStartTimestamp / 1_000),
+	TimestampStyles.ShortDate,
+);
+const doubleSeasonalLightEventEnd = time(
+	Math.floor(doubleSeasonalLightEventEndTimestamp / 1_000),
+	TimestampStyles.ShortDate,
+);
 
 export default class implements ChatInputCommand {
 	public readonly name = "calculate";
@@ -37,15 +48,49 @@ export default class implements ChatInputCommand {
 		}
 
 		const amountRequired = goal - start;
-		const amountRequiredString = `${amountRequired} seasonal candle${amountRequired === 1 ? "" : "s"}`;
-		const resultWithoutSeasonPass = Math.ceil(amountRequired / SEASONAL_CANDLES_PER_DAY);
-		const resultWithoutSeasonPassString = `${resultWithoutSeasonPass} day${resultWithoutSeasonPass === 1 ? "" : "s"}`;
-		const resultWithSeasonPass = Math.ceil(amountRequired / SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS);
-		const resultWithSeasonPassString = `${resultWithSeasonPass} day${resultWithSeasonPass === 1 ? "" : "s"}`;
+		let timestamp = todayDate().getTime();
+		let result = 0;
+		let days = 0;
+		let resultWithSeasonPass = 0;
+		let daysWithSeasonPass = 1;
+		let includedDoubleLight = false;
 
-		await interaction.reply(
-			`Start: ${start}\nGoal: ${goal}\n\nIt would take ${resultWithoutSeasonPassString} to receive ${amountRequiredString}.\nWith a Season Pass, it would take ${resultWithSeasonPassString} to receive ${amountRequiredString}.`,
-		);
+		for (; result < amountRequired; timestamp += 86_400_000, days++) {
+			result += SEASONAL_CANDLES_PER_DAY;
+			resultWithSeasonPass += SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS;
+
+			if (timestamp >= doubleSeasonalLightEventStartTimestamp && timestamp < doubleSeasonalLightEventEndTimestamp) {
+				includedDoubleLight = true;
+				result += 1;
+				resultWithSeasonPass += 1;
+			}
+
+			if (resultWithSeasonPass < amountRequired) daysWithSeasonPass++;
+		}
+
+		const resultString = `${days} day${days === 1 ? "" : "s"}`;
+		const resultWithSeasonPassString = `${daysWithSeasonPass} day${daysWithSeasonPass === 1 ? "" : "s"}`;
+
+		const embed = new EmbedBuilder()
+			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
+			.setDescription(`Start: ${start}\nGoal: ${goal}\nRequired: ${amountRequired}`)
+			.setFields(
+				{ name: "Result", value: `${resultString}` },
+				{
+					name: "Season Pass Result",
+					value: `${resultWithSeasonPassString}`,
+				},
+			)
+			.setTitle("Seasonal Candle Calculator");
+
+		if (includedDoubleLight) {
+			embed.addFields({
+				name: "Notes",
+				value: `Double Seasonal Light event included in calculation.\n${doubleSeasonalLightEventStart} - ${doubleSeasonalLightEventEnd}`,
+			});
+		}
+
+		await interaction.reply({ embeds: [embed] });
 	}
 
 	public async wingedLight(interaction: ChatInputCommandInteraction) {
@@ -76,19 +121,22 @@ export default class implements ChatInputCommand {
 		let accumulation = wingedLight;
 		const me = await interaction.guild?.members.fetchMe();
 
-		const embed = new EmbedBuilder().setColor(me?.displayColor ?? 0).setDescription(
-			`Started with ${resolveCurrencyEmoji({
-				interaction,
-				emoji: Emoji.WingedLight,
-				number: wingedLight,
-				includeSpaceInEmoji: true,
-			})}.\nReborn with ${resolveCurrencyEmoji({
-				interaction,
-				emoji: Emoji.WingedLight,
-				number: (accumulation += WingedLightCount.Orbit),
-				includeSpaceInEmoji: true,
-			})} (+${WingedLightCount.Orbit}).`,
-		);
+		const embed = new EmbedBuilder()
+			.setColor(me?.displayColor ?? 0)
+			.setDescription(
+				`Started with ${resolveCurrencyEmoji({
+					interaction,
+					emoji: Emoji.WingedLight,
+					number: wingedLight,
+					includeSpaceInEmoji: true,
+				})}.\nReborn with ${resolveCurrencyEmoji({
+					interaction,
+					emoji: Emoji.WingedLight,
+					number: (accumulation += WingedLightCount.Orbit),
+					includeSpaceInEmoji: true,
+				})} (+${WingedLightCount.Orbit}).`,
+			)
+			.setTitle("Winged Light Calculator");
 
 		for (const realm of path) {
 			switch (realm) {
