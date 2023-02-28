@@ -178,8 +178,8 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		const heartsGifted = hearts.filter((heart) => heart.gifter_id === interaction.user.id);
-		const heartsReceived = hearts.filter((heart) => heart.giftee_id === interaction.user.id);
+		const heartsGifted = hearts.filter((heart) => heart.gifter_id === interaction.user.id).slice(0, 15);
+		const heartsReceived = hearts.filter((heart) => heart.giftee_id === interaction.user.id).slice(0, 15);
 
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
