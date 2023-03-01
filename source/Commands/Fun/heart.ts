@@ -276,7 +276,11 @@ export default class implements ChatInputCommand {
 			actionRow.addComponents(button2);
 		}
 
-		const response = { components: actionRow.components.length > 0 ? [actionRow] : [], embeds: [embed] };
+		const response = {
+			components: actionRow.components.length > 0 ? [actionRow] : [],
+			embeds: [embed],
+			ephemeral: true,
+		};
 
 		if (buttonInteraction) {
 			await interaction.update(response);
