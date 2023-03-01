@@ -6,6 +6,7 @@ import {
 	D_DAILY_GUIDES_QUEST_3_MODAL,
 	D_DAILY_GUIDES_QUEST_4_MODAL,
 } from "../Commands/Developer/d-daily-guides.js";
+import { HeartHistoryNavigationType, HEART_HISTORY_BACK, HEART_HISTORY_FORWARD } from "../Commands/Fun/heart.js";
 import { ROLES_SELECT_MENU_CUSTOM_ID } from "../Commands/General/roles.js";
 import { SKY_PROFILE_MODAL } from "../Commands/General/sky-profile.js";
 import commands, {
@@ -20,6 +21,7 @@ import { consoleLog } from "../Utility/Utility.js";
 import type { Event } from "./index.js";
 
 const name = Events.InteractionCreate;
+const heartHistoryRegExp = new RegExp(`(${HEART_HISTORY_BACK}|${HEART_HISTORY_FORWARD})-(\\d+)`);
 
 const interactionErrorResponseBody = {
 	content: "An error was encountered. Rest easy, it's being tracked!",
@@ -125,6 +127,37 @@ export const event: Event<typeof name> = {
 			} catch (error) {
 				void recoverInteractionError(interaction, error);
 			}
+
+			return;
+		}
+
+		if (interaction.isButton()) {
+			const { customId } = interaction;
+
+			try {
+				const heartHistoryResult = heartHistoryRegExp.exec(customId);
+
+				if (heartHistoryResult) {
+					const [, type, timestamp] = heartHistoryResult;
+
+					await commands.heart.heartHistory(interaction, {
+						type: type === HEART_HISTORY_BACK ? HeartHistoryNavigationType.Back : HeartHistoryNavigationType.Forward,
+						timestamp: timestamp as unknown as number,
+					});
+
+					return;
+				}
+			} catch (error) {
+				void recoverInteractionError(interaction, error);
+				return;
+			}
+
+			void interaction.client.log(`Received an unknown button interaction (\`${customId}\`).`);
+
+			void interaction.reply({
+				content: "A button a day keeps a button away. This useless proverb was brought to you by an unknown button.",
+				ephemeral: true,
+			});
 
 			return;
 		}

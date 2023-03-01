@@ -5,6 +5,10 @@ import type {
 	UserContextMenuCommandInteraction,
 } from "discord.js";
 import {
+	ButtonInteraction,
+	ButtonStyle,
+	ActionRowBuilder,
+	ButtonBuilder,
 	userMention,
 	EmbedBuilder,
 	time,
@@ -24,6 +28,16 @@ interface HeartPacket {
 	timestamp: Date;
 }
 
+export const enum HeartHistoryNavigationType {
+	Back,
+	Forward,
+}
+
+interface HeartHistoryOptions {
+	type: HeartHistoryNavigationType;
+	timestamp: number;
+}
+
 const HEARTS = [
 	"{{gifter}} sent a heart to {{giftee}}. How lucky!",
 	"A heart from {{gifter}} to {{giftee}}. That was nice of them!",
@@ -35,6 +49,9 @@ const HEARTS = [
 	"{{gifter}}, sending a heart each day keeps the dark dragon away from {{giftee}}!",
 	"A wholesome heart delivered to {{giftee}} from {{gifter}}!",
 ] as const satisfies Readonly<string[]>;
+
+export const HEART_HISTORY_BACK = "HEART_HISTORY_BACK" as const;
+export const HEART_HISTORY_FORWARD = "HEART_HISTORY_FORWARD" as const;
 
 export default class implements ChatInputCommand {
 	public readonly name = "heart";
@@ -162,6 +179,15 @@ export default class implements ChatInputCommand {
 	}
 
 	public async history(interaction: ChatInputCommandInteraction) {
+		await this.heartHistory(interaction);
+	}
+
+	public async heartHistory(
+		interaction: ButtonInteraction | ChatInputCommandInteraction,
+		options: HeartHistoryOptions | null = null,
+	) {
+		const buttonInteraction = interaction instanceof ButtonInteraction;
+
 		const hearts = (
 			await pg<HeartPacket>(Table.Hearts)
 				.select()
@@ -170,16 +196,32 @@ export default class implements ChatInputCommand {
 		).reverse();
 
 		if (hearts.length === 0) {
-			await interaction.reply({
+			const response = {
 				content: `You have ${resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart, number: 0 })}.`,
 				ephemeral: true,
-			});
+			};
+
+			if (buttonInteraction) {
+				await interaction.editReply(response);
+			} else {
+				await interaction.reply(response);
+			}
 
 			return;
 		}
 
-		const heartsGifted = hearts.filter((heart) => heart.gifter_id === interaction.user.id);
-		const heartsReceived = hearts.filter((heart) => heart.giftee_id === interaction.user.id);
+		const heartsFiltered = hearts
+			.filter((heart) => {
+				switch (options?.type) {
+					case HeartHistoryNavigationType.Back:
+						return heart.timestamp.getTime() > options.timestamp;
+					case HeartHistoryNavigationType.Forward:
+						return heart.timestamp.getTime() < options.timestamp;
+					default:
+						return true;
+				}
+			})
+			.slice(0, 24);
 
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
@@ -187,34 +229,58 @@ export default class implements ChatInputCommand {
 				`Gifted: ${resolveCurrencyEmoji({
 					interaction,
 					emoji: Emoji.Heart,
-					number: heartsGifted.length,
-				})}\nReceived: ${resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart, number: heartsReceived.length })}`,
+					number: hearts.filter((heart) => heart.gifter_id === interaction.user.id).length,
+				})}\nReceived: ${resolveCurrencyEmoji({
+					interaction,
+					emoji: Emoji.Heart,
+					number: hearts.filter((heart) => heart.giftee_id === interaction.user.id).length,
+				})}`,
 			)
 			.setFields(
-				{
-					name: "Gifted",
-					value: this.historyList(heartsGifted.slice(0, 15), true),
-				},
-				{
-					name: "Received",
-					value: this.historyList(heartsReceived.slice(0, 15), false),
-				},
+				heartsFiltered.map((heart) => {
+					const gifted = heart.gifter_id === interaction.user.id;
+
+					return {
+						name: gifted ? "Gifted" : "Received",
+						value: `${userMention(gifted ? heart.giftee_id : heart.gifter_id)}\n${time(
+							Math.floor(heart.timestamp.getTime() / 1_000),
+							TimestampStyles.ShortDate,
+						)}\n(${time(Math.floor(heart.timestamp.getTime() / 1_000), TimestampStyles.RelativeTime)})`,
+						inline: true,
+					};
+				}),
 			)
 			.setTitle("Heart History");
 
-		await interaction.reply({ embeds: [embed] });
-	}
+		const actionRow = new ActionRowBuilder<ButtonBuilder>();
+		const firstTimestamp = heartsFiltered.at(0)?.timestamp.getTime();
+		const lastTimestamp = heartsFiltered.at(-1)?.timestamp.getTime();
 
-	private historyList(hearts: HeartPacket[], gifted: boolean) {
-		return hearts
-			.map(
-				(heart) =>
-					`${userMention(gifted ? heart.giftee_id : heart.gifter_id)}: ${time(
-						Math.floor(heart.timestamp.getTime() / 1_000),
-						TimestampStyles.ShortDate,
-					)} (${time(Math.floor(heart.timestamp.getTime() / 1_000), TimestampStyles.RelativeTime)})`,
-			)
-			.join("\n");
+		if (firstTimestamp && firstTimestamp < hearts.at(0)!.timestamp.getTime()) {
+			const button = new ButtonBuilder()
+				.setCustomId(`${HEART_HISTORY_BACK}-${firstTimestamp}`)
+				.setEmoji("◀️")
+				.setStyle(ButtonStyle.Primary);
+
+			actionRow.addComponents(button);
+		}
+
+		if (lastTimestamp && lastTimestamp > hearts.at(-1)!.timestamp.getTime()) {
+			const button2 = new ButtonBuilder()
+				.setCustomId(`${HEART_HISTORY_FORWARD}-${lastTimestamp}`)
+				.setEmoji("▶️")
+				.setStyle(ButtonStyle.Primary);
+
+			actionRow.addComponents(button2);
+		}
+
+		const response = { components: actionRow.components.length > 0 ? [actionRow] : [], embeds: [embed] };
+
+		if (buttonInteraction) {
+			await interaction.update(response);
+		} else {
+			await interaction.reply(response);
+		}
 	}
 
 	public get commandData(): ApplicationCommandData {
