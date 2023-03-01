@@ -202,7 +202,7 @@ export default class implements ChatInputCommand {
 			};
 
 			if (buttonInteraction) {
-				await interaction.editReply(response);
+				await interaction.update(response);
 			} else {
 				await interaction.reply(response);
 			}
