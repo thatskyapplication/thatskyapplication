@@ -197,6 +197,7 @@ export default class implements ChatInputCommand {
 
 		if (hearts.length === 0) {
 			const response = {
+				components: [],
 				content: `You have ${resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart, number: 0 })}.`,
 				ephemeral: true,
 			};
