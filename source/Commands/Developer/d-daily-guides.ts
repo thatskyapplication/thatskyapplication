@@ -68,6 +68,10 @@ export default class implements ChatInputCommand {
 		switch (interaction.options.getSubcommand()) {
 			case "quest":
 				await this.setQuest(interaction);
+				break;
+			case "seasonal-candles":
+				await this.seasonalCandles(interaction);
+				break;
 		}
 	}
 
@@ -171,6 +175,18 @@ export default class implements ChatInputCommand {
 		);
 	}
 
+	public async seasonalCandles(interaction: ChatInputCommandInteraction) {
+		const url = interaction.options.getString("url", true);
+		await DailyGuides.updateSeasonalCandles(url);
+
+		await interaction.reply(
+			`Successfully updated the seasonal candles.\n${codeBlock(
+				"JSON",
+				JSON.stringify(DailyGuides.seasonalCandles, null, 2),
+			)}`,
+		);
+	}
+
 	public get commandData(): ApplicationCommandData {
 		return {
 			name: this.name,
@@ -202,6 +218,19 @@ export default class implements ChatInputCommand {
 									name: "number",
 									description: "The quest number to set the data of.",
 									choices: QUEST_NUMBER.map((questNumber) => ({ name: String(questNumber), value: questNumber })),
+									required: true,
+								},
+							],
+						},
+						{
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "seasonal-candles",
+							description: "Set the seasonal candles data.",
+							options: [
+								{
+									type: ApplicationCommandOptionType.String,
+									name: "url",
+									description: "The infographic URL of the seasonal candles.",
 									required: true,
 								},
 							],

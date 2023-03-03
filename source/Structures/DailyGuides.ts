@@ -402,6 +402,10 @@ export default new (class DailyGuides {
 			return;
 		}
 
+		await this.updateSeasonalCandles(url);
+	}
+
+	public async updateSeasonalCandles(url: string) {
 		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
 			.update({ seasonal_candles: url })
 			.returning("*");
