@@ -121,7 +121,7 @@ const regularExpressionRealms = Object.values(Realm).join("|").replaceAll(" ", "
 const mapRegExp = Object.values(Map).join("|").replaceAll(" ", "\\s+");
 
 const treasureCandleRegularExpression = new RegExp(
-	`(?<rotation>rotation\\s+\\d{1,2})\\s*\\|\\s*(?<realm>${regularExpressionRealms})`,
+	`(?<rotation>rotation\\s+\\d{1,2})\\s*(?:and\\s+(?<rotation2>\\d{1,2})\\s*)?\\|\\s*(?<realm>${regularExpressionRealms})`,
 	"i",
 );
 
@@ -349,9 +349,9 @@ export default new (class DailyGuides {
 	}
 
 	public async parseTreasureCandles(content: string, attachments: Collection<Snowflake, Attachment>) {
-		const url = attachments.first()?.url;
+		const urls = [...attachments.values()].map(({ url }) => url);
 
-		if (!url) {
+		if (urls.length === 0) {
 			consoleLog("Failed to fetch the treasure candle locations.");
 			return;
 		}
@@ -359,30 +359,35 @@ export default new (class DailyGuides {
 		const regex = treasureCandleRegularExpression.exec(content);
 
 		if (regex?.groups) {
-			const { rotation, realm } = regex.groups;
+			const { rotation, rotation2, realm } = regex.groups;
 			const resolvedRotation = rotation!.replaceAll(/  +/g, " ");
+			const resolvedRotation2 = rotation2 ? `Rotation ${rotation2}` : null;
 			const resolvedRealm = resolveValidRealm(realm!);
 
-			if (!resolvedRotation) {
+			if (!resolvedRotation || (rotation2 && !resolvedRotation2)) {
 				consoleLog("Failed to parse the rotation of a set of treasure candles.");
 				return;
 			}
 
 			// Duplicate check in case of manually updating.
-			if (this.treasureCandles?.data.some(({ content }) => content === resolvedRotation)) return;
+			if (
+				this.treasureCandles?.data.some(({ content }) => content === resolvedRotation || content === resolvedRotation2)
+			)
+				return;
 
 			if (!resolvedRealm) {
 				consoleLog("Failed to parse the realm the treasure candles are in.");
 				return;
 			}
 
-			const data = { content: resolvedRotation, url };
+			const data = [{ content: resolvedRotation, url: urls[0]! }];
+			if (resolvedRotation2 && urls[1]) data.push({ content: resolvedRotation2, url: urls[1] });
 
 			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
 				.update({
 					treasure_candles: {
 						realm: resolvedRealm,
-						data: this.treasureCandles ? [...this.treasureCandles.data, data] : [data],
+						data: this.treasureCandles ? [...this.treasureCandles.data, ...data] : data,
 					},
 				})
 				.returning("*");
