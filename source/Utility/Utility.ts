@@ -4,7 +4,7 @@ import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
 import type { BaseInteraction, GuildMember } from "discord.js";
 import { formatEmoji, PermissionFlagsBits } from "discord.js";
-import { Emoji, Map, Realm, VALID_REALM } from "./Constants.js";
+import { Emoji, initialTreasureCandleRealmSeek, Map, Realm, VALID_REALM } from "./Constants.js";
 
 dayjs.extend(timezone);
 dayjs.extend(utc);
@@ -20,6 +20,18 @@ export function notNull<T>(value: T | null): value is T {
 
 export function todayDate() {
 	return dayjs.tz(Date.now(), "America/Los_Angeles").hour(0).minute(0).second(0).millisecond(0).toDate();
+}
+
+export function treasureCandleRealm() {
+	return VALID_REALM[
+		dayjs
+			.tz(Date.now(), "America/Los_Angeles")
+			.hour(0)
+			.minute(0)
+			.second(0)
+			.millisecond(0)
+			.diff(initialTreasureCandleRealmSeek, "day") % 5
+	]!;
 }
 
 interface CurrencyEmojiOptions {

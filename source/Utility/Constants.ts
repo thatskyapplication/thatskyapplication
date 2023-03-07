@@ -17,6 +17,7 @@ export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
 export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
 export const doubleSeasonalLightEventStartTimestamp = dayjs.tz("2023-03-06 00:00:00", "America/Los_Angeles").valueOf();
 export const doubleSeasonalLightEventEndTimestamp = dayjs.tz("2023-03-13 00:00:00", "America/Los_Angeles").valueOf();
+export const initialTreasureCandleRealmSeek = dayjs.tz(Date.UTC(2_023, 0, 3), "America/Los_Angeles").toDate(); // Daylight Prairie.
 
 export const enum Channel {
 	dailyGuides = "1041420071614042152",

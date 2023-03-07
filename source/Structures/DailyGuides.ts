@@ -1,7 +1,6 @@
 import { AsyncQueue } from "@sapphire/async-queue";
 import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
 import { time, TimestampStyles, FormattingPatterns, ChannelType, MessageFlags, SnowflakeUtil } from "discord.js";
-import type { ValidRealm } from "../Utility/Constants.js";
 import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm, VALID_REALM } from "../Utility/Constants.js";
 import { consoleLog, resolveMap, resolveValidRealm, todayDate } from "../Utility/Utility.js";
 import { fetchResources, ResourceType } from "../Utility/externalAPIs.js";
@@ -14,7 +13,7 @@ export interface DailyGuidesPacket {
 	quest2: DailyGuideQuest | null;
 	quest3: DailyGuideQuest | null;
 	quest4: DailyGuideQuest | null;
-	treasure_candles: DailyGuideTreasureCandle | null;
+	treasure_candles: string[] | null;
 	seasonal_candles: string | null;
 }
 
@@ -28,16 +27,6 @@ interface DailyGuidesData {
 }
 
 interface DailyGuideQuest {
-	content: string;
-	url: string;
-}
-
-interface DailyGuideTreasureCandle {
-	realm: ValidRealm;
-	data: TreasureCandleData[];
-}
-
-interface TreasureCandleData {
 	content: string;
 	url: string;
 }
@@ -116,14 +105,8 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
-
 const regularExpressionRealms = Object.values(Realm).join("|").replaceAll(" ", "\\s+");
 const mapRegExp = Object.values(Map).join("|").replaceAll(" ", "\\s+");
-
-const treasureCandleRegularExpression = new RegExp(
-	`(?<rotation>rotation\\s+\\d{1,2})\\s*(?:and\\s+(?<rotation2>\\d{1,2})\\s*)?\\|\\s*(?<realm>${regularExpressionRealms})`,
-	"i",
-);
 
 export default new (class DailyGuides {
 	public quest1: DailyGuidesData["quest1"] = null;
@@ -222,7 +205,7 @@ export default new (class DailyGuides {
 		) {
 			await this.parseQuests(content, attachments);
 		} else if (transformedContent.includes("TREASURE CANDLE")) {
-			await this.parseTreasureCandles(content, attachments);
+			await this.parseTreasureCandles(attachments);
 		} else if (transformedContent.includes("SEASONAL CANDLE")) {
 			await this.parseSeasonalCandles(attachments);
 		} else {
@@ -348,7 +331,7 @@ export default new (class DailyGuides {
 		this.patch(dailyGuidesPacket!);
 	}
 
-	public async parseTreasureCandles(content: string, attachments: Collection<Snowflake, Attachment>) {
+	public async parseTreasureCandles(attachments: Collection<Snowflake, Attachment>) {
 		const urls = [...attachments.values()].map(({ url }) => url);
 
 		if (urls.length === 0) {
@@ -356,47 +339,16 @@ export default new (class DailyGuides {
 			return;
 		}
 
-		const regex = treasureCandleRegularExpression.exec(content);
-
-		if (regex?.groups) {
-			const { rotation, rotation2, realm } = regex.groups;
-			const resolvedRotation = rotation!.replaceAll(/  +/g, " ");
-			const resolvedRotation2 = rotation2 ? `Rotation ${rotation2}` : null;
-			const resolvedRealm = resolveValidRealm(realm!);
-
-			if (!resolvedRotation || (rotation2 && !resolvedRotation2)) {
-				consoleLog("Failed to parse the rotation of a set of treasure candles.");
-				return;
-			}
-
-			// Duplicate check in case of manually updating.
-			if (
-				this.treasureCandles?.data.some(({ content }) => content === resolvedRotation || content === resolvedRotation2)
-			)
-				return;
-
-			if (!resolvedRealm) {
-				consoleLog("Failed to parse the realm the treasure candles are in.");
-				return;
-			}
-
-			const data = [{ content: resolvedRotation, url: urls[0]! }];
-			if (resolvedRotation2 && urls[1]) data.push({ content: resolvedRotation2, url: urls[1] });
-
-			const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-				.update({
-					treasure_candles: {
-						realm: resolvedRealm,
-						data: this.treasureCandles ? [...this.treasureCandles.data, ...data] : data,
-					},
-				})
-				.returning("*");
-
-			this.patch(dailyGuidesPacket!);
+		if (Array.isArray(this.treasureCandles)) {
+			consoleLog("Attempted to update the treasure candles which were already updated.");
 			return;
 		}
 
-		consoleLog("Failed to parse the treasure candles.");
+		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
+			.update({ treasure_candles: urls })
+			.returning("*");
+
+		this.patch(dailyGuidesPacket!);
 	}
 
 	public async parseSeasonalCandles(attachments: Collection<Snowflake, Attachment>) {

@@ -1,7 +1,7 @@
 import type { ChatInputCommandInteraction, Client, Guild, GuildMember, Snowflake } from "discord.js";
 import { channelMention, ChannelType, hyperlink, PermissionFlagsBits, EmbedBuilder } from "discord.js";
 import { Emoji } from "../Utility/Constants.js";
-import { consoleLog, resolveCurrencyEmoji, todayDate } from "../Utility/Utility.js";
+import { consoleLog, resolveCurrencyEmoji, todayDate, treasureCandleRealm } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides from "./DailyGuides.js";
 
@@ -150,11 +150,12 @@ export default class DailyGuidesDistribution {
 		if (quest4)
 			embed.addFields({ name: quest4.content, value: quest4.url === "" ? "\u200B" : hyperlink("Image", quest4.url) });
 
-		if (treasureCandles)
+		if (treasureCandles) {
 			embed.addFields({
-				name: `Treasure Candles - ${treasureCandles.realm}`,
-				value: treasureCandles.data.map(({ content, url }) => hyperlink(content, url)).join("\n"),
+				name: `Treasure Candles - ${treasureCandleRealm()}`,
+				value: treasureCandles.map((url, index) => hyperlink(`${index * 4 + 1} - ${(index + 1) * 4}`, url)).join("\n"),
 			});
+		}
 
 		if (seasonalCandles) embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
 
