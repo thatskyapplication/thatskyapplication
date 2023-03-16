@@ -7,7 +7,7 @@ dayjs.extend(timezone);
 dayjs.extend(utc);
 
 export const production = process.env.NODE_ENV === "production";
-export const RESOURCES_VERSION = "0.14.0" as const;
+export const RESOURCES_VERSION = "0.15.0" as const;
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 export const LOG_CHANNEL_ID = "1040806599293407263" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki/" as const;
