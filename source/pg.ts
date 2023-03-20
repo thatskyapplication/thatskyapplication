@@ -21,4 +21,5 @@ if (!databaseURL) throw new Error("Database URL missing.");
 export default knex.default({
 	client: "pg",
 	connection: databaseURL,
+	pool: { min: 0 },
 });
