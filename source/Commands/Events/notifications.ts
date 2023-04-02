@@ -61,7 +61,7 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		if (!channel.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages])) {
+		if (!channel.permissionsFor(me).has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages)) {
 			await interaction.reply({
 				// eslint-disable-next-line @typescript-eslint/no-base-to-string
 				content: `\`View Channel\` & \`Send Messages\` are required for ${channel}.`,
@@ -94,6 +94,10 @@ export default class implements ChatInputCommand {
 			case NotificationEvent.Turtle:
 				data.turtle_channel_id = channel.id;
 				data.turtle_role_id = role.id;
+				break;
+			case NotificationEvent.EyeOfEden:
+				data.eye_of_eden_channel_id = channel.id;
+				data.eye_of_eden_role_id = role.id;
 				break;
 		}
 
@@ -136,6 +140,10 @@ export default class implements ChatInputCommand {
 			case NotificationEvent.Turtle:
 				data.turtle_channel_id = null;
 				data.turtle_role_id = null;
+				break;
+			case NotificationEvent.EyeOfEden:
+				data.eye_of_eden_channel_id = null;
+				data.eye_of_eden_role_id = null;
 				break;
 		}
 
