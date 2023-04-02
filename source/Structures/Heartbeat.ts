@@ -23,12 +23,16 @@ async function dailyReset(client: Client<true>) {
 export default function heartbeat(client: Client<true>): void {
 	setInterval(() => {
 		const date = dayjs.tz(Date.now(), "America/Los_Angeles");
+		const day = date.day();
 		const hour = date.hour();
 		const minute = date.minute();
 		const second = date.second();
 
 		if (second === 0) {
-			if (hour === 0 && minute === 0) void dailyReset(client);
+			if (hour === 0 && minute === 0) {
+				void dailyReset(client);
+				if (day === 0) sendNotification(client, NotificationEvent.EyeOfEden);
+			}
 
 			if (hour % 2 === 0) {
 				switch (minute) {

@@ -11,6 +11,8 @@ export interface NotificationPacket {
 	grandma_role_id: Snowflake | null;
 	turtle_channel_id: Snowflake | null;
 	turtle_role_id: Snowflake | null;
+	eye_of_eden_channel_id: Snowflake | null;
+	eye_of_eden_role_id: Snowflake | null;
 }
 
 interface NotificationData {
@@ -22,6 +24,8 @@ interface NotificationData {
 	grandmaRoleId: NotificationPacket["grandma_role_id"];
 	turtleChannelId: NotificationPacket["turtle_channel_id"];
 	turtleRoleId: NotificationPacket["turtle_role_id"];
+	eyeOfEdenChannelId: NotificationPacket["eye_of_eden_channel_id"];
+	eyeOfEdenRoleId: NotificationPacket["eye_of_eden_role_id"];
 }
 
 type NotificationPatchData = Omit<NotificationPacket, "id" | "guild_id">;
@@ -32,6 +36,7 @@ export enum NotificationEvent {
 	PollutedGeyser = "Polluted Geyser",
 	Grandma = "Grandma",
 	Turtle = "Turtle",
+	EyeOfEden = "Eye of Eden",
 }
 
 export function isEvent(event: string): event is NotificationEvent {
@@ -57,6 +62,10 @@ export default class Notification {
 
 	public turtleRoleId!: NotificationData["turtleRoleId"];
 
+	public eyeOfEdenChannelId!: NotificationData["eyeOfEdenChannelId"];
+
+	public eyeOfEdenRoleId!: NotificationData["eyeOfEdenRoleId"];
+
 	public constructor(notification: NotificationPacket) {
 		this.id = notification.id;
 		this.guildId = notification.guild_id;
@@ -70,6 +79,8 @@ export default class Notification {
 		this.grandmaRoleId = data.grandma_role_id;
 		this.turtleChannelId = data.turtle_channel_id;
 		this.turtleRoleId = data.turtle_role_id;
+		this.eyeOfEdenChannelId = data.eye_of_eden_channel_id;
+		this.eyeOfEdenRoleId = data.eye_of_eden_role_id;
 	}
 
 	public static async setup(
@@ -119,22 +130,33 @@ export default class Notification {
 			grandmaRoleId,
 			turtleChannelId,
 			turtleRoleId,
+			eyeOfEdenChannelId,
+			eyeOfEdenRoleId,
 		} = this;
 		let channelId;
 		let roleId;
+		let suffix;
 
 		switch (type) {
 			case NotificationEvent.PollutedGeyser:
 				channelId = pollutedGeyserChannelId;
 				roleId = pollutedGeyserRoleId;
+				suffix = "will erupt soon!";
 				break;
 			case NotificationEvent.Grandma:
 				channelId = grandmaChannelId;
 				roleId = grandmaRoleId;
+				suffix = "will share soon!";
 				break;
 			case NotificationEvent.Turtle:
 				channelId = turtleChannelId;
 				roleId = turtleRoleId;
+				suffix = "will roam soon!";
+				break;
+			case NotificationEvent.EyeOfEden:
+				channelId = eyeOfEdenChannelId;
+				roleId = eyeOfEdenRoleId;
+				suffix = "has reset!";
 				break;
 		}
 
@@ -146,12 +168,12 @@ export default class Notification {
 		const me = await channel.guild.members.fetchMe();
 
 		if (
-			!channel.permissionsFor(me).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]) ||
+			!channel.permissionsFor(me).has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages) ||
 			(!role.mentionable && !channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))
 		)
 			return;
 
-		await channel.send(`${role} is starting soon!`).catch(() => null);
+		await channel.send(`${role} ${suffix}`).catch(() => null);
 	}
 
 	public async overview(guild: Guild) {
@@ -163,6 +185,8 @@ export default class Notification {
 			grandmaRoleId,
 			turtleChannelId,
 			turtleRoleId,
+			eyeOfEdenChannelId,
+			eyeOfEdenRoleId,
 		} = this;
 
 		return new EmbedBuilder()
@@ -181,6 +205,11 @@ export default class Notification {
 				{
 					name: NotificationEvent.Turtle,
 					value: this.overviewValue(me, turtleChannelId, turtleRoleId),
+					inline: true,
+				},
+				{
+					name: NotificationEvent.EyeOfEden,
+					value: this.overviewValue(me, eyeOfEdenChannelId, eyeOfEdenRoleId),
 					inline: true,
 				},
 			)
