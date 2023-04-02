@@ -41,7 +41,7 @@ export default class implements ChatInputCommand {
 			turtleChannelId,
 			turtleRoleId,
 			eyeOfEdenChannelId,
-			eyeOfEdenRoleId
+			eyeOfEdenRoleId,
 		} = notification;
 
 		if (pollutedGeyserChannelId && pollutedGeyserRoleId)
