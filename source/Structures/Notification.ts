@@ -40,8 +40,8 @@ export enum NotificationEvent {
 	PollutedGeyser = "Polluted Geyser",
 	Grandma = "Grandma",
 	Turtle = "Turtle",
-	EyeOfEden = "Eye of Eden",
 	DailyReset = "Daily Reset",
+	EyeOfEden = "Eye of Eden",
 }
 
 export function isEvent(event: string): event is NotificationEvent {
