@@ -13,6 +13,8 @@ export interface NotificationPacket {
 	turtle_role_id: Snowflake | null;
 	eye_of_eden_channel_id: Snowflake | null;
 	eye_of_eden_role_id: Snowflake | null;
+	daily_reset_channel_id: Snowflake | null;
+	daily_reset_role_id: Snowflake | null;
 }
 
 interface NotificationData {
@@ -26,6 +28,8 @@ interface NotificationData {
 	turtleRoleId: NotificationPacket["turtle_role_id"];
 	eyeOfEdenChannelId: NotificationPacket["eye_of_eden_channel_id"];
 	eyeOfEdenRoleId: NotificationPacket["eye_of_eden_role_id"];
+	dailyResetChannelId: NotificationPacket["daily_reset_channel_id"];
+	dailyResetRoleId: NotificationPacket["daily_reset_role_id"];
 }
 
 type NotificationPatchData = Omit<NotificationPacket, "id" | "guild_id">;
@@ -37,6 +41,7 @@ export enum NotificationEvent {
 	Grandma = "Grandma",
 	Turtle = "Turtle",
 	EyeOfEden = "Eye of Eden",
+	DailyReset = "Daily Reset",
 }
 
 export function isEvent(event: string): event is NotificationEvent {
@@ -66,6 +71,10 @@ export default class Notification {
 
 	public eyeOfEdenRoleId!: NotificationData["eyeOfEdenRoleId"];
 
+	public dailyResetChannelId!: NotificationData["dailyResetChannelId"];
+
+	public dailyResetRoleId!: NotificationData["dailyResetRoleId"];
+
 	public constructor(notification: NotificationPacket) {
 		this.id = notification.id;
 		this.guildId = notification.guild_id;
@@ -81,6 +90,8 @@ export default class Notification {
 		this.turtleRoleId = data.turtle_role_id;
 		this.eyeOfEdenChannelId = data.eye_of_eden_channel_id;
 		this.eyeOfEdenRoleId = data.eye_of_eden_role_id;
+		this.dailyResetChannelId = data.daily_reset_channel_id;
+		this.dailyResetRoleId = data.daily_reset_role_id;
 	}
 
 	public static async setup(
@@ -132,6 +143,8 @@ export default class Notification {
 			turtleRoleId,
 			eyeOfEdenChannelId,
 			eyeOfEdenRoleId,
+			dailyResetChannelId,
+			dailyResetRoleId,
 		} = this;
 		let channelId;
 		let roleId;
@@ -158,6 +171,10 @@ export default class Notification {
 				roleId = eyeOfEdenRoleId;
 				suffix = "has reset!";
 				break;
+			case NotificationEvent.DailyReset:
+				channelId = dailyResetChannelId;
+				roleId = dailyResetRoleId;
+				suffix = "has occurred!";
 		}
 
 		if (!channelId || !roleId) return;
@@ -187,6 +204,8 @@ export default class Notification {
 			turtleRoleId,
 			eyeOfEdenChannelId,
 			eyeOfEdenRoleId,
+			dailyResetChannelId,
+			dailyResetRoleId,
 		} = this;
 
 		return new EmbedBuilder()
@@ -205,6 +224,11 @@ export default class Notification {
 				{
 					name: NotificationEvent.Turtle,
 					value: this.overviewValue(me, turtleChannelId, turtleRoleId),
+					inline: true,
+				},
+				{
+					name: NotificationEvent.DailyReset,
+					value: this.overviewValue(me, dailyResetChannelId, dailyResetRoleId),
 					inline: true,
 				},
 				{

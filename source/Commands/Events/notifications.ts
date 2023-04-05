@@ -99,6 +99,10 @@ export default class implements ChatInputCommand {
 				data.eye_of_eden_channel_id = channel.id;
 				data.eye_of_eden_role_id = role.id;
 				break;
+			case NotificationEvent.DailyReset:
+				data.daily_reset_channel_id = channel.id;
+				data.daily_reset_role_id = role.id;
+				break;
 		}
 
 		await Notification.setup(interaction, data);
@@ -144,6 +148,10 @@ export default class implements ChatInputCommand {
 			case NotificationEvent.EyeOfEden:
 				data.eye_of_eden_channel_id = null;
 				data.eye_of_eden_role_id = null;
+				break;
+			case NotificationEvent.DailyReset:
+				data.daily_reset_channel_id = null;
+				data.daily_reset_role_id = null;
 				break;
 		}
 

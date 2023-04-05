@@ -15,6 +15,7 @@ function sendNotification(client: Client<true>, type: NotificationEvent) {
 }
 
 async function dailyReset(client: Client<true>) {
+	sendNotification(client, NotificationEvent.DailyReset);
 	await DailyGuides.reset();
 	await DailyGuidesDistribution.reset();
 	await DailyGuidesDistribution.distribute(client);
