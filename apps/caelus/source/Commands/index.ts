@@ -23,6 +23,7 @@ import heart from "./Fun/heart.js";
 import hug from "./Fun/hug.js";
 
 // General
+import about from "./General/about.js";
 import calculate from "./General/calculate.js";
 import roles from "./General/roles.js";
 import Sky_Profile from "./General/Sky Profile.js";
@@ -30,6 +31,7 @@ import sky_profile from "./General/sky-profile.js";
 import spirit from "./General/spirit.js";
 
 const commands = {
+	about: new about(),
 	bonk: new bonk(),
 	calculate: new calculate(),
 	"d-daily-guides": new d_daily_guides(),
