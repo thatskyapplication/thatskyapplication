@@ -106,7 +106,11 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 const regularExpressionRealms = Object.values(Realm).join("|").replaceAll(" ", "\\s+");
-const mapRegExp = Object.values(Map).join("|").replaceAll(" ", "\\s+");
+
+const mapRegExp = Object.values(Map)
+	.map((map) => `\\s${map}`)
+	.join("|")
+	.replaceAll(" ", "\\s+");
 
 export default new (class DailyGuides {
 	public quest1: DailyGuidesData["quest1"] = null;
