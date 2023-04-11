@@ -1,6 +1,7 @@
+import { URL } from "node:url";
 import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
 import { EmbedBuilder, PermissionFlagsBits, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
-import { fetchResources, ResourceType } from "../../Utility/externalAPIs.js";
+import { CDN_URL, MAX_HUG_NO } from "../../Utility/Constants.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -9,10 +10,6 @@ interface HugPacket {
 	huggee_id: Snowflake;
 	timestamp: Date;
 }
-
-const huggingURLs = (await fetchResources(ResourceType.Hugs))
-	.filter(({ name }) => !name.includes("README"))
-	.map(({ downloadURL }) => downloadURL);
 
 export default class implements ChatInputCommand {
 	public readonly name = "hug";
@@ -53,16 +50,20 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		const url = huggingURLs[Math.floor(Math.random() * huggingURLs.length)]!;
-		const embed = new EmbedBuilder().setColor((await guild?.members.fetchMe())?.displayColor ?? 0).setImage(url);
-
 		await pg<HugPacket>(Table.Hugs).insert({
 			hugger_id: interaction.user.id,
 			huggee_id: user.id,
 			timestamp: createdAt,
 		});
 
-		await interaction.reply({ content: `${user}, ${interaction.user} hugged you!`, embeds: [embed] });
+		await interaction.reply({
+			content: `${user}, ${interaction.user} hugged you!`,
+			embeds: [
+				new EmbedBuilder()
+					.setColor((await guild?.members.fetchMe())?.displayColor ?? 0)
+					.setImage(String(new URL(`hugs/${Math.floor(Math.random() * MAX_HUG_NO + 1)}.gif`, CDN_URL))),
+			],
+		});
 	}
 
 	public get commandData(): ApplicationCommandData {

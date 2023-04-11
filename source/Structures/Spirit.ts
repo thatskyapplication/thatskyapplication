@@ -1,6 +1,5 @@
 import { URL } from "node:url";
-import { Realm, WIKI_URL } from "../Utility/Constants.js";
-import { fetchResources, ResourceType } from "../Utility/externalAPIs.js";
+import { CDN_URL, Realm, WIKI_URL } from "../Utility/Constants.js";
 
 export enum SpiritName {
 	// Isles of Dawn
@@ -274,8 +273,6 @@ interface SpiritSeason {
 	name: Season;
 }
 
-const resourceData = (await fetchResources(ResourceType.Spirits)).filter(({ name }) => !name.includes("README"));
-
 class Spirit {
 	public readonly name: SpiritData["name"];
 
@@ -300,7 +297,7 @@ class Spirit {
 		this.realm = spirit.realm;
 		this.offer = spirit.offer ?? null;
 		this.keywords = spirit.keywords ?? [];
-		this.imageURL = resourceData.find(({ name }) => name.includes(spirit.name))?.downloadURL ?? null;
+		this.imageURL = String(new URL(`spirits/${this.name.replaceAll(" ", "_")}.png`, CDN_URL));
 		this.wikiURL = new URL(spirit.name.replaceAll(" ", "_"), WIKI_URL).toString();
 		this.expression = "expression" in spirit ? spirit.expression : null;
 		this.stance = "stance" in spirit ? spirit.stance : null;

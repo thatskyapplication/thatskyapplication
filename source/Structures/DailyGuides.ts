@@ -1,9 +1,9 @@
+import { URL } from "node:url";
 import { AsyncQueue } from "@sapphire/async-queue";
 import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
 import { time, TimestampStyles, FormattingPatterns, ChannelType, MessageFlags, SnowflakeUtil } from "discord.js";
-import { Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm, VALID_REALM } from "../Utility/Constants.js";
+import { CDN_URL, Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm, VALID_REALM } from "../Utility/Constants.js";
 import { consoleLog, resolveMap, resolveValidRealm, todayDate } from "../Utility/Utility.js";
-import { fetchResources, ResourceType } from "../Utility/externalAPIs.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import { SpiritName } from "./Spirit.js";
@@ -31,12 +31,8 @@ interface DailyGuideQuest {
 	url: string;
 }
 
-const resourceData = (await fetchResources(ResourceType.Shards)).filter(({ name }) => !name.includes("README"));
-
 function resolveShardEruptionMapURL(map: Map) {
-	const data = resourceData.find(({ name }) => name.includes(map));
-	if (!data) throw new Error(`Cannot find the ${map} resource.`);
-	return data.downloadURL;
+	return new URL(`shards/${map.replaceAll(" ", "_")}.png`, CDN_URL);
 }
 
 const SHARD_ERUPTION_PREDICTION_DATA = [
