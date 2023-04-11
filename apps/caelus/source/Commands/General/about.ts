@@ -1,8 +1,14 @@
 import { URL } from "node:url";
 import { ApplicationCommandType, EmbedBuilder, hyperlink } from "discord.js";
 import type { ApplicationCommandData, ChatInputCommandInteraction } from "discord.js";
-import { THATSKYGAME_URL, WEBSITE_URL } from "../../Utility/Constants.js";
+import { GITHUB_SPONSORS_URL, KO_FI_URL, PATREON_URL, THATSKYGAME_URL, WEBSITE_URL } from "../../Utility/Constants.js";
 import type { ChatInputCommand } from "../index.js";
+
+const SPONSOR_TEXT = `Want to give support? There are ways you can do that!
+${hyperlink("Patreon", PATREON_URL)} | ${hyperlink("Ko-fi", KO_FI_URL)} | ${hyperlink(
+	"GitHub",
+	GITHUB_SPONSORS_URL,
+)}` as const;
 
 export default class implements ChatInputCommand {
 	public readonly name = "about";
@@ -38,6 +44,10 @@ export default class implements ChatInputCommand {
 							name: "GitHub",
 							value: hyperlink("Link", new URL("github", WEBSITE_URL)),
 							inline: true,
+						},
+						{
+							name: "Sponsor",
+							value: SPONSOR_TEXT,
 						},
 					)
 					.setFooter({ text: "thatskyapplication" })
