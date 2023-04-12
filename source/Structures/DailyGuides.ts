@@ -271,9 +271,10 @@ export default new (class DailyGuides {
 		}
 
 		// Remove the message link, if any.
-		const pureContent = (/\n<?https?/.test(content) ? content.slice(0, content.indexOf("\n")) : content)
-			.replaceAll(new RegExp(FormattingPatterns.Emoji, "gi"), "")
-			.trim();
+		const pureContent = (/\n<?https?/.test(content) ? content.slice(0, content.indexOf("\n")) : content).replaceAll(
+			new RegExp(FormattingPatterns.Emoji, "gi"),
+			"",
+		);
 
 		// Attempt to manually set the daily guide.
 		const dailyGuideContent = this.resolveDailyGuideContent(pureContent);
@@ -293,7 +294,9 @@ export default new (class DailyGuides {
 		// Fallback in case of no output.
 		if (!output) {
 			consoleLog("Failed to match a daily quest. Falling back to original string.");
-			output = pureContent;
+
+			// Ensure no bold markdown is present.
+			output = pureContent.replaceAll("**", "").trim();
 		}
 
 		const data = { content: output, url };
