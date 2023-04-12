@@ -34,7 +34,7 @@ export enum SpiritName {
 	BackflippingChampion = "Backflipping Champion",
 	CheerfulSpectator = "Cheerful Spectator",
 	BowingMedalist = "Bowing Medalist",
-	ProudVictor = "	Proud Victor",
+	ProudVictor = "Proud Victor",
 
 	// Golden Wasteland
 	FrightenedRefugee = "Frightened Refugee",
