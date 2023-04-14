@@ -675,6 +675,7 @@ export default [
 		season: Season.Assembly,
 		expression: Expression.Eww,
 		realm: Realm.HiddenForest,
+		offer: { candles: 152, hearts: 13, ascendedCandles: 2 },
 		keywords: ["hammock"],
 	}),
 	new SeasonalSpirit({
@@ -682,12 +683,14 @@ export default [
 		season: Season.Assembly,
 		expression: Expression.March,
 		realm: Realm.HiddenForest,
+		offer: { candles: 143, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.ChucklingScout,
 		season: Season.Assembly,
 		expression: Expression.Chuckle,
 		realm: Realm.HiddenForest,
+		offer: { candles: 159, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.DaydreamForester,
