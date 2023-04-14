@@ -1,5 +1,5 @@
 import type { ApplicationCommandData, AutocompleteInteraction, ChatInputCommandInteraction } from "discord.js";
-import { ApplicationCommandOptionType, ApplicationCommandType, EmbedBuilder } from "discord.js";
+import { hyperlink, ApplicationCommandOptionType, ApplicationCommandType, EmbedBuilder } from "discord.js";
 import Spirits from "../../Structures/Spirit.js";
 import { Emoji } from "../../Utility/Constants.js";
 import { resolveCurrencyEmoji } from "../../Utility/Utility.js";
@@ -59,9 +59,7 @@ export default class implements AutocompleteCommand {
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
 
-		if (spirit.imageURL === null && spirit.isSeasonalSpirit())
-			embed.setDescription("⚠️ This spirit has not yet returned.");
-
+		if (spirit.marketingVideoURL) embed.setDescription(hyperlink("Promotional Video", spirit.marketingVideoURL));
 		await interaction.reply({ embeds: [embed] });
 	}
 

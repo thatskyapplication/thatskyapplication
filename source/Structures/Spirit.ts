@@ -267,7 +267,7 @@ interface SpiritDataBaseWithCall extends SpiritDataBase {
 }
 
 type SpiritData = SpiritDataBaseWithCall | SpiritDataBaseWithExpression | SpiritDataBaseWithStance;
-type SeasonalSpiritData = SpiritData & { season: Season };
+type SeasonalSpiritData = SpiritData & { season: Season; hasMarketingVideo?: boolean };
 
 interface SpiritSeason {
 	name: Season;
@@ -282,7 +282,7 @@ class Spirit {
 
 	public readonly keywords: NonNullable<SpiritData["keywords"]>;
 
-	public readonly imageURL: string | null;
+	public readonly imageURL: string;
 
 	public readonly wikiURL: string;
 
@@ -297,7 +297,7 @@ class Spirit {
 		this.realm = spirit.realm;
 		this.offer = spirit.offer ?? null;
 		this.keywords = spirit.keywords ?? [];
-		this.imageURL = String(new URL(`spirits/${this.name.replaceAll(" ", "_")}.png`, CDN_URL));
+		this.imageURL = String(new URL(`spirits/${this.underscoredName}.png`, CDN_URL));
 		this.wikiURL = new URL(spirit.name.replaceAll(" ", "_"), WIKI_URL).toString();
 		this.expression = "expression" in spirit ? spirit.expression : null;
 		this.stance = "stance" in spirit ? spirit.stance : null;
@@ -307,14 +307,24 @@ class Spirit {
 	public isSeasonalSpirit(): this is SeasonalSpirit {
 		return "season" in this;
 	}
+
+	public get underscoredName() {
+		return this.name.replaceAll(" ", "_");
+	}
 }
 
 class SeasonalSpirit extends Spirit {
 	public readonly season: SpiritSeason;
 
+	public readonly marketingVideoURL: string | null;
+
 	public constructor(spirit: SeasonalSpiritData) {
 		super(spirit);
 		this.season = { name: spirit.season };
+
+		this.marketingVideoURL = spirit.hasMarketingVideo
+			? String(new URL(`spirits/${this.underscoredName}.mp4`, CDN_URL))
+			: null;
 	}
 }
 
@@ -325,6 +335,7 @@ export default [
 		stance: Stance.Sassy,
 		realm: Realm.IslesOfDawn,
 		offer: { candles: 87, hearts: 0, ascendedCandles: 2 },
+		hasMarketingVideo: true,
 		keywords: ["weasel", "weasel mask"],
 	}),
 	new SeasonalSpirit({
@@ -339,6 +350,7 @@ export default [
 		season: Season.Gratitude,
 		expression: Expression.Karate,
 		realm: Realm.HiddenForest,
+		hasMarketingVideo: true,
 		offer: { candles: 104, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
@@ -368,6 +380,7 @@ export default [
 		season: Season.Lightseekers,
 		expression: Expression.Carry,
 		realm: Realm.IslesOfDawn,
+		hasMarketingVideo: true,
 		offer: { candles: 123, hearts: 8, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
@@ -383,6 +396,7 @@ export default [
 		stance: Stance.Laidback,
 		realm: Realm.HiddenForest,
 		offer: { candles: 151, hearts: 0, ascendedCandles: 2 },
+		hasMarketingVideo: true,
 		keywords: ["umbrella"],
 	}),
 	new SeasonalSpirit({
@@ -404,6 +418,7 @@ export default [
 		season: Season.Lightseekers,
 		expression: Expression.Shush,
 		realm: Realm.VaultOfKnowledge,
+		hasMarketingVideo: true,
 		offer: { candles: 108, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
@@ -411,6 +426,7 @@ export default [
 		season: Season.Belonging,
 		expression: Expression.Boogie,
 		realm: Realm.IslesOfDawn,
+		hasMarketingVideo: true,
 		offer: { candles: 103, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
@@ -439,6 +455,7 @@ export default [
 		season: Season.Belonging,
 		expression: Expression.DontGo,
 		realm: Realm.GoldenWasteland,
+		hasMarketingVideo: true,
 		offer: { candles: 195, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
@@ -495,6 +512,7 @@ export default [
 		season: Season.Enchantment,
 		expression: Expression.Nod,
 		realm: Realm.GoldenWasteland,
+		hasMarketingVideo: true,
 		offer: { candles: 77, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
@@ -509,6 +527,7 @@ export default [
 		season: Season.Enchantment,
 		expression: Expression.CrabWalk,
 		realm: Realm.GoldenWasteland,
+		hasMarketingVideo: true,
 		offer: { candles: 115, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
@@ -552,6 +571,7 @@ export default [
 		season: Season.Sanctuary,
 		expression: Expression.Rally,
 		realm: Realm.DaylightPrairie,
+		hasMarketingVideo: true,
 		offer: { candles: 125, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
@@ -580,6 +600,7 @@ export default [
 		season: Season.Prophecy,
 		expression: Expression.DeepBreath,
 		realm: Realm.IslesOfDawn,
+		hasMarketingVideo: true,
 		offer: { candles: 201, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
@@ -630,6 +651,7 @@ export default [
 		expression: Expression.Bearhug,
 		realm: Realm.ValleyOfTriumph,
 		offer: { candles: 190, hearts: 8, ascendedCandles: 2 },
+		hasMarketingVideo: true,
 		keywords: ["yeti"],
 	}),
 	new SeasonalSpirit({
@@ -637,6 +659,7 @@ export default [
 		season: Season.Assembly,
 		expression: Expression.Facepalm,
 		realm: Realm.HiddenForest,
+		hasMarketingVideo: true,
 		offer: { candles: 127, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
@@ -679,6 +702,7 @@ export default [
 		expression: Expression.Beckon,
 		realm: Realm.VaultOfKnowledge,
 		keywords: ["frog", "frog mask"],
+		hasMarketingVideo: true,
 		offer: { candles: 103, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
@@ -698,6 +722,7 @@ export default [
 		season: Season.LittlePrince,
 		expression: Expression.Slouch,
 		realm: Realm.VaultOfKnowledge,
+		hasMarketingVideo: true,
 		offer: { candles: 140, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
@@ -705,6 +730,7 @@ export default [
 		season: Season.LittlePrince,
 		expression: Expression.Sneeze,
 		realm: Realm.VaultOfKnowledge,
+		hasMarketingVideo: true,
 		offer: { candles: 123, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
