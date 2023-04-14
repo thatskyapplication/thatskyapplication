@@ -59,7 +59,10 @@ export default class implements AutocompleteCommand {
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
 
-		if (spirit.marketingVideoURL) embed.setDescription(hyperlink("Promotional Video", spirit.marketingVideoURL));
+		const description = [];
+		if (spirit.isSeasonalSpirit() && !spirit.offer) description.push("⚠️ This spirit has not yet returned.");
+		if (spirit.marketingVideoURL) description.push(hyperlink("Promotional Video", spirit.marketingVideoURL));
+		if (description.length > 0) embed.setDescription(description.join("\n"));
 		await interaction.reply({ embeds: [embed] });
 	}
 
