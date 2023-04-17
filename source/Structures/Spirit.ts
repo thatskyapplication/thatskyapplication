@@ -129,6 +129,10 @@ export enum SpiritName {
 	PleadingChild = "Pleading Child",
 	TiptoeingTeaBrewer = "Tiptoeing Tea-Brewer",
 	WoundedWarrior = "Wounded Warrior",
+	OddballOutcast = "Oddball Outcast",
+	TumblingTroublemaker = "Tumbling Troublemaker",
+	MelancholyMope = "Melancholy Mope",
+	OveractiveOverachiever = "Overactive Overachiever",
 }
 
 const enum Season {
@@ -148,6 +152,7 @@ const enum Season {
 	Shattering = "Shattering",
 	Aurora = "AURORA",
 	Remembrance = "Remembrance",
+	Passage = "Passage",
 }
 
 const enum Call {
@@ -230,6 +235,10 @@ const enum Expression {
 	Pleading = "Pleading",
 	Tiptoeing = "Tiptoeing",
 	Grieving = "Grieving",
+	HackySack = "Hacky sack",
+	Somersault = "Somersault",
+	Moping = "Moping",
+	PullUp = "Pull-up",
 }
 
 const enum Stance {
@@ -862,5 +871,29 @@ export default [
 		season: Season.Remembrance,
 		stance: Stance.Injured,
 		realm: Realm.VaultOfKnowledge,
+	}),
+	new SeasonalSpirit({
+		name: SpiritName.OddballOutcast,
+		season: Season.Passage,
+		expression: Expression.HackySack,
+		realm: Realm.IslesOfDawn,
+	}),
+	new SeasonalSpirit({
+		name: SpiritName.TumblingTroublemaker,
+		season: Season.Passage,
+		expression: Expression.Somersault,
+		realm: Realm.IslesOfDawn,
+	}),
+	new SeasonalSpirit({
+		name: SpiritName.MelancholyMope,
+		season: Season.Passage,
+		expression: Expression.Moping,
+		realm: Realm.IslesOfDawn,
+	}),
+	new SeasonalSpirit({
+		name: SpiritName.OveractiveOverachiever,
+		season: Season.Passage,
+		expression: Expression.PullUp,
+		realm: Realm.IslesOfDawn,
 	}),
 ] as const;
