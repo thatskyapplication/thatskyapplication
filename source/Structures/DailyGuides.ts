@@ -201,7 +201,8 @@ export default new (class DailyGuides {
 			transformedContent.includes("QUEST") ||
 			transformedContent.includes("RAINBOW") ||
 			transformedContent.includes("SOCIAL LIGHT") ||
-			transformedContent.includes("SAPLING")
+			transformedContent.includes("SAPLING") ||
+			transformedContent.includes("NATURE")
 		) {
 			await this.parseQuests(content, attachments);
 		} else if (transformedContent.includes("TREASURE CANDLE")) {
