@@ -159,8 +159,10 @@ export default class DailyGuidesDistribution {
 
 		if (seasonalCandles) embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
 
-		if (shardEruption) {
-			const { realm, map, dangerous, reward, timestamps, url } = shardEruption;
+		const shardEruptionToday = shardEruption();
+
+		if (shardEruptionToday) {
+			const { realm, map, dangerous, reward, timestamps, url } = shardEruptionToday;
 
 			embed.addFields(
 				{

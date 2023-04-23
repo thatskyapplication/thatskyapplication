@@ -1,5 +1,6 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, EmbedBuilder, time, TimestampStyles } from "discord.js";
 import type { ApplicationCommandData, ChatInputCommandInteraction } from "discord.js";
+import DailyGuides from "../../Structures/DailyGuides.js";
 import {
 	Emoji,
 	MAXIMUM_WINGED_LIGHT,
@@ -9,8 +10,9 @@ import {
 	doubleSeasonalLightEventEndTimestamp,
 	doubleSeasonalLightEventStartTimestamp,
 	WingedLightCount,
+	ASCENDED_CANDLES_PER_WEEK,
 } from "../../Utility/Constants.js";
-import { isRealm, notNull, resolveCurrencyEmoji, todayDate } from "../../Utility/Utility.js";
+import { isRealm, notNull, rawTodayDate, resolveCurrencyEmoji, todayDate } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 const doubleSeasonalLightEventStart = time(
@@ -29,12 +31,78 @@ export default class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
+			case "ascended-candles":
+				await this.ascendedCandles(interaction);
+				return;
 			case "seasonal-candles":
 				await this.seasonalCandles(interaction);
 				return;
 			case "winged-light":
 				await this.wingedLight(interaction);
 		}
+	}
+
+	public async ascendedCandles(interaction: ChatInputCommandInteraction) {
+		const { options } = interaction;
+		const start = options.getInteger("start", true);
+		const goal = options.getInteger("goal", true);
+
+		if (start >= goal) {
+			await interaction.reply({ content: "The goal has already been achieved.", ephemeral: true });
+			return;
+		}
+
+		const amountRequired = goal - start;
+		let day = rawTodayDate();
+		let result = 0;
+
+		for (let index = 0; ; index++) {
+			const shardEruptionToday = DailyGuides.shardEruption(index);
+
+			if (shardEruptionToday) {
+				const { dangerous, reward } = shardEruptionToday;
+				if (dangerous) result += reward;
+			}
+
+			if (day.day() === 0) result += ASCENDED_CANDLES_PER_WEEK;
+			if (result >= amountRequired) break;
+			day = day.add(1, "day");
+		}
+
+		const timestamp = day.unix();
+
+		await interaction.reply({
+			embeds: [
+				new EmbedBuilder()
+					.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
+					.setDescription(
+						`Start: ${resolveCurrencyEmoji({
+							interaction,
+							emoji: Emoji.AscendedCandle,
+							number: start,
+						})}\nGoal: ${resolveCurrencyEmoji({
+							interaction,
+							emoji: Emoji.AscendedCandle,
+							number: goal,
+						})}\nRequired: ${resolveCurrencyEmoji({
+							interaction,
+							emoji: Emoji.AscendedCandle,
+							number: amountRequired,
+						})}`,
+					)
+					.setFields({
+						name: "Result",
+						value: `This goal is first achievable at ${time(timestamp, TimestampStyles.LongDate)} (${time(
+							timestamp,
+							TimestampStyles.RelativeTime,
+						)}).`,
+					})
+					.setFooter({
+						text: "This calculator derives the minimum time by assuming all statues in the Eye of Eden were gifted winged light and all shard eruptions were cleansed.",
+					})
+					.setTitle("Ascended Candle Calculator"),
+			],
+		});
 	}
 
 	public async seasonalCandles(interaction: ChatInputCommandInteraction) {
@@ -225,6 +293,29 @@ export default class implements ChatInputCommand {
 			description: "The command containing various calculators.",
 			type: this.type,
 			options: [
+				{
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "ascended-candles",
+					description: "Calculates the number of days it would take to achieve a number of ascended candles.",
+					options: [
+						{
+							type: ApplicationCommandOptionType.Integer,
+							name: "start",
+							description: "The starting number of ascended candles.",
+							minValue: 0,
+							maxValue: 1_000,
+							required: true,
+						},
+						{
+							type: ApplicationCommandOptionType.Integer,
+							name: "goal",
+							description: "The desired number of ascended candles.",
+							minValue: 0,
+							maxValue: 1_000,
+							required: true,
+						},
+					],
+				},
 				{
 					type: ApplicationCommandOptionType.Subcommand,
 					name: "seasonal-candles",

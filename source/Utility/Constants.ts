@@ -12,6 +12,7 @@ export const LOG_CHANNEL_ID = "1040806599293407263" as const;
 export const CDN_URL = "https://cdn.thatskyapplication.com" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki" as const;
 export const MAXIMUM_WINGED_LIGHT = 214 as const;
+export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
 export const SEASONAL_CANDLES_PER_DAY = 5 as const;
 export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
 export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;

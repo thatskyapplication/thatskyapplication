@@ -22,6 +22,10 @@ export function todayDate() {
 	return dayjs.tz(Date.now(), "America/Los_Angeles").hour(0).minute(0).second(0).millisecond(0).toDate();
 }
 
+export function rawTodayDate() {
+	return dayjs.tz(Date.now(), "America/Los_Angeles").hour(0).minute(0).second(0).millisecond(0);
+}
+
 export function treasureCandleRealm() {
 	return VALID_REALM[
 		dayjs
