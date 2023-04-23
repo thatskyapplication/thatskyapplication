@@ -212,18 +212,11 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		const heartsFiltered = hearts
-			.filter((heart) => {
-				switch (options?.type) {
-					case HeartHistoryNavigationType.Back:
-						return heart.timestamp.getTime() > options.timestamp;
-					case HeartHistoryNavigationType.Forward:
-						return heart.timestamp.getTime() < options.timestamp;
-					default:
-						return true;
-				}
-			})
-			.slice(0, 24);
+		const heartsFiltered = options
+			? options.type === HeartHistoryNavigationType.Back
+				? hearts.filter((heart) => heart.timestamp.getTime() > options.timestamp).slice(-24)
+				: hearts.filter((heart) => heart.timestamp.getTime() < options.timestamp).slice(0, 24)
+			: hearts.slice(0, 24);
 
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
