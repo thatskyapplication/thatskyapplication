@@ -12,7 +12,7 @@ import {
 	WingedLightCount,
 	ASCENDED_CANDLES_PER_WEEK,
 } from "../../Utility/Constants.js";
-import { isRealm, notNull, rawTodayDate, resolveCurrencyEmoji, todayDate } from "../../Utility/Utility.js";
+import { isRealm, notNull, resolveCurrencyEmoji, todayDate } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 const doubleSeasonalLightEventStart = time(
@@ -53,7 +53,7 @@ export default class implements ChatInputCommand {
 		}
 
 		const amountRequired = goal - start;
-		let day = rawTodayDate();
+		let day = todayDate();
 		let result = 0;
 
 		for (let index = 0; ; index++) {
@@ -116,7 +116,7 @@ export default class implements ChatInputCommand {
 		}
 
 		const amountRequired = goal - start;
-		let timestamp = todayDate().getTime();
+		let timestamp = todayDate().valueOf();
 		let result = 0;
 		let days = 0;
 		let resultWithSeasonPass = 0;

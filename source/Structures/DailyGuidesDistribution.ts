@@ -130,12 +130,7 @@ export default class DailyGuidesDistribution {
 		const date = todayDate();
 
 		const embed = new EmbedBuilder()
-			.setTitle(
-				`${String(date.getUTCDate()).padStart(2, "0")}/${String(date.getUTCMonth() + 1).padStart(
-					2,
-					"0",
-				)}/${date.getUTCFullYear()}`,
-			)
+			.setTitle(`${String(date.date()).padStart(2, "0")}/${String(date.month() + 1).padStart(2, "0")}/${date.year()}`)
 			.setColor(me.displayColor);
 
 		if (quest1)

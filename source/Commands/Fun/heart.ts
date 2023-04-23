@@ -142,14 +142,15 @@ export default class implements ChatInputCommand {
 			.limit(1);
 
 		const timestamp = heartPackets[0]?.timestamp;
+		const todayTimestamp = todayDate().valueOf();
 
-		if (timestamp && timestamp.getTime() >= todayDate().getTime()) {
+		if (timestamp && timestamp.getTime() >= todayTimestamp) {
 			await interaction.reply({
 				content: `You have already gifted a ${resolveCurrencyEmoji({
 					interaction,
 					emoji: Emoji.Heart,
 				})} today!\nYou can give another ${resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart })} ${time(
-					Math.floor((todayDate().getTime() + 86_400_000) / 1_000),
+					Math.floor((todayTimestamp + 86_400_000) / 1_000),
 					TimestampStyles.RelativeTime,
 				)}.`,
 				ephemeral: true,

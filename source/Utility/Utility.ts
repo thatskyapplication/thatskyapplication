@@ -19,10 +19,6 @@ export function notNull<T>(value: T | null): value is T {
 }
 
 export function todayDate() {
-	return dayjs.tz(Date.now(), "America/Los_Angeles").hour(0).minute(0).second(0).millisecond(0).toDate();
-}
-
-export function rawTodayDate() {
 	return dayjs.tz(Date.now(), "America/Los_Angeles").hour(0).minute(0).second(0).millisecond(0);
 }
 
