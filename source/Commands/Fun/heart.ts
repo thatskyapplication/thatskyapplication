@@ -189,12 +189,11 @@ export default class implements ChatInputCommand {
 	) {
 		const buttonInteraction = interaction instanceof ButtonInteraction;
 
-		const hearts = (
-			await pg<HeartPacket>(Table.Hearts)
-				.select()
-				.where({ gifter_id: interaction.user.id })
-				.orWhere({ giftee_id: interaction.user.id })
-		).reverse();
+		const hearts = await pg<HeartPacket>(Table.Hearts)
+			.select()
+			.where({ gifter_id: interaction.user.id })
+			.orWhere({ giftee_id: interaction.user.id })
+			.orderBy("timestamp", "desc");
 
 		if (hearts.length === 0) {
 			const response = {

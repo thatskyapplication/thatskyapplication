@@ -142,7 +142,7 @@ export const event: Event<typeof name> = {
 
 					await commands.heart.heartHistory(interaction, {
 						type: type === HEART_HISTORY_BACK ? HeartHistoryNavigationType.Back : HeartHistoryNavigationType.Forward,
-						timestamp: timestamp as unknown as number,
+						timestamp: Number(timestamp!),
 					});
 
 					return;
