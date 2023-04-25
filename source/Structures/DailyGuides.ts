@@ -248,7 +248,10 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("PURPLE LIGHT")) return "Collect Purple Light";
 		if (upperPureContent.includes("RED LIGHT")) return "Collect Red Light";
 		if (upperPureContent.includes("SAPLING")) return "Admire the Sapling";
-		if (upperPureContent.includes("SOCIAL LIGHT")) return "Visit the Social Light Area";
+
+		if (upperPureContent.includes("SOCIAL LIGHT") || upperPureContent.includes("VISIT THE ANCESTOR"))
+			return "Visit the Social Light Area";
+
 		if (upperPureContent.includes("POLLUTED GEYSER")) return "Visit the Polluted Geyser";
 		if (upperPureContent.includes("SCAVENGER HUNT")) return "Complete the Hoop Scavenger Hunt";
 		if (upperPureContent.includes("RACE DOWN THE SLOPES")) return "Race Down the Slopes with the Skater";
