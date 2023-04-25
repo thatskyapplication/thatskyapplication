@@ -12,7 +12,7 @@
 		"strict": true,
 		"module": "ESNext",
 		"moduleResolution": "NodeNext",
-		"importsNotUsedAsValues": "error",
+		"verbatimModuleSyntax": true,
 		"newLine": "lf",
 		"outDir": "sourceJS",
 		"esModuleInterop": true,
