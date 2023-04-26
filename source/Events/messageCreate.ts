@@ -43,7 +43,7 @@ async function AIResponse(message: Message<true>) {
 							if (name) chatCompletionRequestMessage.name = name;
 							return chatCompletionRequestMessage;
 						})
-						.slice(0, 20),
+						.slice(-20),
 				],
 				model: "gpt-3.5-turbo",
 				user: message.author.id,
