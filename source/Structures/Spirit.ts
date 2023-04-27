@@ -551,6 +551,7 @@ export default [
 		season: Season.Enchantment,
 		expression: Expression.Doze,
 		realm: Realm.GoldenWasteland,
+		hasMarketingVideo: true,
 		offer: { candles: 112, hearts: 13, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
