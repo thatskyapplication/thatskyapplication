@@ -68,7 +68,10 @@ export const event: Event<typeof name> = {
 		void DailyGuides.parse(message);
 		if (message.author.bot) return;
 
-		if ((Math.random() < 0.01 && message.content.length > 0) || message.mentions.has(message.client.user.id)) {
+		if (
+			(Math.random() < 0.01 && message.content.length > 0) ||
+			message.mentions.has(message.client.user.id, { ignoreEveryone: true, ignoreRoles: true })
+		) {
 			void AIResponse(message);
 		} else if (message.type === MessageType.Reply) {
 			const referencedMessage = message.channel.messages.cache.get(message.reference!.messageId!);
