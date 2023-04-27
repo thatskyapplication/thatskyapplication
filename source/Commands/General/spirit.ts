@@ -100,7 +100,7 @@ export default class implements AutocompleteCommand {
 				{
 					type: ApplicationCommandOptionType.String,
 					name: "query",
-					description: "The name, season, expression, stance or call of the spirit.",
+					description: "The name, season, expression, stance, or call of the spirit.",
 					required: true,
 					autocomplete: true,
 				},
