@@ -23,6 +23,7 @@ async function AIResponse(message: Message<true>) {
 		const [, completion] = await Promise.all([
 			message.channel.sendTyping(),
 			openAI.createChatCompletion({
+				frequency_penalty: 1,
 				max_tokens: 100,
 				messages: [
 					{
