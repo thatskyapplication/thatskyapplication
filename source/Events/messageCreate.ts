@@ -15,37 +15,65 @@ const openAI = new OpenAIApi(configuration);
 
 function parseAIName(input: string) {
 	const cleaned = input.replaceAll(/[^\w-]/g, "");
-	return cleaned.length >= 1 && cleaned.length <= 64 ? cleaned : null;
+	return cleaned.length >= 1 ? cleaned : null;
 }
 
-async function AIResponse(message: Message<true>) {
+async function AIResponse(message: Message<true>, random = false) {
 	try {
+		let messages;
+
+		if (random) {
+			messages = [
+				...message.channel.messages.cache
+					.map((message) => {
+						const chatCompletionRequestMessage: ChatCompletionRequestMessage = {
+							content: message.content,
+							role:
+								message.author.id === message.client.user.id
+									? ChatCompletionRequestMessageRoleEnum.Assistant
+									: ChatCompletionRequestMessageRoleEnum.User,
+						};
+
+						const name = parseAIName(message.member?.displayName ?? message.author.username);
+						if (name) chatCompletionRequestMessage.name = name;
+						return chatCompletionRequestMessage;
+					})
+					.slice(-5),
+				{
+					role: ChatCompletionRequestMessageRoleEnum.System,
+					content: `You are ${message.client.user.username}. Give a whimsical and short response. Be girly.`,
+				},
+			];
+		} else {
+			messages = [
+				{
+					role: ChatCompletionRequestMessageRoleEnum.System,
+					content: `You are ${message.client.user.username}. You are a kind, girly character that is upbeat based on the game Sky: Children of the Light. You are in a Discord server. Use emojis if you want. You are created by Jiralite.`,
+				},
+				...message.channel.messages.cache
+					.map((message) => {
+						const chatCompletionRequestMessage: ChatCompletionRequestMessage = {
+							content: message.content,
+							role:
+								message.author.id === message.client.user.id
+									? ChatCompletionRequestMessageRoleEnum.Assistant
+									: ChatCompletionRequestMessageRoleEnum.User,
+						};
+
+						const name = parseAIName(message.member?.displayName ?? message.author.username);
+						if (name) chatCompletionRequestMessage.name = name;
+						return chatCompletionRequestMessage;
+					})
+					.slice(-20),
+			];
+		}
+
 		const [, completion] = await Promise.all([
 			message.channel.sendTyping(),
 			openAI.createChatCompletion({
 				frequency_penalty: 1,
 				max_tokens: 100,
-				messages: [
-					{
-						role: ChatCompletionRequestMessageRoleEnum.System,
-						content: `You are ${message.client.user.username}. You are a kind, girly character that is upbeat based on the game Sky: Children of the Light. You are in a Discord server. Use emojis if you want. You are created by Jiralite.`,
-					},
-					...message.channel.messages.cache
-						.map((message) => {
-							const chatCompletionRequestMessage: ChatCompletionRequestMessage = {
-								content: message.content,
-								role:
-									message.author.id === message.client.user.id
-										? ChatCompletionRequestMessageRoleEnum.Assistant
-										: ChatCompletionRequestMessageRoleEnum.User,
-							};
-
-							const name = parseAIName(message.member?.displayName ?? message.author.username);
-							if (name) chatCompletionRequestMessage.name = name;
-							return chatCompletionRequestMessage;
-						})
-						.slice(-20),
-				],
+				messages,
 				model: "gpt-3.5-turbo",
 				user: message.author.id,
 			}),
@@ -67,11 +95,11 @@ export const event: Event<typeof name> = {
 		if (!message.inGuild()) return;
 		void DailyGuides.parse(message);
 		if (message.author.bot) return;
+		const meMention = message.mentions.has(message.client.user.id, { ignoreEveryone: true, ignoreRoles: true });
 
-		if (
-			(Math.random() < 0.01 && message.content.length > 0) ||
-			message.mentions.has(message.client.user.id, { ignoreEveryone: true, ignoreRoles: true })
-		) {
+		if (Math.random() < 0.01 && message.content.length > 0 && !meMention) {
+			void AIResponse(message, true);
+		} else if (meMention) {
 			void AIResponse(message);
 		} else if (message.type === MessageType.Reply) {
 			const referencedMessage = message.channel.messages.cache.get(message.reference!.messageId!);
