@@ -1,5 +1,5 @@
 import process from "node:process";
-import { MessageType, type Message, Events } from "discord.js";
+import { MessageType, type Message, Events, PermissionFlagsBits } from "discord.js";
 import {
 	ChatCompletionRequestMessageRoleEnum,
 	Configuration,
@@ -94,7 +94,14 @@ export const event: Event<typeof name> = {
 	async fire(message) {
 		if (!message.inGuild()) return;
 		void DailyGuides.parse(message);
-		if (message.author.bot) return;
+		const me = await message.guild.members.fetchMe();
+
+		if (
+			message.author.bot ||
+			!message.channel.permissionsFor(me).has(PermissionFlagsBits.ReadMessageHistory | PermissionFlagsBits.SendMessages)
+		)
+			return;
+
 		const meMention = message.mentions.has(message.client.user.id, { ignoreEveryone: true, ignoreRoles: true });
 
 		if (Math.random() < 0.01 && message.content.length > 0 && !meMention) {
