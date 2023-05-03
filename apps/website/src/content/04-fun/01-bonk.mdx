@@ -1,0 +1,38 @@
+---
+title: Bonk
+category: Fun
+---
+
+import { anna, caelus, elaine } from "~/structures/SkyKid";
+
+# Bonk
+
+Sometimes, people just need to be bonked.
+
+<DiscordMessages rounded>
+	<DiscordMessage
+		author={{ avatar: anna.avatarIcon, username: anna.name }}
+	>
+	you ate all of Granny's dumplings alone 😭
+</DiscordMessage>
+
+<DiscordMessage
+	author={{ avatar: caelus.avatarIcon, bot: true, username: caelus.name }}
+	interaction={{
+		author: {
+			avatar: elaine.avatarIcon,
+			username: elaine.name,
+		},
+		command: "/bonk",
+	}}
+>
+	@{elaine.name} took a flight, hiked mountains, conquered deserts, all to bonk @{anna.name}. It was probably worth it.
+</DiscordMessage>
+
+<DiscordMessage author={{ avatar: elaine.avatarIcon, username: elaine.name }}>
+	Next time you have to be faster 🤭
+</DiscordMessage>
+
+<DiscordMessage author={{ avatar: anna.avatarIcon, username: anna.name }}>THIS IS NOT THE END 😭😤🤣🤌</DiscordMessage>
+
+</DiscordMessages>

@@ -12,6 +12,7 @@
 		"strict": true,
 		"module": "ESNext",
 		"moduleResolution": "NodeNext",
+		"resolveJsonModule": true,
 		"verbatimModuleSyntax": true,
 		"newLine": "lf",
 		"outDir": "dist",
