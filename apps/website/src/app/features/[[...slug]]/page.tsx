@@ -8,6 +8,7 @@ export async function generateStaticParams() {
 
 export default function Page({ params }: { params: { slug: string[] } }) {
 	const content = allContents.find((content) => content.slug === params.slug?.join("/"));
+	console.log(content);
 
 	// if (!content) {
 		redirect("/");
