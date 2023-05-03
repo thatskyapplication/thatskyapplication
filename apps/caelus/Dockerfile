@@ -11,19 +11,19 @@ RUN volta install yarn
 
 #######################################################################
 
-RUN mkdir /thatskyapplication
-WORKDIR /thatskyapplication
+RUN mkdir /caelus
+WORKDIR /caelus
 
 COPY . .
 
 RUN yarn
-RUN yarn turbo run build --filter=caelus
+RUN yarn run build
 FROM debian:bullseye
 
 COPY --from=builder /root/.volta /root/.volta
-COPY --from=builder /thatskyapplication /thatskyapplication
+COPY --from=builder /caelus /caelus
 
-WORKDIR /thatskyapplication/apps/caelus/
+WORKDIR /caelus
 ENV NODE_ENV production
 ENV PATH /root/.volta/bin:$PATH
 

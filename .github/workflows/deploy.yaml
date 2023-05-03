@@ -15,4 +15,4 @@ jobs:
 
       - uses: superfly/flyctl-actions/setup-flyctl@master
 
-      - run: flyctl deploy --config apps/caelus/fly.toml --dockerfile apps/caelus/Dockerfile --remote-only
+      - run: flyctl deploy --remote-only apps/caelus
