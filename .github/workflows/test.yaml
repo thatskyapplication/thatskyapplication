@@ -5,6 +5,6 @@ jobs:
     name: Check for typographical errors
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: crate-ci/typos@master

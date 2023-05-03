@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/crate-ci/typos
-    rev: typos-dict-v0.9.16
+    rev: typos-dict-v0.9.26
     hooks:
       - id: typos
         args: []
