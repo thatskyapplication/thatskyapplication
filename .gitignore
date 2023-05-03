@@ -21,6 +21,7 @@ node_modules
 .turbo
 dist/
 unocss.css
+apps/website/.vscode
 
 # Next.js
 .next/
