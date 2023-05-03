@@ -1,5 +1,5 @@
 {
-	"name": "caelus",
+	"name": "@thatskyapplication/caelus",
 	"private": true,
 	"type": "module",
 	"scripts": {
