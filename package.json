@@ -2,18 +2,17 @@
 	"name": "@thatskyapplication/thatskyapplication",
 	"private": true,
 	"description": "We'll help you make the most of Sky!",
-	"scripts": {
-		"build": "turbo run build --parallel",
-		"format": "turbo run format --parallel",
-		"update": "pnpm update --interactive"
-	},
 	"homepage": "https://thatskyapplication.com",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/thatskyapplication/Caelus.git"
 	},
 	"type": "module",
-	"packageManager": "pnpm@8.4.0",
+	"scripts": {
+		"build": "turbo run build --parallel",
+		"format": "turbo run format --parallel",
+		"update": "pnpm update --interactive"
+	},
 	"devDependencies": {
 		"@jiralite/eslint-config-neon": "^0.1.40",
 		"eslint": "^8.39.0",
@@ -21,5 +20,6 @@
 		"tsup": "^6.7.0",
 		"turbo": "^1.9.3",
 		"typescript": "^5.0.4"
-	}
+	},
+	"packageManager": "pnpm@8.4.0"
 }

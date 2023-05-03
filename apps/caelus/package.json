@@ -4,8 +4,8 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsup",
-		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write . && eslint --fix .",
+		"lint": "prettier --check . && eslint .",
 		"start": "node --enable-source-maps --require dotenv/config dist/index.js"
 	},
 	"dependencies": {
