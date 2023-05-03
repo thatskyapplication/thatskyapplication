@@ -17,7 +17,7 @@ WORKDIR /thatskyapplication
 COPY . .
 
 RUN yarn
-RUN yarn run build
+RUN yarn turbo run build --filter=caelus
 FROM debian:bullseye
 
 COPY --from=builder /root/.volta /root/.volta
