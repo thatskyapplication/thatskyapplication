@@ -1,6 +1,6 @@
 {
 	"$schema": "https://turbo.build/schema.json",
-	"globalDependencies": ["yarn.lock"],
+	"globalDependencies": ["pnpm-lock.yaml"],
 	"pipeline": {
 		"build": {
 			"outputs": ["dist/**"]
