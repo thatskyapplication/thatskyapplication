@@ -3,6 +3,18 @@ Dockerfile
 node_modules/
 .git
 dist/
-**/.DS_Store
-**/test.ts
-**/.env
+test.ts
+.env
+
+# yarn
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Miscellaneous
+.DS_Store
+.turbo
