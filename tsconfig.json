@@ -14,7 +14,7 @@
 		"moduleResolution": "NodeNext",
 		"verbatimModuleSyntax": true,
 		"newLine": "lf",
-		"outDir": "sourceJS",
+		"outDir": "dist",
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"lib": ["ESNext"],

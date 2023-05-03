@@ -1,7 +1,5 @@
-import { readdir, unlink, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { unlink, writeFile } from "node:fs/promises";
 import process from "node:process";
-import { URL } from "node:url";
 import { inspect } from "node:util";
 import type {
 	ApplicationCommandData,
@@ -14,10 +12,9 @@ import type {
 import { Partials, Client, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits } from "discord.js";
 import commands from "./Commands/index.js";
 import type { Event } from "./Events/index.js";
+import events from "./Events/index.js";
 import { DEVELOPER_GUILD_ID, LOG_CHANNEL_ID, production } from "./Utility/Constants.js";
 import { consoleLog } from "./Utility/Utility.js";
-
-const eventsPath = new URL("Events/", import.meta.url);
 
 interface LogOptions {
 	content?: string;
@@ -136,8 +133,8 @@ const client = new Caelus({
 	partials: [Partials.Message],
 });
 
-for (const file of (await readdir(eventsPath)).filter((file) => file !== "index.js")) {
-	const { name, once, fire }: Event = (await import(join(String(eventsPath), file))).event;
+for (const event of events) {
+	const { name, once, fire }: Event = event;
 	client[once ? "once" : "on"](name, fire);
 }
 

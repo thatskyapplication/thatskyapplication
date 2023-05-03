@@ -4,4 +4,4 @@ test.js
 test.ts
 package-lock.json
 node_modules/
-sourceJS/
+dist/
