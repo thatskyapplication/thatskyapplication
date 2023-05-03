@@ -1,29 +1,32 @@
-FROM debian:bullseye as builder
+# Builder stage.
+FROM node:lts-bullseye-slim AS builder
 
-ARG NODE_VERSION=18.8.0
+WORKDIR /app
 
-RUN apt-get update; apt install -y curl
-RUN curl https://get.volta.sh | bash
-ENV VOLTA_HOME /root/.volta
-ENV PATH /root/.volta/bin:$PATH
-RUN volta install node@${NODE_VERSION}
+# Install pnpm and copy the required files.
+RUN npm install --global pnpm@8.4.0
+COPY package.json ./
 
-#######################################################################
+# Install dependencies.
+RUN pnpm install
 
-RUN mkdir /caelus
-WORKDIR /caelus
-
+# Build the project.
 COPY . .
+RUN pnpm run build
 
-RUN npm install
-RUN npm run-script build
-FROM debian:bullseye
+# Remove development dependencies.
+RUN pnpm prune --prod
 
-COPY --from=builder /root/.volta /root/.volta
-COPY --from=builder /caelus /caelus
+# Final stage.
+FROM node:lts-bullseye-slim
 
-WORKDIR /caelus
 ENV NODE_ENV production
-ENV PATH /root/.volta/bin:$PATH
+WORKDIR /app
 
-CMD [ "npm", "run-script", "start" ]
+# Copy built files and production dependencies from builder stage.
+COPY --from=builder /app/dist /app/dist
+COPY --from=builder /app/node_modules /app/node_modules
+COPY --from=builder /app/package.json /app/package.json
+
+# Start the application.
+CMD ["npm", "run-script", "start"]

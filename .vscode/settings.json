@@ -5,7 +5,7 @@
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnSave": true,
 	"eslint.workingDirectories": [{ "pattern": "./apps/*" }],
-	"npm.packageManager": "yarn",
+	"npm.packageManager": "pnpm",
 	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"typescript.preferences.importModuleSpecifierEnding": "js",
 	"typescript.tsdk": "node_modules/typescript/lib"
