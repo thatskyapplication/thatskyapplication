@@ -1,28 +1,28 @@
 {
-	"name": "caelus",
+	"name": "@thatskyapplication/thatskyapplication",
 	"private": true,
-	"type": "module",
+	"description": "We'll help you make the most of Sky!",
 	"scripts": {
-		"build": "tsup",
-		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write . && eslint --fix .",
-		"start": "node --enable-source-maps --require dotenv/config dist/index.js"
+		"build": "turbo run build --parallel",
+		"format": "turbo run format --parallel",
+		"update": "yarn upgrade-interactive"
 	},
-	"dependencies": {
-		"@sapphire/async-queue": "^1.5.0",
-		"dayjs": "^1.11.7",
-		"discord.js": "^14.9.0",
-		"dotenv": "^16.0.3",
-		"knex": "^2.4.2",
-		"openai": "^3.2.1",
-		"pg": "^8.10.0",
-		"undici": "^5.22.0"
+	"homepage": "https://thatskyapplication.com",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/thatskyapplication/Caelus.git"
 	},
+	"type": "module",
+	"workspaces": [
+		"apps/*"
+	],
+	"packageManager": "yarn@3.5.1",
 	"devDependencies": {
 		"@jiralite/eslint-config-neon": "^0.1.40",
 		"eslint": "^8.39.0",
 		"prettier": "^2.8.8",
 		"tsup": "^6.7.0",
+		"turbo": "^1.9.3",
 		"typescript": "^5.0.4"
 	}
 }

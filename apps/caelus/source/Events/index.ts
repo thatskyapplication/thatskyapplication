@@ -10,9 +10,4 @@ export interface Event<T extends keyof ClientEvents = keyof ClientEvents> {
 	fire(this: void, ...parameters: ClientEvents[T]): Promise<void> | void;
 }
 
-export default [
-	interactionCreate,
-	messageCreate,
-	messageUpdate,
-	ready,
-] as const;
+export default [interactionCreate, messageCreate, messageUpdate, ready] as const;

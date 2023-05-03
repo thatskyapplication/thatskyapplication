@@ -1,8 +1,8 @@
 name: Deploy Caelus codebase
 on:
   push:
-    branches:
-      - main
+    branches: main
+    paths: apps/caelus
   workflow_dispatch:
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
@@ -15,4 +15,4 @@ jobs:
 
       - uses: superfly/flyctl-actions/setup-flyctl@master
 
-      - run: flyctl deploy --remote-only
+      - run: flyctl deploy --config apps/caelus/fly.toml --dockerfile apps/caelus/Dockerfile --remote-only
