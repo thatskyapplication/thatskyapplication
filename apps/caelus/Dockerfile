@@ -7,7 +7,6 @@ RUN curl https://get.volta.sh | bash
 ENV VOLTA_HOME /root/.volta
 ENV PATH /root/.volta/bin:$PATH
 RUN volta install node@${NODE_VERSION}
-RUN volta install yarn
 
 #######################################################################
 
@@ -16,8 +15,8 @@ WORKDIR /caelus
 
 COPY . .
 
-RUN yarn
-RUN yarn run build
+RUN npm install
+RUN npm run-script build
 FROM debian:bullseye
 
 COPY --from=builder /root/.volta /root/.volta
@@ -27,4 +26,4 @@ WORKDIR /caelus
 ENV NODE_ENV production
 ENV PATH /root/.volta/bin:$PATH
 
-CMD [ "yarn", "run", "start" ]
+CMD [ "npm", "run-script", "start" ]
