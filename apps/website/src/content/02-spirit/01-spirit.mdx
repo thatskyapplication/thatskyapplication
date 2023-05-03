@@ -1,0 +1,35 @@
+---
+title: Spirit
+category: Spirit
+---
+
+import { caelus, lucía } from "~/structures/SkyKid";
+import { CDN_URL, INVITE_SUPPORT_SERVER_URL } from "~/util/constants";
+
+# Spirit
+
+One can easily look up spirits! If you don't know the name of the spirit you're trying to look up, you can try the season, expression, stance, or call.
+
+<DiscordMessages rounded>
+	<DiscordMessage author={{ avatar: lucía.avatarIcon, username: lucía.name }}>
+		I want to see the best spirit ever aka ✨bubbles girl✨
+	</DiscordMessage>
+	<DiscordMessage
+		author={{ avatar: caelus.avatarIcon, username: caelus.name }}
+		interaction={{ author: { avatar: lucía.avatarIcon, username: lucía.name }, command: "/spirit" }}
+	>
+		<DiscordMessageEmbed
+			title="Daydream Forester"
+			url="https://sky-children-of-the-light.fandom.com/Daydream_Forester"
+			fields={[
+				{ name: "Realm", value: "Hidden Forest", inline: true },
+				{ name: "Season", value: "Assembly", inline: true },
+				{ name: "Offer", value: "112 candles, 13 hearts, 2 ascended candles", inline: true },
+				{ name: "Expression", value: "Bubbles", inline: true },
+				{ name: "Stance", value: "None", inline: true },
+				{ name: "Call", value: "None", inline: true },
+			]}
+			image={new URL("spirits/Daydream_Forester.png", CDN_URL)}
+		></DiscordMessageEmbed>
+	</DiscordMessage>
+</DiscordMessages>

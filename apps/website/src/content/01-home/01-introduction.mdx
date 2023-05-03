@@ -1,0 +1,61 @@
+---
+title: Introduction
+category: Home
+---
+
+import { caelus } from "~/structures/SkyKid";
+import {
+	GITHUB_SPONSORS_URL,
+	INVITE_APPLICATION_URL,
+	INVITE_SUPPORT_SERVER_URL,
+	KO_FI_URL,
+	PATREON_URL,
+	THAT_SKY_GAME_URL,
+} from "~/util/constants";
+
+# Introduction
+
+<DiscordMessages rounded>
+	<DiscordMessage
+		author={{ avatar: caelus.avatarIcon, bot: true, username: caelus.name }}
+	>
+		I'm a Discord bot for <DiscordLink href={THAT_SKY_GAME_URL} title="Sky: Children of the Light"/>!
+		<br />
+		I have ✨ amazing ✨ features to provide for you and your friends! So amazing that I just had to use emojis. Check them out in the sidebar!
+		<br />
+		You can invite me or join the support server here:
+		- <DiscordLink href={INVITE_APPLICATION_URL} title={`Invite ${caelus.name}`} />
+		- <DiscordLink href={INVITE_SUPPORT_SERVER_URL} title="Support Server" />
+</DiscordMessage>
+
+</DiscordMessages>
+
+## Recent Updates
+
+<DiscordMessages rounded>
+	<DiscordMessage
+		author={{ avatar: caelus.avatarIcon, bot: true, username: caelus.name }}
+	>
+		This website is new. It's got that fresh smell. You know, _that_ kind of smell. Fresh. 🫧
+</DiscordMessage>
+
+</DiscordMessages>
+## Supporting Us
+
+<DiscordMessages rounded>
+	<DiscordMessage
+		author={{ avatar: caelus.avatarIcon, bot: true, username: caelus.name }}
+	>
+We know there are amazing people out there who may want to donate just to show their appreciation. Thank you in advance!
+
+You may support us via any of the following:
+
+- <DiscordLink href={KO_FI_URL} title="Ko-fi" />
+- <DiscordLink href={PATREON_URL} title="Patreon" />
+- <DiscordLink href={GITHUB_SPONSORS_URL} title="GitHub" />
+
+See you in the skies! ☁️
+
+</DiscordMessage>
+
+</DiscordMessages>

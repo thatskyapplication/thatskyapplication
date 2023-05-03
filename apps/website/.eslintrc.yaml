@@ -1,0 +1,10 @@
+extends:
+  - ../../.eslintrc.yaml
+  - "@jiralite/eslint-config-neon/react"
+  - "@jiralite/eslint-config-neon/next"
+  - "@jiralite/eslint-config-neon/edge"
+settings:
+  react:
+    version: "detect"
+rules:
+  "@next/next/no-img-element": 0

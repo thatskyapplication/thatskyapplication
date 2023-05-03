@@ -1,0 +1,52 @@
+---
+title: Fight
+category: Fun
+---
+
+import { caelus, elizabeth, taha } from "~/structures/SkyKid";
+
+# Fight
+
+Even best friends have disagreements. Sometimes, it requires a loving battle.
+
+<DiscordMessages rounded>
+
+    <DiscordMessage author={{ avatar: taha.avatarIcon, username: taha.name }}>
+
+Sanorita  
+You free to join us  
+Secret room
+
+</DiscordMessage>
+
+    <DiscordMessage author={{ avatar: elizabeth.avatarIcon, username: elizabeth.name }}>Nah</DiscordMessage>
+    <DiscordMessage author={{ avatar: taha.avatarIcon, username: taha.name }}>
+
+Just nah  
+I need more words
+
+</DiscordMessage>
+
+    <DiscordMessage author={{ avatar: elizabeth.avatarIcon, username: elizabeth.name }}>Nah</DiscordMessage>
+
+    <DiscordMessage author={{ avatar: taha.avatarIcon, username: taha.name }}>
+
+Quack quack  
+Angrily qucking
+
+</DiscordMessage>
+
+    <DiscordMessage
+    	author={{ avatar: caelus.avatarIcon, bot: true, username: caelus.name }}
+    	interaction={{
+    		author: { avatar: elizabeth.avatarIcon, username: elizabeth.name },
+    		command: "/fight",
+    	}}
+    >
+    	@{elizabeth.name} is fighting @{taha.name}!
+    	<DiscordMessageEmbed>
+    		<img src="https://i.waifu.pics/O8qm8aU.gif" />
+    	</DiscordMessageEmbed>
+    </DiscordMessage>
+
+</DiscordMessages>
