@@ -35,6 +35,8 @@ export default function heartbeat(client: Client<true>): void {
 				if (day === 0) sendNotification(client, NotificationEvent.EyeOfEden);
 			}
 
+			if ((minute + 5) % 15 === 0) sendNotification(client, NotificationEvent.Passage);
+
 			if (hour % 2 === 0) {
 				switch (minute) {
 					case 0:

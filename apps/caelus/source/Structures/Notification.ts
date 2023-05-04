@@ -15,6 +15,8 @@ export interface NotificationPacket {
 	eye_of_eden_role_id: Snowflake | null;
 	daily_reset_channel_id: Snowflake | null;
 	daily_reset_role_id: Snowflake | null;
+	passage_channel_id: Snowflake | null;
+	passage_role_id: Snowflake | null;
 }
 
 interface NotificationData {
@@ -30,6 +32,8 @@ interface NotificationData {
 	eyeOfEdenRoleId: NotificationPacket["eye_of_eden_role_id"];
 	dailyResetChannelId: NotificationPacket["daily_reset_channel_id"];
 	dailyResetRoleId: NotificationPacket["daily_reset_role_id"];
+	passageChannelId: NotificationPacket["passage_channel_id"];
+	passageRoleId: NotificationPacket["passage_role_id"];
 }
 
 type NotificationPatchData = Omit<NotificationPacket, "id" | "guild_id">;
@@ -42,6 +46,7 @@ export enum NotificationEvent {
 	Turtle = "Turtle",
 	DailyReset = "Daily Reset",
 	EyeOfEden = "Eye of Eden",
+	Passage = "Passage",
 }
 
 export function isEvent(event: string): event is NotificationEvent {
@@ -75,6 +80,10 @@ export default class Notification {
 
 	public dailyResetRoleId!: NotificationData["dailyResetRoleId"];
 
+	public passageChannelId!: NotificationData["passageChannelId"];
+
+	public passageRoleId!: NotificationData["passageRoleId"];
+
 	public constructor(notification: NotificationPacket) {
 		this.id = notification.id;
 		this.guildId = notification.guild_id;
@@ -92,6 +101,8 @@ export default class Notification {
 		this.eyeOfEdenRoleId = data.eye_of_eden_role_id;
 		this.dailyResetChannelId = data.daily_reset_channel_id;
 		this.dailyResetRoleId = data.daily_reset_role_id;
+		this.passageChannelId = data.passage_channel_id;
+		this.passageRoleId = data.passage_role_id;
 	}
 
 	public static async setup(
@@ -145,6 +156,8 @@ export default class Notification {
 			eyeOfEdenRoleId,
 			dailyResetChannelId,
 			dailyResetRoleId,
+			passageChannelId,
+			passageRoleId,
 		} = this;
 		let channelId;
 		let roleId;
@@ -175,6 +188,12 @@ export default class Notification {
 				channelId = dailyResetChannelId;
 				roleId = dailyResetRoleId;
 				suffix = "has occurred!";
+				break;
+			case NotificationEvent.Passage:
+				channelId = passageChannelId;
+				roleId = passageRoleId;
+				suffix = "will begin soon!";
+				break;
 		}
 
 		if (!channelId || !roleId) return;
@@ -206,6 +225,8 @@ export default class Notification {
 			eyeOfEdenRoleId,
 			dailyResetChannelId,
 			dailyResetRoleId,
+			passageChannelId,
+			passageRoleId,
 		} = this;
 
 		return new EmbedBuilder()
@@ -234,6 +255,11 @@ export default class Notification {
 				{
 					name: NotificationEvent.EyeOfEden,
 					value: this.overviewValue(me, eyeOfEdenChannelId, eyeOfEdenRoleId),
+					inline: true,
+				},
+				{
+					name: NotificationEvent.Passage,
+					value: this.overviewValue(me, passageChannelId, passageRoleId),
 					inline: true,
 				},
 			)
