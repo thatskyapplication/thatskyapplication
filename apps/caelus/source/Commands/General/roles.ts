@@ -127,10 +127,13 @@ export default class implements ChatInputCommand {
 		try {
 			await interaction.member.roles.set(rolesToSet);
 			let content = "";
+
 			if (rolesAdded.length > 0)
 				content = `Roles added: ${rolesAdded.map((role) => interaction.guild.roles.resolve(role)).join(" & ")}\n`;
+
 			if (rolesRemoved.length > 0)
 				content += `Roles removed: ${rolesRemoved.map((role) => interaction.guild.roles.resolve(role)).join(" & ")}`;
+
 			content ||= "No roles were changed.";
 
 			await interaction.reply({
