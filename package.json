@@ -11,7 +11,7 @@
 	"scripts": {
 		"build": "turbo run build --parallel",
 		"format": "turbo run format --parallel",
-		"update": "pnpm update --interactive"
+		"update": "pnpm update --interactive --recursive"
 	},
 	"devDependencies": {
 		"@jiralite/eslint-config-neon": "^0.1.40",
