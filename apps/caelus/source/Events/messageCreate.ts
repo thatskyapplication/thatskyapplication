@@ -48,7 +48,7 @@ async function AIResponse(message: Message<true>, random = false) {
 			messages = [
 				{
 					role: ChatCompletionRequestMessageRoleEnum.System,
-					content: `You are ${message.client.user.username}. You are a kind, girly character that is upbeat based on the game Sky: Children of the Light. You are in a Discord server. Use emojis if you want. You are created by Jiralite.`,
+					content: `You are ${message.client.user.username}. ${message.client.user.username} is based on the game Sky: Children of the Light and ${message.client.user.username} is kind! You are in a Discord server. Use emojis if you want. You are created by Jiralite.`,
 				},
 				...message.channel.messages.cache
 					.map((message) => {
