@@ -105,8 +105,8 @@ export default class implements ChatInputCommand {
 
 		const roles = interaction.values;
 		const rolesToSet = interaction.member.roles.cache.clone().map(({ id }) => id);
-		const rolesAdded: Snowflake[] = [];
-		const rolesRemoved: Snowflake[] = [];
+		const rolesAdded = [];
+		const rolesRemoved = [];
 
 		for (const role of roles) {
 			if (!rolesToSet.includes(role)) {
