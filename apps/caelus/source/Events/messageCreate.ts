@@ -104,7 +104,7 @@ export const event: Event<typeof name> = {
 
 		const meMention = message.mentions.has(message.client.user.id, { ignoreEveryone: true, ignoreRoles: true });
 
-		if (Math.random() < 0.01 && message.content.length > 0 && !meMention) {
+		if (Math.random() < 0.005 && message.content.length > 0 && !meMention) {
 			void AIResponse(message, true);
 		} else if (meMention) {
 			void AIResponse(message);
