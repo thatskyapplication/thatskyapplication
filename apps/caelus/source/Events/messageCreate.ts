@@ -41,7 +41,7 @@ async function AIResponse(message: Message<true>, random = false) {
 					.slice(-5),
 				{
 					role: ChatCompletionRequestMessageRoleEnum.System,
-					content: `You are ${message.client.user.username}. Give a whimsical and short response. Be girly.`,
+					content: `You are ${message.client.user.username}. Give a whimsical and short response.`,
 				},
 			];
 		} else {
