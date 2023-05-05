@@ -36,6 +36,7 @@ export default function heartbeat(client: Client<true>): void {
 			}
 
 			if ((minute + 5) % 15 === 0) sendNotification(client, NotificationEvent.Passage);
+			if ((hour + 1) % 4 === 0 && minute === 45) sendNotification(client, NotificationEvent.AURORA);
 
 			if (hour % 2 === 0) {
 				switch (minute) {

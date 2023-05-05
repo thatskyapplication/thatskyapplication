@@ -17,6 +17,8 @@ export interface NotificationPacket {
 	daily_reset_role_id: Snowflake | null;
 	passage_channel_id: Snowflake | null;
 	passage_role_id: Snowflake | null;
+	aurora_channel_id: Snowflake | null;
+	aurora_role_id: Snowflake | null;
 }
 
 interface NotificationData {
@@ -34,6 +36,8 @@ interface NotificationData {
 	dailyResetRoleId: NotificationPacket["daily_reset_role_id"];
 	passageChannelId: NotificationPacket["passage_channel_id"];
 	passageRoleId: NotificationPacket["passage_role_id"];
+	auroraChannelId: NotificationPacket["aurora_channel_id"];
+	auroraRoleId: NotificationPacket["aurora_role_id"];
 }
 
 type NotificationPatchData = Omit<NotificationPacket, "id" | "guild_id">;
@@ -46,6 +50,7 @@ export enum NotificationEvent {
 	Turtle = "Turtle",
 	DailyReset = "Daily Reset",
 	EyeOfEden = "Eye of Eden",
+	AURORA = "AURORA",
 	Passage = "Passage",
 }
 
@@ -80,6 +85,10 @@ export default class Notification {
 
 	public dailyResetRoleId!: NotificationData["dailyResetRoleId"];
 
+	public auroraChannelId!: NotificationData["auroraChannelId"];
+
+	public auroraRoleId!: NotificationData["auroraRoleId"];
+
 	public passageChannelId!: NotificationData["passageChannelId"];
 
 	public passageRoleId!: NotificationData["passageRoleId"];
@@ -101,6 +110,8 @@ export default class Notification {
 		this.eyeOfEdenRoleId = data.eye_of_eden_role_id;
 		this.dailyResetChannelId = data.daily_reset_channel_id;
 		this.dailyResetRoleId = data.daily_reset_role_id;
+		this.auroraChannelId = data.aurora_channel_id;
+		this.auroraRoleId = data.aurora_role_id;
 		this.passageChannelId = data.passage_channel_id;
 		this.passageRoleId = data.passage_role_id;
 	}
@@ -156,6 +167,8 @@ export default class Notification {
 			eyeOfEdenRoleId,
 			dailyResetChannelId,
 			dailyResetRoleId,
+			auroraChannelId,
+			auroraRoleId,
 			passageChannelId,
 			passageRoleId,
 		} = this;
@@ -188,6 +201,11 @@ export default class Notification {
 				channelId = dailyResetChannelId;
 				roleId = dailyResetRoleId;
 				suffix = "has occurred!";
+				break;
+			case NotificationEvent.AURORA:
+				channelId = auroraChannelId;
+				roleId = auroraRoleId;
+				suffix = "will start soon!";
 				break;
 			case NotificationEvent.Passage:
 				channelId = passageChannelId;
@@ -225,6 +243,8 @@ export default class Notification {
 			eyeOfEdenRoleId,
 			dailyResetChannelId,
 			dailyResetRoleId,
+			auroraChannelId,
+			auroraRoleId,
 			passageChannelId,
 			passageRoleId,
 		} = this;
@@ -255,6 +275,11 @@ export default class Notification {
 				{
 					name: NotificationEvent.EyeOfEden,
 					value: this.overviewValue(me, eyeOfEdenChannelId, eyeOfEdenRoleId),
+					inline: true,
+				},
+				{
+					name: NotificationEvent.AURORA,
+					value: this.overviewValue(me, auroraChannelId, auroraRoleId),
 					inline: true,
 				},
 				{

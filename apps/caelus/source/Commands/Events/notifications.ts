@@ -103,6 +103,10 @@ export default class implements ChatInputCommand {
 				data.daily_reset_channel_id = channel.id;
 				data.daily_reset_role_id = role.id;
 				break;
+			case NotificationEvent.AURORA:
+				data.aurora_channel_id = channel.id;
+				data.aurora_role_id = role.id;
+				break;
 			case NotificationEvent.Passage:
 				data.passage_channel_id = channel.id;
 				data.passage_role_id = role.id;
@@ -156,6 +160,10 @@ export default class implements ChatInputCommand {
 			case NotificationEvent.DailyReset:
 				data.daily_reset_channel_id = null;
 				data.daily_reset_role_id = null;
+				break;
+			case NotificationEvent.AURORA:
+				data.aurora_channel_id = null;
+				data.aurora_role_id = null;
 				break;
 			case NotificationEvent.Passage:
 				data.passage_channel_id = null;
