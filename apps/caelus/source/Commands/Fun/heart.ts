@@ -60,9 +60,6 @@ export default class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
-			case "count":
-				await this.count(interaction);
-				return;
 			case "gift":
 				await this.gift(interaction);
 				break;
@@ -73,16 +70,6 @@ export default class implements ChatInputCommand {
 
 	public async heartCount(gifteeId: Snowflake) {
 		return (await pg<HeartPacket>(Table.Hearts).select().where({ giftee_id: gifteeId })).length;
-	}
-
-	public async count(interaction: ChatInputCommandInteraction) {
-		await interaction.reply(
-			`You have ${resolveCurrencyEmoji({
-				interaction,
-				emoji: Emoji.Heart,
-				number: await this.heartCount(interaction.user.id),
-			})}.`,
-		);
 	}
 
 	public async gift(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
@@ -288,11 +275,6 @@ export default class implements ChatInputCommand {
 			description: "Feeling generous? You have one heart to give per day!",
 			type: this.type,
 			options: [
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "count",
-					description: "Count the number of hearts you have!",
-				},
 				{
 					type: ApplicationCommandOptionType.Subcommand,
 					name: "gift",
