@@ -1,5 +1,5 @@
 import process from "node:process";
-import { MessageType, type Message, Events, PermissionFlagsBits } from "discord.js";
+import { type Message, Events, PermissionFlagsBits } from "discord.js";
 import {
 	ChatCompletionRequestMessageRoleEnum,
 	Configuration,
@@ -103,14 +103,6 @@ export const event: Event<typeof name> = {
 			return;
 
 		const meMention = message.mentions.has(message.client.user.id, { ignoreEveryone: true, ignoreRoles: true });
-
-		if (Math.random() < 0.005 && message.content.length > 0 && !meMention) {
-			void AIResponse(message, true);
-		} else if (meMention) {
-			void AIResponse(message);
-		} else if (message.type === MessageType.Reply) {
-			const referencedMessage = message.channel.messages.cache.get(message.reference!.messageId!);
-			if (referencedMessage?.author.id === message.client.user.id) void AIResponse(message);
-		}
+		if (Math.random() < 0.005 && message.content.length > 0 && !meMention) void AIResponse(message, true);
 	},
 };
