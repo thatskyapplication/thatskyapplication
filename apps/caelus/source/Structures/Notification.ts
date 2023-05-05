@@ -1,5 +1,14 @@
-import type { ChatInputCommandInteraction, Client, Guild, GuildMember, Snowflake } from "discord.js";
+import {
+	type ChatInputCommandInteraction,
+	type Client,
+	type Guild,
+	type GuildMember,
+	type Snowflake,
+	time,
+	TimestampStyles,
+} from "discord.js";
 import { channelMention, ChannelType, Collection, EmbedBuilder, PermissionFlagsBits, roleMention } from "discord.js";
+import { Season } from "../Utility/Constants.js";
 import pg, { Table } from "../pg.js";
 
 export interface NotificationPacket {
@@ -154,7 +163,7 @@ export default class Notification {
 		await interaction.reply({ content: "Notifications have been modified.", embeds: [await this.overview(guild)] });
 	}
 
-	public async send(client: Client<true>, type: NotificationEvent) {
+	public async send(client: Client<true>, type: NotificationEvent, startTime?: number) {
 		const {
 			guildId,
 			pollutedGeyserChannelId,
@@ -175,42 +184,43 @@ export default class Notification {
 		let channelId;
 		let roleId;
 		let suffix;
+		const timeString = startTime ? time(startTime, TimestampStyles.RelativeTime) : "soon";
 
 		switch (type) {
 			case NotificationEvent.PollutedGeyser:
 				channelId = pollutedGeyserChannelId;
 				roleId = pollutedGeyserRoleId;
-				suffix = "will erupt soon!";
+				suffix = `The polluted geyser will erupt ${timeString}!`;
 				break;
 			case NotificationEvent.Grandma:
 				channelId = grandmaChannelId;
 				roleId = grandmaRoleId;
-				suffix = "will share soon!";
+				suffix = `Grandma will share her light ${timeString}!`;
 				break;
 			case NotificationEvent.Turtle:
 				channelId = turtleChannelId;
 				roleId = turtleRoleId;
-				suffix = "will roam soon!";
+				suffix = `The turtle will need cleansing of darkness ${timeString}!`;
 				break;
 			case NotificationEvent.EyeOfEden:
 				channelId = eyeOfEdenChannelId;
 				roleId = eyeOfEdenRoleId;
-				suffix = "has reset!";
+				suffix = "Skykids may save statues in the Eye of Eden again!";
 				break;
 			case NotificationEvent.DailyReset:
 				channelId = dailyResetChannelId;
 				roleId = dailyResetRoleId;
-				suffix = "has occurred!";
+				suffix = "It's a new day. Time to forge candles again!";
 				break;
 			case NotificationEvent.AURORA:
 				channelId = auroraChannelId;
 				roleId = auroraRoleId;
-				suffix = "will start soon!";
+				suffix = `The AURORA concert is starting ${timeString}! Take your friends!`;
 				break;
 			case NotificationEvent.Passage:
 				channelId = passageChannelId;
 				roleId = passageRoleId;
-				suffix = "will begin soon!";
+				suffix = `The Season of ${Season.Passage} quests are starting ${timeString}!`;
 				break;
 		}
 

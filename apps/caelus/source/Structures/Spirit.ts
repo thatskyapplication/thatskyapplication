@@ -1,5 +1,5 @@
 import { URL } from "node:url";
-import { CDN_URL, Realm, WIKI_URL } from "../Utility/Constants.js";
+import { CDN_URL, Realm, Season, WIKI_URL } from "../Utility/Constants.js";
 
 export enum SpiritName {
 	// Isles of Dawn
@@ -133,26 +133,6 @@ export enum SpiritName {
 	TumblingTroublemaker = "Tumbling Troublemaker",
 	MelancholyMope = "Melancholy Mope",
 	OveractiveOverachiever = "Overactive Overachiever",
-}
-
-const enum Season {
-	Gratitude = "Gratitude",
-	Lightseekers = "Lightseekers",
-	Belonging = "Belonging",
-	Rhythm = "Rhythm",
-	Enchantment = "Enchantment",
-	Sanctuary = "Sanctuary",
-	Prophecy = "Prophecy",
-	Dreams = "Dreams",
-	Assembly = "Assembly",
-	LittlePrince = "Little Prince",
-	Flight = "Flight",
-	Abyss = "Abyss",
-	Performance = "Performance",
-	Shattering = "Shattering",
-	Aurora = "AURORA",
-	Remembrance = "Remembrance",
-	Passage = "Passage",
 }
 
 const enum Call {

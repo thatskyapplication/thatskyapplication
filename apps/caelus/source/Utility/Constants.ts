@@ -110,3 +110,23 @@ export const WingedLightCount = {
 	AncientMemory: 6,
 	Orbit: 1,
 } as const;
+
+export const enum Season {
+	Gratitude = "Gratitude",
+	Lightseekers = "Lightseekers",
+	Belonging = "Belonging",
+	Rhythm = "Rhythm",
+	Enchantment = "Enchantment",
+	Sanctuary = "Sanctuary",
+	Prophecy = "Prophecy",
+	Dreams = "Dreams",
+	Assembly = "Assembly",
+	LittlePrince = "Little Prince",
+	Flight = "Flight",
+	Abyss = "Abyss",
+	Performance = "Performance",
+	Shattering = "Shattering",
+	Aurora = "AURORA",
+	Remembrance = "Remembrance",
+	Passage = "Passage",
+}

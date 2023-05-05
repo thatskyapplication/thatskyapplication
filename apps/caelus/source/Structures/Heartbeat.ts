@@ -10,8 +10,8 @@ import Notification, { NotificationEvent } from "./Notification.js";
 dayjs.extend(timezone);
 dayjs.extend(utc);
 
-function sendNotification(client: Client<true>, type: NotificationEvent) {
-	for (const notification of Notification.cache.values()) void notification.send(client, type);
+function sendNotification(client: Client<true>, type: NotificationEvent, startTime?: number) {
+	for (const notification of Notification.cache.values()) void notification.send(client, type, startTime);
 }
 
 async function dailyReset(client: Client<true>) {
@@ -24,6 +24,7 @@ async function dailyReset(client: Client<true>) {
 export default function heartbeat(client: Client<true>): void {
 	setInterval(() => {
 		const date = dayjs.tz(Date.now(), "America/Los_Angeles");
+		const unix = date.unix();
 		const day = date.day();
 		const hour = date.hour();
 		const minute = date.minute();
@@ -35,19 +36,19 @@ export default function heartbeat(client: Client<true>): void {
 				if (day === 0) sendNotification(client, NotificationEvent.EyeOfEden);
 			}
 
-			if ((minute + 5) % 15 === 0) sendNotification(client, NotificationEvent.Passage);
-			if ((hour + 1) % 4 === 0 && minute === 45) sendNotification(client, NotificationEvent.AURORA);
+			if ((minute + 5) % 15 === 0) sendNotification(client, NotificationEvent.Passage, unix + 300);
+			if ((hour + 1) % 4 === 0 && minute === 45) sendNotification(client, NotificationEvent.AURORA, unix + 900);
 
 			if (hour % 2 === 0) {
 				switch (minute) {
 					case 0:
-						sendNotification(client, NotificationEvent.PollutedGeyser);
+						sendNotification(client, NotificationEvent.PollutedGeyser, unix + 300);
 						break;
 					case 30:
-						sendNotification(client, NotificationEvent.Grandma);
+						sendNotification(client, NotificationEvent.Grandma, unix + 300);
 						break;
 					case 45:
-						sendNotification(client, NotificationEvent.Turtle);
+						sendNotification(client, NotificationEvent.Turtle, unix + 300);
 						break;
 				}
 			}
