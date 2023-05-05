@@ -13,6 +13,7 @@ import d_daily_guides from "./Developer/d-daily-guides.js";
 // Events
 import daily_guides from "./Events/daily-guides.js";
 import notifications from "./Events/notifications.js";
+import schedule from "./Events/schedule.js";
 
 // Fun
 import bonk from "./Fun/bonk.js";
@@ -39,6 +40,7 @@ const commands = {
 	hug: new hug(),
 	notifications: new notifications(),
 	roles: new roles(),
+	schedule: new schedule(),
 	"Sky Profile": new Sky_Profile(),
 	"sky-profile": new sky_profile(),
 	spirit: new spirit(),
