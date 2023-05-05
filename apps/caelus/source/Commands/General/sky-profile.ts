@@ -26,21 +26,30 @@ export default class implements ChatInputCommand {
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		switch (interaction.options.getSubcommand()) {
-			case "set-description":
-				await this.setDescription(interaction);
-				return;
-			case "set-icon":
-				await this.setIcon(interaction);
-				return;
-			case "set-name":
-				await this.setName(interaction);
-				return;
-			case "set-thumbnail":
-				await this.setThumbnail(interaction);
+		const { options } = interaction;
+
+		switch (options.getSubcommandGroup() ?? options.getSubcommand()) {
+			case "set":
+				await this.set(interaction);
 				return;
 			case "show":
 				await this.show(interaction);
+		}
+	}
+
+	public async set(interaction: ChatInputCommandInteraction) {
+		switch (interaction.options.getSubcommand()) {
+			case "description":
+				await this.setDescription(interaction);
+				return;
+			case "icon":
+				await this.setIcon(interaction);
+				return;
+			case "name":
+				await this.setName(interaction);
+				return;
+			case "thumbnail":
+				await this.setThumbnail(interaction);
 		}
 	}
 
@@ -132,51 +141,58 @@ export default class implements ChatInputCommand {
 			type: this.type,
 			options: [
 				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "set-description",
-					description: "Set the description of your Sky profile!",
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "set-name",
-					description: "Set the name of your Skykid in your Sky profile!",
+					type: ApplicationCommandOptionType.SubcommandGroup,
+					name: "set",
+					description: "Set some information for your Sky profile.",
 					options: [
 						{
-							type: ApplicationCommandOptionType.String,
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "description",
+							description: "Set the description of your Sky profile!",
+						},
+						{
+							type: ApplicationCommandOptionType.Subcommand,
 							name: "name",
-							description: "Provide your in-game name.",
-							required: true,
-							maxLength: SKY_MAXIMUM_NAME_LENGTH,
+							description: "Set the name of your Skykid in your Sky profile!",
+							options: [
+								{
+									type: ApplicationCommandOptionType.String,
+									name: "name",
+									description: "Provide your in-game name.",
+									required: true,
+									maxLength: SKY_MAXIMUM_NAME_LENGTH,
+								},
+							],
 						},
-					],
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "set-icon",
-					description: "Set the icon of your Skykid in your Sky profile!",
-					options: [
 						{
-							type: ApplicationCommandOptionType.String,
+							type: ApplicationCommandOptionType.Subcommand,
 							name: "icon",
-							description: "Provide a URL to show as your author icon.",
-							required: true,
-							minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
-							maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH,
+							description: "Set the icon of your Skykid in your Sky profile!",
+							options: [
+								{
+									type: ApplicationCommandOptionType.String,
+									name: "icon",
+									description: "Provide a URL to show as your author icon.",
+									required: true,
+									minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
+									maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH,
+								},
+							],
 						},
-					],
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "set-thumbnail",
-					description: "Set the thumbnail of your Skykid in your Sky profile!",
-					options: [
 						{
-							type: ApplicationCommandOptionType.String,
+							type: ApplicationCommandOptionType.Subcommand,
 							name: "thumbnail",
-							description: "Provide a URL to show as your thumbnail.",
-							required: true,
-							minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
-							maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH,
+							description: "Set the thumbnail of your Skykid in your Sky profile!",
+							options: [
+								{
+									type: ApplicationCommandOptionType.String,
+									name: "thumbnail",
+									description: "Provide a URL to show as your thumbnail.",
+									required: true,
+									minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
+									maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH,
+								},
+							],
 						},
 					],
 				},
