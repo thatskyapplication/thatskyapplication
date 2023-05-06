@@ -71,7 +71,7 @@ export default class implements ChatInputCommand {
 
 		const shardEruptionFieldData = DailyGuidesDistribution.shardEruptionFieldData(interaction);
 		embed.addFields(...shardEruptionFieldData);
-		await interaction.reply({ embeds: [embed] });
+		await interaction.reply({ embeds: [embed], ephemeral: true });
 	}
 
 	public get commandData(): ApplicationCommandData {
