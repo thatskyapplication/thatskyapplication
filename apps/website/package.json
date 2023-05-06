@@ -12,8 +12,8 @@
 		"start": "next start"
 	},
 	"dependencies": {
-		"@unocss/reset": "^0.51.8",
-		"@vercel/analytics": "^1.0.0",
+		"@unocss/reset": "^0.51.12",
+		"@vercel/analytics": "^1.0.1",
 		"ariakit": "^2.0.0-next.44",
 		"contentlayer": "^0.3.2",
 		"dayjs": "^1.11.7",
@@ -33,10 +33,10 @@
 		"@types/node": "18.16.3",
 		"@types/react": "18.2.0",
 		"@types/react-dom": "18.2.1",
-		"@unocss/cli": "^0.51.8",
+		"@unocss/cli": "^0.51.12",
 		"concurrently": "^8.0.1",
 		"eslint": "^8.39.0",
 		"prettier": "^2.8.8",
-		"unocss": "^0.51.8"
+		"unocss": "^0.51.12"
 	}
 }
