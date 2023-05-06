@@ -34,7 +34,7 @@ export function treasureCandleRealm() {
 	]!;
 }
 
-interface CurrencyEmojiOptions {
+export interface CurrencyEmojiOptions {
 	interaction?: BaseInteraction;
 	member?: GuildMember;
 	emoji: Emoji;

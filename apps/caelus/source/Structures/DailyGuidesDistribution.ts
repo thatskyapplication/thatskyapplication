@@ -1,7 +1,20 @@
-import type { ChatInputCommandInteraction, Client, Guild, GuildMember, Snowflake } from "discord.js";
+import {
+	BaseInteraction,
+	type ChatInputCommandInteraction,
+	type Client,
+	type Guild,
+	type GuildMember,
+	type Snowflake,
+} from "discord.js";
 import { channelMention, ChannelType, hyperlink, PermissionFlagsBits, EmbedBuilder } from "discord.js";
 import { Emoji } from "../Utility/Constants.js";
-import { consoleLog, resolveCurrencyEmoji, todayDate, treasureCandleRealm } from "../Utility/Utility.js";
+import {
+	consoleLog,
+	resolveCurrencyEmoji,
+	todayDate,
+	treasureCandleRealm,
+	type CurrencyEmojiOptions,
+} from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides from "./DailyGuides.js";
 
@@ -23,7 +36,7 @@ type DailyGuidesDistributionPatchData = Omit<DailyGuidesDistributionPacket, "id"
 type DailyGuidesDistributionInsertQuery = Omit<DailyGuidesDistributionPacket, "id" | "message_id">;
 type DailyGuidesDistributionUpdateQuery = Omit<DailyGuidesDistributionInsertQuery, "guild_id">;
 
-const SHARD_ERUPTION_NAME = "Shard Eruption" as const;
+export const SHARD_ERUPTION_NAME = "Shard Eruption" as const;
 
 export default class DailyGuidesDistribution {
 	public readonly id: DailyGuidesDistributionData["id"];
@@ -125,8 +138,38 @@ export default class DailyGuidesDistribution {
 			.setTitle(guild.name);
 	}
 
+	public static shardEruptionFieldData(
+		interactionOrMember: NonNullable<CurrencyEmojiOptions["interaction"] | CurrencyEmojiOptions["member"]>,
+	) {
+		const shardEruptionToday = DailyGuides.shardEruption();
+
+		if (shardEruptionToday) {
+			const { realm, map, dangerous, reward, timestamps, url } = shardEruptionToday;
+			const currencyEmojiOptions: CurrencyEmojiOptions = { emoji: Emoji.AscendedCandle, number: reward };
+
+			if (interactionOrMember instanceof BaseInteraction) {
+				currencyEmojiOptions.interaction = interactionOrMember;
+			} else {
+				currencyEmojiOptions.member = interactionOrMember;
+			}
+
+			return [
+				{
+					name: SHARD_ERUPTION_NAME,
+					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${dangerous ? "✅" : "❌"}\nReward: ${
+						reward === 200 ? "200 pieces of light" : resolveCurrencyEmoji(currencyEmojiOptions)
+					}`,
+					inline: true,
+				},
+				{ name: "Timestamps", value: timestamps, inline: true },
+			];
+		}
+
+		return [{ name: SHARD_ERUPTION_NAME, value: "None" }];
+	}
+
 	public static embed(me: GuildMember) {
-		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles, shardEruption } = DailyGuides;
+		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles } = DailyGuides;
 		const date = todayDate();
 
 		const embed = new EmbedBuilder()
@@ -153,28 +196,7 @@ export default class DailyGuidesDistribution {
 		}
 
 		if (seasonalCandles) embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
-
-		const shardEruptionToday = shardEruption();
-
-		if (shardEruptionToday) {
-			const { realm, map, dangerous, reward, timestamps, url } = shardEruptionToday;
-
-			embed.addFields(
-				{
-					name: SHARD_ERUPTION_NAME,
-					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${dangerous ? "✅" : "❌"}\nReward: ${
-						reward === 200
-							? "200 pieces of light"
-							: resolveCurrencyEmoji({ member: me, emoji: Emoji.AscendedCandle, number: reward })
-					}`,
-					inline: true,
-				},
-				{ name: "Timestamps", value: timestamps, inline: true },
-			);
-		} else {
-			embed.addFields({ name: SHARD_ERUPTION_NAME, value: "None" });
-		}
-
+		embed.addFields(this.shardEruptionFieldData(me));
 		return embed;
 	}
 
