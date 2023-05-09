@@ -23,7 +23,7 @@ export default function TimeUntilBirthday() {
 			const untilH = duration.days() * 24 + duration.hours();
 			const untilM = duration.minutes();
 			const untilS = duration.seconds();
-			setTimeString(`${untilH}:${untilM}:${untilS}`);
+			setTimeString(`${String(untilH).padStart(2)}:${String(untilM).padStart(2)}:${String(untilS).padStart(2)}`);
 		}, 1_000);
 
 		return () => clearInterval(interval);
