@@ -1,8 +1,8 @@
 "use client";
 
 import dayjs from "dayjs";
-import timezone from "dayjs/plugin/timezone.js";
 import duration from "dayjs/plugin/duration.js";
+import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
 import { useEffect, useState } from "react";
 
@@ -10,7 +10,7 @@ dayjs.extend(timezone);
 dayjs.extend(duration);
 dayjs.extend(utc);
 
-const herBirthday = dayjs.tz(Date.UTC(2023, 4, 13), "Europe/Madrid");
+const herBirthday = dayjs.tz(Date.UTC(2_023, 4, 13), "Europe/Madrid");
 
 export default function TimeUntilBirthday() {
 	const [timeString, setTimeString] = useState("");
