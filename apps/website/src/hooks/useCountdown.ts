@@ -27,17 +27,16 @@ function countdownData() {
 	};
 }
 
-function countdownFormat() {
-	const { hours, minutes, seconds } = countdownData();
-	return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-}
-
 export function useCountdown() {
-	const [countdown, setCountdown] = useState(() => countdownFormat());
+	const [countdown, setCountdown] = useState("??:??:??");
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setCountdown(countdownFormat());
+			const { hours, minutes, seconds } = countdownData();
+
+			setCountdown(
+				`${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`,
+			);
 		}, 1_000);
 		return () => clearInterval(interval);
 	}, []);
