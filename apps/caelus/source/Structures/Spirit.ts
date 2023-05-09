@@ -749,6 +749,8 @@ export default [
 		season: Season.Flight,
 		stance: Stance.Tinker,
 		realm: Realm.HiddenForest,
+		hasMarketingVideo: true,
+		offer: { candles: 238, hearts: 0, ascendedCandles: 2 },
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.TalentedBuilder,
