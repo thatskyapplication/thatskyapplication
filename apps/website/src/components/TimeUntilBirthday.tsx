@@ -10,7 +10,7 @@ dayjs.extend(timezone);
 dayjs.extend(duration);
 dayjs.extend(utc);
 
-const herBirthday = dayjs.tz(Date.UTC(2_023, 4, 13), "Europe/Madrid");
+const herBirthday = dayjs.tz("2023-05-13 00:00", "Europe/Madrid");
 
 export default function TimeUntilBirthday() {
 	const [timeString, setTimeString] = useState("");
