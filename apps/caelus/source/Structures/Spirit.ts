@@ -773,6 +773,7 @@ export default [
 		season: Season.Abyss,
 		expression: Expression.Ouch,
 		realm: Realm.GoldenWasteland,
+		hasMarketingVideo: true,
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.CacklingCannoneer,
