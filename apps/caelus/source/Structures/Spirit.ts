@@ -286,7 +286,7 @@ class Spirit {
 		this.realm = spirit.realm;
 		this.offer = spirit.offer ?? null;
 		this.keywords = spirit.keywords ?? [];
-		this.imageURL = String(new URL(`spirits/${this.underscoredName}.png`, CDN_URL));
+		this.imageURL = String(new URL(`spirits/${this.cdnName}/friendship_tree.webp`, CDN_URL));
 		this.wikiURL = new URL(spirit.name.replaceAll(" ", "_"), WIKI_URL).toString();
 		this.expression = "expression" in spirit ? spirit.expression : null;
 		this.stance = "stance" in spirit ? spirit.stance : null;
@@ -297,8 +297,8 @@ class Spirit {
 		return "season" in this;
 	}
 
-	public get underscoredName() {
-		return this.name.replaceAll(" ", "_");
+	public get cdnName() {
+		return this.name.replaceAll(" ", "_").toLowerCase();
 	}
 }
 
@@ -312,7 +312,7 @@ class SeasonalSpirit extends Spirit {
 		this.season = { name: spirit.season };
 
 		this.marketingVideoURL = spirit.hasMarketingVideo
-			? String(new URL(`spirits/${this.underscoredName}.mp4`, CDN_URL))
+			? String(new URL(`spirits/${this.cdnName}/marketing_video.mp4`, CDN_URL))
 			: null;
 	}
 }
