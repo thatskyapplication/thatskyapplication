@@ -309,6 +309,7 @@ export default class implements ChatInputCommand {
 							type: ApplicationCommandOptionType.Integer,
 							name: "goal",
 							description: "The desired number of ascended candles.",
+							maxValue: 10_000,
 							minValue: 1,
 							required: true,
 						},
