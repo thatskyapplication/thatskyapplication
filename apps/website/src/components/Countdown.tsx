@@ -8,6 +8,6 @@ function Expired() {
 }
 
 export default function Countdown() {
-	const [time, { hours }] = useCountdown();
-	return hours < 0 ? <Expired /> : <div>{time}</div>;
+	const [time, { seconds }] = useCountdown();
+	return seconds < 0 ? <Expired /> : <div>{time}</div>;
 }
