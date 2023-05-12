@@ -16,10 +16,10 @@
 		"knex": "^2.4.2",
 		"openai": "^3.2.1",
 		"pg": "^8.10.0",
-		"undici": "^5.22.0"
+		"undici": "^5.22.1"
 	},
 	"devDependencies": {
-		"eslint": "^8.39.0",
+		"eslint": "^8.40.0",
 		"eslint-config-neon": "^0.1.47",
 		"prettier": "^2.8.8",
 		"tsup": "^6.7.0",

@@ -14,11 +14,11 @@
 		"update": "pnpm update --interactive --recursive"
 	},
 	"devDependencies": {
-		"eslint": "^8.39.0",
+		"eslint": "^8.40.0",
 		"eslint-config-neon": "^0.1.47",
 		"prettier": "^2.8.8",
 		"tsup": "^6.7.0",
-		"turbo": "^1.9.3",
+		"turbo": "^1.9.4",
 		"typescript": "^5.0.4"
 	},
 	"packageManager": "pnpm@8.5.0"
