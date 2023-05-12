@@ -1,17 +1,19 @@
 root: true
-parser: "@typescript-eslint/parser"
 parserOptions:
   project: ./tsconfig.json
 env:
   node: true
 extends:
-  - eslint:recommended
-  - plugin:@typescript-eslint/recommended
-  - "@jiralite/eslint-config-neon/common"
-  - "@jiralite/eslint-config-neon/module"
-  - "@jiralite/eslint-config-neon/node"
-  - "@jiralite/eslint-config-neon/typescript"
-  - "@jiralite/eslint-config-neon/prettier"
+  - neon/common
+  - neon/module
+  - neon/node
+  - neon/typescript
+  - neon/prettier
 plugins:
   - "@typescript-eslint"
 reportUnusedDisableDirectives: true
+rules:
+  "@typescript-eslint/consistent-type-definitions": 0
+  "@typescript-eslint/sort-type-union-intersection-members": 0
+  "typescript-sort-keys/interface": 0
+  "typescript-sort-keys/string-enum": 0
