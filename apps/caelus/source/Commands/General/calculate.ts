@@ -15,14 +15,8 @@ import {
 import { isRealm, notNull, resolveCurrencyEmoji, todayDate } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
-const doubleSeasonalLightEventStart = time(
-	Math.floor(doubleSeasonalLightEventStartTimestamp / 1_000),
-	TimestampStyles.ShortDate,
-);
-const doubleSeasonalLightEventEnd = time(
-	Math.floor(doubleSeasonalLightEventEndTimestamp / 1_000),
-	TimestampStyles.ShortDate,
-);
+const doubleSeasonalLightEventStart = time(doubleSeasonalLightEventStartTimestamp.unix(), TimestampStyles.ShortDate);
+const doubleSeasonalLightEventEnd = time(doubleSeasonalLightEventEndTimestamp.unix(), TimestampStyles.ShortDate);
 
 export default class implements ChatInputCommand {
 	public readonly name = "calculate";
@@ -116,18 +110,17 @@ export default class implements ChatInputCommand {
 		}
 
 		const amountRequired = goal - start;
-		let timestamp = todayDate().valueOf();
 		let result = 0;
 		let days = 0;
 		let resultWithSeasonPass = 0;
 		let daysWithSeasonPass = 1;
 		let includedDoubleLight = false;
 
-		for (; result < amountRequired; timestamp += 86_400_000, days++) {
+		for (let day = todayDate(); result < amountRequired; day = day.add(1, "day"), days++) {
 			result += SEASONAL_CANDLES_PER_DAY;
 			resultWithSeasonPass += SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS;
 
-			if (timestamp >= doubleSeasonalLightEventStartTimestamp && timestamp <= doubleSeasonalLightEventEndTimestamp) {
+			if (day >= doubleSeasonalLightEventStartTimestamp && day <= doubleSeasonalLightEventEndTimestamp) {
 				includedDoubleLight = true;
 				result += 1;
 				resultWithSeasonPass += 1;
