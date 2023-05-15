@@ -24,8 +24,8 @@ export function todayDate() {
 
 export function treasureCandleRealm() {
 	return VALID_REALM[
-		dayjs
-			.tz(Date.now(), "America/Los_Angeles")
+		dayjs()
+			.tz("America/Los_Angeles")
 			.hour(0)
 			.minute(0)
 			.second(0)

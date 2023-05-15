@@ -19,7 +19,7 @@ export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
 export const MAX_HUG_NO = 16 as const;
 export const doubleSeasonalLightEventStartTimestamp = dayjs.tz("2023-05-15 00:00:00", "America/Los_Angeles").valueOf();
 export const doubleSeasonalLightEventEndTimestamp = dayjs.tz("2023-05-21 00:00:00", "America/Los_Angeles").valueOf();
-export const initialTreasureCandleRealmSeek = dayjs.tz(Date.UTC(2_023, 0, 3), "America/Los_Angeles"); // Daylight Prairie.
+export const initialTreasureCandleRealmSeek = dayjs.tz("2023-01-03 00:00:00", "America/Los_Angeles"); // Daylight Prairie.
 
 export const enum Channel {
 	dailyGuides = "1041420071614042152",
