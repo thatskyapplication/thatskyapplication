@@ -127,7 +127,7 @@ export default class implements ChatInputCommand {
 			result += SEASONAL_CANDLES_PER_DAY;
 			resultWithSeasonPass += SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS;
 
-			if (timestamp >= doubleSeasonalLightEventStartTimestamp && timestamp < doubleSeasonalLightEventEndTimestamp) {
+			if (timestamp >= doubleSeasonalLightEventStartTimestamp && timestamp <= doubleSeasonalLightEventEndTimestamp) {
 				includedDoubleLight = true;
 				result += 1;
 				resultWithSeasonPass += 1;
