@@ -6,9 +6,11 @@ import utc from "dayjs/plugin/utc.js";
 dayjs.extend(timezone);
 dayjs.extend(utc);
 
+// Log channels.
+export const ERROR_LOG_CHANNEL_ID = "1040806599293407263" as const;
+
 export const production = process.env.NODE_ENV === "production";
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
-export const LOG_CHANNEL_ID = "1040806599293407263" as const;
 export const CDN_URL = "https://cdn.thatskyapplication.com" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki" as const;
 export const MAXIMUM_WINGED_LIGHT = 215 as const;

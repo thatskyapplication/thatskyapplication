@@ -13,7 +13,7 @@ import { Partials, Client, GatewayIntentBits, TextChannel, EmbedBuilder, Permiss
 import commands from "./Commands/index.js";
 import type { Event } from "./Events/index.js";
 import events from "./Events/index.js";
-import { DEVELOPER_GUILD_ID, LOG_CHANNEL_ID, production } from "./Utility/Constants.js";
+import { DEVELOPER_GUILD_ID, ERROR_LOG_CHANNEL_ID, production } from "./Utility/Constants.js";
 import { consoleLog } from "./Utility/Utility.js";
 
 interface LogOptions {
@@ -39,7 +39,7 @@ class Caelus extends Client {
 		const content = typeof message === "string" ? message : message.content;
 		const output = error || content;
 		if (output) consoleLog(output, stamp);
-		const logChannel = this.channels.cache.get(LOG_CHANNEL_ID);
+		const logChannel = this.channels.cache.get(ERROR_LOG_CHANNEL_ID);
 		if (!(logChannel instanceof TextChannel)) return;
 		const me = await logChannel.guild.members.fetchMe();
 
