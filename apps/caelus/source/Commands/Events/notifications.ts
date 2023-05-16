@@ -11,7 +11,11 @@ export default class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		if (!interaction.inCachedGuild()) {
-			void interaction.client.log(`The \`/${this.name}\` command was used in an uncached guild, somehow.`, interaction);
+			void interaction.client.log({
+				content: `The \`/${this.name}\` command was used in an uncached guild, somehow.`,
+				error: interaction,
+			});
+
 			await interaction.reply({ content: `There is no \`/${this.name}\` command in Ba Sing Se.`, ephemeral: true });
 			return;
 		}
@@ -51,7 +55,9 @@ export default class implements ChatInputCommand {
 		const me = await channel.guild.members.fetchMe();
 
 		if (!isEvent(event)) {
-			void interaction.client.log(`Received an unknown notification event: ${event} whilst setting up notifications.`);
+			void interaction.client.log({
+				content: `Received an unknown notification event: ${event} whilst setting up notifications.`,
+			});
 
 			await interaction.reply({
 				content: "The dark dragon has obliterated this event. It's gone... for now.",
@@ -132,7 +138,9 @@ export default class implements ChatInputCommand {
 		const event = options.getString("event", true);
 
 		if (!isEvent(event)) {
-			void interaction.client.log(`Received an unknown notification event: ${event} whilst setting up notifications.`);
+			void interaction.client.log({
+				content: `Received an unknown notification event: ${event} whilst setting up notifications.`,
+			});
 
 			await interaction.reply({
 				content: "The dark dragon has obliterated this event. It's gone... for now.",

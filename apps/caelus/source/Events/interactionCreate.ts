@@ -43,7 +43,7 @@ async function recoverInteractionError(interaction: Interaction, error: unknown)
 			break;
 	}
 
-	void interaction.client.log(errorTypeString, error);
+	void interaction.client.log({ content: errorTypeString, error });
 
 	try {
 		if (interaction.isAutocomplete()) {
@@ -65,7 +65,9 @@ export const event: Event<typeof name> = {
 			const { commandName } = interaction;
 
 			if (!isCommandName(commandName)) {
-				void interaction.client.log(`Received an unknown chat input command interaction (\`${commandName}\`).`);
+				void interaction.client.log({
+					content: `Received an unknown chat input command interaction (\`${commandName}\`).`,
+				});
 
 				void interaction.reply({
 					content: "A dark crab appeared out of nowhere and gobbled this command up. It doesn't seem to exist.",
@@ -83,7 +85,10 @@ export const event: Event<typeof name> = {
 			}
 
 			if (!isChatInputCommand(command)) {
-				void interaction.client.log(`Received an unknown chat input command interaction (\`${commandName}\`).`);
+				void interaction.client.log({
+					content: `Received an unknown chat input command interaction (\`${commandName}\`).`,
+				});
+
 				return;
 			}
 
@@ -100,7 +105,9 @@ export const event: Event<typeof name> = {
 			const { commandName } = interaction;
 
 			if (!isCommandName(commandName)) {
-				void interaction.client.log(`Received an unknown user context menu command interaction (\`${commandName}\`).`);
+				void interaction.client.log({
+					content: `Received an unknown user context menu command interaction (\`${commandName}\`).`,
+				});
 
 				void interaction.reply({
 					content: "A dark dragon appeared and struck the user. The command flew away.",
@@ -118,7 +125,10 @@ export const event: Event<typeof name> = {
 			}
 
 			if (!isUserContextMenuCommand(command)) {
-				void interaction.client.log(`Received an unknown user context menu command interaction (\`${commandName}\`).`);
+				void interaction.client.log({
+					content: `Received an unknown user context menu command interaction (\`${commandName}\`).`,
+				});
+
 				return;
 			}
 
@@ -152,7 +162,7 @@ export const event: Event<typeof name> = {
 				return;
 			}
 
-			void interaction.client.log(`Received an unknown button interaction (\`${customId}\`).`);
+			void interaction.client.log({ content: `Received an unknown button interaction (\`${customId}\`).` });
 
 			void interaction.reply({
 				content: "A button a day keeps a button away. This useless proverb was brought to you by an unknown button.",
@@ -165,10 +175,10 @@ export const event: Event<typeof name> = {
 		if (interaction.isStringSelectMenu()) {
 			try {
 				if (!interaction.inCachedGuild()) {
-					void interaction.client.log(
-						`Attempted to perform \`${interaction.customId}\` via a select menu interaction in an uncached guild.`,
-						interaction,
-					);
+					void interaction.client.log({
+						content: `Attempted to perform \`${interaction.customId}\` via a select menu interaction in an uncached guild.`,
+						error: interaction,
+					});
 
 					await interaction.reply({ content: "This option does not exist in Ba Sing Se.", ephemeral: true });
 					return;
@@ -183,7 +193,9 @@ export const event: Event<typeof name> = {
 				return;
 			}
 
-			void interaction.client.log(`Received an unknown select menu interaction (\`${interaction.customId}\`).`);
+			void interaction.client.log({
+				content: `Received an unknown select menu interaction (\`${interaction.customId}\`).`,
+			});
 
 			void interaction.reply({
 				content: "We interact with a lot of options here. But that option... we have no idea what that is.",
@@ -197,9 +209,9 @@ export const event: Event<typeof name> = {
 			const { commandName } = interaction;
 
 			if (!isCommandName(commandName)) {
-				void interaction.client.log(
-					`Received an unknown command autocomplete interaction (\`${interaction.commandName}\`).`,
-				);
+				void interaction.client.log({
+					content: `Received an unknown command autocomplete interaction (\`${interaction.commandName}\`).`,
+				});
 
 				return;
 			}
@@ -207,7 +219,10 @@ export const event: Event<typeof name> = {
 			const command = commands[commandName];
 
 			if (!isAutocompleteCommand(command)) {
-				void interaction.client.log(`Received an unknown command via autocomplete (\`${interaction.commandName}\`).`);
+				void interaction.client.log({
+					content: `Received an unknown command via autocomplete (\`${interaction.commandName}\`).`,
+				});
+
 				return;
 			}
 
@@ -253,7 +268,7 @@ export const event: Event<typeof name> = {
 				return;
 			}
 
-			void interaction.client.log(`Received an unknown modal interaction (\`${customId}\`).`);
+			void interaction.client.log({ content: `Received an unknown modal interaction (\`${customId}\`).` });
 
 			void interaction.reply({
 				content:

@@ -1,4 +1,5 @@
 import type { ClientEvents } from "discord.js";
+import { event as guildCreate } from "./guildCreate.js";
 import { event as interactionCreate } from "./interactionCreate.js";
 import { event as messageCreate } from "./messageCreate.js";
 import { event as messageUpdate } from "./messageUpdate.js";
@@ -10,4 +11,4 @@ export interface Event<T extends keyof ClientEvents = keyof ClientEvents> {
 	fire(this: void, ...parameters: ClientEvents[T]): Promise<void> | void;
 }
 
-export default [interactionCreate, messageCreate, messageUpdate, ready] as const;
+export default [guildCreate, interactionCreate, messageCreate, messageUpdate, ready] as const;

@@ -85,7 +85,7 @@ async function AIResponse(message: Message<true>, random = false) {
 			failIfNotExists: false,
 		});
 	} catch (error) {
-		void message.client.log("AI error.", error);
+		void message.client.log({ content: "AI error.", error });
 	}
 }
 
