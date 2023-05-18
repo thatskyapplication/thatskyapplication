@@ -409,6 +409,12 @@ export default [
 		expression: Expression.Dismiss,
 		realm: Realm.GoldenWasteland,
 		offer: { candles: 145, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
+				.set("Error", skyDate(2_020, 5, 28))
+				.set(53, skyDate(2_022, 1, 20)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.GreetingShaman,
@@ -636,6 +642,10 @@ export default [
 		expression: Expression.Juggle,
 		realm: Realm.ValleyOfTriumph,
 		offer: { candles: 205, hearts: 27, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(44, skyDate(2_021, 9, 16)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.RespectfulPianist,
@@ -709,6 +719,10 @@ export default [
 		expression: Expression.Scare,
 		realm: Realm.GoldenWasteland,
 		offer: { candles: 89, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(58, skyDate(2_022, 3, 31)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.SnoozingCarpenter,
@@ -730,6 +744,10 @@ export default [
 		expression: Expression.PlayFight,
 		realm: Realm.GoldenWasteland,
 		offer: { candles: 195, hearts: 10, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(47, skyDate(2_021, 10, 28)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.JellyWhisperer,
@@ -737,6 +755,10 @@ export default [
 		call: Call.Jellyfish,
 		realm: Realm.DaylightPrairie,
 		offer: { candles: 135, hearts: 15, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(49, skyDate(2_021, 11, 25)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.TimidBookworm,
@@ -772,6 +794,10 @@ export default [
 		expression: Expression.Grouchy,
 		realm: Realm.DaylightPrairie,
 		offer: { candles: 139, hearts: 29, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(55, skyDate(2_022, 2, 17)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.GratefulShellCollector,
@@ -779,6 +805,10 @@ export default [
 		expression: Expression.Grateful,
 		realm: Realm.DaylightPrairie,
 		offer: { candles: 162, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(45, skyDate(2_021, 9, 30)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.ChillSunbather,
@@ -786,6 +816,10 @@ export default [
 		expression: Expression.BellyScratch,
 		realm: Realm.DaylightPrairie,
 		offer: { candles: 197, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(42, skyDate(2_021, 8, 19)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.ProphetOfWater,
@@ -807,6 +841,12 @@ export default [
 		expression: Expression.DustOff,
 		realm: Realm.IslesOfDawn,
 		offer: { candles: 211, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
+				.set("Error", skyDate(2_022, 1, 6))
+				.set(54, skyDate(2_022, 2, 3)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(2, skyDate(2_023, 5, 15)),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.ProphetOfAir,
@@ -814,6 +854,10 @@ export default [
 		expression: Expression.Balance,
 		realm: Realm.IslesOfDawn,
 		offer: { candles: 201, hearts: 12, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(61, skyDate(2_022, 5, 12)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(2, skyDate(2_023, 5, 15)),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.ProphetOfFire,
@@ -821,6 +865,10 @@ export default [
 		expression: Expression.ChestPound,
 		realm: Realm.IslesOfDawn,
 		offer: { candles: 202, hearts: 26, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(50, skyDate(2_021, 12, 9)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.SpinningMentor,
@@ -828,6 +876,10 @@ export default [
 		expression: Expression.SpinTrick,
 		realm: Realm.ValleyOfTriumph,
 		offer: { candles: 169, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(59, skyDate(2_022, 4, 14)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.DancingPerformer,
@@ -842,6 +894,10 @@ export default [
 		realm: Realm.ValleyOfTriumph,
 		offer: { candles: 217, hearts: 13, ascendedCandles: 2 },
 		keywords: ["rabbit", "rabbit mask"],
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(64, skyDate(2_022, 6, 23)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.BearhugHermit,
@@ -851,6 +907,10 @@ export default [
 		offer: { candles: 190, hearts: 8, ascendedCandles: 2 },
 		hasMarketingVideo: true,
 		keywords: ["yeti"],
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(75, skyDate(2_022, 11, 24)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.BaffledBotanist,
@@ -859,6 +919,10 @@ export default [
 		realm: Realm.HiddenForest,
 		hasMarketingVideo: true,
 		offer: { candles: 127, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(78, skyDate(2_023, 1, 5)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(1, skyDate(2_023, 3, 6)),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.ScoldingStudent,
@@ -867,6 +931,10 @@ export default [
 		realm: Realm.HiddenForest,
 		offer: { candles: 157, hearts: 13, ascendedCandles: 2 },
 		keywords: ["clover", "clover cape"],
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(68, skyDate(2_022, 8, 18)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.ScaredyCadet,
@@ -875,6 +943,10 @@ export default [
 		realm: Realm.HiddenForest,
 		offer: { candles: 152, hearts: 13, ascendedCandles: 2 },
 		keywords: ["hammock"],
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(1, skyDate(2_023, 3, 6)),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.MarchingAdventurer,
@@ -882,6 +954,10 @@ export default [
 		expression: Expression.March,
 		realm: Realm.HiddenForest,
 		offer: { candles: 143, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(1, skyDate(2_023, 3, 6)),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.ChucklingScout,
@@ -889,6 +965,10 @@ export default [
 		expression: Expression.Chuckle,
 		realm: Realm.HiddenForest,
 		offer: { candles: 159, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(1, skyDate(2_023, 3, 6)),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.DaydreamForester,
@@ -896,6 +976,10 @@ export default [
 		expression: Expression.Bubbles,
 		realm: Realm.HiddenForest,
 		offer: { candles: 112, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(60, skyDate(2_022, 4, 28)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.BeckoningRuler,
@@ -905,6 +989,10 @@ export default [
 		keywords: ["frog", "frog mask"],
 		hasMarketingVideo: true,
 		offer: { candles: 103, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(71, skyDate(2_022, 9, 29)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.GloatingNarcissist,
@@ -925,6 +1013,10 @@ export default [
 		realm: Realm.VaultOfKnowledge,
 		hasMarketingVideo: true,
 		offer: { candles: 140, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(81, skyDate(2_023, 2, 16)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.SneezingGeographer,
@@ -933,6 +1025,10 @@ export default [
 		realm: Realm.VaultOfKnowledge,
 		hasMarketingVideo: true,
 		offer: { candles: 123, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(85, skyDate(2_023, 4, 13)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.StarCollector,
@@ -959,6 +1055,10 @@ export default [
 		realm: Realm.HiddenForest,
 		hasMarketingVideo: true,
 		offer: { candles: 238, hearts: 0, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(87, skyDate(2_023, 5, 11)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.TalentedBuilder,
