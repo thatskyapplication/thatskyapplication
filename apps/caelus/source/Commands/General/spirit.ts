@@ -1,6 +1,15 @@
-import type { ApplicationCommandData, AutocompleteInteraction, ChatInputCommandInteraction } from "discord.js";
-import { hyperlink, ApplicationCommandOptionType, ApplicationCommandType, EmbedBuilder } from "discord.js";
-import Spirits from "../../Structures/Spirit.js";
+import {
+	type ApplicationCommandData,
+	type AutocompleteInteraction,
+	type ChatInputCommandInteraction,
+	hyperlink,
+	ApplicationCommandOptionType,
+	ApplicationCommandType,
+	EmbedBuilder,
+	time,
+	TimestampStyles,
+} from "discord.js";
+import Spirits, { type SeasonalSpiritVisit } from "../../Structures/Spirit.js";
 import { Emoji } from "../../Utility/Constants.js";
 import { resolveCurrencyEmoji } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
@@ -28,42 +37,60 @@ export default class implements AutocompleteCommand {
 			.setFields(
 				{ name: "Realm", value: spirit.realm, inline: true },
 				{ name: "Season", value: spirit.isSeasonalSpirit() ? spirit.season.name : "None", inline: true },
-				{
-					name: "Offer",
-					value:
-						spirit.offer === null
-							? "Unknown"
-							: `${resolveCurrencyEmoji({
-									interaction,
-									emoji: Emoji.Candle,
-									number: spirit.offer.candles,
-									forceEmojiOnLeft: true,
-							  })}\n${resolveCurrencyEmoji({
-									interaction,
-									emoji: Emoji.Heart,
-									number: spirit.offer.hearts,
-									forceEmojiOnLeft: true,
-							  })}\n${resolveCurrencyEmoji({
-									interaction,
-									emoji: Emoji.AscendedCandle,
-									number: spirit.offer.ascendedCandles,
-									forceEmojiOnLeft: true,
-							  })}`,
-					inline: true,
-				},
-				{ name: "Expression", value: spirit.expression ?? "None", inline: true },
-				{ name: "Stance", value: spirit.stance ?? "None", inline: true },
-				{ name: "Call", value: spirit.call ?? "None", inline: true },
 			)
 			.setImage(spirit.imageURL)
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
 
+		if (spirit.expression) embed.addFields({ name: "Expression", value: spirit.expression, inline: true });
+		if (spirit.stance) embed.addFields({ name: "Stance", value: spirit.stance, inline: true });
+		if (spirit.call) embed.addFields({ name: "Call", value: spirit.call, inline: true });
 		const description = [];
-		if (spirit.isSeasonalSpirit() && !spirit.offer) description.push("⚠️ This spirit has not yet returned.");
+
+		if (spirit.notVisited) {
+			description.push("⚠️ This spirit has not yet returned.");
+		} else {
+			const { travelling, returning } = spirit.visits;
+			if (travelling.size > 0) embed.addFields({ name: "Travelling", value: this.visitField(travelling) });
+			if (returning.size > 0) embed.addFields({ name: "Returning", value: this.visitField(returning) });
+		}
+
+		if (spirit.offer) {
+			description.push(
+				`${resolveCurrencyEmoji({
+					interaction,
+					emoji: Emoji.Candle,
+					number: spirit.offer.candles,
+				})}${resolveCurrencyEmoji({
+					interaction,
+					emoji: Emoji.Heart,
+					number: spirit.offer.hearts,
+				})}${resolveCurrencyEmoji({
+					interaction,
+					emoji: Emoji.AscendedCandle,
+					number: spirit.offer.ascendedCandles,
+				})}`,
+			);
+		}
+
 		if (spirit.marketingVideoURL) description.push(hyperlink("Promotional Video", spirit.marketingVideoURL));
 		if (description.length > 0) embed.setDescription(description.join("\n"));
 		await interaction.reply({ embeds: [embed] });
+	}
+
+	private visitField(seasonalSpiritVisit: SeasonalSpiritVisit["travelling"] | SeasonalSpiritVisit["returning"]) {
+		return seasonalSpiritVisit
+			.reduce<string[]>((visits, date, visit) => {
+				visits.push(
+					`${visit === "Error" ? "" : `#`}${visit}: ${time(date.unix(), TimestampStyles.LongDate)} (${time(
+						date.unix(),
+						TimestampStyles.RelativeTime,
+					)})`,
+				);
+
+				return visits;
+			}, [])
+			.join("\n");
 	}
 
 	public async autocomplete(interaction: AutocompleteInteraction) {

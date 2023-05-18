@@ -19,7 +19,13 @@ export function notNull<T>(value: T | null): value is T {
 }
 
 export function todayDate() {
-	return dayjs().tz("America/Los_Angeles").hour(0).minute(0).second(0).millisecond(0);
+	const now = dayjs().tz("America/Los_Angeles");
+	return skyDate(now.year(), now.month(), now.date());
+}
+
+export function skyDate(year: number, month: number, date: number, hour = 0, minute = 0, second = 0) {
+	// https://github.com/iamkun/dayjs/issues/1827
+	return dayjs.tz(`${year}-${month}-${date} ${hour}:${minute}:${second}`, "America/Los_Angeles");
 }
 
 export function treasureCandleRealm() {
