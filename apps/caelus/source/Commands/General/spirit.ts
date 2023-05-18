@@ -1,12 +1,15 @@
 import {
-	time,
 	type ApplicationCommandData,
 	type AutocompleteInteraction,
 	type ChatInputCommandInteraction,
+	hyperlink,
+	ApplicationCommandOptionType,
+	ApplicationCommandType,
+	EmbedBuilder,
+	time,
 	TimestampStyles,
 } from "discord.js";
-import { hyperlink, ApplicationCommandOptionType, ApplicationCommandType, EmbedBuilder } from "discord.js";
-import Spirits from "../../Structures/Spirit.js";
+import Spirits, { type SeasonalSpiritVisit } from "../../Structures/Spirit.js";
 import { Emoji } from "../../Utility/Constants.js";
 import { resolveCurrencyEmoji } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
@@ -42,25 +45,15 @@ export default class implements AutocompleteCommand {
 		if (spirit.expression) embed.addFields({ name: "Expression", value: spirit.expression, inline: true });
 		if (spirit.stance) embed.addFields({ name: "Stance", value: spirit.stance, inline: true });
 		if (spirit.call) embed.addFields({ name: "Call", value: spirit.call, inline: true });
-
-		embed.addFields({
-			name: "Visits",
-			value:
-				Object.entries({ ...spirit.visits.travelling, ...spirit.visits.returning })
-					.reduce<string[]>((visits, [visit, date]) => {
-						visits.push(
-							`${visit === "error" ? "Error" : `#${visit}`}: ${time(date.unix(), TimestampStyles.LongDate)} (${time(
-								date.unix(),
-								TimestampStyles.RelativeTime,
-							)})`,
-						);
-
-						return visits;
-					}, [])
-					.join("\n") || "⚠️ This spirit has not yet returned.",
-		});
-
 		const description = [];
+
+		if (spirit.notVisited) {
+			description.push("⚠️ This spirit has not yet returned.");
+		} else {
+			const { travelling, returning } = spirit.visits;
+			if (travelling.size > 0) embed.addFields({ name: "Travelling", value: this.visitField(travelling) });
+			if (returning.size > 0) embed.addFields({ name: "Returning", value: this.visitField(returning) });
+		}
 
 		if (spirit.offer) {
 			description.push(
@@ -83,6 +76,21 @@ export default class implements AutocompleteCommand {
 		if (spirit.marketingVideoURL) description.push(hyperlink("Promotional Video", spirit.marketingVideoURL));
 		if (description.length > 0) embed.setDescription(description.join("\n"));
 		await interaction.reply({ embeds: [embed] });
+	}
+
+	private visitField(seasonalSpiritVisit: SeasonalSpiritVisit["travelling"] | SeasonalSpiritVisit["returning"]) {
+		return seasonalSpiritVisit
+			.reduce<string[]>((visits, date, visit) => {
+				visits.push(
+					`${visit === "Error" ? "" : `#`}${visit}: ${time(date.unix(), TimestampStyles.LongDate)} (${time(
+						date.unix(),
+						TimestampStyles.RelativeTime,
+					)})`,
+				);
+
+				return visits;
+			}, [])
+			.join("\n");
 	}
 
 	public async autocomplete(interaction: AutocompleteInteraction) {

@@ -1,5 +1,6 @@
 import { URL } from "node:url";
 import type { Dayjs } from "dayjs";
+import { Collection } from "discord.js";
 import { CDN_URL, Realm, Season, WIKI_URL } from "../Utility/Constants.js";
 import { skyDate } from "../Utility/Utility.js";
 
@@ -259,12 +260,9 @@ interface SpiritDataBaseWithCall extends SpiritDataBase {
 
 type SpiritData = SpiritDataBaseWithCall | SpiritDataBaseWithExpression | SpiritDataBaseWithStance;
 
-interface SeasonalSpiritVisit {
-	travelling: {
-		[key: number]: Dayjs;
-		error?: Dayjs;
-	};
-	returning: Record<number, Dayjs>;
+export interface SeasonalSpiritVisit {
+	travelling: Collection<number | "Error", Dayjs>;
+	returning: Collection<number, Dayjs>;
 }
 
 type SeasonalSpiritData = SpiritData & { season: Season; hasMarketingVideo?: boolean; visits?: SeasonalSpiritVisit };
@@ -318,7 +316,7 @@ class SeasonalSpirit extends Spirit {
 
 	public readonly marketingVideoURL: string | null;
 
-	public readonly visits: Required<SeasonalSpiritVisit>;
+	public readonly visits: SeasonalSpiritVisit;
 
 	public constructor(spirit: SeasonalSpiritData) {
 		super(spirit);
@@ -328,7 +326,11 @@ class SeasonalSpirit extends Spirit {
 			? String(new URL(`spirits/${this.cdnName}/marketing_video.mp4`, CDN_URL))
 			: null;
 
-		this.visits = "visits" in spirit ? spirit.visits : { travelling: {}, returning: {} };
+		this.visits = "visits" in spirit ? spirit.visits : { travelling: new Collection(), returning: new Collection() };
+	}
+
+	public get notVisited() {
+		return this.visits.travelling.size === 0 && this.visits.returning.size === 0;
 	}
 }
 
@@ -341,13 +343,12 @@ export default [
 		offer: { candles: 87, hearts: 0, ascendedCandles: 2 },
 		hasMarketingVideo: true,
 		visits: {
-			travelling: {
-				1: skyDate(2_020, 1, 31),
-				10: skyDate(2_020, 5, 28),
-				39: skyDate(2_021, 7, 8),
-				76: skyDate(2_022, 12, 8),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(1, skyDate(2_020, 1, 31))
+				.set(10, skyDate(2_020, 5, 28))
+				.set(39, skyDate(2_021, 7, 8))
+				.set(76, skyDate(2_022, 12, 8)),
+			returning: new Collection(),
 		},
 		keywords: ["weasel", "weasel mask"],
 	}),
@@ -358,11 +359,10 @@ export default [
 		realm: Realm.DaylightPrairie,
 		offer: { candles: 104, hearts: 13, ascendedCandles: 2 },
 		visits: {
-			travelling: {
-				8: skyDate(2_020, 4, 30),
-				57: skyDate(2_022, 3, 17),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(8, skyDate(2_020, 4, 30))
+				.set(57, skyDate(2_022, 3, 17)),
+			returning: new Collection(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -373,13 +373,12 @@ export default [
 		hasMarketingVideo: true,
 		offer: { candles: 104, hearts: 13, ascendedCandles: 2 },
 		visits: {
-			travelling: {
-				4: skyDate(2_020, 3, 12),
-				19: skyDate(2_020, 10, 1),
-				84: skyDate(2_023, 3, 30),
-				error: skyDate(2_023, 4, 13),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(4, skyDate(2_020, 3, 12))
+				.set(19, skyDate(2_020, 10, 1))
+				.set(84, skyDate(2_023, 3, 30))
+				.set("Error", skyDate(2_023, 4, 13)),
+			returning: new Collection(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -390,11 +389,10 @@ export default [
 		offer: { candles: 107, hearts: 13, ascendedCandles: 2 },
 		keywords: ["fox", "fox mask"],
 		visits: {
-			travelling: {
-				12: skyDate(2_020, 6, 25),
-				31: skyDate(2_021, 3, 18),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(12, skyDate(2_020, 6, 25))
+				.set(31, skyDate(2_021, 3, 18)),
+			returning: new Collection(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -411,11 +409,10 @@ export default [
 		realm: Realm.VaultOfKnowledge,
 		offer: { candles: 112, hearts: 13, ascendedCandles: 2 },
 		visits: {
-			travelling: {
-				14: skyDate(2_020, 7, 23),
-				62: skyDate(2_022, 5, 26),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(14, skyDate(2_020, 7, 23))
+				.set(62, skyDate(2_022, 5, 26)),
+			returning: new Collection(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -426,12 +423,11 @@ export default [
 		hasMarketingVideo: true,
 		offer: { candles: 123, hearts: 8, ascendedCandles: 2 },
 		visits: {
-			travelling: {
-				7: skyDate(2_020, 4, 16),
-				30: skyDate(2_021, 3, 4),
-				80: skyDate(2_023, 2, 2),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(7, skyDate(2_020, 4, 16))
+				.set(30, skyDate(2_021, 3, 4))
+				.set(80, skyDate(2_023, 2, 2)),
+			returning: new Collection(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -441,12 +437,11 @@ export default [
 		realm: Realm.DaylightPrairie,
 		offer: { candles: 126, hearts: 7, ascendedCandles: 2 },
 		visits: {
-			travelling: {
-				2: skyDate(2_020, 2, 14),
-				33: skyDate(2_021, 4, 15),
-				66: skyDate(2_022, 7, 21),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(2, skyDate(2_020, 2, 14))
+				.set(33, skyDate(2_021, 4, 15))
+				.set(66, skyDate(2_022, 7, 21)),
+			returning: new Collection(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -456,12 +451,11 @@ export default [
 		realm: Realm.HiddenForest,
 		offer: { candles: 151, hearts: 0, ascendedCandles: 2 },
 		visits: {
-			travelling: {
-				3: skyDate(2_020, 2, 27),
-				23: skyDate(2_020, 11, 26),
-				72: skyDate(2_022, 10, 13),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(3, skyDate(2_020, 2, 27))
+				.set(23, skyDate(2_020, 11, 26))
+				.set(72, skyDate(2_022, 10, 13)),
+			returning: new Collection(),
 		},
 		hasMarketingVideo: true,
 		keywords: ["umbrella"],
@@ -473,11 +467,10 @@ export default [
 		realm: Realm.ValleyOfTriumph,
 		offer: { candles: 131, hearts: 13, ascendedCandles: 2 },
 		visits: {
-			travelling: {
-				18: skyDate(2_020, 9, 17),
-				52: skyDate(2_022, 1, 6),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(18, skyDate(2_020, 9, 17))
+				.set(52, skyDate(2_022, 1, 6)),
+			returning: new Collection(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -487,11 +480,8 @@ export default [
 		realm: Realm.GoldenWasteland,
 		offer: { candles: 190, hearts: 0, ascendedCandles: 2 },
 		visits: {
-			travelling: {
-				6: skyDate(2_020, 4, 9),
-				43: skyDate(2_021, 9, 1),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>().set(6, skyDate(2_020, 4, 9)).set(43, skyDate(2_021, 9, 1)),
+			returning: new Collection(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -502,11 +492,10 @@ export default [
 		hasMarketingVideo: true,
 		offer: { candles: 108, hearts: 13, ascendedCandles: 2 },
 		visits: {
-			travelling: {
-				16: skyDate(2_020, 8, 20),
-				70: skyDate(2_022, 9, 15),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(16, skyDate(2_020, 8, 20))
+				.set(70, skyDate(2_022, 9, 15)),
+			returning: new Collection(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -516,6 +505,13 @@ export default [
 		realm: Realm.IslesOfDawn,
 		hasMarketingVideo: true,
 		offer: { candles: 103, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(22, skyDate(2_020, 11, 12))
+				.set(40, skyDate(2_021, 7, 22))
+				.set(82, skyDate(2_023, 3, 2)),
+			returning: new Collection(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.ConfettiCousin,
@@ -524,11 +520,10 @@ export default [
 		realm: Realm.DaylightPrairie,
 		offer: { candles: 115, hearts: 13, ascendedCandles: 2 },
 		visits: {
-			travelling: {
-				13: skyDate(2_020, 7, 9),
-				27: skyDate(2_021, 1, 21),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(13, skyDate(2_020, 7, 9))
+				.set(27, skyDate(2_021, 1, 21)),
+			returning: new Collection(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -538,11 +533,10 @@ export default [
 		realm: Realm.HiddenForest,
 		offer: { candles: 148, hearts: 9, ascendedCandles: 2 },
 		visits: {
-			travelling: {
-				11: skyDate(2_020, 6, 11),
-				63: skyDate(2_022, 6, 9),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(11, skyDate(2_020, 6, 11))
+				.set(63, skyDate(2_022, 6, 9)),
+			returning: new Collection(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -552,12 +546,11 @@ export default [
 		realm: Realm.ValleyOfTriumph,
 		offer: { candles: 116, hearts: 13, ascendedCandles: 2 },
 		visits: {
-			travelling: {
-				9: skyDate(2_020, 5, 14),
-				32: skyDate(2_021, 4, 1),
-				51: skyDate(2_021, 12, 23),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(9, skyDate(2_020, 5, 14))
+				.set(32, skyDate(2_021, 4, 1))
+				.set(51, skyDate(2_021, 12, 23)),
+			returning: new Collection(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -568,12 +561,11 @@ export default [
 		hasMarketingVideo: true,
 		offer: { candles: 195, hearts: 13, ascendedCandles: 2 },
 		visits: {
-			travelling: {
-				5: skyDate(2_020, 3, 26),
-				24: skyDate(2_020, 12, 10),
-				77: skyDate(2_022, 12, 22),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(5, skyDate(2_020, 3, 26))
+				.set(24, skyDate(2_020, 12, 10))
+				.set(77, skyDate(2_022, 12, 22)),
+			returning: new Collection(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -583,11 +575,10 @@ export default [
 		realm: Realm.VaultOfKnowledge,
 		offer: { candles: 156, hearts: 0, ascendedCandles: 2 },
 		visits: {
-			travelling: {
-				15: skyDate(2_020, 8, 6),
-				48: skyDate(2_021, 11, 11),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(15, skyDate(2_020, 8, 6))
+				.set(48, skyDate(2_021, 11, 11)),
+			returning: new Collection(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -596,6 +587,12 @@ export default [
 		expression: Expression.Welcome,
 		realm: Realm.IslesOfDawn,
 		offer: { candles: 146, hearts: 13, ascendedCandles: 12 },
+		visits: {
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(25, skyDate(2_020, 12, 24))
+				.set(56, skyDate(2_022, 3, 3)),
+			returning: new Collection(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.FestivalSpinDancer,
@@ -604,11 +601,10 @@ export default [
 		realm: Realm.DaylightPrairie,
 		offer: { candles: 157, hearts: 19, ascendedCandles: 2 },
 		visits: {
-			travelling: {
-				17: skyDate(2_020, 9, 3),
-				46: skyDate(2_021, 10, 14),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(17, skyDate(2_020, 9, 3))
+				.set(46, skyDate(2_021, 10, 14)),
+			returning: new Collection(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -618,11 +614,10 @@ export default [
 		realm: Realm.HiddenForest,
 		offer: { candles: 135, hearts: 13, ascendedCandles: 2 },
 		visits: {
-			travelling: {
-				20: skyDate(2_020, 10, 15),
-				38: skyDate(2_021, 6, 24),
-			},
-			returning: {},
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(20, skyDate(2_020, 10, 15))
+				.set(38, skyDate(2_021, 6, 24)),
+			returning: new Collection(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -638,6 +633,10 @@ export default [
 		expression: Expression.Respect,
 		realm: Realm.GoldenWasteland,
 		offer: { candles: 162, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<number | "Error", Dayjs>().set(28, skyDate(2_021, 2, 4)),
+			returning: new Collection(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.ThoughtfulDirector,
@@ -653,6 +652,12 @@ export default [
 		realm: Realm.GoldenWasteland,
 		hasMarketingVideo: true,
 		offer: { candles: 77, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(26, skyDate(2_021, 1, 7))
+				.set(73, skyDate(2_022, 10, 27)),
+			returning: new Collection(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.IndifferentAlchemist,
@@ -660,6 +665,12 @@ export default [
 		expression: Expression.Shrug,
 		realm: Realm.GoldenWasteland,
 		offer: { candles: 167, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(21, skyDate(2_020, 10, 29))
+				.set(69, skyDate(2_022, 9, 1)),
+			returning: new Collection(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.CrabWalker,
@@ -668,6 +679,13 @@ export default [
 		realm: Realm.GoldenWasteland,
 		hasMarketingVideo: true,
 		offer: { candles: 115, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set("Error", skyDate(2_021, 2, 4))
+				.set(29, skyDate(2_021, 2, 18))
+				.set(83, skyDate(2_023, 3, 16)),
+			returning: new Collection(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.ScarecrowFarmer,
