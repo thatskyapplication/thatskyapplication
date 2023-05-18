@@ -1,5 +1,7 @@
 import { URL } from "node:url";
+import type { Dayjs } from "dayjs";
 import { CDN_URL, Realm, Season, WIKI_URL } from "../Utility/Constants.js";
+import { skyDate } from "../Utility/Utility.js";
 
 export enum SpiritName {
 	// Isles of Dawn
@@ -256,7 +258,16 @@ interface SpiritDataBaseWithCall extends SpiritDataBase {
 }
 
 type SpiritData = SpiritDataBaseWithCall | SpiritDataBaseWithExpression | SpiritDataBaseWithStance;
-type SeasonalSpiritData = SpiritData & { season: Season; hasMarketingVideo?: boolean };
+
+interface SeasonalSpiritVisit {
+	travelling: {
+		[key: number]: Dayjs;
+		error?: Dayjs;
+	};
+	returning: Record<number, Dayjs>;
+}
+
+type SeasonalSpiritData = SpiritData & { season: Season; hasMarketingVideo?: boolean; visits?: SeasonalSpiritVisit };
 
 interface SpiritSeason {
 	name: Season;
@@ -307,6 +318,8 @@ class SeasonalSpirit extends Spirit {
 
 	public readonly marketingVideoURL: string | null;
 
+	public readonly visits: Required<SeasonalSpiritVisit>;
+
 	public constructor(spirit: SeasonalSpiritData) {
 		super(spirit);
 		this.season = { name: spirit.season };
@@ -314,6 +327,8 @@ class SeasonalSpirit extends Spirit {
 		this.marketingVideoURL = spirit.hasMarketingVideo
 			? String(new URL(`spirits/${this.cdnName}/marketing_video.mp4`, CDN_URL))
 			: null;
+
+		this.visits = "visits" in spirit ? spirit.visits : { travelling: {}, returning: {} };
 	}
 }
 
@@ -325,6 +340,15 @@ export default [
 		realm: Realm.IslesOfDawn,
 		offer: { candles: 87, hearts: 0, ascendedCandles: 2 },
 		hasMarketingVideo: true,
+		visits: {
+			travelling: {
+				1: skyDate(2_020, 1, 31),
+				10: skyDate(2_020, 5, 28),
+				39: skyDate(2_021, 7, 8),
+				76: skyDate(2_022, 12, 8),
+			},
+			returning: {},
+		},
 		keywords: ["weasel", "weasel mask"],
 	}),
 	new SeasonalSpirit({
@@ -341,6 +365,15 @@ export default [
 		realm: Realm.HiddenForest,
 		hasMarketingVideo: true,
 		offer: { candles: 104, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: {
+				4: skyDate(2_020, 3, 12),
+				19: skyDate(2_020, 10, 1),
+				84: skyDate(2_023, 3, 30),
+				error: skyDate(2_023, 4, 13),
+			},
+			returning: {},
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.LeapingDancer,
@@ -378,6 +411,14 @@ export default [
 		expression: Expression.DoubleFive,
 		realm: Realm.DaylightPrairie,
 		offer: { candles: 126, hearts: 7, ascendedCandles: 2 },
+		visits: {
+			travelling: {
+				2: skyDate(2_020, 2, 14),
+				33: skyDate(2_021, 4, 15),
+				66: skyDate(2_022, 7, 21),
+			},
+			returning: {},
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.LaidbackPioneer,
@@ -385,6 +426,14 @@ export default [
 		stance: Stance.Laidback,
 		realm: Realm.HiddenForest,
 		offer: { candles: 151, hearts: 0, ascendedCandles: 2 },
+		visits: {
+			travelling: {
+				3: skyDate(2_020, 2, 27),
+				23: skyDate(2_020, 11, 26),
+				72: skyDate(2_022, 10, 13),
+			},
+			returning: {},
+		},
 		hasMarketingVideo: true,
 		keywords: ["umbrella"],
 	}),
