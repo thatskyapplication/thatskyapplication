@@ -731,6 +731,12 @@ export default [
 		realm: Realm.DaylightPrairie,
 		hasMarketingVideo: true,
 		offer: { candles: 125, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<number | "Error", Dayjs>()
+				.set(34, skyDate(2_021, 4, 29))
+				.set(79, skyDate(2_023, 1, 19)),
+			returning: new Collection(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.HikingGrouch,
