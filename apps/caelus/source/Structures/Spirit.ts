@@ -328,7 +328,13 @@ class SeasonalSpirit extends Spirit {
 			? String(new URL(`spirits/${this.cdnName}/marketing_video.mp4`, CDN_URL))
 			: null;
 
-		this.visits = "visits" in spirit ? spirit.visits : { travelling: new Collection(), returning: new Collection() };
+		this.visits =
+			"visits" in spirit
+				? spirit.visits
+				: {
+						travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+						returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+				  };
 	}
 
 	public get notVisited() {
@@ -350,7 +356,7 @@ export default [
 				.set(10, skyDate(2_020, 5, 28))
 				.set(39, skyDate(2_021, 7, 8))
 				.set(76, skyDate(2_022, 12, 8)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 		keywords: ["weasel", "weasel mask"],
 	}),
@@ -364,7 +370,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(8, skyDate(2_020, 4, 30))
 				.set(57, skyDate(2_022, 3, 17)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -380,7 +386,7 @@ export default [
 				.set(19, skyDate(2_020, 10, 1))
 				.set(84, skyDate(2_023, 3, 30))
 				.set("Error", skyDate(2_023, 4, 13)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -394,7 +400,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(12, skyDate(2_020, 6, 25))
 				.set(31, skyDate(2_021, 3, 18)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -414,7 +420,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(14, skyDate(2_020, 7, 23))
 				.set(62, skyDate(2_022, 5, 26)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -429,7 +435,7 @@ export default [
 				.set(7, skyDate(2_020, 4, 16))
 				.set(30, skyDate(2_021, 3, 4))
 				.set(80, skyDate(2_023, 2, 2)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -443,7 +449,7 @@ export default [
 				.set(2, skyDate(2_020, 2, 14))
 				.set(33, skyDate(2_021, 4, 15))
 				.set(66, skyDate(2_022, 7, 21)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -457,7 +463,7 @@ export default [
 				.set(3, skyDate(2_020, 2, 27))
 				.set(23, skyDate(2_020, 11, 26))
 				.set(72, skyDate(2_022, 10, 13)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 		hasMarketingVideo: true,
 		keywords: ["umbrella"],
@@ -472,7 +478,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(18, skyDate(2_020, 9, 17))
 				.set(52, skyDate(2_022, 1, 6)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -485,7 +491,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(6, skyDate(2_020, 4, 9))
 				.set(43, skyDate(2_021, 9, 1)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -499,7 +505,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(16, skyDate(2_020, 8, 20))
 				.set(70, skyDate(2_022, 9, 15)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -514,7 +520,7 @@ export default [
 				.set(22, skyDate(2_020, 11, 12))
 				.set(40, skyDate(2_021, 7, 22))
 				.set(82, skyDate(2_023, 3, 2)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -527,7 +533,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(13, skyDate(2_020, 7, 9))
 				.set(27, skyDate(2_021, 1, 21)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -540,7 +546,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(11, skyDate(2_020, 6, 11))
 				.set(63, skyDate(2_022, 6, 9)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -554,7 +560,7 @@ export default [
 				.set(9, skyDate(2_020, 5, 14))
 				.set(32, skyDate(2_021, 4, 1))
 				.set(51, skyDate(2_021, 12, 23)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -569,7 +575,7 @@ export default [
 				.set(5, skyDate(2_020, 3, 26))
 				.set(24, skyDate(2_020, 12, 10))
 				.set(77, skyDate(2_022, 12, 22)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -582,7 +588,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(15, skyDate(2_020, 8, 6))
 				.set(48, skyDate(2_021, 11, 11)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -595,7 +601,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(25, skyDate(2_020, 12, 24))
 				.set(56, skyDate(2_022, 3, 3)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -608,7 +614,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(17, skyDate(2_020, 9, 3))
 				.set(46, skyDate(2_021, 10, 14)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -621,7 +627,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(20, skyDate(2_020, 10, 15))
 				.set(38, skyDate(2_021, 6, 24)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -639,7 +645,7 @@ export default [
 		offer: { candles: 162, hearts: 13, ascendedCandles: 2 },
 		visits: {
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(28, skyDate(2_021, 2, 4)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -652,7 +658,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(35, skyDate(2_021, 5, 13))
 				.set(67, skyDate(2_022, 8, 4)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -666,7 +672,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(26, skyDate(2_021, 1, 7))
 				.set(73, skyDate(2_022, 10, 27)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -679,7 +685,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(21, skyDate(2_020, 10, 29))
 				.set(69, skyDate(2_022, 9, 1)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -694,7 +700,7 @@ export default [
 				.set("Error", skyDate(2_021, 2, 4))
 				.set(29, skyDate(2_021, 2, 18))
 				.set(83, skyDate(2_023, 3, 16)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -715,7 +721,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(36, skyDate(2_021, 5, 27))
 				.set(86, skyDate(2_023, 4, 27)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -743,7 +749,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(37, skyDate(2_021, 6, 10))
 				.set(65, skyDate(2_022, 7, 7)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
@@ -757,7 +763,7 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(34, skyDate(2_021, 4, 29))
 				.set(79, skyDate(2_023, 1, 19)),
-			returning: new Collection(),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
 	new SeasonalSpirit({
