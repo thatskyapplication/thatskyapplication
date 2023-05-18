@@ -357,6 +357,13 @@ export default [
 		expression: Expression.Yoga,
 		realm: Realm.DaylightPrairie,
 		offer: { candles: 104, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: {
+				8: skyDate(2_020, 4, 30),
+				57: skyDate(2_022, 3, 17),
+			},
+			returning: {},
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.ProvokingPerformer,
@@ -382,6 +389,13 @@ export default [
 		realm: Realm.ValleyOfTriumph,
 		offer: { candles: 107, hearts: 13, ascendedCandles: 2 },
 		keywords: ["fox", "fox mask"],
+		visits: {
+			travelling: {
+				12: skyDate(2_020, 6, 25),
+				31: skyDate(2_021, 3, 18),
+			},
+			returning: {},
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.SalutingProtector,
@@ -396,6 +410,13 @@ export default [
 		expression: Expression.Greeting,
 		realm: Realm.VaultOfKnowledge,
 		offer: { candles: 112, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: {
+				14: skyDate(2_020, 7, 23),
+				62: skyDate(2_022, 5, 26),
+			},
+			returning: {},
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.PiggybackLightseeker,
@@ -404,6 +425,14 @@ export default [
 		realm: Realm.IslesOfDawn,
 		hasMarketingVideo: true,
 		offer: { candles: 123, hearts: 8, ascendedCandles: 2 },
+		visits: {
+			travelling: {
+				7: skyDate(2_020, 4, 16),
+				30: skyDate(2_021, 3, 4),
+				80: skyDate(2_023, 2, 2),
+			},
+			returning: {},
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.DoublefiveLightCatcher,
@@ -443,6 +472,13 @@ export default [
 		expression: Expression.TripleAxel,
 		realm: Realm.ValleyOfTriumph,
 		offer: { candles: 131, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: {
+				18: skyDate(2_020, 9, 17),
+				52: skyDate(2_022, 1, 6),
+			},
+			returning: {},
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.CrabWhisperer,
@@ -450,6 +486,13 @@ export default [
 		call: Call.Crab,
 		realm: Realm.GoldenWasteland,
 		offer: { candles: 190, hearts: 0, ascendedCandles: 2 },
+		visits: {
+			travelling: {
+				6: skyDate(2_020, 4, 9),
+				43: skyDate(2_021, 9, 1),
+			},
+			returning: {},
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.ShushingLightScholar,
@@ -458,6 +501,13 @@ export default [
 		realm: Realm.VaultOfKnowledge,
 		hasMarketingVideo: true,
 		offer: { candles: 108, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: {
+				16: skyDate(2_020, 8, 20),
+				70: skyDate(2_022, 9, 15),
+			},
+			returning: {},
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.BoogieKid,
@@ -473,6 +523,13 @@ export default [
 		expression: Expression.Confetti,
 		realm: Realm.DaylightPrairie,
 		offer: { candles: 115, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: {
+				13: skyDate(2_020, 7, 9),
+				27: skyDate(2_021, 1, 21),
+			},
+			returning: {},
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.HairtousleTeen,
@@ -480,6 +537,13 @@ export default [
 		expression: Expression.HairTousle,
 		realm: Realm.HiddenForest,
 		offer: { candles: 148, hearts: 9, ascendedCandles: 2 },
+		visits: {
+			travelling: {
+				11: skyDate(2_020, 6, 11),
+				63: skyDate(2_022, 6, 9),
+			},
+			returning: {},
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.SparklerParent,
@@ -487,6 +551,14 @@ export default [
 		expression: Expression.Sparkler,
 		realm: Realm.ValleyOfTriumph,
 		offer: { candles: 116, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: {
+				9: skyDate(2_020, 5, 14),
+				32: skyDate(2_021, 4, 1),
+				51: skyDate(2_021, 12, 23),
+			},
+			returning: {},
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.PleafulParent,
@@ -495,6 +567,14 @@ export default [
 		realm: Realm.GoldenWasteland,
 		hasMarketingVideo: true,
 		offer: { candles: 195, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: {
+				5: skyDate(2_020, 3, 26),
+				24: skyDate(2_020, 12, 10),
+				77: skyDate(2_022, 12, 22),
+			},
+			returning: {},
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.WiseGrandparent,
@@ -502,6 +582,13 @@ export default [
 		stance: Stance.Wise,
 		realm: Realm.VaultOfKnowledge,
 		offer: { candles: 156, hearts: 0, ascendedCandles: 2 },
+		visits: {
+			travelling: {
+				15: skyDate(2_020, 8, 6),
+				48: skyDate(2_021, 11, 11),
+			},
+			returning: {},
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.TroupeGreeter,
@@ -516,6 +603,13 @@ export default [
 		expression: Expression.Dance,
 		realm: Realm.DaylightPrairie,
 		offer: { candles: 157, hearts: 19, ascendedCandles: 2 },
+		visits: {
+			travelling: {
+				17: skyDate(2_020, 9, 3),
+				46: skyDate(2_021, 10, 14),
+			},
+			returning: {},
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.AdmiringActor,
@@ -523,6 +617,13 @@ export default [
 		expression: Expression.BlowKiss,
 		realm: Realm.HiddenForest,
 		offer: { candles: 135, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: {
+				20: skyDate(2_020, 10, 15),
+				38: skyDate(2_021, 6, 24),
+			},
+			returning: {},
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.TroupeJuggler,
