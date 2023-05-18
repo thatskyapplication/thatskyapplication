@@ -264,7 +264,7 @@ type SeasonalSpiritVisitCollectionKey = number | "Error";
 
 export interface SeasonalSpiritVisit {
 	travelling: Collection<SeasonalSpiritVisitCollectionKey, Dayjs>;
-	returning: Collection<number, Dayjs>;
+	returning: Collection<SeasonalSpiritVisitCollectionKey, Dayjs>;
 }
 
 type SeasonalSpiritData = SpiritData & { season: Season; hasMarketingVideo?: boolean; visits?: SeasonalSpiritVisit };
@@ -648,6 +648,12 @@ export default [
 		expression: Expression.Thinking,
 		realm: Realm.VaultOfKnowledge,
 		offer: { candles: 195, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
+				.set(35, skyDate(2_021, 5, 13))
+				.set(67, skyDate(2_022, 8, 4)),
+			returning: new Collection(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.NoddingMuralist,
@@ -705,6 +711,12 @@ export default [
 		realm: Realm.GoldenWasteland,
 		hasMarketingVideo: true,
 		offer: { candles: 112, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
+				.set(36, skyDate(2_021, 5, 27))
+				.set(86, skyDate(2_023, 4, 27)),
+			returning: new Collection(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.PlayfightingHerbalist,
@@ -727,6 +739,12 @@ export default [
 		realm: Realm.DaylightPrairie,
 		offer: { candles: 140, hearts: 0, ascendedCandles: 2 },
 		keywords: ["butterfly", "butterfly cape"],
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
+				.set(37, skyDate(2_021, 6, 10))
+				.set(65, skyDate(2_022, 7, 7)),
+			returning: new Collection(),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.RallyingThrillseeker,
@@ -770,6 +788,12 @@ export default [
 		realm: Realm.IslesOfDawn,
 		hasMarketingVideo: true,
 		offer: { candles: 201, hearts: 13, ascendedCandles: 2 },
+		visits: {
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
+				.set(41, skyDate(2_021, 8, 5))
+				.set(74, skyDate(2_022, 11, 10)),
+			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(2, skyDate(2_023, 5, 15)),
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.ProphetOfEarth,
