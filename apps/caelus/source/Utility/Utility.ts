@@ -20,7 +20,7 @@ export function notNull<T>(value: T | null): value is T {
 
 export function todayDate() {
 	const now = dayjs().tz("America/Los_Angeles");
-	return skyDate(now.year(), now.month(), now.date());
+	return skyDate(now.year(), now.month() + 1, now.date());
 }
 
 export function skyDate(year: number, month: number, date: number, hour = 0, minute = 0, second = 0) {
