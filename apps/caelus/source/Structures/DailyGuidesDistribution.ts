@@ -1,10 +1,12 @@
 import {
 	BaseInteraction,
+	TimestampStyles,
 	type ChatInputCommandInteraction,
 	type Client,
 	type Guild,
 	type GuildMember,
 	type Snowflake,
+	time,
 } from "discord.js";
 import { channelMention, ChannelType, hyperlink, PermissionFlagsBits, EmbedBuilder } from "discord.js";
 import { Emoji } from "../Utility/Constants.js";
@@ -161,7 +163,16 @@ export default class DailyGuidesDistribution {
 					}`,
 					inline: true,
 				},
-				{ name: "Timestamps", value: timestamps, inline: true },
+				{
+					name: "Timestamps",
+					value: timestamps
+						.map(
+							({ start, end }) =>
+								`${time(start.unix(), TimestampStyles.LongTime)} - ${time(end.unix(), TimestampStyles.LongTime)}`,
+						)
+						.join("\n"),
+					inline: true,
+				},
 			];
 		}
 

@@ -1,7 +1,7 @@
 import { URL } from "node:url";
 import { AsyncQueue } from "@sapphire/async-queue";
 import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
-import { time, TimestampStyles, FormattingPatterns, ChannelType, MessageFlags, SnowflakeUtil } from "discord.js";
+import { FormattingPatterns, ChannelType, MessageFlags, SnowflakeUtil } from "discord.js";
 import { CDN_URL, Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm, VALID_REALM } from "../Utility/Constants.js";
 import { consoleLog, resolveMap, resolveValidRealm, todayDate } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
@@ -136,12 +136,10 @@ export default new (class DailyGuides {
 			timestamps.length < 3;
 			startTime = startTime.add(interval * 3_600_000, "milliseconds")
 		) {
-			const start = time(startTime.add(520, "seconds").unix(), TimestampStyles.LongTime);
-			const end = time(startTime.add(4, "hours").unix(), TimestampStyles.LongTime);
-			timestamps.push(`${start} - ${end}`);
+			timestamps.push({ start: startTime.add(520, "seconds"), end: startTime.add(4, "hours") });
 		}
 
-		return { realm: VALID_REALM[realmIndex]!, map, dangerous, reward, timestamps: timestamps.join("\n"), url };
+		return { realm: VALID_REALM[realmIndex]!, map, dangerous, reward, timestamps, url };
 	}
 
 	public readonly queue = new AsyncQueue();
