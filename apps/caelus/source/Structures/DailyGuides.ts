@@ -118,9 +118,9 @@ export default new (class DailyGuides {
 	public seasonalCandles: DailyGuidesData["seasonalCandles"] = null;
 
 	public shardEruption(this: void, daysOffset = 0) {
-		const date = todayDate().add(daysOffset, "days").toDate();
-		const dayOfMonth = date.getUTCDate();
-		const dayOfWeek = date.getUTCDay();
+		const date = todayDate().add(daysOffset, "days");
+		const dayOfMonth = date.date();
+		const dayOfWeek = date.day();
 		const dangerous = dayOfMonth % 2 === 1;
 		const infoIndex = dangerous ? (((dayOfMonth - 1) / 2) % 3) + 2 : (dayOfMonth / 2) % 2;
 		const { noShardWeekDay, interval, offset, area } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex]!;
@@ -130,13 +130,15 @@ export default new (class DailyGuides {
 		const realmIndex = (dayOfMonth - 1) % 5;
 		const { map, url, reward } = area[realmIndex]!;
 		const timestamps = [];
-		let startTime = date.getTime() + offset;
 
-		while (startTime < date.getTime() + 72_000_000) {
-			const start = time((startTime + 520_000) / 1_000, TimestampStyles.LongTime);
-			const end = time((startTime + 14_400_000) / 1_000, TimestampStyles.LongTime);
+		for (
+			let startTime = date.add(offset, "milliseconds");
+			timestamps.length < 3;
+			startTime = startTime.add(interval * 3_600_000, "milliseconds")
+		) {
+			const start = time(startTime.add(520, "seconds").unix(), TimestampStyles.LongTime);
+			const end = time(startTime.add(4, "hours").unix(), TimestampStyles.LongTime);
 			timestamps.push(`${start} - ${end}`);
-			startTime += interval * 3_600_000;
 		}
 
 		return { realm: VALID_REALM[realmIndex]!, map, dangerous, reward, timestamps: timestamps.join("\n"), url };
