@@ -129,17 +129,17 @@ export default new (class DailyGuides {
 		if (noShardDay) return null;
 		const realmIndex = (dayOfMonth - 1) % 5;
 		const { map, url, reward } = area[realmIndex]!;
+		const timestamps = [];
 		let startTime = date.getTime() + offset;
-		let timestamps = "";
 
 		while (startTime < date.getTime() + 72_000_000) {
 			const start = time((startTime + 520_000) / 1_000, TimestampStyles.LongTime);
 			const end = time((startTime + 14_400_000) / 1_000, TimestampStyles.LongTime);
-			timestamps += `${start} - ${end}\n`;
+			timestamps.push(`${start} - ${end}`);
 			startTime += interval * 3_600_000;
 		}
 
-		return { realm: VALID_REALM[realmIndex]!, map, dangerous, reward, timestamps: timestamps.trim(), url };
+		return { realm: VALID_REALM[realmIndex]!, map, dangerous, reward, timestamps: timestamps.join("\n"), url };
 	}
 
 	public readonly queue = new AsyncQueue();
