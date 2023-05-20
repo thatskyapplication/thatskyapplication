@@ -89,7 +89,8 @@ class Caelus extends Client {
 				}
 			}
 
-			for (const embed of embeds) embed.setColor(me.displayColor);
+			for (const embed of embeds) if (embed.data.color === undefined) embed.setColor(me.displayColor);
+
 			const payload: Parameters<TextChannel["send"]>[0] = { allowedMentions: { parse: [] }, embeds, files };
 			if (content) payload.content = `${stamp} ${content}`;
 			await channel.send(payload);
