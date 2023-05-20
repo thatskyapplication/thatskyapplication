@@ -28,6 +28,8 @@ export interface NotificationPacket {
 	passage_role_id: Snowflake | null;
 	aurora_channel_id: Snowflake | null;
 	aurora_role_id: Snowflake | null;
+	shard_eruption_channel_id: Snowflake | null;
+	shard_eruption_role_id: Snowflake | null;
 }
 
 interface NotificationData {
@@ -47,6 +49,8 @@ interface NotificationData {
 	passageRoleId: NotificationPacket["passage_role_id"];
 	auroraChannelId: NotificationPacket["aurora_channel_id"];
 	auroraRoleId: NotificationPacket["aurora_role_id"];
+	shardEruptionChannelId: NotificationPacket["shard_eruption_channel_id"];
+	shardEruptionRoleId: NotificationPacket["shard_eruption_role_id"];
 }
 
 type NotificationPatchData = Omit<NotificationPacket, "id" | "guild_id">;
@@ -59,8 +63,14 @@ export enum NotificationEvent {
 	Turtle = "Turtle",
 	DailyReset = "Daily Reset",
 	EyeOfEden = "Eye of Eden",
+	ShardEruption = "Shard Eruption",
 	AURORA = "AURORA",
 	Passage = "Passage",
+}
+
+export interface NotificationSendExtra {
+	startTime?: number;
+	dangerousShardEruption?: boolean;
 }
 
 export function isEvent(event: string): event is NotificationEvent {
@@ -94,6 +104,10 @@ export default class Notification {
 
 	public dailyResetRoleId!: NotificationData["dailyResetRoleId"];
 
+	public shardEruptionChannelId!: NotificationData["shardEruptionChannelId"];
+
+	public shardEruptionRoleId!: NotificationData["shardEruptionRoleId"];
+
 	public auroraChannelId!: NotificationData["auroraChannelId"];
 
 	public auroraRoleId!: NotificationData["auroraRoleId"];
@@ -119,6 +133,8 @@ export default class Notification {
 		this.eyeOfEdenRoleId = data.eye_of_eden_role_id;
 		this.dailyResetChannelId = data.daily_reset_channel_id;
 		this.dailyResetRoleId = data.daily_reset_role_id;
+		this.shardEruptionChannelId = data.shard_eruption_channel_id;
+		this.shardEruptionRoleId = data.shard_eruption_role_id;
 		this.auroraChannelId = data.aurora_channel_id;
 		this.auroraRoleId = data.aurora_role_id;
 		this.passageChannelId = data.passage_channel_id;
@@ -163,7 +179,11 @@ export default class Notification {
 		await interaction.reply({ content: "Notifications have been modified.", embeds: [await this.overview(guild)] });
 	}
 
-	public async send(client: Client<true>, type: NotificationEvent, startTime?: number) {
+	public async send(
+		client: Client<true>,
+		type: NotificationEvent,
+		{ startTime, dangerousShardEruption }: NotificationSendExtra = {},
+	) {
 		const {
 			guildId,
 			pollutedGeyserChannelId,
@@ -176,15 +196,17 @@ export default class Notification {
 			eyeOfEdenRoleId,
 			dailyResetChannelId,
 			dailyResetRoleId,
+			shardEruptionChannelId,
+			shardEruptionRoleId,
 			auroraChannelId,
 			auroraRoleId,
 			passageChannelId,
 			passageRoleId,
 		} = this;
+		const timeString = startTime ? time(startTime, TimestampStyles.RelativeTime) : "soon";
 		let channelId;
 		let roleId;
 		let suffix;
-		const timeString = startTime ? time(startTime, TimestampStyles.RelativeTime) : "soon";
 
 		switch (type) {
 			case NotificationEvent.PollutedGeyser:
@@ -211,6 +233,11 @@ export default class Notification {
 				channelId = dailyResetChannelId;
 				roleId = dailyResetRoleId;
 				suffix = "It's a new day. Time to forge candles again!";
+				break;
+			case NotificationEvent.ShardEruption:
+				channelId = shardEruptionChannelId;
+				roleId = shardEruptionRoleId;
+				suffix = `A ${dangerousShardEruption ? "dangerous" : ""} shard eruption begins ${timeString}!`;
 				break;
 			case NotificationEvent.AURORA:
 				channelId = auroraChannelId;
@@ -253,6 +280,8 @@ export default class Notification {
 			eyeOfEdenRoleId,
 			dailyResetChannelId,
 			dailyResetRoleId,
+			shardEruptionChannelId,
+			shardEruptionRoleId,
 			auroraChannelId,
 			auroraRoleId,
 			passageChannelId,
@@ -285,6 +314,11 @@ export default class Notification {
 				{
 					name: NotificationEvent.EyeOfEden,
 					value: this.overviewValue(me, eyeOfEdenChannelId, eyeOfEdenRoleId),
+					inline: true,
+				},
+				{
+					name: NotificationEvent.ShardEruption,
+					value: this.overviewValue(me, shardEruptionChannelId, shardEruptionRoleId),
 					inline: true,
 				},
 				{
