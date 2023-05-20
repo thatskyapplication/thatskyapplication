@@ -168,7 +168,7 @@ export default class implements ChatInputCommand {
 		const realms = [realm1, realm2, realm3, realm4, realm5, realm6, realm7, realm8].filter(notNull);
 
 		if (!realms.every(isRealm)) {
-			void interaction.client.log("Received an unknown realm.", realms);
+			void interaction.client.log({ content: "Received an unknown realm.", error: realms });
 			await interaction.reply("Unknown realm detected. How odd? We can't do anything about this...");
 			return;
 		}

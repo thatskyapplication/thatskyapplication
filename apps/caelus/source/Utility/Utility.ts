@@ -2,7 +2,13 @@ import { inspect } from "node:util";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
-import type { BaseInteraction, GuildMember } from "discord.js";
+import {
+	type BaseInteraction,
+	type GuildMember,
+	type TimestampStylesString,
+	time as discordTime,
+	TimestampStyles,
+} from "discord.js";
 import { formatEmoji, PermissionFlagsBits } from "discord.js";
 import { Emoji, initialTreasureCandleRealmSeek, Map, Realm, VALID_REALM } from "./Constants.js";
 
@@ -116,4 +122,12 @@ export function resolveMap(rawMap: string) {
 	}
 
 	return Object.values(Map).find((map) => map.toUpperCase() === upperRawMap) ?? null;
+}
+
+export function time(timestamp: number, style: TimestampStylesString, relative = false) {
+	const resolvedTimestamp = Math.floor(timestamp / 1_000);
+
+	return `${discordTime(resolvedTimestamp, style)}${
+		relative ? ` (${discordTime(resolvedTimestamp, TimestampStyles.RelativeTime)})` : ""
+	}`;
 }

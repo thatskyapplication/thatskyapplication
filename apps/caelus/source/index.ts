@@ -1,4 +1,4 @@
-import { unlink, writeFile } from "node:fs/promises";
+import { stat, unlink, writeFile } from "node:fs/promises";
 import process from "node:process";
 import { inspect } from "node:util";
 import type {
@@ -13,18 +13,24 @@ import { Partials, Client, GatewayIntentBits, TextChannel, EmbedBuilder, Permiss
 import commands from "./Commands/index.js";
 import type { Event } from "./Events/index.js";
 import events from "./Events/index.js";
-import { DEVELOPER_GUILD_ID, ERROR_LOG_CHANNEL_ID, production } from "./Utility/Constants.js";
+import { DEVELOPER_GUILD_ID, ERROR_LOG_CHANNEL_ID, GUILD_LOG_CHANNEL_ID, production } from "./Utility/Constants.js";
 import { consoleLog } from "./Utility/Utility.js";
+
+export const enum LogType {
+	Error,
+	Guild,
+}
 
 interface LogOptions {
 	content?: string;
 	embeds?: EmbedBuilder[];
+	error?: unknown;
+	type?: LogType;
 }
 
 declare module "discord.js" {
 	interface Client {
-		log(message: string, error?: any): Promise<void>;
-		log(message: LogOptions): Promise<void>;
+		log(options: LogOptions): Promise<void>;
 		applyCommands(): Promise<void>;
 	}
 }
@@ -34,49 +40,70 @@ class Caelus extends Client {
 		super(options);
 	}
 
-	public override async log(message: LogOptions | string, error?: any) {
+	public override async log({ content, embeds = [], error, type = LogType.Error }: LogOptions) {
 		let stamp = new Date().toISOString();
-		const content = typeof message === "string" ? message : message.content;
-		const output = error || content;
+		const output = error ?? content;
 		if (output) consoleLog(output, stamp);
-		const logChannel = this.channels.cache.get(ERROR_LOG_CHANNEL_ID);
-		if (!(logChannel instanceof TextChannel)) return;
-		const me = await logChannel.guild.members.fetchMe();
+		let channel;
 
-		if (
-			!logChannel
-				.permissionsFor(me)
-				.has(
-					PermissionFlagsBits.AttachFiles |
-						PermissionFlagsBits.EmbedLinks |
-						PermissionFlagsBits.SendMessages |
-						PermissionFlagsBits.ViewChannel,
-				)
-		)
-			return;
-
-		stamp = `\`[${stamp}]\``;
-		const embeds = typeof message !== "string" && "embeds" in message ? message.embeds ?? [] : [];
-		const files = [];
-		const potentialFileName = `../error-${Date.now()}.xl`;
-
-		if (error) {
-			const inspectedError = inspect(error, false, Number.POSITIVE_INFINITY);
-
-			if (inspectedError.length > 4_096) {
-				await writeFile(potentialFileName, inspectedError);
-				files.push(potentialFileName);
-			} else {
-				const embed = new EmbedBuilder().setDescription(`\`\`\`xl\n${inspectedError}\n\`\`\``).setTitle("Error");
-				embeds.push(embed);
-			}
+		switch (type) {
+			case LogType.Error:
+				channel = this.channels.cache.get(ERROR_LOG_CHANNEL_ID);
+				break;
+			case LogType.Guild:
+				channel = this.channels.cache.get(GUILD_LOG_CHANNEL_ID);
+				break;
 		}
 
-		for (const embed of embeds) embed.setColor(me.displayColor);
-		const payload: Parameters<TextChannel["send"]>[0] = { allowedMentions: { parse: [] }, embeds, files };
-		if (content) payload.content = `${stamp} ${content}`;
-		await logChannel.send(payload);
-		if (files.length > 0) await unlink(potentialFileName);
+		if (!(channel instanceof TextChannel)) return;
+		const potentialFileName = `../error-${Date.now()}.xl`;
+
+		try {
+			const me = await channel.guild.members.fetchMe();
+
+			if (
+				!channel
+					.permissionsFor(me)
+					.has(
+						PermissionFlagsBits.AttachFiles |
+							PermissionFlagsBits.EmbedLinks |
+							PermissionFlagsBits.SendMessages |
+							PermissionFlagsBits.ViewChannel,
+					)
+			) {
+				return;
+			}
+
+			stamp = `\`[${stamp}]\``;
+			const files = [];
+
+			if (error) {
+				const inspectedError = inspect(error, false, Number.POSITIVE_INFINITY);
+
+				if (inspectedError.length > 4_096) {
+					await writeFile(potentialFileName, inspectedError);
+					files.push(potentialFileName);
+				} else {
+					const embed = new EmbedBuilder().setDescription(`\`\`\`xl\n${inspectedError}\n\`\`\``).setTitle("Error");
+					embeds.push(embed);
+				}
+			}
+
+			for (const embed of embeds) if (embed.data.color === undefined) embed.setColor(me.displayColor);
+
+			const payload: Parameters<TextChannel["send"]>[0] = { allowedMentions: { parse: [] }, embeds, files };
+			if (content) payload.content = `${stamp} ${content}`;
+			await channel.send(payload);
+			if (files.length > 0) await unlink(potentialFileName);
+		} catch (error) {
+			await stat(potentialFileName)
+				.then(async () => unlink(potentialFileName))
+				.catch(async (unlinkError) => {
+					if (unlinkError.code !== "ENOENT") consoleLog(unlinkError);
+				});
+
+			consoleLog(error);
+		}
 	}
 
 	private async deployCommands(
@@ -123,7 +150,7 @@ class Caelus extends Client {
 			await this.deployCommands(this, fetchedGlobalCommands, globalCommandData);
 			await this.deployCommands(this, fetchedDeveloperCommands, developerCommandData, developerGuild);
 		} catch (error) {
-			void this.log("Failed to apply commands.", error);
+			void this.log({ content: "Failed to apply commands.", error });
 		}
 	}
 }

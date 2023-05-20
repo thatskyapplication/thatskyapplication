@@ -10,7 +10,11 @@ export default class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		if (!interaction.inCachedGuild()) {
-			void interaction.client.log(`The \`/${this.name}\` command was used in an uncached guild, somehow.`, interaction);
+			void interaction.client.log({
+				content: `The \`/${this.name}\` command was used in an uncached guild, somehow.`,
+				error: interaction,
+			});
+
 			await interaction.reply({ content: `There is no \`/${this.name}\` command in Ba Sing Se.`, ephemeral: true });
 			return;
 		}

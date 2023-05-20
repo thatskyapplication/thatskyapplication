@@ -8,6 +8,7 @@ dayjs.extend(utc);
 
 // Log channels.
 export const ERROR_LOG_CHANNEL_ID = "1040806599293407263" as const;
+export const GUILD_LOG_CHANNEL_ID = "1107804841813749780" as const;
 
 export const production = process.env.NODE_ENV === "production";
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;

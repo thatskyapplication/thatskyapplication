@@ -23,7 +23,11 @@ export default class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		if (!interaction.inCachedGuild()) {
-			void interaction.client.log(`The \`/${this.name}\` command was used in an uncached guild, somehow.`, interaction);
+			void interaction.client.log({
+				content: `The \`/${this.name}\` command was used in an uncached guild, somehow.`,
+				error: interaction,
+			});
+
 			await interaction.reply({ content: `There is no \`/${this.name}\` command in Ba Sing Se.`, ephemeral: true });
 			return;
 		}
@@ -154,7 +158,7 @@ export default class implements ChatInputCommand {
 				ephemeral: true,
 			});
 		} catch (error) {
-			void interaction.client.log("Error during applying self-roles.", error);
+			void interaction.client.log({ content: "Error during applying self-roles.", error });
 
 			await interaction.reply({
 				content: "Error during self-role assignment. This is being tracked, so don't worry!",
