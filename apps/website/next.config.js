@@ -20,5 +20,10 @@ module.exports = withContentlayer({
 			destination: "https://discord.gg/dFJms52NgB",
 			permanent: false,
 		},
+		{
+			source: "/sky-EULA-ToS",
+			destination: "https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/460-eula-terms-of-service",
+			permanent: false,
+		},
 	],
 });
