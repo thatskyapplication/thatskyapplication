@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
 import type { Client } from "discord.js";
+import { ISS_DATES_ACCESSIBLE } from "../Utility/Constants.js";
 import DailyGuides from "./DailyGuides.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import Notification, { NotificationEvent, type NotificationSendExtra } from "./Notification.js";
@@ -38,7 +39,8 @@ export default function heartbeat(client: Client<true>): void {
 			if (hour === 0 && minute === 0) {
 				void dailyReset(client);
 				if (day === 0) sendNotification(client, NotificationEvent.EyeOfEden);
-				if ([6, 13, 20, 27].includes(date)) sendNotification(client, NotificationEvent.ISS);
+				// @ts-expect-error Too narrow.
+				if (ISS_DATES_ACCESSIBLE.includes(date)) sendNotification(client, NotificationEvent.ISS);
 			}
 
 			if (shardEruptionToday) {
