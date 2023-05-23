@@ -806,7 +806,9 @@ export default [
 		realm: Realm.DaylightPrairie,
 		offer: { candles: 162, hearts: 13, ascendedCandles: 2 },
 		visits: {
-			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(45, skyDate(2_021, 9, 30)),
+			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
+				.set(45, skyDate(2_021, 9, 30))
+				.set(88, skyDate(2_023, 5, 25)),
 			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
