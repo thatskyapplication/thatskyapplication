@@ -109,6 +109,10 @@ export default class implements ChatInputCommand {
 				data.daily_reset_channel_id = channel.id;
 				data.daily_reset_role_id = role.id;
 				break;
+			case NotificationEvent.ISS:
+				data.iss_channel_id = channel.id;
+				data.iss_role_id = role.id;
+				break;
 			case NotificationEvent.ShardEruption:
 				data.shard_eruption_channel_id = channel.id;
 				data.shard_eruption_role_id = role.id;
@@ -172,6 +176,10 @@ export default class implements ChatInputCommand {
 			case NotificationEvent.DailyReset:
 				data.daily_reset_channel_id = null;
 				data.daily_reset_role_id = null;
+				break;
+			case NotificationEvent.ISS:
+				data.iss_channel_id = null;
+				data.iss_role_id = null;
 				break;
 			case NotificationEvent.ShardEruption:
 				data.shard_eruption_channel_id = null;

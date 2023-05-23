@@ -48,6 +48,8 @@ export default class implements ChatInputCommand {
 			eyeOfEdenRoleId,
 			dailyResetChannelId,
 			dailyResetRoleId,
+			issChannelId,
+			issRoleId,
 			shardEruptionChannelId,
 			shardEruptionRoleId,
 			auroraChannelId,
@@ -64,6 +66,7 @@ export default class implements ChatInputCommand {
 		if (turtleChannelId && turtleRoleId) roles.set(NotificationEvent.Turtle, turtleRoleId);
 		if (eyeOfEdenChannelId && eyeOfEdenRoleId) roles.set(NotificationEvent.EyeOfEden, eyeOfEdenRoleId);
 		if (dailyResetChannelId && dailyResetRoleId) roles.set(NotificationEvent.DailyReset, dailyResetRoleId);
+		if (issChannelId && issRoleId) roles.set(NotificationEvent.ISS, issRoleId);
 		if (shardEruptionChannelId && shardEruptionRoleId) roles.set(NotificationEvent.ShardEruption, shardEruptionRoleId);
 		if (auroraChannelId && auroraRoleId) roles.set(NotificationEvent.AURORA, auroraRoleId);
 		if (passageChannelId && passageRoleId) roles.set(NotificationEvent.Passage, passageRoleId);

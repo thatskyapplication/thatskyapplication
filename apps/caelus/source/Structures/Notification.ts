@@ -30,6 +30,8 @@ export interface NotificationPacket {
 	aurora_role_id: Snowflake | null;
 	shard_eruption_channel_id: Snowflake | null;
 	shard_eruption_role_id: Snowflake | null;
+	iss_channel_id: Snowflake | null;
+	iss_role_id: Snowflake | null;
 }
 
 interface NotificationData {
@@ -51,6 +53,8 @@ interface NotificationData {
 	auroraRoleId: NotificationPacket["aurora_role_id"];
 	shardEruptionChannelId: NotificationPacket["shard_eruption_channel_id"];
 	shardEruptionRoleId: NotificationPacket["shard_eruption_role_id"];
+	issChannelId: NotificationPacket["iss_channel_id"];
+	issRoleId: NotificationPacket["iss_role_id"];
 }
 
 type NotificationPatchData = Omit<NotificationPacket, "id" | "guild_id">;
@@ -63,6 +67,7 @@ export enum NotificationEvent {
 	Turtle = "Turtle",
 	DailyReset = "Daily Reset",
 	EyeOfEden = "Eye of Eden",
+	ISS = "ISS",
 	ShardEruption = "Shard Eruption",
 	AURORA = "AURORA",
 	Passage = "Passage",
@@ -104,6 +109,10 @@ export default class Notification {
 
 	public dailyResetRoleId!: NotificationData["dailyResetRoleId"];
 
+	public issChannelId!: NotificationData["issChannelId"];
+
+	public issRoleId!: NotificationData["issRoleId"];
+
 	public shardEruptionChannelId!: NotificationData["shardEruptionChannelId"];
 
 	public shardEruptionRoleId!: NotificationData["shardEruptionRoleId"];
@@ -133,6 +142,8 @@ export default class Notification {
 		this.eyeOfEdenRoleId = data.eye_of_eden_role_id;
 		this.dailyResetChannelId = data.daily_reset_channel_id;
 		this.dailyResetRoleId = data.daily_reset_role_id;
+		this.issChannelId = data.iss_channel_id;
+		this.issRoleId = data.iss_role_id;
 		this.shardEruptionChannelId = data.shard_eruption_channel_id;
 		this.shardEruptionRoleId = data.shard_eruption_role_id;
 		this.auroraChannelId = data.aurora_channel_id;
@@ -196,6 +207,8 @@ export default class Notification {
 			eyeOfEdenRoleId,
 			dailyResetChannelId,
 			dailyResetRoleId,
+			issChannelId,
+			issRoleId,
 			shardEruptionChannelId,
 			shardEruptionRoleId,
 			auroraChannelId,
@@ -233,6 +246,11 @@ export default class Notification {
 				channelId = dailyResetChannelId;
 				roleId = dailyResetRoleId;
 				suffix = "It's a new day. Time to forge candles again!";
+				break;
+			case NotificationEvent.ISS:
+				channelId = issChannelId;
+				roleId = issRoleId;
+				suffix = "The International Space Station is accessible!";
 				break;
 			case NotificationEvent.ShardEruption:
 				channelId = shardEruptionChannelId;
@@ -280,6 +298,8 @@ export default class Notification {
 			eyeOfEdenRoleId,
 			dailyResetChannelId,
 			dailyResetRoleId,
+			issChannelId,
+			issRoleId,
 			shardEruptionChannelId,
 			shardEruptionRoleId,
 			auroraChannelId,
@@ -309,6 +329,11 @@ export default class Notification {
 				{
 					name: NotificationEvent.DailyReset,
 					value: this.overviewValue(me, dailyResetChannelId, dailyResetRoleId),
+					inline: true,
+				},
+				{
+					name: NotificationEvent.ISS,
+					value: this.overviewValue(me, issChannelId, issRoleId),
 					inline: true,
 				},
 				{

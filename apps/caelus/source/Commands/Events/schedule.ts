@@ -9,6 +9,7 @@ import {
 } from "discord.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import { NotificationEvent } from "../../Structures/Notification.js";
+import { ISS_DATES_ACCESSIBLE } from "../../Utility/Constants.js";
 import { todayDate } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -52,6 +53,17 @@ export default class implements ChatInputCommand {
 						dailyResetTime(),
 						TimestampStyles.RelativeTime,
 					)})`,
+				},
+				{
+					name: NotificationEvent.ISS,
+					value: ISS_DATES_ACCESSIBLE.map((issDateAccessible) => {
+						const issDateUnix = todayDate().date(issDateAccessible).unix();
+
+						return `${time(issDateUnix, TimestampStyles.ShortDate)} (${time(
+							issDateUnix,
+							TimestampStyles.RelativeTime,
+						)})`;
+					}).join("\n"),
 				},
 				{
 					name: NotificationEvent.EyeOfEden,
