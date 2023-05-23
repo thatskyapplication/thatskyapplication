@@ -26,23 +26,25 @@ async function dailyReset(client: Client<true>) {
 
 export default function heartbeat(client: Client<true>): void {
 	setInterval(() => {
-		const date = dayjs.tz(Date.now(), "America/Los_Angeles");
-		const unix = date.unix();
-		const day = date.day();
-		const hour = date.hour();
-		const minute = date.minute();
-		const second = date.second();
+		const dayjsDate = dayjs().tz("America/Los_Angeles");
+		const unix = dayjsDate.unix();
+		const date = dayjsDate.date();
+		const day = dayjsDate.day();
+		const hour = dayjsDate.hour();
+		const minute = dayjsDate.minute();
+		const second = dayjsDate.second();
 
 		if (second === 0) {
 			if (hour === 0 && minute === 0) {
 				void dailyReset(client);
 				if (day === 0) sendNotification(client, NotificationEvent.EyeOfEden);
+				if ([6, 13, 20, 27].includes(date)) sendNotification(client, NotificationEvent.ISS);
 			}
 
 			if (shardEruptionToday) {
 				const { dangerous, timestamps } = shardEruptionToday;
 
-				if (timestamps.some(({ start }) => start.diff(date, "minutes") === 5)) {
+				if (timestamps.some(({ start }) => start.diff(dayjsDate, "minutes") === 5)) {
 					sendNotification(client, NotificationEvent.ShardEruption, {
 						startTime: unix + 300,
 						dangerousShardEruption: dangerous,
