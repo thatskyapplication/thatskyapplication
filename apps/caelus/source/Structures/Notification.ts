@@ -255,7 +255,7 @@ export default class Notification {
 			case NotificationEvent.ShardEruption:
 				channelId = shardEruptionChannelId;
 				roleId = shardEruptionRoleId;
-				suffix = `A ${dangerousShardEruption ? "dangerous" : ""} shard eruption begins ${timeString}!`;
+				suffix = `A${dangerousShardEruption ? " dangerous" : ""} shard eruption begins ${timeString}!`;
 				break;
 			case NotificationEvent.AURORA:
 				channelId = auroraChannelId;
