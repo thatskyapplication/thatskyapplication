@@ -1,7 +1,19 @@
-import type { ApplicationCommandData, ChatInputCommandInteraction, NewsChannel, TextChannel } from "discord.js";
-import { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, PermissionFlagsBits } from "discord.js";
-import type { NotificationInsertQuery, NotificationUpdateQuery } from "../../Structures/Notification.js";
-import Notification, { isEvent, NotificationEvent } from "../../Structures/Notification.js";
+import {
+	type ApplicationCommandData,
+	type ChatInputCommandInteraction,
+	ApplicationCommandOptionType,
+	ApplicationCommandType,
+	PermissionFlagsBits,
+} from "discord.js";
+import Notification, {
+	type NotificationAllowedChannel,
+	type NotificationInsertQuery,
+	type NotificationUpdateQuery,
+	isEvent,
+	isNotificationSendable,
+	NotificationEvent,
+	NOTIFICATION_CHANNEL_TYPES,
+} from "../../Structures/Notification.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default class implements ChatInputCommand {
@@ -50,7 +62,7 @@ export default class implements ChatInputCommand {
 		const { options } = interaction;
 		const event = options.getString("event", true);
 		// Typed from restrictions placed in the command.
-		const channel = options.getChannel("channel", true) as NewsChannel | TextChannel;
+		const channel = options.getChannel("channel", true) as NotificationAllowedChannel;
 		const role = options.getRole("role", true);
 		const me = await channel.guild.members.fetchMe();
 
@@ -67,19 +79,11 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		if (!channel.permissionsFor(me).has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages)) {
-			await interaction.reply({
-				// eslint-disable-next-line @typescript-eslint/no-base-to-string
-				content: `\`View Channel\` & \`Send Messages\` are required for ${channel}.`,
-				ephemeral: true,
-			});
+		const notificationSendable = isNotificationSendable(channel, role, me, true);
 
-			return;
-		}
-
-		if (!role.mentionable && !channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone)) {
+		if (notificationSendable.length > 0) {
 			await interaction.reply({
-				content: `Cannot mention the ${role} role. Ensure \`Mention @everyone, @here and All Roles\` permission is enabled for ${interaction.client.user} in the channel or make the role mentionable.`,
+				content: notificationSendable.join("\n"),
 				ephemeral: true,
 			});
 
@@ -231,7 +235,8 @@ export default class implements ChatInputCommand {
 							name: "channel",
 							description: "The channel to send notifications in.",
 							required: true,
-							channelTypes: [ChannelType.GuildText, ChannelType.GuildAnnouncement],
+							// @ts-expect-error Too narrow.
+							channelTypes: NOTIFICATION_CHANNEL_TYPES,
 						},
 						{
 							type: ApplicationCommandOptionType.Role,

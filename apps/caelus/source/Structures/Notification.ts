@@ -1,13 +1,23 @@
 import {
+	type BaseChannel,
 	type ChatInputCommandInteraction,
 	type Client,
 	type Guild,
 	type GuildMember,
+	type NewsChannel,
+	type PrivateThreadChannel,
+	type Role,
 	type Snowflake,
+	type TextChannel,
+	channelMention,
+	ChannelType,
+	Collection,
+	EmbedBuilder,
+	PermissionFlagsBits,
+	roleMention,
 	time,
 	TimestampStyles,
 } from "discord.js";
-import { channelMention, ChannelType, Collection, EmbedBuilder, PermissionFlagsBits, roleMention } from "discord.js";
 import { Season } from "../Utility/Constants.js";
 import pg, { Table } from "../pg.js";
 
@@ -71,6 +81,67 @@ export enum NotificationEvent {
 	ShardEruption = "Shard Eruption",
 	AURORA = "AURORA",
 	Passage = "Passage",
+}
+
+export type NotificationAllowedChannel = TextChannel | NewsChannel | PrivateThreadChannel;
+
+export const NOTIFICATION_CHANNEL_TYPES = [
+	ChannelType.GuildText,
+	ChannelType.GuildAnnouncement,
+	ChannelType.PrivateThread,
+] as const satisfies Readonly<ChannelType[]>;
+
+export function isNotificationChannel(channel: BaseChannel): channel is NotificationAllowedChannel {
+	// @ts-expect-error Too narrow.
+	return NOTIFICATION_CHANNEL_TYPES.includes(channel.type);
+}
+
+export function isNotificationSendable(
+	channel: NotificationAllowedChannel,
+	role: Role,
+	me: GuildMember,
+	returnErrors: true,
+): string[];
+
+export function isNotificationSendable(
+	channel: NotificationAllowedChannel,
+	role: Role,
+	me: GuildMember,
+	returnErrors?: false,
+): boolean;
+
+export function isNotificationSendable(
+	channel: NotificationAllowedChannel,
+	role: Role,
+	me: GuildMember,
+	returnErrors = false,
+) {
+	const errors = [];
+	const isPrivateThread = channel.type === ChannelType.PrivateThread;
+
+	if (
+		!channel
+			.permissionsFor(me)
+			.has(
+				PermissionFlagsBits.ViewChannel |
+					(isPrivateThread ? PermissionFlagsBits.SendMessagesInThreads : PermissionFlagsBits.SendMessages),
+			)
+	) {
+		errors.push(
+			`\`View Channel\` & \`Send Messages${
+				isPrivateThread ? " in Threads" : ""
+				// eslint-disable-next-line @typescript-eslint/no-base-to-string
+			}\` are required for ${channel}.`,
+		);
+	}
+
+	if (!channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone) && !role.mentionable) {
+		errors.push(
+			`Cannot mention the ${role} role. Ensure \`Mention @everyone, @here and All Roles\` permission is enabled for ${me} in the channel or make the role mentionable.`,
+		);
+	}
+
+	return returnErrors ? (errors.length > 1 ? errors.map((error) => `- ${error}`) : errors) : errors.length === 0;
 }
 
 export interface NotificationSendExtra {
@@ -271,17 +342,11 @@ export default class Notification {
 
 		if (!channelId || !roleId) return;
 		const channel = client.guilds.resolve(guildId)?.channels.resolve(channelId);
-		if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildAnnouncement)) return;
+		if (!channel || !isNotificationChannel(channel)) return;
 		const role = channel.guild.roles.resolve(roleId);
 		if (!role) return;
 		const me = await channel.guild.members.fetchMe();
-
-		if (
-			!channel.permissionsFor(me).has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages) ||
-			(!role.mentionable && !channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))
-		)
-			return;
-
+		if (!isNotificationSendable(channel, role, me)) return;
 		await channel.send(`${role} ${suffix}`).catch(() => null);
 	}
 
@@ -366,8 +431,7 @@ export default class Notification {
 		const role = roleId ? roles.resolve(roleId) : null;
 
 		return `${channelId ? channelMention(channelId) : "No channel"}\n${roleId ? roleMention(roleId) : "No role"}\n${
-			channel?.permissionsFor(me).has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages) ||
-			(role?.mentionable && channel?.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone))
+			channel && isNotificationChannel(channel) && role && isNotificationSendable(channel, role, me)
 				? "✅ Sending!"
 				: "⚠️ Stopped!"
 		}`;
