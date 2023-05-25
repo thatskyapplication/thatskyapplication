@@ -804,6 +804,7 @@ export default [
 		season: Season.Sanctuary,
 		expression: Expression.Grateful,
 		realm: Realm.DaylightPrairie,
+		hasMarketingVideo: true,
 		offer: { candles: 162, hearts: 13, ascendedCandles: 2 },
 		visits: {
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
