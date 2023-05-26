@@ -1,6 +1,6 @@
 import { allContents } from "contentlayer/generated";
 import { redirect } from "next/navigation";
-// import { Mdx } from "~/components/Mdx";
+import { Mdx } from "~/components/Mdx";
 
 export async function generateStaticParams() {
 	return allContents.map((content) => ({ slug: [content.slug] }));
@@ -8,15 +8,15 @@ export async function generateStaticParams() {
 
 export default function Page({ params }: { params: { slug: string[] } }) {
 	const content = allContents.find((content) => content.slug === params.slug?.join("/"));
-	console.log(content);
+	// console.log(content);
 
-	// if (!content) {
+	if (!content) {
 		redirect("/");
-	// }
+	}
 
-	// return (
-	// 	<article className="max-w-none px-5 prose">
-	// 		<Mdx code={content?.body.code ?? ""} />
-	// 	</article>
-	// );
+	return (
+		<article className="max-w-none px-5 prose">
+			<Mdx code={content?.body.code ?? ""} />
+		</article>
+	);
 }
