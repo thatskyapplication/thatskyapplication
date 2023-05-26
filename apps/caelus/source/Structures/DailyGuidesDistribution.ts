@@ -124,17 +124,21 @@ export default class DailyGuidesDistribution {
 		const { channelId } = this;
 		const channel = channelId ? guild.channels.resolve(channelId) : null;
 
+		const sending = channel
+			?.permissionsFor(me)
+			.has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages | PermissionFlagsBits.EmbedLinks);
+
 		return new EmbedBuilder()
 			.setColor(me.displayColor)
 			.setFields({
 				name: "Daily Guides Status",
 				value: `${channelId ? channelMention(channelId) : "No channel"}\n${
-					channel
-						?.permissionsFor(me)
-						.has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages | PermissionFlagsBits.EmbedLinks)
-						? "✅ Sending!"
-						: "⚠️ Stopped!"
-				}`,
+					sending ? "Sending!" : "Stopped!"
+				} ${resolveCurrencyEmoji({
+					member: me,
+					emoji: sending ? Emoji.Yes : Emoji.No,
+					animated: true,
+				})}`,
 				inline: true,
 			})
 			.setTitle(guild.name);
@@ -148,19 +152,22 @@ export default class DailyGuidesDistribution {
 		if (shardEruptionToday) {
 			const { realm, map, dangerous, reward, timestamps, url } = shardEruptionToday;
 			const currencyEmojiOptions: CurrencyEmojiOptions = { emoji: Emoji.AscendedCandle, number: reward };
+			const dangerousEmojiOptions: CurrencyEmojiOptions = { emoji: dangerous ? Emoji.Yes : Emoji.No, animated: true };
 
 			if (interactionOrMember instanceof BaseInteraction) {
 				currencyEmojiOptions.interaction = interactionOrMember;
+				dangerousEmojiOptions.interaction = interactionOrMember;
 			} else {
 				currencyEmojiOptions.member = interactionOrMember;
+				dangerousEmojiOptions.member = interactionOrMember;
 			}
 
 			return [
 				{
 					name: SHARD_ERUPTION_NAME,
-					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${dangerous ? "✅" : "❌"}\nReward: ${
-						reward === 200 ? "200 pieces of light" : resolveCurrencyEmoji(currencyEmojiOptions)
-					}`,
+					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${resolveCurrencyEmoji(
+						dangerousEmojiOptions,
+					)}\nReward: ${reward === 200 ? "200 pieces of light" : resolveCurrencyEmoji(currencyEmojiOptions)}`,
 					inline: true,
 				},
 				{

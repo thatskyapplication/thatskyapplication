@@ -50,6 +50,7 @@ export interface CurrencyEmojiOptions {
 	interaction?: BaseInteraction;
 	member?: GuildMember;
 	emoji: Emoji;
+	animated?: boolean;
 	number?: number;
 	forceEmojiOnLeft?: boolean;
 	includeSpaceInEmoji?: boolean;
@@ -59,27 +60,29 @@ export function resolveCurrencyEmoji({
 	interaction,
 	member,
 	emoji,
+	animated = false,
 	number,
 	forceEmojiOnLeft = false,
 	includeSpaceInEmoji = false,
 }: CurrencyEmojiOptions) {
-	if (typeof interaction === "undefined" && typeof member === "undefined")
-		throw new Error("Both interaction and member were not defined. At least one must be defined.");
+	if (interaction === undefined && member === undefined) {
+		throw new TypeError("Both interaction and member were not defined. At least one must be defined.");
+	}
 
-	let resolvedEmojiString = typeof number === "undefined" ? "" : String(number);
+	let resolvedEmojiString = number === undefined ? "" : String(number);
 
 	if (
 		(interaction &&
 			(!interaction.inGuild() ||
 				// This is always present.
 				interaction.appPermissions!.has(PermissionFlagsBits.UseExternalEmojis))) ||
-		member!.permissions.has(PermissionFlagsBits.UseExternalEmojis)
+		member?.permissions.has(PermissionFlagsBits.UseExternalEmojis)
 	)
 		return forceEmojiOnLeft
-			? `${formatEmoji(emoji)}${includeSpaceInEmoji ? " " : ""}${resolvedEmojiString}`
-			: `${resolvedEmojiString}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji)}`;
+			? `${formatEmoji(emoji, animated)}${includeSpaceInEmoji ? " " : ""}${resolvedEmojiString}`
+			: `${resolvedEmojiString}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji, animated)}`;
 
-	const plural = typeof number === "undefined" ? false : number !== 1;
+	const plural = number === undefined ? false : number !== 1;
 	if (typeof number === "number") resolvedEmojiString += " ";
 
 	switch (emoji) {
@@ -94,6 +97,12 @@ export function resolveCurrencyEmoji({
 			break;
 		case Emoji.WingedLight:
 			resolvedEmojiString += "winged light";
+			break;
+		case Emoji.Yes:
+			resolvedEmojiString += "✅";
+			break;
+		case Emoji.No:
+			resolvedEmojiString += "❌";
 			break;
 	}
 

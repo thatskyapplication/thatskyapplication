@@ -18,7 +18,8 @@ import {
 	time,
 	TimestampStyles,
 } from "discord.js";
-import { Season } from "../Utility/Constants.js";
+import { Emoji, Season } from "../Utility/Constants.js";
+import { resolveCurrencyEmoji } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 
 export interface NotificationPacket {
@@ -429,11 +430,14 @@ export default class Notification {
 		const { channels, roles } = me.guild;
 		const channel = channelId ? channels.resolve(channelId) : null;
 		const role = roleId ? roles.resolve(roleId) : null;
+		const sending = channel && isNotificationChannel(channel) && role && isNotificationSendable(channel, role, me);
 
 		return `${channelId ? channelMention(channelId) : "No channel"}\n${roleId ? roleMention(roleId) : "No role"}\n${
-			channel && isNotificationChannel(channel) && role && isNotificationSendable(channel, role, me)
-				? "✅ Sending!"
-				: "⚠️ Stopped!"
-		}`;
+			sending ? "Sending!" : "Stopped!"
+		} ${resolveCurrencyEmoji({
+			member: me,
+			emoji: sending ? Emoji.Yes : Emoji.No,
+			animated: true,
+		})}`;
 	}
 }

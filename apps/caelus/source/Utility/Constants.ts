@@ -34,6 +34,8 @@ export const enum Emoji {
 	Heart = "1074399455043932240",
 	AscendedCandle = "1074399464627912755",
 	WingedLight = "1075042577776136313",
+	Yes = "1111792276394475580",
+	No = "1111792367104708699",
 }
 
 export const enum User {
