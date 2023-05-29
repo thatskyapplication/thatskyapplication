@@ -19,6 +19,7 @@ export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as c
 const SKY_MAXIMUM_NAME_LENGTH = 16 as const;
 const SKY_MINIMUM_IMAGE_URL_LENGTH = 9 as const;
 const SKY_MAXIMUM_IMAGE_URL_LENGTH = 150 as const;
+const SKY_MINIMUM_COUNTRY_LENGTH = 2 as const;
 const SKY_MAXIMUM_COUNTRY_LENGTH = 60 as const;
 
 export default class implements ChatInputCommand {
@@ -164,8 +165,8 @@ export default class implements ChatInputCommand {
 									name: "country",
 									description: "What country are you from?",
 									required: true,
-									maxLength: SKY_MAXIMUM_NAME_LENGTH,
-									minLength: SKY_MAXIMUM_COUNTRY_LENGTH,
+									maxLength: SKY_MAXIMUM_COUNTRY_LENGTH,
+									minLength: SKY_MINIMUM_COUNTRY_LENGTH,
 								},
 							],
 						},
