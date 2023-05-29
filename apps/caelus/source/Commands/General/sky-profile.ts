@@ -19,6 +19,7 @@ export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as c
 const SKY_MAXIMUM_NAME_LENGTH = 16 as const;
 const SKY_MINIMUM_IMAGE_URL_LENGTH = 9 as const;
 const SKY_MAXIMUM_IMAGE_URL_LENGTH = 150 as const;
+const SKY_MAXIMUM_COUNTRY_LENGTH = 60 as const;
 
 export default class implements ChatInputCommand {
 	public readonly name = "sky-profile";
@@ -39,6 +40,9 @@ export default class implements ChatInputCommand {
 
 	public async set(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
+			case "country":
+				await this.setCountry(interaction);
+				return;
 			case "description":
 				await this.setDescription(interaction);
 				return;
@@ -51,6 +55,11 @@ export default class implements ChatInputCommand {
 			case "thumbnail":
 				await this.setThumbnail(interaction);
 		}
+	}
+
+	public async setCountry(interaction: ChatInputCommandInteraction) {
+		const country = interaction.options.getString("country", true);
+		await Profile.set(interaction, { country });
 	}
 
 	public async setDescription(interaction: ChatInputCommandInteraction) {
@@ -145,6 +154,21 @@ export default class implements ChatInputCommand {
 					name: "set",
 					description: "Set some information for your Sky profile.",
 					options: [
+						{
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "country",
+							description: "Set the country of your Sky profile!",
+							options: [
+								{
+									type: ApplicationCommandOptionType.String,
+									name: "country",
+									description: "What country are you from?",
+									required: true,
+									maxLength: SKY_MAXIMUM_NAME_LENGTH,
+									minLength: SKY_MAXIMUM_COUNTRY_LENGTH,
+								},
+							],
+						},
 						{
 							type: ApplicationCommandOptionType.Subcommand,
 							name: "description",

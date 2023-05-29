@@ -17,6 +17,7 @@ interface ProfilePacket {
 	icon: string | null;
 	thumbnail: string | null;
 	description: string | null;
+	country: string | null;
 }
 
 interface ProfileData {
@@ -26,6 +27,7 @@ interface ProfileData {
 	icon: ProfilePacket["icon"];
 	thumbnail: ProfilePacket["thumbnail"];
 	description: ProfilePacket["description"];
+	country: ProfilePacket["country"];
 }
 
 interface ProfileSetData {
@@ -33,6 +35,7 @@ interface ProfileSetData {
 	icon?: string;
 	thumbnail?: string;
 	description?: string;
+	country?: string;
 }
 
 type ProfilePatchData = Omit<ProfilePacket, "id" | "user_id">;
@@ -50,6 +53,8 @@ export default class Profile {
 
 	public description!: ProfileData["description"];
 
+	public country!: ProfileData["country"];
+
 	public constructor(profile: ProfilePacket) {
 		this.id = profile.id;
 		this.userId = profile.user_id;
@@ -61,6 +66,7 @@ export default class Profile {
 		this.icon = data.icon;
 		this.thumbnail = data.thumbnail;
 		this.description = data.description;
+		this.country = data.country;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -106,19 +112,22 @@ export default class Profile {
 	public async embed(guild: Guild | null) {
 		const me = await guild?.members.fetchMe();
 		const hearts = await commands.heart.heartCount(this.userId);
+		const { name, icon, thumbnail, description, country } = this;
 
 		const embed = new EmbedBuilder()
 			.setColor(me?.displayColor ?? 0)
-			.setDescription(this.description ?? "Hi! I'm an amazing Skykid.")
+			.setDescription(description ?? "Hi! I'm an amazing Skykid.")
+			// .setFields({ name: "Country", value: this.country })
 			.setFooter({ text: `Hearts: ${hearts}` })
-			.setThumbnail(this.thumbnail);
+			.setThumbnail(thumbnail);
 
-		if (this.name) {
-			const embedAuthorOptions: EmbedAuthorOptions = { name: this.name };
-			if (this.icon) embedAuthorOptions.iconURL = this.icon;
+		if (name) {
+			const embedAuthorOptions: EmbedAuthorOptions = { name };
+			if (icon) embedAuthorOptions.iconURL = icon;
 			embed.setAuthor(embedAuthorOptions);
 		}
 
+		if (country) embed.addFields({ name: "Country", value: country });
 		return embed;
 	}
 }
