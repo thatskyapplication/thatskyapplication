@@ -12,7 +12,7 @@ import {
 	TextInputStyle,
 } from "discord.js";
 import Profile from "../../Structures/Profile.js";
-import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
+import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT, Season } from "../../Utility/Constants.js";
 import type { ChatInputCommand } from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
@@ -53,6 +53,9 @@ export default class implements ChatInputCommand {
 				return;
 			case "name":
 				await this.setName(interaction);
+				return;
+			case "season-started":
+				await this.setSeason(interaction);
 				return;
 			case "thumbnail":
 				await this.setThumbnail(interaction);
@@ -101,6 +104,11 @@ export default class implements ChatInputCommand {
 	public async setName(interaction: ChatInputCommandInteraction) {
 		const name = interaction.options.getString("name", true);
 		await Profile.set(interaction, { name });
+	}
+
+	public async setSeason(interaction: ChatInputCommandInteraction) {
+		const season = interaction.options.getString("season", true);
+		await Profile.set(interaction, { season_started: season });
 	}
 
 	public async setThumbnail(interaction: ChatInputCommandInteraction) {
@@ -210,6 +218,20 @@ export default class implements ChatInputCommand {
 									required: true,
 									minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
 									maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH,
+								},
+							],
+						},
+						{
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "season-started",
+							description: "Set the season your Skykid started with in your Sky profile!",
+							options: [
+								{
+									type: ApplicationCommandOptionType.String,
+									name: "season",
+									description: "What season did you start with?",
+									choices: Object.values(Season).map((season) => ({ name: season, value: season })),
+									required: true,
 								},
 							],
 						},

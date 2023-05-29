@@ -20,6 +20,7 @@ interface ProfilePacket {
 	description: string | null;
 	country: string | null;
 	winged_light: number | null;
+	season_started: string | null;
 }
 
 interface ProfileData {
@@ -31,6 +32,7 @@ interface ProfileData {
 	description: ProfilePacket["description"];
 	country: ProfilePacket["country"];
 	wingedLight: ProfilePacket["winged_light"];
+	seasonStarted: ProfilePacket["season_started"];
 }
 
 interface ProfileSetData {
@@ -40,6 +42,7 @@ interface ProfileSetData {
 	description?: string;
 	country?: string;
 	winged_light?: number;
+	season_started?: string;
 }
 
 type ProfilePatchData = Omit<ProfilePacket, "id" | "user_id">;
@@ -61,6 +64,8 @@ export default class Profile {
 
 	public wingedLight!: ProfileData["wingedLight"];
 
+	public seasonStarted!: ProfileData["seasonStarted"];
+
 	public constructor(profile: ProfilePacket) {
 		this.id = profile.id;
 		this.userId = profile.user_id;
@@ -74,6 +79,7 @@ export default class Profile {
 		this.description = data.description;
 		this.country = data.country;
 		this.wingedLight = data.winged_light;
+		this.seasonStarted = data.season_started;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -119,7 +125,7 @@ export default class Profile {
 	public async embed(guild: Guild | null) {
 		const me = await guild?.members.fetchMe();
 		const hearts = await commands.heart.heartCount(this.userId);
-		const { name, icon, thumbnail, description, country, wingedLight } = this;
+		const { name, icon, thumbnail, description, country, wingedLight, seasonStarted } = this;
 
 		const embed = new EmbedBuilder()
 			.setColor(me?.displayColor ?? 0)
@@ -134,6 +140,8 @@ export default class Profile {
 		}
 
 		if (country) embed.addFields({ name: "Country", value: country, inline: true });
+
+		if (seasonStarted) embed.addFields({ name: "Season Started", value: seasonStarted, inline: true });
 
 		if (typeof wingedLight === "number") {
 			embed.addFields({

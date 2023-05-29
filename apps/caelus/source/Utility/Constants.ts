@@ -132,7 +132,7 @@ export const WingedLightCount = {
 	Orbit: 1,
 } as const;
 
-export const enum Season {
+export enum Season {
 	Gratitude = "Gratitude",
 	Lightseekers = "Lightseekers",
 	Belonging = "Belonging",
