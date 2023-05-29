@@ -10,7 +10,15 @@ import {
 	TimestampStyles,
 } from "discord.js";
 import { formatEmoji, PermissionFlagsBits } from "discord.js";
-import { Emoji, initialTreasureCandleRealmSeek, Map, Realm, VALID_REALM } from "./Constants.js";
+import {
+	Emoji,
+	INCONSISTENT_MAP,
+	inconsistentMapKeys,
+	initialTreasureCandleRealmSeek,
+	Map,
+	Realm,
+	VALID_REALM,
+} from "./Constants.js";
 
 dayjs.extend(timezone);
 dayjs.extend(utc);
@@ -122,15 +130,14 @@ export function resolveValidRealm(realm: string) {
 export function resolveMap(rawMap: string) {
 	const upperRawMap = rawMap.toUpperCase();
 
-	// Account for wonderful inconsistencies.
-	switch (upperRawMap) {
-		case "FOREST'S BROOK":
-			return Map.ForestBrook;
-		case "RACE END":
-			return Map.Coliseum;
-	}
+	const inconsistentResult = inconsistentMapKeys.find(
+		(inconsistentMapKey): inconsistentMapKey is keyof typeof INCONSISTENT_MAP =>
+			inconsistentMapKey.toUpperCase() === upperRawMap,
+	);
 
-	return Object.values(Map).find((map) => map.toUpperCase() === upperRawMap) ?? null;
+	return inconsistentResult
+		? INCONSISTENT_MAP[inconsistentResult]
+		: Object.values(Map).find((map) => map.toUpperCase() === upperRawMap) ?? null;
 }
 
 export function time(timestamp: number, style: TimestampStylesString, relative = false) {

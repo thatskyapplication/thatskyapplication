@@ -95,6 +95,20 @@ export enum Map {
 	VaultSummit = "Vault Summit",
 }
 
+// This exists due to the Infographics server's inconsistencies and faults alongside no desire to fix them.
+export const INCONSISTENT_MAP = {
+	// Daylight Prairie
+	"Sanctuary Island": Map.SanctuaryIslands,
+
+	// Hidden Forest
+	"Forest's Brook": Map.ForestBrook,
+
+	// Valley of Triumph
+	"Race End": Map.Coliseum,
+} as const;
+
+export const inconsistentMapKeys = Object.keys(INCONSISTENT_MAP);
+
 export const VALID_REALM = [
 	Realm.DaylightPrairie,
 	Realm.HiddenForest,

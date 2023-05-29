@@ -2,7 +2,7 @@ import { URL } from "node:url";
 import { AsyncQueue } from "@sapphire/async-queue";
 import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
 import { FormattingPatterns, ChannelType, MessageFlags, SnowflakeUtil } from "discord.js";
-import { CDN_URL, Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm, VALID_REALM } from "../Utility/Constants.js";
+import { CDN_URL, Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm, VALID_REALM, inconsistentMapKeys } from "../Utility/Constants.js";
 import { consoleLog, resolveMap, resolveValidRealm, todayDate } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
@@ -102,7 +102,7 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 const regularExpressionRealms = Object.values(Realm).join("|").replaceAll(" ", "\\s+");
-const mapRegExp = Object.values(Map).join("|").replaceAll(" ", "\\s+");
+const mapRegExp = [...Object.values(Map), ...inconsistentMapKeys].join("|").replaceAll(" ", "\\s+");
 
 export default new (class DailyGuides {
 	public quest1: DailyGuidesData["quest1"] = null;
