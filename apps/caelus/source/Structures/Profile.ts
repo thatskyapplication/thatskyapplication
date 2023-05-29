@@ -8,6 +8,7 @@ import type {
 import { EmbedBuilder } from "discord.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import commands from "../Commands/index.js";
+import { MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
 import pg, { Table } from "../pg.js";
 
 interface ProfilePacket {
@@ -18,6 +19,7 @@ interface ProfilePacket {
 	thumbnail: string | null;
 	description: string | null;
 	country: string | null;
+	winged_light: number | null;
 }
 
 interface ProfileData {
@@ -28,6 +30,7 @@ interface ProfileData {
 	thumbnail: ProfilePacket["thumbnail"];
 	description: ProfilePacket["description"];
 	country: ProfilePacket["country"];
+	wingedLight: ProfilePacket["winged_light"];
 }
 
 interface ProfileSetData {
@@ -36,6 +39,7 @@ interface ProfileSetData {
 	thumbnail?: string;
 	description?: string;
 	country?: string;
+	winged_light?: number;
 }
 
 type ProfilePatchData = Omit<ProfilePacket, "id" | "user_id">;
@@ -55,6 +59,8 @@ export default class Profile {
 
 	public country!: ProfileData["country"];
 
+	public wingedLight!: ProfileData["wingedLight"];
+
 	public constructor(profile: ProfilePacket) {
 		this.id = profile.id;
 		this.userId = profile.user_id;
@@ -67,6 +73,7 @@ export default class Profile {
 		this.thumbnail = data.thumbnail;
 		this.description = data.description;
 		this.country = data.country;
+		this.wingedLight = data.winged_light;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -112,7 +119,7 @@ export default class Profile {
 	public async embed(guild: Guild | null) {
 		const me = await guild?.members.fetchMe();
 		const hearts = await commands.heart.heartCount(this.userId);
-		const { name, icon, thumbnail, description, country } = this;
+		const { name, icon, thumbnail, description, country, wingedLight } = this;
 
 		const embed = new EmbedBuilder()
 			.setColor(me?.displayColor ?? 0)
@@ -126,7 +133,21 @@ export default class Profile {
 			embed.setAuthor(embedAuthorOptions);
 		}
 
-		if (country) embed.addFields({ name: "Country", value: country });
+		if (country) embed.addFields({ name: "Country", value: country, inline: true });
+
+		if (typeof wingedLight === "number") {
+			embed.addFields({
+				name: "Winged Light",
+				value:
+					wingedLight === 0
+						? "Capeless"
+						: wingedLight === MAXIMUM_WINGED_LIGHT
+						? `${wingedLight} (Max 🪽)`
+						: String(wingedLight),
+				inline: true,
+			});
+		}
+
 		return embed;
 	}
 }

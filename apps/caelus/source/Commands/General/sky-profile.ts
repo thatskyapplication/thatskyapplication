@@ -12,6 +12,7 @@ import {
 	TextInputStyle,
 } from "discord.js";
 import Profile from "../../Structures/Profile.js";
+import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
 import type { ChatInputCommand } from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
@@ -55,6 +56,9 @@ export default class implements ChatInputCommand {
 				return;
 			case "thumbnail":
 				await this.setThumbnail(interaction);
+				return;
+			case "winged-light":
+				await this.setWingedLight(interaction);
 		}
 	}
 
@@ -108,6 +112,11 @@ export default class implements ChatInputCommand {
 		}
 
 		await Profile.set(interaction, { thumbnail });
+	}
+
+	public async setWingedLight(interaction: ChatInputCommandInteraction) {
+		const wingedLight = interaction.options.getInteger("winged-light", true);
+		await Profile.set(interaction, { winged_light: wingedLight });
 	}
 
 	public async show(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
@@ -216,6 +225,22 @@ export default class implements ChatInputCommand {
 									required: true,
 									minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
 									maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH,
+								},
+							],
+						},
+						{
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "winged-light",
+							description:
+								"Set the maximum number of winged light your Skykid could possibly have in your Sky profile!",
+							options: [
+								{
+									type: ApplicationCommandOptionType.Integer,
+									name: "winged-light",
+									description: "Provide the maximum number of winged light you can possibly have.",
+									required: true,
+									max_value: MAXIMUM_WINGED_LIGHT,
+									minValue: MINIMUM_WINGED_LIGHT,
 								},
 							],
 						},

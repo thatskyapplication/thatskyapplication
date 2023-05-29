@@ -14,6 +14,7 @@ export const production = process.env.NODE_ENV === "production";
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 export const CDN_URL = "https://cdn.thatskyapplication.com" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki" as const;
+export const MINIMUM_WINGED_LIGHT = 0 as const;
 export const MAXIMUM_WINGED_LIGHT = 215 as const;
 export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
 export const SEASONAL_CANDLES_PER_DAY = 5 as const;
