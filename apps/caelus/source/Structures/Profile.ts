@@ -117,7 +117,6 @@ export default class Profile {
 		const embed = new EmbedBuilder()
 			.setColor(me?.displayColor ?? 0)
 			.setDescription(description ?? "Hi! I'm an amazing Skykid.")
-			// .setFields({ name: "Country", value: this.country })
 			.setFooter({ text: `Hearts: ${hearts}` })
 			.setThumbnail(thumbnail);
 
