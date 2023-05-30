@@ -29,6 +29,8 @@ const SKY_MINIMUM_ASSET_URL_LENGTH = 15 as const;
 const SKY_MAXIMUM_ASSET_URL_LENGTH = 200 as const;
 const SKY_MINIMUM_COUNTRY_LENGTH = 2 as const;
 const SKY_MAXIMUM_COUNTRY_LENGTH = 60 as const;
+const SKY_MINIMUM_SPOT_LENGTH = 2 as const;
+const SKY_MAXIMUM_SPOT_LENGTH = 50 as const;
 
 export default class implements AutocompleteCommand {
 	public readonly name = "sky-profile";
@@ -76,6 +78,9 @@ export default class implements AutocompleteCommand {
 				return;
 			case "spirit":
 				await this.setSpirit(interaction);
+				return;
+			case "spot":
+				await this.setSpot(interaction);
 				return;
 			case "thumbnail":
 				await this.setThumbnail(interaction);
@@ -181,6 +186,11 @@ export default class implements AutocompleteCommand {
 		}
 
 		await Profile.set(interaction, { spirit: spirit.name });
+	}
+
+	public async setSpot(interaction: ChatInputCommandInteraction) {
+		const spot = interaction.options.getString("spot", true);
+		await Profile.set(interaction, { spot });
 	}
 
 	public async setThumbnail(interaction: ChatInputCommandInteraction) {
@@ -317,6 +327,21 @@ export default class implements AutocompleteCommand {
 									description: "What's your favourite spirit?",
 									required: true,
 									autocomplete: true,
+								},
+							],
+						},
+						{
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "spot",
+							description: "Set the favourite spot of your Skykid in your Sky profile!",
+							options: [
+								{
+									type: ApplicationCommandOptionType.String,
+									name: "spot",
+									description: "Where's your favourite spot to hang out?",
+									required: true,
+									minLength: SKY_MINIMUM_SPOT_LENGTH,
+									maxLength: SKY_MAXIMUM_SPOT_LENGTH,
 								},
 							],
 						},

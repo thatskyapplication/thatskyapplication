@@ -26,6 +26,7 @@ interface ProfilePacket {
 	season_started: string | null;
 	platform: number | null;
 	spirit: string | null;
+	spot: string | null;
 }
 
 interface ProfileData {
@@ -40,6 +41,7 @@ interface ProfileData {
 	seasonStarted: ProfilePacket["season_started"];
 	platform: ProfilePacket["platform"];
 	spirit: ProfilePacket["spirit"];
+	spot: ProfilePacket["spot"];
 }
 
 interface ProfileSetData {
@@ -52,6 +54,7 @@ interface ProfileSetData {
 	season_started?: string;
 	platform?: number;
 	spirit?: string;
+	spot?: string;
 }
 
 type ProfilePatchData = Omit<ProfilePacket, "id" | "user_id">;
@@ -79,6 +82,8 @@ export default class Profile {
 
 	public spirit!: ProfilePacket["spirit"];
 
+	public spot!: ProfilePacket["spot"];
+
 	public constructor(profile: ProfilePacket) {
 		this.id = profile.id;
 		this.userId = profile.user_id;
@@ -95,6 +100,7 @@ export default class Profile {
 		this.seasonStarted = data.season_started;
 		this.platform = data.platform;
 		this.spirit = data.spirit;
+		this.spot = data.spot;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -171,7 +177,7 @@ export default class Profile {
 			void interaction.client.log({ content: `Could not find the \`${commandName}\` command.` });
 		}
 
-		const { name, icon, thumbnail, description, country, wingedLight, seasonStarted, platform, spirit } = this;
+		const { name, icon, thumbnail, description, country, wingedLight, seasonStarted, platform, spirit, spot } = this;
 		const embed = new EmbedBuilder().setColor(me?.displayColor ?? 0).setFooter({ text: `Hearts: ${hearts}` });
 		const fields = [];
 		const unfilled = [];
@@ -277,19 +283,6 @@ export default class Profile {
 			);
 		}
 
-		if (country) {
-			fields.push({ name: "Country", value: country, inline: true });
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"country",
-					commandId,
-				)} to tell others where you're from!`,
-			);
-		}
-
 		if (typeof platform === "number") {
 			fields.push({
 				name: "Platform",
@@ -304,6 +297,32 @@ export default class Profile {
 					"platform",
 					commandId,
 				)} to show what platforms you play on!`,
+			);
+		}
+
+		if (country) {
+			fields.push({ name: "Country", value: country, inline: true });
+		} else if (commandId) {
+			unfilled.push(
+				`- Use ${chatInputApplicationCommandMention(
+					commandName,
+					"set",
+					"country",
+					commandId,
+				)} to tell others where you're from!`,
+			);
+		}
+
+		if (spot) {
+			fields.push({ name: "Favourite Spot", value: spot, inline: true });
+		} else if (commandId) {
+			unfilled.push(
+				`- Use ${chatInputApplicationCommandMention(
+					commandName,
+					"set",
+					"spot",
+					commandId,
+				)} to tell others where you're from!`,
 			);
 		}
 
