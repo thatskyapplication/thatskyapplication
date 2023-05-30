@@ -382,66 +382,61 @@ export default class Notification {
 			.setFields(
 				{
 					name: NotificationEvent.PollutedGeyser,
-					value: this.overviewValue(interaction, me, pollutedGeyserChannelId, pollutedGeyserRoleId),
+					value: this.overviewValue(me, pollutedGeyserChannelId, pollutedGeyserRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.Grandma,
-					value: this.overviewValue(interaction, me, grandmaChannelId, grandmaRoleId),
+					value: this.overviewValue(me, grandmaChannelId, grandmaRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.Turtle,
-					value: this.overviewValue(interaction, me, turtleChannelId, turtleRoleId),
+					value: this.overviewValue(me, turtleChannelId, turtleRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.DailyReset,
-					value: this.overviewValue(interaction, me, dailyResetChannelId, dailyResetRoleId),
+					value: this.overviewValue(me, dailyResetChannelId, dailyResetRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.ISS,
-					value: this.overviewValue(interaction, me, issChannelId, issRoleId),
+					value: this.overviewValue(me, issChannelId, issRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.EyeOfEden,
-					value: this.overviewValue(interaction, me, eyeOfEdenChannelId, eyeOfEdenRoleId),
+					value: this.overviewValue(me, eyeOfEdenChannelId, eyeOfEdenRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.ShardEruption,
-					value: this.overviewValue(interaction, me, shardEruptionChannelId, shardEruptionRoleId),
+					value: this.overviewValue(me, shardEruptionChannelId, shardEruptionRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.AURORA,
-					value: this.overviewValue(interaction, me, auroraChannelId, auroraRoleId),
+					value: this.overviewValue(me, auroraChannelId, auroraRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.Passage,
-					value: this.overviewValue(interaction, me, passageChannelId, passageRoleId),
+					value: this.overviewValue(me, passageChannelId, passageRoleId),
 					inline: true,
 				},
 			)
 			.setTitle(interaction.guild.name);
 	}
 
-	private overviewValue(
-		interaction: ChatInputCommandInteraction<"cached">,
-		member: GuildMember,
-		channelId: Snowflake | null,
-		roleId: Snowflake | null,
-	) {
-		const { channels, roles } = interaction.guild;
+	private overviewValue(member: GuildMember, channelId: Snowflake | null, roleId: Snowflake | null) {
+		const { channels, roles } = member.guild;
 		const channel = channelId ? channels.resolve(channelId) : null;
 		const role = roleId ? roles.resolve(roleId) : null;
 		const sending = channel && isNotificationChannel(channel) && role && isNotificationSendable(channel, role, member);
 
 		return `${channelId ? channelMention(channelId) : "No channel"}\n${roleId ? roleMention(roleId) : "No role"}\n${
 			sending ? "Sending!" : "Stopped!"
-		} ${resolveEmoji(interaction, sending ? Emoji.Yes : Emoji.No, true)}`;
+		} ${resolveEmoji(member, sending ? Emoji.Yes : Emoji.No, true)}`;
 	}
 }
