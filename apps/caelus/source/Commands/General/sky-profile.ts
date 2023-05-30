@@ -3,8 +3,8 @@ import {
 	type AutocompleteInteraction,
 	type ChatInputCommandInteraction,
 	type Snowflake,
-	type UserContextMenuCommandInteraction,
 	ActionRowBuilder,
+	ALLOWED_EXTENSIONS,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	ModalBuilder,
@@ -12,7 +12,7 @@ import {
 	TextInputBuilder,
 	TextInputStyle,
 	StringSelectMenuOptionBuilder,
-	ALLOWED_EXTENSIONS,
+	UserContextMenuCommandInteraction,
 } from "discord.js";
 import { PlatformFlagsToString } from "../../Structures/Platforms.js";
 import Profile from "../../Structures/Profile.js";
@@ -206,22 +206,23 @@ export default class implements AutocompleteCommand {
 
 	public async show(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
 		const user = interaction.options.getUser("user");
-		const ephemeral = interaction.isUserContextMenuCommand() || (interaction.options.getBoolean("ephemeral") ?? false);
+
+		const hide =
+			interaction instanceof UserContextMenuCommandInteraction || (interaction.options.getBoolean("hide") ?? false);
 
 		if (user?.bot) {
 			await interaction.reply({
 				content: "Do bots have Sky profiles? Hm. Who knows?",
-				ephemeral,
+				ephemeral: hide,
 			});
 
 			return;
 		}
 
+		const userIsInvoker = user === null || user.id === interaction.user.id;
 		const profile = await Profile.fetch(user?.id ?? interaction.user.id).catch(() => null);
 
 		if (!profile) {
-			const userIsInvoker = user === null || user.id === interaction.user.id;
-
 			await interaction.reply({
 				content: `${userIsInvoker ? "You do" : `${user} does`} not have a Sky profile! Why not${
 					userIsInvoker ? "" : " ask them to"
@@ -233,8 +234,8 @@ export default class implements AutocompleteCommand {
 		}
 
 		const { embed, unfilled } = await profile.embed(interaction);
-		await interaction.reply({ embeds: [embed], ephemeral });
-		if (unfilled) await interaction.followUp({ content: unfilled, ephemeral: true });
+		await interaction.reply({ embeds: [embed], ephemeral: hide });
+		if (unfilled && userIsInvoker) await interaction.followUp({ content: unfilled, ephemeral: true });
 	}
 
 	public get commandData(): ApplicationCommandData {
@@ -390,8 +391,8 @@ export default class implements AutocompleteCommand {
 						},
 						{
 							type: ApplicationCommandOptionType.Boolean,
-							name: "ephemeral",
-							description: "Whether the response should be ephemeral. By default, the response is shown.",
+							name: "hide",
+							description: "Ensure only you can see the response. By default, the response is shown.",
 						},
 					],
 				},
