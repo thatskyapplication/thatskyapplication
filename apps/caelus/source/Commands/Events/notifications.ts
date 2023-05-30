@@ -53,7 +53,7 @@ export default class implements ChatInputCommand {
 		}
 
 		await interaction.reply({
-			embeds: [await notification.overview(interaction.guild)],
+			embeds: [await notification.overview(interaction)],
 			ephemeral: true,
 		});
 	}

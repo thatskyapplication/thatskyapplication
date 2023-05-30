@@ -57,16 +57,13 @@ export default class implements AutocompleteCommand {
 
 		if (spirit.offer) {
 			description.push(
-				`${resolveCurrencyEmoji({
-					interaction,
+				`${resolveCurrencyEmoji(interaction, {
 					emoji: Emoji.Candle,
 					number: spirit.offer.candles,
-				})}${resolveCurrencyEmoji({
-					interaction,
+				})}${resolveCurrencyEmoji(interaction, {
 					emoji: Emoji.Heart,
 					number: spirit.offer.hearts,
-				})}${resolveCurrencyEmoji({
-					interaction,
+				})}${resolveCurrencyEmoji(interaction, {
 					emoji: Emoji.AscendedCandle,
 					number: spirit.offer.ascendedCandles,
 				})}`,

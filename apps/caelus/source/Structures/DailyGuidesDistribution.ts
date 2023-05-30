@@ -1,22 +1,20 @@
 import {
-	BaseInteraction,
-	TimestampStyles,
+	type BaseInteraction,
 	type ChatInputCommandInteraction,
 	type Client,
 	type Guild,
 	type GuildMember,
 	type Snowflake,
+	channelMention,
+	ChannelType,
+	hyperlink,
+	PermissionFlagsBits,
+	EmbedBuilder,
+	TimestampStyles,
 	time,
 } from "discord.js";
-import { channelMention, ChannelType, hyperlink, PermissionFlagsBits, EmbedBuilder } from "discord.js";
 import { Emoji } from "../Utility/Constants.js";
-import {
-	consoleLog,
-	resolveCurrencyEmoji,
-	todayDate,
-	treasureCandleRealm,
-	type CurrencyEmojiOptions,
-} from "../Utility/Utility.js";
+import { consoleLog, resolveCurrencyEmoji, todayDate, treasureCandleRealm, resolveEmoji } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides from "./DailyGuides.js";
 
@@ -134,40 +132,30 @@ export default class DailyGuidesDistribution {
 				name: "Daily Guides Status",
 				value: `${channelId ? channelMention(channelId) : "No channel"}\n${
 					sending ? "Sending!" : "Stopped!"
-				} ${resolveCurrencyEmoji({
-					member: me,
-					emoji: sending ? Emoji.Yes : Emoji.No,
-					animated: true,
-				})}`,
+				} ${resolveEmoji(me, sending ? Emoji.Yes : Emoji.No, true)}`,
 				inline: true,
 			})
 			.setTitle(guild.name);
 	}
 
-	public static shardEruptionFieldData(
-		interactionOrMember: NonNullable<CurrencyEmojiOptions["interaction"] | CurrencyEmojiOptions["member"]>,
-	) {
+	public static shardEruptionFieldData(interactionOrMember: BaseInteraction | GuildMember) {
 		const shardEruptionToday = DailyGuides.shardEruption();
 
 		if (shardEruptionToday) {
 			const { realm, map, dangerous, reward, timestamps, url } = shardEruptionToday;
-			const currencyEmojiOptions: CurrencyEmojiOptions = { emoji: Emoji.AscendedCandle, number: reward };
-			const dangerousEmojiOptions: CurrencyEmojiOptions = { emoji: dangerous ? Emoji.Yes : Emoji.No, animated: true };
-
-			if (interactionOrMember instanceof BaseInteraction) {
-				currencyEmojiOptions.interaction = interactionOrMember;
-				dangerousEmojiOptions.interaction = interactionOrMember;
-			} else {
-				currencyEmojiOptions.member = interactionOrMember;
-				dangerousEmojiOptions.member = interactionOrMember;
-			}
 
 			return [
 				{
 					name: SHARD_ERUPTION_NAME,
-					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${resolveCurrencyEmoji(
-						dangerousEmojiOptions,
-					)}\nReward: ${reward === 200 ? "200 pieces of light" : resolveCurrencyEmoji(currencyEmojiOptions)}`,
+					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${resolveEmoji(
+						interactionOrMember,
+						dangerous ? Emoji.Yes : Emoji.No,
+						true,
+					)}\nReward: ${
+						reward === 200
+							? "200 pieces of light"
+							: resolveCurrencyEmoji(interactionOrMember, { emoji: Emoji.AscendedCandle, number: reward })
+					}`,
 					inline: true,
 				},
 				{

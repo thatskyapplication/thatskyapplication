@@ -2,7 +2,6 @@ import {
 	type BaseChannel,
 	type ChatInputCommandInteraction,
 	type Client,
-	type Guild,
 	type GuildMember,
 	type NewsChannel,
 	type PrivateThreadChannel,
@@ -19,7 +18,7 @@ import {
 	TimestampStyles,
 } from "discord.js";
 import { Emoji, Season } from "../Utility/Constants.js";
-import { resolveCurrencyEmoji } from "../Utility/Utility.js";
+import { resolveEmoji } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 
 export interface NotificationPacket {
@@ -228,7 +227,7 @@ export default class Notification {
 		interaction: ChatInputCommandInteraction<"cached">,
 		data: NotificationInsertQuery | NotificationUpdateQuery,
 	) {
-		const { guild, guildId } = interaction;
+		const { guildId } = interaction;
 		let notification = this.cache.find((cachedNotification) => cachedNotification.guildId === guildId);
 
 		if (notification) {
@@ -246,12 +245,12 @@ export default class Notification {
 
 		await interaction.reply({
 			content: "Notifications have been modified.",
-			embeds: [await notification.overview(guild)],
+			embeds: [await notification.overview(interaction)],
 		});
 	}
 
 	public async unset(interaction: ChatInputCommandInteraction<"cached">, data: NotificationUpdateQuery) {
-		const { guild, guildId } = interaction;
+		const { guildId } = interaction;
 
 		const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications)
 			.update(data)
@@ -259,7 +258,10 @@ export default class Notification {
 			.returning("*");
 
 		this.patch(notificationPacket!);
-		await interaction.reply({ content: "Notifications have been modified.", embeds: [await this.overview(guild)] });
+		await interaction.reply({
+			content: "Notifications have been modified.",
+			embeds: [await this.overview(interaction)],
+		});
 	}
 
 	public async send(
@@ -351,8 +353,9 @@ export default class Notification {
 		await channel.send(`${role} ${suffix}`).catch(() => null);
 	}
 
-	public async overview(guild: Guild) {
-		const me = await guild.members.fetchMe();
+	public async overview(interaction: ChatInputCommandInteraction<"cached">) {
+		const me = await interaction.guild.members.fetchMe();
+
 		const {
 			pollutedGeyserChannelId,
 			pollutedGeyserRoleId,
@@ -379,65 +382,66 @@ export default class Notification {
 			.setFields(
 				{
 					name: NotificationEvent.PollutedGeyser,
-					value: this.overviewValue(me, pollutedGeyserChannelId, pollutedGeyserRoleId),
+					value: this.overviewValue(interaction, me, pollutedGeyserChannelId, pollutedGeyserRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.Grandma,
-					value: this.overviewValue(me, grandmaChannelId, grandmaRoleId),
+					value: this.overviewValue(interaction, me, grandmaChannelId, grandmaRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.Turtle,
-					value: this.overviewValue(me, turtleChannelId, turtleRoleId),
+					value: this.overviewValue(interaction, me, turtleChannelId, turtleRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.DailyReset,
-					value: this.overviewValue(me, dailyResetChannelId, dailyResetRoleId),
+					value: this.overviewValue(interaction, me, dailyResetChannelId, dailyResetRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.ISS,
-					value: this.overviewValue(me, issChannelId, issRoleId),
+					value: this.overviewValue(interaction, me, issChannelId, issRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.EyeOfEden,
-					value: this.overviewValue(me, eyeOfEdenChannelId, eyeOfEdenRoleId),
+					value: this.overviewValue(interaction, me, eyeOfEdenChannelId, eyeOfEdenRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.ShardEruption,
-					value: this.overviewValue(me, shardEruptionChannelId, shardEruptionRoleId),
+					value: this.overviewValue(interaction, me, shardEruptionChannelId, shardEruptionRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.AURORA,
-					value: this.overviewValue(me, auroraChannelId, auroraRoleId),
+					value: this.overviewValue(interaction, me, auroraChannelId, auroraRoleId),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.Passage,
-					value: this.overviewValue(me, passageChannelId, passageRoleId),
+					value: this.overviewValue(interaction, me, passageChannelId, passageRoleId),
 					inline: true,
 				},
 			)
-			.setTitle(guild.name);
+			.setTitle(interaction.guild.name);
 	}
 
-	private overviewValue(me: GuildMember, channelId: Snowflake | null, roleId: Snowflake | null) {
-		const { channels, roles } = me.guild;
+	private overviewValue(
+		interaction: ChatInputCommandInteraction<"cached">,
+		member: GuildMember,
+		channelId: Snowflake | null,
+		roleId: Snowflake | null,
+	) {
+		const { channels, roles } = interaction.guild;
 		const channel = channelId ? channels.resolve(channelId) : null;
 		const role = roleId ? roles.resolve(roleId) : null;
-		const sending = channel && isNotificationChannel(channel) && role && isNotificationSendable(channel, role, me);
+		const sending = channel && isNotificationChannel(channel) && role && isNotificationSendable(channel, role, member);
 
 		return `${channelId ? channelMention(channelId) : "No channel"}\n${roleId ? roleMention(roleId) : "No role"}\n${
 			sending ? "Sending!" : "Stopped!"
-		} ${resolveCurrencyEmoji({
-			member: me,
-			emoji: sending ? Emoji.Yes : Emoji.No,
-			animated: true,
-		})}`;
+		} ${resolveEmoji(interaction, sending ? Emoji.Yes : Emoji.No, true)}`;
 	}
 }

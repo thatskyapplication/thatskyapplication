@@ -312,7 +312,7 @@ export default class Profile {
 		if (typeof platform === "number") {
 			fields.push({
 				name: "Platform",
-				value: resolveBitsToPlatform(platform, me).join("\n"),
+				value: resolveBitsToPlatform(platform, interaction).join("\n"),
 				inline: true,
 			});
 		} else if (commandId) {

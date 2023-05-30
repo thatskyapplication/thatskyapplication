@@ -18,7 +18,7 @@ import {
 	ApplicationCommandType,
 } from "discord.js";
 import { Emoji } from "../../Utility/Constants.js";
-import { resolveCurrencyEmoji, todayDate } from "../../Utility/Utility.js";
+import { resolveCurrencyEmoji, resolveEmoji, todayDate } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -79,7 +79,7 @@ export default class implements ChatInputCommand {
 
 		if (user.id === interaction.user.id) {
 			await interaction.reply({
-				content: `You cannot gift a ${resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart })} to yourself!`,
+				content: `You cannot gift a ${resolveEmoji(interaction, Emoji.Heart)} to yourself!`,
 				ephemeral: true,
 			});
 
@@ -88,10 +88,7 @@ export default class implements ChatInputCommand {
 
 		if (!member) {
 			await interaction.reply({
-				content: `${user} is not in this server to gift a ${resolveCurrencyEmoji({
-					interaction,
-					emoji: Emoji.Heart,
-				})} to.`,
+				content: `${user} is not in this server to gift a ${resolveEmoji(interaction, Emoji.Heart)} to.`,
 				ephemeral: true,
 			});
 
@@ -105,7 +102,7 @@ export default class implements ChatInputCommand {
 			!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
 		) {
 			await interaction.reply({
-				content: `${user} is not around to receive the ${resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart })}!`,
+				content: `${user} is not around to receive the ${resolveEmoji(interaction, Emoji.Heart)}!`,
 				ephemeral: true,
 			});
 
@@ -133,10 +130,10 @@ export default class implements ChatInputCommand {
 
 		if (timestamp && timestamp.getTime() >= todayTimestamp) {
 			await interaction.reply({
-				content: `You have already gifted a ${resolveCurrencyEmoji({
+				content: `You have already gifted a ${resolveEmoji(
 					interaction,
-					emoji: Emoji.Heart,
-				})} today!\nYou can give another ${resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart })} ${time(
+					Emoji.Heart,
+				)} today!\nYou can give another one ${time(
 					Math.floor((todayTimestamp + 86_400_000) / 1_000),
 					TimestampStyles.RelativeTime,
 				)}.`,
@@ -156,13 +153,13 @@ export default class implements ChatInputCommand {
 
 		const heartMessage = HEARTS[Math.floor(Math.random() * HEARTS.length)]!.replaceAll(
 			"heart",
-			resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart }),
+			resolveEmoji(interaction, Emoji.Heart),
 		)
 			.replaceAll("{{gifter}}", String(interaction.user))
 			.replaceAll("{{giftee}}", String(user));
 
 		await interaction.reply(
-			`${heartMessage}\n${user} now has ${resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart, number: hearts })}.`,
+			`${heartMessage}\n${user} now has ${resolveCurrencyEmoji(interaction, { emoji: Emoji.Heart, number: hearts })}.`,
 		);
 	}
 
@@ -185,7 +182,7 @@ export default class implements ChatInputCommand {
 		if (hearts.length === 0) {
 			const response = {
 				components: [],
-				content: `You have ${resolveCurrencyEmoji({ interaction, emoji: Emoji.Heart, number: 0 })}.`,
+				content: `You have ${resolveCurrencyEmoji(interaction, { emoji: Emoji.Heart, number: 0 })}.`,
 				embeds: [],
 				ephemeral: true,
 			};
@@ -208,12 +205,10 @@ export default class implements ChatInputCommand {
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
 			.setDescription(
-				`Gifted: ${resolveCurrencyEmoji({
-					interaction,
+				`Gifted: ${resolveCurrencyEmoji(interaction, {
 					emoji: Emoji.Heart,
 					number: hearts.filter((heart) => heart.gifter_id === interaction.user.id).length,
-				})}\nReceived: ${resolveCurrencyEmoji({
-					interaction,
+				})}\nReceived: ${resolveCurrencyEmoji(interaction, {
 					emoji: Emoji.Heart,
 					number: hearts.filter((heart) => heart.giftee_id === interaction.user.id).length,
 				})}`,

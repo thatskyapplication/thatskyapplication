@@ -3,13 +3,14 @@ import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
 import {
-	type BaseInteraction,
 	type GuildMember,
 	type TimestampStylesString,
+	BaseInteraction,
+	formatEmoji,
+	PermissionFlagsBits,
 	time as discordTime,
 	TimestampStyles,
 } from "discord.js";
-import { formatEmoji, PermissionFlagsBits } from "discord.js";
 import {
 	Emoji,
 	INCONSISTENT_MAP,
@@ -54,72 +55,68 @@ export function treasureCandleRealm() {
 	]!;
 }
 
+function canUseCustomEmoji(interactionOrMember: BaseInteraction | GuildMember) {
+	return interactionOrMember instanceof BaseInteraction
+		? !interactionOrMember.inGuild() ||
+				// This is always present.
+				interactionOrMember.appPermissions!.has(PermissionFlagsBits.UseExternalEmojis)
+		: interactionOrMember.permissions.has(PermissionFlagsBits.UseExternalEmojis);
+}
+
+function resolveEmojiToNonCustomEmoji(emoji: Emoji) {
+	switch (emoji) {
+		case Emoji.Candle:
+			return "🕯️";
+		case Emoji.Heart:
+			return "🩵";
+		case Emoji.AscendedCandle:
+			return "🪔";
+		case Emoji.WingedLight:
+			return "🪽";
+		case Emoji.Yes:
+			return "✅";
+		case Emoji.No:
+			return "❌";
+		case Emoji.iOS:
+			return "📱";
+		case Emoji.Android:
+			return "🤖";
+		case Emoji.Mac:
+			return "💻";
+		case Emoji.Switch:
+			return "🎮";
+		case Emoji.PlayStation:
+			return "👾";
+	}
+}
+
+export function resolveEmoji(interactionOrMember: BaseInteraction | GuildMember, emoji: Emoji, animated = false) {
+	return canUseCustomEmoji(interactionOrMember) ? formatEmoji(emoji, animated) : resolveEmojiToNonCustomEmoji(emoji);
+}
+
 export interface CurrencyEmojiOptions {
-	interaction?: BaseInteraction;
-	member?: GuildMember;
-	emoji: Emoji;
+	emoji: Emoji.Candle | Emoji.Heart | Emoji.AscendedCandle | Emoji.WingedLight;
 	animated?: boolean;
 	number?: number;
 	forceEmojiOnLeft?: boolean;
 	includeSpaceInEmoji?: boolean;
 }
 
-export function resolveCurrencyEmoji({
-	interaction,
-	member,
-	emoji,
-	animated = false,
-	number,
-	forceEmojiOnLeft = false,
-	includeSpaceInEmoji = false,
-}: CurrencyEmojiOptions) {
-	if (interaction === undefined && member === undefined) {
-		throw new TypeError("Both interaction and member were not defined. At least one must be defined.");
-	}
-
+export function resolveCurrencyEmoji(
+	interactionOrMember: BaseInteraction | GuildMember,
+	{ emoji, animated = false, number, forceEmojiOnLeft = false, includeSpaceInEmoji = false }: CurrencyEmojiOptions,
+) {
 	let resolvedEmojiString = number === undefined ? "" : String(number);
 
-	if (
-		(interaction &&
-			(!interaction.inGuild() ||
-				// This is always present.
-				interaction.appPermissions!.has(PermissionFlagsBits.UseExternalEmojis))) ||
-		member?.permissions.has(PermissionFlagsBits.UseExternalEmojis)
-	)
+	if (canUseCustomEmoji(interactionOrMember)) {
 		return forceEmojiOnLeft
 			? `${formatEmoji(emoji, animated)}${includeSpaceInEmoji ? " " : ""}${resolvedEmojiString}`
 			: `${resolvedEmojiString}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji, animated)}`;
+	}
 
 	const plural = number === undefined ? false : number !== 1;
 	if (typeof number === "number") resolvedEmojiString += " ";
-
-	switch (emoji) {
-		case Emoji.Candle:
-			resolvedEmojiString += "candle";
-			break;
-		case Emoji.Heart:
-			resolvedEmojiString += "heart";
-			break;
-		case Emoji.AscendedCandle:
-			resolvedEmojiString += "ascended candle";
-			break;
-		case Emoji.WingedLight:
-			resolvedEmojiString += "winged light";
-			break;
-		case Emoji.Yes:
-			resolvedEmojiString += "✅";
-			break;
-		case Emoji.No:
-			resolvedEmojiString += "❌";
-			break;
-		case Emoji.iOS:
-		case Emoji.Android:
-		case Emoji.Mac:
-		case Emoji.Switch:
-		case Emoji.PlayStation:
-			break;
-	}
-
+	resolvedEmojiString += resolveEmojiToNonCustomEmoji(emoji);
 	if (plural) resolvedEmojiString += "s";
 	return resolvedEmojiString;
 }

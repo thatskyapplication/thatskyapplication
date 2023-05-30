@@ -70,16 +70,13 @@ export default class implements ChatInputCommand {
 				new EmbedBuilder()
 					.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
 					.setDescription(
-						`Start: ${resolveCurrencyEmoji({
-							interaction,
+						`Start: ${resolveCurrencyEmoji(interaction, {
 							emoji: Emoji.AscendedCandle,
 							number: start,
-						})}\nGoal: ${resolveCurrencyEmoji({
-							interaction,
+						})}\nGoal: ${resolveCurrencyEmoji(interaction, {
 							emoji: Emoji.AscendedCandle,
 							number: goal,
-						})}\nRequired: ${resolveCurrencyEmoji({
-							interaction,
+						})}\nRequired: ${resolveCurrencyEmoji(interaction, {
 							emoji: Emoji.AscendedCandle,
 							number: amountRequired,
 						})}`,
@@ -185,13 +182,11 @@ export default class implements ChatInputCommand {
 		const embed = new EmbedBuilder()
 			.setColor(me?.displayColor ?? 0)
 			.setDescription(
-				`Started with ${resolveCurrencyEmoji({
-					interaction,
+				`Started with ${resolveCurrencyEmoji(interaction, {
 					emoji: Emoji.WingedLight,
 					number: wingedLight,
 					includeSpaceInEmoji: true,
-				})}.\nReborn with ${resolveCurrencyEmoji({
-					interaction,
+				})}.\nReborn with ${resolveCurrencyEmoji(interaction, {
 					emoji: Emoji.WingedLight,
 					number: (accumulation += WingedLightCount.Orbit),
 					includeSpaceInEmoji: true,
@@ -262,8 +257,7 @@ export default class implements ChatInputCommand {
 
 		embed.addFields({
 			name: "Total",
-			value: `You should have ${resolveCurrencyEmoji({
-				interaction,
+			value: `You should have ${resolveCurrencyEmoji(interaction, {
 				emoji: Emoji.WingedLight,
 				number: accumulation,
 				includeSpaceInEmoji: true,
