@@ -1,29 +1,48 @@
-import type {
-	ApplicationCommandData,
-	ChatInputCommandInteraction,
-	UserContextMenuCommandInteraction,
-} from "discord.js";
 import {
+	type ApplicationCommandData,
+	type AutocompleteInteraction,
+	type ChatInputCommandInteraction,
+	type Snowflake,
 	ActionRowBuilder,
+	ALLOWED_EXTENSIONS,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	ModalBuilder,
+	StringSelectMenuBuilder,
 	TextInputBuilder,
 	TextInputStyle,
+	StringSelectMenuOptionBuilder,
+	UserContextMenuCommandInteraction,
 } from "discord.js";
+import { PlatformFlagsToString } from "../../Structures/Platforms.js";
 import Profile from "../../Structures/Profile.js";
-import type { ChatInputCommand } from "../index.js";
+import Spirits from "../../Structures/Spirit.js";
+import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT, Season } from "../../Utility/Constants.js";
+import type { AutocompleteCommand } from "../index.js";
+import commands from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
 export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as const;
+export const SKY_PROFILE_PLATFORM_CUSTOM_ID = "SKY_PROFILE_PLATFORM_CUSTOM_ID" as const;
 const SKY_MAXIMUM_NAME_LENGTH = 16 as const;
-const SKY_MINIMUM_IMAGE_URL_LENGTH = 9 as const;
-const SKY_MAXIMUM_IMAGE_URL_LENGTH = 150 as const;
+const SKY_MINIMUM_ASSET_URL_LENGTH = 15 as const;
+const SKY_MAXIMUM_ASSET_URL_LENGTH = 200 as const;
+const SKY_MINIMUM_COUNTRY_LENGTH = 2 as const;
+const SKY_MAXIMUM_COUNTRY_LENGTH = 60 as const;
+const SKY_MINIMUM_SPOT_LENGTH = 2 as const;
+const SKY_MAXIMUM_SPOT_LENGTH = 50 as const;
 
-export default class implements ChatInputCommand {
+export default class implements AutocompleteCommand {
 	public readonly name = "sky-profile";
 
 	public readonly type = ApplicationCommandType.ChatInput;
+
+	public id: Snowflake | null = null;
+
+	public async autocomplete(interaction: AutocompleteInteraction) {
+		// This is the same as querying a spirit, so use that instead.
+		await commands.spirit.autocomplete(interaction);
+	}
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { options } = interaction;
@@ -39,6 +58,9 @@ export default class implements ChatInputCommand {
 
 	public async set(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
+			case "country":
+				await this.setCountry(interaction);
+				return;
 			case "description":
 				await this.setDescription(interaction);
 				return;
@@ -48,9 +70,29 @@ export default class implements ChatInputCommand {
 			case "name":
 				await this.setName(interaction);
 				return;
+			case "platform":
+				await this.setPlatform(interaction);
+				return;
+			case "season-started":
+				await this.setSeason(interaction);
+				return;
+			case "spirit":
+				await this.setSpirit(interaction);
+				return;
+			case "spot":
+				await this.setSpot(interaction);
+				return;
 			case "thumbnail":
 				await this.setThumbnail(interaction);
+				return;
+			case "winged-light":
+				await this.setWingedLight(interaction);
 		}
+	}
+
+	public async setCountry(interaction: ChatInputCommandInteraction) {
+		const country = interaction.options.getString("country", true);
+		await Profile.set(interaction, { country });
 	}
 
 	public async setDescription(interaction: ChatInputCommandInteraction) {
@@ -73,14 +115,24 @@ export default class implements ChatInputCommand {
 		await interaction.showModal(modal);
 	}
 
-	public async setIcon(interaction: ChatInputCommandInteraction) {
-		const icon = interaction.options.getString("icon", true);
+	private async validateAsset(interaction: ChatInputCommandInteraction, url: string) {
+		if (!url.startsWith("https://") || !ALLOWED_EXTENSIONS.some((extension) => url.endsWith(`.${extension}`))) {
+			await interaction.reply({
+				content: `Please use a valid URL! It must be in any of the following formats:\n${ALLOWED_EXTENSIONS.map(
+					(extension) => `- .${extension}`,
+				).join("\n")}`,
+				ephemeral: true,
+			});
 
-		if (!icon.startsWith("https://")) {
-			await interaction.reply({ content: "Please use a valid URL!", ephemeral: true });
-			return;
+			return false;
 		}
 
+		return true;
+	}
+
+	public async setIcon(interaction: ChatInputCommandInteraction) {
+		const icon = interaction.options.getString("icon", true);
+		if (!(await this.validateAsset(interaction, icon))) return;
 		await Profile.set(interaction, { icon });
 	}
 
@@ -89,35 +141,88 @@ export default class implements ChatInputCommand {
 		await Profile.set(interaction, { name });
 	}
 
-	public async setThumbnail(interaction: ChatInputCommandInteraction) {
-		const thumbnail = interaction.options.getString("thumbnail", true);
+	public async setPlatform(interaction: ChatInputCommandInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+		const currentPlatforms = profile?.platform;
 
-		if (!thumbnail.startsWith("https://")) {
-			await interaction.reply({ content: "Please use a valid URL!", ephemeral: true });
-			return;
-		}
-
-		await Profile.set(interaction, { thumbnail });
+		await interaction.reply({
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(SKY_PROFILE_PLATFORM_CUSTOM_ID)
+						.setMaxValues(Object.values(PlatformFlagsToString).length)
+						.setMinValues(0)
+						.setOptions(
+							Object.entries(PlatformFlagsToString).map(([flag, platform]) =>
+								new StringSelectMenuOptionBuilder()
+									.setLabel(platform)
+									.setValue(flag)
+									.setDefault(Boolean(currentPlatforms && currentPlatforms & Number(flag))),
+							),
+						)
+						.setPlaceholder("Select the platforms you play on!"),
+				),
+			],
+			ephemeral: true,
+		});
 	}
 
-	public async show(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
-		const user = interaction.options.getUser("user");
-		const ephemeral = interaction.isUserContextMenuCommand() || (interaction.options.getBoolean("ephemeral") ?? false);
+	public async setSeason(interaction: ChatInputCommandInteraction) {
+		const season = interaction.options.getString("season", true);
+		await Profile.set(interaction, { season_started: season });
+	}
 
-		if (user?.bot) {
+	public async setSpirit(interaction: ChatInputCommandInteraction) {
+		const query = interaction.options.getString("spirit", true);
+		const spirit = Spirits.find(({ name }) => name === query);
+
+		if (!spirit) {
 			await interaction.reply({
-				content: "Do bots have Sky profiles? Hm. Who knows?",
-				ephemeral,
+				content: "Woah, it seems we have not encountered that spirit yet. How strange!",
+				ephemeral: true,
 			});
 
 			return;
 		}
 
+		await Profile.set(interaction, { spirit: spirit.name });
+	}
+
+	public async setSpot(interaction: ChatInputCommandInteraction) {
+		const spot = interaction.options.getString("spot", true);
+		await Profile.set(interaction, { spot });
+	}
+
+	public async setThumbnail(interaction: ChatInputCommandInteraction) {
+		const thumbnail = interaction.options.getString("thumbnail", true);
+		if (!(await this.validateAsset(interaction, thumbnail))) return;
+		await Profile.set(interaction, { thumbnail });
+	}
+
+	public async setWingedLight(interaction: ChatInputCommandInteraction) {
+		const wingedLight = interaction.options.getInteger("winged-light", true);
+		await Profile.set(interaction, { winged_light: wingedLight });
+	}
+
+	public async show(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
+		const user = interaction.options.getUser("user");
+
+		const hide =
+			interaction instanceof UserContextMenuCommandInteraction || (interaction.options.getBoolean("hide") ?? false);
+
+		if (user?.bot) {
+			await interaction.reply({
+				content: "Do bots have Sky profiles? Hm. Who knows?",
+				ephemeral: hide,
+			});
+
+			return;
+		}
+
+		const userIsInvoker = user === null || user.id === interaction.user.id;
 		const profile = await Profile.fetch(user?.id ?? interaction.user.id).catch(() => null);
 
 		if (!profile) {
-			const userIsInvoker = user === null || user.id === interaction.user.id;
-
 			await interaction.reply({
 				content: `${userIsInvoker ? "You do" : `${user} does`} not have a Sky profile! Why not${
 					userIsInvoker ? "" : " ask them to"
@@ -128,10 +233,9 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		await interaction.reply({
-			embeds: [await profile.embed(interaction.guild)],
-			ephemeral,
-		});
+		const { embed, unfilled } = await profile.embed(interaction);
+		await interaction.reply({ embeds: [embed], ephemeral: hide });
+		if (unfilled && userIsInvoker) await interaction.followUp({ content: unfilled, ephemeral: true });
 	}
 
 	public get commandData(): ApplicationCommandData {
@@ -145,6 +249,21 @@ export default class implements ChatInputCommand {
 					name: "set",
 					description: "Set some information for your Sky profile.",
 					options: [
+						{
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "country",
+							description: "Set the country of your Sky profile!",
+							options: [
+								{
+									type: ApplicationCommandOptionType.String,
+									name: "country",
+									description: "What country are you from?",
+									required: true,
+									maxLength: SKY_MAXIMUM_COUNTRY_LENGTH,
+									minLength: SKY_MINIMUM_COUNTRY_LENGTH,
+								},
+							],
+						},
 						{
 							type: ApplicationCommandOptionType.Subcommand,
 							name: "description",
@@ -174,8 +293,56 @@ export default class implements ChatInputCommand {
 									name: "icon",
 									description: "Provide a URL to show as your author icon.",
 									required: true,
-									minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
-									maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH,
+									minLength: SKY_MINIMUM_ASSET_URL_LENGTH,
+									maxLength: SKY_MAXIMUM_ASSET_URL_LENGTH,
+								},
+							],
+						},
+						{
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "platform",
+							description: "Set the platform your Skykid plays on in your Sky profile!",
+						},
+						{
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "season-started",
+							description: "Set the season your Skykid started with in your Sky profile!",
+							options: [
+								{
+									type: ApplicationCommandOptionType.String,
+									name: "season",
+									description: "What season did you start with?",
+									choices: Object.values(Season).map((season) => ({ name: season, value: season })),
+									required: true,
+								},
+							],
+						},
+						{
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "spirit",
+							description: "Set the favourite spirit of your Skykid in your Sky profile!",
+							options: [
+								{
+									type: ApplicationCommandOptionType.String,
+									name: "spirit",
+									description: "What's your favourite spirit?",
+									required: true,
+									autocomplete: true,
+								},
+							],
+						},
+						{
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "spot",
+							description: "Set the favourite spot of your Skykid in your Sky profile!",
+							options: [
+								{
+									type: ApplicationCommandOptionType.String,
+									name: "spot",
+									description: "Where's your favourite spot to hang out?",
+									required: true,
+									minLength: SKY_MINIMUM_SPOT_LENGTH,
+									maxLength: SKY_MAXIMUM_SPOT_LENGTH,
 								},
 							],
 						},
@@ -189,8 +356,24 @@ export default class implements ChatInputCommand {
 									name: "thumbnail",
 									description: "Provide a URL to show as your thumbnail.",
 									required: true,
-									minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
-									maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH,
+									minLength: SKY_MINIMUM_ASSET_URL_LENGTH,
+									maxLength: SKY_MAXIMUM_ASSET_URL_LENGTH,
+								},
+							],
+						},
+						{
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "winged-light",
+							description:
+								"Set the maximum number of winged light your Skykid could possibly have in your Sky profile!",
+							options: [
+								{
+									type: ApplicationCommandOptionType.Integer,
+									name: "winged-light",
+									description: "Provide the maximum number of winged light you can possibly have.",
+									required: true,
+									max_value: MAXIMUM_WINGED_LIGHT,
+									minValue: MINIMUM_WINGED_LIGHT,
 								},
 							],
 						},
@@ -208,8 +391,8 @@ export default class implements ChatInputCommand {
 						},
 						{
 							type: ApplicationCommandOptionType.Boolean,
-							name: "ephemeral",
-							description: "Whether the response should be ephemeral. By default, the response is shown.",
+							name: "hide",
+							description: "Ensure only you can see the response. By default, the response is shown.",
 						},
 					],
 				},

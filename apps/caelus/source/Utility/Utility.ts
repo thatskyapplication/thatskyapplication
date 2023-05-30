@@ -112,6 +112,12 @@ export function resolveCurrencyEmoji({
 		case Emoji.No:
 			resolvedEmojiString += "❌";
 			break;
+		case Emoji.iOS:
+		case Emoji.Android:
+		case Emoji.Mac:
+		case Emoji.Switch:
+		case Emoji.PlayStation:
+			break;
 	}
 
 	if (plural) resolvedEmojiString += "s";

@@ -14,6 +14,7 @@ export const production = process.env.NODE_ENV === "production";
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 export const CDN_URL = "https://cdn.thatskyapplication.com" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki" as const;
+export const MINIMUM_WINGED_LIGHT = 0 as const;
 export const MAXIMUM_WINGED_LIGHT = 215 as const;
 export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
 export const SEASONAL_CANDLES_PER_DAY = 5 as const;
@@ -36,6 +37,11 @@ export const enum Emoji {
 	WingedLight = "1075042577776136313",
 	Yes = "1111792276394475580",
 	No = "1111792367104708699",
+	iOS = "1112935921197789304",
+	Android = "1112936417182621727",
+	Mac = "1112936431464235058",
+	Switch = "1112936564004237392",
+	PlayStation = "1112937466312278036",
 }
 
 export const enum User {
@@ -131,7 +137,7 @@ export const WingedLightCount = {
 	Orbit: 1,
 } as const;
 
-export const enum Season {
+export enum Season {
 	Gratitude = "Gratitude",
 	Lightseekers = "Lightseekers",
 	Belonging = "Belonging",
@@ -150,3 +156,4 @@ export const enum Season {
 	Remembrance = "Remembrance",
 	Passage = "Passage",
 }
+
