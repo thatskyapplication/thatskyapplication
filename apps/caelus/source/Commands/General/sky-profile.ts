@@ -1,22 +1,24 @@
-import type {
-	ApplicationCommandData,
-	ChatInputCommandInteraction,
-	UserContextMenuCommandInteraction,
-} from "discord.js";
 import {
+	type ApplicationCommandData,
+	type ChatInputCommandInteraction,
+	type UserContextMenuCommandInteraction,
 	ActionRowBuilder,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	ModalBuilder,
+	StringSelectMenuBuilder,
 	TextInputBuilder,
 	TextInputStyle,
+	StringSelectMenuOptionBuilder,
 } from "discord.js";
+import { PlatformFlags, resolvePlatformToBits } from "../../Structures/Platforms.js";
 import Profile from "../../Structures/Profile.js";
-import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT, Season } from "../../Utility/Constants.js";
+import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT, Platform, Season } from "../../Utility/Constants.js";
 import type { ChatInputCommand } from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
 export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as const;
+export const SKY_PROFILE_PLATFORM_CUSTOM_ID = "SKY_PROFILE_PLATFORM_CUSTOM_ID" as const;
 const SKY_MAXIMUM_NAME_LENGTH = 16 as const;
 const SKY_MINIMUM_IMAGE_URL_LENGTH = 9 as const;
 const SKY_MAXIMUM_IMAGE_URL_LENGTH = 150 as const;
@@ -53,6 +55,9 @@ export default class implements ChatInputCommand {
 				return;
 			case "name":
 				await this.setName(interaction);
+				return;
+			case "platform":
+				await this.setPlatform(interaction);
 				return;
 			case "season-started":
 				await this.setSeason(interaction);
@@ -104,6 +109,34 @@ export default class implements ChatInputCommand {
 	public async setName(interaction: ChatInputCommandInteraction) {
 		const name = interaction.options.getString("name", true);
 		await Profile.set(interaction, { name });
+	}
+
+	public async setPlatform(interaction: ChatInputCommandInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+		const currentPlatform = profile?.platform;
+
+		await interaction.reply({
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(SKY_PROFILE_PLATFORM_CUSTOM_ID)
+						.setMaxValues(Object.values(Platform).length)
+						.setMinValues(0)
+						.setOptions(
+							Object.values(Platform).map((platform) =>
+								new StringSelectMenuOptionBuilder()
+									.setLabel(platform)
+									.setValue(platform)
+									.setDefault(
+										Boolean(currentPlatform && PlatformFlags.has(currentPlatform, resolvePlatformToBits(platform))),
+									),
+							),
+						)
+						.setPlaceholder("Select the platforms you play on!"),
+				),
+			],
+			ephemeral: true,
+		});
 	}
 
 	public async setSeason(interaction: ChatInputCommandInteraction) {
@@ -220,6 +253,11 @@ export default class implements ChatInputCommand {
 									maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH,
 								},
 							],
+						},
+						{
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "platform",
+							description: "Set the platform your Skykid plays on in your Sky profile!",
 						},
 						{
 							type: ApplicationCommandOptionType.Subcommand,

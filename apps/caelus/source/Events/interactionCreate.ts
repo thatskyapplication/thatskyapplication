@@ -8,7 +8,7 @@ import {
 } from "../Commands/Developer/d-daily-guides.js";
 import { HeartHistoryNavigationType, HEART_HISTORY_BACK, HEART_HISTORY_FORWARD } from "../Commands/Fun/heart.js";
 import { ROLES_SELECT_MENU_CUSTOM_ID } from "../Commands/General/roles.js";
-import { SKY_PROFILE_MODAL } from "../Commands/General/sky-profile.js";
+import { SKY_PROFILE_MODAL, SKY_PROFILE_PLATFORM_CUSTOM_ID } from "../Commands/General/sky-profile.js";
 import commands, {
 	isAutocompleteCommand,
 	isChatInputCommand,
@@ -173,7 +173,14 @@ export const event: Event<typeof name> = {
 		}
 
 		if (interaction.isStringSelectMenu()) {
+			const { customId } = interaction;
+
 			try {
+				if (customId === SKY_PROFILE_PLATFORM_CUSTOM_ID) {
+					await Profile.setPlatform(interaction);
+					return;
+				}
+
 				if (!interaction.inCachedGuild()) {
 					void interaction.client.log({
 						content: `Attempted to perform \`${interaction.customId}\` via a select menu interaction in an uncached guild.`,
@@ -184,7 +191,7 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (interaction.customId === ROLES_SELECT_MENU_CUSTOM_ID) {
+				if (customId === ROLES_SELECT_MENU_CUSTOM_ID) {
 					await commands.roles.apply(interaction);
 					return;
 				}
@@ -194,7 +201,7 @@ export const event: Event<typeof name> = {
 			}
 
 			void interaction.client.log({
-				content: `Received an unknown select menu interaction (\`${interaction.customId}\`).`,
+				content: `Received an unknown select menu interaction (\`${customId}\`).`,
 			});
 
 			void interaction.reply({

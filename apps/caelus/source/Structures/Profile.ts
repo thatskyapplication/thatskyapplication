@@ -1,15 +1,23 @@
-import type {
-	ChatInputCommandInteraction,
-	EmbedAuthorOptions,
-	Guild,
-	ModalSubmitInteraction,
-	Snowflake,
+import {
+	StringSelectMenuInteraction,
+	type ChatInputCommandInteraction,
+	type EmbedAuthorOptions,
+	type Guild,
+	type ModalSubmitInteraction,
+	type Snowflake,
 } from "discord.js";
 import { EmbedBuilder } from "discord.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import commands from "../Commands/index.js";
-import { MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
+import { Emoji, MAXIMUM_WINGED_LIGHT, Platform } from "../Utility/Constants.js";
 import pg, { Table } from "../pg.js";
+import {
+	PlatformFlags,
+	isPlatform,
+	resolveBitsToPlatform,
+	resolvePlatformToBits,
+	resolvePlatformToProfilePlatform,
+} from "./Platforms.js";
 
 interface ProfilePacket {
 	id: number;
@@ -21,6 +29,7 @@ interface ProfilePacket {
 	country: string | null;
 	winged_light: number | null;
 	season_started: string | null;
+	platform: number | null;
 }
 
 interface ProfileData {
@@ -33,6 +42,7 @@ interface ProfileData {
 	country: ProfilePacket["country"];
 	wingedLight: ProfilePacket["winged_light"];
 	seasonStarted: ProfilePacket["season_started"];
+	platform: ProfilePacket["platform"];
 }
 
 interface ProfileSetData {
@@ -43,6 +53,7 @@ interface ProfileSetData {
 	country?: string;
 	winged_light?: number;
 	season_started?: string;
+	platform?: number;
 }
 
 type ProfilePatchData = Omit<ProfilePacket, "id" | "user_id">;
@@ -66,6 +77,8 @@ export default class Profile {
 
 	public seasonStarted!: ProfileData["seasonStarted"];
 
+	public platform!: ProfileData["platform"];
+
 	public constructor(profile: ProfilePacket) {
 		this.id = profile.id;
 		this.userId = profile.user_id;
@@ -80,6 +93,7 @@ export default class Profile {
 		this.country = data.country;
 		this.wingedLight = data.winged_light;
 		this.seasonStarted = data.season_started;
+		this.platform = data.platform;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -88,7 +102,10 @@ export default class Profile {
 		return new this(profilePacket);
 	}
 
-	public static async set(interaction: ChatInputCommandInteraction | ModalSubmitInteraction, data: ProfileSetData) {
+	public static async set(
+		interaction: ChatInputCommandInteraction | StringSelectMenuInteraction | ModalSubmitInteraction,
+		data: ProfileSetData,
+	) {
 		let profile = await this.fetch(interaction.user.id).catch(() => null);
 
 		if (profile) {
@@ -110,11 +127,22 @@ export default class Profile {
 			profile = new this(profilePacket!);
 		}
 
-		await interaction.reply({
+		const baseReplyOptions = {
 			content: "Your profile has been updated!",
 			embeds: [await profile.embed(interaction.guild)],
-			ephemeral: true,
-		});
+		};
+
+		if (interaction instanceof StringSelectMenuInteraction) {
+			await interaction.update({
+				...baseReplyOptions,
+				components: [],
+			});
+		} else {
+			await interaction.reply({
+				...baseReplyOptions,
+				ephemeral: true,
+			});
+		}
 	}
 
 	public static async setDescription(interaction: ModalSubmitInteraction) {
@@ -122,10 +150,27 @@ export default class Profile {
 		return this.set(interaction, { description });
 	}
 
+	public static async setPlatform(interaction: StringSelectMenuInteraction) {
+		const { values } = interaction;
+
+		if (!values.every(isPlatform)) {
+			await interaction.reply({
+				content: "Even the elders don't play on that platform. We're not sure what happened.",
+				ephemeral: true,
+			});
+
+			return;
+		}
+
+		return this.set(interaction, {
+			platform: PlatformFlags.resolve(values.map((value) => resolvePlatformToBits(value))),
+		});
+	}
+
 	public async embed(guild: Guild | null) {
 		const me = await guild?.members.fetchMe();
 		const hearts = await commands.heart.heartCount(this.userId);
-		const { name, icon, thumbnail, description, country, wingedLight, seasonStarted } = this;
+		const { name, icon, thumbnail, description, country, wingedLight, seasonStarted, platform } = this;
 
 		const embed = new EmbedBuilder()
 			.setColor(me?.displayColor ?? 0)
@@ -140,7 +185,6 @@ export default class Profile {
 		}
 
 		if (country) embed.addFields({ name: "Country", value: country, inline: true });
-
 		if (seasonStarted) embed.addFields({ name: "Season Started", value: seasonStarted, inline: true });
 
 		if (typeof wingedLight === "number") {
@@ -152,6 +196,30 @@ export default class Profile {
 						: wingedLight === MAXIMUM_WINGED_LIGHT
 						? `${wingedLight} (Max 🪽)`
 						: String(wingedLight),
+				inline: true,
+			});
+		}
+
+		if (platform) {
+			embed.addFields({
+				name: "Platform",
+				value: resolveBitsToPlatform(platform)
+					// eslint-disable-next-line array-callback-return
+					.map((platform) => {
+						switch (platform) {
+							case Platform.iOS:
+								return resolvePlatformToProfilePlatform(platform, me, Emoji.iOS);
+							case Platform.Android:
+								return resolvePlatformToProfilePlatform(platform, me, Emoji.Android);
+							case Platform.Mac:
+								return resolvePlatformToProfilePlatform(platform, me, Emoji.Mac);
+							case Platform.NintendoSwitch:
+								return resolvePlatformToProfilePlatform(platform, me, Emoji.Switch);
+							case Platform.PlayStation:
+								return resolvePlatformToProfilePlatform(platform, me, Emoji.PlayStation);
+						}
+					})
+					.join("\n"),
 				inline: true,
 			});
 		}

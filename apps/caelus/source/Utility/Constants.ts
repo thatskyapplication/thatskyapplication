@@ -37,6 +37,11 @@ export const enum Emoji {
 	WingedLight = "1075042577776136313",
 	Yes = "1111792276394475580",
 	No = "1111792367104708699",
+	iOS = "1112935921197789304",
+	Android = "1112936417182621727",
+	Mac = "1112936431464235058",
+	Switch = "1112936564004237392",
+	PlayStation = "1112937466312278036",
 }
 
 export const enum User {
@@ -150,4 +155,12 @@ export enum Season {
 	Aurora = "AURORA",
 	Remembrance = "Remembrance",
 	Passage = "Passage",
+}
+
+export enum Platform {
+	iOS = "iOS",
+	Android = "Android",
+	Mac = "Mac",
+	NintendoSwitch = "Nintendo Switch",
+	PlayStation = "PlayStation",
 }

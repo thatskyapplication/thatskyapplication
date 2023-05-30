@@ -28,6 +28,9 @@ importers:
       '@sapphire/async-queue':
         specifier: ^1.5.0
         version: 1.5.0
+      '@sapphire/bitfield':
+        specifier: ^1.2.0
+        version: 1.2.0
       dayjs:
         specifier: ^1.11.7
         version: 1.11.7
@@ -1433,6 +1436,11 @@ packages:
 
   /@sapphire/async-queue@1.5.0:
     resolution: {integrity: sha512-JkLdIsP8fPAdh9ZZjrbHWR/+mZj0wvKS5ICibcLrRI1j84UmLMshx5n9QmL8b95d4onJ2xxiyugTgSAX7AalmA==}
+    engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
+    dev: false
+
+  /@sapphire/bitfield@1.2.0:
+    resolution: {integrity: sha512-XYVBEtmVDKd946/L76UEltCMQ0KxkPnxRQsb2chzttPpGicm0gV1ngXiiy9rdUrOfsRXGl2wbWh6X1++2kBEzA==}
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
     dev: false
 
