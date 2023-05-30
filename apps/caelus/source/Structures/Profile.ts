@@ -1,12 +1,13 @@
 import {
-	StringSelectMenuInteraction,
 	type ChatInputCommandInteraction,
 	type EmbedAuthorOptions,
-	type Guild,
 	type ModalSubmitInteraction,
 	type Snowflake,
+	type UserContextMenuCommandInteraction,
+	EmbedBuilder,
+	StringSelectMenuInteraction,
+	chatInputApplicationCommandMention,
 } from "discord.js";
-import { EmbedBuilder } from "discord.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import commands from "../Commands/index.js";
 import { MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
@@ -121,10 +122,8 @@ export default class Profile {
 			profile = new this(profilePacket!);
 		}
 
-		const baseReplyOptions = {
-			content: "Your profile has been updated!",
-			embeds: [await profile.embed(interaction.guild)],
-		};
+		const { embed, unfilled } = await profile.embed(interaction);
+		const baseReplyOptions = { content: "Your profile has been updated!", embeds: [embed] };
 
 		if (interaction instanceof StringSelectMenuInteraction) {
 			await interaction.update({
@@ -137,6 +136,8 @@ export default class Profile {
 				ephemeral: true,
 			});
 		}
+
+		if (unfilled) await interaction.followUp({ content: unfilled, ephemeral: true });
 	}
 
 	public static async setDescription(interaction: ModalSubmitInteraction) {
@@ -148,24 +149,87 @@ export default class Profile {
 		return this.set(interaction, { platform: interaction.values.reduce((bit, value) => bit | Number(value), 0) });
 	}
 
-	public async embed(guild: Guild | null) {
-		const me = await guild?.members.fetchMe();
+	public async embed(
+		interaction:
+			| ChatInputCommandInteraction
+			| StringSelectMenuInteraction
+			| ModalSubmitInteraction
+			| UserContextMenuCommandInteraction,
+	) {
+		const me = await interaction.guild?.members.fetchMe();
 		const hearts = await commands.heart.heartCount(this.userId);
-		const { name, icon, thumbnail, description, country, wingedLight, seasonStarted, platform } = this;
+		const skyProfileCommand = commands["sky-profile"];
+		const { id: commandId, name: commandName } = skyProfileCommand;
 
-		const embed = new EmbedBuilder()
-			.setColor(me?.displayColor ?? 0)
-			.setDescription(description ?? "Hi! I'm an amazing Skykid.")
-			.setFooter({ text: `Hearts: ${hearts}` })
-			.setThumbnail(thumbnail);
+		if (!commandId) {
+			void interaction.client.log({ content: `Could not find the \`${commandName}\` command.` });
+		}
+
+		const { name, icon, thumbnail, description, country, wingedLight, seasonStarted, platform } = this;
+		const embed = new EmbedBuilder().setColor(me?.displayColor ?? 0).setFooter({ text: `Hearts: ${hearts}` });
+		const unfilled = [];
+
+		if (description) {
+			embed.setDescription(description);
+		} else if (commandId) {
+			unfilled.push(
+				`- Use ${chatInputApplicationCommandMention(
+					commandName,
+					"set",
+					"description",
+					commandId,
+				)} to set a description!`,
+			);
+		}
+
+		if (thumbnail) {
+			embed.setThumbnail(thumbnail);
+		} else if (commandId) {
+			unfilled.push(
+				`- Use ${chatInputApplicationCommandMention(
+					commandName,
+					"set",
+					"thumbnail",
+					commandId,
+				)} to set a thumbnail on the embed!`,
+			);
+		}
 
 		if (name) {
 			const embedAuthorOptions: EmbedAuthorOptions = { name };
-			if (icon) embedAuthorOptions.iconURL = icon;
+
+			if (icon) {
+				embedAuthorOptions.iconURL = icon;
+			} else if (commandId) {
+				unfilled.push(
+					`- Use ${chatInputApplicationCommandMention(
+						commandName,
+						"set",
+						"icon",
+						commandId,
+					)} to set an icon by your name!`,
+				);
+			}
+
 			embed.setAuthor(embedAuthorOptions);
+		} else if (commandId) {
+			unfilled.push(
+				`- Use ${chatInputApplicationCommandMention(commandName, "set", "name", commandId)} to set your name!`,
+			);
 		}
 
-		if (seasonStarted) embed.addFields({ name: "Season Started", value: seasonStarted, inline: true });
+		if (seasonStarted) {
+			embed.addFields({ name: "Season Started", value: seasonStarted, inline: true });
+		} else if (commandId) {
+			unfilled.push(
+				`- Use ${chatInputApplicationCommandMention(
+					commandName,
+					"set",
+					"season-started",
+					commandId,
+				)} to tell others what season you started with!`,
+			);
+		}
 
 		if (typeof wingedLight === "number") {
 			embed.addFields({
@@ -178,18 +242,47 @@ export default class Profile {
 						: String(wingedLight),
 				inline: true,
 			});
+		} else if (commandId) {
+			unfilled.push(
+				`- Use ${chatInputApplicationCommandMention(
+					commandName,
+					"set",
+					"winged-light",
+					commandId,
+				)} to flex how much winged light you have!`,
+			);
 		}
 
-		if (country) embed.addFields({ name: "Country", value: country, inline: true });
+		if (country) {
+			embed.addFields({ name: "Country", value: country, inline: true });
+		} else if (commandId) {
+			unfilled.push(
+				`- Use ${chatInputApplicationCommandMention(
+					commandName,
+					"set",
+					"country",
+					commandId,
+				)} to tell others where you're from!`,
+			);
+		}
 
-		if (platform) {
+		if (typeof platform === "number") {
 			embed.addFields({
 				name: "Platform",
 				value: resolveBitsToPlatform(platform, me).join("\n"),
 				inline: true,
 			});
+		} else if (commandId) {
+			unfilled.push(
+				`- Use ${chatInputApplicationCommandMention(
+					commandName,
+					"set",
+					"platform",
+					commandId,
+				)} to show what platforms you play on!`,
+			);
 		}
 
-		return embed;
+		return { embed, unfilled: unfilled.join("\n") || null };
 	}
 }

@@ -149,6 +149,8 @@ class Caelus extends Client {
 
 			await this.deployCommands(this, fetchedGlobalCommands, globalCommandData);
 			await this.deployCommands(this, fetchedDeveloperCommands, developerCommandData, developerGuild);
+			// eslint-disable-next-line require-atomic-updates
+			commands["sky-profile"].id = fetchedGlobalCommands.find(({ name }) => name === commands["sky-profile"].name)?.id ?? null;
 		} catch (error) {
 			void this.log({ content: "Failed to apply commands.", error });
 		}

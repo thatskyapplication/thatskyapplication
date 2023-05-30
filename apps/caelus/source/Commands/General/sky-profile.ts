@@ -10,6 +10,7 @@ import {
 	TextInputBuilder,
 	TextInputStyle,
 	StringSelectMenuOptionBuilder,
+	type Snowflake,
 } from "discord.js";
 import { PlatformFlagsToString } from "../../Structures/Platforms.js";
 import Profile from "../../Structures/Profile.js";
@@ -29,6 +30,8 @@ export default class implements ChatInputCommand {
 	public readonly name = "sky-profile";
 
 	public readonly type = ApplicationCommandType.ChatInput;
+
+	public id: Snowflake | null = null;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { options } = interaction;
@@ -186,10 +189,9 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
-		await interaction.reply({
-			embeds: [await profile.embed(interaction.guild)],
-			ephemeral,
-		});
+		const { embed, unfilled } = await profile.embed(interaction);
+		await interaction.reply({ embeds: [embed], ephemeral });
+		if (unfilled) await interaction.followUp({ content: unfilled, ephemeral: true });
 	}
 
 	public get commandData(): ApplicationCommandData {
