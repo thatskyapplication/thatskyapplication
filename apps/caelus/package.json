@@ -10,7 +10,6 @@
 	},
 	"dependencies": {
 		"@sapphire/async-queue": "^1.5.0",
-		"@sapphire/bitfield": "^1.2.0",
 		"dayjs": "^1.11.7",
 		"discord.js": "^14.11.0",
 		"dotenv": "^16.0.3",

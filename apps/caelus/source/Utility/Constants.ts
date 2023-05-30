@@ -157,10 +157,3 @@ export enum Season {
 	Passage = "Passage",
 }
 
-export enum Platform {
-	iOS = "iOS",
-	Android = "Android",
-	Mac = "Mac",
-	NintendoSwitch = "Nintendo Switch",
-	PlayStation = "PlayStation",
-}

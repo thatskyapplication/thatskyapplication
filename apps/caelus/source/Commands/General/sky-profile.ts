@@ -11,9 +11,9 @@ import {
 	TextInputStyle,
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
-import { PlatformFlags, resolvePlatformToBits } from "../../Structures/Platforms.js";
+import { PlatformFlagsToString } from "../../Structures/Platforms.js";
 import Profile from "../../Structures/Profile.js";
-import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT, Platform, Season } from "../../Utility/Constants.js";
+import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT, Season } from "../../Utility/Constants.js";
 import type { ChatInputCommand } from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
@@ -113,23 +113,21 @@ export default class implements ChatInputCommand {
 
 	public async setPlatform(interaction: ChatInputCommandInteraction) {
 		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
-		const currentPlatform = profile?.platform;
+		const currentPlatforms = profile?.platform;
 
 		await interaction.reply({
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
 						.setCustomId(SKY_PROFILE_PLATFORM_CUSTOM_ID)
-						.setMaxValues(Object.values(Platform).length)
+						.setMaxValues(Object.values(PlatformFlagsToString).length)
 						.setMinValues(0)
 						.setOptions(
-							Object.values(Platform).map((platform) =>
+							Object.entries(PlatformFlagsToString).map(([flag, platform]) =>
 								new StringSelectMenuOptionBuilder()
 									.setLabel(platform)
-									.setValue(platform)
-									.setDefault(
-										Boolean(currentPlatform && PlatformFlags.has(currentPlatform, resolvePlatformToBits(platform))),
-									),
+									.setValue(flag)
+									.setDefault(Boolean(currentPlatforms & Number(flag))),
 							),
 						)
 						.setPlaceholder("Select the platforms you play on!"),

@@ -9,15 +9,9 @@ import {
 import { EmbedBuilder } from "discord.js";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import commands from "../Commands/index.js";
-import { Emoji, MAXIMUM_WINGED_LIGHT, Platform } from "../Utility/Constants.js";
+import { MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
 import pg, { Table } from "../pg.js";
-import {
-	PlatformFlags,
-	isPlatform,
-	resolveBitsToPlatform,
-	resolvePlatformToBits,
-	resolvePlatformToProfilePlatform,
-} from "./Platforms.js";
+import { resolveBitsToPlatform } from "./Platforms.js";
 
 interface ProfilePacket {
 	id: number;
@@ -151,20 +145,7 @@ export default class Profile {
 	}
 
 	public static async setPlatform(interaction: StringSelectMenuInteraction) {
-		const { values } = interaction;
-
-		if (!values.every(isPlatform)) {
-			await interaction.reply({
-				content: "Even the elders don't play on that platform. We're not sure what happened.",
-				ephemeral: true,
-			});
-
-			return;
-		}
-
-		return this.set(interaction, {
-			platform: PlatformFlags.resolve(values.map((value) => resolvePlatformToBits(value))),
-		});
+		return this.set(interaction, { platform: interaction.values.reduce((bit, value) => bit | Number(value), 0) });
 	}
 
 	public async embed(guild: Guild | null) {
@@ -203,23 +184,7 @@ export default class Profile {
 		if (platform) {
 			embed.addFields({
 				name: "Platform",
-				value: resolveBitsToPlatform(platform)
-					// eslint-disable-next-line array-callback-return
-					.map((platform) => {
-						switch (platform) {
-							case Platform.iOS:
-								return resolvePlatformToProfilePlatform(platform, me, Emoji.iOS);
-							case Platform.Android:
-								return resolvePlatformToProfilePlatform(platform, me, Emoji.Android);
-							case Platform.Mac:
-								return resolvePlatformToProfilePlatform(platform, me, Emoji.Mac);
-							case Platform.NintendoSwitch:
-								return resolvePlatformToProfilePlatform(platform, me, Emoji.Switch);
-							case Platform.PlayStation:
-								return resolvePlatformToProfilePlatform(platform, me, Emoji.PlayStation);
-						}
-					})
-					.join("\n"),
+				value: resolveBitsToPlatform(platform, me).join("\n"),
 				inline: true,
 			});
 		}
