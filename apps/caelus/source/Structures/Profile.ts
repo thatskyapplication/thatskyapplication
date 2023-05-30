@@ -283,23 +283,6 @@ export default class Profile {
 			);
 		}
 
-		if (typeof platform === "number") {
-			fields.push({
-				name: "Platform",
-				value: resolveBitsToPlatform(platform, me).join("\n"),
-				inline: true,
-			});
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"platform",
-					commandId,
-				)} to show what platforms you play on!`,
-			);
-		}
-
 		if (country) {
 			fields.push({ name: "Country", value: country, inline: true });
 		} else if (commandId) {
@@ -323,6 +306,23 @@ export default class Profile {
 					"spot",
 					commandId,
 				)} to tell others where you're from!`,
+			);
+		}
+
+		if (typeof platform === "number") {
+			fields.push({
+				name: "Platform",
+				value: resolveBitsToPlatform(platform, me).join("\n"),
+				inline: true,
+			});
+		} else if (commandId) {
+			unfilled.push(
+				`- Use ${chatInputApplicationCommandMention(
+					commandName,
+					"set",
+					"platform",
+					commandId,
+				)} to show what platforms you play on!`,
 			);
 		}
 
