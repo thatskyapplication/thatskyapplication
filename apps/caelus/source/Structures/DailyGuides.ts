@@ -2,7 +2,15 @@ import { URL } from "node:url";
 import { AsyncQueue } from "@sapphire/async-queue";
 import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
 import { FormattingPatterns, ChannelType, MessageFlags, SnowflakeUtil } from "discord.js";
-import { CDN_URL, Channel, INFOGRAPHICS_DATABASE_GUILD_ID, Map, Realm, VALID_REALM, inconsistentMapKeys } from "../Utility/Constants.js";
+import {
+	CDN_URL,
+	Channel,
+	INFOGRAPHICS_DATABASE_GUILD_ID,
+	Map,
+	Realm,
+	VALID_REALM,
+	inconsistentMapKeys,
+} from "../Utility/Constants.js";
 import { consoleLog, resolveMap, resolveValidRealm, todayDate } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
