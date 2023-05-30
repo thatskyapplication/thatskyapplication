@@ -14,7 +14,7 @@ import {
 	StringSelectMenuOptionBuilder,
 	UserContextMenuCommandInteraction,
 } from "discord.js";
-import { PlatformFlagsToString } from "../../Structures/Platforms.js";
+import { PlatformFlagsToString, resolvePlatformToEmoji } from "../../Structures/Platforms.js";
 import Profile from "../../Structures/Profile.js";
 import Spirits from "../../Structures/Spirit.js";
 import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT, Season } from "../../Utility/Constants.js";
@@ -155,9 +155,10 @@ export default class implements AutocompleteCommand {
 						.setOptions(
 							Object.entries(PlatformFlagsToString).map(([flag, platform]) =>
 								new StringSelectMenuOptionBuilder()
+									.setDefault(Boolean(currentPlatforms && currentPlatforms & Number(flag)))
+									.setEmoji(resolvePlatformToEmoji(platform))
 									.setLabel(platform)
-									.setValue(flag)
-									.setDefault(Boolean(currentPlatforms && currentPlatforms & Number(flag))),
+									.setValue(flag),
 							),
 						)
 						.setPlaceholder("Select the platforms you play on!"),

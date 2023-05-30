@@ -26,29 +26,24 @@ export function resolveBitsToPlatform(bits: number, interaction: BaseInteraction
 		const _bit = Number(bit);
 
 		if ((bits & _bit) === _bit) {
-			let emoji;
-
-			switch (platform) {
-				case PlatformFlagsToString[PlatformFlags.iOS]:
-					emoji = Emoji.iOS;
-					break;
-				case PlatformFlagsToString[PlatformFlags.Android]:
-					emoji = Emoji.Android;
-					break;
-				case PlatformFlagsToString[PlatformFlags.Mac]:
-					emoji = Emoji.Mac;
-					break;
-				case PlatformFlagsToString[PlatformFlags.NintendoSwitch]:
-					emoji = Emoji.Switch;
-					break;
-				case PlatformFlagsToString[PlatformFlags.PlayStation]:
-					emoji = Emoji.PlayStation;
-					break;
-			}
-
-			platforms.push(`${resolveEmoji(interaction, emoji)} ${platform}`);
+			platforms.push(`${resolveEmoji(interaction, resolvePlatformToEmoji(platform))} ${platform}`);
 		}
 	}
 
 	return platforms;
+}
+
+export function resolvePlatformToEmoji(platform: (typeof PlatformFlagsToString)[keyof typeof PlatformFlagsToString]) {
+	switch (platform) {
+		case PlatformFlagsToString[PlatformFlags.iOS]:
+			return Emoji.iOS;
+		case PlatformFlagsToString[PlatformFlags.Android]:
+			return Emoji.Android;
+		case PlatformFlagsToString[PlatformFlags.Mac]:
+			return Emoji.Mac;
+		case PlatformFlagsToString[PlatformFlags.NintendoSwitch]:
+			return Emoji.Switch;
+		case PlatformFlagsToString[PlatformFlags.PlayStation]:
+			return Emoji.PlayStation;
+	}
 }
