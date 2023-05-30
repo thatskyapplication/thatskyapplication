@@ -25,6 +25,7 @@ interface ProfilePacket {
 	winged_light: number | null;
 	season_started: string | null;
 	platform: number | null;
+	spirit: string | null;
 }
 
 interface ProfileData {
@@ -38,6 +39,7 @@ interface ProfileData {
 	wingedLight: ProfilePacket["winged_light"];
 	seasonStarted: ProfilePacket["season_started"];
 	platform: ProfilePacket["platform"];
+	spirit: ProfilePacket["spirit"];
 }
 
 interface ProfileSetData {
@@ -49,6 +51,7 @@ interface ProfileSetData {
 	winged_light?: number;
 	season_started?: string;
 	platform?: number;
+	spirit?: string;
 }
 
 type ProfilePatchData = Omit<ProfilePacket, "id" | "user_id">;
@@ -74,6 +77,8 @@ export default class Profile {
 
 	public platform!: ProfileData["platform"];
 
+	public spirit!: ProfilePacket["spirit"];
+
 	public constructor(profile: ProfilePacket) {
 		this.id = profile.id;
 		this.userId = profile.user_id;
@@ -89,6 +94,7 @@ export default class Profile {
 		this.wingedLight = data.winged_light;
 		this.seasonStarted = data.season_started;
 		this.platform = data.platform;
+		this.spirit = data.spirit;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -165,8 +171,9 @@ export default class Profile {
 			void interaction.client.log({ content: `Could not find the \`${commandName}\` command.` });
 		}
 
-		const { name, icon, thumbnail, description, country, wingedLight, seasonStarted, platform } = this;
+		const { name, icon, thumbnail, description, country, wingedLight, seasonStarted, platform, spirit } = this;
 		const embed = new EmbedBuilder().setColor(me?.displayColor ?? 0).setFooter({ text: `Hearts: ${hearts}` });
+		const fields = [];
 		const unfilled = [];
 
 		if (description) {
@@ -219,7 +226,7 @@ export default class Profile {
 		}
 
 		if (seasonStarted) {
-			embed.addFields({ name: "Season Started", value: seasonStarted, inline: true });
+			fields.push({ name: "Season Started", value: seasonStarted, inline: true });
 		} else if (commandId) {
 			unfilled.push(
 				`- Use ${chatInputApplicationCommandMention(
@@ -232,7 +239,7 @@ export default class Profile {
 		}
 
 		if (typeof wingedLight === "number") {
-			embed.addFields({
+			fields.push({
 				name: "Winged Light",
 				value:
 					wingedLight === 0
@@ -253,8 +260,25 @@ export default class Profile {
 			);
 		}
 
+		if (spirit) {
+			fields.push({
+				name: "Favourite Spirit",
+				value: spirit,
+				inline: true,
+			});
+		} else if (commandId) {
+			unfilled.push(
+				`- Use ${chatInputApplicationCommandMention(
+					commandName,
+					"set",
+					"spirit",
+					commandId,
+				)} to set your favourite spirit!`,
+			);
+		}
+
 		if (country) {
-			embed.addFields({ name: "Country", value: country, inline: true });
+			fields.push({ name: "Country", value: country, inline: true });
 		} else if (commandId) {
 			unfilled.push(
 				`- Use ${chatInputApplicationCommandMention(
@@ -267,7 +291,7 @@ export default class Profile {
 		}
 
 		if (typeof platform === "number") {
-			embed.addFields({
+			fields.push({
 				name: "Platform",
 				value: resolveBitsToPlatform(platform, me).join("\n"),
 				inline: true,
@@ -283,6 +307,8 @@ export default class Profile {
 			);
 		}
 
+		if (fields.length > 4 && fields.length % 3 === 2) fields.push({ name: "\u200B", value: "\u200B", inline: true });
+		embed.setFields(fields);
 		return { embed, unfilled: unfilled.join("\n") || null };
 	}
 }

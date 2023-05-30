@@ -1,6 +1,8 @@
 import {
 	type ApplicationCommandData,
+	type AutocompleteInteraction,
 	type ChatInputCommandInteraction,
+	type Snowflake,
 	type UserContextMenuCommandInteraction,
 	ActionRowBuilder,
 	ApplicationCommandOptionType,
@@ -10,13 +12,14 @@ import {
 	TextInputBuilder,
 	TextInputStyle,
 	StringSelectMenuOptionBuilder,
-	type Snowflake,
 	ALLOWED_EXTENSIONS,
 } from "discord.js";
 import { PlatformFlagsToString } from "../../Structures/Platforms.js";
 import Profile from "../../Structures/Profile.js";
+import Spirits from "../../Structures/Spirit.js";
 import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT, Season } from "../../Utility/Constants.js";
-import type { ChatInputCommand } from "../index.js";
+import type { AutocompleteCommand } from "../index.js";
+import commands from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
 export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as const;
@@ -27,12 +30,17 @@ const SKY_MAXIMUM_ASSET_URL_LENGTH = 200 as const;
 const SKY_MINIMUM_COUNTRY_LENGTH = 2 as const;
 const SKY_MAXIMUM_COUNTRY_LENGTH = 60 as const;
 
-export default class implements ChatInputCommand {
+export default class implements AutocompleteCommand {
 	public readonly name = "sky-profile";
 
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public id: Snowflake | null = null;
+
+	public async autocomplete(interaction: AutocompleteInteraction) {
+		// This is the same as querying a spirit, so use that instead.
+		await commands.spirit.autocomplete(interaction);
+	}
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { options } = interaction;
@@ -65,6 +73,9 @@ export default class implements ChatInputCommand {
 				return;
 			case "season-started":
 				await this.setSeason(interaction);
+				return;
+			case "spirit":
+				await this.setSpirit(interaction);
 				return;
 			case "thumbnail":
 				await this.setThumbnail(interaction);
@@ -154,6 +165,22 @@ export default class implements ChatInputCommand {
 	public async setSeason(interaction: ChatInputCommandInteraction) {
 		const season = interaction.options.getString("season", true);
 		await Profile.set(interaction, { season_started: season });
+	}
+
+	public async setSpirit(interaction: ChatInputCommandInteraction) {
+		const query = interaction.options.getString("spirit", true);
+		const spirit = Spirits.find(({ name }) => name === query);
+
+		if (!spirit) {
+			await interaction.reply({
+				content: "Woah, it seems we have not encountered that spirit yet. How strange!",
+				ephemeral: true,
+			});
+
+			return;
+		}
+
+		await Profile.set(interaction, { spirit: spirit.name });
 	}
 
 	public async setThumbnail(interaction: ChatInputCommandInteraction) {
@@ -276,6 +303,20 @@ export default class implements ChatInputCommand {
 									description: "What season did you start with?",
 									choices: Object.values(Season).map((season) => ({ name: season, value: season })),
 									required: true,
+								},
+							],
+						},
+						{
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "spirit",
+							description: "Set the favourite spirit of your Skykid in your Sky profile!",
+							options: [
+								{
+									type: ApplicationCommandOptionType.String,
+									name: "spirit",
+									description: "What's your favourite spirit?",
+									required: true,
+									autocomplete: true,
 								},
 							],
 						},
