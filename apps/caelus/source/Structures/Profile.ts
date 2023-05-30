@@ -165,7 +165,6 @@ export default class Profile {
 			embed.setAuthor(embedAuthorOptions);
 		}
 
-		if (country) embed.addFields({ name: "Country", value: country, inline: true });
 		if (seasonStarted) embed.addFields({ name: "Season Started", value: seasonStarted, inline: true });
 
 		if (typeof wingedLight === "number") {
@@ -180,6 +179,8 @@ export default class Profile {
 				inline: true,
 			});
 		}
+
+		if (country) embed.addFields({ name: "Country", value: country, inline: true });
 
 		if (platform) {
 			embed.addFields({
