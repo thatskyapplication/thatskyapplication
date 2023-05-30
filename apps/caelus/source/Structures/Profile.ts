@@ -305,7 +305,7 @@ export default class Profile {
 					"set",
 					"spot",
 					commandId,
-				)} to tell others where you're from!`,
+				)} to tell others where your favourite spot to hang out is!`,
 			);
 		}
 
