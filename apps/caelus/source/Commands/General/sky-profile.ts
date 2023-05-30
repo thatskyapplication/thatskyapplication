@@ -11,6 +11,7 @@ import {
 	TextInputStyle,
 	StringSelectMenuOptionBuilder,
 	type Snowflake,
+	ALLOWED_EXTENSIONS,
 } from "discord.js";
 import { PlatformFlagsToString } from "../../Structures/Platforms.js";
 import Profile from "../../Structures/Profile.js";
@@ -21,8 +22,8 @@ export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
 export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as const;
 export const SKY_PROFILE_PLATFORM_CUSTOM_ID = "SKY_PROFILE_PLATFORM_CUSTOM_ID" as const;
 const SKY_MAXIMUM_NAME_LENGTH = 16 as const;
-const SKY_MINIMUM_IMAGE_URL_LENGTH = 9 as const;
-const SKY_MAXIMUM_IMAGE_URL_LENGTH = 150 as const;
+const SKY_MINIMUM_ASSET_URL_LENGTH = 15 as const;
+const SKY_MAXIMUM_ASSET_URL_LENGTH = 200 as const;
 const SKY_MINIMUM_COUNTRY_LENGTH = 2 as const;
 const SKY_MAXIMUM_COUNTRY_LENGTH = 60 as const;
 
@@ -98,14 +99,24 @@ export default class implements ChatInputCommand {
 		await interaction.showModal(modal);
 	}
 
-	public async setIcon(interaction: ChatInputCommandInteraction) {
-		const icon = interaction.options.getString("icon", true);
+	private async validateAsset(interaction: ChatInputCommandInteraction, url: string) {
+		if (!url.startsWith("https://") || !ALLOWED_EXTENSIONS.some((extension) => url.endsWith(`.${extension}`))) {
+			await interaction.reply({
+				content: `Please use a valid URL! It must be in any of the following formats:\n${ALLOWED_EXTENSIONS.map(
+					(extension) => `- .${extension}`,
+				).join("\n")}`,
+				ephemeral: true,
+			});
 
-		if (!icon.startsWith("https://")) {
-			await interaction.reply({ content: "Please use a valid URL!", ephemeral: true });
-			return;
+			return false;
 		}
 
+		return true;
+	}
+
+	public async setIcon(interaction: ChatInputCommandInteraction) {
+		const icon = interaction.options.getString("icon", true);
+		if (!(await this.validateAsset(interaction, icon))) return;
 		await Profile.set(interaction, { icon });
 	}
 
@@ -147,12 +158,7 @@ export default class implements ChatInputCommand {
 
 	public async setThumbnail(interaction: ChatInputCommandInteraction) {
 		const thumbnail = interaction.options.getString("thumbnail", true);
-
-		if (!thumbnail.startsWith("https://")) {
-			await interaction.reply({ content: "Please use a valid URL!", ephemeral: true });
-			return;
-		}
-
+		if (!(await this.validateAsset(interaction, thumbnail))) return;
 		await Profile.set(interaction, { thumbnail });
 	}
 
@@ -249,8 +255,8 @@ export default class implements ChatInputCommand {
 									name: "icon",
 									description: "Provide a URL to show as your author icon.",
 									required: true,
-									minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
-									maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH,
+									minLength: SKY_MINIMUM_ASSET_URL_LENGTH,
+									maxLength: SKY_MAXIMUM_ASSET_URL_LENGTH,
 								},
 							],
 						},
@@ -283,8 +289,8 @@ export default class implements ChatInputCommand {
 									name: "thumbnail",
 									description: "Provide a URL to show as your thumbnail.",
 									required: true,
-									minLength: SKY_MINIMUM_IMAGE_URL_LENGTH,
-									maxLength: SKY_MAXIMUM_IMAGE_URL_LENGTH,
+									minLength: SKY_MINIMUM_ASSET_URL_LENGTH,
+									maxLength: SKY_MAXIMUM_ASSET_URL_LENGTH,
 								},
 							],
 						},
