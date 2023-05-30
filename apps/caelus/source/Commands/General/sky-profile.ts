@@ -127,7 +127,7 @@ export default class implements ChatInputCommand {
 								new StringSelectMenuOptionBuilder()
 									.setLabel(platform)
 									.setValue(flag)
-									.setDefault(Boolean(currentPlatforms & Number(flag))),
+									.setDefault(Boolean(currentPlatforms && currentPlatforms & Number(flag))),
 							),
 						)
 						.setPlaceholder("Select the platforms you play on!"),
