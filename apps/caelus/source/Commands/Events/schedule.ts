@@ -9,7 +9,7 @@ import {
 } from "discord.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import { NotificationEvent } from "../../Structures/Notification.js";
-import { ISS_DATES_ACCESSIBLE } from "../../Utility/Constants.js";
+import { ISS_DATES_ACCESSIBLE, initialTravellingSpiritSeek } from "../../Utility/Constants.js";
 import { todayDate } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -19,6 +19,25 @@ function dailyResetTime() {
 
 function eyeOfEdenResetTime() {
 	return todayDate().day(7).unix();
+}
+
+function travellingSpiritTime() {
+	const today = todayDate();
+
+	for (let start = initialTravellingSpiritSeek; ; start = start.add(2, "weeks")) {
+		if (start.isBefore(today) && start.add(3, "days").isBefore(today)) continue;
+
+		if (start.isSame(today) || start.isBefore(today) || start.add(3, "days").isBefore(today)) {
+			return "Today!";
+		} else {
+			const startUnix = start.unix();
+
+			return `None\n_Next visit at ${time(startUnix, TimestampStyles.ShortDate)} (${time(
+				startUnix,
+				TimestampStyles.RelativeTime,
+			)})_`;
+		}
+	}
 }
 
 function scheduleTimes(startingMinute: number, interval: number, intervalType: ManipulateType) {
@@ -72,6 +91,7 @@ export default class implements ChatInputCommand {
 						TimestampStyles.RelativeTime,
 					)})`,
 				},
+				{ name: "Travelling Spirit", value: travellingSpiritTime() },
 				{ name: NotificationEvent.PollutedGeyser, value: scheduleTimes(5, 2, "hours").join(" ") },
 				{ name: NotificationEvent.Grandma, value: scheduleTimes(35, 2, "hours").join(" ") },
 				{ name: NotificationEvent.Turtle, value: scheduleTimes(50, 2, "hours").join(" ") },
