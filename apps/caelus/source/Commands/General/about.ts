@@ -1,6 +1,11 @@
 import { URL } from "node:url";
-import { ApplicationCommandType, EmbedBuilder, hyperlink } from "discord.js";
-import type { ApplicationCommandData, ChatInputCommandInteraction } from "discord.js";
+import {
+	type ApplicationCommandData,
+	type ChatInputCommandInteraction,
+	ApplicationCommandType,
+	EmbedBuilder,
+	hyperlink,
+} from "discord.js";
 import { GITHUB_SPONSORS_URL, KO_FI_URL, PATREON_URL, THATSKYGAME_URL, WEBSITE_URL } from "../../Utility/Constants.js";
 import type { ChatInputCommand } from "../index.js";
 
