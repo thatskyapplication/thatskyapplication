@@ -16,14 +16,17 @@ import {
 } from "discord.js";
 import { PlatformFlagsToString, resolvePlatformToEmoji } from "../../Structures/Platforms.js";
 import Profile from "../../Structures/Profile.js";
+import { SeasonFlagsToString, resolveSeasonsToEmoji } from "../../Structures/Seasons.js";
 import Spirits from "../../Structures/Spirit.js";
-import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT, Season } from "../../Utility/Constants.js";
+import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
+import { canUseCustomEmoji } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 import commands from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
 export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as const;
 export const SKY_PROFILE_PLATFORM_CUSTOM_ID = "SKY_PROFILE_PLATFORM_CUSTOM_ID" as const;
+export const SKY_PROFILE_SEASONS_CUSTOM_ID = "SKY_PROFILE_SEASONS_CUSTOM_ID" as const;
 const SKY_MAXIMUM_NAME_LENGTH = 16 as const;
 const SKY_MINIMUM_ASSET_URL_LENGTH = 15 as const;
 const SKY_MAXIMUM_ASSET_URL_LENGTH = 200 as const;
@@ -73,8 +76,8 @@ export default class implements AutocompleteCommand {
 			case "platform":
 				await this.setPlatform(interaction);
 				return;
-			case "season-started":
-				await this.setSeason(interaction);
+			case "seasons":
+				await this.setSeasons(interaction);
 				return;
 			case "spirit":
 				await this.setSpirit(interaction);
@@ -168,9 +171,31 @@ export default class implements AutocompleteCommand {
 		});
 	}
 
-	public async setSeason(interaction: ChatInputCommandInteraction) {
-		const season = interaction.options.getString("season", true);
-		await Profile.set(interaction, { season_started: season });
+	public async setSeasons(interaction: ChatInputCommandInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+		const currentSeasons = profile?.seasons;
+
+		await interaction.reply({
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(SKY_PROFILE_SEASONS_CUSTOM_ID)
+						.setMaxValues(Object.values(SeasonFlagsToString).length)
+						.setMinValues(0)
+						.setOptions(
+							Object.entries(SeasonFlagsToString).map(([flag, season]) =>
+								new StringSelectMenuOptionBuilder()
+									.setDefault(Boolean(currentSeasons && currentSeasons & Number(flag)))
+									.setEmoji(resolveSeasonsToEmoji(season))
+									.setLabel(season)
+									.setValue(flag),
+							),
+						)
+						.setPlaceholder("Select the seasons you participated in!"),
+				),
+			],
+			ephemeral: true,
+		});
 	}
 
 	public async setSpirit(interaction: ChatInputCommandInteraction) {
@@ -228,6 +253,15 @@ export default class implements AutocompleteCommand {
 				content: `${userIsInvoker ? "You do" : `${user} does`} not have a Sky profile! Why not${
 					userIsInvoker ? "" : " ask them to"
 				} create one?`,
+				ephemeral: true,
+			});
+
+			return;
+		}
+
+		if (!canUseCustomEmoji(interaction) && profile.seasons) {
+			await interaction.reply({
+				content: `Missing the \`Use External Emojis\` permission.`,
 				ephemeral: true,
 			});
 
@@ -306,17 +340,8 @@ export default class implements AutocompleteCommand {
 						},
 						{
 							type: ApplicationCommandOptionType.Subcommand,
-							name: "season-started",
-							description: "Set the season your Skykid started with in your Sky profile!",
-							options: [
-								{
-									type: ApplicationCommandOptionType.String,
-									name: "season",
-									description: "What season did you start with?",
-									choices: Object.values(Season).map((season) => ({ name: season, value: season })),
-									required: true,
-								},
-							],
+							name: "seasons",
+							description: "Set the seasons your Skykid participated in for your Sky profile!",
 						},
 						{
 							type: ApplicationCommandOptionType.Subcommand,
