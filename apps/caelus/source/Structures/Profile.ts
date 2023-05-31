@@ -11,8 +11,10 @@ import {
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import commands from "../Commands/index.js";
 import { MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
+import { canUseCustomEmoji } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
+import { resolveBitsToSeasons } from "./Seasons.js";
 
 interface ProfilePacket {
 	id: number;
@@ -23,7 +25,7 @@ interface ProfilePacket {
 	description: string | null;
 	country: string | null;
 	winged_light: number | null;
-	season_started: string | null;
+	seasons: number;
 	platform: number | null;
 	spirit: string | null;
 	spot: string | null;
@@ -38,7 +40,7 @@ interface ProfileData {
 	description: ProfilePacket["description"];
 	country: ProfilePacket["country"];
 	wingedLight: ProfilePacket["winged_light"];
-	seasonStarted: ProfilePacket["season_started"];
+	seasons: ProfilePacket["seasons"];
 	platform: ProfilePacket["platform"];
 	spirit: ProfilePacket["spirit"];
 	spot: ProfilePacket["spot"];
@@ -51,7 +53,7 @@ interface ProfileSetData {
 	description?: string;
 	country?: string;
 	winged_light?: number;
-	season_started?: string;
+	seasons?: number;
 	platform?: number;
 	spirit?: string;
 	spot?: string;
@@ -76,7 +78,7 @@ export default class Profile {
 
 	public wingedLight!: ProfileData["wingedLight"];
 
-	public seasonStarted!: ProfileData["seasonStarted"];
+	public seasons!: ProfileData["seasons"];
 
 	public platform!: ProfileData["platform"];
 
@@ -97,7 +99,7 @@ export default class Profile {
 		this.description = data.description;
 		this.country = data.country;
 		this.wingedLight = data.winged_light;
-		this.seasonStarted = data.season_started;
+		this.seasons = data.seasons;
 		this.platform = data.platform;
 		this.spirit = data.spirit;
 		this.spot = data.spot;
@@ -114,6 +116,15 @@ export default class Profile {
 		data: ProfileSetData,
 	) {
 		let profile = await this.fetch(interaction.user.id).catch(() => null);
+
+		if (!canUseCustomEmoji(interaction) && (data.seasons || profile?.seasons)) {
+			await interaction.reply({
+				content: `Missing the \`Use External Emojis\` permission.`,
+				ephemeral: true,
+			});
+
+			return;
+		}
 
 		if (profile) {
 			const [profilePacket] = await pg<ProfilePacket>(Table.Profiles)
@@ -157,6 +168,10 @@ export default class Profile {
 		return this.set(interaction, { description });
 	}
 
+	public static async setSeasons(interaction: StringSelectMenuInteraction) {
+		return this.set(interaction, { seasons: interaction.values.reduce((bit, value) => bit | Number(value), 0) });
+	}
+
 	public static async setPlatform(interaction: StringSelectMenuInteraction) {
 		return this.set(interaction, { platform: interaction.values.reduce((bit, value) => bit | Number(value), 0) });
 	}
@@ -177,13 +192,27 @@ export default class Profile {
 			void interaction.client.log({ content: `Could not find the \`${commandName}\` command.` });
 		}
 
-		const { name, icon, thumbnail, description, country, wingedLight, seasonStarted, platform, spirit, spot } = this;
+		const { name, icon, thumbnail, description, country, wingedLight, seasons, platform, spirit, spot } = this;
 		const embed = new EmbedBuilder().setColor(me?.displayColor ?? 0).setFooter({ text: `Hearts: ${hearts}` });
+		const descriptions = [];
 		const fields = [];
 		const unfilled = [];
 
+		if (seasons) {
+			descriptions.push(resolveBitsToSeasons(seasons, interaction).join(" "));
+		} else if (commandId) {
+			unfilled.push(
+				`- Use ${chatInputApplicationCommandMention(
+					commandName,
+					"set",
+					"seasons",
+					commandId,
+				)} to tell others what seasons you participated in!`,
+			);
+		}
+
 		if (description) {
-			embed.setDescription(description);
+			descriptions.push(description);
 		} else if (commandId) {
 			unfilled.push(
 				`- Use ${chatInputApplicationCommandMention(
@@ -194,6 +223,8 @@ export default class Profile {
 				)} to set a description!`,
 			);
 		}
+
+		if (descriptions.length > 1) embed.setDescription(descriptions.join("\n"));
 
 		if (thumbnail) {
 			embed.setThumbnail(thumbnail);
@@ -228,19 +259,6 @@ export default class Profile {
 		} else if (commandId) {
 			unfilled.push(
 				`- Use ${chatInputApplicationCommandMention(commandName, "set", "name", commandId)} to set your name!`,
-			);
-		}
-
-		if (seasonStarted) {
-			fields.push({ name: "Season Started", value: seasonStarted, inline: true });
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"season-started",
-					commandId,
-				)} to tell others what season you started with!`,
 			);
 		}
 

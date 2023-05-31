@@ -55,7 +55,7 @@ export function treasureCandleRealm() {
 	]!;
 }
 
-function canUseCustomEmoji(interactionOrMember: BaseInteraction | GuildMember) {
+export function canUseCustomEmoji(interactionOrMember: BaseInteraction | GuildMember) {
 	return interactionOrMember instanceof BaseInteraction
 		? !interactionOrMember.inGuild() ||
 				// This is always present.
@@ -87,6 +87,8 @@ function resolveEmojiToNonCustomEmoji(emoji: Emoji) {
 			return "🎮";
 		case Emoji.PlayStation:
 			return "👾";
+		default:
+			return "";
 	}
 }
 
