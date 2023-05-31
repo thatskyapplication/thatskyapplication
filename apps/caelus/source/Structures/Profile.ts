@@ -327,7 +327,7 @@ export default class Profile {
 			);
 		}
 
-		if (typeof platform === "number") {
+		if (platform) {
 			fields.push({
 				name: "Platform",
 				value: resolveBitsToPlatform(platform, interaction).join("\n"),
