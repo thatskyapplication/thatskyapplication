@@ -87,6 +87,8 @@ function resolveEmojiToNonCustomEmoji(emoji: Emoji) {
 			return "🎮";
 		case Emoji.PlayStation:
 			return "👾";
+		default:
+			return "";
 	}
 }
 
