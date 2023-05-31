@@ -27,6 +27,7 @@ export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
 export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as const;
 export const SKY_PROFILE_PLATFORM_CUSTOM_ID = "SKY_PROFILE_PLATFORM_CUSTOM_ID" as const;
 export const SKY_PROFILE_SEASONS_CUSTOM_ID = "SKY_PROFILE_SEASONS_CUSTOM_ID" as const;
+const SKY_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
 const SKY_MAXIMUM_NAME_LENGTH = 16 as const;
 const SKY_MINIMUM_ASSET_URL_LENGTH = 15 as const;
 const SKY_MAXIMUM_ASSET_URL_LENGTH = 200 as const;
@@ -104,7 +105,7 @@ export default class implements AutocompleteCommand {
 		const textInput = new TextInputBuilder()
 			.setCustomId(SKY_PROFILE_TEXT_INPUT_DESCRIPTION)
 			.setLabel("Type a lovely description about your Skykid.")
-			.setMaxLength(4_000)
+			.setMaxLength(SKY_MAXIMUM_DESCRIPTION_LENGTH)
 			.setStyle(TextInputStyle.Paragraph);
 
 		if (profile?.description) textInput.setValue(profile.description);
