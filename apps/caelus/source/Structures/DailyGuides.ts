@@ -305,7 +305,7 @@ export default new (class DailyGuides {
 			consoleLog("Failed to match a daily quest. Falling back to original string.");
 
 			// Ensure no bold markdown is present.
-			output = pureContent.replaceAll("**", "").trim();
+			output = pureContent.replaceAll("**", "").replaceAll(/  +/g, " ").trim();
 		}
 
 		const data = { content: output, url };
