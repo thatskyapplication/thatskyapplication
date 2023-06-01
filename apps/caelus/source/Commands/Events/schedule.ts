@@ -13,6 +13,8 @@ import { ISS_DATES_ACCESSIBLE, initialTravellingSpiritSeek } from "../../Utility
 import { todayDate } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
+const PASSAGE_TRUNCATION_LIMIT = 9 as const;
+
 function dailyResetTime() {
 	return todayDate().add(1, "day").unix();
 }
@@ -59,8 +61,8 @@ export default class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const passageTimes = scheduleTimes(0, 15, "minutes");
-		const passageTimesStart = passageTimes.slice(0, 18);
-		const passageTimesEnd = passageTimes.slice(-18);
+		const passageTimesStart = passageTimes.slice(0, PASSAGE_TRUNCATION_LIMIT);
+		const passageTimesEnd = passageTimes.slice(-PASSAGE_TRUNCATION_LIMIT);
 		const passageTimesString = `${passageTimesStart.join(" ")}... every 15 minutes... ${passageTimesEnd.join(" ")}`;
 
 		const embed = new EmbedBuilder()
