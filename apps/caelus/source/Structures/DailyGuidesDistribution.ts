@@ -177,10 +177,7 @@ export default class DailyGuidesDistribution {
 	public static embed(me: GuildMember) {
 		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles, eventCurrency } = DailyGuides;
 		const date = todayDate();
-
-		const embed = new EmbedBuilder()
-			.setTitle(`${String(date.date()).padStart(2, "0")}/${String(date.month() + 1).padStart(2, "0")}/${date.year()}`)
-			.setColor(me.displayColor);
+		const embed = new EmbedBuilder().setTitle(date.format("DD/MM/YYYY")).setColor(me.displayColor);
 
 		if (quest1)
 			embed.addFields({ name: quest1.content, value: quest1.url === "" ? "\u200B" : hyperlink("Image", quest1.url) });

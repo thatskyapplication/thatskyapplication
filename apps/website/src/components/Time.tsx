@@ -14,13 +14,7 @@ export default function Time() {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			const date = dayjs.tz(Date.now(), "America/Los_Angeles");
-			const hour = date.hour();
-			const minute = date.minute();
-			const second = date.second();
-
-			setTimeString(
-				`${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:${String(second).padStart(2, "0")}`,
-			);
+			setTimeString(date.format("HH:mm:ss"));
 		}, 1_000);
 
 		return () => clearInterval(interval);
