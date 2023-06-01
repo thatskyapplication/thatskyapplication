@@ -8,9 +8,9 @@ import { CDN_URL } from "~/util/constants";
 
 # Schedule
 
-Lots of things in the game are on a rotation. This command will show you the schedule today!
+Lots of things in the game are on a rotation. This command will show you for the day!
 
-For example, if we were to use this command on **1st June 2023 00:00 (GMT+01:00)**, we'd see this:
+For example, if we were to use this command on **1st June 2023 10:00 (GMT+01:00)**, we'd see this:
 
 <DiscordMessages rounded>
 	<DiscordMessage
@@ -25,11 +25,11 @@ For example, if we were to use this command on **1st June 2023 00:00 (GMT+01:00)
 			fields={[
 				{
 					name: "Daily Reset",
-					value: "08:00 (in 8 hours)",
+					value: "08:00 (in a day)",
 				},
 				{
 					name: "ISS",
-					value: `06/05/2023 (a month ago)\n13/05/2023 (19 days ago)\n20/05/2023 (12 days ago)\n27/05/2023 (5 days ago)`,
+					value: `06/06/2023 (in 5 days)\n13/06/2023 (in 12 days)\n20/06/2023 (in 19 days)\n27/06/2023 (in a month)`,
 				},
 				{
 					name: "Eye of Eden",
@@ -76,8 +76,9 @@ For example, if we were to use this command on **1st June 2023 00:00 (GMT+01:00)
 					inline: true,
 				},
 			]}
+			footer={{ content: "Times are relative to your time zone." }}
 		/>
 	</DiscordMessage>
 </DiscordMessages>
 
-Use this command with the bot and times will be displayed relative to you!
+Whether you want to quickly check the next travelling spirit date or how long until daily rest happens, use this command and times will be displayed relative to you!
