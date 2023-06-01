@@ -28,7 +28,7 @@ export function DiscordMessageEmbed({
 	footerNode,
 }: PropsWithChildren<IDiscordMessageEmbed>) {
 	return (
-		<div className="py-0.5" id="outer-embed-wrapper">
+		<div className="py-0.5" id="outer-embed-wrapper" style={{ whiteSpace: "pre-line" }}>
 			<div
 				className="grid max-w-max border-l-4 border-l-caelus-100 rounded dark:bg-[rgb(43,45,49)] bg-[rgb(242,243,245)]"
 				id="embed-wrapper"
