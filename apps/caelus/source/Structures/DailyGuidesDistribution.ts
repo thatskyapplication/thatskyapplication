@@ -13,7 +13,7 @@ import {
 	TimestampStyles,
 	time,
 } from "discord.js";
-import { Emoji } from "../Utility/Constants.js";
+import { Emoji, eventEndDate } from "../Utility/Constants.js";
 import { consoleLog, resolveCurrencyEmoji, todayDate, treasureCandleRealm, resolveEmoji } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides from "./DailyGuides.js";
@@ -175,7 +175,7 @@ export default class DailyGuidesDistribution {
 	}
 
 	public static embed(me: GuildMember) {
-		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles } = DailyGuides;
+		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles, eventCurrency } = DailyGuides;
 		const date = todayDate();
 
 		const embed = new EmbedBuilder()
@@ -202,6 +202,14 @@ export default class DailyGuidesDistribution {
 		}
 
 		if (seasonalCandles) embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
+
+		if (date.isBefore(eventEndDate) || date.isSame(eventEndDate)) {
+			embed.addFields({
+				name: "Event Currency",
+				value: hyperlink(eventCurrency.rotation ? `Rotation ${eventCurrency.rotation}` : "Image", eventCurrency.url),
+			});
+		}
+
 		embed.addFields(this.shardEruptionFieldData(me));
 		return embed;
 	}

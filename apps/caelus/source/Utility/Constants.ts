@@ -10,6 +10,10 @@ dayjs.extend(utc);
 export const ERROR_LOG_CHANNEL_ID = "1040806599293407263" as const;
 export const GUILD_LOG_CHANNEL_ID = "1107804841813749780" as const;
 
+// Infographic URLs.
+export const EVENT_CURRENCY_INFOGRAPHIC_URL =
+	"https://cdn.discordapp.com/attachments/739444631963435008/1113810277016813588/Days-of-color-tickets-rotation.png" as const;
+
 export const production = process.env.NODE_ENV === "production";
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 export const CDN_URL = "https://cdn.thatskyapplication.com" as const;
@@ -26,6 +30,7 @@ export const doubleSeasonalLightEventEndTimestamp = dayjs.tz("2023-05-21 00:00:0
 export const initialTravellingSpiritSeek = dayjs.tz("2023-05-25 00:00:00", "America/Los_Angeles"); // #88 Grateful Shell Collector.
 export const initialTreasureCandleRealmSeek = dayjs.tz("2023-01-03 00:00:00", "America/Los_Angeles"); // Daylight Prairie.
 export const ISS_DATES_ACCESSIBLE = [6, 13, 20, 27] as const;
+export const eventEndDate = dayjs.tz("2023-06-14 00:00:00", "America/Los_Angeles"); // Days of Color (2023).
 
 export const enum Channel {
 	dailyGuides = "1041420071614042152",

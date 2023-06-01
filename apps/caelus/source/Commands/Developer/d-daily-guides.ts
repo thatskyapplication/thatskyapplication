@@ -8,8 +8,12 @@ import {
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 } from "discord.js";
-import type { QuestNumber } from "../../Structures/DailyGuides.js";
-import DailyGuides, { QUEST_NUMBER } from "../../Structures/DailyGuides.js";
+import DailyGuides, {
+	type DailyGuideEventRotation,
+	type QuestNumber,
+	DAILY_GUIDE_EVENT_ROTATON,
+	QUEST_NUMBER,
+} from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -71,6 +75,9 @@ export default class implements ChatInputCommand {
 				break;
 			case "seasonal-candles":
 				await this.seasonalCandles(interaction);
+				break;
+			case "event-currency":
+				await this.eventCurrency(interaction);
 				break;
 		}
 	}
@@ -187,6 +194,18 @@ export default class implements ChatInputCommand {
 		);
 	}
 
+	public async eventCurrency(interaction: ChatInputCommandInteraction) {
+		const rotation = interaction.options.getString("rotation", true) as DailyGuideEventRotation;
+		await DailyGuides.updateEventCurrency(rotation);
+
+		await interaction.reply(
+			`Successfully updated the event currency.\n${codeBlock(
+				"JSON",
+				JSON.stringify(DailyGuides.eventCurrency, null, 2),
+			)}`,
+		);
+	}
+
 	public get commandData(): ApplicationCommandData {
 		return {
 			name: this.name,
@@ -231,6 +250,20 @@ export default class implements ChatInputCommand {
 									type: ApplicationCommandOptionType.String,
 									name: "url",
 									description: "The infographic URL of the seasonal candles.",
+									required: true,
+								},
+							],
+						},
+						{
+							type: ApplicationCommandOptionType.Subcommand,
+							name: "event-currency",
+							description: "Set the event currency data.",
+							options: [
+								{
+									type: ApplicationCommandOptionType.String,
+									name: "rotation",
+									description: "The rotation of the event currency.",
+									choices: DAILY_GUIDE_EVENT_ROTATON.map((choice) => ({ name: choice, value: choice })),
 									required: true,
 								},
 							],
