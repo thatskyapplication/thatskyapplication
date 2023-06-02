@@ -3,6 +3,7 @@ import { AsyncQueue } from "@sapphire/async-queue";
 import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
 import { FormattingPatterns, ChannelType, MessageFlags, SnowflakeUtil } from "discord.js";
 import {
+	EVENT_CURRENCY_INFOGRAPHIC_URL,
 	CDN_URL,
 	Channel,
 	INFOGRAPHICS_DATABASE_GUILD_ID,
@@ -23,6 +24,7 @@ export interface DailyGuidesPacket {
 	quest4: DailyGuideQuest | null;
 	treasure_candles: string[] | null;
 	seasonal_candles: string | null;
+	event_currency: DailyGuideEvent;
 }
 
 interface DailyGuidesData {
@@ -32,11 +34,20 @@ interface DailyGuidesData {
 	quest4: DailyGuidesPacket["quest4"];
 	treasureCandles: DailyGuidesPacket["treasure_candles"];
 	seasonalCandles: DailyGuidesPacket["seasonal_candles"];
+	eventCurrency: DailyGuidesPacket["event_currency"];
 }
 
 interface DailyGuideQuest {
 	content: string;
 	url: string;
+}
+
+export const DAILY_GUIDE_EVENT_ROTATON = ["A", "B", "C"] as const;
+export type DailyGuideEventRotation = typeof DAILY_GUIDE_EVENT_ROTATON[number];
+
+interface DailyGuideEvent {
+	rotation: DailyGuideEventRotation | null;
+	url: typeof EVENT_CURRENCY_INFOGRAPHIC_URL;
 }
 
 function resolveShardEruptionMapURL(map: Map) {
@@ -125,6 +136,8 @@ export default new (class DailyGuides {
 
 	public seasonalCandles: DailyGuidesData["seasonalCandles"] = null;
 
+	public eventCurrency: DailyGuidesData["eventCurrency"] = { rotation: null, url: EVENT_CURRENCY_INFOGRAPHIC_URL };
+
 	public shardEruption(this: void, daysOffset = 0) {
 		const date = todayDate().add(daysOffset, "days");
 		const dayOfMonth = date.date();
@@ -160,6 +173,7 @@ export default new (class DailyGuides {
 			quest4: null,
 			treasure_candles: null,
 			seasonal_candles: null,
+			event_currency: { rotation: null, url: EVENT_CURRENCY_INFOGRAPHIC_URL },
 		};
 
 		let query = pg<DailyGuidesPacket>(Table.DailyGuides);
@@ -175,6 +189,7 @@ export default new (class DailyGuides {
 		if ("quest4" in data) this.quest4 = data.quest4;
 		if ("treasure_candles" in data) this.treasureCandles = data.treasure_candles;
 		if ("seasonal_candles" in data) this.seasonalCandles = data.seasonal_candles;
+		if ("event_currency" in data) this.eventCurrency = data.event_currency;
 	}
 
 	public validToParse({ channelId, flags, reference }: Message) {
@@ -379,6 +394,14 @@ export default new (class DailyGuides {
 	public async updateSeasonalCandles(url: string) {
 		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
 			.update({ seasonal_candles: url })
+			.returning("*");
+
+		this.patch(dailyGuidesPacket!);
+	}
+
+	public async updateEventCurrency(rotation: DailyGuideEventRotation) {
+		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
+			.update({ event_currency: { rotation, url: EVENT_CURRENCY_INFOGRAPHIC_URL } })
 			.returning("*");
 
 		this.patch(dailyGuidesPacket!);
