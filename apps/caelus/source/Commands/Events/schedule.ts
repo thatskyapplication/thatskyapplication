@@ -103,8 +103,9 @@ export default class implements ChatInputCommand {
 			.setFooter({ text: "Times are relative to your time zone." })
 			.setTitle("Schedule Today");
 
-		const shardEruptionFieldData = DailyGuidesDistribution.shardEruptionFieldData(interaction);
-		embed.addFields(...shardEruptionFieldData);
+		const eventCurrencyFieldData = DailyGuidesDistribution.eventCurrencyFieldData();
+		if (eventCurrencyFieldData) embed.addFields(eventCurrencyFieldData);
+		embed.addFields(...DailyGuidesDistribution.shardEruptionFieldData(interaction));
 		await interaction.reply({ embeds: [embed], ephemeral: true });
 	}
 
