@@ -138,6 +138,20 @@ export default class DailyGuidesDistribution {
 			.setTitle(guild.name);
 	}
 
+	public static eventCurrencyFieldData() {
+		const date = todayDate();
+		const { eventCurrency } = DailyGuides;
+
+		if (date.isBefore(eventEndDate) || date.isSame(eventEndDate)) {
+			return {
+				name: "Event Currency",
+				value: hyperlink(eventCurrency.rotation ? `Rotation ${eventCurrency.rotation}` : "Image", eventCurrency.url),
+			};
+		}
+
+		return null;
+	}
+
 	public static shardEruptionFieldData(interactionOrMember: BaseInteraction | GuildMember) {
 		const shardEruptionToday = DailyGuides.shardEruption();
 
@@ -175,7 +189,7 @@ export default class DailyGuidesDistribution {
 	}
 
 	public static embed(me: GuildMember) {
-		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles, eventCurrency } = DailyGuides;
+		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles } = DailyGuides;
 		const date = todayDate();
 		const embed = new EmbedBuilder().setTitle(date.format("DD/MM/YYYY")).setColor(me.displayColor);
 
@@ -199,14 +213,8 @@ export default class DailyGuidesDistribution {
 		}
 
 		if (seasonalCandles) embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
-
-		if (date.isBefore(eventEndDate) || date.isSame(eventEndDate)) {
-			embed.addFields({
-				name: "Event Currency",
-				value: hyperlink(eventCurrency.rotation ? `Rotation ${eventCurrency.rotation}` : "Image", eventCurrency.url),
-			});
-		}
-
+		const eventCurrencyFieldData = this.eventCurrencyFieldData();
+		if (eventCurrencyFieldData) embed.addFields(eventCurrencyFieldData);
 		embed.addFields(this.shardEruptionFieldData(me));
 		return embed;
 	}

@@ -1,0 +1,89 @@
+---
+title: Schedule
+category: Events
+---
+
+import { caelus, jiralite } from "~/structures/SkyKid";
+import { CDN_URL } from "~/util/constants";
+
+# Schedule
+
+Lots of things in the game are on a rotation. This command will show you for the day!
+
+For example, if we were to use this command on **1st June 2023 10:00 (GMT+01:00)**, we'd see this:
+
+<DiscordMessages rounded>
+	<DiscordMessage
+		author={{ avatar: caelus.avatarIcon, bot: true, username: caelus.name }}
+		interaction={{
+			author: { avatar: jiralite.avatarIcon, username: jiralite.name },
+			command: "/schedule",
+		}}
+	>
+		<DiscordMessageEmbed
+			title="Schedule Today"
+			fields={[
+				{
+					name: "Daily Reset",
+					value: "08:00 (in a day)",
+				},
+				{
+					name: "ISS",
+					value: `06/06/2023 (in 5 days)\n13/06/2023 (in 12 days)\n20/06/2023 (in 19 days)\n27/06/2023 (in a month)`,
+				},
+				{
+					name: "Eye of Eden",
+					value: "08:00 (in 3 days)",
+				},
+				{
+					name: "Travelling Spirit",
+					value: "None\nNext visit at 08/06/2023 (in 7 days)",
+				},
+				{
+					name: "Polluted Geyser",
+					value: "08:05 10:05 12:05 14:05 16:05 18:05 20:05 22:05 00:05 02:05 04:05 06:05",
+				},
+				{
+					name: "Grandma",
+					value: "08:35 10:35 12:35 14:35 16:35 18:35 20:35 22:35 00:35 02:35 04:35 06:35",
+				},
+				{
+					name: "Grandma",
+					value: "08:50 10:50 12:50 14:50 16:50 18:50 20:50 22:50 00:50 02:50 04:50 06:50",
+				},
+				{
+					name: "AURORA",
+					value: "08:00 12:00 16:00 20:00 00:00 04:00",
+				},
+				{
+					name: "Passage",
+					value:
+						"08:00 08:15 08:30 08:45 09:00 09:15 09:30 09:45 10:00... every 15 minutes... 05:45 06:00 06:15 06:30 06:45 07:00 07:15 07:30 07:45",
+				},
+				{
+					name: "Event Currency",
+					linkValue:
+						"Rotation B https://cdn.discordapp.com/attachments/739444631963435008/1113810277016813588/Days-of-color-tickets-rotation.png",
+				},
+				{
+					name: "Shard Eruption",
+					value: "Dangerous: ✅\nReward: 2 ascended candles",
+					inline: true,
+				},
+				{
+					name: "Location",
+					linkValue: `Daylight Prairie (Cave) ${new URL("shards/Cave.png", CDN_URL)}`,
+					inline: true,
+				},
+				{
+					name: "Timestamps",
+					value: "15:48:40 - 19:40:00\n21:48:40 - 01:40:00\n03:48:40 - 07:40:00",
+					inline: true,
+				},
+			]}
+			footer={{ content: "Times are relative to your time zone." }}
+		/>
+	</DiscordMessage>
+</DiscordMessages>
+
+Whether you want to quickly check the next travelling spirit date or how long until daily reset happens, use this command and times will be displayed relative to you!
