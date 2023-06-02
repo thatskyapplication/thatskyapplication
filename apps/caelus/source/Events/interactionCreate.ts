@@ -8,7 +8,11 @@ import {
 } from "../Commands/Developer/d-daily-guides.js";
 import { HeartHistoryNavigationType, HEART_HISTORY_BACK, HEART_HISTORY_FORWARD } from "../Commands/Fun/heart.js";
 import { ROLES_SELECT_MENU_CUSTOM_ID } from "../Commands/General/roles.js";
-import { SKY_PROFILE_MODAL, SKY_PROFILE_PLATFORM_CUSTOM_ID, SKY_PROFILE_SEASONS_CUSTOM_ID } from "../Commands/General/sky-profile.js";
+import {
+	SKY_PROFILE_MODAL,
+	SKY_PROFILE_PLATFORM_CUSTOM_ID,
+	SKY_PROFILE_SEASONS_CUSTOM_ID,
+} from "../Commands/General/sky-profile.js";
 import commands, {
 	isAutocompleteCommand,
 	isChatInputCommand,
