@@ -1,4 +1,11 @@
-import { type Interaction, Events, InteractionType } from "discord.js";
+import {
+	type ChatInputCommandInteraction,
+	type ContextMenuCommandInteraction,
+	type Interaction,
+	Events,
+	InteractionType,
+	EmbedBuilder,
+} from "discord.js";
 import {
 	D_DAILY_GUIDES_QUEST_1_MODAL,
 	D_DAILY_GUIDES_QUEST_2_MODAL,
@@ -21,6 +28,7 @@ import commands, {
 import Profile from "../Structures/Profile.js";
 import { User } from "../Utility/Constants.js";
 import { chatInputApplicationCommandMention, consoleLog } from "../Utility/Utility.js";
+import { LogType } from "../index.js";
 import type { Event } from "./index.js";
 
 const name = Events.InteractionCreate;
@@ -75,10 +83,36 @@ async function recoverInteractionError(interaction: Interaction, error: unknown)
 	}
 }
 
+async function logCommand(interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) {
+	const { appPermissions, channelId, guildId, guild, user } = interaction;
+	const inGuild = interaction.inGuild();
+
+	const embed = new EmbedBuilder()
+		.setAuthor({ name: `${user.tag} (${user.id})`, iconURL: user.displayAvatarURL() })
+		.setDescription(`\`${interaction.isChatInputCommand() ? interaction.toString() : interaction.commandName}\``)
+		.setFields(
+			{
+				name: "Guild",
+				value: inGuild ? (guild ? `${guild.name} (\`${guildId}\`)` : `\`${guildId}\``) : "None",
+				inline: true,
+			},
+			{
+				name: "Channel",
+				value: `\`${channelId}\``,
+				inline: true,
+			},
+		)
+		.setTimestamp();
+
+	if (inGuild) embed.addFields({ name: "Permissions", value: `\`${appPermissions!.bitfield}\``, inline: true });
+	void interaction.client.log({ embeds: [embed], type: LogType.Command });
+}
+
 export const event: Event<typeof name> = {
 	name,
 	async fire(interaction) {
 		if (interaction.isChatInputCommand()) {
+			void logCommand(interaction);
 			const { commandName } = interaction;
 
 			if (!isCommandName(commandName)) {
@@ -119,6 +153,7 @@ export const event: Event<typeof name> = {
 		}
 
 		if (interaction.isUserContextMenuCommand()) {
+			void logCommand(interaction);
 			const { commandName } = interaction;
 
 			if (!isCommandName(commandName)) {

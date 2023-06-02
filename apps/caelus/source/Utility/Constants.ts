@@ -9,6 +9,7 @@ dayjs.extend(utc);
 // Log channels.
 export const ERROR_LOG_CHANNEL_ID = "1040806599293407263" as const;
 export const GUILD_LOG_CHANNEL_ID = "1107804841813749780" as const;
+export const COMMAND_LOG_CHANNEL_ID = "1114135883604566057" as const;
 
 // Infographic URLs.
 export const EVENT_CURRENCY_INFOGRAPHIC_URL =

@@ -13,12 +13,19 @@ import { Partials, Client, GatewayIntentBits, TextChannel, EmbedBuilder, Permiss
 import commands from "./Commands/index.js";
 import type { Event } from "./Events/index.js";
 import events from "./Events/index.js";
-import { DEVELOPER_GUILD_ID, ERROR_LOG_CHANNEL_ID, GUILD_LOG_CHANNEL_ID, production } from "./Utility/Constants.js";
+import {
+	COMMAND_LOG_CHANNEL_ID,
+	DEVELOPER_GUILD_ID,
+	ERROR_LOG_CHANNEL_ID,
+	GUILD_LOG_CHANNEL_ID,
+	production,
+} from "./Utility/Constants.js";
 import { consoleLog } from "./Utility/Utility.js";
 
 export const enum LogType {
 	Error,
 	Guild,
+	Command,
 }
 
 interface LogOptions {
@@ -52,6 +59,9 @@ class Caelus extends Client {
 				break;
 			case LogType.Guild:
 				channel = this.channels.cache.get(GUILD_LOG_CHANNEL_ID);
+				break;
+			case LogType.Command:
+				channel = this.channels.cache.get(COMMAND_LOG_CHANNEL_ID);
 				break;
 		}
 
