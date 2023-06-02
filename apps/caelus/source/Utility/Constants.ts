@@ -16,7 +16,12 @@ export const EVENT_CURRENCY_INFOGRAPHIC_URL =
 
 export const production = process.env.NODE_ENV === "production";
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
+export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const CDN_URL = "https://cdn.thatskyapplication.com" as const;
+export const THATSKYGAME_URL = "https://thatskygame.com" as const;
+export const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
+export const PATREON_URL = "https://patreon.com/Jiralite" as const;
+export const KO_FI_URL = "https://ko-fi.com/jiralite" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki" as const;
 export const MINIMUM_WINGED_LIGHT = 0 as const;
 export const MAXIMUM_WINGED_LIGHT = 215 as const;
