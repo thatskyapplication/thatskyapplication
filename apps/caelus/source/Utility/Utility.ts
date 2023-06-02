@@ -4,6 +4,7 @@ import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
 import {
 	type GuildMember,
+	type Snowflake,
 	type TimestampStylesString,
 	BaseInteraction,
 	formatEmoji,
@@ -151,4 +152,15 @@ export function time(timestamp: number, style: TimestampStylesString, relative =
 	return `${discordTime(resolvedTimestamp, style)}${
 		relative ? ` (${discordTime(resolvedTimestamp, TimestampStyles.RelativeTime)})` : ""
 	}`;
+}
+
+export function chatInputApplicationCommandMention(
+	id: Snowflake,
+	commandName: string,
+	subcommandName?: string | null | undefined,
+	subcommandGroupName?: string | null | undefined,
+) {
+	return `</${commandName}${subcommandGroupName ? ` ${subcommandGroupName}` : ""}${
+		subcommandName ? ` ${subcommandName}` : ""
+	}:${id}>`;
 }

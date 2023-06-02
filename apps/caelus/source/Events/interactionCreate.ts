@@ -1,5 +1,4 @@
-import type { Interaction } from "discord.js";
-import { Events, InteractionType } from "discord.js";
+import { type Interaction, Events, InteractionType } from "discord.js";
 import {
 	D_DAILY_GUIDES_QUEST_1_MODAL,
 	D_DAILY_GUIDES_QUEST_2_MODAL,
@@ -21,29 +20,43 @@ import commands, {
 } from "../Commands/index.js";
 import Profile from "../Structures/Profile.js";
 import { User } from "../Utility/Constants.js";
-import { consoleLog } from "../Utility/Utility.js";
+import { chatInputApplicationCommandMention, consoleLog } from "../Utility/Utility.js";
 import type { Event } from "./index.js";
 
 const name = Events.InteractionCreate;
 const heartHistoryRegExp = new RegExp(`(${HEART_HISTORY_BACK}|${HEART_HISTORY_FORWARD})-(\\d+)`);
 
-const interactionErrorResponseBody = {
+const INTERACTION_ERROR_RESPONSE_BODY = {
 	content: "An error was encountered. Rest easy, it's being tracked!",
 	ephemeral: true,
-};
+} as const;
 
 async function recoverInteractionError(interaction: Interaction, error: unknown) {
-	let errorTypeString = "Error ";
+	let errorTypeString = `Error from ${interaction.user} in ${interaction.channel} `;
 
 	switch (interaction.type) {
 		case InteractionType.ApplicationCommand:
-			errorTypeString += `running command \`/${interaction.commandName}\`.`;
+			// eslint-disable-next-line no-case-declarations
+			const isChatInputCommand = interaction.isChatInputCommand();
+
+			errorTypeString += `running command ${chatInputApplicationCommandMention(
+				interaction.commandId,
+				interaction.commandName,
+				isChatInputCommand ? interaction.options.getSubcommand(false) : undefined,
+				isChatInputCommand ? interaction.options.getSubcommandGroup() : undefined,
+			)}.`;
+
+			break;
+		case InteractionType.MessageComponent:
+			errorTypeString += `interacting with a \`/${interaction.customId}\` component.`;
 			break;
 		case InteractionType.ApplicationCommandAutocomplete:
-			errorTypeString += `autocompleting \`/${interaction.commandName}\`.`;
+			// eslint-disable-next-line no-case-declarations
+			const focused = interaction.options.getFocused(true);
+			errorTypeString += `autocompleting \`/${interaction.commandName}\` (\`${focused.name}\`, \`${focused.value}\`).`;
 			break;
-		default:
-			errorTypeString += `performing \`${interaction.customId}\`.`;
+		case InteractionType.ModalSubmit:
+			errorTypeString += `submitting \`/${interaction.customId}\`.`;
 			break;
 	}
 
@@ -53,9 +66,9 @@ async function recoverInteractionError(interaction: Interaction, error: unknown)
 		if (interaction.isAutocomplete()) {
 			await interaction.respond([]);
 		} else if (interaction.deferred || interaction.replied) {
-			await interaction.followUp(interactionErrorResponseBody);
+			await interaction.followUp(INTERACTION_ERROR_RESPONSE_BODY);
 		} else {
-			await interaction.reply(interactionErrorResponseBody);
+			await interaction.reply(INTERACTION_ERROR_RESPONSE_BODY);
 		}
 	} catch (error) {
 		consoleLog(`Failed to follow up or reply from recovering an interaction error: ${error}`);
