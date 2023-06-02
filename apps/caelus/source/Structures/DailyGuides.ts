@@ -43,7 +43,7 @@ interface DailyGuideQuest {
 }
 
 export const DAILY_GUIDE_EVENT_ROTATON = ["A", "B", "C"] as const;
-export type DailyGuideEventRotation = typeof DAILY_GUIDE_EVENT_ROTATON[number];
+export type DailyGuideEventRotation = (typeof DAILY_GUIDE_EVENT_ROTATON)[number];
 
 interface DailyGuideEvent {
 	rotation: DailyGuideEventRotation | null;
