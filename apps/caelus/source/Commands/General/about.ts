@@ -42,9 +42,6 @@ export default class implements ChatInputCommand {
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { client, guild } = interaction;
 
-		// This could be an issue if there is no custom URL. Realistically, this is not going to happen.
-		const customInstallURL = client.application.customInstallURL ?? (await client.application.fetch()).customInstallURL;
-
 		await interaction.reply({
 			embeds: [
 				new EmbedBuilder()
@@ -63,7 +60,7 @@ export default class implements ChatInputCommand {
 						},
 						{
 							name: "Support Server",
-							value: hyperlink("Link", customInstallURL ?? new URL("support", WEBSITE_URL).toString()),
+							value: hyperlink("Link", new URL("support", WEBSITE_URL)),
 							inline: true,
 						},
 						{
