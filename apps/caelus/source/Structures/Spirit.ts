@@ -9,6 +9,7 @@ export enum SpiritName {
 	PointingCandlemaker = "Pointing Candlemaker",
 	UsheringStargazer = "Ushering Stargazer",
 	RejectingVoyager = "Rejecting Voyager",
+	ElderOfTheIsles = "Elder of the Isles",
 
 	// Daylight Prairie
 	ButterflyCharmer = "Butterfly Charmer",
@@ -19,6 +20,7 @@ export enum SpiritName {
 	BirdWhisperer = "Bird Whisperer",
 	ExhaustedDockWorker = "Exhausted Dock Worker",
 	CeremonialWorshipper = "Ceremonial Worshipper",
+	ElderOfThePrairie = "Elder of the Prairie",
 
 	// Hidden Forest
 	ShiveringTrailblazer = "Shivering Trailblazer",
@@ -29,6 +31,7 @@ export enum SpiritName {
 	ApologeticLumberjack = "Apologetic Lumberjack",
 	TearfulLightMiner = "Tearful Light Miner",
 	WhaleWhisperer = "Whale Whisperer",
+	ElderOfTheForest = "Elder of the Forest",
 
 	// Valley of Triumph
 	ConfidentSightseer = "Confident Sightseer",
@@ -38,6 +41,7 @@ export enum SpiritName {
 	CheerfulSpectator = "Cheerful Spectator",
 	BowingMedalist = "Bowing Medalist",
 	ProudVictor = "Proud Victor",
+	ElderOfTheValley = "Elder of the Valley",
 
 	// Golden Wasteland
 	FrightenedRefugee = "Frightened Refugee",
@@ -46,6 +50,7 @@ export enum SpiritName {
 	StealthySurvivor = "Stealthy Survivor",
 	SalutingCaptain = "Saluting Captain",
 	LookoutScout = "Lookout Scout",
+	ElderOfTheWasteland = "Elder of the Wasteland",
 
 	// Vault of Knowledge
 	PrayingAcolyte = "Praying Acolyte",
@@ -53,6 +58,7 @@ export enum SpiritName {
 	PoliteScholar = "Polite Scholar",
 	MemoryWhisperer = "Memory Whisperer",
 	MeditatingMonastic = "Meditating Monastic",
+	ElderOfTheVault = "Elder of the Vault",
 
 	// Seasonal Spirits
 	SassyDrifter = "Sassy Drifter",
