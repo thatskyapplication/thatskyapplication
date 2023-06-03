@@ -21,6 +21,31 @@ export default class implements AutocompleteCommand {
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
+		switch (interaction.options.getSubcommand()) {
+			case "search":
+				await this.search(interaction);
+				return;
+			case "track":
+				await this.track(interaction);
+		}
+	}
+
+	private visitField(seasonalSpiritVisit: SeasonalSpiritVisit["travelling"] | SeasonalSpiritVisit["returning"]) {
+		return seasonalSpiritVisit
+			.reduce<string[]>((visits, date, visit) => {
+				visits.push(
+					`${visit === "Error" ? "" : `#`}${visit}: ${time(date.unix(), TimestampStyles.LongDate)} (${time(
+						date.unix(),
+						TimestampStyles.RelativeTime,
+					)})`,
+				);
+
+				return visits;
+			}, [])
+			.join("\n");
+	}
+
+	public async search(interaction: ChatInputCommandInteraction) {
 		const query = interaction.options.getString("query", true);
 		const spirit = Spirits.find(({ name }) => name === query);
 
@@ -86,19 +111,8 @@ export default class implements AutocompleteCommand {
 		await interaction.reply({ embeds: [embed] });
 	}
 
-	private visitField(seasonalSpiritVisit: SeasonalSpiritVisit["travelling"] | SeasonalSpiritVisit["returning"]) {
-		return seasonalSpiritVisit
-			.reduce<string[]>((visits, date, visit) => {
-				visits.push(
-					`${visit === "Error" ? "" : `#`}${visit}: ${time(date.unix(), TimestampStyles.LongDate)} (${time(
-						date.unix(),
-						TimestampStyles.RelativeTime,
-					)})`,
-				);
-
-				return visits;
-			}, [])
-			.join("\n");
+	public async track(interaction: ChatInputCommandInteraction) {
+		await interaction.reply("Tracking!");
 	}
 
 	public async autocomplete(interaction: AutocompleteInteraction) {
@@ -143,11 +157,23 @@ export default class implements AutocompleteCommand {
 			type: this.type,
 			options: [
 				{
-					type: ApplicationCommandOptionType.String,
-					name: "query",
-					description: "The name, season, expression, stance, or call of the spirit.",
-					required: true,
-					autocomplete: true,
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "search",
+					description: "Reveal information about a spirit.",
+					options: [
+						{
+							type: ApplicationCommandOptionType.String,
+							name: "query",
+							description: "The name, season, expression, stance, or call of the spirit.",
+							required: true,
+							autocomplete: true,
+						},
+					],
+				},
+				{
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "track",
+					description: "Track your spirit progress!",
 				},
 			],
 		};
