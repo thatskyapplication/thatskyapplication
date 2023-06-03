@@ -29,7 +29,7 @@ import commands, {
 	isUserContextMenuCommand,
 } from "../Commands/index.js";
 import Profile from "../Structures/Profile.js";
-import { SPIRIT_VIEW_SEASON_CUSTOM_ID, viewSeason, viewSpirit } from "../Structures/Spirits/index.js";
+import { SPIRIT_VIEW_SEASON_CUSTOM_ID, SpiritTracker } from "../Structures/Spirits/index.js";
 import { User } from "../Utility/Constants.js";
 import { chatInputApplicationCommandMention, consoleLog, guildLink } from "../Utility/Utility.js";
 import { LogType } from "../index.js";
@@ -238,12 +238,12 @@ export const event: Event<typeof name> = {
 
 			try {
 				if (customId === SPIRIT_VIEW_SEASON_CUSTOM_ID) {
-					await viewSpirit(interaction);
+					await SpiritTracker.viewSpirit(interaction);
 					return;
 				}
 
 				if (customId === SPIRIT_TRACK_CUSTOM_ID) {
-					await viewSeason(interaction);
+					await SpiritTracker.viewSeason(interaction);
 					return;
 				}
 
