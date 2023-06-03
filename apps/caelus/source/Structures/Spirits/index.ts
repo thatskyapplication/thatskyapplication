@@ -6,6 +6,7 @@ import {
 	ActionRowBuilder,
 	StringSelectMenuBuilder,
 	StringSelectMenuOptionBuilder,
+	EmbedBuilder,
 } from "discord.js";
 import { Realm, Season } from "../../Utility/Constants.js";
 import { skyDate } from "../../Utility/Utility.js";
@@ -33,7 +34,7 @@ interface SpiritTrackerData {
 export const SPIRIT_VIEW_SEASON_CUSTOM_ID = "SPIRIT_VIEW_SEASON_CUSTOM_ID" as const;
 
 export async function viewSeason(interaction: StringSelectMenuInteraction) {
-	await interaction.reply({
+	await interaction.update({
 		components: [
 			new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
@@ -44,8 +45,29 @@ export async function viewSeason(interaction: StringSelectMenuInteraction) {
 					.setPlaceholder("Select a spirit!"),
 			),
 		],
-		ephemeral: true,
 	});
+}
+
+export async function viewSpirit(interaction: StringSelectMenuInteraction) {
+	const [value] = interaction.values;
+	const spirit = Rhythm.find(({ name }) => name === value);
+
+	if (!spirit) {
+		await interaction.update({
+			content: "Woah, it seems we have not encountered that spirit yet. How strange!",
+			components: [],
+		});
+
+		return;
+	}
+
+	const embed = new EmbedBuilder()
+		.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
+		.setImage(spirit.imageURL)
+		.setTitle(spirit.name)
+		.setURL(spirit.wikiURL);
+
+	await interaction.update({ components: [], embeds: [embed] });
 }
 
 export default [
