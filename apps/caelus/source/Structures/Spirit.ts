@@ -360,7 +360,7 @@ export default [
 	new ElderSpirit({
 		name: SpiritName.ElderOfTheIsle,
 		realm: Realm.IslesOfDawn,
-		offer: { candles: 0, hearts: 0, ascendedCandles: 78 },
+		offer: { candles: 0, hearts: 0, ascendedCandles: 129 },
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.SassyDrifter,
