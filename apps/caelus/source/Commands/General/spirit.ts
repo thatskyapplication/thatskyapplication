@@ -34,43 +34,53 @@ export default class implements AutocompleteCommand {
 
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
-			.setFields(
-				{ name: "Realm", value: spirit.realm, inline: true },
-				{ name: "Season", value: spirit.isSeasonalSpirit() ? spirit.season.name : "None", inline: true },
-			)
+			.setFields({ name: "Realm", value: spirit.realm, inline: true })
 			.setImage(spirit.imageURL)
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
 
-		if (spirit.expression) embed.addFields({ name: "Expression", value: spirit.expression, inline: true });
-		if (spirit.stance) embed.addFields({ name: "Stance", value: spirit.stance, inline: true });
-		if (spirit.call) embed.addFields({ name: "Call", value: spirit.call, inline: true });
-		const description = [];
-
-		if (spirit.notVisited) {
-			description.push("⚠️ This spirit has not yet returned.");
-		} else {
-			const { travelling, returning } = spirit.visits;
-			if (travelling.size > 0) embed.addFields({ name: "Travelling", value: this.visitField(travelling) });
-			if (returning.size > 0) embed.addFields({ name: "Returning", value: this.visitField(returning) });
+		if (spirit.isStandardSpirit()) {
+			embed.addFields({ name: "Season", value: spirit.isSeasonalSpirit() ? spirit.season.name : "None", inline: true });
+			if (spirit.expression) embed.addFields({ name: "Expression", value: spirit.expression, inline: true });
+			if (spirit.stance) embed.addFields({ name: "Stance", value: spirit.stance, inline: true });
+			if (spirit.call) embed.addFields({ name: "Call", value: spirit.call, inline: true });
 		}
 
-		if (spirit.offer) {
+		const description = [];
+		const seasonalSpirit = spirit.isSeasonalSpirit();
+
+		if (seasonalSpirit) {
+			if (spirit.notVisited) {
+				description.push("⚠️ This spirit has not yet returned.");
+			} else {
+				const { travelling, returning } = spirit.visits;
+				if (travelling.size > 0) embed.addFields({ name: "Travelling", value: this.visitField(travelling) });
+				if (returning.size > 0) embed.addFields({ name: "Returning", value: this.visitField(returning) });
+			}
+		}
+
+		if (spirit.offer && !Object.values(spirit.offer).every((amount) => amount === 0)) {
 			description.push(
-				`${resolveCurrencyEmoji(interaction, {
-					emoji: Emoji.Candle,
-					number: spirit.offer.candles,
-				})}${resolveCurrencyEmoji(interaction, {
-					emoji: Emoji.Heart,
-					number: spirit.offer.hearts,
-				})}${resolveCurrencyEmoji(interaction, {
-					emoji: Emoji.AscendedCandle,
-					number: spirit.offer.ascendedCandles,
-				})}`,
+				`${
+					spirit.offer.candles === 0
+						? ""
+						: resolveCurrencyEmoji(interaction, { emoji: Emoji.Candle, number: spirit.offer.candles })
+				}${
+					spirit.offer.hearts === 0
+						? ""
+						: resolveCurrencyEmoji(interaction, { emoji: Emoji.Heart, number: spirit.offer.hearts })
+				}${
+					spirit.offer.ascendedCandles === 0
+						? ""
+						: resolveCurrencyEmoji(interaction, { emoji: Emoji.AscendedCandle, number: spirit.offer.ascendedCandles })
+				}`,
 			);
 		}
 
-		if (spirit.marketingVideoURL) description.push(hyperlink("Promotional Video", spirit.marketingVideoURL));
+		if (seasonalSpirit && spirit.marketingVideoURL) {
+			description.push(hyperlink("Promotional Video", spirit.marketingVideoURL));
+		}
+
 		if (description.length > 0) embed.setDescription(description.join("\n"));
 		await interaction.reply({ embeds: [embed] });
 	}
@@ -97,7 +107,17 @@ export default class implements AutocompleteCommand {
 			focused === ""
 				? []
 				: Spirits.filter((spirit) => {
-						const { name, keywords, expression, stance, call } = spirit;
+						const { name, keywords } = spirit;
+						let expression = null;
+						let stance = null;
+						let call = null;
+
+						if (spirit.isStandardSpirit()) {
+							expression = spirit.expression?.toUpperCase() ?? null;
+							stance = spirit.stance?.toUpperCase() ?? null;
+							call = spirit.call?.toUpperCase() ?? null;
+						}
+
 						const seasonName = spirit.isSeasonalSpirit() ? spirit.season.name.toUpperCase() : null;
 						/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 						return (

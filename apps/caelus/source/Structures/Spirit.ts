@@ -9,6 +9,7 @@ export enum SpiritName {
 	PointingCandlemaker = "Pointing Candlemaker",
 	UsheringStargazer = "Ushering Stargazer",
 	RejectingVoyager = "Rejecting Voyager",
+	ElderOfTheIsle = "Elder of the Isle",
 
 	// Daylight Prairie
 	ButterflyCharmer = "Butterfly Charmer",
@@ -19,6 +20,7 @@ export enum SpiritName {
 	BirdWhisperer = "Bird Whisperer",
 	ExhaustedDockWorker = "Exhausted Dock Worker",
 	CeremonialWorshipper = "Ceremonial Worshipper",
+	ElderOfThePrairie = "Elder of the Prairie",
 
 	// Hidden Forest
 	ShiveringTrailblazer = "Shivering Trailblazer",
@@ -29,6 +31,7 @@ export enum SpiritName {
 	ApologeticLumberjack = "Apologetic Lumberjack",
 	TearfulLightMiner = "Tearful Light Miner",
 	WhaleWhisperer = "Whale Whisperer",
+	ElderOfTheForest = "Elder of the Forest",
 
 	// Valley of Triumph
 	ConfidentSightseer = "Confident Sightseer",
@@ -38,6 +41,7 @@ export enum SpiritName {
 	CheerfulSpectator = "Cheerful Spectator",
 	BowingMedalist = "Bowing Medalist",
 	ProudVictor = "Proud Victor",
+	ElderOfTheValley = "Elder of the Valley",
 
 	// Golden Wasteland
 	FrightenedRefugee = "Frightened Refugee",
@@ -46,6 +50,7 @@ export enum SpiritName {
 	StealthySurvivor = "Stealthy Survivor",
 	SalutingCaptain = "Saluting Captain",
 	LookoutScout = "Lookout Scout",
+	ElderOfTheWasteland = "Elder of the Wasteland",
 
 	// Vault of Knowledge
 	PrayingAcolyte = "Praying Acolyte",
@@ -53,6 +58,7 @@ export enum SpiritName {
 	PoliteScholar = "Polite Scholar",
 	MemoryWhisperer = "Memory Whisperer",
 	MeditatingMonastic = "Meditating Monastic",
+	ElderOfTheVault = "Elder of the Vault",
 
 	// Seasonal Spirits
 	SassyDrifter = "Sassy Drifter",
@@ -239,26 +245,18 @@ interface SpiritOffer {
 	ascendedCandles: number;
 }
 
-interface SpiritDataBase {
+interface BaseSpiritDataBase {
 	name: SpiritName;
 	realm: Realm;
 	offer?: SpiritOffer;
 	keywords?: string[];
 }
 
-interface SpiritDataBaseWithExpression extends SpiritDataBase {
-	expression: Expression;
+interface StandardSpiritData extends BaseSpiritDataBase {
+	expression?: Expression;
+	stance?: Stance;
+	call?: Call;
 }
-
-interface SpiritDataBaseWithStance extends SpiritDataBase {
-	stance: Stance;
-}
-
-interface SpiritDataBaseWithCall extends SpiritDataBase {
-	call: Call;
-}
-
-type SpiritData = SpiritDataBaseWithCall | SpiritDataBaseWithExpression | SpiritDataBaseWithStance;
 
 type SeasonalSpiritVisitCollectionKey = number | "Error";
 
@@ -267,41 +265,40 @@ export interface SeasonalSpiritVisit {
 	returning: Collection<SeasonalSpiritVisitCollectionKey, Dayjs>;
 }
 
-type SeasonalSpiritData = SpiritData & { season: Season; hasMarketingVideo?: boolean; visits?: SeasonalSpiritVisit };
+interface SeasonalSpiritData extends StandardSpiritData {
+	season: Season;
+	hasMarketingVideo?: boolean;
+	visits?: SeasonalSpiritVisit;
+}
 
 interface SpiritSeason {
 	name: Season;
 }
 
-class Spirit {
-	public readonly name: SpiritData["name"];
+abstract class BaseSpirit {
+	public readonly name: BaseSpiritDataBase["name"];
 
-	public readonly realm: SpiritData["realm"];
+	public readonly realm: BaseSpiritDataBase["realm"];
 
-	public readonly offer: Exclude<SpiritData["offer"], undefined> | null;
+	public readonly offer: Exclude<BaseSpiritDataBase["offer"], undefined> | null;
 
-	public readonly keywords: NonNullable<SpiritData["keywords"]>;
+	public readonly keywords: NonNullable<BaseSpiritDataBase["keywords"]>;
 
 	public readonly imageURL: string;
 
 	public readonly wikiURL: string;
 
-	public readonly expression: SpiritDataBaseWithExpression["expression"] | null;
-
-	public readonly stance: SpiritDataBaseWithStance["stance"] | null;
-
-	public readonly call: SpiritDataBaseWithCall["call"] | null;
-
-	public constructor(spirit: SpiritData) {
+	public constructor(spirit: BaseSpiritDataBase) {
 		this.name = spirit.name;
 		this.realm = spirit.realm;
 		this.offer = spirit.offer ?? null;
 		this.keywords = spirit.keywords ?? [];
 		this.imageURL = String(new URL(`spirits/${this.cdnName}/friendship_tree.webp`, CDN_URL));
 		this.wikiURL = new URL(spirit.name.replaceAll(" ", "_"), WIKI_URL).toString();
-		this.expression = "expression" in spirit ? spirit.expression : null;
-		this.stance = "stance" in spirit ? spirit.stance : null;
-		this.call = "call" in spirit ? spirit.call : null;
+	}
+
+	public isStandardSpirit(): this is StandardSpirit {
+		return "expression" in this || "stance" in this || "call" in this;
 	}
 
 	public isSeasonalSpirit(): this is SeasonalSpirit {
@@ -313,7 +310,24 @@ class Spirit {
 	}
 }
 
-class SeasonalSpirit extends Spirit {
+class StandardSpirit extends BaseSpirit {
+	public readonly expression: StandardSpiritData["expression"] | null;
+
+	public readonly stance: StandardSpiritData["stance"] | null;
+
+	public readonly call: StandardSpiritData["call"] | null;
+
+	public constructor(spirit: StandardSpiritData) {
+		super(spirit);
+		this.expression = "expression" in spirit ? spirit.expression : null;
+		this.stance = "stance" in spirit ? spirit.stance : null;
+		this.call = "call" in spirit ? spirit.call : null;
+	}
+}
+
+class ElderSpirit extends BaseSpirit {}
+
+class SeasonalSpirit extends StandardSpirit {
 	public readonly season: SpiritSeason;
 
 	public readonly marketingVideoURL: string | null;
@@ -343,6 +357,36 @@ class SeasonalSpirit extends Spirit {
 }
 
 export default [
+	new ElderSpirit({
+		name: SpiritName.ElderOfTheIsle,
+		realm: Realm.IslesOfDawn,
+		offer: { candles: 0, hearts: 0, ascendedCandles: 129 },
+	}),
+	new ElderSpirit({
+		name: SpiritName.ElderOfThePrairie,
+		realm: Realm.DaylightPrairie,
+		offer: { candles: 0, hearts: 0, ascendedCandles: 78 },
+	}),
+	new ElderSpirit({
+		name: SpiritName.ElderOfTheForest,
+		realm: Realm.HiddenForest,
+		offer: { candles: 0, hearts: 0, ascendedCandles: 256 },
+	}),
+	new ElderSpirit({
+		name: SpiritName.ElderOfTheValley,
+		realm: Realm.ValleyOfTriumph,
+		offer: { candles: 0, hearts: 0, ascendedCandles: 11 },
+	}),
+	new ElderSpirit({
+		name: SpiritName.ElderOfTheWasteland,
+		realm: Realm.GoldenWasteland,
+		offer: { candles: 0, hearts: 0, ascendedCandles: 6 },
+	}),
+	new ElderSpirit({
+		name: SpiritName.ElderOfTheVault,
+		realm: Realm.VaultOfKnowledge,
+		offer: { candles: 0, hearts: 0, ascendedCandles: 5 },
+	}),
 	new SeasonalSpirit({
 		name: SpiritName.SassyDrifter,
 		season: Season.Gratitude,
