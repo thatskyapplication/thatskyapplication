@@ -1,5 +1,5 @@
 import type { Dayjs } from "dayjs";
-import { Collection } from "discord.js";
+import { type Snowflake, Collection } from "discord.js";
 import { Realm, Season } from "../../Utility/Constants.js";
 import { skyDate } from "../../Utility/Utility.js";
 import {
@@ -12,6 +12,16 @@ import {
 	Call,
 } from "./Base.js";
 import RespectfulPianist from "./RespectfulPianist.js";
+
+interface SpiritTrackerPacket {
+	user_id: Snowflake;
+	respectful_pianist: number | null;
+}
+
+interface SpiritTrackerData {
+	userId: SpiritTrackerPacket["user_id"];
+	respectfulPianist: SpiritTrackerPacket["respectful_pianist"];
+}
 
 export default [
 	new ElderSpirit({
