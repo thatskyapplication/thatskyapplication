@@ -21,6 +21,7 @@ import {
 	SKY_PROFILE_PLATFORM_CUSTOM_ID,
 	SKY_PROFILE_SEASONS_CUSTOM_ID,
 } from "../Commands/General/sky-profile.js";
+import { SPIRIT_TRACK_CUSTOM_ID } from "../Commands/General/spirit.js";
 import commands, {
 	isAutocompleteCommand,
 	isChatInputCommand,
@@ -28,6 +29,7 @@ import commands, {
 	isUserContextMenuCommand,
 } from "../Commands/index.js";
 import Profile from "../Structures/Profile.js";
+import { viewSeason } from "../Structures/Spirits/index.js";
 import { User } from "../Utility/Constants.js";
 import { chatInputApplicationCommandMention, consoleLog, guildLink } from "../Utility/Utility.js";
 import { LogType } from "../index.js";
@@ -235,6 +237,11 @@ export const event: Event<typeof name> = {
 			const { customId } = interaction;
 
 			try {
+				if (customId === SPIRIT_TRACK_CUSTOM_ID) {
+					await viewSeason(interaction);
+					return;
+				}
+
 				if (customId === SKY_PROFILE_SEASONS_CUSTOM_ID) {
 					await Profile.setSeasons(interaction);
 					return;

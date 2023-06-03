@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/prefer-literal-enum-member, unicorn/prefer-math-trunc */
 import type { Dayjs } from "dayjs";
 import { Collection } from "discord.js";
-import { Realm, Season } from "../../Utility/Constants.js";
-import { skyDate } from "../../Utility/Utility.js";
-import { Expression, SeasonalSpirit, SpiritName, type SeasonalSpiritVisitCollectionKey } from "./Base.js";
+import { Realm, Season } from "../../../Utility/Constants.js";
+import { skyDate } from "../../../Utility/Utility.js";
+import { Expression, SeasonalSpirit, SpiritName, type SeasonalSpiritVisitCollectionKey } from "../Base.js";
 
 enum RespectfulPianistFlags {
 	Expression1 = 1 << 0,

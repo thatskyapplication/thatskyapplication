@@ -1,5 +1,12 @@
 import type { Dayjs } from "dayjs";
-import { type Snowflake, Collection } from "discord.js";
+import {
+	type Snowflake,
+	type StringSelectMenuInteraction,
+	Collection,
+	ActionRowBuilder,
+	StringSelectMenuBuilder,
+	StringSelectMenuOptionBuilder,
+} from "discord.js";
 import { Realm, Season } from "../../Utility/Constants.js";
 import { skyDate } from "../../Utility/Utility.js";
 import {
@@ -11,7 +18,7 @@ import {
 	Expression,
 	Call,
 } from "./Base.js";
-import RespectfulPianist from "./RespectfulPianist.js";
+import Rhythm from "./Rhythm/index.js";
 
 interface SpiritTrackerPacket {
 	user_id: Snowflake;
@@ -21,6 +28,24 @@ interface SpiritTrackerPacket {
 interface SpiritTrackerData {
 	userId: SpiritTrackerPacket["user_id"];
 	respectfulPianist: SpiritTrackerPacket["respectful_pianist"];
+}
+
+export const SPIRIT_VIEW_SEASON_CUSTOM_ID = "SPIRIT_VIEW_SEASON_CUSTOM_ID" as const;
+
+export async function viewSeason(interaction: StringSelectMenuInteraction) {
+	await interaction.reply({
+		components: [
+			new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+				new StringSelectMenuBuilder()
+					.setCustomId(SPIRIT_VIEW_SEASON_CUSTOM_ID)
+					.setMaxValues(1)
+					.setMinValues(0)
+					.setOptions(Rhythm.map(({ name }) => new StringSelectMenuOptionBuilder().setLabel(name).setValue(name)))
+					.setPlaceholder("Select a spirit!"),
+			),
+		],
+		ephemeral: true,
+	});
 }
 
 export default [
@@ -358,7 +383,7 @@ export default [
 			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),
-	RespectfulPianist,
+	...Rhythm,
 	new SeasonalSpirit({
 		name: SpiritName.ThoughtfulDirector,
 		season: Season.Rhythm,
