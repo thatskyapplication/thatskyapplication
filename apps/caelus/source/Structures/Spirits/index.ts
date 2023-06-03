@@ -19,7 +19,6 @@ import {
 	Expression,
 	Call,
 } from "./Base.js";
-import { maxBit, resolveBitsToOffer } from "./Rhythm/TroupeGreeter.js";
 import Rhythm from "./Rhythm/index.js";
 
 interface SpiritTrackerPacket {
@@ -67,8 +66,12 @@ export async function viewSpirit(interaction: StringSelectMenuInteraction) {
 	const embed = new EmbedBuilder()
 		.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
 		.setFields(
-			{ name: "Obtained", value: resolveBitsToOffer(existingBit).join("\n"), inline: true },
-			{ name: "Missing", value: resolveBitsToOffer(~existingBit & maxBit).join("\n"), inline: true },
+			{ name: "Obtained", value: spirit.resolveBitsToOffer(existingBit).join("\n"), inline: true },
+			{
+				name: "Missing",
+				value: spirit.resolveBitsToOffer(~existingBit & spirit.maxItemBit).join("\n"),
+				inline: true,
+			},
 		)
 		.setImage(spirit.imageURL)
 		.setTitle(spirit.name)
