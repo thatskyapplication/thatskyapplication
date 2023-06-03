@@ -245,26 +245,18 @@ interface SpiritOffer {
 	ascendedCandles: number;
 }
 
-interface SpiritDataBase {
+interface BaseSpiritDataBase {
 	name: SpiritName;
 	realm: Realm;
 	offer?: SpiritOffer;
 	keywords?: string[];
 }
 
-interface SpiritDataBaseWithExpression extends SpiritDataBase {
-	expression: Expression;
+interface StandardSpiritData extends BaseSpiritDataBase {
+	expression?: Expression;
+	stance?: Stance;
+	call?: Call;
 }
-
-interface SpiritDataBaseWithStance extends SpiritDataBase {
-	stance: Stance;
-}
-
-interface SpiritDataBaseWithCall extends SpiritDataBase {
-	call: Call;
-}
-
-type SpiritData = SpiritDataBaseWithCall | SpiritDataBaseWithExpression | SpiritDataBaseWithStance;
 
 type SeasonalSpiritVisitCollectionKey = number | "Error";
 
@@ -273,41 +265,36 @@ export interface SeasonalSpiritVisit {
 	returning: Collection<SeasonalSpiritVisitCollectionKey, Dayjs>;
 }
 
-type SeasonalSpiritData = SpiritData & { season: Season; hasMarketingVideo?: boolean; visits?: SeasonalSpiritVisit };
+interface SeasonalSpiritData extends StandardSpiritData {
+	season: Season;
+	hasMarketingVideo?: boolean;
+	visits?: SeasonalSpiritVisit;
+}
 
 interface SpiritSeason {
 	name: Season;
 }
 
-class Spirit {
-	public readonly name: SpiritData["name"];
+abstract class BaseSpirit {
+	public readonly name: BaseSpiritDataBase["name"];
 
-	public readonly realm: SpiritData["realm"];
+	public readonly realm: BaseSpiritDataBase["realm"];
 
-	public readonly offer: Exclude<SpiritData["offer"], undefined> | null;
+	public readonly offer: Exclude<BaseSpiritDataBase["offer"], undefined> | null;
 
-	public readonly keywords: NonNullable<SpiritData["keywords"]>;
+	public readonly keywords: NonNullable<BaseSpiritDataBase["keywords"]>;
 
 	public readonly imageURL: string;
 
 	public readonly wikiURL: string;
 
-	public readonly expression: SpiritDataBaseWithExpression["expression"] | null;
-
-	public readonly stance: SpiritDataBaseWithStance["stance"] | null;
-
-	public readonly call: SpiritDataBaseWithCall["call"] | null;
-
-	public constructor(spirit: SpiritData) {
+	public constructor(spirit: BaseSpiritDataBase) {
 		this.name = spirit.name;
 		this.realm = spirit.realm;
 		this.offer = spirit.offer ?? null;
 		this.keywords = spirit.keywords ?? [];
 		this.imageURL = String(new URL(`spirits/${this.cdnName}/friendship_tree.webp`, CDN_URL));
 		this.wikiURL = new URL(spirit.name.replaceAll(" ", "_"), WIKI_URL).toString();
-		this.expression = "expression" in spirit ? spirit.expression : null;
-		this.stance = "stance" in spirit ? spirit.stance : null;
-		this.call = "call" in spirit ? spirit.call : null;
 	}
 
 	public isSeasonalSpirit(): this is SeasonalSpirit {
@@ -319,7 +306,24 @@ class Spirit {
 	}
 }
 
-class SeasonalSpirit extends Spirit {
+class StandardSpirit extends BaseSpirit {
+	public readonly expression: StandardSpiritData["expression"] | null;
+
+	public readonly stance: StandardSpiritData["stance"] | null;
+
+	public readonly call: StandardSpiritData["call"] | null;
+
+	public constructor(spirit: StandardSpiritData) {
+		super(spirit);
+		this.expression = "expression" in spirit ? spirit.expression : null;
+		this.stance = "stance" in spirit ? spirit.stance : null;
+		this.call = "call" in spirit ? spirit.call : null;
+	}
+}
+
+class ElderSpirit extends BaseSpirit {}
+
+class SeasonalSpirit extends StandardSpirit {
 	public readonly season: SpiritSeason;
 
 	public readonly marketingVideoURL: string | null;
@@ -349,6 +353,11 @@ class SeasonalSpirit extends Spirit {
 }
 
 export default [
+	new ElderSpirit({
+		name: SpiritName.ElderOfTheIsle,
+		realm: Realm.IslesOfDawn,
+		offer: { candles: 0, hearts: 0, ascendedCandles: 78 },
+	}),
 	new SeasonalSpirit({
 		name: SpiritName.SassyDrifter,
 		season: Season.Gratitude,
