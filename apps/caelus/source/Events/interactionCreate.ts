@@ -42,7 +42,7 @@ const INTERACTION_ERROR_RESPONSE_BODY = {
 } as const;
 
 async function recoverInteractionError(interaction: Interaction, error: unknown) {
-	let errorTypeString = `Error from ${interaction.user} in ${interaction.channel} `;
+	let errorTypeString = `Error from ${interaction.user} (${interaction.user.tag}) in ${interaction.channel} (${interaction.channelId}) from `;
 
 	switch (interaction.type) {
 		case InteractionType.ApplicationCommand:
@@ -58,7 +58,7 @@ async function recoverInteractionError(interaction: Interaction, error: unknown)
 
 			break;
 		case InteractionType.MessageComponent:
-			errorTypeString += `interacting with a \`/${interaction.customId}\` component.`;
+			errorTypeString += `interacting with a \`${interaction.customId}\` component.`;
 			break;
 		case InteractionType.ApplicationCommandAutocomplete:
 			// eslint-disable-next-line no-case-declarations
@@ -66,7 +66,7 @@ async function recoverInteractionError(interaction: Interaction, error: unknown)
 			errorTypeString += `autocompleting \`/${interaction.commandName}\` (\`${focused.name}\`, \`${focused.value}\`).`;
 			break;
 		case InteractionType.ModalSubmit:
-			errorTypeString += `submitting \`/${interaction.customId}\`.`;
+			errorTypeString += `submitting \`${interaction.customId}\`.`;
 			break;
 	}
 
