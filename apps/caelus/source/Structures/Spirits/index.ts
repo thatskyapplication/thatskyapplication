@@ -19,6 +19,7 @@ import {
 	Expression,
 	Call,
 } from "./Base.js";
+import { maxBit, resolveBitsToOffer } from "./Rhythm/TroupeGreeter.js";
 import Rhythm from "./Rhythm/index.js";
 
 interface SpiritTrackerPacket {
@@ -52,6 +53,8 @@ export async function viewSpirit(interaction: StringSelectMenuInteraction) {
 	const [value] = interaction.values;
 	const spirit = Rhythm.find(({ name }) => name === value);
 
+	const existingBit = 1 | 2 | 4 | 16 | 32 | 64;
+
 	if (!spirit) {
 		await interaction.update({
 			content: "Woah, it seems we have not encountered that spirit yet. How strange!",
@@ -63,6 +66,10 @@ export async function viewSpirit(interaction: StringSelectMenuInteraction) {
 
 	const embed = new EmbedBuilder()
 		.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
+		.setFields(
+			{ name: "Obtained", value: resolveBitsToOffer(existingBit).join("\n"), inline: true },
+			{ name: "Missing", value: resolveBitsToOffer(~existingBit & maxBit).join("\n"), inline: true },
+		)
 		.setImage(spirit.imageURL)
 		.setTitle(spirit.name)
 		.setURL(spirit.wikiURL);
@@ -352,19 +359,6 @@ export default [
 			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 				.set(15, skyDate(2_020, 8, 6))
 				.set(48, skyDate(2_021, 11, 11)),
-			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-		},
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.TroupeGreeter,
-		season: Season.Rhythm,
-		expression: Expression.Welcome,
-		realm: Realm.IslesOfDawn,
-		offer: { candles: 146, hearts: 13, ascendedCandles: 12 },
-		visits: {
-			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
-				.set(25, skyDate(2_020, 12, 24))
-				.set(56, skyDate(2_022, 3, 3)),
 			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		},
 	}),

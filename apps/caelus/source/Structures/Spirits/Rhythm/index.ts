@@ -1,3 +1,4 @@
 import RespectfulPianist from "./RespectfulPianist.js";
+import TroupeGreeter from "./TroupeGreeter.js";
 
-export default [RespectfulPianist];
+export default [TroupeGreeter, RespectfulPianist];
