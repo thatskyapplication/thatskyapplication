@@ -154,6 +154,10 @@ export function time(timestamp: number, style: TimestampStylesString, relative =
 	}`;
 }
 
+export function guildLink(guildId: Snowflake) {
+	return `https://discord.com/channels/${guildId}`;
+}
+
 export function chatInputApplicationCommandMention(
 	id: Snowflake,
 	commandName: string,

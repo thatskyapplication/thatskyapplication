@@ -7,7 +7,7 @@ import {
 	type EmbedAuthorOptions,
 	GuildNSFWLevel,
 } from "discord.js";
-import { time } from "../Utility/Utility.js";
+import { guildLink, time } from "../Utility/Utility.js";
 import { LogType } from "../index.js";
 import { event as guildCreate } from "./guildCreate.js";
 import { event as guildDelete } from "./guildDelete.js";
@@ -57,10 +57,7 @@ function guildNSFWLevelString(guildNSFWLevel: GuildNSFWLevel) {
 }
 
 export function logGuild(guild: Guild, join = true) {
-	const embedAuthorOptions: EmbedAuthorOptions = {
-		name: guild.name,
-		url: `https://discord.com/channels/${guild.id}`,
-	};
+	const embedAuthorOptions: EmbedAuthorOptions = { name: guild.name, url: guildLink(guild.id) };
 
 	const iconURL = guild.iconURL({ size: 4_096 });
 	if (iconURL) embedAuthorOptions.iconURL = iconURL;

@@ -5,6 +5,8 @@ import {
 	Events,
 	InteractionType,
 	EmbedBuilder,
+	hyperlink,
+	channelLink,
 } from "discord.js";
 import {
 	D_DAILY_GUIDES_QUEST_1_MODAL,
@@ -27,7 +29,7 @@ import commands, {
 } from "../Commands/index.js";
 import Profile from "../Structures/Profile.js";
 import { User } from "../Utility/Constants.js";
-import { chatInputApplicationCommandMention, consoleLog } from "../Utility/Utility.js";
+import { chatInputApplicationCommandMention, consoleLog, guildLink } from "../Utility/Utility.js";
 import { LogType } from "../index.js";
 import type { Event } from "./index.js";
 
@@ -85,7 +87,6 @@ async function recoverInteractionError(interaction: Interaction, error: unknown)
 
 async function logCommand(interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) {
 	const { appPermissions, channelId, guildId, guild, user } = interaction;
-	const inGuild = interaction.inGuild();
 
 	const embed = new EmbedBuilder()
 		.setAuthor({ name: `${user.tag} (${user.id})`, iconURL: user.displayAvatarURL() })
@@ -93,18 +94,24 @@ async function logCommand(interaction: ChatInputCommandInteraction | ContextMenu
 		.setFields(
 			{
 				name: "Guild",
-				value: inGuild ? (guild ? `${guild.name} (\`${guildId}\`)` : `\`${guildId}\``) : "None",
+				value: guildId
+					? guild
+						? `${guild.name} (${hyperlink(`\`${guildId}\``, guildLink(guildId))})`
+						: hyperlink(`\`${guildId}\``, guildLink(guildId))
+					: "None",
 				inline: true,
 			},
 			{
 				name: "Channel",
-				value: `\`${channelId}\``,
+				value: guildId
+					? hyperlink(`\`${channelId}\``, channelLink(channelId, guildId))
+					: hyperlink(`\`${channelId}\``, channelLink(channelId)),
 				inline: true,
 			},
 		)
 		.setTimestamp();
 
-	if (inGuild) embed.addFields({ name: "Permissions", value: `\`${appPermissions!.bitfield}\``, inline: true });
+	if (appPermissions) embed.addFields({ name: "Permissions", value: `\`${appPermissions.bitfield}\``, inline: true });
 	void interaction.client.log({ embeds: [embed], type: LogType.Command });
 }
 
