@@ -297,6 +297,10 @@ abstract class BaseSpirit {
 		this.wikiURL = new URL(spirit.name.replaceAll(" ", "_"), WIKI_URL).toString();
 	}
 
+	public isStandardSpirit(): this is StandardSpirit {
+		return "expression" in this || "stance" in this || "call" in this;
+	}
+
 	public isSeasonalSpirit(): this is SeasonalSpirit {
 		return "season" in this;
 	}
