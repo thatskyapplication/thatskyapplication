@@ -9,7 +9,7 @@ export enum SpiritName {
 	PointingCandlemaker = "Pointing Candlemaker",
 	UsheringStargazer = "Ushering Stargazer",
 	RejectingVoyager = "Rejecting Voyager",
-	ElderOfTheIsles = "Elder of the Isles",
+	ElderOfTheIsle = "Elder of the Isle",
 
 	// Daylight Prairie
 	ButterflyCharmer = "Butterfly Charmer",
