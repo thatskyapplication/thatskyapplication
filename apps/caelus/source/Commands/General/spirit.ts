@@ -34,15 +34,13 @@ export default class implements AutocompleteCommand {
 
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
-			.setFields(
-				{ name: "Realm", value: spirit.realm, inline: true },
-				{ name: "Season", value: spirit.isSeasonalSpirit() ? spirit.season.name : "None", inline: true },
-			)
+			.setFields({ name: "Realm", value: spirit.realm, inline: true })
 			.setImage(spirit.imageURL)
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
 
 		if (spirit.isStandardSpirit()) {
+			embed.addFields({ name: "Season", value: spirit.isSeasonalSpirit() ? spirit.season.name : "None", inline: true });
 			if (spirit.expression) embed.addFields({ name: "Expression", value: spirit.expression, inline: true });
 			if (spirit.stance) embed.addFields({ name: "Stance", value: spirit.stance, inline: true });
 			if (spirit.call) embed.addFields({ name: "Call", value: spirit.call, inline: true });
