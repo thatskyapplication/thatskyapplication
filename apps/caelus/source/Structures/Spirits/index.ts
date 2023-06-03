@@ -11,11 +11,11 @@ import {
 import { Realm, Season } from "../../Utility/Constants.js";
 import { skyDate } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
-import {
+import type {
+	SpiritName,
 	type SeasonalSpiritVisitCollectionKey,
 	ElderSpirit,
 	SeasonalSpirit,
-	SpiritName,
 	Stance,
 	Expression,
 	Call,
@@ -24,12 +24,14 @@ import Rhythm from "./Rhythm/index.js";
 
 interface SpiritTrackerPacket {
 	user_id: Snowflake;
+	troupe_greeter: number | null;
 	respectful_pianist: number | null;
 }
 
 interface SpiritTrackerData {
 	userId: SpiritTrackerPacket["user_id"];
-	RespectfulPianist: SpiritTrackerPacket["respectful_pianist"];
+	troupeGreeter: SpiritTrackerPacket["troupe_greeter"];
+	respectfulPianist: SpiritTrackerPacket["respectful_pianist"];
 }
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
@@ -39,7 +41,9 @@ export const SPIRIT_VIEW_SEASON_CUSTOM_ID = "SPIRIT_VIEW_SEASON_CUSTOM_ID" as co
 export class SpiritTracker {
 	public userId: SpiritTrackerData["userId"];
 
-	public RespectfulPianist!: SpiritTrackerData["RespectfulPianist"];
+	public troupeGreeter!: SpiritTrackerData["troupeGreeter"];
+
+	public respectfulPianist!: SpiritTrackerData["respectfulPianist"];
 
 	public constructor(profile: SpiritTrackerPacket) {
 		this.userId = profile.user_id;
@@ -47,7 +51,8 @@ export class SpiritTracker {
 	}
 
 	private patch(data: SpiritTrackerPatchData) {
-		this.RespectfulPianist = data.respectful_pianist;
+		this.troupeGreeter = data.troupe_greeter;
+		this.respectfulPianist = data.respectful_pianist;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -90,7 +95,8 @@ export class SpiritTracker {
 			return;
 		}
 
-		const spiritData = spiritTracker[spirit.name];
+		// @ts-expect-error This is correctly transformed.
+		const spiritData = spiritTracker[this.transformNameToCamelCase(spirit.name)] as number | null;
 
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
@@ -111,6 +117,10 @@ export class SpiritTracker {
 			.setURL(spirit.wikiURL);
 
 		await interaction.update({ components: [], embeds: [embed] });
+	}
+
+	private static transformNameToCamelCase(name: SpiritName) {
+		return (name[0]!.toLowerCase() + name.slice(1)).replaceAll(" ", "");
 	}
 }
 
