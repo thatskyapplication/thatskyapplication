@@ -26,7 +26,9 @@ export function DiscordMessage({
 	return (
 		<div className="relative" id="outer-message-wrapper">
 			<div
-				className={`pl-18 dark:hover:bg-[rgb(46,48,53)] hover:bg-[rgb(247,247,247)] group py-0.5 pr-12 leading-snug ${followUp ? "" : "mt-4"}`}
+				className={`pl-18 dark:hover:bg-[rgb(46,48,53)] hover:bg-[rgb(247,247,247)] group py-0.5 pr-12 leading-snug ${
+					followUp ? "" : "mt-4"
+				}`}
 				id="message-wrapper"
 			>
 				{(reply || replyNode) && !followUp ? reply ? <DiscordMessageReply {...reply} /> : replyNode ?? null : null}
@@ -50,7 +52,10 @@ export function DiscordMessage({
 					) : (
 						authorNode
 					)}
-					<div className="text-[rgb(49,51,56)] dark:text-[rgb(219,222,225)] [&>p]:m-0 [&>p]:leading-snug" id="message-content">
+					<div
+						className="text-[rgb(49,51,56)] dark:text-[rgb(219,222,225)] [&>p]:m-0 [&>p]:leading-snug"
+						id="message-content"
+					>
 						{children}
 					</div>
 				</div>

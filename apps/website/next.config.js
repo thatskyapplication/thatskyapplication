@@ -22,7 +22,8 @@ module.exports = withContentlayer({
 		},
 		{
 			source: "/sky-EULA-ToS",
-			destination: "https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/460-eula-terms-of-service",
+			destination:
+				"https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/460-eula-terms-of-service",
 			permanent: false,
 		},
 	],
