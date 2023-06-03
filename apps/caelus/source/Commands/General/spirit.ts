@@ -8,18 +8,12 @@ import {
 	EmbedBuilder,
 	time,
 	TimestampStyles,
-	StringSelectMenuBuilder,
-	ActionRowBuilder,
-	StringSelectMenuOptionBuilder,
 } from "discord.js";
-import { SeasonFlagsToString, resolveSeasonsToEmoji } from "../../Structures/Seasons.js";
 import type { SeasonalSpiritVisit } from "../../Structures/Spirits/Base.js";
-import Spirits from "../../Structures/Spirits/index.js";
+import Spirits, { SpiritTracker } from "../../Structures/Spirits/index.js";
 import { Emoji } from "../../Utility/Constants.js";
 import { resolveCurrencyEmoji } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
-
-export const SPIRIT_TRACK_CUSTOM_ID = "SPIRIT_TRACK_CUSTOM_ID" as const;
 
 export default class implements AutocompleteCommand {
 	public readonly name = "spirit";
@@ -118,26 +112,7 @@ export default class implements AutocompleteCommand {
 	}
 
 	public async track(interaction: ChatInputCommandInteraction) {
-		await interaction.reply({
-			components: [
-				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACK_CUSTOM_ID)
-						.setMaxValues(1)
-						.setMinValues(0)
-						.setOptions(
-							Object.entries(SeasonFlagsToString).map(([flag, season]) =>
-								new StringSelectMenuOptionBuilder()
-									.setEmoji(resolveSeasonsToEmoji(season))
-									.setLabel(season)
-									.setValue(flag),
-							),
-						)
-						.setPlaceholder("Select a season!"),
-				),
-			],
-			ephemeral: true,
-		});
+		await SpiritTracker.viewTracker(interaction);
 	}
 
 	public async autocomplete(interaction: AutocompleteInteraction) {

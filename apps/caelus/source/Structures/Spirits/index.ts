@@ -1,25 +1,18 @@
-import type { Dayjs } from "dayjs";
 import {
-	type Snowflake,
+	type ChatInputCommandInteraction,
 	type StringSelectMenuInteraction,
-	Collection,
+	type Snowflake,
 	ActionRowBuilder,
+	ButtonInteraction,
 	StringSelectMenuBuilder,
 	StringSelectMenuOptionBuilder,
 	EmbedBuilder,
+	ButtonBuilder,
+	ButtonStyle,
 } from "discord.js";
-import { Realm, Season } from "../../Utility/Constants.js";
-import { skyDate } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
-import type {
-	SpiritName,
-	type SeasonalSpiritVisitCollectionKey,
-	ElderSpirit,
-	SeasonalSpirit,
-	Stance,
-	Expression,
-	Call,
-} from "./Base.js";
+import { SeasonFlagsToString, resolveSeasonsToEmoji } from "../Seasons.js";
+import type { SpiritName } from "./Base.js";
 import Rhythm from "./Rhythm/index.js";
 
 interface SpiritTrackerPacket {
@@ -36,7 +29,10 @@ interface SpiritTrackerData {
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
 
+export const SPIRIT_TRACKER_VIEW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_CUSTOM_ID" as const;
 export const SPIRIT_VIEW_SEASON_CUSTOM_ID = "SPIRIT_VIEW_SEASON_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID" as const;
 
 export class SpiritTracker {
 	public userId: SpiritTrackerData["userId"];
@@ -61,13 +57,42 @@ export class SpiritTracker {
 		return new this(spiritTrackerPacket);
 	}
 
-	public static async viewSeason(interaction: StringSelectMenuInteraction) {
+	public static async viewTracker(interaction: ButtonInteraction | ChatInputCommandInteraction) {
+		const response = {
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(SPIRIT_TRACKER_VIEW_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(0)
+						.setOptions(
+							Object.entries(SeasonFlagsToString).map(([flag, season]) =>
+								new StringSelectMenuOptionBuilder()
+									.setEmoji(resolveSeasonsToEmoji(season))
+									.setLabel(season)
+									.setValue(flag),
+							),
+						)
+						.setPlaceholder("Select a season!"),
+				),
+			],
+			ephemeral: true,
+		};
+
+		if (interaction instanceof ButtonInteraction) {
+			await interaction.update(response);
+		} else {
+			await interaction.reply(response);
+		}
+	}
+
+	public static async viewSeason(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		// Ensure they have data.
 		if (!(await this.fetch(interaction.user.id).catch(() => null))) {
 			await pg<SpiritTrackerPacket>(Table.SpiritTracker).insert({ user_id: interaction.user.id }, "*");
 		}
 
-		await interaction.update({
+		const response = {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -77,8 +102,18 @@ export class SpiritTracker {
 						.setOptions(Rhythm.map(({ name }) => new StringSelectMenuOptionBuilder().setLabel(name).setValue(name)))
 						.setPlaceholder("Select a spirit!"),
 				),
+
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setStyle(ButtonStyle.Primary),
+				),
 			],
-		});
+			embeds: [],
+		};
+
+		await interaction.update(response);
 	}
 
 	public static async viewSpirit(interaction: StringSelectMenuInteraction) {
@@ -116,7 +151,17 @@ export class SpiritTracker {
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
 
-		await interaction.update({ components: [], embeds: [embed] });
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setStyle(ButtonStyle.Primary),
+				),
+			],
+			embeds: [embed],
+		});
 	}
 
 	private static transformNameToCamelCase(name: SpiritName) {

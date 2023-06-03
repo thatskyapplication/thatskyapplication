@@ -21,7 +21,6 @@ import {
 	SKY_PROFILE_PLATFORM_CUSTOM_ID,
 	SKY_PROFILE_SEASONS_CUSTOM_ID,
 } from "../Commands/General/sky-profile.js";
-import { SPIRIT_TRACK_CUSTOM_ID } from "../Commands/General/spirit.js";
 import commands, {
 	isAutocompleteCommand,
 	isChatInputCommand,
@@ -29,7 +28,13 @@ import commands, {
 	isUserContextMenuCommand,
 } from "../Commands/index.js";
 import Profile from "../Structures/Profile.js";
-import { SPIRIT_VIEW_SEASON_CUSTOM_ID, SpiritTracker } from "../Structures/Spirits/index.js";
+import {
+	SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID,
+	SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_CUSTOM_ID,
+	SPIRIT_VIEW_SEASON_CUSTOM_ID,
+	SpiritTracker,
+} from "../Structures/Spirits/index.js";
 import { User } from "../Utility/Constants.js";
 import { chatInputApplicationCommandMention, consoleLog, guildLink } from "../Utility/Utility.js";
 import { LogType } from "../index.js";
@@ -206,6 +211,16 @@ export const event: Event<typeof name> = {
 			const { customId } = interaction;
 
 			try {
+				if (customId === SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID) {
+					await SpiritTracker.viewTracker(interaction);
+					return;
+				}
+
+				if (customId === SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID) {
+					await SpiritTracker.viewSeason(interaction);
+					return;
+				}
+
 				const heartHistoryResult = heartHistoryRegExp.exec(customId);
 
 				if (heartHistoryResult) {
@@ -237,13 +252,13 @@ export const event: Event<typeof name> = {
 			const { customId } = interaction;
 
 			try {
-				if (customId === SPIRIT_VIEW_SEASON_CUSTOM_ID) {
-					await SpiritTracker.viewSpirit(interaction);
+				if (customId === SPIRIT_TRACKER_VIEW_CUSTOM_ID) {
+					await SpiritTracker.viewSeason(interaction);
 					return;
 				}
 
-				if (customId === SPIRIT_TRACK_CUSTOM_ID) {
-					await SpiritTracker.viewSeason(interaction);
+				if (customId === SPIRIT_VIEW_SEASON_CUSTOM_ID) {
+					await SpiritTracker.viewSpirit(interaction);
 					return;
 				}
 
