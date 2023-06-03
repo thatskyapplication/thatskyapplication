@@ -15,7 +15,7 @@ import {
 import { consoleLog, resolveMap, resolveValidRealm, todayDate } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
-import { SpiritName } from "./Spirit.js";
+import { SpiritName } from "./Spirits/Base.js";
 
 export interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;

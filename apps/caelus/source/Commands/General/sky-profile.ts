@@ -17,7 +17,7 @@ import {
 import { PlatformFlagsToString, resolvePlatformToEmoji } from "../../Structures/Platforms.js";
 import Profile from "../../Structures/Profile.js";
 import { SeasonFlagsToString, resolveSeasonsToEmoji } from "../../Structures/Seasons.js";
-import Spirits from "../../Structures/Spirit.js";
+import Spirits from "../../Structures/Spirits/index.js";
 import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
 import { canUseCustomEmoji } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";

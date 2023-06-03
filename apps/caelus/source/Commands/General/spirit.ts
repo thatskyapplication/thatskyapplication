@@ -9,7 +9,8 @@ import {
 	time,
 	TimestampStyles,
 } from "discord.js";
-import Spirits, { type SeasonalSpiritVisit } from "../../Structures/Spirit.js";
+import type { SeasonalSpiritVisit } from "../../Structures/Spirits/Base.js";
+import Spirits from "../../Structures/Spirits/index.js";
 import { Emoji } from "../../Utility/Constants.js";
 import { resolveCurrencyEmoji } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
