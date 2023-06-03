@@ -362,6 +362,31 @@ export default [
 		realm: Realm.IslesOfDawn,
 		offer: { candles: 0, hearts: 0, ascendedCandles: 129 },
 	}),
+	new ElderSpirit({
+		name: SpiritName.ElderOfThePrairie,
+		realm: Realm.DaylightPrairie,
+		offer: { candles: 0, hearts: 0, ascendedCandles: 78 },
+	}),
+	new ElderSpirit({
+		name: SpiritName.ElderOfTheForest,
+		realm: Realm.HiddenForest,
+		offer: { candles: 0, hearts: 0, ascendedCandles: 256 },
+	}),
+	new ElderSpirit({
+		name: SpiritName.ElderOfTheValley,
+		realm: Realm.ValleyOfTriumph,
+		offer: { candles: 0, hearts: 0, ascendedCandles: 11 },
+	}),
+	new ElderSpirit({
+		name: SpiritName.ElderOfTheWasteland,
+		realm: Realm.GoldenWasteland,
+		offer: { candles: 0, hearts: 0, ascendedCandles: 6 },
+	}),
+	new ElderSpirit({
+		name: SpiritName.ElderOfTheVault,
+		realm: Realm.VaultOfKnowledge,
+		offer: { candles: 0, hearts: 0, ascendedCandles: 5 },
+	}),
 	new SeasonalSpirit({
 		name: SpiritName.SassyDrifter,
 		season: Season.Gratitude,
