@@ -307,8 +307,6 @@ abstract class BaseSpirit {
 			flagsToItems[bit] = item;
 		}
 
-		console.log(this.maxItemBit);
-
 		this.flags = flags;
 		this.flagsToItems = flagsToItems;
 		this.offer = spirit.offer ?? null;
