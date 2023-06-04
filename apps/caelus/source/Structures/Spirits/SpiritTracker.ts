@@ -10,6 +10,8 @@ import {
 	ButtonBuilder,
 	ButtonStyle,
 } from "discord.js";
+import { Emoji } from "../../Utility/Constants.js";
+import { resolveEmoji } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import { SeasonFlagsToString, resolveSeasonsToEmoji } from "../Seasons.js";
 import { type BaseSpirit, SpiritName } from "./Base.js";
@@ -1530,20 +1532,15 @@ export class SpiritTracker {
 				new EmbedBuilder()
 					.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
 					.setFields(
-						{
-							name: "Obtained",
-							value: bit
-								? spirit.maxItemBit === bit
-									? "Everything!"
-									: spirit.resolveBitsToOffer(bit).join("\n")
-								: "Nothing!",
-							inline: true,
-						},
-						{
-							name: "Missing",
-							value: bit ? spirit.resolveBitsToOffer(~bit & spirit.maxItemBit).join("\n") || "Nothing!" : "Everything!",
-							inline: true,
-						},
+						Object.entries(spirit.flagsToItems).map(([flagBit, item]) => {
+							const _flagBit = Number(flagBit);
+
+							return {
+								name: item,
+								value: resolveEmoji(interaction, bit && (bit & _flagBit) === _flagBit ? Emoji.Yes : Emoji.No, true),
+								inline: true,
+							};
+						}),
 					)
 					.setImage(spirit.imageURL)
 					.setTitle(spirit.name)
