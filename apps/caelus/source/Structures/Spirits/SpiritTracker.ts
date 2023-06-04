@@ -21,6 +21,7 @@ import {
 	SPIRIT_TYPE,
 	resolveSpiritTypeToString,
 	resolveOfferToCurrency,
+	type SpiritCost,
 } from "./Base.js";
 import Elder from "./Elder/index.js";
 import Seasonal from "./Seasonal/index.js";
@@ -1613,6 +1614,27 @@ export class SpiritTracker {
 	}
 
 	private static async responseData(interaction: StringSelectMenuInteraction, bit: number | null, spirit: BaseSpirit) {
+		const description = { candles: 0, hearts: 0, ascendedCandles: 0 } satisfies SpiritCost;
+
+		const embedFields = spirit.offer.map(({ item, cost }, flag) => {
+			let value;
+
+			if (bit && (bit & flag) === flag) {
+				value = resolveEmoji(interaction, Emoji.Yes, true);
+			} else {
+				if (cost?.candles) description.candles += cost.candles;
+				if (cost?.hearts) description.hearts += cost.hearts;
+				if (cost?.ascendedCandles) description.ascendedCandles += cost.ascendedCandles;
+				value = resolveOfferToCurrency(interaction, cost ?? {}).join("") || resolveEmoji(interaction, Emoji.No, true);
+			}
+
+			return {
+				name: item,
+				value: bit && (bit & flag) === flag ? resolveEmoji(interaction, Emoji.Yes, true) : value,
+				inline: true,
+			};
+		});
+
 		return {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
@@ -1644,17 +1666,8 @@ export class SpiritTracker {
 			embeds: [
 				new EmbedBuilder()
 					.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
-					.setFields(
-						spirit.offer.map(({ item, cost }, flag) => ({
-							name: item,
-							value:
-								bit && (bit & flag) === flag
-									? resolveEmoji(interaction, Emoji.Yes, true)
-									: resolveOfferToCurrency(interaction, cost ?? {}).join("") ||
-									  resolveEmoji(interaction, Emoji.No, true),
-							inline: true,
-						})),
-					)
+					.setDescription(`__Remaining Currency__\n${resolveOfferToCurrency(interaction, description).join("")}`)
+					.setFields(embedFields)
 					.setImage(spirit.imageURL)
 					.setTitle(spirit.name)
 					.setURL(spirit.wikiURL),

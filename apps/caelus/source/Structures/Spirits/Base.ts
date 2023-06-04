@@ -249,7 +249,7 @@ export const SPIRIT_TYPE = {
 
 export type SpiritType = (typeof SPIRIT_TYPE)[keyof typeof SPIRIT_TYPE];
 
-interface SpiritCost {
+export interface SpiritCost {
 	candles?: number;
 	hearts?: number;
 	ascendedCandles?: number;
