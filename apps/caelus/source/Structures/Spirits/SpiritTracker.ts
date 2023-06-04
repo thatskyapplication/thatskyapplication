@@ -1611,10 +1611,10 @@ export class SpiritTracker {
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
 						.setCustomId(`${SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID}-${spirit.name}`)
-						.setMaxValues(Object.values(spirit.flagsToItems).length)
+						.setMaxValues(Object.values(spirit.items).length)
 						.setMinValues(0)
 						.setOptions(
-							Object.entries(spirit.flagsToItems).map(([flag, item]) =>
+							Object.entries(spirit.items).map(([flag, item]) =>
 								new StringSelectMenuOptionBuilder()
 									.setDefault(Boolean(bit && bit & Number(flag)))
 									.setLabel(item)
@@ -1638,7 +1638,7 @@ export class SpiritTracker {
 				new EmbedBuilder()
 					.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
 					.setFields(
-						Object.entries(spirit.flagsToItems).map(([flagBit, item]) => {
+						Object.entries(spirit.items).map(([flagBit, item]) => {
 							const _flagBit = Number(flagBit);
 
 							return {

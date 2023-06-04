@@ -256,7 +256,7 @@ export type SpiritType = (typeof SPIRIT_TYPE)[keyof typeof SPIRIT_TYPE];
 interface BaseSpiritDataBase {
 	name: SpiritName;
 	realm: Realm;
-	itemsData: Readonly<Readonly<[number, string, string]>[]>;
+	items: Record<number, string>;
 	offer?: SpiritOffer;
 	keywords?: string[];
 }
@@ -300,11 +300,9 @@ export abstract class BaseSpirit {
 
 	public readonly realm: BaseSpiritDataBase["realm"];
 
-	public readonly flags: Record<string, number>;
+	public readonly items: Record<number, string>;
 
-	public readonly flagsToItems: Record<number, string>;
-
-	public readonly maxItemBit = 0;
+	public readonly maxItemsBit: number;
 
 	public readonly offer: Exclude<BaseSpiritDataBase["offer"], undefined> | null;
 
@@ -317,33 +315,12 @@ export abstract class BaseSpirit {
 	public constructor(spirit: BaseSpiritDataBase) {
 		this.name = spirit.name;
 		this.realm = spirit.realm;
-
-		const flags: Record<(typeof spirit.itemsData)[number][1], (typeof spirit.itemsData)[number][0]> = {};
-		const flagsToItems: Record<(typeof spirit.itemsData)[number][0], (typeof spirit.itemsData)[number][2]> = {};
-
-		for (const [bit, key, item] of spirit.itemsData ?? []) {
-			this.maxItemBit |= bit;
-			flags[key] = bit;
-			flagsToItems[bit] = item;
-		}
-
-		this.flags = flags;
-		this.flagsToItems = flagsToItems;
+		this.items = spirit.items;
+		this.maxItemsBit = Object.keys(this.items ?? {}).reduce((bits, bit) => Number(bit) | bits, 0);
 		this.offer = spirit.offer ?? null;
 		this.keywords = spirit.keywords ?? [];
 		this.imageURL = String(new URL(`spirits/${this.cdnName}/friendship_tree.webp`, CDN_URL));
 		this.wikiURL = new URL(spirit.name.replaceAll(" ", "_"), WIKI_URL).toString();
-	}
-
-	public resolveBitsToOffer(bits: number) {
-		const offer = [];
-
-		for (const [bit, item] of Object.entries(this.flagsToItems)) {
-			const _bit = Number(bit);
-			if ((bits & _bit) === _bit) offer.push(item);
-		}
-
-		return offer;
 	}
 
 	public isStandardSpirit(): this is StandardSpirit {
