@@ -117,10 +117,8 @@ export function resolveCurrencyEmoji(
 			: `${resolvedEmojiString}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji, animated)}`;
 	}
 
-	const plural = number === undefined ? false : number !== 1;
 	if (typeof number === "number") resolvedEmojiString += " ";
 	resolvedEmojiString += resolveEmojiToNonCustomEmoji(emoji);
-	if (plural) resolvedEmojiString += "s";
 	return resolvedEmojiString;
 }
 
