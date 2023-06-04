@@ -1,7 +1,9 @@
 import { URL } from "node:url";
 import type { Dayjs } from "dayjs";
+import type { BaseInteraction } from "discord.js";
 import { Collection } from "discord.js";
-import { type Realm, type Season, CDN_URL, WIKI_URL } from "../../Utility/Constants.js";
+import { type Realm, type Season, CDN_URL, WIKI_URL, Emoji } from "../../Utility/Constants.js";
+import { resolveCurrencyEmoji } from "../../Utility/Utility.js";
 
 export enum SpiritName {
 	// Isles of Dawn
@@ -238,12 +240,6 @@ export const enum Stance {
 	Injured = "Injured",
 }
 
-interface SpiritOffer {
-	candles: number;
-	hearts: number;
-	ascendedCandles: number;
-}
-
 export const SPIRIT_TYPE = {
 	// No standard spirits exist yet.
 	// Standard: 0,
@@ -253,11 +249,21 @@ export const SPIRIT_TYPE = {
 
 export type SpiritType = (typeof SPIRIT_TYPE)[keyof typeof SPIRIT_TYPE];
 
+interface SpiritCost {
+	candles?: number;
+	hearts?: number;
+	ascendedCandles?: number;
+}
+
+export interface ItemsData {
+	item: string;
+	cost: SpiritCost;
+}
+
 interface BaseSpiritDataBase {
 	name: SpiritName;
 	realm: Realm;
-	items: Record<number, string>;
-	offer?: SpiritOffer;
+	offer: Collection<number, ItemsData>;
 	keywords?: string[];
 }
 
@@ -295,16 +301,34 @@ export function resolveSpiritTypeToString(spiritType: SpiritType) {
 	}
 }
 
+export function resolveOfferToCurrency(interaction: BaseInteraction, cost: SpiritCost) {
+	const totalCost = [];
+
+	if (cost.candles) {
+		totalCost.push(resolveCurrencyEmoji(interaction, { emoji: Emoji.Candle, number: cost.candles }));
+	}
+
+	if (cost.hearts) {
+		totalCost.push(resolveCurrencyEmoji(interaction, { emoji: Emoji.Heart, number: cost.hearts }));
+	}
+
+	if (cost.ascendedCandles) {
+		totalCost.push(resolveCurrencyEmoji(interaction, { emoji: Emoji.AscendedCandle, number: cost.ascendedCandles }));
+	}
+
+	return totalCost;
+}
+
 export abstract class BaseSpirit {
 	public readonly name: BaseSpiritDataBase["name"];
 
 	public readonly realm: BaseSpiritDataBase["realm"];
 
-	public readonly items: Record<number, string>;
+	public readonly offer: BaseSpiritDataBase["offer"];
+
+	public readonly totalCost: SpiritCost;
 
 	public readonly maxItemsBit: number;
-
-	public readonly offer: Exclude<BaseSpiritDataBase["offer"], undefined> | null;
 
 	public readonly keywords: NonNullable<BaseSpiritDataBase["keywords"]>;
 
@@ -315,9 +339,40 @@ export abstract class BaseSpirit {
 	public constructor(spirit: BaseSpiritDataBase) {
 		this.name = spirit.name;
 		this.realm = spirit.realm;
-		this.items = spirit.items;
-		this.maxItemsBit = Object.keys(this.items ?? {}).reduce((bits, bit) => Number(bit) | bits, 0);
-		this.offer = spirit.offer ?? null;
+		this.offer = spirit.offer;
+
+		this.totalCost = this.offer?.reduce?.<BaseSpirit["totalCost"]>(
+			(offer, { cost: { candles, hearts, ascendedCandles } }) => {
+				if (candles) {
+					if (offer.candles) {
+						offer.candles += candles;
+					} else {
+						offer.candles = candles;
+					}
+				}
+
+				if (hearts) {
+					if (offer.hearts) {
+						offer.hearts += hearts;
+					} else {
+						offer.hearts = hearts;
+					}
+				}
+
+				if (ascendedCandles) {
+					if (offer.ascendedCandles) {
+						offer.ascendedCandles += ascendedCandles;
+					} else {
+						offer.ascendedCandles = ascendedCandles;
+					}
+				}
+
+				return offer;
+			},
+			{},
+		);
+
+		this.maxItemsBit = this.offer?.reduce?.((bits, _, bit) => bit | bits, 0);
 		this.keywords = spirit.keywords ?? [];
 		this.imageURL = String(new URL(`spirits/${this.cdnName}/friendship_tree.webp`, CDN_URL));
 		this.wikiURL = new URL(spirit.name.replaceAll(" ", "_"), WIKI_URL).toString();

@@ -14,7 +14,14 @@ import {
 import { Season, Emoji } from "../../Utility/Constants.js";
 import { isSeason, resolveEmoji, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
-import { type BaseSpirit, type SpiritType, SpiritName, SPIRIT_TYPE, resolveSpiritTypeToString } from "./Base.js";
+import {
+	type BaseSpirit,
+	type SpiritType,
+	SpiritName,
+	SPIRIT_TYPE,
+	resolveSpiritTypeToString,
+	resolveOfferToCurrency,
+} from "./Base.js";
 import Elder from "./Elder/index.js";
 import Seasonal from "./Seasonal/index.js";
 import Spirits from "./index.js";
@@ -1611,14 +1618,14 @@ export class SpiritTracker {
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
 						.setCustomId(`${SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID}-${spirit.name}`)
-						.setMaxValues(Object.values(spirit.items).length)
+						.setMaxValues(spirit.offer.size)
 						.setMinValues(0)
 						.setOptions(
-							Object.entries(spirit.items).map(([flag, item]) =>
+							spirit.offer.map(({ item }, flag) =>
 								new StringSelectMenuOptionBuilder()
-									.setDefault(Boolean(bit && bit & Number(flag)))
+									.setDefault(Boolean(bit && bit & flag))
 									.setLabel(item)
-									.setValue(flag),
+									.setValue(String(flag)),
 							),
 						)
 						.setPlaceholder("Select what you have!"),
@@ -1638,15 +1645,16 @@ export class SpiritTracker {
 				new EmbedBuilder()
 					.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
 					.setFields(
-						Object.entries(spirit.items).map(([flagBit, item]) => {
-							const _flagBit = Number(flagBit);
-
-							return {
-								name: item,
-								value: resolveEmoji(interaction, bit && (bit & _flagBit) === _flagBit ? Emoji.Yes : Emoji.No, true),
-								inline: true,
-							};
-						}),
+						spirit.offer.map(({ item, cost }, flag) => ({
+							name: item,
+							value:
+								bit && (bit & flag) === flag
+									? resolveEmoji(interaction, Emoji.Yes, true)
+									: Object.values(cost).every((amount) => amount === 0)
+									? resolveEmoji(interaction, Emoji.No, true)
+									: resolveOfferToCurrency(interaction, cost).join(""),
+							inline: true,
+						})),
 					)
 					.setImage(spirit.imageURL)
 					.setTitle(spirit.name)

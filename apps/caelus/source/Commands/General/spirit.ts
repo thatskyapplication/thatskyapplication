@@ -9,11 +9,9 @@ import {
 	time,
 	TimestampStyles,
 } from "discord.js";
-import type { SeasonalSpiritVisit } from "../../Structures/Spirits/Base.js";
+import { resolveOfferToCurrency, type SeasonalSpiritVisit } from "../../Structures/Spirits/Base.js";
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
 import Spirits from "../../Structures/Spirits/index.js";
-import { Emoji } from "../../Utility/Constants.js";
-import { resolveCurrencyEmoji } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export default class implements AutocompleteCommand {
@@ -86,23 +84,8 @@ export default class implements AutocompleteCommand {
 			}
 		}
 
-		if (spirit.offer && !Object.values(spirit.offer).every((amount) => amount === 0)) {
-			description.push(
-				`${
-					spirit.offer.candles === 0
-						? ""
-						: resolveCurrencyEmoji(interaction, { emoji: Emoji.Candle, number: spirit.offer.candles })
-				}${
-					spirit.offer.hearts === 0
-						? ""
-						: resolveCurrencyEmoji(interaction, { emoji: Emoji.Heart, number: spirit.offer.hearts })
-				}${
-					spirit.offer.ascendedCandles === 0
-						? ""
-						: resolveCurrencyEmoji(interaction, { emoji: Emoji.AscendedCandle, number: spirit.offer.ascendedCandles })
-				}`,
-			);
-		}
+		const totalOffer = resolveOfferToCurrency(interaction, spirit.totalCost).join("");
+		if (totalOffer.length > 1) description.push(totalOffer);
 
 		if (seasonalSpirit && spirit.marketingVideoURL) {
 			description.push(hyperlink("Promotional Video", spirit.marketingVideoURL));
