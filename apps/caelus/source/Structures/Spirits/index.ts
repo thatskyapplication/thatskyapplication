@@ -5,20 +5,6 @@ export default [
 	...Elder,
 	...Seasonal,
 	// new SeasonalSpirit({
-	// 	name: SpiritName.LeapingDancer,
-	// 	season: Season.Gratitude,
-	// 	expression: Expression.Leap,
-	// 	realm: Realm.ValleyOfTriumph,
-	// 	offer: { candles: 107, hearts: 13, ascendedCandles: 2 },
-	// 	keywords: ["fox", "fox mask"],
-	// 	visits: {
-	// 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
-	// 			.set(12, skyDate(2_020, 6, 25))
-	// 			.set(31, skyDate(2_021, 3, 18)),
-	// 		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-	// 	},
-	// }),
-	// new SeasonalSpirit({
 	// 	name: SpiritName.SalutingProtector,
 	// 	season: Season.Gratitude,
 	// 	expression: Expression.Dismiss,
