@@ -1551,8 +1551,4 @@ export class SpiritTracker {
 			],
 		};
 	}
-
-	private static transformNameToSnakeCase(name: SpiritName) {
-		return name.toLowerCase().replaceAll(" ", "_");
-	}
 }
