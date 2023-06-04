@@ -13,7 +13,7 @@ import {
 import pg, { Table } from "../../pg.js";
 import { SeasonFlagsToString, resolveSeasonsToEmoji } from "../Seasons.js";
 import type { BaseSpirit, SpiritName } from "./Base.js";
-import Rhythm from "./Rhythm/index.js";
+import Spirits from "./index.js";
 
 interface SpiritTrackerPacket {
 	user_id: Snowflake;
@@ -56,7 +56,7 @@ export class SpiritTracker {
 			.returning("*");
 
 		await interaction.update(
-			await SpiritTracker.responseData(interaction, bit, Rhythm.find(({ name }) => name === spiritName)!),
+			await SpiritTracker.responseData(interaction, bit, Spirits.find(({ name }) => name === spiritName)!),
 		);
 	}
 
@@ -102,7 +102,7 @@ export class SpiritTracker {
 						.setCustomId(SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
-						.setOptions(Rhythm.map(({ name }) => new StringSelectMenuOptionBuilder().setLabel(name).setValue(name)))
+						.setOptions(Spirits.map(({ name }) => new StringSelectMenuOptionBuilder().setLabel(name).setValue(name)))
 						.setPlaceholder("Select a spirit!"),
 				),
 
@@ -122,7 +122,7 @@ export class SpiritTracker {
 	public static async viewSpirit(interaction: StringSelectMenuInteraction) {
 		const spiritTracker = await this.fetch(interaction.user.id);
 		const [value] = interaction.values;
-		const spirit = Rhythm.find(({ name }) => name === value);
+		const spirit = Spirits.find(({ name }) => name === value);
 
 		if (!spirit) {
 			await interaction.update({
