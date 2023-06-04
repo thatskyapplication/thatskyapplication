@@ -125,6 +125,10 @@ export function resolveCurrencyEmoji(
 	return resolvedEmojiString;
 }
 
+export function isSeason(season: string): season is Season {
+	return Object.values(Season).includes(season as Season);
+}
+
 export function resolveSeasonsToEmoji(seasons: Season) {
 	switch (seasons) {
 		case Season.Gratitude:

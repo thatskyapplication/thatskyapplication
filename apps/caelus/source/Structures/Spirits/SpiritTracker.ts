@@ -11,10 +11,11 @@ import {
 	ButtonStyle,
 	type InteractionUpdateOptions,
 } from "discord.js";
-import { Emoji, Season } from "../../Utility/Constants.js";
-import { resolveEmoji, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
+import { Season, Emoji } from "../../Utility/Constants.js";
+import { isSeason, resolveEmoji, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
-import { type SeasonalSpirit, SpiritName } from "./Base.js";
+import { type BaseSpirit, type SpiritType, SpiritName, SPIRIT_TYPE, resolveSpiritTypeToString } from "./Base.js";
+import Seasonal from "./Seasonal/index.js";
 import Spirits from "./index.js";
 
 interface SpiritTrackerPacket {
@@ -274,8 +275,10 @@ interface SpiritTrackerData {
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
 
 export const SPIRIT_TRACKER_VIEW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID" as const;
 
@@ -1055,6 +1058,11 @@ export class SpiritTracker {
 	}
 
 	public static async viewTracker(interaction: ButtonInteraction | ChatInputCommandInteraction) {
+		// Ensure they have data.
+		if (!(await this.fetch(interaction.user.id).catch(() => null))) {
+			await pg<SpiritTrackerPacket>(Table.SpiritTracker).insert({ user_id: interaction.user.id }, "*");
+		}
+
 		const response = {
 			content: "",
 			components: [
@@ -1064,14 +1072,13 @@ export class SpiritTracker {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							Object.values(Season).map((season) =>
+							Object.values(SPIRIT_TYPE).map((spiritType) =>
 								new StringSelectMenuOptionBuilder()
-									.setEmoji(resolveSeasonsToEmoji(season))
-									.setLabel(season)
-									.setValue(season),
+									.setLabel(resolveSpiritTypeToString(spiritType))
+									.setValue(String(spiritType)),
 							),
 						)
-						.setPlaceholder("Select a season!"),
+						.setPlaceholder("What kind of spirit do you want to see?"),
 				),
 			],
 			ephemeral: true,
@@ -1084,22 +1091,77 @@ export class SpiritTracker {
 		}
 	}
 
-	public static async viewSeason(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		// Ensure they have data.
-		if (!(await this.fetch(interaction.user.id).catch(() => null))) {
-			await pg<SpiritTrackerPacket>(Table.SpiritTracker).insert({ user_id: interaction.user.id }, "*");
+	public static async parseSpiritType(interaction: StringSelectMenuInteraction) {
+		switch (Number(interaction.values[0]) as SpiritType) {
+			case SPIRIT_TYPE.Elder:
+				// Do something
+				return;
+			case SPIRIT_TYPE.Seasonal:
+				return this.viewSeasons(interaction);
+		}
+	}
+
+	public static async parseBack(interaction: ButtonInteraction) {
+		const { customId } = interaction;
+
+		if (customId === SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID) {
+			await this.viewTracker(interaction);
+			return;
 		}
 
-		let season: Season;
-
-		if (interaction instanceof ButtonInteraction) {
-			const { customId } = interaction;
-			season = customId.slice(customId.indexOf("-") + 1) as Season;
-		} else {
-			[season] = interaction.values as [Season];
+		if (customId === SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID) {
+			await this.viewSeasons(interaction);
+			return;
 		}
 
-		const options = Spirits.filter((spirit) => spirit.season.name === season).map(({ name }) =>
+		if (customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID)) {
+			const parsedCustomId = customId.slice(customId.indexOf("-") + 1);
+
+			if (parsedCustomId === SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID) {
+				// View elder
+				return;
+			}
+
+			if (isSeason(parsedCustomId)) {
+				await this.viewSeason(interaction, parsedCustomId);
+			}
+		}
+	}
+
+	public static async viewSeasons(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		const response = {
+			content: "",
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(0)
+						.setOptions(
+							Object.values(Season).map((season) =>
+								new StringSelectMenuOptionBuilder()
+									.setEmoji(resolveSeasonsToEmoji(season))
+									.setLabel(season)
+									.setValue(season),
+							),
+						)
+						.setPlaceholder("Select a season!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setStyle(ButtonStyle.Primary),
+				),
+			],
+			ephemeral: true,
+		};
+
+		await interaction.update(response);
+	}
+
+	public static async viewSeason(interaction: ButtonInteraction | StringSelectMenuInteraction, season: Season) {
+		const options = Seasonal.filter((spirit) => spirit.season.name === season).map(({ name }) =>
 			new StringSelectMenuOptionBuilder().setLabel(name).setValue(name),
 		);
 
@@ -1522,11 +1584,7 @@ export class SpiritTracker {
 		await interaction.update(await this.responseData(interaction, bit, spirit));
 	}
 
-	private static async responseData(
-		interaction: StringSelectMenuInteraction,
-		bit: number | null,
-		spirit: SeasonalSpirit,
-	) {
+	private static async responseData(interaction: StringSelectMenuInteraction, bit: number | null, spirit: BaseSpirit) {
 		return {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
@@ -1546,7 +1604,9 @@ export class SpiritTracker {
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
-						.setCustomId(`${SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID}-${spirit.season.name}`)
+						.setCustomId(
+							`${SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID}${spirit.isSeasonalSpirit() ? `-${spirit.season.name}` : ""}`,
+						)
 						.setEmoji("⏪")
 						.setStyle(ButtonStyle.Primary),
 				),

@@ -244,6 +244,15 @@ interface SpiritOffer {
 	ascendedCandles: number;
 }
 
+export const SPIRIT_TYPE = {
+	// No standard spirits exist yet.
+	// Standard: 0,
+	Elder: 1,
+	Seasonal: 2,
+} as const;
+
+export type SpiritType = (typeof SPIRIT_TYPE)[keyof typeof SPIRIT_TYPE];
+
 interface BaseSpiritDataBase {
 	name: SpiritName;
 	realm: Realm;
@@ -273,6 +282,17 @@ interface SeasonalSpiritData extends StandardSpiritData {
 
 interface SpiritSeason {
 	name: Season;
+}
+
+export function resolveSpiritTypeToString(spiritType: SpiritType) {
+	switch (spiritType) {
+		// case SPIRIT_TYPE.Standard:
+		// return "Standard Spirit";
+		case SPIRIT_TYPE.Elder:
+			return "Elder Spirit";
+		case SPIRIT_TYPE.Seasonal:
+			return "Seasonal Spirit";
+	}
 }
 
 export abstract class BaseSpirit {

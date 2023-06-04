@@ -1,6 +1,8 @@
-import Rhythm from "./Seasonal/Rhythm/index.js";
+import Elder from "./Elder/index.js";
+import Seasonal from "./Seasonal/index.js";
 
 export default [
+	...Elder,
 	// new ElderSpirit({
 	// 	name: SpiritName.ElderOfTheIsle,
 	// 	realm: Realm.IslesOfDawn,
@@ -31,6 +33,7 @@ export default [
 	// 	realm: Realm.VaultOfKnowledge,
 	// 	offer: { candles: 0, hearts: 0, ascendedCandles: 5 },
 	// }),
+	...Seasonal,
 	// new SeasonalSpirit({
 	// 	name: SpiritName.SassyDrifter,
 	// 	season: Season.Gratitude,
@@ -285,7 +288,6 @@ export default [
 	// 		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 	// 	},
 	// }),
-	...Rhythm,
 	// new SeasonalSpirit({
 	// 	name: SpiritName.NoddingMuralist,
 	// 	season: Season.Enchantment,
