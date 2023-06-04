@@ -286,19 +286,6 @@ export default [
 	// 	},
 	// }),
 	// new SeasonalSpirit({
-	// 	name: SpiritName.FestivalSpinDancer,
-	// 	season: Season.Rhythm,
-	// 	expression: Expression.Dance,
-	// 	realm: Realm.DaylightPrairie,
-	// 	offer: { candles: 157, hearts: 19, ascendedCandles: 2 },
-	// 	visits: {
-	// 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
-	// 			.set(17, skyDate(2_020, 9, 3))
-	// 			.set(46, skyDate(2_021, 10, 14)),
-	// 		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-	// 	},
-	// }),
-	// new SeasonalSpirit({
 	// 	name: SpiritName.AdmiringActor,
 	// 	season: Season.Rhythm,
 	// 	expression: Expression.BlowKiss,
