@@ -287,19 +287,6 @@ export default [
 	// }),
 	...Rhythm,
 	// new SeasonalSpirit({
-	// 	name: SpiritName.ThoughtfulDirector,
-	// 	season: Season.Rhythm,
-	// 	expression: Expression.Thinking,
-	// 	realm: Realm.VaultOfKnowledge,
-	// 	offer: { candles: 195, hearts: 13, ascendedCandles: 2 },
-	// 	visits: {
-	// 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
-	// 			.set(35, skyDate(2_021, 5, 13))
-	// 			.set(67, skyDate(2_022, 8, 4)),
-	// 		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-	// 	},
-	// }),
-	// new SeasonalSpirit({
 	// 	name: SpiritName.NoddingMuralist,
 	// 	season: Season.Enchantment,
 	// 	expression: Expression.Nod,
