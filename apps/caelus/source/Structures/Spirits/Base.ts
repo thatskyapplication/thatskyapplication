@@ -257,7 +257,7 @@ interface SpiritCost {
 
 export interface ItemsData {
 	item: string;
-	cost: SpiritCost;
+	cost: SpiritCost | null;
 }
 
 interface BaseSpiritDataBase {
@@ -341,36 +341,36 @@ export abstract class BaseSpirit {
 		this.realm = spirit.realm;
 		this.offer = spirit.offer;
 
-		this.totalCost = this.offer?.reduce?.<BaseSpirit["totalCost"]>(
-			(offer, { cost: { candles, hearts, ascendedCandles } }) => {
-				if (candles) {
-					if (offer.candles) {
-						offer.candles += candles;
-					} else {
-						offer.candles = candles;
-					}
-				}
+		this.totalCost = this.offer?.reduce?.<BaseSpirit["totalCost"]>((offer, { cost }) => {
+			if (!cost) return offer;
+			const { candles, hearts, ascendedCandles } = cost;
 
-				if (hearts) {
-					if (offer.hearts) {
-						offer.hearts += hearts;
-					} else {
-						offer.hearts = hearts;
-					}
+			if (candles) {
+				if (offer.candles) {
+					offer.candles += candles;
+				} else {
+					offer.candles = candles;
 				}
+			}
 
-				if (ascendedCandles) {
-					if (offer.ascendedCandles) {
-						offer.ascendedCandles += ascendedCandles;
-					} else {
-						offer.ascendedCandles = ascendedCandles;
-					}
+			if (hearts) {
+				if (offer.hearts) {
+					offer.hearts += hearts;
+				} else {
+					offer.hearts = hearts;
 				}
+			}
 
-				return offer;
-			},
-			{},
-		);
+			if (ascendedCandles) {
+				if (offer.ascendedCandles) {
+					offer.ascendedCandles += ascendedCandles;
+				} else {
+					offer.ascendedCandles = ascendedCandles;
+				}
+			}
+
+			return offer;
+		}, {});
 
 		this.maxItemsBit = this.offer?.reduce?.((bits, _, bit) => bit | bits, 0);
 		this.keywords = spirit.keywords ?? [];

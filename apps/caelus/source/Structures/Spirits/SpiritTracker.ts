@@ -1650,9 +1650,8 @@ export class SpiritTracker {
 							value:
 								bit && (bit & flag) === flag
 									? resolveEmoji(interaction, Emoji.Yes, true)
-									: Object.values(cost).every((amount) => amount === 0)
-									? resolveEmoji(interaction, Emoji.No, true)
-									: resolveOfferToCurrency(interaction, cost).join(""),
+									: resolveOfferToCurrency(interaction, cost ?? {}).join("") ||
+									  resolveEmoji(interaction, Emoji.No, true),
 							inline: true,
 						})),
 					)
