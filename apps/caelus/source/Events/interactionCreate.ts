@@ -29,6 +29,7 @@ import commands, {
 } from "../Commands/index.js";
 import Profile from "../Structures/Profile.js";
 import {
+	SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID,
 	SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID,
 	SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID,
 	SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID,
@@ -222,7 +223,8 @@ export const event: Event<typeof name> = {
 					customId === SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID ||
 					customId === SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID ||
 					customId === SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID ||
-					customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID)
+					customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID) || 
+					customId === SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID
 				) {
 					await SpiritTracker.parseBack(interaction);
 					return;

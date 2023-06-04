@@ -293,6 +293,12 @@ export const SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SEASONS_BAC
 export const SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
+
+const backToStartButtonBuilder = new ButtonBuilder()
+	.setCustomId(SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID)
+	.setEmoji("⏮️")
+	.setStyle(ButtonStyle.Primary);
 
 export class SpiritTracker {
 	public readonly userId: SpiritTrackerData["userId"];
@@ -1093,6 +1099,7 @@ export class SpiritTracker {
 						.setPlaceholder("What kind of spirit do you want to see?"),
 				),
 			],
+			embeds: [],
 			ephemeral: true,
 		};
 
@@ -1134,7 +1141,10 @@ export class SpiritTracker {
 		if (customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID)) {
 			const parsedCustomId = customId.slice(customId.indexOf("-") + 1);
 			if (isSeason(parsedCustomId)) await this.viewSeason(interaction, parsedCustomId);
+			return;
 		}
+
+		if (customId === SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID) await this.viewTracker(interaction);
 	}
 
 	public static async viewElders(interaction: ButtonInteraction | StringSelectMenuInteraction) {
@@ -1206,6 +1216,7 @@ export class SpiritTracker {
 						.setPlaceholder("Select a spirit!"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButtonBuilder,
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID)
 						.setEmoji("⏪")
@@ -1653,6 +1664,7 @@ export class SpiritTracker {
 						.setPlaceholder("Select what you have!"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButtonBuilder,
 					new ButtonBuilder()
 						.setCustomId(
 							spirit.isSeasonalSpirit()
