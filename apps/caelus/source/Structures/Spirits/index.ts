@@ -5,21 +5,6 @@ export default [
 	...Elder,
 	...Seasonal,
 	// new SeasonalSpirit({
-	// 	name: SpiritName.PiggybackLightseeker,
-	// 	season: Season.Lightseekers,
-	// 	expression: Expression.Carry,
-	// 	realm: Realm.IslesOfDawn,
-	// 	hasMarketingVideo: true,
-	// 	offer: { candles: 123, hearts: 8, ascendedCandles: 2 },
-	// 	visits: {
-	// 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
-	// 			.set(7, skyDate(2_020, 4, 16))
-	// 			.set(30, skyDate(2_021, 3, 4))
-	// 			.set(80, skyDate(2_023, 2, 2)),
-	// 		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-	// 	},
-	// }),
-	// new SeasonalSpirit({
 	// 	name: SpiritName.DoublefiveLightCatcher,
 	// 	season: Season.Lightseekers,
 	// 	expression: Expression.DoubleFive,
