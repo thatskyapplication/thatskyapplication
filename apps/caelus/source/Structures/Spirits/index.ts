@@ -12,49 +12,52 @@ import {
 } from "discord.js";
 import pg, { Table } from "../../pg.js";
 import { SeasonFlagsToString, resolveSeasonsToEmoji } from "../Seasons.js";
-import type { SpiritName } from "./Base.js";
+import type { BaseSpirit, SpiritName } from "./Base.js";
 import Rhythm from "./Rhythm/index.js";
 
 interface SpiritTrackerPacket {
 	user_id: Snowflake;
-	troupe_greeter: number | null;
-	respectful_pianist: number | null;
 }
 
 interface SpiritTrackerData {
 	userId: SpiritTrackerPacket["user_id"];
-	troupeGreeter: SpiritTrackerPacket["troupe_greeter"];
-	respectfulPianist: SpiritTrackerPacket["respectful_pianist"];
 }
 
-type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
-
 export const SPIRIT_TRACKER_VIEW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_CUSTOM_ID" as const;
-export const SPIRIT_VIEW_SEASON_CUSTOM_ID = "SPIRIT_VIEW_SEASON_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID" as const;
 
 export class SpiritTracker {
 	public userId: SpiritTrackerData["userId"];
 
-	public troupeGreeter!: SpiritTrackerData["troupeGreeter"];
-
-	public respectfulPianist!: SpiritTrackerData["respectfulPianist"];
-
 	public constructor(profile: SpiritTrackerPacket) {
 		this.userId = profile.user_id;
-		this.patch(profile);
-	}
-
-	private patch(data: SpiritTrackerPatchData) {
-		this.troupeGreeter = data.troupe_greeter;
-		this.respectfulPianist = data.respectful_pianist;
 	}
 
 	public static async fetch(userId: Snowflake) {
 		const [spiritTrackerPacket] = await pg<SpiritTrackerPacket>(Table.SpiritTracker).where("user_id", userId);
 		if (!spiritTrackerPacket) throw new Error("No spirit tracker data found.");
-		return new this(spiritTrackerPacket);
+		return spiritTrackerPacket;
+	}
+
+	public static async set(interaction: StringSelectMenuInteraction) {
+		const { customId, values } = interaction;
+		const spiritName = customId.slice(customId.indexOf("-") + 1) as SpiritName;
+		const bit = values.reduce((bit, value) => bit | Number(value), 0);
+
+		await pg<SpiritTrackerPacket>(Table.SpiritTracker)
+			.update({
+				[SpiritTracker.transformNameToSnakeCase(customId.slice(customId.indexOf("-") + 1) as SpiritName)]:
+					interaction.values.reduce((bit, value) => bit | Number(value), 0),
+			})
+			.where("user_id", interaction.user.id)
+			.returning("*");
+
+		await interaction.update(
+			await SpiritTracker.responseData(interaction, bit, Rhythm.find(({ name }) => name === spiritName)!),
+		);
 	}
 
 	public static async viewTracker(interaction: ButtonInteraction | ChatInputCommandInteraction) {
@@ -96,7 +99,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_VIEW_SEASON_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(Rhythm.map(({ name }) => new StringSelectMenuOptionBuilder().setLabel(name).setValue(name)))
@@ -131,28 +134,28 @@ export class SpiritTracker {
 		}
 
 		// @ts-expect-error This is correctly transformed.
-		const spiritData = spiritTracker[this.transformNameToCamelCase(spirit.name)] as number | null;
+		const bit = spiritTracker[this.transformNameToSnakeCase(spirit.name)] as number | null;
+		await interaction.update(await this.responseData(interaction, bit, spirit));
+	}
 
-		const embed = new EmbedBuilder()
-			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
-			.setFields(
-				{
-					name: "Obtained",
-					value: spiritData ? spirit.resolveBitsToOffer(spiritData).join("\n") : "Nothing",
-					inline: true,
-				},
-				{
-					name: "Missing",
-					value: spiritData ? spirit.resolveBitsToOffer(~spiritData & spirit.maxItemBit).join("\n") : "Everything",
-					inline: true,
-				},
-			)
-			.setImage(spirit.imageURL)
-			.setTitle(spirit.name)
-			.setURL(spirit.wikiURL);
-
-		await interaction.update({
+	private static async responseData(interaction: StringSelectMenuInteraction, bit: number | null, spirit: BaseSpirit) {
+		return {
 			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(`${SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID}-${spirit.name}`)
+						.setMaxValues(Object.values(spirit.flagsToItems).length)
+						.setMinValues(0)
+						.setOptions(
+							Object.entries(spirit.flagsToItems).map(([flag, item]) =>
+								new StringSelectMenuOptionBuilder()
+									.setDefault(Boolean(bit && bit & Number(flag)))
+									.setLabel(item)
+									.setValue(flag),
+							),
+						)
+						.setPlaceholder("Select what you have!"),
+				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID)
@@ -160,12 +163,34 @@ export class SpiritTracker {
 						.setStyle(ButtonStyle.Primary),
 				),
 			],
-			embeds: [embed],
-		});
+			embeds: [
+				new EmbedBuilder()
+					.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
+					.setFields(
+						{
+							name: "Obtained",
+							value: bit
+								? spirit.maxItemBit === bit
+									? "Everything!"
+									: spirit.resolveBitsToOffer(bit).join("\n")
+								: "Nothing!",
+							inline: true,
+						},
+						{
+							name: "Missing",
+							value: bit ? spirit.resolveBitsToOffer(~bit & spirit.maxItemBit).join("\n") || "Nothing!" : "Everything!",
+							inline: true,
+						},
+					)
+					.setImage(spirit.imageURL)
+					.setTitle(spirit.name)
+					.setURL(spirit.wikiURL),
+			],
+		};
 	}
 
-	private static transformNameToCamelCase(name: SpiritName) {
-		return (name[0]!.toLowerCase() + name.slice(1)).replaceAll(" ", "");
+	private static transformNameToSnakeCase(name: SpiritName) {
+		return name.toLowerCase().replaceAll(" ", "_");
 	}
 }
 

@@ -275,7 +275,7 @@ interface SpiritSeason {
 	name: Season;
 }
 
-abstract class BaseSpirit {
+export abstract class BaseSpirit {
 	public readonly name: BaseSpiritDataBase["name"];
 
 	public readonly realm: BaseSpiritDataBase["realm"];

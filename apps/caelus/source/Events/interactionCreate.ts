@@ -32,7 +32,8 @@ import {
 	SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID,
 	SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_CUSTOM_ID,
-	SPIRIT_VIEW_SEASON_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID,
 	SpiritTracker,
 } from "../Structures/Spirits/index.js";
 import { User } from "../Utility/Constants.js";
@@ -257,8 +258,13 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (customId === SPIRIT_VIEW_SEASON_CUSTOM_ID) {
+				if (customId === SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID) {
 					await SpiritTracker.viewSpirit(interaction);
+					return;
+				}
+
+				if (customId.startsWith(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)) {
+					await SpiritTracker.set(interaction);
 					return;
 				}
 
