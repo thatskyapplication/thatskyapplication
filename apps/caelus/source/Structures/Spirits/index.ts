@@ -285,17 +285,6 @@ export default [
 	// 		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 	// 	},
 	// }),
-	// new SeasonalSpirit({
-	// 	name: SpiritName.TroupeJuggler,
-	// 	season: Season.Rhythm,
-	// 	expression: Expression.Juggle,
-	// 	realm: Realm.ValleyOfTriumph,
-	// 	offer: { candles: 205, hearts: 27, ascendedCandles: 2 },
-	// 	visits: {
-	// 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(44, skyDate(2_021, 9, 16)),
-	// 		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-	// 	},
-	// }),
 	...Rhythm,
 	// new SeasonalSpirit({
 	// 	name: SpiritName.ThoughtfulDirector,
