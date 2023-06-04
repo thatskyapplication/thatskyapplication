@@ -6,5 +6,5 @@ export default new ElderSpirit({
 	name: SpiritName.ElderOfTheWasteland,
 	realm: Realm.GoldenWasteland,
 	offer: { candles: 0, hearts: 0, ascendedCandles: 6 },
-	itemsData: [[1 << 0, "Hair", "Hair"]],
+	items: { [1 << 0]: "Hair" },
 });

@@ -13,19 +13,19 @@ export default new SeasonalSpirit({
 	expression,
 	realm: Realm.IslesOfDawn,
 	offer: { candles: 146, hearts: 13, ascendedCandles: 12 },
-	itemsData: [
-		[1 << 0, "Expression1", `${expression} 1`],
-		[1 << 1, "Expression2", `${expression} 2`],
-		[1 << 2, "Blessing1", "Blessing 1"],
-		[1 << 3, "MusicSheet", "Music sheet"],
-		[1 << 4, "Heart", "Heart"],
-		[1 << 5, "WingBuff", "Wing buff"],
-		[1 << 6, "Expression3", `${expression} 3`],
-		[1 << 7, "Expression4", `${expression} 4`],
-		[1 << 8, "Blessing2", "Blessing 2"],
-		[1 << 9, "Outfit", "Outfit"],
-		[1 << 10, "Mask", "Mask"],
-	],
+	items: {
+		[1 << 0]: `${expression} 1`,
+		[1 << 1]: `${expression} 2`,
+		[1 << 2]: "Blessing 1",
+		[1 << 3]: "Music sheet",
+		[1 << 4]: "Heart",
+		[1 << 5]: "Wing buff",
+		[1 << 6]: `${expression} 3`,
+		[1 << 7]: `${expression} 4`,
+		[1 << 8]: "Blessing 2",
+		[1 << 9]: "Outfit",
+		[1 << 10]: "Mask",
+	},
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 			.set(25, skyDate(2_020, 12, 24))

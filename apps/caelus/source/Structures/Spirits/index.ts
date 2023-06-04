@@ -5,52 +5,6 @@ export default [
 	...Elder,
 	...Seasonal,
 	// new SeasonalSpirit({
-	// 	name: SpiritName.SassyDrifter,
-	// 	season: Season.Gratitude,
-	// 	stance: Stance.Sassy,
-	// 	realm: Realm.IslesOfDawn,
-	// 	offer: { candles: 87, hearts: 0, ascendedCandles: 2 },
-	// 	hasMarketingVideo: true,
-	// 	visits: {
-	// 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
-	// 			.set(1, skyDate(2_020, 1, 31))
-	// 			.set(10, skyDate(2_020, 5, 28))
-	// 			.set(39, skyDate(2_021, 7, 8))
-	// 			.set(76, skyDate(2_022, 12, 8)),
-	// 		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-	// 	},
-	// 	keywords: ["weasel", "weasel mask"],
-	// }),
-	// new SeasonalSpirit({
-	// 	name: SpiritName.StretchingGuru,
-	// 	season: Season.Gratitude,
-	// 	expression: Expression.Yoga,
-	// 	realm: Realm.DaylightPrairie,
-	// 	offer: { candles: 104, hearts: 13, ascendedCandles: 2 },
-	// 	visits: {
-	// 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
-	// 			.set(8, skyDate(2_020, 4, 30))
-	// 			.set(57, skyDate(2_022, 3, 17)),
-	// 		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-	// 	},
-	// }),
-	// new SeasonalSpirit({
-	// 	name: SpiritName.ProvokingPerformer,
-	// 	season: Season.Gratitude,
-	// 	expression: Expression.Karate,
-	// 	realm: Realm.HiddenForest,
-	// 	hasMarketingVideo: true,
-	// 	offer: { candles: 104, hearts: 13, ascendedCandles: 2 },
-	// 	visits: {
-	// 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
-	// 			.set(4, skyDate(2_020, 3, 12))
-	// 			.set(19, skyDate(2_020, 10, 1))
-	// 			.set(84, skyDate(2_023, 3, 30))
-	// 			.set("Error", skyDate(2_023, 4, 13)),
-	// 		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-	// 	},
-	// }),
-	// new SeasonalSpirit({
 	// 	name: SpiritName.LeapingDancer,
 	// 	season: Season.Gratitude,
 	// 	expression: Expression.Leap,
