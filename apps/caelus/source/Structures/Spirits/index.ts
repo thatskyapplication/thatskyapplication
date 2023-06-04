@@ -1,4 +1,4 @@
-import Rhythm from "./Rhythm/index.js";
+import Rhythm from "./Seasonal/Rhythm/index.js";
 
 export default [
 	// new ElderSpirit({
