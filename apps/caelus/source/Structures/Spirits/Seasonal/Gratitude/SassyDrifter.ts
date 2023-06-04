@@ -3,7 +3,13 @@ import type { Dayjs } from "dayjs";
 import { Collection } from "discord.js";
 import { Realm, Season } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/Utility.js";
-import { type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, SpiritName, Stance } from "../../Base.js";
+import {
+	type SeasonalSpiritVisitCollectionKey,
+	SeasonalSpirit,
+	SpiritName,
+	Stance,
+	type ItemsData,
+} from "../../Base.js";
 
 const stance = Stance.Sassy;
 
@@ -13,16 +19,14 @@ export default new SeasonalSpirit({
 	stance,
 	realm: Realm.IslesOfDawn,
 	hasMarketingVideo: true,
-	offer: { candles: 87, hearts: 0, ascendedCandles: 2 },
-	items: {
-		[1 << 0]: `${stance} stance`,
-		[1 << 1]: "Blessing 1",
-		[1 << 2]: "Hair",
-		[1 << 3]: "Heart",
-		[1 << 4]: "Wing buff",
-		[1 << 5]: "Blessing 2",
-		[1 << 6]: "Weasel mask",
-	},
+	offer: new Collection<number, ItemsData>()
+		.set(1 << 0, { item: `${stance} stance`, cost: null })
+		.set(1 << 1, { item: "Blessing 1", cost: { candles: 5 } })
+		.set(1 << 2, { item: "Hair", cost: { candles: 26 } })
+		.set(1 << 3, { item: "Heart", cost: { candles: 3 } })
+		.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
+		.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 } })
+		.set(1 << 6, { item: "Weasel mask", cost: { candles: 48 } }),
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 			.set(1, skyDate(2_020, 1, 31))
