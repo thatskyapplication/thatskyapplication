@@ -35,7 +35,7 @@ import {
 	SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID,
 	SpiritTracker,
-} from "../Structures/Spirits/index.js";
+} from "../Structures/Spirits/SpiritTracker.js";
 import { User } from "../Utility/Constants.js";
 import { chatInputApplicationCommandMention, consoleLog, guildLink } from "../Utility/Utility.js";
 import { LogType } from "../index.js";
