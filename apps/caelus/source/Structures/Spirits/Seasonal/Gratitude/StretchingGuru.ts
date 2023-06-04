@@ -12,7 +12,6 @@ export default new SeasonalSpirit({
 	season: Season.Gratitude,
 	expression,
 	realm: Realm.DaylightPrairie,
-	hasMarketingVideo: true,
 	offer: { candles: 104, hearts: 13, ascendedCandles: 2 },
 	items: {
 		[1 << 0]: `${expression} 1`,
