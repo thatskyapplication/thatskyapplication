@@ -9,12 +9,12 @@ import {
 	EmbedBuilder,
 	ButtonBuilder,
 	ButtonStyle,
+	type InteractionUpdateOptions,
 } from "discord.js";
-import { Emoji } from "../../Utility/Constants.js";
-import { resolveEmoji } from "../../Utility/Utility.js";
+import { Emoji, Season } from "../../Utility/Constants.js";
+import { resolveEmoji, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
-import { SeasonFlagsToString, resolveSeasonsToEmoji } from "../Seasons.js";
-import { type BaseSpirit, SpiritName } from "./Base.js";
+import { type SeasonalSpirit, SpiritName } from "./Base.js";
 import Spirits from "./index.js";
 
 interface SpiritTrackerPacket {
@@ -1056,6 +1056,7 @@ export class SpiritTracker {
 
 	public static async viewTracker(interaction: ButtonInteraction | ChatInputCommandInteraction) {
 		const response = {
+			content: "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1063,11 +1064,11 @@ export class SpiritTracker {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							Object.entries(SeasonFlagsToString).map(([flag, season]) =>
+							Object.values(Season).map((season) =>
 								new StringSelectMenuOptionBuilder()
 									.setEmoji(resolveSeasonsToEmoji(season))
 									.setLabel(season)
-									.setValue(flag),
+									.setValue(season),
 							),
 						)
 						.setPlaceholder("Select a season!"),
@@ -1089,17 +1090,30 @@ export class SpiritTracker {
 			await pg<SpiritTrackerPacket>(Table.SpiritTracker).insert({ user_id: interaction.user.id }, "*");
 		}
 
+		let season: Season;
+
+		if (interaction instanceof ButtonInteraction) {
+			const { customId } = interaction;
+			season = customId.slice(customId.indexOf("-") + 1) as Season;
+		} else {
+			[season] = interaction.values as [Season];
+		}
+
+		const options = Spirits.filter((spirit) => spirit.season.name === season).map(({ name }) =>
+			new StringSelectMenuOptionBuilder().setLabel(name).setValue(name),
+		);
+
 		const response = {
+			content: "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
 						.setCustomId(SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
-						.setOptions(Spirits.map(({ name }) => new StringSelectMenuOptionBuilder().setLabel(name).setValue(name)))
+						.setOptions(options)
 						.setPlaceholder("Select a spirit!"),
 				),
-
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID)
@@ -1108,7 +1122,12 @@ export class SpiritTracker {
 				),
 			],
 			embeds: [],
-		};
+		} satisfies InteractionUpdateOptions;
+
+		if (options.length === 0) {
+			response.components.shift();
+			response.content = "There are no spirits.";
+		}
 
 		await interaction.update(response);
 	}
@@ -1503,7 +1522,11 @@ export class SpiritTracker {
 		await interaction.update(await this.responseData(interaction, bit, spirit));
 	}
 
-	private static async responseData(interaction: StringSelectMenuInteraction, bit: number | null, spirit: BaseSpirit) {
+	private static async responseData(
+		interaction: StringSelectMenuInteraction,
+		bit: number | null,
+		spirit: SeasonalSpirit,
+	) {
 		return {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
@@ -1523,7 +1546,7 @@ export class SpiritTracker {
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID)
+						.setCustomId(`${SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID}-${spirit.season.name}`)
 						.setEmoji("⏪")
 						.setStyle(ButtonStyle.Primary),
 				),

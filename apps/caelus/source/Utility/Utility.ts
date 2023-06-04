@@ -19,6 +19,7 @@ import {
 	initialTreasureCandleRealmSeek,
 	Map,
 	Realm,
+	Season,
 	VALID_REALM,
 } from "./Constants.js";
 
@@ -122,6 +123,45 @@ export function resolveCurrencyEmoji(
 	resolvedEmojiString += resolveEmojiToNonCustomEmoji(emoji);
 	if (plural) resolvedEmojiString += "s";
 	return resolvedEmojiString;
+}
+
+export function resolveSeasonsToEmoji(seasons: Season) {
+	switch (seasons) {
+		case Season.Gratitude:
+			return Emoji.Gratitude;
+		case Season.Lightseekers:
+			return Emoji.Lightseekers;
+		case Season.Belonging:
+			return Emoji.Belonging;
+		case Season.Rhythm:
+			return Emoji.Rhythm;
+		case Season.Enchantment:
+			return Emoji.Enchantment;
+		case Season.Sanctuary:
+			return Emoji.Sanctuary;
+		case Season.Prophecy:
+			return Emoji.Prophecy;
+		case Season.Dreams:
+			return Emoji.Dreams;
+		case Season.Assembly:
+			return Emoji.Assembly;
+		case Season.LittlePrince:
+			return Emoji.LittlePrince;
+		case Season.Flight:
+			return Emoji.Flight;
+		case Season.Abyss:
+			return Emoji.Abyss;
+		case Season.Performance:
+			return Emoji.Performance;
+		case Season.Shattering:
+			return Emoji.Shattering;
+		case Season.Aurora:
+			return Emoji.Aurora;
+		case Season.Remembrance:
+			return Emoji.Remembrance;
+		case Season.Passage:
+			return Emoji.Passage;
+	}
 }
 
 export function isRealm(realm: string): realm is Realm {

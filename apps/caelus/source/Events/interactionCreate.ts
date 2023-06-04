@@ -217,7 +217,7 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (customId === SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID) {
+				if (customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_CUSTOM_ID)) {
 					await SpiritTracker.viewSeason(interaction);
 					return;
 				}
