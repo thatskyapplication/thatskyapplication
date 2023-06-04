@@ -12,7 +12,7 @@ import {
 } from "discord.js";
 import pg, { Table } from "../../pg.js";
 import { SeasonFlagsToString, resolveSeasonsToEmoji } from "../Seasons.js";
-import type { BaseSpirit, SpiritName } from "./Base.js";
+import { type BaseSpirit, SpiritName } from "./Base.js";
 import Spirits from "./index.js";
 
 interface SpiritTrackerPacket {
@@ -660,7 +660,7 @@ export class SpiritTracker {
 	public static async fetch(userId: Snowflake) {
 		const [spiritTrackerPacket] = await pg<SpiritTrackerPacket>(Table.SpiritTracker).where("user_id", userId);
 		if (!spiritTrackerPacket) throw new Error("No spirit tracker data found.");
-		return spiritTrackerPacket;
+		return new this(spiritTrackerPacket);
 	}
 
 	public static async set(interaction: StringSelectMenuInteraction) {
@@ -668,11 +668,382 @@ export class SpiritTracker {
 		const spiritName = customId.slice(customId.indexOf("-") + 1) as SpiritName;
 		const bit = values.reduce((bit, value) => bit | Number(value), 0);
 
+		let spirit;
+
+		switch (spiritName) {
+			case SpiritName.PointingCandlemaker:
+				spirit = "pointing_candlemaker";
+				break;
+			case SpiritName.UsheringStargazer:
+				spirit = "ushering_stargazer";
+				break;
+			case SpiritName.RejectingVoyager:
+				spirit = "rejecting_voyager";
+				break;
+			case SpiritName.ElderOfTheIsle:
+				spirit = "elder_of_the_isle";
+				break;
+			case SpiritName.ButterflyCharmer:
+				spirit = "butterfly_charmer";
+				break;
+			case SpiritName.ApplaudingBellmaker:
+				spirit = "applauding_bellmaker";
+				break;
+			case SpiritName.WavingBellmaker:
+				spirit = "waving_bellmaker";
+				break;
+			case SpiritName.SlumberingShipwright:
+				spirit = "slumbering_shipwright";
+				break;
+			case SpiritName.LaughingLightCatcher:
+				spirit = "laughing_light_catcher";
+				break;
+			case SpiritName.BirdWhisperer:
+				spirit = "bird_whisperer";
+				break;
+			case SpiritName.ExhaustedDockWorker:
+				spirit = "exhausted_dock_worker";
+				break;
+			case SpiritName.CeremonialWorshipper:
+				spirit = "ceremonial_worshipper";
+				break;
+			case SpiritName.ElderOfThePrairie:
+				spirit = "elder_of_the_prairie";
+				break;
+			case SpiritName.ShiveringTrailblazer:
+				spirit = "shivering_trailblazer";
+				break;
+			case SpiritName.BlushingProspector:
+				spirit = "blushing_prospector";
+				break;
+			case SpiritName.HideNSeekPioneer:
+				spirit = "hide'n'seek_pioneer";
+				break;
+			case SpiritName.PoutyPorter:
+				spirit = "pouty_porter";
+				break;
+			case SpiritName.DismayedHunter:
+				spirit = "dismayed_hunter";
+				break;
+			case SpiritName.ApologeticLumberjack:
+				spirit = "apologetic_lumberjack";
+				break;
+			case SpiritName.TearfulLightMiner:
+				spirit = "tearful_light_miner";
+				break;
+			case SpiritName.WhaleWhisperer:
+				spirit = "whale_whisperer";
+				break;
+			case SpiritName.ElderOfTheForest:
+				spirit = "elder_of_the_forest";
+				break;
+			case SpiritName.ConfidentSightseer:
+				spirit = "confident_sightseer";
+				break;
+			case SpiritName.HandstandingThrillseeker:
+				spirit = "handstanding_thrillseeker";
+				break;
+			case SpiritName.MantaWhisperer:
+				spirit = "manta_whisperer";
+				break;
+			case SpiritName.BackflippingChampion:
+				spirit = "backflipping_champion";
+				break;
+			case SpiritName.CheerfulSpectator:
+				spirit = "cheerful_spectator";
+				break;
+			case SpiritName.BowingMedalist:
+				spirit = "bowing_medalist";
+				break;
+			case SpiritName.ProudVictor:
+				spirit = "proud_victor";
+				break;
+			case SpiritName.ElderOfTheValley:
+				spirit = "elder_of_the_valley";
+				break;
+			case SpiritName.FrightenedRefugee:
+				spirit = "frightened_refugee";
+				break;
+			case SpiritName.FaintingWarrior:
+				spirit = "fainting_warrior";
+				break;
+			case SpiritName.CourageousSoldier:
+				spirit = "courageous_soldier";
+				break;
+			case SpiritName.StealthySurvivor:
+				spirit = "stealthy_survivor";
+				break;
+			case SpiritName.SalutingCaptain:
+				spirit = "saluting_captain";
+				break;
+			case SpiritName.LookoutScout:
+				spirit = "lookout_scout";
+				break;
+			case SpiritName.ElderOfTheWasteland:
+				spirit = "elder_of_the_wasteland";
+				break;
+			case SpiritName.PrayingAcolyte:
+				spirit = "praying_acolyte";
+				break;
+			case SpiritName.LevitatingAdept:
+				spirit = "levitating_adept";
+				break;
+			case SpiritName.PoliteScholar:
+				spirit = "polite_scholar";
+				break;
+			case SpiritName.MemoryWhisperer:
+				spirit = "memory_whisperer";
+				break;
+			case SpiritName.MeditatingMonastic:
+				spirit = "meditating_monastic";
+				break;
+			case SpiritName.ElderOfTheVault:
+				spirit = "elder_of_the_vault";
+				break;
+			case SpiritName.SassyDrifter:
+				spirit = "sassy_drifter";
+				break;
+			case SpiritName.StretchingGuru:
+				spirit = "stretching_guru";
+				break;
+			case SpiritName.ProvokingPerformer:
+				spirit = "provoking_performer";
+				break;
+			case SpiritName.LeapingDancer:
+				spirit = "leaping_dancer";
+				break;
+			case SpiritName.SalutingProtector:
+				spirit = "saluting_protector";
+				break;
+			case SpiritName.GreetingShaman:
+				spirit = "greeting_shaman";
+				break;
+			case SpiritName.PiggybackLightseeker:
+				spirit = "piggyback_lightseeker";
+				break;
+			case SpiritName.DoublefiveLightCatcher:
+				spirit = "doublefive_light_catcher";
+				break;
+			case SpiritName.LaidbackPioneer:
+				spirit = "laidback_pioneer";
+				break;
+			case SpiritName.TwirlingChampion:
+				spirit = "twirling_champion";
+				break;
+			case SpiritName.CrabWhisperer:
+				spirit = "crab_whisperer";
+				break;
+			case SpiritName.ShushingLightScholar:
+				spirit = "shushing_light_scholar";
+				break;
+			case SpiritName.BoogieKid:
+				spirit = "boogie_kid";
+				break;
+			case SpiritName.ConfettiCousin:
+				spirit = "confetti_cousin";
+				break;
+			case SpiritName.HairtousleTeen:
+				spirit = "hairtousle_teen";
+				break;
+			case SpiritName.SparklerParent:
+				spirit = "sparkler_parent";
+				break;
+			case SpiritName.PleafulParent:
+				spirit = "pleaful_parent";
+				break;
+			case SpiritName.WiseGrandparent:
+				spirit = "wise_grandparent";
+				break;
+			case SpiritName.TroupeGreeter:
+				spirit = "troupe_greeter";
+				break;
+			case SpiritName.FestivalSpinDancer:
+				spirit = "festival_spin_dancer";
+				break;
+			case SpiritName.AdmiringActor:
+				spirit = "admiring_actor";
+				break;
+			case SpiritName.TroupeJuggler:
+				spirit = "troupe_juggler";
+				break;
+			case SpiritName.RespectfulPianist:
+				spirit = "respectful_pianist";
+				break;
+			case SpiritName.ThoughtfulDirector:
+				spirit = "thoughtful_director";
+				break;
+			case SpiritName.NoddingMuralist:
+				spirit = "nodding_muralist";
+				break;
+			case SpiritName.IndifferentAlchemist:
+				spirit = "indifferent_alchemist";
+				break;
+			case SpiritName.CrabWalker:
+				spirit = "crab_walker";
+				break;
+			case SpiritName.ScarecrowFarmer:
+				spirit = "scarecrow_farmer";
+				break;
+			case SpiritName.SnoozingCarpenter:
+				spirit = "snoozing_carpenter";
+				break;
+			case SpiritName.PlayfightingHerbalist:
+				spirit = "playfighting_herbalist";
+				break;
+			case SpiritName.JellyWhisperer:
+				spirit = "jelly_whisperer";
+				break;
+			case SpiritName.TimidBookworm:
+				spirit = "timid_bookworm";
+				break;
+			case SpiritName.RallyingThrillseeker:
+				spirit = "rallying_thrillseeker";
+				break;
+			case SpiritName.HikingGrouch:
+				spirit = "hiking_grouch";
+				break;
+			case SpiritName.GratefulShellCollector:
+				spirit = "grateful_shell_collector";
+				break;
+			case SpiritName.ChillSunbather:
+				spirit = "chill_sunbather";
+				break;
+			case SpiritName.ProphetOfWater:
+				spirit = "prophet_of_water";
+				break;
+			case SpiritName.ProphetOfEarth:
+				spirit = "prophet_of_earth";
+				break;
+			case SpiritName.ProphetOfAir:
+				spirit = "prophet_of_air";
+				break;
+			case SpiritName.ProphetOfFire:
+				spirit = "prophet_of_fire";
+				break;
+			case SpiritName.SpinningMentor:
+				spirit = "spinning_mentor";
+				break;
+			case SpiritName.DancingPerformer:
+				spirit = "dancing_performer";
+				break;
+			case SpiritName.PeekingPostman:
+				spirit = "peeking_postman";
+				break;
+			case SpiritName.BearhugHermit:
+				spirit = "bearhug_hermit";
+				break;
+			case SpiritName.BaffledBotanist:
+				spirit = "baffled_botanist";
+				break;
+			case SpiritName.ScoldingStudent:
+				spirit = "scolding_student";
+				break;
+			case SpiritName.ScaredyCadet:
+				spirit = "scaredy_cadet";
+				break;
+			case SpiritName.MarchingAdventurer:
+				spirit = "marching_adventurer";
+				break;
+			case SpiritName.ChucklingScout:
+				spirit = "chuckling_scout";
+				break;
+			case SpiritName.DaydreamForester:
+				spirit = "daydream_forester";
+				break;
+			case SpiritName.BeckoningRuler:
+				spirit = "beckoning_ruler";
+				break;
+			case SpiritName.GloatingNarcissist:
+				spirit = "gloating_narcissist";
+				break;
+			case SpiritName.StretchingLamplighter:
+				spirit = "stretching_lamplighter";
+				break;
+			case SpiritName.SlouchingSoldier:
+				spirit = "slouching_soldier";
+				break;
+			case SpiritName.SneezingGeographer:
+				spirit = "sneezing_geographer";
+				break;
+			case SpiritName.StarCollector:
+				spirit = "star_collector";
+				break;
+			case SpiritName.LivelyNavigator:
+				spirit = "lively_navigator";
+				break;
+			case SpiritName.LightWhisperer:
+				spirit = "light_whisperer";
+				break;
+			case SpiritName.TinkeringChimesmith:
+				spirit = "tinkering_chimesmith";
+				break;
+			case SpiritName.TalentedBuilder:
+				spirit = "talented_builder";
+				break;
+			case SpiritName.AnxiousAngler:
+				spirit = "anxious_angler";
+				break;
+			case SpiritName.CeasingCommodore:
+				spirit = "ceasing_commodore";
+				break;
+			case SpiritName.BumblingBoatswain:
+				spirit = "bumbling_boatswain";
+				break;
+			case SpiritName.CacklingCannoneer:
+				spirit = "cackling_cannoneer";
+				break;
+			case SpiritName.FranticStagehand:
+				spirit = "frantic_stagehand";
+				break;
+			case SpiritName.ForgetfulStoryteller:
+				spirit = "forgetful_storyteller";
+				break;
+			case SpiritName.MellowMusician:
+				spirit = "mellow_musician";
+				break;
+			case SpiritName.ModestDancer:
+				spirit = "modest_dancer";
+				break;
+			case SpiritName.RunningWayfarer:
+				spirit = "running_wayfarer";
+				break;
+			case SpiritName.MindfulMiner:
+				spirit = "mindful_miner";
+				break;
+			case SpiritName.WarriorOfLove:
+				spirit = "warrior_of_love";
+				break;
+			case SpiritName.SeedOfHope:
+				spirit = "seed_of_hope";
+				break;
+			case SpiritName.BereftVeteran:
+				spirit = "bereft_veteran";
+				break;
+			case SpiritName.PleadingChild:
+				spirit = "pleading_child";
+				break;
+			case SpiritName.TiptoeingTeaBrewer:
+				spirit = "tiptoeing_tea-brewer";
+				break;
+			case SpiritName.WoundedWarrior:
+				spirit = "wounded_warrior";
+				break;
+			case SpiritName.OddballOutcast:
+				spirit = "oddball_outcast";
+				break;
+			case SpiritName.TumblingTroublemaker:
+				spirit = "tumbling_troublemaker";
+				break;
+			case SpiritName.MelancholyMope:
+				spirit = "melancholy_mope";
+				break;
+			case SpiritName.OveractiveOverachiever:
+				spirit = "overactive_overachiever";
+				break;
+		}
+
 		await pg<SpiritTrackerPacket>(Table.SpiritTracker)
-			.update({
-				[SpiritTracker.transformNameToSnakeCase(customId.slice(customId.indexOf("-") + 1) as SpiritName)]:
-					interaction.values.reduce((bit, value) => bit | Number(value), 0),
-			})
+			.update({ [spirit]: interaction.values.reduce((bit, value) => bit | Number(value), 0) })
 			.where("user_id", interaction.user.id)
 			.returning("*");
 
@@ -742,8 +1113,7 @@ export class SpiritTracker {
 
 	public static async viewSpirit(interaction: StringSelectMenuInteraction) {
 		const spiritTracker = await this.fetch(interaction.user.id);
-		const [value] = interaction.values;
-		const spirit = Spirits.find(({ name }) => name === value);
+		const spirit = Spirits.find(({ name }) => name === interaction.values[0]);
 
 		if (!spirit) {
 			await interaction.update({
@@ -754,8 +1124,380 @@ export class SpiritTracker {
 			return;
 		}
 
-		// @ts-expect-error This is correctly transformed.
-		const bit = spiritTracker[this.transformNameToSnakeCase(spirit.name)] as number | null;
+		let bit;
+
+		switch (spirit.name) {
+			case SpiritName.PointingCandlemaker:
+				bit = spiritTracker.pointingCandlemaker;
+				break;
+			case SpiritName.UsheringStargazer:
+				bit = spiritTracker.usheringStargazer;
+				break;
+			case SpiritName.RejectingVoyager:
+				bit = spiritTracker.rejectingVoyager;
+				break;
+			case SpiritName.ElderOfTheIsle:
+				bit = spiritTracker.elderOfTheIsle;
+				break;
+			case SpiritName.ButterflyCharmer:
+				bit = spiritTracker.butterflyCharmer;
+				break;
+			case SpiritName.ApplaudingBellmaker:
+				bit = spiritTracker.applaudingBellmaker;
+				break;
+			case SpiritName.WavingBellmaker:
+				bit = spiritTracker.wavingBellmaker;
+				break;
+			case SpiritName.SlumberingShipwright:
+				bit = spiritTracker.slumberingShipwright;
+				break;
+			case SpiritName.LaughingLightCatcher:
+				bit = spiritTracker.laughingLightCatcher;
+				break;
+			case SpiritName.BirdWhisperer:
+				bit = spiritTracker.birdWhisperer;
+				break;
+			case SpiritName.ExhaustedDockWorker:
+				bit = spiritTracker.exhaustedDockWorker;
+				break;
+			case SpiritName.CeremonialWorshipper:
+				bit = spiritTracker.ceremonialWorshipper;
+				break;
+			case SpiritName.ElderOfThePrairie:
+				bit = spiritTracker.elderOfThePrairie;
+				break;
+			case SpiritName.ShiveringTrailblazer:
+				bit = spiritTracker.shiveringTrailblazer;
+				break;
+			case SpiritName.BlushingProspector:
+				bit = spiritTracker.blushingProspector;
+				break;
+			case SpiritName.HideNSeekPioneer:
+				bit = spiritTracker.hideNSeekPioneer;
+				break;
+			case SpiritName.PoutyPorter:
+				bit = spiritTracker.poutyPorter;
+				break;
+			case SpiritName.DismayedHunter:
+				bit = spiritTracker.dismayedHunter;
+				break;
+			case SpiritName.ApologeticLumberjack:
+				bit = spiritTracker.apologeticLumberjack;
+				break;
+			case SpiritName.TearfulLightMiner:
+				bit = spiritTracker.tearfulLightMiner;
+				break;
+			case SpiritName.WhaleWhisperer:
+				bit = spiritTracker.whaleWhisperer;
+				break;
+			case SpiritName.ElderOfTheForest:
+				bit = spiritTracker.elderOfTheForest;
+				break;
+			case SpiritName.ConfidentSightseer:
+				bit = spiritTracker.confidentSightseer;
+				break;
+			case SpiritName.HandstandingThrillseeker:
+				bit = spiritTracker.handstandingThrillseeker;
+				break;
+			case SpiritName.MantaWhisperer:
+				bit = spiritTracker.mantaWhisperer;
+				break;
+			case SpiritName.BackflippingChampion:
+				bit = spiritTracker.backflippingChampion;
+				break;
+			case SpiritName.CheerfulSpectator:
+				bit = spiritTracker.cheerfulSpectator;
+				break;
+			case SpiritName.BowingMedalist:
+				bit = spiritTracker.bowingMedalist;
+				break;
+			case SpiritName.ProudVictor:
+				bit = spiritTracker.proudVictor;
+				break;
+			case SpiritName.ElderOfTheValley:
+				bit = spiritTracker.elderOfTheValley;
+				break;
+			case SpiritName.FrightenedRefugee:
+				bit = spiritTracker.frightenedRefugee;
+				break;
+			case SpiritName.FaintingWarrior:
+				bit = spiritTracker.faintingWarrior;
+				break;
+			case SpiritName.CourageousSoldier:
+				bit = spiritTracker.courageousSoldier;
+				break;
+			case SpiritName.StealthySurvivor:
+				bit = spiritTracker.stealthySurvivor;
+				break;
+			case SpiritName.SalutingCaptain:
+				bit = spiritTracker.salutingCaptain;
+				break;
+			case SpiritName.LookoutScout:
+				bit = spiritTracker.lookoutScout;
+				break;
+			case SpiritName.ElderOfTheWasteland:
+				bit = spiritTracker.elderOfTheWasteland;
+				break;
+			case SpiritName.PrayingAcolyte:
+				bit = spiritTracker.prayingAcolyte;
+				break;
+			case SpiritName.LevitatingAdept:
+				bit = spiritTracker.levitatingAdept;
+				break;
+			case SpiritName.PoliteScholar:
+				bit = spiritTracker.politeScholar;
+				break;
+			case SpiritName.MemoryWhisperer:
+				bit = spiritTracker.memoryWhisperer;
+				break;
+			case SpiritName.MeditatingMonastic:
+				bit = spiritTracker.meditatingMonastic;
+				break;
+			case SpiritName.ElderOfTheVault:
+				bit = spiritTracker.elderOfTheVault;
+				break;
+			case SpiritName.SassyDrifter:
+				bit = spiritTracker.sassyDrifter;
+				break;
+			case SpiritName.StretchingGuru:
+				bit = spiritTracker.stretchingGuru;
+				break;
+			case SpiritName.ProvokingPerformer:
+				bit = spiritTracker.provokingPerformer;
+				break;
+			case SpiritName.LeapingDancer:
+				bit = spiritTracker.leapingDancer;
+				break;
+			case SpiritName.SalutingProtector:
+				bit = spiritTracker.salutingProtector;
+				break;
+			case SpiritName.GreetingShaman:
+				bit = spiritTracker.greetingShaman;
+				break;
+			case SpiritName.PiggybackLightseeker:
+				bit = spiritTracker.piggybackLightseeker;
+				break;
+			case SpiritName.DoublefiveLightCatcher:
+				bit = spiritTracker.doublefiveLightCatcher;
+				break;
+			case SpiritName.LaidbackPioneer:
+				bit = spiritTracker.laidbackPioneer;
+				break;
+			case SpiritName.TwirlingChampion:
+				bit = spiritTracker.twirlingChampion;
+				break;
+			case SpiritName.CrabWhisperer:
+				bit = spiritTracker.crabWhisperer;
+				break;
+			case SpiritName.ShushingLightScholar:
+				bit = spiritTracker.shushingLightScholar;
+				break;
+			case SpiritName.BoogieKid:
+				bit = spiritTracker.boogieKid;
+				break;
+			case SpiritName.ConfettiCousin:
+				bit = spiritTracker.confettiCousin;
+				break;
+			case SpiritName.HairtousleTeen:
+				bit = spiritTracker.hairtousleTeen;
+				break;
+			case SpiritName.SparklerParent:
+				bit = spiritTracker.sparklerParent;
+				break;
+			case SpiritName.PleafulParent:
+				bit = spiritTracker.pleafulParent;
+				break;
+			case SpiritName.WiseGrandparent:
+				bit = spiritTracker.wiseGrandparent;
+				break;
+			case SpiritName.TroupeGreeter:
+				bit = spiritTracker.troupeGreeter;
+				break;
+			case SpiritName.FestivalSpinDancer:
+				bit = spiritTracker.festivalSpinDancer;
+				break;
+			case SpiritName.AdmiringActor:
+				bit = spiritTracker.admiringActor;
+				break;
+			case SpiritName.TroupeJuggler:
+				bit = spiritTracker.troupeJuggler;
+				break;
+			case SpiritName.RespectfulPianist:
+				bit = spiritTracker.respectfulPianist;
+				break;
+			case SpiritName.ThoughtfulDirector:
+				bit = spiritTracker.thoughtfulDirector;
+				break;
+			case SpiritName.NoddingMuralist:
+				bit = spiritTracker.noddingMuralist;
+				break;
+			case SpiritName.IndifferentAlchemist:
+				bit = spiritTracker.indifferentAlchemist;
+				break;
+			case SpiritName.CrabWalker:
+				bit = spiritTracker.crabWalker;
+				break;
+			case SpiritName.ScarecrowFarmer:
+				bit = spiritTracker.scarecrowFarmer;
+				break;
+			case SpiritName.SnoozingCarpenter:
+				bit = spiritTracker.snoozingCarpenter;
+				break;
+			case SpiritName.PlayfightingHerbalist:
+				bit = spiritTracker.playfightingHerbalist;
+				break;
+			case SpiritName.JellyWhisperer:
+				bit = spiritTracker.jellyWhisperer;
+				break;
+			case SpiritName.TimidBookworm:
+				bit = spiritTracker.timidBookworm;
+				break;
+			case SpiritName.RallyingThrillseeker:
+				bit = spiritTracker.rallyingThrillseeker;
+				break;
+			case SpiritName.HikingGrouch:
+				bit = spiritTracker.hikingGrouch;
+				break;
+			case SpiritName.GratefulShellCollector:
+				bit = spiritTracker.gratefulShellCollector;
+				break;
+			case SpiritName.ChillSunbather:
+				bit = spiritTracker.chillSunbather;
+				break;
+			case SpiritName.ProphetOfWater:
+				bit = spiritTracker.prophetOfWater;
+				break;
+			case SpiritName.ProphetOfEarth:
+				bit = spiritTracker.prophetOfEarth;
+				break;
+			case SpiritName.ProphetOfAir:
+				bit = spiritTracker.prophetOfAir;
+				break;
+			case SpiritName.ProphetOfFire:
+				bit = spiritTracker.prophetOfFire;
+				break;
+			case SpiritName.SpinningMentor:
+				bit = spiritTracker.spinningMentor;
+				break;
+			case SpiritName.DancingPerformer:
+				bit = spiritTracker.dancingPerformer;
+				break;
+			case SpiritName.PeekingPostman:
+				bit = spiritTracker.peekingPostman;
+				break;
+			case SpiritName.BearhugHermit:
+				bit = spiritTracker.bearhugHermit;
+				break;
+			case SpiritName.BaffledBotanist:
+				bit = spiritTracker.baffledBotanist;
+				break;
+			case SpiritName.ScoldingStudent:
+				bit = spiritTracker.scoldingStudent;
+				break;
+			case SpiritName.ScaredyCadet:
+				bit = spiritTracker.scaredyCadet;
+				break;
+			case SpiritName.MarchingAdventurer:
+				bit = spiritTracker.marchingAdventurer;
+				break;
+			case SpiritName.ChucklingScout:
+				bit = spiritTracker.chucklingScout;
+				break;
+			case SpiritName.DaydreamForester:
+				bit = spiritTracker.daydreamForester;
+				break;
+			case SpiritName.BeckoningRuler:
+				bit = spiritTracker.beckoningRuler;
+				break;
+			case SpiritName.GloatingNarcissist:
+				bit = spiritTracker.gloatingNarcissist;
+				break;
+			case SpiritName.StretchingLamplighter:
+				bit = spiritTracker.stretchingLamplighter;
+				break;
+			case SpiritName.SlouchingSoldier:
+				bit = spiritTracker.slouchingSoldier;
+				break;
+			case SpiritName.SneezingGeographer:
+				bit = spiritTracker.sneezingGeographer;
+				break;
+			case SpiritName.StarCollector:
+				bit = spiritTracker.starCollector;
+				break;
+			case SpiritName.LivelyNavigator:
+				bit = spiritTracker.livelyNavigator;
+				break;
+			case SpiritName.LightWhisperer:
+				bit = spiritTracker.lightWhisperer;
+				break;
+			case SpiritName.TinkeringChimesmith:
+				bit = spiritTracker.tinkeringChimesmith;
+				break;
+			case SpiritName.TalentedBuilder:
+				bit = spiritTracker.talentedBuilder;
+				break;
+			case SpiritName.AnxiousAngler:
+				bit = spiritTracker.anxiousAngler;
+				break;
+			case SpiritName.CeasingCommodore:
+				bit = spiritTracker.ceasingCommodore;
+				break;
+			case SpiritName.BumblingBoatswain:
+				bit = spiritTracker.bumblingBoatswain;
+				break;
+			case SpiritName.CacklingCannoneer:
+				bit = spiritTracker.cacklingCannoneer;
+				break;
+			case SpiritName.FranticStagehand:
+				bit = spiritTracker.franticStagehand;
+				break;
+			case SpiritName.ForgetfulStoryteller:
+				bit = spiritTracker.forgetfulStoryteller;
+				break;
+			case SpiritName.MellowMusician:
+				bit = spiritTracker.mellowMusician;
+				break;
+			case SpiritName.ModestDancer:
+				bit = spiritTracker.modestDancer;
+				break;
+			case SpiritName.RunningWayfarer:
+				bit = spiritTracker.runningWayfarer;
+				break;
+			case SpiritName.MindfulMiner:
+				bit = spiritTracker.mindfulMiner;
+				break;
+			case SpiritName.WarriorOfLove:
+				bit = spiritTracker.warriorOfLove;
+				break;
+			case SpiritName.SeedOfHope:
+				bit = spiritTracker.seedOfHope;
+				break;
+			case SpiritName.BereftVeteran:
+				bit = spiritTracker.bereftVeteran;
+				break;
+			case SpiritName.PleadingChild:
+				bit = spiritTracker.pleadingChild;
+				break;
+			case SpiritName.TiptoeingTeaBrewer:
+				bit = spiritTracker.tiptoeingTeaBrewer;
+				break;
+			case SpiritName.WoundedWarrior:
+				bit = spiritTracker.woundedWarrior;
+				break;
+			case SpiritName.OddballOutcast:
+				bit = spiritTracker.oddballOutcast;
+				break;
+			case SpiritName.TumblingTroublemaker:
+				bit = spiritTracker.tumblingTroublemaker;
+				break;
+			case SpiritName.MelancholyMope:
+				bit = spiritTracker.melancholyMope;
+				break;
+			case SpiritName.OveractiveOverachiever:
+				bit = spiritTracker.overactiveOverachiever;
+				break;
+		}
+
 		await interaction.update(await this.responseData(interaction, bit, spirit));
 	}
 
