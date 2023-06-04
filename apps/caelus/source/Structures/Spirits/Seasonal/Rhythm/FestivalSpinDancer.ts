@@ -24,8 +24,8 @@ export default new SeasonalSpirit({
 		[1 << 7]: `${expression} 4`,
 		[1 << 8]: "Blessing 2",
 		[1 << 9]: "Hair",
-		[1 << 10]: "Outfit",
-		[1 << 11]: "Prop",
+		[1 << 10]: "Prop",
+		[1 << 11]: "Outfit",
 	},
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
