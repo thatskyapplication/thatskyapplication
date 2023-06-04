@@ -5,15 +5,17 @@ import { Realm, Season } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/Utility.js";
 import { type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, SpiritName, Stance } from "../../Base.js";
 
+const stance = Stance.Sassy;
+
 export default new SeasonalSpirit({
 	name: SpiritName.SassyDrifter,
 	season: Season.Gratitude,
-	stance: Stance.Sassy,
+	stance,
 	realm: Realm.IslesOfDawn,
 	hasMarketingVideo: true,
 	offer: { candles: 87, hearts: 0, ascendedCandles: 2 },
 	items: {
-		[1 << 0]: "Sassy stance",
+		[1 << 0]: `${stance} stance`,
 		[1 << 1]: "Blessing 1",
 		[1 << 2]: "Hair",
 		[1 << 3]: "Heart",
