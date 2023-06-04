@@ -23,7 +23,7 @@ export default new SeasonalSpirit({
 		[1 << 6]: `${expression} 3`,
 		[1 << 7]: `${expression} 4`,
 		[1 << 8]: "Blessing 2",
-		[1 << 9]: "Mask",
+		[1 << 9]: "Fox mask",
 	},
 	keywords: ["fox", "fox mask"],
 	visits: {
