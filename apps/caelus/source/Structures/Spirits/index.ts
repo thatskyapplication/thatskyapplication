@@ -286,19 +286,6 @@ export default [
 	// 	},
 	// }),
 	// new SeasonalSpirit({
-	// 	name: SpiritName.AdmiringActor,
-	// 	season: Season.Rhythm,
-	// 	expression: Expression.BlowKiss,
-	// 	realm: Realm.HiddenForest,
-	// 	offer: { candles: 135, hearts: 13, ascendedCandles: 2 },
-	// 	visits: {
-	// 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
-	// 			.set(20, skyDate(2_020, 10, 15))
-	// 			.set(38, skyDate(2_021, 6, 24)),
-	// 		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-	// 	},
-	// }),
-	// new SeasonalSpirit({
 	// 	name: SpiritName.TroupeJuggler,
 	// 	season: Season.Rhythm,
 	// 	expression: Expression.Juggle,
