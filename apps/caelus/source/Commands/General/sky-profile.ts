@@ -16,10 +16,10 @@ import {
 } from "discord.js";
 import { PlatformFlagsToString, resolvePlatformToEmoji } from "../../Structures/Platforms.js";
 import Profile from "../../Structures/Profile.js";
-import { SeasonFlagsToString, resolveSeasonsToEmoji } from "../../Structures/Seasons.js";
+import { SeasonFlagsToString } from "../../Structures/Seasons.js";
 import Spirits from "../../Structures/Spirits/index.js";
 import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
-import { canUseCustomEmoji } from "../../Utility/Utility.js";
+import { canUseCustomEmoji, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 import commands from "../index.js";
 
