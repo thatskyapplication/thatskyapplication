@@ -5,19 +5,6 @@ export default [
 	...Elder,
 	...Seasonal,
 	// new SeasonalSpirit({
-	// 	name: SpiritName.GreetingShaman,
-	// 	season: Season.Gratitude,
-	// 	expression: Expression.Greeting,
-	// 	realm: Realm.VaultOfKnowledge,
-	// 	offer: { candles: 112, hearts: 13, ascendedCandles: 2 },
-	// 	visits: {
-	// 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
-	// 			.set(14, skyDate(2_020, 7, 23))
-	// 			.set(62, skyDate(2_022, 5, 26)),
-	// 		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-	// 	},
-	// }),
-	// new SeasonalSpirit({
 	// 	name: SpiritName.PiggybackLightseeker,
 	// 	season: Season.Lightseekers,
 	// 	expression: Expression.Carry,
