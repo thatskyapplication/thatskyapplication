@@ -5,30 +5,6 @@ export default [
 	...Elder,
 	...Seasonal,
 	/*
-	new SeasonalSpirit({
-		name: SpiritName.FranticStagehand,
-		season: Season.Performance,
-		expression: Expression.Handshake,
-		realm: Realm.ValleyOfTriumph,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.ForgetfulStoryteller,
-		season: Season.Performance,
-		expression: Expression.Awww,
-		realm: Realm.ValleyOfTriumph,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.MellowMusician,
-		season: Season.Performance,
-		expression: Expression.Headbob,
-		realm: Realm.ValleyOfTriumph,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.ModestDancer,
-		season: Season.Performance,
-		expression: Expression.DuetDance,
-		realm: Realm.ValleyOfTriumph,
-	}),
 	// Season of Shattering - not sure how to add this.
 	new SeasonalSpirit({
 		name: SpiritName.RunningWayfarer,

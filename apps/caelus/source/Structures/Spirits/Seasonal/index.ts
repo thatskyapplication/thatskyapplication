@@ -7,6 +7,7 @@ import Flight from "./Flight/index.js";
 import Gratitude from "./Gratitude/index.js";
 import Lightseekers from "./Lightseekers/index.js";
 import LittlePrince from "./LittlePrince/index.js";
+import Performance from "./Performance/index.js";
 import Prophecy from "./Prophecy/index.js";
 import Rhythm from "./Rhythm/index.js";
 import Sanctuary from "./Sanctuary/index.js";
@@ -24,4 +25,5 @@ export default [
 	...LittlePrince,
 	...Flight,
 	...Abyss,
+	...Performance,
 ] as const;
