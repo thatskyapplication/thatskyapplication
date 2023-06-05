@@ -1211,8 +1211,7 @@ export class SpiritTracker {
 	private static seasonProgress(spiritTracker: SpiritTracker, season: Season) {
 		return this.averageProgress(
 			Seasonal.filter((spirit) => spirit.season.name === season).map(({ name, maxItemsBit }) =>
-				// TODO: Remove truthy check once finished.
-				maxItemsBit ? this.spiritProgression(spiritTracker.resolveNameToBit(name), maxItemsBit) : 0,
+				this.spiritProgression(spiritTracker.resolveNameToBit(name), maxItemsBit),
 			),
 		);
 	}
@@ -1253,10 +1252,7 @@ export class SpiritTracker {
 
 		const options = Seasonal.filter((spirit) => spirit.season.name === season).map(({ name, maxItemsBit }) =>
 			new StringSelectMenuOptionBuilder()
-				.setLabel(
-					// TODO: Remove truthy check once finished.
-					`${name} (${maxItemsBit ? this.spiritProgression(spiritTracker.resolveNameToBit(name), maxItemsBit) : 0}%)`,
-				)
+				.setLabel(`${name} (${this.spiritProgression(spiritTracker.resolveNameToBit(name), maxItemsBit)}%)`)
 				.setValue(name),
 		);
 

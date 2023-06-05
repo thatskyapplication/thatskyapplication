@@ -341,7 +341,7 @@ export abstract class BaseSpirit {
 		this.realm = spirit.realm;
 		this.offer = spirit.offer;
 
-		this.totalCost = this.offer?.reduce?.<BaseSpirit["totalCost"]>((offer, { cost }) => {
+		this.totalCost = this.offer.reduce<BaseSpirit["totalCost"]>((offer, { cost }) => {
 			if (!cost) return offer;
 			const { candles, hearts, ascendedCandles } = cost;
 
@@ -372,7 +372,7 @@ export abstract class BaseSpirit {
 			return offer;
 		}, {});
 
-		this.maxItemsBit = this.offer?.reduce?.((bits, _, bit) => bit | bits, 0);
+		this.maxItemsBit = this.offer.reduce((bits, _, bit) => bit | bits, 0);
 		this.keywords = spirit.keywords ?? [];
 		this.imageURL = String(new URL(`spirits/${this.cdnName}/friendship_tree.webp`, CDN_URL));
 		this.wikiURL = new URL(spirit.name.replaceAll(" ", "_"), WIKI_URL).toString();
