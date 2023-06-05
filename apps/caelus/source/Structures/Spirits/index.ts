@@ -6,36 +6,6 @@ export default [
 	...Seasonal,
 	/*
 	new SeasonalSpirit({
-		name: SpiritName.LivelyNavigator,
-		season: Season.Flight,
-		expression: Expression.Navigate,
-		realm: Realm.HiddenForest,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.LightWhisperer,
-		season: Season.Flight,
-		call: Call.BabyManta,
-		realm: Realm.HiddenForest,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.TinkeringChimesmith,
-		season: Season.Flight,
-		stance: Stance.Tinker,
-		realm: Realm.HiddenForest,
-		hasMarketingVideo: true,
-		offer: { candles: 238, hearts: 0, ascendedCandles: 2 },
-		visits: {
-			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(87, skyDate(2_023, 5, 11)),
-			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-		},
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.TalentedBuilder,
-		season: Season.Flight,
-		expression: Expression.Voilà,
-		realm: Realm.HiddenForest,
-	}),
-	new SeasonalSpirit({
 		name: SpiritName.AnxiousAngler,
 		season: Season.Abyss,
 		expression: Expression.Anxious,
