@@ -3,7 +3,13 @@ import type { Dayjs } from "dayjs";
 import { Collection } from "discord.js";
 import { Realm, Season } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/Utility.js";
-import { type SeasonalSpiritVisitCollectionKey, Expression, SeasonalSpirit, SpiritName } from "../../Base.js";
+import {
+	type ItemsData,
+	type SeasonalSpiritVisitCollectionKey,
+	Expression,
+	SeasonalSpirit,
+	SpiritName,
+} from "../../Base.js";
 
 const expression = Expression.Dance;
 
@@ -12,21 +18,19 @@ export default new SeasonalSpirit({
 	season: Season.Rhythm,
 	expression,
 	realm: Realm.DaylightPrairie,
-	offer: { candles: 157, hearts: 19, ascendedCandles: 2 },
-	items: {
-		[1 << 0]: `${expression} 1`,
-		[1 << 1]: `${expression} 2`,
-		[1 << 2]: "Blessing 1",
-		[1 << 3]: "Music sheet",
-		[1 << 4]: "Heart",
-		[1 << 5]: "Wing buff",
-		[1 << 6]: `${expression} 3`,
-		[1 << 7]: `${expression} 4`,
-		[1 << 8]: "Blessing 2",
-		[1 << 9]: "Hair",
-		[1 << 10]: "Prop",
-		[1 << 11]: "Outfit",
-	},
+	offer: new Collection<number, ItemsData>()
+		.set(1 << 0, { item: `${expression} 1`, cost: null })
+		.set(1 << 1, { item: `${expression} 2`, cost: { hearts: 4 } })
+		.set(1 << 2, { item: "Blessing 1", cost: { candles: 5 } })
+		.set(1 << 3, { item: "Music sheet", cost: { candles: 15 } })
+		.set(1 << 4, { item: "Heart", cost: { candles: 3 } })
+		.set(1 << 5, { item: "Wing buff", cost: { ascendedCandles: 2 } })
+		.set(1 << 6, { item: `${expression} 3`, cost: { hearts: 5 } })
+		.set(1 << 7, { item: `${expression} 4`, cost: { hearts: 10 } })
+		.set(1 << 8, { item: "Blessing 2", cost: { candles: 5 } })
+		.set(1 << 9, { item: "Hair", cost: { candles: 34 } })
+		.set(1 << 10, { item: "Prop", cost: { candles: 30 } })
+		.set(1 << 11, { item: "Outfit", cost: { candles: 65 } }),
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 			.set(17, skyDate(2_020, 9, 3))
