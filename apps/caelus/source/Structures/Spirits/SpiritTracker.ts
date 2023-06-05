@@ -1148,6 +1148,8 @@ export class SpiritTracker {
 	}
 
 	public static async viewElders(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		const spiritTracker = await this.fetch(interaction.user.id);
+
 		await interaction.update({
 			content: "",
 			components: [
@@ -1156,7 +1158,13 @@ export class SpiritTracker {
 						.setCustomId(SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
-						.setOptions(Elder.map(({ name }) => new StringSelectMenuOptionBuilder().setLabel(name).setValue(name)))
+						.setOptions(
+							Elder.map(({ name, maxItemsBit }) =>
+								new StringSelectMenuOptionBuilder()
+									.setLabel(`${name} (${this.spiritProgression(spiritTracker.resolveNameToBit(name), maxItemsBit)}%)`)
+									.setValue(name),
+							),
+						)
 						.setPlaceholder("Select an elder!"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
