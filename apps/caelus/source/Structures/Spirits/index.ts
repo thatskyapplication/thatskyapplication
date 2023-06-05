@@ -6,61 +6,6 @@ export default [
 	...Seasonal,
 	/*
 	new SeasonalSpirit({
-		name: SpiritName.BeckoningRuler,
-		season: Season.LittlePrince,
-		expression: Expression.Beckon,
-		realm: Realm.VaultOfKnowledge,
-		keywords: ["frog", "frog mask"],
-		hasMarketingVideo: true,
-		offer: { candles: 103, hearts: 13, ascendedCandles: 2 },
-		visits: {
-			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(71, skyDate(2_022, 9, 29)),
-			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-		},
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.GloatingNarcissist,
-		season: Season.LittlePrince,
-		expression: Expression.Gloat,
-		realm: Realm.VaultOfKnowledge,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.StretchingLamplighter,
-		season: Season.LittlePrince,
-		expression: Expression.Stretch,
-		realm: Realm.VaultOfKnowledge,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.SlouchingSoldier,
-		season: Season.LittlePrince,
-		expression: Expression.Slouch,
-		realm: Realm.VaultOfKnowledge,
-		hasMarketingVideo: true,
-		offer: { candles: 140, hearts: 13, ascendedCandles: 2 },
-		visits: {
-			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(81, skyDate(2_023, 2, 16)),
-			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-		},
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.SneezingGeographer,
-		season: Season.LittlePrince,
-		expression: Expression.Sneeze,
-		realm: Realm.VaultOfKnowledge,
-		hasMarketingVideo: true,
-		offer: { candles: 123, hearts: 13, ascendedCandles: 2 },
-		visits: {
-			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(85, skyDate(2_023, 4, 13)),
-			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-		},
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.StarCollector,
-		season: Season.LittlePrince,
-		expression: Expression.HandRub,
-		realm: Realm.VaultOfKnowledge,
-	}),
-	new SeasonalSpirit({
 		name: SpiritName.LivelyNavigator,
 		season: Season.Flight,
 		expression: Expression.Navigate,
