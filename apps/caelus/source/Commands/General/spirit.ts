@@ -12,6 +12,7 @@ import {
 import { resolveOfferToCurrency, type SeasonalSpiritVisit } from "../../Structures/Spirits/Base.js";
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
 import Spirits from "../../Structures/Spirits/index.js";
+import { canUseCustomEmoji } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export default class implements AutocompleteCommand {
@@ -51,6 +52,15 @@ export default class implements AutocompleteCommand {
 		if (!spirit) {
 			await interaction.reply({
 				content: "Woah, it seems we have not encountered that spirit yet. How strange!",
+				ephemeral: true,
+			});
+
+			return;
+		}
+
+		if (spirit.totalCost.seasonalCandles && !canUseCustomEmoji(interaction)) {
+			await interaction.reply({
+				content: "Missing the `Use External Emojis` permission.",
 				ephemeral: true,
 			});
 
