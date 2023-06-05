@@ -1075,11 +1075,29 @@ export class SpiritTracker {
 		);
 	}
 
+	private static averageProgress(progresses: number[]) {
+		return progresses.length === 0
+			? 100
+			: Math.round(progresses.reduce((number, progression) => number + progression, 0) / progresses.length);
+	}
+
 	public static async viewTracker(interaction: ButtonInteraction | ChatInputCommandInteraction) {
-		// Ensure they have data.
-		if (!(await this.fetch(interaction.user.id).catch(() => null))) {
-			await pg<SpiritTrackerPacket>(Table.SpiritTracker).insert({ user_id: interaction.user.id }, "*");
+		let spiritTracker = await this.fetch(interaction.user.id).catch(() => null);
+
+		if (!spiritTracker) {
+			// eslint-disable-next-line require-atomic-updates
+			spiritTracker = new this(
+				(await pg<SpiritTrackerPacket>(Table.SpiritTracker).insert({ user_id: interaction.user.id }, "*"))[0]!,
+			);
 		}
+
+		const elderProgress = this.averageProgress(
+			Elder.map(({ name, maxItemsBit }) => this.spiritProgression(spiritTracker!.resolveNameToBit(name), maxItemsBit)),
+		);
+
+		const seasonalProgress = this.averageProgress(
+			Object.values(Season).map((season) => this.seasonProgress(spiritTracker!, season)),
+		);
 
 		const response = {
 			content: "",
@@ -1090,11 +1108,20 @@ export class SpiritTracker {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							Object.values(SPIRIT_TYPE).map((spiritType) =>
-								new StringSelectMenuOptionBuilder()
-									.setLabel(resolveSpiritTypeToString(spiritType))
-									.setValue(String(spiritType)),
-							),
+							Object.values(SPIRIT_TYPE).map((spiritType) => {
+								let label;
+
+								switch (spiritType) {
+									case SPIRIT_TYPE.Elder:
+										label = `${resolveSpiritTypeToString(spiritType)} (${elderProgress}%)`;
+										break;
+									case SPIRIT_TYPE.Seasonal:
+										label = `${resolveSpiritTypeToString(spiritType)} (${seasonalProgress}%)`;
+										break;
+								}
+
+								return new StringSelectMenuOptionBuilder().setLabel(label).setValue(String(spiritType));
+							}),
 						)
 						.setPlaceholder("What kind of spirit do you want to see?"),
 				),
@@ -1178,27 +1205,17 @@ export class SpiritTracker {
 		});
 	}
 
+	private static seasonProgress(spiritTracker: SpiritTracker, season: Season) {
+		return this.averageProgress(
+			Seasonal.filter((spirit) => spirit.season.name === season).map(({ name, maxItemsBit }) =>
+				// TODO: Remove truthy check once finished.
+				maxItemsBit ? this.spiritProgression(spiritTracker.resolveNameToBit(name), maxItemsBit) : 0,
+			),
+		);
+	}
+
 	public static async viewSeasons(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		const spiritTracker = await this.fetch(interaction.user.id);
-
-		const options = Object.values(Season).map((season) => {
-			const progressions = Seasonal.filter((spirit) => spirit.season.name === season).map((spirit) =>
-				// TODO: Remove this once finished.
-				spirit.maxItemsBit
-					? this.spiritProgression(spiritTracker.resolveNameToBit(spirit.name), spirit.maxItemsBit)
-					: 0,
-			);
-
-			const progress =
-				progressions.length === 0
-					? 100
-					: Math.round(progressions.reduce((number, progression) => number + progression, 0) / progressions.length);
-
-			return new StringSelectMenuOptionBuilder()
-				.setEmoji(resolveSeasonsToEmoji(season))
-				.setLabel(`${season} (${progress}%)`)
-				.setValue(season);
-		});
 
 		await interaction.update({
 			content: "",
@@ -1208,7 +1225,14 @@ export class SpiritTracker {
 						.setCustomId(SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
-						.setOptions(options)
+						.setOptions(
+							Object.values(Season).map((season) =>
+								new StringSelectMenuOptionBuilder()
+									.setEmoji(resolveSeasonsToEmoji(season))
+									.setLabel(`${season} (${this.seasonProgress(spiritTracker, season)}%)`)
+									.setValue(season),
+							),
+						)
 						.setPlaceholder("Select a season!"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
@@ -1226,7 +1250,10 @@ export class SpiritTracker {
 
 		const options = Seasonal.filter((spirit) => spirit.season.name === season).map(({ name, maxItemsBit }) =>
 			new StringSelectMenuOptionBuilder()
-				.setLabel(`${name} (${this.spiritProgression(spiritTracker.resolveNameToBit(name), maxItemsBit)}%)`)
+				.setLabel(
+					// TODO: Remove truthy check once finished.
+					`${name} (${maxItemsBit ? this.spiritProgression(spiritTracker.resolveNameToBit(name), maxItemsBit) : 0}%)`,
+				)
 				.setValue(name),
 		);
 
