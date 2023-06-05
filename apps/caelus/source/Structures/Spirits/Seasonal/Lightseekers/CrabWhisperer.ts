@@ -3,7 +3,7 @@ import type { Dayjs } from "dayjs";
 import { Collection } from "discord.js";
 import { Realm, Season } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/Utility.js";
-import { type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, SpiritName, Call } from "../../Base.js";
+import { type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, SpiritName, Call, type ItemsData } from "../../Base.js";
 
 const call = Call.Crab;
 
@@ -12,19 +12,17 @@ export default new SeasonalSpirit({
 	season: Season.Lightseekers,
 	call,
 	realm: Realm.GoldenWasteland,
-	offer: { candles: 190, hearts: 0, ascendedCandles: 2 },
-	items: {
-		[1 << 0]: `${call} call`,
-		[1 << 1]: "Pipe",
-		[1 << 2]: "Blessing 1",
-		[1 << 3]: "Mask",
-		[1 << 4]: "Heart",
-		[1 << 5]: "Wing buff",
-		[1 << 6]: "Blessing 2",
-		[1 << 7]: "Music sheet",
-		[1 << 8]: "Hair",
-		[1 << 9]: "Cape",
-	},
+	offer: new Collection<number, ItemsData>()
+		.set(1 << 0, { item: `${call} call`, cost: null })
+		.set(1 << 1, { item: "Pipe", cost: { candles: 20 } })
+		.set(1 << 2, { item: "Blessing 1", cost: { candles: 5 } })
+		.set(1 << 3, { item: "Mask", cost: { candles: 30 } })
+		.set(1 << 4, { item: "Heart", cost: { candles: 3 } })
+		.set(1 << 5, { item: "Wing buff", cost: { ascendedCandles: 2 } })
+		.set(1 << 6, { item: "Blessing 2", cost: { candles: 5 } })
+		.set(1 << 7, { item: "Music sheet", cost: { candles: 15 } })
+		.set(1 << 8, { item: "Hair", cost: { candles: 42 } })
+		.set(1 << 9, { item: "Cape", cost: { candles: 70 } }),
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 			.set(6, skyDate(2_020, 4, 9))
