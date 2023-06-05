@@ -6,31 +6,6 @@ export default [
 	...Seasonal,
 	/*
 	new SeasonalSpirit({
-		name: SpiritName.AnxiousAngler,
-		season: Season.Abyss,
-		expression: Expression.Anxious,
-		realm: Realm.GoldenWasteland,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.CeasingCommodore,
-		season: Season.Abyss,
-		expression: Expression.CalmDown,
-		realm: Realm.GoldenWasteland,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.BumblingBoatswain,
-		season: Season.Abyss,
-		expression: Expression.Ouch,
-		realm: Realm.GoldenWasteland,
-		hasMarketingVideo: true,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.CacklingCannoneer,
-		season: Season.Abyss,
-		expression: Expression.EvilLaugh,
-		realm: Realm.GoldenWasteland,
-	}),
-	new SeasonalSpirit({
 		name: SpiritName.FranticStagehand,
 		season: Season.Performance,
 		expression: Expression.Handshake,

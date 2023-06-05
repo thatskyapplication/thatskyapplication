@@ -1,3 +1,4 @@
+import Abyss from "./Abyss/index.js";
 import Assembly from "./Assembly/index.js";
 import Belonging from "./Belonging/index.js";
 import Dreams from "./Dreams/index.js";
@@ -22,4 +23,5 @@ export default [
 	...Assembly,
 	...LittlePrince,
 	...Flight,
+	...Abyss,
 ] as const;
