@@ -3,7 +3,13 @@ import type { Dayjs } from "dayjs";
 import { Collection } from "discord.js";
 import { Realm, Season } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/Utility.js";
-import { type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, SpiritName, Stance } from "../../Base.js";
+import {
+	type ItemsData,
+	type SeasonalSpiritVisitCollectionKey,
+	SeasonalSpirit,
+	SpiritName,
+	Stance,
+} from "../../Base.js";
 
 const stance = Stance.Laidback;
 
@@ -12,18 +18,16 @@ export default new SeasonalSpirit({
 	season: Season.Lightseekers,
 	stance,
 	realm: Realm.HiddenForest,
-	offer: { candles: 151, hearts: 0, ascendedCandles: 2 },
-	items: {
-		[1 << 0]: `${stance} stance`,
-		[1 << 1]: "Blessing 1",
-		[1 << 2]: "Mask",
-		[1 << 3]: "Heart",
-		[1 << 4]: "Wing buff",
-		[1 << 5]: "Blessing 2",
-		[1 << 6]: "Music sheet",
-		[1 << 7]: "Hair",
-		[1 << 8]: "Umbrella",
-	},
+	offer: new Collection<number, ItemsData>()
+		.set(1 << 0, { item: `${stance} stance`, cost: null })
+		.set(1 << 1, { item: "Blessing 1", cost: { candles: 5 } })
+		.set(1 << 2, { item: "Mask", cost: { candles: 30 } })
+		.set(1 << 3, { item: "Heart", cost: { candles: 3 } })
+		.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
+		.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 } })
+		.set(1 << 6, { item: "Music sheet", cost: { candles: 15 } })
+		.set(1 << 7, { item: "Hair", cost: { candles: 18 } })
+		.set(1 << 8, { item: "Umbrella", cost: { candles: 75 } }),
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 			.set(3, skyDate(2_020, 2, 27))
