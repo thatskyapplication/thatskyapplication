@@ -11,7 +11,8 @@ import {
 	ButtonStyle,
 	type InteractionUpdateOptions,
 } from "discord.js";
-import { Season, Emoji } from "../../Utility/Constants.js";
+import type { Season } from "../../Utility/Constants.js";
+import { Emoji } from "../../Utility/Constants.js";
 import { isSeason, resolveEmoji, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import {
@@ -1096,7 +1097,9 @@ export class SpiritTracker {
 		);
 
 		const seasonalProgress = this.averageProgress(
-			Object.values(Season).map((season) => this.seasonProgress(spiritTracker!, season)),
+			[...new Set(Seasonal.map((spirit) => spirit.season.name))].map((season) =>
+				this.seasonProgress(spiritTracker!, season),
+			),
 		);
 
 		const response = {
@@ -1226,7 +1229,7 @@ export class SpiritTracker {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							Object.values(Season).map((season) =>
+							[...new Set(Seasonal.map((spirit) => spirit.season.name))].map((season) =>
 								new StringSelectMenuOptionBuilder()
 									.setEmoji(resolveSeasonsToEmoji(season))
 									.setLabel(`${season} (${this.seasonProgress(spiritTracker, season)}%)`)
