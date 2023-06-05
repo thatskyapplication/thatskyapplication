@@ -296,6 +296,8 @@ export const SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT
 export const SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
 
+const VALID_SEASONS = [...new Set(Seasonal.map((spirit) => spirit.season.name))] as const;
+
 const backToStartButtonBuilder = new ButtonBuilder()
 	.setCustomId(SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID)
 	.setEmoji("⏮️")
@@ -1095,9 +1097,7 @@ export class SpiritTracker {
 		);
 
 		const seasonalProgress = this.averageProgress(
-			[...new Set(Seasonal.map((spirit) => spirit.season.name))].map((season) =>
-				this.seasonProgress(spiritTracker!, season),
-			),
+			VALID_SEASONS.map((season) => this.seasonProgress(spiritTracker!, season)),
 		);
 
 		const response = {
@@ -1226,7 +1226,7 @@ export class SpiritTracker {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							[...new Set(Seasonal.map((spirit) => spirit.season.name))].map((season) =>
+							VALID_SEASONS.map((season) =>
 								new StringSelectMenuOptionBuilder()
 									.setEmoji(resolveSeasonsToEmoji(season))
 									.setLabel(`${season} (${this.seasonProgress(spiritTracker, season)}%)`)
