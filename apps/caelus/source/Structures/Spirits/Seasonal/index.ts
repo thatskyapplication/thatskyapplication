@@ -1,3 +1,4 @@
+import Assembly from "./Assembly/index.js";
 import Belonging from "./Belonging/index.js";
 import Dreams from "./Dreams/index.js";
 import Enchantment from "./Enchantment/index.js";
@@ -16,4 +17,5 @@ export default [
 	...Sanctuary,
 	...Prophecy,
 	...Dreams,
+	...Assembly,
 ] as const;
