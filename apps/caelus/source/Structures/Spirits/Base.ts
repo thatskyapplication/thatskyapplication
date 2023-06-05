@@ -295,9 +295,9 @@ export function resolveSpiritTypeToString(spiritType: SpiritType) {
 		// case SPIRIT_TYPE.Standard:
 		// return "Standard Spirit";
 		case SPIRIT_TYPE.Elder:
-			return "Elder Spirit";
+			return "Elders";
 		case SPIRIT_TYPE.Seasonal:
-			return "Seasonal Spirit";
+			return "Seasonal Spirits";
 	}
 }
 
