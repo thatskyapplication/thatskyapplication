@@ -1304,7 +1304,7 @@ export class SpiritTracker {
 	}
 
 	private static async responseData(interaction: StringSelectMenuInteraction, bit: number | null, spirit: BaseSpirit) {
-		const description = { candles: 0, hearts: 0, ascendedCandles: 0 } satisfies SpiritCost;
+		const remainingCurrency = { candles: 0, hearts: 0, ascendedCandles: 0 } satisfies SpiritCost;
 
 		const embedFields = spirit.offer.map(({ item, cost }, flag) => {
 			let value;
@@ -1312,9 +1312,9 @@ export class SpiritTracker {
 			if (bit && (bit & flag) === flag) {
 				value = resolveEmoji(interaction, Emoji.Yes, true);
 			} else {
-				if (cost?.candles) description.candles += cost.candles;
-				if (cost?.hearts) description.hearts += cost.hearts;
-				if (cost?.ascendedCandles) description.ascendedCandles += cost.ascendedCandles;
+				if (cost?.candles) remainingCurrency.candles += cost.candles;
+				if (cost?.hearts) remainingCurrency.hearts += cost.hearts;
+				if (cost?.ascendedCandles) remainingCurrency.ascendedCandles += cost.ascendedCandles;
 				value = resolveOfferToCurrency(interaction, cost ?? {}).join("") || resolveEmoji(interaction, Emoji.No, true);
 			}
 
@@ -1324,6 +1324,19 @@ export class SpiritTracker {
 				inline: true,
 			};
 		});
+
+		const embed = new EmbedBuilder()
+			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
+			.setFields(embedFields)
+			.setImage(spirit.imageURL)
+			.setTitle(spirit.name)
+			.setURL(spirit.wikiURL);
+
+		const resolvedRemainingCurrency = resolveOfferToCurrency(interaction, remainingCurrency);
+
+		if (resolvedRemainingCurrency.length > 0) {
+			embed.setDescription(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);
+		}
 
 		return {
 			components: [
@@ -1354,15 +1367,7 @@ export class SpiritTracker {
 						.setStyle(ButtonStyle.Primary),
 				),
 			],
-			embeds: [
-				new EmbedBuilder()
-					.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
-					.setDescription(`__Remaining Currency__\n${resolveOfferToCurrency(interaction, description).join("")}`)
-					.setFields(embedFields)
-					.setImage(spirit.imageURL)
-					.setTitle(spirit.name)
-					.setURL(spirit.wikiURL),
-			],
+			embeds: [embed],
 		};
 	}
 
