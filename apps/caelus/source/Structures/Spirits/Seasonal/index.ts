@@ -1,4 +1,5 @@
 import Belonging from "./Belonging/index.js";
+import Dreams from "./Dreams/index.js";
 import Enchantment from "./Enchantment/index.js";
 import Gratitude from "./Gratitude/index.js";
 import Lightseekers from "./Lightseekers/index.js";
@@ -14,4 +15,5 @@ export default [
 	...Enchantment,
 	...Sanctuary,
 	...Prophecy,
+	...Dreams,
 ] as const;

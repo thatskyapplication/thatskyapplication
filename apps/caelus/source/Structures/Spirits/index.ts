@@ -6,48 +6,6 @@ export default [
 	...Seasonal,
 	/*
 	new SeasonalSpirit({
-		name: SpiritName.SpinningMentor,
-		season: Season.Dreams,
-		expression: Expression.SpinTrick,
-		realm: Realm.ValleyOfTriumph,
-		offer: { candles: 169, hearts: 13, ascendedCandles: 2 },
-		visits: {
-			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(59, skyDate(2_022, 4, 14)),
-			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-		},
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.DancingPerformer,
-		season: Season.Dreams,
-		expression: Expression.ShowDance,
-		realm: Realm.ValleyOfTriumph,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.PeekingPostman,
-		season: Season.Dreams,
-		expression: Expression.Peek,
-		realm: Realm.ValleyOfTriumph,
-		offer: { candles: 217, hearts: 13, ascendedCandles: 2 },
-		keywords: ["rabbit", "rabbit mask"],
-		visits: {
-			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(64, skyDate(2_022, 6, 23)),
-			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-		},
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.BearhugHermit,
-		season: Season.Dreams,
-		expression: Expression.Bearhug,
-		realm: Realm.ValleyOfTriumph,
-		offer: { candles: 190, hearts: 8, ascendedCandles: 2 },
-		hasMarketingVideo: true,
-		keywords: ["yeti"],
-		visits: {
-			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(75, skyDate(2_022, 11, 24)),
-			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-		},
-	}),
-	new SeasonalSpirit({
 		name: SpiritName.BaffledBotanist,
 		season: Season.Assembly,
 		expression: Expression.Facepalm,

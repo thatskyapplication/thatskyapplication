@@ -13,7 +13,7 @@ import {
 } from "discord.js";
 import type { Season } from "../../Utility/Constants.js";
 import { Emoji } from "../../Utility/Constants.js";
-import { isSeason, resolveEmoji, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
+import { canUseCustomEmoji, isSeason, resolveEmoji, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import {
 	type BaseSpirit,
@@ -1071,9 +1071,7 @@ export class SpiritTracker {
 			.where("user_id", interaction.user.id)
 			.returning("*");
 
-		await interaction.update(
-			await SpiritTracker.responseData(interaction, bit, Spirits.find(({ name }) => name === spiritName)!),
-		);
+		await SpiritTracker.viewSpiritResponse(interaction, bit, Spirits.find(({ name }) => name === spiritName)!);
 	}
 
 	private static averageProgress(progresses: number[]) {
@@ -1300,11 +1298,15 @@ export class SpiritTracker {
 		}
 
 		const bit = spiritTracker.resolveNameToBit(spirit.name);
-		await interaction.update(await this.responseData(interaction, bit, spirit));
+		await this.viewSpiritResponse(interaction, bit, spirit);
 	}
 
-	private static async responseData(interaction: StringSelectMenuInteraction, bit: number | null, spirit: BaseSpirit) {
-		const remainingCurrency = { candles: 0, hearts: 0, ascendedCandles: 0 } satisfies SpiritCost;
+	private static async viewSpiritResponse(
+		interaction: StringSelectMenuInteraction,
+		bit: number | null,
+		spirit: BaseSpirit,
+	) {
+		const remainingCurrency = { candles: 0, hearts: 0, ascendedCandles: 0, seasonalCandles: 0 } satisfies SpiritCost;
 
 		const embedFields = spirit.offer.map(({ item, cost }, flag) => {
 			let value;
@@ -1315,6 +1317,7 @@ export class SpiritTracker {
 				if (cost?.candles) remainingCurrency.candles += cost.candles;
 				if (cost?.hearts) remainingCurrency.hearts += cost.hearts;
 				if (cost?.ascendedCandles) remainingCurrency.ascendedCandles += cost.ascendedCandles;
+				if (cost?.seasonalCandles) remainingCurrency.seasonalCandles += cost.seasonalCandles;
 				value = resolveOfferToCurrency(interaction, cost ?? {}).join("") || resolveEmoji(interaction, Emoji.No, true);
 			}
 
@@ -1324,6 +1327,28 @@ export class SpiritTracker {
 				inline: true,
 			};
 		});
+
+		const backButtons = new ActionRowBuilder<ButtonBuilder>().setComponents(
+			backToStartButtonBuilder,
+			new ButtonBuilder()
+				.setCustomId(
+					spirit.isSeasonalSpirit()
+						? `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}-${spirit.season.name}`
+						: SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID,
+				)
+				.setEmoji("⏪")
+				.setStyle(ButtonStyle.Primary),
+		);
+
+		if (remainingCurrency.seasonalCandles > 0 && !canUseCustomEmoji(interaction)) {
+			await interaction.update({
+				components: [backButtons],
+				content: "Missing the `Use External Emojis` permission.",
+				embeds: [],
+			});
+
+			return;
+		}
 
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
@@ -1338,7 +1363,7 @@ export class SpiritTracker {
 			embed.setDescription(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);
 		}
 
-		return {
+		await interaction.update({
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1355,20 +1380,10 @@ export class SpiritTracker {
 						)
 						.setPlaceholder("Select what you have!"),
 				),
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					backToStartButtonBuilder,
-					new ButtonBuilder()
-						.setCustomId(
-							spirit.isSeasonalSpirit()
-								? `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}-${spirit.season.name}`
-								: SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID,
-						)
-						.setEmoji("⏪")
-						.setStyle(ButtonStyle.Primary),
-				),
+				backButtons,
 			],
 			embeds: [embed],
-		};
+		});
 	}
 
 	private resolveNameToBit(spiritName: SpiritName) {

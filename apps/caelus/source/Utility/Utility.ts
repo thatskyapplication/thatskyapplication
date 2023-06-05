@@ -99,7 +99,7 @@ export function resolveEmoji(interactionOrMember: BaseInteraction | GuildMember,
 }
 
 export interface CurrencyEmojiOptions {
-	emoji: Emoji.Candle | Emoji.Heart | Emoji.AscendedCandle | Emoji.WingedLight;
+	emoji: Emoji.Candle | Emoji.Heart | Emoji.AscendedCandle | Emoji.WingedLight | Emoji.SeasonalCandle;
 	animated?: boolean;
 	number?: number;
 	forceEmojiOnLeft?: boolean;

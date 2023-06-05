@@ -253,6 +253,7 @@ export interface SpiritCost {
 	candles?: number;
 	hearts?: number;
 	ascendedCandles?: number;
+	seasonalCandles?: number;
 }
 
 export interface ItemsData {
@@ -316,6 +317,10 @@ export function resolveOfferToCurrency(interaction: BaseInteraction, cost: Spiri
 		totalCost.push(resolveCurrencyEmoji(interaction, { emoji: Emoji.AscendedCandle, number: cost.ascendedCandles }));
 	}
 
+	if (cost.seasonalCandles) {
+		totalCost.push(resolveCurrencyEmoji(interaction, { emoji: Emoji.SeasonalCandle, number: cost.seasonalCandles }));
+	}
+
 	return totalCost;
 }
 
@@ -343,7 +348,7 @@ export abstract class BaseSpirit {
 
 		this.totalCost = this.offer.reduce<BaseSpirit["totalCost"]>((offer, { cost }) => {
 			if (!cost) return offer;
-			const { candles, hearts, ascendedCandles } = cost;
+			const { candles, hearts, ascendedCandles, seasonalCandles } = cost;
 
 			if (candles) {
 				if (offer.candles) {
@@ -366,6 +371,14 @@ export abstract class BaseSpirit {
 					offer.ascendedCandles += ascendedCandles;
 				} else {
 					offer.ascendedCandles = ascendedCandles;
+				}
+			}
+
+			if (seasonalCandles) {
+				if (offer.seasonalCandles) {
+					offer.seasonalCandles += seasonalCandles;
+				} else {
+					offer.seasonalCandles = seasonalCandles;
 				}
 			}
 
