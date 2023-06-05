@@ -1171,6 +1171,27 @@ export class SpiritTracker {
 	}
 
 	public static async viewSeasons(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		const spiritTracker = await this.fetch(interaction.user.id);
+
+		const options = Object.values(Season).map((season) => {
+			const progressions = Seasonal.filter((spirit) => spirit.season.name === season).map((spirit) =>
+				// TODO: Remove this once finished.
+				spirit.maxItemsBit
+					? this.spiritProgression(spiritTracker.resolveNameToBit(spirit.name), spirit.maxItemsBit)
+					: 0,
+			);
+
+			const progress =
+				progressions.length === 0
+					? 100
+					: Math.round(progressions.reduce((number, progression) => number + progression, 0) / progressions.length);
+
+			return new StringSelectMenuOptionBuilder()
+				.setEmoji(resolveSeasonsToEmoji(season))
+				.setLabel(`${season} (${progress}%)`)
+				.setValue(season);
+		});
+
 		await interaction.update({
 			content: "",
 			components: [
@@ -1179,14 +1200,7 @@ export class SpiritTracker {
 						.setCustomId(SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
-						.setOptions(
-							Object.values(Season).map((season) =>
-								new StringSelectMenuOptionBuilder()
-									.setEmoji(resolveSeasonsToEmoji(season))
-									.setLabel(season)
-									.setValue(season),
-							),
-						)
+						.setOptions(options)
 						.setPlaceholder("Select a season!"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
@@ -1570,10 +1584,8 @@ export class SpiritTracker {
 	}
 
 	private static spiritProgression(bit: number | null, maximumBit: number) {
-		return `${
-			bit
-				? Math.round(((bit.toString(2).split("1").length - 1) / (maximumBit.toString(2).split("1").length - 1)) * 100)
-				: 0
-		}%`;
+		return bit
+			? Math.round(((bit.toString(2).split("1").length - 1) / (maximumBit.toString(2).split("1").length - 1)) * 100)
+			: 0;
 	}
 }
