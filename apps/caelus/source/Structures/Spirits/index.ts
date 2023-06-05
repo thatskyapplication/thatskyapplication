@@ -6,55 +6,6 @@ export default [
 	...Seasonal,
 	/*
 	new SeasonalSpirit({
-		name: SpiritName.ProphetOfWater,
-		season: Season.Prophecy,
-		expression: Expression.DeepBreath,
-		realm: Realm.IslesOfDawn,
-		hasMarketingVideo: true,
-		offer: { candles: 201, hearts: 13, ascendedCandles: 2 },
-		visits: {
-			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
-				.set(41, skyDate(2_021, 8, 5))
-				.set(74, skyDate(2_022, 11, 10)),
-			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(2, skyDate(2_023, 5, 15)),
-		},
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.ProphetOfEarth,
-		season: Season.Prophecy,
-		expression: Expression.DustOff,
-		realm: Realm.IslesOfDawn,
-		offer: { candles: 211, hearts: 13, ascendedCandles: 2 },
-		visits: {
-			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
-				.set("Error", skyDate(2_022, 1, 6))
-				.set(54, skyDate(2_022, 2, 3)),
-			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(2, skyDate(2_023, 5, 15)),
-		},
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.ProphetOfAir,
-		season: Season.Prophecy,
-		expression: Expression.Balance,
-		realm: Realm.IslesOfDawn,
-		offer: { candles: 201, hearts: 12, ascendedCandles: 2 },
-		visits: {
-			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(61, skyDate(2_022, 5, 12)),
-			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(2, skyDate(2_023, 5, 15)),
-		},
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.ProphetOfFire,
-		season: Season.Prophecy,
-		expression: Expression.ChestPound,
-		realm: Realm.IslesOfDawn,
-		offer: { candles: 202, hearts: 26, ascendedCandles: 2 },
-		visits: {
-			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(50, skyDate(2_021, 12, 9)),
-			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-		},
-	}),
-	new SeasonalSpirit({
 		name: SpiritName.SpinningMentor,
 		season: Season.Dreams,
 		expression: Expression.SpinTrick,
