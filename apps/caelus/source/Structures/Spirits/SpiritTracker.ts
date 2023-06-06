@@ -81,80 +81,96 @@ interface SpiritTrackerPacket {
 	leaping_dancer: number | null;
 	saluting_protector: number | null;
 	greeting_shaman: number | null;
+	lightseekers_guide: number | null;
 	piggyback_lightseeker: number | null;
 	doublefive_light_catcher: number | null;
 	laidback_pioneer: number | null;
 	twirling_champion: number | null;
 	crab_whisperer: number | null;
 	shushing_light_scholar: number | null;
+	belonging_guide: number | null;
 	boogie_kid: number | null;
 	confetti_cousin: number | null;
 	hairtousle_teen: number | null;
 	sparkler_parent: number | null;
 	pleaful_parent: number | null;
 	wise_grandparent: number | null;
+	rhythm_guide: number | null;
 	troupe_greeter: number | null;
 	festival_spin_dancer: number | null;
 	admiring_actor: number | null;
 	troupe_juggler: number | null;
 	respectful_pianist: number | null;
 	thoughtful_director: number | null;
+	enchantment_guide: number | null;
 	nodding_muralist: number | null;
 	indifferent_alchemist: number | null;
 	crab_walker: number | null;
 	scarecrow_farmer: number | null;
 	snoozing_carpenter: number | null;
 	playfighting_herbalist: number | null;
+	sanctuary_guide: number | null;
 	jelly_whisperer: number | null;
 	timid_bookworm: number | null;
 	rallying_thrillseeker: number | null;
 	hiking_grouch: number | null;
 	grateful_shell_collector: number | null;
 	chill_sunbather: number | null;
+	prophecy_guide: number | null;
 	prophet_of_water: number | null;
 	prophet_of_earth: number | null;
 	prophet_of_air: number | null;
 	prophet_of_fire: number | null;
+	dreams_guide: number | null;
 	spinning_mentor: number | null;
 	dancing_performer: number | null;
 	peeking_postman: number | null;
 	bearhug_hermit: number | null;
+	assembly_guide: number | null;
 	baffled_botanist: number | null;
 	scolding_student: number | null;
 	scaredy_cadet: number | null;
 	marching_adventurer: number | null;
 	chuckling_scout: number | null;
 	daydream_forester: number | null;
+	the_rose: number | null;
 	beckoning_ruler: number | null;
 	gloating_narcissist: number | null;
 	stretching_lamplighter: number | null;
 	slouching_soldier: number | null;
 	sneezing_geographer: number | null;
 	star_collector: number | null;
+	flight_guide: number | null;
 	lively_navigator: number | null;
 	light_whisperer: number | null;
 	tinkering_chimesmith: number | null;
 	talented_builder: number | null;
+	abyss_guide: number | null;
 	anxious_angler: number | null;
 	ceasing_commodore: number | null;
 	bumbling_boatswain: number | null;
 	cackling_cannoneer: number | null;
+	performance_guide: number | null;
 	frantic_stagehand: number | null;
 	forgetful_storyteller: number | null;
 	mellow_musician: number | null;
 	modest_dancer: number | null;
+	the_void_of_shattering: number | null;
 	ancient_light1: number | null;
 	ancient_light2: number | null;
 	ancient_darkness1: number | null;
 	ancient_darkness2: number | null;
+	aurora_guide: number | null;
 	running_wayfarer: number | null;
 	mindful_miner: number | null;
 	warrior_of_love: number | null;
 	seed_of_hope: number | null;
+	remembrance_guide: number | null;
 	bereft_veteran: number | null;
 	pleading_child: number | null;
 	tiptoeing_tea_brewer: number | null;
 	wounded_warrior: number | null;
+	passage_guide: number | null;
 	oddball_outcast: number | null;
 	tumbling_troublemaker: number | null;
 	melancholy_mope: number | null;
@@ -213,80 +229,96 @@ interface SpiritTrackerData {
 	leapingDancer: SpiritTrackerPacket["leaping_dancer"];
 	salutingProtector: SpiritTrackerPacket["saluting_protector"];
 	greetingShaman: SpiritTrackerPacket["greeting_shaman"];
+	lightseekersGuide: SpiritTrackerPacket["lightseekers_guide"];
 	piggybackLightseeker: SpiritTrackerPacket["piggyback_lightseeker"];
 	doublefiveLightCatcher: SpiritTrackerPacket["doublefive_light_catcher"];
 	laidbackPioneer: SpiritTrackerPacket["laidback_pioneer"];
 	twirlingChampion: SpiritTrackerPacket["twirling_champion"];
 	crabWhisperer: SpiritTrackerPacket["crab_whisperer"];
 	shushingLightScholar: SpiritTrackerPacket["shushing_light_scholar"];
+	belongingGuide: SpiritTrackerPacket["belonging_guide"];
 	boogieKid: SpiritTrackerPacket["boogie_kid"];
 	confettiCousin: SpiritTrackerPacket["confetti_cousin"];
 	hairtousleTeen: SpiritTrackerPacket["hairtousle_teen"];
 	sparklerParent: SpiritTrackerPacket["sparkler_parent"];
 	pleafulParent: SpiritTrackerPacket["pleaful_parent"];
 	wiseGrandparent: SpiritTrackerPacket["wise_grandparent"];
+	rhythmGuide: SpiritTrackerPacket["rhythm_guide"];
 	troupeGreeter: SpiritTrackerPacket["troupe_greeter"];
 	festivalSpinDancer: SpiritTrackerPacket["festival_spin_dancer"];
 	admiringActor: SpiritTrackerPacket["admiring_actor"];
 	troupeJuggler: SpiritTrackerPacket["troupe_juggler"];
 	respectfulPianist: SpiritTrackerPacket["respectful_pianist"];
 	thoughtfulDirector: SpiritTrackerPacket["thoughtful_director"];
+	enchantmentGuide: SpiritTrackerPacket["enchantment_guide"];
 	noddingMuralist: SpiritTrackerPacket["nodding_muralist"];
 	indifferentAlchemist: SpiritTrackerPacket["indifferent_alchemist"];
 	crabWalker: SpiritTrackerPacket["crab_walker"];
 	scarecrowFarmer: SpiritTrackerPacket["scarecrow_farmer"];
 	snoozingCarpenter: SpiritTrackerPacket["snoozing_carpenter"];
 	playfightingHerbalist: SpiritTrackerPacket["playfighting_herbalist"];
+	sanctuaryGuide: SpiritTrackerPacket["sanctuary_guide"];
 	jellyWhisperer: SpiritTrackerPacket["jelly_whisperer"];
 	timidBookworm: SpiritTrackerPacket["timid_bookworm"];
 	rallyingThrillseeker: SpiritTrackerPacket["rallying_thrillseeker"];
 	hikingGrouch: SpiritTrackerPacket["hiking_grouch"];
 	gratefulShellCollector: SpiritTrackerPacket["grateful_shell_collector"];
 	chillSunbather: SpiritTrackerPacket["chill_sunbather"];
+	prophecyGuide: SpiritTrackerPacket["prophecy_guide"];
 	prophetOfWater: SpiritTrackerPacket["prophet_of_water"];
 	prophetOfEarth: SpiritTrackerPacket["prophet_of_earth"];
 	prophetOfAir: SpiritTrackerPacket["prophet_of_air"];
 	prophetOfFire: SpiritTrackerPacket["prophet_of_fire"];
+	dreamsGuide: SpiritTrackerPacket["dreams_guide"];
 	spinningMentor: SpiritTrackerPacket["spinning_mentor"];
 	dancingPerformer: SpiritTrackerPacket["dancing_performer"];
 	peekingPostman: SpiritTrackerPacket["peeking_postman"];
 	bearhugHermit: SpiritTrackerPacket["bearhug_hermit"];
+	assemblyGuide: SpiritTrackerPacket["assembly_guide"];
 	baffledBotanist: SpiritTrackerPacket["baffled_botanist"];
 	scoldingStudent: SpiritTrackerPacket["scolding_student"];
 	scaredyCadet: SpiritTrackerPacket["scaredy_cadet"];
 	marchingAdventurer: SpiritTrackerPacket["marching_adventurer"];
 	chucklingScout: SpiritTrackerPacket["chuckling_scout"];
 	daydreamForester: SpiritTrackerPacket["daydream_forester"];
+	theRose: SpiritTrackerPacket["the_rose"];
 	beckoningRuler: SpiritTrackerPacket["beckoning_ruler"];
 	gloatingNarcissist: SpiritTrackerPacket["gloating_narcissist"];
 	stretchingLamplighter: SpiritTrackerPacket["stretching_lamplighter"];
 	slouchingSoldier: SpiritTrackerPacket["slouching_soldier"];
 	sneezingGeographer: SpiritTrackerPacket["sneezing_geographer"];
 	starCollector: SpiritTrackerPacket["star_collector"];
+	flightGuide: SpiritTrackerPacket["flight_guide"];
 	livelyNavigator: SpiritTrackerPacket["lively_navigator"];
 	lightWhisperer: SpiritTrackerPacket["light_whisperer"];
 	tinkeringChimesmith: SpiritTrackerPacket["tinkering_chimesmith"];
 	talentedBuilder: SpiritTrackerPacket["talented_builder"];
+	abyssGuide: SpiritTrackerPacket["abyss_guide"];
 	anxiousAngler: SpiritTrackerPacket["anxious_angler"];
 	ceasingCommodore: SpiritTrackerPacket["ceasing_commodore"];
 	bumblingBoatswain: SpiritTrackerPacket["bumbling_boatswain"];
 	cacklingCannoneer: SpiritTrackerPacket["cackling_cannoneer"];
+	performanceGuide: SpiritTrackerPacket["performance_guide"];
 	franticStagehand: SpiritTrackerPacket["frantic_stagehand"];
 	forgetfulStoryteller: SpiritTrackerPacket["forgetful_storyteller"];
 	mellowMusician: SpiritTrackerPacket["mellow_musician"];
 	modestDancer: SpiritTrackerPacket["modest_dancer"];
+	theVoidOfShattering: SpiritTrackerPacket["the_void_of_shattering"];
 	ancientLight1: SpiritTrackerPacket["ancient_light1"];
 	ancientLight2: SpiritTrackerPacket["ancient_light2"];
 	ancientDarkness1: SpiritTrackerPacket["ancient_darkness1"];
 	ancientDarkness2: SpiritTrackerPacket["ancient_darkness2"];
+	auroraGuide: SpiritTrackerPacket["aurora_guide"];
 	runningWayfarer: SpiritTrackerPacket["running_wayfarer"];
 	mindfulMiner: SpiritTrackerPacket["mindful_miner"];
 	warriorOfLove: SpiritTrackerPacket["warrior_of_love"];
 	seedOfHope: SpiritTrackerPacket["seed_of_hope"];
+	remembranceGuide: SpiritTrackerPacket["remembrance_guide"];
 	bereftVeteran: SpiritTrackerPacket["bereft_veteran"];
 	pleadingChild: SpiritTrackerPacket["pleading_child"];
 	tiptoeingTeaBrewer: SpiritTrackerPacket["tiptoeing_tea_brewer"];
 	woundedWarrior: SpiritTrackerPacket["wounded_warrior"];
+	passageGuide: SpiritTrackerPacket["passage_guide"];
 	oddballOutcast: SpiritTrackerPacket["oddball_outcast"];
 	tumblingTroublemaker: SpiritTrackerPacket["tumbling_troublemaker"];
 	melancholyMope: SpiritTrackerPacket["melancholy_mope"];
@@ -420,6 +452,8 @@ export class SpiritTracker {
 
 	public greetingShaman!: SpiritTrackerData["greetingShaman"];
 
+	public lightseekersGuide!: SpiritTrackerData["lightseekersGuide"];
+
 	public piggybackLightseeker!: SpiritTrackerData["piggybackLightseeker"];
 
 	public doublefiveLightCatcher!: SpiritTrackerData["doublefiveLightCatcher"];
@@ -431,6 +465,8 @@ export class SpiritTracker {
 	public crabWhisperer!: SpiritTrackerData["crabWhisperer"];
 
 	public shushingLightScholar!: SpiritTrackerData["shushingLightScholar"];
+
+	public belongingGuide!: SpiritTrackerData["belongingGuide"];
 
 	public boogieKid!: SpiritTrackerData["boogieKid"];
 
@@ -444,6 +480,8 @@ export class SpiritTracker {
 
 	public wiseGrandparent!: SpiritTrackerData["wiseGrandparent"];
 
+	public rhythmGuide!: SpiritTrackerData["rhythmGuide"];
+
 	public troupeGreeter!: SpiritTrackerData["troupeGreeter"];
 
 	public festivalSpinDancer!: SpiritTrackerData["festivalSpinDancer"];
@@ -455,6 +493,8 @@ export class SpiritTracker {
 	public respectfulPianist!: SpiritTrackerData["respectfulPianist"];
 
 	public thoughtfulDirector!: SpiritTrackerData["thoughtfulDirector"];
+
+	public enchantmentGuide!: SpiritTrackerData["enchantmentGuide"];
 
 	public noddingMuralist!: SpiritTrackerData["noddingMuralist"];
 
@@ -468,6 +508,8 @@ export class SpiritTracker {
 
 	public playfightingHerbalist!: SpiritTrackerData["playfightingHerbalist"];
 
+	public sanctuaryGuide!: SpiritTrackerData["sanctuaryGuide"];
+
 	public jellyWhisperer!: SpiritTrackerData["jellyWhisperer"];
 
 	public timidBookworm!: SpiritTrackerData["timidBookworm"];
@@ -480,6 +522,8 @@ export class SpiritTracker {
 
 	public chillSunbather!: SpiritTrackerData["chillSunbather"];
 
+	public prophecyGuide!: SpiritTrackerData["prophecyGuide"];
+
 	public prophetOfWater!: SpiritTrackerData["prophetOfWater"];
 
 	public prophetOfEarth!: SpiritTrackerData["prophetOfEarth"];
@@ -488,6 +532,8 @@ export class SpiritTracker {
 
 	public prophetOfFire!: SpiritTrackerData["prophetOfFire"];
 
+	public dreamsGuide!: SpiritTrackerData["dreamsGuide"];
+
 	public spinningMentor!: SpiritTrackerData["spinningMentor"];
 
 	public dancingPerformer!: SpiritTrackerData["dancingPerformer"];
@@ -495,6 +541,8 @@ export class SpiritTracker {
 	public peekingPostman!: SpiritTrackerData["peekingPostman"];
 
 	public bearhugHermit!: SpiritTrackerData["bearhugHermit"];
+
+	public assemblyGuide!: SpiritTrackerData["assemblyGuide"];
 
 	public baffledBotanist!: SpiritTrackerData["baffledBotanist"];
 
@@ -508,6 +556,8 @@ export class SpiritTracker {
 
 	public daydreamForester!: SpiritTrackerData["daydreamForester"];
 
+	public theRose!: SpiritTrackerData["theRose"];
+
 	public beckoningRuler!: SpiritTrackerData["beckoningRuler"];
 
 	public gloatingNarcissist!: SpiritTrackerData["gloatingNarcissist"];
@@ -520,6 +570,8 @@ export class SpiritTracker {
 
 	public starCollector!: SpiritTrackerData["starCollector"];
 
+	public flightGuide!: SpiritTrackerData["flightGuide"];
+
 	public livelyNavigator!: SpiritTrackerData["livelyNavigator"];
 
 	public lightWhisperer!: SpiritTrackerData["lightWhisperer"];
@@ -527,6 +579,8 @@ export class SpiritTracker {
 	public tinkeringChimesmith!: SpiritTrackerData["tinkeringChimesmith"];
 
 	public talentedBuilder!: SpiritTrackerData["talentedBuilder"];
+
+	public abyssGuide!: SpiritTrackerData["abyssGuide"];
 
 	public anxiousAngler!: SpiritTrackerData["anxiousAngler"];
 
@@ -536,6 +590,8 @@ export class SpiritTracker {
 
 	public cacklingCannoneer!: SpiritTrackerData["cacklingCannoneer"];
 
+	public performanceGuide!: SpiritTrackerData["performanceGuide"];
+
 	public franticStagehand!: SpiritTrackerData["franticStagehand"];
 
 	public forgetfulStoryteller!: SpiritTrackerData["forgetfulStoryteller"];
@@ -543,6 +599,8 @@ export class SpiritTracker {
 	public mellowMusician!: SpiritTrackerData["mellowMusician"];
 
 	public modestDancer!: SpiritTrackerData["modestDancer"];
+
+	public theVoidOfShattering!: SpiritTrackerData["theVoidOfShattering"];
 
 	public ancientLight1!: SpiritTrackerData["ancientLight1"];
 
@@ -552,6 +610,8 @@ export class SpiritTracker {
 
 	public ancientDarkness2!: SpiritTrackerData["ancientDarkness2"];
 
+	public auroraGuide!: SpiritTrackerData["auroraGuide"];
+
 	public runningWayfarer!: SpiritTrackerData["runningWayfarer"];
 
 	public mindfulMiner!: SpiritTrackerData["mindfulMiner"];
@@ -560,6 +620,8 @@ export class SpiritTracker {
 
 	public seedOfHope!: SpiritTrackerData["seedOfHope"];
 
+	public remembranceGuide!: SpiritTrackerData["remembranceGuide"];
+
 	public bereftVeteran!: SpiritTrackerData["bereftVeteran"];
 
 	public pleadingChild!: SpiritTrackerData["pleadingChild"];
@@ -567,6 +629,8 @@ export class SpiritTracker {
 	public tiptoeingTeaBrewer!: SpiritTrackerData["tiptoeingTeaBrewer"];
 
 	public woundedWarrior!: SpiritTrackerData["woundedWarrior"];
+
+	public passageGuide!: SpiritTrackerData["passageGuide"];
 
 	public oddballOutcast!: SpiritTrackerData["oddballOutcast"];
 
@@ -632,80 +696,96 @@ export class SpiritTracker {
 		this.leapingDancer = data.leaping_dancer;
 		this.salutingProtector = data.saluting_protector;
 		this.greetingShaman = data.greeting_shaman;
+		this.lightseekersGuide = data.lightseekers_guide;
 		this.piggybackLightseeker = data.piggyback_lightseeker;
 		this.doublefiveLightCatcher = data.doublefive_light_catcher;
 		this.laidbackPioneer = data.laidback_pioneer;
 		this.twirlingChampion = data.twirling_champion;
 		this.crabWhisperer = data.crab_whisperer;
 		this.shushingLightScholar = data.shushing_light_scholar;
+		this.belongingGuide = data.belonging_guide;
 		this.boogieKid = data.boogie_kid;
 		this.confettiCousin = data.confetti_cousin;
 		this.hairtousleTeen = data.hairtousle_teen;
 		this.sparklerParent = data.sparkler_parent;
 		this.pleafulParent = data.pleaful_parent;
 		this.wiseGrandparent = data.wise_grandparent;
+		this.rhythmGuide = data.rhythm_guide;
 		this.troupeGreeter = data.troupe_greeter;
 		this.festivalSpinDancer = data.festival_spin_dancer;
 		this.admiringActor = data.admiring_actor;
 		this.troupeJuggler = data.troupe_juggler;
 		this.respectfulPianist = data.respectful_pianist;
 		this.thoughtfulDirector = data.thoughtful_director;
+		this.enchantmentGuide = data.enchantment_guide;
 		this.noddingMuralist = data.nodding_muralist;
 		this.indifferentAlchemist = data.indifferent_alchemist;
 		this.crabWalker = data.crab_walker;
 		this.scarecrowFarmer = data.scarecrow_farmer;
 		this.snoozingCarpenter = data.snoozing_carpenter;
 		this.playfightingHerbalist = data.playfighting_herbalist;
+		this.sanctuaryGuide = data.sanctuary_guide;
 		this.jellyWhisperer = data.jelly_whisperer;
 		this.timidBookworm = data.timid_bookworm;
 		this.rallyingThrillseeker = data.rallying_thrillseeker;
 		this.hikingGrouch = data.hiking_grouch;
 		this.gratefulShellCollector = data.grateful_shell_collector;
 		this.chillSunbather = data.chill_sunbather;
+		this.prophecyGuide = data.prophecy_guide;
 		this.prophetOfWater = data.prophet_of_water;
 		this.prophetOfEarth = data.prophet_of_earth;
 		this.prophetOfAir = data.prophet_of_air;
 		this.prophetOfFire = data.prophet_of_fire;
+		this.dreamsGuide = data.dreams_guide;
 		this.spinningMentor = data.spinning_mentor;
 		this.dancingPerformer = data.dancing_performer;
 		this.peekingPostman = data.peeking_postman;
 		this.bearhugHermit = data.bearhug_hermit;
+		this.assemblyGuide = data.assembly_guide;
 		this.baffledBotanist = data.baffled_botanist;
 		this.scoldingStudent = data.scolding_student;
 		this.scaredyCadet = data.scaredy_cadet;
 		this.marchingAdventurer = data.marching_adventurer;
 		this.chucklingScout = data.chuckling_scout;
 		this.daydreamForester = data.daydream_forester;
+		this.theRose = data.the_rose;
 		this.beckoningRuler = data.beckoning_ruler;
 		this.gloatingNarcissist = data.gloating_narcissist;
 		this.stretchingLamplighter = data.stretching_lamplighter;
 		this.slouchingSoldier = data.slouching_soldier;
 		this.sneezingGeographer = data.sneezing_geographer;
 		this.starCollector = data.star_collector;
+		this.flightGuide = data.flight_guide;
 		this.livelyNavigator = data.lively_navigator;
 		this.lightWhisperer = data.light_whisperer;
 		this.tinkeringChimesmith = data.tinkering_chimesmith;
 		this.talentedBuilder = data.talented_builder;
+		this.abyssGuide = data.abyss_guide;
 		this.anxiousAngler = data.anxious_angler;
 		this.ceasingCommodore = data.ceasing_commodore;
 		this.bumblingBoatswain = data.bumbling_boatswain;
 		this.cacklingCannoneer = data.cackling_cannoneer;
+		this.performanceGuide = data.performance_guide;
 		this.franticStagehand = data.frantic_stagehand;
 		this.forgetfulStoryteller = data.forgetful_storyteller;
 		this.mellowMusician = data.mellow_musician;
 		this.modestDancer = data.modest_dancer;
+		this.theVoidOfShattering = data.the_void_of_shattering;
 		this.ancientLight1 = data.ancient_light1;
 		this.ancientLight2 = data.ancient_light2;
 		this.ancientDarkness1 = data.ancient_darkness1;
 		this.ancientDarkness2 = data.ancient_darkness2;
+		this.auroraGuide = data.aurora_guide;
 		this.runningWayfarer = data.running_wayfarer;
 		this.mindfulMiner = data.mindful_miner;
 		this.warriorOfLove = data.warrior_of_love;
 		this.seedOfHope = data.seed_of_hope;
+		this.remembranceGuide = data.remembrance_guide;
 		this.bereftVeteran = data.bereft_veteran;
 		this.pleadingChild = data.pleading_child;
 		this.tiptoeingTeaBrewer = data.tiptoeing_tea_brewer;
 		this.woundedWarrior = data.wounded_warrior;
+		this.passageGuide = data.passage_guide;
 		this.oddballOutcast = data.oddball_outcast;
 		this.tumblingTroublemaker = data.tumbling_troublemaker;
 		this.melancholyMope = data.melancholy_mope;
@@ -876,6 +956,9 @@ export class SpiritTracker {
 			case SpiritName.GreetingShaman:
 				spirit = "greeting_shaman";
 				break;
+			case SpiritName.LightseekersGuide:
+				spirit = "lightseekers_guide";
+				break;
 			case SpiritName.PiggybackLightseeker:
 				spirit = "piggyback_lightseeker";
 				break;
@@ -893,6 +976,9 @@ export class SpiritTracker {
 				break;
 			case SpiritName.ShushingLightScholar:
 				spirit = "shushing_light_scholar";
+				break;
+			case SpiritName.BelongingGuide:
+				spirit = "belonging_guide";
 				break;
 			case SpiritName.BoogieKid:
 				spirit = "boogie_kid";
@@ -912,6 +998,9 @@ export class SpiritTracker {
 			case SpiritName.WiseGrandparent:
 				spirit = "wise_grandparent";
 				break;
+			case SpiritName.RhythmGuide:
+				spirit = "rhythm_guide";
+				break;
 			case SpiritName.TroupeGreeter:
 				spirit = "troupe_greeter";
 				break;
@@ -929,6 +1018,9 @@ export class SpiritTracker {
 				break;
 			case SpiritName.ThoughtfulDirector:
 				spirit = "thoughtful_director";
+				break;
+			case SpiritName.EnchantmentGuide:
+				spirit = "enchantment_guide";
 				break;
 			case SpiritName.NoddingMuralist:
 				spirit = "nodding_muralist";
@@ -948,6 +1040,9 @@ export class SpiritTracker {
 			case SpiritName.PlayfightingHerbalist:
 				spirit = "playfighting_herbalist";
 				break;
+			case SpiritName.SanctuaryGuide:
+				spirit = "sanctuary_guide";
+				break;
 			case SpiritName.JellyWhisperer:
 				spirit = "jelly_whisperer";
 				break;
@@ -966,6 +1061,9 @@ export class SpiritTracker {
 			case SpiritName.ChillSunbather:
 				spirit = "chill_sunbather";
 				break;
+			case SpiritName.ProphecyGuide:
+				spirit = "prophecy_guide";
+				break;
 			case SpiritName.ProphetOfWater:
 				spirit = "prophet_of_water";
 				break;
@@ -978,6 +1076,9 @@ export class SpiritTracker {
 			case SpiritName.ProphetOfFire:
 				spirit = "prophet_of_fire";
 				break;
+			case SpiritName.DreamsGuide:
+				spirit = "dreams_guide";
+				break;
 			case SpiritName.SpinningMentor:
 				spirit = "spinning_mentor";
 				break;
@@ -989,6 +1090,9 @@ export class SpiritTracker {
 				break;
 			case SpiritName.BearhugHermit:
 				spirit = "bearhug_hermit";
+				break;
+			case SpiritName.AssemblyGuide:
+				spirit = "assembly_guide";
 				break;
 			case SpiritName.BaffledBotanist:
 				spirit = "baffled_botanist";
@@ -1008,6 +1112,9 @@ export class SpiritTracker {
 			case SpiritName.DaydreamForester:
 				spirit = "daydream_forester";
 				break;
+			case SpiritName.TheRose:
+				spirit = "the_rose";
+				break;
 			case SpiritName.BeckoningRuler:
 				spirit = "beckoning_ruler";
 				break;
@@ -1026,6 +1133,9 @@ export class SpiritTracker {
 			case SpiritName.StarCollector:
 				spirit = "star_collector";
 				break;
+			case SpiritName.FlightGuide:
+				spirit = "flight_guide";
+				break;
 			case SpiritName.LivelyNavigator:
 				spirit = "lively_navigator";
 				break;
@@ -1037,6 +1147,9 @@ export class SpiritTracker {
 				break;
 			case SpiritName.TalentedBuilder:
 				spirit = "talented_builder";
+				break;
+			case SpiritName.AbyssGuide:
+				spirit = "abyss_guide";
 				break;
 			case SpiritName.AnxiousAngler:
 				spirit = "anxious_angler";
@@ -1050,6 +1163,9 @@ export class SpiritTracker {
 			case SpiritName.CacklingCannoneer:
 				spirit = "cackling_cannoneer";
 				break;
+			case SpiritName.PerformanceGuide:
+				spirit = "performance_guide";
+				break;
 			case SpiritName.FranticStagehand:
 				spirit = "frantic_stagehand";
 				break;
@@ -1061,6 +1177,9 @@ export class SpiritTracker {
 				break;
 			case SpiritName.ModestDancer:
 				spirit = "modest_dancer";
+				break;
+			case SpiritName.TheVoidOfShattering:
+				spirit = "the_void_of_shattering";
 				break;
 			case SpiritName.AncientLight1:
 				spirit = "ancient_light1";
@@ -1074,6 +1193,9 @@ export class SpiritTracker {
 			case SpiritName.AncientDarkness2:
 				spirit = "ancient_darkness2";
 				break;
+			case SpiritName.AURORAGuide:
+				spirit = "aurora_guide";
+				break;
 			case SpiritName.RunningWayfarer:
 				spirit = "running_wayfarer";
 				break;
@@ -1086,6 +1208,9 @@ export class SpiritTracker {
 			case SpiritName.SeedOfHope:
 				spirit = "seed_of_hope";
 				break;
+			case SpiritName.RemembranceGuide:
+				spirit = "remembrance_guide";
+				break;
 			case SpiritName.BereftVeteran:
 				spirit = "bereft_veteran";
 				break;
@@ -1097,6 +1222,9 @@ export class SpiritTracker {
 				break;
 			case SpiritName.WoundedWarrior:
 				spirit = "wounded_warrior";
+				break;
+			case SpiritName.PassageGuide:
+				spirit = "passage_guide";
 				break;
 			case SpiritName.OddballOutcast:
 				spirit = "oddball_outcast";
@@ -1542,6 +1670,8 @@ export class SpiritTracker {
 				return this.salutingProtector;
 			case SpiritName.GreetingShaman:
 				return this.greetingShaman;
+			case SpiritName.LightseekersGuide:
+				return this.lightseekersGuide;
 			case SpiritName.PiggybackLightseeker:
 				return this.piggybackLightseeker;
 			case SpiritName.DoublefiveLightCatcher:
@@ -1554,6 +1684,8 @@ export class SpiritTracker {
 				return this.crabWhisperer;
 			case SpiritName.ShushingLightScholar:
 				return this.shushingLightScholar;
+			case SpiritName.BelongingGuide:
+				return this.belongingGuide;
 			case SpiritName.BoogieKid:
 				return this.boogieKid;
 			case SpiritName.ConfettiCousin:
@@ -1566,6 +1698,8 @@ export class SpiritTracker {
 				return this.pleafulParent;
 			case SpiritName.WiseGrandparent:
 				return this.wiseGrandparent;
+			case SpiritName.RhythmGuide:
+				return this.rhythmGuide;
 			case SpiritName.TroupeGreeter:
 				return this.troupeGreeter;
 			case SpiritName.FestivalSpinDancer:
@@ -1578,6 +1712,8 @@ export class SpiritTracker {
 				return this.respectfulPianist;
 			case SpiritName.ThoughtfulDirector:
 				return this.thoughtfulDirector;
+			case SpiritName.EnchantmentGuide:
+				return this.enchantmentGuide;
 			case SpiritName.NoddingMuralist:
 				return this.noddingMuralist;
 			case SpiritName.IndifferentAlchemist:
@@ -1590,6 +1726,8 @@ export class SpiritTracker {
 				return this.snoozingCarpenter;
 			case SpiritName.PlayfightingHerbalist:
 				return this.playfightingHerbalist;
+			case SpiritName.SanctuaryGuide:
+				return this.sanctuaryGuide;
 			case SpiritName.JellyWhisperer:
 				return this.jellyWhisperer;
 			case SpiritName.TimidBookworm:
@@ -1602,6 +1740,8 @@ export class SpiritTracker {
 				return this.gratefulShellCollector;
 			case SpiritName.ChillSunbather:
 				return this.chillSunbather;
+			case SpiritName.ProphecyGuide:
+				return this.prophecyGuide;
 			case SpiritName.ProphetOfWater:
 				return this.prophetOfWater;
 			case SpiritName.ProphetOfEarth:
@@ -1610,6 +1750,8 @@ export class SpiritTracker {
 				return this.prophetOfAir;
 			case SpiritName.ProphetOfFire:
 				return this.prophetOfFire;
+			case SpiritName.DreamsGuide:
+				return this.dreamsGuide;
 			case SpiritName.SpinningMentor:
 				return this.spinningMentor;
 			case SpiritName.DancingPerformer:
@@ -1618,6 +1760,8 @@ export class SpiritTracker {
 				return this.peekingPostman;
 			case SpiritName.BearhugHermit:
 				return this.bearhugHermit;
+			case SpiritName.AssemblyGuide:
+				return this.assemblyGuide;
 			case SpiritName.BaffledBotanist:
 				return this.baffledBotanist;
 			case SpiritName.ScoldingStudent:
@@ -1630,6 +1774,8 @@ export class SpiritTracker {
 				return this.chucklingScout;
 			case SpiritName.DaydreamForester:
 				return this.daydreamForester;
+			case SpiritName.TheRose:
+				return this.theRose;
 			case SpiritName.BeckoningRuler:
 				return this.beckoningRuler;
 			case SpiritName.GloatingNarcissist:
@@ -1642,6 +1788,8 @@ export class SpiritTracker {
 				return this.sneezingGeographer;
 			case SpiritName.StarCollector:
 				return this.starCollector;
+			case SpiritName.FlightGuide:
+				return this.flightGuide;
 			case SpiritName.LivelyNavigator:
 				return this.livelyNavigator;
 			case SpiritName.LightWhisperer:
@@ -1650,6 +1798,8 @@ export class SpiritTracker {
 				return this.tinkeringChimesmith;
 			case SpiritName.TalentedBuilder:
 				return this.talentedBuilder;
+			case SpiritName.AbyssGuide:
+				return this.abyssGuide;
 			case SpiritName.AnxiousAngler:
 				return this.anxiousAngler;
 			case SpiritName.CeasingCommodore:
@@ -1658,6 +1808,8 @@ export class SpiritTracker {
 				return this.bumblingBoatswain;
 			case SpiritName.CacklingCannoneer:
 				return this.cacklingCannoneer;
+			case SpiritName.PerformanceGuide:
+				return this.performanceGuide;
 			case SpiritName.FranticStagehand:
 				return this.franticStagehand;
 			case SpiritName.ForgetfulStoryteller:
@@ -1666,6 +1818,8 @@ export class SpiritTracker {
 				return this.mellowMusician;
 			case SpiritName.ModestDancer:
 				return this.modestDancer;
+			case SpiritName.TheVoidOfShattering:
+				return this.theVoidOfShattering;
 			case SpiritName.AncientLight1:
 				return this.ancientLight1;
 			case SpiritName.AncientLight2:
@@ -1674,6 +1828,8 @@ export class SpiritTracker {
 				return this.ancientDarkness1;
 			case SpiritName.AncientDarkness2:
 				return this.ancientDarkness2;
+			case SpiritName.AURORAGuide:
+				return this.auroraGuide;
 			case SpiritName.RunningWayfarer:
 				return this.runningWayfarer;
 			case SpiritName.MindfulMiner:
@@ -1682,6 +1838,8 @@ export class SpiritTracker {
 				return this.warriorOfLove;
 			case SpiritName.SeedOfHope:
 				return this.seedOfHope;
+			case SpiritName.RemembranceGuide:
+				return this.remembranceGuide;
 			case SpiritName.BereftVeteran:
 				return this.bereftVeteran;
 			case SpiritName.PleadingChild:
@@ -1690,6 +1848,8 @@ export class SpiritTracker {
 				return this.tiptoeingTeaBrewer;
 			case SpiritName.WoundedWarrior:
 				return this.woundedWarrior;
+			case SpiritName.PassageGuide:
+				return this.passageGuide;
 			case SpiritName.OddballOutcast:
 				return this.oddballOutcast;
 			case SpiritName.TumblingTroublemaker:
