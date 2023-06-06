@@ -12,6 +12,7 @@ import {
 import { resolveOfferToCurrency, type SeasonalSpiritVisit } from "../../Structures/Spirits/Base.js";
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
 import Spirits from "../../Structures/Spirits/index.js";
+import { Season } from "../../Utility/Constants.js";
 import { canUseCustomEmoji } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 
@@ -69,10 +70,11 @@ export default class implements AutocompleteCommand {
 
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
-			.setFields({ name: "Realm", value: spirit.realm, inline: true })
 			.setImage(spirit.imageURL)
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
+
+		if (spirit.realm) embed.addFields({ name: "Realm", value: spirit.realm, inline: true });
 
 		if (spirit.isStandardSpirit()) {
 			embed.addFields({ name: "Season", value: spirit.isSeasonalSpirit() ? spirit.season.name : "None", inline: true });
@@ -86,7 +88,9 @@ export default class implements AutocompleteCommand {
 
 		if (seasonalSpirit) {
 			if (spirit.notVisited) {
-				description.push("⚠️ This spirit has not yet returned.");
+				description.push(
+					`⚠️ This ${spirit.season.name === Season.Shattering ? "entity" : "spirit"} has not yet returned.`,
+				);
 			} else {
 				const { travelling, returning } = spirit.visits;
 				if (travelling.size > 0) embed.addFields({ name: "Travelling", value: this.visitField(travelling) });

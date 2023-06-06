@@ -130,7 +130,13 @@ export enum SpiritName {
 	ForgetfulStoryteller = "Forgetful Storyteller",
 	MellowMusician = "Mellow Musician",
 	ModestDancer = "Modest Dancer",
-	// Season of Shattering - not sure how to add this.
+
+	// Season of Shattering
+	AncientLight1 = "Ancient Light (Jellyfish)",
+	AncientLight2 = "Ancient Light (Manta)",
+	AncientDarkness1 = "Ancient Darkness (Plant)",
+	AncientDarkness2 = "Ancient Darkness (Dragon)",
+
 	RunningWayfarer = "Running Wayfarer",
 	MindfulMiner = "Mindful Miner",
 	WarriorOfLove = "Warrior of Love",
@@ -263,7 +269,7 @@ export interface ItemsData {
 
 interface BaseSpiritDataBase {
 	name: SpiritName;
-	realm: Realm;
+	realm: Realm | null;
 	offer: Collection<number, ItemsData>;
 	keywords?: string[];
 }
@@ -388,7 +394,7 @@ export abstract class BaseSpirit {
 		this.maxItemsBit = this.offer.reduce((bits, _, bit) => bit | bits, 0);
 		this.keywords = spirit.keywords ?? [];
 		this.imageURL = String(new URL(`spirits/${this.cdnName}/friendship_tree.webp`, CDN_URL));
-		this.wikiURL = new URL(spirit.name.replaceAll(" ", "_"), WIKI_URL).toString();
+		this.wikiURL = new URL(this.wikiName, WIKI_URL).toString();
 	}
 
 	public isStandardSpirit(): this is StandardSpirit {
@@ -400,7 +406,12 @@ export abstract class BaseSpirit {
 	}
 
 	public get cdnName() {
-		return this.name.replaceAll(" ", "_").toLowerCase();
+		return this.wikiName.toLowerCase();
+	}
+
+	public get wikiName() {
+		const { name } = this;
+		return (name.includes("(") ? name.slice(0, name.indexOf("(") - 1) : name).replaceAll(" ", "_");
 	}
 }
 
@@ -422,6 +433,8 @@ export class StandardSpirit extends BaseSpirit {
 export class ElderSpirit extends BaseSpirit {}
 
 export class SeasonalSpirit extends StandardSpirit {
+	public declare readonly imageURL: string;
+
 	public readonly season: SpiritSeason;
 
 	public readonly marketingVideoURL: string | null;
@@ -431,6 +444,12 @@ export class SeasonalSpirit extends StandardSpirit {
 	public constructor(spirit: SeasonalSpiritData) {
 		super(spirit);
 		this.season = { name: spirit.season };
+
+		if ([SpiritName.AncientLight1, SpiritName.AncientDarkness1].includes(this.name)) {
+			this.imageURL = this.imageURL.replace("friendship_tree", "friendship_tree1");
+		} else if ([SpiritName.AncientLight2, SpiritName.AncientDarkness2].includes(this.name)) {
+			this.imageURL = this.imageURL.replace("friendship_tree", "friendship_tree2");
+		}
 
 		this.marketingVideoURL = spirit.hasMarketingVideo
 			? String(new URL(`spirits/${this.cdnName}/marketing_video.mp4`, CDN_URL))

@@ -11,8 +11,7 @@ import {
 	ButtonStyle,
 	type InteractionUpdateOptions,
 } from "discord.js";
-import type { Season } from "../../Utility/Constants.js";
-import { Emoji } from "../../Utility/Constants.js";
+import { Season, Emoji } from "../../Utility/Constants.js";
 import { canUseCustomEmoji, isSeason, resolveEmoji, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import {
@@ -141,6 +140,10 @@ interface SpiritTrackerPacket {
 	forgetful_storyteller: number | null;
 	mellow_musician: number | null;
 	modest_dancer: number | null;
+	ancient_light1: number | null;
+	ancient_light2: number | null;
+	ancient_darkness1: number | null;
+	ancient_darkness2: number | null;
 	running_wayfarer: number | null;
 	mindful_miner: number | null;
 	warrior_of_love: number | null;
@@ -268,6 +271,10 @@ interface SpiritTrackerData {
 	forgetfulStoryteller: SpiritTrackerPacket["forgetful_storyteller"];
 	mellowMusician: SpiritTrackerPacket["mellow_musician"];
 	modestDancer: SpiritTrackerPacket["modest_dancer"];
+	ancientLight1: SpiritTrackerPacket["ancient_light1"];
+	ancientLight2: SpiritTrackerPacket["ancient_light2"];
+	ancientDarkness1: SpiritTrackerPacket["ancient_darkness1"];
+	ancientDarkness2: SpiritTrackerPacket["ancient_darkness2"];
 	runningWayfarer: SpiritTrackerPacket["running_wayfarer"];
 	mindfulMiner: SpiritTrackerPacket["mindful_miner"];
 	warriorOfLove: SpiritTrackerPacket["warrior_of_love"];
@@ -531,6 +538,14 @@ export class SpiritTracker {
 
 	public modestDancer!: SpiritTrackerData["modestDancer"];
 
+	public ancientLight1!: SpiritTrackerData["ancientLight1"];
+
+	public ancientLight2!: SpiritTrackerData["ancientLight2"];
+
+	public ancientDarkness1!: SpiritTrackerData["ancientDarkness1"];
+
+	public ancientDarkness2!: SpiritTrackerData["ancientDarkness2"];
+
 	public runningWayfarer!: SpiritTrackerData["runningWayfarer"];
 
 	public mindfulMiner!: SpiritTrackerData["mindfulMiner"];
@@ -672,6 +687,10 @@ export class SpiritTracker {
 		this.forgetfulStoryteller = data.forgetful_storyteller;
 		this.mellowMusician = data.mellow_musician;
 		this.modestDancer = data.modest_dancer;
+		this.ancientLight1 = data.ancient_light1;
+		this.ancientLight2 = data.ancient_light2;
+		this.ancientDarkness1 = data.ancient_darkness1;
+		this.ancientDarkness2 = data.ancient_darkness2;
 		this.runningWayfarer = data.running_wayfarer;
 		this.mindfulMiner = data.mindful_miner;
 		this.warriorOfLove = data.warrior_of_love;
@@ -1033,6 +1052,18 @@ export class SpiritTracker {
 			case SpiritName.ModestDancer:
 				spirit = "modest_dancer";
 				break;
+			case SpiritName.AncientLight1:
+				spirit = "ancient_light1";
+				break;
+			case SpiritName.AncientLight2:
+				spirit = "ancient_light2";
+				break;
+			case SpiritName.AncientDarkness1:
+				spirit = "ancient_darkness1";
+				break;
+			case SpiritName.AncientDarkness2:
+				spirit = "ancient_darkness2";
+				break;
 			case SpiritName.RunningWayfarer:
 				spirit = "running_wayfarer";
 				break;
@@ -1266,7 +1297,7 @@ export class SpiritTracker {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(options)
-						.setPlaceholder("Select a spirit!"),
+						.setPlaceholder(`Select ${season === Season.Shattering ? "an entity" : "a spirit"}!`),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backToStartButtonBuilder,
@@ -1613,6 +1644,14 @@ export class SpiritTracker {
 				return this.mellowMusician;
 			case SpiritName.ModestDancer:
 				return this.modestDancer;
+			case SpiritName.AncientLight1:
+				return this.ancientLight1;
+			case SpiritName.AncientLight2:
+				return this.ancientLight2;
+			case SpiritName.AncientDarkness1:
+				return this.ancientDarkness1;
+			case SpiritName.AncientDarkness2:
+				return this.ancientDarkness2;
 			case SpiritName.RunningWayfarer:
 				return this.runningWayfarer;
 			case SpiritName.MindfulMiner:
