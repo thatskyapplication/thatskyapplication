@@ -76,7 +76,7 @@ export enum SpiritName {
 	TwirlingChampion = "Twirling Champion",
 	CrabWhisperer = "Crab Whisperer",
 	ShushingLightScholar = "Shushing Light Scholar",
-	
+
 	// Season of Belonging
 	BoogieKid = "Boogie Kid",
 	ConfettiCousin = "Confetti Cousin",
@@ -114,7 +114,7 @@ export enum SpiritName {
 	ProphetOfEarth = "Prophet of Earth",
 	ProphetOfAir = "Prophet of Air",
 	ProphetOfFire = "Prophet of Fire",
-	
+
 	// Season of Dreams
 	SpinningMentor = "Spinning Mentor",
 	DancingPerformer = "Dancing Performer",
@@ -136,13 +136,13 @@ export enum SpiritName {
 	SlouchingSoldier = "Slouching Soldier",
 	SneezingGeographer = "Sneezing Geographer",
 	StarCollector = "Star Collector",
-	
+
 	// Season of Flight
 	LivelyNavigator = "Lively Navigator",
 	LightWhisperer = "Light Whisperer",
 	TinkeringChimesmith = "Tinkering Chimesmith",
 	TalentedBuilder = "Talented Builder",
-	
+
 	// Season of Abyss
 	AnxiousAngler = "Anxious Angler",
 	CeasingCommodore = "Ceasing Commodore",
