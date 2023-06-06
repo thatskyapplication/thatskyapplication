@@ -5,7 +5,6 @@ export default [
 	...Elder,
 	...Seasonal,
 	/*
-	// Season of Shattering - not sure how to add this.
 	new SeasonalSpirit({
 		name: SpiritName.RunningWayfarer,
 		season: Season.Aurora,
