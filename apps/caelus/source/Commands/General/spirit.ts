@@ -75,16 +75,16 @@ export default class implements AutocompleteCommand {
 			.setURL(spirit.wikiURL);
 
 		if (spirit.realm) embed.addFields({ name: "Realm", value: spirit.realm, inline: true });
+		const seasonalSpirit = spirit.isSeasonalSpirit();
+		if (seasonalSpirit) embed.addFields({ name: "Season", value: spirit.season.name, inline: true });
 
-		if (spirit.isStandardSpirit()) {
-			embed.addFields({ name: "Season", value: spirit.isSeasonalSpirit() ? spirit.season.name : "None", inline: true });
+		if (spirit.isStandardSpirit() || seasonalSpirit) {
 			if (spirit.expression) embed.addFields({ name: "Expression", value: spirit.expression, inline: true });
 			if (spirit.stance) embed.addFields({ name: "Stance", value: spirit.stance, inline: true });
 			if (spirit.call) embed.addFields({ name: "Call", value: spirit.call, inline: true });
 		}
 
 		const description = [];
-		const seasonalSpirit = spirit.isSeasonalSpirit();
 
 		if (seasonalSpirit) {
 			if (spirit.notVisited) {

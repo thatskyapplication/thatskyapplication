@@ -15,13 +15,14 @@ import { Season, Emoji } from "../../Utility/Constants.js";
 import { canUseCustomEmoji, isSeason, resolveEmoji, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import {
-	type BaseSpirit,
+	type ElderSpirit,
+	type SeasonalSpirit,
+	type SpiritCost,
 	type SpiritType,
 	SpiritName,
 	SPIRIT_TYPE,
 	resolveSpiritTypeToString,
 	resolveOfferToCurrency,
-	type SpiritCost,
 } from "./Base.js";
 import Elder from "./Elder/index.js";
 import Seasonal from "./Seasonal/index.js";
@@ -1338,7 +1339,7 @@ export class SpiritTracker {
 	private static async viewSpiritResponse(
 		interaction: StringSelectMenuInteraction,
 		bit: number | null,
-		spirit: BaseSpirit,
+		spirit: ElderSpirit | SeasonalSpirit,
 	) {
 		const remainingCurrency = { candles: 0, hearts: 0, ascendedCandles: 0, seasonalCandles: 0 } satisfies SpiritCost;
 

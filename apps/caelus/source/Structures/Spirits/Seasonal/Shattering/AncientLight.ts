@@ -7,7 +7,6 @@ export default [
 	new SeasonalSpirit({
 		name: SpiritName.AncientLight1,
 		season: Season.Shattering,
-		realm: null,
 		offer: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Hair", cost: { seasonalCandles: 35 } })
 			.set(1 << 1, { item: "Blessing 1", cost: null })
@@ -20,7 +19,6 @@ export default [
 	new SeasonalSpirit({
 		name: SpiritName.AncientLight2,
 		season: Season.Shattering,
-		realm: null,
 		offer: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Music sheet", cost: { seasonalCandles: 27 } })
 			.set(1 << 1, { item: "Blessing 1", cost: null })

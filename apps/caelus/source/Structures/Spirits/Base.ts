@@ -2,6 +2,7 @@ import { URL } from "node:url";
 import type { Dayjs } from "dayjs";
 import type { BaseInteraction } from "discord.js";
 import { Collection } from "discord.js";
+import { Mixin } from "ts-mixer";
 import { type Realm, type Season, CDN_URL, WIKI_URL, Emoji } from "../../Utility/Constants.js";
 import { resolveCurrencyEmoji } from "../../Utility/Utility.js";
 
@@ -296,14 +297,14 @@ export interface ItemsData {
 	cost: SpiritCost | null;
 }
 
-interface BaseSpiritDataBase {
+interface BaseSpiritData {
 	name: SpiritName;
-	realm: Realm | null;
+	realm?: Exclude<Realm, Realm.AncientMemory>;
 	offer: Collection<number, ItemsData>;
 	keywords?: string[];
 }
 
-interface StandardSpiritData extends BaseSpiritDataBase {
+interface StandardSpiritData extends BaseSpiritData {
 	expression?: Expression;
 	stance?: Stance;
 	call?: Call;
@@ -359,70 +360,110 @@ export function resolveOfferToCurrency(interaction: BaseInteraction, cost: Spiri
 	return totalCost;
 }
 
+abstract class PotentialFriendshipTree {
+	public readonly offer: BaseSpiritData["offer"] | null;
+
+	public readonly totalCost: SpiritCost | null;
+
+	public readonly maxItemsBit: number | null;
+
+	public imageURL: string | null;
+
+	public constructor({ name, offer }: BaseSpiritData) {
+		this.offer = offer;
+
+		this.totalCost =
+			this.offer?.reduce<FriendshipTree["totalCost"]>((offer, { cost }) => {
+				if (!cost) return offer;
+				const { candles, hearts, ascendedCandles, seasonalCandles } = cost;
+
+				if (candles) {
+					if (offer.candles) {
+						offer.candles += candles;
+					} else {
+						offer.candles = candles;
+					}
+				}
+
+				if (hearts) {
+					if (offer.hearts) {
+						offer.hearts += hearts;
+					} else {
+						offer.hearts = hearts;
+					}
+				}
+
+				if (ascendedCandles) {
+					if (offer.ascendedCandles) {
+						offer.ascendedCandles += ascendedCandles;
+					} else {
+						offer.ascendedCandles = ascendedCandles;
+					}
+				}
+
+				if (seasonalCandles) {
+					if (offer.seasonalCandles) {
+						offer.seasonalCandles += seasonalCandles;
+					} else {
+						offer.seasonalCandles = seasonalCandles;
+					}
+				}
+
+				return offer;
+			}, {}) ?? null;
+
+		this.maxItemsBit = this.offer?.reduce((bits, _, bit) => bit | bits, 0) ?? null;
+
+		this.imageURL = offer
+			? String(
+					new URL(
+						`spirits/${(name.includes("(") ? name.slice(0, name.indexOf("(") - 1) : name)
+							.replaceAll(" ", "_")
+							.toLowerCase()}/friendship_tree.webp`,
+						CDN_URL,
+					),
+			  )
+			: null;
+	}
+}
+
+abstract class FriendshipTree extends PotentialFriendshipTree {
+	public declare readonly offer: BaseSpiritData["offer"];
+
+	public declare readonly totalCost: SpiritCost;
+
+	public declare readonly maxItemsBit: number;
+
+	public declare imageURL: string;
+}
+
+abstract class ExpressiveSpirit {
+	public readonly expression: Expression | null;
+
+	public readonly stance: Stance | null;
+
+	public readonly call: Call | null;
+
+	public constructor({ expression, stance, call }: StandardSpiritData) {
+		this.expression = expression ?? null;
+		this.stance = stance ?? null;
+		this.call = call ?? null;
+	}
+}
+
 export abstract class BaseSpirit {
-	public readonly name: BaseSpiritDataBase["name"];
+	public readonly name: BaseSpiritData["name"];
 
-	public readonly realm: BaseSpiritDataBase["realm"];
+	public readonly realm: Exclude<Realm, Realm.AncientMemory> | null;
 
-	public readonly offer: BaseSpiritDataBase["offer"];
-
-	public readonly totalCost: SpiritCost;
-
-	public readonly maxItemsBit: number;
-
-	public readonly keywords: NonNullable<BaseSpiritDataBase["keywords"]>;
-
-	public readonly imageURL: string;
+	public readonly keywords: NonNullable<BaseSpiritData["keywords"]>;
 
 	public readonly wikiURL: string;
 
-	public constructor(spirit: BaseSpiritDataBase) {
+	public constructor(spirit: BaseSpiritData) {
 		this.name = spirit.name;
-		this.realm = spirit.realm;
-		this.offer = spirit.offer;
-
-		this.totalCost = this.offer.reduce<BaseSpirit["totalCost"]>((offer, { cost }) => {
-			if (!cost) return offer;
-			const { candles, hearts, ascendedCandles, seasonalCandles } = cost;
-
-			if (candles) {
-				if (offer.candles) {
-					offer.candles += candles;
-				} else {
-					offer.candles = candles;
-				}
-			}
-
-			if (hearts) {
-				if (offer.hearts) {
-					offer.hearts += hearts;
-				} else {
-					offer.hearts = hearts;
-				}
-			}
-
-			if (ascendedCandles) {
-				if (offer.ascendedCandles) {
-					offer.ascendedCandles += ascendedCandles;
-				} else {
-					offer.ascendedCandles = ascendedCandles;
-				}
-			}
-
-			if (seasonalCandles) {
-				if (offer.seasonalCandles) {
-					offer.seasonalCandles += seasonalCandles;
-				} else {
-					offer.seasonalCandles = seasonalCandles;
-				}
-			}
-
-			return offer;
-		}, {});
-
-		this.maxItemsBit = this.offer.reduce((bits, _, bit) => bit | bits, 0);
+		this.realm = spirit.realm ?? null;
 		this.keywords = spirit.keywords ?? [];
-		this.imageURL = String(new URL(`spirits/${this.cdnName}/friendship_tree.webp`, CDN_URL));
 		this.wikiURL = new URL(this.wikiName, WIKI_URL).toString();
 	}
 
@@ -444,26 +485,19 @@ export abstract class BaseSpirit {
 	}
 }
 
-export class StandardSpirit extends BaseSpirit {
-	public readonly expression: StandardSpiritData["expression"] | null;
-
-	public readonly stance: StandardSpiritData["stance"] | null;
-
-	public readonly call: StandardSpiritData["call"] | null;
+export class StandardSpirit extends Mixin(BaseSpirit, FriendshipTree, ExpressiveSpirit) {
+	public declare readonly realm: Exclude<Realm, Realm.AncientMemory>;
 
 	public constructor(spirit: StandardSpiritData) {
 		super(spirit);
-		this.expression = "expression" in spirit ? spirit.expression : null;
-		this.stance = "stance" in spirit ? spirit.stance : null;
-		this.call = "call" in spirit ? spirit.call : null;
 	}
 }
 
-export class ElderSpirit extends BaseSpirit {}
+export class ElderSpirit extends Mixin(BaseSpirit, FriendshipTree) {
+	public declare readonly realm: Exclude<Realm, Realm.AncientMemory>;
+}
 
-export class SeasonalSpirit extends StandardSpirit {
-	public declare readonly imageURL: string;
-
+export class SeasonalSpirit extends Mixin(BaseSpirit, FriendshipTree, ExpressiveSpirit) {
 	public readonly season: SpiritSeason;
 
 	public readonly marketingVideoURL: string | null;
