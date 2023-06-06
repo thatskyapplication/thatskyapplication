@@ -11,6 +11,7 @@ import Performance from "./Performance/index.js";
 import Prophecy from "./Prophecy/index.js";
 import Rhythm from "./Rhythm/index.js";
 import Sanctuary from "./Sanctuary/index.js";
+import Shattering from "./Shattering/index.js";
 
 export default [
 	...Gratitude,
@@ -26,4 +27,5 @@ export default [
 	...Flight,
 	...Abyss,
 	...Performance,
+	...Shattering,
 ] as const;
