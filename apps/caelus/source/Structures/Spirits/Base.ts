@@ -72,6 +72,7 @@ export enum SpiritName {
 	GreetingShaman = "Greeting Shaman",
 
 	// Season of Lightseekers
+	LightseekersGuide = "Lightseekers Guide",
 	PiggybackLightseeker = "Piggyback Lightseeker",
 	DoublefiveLightCatcher = "Doublefive Light Catcher",
 	LaidbackPioneer = "Laidback Pioneer",
@@ -80,6 +81,7 @@ export enum SpiritName {
 	ShushingLightScholar = "Shushing Light Scholar",
 
 	// Season of Belonging
+	BelongingGuide = "Belonging Guide",
 	BoogieKid = "Boogie Kid",
 	ConfettiCousin = "Confetti Cousin",
 	HairtousleTeen = "Hairtousle Teen",
@@ -88,6 +90,7 @@ export enum SpiritName {
 	WiseGrandparent = "Wise Grandparent",
 
 	// Season of Rhythm
+	RhythmGuide = "Rhythm Guide",
 	TroupeGreeter = "Troupe Greeter",
 	FestivalSpinDancer = "Festival Spin Dancer",
 	AdmiringActor = "Admiring Actor",
@@ -96,6 +99,7 @@ export enum SpiritName {
 	ThoughtfulDirector = "Thoughtful Director",
 
 	// Season of Enchantment
+	EnchantmentGuide = "Enchantment Guide",
 	NoddingMuralist = "Nodding Muralist",
 	IndifferentAlchemist = "Indifferent Alchemist",
 	CrabWalker = "Crab Walker",
@@ -104,6 +108,7 @@ export enum SpiritName {
 	PlayfightingHerbalist = "Playfighting Herbalist",
 
 	// Season of Sanctuary
+	SanctuaryGuide = "Sanctuary Guide",
 	JellyWhisperer = "Jelly Whisperer",
 	TimidBookworm = "Timid Bookworm",
 	RallyingThrillseeker = "Rallying Thrillseeker",
@@ -112,18 +117,21 @@ export enum SpiritName {
 	ChillSunbather = "Chill Sunbather",
 
 	// Season of Prophecy
+	ProphecyGuide = "Prophecy Guide",
 	ProphetOfWater = "Prophet of Water",
 	ProphetOfEarth = "Prophet of Earth",
 	ProphetOfAir = "Prophet of Air",
 	ProphetOfFire = "Prophet of Fire",
 
 	// Season of Dreams
+	DreamsGuide = "Dreams Guide",
 	SpinningMentor = "Spinning Mentor",
 	DancingPerformer = "Dancing Performer",
 	PeekingPostman = "Peeking Postman",
 	BearhugHermit = "Bearhug Hermit",
 
 	// Season of Assembly
+	AssemblyGuide = "Assembly Guide",
 	BaffledBotanist = "Baffled Botanist",
 	ScoldingStudent = "Scolding Student",
 	ScaredyCadet = "Scaredy Cadet",
@@ -132,6 +140,7 @@ export enum SpiritName {
 	DaydreamForester = "Daydream Forester",
 
 	// Season of Little Prince
+	TheRose = "The Rose",
 	BeckoningRuler = "Beckoning Ruler",
 	GloatingNarcissist = "Gloating Narcissist",
 	StretchingLamplighter = "Stretching Lamplighter",
@@ -140,42 +149,49 @@ export enum SpiritName {
 	StarCollector = "Star Collector",
 
 	// Season of Flight
+	FlightGuide = "Flight Guide",
 	LivelyNavigator = "Lively Navigator",
 	LightWhisperer = "Light Whisperer",
 	TinkeringChimesmith = "Tinkering Chimesmith",
 	TalentedBuilder = "Talented Builder",
 
 	// Season of Abyss
+	AbyssGuide = "Abyss Guide",
 	AnxiousAngler = "Anxious Angler",
 	CeasingCommodore = "Ceasing Commodore",
 	BumblingBoatswain = "Bumbling Boatswain",
 	CacklingCannoneer = "Cackling Cannoneer",
 
 	// Season of Performance
+	PerformanceGuide = "Performance Guide",
 	FranticStagehand = "Frantic Stagehand",
 	ForgetfulStoryteller = "Forgetful Storyteller",
 	MellowMusician = "Mellow Musician",
 	ModestDancer = "Modest Dancer",
 
 	// Season of Shattering
+	TheVoidOfShattering = "The Void of Shattering",
 	AncientLight1 = "Ancient Light (Jellyfish)",
 	AncientLight2 = "Ancient Light (Manta)",
 	AncientDarkness1 = "Ancient Darkness (Plant)",
 	AncientDarkness2 = "Ancient Darkness (Dragon)",
 
 	// Season of AURORA
+	AURORAGuide = "AURORA Guide",
 	RunningWayfarer = "Running Wayfarer",
 	MindfulMiner = "Mindful Miner",
 	WarriorOfLove = "Warrior of Love",
 	SeedOfHope = "Seed of Hope",
 
 	// Season of Remembrance
+	RemembranceGuide = "Remembrance Guide",
 	BereftVeteran = "Bereft Veteran",
 	PleadingChild = "Pleading Child",
 	TiptoeingTeaBrewer = "Tiptoeing Tea-Brewer",
 	WoundedWarrior = "Wounded Warrior",
 
 	// Season of Passage
+	PassageGuide = "Passage Guide",
 	OddballOutcast = "Oddball Outcast",
 	TumblingTroublemaker = "Tumbling Troublemaker",
 	MelancholyMope = "Melancholy Mope",
