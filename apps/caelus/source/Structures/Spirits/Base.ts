@@ -404,7 +404,7 @@ abstract class PartialFriendshipTree {
 
 	public readonly maxItemsBit: number | null;
 
-	public imageURL: string | null;
+	public imageURL: string;
 
 	public constructor({ name, offer }: PartialFriendshipData) {
 		this.offer = offer ?? null;
