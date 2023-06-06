@@ -61,71 +61,95 @@ export enum SpiritName {
 	MeditatingMonastic = "Meditating Monastic",
 	ElderOfTheVault = "Elder of the Vault",
 
-	// Seasonal Spirits
+	// Season of Gratitude
 	SassyDrifter = "Sassy Drifter",
 	StretchingGuru = "Stretching Guru",
 	ProvokingPerformer = "Provoking Performer",
 	LeapingDancer = "Leaping Dancer",
 	SalutingProtector = "Saluting Protector",
 	GreetingShaman = "Greeting Shaman",
+
+	// Season of Lightseekers
 	PiggybackLightseeker = "Piggyback Lightseeker",
 	DoublefiveLightCatcher = "Doublefive Light Catcher",
 	LaidbackPioneer = "Laidback Pioneer",
 	TwirlingChampion = "Twirling Champion",
 	CrabWhisperer = "Crab Whisperer",
 	ShushingLightScholar = "Shushing Light Scholar",
+	
+	// Season of Belonging
 	BoogieKid = "Boogie Kid",
 	ConfettiCousin = "Confetti Cousin",
 	HairtousleTeen = "Hairtousle Teen",
 	SparklerParent = "Sparkler Parent",
 	PleafulParent = "Pleaful Parent",
 	WiseGrandparent = "Wise Grandparent",
+
+	// Season of Rhythm
 	TroupeGreeter = "Troupe Greeter",
 	FestivalSpinDancer = "Festival Spin Dancer",
 	AdmiringActor = "Admiring Actor",
 	TroupeJuggler = "Troupe Juggler",
 	RespectfulPianist = "Respectful Pianist",
 	ThoughtfulDirector = "Thoughtful Director",
+
+	// Season of Enchantment
 	NoddingMuralist = "Nodding Muralist",
 	IndifferentAlchemist = "Indifferent Alchemist",
 	CrabWalker = "Crab Walker",
 	ScarecrowFarmer = "Scarecrow Farmer",
 	SnoozingCarpenter = "Snoozing Carpenter",
 	PlayfightingHerbalist = "Playfighting Herbalist",
+
+	// Season of Sanctuary
 	JellyWhisperer = "Jelly Whisperer",
 	TimidBookworm = "Timid Bookworm",
 	RallyingThrillseeker = "Rallying Thrillseeker",
 	HikingGrouch = "Hiking Grouch",
 	GratefulShellCollector = "Grateful Shell Collector",
 	ChillSunbather = "Chill Sunbather",
+
+	// Season of Prophecy
 	ProphetOfWater = "Prophet of Water",
 	ProphetOfEarth = "Prophet of Earth",
 	ProphetOfAir = "Prophet of Air",
 	ProphetOfFire = "Prophet of Fire",
+	
+	// Season of Dreams
 	SpinningMentor = "Spinning Mentor",
 	DancingPerformer = "Dancing Performer",
 	PeekingPostman = "Peeking Postman",
 	BearhugHermit = "Bearhug Hermit",
+
+	// Season of Assembly
 	BaffledBotanist = "Baffled Botanist",
 	ScoldingStudent = "Scolding Student",
 	ScaredyCadet = "Scaredy Cadet",
 	MarchingAdventurer = "Marching Adventurer",
 	ChucklingScout = "Chuckling Scout",
 	DaydreamForester = "Daydream Forester",
+
+	// Season of Little Prince
 	BeckoningRuler = "Beckoning Ruler",
 	GloatingNarcissist = "Gloating Narcissist",
 	StretchingLamplighter = "Stretching Lamplighter",
 	SlouchingSoldier = "Slouching Soldier",
 	SneezingGeographer = "Sneezing Geographer",
 	StarCollector = "Star Collector",
+	
+	// Season of Flight
 	LivelyNavigator = "Lively Navigator",
 	LightWhisperer = "Light Whisperer",
 	TinkeringChimesmith = "Tinkering Chimesmith",
 	TalentedBuilder = "Talented Builder",
+	
+	// Season of Abyss
 	AnxiousAngler = "Anxious Angler",
 	CeasingCommodore = "Ceasing Commodore",
 	BumblingBoatswain = "Bumbling Boatswain",
 	CacklingCannoneer = "Cackling Cannoneer",
+
+	// Season of Performance
 	FranticStagehand = "Frantic Stagehand",
 	ForgetfulStoryteller = "Forgetful Storyteller",
 	MellowMusician = "Mellow Musician",
@@ -137,14 +161,19 @@ export enum SpiritName {
 	AncientDarkness1 = "Ancient Darkness (Plant)",
 	AncientDarkness2 = "Ancient Darkness (Dragon)",
 
+	// Season of AURORA
 	RunningWayfarer = "Running Wayfarer",
 	MindfulMiner = "Mindful Miner",
 	WarriorOfLove = "Warrior of Love",
 	SeedOfHope = "Seed of Hope",
+
+	// Season of Remembrance
 	BereftVeteran = "Bereft Veteran",
 	PleadingChild = "Pleading Child",
 	TiptoeingTeaBrewer = "Tiptoeing Tea-Brewer",
 	WoundedWarrior = "Wounded Warrior",
+
+	// Season of Passage
 	OddballOutcast = "Oddball Outcast",
 	TumblingTroublemaker = "Tumbling Troublemaker",
 	MelancholyMope = "Melancholy Mope",
