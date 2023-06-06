@@ -59,7 +59,7 @@ export default class implements AutocompleteCommand {
 			return;
 		}
 
-		if (spirit.totalCost.seasonalCandles && !canUseCustomEmoji(interaction)) {
+		if (spirit.totalCost?.seasonalCandles && !canUseCustomEmoji(interaction)) {
 			await interaction.reply({
 				content: "Missing the `Use External Emojis` permission.",
 				ephemeral: true,
@@ -98,8 +98,9 @@ export default class implements AutocompleteCommand {
 			}
 		}
 
-		const totalOffer = resolveOfferToCurrency(interaction, spirit.totalCost).join("");
-		if (totalOffer.length > 1) description.push(totalOffer);
+		if (!spirit.offer) description.push("This spirit does not have a friendship tree.");
+		const totalOffer = spirit.totalCost ? resolveOfferToCurrency(interaction, spirit.totalCost).join("") : null;
+		if (totalOffer && totalOffer.length > 1) description.push(totalOffer);
 
 		if (seasonalSpirit && spirit.marketingVideoURL) {
 			description.push(hyperlink("Promotional Video", spirit.marketingVideoURL));
@@ -125,7 +126,7 @@ export default class implements AutocompleteCommand {
 						let stance = null;
 						let call = null;
 
-						if (spirit.isStandardSpirit()) {
+						if (spirit.isSeasonalSpirit()) {
 							expression = spirit.expression?.toUpperCase() ?? null;
 							stance = spirit.stance?.toUpperCase() ?? null;
 							call = spirit.call?.toUpperCase() ?? null;

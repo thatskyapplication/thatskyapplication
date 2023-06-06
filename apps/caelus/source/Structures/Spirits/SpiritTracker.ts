@@ -1,5 +1,6 @@
 import {
 	type ChatInputCommandInteraction,
+	type InteractionUpdateOptions,
 	type StringSelectMenuInteraction,
 	type Snowflake,
 	ActionRowBuilder,
@@ -9,12 +10,12 @@ import {
 	EmbedBuilder,
 	ButtonBuilder,
 	ButtonStyle,
-	type InteractionUpdateOptions,
 } from "discord.js";
 import { Season, Emoji } from "../../Utility/Constants.js";
 import { canUseCustomEmoji, isSeason, resolveEmoji, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import {
+	type GuideSpirit,
 	type ElderSpirit,
 	type SeasonalSpirit,
 	type SpiritCost,
@@ -73,6 +74,7 @@ interface SpiritTrackerPacket {
 	memory_whisperer: number | null;
 	meditating_monastic: number | null;
 	elder_of_the_vault: number | null;
+	gratitude_guide: number | null;
 	sassy_drifter: number | null;
 	stretching_guru: number | null;
 	provoking_performer: number | null;
@@ -204,6 +206,7 @@ interface SpiritTrackerData {
 	memoryWhisperer: SpiritTrackerPacket["memory_whisperer"];
 	meditatingMonastic: SpiritTrackerPacket["meditating_monastic"];
 	elderOfTheVault: SpiritTrackerPacket["elder_of_the_vault"];
+	gratitudeGuide: SpiritTrackerPacket["gratitude_guide"];
 	sassyDrifter: SpiritTrackerPacket["sassy_drifter"];
 	stretchingGuru: SpiritTrackerPacket["stretching_guru"];
 	provokingPerformer: SpiritTrackerPacket["provoking_performer"];
@@ -402,6 +405,8 @@ export class SpiritTracker {
 	public meditatingMonastic!: SpiritTrackerData["meditatingMonastic"];
 
 	public elderOfTheVault!: SpiritTrackerData["elderOfTheVault"];
+
+	public gratitudeGuide!: SpiritTrackerData["gratitudeGuide"];
 
 	public sassyDrifter!: SpiritTrackerData["sassyDrifter"];
 
@@ -620,6 +625,7 @@ export class SpiritTracker {
 		this.memoryWhisperer = data.memory_whisperer;
 		this.meditatingMonastic = data.meditating_monastic;
 		this.elderOfTheVault = data.elder_of_the_vault;
+		this.gratitudeGuide = data.gratitude_guide;
 		this.sassyDrifter = data.sassy_drifter;
 		this.stretchingGuru = data.stretching_guru;
 		this.provokingPerformer = data.provoking_performer;
@@ -848,6 +854,9 @@ export class SpiritTracker {
 				break;
 			case SpiritName.ElderOfTheVault:
 				spirit = "elder_of_the_vault";
+				break;
+			case SpiritName.GratitudeGuide:
+				spirit = "gratitude_guide";
 				break;
 			case SpiritName.SassyDrifter:
 				spirit = "sassy_drifter";
@@ -1144,7 +1153,7 @@ export class SpiritTracker {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							Object.values(SPIRIT_TYPE).map((spiritType) => {
+							[SPIRIT_TYPE.Elder, SPIRIT_TYPE.Seasonal].map((spiritType) => {
 								let label;
 
 								switch (spiritType) {
@@ -1174,7 +1183,12 @@ export class SpiritTracker {
 	}
 
 	public static async parseSpiritType(interaction: StringSelectMenuInteraction) {
-		switch (Number(interaction.values[0]) as SpiritType) {
+		switch (
+			Number(interaction.values[0]) as Exclude<
+				SpiritType,
+				(typeof SPIRIT_TYPE)["Standard"] | (typeof SPIRIT_TYPE)["Guide"]
+			>
+		) {
 			case SPIRIT_TYPE.Elder:
 				await this.viewElders(interaction);
 				return;
@@ -1244,7 +1258,7 @@ export class SpiritTracker {
 	private static seasonProgress(spiritTracker: SpiritTracker, season: Season) {
 		return this.averageProgress(
 			Seasonal.filter((spirit) => spirit.season.name === season).map(({ name, maxItemsBit }) =>
-				this.spiritProgression(spiritTracker.resolveNameToBit(name), maxItemsBit),
+				maxItemsBit ? this.spiritProgression(spiritTracker.resolveNameToBit(name), maxItemsBit) : 100,
 			),
 		);
 	}
@@ -1285,7 +1299,9 @@ export class SpiritTracker {
 
 		const options = Seasonal.filter((spirit) => spirit.season.name === season).map(({ name, maxItemsBit }) =>
 			new StringSelectMenuOptionBuilder()
-				.setLabel(`${name} (${this.spiritProgression(spiritTracker.resolveNameToBit(name), maxItemsBit)}%)`)
+				.setLabel(
+					`${name} (${maxItemsBit ? this.spiritProgression(spiritTracker.resolveNameToBit(name), maxItemsBit) : 100}%)`,
+				)
 				.setValue(name),
 		);
 
@@ -1339,29 +1355,30 @@ export class SpiritTracker {
 	private static async viewSpiritResponse(
 		interaction: StringSelectMenuInteraction,
 		bit: number | null,
-		spirit: ElderSpirit | SeasonalSpirit,
+		spirit: GuideSpirit | ElderSpirit | SeasonalSpirit,
 	) {
 		const remainingCurrency = { candles: 0, hearts: 0, ascendedCandles: 0, seasonalCandles: 0 } satisfies SpiritCost;
 
-		const embedFields = spirit.offer.map(({ item, cost }, flag) => {
-			let value;
+		const embedFields =
+			spirit.offer?.map(({ item, cost }, flag) => {
+				let value;
 
-			if (bit && (bit & flag) === flag) {
-				value = resolveEmoji(interaction, Emoji.Yes, true);
-			} else {
-				if (cost?.candles) remainingCurrency.candles += cost.candles;
-				if (cost?.hearts) remainingCurrency.hearts += cost.hearts;
-				if (cost?.ascendedCandles) remainingCurrency.ascendedCandles += cost.ascendedCandles;
-				if (cost?.seasonalCandles) remainingCurrency.seasonalCandles += cost.seasonalCandles;
-				value = resolveOfferToCurrency(interaction, cost ?? {}).join("") || resolveEmoji(interaction, Emoji.No, true);
-			}
+				if (bit && (bit & flag) === flag) {
+					value = resolveEmoji(interaction, Emoji.Yes, true);
+				} else {
+					if (cost?.candles) remainingCurrency.candles += cost.candles;
+					if (cost?.hearts) remainingCurrency.hearts += cost.hearts;
+					if (cost?.ascendedCandles) remainingCurrency.ascendedCandles += cost.ascendedCandles;
+					if (cost?.seasonalCandles) remainingCurrency.seasonalCandles += cost.seasonalCandles;
+					value = resolveOfferToCurrency(interaction, cost ?? {}).join("") || resolveEmoji(interaction, Emoji.No, true);
+				}
 
-			return {
-				name: item,
-				value: bit && (bit & flag) === flag ? resolveEmoji(interaction, Emoji.Yes, true) : value,
-				inline: true,
-			};
-		});
+				return {
+					name: item,
+					value: bit && (bit & flag) === flag ? resolveEmoji(interaction, Emoji.Yes, true) : value,
+					inline: true,
+				};
+			}) ?? [];
 
 		const backButtons = new ActionRowBuilder<ButtonBuilder>().setComponents(
 			backToStartButtonBuilder,
@@ -1392,15 +1409,15 @@ export class SpiritTracker {
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
 
+		if (embedFields.length === 0) embed.setDescription("This spirit does not have a friendship tree.");
 		const resolvedRemainingCurrency = resolveOfferToCurrency(interaction, remainingCurrency);
 
 		if (resolvedRemainingCurrency.length > 0) {
 			embed.setDescription(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);
 		}
 
-		await interaction.update({
-			components: [
-				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+		const itemSelection = spirit.offer
+			? new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
 						.setCustomId(`${SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID}-${spirit.name}`)
 						.setMaxValues(spirit.offer.size)
@@ -1414,11 +1431,13 @@ export class SpiritTracker {
 							),
 						)
 						.setPlaceholder("Select what you have!"),
-				),
-				backButtons,
-			],
-			embeds: [embed],
-		});
+			  )
+			: null;
+
+		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [backButtons];
+		if (itemSelection) components.push(itemSelection);
+
+		await interaction.update({ components, embeds: [embed] });
 	}
 
 	private resolveNameToBit(spiritName: SpiritName) {
@@ -1509,6 +1528,8 @@ export class SpiritTracker {
 				return this.meditatingMonastic;
 			case SpiritName.ElderOfTheVault:
 				return this.elderOfTheVault;
+			case SpiritName.GratitudeGuide:
+				return this.gratitudeGuide;
 			case SpiritName.SassyDrifter:
 				return this.sassyDrifter;
 			case SpiritName.StretchingGuru:

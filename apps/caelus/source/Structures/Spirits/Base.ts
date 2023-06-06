@@ -63,6 +63,7 @@ export enum SpiritName {
 	ElderOfTheVault = "Elder of the Vault",
 
 	// Season of Gratitude
+	GratitudeGuide = "Gratitude Guide",
 	SassyDrifter = "Sassy Drifter",
 	StretchingGuru = "Stretching Guru",
 	ProvokingPerformer = "Provoking Performer",
@@ -277,10 +278,10 @@ export const enum Stance {
 }
 
 export const SPIRIT_TYPE = {
-	// No standard spirits exist yet.
-	// Standard: 0,
+	Standard: 0,
 	Elder: 1,
 	Seasonal: 2,
+	Guide: 3,
 } as const;
 
 export type SpiritType = (typeof SPIRIT_TYPE)[keyof typeof SPIRIT_TYPE];
@@ -297,17 +298,31 @@ export interface ItemsData {
 	cost: SpiritCost | null;
 }
 
-interface BaseSpiritData {
+interface PartialFriendshipData {
 	name: SpiritName;
-	realm?: Exclude<Realm, Realm.AncientMemory>;
-	offer: Collection<number, ItemsData>;
-	keywords?: string[];
+	offer?: Collection<number, ItemsData>;
 }
 
-interface StandardSpiritData extends BaseSpiritData {
+type FriendshipTreeData = Required<PartialFriendshipData>;
+
+interface ExpressiveSpiritData {
 	expression?: Expression;
 	stance?: Stance;
 	call?: Call;
+}
+
+interface BaseSpiritData {
+	name: SpiritName;
+	realm?: Exclude<Realm, Realm.AncientMemory>;
+	keywords?: string[];
+}
+
+interface StandardSpiritData extends BaseSpiritData, FriendshipTreeData, ExpressiveSpiritData {
+	realm: Exclude<Realm, Realm.AncientMemory>;
+}
+
+interface ElderSpiritData extends BaseSpiritData, FriendshipTreeData {
+	realm: Exclude<Realm, Realm.AncientMemory>;
 }
 
 export type SeasonalSpiritVisitCollectionKey = number | "Error";
@@ -317,24 +332,30 @@ export interface SeasonalSpiritVisit {
 	returning: Collection<SeasonalSpiritVisitCollectionKey, Dayjs>;
 }
 
-interface SeasonalSpiritData extends StandardSpiritData {
+interface SpiritSeason {
+	name: Season;
+}
+
+interface SeasonalSpiritData extends BaseSpiritData, FriendshipTreeData, ExpressiveSpiritData {
 	season: Season;
 	hasMarketingVideo?: boolean;
 	visits?: SeasonalSpiritVisit;
 }
 
-interface SpiritSeason {
-	name: Season;
+interface GuideSpiritData extends BaseSpiritData, PartialFriendshipData {
+	season: Season;
 }
 
 export function resolveSpiritTypeToString(spiritType: SpiritType) {
 	switch (spiritType) {
-		// case SPIRIT_TYPE.Standard:
-		// return "Standard Spirit";
+		case SPIRIT_TYPE.Standard:
+			return "Standard Spirit";
 		case SPIRIT_TYPE.Elder:
 			return "Elders";
 		case SPIRIT_TYPE.Seasonal:
 			return "Seasonal Spirits";
+		case SPIRIT_TYPE.Guide:
+			return "Guide Spirits";
 	}
 }
 
@@ -360,8 +381,8 @@ export function resolveOfferToCurrency(interaction: BaseInteraction, cost: Spiri
 	return totalCost;
 }
 
-abstract class PotentialFriendshipTree {
-	public readonly offer: BaseSpiritData["offer"] | null;
+abstract class PartialFriendshipTree {
+	public readonly offer: Collection<number, ItemsData> | null;
 
 	public readonly totalCost: SpiritCost | null;
 
@@ -369,8 +390,8 @@ abstract class PotentialFriendshipTree {
 
 	public imageURL: string | null;
 
-	public constructor({ name, offer }: BaseSpiritData) {
-		this.offer = offer;
+	public constructor({ name, offer }: PartialFriendshipData) {
+		this.offer = offer ?? null;
 
 		this.totalCost =
 			this.offer?.reduce<FriendshipTree["totalCost"]>((offer, { cost }) => {
@@ -414,21 +435,19 @@ abstract class PotentialFriendshipTree {
 
 		this.maxItemsBit = this.offer?.reduce((bits, _, bit) => bit | bits, 0) ?? null;
 
-		this.imageURL = offer
-			? String(
-					new URL(
-						`spirits/${(name.includes("(") ? name.slice(0, name.indexOf("(") - 1) : name)
-							.replaceAll(" ", "_")
-							.toLowerCase()}/friendship_tree.webp`,
-						CDN_URL,
-					),
-			  )
-			: null;
+		this.imageURL = String(
+			new URL(
+				`spirits/${(name.includes("(") ? name.slice(0, name.indexOf("(") - 1) : name)
+					.replaceAll(" ", "_")
+					.toLowerCase()}/friendship_tree.webp`,
+				CDN_URL,
+			),
+		);
 	}
 }
 
-abstract class FriendshipTree extends PotentialFriendshipTree {
-	public declare readonly offer: BaseSpiritData["offer"];
+abstract class FriendshipTree extends PartialFriendshipTree {
+	public declare readonly offer: Collection<number, ItemsData>;
 
 	public declare readonly totalCost: SpiritCost;
 
@@ -444,7 +463,7 @@ abstract class ExpressiveSpirit {
 
 	public readonly call: Call | null;
 
-	public constructor({ expression, stance, call }: StandardSpiritData) {
+	public constructor({ expression, stance, call }: ExpressiveSpiritData) {
 		this.expression = expression ?? null;
 		this.stance = stance ?? null;
 		this.call = call ?? null;
@@ -453,6 +472,8 @@ abstract class ExpressiveSpirit {
 
 export abstract class BaseSpirit {
 	public readonly name: BaseSpiritData["name"];
+
+	public readonly type!: SpiritType;
 
 	public readonly realm: Exclude<Realm, Realm.AncientMemory> | null;
 
@@ -468,11 +489,15 @@ export abstract class BaseSpirit {
 	}
 
 	public isStandardSpirit(): this is StandardSpirit {
-		return "expression" in this || "stance" in this || "call" in this;
+		return this.type === SPIRIT_TYPE.Standard;
 	}
 
 	public isSeasonalSpirit(): this is SeasonalSpirit {
-		return "season" in this;
+		return this.type === SPIRIT_TYPE.Seasonal;
+	}
+
+	public isElderSpirit(): this is ElderSpirit {
+		return this.type === SPIRIT_TYPE.Elder;
 	}
 
 	public get cdnName() {
@@ -486,18 +511,30 @@ export abstract class BaseSpirit {
 }
 
 export class StandardSpirit extends Mixin(BaseSpirit, FriendshipTree, ExpressiveSpirit) {
+	public override readonly type = SPIRIT_TYPE.Standard;
+
 	public declare readonly realm: Exclude<Realm, Realm.AncientMemory>;
 
 	public constructor(spirit: StandardSpiritData) {
 		super(spirit);
+		this.realm = spirit.realm;
 	}
 }
 
 export class ElderSpirit extends Mixin(BaseSpirit, FriendshipTree) {
+	public override readonly type = SPIRIT_TYPE.Elder;
+
 	public declare readonly realm: Exclude<Realm, Realm.AncientMemory>;
+
+	public constructor(spirit: ElderSpiritData) {
+		super(spirit);
+		this.realm = spirit.realm;
+	}
 }
 
 export class SeasonalSpirit extends Mixin(BaseSpirit, FriendshipTree, ExpressiveSpirit) {
+	public override readonly type = SPIRIT_TYPE.Seasonal;
+
 	public readonly season: SpiritSeason;
 
 	public readonly marketingVideoURL: string | null;
@@ -529,5 +566,16 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, FriendshipTree, Expressive
 
 	public get notVisited() {
 		return this.visits.travelling.size === 0 && this.visits.returning.size === 0;
+	}
+}
+
+export class GuideSpirit extends Mixin(BaseSpirit, PartialFriendshipTree) {
+	public override readonly type = SPIRIT_TYPE.Guide;
+
+	public readonly season: SpiritSeason;
+
+	public constructor(spirit: GuideSpiritData) {
+		super(spirit);
+		this.season = { name: spirit.season };
 	}
 }
