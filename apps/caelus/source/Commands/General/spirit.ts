@@ -9,7 +9,12 @@ import {
 	time,
 	TimestampStyles,
 } from "discord.js";
-import { resolveOfferToCurrency, type SeasonalSpiritVisit } from "../../Structures/Spirits/Base.js";
+import {
+	type SeasonalSpiritVisit,
+	NO_FRIENDSHIP_TREE_TEXT,
+	NO_FRIENDSHIP_TREE_YET_TEXT,
+	resolveOfferToCurrency,
+} from "../../Structures/Spirits/Base.js";
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
 import Spirits from "../../Structures/Spirits/index.js";
 import { Season } from "../../Utility/Constants.js";
@@ -70,7 +75,6 @@ export default class implements AutocompleteCommand {
 
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
-			.setImage(spirit.imageURL)
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
 
@@ -98,7 +102,12 @@ export default class implements AutocompleteCommand {
 			}
 		}
 
-		if (!spirit.offer) description.push("This spirit does not have a friendship tree.");
+		if (spirit.imageURL) {
+			embed.setImage(spirit.imageURL);
+		} else {
+			description.push(spirit.offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
+		}
+
 		const totalOffer = spirit.totalCost ? resolveOfferToCurrency(interaction, spirit.totalCost).join("") : null;
 		if (totalOffer && totalOffer.length > 1) description.push(totalOffer);
 

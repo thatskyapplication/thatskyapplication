@@ -317,9 +317,12 @@ export interface ItemsData {
 interface PartialFriendshipData {
 	name: SpiritName;
 	offer?: Collection<number, ItemsData>;
+	hasInfographic?: boolean;
 }
 
-type FriendshipTreeData = Required<PartialFriendshipData>;
+interface FriendshipTreeData extends Omit<PartialFriendshipData, "offer"> {
+	offer: Collection<number, ItemsData>;
+}
 
 interface ExpressiveSpiritData {
 	expression?: Expression;
@@ -361,6 +364,9 @@ interface SeasonalSpiritData extends BaseSpiritData, FriendshipTreeData, Express
 interface GuideSpiritData extends BaseSpiritData, PartialFriendshipData {
 	season: Season;
 }
+
+export const NO_FRIENDSHIP_TREE_TEXT = "This spirit does not have a friendship tree." as const;
+export const NO_FRIENDSHIP_TREE_YET_TEXT = "This spirit does not have a friendship tree. Maybe it should?" as const;
 
 export function resolveSpiritTypeToString(spiritType: SpiritType) {
 	switch (spiritType) {
@@ -404,9 +410,9 @@ abstract class PartialFriendshipTree {
 
 	public readonly maxItemsBit: number | null;
 
-	public imageURL: string;
+	public imageURL: string | null;
 
-	public constructor({ name, offer }: PartialFriendshipData) {
+	public constructor({ name, offer, hasInfographic = true }: PartialFriendshipData) {
 		this.offer = offer ?? null;
 
 		this.totalCost =
@@ -451,14 +457,16 @@ abstract class PartialFriendshipTree {
 
 		this.maxItemsBit = this.offer?.reduce((bits, _, bit) => bit | bits, 0) ?? null;
 
-		this.imageURL = String(
-			new URL(
-				`spirits/${(name.includes("(") ? name.slice(0, name.indexOf("(") - 1) : name)
-					.replaceAll(" ", "_")
-					.toLowerCase()}/friendship_tree.webp`,
-				CDN_URL,
-			),
-		);
+		this.imageURL = hasInfographic
+			? String(
+					new URL(
+						`spirits/${(name.includes("(") ? name.slice(0, name.indexOf("(") - 1) : name)
+							.replaceAll(" ", "_")
+							.toLowerCase()}/friendship_tree.webp`,
+						CDN_URL,
+					),
+			  )
+			: null;
 	}
 }
 

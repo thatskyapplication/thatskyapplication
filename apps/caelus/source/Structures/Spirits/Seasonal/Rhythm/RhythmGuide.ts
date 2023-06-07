@@ -4,4 +4,5 @@ import { SpiritName, GuideSpirit } from "../../Base.js";
 export default new GuideSpirit({
 	name: SpiritName.RhythmGuide,
 	season: Season.Rhythm,
+	hasInfographic: false,
 });

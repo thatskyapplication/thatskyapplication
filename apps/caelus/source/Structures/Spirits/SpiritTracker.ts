@@ -24,6 +24,8 @@ import {
 	SPIRIT_TYPE,
 	resolveSpiritTypeToString,
 	resolveOfferToCurrency,
+	NO_FRIENDSHIP_TREE_TEXT,
+	NO_FRIENDSHIP_TREE_YET_TEXT,
 } from "./Base.js";
 import Elder from "./Elder/index.js";
 import Seasonal from "./Seasonal/index.js";
@@ -1533,11 +1535,15 @@ export class SpiritTracker {
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
 			.setFields(embedFields)
-			.setImage(spirit.imageURL)
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
 
-		if (embedFields.length === 0) embed.setDescription("This spirit does not have a friendship tree.");
+		if (spirit.imageURL) {
+			embed.setImage(spirit.imageURL);
+		} else {
+			embed.setDescription(spirit.offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
+		}
+
 		const resolvedRemainingCurrency = resolveOfferToCurrency(interaction, remainingCurrency);
 
 		if (resolvedRemainingCurrency.length > 0) {
