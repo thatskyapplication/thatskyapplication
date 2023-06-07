@@ -206,7 +206,11 @@ export const enum Call {
 
 export const enum Expression {
 	// Friend expressions
-	DoubleFive = "Double-Five",
+	HoldHand = "Hold hand",
+	HighFive = "High-five",
+	Hug = "Hug",
+	FistBump = "Fist bump",
+	DoubleFive = "Double-five",
 	HairTousle = "Hair tousle",
 	Carry = "Carry",
 	PlayFight = "Play fight",
