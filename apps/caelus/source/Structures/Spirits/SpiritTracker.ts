@@ -1514,7 +1514,7 @@ export class SpiritTracker {
 			backToStartButtonBuilder,
 			new ButtonBuilder()
 				.setCustomId(
-					spirit.isSeasonalSpirit()
+					spirit.isSeasonalSpirit() || spirit.isGuideSpirit()
 						? `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}-${spirit.season.name}`
 						: SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID,
 				)

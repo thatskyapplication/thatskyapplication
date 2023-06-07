@@ -516,12 +516,16 @@ export abstract class BaseSpirit {
 		return this.type === SPIRIT_TYPE.Standard;
 	}
 
+	public isElderSpirit(): this is ElderSpirit {
+		return this.type === SPIRIT_TYPE.Elder;
+	}
+
 	public isSeasonalSpirit(): this is SeasonalSpirit {
 		return this.type === SPIRIT_TYPE.Seasonal;
 	}
 
-	public isElderSpirit(): this is ElderSpirit {
-		return this.type === SPIRIT_TYPE.Elder;
+	public isGuideSpirit(): this is GuideSpirit {
+		return this.type === SPIRIT_TYPE.Guide;
 	}
 
 	public get cdnName() {
