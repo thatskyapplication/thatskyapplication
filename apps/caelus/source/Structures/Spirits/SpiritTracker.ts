@@ -334,6 +334,7 @@ export const SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_ELDERS_
 export const SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID = "SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID" as const;
@@ -1539,11 +1540,23 @@ export class SpiritTracker {
 			return;
 		}
 
+		const embeds = [];
+
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
-			.setFields(embedFields)
+			.setFields(embedFields.slice(0, 25))
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
+
+		embeds.push(embed);
+
+		if (embedFields.length >= 25) {
+			embeds.push(
+				new EmbedBuilder()
+					.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
+					.setFields(embedFields.slice(25)),
+			);
+		}
 
 		const description = [];
 		const resolvedRemainingCurrency = resolveOfferToCurrency(interaction, remainingCurrency);
@@ -1553,35 +1566,53 @@ export class SpiritTracker {
 		}
 
 		if (spirit.imageURL) {
-			embed.setImage(spirit.imageURL);
+			embeds.at(-1)!.setImage(spirit.imageURL);
 		} else {
 			description.push(spirit.offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
 		if (description.length > 0) embed.setDescription(description.join("\n"));
+		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
 
-		const itemSelection = spirit.offer
-			? new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId(`${SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID}-${spirit.name}`)
-						.setMaxValues(spirit.offer.size)
-						.setMinValues(0)
-						.setOptions(
-							spirit.offer.map(({ item }, flag) =>
-								new StringSelectMenuOptionBuilder()
-									.setDefault(Boolean(bit && bit & flag))
-									.setLabel(item)
-									.setValue(String(flag)),
-							),
-						)
-						.setPlaceholder("Select what you have!"),
-			  )
-			: null;
+		if (spirit.offer) {
+			const itemSelectionOptions = spirit.offer.map(({ item }, flag) =>
+				new StringSelectMenuOptionBuilder()
+					.setDefault(Boolean(bit && bit & flag))
+					.setLabel(item)
+					.setValue(String(flag)),
+			);
 
-		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [backButtons];
-		if (itemSelection) components.push(itemSelection);
+			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, 25);
 
-		await interaction.update({ components, embeds: [embed] });
+			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+				new StringSelectMenuBuilder()
+					.setCustomId(`${SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID}-${spirit.name}`)
+					.setMaxValues(itemSelectionOptionsMaximumLimit.length)
+					.setMinValues(0)
+					.setOptions(itemSelectionOptionsMaximumLimit)
+					.setPlaceholder("Select what you have!"),
+			);
+
+			components.push(itemSelection);
+
+			if (itemSelectionOptions.length >= 25) {
+				const itemSelectionOverflowOptionsMaximumLimit = itemSelectionOptions.slice(25);
+
+				components.push(
+					new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+						new StringSelectMenuBuilder()
+							.setCustomId(`${SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID}-${spirit.name}`)
+							.setMaxValues(itemSelectionOverflowOptionsMaximumLimit.length)
+							.setMinValues(0)
+							.setOptions(itemSelectionOverflowOptionsMaximumLimit)
+							.setPlaceholder("Select what you have!"),
+					),
+				);
+			}
+		}
+
+		components.push(backButtons);
+		await interaction.update({ components, embeds });
 	}
 
 	private resolveNameToBit(spiritName: SpiritName) {
