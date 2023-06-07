@@ -1561,9 +1561,10 @@ export class SpiritTracker {
 		}
 
 		const embeds = [];
+		const displayColor = (await interaction.guild?.members.fetchMe())?.displayColor ?? 0;
 
 		const embed = new EmbedBuilder()
-			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
+			.setColor(displayColor)
 			.setFields(embedFields.slice(0, SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT))
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
@@ -1572,9 +1573,7 @@ export class SpiritTracker {
 
 		if (embedFields.length > SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT) {
 			embeds.push(
-				new EmbedBuilder()
-					.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
-					.setFields(embedFields.slice(SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT)),
+				new EmbedBuilder().setColor(displayColor).setFields(embedFields.slice(SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT)),
 			);
 		}
 
