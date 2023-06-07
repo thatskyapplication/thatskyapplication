@@ -31,11 +31,11 @@ export default new SeasonalSpirit({
 		.set(1 << 8, { item: "Blessing 2", cost: { candles: 5 } })
 		.set(1 << 9, { item: "Cape", cost: { candles: 65 } })
 		.set(1 << 10, { item: "Guitar", cost: { candles: 75 } }),
-		visits: {
-			travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
-				.set(5, skyDate(2_020, 3, 26))
-				.set(24, skyDate(2_020, 12, 10))
-				.set(77, skyDate(2_022, 12, 22)),
-			returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-		},
+	visits: {
+		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
+			.set(5, skyDate(2_020, 3, 26))
+			.set(24, skyDate(2_020, 12, 10))
+			.set(77, skyDate(2_022, 12, 22)),
+		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+	},
 });
