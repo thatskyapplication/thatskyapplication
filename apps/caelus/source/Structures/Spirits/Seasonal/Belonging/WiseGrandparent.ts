@@ -26,8 +26,8 @@ export default new SeasonalSpirit({
 		.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
 		.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 } })
 		.set(1 << 6, { item: "Cape", cost: { candles: 70 } })
-		.set(1 << 8, { item: "Prop", cost: { candles: 10 } })
-		.set(1 << 7, { item: "Mask", cost: { candles: 48 } }),
+		.set(1 << 7, { item: "Prop", cost: { candles: 10 } })
+		.set(1 << 8, { item: "Mask", cost: { candles: 48 } }),
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 			.set(15, skyDate(2_020, 8, 6))
