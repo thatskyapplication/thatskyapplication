@@ -343,6 +343,7 @@ export const SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_BACK_
 export const SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
+const SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT = 24 as const;
 
 const validSeasons = Seasonal.reduce<Season[]>((seasons, { season: { name } }) => {
 	if (!seasons.includes(name)) seasons.push(name);
@@ -1560,17 +1561,17 @@ export class SpiritTracker {
 
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
-			.setFields(embedFields.slice(0, 25))
+			.setFields(embedFields.slice(0, SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT))
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
 
 		embeds.push(embed);
 
-		if (embedFields.length >= 25) {
+		if (embedFields.length >= SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT) {
 			embeds.push(
 				new EmbedBuilder()
 					.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
-					.setFields(embedFields.slice(25)),
+					.setFields(embedFields.slice(SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT)),
 			);
 		}
 
@@ -1598,7 +1599,7 @@ export class SpiritTracker {
 					.setValue(String(flag)),
 			);
 
-			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, 25);
+			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT);
 
 			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
@@ -1611,8 +1612,10 @@ export class SpiritTracker {
 
 			components.push(itemSelection);
 
-			if (itemSelectionOptions.length >= 25) {
-				const itemSelectionOverflowOptionsMaximumLimit = itemSelectionOptions.slice(25);
+			if (itemSelectionOptions.length >= SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT) {
+				const itemSelectionOverflowOptionsMaximumLimit = itemSelectionOptions.slice(
+					SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT,
+				);
 
 				components.push(
 					new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
