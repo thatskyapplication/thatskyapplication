@@ -1276,21 +1276,23 @@ export class SpiritTracker {
 	}
 
 	public static async viewTracker(interaction: ButtonInteraction | ChatInputCommandInteraction) {
-		let spiritTracker = await this.fetch(interaction.user.id).catch(() => null);
+		const existingSpiritTracker = await this.fetch(interaction.user.id).catch(() => null);
+		let spiritTracker: SpiritTracker;
 
-		if (!spiritTracker) {
-			// eslint-disable-next-line require-atomic-updates
+		if (existingSpiritTracker) {
+			spiritTracker = existingSpiritTracker;
+		} else {
 			spiritTracker = new this(
 				(await pg<SpiritTrackerPacket>(Table.SpiritTracker).insert({ user_id: interaction.user.id }, "*"))[0]!,
 			);
 		}
 
 		const elderProgress = this.averageProgress(
-			Elder.map(({ name, maxItemsBit }) => this.spiritProgression(spiritTracker!.resolveNameToBit(name), maxItemsBit)),
+			Elder.map(({ name, maxItemsBit }) => this.spiritProgression(spiritTracker.resolveNameToBit(name), maxItemsBit)),
 		);
 
 		const seasonalProgress = this.averageProgress(
-			validSeasons.map((season) => this.seasonProgress(spiritTracker!, season)),
+			validSeasons.map((season) => this.seasonProgress(spiritTracker, season)),
 		);
 
 		const response = {
