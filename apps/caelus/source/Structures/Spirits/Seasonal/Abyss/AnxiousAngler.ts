@@ -23,5 +23,5 @@ export default new SeasonalSpirit({
 		.set(1 << 9, { item: "Cape", cost: null })
 		.set(1 << 10, { item: "Outfit", cost: { seasonalCandles: 38 } })
 		.set(1 << 11, { item: "Blessing 4", cost: null })
-		.set(1 << 12, { item: "Heart", cost: { seasonalCandles: 3 } }),
+		.set(1 << 12, { item: "Seasonal heart", cost: { seasonalCandles: 3 } }),
 });
