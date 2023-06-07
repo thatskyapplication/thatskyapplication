@@ -1567,7 +1567,7 @@ export class SpiritTracker {
 
 		embeds.push(embed);
 
-		if (embedFields.length >= SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT) {
+		if (embedFields.length > SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT) {
 			embeds.push(
 				new EmbedBuilder()
 					.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
@@ -1612,7 +1612,7 @@ export class SpiritTracker {
 
 			components.push(itemSelection);
 
-			if (itemSelectionOptions.length >= SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT) {
+			if (itemSelectionOptions.length > SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT) {
 				const itemSelectionOverflowOptionsMaximumLimit = itemSelectionOptions.slice(
 					SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT,
 				);
