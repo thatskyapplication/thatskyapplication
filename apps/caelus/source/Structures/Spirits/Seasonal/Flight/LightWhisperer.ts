@@ -15,7 +15,7 @@ export default new SeasonalSpirit({
 		.set(1 << 1, { item: "Blessing 1", cost: { seasonalCandles: 14 } })
 		.set(1 << 2, { item: "Hair accessory", cost: null })
 		.set(1 << 3, { item: "Hair", cost: { seasonalCandles: 22 } })
-		.set(1 << 4, { item: "Blessing", cost: null })
+		.set(1 << 4, { item: "Blessing 2", cost: null })
 		.set(1 << 5, { item: "Trail spell 1", cost: { seasonalCandles: 26 } })
 		.set(1 << 6, { item: "Cape", cost: null })
 		.set(1 << 7, { item: "Outfit", cost: { seasonalCandles: 28 } })

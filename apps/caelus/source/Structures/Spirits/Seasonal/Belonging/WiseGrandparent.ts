@@ -22,7 +22,7 @@ export default new SeasonalSpirit({
 		.set(1 << 0, { item: `${stance} stance`, cost: null })
 		.set(1 << 1, { item: "Music sheet", cost: { candles: 15 } })
 		.set(1 << 2, { item: "Heart", cost: { candles: 3 } })
-		.set(1 << 3, { item: "Blessing", cost: { candles: 5 } })
+		.set(1 << 3, { item: "Blessing 1", cost: { candles: 5 } })
 		.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
 		.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 } })
 		.set(1 << 6, { item: "Cape", cost: { candles: 70 } })
