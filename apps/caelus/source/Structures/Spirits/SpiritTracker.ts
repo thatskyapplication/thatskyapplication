@@ -875,7 +875,7 @@ export class SpiritTracker {
 				spirit = "blushing_prospector";
 				break;
 			case SpiritName.HideNSeekPioneer:
-				spirit = "hide'n'seek_pioneer";
+				spirit = "hide_n_seek_pioneer";
 				break;
 			case SpiritName.PoutyPorter:
 				spirit = "pouty_porter";
@@ -1241,7 +1241,7 @@ export class SpiritTracker {
 				spirit = "pleading_child";
 				break;
 			case SpiritName.TiptoeingTeaBrewer:
-				spirit = "tiptoeing_tea-brewer";
+				spirit = "tiptoeing_tea_brewer";
 				break;
 			case SpiritName.WoundedWarrior:
 				spirit = "wounded_warrior";
