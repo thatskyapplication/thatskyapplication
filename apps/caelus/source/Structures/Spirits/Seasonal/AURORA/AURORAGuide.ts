@@ -14,7 +14,7 @@ export default new GuideSpirit({
 		.set(1 << 2, { item: "Pendant", cost: null })
 		.set(1 << 3, { item: "Aurora Hair", cost: { seasonalHearts: 1 } })
 		.set(1 << 4, { item: "Ultimate outfit", cost: { seasonalHearts: 2 } })
-		.set(1 << 5, { item: "Ultimate Cape", cost: { seasonalHearts: 1 } })
+		.set(1 << 5, { item: "Ultimate cape", cost: { seasonalHearts: 1 } })
 		.set(1 << 6, { item: `${Expression.SilentClap} 1`, cost: null })
 		.set(1 << 7, { item: `${Expression.SilentClap} 3`, cost: { candles: 5 } })
 		.set(1 << 8, { item: `${Expression.SilentClap} 4`, cost: { hearts: 5 } })
