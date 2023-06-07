@@ -9,9 +9,17 @@ import {
 	time,
 	TimestampStyles,
 } from "discord.js";
-import Spirits, { type SeasonalSpiritVisit } from "../../Structures/Spirit.js";
-import { Emoji } from "../../Utility/Constants.js";
-import { resolveCurrencyEmoji } from "../../Utility/Utility.js";
+import {
+	type SeasonalSpiritVisit,
+	NO_FRIENDSHIP_TREE_TEXT,
+	NO_FRIENDSHIP_TREE_YET_TEXT,
+	resolveOfferToCurrency,
+	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
+} from "../../Structures/Spirits/Base.js";
+import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
+import Spirits from "../../Structures/Spirits/index.js";
+import { Season } from "../../Utility/Constants.js";
+import { canUseCustomEmoji } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export default class implements AutocompleteCommand {
@@ -20,69 +28,13 @@ export default class implements AutocompleteCommand {
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const query = interaction.options.getString("query", true);
-		const spirit = Spirits.find(({ name }) => name === query);
-
-		if (!spirit) {
-			await interaction.reply({
-				content: "Woah, it seems we have not encountered that spirit yet. How strange!",
-				ephemeral: true,
-			});
-
-			return;
+		switch (interaction.options.getSubcommand()) {
+			case "search":
+				await this.search(interaction);
+				return;
+			case "track":
+				await this.track(interaction);
 		}
-
-		const embed = new EmbedBuilder()
-			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
-			.setFields({ name: "Realm", value: spirit.realm, inline: true })
-			.setImage(spirit.imageURL)
-			.setTitle(spirit.name)
-			.setURL(spirit.wikiURL);
-
-		if (spirit.isStandardSpirit()) {
-			embed.addFields({ name: "Season", value: spirit.isSeasonalSpirit() ? spirit.season.name : "None", inline: true });
-			if (spirit.expression) embed.addFields({ name: "Expression", value: spirit.expression, inline: true });
-			if (spirit.stance) embed.addFields({ name: "Stance", value: spirit.stance, inline: true });
-			if (spirit.call) embed.addFields({ name: "Call", value: spirit.call, inline: true });
-		}
-
-		const description = [];
-		const seasonalSpirit = spirit.isSeasonalSpirit();
-
-		if (seasonalSpirit) {
-			if (spirit.notVisited) {
-				description.push("⚠️ This spirit has not yet returned.");
-			} else {
-				const { travelling, returning } = spirit.visits;
-				if (travelling.size > 0) embed.addFields({ name: "Travelling", value: this.visitField(travelling) });
-				if (returning.size > 0) embed.addFields({ name: "Returning", value: this.visitField(returning) });
-			}
-		}
-
-		if (spirit.offer && !Object.values(spirit.offer).every((amount) => amount === 0)) {
-			description.push(
-				`${
-					spirit.offer.candles === 0
-						? ""
-						: resolveCurrencyEmoji(interaction, { emoji: Emoji.Candle, number: spirit.offer.candles })
-				}${
-					spirit.offer.hearts === 0
-						? ""
-						: resolveCurrencyEmoji(interaction, { emoji: Emoji.Heart, number: spirit.offer.hearts })
-				}${
-					spirit.offer.ascendedCandles === 0
-						? ""
-						: resolveCurrencyEmoji(interaction, { emoji: Emoji.AscendedCandle, number: spirit.offer.ascendedCandles })
-				}`,
-			);
-		}
-
-		if (seasonalSpirit && spirit.marketingVideoURL) {
-			description.push(hyperlink("Promotional Video", spirit.marketingVideoURL));
-		}
-
-		if (description.length > 0) embed.setDescription(description.join("\n"));
-		await interaction.reply({ embeds: [embed] });
 	}
 
 	private visitField(seasonalSpiritVisit: SeasonalSpiritVisit["travelling"] | SeasonalSpiritVisit["returning"]) {
@@ -100,6 +52,79 @@ export default class implements AutocompleteCommand {
 			.join("\n");
 	}
 
+	public async search(interaction: ChatInputCommandInteraction) {
+		const query = interaction.options.getString("query", true);
+		const spirit = Spirits.find(({ name }) => name === query);
+
+		if (!spirit) {
+			await interaction.reply({
+				content: "Woah, it seems we have not encountered that spirit yet. How strange!",
+				ephemeral: true,
+			});
+
+			return;
+		}
+
+		if (spirit.totalCost?.seasonalCandles && !canUseCustomEmoji(interaction)) {
+			await interaction.reply({
+				content: "Missing the `Use External Emojis` permission.",
+				ephemeral: true,
+			});
+
+			return;
+		}
+
+		const embed = new EmbedBuilder()
+			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
+			.setTitle(spirit.name)
+			.setURL(spirit.wikiURL);
+
+		if (spirit.realm) embed.addFields({ name: "Realm", value: spirit.realm, inline: true });
+		const seasonalSpirit = spirit.isSeasonalSpirit();
+		if (seasonalSpirit) embed.addFields({ name: "Season", value: spirit.season.name, inline: true });
+
+		if (spirit.isStandardSpirit() || seasonalSpirit) {
+			if (spirit.expression) embed.addFields({ name: "Expression", value: spirit.expression, inline: true });
+			if (spirit.stance) embed.addFields({ name: "Stance", value: spirit.stance, inline: true });
+			if (spirit.call) embed.addFields({ name: "Call", value: spirit.call, inline: true });
+		}
+
+		const description = [];
+
+		if (seasonalSpirit) {
+			if (spirit.notVisited) {
+				description.push(
+					`⚠️ This ${spirit.season.name === Season.Shattering ? "entity" : "spirit"} has not yet returned.`,
+				);
+			} else {
+				const { travelling, returning } = spirit.visits;
+				if (travelling.size > 0) embed.addFields({ name: "Travelling", value: this.visitField(travelling) });
+				if (returning.size > 0) embed.addFields({ name: "Returning", value: this.visitField(returning) });
+			}
+		}
+
+		if (spirit.imageURL) {
+			embed.setImage(spirit.imageURL);
+		} else {
+			description.push(spirit.offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
+		}
+
+		if (spirit.isGuideSpirit() && spirit.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
+		const totalOffer = spirit.totalCost ? resolveOfferToCurrency(interaction, spirit.totalCost).join("") : null;
+		if (totalOffer && totalOffer.length > 1) description.push(totalOffer);
+
+		if (seasonalSpirit && spirit.marketingVideoURL) {
+			description.push(hyperlink("Promotional Video", spirit.marketingVideoURL));
+		}
+
+		if (description.length > 0) embed.setDescription(description.join("\n"));
+		await interaction.reply({ embeds: [embed] });
+	}
+
+	public async track(interaction: ChatInputCommandInteraction) {
+		await SpiritTracker.viewTracker(interaction);
+	}
+
 	public async autocomplete(interaction: AutocompleteInteraction) {
 		const focused = interaction.options.getFocused().toUpperCase();
 
@@ -112,7 +137,7 @@ export default class implements AutocompleteCommand {
 						let stance = null;
 						let call = null;
 
-						if (spirit.isStandardSpirit()) {
+						if (spirit.isSeasonalSpirit()) {
 							expression = spirit.expression?.toUpperCase() ?? null;
 							stance = spirit.stance?.toUpperCase() ?? null;
 							call = spirit.call?.toUpperCase() ?? null;
@@ -142,11 +167,23 @@ export default class implements AutocompleteCommand {
 			type: this.type,
 			options: [
 				{
-					type: ApplicationCommandOptionType.String,
-					name: "query",
-					description: "The name, season, expression, stance, or call of the spirit.",
-					required: true,
-					autocomplete: true,
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "search",
+					description: "Reveal information about a spirit.",
+					options: [
+						{
+							type: ApplicationCommandOptionType.String,
+							name: "query",
+							description: "The name, season, expression, stance, or call of the spirit.",
+							required: true,
+							autocomplete: true,
+						},
+					],
+				},
+				{
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "track",
+					description: "Track your spirit progress!",
 				},
 			],
 		};

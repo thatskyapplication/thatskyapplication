@@ -19,6 +19,7 @@ import {
 	initialTreasureCandleRealmSeek,
 	Map,
 	Realm,
+	Season,
 	VALID_REALM,
 } from "./Constants.js";
 
@@ -88,6 +89,8 @@ function resolveEmojiToNonCustomEmoji(emoji: Emoji) {
 			return "🎮";
 		case Emoji.PlayStation:
 			return "👾";
+		case Emoji.SeasonalHeart:
+			return "🧡";
 		default:
 			return "";
 	}
@@ -98,7 +101,13 @@ export function resolveEmoji(interactionOrMember: BaseInteraction | GuildMember,
 }
 
 export interface CurrencyEmojiOptions {
-	emoji: Emoji.Candle | Emoji.Heart | Emoji.AscendedCandle | Emoji.WingedLight;
+	emoji:
+		| Emoji.Candle
+		| Emoji.Heart
+		| Emoji.AscendedCandle
+		| Emoji.WingedLight
+		| Emoji.SeasonalCandle
+		| Emoji.SeasonalHeart;
 	animated?: boolean;
 	number?: number;
 	forceEmojiOnLeft?: boolean;
@@ -120,6 +129,49 @@ export function resolveCurrencyEmoji(
 	if (typeof number === "number") resolvedEmojiString += " ";
 	resolvedEmojiString += resolveEmojiToNonCustomEmoji(emoji);
 	return resolvedEmojiString;
+}
+
+export function isSeason(season: string): season is Season {
+	return Object.values(Season).includes(season as Season);
+}
+
+export function resolveSeasonsToEmoji(seasons: Season) {
+	switch (seasons) {
+		case Season.Gratitude:
+			return Emoji.Gratitude;
+		case Season.Lightseekers:
+			return Emoji.Lightseekers;
+		case Season.Belonging:
+			return Emoji.Belonging;
+		case Season.Rhythm:
+			return Emoji.Rhythm;
+		case Season.Enchantment:
+			return Emoji.Enchantment;
+		case Season.Sanctuary:
+			return Emoji.Sanctuary;
+		case Season.Prophecy:
+			return Emoji.Prophecy;
+		case Season.Dreams:
+			return Emoji.Dreams;
+		case Season.Assembly:
+			return Emoji.Assembly;
+		case Season.LittlePrince:
+			return Emoji.LittlePrince;
+		case Season.Flight:
+			return Emoji.Flight;
+		case Season.Abyss:
+			return Emoji.Abyss;
+		case Season.Performance:
+			return Emoji.Performance;
+		case Season.Shattering:
+			return Emoji.Shattering;
+		case Season.Aurora:
+			return Emoji.Aurora;
+		case Season.Remembrance:
+			return Emoji.Remembrance;
+		case Season.Passage:
+			return Emoji.Passage;
+	}
 }
 
 export function isRealm(realm: string): realm is Realm {

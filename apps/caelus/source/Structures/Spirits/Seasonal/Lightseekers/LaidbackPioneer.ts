@@ -1,0 +1,40 @@
+/* eslint-disable unicorn/prefer-math-trunc */
+import type { Dayjs } from "dayjs";
+import { Collection } from "discord.js";
+import { Realm, Season } from "../../../../Utility/Constants.js";
+import { skyDate } from "../../../../Utility/Utility.js";
+import {
+	type ItemsData,
+	type SeasonalSpiritVisitCollectionKey,
+	SeasonalSpirit,
+	SpiritName,
+	Stance,
+} from "../../Base.js";
+
+const stance = Stance.Laidback;
+
+export default new SeasonalSpirit({
+	name: SpiritName.LaidbackPioneer,
+	season: Season.Lightseekers,
+	stance,
+	realm: Realm.HiddenForest,
+	offer: new Collection<number, ItemsData>()
+		.set(1 << 0, { item: `${stance} stance`, cost: null })
+		.set(1 << 1, { item: "Blessing 1", cost: { candles: 5 } })
+		.set(1 << 2, { item: "Mask", cost: { candles: 30 } })
+		.set(1 << 3, { item: "Heart", cost: { candles: 3 } })
+		.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
+		.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 } })
+		.set(1 << 6, { item: "Music sheet", cost: { candles: 15 } })
+		.set(1 << 7, { item: "Hair", cost: { candles: 18 } })
+		.set(1 << 8, { item: "Umbrella", cost: { candles: 75 } }),
+	visits: {
+		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
+			.set(3, skyDate(2_020, 2, 27))
+			.set(23, skyDate(2_020, 11, 26))
+			.set(72, skyDate(2_022, 10, 13)),
+		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+	},
+	hasMarketingVideo: true,
+	keywords: ["umbrella"],
+});

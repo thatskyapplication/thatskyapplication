@@ -28,8 +28,23 @@ import commands, {
 	isUserContextMenuCommand,
 } from "../Commands/index.js";
 import Profile from "../Structures/Profile.js";
+import {
+	SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID,
+	SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID,
+	SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID,
+	SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID,
+	SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID,
+	SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID,
+	SpiritTracker,
+} from "../Structures/Spirits/SpiritTracker.js";
 import { User } from "../Utility/Constants.js";
-import { chatInputApplicationCommandMention, consoleLog, guildLink } from "../Utility/Utility.js";
+import { chatInputApplicationCommandMention, consoleLog, guildLink, isSeason } from "../Utility/Utility.js";
 import { LogType } from "../index.js";
 import type { Event } from "./index.js";
 
@@ -204,6 +219,18 @@ export const event: Event<typeof name> = {
 			const { customId } = interaction;
 
 			try {
+				if (
+					customId === SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID ||
+					customId === SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID ||
+					customId === SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID ||
+					customId === SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID ||
+					customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID) ||
+					customId === SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID
+				) {
+					await SpiritTracker.parseBack(interaction);
+					return;
+				}
+
 				const heartHistoryResult = heartHistoryRegExp.exec(customId);
 
 				if (heartHistoryResult) {
@@ -232,9 +259,34 @@ export const event: Event<typeof name> = {
 		}
 
 		if (interaction.isStringSelectMenu()) {
-			const { customId } = interaction;
+			const { customId, values } = interaction;
 
 			try {
+				if (customId === SPIRIT_TRACKER_VIEW_CUSTOM_ID) {
+					await SpiritTracker.parseSpiritType(interaction);
+					return;
+				}
+
+				const value0 = values[0]!;
+
+				if (customId === SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID && isSeason(value0)) {
+					await SpiritTracker.viewSeason(interaction, value0);
+					return;
+				}
+
+				if (customId === SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID || customId === SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID) {
+					await SpiritTracker.viewSpirit(interaction);
+					return;
+				}
+
+				if (
+					customId.startsWith(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID) ||
+					customId.startsWith(SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID)
+				) {
+					await SpiritTracker.set(interaction);
+					return;
+				}
+
 				if (customId === SKY_PROFILE_SEASONS_CUSTOM_ID) {
 					await Profile.setSeasons(interaction);
 					return;
