@@ -6,30 +6,6 @@ export default [
 	...Seasonal,
 	/*
 	new SeasonalSpirit({
-		name: SpiritName.RunningWayfarer,
-		season: Season.Aurora,
-		expression: Expression.WavingLight,
-		realm: Realm.ValleyOfTriumph,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.MindfulMiner,
-		season: Season.Aurora,
-		expression: Expression.RaiseTheRoof,
-		realm: Realm.ValleyOfTriumph,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.WarriorOfLove,
-		season: Season.Aurora,
-		expression: Expression.Twirl,
-		realm: Realm.ValleyOfTriumph,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.SeedOfHope,
-		season: Season.Aurora,
-		expression: Expression.RhythmicClap,
-		realm: Realm.ValleyOfTriumph,
-	}),
-	new SeasonalSpirit({
 		name: SpiritName.BereftVeteran,
 		season: Season.Remembrance,
 		expression: Expression.Grieving,

@@ -1487,7 +1487,13 @@ export class SpiritTracker {
 		bit: number | null,
 		spirit: GuideSpirit | ElderSpirit | SeasonalSpirit,
 	) {
-		const remainingCurrency = { candles: 0, hearts: 0, ascendedCandles: 0, seasonalCandles: 0 } satisfies SpiritCost;
+		const remainingCurrency = {
+			candles: 0,
+			hearts: 0,
+			ascendedCandles: 0,
+			seasonalCandles: 0,
+			seasonalHearts: 0,
+		} satisfies SpiritCost;
 
 		const embedFields =
 			spirit.offer?.map(({ item, cost }, flag) => {
@@ -1500,6 +1506,7 @@ export class SpiritTracker {
 					if (cost?.hearts) remainingCurrency.hearts += cost.hearts;
 					if (cost?.ascendedCandles) remainingCurrency.ascendedCandles += cost.ascendedCandles;
 					if (cost?.seasonalCandles) remainingCurrency.seasonalCandles += cost.seasonalCandles;
+					if (cost?.seasonalHearts) remainingCurrency.seasonalHearts += cost.seasonalHearts;
 					value = resolveOfferToCurrency(interaction, cost ?? {}).join("") || resolveEmoji(interaction, Emoji.No, true);
 				}
 
@@ -1538,17 +1545,20 @@ export class SpiritTracker {
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
 
-		if (spirit.imageURL) {
-			embed.setImage(spirit.imageURL);
-		} else {
-			embed.setDescription(spirit.offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
-		}
-
+		const description = [];
 		const resolvedRemainingCurrency = resolveOfferToCurrency(interaction, remainingCurrency);
 
 		if (resolvedRemainingCurrency.length > 0) {
-			embed.setDescription(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);
+			description.push(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);
 		}
+
+		if (spirit.imageURL) {
+			embed.setImage(spirit.imageURL);
+		} else {
+			description.push(spirit.offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
+		}
+
+		if (description.length > 0) embed.setDescription(description.join("\n"));
 
 		const itemSelection = spirit.offer
 			? new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(

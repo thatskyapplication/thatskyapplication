@@ -1,3 +1,4 @@
+import AURORA from "./AURORA/index.js";
 import Abyss from "./Abyss/index.js";
 import Assembly from "./Assembly/index.js";
 import Belonging from "./Belonging/index.js";
@@ -28,4 +29,5 @@ export default [
 	...Abyss,
 	...Performance,
 	...Shattering,
+	...AURORA,
 ] as const;

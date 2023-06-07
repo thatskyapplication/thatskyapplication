@@ -89,6 +89,8 @@ function resolveEmojiToNonCustomEmoji(emoji: Emoji) {
 			return "🎮";
 		case Emoji.PlayStation:
 			return "👾";
+		case Emoji.SeasonalHeart:
+			return "🧡";
 		default:
 			return "";
 	}
@@ -99,7 +101,13 @@ export function resolveEmoji(interactionOrMember: BaseInteraction | GuildMember,
 }
 
 export interface CurrencyEmojiOptions {
-	emoji: Emoji.Candle | Emoji.Heart | Emoji.AscendedCandle | Emoji.WingedLight | Emoji.SeasonalCandle;
+	emoji:
+		| Emoji.Candle
+		| Emoji.Heart
+		| Emoji.AscendedCandle
+		| Emoji.WingedLight
+		| Emoji.SeasonalCandle
+		| Emoji.SeasonalHeart;
 	animated?: boolean;
 	number?: number;
 	forceEmojiOnLeft?: boolean;
