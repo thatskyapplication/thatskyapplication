@@ -14,6 +14,7 @@ import {
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	resolveOfferToCurrency,
+	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 } from "../../Structures/Spirits/Base.js";
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
 import Spirits from "../../Structures/Spirits/index.js";
@@ -108,6 +109,7 @@ export default class implements AutocompleteCommand {
 			description.push(spirit.offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
+		if (spirit.isGuideSpirit() && spirit.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
 		const totalOffer = spirit.totalCost ? resolveOfferToCurrency(interaction, spirit.totalCost).join("") : null;
 		if (totalOffer && totalOffer.length > 1) description.push(totalOffer);
 

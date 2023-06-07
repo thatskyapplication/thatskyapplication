@@ -368,10 +368,12 @@ interface SeasonalSpiritData extends BaseSpiritData, FriendshipTreeData, Express
 
 interface GuideSpiritData extends BaseSpiritData, PartialFriendshipData {
 	season: Season;
+	inProgress?: boolean;
 }
 
 export const NO_FRIENDSHIP_TREE_TEXT = "This spirit does not have a friendship tree." as const;
 export const NO_FRIENDSHIP_TREE_YET_TEXT = "This spirit does not have a friendship tree. Maybe it should?" as const;
+export const GUIDE_SPIRIT_IN_PROGRESS_TEXT = "This spirit's friendship tree has not been fully revealed." as const;
 
 export function resolveSpiritTypeToString(spiritType: SpiritType) {
 	switch (spiritType) {
@@ -619,8 +621,11 @@ export class GuideSpirit extends Mixin(BaseSpirit, PartialFriendshipTree) {
 
 	public readonly season: SpiritSeason;
 
+	public readonly inProgress: boolean;
+
 	public constructor(spirit: GuideSpiritData) {
 		super(spirit);
 		this.season = { name: spirit.season };
+		this.inProgress = spirit.inProgress ?? false;
 	}
 }

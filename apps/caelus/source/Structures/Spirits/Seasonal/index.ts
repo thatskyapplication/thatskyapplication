@@ -8,6 +8,7 @@ import Flight from "./Flight/index.js";
 import Gratitude from "./Gratitude/index.js";
 import Lightseekers from "./Lightseekers/index.js";
 import LittlePrince from "./LittlePrince/index.js";
+import Passage from "./Passage/index.js";
 import Performance from "./Performance/index.js";
 import Prophecy from "./Prophecy/index.js";
 import Remembrance from "./Remembrance/index.js";
@@ -32,4 +33,5 @@ export default [
 	...Shattering,
 	...AURORA,
 	...Remembrance,
+	...Passage,
 ] as const;

@@ -28,6 +28,7 @@ import {
 	resolveOfferToCurrency,
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
+	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 } from "./Base.js";
 import Elder from "./Elder/index.js";
 import Seasonal from "./Seasonal/index.js";
@@ -1575,6 +1576,7 @@ export class SpiritTracker {
 			);
 		}
 
+		const lastEmbed = embeds.at(-1)!;
 		const description = [];
 		const resolvedRemainingCurrency = resolveOfferToCurrency(interaction, remainingCurrency);
 
@@ -1583,11 +1585,12 @@ export class SpiritTracker {
 		}
 
 		if (spirit.imageURL) {
-			embeds.at(-1)!.setImage(spirit.imageURL);
+			lastEmbed.setImage(spirit.imageURL);
 		} else {
 			description.push(spirit.offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
+		if (spirit.isGuideSpirit() && spirit.inProgress) lastEmbed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
 		if (description.length > 0) embed.setDescription(description.join("\n"));
 		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
 
