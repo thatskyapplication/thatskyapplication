@@ -6,30 +6,6 @@ export default [
 	...Seasonal,
 	/*
 	new SeasonalSpirit({
-		name: SpiritName.BereftVeteran,
-		season: Season.Remembrance,
-		expression: Expression.Grieving,
-		realm: Realm.VaultOfKnowledge,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.PleadingChild,
-		season: Season.Remembrance,
-		expression: Expression.Pleading,
-		realm: Realm.VaultOfKnowledge,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.TiptoeingTeaBrewer,
-		season: Season.Remembrance,
-		expression: Expression.Tiptoeing,
-		realm: Realm.VaultOfKnowledge,
-	}),
-	new SeasonalSpirit({
-		name: SpiritName.WoundedWarrior,
-		season: Season.Remembrance,
-		stance: Stance.Injured,
-		realm: Realm.VaultOfKnowledge,
-	}),
-	new SeasonalSpirit({
 		name: SpiritName.OddballOutcast,
 		season: Season.Passage,
 		expression: Expression.HackySack,

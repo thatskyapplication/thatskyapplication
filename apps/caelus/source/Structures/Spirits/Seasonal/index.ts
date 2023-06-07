@@ -10,6 +10,7 @@ import Lightseekers from "./Lightseekers/index.js";
 import LittlePrince from "./LittlePrince/index.js";
 import Performance from "./Performance/index.js";
 import Prophecy from "./Prophecy/index.js";
+import Remembrance from "./Remembrance/index.js";
 import Rhythm from "./Rhythm/index.js";
 import Sanctuary from "./Sanctuary/index.js";
 import Shattering from "./Shattering/index.js";
@@ -30,4 +31,5 @@ export default [
 	...Performance,
 	...Shattering,
 	...AURORA,
+	...Remembrance,
 ] as const;
