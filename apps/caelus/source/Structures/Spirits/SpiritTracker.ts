@@ -1,8 +1,10 @@
 import {
+	type ActionRow,
 	type ChatInputCommandInteraction,
 	type InteractionUpdateOptions,
-	type StringSelectMenuInteraction,
 	type Snowflake,
+	type StringSelectMenuComponent,
+	type StringSelectMenuInteraction,
 	ActionRowBuilder,
 	ButtonInteraction,
 	StringSelectMenuBuilder,
@@ -804,7 +806,21 @@ export class SpiritTracker {
 	public static async set(interaction: StringSelectMenuInteraction) {
 		const { customId, values } = interaction;
 		const spiritName = customId.slice(customId.indexOf("-") + 1) as SpiritName;
-		const bit = values.reduce((bit, value) => bit | Number(value), 0);
+
+		const bit = values.reduce(
+			(bit, value) => bit | Number(value),
+			interaction.message.components
+				.find((actionRow): actionRow is ActionRow<StringSelectMenuComponent> =>
+					actionRow.components.some((component) =>
+						component.customId?.startsWith(
+							customId.startsWith(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
+								? SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID
+								: SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID,
+						),
+					),
+				)
+				?.components[0]!.options.reduce((bit, option) => (option.default ? bit | Number(option.value) : bit), 0) ?? 0,
+		);
 
 		let spirit;
 
@@ -1244,7 +1260,7 @@ export class SpiritTracker {
 		}
 
 		await pg<SpiritTrackerPacket>(Table.SpiritTracker)
-			.update({ [spirit]: interaction.values.reduce((bit, value) => bit | Number(value), 0) })
+			.update({ [spirit]: bit })
 			.where("user_id", interaction.user.id)
 			.returning("*");
 
