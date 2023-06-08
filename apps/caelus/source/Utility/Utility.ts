@@ -3,13 +3,13 @@ import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
 import {
-	ButtonInteraction,
+	type ButtonInteraction,
 	type ChatInputCommandInteraction,
-	type GuildMember,
+	type ModalSubmitInteraction,
 	type Snowflake,
+	type StringSelectMenuInteraction,
 	type TimestampStylesString,
 	type UserContextMenuCommandInteraction,
-	BaseInteraction,
 	formatEmoji,
 	PermissionFlagsBits,
 	time as discordTime,
@@ -68,11 +68,21 @@ export function eventRotationLetter() {
 }
 
 export async function cannotUseCustomEmojis(
-	interaction: ButtonInteraction | ChatInputCommandInteraction | UserContextMenuCommandInteraction,
+	interaction:
+		| ButtonInteraction
+		| ChatInputCommandInteraction
+		| ModalSubmitInteraction
+		| StringSelectMenuInteraction
+		| UserContextMenuCommandInteraction,
 ) {
-	if (canUseCustomEmoji(interaction)) return false;
+	if (
+		!interaction.inGuild() ||
+		// This is always present.
+		interaction.appPermissions!.has(PermissionFlagsBits.UseExternalEmojis)
+	)
+		return false;
 
-	if (interaction instanceof ButtonInteraction) {
+	if (interaction.isMessageComponent()) {
 		// @ts-expect-error Too narrow.
 		await interaction.update(MISSING_EXTERNAL_EMOJIS_RESPONSE);
 	} else {
@@ -81,14 +91,6 @@ export async function cannotUseCustomEmojis(
 	}
 
 	return true;
-}
-
-export function canUseCustomEmoji(interactionOrMember: BaseInteraction | GuildMember) {
-	return interactionOrMember instanceof BaseInteraction
-		? !interactionOrMember.inGuild() ||
-				// This is always present.
-				interactionOrMember.appPermissions!.has(PermissionFlagsBits.UseExternalEmojis)
-		: interactionOrMember.permissions.has(PermissionFlagsBits.UseExternalEmojis);
 }
 
 export interface CurrencyEmojiOptions {

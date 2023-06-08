@@ -19,7 +19,7 @@ import {
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
 import Spirits from "../../Structures/Spirits/index.js";
 import { Season } from "../../Utility/Constants.js";
-import { canUseCustomEmoji } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export default class implements AutocompleteCommand {
@@ -65,14 +65,7 @@ export default class implements AutocompleteCommand {
 			return;
 		}
 
-		if (spirit.totalCost?.seasonalCandles && !canUseCustomEmoji(interaction)) {
-			await interaction.reply({
-				content: "Missing the `Use External Emojis` permission.",
-				ephemeral: true,
-			});
-
-			return;
-		}
+		if (spirit.totalCost?.seasonalCandles && (await cannotUseCustomEmojis(interaction))) return;
 
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)

@@ -15,7 +15,7 @@ import {
 	formatEmoji,
 } from "discord.js";
 import { Season, Emoji } from "../../Utility/Constants.js";
-import { canUseCustomEmoji, isSeason, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis, isSeason, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import {
 	type GuideSpirit,
@@ -1553,7 +1553,7 @@ export class SpiritTracker {
 				.setStyle(ButtonStyle.Primary),
 		);
 
-		if (remainingCurrency.seasonalCandles > 0 && !canUseCustomEmoji(interaction)) {
+		if (remainingCurrency.seasonalCandles > 0 && await cannotUseCustomEmojis(interaction)) {
 			await interaction.update({
 				components: [backButtons],
 				content: "Missing the `Use External Emojis` permission.",

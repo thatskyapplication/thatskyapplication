@@ -11,7 +11,7 @@ import {
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import commands from "../Commands/index.js";
 import { MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
-import { canUseCustomEmoji } from "../Utility/Utility.js";
+import { cannotUseCustomEmojis } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
 import { resolveBitsToSeasons } from "./Seasons.js";
@@ -117,7 +117,7 @@ export default class Profile {
 	) {
 		let profile = await this.fetch(interaction.user.id).catch(() => null);
 
-		if (!canUseCustomEmoji(interaction) && (data.seasons || profile?.seasons)) {
+		if ((data.seasons || profile?.seasons) && (await cannotUseCustomEmojis(interaction))) {
 			await interaction.reply({
 				content: `Missing the \`Use External Emojis\` permission.`,
 				ephemeral: true,
