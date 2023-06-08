@@ -14,7 +14,14 @@ import {
 	time,
 } from "discord.js";
 import { Emoji, eventEndDate } from "../Utility/Constants.js";
-import { consoleLog, resolveCurrencyEmoji, todayDate, treasureCandleRealm, resolveEmoji } from "../Utility/Utility.js";
+import {
+	consoleLog,
+	resolveCurrencyEmoji,
+	todayDate,
+	treasureCandleRealm,
+	resolveEmoji,
+	eventRotationLetter,
+} from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides from "./DailyGuides.js";
 
@@ -145,7 +152,7 @@ export default class DailyGuidesDistribution {
 		if (date.isBefore(eventEndDate) || date.isSame(eventEndDate)) {
 			return {
 				name: "Event Currency",
-				value: hyperlink(eventCurrency.rotation ? `Rotation ${eventCurrency.rotation}` : "Image", eventCurrency.url),
+				value: hyperlink(`Rotation ${eventRotationLetter()}`, eventCurrency.url),
 			};
 		}
 

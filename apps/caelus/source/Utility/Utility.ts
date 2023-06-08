@@ -12,10 +12,12 @@ import {
 	time as discordTime,
 	TimestampStyles,
 } from "discord.js";
+import { DAILY_GUIDE_EVENT_ROTATION } from "../Structures/DailyGuides.js";
 import {
 	Emoji,
 	INCONSISTENT_MAP,
 	inconsistentMapKeys,
+	initialEventCurrencySeek,
 	initialTreasureCandleRealmSeek,
 	Map,
 	Realm,
@@ -55,6 +57,10 @@ export function treasureCandleRealm() {
 			.millisecond(0)
 			.diff(initialTreasureCandleRealmSeek, "day") % 5
 	]!;
+}
+
+export function eventRotationLetter() {
+	return DAILY_GUIDE_EVENT_ROTATION[todayDate().diff(initialEventCurrencySeek, "day") % 3]!;
 }
 
 export function canUseCustomEmoji(interactionOrMember: BaseInteraction | GuildMember) {

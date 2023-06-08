@@ -11,7 +11,7 @@ import {
 import DailyGuides, {
 	type DailyGuideEventRotation,
 	type QuestNumber,
-	DAILY_GUIDE_EVENT_ROTATON,
+	DAILY_GUIDE_EVENT_ROTATION,
 	QUEST_NUMBER,
 } from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
@@ -263,7 +263,7 @@ export default class implements ChatInputCommand {
 									type: ApplicationCommandOptionType.String,
 									name: "rotation",
 									description: "The rotation of the event currency.",
-									choices: DAILY_GUIDE_EVENT_ROTATON.map((choice) => ({ name: choice, value: choice })),
+									choices: DAILY_GUIDE_EVENT_ROTATION.map((choice) => ({ name: choice, value: choice })),
 									required: true,
 								},
 							],
