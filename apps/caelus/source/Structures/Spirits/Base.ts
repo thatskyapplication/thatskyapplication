@@ -198,6 +198,7 @@ export enum SpiritName {
 }
 
 export const enum Call {
+	Bird = "Bird",
 	Crab = "Crab",
 	Jellyfish = "Jellyfish",
 	BabyManta = "Baby manta",
@@ -224,6 +225,13 @@ export const enum Expression {
 	Welcome = "Welcome",
 	Nod = "Nod",
 	Scold = "Scold",
+	Butterfly = "Butterfly",
+	Clap = "Clap",
+	Wave = "Wave",
+	Laugh = "Laugh",
+	Yawn = "Yawn",
+	WipeBrow = "Wipe brow",
+	Teamwork = "Teamwork",
 	BlowKiss = "Blow kiss",
 	Grateful = "Grateful",
 	BellyScratch = "Belly scratch",
