@@ -1,6 +1,5 @@
 import { URL } from "node:url";
 import type { Dayjs } from "dayjs";
-import type { BaseInteraction } from "discord.js";
 import { Collection } from "discord.js";
 import { Mixin } from "ts-mixer";
 import { type Realm, type Season, CDN_URL, WIKI_URL, Emoji } from "../../Utility/Constants.js";
@@ -384,27 +383,27 @@ export function resolveSpiritTypeToString(spiritType: SpiritType) {
 	}
 }
 
-export function resolveOfferToCurrency(interaction: BaseInteraction, cost: SpiritCost) {
+export function resolveOfferToCurrency(cost: SpiritCost) {
 	const totalCost = [];
 
 	if (cost.candles) {
-		totalCost.push(resolveCurrencyEmoji(interaction, { emoji: Emoji.Candle, number: cost.candles }));
+		totalCost.push(resolveCurrencyEmoji({ emoji: Emoji.Candle, number: cost.candles }));
 	}
 
 	if (cost.hearts) {
-		totalCost.push(resolveCurrencyEmoji(interaction, { emoji: Emoji.Heart, number: cost.hearts }));
+		totalCost.push(resolveCurrencyEmoji({ emoji: Emoji.Heart, number: cost.hearts }));
 	}
 
 	if (cost.ascendedCandles) {
-		totalCost.push(resolveCurrencyEmoji(interaction, { emoji: Emoji.AscendedCandle, number: cost.ascendedCandles }));
+		totalCost.push(resolveCurrencyEmoji({ emoji: Emoji.AscendedCandle, number: cost.ascendedCandles }));
 	}
 
 	if (cost.seasonalCandles) {
-		totalCost.push(resolveCurrencyEmoji(interaction, { emoji: Emoji.SeasonalCandle, number: cost.seasonalCandles }));
+		totalCost.push(resolveCurrencyEmoji({ emoji: Emoji.SeasonalCandle, number: cost.seasonalCandles }));
 	}
 
 	if (cost.seasonalHearts) {
-		totalCost.push(resolveCurrencyEmoji(interaction, { emoji: Emoji.SeasonalHeart, number: cost.seasonalHearts }));
+		totalCost.push(resolveCurrencyEmoji({ emoji: Emoji.SeasonalHeart, number: cost.seasonalHearts }));
 	}
 
 	return totalCost;

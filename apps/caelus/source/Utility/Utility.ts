@@ -3,9 +3,12 @@ import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
 import {
+	ButtonInteraction,
+	type ChatInputCommandInteraction,
 	type GuildMember,
 	type Snowflake,
 	type TimestampStylesString,
+	type UserContextMenuCommandInteraction,
 	BaseInteraction,
 	formatEmoji,
 	PermissionFlagsBits,
@@ -20,6 +23,7 @@ import {
 	initialEventCurrencySeek,
 	initialTreasureCandleRealmSeek,
 	Map,
+	MISSING_EXTERNAL_EMOJIS_RESPONSE,
 	Realm,
 	Season,
 	VALID_REALM,
@@ -63,47 +67,28 @@ export function eventRotationLetter() {
 	return DAILY_GUIDE_EVENT_ROTATION[todayDate().diff(initialEventCurrencySeek, "day") % 3]!;
 }
 
+export async function cannotUseCustomEmojis(
+	interaction: ButtonInteraction | ChatInputCommandInteraction | UserContextMenuCommandInteraction,
+) {
+	if (canUseCustomEmoji(interaction)) return false;
+
+	if (interaction instanceof ButtonInteraction) {
+		// @ts-expect-error Too narrow.
+		await interaction.update(MISSING_EXTERNAL_EMOJIS_RESPONSE);
+	} else {
+		// @ts-expect-error Too narrow.
+		await interaction.reply(MISSING_EXTERNAL_EMOJIS_RESPONSE);
+	}
+
+	return true;
+}
+
 export function canUseCustomEmoji(interactionOrMember: BaseInteraction | GuildMember) {
 	return interactionOrMember instanceof BaseInteraction
 		? !interactionOrMember.inGuild() ||
 				// This is always present.
 				interactionOrMember.appPermissions!.has(PermissionFlagsBits.UseExternalEmojis)
 		: interactionOrMember.permissions.has(PermissionFlagsBits.UseExternalEmojis);
-}
-
-function resolveEmojiToNonCustomEmoji(emoji: Emoji) {
-	switch (emoji) {
-		case Emoji.Candle:
-			return "🕯️";
-		case Emoji.Heart:
-			return "🩵";
-		case Emoji.AscendedCandle:
-			return "🪔";
-		case Emoji.WingedLight:
-			return "🪽";
-		case Emoji.Yes:
-			return "✅";
-		case Emoji.No:
-			return "❌";
-		case Emoji.iOS:
-			return "📱";
-		case Emoji.Android:
-			return "🤖";
-		case Emoji.Mac:
-			return "💻";
-		case Emoji.Switch:
-			return "🎮";
-		case Emoji.PlayStation:
-			return "👾";
-		case Emoji.SeasonalHeart:
-			return "🧡";
-		default:
-			return "";
-	}
-}
-
-export function resolveEmoji(interactionOrMember: BaseInteraction | GuildMember, emoji: Emoji, animated = false) {
-	return canUseCustomEmoji(interactionOrMember) ? formatEmoji(emoji, animated) : resolveEmojiToNonCustomEmoji(emoji);
 }
 
 export interface CurrencyEmojiOptions {
@@ -116,25 +101,16 @@ export interface CurrencyEmojiOptions {
 		| Emoji.SeasonalHeart;
 	animated?: boolean;
 	number?: number;
-	forceEmojiOnLeft?: boolean;
 	includeSpaceInEmoji?: boolean;
 }
 
-export function resolveCurrencyEmoji(
-	interactionOrMember: BaseInteraction | GuildMember,
-	{ emoji, animated = false, number, forceEmojiOnLeft = false, includeSpaceInEmoji = false }: CurrencyEmojiOptions,
-) {
-	let resolvedEmojiString = number === undefined ? "" : String(number);
-
-	if (canUseCustomEmoji(interactionOrMember)) {
-		return forceEmojiOnLeft
-			? `${formatEmoji(emoji, animated)}${includeSpaceInEmoji ? " " : ""}${resolvedEmojiString}`
-			: `${resolvedEmojiString}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji, animated)}`;
-	}
-
-	if (typeof number === "number") resolvedEmojiString += " ";
-	resolvedEmojiString += resolveEmojiToNonCustomEmoji(emoji);
-	return resolvedEmojiString;
+export function resolveCurrencyEmoji({
+	emoji,
+	animated = false,
+	number,
+	includeSpaceInEmoji = false,
+}: CurrencyEmojiOptions) {
+	return `${number === undefined ? "" : number}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji, animated)}`;
 }
 
 export function isSeason(season: string): season is Season {

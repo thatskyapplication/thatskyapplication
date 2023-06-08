@@ -108,7 +108,7 @@ export default class implements AutocompleteCommand {
 		}
 
 		if (spirit.isGuideSpirit() && spirit.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
-		const totalOffer = spirit.totalCost ? resolveOfferToCurrency(interaction, spirit.totalCost).join("") : null;
+		const totalOffer = spirit.totalCost ? resolveOfferToCurrency(spirit.totalCost).join("") : null;
 		if (totalOffer && totalOffer.length > 1) description.push(totalOffer);
 
 		if (seasonalSpirit && spirit.marketingVideoURL) {

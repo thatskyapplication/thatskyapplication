@@ -10,7 +10,7 @@ import {
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import { NotificationEvent } from "../../Structures/Notification.js";
 import { ISS_DATES_ACCESSIBLE, initialTravellingSpiritSeek } from "../../Utility/Constants.js";
-import { todayDate } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis, todayDate } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 const PASSAGE_TRUNCATION_LIMIT = 9 as const;
@@ -60,6 +60,7 @@ export default class implements ChatInputCommand {
 	public readonly type = ApplicationCommandType.ChatInput;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
+		if (await cannotUseCustomEmojis(interaction)) return;
 		const passageTimes = scheduleTimes(0, 15, "minutes");
 		const passageTimesStart = passageTimes.slice(0, PASSAGE_TRUNCATION_LIMIT);
 		const passageTimesEnd = passageTimes.slice(-PASSAGE_TRUNCATION_LIMIT);
@@ -105,7 +106,7 @@ export default class implements ChatInputCommand {
 
 		const eventCurrencyFieldData = DailyGuidesDistribution.eventCurrencyFieldData();
 		if (eventCurrencyFieldData) embed.addFields(eventCurrencyFieldData);
-		embed.addFields(...DailyGuidesDistribution.shardEruptionFieldData(interaction));
+		embed.addFields(...DailyGuidesDistribution.shardEruptionFieldData());
 		await interaction.reply({ embeds: [embed], ephemeral: true });
 	}
 

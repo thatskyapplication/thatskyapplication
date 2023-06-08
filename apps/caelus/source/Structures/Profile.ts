@@ -199,7 +199,7 @@ export default class Profile {
 		const unfilled = [];
 
 		if (seasons) {
-			descriptions.push(resolveBitsToSeasons(seasons, interaction).join(" "));
+			descriptions.push(resolveBitsToSeasons(seasons).join(" "));
 		} else if (commandId) {
 			unfilled.push(
 				`- Use ${chatInputApplicationCommandMention(
@@ -330,7 +330,7 @@ export default class Profile {
 		if (platform) {
 			fields.push({
 				name: "Platform",
-				value: resolveBitsToPlatform(platform, interaction).join("\n"),
+				value: resolveBitsToPlatform(platform).join("\n"),
 				inline: true,
 			});
 		} else if (commandId) {

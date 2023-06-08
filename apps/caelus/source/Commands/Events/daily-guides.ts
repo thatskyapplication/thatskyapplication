@@ -1,6 +1,7 @@
 import type { ApplicationCommandData, ChatInputCommandInteraction, NewsChannel, TextChannel } from "discord.js";
 import { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, PermissionFlagsBits } from "discord.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
+import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default class implements ChatInputCommand {
@@ -32,6 +33,7 @@ export default class implements ChatInputCommand {
 	}
 
 	public async overview(interaction: ChatInputCommandInteraction<"cached">) {
+		if (await cannotUseCustomEmojis(interaction)) return;
 		const { guild, guildId } = interaction;
 		const dailyGuidesDistribution = await DailyGuidesDistribution.fetch(guildId).catch(() => null);
 
@@ -70,6 +72,7 @@ export default class implements ChatInputCommand {
 	}
 
 	public async unset(interaction: ChatInputCommandInteraction<"cached">) {
+		if (await cannotUseCustomEmojis(interaction)) return;
 		await DailyGuidesDistribution.unset(interaction);
 	}
 
