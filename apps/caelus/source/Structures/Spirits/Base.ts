@@ -373,7 +373,7 @@ export const GUIDE_SPIRIT_IN_PROGRESS_TEXT = "This spirit's friendship tree has 
 export function resolveSpiritTypeToString(spiritType: SpiritType) {
 	switch (spiritType) {
 		case SPIRIT_TYPE.Standard:
-			return "Standard Spirit";
+			return "Standard Spirits";
 		case SPIRIT_TYPE.Elder:
 			return "Elders";
 		case SPIRIT_TYPE.Seasonal:
