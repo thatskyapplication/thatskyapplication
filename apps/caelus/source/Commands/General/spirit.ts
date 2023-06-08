@@ -93,9 +93,7 @@ export default class implements AutocompleteCommand {
 
 		if (seasonalSpirit) {
 			if (spirit.notVisited) {
-				description.push(
-					`⚠️ This ${spirit.season === Season.Shattering ? "entity" : "spirit"} has not yet returned.`,
-				);
+				description.push(`⚠️ This ${spirit.season === Season.Shattering ? "entity" : "spirit"} has not yet returned.`);
 			} else {
 				const { travelling, returning } = spirit.visits;
 				if (travelling.size > 0) embed.addFields({ name: "Travelling", value: this.visitField(travelling) });
