@@ -81,7 +81,7 @@ export default class implements AutocompleteCommand {
 
 		if (spirit.realm) embed.addFields({ name: "Realm", value: spirit.realm, inline: true });
 		const seasonalSpirit = spirit.isSeasonalSpirit();
-		if (seasonalSpirit) embed.addFields({ name: "Season", value: spirit.season.name, inline: true });
+		if (seasonalSpirit) embed.addFields({ name: "Season", value: spirit.season, inline: true });
 
 		if (spirit.isStandardSpirit() || seasonalSpirit) {
 			if (spirit.expression) embed.addFields({ name: "Expression", value: spirit.expression, inline: true });
@@ -94,7 +94,7 @@ export default class implements AutocompleteCommand {
 		if (seasonalSpirit) {
 			if (spirit.notVisited) {
 				description.push(
-					`⚠️ This ${spirit.season.name === Season.Shattering ? "entity" : "spirit"} has not yet returned.`,
+					`⚠️ This ${spirit.season === Season.Shattering ? "entity" : "spirit"} has not yet returned.`,
 				);
 			} else {
 				const { travelling, returning } = spirit.visits;
@@ -143,7 +143,7 @@ export default class implements AutocompleteCommand {
 							call = spirit.call?.toUpperCase() ?? null;
 						}
 
-						const seasonName = spirit.isSeasonalSpirit() ? spirit.season.name.toUpperCase() : null;
+						const seasonName = spirit.isSeasonalSpirit() ? spirit.season.toUpperCase() : null;
 						/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 						return (
 							name.toUpperCase().includes(focused) ||

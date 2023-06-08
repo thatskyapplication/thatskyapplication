@@ -356,10 +356,6 @@ export interface SeasonalSpiritVisit {
 	returning: Collection<SeasonalSpiritVisitCollectionKey, Dayjs>;
 }
 
-interface SpiritSeason {
-	name: Season;
-}
-
 interface SeasonalSpiritData extends BaseSpiritData, FriendshipTreeData, ExpressiveSpiritData {
 	season: Season;
 	hasMarketingVideo?: boolean;
@@ -582,7 +578,7 @@ export class ElderSpirit extends Mixin(BaseSpirit, FriendshipTree) {
 export class SeasonalSpirit extends Mixin(BaseSpirit, FriendshipTree, ExpressiveSpirit) {
 	public override readonly type = SPIRIT_TYPE.Seasonal;
 
-	public readonly season: SpiritSeason;
+	public readonly season: Season;
 
 	public readonly marketingVideoURL: string | null;
 
@@ -590,7 +586,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, FriendshipTree, Expressive
 
 	public constructor(spirit: SeasonalSpiritData) {
 		super(spirit);
-		this.season = { name: spirit.season };
+		this.season = spirit.season;
 
 		if ([SpiritName.AncientLight1, SpiritName.AncientDarkness1].includes(this.name)) {
 			this.imageURL = this.imageURL.replace("friendship_tree", "friendship_tree1");
@@ -619,13 +615,13 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, FriendshipTree, Expressive
 export class GuideSpirit extends Mixin(BaseSpirit, PartialFriendshipTree) {
 	public override readonly type = SPIRIT_TYPE.Guide;
 
-	public readonly season: SpiritSeason;
+	public readonly season: Season;
 
 	public readonly inProgress: boolean;
 
 	public constructor(spirit: GuideSpiritData) {
 		super(spirit);
-		this.season = { name: spirit.season };
+		this.season = spirit.season;
 		this.inProgress = spirit.inProgress ?? false;
 	}
 }

@@ -348,8 +348,8 @@ export const SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID = "SPIRIT_TRACKER_SPI
 export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
 const SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT = 24 as const;
 
-const validSeasons = Seasonal.reduce<Season[]>((seasons, { season: { name } }) => {
-	if (!seasons.includes(name)) seasons.push(name);
+const validSeasons = Seasonal.reduce<Season[]>((seasons, { season }) => {
+	if (!seasons.includes(season)) seasons.push(season);
 	return seasons;
 }, []);
 
@@ -1410,7 +1410,7 @@ export class SpiritTracker {
 
 	private static seasonProgress(spiritTracker: SpiritTracker, season: Season) {
 		return this.averageProgress(
-			Seasonal.filter((spirit) => spirit.season.name === season).map(({ name, maxItemsBit }) =>
+			Seasonal.filter((spirit) => spirit.season === season).map(({ name, maxItemsBit }) =>
 				maxItemsBit ? this.spiritProgression(spiritTracker.resolveNameToBit(name), maxItemsBit) : 100,
 			),
 		);
@@ -1450,7 +1450,7 @@ export class SpiritTracker {
 	public static async viewSeason(interaction: ButtonInteraction | StringSelectMenuInteraction, season: Season) {
 		const spiritTracker = await this.fetch(interaction.user.id);
 
-		const options = Seasonal.filter((spirit) => spirit.season.name === season).map(({ name, maxItemsBit }) =>
+		const options = Seasonal.filter((spirit) => spirit.season === season).map(({ name, maxItemsBit }) =>
 			new StringSelectMenuOptionBuilder()
 				.setLabel(
 					`${name} (${maxItemsBit ? this.spiritProgression(spiritTracker.resolveNameToBit(name), maxItemsBit) : 100}%)`,
@@ -1545,7 +1545,7 @@ export class SpiritTracker {
 			new ButtonBuilder()
 				.setCustomId(
 					spirit.isSeasonalSpirit() || spirit.isGuideSpirit()
-						? `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}-${spirit.season.name}`
+						? `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}-${spirit.season}`
 						: SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID,
 				)
 				.setEmoji("⏪")
