@@ -43,6 +43,7 @@ type DailyGuidesDistributionInsertQuery = Omit<DailyGuidesDistributionPacket, "i
 type DailyGuidesDistributionUpdateQuery = Omit<DailyGuidesDistributionInsertQuery, "guild_id">;
 
 export const SHARD_ERUPTION_NAME = "Shard Eruption" as const;
+export const SHARD_ERUPTION_NONE = "None" as const;
 
 export default class DailyGuidesDistribution {
 	public readonly id: DailyGuidesDistributionData["id"];
@@ -190,7 +191,7 @@ export default class DailyGuidesDistribution {
 			];
 		}
 
-		return [{ name: SHARD_ERUPTION_NAME, value: "None" }];
+		return [{ name: SHARD_ERUPTION_NAME, value: SHARD_ERUPTION_NONE }];
 	}
 
 	public static embed(me: GuildMember) {
