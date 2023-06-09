@@ -23,11 +23,11 @@ Every season (as of 06/03/2023), a group of spirits visit. These are known as re
 2. If there is a new infographic for these spirits, it should be uploaded to the CDN.
 3. The maximum winged light count should increase for any spirit that has never visited before.
 
-[thatskygame]: https://thatskygame.com/
-
 ### New child of light
 
 A new child of light may be added as part of a season, event, a new map irrelevant to the aforementioned somehow or just a generic update. It doesn't matter how, it just matters that one has been added.
 
 1. The maximum winged light count should increase.
 2. Since this is not a wing buff, the number of winged light found in realm it is in also needs to be increased.
+
+[thatskygame]: https://thatskygame.com/
