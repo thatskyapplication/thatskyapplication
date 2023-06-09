@@ -37,7 +37,6 @@ export default class implements ChatInputCommand {
 	}
 
 	public async ascendedCandles(interaction: ChatInputCommandInteraction) {
-		if (await cannotUseCustomEmojis(interaction)) return;
 		const { options } = interaction;
 		const start = options.getInteger("start", true);
 		const goal = options.getInteger("goal", true);
@@ -47,6 +46,7 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
+		if (await cannotUseCustomEmojis(interaction)) return;
 		const amountRequired = goal - start;
 		let day = todayDate();
 		let result = 0;
