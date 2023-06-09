@@ -109,7 +109,7 @@ export async function cannotUseCustomEmojis(
 export interface CurrencyEmojiOptions {
 	emoji: Emoji;
 	animated?: boolean;
-	number?: number;
+	number: number;
 	includeSpaceInEmoji?: boolean;
 }
 
