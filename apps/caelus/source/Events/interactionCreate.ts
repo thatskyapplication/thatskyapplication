@@ -48,7 +48,7 @@ import {
 	SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID,
 	SpiritTracker,
 } from "../Structures/Spirits/SpiritTracker.js";
-import { Realm, User } from "../Utility/Constants.js";
+import { User } from "../Utility/Constants.js";
 import { chatInputApplicationCommandMention, consoleLog, guildLink, isRealm, isSeason } from "../Utility/Utility.js";
 import { LogType } from "../index.js";
 import type { Event } from "./index.js";
@@ -277,7 +277,7 @@ export const event: Event<typeof name> = {
 
 				const value0 = values[0]!;
 
-				if (customId === SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID && isRealm(value0) && value0 !== Realm.AncientMemory) {
+				if (customId === SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID && isRealm(value0)) {
 					await SpiritTracker.viewRealm(interaction, value0);
 					return;
 				}
