@@ -169,7 +169,7 @@ export default class implements ChatInputCommand {
 	public async wingedLight(interaction: ChatInputCommandInteraction) {
 		if (await cannotUseCustomEmojis(interaction)) return;
 		const { options } = interaction;
-		const wingedLight = options.getInteger("wing-buffs", true);
+		const wingBuffs = options.getInteger("wing-buffs", true);
 		const area1 = options.getString("area-1");
 		const area2 = options.getString("area-2");
 		const area3 = options.getString("area-3");
@@ -192,7 +192,7 @@ export default class implements ChatInputCommand {
 		}
 
 		const path = areas.length === 0 ? WINGED_LIGHT_AREAS : areas;
-		let accumulation = wingedLight;
+		let accumulation = wingBuffs;
 		const me = await interaction.guild?.members.fetchMe();
 
 		const embed = new EmbedBuilder()
@@ -200,7 +200,7 @@ export default class implements ChatInputCommand {
 			.setDescription(
 				`Started with ${resolveCurrencyEmoji({
 					emoji: Emoji.WingedLight,
-					number: wingedLight,
+					number: wingBuffs,
 					includeSpaceInEmoji: true,
 				})}.\nReborn with ${resolveCurrencyEmoji({
 					emoji: Emoji.WingedLight,
