@@ -182,12 +182,21 @@ export default class implements ChatInputCommand {
 
 		if (!areas.every(isWingedLightArea)) {
 			void interaction.client.log({ content: "Received an unknown area.", error: areas });
-			await interaction.reply("Unknown area detected. How odd? We can't do anything about this...");
+
+			await interaction.reply({
+				content: "Unknown area detected. How odd? We can't do anything about this...",
+				ephemeral: true,
+			});
+
 			return;
 		}
 
 		if (new Set(areas).size !== areas.length) {
-			await interaction.reply("Duplicate areas detected. Make sure to only provide unique areas!");
+			await interaction.reply({
+				content: "Duplicate areas detected. Make sure to only provide unique areas!",
+				ephemeral: true,
+			});
+
 			return;
 		}
 
