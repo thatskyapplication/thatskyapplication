@@ -1553,13 +1553,13 @@ export class SpiritTracker {
 				.setStyle(ButtonStyle.Primary),
 		);
 
-		if (remainingCurrency.seasonalCandles > 0 && await cannotUseCustomEmojis(interaction)) {
-			await interaction.update({
+		if (
+			remainingCurrency.seasonalCandles > 0 &&
+			(await cannotUseCustomEmojis(interaction, {
 				components: [backButtons],
-				content: "Missing the `Use External Emojis` permission.",
 				embeds: [],
-			});
-
+			}))
+		) {
 			return;
 		}
 

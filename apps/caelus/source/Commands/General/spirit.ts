@@ -65,7 +65,7 @@ export default class implements AutocompleteCommand {
 			return;
 		}
 
-		if (spirit.totalCost?.seasonalCandles && (await cannotUseCustomEmojis(interaction))) return;
+		if (spirit.totalCost && (await cannotUseCustomEmojis(interaction))) return;
 
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)

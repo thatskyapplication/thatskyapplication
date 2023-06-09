@@ -14,6 +14,7 @@ import Notification, {
 	NotificationEvent,
 	NOTIFICATION_CHANNEL_TYPES,
 } from "../../Structures/Notification.js";
+import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default class implements ChatInputCommand {
@@ -31,6 +32,8 @@ export default class implements ChatInputCommand {
 			await interaction.reply({ content: `There is no \`/${this.name}\` command in Ba Sing Se.`, ephemeral: true });
 			return;
 		}
+
+		if (await cannotUseCustomEmojis(interaction)) return;
 
 		switch (interaction.options.getSubcommand()) {
 			case "overview":

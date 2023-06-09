@@ -117,12 +117,11 @@ export default class Profile {
 	) {
 		let profile = await this.fetch(interaction.user.id).catch(() => null);
 
-		if ((data.seasons || profile?.seasons) && (await cannotUseCustomEmojis(interaction))) {
-			await interaction.reply({
-				content: `Missing the \`Use External Emojis\` permission.`,
-				ephemeral: true,
-			});
-
+		if (
+			((data.seasons !== 0 && (data.seasons || profile?.seasons)) ||
+				(data.platform !== 0 && (data.platform || profile?.platform))) &&
+			(await cannotUseCustomEmojis(interaction))
+		) {
 			return;
 		}
 
@@ -224,7 +223,7 @@ export default class Profile {
 			);
 		}
 
-		if (descriptions.length > 1) embed.setDescription(descriptions.join("\n"));
+		if (descriptions.length > 0) embed.setDescription(descriptions.join("\n"));
 
 		if (thumbnail) {
 			embed.setThumbnail(thumbnail);

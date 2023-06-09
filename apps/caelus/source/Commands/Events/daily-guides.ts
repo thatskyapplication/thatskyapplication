@@ -20,6 +20,8 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
+		if (await cannotUseCustomEmojis(interaction)) return;
+
 		switch (interaction.options.getSubcommand()) {
 			case "overview":
 				await this.overview(interaction);
@@ -33,7 +35,6 @@ export default class implements ChatInputCommand {
 	}
 
 	public async overview(interaction: ChatInputCommandInteraction<"cached">) {
-		if (await cannotUseCustomEmojis(interaction)) return;
 		const { guild, guildId } = interaction;
 		const dailyGuidesDistribution = await DailyGuidesDistribution.fetch(guildId).catch(() => null);
 
@@ -72,7 +73,6 @@ export default class implements ChatInputCommand {
 	}
 
 	public async unset(interaction: ChatInputCommandInteraction<"cached">) {
-		if (await cannotUseCustomEmojis(interaction)) return;
 		await DailyGuidesDistribution.unset(interaction);
 	}
 

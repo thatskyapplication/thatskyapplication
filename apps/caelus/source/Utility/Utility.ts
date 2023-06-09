@@ -14,6 +14,8 @@ import {
 	PermissionFlagsBits,
 	time as discordTime,
 	TimestampStyles,
+	type InteractionReplyOptions,
+	type InteractionUpdateOptions,
 } from "discord.js";
 import { DAILY_GUIDE_EVENT_ROTATION } from "../Structures/DailyGuides.js";
 import {
@@ -23,7 +25,6 @@ import {
 	initialEventCurrencySeek,
 	initialTreasureCandleRealmSeek,
 	Map,
-	MISSING_EXTERNAL_EMOJIS_RESPONSE,
 	Realm,
 	Season,
 	VALID_REALM,
@@ -74,33 +75,39 @@ export async function cannotUseCustomEmojis(
 		| ModalSubmitInteraction
 		| StringSelectMenuInteraction
 		| UserContextMenuCommandInteraction,
+	options?: InteractionReplyOptions | InteractionUpdateOptions,
 ) {
 	if (
 		!interaction.inGuild() ||
 		// This is always present.
 		interaction.appPermissions!.has(PermissionFlagsBits.UseExternalEmojis)
-	)
+	) {
 		return false;
+	}
+
+	const response = {
+		content: `Missing the \`Use External Emojis\` permission. ${
+			interaction.memberPermissions.has(PermissionFlagsBits.ManageGuildExpressions)
+				? "Change this in"
+				: "Ask someone with permission to change this in"
+		} server settings!`,
+		ephemeral: true,
+		...options,
+	};
 
 	if (interaction.isMessageComponent()) {
-		// @ts-expect-error Too narrow.
-		await interaction.update(MISSING_EXTERNAL_EMOJIS_RESPONSE);
+		// @ts-expect-error Too generic.
+		await interaction.update(response);
 	} else {
-		// @ts-expect-error Too narrow.
-		await interaction.reply(MISSING_EXTERNAL_EMOJIS_RESPONSE);
+		// @ts-expect-error Too generic.
+		await interaction.reply(response);
 	}
 
 	return true;
 }
 
 export interface CurrencyEmojiOptions {
-	emoji:
-		| Emoji.Candle
-		| Emoji.Heart
-		| Emoji.AscendedCandle
-		| Emoji.WingedLight
-		| Emoji.SeasonalCandle
-		| Emoji.SeasonalHeart;
+	emoji: Emoji;
 	animated?: boolean;
 	number?: number;
 	includeSpaceInEmoji?: boolean;
