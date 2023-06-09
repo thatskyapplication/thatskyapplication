@@ -8,7 +8,7 @@ Caelus needs to be updated every now and then to reflect accurate information.
 
 ### New season
 
-New season, new spirits. Ths should be pretty simple.
+New season, new spirits. This should be pretty simple.
 
 ### Travelling spirits
 
