@@ -260,7 +260,7 @@ export default class implements AutocompleteCommand {
 			return;
 		}
 
-		if (profile.seasons && (await cannotUseCustomEmojis(interaction))) return;
+		if ((profile.seasons || profile.platform) && (await cannotUseCustomEmojis(interaction))) return;
 		const { embed, unfilled } = await profile.embed(interaction);
 		await interaction.reply({ embeds: [embed], ephemeral: hide });
 		if (unfilled && userIsInvoker) await interaction.followUp({ content: unfilled, ephemeral: true });
