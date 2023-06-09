@@ -1519,6 +1519,28 @@ export class SpiritTracker {
 			seasonalHearts: 0,
 		} satisfies SpiritCost;
 
+		const backButtons = new ActionRowBuilder<ButtonBuilder>().setComponents(
+			backToStartButtonBuilder,
+			new ButtonBuilder()
+				.setCustomId(
+					spirit.isSeasonalSpirit() || spirit.isGuideSpirit()
+						? `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}-${spirit.season}`
+						: SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID,
+				)
+				.setEmoji("⏪")
+				.setStyle(ButtonStyle.Primary),
+		);
+
+		if (
+			Object.values(remainingCurrency).some((amount) => amount !== 0) &&
+			(await cannotUseCustomEmojis(interaction, {
+				components: [backButtons],
+				embeds: [],
+			}))
+		) {
+			return;
+		}
+
 		const embedFields =
 			spirit.offer?.map(({ item, cost }, flag) => {
 				let value;
@@ -1540,28 +1562,6 @@ export class SpiritTracker {
 					inline: true,
 				};
 			}) ?? [];
-
-		const backButtons = new ActionRowBuilder<ButtonBuilder>().setComponents(
-			backToStartButtonBuilder,
-			new ButtonBuilder()
-				.setCustomId(
-					spirit.isSeasonalSpirit() || spirit.isGuideSpirit()
-						? `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}-${spirit.season}`
-						: SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID,
-				)
-				.setEmoji("⏪")
-				.setStyle(ButtonStyle.Primary),
-		);
-
-		if (
-			remainingCurrency.seasonalCandles > 0 &&
-			(await cannotUseCustomEmojis(interaction, {
-				components: [backButtons],
-				embeds: [],
-			}))
-		) {
-			return;
-		}
 
 		const embeds = [];
 		const displayColor = (await interaction.guild?.members.fetchMe())?.displayColor ?? 0;
