@@ -17,7 +17,7 @@ import {
 	userMention,
 } from "discord.js";
 import { Emoji } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, resolveCurrencyEmoji, todayDate } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis, resolveCurrencyEmoji, resolveEmbedColor, todayDate } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -201,7 +201,7 @@ export default class implements ChatInputCommand {
 			: hearts.slice(0, 24);
 
 		const embed = new EmbedBuilder()
-			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
+			.setColor(await resolveEmbedColor(interaction.guild))
 			.setDescription(
 				`Gifted: ${resolveCurrencyEmoji({
 					emoji: Emoji.Heart,

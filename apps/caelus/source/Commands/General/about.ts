@@ -14,6 +14,7 @@ import {
 	THATSKYGAME_URL,
 	WEBSITE_URL,
 } from "../../Utility/Constants.js";
+import { resolveEmbedColor } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 const DESCRIPTION_TEXT = `Welcome to the lovely Discord bot for ${hyperlink(
@@ -45,7 +46,7 @@ export default class implements ChatInputCommand {
 		await interaction.reply({
 			embeds: [
 				new EmbedBuilder()
-					.setColor((await guild?.members.fetchMe())?.displayColor ?? 0)
+					.setColor(await resolveEmbedColor(guild))
 					.setDescription(DESCRIPTION_TEXT)
 					.setFields(
 						{

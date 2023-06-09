@@ -11,7 +11,7 @@ import {
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import commands from "../Commands/index.js";
 import { MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
-import { cannotUseCustomEmojis } from "../Utility/Utility.js";
+import { cannotUseCustomEmojis, resolveEmbedColor } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
 import { resolveBitsToSeasons } from "./Seasons.js";
@@ -182,7 +182,6 @@ export default class Profile {
 			| ModalSubmitInteraction
 			| UserContextMenuCommandInteraction,
 	) {
-		const me = await interaction.guild?.members.fetchMe();
 		const hearts = await commands.heart.heartCount(this.userId);
 		const skyProfileCommand = commands["sky-profile"];
 		const { id: commandId, name: commandName } = skyProfileCommand;
@@ -192,7 +191,11 @@ export default class Profile {
 		}
 
 		const { name, icon, thumbnail, description, country, wingedLight, seasons, platform, spirit, spot } = this;
-		const embed = new EmbedBuilder().setColor(me?.displayColor ?? 0).setFooter({ text: `Hearts: ${hearts}` });
+
+		const embed = new EmbedBuilder()
+			.setColor(await resolveEmbedColor(interaction.guild))
+			.setFooter({ text: `Hearts: ${hearts}` });
+
 		const descriptions = [];
 		const fields = [];
 		const unfilled = [];

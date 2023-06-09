@@ -2,7 +2,6 @@ import {
 	type ChatInputCommandInteraction,
 	type Client,
 	type Guild,
-	type GuildMember,
 	type Snowflake,
 	channelMention,
 	ChannelType,
@@ -20,6 +19,7 @@ import {
 	todayDate,
 	treasureCandleRealm,
 	eventRotationLetter,
+	resolveEmbedColor,
 } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides from "./DailyGuides.js";
@@ -134,7 +134,7 @@ export default class DailyGuidesDistribution {
 			.has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages | PermissionFlagsBits.EmbedLinks);
 
 		return new EmbedBuilder()
-			.setColor(me.displayColor)
+			.setColor(await resolveEmbedColor(guild))
 			.setFields({
 				name: "Daily Guides Status",
 				value: `${channelId ? channelMention(channelId) : "No channel"}\n${
@@ -194,10 +194,10 @@ export default class DailyGuidesDistribution {
 		return [{ name: SHARD_ERUPTION_NAME, value: SHARD_ERUPTION_NONE }];
 	}
 
-	public static embed(me: GuildMember) {
+	public static embed(embedColor: number) {
 		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles } = DailyGuides;
 		const date = todayDate();
-		const embed = new EmbedBuilder().setTitle(date.format("DD/MM/YYYY")).setColor(me.displayColor);
+		const embed = new EmbedBuilder().setTitle(date.format("DD/MM/YYYY")).setColor(embedColor);
 
 		if (quest1)
 			embed.addFields({ name: quest1.content, value: quest1.url === "" ? "\u200B" : hyperlink("Image", quest1.url) });
@@ -256,7 +256,7 @@ export default class DailyGuidesDistribution {
 				}
 
 				// Retrieve our guild-specific embed.
-				const embed = this.embed(me);
+				const embed = this.embed(await resolveEmbedColor(me.guild));
 
 				// We need to check if we should update the embed, if it exists.
 				const message = messageId ? await channel.messages.fetch(messageId).catch(() => null) : null;

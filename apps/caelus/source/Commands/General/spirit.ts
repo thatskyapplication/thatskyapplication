@@ -19,7 +19,7 @@ import {
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
 import Spirits from "../../Structures/Spirits/index.js";
 import { Season } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis, resolveEmbedColor } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export default class implements AutocompleteCommand {
@@ -68,7 +68,7 @@ export default class implements AutocompleteCommand {
 		if (spirit.totalCost && (await cannotUseCustomEmojis(interaction))) return;
 
 		const embed = new EmbedBuilder()
-			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
+			.setColor(await resolveEmbedColor(interaction.guild))
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
 

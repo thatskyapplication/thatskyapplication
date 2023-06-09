@@ -1,5 +1,6 @@
 import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
 import { EmbedBuilder, PermissionFlagsBits, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
+import { resolveEmbedColor } from "../../Utility/Utility.js";
 import { waifu, WaifuCategory } from "../../Utility/externalAPIs.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
@@ -50,7 +51,7 @@ export default class implements ChatInputCommand {
 		}
 
 		const { url } = await waifu(Math.random() < 0.5 ? WaifuCategory.Kick : WaifuCategory.Slap);
-		const embed = new EmbedBuilder().setColor((await guild?.members.fetchMe())?.displayColor ?? 0).setImage(url);
+		const embed = new EmbedBuilder().setColor(await resolveEmbedColor(guild)).setImage(url);
 
 		await pg<FightPacket>(Table.Fights).insert({
 			fighter_id: interaction.user.id,

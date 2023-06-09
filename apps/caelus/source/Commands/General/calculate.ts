@@ -19,6 +19,7 @@ import {
 	isWingedLightArea,
 	notNull,
 	resolveCurrencyEmoji,
+	resolveEmbedColor,
 	todayDate,
 } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
@@ -77,7 +78,7 @@ export default class implements ChatInputCommand {
 		await interaction.reply({
 			embeds: [
 				new EmbedBuilder()
-					.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
+					.setColor(await resolveEmbedColor(interaction.guild))
 					.setDescription(
 						`Start: ${resolveCurrencyEmoji({
 							emoji: Emoji.AscendedCandle,
@@ -140,7 +141,7 @@ export default class implements ChatInputCommand {
 		const resultWithSeasonPassString = `${daysWithSeasonPass} day${daysWithSeasonPass === 1 ? "" : "s"}`;
 
 		const embed = new EmbedBuilder()
-			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
+			.setColor(await resolveEmbedColor(interaction.guild))
 			.setDescription(
 				`Start: ${resolveCurrencyEmoji({ emoji: Emoji.SeasonalCandle, number: start })}\nGoal: ${resolveCurrencyEmoji({
 					emoji: Emoji.SeasonalCandle,
@@ -202,10 +203,9 @@ export default class implements ChatInputCommand {
 
 		const path = areas.length === 0 ? WINGED_LIGHT_AREAS : areas;
 		let accumulation = wingBuffs;
-		const me = await interaction.guild?.members.fetchMe();
 
 		const embed = new EmbedBuilder()
-			.setColor(me?.displayColor ?? 0)
+			.setColor(await resolveEmbedColor(interaction.guild))
 			.setDescription(
 				`Started with ${resolveCurrencyEmoji({
 					emoji: Emoji.WingedLight,
