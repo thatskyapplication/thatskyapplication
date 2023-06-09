@@ -336,16 +336,16 @@ interface ExpressiveSpiritData {
 
 interface BaseSpiritData {
 	name: SpiritName;
-	realm?: Exclude<Realm, Realm.AncientMemory>;
+	realm?: Realm;
 	keywords?: string[];
 }
 
 interface StandardSpiritData extends BaseSpiritData, FriendshipTreeData, ExpressiveSpiritData {
-	realm: Exclude<Realm, Realm.AncientMemory>;
+	realm: Realm;
 }
 
 interface ElderSpiritData extends BaseSpiritData, FriendshipTreeData {
-	realm: Exclude<Realm, Realm.AncientMemory>;
+	realm: Realm;
 }
 
 export type SeasonalSpiritVisitCollectionKey = number | "Error";
@@ -513,7 +513,7 @@ export abstract class BaseSpirit {
 
 	public readonly type!: SpiritType;
 
-	public readonly realm: Exclude<Realm, Realm.AncientMemory> | null;
+	public readonly realm: Realm | null;
 
 	public readonly keywords: NonNullable<BaseSpiritData["keywords"]>;
 
@@ -555,7 +555,7 @@ export abstract class BaseSpirit {
 export class StandardSpirit extends Mixin(BaseSpirit, FriendshipTree, ExpressiveSpirit) {
 	public override readonly type = SPIRIT_TYPE.Standard;
 
-	public declare readonly realm: Exclude<Realm, Realm.AncientMemory>;
+	public declare readonly realm: Realm;
 
 	public constructor(spirit: StandardSpiritData) {
 		super(spirit);
@@ -566,7 +566,7 @@ export class StandardSpirit extends Mixin(BaseSpirit, FriendshipTree, Expressive
 export class ElderSpirit extends Mixin(BaseSpirit, FriendshipTree) {
 	public override readonly type = SPIRIT_TYPE.Elder;
 
-	public declare readonly realm: Exclude<Realm, Realm.AncientMemory>;
+	public declare readonly realm: Realm;
 
 	public constructor(spirit: ElderSpiritData) {
 		super(spirit);

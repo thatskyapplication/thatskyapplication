@@ -169,6 +169,10 @@ export function isRealm(realm: string): realm is Realm {
 	return Object.values(Realm).includes(realm as Realm);
 }
 
+export function isWingedLightArea(area: string): area is Realm | Map.AncientMemory {
+	return isRealm(area) || area === Map.AncientMemory;
+}
+
 export function resolveValidRealm(realm: string) {
 	const upperRealm = realm.toUpperCase();
 	return Object.values(VALID_REALM).find((validRealm) => validRealm.toUpperCase() === upperRealm) ?? null;

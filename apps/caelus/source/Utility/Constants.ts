@@ -88,7 +88,6 @@ export enum Realm {
 	GoldenWasteland = "Golden Wasteland",
 	VaultOfKnowledge = "Vault of Knowledge",
 	EyeOfEden = "Eye of Eden",
-	AncientMemory = "Ancient Memory",
 }
 
 export enum Map {
@@ -131,7 +130,12 @@ export enum Map {
 	StarlightDesert = "Starlight Desert",
 	VaultSecondFloor = "Vault Second Floor",
 	VaultSummit = "Vault Summit",
+
+	// Season of Shattering
+	AncientMemory = "Ancient Memory",
 }
+
+export const WINGED_LIGHT_AREAS = [...Object.values(Realm), Map.AncientMemory] as const;
 
 // This exists due to the Infographics server's inconsistencies and faults alongside no desire to fix them.
 export const INCONSISTENT_MAP = {

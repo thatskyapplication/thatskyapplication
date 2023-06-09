@@ -11,8 +11,16 @@ import {
 	doubleSeasonalLightEventStartTimestamp,
 	WingedLightCount,
 	ASCENDED_CANDLES_PER_WEEK,
+	Map,
+	WINGED_LIGHT_AREAS,
 } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, isRealm, notNull, resolveCurrencyEmoji, todayDate } from "../../Utility/Utility.js";
+import {
+	cannotUseCustomEmojis,
+	isWingedLightArea,
+	notNull,
+	resolveCurrencyEmoji,
+	todayDate,
+} from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 const doubleSeasonalLightEventStart = time(doubleSeasonalLightEventStartTimestamp.unix(), TimestampStyles.ShortDate);
@@ -161,29 +169,29 @@ export default class implements ChatInputCommand {
 	public async wingedLight(interaction: ChatInputCommandInteraction) {
 		if (await cannotUseCustomEmojis(interaction)) return;
 		const { options } = interaction;
-		const wingedLight = options.getInteger("winged-light", true);
-		const realm1 = options.getString("realm-1");
-		const realm2 = options.getString("realm-2");
-		const realm3 = options.getString("realm-3");
-		const realm4 = options.getString("realm-4");
-		const realm5 = options.getString("realm-5");
-		const realm6 = options.getString("realm-6");
-		const realm7 = options.getString("realm-7");
-		const realm8 = options.getString("realm-8");
-		const realms = [realm1, realm2, realm3, realm4, realm5, realm6, realm7, realm8].filter(notNull);
+		const wingedLight = options.getInteger("wing-buffs", true);
+		const area1 = options.getString("area-1");
+		const area2 = options.getString("area-2");
+		const area3 = options.getString("area-3");
+		const area4 = options.getString("area-4");
+		const area5 = options.getString("area-5");
+		const area6 = options.getString("area-6");
+		const area7 = options.getString("area-7");
+		const area8 = options.getString("area-8");
+		const areas = [area1, area2, area3, area4, area5, area6, area7, area8].filter(notNull);
 
-		if (!realms.every(isRealm)) {
-			void interaction.client.log({ content: "Received an unknown realm.", error: realms });
-			await interaction.reply("Unknown realm detected. How odd? We can't do anything about this...");
+		if (!areas.every(isWingedLightArea)) {
+			void interaction.client.log({ content: "Received an unknown area.", error: areas });
+			await interaction.reply("Unknown area detected. How odd? We can't do anything about this...");
 			return;
 		}
 
-		if (new Set(realms).size !== realms.length) {
-			await interaction.reply("Duplicate realms detected. Make sure to only provide unique realms!");
+		if (new Set(areas).size !== areas.length) {
+			await interaction.reply("Duplicate areas detected. Make sure to only provide unique areas!");
 			return;
 		}
 
-		const path = realms.length === 0 ? Object.values(Realm) : realms;
+		const path = areas.length === 0 ? WINGED_LIGHT_AREAS : areas;
 		let accumulation = wingedLight;
 		const me = await interaction.guild?.members.fetchMe();
 
@@ -202,60 +210,60 @@ export default class implements ChatInputCommand {
 			)
 			.setTitle("Winged Light Calculator");
 
-		for (const realm of path) {
-			switch (realm) {
+		for (const area of path) {
+			switch (area) {
 				case Realm.IslesOfDawn:
 					embed.addFields({
-						name: realm,
+						name: area,
 						value: `${(accumulation += WingedLightCount.IslesOfDawn)} (+${WingedLightCount.IslesOfDawn})`,
 					});
 
 					break;
 				case Realm.DaylightPrairie:
 					embed.addFields({
-						name: Realm.DaylightPrairie,
+						name: area,
 						value: `${(accumulation += WingedLightCount.DaylightPrairie)} (+${WingedLightCount.DaylightPrairie})`,
 					});
 
 					break;
 				case Realm.HiddenForest:
 					embed.addFields({
-						name: realm,
+						name: area,
 						value: `${(accumulation += WingedLightCount.HiddenForest)} (+${WingedLightCount.HiddenForest})`,
 					});
 
 					break;
 				case Realm.ValleyOfTriumph:
 					embed.addFields({
-						name: realm,
+						name: area,
 						value: `${(accumulation += WingedLightCount.ValleyOfTriumph)} (+${WingedLightCount.ValleyOfTriumph})`,
 					});
 
 					break;
 				case Realm.GoldenWasteland:
 					embed.addFields({
-						name: realm,
+						name: area,
 						value: `${(accumulation += WingedLightCount.GoldenWasteland)} (+${WingedLightCount.GoldenWasteland})`,
 					});
 
 					break;
 				case Realm.VaultOfKnowledge:
 					embed.addFields({
-						name: realm,
+						name: area,
 						value: `${(accumulation += WingedLightCount.VaultOfKnowledge)} (+${WingedLightCount.VaultOfKnowledge})`,
 					});
 
 					break;
 				case Realm.EyeOfEden:
 					embed.addFields({
-						name: realm,
+						name: area,
 						value: `${(accumulation += WingedLightCount.EyeOfEden)} (+${WingedLightCount.EyeOfEden})`,
 					});
 
 					break;
-				case Realm.AncientMemory:
+				case Map.AncientMemory:
 					embed.addFields({
-						name: realm,
+						name: area,
 						value: `${(accumulation += WingedLightCount.AncientMemory)} (+${WingedLightCount.AncientMemory})`,
 					});
 
@@ -276,12 +284,12 @@ export default class implements ChatInputCommand {
 	}
 
 	public get commandData(): ApplicationCommandData {
-		const wingedLightInRealms = Object.values(WingedLightCount).reduce(
+		const wingedLightInAreas = Object.values(WingedLightCount).reduce(
 			(wingedLightCount, wingedLight) => wingedLightCount + wingedLight,
 			0,
 		);
 
-		const choices = Object.values(Realm).map((realm) => ({ name: realm, value: realm }));
+		const choices = WINGED_LIGHT_AREAS.map((area) => ({ name: area, value: area }));
 
 		return {
 			name: this.name,
@@ -340,58 +348,58 @@ export default class implements ChatInputCommand {
 					options: [
 						{
 							type: ApplicationCommandOptionType.Integer,
-							name: "winged-light",
-							description: "The winged light one has after death in Eden, before being reborn.",
-							maxValue: MAXIMUM_WINGED_LIGHT - wingedLightInRealms,
+							name: "wing-buffs",
+							description: "The number of wing buffs (total amount collected from ascended spirits).",
+							maxValue: MAXIMUM_WINGED_LIGHT - wingedLightInAreas,
 							minValue: 0,
 							required: true,
 						},
 						{
 							type: ApplicationCommandOptionType.String,
-							name: "realm-1",
-							description: "The first realm to calculate winged light from.",
+							name: "area-1",
+							description: "The first area to calculate winged light from.",
 							choices,
 						},
 						{
 							type: ApplicationCommandOptionType.String,
-							name: "realm-2",
-							description: "The second realm to calculate winged light from.",
+							name: "area-2",
+							description: "The second area to calculate winged light from.",
 							choices,
 						},
 						{
 							type: ApplicationCommandOptionType.String,
-							name: "realm-3",
-							description: "The third realm to calculate winged light from.",
+							name: "area-3",
+							description: "The third area to calculate winged light from.",
 							choices,
 						},
 						{
 							type: ApplicationCommandOptionType.String,
-							name: "realm-4",
-							description: "The fourth realm to calculate winged light from.",
+							name: "area-4",
+							description: "The fourth area to calculate winged light from.",
 							choices,
 						},
 						{
 							type: ApplicationCommandOptionType.String,
-							name: "realm-5",
-							description: "The fifth realm to calculate winged light from.",
+							name: "area-5",
+							description: "The fifth area to calculate winged light from.",
 							choices,
 						},
 						{
 							type: ApplicationCommandOptionType.String,
-							name: "realm-6",
-							description: "The sixth realm to calculate winged light from.",
+							name: "area-6",
+							description: "The sixth area to calculate winged light from.",
 							choices,
 						},
 						{
 							type: ApplicationCommandOptionType.String,
-							name: "realm-7",
-							description: "The seventh realm to calculate winged light from.",
+							name: "area-7",
+							description: "The seventh area to calculate winged light from.",
 							choices,
 						},
 						{
 							type: ApplicationCommandOptionType.String,
-							name: "realm-8",
-							description: "The eighth realm to calculate winged light from.",
+							name: "area-8",
+							description: "The eighth area to calculate winged light from.",
 							choices,
 						},
 					],
