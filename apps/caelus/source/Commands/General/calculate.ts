@@ -107,6 +107,7 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
+		if (await cannotUseCustomEmojis(interaction)) return;
 		const amountRequired = goal - start;
 		let result = 0;
 		let days = 0;
@@ -132,7 +133,12 @@ export default class implements ChatInputCommand {
 
 		const embed = new EmbedBuilder()
 			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
-			.setDescription(`Start: ${start}\nGoal: ${goal}\nRequired: ${amountRequired}`)
+			.setDescription(
+				`Start: ${resolveCurrencyEmoji({ emoji: Emoji.SeasonalCandle, number: start })}\nGoal: ${resolveCurrencyEmoji({
+					emoji: Emoji.SeasonalCandle,
+					number: goal,
+				})}\nRequired: ${resolveCurrencyEmoji({ emoji: Emoji.SeasonalCandle, number: amountRequired })}`,
+			)
 			.setFields(
 				{ name: "Result", value: `${resultString}` },
 				{
