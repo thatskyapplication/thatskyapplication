@@ -6,6 +6,10 @@ Caelus is a Discord bot made especially for [Sky: Children of the Light][thatsky
 
 Caelus needs to be updated every now and then to reflect accurate information.
 
+### New season
+
+New season, new spirits. Ths should be pretty simple.
+
 ### Travelling spirits
 
 Every 2 weeks, a seasonal spirit will visit. This is known as a travelling spirit.
