@@ -1511,14 +1511,6 @@ export class SpiritTracker {
 		bit: SpiritTrackerValue,
 		spirit: GuideSpirit | ElderSpirit | SeasonalSpirit,
 	) {
-		const remainingCurrency = {
-			candles: 0,
-			hearts: 0,
-			ascendedCandles: 0,
-			seasonalCandles: 0,
-			seasonalHearts: 0,
-		} satisfies SpiritCost;
-
 		const backButtons = new ActionRowBuilder<ButtonBuilder>().setComponents(
 			backToStartButtonBuilder,
 			new ButtonBuilder()
@@ -1531,15 +1523,17 @@ export class SpiritTracker {
 				.setStyle(ButtonStyle.Primary),
 		);
 
-		if (
-			Object.values(remainingCurrency).some((amount) => amount !== 0) &&
-			(await cannotUseCustomEmojis(interaction, {
-				components: [backButtons],
-				embeds: [],
-			}))
-		) {
+		if (spirit.totalCost && (await cannotUseCustomEmojis(interaction, { components: [backButtons], embeds: [] }))) {
 			return;
 		}
+
+		const remainingCurrency = {
+			candles: 0,
+			hearts: 0,
+			ascendedCandles: 0,
+			seasonalCandles: 0,
+			seasonalHearts: 0,
+		} satisfies SpiritCost;
 
 		const embedFields =
 			spirit.offer?.map(({ item, cost }, flag) => {
