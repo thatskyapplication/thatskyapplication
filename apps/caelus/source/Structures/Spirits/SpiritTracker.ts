@@ -15,7 +15,7 @@ import {
 	formatEmoji,
 } from "discord.js";
 import { Season, Emoji } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, isSeason, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis, isSeason, resolveEmbedColor, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import {
 	type GuideSpirit,
@@ -1558,10 +1558,10 @@ export class SpiritTracker {
 			}) ?? [];
 
 		const embeds = [];
-		const displayColor = (await interaction.guild?.members.fetchMe())?.displayColor ?? 0;
+		const embedColor = await resolveEmbedColor(interaction.guild);
 
 		const embed = new EmbedBuilder()
-			.setColor(displayColor)
+			.setColor(embedColor)
 			.setFields(embedFields.slice(0, SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT))
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
@@ -1570,7 +1570,7 @@ export class SpiritTracker {
 
 		if (embedFields.length > SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT) {
 			embeds.push(
-				new EmbedBuilder().setColor(displayColor).setFields(embedFields.slice(SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT)),
+				new EmbedBuilder().setColor(embedColor).setFields(embedFields.slice(SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT)),
 			);
 		}
 

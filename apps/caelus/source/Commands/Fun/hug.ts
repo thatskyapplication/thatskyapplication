@@ -2,6 +2,7 @@ import { URL } from "node:url";
 import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
 import { EmbedBuilder, PermissionFlagsBits, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
 import { CDN_URL, MAX_HUG_NO } from "../../Utility/Constants.js";
+import { resolveEmbedColor } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -60,7 +61,7 @@ export default class implements ChatInputCommand {
 			content: `${user}, ${interaction.user} hugged you!`,
 			embeds: [
 				new EmbedBuilder()
-					.setColor((await guild?.members.fetchMe())?.displayColor ?? 0)
+					.setColor(await resolveEmbedColor(guild))
 					.setImage(String(new URL(`hugs/${Math.floor(Math.random() * MAX_HUG_NO + 1)}.gif`, CDN_URL))),
 			],
 		});

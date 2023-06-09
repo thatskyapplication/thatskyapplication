@@ -10,7 +10,7 @@ import {
 import DailyGuidesDistribution, { SHARD_ERUPTION_NONE } from "../../Structures/DailyGuidesDistribution.js";
 import { NotificationEvent } from "../../Structures/Notification.js";
 import { ISS_DATES_ACCESSIBLE, initialTravellingSpiritSeek } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, todayDate } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis, resolveEmbedColor, todayDate } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 const PASSAGE_TRUNCATION_LIMIT = 9 as const;
@@ -66,7 +66,7 @@ export default class implements ChatInputCommand {
 		const passageTimesString = `${passageTimesStart.join(" ")}... every 15 minutes... ${passageTimesEnd.join(" ")}`;
 
 		const embed = new EmbedBuilder()
-			.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
+			.setColor(await resolveEmbedColor(interaction.guild))
 			.setFields(
 				{
 					name: NotificationEvent.DailyReset,

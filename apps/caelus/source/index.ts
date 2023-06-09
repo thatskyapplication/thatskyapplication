@@ -20,7 +20,7 @@ import {
 	GUILD_LOG_CHANNEL_ID,
 	production,
 } from "./Utility/Constants.js";
-import { consoleLog } from "./Utility/Utility.js";
+import { consoleLog, resolveEmbedColor } from "./Utility/Utility.js";
 
 export const enum LogType {
 	Error,
@@ -99,7 +99,8 @@ class Caelus extends Client {
 				}
 			}
 
-			for (const embed of embeds) if (embed.data.color === undefined) embed.setColor(me.displayColor);
+			const embedColor = await resolveEmbedColor(me.guild)
+			for (const embed of embeds) if (embed.data.color === undefined) embed.setColor(embedColor);
 
 			const payload: Parameters<TextChannel["send"]>[0] = { allowedMentions: { parse: [] }, embeds, files };
 			if (content) payload.content = `${stamp} ${content}`;

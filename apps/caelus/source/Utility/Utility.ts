@@ -5,6 +5,9 @@ import utc from "dayjs/plugin/utc.js";
 import {
 	type ButtonInteraction,
 	type ChatInputCommandInteraction,
+	type Guild,
+	type InteractionReplyOptions,
+	type InteractionUpdateOptions,
 	type ModalSubmitInteraction,
 	type Snowflake,
 	type StringSelectMenuInteraction,
@@ -14,11 +17,10 @@ import {
 	PermissionFlagsBits,
 	time as discordTime,
 	TimestampStyles,
-	type InteractionReplyOptions,
-	type InteractionUpdateOptions,
 } from "discord.js";
 import { DAILY_GUIDE_EVENT_ROTATION } from "../Structures/DailyGuides.js";
 import {
+	DEFAULT_EMBED_COLOR,
 	Emoji,
 	INCONSISTENT_MAP,
 	inconsistentMapKeys,
@@ -104,6 +106,11 @@ export async function cannotUseCustomEmojis(
 	}
 
 	return true;
+}
+
+export async function resolveEmbedColor(guild: Guild | null) {
+	// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+	return (await guild?.members.fetchMe())?.displayColor || DEFAULT_EMBED_COLOR;
 }
 
 export interface CurrencyEmojiOptions {
