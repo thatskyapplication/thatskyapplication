@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-literal-enum-member, unicorn/prefer-math-trunc */
-import type { BaseInteraction } from "discord.js";
+import { formatEmoji } from "discord.js";
 import { Emoji } from "../Utility/Constants.js";
-import { resolveEmoji } from "../Utility/Utility.js";
 
 enum PlatformFlags {
 	iOS = 1 << 0,
@@ -19,14 +18,14 @@ export const PlatformFlagsToString = {
 	[PlatformFlags.PlayStation]: "PlayStation",
 } as const;
 
-export function resolveBitsToPlatform(bits: number, interaction: BaseInteraction) {
+export function resolveBitsToPlatform(bits: number) {
 	const platforms = [];
 
 	for (const [bit, platform] of Object.entries(PlatformFlagsToString)) {
 		const _bit = Number(bit);
 
 		if ((bits & _bit) === _bit) {
-			platforms.push(`${resolveEmoji(interaction, resolvePlatformToEmoji(platform))} ${platform}`);
+			platforms.push(`${formatEmoji(resolvePlatformToEmoji(platform))} ${platform}`);
 		}
 	}
 

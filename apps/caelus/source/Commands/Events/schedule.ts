@@ -7,10 +7,10 @@ import {
 	time,
 	TimestampStyles,
 } from "discord.js";
-import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
+import DailyGuidesDistribution, { SHARD_ERUPTION_NONE } from "../../Structures/DailyGuidesDistribution.js";
 import { NotificationEvent } from "../../Structures/Notification.js";
 import { ISS_DATES_ACCESSIBLE, initialTravellingSpiritSeek } from "../../Utility/Constants.js";
-import { todayDate } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis, todayDate } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 const PASSAGE_TRUNCATION_LIMIT = 9 as const;
@@ -105,7 +105,17 @@ export default class implements ChatInputCommand {
 
 		const eventCurrencyFieldData = DailyGuidesDistribution.eventCurrencyFieldData();
 		if (eventCurrencyFieldData) embed.addFields(eventCurrencyFieldData);
-		embed.addFields(...DailyGuidesDistribution.shardEruptionFieldData(interaction));
+		const shardEruptionFieldData = DailyGuidesDistribution.shardEruptionFieldData();
+
+		if (
+			shardEruptionFieldData[0] &&
+			shardEruptionFieldData[0].value !== SHARD_ERUPTION_NONE &&
+			(await cannotUseCustomEmojis(interaction))
+		) {
+			return;
+		}
+
+		embed.addFields(shardEruptionFieldData);
 		await interaction.reply({ embeds: [embed], ephemeral: true });
 	}
 

@@ -11,7 +11,7 @@ import {
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import commands from "../Commands/index.js";
 import { MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
-import { canUseCustomEmoji } from "../Utility/Utility.js";
+import { cannotUseCustomEmojis } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
 import { resolveBitsToSeasons } from "./Seasons.js";
@@ -117,12 +117,11 @@ export default class Profile {
 	) {
 		let profile = await this.fetch(interaction.user.id).catch(() => null);
 
-		if (!canUseCustomEmoji(interaction) && (data.seasons || profile?.seasons)) {
-			await interaction.reply({
-				content: `Missing the \`Use External Emojis\` permission.`,
-				ephemeral: true,
-			});
-
+		if (
+			((data.seasons !== 0 && (data.seasons || profile?.seasons)) ||
+				(data.platform !== 0 && (data.platform || profile?.platform))) &&
+			(await cannotUseCustomEmojis(interaction))
+		) {
 			return;
 		}
 
@@ -199,7 +198,7 @@ export default class Profile {
 		const unfilled = [];
 
 		if (seasons) {
-			descriptions.push(resolveBitsToSeasons(seasons, interaction).join(" "));
+			descriptions.push(resolveBitsToSeasons(seasons).join(" "));
 		} else if (commandId) {
 			unfilled.push(
 				`- Use ${chatInputApplicationCommandMention(
@@ -224,7 +223,7 @@ export default class Profile {
 			);
 		}
 
-		if (descriptions.length > 1) embed.setDescription(descriptions.join("\n"));
+		if (descriptions.length > 0) embed.setDescription(descriptions.join("\n"));
 
 		if (thumbnail) {
 			embed.setThumbnail(thumbnail);
@@ -330,7 +329,7 @@ export default class Profile {
 		if (platform) {
 			fields.push({
 				name: "Platform",
-				value: resolveBitsToPlatform(platform, interaction).join("\n"),
+				value: resolveBitsToPlatform(platform).join("\n"),
 				inline: true,
 			});
 		} else if (commandId) {

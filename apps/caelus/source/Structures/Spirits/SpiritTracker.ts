@@ -12,9 +12,10 @@ import {
 	EmbedBuilder,
 	ButtonBuilder,
 	ButtonStyle,
+	formatEmoji,
 } from "discord.js";
 import { Season, Emoji } from "../../Utility/Constants.js";
-import { canUseCustomEmoji, isSeason, resolveEmoji, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis, isSeason, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import {
 	type GuideSpirit,
@@ -1510,6 +1511,22 @@ export class SpiritTracker {
 		bit: SpiritTrackerValue,
 		spirit: GuideSpirit | ElderSpirit | SeasonalSpirit,
 	) {
+		const backButtons = new ActionRowBuilder<ButtonBuilder>().setComponents(
+			backToStartButtonBuilder,
+			new ButtonBuilder()
+				.setCustomId(
+					spirit.isSeasonalSpirit() || spirit.isGuideSpirit()
+						? `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}-${spirit.season}`
+						: SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID,
+				)
+				.setEmoji("⏪")
+				.setStyle(ButtonStyle.Primary),
+		);
+
+		if (spirit.totalCost && (await cannotUseCustomEmojis(interaction, { components: [backButtons], embeds: [] }))) {
+			return;
+		}
+
 		const remainingCurrency = {
 			candles: 0,
 			hearts: 0,
@@ -1523,44 +1540,22 @@ export class SpiritTracker {
 				let value;
 
 				if (bit && (bit & flag) === flag) {
-					value = resolveEmoji(interaction, Emoji.Yes, true);
+					value = formatEmoji(Emoji.Yes, true);
 				} else {
 					if (cost?.candles) remainingCurrency.candles += cost.candles;
 					if (cost?.hearts) remainingCurrency.hearts += cost.hearts;
 					if (cost?.ascendedCandles) remainingCurrency.ascendedCandles += cost.ascendedCandles;
 					if (cost?.seasonalCandles) remainingCurrency.seasonalCandles += cost.seasonalCandles;
 					if (cost?.seasonalHearts) remainingCurrency.seasonalHearts += cost.seasonalHearts;
-					value = resolveOfferToCurrency(interaction, cost ?? {}).join("") || resolveEmoji(interaction, Emoji.No, true);
+					value = resolveOfferToCurrency(cost ?? {}).join("") || formatEmoji(Emoji.No, true);
 				}
 
 				return {
 					name: item,
-					value: bit && (bit & flag) === flag ? resolveEmoji(interaction, Emoji.Yes, true) : value,
+					value: bit && (bit & flag) === flag ? formatEmoji(Emoji.Yes, true) : value,
 					inline: true,
 				};
 			}) ?? [];
-
-		const backButtons = new ActionRowBuilder<ButtonBuilder>().setComponents(
-			backToStartButtonBuilder,
-			new ButtonBuilder()
-				.setCustomId(
-					spirit.isSeasonalSpirit() || spirit.isGuideSpirit()
-						? `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}-${spirit.season}`
-						: SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID,
-				)
-				.setEmoji("⏪")
-				.setStyle(ButtonStyle.Primary),
-		);
-
-		if (remainingCurrency.seasonalCandles > 0 && !canUseCustomEmoji(interaction)) {
-			await interaction.update({
-				components: [backButtons],
-				content: "Missing the `Use External Emojis` permission.",
-				embeds: [],
-			});
-
-			return;
-		}
 
 		const embeds = [];
 		const displayColor = (await interaction.guild?.members.fetchMe())?.displayColor ?? 0;
@@ -1581,7 +1576,7 @@ export class SpiritTracker {
 
 		const lastEmbed = embeds.at(-1)!;
 		const description = [];
-		const resolvedRemainingCurrency = resolveOfferToCurrency(interaction, remainingCurrency);
+		const resolvedRemainingCurrency = resolveOfferToCurrency(remainingCurrency);
 
 		if (resolvedRemainingCurrency.length > 0) {
 			description.push(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);

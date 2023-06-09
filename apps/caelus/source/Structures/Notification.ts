@@ -16,9 +16,9 @@ import {
 	roleMention,
 	time,
 	TimestampStyles,
+	formatEmoji,
 } from "discord.js";
 import { Emoji, Season } from "../Utility/Constants.js";
-import { resolveEmoji } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 
 export interface NotificationPacket {
@@ -437,6 +437,6 @@ export default class Notification {
 
 		return `${channelId ? channelMention(channelId) : "No channel"}\n${roleId ? roleMention(roleId) : "No role"}\n${
 			sending ? "Sending!" : "Stopped!"
-		} ${resolveEmoji(member, sending ? Emoji.Yes : Emoji.No, true)}`;
+		} ${formatEmoji(sending ? Emoji.Yes : Emoji.No, true)}`;
 	}
 }

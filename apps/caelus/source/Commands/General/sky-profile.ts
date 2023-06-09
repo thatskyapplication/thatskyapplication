@@ -19,7 +19,7 @@ import Profile from "../../Structures/Profile.js";
 import { SeasonFlagsToString } from "../../Structures/Seasons.js";
 import Spirits from "../../Structures/Spirits/index.js";
 import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
-import { canUseCustomEmoji, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 import commands from "../index.js";
 
@@ -260,15 +260,7 @@ export default class implements AutocompleteCommand {
 			return;
 		}
 
-		if (!canUseCustomEmoji(interaction) && profile.seasons) {
-			await interaction.reply({
-				content: `Missing the \`Use External Emojis\` permission.`,
-				ephemeral: true,
-			});
-
-			return;
-		}
-
+		if ((profile.seasons || profile.platform) && (await cannotUseCustomEmojis(interaction))) return;
 		const { embed, unfilled } = await profile.embed(interaction);
 		await interaction.reply({ embeds: [embed], ephemeral: hide });
 		if (unfilled && userIsInvoker) await interaction.followUp({ content: unfilled, ephemeral: true });

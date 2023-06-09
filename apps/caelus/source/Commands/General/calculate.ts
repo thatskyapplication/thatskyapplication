@@ -12,7 +12,7 @@ import {
 	WingedLightCount,
 	ASCENDED_CANDLES_PER_WEEK,
 } from "../../Utility/Constants.js";
-import { isRealm, notNull, resolveCurrencyEmoji, todayDate } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis, isRealm, notNull, resolveCurrencyEmoji, todayDate } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 const doubleSeasonalLightEventStart = time(doubleSeasonalLightEventStartTimestamp.unix(), TimestampStyles.ShortDate);
@@ -46,6 +46,7 @@ export default class implements ChatInputCommand {
 			return;
 		}
 
+		if (await cannotUseCustomEmojis(interaction)) return;
 		const amountRequired = goal - start;
 		let day = todayDate();
 		let result = 0;
@@ -70,13 +71,13 @@ export default class implements ChatInputCommand {
 				new EmbedBuilder()
 					.setColor((await interaction.guild?.members.fetchMe())?.displayColor ?? 0)
 					.setDescription(
-						`Start: ${resolveCurrencyEmoji(interaction, {
+						`Start: ${resolveCurrencyEmoji({
 							emoji: Emoji.AscendedCandle,
 							number: start,
-						})}\nGoal: ${resolveCurrencyEmoji(interaction, {
+						})}\nGoal: ${resolveCurrencyEmoji({
 							emoji: Emoji.AscendedCandle,
 							number: goal,
-						})}\nRequired: ${resolveCurrencyEmoji(interaction, {
+						})}\nRequired: ${resolveCurrencyEmoji({
 							emoji: Emoji.AscendedCandle,
 							number: amountRequired,
 						})}`,
@@ -152,6 +153,7 @@ export default class implements ChatInputCommand {
 	}
 
 	public async wingedLight(interaction: ChatInputCommandInteraction) {
+		if (await cannotUseCustomEmojis(interaction)) return;
 		const { options } = interaction;
 		const wingedLight = options.getInteger("winged-light", true);
 		const realm1 = options.getString("realm-1");
@@ -182,11 +184,11 @@ export default class implements ChatInputCommand {
 		const embed = new EmbedBuilder()
 			.setColor(me?.displayColor ?? 0)
 			.setDescription(
-				`Started with ${resolveCurrencyEmoji(interaction, {
+				`Started with ${resolveCurrencyEmoji({
 					emoji: Emoji.WingedLight,
 					number: wingedLight,
 					includeSpaceInEmoji: true,
-				})}.\nReborn with ${resolveCurrencyEmoji(interaction, {
+				})}.\nReborn with ${resolveCurrencyEmoji({
 					emoji: Emoji.WingedLight,
 					number: (accumulation += WingedLightCount.Orbit),
 					includeSpaceInEmoji: true,
@@ -257,7 +259,7 @@ export default class implements ChatInputCommand {
 
 		embed.addFields({
 			name: "Total",
-			value: `You should have ${resolveCurrencyEmoji(interaction, {
+			value: `You should have ${resolveCurrencyEmoji({
 				emoji: Emoji.WingedLight,
 				number: accumulation,
 				includeSpaceInEmoji: true,

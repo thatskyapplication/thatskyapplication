@@ -1,5 +1,4 @@
 import {
-	type BaseInteraction,
 	type ChatInputCommandInteraction,
 	type Client,
 	type Guild,
@@ -12,6 +11,7 @@ import {
 	EmbedBuilder,
 	TimestampStyles,
 	time,
+	formatEmoji,
 } from "discord.js";
 import { Emoji, eventEndDate } from "../Utility/Constants.js";
 import {
@@ -19,7 +19,6 @@ import {
 	resolveCurrencyEmoji,
 	todayDate,
 	treasureCandleRealm,
-	resolveEmoji,
 	eventRotationLetter,
 } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
@@ -44,6 +43,7 @@ type DailyGuidesDistributionInsertQuery = Omit<DailyGuidesDistributionPacket, "i
 type DailyGuidesDistributionUpdateQuery = Omit<DailyGuidesDistributionInsertQuery, "guild_id">;
 
 export const SHARD_ERUPTION_NAME = "Shard Eruption" as const;
+export const SHARD_ERUPTION_NONE = "None" as const;
 
 export default class DailyGuidesDistribution {
 	public readonly id: DailyGuidesDistributionData["id"];
@@ -139,7 +139,7 @@ export default class DailyGuidesDistribution {
 				name: "Daily Guides Status",
 				value: `${channelId ? channelMention(channelId) : "No channel"}\n${
 					sending ? "Sending!" : "Stopped!"
-				} ${resolveEmoji(me, sending ? Emoji.Yes : Emoji.No, true)}`,
+				} ${formatEmoji(sending ? Emoji.Yes : Emoji.No, true)}`,
 				inline: true,
 			})
 			.setTitle(guild.name);
@@ -159,7 +159,7 @@ export default class DailyGuidesDistribution {
 		return null;
 	}
 
-	public static shardEruptionFieldData(interactionOrMember: BaseInteraction | GuildMember) {
+	public static shardEruptionFieldData() {
 		const shardEruptionToday = DailyGuides.shardEruption();
 
 		if (shardEruptionToday) {
@@ -168,14 +168,13 @@ export default class DailyGuidesDistribution {
 			return [
 				{
 					name: SHARD_ERUPTION_NAME,
-					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${resolveEmoji(
-						interactionOrMember,
+					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${formatEmoji(
 						dangerous ? Emoji.Yes : Emoji.No,
 						true,
 					)}\nReward: ${
 						reward === 200
 							? "200 pieces of light"
-							: resolveCurrencyEmoji(interactionOrMember, { emoji: Emoji.AscendedCandle, number: reward })
+							: resolveCurrencyEmoji({ emoji: Emoji.AscendedCandle, number: reward })
 					}`,
 					inline: true,
 				},
@@ -192,7 +191,7 @@ export default class DailyGuidesDistribution {
 			];
 		}
 
-		return [{ name: SHARD_ERUPTION_NAME, value: "None" }];
+		return [{ name: SHARD_ERUPTION_NAME, value: SHARD_ERUPTION_NONE }];
 	}
 
 	public static embed(me: GuildMember) {
@@ -222,7 +221,7 @@ export default class DailyGuidesDistribution {
 		if (seasonalCandles) embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
 		const eventCurrencyFieldData = this.eventCurrencyFieldData();
 		if (eventCurrencyFieldData) embed.addFields(eventCurrencyFieldData);
-		embed.addFields(this.shardEruptionFieldData(me));
+		embed.addFields(this.shardEruptionFieldData());
 		return embed;
 	}
 
