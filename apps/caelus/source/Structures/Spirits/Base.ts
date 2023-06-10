@@ -20,7 +20,7 @@ export enum SpiritName {
 	LaughingLightCatcher = "Laughing Light Catcher",
 	BirdWhisperer = "Bird Whisperer",
 	ExhaustedDockWorker = "Exhausted Dock Worker",
-	CeremonialWorshipper = "Ceremonial Worshipper",
+	CeremonialWorshiper = "Ceremonial Worshiper",
 	ElderOfThePrairie = "Elder of the Prairie",
 
 	// Hidden Forest
@@ -198,6 +198,10 @@ export enum SpiritName {
 }
 
 export const enum Call {
+	Bird = "Bird",
+	Whale = "Whale",
+	Manta = "Manta",
+	CosmicManta = "Cosmic manta",
 	Crab = "Crab",
 	Jellyfish = "Jellyfish",
 	BabyManta = "Baby manta",
@@ -216,21 +220,42 @@ export const enum Expression {
 	Bearhug = "Bearhug",
 	Handshake = "Handshake",
 	DuetDance = "Duet dance",
+
 	// Regular expressions
 	Point = "Point",
+	Come = "Come",
+	NoThanks = "No thanks",
 	Welcome = "Welcome",
 	Nod = "Nod",
 	Scold = "Scold",
+	Butterfly = "Butterfly",
+	Clap = "Clap",
+	Wave = "Wave",
+	Laugh = "Laugh",
+	Yawn = "Yawn",
+	WipeBrow = "Wipe brow",
+	Teamwork = "Teamwork",
 	BlowKiss = "Blow kiss",
 	Grateful = "Grateful",
 	BellyScratch = "Belly scratch",
 	Chuckle = "Chuckle",
+	Shiver = "Shiver",
+	HideAndSeek = "Hide and seek",
+	Angry = "Angry",
+	Shy = "Shy",
+	Shocked = "Shocked",
+	Apologise = "Apologise",
+	Crying = "Crying",
 	Karate = "Karate",
 	Shrug = "Shrug",
 	Grouchy = "Grouchy",
 	Peek = "Peek",
 	Eww = "Eww",
 	Facepalm = "Facepalm",
+	Handstand = "Handstand",
+	Backflip = "Backflip",
+	Bow = "Bow",
+	Cheer = "Cheer",
 	Leap = "Leap",
 	TripleAxel = "Triple axel",
 	Confetti = "Confetti",
@@ -241,7 +266,11 @@ export const enum Expression {
 	Rally = "Rally",
 	SpinTrick = "Spin trick",
 	ShowDance = "Show dance",
+	Duck = "Duck",
+	Faint = "Faint",
 	Respect = "Respect",
+	LookAround = "Look around",
+	Salute = "Salute",
 	Dismiss = "Dismiss",
 	Greeting = "Greeting",
 	DontGo = "Don't go!",
@@ -249,6 +278,9 @@ export const enum Expression {
 	DustOff = "Dust off",
 	ChestPound = "Chest pound",
 	March = "March",
+	Telekinesis = "Telekinesis",
+	Float = "Float",
+	Pray = "Pray",
 	Yoga = "Yoga",
 	Shush = "Shush",
 	Sparkler = "Sparkler",
@@ -288,6 +320,11 @@ export const enum Expression {
 }
 
 export const enum Stance {
+	Courageous = "Courageous",
+	Confident = "Confident",
+	Sneaky = "Sneaky",
+	Proud = "Proud",
+	Polite = "Polite",
 	Sassy = "Sassy",
 	Laidback = "Laidback",
 	Wise = "Wise",
@@ -373,7 +410,7 @@ export const GUIDE_SPIRIT_IN_PROGRESS_TEXT = "This spirit's friendship tree has 
 export function resolveSpiritTypeToString(spiritType: SpiritType) {
 	switch (spiritType) {
 		case SPIRIT_TYPE.Standard:
-			return "Standard Spirit";
+			return "Standard Spirits";
 		case SPIRIT_TYPE.Elder:
 			return "Elders";
 		case SPIRIT_TYPE.Seasonal:

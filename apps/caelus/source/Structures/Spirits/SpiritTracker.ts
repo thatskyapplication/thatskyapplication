@@ -14,15 +14,22 @@ import {
 	ButtonStyle,
 	formatEmoji,
 } from "discord.js";
-import { Season, Emoji } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, isSeason, resolveEmbedColor, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
+import { type Realm, Emoji, Season } from "../../Utility/Constants.js";
+import {
+	cannotUseCustomEmojis,
+	isRealm,
+	isSeason,
+	resolveEmbedColor,
+	resolveSeasonsToEmoji,
+} from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import {
-	type GuideSpirit,
 	type ElderSpirit,
+	type GuideSpirit,
 	type SeasonalSpirit,
 	type SpiritCost,
 	type SpiritType,
+	type StandardSpirit,
 	SpiritName,
 	SPIRIT_TYPE,
 	resolveSpiritTypeToString,
@@ -33,6 +40,7 @@ import {
 } from "./Base.js";
 import Elder from "./Elder/index.js";
 import Seasonal from "./Seasonal/index.js";
+import Standard from "./Standard/index.js";
 import Spirits from "./index.js";
 
 type SpiritTrackerValue = number | null;
@@ -50,7 +58,7 @@ interface SpiritTrackerPacket {
 	laughing_light_catcher: SpiritTrackerValue;
 	bird_whisperer: SpiritTrackerValue;
 	exhausted_dock_worker: SpiritTrackerValue;
-	ceremonial_worshipper: SpiritTrackerValue;
+	ceremonial_worshiper: SpiritTrackerValue;
 	elder_of_the_prairie: SpiritTrackerValue;
 	shivering_trailblazer: SpiritTrackerValue;
 	blushing_prospector: SpiritTrackerValue;
@@ -198,7 +206,7 @@ interface SpiritTrackerData {
 	laughingLightCatcher: SpiritTrackerPacket["laughing_light_catcher"];
 	birdWhisperer: SpiritTrackerPacket["bird_whisperer"];
 	exhaustedDockWorker: SpiritTrackerPacket["exhausted_dock_worker"];
-	ceremonialWorshipper: SpiritTrackerPacket["ceremonial_worshipper"];
+	ceremonialWorshiper: SpiritTrackerPacket["ceremonial_worshiper"];
 	elderOfThePrairie: SpiritTrackerPacket["elder_of_the_prairie"];
 	shiveringTrailblazer: SpiritTrackerPacket["shivering_trailblazer"];
 	blushingProspector: SpiritTrackerPacket["blushing_prospector"];
@@ -336,18 +344,28 @@ interface SpiritTrackerData {
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
 
 export const SPIRIT_TRACKER_VIEW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID = "SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID = "SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID = "SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
 const SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT = 24 as const;
+
+const validRealms = Standard.reduce<Realm[]>((realms, { realm }) => {
+	if (!realms.includes(realm)) realms.push(realm);
+	return realms;
+}, []);
 
 const validSeasons = Seasonal.reduce<Season[]>((seasons, { season }) => {
 	if (!seasons.includes(season)) seasons.push(season);
@@ -390,7 +408,7 @@ export class SpiritTracker {
 
 	public exhaustedDockWorker!: SpiritTrackerData["exhaustedDockWorker"];
 
-	public ceremonialWorshipper!: SpiritTrackerData["ceremonialWorshipper"];
+	public ceremonialWorshiper!: SpiritTrackerData["ceremonialWorshiper"];
 
 	public elderOfThePrairie!: SpiritTrackerData["elderOfThePrairie"];
 
@@ -673,7 +691,7 @@ export class SpiritTracker {
 		this.laughingLightCatcher = data.laughing_light_catcher;
 		this.birdWhisperer = data.bird_whisperer;
 		this.exhaustedDockWorker = data.exhausted_dock_worker;
-		this.ceremonialWorshipper = data.ceremonial_worshipper;
+		this.ceremonialWorshiper = data.ceremonial_worshiper;
 		this.elderOfThePrairie = data.elder_of_the_prairie;
 		this.shiveringTrailblazer = data.shivering_trailblazer;
 		this.blushingProspector = data.blushing_prospector;
@@ -869,8 +887,8 @@ export class SpiritTracker {
 			case SpiritName.ExhaustedDockWorker:
 				spirit = "exhausted_dock_worker";
 				break;
-			case SpiritName.CeremonialWorshipper:
-				spirit = "ceremonial_worshipper";
+			case SpiritName.CeremonialWorshiper:
+				spirit = "ceremonial_worshiper";
 				break;
 			case SpiritName.ElderOfThePrairie:
 				spirit = "elder_of_the_prairie";
@@ -1284,6 +1302,10 @@ export class SpiritTracker {
 			: Math.round(progresses.reduce((number, progression) => number + progression, 0) / progresses.length);
 	}
 
+	public standardProgress() {
+		return this.averageProgress(validRealms.map((realm) => this.realmProgress(realm)));
+	}
+
 	public elderProgress() {
 		return this.averageProgress(
 			Elder.map(({ name, maxItemsBit }) => bitPercentage(this.resolveNameToBit(name), maxItemsBit)),
@@ -1306,6 +1328,7 @@ export class SpiritTracker {
 			);
 		}
 
+		const standardProgress = spiritTracker.standardProgress();
 		const elderProgress = spiritTracker.elderProgress();
 		const seasonalProgress = spiritTracker.seasonalProgress();
 
@@ -1318,10 +1341,13 @@ export class SpiritTracker {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							[SPIRIT_TYPE.Elder, SPIRIT_TYPE.Seasonal].map((spiritType) => {
+							[SPIRIT_TYPE.Standard, SPIRIT_TYPE.Elder, SPIRIT_TYPE.Seasonal].map((spiritType) => {
 								let label;
 
 								switch (spiritType) {
+									case SPIRIT_TYPE.Standard:
+										label = `${resolveSpiritTypeToString(spiritType)} (${standardProgress}%)`;
+										break;
 									case SPIRIT_TYPE.Elder:
 										label = `${resolveSpiritTypeToString(spiritType)} (${elderProgress}%)`;
 										break;
@@ -1348,12 +1374,10 @@ export class SpiritTracker {
 	}
 
 	public static async parseSpiritType(interaction: StringSelectMenuInteraction) {
-		switch (
-			Number(interaction.values[0]) as Exclude<
-				SpiritType,
-				(typeof SPIRIT_TYPE)["Standard"] | (typeof SPIRIT_TYPE)["Guide"]
-			>
-		) {
+		switch (Number(interaction.values[0]) as Exclude<SpiritType, (typeof SPIRIT_TYPE)["Guide"]>) {
+			case SPIRIT_TYPE.Standard:
+				await this.viewRealms(interaction);
+				return;
 			case SPIRIT_TYPE.Elder:
 				await this.viewElders(interaction);
 				return;
@@ -1365,8 +1389,17 @@ export class SpiritTracker {
 	public static async parseBack(interaction: ButtonInteraction) {
 		const { customId } = interaction;
 
-		if (customId === SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID || customId === SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID) {
+		if (
+			customId === SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID ||
+			customId === SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID ||
+			customId === SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID
+		) {
 			await this.viewTracker(interaction);
+			return;
+		}
+
+		if (customId === SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID) {
+			await this.viewRealms(interaction);
 			return;
 		}
 
@@ -1380,13 +1413,94 @@ export class SpiritTracker {
 			return;
 		}
 
-		if (customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID)) {
+		if (
+			customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID) ||
+			customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID)
+		) {
 			const parsedCustomId = customId.slice(customId.indexOf("-") + 1);
+			if (isRealm(parsedCustomId)) await this.viewRealm(interaction, parsedCustomId);
 			if (isSeason(parsedCustomId)) await this.viewSeason(interaction, parsedCustomId);
 			return;
 		}
 
 		if (customId === SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID) await this.viewTracker(interaction);
+	}
+
+	private realmProgress(realm: Realm) {
+		return this.averageProgress(
+			Standard.filter((spirit) => spirit.realm === realm).map(({ name, maxItemsBit }) =>
+				maxItemsBit ? bitPercentage(this.resolveNameToBit(name), maxItemsBit) : 100,
+			),
+		);
+	}
+
+	public static async viewRealms(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		const spiritTracker = await this.fetch(interaction.user.id);
+
+		await interaction.update({
+			content: "",
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(0)
+						.setOptions(
+							validRealms.map((realm) =>
+								new StringSelectMenuOptionBuilder()
+									.setLabel(`${realm} (${spiritTracker.realmProgress(realm)}%)`)
+									.setValue(realm),
+							),
+						)
+						.setPlaceholder("Select a realm!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setStyle(ButtonStyle.Primary),
+				),
+			],
+		});
+	}
+
+	public static async viewRealm(interaction: ButtonInteraction | StringSelectMenuInteraction, realm: Realm) {
+		const spiritTracker = await this.fetch(interaction.user.id);
+
+		const options = Standard.filter((spirit) => spirit.realm === realm).map(({ name, maxItemsBit }) =>
+			new StringSelectMenuOptionBuilder()
+				.setLabel(`${name} (${maxItemsBit ? bitPercentage(spiritTracker.resolveNameToBit(name), maxItemsBit) : 100}%)`)
+				.setValue(name),
+		);
+
+		const response = {
+			content: "",
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(0)
+						.setOptions(options)
+						.setPlaceholder("Select a spirit!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButtonBuilder,
+					new ButtonBuilder()
+						.setCustomId(SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setStyle(ButtonStyle.Primary),
+				),
+			],
+			embeds: [],
+		} satisfies InteractionUpdateOptions;
+
+		if (options.length === 0) {
+			response.components.shift();
+			response.content = "There are no spirits.";
+		}
+
+		await interaction.update(response);
 	}
 
 	public static async viewElders(interaction: ButtonInteraction | StringSelectMenuInteraction) {
@@ -1518,15 +1632,17 @@ export class SpiritTracker {
 	private static async viewSpiritResponse(
 		interaction: StringSelectMenuInteraction,
 		bit: SpiritTrackerValue,
-		spirit: GuideSpirit | ElderSpirit | SeasonalSpirit,
+		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 	) {
 		const backButtons = new ActionRowBuilder<ButtonBuilder>().setComponents(
 			backToStartButtonBuilder,
 			new ButtonBuilder()
 				.setCustomId(
-					spirit.isSeasonalSpirit() || spirit.isGuideSpirit()
-						? `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}-${spirit.season}`
-						: SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID,
+					spirit.isElderSpirit()
+						? SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID
+						: spirit.isStandardSpirit()
+						? `${SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID}-${spirit.realm}`
+						: `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}-${spirit.name}`,
 				)
 				.setEmoji("⏪")
 				.setStyle(ButtonStyle.Primary),
@@ -1668,8 +1784,8 @@ export class SpiritTracker {
 				return this.birdWhisperer;
 			case SpiritName.ExhaustedDockWorker:
 				return this.exhaustedDockWorker;
-			case SpiritName.CeremonialWorshipper:
-				return this.ceremonialWorshipper;
+			case SpiritName.CeremonialWorshiper:
+				return this.ceremonialWorshiper;
 			case SpiritName.ElderOfThePrairie:
 				return this.elderOfThePrairie;
 			case SpiritName.ShiveringTrailblazer:
