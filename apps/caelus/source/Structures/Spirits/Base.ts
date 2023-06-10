@@ -252,6 +252,7 @@ export const enum Expression {
 	Eww = "Eww",
 	Facepalm = "Facepalm",
 	Handstand = "Handstand",
+	Backflip = "Backflip",
 	Leap = "Leap",
 	TripleAxel = "Triple axel",
 	Confetti = "Confetti",
