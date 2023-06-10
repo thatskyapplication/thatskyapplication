@@ -6,7 +6,7 @@ import { type ItemsData, Expression, SpiritName, StandardSpirit } from "../../Ba
 const expression = Expression.Teamwork;
 
 export default new StandardSpirit({
-	name: SpiritName.CeremonialWorshipper,
+	name: SpiritName.CeremonialWorshiper,
 	expression,
 	realm: Realm.DaylightPrairie,
 	offer: new Collection<number, ItemsData>()

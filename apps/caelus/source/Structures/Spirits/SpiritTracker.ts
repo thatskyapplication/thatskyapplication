@@ -58,7 +58,7 @@ interface SpiritTrackerPacket {
 	laughing_light_catcher: SpiritTrackerValue;
 	bird_whisperer: SpiritTrackerValue;
 	exhausted_dock_worker: SpiritTrackerValue;
-	ceremonial_worshipper: SpiritTrackerValue;
+	ceremonial_worshiper: SpiritTrackerValue;
 	elder_of_the_prairie: SpiritTrackerValue;
 	shivering_trailblazer: SpiritTrackerValue;
 	blushing_prospector: SpiritTrackerValue;
@@ -206,7 +206,7 @@ interface SpiritTrackerData {
 	laughingLightCatcher: SpiritTrackerPacket["laughing_light_catcher"];
 	birdWhisperer: SpiritTrackerPacket["bird_whisperer"];
 	exhaustedDockWorker: SpiritTrackerPacket["exhausted_dock_worker"];
-	ceremonialWorshipper: SpiritTrackerPacket["ceremonial_worshipper"];
+	ceremonialWorshiper: SpiritTrackerPacket["ceremonial_worshiper"];
 	elderOfThePrairie: SpiritTrackerPacket["elder_of_the_prairie"];
 	shiveringTrailblazer: SpiritTrackerPacket["shivering_trailblazer"];
 	blushingProspector: SpiritTrackerPacket["blushing_prospector"];
@@ -408,7 +408,7 @@ export class SpiritTracker {
 
 	public exhaustedDockWorker!: SpiritTrackerData["exhaustedDockWorker"];
 
-	public ceremonialWorshipper!: SpiritTrackerData["ceremonialWorshipper"];
+	public ceremonialWorshiper!: SpiritTrackerData["ceremonialWorshiper"];
 
 	public elderOfThePrairie!: SpiritTrackerData["elderOfThePrairie"];
 
@@ -691,7 +691,7 @@ export class SpiritTracker {
 		this.laughingLightCatcher = data.laughing_light_catcher;
 		this.birdWhisperer = data.bird_whisperer;
 		this.exhaustedDockWorker = data.exhausted_dock_worker;
-		this.ceremonialWorshipper = data.ceremonial_worshipper;
+		this.ceremonialWorshiper = data.ceremonial_worshiper;
 		this.elderOfThePrairie = data.elder_of_the_prairie;
 		this.shiveringTrailblazer = data.shivering_trailblazer;
 		this.blushingProspector = data.blushing_prospector;
@@ -887,8 +887,8 @@ export class SpiritTracker {
 			case SpiritName.ExhaustedDockWorker:
 				spirit = "exhausted_dock_worker";
 				break;
-			case SpiritName.CeremonialWorshipper:
-				spirit = "ceremonial_worshipper";
+			case SpiritName.CeremonialWorshiper:
+				spirit = "ceremonial_worshiper";
 				break;
 			case SpiritName.ElderOfThePrairie:
 				spirit = "elder_of_the_prairie";
@@ -1784,8 +1784,8 @@ export class SpiritTracker {
 				return this.birdWhisperer;
 			case SpiritName.ExhaustedDockWorker:
 				return this.exhaustedDockWorker;
-			case SpiritName.CeremonialWorshipper:
-				return this.ceremonialWorshipper;
+			case SpiritName.CeremonialWorshiper:
+				return this.ceremonialWorshiper;
 			case SpiritName.ElderOfThePrairie:
 				return this.elderOfThePrairie;
 			case SpiritName.ShiveringTrailblazer:

@@ -20,7 +20,7 @@ export enum SpiritName {
 	LaughingLightCatcher = "Laughing Light Catcher",
 	BirdWhisperer = "Bird Whisperer",
 	ExhaustedDockWorker = "Exhausted Dock Worker",
-	CeremonialWorshipper = "Ceremonial Worshipper",
+	CeremonialWorshiper = "Ceremonial Worshiper",
 	ElderOfThePrairie = "Elder of the Prairie",
 
 	// Hidden Forest
