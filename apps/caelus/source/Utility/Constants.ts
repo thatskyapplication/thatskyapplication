@@ -38,7 +38,7 @@ export const initialTreasureCandleRealmSeek = dayjs.tz("2023-01-03 00:00:00", "A
 export const initialEventCurrencySeek = dayjs.tz("2023-06-01 00:00:00", "America/Los_Angeles"); // Rotation A.
 export const ISS_DATES_ACCESSIBLE = [6, 13, 20, 27] as const;
 export const eventEndDate = dayjs.tz("2023-06-14 00:00:00", "America/Los_Angeles"); // Days of Color (2023).
-export const DEFAULT_EMBED_COLOR = 0xA5B5F1 as const;
+export const DEFAULT_EMBED_COLOR = 0xa5b5f1 as const;
 
 export const enum Channel {
 	dailyGuides = "1041420071614042152",
