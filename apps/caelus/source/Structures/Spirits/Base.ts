@@ -322,6 +322,7 @@ export const enum Stance {
 	Confident = "Confident",
 	Sneaky = "Sneaky",
 	Proud = "Proud",
+	Polite = "Polite",
 	Sassy = "Sassy",
 	Laidback = "Laidback",
 	Wise = "Wise",
