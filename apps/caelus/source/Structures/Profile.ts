@@ -193,11 +193,12 @@ export default class Profile {
 
 		const { userId, name, icon, thumbnail, description, country, wingedLight, seasons, platform, spirit, spot } = this;
 		const spiritTracker = await SpiritTracker.fetch(userId).catch(() => null);
+		const standardProgress = spiritTracker?.standardProgress() ?? 0;
 		const elderProgress = spiritTracker?.elderProgress() ?? 0;
 		const seasonalProgress = spiritTracker?.seasonalProgress() ?? 0;
 
 		const embed = new EmbedBuilder().setColor(await resolveEmbedColor(interaction.guild)).setFooter({
-			text: `Hearts: ${hearts}\nElder progress: ${elderProgress}%\nSeasonal progress: ${seasonalProgress}%`,
+			text: `Hearts: ${hearts}\nStandard progress: ${standardProgress}%\nElder progress: ${elderProgress}%\nSeasonal progress: ${seasonalProgress}%`,
 		});
 
 		const descriptions = [];
