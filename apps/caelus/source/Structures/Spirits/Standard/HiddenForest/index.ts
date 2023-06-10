@@ -1,3 +1,4 @@
+import ApologeticLumberjack from "./ApologeticLumberjack.js";
 import BlushingProspector from "./BlushingProspector.js";
 import DismayedHunter from "./DismayedHunter.js";
 import HideNSeekPioneer from "./HideNSeekPioneer.js";
@@ -11,5 +12,6 @@ export default [
 	HideNSeekPioneer,
 	PoutyPorter,
 	DismayedHunter,
+	ApologeticLumberjack,
 	TearfulLightMiner,
 ] as const;
