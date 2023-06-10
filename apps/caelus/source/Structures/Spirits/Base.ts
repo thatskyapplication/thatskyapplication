@@ -266,6 +266,7 @@ export const enum Expression {
 	SpinTrick = "Spin trick",
 	ShowDance = "Show dance",
 	Duck = "Duck",
+	Faint = "Faint",
 	Respect = "Respect",
 	Dismiss = "Dismiss",
 	Greeting = "Greeting",
