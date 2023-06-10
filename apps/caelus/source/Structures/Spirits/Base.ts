@@ -277,6 +277,7 @@ export const enum Expression {
 	DustOff = "Dust off",
 	ChestPound = "Chest pound",
 	March = "March",
+	Telekinesis = "Telekinesis",
 	Pray = "Pray",
 	Yoga = "Yoga",
 	Shush = "Shush",
