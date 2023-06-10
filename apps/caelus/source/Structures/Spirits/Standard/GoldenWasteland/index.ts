@@ -1,4 +1,5 @@
+import CourageousSoldier from "./CourageousSoldier.js";
 import FaintingWarrior from "./FaintingWarrior.js";
 import FrightenedRefugee from "./FrightenedRefugee.js";
 
-export default [FrightenedRefugee, FaintingWarrior] as const;
+export default [FrightenedRefugee, FaintingWarrior, CourageousSoldier] as const;

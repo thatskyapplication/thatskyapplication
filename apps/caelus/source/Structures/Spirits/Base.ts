@@ -314,6 +314,7 @@ export const enum Expression {
 }
 
 export const enum Stance {
+	Courageous = "Courageous",
 	Confident = "Confident",
 	Proud = "Proud",
 	Sassy = "Sassy",
