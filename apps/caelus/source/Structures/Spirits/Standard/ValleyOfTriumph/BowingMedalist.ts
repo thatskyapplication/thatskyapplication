@@ -19,5 +19,5 @@ export default new StandardSpirit({
 		.set(1 << 6, { item: `${expression} 3`, cost: { candles: 4 } })
 		.set(1 << 7, { item: `${expression} 4`, cost: { candles: 4 } })
 		.set(1 << 8, { item: "Blessing 2", cost: { candles: 5 } })
-		.set(1 << 9, { item: "Mask", cost: { hearts: 10 } }),
+		.set(1 << 9, { item: "Mask", cost: { hearts: 5 } }),
 });

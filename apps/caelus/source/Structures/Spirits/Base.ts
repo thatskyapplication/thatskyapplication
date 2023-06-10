@@ -201,7 +201,7 @@ export const enum Call {
 	Bird = "Bird",
 	Whale = "Whale",
 	Manta = "Manta",
-	CosmicManta = "Cosmic Manta",
+	CosmicManta = "Cosmic manta",
 	Crab = "Crab",
 	Jellyfish = "Jellyfish",
 	BabyManta = "Baby manta",
