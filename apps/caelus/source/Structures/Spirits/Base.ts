@@ -236,6 +236,8 @@ export const enum Expression {
 	Grateful = "Grateful",
 	BellyScratch = "Belly scratch",
 	Chuckle = "Chuckle",
+	Shiver = "Shiver",
+	HideAndSeek = "Hide and seek",
 	Karate = "Karate",
 	Shrug = "Shrug",
 	Grouchy = "Grouchy",
