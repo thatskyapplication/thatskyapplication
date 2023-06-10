@@ -211,9 +211,15 @@ export default new (class DailyGuides {
 
 		if (
 			(transformedContent.includes("DAILY QUEST") && transformedContent.length <= 20) ||
-			transformedContent.includes("SHATTERING SHARD SUMMARY")
+			transformedContent.includes("SHATTERING SHARD SUMMARY") ||
+			transformedContent.includes("DAYS OF COLOUR 2023")
 		) {
-			// This is the general photo of quests or the shard eruption infographic. This is redundant.
+			/**
+			 * Parsng for the following are redundant:
+			 * - The general photo of quests (not needed)
+			 * - The shard eruption infographic (automated)
+			 * - The Days of Color event currency rotation (we have a trend for this already and they were late sending this)
+			 */
 			this.queue.shift();
 			return;
 		} else if (
