@@ -5,6 +5,7 @@ import HideNSeekPioneer from "./HideNSeekPioneer.js";
 import PoutyPorter from "./PoutyPorter.js";
 import ShiveringTrailblazer from "./ShiveringTrailblazer.js";
 import TearfulLightMiner from "./TearfulLightMiner.js";
+import WhaleWhisperer from "./WhaleWhisperer.js";
 
 export default [
 	ShiveringTrailblazer,
@@ -14,4 +15,5 @@ export default [
 	DismayedHunter,
 	ApologeticLumberjack,
 	TearfulLightMiner,
+	WhaleWhisperer,
 ] as const;
