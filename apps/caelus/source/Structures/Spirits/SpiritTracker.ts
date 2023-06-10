@@ -377,10 +377,13 @@ const backToStartButtonBuilder = new ButtonBuilder()
 	.setEmoji("⏮️")
 	.setStyle(ButtonStyle.Primary);
 
-function bitPercentage(bit: SpiritTrackerValue, maximumBit: number) {
-	return bit
-		? Math.round(((bit.toString(2).split("1").length - 1) / (maximumBit.toString(2).split("1").length - 1)) * 100)
+function bitPercentage(bit: SpiritTrackerValue, maximumBit: number, round?: boolean) {
+	let percentage = bit
+		? ((bit.toString(2).split("1").length - 1) / (maximumBit.toString(2).split("1").length - 1)) * 100
 		: 0;
+
+	if (round) percentage = Math.round(percentage);
+	return percentage;
 }
 
 export class SpiritTracker {
@@ -1296,24 +1299,35 @@ export class SpiritTracker {
 		await SpiritTracker.viewSpiritResponse(interaction, bit, Spirits.find(({ name }) => name === spiritName)!);
 	}
 
-	private averageProgress(progresses: number[]) {
-		return progresses.length === 0
-			? 100
-			: Math.round(progresses.reduce((number, progression) => number + progression, 0) / progresses.length);
+	private averageProgress(progresses: number[], round?: boolean) {
+		let progress =
+			progresses.length === 0
+				? 100
+				: progresses.reduce((number, progression) => number + progression, 0) / progresses.length;
+
+		if (round) progress = Math.round(progress);
+		return progress;
 	}
 
 	public standardProgress() {
-		return this.averageProgress(validRealms.map((realm) => this.realmProgress(realm)));
+		return this.averageProgress(
+			validRealms.map((realm) => this.averageProgress(this.realmProgress(realm))),
+			true,
+		);
 	}
 
 	public elderProgress() {
 		return this.averageProgress(
 			Elder.map(({ name, maxItemsBit }) => bitPercentage(this.resolveNameToBit(name), maxItemsBit)),
+			true,
 		);
 	}
 
 	public seasonalProgress() {
-		return this.averageProgress(validSeasons.map((season) => this.seasonProgress(season)));
+		return this.averageProgress(
+			validSeasons.map((season) => this.averageProgress(this.seasonProgress(season))),
+			true,
+		);
 	}
 
 	public static async viewTracker(interaction: ButtonInteraction | ChatInputCommandInteraction) {
@@ -1426,11 +1440,9 @@ export class SpiritTracker {
 		if (customId === SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID) await this.viewTracker(interaction);
 	}
 
-	private realmProgress(realm: Realm) {
-		return this.averageProgress(
-			Standard.filter((spirit) => spirit.realm === realm).map(({ name, maxItemsBit }) =>
-				maxItemsBit ? bitPercentage(this.resolveNameToBit(name), maxItemsBit) : 100,
-			),
+	private realmProgress(realm: Realm, round?: boolean) {
+		return Standard.filter((spirit) => spirit.realm === realm).map(({ name, maxItemsBit }) =>
+			maxItemsBit ? bitPercentage(this.resolveNameToBit(name), maxItemsBit, round) : 100,
 		);
 	}
 
@@ -1448,7 +1460,7 @@ export class SpiritTracker {
 						.setOptions(
 							validRealms.map((realm) =>
 								new StringSelectMenuOptionBuilder()
-									.setLabel(`${realm} (${spiritTracker.realmProgress(realm)}%)`)
+									.setLabel(`${realm} (${spiritTracker.averageProgress(spiritTracker.realmProgress(realm), true)}%)`)
 									.setValue(realm),
 							),
 						)
@@ -1469,7 +1481,9 @@ export class SpiritTracker {
 
 		const options = Standard.filter((spirit) => spirit.realm === realm).map(({ name, maxItemsBit }) =>
 			new StringSelectMenuOptionBuilder()
-				.setLabel(`${name} (${maxItemsBit ? bitPercentage(spiritTracker.resolveNameToBit(name), maxItemsBit) : 100}%)`)
+				.setLabel(
+					`${name} (${maxItemsBit ? bitPercentage(spiritTracker.resolveNameToBit(name), maxItemsBit, true) : 100}%)`,
+				)
 				.setValue(name),
 		);
 
@@ -1517,7 +1531,7 @@ export class SpiritTracker {
 						.setOptions(
 							Elder.map(({ name, maxItemsBit }) =>
 								new StringSelectMenuOptionBuilder()
-									.setLabel(`${name} (${bitPercentage(spiritTracker.resolveNameToBit(name), maxItemsBit)}%)`)
+									.setLabel(`${name} (${bitPercentage(spiritTracker.resolveNameToBit(name), maxItemsBit, true)}%)`)
 									.setValue(name),
 							),
 						)
@@ -1534,11 +1548,9 @@ export class SpiritTracker {
 		});
 	}
 
-	public seasonProgress(season: Season) {
-		return this.averageProgress(
-			Seasonal.filter((spirit) => spirit.season === season).map(({ name, maxItemsBit }) =>
-				maxItemsBit ? bitPercentage(this.resolveNameToBit(name), maxItemsBit) : 100,
-			),
+	public seasonProgress(season: Season, round?: boolean) {
+		return Seasonal.filter((spirit) => spirit.season === season).map(({ name, maxItemsBit }) =>
+			maxItemsBit ? bitPercentage(this.resolveNameToBit(name), maxItemsBit, round) : 100,
 		);
 	}
 
@@ -1557,7 +1569,7 @@ export class SpiritTracker {
 							validSeasons.map((season) =>
 								new StringSelectMenuOptionBuilder()
 									.setEmoji(resolveSeasonsToEmoji(season))
-									.setLabel(`${season} (${spiritTracker.seasonProgress(season)}%)`)
+									.setLabel(`${season} (${spiritTracker.averageProgress(spiritTracker.seasonProgress(season), true)}%)`)
 									.setValue(season),
 							),
 						)
@@ -1578,7 +1590,7 @@ export class SpiritTracker {
 
 		const options = Seasonal.filter((spirit) => spirit.season === season).map(({ name, maxItemsBit }) =>
 			new StringSelectMenuOptionBuilder()
-				.setLabel(`${name} (${maxItemsBit ? bitPercentage(spiritTracker.resolveNameToBit(name), maxItemsBit) : 100}%)`)
+				.setLabel(`${name} (${maxItemsBit ? bitPercentage(spiritTracker.resolveNameToBit(name), maxItemsBit, true) : 100}%)`)
 				.setValue(name),
 		);
 
