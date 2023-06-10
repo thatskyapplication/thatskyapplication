@@ -268,6 +268,7 @@ export const enum Expression {
 	Duck = "Duck",
 	Faint = "Faint",
 	Respect = "Respect",
+	Salute = "Salute",
 	Dismiss = "Dismiss",
 	Greeting = "Greeting",
 	DontGo = "Don't go!",
