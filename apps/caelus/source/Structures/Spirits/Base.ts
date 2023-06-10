@@ -200,6 +200,7 @@ export enum SpiritName {
 export const enum Call {
 	Bird = "Bird",
 	Whale = "Whale",
+	Manta = "Manta",
 	Crab = "Crab",
 	Jellyfish = "Jellyfish",
 	BabyManta = "Baby manta",
