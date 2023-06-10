@@ -241,6 +241,7 @@ export const enum Expression {
 	Angry = "Angry",
 	Shy = "Shy",
 	Shocked = "Shocked",
+	Crying = "Crying",
 	Karate = "Karate",
 	Shrug = "Shrug",
 	Grouchy = "Grouchy",
