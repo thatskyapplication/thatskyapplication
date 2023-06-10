@@ -9,6 +9,7 @@ export default new StandardSpirit({
 	name: SpiritName.PoliteScholar,
 	stance,
 	realm: Realm.VaultOfKnowledge,
+	hasInfographic: false,
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 0, { item: `${stance} stance`, cost: null })
 		.set(1 << 1, { item: "Outfit", cost: { hearts: 2 } })
