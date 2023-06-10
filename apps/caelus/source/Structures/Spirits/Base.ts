@@ -239,6 +239,7 @@ export const enum Expression {
 	Shiver = "Shiver",
 	HideAndSeek = "Hide and seek",
 	Angry = "Angry",
+	Shy = "Shy",
 	Karate = "Karate",
 	Shrug = "Shrug",
 	Grouchy = "Grouchy",
