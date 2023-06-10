@@ -15,6 +15,7 @@ import { cannotUseCustomEmojis, resolveEmbedColor } from "../Utility/Utility.js"
 import pg, { Table } from "../pg.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
 import { resolveBitsToSeasons } from "./Seasons.js";
+import { SpiritTracker } from "./Spirits/SpiritTracker.js";
 
 interface ProfilePacket {
 	id: number;
@@ -190,11 +191,14 @@ export default class Profile {
 			void interaction.client.log({ content: `Could not find the \`${commandName}\` command.` });
 		}
 
-		const { name, icon, thumbnail, description, country, wingedLight, seasons, platform, spirit, spot } = this;
+		const { userId, name, icon, thumbnail, description, country, wingedLight, seasons, platform, spirit, spot } = this;
+		const spiritTracker = await SpiritTracker.fetch(userId).catch(() => null);
+		const elderProgress = spiritTracker?.elderProgress() ?? 0;
+		const seasonalProgress = spiritTracker?.seasonalProgress() ?? 0;
 
-		const embed = new EmbedBuilder()
-			.setColor(await resolveEmbedColor(interaction.guild))
-			.setFooter({ text: `Hearts: ${hearts}` });
+		const embed = new EmbedBuilder().setColor(await resolveEmbedColor(interaction.guild)).setFooter({
+			text: `Hearts: ${hearts}\nElder progress: ${elderProgress}%\nSeasonal progress: ${seasonalProgress}%`,
+		});
 
 		const descriptions = [];
 		const fields = [];
