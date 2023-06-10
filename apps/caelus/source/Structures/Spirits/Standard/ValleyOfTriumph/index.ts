@@ -1,4 +1,5 @@
 import BackflippingChampion from "./BackflippingChampion.js";
+import BowingMedalist from "./BowingMedalist.js";
 import CheerfulSpectator from "./CheerfulSpectator.js";
 import ConfidentSightseer from "./ConfidentSightseer.js";
 import HandstandingThrillseeker from "./HandstandingThrillseeker.js";
@@ -10,4 +11,5 @@ export default [
 	MantaWhisperer,
 	BackflippingChampion,
 	CheerfulSpectator,
+	BowingMedalist,
 ] as const;
