@@ -269,7 +269,7 @@ export const enum Expression {
 	Duck = "Duck",
 	Faint = "Faint",
 	Respect = "Respect",
-	LookAround = "Look Around",
+	LookAround = "Look around",
 	Salute = "Salute",
 	Dismiss = "Dismiss",
 	Greeting = "Greeting",
