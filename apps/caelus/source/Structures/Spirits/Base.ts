@@ -198,6 +198,7 @@ export enum SpiritName {
 }
 
 export const enum Call {
+	Original = "Original",
 	Bird = "Bird",
 	Whale = "Whale",
 	Manta = "Manta",
