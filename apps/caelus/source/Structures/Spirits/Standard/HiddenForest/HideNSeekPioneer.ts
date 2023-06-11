@@ -3,7 +3,7 @@ import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import { type ItemsData, Expression, SpiritName, StandardSpirit } from "../../Base.js";
 
-const expression = Expression.Shiver;
+const expression = Expression.HideAndSeek;
 
 export default new StandardSpirit({
 	name: SpiritName.HideNSeekPioneer,
