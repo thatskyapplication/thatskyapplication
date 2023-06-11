@@ -1491,7 +1491,7 @@ export class SpiritTracker {
 		);
 
 		const response = {
-			content: SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE,
+			content: options.length === 0 ? "There are no spirits." : SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE,
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1512,11 +1512,7 @@ export class SpiritTracker {
 			embeds: [],
 		} satisfies InteractionUpdateOptions;
 
-		if (options.length === 0) {
-			response.components.shift();
-			response.content = "There are no spirits.";
-		}
-
+		if (options.length === 0) response.components.shift();
 		await interaction.update(response);
 	}
 
