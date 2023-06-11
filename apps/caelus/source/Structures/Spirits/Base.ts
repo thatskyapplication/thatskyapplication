@@ -206,6 +206,12 @@ export const enum Call {
 	Crab = "Crab",
 	Jellyfish = "Jellyfish",
 	BabyManta = "Baby manta",
+
+	// From the Kizuna-AI pin.
+	KizunaAI = "Kizuna-AI",
+
+	// From the PlayStation starter pack.
+	Journey = "Journey",
 }
 
 export const enum Expression {
