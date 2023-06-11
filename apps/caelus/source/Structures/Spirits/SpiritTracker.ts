@@ -1593,7 +1593,9 @@ export class SpiritTracker {
 
 		const options = Seasonal.filter((spirit) => spirit.season === season).map(({ name, maxItemsBit }) =>
 			new StringSelectMenuOptionBuilder()
-				.setLabel(`${name} (${maxItemsBit ? bitPercentage(spiritTracker.resolveNameToBit(name), maxItemsBit, true) : 100}%)`)
+				.setLabel(
+					`${name} (${maxItemsBit ? bitPercentage(spiritTracker.resolveNameToBit(name), maxItemsBit, true) : 100}%)`,
+				)
 				.setValue(name),
 		);
 
