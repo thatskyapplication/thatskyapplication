@@ -362,6 +362,9 @@ export const SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID = "SPIRIT_TRACKER_SPI
 export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
 const SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT = 24 as const;
 
+const SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE =
+	"This calculates averages wholly, but the game calculates averages excluding beyond the second wing buff." as const;
+
 const validRealms = Standard.reduce<Realm[]>((realms, { realm }) => {
 	if (!realms.includes(realm)) realms.push(realm);
 	return realms;
@@ -1450,7 +1453,7 @@ export class SpiritTracker {
 		const spiritTracker = await this.fetch(interaction.user.id);
 
 		await interaction.update({
-			content: "",
+			content: SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE,
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1488,7 +1491,7 @@ export class SpiritTracker {
 		);
 
 		const response = {
-			content: "",
+			content: SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE,
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
