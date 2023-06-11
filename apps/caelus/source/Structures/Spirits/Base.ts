@@ -222,6 +222,7 @@ export const enum Expression {
 	DuetDance = "Duet dance",
 
 	// Regular expressions
+	Sit = "Sit",
 	Point = "Point",
 	Come = "Come",
 	NoThanks = "No thanks",
