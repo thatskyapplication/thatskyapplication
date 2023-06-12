@@ -88,14 +88,10 @@ export const NOTIFICATION_CHANNEL_TYPES = [
 	ChannelType.PrivateThread,
 ] as const satisfies Readonly<ChannelType[]>;
 
-export type NotificationAllowedChannel = Extract<
-	GuildBasedChannel,
-	{ type: (typeof NOTIFICATION_CHANNEL_TYPES)[number] }
->;
+type NotificationAllowedChannel = Extract<GuildBasedChannel, { type: (typeof NOTIFICATION_CHANNEL_TYPES)[number] }>;
 
 export function isNotificationChannel(channel: BaseChannel): channel is NotificationAllowedChannel {
-	// @ts-expect-error Too narrow.
-	return NOTIFICATION_CHANNEL_TYPES.includes(channel.type);
+	return NOTIFICATION_CHANNEL_TYPES.includes(channel.type as (typeof NOTIFICATION_CHANNEL_TYPES)[number]);
 }
 
 export function isNotificationSendable(
