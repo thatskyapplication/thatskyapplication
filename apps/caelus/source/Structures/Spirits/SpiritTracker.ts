@@ -360,6 +360,7 @@ export const SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID = "SPIRIT_TRACKER_SPI
 export const SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_EVERYTHING_CUSTOM_ID" as const;
 const SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT = 24 as const;
 
 const SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE =
@@ -838,468 +839,475 @@ export class SpiritTracker {
 		return new this(spiritTrackerPacket);
 	}
 
-	public static async set(interaction: StringSelectMenuInteraction) {
-		const { customId, values } = interaction;
+	public static async set(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		const { customId } = interaction;
 		const spiritName = customId.slice(customId.indexOf("-") + 1) as SpiritName;
+		const spirit = Spirits.find(({ name }) => name === spiritName)!;
 
-		const bit = values.reduce(
-			(bit, value) => bit | Number(value),
-			interaction.message.components
-				.find((actionRow): actionRow is ActionRow<StringSelectMenuComponent> =>
-					actionRow.components.some((component) =>
-						component.customId?.startsWith(
-							customId.startsWith(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
-								? SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID
-								: SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID,
+		let newBit;
+
+		if (interaction instanceof ButtonInteraction) {
+			newBit = spirit.maxItemsBit;
+		} else {
+			newBit = interaction.values.reduce(
+				(bit, value) => bit | Number(value),
+				interaction.message.components
+					.find((actionRow): actionRow is ActionRow<StringSelectMenuComponent> =>
+						actionRow.components.some((component) =>
+							component.customId?.startsWith(
+								customId.startsWith(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
+									? SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID
+									: SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID,
+							),
 						),
-					),
-				)
-				?.components[0]!.options.reduce((bit, option) => (option.default ? bit | Number(option.value) : bit), 0) ?? 0,
-		);
+					)
+					?.components[0]!.options.reduce((bit, option) => (option.default ? bit | Number(option.value) : bit), 0) ?? 0,
+			);
+		}
 
-		let spirit;
+		let spirit_name;
 
 		switch (spiritName) {
 			case SpiritName.PointingCandlemaker:
-				spirit = "pointing_candlemaker";
+				spirit_name = "pointing_candlemaker";
 				break;
 			case SpiritName.UsheringStargazer:
-				spirit = "ushering_stargazer";
+				spirit_name = "ushering_stargazer";
 				break;
 			case SpiritName.RejectingVoyager:
-				spirit = "rejecting_voyager";
+				spirit_name = "rejecting_voyager";
 				break;
 			case SpiritName.ElderOfTheIsle:
-				spirit = "elder_of_the_isle";
+				spirit_name = "elder_of_the_isle";
 				break;
 			case SpiritName.ButterflyCharmer:
-				spirit = "butterfly_charmer";
+				spirit_name = "butterfly_charmer";
 				break;
 			case SpiritName.ApplaudingBellmaker:
-				spirit = "applauding_bellmaker";
+				spirit_name = "applauding_bellmaker";
 				break;
 			case SpiritName.WavingBellmaker:
-				spirit = "waving_bellmaker";
+				spirit_name = "waving_bellmaker";
 				break;
 			case SpiritName.SlumberingShipwright:
-				spirit = "slumbering_shipwright";
+				spirit_name = "slumbering_shipwright";
 				break;
 			case SpiritName.LaughingLightCatcher:
-				spirit = "laughing_light_catcher";
+				spirit_name = "laughing_light_catcher";
 				break;
 			case SpiritName.BirdWhisperer:
-				spirit = "bird_whisperer";
+				spirit_name = "bird_whisperer";
 				break;
 			case SpiritName.ExhaustedDockWorker:
-				spirit = "exhausted_dock_worker";
+				spirit_name = "exhausted_dock_worker";
 				break;
 			case SpiritName.CeremonialWorshiper:
-				spirit = "ceremonial_worshiper";
+				spirit_name = "ceremonial_worshiper";
 				break;
 			case SpiritName.ElderOfThePrairie:
-				spirit = "elder_of_the_prairie";
+				spirit_name = "elder_of_the_prairie";
 				break;
 			case SpiritName.ShiveringTrailblazer:
-				spirit = "shivering_trailblazer";
+				spirit_name = "shivering_trailblazer";
 				break;
 			case SpiritName.BlushingProspector:
-				spirit = "blushing_prospector";
+				spirit_name = "blushing_prospector";
 				break;
 			case SpiritName.HideNSeekPioneer:
-				spirit = "hide_n_seek_pioneer";
+				spirit_name = "hide_n_seek_pioneer";
 				break;
 			case SpiritName.PoutyPorter:
-				spirit = "pouty_porter";
+				spirit_name = "pouty_porter";
 				break;
 			case SpiritName.DismayedHunter:
-				spirit = "dismayed_hunter";
+				spirit_name = "dismayed_hunter";
 				break;
 			case SpiritName.ApologeticLumberjack:
-				spirit = "apologetic_lumberjack";
+				spirit_name = "apologetic_lumberjack";
 				break;
 			case SpiritName.TearfulLightMiner:
-				spirit = "tearful_light_miner";
+				spirit_name = "tearful_light_miner";
 				break;
 			case SpiritName.WhaleWhisperer:
-				spirit = "whale_whisperer";
+				spirit_name = "whale_whisperer";
 				break;
 			case SpiritName.ElderOfTheForest:
-				spirit = "elder_of_the_forest";
+				spirit_name = "elder_of_the_forest";
 				break;
 			case SpiritName.ConfidentSightseer:
-				spirit = "confident_sightseer";
+				spirit_name = "confident_sightseer";
 				break;
 			case SpiritName.HandstandingThrillseeker:
-				spirit = "handstanding_thrillseeker";
+				spirit_name = "handstanding_thrillseeker";
 				break;
 			case SpiritName.MantaWhisperer:
-				spirit = "manta_whisperer";
+				spirit_name = "manta_whisperer";
 				break;
 			case SpiritName.BackflippingChampion:
-				spirit = "backflipping_champion";
+				spirit_name = "backflipping_champion";
 				break;
 			case SpiritName.CheerfulSpectator:
-				spirit = "cheerful_spectator";
+				spirit_name = "cheerful_spectator";
 				break;
 			case SpiritName.BowingMedalist:
-				spirit = "bowing_medalist";
+				spirit_name = "bowing_medalist";
 				break;
 			case SpiritName.ProudVictor:
-				spirit = "proud_victor";
+				spirit_name = "proud_victor";
 				break;
 			case SpiritName.ElderOfTheValley:
-				spirit = "elder_of_the_valley";
+				spirit_name = "elder_of_the_valley";
 				break;
 			case SpiritName.FrightenedRefugee:
-				spirit = "frightened_refugee";
+				spirit_name = "frightened_refugee";
 				break;
 			case SpiritName.FaintingWarrior:
-				spirit = "fainting_warrior";
+				spirit_name = "fainting_warrior";
 				break;
 			case SpiritName.CourageousSoldier:
-				spirit = "courageous_soldier";
+				spirit_name = "courageous_soldier";
 				break;
 			case SpiritName.StealthySurvivor:
-				spirit = "stealthy_survivor";
+				spirit_name = "stealthy_survivor";
 				break;
 			case SpiritName.SalutingCaptain:
-				spirit = "saluting_captain";
+				spirit_name = "saluting_captain";
 				break;
 			case SpiritName.LookoutScout:
-				spirit = "lookout_scout";
+				spirit_name = "lookout_scout";
 				break;
 			case SpiritName.ElderOfTheWasteland:
-				spirit = "elder_of_the_wasteland";
+				spirit_name = "elder_of_the_wasteland";
 				break;
 			case SpiritName.PrayingAcolyte:
-				spirit = "praying_acolyte";
+				spirit_name = "praying_acolyte";
 				break;
 			case SpiritName.LevitatingAdept:
-				spirit = "levitating_adept";
+				spirit_name = "levitating_adept";
 				break;
 			case SpiritName.PoliteScholar:
-				spirit = "polite_scholar";
+				spirit_name = "polite_scholar";
 				break;
 			case SpiritName.MemoryWhisperer:
-				spirit = "memory_whisperer";
+				spirit_name = "memory_whisperer";
 				break;
 			case SpiritName.MeditatingMonastic:
-				spirit = "meditating_monastic";
+				spirit_name = "meditating_monastic";
 				break;
 			case SpiritName.ElderOfTheVault:
-				spirit = "elder_of_the_vault";
+				spirit_name = "elder_of_the_vault";
 				break;
 			case SpiritName.GratitudeGuide:
-				spirit = "gratitude_guide";
+				spirit_name = "gratitude_guide";
 				break;
 			case SpiritName.SassyDrifter:
-				spirit = "sassy_drifter";
+				spirit_name = "sassy_drifter";
 				break;
 			case SpiritName.StretchingGuru:
-				spirit = "stretching_guru";
+				spirit_name = "stretching_guru";
 				break;
 			case SpiritName.ProvokingPerformer:
-				spirit = "provoking_performer";
+				spirit_name = "provoking_performer";
 				break;
 			case SpiritName.LeapingDancer:
-				spirit = "leaping_dancer";
+				spirit_name = "leaping_dancer";
 				break;
 			case SpiritName.SalutingProtector:
-				spirit = "saluting_protector";
+				spirit_name = "saluting_protector";
 				break;
 			case SpiritName.GreetingShaman:
-				spirit = "greeting_shaman";
+				spirit_name = "greeting_shaman";
 				break;
 			case SpiritName.LightseekersGuide:
-				spirit = "lightseekers_guide";
+				spirit_name = "lightseekers_guide";
 				break;
 			case SpiritName.PiggybackLightseeker:
-				spirit = "piggyback_lightseeker";
+				spirit_name = "piggyback_lightseeker";
 				break;
 			case SpiritName.DoublefiveLightCatcher:
-				spirit = "doublefive_light_catcher";
+				spirit_name = "doublefive_light_catcher";
 				break;
 			case SpiritName.LaidbackPioneer:
-				spirit = "laidback_pioneer";
+				spirit_name = "laidback_pioneer";
 				break;
 			case SpiritName.TwirlingChampion:
-				spirit = "twirling_champion";
+				spirit_name = "twirling_champion";
 				break;
 			case SpiritName.CrabWhisperer:
-				spirit = "crab_whisperer";
+				spirit_name = "crab_whisperer";
 				break;
 			case SpiritName.ShushingLightScholar:
-				spirit = "shushing_light_scholar";
+				spirit_name = "shushing_light_scholar";
 				break;
 			case SpiritName.BelongingGuide:
-				spirit = "belonging_guide";
+				spirit_name = "belonging_guide";
 				break;
 			case SpiritName.BoogieKid:
-				spirit = "boogie_kid";
+				spirit_name = "boogie_kid";
 				break;
 			case SpiritName.ConfettiCousin:
-				spirit = "confetti_cousin";
+				spirit_name = "confetti_cousin";
 				break;
 			case SpiritName.HairtousleTeen:
-				spirit = "hairtousle_teen";
+				spirit_name = "hairtousle_teen";
 				break;
 			case SpiritName.SparklerParent:
-				spirit = "sparkler_parent";
+				spirit_name = "sparkler_parent";
 				break;
 			case SpiritName.PleafulParent:
-				spirit = "pleaful_parent";
+				spirit_name = "pleaful_parent";
 				break;
 			case SpiritName.WiseGrandparent:
-				spirit = "wise_grandparent";
+				spirit_name = "wise_grandparent";
 				break;
 			case SpiritName.RhythmGuide:
-				spirit = "rhythm_guide";
+				spirit_name = "rhythm_guide";
 				break;
 			case SpiritName.TroupeGreeter:
-				spirit = "troupe_greeter";
+				spirit_name = "troupe_greeter";
 				break;
 			case SpiritName.FestivalSpinDancer:
-				spirit = "festival_spin_dancer";
+				spirit_name = "festival_spin_dancer";
 				break;
 			case SpiritName.AdmiringActor:
-				spirit = "admiring_actor";
+				spirit_name = "admiring_actor";
 				break;
 			case SpiritName.TroupeJuggler:
-				spirit = "troupe_juggler";
+				spirit_name = "troupe_juggler";
 				break;
 			case SpiritName.RespectfulPianist:
-				spirit = "respectful_pianist";
+				spirit_name = "respectful_pianist";
 				break;
 			case SpiritName.ThoughtfulDirector:
-				spirit = "thoughtful_director";
+				spirit_name = "thoughtful_director";
 				break;
 			case SpiritName.EnchantmentGuide:
-				spirit = "enchantment_guide";
+				spirit_name = "enchantment_guide";
 				break;
 			case SpiritName.NoddingMuralist:
-				spirit = "nodding_muralist";
+				spirit_name = "nodding_muralist";
 				break;
 			case SpiritName.IndifferentAlchemist:
-				spirit = "indifferent_alchemist";
+				spirit_name = "indifferent_alchemist";
 				break;
 			case SpiritName.CrabWalker:
-				spirit = "crab_walker";
+				spirit_name = "crab_walker";
 				break;
 			case SpiritName.ScarecrowFarmer:
-				spirit = "scarecrow_farmer";
+				spirit_name = "scarecrow_farmer";
 				break;
 			case SpiritName.SnoozingCarpenter:
-				spirit = "snoozing_carpenter";
+				spirit_name = "snoozing_carpenter";
 				break;
 			case SpiritName.PlayfightingHerbalist:
-				spirit = "playfighting_herbalist";
+				spirit_name = "playfighting_herbalist";
 				break;
 			case SpiritName.SanctuaryGuide:
-				spirit = "sanctuary_guide";
+				spirit_name = "sanctuary_guide";
 				break;
 			case SpiritName.JellyWhisperer:
-				spirit = "jelly_whisperer";
+				spirit_name = "jelly_whisperer";
 				break;
 			case SpiritName.TimidBookworm:
-				spirit = "timid_bookworm";
+				spirit_name = "timid_bookworm";
 				break;
 			case SpiritName.RallyingThrillseeker:
-				spirit = "rallying_thrillseeker";
+				spirit_name = "rallying_thrillseeker";
 				break;
 			case SpiritName.HikingGrouch:
-				spirit = "hiking_grouch";
+				spirit_name = "hiking_grouch";
 				break;
 			case SpiritName.GratefulShellCollector:
-				spirit = "grateful_shell_collector";
+				spirit_name = "grateful_shell_collector";
 				break;
 			case SpiritName.ChillSunbather:
-				spirit = "chill_sunbather";
+				spirit_name = "chill_sunbather";
 				break;
 			case SpiritName.ProphecyGuide:
-				spirit = "prophecy_guide";
+				spirit_name = "prophecy_guide";
 				break;
 			case SpiritName.ProphetOfWater:
-				spirit = "prophet_of_water";
+				spirit_name = "prophet_of_water";
 				break;
 			case SpiritName.ProphetOfEarth:
-				spirit = "prophet_of_earth";
+				spirit_name = "prophet_of_earth";
 				break;
 			case SpiritName.ProphetOfAir:
-				spirit = "prophet_of_air";
+				spirit_name = "prophet_of_air";
 				break;
 			case SpiritName.ProphetOfFire:
-				spirit = "prophet_of_fire";
+				spirit_name = "prophet_of_fire";
 				break;
 			case SpiritName.DreamsGuide:
-				spirit = "dreams_guide";
+				spirit_name = "dreams_guide";
 				break;
 			case SpiritName.SpinningMentor:
-				spirit = "spinning_mentor";
+				spirit_name = "spinning_mentor";
 				break;
 			case SpiritName.DancingPerformer:
-				spirit = "dancing_performer";
+				spirit_name = "dancing_performer";
 				break;
 			case SpiritName.PeekingPostman:
-				spirit = "peeking_postman";
+				spirit_name = "peeking_postman";
 				break;
 			case SpiritName.BearhugHermit:
-				spirit = "bearhug_hermit";
+				spirit_name = "bearhug_hermit";
 				break;
 			case SpiritName.AssemblyGuide:
-				spirit = "assembly_guide";
+				spirit_name = "assembly_guide";
 				break;
 			case SpiritName.BaffledBotanist:
-				spirit = "baffled_botanist";
+				spirit_name = "baffled_botanist";
 				break;
 			case SpiritName.ScoldingStudent:
-				spirit = "scolding_student";
+				spirit_name = "scolding_student";
 				break;
 			case SpiritName.ScaredyCadet:
-				spirit = "scaredy_cadet";
+				spirit_name = "scaredy_cadet";
 				break;
 			case SpiritName.MarchingAdventurer:
-				spirit = "marching_adventurer";
+				spirit_name = "marching_adventurer";
 				break;
 			case SpiritName.ChucklingScout:
-				spirit = "chuckling_scout";
+				spirit_name = "chuckling_scout";
 				break;
 			case SpiritName.DaydreamForester:
-				spirit = "daydream_forester";
+				spirit_name = "daydream_forester";
 				break;
 			case SpiritName.TheRose:
-				spirit = "the_rose";
+				spirit_name = "the_rose";
 				break;
 			case SpiritName.BeckoningRuler:
-				spirit = "beckoning_ruler";
+				spirit_name = "beckoning_ruler";
 				break;
 			case SpiritName.GloatingNarcissist:
-				spirit = "gloating_narcissist";
+				spirit_name = "gloating_narcissist";
 				break;
 			case SpiritName.StretchingLamplighter:
-				spirit = "stretching_lamplighter";
+				spirit_name = "stretching_lamplighter";
 				break;
 			case SpiritName.SlouchingSoldier:
-				spirit = "slouching_soldier";
+				spirit_name = "slouching_soldier";
 				break;
 			case SpiritName.SneezingGeographer:
-				spirit = "sneezing_geographer";
+				spirit_name = "sneezing_geographer";
 				break;
 			case SpiritName.StarCollector:
-				spirit = "star_collector";
+				spirit_name = "star_collector";
 				break;
 			case SpiritName.FlightGuide:
-				spirit = "flight_guide";
+				spirit_name = "flight_guide";
 				break;
 			case SpiritName.LivelyNavigator:
-				spirit = "lively_navigator";
+				spirit_name = "lively_navigator";
 				break;
 			case SpiritName.LightWhisperer:
-				spirit = "light_whisperer";
+				spirit_name = "light_whisperer";
 				break;
 			case SpiritName.TinkeringChimesmith:
-				spirit = "tinkering_chimesmith";
+				spirit_name = "tinkering_chimesmith";
 				break;
 			case SpiritName.TalentedBuilder:
-				spirit = "talented_builder";
+				spirit_name = "talented_builder";
 				break;
 			case SpiritName.AbyssGuide:
-				spirit = "abyss_guide";
+				spirit_name = "abyss_guide";
 				break;
 			case SpiritName.AnxiousAngler:
-				spirit = "anxious_angler";
+				spirit_name = "anxious_angler";
 				break;
 			case SpiritName.CeasingCommodore:
-				spirit = "ceasing_commodore";
+				spirit_name = "ceasing_commodore";
 				break;
 			case SpiritName.BumblingBoatswain:
-				spirit = "bumbling_boatswain";
+				spirit_name = "bumbling_boatswain";
 				break;
 			case SpiritName.CacklingCannoneer:
-				spirit = "cackling_cannoneer";
+				spirit_name = "cackling_cannoneer";
 				break;
 			case SpiritName.PerformanceGuide:
-				spirit = "performance_guide";
+				spirit_name = "performance_guide";
 				break;
 			case SpiritName.FranticStagehand:
-				spirit = "frantic_stagehand";
+				spirit_name = "frantic_stagehand";
 				break;
 			case SpiritName.ForgetfulStoryteller:
-				spirit = "forgetful_storyteller";
+				spirit_name = "forgetful_storyteller";
 				break;
 			case SpiritName.MellowMusician:
-				spirit = "mellow_musician";
+				spirit_name = "mellow_musician";
 				break;
 			case SpiritName.ModestDancer:
-				spirit = "modest_dancer";
+				spirit_name = "modest_dancer";
 				break;
 			case SpiritName.TheVoidOfShattering:
-				spirit = "the_void_of_shattering";
+				spirit_name = "the_void_of_shattering";
 				break;
 			case SpiritName.AncientLight1:
-				spirit = "ancient_light1";
+				spirit_name = "ancient_light1";
 				break;
 			case SpiritName.AncientLight2:
-				spirit = "ancient_light2";
+				spirit_name = "ancient_light2";
 				break;
 			case SpiritName.AncientDarkness1:
-				spirit = "ancient_darkness1";
+				spirit_name = "ancient_darkness1";
 				break;
 			case SpiritName.AncientDarkness2:
-				spirit = "ancient_darkness2";
+				spirit_name = "ancient_darkness2";
 				break;
 			case SpiritName.AURORAGuide:
-				spirit = "aurora_guide";
+				spirit_name = "aurora_guide";
 				break;
 			case SpiritName.RunningWayfarer:
-				spirit = "running_wayfarer";
+				spirit_name = "running_wayfarer";
 				break;
 			case SpiritName.MindfulMiner:
-				spirit = "mindful_miner";
+				spirit_name = "mindful_miner";
 				break;
 			case SpiritName.WarriorOfLove:
-				spirit = "warrior_of_love";
+				spirit_name = "warrior_of_love";
 				break;
 			case SpiritName.SeedOfHope:
-				spirit = "seed_of_hope";
+				spirit_name = "seed_of_hope";
 				break;
 			case SpiritName.RemembranceGuide:
-				spirit = "remembrance_guide";
+				spirit_name = "remembrance_guide";
 				break;
 			case SpiritName.BereftVeteran:
-				spirit = "bereft_veteran";
+				spirit_name = "bereft_veteran";
 				break;
 			case SpiritName.PleadingChild:
-				spirit = "pleading_child";
+				spirit_name = "pleading_child";
 				break;
 			case SpiritName.TiptoeingTeaBrewer:
-				spirit = "tiptoeing_tea_brewer";
+				spirit_name = "tiptoeing_tea_brewer";
 				break;
 			case SpiritName.WoundedWarrior:
-				spirit = "wounded_warrior";
+				spirit_name = "wounded_warrior";
 				break;
 			case SpiritName.PassageGuide:
-				spirit = "passage_guide";
+				spirit_name = "passage_guide";
 				break;
 			case SpiritName.OddballOutcast:
-				spirit = "oddball_outcast";
+				spirit_name = "oddball_outcast";
 				break;
 			case SpiritName.TumblingTroublemaker:
-				spirit = "tumbling_troublemaker";
+				spirit_name = "tumbling_troublemaker";
 				break;
 			case SpiritName.MelancholyMope:
-				spirit = "melancholy_mope";
+				spirit_name = "melancholy_mope";
 				break;
 			case SpiritName.OveractiveOverachiever:
-				spirit = "overactive_overachiever";
+				spirit_name = "overactive_overachiever";
 				break;
 		}
 
 		await pg<SpiritTrackerPacket>(Table.SpiritTracker)
-			.update({ [spirit]: bit })
+			.update({ [spirit_name]: newBit })
 			.where("user_id", interaction.user.id)
 			.returning("*");
 
-		await SpiritTracker.viewSpiritResponse(interaction, bit, Spirits.find(({ name }) => name === spiritName)!);
+		await SpiritTracker.viewSpiritResponse(interaction, newBit, spirit);
 	}
 
 	private averageProgress(progresses: number[], round?: boolean) {
@@ -1653,11 +1661,11 @@ export class SpiritTracker {
 	}
 
 	private static async viewSpiritResponse(
-		interaction: StringSelectMenuInteraction,
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
 		bit: SpiritTrackerValue,
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 	) {
-		const backButtons = new ActionRowBuilder<ButtonBuilder>().setComponents(
+		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(
 			backToStartButtonBuilder,
 			new ButtonBuilder()
 				.setCustomId(
@@ -1671,7 +1679,7 @@ export class SpiritTracker {
 				.setStyle(ButtonStyle.Primary),
 		);
 
-		if (spirit.totalCost && (await cannotUseCustomEmojis(interaction, { components: [backButtons], embeds: [] }))) {
+		if (spirit.totalCost && (await cannotUseCustomEmojis(interaction, { components: [buttons], embeds: [] }))) {
 			return;
 		}
 
@@ -1740,7 +1748,16 @@ export class SpiritTracker {
 		if (description.length > 0) embed.setDescription(description.join("\n"));
 		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
 
-		if (spirit.offer) {
+		if (spirit.offer && spirit.maxItemsBit) {
+			buttons.addComponents(
+				new ButtonBuilder()
+					.setCustomId(`${SPIRIT_TRACKER_EVERYTHING_CUSTOM_ID}-${spirit.name}`)
+					.setDisabled(bit === spirit.maxItemsBit)
+					.setEmoji("💯")
+					.setLabel("I have everything!")
+					.setStyle(ButtonStyle.Success),
+			);
+
 			const itemSelectionOptions = spirit.offer.map(({ item }, flag) =>
 				new StringSelectMenuOptionBuilder()
 					.setDefault(Boolean(bit && bit & flag))
@@ -1779,7 +1796,7 @@ export class SpiritTracker {
 			}
 		}
 
-		components.push(backButtons);
+		components.push(buttons);
 		await interaction.update({ components, embeds });
 	}
 
