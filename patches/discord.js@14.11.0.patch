@@ -1,0 +1,22 @@
+diff --git a/typings/index.d.ts b/typings/index.d.ts
+index 78432a371ea86b9a907bc2fa25ec63d3c9077154..524d43ce81f23495ef76613bb4532f45143390f2 100644
+--- a/typings/index.d.ts
++++ b/typings/index.d.ts
+@@ -1164,7 +1164,7 @@ export class CommandInteractionOptionResolver<Cached extends CacheType = CacheTy
+   public getChannel<T extends ChannelType = ChannelType>(
+     name: string,
+     required: true,
+-    channelTypes?: T[],
++    channelTypes?: Readonly<T[]>,
+   ): Extract<
+     NonNullable<CommandInteractionOption<Cached>['channel']>,
+     {
+@@ -1179,7 +1179,7 @@ export class CommandInteractionOptionResolver<Cached extends CacheType = CacheTy
+   public getChannel<T extends ChannelType = ChannelType>(
+     name: string,
+     required?: boolean,
+-    channelTypes?: T[],
++    channelTypes?: Readonly<T[]>,
+   ): Extract<
+     NonNullable<CommandInteractionOption<Cached>['channel']>,
+     {
