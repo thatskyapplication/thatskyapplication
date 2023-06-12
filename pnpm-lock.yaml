@@ -2,7 +2,7 @@ lockfileVersion: '6.0'
 
 patchedDependencies:
   discord.js@14.11.0:
-    hash: zxkoputpxibmdphswgrkwewqum
+    hash: fgh4y7pwqyg2dqva3swhvsxzwi
     path: patches/discord.js@14.11.0.patch
 
 importers:
@@ -38,7 +38,7 @@ importers:
         version: 1.11.7
       discord.js:
         specifier: ^14.11.0
-        version: 14.11.0(patch_hash=zxkoputpxibmdphswgrkwewqum)
+        version: 14.11.0(patch_hash=fgh4y7pwqyg2dqva3swhvsxzwi)
       dotenv:
         specifier: ^16.0.3
         version: 16.0.3
@@ -2685,7 +2685,7 @@ packages:
     resolution: {integrity: sha512-FaPGBK9hx3zqSRX1x3KQWj+OElAJKmcyyfcdCy+U4AKv+gYuIkRySM7zd1So2sE4gc1DikkghkSBgBgKh6pe4Q==}
     dev: false
 
-  /discord.js@14.11.0(patch_hash=zxkoputpxibmdphswgrkwewqum):
+  /discord.js@14.11.0(patch_hash=fgh4y7pwqyg2dqva3swhvsxzwi):
     resolution: {integrity: sha512-CkueWYFQ28U38YPR8HgsBR/QT35oPpMbEsTNM30Fs8loBIhnA4s70AwQEoy6JvLcpWWJO7GY0y2BUzZmuBMepQ==}
     engines: {node: '>=16.9.0'}
     dependencies:

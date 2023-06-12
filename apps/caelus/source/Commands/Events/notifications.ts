@@ -236,7 +236,6 @@ export default class implements ChatInputCommand {
 							name: "channel",
 							description: "The channel to send notifications in.",
 							required: true,
-							// @ts-expect-error Too narrow.
 							channelTypes: NOTIFICATION_CHANNEL_TYPES,
 						},
 						{
