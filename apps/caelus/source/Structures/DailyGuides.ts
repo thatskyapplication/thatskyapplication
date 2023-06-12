@@ -247,8 +247,9 @@ export default new (class DailyGuides {
 	private resolveDailyGuideContent(pureContent: string) {
 		const upperPureContent = pureContent.toUpperCase();
 
-		if (upperPureContent.includes("BOW AT A PLAYER") || upperPureContent.includes("BOW TO A PLAYER"))
+		if (upperPureContent.includes("BOW AT A PLAYER") || upperPureContent.includes("BOW TO A PLAYER")) {
 			return "Bow at a Player";
+		}
 
 		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) return "Knock over 5 Dark Creatures Crabs";
 		if (upperPureContent.includes("FOLLOW A FRIEND")) return "Follow a Friend";
@@ -274,8 +275,9 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("RED LIGHT")) return "Collect Red Light";
 		if (upperPureContent.includes("SAPLING")) return "Admire the Sapling";
 
-		if (upperPureContent.includes("SOCIAL LIGHT") || upperPureContent.includes("VISIT THE ANCESTOR"))
+		if (upperPureContent.includes("SOCIAL LIGHT") || upperPureContent.includes("VISIT THE ANCESTOR")) {
 			return "Visit the Social Light Area";
+		}
 
 		if (upperPureContent.includes("POLLUTED GEYSER")) return "Visit the Polluted Geyser";
 		if (upperPureContent.includes("SCAVENGER HUNT")) return "Complete the Hoop Scavenger Hunt";
@@ -286,8 +288,9 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("GREAT VORTEX")) return "Rid the Sanctuary Vortex of Darkness";
 		if (upperPureContent.includes("RELIVE A SPIRIT'S MEMORY")) return "Relive a Spirit's Memories";
 
-		for (const spiritName of Object.values(SpiritName))
+		for (const spiritName of Object.values(SpiritName)) {
 			if (upperPureContent.replaceAll("’", "'").includes(spiritName.toUpperCase())) return `Relive ${spiritName}`;
+		}
 
 		return null;
 	}
