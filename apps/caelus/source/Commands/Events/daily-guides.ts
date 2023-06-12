@@ -6,7 +6,8 @@ import {
 	PermissionFlagsBits,
 } from "discord.js";
 import DailyGuidesDistribution, {
-	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES, isDailyGuidesDistributable,
+	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
+	isDailyGuidesDistributable,
 } from "../../Structures/DailyGuidesDistribution.js";
 import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
