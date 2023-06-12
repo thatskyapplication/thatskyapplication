@@ -240,4 +240,5 @@ export enum Season {
 	Aurora = "AURORA",
 	Remembrance = "Remembrance",
 	Passage = "Passage",
+	Moments = "Moments",
 }
