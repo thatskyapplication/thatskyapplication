@@ -6,7 +6,7 @@ import {
 	PermissionFlagsBits,
 } from "discord.js";
 import DailyGuidesDistribution, {
-	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
+	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES, isDailyGuidesDistributable,
 } from "../../Structures/DailyGuidesDistribution.js";
 import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
@@ -61,14 +61,11 @@ export default class implements ChatInputCommand {
 		const channel = options.getChannel("channel", true, DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES);
 		const me = await channel.guild.members.fetchMe();
 
-		if (
-			!channel
-				.permissionsFor(me)
-				.has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages | PermissionFlagsBits.EmbedLinks)
-		) {
+		const dailyGuidesDistributable = isDailyGuidesDistributable(channel, me, true);
+
+		if (dailyGuidesDistributable.length > 0) {
 			await interaction.reply({
-				// eslint-disable-next-line @typescript-eslint/no-base-to-string
-				content: `\`View Channel\` & \`Send Messages\` & \`Embed Links\` are required for ${channel}.`,
+				content: dailyGuidesDistributable.join("\n"),
 				ephemeral: true,
 			});
 

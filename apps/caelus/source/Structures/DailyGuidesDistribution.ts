@@ -3,8 +3,9 @@ import {
 	type ChatInputCommandInteraction,
 	type Client,
 	type Guild,
-	type Snowflake,
 	type GuildBasedChannel,
+	type GuildMember,
+	type Snowflake,
 	channelMention,
 	ChannelType,
 	hyperlink,
@@ -57,6 +58,44 @@ function isDailyGuidesDistributionChannel(channel: Channel): channel is DailyGui
 	return DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES.includes(
 		channel.type as (typeof DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES)[number],
 	);
+}
+
+export function isDailyGuidesDistributable(
+	channel: DailyGuidesDistributionAllowedChannel,
+	me: GuildMember,
+	returnErrors: true,
+): string[];
+
+export function isDailyGuidesDistributable(
+	channel: DailyGuidesDistributionAllowedChannel,
+	me: GuildMember,
+	returnErrors?: false,
+): boolean;
+
+export function isDailyGuidesDistributable(
+	channel: DailyGuidesDistributionAllowedChannel,
+	me: GuildMember,
+	returnErrors = false,
+) {
+	const errors = [];
+
+	if (
+		!channel
+			.permissionsFor(me)
+			.has(
+				PermissionFlagsBits.ViewChannel |
+					PermissionFlagsBits.SendMessages |
+					PermissionFlagsBits.EmbedLinks |
+					PermissionFlagsBits.UseExternalEmojis,
+			)
+	) {
+		errors.push(
+			// eslint-disable-next-line @typescript-eslint/no-base-to-string
+			`\`View Channel\` & \`Send Messages\` & \`Embed Links\` & and \`Use External Emojis\` are required for ${channel}.`,
+		);
+	}
+
+	return returnErrors ? (errors.length > 1 ? errors.map((error) => `- ${error}`) : errors) : errors.length === 0;
 }
 
 export default class DailyGuidesDistribution {
@@ -142,13 +181,7 @@ export default class DailyGuidesDistribution {
 		const me = await guild.members.fetchMe();
 		const { channelId } = this;
 		const channel = channelId ? guild.channels.cache.get(channelId) : null;
-
-		const sending =
-			channel &&
-			isDailyGuidesDistributionChannel(channel) &&
-			channel
-				.permissionsFor(me)
-				.has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages | PermissionFlagsBits.EmbedLinks);
+		const sending = channel && isDailyGuidesDistributionChannel(channel) && isDailyGuidesDistributable(channel, me);
 
 		return new EmbedBuilder()
 			.setColor(await resolveEmbedColor(guild))
