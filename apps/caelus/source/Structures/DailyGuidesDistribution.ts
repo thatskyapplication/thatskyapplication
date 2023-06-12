@@ -1,8 +1,10 @@
 import {
+	type Channel,
 	type ChatInputCommandInteraction,
 	type Client,
 	type Guild,
 	type Snowflake,
+	type GuildBasedChannel,
 	channelMention,
 	ChannelType,
 	hyperlink,
@@ -45,6 +47,17 @@ type DailyGuidesDistributionUpdateQuery = Omit<DailyGuidesDistributionInsertQuer
 export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [ChannelType.GuildText, ChannelType.GuildAnnouncement] as const;
 export const SHARD_ERUPTION_NAME = "Shard Eruption" as const;
 export const SHARD_ERUPTION_NONE = "None" as const;
+
+type DailyGuidesDistributionAllowedChannel = Extract<
+	GuildBasedChannel,
+	{ type: (typeof DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES)[number] }
+>;
+
+function isDailyGuidesDistributionChannel(channel: Channel): channel is DailyGuidesDistributionAllowedChannel {
+	return DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES.includes(
+		channel.type as (typeof DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES)[number],
+	);
+}
 
 export default class DailyGuidesDistribution {
 	public readonly id: DailyGuidesDistributionData["id"];
@@ -128,11 +141,14 @@ export default class DailyGuidesDistribution {
 	public async overview(guild: Guild) {
 		const me = await guild.members.fetchMe();
 		const { channelId } = this;
-		const channel = channelId ? guild.channels.resolve(channelId) : null;
+		const channel = channelId ? guild.channels.cache.get(channelId) : null;
 
-		const sending = channel
-			?.permissionsFor(me)
-			.has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages | PermissionFlagsBits.EmbedLinks);
+		const sending =
+			channel &&
+			isDailyGuidesDistributionChannel(channel) &&
+			channel
+				.permissionsFor(me)
+				.has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages | PermissionFlagsBits.EmbedLinks);
 
 		return new EmbedBuilder()
 			.setColor(await resolveEmbedColor(guild))
@@ -236,11 +252,11 @@ export default class DailyGuidesDistribution {
 				// There is definitely a channel id. The query specified this.
 				const dailyGuidesDistribution = new DailyGuidesDistribution(dailyGuidesDistributionPacket);
 				const { guildId, channelId, messageId } = dailyGuidesDistribution;
-				const channel = client.channels.resolve(channelId!);
+				const channel = client.channels.cache.get(channelId!);
 
-				if (!channel || (channel.type !== ChannelType.GuildText && channel.type !== ChannelType.GuildAnnouncement)) {
+				if (!channel || !isDailyGuidesDistributionChannel(channel)) {
 					throw new Error(
-						`Guild id ${guildId} had no detectable channel id ${channelId}, or was not a text channel or an announcement channel.`,
+						`Guild id ${guildId} had no detectable channel id ${channelId}, or did not satisfy the allowed channel types.`,
 					);
 				}
 
