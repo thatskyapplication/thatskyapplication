@@ -2,12 +2,10 @@ import {
 	type BaseChannel,
 	type ChatInputCommandInteraction,
 	type Client,
+	type GuildBasedChannel,
 	type GuildMember,
-	type NewsChannel,
-	type PrivateThreadChannel,
 	type Role,
 	type Snowflake,
-	type TextChannel,
 	channelMention,
 	ChannelType,
 	Collection,
@@ -84,13 +82,16 @@ export enum NotificationEvent {
 	Passage = "Passage",
 }
 
-export type NotificationAllowedChannel = TextChannel | NewsChannel | PrivateThreadChannel;
-
 export const NOTIFICATION_CHANNEL_TYPES = [
 	ChannelType.GuildText,
 	ChannelType.GuildAnnouncement,
 	ChannelType.PrivateThread,
 ] as const satisfies Readonly<ChannelType[]>;
+
+export type NotificationAllowedChannel = Extract<
+	GuildBasedChannel,
+	{ type: (typeof NOTIFICATION_CHANNEL_TYPES)[number] }
+>;
 
 export function isNotificationChannel(channel: BaseChannel): channel is NotificationAllowedChannel {
 	// @ts-expect-error Too narrow.
