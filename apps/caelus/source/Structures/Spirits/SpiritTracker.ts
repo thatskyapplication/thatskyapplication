@@ -1440,7 +1440,17 @@ export class SpiritTracker {
 			return;
 		}
 
-		if (customId === SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID) await this.viewTracker(interaction);
+		if (customId === SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID) {
+			await this.viewTracker(interaction);
+			return;
+		}
+
+		void interaction.client.log({ content: "Could not parse a back button.", error: interaction });
+
+		await interaction.reply({
+			content: "This back button took me to the '70s. Anyway, I'm back now, and you should probably report this bug!",
+			ephemeral: true,
+		});
 	}
 
 	private realmProgress(realm: Realm, round?: boolean) {
