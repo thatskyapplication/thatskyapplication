@@ -6,7 +6,6 @@ import {
 	PermissionFlagsBits,
 } from "discord.js";
 import Notification, {
-	type NotificationAllowedChannel,
 	type NotificationInsertQuery,
 	type NotificationUpdateQuery,
 	isEvent,
@@ -64,8 +63,7 @@ export default class implements ChatInputCommand {
 	public async setup(interaction: ChatInputCommandInteraction<"cached">) {
 		const { options } = interaction;
 		const event = options.getString("event", true);
-		// Typed from restrictions placed in the command.
-		const channel = options.getChannel("channel", true) as NotificationAllowedChannel;
+		const channel = options.getChannel("channel", true, NOTIFICATION_CHANNEL_TYPES);
 		const role = options.getRole("role", true);
 		const me = await channel.guild.members.fetchMe();
 
