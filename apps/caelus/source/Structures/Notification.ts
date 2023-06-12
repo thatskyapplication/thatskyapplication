@@ -90,7 +90,7 @@ export const NOTIFICATION_CHANNEL_TYPES = [
 
 type NotificationAllowedChannel = Extract<GuildBasedChannel, { type: (typeof NOTIFICATION_CHANNEL_TYPES)[number] }>;
 
-export function isNotificationChannel(channel: Channel): channel is NotificationAllowedChannel {
+function isNotificationChannel(channel: Channel): channel is NotificationAllowedChannel {
 	return NOTIFICATION_CHANNEL_TYPES.includes(channel.type as (typeof NOTIFICATION_CHANNEL_TYPES)[number]);
 }
 
