@@ -1655,7 +1655,7 @@ export class SpiritTracker {
 						? SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID
 						: spirit.isStandardSpirit()
 						? `${SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID}-${spirit.realm}`
-						: `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}-${spirit.name}`,
+						: `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}-${spirit.season}`,
 				)
 				.setEmoji("⏪")
 				.setStyle(ButtonStyle.Primary),
