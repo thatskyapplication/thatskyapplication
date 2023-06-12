@@ -1,6 +1,13 @@
-import type { ApplicationCommandData, ChatInputCommandInteraction, NewsChannel, TextChannel } from "discord.js";
-import { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, PermissionFlagsBits } from "discord.js";
-import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
+import {
+	type ApplicationCommandData,
+	type ChatInputCommandInteraction,
+	ApplicationCommandOptionType,
+	ApplicationCommandType,
+	PermissionFlagsBits,
+} from "discord.js";
+import DailyGuidesDistribution, {
+	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
+} from "../../Structures/DailyGuidesDistribution.js";
 import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -51,8 +58,7 @@ export default class implements ChatInputCommand {
 
 	public async setup(interaction: ChatInputCommandInteraction<"cached">) {
 		const { guildId, options } = interaction;
-		// Typed from restrictions placed in the command.
-		const channel = options.getChannel("channel", true) as NewsChannel | TextChannel;
+		const channel = options.getChannel("channel", true, DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES);
 		const me = await channel.guild.members.fetchMe();
 
 		if (
@@ -97,7 +103,7 @@ export default class implements ChatInputCommand {
 							name: "channel",
 							description: "The channel to send daily guides in.",
 							required: true,
-							channelTypes: [ChannelType.GuildText, ChannelType.GuildAnnouncement],
+							channelTypes: DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 						},
 					],
 				},

@@ -42,6 +42,7 @@ type DailyGuidesDistributionPatchData = Omit<DailyGuidesDistributionPacket, "id"
 type DailyGuidesDistributionInsertQuery = Omit<DailyGuidesDistributionPacket, "id" | "message_id">;
 type DailyGuidesDistributionUpdateQuery = Omit<DailyGuidesDistributionInsertQuery, "guild_id">;
 
+export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [ChannelType.GuildText, ChannelType.GuildAnnouncement] as const;
 export const SHARD_ERUPTION_NAME = "Shard Eruption" as const;
 export const SHARD_ERUPTION_NONE = "None" as const;
 
