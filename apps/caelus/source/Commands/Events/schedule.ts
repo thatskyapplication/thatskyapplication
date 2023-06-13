@@ -77,14 +77,16 @@ export default class implements ChatInputCommand {
 				},
 				{
 					name: NotificationEvent.ISS,
-					value: ISS_DATES_ACCESSIBLE.map((issDateAccessible) => {
-						const issDateUnix = todayDate().date(issDateAccessible).unix();
+					value: ISS_DATES_ACCESSIBLE.filter((issDateAccessible) => issDateAccessible <= todayDate().daysInMonth())
+						.map((issDateAccessible) => {
+							const issDateUnix = todayDate().date(issDateAccessible).unix();
 
-						return `${time(issDateUnix, TimestampStyles.ShortDate)} (${time(
-							issDateUnix,
-							TimestampStyles.RelativeTime,
-						)})`;
-					}).join("\n"),
+							return `${time(issDateUnix, TimestampStyles.ShortDate)} (${time(
+								issDateUnix,
+								TimestampStyles.RelativeTime,
+							)})`;
+						})
+						.join("\n"),
 				},
 				{
 					name: NotificationEvent.EyeOfEden,

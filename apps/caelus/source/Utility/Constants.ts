@@ -36,7 +36,7 @@ export const doubleSeasonalLightEventEndTimestamp = dayjs.tz("2023-05-21 00:00:0
 export const initialTravellingSpiritSeek = dayjs.tz("2023-05-25 00:00:00", "America/Los_Angeles"); // #88 Grateful Shell Collector.
 export const initialTreasureCandleRealmSeek = dayjs.tz("2023-01-03 00:00:00", "America/Los_Angeles"); // Daylight Prairie.
 export const initialEventCurrencySeek = dayjs.tz("2023-06-01 00:00:00", "America/Los_Angeles"); // Rotation A.
-export const ISS_DATES_ACCESSIBLE = [6, 13, 20, 27] as const;
+export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
 export const eventEndDate = dayjs.tz("2023-06-14 00:00:00", "America/Los_Angeles"); // Days of Color (2023).
 export const DEFAULT_EMBED_COLOR = 0xa5b5f1 as const;
 
