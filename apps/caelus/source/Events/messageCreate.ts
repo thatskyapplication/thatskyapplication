@@ -1,93 +1,9 @@
-import process from "node:process";
-import { type Message, Events, PermissionFlagsBits } from "discord.js";
-import {
-	ChatCompletionRequestMessageRoleEnum,
-	Configuration,
-	OpenAIApi,
-	type ChatCompletionRequestMessage,
-} from "openai";
+import { Events, PermissionFlagsBits } from "discord.js";
+import { messageCreateResponse } from "../OpenAIApi.js";
 import DailyGuides from "../Structures/DailyGuides.js";
 import type { Event } from "./index.js";
 
 const name = Events.MessageCreate;
-const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY! });
-const openAI = new OpenAIApi(configuration);
-
-function parseAIName(input: string) {
-	const cleaned = input.replaceAll(/[^\w-]/g, "");
-	return cleaned.length >= 1 ? cleaned : null;
-}
-
-async function AIResponse(message: Message<true>, random = false) {
-	try {
-		let messages;
-
-		if (random) {
-			messages = [
-				...message.channel.messages.cache
-					.map((message) => {
-						const chatCompletionRequestMessage: ChatCompletionRequestMessage = {
-							content: message.content,
-							role:
-								message.author.id === message.client.user.id
-									? ChatCompletionRequestMessageRoleEnum.Assistant
-									: ChatCompletionRequestMessageRoleEnum.User,
-						};
-
-						const name = parseAIName(message.member?.displayName ?? message.author.username);
-						if (name) chatCompletionRequestMessage.name = name;
-						return chatCompletionRequestMessage;
-					})
-					.slice(-5),
-				{
-					role: ChatCompletionRequestMessageRoleEnum.System,
-					content: `You are ${message.client.user.username}. Give a whimsical and short response.`,
-				},
-			];
-		} else {
-			messages = [
-				{
-					role: ChatCompletionRequestMessageRoleEnum.System,
-					content: `You are ${message.client.user.username}. ${message.client.user.username} is based on the game Sky: Children of the Light and ${message.client.user.username} is kind! You are in a Discord server. Use emojis if you want. You are created by Jiralite.`,
-				},
-				...message.channel.messages.cache
-					.map((message) => {
-						const chatCompletionRequestMessage: ChatCompletionRequestMessage = {
-							content: message.content,
-							role:
-								message.author.id === message.client.user.id
-									? ChatCompletionRequestMessageRoleEnum.Assistant
-									: ChatCompletionRequestMessageRoleEnum.User,
-						};
-
-						const name = parseAIName(message.member?.displayName ?? message.author.username);
-						if (name) chatCompletionRequestMessage.name = name;
-						return chatCompletionRequestMessage;
-					})
-					.slice(-20),
-			];
-		}
-
-		const [, completion] = await Promise.all([
-			message.channel.sendTyping(),
-			openAI.createChatCompletion({
-				frequency_penalty: 1,
-				max_tokens: 100,
-				messages,
-				model: "gpt-3.5-turbo",
-				user: message.author.id,
-			}),
-		]);
-
-		await message.reply({
-			allowedMentions: { parse: ["users"], repliedUser: false },
-			content: completion.data.choices[0]!.message!.content,
-			failIfNotExists: false,
-		});
-	} catch (error) {
-		void message.client.log({ content: "AI error.", error });
-	}
-}
 
 export const event: Event<typeof name> = {
 	name,
@@ -103,6 +19,6 @@ export const event: Event<typeof name> = {
 			return;
 
 		const meMention = message.mentions.has(message.client.user.id, { ignoreEveryone: true, ignoreRoles: true });
-		if (Math.random() < 0.005 && message.content.length > 0 && !meMention) void AIResponse(message, true);
+		if (Math.random() < 0.005 && message.content.length > 0 && !meMention) void messageCreateResponse(message, true);
 	},
 };

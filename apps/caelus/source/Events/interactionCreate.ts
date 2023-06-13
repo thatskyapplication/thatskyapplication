@@ -25,6 +25,7 @@ import commands, {
 	isAutocompleteCommand,
 	isChatInputCommand,
 	isCommandName,
+	isMessageContextMenuCommand,
 	isUserContextMenuCommand,
 } from "../Commands/index.js";
 import Profile from "../Structures/Profile.js";
@@ -214,6 +215,47 @@ export const event: Event<typeof name> = {
 
 			try {
 				await command.userContextMenu(interaction);
+			} catch (error) {
+				void recoverInteractionError(interaction, error);
+			}
+
+			return;
+		}
+
+		if (interaction.isMessageContextMenuCommand()) {
+			void logCommand(interaction);
+			const { commandName } = interaction;
+
+			if (!isCommandName(commandName)) {
+				void interaction.client.log({
+					content: `Received an unknown message context menu command interaction (\`${commandName}\`).`,
+				});
+
+				void interaction.reply({
+					content: "A nearby jellyfish gobbled up this message context menu command.",
+					ephemeral: true,
+				});
+
+				return;
+			}
+
+			const command = commands[commandName];
+
+			if ("developer" in command && command.developer && interaction.user.id !== User.Jiralite) {
+				await interaction.reply("Disallowed.");
+				return;
+			}
+
+			if (!isMessageContextMenuCommand(command)) {
+				void interaction.client.log({
+					content: `Received an unknown message context menu command interaction (\`${commandName}\`).`,
+				});
+
+				return;
+			}
+
+			try {
+				await command.messageContextMenu(interaction);
 			} catch (error) {
 				void recoverInteractionError(interaction, error);
 			}

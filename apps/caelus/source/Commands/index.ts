@@ -1,11 +1,12 @@
 /* eslint-disable import/order */
-import type {
-	ApplicationCommandData,
-	AutocompleteInteraction,
-	ChatInputCommandInteraction,
-	UserContextMenuCommandInteraction,
+import {
+	type ApplicationCommandData,
+	type AutocompleteInteraction,
+	type ChatInputCommandInteraction,
+	type MessageContextMenuCommandInteraction,
+	type UserContextMenuCommandInteraction,
+	ApplicationCommandType,
 } from "discord.js";
-import { ApplicationCommandType } from "discord.js";
 
 // Developer
 import d_daily_guides from "./Developer/d-daily-guides.js";
@@ -17,10 +18,11 @@ import schedule from "./Events/schedule.js";
 
 // Fun
 import bonk from "./Fun/bonk.js";
-import Gift_Heart from "./Fun/Gift Heart.js";
 import fight from "./Fun/fight.js";
+import Gift_Heart from "./Fun/Gift Heart.js";
 import heart from "./Fun/heart.js";
 import hug from "./Fun/hug.js";
+import Sky_Story from "./Fun/Sky Story.js";
 
 // General
 import about from "./General/about.js";
@@ -45,6 +47,7 @@ const commands = {
 	schedule: new schedule(),
 	"Sky Profile": new Sky_Profile(),
 	"sky-profile": new sky_profile(),
+	"Sky Story": new Sky_Story(),
 	spirit: new spirit(),
 } as const;
 
@@ -66,6 +69,10 @@ export function isUserContextMenuCommand(command: BaseCommandData): command is U
 	return command.type === ApplicationCommandType.User;
 }
 
+export function isMessageContextMenuCommand(command: BaseCommandData): command is MessageContextMenuCommand {
+	return command.type === ApplicationCommandType.Message;
+}
+
 interface BaseCommandData {
 	name: CommandName;
 	type: ApplicationCommandType;
@@ -83,6 +90,10 @@ export interface AutocompleteCommand extends ChatInputCommand {
 
 export interface UserContextMenuCommand extends BaseCommandData {
 	userContextMenu(interaction: UserContextMenuCommandInteraction): Promise<void>;
+}
+
+export interface MessageContextMenuCommand extends BaseCommandData {
+	messageContextMenu(interaction: MessageContextMenuCommandInteraction): Promise<void>;
 }
 
 export default commands;
