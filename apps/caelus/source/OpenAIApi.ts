@@ -104,7 +104,7 @@ export async function skyStory(interaction: MessageContextMenuCommandInteraction
 		messages: [
 			{
 				role: ChatCompletionRequestMessageRoleEnum.System,
-				content: `Generate a story about this message based on the game Sky: Children of the Light.`,
+				content: "Generate a story about this message based on the game Sky: Children of the Light.",
 			},
 			chatCompletionRequestMessage,
 		],
