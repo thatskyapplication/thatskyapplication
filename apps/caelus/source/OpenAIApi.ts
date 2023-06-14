@@ -99,18 +99,30 @@ export async function skyStory(interaction: MessageContextMenuCommandInteraction
 	const name = parseAIName(interaction.user.username);
 	if (name) chatCompletionRequestMessage.name = name;
 
-	const completion = await openAIApi.createChatCompletion({
-		max_tokens: 1_000,
-		messages: [
-			{
-				role: ChatCompletionRequestMessageRoleEnum.System,
-				content: "Generate a story about this message based on the game Sky: Children of the Light.",
-			},
-			chatCompletionRequestMessage,
-		],
-		model: "gpt-3.5-turbo",
-		user: interaction.user.id,
-	});
+	let completion;
+
+	try {
+		completion = await openAIApi.createChatCompletion({
+			max_tokens: 1_000,
+			messages: [
+				{
+					role: ChatCompletionRequestMessageRoleEnum.System,
+					content: "Generate a story about this message based on the game Sky: Children of the Light.",
+				},
+				chatCompletionRequestMessage,
+			],
+			model: "gpt-3.5-turbo",
+			user: interaction.user.id,
+		});
+	} catch {
+		await interaction.reply({
+			content:
+				"The story I was thinking of was so beautiful and emotional that I forgot what I wrote. Sorry about that",
+			ephemeral: true,
+		});
+
+		return;
+	}
 
 	const { content } = completion.data.choices[0]!.message!;
 	const responses = content.match(/.{1,2000}/gs);
