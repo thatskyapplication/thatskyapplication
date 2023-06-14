@@ -19,6 +19,6 @@ export const event: Event<typeof name> = {
 			return;
 
 		const meMention = message.mentions.has(message.client.user.id, { ignoreEveryone: true, ignoreRoles: true });
-		if (Math.random() < 0.005 && message.content.length > 0 && !meMention) void messageCreateResponse(message, true);
+		if (Math.random() < 0.005 && message.content.length > 0 && !meMention) void messageCreateResponse(message);
 	},
 };

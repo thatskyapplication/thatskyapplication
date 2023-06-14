@@ -17,62 +17,34 @@ function parseAIName(input: string) {
 	return cleaned.length >= 1 ? cleaned : null;
 }
 
-export async function messageCreateResponse(message: Message<true>, random = false) {
+export async function messageCreateResponse(message: Message<true>) {
 	try {
-		let messages;
-
-		if (random) {
-			messages = [
-				...message.channel.messages.cache
-					.map((message) => {
-						const chatCompletionRequestMessage: ChatCompletionRequestMessage = {
-							content: message.content,
-							role:
-								message.author.id === message.client.user.id
-									? ChatCompletionRequestMessageRoleEnum.Assistant
-									: ChatCompletionRequestMessageRoleEnum.User,
-						};
-
-						const name = parseAIName(message.member?.displayName ?? message.author.username);
-						if (name) chatCompletionRequestMessage.name = name;
-						return chatCompletionRequestMessage;
-					})
-					.slice(-5),
-				{
-					role: ChatCompletionRequestMessageRoleEnum.System,
-					content: `You are ${message.client.user.username}. Give a whimsical and short response.`,
-				},
-			];
-		} else {
-			messages = [
-				{
-					role: ChatCompletionRequestMessageRoleEnum.System,
-					content: `You are ${message.client.user.username}. ${message.client.user.username} is based on the game Sky: Children of the Light and ${message.client.user.username} is kind! You are in a Discord server. Use emojis if you want. You are created by Jiralite.`,
-				},
-				...message.channel.messages.cache
-					.map((message) => {
-						const chatCompletionRequestMessage: ChatCompletionRequestMessage = {
-							content: message.content,
-							role:
-								message.author.id === message.client.user.id
-									? ChatCompletionRequestMessageRoleEnum.Assistant
-									: ChatCompletionRequestMessageRoleEnum.User,
-						};
-
-						const name = parseAIName(message.member?.displayName ?? message.author.username);
-						if (name) chatCompletionRequestMessage.name = name;
-						return chatCompletionRequestMessage;
-					})
-					.slice(-20),
-			];
-		}
-
 		const [, completion] = await Promise.all([
 			message.channel.sendTyping(),
 			openAIApi.createChatCompletion({
 				frequency_penalty: 1,
 				max_tokens: 100,
-				messages,
+				messages: [
+					...message.channel.messages.cache
+						.map((message) => {
+							const chatCompletionRequestMessage: ChatCompletionRequestMessage = {
+								content: message.content,
+								role:
+									message.author.id === message.client.user.id
+										? ChatCompletionRequestMessageRoleEnum.Assistant
+										: ChatCompletionRequestMessageRoleEnum.User,
+							};
+
+							const name = parseAIName(message.member?.displayName ?? message.author.username);
+							if (name) chatCompletionRequestMessage.name = name;
+							return chatCompletionRequestMessage;
+						})
+						.slice(-5),
+					{
+						role: ChatCompletionRequestMessageRoleEnum.System,
+						content: `You are ${message.client.user.username}. Give a whimsical and short response.`,
+					},
+				],
 				model: "gpt-3.5-turbo",
 				user: message.author.id,
 			}),
