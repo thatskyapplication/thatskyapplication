@@ -1706,11 +1706,7 @@ export class SpiritTracker {
 					value = resolveOfferToCurrency(cost ?? {}).join("") || formatEmoji(Emoji.No, true);
 				}
 
-				return {
-					name: item,
-					value: bit && (bit & flag) === flag ? formatEmoji(Emoji.Yes, true) : value,
-					inline: true,
-				};
+				return { name: item, value, inline: true };
 			}) ?? [];
 
 		const embeds = [];
