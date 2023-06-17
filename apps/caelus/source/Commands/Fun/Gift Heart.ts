@@ -6,6 +6,7 @@ export default new (class implements UserContextMenuCommand {
 		name: "Gift Heart",
 		type: ApplicationCommandType.User,
 	} as const;
+
 	public async userContextMenu(interaction: UserContextMenuCommandInteraction) {
 		await COMMANDS.heart.gift(interaction);
 	}
