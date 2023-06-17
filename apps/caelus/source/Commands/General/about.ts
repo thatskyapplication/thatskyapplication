@@ -1,5 +1,11 @@
 import { URL } from "node:url";
-import { type ChatInputCommandInteraction, ApplicationCommandType, EmbedBuilder, hyperlink } from "discord.js";
+import {
+	type ApplicationCommandData,
+	type ChatInputCommandInteraction,
+	ApplicationCommandType,
+	EmbedBuilder,
+	hyperlink,
+} from "discord.js";
 import {
 	GITHUB_SPONSORS_URL,
 	KO_FI_URL,
@@ -34,7 +40,7 @@ export default new (class implements ChatInputCommand {
 		name: "about",
 		description: "About me, the wondrous little Sky helper!",
 		type: ApplicationCommandType.ChatInput,
-	} as const;
+	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { client, guild } = interaction;

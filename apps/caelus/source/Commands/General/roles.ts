@@ -1,4 +1,5 @@
 import {
+	type ApplicationCommandData,
 	type ChatInputCommandInteraction,
 	type Snowflake,
 	type StringSelectMenuInteraction,
@@ -19,7 +20,7 @@ export default new (class implements ChatInputCommand {
 		description: "Self-assign roles!",
 		type: ApplicationCommandType.ChatInput,
 		dmPermission: false,
-	} as const;
+	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		if (!interaction.inCachedGuild()) {

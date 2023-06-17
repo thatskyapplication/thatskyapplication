@@ -1,4 +1,5 @@
 import {
+	type ApplicationCommandData,
 	type AutocompleteInteraction,
 	type ChatInputCommandInteraction,
 	type Snowflake,
@@ -183,7 +184,7 @@ export default new (class implements AutocompleteCommand {
 				],
 			},
 		],
-	} as const;
+	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public id: Snowflake | null = null;
 

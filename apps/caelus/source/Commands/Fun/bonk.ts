@@ -1,4 +1,5 @@
 import {
+	type ApplicationCommandData,
 	type ChatInputCommandInteraction,
 	type Snowflake,
 	PermissionFlagsBits,
@@ -164,7 +165,7 @@ export default new (class implements ChatInputCommand {
 			},
 		],
 		dmPermission: false,
-	} as const;
+	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { channel, createdAt, options } = interaction;

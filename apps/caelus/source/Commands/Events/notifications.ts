@@ -1,4 +1,5 @@
 import {
+	type ApplicationCommandData,
 	type ChatInputCommandInteraction,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
@@ -75,7 +76,7 @@ export default new (class implements ChatInputCommand {
 		],
 		defaultMemberPermissions: PermissionFlagsBits.ManageGuild,
 		dmPermission: false,
-	} as const;
+	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		if (!interaction.inCachedGuild()) {

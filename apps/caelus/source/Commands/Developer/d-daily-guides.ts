@@ -1,4 +1,5 @@
 import {
+	type ApplicationCommandData,
 	type ChatInputCommandInteraction,
 	type ModalSubmitInteraction,
 	codeBlock,
@@ -101,7 +102,7 @@ export default new (class implements ChatInputCommand {
 			},
 		],
 		defaultMemberPermissions: 0n,
-	} as const;
+	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public readonly developer = true;
 

@@ -1,4 +1,8 @@
-import { type UserContextMenuCommandInteraction, ApplicationCommandType } from "discord.js";
+import {
+	type ApplicationCommandData,
+	type UserContextMenuCommandInteraction,
+	ApplicationCommandType,
+} from "discord.js";
 import COMMANDS, { type UserContextMenuCommand } from "../index.js";
 
 export default new (class implements UserContextMenuCommand {
@@ -6,7 +10,7 @@ export default new (class implements UserContextMenuCommand {
 		name: "Gift Heart",
 		type: ApplicationCommandType.User,
 		dmPermission: false,
-	} as const;
+	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async userContextMenu(interaction: UserContextMenuCommandInteraction) {
 		await COMMANDS.heart.gift(interaction);

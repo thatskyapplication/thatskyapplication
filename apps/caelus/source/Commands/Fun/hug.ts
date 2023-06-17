@@ -1,6 +1,13 @@
 import { URL } from "node:url";
-import type { ChatInputCommandInteraction, Snowflake } from "discord.js";
-import { EmbedBuilder, PermissionFlagsBits, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
+import {
+	type ApplicationCommandData,
+	type ChatInputCommandInteraction,
+	type Snowflake,
+	EmbedBuilder,
+	PermissionFlagsBits,
+	ApplicationCommandOptionType,
+	ApplicationCommandType,
+} from "discord.js";
 import { CDN_URL, MAX_HUG_NO } from "../../Utility/Constants.js";
 import { resolveEmbedColor } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
@@ -26,7 +33,7 @@ export default new (class implements ChatInputCommand {
 			},
 		],
 		dmPermission: false,
-	} as const;
+	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { channel, createdAt, guild, options } = interaction;
