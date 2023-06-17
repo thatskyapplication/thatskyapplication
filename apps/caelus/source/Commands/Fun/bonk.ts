@@ -14,7 +14,7 @@ interface BonkPacket {
 	timestamp: Date;
 }
 
-const bonks = {
+const BONKS = {
 	successful: [
 		{
 			message: "{{bonker}} bonked {{bonkee}}. Bonk bonk bonk.",
@@ -204,9 +204,9 @@ export default new (class implements ChatInputCommand {
 		let successful = false;
 
 		if (Math.random() < 0.1) {
-			decidingBonk = bonks.unsuccessful;
+			decidingBonk = BONKS.unsuccessful;
 		} else {
-			decidingBonk = bonks.successful;
+			decidingBonk = BONKS.successful;
 			successful = true;
 		}
 
