@@ -1,5 +1,4 @@
 import {
-	type ApplicationCommandData,
 	type ChatInputCommandInteraction,
 	type Snowflake,
 	type UserContextMenuCommandInteraction,
@@ -52,10 +51,33 @@ const HEARTS = [
 export const HEART_HISTORY_BACK = "HEART_HISTORY_BACK" as const;
 export const HEART_HISTORY_FORWARD = "HEART_HISTORY_FORWARD" as const;
 
-export default class implements ChatInputCommand {
-	public readonly name = "heart";
-
-	public readonly type = ApplicationCommandType.ChatInput;
+export default new (class implements ChatInputCommand {
+	public readonly data = {
+		name: "heart",
+		description: "Feeling generous? You have one heart to give per day!",
+		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "gift",
+				description: "Choose someone to gift your heart to!",
+				options: [
+					{
+						type: ApplicationCommandOptionType.User,
+						name: "user",
+						description: "The user to give a heart to.",
+						required: true,
+					},
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "history",
+				description: "Display a history of your hearts!",
+			},
+		],
+		dmPermission: false,
+	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
@@ -261,33 +283,4 @@ export default class implements ChatInputCommand {
 			await interaction.reply(response);
 		}
 	}
-
-	public get commandData(): ApplicationCommandData {
-		return {
-			name: this.name,
-			description: "Feeling generous? You have one heart to give per day!",
-			type: this.type,
-			options: [
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "gift",
-					description: "Choose someone to gift your heart to!",
-					options: [
-						{
-							type: ApplicationCommandOptionType.User,
-							name: "user",
-							description: "The user to give a heart to.",
-							required: true,
-						},
-					],
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "history",
-					description: "Display a history of your hearts!",
-				},
-			],
-			dmPermission: false,
-		};
-	}
-}
+})();

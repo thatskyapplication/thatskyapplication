@@ -1,6 +1,5 @@
 import type { ManipulateType } from "dayjs";
 import {
-	type ApplicationCommandData,
 	type ChatInputCommandInteraction,
 	ApplicationCommandType,
 	EmbedBuilder,
@@ -54,10 +53,12 @@ function scheduleTimes(startingMinute: number, interval: number, intervalType: M
 	return output;
 }
 
-export default class implements ChatInputCommand {
-	public readonly name = "schedule";
-
-	public readonly type = ApplicationCommandType.ChatInput;
+export default new (class implements ChatInputCommand {
+	public readonly data = {
+		name: "schedule",
+		description: "Returns a schedule of events in Sky!",
+		type: ApplicationCommandType.ChatInput,
+	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const passageTimes = scheduleTimes(0, 15, "minutes");
@@ -120,13 +121,4 @@ export default class implements ChatInputCommand {
 		embed.addFields(shardEruptionFieldData);
 		await interaction.reply({ embeds: [embed], ephemeral: true });
 	}
-
-	public get commandData(): ApplicationCommandData {
-		return {
-			name: this.name,
-			description: "Returns a schedule of events in Sky!",
-			type: this.type,
-			dmPermission: false,
-		};
-	}
-}
+})();

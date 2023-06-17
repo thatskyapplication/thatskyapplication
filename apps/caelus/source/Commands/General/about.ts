@@ -1,11 +1,5 @@
 import { URL } from "node:url";
-import {
-	type ApplicationCommandData,
-	type ChatInputCommandInteraction,
-	ApplicationCommandType,
-	EmbedBuilder,
-	hyperlink,
-} from "discord.js";
+import { type ChatInputCommandInteraction, ApplicationCommandType, EmbedBuilder, hyperlink } from "discord.js";
 import {
 	GITHUB_SPONSORS_URL,
 	KO_FI_URL,
@@ -35,10 +29,12 @@ ${hyperlink("Patreon", PATREON_URL)} | ${hyperlink("Ko-fi", KO_FI_URL)} | ${hype
 	GITHUB_SPONSORS_URL,
 )}` as const;
 
-export default class implements ChatInputCommand {
-	public readonly name = "about";
-
-	public readonly type = ApplicationCommandType.ChatInput;
+export default new (class implements ChatInputCommand {
+	public readonly data = {
+		name: "about",
+		description: "About me, the wondrous little Sky helper!",
+		type: ApplicationCommandType.ChatInput,
+	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { client, guild } = interaction;
@@ -76,12 +72,4 @@ export default class implements ChatInputCommand {
 			ephemeral: true,
 		});
 	}
-
-	public get commandData(): ApplicationCommandData {
-		return {
-			name: this.name,
-			description: "About me, the wondrous little Sky helper!",
-			type: this.type,
-		};
-	}
-}
+})();

@@ -1,10 +1,7 @@
-import type {
-	ApplicationCommandData,
-	ChatInputCommandInteraction,
-	Snowflake,
-	StringSelectMenuInteraction,
-} from "discord.js";
 import {
+	type ChatInputCommandInteraction,
+	type Snowflake,
+	type StringSelectMenuInteraction,
 	StringSelectMenuBuilder,
 	ActionRowBuilder,
 	ApplicationCommandType,
@@ -16,19 +13,24 @@ import type { ChatInputCommand } from "../index.js";
 
 export const ROLES_SELECT_MENU_CUSTOM_ID = "SELFROLE" as const;
 
-export default class implements ChatInputCommand {
-	public readonly name = "roles";
-
-	public readonly type = ApplicationCommandType.ChatInput;
+export default new (class implements ChatInputCommand {
+	public readonly data = {
+		name: "roles",
+		description: "Self-assign roles!",
+		type: ApplicationCommandType.ChatInput,
+		dmPermission: false,
+	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		if (!interaction.inCachedGuild()) {
+			const { name } = this.data;
+
 			void interaction.client.log({
-				content: `The \`/${this.name}\` command was used in an uncached guild, somehow.`,
+				content: `The \`/${name}\` command was used in an uncached guild, somehow.`,
 				error: interaction,
 			});
 
-			await interaction.reply({ content: `There is no \`/${this.name}\` command in Ba Sing Se.`, ephemeral: true });
+			await interaction.reply({ content: `There is no \`/${name}\` command in Ba Sing Se.`, ephemeral: true });
 			return;
 		}
 
@@ -169,13 +171,4 @@ export default class implements ChatInputCommand {
 			});
 		}
 	}
-
-	public get commandData(): ApplicationCommandData {
-		return {
-			name: this.name,
-			description: "Self-assign roles!",
-			type: this.type,
-			dmPermission: false,
-		};
-	}
-}
+})();

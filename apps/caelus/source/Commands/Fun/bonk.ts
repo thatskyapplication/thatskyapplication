@@ -1,5 +1,10 @@
-import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
-import { PermissionFlagsBits, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
+import {
+	type ChatInputCommandInteraction,
+	type Snowflake,
+	PermissionFlagsBits,
+	ApplicationCommandOptionType,
+	ApplicationCommandType,
+} from "discord.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -145,10 +150,21 @@ const bonks = {
 	],
 } as const;
 
-export default class implements ChatInputCommand {
-	public readonly name = "bonk";
-
-	public readonly type = ApplicationCommandType.ChatInput;
+export default new (class implements ChatInputCommand {
+	public readonly data = {
+		name: "bonk",
+		description: "Bonk someone!",
+		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.User,
+				name: "user",
+				description: "The individual to be bonked.",
+				required: true,
+			},
+		],
+		dmPermission: false,
+	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { channel, createdAt, options } = interaction;
@@ -218,21 +234,4 @@ export default class implements ChatInputCommand {
 
 		await interaction.reply(bonkMessage);
 	}
-
-	public get commandData(): ApplicationCommandData {
-		return {
-			name: this.name,
-			description: "Bonk someone!",
-			type: this.type,
-			options: [
-				{
-					type: ApplicationCommandOptionType.User,
-					name: "user",
-					description: "The individual to be bonked.",
-					required: true,
-				},
-			],
-			dmPermission: false,
-		};
-	}
-}
+})();

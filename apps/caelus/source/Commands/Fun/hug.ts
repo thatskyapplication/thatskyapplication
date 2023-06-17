@@ -1,5 +1,5 @@
 import { URL } from "node:url";
-import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
+import type { ChatInputCommandInteraction, Snowflake } from "discord.js";
 import { EmbedBuilder, PermissionFlagsBits, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
 import { CDN_URL, MAX_HUG_NO } from "../../Utility/Constants.js";
 import { resolveEmbedColor } from "../../Utility/Utility.js";
@@ -12,10 +12,21 @@ interface HugPacket {
 	timestamp: Date;
 }
 
-export default class implements ChatInputCommand {
-	public readonly name = "hug";
-
-	public readonly type = ApplicationCommandType.ChatInput;
+export default new (class implements ChatInputCommand {
+	public readonly data = {
+		name: "hug",
+		description: "Hug someone!",
+		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.User,
+				name: "user",
+				description: "The individual to be hugged.",
+				required: true,
+			},
+		],
+		dmPermission: false,
+	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { channel, createdAt, guild, options } = interaction;
@@ -66,21 +77,4 @@ export default class implements ChatInputCommand {
 			],
 		});
 	}
-
-	public get commandData(): ApplicationCommandData {
-		return {
-			name: this.name,
-			description: "Hug someone!",
-			type: this.type,
-			options: [
-				{
-					type: ApplicationCommandOptionType.User,
-					name: "user",
-					description: "The individual to be hugged.",
-					required: true,
-				},
-			],
-			dmPermission: false,
-		};
-	}
-}
+})();

@@ -1,5 +1,11 @@
-import type { ApplicationCommandData, ChatInputCommandInteraction, Snowflake } from "discord.js";
-import { EmbedBuilder, PermissionFlagsBits, ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
+import {
+	type ChatInputCommandInteraction,
+	type Snowflake,
+	EmbedBuilder,
+	PermissionFlagsBits,
+	ApplicationCommandOptionType,
+	ApplicationCommandType,
+} from "discord.js";
 import { resolveEmbedColor } from "../../Utility/Utility.js";
 import { waifu, WaifuCategory } from "../../Utility/externalAPIs.js";
 import pg, { Table } from "../../pg.js";
@@ -11,10 +17,21 @@ interface FightPacket {
 	timestamp: Date;
 }
 
-export default class implements ChatInputCommand {
-	public readonly name = "fight";
-
-	public readonly type = ApplicationCommandType.ChatInput;
+export default new (class implements ChatInputCommand {
+	public readonly data = {
+		name: "fight",
+		description: "Fight someone!",
+		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.User,
+				name: "user",
+				description: "The individual to fight.",
+				required: true,
+			},
+		],
+		dmPermission: false,
+	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { channel, createdAt, guild, options } = interaction;
@@ -61,21 +78,4 @@ export default class implements ChatInputCommand {
 
 		await interaction.reply({ content: `${interaction.user} is fighting ${user}!`, embeds: [embed] });
 	}
-
-	public get commandData(): ApplicationCommandData {
-		return {
-			name: this.name,
-			description: "Fight someone!",
-			type: this.type,
-			options: [
-				{
-					type: ApplicationCommandOptionType.User,
-					name: "user",
-					description: "The individual to fight.",
-					required: true,
-				},
-			],
-			dmPermission: false,
-		};
-	}
-}
+})();

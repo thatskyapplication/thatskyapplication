@@ -1,5 +1,4 @@
 import {
-	type ApplicationCommandData,
 	type AutocompleteInteraction,
 	type ChatInputCommandInteraction,
 	type Snowflake,
@@ -20,8 +19,7 @@ import { SeasonFlagsToString } from "../../Structures/Seasons.js";
 import Spirits from "../../Structures/Spirits/index.js";
 import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
 import { cannotUseCustomEmojis, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
-import type { AutocompleteCommand } from "../index.js";
-import commands from "../index.js";
+import COMMANDS, { type AutocompleteCommand } from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
 export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as const;
@@ -36,16 +34,162 @@ const SKY_MAXIMUM_COUNTRY_LENGTH = 60 as const;
 const SKY_MINIMUM_SPOT_LENGTH = 2 as const;
 const SKY_MAXIMUM_SPOT_LENGTH = 50 as const;
 
-export default class implements AutocompleteCommand {
-	public readonly name = "sky-profile";
-
-	public readonly type = ApplicationCommandType.ChatInput;
+export default new (class implements AutocompleteCommand {
+	public readonly data = {
+		name: "sky-profile",
+		description: "The command related to everything about your Sky profile.",
+		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.SubcommandGroup,
+				name: "set",
+				description: "Set some information for your Sky profile.",
+				options: [
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: "country",
+						description: "Set the country of your Sky profile!",
+						options: [
+							{
+								type: ApplicationCommandOptionType.String,
+								name: "country",
+								description: "What country are you from?",
+								required: true,
+								maxLength: SKY_MAXIMUM_COUNTRY_LENGTH,
+								minLength: SKY_MINIMUM_COUNTRY_LENGTH,
+							},
+						],
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: "description",
+						description: "Set the description of your Sky profile!",
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: "name",
+						description: "Set the name of your Skykid in your Sky profile!",
+						options: [
+							{
+								type: ApplicationCommandOptionType.String,
+								name: "name",
+								description: "Provide your in-game name.",
+								required: true,
+								maxLength: SKY_MAXIMUM_NAME_LENGTH,
+							},
+						],
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: "icon",
+						description: "Set the icon of your Skykid in your Sky profile!",
+						options: [
+							{
+								type: ApplicationCommandOptionType.String,
+								name: "icon",
+								description: "Provide a URL to show as your author icon.",
+								required: true,
+								minLength: SKY_MINIMUM_ASSET_URL_LENGTH,
+								maxLength: SKY_MAXIMUM_ASSET_URL_LENGTH,
+							},
+						],
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: "platform",
+						description: "Set the platform your Skykid plays on in your Sky profile!",
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: "seasons",
+						description: "Set the seasons your Skykid participated in for your Sky profile!",
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: "spirit",
+						description: "Set the favourite spirit of your Skykid in your Sky profile!",
+						options: [
+							{
+								type: ApplicationCommandOptionType.String,
+								name: "spirit",
+								description: "What's your favourite spirit?",
+								required: true,
+								autocomplete: true,
+							},
+						],
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: "spot",
+						description: "Set the favourite spot of your Skykid in your Sky profile!",
+						options: [
+							{
+								type: ApplicationCommandOptionType.String,
+								name: "spot",
+								description: "Where's your favourite spot to hang out?",
+								required: true,
+								minLength: SKY_MINIMUM_SPOT_LENGTH,
+								maxLength: SKY_MAXIMUM_SPOT_LENGTH,
+							},
+						],
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: "thumbnail",
+						description: "Set the thumbnail of your Skykid in your Sky profile!",
+						options: [
+							{
+								type: ApplicationCommandOptionType.String,
+								name: "thumbnail",
+								description: "Provide a URL to show as your thumbnail.",
+								required: true,
+								minLength: SKY_MINIMUM_ASSET_URL_LENGTH,
+								maxLength: SKY_MAXIMUM_ASSET_URL_LENGTH,
+							},
+						],
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: "winged-light",
+						description: "Set the maximum number of winged light your Skykid could possibly have in your Sky profile!",
+						options: [
+							{
+								type: ApplicationCommandOptionType.Integer,
+								name: "winged-light",
+								description: "Provide the maximum number of winged light you can possibly have.",
+								required: true,
+								max_value: MAXIMUM_WINGED_LIGHT,
+								minValue: MINIMUM_WINGED_LIGHT,
+							},
+						],
+					},
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "show",
+				description: "Shows the Sky profile of someone.",
+				options: [
+					{
+						type: ApplicationCommandOptionType.User,
+						name: "user",
+						description: "The user whose Sky profile you wish to see.",
+					},
+					{
+						type: ApplicationCommandOptionType.Boolean,
+						name: "hide",
+						description: "Ensure only you can see the response. By default, the response is shown.",
+					},
+				],
+			},
+		],
+	} as const;
 
 	public id: Snowflake | null = null;
 
 	public async autocomplete(interaction: AutocompleteInteraction) {
 		// This is the same as querying a spirit, so use that instead.
-		await commands.spirit.autocomplete(interaction);
+		await COMMANDS.spirit.autocomplete(interaction);
 	}
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
@@ -265,157 +409,4 @@ export default class implements AutocompleteCommand {
 		await interaction.reply({ embeds: [embed], ephemeral: hide });
 		if (unfilled && userIsInvoker) await interaction.followUp({ content: unfilled, ephemeral: true });
 	}
-
-	public get commandData(): ApplicationCommandData {
-		return {
-			name: this.name,
-			description: "The command related to everything about your Sky profile.",
-			type: this.type,
-			options: [
-				{
-					type: ApplicationCommandOptionType.SubcommandGroup,
-					name: "set",
-					description: "Set some information for your Sky profile.",
-					options: [
-						{
-							type: ApplicationCommandOptionType.Subcommand,
-							name: "country",
-							description: "Set the country of your Sky profile!",
-							options: [
-								{
-									type: ApplicationCommandOptionType.String,
-									name: "country",
-									description: "What country are you from?",
-									required: true,
-									maxLength: SKY_MAXIMUM_COUNTRY_LENGTH,
-									minLength: SKY_MINIMUM_COUNTRY_LENGTH,
-								},
-							],
-						},
-						{
-							type: ApplicationCommandOptionType.Subcommand,
-							name: "description",
-							description: "Set the description of your Sky profile!",
-						},
-						{
-							type: ApplicationCommandOptionType.Subcommand,
-							name: "name",
-							description: "Set the name of your Skykid in your Sky profile!",
-							options: [
-								{
-									type: ApplicationCommandOptionType.String,
-									name: "name",
-									description: "Provide your in-game name.",
-									required: true,
-									maxLength: SKY_MAXIMUM_NAME_LENGTH,
-								},
-							],
-						},
-						{
-							type: ApplicationCommandOptionType.Subcommand,
-							name: "icon",
-							description: "Set the icon of your Skykid in your Sky profile!",
-							options: [
-								{
-									type: ApplicationCommandOptionType.String,
-									name: "icon",
-									description: "Provide a URL to show as your author icon.",
-									required: true,
-									minLength: SKY_MINIMUM_ASSET_URL_LENGTH,
-									maxLength: SKY_MAXIMUM_ASSET_URL_LENGTH,
-								},
-							],
-						},
-						{
-							type: ApplicationCommandOptionType.Subcommand,
-							name: "platform",
-							description: "Set the platform your Skykid plays on in your Sky profile!",
-						},
-						{
-							type: ApplicationCommandOptionType.Subcommand,
-							name: "seasons",
-							description: "Set the seasons your Skykid participated in for your Sky profile!",
-						},
-						{
-							type: ApplicationCommandOptionType.Subcommand,
-							name: "spirit",
-							description: "Set the favourite spirit of your Skykid in your Sky profile!",
-							options: [
-								{
-									type: ApplicationCommandOptionType.String,
-									name: "spirit",
-									description: "What's your favourite spirit?",
-									required: true,
-									autocomplete: true,
-								},
-							],
-						},
-						{
-							type: ApplicationCommandOptionType.Subcommand,
-							name: "spot",
-							description: "Set the favourite spot of your Skykid in your Sky profile!",
-							options: [
-								{
-									type: ApplicationCommandOptionType.String,
-									name: "spot",
-									description: "Where's your favourite spot to hang out?",
-									required: true,
-									minLength: SKY_MINIMUM_SPOT_LENGTH,
-									maxLength: SKY_MAXIMUM_SPOT_LENGTH,
-								},
-							],
-						},
-						{
-							type: ApplicationCommandOptionType.Subcommand,
-							name: "thumbnail",
-							description: "Set the thumbnail of your Skykid in your Sky profile!",
-							options: [
-								{
-									type: ApplicationCommandOptionType.String,
-									name: "thumbnail",
-									description: "Provide a URL to show as your thumbnail.",
-									required: true,
-									minLength: SKY_MINIMUM_ASSET_URL_LENGTH,
-									maxLength: SKY_MAXIMUM_ASSET_URL_LENGTH,
-								},
-							],
-						},
-						{
-							type: ApplicationCommandOptionType.Subcommand,
-							name: "winged-light",
-							description:
-								"Set the maximum number of winged light your Skykid could possibly have in your Sky profile!",
-							options: [
-								{
-									type: ApplicationCommandOptionType.Integer,
-									name: "winged-light",
-									description: "Provide the maximum number of winged light you can possibly have.",
-									required: true,
-									max_value: MAXIMUM_WINGED_LIGHT,
-									minValue: MINIMUM_WINGED_LIGHT,
-								},
-							],
-						},
-					],
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "show",
-					description: "Shows the Sky profile of someone.",
-					options: [
-						{
-							type: ApplicationCommandOptionType.User,
-							name: "user",
-							description: "The user whose Sky profile you wish to see.",
-						},
-						{
-							type: ApplicationCommandOptionType.Boolean,
-							name: "hide",
-							description: "Ensure only you can see the response. By default, the response is shown.",
-						},
-					],
-				},
-			],
-		};
-	}
-}
+})();

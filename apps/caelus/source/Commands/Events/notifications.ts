@@ -1,5 +1,4 @@
 import {
-	type ApplicationCommandData,
 	type ChatInputCommandInteraction,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
@@ -16,19 +15,78 @@ import Notification, {
 import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
-export default class implements ChatInputCommand {
-	public readonly name = "notifications";
+const notificationEventChoices = Object.values(NotificationEvent).map((notificationEvent) => ({
+	name: notificationEvent,
+	value: notificationEvent,
+}));
 
-	public readonly type = ApplicationCommandType.ChatInput;
+export default new (class implements ChatInputCommand {
+	public readonly data = {
+		name: "notifications",
+		description: "The command to set up notifications for events.",
+		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "overview",
+				description: "Shows the notifications in this server.",
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "setup",
+				description: "Sets up notifications in the server.",
+				options: [
+					{
+						type: ApplicationCommandOptionType.String,
+						name: "event",
+						description: "The event to set.",
+						required: true,
+						choices: notificationEventChoices,
+					},
+					{
+						type: ApplicationCommandOptionType.Channel,
+						name: "channel",
+						description: "The channel to send notifications in.",
+						required: true,
+						channelTypes: NOTIFICATION_CHANNEL_TYPES,
+					},
+					{
+						type: ApplicationCommandOptionType.Role,
+						name: "role",
+						description: "The role to mention.",
+						required: true,
+					},
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "unset",
+				description: "Unsets a notification in the server.",
+				options: [
+					{
+						type: ApplicationCommandOptionType.String,
+						name: "event",
+						description: "The event to unset.",
+						required: true,
+						choices: notificationEventChoices,
+					},
+				],
+			},
+		],
+		defaultMemberPermissions: PermissionFlagsBits.ManageGuild,
+		dmPermission: false,
+	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		if (!interaction.inCachedGuild()) {
+			const { name } = this.data;
+
 			void interaction.client.log({
-				content: `The \`/${this.name}\` command was used in an uncached guild, somehow.`,
+				content: `The \`/${name}\` command was used in an uncached guild, somehow.`,
 				error: interaction,
 			});
 
-			await interaction.reply({ content: `There is no \`/${this.name}\` command in Ba Sing Se.`, ephemeral: true });
+			await interaction.reply({ content: `There is no \`/${name}\` command in Ba Sing Se.`, ephemeral: true });
 			return;
 		}
 
@@ -202,67 +260,4 @@ export default class implements ChatInputCommand {
 
 		await notification.unset(interaction, data);
 	}
-
-	public get commandData(): ApplicationCommandData {
-		const choices = Object.values(NotificationEvent).map((notificationEvent) => ({
-			name: notificationEvent,
-			value: notificationEvent,
-		}));
-
-		return {
-			name: this.name,
-			description: "The command to set up notifications for events.",
-			type: this.type,
-			options: [
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "overview",
-					description: "Shows the notifications in this server.",
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "setup",
-					description: "Sets up notifications in the server.",
-					options: [
-						{
-							type: ApplicationCommandOptionType.String,
-							name: "event",
-							description: "The event to set.",
-							required: true,
-							choices,
-						},
-						{
-							type: ApplicationCommandOptionType.Channel,
-							name: "channel",
-							description: "The channel to send notifications in.",
-							required: true,
-							channelTypes: NOTIFICATION_CHANNEL_TYPES,
-						},
-						{
-							type: ApplicationCommandOptionType.Role,
-							name: "role",
-							description: "The role to mention.",
-							required: true,
-						},
-					],
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "unset",
-					description: "Unsets a notification in the server.",
-					options: [
-						{
-							type: ApplicationCommandOptionType.String,
-							name: "event",
-							description: "The event to unset.",
-							required: true,
-							choices,
-						},
-					],
-				},
-			],
-			defaultMemberPermissions: PermissionFlagsBits.ManageGuild,
-			dmPermission: false,
-		};
-	}
-}
+})();

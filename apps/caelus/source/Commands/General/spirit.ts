@@ -1,5 +1,4 @@
 import {
-	type ApplicationCommandData,
 	type AutocompleteInteraction,
 	type ChatInputCommandInteraction,
 	hyperlink,
@@ -22,10 +21,33 @@ import { Season } from "../../Utility/Constants.js";
 import { cannotUseCustomEmojis, resolveEmbedColor } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 
-export default class implements AutocompleteCommand {
-	public readonly name = "spirit";
-
-	public readonly type = ApplicationCommandType.ChatInput;
+export default new (class implements AutocompleteCommand {
+	public readonly data = {
+		name: "spirit",
+		description: "Returns the friendship tree of a spirit.",
+		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "search",
+				description: "Reveal information about a spirit.",
+				options: [
+					{
+						type: ApplicationCommandOptionType.String,
+						name: "query",
+						description: "The name, season, expression, stance, or call of the spirit.",
+						required: true,
+						autocomplete: true,
+					},
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "track",
+				description: "Track your spirit progress!",
+			},
+		],
+	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
@@ -150,33 +172,4 @@ export default class implements AutocompleteCommand {
 						.slice(0, 25),
 		);
 	}
-
-	public get commandData(): ApplicationCommandData {
-		return {
-			name: this.name,
-			description: "Returns the friendship tree of a spirit.",
-			type: this.type,
-			options: [
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "search",
-					description: "Reveal information about a spirit.",
-					options: [
-						{
-							type: ApplicationCommandOptionType.String,
-							name: "query",
-							description: "The name, season, expression, stance, or call of the spirit.",
-							required: true,
-							autocomplete: true,
-						},
-					],
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "track",
-					description: "Track your spirit progress!",
-				},
-			],
-		};
-	}
-}
+})();

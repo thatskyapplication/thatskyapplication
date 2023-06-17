@@ -1,21 +1,12 @@
-import type { ApplicationCommandData, UserContextMenuCommandInteraction } from "discord.js";
-import { ApplicationCommandType } from "discord.js";
-import type { UserContextMenuCommand } from "../index.js";
-import commands from "../index.js";
+import { type UserContextMenuCommandInteraction, ApplicationCommandType } from "discord.js";
+import COMMANDS, { type UserContextMenuCommand } from "../index.js";
 
-export default class implements UserContextMenuCommand {
-	public readonly name = "Gift Heart";
-
-	public readonly type = ApplicationCommandType.User;
-
+export default new (class implements UserContextMenuCommand {
+	public readonly data = {
+		name: "Gift Heart",
+		type: ApplicationCommandType.User,
+	} as const;
 	public async userContextMenu(interaction: UserContextMenuCommandInteraction) {
-		await commands.heart.gift(interaction);
+		await COMMANDS.heart.gift(interaction);
 	}
-
-	public get commandData(): ApplicationCommandData {
-		return {
-			name: this.name,
-			type: this.type,
-		};
-	}
-}
+})();

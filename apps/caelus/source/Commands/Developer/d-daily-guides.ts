@@ -1,5 +1,6 @@
-import type { ApplicationCommandData, ChatInputCommandInteraction, ModalSubmitInteraction } from "discord.js";
 import {
+	type ChatInputCommandInteraction,
+	type ModalSubmitInteraction,
 	codeBlock,
 	TextInputStyle,
 	ActionRowBuilder,
@@ -34,10 +35,73 @@ function isQuestNumber(questNumber: number): questNumber is QuestNumber {
 	return QUEST_NUMBER.includes(questNumber as QuestNumber);
 }
 
-export default class implements ChatInputCommand {
-	public readonly name = "d-daily-guides";
-
-	public readonly type = ApplicationCommandType.ChatInput;
+export default new (class implements ChatInputCommand {
+	public readonly data = {
+		name: "d-daily-guides",
+		description: "Developer-specific commands.",
+		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "parse",
+				description: "Manually parses daily guides and distributes.",
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "distribute",
+				description: "Manually distributes daily guides.",
+			},
+			{
+				type: ApplicationCommandOptionType.SubcommandGroup,
+				name: "set",
+				description: "Manually sets daily guides data.",
+				options: [
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: "quest",
+						description: "Set the quest data.",
+						options: [
+							{
+								type: ApplicationCommandOptionType.Integer,
+								name: "number",
+								description: "The quest number to set the data of.",
+								choices: QUEST_NUMBER.map((questNumber) => ({ name: String(questNumber), value: questNumber })),
+								required: true,
+							},
+						],
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: "seasonal-candles",
+						description: "Set the seasonal candles data.",
+						options: [
+							{
+								type: ApplicationCommandOptionType.String,
+								name: "url",
+								description: "The infographic URL of the seasonal candles.",
+								required: true,
+							},
+						],
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: "event-currency",
+						description: "Set the event currency data.",
+						options: [
+							{
+								type: ApplicationCommandOptionType.String,
+								name: "rotation",
+								description: "The rotation of the event currency.",
+								choices: DAILY_GUIDE_EVENT_ROTATION.map((choice) => ({ name: choice, value: choice })),
+								required: true,
+							},
+						],
+					},
+				],
+			},
+		],
+		defaultMemberPermissions: 0n,
+	} as const;
 
 	public readonly developer = true;
 
@@ -205,73 +269,4 @@ export default class implements ChatInputCommand {
 			)}`,
 		);
 	}
-
-	public get commandData(): ApplicationCommandData {
-		return {
-			name: this.name,
-			description: "Developer-specific commands.",
-			type: this.type,
-			options: [
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "parse",
-					description: "Manually parses daily guides and distributes.",
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "distribute",
-					description: "Manually distributes daily guides.",
-				},
-				{
-					type: ApplicationCommandOptionType.SubcommandGroup,
-					name: "set",
-					description: "Manually sets daily guides data.",
-					options: [
-						{
-							type: ApplicationCommandOptionType.Subcommand,
-							name: "quest",
-							description: "Set the quest data.",
-							options: [
-								{
-									type: ApplicationCommandOptionType.Integer,
-									name: "number",
-									description: "The quest number to set the data of.",
-									choices: QUEST_NUMBER.map((questNumber) => ({ name: String(questNumber), value: questNumber })),
-									required: true,
-								},
-							],
-						},
-						{
-							type: ApplicationCommandOptionType.Subcommand,
-							name: "seasonal-candles",
-							description: "Set the seasonal candles data.",
-							options: [
-								{
-									type: ApplicationCommandOptionType.String,
-									name: "url",
-									description: "The infographic URL of the seasonal candles.",
-									required: true,
-								},
-							],
-						},
-						{
-							type: ApplicationCommandOptionType.Subcommand,
-							name: "event-currency",
-							description: "Set the event currency data.",
-							options: [
-								{
-									type: ApplicationCommandOptionType.String,
-									name: "rotation",
-									description: "The rotation of the event currency.",
-									choices: DAILY_GUIDE_EVENT_ROTATION.map((choice) => ({ name: choice, value: choice })),
-									required: true,
-								},
-							],
-						},
-					],
-				},
-			],
-			defaultMemberPermissions: 0n,
-		};
-	}
-}
+})();

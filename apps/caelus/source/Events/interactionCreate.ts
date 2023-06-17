@@ -21,13 +21,6 @@ import {
 	SKY_PROFILE_PLATFORM_CUSTOM_ID,
 	SKY_PROFILE_SEASONS_CUSTOM_ID,
 } from "../Commands/General/sky-profile.js";
-import commands, {
-	isAutocompleteCommand,
-	isChatInputCommand,
-	isCommandName,
-	isMessageContextMenuCommand,
-	isUserContextMenuCommand,
-} from "../Commands/index.js";
 import Profile from "../Structures/Profile.js";
 import {
 	SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID,
@@ -54,6 +47,7 @@ import { User } from "../Utility/Constants.js";
 import { chatInputApplicationCommandMention, consoleLog, guildLink, isRealm, isSeason } from "../Utility/Utility.js";
 import { LogType } from "../index.js";
 import type { Event } from "./index.js";
+import COMMANDS, { resolveCommand } from "../Commands/index.js";
 
 const name = Events.InteractionCreate;
 const heartHistoryRegExp = new RegExp(`(${HEART_HISTORY_BACK}|${HEART_HISTORY_FORWARD})-(\\d+)`);
@@ -143,8 +137,9 @@ export const event: Event<typeof name> = {
 		if (interaction.isChatInputCommand()) {
 			void logCommand(interaction);
 			const { commandName } = interaction;
+			const command = resolveCommand(interaction);
 
-			if (!isCommandName(commandName)) {
+			if (!command) {
 				void interaction.client.log({
 					content: `Received an unknown chat input command interaction (\`${commandName}\`).`,
 				});
@@ -157,18 +152,8 @@ export const event: Event<typeof name> = {
 				return;
 			}
 
-			const command = commands[commandName];
-
-			if ("developer" in command && command.developer && interaction.user.id !== User.Jiralite) {
+			if (command.developer && interaction.user.id !== User.Jiralite) {
 				await interaction.reply("Disallowed.");
-				return;
-			}
-
-			if (!isChatInputCommand(command)) {
-				void interaction.client.log({
-					content: `Received an unknown chat input command interaction (\`${commandName}\`).`,
-				});
-
 				return;
 			}
 
@@ -184,8 +169,9 @@ export const event: Event<typeof name> = {
 		if (interaction.isUserContextMenuCommand()) {
 			void logCommand(interaction);
 			const { commandName } = interaction;
+			const command = resolveCommand(interaction);
 
-			if (!isCommandName(commandName)) {
+			if (!command) {
 				void interaction.client.log({
 					content: `Received an unknown user context menu command interaction (\`${commandName}\`).`,
 				});
@@ -198,18 +184,8 @@ export const event: Event<typeof name> = {
 				return;
 			}
 
-			const command = commands[commandName];
-
-			if ("developer" in command && command.developer && interaction.user.id !== User.Jiralite) {
+			if (command.developer && interaction.user.id !== User.Jiralite) {
 				await interaction.reply("Disallowed.");
-				return;
-			}
-
-			if (!isUserContextMenuCommand(command)) {
-				void interaction.client.log({
-					content: `Received an unknown user context menu command interaction (\`${commandName}\`).`,
-				});
-
 				return;
 			}
 
@@ -225,8 +201,9 @@ export const event: Event<typeof name> = {
 		if (interaction.isMessageContextMenuCommand()) {
 			void logCommand(interaction);
 			const { commandName } = interaction;
+			const command = resolveCommand(interaction);
 
-			if (!isCommandName(commandName)) {
+			if (!command) {
 				void interaction.client.log({
 					content: `Received an unknown message context menu command interaction (\`${commandName}\`).`,
 				});
@@ -239,18 +216,8 @@ export const event: Event<typeof name> = {
 				return;
 			}
 
-			const command = commands[commandName];
-
-			if ("developer" in command && command.developer && interaction.user.id !== User.Jiralite) {
+			if (command.developer && interaction.user.id !== User.Jiralite) {
 				await interaction.reply("Disallowed.");
-				return;
-			}
-
-			if (!isMessageContextMenuCommand(command)) {
-				void interaction.client.log({
-					content: `Received an unknown message context menu command interaction (\`${commandName}\`).`,
-				});
-
 				return;
 			}
 
@@ -292,7 +259,7 @@ export const event: Event<typeof name> = {
 				if (heartHistoryResult) {
 					const [, type, timestamp] = heartHistoryResult;
 
-					await commands.heart.heartHistory(interaction, {
+					await COMMANDS.heart.heartHistory(interaction, {
 						type: type === HEART_HISTORY_BACK ? HeartHistoryNavigationType.Back : HeartHistoryNavigationType.Forward,
 						timestamp: Number(timestamp!),
 					});
@@ -373,7 +340,7 @@ export const event: Event<typeof name> = {
 				}
 
 				if (customId === ROLES_SELECT_MENU_CUSTOM_ID) {
-					await commands.roles.apply(interaction);
+					await COMMANDS.roles.apply(interaction);
 					return;
 				}
 			} catch (error) {
@@ -395,22 +362,19 @@ export const event: Event<typeof name> = {
 
 		if (interaction.isAutocomplete()) {
 			const { commandName } = interaction;
+			const command = resolveCommand(interaction);
 
-			if (!isCommandName(commandName)) {
+			if (!command) {
 				void interaction.client.log({
-					content: `Received an unknown command autocomplete interaction (\`${interaction.commandName}\`).`,
+					content: `Received an unknown command autocomplete interaction (\`${commandName}\`).`,
 				});
 
+				void interaction.respond([]);
 				return;
 			}
 
-			const command = commands[commandName];
-
-			if (!isAutocompleteCommand(command)) {
-				void interaction.client.log({
-					content: `Received an unknown command via autocomplete (\`${interaction.commandName}\`).`,
-				});
-
+			if (command.developer && interaction.user.id !== User.Jiralite) {
+				await interaction.respond([]);
 				return;
 			}
 
@@ -433,22 +397,22 @@ export const event: Event<typeof name> = {
 				}
 
 				if (D_DAILY_GUIDES_QUEST_1_MODAL === customId) {
-					await commands["d-daily-guides"].parseQuest(interaction, 1);
+					await COMMANDS.ddailyguides.parseQuest(interaction, 1);
 					return;
 				}
 
 				if (D_DAILY_GUIDES_QUEST_2_MODAL === customId) {
-					await commands["d-daily-guides"].parseQuest(interaction, 2);
+					await COMMANDS.ddailyguides.parseQuest(interaction, 2);
 					return;
 				}
 
 				if (D_DAILY_GUIDES_QUEST_3_MODAL === customId) {
-					await commands["d-daily-guides"].parseQuest(interaction, 3);
+					await COMMANDS.ddailyguides.parseQuest(interaction, 3);
 					return;
 				}
 
 				if (D_DAILY_GUIDES_QUEST_4_MODAL === customId) {
-					await commands["d-daily-guides"].parseQuest(interaction, 4);
+					await COMMANDS.ddailyguides.parseQuest(interaction, 4);
 					return;
 				}
 			} catch (error) {

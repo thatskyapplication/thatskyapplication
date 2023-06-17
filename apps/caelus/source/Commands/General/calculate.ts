@@ -1,5 +1,11 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, EmbedBuilder, time, TimestampStyles } from "discord.js";
-import type { ApplicationCommandData, ChatInputCommandInteraction } from "discord.js";
+import {
+	type ChatInputCommandInteraction,
+	ApplicationCommandOptionType,
+	ApplicationCommandType,
+	EmbedBuilder,
+	time,
+	TimestampStyles,
+} from "discord.js";
 import DailyGuides from "../../Structures/DailyGuides.js";
 import {
 	Emoji,
@@ -27,10 +33,129 @@ import type { ChatInputCommand } from "../index.js";
 const doubleSeasonalLightEventStart = time(doubleSeasonalLightEventStartTimestamp.unix(), TimestampStyles.ShortDate);
 const doubleSeasonalLightEventEnd = time(doubleSeasonalLightEventEndTimestamp.unix(), TimestampStyles.ShortDate);
 
-export default class implements ChatInputCommand {
-	public readonly name = "calculate";
+const wingedLightInAreas = Object.values(WingedLightCount).reduce(
+	(wingedLightCount, wingedLight) => wingedLightCount + wingedLight,
+	0,
+);
 
-	public readonly type = ApplicationCommandType.ChatInput;
+const wingedLightAreaChoices = WINGED_LIGHT_AREAS.map((area) => ({ name: area, value: area }));
+
+export default new (class implements ChatInputCommand {
+	public readonly data = {
+		name: "calculate",
+		description: "The command containing various calculators.",
+		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "ascended-candles",
+				description: "Calculates the number of days it would take to achieve a number of ascended candles.",
+				options: [
+					{
+						type: ApplicationCommandOptionType.Integer,
+						name: "start",
+						description: "The starting number of ascended candles.",
+						minValue: 0,
+						required: true,
+					},
+					{
+						type: ApplicationCommandOptionType.Integer,
+						name: "goal",
+						description: "The desired number of ascended candles.",
+						maxValue: 10_000,
+						minValue: 1,
+						required: true,
+					},
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "seasonal-candles",
+				description: "Calculates the number of days it would take to achieve a number of seasonal candles.",
+				options: [
+					{
+						type: ApplicationCommandOptionType.Integer,
+						name: "start",
+						description: "The starting number of seasonal candles.",
+						minValue: 0,
+						maxValue: 1_000,
+						required: true,
+					},
+					{
+						type: ApplicationCommandOptionType.Integer,
+						name: "goal",
+						description: "The desired number of seasonal candles.",
+						minValue: 1,
+						maxValue: 1_000,
+						required: true,
+					},
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "winged-light",
+				description: "Calculates how much winged light one should possess.",
+				options: [
+					{
+						type: ApplicationCommandOptionType.Integer,
+						name: "wing-buffs",
+						description: "The number of wing buffs (total amount collected from ascended spirits).",
+						maxValue: MAXIMUM_WINGED_LIGHT - wingedLightInAreas,
+						minValue: 0,
+						required: true,
+					},
+					{
+						type: ApplicationCommandOptionType.String,
+						name: "area-1",
+						description: "The first area to calculate winged light from.",
+						choices: wingedLightAreaChoices,
+					},
+					{
+						type: ApplicationCommandOptionType.String,
+						name: "area-2",
+						description: "The second area to calculate winged light from.",
+						choices: wingedLightAreaChoices,
+					},
+					{
+						type: ApplicationCommandOptionType.String,
+						name: "area-3",
+						description: "The third area to calculate winged light from.",
+						choices: wingedLightAreaChoices,
+					},
+					{
+						type: ApplicationCommandOptionType.String,
+						name: "area-4",
+						description: "The fourth area to calculate winged light from.",
+						choices: wingedLightAreaChoices,
+					},
+					{
+						type: ApplicationCommandOptionType.String,
+						name: "area-5",
+						description: "The fifth area to calculate winged light from.",
+						choices: wingedLightAreaChoices,
+					},
+					{
+						type: ApplicationCommandOptionType.String,
+						name: "area-6",
+						description: "The sixth area to calculate winged light from.",
+						choices: wingedLightAreaChoices,
+					},
+					{
+						type: ApplicationCommandOptionType.String,
+						name: "area-7",
+						description: "The seventh area to calculate winged light from.",
+						choices: wingedLightAreaChoices,
+					},
+					{
+						type: ApplicationCommandOptionType.String,
+						name: "area-8",
+						description: "The eighth area to calculate winged light from.",
+						choices: wingedLightAreaChoices,
+					},
+				],
+			},
+		],
+	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
@@ -291,129 +416,4 @@ export default class implements ChatInputCommand {
 
 		await interaction.reply({ embeds: [embed] });
 	}
-
-	public get commandData(): ApplicationCommandData {
-		const wingedLightInAreas = Object.values(WingedLightCount).reduce(
-			(wingedLightCount, wingedLight) => wingedLightCount + wingedLight,
-			0,
-		);
-
-		const choices = WINGED_LIGHT_AREAS.map((area) => ({ name: area, value: area }));
-
-		return {
-			name: this.name,
-			description: "The command containing various calculators.",
-			type: this.type,
-			options: [
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "ascended-candles",
-					description: "Calculates the number of days it would take to achieve a number of ascended candles.",
-					options: [
-						{
-							type: ApplicationCommandOptionType.Integer,
-							name: "start",
-							description: "The starting number of ascended candles.",
-							minValue: 0,
-							required: true,
-						},
-						{
-							type: ApplicationCommandOptionType.Integer,
-							name: "goal",
-							description: "The desired number of ascended candles.",
-							maxValue: 10_000,
-							minValue: 1,
-							required: true,
-						},
-					],
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "seasonal-candles",
-					description: "Calculates the number of days it would take to achieve a number of seasonal candles.",
-					options: [
-						{
-							type: ApplicationCommandOptionType.Integer,
-							name: "start",
-							description: "The starting number of seasonal candles.",
-							minValue: 0,
-							maxValue: 1_000,
-							required: true,
-						},
-						{
-							type: ApplicationCommandOptionType.Integer,
-							name: "goal",
-							description: "The desired number of seasonal candles.",
-							minValue: 1,
-							maxValue: 1_000,
-							required: true,
-						},
-					],
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "winged-light",
-					description: "Calculates how much winged light one should possess.",
-					options: [
-						{
-							type: ApplicationCommandOptionType.Integer,
-							name: "wing-buffs",
-							description: "The number of wing buffs (total amount collected from ascended spirits).",
-							maxValue: MAXIMUM_WINGED_LIGHT - wingedLightInAreas,
-							minValue: 0,
-							required: true,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: "area-1",
-							description: "The first area to calculate winged light from.",
-							choices,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: "area-2",
-							description: "The second area to calculate winged light from.",
-							choices,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: "area-3",
-							description: "The third area to calculate winged light from.",
-							choices,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: "area-4",
-							description: "The fourth area to calculate winged light from.",
-							choices,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: "area-5",
-							description: "The fifth area to calculate winged light from.",
-							choices,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: "area-6",
-							description: "The sixth area to calculate winged light from.",
-							choices,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: "area-7",
-							description: "The seventh area to calculate winged light from.",
-							choices,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: "area-8",
-							description: "The eighth area to calculate winged light from.",
-							choices,
-						},
-					],
-				},
-			],
-		};
-	}
-}
+})();

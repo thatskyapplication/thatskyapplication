@@ -5,79 +5,78 @@ import {
 	type ChatInputCommandInteraction,
 	type MessageContextMenuCommandInteraction,
 	type UserContextMenuCommandInteraction,
-	ApplicationCommandType,
 } from "discord.js";
 
 // Developer
-import d_daily_guides from "./Developer/d-daily-guides.js";
+import ddailyguides from "./Developer/d-daily-guides.js";
 
 // Events
-import daily_guides from "./Events/daily-guides.js";
+import dailyguides from "./Events/daily-guides.js";
 import notifications from "./Events/notifications.js";
 import schedule from "./Events/schedule.js";
 
 // Fun
 import bonk from "./Fun/bonk.js";
 import fight from "./Fun/fight.js";
-import Gift_Heart from "./Fun/Gift Heart.js";
+import GiftHeart from "./Fun/Gift Heart.js";
 import heart from "./Fun/heart.js";
 import hug from "./Fun/hug.js";
-import Sky_Story from "./Fun/Sky Story.js";
+import SkyStory from "./Fun/Sky Story.js";
 
 // General
 import about from "./General/about.js";
 import calculate from "./General/calculate.js";
 import roles from "./General/roles.js";
-import Sky_Profile from "./General/Sky Profile.js";
-import sky_profile from "./General/sky-profile.js";
+import SkyProfile from "./General/Sky Profile.js";
+import skyprofile from "./General/sky-profile.js";
 import spirit from "./General/spirit.js";
 
-const commands = {
-	about: new about(),
-	bonk: new bonk(),
-	calculate: new calculate(),
-	"d-daily-guides": new d_daily_guides(),
-	"daily-guides": new daily_guides(),
-	fight: new fight(),
-	"Gift Heart": new Gift_Heart(),
-	heart: new heart(),
-	hug: new hug(),
-	notifications: new notifications(),
-	roles: new roles(),
-	schedule: new schedule(),
-	"Sky Profile": new Sky_Profile(),
-	"sky-profile": new sky_profile(),
-	"Sky Story": new Sky_Story(),
-	spirit: new spirit(),
+const COMMANDS = {
+	about,
+	bonk,
+	calculate,
+	ddailyguides,
+	dailyguides,
+	fight,
+	GiftHeart,
+	heart,
+	hug,
+	notifications,
+	roles,
+	schedule,
+	SkyProfile,
+	skyprofile,
+	SkyStory,
+	spirit,
 } as const;
 
-export type CommandName = keyof typeof commands;
+type Command = (typeof COMMANDS)[keyof typeof COMMANDS];
+export const commands = Object.values(COMMANDS);
 
-export function isCommandName(commandName: string): commandName is CommandName {
-	return commandName in commands;
-}
+export function resolveCommand(interaction: AutocompleteInteraction): (Command & AutocompleteCommand) | null;
+export function resolveCommand(interaction: ChatInputCommandInteraction): (Command & ChatInputCommand) | null;
 
-export function isChatInputCommand(command: BaseCommandData): command is ChatInputCommand {
-	return command.type === ApplicationCommandType.ChatInput;
-}
+export function resolveCommand(
+	interaction: UserContextMenuCommandInteraction,
+): (Command & UserContextMenuCommand) | null;
 
-export function isAutocompleteCommand(command: BaseCommandData): command is AutocompleteCommand {
-	return "autocomplete" in command;
-}
+export function resolveCommand(
+	interaction: MessageContextMenuCommandInteraction,
+): (Command & MessageContextMenuCommand) | null;
 
-export function isUserContextMenuCommand(command: BaseCommandData): command is UserContextMenuCommand {
-	return command.type === ApplicationCommandType.User;
-}
-
-export function isMessageContextMenuCommand(command: BaseCommandData): command is MessageContextMenuCommand {
-	return command.type === ApplicationCommandType.Message;
+export function resolveCommand({
+	commandName,
+}:
+	| AutocompleteInteraction
+	| ChatInputCommandInteraction
+	| UserContextMenuCommandInteraction
+	| MessageContextMenuCommandInteraction) {
+	return commands.find(({ data }) => data.name === commandName) ?? null;
 }
 
 interface BaseCommandData {
-	name: CommandName;
-	type: ApplicationCommandType;
-	developer?: boolean;
-	get commandData(): ApplicationCommandData;
+	readonly data: ApplicationCommandData;
+	readonly developer?: boolean;
 }
 
 export interface ChatInputCommand extends BaseCommandData {
@@ -96,4 +95,4 @@ export interface MessageContextMenuCommand extends BaseCommandData {
 	messageContextMenu(interaction: MessageContextMenuCommandInteraction): Promise<void>;
 }
 
-export default commands;
+export default COMMANDS;

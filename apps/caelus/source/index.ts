@@ -120,17 +120,17 @@ class Caelus extends Client {
 	private async deployCommands(
 		client: Client<true>,
 		fetchedCommands: Collection<Snowflake, ApplicationCommand>,
-		commandData: ApplicationCommandData[],
+		data: ApplicationCommandData[],
 		guild?: Guild,
 	) {
 		if (
-			fetchedCommands.size !== commandData.length ||
+			fetchedCommands.size !== data.length ||
 			fetchedCommands.some((fetchedCommand) => {
-				const localCommand = commandData.find(({ name }) => name === fetchedCommand.name);
+				const localCommand = data.find(({ name }) => name === fetchedCommand.name);
 				return !localCommand || !fetchedCommand.equals(localCommand, true);
 			})
 		) {
-			const applicationCommands = await (guild ?? client.application).commands.set(commandData);
+			const applicationCommands = await (guild ?? client.application).commands.set(data);
 
 			consoleLog(
 				applicationCommands.map(({ name, type }) => `Set ${name} as a ${type} application command.`).join("\n"),
@@ -152,9 +152,9 @@ class Caelus extends Client {
 
 			for (const command of Object.values(commands)) {
 				if ("developer" in command && command.developer) {
-					developerCommandData.push(command.commandData);
+					developerCommandData.push(command.data);
 				} else {
-					globalCommandData.push(command.commandData);
+					globalCommandData.push(command.data);
 				}
 			}
 
@@ -162,8 +162,8 @@ class Caelus extends Client {
 			await this.deployCommands(this, fetchedDeveloperCommands, developerCommandData, developerGuild);
 
 			// eslint-disable-next-line require-atomic-updates
-			commands["sky-profile"].id =
-				fetchedGlobalCommands.find(({ name }) => name === commands["sky-profile"].name)?.id ?? null;
+			commands.skyprofile.id =
+				fetchedGlobalCommands.find(({ name }) => name === commands.skyprofile.data.name)?.id ?? null;
 		} catch (error) {
 			void this.log({ content: "Failed to apply commands.", error });
 		}

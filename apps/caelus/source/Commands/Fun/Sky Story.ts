@@ -1,15 +1,12 @@
-import {
-	type ApplicationCommandData,
-	type MessageContextMenuCommandInteraction,
-	ApplicationCommandType,
-} from "discord.js";
+import { type MessageContextMenuCommandInteraction, ApplicationCommandType } from "discord.js";
 import { skyStory } from "../../OpenAIApi.js";
 import type { MessageContextMenuCommand } from "../index.js";
 
-export default class implements MessageContextMenuCommand {
-	public readonly name = "Sky Story";
-
-	public readonly type = ApplicationCommandType.Message;
+export default new (class implements MessageContextMenuCommand {
+	public readonly data = {
+		name: "Sky Story",
+		type: ApplicationCommandType.Message,
+	} as const;
 
 	public async messageContextMenu(interaction: MessageContextMenuCommandInteraction) {
 		const { targetMessage } = interaction;
@@ -34,11 +31,4 @@ export default class implements MessageContextMenuCommand {
 
 		await skyStory(interaction);
 	}
-
-	public get commandData(): ApplicationCommandData {
-		return {
-			name: this.name,
-			type: this.type,
-		};
-	}
-}
+})();

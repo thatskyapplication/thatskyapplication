@@ -1,5 +1,4 @@
 import {
-	type ApplicationCommandData,
 	type ChatInputCommandInteraction,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
@@ -12,19 +11,51 @@ import DailyGuidesDistribution, {
 import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
-export default class implements ChatInputCommand {
-	public readonly name = "daily-guides";
-
-	public readonly type = ApplicationCommandType.ChatInput;
+export default new (class implements ChatInputCommand {
+	public readonly data = {
+		name: "daily-guides",
+		description: "The command to set up daily guides in the server.",
+		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "overview",
+				description: "Shows the daily guides overview in this server.",
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "setup",
+				description: "Sets up the daily guides in the server.",
+				options: [
+					{
+						type: ApplicationCommandOptionType.Channel,
+						name: "channel",
+						description: "The channel to send daily guides in.",
+						required: true,
+						channelTypes: DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
+					},
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "unset",
+				description: "Unsets daily guides in the server.",
+			},
+		],
+		defaultMemberPermissions: PermissionFlagsBits.ManageGuild,
+		dmPermission: false,
+	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		if (!interaction.inCachedGuild()) {
+			const { name } = this.data;
+
 			void interaction.client.log({
-				content: `The \`/${this.name}\` command was used in an uncached guild, somehow.`,
+				content: `The \`/${name}\` command was used in an uncached guild, somehow.`,
 				error: interaction,
 			});
 
-			await interaction.reply({ content: `There is no \`/${this.name}\` command in Ba Sing Se.`, ephemeral: true });
+			await interaction.reply({ content: `There is no \`/${name}\` command in Ba Sing Se.`, ephemeral: true });
 			return;
 		}
 
@@ -79,40 +110,4 @@ export default class implements ChatInputCommand {
 	public async unset(interaction: ChatInputCommandInteraction<"cached">) {
 		await DailyGuidesDistribution.unset(interaction);
 	}
-
-	public get commandData(): ApplicationCommandData {
-		return {
-			name: this.name,
-			description: "The command to set up daily guides in the server.",
-			type: this.type,
-			options: [
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "overview",
-					description: "Shows the daily guides overview in this server.",
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "setup",
-					description: "Sets up the daily guides in the server.",
-					options: [
-						{
-							type: ApplicationCommandOptionType.Channel,
-							name: "channel",
-							description: "The channel to send daily guides in.",
-							required: true,
-							channelTypes: DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
-						},
-					],
-				},
-				{
-					type: ApplicationCommandOptionType.Subcommand,
-					name: "unset",
-					description: "Unsets daily guides in the server.",
-				},
-			],
-			defaultMemberPermissions: PermissionFlagsBits.ManageGuild,
-			dmPermission: false,
-		};
-	}
-}
+})();
