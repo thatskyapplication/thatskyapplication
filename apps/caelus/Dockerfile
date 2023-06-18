@@ -25,6 +25,7 @@ FROM node:lts-bullseye-slim
 ENV NODE_ENV production
 
 # Copy built files and production dependencies from builder stage.
+COPY --from=builder /monorepo/node_modules /monorepo/node_modules
 COPY --from=builder /monorepo/apps/caelus/dist /monorepo/apps/caelus/dist
 COPY --from=builder /monorepo/apps/caelus/node_modules /monorepo/apps/caelus/node_modules
 COPY --from=builder /monorepo/apps/caelus/package.json /monorepo/apps/caelus/package.json
