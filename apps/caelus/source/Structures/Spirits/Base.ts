@@ -455,6 +455,14 @@ export function resolveOfferToCurrency(cost: SpiritCost) {
 	return totalCost;
 }
 
+function wikiName(name: SpiritName) {
+	return (name.includes("(") ? name.slice(0, name.indexOf("(") - 1) : name).replaceAll(" ", "_");
+}
+
+function cdnName(name: SpiritName) {
+	return wikiName(name).replaceAll("'", "_").replaceAll("-", "_").toLowerCase();
+}
+
 abstract class PartialFriendshipTree {
 	public readonly offer: Collection<number, ItemsData> | null;
 
@@ -516,17 +524,7 @@ abstract class PartialFriendshipTree {
 			}, {}) ?? null;
 
 		this.maxItemsBit = this.offer?.reduce((bits, _, bit) => bit | bits, 0) ?? null;
-
-		this.imageURL = hasInfographic
-			? String(
-					new URL(
-						`spirits/${(name.includes("(") ? name.slice(0, name.indexOf("(") - 1) : name)
-							.replaceAll(" ", "_")
-							.toLowerCase()}/friendship_tree.webp`,
-						CDN_URL,
-					),
-			  )
-			: null;
+		this.imageURL = hasInfographic ? String(new URL(`spirits/${cdnName(name)}/friendship_tree.webp`, CDN_URL)) : null;
 	}
 }
 
@@ -557,6 +555,10 @@ abstract class ExpressiveSpirit {
 export abstract class BaseSpirit {
 	public readonly name: BaseSpiritData["name"];
 
+	public readonly wikiName: string;
+
+	public readonly cdnName: string;
+
 	public readonly type!: SpiritType;
 
 	public readonly realm: Realm | null;
@@ -567,6 +569,9 @@ export abstract class BaseSpirit {
 
 	public constructor(spirit: BaseSpiritData) {
 		this.name = spirit.name;
+		const { name } = this;
+		this.wikiName = wikiName(name);
+		this.cdnName = cdnName(name);
 		this.realm = spirit.realm ?? null;
 		this.keywords = spirit.keywords ?? [];
 		this.wikiURL = new URL(this.wikiName, WIKI_URL).toString();
@@ -586,15 +591,6 @@ export abstract class BaseSpirit {
 
 	public isGuideSpirit(): this is GuideSpirit {
 		return this.type === SPIRIT_TYPE.Guide;
-	}
-
-	public get cdnName() {
-		return this.wikiName.toLowerCase();
-	}
-
-	public get wikiName() {
-		const { name } = this;
-		return (name.includes("(") ? name.slice(0, name.indexOf("(") - 1) : name).replaceAll(" ", "_");
 	}
 }
 
