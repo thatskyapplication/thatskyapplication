@@ -552,7 +552,7 @@ abstract class ExpressiveSpirit {
 	}
 }
 
-export abstract class BaseSpirit {
+abstract class BaseSpirit {
 	public readonly name: BaseSpiritData["name"];
 
 	public readonly wikiName: string;
