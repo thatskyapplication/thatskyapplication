@@ -9,7 +9,6 @@ export default new StandardSpirit({
 	name: SpiritName.WhaleWhisperer,
 	call,
 	realm: Realm.HiddenForest,
-	hasInfographic: false,
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 0, { item: `${call} call`, cost: null })
 		.set(1 << 1, { item: "Blessing 1", cost: { candles: 1 } })

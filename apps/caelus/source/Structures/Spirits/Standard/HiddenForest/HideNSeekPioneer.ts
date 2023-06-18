@@ -9,7 +9,6 @@ export default new StandardSpirit({
 	name: SpiritName.HideNSeekPioneer,
 	expression,
 	realm: Realm.HiddenForest,
-	hasInfographic: false,
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 0, { item: expression, cost: null })
 		.set(1 << 1, { item: "Hair", cost: { hearts: 2 } })
