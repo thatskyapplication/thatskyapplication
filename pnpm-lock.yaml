@@ -1,5 +1,8 @@
 lockfileVersion: '6.0'
 
+overrides:
+  '@discordjs/rest': dev
+
 importers:
 
   .:
@@ -495,8 +498,8 @@ packages:
       discord-api-types: 0.37.45
     dev: false
 
-  /@discordjs/rest@1.7.1:
-    resolution: {integrity: sha512-Ofa9UqT0U45G/eX86cURQnX7gzOJLG2oC28VhIk/G6IliYgQF7jFByBJEykPSHE4MxPhqCleYvmsrtfKh1nYmQ==}
+  /@discordjs/rest@1.7.2-dev.1687003469-766be94.0:
+    resolution: {integrity: sha512-ovSCGizIh/NxEkYdnr75Lm3AyzWtTh1/JrmOZGY326PvhB8f1HbVlUNve8nmB1T12grCV4OfzrbCf69d+UUFeA==}
     engines: {node: '>=16.9.0'}
     dependencies:
       '@discordjs/collection': 1.5.1
@@ -519,7 +522,7 @@ packages:
     engines: {node: '>=16.9.0'}
     dependencies:
       '@discordjs/collection': 1.5.1
-      '@discordjs/rest': 1.7.1
+      '@discordjs/rest': 1.7.2-dev.1687003469-766be94.0
       '@discordjs/util': 0.3.1
       '@sapphire/async-queue': 1.5.0
       '@types/ws': 8.5.5
@@ -2687,7 +2690,7 @@ packages:
       '@discordjs/builders': 1.6.3
       '@discordjs/collection': 1.5.1
       '@discordjs/formatters': 0.3.1
-      '@discordjs/rest': 1.7.1
+      '@discordjs/rest': 1.7.2-dev.1687003469-766be94.0
       '@discordjs/util': 0.3.1
       '@discordjs/ws': 0.8.3
       '@sapphire/snowflake': 3.5.1
