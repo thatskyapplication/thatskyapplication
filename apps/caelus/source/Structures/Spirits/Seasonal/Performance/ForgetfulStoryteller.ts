@@ -3,7 +3,7 @@ import { Collection } from "discord.js";
 import { Realm, Season } from "../../../../Utility/Constants.js";
 import { type ItemsData, Expression, SeasonalSpirit, SpiritName } from "../../Base.js";
 
-const expression = Expression.Awww;
+const expression = Expression.Aww;
 
 export default new SeasonalSpirit({
 	name: SpiritName.ForgetfulStoryteller,

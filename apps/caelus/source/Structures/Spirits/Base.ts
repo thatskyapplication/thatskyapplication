@@ -310,7 +310,7 @@ export const enum Expression {
 	Ouch = "Ouch",
 	Anxious = "Anxious",
 	Headbob = "Headbob",
-	Awww = "Awww",
+	Aww = "Aww",
 	WavingLight = "Waving light",
 	RaiseTheRoof = "Raise the roof",
 	Twirl = "Twirl",
