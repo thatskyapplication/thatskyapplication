@@ -369,7 +369,7 @@ export default new (class DailyGuides {
 	}
 
 	public async parseTreasureCandles(attachments: Collection<Snowflake, Attachment>) {
-		const urls = [...attachments.values()].map(({ url }) => url);
+		const urls = attachments.map(({ url }) => url);
 
 		if (urls.length === 0) {
 			consoleLog("Failed to fetch the treasure candle locations.");
