@@ -21,6 +21,7 @@ import {
 	SKY_PROFILE_PLATFORM_CUSTOM_ID,
 	SKY_PROFILE_SEASONS_CUSTOM_ID,
 } from "../Commands/General/sky-profile.js";
+import COMMANDS, { resolveCommand } from "../Commands/index.js";
 import Profile from "../Structures/Profile.js";
 import {
 	SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID,
@@ -47,7 +48,6 @@ import { User } from "../Utility/Constants.js";
 import { chatInputApplicationCommandMention, consoleLog, guildLink, isRealm, isSeason } from "../Utility/Utility.js";
 import { LogType } from "../index.js";
 import type { Event } from "./index.js";
-import COMMANDS, { resolveCommand } from "../Commands/index.js";
 
 const name = Events.InteractionCreate;
 const heartHistoryRegExp = new RegExp(`(${HEART_HISTORY_BACK}|${HEART_HISTORY_FORWARD})-(\\d+)`);
