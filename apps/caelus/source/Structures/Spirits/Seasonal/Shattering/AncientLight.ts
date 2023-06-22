@@ -11,7 +11,7 @@ export default [
 			.set(1 << 0, { item: "Hair", cost: { seasonalCandles: 35 } })
 			.set(1 << 1, { item: "Blessing 1", cost: null })
 			.set(1 << 2, { item: "Blessing 2", cost: { seasonalCandles: 16 } })
-			.set(1 << 3, { item: "Mask", cost: null })
+			.set(1 << 3, { item: "Hair accessory", cost: null })
 			.set(1 << 4, { item: "Cape", cost: { seasonalCandles: 42 } })
 			.set(1 << 5, { item: "Blessing 3", cost: null })
 			.set(1 << 6, { item: "Seasonal heart", cost: { seasonalCandles: 3 } }),
