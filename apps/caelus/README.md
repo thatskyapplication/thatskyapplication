@@ -36,4 +36,4 @@ A new child of light may be added as part of a season, event, a new map irreleva
 1. The maximum winged light count should increase.
 2. Since this is not a wing buff, the number of winged light found in realm it is in also needs to be increased.
 
-[thatskygame]: https://thatskygame.com/
+[thatskygame]: https://thatskygame.com
