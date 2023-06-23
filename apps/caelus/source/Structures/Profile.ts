@@ -1,4 +1,7 @@
+import { URL } from "node:url";
+import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
+	type Attachment,
 	type ChatInputCommandInteraction,
 	type EmbedAuthorOptions,
 	type ModalSubmitInteraction,
@@ -8,9 +11,12 @@ import {
 	StringSelectMenuInteraction,
 	chatInputApplicationCommandMention,
 } from "discord.js";
+import hasha from "hasha";
+import sharp from "sharp";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import commands from "../Commands/index.js";
-import { MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
+import S3Client from "../S3Client.js";
+import { CDN_BUCKET, CDN_URL, MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
 import { cannotUseCustomEmojis, resolveEmbedColor } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
@@ -61,6 +67,17 @@ interface ProfileSetData {
 }
 
 type ProfilePatchData = Omit<ProfilePacket, "id" | "user_id">;
+
+export const enum AssetType {
+	Icon,
+	Thumbnail,
+}
+
+const ANIMATED_HASH_PREFIX = "a_" as const;
+
+function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${string}` {
+	return hash.startsWith(ANIMATED_HASH_PREFIX);
+}
 
 export default class Profile {
 	public readonly id: ProfileData["id"];
@@ -153,6 +170,8 @@ export default class Profile {
 				...baseReplyOptions,
 				components: [],
 			});
+		} else if (interaction.deferred) {
+			await interaction.editReply(baseReplyOptions);
 		} else {
 			await interaction.reply({
 				...baseReplyOptions,
@@ -161,6 +180,60 @@ export default class Profile {
 		}
 
 		if (unfilled) await interaction.followUp({ content: unfilled, ephemeral: true });
+	}
+
+	public static async setAsset(
+		interaction: ChatInputCommandInteraction,
+		{ contentType, url }: Attachment,
+		type: AssetType,
+	) {
+		await interaction.deferReply({ ephemeral: true });
+		const { user } = interaction;
+		const profile = await Profile.fetch(user.id).catch(() => null);
+
+		// Delete the old asset if it exists.
+		if (profile) {
+			if (profile.icon && type === AssetType.Icon) {
+				await S3Client.send(
+					new DeleteObjectCommand({
+						Bucket: CDN_BUCKET,
+						Key: Profile.iconRoute(user.id, profile.icon),
+					}),
+				);
+			}
+
+			if (profile.thumbnail && type === AssetType.Thumbnail) {
+				await S3Client.send(
+					new DeleteObjectCommand({
+						Bucket: CDN_BUCKET,
+						Key: Profile.thumbnailRoute(user.id, profile.thumbnail),
+					}),
+				);
+			}
+		}
+
+		const gif = contentType === "image/gif";
+		const assetBuffer = sharp(await (await fetch(url)).arrayBuffer(), { animated: true });
+		let buffer;
+
+		if (gif) {
+			buffer = await assetBuffer.gif().toBuffer();
+		} else {
+			buffer = await assetBuffer.webp().toBuffer();
+		}
+
+		let hash = await hasha.async(buffer, { algorithm: "md5" });
+		if (gif) hash = `${ANIMATED_HASH_PREFIX}${hash}`;
+
+		await S3Client.send(
+			new PutObjectCommand({
+				Bucket: CDN_BUCKET,
+				Key: type === AssetType.Icon ? Profile.iconRoute(user.id, hash) : Profile.thumbnailRoute(user.id, hash),
+				Body: buffer,
+			}),
+		);
+
+		await Profile.set(interaction, { [type === AssetType.Icon ? "icon" : "thumbnail"]: hash });
 	}
 
 	public static async setDescription(interaction: ModalSubmitInteraction) {
@@ -174,6 +247,14 @@ export default class Profile {
 
 	public static async setPlatform(interaction: StringSelectMenuInteraction) {
 		return this.set(interaction, { platform: interaction.values.reduce((bit, value) => bit | Number(value), 0) });
+	}
+
+	public static iconRoute(userId: Snowflake, hash: string) {
+		return `sky_profiles/icons/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
+	}
+
+	public static thumbnailRoute(userId: Snowflake, hash: string) {
+		return `sky_profiles/thumbnails/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
 	}
 
 	public async embed(
@@ -235,7 +316,7 @@ export default class Profile {
 		if (descriptions.length > 0) embed.setDescription(descriptions.join("\n"));
 
 		if (thumbnail) {
-			embed.setThumbnail(thumbnail);
+			embed.setThumbnail(String(new URL(Profile.thumbnailRoute(this.userId, thumbnail), CDN_URL)));
 		} else if (commandId) {
 			unfilled.push(
 				`- Use ${chatInputApplicationCommandMention(
@@ -251,7 +332,7 @@ export default class Profile {
 			const embedAuthorOptions: EmbedAuthorOptions = { name };
 
 			if (icon) {
-				embedAuthorOptions.iconURL = icon;
+				embedAuthorOptions.iconURL = String(new URL(Profile.iconRoute(this.userId, icon), CDN_URL));
 			} else if (commandId) {
 				unfilled.push(
 					`- Use ${chatInputApplicationCommandMention(

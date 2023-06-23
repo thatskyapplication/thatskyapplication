@@ -16,6 +16,7 @@ export const EVENT_CURRENCY_INFOGRAPHIC_URL =
 	"https://cdn.discordapp.com/attachments/739444631963435008/1114345385696170085/DaysOfColorTicketsRotations.jpg" as const;
 
 export const production = process.env.NODE_ENV === "production";
+export const CDN_BUCKET = "thatskyapplication" as const;
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const CDN_URL = "https://cdn.thatskyapplication.com" as const;

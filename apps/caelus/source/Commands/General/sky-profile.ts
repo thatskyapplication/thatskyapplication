@@ -1,5 +1,6 @@
 import {
 	type ApplicationCommandData,
+	type Attachment,
 	type AutocompleteInteraction,
 	type ChatInputCommandInteraction,
 	type Snowflake,
@@ -15,7 +16,7 @@ import {
 	UserContextMenuCommandInteraction,
 } from "discord.js";
 import { PlatformFlagsToString, resolvePlatformToEmoji } from "../../Structures/Platforms.js";
-import Profile from "../../Structures/Profile.js";
+import Profile, { AssetType } from "../../Structures/Profile.js";
 import { SeasonFlagsToString } from "../../Structures/Seasons.js";
 import Spirits from "../../Structures/Spirits/index.js";
 import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
@@ -28,8 +29,7 @@ export const SKY_PROFILE_PLATFORM_CUSTOM_ID = "SKY_PROFILE_PLATFORM_CUSTOM_ID" a
 export const SKY_PROFILE_SEASONS_CUSTOM_ID = "SKY_PROFILE_SEASONS_CUSTOM_ID" as const;
 const SKY_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
 const SKY_MAXIMUM_NAME_LENGTH = 16 as const;
-const SKY_MINIMUM_ASSET_URL_LENGTH = 15 as const;
-const SKY_MAXIMUM_ASSET_URL_LENGTH = 200 as const;
+const SKY_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
 const SKY_MINIMUM_COUNTRY_LENGTH = 2 as const;
 const SKY_MAXIMUM_COUNTRY_LENGTH = 60 as const;
 const SKY_MINIMUM_SPOT_LENGTH = 2 as const;
@@ -86,12 +86,10 @@ export default new (class implements AutocompleteCommand {
 						description: "Set the icon of your Skykid in your Sky profile!",
 						options: [
 							{
-								type: ApplicationCommandOptionType.String,
+								type: ApplicationCommandOptionType.Attachment,
 								name: "icon",
-								description: "Provide a URL to show as your author icon.",
+								description: "Upload your icon.",
 								required: true,
-								minLength: SKY_MINIMUM_ASSET_URL_LENGTH,
-								maxLength: SKY_MAXIMUM_ASSET_URL_LENGTH,
 							},
 						],
 					},
@@ -140,12 +138,10 @@ export default new (class implements AutocompleteCommand {
 						description: "Set the thumbnail of your Skykid in your Sky profile!",
 						options: [
 							{
-								type: ApplicationCommandOptionType.String,
+								type: ApplicationCommandOptionType.Attachment,
 								name: "thumbnail",
-								description: "Provide a URL to show as your thumbnail.",
+								description: "Upload your thumbnail.",
 								required: true,
-								minLength: SKY_MINIMUM_ASSET_URL_LENGTH,
-								maxLength: SKY_MAXIMUM_ASSET_URL_LENGTH,
 							},
 						],
 					},
@@ -264,10 +260,10 @@ export default new (class implements AutocompleteCommand {
 		await interaction.showModal(modal);
 	}
 
-	private async validateAsset(interaction: ChatInputCommandInteraction, url: string) {
-		if (!url.startsWith("https://") || !ALLOWED_EXTENSIONS.some((extension) => url.endsWith(`.${extension}`))) {
+	private async validateAttachment(interaction: ChatInputCommandInteraction, { size, url }: Attachment) {
+		if (size > SKY_MAXIMUM_ASSET_SIZE || !ALLOWED_EXTENSIONS.some((extension) => url.endsWith(`.${extension}`))) {
 			await interaction.reply({
-				content: `Please use a valid URL! It must be in any of the following formats:\n${ALLOWED_EXTENSIONS.map(
+				content: `Please upload a valid attachment! It must be less than 5 megabytes and in any of the following formats:\n${ALLOWED_EXTENSIONS.map(
 					(extension) => `- .${extension}`,
 				).join("\n")}`,
 				ephemeral: true,
@@ -280,9 +276,9 @@ export default new (class implements AutocompleteCommand {
 	}
 
 	public async setIcon(interaction: ChatInputCommandInteraction) {
-		const icon = interaction.options.getString("icon", true);
-		if (!(await this.validateAsset(interaction, icon))) return;
-		await Profile.set(interaction, { icon });
+		const icon = interaction.options.getAttachment("icon", true);
+		if (!(await this.validateAttachment(interaction, icon))) return;
+		await Profile.setAsset(interaction, icon, AssetType.Icon);
 	}
 
 	public async setName(interaction: ChatInputCommandInteraction) {
@@ -366,9 +362,9 @@ export default new (class implements AutocompleteCommand {
 	}
 
 	public async setThumbnail(interaction: ChatInputCommandInteraction) {
-		const thumbnail = interaction.options.getString("thumbnail", true);
-		if (!(await this.validateAsset(interaction, thumbnail))) return;
-		await Profile.set(interaction, { thumbnail });
+		const thumbnail = interaction.options.getAttachment("thumbnail", true);
+		if (!(await this.validateAttachment(interaction, thumbnail))) return;
+		await Profile.setAsset(interaction, thumbnail, AssetType.Thumbnail);
 	}
 
 	public async setWingedLight(interaction: ChatInputCommandInteraction) {
