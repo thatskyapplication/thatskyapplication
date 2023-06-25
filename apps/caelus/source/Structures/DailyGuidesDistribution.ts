@@ -15,7 +15,7 @@ import {
 	time,
 	formatEmoji,
 } from "discord.js";
-import { Emoji, eventEndDate } from "../Utility/Constants.js";
+import { Emoji, eventEndDate, seasonEndDate, seasonStartDate } from "../Utility/Constants.js";
 import {
 	consoleLog,
 	resolveCurrencyEmoji,
@@ -23,6 +23,7 @@ import {
 	treasureCandleRealm,
 	eventRotationLetter,
 	resolveEmbedColor,
+	seasonalCandlesRotation,
 } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides from "./DailyGuides.js";
@@ -245,7 +246,7 @@ export default class DailyGuidesDistribution {
 	}
 
 	public static embed(embedColor: number) {
-		const { quest1, quest2, quest3, quest4, treasureCandles, seasonalCandles } = DailyGuides;
+		const { quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
 		const date = todayDate();
 		const embed = new EmbedBuilder().setTitle(date.format("DD/MM/YYYY")).setColor(embedColor);
 
@@ -268,7 +269,14 @@ export default class DailyGuidesDistribution {
 			});
 		}
 
-		if (seasonalCandles) embed.addFields({ name: "Seasonal Candles", value: hyperlink("Image", seasonalCandles) });
+		if (
+			(date.isAfter(seasonStartDate) || date.isSame(seasonStartDate)) &&
+			(date.isBefore(seasonEndDate) || date.isSame(seasonEndDate))
+		) {
+			const { rotation, url } = seasonalCandlesRotation();
+			embed.addFields({ name: "Seasonal Candles", value: hyperlink(`Rotation ${rotation}`, url) });
+		}
+
 		const eventCurrencyFieldData = this.eventCurrencyFieldData();
 		if (eventCurrencyFieldData) embed.addFields(eventCurrencyFieldData);
 		embed.addFields(this.shardEruptionFieldData());
