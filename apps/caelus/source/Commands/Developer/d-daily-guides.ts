@@ -73,19 +73,6 @@ export default new (class implements ChatInputCommand {
 					},
 					{
 						type: ApplicationCommandOptionType.Subcommand,
-						name: "seasonal-candles",
-						description: "Set the seasonal candles data.",
-						options: [
-							{
-								type: ApplicationCommandOptionType.String,
-								name: "url",
-								description: "The infographic URL of the seasonal candles.",
-								required: true,
-							},
-						],
-					},
-					{
-						type: ApplicationCommandOptionType.Subcommand,
 						name: "event-currency",
 						description: "Set the event currency data.",
 						options: [
@@ -137,9 +124,6 @@ export default new (class implements ChatInputCommand {
 		switch (interaction.options.getSubcommand()) {
 			case "quest":
 				await this.setQuest(interaction);
-				break;
-			case "seasonal-candles":
-				await this.seasonalCandles(interaction);
 				break;
 			case "event-currency":
 				await this.eventCurrency(interaction);
@@ -243,18 +227,6 @@ export default new (class implements ChatInputCommand {
 			`Successfully updated quest ${number}.\n${codeBlock(
 				"JSON",
 				JSON.stringify(DailyGuides[`quest${number}`], null, 2),
-			)}`,
-		);
-	}
-
-	public async seasonalCandles(interaction: ChatInputCommandInteraction) {
-		const url = interaction.options.getString("url", true);
-		await DailyGuides.updateSeasonalCandles(url);
-
-		await interaction.reply(
-			`Successfully updated the seasonal candles.\n${codeBlock(
-				"JSON",
-				JSON.stringify(DailyGuides.seasonalCandles, null, 2),
 			)}`,
 		);
 	}

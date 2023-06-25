@@ -32,10 +32,13 @@ export const SEASONAL_CANDLES_PER_DAY = 5 as const;
 export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
 export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
 export const MAX_HUG_NO = 17 as const;
+export const seasonStartDate = dayjs.tz("2023-04-17 00:00:00", "America/Los_Angeles"); // Season of Passage.
+export const seasonEndDate = dayjs.tz("2023-07-02 00:00:00", "America/Los_Angeles"); // Season of Passage.
 export const doubleSeasonalLightEventStartTimestamp = dayjs.tz("2023-05-15 00:00:00", "America/Los_Angeles");
 export const doubleSeasonalLightEventEndTimestamp = dayjs.tz("2023-05-21 00:00:00", "America/Los_Angeles");
 export const initialTravellingSpiritSeek = dayjs.tz("2023-05-25 00:00:00", "America/Los_Angeles"); // #88 Grateful Shell Collector.
 export const initialTreasureCandleRealmSeek = dayjs.tz("2023-01-03 00:00:00", "America/Los_Angeles"); // Daylight Prairie.
+export const seasonalCandlesRotationStartDate = dayjs.tz("2023-06-05 00:00:00", "America/Los_Angeles"); // Valley of Triumph (2).
 export const initialEventCurrencySeek = dayjs.tz("2023-06-01 00:00:00", "America/Los_Angeles"); // Rotation A.
 export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
 export const eventEndDate = dayjs.tz("2023-06-14 00:00:00", "America/Los_Angeles"); // Days of Color (2023).
@@ -162,6 +165,49 @@ export const VALID_REALM = [
 ] as const;
 
 export type ValidRealm = (typeof VALID_REALM)[number];
+
+export const SEASONAL_CANDLES_ROTATION = [
+	{
+		rotation: 2,
+		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b4/Valley-of-Triump-Seasonal-Candles-locations-Pattern-A.png/revision/latest",
+	},
+	{
+		rotation: 1,
+		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/56/Golden-Wasteland-Seasonal-candles-Locations-Pattern-A.png/revision/latest",
+	},
+	{
+		rotation: 1,
+		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/9d/Vault-of-knowledge-Seasonal-candles-Locations-Pattern-A.png/revision/latest",
+	},
+	{
+		rotation: 2,
+		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/5f/Daylight-Prairie-Seasonal-Candles-locations-Pattern-A.png/revision/latest",
+	},
+	{
+		rotation: 1,
+		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d8/Hidden-Forest-Seasonal-Candles-locations-Pattern-A.png/revision/latest",
+	},
+	{
+		rotation: 1,
+		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b4/Valley-of-Triump-Seasonal-Candles-locations-Pattern-A.png/revision/latest",
+	},
+	{
+		rotation: 2,
+		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/56/Golden-Wasteland-Seasonal-candles-Locations-Pattern-A.png/revision/latest",
+	},
+	{
+		rotation: 2,
+		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/9d/Vault-of-knowledge-Seasonal-candles-Locations-Pattern-A.png/revision/latest",
+	},
+	{
+		rotation: 1,
+		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/5f/Daylight-Prairie-Seasonal-Candles-locations-Pattern-A.png/revision/latest",
+	},
+	{
+		rotation: 2,
+		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d8/Hidden-Forest-Seasonal-Candles-locations-Pattern-A.png/revision/latest",
+	},
+] as const satisfies Readonly<{ rotation: 1 | 2; url: string }[]>;
 
 export const WingedLightCount = {
 	IslesOfDawn: 9,

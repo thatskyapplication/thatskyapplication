@@ -23,7 +23,6 @@ export interface DailyGuidesPacket {
 	quest3: DailyGuideQuest | null;
 	quest4: DailyGuideQuest | null;
 	treasure_candles: string[] | null;
-	seasonal_candles: string | null;
 	event_currency: DailyGuideEvent;
 }
 
@@ -33,7 +32,6 @@ interface DailyGuidesData {
 	quest3: DailyGuidesPacket["quest3"];
 	quest4: DailyGuidesPacket["quest4"];
 	treasureCandles: DailyGuidesPacket["treasure_candles"];
-	seasonalCandles: DailyGuidesPacket["seasonal_candles"];
 	eventCurrency: DailyGuidesPacket["event_currency"];
 }
 
@@ -134,8 +132,6 @@ export default new (class DailyGuides {
 
 	public treasureCandles: DailyGuidesData["treasureCandles"] = null;
 
-	public seasonalCandles: DailyGuidesData["seasonalCandles"] = null;
-
 	public eventCurrency: DailyGuidesData["eventCurrency"] = { rotation: null, url: EVENT_CURRENCY_INFOGRAPHIC_URL };
 
 	public shardEruption(this: void, daysOffset = 0) {
@@ -172,7 +168,6 @@ export default new (class DailyGuides {
 			quest3: null,
 			quest4: null,
 			treasure_candles: null,
-			seasonal_candles: null,
 			event_currency: { rotation: null, url: EVENT_CURRENCY_INFOGRAPHIC_URL },
 		};
 
@@ -188,7 +183,6 @@ export default new (class DailyGuides {
 		if ("quest3" in data) this.quest3 = data.quest3;
 		if ("quest4" in data) this.quest4 = data.quest4;
 		if ("treasure_candles" in data) this.treasureCandles = data.treasure_candles;
-		if ("seasonal_candles" in data) this.seasonalCandles = data.seasonal_candles;
 		if ("event_currency" in data) this.eventCurrency = data.event_currency;
 	}
 
@@ -211,12 +205,14 @@ export default new (class DailyGuides {
 
 		if (
 			(transformedContent.includes("DAILY QUEST") && transformedContent.length <= 20) ||
+			transformedContent.includes("SEASONAL CANDLE") ||
 			transformedContent.includes("SHATTERING SHARD SUMMARY") ||
 			transformedContent.includes("DAYS OF COLOUR 2023")
 		) {
 			/*
 			 * Parsng for the following are redundant:
 			 * - The general photo of quests (not needed)
+			 * - The seasonal candles infographic (automated)
 			 * - The shard eruption infographic (automated)
 			 * - The Days of Color event currency rotation (we have a trend for this already and they were late sending this)
 			 */
@@ -232,8 +228,6 @@ export default new (class DailyGuides {
 			await this.parseQuests(content, attachments);
 		} else if (transformedContent.includes("TREASURE CANDLE")) {
 			await this.parseTreasureCandles(attachments);
-		} else if (transformedContent.includes("SEASONAL CANDLE")) {
-			await this.parseSeasonalCandles(attachments);
 		} else {
 			consoleLog("Intercepted an unparsed message.");
 			this.queue.shift();
@@ -384,25 +378,6 @@ export default new (class DailyGuides {
 		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
 			// @ts-expect-error Arrays must be stringified. TypeScript does not like this.
 			.update({ treasure_candles: JSON.stringify(urls) })
-			.returning("*");
-
-		this.patch(dailyGuidesPacket!);
-	}
-
-	public async parseSeasonalCandles(attachments: Collection<Snowflake, Attachment>) {
-		const url = attachments.first()?.url;
-
-		if (!url) {
-			consoleLog("Failed to fetch the seasonal candle locations.");
-			return;
-		}
-
-		await this.updateSeasonalCandles(url);
-	}
-
-	public async updateSeasonalCandles(url: string) {
-		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-			.update({ seasonal_candles: url })
 			.returning("*");
 
 		this.patch(dailyGuidesPacket!);
