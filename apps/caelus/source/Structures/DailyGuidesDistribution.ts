@@ -15,7 +15,14 @@ import {
 	time,
 	formatEmoji,
 } from "discord.js";
-import { Emoji, eventEndDate, seasonEndDate, seasonStartDate } from "../Utility/Constants.js";
+import {
+	Emoji,
+	doubleSeasonalLightEventEndTimestamp,
+	doubleSeasonalLightEventStartTimestamp,
+	eventEndDate,
+	seasonEndDate,
+	seasonStartDate,
+} from "../Utility/Constants.js";
 import {
 	consoleLog,
 	resolveCurrencyEmoji,
@@ -274,7 +281,16 @@ export default class DailyGuidesDistribution {
 			(date.isBefore(seasonEndDate) || date.isSame(seasonEndDate))
 		) {
 			const { rotation, url } = seasonalCandlesRotation();
-			embed.addFields({ name: "Seasonal Candles", value: hyperlink(`Rotation ${rotation}`, url) });
+			let rotationNumber = String(rotation);
+
+			if (
+				(date.isAfter(doubleSeasonalLightEventStartTimestamp) || date.isSame(doubleSeasonalLightEventStartTimestamp)) &&
+				(date.isBefore(doubleSeasonalLightEventEndTimestamp) || date.isSame(doubleSeasonalLightEventEndTimestamp))
+			) {
+				rotationNumber = "1 & 2";
+			}
+
+			embed.addFields({ name: "Seasonal Candles", value: hyperlink(`Rotation ${rotationNumber}`, url) });
 		}
 
 		const eventCurrencyFieldData = this.eventCurrencyFieldData();
