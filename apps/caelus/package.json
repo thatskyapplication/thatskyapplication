@@ -3,6 +3,7 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
+		"test": "tsc --noEmit",
 		"build": "tsup",
 		"format": "prettier --write . && eslint --fix .",
 		"lint": "prettier --check . && eslint .",
