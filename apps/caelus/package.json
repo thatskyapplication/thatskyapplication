@@ -10,24 +10,24 @@
 		"start": "node --enable-source-maps --require dotenv/config dist/index.js"
 	},
 	"dependencies": {
-		"@aws-sdk/client-s3": "^3.358.0",
+		"@aws-sdk/client-s3": "^3.360.0",
 		"@sapphire/async-queue": "^1.5.0",
-		"dayjs": "^1.11.7",
+		"dayjs": "^1.11.8",
 		"discord.js": "14.11.1-dev.1687003429-766be94.0",
-		"dotenv": "^16.0.3",
+		"dotenv": "^16.3.1",
 		"hasha": "^5.2.2",
 		"knex": "^2.4.2",
-		"openai": "^3.2.1",
-		"pg": "^8.10.0",
+		"openai": "^3.3.0",
+		"pg": "^8.11.1",
 		"sharp": "^0.32.1",
 		"ts-mixer": "^6.0.3",
 		"undici": "^5.22.1"
 	},
 	"devDependencies": {
-		"eslint": "^8.40.0",
+		"eslint": "^8.43.0",
 		"eslint-config-neon": "^0.1.47",
 		"prettier": "^2.8.8",
-		"tsup": "^6.7.0",
-		"typescript": "^5.0.4"
+		"tsup": "^7.1.0",
+		"typescript": "^5.1.3"
 	}
 }

@@ -12,6 +12,8 @@ if (!OPENAI_API_KEY) throw new Error("No OpenAI API key.");
 const configuration = new Configuration({ apiKey: OPENAI_API_KEY });
 const openAIApi = new OpenAIApi(configuration);
 
+const AI_DEFAULT_RESPONSE = "Oh my gosh! Could you be the... the legendary Sky kid?" as const;
+
 function parseAIName(input: string) {
 	const cleaned = input.replaceAll(/[^\w-]/g, "");
 	return cleaned.length >= 1 ? cleaned : null;
@@ -52,7 +54,7 @@ export async function messageCreateResponse(message: Message<true>) {
 
 		await message.reply({
 			allowedMentions: { parse: ["users"], repliedUser: false },
-			content: completion.data.choices[0]!.message!.content,
+			content: completion.data.choices[0]!.message!.content ?? AI_DEFAULT_RESPONSE,
 			failIfNotExists: false,
 		});
 	} catch (error) {
@@ -96,8 +98,8 @@ export async function skyStory(interaction: MessageContextMenuCommandInteraction
 		return;
 	}
 
-	const { content } = completion.data.choices[0]!.message!;
-	const responses = content.match(/.{1,2000}/gs);
+	const response = completion.data.choices[0]!.message!.content ?? AI_DEFAULT_RESPONSE;
+	const responses = response.match(/.{1,2000}/gs);
 
 	if (!responses) {
 		await interaction.reply({
