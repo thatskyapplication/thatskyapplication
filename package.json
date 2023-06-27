@@ -11,7 +11,7 @@
 	"scripts": {
 		"build": "turbo run build --parallel",
 		"format": "turbo run format --parallel",
-		"update": "pnpm update --interactive --recursive"
+		"update": "pnpm update --interactive --latest --recursive"
 	},
 	"devDependencies": {
 		"eslint": "^8.40.0",
