@@ -197,7 +197,7 @@ export const SEASONAL_CANDLES_ROTATION = [
 		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/56/Golden-Wasteland-Seasonal-candles-Locations-Pattern-A.png/revision/latest",
 	},
 	{
-		rotation: 2,
+		rotation: 2, // This was rotation 1 on 2nd July 2023.
 		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/9d/Vault-of-knowledge-Seasonal-candles-Locations-Pattern-A.png/revision/latest",
 	},
 	{
