@@ -18,6 +18,7 @@ export default new SeasonalSpirit({
 	season: Season.Dreams,
 	expression,
 	realm: Realm.ValleyOfTriumph,
+	hasMarketingVideo: true,
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 0, { item: `${expression} 1`, cost: null })
 		.set(1 << 1, { item: `${expression} 2`, cost: { hearts: 4 } })
