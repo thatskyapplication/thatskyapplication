@@ -8,6 +8,7 @@ export default new GuideSpirit({
 	season: Season.Assembly,
 	hasInfographic: false,
 	offer: new Collection<number, ItemsData>()
+		.set(1 << 22, { item: "Blessing", cost: null })
 		.set(1 << 0, { item: "Quest 1", cost: null })
 		.set(1 << 1, { item: "Heart 1", cost: { candles: 3 } })
 		.set(1 << 2, { item: "Pendant", cost: null })
