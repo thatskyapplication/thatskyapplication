@@ -195,6 +195,9 @@ export enum SpiritName {
 	TumblingTroublemaker = "Tumbling Troublemaker",
 	MelancholyMope = "Melancholy Mope",
 	OveractiveOverachiever = "Overactive Overachiever",
+
+	// Season of Moments
+	MomentsGuide = "Moments Guide",
 }
 
 export const enum Call {
