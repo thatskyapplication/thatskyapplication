@@ -1,4 +1,5 @@
 import MomentsGuide from "./MomentsGuide.js";
+import NightbirdWhisperer from "./NightbirdWhisperer.js";
 import ReassuringRanger from "./ReassuringRanger.js";
 
-export default [MomentsGuide, ReassuringRanger] as const;
+export default [MomentsGuide, ReassuringRanger, NightbirdWhisperer] as const;
