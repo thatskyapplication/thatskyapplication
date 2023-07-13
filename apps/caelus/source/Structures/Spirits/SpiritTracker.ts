@@ -192,6 +192,7 @@ interface SpiritTrackerPacket {
 	melancholy_mope: SpiritTrackerValue;
 	overactive_overachiever: SpiritTrackerValue;
 	moments_guide: SpiritTrackerValue;
+	reassuring_ranger: SpiritTrackerValue;
 }
 
 interface SpiritTrackerData {
@@ -341,6 +342,7 @@ interface SpiritTrackerData {
 	melancholyMope: SpiritTrackerPacket["melancholy_mope"];
 	overactiveOverachiever: SpiritTrackerPacket["overactive_overachiever"];
 	momentsGuide: SpiritTrackerPacket["moments_guide"];
+	reassuringRanger: SpiritTrackerPacket["reassuring_ranger"];
 }
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
@@ -685,6 +687,8 @@ export class SpiritTracker {
 
 	public momentsGuide!: SpiritTrackerData["momentsGuide"];
 
+	public reassuringRanger!: SpiritTrackerData["reassuringRanger"];
+
 	public constructor(profile: SpiritTrackerPacket) {
 		this.userId = profile.user_id;
 		this.patch(profile);
@@ -836,6 +840,7 @@ export class SpiritTracker {
 		this.melancholyMope = data.melancholy_mope;
 		this.overactiveOverachiever = data.overactive_overachiever;
 		this.momentsGuide = data.moments_guide;
+		this.reassuringRanger = data.reassuring_ranger;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -1307,6 +1312,9 @@ export class SpiritTracker {
 				break;
 			case SpiritName.MomentsGuide:
 				spirit_name = "moments_guide";
+				break;
+			case SpiritName.ReassuringRanger:
+				spirit_name = "reassuring_ranger";
 				break;
 		}
 
@@ -2096,6 +2104,8 @@ export class SpiritTracker {
 				return this.overactiveOverachiever;
 			case SpiritName.MomentsGuide:
 				return this.momentsGuide;
+			case SpiritName.ReassuringRanger:
+				return this.reassuringRanger;
 		}
 	}
 }
