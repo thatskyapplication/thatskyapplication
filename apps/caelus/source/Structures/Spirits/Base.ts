@@ -227,6 +227,7 @@ export const enum Expression {
 	Bearhug = "Bearhug",
 	Handshake = "Handshake",
 	DuetDance = "Duet dance",
+	SideHug = "Side hug",
 
 	// Regular expressions
 	Sit = "Sit",
