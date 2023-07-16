@@ -200,6 +200,7 @@ export enum SpiritName {
 	MomentsGuide = "Moments Guide",
 	ReassuringRanger = "Reassuring Ranger",
 	NightbirdWhisperer = "Nightbird Whisperer",
+	JollyGeologist = "Jolly Geologist",
 }
 
 export const enum Call {
