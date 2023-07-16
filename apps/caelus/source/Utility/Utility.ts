@@ -175,6 +175,8 @@ export function resolveSeasonsToEmoji(seasons: Season) {
 			return Emoji.Remembrance;
 		case Season.Passage:
 			return Emoji.Passage;
+		case Season.Moments:
+			return Emoji.Moments;
 	}
 }
 

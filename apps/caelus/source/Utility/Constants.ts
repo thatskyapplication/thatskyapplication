@@ -80,6 +80,7 @@ export const enum Emoji {
 	Passage = "1113247650259677254",
 	SeasonalCandle = "1115305105642758145",
 	SeasonalHeart = "1115841397493346325",
+	Moments = "1130091541151629332",
 }
 
 export const enum User {
