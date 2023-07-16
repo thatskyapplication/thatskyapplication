@@ -195,6 +195,7 @@ interface SpiritTrackerPacket {
 	reassuring_ranger: SpiritTrackerValue;
 	nightbird_whisperer: SpiritTrackerValue;
 	jolly_geologist: SpiritTrackerValue;
+	ascetic_monk: SpiritTrackerValue;
 }
 
 interface SpiritTrackerData {
@@ -347,6 +348,7 @@ interface SpiritTrackerData {
 	reassuringRanger: SpiritTrackerPacket["reassuring_ranger"];
 	nightbirdWhisperer: SpiritTrackerPacket["nightbird_whisperer"];
 	jollyGeologist: SpiritTrackerPacket["jolly_geologist"];
+	asceticMonk: SpiritTrackerPacket["ascetic_monk"];
 }
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
@@ -697,6 +699,8 @@ export class SpiritTracker {
 
 	public jollyGeologist!: SpiritTrackerData["jollyGeologist"];
 
+	public asceticMonk!: SpiritTrackerData["asceticMonk"];
+
 	public constructor(profile: SpiritTrackerPacket) {
 		this.userId = profile.user_id;
 		this.patch(profile);
@@ -851,6 +855,7 @@ export class SpiritTracker {
 		this.reassuringRanger = data.reassuring_ranger;
 		this.nightbirdWhisperer = data.nightbird_whisperer;
 		this.jollyGeologist = data.jolly_geologist;
+		this.asceticMonk = data.ascetic_monk;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -1331,6 +1336,9 @@ export class SpiritTracker {
 				break;
 			case SpiritName.JollyGeologist:
 				spirit_name = "jolly_geologist";
+				break;
+			case SpiritName.AsceticMonk:
+				spirit_name = "ascetic_monk";
 				break;
 		}
 
@@ -2126,6 +2134,8 @@ export class SpiritTracker {
 				return this.nightbirdWhisperer;
 			case SpiritName.JollyGeologist:
 				return this.jollyGeologist;
+			case SpiritName.AsceticMonk:
+				return this.asceticMonk;
 		}
 	}
 }
