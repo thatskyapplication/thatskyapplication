@@ -30,7 +30,7 @@ import {
 	Realm,
 	Season,
 	SEASONAL_CANDLES_ROTATION,
-	seasonalCandlesRotationStartDate,
+	seasonStartDate,
 	VALID_REALM,
 } from "./Constants.js";
 
@@ -69,7 +69,7 @@ export function treasureCandleRealm() {
 }
 
 export function seasonalCandlesRotation() {
-	return SEASONAL_CANDLES_ROTATION[todayDate().diff(seasonalCandlesRotationStartDate, "days") % 10]!;
+	return SEASONAL_CANDLES_ROTATION[todayDate().diff(seasonStartDate, "days") % 10]!;
 }
 
 export function eventRotationLetter() {
