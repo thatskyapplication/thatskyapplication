@@ -191,6 +191,11 @@ interface SpiritTrackerPacket {
 	tumbling_troublemaker: SpiritTrackerValue;
 	melancholy_mope: SpiritTrackerValue;
 	overactive_overachiever: SpiritTrackerValue;
+	moments_guide: SpiritTrackerValue;
+	reassuring_ranger: SpiritTrackerValue;
+	nightbird_whisperer: SpiritTrackerValue;
+	jolly_geologist: SpiritTrackerValue;
+	ascetic_monk: SpiritTrackerValue;
 }
 
 interface SpiritTrackerData {
@@ -339,6 +344,11 @@ interface SpiritTrackerData {
 	tumblingTroublemaker: SpiritTrackerPacket["tumbling_troublemaker"];
 	melancholyMope: SpiritTrackerPacket["melancholy_mope"];
 	overactiveOverachiever: SpiritTrackerPacket["overactive_overachiever"];
+	momentsGuide: SpiritTrackerPacket["moments_guide"];
+	reassuringRanger: SpiritTrackerPacket["reassuring_ranger"];
+	nightbirdWhisperer: SpiritTrackerPacket["nightbird_whisperer"];
+	jollyGeologist: SpiritTrackerPacket["jolly_geologist"];
+	asceticMonk: SpiritTrackerPacket["ascetic_monk"];
 }
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
@@ -681,6 +691,16 @@ export class SpiritTracker {
 
 	public overactiveOverachiever!: SpiritTrackerData["overactiveOverachiever"];
 
+	public momentsGuide!: SpiritTrackerData["momentsGuide"];
+
+	public reassuringRanger!: SpiritTrackerData["reassuringRanger"];
+
+	public nightbirdWhisperer!: SpiritTrackerData["nightbirdWhisperer"];
+
+	public jollyGeologist!: SpiritTrackerData["jollyGeologist"];
+
+	public asceticMonk!: SpiritTrackerData["asceticMonk"];
+
 	public constructor(profile: SpiritTrackerPacket) {
 		this.userId = profile.user_id;
 		this.patch(profile);
@@ -831,6 +851,11 @@ export class SpiritTracker {
 		this.tumblingTroublemaker = data.tumbling_troublemaker;
 		this.melancholyMope = data.melancholy_mope;
 		this.overactiveOverachiever = data.overactive_overachiever;
+		this.momentsGuide = data.moments_guide;
+		this.reassuringRanger = data.reassuring_ranger;
+		this.nightbirdWhisperer = data.nightbird_whisperer;
+		this.jollyGeologist = data.jolly_geologist;
+		this.asceticMonk = data.ascetic_monk;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -1299,6 +1324,21 @@ export class SpiritTracker {
 				break;
 			case SpiritName.OveractiveOverachiever:
 				spirit_name = "overactive_overachiever";
+				break;
+			case SpiritName.MomentsGuide:
+				spirit_name = "moments_guide";
+				break;
+			case SpiritName.ReassuringRanger:
+				spirit_name = "reassuring_ranger";
+				break;
+			case SpiritName.NightbirdWhisperer:
+				spirit_name = "nightbird_whisperer";
+				break;
+			case SpiritName.JollyGeologist:
+				spirit_name = "jolly_geologist";
+				break;
+			case SpiritName.AsceticMonk:
+				spirit_name = "ascetic_monk";
 				break;
 		}
 
@@ -2086,6 +2126,16 @@ export class SpiritTracker {
 				return this.melancholyMope;
 			case SpiritName.OveractiveOverachiever:
 				return this.overactiveOverachiever;
+			case SpiritName.MomentsGuide:
+				return this.momentsGuide;
+			case SpiritName.ReassuringRanger:
+				return this.reassuringRanger;
+			case SpiritName.NightbirdWhisperer:
+				return this.nightbirdWhisperer;
+			case SpiritName.JollyGeologist:
+				return this.jollyGeologist;
+			case SpiritName.AsceticMonk:
+				return this.asceticMonk;
 		}
 	}
 }

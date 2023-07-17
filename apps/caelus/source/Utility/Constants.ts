@@ -27,14 +27,14 @@ export const PATREON_URL = "https://patreon.com/Jiralite" as const;
 export const KO_FI_URL = "https://ko-fi.com/jiralite" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki" as const;
 export const MINIMUM_WINGED_LIGHT = 0 as const;
-export const MAXIMUM_WINGED_LIGHT = 215 as const;
+export const MAXIMUM_WINGED_LIGHT = 218 as const;
 export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
 export const SEASONAL_CANDLES_PER_DAY = 5 as const;
 export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
 export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
 export const MAX_HUG_NO = 17 as const;
-export const seasonStartDate = dayjs.tz("2023-04-17 00:00:00", "America/Los_Angeles"); // Season of Passage.
-export const seasonEndDate = dayjs.tz("2023-07-02 00:00:00", "America/Los_Angeles"); // Season of Passage.
+export const seasonStartDate = skyDate(2_023, 7, 17); // Season of Moments.
+export const seasonEndDate = skyDate(2_023, 10, 1); // Season of Moments.
 export const doubleSeasonalLightEventStartTimestamp = dayjs.tz("2023-05-15 00:00:00", "America/Los_Angeles");
 export const doubleSeasonalLightEventEndTimestamp = dayjs.tz("2023-05-21 00:00:00", "America/Los_Angeles");
 export const initialTravellingSpiritSeek = dayjs.tz("2023-05-25 00:00:00", "America/Los_Angeles"); // #88 Grateful Shell Collector.
@@ -80,6 +80,7 @@ export const enum Emoji {
 	Passage = "1113247650259677254",
 	SeasonalCandle = "1115305105642758145",
 	SeasonalHeart = "1115841397493346325",
+	Moments = "1130091541151629332",
 }
 
 export const enum User {
@@ -212,7 +213,7 @@ export const SEASONAL_CANDLES_ROTATION = [
 
 export const WingedLightCount = {
 	IslesOfDawn: 9,
-	DaylightPrairie: 21,
+	DaylightPrairie: 24,
 	HiddenForest: 19,
 	ValleyOfTriumph: 17,
 	GoldenWasteland: 18,
@@ -240,4 +241,5 @@ export enum Season {
 	Aurora = "AURORA",
 	Remembrance = "Remembrance",
 	Passage = "Passage",
+	Moments = "Moments",
 }

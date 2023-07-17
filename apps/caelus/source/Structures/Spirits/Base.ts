@@ -195,6 +195,13 @@ export enum SpiritName {
 	TumblingTroublemaker = "Tumbling Troublemaker",
 	MelancholyMope = "Melancholy Mope",
 	OveractiveOverachiever = "Overactive Overachiever",
+
+	// Season of Moments
+	MomentsGuide = "Moments Guide",
+	ReassuringRanger = "Reassuring Ranger",
+	NightbirdWhisperer = "Nightbird Whisperer",
+	JollyGeologist = "Jolly Geologist",
+	AsceticMonk = "Ascetic Monk",
 }
 
 export const enum Call {
@@ -206,6 +213,7 @@ export const enum Call {
 	Crab = "Crab",
 	Jellyfish = "Jellyfish",
 	BabyManta = "Baby manta",
+	Nightbird = "Nightbird",
 
 	// From the Kizuna-AI pin.
 	KizunaAI = "Kizuna-AI",
@@ -326,6 +334,8 @@ export const enum Expression {
 	Somersault = "Somersault",
 	Moping = "Moping",
 	PullUp = "Pull-up",
+	JollyDance = "Jolly dance",
+	BlindfoldBalance = "Blindfold balance",
 }
 
 export const enum Stance {
