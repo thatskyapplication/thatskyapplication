@@ -28,7 +28,6 @@ import {
 	resolveCurrencyEmoji,
 	todayDate,
 	treasureCandleRealm,
-	eventRotationLetter,
 	resolveEmbedColor,
 	seasonalCandlesRotation,
 } from "../Utility/Utility.js";
@@ -208,10 +207,7 @@ export default class DailyGuidesDistribution {
 		const { eventCurrency } = DailyGuides;
 
 		if (date.isBefore(eventEndDate) || date.isSame(eventEndDate)) {
-			return {
-				name: "Event Currency",
-				value: hyperlink(`Rotation ${eventRotationLetter()}`, eventCurrency.url),
-			};
+			return { name: "Event Currency", value: hyperlink("Image", eventCurrency.url) };
 		}
 
 		return null;

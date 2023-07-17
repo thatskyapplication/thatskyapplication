@@ -14,7 +14,7 @@ export const COMMAND_LOG_CHANNEL_ID = "1114135883604566057" as const;
 
 // Infographic URLs.
 export const EVENT_CURRENCY_INFOGRAPHIC_URL =
-	"https://cdn.discordapp.com/attachments/739444631963435008/1114345385696170085/DaysOfColorTicketsRotations.jpg" as const;
+	"https://media.discordapp.net/attachments/739444631963435008/1130395560122273843/IMG_1867.jpg" as const;
 
 export const production = process.env.NODE_ENV === "production";
 export const CDN_BUCKET = "thatskyapplication" as const;
@@ -41,7 +41,7 @@ export const initialTravellingSpiritSeek = dayjs.tz("2023-05-25 00:00:00", "Amer
 export const initialTreasureCandleRealmSeek = skyDate(2_023, 7, 12); // Daylight Prairie.
 export const initialEventCurrencySeek = dayjs.tz("2023-06-01 00:00:00", "America/Los_Angeles"); // Rotation A.
 export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
-export const eventEndDate = dayjs.tz("2023-06-14 00:00:00", "America/Los_Angeles"); // Days of Color (2023).
+export const eventEndDate = skyDate(2_023, 7, 30); // Sky Anniversary (2023).
 export const DEFAULT_EMBED_COLOR = 0xa5b5f1 as const;
 
 export const enum Channel {
