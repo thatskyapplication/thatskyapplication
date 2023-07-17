@@ -17,8 +17,8 @@ import {
 } from "discord.js";
 import {
 	Emoji,
-	doubleSeasonalLightEventEndTimestamp,
-	doubleSeasonalLightEventStartTimestamp,
+	// doubleSeasonalLightEventEndTimestamp,
+	// doubleSeasonalLightEventStartTimestamp,
 	eventEndDate,
 	seasonEndDate,
 	seasonStartDate,
