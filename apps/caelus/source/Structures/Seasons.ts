@@ -21,6 +21,7 @@ enum SeasonFlags {
 	Aurora = 1 << 14,
 	Remembrance = 1 << 15,
 	Passage = 1 << 16,
+	Moments = 1 << 17,
 }
 
 export const SeasonFlagsToString = {
@@ -41,6 +42,7 @@ export const SeasonFlagsToString = {
 	[SeasonFlags.Aurora]: Season.Aurora,
 	[SeasonFlags.Remembrance]: Season.Remembrance,
 	[SeasonFlags.Passage]: Season.Passage,
+	[SeasonFlags.Moments]: Season.Moments,
 } as const;
 
 export function resolveBitsToSeasons(bits: number) {
