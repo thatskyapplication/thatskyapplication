@@ -213,6 +213,7 @@ export const enum Call {
 	Crab = "Crab",
 	Jellyfish = "Jellyfish",
 	BabyManta = "Baby manta",
+	Nightbird = "Nightbird",
 
 	// From the Kizuna-AI pin.
 	KizunaAI = "Kizuna-AI",
@@ -333,6 +334,8 @@ export const enum Expression {
 	Somersault = "Somersault",
 	Moping = "Moping",
 	PullUp = "Pull-up",
+	JollyDance = "Jolly dance",
+	BlindfoldBalance = "Blindfold balance",
 }
 
 export const enum Stance {
