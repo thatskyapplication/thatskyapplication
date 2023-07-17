@@ -213,7 +213,7 @@ export const SEASONAL_CANDLES_ROTATION = [
 
 export const WingedLightCount = {
 	IslesOfDawn: 9,
-	DaylightPrairie: 21,
+	DaylightPrairie: 24,
 	HiddenForest: 19,
 	ValleyOfTriumph: 17,
 	GoldenWasteland: 18,
