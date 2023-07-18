@@ -111,7 +111,7 @@ export default new (class implements ChatInputCommand {
 
 	public async distribute(interaction: ButtonInteraction) {
 		await DailyGuidesDistribution.distribute(interaction.client);
-		await this.respond(interaction, "Distributed daily guides");
+		await this.respond(interaction, "Distributed daily guides.");
 	}
 
 	public async questModalResponse(interaction: StringSelectMenuInteraction) {
