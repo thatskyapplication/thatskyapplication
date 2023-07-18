@@ -1,7 +1,14 @@
 import { URL } from "node:url";
 import { AsyncQueue } from "@sapphire/async-queue";
-import type { Attachment, Client, Collection, Message, Snowflake } from "discord.js";
-import { FormattingPatterns, ChannelType, MessageFlags, SnowflakeUtil } from "discord.js";
+import {
+	type Attachment,
+	type Collection,
+	type Message,
+	type Snowflake,
+	FormattingPatterns,
+	MessageFlags,
+	SnowflakeUtil,
+} from "discord.js";
 import {
 	EVENT_CURRENCY_INFOGRAPHIC_URL,
 	CDN_URL,
@@ -196,7 +203,7 @@ export default new (class DailyGuides {
 		);
 	}
 
-	public async parse(message: Message<true>, distribute = true) {
+	public async parse(message: Message<true>) {
 		if (!this.validToParse(message)) return;
 		const { attachments, client, content, flags } = message;
 		if (flags.has(MessageFlags.SourceMessageDeleted)) return;
@@ -234,7 +241,7 @@ export default new (class DailyGuides {
 			return;
 		}
 
-		if (distribute && this.queue.queued === 0) await DailyGuidesDistribution.distribute(client);
+		if (this.queue.queued === 0) await DailyGuidesDistribution.distribute(client);
 		this.queue.shift();
 	}
 
@@ -385,17 +392,5 @@ export default new (class DailyGuides {
 			.returning("*");
 
 		this.patch(dailyGuidesPacket!);
-	}
-
-	public async reCheck(client: Client<true>) {
-		const channel = client.channels.resolve(Channel.dailyGuides);
-		if (channel?.type !== ChannelType.GuildText) return;
-
-		const messages = await channel.messages.fetch({
-			after: String(SnowflakeUtil.generate({ timestamp: todayDate().valueOf() })),
-		});
-
-		await this.reset();
-		await Promise.all(messages.map(async (message) => this.parse(message, false)));
 	}
 })();
