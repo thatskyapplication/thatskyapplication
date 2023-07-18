@@ -10,7 +10,6 @@ import {
 } from "discord.js";
 import {
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
-	DAILY_GUIDES_PARSE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID,
 	DAILY_GUIDES_QUEST_1_MODAL,
 	DAILY_GUIDES_QUEST_2_MODAL,
@@ -272,11 +271,6 @@ export const event: Event<typeof name> = {
 
 				if (customId === DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID) {
 					await COMMANDS.admin.distribute(interaction);
-					return;
-				}
-
-				if (customId === DAILY_GUIDES_PARSE_BUTTON_CUSTOM_ID) {
-					await COMMANDS.admin.parse(interaction);
 					return;
 				}
 			} catch (error) {

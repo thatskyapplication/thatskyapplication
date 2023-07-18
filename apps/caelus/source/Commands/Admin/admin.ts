@@ -27,7 +27,6 @@ import type { ChatInputCommand } from "../index.js";
 
 export const DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID = "DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID" as const;
 export const DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID = "DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID" as const;
-export const DAILY_GUIDES_PARSE_BUTTON_CUSTOM_ID = "DAILY_GUIDES_PARSE_BUTTON_CUSTOM_ID" as const;
 export const DAILY_GUIDES_QUEST_1_MODAL = "DAILY_GUIDES_QUEST_1_MODAL" as const;
 const DAILY_GUIDES_QUEST_1_TEXT_INPUT_CONTENT = "DAILY_GUIDES_QUEST_1_TEXT_INPUT_CONTENT" as const;
 const DAILY_GUIDES_QUEST_1_TEXT_INPUT_URL = "DAILY_GUIDES_QUEST_1_TEXT_INPUT_URL" as const;
@@ -93,10 +92,6 @@ export default new (class implements ChatInputCommand {
 						.setCustomId(DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID)
 						.setLabel("Distribute")
 						.setStyle(ButtonStyle.Primary),
-					new ButtonBuilder()
-						.setCustomId(DAILY_GUIDES_PARSE_BUTTON_CUSTOM_ID)
-						.setLabel("Parse")
-						.setStyle(ButtonStyle.Danger),
 				),
 			],
 			embeds: [DailyGuidesDistribution.embed(await resolveEmbedColor(interaction.guild))],
@@ -117,15 +112,6 @@ export default new (class implements ChatInputCommand {
 	public async distribute(interaction: ButtonInteraction) {
 		await DailyGuidesDistribution.distribute(interaction.client);
 		await this.respond(interaction, "Distributed daily guides");
-	}
-
-	public async parse(interaction: ButtonInteraction) {
-		await DailyGuides.reCheck(interaction.client);
-
-		await this.respond(
-			interaction,
-			"Parsed daily quests from published messages from the Infographics server. I hope you know what you're doing.",
-		);
 	}
 
 	public async questModalResponse(interaction: StringSelectMenuInteraction) {
