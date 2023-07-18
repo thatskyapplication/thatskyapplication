@@ -10,7 +10,6 @@ export default new SeasonalSpirit({
 	season: Season.Moments,
 	call,
 	realm: Realm.DaylightPrairie,
-	hasInfographic: false,
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 0, { item: `${call} call`, cost: null })
 		.set(1 << 1, { item: "Hair", cost: { seasonalCandles: 12 } })
