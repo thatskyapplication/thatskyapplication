@@ -1,9 +1,9 @@
 import {
 	type ApplicationCommandData,
 	type ButtonInteraction,
-	type ChatInputCommandInteraction,
 	type ModalMessageModalSubmitInteraction,
 	type StringSelectMenuInteraction,
+	ChatInputCommandInteraction,
 	codeBlock,
 	TextInputStyle,
 	ActionRowBuilder,
@@ -69,8 +69,12 @@ export default new (class implements ChatInputCommand {
 		}
 	}
 
-	private async response(interaction: ButtonInteraction | ChatInputCommandInteraction) {
-		return {
+	private async respond(
+		interaction: ButtonInteraction | ChatInputCommandInteraction | ModalMessageModalSubmitInteraction,
+		content?: string,
+	) {
+		const response = {
+			content: content ?? "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -96,26 +100,32 @@ export default new (class implements ChatInputCommand {
 				),
 			],
 			embeds: [DailyGuidesDistribution.embed(await resolveEmbedColor(interaction.guild))],
+			ephemeral: true,
 		};
+
+		if (interaction instanceof ChatInputCommandInteraction) {
+			await interaction.reply(response);
+		} else {
+			await interaction.update(response);
+		}
 	}
 
 	public async dailyGuides(interaction: ChatInputCommandInteraction) {
-		await interaction.reply({ ...(await this.response(interaction)), ephemeral: true });
+		await this.respond(interaction);
 	}
 
 	public async distribute(interaction: ButtonInteraction) {
 		await DailyGuidesDistribution.distribute(interaction.client);
-		await interaction.update({ ...(await this.response(interaction)), content: "Distributed daily guides." });
+		await this.respond(interaction, "Distributed daily guides");
 	}
 
 	public async parse(interaction: ButtonInteraction) {
 		await DailyGuides.reCheck(interaction.client);
 
-		await interaction.update({
-			...(await this.response(interaction)),
-			content:
-				"Parsed daily quests from published messages from the Infographics server. I hope you know what you're doing.",
-		});
+		await this.respond(
+			interaction,
+			"Parsed daily quests from published messages from the Infographics server. I hope you know what you're doing.",
+		);
 	}
 
 	public async questModalResponse(interaction: StringSelectMenuInteraction) {
@@ -209,11 +219,7 @@ export default new (class implements ChatInputCommand {
 		}
 
 		await DailyGuides.updateQuest({ content, url }, number);
-
-		await interaction.update({
-			content: `Successfully updated quest ${number}.`,
-			embeds: [DailyGuidesDistribution.embed(await resolveEmbedColor(interaction.guild))],
-		});
+		await this.respond(interaction, `Successfully updated quest ${number}.`);
 	}
 
 	public async eventCurrency(interaction: ChatInputCommandInteraction) {
