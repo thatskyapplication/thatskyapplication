@@ -9,7 +9,7 @@ import type {
 	Guild,
 	ClientOptions,
 } from "discord.js";
-import { Partials, Client, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits } from "discord.js";
+import { Client, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits } from "discord.js";
 import commands from "./Commands/index.js";
 import type { Event } from "./Events/index.js";
 import events from "./Events/index.js";
@@ -172,7 +172,6 @@ class Caelus extends Client {
 
 const client = new Caelus({
 	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMessages | GatewayIntentBits.MessageContent,
-	partials: [Partials.Message],
 });
 
 for (const event of events) {

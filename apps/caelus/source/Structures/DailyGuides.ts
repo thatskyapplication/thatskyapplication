@@ -196,7 +196,7 @@ export default new (class DailyGuides {
 		);
 	}
 
-	public async parse(message: Message<true>) {
+	public async parse(message: Message<true>, distribute = true) {
 		if (!this.validToParse(message)) return;
 		const { attachments, client, content, flags } = message;
 		if (flags.has(MessageFlags.SourceMessageDeleted)) return;
@@ -234,7 +234,7 @@ export default new (class DailyGuides {
 			return;
 		}
 
-		if (this.queue.queued === 0) await DailyGuidesDistribution.distribute(client);
+		if (distribute && this.queue.queued === 0) await DailyGuidesDistribution.distribute(client);
 		this.queue.shift();
 	}
 
@@ -400,6 +400,6 @@ export default new (class DailyGuides {
 		});
 
 		await this.reset();
-		await Promise.all(messages.map(async (message) => this.parse(message)));
+		await Promise.all(messages.map(async (message) => this.parse(message, false)));
 	}
 })();

@@ -8,7 +8,7 @@ import {
 } from "discord.js";
 
 // Developer
-import ddailyguides from "./Developer/d-daily-guides.js";
+import admin from "./Admin/admin.js";
 
 // Events
 import dailyguides from "./Events/daily-guides.js";
@@ -33,9 +33,9 @@ import spirit from "./General/spirit.js";
 
 const COMMANDS = {
 	about,
+	admin,
 	bonk,
 	calculate,
-	ddailyguides,
 	dailyguides,
 	fight,
 	GiftHeart,

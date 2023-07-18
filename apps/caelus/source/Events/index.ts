@@ -13,7 +13,6 @@ import { event as guildCreate } from "./guildCreate.js";
 import { event as guildDelete } from "./guildDelete.js";
 import { event as interactionCreate } from "./interactionCreate.js";
 import { event as messageCreate } from "./messageCreate.js";
-import { event as messageUpdate } from "./messageUpdate.js";
 import { event as ready } from "./ready.js";
 
 export interface Event<T extends keyof ClientEvents = keyof ClientEvents> {
@@ -96,4 +95,4 @@ export function logGuild(guild: Guild, join = true) {
 	});
 }
 
-export default [guildCreate, guildDelete, interactionCreate, messageCreate, messageUpdate, ready] as const;
+export default [guildCreate, guildDelete, interactionCreate, messageCreate, ready] as const;

@@ -9,11 +9,14 @@ import {
 	channelLink,
 } from "discord.js";
 import {
-	D_DAILY_GUIDES_QUEST_1_MODAL,
-	D_DAILY_GUIDES_QUEST_2_MODAL,
-	D_DAILY_GUIDES_QUEST_3_MODAL,
-	D_DAILY_GUIDES_QUEST_4_MODAL,
-} from "../Commands/Developer/d-daily-guides.js";
+	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
+	DAILY_GUIDES_PARSE_BUTTON_CUSTOM_ID,
+	DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID,
+	DAILY_GUIDES_QUEST_1_MODAL,
+	DAILY_GUIDES_QUEST_2_MODAL,
+	DAILY_GUIDES_QUEST_3_MODAL,
+	DAILY_GUIDES_QUEST_4_MODAL,
+} from "../Commands/Admin/admin.js";
 import { HeartHistoryNavigationType, HEART_HISTORY_BACK, HEART_HISTORY_FORWARD } from "../Commands/Fun/heart.js";
 import { ROLES_SELECT_MENU_CUSTOM_ID } from "../Commands/General/roles.js";
 import {
@@ -266,6 +269,16 @@ export const event: Event<typeof name> = {
 
 					return;
 				}
+
+				if (customId === DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID) {
+					await COMMANDS.admin.distribute(interaction);
+					return;
+				}
+
+				if (customId === DAILY_GUIDES_PARSE_BUTTON_CUSTOM_ID) {
+					await COMMANDS.admin.parse(interaction);
+					return;
+				}
 			} catch (error) {
 				void recoverInteractionError(interaction, error);
 				return;
@@ -343,6 +356,11 @@ export const event: Event<typeof name> = {
 					await COMMANDS.roles.apply(interaction);
 					return;
 				}
+
+				if (customId === DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID) {
+					await COMMANDS.admin.questModalResponse(interaction);
+					return;
+				}
 			} catch (error) {
 				void recoverInteractionError(interaction, error);
 				return;
@@ -396,23 +414,33 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (D_DAILY_GUIDES_QUEST_1_MODAL === customId) {
-					await COMMANDS.ddailyguides.parseQuest(interaction, 1);
+				if (!interaction.isFromMessage()) {
+					void interaction.client.log({
+						content: `Attempted to perform \`${customId}\` via a modal submit interaction, but expected it to be from a message.`,
+						error: interaction,
+					});
+
+					await interaction.reply({ content: "This modal submitted itself to the dark dragon.", ephemeral: true });
 					return;
 				}
 
-				if (D_DAILY_GUIDES_QUEST_2_MODAL === customId) {
-					await COMMANDS.ddailyguides.parseQuest(interaction, 2);
+				if (DAILY_GUIDES_QUEST_1_MODAL === customId) {
+					await COMMANDS.admin.setQuest(interaction, 1);
 					return;
 				}
 
-				if (D_DAILY_GUIDES_QUEST_3_MODAL === customId) {
-					await COMMANDS.ddailyguides.parseQuest(interaction, 3);
+				if (DAILY_GUIDES_QUEST_2_MODAL === customId) {
+					await COMMANDS.admin.setQuest(interaction, 2);
 					return;
 				}
 
-				if (D_DAILY_GUIDES_QUEST_4_MODAL === customId) {
-					await COMMANDS.ddailyguides.parseQuest(interaction, 4);
+				if (DAILY_GUIDES_QUEST_3_MODAL === customId) {
+					await COMMANDS.admin.setQuest(interaction, 3);
+					return;
+				}
+
+				if (DAILY_GUIDES_QUEST_4_MODAL === customId) {
+					await COMMANDS.admin.setQuest(interaction, 4);
 					return;
 				}
 			} catch (error) {
