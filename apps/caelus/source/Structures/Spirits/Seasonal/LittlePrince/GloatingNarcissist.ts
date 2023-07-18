@@ -1,7 +1,15 @@
 /* eslint-disable unicorn/prefer-math-trunc */
+import type { Dayjs } from "dayjs";
 import { Collection } from "discord.js";
 import { Realm, Season } from "../../../../Utility/Constants.js";
-import { type ItemsData, Expression, SeasonalSpirit, SpiritName } from "../../Base.js";
+import { skyDate } from "../../../../Utility/Utility.js";
+import {
+	type ItemsData,
+	type SeasonalSpiritVisitCollectionKey,
+	Expression,
+	SeasonalSpirit,
+	SpiritName,
+} from "../../Base.js";
 
 const expression = Expression.Gloat;
 
@@ -22,4 +30,8 @@ export default new SeasonalSpirit({
 		.set(1 << 8, { item: "Hair", cost: { seasonalCandles: 26 } })
 		.set(1 << 9, { item: "Blessing 3", cost: null })
 		.set(1 << 10, { item: "Seasonal heart", cost: { seasonalCandles: 3 } }),
+	visits: {
+		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(92, skyDate(2_023, 7, 20)),
+		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+	},
 });
