@@ -383,14 +383,6 @@ export default new (class DailyGuides {
 		this.patch(dailyGuidesPacket!);
 	}
 
-	public async updateEventCurrency(rotation: DailyGuideEventRotation) {
-		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-			.update({ event_currency: { rotation, url: EVENT_CURRENCY_INFOGRAPHIC_URL } })
-			.returning("*");
-
-		this.patch(dailyGuidesPacket!);
-	}
-
 	public async reCheck(client: Client<true>) {
 		const channel = client.channels.resolve(Channel.dailyGuides);
 		if (channel?.type !== ChannelType.GuildText) return;

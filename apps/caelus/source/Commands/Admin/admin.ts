@@ -4,7 +4,6 @@ import {
 	type ModalMessageModalSubmitInteraction,
 	type StringSelectMenuInteraction,
 	ChatInputCommandInteraction,
-	codeBlock,
 	TextInputStyle,
 	ActionRowBuilder,
 	ModalBuilder,
@@ -16,11 +15,7 @@ import {
 	ButtonBuilder,
 	ButtonStyle,
 } from "discord.js";
-import DailyGuides, {
-	type DailyGuideEventRotation,
-	type QuestNumber,
-	QUEST_NUMBER,
-} from "../../Structures/DailyGuides.js";
+import DailyGuides, { type QuestNumber, QUEST_NUMBER } from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import { resolveEmbedColor } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
@@ -206,17 +201,5 @@ export default new (class implements ChatInputCommand {
 
 		await DailyGuides.updateQuest({ content, url }, number);
 		await this.respond(interaction, `Successfully updated quest ${number}.`);
-	}
-
-	public async eventCurrency(interaction: ChatInputCommandInteraction) {
-		const rotation = interaction.options.getString("rotation", true) as DailyGuideEventRotation;
-		await DailyGuides.updateEventCurrency(rotation);
-
-		await interaction.reply(
-			`Successfully updated the event currency.\n${codeBlock(
-				"JSON",
-				JSON.stringify(DailyGuides.eventCurrency, null, 2),
-			)}`,
-		);
 	}
 })();
