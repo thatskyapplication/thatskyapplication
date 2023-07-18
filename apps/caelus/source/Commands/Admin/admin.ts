@@ -21,6 +21,7 @@ import { resolveEmbedColor } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 export const DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID = "DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID" as const;
+export const DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID = "DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID" as const;
 export const DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID = "DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID" as const;
 export const DAILY_GUIDES_QUEST_1_MODAL = "DAILY_GUIDES_QUEST_1_MODAL" as const;
 const DAILY_GUIDES_QUEST_1_TEXT_INPUT_CONTENT = "DAILY_GUIDES_QUEST_1_TEXT_INPUT_CONTENT" as const;
@@ -34,6 +35,9 @@ const DAILY_GUIDES_QUEST_3_TEXT_INPUT_URL = "DAILY_GUIDES_QUEST_3_TEXT_INPUT_URL
 export const DAILY_GUIDES_QUEST_4_MODAL = "DAILY_GUIDES_QUEST_4_MODAL" as const;
 const DAILY_GUIDES_QUEST_4_TEXT_INPUT_CONTENT = "DAILY_GUIDES_QUEST_4_TEXT_INPUT_CONTENT" as const;
 const DAILY_GUIDES_QUEST_4_TEXT_INPUT_URL = "DAILY_GUIDES_QUEST_4_TEXT_INPUT_URL" as const;
+export const DAILY_GUIDES_TREASURE_CANDLES_MODAL = "DAILY_GUIDES_TREASURE_CANDLES_MODAL" as const;
+const DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_1_4 = "DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_1_4" as const;
+const DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_5_8 = "DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_5_8" as const;
 
 function isQuestNumber(questNumber: number): questNumber is QuestNumber {
 	return QUEST_NUMBER.includes(questNumber as QuestNumber);
@@ -81,6 +85,12 @@ export default new (class implements ChatInputCommand {
 							),
 						)
 						.setPlaceholder("Select a quest."),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID)
+						.setLabel("Treasure Candles")
+						.setStyle(ButtonStyle.Primary),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
@@ -201,5 +211,43 @@ export default new (class implements ChatInputCommand {
 
 		await DailyGuides.updateQuest({ content, url }, number);
 		await this.respond(interaction, `Successfully updated quest ${number}.`);
+	}
+
+	public async treasureCandlesModalResponse(interaction: ButtonInteraction) {
+		const { treasureCandles } = DailyGuides;
+
+		await interaction.showModal(
+			new ModalBuilder()
+				.setComponents(
+					new ActionRowBuilder<TextInputBuilder>().setComponents(
+						new TextInputBuilder()
+							.setCustomId(DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_1_4)
+							.setLabel("The URL of the first batch (1-4).")
+							.setRequired()
+							.setStyle(TextInputStyle.Short)
+							.setValue(treasureCandles?.[0] ?? ""),
+					),
+					new ActionRowBuilder<TextInputBuilder>().setComponents(
+						new TextInputBuilder()
+							.setCustomId(DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_5_8)
+							.setLabel("The URL of the second batch (5-8).")
+							.setRequired(false)
+							.setStyle(TextInputStyle.Short)
+							.setValue(treasureCandles?.[1] ?? ""),
+					),
+				)
+				.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_MODAL)
+				.setTitle("Treasure Candles"),
+		);
+	}
+
+	public async setTreasureCandles(interaction: ModalMessageModalSubmitInteraction) {
+		const { fields } = interaction;
+		const batch1 = fields.getTextInputValue(DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_1_4);
+		const batch2 = fields.getTextInputValue(DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_5_8);
+		const treasureCandles = [batch1];
+		if (batch2) treasureCandles.push(batch2);
+		await DailyGuides.updateTreasureCandles(treasureCandles);
+		await this.respond(interaction, "Successfully updated the treasure candles.");
 	}
 })();

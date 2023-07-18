@@ -15,6 +15,8 @@ import {
 	DAILY_GUIDES_QUEST_2_MODAL,
 	DAILY_GUIDES_QUEST_3_MODAL,
 	DAILY_GUIDES_QUEST_4_MODAL,
+	DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID,
+	DAILY_GUIDES_TREASURE_CANDLES_MODAL,
 } from "../Commands/Admin/admin.js";
 import { HeartHistoryNavigationType, HEART_HISTORY_BACK, HEART_HISTORY_FORWARD } from "../Commands/Fun/heart.js";
 import { ROLES_SELECT_MENU_CUSTOM_ID } from "../Commands/General/roles.js";
@@ -269,6 +271,11 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
+				if (customId === DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID) {
+					await COMMANDS.admin.treasureCandlesModalResponse(interaction);
+					return;
+				}
+
 				if (customId === DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID) {
 					await COMMANDS.admin.distribute(interaction);
 					return;
@@ -435,6 +442,11 @@ export const event: Event<typeof name> = {
 
 				if (DAILY_GUIDES_QUEST_4_MODAL === customId) {
 					await COMMANDS.admin.setQuest(interaction, 4);
+					return;
+				}
+
+				if (DAILY_GUIDES_TREASURE_CANDLES_MODAL === customId) {
+					await COMMANDS.admin.setTreasureCandles(interaction);
 					return;
 				}
 			} catch (error) {

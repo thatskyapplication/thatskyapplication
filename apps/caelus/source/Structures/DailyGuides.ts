@@ -375,6 +375,10 @@ export default new (class DailyGuides {
 			return;
 		}
 
+		await this.updateTreasureCandles(urls);
+	}
+
+	public async updateTreasureCandles(urls: string[]) {
 		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
 			// @ts-expect-error Arrays must be stringified. TypeScript does not like this.
 			.update({ treasure_candles: JSON.stringify(urls) })
