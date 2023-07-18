@@ -9,7 +9,6 @@ export default new StandardSpirit({
 	name: SpiritName.MantaWhisperer,
 	call,
 	realm: Realm.ValleyOfTriumph,
-	hasInfographic: false,
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 0, { item: `${call} call`, cost: null })
 		.set(1 << 1, { item: "Blessing 1", cost: { candles: 1 } })
