@@ -96,7 +96,7 @@ export default new (class implements ChatInputCommand {
 					new ButtonBuilder()
 						.setCustomId(DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID)
 						.setLabel("Distribute")
-						.setStyle(ButtonStyle.Primary),
+						.setStyle(ButtonStyle.Success),
 				),
 			],
 			embeds: [DailyGuidesDistribution.embed(await resolveEmbedColor(interaction.guild))],
