@@ -53,8 +53,10 @@ export default new (class implements ChatInputCommand {
 			dailyResetRoleId,
 			issChannelId,
 			issRoleId,
-			shardEruptionChannelId,
-			shardEruptionRoleId,
+			standardShardEruptionChannelId,
+			standardShardEruptionRoleId,
+			dangerousShardEruptionChannelId,
+			dangerousShardEruptionRoleId,
 			auroraChannelId,
 			auroraRoleId,
 			passageChannelId,
@@ -70,7 +72,15 @@ export default new (class implements ChatInputCommand {
 		if (eyeOfEdenChannelId && eyeOfEdenRoleId) roles.set(NotificationEvent.EyeOfEden, eyeOfEdenRoleId);
 		if (dailyResetChannelId && dailyResetRoleId) roles.set(NotificationEvent.DailyReset, dailyResetRoleId);
 		if (issChannelId && issRoleId) roles.set(NotificationEvent.ISS, issRoleId);
-		if (shardEruptionChannelId && shardEruptionRoleId) roles.set(NotificationEvent.ShardEruption, shardEruptionRoleId);
+
+		if (standardShardEruptionChannelId && standardShardEruptionRoleId) {
+			roles.set(NotificationEvent.StandardShardEruption, standardShardEruptionRoleId);
+		}
+
+		if (dangerousShardEruptionChannelId && dangerousShardEruptionRoleId) {
+			roles.set(NotificationEvent.DangerousShardEruption, dangerousShardEruptionRoleId);
+		}
+
 		if (auroraChannelId && auroraRoleId) roles.set(NotificationEvent.AURORA, auroraRoleId);
 		if (passageChannelId && passageRoleId) roles.set(NotificationEvent.Passage, passageRoleId);
 		return roles;
