@@ -47,10 +47,13 @@ export default function heartbeat(client: Client<true>): void {
 				const { dangerous, timestamps } = shardEruptionToday;
 
 				if (timestamps.some(({ start }) => start.diff(dayjsDate, "minutes") === 5)) {
-					sendNotification(client, NotificationEvent.ShardEruption, {
-						startTime: unix + 300,
-						dangerousShardEruption: dangerous,
-					});
+					sendNotification(
+						client,
+						dangerous ? NotificationEvent.DangerousShardEruption : NotificationEvent.StandardShardEruption,
+						{
+							startTime: unix + 300,
+						},
+					);
 				}
 			}
 
