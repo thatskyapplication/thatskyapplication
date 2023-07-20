@@ -18,6 +18,7 @@ export default new SeasonalSpirit({
 	season: Season.LittlePrince,
 	expression,
 	realm: Realm.VaultOfKnowledge,
+	hasMarketingVideo: true,
 	hasInfographic: false,
 	/*
 	 * Removed offers:
