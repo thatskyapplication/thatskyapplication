@@ -19,6 +19,10 @@ export default new SeasonalSpirit({
 	expression,
 	realm: Realm.VaultOfKnowledge,
 	hasInfographic: false,
+	/*
+	 * Removed offers:
+	 * .set(1 << 9, { item: "Blessing 3", cost: null })
+	 */
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 0, { item: `${expression} 1`, cost: null })
 		.set(1 << 1, { item: `${expression} 2`, cost: { hearts: 4 } })
