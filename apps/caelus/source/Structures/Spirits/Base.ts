@@ -335,7 +335,7 @@ export const enum Expression {
 	Moping = "Moping",
 	PullUp = "Pull-up",
 	JollyDance = "Jolly dance",
-	BlindfoldBalance = "Blindfold balance",
+	WindPose = "Wind pose",
 }
 
 export const enum Stance {

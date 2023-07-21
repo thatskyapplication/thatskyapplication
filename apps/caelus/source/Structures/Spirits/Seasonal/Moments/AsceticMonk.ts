@@ -3,7 +3,7 @@ import { Collection } from "discord.js";
 import { Realm, Season } from "../../../../Utility/Constants.js";
 import { type ItemsData, Expression, SeasonalSpirit, SpiritName } from "../../Base.js";
 
-const expression = Expression.BlindfoldBalance;
+const expression = Expression.WindPose;
 
 export default new SeasonalSpirit({
 	name: SpiritName.AsceticMonk,
