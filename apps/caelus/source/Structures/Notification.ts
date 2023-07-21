@@ -272,11 +272,7 @@ export default class Notification {
 		});
 	}
 
-	public async send(
-		client: Client<true>,
-		type: NotificationEvent,
-		{ startTime }: NotificationSendExtra = {},
-	) {
+	public async send(client: Client<true>, type: NotificationEvent, { startTime }: NotificationSendExtra = {}) {
 		const {
 			guildId,
 			pollutedGeyserChannelId,
