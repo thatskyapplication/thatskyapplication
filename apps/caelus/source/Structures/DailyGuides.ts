@@ -209,6 +209,7 @@ export default new (class DailyGuides {
 		if (flags.has(MessageFlags.SourceMessageDeleted)) return;
 		const transformedContent = content.toUpperCase();
 		await this.queue.wait();
+		let parsed;
 
 		if (
 			(transformedContent.includes("DAILY QUEST") && transformedContent.length <= 20) ||
@@ -232,16 +233,16 @@ export default new (class DailyGuides {
 			transformedContent.includes("SAPLING") ||
 			transformedContent.includes("NATURE")
 		) {
-			await this.parseQuests(content, attachments);
+			parsed = await this.parseQuests(content, attachments);
 		} else if (transformedContent.includes("TREASURE CANDLE")) {
-			await this.parseTreasureCandles(attachments);
+			parsed = await this.parseTreasureCandles(attachments);
 		} else {
 			consoleLog("Intercepted an unparsed message.");
 			this.queue.shift();
 			return;
 		}
 
-		if (this.queue.queued === 0) await DailyGuidesDistribution.distribute(client);
+		if (parsed && this.queue.queued === 0) await DailyGuidesDistribution.distribute(client);
 		this.queue.shift();
 	}
 
@@ -297,11 +298,18 @@ export default new (class DailyGuides {
 	}
 
 	public async parseQuests(content: string, attachments: Collection<Snowflake, Attachment>) {
+		const { quest1, quest2, quest3, quest4 } = this;
+
+		if (quest1 && quest2 && quest3 && quest4) {
+			consoleLog("Attempted to parse daily quests despite all quest variables exhausted.");
+			return false;
+		}
+
 		const url = attachments.first()?.url;
 
 		if (!url) {
 			consoleLog("Failed to fetch a daily quest URL.");
-			return;
+			return false;
 		}
 
 		// Remove the message link, if any.
@@ -336,29 +344,14 @@ export default new (class DailyGuides {
 		const data = { content: output, url };
 
 		// Duplicate check in case of manually updating.
-		if ([this.quest1, this.quest2, this.quest3, this.quest4].some((quest) => quest?.content === data.content)) return;
+		if ([quest1, quest2, quest3, quest4].some((quest) => quest?.content === data.content)) return false;
 
-		if (!this.quest1) {
-			await this.updateQuest(data, 1);
-			return;
-		}
-
-		if (!this.quest2) {
-			await this.updateQuest(data, 2);
-			return;
-		}
-
-		if (!this.quest3) {
-			await this.updateQuest(data, 3);
-			return;
-		}
-
-		if (!this.quest4) {
-			await this.updateQuest(data, 4);
-			return;
-		}
-
-		consoleLog("Attempted to parse a daily quest despite all quest variables exhausted.");
+		// Update a quest variable.
+		if (!quest1) await this.updateQuest(data, 1);
+		if (!quest2) await this.updateQuest(data, 2);
+		if (!quest3) await this.updateQuest(data, 3);
+		if (!quest4) await this.updateQuest(data, 4);
+		return true;
 	}
 
 	public async updateQuest(questData: DailyGuideQuest, number: QuestNumber) {
@@ -370,19 +363,20 @@ export default new (class DailyGuides {
 	}
 
 	public async parseTreasureCandles(attachments: Collection<Snowflake, Attachment>) {
+		if (Array.isArray(this.treasureCandles)) {
+			consoleLog("Attempted to update the treasure candles which were already updated.");
+			return false;
+		}
+
 		const urls = attachments.map(({ url }) => url);
 
 		if (urls.length === 0) {
 			consoleLog("Failed to fetch the treasure candle locations.");
-			return;
-		}
-
-		if (Array.isArray(this.treasureCandles)) {
-			consoleLog("Attempted to update the treasure candles which were already updated.");
-			return;
+			return false;
 		}
 
 		await this.updateTreasureCandles(urls);
+		return true;
 	}
 
 	public async updateTreasureCandles(urls: string[]) {
