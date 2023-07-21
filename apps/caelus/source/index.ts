@@ -18,6 +18,7 @@ import {
 	DEVELOPER_GUILD_ID,
 	ERROR_LOG_CHANNEL_ID,
 	GUILD_LOG_CHANNEL_ID,
+	MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID,
 	production,
 } from "./Utility/Constants.js";
 import { consoleLog, resolveEmbedColor } from "./Utility/Utility.js";
@@ -26,6 +27,7 @@ export const enum LogType {
 	Error,
 	Guild,
 	Command,
+	ManualDailyGuides,
 }
 
 interface LogOptions {
@@ -62,6 +64,9 @@ class Caelus extends Client {
 				break;
 			case LogType.Command:
 				channel = this.channels.cache.get(COMMAND_LOG_CHANNEL_ID);
+				break;
+			case LogType.ManualDailyGuides:
+				channel = this.channels.cache.get(MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID);
 				break;
 		}
 

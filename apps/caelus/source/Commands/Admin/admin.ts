@@ -17,7 +17,8 @@ import {
 } from "discord.js";
 import DailyGuides, { type QuestNumber, QUEST_NUMBER } from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
-import { resolveEmbedColor } from "../../Utility/Utility.js";
+import { resolveEmbedColor, userLogFormat } from "../../Utility/Utility.js";
+import { LogType } from "../../index.js";
 import type { ChatInputCommand } from "../index.js";
 
 export const DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID = "DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID" as const;
@@ -115,12 +116,13 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async distribute(interaction: ButtonInteraction) {
-		const { client, guild } = interaction;
+		const { client, guild, user } = interaction;
 		await DailyGuidesDistribution.distribute(client);
 
 		void client.log({
-			content: "Manually distributed daily guides.",
+			content: `${userLogFormat(user)} manually distributed the daily guides.`,
 			embeds: [DailyGuidesDistribution.embed(await resolveEmbedColor(guild))],
+			type: LogType.ManualDailyGuides,
 		});
 
 		await this.respond(interaction, "Distributed daily guides.");
@@ -193,7 +195,7 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async setQuest(interaction: ModalMessageModalSubmitInteraction, number: QuestNumber) {
-		const { client, fields, guild } = interaction;
+		const { client, fields, guild, user } = interaction;
 		let content;
 		let url;
 
@@ -220,8 +222,9 @@ export default new (class implements ChatInputCommand {
 		await DailyGuides.updateQuest({ content, url }, number);
 
 		void client.log({
-			content: `Quest ${number} manually updated.`,
+			content: `${userLogFormat(user)} manually updated quest ${number}.`,
 			embeds: [previousEmbed, DailyGuidesDistribution.embed(await resolveEmbedColor(guild))],
+			type: LogType.ManualDailyGuides,
 		});
 
 		await this.respond(interaction, `Successfully updated quest ${number}.`);
@@ -256,7 +259,7 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async setTreasureCandles(interaction: ModalMessageModalSubmitInteraction) {
-		const { client, fields, guild } = interaction;
+		const { client, fields, guild, user } = interaction;
 		const batch1 = fields.getTextInputValue(DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_1_4);
 		const batch2 = fields.getTextInputValue(DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_5_8);
 		const treasureCandles = [batch1];
@@ -265,8 +268,9 @@ export default new (class implements ChatInputCommand {
 		await DailyGuides.updateTreasureCandles(treasureCandles);
 
 		void client.log({
-			content: "Treasure candles manually updated.",
+			content: `${userLogFormat(user)} manually updated the treasure candles.`,
 			embeds: [previousEmbed, DailyGuidesDistribution.embed(await resolveEmbedColor(guild))],
+			type: LogType.ManualDailyGuides,
 		});
 
 		await this.respond(interaction, "Successfully updated the treasure candles.");

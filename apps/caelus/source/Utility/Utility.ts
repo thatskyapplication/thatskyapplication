@@ -12,6 +12,7 @@ import {
 	type Snowflake,
 	type StringSelectMenuInteraction,
 	type TimestampStylesString,
+	type User,
 	type UserContextMenuCommandInteraction,
 	formatEmoji,
 	PermissionFlagsBits,
@@ -227,4 +228,8 @@ export function chatInputApplicationCommandMention(
 	return `</${commandName}${subcommandGroupName ? ` ${subcommandGroupName}` : ""}${
 		subcommandName ? ` ${subcommandName}` : ""
 	}:${id}>`;
+}
+
+export function userLogFormat(user: User) {
+	return `${user} (${user.tag})`;
 }
