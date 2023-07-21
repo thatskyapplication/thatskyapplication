@@ -115,7 +115,14 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async distribute(interaction: ButtonInteraction) {
-		await DailyGuidesDistribution.distribute(interaction.client);
+		const { client, guild } = interaction;
+		await DailyGuidesDistribution.distribute(client);
+
+		void client.log({
+			content: "Manually distributed daily guides.",
+			embeds: [DailyGuidesDistribution.embed(await resolveEmbedColor(guild))],
+		});
+
 		await this.respond(interaction, "Distributed daily guides.");
 	}
 
@@ -186,7 +193,7 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async setQuest(interaction: ModalMessageModalSubmitInteraction, number: QuestNumber) {
-		const { fields } = interaction;
+		const { client, fields, guild } = interaction;
 		let content;
 		let url;
 
@@ -209,7 +216,14 @@ export default new (class implements ChatInputCommand {
 				break;
 		}
 
+		const previousEmbed = DailyGuidesDistribution.embed(await resolveEmbedColor(guild));
 		await DailyGuides.updateQuest({ content, url }, number);
+
+		void client.log({
+			content: `Quest ${number} manually updated.`,
+			embeds: [previousEmbed, DailyGuidesDistribution.embed(await resolveEmbedColor(guild))],
+		});
+
 		await this.respond(interaction, `Successfully updated quest ${number}.`);
 	}
 
@@ -242,12 +256,19 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async setTreasureCandles(interaction: ModalMessageModalSubmitInteraction) {
-		const { fields } = interaction;
+		const { client, fields, guild } = interaction;
 		const batch1 = fields.getTextInputValue(DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_1_4);
 		const batch2 = fields.getTextInputValue(DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_5_8);
 		const treasureCandles = [batch1];
 		if (batch2) treasureCandles.push(batch2);
+		const previousEmbed = DailyGuidesDistribution.embed(await resolveEmbedColor(guild));
 		await DailyGuides.updateTreasureCandles(treasureCandles);
+
+		void client.log({
+			content: "Treasure candles manually updated.",
+			embeds: [previousEmbed, DailyGuidesDistribution.embed(await resolveEmbedColor(guild))],
+		});
+
 		await this.respond(interaction, "Successfully updated the treasure candles.");
 	}
 })();
