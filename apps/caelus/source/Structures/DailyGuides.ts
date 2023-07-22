@@ -347,10 +347,27 @@ export default new (class DailyGuides {
 		if ([quest1, quest2, quest3, quest4].some((quest) => quest?.content === data.content)) return false;
 
 		// Update a quest variable.
-		if (!quest1) await this.updateQuest(data, 1);
-		if (!quest2) await this.updateQuest(data, 2);
-		if (!quest3) await this.updateQuest(data, 3);
-		if (!quest4) await this.updateQuest(data, 4);
+		if (!quest1) {
+			await this.updateQuest(data, 1);
+			return true;
+		}
+
+		if (!quest2) {
+			await this.updateQuest(data, 2);
+			return true;
+		}
+
+		if (!quest3) {
+			await this.updateQuest(data, 3);
+			return true;
+		}
+
+		if (!quest4) {
+			await this.updateQuest(data, 4);
+			return true;
+		}
+
+		// This is needed to prevent TypeScript from stating not all code paths return a value.
 		return true;
 	}
 
