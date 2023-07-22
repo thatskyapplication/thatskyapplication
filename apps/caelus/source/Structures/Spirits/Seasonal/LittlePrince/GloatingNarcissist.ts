@@ -19,7 +19,6 @@ export default new SeasonalSpirit({
 	expression,
 	realm: Realm.VaultOfKnowledge,
 	hasMarketingVideo: true,
-	hasInfographic: false,
 	/*
 	 * Removed offers:
 	 * .set(1 << 9, { item: "Blessing 3", cost: null })
