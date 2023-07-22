@@ -132,8 +132,8 @@ export enum Map {
 	TreasureReef = "Treasure Reef",
 
 	// Vault of Knowledge
+	VaultEntrance = "Vault Entrance",
 	JellyfishCove = "Jellyfish Cove",
-	SpiritMantas = "Spirit Mantas",
 	StarlightDesert = "Starlight Desert",
 	VaultSecondFloor = "Vault Second Floor",
 	VaultSummit = "Vault Summit",
