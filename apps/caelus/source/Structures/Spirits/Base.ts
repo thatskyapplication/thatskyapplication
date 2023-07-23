@@ -385,7 +385,7 @@ interface FriendshipTreeData extends Omit<PartialFriendshipTreeData, "offer"> {
 	offer: Collection<number, ItemsData>;
 }
 
-interface SeasonalFriendshipTreeData extends FriendshipTreeData {
+interface SeasonalFriendshipTreeData extends PartialFriendshipTreeData {
 	seasonalOffer: Collection<number, ItemsData>;
 	hasSeasonalInfographic?: boolean;
 }
@@ -556,7 +556,7 @@ abstract class FriendshipTree extends PartialFriendshipTree {
 	public declare readonly maxItemsBit: number;
 }
 
-abstract class SeasonalFriendshipTree extends FriendshipTree {
+abstract class SeasonalFriendshipTree extends PartialFriendshipTree {
 	public readonly seasonalOffer: Collection<number, ItemsData>;
 
 	public readonly seasonalTotalCost: SpiritCost;
