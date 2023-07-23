@@ -385,6 +385,11 @@ interface FriendshipTreeData extends Omit<PartialFriendshipTreeData, "offer"> {
 	offer: Collection<number, ItemsData>;
 }
 
+interface SeasonalFriendshipTreeData extends FriendshipTreeData {
+	seasonalOffer: Collection<number, ItemsData>;
+	hasSeasonalInfographic?: boolean;
+}
+
 interface ExpressiveSpiritData {
 	expression?: Expression;
 	stance?: Stance;
@@ -412,7 +417,7 @@ export interface SeasonalSpiritVisit {
 	returning: Collection<SeasonalSpiritVisitCollectionKey, Dayjs>;
 }
 
-interface SeasonalSpiritData extends BaseSpiritData, FriendshipTreeData, ExpressiveSpiritData {
+interface SeasonalSpiritData extends BaseSpiritData, SeasonalFriendshipTreeData, ExpressiveSpiritData {
 	season: Season;
 	hasMarketingVideo?: boolean;
 	visits?: SeasonalSpiritVisit;
@@ -485,60 +490,61 @@ abstract class PartialFriendshipTree {
 
 	public constructor({ name, offer, hasInfographic = true }: PartialFriendshipTreeData) {
 		this.offer = offer ?? null;
-
-		this.totalCost =
-			this.offer?.reduce<FriendshipTree["totalCost"]>((offer, { cost }) => {
-				if (!cost) return offer;
-				const { candles, hearts, ascendedCandles, seasonalCandles, seasonalHearts } = cost;
-
-				if (candles) {
-					if (offer.candles) {
-						offer.candles += candles;
-					} else {
-						offer.candles = candles;
-					}
-				}
-
-				if (hearts) {
-					if (offer.hearts) {
-						offer.hearts += hearts;
-					} else {
-						offer.hearts = hearts;
-					}
-				}
-
-				if (ascendedCandles) {
-					if (offer.ascendedCandles) {
-						offer.ascendedCandles += ascendedCandles;
-					} else {
-						offer.ascendedCandles = ascendedCandles;
-					}
-				}
-
-				if (seasonalCandles) {
-					if (offer.seasonalCandles) {
-						offer.seasonalCandles += seasonalCandles;
-					} else {
-						offer.seasonalCandles = seasonalCandles;
-					}
-				}
-
-				if (seasonalHearts) {
-					if (offer.seasonalHearts) {
-						offer.seasonalHearts += seasonalHearts;
-					} else {
-						offer.seasonalHearts = seasonalHearts;
-					}
-				}
-
-				return offer;
-			}, {}) ?? null;
-
+		this.totalCost = offer ? this.resolveTotalCost(offer) : null;
 		this.maxItemsBit = this.offer?.reduce((bits, _, bit) => bit | bits, 0) ?? null;
 
 		this.imageURL = hasInfographic
 			? String(new URL(`spirits/${cdnName(name)}/friendship_tree/current.webp`, CDN_URL))
 			: null;
+	}
+
+	protected resolveTotalCost(offer: Collection<number, ItemsData>) {
+		return offer.reduce<FriendshipTree["totalCost"]>((offer, { cost }) => {
+			if (!cost) return offer;
+			const { candles, hearts, ascendedCandles, seasonalCandles, seasonalHearts } = cost;
+
+			if (candles) {
+				if (offer.candles) {
+					offer.candles += candles;
+				} else {
+					offer.candles = candles;
+				}
+			}
+
+			if (hearts) {
+				if (offer.hearts) {
+					offer.hearts += hearts;
+				} else {
+					offer.hearts = hearts;
+				}
+			}
+
+			if (ascendedCandles) {
+				if (offer.ascendedCandles) {
+					offer.ascendedCandles += ascendedCandles;
+				} else {
+					offer.ascendedCandles = ascendedCandles;
+				}
+			}
+
+			if (seasonalCandles) {
+				if (offer.seasonalCandles) {
+					offer.seasonalCandles += seasonalCandles;
+				} else {
+					offer.seasonalCandles = seasonalCandles;
+				}
+			}
+
+			if (seasonalHearts) {
+				if (offer.seasonalHearts) {
+					offer.seasonalHearts += seasonalHearts;
+				} else {
+					offer.seasonalHearts = seasonalHearts;
+				}
+			}
+
+			return offer;
+		}, {});
 	}
 }
 
@@ -548,6 +554,25 @@ abstract class FriendshipTree extends PartialFriendshipTree {
 	public declare readonly totalCost: SpiritCost;
 
 	public declare readonly maxItemsBit: number;
+}
+
+abstract class SeasonalFriendshipTree extends FriendshipTree {
+	public readonly seasonalOffer: Collection<number, ItemsData>;
+
+	public readonly seasonalTotalCost: SpiritCost;
+
+	public readonly seasonalImageURL: string | null;
+
+	public constructor(seasonalFriendshipTreeData: SeasonalFriendshipTreeData) {
+		super(seasonalFriendshipTreeData);
+		this.seasonalOffer = seasonalFriendshipTreeData.seasonalOffer;
+		this.seasonalTotalCost = this.resolveTotalCost(this.seasonalOffer);
+
+		this.seasonalImageURL =
+			seasonalFriendshipTreeData.hasSeasonalInfographic ?? true
+				? String(new URL(`spirits/${cdnName(seasonalFriendshipTreeData.name)}/seasonal_friendship_tree.webp`, CDN_URL))
+				: null;
+	}
 }
 
 abstract class ExpressiveSpirit {
@@ -628,7 +653,7 @@ export class ElderSpirit extends Mixin(BaseSpirit, FriendshipTree) {
 	}
 }
 
-export class SeasonalSpirit extends Mixin(BaseSpirit, FriendshipTree, ExpressiveSpirit) {
+export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, ExpressiveSpirit) {
 	public override readonly type = SPIRIT_TYPE.Seasonal;
 
 	public readonly season: Season;
