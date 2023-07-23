@@ -375,13 +375,13 @@ export interface ItemsData {
 	cost: SpiritCost | null;
 }
 
-interface PartialFriendshipData {
+interface PartialFriendshipTreeData {
 	name: SpiritName;
 	offer?: Collection<number, ItemsData>;
 	hasInfographic?: boolean;
 }
 
-interface FriendshipTreeData extends Omit<PartialFriendshipData, "offer"> {
+interface FriendshipTreeData extends Omit<PartialFriendshipTreeData, "offer"> {
 	offer: Collection<number, ItemsData>;
 }
 
@@ -418,7 +418,7 @@ interface SeasonalSpiritData extends BaseSpiritData, FriendshipTreeData, Express
 	visits?: SeasonalSpiritVisit;
 }
 
-interface GuideSpiritData extends BaseSpiritData, PartialFriendshipData {
+interface GuideSpiritData extends BaseSpiritData, PartialFriendshipTreeData {
 	season: Season;
 	inProgress?: boolean;
 }
@@ -483,7 +483,7 @@ abstract class PartialFriendshipTree {
 
 	public imageURL: string | null;
 
-	public constructor({ name, offer, hasInfographic = true }: PartialFriendshipData) {
+	public constructor({ name, offer, hasInfographic = true }: PartialFriendshipTreeData) {
 		this.offer = offer ?? null;
 
 		this.totalCost =
