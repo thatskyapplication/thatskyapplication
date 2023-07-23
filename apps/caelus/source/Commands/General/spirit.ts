@@ -177,7 +177,8 @@ export default new (class implements AutocompleteCommand {
 		if (imageURL) {
 			embed.setImage(imageURL);
 		} else {
-			description.push(spirit.offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
+			const offer = seasonalParsing ? spirit.seasonalOffer : spirit.offer;
+			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
 		if (spirit.isGuideSpirit() && spirit.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
