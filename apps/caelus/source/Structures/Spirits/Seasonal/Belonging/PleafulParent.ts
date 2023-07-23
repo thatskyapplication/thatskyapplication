@@ -19,6 +19,17 @@ export default new SeasonalSpirit({
 	expression: Expression.DontGo,
 	realm: Realm.GoldenWasteland,
 	hasMarketingVideo: true,
+	hasSeasonalInfographic: false,
+	seasonalOffer: new Collection<number, ItemsData>()
+		.set(1 << 0, { item: `${expression} 1`, cost: null })
+		.set(1 << 1, { item: `${expression} 2`, cost: null })
+		.set(1 << 2, { item: "Blessing", cost: { seasonalCandles: 14 } })
+		.set(1 << 10, { item: "Guitar", cost: null })
+		.set(1 << 6, { item: `${expression} 3`, cost: { seasonalCandles: 16 } })
+		.set(1 << 7, { item: `${expression} 4`, cost: null })
+		.set(1 << 3, { item: "Mask", cost: { seasonalCandles: 18 } })
+		.set(1 << 9, { item: "Cape", cost: null })
+		.set(1 << 4, { item: "Seasonal heart", cost: { seasonalCandles: 3 } }),
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 0, { item: `${expression} 1`, cost: null })
 		.set(1 << 1, { item: `${expression} 2`, cost: { hearts: 4 } })

@@ -18,6 +18,18 @@ export default new SeasonalSpirit({
 	season: Season.Belonging,
 	stance,
 	realm: Realm.VaultOfKnowledge,
+	hasSeasonalInfographic: false,
+	seasonalOffer: new Collection<number, ItemsData>()
+		.set(1 << 0, { item: `${stance} stance`, cost: null })
+		.set(1 << 3, { item: "Blessing 1", cost: { seasonalCandles: 10 } })
+		.set(1 << 1, { item: "Music sheet", cost: null })
+		.set(1 << 5, { item: "Blessing 2", cost: { seasonalCandles: 12 } })
+		.set(1 << 9, { item: "Blessing 3", cost: null })
+		.set(1 << 8, { item: "Mask", cost: { seasonalCandles: 14 } })
+		.set(1 << 10, { item: "Blessing 4", cost: null })
+		.set(1 << 11, { item: "Blessing 5", cost: { seasonalCandles: 16 } })
+		.set(1 << 6, { item: "Cape", cost: null })
+		.set(1 << 2, { item: "Seasonal heart", cost: { seasonalCandles: 3 } }),
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 0, { item: `${stance} stance`, cost: null })
 		.set(1 << 1, { item: "Music sheet", cost: { candles: 15 } })
