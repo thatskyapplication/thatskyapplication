@@ -548,8 +548,6 @@ abstract class FriendshipTree extends PartialFriendshipTree {
 	public declare readonly totalCost: SpiritCost;
 
 	public declare readonly maxItemsBit: number;
-
-	public declare imageURL: string;
 }
 
 abstract class ExpressiveSpirit {
@@ -643,10 +641,12 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, FriendshipTree, Expressive
 		super(spirit);
 		this.season = spirit.season;
 
-		if ([SpiritName.AncientLight1, SpiritName.AncientDarkness1].includes(this.name)) {
-			this.imageURL = this.imageURL.replace("current.webp", "current1.webp");
-		} else if ([SpiritName.AncientLight2, SpiritName.AncientDarkness2].includes(this.name)) {
-			this.imageURL = this.imageURL.replace("current.webp", "current2.webp");
+		if (this.imageURL) {
+			if ([SpiritName.AncientLight1, SpiritName.AncientDarkness1].includes(this.name)) {
+				this.imageURL = this.imageURL.replace("current.webp", "current1.webp");
+			} else if ([SpiritName.AncientLight2, SpiritName.AncientDarkness2].includes(this.name)) {
+				this.imageURL = this.imageURL.replace("current.webp", "current2.webp");
+			}
 		}
 
 		this.marketingVideoURL = spirit.hasMarketingVideo
