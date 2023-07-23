@@ -156,19 +156,20 @@ export default new (class implements AutocompleteCommand {
 		const imageURL = seasonalParsing ? spirit.seasonalImageURL : spirit.imageURL;
 
 		if (seasonalSpirit) {
-			components.push(
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					new ButtonBuilder()
-						.setCustomId(`${SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID}§${spirit.name}§${seasonalOffer}`)
-						.setLabel(`${seasonalOffer ? "Current" : "Seasonal"} Friendship Tree`)
-						.setStyle(ButtonStyle.Primary),
-				),
-			);
-
 			if (spirit.notVisited) {
 				description.push(`⚠️ This ${spirit.season === Season.Shattering ? "entity" : "spirit"} has not yet returned.`);
 			} else {
 				const { travelling, returning } = spirit.visits;
+
+				components.push(
+					new ActionRowBuilder<ButtonBuilder>().setComponents(
+						new ButtonBuilder()
+							.setCustomId(`${SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID}§${spirit.name}§${seasonalOffer}`)
+							.setLabel(`${seasonalOffer ? "Current" : "Seasonal"} Friendship Tree`)
+							.setStyle(ButtonStyle.Primary),
+					),
+				);
+
 				if (travelling.size > 0) embed.addFields({ name: "Travelling", value: this.visitField(travelling) });
 				if (returning.size > 0) embed.addFields({ name: "Returning", value: this.visitField(returning) });
 			}
