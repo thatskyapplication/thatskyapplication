@@ -566,7 +566,11 @@ abstract class SeasonalFriendshipTree extends FriendshipTree {
 	public constructor(seasonalFriendshipTreeData: SeasonalFriendshipTreeData) {
 		super(seasonalFriendshipTreeData);
 		this.seasonalOffer = seasonalFriendshipTreeData.seasonalOffer;
-		this.seasonalTotalCost = this.resolveTotalCost(this.seasonalOffer);
+
+		// TODO: Remove this.
+		try {
+			this.seasonalTotalCost = this.resolveTotalCost(this.seasonalOffer);
+		} catch {}
 
 		this.seasonalImageURL =
 			seasonalFriendshipTreeData.hasSeasonalInfographic ?? true
