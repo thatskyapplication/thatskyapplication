@@ -10,7 +10,8 @@ export default new SeasonalSpirit({
 	season: Season.Aurora,
 	expression,
 	realm: Realm.ValleyOfTriumph,
-	offer: new Collection<number, ItemsData>()
+	hasInfographic: false,
+	seasonalOffer: new Collection<number, ItemsData>()
 		.set(1 << 0, { item: `${expression} 1`, cost: null })
 		.set(1 << 1, { item: `${expression} 2`, cost: null })
 		.set(1 << 2, { item: "Mask", cost: { seasonalCandles: 12 } })
