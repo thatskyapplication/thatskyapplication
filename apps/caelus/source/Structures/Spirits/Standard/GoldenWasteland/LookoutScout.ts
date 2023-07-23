@@ -9,7 +9,6 @@ export default new StandardSpirit({
 	name: SpiritName.LookoutScout,
 	expression,
 	realm: Realm.GoldenWasteland,
-	hasInfographic: false,
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 0, { item: `${expression} 1`, cost: null })
 		.set(1 << 1, { item: `${expression} 2`, cost: { candles: 5 } })

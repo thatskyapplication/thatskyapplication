@@ -9,7 +9,6 @@ export default new StandardSpirit({
 	name: SpiritName.CourageousSoldier,
 	stance,
 	realm: Realm.GoldenWasteland,
-	hasInfographic: false,
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 0, { item: `${stance} stance`, cost: null })
 		.set(1 << 1, { item: "Hair", cost: { hearts: 4 } })
