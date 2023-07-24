@@ -155,7 +155,7 @@ export default new (class implements AutocompleteCommand {
 								name: "winged-light",
 								description: "Provide the maximum number of winged light you can possibly have.",
 								required: true,
-								max_value: MAXIMUM_WINGED_LIGHT,
+								maxValue: MAXIMUM_WINGED_LIGHT,
 								minValue: MINIMUM_WINGED_LIGHT,
 							},
 						],
