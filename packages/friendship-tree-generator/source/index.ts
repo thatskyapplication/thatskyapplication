@@ -1,7 +1,13 @@
 import { writeFile } from "node:fs/promises";
 import { createCanvas, loadImage } from "@napi-rs/canvas";
 import { fetch } from "undici";
-import { IMAGE_SIZE, LINE_OFFSET, NEXT_HEIGHT_LEVEL, WIDTH_MODIFIER } from "./constants.js";
+import {
+	IMAGE_SIZE,
+	LINE_OFFSET,
+	NEXT_HEIGHT_LEVEL,
+	NEXT_HEIGHT_LEVEL_SIDES_OFFSET,
+	WIDTH_MODIFIER,
+} from "./constants.js";
 import NODES from "./nodes.js";
 
 const canvas = createCanvas(700, 900);
@@ -14,7 +20,7 @@ const widthStartMiddle = canvas.width / 2 - IMAGE_SIZE / 2;
 const widthStartLeft = widthStartMiddle - WIDTH_MODIFIER;
 const widthStartRight = widthStartMiddle + WIDTH_MODIFIER;
 let heightStartMiddle = canvas.height * 0.9;
-let heightStartSides = canvas.height - 275;
+let heightStartSides = heightStartMiddle - NEXT_HEIGHT_LEVEL + NEXT_HEIGHT_LEVEL_SIDES_OFFSET;
 
 let nodesIndex = 0;
 
