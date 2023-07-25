@@ -13,13 +13,16 @@ import {
 } from "./constants.js";
 import NODES from "./nodes.js";
 
-const imageSizeHalf = IMAGE_SIZE / 2;
-const canvas = createCanvas(700, 900);
+let canvasHeight = IMAGE_SIZE + HEIGHT_START_OFFSET;
+canvasHeight += NEXT_HEIGHT_LEVEL * NODES.length;
+if (NODES.at(-1)!.length === 1) canvasHeight -= NEXT_HEIGHT_LEVEL - HEIGHT_START_OFFSET;
+const canvas = createCanvas(700, canvasHeight);
 const context = canvas.getContext("2d");
 context.translate(0.5, 0.5);
 context.lineWidth = LINE_WIDTH;
 context.strokeStyle = LINE_COLOUR;
 context.fillStyle = LINE_COLOUR;
+const imageSizeHalf = IMAGE_SIZE / 2;
 const widthMiddle = canvas.width / 2;
 const widthStartMiddle = widthMiddle - imageSizeHalf;
 const widthStartLeft = widthStartMiddle - WIDTH_MODIFIER;
