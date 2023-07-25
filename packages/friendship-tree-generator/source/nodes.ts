@@ -5,9 +5,11 @@ interface NodeCost {
 	seasonalCandles?: number;
 	seasonalHearts?: number;
 }
+
 interface Node {
 	icon: string;
 	cost: NodeCost | null;
 }
 
-export default [[]] as const satisfies Readonly<Readonly<Node[]>[]>;
+const NODES: Readonly<Readonly<Node[]>[]> = [[]] as const;
+export default NODES;

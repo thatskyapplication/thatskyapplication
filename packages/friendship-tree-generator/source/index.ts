@@ -1,8 +1,12 @@
 import { writeFile } from "node:fs/promises";
-import { createCanvas, loadImage } from "@napi-rs/canvas";
+import { createCanvas, loadImage, GlobalFonts } from "@napi-rs/canvas";
 import { fetch } from "undici";
 import {
+	ASSET_LEFT_OFFSET,
+	ASSET_MIDDLE_OFFSET,
+	ASSET_RIGHT_OFFSET,
 	ASSET_SIZE,
+	CURRENCY_TEXT_OFFSET,
 	HEIGHT_START_OFFSET,
 	IMAGE_SIZE,
 	LINE_COLOUR,
@@ -14,6 +18,8 @@ import {
 } from "./constants.js";
 import NODES from "./nodes.js";
 
+const hind = GlobalFonts.registerFromPath("./assets/Hind-Regular.ttf");
+if (!hind) throw new Error("Failed to load the Hind font.");
 let canvasHeight = IMAGE_SIZE + HEIGHT_START_OFFSET;
 canvasHeight += NEXT_HEIGHT_LEVEL * NODES.length;
 if (NODES.at(-1)!.length === 1) canvasHeight -= NEXT_HEIGHT_LEVEL - HEIGHT_START_OFFSET;
@@ -45,17 +51,17 @@ for (const nodes of NODES) {
 			case 0:
 				dx = widthStartMiddle;
 				dy = heightStartMiddle;
-				costOffset = -35;
+				costOffset = -ASSET_MIDDLE_OFFSET;
 				break;
 			case 1:
 				dx = widthStartLeft;
 				dy = heightStartSides;
-				costOffset = -50;
+				costOffset = -ASSET_LEFT_OFFSET;
 				break;
 			case 2:
 				dx = widthStartRight;
 				dy = heightStartSides;
-				costOffset = -35;
+				costOffset = -ASSET_RIGHT_OFFSET;
 				break;
 			default:
 				throw new Error(
@@ -83,26 +89,30 @@ for (const nodes of NODES) {
 
 		if (cost) {
 			let imageToDraw;
+			let currency;
+			const assetX = dx + IMAGE_SIZE + LINE_OFFSET + costOffset;
+			const assetY = dy + IMAGE_SIZE + LINE_OFFSET;
 
 			if ("candles" in cost) {
 				imageToDraw = "candle";
+				currency = cost.candles;
 			} else if ("hearts" in cost) {
 				imageToDraw = "heart";
+				currency = cost.hearts;
 			} else if ("ascendedCandles" in cost) {
 				imageToDraw = "ascended_candle";
+				currency = cost.ascendedCandles;
 			} else if ("seasonalCandles" in cost) {
 				imageToDraw = "seasonal_candle";
+				currency = cost.seasonalCandles;
 			} else if ("seasonalHearts" in cost) {
 				imageToDraw = "seasonal_heart";
+				currency = cost.seasonalHearts;
 			}
 
-			context.drawImage(
-				await loadImage(`./assets/${imageToDraw}.webp`),
-				dx + IMAGE_SIZE + LINE_OFFSET + costOffset,
-				dy + IMAGE_SIZE + LINE_OFFSET,
-				ASSET_SIZE,
-				ASSET_SIZE,
-			);
+			context.drawImage(await loadImage(`./assets/${imageToDraw}.webp`), assetX, assetY, ASSET_SIZE, ASSET_SIZE);
+			context.font = "25px Hind";
+			context.fillText(String(currency), assetX + ASSET_SIZE, assetY + ASSET_SIZE + CURRENCY_TEXT_OFFSET);
 		}
 
 		if (++nodeIndex === nodes.length && ++nodesIndex !== NODES.length) {
