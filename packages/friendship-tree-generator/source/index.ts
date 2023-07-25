@@ -1,19 +1,20 @@
 import { writeFile } from "node:fs/promises";
 import { createCanvas, loadImage } from "@napi-rs/canvas";
 import { fetch } from "undici";
+import { WIDTH_MODIFIER } from "./constants.js";
 import NODES from "./nodes.js";
 
-const canvas = createCanvas(1_024, 1_024);
+const canvas = createCanvas(700, 900);
 const context = canvas.getContext("2d");
 context.translate(0.5, 0.5);
 context.lineWidth = 5;
 context.strokeStyle = "#FFFFFF";
 context.fillStyle = "#FFFFFF";
-const widthStartMiddle = canvas.width / 2 - 36;
-const widthStartLeft = widthStartMiddle - 200;
-const widthStartRight = widthStartMiddle + 200;
-let heightStartMiddle = canvas.height - 150;
-let heightStartSides = canvas.height - 325;
+const widthStartMiddle = canvas.width / 2 - 37.5;
+const widthStartLeft = widthStartMiddle - WIDTH_MODIFIER;
+const widthStartRight = widthStartMiddle + WIDTH_MODIFIER;
+let heightStartMiddle = canvas.height - 100;
+let heightStartSides = canvas.height - 275;
 
 let nodesIndex = 0;
 
@@ -45,11 +46,11 @@ for (const nodes of NODES) {
 			context.beginPath();
 
 			if (nodeIndex === 1) {
-				context.moveTo(canvas.width / 2 - 37, heightStartMiddle + 10);
-				context.lineTo(widthStartLeft + 70, heightStartSides + 70);
+				context.moveTo(canvas.width / 2 - 50, heightStartMiddle + 15);
+				context.lineTo(widthStartLeft + 85, heightStartSides + 85);
 			} else {
-				context.moveTo(canvas.width / 2 + 37, heightStartMiddle + 10);
-				context.lineTo(widthStartRight, heightStartSides + 70);
+				context.moveTo(canvas.width / 2 + 50, heightStartMiddle + 15);
+				context.lineTo(widthStartRight - 10, heightStartSides + 85);
 			}
 
 			context.stroke();
@@ -61,8 +62,8 @@ for (const nodes of NODES) {
 
 		if (++nodeIndex === nodes.length && ++nodesIndex !== NODES.length) {
 			context.beginPath();
-			context.moveTo(canvas.width / 2, heightStartMiddle);
-			context.lineTo(canvas.width / 2, heightStartMiddle - 160);
+			context.moveTo(canvas.width / 2, heightStartMiddle - 10);
+			context.lineTo(canvas.width / 2, heightStartMiddle - 155);
 			context.stroke();
 			heightStartMiddle -= 240;
 			heightStartSides -= 240;
