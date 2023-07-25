@@ -1,7 +1,7 @@
 import { writeFile } from "node:fs/promises";
 import { createCanvas, loadImage } from "@napi-rs/canvas";
 import { fetch } from "undici";
-import { IMAGE_SIZE, NEXT_HEIGHT_LEVEL, WIDTH_MODIFIER } from "./constants.js";
+import { IMAGE_SIZE, LINE_OFFSET, NEXT_HEIGHT_LEVEL, WIDTH_MODIFIER } from "./constants.js";
 import NODES from "./nodes.js";
 
 const canvas = createCanvas(700, 900);
@@ -13,7 +13,7 @@ context.fillStyle = "#FFFFFF";
 const widthStartMiddle = canvas.width / 2 - IMAGE_SIZE / 2;
 const widthStartLeft = widthStartMiddle - WIDTH_MODIFIER;
 const widthStartRight = widthStartMiddle + WIDTH_MODIFIER;
-let heightStartMiddle = canvas.height - 100;
+let heightStartMiddle = canvas.height * 0.9;
 let heightStartSides = canvas.height - 275;
 
 let nodesIndex = 0;
@@ -46,11 +46,11 @@ for (const nodes of NODES) {
 			context.beginPath();
 
 			if (nodeIndex === 1) {
-				context.moveTo(canvas.width / 2 - (IMAGE_SIZE / 2 + 12.5), heightStartMiddle + 15);
-				context.lineTo(widthStartLeft + 85, heightStartSides + 85);
+				context.moveTo(canvas.width / 2 - (IMAGE_SIZE / 2 + 12.5), heightStartMiddle + LINE_OFFSET);
+				context.lineTo(widthStartLeft + IMAGE_SIZE + LINE_OFFSET, heightStartSides + IMAGE_SIZE + LINE_OFFSET);
 			} else {
-				context.moveTo(canvas.width / 2 + (IMAGE_SIZE / 2 + 12.5), heightStartMiddle + 15);
-				context.lineTo(widthStartRight - 10, heightStartSides + 85);
+				context.moveTo(canvas.width / 2 + (IMAGE_SIZE / 2 + 12.5), heightStartMiddle + LINE_OFFSET);
+				context.lineTo(widthStartRight - LINE_OFFSET, heightStartSides + IMAGE_SIZE + LINE_OFFSET);
 			}
 
 			context.stroke();
@@ -62,8 +62,8 @@ for (const nodes of NODES) {
 
 		if (++nodeIndex === nodes.length && ++nodesIndex !== NODES.length) {
 			context.beginPath();
-			context.moveTo(canvas.width / 2, heightStartMiddle - 10);
-			context.lineTo(canvas.width / 2, heightStartMiddle - (NEXT_HEIGHT_LEVEL - IMAGE_SIZE - 10));
+			context.moveTo(canvas.width / 2, heightStartMiddle - LINE_OFFSET);
+			context.lineTo(canvas.width / 2, heightStartMiddle - (NEXT_HEIGHT_LEVEL - IMAGE_SIZE - LINE_OFFSET));
 			context.stroke();
 			heightStartMiddle -= NEXT_HEIGHT_LEVEL;
 			heightStartSides -= NEXT_HEIGHT_LEVEL;
