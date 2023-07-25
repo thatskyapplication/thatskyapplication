@@ -9,7 +9,8 @@ import {
 	CURRENCY_TEXT_OFFSET,
 	HEIGHT_START_OFFSET,
 	IMAGE_SIZE,
-	LEVEL_OFFSET,
+	LEVEL_OFFSET_X,
+	LEVEL_OFFSET_Y,
 	LINE_COLOUR,
 	LINE_OFFSET,
 	LINE_WIDTH,
@@ -116,7 +117,7 @@ for (const nodes of NODES) {
 			context.fillText(String(currency), assetX + ASSET_SIZE, assetY + ASSET_SIZE + CURRENCY_TEXT_OFFSET);
 		}
 
-		if (level) context.fillText(`Lv${level}`, dx + IMAGE_SIZE - LEVEL_OFFSET, dy);
+		if (level) context.fillText(`Lv${level}`, dx + IMAGE_SIZE - LEVEL_OFFSET_X, dy - LEVEL_OFFSET_Y);
 
 		if (++nodeIndex === nodes.length && ++nodesIndex !== NODES.length) {
 			context.beginPath();
