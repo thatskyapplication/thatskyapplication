@@ -48,7 +48,7 @@ for (const nodes of NODES) {
 				context.lineTo(widthStartLeft + 70, heightStartSides + 70);
 			} else {
 				context.moveTo(canvas.width / 2 + 37, heightStartMiddle + 10);
-				context.lineTo(widthStartRight + 0, heightStartSides + 70);
+				context.lineTo(widthStartRight, heightStartSides + 70);
 			}
 
 			context.stroke();
