@@ -8,23 +8,46 @@ const context = canvas.getContext("2d");
 context.lineWidth = 5;
 context.strokeStyle = "#FFFFFF";
 context.fillStyle = "#FFFFFF";
+const widthStartMiddle = canvas.width / 2 - 36;
+const widthStartLeft = widthStartMiddle - 130;
+const widthStartRight = widthStartMiddle + 130;
+let heightStartMiddle = canvas.height - 150;
+let heightStartSides = canvas.height - 230;
 
-const nodes = [];
-for (let index = 0; index < NODES.length; index += 3) nodes.push(NODES.slice(index, index + 3));
-let height = canvas.height - 150;
+let nodesIndex = 0;
 
-for (const level of nodes) {
+for (const nodes of NODES) {
 	let nodeIndex = 0;
 
-	for (const node of level) {
+	for (const node of nodes) {
+		let dy;
+		let dx;
+
+		switch (nodeIndex) {
+			case 0:
+				dx = widthStartMiddle;
+				dy = heightStartMiddle;
+				break;
+			case 1:
+				dx = widthStartLeft;
+				dy = heightStartSides;
+				break;
+			case 2:
+				dx = widthStartRight;
+				dy = heightStartSides;
+				break;
+			default:
+				throw new Error("Invalid node index.");
+		}
+
 		const arrayBuffer = await (await fetch(node.icon)).arrayBuffer();
 		const icon = await loadImage(arrayBuffer);
-		context.drawImage(icon, canvas.width / 2 - 36, height, 75, 75);
+		context.drawImage(icon, dx, dy, 75, 75);
 
-		if (++nodeIndex !== level.length) {
-			height -= 80;
-			context.strokeRect(canvas.width / 2, height, 0, 75);
-			height -= 80;
+		if (++nodeIndex === nodes.length && ++nodesIndex !== NODES.length) {
+			context.strokeRect(canvas.width / 2, heightStartMiddle - 80, 0, 75);
+			heightStartMiddle -= 160;
+			heightStartSides -= 160;
 		}
 	}
 }
