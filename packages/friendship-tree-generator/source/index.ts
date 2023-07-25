@@ -126,4 +126,4 @@ for (const nodes of NODES) {
 	}
 }
 
-await writeFile("./simple.webp", await canvas.encode("webp"));
+await writeFile("./friendship_tree.webp", await canvas.encode("webp"));
