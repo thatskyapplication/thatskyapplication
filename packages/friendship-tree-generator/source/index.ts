@@ -9,6 +9,7 @@ import {
 	CURRENCY_TEXT_OFFSET,
 	HEIGHT_START_OFFSET,
 	IMAGE_SIZE,
+	LEVEL_OFFSET,
 	LINE_COLOUR,
 	LINE_OFFSET,
 	LINE_WIDTH,
@@ -42,7 +43,7 @@ let nodesIndex = 0;
 for (const nodes of NODES) {
 	let nodeIndex = 0;
 
-	for (const { icon, cost } of nodes) {
+	for (const { icon, cost, level } of nodes) {
 		let dy;
 		let dx;
 		let costOffset;
@@ -86,6 +87,7 @@ for (const nodes of NODES) {
 		const arrayBuffer = await (await fetch(icon)).arrayBuffer();
 		const buffer = await loadImage(arrayBuffer);
 		context.drawImage(buffer, dx, dy, IMAGE_SIZE, IMAGE_SIZE);
+		context.font = "25px Hind";
 
 		if (cost) {
 			let imageToDraw;
@@ -111,9 +113,10 @@ for (const nodes of NODES) {
 			}
 
 			context.drawImage(await loadImage(`./assets/${imageToDraw}.webp`), assetX, assetY, ASSET_SIZE, ASSET_SIZE);
-			context.font = "25px Hind";
 			context.fillText(String(currency), assetX + ASSET_SIZE, assetY + ASSET_SIZE + CURRENCY_TEXT_OFFSET);
 		}
+
+		if (level) context.fillText(`Lv${level}`, dx + IMAGE_SIZE - LEVEL_OFFSET, dy);
 
 		if (++nodeIndex === nodes.length && ++nodesIndex !== NODES.length) {
 			context.beginPath();

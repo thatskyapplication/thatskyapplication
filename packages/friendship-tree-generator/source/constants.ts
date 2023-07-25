@@ -8,6 +8,7 @@ export const ASSET_SIZE = 50 as const;
 export const ASSET_MIDDLE_OFFSET = 35 as const;
 export const ASSET_LEFT_OFFSET = 50 as const;
 export const ASSET_RIGHT_OFFSET = 35 as const;
+export const LEVEL_OFFSET = 25 as const;
 export const CURRENCY_TEXT_OFFSET = 10 as const;
 export const NEXT_HEIGHT_LEVEL = 240 as const;
 export const NEXT_HEIGHT_LEVEL_SIDES_OFFSET = 60 as const;
