@@ -49,7 +49,9 @@ for (const nodes of NODES) {
 				dy = heightStartSides;
 				break;
 			default:
-				throw new Error("Invalid node index.");
+				throw new Error(
+					"Encountered an excess amount of friendship tree nodes on a particular level. A level has one base node and potentially 2 extra nodes.",
+				);
 		}
 
 		if (nodeIndex > 0) {
