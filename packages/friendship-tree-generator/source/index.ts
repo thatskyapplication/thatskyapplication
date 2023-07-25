@@ -5,6 +5,7 @@ import NODES from "./nodes.js";
 
 const canvas = createCanvas(1_024, 1_024);
 const context = canvas.getContext("2d");
+context.translate(0.5, 0.5);
 context.lineWidth = 5;
 context.strokeStyle = "#FFFFFF";
 context.fillStyle = "#FFFFFF";
