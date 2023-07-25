@@ -202,7 +202,7 @@ export const SEASONAL_CANDLES_ROTATION = [
 		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8f/Hidden-Forest-Seasonal-Candles-locations-Pattern-B.png/revision/latest",
 	},
 	{
-		rotation: 1,
+		rotation: 2,
 		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/66/Valley-of-Triump-Seasonal-Candles-locations-Pattern-B.png/revision/latest",
 	},
 	{
