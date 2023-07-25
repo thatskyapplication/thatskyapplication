@@ -1,7 +1,7 @@
 import { writeFile } from "node:fs/promises";
 import { createCanvas, loadImage } from "@napi-rs/canvas";
 import { fetch } from "undici";
-import { IMAGE_SIZE, WIDTH_MODIFIER } from "./constants.js";
+import { IMAGE_SIZE, NEXT_HEIGHT_LEVEL, WIDTH_MODIFIER } from "./constants.js";
 import NODES from "./nodes.js";
 
 const canvas = createCanvas(700, 900);
@@ -63,10 +63,10 @@ for (const nodes of NODES) {
 		if (++nodeIndex === nodes.length && ++nodesIndex !== NODES.length) {
 			context.beginPath();
 			context.moveTo(canvas.width / 2, heightStartMiddle - 10);
-			context.lineTo(canvas.width / 2, heightStartMiddle - (240 - IMAGE_SIZE - 10));
+			context.lineTo(canvas.width / 2, heightStartMiddle - (NEXT_HEIGHT_LEVEL - IMAGE_SIZE - 10));
 			context.stroke();
-			heightStartMiddle -= 240;
-			heightStartSides -= 240;
+			heightStartMiddle -= NEXT_HEIGHT_LEVEL;
+			heightStartSides -= NEXT_HEIGHT_LEVEL;
 		}
 	}
 }
