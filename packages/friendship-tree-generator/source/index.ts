@@ -2,6 +2,7 @@ import { writeFile } from "node:fs/promises";
 import { createCanvas, loadImage } from "@napi-rs/canvas";
 import { fetch } from "undici";
 import {
+	ASSET_SIZE,
 	HEIGHT_START_OFFSET,
 	IMAGE_SIZE,
 	LINE_COLOUR,
@@ -35,22 +36,26 @@ let nodesIndex = 0;
 for (const nodes of NODES) {
 	let nodeIndex = 0;
 
-	for (const node of nodes) {
+	for (const { icon, cost } of nodes) {
 		let dy;
 		let dx;
+		let costOffset;
 
 		switch (nodeIndex) {
 			case 0:
 				dx = widthStartMiddle;
 				dy = heightStartMiddle;
+				costOffset = -35;
 				break;
 			case 1:
 				dx = widthStartLeft;
 				dy = heightStartSides;
+				costOffset = -50;
 				break;
 			case 2:
 				dx = widthStartRight;
 				dy = heightStartSides;
+				costOffset = -35;
 				break;
 			default:
 				throw new Error(
@@ -72,9 +77,33 @@ for (const nodes of NODES) {
 			context.stroke();
 		}
 
-		const arrayBuffer = await (await fetch(node.icon)).arrayBuffer();
-		const icon = await loadImage(arrayBuffer);
-		context.drawImage(icon, dx, dy, IMAGE_SIZE, IMAGE_SIZE);
+		const arrayBuffer = await (await fetch(icon)).arrayBuffer();
+		const buffer = await loadImage(arrayBuffer);
+		context.drawImage(buffer, dx, dy, IMAGE_SIZE, IMAGE_SIZE);
+
+		if (cost) {
+			let imageToDraw;
+
+			if ("candles" in cost) {
+				imageToDraw = "candle";
+			} else if ("hearts" in cost) {
+				imageToDraw = "heart";
+			} else if ("ascendedCandles" in cost) {
+				imageToDraw = "ascended_candle";
+			} else if ("seasonalCandles" in cost) {
+				imageToDraw = "seasonal_candle";
+			} else if ("seasonalHearts" in cost) {
+				imageToDraw = "seasonal_heart";
+			}
+
+			context.drawImage(
+				await loadImage(`./assets/${imageToDraw}.webp`),
+				dx + IMAGE_SIZE + LINE_OFFSET + costOffset,
+				dy + IMAGE_SIZE + LINE_OFFSET,
+				ASSET_SIZE,
+				ASSET_SIZE,
+			);
+		}
 
 		if (++nodeIndex === nodes.length && ++nodesIndex !== NODES.length) {
 			context.beginPath();
