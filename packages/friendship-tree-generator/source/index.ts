@@ -10,13 +10,15 @@ import {
 } from "./constants.js";
 import NODES from "./nodes.js";
 
+const imageSizeHalf = IMAGE_SIZE / 2;
+
 const canvas = createCanvas(700, 900);
 const context = canvas.getContext("2d");
 context.translate(0.5, 0.5);
 context.lineWidth = 5;
 context.strokeStyle = "#FFFFFF";
 context.fillStyle = "#FFFFFF";
-const widthStartMiddle = canvas.width / 2 - IMAGE_SIZE / 2;
+const widthStartMiddle = canvas.width / 2 - imageSizeHalf;
 const widthStartLeft = widthStartMiddle - WIDTH_MODIFIER;
 const widthStartRight = widthStartMiddle + WIDTH_MODIFIER;
 let heightStartMiddle = canvas.height * 0.9;
@@ -52,10 +54,10 @@ for (const nodes of NODES) {
 			context.beginPath();
 
 			if (nodeIndex === 1) {
-				context.moveTo(canvas.width / 2 - (IMAGE_SIZE / 2 + 12.5), heightStartMiddle + LINE_OFFSET);
+				context.moveTo(canvas.width / 2 - (imageSizeHalf + 12.5), heightStartMiddle + LINE_OFFSET);
 				context.lineTo(widthStartLeft + IMAGE_SIZE + LINE_OFFSET, heightStartSides + IMAGE_SIZE + LINE_OFFSET);
 			} else {
-				context.moveTo(canvas.width / 2 + (IMAGE_SIZE / 2 + 12.5), heightStartMiddle + LINE_OFFSET);
+				context.moveTo(canvas.width / 2 + (imageSizeHalf + 12.5), heightStartMiddle + LINE_OFFSET);
 				context.lineTo(widthStartRight - LINE_OFFSET, heightStartSides + IMAGE_SIZE + LINE_OFFSET);
 			}
 
