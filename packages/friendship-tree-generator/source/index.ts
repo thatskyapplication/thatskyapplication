@@ -59,10 +59,10 @@ for (const nodes of NODES) {
 			context.beginPath();
 
 			if (nodeIndex === 1) {
-				context.moveTo(widthMiddle - (imageSizeHalf + 12.5), heightStartMiddle + LINE_OFFSET);
+				context.moveTo(widthMiddle - (imageSizeHalf + LINE_OFFSET), heightStartMiddle + LINE_OFFSET);
 				context.lineTo(widthStartLeft + IMAGE_SIZE + LINE_OFFSET, heightStartSides + IMAGE_SIZE + LINE_OFFSET);
 			} else {
-				context.moveTo(widthMiddle + (imageSizeHalf + 12.5), heightStartMiddle + LINE_OFFSET);
+				context.moveTo(widthMiddle + (imageSizeHalf + LINE_OFFSET), heightStartMiddle + LINE_OFFSET);
 				context.lineTo(widthStartRight - LINE_OFFSET, heightStartSides + IMAGE_SIZE + LINE_OFFSET);
 			}
 
