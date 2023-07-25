@@ -3,7 +3,9 @@ import { createCanvas, loadImage } from "@napi-rs/canvas";
 import { fetch } from "undici";
 import {
 	IMAGE_SIZE,
+	LINE_COLOUR,
 	LINE_OFFSET,
+	LINE_WIDTH,
 	NEXT_HEIGHT_LEVEL,
 	NEXT_HEIGHT_LEVEL_SIDES_OFFSET,
 	WIDTH_MODIFIER,
@@ -14,9 +16,9 @@ const imageSizeHalf = IMAGE_SIZE / 2;
 const canvas = createCanvas(700, 900);
 const context = canvas.getContext("2d");
 context.translate(0.5, 0.5);
-context.lineWidth = 5;
-context.strokeStyle = "#FFFFFF";
-context.fillStyle = "#FFFFFF";
+context.lineWidth = LINE_WIDTH;
+context.strokeStyle = LINE_COLOUR;
+context.fillStyle = LINE_COLOUR;
 const widthMiddle = canvas.width / 2;
 const widthStartMiddle = widthMiddle - imageSizeHalf;
 const widthStartLeft = widthStartMiddle - WIDTH_MODIFIER;
