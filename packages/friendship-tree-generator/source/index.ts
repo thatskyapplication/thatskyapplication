@@ -28,7 +28,13 @@ const hind = GlobalFonts.registerFromPath("./assets/Hind-Regular.ttf");
 if (!hind) throw new Error("Failed to load the Hind font.");
 let canvasHeight = IMAGE_SIZE + HEIGHT_START_OFFSET;
 canvasHeight += NEXT_HEIGHT_LEVEL * NODES.length;
-if (NODES.at(-1)!.length === 1) canvasHeight -= NEXT_HEIGHT_LEVEL - HEIGHT_START_OFFSET;
+const lastNode = NODES.at(-1)!;
+
+if (lastNode.length === 1) {
+	if (lastNode[0]!.seasonIcon) canvasHeight += SEASON_ICON_MIDDLE_OFFSET_Y;
+	canvasHeight -= NEXT_HEIGHT_LEVEL - HEIGHT_START_OFFSET;
+}
+
 const canvas = createCanvas(700, canvasHeight);
 const context = canvas.getContext("2d");
 context.translate(0.5, 0.5);
