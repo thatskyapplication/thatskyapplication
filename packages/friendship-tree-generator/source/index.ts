@@ -79,7 +79,7 @@ for (const nodes of NODES) {
 				break;
 			default:
 				throw new Error(
-					"Encountered an excess amount of friendship tree nodes on a particular level. A level has one base node and potentially 2 extra nodes.",
+					"Encountered an excess amount of friendship tree nodes on a particular level. A level has one base node may have two extra nodes.",
 				);
 		}
 
