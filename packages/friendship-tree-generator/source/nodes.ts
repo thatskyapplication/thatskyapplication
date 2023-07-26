@@ -36,6 +36,7 @@ export interface Node {
 	cost: NodeCost | null;
 	level?: 2 | 3 | 4 | 5 | 6;
 	seasonIcon?: Season;
+	flatLine?: boolean;
 	nodes?: readonly Node[];
 }
 

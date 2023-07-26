@@ -49,8 +49,8 @@ const widthStartRight = widthStartMiddle + WIDTH_MODIFIER;
 let heightStartMiddle = canvas.height - IMAGE_SIZE - HEIGHT_START_OFFSET;
 let heightStartSides = heightStartMiddle - NEXT_HEIGHT_LEVEL + NEXT_HEIGHT_LEVEL_SIDES_OFFSET;
 
-	const { icon, cost, level, seasonIcon, nodes } = node;
 async function createNode(node: Node, nodeIndex: number, sideLineUpX?: number, sideLineUpY?: number, customY?: number) {
+	const { icon, cost, level, seasonIcon, flatLine, nodes } = node;
 	let dx;
 	let dy;
 	let costOffset;
@@ -67,14 +67,14 @@ async function createNode(node: Node, nodeIndex: number, sideLineUpX?: number, s
 			break;
 		case 1:
 			dx = widthStartLeft;
-			dy = customY ?? heightStartSides;
+			dy = flatLine ? heightStartMiddle : customY ?? heightStartSides;
 			costOffset = -ASSET_LEFT_OFFSET;
 			seasonIconOffsetX = SEASON_ICON_SIDES_OFFSET_X;
 			seasonIconOffsetY = SEASON_ICON_SIDES_OFFSET_Y;
 			break;
 		case 2:
 			dx = widthStartRight;
-			dy = customY ?? heightStartSides;
+			dy = flatLine ? heightStartMiddle : customY ?? heightStartSides;
 			costOffset = -ASSET_RIGHT_OFFSET;
 			seasonIconOffsetX = SEASON_ICON_SIDES_OFFSET_X;
 			seasonIconOffsetY = SEASON_ICON_SIDES_OFFSET_Y;
@@ -91,17 +91,23 @@ async function createNode(node: Node, nodeIndex: number, sideLineUpX?: number, s
 		if (nodeIndex === 1) {
 			context.moveTo(
 				sideLineUpX ?? widthMiddle - (imageSizeHalf + LINE_OFFSET),
-				sideLineUpY ?? heightStartMiddle + LINE_OFFSET,
+				sideLineUpY ?? (flatLine ? heightStartMiddle + imageSizeHalf : heightStartMiddle) + LINE_OFFSET,
 			);
 
-			context.lineTo(sideLineUpX ?? widthStartLeft + IMAGE_SIZE + LINE_OFFSET, dy + IMAGE_SIZE + LINE_OFFSET);
+			context.lineTo(
+				sideLineUpX ?? widthStartLeft + IMAGE_SIZE + LINE_OFFSET,
+				(flatLine ? heightStartMiddle + imageSizeHalf : dy + IMAGE_SIZE) + LINE_OFFSET,
+			);
 		} else {
 			context.moveTo(
 				sideLineUpX ?? widthMiddle + (imageSizeHalf + LINE_OFFSET),
-				sideLineUpY ?? heightStartMiddle + LINE_OFFSET,
+				sideLineUpY ?? (flatLine ? heightStartMiddle + imageSizeHalf : heightStartMiddle) + LINE_OFFSET,
 			);
 
-			context.lineTo(sideLineUpX ?? widthStartRight - LINE_OFFSET, dy + IMAGE_SIZE + LINE_OFFSET);
+			context.lineTo(
+				sideLineUpX ?? widthStartRight - LINE_OFFSET,
+				(flatLine ? heightStartMiddle + imageSizeHalf : dy + IMAGE_SIZE) + LINE_OFFSET,
+			);
 		}
 
 		context.stroke();
