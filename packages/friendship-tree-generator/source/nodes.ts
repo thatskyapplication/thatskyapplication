@@ -1,11 +1,3 @@
-interface NodeCost {
-	candles?: number;
-	hearts?: number;
-	ascendedCandles?: number;
-	seasonalCandles?: number;
-	seasonalHearts?: number;
-}
-
 type Season =
 	| "Gratitude"
 	| "Lightseekers"
@@ -25,6 +17,19 @@ type Season =
 	| "Remembrance"
 	| "Passage"
 	| "Moments";
+
+interface NodeSeasonalCost {
+	cost: number;
+	season: Season;
+}
+
+interface NodeCost {
+	candles?: number;
+	hearts?: number;
+	ascendedCandles?: number;
+	seasonalCandles?: NodeSeasonalCost;
+	seasonalHearts?: NodeSeasonalCost;
+}
 
 export interface Node {
 	icon: string;

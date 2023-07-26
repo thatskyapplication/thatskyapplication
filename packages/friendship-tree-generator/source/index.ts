@@ -128,11 +128,11 @@ async function createNode(node: Node, nodeIndex: number, customLineX?: number, c
 			imageToDraw = "ascended_candle";
 			currency = cost.ascendedCandles;
 		} else if ("seasonalCandles" in cost) {
-			imageToDraw = "seasonal_candle";
-			currency = cost.seasonalCandles;
+			imageToDraw = `seasons/${cost.seasonalCandles.season.toLowerCase().replaceAll(" ", "_")}/candle`;
+			currency = cost.seasonalCandles.cost;
 		} else if ("seasonalHearts" in cost) {
-			imageToDraw = "seasonal_heart";
-			currency = cost.seasonalHearts;
+			imageToDraw = `seasons/${cost.seasonalHearts.season.toLowerCase().replaceAll(" ", "_")}/heart`;
+			currency = cost.seasonalHearts.cost;
 		}
 
 		context.drawImage(await loadImage(`./assets/${imageToDraw}.webp`), assetX, assetY, ASSET_SIZE, ASSET_SIZE);
@@ -141,7 +141,7 @@ async function createNode(node: Node, nodeIndex: number, customLineX?: number, c
 
 	if (seasonIcon) {
 		context.drawImage(
-			await loadImage(`./assets/${seasonIcon.toLowerCase().replaceAll(" ", "_")}.webp`),
+			await loadImage(`./assets/seasons/${seasonIcon.toLowerCase().replaceAll(" ", "_")}/icon.webp`),
 			dx - seasonIconOffsetX,
 			dy - seasonIconOffsetY,
 			ASSET_SIZE,
