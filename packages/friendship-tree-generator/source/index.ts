@@ -16,6 +16,10 @@ import {
 	LINE_WIDTH,
 	NEXT_HEIGHT_LEVEL,
 	NEXT_HEIGHT_LEVEL_SIDES_OFFSET,
+	SEASON_ICON_MIDDLE_OFFSET_X,
+	SEASON_ICON_MIDDLE_OFFSET_Y,
+	SEASON_ICON_SIDES_OFFSET_X,
+	SEASON_ICON_SIDES_OFFSET_Y,
 	WIDTH_MODIFIER,
 } from "./constants.js";
 import NODES from "./nodes.js";
@@ -44,26 +48,34 @@ let nodesIndex = 0;
 for (const nodes of NODES) {
 	let nodeIndex = 0;
 
-	for (const { icon, cost, level } of nodes) {
+	for (const { icon, cost, level, seasonIcon } of nodes) {
 		let dy;
 		let dx;
 		let costOffset;
+		let seasonIconOffsetX;
+		let seasonIconOffsetY;
 
 		switch (nodeIndex) {
 			case 0:
 				dx = widthStartMiddle;
 				dy = heightStartMiddle;
 				costOffset = -ASSET_MIDDLE_OFFSET;
+				seasonIconOffsetX = SEASON_ICON_MIDDLE_OFFSET_X;
+				seasonIconOffsetY = SEASON_ICON_MIDDLE_OFFSET_Y;
 				break;
 			case 1:
 				dx = widthStartLeft;
 				dy = heightStartSides;
 				costOffset = -ASSET_LEFT_OFFSET;
+				seasonIconOffsetX = SEASON_ICON_SIDES_OFFSET_X;
+				seasonIconOffsetY = SEASON_ICON_SIDES_OFFSET_Y;
 				break;
 			case 2:
 				dx = widthStartRight;
 				dy = heightStartSides;
 				costOffset = -ASSET_RIGHT_OFFSET;
+				seasonIconOffsetX = SEASON_ICON_SIDES_OFFSET_X;
+				seasonIconOffsetY = SEASON_ICON_SIDES_OFFSET_Y;
 				break;
 			default:
 				throw new Error(
@@ -115,6 +127,16 @@ for (const nodes of NODES) {
 
 			context.drawImage(await loadImage(`./assets/${imageToDraw}.webp`), assetX, assetY, ASSET_SIZE, ASSET_SIZE);
 			context.fillText(String(currency), assetX + ASSET_SIZE, assetY + ASSET_SIZE + CURRENCY_TEXT_OFFSET);
+		}
+
+		if (seasonIcon) {
+			context.drawImage(
+				await loadImage(`./assets/${seasonIcon.toLowerCase().replaceAll(" ", "_")}.webp`),
+				dx - seasonIconOffsetX,
+				dy - seasonIconOffsetY,
+				ASSET_SIZE,
+				ASSET_SIZE,
+			);
 		}
 
 		if (level) context.fillText(`Lv${level}`, dx + IMAGE_SIZE - LEVEL_OFFSET_X, dy - LEVEL_OFFSET_Y);

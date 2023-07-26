@@ -6,6 +6,26 @@ interface NodeCost {
 	seasonalHearts?: number;
 }
 
+type Season =
+	| "Gratitude"
+	| "Lightseekers"
+	| "Belonging"
+	| "Rhythm"
+	| "Enchantment"
+	| "Sanctuary"
+	| "Prophecy"
+	| "Dreams"
+	| "Assembly"
+	| "Little Prince"
+	| "Flight"
+	| "Abyss"
+	| "Performance"
+	| "Shattering"
+	| "AURORA"
+	| "Remembrance"
+	| "Passage"
+	| "Moments";
+
 interface Node {
 	icon: string;
 	cost: NodeCost | null;
