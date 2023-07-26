@@ -26,12 +26,13 @@ type Season =
 	| "Passage"
 	| "Moments";
 
-interface Node {
+export interface Node {
 	icon: string;
 	cost: NodeCost | null;
 	level?: 2 | 3 | 4 | 5 | 6;
 	seasonIcon?: Season;
+	nodes?: readonly Node[];
 }
 
-const NODES: Readonly<Readonly<Node[]>[]> = [[]] as const;
+const NODES: Readonly<Readonly<(Node | null)[]>[]> = [[]] as const;
 export default NODES;
