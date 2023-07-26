@@ -51,8 +51,8 @@ let heightStartSides = heightStartMiddle - NEXT_HEIGHT_LEVEL + NEXT_HEIGHT_LEVEL
 
 async function createNode(node: Node, nodeIndex: number, customLineX?: number, customLineY?: number, customY?: number) {
 	const { icon, cost, level, seasonIcon, nodes } = node;
-	let dy;
 	let dx;
+	let dy;
 	let costOffset;
 	let seasonIconOffsetX;
 	let seasonIconOffsetY;
