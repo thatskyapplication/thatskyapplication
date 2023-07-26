@@ -17,8 +17,8 @@ import {
 } from "discord.js";
 import {
 	Emoji,
-	// doubleSeasonalLightEventEndTimestamp,
-	// doubleSeasonalLightEventStartTimestamp,
+	doubleSeasonalLightEventEndTimestamp,
+	doubleSeasonalLightEventStartTimestamp,
 	eventEndDate,
 	seasonEndDate,
 	seasonStartDate,
@@ -276,17 +276,17 @@ export default class DailyGuidesDistribution {
 			(date.isAfter(seasonStartDate) || date.isSame(seasonStartDate)) &&
 			(date.isBefore(seasonEndDate) || date.isSame(seasonEndDate))
 		) {
-			const { /* rotation, */ url } = seasonalCandlesRotation();
-			// let rotationNumber = String(rotation);
+			const { rotation, url } = seasonalCandlesRotation();
+			let rotationNumber = String(rotation);
 
-			// if (
-			// 	(date.isAfter(doubleSeasonalLightEventStartTimestamp) || date.isSame(doubleSeasonalLightEventStartTimestamp)) &&
-			// 	(date.isBefore(doubleSeasonalLightEventEndTimestamp) || date.isSame(doubleSeasonalLightEventEndTimestamp))
-			// ) {
-			// 	rotationNumber = "1 & 2";
-			// }
+			if (
+				(date.isAfter(doubleSeasonalLightEventStartTimestamp) || date.isSame(doubleSeasonalLightEventStartTimestamp)) &&
+				(date.isBefore(doubleSeasonalLightEventEndTimestamp) || date.isSame(doubleSeasonalLightEventEndTimestamp))
+			) {
+				rotationNumber = "1 & 2";
+			}
 
-			embed.addFields({ name: "Seasonal Candles", value: hyperlink(/* `Rotation ${rotationNumber}` */ "Image", url) });
+			embed.addFields({ name: "Seasonal Candles", value: hyperlink(`Rotation ${rotationNumber}`, url) });
 		}
 
 		const eventCurrencyFieldData = this.eventCurrencyFieldData();
