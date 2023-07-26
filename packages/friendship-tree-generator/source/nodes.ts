@@ -30,6 +30,7 @@ interface Node {
 	icon: string;
 	cost: NodeCost | null;
 	level?: 2 | 3 | 4 | 5 | 6;
+	seasonIcon?: Season;
 }
 
 const NODES: Readonly<Readonly<Node[]>[]> = [[]] as const;
