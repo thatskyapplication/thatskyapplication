@@ -49,7 +49,7 @@ const widthStartRight = widthStartMiddle + WIDTH_MODIFIER;
 let heightStartMiddle = canvas.height - IMAGE_SIZE - HEIGHT_START_OFFSET;
 let heightStartSides = heightStartMiddle - NEXT_HEIGHT_LEVEL + NEXT_HEIGHT_LEVEL_SIDES_OFFSET;
 
-async function createNode(node: Node, nodeIndex: number, customLineX?: number, customLineY?: number, customY?: number) {
+async function createNode(node: Node, nodeIndex: number, customLineX?: number, sideLineUpY?: number, customY?: number) {
 	const { icon, cost, level, seasonIcon, nodes } = node;
 	let dx;
 	let dy;
@@ -91,14 +91,14 @@ async function createNode(node: Node, nodeIndex: number, customLineX?: number, c
 		if (nodeIndex === 1) {
 			context.moveTo(
 				customLineX ?? widthMiddle - (imageSizeHalf + LINE_OFFSET),
-				customLineY ?? heightStartMiddle + LINE_OFFSET,
+				sideLineUpY ?? heightStartMiddle + LINE_OFFSET,
 			);
 
 			context.lineTo(customLineX ?? widthStartLeft + IMAGE_SIZE + LINE_OFFSET, dy + IMAGE_SIZE + LINE_OFFSET);
 		} else {
 			context.moveTo(
 				customLineX ?? widthMiddle + (imageSizeHalf + LINE_OFFSET),
-				customLineY ?? heightStartMiddle + LINE_OFFSET,
+				sideLineUpY ?? heightStartMiddle + LINE_OFFSET,
 			);
 
 			context.lineTo(customLineX ?? widthStartRight - LINE_OFFSET, dy + IMAGE_SIZE + LINE_OFFSET);
@@ -152,12 +152,12 @@ async function createNode(node: Node, nodeIndex: number, customLineX?: number, c
 	if (level) context.fillText(`Lv${level}`, dx + IMAGE_SIZE - LEVEL_OFFSET_X, dy - LEVEL_OFFSET_Y);
 
 	if (nodes?.length) {
-		let customY = dy;
+		let sideLineUpYCalculation = dy - LINE_OFFSET;
 		let customHeightLevel = dy - NEXT_HEIGHT_LEVEL;
 
 		for (const subnode of nodes) {
-			await createNode(subnode, nodeIndex, dx + imageSizeHalf, customY, customHeightLevel);
-			customY -= NEXT_HEIGHT_LEVEL;
+			await createNode(subnode, nodeIndex, dx + imageSizeHalf, sideLineUpYCalculation, customHeightLevel);
+			sideLineUpYCalculation -= NEXT_HEIGHT_LEVEL;
 			customHeightLevel -= NEXT_HEIGHT_LEVEL;
 		}
 	}
