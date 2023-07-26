@@ -49,8 +49,8 @@ const widthStartRight = widthStartMiddle + WIDTH_MODIFIER;
 let heightStartMiddle = canvas.height - IMAGE_SIZE - HEIGHT_START_OFFSET;
 let heightStartSides = heightStartMiddle - NEXT_HEIGHT_LEVEL + NEXT_HEIGHT_LEVEL_SIDES_OFFSET;
 
-async function createNode(node: Node, nodeIndex: number, customLineX?: number, sideLineUpY?: number, customY?: number) {
 	const { icon, cost, level, seasonIcon, nodes } = node;
+async function createNode(node: Node, nodeIndex: number, sideLineUpX?: number, sideLineUpY?: number, customY?: number) {
 	let dx;
 	let dy;
 	let costOffset;
@@ -90,18 +90,18 @@ async function createNode(node: Node, nodeIndex: number, customLineX?: number, s
 
 		if (nodeIndex === 1) {
 			context.moveTo(
-				customLineX ?? widthMiddle - (imageSizeHalf + LINE_OFFSET),
+				sideLineUpX ?? widthMiddle - (imageSizeHalf + LINE_OFFSET),
 				sideLineUpY ?? heightStartMiddle + LINE_OFFSET,
 			);
 
-			context.lineTo(customLineX ?? widthStartLeft + IMAGE_SIZE + LINE_OFFSET, dy + IMAGE_SIZE + LINE_OFFSET);
+			context.lineTo(sideLineUpX ?? widthStartLeft + IMAGE_SIZE + LINE_OFFSET, dy + IMAGE_SIZE + LINE_OFFSET);
 		} else {
 			context.moveTo(
-				customLineX ?? widthMiddle + (imageSizeHalf + LINE_OFFSET),
+				sideLineUpX ?? widthMiddle + (imageSizeHalf + LINE_OFFSET),
 				sideLineUpY ?? heightStartMiddle + LINE_OFFSET,
 			);
 
-			context.lineTo(customLineX ?? widthStartRight - LINE_OFFSET, dy + IMAGE_SIZE + LINE_OFFSET);
+			context.lineTo(sideLineUpX ?? widthStartRight - LINE_OFFSET, dy + IMAGE_SIZE + LINE_OFFSET);
 		}
 
 		context.stroke();
