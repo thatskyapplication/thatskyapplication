@@ -2,10 +2,11 @@ import { writeFile } from "node:fs/promises";
 import { createCanvas, loadImage, GlobalFonts } from "@napi-rs/canvas";
 import { fetch } from "undici";
 import {
-	ASSET_LEFT_OFFSET,
-	ASSET_MIDDLE_OFFSET,
-	ASSET_RIGHT_OFFSET,
+	ASSET_OFFSET,
 	ASSET_SIZE,
+	ASSET_TEXT_DOUBLE_OFFSET,
+	ASSET_TEXT_SINGLE_OFFSET,
+	ASSET_TEXT_TRIPLE_OFFSET,
 	CURRENCY_TEXT_OFFSET,
 	HEIGHT_START_OFFSET,
 	IMAGE_SIZE,
@@ -53,7 +54,8 @@ async function createNode(node: Node, nodeIndex: number, sideLineUpX?: number, s
 	const { icon, cost, level, seasonIcon, flatLine, nodes } = node;
 	let dx;
 	let dy;
-	let costOffset;
+	let assetXOffset;
+	let currencyTextXOffset;
 	let seasonIconOffsetX;
 	let seasonIconOffsetY;
 
@@ -61,21 +63,24 @@ async function createNode(node: Node, nodeIndex: number, sideLineUpX?: number, s
 		case 0:
 			dx = widthStartMiddle;
 			dy = heightStartMiddle;
-			costOffset = -ASSET_MIDDLE_OFFSET;
+			assetXOffset = imageSizeHalf + LINE_OFFSET + ASSET_OFFSET;
+			currencyTextXOffset = ASSET_SIZE;
 			seasonIconOffsetX = SEASON_ICON_MIDDLE_OFFSET_X;
 			seasonIconOffsetY = SEASON_ICON_MIDDLE_OFFSET_Y;
 			break;
 		case 1:
 			dx = widthStartLeft;
 			dy = flatLine ? heightStartMiddle : customY ?? heightStartSides;
-			costOffset = -ASSET_LEFT_OFFSET;
+			assetXOffset = -(LINE_OFFSET + ASSET_OFFSET);
+			currencyTextXOffset = 0;
 			seasonIconOffsetX = SEASON_ICON_SIDES_OFFSET_X;
 			seasonIconOffsetY = SEASON_ICON_SIDES_OFFSET_Y;
 			break;
 		case 2:
 			dx = widthStartRight;
 			dy = flatLine ? heightStartMiddle : customY ?? heightStartSides;
-			costOffset = -ASSET_RIGHT_OFFSET;
+			assetXOffset = imageSizeHalf + LINE_OFFSET + ASSET_OFFSET;
+			currencyTextXOffset = ASSET_SIZE;
 			seasonIconOffsetX = SEASON_ICON_SIDES_OFFSET_X;
 			seasonIconOffsetY = SEASON_ICON_SIDES_OFFSET_Y;
 			break;
@@ -116,13 +121,11 @@ async function createNode(node: Node, nodeIndex: number, sideLineUpX?: number, s
 	const arrayBuffer = await (await fetch(icon)).arrayBuffer();
 	const buffer = await loadImage(arrayBuffer);
 	context.drawImage(buffer, dx, dy, IMAGE_SIZE, IMAGE_SIZE);
-	context.font = "25px Hind";
+	context.font = "35px Hind";
 
 	if (cost) {
-		let imageToDraw;
 		let currency;
-		const assetX = dx + IMAGE_SIZE + LINE_OFFSET + costOffset;
-		const assetY = dy + IMAGE_SIZE + LINE_OFFSET;
+		let imageToDraw;
 
 		if ("candles" in cost) {
 			imageToDraw = "candle";
@@ -139,10 +142,26 @@ async function createNode(node: Node, nodeIndex: number, sideLineUpX?: number, s
 		} else if ("seasonalHearts" in cost) {
 			imageToDraw = `seasons/${cost.seasonalHearts.season.toLowerCase().replaceAll(" ", "_")}/heart`;
 			currency = cost.seasonalHearts.cost;
+		} else {
+			throw new Error("A cost was specified with no currency.");
 		}
 
+		const assetX = dx + assetXOffset;
+		const assetY = dy + IMAGE_SIZE + LINE_OFFSET;
 		context.drawImage(await loadImage(`./assets/${imageToDraw}.webp`), assetX, assetY, ASSET_SIZE, ASSET_SIZE);
-		context.fillText(String(currency), assetX + ASSET_SIZE, assetY + ASSET_SIZE + CURRENCY_TEXT_OFFSET);
+		let currencyX = assetX + currencyTextXOffset;
+
+		if (nodeIndex === 1) {
+			if (currency >= 100) {
+				currencyX -= ASSET_TEXT_TRIPLE_OFFSET;
+			} else if (currency >= 10) {
+				currencyX -= ASSET_TEXT_DOUBLE_OFFSET;
+			} else {
+				currencyX -= ASSET_TEXT_SINGLE_OFFSET;
+			}
+		}
+
+		context.fillText(String(currency), currencyX, assetY + ASSET_SIZE + CURRENCY_TEXT_OFFSET);
 	}
 
 	if (seasonIcon) {
