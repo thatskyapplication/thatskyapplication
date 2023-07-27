@@ -1,11 +1,12 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { Season } from "../../../../Utility/Constants.js";
+import { Realm, Season } from "../../../../Utility/Constants.js";
 import { type ItemsData, GuideSpirit, SpiritName } from "../../Base.js";
 
 export default new GuideSpirit({
 	name: SpiritName.AbyssGuide,
 	season: Season.Abyss,
+	realm: Realm.GoldenWasteland,
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 0, { item: "Quest 1", cost: null })
 		.set(1 << 1, { item: "Heart 1", cost: { candles: 3 } })

@@ -1,11 +1,12 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { Season } from "../../../../Utility/Constants.js";
+import { Realm, Season } from "../../../../Utility/Constants.js";
 import { type ItemsData, Expression, GuideSpirit, SpiritName } from "../../Base.js";
 
 export default new GuideSpirit({
 	name: SpiritName.AssemblyGuide,
 	season: Season.Assembly,
+	realm: Realm.HiddenForest,
 	hasInfographic: false,
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 22, { item: "Blessing", cost: null })
