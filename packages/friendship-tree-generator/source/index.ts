@@ -119,8 +119,8 @@ async function createNode(node: Node, nodeIndex: number, sideLineUpX?: number, s
 	}
 
 	const arrayBuffer = await (await fetch(icon)).arrayBuffer();
-	const buffer = await loadImage(arrayBuffer);
-	context.drawImage(buffer, dx, dy, IMAGE_SIZE, IMAGE_SIZE);
+	const image = await loadImage(arrayBuffer);
+	context.drawImage(image, dx, dy, IMAGE_SIZE, IMAGE_SIZE);
 	context.font = "35px Hind";
 
 	if (cost) {
