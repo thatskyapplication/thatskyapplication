@@ -7,7 +7,6 @@ export default new GuideSpirit({
 	name: SpiritName.AssemblyGuide,
 	season: Season.Assembly,
 	realm: Realm.HiddenForest,
-	hasInfographic: false,
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 22, { item: "Blessing", cost: null })
 		.set(1 << 0, { item: "Quest 1", cost: null })
