@@ -6,7 +6,6 @@ import { type ItemsData, GuideSpirit, SpiritName } from "../../Base.js";
 export default new GuideSpirit({
 	name: SpiritName.AbyssGuide,
 	season: Season.Abyss,
-	hasInfographic: false,
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 0, { item: "Quest 1", cost: null })
 		.set(1 << 1, { item: "Heart 1", cost: { candles: 3 } })
