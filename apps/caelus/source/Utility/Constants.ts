@@ -17,6 +17,18 @@ export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const
 export const EVENT_CURRENCY_INFOGRAPHIC_URL =
 	"https://media.discordapp.net/attachments/739444631963435008/1130395560122273843/IMG_1867.jpg" as const;
 
+// Dates.
+export const doubleSeasonalLightEventStartTimestamp = skyDate(2_023, 5, 15);
+export const doubleSeasonalLightEventEndTimestamp = skyDate(2_023, 5, 21);
+
+export const doubleSeasonalLightEventDuration =
+	doubleSeasonalLightEventEndTimestamp.diff(doubleSeasonalLightEventStartTimestamp, "days") + 1;
+
+export const seasonStartDate = skyDate(2_023, 7, 17); // Season of Moments.
+export const seasonEndDate = skyDate(2_023, 10, 1); // Season of Moments.
+export const seasonEventDuration = seasonEndDate.diff(seasonStartDate, "days") + 1;
+
+// Miscellaneous constants.
 export const production = process.env.NODE_ENV === "production";
 export const CDN_BUCKET = "thatskyapplication" as const;
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
@@ -32,12 +44,9 @@ export const MAXIMUM_WINGED_LIGHT = 219 as const;
 export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
 export const SEASONAL_CANDLES_PER_DAY = 5 as const;
 export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
+export const SEASON_PASS_SEASONAL_CANDLES_BONUS = 30 as const;
 export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
 export const MAX_HUG_NO = 21 as const;
-export const seasonStartDate = skyDate(2_023, 7, 17); // Season of Moments.
-export const seasonEndDate = skyDate(2_023, 10, 1); // Season of Moments.
-export const doubleSeasonalLightEventStartTimestamp = dayjs.tz("2023-05-15 00:00:00", "America/Los_Angeles");
-export const doubleSeasonalLightEventEndTimestamp = dayjs.tz("2023-05-21 00:00:00", "America/Los_Angeles");
 export const initialTravellingSpiritSeek = dayjs.tz("2023-05-25 00:00:00", "America/Los_Angeles"); // #88 Grateful Shell Collector.
 export const initialTreasureCandleRealmSeek = skyDate(2_023, 7, 12); // Daylight Prairie.
 export const initialEventCurrencySeek = dayjs.tz("2023-06-01 00:00:00", "America/Los_Angeles"); // Rotation A.
