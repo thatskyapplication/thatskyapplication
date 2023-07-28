@@ -18,11 +18,11 @@ export const EVENT_CURRENCY_INFOGRAPHIC_URL =
 	"https://media.discordapp.net/attachments/739444631963435008/1130395560122273843/IMG_1867.jpg" as const;
 
 // Dates.
-export const doubleSeasonalLightEventStartTimestamp = skyDate(2_023, 5, 15);
-export const doubleSeasonalLightEventEndTimestamp = skyDate(2_023, 5, 21);
+export const doubleSeasonalLightEventStartDate = skyDate(2_023, 5, 15);
+export const doubleSeasonalLightEventEndDate = skyDate(2_023, 5, 21);
 
 export const doubleSeasonalLightEventDuration =
-	doubleSeasonalLightEventEndTimestamp.diff(doubleSeasonalLightEventStartTimestamp, "days") + 1;
+	doubleSeasonalLightEventEndDate.diff(doubleSeasonalLightEventStartDate, "days") + 1;
 
 export const seasonStartDate = skyDate(2_023, 7, 17); // Season of Moments.
 export const seasonEndDate = skyDate(2_023, 10, 1); // Season of Moments.

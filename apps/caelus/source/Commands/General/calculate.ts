@@ -13,8 +13,8 @@ import {
 	Realm,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
-	doubleSeasonalLightEventEndTimestamp,
-	doubleSeasonalLightEventStartTimestamp,
+	doubleSeasonalLightEventEndDate,
+	doubleSeasonalLightEventStartDate,
 	WingedLightCount,
 	ASCENDED_CANDLES_PER_WEEK,
 	Map,
@@ -35,8 +35,8 @@ import {
 } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
-const doubleSeasonalLightEventStart = time(doubleSeasonalLightEventStartTimestamp.unix(), TimestampStyles.ShortDate);
-const doubleSeasonalLightEventEnd = time(doubleSeasonalLightEventEndTimestamp.unix(), TimestampStyles.ShortDate);
+const doubleSeasonalLightEventStart = time(doubleSeasonalLightEventStartDate.unix(), TimestampStyles.ShortDate);
+const doubleSeasonalLightEventEnd = time(doubleSeasonalLightEventEndDate.unix(), TimestampStyles.ShortDate);
 
 const wingedLightInAreas = Object.values(WingedLightCount).reduce(
 	(wingedLightCount, wingedLight) => wingedLightCount + wingedLight,
@@ -256,10 +256,10 @@ export default new (class implements ChatInputCommand {
 			(today.isSame(seasonEndDate) || today.isBefore(seasonEndDate))
 		) {
 			const seasonalDoubleLightEvent =
-				(doubleSeasonalLightEventStartTimestamp.isSame(seasonStartDate) ||
-					doubleSeasonalLightEventStartTimestamp.isAfter(seasonStartDate)) &&
-				(doubleSeasonalLightEventEndTimestamp.isSame(seasonEndDate) ||
-					doubleSeasonalLightEventEndTimestamp.isBefore(seasonEndDate));
+				(doubleSeasonalLightEventStartDate.isSame(seasonStartDate) ||
+					doubleSeasonalLightEventStartDate.isAfter(seasonStartDate)) &&
+				(doubleSeasonalLightEventEndDate.isSame(seasonEndDate) ||
+					doubleSeasonalLightEventEndDate.isBefore(seasonEndDate));
 
 			// Calculate the total amount of seasonal candles.
 			let seasonalCandlesTotal = seasonEventDuration * SEASONAL_CANDLES_PER_DAY;
@@ -279,8 +279,8 @@ export default new (class implements ChatInputCommand {
 			let seasonalCandlesSoFarWithSeasonPass =
 				daysSoFar * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
 
-			if (seasonalDoubleLightEvent && today.diff(doubleSeasonalLightEventStartTimestamp, "days") >= 0) {
-				const difference = today.diff(doubleSeasonalLightEventEndTimestamp, "days");
+			if (seasonalDoubleLightEvent && today.diff(doubleSeasonalLightEventStartDate, "days") >= 0) {
+				const difference = today.diff(doubleSeasonalLightEventEndDate, "days");
 
 				const extraSeasonalCandles =
 					// The difference will be a negative number if the event is still ongoing.
@@ -306,7 +306,7 @@ export default new (class implements ChatInputCommand {
 			result += SEASONAL_CANDLES_PER_DAY;
 			resultWithSeasonPass += SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS;
 
-			if (day >= doubleSeasonalLightEventStartTimestamp && day <= doubleSeasonalLightEventEndTimestamp) {
+			if (day >= doubleSeasonalLightEventStartDate && day <= doubleSeasonalLightEventEndDate) {
 				includedDoubleLight = true;
 				result += 1;
 				resultWithSeasonPass += 1;

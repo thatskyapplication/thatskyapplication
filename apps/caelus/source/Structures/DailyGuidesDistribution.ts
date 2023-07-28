@@ -17,8 +17,8 @@ import {
 } from "discord.js";
 import {
 	Emoji,
-	doubleSeasonalLightEventEndTimestamp,
-	doubleSeasonalLightEventStartTimestamp,
+	doubleSeasonalLightEventEndDate,
+	doubleSeasonalLightEventStartDate,
 	eventEndDate,
 	seasonEndDate,
 	seasonStartDate,
@@ -280,8 +280,8 @@ export default class DailyGuidesDistribution {
 			let rotationNumber = String(rotation);
 
 			if (
-				(date.isAfter(doubleSeasonalLightEventStartTimestamp) || date.isSame(doubleSeasonalLightEventStartTimestamp)) &&
-				(date.isBefore(doubleSeasonalLightEventEndTimestamp) || date.isSame(doubleSeasonalLightEventEndTimestamp))
+				(date.isAfter(doubleSeasonalLightEventStartDate) || date.isSame(doubleSeasonalLightEventStartDate)) &&
+				(date.isBefore(doubleSeasonalLightEventEndDate) || date.isSame(doubleSeasonalLightEventEndDate))
 			) {
 				rotationNumber = "1 & 2";
 			}
