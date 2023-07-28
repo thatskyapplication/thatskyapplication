@@ -8,7 +8,6 @@ export default new GuideSpirit({
 	season: Season.Moments,
 	realm: Realm.DaylightPrairie,
 	inProgress: true,
-	hasInfographic: false,
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 0, { item: "Camera", cost: null })
 		.set(1 << 1, { item: "Pendant", cost: null })
