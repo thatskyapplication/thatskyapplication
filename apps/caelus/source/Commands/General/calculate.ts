@@ -326,25 +326,24 @@ export default new (class implements ChatInputCommand {
 					number: goal,
 				})}\nRequired: ${resolveCurrencyEmoji({ emoji: Emoji.SeasonalCandle, number: amountRequired })}`,
 			)
-			.setFields(
-				{ name: "Result", value: `${resultString}` },
-				{
-					name: "Season Pass Result",
-					value: `${resultWithSeasonPassString}`,
-				},
-			)
+			.setFields({
+				name: "Result",
+				value: `${resultString}${
+					days === daysWithSeasonPass ? "" : ` (${resultWithSeasonPassString} with a Season Pass).`
+				}`,
+			})
 			.setTitle("Seasonal Candle Calculator");
 
 		if (typeof seasonalCandlesLeft === "number" && typeof seasonalCandlesLeftWithSeasonPass === "number") {
 			embed.addFields({
 				name: "Season Calculations",
-				value: `There are ${resolveCurrencyEmoji({
+				value: `${resolveCurrencyEmoji({
 					emoji: Emoji.SeasonalCandle,
 					number: seasonalCandlesLeft,
-				})} left to obtain.\nThere are ${resolveCurrencyEmoji({
+				})} remain in the season.\n${resolveCurrencyEmoji({
 					emoji: Emoji.SeasonalCandle,
 					number: seasonalCandlesLeftWithSeasonPass,
-				})} left to obtain with a Season Pass.`,
+				})} remain in the season with a Season Pass.`,
 			});
 		}
 
