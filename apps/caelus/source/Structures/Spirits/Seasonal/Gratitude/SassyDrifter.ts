@@ -19,14 +19,23 @@ export default new SeasonalSpirit({
 	stance,
 	realm: Realm.IslesOfDawn,
 	hasMarketingVideo: true,
-	offer: new Collection<number, ItemsData>()
-		.set(1 << 0, { item: `${stance} stance`, cost: null })
-		.set(1 << 1, { item: "Blessing 1", cost: { candles: 5 } })
-		.set(1 << 2, { item: "Hair", cost: { candles: 26 } })
-		.set(1 << 3, { item: "Heart", cost: { candles: 3 } })
-		.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
-		.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 } })
-		.set(1 << 6, { item: "Weasel mask", cost: { candles: 48 } }),
+	offer: {
+		hasInfographicSeasonal: false,
+		seasonal: new Collection<number, ItemsData>()
+			.set(1 << 0, { item: `${stance} stance`, cost: null })
+			.set(1 << 2, { item: "Hair", cost: { seasonalCandles: 6 } })
+			.set(1 << 1, { item: "Blessing 1", cost: null })
+			.set(1 << 5, { item: "Blessing 2", cost: { seasonalCandles: 8 } })
+			.set(1 << 6, { item: "Weasel mask", cost: null }),
+		current: new Collection<number, ItemsData>()
+			.set(1 << 0, { item: `${stance} stance`, cost: null })
+			.set(1 << 1, { item: "Blessing 1", cost: { candles: 5 } })
+			.set(1 << 2, { item: "Hair", cost: { candles: 26 } })
+			.set(1 << 3, { item: "Heart", cost: { candles: 3 } })
+			.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
+			.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 } })
+			.set(1 << 6, { item: "Weasel mask", cost: { candles: 48 } }),
+	},
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
 			.set(1, skyDate(2_020, 1, 31))
