@@ -1731,8 +1731,10 @@ export class SpiritTracker {
 			seasonalHearts: 0,
 		} satisfies SpiritCost;
 
+		const offer = spirit.offer.current;
+
 		const embedFields =
-			spirit.offer?.map(({ item, cost }, flag) => {
+			offer?.map(({ item, cost }, flag) => {
 				let value;
 
 				if (bit && (bit & flag) === flag) {
@@ -1777,14 +1779,14 @@ export class SpiritTracker {
 		if (spirit.imageURL) {
 			lastEmbed.setImage(spirit.imageURL);
 		} else {
-			description.push(spirit.offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
+			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
 		if (spirit.isGuideSpirit() && spirit.inProgress) lastEmbed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
 		if (description.length > 0) embed.setDescription(description.join("\n"));
 		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
 
-		if (spirit.offer && spirit.maxItemsBit) {
+		if (offer && spirit.maxItemsBit) {
 			buttons.addComponents(
 				new ButtonBuilder()
 					.setCustomId(`${SPIRIT_TRACKER_EVERYTHING_CUSTOM_ID}-${spirit.name}`)
@@ -1794,7 +1796,7 @@ export class SpiritTracker {
 					.setStyle(ButtonStyle.Success),
 			);
 
-			const itemSelectionOptions = spirit.offer.map(({ item }, flag) =>
+			const itemSelectionOptions = offer.map(({ item }, flag) =>
 				new StringSelectMenuOptionBuilder()
 					.setDefault(Boolean(bit && bit & flag))
 					.setLabel(item)
