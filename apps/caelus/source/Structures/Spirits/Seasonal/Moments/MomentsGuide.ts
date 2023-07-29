@@ -7,8 +7,8 @@ export default new GuideSpirit({
 	name: SpiritName.MomentsGuide,
 	season: Season.Moments,
 	realm: Realm.DaylightPrairie,
-	inProgress: true,
 	offer: {
+		inProgress: true,
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Camera", cost: null })
 			.set(1 << 1, { item: "Pendant", cost: null })

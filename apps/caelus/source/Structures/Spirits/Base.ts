@@ -393,7 +393,9 @@ interface SeasonalFriendshipTreeOffer extends BaseFriendshipTreeOffer {
 	seasonal: Collection<number, ItemsData>;
 }
 
-type GuideFriendshipTreeOffer = BaseFriendshipTreeOffer;
+interface GuideFriendshipTreeOffer extends BaseFriendshipTreeOffer {
+	inProgress?: boolean;
+}
 
 interface BaseFriendshipTreeData {
 	name: SpiritName;
@@ -455,7 +457,6 @@ interface SeasonalSpiritData extends BaseSpiritData, SeasonalFriendshipTreeData,
 
 interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
 	season: Season;
-	inProgress?: boolean;
 }
 
 export const NO_FRIENDSHIP_TREE_TEXT = "This spirit does not have a friendship tree." as const;
@@ -759,11 +760,8 @@ export class GuideSpirit extends Mixin(BaseSpirit, GuideFriendshipTree) {
 
 	public readonly season: Season;
 
-	public readonly inProgress: boolean;
-
 	public constructor(spirit: GuideSpiritData) {
 		super(spirit);
 		this.season = spirit.season;
-		this.inProgress = spirit.inProgress ?? false;
 	}
 }
