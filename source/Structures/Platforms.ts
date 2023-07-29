@@ -7,6 +7,7 @@ enum PlatformFlags {
 	Mac = 1 << 2,
 	NintendoSwitch = 1 << 3,
 	PlayStation = 1 << 4,
+	Steam = 1 << 5,
 }
 
 export const PlatformFlagsToString = {
@@ -15,6 +16,7 @@ export const PlatformFlagsToString = {
 	[PlatformFlags.Mac]: "Mac",
 	[PlatformFlags.NintendoSwitch]: "Nintendo Switch",
 	[PlatformFlags.PlayStation]: "PlayStation",
+	[PlatformFlags.Steam]: "Steam",
 } as const satisfies Readonly<Record<PlatformFlags, string>>;
 
 export function resolveBitsToPlatform(bits: number) {
@@ -43,5 +45,7 @@ export function resolvePlatformToEmoji(platform: (typeof PlatformFlagsToString)[
 			return EMOJI.PlatformSwitch;
 		case PlatformFlagsToString[PlatformFlags.PlayStation]:
 			return EMOJI.PlatformPlayStation;
+		case PlatformFlagsToString[PlatformFlags.Steam]:
+			return EMOJI.PlatformSteam;
 	}
 }
