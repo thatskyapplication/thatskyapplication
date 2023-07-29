@@ -535,7 +535,10 @@ abstract class PartialFriendshipTree {
 			}, {}) ?? null;
 
 		this.maxItemsBit = this.offer?.reduce((bits, _, bit) => bit | bits, 0) ?? null;
-		this.imageURL = hasInfographic ? String(new URL(`spirits/${cdnName(name)}/friendship_tree.webp`, CDN_URL)) : null;
+
+		this.imageURL = hasInfographic
+			? String(new URL(`spirits/${cdnName(name)}/friendship_tree/current.webp`, CDN_URL))
+			: null;
 	}
 }
 
@@ -641,9 +644,9 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, FriendshipTree, Expressive
 		this.season = spirit.season;
 
 		if ([SpiritName.AncientLight1, SpiritName.AncientDarkness1].includes(this.name)) {
-			this.imageURL = this.imageURL.replace("friendship_tree", "friendship_tree1");
+			this.imageURL = this.imageURL.replace("current.webp", "current1.webp");
 		} else if ([SpiritName.AncientLight2, SpiritName.AncientDarkness2].includes(this.name)) {
-			this.imageURL = this.imageURL.replace("friendship_tree", "friendship_tree2");
+			this.imageURL = this.imageURL.replace("current.webp", "current2.webp");
 		}
 
 		this.marketingVideoURL = spirit.hasMarketingVideo
