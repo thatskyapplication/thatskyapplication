@@ -7,7 +7,6 @@ export default new GuideSpirit({
 	name: SpiritName.AURORAGuide,
 	season: Season.Aurora,
 	realm: Realm.ValleyOfTriumph,
-	hasInfographic: false,
 	offer: new Collection<number, ItemsData>()
 		.set(1 << 0, { item: "Quest 1", cost: null })
 		.set(1 << 1, { item: `${Expression.SilentClap} 2`, cost: { hearts: 3 } })
