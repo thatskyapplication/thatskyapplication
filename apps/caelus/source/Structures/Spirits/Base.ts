@@ -521,12 +521,8 @@ abstract class BaseFriendshipTree {
 	public constructor({ name, offer }: BaseFriendshipTreeData) {
 		this.offer = offer ?? null;
 		this.totalCost = offer?.current ? this.resolveTotalCost(offer.current) : null;
-		this.maxItemsBit = offer?.current?.reduce((bits, _, bit) => bit | bits, 0) ?? null;
-
-		this.imageURL =
-			offer?.hasInfographic ?? true
-				? String(new URL(`spirits/${cdnName(name)}/friendship_tree/current.webp`, CDN_URL))
-				: null;
+		this.maxItemsBit = offer?.current ? this.resolveMaxItemsBit(offer?.current) : null;
+		this.imageURL = this.resolveImageURL(name, offer?.hasInfographic);
 	}
 
 	protected resolveTotalCost(offer: Collection<number, ItemsData>) {
@@ -577,6 +573,24 @@ abstract class BaseFriendshipTree {
 			return offer;
 		}, {});
 	}
+
+	protected resolveMaxItemsBit(offer: Collection<number, ItemsData>) {
+		return offer.reduce((bits, _, bit) => bit | bits, 0);
+	}
+
+	protected resolveImageURL(name: SpiritName, hasInfographic = true, seasonal = false) {
+		let fileName = seasonal ? "seasonal" : "current";
+
+		if ([SpiritName.AncientLight1, SpiritName.AncientDarkness1].includes(name)) {
+			fileName += "1";
+		} else if ([SpiritName.AncientLight2, SpiritName.AncientDarkness2].includes(name)) {
+			fileName += "2";
+		}
+
+		return hasInfographic
+			? String(new URL(`spirits/${cdnName(name)}/friendship_tree/${fileName}.webp`, CDN_URL))
+			: null;
+	}
 }
 
 abstract class StandardFriendshipTree extends BaseFriendshipTree {
@@ -596,7 +610,9 @@ abstract class ElderFriendshipTree extends BaseFriendshipTree {
 }
 
 abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
-	public declare readonly offer: SeasonalFriendshipTreeOffer;
+	public override readonly offer: SeasonalFriendshipTreeOffer;
+
+	public override readonly maxItemsBit: number;
 
 	public readonly totalCostSeasonal: SpiritCost;
 
@@ -605,17 +621,18 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 	public constructor(seasonalFriendshipTreeData: SeasonalFriendshipTreeData) {
 		super(seasonalFriendshipTreeData);
 		this.offer = seasonalFriendshipTreeData.offer;
+		const offer = this.offer.current ?? this.offer.seasonal;
 
 		// TODO: Remove this.
 		try {
+			this.maxItemsBit = this.resolveMaxItemsBit(offer);
 			this.totalCostSeasonal = this.resolveTotalCost(this.offer.seasonal);
 
-			this.imageURLSeasonal =
-				seasonalFriendshipTreeData.offer.hasInfographicSeasonal ?? true
-					? String(
-							new URL(`spirits/${cdnName(seasonalFriendshipTreeData.name)}/friendship_tree/seasonal.webp`, CDN_URL),
-					  )
-					: null;
+			this.imageURLSeasonal = this.resolveImageURL(
+				seasonalFriendshipTreeData.name,
+				this.offer.hasInfographicSeasonal,
+				true,
+			);
 		} catch {}
 	}
 }
@@ -718,22 +735,6 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 	public constructor(spirit: SeasonalSpiritData) {
 		super(spirit);
 		this.season = spirit.season;
-
-		if (this.imageURL) {
-			if ([SpiritName.AncientLight1, SpiritName.AncientDarkness1].includes(this.name)) {
-				this.imageURL = this.imageURL.replace("current.webp", "current1.webp");
-			} else if ([SpiritName.AncientLight2, SpiritName.AncientDarkness2].includes(this.name)) {
-				this.imageURL = this.imageURL.replace("current.webp", "current2.webp");
-			}
-		}
-
-		if (this.imageURLSeasonal) {
-			if ([SpiritName.AncientLight1, SpiritName.AncientDarkness1].includes(this.name)) {
-				this.imageURLSeasonal = this.imageURLSeasonal.replace("seasonal.webp", "seasonal1.webp");
-			} else if ([SpiritName.AncientLight2, SpiritName.AncientDarkness2].includes(this.name)) {
-				this.imageURLSeasonal = this.imageURLSeasonal.replace("seasonal.webp", "seasonal2.webp");
-			}
-		}
 
 		this.marketingVideoURL = spirit.hasMarketingVideo
 			? String(new URL(`spirits/${this.cdnName}/marketing_video.mp4`, CDN_URL))
