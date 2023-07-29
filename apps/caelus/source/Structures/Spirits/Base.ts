@@ -609,12 +609,14 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 		// TODO: Remove this.
 		try {
 			this.totalCostSeasonal = this.resolveTotalCost(this.offer.seasonal);
-		} catch {}
 
-		this.imageURLSeasonal =
-			seasonalFriendshipTreeData.offer.hasInfographicSeasonal ?? true
-				? String(new URL(`spirits/${cdnName(seasonalFriendshipTreeData.name)}/friendship_tree/seasonal.webp`, CDN_URL))
-				: null;
+			this.imageURLSeasonal =
+				seasonalFriendshipTreeData.offer.hasInfographicSeasonal ?? true
+					? String(
+							new URL(`spirits/${cdnName(seasonalFriendshipTreeData.name)}/friendship_tree/seasonal.webp`, CDN_URL),
+					  )
+					: null;
+		} catch {}
 	}
 }
 

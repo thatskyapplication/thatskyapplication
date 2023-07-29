@@ -127,7 +127,7 @@ export default new (class implements AutocompleteCommand {
 	) {
 		const seasonalSpirit = spirit.isSeasonalSpirit();
 		const seasonalParsing = seasonalSpirit && seasonalOffer;
-		const totalCost = seasonalParsing ? spirit.seasonalTotalCost : spirit.totalCost;
+		const totalCost = seasonalParsing ? spirit.totalCostSeasonal : spirit.totalCost;
 		if (totalCost && (await cannotUseCustomEmojis(interaction))) return;
 
 		const embed = new EmbedBuilder()
@@ -146,14 +146,8 @@ export default new (class implements AutocompleteCommand {
 
 		const components = [];
 		const description = [];
-
-		const totalOffer = seasonalParsing
-			? resolveOfferToCurrency(spirit.seasonalTotalCost).join("")
-			: spirit.totalCost
-			? resolveOfferToCurrency(spirit.totalCost).join("")
-			: null;
-
-		const imageURL = seasonalParsing ? spirit.seasonalImageURL : spirit.imageURL;
+		const totalOffer = totalCost ? resolveOfferToCurrency(totalCost).join("") : null;
+		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 
 		if (seasonalSpirit) {
 			if (spirit.notVisited) {
@@ -178,7 +172,7 @@ export default new (class implements AutocompleteCommand {
 		if (imageURL) {
 			embed.setImage(imageURL);
 		} else {
-			const offer = seasonalParsing ? spirit.seasonalOffer : spirit.offer;
+			const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer.current;
 			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
