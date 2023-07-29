@@ -59,8 +59,6 @@ export const enum Channel {
 }
 
 export const enum Emoji {
-	Candle = "1074399446537879685",
-	Heart = "1074399455043932240",
 	AscendedCandle = "1074399464627912755",
 	WingedLight = "1075042577776136313",
 	Yes = "1111792276394475580",
@@ -90,6 +88,8 @@ export const enum Emoji {
 	SeasonalCandle = "1115305105642758145",
 	SeasonalHeart = "1115841397493346325",
 	Moments = "1130091541151629332",
+	Candle = "1134669696822689882",
+	Heart = "1134669722353401977",
 }
 
 export const enum User {
