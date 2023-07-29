@@ -6,5 +6,7 @@ import { SpiritName, ElderSpirit, type ItemsData } from "../Base.js";
 export default new ElderSpirit({
 	name: SpiritName.ElderOfTheVault,
 	realm: Realm.VaultOfKnowledge,
-	offer: new Collection<number, ItemsData>().set(1 << 0, { item: "Hair", cost: { ascendedCandles: 5 } }),
+	offer: {
+		current: new Collection<number, ItemsData>().set(1 << 0, { item: "Hair", cost: { ascendedCandles: 5 } }),
+	},
 });
