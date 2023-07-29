@@ -1731,7 +1731,9 @@ export class SpiritTracker {
 			seasonalHearts: 0,
 		} satisfies SpiritCost;
 
-		const offer = spirit.offer.current;
+		const isSeasonalSpirit = spirit.isSeasonalSpirit();
+		const offer = spirit.offer.current ?? (isSeasonalSpirit ? spirit.offer.seasonal : null);
+		const imageURL = isSeasonalSpirit ? spirit.imageURLSeasonal : spirit.imageURL;
 
 		const embedFields =
 			offer?.map(({ item, cost }, flag) => {
@@ -1776,8 +1778,8 @@ export class SpiritTracker {
 			description.push(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);
 		}
 
-		if (spirit.imageURL) {
-			lastEmbed.setImage(spirit.imageURL);
+		if (imageURL) {
+			lastEmbed.setImage(imageURL);
 		} else {
 			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
