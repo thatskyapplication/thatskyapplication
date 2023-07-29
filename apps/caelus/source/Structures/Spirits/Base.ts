@@ -375,19 +375,49 @@ export interface ItemsData {
 	cost: SpiritCost | null;
 }
 
-interface PartialFriendshipTreeData {
-	name: SpiritName;
-	offer?: Collection<number, ItemsData>;
+interface BaseFriendshipTreeOffer {
 	hasInfographic?: boolean;
+	current?: Collection<number, ItemsData>;
 }
 
-interface FriendshipTreeData extends Omit<PartialFriendshipTreeData, "offer"> {
-	offer: Collection<number, ItemsData>;
+interface StandardFriendshipTreeOffer extends BaseFriendshipTreeOffer {
+	current: Collection<number, ItemsData>;
 }
 
-interface SeasonalFriendshipTreeData extends PartialFriendshipTreeData {
-	seasonalOffer: Collection<number, ItemsData>;
-	hasSeasonalInfographic?: boolean;
+interface ElderFriendshipTreeOffer extends BaseFriendshipTreeOffer {
+	current: Collection<number, ItemsData>;
+}
+
+interface SeasonalFriendshipTreeOffer extends BaseFriendshipTreeOffer {
+	hasInfographicSeasonal?: boolean;
+	seasonal: Collection<number, ItemsData>;
+}
+
+type GuideFriendshipTreeOffer = BaseFriendshipTreeOffer;
+
+interface BaseFriendshipTreeData {
+	name: SpiritName;
+	offer?:
+		| StandardFriendshipTreeOffer
+		| ElderFriendshipTreeOffer
+		| SeasonalFriendshipTreeOffer
+		| GuideFriendshipTreeOffer;
+}
+
+interface StandardFriendshipTreeData extends BaseFriendshipTreeData {
+	offer: StandardFriendshipTreeOffer;
+}
+
+interface ElderFriendshipTreeData extends BaseFriendshipTreeData {
+	offer?: ElderFriendshipTreeOffer;
+}
+
+interface SeasonalFriendshipTreeData extends BaseFriendshipTreeData {
+	offer: SeasonalFriendshipTreeOffer;
+}
+
+interface GuideFriendshipTreeData extends BaseFriendshipTreeData {
+	offer: GuideFriendshipTreeOffer;
 }
 
 interface ExpressiveSpiritData {
@@ -402,11 +432,11 @@ interface BaseSpiritData {
 	keywords?: string[];
 }
 
-interface StandardSpiritData extends BaseSpiritData, FriendshipTreeData, ExpressiveSpiritData {
+interface StandardSpiritData extends BaseSpiritData, StandardFriendshipTreeData, ExpressiveSpiritData {
 	realm: Realm;
 }
 
-interface ElderSpiritData extends BaseSpiritData, FriendshipTreeData {
+interface ElderSpiritData extends BaseSpiritData, ElderFriendshipTreeData {
 	realm: Realm;
 }
 
@@ -423,7 +453,7 @@ interface SeasonalSpiritData extends BaseSpiritData, SeasonalFriendshipTreeData,
 	visits?: SeasonalSpiritVisit;
 }
 
-interface GuideSpiritData extends BaseSpiritData, PartialFriendshipTreeData {
+interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
 	season: Season;
 	inProgress?: boolean;
 }
@@ -479,8 +509,8 @@ function cdnName(name: SpiritName) {
 	return wikiName(name).replaceAll("'", "_").replaceAll("-", "_").toLowerCase();
 }
 
-abstract class PartialFriendshipTree {
-	public readonly offer: Collection<number, ItemsData> | null;
+abstract class BaseFriendshipTree {
+	public readonly offer: BaseFriendshipTreeOffer | null;
 
 	public readonly totalCost: SpiritCost | null;
 
@@ -488,18 +518,19 @@ abstract class PartialFriendshipTree {
 
 	public imageURL: string | null;
 
-	public constructor({ name, offer, hasInfographic = true }: PartialFriendshipTreeData) {
+	public constructor({ name, offer }: BaseFriendshipTreeData) {
 		this.offer = offer ?? null;
-		this.totalCost = offer ? this.resolveTotalCost(offer) : null;
-		this.maxItemsBit = this.offer?.reduce((bits, _, bit) => bit | bits, 0) ?? null;
+		this.totalCost = offer?.current ? this.resolveTotalCost(offer.current) : null;
+		this.maxItemsBit = offer?.current?.reduce((bits, _, bit) => bit | bits, 0) ?? null;
 
-		this.imageURL = hasInfographic
-			? String(new URL(`spirits/${cdnName(name)}/friendship_tree/current.webp`, CDN_URL))
-			: null;
+		this.imageURL =
+			offer?.hasInfographic ?? true
+				? String(new URL(`spirits/${cdnName(name)}/friendship_tree/current.webp`, CDN_URL))
+				: null;
 	}
 
 	protected resolveTotalCost(offer: Collection<number, ItemsData>) {
-		return offer.reduce<FriendshipTree["totalCost"]>((offer, { cost }) => {
+		return offer.reduce<SpiritCost>((offer, { cost }) => {
 			if (!cost) return offer;
 			const { candles, hearts, ascendedCandles, seasonalCandles, seasonalHearts } = cost;
 
@@ -548,35 +579,51 @@ abstract class PartialFriendshipTree {
 	}
 }
 
-abstract class FriendshipTree extends PartialFriendshipTree {
-	public declare readonly offer: Collection<number, ItemsData>;
+abstract class StandardFriendshipTree extends BaseFriendshipTree {
+	public declare readonly offer: StandardFriendshipTreeOffer;
 
 	public declare readonly totalCost: SpiritCost;
 
 	public declare readonly maxItemsBit: number;
 }
 
-abstract class SeasonalFriendshipTree extends PartialFriendshipTree {
-	public readonly seasonalOffer: Collection<number, ItemsData>;
+abstract class ElderFriendshipTree extends BaseFriendshipTree {
+	public declare readonly offer: ElderFriendshipTreeOffer;
 
-	public readonly seasonalTotalCost: SpiritCost;
+	public declare readonly totalCost: SpiritCost;
 
-	public readonly seasonalImageURL: string | null;
+	public declare readonly maxItemsBit: number;
+}
+
+abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
+	public declare readonly offer: SeasonalFriendshipTreeOffer;
+
+	public readonly totalCostSeasonal: SpiritCost;
+
+	public imageURLSeasonal: string | null;
 
 	public constructor(seasonalFriendshipTreeData: SeasonalFriendshipTreeData) {
 		super(seasonalFriendshipTreeData);
-		this.seasonalOffer = seasonalFriendshipTreeData.seasonalOffer;
+		this.offer = seasonalFriendshipTreeData.offer;
 
 		// TODO: Remove this.
 		try {
-			this.seasonalTotalCost = this.resolveTotalCost(this.seasonalOffer);
+			this.totalCostSeasonal = this.resolveTotalCost(this.offer.seasonal);
 		} catch {}
 
-		this.seasonalImageURL =
-			seasonalFriendshipTreeData.hasSeasonalInfographic ?? true
-				? String(new URL(`spirits/${cdnName(seasonalFriendshipTreeData.name)}/seasonal_friendship_tree.webp`, CDN_URL))
+		this.imageURLSeasonal =
+			seasonalFriendshipTreeData.offer.hasInfographicSeasonal ?? true
+				? String(new URL(`spirits/${cdnName(seasonalFriendshipTreeData.name)}/friendship_tree/seasonal.webp`, CDN_URL))
 				: null;
 	}
+}
+
+abstract class GuideFriendshipTree extends BaseFriendshipTree {
+	public declare readonly offer: GuideFriendshipTreeOffer;
+
+	public declare readonly totalCost: SpiritCost;
+
+	public declare readonly maxItemsBit: number;
 }
 
 abstract class ExpressiveSpirit {
@@ -635,7 +682,7 @@ abstract class BaseSpirit {
 	}
 }
 
-export class StandardSpirit extends Mixin(BaseSpirit, FriendshipTree, ExpressiveSpirit) {
+export class StandardSpirit extends Mixin(BaseSpirit, StandardFriendshipTree, ExpressiveSpirit) {
 	public override readonly type = SPIRIT_TYPE.Standard;
 
 	public declare readonly realm: Realm;
@@ -646,7 +693,7 @@ export class StandardSpirit extends Mixin(BaseSpirit, FriendshipTree, Expressive
 	}
 }
 
-export class ElderSpirit extends Mixin(BaseSpirit, FriendshipTree) {
+export class ElderSpirit extends Mixin(BaseSpirit, ElderFriendshipTree) {
 	public override readonly type = SPIRIT_TYPE.Elder;
 
 	public declare readonly realm: Realm;
@@ -678,6 +725,14 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 			}
 		}
 
+		if (this.imageURLSeasonal) {
+			if ([SpiritName.AncientLight1, SpiritName.AncientDarkness1].includes(this.name)) {
+				this.imageURLSeasonal = this.imageURLSeasonal.replace("seasonal.webp", "seasonal1.webp");
+			} else if ([SpiritName.AncientLight2, SpiritName.AncientDarkness2].includes(this.name)) {
+				this.imageURLSeasonal = this.imageURLSeasonal.replace("seasonal.webp", "seasonal2.webp");
+			}
+		}
+
 		this.marketingVideoURL = spirit.hasMarketingVideo
 			? String(new URL(`spirits/${this.cdnName}/marketing_video.mp4`, CDN_URL))
 			: null;
@@ -696,7 +751,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 	}
 }
 
-export class GuideSpirit extends Mixin(BaseSpirit, PartialFriendshipTree) {
+export class GuideSpirit extends Mixin(BaseSpirit, GuideFriendshipTree) {
 	public override readonly type = SPIRIT_TYPE.Guide;
 
 	public readonly season: Season;
