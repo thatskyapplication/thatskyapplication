@@ -1733,7 +1733,7 @@ export class SpiritTracker {
 
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const spiritSeason = isSeasonalSpirit ? spirit.season : null;
-		const offer = spirit.offer.current ?? (isSeasonalSpirit ? spirit.offer.seasonal : null);
+		const offer = spirit.offer?.current ?? (isSeasonalSpirit ? spirit.offer.seasonal : null);
 		const imageURL = isSeasonalSpirit ? spirit.imageURLSeasonal : spirit.imageURL;
 
 		const embedFields =
@@ -1785,7 +1785,7 @@ export class SpiritTracker {
 			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
-		if (spirit.isGuideSpirit() && spirit.offer.inProgress) lastEmbed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
+		if (spirit.isGuideSpirit() && spirit.offer?.inProgress) lastEmbed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
 		if (description.length > 0) embed.setDescription(description.join("\n"));
 		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
 

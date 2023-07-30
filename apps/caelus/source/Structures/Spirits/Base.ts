@@ -419,7 +419,7 @@ interface SeasonalFriendshipTreeData extends BaseFriendshipTreeData {
 }
 
 interface GuideFriendshipTreeData extends BaseFriendshipTreeData {
-	offer: GuideFriendshipTreeOffer;
+	offer?: GuideFriendshipTreeOffer;
 }
 
 interface ExpressiveSpiritData {
@@ -528,7 +528,7 @@ abstract class BaseFriendshipTree {
 		this.offer = offer ?? null;
 		this.totalCost = offer?.current ? this.resolveTotalCost(offer.current) : null;
 		this.maxItemsBit = offer?.current ? this.resolveMaxItemsBit(offer?.current) : null;
-		this.imageURL = this.resolveImageURL(name, offer?.hasInfographic);
+		this.imageURL = (offer ? offer.hasInfographic ?? true : false) ? this.resolveImageURL(name) : null;
 	}
 
 	protected resolveTotalCost(offer: Collection<number, ItemsData>) {
@@ -584,7 +584,7 @@ abstract class BaseFriendshipTree {
 		return offer.reduce((bits, _, bit) => bit | bits, 0);
 	}
 
-	protected resolveImageURL(name: SpiritName, hasInfographic = true, seasonal = false) {
+	protected resolveImageURL(name: SpiritName, seasonal = false) {
 		let fileName = seasonal ? "seasonal" : "current";
 
 		if ([SpiritName.AncientLight1, SpiritName.AncientDarkness1].includes(name)) {
@@ -593,9 +593,7 @@ abstract class BaseFriendshipTree {
 			fileName += "2";
 		}
 
-		return hasInfographic
-			? String(new URL(`spirits/${cdnName(name)}/friendship_tree/${fileName}.webp`, CDN_URL))
-			: null;
+		return String(new URL(`spirits/${cdnName(name)}/friendship_tree/${fileName}.webp`, CDN_URL));
 	}
 }
 
@@ -630,20 +628,13 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 		this.maxItemsBit = this.resolveMaxItemsBit(this.offer.current ?? this.offer.seasonal);
 		this.totalCostSeasonal = this.resolveTotalCost(this.offer.seasonal);
 
-		this.imageURLSeasonal = this.resolveImageURL(
-			seasonalFriendshipTreeData.name,
-			this.offer.hasInfographicSeasonal,
-			true,
-		);
+		this.imageURLSeasonal =
+			this.offer.hasInfographicSeasonal ?? true ? this.resolveImageURL(seasonalFriendshipTreeData.name, true) : null;
 	}
 }
 
 abstract class GuideFriendshipTree extends BaseFriendshipTree {
-	public declare readonly offer: GuideFriendshipTreeOffer;
-
-	public declare readonly totalCost: SpiritCost;
-
-	public declare readonly maxItemsBit: number;
+	public declare readonly offer: GuideFriendshipTreeOffer | null;
 }
 
 abstract class ExpressiveSpirit {

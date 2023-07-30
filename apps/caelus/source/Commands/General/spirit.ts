@@ -184,11 +184,11 @@ export default new (class implements AutocompleteCommand {
 		if (imageURL) {
 			embed.setImage(imageURL);
 		} else {
-			const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer.current;
+			const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
 			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
-		if (spirit.isGuideSpirit() && spirit.offer.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
+		if (spirit.isGuideSpirit() && spirit.offer?.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
 		if (totalOffer && totalOffer.length > 1) description.push(totalOffer);
 
 		if (seasonalSpirit && spirit.marketingVideoURL) {
