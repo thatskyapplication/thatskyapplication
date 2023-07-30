@@ -25,6 +25,7 @@ import {
 	SKY_PROFILE_PLATFORM_CUSTOM_ID,
 	SKY_PROFILE_SEASONS_CUSTOM_ID,
 } from "../Commands/General/sky-profile.js";
+import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../Commands/General/spirit.js";
 import COMMANDS, { resolveCommand } from "../Commands/index.js";
 import Profile from "../Structures/Profile.js";
 import {
@@ -252,6 +253,11 @@ export const event: Event<typeof name> = {
 						timestamp: Number(timestamp!),
 					});
 
+					return;
+				}
+
+				if (customId.startsWith(SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID)) {
+					await COMMANDS.spirit.parseSpiritSwitch(interaction);
 					return;
 				}
 
