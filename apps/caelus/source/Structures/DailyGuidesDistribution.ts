@@ -252,17 +252,21 @@ export default class DailyGuidesDistribution {
 		const date = todayDate();
 		const embed = new EmbedBuilder().setTitle(date.format("DD/MM/YYYY")).setColor(embedColor);
 
-		if (quest1)
+		if (quest1) {
 			embed.addFields({ name: quest1.content, value: quest1.url === "" ? "\u200B" : hyperlink("Image", quest1.url) });
+		}
 
-		if (quest2)
+		if (quest2) {
 			embed.addFields({ name: quest2.content, value: quest2.url === "" ? "\u200B" : hyperlink("Image", quest2.url) });
+		}
 
-		if (quest3)
+		if (quest3) {
 			embed.addFields({ name: quest3.content, value: quest3.url === "" ? "\u200B" : hyperlink("Image", quest3.url) });
+		}
 
-		if (quest4)
+		if (quest4) {
 			embed.addFields({ name: quest4.content, value: quest4.url === "" ? "\u200B" : hyperlink("Image", quest4.url) });
+		}
 
 		if (treasureCandles) {
 			embed.addFields({
