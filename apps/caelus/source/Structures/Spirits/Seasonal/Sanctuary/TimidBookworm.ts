@@ -18,15 +18,27 @@ export default new SeasonalSpirit({
 	season: Season.Sanctuary,
 	stance,
 	realm: Realm.DaylightPrairie,
-	offer: new Collection<number, ItemsData>()
-		.set(1 << 0, { item: `${stance} stance`, cost: null })
-		.set(1 << 1, { item: "Music sheet", cost: { candles: 15 } })
-		.set(1 << 2, { item: "Blessing 1", cost: { candles: 5 } })
-		.set(1 << 3, { item: "Hair", cost: { candles: 42 } })
-		.set(1 << 4, { item: "Heart", cost: { candles: 3 } })
-		.set(1 << 5, { item: "Wing buff", cost: { ascendedCandles: 2 } })
-		.set(1 << 6, { item: "Blessing 2", cost: { candles: 5 } })
-		.set(1 << 7, { item: "Cape", cost: { candles: 70 } }),
+	offer: {
+		hasInfographicSeasonal: false,
+		seasonal: new Collection<number, ItemsData>()
+			.set(1 << 0, { item: `${stance} stance`, cost: null })
+			.set(1 << 2, { item: "Blessing 1", cost: { seasonalCandles: 8 } })
+			.set(1 << 1, { item: "Music sheet", cost: null })
+			.set(1 << 3, { item: "Hair", cost: { seasonalCandles: 10 } })
+			.set(1 << 6, { item: "Blessing 2", cost: null })
+			.set(1 << 8, { item: "Blessing 3", cost: { seasonalCandles: 12 } })
+			.set(1 << 7, { item: "Cape", cost: null })
+			.set(1 << 4, { item: "Seasonal heart", cost: { seasonalCandles: 3 } }),
+		current: new Collection<number, ItemsData>()
+			.set(1 << 0, { item: `${stance} stance`, cost: null })
+			.set(1 << 1, { item: "Music sheet", cost: { candles: 15 } })
+			.set(1 << 2, { item: "Blessing 1", cost: { candles: 5 } })
+			.set(1 << 3, { item: "Hair", cost: { candles: 42 } })
+			.set(1 << 4, { item: "Heart", cost: { candles: 3 } })
+			.set(1 << 5, { item: "Wing buff", cost: { ascendedCandles: 2 } })
+			.set(1 << 6, { item: "Blessing 2", cost: { candles: 5 } })
+			.set(1 << 7, { item: "Cape", cost: { candles: 70 } }),
+	},
 	keywords: ["butterfly", "butterfly cape"],
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
