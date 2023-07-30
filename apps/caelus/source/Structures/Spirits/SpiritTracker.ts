@@ -20,7 +20,7 @@ import {
 	isRealm,
 	isSeason,
 	resolveEmbedColor,
-	resolveSeasonsToEmoji,
+	resolveSeasonToSeasonalEmoji,
 } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import {
@@ -1625,7 +1625,7 @@ export class SpiritTracker {
 						.setOptions(
 							validSeasons.map((season) =>
 								new StringSelectMenuOptionBuilder()
-									.setEmoji(resolveSeasonsToEmoji(season))
+									.setEmoji(resolveSeasonToSeasonalEmoji(season))
 									.setLabel(`${season} (${spiritTracker.averageProgress(spiritTracker.seasonProgress(season), true)}%)`)
 									.setValue(season),
 							),
@@ -1732,6 +1732,7 @@ export class SpiritTracker {
 		} satisfies SpiritCost;
 
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
+		const spiritSeason = isSeasonalSpirit ? spirit.season : null;
 		const offer = spirit.offer.current ?? (isSeasonalSpirit ? spirit.offer.seasonal : null);
 		const imageURL = isSeasonalSpirit ? spirit.imageURLSeasonal : spirit.imageURL;
 
@@ -1747,7 +1748,7 @@ export class SpiritTracker {
 					if (cost?.ascendedCandles) remainingCurrency.ascendedCandles += cost.ascendedCandles;
 					if (cost?.seasonalCandles) remainingCurrency.seasonalCandles += cost.seasonalCandles;
 					if (cost?.seasonalHearts) remainingCurrency.seasonalHearts += cost.seasonalHearts;
-					value = resolveOfferToCurrency(cost ?? {}).join("") || formatEmoji(Emoji.No, true);
+					value = resolveOfferToCurrency(cost ?? {}, spiritSeason).join("") || formatEmoji(Emoji.No, true);
 				}
 
 				return { name: item, value, inline: true };
@@ -1772,7 +1773,7 @@ export class SpiritTracker {
 
 		const lastEmbed = embeds.at(-1)!;
 		const description = [];
-		const resolvedRemainingCurrency = resolveOfferToCurrency(remainingCurrency);
+		const resolvedRemainingCurrency = resolveOfferToCurrency(remainingCurrency, spiritSeason);
 
 		if (resolvedRemainingCurrency.length > 0) {
 			description.push(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);

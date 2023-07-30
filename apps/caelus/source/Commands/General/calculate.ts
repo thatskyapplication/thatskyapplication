@@ -27,9 +27,11 @@ import {
 } from "../../Utility/Constants.js";
 import {
 	cannotUseCustomEmojis,
+	inSeason,
 	isWingedLightArea,
 	notNull,
 	resolveCurrencyEmoji,
+	resolveCurrentSeasonalCandleEmoji,
 	resolveEmbedColor,
 	todayDate,
 } from "../../Utility/Utility.js";
@@ -251,10 +253,7 @@ export default new (class implements ChatInputCommand {
 		let seasonalCandlesLeft;
 		let seasonalCandlesLeftWithSeasonPass;
 
-		if (
-			(today.isSame(seasonStartDate) || today.isAfter(seasonStartDate)) &&
-			(today.isSame(seasonEndDate) || today.isBefore(seasonEndDate))
-		) {
+		if (inSeason()) {
 			const seasonalDoubleLightEvent =
 				(doubleSeasonalLightEventStartDate.isSame(seasonStartDate) ||
 					doubleSeasonalLightEventStartDate.isAfter(seasonStartDate)) &&
@@ -317,14 +316,15 @@ export default new (class implements ChatInputCommand {
 
 		const resultString = `${days} day${days === 1 ? "" : "s"}`;
 		const resultWithSeasonPassString = `${daysWithSeasonPass} day${daysWithSeasonPass === 1 ? "" : "s"}`;
+		const emoji = resolveCurrentSeasonalCandleEmoji();
 
 		const embed = new EmbedBuilder()
 			.setColor(await resolveEmbedColor(interaction.guild))
 			.setDescription(
-				`Start: ${resolveCurrencyEmoji({ emoji: Emoji.SeasonalCandle, number: start })}\nGoal: ${resolveCurrencyEmoji({
-					emoji: Emoji.SeasonalCandle,
+				`Start: ${resolveCurrencyEmoji({ emoji, number: start })}\nGoal: ${resolveCurrencyEmoji({
+					emoji,
 					number: goal,
-				})}\nRequired: ${resolveCurrencyEmoji({ emoji: Emoji.SeasonalCandle, number: amountRequired })}`,
+				})}\nRequired: ${resolveCurrencyEmoji({ emoji, number: amountRequired })}`,
 			)
 			.setFields({
 				name: "Result",
@@ -338,10 +338,10 @@ export default new (class implements ChatInputCommand {
 			embed.addFields({
 				name: "Season Calculations",
 				value: `${resolveCurrencyEmoji({
-					emoji: Emoji.SeasonalCandle,
+					emoji,
 					number: seasonalCandlesLeft,
 				})} remain in the season.\n${resolveCurrencyEmoji({
-					emoji: Emoji.SeasonalCandle,
+					emoji,
 					number: seasonalCandlesLeftWithSeasonPass,
 				})} remain in the season with a Season Pass.`,
 			});

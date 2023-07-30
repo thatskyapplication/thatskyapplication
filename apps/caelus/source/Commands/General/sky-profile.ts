@@ -20,7 +20,7 @@ import Profile, { AssetType } from "../../Structures/Profile.js";
 import { SeasonFlagsToString } from "../../Structures/Seasons.js";
 import Spirits from "../../Structures/Spirits/index.js";
 import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, resolveSeasonsToEmoji } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis, resolveSeasonToSeasonalEmoji } from "../../Utility/Utility.js";
 import COMMANDS, { type AutocompleteCommand } from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
@@ -328,7 +328,7 @@ export default new (class implements AutocompleteCommand {
 							Object.entries(SeasonFlagsToString).map(([flag, season]) =>
 								new StringSelectMenuOptionBuilder()
 									.setDefault(Boolean(currentSeasons && currentSeasons & Number(flag)))
-									.setEmoji(resolveSeasonsToEmoji(season))
+									.setEmoji(resolveSeasonToSeasonalEmoji(season))
 									.setLabel(season)
 									.setValue(flag),
 							),

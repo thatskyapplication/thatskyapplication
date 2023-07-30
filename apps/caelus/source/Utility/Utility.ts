@@ -21,6 +21,7 @@ import {
 } from "discord.js";
 import { DAILY_GUIDE_EVENT_ROTATION } from "../Structures/DailyGuides.js";
 import {
+	CURRENT_SEASONAL_CANDLE_EMOJI,
 	DEFAULT_EMBED_COLOR,
 	Emoji,
 	INCONSISTENT_MAP,
@@ -31,6 +32,7 @@ import {
 	Realm,
 	Season,
 	SEASONAL_CANDLES_ROTATION,
+	seasonEndDate,
 	seasonStartDate,
 	VALID_REALM,
 } from "./Constants.js";
@@ -136,12 +138,21 @@ export function resolveCurrencyEmoji({
 	return `${number === undefined ? "" : number}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji, animated)}`;
 }
 
+export function inSeason() {
+	const today = todayDate();
+
+	return (
+		(today.isSame(seasonStartDate) || today.isAfter(seasonStartDate)) &&
+		(today.isSame(seasonEndDate) || today.isBefore(seasonEndDate))
+	);
+}
+
 export function isSeason(season: string): season is Season {
 	return Object.values(Season).includes(season as Season);
 }
 
-export function resolveSeasonsToEmoji(seasons: Season) {
-	switch (seasons) {
+export function resolveSeasonToSeasonalEmoji(season: Season) {
+	switch (season) {
 		case Season.Gratitude:
 			return Emoji.SeasonGratitude;
 		case Season.Lightseekers:
@@ -179,6 +190,51 @@ export function resolveSeasonsToEmoji(seasons: Season) {
 		case Season.Moments:
 			return Emoji.SeasonMoments;
 	}
+}
+
+export function resolveSeasonToCandleEmoji(season: Season) {
+	switch (season) {
+		case Season.Gratitude:
+			return Emoji.CandleGratitude;
+		case Season.Lightseekers:
+			return Emoji.CandleLightseekers;
+		case Season.Belonging:
+			return Emoji.CandleBelonging;
+		case Season.Rhythm:
+			return Emoji.CandleRhythm;
+		case Season.Enchantment:
+			return Emoji.CandleEnchantment;
+		case Season.Sanctuary:
+			return Emoji.CandleSanctuary;
+		case Season.Prophecy:
+			return Emoji.CandleProphecy;
+		case Season.Dreams:
+			return Emoji.CandleDreams;
+		case Season.Assembly:
+			return Emoji.CandleAssembly;
+		case Season.LittlePrince:
+			return Emoji.CandleLittlePrince;
+		case Season.Flight:
+			return Emoji.CandleFlight;
+		case Season.Abyss:
+			return Emoji.CandleAbyss;
+		case Season.Performance:
+			return Emoji.CandlePerformance;
+		case Season.Shattering:
+			return Emoji.CandleShattering;
+		case Season.Aurora:
+			return Emoji.CandleAurora;
+		case Season.Remembrance:
+			return Emoji.CandleRemembrance;
+		case Season.Passage:
+			return Emoji.CandlePassage;
+		case Season.Moments:
+			return Emoji.CandleMoments;
+	}
+}
+
+export function resolveCurrentSeasonalCandleEmoji() {
+	return inSeason() ? CURRENT_SEASONAL_CANDLE_EMOJI : Emoji.SeasonalCandle;
 }
 
 export function isRealm(realm: string): realm is Realm {

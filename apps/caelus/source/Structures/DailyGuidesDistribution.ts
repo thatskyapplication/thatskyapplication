@@ -20,8 +20,6 @@ import {
 	doubleSeasonalLightEventEndDate,
 	doubleSeasonalLightEventStartDate,
 	eventEndDate,
-	seasonEndDate,
-	seasonStartDate,
 } from "../Utility/Constants.js";
 import {
 	consoleLog,
@@ -30,6 +28,7 @@ import {
 	treasureCandleRealm,
 	resolveEmbedColor,
 	seasonalCandlesRotation,
+	inSeason,
 } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides from "./DailyGuides.js";
@@ -272,10 +271,7 @@ export default class DailyGuidesDistribution {
 			});
 		}
 
-		if (
-			(date.isAfter(seasonStartDate) || date.isSame(seasonStartDate)) &&
-			(date.isBefore(seasonEndDate) || date.isSame(seasonEndDate))
-		) {
+		if (inSeason()) {
 			const { rotation, url } = seasonalCandlesRotation();
 			let rotationNumber = String(rotation);
 

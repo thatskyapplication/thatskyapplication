@@ -128,7 +128,8 @@ export default new (class implements AutocompleteCommand {
 		const seasonalSpirit = spirit.isSeasonalSpirit();
 		const seasonalParsing = seasonalSpirit && seasonalOffer;
 		const totalCost = seasonalParsing ? spirit.totalCostSeasonal : spirit.totalCost;
-		if (totalCost && (await cannotUseCustomEmojis(interaction))) return;
+		const totalOffer = totalCost ? resolveOfferToCurrency(totalCost, seasonalSpirit ? spirit.season : null).join("") : null;
+		if (totalOffer && (await cannotUseCustomEmojis(interaction))) return;
 
 		const embed = new EmbedBuilder()
 			.setColor(await resolveEmbedColor(interaction.guild))
@@ -146,7 +147,6 @@ export default new (class implements AutocompleteCommand {
 
 		const components = [];
 		const description = [];
-		const totalOffer = totalCost ? resolveOfferToCurrency(totalCost).join("") : null;
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 
 		if (seasonalSpirit) {

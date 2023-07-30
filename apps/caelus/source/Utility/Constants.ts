@@ -7,57 +7,6 @@ import { skyDate } from "./Utility.js";
 dayjs.extend(timezone);
 dayjs.extend(utc);
 
-// Log channels.
-export const ERROR_LOG_CHANNEL_ID = "1040806599293407263" as const;
-export const GUILD_LOG_CHANNEL_ID = "1107804841813749780" as const;
-export const COMMAND_LOG_CHANNEL_ID = "1114135883604566057" as const;
-export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const;
-
-// Infographic URLs.
-export const EVENT_CURRENCY_INFOGRAPHIC_URL =
-	"https://media.discordapp.net/attachments/739444631963435008/1130395560122273843/IMG_1867.jpg" as const;
-
-// Dates.
-export const doubleSeasonalLightEventStartDate = skyDate(2_023, 5, 15);
-export const doubleSeasonalLightEventEndDate = skyDate(2_023, 5, 21);
-
-export const doubleSeasonalLightEventDuration =
-	doubleSeasonalLightEventEndDate.diff(doubleSeasonalLightEventStartDate, "days") + 1;
-
-export const seasonStartDate = skyDate(2_023, 7, 17); // Season of Moments.
-export const seasonEndDate = skyDate(2_023, 10, 1); // Season of Moments.
-export const seasonEventDuration = seasonEndDate.diff(seasonStartDate, "days") + 1;
-
-// Miscellaneous constants.
-export const production = process.env.NODE_ENV === "production";
-export const CDN_BUCKET = "thatskyapplication" as const;
-export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
-export const WEBSITE_URL = "https://thatskyapplication.com" as const;
-export const CDN_URL = "https://cdn.thatskyapplication.com" as const;
-export const THATSKYGAME_URL = "https://thatskygame.com" as const;
-export const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
-export const PATREON_URL = "https://patreon.com/Jiralite" as const;
-export const KO_FI_URL = "https://ko-fi.com/jiralite" as const;
-export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki" as const;
-export const MINIMUM_WINGED_LIGHT = 0 as const;
-export const MAXIMUM_WINGED_LIGHT = 219 as const;
-export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
-export const SEASONAL_CANDLES_PER_DAY = 5 as const;
-export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
-export const SEASON_PASS_SEASONAL_CANDLES_BONUS = 30 as const;
-export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
-export const MAX_HUG_NO = 21 as const;
-export const initialTravellingSpiritSeek = dayjs.tz("2023-05-25 00:00:00", "America/Los_Angeles"); // #88 Grateful Shell Collector.
-export const initialTreasureCandleRealmSeek = skyDate(2_023, 7, 12); // Daylight Prairie.
-export const initialEventCurrencySeek = dayjs.tz("2023-06-01 00:00:00", "America/Los_Angeles"); // Rotation A.
-export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
-export const eventEndDate = skyDate(2_023, 7, 30); // Sky Anniversary (2023).
-export const DEFAULT_EMBED_COLOR = 0xa5b5f1 as const;
-
-export const enum Channel {
-	dailyGuides = "1041420071614042152",
-}
-
 export const enum Emoji {
 	AscendedCandle = "1074399464627912755",
 	WingedLight = "1075042577776136313",
@@ -107,7 +56,61 @@ export const enum Emoji {
 	CandleAurora = "1135233951221428374",
 	CandleRemembrance = "1135233968141246474",
 	CandlePassage = "1135233983475613706",
-	CandleMoments = "1135234003184652349>",
+	CandleMoments = "1135234003184652349",
+}
+
+// Log channels.
+export const ERROR_LOG_CHANNEL_ID = "1040806599293407263" as const;
+export const GUILD_LOG_CHANNEL_ID = "1107804841813749780" as const;
+export const COMMAND_LOG_CHANNEL_ID = "1114135883604566057" as const;
+export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const;
+
+// Infographic URLs.
+export const EVENT_CURRENCY_INFOGRAPHIC_URL =
+	"https://media.discordapp.net/attachments/739444631963435008/1130395560122273843/IMG_1867.jpg" as const;
+
+// Dates.
+export const doubleSeasonalLightEventStartDate = skyDate(2_023, 5, 15);
+export const doubleSeasonalLightEventEndDate = skyDate(2_023, 5, 21);
+
+export const doubleSeasonalLightEventDuration =
+	doubleSeasonalLightEventEndDate.diff(doubleSeasonalLightEventStartDate, "days") + 1;
+
+export const seasonStartDate = skyDate(2_023, 7, 17); // Season of Moments.
+export const seasonEndDate = skyDate(2_023, 10, 1); // Season of Moments.
+export const seasonEventDuration = seasonEndDate.diff(seasonStartDate, "days") + 1;
+
+// Current seasonal information.
+export const CURRENT_SEASONAL_CANDLE_EMOJI = Emoji.CandleMoments;
+
+// Miscellaneous constants.
+export const production = process.env.NODE_ENV === "production";
+export const CDN_BUCKET = "thatskyapplication" as const;
+export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
+export const WEBSITE_URL = "https://thatskyapplication.com" as const;
+export const CDN_URL = "https://cdn.thatskyapplication.com" as const;
+export const THATSKYGAME_URL = "https://thatskygame.com" as const;
+export const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
+export const PATREON_URL = "https://patreon.com/Jiralite" as const;
+export const KO_FI_URL = "https://ko-fi.com/jiralite" as const;
+export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki" as const;
+export const MINIMUM_WINGED_LIGHT = 0 as const;
+export const MAXIMUM_WINGED_LIGHT = 219 as const;
+export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
+export const SEASONAL_CANDLES_PER_DAY = 5 as const;
+export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
+export const SEASON_PASS_SEASONAL_CANDLES_BONUS = 30 as const;
+export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
+export const MAX_HUG_NO = 21 as const;
+export const initialTravellingSpiritSeek = dayjs.tz("2023-05-25 00:00:00", "America/Los_Angeles"); // #88 Grateful Shell Collector.
+export const initialTreasureCandleRealmSeek = skyDate(2_023, 7, 12); // Daylight Prairie.
+export const initialEventCurrencySeek = dayjs.tz("2023-06-01 00:00:00", "America/Los_Angeles"); // Rotation A.
+export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
+export const eventEndDate = skyDate(2_023, 7, 30); // Sky Anniversary (2023).
+export const DEFAULT_EMBED_COLOR = 0xa5b5f1 as const;
+
+export const enum Channel {
+	dailyGuides = "1041420071614042152",
 }
 
 export const enum User {
