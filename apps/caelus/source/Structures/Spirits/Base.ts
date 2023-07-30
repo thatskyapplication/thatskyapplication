@@ -622,19 +622,14 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 	public constructor(seasonalFriendshipTreeData: SeasonalFriendshipTreeData) {
 		super(seasonalFriendshipTreeData);
 		this.offer = seasonalFriendshipTreeData.offer;
-		const offer = this.offer.current ?? this.offer.seasonal;
+		this.maxItemsBit = this.resolveMaxItemsBit(this.offer.current ?? this.offer.seasonal);
+		this.totalCostSeasonal = this.resolveTotalCost(this.offer.seasonal);
 
-		// TODO: Remove this.
-		try {
-			this.maxItemsBit = this.resolveMaxItemsBit(offer);
-			this.totalCostSeasonal = this.resolveTotalCost(this.offer.seasonal);
-
-			this.imageURLSeasonal = this.resolveImageURL(
-				seasonalFriendshipTreeData.name,
-				this.offer.hasInfographicSeasonal,
-				true,
-			);
-		} catch {}
+		this.imageURLSeasonal = this.resolveImageURL(
+			seasonalFriendshipTreeData.name,
+			this.offer.hasInfographicSeasonal,
+			true,
+		);
 	}
 }
 
