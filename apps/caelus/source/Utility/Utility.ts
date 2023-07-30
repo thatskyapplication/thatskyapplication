@@ -143,41 +143,41 @@ export function isSeason(season: string): season is Season {
 export function resolveSeasonsToEmoji(seasons: Season) {
 	switch (seasons) {
 		case Season.Gratitude:
-			return Emoji.Gratitude;
+			return Emoji.SeasonGratitude;
 		case Season.Lightseekers:
-			return Emoji.Lightseekers;
+			return Emoji.SeasonLightseekers;
 		case Season.Belonging:
-			return Emoji.Belonging;
+			return Emoji.SeasonBelonging;
 		case Season.Rhythm:
-			return Emoji.Rhythm;
+			return Emoji.SeasonRhythm;
 		case Season.Enchantment:
-			return Emoji.Enchantment;
+			return Emoji.SeasonEnchantment;
 		case Season.Sanctuary:
-			return Emoji.Sanctuary;
+			return Emoji.SeasonSanctuary;
 		case Season.Prophecy:
-			return Emoji.Prophecy;
+			return Emoji.SeasonProphecy;
 		case Season.Dreams:
-			return Emoji.Dreams;
+			return Emoji.SeasonDreams;
 		case Season.Assembly:
-			return Emoji.Assembly;
+			return Emoji.SeasonAssembly;
 		case Season.LittlePrince:
-			return Emoji.LittlePrince;
+			return Emoji.SeasonLittlePrince;
 		case Season.Flight:
-			return Emoji.Flight;
+			return Emoji.SeasonFlight;
 		case Season.Abyss:
-			return Emoji.Abyss;
+			return Emoji.SeasonAbyss;
 		case Season.Performance:
-			return Emoji.Performance;
+			return Emoji.SeasonPerformance;
 		case Season.Shattering:
-			return Emoji.Shattering;
+			return Emoji.SeasonShattering;
 		case Season.Aurora:
-			return Emoji.Aurora;
+			return Emoji.SeasonAurora;
 		case Season.Remembrance:
-			return Emoji.Remembrance;
+			return Emoji.SeasonRemembrance;
 		case Season.Passage:
-			return Emoji.Passage;
+			return Emoji.SeasonPassage;
 		case Season.Moments:
-			return Emoji.Moments;
+			return Emoji.SeasonMoments;
 	}
 }
 
