@@ -2,12 +2,13 @@ import {
 	type AutocompleteInteraction,
 	type ChatInputCommandInteraction,
 	ActionRowBuilder,
+	ApplicationCommandOptionType,
+	ApplicationCommandType,
 	ButtonBuilder,
 	ButtonInteraction,
 	ButtonStyle,
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
 	EmbedBuilder,
+	formatEmoji,
 	hyperlink,
 	time,
 	TimestampStyles,
@@ -27,7 +28,7 @@ import Seasonal from "../../Structures/Spirits/Seasonal/index.js";
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
 import Spirits from "../../Structures/Spirits/index.js";
 import { Season } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, resolveEmbedColor } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis, resolveEmbedColor, resolveSeasonToSeasonalEmoji } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID = "SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;
@@ -127,8 +128,13 @@ export default new (class implements AutocompleteCommand {
 	) {
 		const seasonalSpirit = spirit.isSeasonalSpirit();
 		const seasonalParsing = seasonalSpirit && seasonalOffer;
+		const spiritSeason = seasonalSpirit ? spirit.season : null;
 		const totalCost = seasonalParsing ? spirit.totalCostSeasonal : spirit.totalCost;
-		const totalOffer = totalCost ? resolveOfferToCurrency(totalCost, seasonalSpirit ? spirit.season : null).join("") : null;
+
+		const totalOffer = totalCost
+			? resolveOfferToCurrency(totalCost, seasonalSpirit ? spiritSeason : null).join("")
+			: null;
+
 		if (totalOffer && (await cannotUseCustomEmojis(interaction))) return;
 
 		const embed = new EmbedBuilder()
@@ -137,7 +143,14 @@ export default new (class implements AutocompleteCommand {
 			.setURL(spirit.wikiURL);
 
 		if (spirit.realm) embed.addFields({ name: "Realm", value: spirit.realm, inline: true });
-		if (seasonalSpirit) embed.addFields({ name: "Season", value: spirit.season, inline: true });
+
+		if (spiritSeason) {
+			embed.addFields({
+				name: "Season",
+				value: `${formatEmoji(resolveSeasonToSeasonalEmoji(spiritSeason))}${spiritSeason}`,
+				inline: true,
+			});
+		}
 
 		if (spirit.isStandardSpirit() || seasonalSpirit) {
 			if (spirit.expression) embed.addFields({ name: "Expression", value: spirit.expression, inline: true });
@@ -164,7 +177,7 @@ export default new (class implements AutocompleteCommand {
 					),
 				);
 			} else {
-				description.push(`⚠️ This ${spirit.season === Season.Shattering ? "entity" : "spirit"} has not yet returned.`);
+				description.push(`⚠️ This ${spiritSeason === Season.Shattering ? "entity" : "spirit"} has not yet returned.`);
 			}
 		}
 
