@@ -98,7 +98,7 @@ export default new (class implements AutocompleteCommand {
 			return;
 		}
 
-		await this.searchResponse(interaction, spirit, spirit.isSeasonalSpirit() && spirit.notVisited);
+		await this.searchResponse(interaction, spirit, spirit.isSeasonalSpirit() && !spirit.visited);
 	}
 
 	public async parseSpiritSwitch(interaction: ButtonInteraction) {
@@ -150,9 +150,7 @@ export default new (class implements AutocompleteCommand {
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 
 		if (seasonalSpirit) {
-			if (spirit.notVisited) {
-				description.push(`⚠️ This ${spirit.season === Season.Shattering ? "entity" : "spirit"} has not yet returned.`);
-			} else {
+			if (spirit.visited) {
 				const { travelling, returning } = spirit.visits;
 
 				components.push(
@@ -166,6 +164,8 @@ export default new (class implements AutocompleteCommand {
 
 				if (travelling.size > 0) embed.addFields({ name: "Travelling", value: this.visitField(travelling) });
 				if (returning.size > 0) embed.addFields({ name: "Returning", value: this.visitField(returning) });
+			} else {
+				description.push(`⚠️ This ${spirit.season === Season.Shattering ? "entity" : "spirit"} has not yet returned.`);
 			}
 		}
 

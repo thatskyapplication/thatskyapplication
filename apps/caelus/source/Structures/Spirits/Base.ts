@@ -3,7 +3,7 @@ import type { Dayjs } from "dayjs";
 import { Collection } from "discord.js";
 import { Mixin } from "ts-mixer";
 import { type Realm, type Season, CDN_URL, WIKI_URL, Emoji } from "../../Utility/Constants.js";
-import { resolveCurrencyEmoji } from "../../Utility/Utility.js";
+import { resolveCurrencyEmoji, todayDate } from "../../Utility/Utility.js";
 
 export enum SpiritName {
 	// Isles of Dawn
@@ -745,8 +745,20 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 				  };
 	}
 
-	public get notVisited() {
-		return this.visits.travelling.size === 0 && this.visits.returning.size === 0;
+	public get visited() {
+		const { travelling, returning } = this.visits;
+		const lastTravelling = travelling.last();
+		const lastReturning = returning.last();
+		const today = todayDate();
+
+		/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+		return (
+			lastTravelling?.isBefore(today) ||
+			lastTravelling?.isSame(today) ||
+			lastReturning?.isBefore(today) ||
+			lastReturning?.isSame(today)
+		);
+		/* eslint-enable @typescript-eslint/prefer-nullish-coalescing */
 	}
 }
 
