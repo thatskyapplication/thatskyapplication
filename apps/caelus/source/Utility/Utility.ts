@@ -233,6 +233,43 @@ export function resolveSeasonToCandleEmoji(season: Season) {
 	}
 }
 
+export function resolveSeasonToHeartEmoji(season: Exclude<Season, Season.Gratitude | Season.Lightseekers>) {
+	switch (season) {
+		case Season.Belonging:
+			return Emoji.HeartBelonging;
+		case Season.Rhythm:
+			return Emoji.HeartRhythm;
+		case Season.Enchantment:
+			return Emoji.HeartEnchantment;
+		case Season.Sanctuary:
+			return Emoji.HeartSanctuary;
+		case Season.Prophecy:
+			return Emoji.HeartProphecy;
+		case Season.Dreams:
+			return Emoji.HeartDreams;
+		case Season.Assembly:
+			return Emoji.HeartAssembly;
+		case Season.LittlePrince:
+			return Emoji.HeartLittlePrince;
+		case Season.Flight:
+			return Emoji.HeartFlight;
+		case Season.Abyss:
+			return Emoji.HeartAbyss;
+		case Season.Performance:
+			return Emoji.HeartPerformance;
+		case Season.Shattering:
+			return Emoji.HeartShattering;
+		case Season.Aurora:
+			return Emoji.HeartAurora;
+		case Season.Remembrance:
+			return Emoji.HeartRemembrance;
+		case Season.Passage:
+			return Emoji.HeartPassage;
+		case Season.Moments:
+			return Emoji.HeartMoments;
+	}
+}
+
 export function resolveCurrentSeasonalCandleEmoji() {
 	return inSeason() ? CURRENT_SEASONAL_CANDLE_EMOJI : Emoji.SeasonalCandle;
 }

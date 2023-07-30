@@ -57,6 +57,22 @@ export const enum Emoji {
 	CandleRemembrance = "1135302796397256755",
 	CandlePassage = "1135302811819708569",
 	CandleMoments = "1135302823593119804",
+	HeartBelonging = "1135304922997465168",
+	HeartRhythm = "1135304943302082760",
+	HeartEnchantment = "1135304955104862279",
+	HeartSanctuary = "1135304967679389868",
+	HeartProphecy = "1135304979532496906",
+	HeartDreams = "1135305001149935696",
+	HeartAssembly = "1135305017449001091",
+	HeartLittlePrince = "1135305036113649724",
+	HeartFlight = "1135305050084880484",
+	HeartAbyss = "1135305058838384670",
+	HeartPerformance = "1135305071509377085",
+	HeartShattering = "1135305088043327578",
+	HeartAurora = "1135305121153159311",
+	HeartRemembrance = "1135305133614432266",
+	HeartPassage = "1135305161498181765",
+	HeartMoments = "1135305178027933899",
 }
 
 // Log channels.

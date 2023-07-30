@@ -126,15 +126,12 @@ export default new (class implements AutocompleteCommand {
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 		seasonalOffer = false,
 	) {
-		const seasonalSpirit = spirit.isSeasonalSpirit();
-		const seasonalParsing = seasonalSpirit && seasonalOffer;
-		const spiritSeason = seasonalSpirit ? spirit.season : null;
+		const isSeasonalSpirit = spirit.isSeasonalSpirit();
+		const isGuideSpirit = spirit.isGuideSpirit();
+		const seasonalParsing = isSeasonalSpirit && seasonalOffer;
+		const spiritSeason = isSeasonalSpirit || isGuideSpirit ? spirit.season : null;
 		const totalCost = seasonalParsing ? spirit.totalCostSeasonal : spirit.totalCost;
-
-		const totalOffer = totalCost
-			? resolveOfferToCurrency(totalCost, seasonalSpirit ? spiritSeason : null).join("")
-			: null;
-
+		const totalOffer = totalCost ? resolveOfferToCurrency(totalCost, spiritSeason).join("") : null;
 		if (totalOffer && (await cannotUseCustomEmojis(interaction))) return;
 
 		const embed = new EmbedBuilder()
@@ -152,7 +149,7 @@ export default new (class implements AutocompleteCommand {
 			});
 		}
 
-		if (spirit.isStandardSpirit() || seasonalSpirit) {
+		if (spirit.isStandardSpirit() || isSeasonalSpirit) {
 			if (spirit.expression) embed.addFields({ name: "Expression", value: spirit.expression, inline: true });
 			if (spirit.stance) embed.addFields({ name: "Stance", value: spirit.stance, inline: true });
 			if (spirit.call) embed.addFields({ name: "Call", value: spirit.call, inline: true });
@@ -162,7 +159,7 @@ export default new (class implements AutocompleteCommand {
 		const description = [];
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 
-		if (seasonalSpirit) {
+		if (isSeasonalSpirit) {
 			const { travelling, returning } = spirit.visits;
 			if (travelling.size > 0) embed.addFields({ name: "Travelling", value: this.visitField(travelling) });
 			if (returning.size > 0) embed.addFields({ name: "Returning", value: this.visitField(returning) });
@@ -188,10 +185,10 @@ export default new (class implements AutocompleteCommand {
 			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
-		if (spirit.isGuideSpirit() && spirit.offer?.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
+		if (isGuideSpirit && spirit.offer?.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
 		if (totalOffer && totalOffer.length > 1) description.push(totalOffer);
 
-		if (seasonalSpirit && spirit.marketingVideoURL) {
+		if (isSeasonalSpirit && spirit.marketingVideoURL) {
 			description.push(hyperlink("Promotional Video", spirit.marketingVideoURL));
 		}
 
