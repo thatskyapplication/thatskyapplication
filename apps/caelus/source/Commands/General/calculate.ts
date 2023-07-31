@@ -19,17 +19,12 @@ import {
 	ASCENDED_CANDLES_PER_WEEK,
 	Map,
 	WINGED_LIGHT_AREAS,
-	seasonStartDate,
-	seasonEndDate,
-	doubleSeasonalLightEventDuration,
-	seasonEventDuration,
-	SEASON_PASS_SEASONAL_CANDLES_BONUS,
 } from "../../Utility/Constants.js";
 import {
 	cannotUseCustomEmojis,
-	inSeason,
 	isWingedLightArea,
 	notNull,
+	remainingSeasonalCandles,
 	resolveCurrencyEmoji,
 	resolveCurrentSeasonalCandleEmoji,
 	resolveEmbedColor,
@@ -250,49 +245,10 @@ export default new (class implements ChatInputCommand {
 
 		if (await cannotUseCustomEmojis(interaction)) return;
 		const today = todayDate();
+		const remainingCandles = remainingSeasonalCandles();
 		let seasonalCandlesLeft;
 		let seasonalCandlesLeftWithSeasonPass;
-
-		if (inSeason()) {
-			const seasonalDoubleLightEvent =
-				(doubleSeasonalLightEventStartDate.isSame(seasonStartDate) ||
-					doubleSeasonalLightEventStartDate.isAfter(seasonStartDate)) &&
-				(doubleSeasonalLightEventEndDate.isSame(seasonEndDate) ||
-					doubleSeasonalLightEventEndDate.isBefore(seasonEndDate));
-
-			// Calculate the total amount of seasonal candles.
-			let seasonalCandlesTotal = seasonEventDuration * SEASONAL_CANDLES_PER_DAY;
-
-			let seasonalCandlesTotalWithSeasonPass =
-				seasonEventDuration * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
-
-			if (seasonalDoubleLightEvent) {
-				seasonalCandlesTotal += doubleSeasonalLightEventDuration;
-				seasonalCandlesTotalWithSeasonPass += doubleSeasonalLightEventDuration;
-			}
-
-			// Calculate the amount of seasonal candles so far.
-			const daysSoFar = today.diff(seasonStartDate, "days") + 1;
-			let seasonalCandlesSoFar = daysSoFar * SEASONAL_CANDLES_PER_DAY;
-
-			let seasonalCandlesSoFarWithSeasonPass =
-				daysSoFar * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
-
-			if (seasonalDoubleLightEvent && today.diff(doubleSeasonalLightEventStartDate, "days") >= 0) {
-				const difference = today.diff(doubleSeasonalLightEventEndDate, "days");
-
-				const extraSeasonalCandles =
-					// The difference will be a negative number if the event is still ongoing.
-					difference > 0 ? doubleSeasonalLightEventDuration : doubleSeasonalLightEventDuration + difference;
-
-				seasonalCandlesSoFar += extraSeasonalCandles;
-				seasonalCandlesSoFarWithSeasonPass += extraSeasonalCandles;
-			}
-
-			// Calculate the amount of seasonal candles left.
-			seasonalCandlesLeft = seasonalCandlesTotal - seasonalCandlesSoFar;
-			seasonalCandlesLeftWithSeasonPass = seasonalCandlesTotalWithSeasonPass - seasonalCandlesSoFarWithSeasonPass;
-		}
+		if (remainingCandles) ({ seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } = remainingCandles);
 
 		const amountRequired = goal - start;
 		let result = 0;

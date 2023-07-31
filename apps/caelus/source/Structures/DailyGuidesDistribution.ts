@@ -29,6 +29,8 @@ import {
 	resolveEmbedColor,
 	seasonalCandlesRotation,
 	inSeason,
+	remainingSeasonalCandles,
+	resolveCurrentSeasonalCandleEmoji,
 } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides from "./DailyGuides.js";
@@ -286,7 +288,22 @@ export default class DailyGuidesDistribution {
 				rotationNumber = "1 & 2";
 			}
 
-			embed.addFields({ name: "Seasonal Candles", value: hyperlink(`Rotation ${rotationNumber}`, url) });
+			const remainingCandles = remainingSeasonalCandles();
+			let seasonalCandlesLeft;
+			let seasonalCandlesLeftWithSeasonPass;
+			if (remainingCandles) ({ seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } = remainingCandles);
+			const emoji = resolveCurrentSeasonalCandleEmoji();
+
+			embed.addFields({
+				name: "Seasonal Candles",
+				value: `${hyperlink(`Rotation ${rotationNumber}`, url)}\n${resolveCurrencyEmoji({
+					emoji,
+					number: seasonalCandlesLeft!,
+				})} remain in the season.\n${resolveCurrencyEmoji({
+					emoji,
+					number: seasonalCandlesLeftWithSeasonPass!,
+				})} remain in the season with a Season Pass.`,
+			});
 		}
 
 		const eventCurrencyFieldData = this.eventCurrencyFieldData();
@@ -318,7 +335,12 @@ export default class DailyGuidesDistribution {
 				if (
 					!channel
 						.permissionsFor(me)
-						.has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages | PermissionFlagsBits.EmbedLinks)
+						.has(
+							PermissionFlagsBits.ViewChannel |
+								PermissionFlagsBits.SendMessages |
+								PermissionFlagsBits.EmbedLinks |
+								PermissionFlagsBits.UseExternalEmojis,
+						)
 				) {
 					throw new Error(
 						`Guild id ${guildId} did not have suitable permissions in channel id ${channelId} (View Channel, Send Messages, Embed Links).`,
