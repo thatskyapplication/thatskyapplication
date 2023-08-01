@@ -33,7 +33,7 @@ interface NodeCost {
 
 export interface Node {
 	icon: string;
-	cost: NodeCost | null;
+	cost?: NodeCost;
 	level?: 2 | 3 | 4 | 5 | 6;
 	seasonIcon?: Season;
 	flatLine?: boolean;
