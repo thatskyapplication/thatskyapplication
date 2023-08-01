@@ -20,7 +20,6 @@ export default new SeasonalSpirit({
 	realm: Realm.IslesOfDawn,
 	hasMarketingVideo: true,
 	offer: {
-		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${stance} stance`, cost: null })
 			.set(1 << 2, { item: "Hair", cost: { seasonalCandles: 6 } })
