@@ -756,16 +756,16 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 
 	public get visited() {
 		const { travelling, returning } = this.visits;
-		const lastTravelling = travelling.last();
-		const lastReturning = returning.last();
+		const firstTravelling = travelling.first();
+		const firstReturning = returning.first();
 		const today = todayDate();
 
 		/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 		return (
-			lastTravelling?.isBefore(today) ||
-			lastTravelling?.isSame(today) ||
-			lastReturning?.isBefore(today) ||
-			lastReturning?.isSame(today)
+			firstTravelling?.isBefore(today) ||
+			firstTravelling?.isSame(today) ||
+			firstReturning?.isBefore(today) ||
+			firstReturning?.isSame(today)
 		);
 		/* eslint-enable @typescript-eslint/prefer-nullish-coalescing */
 	}
