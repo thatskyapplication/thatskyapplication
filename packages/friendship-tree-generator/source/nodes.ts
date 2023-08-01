@@ -32,7 +32,7 @@ interface NodeCost {
 }
 
 export interface Node {
-	icon: string;
+	icon: `https://${string}`;
 	cost?: NodeCost;
 	level?: 2 | 3 | 4 | 5 | 6;
 	seasonIcon?: Season;
