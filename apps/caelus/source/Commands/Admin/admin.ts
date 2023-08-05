@@ -42,8 +42,8 @@ export const DAILY_GUIDES_DAILY_MESSAGE_MODAL = "DAILY_GUIDES_DAILY_MESSAGE_MODA
 const DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE = "DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT" as const;
 const DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION = "DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION" as const;
 export const DAILY_GUIDES_TREASURE_CANDLES_MODAL = "DAILY_GUIDES_TREASURE_CANDLES_MODAL" as const;
-const DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_1_4 = "DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_1_4" as const;
-const DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_5_8 = "DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_5_8" as const;
+const DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1_4 = "DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1_4" as const;
+const DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_5_8 = "DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_5_8" as const;
 
 function isQuestNumber(questNumber: number): questNumber is QuestNumber {
 	return QUEST_NUMBER.includes(questNumber as QuestNumber);
@@ -295,7 +295,7 @@ export default new (class implements ChatInputCommand {
 				.setComponents(
 					new ActionRowBuilder<TextInputBuilder>().setComponents(
 						new TextInputBuilder()
-							.setCustomId(DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_1_4)
+							.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1_4)
 							.setLabel("The URL of the first batch (1-4).")
 							.setRequired()
 							.setStyle(TextInputStyle.Short)
@@ -303,7 +303,7 @@ export default new (class implements ChatInputCommand {
 					),
 					new ActionRowBuilder<TextInputBuilder>().setComponents(
 						new TextInputBuilder()
-							.setCustomId(DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_5_8)
+							.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_5_8)
 							.setLabel("The URL of the second batch (5-8).")
 							.setRequired(false)
 							.setStyle(TextInputStyle.Short)
@@ -317,8 +317,8 @@ export default new (class implements ChatInputCommand {
 
 	public async setTreasureCandles(interaction: ModalMessageModalSubmitInteraction) {
 		const { client, fields, guild, user } = interaction;
-		const batch1 = fields.getTextInputValue(DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_1_4);
-		const batch2 = fields.getTextInputValue(DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_5_8);
+		const batch1 = fields.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1_4);
+		const batch2 = fields.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_5_8);
 		const treasureCandles = [batch1];
 		if (batch2) treasureCandles.push(batch2);
 		const previousEmbed = DailyGuidesDistribution.embed(await resolveEmbedColor(guild));
