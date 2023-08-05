@@ -9,6 +9,8 @@ import {
 	channelLink,
 } from "discord.js";
 import {
+	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
+	DAILY_GUIDES_DAILY_MESSAGE_MODAL,
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID,
 	DAILY_GUIDES_QUEST_1_MODAL,
@@ -261,6 +263,11 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
+				if (customId === DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID) {
+					await COMMANDS.admin.dailyMessageModalResponse(interaction);
+					return;
+				}
+
 				if (customId === DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID) {
 					await COMMANDS.admin.treasureCandlesModalResponse(interaction);
 					return;
@@ -427,6 +434,12 @@ export const event: Event<typeof name> = {
 
 				if (DAILY_GUIDES_QUEST_4_MODAL === customId) {
 					await COMMANDS.admin.setQuest(interaction, 4);
+					return;
+				}
+
+
+				if (DAILY_GUIDES_DAILY_MESSAGE_MODAL === customId) {
+					await COMMANDS.admin.setDailyMessage(interaction);
 					return;
 				}
 

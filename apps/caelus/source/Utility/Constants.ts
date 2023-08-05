@@ -97,6 +97,7 @@ export const seasonEndDate = skyDate(2_023, 10, 1); // Season of Moments.
 export const seasonEventDuration = seasonEndDate.diff(seasonStartDate, "days") + 1;
 
 // Current seasonal information.
+export const CURRENT_SEASONAL_EMOJI = Emoji.SeasonMoments;
 export const CURRENT_SEASONAL_CANDLE_EMOJI = Emoji.CandleMoments;
 
 // Miscellaneous constants.
@@ -124,6 +125,8 @@ export const initialEventCurrencySeek = dayjs.tz("2023-06-01 00:00:00", "America
 export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
 export const eventEndDate = skyDate(2_023, 7, 30); // Sky Anniversary (2023).
 export const DEFAULT_EMBED_COLOR = 0xa5b5f1 as const;
+export const MAXIMUM_EMBED_FIELD_NAME_LENGTH = 256 as const;
+export const MAXIMUM_EMBED_FIELD_VALUE_LENGTH = 1_024 as const;
 
 export const enum Channel {
 	dailyGuides = "1041420071614042152",

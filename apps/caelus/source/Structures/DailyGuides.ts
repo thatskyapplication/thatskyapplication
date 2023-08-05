@@ -31,6 +31,7 @@ export interface DailyGuidesPacket {
 	quest4: DailyGuideQuest | null;
 	treasure_candles: string[] | null;
 	event_currency: DailyGuideEvent;
+	daily_message: DailyGuideMessage | null;
 }
 
 interface DailyGuidesData {
@@ -40,12 +41,27 @@ interface DailyGuidesData {
 	quest4: DailyGuidesPacket["quest4"];
 	treasureCandles: DailyGuidesPacket["treasure_candles"];
 	eventCurrency: DailyGuidesPacket["event_currency"];
+	dailyMessage: DailyGuidesPacket["daily_message"];
 }
 
-interface DailyGuideQuest {
+export interface DailyGuideQuest {
 	content: string;
 	url: string;
 }
+
+const DAILY_GUIDES_RESET_DATA = {
+	quest1: null,
+	quest2: null,
+	quest3: null,
+	quest4: null,
+	treasure_candles: null,
+	event_currency: { rotation: null, url: EVENT_CURRENCY_INFOGRAPHIC_URL },
+	daily_message: null,
+} as const satisfies Readonly<{
+	[DailyGuide in keyof DailyGuidesPacket]: DailyGuide extends "event_currency"
+		? DailyGuideEvent & { rotation: null }
+		: null;
+}>;
 
 export const DAILY_GUIDE_EVENT_ROTATION = ["A", "B", "C"] as const;
 export type DailyGuideEventRotation = (typeof DAILY_GUIDE_EVENT_ROTATION)[number];
@@ -53,6 +69,11 @@ export type DailyGuideEventRotation = (typeof DAILY_GUIDE_EVENT_ROTATION)[number
 interface DailyGuideEvent {
 	rotation: DailyGuideEventRotation | null;
 	url: typeof EVENT_CURRENCY_INFOGRAPHIC_URL;
+}
+
+interface DailyGuideMessage {
+	title: string;
+	description: string;
 }
 
 function resolveShardEruptionMapURL(map: Map) {
@@ -141,6 +162,8 @@ export default new (class DailyGuides {
 
 	public eventCurrency: DailyGuidesData["eventCurrency"] = { rotation: null, url: EVENT_CURRENCY_INFOGRAPHIC_URL };
 
+	public dailyMessage: DailyGuidesData["dailyMessage"] = null;
+
 	public shardEruption(this: void, daysOffset = 0) {
 		const date = todayDate().add(daysOffset, "days");
 		const dayOfMonth = date.date();
@@ -169,17 +192,8 @@ export default new (class DailyGuides {
 	public readonly queue = new AsyncQueue();
 
 	public async reset(insert = false) {
-		const data = {
-			quest1: null,
-			quest2: null,
-			quest3: null,
-			quest4: null,
-			treasure_candles: null,
-			event_currency: { rotation: null, url: EVENT_CURRENCY_INFOGRAPHIC_URL },
-		};
-
 		let query = pg<DailyGuidesPacket>(Table.DailyGuides);
-		query = insert ? query.insert(data) : query.update(data);
+		query = insert ? query.insert(DAILY_GUIDES_RESET_DATA) : query.update(DAILY_GUIDES_RESET_DATA);
 		const [dailyGuidesPacket] = await query.returning("*");
 		this.patch(dailyGuidesPacket!);
 	}
@@ -191,6 +205,7 @@ export default new (class DailyGuides {
 		if ("quest4" in data) this.quest4 = data.quest4;
 		if ("treasure_candles" in data) this.treasureCandles = data.treasure_candles;
 		if ("event_currency" in data) this.eventCurrency = data.event_currency;
+		if ("daily_message" in data) this.dailyMessage = data.daily_message;
 	}
 
 	public validToParse({ channelId, flags, reference }: Message) {
@@ -244,6 +259,14 @@ export default new (class DailyGuides {
 
 		if (parsed && this.queue.queued === 0) await DailyGuidesDistribution.distribute(client);
 		this.queue.shift();
+	}
+
+	public async updateDailyMessage(data: DailyGuideMessage) {
+		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
+			.update({ daily_message: data })
+			.returning("*");
+
+		this.patch(dailyGuidesPacket!);
 	}
 
 	private resolveDailyGuideContent(pureContent: string) {

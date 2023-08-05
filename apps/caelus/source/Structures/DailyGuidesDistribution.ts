@@ -20,6 +20,7 @@ import {
 	doubleSeasonalLightEventEndDate,
 	doubleSeasonalLightEventStartDate,
 	eventEndDate,
+	seasonEndDate,
 } from "../Utility/Constants.js";
 import {
 	consoleLog,
@@ -31,9 +32,11 @@ import {
 	inSeason,
 	remainingSeasonalCandles,
 	resolveCurrentSeasonalCandleEmoji,
+	resolveCurrentSeasonalEmoji,
+	formatEmojiURL,
 } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
-import DailyGuides from "./DailyGuides.js";
+import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
 
 export interface DailyGuidesDistributionPacket {
 	id: number;
@@ -250,25 +253,18 @@ export default class DailyGuidesDistribution {
 	}
 
 	public static embed(embedColor: number) {
-		const { quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
+		const { dailyMessage, quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
 		const date = todayDate();
-		const embed = new EmbedBuilder().setTitle(date.format("dddd, D MMMM YYYY")).setColor(embedColor);
+		const embed = new EmbedBuilder().setColor(embedColor).setTitle(date.format("dddd, D MMMM YYYY"));
+		if (dailyMessage) embed.addFields({ name: dailyMessage.title, value: dailyMessage.description });
 
-		if (quest1) {
-			embed.addFields({ name: quest1.content, value: quest1.url === "" ? "\u200B" : hyperlink("Image", quest1.url) });
-		}
-
-		if (quest2) {
-			embed.addFields({ name: quest2.content, value: quest2.url === "" ? "\u200B" : hyperlink("Image", quest2.url) });
-		}
-
-		if (quest3) {
-			embed.addFields({ name: quest3.content, value: quest3.url === "" ? "\u200B" : hyperlink("Image", quest3.url) });
-		}
-
-		if (quest4) {
-			embed.addFields({ name: quest4.content, value: quest4.url === "" ? "\u200B" : hyperlink("Image", quest4.url) });
-		}
+		embed.addFields({
+			name: "Quests",
+			value: [quest1, quest2, quest3, quest4]
+				.filter((quest): quest is DailyGuideQuest => quest !== null)
+				.map((quest, index) => `${index + 1}. ${hyperlink(quest.content, quest.url)}`)
+				.join("\n"),
+		});
 
 		if (treasureCandles) {
 			embed.addFields({
@@ -278,6 +274,16 @@ export default class DailyGuidesDistribution {
 		}
 
 		if (inSeason()) {
+			const daysLeftInSeason = seasonEndDate.diff(date, "days");
+
+			embed.setFooter({
+				text:
+					daysLeftInSeason === 0
+						? "The season ends today."
+						: `${daysLeftInSeason === 1 ? `${daysLeftInSeason} day` : `${daysLeftInSeason} days`} left in the season.`,
+				iconURL: formatEmojiURL(resolveCurrentSeasonalEmoji()!),
+			});
+
 			const { rotation, url } = seasonalCandlesRotation();
 			let rotationNumber = String(rotation);
 

@@ -17,10 +17,12 @@ import {
 } from "discord.js";
 import DailyGuides, { type QuestNumber, QUEST_NUMBER } from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
+import { MAXIMUM_EMBED_FIELD_NAME_LENGTH, MAXIMUM_EMBED_FIELD_VALUE_LENGTH } from "../../Utility/Constants.js";
 import { resolveEmbedColor, userLogFormat } from "../../Utility/Utility.js";
 import { LogType } from "../../index.js";
 import type { ChatInputCommand } from "../index.js";
 
+export const DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID = "DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID" as const;
 export const DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID = "DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID" as const;
 export const DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID = "DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID" as const;
 export const DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID = "DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID" as const;
@@ -36,6 +38,9 @@ const DAILY_GUIDES_QUEST_3_TEXT_INPUT_URL = "DAILY_GUIDES_QUEST_3_TEXT_INPUT_URL
 export const DAILY_GUIDES_QUEST_4_MODAL = "DAILY_GUIDES_QUEST_4_MODAL" as const;
 const DAILY_GUIDES_QUEST_4_TEXT_INPUT_CONTENT = "DAILY_GUIDES_QUEST_4_TEXT_INPUT_CONTENT" as const;
 const DAILY_GUIDES_QUEST_4_TEXT_INPUT_URL = "DAILY_GUIDES_QUEST_4_TEXT_INPUT_URL" as const;
+export const DAILY_GUIDES_DAILY_MESSAGE_MODAL = "DAILY_GUIDES_DAILY_MESSAGE_MODAL" as const;
+const DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE = "DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT" as const;
+const DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION = "DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION" as const;
 export const DAILY_GUIDES_TREASURE_CANDLES_MODAL = "DAILY_GUIDES_TREASURE_CANDLES_MODAL" as const;
 const DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_1_4 = "DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_1_4" as const;
 const DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_5_8 = "DAILY_GUIDES_TRASURE_CANDLES_TEXT_INPUT_5_8" as const;
@@ -75,6 +80,12 @@ export default new (class implements ChatInputCommand {
 		const response = {
 			content: content ?? "",
 			components: [
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID)
+						.setLabel("Daily Message")
+						.setStyle(ButtonStyle.Primary),
+				),
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
 						.setCustomId(DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID)
@@ -228,6 +239,52 @@ export default new (class implements ChatInputCommand {
 		});
 
 		await this.respond(interaction, `Successfully updated quest ${number}.`);
+	}
+
+	public async dailyMessageModalResponse(interaction: ButtonInteraction) {
+		const { dailyMessage } = DailyGuides;
+
+		await interaction.showModal(
+			new ModalBuilder()
+				.setComponents(
+					new ActionRowBuilder<TextInputBuilder>().setComponents(
+						new TextInputBuilder()
+							.setCustomId(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE)
+							.setLabel("The title of the daily message.")
+							.setMaxLength(MAXIMUM_EMBED_FIELD_NAME_LENGTH)
+							.setRequired()
+							.setStyle(TextInputStyle.Short)
+							.setValue(dailyMessage?.title ?? ""),
+					),
+					new ActionRowBuilder<TextInputBuilder>().setComponents(
+						new TextInputBuilder()
+							.setCustomId(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION)
+							.setLabel("The description of the daily message.")
+							.setMaxLength(MAXIMUM_EMBED_FIELD_VALUE_LENGTH)
+							.setRequired()
+							.setStyle(TextInputStyle.Paragraph)
+							.setValue(dailyMessage?.description ?? ""),
+					),
+				)
+				.setCustomId(DAILY_GUIDES_DAILY_MESSAGE_MODAL)
+				.setTitle("Daily Message"),
+		);
+	}
+
+	public async setDailyMessage(interaction: ModalMessageModalSubmitInteraction) {
+		const { client, fields, guild, user } = interaction;
+		const title = fields.getTextInputValue(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE);
+		const description = fields.getTextInputValue(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION);
+		const previousEmbed = DailyGuidesDistribution.embed(await resolveEmbedColor(guild));
+		await DailyGuides.updateDailyMessage({ title, description });
+
+		void client.log({
+			content: `${userLogFormat(user)} manually updated the daily message.`,
+			embeds: [previousEmbed, DailyGuidesDistribution.embed(await resolveEmbedColor(guild))],
+			type: LogType.ManualDailyGuides,
+		});
+
+		await this.respond(interaction, "Successfully updated the daily message.");
 	}
 
 	public async treasureCandlesModalResponse(interaction: ButtonInteraction) {

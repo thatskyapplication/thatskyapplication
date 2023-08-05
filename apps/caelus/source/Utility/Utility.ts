@@ -14,6 +14,7 @@ import {
 	type TimestampStylesString,
 	type User,
 	type UserContextMenuCommandInteraction,
+	CDN,
 	formatEmoji,
 	PermissionFlagsBits,
 	time as discordTime,
@@ -22,6 +23,7 @@ import {
 import { DAILY_GUIDE_EVENT_ROTATION } from "../Structures/DailyGuides.js";
 import {
 	CURRENT_SEASONAL_CANDLE_EMOJI,
+	CURRENT_SEASONAL_EMOJI,
 	DEFAULT_EMBED_COLOR,
 	doubleSeasonalLightEventDuration,
 	doubleSeasonalLightEventEndDate,
@@ -44,6 +46,7 @@ import {
 	VALID_REALM,
 } from "./Constants.js";
 
+const cdn = new CDN();
 dayjs.extend(timezone);
 dayjs.extend(utc);
 
@@ -271,6 +274,10 @@ export function resolveSeasonToHeartEmoji(season: Exclude<Season, Season.Gratitu
 	}
 }
 
+export function resolveCurrentSeasonalEmoji() {
+	return inSeason() ? CURRENT_SEASONAL_EMOJI : null;
+}
+
 export function resolveCurrentSeasonalCandleEmoji() {
 	return inSeason() ? CURRENT_SEASONAL_CANDLE_EMOJI : Emoji.SeasonalCandle;
 }
@@ -371,4 +378,8 @@ export function chatInputApplicationCommandMention(
 
 export function userLogFormat(user: User) {
 	return `${user} (${user.tag})`;
+}
+
+export function formatEmojiURL(id: Snowflake) {
+	return cdn.emoji(id);
 }
