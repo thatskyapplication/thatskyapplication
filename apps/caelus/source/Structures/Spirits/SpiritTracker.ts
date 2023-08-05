@@ -878,12 +878,13 @@ export class SpiritTracker {
 				(bit, value) => bit | Number(value),
 				interaction.message.components
 					.find((actionRow): actionRow is ActionRow<StringSelectMenuComponent> =>
-						actionRow.components.some((component) =>
-							component.customId?.startsWith(
-								customId.startsWith(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
-									? SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID
-									: SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID,
-							),
+						actionRow.components.some(
+							(component) =>
+								component.customId?.startsWith(
+									customId.startsWith(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
+										? SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID
+										: SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID,
+								),
 						),
 					)
 					?.components[0]!.options.reduce((bit, option) => (option.default ? bit | Number(option.value) : bit), 0) ?? 0,

@@ -11,14 +11,14 @@
 	},
 	"dependencies": {
 		"@napi-rs/canvas": "^0.1.41",
-		"undici": "^5.22.1"
+		"undici": "^5.23.0"
 	},
 	"devDependencies": {
 		"@types/node": "18.16.3",
-		"eslint": "^8.43.0",
+		"eslint": "^8.46.0",
 		"eslint-config-neon": "^0.1.47",
-		"prettier": "^2.8.8",
-		"tsup": "^7.1.0",
+		"prettier": "^3.0.1",
+		"tsup": "^7.2.0",
 		"typescript": "^5.1.6"
 	}
 }

@@ -10,5 +10,5 @@ export const enum WaifuCategory {
 }
 
 export async function waifu(endpoint: WaifuCategory): Promise<WaifuResponse> {
-	return (await request(`https://api.waifu.pics/sfw/${endpoint}`)).body.json();
+	return (await request(`https://api.waifu.pics/sfw/${endpoint}`)).body.json() as Promise<WaifuResponse>;
 }
