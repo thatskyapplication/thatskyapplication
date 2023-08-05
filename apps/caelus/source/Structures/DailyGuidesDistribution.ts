@@ -252,7 +252,7 @@ export default class DailyGuidesDistribution {
 	public static embed(embedColor: number) {
 		const { quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
 		const date = todayDate();
-		const embed = new EmbedBuilder().setTitle(date.format("DD/MM/YYYY")).setColor(embedColor);
+		const embed = new EmbedBuilder().setTitle(date.format("dddd, D MMMM YYYY")).setColor(embedColor);
 
 		if (quest1) {
 			embed.addFields({ name: quest1.content, value: quest1.url === "" ? "\u200B" : hyperlink("Image", quest1.url) });
