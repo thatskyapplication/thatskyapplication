@@ -95,13 +95,7 @@ export async function cannotUseCustomEmojis(
 		| UserContextMenuCommandInteraction,
 	options?: InteractionReplyOptions | InteractionUpdateOptions,
 ) {
-	if (
-		!interaction.inGuild() ||
-		// This is always present.
-		interaction.appPermissions!.has(PermissionFlagsBits.UseExternalEmojis)
-	) {
-		return false;
-	}
+	if (!interaction.inGuild() || interaction.appPermissions.has(PermissionFlagsBits.UseExternalEmojis)) return false;
 
 	const response = {
 		content: `Missing the \`Use External Emojis\` permission. ${
