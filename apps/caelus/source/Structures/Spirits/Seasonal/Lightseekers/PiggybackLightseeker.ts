@@ -45,6 +45,5 @@ export default new SeasonalSpirit({
 			.set(7, skyDate(2_020, 4, 16))
 			.set(30, skyDate(2_021, 3, 4))
 			.set(80, skyDate(2_023, 2, 2)),
-		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 	},
 });

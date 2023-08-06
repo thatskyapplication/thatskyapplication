@@ -48,7 +48,6 @@ export default new SeasonalSpirit({
 	},
 	keywords: ["hammock"],
 	visits: {
-		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(1, skyDate(2_023, 3, 6)),
 	},
 });

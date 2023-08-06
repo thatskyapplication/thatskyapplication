@@ -17,7 +17,7 @@ import {
 	type ElderSpirit,
 	type GuideSpirit,
 	type SeasonalSpirit,
-	type SeasonalSpiritVisit,
+	type SeasonalSpiritVisitData,
 	type StandardSpirit,
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
@@ -71,7 +71,7 @@ export default new (class implements AutocompleteCommand {
 		}
 	}
 
-	private visitField(seasonalSpiritVisit: SeasonalSpiritVisit["travelling"] | SeasonalSpiritVisit["returning"]) {
+	private visitField(seasonalSpiritVisit: SeasonalSpiritVisitData) {
 		return seasonalSpiritVisit
 			.reduce<string[]>((visits, date, visit) => {
 				visits.push(

@@ -448,10 +448,11 @@ interface ElderSpiritData extends BaseSpiritData, ElderFriendshipTreeData {
 }
 
 export type SeasonalSpiritVisitCollectionKey = number | "Error";
+export type SeasonalSpiritVisitData = Collection<SeasonalSpiritVisitCollectionKey, Dayjs>;
 
 export interface SeasonalSpiritVisit {
-	travelling: Collection<SeasonalSpiritVisitCollectionKey, Dayjs>;
-	returning: Collection<SeasonalSpiritVisitCollectionKey, Dayjs>;
+	travelling?: SeasonalSpiritVisitData;
+	returning?: SeasonalSpiritVisitData;
 }
 
 interface SeasonalSpiritData extends BaseSpiritData, SeasonalFriendshipTreeData, ExpressiveSpiritData {
@@ -735,7 +736,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 
 	public readonly marketingVideoURL: string | null;
 
-	public readonly visits: SeasonalSpiritVisit;
+	public readonly visits: Required<SeasonalSpiritVisit>;
 
 	public constructor(spirit: SeasonalSpiritData) {
 		super(spirit);
@@ -745,13 +746,10 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 			? String(new URL(`spirits/${this.cdnName}/marketing_video.mp4`, CDN_URL))
 			: null;
 
-		this.visits =
-			"visits" in spirit
-				? spirit.visits
-				: {
-						travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-						returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-				  };
+		this.visits = {
+			travelling: spirit.visits?.travelling ?? new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+			returning: spirit.visits?.returning ?? new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+		};
 	}
 
 	public get visited() {

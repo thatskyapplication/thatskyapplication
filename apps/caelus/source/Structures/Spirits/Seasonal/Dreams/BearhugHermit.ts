@@ -47,6 +47,5 @@ export default new SeasonalSpirit({
 	keywords: ["yeti"],
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(75, skyDate(2_022, 11, 24)),
-		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 	},
 });

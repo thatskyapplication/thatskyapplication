@@ -41,7 +41,6 @@ export default new SeasonalSpirit({
 			.set(10, skyDate(2_020, 5, 28))
 			.set(39, skyDate(2_021, 7, 8))
 			.set(76, skyDate(2_022, 12, 8)),
-		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 	},
 	keywords: ["weasel", "weasel mask"],
 });

@@ -49,6 +49,5 @@ export default new SeasonalSpirit({
 	keywords: ["rabbit", "rabbit mask"],
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(64, skyDate(2_022, 6, 23)),
-		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 	},
 });

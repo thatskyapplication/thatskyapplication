@@ -46,6 +46,5 @@ export default new SeasonalSpirit({
 	keywords: ["frog", "frog mask"],
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(71, skyDate(2_022, 9, 29)),
-		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 	},
 });

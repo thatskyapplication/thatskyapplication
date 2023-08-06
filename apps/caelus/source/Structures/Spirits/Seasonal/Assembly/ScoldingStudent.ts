@@ -48,6 +48,5 @@ export default new SeasonalSpirit({
 	keywords: ["clover", "clover cape"],
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(68, skyDate(2_022, 8, 18)),
-		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 	},
 });

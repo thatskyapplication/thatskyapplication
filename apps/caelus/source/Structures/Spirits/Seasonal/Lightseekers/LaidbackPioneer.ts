@@ -46,7 +46,6 @@ export default new SeasonalSpirit({
 			.set(3, skyDate(2_020, 2, 27))
 			.set(23, skyDate(2_020, 11, 26))
 			.set(72, skyDate(2_022, 10, 13)),
-		returning: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
 	},
 	hasMarketingVideo: true,
 	keywords: ["umbrella"],
