@@ -10,6 +10,7 @@ import {
 	SnowflakeUtil,
 } from "discord.js";
 import {
+	type ValidRealm,
 	EVENT_CURRENCY_INFOGRAPHIC_URL,
 	CDN_URL,
 	Channel,
@@ -22,7 +23,7 @@ import {
 import { consoleLog, resolveMap, resolveValidRealm, todayDate } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
-import { SpiritName } from "./Spirits/Base.js";
+import { Expression, SpiritName } from "./Spirits/Base.js";
 
 export interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;
@@ -269,7 +270,54 @@ export default new (class DailyGuides {
 		this.patch(dailyGuidesPacket!);
 	}
 
-	private resolveDailyGuideContent(pureContent: string) {
+	private resolveMeditateMap(map: Map | null) {
+		switch (map) {
+			case Map.ForestBrook:
+			case Map.Citadel:
+				return `above the ${map}`;
+			case Map.SanctuaryIslands:
+			case Map.Boneyard:
+			case Map.ForestClearing:
+			case Map.Coliseum:
+			case Map.VaultEntrance:
+			case Map.VaultSummit:
+				return `at the ${map}`;
+			case Map.KoiPond:
+				return `by the ${map}`;
+			case Map.ButterflyFields:
+			case Map.Cave:
+			case Map.ElevatedClearing:
+			case Map.BrokenTemple:
+			case Map.ForgottenArk:
+			case Map.Graveyard:
+			case Map.VaultSecondFloor:
+				return `in the ${map}`;
+			case Map.Battlefield:
+			case Map.Boat:
+				return `on the ${map}`;
+			default:
+				consoleLog("Failed to match a meditation map.");
+				return `at the ${map}`;
+		}
+	}
+
+	private resolveSocialLightAreaMap(map: Map | null) {
+		switch (map) {
+			case Map.Cave:
+				return `cosy hideout in the ${map}`;
+			case Map.ElevatedClearing:
+				return `ancestor's table of belonging in the ${map}`;
+			case Map.Graveyard:
+				return `bonfire at the ${map}`;
+			case Map.VillageOfDreams:
+				return `hotspring in the ${map}`;
+			default:
+				consoleLog("Failed to match a social light area map.");
+				return "social light area";
+		}
+	}
+
+	private resolveDailyGuideContent(pureContent: string, realm: ValidRealm | null, map: Map | null) {
 		const upperPureContent = pureContent.toUpperCase();
 
 		if (upperPureContent.includes("BOW AT A PLAYER") || upperPureContent.includes("BOW TO A PLAYER")) {
@@ -278,35 +326,35 @@ export default new (class DailyGuides {
 
 		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) return "Knock over 5 dark creature crabs";
 		if (upperPureContent.includes("FOLLOW A FRIEND")) return "Follow a friend";
-		if (upperPureContent.includes("HUG A FRIEND")) return "Hug a friend";
-		if (upperPureContent.includes("WAVE TO A FRIEND")) return "Wave to a friend";
+		if (upperPureContent.includes("HUG A FRIEND")) return `${Expression.Hug} a friend`;
+		if (upperPureContent.includes("WAVE TO A FRIEND")) return `${Expression.Wave} to a friend`;
 		if (upperPureContent.includes("HOLD THE HAND")) return "Hold a friend's hand";
 		if (upperPureContent.includes("SEND A GIFT")) return "Send a gift to a friend";
 		if (upperPureContent.includes("ACQUAINTANCE")) return "Make a new acquaintance";
-		if (upperPureContent.includes("HIGH-FIVE")) return "High-five a friend";
+		if (upperPureContent.includes("HIGH-FIVE")) return `${Expression.HighFive} a friend`;
 		if (upperPureContent.includes("EXPRESSION NEAR A FRIEND")) return "Use an expression near a friend";
 		if (upperPureContent.includes("BENCH")) return "Sit on a bench with a stranger";
 		if (upperPureContent.includes("RIDE A MANTA")) return "Ride a manta";
 		if (upperPureContent.includes("DARK DRAGON")) return "Face the dark dragon";
 		if (upperPureContent.includes("RECHARGE FROM A LIGHT BLOOM")) return "Recharge from a light bloom";
 		if (upperPureContent.includes("RECHARGE FROM A JELLYFISH")) return "Recharge from a jellyfish";
-		if (upperPureContent.includes("ADMIRE THE RAINBOW")) return "Admire the rainbow";
+		if (upperPureContent.includes("ADMIRE THE RAINBOW")) return `Admire the rainbow${map ? ` in the ${map}` : ""}`;
 
 		if (upperPureContent.includes("CANDLES AT THE END OF THE RAINBOW")) {
-			return "Find the candles at the end of the rainbow";
+			return `Find the candles at the end of the rainbow${realm ? ` in the ${realm}` : ""}`;
 		}
 
-		if (upperPureContent.includes("CATCH THE LIGHT")) return "Catch the light";
-		if (upperPureContent.includes("MEDITATION")) return "Meditate";
+		if (upperPureContent.includes("CATCH THE LIGHT")) return `Catch the light${realm ? ` in the ${realm}` : ""}`;
+		if (upperPureContent.includes("MEDITATION")) return `Meditate ${this.resolveMeditateMap(map)}`;
 		if (upperPureContent.includes("BLUE LIGHT")) return "Collect blue light";
 		if (upperPureContent.includes("GREEN LIGHT")) return "Collect green light";
 		if (upperPureContent.includes("ORANGE LIGHT")) return "Collect orange light";
 		if (upperPureContent.includes("PURPLE LIGHT")) return "Collect purple light";
 		if (upperPureContent.includes("RED LIGHT")) return "Collect red light";
-		if (upperPureContent.includes("SAPLING")) return "Admire the sapling";
+		if (upperPureContent.includes("SAPLING")) return `Admire the sapling${realm ? ` in the ${realm}` : ""}`;
 
 		if (upperPureContent.includes("SOCIAL LIGHT") || upperPureContent.includes("VISIT THE ANCESTOR")) {
-			return "Visit the social light area";
+			return `Visit the ${this.resolveSocialLightAreaMap(map)}`;
 		}
 
 		if (upperPureContent.includes("POLLUTED GEYSER")) return "Visit the Polluted geyser";
@@ -346,9 +394,6 @@ export default new (class DailyGuides {
 			"",
 		);
 
-		// Attempt to manually set the daily guide.
-		const dailyGuideContent = this.resolveDailyGuideContent(pureContent);
-
 		// Attempt to find a realm.
 		const potentialRealmRegExp = new RegExp(`(${regularExpressionRealms})`, "i").exec(pureContent)?.[1] ?? null;
 		const realm = potentialRealmRegExp ? resolveValidRealm(potentialRealmRegExp) : null;
@@ -357,9 +402,11 @@ export default new (class DailyGuides {
 		const potentialMapRegExp = new RegExp(`\\s(${mapRegExp})`, "i").exec(pureContent)?.[1] ?? null;
 		const map = potentialMapRegExp ? resolveMap(potentialMapRegExp) : null;
 
-		// Generate the final output.
-		let output = null;
-		if (dailyGuideContent) output = `${dailyGuideContent}${realm ? ` - ${realm}` : ""}${map ? ` - ${map}` : ""}`;
+		// Attempt to manually set the daily guide.
+		const dailyGuideContent = this.resolveDailyGuideContent(pureContent, realm, map);
+
+		// Initialise the output.
+		let output = dailyGuideContent;
 
 		// Fallback in case of no output.
 		if (!output) {
