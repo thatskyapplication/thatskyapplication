@@ -89,11 +89,9 @@ export async function skyStory(interaction: MessageContextMenuCommandInteraction
 			user: interaction.user.id,
 		});
 	} catch {
-		await interaction.reply({
-			content:
-				"The story I was thinking of was so beautiful and emotional that I forgot what I wrote. Sorry about that",
-			ephemeral: true,
-		});
+		await interaction.editReply(
+			"The story I was thinking of was so beautiful and emotional that I forgot what I wrote. Sorry about that",
+		);
 
 		return;
 	}
