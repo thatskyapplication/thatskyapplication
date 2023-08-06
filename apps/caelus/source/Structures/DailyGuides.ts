@@ -273,45 +273,50 @@ export default new (class DailyGuides {
 		const upperPureContent = pureContent.toUpperCase();
 
 		if (upperPureContent.includes("BOW AT A PLAYER") || upperPureContent.includes("BOW TO A PLAYER")) {
-			return "Bow at a Player";
+			return "Bow at a player";
 		}
 
-		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) return "Knock over 5 Dark Creatures Crabs";
-		if (upperPureContent.includes("FOLLOW A FRIEND")) return "Follow a Friend";
-		if (upperPureContent.includes("HUG A FRIEND")) return "Hug a Friend";
-		if (upperPureContent.includes("WAVE TO A FRIEND")) return "Wave to a Friend";
-		if (upperPureContent.includes("HOLD THE HAND")) return "Hold the Hand of a Friend";
-		if (upperPureContent.includes("SEND A GIFT")) return "Send a Gift to a Friend";
-		if (upperPureContent.includes("ACQUAINTANCE")) return "Make a New Acquaintance";
-		if (upperPureContent.includes("HIGH-FIVE")) return "High-Five a Friend";
-		if (upperPureContent.includes("EXPRESSION NEAR A FRIEND")) return "Use an Expression Near a Friend";
-		if (upperPureContent.includes("BENCH")) return "Sit at a Bench with a Stranger";
-		if (upperPureContent.includes("RIDE A MANTA")) return "Ride a Manta";
-		if (upperPureContent.includes("DARK DRAGON")) return "Face the Dark Dragon";
-		if (upperPureContent.includes("RECHARGE FROM A LIGHT BLOOM")) return "Recharge from a Light Bloom";
-		if (upperPureContent.includes("RECHARGE FROM A JELLYFISH")) return "Recharge from a Jellyfish";
-		if (upperPureContent.includes("RAINBOW")) return "Find the Candles at the End of the Rainbow";
-		if (upperPureContent.includes("CATCH THE LIGHT")) return "Catch the Light";
+		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) return "Knock over 5 dark creature crabs";
+		if (upperPureContent.includes("FOLLOW A FRIEND")) return "Follow a friend";
+		if (upperPureContent.includes("HUG A FRIEND")) return "Hug a friend";
+		if (upperPureContent.includes("WAVE TO A FRIEND")) return "Wave to a friend";
+		if (upperPureContent.includes("HOLD THE HAND")) return "Hold a friend's hand";
+		if (upperPureContent.includes("SEND A GIFT")) return "Send a gift to a friend";
+		if (upperPureContent.includes("ACQUAINTANCE")) return "Make a new acquaintance";
+		if (upperPureContent.includes("HIGH-FIVE")) return "High-five a friend";
+		if (upperPureContent.includes("EXPRESSION NEAR A FRIEND")) return "Use an expression near a friend";
+		if (upperPureContent.includes("BENCH")) return "Sit on a bench with a stranger";
+		if (upperPureContent.includes("RIDE A MANTA")) return "Ride a manta";
+		if (upperPureContent.includes("DARK DRAGON")) return "Face the dark dragon";
+		if (upperPureContent.includes("RECHARGE FROM A LIGHT BLOOM")) return "Recharge from a light bloom";
+		if (upperPureContent.includes("RECHARGE FROM A JELLYFISH")) return "Recharge from a jellyfish";
+		if (upperPureContent.includes("ADMIRE THE RAINBOW")) return "Admire the rainbow";
+
+		if (upperPureContent.includes("CANDLES AT THE END OF THE RAINBOW")) {
+			return "Find the candles at the end of the rainbow";
+		}
+
+		if (upperPureContent.includes("CATCH THE LIGHT")) return "Catch the light";
 		if (upperPureContent.includes("MEDITATION")) return "Meditate";
-		if (upperPureContent.includes("BLUE LIGHT")) return "Collect Blue Light";
-		if (upperPureContent.includes("GREEN LIGHT")) return "Collect Green Light";
-		if (upperPureContent.includes("ORANGE LIGHT")) return "Collect Orange Light";
-		if (upperPureContent.includes("PURPLE LIGHT")) return "Collect Purple Light";
-		if (upperPureContent.includes("RED LIGHT")) return "Collect Red Light";
-		if (upperPureContent.includes("SAPLING")) return "Admire the Sapling";
+		if (upperPureContent.includes("BLUE LIGHT")) return "Collect blue light";
+		if (upperPureContent.includes("GREEN LIGHT")) return "Collect green light";
+		if (upperPureContent.includes("ORANGE LIGHT")) return "Collect orange light";
+		if (upperPureContent.includes("PURPLE LIGHT")) return "Collect purple light";
+		if (upperPureContent.includes("RED LIGHT")) return "Collect red light";
+		if (upperPureContent.includes("SAPLING")) return "Admire the sapling";
 
 		if (upperPureContent.includes("SOCIAL LIGHT") || upperPureContent.includes("VISIT THE ANCESTOR")) {
-			return "Visit the Social Light Area";
+			return "Visit the social light area";
 		}
 
-		if (upperPureContent.includes("POLLUTED GEYSER")) return "Visit the Polluted Geyser";
-		if (upperPureContent.includes("SCAVENGER HUNT")) return "Complete the Hoop Scavenger Hunt";
-		if (upperPureContent.includes("RACE DOWN THE SLOPES")) return "Race Down the Slopes with the Skater";
-		if (upperPureContent.includes("RACE DOWN THE MOUNTAIN")) return "Race Down the Mountain with the Skater";
-		if (upperPureContent.includes("PRACTICE WITH THE SKATER")) return "Practice with the Skater";
-		if (upperPureContent.includes("REHEARSE FOR A PERFORMANCE")) return "Rehearse for a Performance with the Skater";
-		if (upperPureContent.includes("GREAT VORTEX")) return "Rid the Sanctuary Vortex of Darkness";
-		if (upperPureContent.includes("RELIVE A SPIRIT'S MEMORY")) return "Relive a Spirit's Memories";
+		if (upperPureContent.includes("POLLUTED GEYSER")) return "Visit the Polluted geyser";
+		if (upperPureContent.includes("SCAVENGER HUNT")) return "Complete the hoop scavenger Hnnt";
+		if (upperPureContent.includes("RACE DOWN THE SLOPES")) return "Race down the slopes with the skater";
+		if (upperPureContent.includes("RACE DOWN THE MOUNTAIN")) return "Race down the mountain with the skater";
+		if (upperPureContent.includes("PRACTICE WITH THE SKATER")) return "Practice with the skater";
+		if (upperPureContent.includes("REHEARSE FOR A PERFORMANCE")) return "Rehearse for a performance with the skater";
+		if (upperPureContent.includes("GREAT VORTEX")) return "Rid the sanctuary vortex of darkness";
+		if (upperPureContent.includes("RELIVE A SPIRIT'S MEMORY")) return "Relive a spirit's memories";
 
 		for (const spiritName of Object.values(SpiritName)) {
 			if (upperPureContent.replaceAll("’", "'").includes(spiritName.toUpperCase())) return `Relive ${spiritName}`;
