@@ -90,7 +90,7 @@ export async function skyStory(interaction: MessageContextMenuCommandInteraction
 		});
 	} catch {
 		await interaction.editReply(
-			"The story I was thinking of was so beautiful and emotional that I forgot what I wrote. Sorry about that",
+			"The story I was thinking of was so beautiful and emotional that I forgot what I wrote. Sorry about that.",
 		);
 
 		return;
