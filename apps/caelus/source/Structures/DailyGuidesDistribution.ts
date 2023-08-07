@@ -257,14 +257,14 @@ export default class DailyGuidesDistribution {
 		const date = todayDate();
 		const embed = new EmbedBuilder().setColor(embedColor).setTitle(date.format("dddd, D MMMM YYYY"));
 		if (dailyMessage) embed.addFields({ name: dailyMessage.title, value: dailyMessage.description });
+		const quests = [quest1, quest2, quest3, quest4].filter((quest): quest is DailyGuideQuest => quest !== null);
 
-		embed.addFields({
-			name: "Quests",
-			value: [quest1, quest2, quest3, quest4]
-				.filter((quest): quest is DailyGuideQuest => quest !== null)
-				.map((quest, index) => `${index + 1}. ${hyperlink(quest.content, quest.url)}`)
-				.join("\n"),
-		});
+		if (quests.length > 1) {
+			embed.addFields({
+				name: "Quests",
+				value: quests.map((quest, index) => `${index + 1}. ${hyperlink(quest.content, quest.url)}`).join("\n"),
+			});
+		}
 
 		if (treasureCandles) {
 			embed.addFields({
