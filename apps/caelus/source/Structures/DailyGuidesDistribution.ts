@@ -262,7 +262,9 @@ export default class DailyGuidesDistribution {
 		if (quests.length > 1) {
 			embed.addFields({
 				name: "Quests",
-				value: quests.map((quest, index) => `${index + 1}. ${hyperlink(quest.content, quest.url)}`).join("\n"),
+				value: quests
+					.map(({ content, url }, index) => `${index + 1}. ${url ? hyperlink(content, url) : content}`)
+					.join("\n"),
 			});
 		}
 
