@@ -367,7 +367,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("RELIVE A SPIRIT'S MEMORY")) return "Relive a spirit's memories";
 
 		for (const spiritName of Object.values(SpiritName)) {
-			if (upperPureContent.replaceAll("’", "'").includes(spiritName.toUpperCase())) return `Relive ${spiritName}`;
+			if (upperPureContent.replaceAll("’", "'").includes(spiritName.toUpperCase())) return `Relive the ${spiritName}`;
 		}
 
 		return null;
