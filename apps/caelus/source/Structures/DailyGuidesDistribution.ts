@@ -259,7 +259,7 @@ export default class DailyGuidesDistribution {
 		if (dailyMessage) embed.addFields({ name: dailyMessage.title, value: dailyMessage.description });
 		const quests = [quest1, quest2, quest3, quest4].filter((quest): quest is DailyGuideQuest => quest !== null);
 
-		if (quests.length > 1) {
+		if (quests.length > 0) {
 			embed.addFields({
 				name: "Quests",
 				value: quests
