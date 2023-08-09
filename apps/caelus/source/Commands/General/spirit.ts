@@ -186,7 +186,7 @@ export default new (class implements AutocompleteCommand {
 		}
 
 		if (isGuideSpirit && spirit.offer?.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
-		if (totalOffer && totalOffer.length > 1) description.push(totalOffer);
+		if (totalOffer && totalOffer.length > 0) description.push(totalOffer);
 
 		if (isSeasonalSpirit && spirit.marketingVideoURL) {
 			description.push(hyperlink("Promotional Video", spirit.marketingVideoURL));
