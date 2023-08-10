@@ -92,7 +92,6 @@ export default new (class implements ChatInputCommand {
 		const { guildId, options } = interaction;
 		const channel = options.getChannel("channel", true, DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES);
 		const me = await channel.guild.members.fetchMe();
-
 		const dailyGuidesDistributable = isDailyGuidesDistributable(channel, me, true);
 
 		if (dailyGuidesDistributable.length > 0) {
