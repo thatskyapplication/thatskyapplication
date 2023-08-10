@@ -102,7 +102,7 @@ export function isDailyGuidesDistributable(
 	) {
 		errors.push(
 			// eslint-disable-next-line @typescript-eslint/no-base-to-string
-			`\`View Channel\` & \`Send Messages\` & \`Embed Links\` & and \`Use External Emojis\` are required for ${channel}.`,
+			`\`View Channel\` & \`Send Messages\` & \`Embed Links\` & \`Use External Emojis\` are required for ${channel}.`,
 		);
 	}
 
