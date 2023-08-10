@@ -324,7 +324,7 @@ export default new (class DailyGuides {
 			return "Bow at a player";
 		}
 
-		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) return "Knock over 5 dark creature crabs";
+		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) return "Knock over 5 dark crabs";
 		if (upperPureContent.includes("FOLLOW A FRIEND")) return "Follow a friend";
 		if (upperPureContent.includes("HUG A FRIEND")) return `${Expression.Hug} a friend`;
 		if (upperPureContent.includes("WAVE TO A FRIEND")) return `${Expression.Wave} to a friend`;
