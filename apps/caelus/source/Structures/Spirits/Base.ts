@@ -209,6 +209,8 @@ export enum SpiritName {
 	AsceticMonk = "Ascetic Monk",
 }
 
+export const spiritNames = Object.values(SpiritName);
+
 export const enum Call {
 	Original = "Original",
 	Bird = "Bird",

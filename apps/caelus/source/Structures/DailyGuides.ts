@@ -23,7 +23,7 @@ import {
 import { consoleLog, resolveMap, resolveValidRealm, todayDate } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
-import { Expression, SpiritName } from "./Spirits/Base.js";
+import { Expression, spiritNames } from "./Spirits/Base.js";
 
 export interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;
@@ -366,7 +366,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("GREAT VORTEX")) return "Rid the sanctuary vortex of darkness";
 		if (upperPureContent.includes("RELIVE A SPIRIT'S MEMORY")) return "Relive a spirit's memories";
 
-		for (const spiritName of Object.values(SpiritName)) {
+		for (const spiritName of spiritNames) {
 			if (upperPureContent.replaceAll("’", "'").includes(spiritName.toUpperCase())) return `Relive the ${spiritName}`;
 		}
 
