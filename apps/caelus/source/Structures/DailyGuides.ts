@@ -234,7 +234,7 @@ export default new (class DailyGuides {
 			transformedContent.includes("DAYS OF COLOUR 2023")
 		) {
 			/*
-			 * Parsng for the following are redundant:
+			 * Parsing for the following are redundant:
 			 * - The general photo of quests (not needed)
 			 * - The seasonal candles infographic (automated)
 			 * - The shard eruption infographic (automated)
