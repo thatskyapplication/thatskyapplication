@@ -340,19 +340,8 @@ export default class DailyGuidesDistribution {
 
 				const me = await channel.guild.members.fetchMe();
 
-				if (
-					!channel
-						.permissionsFor(me)
-						.has(
-							PermissionFlagsBits.ViewChannel |
-								PermissionFlagsBits.SendMessages |
-								PermissionFlagsBits.EmbedLinks |
-								PermissionFlagsBits.UseExternalEmojis,
-						)
-				) {
-					throw new Error(
-						`Guild id ${guildId} did not have suitable permissions in channel id ${channelId} (View Channel, Send Messages, Embed Links).`,
-					);
+				if (!isDailyGuidesDistributable(channel, me)) {
+					throw new Error(`Guild id ${guildId} did not have suitable permissions in channel id ${channelId}.`);
 				}
 
 				// Retrieve our guild-specific embed.
