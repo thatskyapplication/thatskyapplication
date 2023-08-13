@@ -2,9 +2,9 @@ Dockerfile
 .dockerignore
 node_modules/
 .git
+test.js
 test.ts
 .env
 
 # Miscellaneous
 .DS_Store
-.turbo

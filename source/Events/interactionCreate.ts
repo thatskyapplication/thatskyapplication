@@ -437,7 +437,6 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-
 				if (DAILY_GUIDES_DAILY_MESSAGE_MODAL === customId) {
 					await COMMANDS.admin.setDailyMessage(interaction);
 					return;
