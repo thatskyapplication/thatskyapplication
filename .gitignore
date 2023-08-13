@@ -18,6 +18,7 @@ node_modules
 .DS_Store
 .contentlayer
 *.pem
+distribution/
 .turbo
 unocss.css
 apps/website/.vscode

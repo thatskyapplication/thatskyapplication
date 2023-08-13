@@ -1,4 +1,5 @@
 {
+	"extends": "../../tsconfig.json",
 	"compilerOptions": {
 		"allowUnreachableCode": false,
 		"allowUnusedLabels": false,
@@ -15,7 +16,7 @@
 		"resolveJsonModule": true,
 		"verbatimModuleSyntax": true,
 		"newLine": "lf",
-		"outDir": "dist",
+		"outDir": "distribution",
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"lib": ["ESNext"],

@@ -3,7 +3,7 @@
 	"globalDependencies": ["pnpm-lock.yaml"],
 	"pipeline": {
 		"build": {
-			"outputs": ["dist/**"]
+			"outputs": ["distribution/**"]
 		},
 		"format": {
 			"outputs": []

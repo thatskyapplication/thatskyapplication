@@ -3,11 +3,12 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
+		"build": "tsc",
 		"test": "tsc --noEmit",
 		"format": "prettier --write . && eslint --fix .",
 		"lint": "prettier --check . && eslint .",
 		"dev": "tsx --require dotenv/config --watch source/index.ts",
-		"start": "tsx --require dotenv/config source/index.ts"
+		"start": "node --enable-source-maps --require dotenv/config distribution/index.js"
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.385.0",
