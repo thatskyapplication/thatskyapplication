@@ -15,7 +15,6 @@ RUN pnpm install --filter=./apps/caelus
 
 # Build the monorepo.
 COPY . .
-RUN pnpm run build --filter=caelus
 
 # Remove development dependencies.
 RUN pnpm prune --prod
@@ -26,7 +25,7 @@ ENV NODE_ENV production
 
 # Copy built files and production dependencies from builder stage.
 COPY --from=builder /monorepo/node_modules /monorepo/node_modules
-COPY --from=builder /monorepo/apps/caelus/dist /monorepo/apps/caelus/dist
+COPY --from=builder /monorepo/apps/caelus/source /monorepo/apps/caelus/source
 COPY --from=builder /monorepo/apps/caelus/node_modules /monorepo/apps/caelus/node_modules
 COPY --from=builder /monorepo/apps/caelus/package.json /monorepo/apps/caelus/package.json
 

@@ -4,10 +4,9 @@
 	"type": "module",
 	"scripts": {
 		"test": "tsc --noEmit",
-		"build": "tsup",
 		"format": "prettier --write . && eslint --fix .",
 		"lint": "prettier --check . && eslint .",
-		"start": "node --enable-source-maps dist/index.js"
+		"start": "tsx --watch source/index.ts"
 	},
 	"dependencies": {
 		"@napi-rs/canvas": "^0.1.41",
@@ -18,7 +17,7 @@
 		"eslint": "^8.46.0",
 		"eslint-config-neon": "^0.1.47",
 		"prettier": "^3.0.1",
-		"tsup": "^7.2.0",
+		"tsx": "^3.12.7",
 		"typescript": "^5.1.6"
 	}
 }

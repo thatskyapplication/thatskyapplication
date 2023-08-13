@@ -19,7 +19,6 @@ node_modules
 .contentlayer
 *.pem
 .turbo
-dist/
 unocss.css
 apps/website/.vscode
 
