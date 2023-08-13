@@ -340,7 +340,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("RECHARGE FROM A JELLYFISH")) return "Recharge from a jellyfish";
 		if (upperPureContent.includes("ADMIRE THE RAINBOW")) return `Admire the rainbow${map ? ` in the ${map}` : ""}`;
 
-		if (upperPureContent.includes("CANDLES AT THE END OF THE RAINBOW")) {
+		if (upperPureContent.includes("RAINBOW")) {
 			return `Find the candles at the end of the rainbow${realm ? ` in the ${realm}` : ""}`;
 		}
 
