@@ -3,13 +3,15 @@ import {
 	type ChatInputCommandInteraction,
 	type Snowflake,
 	type StringSelectMenuInteraction,
-	StringSelectMenuBuilder,
+	type Role,
 	ActionRowBuilder,
 	ApplicationCommandType,
 	Collection,
-	PermissionsBitField,
+	StringSelectMenuBuilder,
 } from "discord.js";
 import Notification, { NotificationEvent } from "../../Structures/Notification.js";
+import { cannotManageRoles } from "../../Utility/Utility.js";
+import notifications from "../Events/notifications.js";
 import type { ChatInputCommand } from "../index.js";
 
 export const ROLES_SELECT_MENU_CUSTOM_ID = "SELFROLE" as const;
@@ -42,11 +44,7 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		if (!(await interaction.guild.members.fetchMe()).permissions.has(PermissionsBitField.Flags.ManageRoles)) {
-			await interaction.reply({ content: "Missing the `Manage Roles` permission.", ephemeral: true });
-			return;
-		}
-
+		if (await cannotManageRoles(interaction)) return;
 		const options = this.populate(notification);
 
 		if (options.size === 0) {
@@ -125,6 +123,7 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async apply(interaction: StringSelectMenuInteraction<"cached">) {
+		if (await cannotManageRoles(interaction, { components: [] })) return;
 		const notification = Notification.cache.find(({ guildId }) => guildId === interaction.guildId);
 
 		if (!notification) {
@@ -137,10 +136,10 @@ export default new (class implements ChatInputCommand {
 		const rolesAdded = [];
 		const rolesRemoved = [];
 
-		for (const role of roles) {
-			if (!rolesToSet.includes(role)) {
-				rolesToSet.push(role);
-				rolesAdded.push(role);
+		for (const roleId of roles) {
+			if (!rolesToSet.includes(roleId)) {
+				rolesToSet.push(roleId);
+				rolesAdded.push(interaction.guild.roles.cache.get(roleId) ?? null);
 			}
 		}
 
@@ -149,8 +148,44 @@ export default new (class implements ChatInputCommand {
 			.values()) {
 			if (rolesToSet.includes(roleId)) {
 				rolesToSet.splice(rolesToSet.indexOf(roleId), 1);
-				rolesRemoved.push(roleId);
+				rolesRemoved.push(interaction.guild.roles.cache.get(roleId) ?? null);
 			}
+		}
+
+		if (
+			!rolesAdded.every((role): role is Role => role !== null) ||
+			!rolesRemoved.every((role): role is Role => role !== null)
+		) {
+			await interaction.update({
+				content: `Detected deleted or outdated roles. ${
+					interaction.member.permissions.has(notifications.data.defaultMemberPermissions)
+						? "Update"
+						: "Ask someone with permissions to update"
+				} the notifications in this server!`,
+				components: [],
+			});
+
+			return;
+		}
+
+		// Now that we know what roles to modify, validate whether they can be modified per the hierarchy.
+		const impossibleRoles = [...rolesAdded, ...rolesRemoved].filter(
+			(role) => role.comparePositionTo(interaction.guild.members.me!.roles.highest) >= 1,
+		);
+
+		if (impossibleRoles.length > 0) {
+			await interaction.reply({
+				content: `${
+					impossibleRoles.length === 1
+						? `Unable to manage ${impossibleRoles[0]} as it is a more privileged role. `
+						: `Unable to manage multiple roles due to them being more privileged:\n${impossibleRoles
+								.map((impossibleRole) => `- ${impossibleRole}`)
+								.join("\n")}\n`
+				}Someone needs to adjust the roles!`,
+				ephemeral: true,
+			});
+
+			return;
 		}
 
 		try {
@@ -158,11 +193,11 @@ export default new (class implements ChatInputCommand {
 			let content = "";
 
 			if (rolesAdded.length > 0) {
-				content = `Roles added: ${rolesAdded.map((role) => interaction.guild.roles.resolve(role)).join(" & ")}\n`;
+				content = `## Roles added\n${rolesAdded.map((roleAdded) => `- ${roleAdded}`).join("\n")}\n`;
 			}
 
 			if (rolesRemoved.length > 0) {
-				content += `Roles removed: ${rolesRemoved.map((role) => interaction.guild.roles.resolve(role)).join(" & ")}`;
+				content += `## Roles removed\n${rolesRemoved.map((roleRemoved) => `- ${roleRemoved}`).join("\n")}`;
 			}
 
 			content ||= "No roles were changed.";
