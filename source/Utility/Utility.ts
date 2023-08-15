@@ -89,35 +89,6 @@ export function eventRotationLetter() {
 	return DAILY_GUIDE_EVENT_ROTATION[todayDate().diff(initialEventCurrencySeek, "day") % 3]!;
 }
 
-export async function cannotManageRoles(
-	interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
-	options?: InteractionUpdateOptions,
-) {
-	const { guild, member } = interaction;
-	const me = await guild.members.fetchMe();
-	if (me.permissions.has(PermissionFlagsBits.ManageRoles)) return false;
-
-	const response = {
-		content: `Missing the \`Manage Roles\` permission. ${
-			member.permissions.has(PermissionFlagsBits.ManageRoles) &&
-			member.roles.highest.comparePositionTo(me.roles.highest) >= 1
-				? "Change this in"
-				: "Ask someone with permission to change this in"
-		} server settings!`,
-		ephemeral: true,
-		...options,
-	};
-
-	if (interaction.isMessageComponent()) {
-		await interaction.update(response);
-	} else {
-		// @ts-expect-error Too generic.
-		await interaction.reply(response);
-	}
-
-	return true;
-}
-
 export async function cannotUseCustomEmojis(
 	interaction:
 		| ButtonInteraction

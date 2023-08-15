@@ -21,7 +21,6 @@ import {
 	DAILY_GUIDES_TREASURE_CANDLES_MODAL,
 } from "../Commands/Admin/admin.js";
 import { HeartHistoryNavigationType, HEART_HISTORY_BACK, HEART_HISTORY_FORWARD } from "../Commands/Fun/heart.js";
-import { ROLES_SELECT_MENU_CUSTOM_ID } from "../Commands/General/roles.js";
 import {
 	SKY_PROFILE_MODAL,
 	SKY_PROFILE_PLATFORM_CUSTOM_ID,
@@ -347,11 +346,6 @@ export const event: Event<typeof name> = {
 					});
 
 					await interaction.reply({ content: "This option does not exist in Ba Sing Se.", ephemeral: true });
-					return;
-				}
-
-				if (customId === ROLES_SELECT_MENU_CUSTOM_ID) {
-					await COMMANDS.roles.apply(interaction);
 					return;
 				}
 

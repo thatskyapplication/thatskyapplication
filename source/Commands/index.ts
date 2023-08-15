@@ -26,7 +26,6 @@ import SkyStory from "./Fun/Sky Story.js";
 // General
 import about from "./General/about.js";
 import calculate from "./General/calculate.js";
-import roles from "./General/roles.js";
 import SkyProfile from "./General/Sky Profile.js";
 import skyprofile from "./General/sky-profile.js";
 import spirit from "./General/spirit.js";
@@ -42,7 +41,6 @@ const COMMANDS = {
 	heart,
 	hug,
 	notifications,
-	roles,
 	schedule,
 	SkyProfile,
 	skyprofile,
