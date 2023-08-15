@@ -130,11 +130,7 @@ export async function cannotUseCustomEmojis(
 	if (!interaction.inGuild() || interaction.appPermissions.has(PermissionFlagsBits.UseExternalEmojis)) return false;
 
 	const response = {
-		content: `Missing the \`Use External Emojis\` permission. ${
-			interaction.memberPermissions.has(PermissionFlagsBits.ManageGuildExpressions)
-				? "Change this in"
-				: "Ask someone with permission to change this in"
-		} server settings!`,
+		content: "Missing the `Use External Emojis` permission. Someone needs to adjust the permissions!",
 		ephemeral: true,
 		...options,
 	};
