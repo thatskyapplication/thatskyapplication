@@ -35,7 +35,45 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		await this.execute(interaction);
+		const notification = Notification.cache.find(({ guildId }) => guildId === interaction.guildId);
+
+		if (!notification) {
+			await interaction.reply({ content: "This server hasn't set up self-role assignment.", ephemeral: true });
+			return;
+		}
+
+		if (!(await interaction.guild.members.fetchMe()).permissions.has(PermissionsBitField.Flags.ManageRoles)) {
+			await interaction.reply({ content: "Missing the `Manage Roles` permission.", ephemeral: true });
+			return;
+		}
+
+		const options = this.populate(notification);
+
+		if (options.size === 0) {
+			await interaction.reply({ content: "There are no roles to self-assign.", ephemeral: true });
+			return;
+		}
+
+		const selectMenu = new StringSelectMenuBuilder()
+			.setCustomId(ROLES_SELECT_MENU_CUSTOM_ID)
+			.setMaxValues(options.size)
+			.setMinValues(0)
+			.setOptions(
+				options.map((roleId, event) => ({
+					default: interaction.member.roles.cache.has(roleId),
+					label: event,
+					value: roleId,
+				})),
+			)
+			.setPlaceholder("Select some roles!");
+
+		const actionRow = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(selectMenu);
+
+		await interaction.reply({
+			content: "Self-assign roles to receive notifications!",
+			components: [actionRow],
+			ephemeral: true,
+		});
 	}
 
 	public populate(notification: Notification) {
@@ -84,48 +122,6 @@ export default new (class implements ChatInputCommand {
 		if (auroraChannelId && auroraRoleId) roles.set(NotificationEvent.AURORA, auroraRoleId);
 		if (passageChannelId && passageRoleId) roles.set(NotificationEvent.Passage, passageRoleId);
 		return roles;
-	}
-
-	public async execute(interaction: ChatInputCommandInteraction<"cached">) {
-		const notification = Notification.cache.find(({ guildId }) => guildId === interaction.guildId);
-
-		if (!notification) {
-			await interaction.reply({ content: "This server hasn't set up self-role assignment.", ephemeral: true });
-			return;
-		}
-
-		if (!(await interaction.guild.members.fetchMe()).permissions.has(PermissionsBitField.Flags.ManageRoles)) {
-			await interaction.reply({ content: "Missing the `Manage Roles` permission.", ephemeral: true });
-			return;
-		}
-
-		const options = this.populate(notification);
-
-		if (options.size === 0) {
-			await interaction.reply({ content: "There are no roles to self-assign.", ephemeral: true });
-			return;
-		}
-
-		const selectMenu = new StringSelectMenuBuilder()
-			.setCustomId(ROLES_SELECT_MENU_CUSTOM_ID)
-			.setMaxValues(options.size)
-			.setMinValues(0)
-			.setOptions(
-				options.map((roleId, event) => ({
-					default: interaction.member.roles.cache.has(roleId),
-					label: event,
-					value: roleId,
-				})),
-			)
-			.setPlaceholder("Select some roles!");
-
-		const actionRow = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(selectMenu);
-
-		await interaction.reply({
-			content: "Self-assign roles to receive notifications!",
-			components: [actionRow],
-			ephemeral: true,
-		});
 	}
 
 	public async apply(interaction: StringSelectMenuInteraction<"cached">) {
