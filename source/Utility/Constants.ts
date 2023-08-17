@@ -82,8 +82,7 @@ export const COMMAND_LOG_CHANNEL_ID = "1114135883604566057" as const;
 export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const;
 
 // Infographic URLs.
-export const EVENT_CURRENCY_INFOGRAPHIC_URL =
-	"https://media.discordapp.net/attachments/739444631963435008/1130395560122273843/IMG_1867.jpg" as const;
+export const EVENT_CURRENCY_INFOGRAPHIC_URL: string | null = null;
 
 // Dates.
 export const doubleSeasonalLightEventStartDate = skyDate(2_023, 5, 15);
@@ -95,6 +94,14 @@ export const doubleSeasonalLightEventDuration =
 export const seasonStartDate = skyDate(2_023, 7, 17); // Season of Moments.
 export const seasonEndDate = skyDate(2_023, 10, 1); // Season of Moments.
 export const seasonEventDuration = seasonEndDate.diff(seasonStartDate, "days") + 1;
+
+// The encore variables are helpful to have as they differ from the usual events
+// and thus when these variables disappear, it will be obvious what else needs to disappear.
+export const AURORA_ENCORE_START_DATE = skyDate(2_023, 8, 23);
+export const AURORA_ENCORE_2ND_HALF_START_DATE = skyDate(2_023, 8, 26);
+export const AURORA_ENCORE_END_DATE = skyDate(2_023, 9, 3);
+export const eventStartDate = AURORA_ENCORE_START_DATE; // AURORA Encore.
+export const eventEndDate = AURORA_ENCORE_END_DATE; // AURORA Encore.
 
 // Current seasonal information.
 export const CURRENT_SEASONAL_EMOJI = Emoji.SeasonMoments;
@@ -123,7 +130,6 @@ export const initialTravellingSpiritSeek = dayjs.tz("2023-05-25 00:00:00", "Amer
 export const initialTreasureCandleRealmSeek = skyDate(2_023, 7, 12); // Daylight Prairie.
 export const initialEventCurrencySeek = dayjs.tz("2023-06-01 00:00:00", "America/Los_Angeles"); // Rotation A.
 export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
-export const eventEndDate = skyDate(2_023, 7, 30); // Sky Anniversary (2023).
 export const DEFAULT_EMBED_COLOR = 0xa5b5f1 as const;
 export const MAXIMUM_EMBED_FIELD_NAME_LENGTH = 256 as const;
 export const MAXIMUM_EMBED_FIELD_VALUE_LENGTH = 1_024 as const;

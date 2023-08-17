@@ -20,6 +20,7 @@ import {
 	doubleSeasonalLightEventEndDate,
 	doubleSeasonalLightEventStartDate,
 	eventEndDate,
+	eventStartDate,
 	seasonEndDate,
 } from "../Utility/Constants.js";
 import {
@@ -208,10 +209,16 @@ export default class DailyGuidesDistribution {
 
 	public static eventCurrencyFieldData() {
 		const date = todayDate();
-		const { eventCurrency } = DailyGuides;
+		const {
+			eventCurrency: { url },
+		} = DailyGuides;
 
-		if (date.isBefore(eventEndDate) || date.isSame(eventEndDate)) {
-			return { name: "Event Currency", value: hyperlink("Image", eventCurrency.url) };
+		if (
+			url &&
+			(date.isSame(eventStartDate) || date.isAfter(eventStartDate)) &&
+			(date.isBefore(eventEndDate) || date.isSame(eventEndDate))
+		) {
+			return { name: "Event Currency", value: hyperlink("Image", url) };
 		}
 
 		return null;

@@ -3,7 +3,8 @@ import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
 import type { Client } from "discord.js";
-import { ISS_DATES_ACCESSIBLE } from "../Utility/Constants.js";
+import { AURORA_ENCORE_2ND_HALF_START_DATE, ISS_DATES_ACCESSIBLE } from "../Utility/Constants.js";
+import { inAURORAEncore } from "../Utility/Utility.js";
 import DailyGuides from "./DailyGuides.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import Notification, { NotificationEvent, type NotificationSendExtra } from "./Notification.js";
@@ -59,7 +60,15 @@ export default function heartbeat(client: Client<true>): void {
 
 			if ((minute + 5) % 15 === 0) sendNotification(client, NotificationEvent.Passage, { startTime: unix + 300 });
 
-			if ((hour + 1) % 4 === 0 && minute === 45) {
+			if (inAURORAEncore(dayjsDate)) {
+				if (dayjsDate.isBefore(AURORA_ENCORE_2ND_HALF_START_DATE)) {
+					if ((hour + 3) % 8 === 0 && minute === 45) {
+						sendNotification(client, NotificationEvent.AURORA, { startTime: unix + 900 });
+					}
+				} else if ((hour + 3) % 4 === 0 && minute === 45) {
+					sendNotification(client, NotificationEvent.AURORA, { startTime: unix + 900 });
+				}
+			} else if ((hour + 1) % 4 === 0 && minute === 45) {
 				sendNotification(client, NotificationEvent.AURORA, { startTime: unix + 900 });
 			}
 
