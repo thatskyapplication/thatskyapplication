@@ -35,6 +35,7 @@ import {
 	resolveCurrentSeasonalCandleEmoji,
 	resolveCurrentSeasonalEmoji,
 	formatEmojiURL,
+	eventRotationLetter,
 } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
@@ -218,7 +219,7 @@ export default class DailyGuidesDistribution {
 			(date.isSame(eventStartDate) || date.isAfter(eventStartDate)) &&
 			(date.isBefore(eventEndDate) || date.isSame(eventEndDate))
 		) {
-			return { name: "Event Currency", value: hyperlink("Image", url) };
+			return { name: "Event Currency", value: hyperlink(`Rotation ${eventRotationLetter()}`, url) };
 		}
 
 		return null;

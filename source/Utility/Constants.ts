@@ -129,7 +129,6 @@ export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
 export const MAX_HUG_NO = 21 as const;
 export const initialTravellingSpiritSeek = dayjs.tz("2023-05-25 00:00:00", "America/Los_Angeles"); // #88 Grateful Shell Collector.
 export const initialTreasureCandleRealmSeek = skyDate(2_023, 7, 12); // Daylight Prairie.
-export const initialEventCurrencySeek = dayjs.tz("2023-06-01 00:00:00", "America/Los_Angeles"); // Rotation A.
 export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
 export const DEFAULT_EMBED_COLOR = 0xa5b5f1 as const;
 export const MAXIMUM_EMBED_FIELD_NAME_LENGTH = 256 as const;

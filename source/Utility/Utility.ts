@@ -31,9 +31,9 @@ import {
 	doubleSeasonalLightEventEndDate,
 	doubleSeasonalLightEventStartDate,
 	Emoji,
+	eventStartDate,
 	INCONSISTENT_MAP,
 	inconsistentMapKeys,
-	initialEventCurrencySeek,
 	initialTreasureCandleRealmSeek,
 	Map,
 	Realm,
@@ -88,7 +88,7 @@ export function seasonalCandlesRotation() {
 }
 
 export function eventRotationLetter() {
-	return DAILY_GUIDE_EVENT_ROTATION[todayDate().diff(initialEventCurrencySeek, "day") % 3]!;
+	return DAILY_GUIDE_EVENT_ROTATION[todayDate().diff(eventStartDate, "day") % 3]!;
 }
 
 export async function cannotUseCustomEmojis(
