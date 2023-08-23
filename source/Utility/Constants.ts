@@ -82,7 +82,8 @@ export const COMMAND_LOG_CHANNEL_ID = "1114135883604566057" as const;
 export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const;
 
 // Infographic URLs.
-export const EVENT_CURRENCY_INFOGRAPHIC_URL: string | null = null;
+export const EVENT_CURRENCY_INFOGRAPHIC_URL: string | null =
+	"https://cdn.discordapp.com/attachments/739444631963435008/1143828710580047903/AuroraBigConcert-01.jpg";
 
 // Dates.
 export const doubleSeasonalLightEventStartDate = skyDate(2_023, 5, 15);
