@@ -99,7 +99,7 @@ export const seasonEventDuration = seasonEndDate.diff(seasonStartDate, "days") +
 // The encore variables are helpful to have as they differ from the usual events
 // and thus when these variables disappear, it will be obvious what else needs to disappear.
 export const AURORA_ENCORE_START_DATE = skyDate(2_023, 8, 23);
-export const AURORA_ENCORE_2ND_HALF_START_DATE = skyDate(2_023, 8, 26);
+export const AURORA_ENCORE_SECOND_HALF_START_DATE = skyDate(2_023, 8, 26);
 export const AURORA_ENCORE_END_DATE = skyDate(2_023, 9, 3);
 export const eventStartDate = AURORA_ENCORE_START_DATE; // AURORA Encore.
 export const eventEndDate = AURORA_ENCORE_END_DATE; // AURORA Encore.

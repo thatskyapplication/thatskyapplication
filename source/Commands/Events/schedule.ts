@@ -9,7 +9,7 @@ import {
 import DailyGuidesDistribution, { SHARD_ERUPTION_NONE } from "../../Structures/DailyGuidesDistribution.js";
 import { NotificationEvent } from "../../Structures/Notification.js";
 import {
-	AURORA_ENCORE_2ND_HALF_START_DATE,
+	AURORA_ENCORE_SECOND_HALF_START_DATE,
 	ISS_DATES_ACCESSIBLE,
 	initialTravellingSpiritSeek,
 } from "../../Utility/Constants.js";
@@ -107,7 +107,7 @@ export default new (class implements ChatInputCommand {
 				{
 					name: NotificationEvent.AURORA,
 					value: (inAURORAEncore()
-						? todayDate().isBefore(AURORA_ENCORE_2ND_HALF_START_DATE)
+						? todayDate().isBefore(AURORA_ENCORE_SECOND_HALF_START_DATE)
 							? scheduleTimes(360, 8, "hours")
 							: scheduleTimes(120, 4, "hours")
 						: scheduleTimes(0, 4, "hours")
