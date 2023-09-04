@@ -438,7 +438,7 @@ interface ExpressiveSpiritData {
 interface BaseSpiritData {
 	name: SpiritName;
 	realm?: Realm;
-	keywords?: string[];
+	keywords?: readonly string[];
 }
 
 interface StandardSpiritData extends BaseSpiritData, StandardFriendshipTreeData, ExpressiveSpiritData {
