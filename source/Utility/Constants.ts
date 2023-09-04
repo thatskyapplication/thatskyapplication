@@ -82,8 +82,7 @@ export const COMMAND_LOG_CHANNEL_ID = "1114135883604566057" as const;
 export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const;
 
 // Infographic URLs.
-export const EVENT_CURRENCY_INFOGRAPHIC_URL: string | null =
-	"https://cdn.discordapp.com/attachments/739444631963435008/1143828710580047903/AuroraBigConcert-01.jpg";
+export const EVENT_CURRENCY_INFOGRAPHIC_URL: string | null = null;
 
 // Dates.
 export const doubleSeasonalLightEventStartDate = skyDate(2_023, 5, 15);
@@ -101,8 +100,8 @@ export const seasonEventDuration = seasonEndDate.diff(seasonStartDate, "days") +
 export const AURORA_ENCORE_START_DATE = skyDate(2_023, 8, 23);
 export const AURORA_ENCORE_SECOND_HALF_START_DATE = skyDate(2_023, 8, 26);
 export const AURORA_ENCORE_END_DATE = skyDate(2_023, 9, 3);
-export const eventStartDate = AURORA_ENCORE_START_DATE; // AURORA Encore.
-export const eventEndDate = AURORA_ENCORE_END_DATE; // AURORA Encore.
+export const eventStartDate = skyDate(2_023, 9, 11); // Days of Sunlight.
+export const eventEndDate = skyDate(2_023, 9, 24); // Days of Sunlight.
 
 // Current seasonal information.
 export const CURRENT_SEASONAL_EMOJI = Emoji.SeasonMoments;
