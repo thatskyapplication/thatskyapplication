@@ -108,7 +108,7 @@ export const CURRENT_SEASONAL_EMOJI = Emoji.SeasonMoments;
 export const CURRENT_SEASONAL_CANDLE_EMOJI = Emoji.CandleMoments;
 
 // Miscellaneous constants.
-export const PRODUCTION = process.env.NODE_ENV === "PRODUCTION";
+export const PRODUCTION = process.env.NODE_ENV === "production";
 export const CDN_BUCKET = "thatskyapplication" as const;
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
