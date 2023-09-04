@@ -27,14 +27,14 @@ import {
 	CURRENT_SEASONAL_CANDLE_EMOJI,
 	CURRENT_SEASONAL_EMOJI,
 	DEFAULT_EMBED_COLOR,
-	doubleSeasonalLightEventDuration,
-	doubleSeasonalLightEventEndDate,
-	doubleSeasonalLightEventStartDate,
+	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
+	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
+	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	Emoji,
-	eventStartDate,
+	EVENT_START_DATE,
 	INCONSISTENT_MAP,
 	inconsistentMapKeys,
-	initialTreasureCandleRealmSeek,
+	INITIAL_TREASURE_CANDLE_REALM_SEEK,
 	Map,
 	Realm,
 	Season,
@@ -42,9 +42,9 @@ import {
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	SEASONAL_CANDLES_ROTATION,
-	seasonEndDate,
-	seasonEventDuration,
-	seasonStartDate,
+	SEASON_END_DATE,
+	SEASON_DURATION,
+	SEASON_START_DATE,
 	VALID_REALM,
 } from "./Constants.js";
 
@@ -79,16 +79,16 @@ export function treasureCandleRealm() {
 			.minute(0)
 			.second(0)
 			.millisecond(0)
-			.diff(initialTreasureCandleRealmSeek, "day") % 5
+			.diff(INITIAL_TREASURE_CANDLE_REALM_SEEK, "day") % 5
 	]!;
 }
 
 export function seasonalCandlesRotation() {
-	return SEASONAL_CANDLES_ROTATION[todayDate().diff(seasonStartDate, "days") % 10]!;
+	return SEASONAL_CANDLES_ROTATION[todayDate().diff(SEASON_START_DATE, "days") % 10]!;
 }
 
 export function eventRotationLetter() {
-	return DAILY_GUIDE_EVENT_ROTATION[todayDate().diff(eventStartDate, "day") % 3]!;
+	return DAILY_GUIDE_EVENT_ROTATION[todayDate().diff(EVENT_START_DATE, "day") % 3]!;
 }
 
 export async function cannotUseCustomEmojis(
@@ -144,8 +144,8 @@ export function inSeason() {
 	const today = todayDate();
 
 	return (
-		(today.isSame(seasonStartDate) || today.isAfter(seasonStartDate)) &&
-		(today.isSame(seasonEndDate) || today.isBefore(seasonEndDate))
+		(today.isSame(SEASON_START_DATE) || today.isAfter(SEASON_START_DATE)) &&
+		(today.isSame(SEASON_END_DATE) || today.isBefore(SEASON_END_DATE))
 	);
 }
 
@@ -285,34 +285,35 @@ export function remainingSeasonalCandles() {
 	const today = todayDate();
 
 	const seasonalDoubleLightEvent =
-		(doubleSeasonalLightEventStartDate.isSame(seasonStartDate) ||
-			doubleSeasonalLightEventStartDate.isAfter(seasonStartDate)) &&
-		(doubleSeasonalLightEventEndDate.isSame(seasonEndDate) || doubleSeasonalLightEventEndDate.isBefore(seasonEndDate));
+		(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE.isSame(SEASON_START_DATE) ||
+			DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE.isAfter(SEASON_START_DATE)) &&
+		(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.isSame(SEASON_END_DATE) ||
+			DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.isBefore(SEASON_END_DATE));
 
 	// Calculate the total amount of seasonal candles.
-	let seasonalCandlesTotal = seasonEventDuration * SEASONAL_CANDLES_PER_DAY;
+	let seasonalCandlesTotal = SEASON_DURATION * SEASONAL_CANDLES_PER_DAY;
 
 	let seasonalCandlesTotalWithSeasonPass =
-		seasonEventDuration * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
+		SEASON_DURATION * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
 
 	if (seasonalDoubleLightEvent) {
-		seasonalCandlesTotal += doubleSeasonalLightEventDuration;
-		seasonalCandlesTotalWithSeasonPass += doubleSeasonalLightEventDuration;
+		seasonalCandlesTotal += DOUBLE_SEASONAL_LIGHT_EVENT_DURATION;
+		seasonalCandlesTotalWithSeasonPass += DOUBLE_SEASONAL_LIGHT_EVENT_DURATION;
 	}
 
 	// Calculate the amount of seasonal candles so far.
-	const daysSoFar = today.diff(seasonStartDate, "days") + 1;
+	const daysSoFar = today.diff(SEASON_START_DATE, "days") + 1;
 	let seasonalCandlesSoFar = daysSoFar * SEASONAL_CANDLES_PER_DAY;
 
 	let seasonalCandlesSoFarWithSeasonPass =
 		daysSoFar * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
 
-	if (seasonalDoubleLightEvent && today.diff(doubleSeasonalLightEventStartDate, "days") >= 0) {
-		const difference = today.diff(doubleSeasonalLightEventEndDate, "days");
+	if (seasonalDoubleLightEvent && today.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days") >= 0) {
+		const difference = today.diff(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, "days");
 
 		const extraSeasonalCandles =
 			// The difference will be a negative number if the event is still ongoing.
-			difference > 0 ? doubleSeasonalLightEventDuration : doubleSeasonalLightEventDuration + difference;
+			difference > 0 ? DOUBLE_SEASONAL_LIGHT_EVENT_DURATION : DOUBLE_SEASONAL_LIGHT_EVENT_DURATION + difference;
 
 		seasonalCandlesSoFar += extraSeasonalCandles;
 		seasonalCandlesSoFarWithSeasonPass += extraSeasonalCandles;

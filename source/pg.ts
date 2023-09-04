@@ -1,6 +1,6 @@
 import process from "node:process";
 import knex from "knex";
-import { production } from "./Utility/Constants.js";
+import { PRODUCTION } from "./Utility/Constants.js";
 
 export enum Table {
 	Bonks = "bonks",
@@ -15,7 +15,7 @@ export enum Table {
 }
 
 const { DATABASE_URL, DEVELOPMENT_DATABASE_URL } = process.env;
-const databaseURL = production ? DATABASE_URL : DEVELOPMENT_DATABASE_URL;
+const databaseURL = PRODUCTION ? DATABASE_URL : DEVELOPMENT_DATABASE_URL;
 if (!databaseURL) throw new Error("Database URL missing.");
 
 // https://github.com/knex/knex/issues/5358

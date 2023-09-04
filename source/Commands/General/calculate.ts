@@ -13,8 +13,8 @@ import {
 	Realm,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
-	doubleSeasonalLightEventEndDate,
-	doubleSeasonalLightEventStartDate,
+	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
+	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	WingedLightCount,
 	ASCENDED_CANDLES_PER_WEEK,
 	Map,
@@ -32,8 +32,8 @@ import {
 } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
-const doubleSeasonalLightEventStart = time(doubleSeasonalLightEventStartDate.unix(), TimestampStyles.ShortDate);
-const doubleSeasonalLightEventEnd = time(doubleSeasonalLightEventEndDate.unix(), TimestampStyles.ShortDate);
+const doubleSeasonalLightEventStart = time(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE.unix(), TimestampStyles.ShortDate);
+const doubleSeasonalLightEventEnd = time(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.unix(), TimestampStyles.ShortDate);
 
 const wingedLightInAreas = Object.values(WingedLightCount).reduce(
 	(wingedLightCount, wingedLight) => wingedLightCount + wingedLight,
@@ -261,7 +261,7 @@ export default new (class implements ChatInputCommand {
 			result += SEASONAL_CANDLES_PER_DAY;
 			resultWithSeasonPass += SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS;
 
-			if (day >= doubleSeasonalLightEventStartDate && day <= doubleSeasonalLightEventEndDate) {
+			if (day >= DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE && day <= DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE) {
 				includedDoubleLight = true;
 				result += 1;
 				resultWithSeasonPass += 1;

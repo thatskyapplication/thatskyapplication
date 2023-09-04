@@ -11,7 +11,7 @@ import { NotificationEvent } from "../../Structures/Notification.js";
 import {
 	AURORA_ENCORE_SECOND_HALF_START_DATE,
 	ISS_DATES_ACCESSIBLE,
-	initialTravellingSpiritSeek,
+	INITIAL_TRAVELLING_SPIRIT_SEEK,
 } from "../../Utility/Constants.js";
 import { cannotUseCustomEmojis, inAURORAEncore, resolveEmbedColor, todayDate } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
@@ -29,7 +29,7 @@ function eyeOfEdenResetTime() {
 function travellingSpiritTime() {
 	const today = todayDate();
 
-	for (let start = initialTravellingSpiritSeek; ; start = start.add(2, "weeks")) {
+	for (let start = INITIAL_TRAVELLING_SPIRIT_SEEK; ; start = start.add(2, "weeks")) {
 		if (start.isBefore(today) && start.add(3, "days").isBefore(today)) continue;
 
 		if (start.isSame(today) || start.isBefore(today) || start.add(3, "days").isBefore(today)) {

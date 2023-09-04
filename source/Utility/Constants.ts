@@ -85,30 +85,30 @@ export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const
 export const EVENT_CURRENCY_INFOGRAPHIC_URL: string | null = null;
 
 // Dates.
-export const doubleSeasonalLightEventStartDate = skyDate(2_023, 5, 15);
-export const doubleSeasonalLightEventEndDate = skyDate(2_023, 5, 21);
+export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE = skyDate(2_023, 5, 15);
+export const DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE = skyDate(2_023, 5, 21);
 
-export const doubleSeasonalLightEventDuration =
-	doubleSeasonalLightEventEndDate.diff(doubleSeasonalLightEventStartDate, "days") + 1;
+export const DOUBLE_SEASONAL_LIGHT_EVENT_DURATION =
+	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days") + 1;
 
-export const seasonStartDate = skyDate(2_023, 7, 17); // Season of Moments.
-export const seasonEndDate = skyDate(2_023, 10, 1); // Season of Moments.
-export const seasonEventDuration = seasonEndDate.diff(seasonStartDate, "days") + 1;
+export const SEASON_START_DATE = skyDate(2_023, 7, 17); // Season of Moments.
+export const SEASON_END_DATE = skyDate(2_023, 10, 1); // Season of Moments.
+export const SEASON_DURATION = SEASON_END_DATE.diff(SEASON_START_DATE, "days") + 1;
 
 // The encore variables are helpful to have as they differ from the usual events
 // and thus when these variables disappear, it will be obvious what else needs to disappear.
 export const AURORA_ENCORE_START_DATE = skyDate(2_023, 8, 23);
 export const AURORA_ENCORE_SECOND_HALF_START_DATE = skyDate(2_023, 8, 26);
 export const AURORA_ENCORE_END_DATE = skyDate(2_023, 9, 3);
-export const eventStartDate = skyDate(2_023, 9, 11); // Days of Sunlight.
-export const eventEndDate = skyDate(2_023, 9, 24); // Days of Sunlight.
+export const EVENT_START_DATE = skyDate(2_023, 9, 11); // Days of Sunlight.
+export const EVENT_END_DATE = skyDate(2_023, 9, 24); // Days of Sunlight.
 
 // Current seasonal information.
 export const CURRENT_SEASONAL_EMOJI = Emoji.SeasonMoments;
 export const CURRENT_SEASONAL_CANDLE_EMOJI = Emoji.CandleMoments;
 
 // Miscellaneous constants.
-export const production = process.env.NODE_ENV === "production";
+export const PRODUCTION = process.env.NODE_ENV === "PRODUCTION";
 export const CDN_BUCKET = "thatskyapplication" as const;
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
@@ -126,8 +126,8 @@ export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
 export const SEASON_PASS_SEASONAL_CANDLES_BONUS = 30 as const;
 export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
 export const MAX_HUG_NO = 21 as const;
-export const initialTravellingSpiritSeek = dayjs.tz("2023-05-25 00:00:00", "America/Los_Angeles"); // #88 Grateful Shell Collector.
-export const initialTreasureCandleRealmSeek = skyDate(2_023, 7, 12); // Daylight Prairie.
+export const INITIAL_TRAVELLING_SPIRIT_SEEK = dayjs.tz("2023-05-25 00:00:00", "America/Los_Angeles"); // #88 Grateful Shell Collector.
+export const INITIAL_TREASURE_CANDLE_REALM_SEEK = skyDate(2_023, 7, 12); // Daylight Prairie.
 export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
 export const DEFAULT_EMBED_COLOR = 0xa5b5f1 as const;
 export const MAXIMUM_EMBED_FIELD_NAME_LENGTH = 256 as const;

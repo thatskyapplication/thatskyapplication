@@ -17,11 +17,11 @@ import {
 } from "discord.js";
 import {
 	Emoji,
-	doubleSeasonalLightEventEndDate,
-	doubleSeasonalLightEventStartDate,
-	eventEndDate,
-	eventStartDate,
-	seasonEndDate,
+	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
+	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
+	EVENT_END_DATE,
+	EVENT_START_DATE,
+	SEASON_END_DATE,
 } from "../Utility/Constants.js";
 import {
 	consoleLog,
@@ -216,8 +216,8 @@ export default class DailyGuidesDistribution {
 
 		if (
 			url &&
-			(date.isSame(eventStartDate) || date.isAfter(eventStartDate)) &&
-			(date.isBefore(eventEndDate) || date.isSame(eventEndDate))
+			(date.isSame(EVENT_START_DATE) || date.isAfter(EVENT_START_DATE)) &&
+			(date.isBefore(EVENT_END_DATE) || date.isSame(EVENT_END_DATE))
 		) {
 			return { name: "Event Currency", value: hyperlink(`Rotation ${eventRotationLetter()}`, url) };
 		}
@@ -284,7 +284,7 @@ export default class DailyGuidesDistribution {
 		}
 
 		if (inSeason()) {
-			const daysLeftInSeason = seasonEndDate.diff(date, "days");
+			const daysLeftInSeason = SEASON_END_DATE.diff(date, "days");
 
 			embed.setFooter({
 				text:
@@ -298,8 +298,8 @@ export default class DailyGuidesDistribution {
 			let rotationNumber = String(rotation);
 
 			if (
-				(date.isAfter(doubleSeasonalLightEventStartDate) || date.isSame(doubleSeasonalLightEventStartDate)) &&
-				(date.isBefore(doubleSeasonalLightEventEndDate) || date.isSame(doubleSeasonalLightEventEndDate))
+				(date.isAfter(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE) || date.isSame(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE)) &&
+				(date.isBefore(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE) || date.isSame(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE))
 			) {
 				rotationNumber = "1 & 2";
 			}

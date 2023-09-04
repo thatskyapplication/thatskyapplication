@@ -19,7 +19,7 @@ import {
 	ERROR_LOG_CHANNEL_ID,
 	GUILD_LOG_CHANNEL_ID,
 	MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID,
-	production,
+	PRODUCTION,
 } from "./Utility/Constants.js";
 import { consoleLog, resolveEmbedColor } from "./Utility/Utility.js";
 
@@ -189,5 +189,5 @@ for (const event of events) {
 }
 
 const { DISCORD_TOKEN, DEVELOPMENT_DISCORD_TOKEN } = process.env;
-const token = production ? DISCORD_TOKEN : DEVELOPMENT_DISCORD_TOKEN;
+const token = PRODUCTION ? DISCORD_TOKEN : DEVELOPMENT_DISCORD_TOKEN;
 void client.login(token);
