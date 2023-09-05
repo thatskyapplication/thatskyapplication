@@ -94,12 +94,6 @@ export const DOUBLE_SEASONAL_LIGHT_EVENT_DURATION =
 export const SEASON_START_DATE = skyDate(2_023, 7, 17); // Season of Moments.
 export const SEASON_END_DATE = skyDate(2_023, 10, 1); // Season of Moments.
 export const SEASON_DURATION = SEASON_END_DATE.diff(SEASON_START_DATE, "days") + 1;
-
-// The encore variables are helpful to have as they differ from the usual events
-// and thus when these variables disappear, it will be obvious what else needs to disappear.
-export const AURORA_ENCORE_START_DATE = skyDate(2_023, 8, 23);
-export const AURORA_ENCORE_SECOND_HALF_START_DATE = skyDate(2_023, 8, 26);
-export const AURORA_ENCORE_END_DATE = skyDate(2_023, 9, 3);
 export const EVENT_START_DATE = skyDate(2_023, 9, 11); // Days of Sunlight.
 export const EVENT_END_DATE = skyDate(2_023, 9, 24); // Days of Sunlight.
 

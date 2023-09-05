@@ -8,12 +8,8 @@ import {
 } from "discord.js";
 import DailyGuidesDistribution, { SHARD_ERUPTION_NONE } from "../../Structures/DailyGuidesDistribution.js";
 import { NotificationEvent } from "../../Structures/Notification.js";
-import {
-	AURORA_ENCORE_SECOND_HALF_START_DATE,
-	ISS_DATES_ACCESSIBLE,
-	INITIAL_TRAVELLING_SPIRIT_SEEK,
-} from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, inAURORAEncore, resolveEmbedColor, todayDate } from "../../Utility/Utility.js";
+import { ISS_DATES_ACCESSIBLE, INITIAL_TRAVELLING_SPIRIT_SEEK } from "../../Utility/Constants.js";
+import { cannotUseCustomEmojis, resolveEmbedColor, todayDate } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 const PASSAGE_TRUNCATION_LIMIT = 9 as const;
@@ -106,12 +102,8 @@ export default new (class implements ChatInputCommand {
 				{ name: NotificationEvent.Turtle, value: scheduleTimes(50, 2, "hours").join(" ") },
 				{
 					name: NotificationEvent.AURORA,
-					value: (inAURORAEncore()
-						? todayDate().isBefore(AURORA_ENCORE_SECOND_HALF_START_DATE)
-							? scheduleTimes(360, 8, "hours")
-							: scheduleTimes(120, 4, "hours")
-						: scheduleTimes(0, 4, "hours")
-					).join(" "),
+					value: scheduleTimes(120, 4, "hours") /* scheduleTimes(0, 4, "hours") */
+						.join(" "),
 				},
 				{ name: NotificationEvent.Passage, value: passageTimesString },
 			)

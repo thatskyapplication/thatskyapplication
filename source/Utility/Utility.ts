@@ -22,8 +22,6 @@ import {
 } from "discord.js";
 import { DAILY_GUIDE_EVENT_ROTATION } from "../Structures/DailyGuides.js";
 import {
-	AURORA_ENCORE_END_DATE,
-	AURORA_ENCORE_START_DATE,
 	CURRENT_SEASONAL_CANDLE_EMOJI,
 	CURRENT_SEASONAL_EMOJI,
 	DEFAULT_EMBED_COLOR,
@@ -350,13 +348,6 @@ export function resolveMap(rawMap: string) {
 	return inconsistentResult
 		? INCONSISTENT_MAP[inconsistentResult]
 		: Object.values(Map).find((map) => map.toUpperCase() === upperRawMap) ?? null;
-}
-
-export function inAURORAEncore(today = todayDate()) {
-	return (
-		(today.isSame(AURORA_ENCORE_START_DATE) || today.isAfter(AURORA_ENCORE_START_DATE)) &&
-		(today.isSame(AURORA_ENCORE_END_DATE) || today.isBefore(AURORA_ENCORE_END_DATE))
-	);
 }
 
 export function time(timestamp: number, style: TimestampStylesString, relative = false) {
