@@ -224,7 +224,7 @@ export type ValidRealm = (typeof VALID_REALM)[number];
 
 export const SEASONAL_CANDLES_ROTATION = [
 	{
-		rotation: 1,
+		rotation: 2,
 		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/ec/Vault-of-knowledge-Seasonal-candles-Locations-Pattern-B.png/revision/latest",
 	},
 	{
@@ -244,7 +244,7 @@ export const SEASONAL_CANDLES_ROTATION = [
 		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/a3/Golden-Wasteland-Seasonal-candles-Locations-Pattern-B.png/revision/latest",
 	},
 	{
-		rotation: 2,
+		rotation: 1,
 		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/ec/Vault-of-knowledge-Seasonal-candles-Locations-Pattern-B.png/revision/latest",
 	},
 	{
