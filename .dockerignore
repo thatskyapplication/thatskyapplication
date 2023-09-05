@@ -2,6 +2,7 @@ Dockerfile
 .dockerignore
 node_modules/
 .git
+distribution/
 test.js
 test.ts
 .env
