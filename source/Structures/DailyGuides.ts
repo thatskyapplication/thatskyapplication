@@ -357,7 +357,7 @@ export default new (class DailyGuides {
 			return `Visit the ${this.resolveSocialLightAreaMap(map)}`;
 		}
 
-		if (upperPureContent.includes("POLLUTED GEYSER")) return "Visit the Polluted geyser";
+		if (upperPureContent.includes("POLLUTED GEYSER")) return "Visit the polluted geyser";
 		if (upperPureContent.includes("SCAVENGER HUNT")) return "Complete the hoop scavenger hunt";
 		if (upperPureContent.includes("RACE DOWN THE SLOPES")) return "Race down the slopes with the skater";
 		if (upperPureContent.includes("RACE DOWN THE MOUNTAIN")) return "Race down the mountain with the skater";
