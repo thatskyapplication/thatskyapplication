@@ -1,5 +1,5 @@
 import { type MessageContextMenuCommandInteraction, ApplicationCommandType } from "discord.js";
-import { skyStory } from "../../OpenAIApi.js";
+import { skyStory } from "../../OpenAI.js";
 import type { MessageContextMenuCommand } from "../index.js";
 
 export default new (class implements MessageContextMenuCommand {

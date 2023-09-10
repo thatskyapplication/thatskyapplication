@@ -1,5 +1,5 @@
 import { Events, PermissionFlagsBits } from "discord.js";
-import { messageCreateResponse } from "../OpenAIApi.js";
+import { messageCreateResponse } from "../OpenAI.js";
 import DailyGuides from "../Structures/DailyGuides.js";
 import type { Event } from "./index.js";
 

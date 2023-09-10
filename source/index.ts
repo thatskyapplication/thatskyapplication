@@ -9,7 +9,7 @@ import type {
 	Guild,
 	ClientOptions,
 } from "discord.js";
-import { Client, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits, Options } from "discord.js";
+import { Client, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits } from "discord.js";
 import commands from "./Commands/index.js";
 import type { Event } from "./Events/index.js";
 import events from "./Events/index.js";
@@ -177,10 +177,6 @@ class Caelus extends Client {
 
 const client = new Caelus({
 	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMessages | GatewayIntentBits.MessageContent,
-	makeCache: Options.cacheWithLimits({
-		// @ts-expect-error This fixes the removal of the default 200 limit.
-		GuildMessageManager: 200,
-	}),
 });
 
 for (const event of events) {

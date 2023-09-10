@@ -1,16 +1,11 @@
 import process from "node:process";
 import type { Message, MessageContextMenuCommandInteraction } from "discord.js";
-import {
-	type ChatCompletionRequestMessage,
-	ChatCompletionRequestMessageRoleEnum,
-	Configuration,
-	OpenAIApi,
-} from "openai";
+import OpenAI from "openai";
+import type { ChatCompletionMessageParam } from "openai/resources/chat/index.mjs";
 
 const { OPENAI_API_KEY } = process.env;
 if (!OPENAI_API_KEY) throw new Error("No OpenAI API key.");
-const configuration = new Configuration({ apiKey: OPENAI_API_KEY });
-const openAIApi = new OpenAIApi(configuration);
+const openAI = new OpenAI({ apiKey: OPENAI_API_KEY });
 
 const AI_DEFAULT_RESPONSE = "Oh my gosh! Could you be the... the legendary Sky kid?" as const;
 
@@ -23,18 +18,15 @@ export async function messageCreateResponse(message: Message<true>) {
 	try {
 		const [, completion] = await Promise.all([
 			message.channel.sendTyping(),
-			openAIApi.createChatCompletion({
+			openAI.chat.completions.create({
 				frequency_penalty: 1,
 				max_tokens: 100,
 				messages: [
 					...message.channel.messages.cache
 						.map((message) => {
-							const chatCompletionRequestMessage: ChatCompletionRequestMessage = {
+							const chatCompletionRequestMessage: ChatCompletionMessageParam = {
 								content: message.content,
-								role:
-									message.author.id === message.client.user.id
-										? ChatCompletionRequestMessageRoleEnum.Assistant
-										: ChatCompletionRequestMessageRoleEnum.User,
+								role: message.author.id === message.client.user.id ? "assistant" : "user",
 							};
 
 							const name = parseAIName(message.member?.displayName ?? message.author.username);
@@ -43,7 +35,7 @@ export async function messageCreateResponse(message: Message<true>) {
 						})
 						.slice(-5),
 					{
-						role: ChatCompletionRequestMessageRoleEnum.System,
+						role: "system",
 						content: `You are ${message.client.user.username}. Give a whimsical and short response.`,
 					},
 				],
@@ -54,7 +46,7 @@ export async function messageCreateResponse(message: Message<true>) {
 
 		await message.reply({
 			allowedMentions: { parse: ["users"], repliedUser: false },
-			content: completion.data.choices[0]!.message!.content ?? AI_DEFAULT_RESPONSE,
+			content: completion.choices[0]!.message.content ?? AI_DEFAULT_RESPONSE,
 			failIfNotExists: false,
 		});
 	} catch (error) {
@@ -65,8 +57,8 @@ export async function messageCreateResponse(message: Message<true>) {
 export async function skyStory(interaction: MessageContextMenuCommandInteraction) {
 	await interaction.deferReply({ ephemeral: true });
 
-	const chatCompletionRequestMessage: ChatCompletionRequestMessage = {
-		role: ChatCompletionRequestMessageRoleEnum.User,
+	const chatCompletionRequestMessage: ChatCompletionMessageParam = {
+		role: "user",
 		content: interaction.targetMessage.content,
 	};
 
@@ -76,11 +68,11 @@ export async function skyStory(interaction: MessageContextMenuCommandInteraction
 	let completion;
 
 	try {
-		completion = await openAIApi.createChatCompletion({
+		completion = await openAI.chat.completions.create({
 			max_tokens: 1_000,
 			messages: [
 				{
-					role: ChatCompletionRequestMessageRoleEnum.System,
+					role: "system",
 					content: "Generate a story about this message based on the game Sky: Children of the Light.",
 				},
 				chatCompletionRequestMessage,
@@ -96,7 +88,7 @@ export async function skyStory(interaction: MessageContextMenuCommandInteraction
 		return;
 	}
 
-	const response = completion.data.choices[0]!.message!.content ?? AI_DEFAULT_RESPONSE;
+	const response = completion.choices[0]!.message.content ?? AI_DEFAULT_RESPONSE;
 	const responses = response.match(/.{1,2000}/gs);
 
 	if (!responses) {
