@@ -8,7 +8,8 @@
 		"format": "prettier --write . && eslint --fix .",
 		"lint": "prettier --check . && eslint .",
 		"dev": "tsx --require dotenv/config --watch source/index.ts",
-		"start": "node --enable-source-maps --require dotenv/config distribution/index.js"
+		"start": "node --enable-source-maps --require dotenv/config distribution/index.js",
+		"update": "pnpm update --interactive --latest"
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.385.0",
