@@ -7,7 +7,7 @@
 		"test": "tsc --noEmit",
 		"format": "prettier --write . && eslint --fix .",
 		"lint": "prettier --check . && eslint .",
-		"dev": "tsx --require dotenv/config --watch source/index.ts",
+		"dev": "tsx --require dotenv/config source/index.ts",
 		"start": "node --enable-source-maps --require dotenv/config distribution/index.js",
 		"update": "pnpm update --interactive --latest"
 	},
