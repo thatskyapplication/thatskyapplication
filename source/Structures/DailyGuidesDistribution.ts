@@ -37,6 +37,7 @@ import {
 	resolveCurrentSeasonalEmoji,
 	formatEmojiURL,
 	eventRotationLetter,
+	isDuring,
 } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
@@ -210,13 +211,7 @@ export default class DailyGuidesDistribution {
 	}
 
 	public static eventCurrencyFieldData() {
-		const date = todayDate();
-
-		if (
-			EVENT_CURRENCY_INFOGRAPHIC_URL &&
-			(date.isSame(EVENT_START_DATE) || date.isAfter(EVENT_START_DATE)) &&
-			(date.isBefore(EVENT_END_DATE) || date.isSame(EVENT_END_DATE))
-		) {
+		if (EVENT_CURRENCY_INFOGRAPHIC_URL && isDuring(EVENT_START_DATE, EVENT_END_DATE)) {
 			return {
 				name: "Event Currency",
 				value: hyperlink(`Rotation ${eventRotationLetter()}`, EVENT_CURRENCY_INFOGRAPHIC_URL),
@@ -298,10 +293,7 @@ export default class DailyGuidesDistribution {
 			const { rotation, url } = seasonalCandlesRotation();
 			let rotationNumber = String(rotation);
 
-			if (
-				(date.isAfter(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE) || date.isSame(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE)) &&
-				(date.isBefore(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE) || date.isSame(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE))
-			) {
+			if (isDuring(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, date)) {
 				rotationNumber = "1 & 2";
 			}
 

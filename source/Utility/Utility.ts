@@ -1,5 +1,5 @@
 import { inspect } from "node:util";
-import dayjs from "dayjs";
+import dayjs, { type Dayjs } from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
 import {
@@ -67,6 +67,10 @@ export function todayDate() {
 export function skyDate(year: number, month: number, date: number, hour = 0, minute = 0, second = 0) {
 	// https://github.com/iamkun/dayjs/issues/1827
 	return dayjs.tz(`${year}-${month}-${date} ${hour}:${minute}:${second}`, "America/Los_Angeles");
+}
+
+export function isDuring(start: Dayjs, end: Dayjs, date = todayDate()) {
+	return (date.isSame(start) || date.isAfter(start)) && (date.isBefore(end) || date.isSame(end));
 }
 
 export function treasureCandleRealm() {
@@ -139,12 +143,7 @@ export function resolveCurrencyEmoji({
 }
 
 export function inSeason() {
-	const today = todayDate();
-
-	return (
-		(today.isSame(SEASON_START_DATE) || today.isAfter(SEASON_START_DATE)) &&
-		(today.isSame(SEASON_END_DATE) || today.isBefore(SEASON_END_DATE))
-	);
+	return isDuring(SEASON_START_DATE, SEASON_END_DATE);
 }
 
 export function isSeason(season: string): season is Season {
