@@ -135,7 +135,7 @@ export function resolveCurrencyEmoji({
 	number,
 	includeSpaceInEmoji = false,
 }: CurrencyEmojiOptions) {
-	return `${number === undefined ? "" : number}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji, animated)}`;
+	return `${number}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji, animated)}`;
 }
 
 export function inSeason() {
