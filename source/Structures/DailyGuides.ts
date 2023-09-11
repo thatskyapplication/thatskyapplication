@@ -64,7 +64,7 @@ const DAILY_GUIDES_RESET_DATA = {
 		: null;
 }>;
 
-export const DAILY_GUIDE_EVENT_ROTATION = ["C", "A", "B"] as const;
+export const DAILY_GUIDE_EVENT_ROTATION = ["A", "B", "C"] as const;
 export type DailyGuideEventRotation = (typeof DAILY_GUIDE_EVENT_ROTATION)[number];
 
 interface DailyGuideEvent {
