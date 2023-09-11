@@ -22,6 +22,7 @@ import {
 	EVENT_END_DATE,
 	EVENT_START_DATE,
 	SEASON_END_DATE,
+	EVENT_CURRENCY_INFOGRAPHIC_URL,
 } from "../Utility/Constants.js";
 import {
 	consoleLog,
@@ -210,16 +211,16 @@ export default class DailyGuidesDistribution {
 
 	public static eventCurrencyFieldData() {
 		const date = todayDate();
-		const {
-			eventCurrency: { url },
-		} = DailyGuides;
 
 		if (
-			url &&
+			EVENT_CURRENCY_INFOGRAPHIC_URL &&
 			(date.isSame(EVENT_START_DATE) || date.isAfter(EVENT_START_DATE)) &&
 			(date.isBefore(EVENT_END_DATE) || date.isSame(EVENT_END_DATE))
 		) {
-			return { name: "Event Currency", value: hyperlink(`Rotation ${eventRotationLetter()}`, url) };
+			return {
+				name: "Event Currency",
+				value: hyperlink(`Rotation ${eventRotationLetter()}`, EVENT_CURRENCY_INFOGRAPHIC_URL),
+			};
 		}
 
 		return null;

@@ -11,7 +11,6 @@ import {
 } from "discord.js";
 import {
 	type ValidRealm,
-	EVENT_CURRENCY_INFOGRAPHIC_URL,
 	CDN_URL,
 	Channel,
 	INFOGRAPHICS_DATABASE_GUILD_ID,
@@ -31,7 +30,6 @@ export interface DailyGuidesPacket {
 	quest3: DailyGuideQuest | null;
 	quest4: DailyGuideQuest | null;
 	treasure_candles: string[] | null;
-	event_currency: DailyGuideEvent;
 	daily_message: DailyGuideMessage | null;
 }
 
@@ -41,7 +39,6 @@ interface DailyGuidesData {
 	quest3: DailyGuidesPacket["quest3"];
 	quest4: DailyGuidesPacket["quest4"];
 	treasureCandles: DailyGuidesPacket["treasure_candles"];
-	eventCurrency: DailyGuidesPacket["event_currency"];
 	dailyMessage: DailyGuidesPacket["daily_message"];
 }
 
@@ -56,21 +53,13 @@ const DAILY_GUIDES_RESET_DATA = {
 	quest3: null,
 	quest4: null,
 	treasure_candles: null,
-	event_currency: { rotation: null, url: EVENT_CURRENCY_INFOGRAPHIC_URL },
 	daily_message: null,
 } as const satisfies Readonly<{
-	[DailyGuide in keyof DailyGuidesPacket]: DailyGuide extends "event_currency"
-		? DailyGuideEvent & { rotation: null }
-		: null;
+	[DailyGuide in keyof DailyGuidesPacket]: null;
 }>;
 
 export const DAILY_GUIDE_EVENT_ROTATION = ["A", "B", "C"] as const;
 export type DailyGuideEventRotation = (typeof DAILY_GUIDE_EVENT_ROTATION)[number];
-
-interface DailyGuideEvent {
-	rotation: DailyGuideEventRotation | null;
-	url: typeof EVENT_CURRENCY_INFOGRAPHIC_URL;
-}
 
 interface DailyGuideMessage {
 	title: string;
@@ -161,8 +150,6 @@ export default new (class DailyGuides {
 
 	public treasureCandles: DailyGuidesData["treasureCandles"] = null;
 
-	public eventCurrency: DailyGuidesData["eventCurrency"] = { rotation: null, url: EVENT_CURRENCY_INFOGRAPHIC_URL };
-
 	public dailyMessage: DailyGuidesData["dailyMessage"] = null;
 
 	public shardEruption(this: void, daysOffset = 0) {
@@ -205,7 +192,6 @@ export default new (class DailyGuides {
 		if ("quest3" in data) this.quest3 = data.quest3;
 		if ("quest4" in data) this.quest4 = data.quest4;
 		if ("treasure_candles" in data) this.treasureCandles = data.treasure_candles;
-		if ("event_currency" in data) this.eventCurrency = data.event_currency;
 		if ("daily_message" in data) this.dailyMessage = data.daily_message;
 	}
 
