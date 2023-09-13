@@ -63,10 +63,6 @@ export default function heartbeat(client: Client<true>): void {
 				sendNotification(client, NotificationEvent.AURORA, { startTime: unix + 900 });
 			}
 
-			// if ((hour + 1) % 4 === 0 && minute === 45) {
-			// 	sendNotification(client, NotificationEvent.AURORA, { startTime: unix + 900 });
-			// }
-
 			if (hour % 2 === 0) {
 				switch (minute) {
 					case 0:

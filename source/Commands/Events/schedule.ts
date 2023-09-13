@@ -102,8 +102,7 @@ export default new (class implements ChatInputCommand {
 				{ name: NotificationEvent.Turtle, value: scheduleTimes(50, 2, "hours").join(" ") },
 				{
 					name: NotificationEvent.AURORA,
-					value: scheduleTimes(120, 4, "hours") /* scheduleTimes(0, 4, "hours") */
-						.join(" "),
+					value: scheduleTimes(120, 4, "hours").join(" "),
 				},
 				{ name: NotificationEvent.Passage, value: passageTimesString },
 			)
