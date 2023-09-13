@@ -296,7 +296,7 @@ export default new (class DailyGuides {
 			case Map.Graveyard:
 				return `bonfire at the ${map}`;
 			case Map.VillageOfDreams:
-				return `hotspring in the ${map}`;
+				return `hot spring in the ${map}`;
 			default:
 				consoleLog("Failed to match a social light area map.");
 				return "social light area";
