@@ -83,7 +83,7 @@ export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const
 
 // Infographic URLs.
 export const EVENT_CURRENCY_INFOGRAPHIC_URL: string | null =
-	"https://media.discordapp.net/attachments/575827924343848960/1150689757932834836/IMG_3670.jpg";
+	"https://cdn.discordapp.com/attachments/739444631963435008/1151417000996896778/DAYS_OF_SUNLIGHT_2023-2.jpg";
 
 // Dates.
 export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE = skyDate(2_023, 5, 15);
