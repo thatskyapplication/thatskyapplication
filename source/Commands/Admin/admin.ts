@@ -14,6 +14,7 @@ import {
 	StringSelectMenuOptionBuilder,
 	ButtonBuilder,
 	ButtonStyle,
+	ActivityType,
 } from "discord.js";
 import DailyGuides, { type QuestNumber, QUEST_NUMBER } from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
@@ -57,6 +58,19 @@ export default new (class implements ChatInputCommand {
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
+				name: "custom-status",
+				description: "Sets the custom status.",
+				options: [
+					{
+						type: ApplicationCommandOptionType.String,
+						name: "text",
+						description: "The text to use.",
+						required: true,
+					},
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
 				name: "daily-guides",
 				description: "Edits the daily guides embed.",
 			},
@@ -68,9 +82,18 @@ export default new (class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
+			case "custom-status":
+				await this.customStatus(interaction);
+				return;
 			case "daily-guides":
 				await this.dailyGuides(interaction);
 		}
+	}
+
+	public async customStatus(interaction: ChatInputCommandInteraction) {
+		const text = interaction.options.getString("text", true);
+		interaction.client.user.setPresence({ activities: [{ name: text, type: ActivityType.Custom }] });
+		await interaction.reply({ content: "Custom status set.", ephemeral: true });
 	}
 
 	private async respond(
