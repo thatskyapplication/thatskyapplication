@@ -82,8 +82,7 @@ export const COMMAND_LOG_CHANNEL_ID = "1114135883604566057" as const;
 export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const;
 
 // Infographic URLs.
-export const EVENT_CURRENCY_INFOGRAPHIC_URL: string | null =
-	"https://cdn.discordapp.com/attachments/739444631963435008/1151776068307533834/DAYS_OF_SUNLIGHT_2023-2.jpg";
+export const EVENT_CURRENCY_INFOGRAPHIC_URL: string | null = null;
 
 // Dates.
 export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE = skyDate(2_023, 9, 25);
@@ -95,8 +94,8 @@ export const DOUBLE_SEASONAL_LIGHT_EVENT_DURATION =
 export const SEASON_START_DATE = skyDate(2_023, 7, 17); // Season of Moments.
 export const SEASON_END_DATE = skyDate(2_023, 10, 1); // Season of Moments.
 export const SEASON_DURATION = SEASON_END_DATE.diff(SEASON_START_DATE, "days") + 1;
-export const EVENT_START_DATE = skyDate(2_023, 9, 11); // Days of Sunlight.
-export const EVENT_END_DATE = skyDate(2_023, 9, 24); // Days of Sunlight.
+export const EVENT_START_DATE = skyDate(2_023, 10, 2); // Days of Style.
+export const EVENT_END_DATE = skyDate(2_023, 10, 16); // Days of Style.
 
 // Current seasonal information.
 export const CURRENT_SEASONAL_EMOJI = Emoji.SeasonMoments;
