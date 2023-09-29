@@ -42,6 +42,8 @@ interface DailyGuidesData {
 	dailyMessage: DailyGuidesPacket["daily_message"];
 }
 
+type DailyGuidesSetQuestsData = Partial<Pick<DailyGuidesData, "quest1" | "quest2" | "quest3" | "quest4">>;
+
 export interface DailyGuideQuest {
 	content: string;
 	url: string;
@@ -409,22 +411,22 @@ export default new (class DailyGuides {
 
 		// Update a quest variable.
 		if (!quest1) {
-			await this.updateQuest(data, 1);
+			await this.updateQuests({ quest1: data });
 			return true;
 		}
 
 		if (!quest2) {
-			await this.updateQuest(data, 2);
+			await this.updateQuests({ quest2: data });
 			return true;
 		}
 
 		if (!quest3) {
-			await this.updateQuest(data, 3);
+			await this.updateQuests({ quest3: data });
 			return true;
 		}
 
 		if (!quest4) {
-			await this.updateQuest(data, 4);
+			await this.updateQuests({ quest4: data });
 			return true;
 		}
 
@@ -432,11 +434,8 @@ export default new (class DailyGuides {
 		return true;
 	}
 
-	public async updateQuest(questData: DailyGuideQuest, number: QuestNumber) {
-		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-			.update({ [`quest${number}`]: questData })
-			.returning("*");
-
+	public async updateQuests(data: DailyGuidesSetQuestsData) {
+		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides).update(data).returning("*");
 		this.patch(dailyGuidesPacket!);
 	}
 

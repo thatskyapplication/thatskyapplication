@@ -24,7 +24,8 @@ import { LogType } from "../../index.js";
 import type { ChatInputCommand } from "../index.js";
 
 export const DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID = "DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID" as const;
-export const DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID = "DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID" as const;
+export const DAILY_GUIDES_QUESTS_SET_SELECT_MENU_CUSTOM_ID = "DAILY_GUIDES_QUESTS_SET_SELECT_MENU_CUSTOM_ID" as const;
+export const DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID = "DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID" as const;
 export const DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID = "DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID" as const;
 export const DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID = "DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID" as const;
 export const DAILY_GUIDES_QUEST_1_MODAL = "DAILY_GUIDES_QUEST_1_MODAL" as const;
@@ -97,9 +98,17 @@ export default new (class implements ChatInputCommand {
 	}
 
 	private async respond(
-		interaction: ButtonInteraction | ChatInputCommandInteraction | ModalMessageModalSubmitInteraction,
+		interaction:
+			| ButtonInteraction
+			| ChatInputCommandInteraction
+			| ModalMessageModalSubmitInteraction
+			| StringSelectMenuInteraction,
 		content?: string,
 	) {
+		const questOptions = QUEST_NUMBER.map((questNumber) =>
+			new StringSelectMenuOptionBuilder().setLabel(`Quest ${questNumber}`).setValue(String(questNumber)),
+		);
+
 		const response = {
 			content: content ?? "",
 			components: [
@@ -108,24 +117,26 @@ export default new (class implements ChatInputCommand {
 						.setCustomId(DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID)
 						.setLabel("Daily Message")
 						.setStyle(ButtonStyle.Primary),
-				),
-				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId(DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID)
-						.setMaxValues(1)
-						.setMinValues(1)
-						.setOptions(
-							QUEST_NUMBER.map((questNumber) =>
-								new StringSelectMenuOptionBuilder().setLabel(`Quest ${questNumber}`).setValue(String(questNumber)),
-							),
-						)
-						.setPlaceholder("Select a quest."),
-				),
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
 						.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID)
 						.setLabel("Treasure Candles")
 						.setStyle(ButtonStyle.Primary),
+				),
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(DAILY_GUIDES_QUESTS_SET_SELECT_MENU_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(1)
+						.setOptions(questOptions)
+						.setPlaceholder("Set a quest."),
+				),
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID)
+						.setMaxValues(2)
+						.setMinValues(2)
+						.setOptions(questOptions)
+						.setPlaceholder("Swap 2 quests."),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
@@ -253,7 +264,7 @@ export default new (class implements ChatInputCommand {
 		}
 
 		const previousEmbed = DailyGuidesDistribution.embed(await resolveEmbedColor(guild));
-		await DailyGuides.updateQuest({ content, url }, number);
+		await DailyGuides.updateQuests({ [`quest${number}`]: { content, url } });
 
 		void client.log({
 			content: `${userLogFormat(user)} manually updated quest ${number}.`,
@@ -262,6 +273,37 @@ export default new (class implements ChatInputCommand {
 		});
 
 		await this.respond(interaction, `Successfully updated quest ${number}.`);
+	}
+
+	public async questSwap(interaction: StringSelectMenuInteraction) {
+		const { client, guild, user, values } = interaction;
+		const quest1 = Number(values[0]);
+		const quest2 = Number(values[1]);
+
+		if (!isQuestNumber(quest1)) {
+			await interaction.reply(`Detected an unknown quest number: ${quest1}.`);
+			return;
+		}
+
+		if (!isQuestNumber(quest2)) {
+			await interaction.reply(`Detected an unknown quest number: ${quest2}.`);
+			return;
+		}
+
+		const previousEmbed = DailyGuidesDistribution.embed(await resolveEmbedColor(guild));
+
+		await DailyGuides.updateQuests({
+			[`quest${quest1}`]: DailyGuides[`quest${quest2}`],
+			[`quest${quest2}`]: DailyGuides[`quest${quest1}`],
+		});
+
+		void client.log({
+			content: `${userLogFormat(user)} manually swapped quests ${quest1} & ${quest2}.`,
+			embeds: [previousEmbed, DailyGuidesDistribution.embed(await resolveEmbedColor(guild))],
+			type: LogType.ManualDailyGuides,
+		});
+
+		await this.respond(interaction, `Successfully swapped quests ${quest1} & ${quest2}.`);
 	}
 
 	public async dailyMessageModalResponse(interaction: ButtonInteraction) {

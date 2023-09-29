@@ -12,7 +12,8 @@ import {
 	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_DAILY_MESSAGE_MODAL,
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
-	DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID,
+	DAILY_GUIDES_QUESTS_SET_SELECT_MENU_CUSTOM_ID,
+	DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
 	DAILY_GUIDES_QUEST_1_MODAL,
 	DAILY_GUIDES_QUEST_2_MODAL,
 	DAILY_GUIDES_QUEST_3_MODAL,
@@ -349,8 +350,13 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (customId === DAILY_GUIDES_QUESTS_SELECT_MENU_CUSTOM_ID) {
+				if (customId === DAILY_GUIDES_QUESTS_SET_SELECT_MENU_CUSTOM_ID) {
 					await COMMANDS.admin.questModalResponse(interaction);
+					return;
+				}
+
+				if (customId === DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID) {
+					await COMMANDS.admin.questSwap(interaction);
 					return;
 				}
 			} catch (error) {
