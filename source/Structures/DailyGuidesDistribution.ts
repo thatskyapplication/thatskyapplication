@@ -23,6 +23,7 @@ import {
 	EVENT_START_DATE,
 	SEASON_END_DATE,
 	EVENT_CURRENCY_INFOGRAPHIC_URL,
+	SEASON_START_DATE,
 } from "../Utility/Constants.js";
 import {
 	consoleLog,
@@ -312,6 +313,14 @@ export default class DailyGuidesDistribution {
 					emoji,
 					number: seasonalCandlesLeftWithSeasonPass!,
 				})} remain in the season with a Season Pass.`,
+			});
+		} else {
+			const daysUntilSeason = SEASON_START_DATE.diff(date, "days");
+
+			embed.setFooter({
+				text: `The new season starts in ${
+					daysUntilSeason === 1 ? `${daysUntilSeason} day` : `${daysUntilSeason} days`
+				}.`,
 			});
 		}
 
