@@ -132,6 +132,9 @@ const BONKS = {
 				["a moth", "the captain of the underworld", "Perry the Platypus"],
 				["Ed Sheeran", "a local microwave from a local fishing shop", "a piece of sentient bubble wrap"],
 				["a duck", "the Yakuza", "a bubble that cannot be popped"],
+				["Aurora", "a mirror", "a nearby particle"],
+				["the NHS", "the inevitable darkness", "John Appleseed"],
+				["a camera", "a tree", "the octopus overlord"],
 			] satisfies [string, string, string][],
 		},
 		{
