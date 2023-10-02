@@ -314,7 +314,7 @@ export default class DailyGuidesDistribution {
 					number: seasonalCandlesLeftWithSeasonPass!,
 				})} remain in the season with a Season Pass.`,
 			});
-		} else {
+		} else if (date.isBefore(SEASON_START_DATE)) {
 			const daysUntilSeason = SEASON_START_DATE.diff(date, "days");
 
 			embed.setFooter({
