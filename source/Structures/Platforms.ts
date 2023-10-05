@@ -16,7 +16,7 @@ export const PlatformFlagsToString = {
 	[PlatformFlags.Mac]: "Mac",
 	[PlatformFlags.NintendoSwitch]: "Nintendo Switch",
 	[PlatformFlags.PlayStation]: "PlayStation",
-} as const;
+} as const satisfies Readonly<Record<PlatformFlags, string>>;
 
 export function resolveBitsToPlatform(bits: number) {
 	const platforms = [];

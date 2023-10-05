@@ -43,7 +43,7 @@ export const SeasonFlagsToString = {
 	[SeasonFlags.Remembrance]: Season.Remembrance,
 	[SeasonFlags.Passage]: Season.Passage,
 	[SeasonFlags.Moments]: Season.Moments,
-} as const;
+} as const satisfies Readonly<Record<SeasonFlags, Season>>;
 
 export function resolveBitsToSeasons(bits: number) {
 	const platforms = [];
