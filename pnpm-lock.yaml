@@ -24,8 +24,8 @@ dependencies:
     specifier: ^5.2.2
     version: 5.2.2
   knex:
-    specifier: ^3.0.0
-    version: 3.0.0(pg@8.11.3)
+    specifier: ^3.0.1
+    version: 3.0.1(pg@8.11.3)
   openai:
     specifier: ^4.11.1
     version: 4.11.1
@@ -4377,8 +4377,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /knex@3.0.0(pg@8.11.3):
-    resolution: {integrity: sha512-e4MAj+5P6iCbm7Y9f2sgAH8a5lZSfqNtggMp9MOCKnkT0SGAmtVNW1/SHZT5aLi/daXZvNulH2XH4znpsKUJeg==}
+  /knex@3.0.1(pg@8.11.3):
+    resolution: {integrity: sha512-ruASxC6xPyDklRdrcDy6a9iqK+R9cGK214aiQa+D9gX2ZnHZKv6o6JC9ZfgxILxVAul4bZ13c3tgOAHSuQ7/9g==}
     engines: {node: '>=16'}
     hasBin: true
     peerDependencies:
