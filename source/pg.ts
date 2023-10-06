@@ -18,8 +18,7 @@ const { DATABASE_URL, DEVELOPMENT_DATABASE_URL } = process.env;
 const databaseURL = PRODUCTION ? DATABASE_URL : DEVELOPMENT_DATABASE_URL;
 if (!databaseURL) throw new Error("Database URL missing.");
 
-// https://github.com/knex/knex/issues/5358
-export default knex.default({
+export default knex({
 	client: "pg",
 	connection: databaseURL,
 	pool: { min: 0 },
