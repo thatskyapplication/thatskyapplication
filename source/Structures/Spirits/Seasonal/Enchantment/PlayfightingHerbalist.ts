@@ -47,6 +47,8 @@ export default new SeasonalSpirit({
 			.set(1 << 11, { item: "Cape", cost: { candles: 70 } }),
 	},
 	visits: {
-		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(47, skyDate(2_021, 10, 28)),
+		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>()
+			.set(47, skyDate(2_021, 10, 28))
+			.set(98, skyDate(2_023, 10, 12)),
 	},
 });
