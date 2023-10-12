@@ -22,6 +22,7 @@ enum SeasonFlags {
 	Remembrance = 1 << 15,
 	Passage = 1 << 16,
 	Moments = 1 << 17,
+	Revival = 1 << 18,
 }
 
 export const SeasonFlagsToString = {
@@ -43,6 +44,7 @@ export const SeasonFlagsToString = {
 	[SeasonFlags.Remembrance]: Season.Remembrance,
 	[SeasonFlags.Passage]: Season.Passage,
 	[SeasonFlags.Moments]: Season.Moments,
+	[SeasonFlags.Revival]: Season.Revival,
 } as const satisfies Readonly<Record<SeasonFlags, Season>>;
 
 export function resolveBitsToSeasons(bits: number) {

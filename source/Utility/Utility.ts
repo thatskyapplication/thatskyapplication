@@ -188,6 +188,8 @@ export function resolveSeasonToSeasonalEmoji(season: Season) {
 			return Emoji.SeasonPassage;
 		case Season.Moments:
 			return Emoji.SeasonMoments;
+		case Season.Revival:
+			return Emoji.SeasonRevival;
 	}
 }
 
@@ -229,6 +231,8 @@ export function resolveSeasonToCandleEmoji(season: Season) {
 			return Emoji.CandlePassage;
 		case Season.Moments:
 			return Emoji.CandleMoments;
+		case Season.Revival:
+			return Emoji.CandleRevival;
 	}
 }
 
@@ -266,6 +270,8 @@ export function resolveSeasonToHeartEmoji(season: Exclude<Season, Season.Gratitu
 			return Emoji.HeartPassage;
 		case Season.Moments:
 			return Emoji.HeartMoments;
+		case Season.Revival:
+			return Emoji.HeartRevival;
 	}
 }
 

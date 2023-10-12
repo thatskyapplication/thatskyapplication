@@ -318,9 +318,7 @@ export default class DailyGuidesDistribution {
 			const daysUntilSeason = SEASON_START_DATE.diff(date, "days");
 
 			embed.setFooter({
-				text: `The new season starts in ${
-					daysUntilSeason === 1 ? `${daysUntilSeason} day` : `${daysUntilSeason} days`
-				}.`,
+				text: `The new season starts ${daysUntilSeason === 1 ? `tomorrow` : `in ${daysUntilSeason} days`}.`,
 			});
 		}
 

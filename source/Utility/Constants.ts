@@ -73,6 +73,9 @@ export const enum Emoji {
 	HeartRemembrance = "1135305133614432266",
 	HeartPassage = "1135305161498181765",
 	HeartMoments = "1135305178027933899",
+	SeasonRevival = "1162098085455999117",
+	CandleRevival = "1162098562209951746",
+	HeartRevival = "1162098577456238663",
 }
 
 // Log channels.
@@ -91,15 +94,15 @@ export const DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE = skyDate(2_023, 10, 1);
 export const DOUBLE_SEASONAL_LIGHT_EVENT_DURATION =
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days") + 1;
 
-export const SEASON_START_DATE = skyDate(2_023, 7, 17); // Season of Moments.
-export const SEASON_END_DATE = skyDate(2_023, 10, 1); // Season of Moments.
+export const SEASON_START_DATE = skyDate(2_023, 10, 16); // Season of Revival.
+export const SEASON_END_DATE = skyDate(2_023, 12, 31); // Season of Revival.
 export const SEASON_DURATION = SEASON_END_DATE.diff(SEASON_START_DATE, "days") + 1;
 export const EVENT_START_DATE = skyDate(2_023, 10, 2); // Days of Style.
 export const EVENT_END_DATE = skyDate(2_023, 10, 16); // Days of Style.
 
 // Current seasonal information.
-export const CURRENT_SEASONAL_EMOJI = Emoji.SeasonMoments;
-export const CURRENT_SEASONAL_CANDLE_EMOJI = Emoji.CandleMoments;
+export const CURRENT_SEASONAL_EMOJI = Emoji.HeartRevival;
+export const CURRENT_SEASONAL_CANDLE_EMOJI = Emoji.HeartRevival;
 
 // Miscellaneous constants.
 export const PRODUCTION = process.env.NODE_ENV === "production";
@@ -290,4 +293,5 @@ export enum Season {
 	Remembrance = "Remembrance",
 	Passage = "Passage",
 	Moments = "Moments",
+	Revival = "Revival",
 }
