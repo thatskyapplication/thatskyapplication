@@ -19,7 +19,6 @@ export default new SeasonalSpirit({
 	expression,
 	realm: Realm.GoldenWasteland,
 	offer: {
-		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${expression} 1`, cost: null })
 			.set(1 << 1, { item: "Blessing 1", cost: null })
