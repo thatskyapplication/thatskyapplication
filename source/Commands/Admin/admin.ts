@@ -19,7 +19,7 @@ import {
 import DailyGuides, { type QuestNumber, QUEST_NUMBER } from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import { MAXIMUM_EMBED_FIELD_NAME_LENGTH, MAXIMUM_EMBED_FIELD_VALUE_LENGTH } from "../../Utility/Constants.js";
-import { resolveEmbedColor, userLogFormat } from "../../Utility/Utility.js";
+import { userLogFormat } from "../../Utility/Utility.js";
 import { LogType } from "../../index.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -145,7 +145,7 @@ export default new (class implements ChatInputCommand {
 						.setStyle(ButtonStyle.Success),
 				),
 			],
-			embeds: [DailyGuidesDistribution.embed(await resolveEmbedColor(interaction.guild))],
+			embeds: [DailyGuidesDistribution.embed()],
 			ephemeral: true,
 		};
 
@@ -161,12 +161,12 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async distribute(interaction: ButtonInteraction) {
-		const { client, guild, user } = interaction;
+		const { client, user } = interaction;
 		await DailyGuidesDistribution.distribute(client);
 
 		void client.log({
 			content: `${userLogFormat(user)} manually distributed the daily guides.`,
-			embeds: [DailyGuidesDistribution.embed(await resolveEmbedColor(guild))],
+			embeds: [DailyGuidesDistribution.embed()],
 			type: LogType.ManualDailyGuides,
 		});
 
@@ -240,7 +240,7 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async setQuest(interaction: ModalMessageModalSubmitInteraction, number: QuestNumber) {
-		const { client, fields, guild, user } = interaction;
+		const { client, fields, user } = interaction;
 		let content;
 		let url;
 
@@ -263,12 +263,12 @@ export default new (class implements ChatInputCommand {
 				break;
 		}
 
-		const previousEmbed = DailyGuidesDistribution.embed(await resolveEmbedColor(guild));
+		const previousEmbed = DailyGuidesDistribution.embed();
 		await DailyGuides.updateQuests({ [`quest${number}`]: { content, url } });
 
 		void client.log({
 			content: `${userLogFormat(user)} manually updated quest ${number}.`,
-			embeds: [previousEmbed, DailyGuidesDistribution.embed(await resolveEmbedColor(guild))],
+			embeds: [previousEmbed, DailyGuidesDistribution.embed()],
 			type: LogType.ManualDailyGuides,
 		});
 
@@ -276,7 +276,7 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async questSwap(interaction: StringSelectMenuInteraction) {
-		const { client, guild, user, values } = interaction;
+		const { client, user, values } = interaction;
 		const quest1 = Number(values[0]);
 		const quest2 = Number(values[1]);
 
@@ -290,7 +290,7 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		const previousEmbed = DailyGuidesDistribution.embed(await resolveEmbedColor(guild));
+		const previousEmbed = DailyGuidesDistribution.embed();
 
 		await DailyGuides.updateQuests({
 			[`quest${quest1}`]: DailyGuides[`quest${quest2}`],
@@ -299,7 +299,7 @@ export default new (class implements ChatInputCommand {
 
 		void client.log({
 			content: `${userLogFormat(user)} manually swapped quests ${quest1} & ${quest2}.`,
-			embeds: [previousEmbed, DailyGuidesDistribution.embed(await resolveEmbedColor(guild))],
+			embeds: [previousEmbed, DailyGuidesDistribution.embed()],
 			type: LogType.ManualDailyGuides,
 		});
 
@@ -337,15 +337,15 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async setDailyMessage(interaction: ModalMessageModalSubmitInteraction) {
-		const { client, fields, guild, user } = interaction;
+		const { client, fields, user } = interaction;
 		const title = fields.getTextInputValue(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE);
 		const description = fields.getTextInputValue(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION);
-		const previousEmbed = DailyGuidesDistribution.embed(await resolveEmbedColor(guild));
+		const previousEmbed = DailyGuidesDistribution.embed();
 		await DailyGuides.updateDailyMessage({ title, description });
 
 		void client.log({
 			content: `${userLogFormat(user)} manually updated the daily message.`,
-			embeds: [previousEmbed, DailyGuidesDistribution.embed(await resolveEmbedColor(guild))],
+			embeds: [previousEmbed, DailyGuidesDistribution.embed()],
 			type: LogType.ManualDailyGuides,
 		});
 
@@ -381,17 +381,17 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async setTreasureCandles(interaction: ModalMessageModalSubmitInteraction) {
-		const { client, fields, guild, user } = interaction;
+		const { client, fields, user } = interaction;
 		const batch1 = fields.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1_4);
 		const batch2 = fields.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_5_8);
 		const treasureCandles = [batch1];
 		if (batch2) treasureCandles.push(batch2);
-		const previousEmbed = DailyGuidesDistribution.embed(await resolveEmbedColor(guild));
+		const previousEmbed = DailyGuidesDistribution.embed();
 		await DailyGuides.updateTreasureCandles(treasureCandles);
 
 		void client.log({
 			content: `${userLogFormat(user)} manually updated the treasure candles.`,
-			embeds: [previousEmbed, DailyGuidesDistribution.embed(await resolveEmbedColor(guild))],
+			embeds: [previousEmbed, DailyGuidesDistribution.embed()],
 			type: LogType.ManualDailyGuides,
 		});
 

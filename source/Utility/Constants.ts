@@ -126,7 +126,7 @@ export const MAX_HUG_NO = 21 as const;
 export const INITIAL_TRAVELLING_SPIRIT_SEEK = dayjs.tz("2023-05-25 00:00:00", "America/Los_Angeles"); // #88 Grateful Shell Collector.
 export const INITIAL_TREASURE_CANDLE_REALM_SEEK = skyDate(2_023, 9, 29); // Daylight Prairie.
 export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
-export const DEFAULT_EMBED_COLOR = 0xa5b5f1 as const;
+export const DEFAULT_EMBED_COLOUR = 0x6f68c9 as const;
 export const MAXIMUM_EMBED_FIELD_NAME_LENGTH = 256 as const;
 export const MAXIMUM_EMBED_FIELD_VALUE_LENGTH = 1_024 as const;
 

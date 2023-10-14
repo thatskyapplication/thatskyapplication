@@ -8,8 +8,7 @@ import {
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 } from "discord.js";
-import { CDN_URL, MAX_HUG_NO } from "../../Utility/Constants.js";
-import { resolveEmbedColor } from "../../Utility/Utility.js";
+import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_HUG_NO } from "../../Utility/Constants.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -36,7 +35,7 @@ export default new (class implements ChatInputCommand {
 	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { channel, createdAt, guild, options } = interaction;
+		const { channel, createdAt, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
 
@@ -79,7 +78,7 @@ export default new (class implements ChatInputCommand {
 			content: `${user}, ${interaction.user} hugged you!`,
 			embeds: [
 				new EmbedBuilder()
-					.setColor(await resolveEmbedColor(guild))
+					.setColor(DEFAULT_EMBED_COLOUR)
 					.setImage(String(new URL(`hugs/${Math.floor(Math.random() * MAX_HUG_NO + 1)}.gif`, CDN_URL))),
 			],
 		});

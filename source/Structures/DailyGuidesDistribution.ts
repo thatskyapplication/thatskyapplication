@@ -24,13 +24,13 @@ import {
 	SEASON_END_DATE,
 	EVENT_CURRENCY_INFOGRAPHIC_URL,
 	SEASON_START_DATE,
+	DEFAULT_EMBED_COLOUR,
 } from "../Utility/Constants.js";
 import {
 	consoleLog,
 	resolveCurrencyEmoji,
 	todayDate,
 	treasureCandleRealm,
-	resolveEmbedColor,
 	seasonalCandlesRotation,
 	inSeason,
 	remainingSeasonalCandles,
@@ -200,7 +200,7 @@ export default class DailyGuidesDistribution {
 		const sending = channel && isDailyGuidesDistributionChannel(channel) && isDailyGuidesDistributable(channel, me);
 
 		return new EmbedBuilder()
-			.setColor(await resolveEmbedColor(guild))
+			.setColor(DEFAULT_EMBED_COLOUR)
 			.setFields({
 				name: "Daily Guides Status",
 				value: `${channelId ? channelMention(channelId) : "No channel"}\n${
@@ -257,10 +257,10 @@ export default class DailyGuidesDistribution {
 		return [{ name: SHARD_ERUPTION_NAME, value: SHARD_ERUPTION_NONE }];
 	}
 
-	public static embed(embedColor: number) {
+	public static embed() {
 		const { dailyMessage, quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
 		const date = todayDate();
-		const embed = new EmbedBuilder().setColor(embedColor).setTitle(date.format("dddd, D MMMM YYYY"));
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(date.format("dddd, D MMMM YYYY"));
 		if (dailyMessage) embed.addFields({ name: dailyMessage.title, value: dailyMessage.description });
 		const quests = [quest1, quest2, quest3, quest4].filter((quest): quest is DailyGuideQuest => quest !== null);
 
@@ -352,8 +352,8 @@ export default class DailyGuidesDistribution {
 					throw new Error(`Guild id ${guildId} did not have suitable permissions in channel id ${channelId}.`);
 				}
 
-				// Retrieve our guild-specific embed.
-				const embed = this.embed(await resolveEmbedColor(me.guild));
+				// Retrieve our embed.
+				const embed = this.embed();
 
 				// We need to check if we should update the embed, if it exists.
 				const message = messageId ? await channel.messages.fetch(messageId).catch(() => null) : null;

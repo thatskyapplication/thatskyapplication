@@ -14,14 +14,8 @@ import {
 	ButtonStyle,
 	formatEmoji,
 } from "discord.js";
-import { type Realm, Emoji, Season } from "../../Utility/Constants.js";
-import {
-	cannotUseCustomEmojis,
-	isRealm,
-	isSeason,
-	resolveEmbedColor,
-	resolveSeasonToSeasonalEmoji,
-} from "../../Utility/Utility.js";
+import { type Realm, Emoji, Season, DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
+import { cannotUseCustomEmojis, isRealm, isSeason, resolveSeasonToSeasonalEmoji } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import {
 	type ElderSpirit,
@@ -1758,10 +1752,9 @@ export class SpiritTracker {
 			}) ?? [];
 
 		const embeds = [];
-		const embedColor = await resolveEmbedColor(interaction.guild);
 
 		const embed = new EmbedBuilder()
-			.setColor(embedColor)
+			.setColor(DEFAULT_EMBED_COLOUR)
 			.setFields(embedFields.slice(0, SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT))
 			.setTitle(spirit.name)
 			.setURL(spirit.wikiURL);
@@ -1770,7 +1763,9 @@ export class SpiritTracker {
 
 		if (embedFields.length > SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT) {
 			embeds.push(
-				new EmbedBuilder().setColor(embedColor).setFields(embedFields.slice(SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT)),
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setFields(embedFields.slice(SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT)),
 			);
 		}
 

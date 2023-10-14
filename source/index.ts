@@ -15,13 +15,14 @@ import type { Event } from "./Events/index.js";
 import events from "./Events/index.js";
 import {
 	COMMAND_LOG_CHANNEL_ID,
+	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
 	ERROR_LOG_CHANNEL_ID,
 	GUILD_LOG_CHANNEL_ID,
 	MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID,
 	PRODUCTION,
 } from "./Utility/Constants.js";
-import { consoleLog, resolveEmbedColor } from "./Utility/Utility.js";
+import { consoleLog } from "./Utility/Utility.js";
 
 export const enum LogType {
 	Error,
@@ -104,9 +105,7 @@ class Caelus extends Client {
 				}
 			}
 
-			const embedColor = await resolveEmbedColor(me.guild);
-			for (const embed of embeds) if (embed.data.color === undefined) embed.setColor(embedColor);
-
+			for (const embed of embeds) if (embed.data.color === undefined) embed.setColor(DEFAULT_EMBED_COLOUR);
 			const payload: Parameters<TextChannel["send"]>[0] = { allowedMentions: { parse: [] }, embeds, files };
 			if (content) payload.content = `${stamp} ${content}`;
 			await channel.send(payload);

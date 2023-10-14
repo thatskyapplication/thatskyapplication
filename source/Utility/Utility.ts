@@ -5,7 +5,6 @@ import utc from "dayjs/plugin/utc.js";
 import {
 	type ButtonInteraction,
 	type ChatInputCommandInteraction,
-	type Guild,
 	type InteractionReplyOptions,
 	type InteractionUpdateOptions,
 	type ModalSubmitInteraction,
@@ -24,7 +23,6 @@ import { DAILY_GUIDE_EVENT_ROTATION } from "../Structures/DailyGuides.js";
 import {
 	CURRENT_SEASONAL_CANDLE_EMOJI,
 	CURRENT_SEASONAL_EMOJI,
-	DEFAULT_EMBED_COLOR,
 	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
@@ -119,11 +117,6 @@ export async function cannotUseCustomEmojis(
 	}
 
 	return true;
-}
-
-export async function resolveEmbedColor(guild: Guild | null) {
-	// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-	return (await guild?.members.fetchMe())?.displayColor || DEFAULT_EMBED_COLOR;
 }
 
 export interface CurrencyEmojiOptions {

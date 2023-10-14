@@ -19,6 +19,7 @@ import {
 	ASCENDED_CANDLES_PER_WEEK,
 	Map,
 	WINGED_LIGHT_AREAS,
+	DEFAULT_EMBED_COLOUR,
 } from "../../Utility/Constants.js";
 import {
 	cannotUseCustomEmojis,
@@ -27,7 +28,6 @@ import {
 	remainingSeasonalCandles,
 	resolveCurrencyEmoji,
 	resolveCurrentSeasonalCandleEmoji,
-	resolveEmbedColor,
 	todayDate,
 } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
@@ -205,7 +205,7 @@ export default new (class implements ChatInputCommand {
 		await interaction.reply({
 			embeds: [
 				new EmbedBuilder()
-					.setColor(await resolveEmbedColor(interaction.guild))
+					.setColor(DEFAULT_EMBED_COLOUR)
 					.setDescription(
 						`Start: ${resolveCurrencyEmoji({
 							emoji: Emoji.AscendedCandle,
@@ -275,7 +275,7 @@ export default new (class implements ChatInputCommand {
 		const emoji = resolveCurrentSeasonalCandleEmoji();
 
 		const embed = new EmbedBuilder()
-			.setColor(await resolveEmbedColor(interaction.guild))
+			.setColor(DEFAULT_EMBED_COLOUR)
 			.setDescription(
 				`Start: ${resolveCurrencyEmoji({ emoji, number: start })}\nGoal: ${resolveCurrencyEmoji({
 					emoji,
@@ -351,7 +351,7 @@ export default new (class implements ChatInputCommand {
 		let accumulation = wingBuffs;
 
 		const embed = new EmbedBuilder()
-			.setColor(await resolveEmbedColor(interaction.guild))
+			.setColor(DEFAULT_EMBED_COLOUR)
 			.setDescription(
 				`Started with ${resolveCurrencyEmoji({
 					emoji: Emoji.WingedLight,

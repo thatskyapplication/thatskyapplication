@@ -7,7 +7,7 @@ import {
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 } from "discord.js";
-import { resolveEmbedColor } from "../../Utility/Utility.js";
+import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { waifu, WaifuCategory } from "../../Utility/externalAPIs.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
@@ -35,7 +35,7 @@ export default new (class implements ChatInputCommand {
 	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { channel, createdAt, guild, options } = interaction;
+		const { channel, createdAt, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
 
@@ -69,7 +69,7 @@ export default new (class implements ChatInputCommand {
 		}
 
 		const { url } = await waifu(Math.random() < 0.5 ? WaifuCategory.Kick : WaifuCategory.Slap);
-		const embed = new EmbedBuilder().setColor(await resolveEmbedColor(guild)).setImage(url);
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setImage(url);
 
 		await pg<FightPacket>(Table.Fights).insert({
 			fighter_id: interaction.user.id,

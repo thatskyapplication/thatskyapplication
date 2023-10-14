@@ -27,8 +27,8 @@ import {
 import Seasonal from "../../Structures/Spirits/Seasonal/index.js";
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
 import Spirits from "../../Structures/Spirits/index.js";
-import { Season } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, resolveEmbedColor, resolveSeasonToSeasonalEmoji } from "../../Utility/Utility.js";
+import { DEFAULT_EMBED_COLOUR, Season } from "../../Utility/Constants.js";
+import { cannotUseCustomEmojis, resolveSeasonToSeasonalEmoji } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID = "SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;
@@ -133,12 +133,7 @@ export default new (class implements AutocompleteCommand {
 		const totalCost = seasonalParsing ? spirit.totalCostSeasonal : spirit.totalCost;
 		const totalOffer = totalCost ? resolveOfferToCurrency(totalCost, spiritSeason).join("") : null;
 		if (totalOffer && (await cannotUseCustomEmojis(interaction))) return;
-
-		const embed = new EmbedBuilder()
-			.setColor(await resolveEmbedColor(interaction.guild))
-			.setTitle(spirit.name)
-			.setURL(spirit.wikiURL);
-
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(spirit.name).setURL(spirit.wikiURL);
 		if (spirit.realm) embed.addFields({ name: "Realm", value: spirit.realm, inline: true });
 
 		if (spiritSeason) {

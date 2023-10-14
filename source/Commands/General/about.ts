@@ -7,6 +7,7 @@ import {
 	hyperlink,
 } from "discord.js";
 import {
+	DEFAULT_EMBED_COLOUR,
 	GITHUB_SPONSORS_URL,
 	KO_FI_URL,
 	Map,
@@ -14,7 +15,6 @@ import {
 	THATSKYGAME_URL,
 	WEBSITE_URL,
 } from "../../Utility/Constants.js";
-import { resolveEmbedColor } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
 const DESCRIPTION_TEXT = `Welcome to the lovely Discord bot for ${hyperlink(
@@ -43,12 +43,12 @@ export default new (class implements ChatInputCommand {
 	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { client, guild } = interaction;
+		const { client } = interaction;
 
 		await interaction.reply({
 			embeds: [
 				new EmbedBuilder()
-					.setColor(await resolveEmbedColor(guild))
+					.setColor(DEFAULT_EMBED_COLOUR)
 					.setDescription(DESCRIPTION_TEXT)
 					.setFields(
 						{

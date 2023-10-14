@@ -16,8 +16,7 @@ import {
 	TimestampStyles,
 	formatEmoji,
 } from "discord.js";
-import { Emoji, Season } from "../Utility/Constants.js";
-import { resolveEmbedColor } from "../Utility/Utility.js";
+import { DEFAULT_EMBED_COLOUR, Emoji, Season } from "../Utility/Constants.js";
 import pg, { Table } from "../pg.js";
 
 export interface NotificationPacket {
@@ -391,7 +390,7 @@ export default class Notification {
 		} = this;
 
 		return new EmbedBuilder()
-			.setColor(await resolveEmbedColor(interaction.guild))
+			.setColor(DEFAULT_EMBED_COLOUR)
 			.setFields(
 				{
 					name: NotificationEvent.PollutedGeyser,
