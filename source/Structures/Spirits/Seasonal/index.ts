@@ -13,6 +13,7 @@ import Passage from "./Passage/index.js";
 import Performance from "./Performance/index.js";
 import Prophecy from "./Prophecy/index.js";
 import Remembrance from "./Remembrance/index.js";
+import Revival from "./Revival/index.js";
 import Rhythm from "./Rhythm/index.js";
 import Sanctuary from "./Sanctuary/index.js";
 import Shattering from "./Shattering/index.js";
@@ -36,4 +37,5 @@ export default [
 	...Remembrance,
 	...Passage,
 	...Moments,
+	...Revival,
 ] as const;

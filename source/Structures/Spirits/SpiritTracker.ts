@@ -190,6 +190,11 @@ interface SpiritTrackerPacket {
 	nightbird_whisperer: SpiritTrackerValue;
 	jolly_geologist: SpiritTrackerValue;
 	ascetic_monk: SpiritTrackerValue;
+	hopeful_steward: SpiritTrackerValue;
+	vestige_of_a_deserted_oasis: SpiritTrackerValue;
+	memory_of_a_lost_village: SpiritTrackerValue;
+	echo_of_an_abandoned_refuge: SpiritTrackerValue;
+	remnant_of_a_forgotten_haven: SpiritTrackerValue;
 }
 
 interface SpiritTrackerData {
@@ -343,6 +348,11 @@ interface SpiritTrackerData {
 	nightbirdWhisperer: SpiritTrackerPacket["nightbird_whisperer"];
 	jollyGeologist: SpiritTrackerPacket["jolly_geologist"];
 	asceticMonk: SpiritTrackerPacket["ascetic_monk"];
+	hopefulSteward: SpiritTrackerPacket["hopeful_steward"];
+	vestigeOfADesertedOasis: SpiritTrackerPacket["vestige_of_a_deserted_oasis"];
+	memoryOfALostVillage: SpiritTrackerPacket["memory_of_a_lost_village"];
+	echoOfAnAbandonedRefuge: SpiritTrackerPacket["echo_of_an_abandoned_refuge"];
+	remnantOfAForgottenHaven: SpiritTrackerPacket["remnant_of_a_forgotten_haven"];
 }
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
@@ -695,6 +705,16 @@ export class SpiritTracker {
 
 	public asceticMonk!: SpiritTrackerData["asceticMonk"];
 
+	public hopefulSteward!: SpiritTrackerData["hopefulSteward"];
+
+	public vestigeOfADesertedOasis!: SpiritTrackerData["vestigeOfADesertedOasis"];
+
+	public memoryOfALostVillage!: SpiritTrackerData["memoryOfALostVillage"];
+
+	public echoOfAnAbandonedRefuge!: SpiritTrackerData["echoOfAnAbandonedRefuge"];
+
+	public remnantOfAForgottenHaven!: SpiritTrackerData["remnantOfAForgottenHaven"];
+
 	public constructor(profile: SpiritTrackerPacket) {
 		this.userId = profile.user_id;
 		this.patch(profile);
@@ -850,6 +870,11 @@ export class SpiritTracker {
 		this.nightbirdWhisperer = data.nightbird_whisperer;
 		this.jollyGeologist = data.jolly_geologist;
 		this.asceticMonk = data.ascetic_monk;
+		this.hopefulSteward = data.hopeful_steward;
+		this.vestigeOfADesertedOasis = data.vestige_of_a_deserted_oasis;
+		this.memoryOfALostVillage = data.memory_of_a_lost_village;
+		this.echoOfAnAbandonedRefuge = data.echo_of_an_abandoned_refuge;
+		this.remnantOfAForgottenHaven = data.remnant_of_a_forgotten_haven;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -1334,6 +1359,21 @@ export class SpiritTracker {
 				break;
 			case SpiritName.AsceticMonk:
 				spirit_name = "ascetic_monk";
+				break;
+			case SpiritName.HopefulSteward:
+				spirit_name = "hopeful_steward";
+				break;
+			case SpiritName.VestigeOfADesertedOasis:
+				spirit_name = "vestige_of_a_deserted_oasis";
+				break;
+			case SpiritName.MemoryOfALostVillage:
+				spirit_name = "memory_of_a_lost_village";
+				break;
+			case SpiritName.EchoOfAnAbandonedRefuge:
+				spirit_name = "echo_of_an_abandoned_refuge";
+				break;
+			case SpiritName.RemnantOfAForgottenHaven:
+				spirit_name = "remnant_of_a_forgotten_haven";
 				break;
 		}
 
@@ -2139,6 +2179,16 @@ export class SpiritTracker {
 				return this.jollyGeologist;
 			case SpiritName.AsceticMonk:
 				return this.asceticMonk;
+			case SpiritName.HopefulSteward:
+				return this.hopefulSteward;
+			case SpiritName.VestigeOfADesertedOasis:
+				return this.vestigeOfADesertedOasis;
+			case SpiritName.MemoryOfALostVillage:
+				return this.memoryOfALostVillage;
+			case SpiritName.EchoOfAnAbandonedRefuge:
+				return this.echoOfAnAbandonedRefuge;
+			case SpiritName.RemnantOfAForgottenHaven:
+				return this.remnantOfAForgottenHaven;
 		}
 	}
 }
