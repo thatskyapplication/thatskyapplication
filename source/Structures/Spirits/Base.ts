@@ -207,6 +207,13 @@ export enum SpiritName {
 	NightbirdWhisperer = "Nightbird Whisperer",
 	JollyGeologist = "Jolly Geologist",
 	AsceticMonk = "Ascetic Monk",
+
+	// Season of Revival
+	HopefulSteward = "Hopeful Steward",
+	VestigeOfADesertedOasis = "Vestige of a Deserted Oasis",
+	MemoryOfALostVillage = "Memory of a Lost Village",
+	EchoOfAnAbandonedRefuge = "Echo of an Abandoned Refuge",
+	RemnantOfAForgottenHaven = "Remnant of a Forgotten Haven",
 }
 
 export const spiritNames = Object.values(SpiritName);
