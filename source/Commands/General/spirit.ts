@@ -211,14 +211,16 @@ export default new (class implements AutocompleteCommand {
 						let expression = null;
 						let stance = null;
 						let call = null;
+						const isSeasonalSpirit = spirit.isSeasonalSpirit();
 
-						if (spirit.isSeasonalSpirit()) {
+						if (isSeasonalSpirit) {
 							expression = spirit.expression?.toUpperCase() ?? null;
 							stance = spirit.stance?.toUpperCase() ?? null;
 							call = spirit.call?.toUpperCase() ?? null;
 						}
 
-						const seasonName = spirit.isSeasonalSpirit() ? spirit.season.toUpperCase() : null;
+						const seasonName = isSeasonalSpirit || spirit.isGuideSpirit() ? spirit.season.toUpperCase() : null;
+
 						/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 						return (
 							name.toUpperCase().includes(focused) ||
