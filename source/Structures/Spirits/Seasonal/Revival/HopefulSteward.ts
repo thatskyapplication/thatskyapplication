@@ -7,6 +7,7 @@ export default new GuideSpirit({
 	name: SpiritName.HopefulSteward,
 	season: Season.Revival,
 	offer: {
+		inProgress: true,
 		hasInfographic: false,
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Quest 1", cost: null })
