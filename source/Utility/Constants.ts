@@ -97,8 +97,8 @@ export const DOUBLE_SEASONAL_LIGHT_EVENT_DURATION =
 export const SEASON_START_DATE = skyDate(2_023, 10, 16); // Season of Revival.
 export const SEASON_END_DATE = skyDate(2_023, 12, 31); // Season of Revival.
 export const SEASON_DURATION = SEASON_END_DATE.diff(SEASON_START_DATE, "days") + 1;
-export const EVENT_START_DATE = skyDate(2_023, 10, 2); // Days of Style.
-export const EVENT_END_DATE = skyDate(2_023, 10, 16); // Days of Style.
+export const EVENT_START_DATE = skyDate(2_023, 10, 23); // Days of Mischief.
+export const EVENT_END_DATE = skyDate(2_023, 11, 12); // Days of Mischief.
 
 // Current seasonal information.
 export const CURRENT_SEASONAL_EMOJI = Emoji.SeasonRevival;
