@@ -8,7 +8,6 @@ export default new SeasonalSpirit({
 	season: Season.Revival,
 	offer: {
 		hasInfographic: false,
-		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Blessing 1", cost: { seasonalCandles: 20 } })
 			.set(1 << 1, { item: "Cape", cost: null })
