@@ -17,8 +17,8 @@ import {
 } from "discord.js";
 import {
 	Emoji,
-	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
-	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
+	// DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
+	// DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	EVENT_END_DATE,
 	EVENT_START_DATE,
 	SEASON_END_DATE,
@@ -31,7 +31,7 @@ import {
 	resolveCurrencyEmoji,
 	todayDate,
 	treasureCandleRealm,
-	seasonalCandlesRotation,
+	// seasonalCandlesRotation,
 	inSeason,
 	remainingSeasonalCandles,
 	resolveCurrentSeasonalCandleEmoji,
@@ -291,12 +291,16 @@ export default class DailyGuidesDistribution {
 				iconURL: formatEmojiURL(resolveCurrentSeasonalEmoji()!),
 			});
 
-			const { rotation, url } = seasonalCandlesRotation();
-			let rotationNumber = String(rotation);
+			// const { rotation, url } = seasonalCandlesRotation();
+			// let rotationNumber = String(rotation);
 
-			if (isDuring(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, date)) {
-				rotationNumber = "1 & 2";
-			}
+			// if (isDuring(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, date)) {
+			// 	rotationNumber = "1 & 2";
+			// }
+
+			const rotationNumber = 1 as const;
+			const url =
+				"https://cdn.discordapp.com/attachments/801778605486374943/1163373280179273749/01_Daylight_Prairie_-_Rotation_1.png?ex=653f56cc&is=652ce1cc&hm=8ef1a34cea35f2f7c507b4075895865109af5c63894728bacfd7aca1fd8af6d3&" as const;
 
 			const remainingCandles = remainingSeasonalCandles();
 			let seasonalCandlesLeft;
