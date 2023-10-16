@@ -101,8 +101,8 @@ export const EVENT_START_DATE = skyDate(2_023, 10, 2); // Days of Style.
 export const EVENT_END_DATE = skyDate(2_023, 10, 16); // Days of Style.
 
 // Current seasonal information.
-export const CURRENT_SEASONAL_EMOJI = Emoji.HeartRevival;
-export const CURRENT_SEASONAL_CANDLE_EMOJI = Emoji.HeartRevival;
+export const CURRENT_SEASONAL_EMOJI = Emoji.SeasonRevival;
+export const CURRENT_SEASONAL_CANDLE_EMOJI = Emoji.CandleRevival;
 
 // Miscellaneous constants.
 export const PRODUCTION = process.env.NODE_ENV === "production";
