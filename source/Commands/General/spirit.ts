@@ -169,7 +169,11 @@ export default new (class implements AutocompleteCommand {
 					),
 				);
 			} else {
-				description.push(`⚠️ This ${spiritSeason === Season.Shattering ? "entity" : "spirit"} has not yet returned.`);
+				description.push(
+					`⚠️ This ${
+						spiritSeason === Season.Shattering ? "entity" : spiritSeason === Season.Revival ? "shop" : "spirit"
+					} has not yet returned.`,
+				);
 			}
 		}
 
