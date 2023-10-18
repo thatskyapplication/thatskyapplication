@@ -300,7 +300,7 @@ export default class DailyGuidesDistribution {
 
 			const rotationNumber = 1 as const;
 			const url =
-				"https://cdn.discordapp.com/attachments/801778605486374943/1163734107528904714/02_Hidden_Forest_-_Rotation_1.png?ex=6540a6d8&is=652e31d8&hm=9fbaf458eb566fa075f9311cb54b397b12a83b7b134bf208731e6d4b593a0967&" as const;
+				"https://cdn.discordapp.com/attachments/801778605486374943/1164096039163285534/03_Valley_of_Triumph_-_Rotation_1.png?ex=6541f7eb&is=652f82eb&hm=f0ede7043dba578b0ae88a6e0dd2ee6d8b3a68313e37503e9232e55a117fff2f&" as const;
 
 			const remainingCandles = remainingSeasonalCandles();
 			let seasonalCandlesLeft;
