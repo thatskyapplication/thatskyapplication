@@ -16,9 +16,10 @@ import {
 	formatEmoji,
 } from "discord.js";
 import {
+	type RotationNumber,
 	Emoji,
-	// DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
-	// DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
+	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
+	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	EVENT_END_DATE,
 	EVENT_START_DATE,
 	SEASON_END_DATE,
@@ -31,7 +32,7 @@ import {
 	resolveCurrencyEmoji,
 	todayDate,
 	treasureCandleRealm,
-	// seasonalCandlesRotation,
+	seasonalCandlesRotation,
 	inSeason,
 	remainingSeasonalCandles,
 	resolveCurrentSeasonalCandleEmoji,
@@ -39,8 +40,7 @@ import {
 	formatEmojiURL,
 	eventRotationLetter,
 	isDuring,
-	resolveCurrentSeason,
-	fullSeasonName,
+	seasonalCandlesRotationURL,
 } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
@@ -293,20 +293,14 @@ export default class DailyGuidesDistribution {
 				iconURL: formatEmojiURL(resolveCurrentSeasonalEmoji()!),
 			});
 
-			// const { rotation, url } = seasonalCandlesRotation();
-			// let rotationNumber = String(rotation);
+			const { rotation, realm } = seasonalCandlesRotation();
+			let rotationNumber: RotationNumber | 3 = rotation;
+			let url = seasonalCandlesRotationURL(realm, rotation);
 
-			// if (isDuring(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, date)) {
-			// 	rotationNumber = "1 & 2";
-			// }
-
-			const rotationNumber = 1 as const;
-
-			const url = `https://cdn.thatskyapplication.com/daily_guides/seasonal_candles/${fullSeasonName(
-				resolveCurrentSeason()!,
-			)
-				.toLowerCase()
-				.replaceAll(" ", "_")}/golden_wasteland/rotation_1.webp` as const;
+			if (isDuring(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, date)) {
+				rotationNumber = 3;
+				url = seasonalCandlesRotationURL(realm, rotation);
+			}
 
 			const remainingCandles = remainingSeasonalCandles();
 			let seasonalCandlesLeft;

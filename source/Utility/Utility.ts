@@ -1,3 +1,4 @@
+import { URL } from "node:url";
 import { inspect } from "node:util";
 import dayjs, { type Dayjs } from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
@@ -43,6 +44,7 @@ import {
 	SEASON_START_DATE,
 	VALID_REALM,
 	CURRENT_SEASON,
+	CDN_URL,
 } from "./Constants.js";
 
 const cdn = new CDN();
@@ -86,6 +88,17 @@ export function treasureCandleRealm() {
 
 export function seasonalCandlesRotation() {
 	return SEASONAL_CANDLES_ROTATION[todayDate().diff(SEASON_START_DATE, "days") % 10]!;
+}
+
+export function seasonalCandlesRotationURL(realm: Realm, rotation: 1 | 2 | 3) {
+	return String(
+		new URL(
+			`daily_guides/seasonal_candles/${fullSeasonName(resolveCurrentSeason()!)
+				.toLowerCase()
+				.replaceAll(" ", "_")}/${realm.toLowerCase().replaceAll(" ", "_")}/rotation_${rotation}.webp`,
+			CDN_URL,
+		),
+	);
 }
 
 export function eventRotationLetter() {

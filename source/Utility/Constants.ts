@@ -241,49 +241,20 @@ export const VALID_REALM = [
 ] as const;
 
 export type ValidRealm = (typeof VALID_REALM)[number];
+export type RotationNumber = 1 | 2;
 
 export const SEASONAL_CANDLES_ROTATION = [
-	{
-		rotation: 2,
-		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/ec/Vault-of-knowledge-Seasonal-candles-Locations-Pattern-B.png/revision/latest",
-	},
-	{
-		rotation: 2,
-		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/54/Daylight-Prairie-Seasonal-Candles-locations-Pattern-B.png/revision/latest",
-	},
-	{
-		rotation: 1,
-		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8f/Hidden-Forest-Seasonal-Candles-locations-Pattern-B.png/revision/latest",
-	},
-	{
-		rotation: 1,
-		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/66/Valley-of-Triump-Seasonal-Candles-locations-Pattern-B.png/revision/latest",
-	},
-	{
-		rotation: 1,
-		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/a3/Golden-Wasteland-Seasonal-candles-Locations-Pattern-B.png/revision/latest",
-	},
-	{
-		rotation: 1,
-		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/ec/Vault-of-knowledge-Seasonal-candles-Locations-Pattern-B.png/revision/latest",
-	},
-	{
-		rotation: 1,
-		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/54/Daylight-Prairie-Seasonal-Candles-locations-Pattern-B.png/revision/latest",
-	},
-	{
-		rotation: 2,
-		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8f/Hidden-Forest-Seasonal-Candles-locations-Pattern-B.png/revision/latest",
-	},
-	{
-		rotation: 2,
-		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/66/Valley-of-Triump-Seasonal-Candles-locations-Pattern-B.png/revision/latest",
-	},
-	{
-		rotation: 2,
-		url: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/a3/Golden-Wasteland-Seasonal-candles-Locations-Pattern-B.png/revision/latest",
-	},
-] as const satisfies Readonly<{ rotation: 1 | 2; url: string }[]>;
+	{ rotation: 1, realm: Realm.DaylightPrairie },
+	{ rotation: 1, realm: Realm.HiddenForest },
+	{ rotation: 1, realm: Realm.ValleyOfTriumph },
+	{ rotation: 1, realm: Realm.GoldenWasteland },
+	{ rotation: 1, realm: Realm.VaultOfKnowledge },
+	{ rotation: 2, realm: Realm.DaylightPrairie },
+	{ rotation: 2, realm: Realm.HiddenForest },
+	{ rotation: 2, realm: Realm.ValleyOfTriumph },
+	{ rotation: 2, realm: Realm.GoldenWasteland },
+	{ rotation: 2, realm: Realm.VaultOfKnowledge },
+] as const satisfies Readonly<{ rotation: RotationNumber; realm: Realm }[]>;
 
 export const WingedLightCount = {
 	IslesOfDawn: 9,
