@@ -26,6 +26,7 @@ import SkyStory from "./Fun/Sky Story.js";
 // General
 import about from "./General/about.js";
 import calculate from "./General/calculate.js";
+import sharderuption from "./General/shard-eruption.js";
 import SkyProfile from "./General/Sky Profile.js";
 import skyprofile from "./General/sky-profile.js";
 import spirit from "./General/spirit.js";
@@ -42,6 +43,7 @@ const COMMANDS = {
 	hug,
 	notifications,
 	schedule,
+	sharderuption,
 	SkyProfile,
 	skyprofile,
 	SkyStory,

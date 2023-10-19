@@ -6,7 +6,6 @@ import {
 	time,
 	TimestampStyles,
 } from "discord.js";
-import DailyGuides from "../../Structures/DailyGuides.js";
 import {
 	Emoji,
 	MAXIMUM_WINGED_LIGHT,
@@ -28,6 +27,7 @@ import {
 	remainingSeasonalCandles,
 	resolveCurrencyEmoji,
 	resolveCurrentSeasonalCandleEmoji,
+	shardEruption,
 	todayDate,
 } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
@@ -188,7 +188,7 @@ export default new (class implements ChatInputCommand {
 		let result = 0;
 
 		for (let index = 0; ; index++) {
-			const shardEruptionToday = DailyGuides.shardEruption(index);
+			const shardEruptionToday = shardEruption(index);
 
 			if (shardEruptionToday) {
 				const { dangerous, reward } = shardEruptionToday;

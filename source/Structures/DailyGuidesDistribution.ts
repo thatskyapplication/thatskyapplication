@@ -41,6 +41,8 @@ import {
 	eventRotationLetter,
 	isDuring,
 	seasonalCandlesRotationURL,
+	shardEruption,
+	dateString,
 } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
@@ -225,10 +227,10 @@ export default class DailyGuidesDistribution {
 	}
 
 	public static shardEruptionFieldData() {
-		const shardEruptionToday = DailyGuides.shardEruption();
+		const shard = shardEruption();
 
-		if (shardEruptionToday) {
-			const { realm, map, dangerous, reward, timestamps, url } = shardEruptionToday;
+		if (shard) {
+			const { realm, map, dangerous, reward, timestamps, url } = shard;
 
 			return [
 				{
@@ -262,7 +264,7 @@ export default class DailyGuidesDistribution {
 	public static embed() {
 		const { dailyMessage, quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
 		const date = todayDate();
-		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(date.format("dddd, D MMMM YYYY"));
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(dateString());
 		if (dailyMessage) embed.addFields({ name: dailyMessage.title, value: dailyMessage.description });
 		const quests = [quest1, quest2, quest3, quest4].filter((quest): quest is DailyGuideQuest => quest !== null);
 

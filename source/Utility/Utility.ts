@@ -45,6 +45,7 @@ import {
 	VALID_REALM,
 	CURRENT_SEASON,
 	CDN_URL,
+	SHARD_ERUPTION_PREDICTION_DATA,
 } from "./Constants.js";
 
 const cdn = new CDN();
@@ -368,6 +369,39 @@ export function resolveMap(rawMap: string) {
 	return inconsistentResult
 		? INCONSISTENT_MAP[inconsistentResult]
 		: Object.values(Map).find((map) => map.toUpperCase() === upperRawMap) ?? null;
+}
+
+export function resolveShardEruptionMapURL(map: Map) {
+	return new URL(`shards/${map.replaceAll(" ", "_")}.png`, CDN_URL);
+}
+
+export function shardEruption(this: void, daysOffset = 0) {
+	const date = todayDate().add(daysOffset, "days");
+	const dayOfMonth = date.date();
+	const dayOfWeek = date.day();
+	const dangerous = dayOfMonth % 2 === 1;
+	const infoIndex = dangerous ? (((dayOfMonth - 1) / 2) % 3) + 2 : (dayOfMonth / 2) % 2;
+	const { noShardWeekDay, interval, offset, area } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex]!;
+	// @ts-expect-error Too narrow.
+	const noShardDay = noShardWeekDay.includes(dayOfWeek);
+	if (noShardDay) return null;
+	const realmIndex = (dayOfMonth - 1) % 5;
+	const { map, url, reward } = area[realmIndex]!;
+	const timestamps = [];
+
+	for (
+		let startTime = date.add(offset, "milliseconds");
+		timestamps.length < 3;
+		startTime = startTime.add(interval * 3_600_000, "milliseconds")
+	) {
+		timestamps.push({ start: startTime.add(520, "seconds"), end: startTime.add(4, "hours") });
+	}
+
+	return { realm: VALID_REALM[realmIndex]!, map, dangerous, reward, timestamps, url };
+}
+
+export function dateString() {
+	return todayDate().format("dddd, D MMMM YYYY");
 }
 
 export function time(timestamp: number, style: TimestampStylesString, relative = false) {
