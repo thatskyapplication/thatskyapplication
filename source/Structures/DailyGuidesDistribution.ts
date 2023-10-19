@@ -235,9 +235,8 @@ export default class DailyGuidesDistribution {
 			return [
 				{
 					name: SHARD_ERUPTION_NAME,
-					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${formatEmoji(
-						dangerous ? Emoji.Yes : Emoji.No,
-						true,
+					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nType: ${formatEmoji(
+						dangerous ? Emoji.ShardStrong : Emoji.ShardRegular,
 					)}\nReward: ${
 						reward === 200
 							? "200 pieces of light"

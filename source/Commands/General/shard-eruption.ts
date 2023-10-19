@@ -29,7 +29,7 @@ export default new (class implements ChatInputCommand {
 				.setFields(
 					{
 						name: "Information",
-						value: `${realm} (${map})\nDangerous ${formatEmoji(dangerous ? Emoji.Yes : Emoji.No, true)}\n${
+						value: `${formatEmoji(dangerous ? Emoji.ShardStrong : Emoji.ShardRegular)} ${realm} (${map})\n${
 							reward === 200
 								? `200 ${formatEmoji(Emoji.Light)}`
 								: resolveCurrencyEmoji({ emoji: Emoji.AscendedCandle, number: reward })
@@ -43,7 +43,7 @@ export default new (class implements ChatInputCommand {
 					// },
 					// {
 					// 	name: "Dangerous",
-					// 	value: formatEmoji(dangerous ? Emoji.Yes : Emoji.No, true),
+					// 	value: formatEmoji(dangerous ? Emoji.ShardStrong : Emoji.ShardRegular),
 					// 	inline: true,
 					// },
 					// {

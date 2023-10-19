@@ -77,6 +77,8 @@ export const enum Emoji {
 	CandleRevival = "1162098562209951746",
 	HeartRevival = "1162098577456238663",
 	Light = "1164342686950625300",
+	ShardRegular = "1164672237761200130",
+	ShardStrong = "1164672254911713382",
 }
 
 export enum Season {
