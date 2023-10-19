@@ -42,6 +42,7 @@ import {
 	SEASON_DURATION,
 	SEASON_START_DATE,
 	VALID_REALM,
+	CURRENT_SEASON,
 } from "./Constants.js";
 
 const cdn = new CDN();
@@ -268,12 +269,20 @@ export function resolveSeasonToHeartEmoji(season: Exclude<Season, Season.Gratitu
 	}
 }
 
+export function resolveCurrentSeason() {
+	return inSeason() ? CURRENT_SEASON : null;
+}
+
 export function resolveCurrentSeasonalEmoji() {
 	return inSeason() ? CURRENT_SEASONAL_EMOJI : null;
 }
 
 export function resolveCurrentSeasonalCandleEmoji() {
 	return inSeason() ? CURRENT_SEASONAL_CANDLE_EMOJI : Emoji.SeasonalCandle;
+}
+
+export function fullSeasonName(season: Season) {
+	return `Season of ${season === Season.LittlePrince ? "the " : ""}${season}`;
 }
 
 export function remainingSeasonalCandles() {

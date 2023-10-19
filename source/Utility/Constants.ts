@@ -78,6 +78,28 @@ export const enum Emoji {
 	HeartRevival = "1162098577456238663",
 }
 
+export enum Season {
+	Gratitude = "Gratitude",
+	Lightseekers = "Lightseekers",
+	Belonging = "Belonging",
+	Rhythm = "Rhythm",
+	Enchantment = "Enchantment",
+	Sanctuary = "Sanctuary",
+	Prophecy = "Prophecy",
+	Dreams = "Dreams",
+	Assembly = "Assembly",
+	LittlePrince = "Little Prince",
+	Flight = "Flight",
+	Abyss = "Abyss",
+	Performance = "Performance",
+	Shattering = "Shattering",
+	Aurora = "AURORA",
+	Remembrance = "Remembrance",
+	Passage = "Passage",
+	Moments = "Moments",
+	Revival = "Revival",
+}
+
 // Log channels.
 export const ERROR_LOG_CHANNEL_ID = "1040806599293407263" as const;
 export const GUILD_LOG_CHANNEL_ID = "1107804841813749780" as const;
@@ -101,6 +123,7 @@ export const EVENT_START_DATE = skyDate(2_023, 10, 23); // Days of Mischief.
 export const EVENT_END_DATE = skyDate(2_023, 11, 12); // Days of Mischief.
 
 // Current seasonal information.
+export const CURRENT_SEASON = Season.Revival;
 export const CURRENT_SEASONAL_EMOJI = Emoji.SeasonRevival;
 export const CURRENT_SEASONAL_CANDLE_EMOJI = Emoji.CandleRevival;
 
@@ -273,25 +296,3 @@ export const WingedLightCount = {
 	AncientMemory: 6,
 	Orbit: 1,
 } as const;
-
-export enum Season {
-	Gratitude = "Gratitude",
-	Lightseekers = "Lightseekers",
-	Belonging = "Belonging",
-	Rhythm = "Rhythm",
-	Enchantment = "Enchantment",
-	Sanctuary = "Sanctuary",
-	Prophecy = "Prophecy",
-	Dreams = "Dreams",
-	Assembly = "Assembly",
-	LittlePrince = "Little Prince",
-	Flight = "Flight",
-	Abyss = "Abyss",
-	Performance = "Performance",
-	Shattering = "Shattering",
-	Aurora = "AURORA",
-	Remembrance = "Remembrance",
-	Passage = "Passage",
-	Moments = "Moments",
-	Revival = "Revival",
-}
