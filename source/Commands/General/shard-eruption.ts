@@ -1,5 +1,6 @@
 import {
 	type ChatInputCommandInteraction,
+	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	EmbedBuilder,
 	formatEmoji,
@@ -15,9 +16,23 @@ export default new (class implements ChatInputCommand {
 		name: "shard-eruption",
 		description: "View the shard eruption schedule.",
 		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "today",
+				description: "View the shard eruption today.",
+			},
+		],
 	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
+		switch (interaction.options.getSubcommand()) {
+			case "today":
+				await this.today(interaction);
+		}
+	}
+
+	public async today(interaction: ChatInputCommandInteraction) {
 		if (await cannotUseCustomEmojis(interaction)) return;
 		const shard = shardEruption();
 		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(dateString());
