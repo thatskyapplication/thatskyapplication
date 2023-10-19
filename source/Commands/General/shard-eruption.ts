@@ -16,6 +16,7 @@ import {
 	cannotUseCustomEmojis,
 	dateString,
 	resolveCurrencyEmoji,
+	resolveShardEruptionEmoji,
 	shardEruption,
 	todayDate,
 } from "../../Utility/Utility.js";
@@ -48,20 +49,41 @@ export default new (class implements ChatInputCommand {
 
 	public async today(interaction: ButtonInteraction | ChatInputCommandInteraction, offset = 0) {
 		if (await cannotUseCustomEmojis(interaction)) return;
-		const shard = shardEruption(offset);
+		const shardYesterday = shardEruption(offset - 1);
+		const shardToday = shardEruption(offset);
+		const shardTomorrow = shardEruption(offset + 1);
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
 			.setTitle(dateString(todayDate().add(offset, "days")));
 
-		if (shard) {
-			const { realm, map, dangerous, reward, timestamps, url } = shard;
+		const buttonYesterday = new ButtonBuilder()
+			.setCustomId(`${SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID}§${offset - 1}`)
+			.setLabel("Back")
+			.setStyle(ButtonStyle.Primary);
+
+		const buttonToday = new ButtonBuilder()
+			.setCustomId(SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID)
+			.setDisabled(offset === 0)
+			.setLabel("Today")
+			.setStyle(ButtonStyle.Success);
+
+		const buttonTomorrow = new ButtonBuilder()
+			.setCustomId(`${SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID}§${offset + 1}`)
+			.setLabel("Next")
+			.setStyle(ButtonStyle.Primary);
+
+		if (shardYesterday) buttonYesterday.setEmoji(resolveShardEruptionEmoji(shardYesterday.dangerous));
+
+		if (shardToday) {
+			const { realm, map, dangerous, reward, timestamps, url } = shardToday;
+			const emoji = resolveShardEruptionEmoji(dangerous);
 
 			embed
 				.setFields(
 					{
 						name: "Information",
-						value: `${formatEmoji(dangerous ? Emoji.ShardStrong : Emoji.ShardRegular)} ${realm} (${map})\n${
+						value: `${formatEmoji(emoji)} ${realm} (${map})\n${
 							reward === 200
 								? `200 ${formatEmoji(Emoji.Light)}`
 								: resolveCurrencyEmoji({ emoji: Emoji.AscendedCandle, number: reward })
@@ -80,28 +102,16 @@ export default new (class implements ChatInputCommand {
 					},
 				)
 				.setImage(String(url));
+
+			buttonToday.setEmoji(emoji);
 		} else {
 			embed.setDescription(`There are no shard eruptions ${offset === 0 ? "today" : "on this day"}.`);
 		}
 
+		if (shardTomorrow) buttonTomorrow.setEmoji(resolveShardEruptionEmoji(shardTomorrow.dangerous));
+
 		const response = {
-			components: [
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					new ButtonBuilder()
-						.setCustomId(`${SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID}§${offset - 1}`)
-						.setLabel("Back")
-						.setStyle(ButtonStyle.Primary),
-					new ButtonBuilder()
-						.setCustomId(SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID)
-						.setDisabled(offset === 0)
-						.setLabel("Today")
-						.setStyle(ButtonStyle.Success),
-					new ButtonBuilder()
-						.setCustomId(`${SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID}§${offset + 1}`)
-						.setLabel("Next")
-						.setStyle(ButtonStyle.Primary),
-				),
-			],
+			components: [new ActionRowBuilder<ButtonBuilder>().setComponents(buttonYesterday, buttonToday, buttonTomorrow)],
 			embeds: [embed],
 		};
 

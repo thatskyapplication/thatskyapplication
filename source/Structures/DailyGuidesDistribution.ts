@@ -43,6 +43,7 @@ import {
 	seasonalCandlesRotationURL,
 	shardEruption,
 	dateString,
+	resolveShardEruptionEmoji,
 } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
@@ -236,7 +237,7 @@ export default class DailyGuidesDistribution {
 				{
 					name: SHARD_ERUPTION_NAME,
 					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nType: ${formatEmoji(
-						dangerous ? Emoji.ShardStrong : Emoji.ShardRegular,
+						resolveShardEruptionEmoji(dangerous),
 					)}\nReward: ${
 						reward === 200
 							? "200 pieces of light"

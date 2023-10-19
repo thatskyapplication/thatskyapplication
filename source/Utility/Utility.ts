@@ -400,6 +400,10 @@ export function shardEruption(daysOffset = 0) {
 	return { realm: VALID_REALM[realmIndex]!, map, dangerous, reward, timestamps, url };
 }
 
+export function resolveShardEruptionEmoji(dangerous: boolean) {
+	return dangerous ? Emoji.ShardStrong : Emoji.ShardRegular;
+}
+
 export function dateString(date: Dayjs) {
 	return date.format("dddd, D MMMM YYYY");
 }
