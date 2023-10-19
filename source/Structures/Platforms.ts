@@ -35,14 +35,14 @@ export function resolveBitsToPlatform(bits: number) {
 export function resolvePlatformToEmoji(platform: (typeof PlatformFlagsToString)[keyof typeof PlatformFlagsToString]) {
 	switch (platform) {
 		case PlatformFlagsToString[PlatformFlags.iOS]:
-			return Emoji.iOS;
+			return Emoji.PlatformIOS;
 		case PlatformFlagsToString[PlatformFlags.Android]:
-			return Emoji.Android;
+			return Emoji.PlatformAndroid;
 		case PlatformFlagsToString[PlatformFlags.Mac]:
-			return Emoji.Mac;
+			return Emoji.PlatformMac;
 		case PlatformFlagsToString[PlatformFlags.NintendoSwitch]:
-			return Emoji.Switch;
+			return Emoji.PlatformSwitch;
 		case PlatformFlagsToString[PlatformFlags.PlayStation]:
-			return Emoji.PlayStation;
+			return Emoji.PlatformPlayStation;
 	}
 }
