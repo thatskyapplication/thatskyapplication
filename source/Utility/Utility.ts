@@ -375,7 +375,7 @@ export function resolveShardEruptionMapURL(map: Map) {
 	return new URL(`shards/${map.replaceAll(" ", "_")}.png`, CDN_URL);
 }
 
-export function shardEruption(this: void, daysOffset = 0) {
+export function shardEruption(daysOffset = 0) {
 	const date = todayDate().add(daysOffset, "days");
 	const dayOfMonth = date.date();
 	const dayOfWeek = date.day();
@@ -400,8 +400,8 @@ export function shardEruption(this: void, daysOffset = 0) {
 	return { realm: VALID_REALM[realmIndex]!, map, dangerous, reward, timestamps, url };
 }
 
-export function dateString() {
-	return todayDate().format("dddd, D MMMM YYYY");
+export function dateString(date: Dayjs) {
+	return date.format("dddd, D MMMM YYYY");
 }
 
 export function time(timestamp: number, style: TimestampStylesString, relative = false) {

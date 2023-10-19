@@ -263,7 +263,7 @@ export default class DailyGuidesDistribution {
 	public static embed() {
 		const { dailyMessage, quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
 		const date = todayDate();
-		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(dateString());
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(dateString(date));
 		if (dailyMessage) embed.addFields({ name: dailyMessage.title, value: dailyMessage.description });
 		const quests = [quest1, quest2, quest3, quest4].filter((quest): quest is DailyGuideQuest => quest !== null);
 

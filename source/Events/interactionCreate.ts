@@ -23,6 +23,11 @@ import {
 } from "../Commands/Admin/admin.js";
 import { HeartHistoryNavigationType, HEART_HISTORY_BACK, HEART_HISTORY_FORWARD } from "../Commands/Fun/heart.js";
 import {
+	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
+} from "../Commands/General/shard-eruption.js";
+import {
 	SKY_PROFILE_MODAL,
 	SKY_PROFILE_PLATFORM_CUSTOM_ID,
 	SKY_PROFILE_SEASONS_CUSTOM_ID,
@@ -242,6 +247,19 @@ export const event: Event<typeof name> = {
 
 				if (customId.startsWith(SPIRIT_TRACKER_EVERYTHING_CUSTOM_ID)) {
 					await SpiritTracker.set(interaction);
+					return;
+				}
+
+				if (customId === SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID) {
+					await COMMANDS.sharderuption.today(interaction);
+					return;
+				}
+
+				if (
+					customId.startsWith(SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID) ||
+					customId.startsWith(SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID)
+				) {
+					await COMMANDS.sharderuption.today(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
 					return;
 				}
 
