@@ -51,6 +51,7 @@ export default new (class implements ChatInputCommand {
 		if (await cannotUseCustomEmojis(interaction)) return;
 		const shardYesterday = shardEruption(offset - 1);
 		const shardToday = shardEruption(offset);
+		const shard = shardEruption();
 		const shardTomorrow = shardEruption(offset + 1);
 
 		const embed = new EmbedBuilder()
@@ -62,7 +63,7 @@ export default new (class implements ChatInputCommand {
 			.setLabel("Back")
 			.setStyle(ButtonStyle.Primary);
 
-		const buttonToday = new ButtonBuilder()
+		const button = new ButtonBuilder()
 			.setCustomId(SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID)
 			.setDisabled(offset === 0)
 			.setLabel("Today")
@@ -102,16 +103,15 @@ export default new (class implements ChatInputCommand {
 					},
 				)
 				.setImage(String(url));
-
-			buttonToday.setEmoji(emoji);
 		} else {
 			embed.setDescription(`There are no shard eruptions ${offset === 0 ? "today" : "on this day"}.`);
 		}
 
+		if (shard) button.setEmoji(resolveShardEruptionEmoji(shard.dangerous));
 		if (shardTomorrow) buttonTomorrow.setEmoji(resolveShardEruptionEmoji(shardTomorrow.dangerous));
 
 		const response = {
-			components: [new ActionRowBuilder<ButtonBuilder>().setComponents(buttonYesterday, buttonToday, buttonTomorrow)],
+			components: [new ActionRowBuilder<ButtonBuilder>().setComponents(buttonYesterday, button, buttonTomorrow)],
 			embeds: [embed],
 		};
 
