@@ -51,24 +51,6 @@ export default new (class implements ChatInputCommand {
 						}`,
 						inline: true,
 					},
-					// {
-					// 	name: "Location",
-					// 	value: `${realm} (${map})`,
-					// 	inline: true,
-					// },
-					// {
-					// 	name: "Dangerous",
-					// 	value: formatEmoji(dangerous ? Emoji.ShardStrong : Emoji.ShardRegular),
-					// 	inline: true,
-					// },
-					// {
-					// 	name: "Reward",
-					// 	value:
-					// 		reward === 200
-					// 			? `200 ${formatEmoji(Emoji.Light)}`
-					// 			: resolveCurrencyEmoji({ emoji: Emoji.AscendedCandle, number: reward }),
-					// 	inline: true,
-					// },
 					{
 						name: "Timestamps",
 						value: timestamps
@@ -80,10 +62,6 @@ export default new (class implements ChatInputCommand {
 						inline: true,
 					},
 				)
-				// .setFooter({
-				// 	text: shard.dangerous ? "Dangerous shard eruption" : "Regular shard eruption.",
-				// 	iconURL: "https://cdn.discordapp.com/emojis/1111792367104708699.gif?size=96&quality=lossless",
-				// })
 				.setImage(String(url));
 		} else {
 			embed.setDescription("There are no shard eruptions today.");
