@@ -240,7 +240,7 @@ export default class DailyGuidesDistribution {
 						resolveShardEruptionEmoji(dangerous),
 					)}\nReward: ${
 						reward === 200
-							? "200 pieces of light"
+							? `200 ${formatEmoji(Emoji.Light)}`
 							: resolveCurrencyEmoji({ emoji: Emoji.AscendedCandle, number: reward })
 					}`,
 					inline: true,
