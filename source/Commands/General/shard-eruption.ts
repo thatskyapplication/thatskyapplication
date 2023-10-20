@@ -208,6 +208,7 @@ export default new (class implements ChatInputCommand {
 					new ButtonBuilder()
 						.setCustomId(`${SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID}§${offset}`)
 						.setEmoji("🌐")
+						.setLabel("Browse")
 						.setStyle(ButtonStyle.Secondary),
 				),
 			],
