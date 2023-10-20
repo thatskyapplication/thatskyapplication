@@ -1,6 +1,5 @@
 import type { Dayjs } from "dayjs";
 import {
-	type ButtonInteraction,
 	type ChatInputCommandInteraction,
 	type Snowflake,
 	type StringSelectMenuInteraction,
@@ -8,6 +7,7 @@ import {
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	ButtonBuilder,
+	ButtonInteraction,
 	ButtonStyle,
 	EmbedBuilder,
 	formatEmoji,
@@ -32,23 +32,32 @@ import type { ChatInputCommand } from "../index.js";
 export const SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID" as const;
 export const SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID" as const;
 export const SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID" as const;
-export const SHARD_ERUPTION_BROWSE_1_SELECT_MENU_CUSTOM_ID = "SHARD_ERUPTION_BROWSE_1_SELECT_MENU_CUSTOM_ID" as const;
-export const SHARD_ERUPTION_BROWSE_2_SELECT_MENU_CUSTOM_ID = "SHARD_ERUPTION_BROWSE_2_SELECT_MENU_CUSTOM_ID" as const;
-export const SHARD_ERUPTION_BROWSE_3_SELECT_MENU_CUSTOM_ID = "SHARD_ERUPTION_BROWSE_3_SELECT_MENU_CUSTOM_ID" as const;
-export const SHARD_ERUPTION_BROWSE_4_SELECT_MENU_CUSTOM_ID = "SHARD_ERUPTION_BROWSE_4_SELECT_MENU_CUSTOM_ID" as const;
+export const SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID" as const;
+export const SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID" as const;
+export const SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID" as const;
+
+export const SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS = [
+	"SHARD_ERUPTION_BROWSE_1_SELECT_MENU_CUSTOM_ID",
+	"SHARD_ERUPTION_BROWSE_2_SELECT_MENU_CUSTOM_ID",
+	"SHARD_ERUPTION_BROWSE_3_SELECT_MENU_CUSTOM_ID",
+	"SHARD_ERUPTION_BROWSE_4_SELECT_MENU_CUSTOM_ID",
+] as const;
+
+const SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH = SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.length;
+
 const MAXIMUM_OPTION_NUMBER = 25 as const;
 const DATE_FORMAT_STRING = "D MMMM";
 
-function generateShardEruptionSelectMenuOptions(date: Dayjs, offset: number) {
+function generateShardEruptionSelectMenuOptions(date: Dayjs, indexStart: number, offset: number) {
 	const options = [];
-	const maximumIndex = MAXIMUM_OPTION_NUMBER + offset;
+	const maximumIndex = MAXIMUM_OPTION_NUMBER + indexStart;
 
-	for (let index = offset; index < maximumIndex; index++) {
+	for (let index = indexStart; index < maximumIndex; index++) {
 		const shardNow = shardEruption(index);
 
 		const stringSelectMenuOption = new StringSelectMenuOptionBuilder()
 			.setLabel(dateString(date.add(index, "days")))
-			.setValue(String(index));
+			.setValue(String(index + offset));
 
 		if (shardNow) {
 			stringSelectMenuOption.setEmoji(resolveShardEruptionEmoji(shardNow.dangerous));
@@ -198,60 +207,57 @@ export default new (class implements ChatInputCommand {
 		}
 	}
 
-	public async view(interaction: ChatInputCommandInteraction) {
-		const today = todayDate();
+	public async view(interaction: ButtonInteraction | ChatInputCommandInteraction, offset = 0) {
+		const shardToday = todayDate().add(offset, "days");
 
-		await interaction.reply({
+		const response = {
 			components: [
-				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId(SHARD_ERUPTION_BROWSE_1_SELECT_MENU_CUSTOM_ID)
-						.setMaxValues(1)
-						.setMinValues(1)
-						.setPlaceholder(
-							`${today.format(DATE_FORMAT_STRING)} - ${today
-								.add(MAXIMUM_OPTION_NUMBER - 1, "days")
-								.format(DATE_FORMAT_STRING)}`,
+				...SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.map((customId, index) => {
+					const currentIndex = MAXIMUM_OPTION_NUMBER * index;
+
+					return new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+						new StringSelectMenuBuilder()
+							.setCustomId(customId)
+							.setMaxValues(1)
+							.setMinValues(1)
+							.setPlaceholder(
+								`${shardToday.add(currentIndex, "days").format(DATE_FORMAT_STRING)} - ${shardToday
+									.add(MAXIMUM_OPTION_NUMBER * (index + 1) - 1, "days")
+									.format(DATE_FORMAT_STRING)}`,
+							)
+							.setOptions(generateShardEruptionSelectMenuOptions(shardToday, currentIndex, offset)),
+					);
+				}),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(
+							`${SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID}§${
+								offset - MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH
+							}`,
 						)
-						.setOptions(generateShardEruptionSelectMenuOptions(today, 0)),
-				),
-				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId(SHARD_ERUPTION_BROWSE_2_SELECT_MENU_CUSTOM_ID)
-						.setMaxValues(1)
-						.setMinValues(1)
-						.setPlaceholder(
-							`${today.add(MAXIMUM_OPTION_NUMBER, "days").format(DATE_FORMAT_STRING)} - ${today
-								.add(MAXIMUM_OPTION_NUMBER * 2 - 1, "days")
-								.format(DATE_FORMAT_STRING)}`,
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID)
+						.setDisabled(offset === 0)
+						.setLabel("Today")
+						.setStyle(ButtonStyle.Success),
+					new ButtonBuilder()
+						.setCustomId(
+							`${SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID}§${
+								offset + MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH
+							}`,
 						)
-						.setOptions(generateShardEruptionSelectMenuOptions(today, MAXIMUM_OPTION_NUMBER)),
-				),
-				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId(SHARD_ERUPTION_BROWSE_3_SELECT_MENU_CUSTOM_ID)
-						.setMaxValues(1)
-						.setMinValues(1)
-						.setPlaceholder(
-							`${today.add(MAXIMUM_OPTION_NUMBER * 2, "days").format(DATE_FORMAT_STRING)} - ${today
-								.add(MAXIMUM_OPTION_NUMBER * 3 - 1, "days")
-								.format(DATE_FORMAT_STRING)}`,
-						)
-						.setOptions(generateShardEruptionSelectMenuOptions(today, MAXIMUM_OPTION_NUMBER * 2)),
-				),
-				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId(SHARD_ERUPTION_BROWSE_4_SELECT_MENU_CUSTOM_ID)
-						.setMaxValues(1)
-						.setMinValues(1)
-						.setPlaceholder(
-							`${today.add(MAXIMUM_OPTION_NUMBER * 3, "days").format(DATE_FORMAT_STRING)} - ${today
-								.add(MAXIMUM_OPTION_NUMBER * 4 - 1, "days")
-								.format(DATE_FORMAT_STRING)}`,
-						)
-						.setOptions(generateShardEruptionSelectMenuOptions(today, MAXIMUM_OPTION_NUMBER * 3)),
+						.setLabel("Next")
+						.setStyle(ButtonStyle.Primary),
 				),
 			],
-		});
+		};
+
+		if (interaction instanceof ButtonInteraction) {
+			await interaction.update(response);
+		} else {
+			await interaction.reply(response);
+		}
 	}
 })();
