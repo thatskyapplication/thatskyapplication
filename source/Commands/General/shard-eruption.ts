@@ -64,7 +64,7 @@ function generateShardEruptionSelectMenuOptions(date: Dayjs, indexStart: number,
 			.setValue(String(index + offset));
 
 		if (shardNow) {
-			stringSelectMenuOption.setEmoji(resolveShardEruptionEmoji(shardNow.dangerous));
+			stringSelectMenuOption.setEmoji(resolveShardEruptionEmoji(shardNow.strong));
 		} else {
 			stringSelectMenuOption.setDescription("No shard eruption.");
 		}
@@ -163,11 +163,11 @@ export default new (class implements ChatInputCommand {
 			.setLabel("Next")
 			.setStyle(ButtonStyle.Primary);
 
-		if (shardYesterday) buttonYesterday.setEmoji(resolveShardEruptionEmoji(shardYesterday.dangerous));
+		if (shardYesterday) buttonYesterday.setEmoji(resolveShardEruptionEmoji(shardYesterday.strong));
 
 		if (shardToday) {
-			const { realm, map, dangerous, reward, timestamps, url } = shardToday;
-			const emoji = resolveShardEruptionEmoji(dangerous);
+			const { realm, map, strong, reward, timestamps, url } = shardToday;
+			const emoji = resolveShardEruptionEmoji(strong);
 
 			embed
 				.setFields(
@@ -196,8 +196,8 @@ export default new (class implements ChatInputCommand {
 			embed.setDescription(`There are no shard eruptions ${offset === 0 ? "today" : "on this day"}.`);
 		}
 
-		if (shard) button.setEmoji(resolveShardEruptionEmoji(shard.dangerous));
-		if (shardTomorrow) buttonTomorrow.setEmoji(resolveShardEruptionEmoji(shardTomorrow.dangerous));
+		if (shard) button.setEmoji(resolveShardEruptionEmoji(shard.strong));
+		if (shardTomorrow) buttonTomorrow.setEmoji(resolveShardEruptionEmoji(shardTomorrow.strong));
 
 		const response = {
 			components: [

@@ -231,13 +231,13 @@ export default class DailyGuidesDistribution {
 		const shard = shardEruption();
 
 		if (shard) {
-			const { realm, map, dangerous, reward, timestamps, url } = shard;
+			const { realm, map, strong, reward, timestamps, url } = shard;
 
 			return [
 				{
 					name: SHARD_ERUPTION_NAME,
 					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nType: ${formatEmoji(
-						resolveShardEruptionEmoji(dangerous),
+						resolveShardEruptionEmoji(strong),
 					)}\nReward: ${
 						reward === 200
 							? `200 ${formatEmoji(Emoji.Light)}`

@@ -383,8 +383,8 @@ export function shardEruption(daysOffset = 0) {
 	const date = todayDate().add(daysOffset, "days");
 	const dayOfMonth = date.date();
 	const dayOfWeek = date.day();
-	const dangerous = dayOfMonth % 2 === 1;
-	const infoIndex = dangerous ? (((dayOfMonth - 1) / 2) % 3) + 2 : (dayOfMonth / 2) % 2;
+	const strong = dayOfMonth % 2 === 1;
+	const infoIndex = strong ? (((dayOfMonth - 1) / 2) % 3) + 2 : (dayOfMonth / 2) % 2;
 	const { noShardWeekDay, interval, offset, area } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex]!;
 	// @ts-expect-error Too narrow.
 	const noShardDay = noShardWeekDay.includes(dayOfWeek);
@@ -401,7 +401,7 @@ export function shardEruption(daysOffset = 0) {
 		timestamps.push({ start: startTime.add(520, "seconds"), end: startTime.add(4, "hours") });
 	}
 
-	return { realm: VALID_REALM[realmIndex]!, map, dangerous, reward, timestamps, url };
+	return { realm: VALID_REALM[realmIndex]!, map, strong, reward, timestamps, url };
 }
 
 export function resolveShardEruptionEmoji(dangerous: boolean) {

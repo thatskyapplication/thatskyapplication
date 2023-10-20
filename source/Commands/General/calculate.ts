@@ -191,8 +191,8 @@ export default new (class implements ChatInputCommand {
 			const shardEruptionToday = shardEruption(index);
 
 			if (shardEruptionToday) {
-				const { dangerous, reward } = shardEruptionToday;
-				if (dangerous) result += reward;
+				const { strong, reward } = shardEruptionToday;
+				if (strong) result += reward;
 			}
 
 			if (day.day() === 0) result += ASCENDED_CANDLES_PER_WEEK;
