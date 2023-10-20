@@ -1,4 +1,3 @@
-import { URL } from "node:url";
 import { AsyncQueue } from "@sapphire/async-queue";
 import {
 	type Attachment,
@@ -11,12 +10,10 @@ import {
 } from "discord.js";
 import {
 	type ValidRealm,
-	CDN_URL,
 	Channel,
 	INFOGRAPHICS_DATABASE_GUILD_ID,
 	Map,
 	Realm,
-	VALID_REALM,
 	inconsistentMapKeys,
 } from "../Utility/Constants.js";
 import { consoleLog, resolveMap, resolveValidRealm, todayDate } from "../Utility/Utility.js";
@@ -68,74 +65,6 @@ interface DailyGuideMessage {
 	description: string;
 }
 
-function resolveShardEruptionMapURL(map: Map) {
-	return new URL(`shards/${map.replaceAll(" ", "_")}.png`, CDN_URL);
-}
-
-const SHARD_ERUPTION_PREDICTION_DATA = [
-	{
-		noShardWeekDay: [6, 0], // Saturday, Sunday
-		interval: 8,
-		// 1 hour and 50 minutes.
-		offset: 6_600_000,
-		area: [Map.ButterflyFields, Map.ForestBrook, Map.IceRink, Map.BrokenTemple, Map.StarlightDesert].map((map) => ({
-			map,
-			url: resolveShardEruptionMapURL(map),
-			reward: 200,
-		})),
-	},
-	{
-		noShardWeekDay: [0, 1], // Sunday, Monday
-		interval: 8,
-		// 2 hours and 10 minutes.
-		offset: 7_800_000,
-		area: [Map.KoiPond, Map.Boneyard, Map.IceRink, Map.Battlefield, Map.StarlightDesert].map((map) => ({
-			map,
-			url: resolveShardEruptionMapURL(map),
-			reward: 200,
-		})),
-	},
-	{
-		noShardWeekDay: [1, 2], // Monday, Tuesday
-		interval: 6,
-		// 7 hours and 40 minutes.
-		offset: 27_600_000,
-		area: [
-			{ map: Map.Cave, url: resolveShardEruptionMapURL(Map.Cave), reward: 2 },
-			{ map: Map.ForestEnd, url: resolveShardEruptionMapURL(Map.ForestEnd), reward: 2.5 },
-			{ map: Map.VillageOfDreams, url: resolveShardEruptionMapURL(Map.VillageOfDreams), reward: 2.5 },
-			{ map: Map.Graveyard, url: resolveShardEruptionMapURL(Map.Graveyard), reward: 2 },
-			{ map: Map.JellyfishCove, url: resolveShardEruptionMapURL(Map.JellyfishCove), reward: 3.5 },
-		],
-	},
-	{
-		noShardWeekDay: [2, 3], // Tuesday, Wednesday
-		interval: 6,
-		// 2 hours and 20 minutes.
-		offset: 8_400_000,
-		area: [
-			{ map: Map.BirdNest, url: resolveShardEruptionMapURL(Map.BirdNest), reward: 2.5 },
-			{ map: Map.Treehouse, url: resolveShardEruptionMapURL(Map.Treehouse), reward: 3.5 },
-			{ map: Map.VillageOfDreams, url: resolveShardEruptionMapURL(Map.VillageOfDreams), reward: 2.5 },
-			{ map: Map.CrabFields, url: resolveShardEruptionMapURL(Map.CrabFields), reward: 2.5 },
-			{ map: Map.JellyfishCove, url: resolveShardEruptionMapURL(Map.JellyfishCove), reward: 3.5 },
-		],
-	},
-	{
-		noShardWeekDay: [3, 4], // Wednesday, Thursday
-		interval: 6,
-		// 3 hours and 30 minutes.
-		offset: 12_600_000,
-		area: [
-			{ map: Map.SanctuaryIslands, url: resolveShardEruptionMapURL(Map.SanctuaryIslands), reward: 3.5 },
-			{ map: Map.ElevatedClearing, url: resolveShardEruptionMapURL(Map.ElevatedClearing), reward: 3.5 },
-			{ map: Map.HermitValley, url: resolveShardEruptionMapURL(Map.HermitValley), reward: 3.5 },
-			{ map: Map.ForgottenArk, url: resolveShardEruptionMapURL(Map.ForgottenArk), reward: 3.5 },
-			{ map: Map.JellyfishCove, url: resolveShardEruptionMapURL(Map.JellyfishCove), reward: 3.5 },
-		],
-	},
-] as const;
-
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 const regularExpressionRealms = Object.values(Realm).join("|").replaceAll(" ", "\\s+");
@@ -153,31 +82,6 @@ export default new (class DailyGuides {
 	public treasureCandles: DailyGuidesData["treasureCandles"] = null;
 
 	public dailyMessage: DailyGuidesData["dailyMessage"] = null;
-
-	public shardEruption(this: void, daysOffset = 0) {
-		const date = todayDate().add(daysOffset, "days");
-		const dayOfMonth = date.date();
-		const dayOfWeek = date.day();
-		const dangerous = dayOfMonth % 2 === 1;
-		const infoIndex = dangerous ? (((dayOfMonth - 1) / 2) % 3) + 2 : (dayOfMonth / 2) % 2;
-		const { noShardWeekDay, interval, offset, area } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex]!;
-		// @ts-expect-error Too narrow.
-		const noShardDay = noShardWeekDay.includes(dayOfWeek);
-		if (noShardDay) return null;
-		const realmIndex = (dayOfMonth - 1) % 5;
-		const { map, url, reward } = area[realmIndex]!;
-		const timestamps = [];
-
-		for (
-			let startTime = date.add(offset, "milliseconds");
-			timestamps.length < 3;
-			startTime = startTime.add(interval * 3_600_000, "milliseconds")
-		) {
-			timestamps.push({ start: startTime.add(520, "seconds"), end: startTime.add(4, "hours") });
-		}
-
-		return { realm: VALID_REALM[realmIndex]!, map, dangerous, reward, timestamps, url };
-	}
 
 	public readonly queue = new AsyncQueue();
 

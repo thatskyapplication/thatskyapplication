@@ -11,8 +11,6 @@ import {
 	hyperlink,
 	PermissionFlagsBits,
 	EmbedBuilder,
-	TimestampStyles,
-	time,
 	formatEmoji,
 } from "discord.js";
 import {
@@ -41,6 +39,10 @@ import {
 	eventRotationLetter,
 	isDuring,
 	seasonalCandlesRotationURL,
+	shardEruption,
+	dateString,
+	shardEruptionInformationString,
+	shardEruptionTimestampsString,
 } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
@@ -225,34 +227,12 @@ export default class DailyGuidesDistribution {
 	}
 
 	public static shardEruptionFieldData() {
-		const shardEruptionToday = DailyGuides.shardEruption();
+		const shard = shardEruption();
 
-		if (shardEruptionToday) {
-			const { realm, map, dangerous, reward, timestamps, url } = shardEruptionToday;
-
+		if (shard) {
 			return [
-				{
-					name: SHARD_ERUPTION_NAME,
-					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nDangerous: ${formatEmoji(
-						dangerous ? Emoji.Yes : Emoji.No,
-						true,
-					)}\nReward: ${
-						reward === 200
-							? "200 pieces of light"
-							: resolveCurrencyEmoji({ emoji: Emoji.AscendedCandle, number: reward })
-					}`,
-					inline: true,
-				},
-				{
-					name: "Timestamps",
-					value: timestamps
-						.map(
-							({ start, end }) =>
-								`${time(start.unix(), TimestampStyles.LongTime)} - ${time(end.unix(), TimestampStyles.LongTime)}`,
-						)
-						.join("\n"),
-					inline: true,
-				},
+				{ name: SHARD_ERUPTION_NAME, value: shardEruptionInformationString(shard, true), inline: true },
+				{ name: "Timestamps", value: shardEruptionTimestampsString(shard), inline: true },
 			];
 		}
 
@@ -262,7 +242,7 @@ export default class DailyGuidesDistribution {
 	public static embed() {
 		const { dailyMessage, quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
 		const date = todayDate();
-		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(date.format("dddd, D MMMM YYYY"));
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(dateString(date));
 		if (dailyMessage) embed.addFields({ name: dailyMessage.title, value: dailyMessage.description });
 		const quests = [quest1, quest2, quest3, quest4].filter((quest): quest is DailyGuideQuest => quest !== null);
 

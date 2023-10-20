@@ -23,6 +23,16 @@ import {
 } from "../Commands/Admin/admin.js";
 import { HeartHistoryNavigationType, HEART_HISTORY_BACK, HEART_HISTORY_FORWARD } from "../Commands/Fun/heart.js";
 import {
+	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS,
+	SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
+} from "../Commands/General/shard-eruption.js";
+import {
 	SKY_PROFILE_MODAL,
 	SKY_PROFILE_PLATFORM_CUSTOM_ID,
 	SKY_PROFILE_SEASONS_CUSTOM_ID,
@@ -245,6 +255,33 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
+				if (customId === SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID) {
+					await COMMANDS.sharderuption.today(interaction);
+					return;
+				}
+
+				if (
+					customId.startsWith(SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID) ||
+					customId.startsWith(SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID)
+				) {
+					await COMMANDS.sharderuption.today(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
+					return;
+				}
+
+				if (customId === SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID) {
+					await COMMANDS.sharderuption.browse(interaction);
+					return;
+				}
+
+				if (
+					customId.startsWith(SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID) ||
+					customId.startsWith(SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID) ||
+					customId.startsWith(SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID)
+				) {
+					await COMMANDS.sharderuption.browse(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
+					return;
+				}
+
 				const heartHistoryResult = heartHistoryRegExp.exec(customId);
 
 				if (heartHistoryResult) {
@@ -327,6 +364,15 @@ export const event: Event<typeof name> = {
 					customId.startsWith(SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID)
 				) {
 					await SpiritTracker.set(interaction);
+					return;
+				}
+
+				if (
+					SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.includes(
+						customId as (typeof SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS)[number],
+					)
+				) {
+					await COMMANDS.sharderuption.today(interaction, Number(value0));
 					return;
 				}
 

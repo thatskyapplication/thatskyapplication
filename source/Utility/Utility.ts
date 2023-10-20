@@ -19,6 +19,7 @@ import {
 	PermissionFlagsBits,
 	time as discordTime,
 	TimestampStyles,
+	hyperlink,
 } from "discord.js";
 import { DAILY_GUIDE_EVENT_ROTATION } from "../Structures/DailyGuides.js";
 import {
@@ -45,6 +46,7 @@ import {
 	VALID_REALM,
 	CURRENT_SEASON,
 	CDN_URL,
+	SHARD_ERUPTION_PREDICTION_DATA,
 } from "./Constants.js";
 
 const cdn = new CDN();
@@ -58,6 +60,10 @@ export function consoleLog(consoleLog: any, stamp = new Date().toISOString()): v
 
 export function notNull<T>(value: T | null): value is T {
 	return value !== null;
+}
+
+export function dayjsDate(timestamp: number) {
+	return dayjs.tz(timestamp, "America/Los_Angeles");
 }
 
 export function todayDate() {
@@ -368,6 +374,80 @@ export function resolveMap(rawMap: string) {
 	return inconsistentResult
 		? INCONSISTENT_MAP[inconsistentResult]
 		: Object.values(Map).find((map) => map.toUpperCase() === upperRawMap) ?? null;
+}
+
+export function resolveShardEruptionMapURL(map: Map) {
+	return new URL(`shards/${map.replaceAll(" ", "_")}.png`, CDN_URL);
+}
+
+interface ShardEruptionTimestampsData {
+	start: Dayjs;
+	end: Dayjs;
+}
+
+interface ShardEruptionData {
+	realm: Realm;
+	map: Map;
+	strong: boolean;
+	reward: number;
+	timestamps: ShardEruptionTimestampsData[];
+	url: URL;
+}
+
+export function shardEruption(daysOffset = 0): ShardEruptionData | null {
+	const date = todayDate().add(daysOffset, "days");
+	const dayOfMonth = date.date();
+	const dayOfWeek = date.day();
+	const strong = dayOfMonth % 2 === 1;
+	const infoIndex = strong ? (((dayOfMonth - 1) / 2) % 3) + 2 : (dayOfMonth / 2) % 2;
+	const { noShardWeekDay, interval, offset, area } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex]!;
+	// @ts-expect-error Too narrow.
+	const noShardDay = noShardWeekDay.includes(dayOfWeek);
+	if (noShardDay) return null;
+	const realmIndex = (dayOfMonth - 1) % 5;
+	const { map, url, reward } = area[realmIndex]!;
+	const timestamps = [];
+
+	for (
+		let startTime = date.add(offset, "milliseconds");
+		timestamps.length < 3;
+		startTime = startTime.add(interval * 3_600_000, "milliseconds")
+	) {
+		timestamps.push({ start: startTime.add(520, "seconds"), end: startTime.add(4, "hours") });
+	}
+
+	return { realm: VALID_REALM[realmIndex]!, map, strong, reward, timestamps, url };
+}
+
+export function resolveShardEruptionEmoji(dangerous: boolean) {
+	return dangerous ? Emoji.ShardStrong : Emoji.ShardRegular;
+}
+
+export function shardEruptionInformationString(
+	{ realm, map, strong, reward, url }: ShardEruptionData,
+	useHyperlink: boolean,
+) {
+	let realmMap = `${realm} (${map})`;
+	if (useHyperlink) realmMap = hyperlink(realmMap, url);
+
+	return `${formatEmoji(resolveShardEruptionEmoji(strong))} ${realmMap}\n${
+		reward === 200
+			? `200 ${formatEmoji(Emoji.Light)}`
+			: resolveCurrencyEmoji({ emoji: Emoji.AscendedCandle, number: reward })
+	}`;
+}
+
+export function shardEruptionTimestampsString({ timestamps }: ShardEruptionData) {
+	return timestamps
+		.map(
+			({ start, end }) =>
+				`${discordTime(start.unix(), TimestampStyles.LongTime)} - ${discordTime(end.unix(), TimestampStyles.LongTime)}`,
+		)
+		.join("\n");
+}
+
+export function dateString(date: Dayjs) {
+	return date.format("dddd, D MMMM YYYY");
 }
 
 export function time(timestamp: number, style: TimestampStylesString, relative = false) {
