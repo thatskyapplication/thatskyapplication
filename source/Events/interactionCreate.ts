@@ -24,6 +24,10 @@ import {
 import { HeartHistoryNavigationType, HEART_HISTORY_BACK, HEART_HISTORY_FORWARD } from "../Commands/Fun/heart.js";
 import {
 	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_1_SELECT_MENU_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_2_SELECT_MENU_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_3_SELECT_MENU_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_4_SELECT_MENU_CUSTOM_ID,
 	SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID,
 	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
 } from "../Commands/General/shard-eruption.js";
@@ -345,6 +349,16 @@ export const event: Event<typeof name> = {
 					customId.startsWith(SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID)
 				) {
 					await SpiritTracker.set(interaction);
+					return;
+				}
+
+				if (
+					customId === SHARD_ERUPTION_BROWSE_1_SELECT_MENU_CUSTOM_ID ||
+					customId === SHARD_ERUPTION_BROWSE_2_SELECT_MENU_CUSTOM_ID ||
+					customId === SHARD_ERUPTION_BROWSE_3_SELECT_MENU_CUSTOM_ID ||
+					customId === SHARD_ERUPTION_BROWSE_4_SELECT_MENU_CUSTOM_ID
+				) {
+					await COMMANDS.sharderuption.today(interaction, Number(value0));
 					return;
 				}
 
