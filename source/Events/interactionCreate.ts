@@ -30,6 +30,7 @@ import {
 	SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
 	SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID,
 	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
 } from "../Commands/General/shard-eruption.js";
 import {
 	SKY_PROFILE_MODAL,
@@ -274,7 +275,8 @@ export const event: Event<typeof name> = {
 
 				if (
 					customId.startsWith(SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID) ||
-					customId.startsWith(SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID)
+					customId.startsWith(SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID) ||
+					customId.startsWith(SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID)
 				) {
 					await COMMANDS.sharderuption.browse(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
 					return;

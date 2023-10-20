@@ -32,6 +32,8 @@ import type { ChatInputCommand } from "../index.js";
 export const SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID" as const;
 export const SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID" as const;
 export const SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID" as const;
+export const SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID =
+	"SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID" as const;
 export const SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID" as const;
 export const SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID" as const;
 export const SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID" as const;
@@ -196,7 +198,17 @@ export default new (class implements ChatInputCommand {
 		if (shardTomorrow) buttonTomorrow.setEmoji(resolveShardEruptionEmoji(shardTomorrow.dangerous));
 
 		const response = {
-			components: [new ActionRowBuilder<ButtonBuilder>().setComponents(buttonYesterday, button, buttonTomorrow)],
+			components: [
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					buttonYesterday,
+					button,
+					buttonTomorrow,
+					new ButtonBuilder()
+						.setCustomId(`${SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID}§${offset}`)
+						.setEmoji("🌐")
+						.setStyle(ButtonStyle.Secondary),
+				),
+			],
 			embeds: [embed],
 		};
 
@@ -252,6 +264,7 @@ export default new (class implements ChatInputCommand {
 						.setStyle(ButtonStyle.Primary),
 				),
 			],
+			embeds: [],
 		};
 
 		if (interaction instanceof ButtonInteraction) {
