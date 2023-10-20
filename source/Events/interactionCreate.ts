@@ -268,7 +268,7 @@ export const event: Event<typeof name> = {
 				}
 
 				if (customId === SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID) {
-					await COMMANDS.sharderuption.view(interaction);
+					await COMMANDS.sharderuption.browse(interaction);
 					return;
 				}
 
@@ -276,7 +276,7 @@ export const event: Event<typeof name> = {
 					customId.startsWith(SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID) ||
 					customId.startsWith(SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID)
 				) {
-					await COMMANDS.sharderuption.view(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
+					await COMMANDS.sharderuption.browse(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
 					return;
 				}
 

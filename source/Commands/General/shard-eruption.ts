@@ -79,13 +79,13 @@ export default new (class implements ChatInputCommand {
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "today",
-				description: "View the shard eruption today.",
+				name: "browse",
+				description: "Browse the shard eruptions.",
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "view",
-				description: "View a... view... of the shard eruptions.",
+				name: "today",
+				description: "View the shard eruption today.",
 			},
 		],
 	} as const;
@@ -94,11 +94,11 @@ export default new (class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
+			case "browse":
+				await this.browse(interaction);
+				return;
 			case "today":
 				await this.today(interaction);
-				return;
-			case "view":
-				await this.view(interaction);
 		}
 	}
 
@@ -207,7 +207,7 @@ export default new (class implements ChatInputCommand {
 		}
 	}
 
-	public async view(interaction: ButtonInteraction | ChatInputCommandInteraction, offset = 0) {
+	public async browse(interaction: ButtonInteraction | ChatInputCommandInteraction, offset = 0) {
 		const shardToday = todayDate().add(offset, "days");
 
 		const response = {
