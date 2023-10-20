@@ -56,7 +56,7 @@ function generateShardEruptionSelectMenuOptions(date: Dayjs, indexStart: number,
 	const maximumIndex = MAXIMUM_OPTION_NUMBER + indexStart;
 
 	for (let index = indexStart; index < maximumIndex; index++) {
-		const shardNow = shardEruption(index);
+		const shardNow = shardEruption(index + offset);
 
 		const stringSelectMenuOption = new StringSelectMenuOptionBuilder()
 			.setLabel(dateString(date.add(index, "days")))
