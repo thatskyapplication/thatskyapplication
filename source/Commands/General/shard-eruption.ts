@@ -10,21 +10,19 @@ import {
 	ButtonInteraction,
 	ButtonStyle,
 	EmbedBuilder,
-	formatEmoji,
 	StringSelectMenuBuilder,
 	StringSelectMenuOptionBuilder,
-	time,
-	TimestampStyles,
 } from "discord.js";
-import { DEFAULT_EMBED_COLOUR, Emoji } from "../../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import {
 	cannotUseCustomEmojis,
 	chatInputApplicationCommandMention,
 	dateString,
 	dayjsDate,
-	resolveCurrencyEmoji,
 	resolveShardEruptionEmoji,
 	shardEruption,
+	shardEruptionInformationString,
+	shardEruptionTimestampsString,
 	todayDate,
 } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
@@ -166,32 +164,20 @@ export default new (class implements ChatInputCommand {
 		if (shardYesterday) buttonYesterday.setEmoji(resolveShardEruptionEmoji(shardYesterday.strong));
 
 		if (shardToday) {
-			const { realm, map, strong, reward, timestamps, url } = shardToday;
-			const emoji = resolveShardEruptionEmoji(strong);
-
 			embed
 				.setFields(
 					{
 						name: "Information",
-						value: `${formatEmoji(emoji)} ${realm} (${map})\n${
-							reward === 200
-								? `200 ${formatEmoji(Emoji.Light)}`
-								: resolveCurrencyEmoji({ emoji: Emoji.AscendedCandle, number: reward })
-						}`,
+						value: shardEruptionInformationString(shardToday, false),
 						inline: true,
 					},
 					{
 						name: "Timestamps",
-						value: timestamps
-							.map(
-								({ start, end }) =>
-									`${time(start.unix(), TimestampStyles.LongTime)} - ${time(end.unix(), TimestampStyles.LongTime)}`,
-							)
-							.join("\n"),
+						value: shardEruptionTimestampsString(shardToday),
 						inline: true,
 					},
 				)
-				.setImage(String(url));
+				.setImage(String(shardToday.url));
 		} else {
 			embed.setDescription(`There are no shard eruptions ${offset === 0 ? "today" : "on this day"}.`);
 		}

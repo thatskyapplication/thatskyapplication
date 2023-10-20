@@ -11,8 +11,6 @@ import {
 	hyperlink,
 	PermissionFlagsBits,
 	EmbedBuilder,
-	TimestampStyles,
-	time,
 	formatEmoji,
 } from "discord.js";
 import {
@@ -43,7 +41,8 @@ import {
 	seasonalCandlesRotationURL,
 	shardEruption,
 	dateString,
-	resolveShardEruptionEmoji,
+	shardEruptionInformationString,
+	shardEruptionTimestampsString,
 } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
@@ -231,30 +230,9 @@ export default class DailyGuidesDistribution {
 		const shard = shardEruption();
 
 		if (shard) {
-			const { realm, map, strong, reward, timestamps, url } = shard;
-
 			return [
-				{
-					name: SHARD_ERUPTION_NAME,
-					value: `Location: ${hyperlink(`${realm} (${map})`, url)}\nType: ${formatEmoji(
-						resolveShardEruptionEmoji(strong),
-					)}\nReward: ${
-						reward === 200
-							? `200 ${formatEmoji(Emoji.Light)}`
-							: resolveCurrencyEmoji({ emoji: Emoji.AscendedCandle, number: reward })
-					}`,
-					inline: true,
-				},
-				{
-					name: "Timestamps",
-					value: timestamps
-						.map(
-							({ start, end }) =>
-								`${time(start.unix(), TimestampStyles.LongTime)} - ${time(end.unix(), TimestampStyles.LongTime)}`,
-						)
-						.join("\n"),
-					inline: true,
-				},
+				{ name: SHARD_ERUPTION_NAME, value: shardEruptionInformationString(shard, true), inline: true },
+				{ name: "Timestamps", value: shardEruptionTimestampsString(shard), inline: true },
 			];
 		}
 

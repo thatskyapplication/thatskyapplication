@@ -19,6 +19,7 @@ import {
 	PermissionFlagsBits,
 	time as discordTime,
 	TimestampStyles,
+	hyperlink,
 } from "discord.js";
 import { DAILY_GUIDE_EVENT_ROTATION } from "../Structures/DailyGuides.js";
 import {
@@ -379,7 +380,21 @@ export function resolveShardEruptionMapURL(map: Map) {
 	return new URL(`shards/${map.replaceAll(" ", "_")}.png`, CDN_URL);
 }
 
-export function shardEruption(daysOffset = 0) {
+interface ShardEruptionTimestampsData {
+	start: Dayjs;
+	end: Dayjs;
+}
+
+interface ShardEruptionData {
+	realm: Realm;
+	map: Map;
+	strong: boolean;
+	reward: number;
+	timestamps: ShardEruptionTimestampsData[];
+	url: URL;
+}
+
+export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	const date = todayDate().add(daysOffset, "days");
 	const dayOfMonth = date.date();
 	const dayOfWeek = date.day();
@@ -406,6 +421,29 @@ export function shardEruption(daysOffset = 0) {
 
 export function resolveShardEruptionEmoji(dangerous: boolean) {
 	return dangerous ? Emoji.ShardStrong : Emoji.ShardRegular;
+}
+
+export function shardEruptionInformationString(
+	{ realm, map, strong, reward, url }: ShardEruptionData,
+	useHyperlink: boolean,
+) {
+	let realmMap = `${realm} (${map})`;
+	if (useHyperlink) realmMap = hyperlink(realmMap, url);
+
+	return `${formatEmoji(resolveShardEruptionEmoji(strong))} ${realmMap}\n${
+		reward === 200
+			? `200 ${formatEmoji(Emoji.Light)}`
+			: resolveCurrencyEmoji({ emoji: Emoji.AscendedCandle, number: reward })
+	}`;
+}
+
+export function shardEruptionTimestampsString({ timestamps }: ShardEruptionData) {
+	return timestamps
+		.map(
+			({ start, end }) =>
+				`${discordTime(start.unix(), TimestampStyles.LongTime)} - ${discordTime(end.unix(), TimestampStyles.LongTime)}`,
+		)
+		.join("\n");
 }
 
 export function dateString(date: Dayjs) {
