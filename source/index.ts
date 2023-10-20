@@ -165,9 +165,13 @@ class Caelus extends Client {
 			await this.deployCommands(this, fetchedGlobalCommands, globalCommandData);
 			await this.deployCommands(this, fetchedDeveloperCommands, developerCommandData, developerGuild);
 
-			// eslint-disable-next-line require-atomic-updates
+			/* eslint-disable require-atomic-updates */
+			commands.sharderuption.id =
+				fetchedGlobalCommands.find(({ name }) => name === commands.sharderuption.data.name)?.id ?? null;
+
 			commands.skyprofile.id =
 				fetchedGlobalCommands.find(({ name }) => name === commands.skyprofile.data.name)?.id ?? null;
+			/* eslint-enable require-atomic-updates */
 		} catch (error) {
 			void this.log({ content: "Failed to apply commands.", error });
 		}

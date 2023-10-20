@@ -1,6 +1,7 @@
 import { URL } from "node:url";
 import { inspect } from "node:util";
 import dayjs, { type Dayjs } from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat.js";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
 import {
@@ -49,6 +50,7 @@ import {
 } from "./Constants.js";
 
 const cdn = new CDN();
+dayjs.extend(advancedFormat)
 dayjs.extend(timezone);
 dayjs.extend(utc);
 
@@ -59,6 +61,10 @@ export function consoleLog(consoleLog: any, stamp = new Date().toISOString()): v
 
 export function notNull<T>(value: T | null): value is T {
 	return value !== null;
+}
+
+export function dayjsDate(timestamp: number) {
+	return dayjs.tz(timestamp, "America/Los_Angeles");
 }
 
 export function todayDate() {

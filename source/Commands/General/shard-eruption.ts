@@ -1,6 +1,7 @@
+import type { Dayjs } from "dayjs";
 import {
-	ButtonInteraction,
 	type ChatInputCommandInteraction,
+	ButtonInteraction,
 	ActionRowBuilder,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
@@ -10,11 +11,14 @@ import {
 	formatEmoji,
 	time,
 	TimestampStyles,
+	type Snowflake,
 } from "discord.js";
 import { DEFAULT_EMBED_COLOUR, Emoji } from "../../Utility/Constants.js";
 import {
 	cannotUseCustomEmojis,
+	chatInputApplicationCommandMention,
 	dateString,
+	dayjsDate,
 	resolveCurrencyEmoji,
 	resolveShardEruptionEmoji,
 	shardEruption,
@@ -25,6 +29,18 @@ import type { ChatInputCommand } from "../index.js";
 export const SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID" as const;
 export const SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID" as const;
 export const SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID" as const;
+
+function generateShardEruptionViewButton(date: Dayjs, offset: number) {
+	const shardNow = shardEruption(offset);
+
+	const button = new ButtonBuilder()
+		.setCustomId(`${SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID}§${offset}`)
+		.setLabel(date.add(offset, "day").format("Do MMM"))
+		.setStyle(ButtonStyle.Primary);
+
+	if (shardNow) button.setEmoji(resolveShardEruptionEmoji(shardNow.dangerous));
+	return button;
+}
 
 export default new (class implements ChatInputCommand {
 	public readonly data = {
@@ -37,26 +53,63 @@ export default new (class implements ChatInputCommand {
 				name: "today",
 				description: "View the shard eruption today.",
 			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "view",
+				description: "View a... view... of the shard eruptions.",
+			},
 		],
 	} as const;
+
+	public id: Snowflake | null = null;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
 			case "today":
 				await this.today(interaction);
+				return;
+			case "view":
+				await this.view(interaction);
 		}
 	}
 
 	public async today(interaction: ButtonInteraction | ChatInputCommandInteraction, offset = 0) {
 		if (await cannotUseCustomEmojis(interaction)) return;
+		const today = todayDate();
+		const fromButtonInteraction = interaction instanceof ButtonInteraction;
+
+		if (fromButtonInteraction) {
+			const { message } = interaction;
+			const expiresAt = dayjsDate(message.createdTimestamp).add(1, "day").startOf("day");
+
+			if (today.isSame(expiresAt) || today.isAfter(expiresAt)) {
+				const expiryMessage = `This command has expired. Run ${
+					this.id ? chatInputApplicationCommandMention(this.id, this.data.name, this.data.options[1].name) : "it"
+				} again!`;
+
+				if (message.embeds.length > 0) {
+					await interaction.update({ components: [] });
+
+					await interaction.followUp({
+						content: expiryMessage,
+						ephemeral: true,
+					});
+				} else {
+					await interaction.update({
+						components: [],
+						content: expiryMessage,
+					});
+				}
+
+				return;
+			}
+		}
+
 		const shardYesterday = shardEruption(offset - 1);
 		const shardToday = shardEruption(offset);
 		const shard = shardEruption();
 		const shardTomorrow = shardEruption(offset + 1);
-
-		const embed = new EmbedBuilder()
-			.setColor(DEFAULT_EMBED_COLOUR)
-			.setTitle(dateString(todayDate().add(offset, "days")));
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(dateString(today.add(offset, "days")));
 
 		const buttonYesterday = new ButtonBuilder()
 			.setCustomId(`${SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID}§${offset - 1}`)
@@ -115,10 +168,34 @@ export default new (class implements ChatInputCommand {
 			embeds: [embed],
 		};
 
-		if (interaction instanceof ButtonInteraction) {
+		if (fromButtonInteraction) {
 			await interaction.update(response);
 		} else {
 			await interaction.reply(response);
 		}
+	}
+
+	public async view(interaction: ChatInputCommandInteraction) {
+		// Is this needed?
+		// if (await cannotUseCustomEmojis(interaction)) return;
+		const today = todayDate();
+		const shard = shardEruption();
+
+		const button = new ButtonBuilder()
+			.setCustomId(SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID)
+			.setLabel("Today")
+			.setStyle(ButtonStyle.Success);
+
+		if (shard) button.setEmoji(resolveShardEruptionEmoji(shard.dangerous));
+		const row1 = new ActionRowBuilder<ButtonBuilder>().setComponents(button);
+		const row2 = new ActionRowBuilder<ButtonBuilder>();
+		const row3 = new ActionRowBuilder<ButtonBuilder>();
+		const row4 = new ActionRowBuilder<ButtonBuilder>();
+		let offset = 1;
+		for (; offset < 5; offset++) row1.addComponents(generateShardEruptionViewButton(today, offset));
+		for (; offset < 10; offset++) row2.addComponents(generateShardEruptionViewButton(today, offset));
+		for (; offset < 15; offset++) row3.addComponents(generateShardEruptionViewButton(today, offset));
+		for (; offset < 20; offset++) row4.addComponents(generateShardEruptionViewButton(today, offset));
+		await interaction.reply({ components: [row1, row2, row3, row4] });
 	}
 })();
