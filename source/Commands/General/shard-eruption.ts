@@ -1,6 +1,7 @@
 import type { Dayjs } from "dayjs";
 import {
 	type ChatInputCommandInteraction,
+	type MessageComponentInteraction,
 	type Snowflake,
 	type StringSelectMenuInteraction,
 	ActionRowBuilder,
@@ -104,11 +105,7 @@ export default new (class implements ChatInputCommand {
 		}
 	}
 
-	public async today(
-		interaction: ButtonInteraction | ChatInputCommandInteraction | StringSelectMenuInteraction,
-		offset = 0,
-	) {
-		if (await cannotUseCustomEmojis(interaction, { components: [] })) return;
+	private async hasExpired(interaction: ChatInputCommandInteraction | MessageComponentInteraction) {
 		const today = todayDate();
 		const fromMessageComponent = interaction.isMessageComponent();
 
@@ -117,11 +114,15 @@ export default new (class implements ChatInputCommand {
 			const expiresAt = dayjsDate(message.createdTimestamp).add(1, "day").startOf("day");
 
 			if (today.isSame(expiresAt) || today.isAfter(expiresAt)) {
+				const hasEmbeds = message.embeds.length > 0;
+
 				const expiryMessage = `This command has expired. Run ${
-					this.id ? chatInputApplicationCommandMention(this.id, this.data.name, this.data.options[1].name) : "it"
+					this.id
+						? chatInputApplicationCommandMention(this.id, this.data.name, this.data.options[hasEmbeds ? 1 : 0].name)
+						: "it"
 				} again!`;
 
-				if (message.embeds.length > 0) {
+				if (hasEmbeds) {
 					await interaction.update({ components: [] });
 
 					await interaction.followUp({
@@ -135,15 +136,27 @@ export default new (class implements ChatInputCommand {
 					});
 				}
 
-				return;
+				return true;
 			}
 		}
 
+		return false;
+	}
+
+	public async today(
+		interaction: ButtonInteraction | ChatInputCommandInteraction | StringSelectMenuInteraction,
+		offset = 0,
+	) {
+		if (await cannotUseCustomEmojis(interaction, { components: [] })) return;
+		if (await this.hasExpired(interaction)) return;
 		const shardYesterday = shardEruption(offset - 1);
 		const shardToday = shardEruption(offset);
 		const shard = shardEruption();
 		const shardTomorrow = shardEruption(offset + 1);
-		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(dateString(today.add(offset, "days")));
+
+		const embed = new EmbedBuilder()
+			.setColor(DEFAULT_EMBED_COLOUR)
+			.setTitle(dateString(todayDate().add(offset, "days")));
 
 		const buttonYesterday = new ButtonBuilder()
 			.setCustomId(`${SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID}§${offset - 1}`)
@@ -201,7 +214,7 @@ export default new (class implements ChatInputCommand {
 			embeds: [embed],
 		};
 
-		if (fromMessageComponent) {
+		if (interaction.isMessageComponent()) {
 			await interaction.update(response);
 		} else {
 			await interaction.reply(response);
@@ -209,6 +222,7 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async browse(interaction: ButtonInteraction | ChatInputCommandInteraction, offset = 0) {
+		if (await this.hasExpired(interaction)) return;
 		const shardToday = todayDate().add(offset, "days");
 
 		const response = {
