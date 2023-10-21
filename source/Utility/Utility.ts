@@ -377,7 +377,7 @@ export function resolveMap(rawMap: string) {
 }
 
 export function resolveShardEruptionMapURL(map: Map) {
-	return new URL(`shards/${map.replaceAll(" ", "_")}.png`, CDN_URL);
+	return new URL(`daily_guides/shard_eruptions/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL);
 }
 
 interface ShardEruptionTimestampsData {
