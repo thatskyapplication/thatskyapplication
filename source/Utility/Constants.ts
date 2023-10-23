@@ -1,4 +1,5 @@
 import process from "node:process";
+import { URL } from "node:url";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
@@ -103,6 +104,12 @@ export enum Season {
 	Revival = "Revival",
 }
 
+// Content delivery network bucket.
+export const CDN_BUCKET = "thatskyapplication" as const;
+
+// Content delivery network link.
+export const CDN_URL = "https://cdn.thatskyapplication.com" as const;
+
 // Log channels.
 export const ERROR_LOG_CHANNEL_ID = "1040806599293407263" as const;
 export const GUILD_LOG_CHANNEL_ID = "1107804841813749780" as const;
@@ -110,7 +117,9 @@ export const COMMAND_LOG_CHANNEL_ID = "1114135883604566057" as const;
 export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const;
 
 // Infographic URLs.
-export const EVENT_CURRENCY_INFOGRAPHIC_URL: string | null = null;
+export const EVENT_CURRENCY_INFOGRAPHIC_URL: string | null = String(
+	new URL("daily_guides/events/days_of_mischief/2023.webp", CDN_URL),
+);
 
 // Dates.
 export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE = skyDate(2_023, 11, 20);
@@ -132,10 +141,8 @@ export const CURRENT_SEASONAL_CANDLE_EMOJI = Emoji.CandleRevival;
 
 // Miscellaneous constants.
 export const PRODUCTION = process.env.NODE_ENV === "production";
-export const CDN_BUCKET = "thatskyapplication" as const;
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
-export const CDN_URL = "https://cdn.thatskyapplication.com" as const;
 export const THATSKYGAME_URL = "https://thatskygame.com" as const;
 export const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
 export const PATREON_URL = "https://patreon.com/Jiralite" as const;
