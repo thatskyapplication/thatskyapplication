@@ -354,7 +354,7 @@ export default class DailyGuidesDistribution {
 						Table.DailyGuidesDistribution,
 					)
 						.update({ message_id: id })
-						.where("guild_id", guildId)
+						.where({ guild_id: guildId })
 						.returning("*");
 
 					dailyGuidesDistribution.patch(newDailyGuidesDistributionPacket!);
