@@ -374,7 +374,8 @@ export const SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID = "SPIRIT_TRACKER_SPI
 export const SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_EVERYTHING_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID" as const;
 const SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT = 24 as const;
 
 const SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE =
@@ -883,11 +884,18 @@ export class SpiritTracker {
 		return new this(spiritTrackerPacket);
 	}
 
-	public static async set(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+	public static async setSpirits(interaction: ButtonInteraction) {
 		const { customId } = interaction;
-		const spiritName = customId.slice(customId.indexOf("-") + 1) as SpiritName;
-		const spirit = Spirits.find(({ name }) => name === spiritName)!;
+		const realm = customId.slice(customId.indexOf("§") + 1) as Realm;
+		const spirits = Standard.filter((spirit) => spirit.realm === realm);
+		await Promise.all(spirits.map(async (spirit) => this.update(interaction.user.id, spirit.name, spirit.maxItemsBit)));
+		await SpiritTracker.viewRealm(interaction, realm);
+	}
 
+	public static async setSpirit(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		const { customId } = interaction;
+		const spiritName = customId.slice(customId.indexOf("§") + 1) as SpiritName;
+		const spirit = Spirits.find(({ name }) => name === spiritName)!;
 		let newBit;
 
 		if (interaction instanceof ButtonInteraction) {
@@ -910,6 +918,11 @@ export class SpiritTracker {
 			);
 		}
 
+		await this.update(interaction.user.id, spiritName, newBit);
+		await SpiritTracker.viewSpiritResponse(interaction, newBit, spirit);
+	}
+
+	private static async update(userId: SpiritTracker["userId"], spiritName: SpiritName, bit: number | null) {
 		let spirit_name;
 
 		switch (spiritName) {
@@ -1377,12 +1390,10 @@ export class SpiritTracker {
 				break;
 		}
 
-		await pg<SpiritTrackerPacket>(Table.SpiritTracker)
-			.update({ [spirit_name]: newBit })
-			.where("user_id", interaction.user.id)
+		return pg<SpiritTrackerPacket>(Table.SpiritTracker)
+			.update({ [spirit_name]: bit })
+			.where({ user_id: userId })
 			.returning("*");
-
-		await SpiritTracker.viewSpiritResponse(interaction, newBit, spirit);
 	}
 
 	private averageProgress(progresses: number[], round?: boolean) {
@@ -1574,14 +1585,16 @@ export class SpiritTracker {
 
 	public static async viewRealm(interaction: ButtonInteraction | StringSelectMenuInteraction, realm: Realm) {
 		const spiritTracker = await this.fetch(interaction.user.id);
+		let hasEverything = true;
 
-		const options = Standard.filter((spirit) => spirit.realm === realm).map(({ name, maxItemsBit }) =>
-			new StringSelectMenuOptionBuilder()
-				.setLabel(
-					`${name} (${maxItemsBit ? bitPercentage(spiritTracker.resolveNameToBit(name), maxItemsBit, true) : 100}%)`,
-				)
-				.setValue(name),
-		);
+		const options = Standard.filter((spirit) => spirit.realm === realm).map(({ name, maxItemsBit }) => {
+			const bit = spiritTracker.resolveNameToBit(name);
+			if (bit !== maxItemsBit) hasEverything = false;
+
+			return new StringSelectMenuOptionBuilder()
+				.setLabel(`${name} (${maxItemsBit ? bitPercentage(bit, maxItemsBit, true) : 100}%)`)
+				.setValue(name);
+		});
 
 		const response = {
 			content: options.length === 0 ? "There are no spirits." : SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE,
@@ -1600,6 +1613,12 @@ export class SpiritTracker {
 						.setCustomId(SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID}§${realm}`)
+						.setDisabled(hasEverything)
+						.setEmoji("💯")
+						.setLabel("I have everything!")
+						.setStyle(ButtonStyle.Success),
 				),
 			],
 			embeds: [],
@@ -1834,7 +1853,7 @@ export class SpiritTracker {
 		if (offer && spirit.maxItemsBit) {
 			buttons.addComponents(
 				new ButtonBuilder()
-					.setCustomId(`${SPIRIT_TRACKER_EVERYTHING_CUSTOM_ID}-${spirit.name}`)
+					.setCustomId(`${SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID}§${spirit.name}`)
 					.setDisabled(bit === spirit.maxItemsBit)
 					.setEmoji("💯")
 					.setLabel("I have everything!")
@@ -1852,7 +1871,7 @@ export class SpiritTracker {
 
 			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
-					.setCustomId(`${SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID}-${spirit.name}`)
+					.setCustomId(`${SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID}§${spirit.name}`)
 					.setMaxValues(itemSelectionOptionsMaximumLimit.length)
 					.setMinValues(0)
 					.setOptions(itemSelectionOptionsMaximumLimit)
@@ -1869,7 +1888,7 @@ export class SpiritTracker {
 				components.push(
 					new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 						new StringSelectMenuBuilder()
-							.setCustomId(`${SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID}-${spirit.name}`)
+							.setCustomId(`${SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID}§${spirit.name}`)
 							.setMaxValues(itemSelectionOverflowOptionsMaximumLimit.length)
 							.setMinValues(0)
 							.setOptions(itemSelectionOverflowOptionsMaximumLimit)
