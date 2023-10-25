@@ -155,25 +155,47 @@ export default class DailyGuidesDistribution {
 		interaction: ChatInputCommandInteraction<"cached">,
 		data: DailyGuidesDistributionInsertQuery | DailyGuidesDistributionUpdateQuery,
 	) {
-		const { guild, guildId } = interaction;
+		const { client, guild, guildId } = interaction;
 		let dailyGuidesDistribution = await this.fetch(guildId).catch(() => null);
+		let shouldSend = false;
 
 		if (dailyGuidesDistribution) {
-			const updateData = dailyGuidesDistribution.channelId === data.channel_id ? data : { ...data, message_id: null };
+			let updateData;
+
+			if (dailyGuidesDistribution.channelId === data.channel_id) {
+				updateData = data;
+			} else {
+				// Delete the existing message, if present.
+				if (dailyGuidesDistribution.channelId && dailyGuidesDistribution.messageId) {
+					const channel = guild.channels.cache.get(dailyGuidesDistribution.channelId);
+
+					if (channel && isDailyGuidesDistributionChannel(channel)) {
+						// eslint-disable-next-line promise/prefer-await-to-then
+						channel.messages.delete(dailyGuidesDistribution.messageId).catch(() => null);
+					}
+				}
+
+				updateData = { ...data, message_id: null };
+				shouldSend = true;
+			}
 
 			const [dailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
 				.update(updateData)
-				.where("id", dailyGuidesDistribution.id)
+				.where({ id: dailyGuidesDistribution.id })
 				.returning("*");
 
 			dailyGuidesDistribution.patch(dailyGuidesDistributionPacket!);
 		} else {
+			shouldSend = true;
+
 			const [dailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(
 				Table.DailyGuidesDistribution,
 			).insert(data, "*");
 
 			dailyGuidesDistribution = new this(dailyGuidesDistributionPacket!);
 		}
+
+		if (shouldSend) await dailyGuidesDistribution.send(client);
 
 		await interaction.reply({
 			content: "Daily guides have been modified.",
@@ -312,6 +334,42 @@ export default class DailyGuidesDistribution {
 		return embed;
 	}
 
+	private async send(client: Client<true>) {
+		const { guildId, channelId, messageId } = this;
+		const channel = client.channels.cache.get(channelId!);
+
+		if (!channel || !isDailyGuidesDistributionChannel(channel)) {
+			throw new Error(
+				`Guild id ${guildId} had no detectable channel id ${channelId}, or did not satisfy the allowed channel types.`,
+			);
+		}
+
+		const me = await channel.guild.members.fetchMe();
+
+		if (!isDailyGuidesDistributable(channel, me)) {
+			throw new Error(`Guild id ${guildId} did not have suitable permissions in channel id ${channelId}.`);
+		}
+
+		// Retrieve our embed.
+		const embed = DailyGuidesDistribution.embed();
+
+		// Update the embed if a message exists.
+		if (messageId) {
+			return channel.messages.edit(messageId, { embeds: [embed] });
+		} else {
+			// There is no existing message. Send one.
+			const { id } = await channel.send({ embeds: [embed] });
+
+			const [newDailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
+				.update({ message_id: id })
+				.where({ guild_id: guildId })
+				.returning("*");
+
+			this.patch(newDailyGuidesDistributionPacket!);
+			return newDailyGuidesDistributionPacket;
+		}
+	}
+
 	public static async distribute(client: Client<true>) {
 		const dailyGuidesDistributionPackets = await pg<DailyGuidesDistributionPacket>(
 			Table.DailyGuidesDistribution,
@@ -319,47 +377,8 @@ export default class DailyGuidesDistribution {
 
 		const distributions = await Promise.allSettled(
 			dailyGuidesDistributionPackets.map(async (dailyGuidesDistributionPacket) => {
-				// There is definitely a channel id. The query specified this.
 				const dailyGuidesDistribution = new DailyGuidesDistribution(dailyGuidesDistributionPacket);
-				const { guildId, channelId, messageId } = dailyGuidesDistribution;
-				const channel = client.channels.cache.get(channelId!);
-
-				if (!channel || !isDailyGuidesDistributionChannel(channel)) {
-					throw new Error(
-						`Guild id ${guildId} had no detectable channel id ${channelId}, or did not satisfy the allowed channel types.`,
-					);
-				}
-
-				const me = await channel.guild.members.fetchMe();
-
-				if (!isDailyGuidesDistributable(channel, me)) {
-					throw new Error(`Guild id ${guildId} did not have suitable permissions in channel id ${channelId}.`);
-				}
-
-				// Retrieve our embed.
-				const embed = this.embed();
-
-				// We need to check if we should update the embed, if it exists.
-				const message = messageId ? await channel.messages.fetch(messageId).catch(() => null) : null;
-
-				if (message?.embeds[0]) {
-					// Currently does not work as expected due to https://github.com/discordjs/discord.js/issues/9095.
-					if (!message.embeds[0].equals(embed.data)) return message.edit({ embeds: [embed] });
-					return null;
-				} else {
-					// There is no existing message. Send one.
-					const { id } = await channel.send({ embeds: [embed] });
-
-					const [newDailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(
-						Table.DailyGuidesDistribution,
-					)
-						.update({ message_id: id })
-						.where({ guild_id: guildId })
-						.returning("*");
-
-					dailyGuidesDistribution.patch(newDailyGuidesDistributionPacket!);
-					return newDailyGuidesDistributionPacket;
-				}
+				return dailyGuidesDistribution.send(client);
 			}),
 		);
 
