@@ -36,7 +36,7 @@ export async function messageCreateResponse(message: Message<true>) {
 						.slice(-5),
 					{
 						role: "system",
-						content: `You are ${message.client.user.username}. Give a whimsical and short response.`,
+						content: `You are called ${message.client.user.username}. Responses should be short and whimsical. Responses should be relevant to Sky: Children of the Light. Do not refer to yourself as an AI.`,
 					},
 				],
 				model: "gpt-3.5-turbo",
