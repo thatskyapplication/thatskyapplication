@@ -375,6 +375,7 @@ export const SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT
 export const SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID" as const;
 const SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT = 24 as const;
 
@@ -894,6 +895,11 @@ export class SpiritTracker {
 		);
 
 		await SpiritTracker.viewRealm(interaction, realm);
+	}
+
+	public static async setElders(interaction: ButtonInteraction) {
+		await Promise.all(Elder.map(async ({ name, maxItemsBit }) => this.update(interaction.user.id, name, maxItemsBit)));
+		await SpiritTracker.viewElders(interaction);
 	}
 
 	public static async setSpirit(interaction: ButtonInteraction | StringSelectMenuInteraction) {
@@ -1634,6 +1640,16 @@ export class SpiritTracker {
 
 	public static async viewElders(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		const spiritTracker = await this.fetch(interaction.user.id);
+		let hasEverything = true;
+
+		const options = Elder.map(({ name, maxItemsBit }) => {
+			const bit = spiritTracker.resolveNameToBit(name);
+			if (bit !== maxItemsBit) hasEverything = false;
+
+			return new StringSelectMenuOptionBuilder()
+				.setLabel(`${name} (${bitPercentage(bit, maxItemsBit, true)}%)`)
+				.setValue(name);
+		});
 
 		await interaction.update({
 			content: "",
@@ -1643,13 +1659,7 @@ export class SpiritTracker {
 						.setCustomId(SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
-						.setOptions(
-							Elder.map(({ name, maxItemsBit }) =>
-								new StringSelectMenuOptionBuilder()
-									.setLabel(`${name} (${bitPercentage(spiritTracker.resolveNameToBit(name), maxItemsBit, true)}%)`)
-									.setValue(name),
-							),
-						)
+						.setOptions(options)
 						.setPlaceholder("Select an elder!"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
@@ -1657,6 +1667,12 @@ export class SpiritTracker {
 						.setCustomId(SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID)
+						.setDisabled(hasEverything)
+						.setEmoji("💯")
+						.setLabel("I have everything!")
+						.setStyle(ButtonStyle.Success),
 				),
 			],
 			embeds: [],

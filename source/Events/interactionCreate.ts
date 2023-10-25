@@ -44,6 +44,7 @@ import Profile from "../Structures/Profile.js";
 import {
 	SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID,
 	SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID,
+	SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID,
 	SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID,
 	SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID,
 	SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID,
@@ -254,6 +255,11 @@ export const event: Event<typeof name> = {
 
 				if (customId.startsWith(SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID)) {
 					await SpiritTracker.setSpirits(interaction);
+					return;
+				}
+
+				if (customId.startsWith(SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID)) {
+					await SpiritTracker.setElders(interaction);
 					return;
 				}
 
