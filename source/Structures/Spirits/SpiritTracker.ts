@@ -376,6 +376,7 @@ export const SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID = "SPIRIT_TRACKER_SPI
 export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID" as const;
 const SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT = 24 as const;
 
@@ -900,6 +901,18 @@ export class SpiritTracker {
 	public static async setElders(interaction: ButtonInteraction) {
 		await Promise.all(Elder.map(async ({ name, maxItemsBit }) => this.update(interaction.user.id, name, maxItemsBit)));
 		await SpiritTracker.viewElders(interaction);
+	}
+
+	public static async setSeason(interaction: ButtonInteraction) {
+		const { customId } = interaction;
+		const season = customId.slice(customId.indexOf("§") + 1) as Season;
+		const spirits = Seasonal.filter((spirit) => spirit.season === season);
+
+		await Promise.all(
+			spirits.map(async ({ name, maxItemsBit }) => this.update(interaction.user.id, name, maxItemsBit)),
+		);
+
+		await SpiritTracker.viewSeason(interaction, season);
 	}
 
 	public static async setSpirit(interaction: ButtonInteraction | StringSelectMenuInteraction) {
@@ -1718,14 +1731,16 @@ export class SpiritTracker {
 
 	public static async viewSeason(interaction: ButtonInteraction | StringSelectMenuInteraction, season: Season) {
 		const spiritTracker = await this.fetch(interaction.user.id);
+		let hasEverything = true;
 
-		const options = Seasonal.filter((spirit) => spirit.season === season).map(({ name, maxItemsBit }) =>
-			new StringSelectMenuOptionBuilder()
-				.setLabel(
-					`${name} (${maxItemsBit ? bitPercentage(spiritTracker.resolveNameToBit(name), maxItemsBit, true) : 100}%)`,
-				)
-				.setValue(name),
-		);
+		const options = Seasonal.filter((spirit) => spirit.season === season).map(({ name, maxItemsBit }) => {
+			const bit = spiritTracker.resolveNameToBit(name);
+			if (bit !== maxItemsBit) hasEverything = false;
+
+			return new StringSelectMenuOptionBuilder()
+				.setLabel(`${name} (${maxItemsBit ? bitPercentage(bit, maxItemsBit, true) : 100}%)`)
+				.setValue(name);
+		});
 
 		const response = {
 			content: "",
@@ -1748,6 +1763,12 @@ export class SpiritTracker {
 						.setCustomId(SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID}§${season}`)
+						.setDisabled(hasEverything)
+						.setEmoji("💯")
+						.setLabel("I have everything!")
+						.setStyle(ButtonStyle.Success),
 				),
 			],
 			embeds: [],
