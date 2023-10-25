@@ -888,7 +888,11 @@ export class SpiritTracker {
 		const { customId } = interaction;
 		const realm = customId.slice(customId.indexOf("§") + 1) as Realm;
 		const spirits = Standard.filter((spirit) => spirit.realm === realm);
-		await Promise.all(spirits.map(async (spirit) => this.update(interaction.user.id, spirit.name, spirit.maxItemsBit)));
+
+		await Promise.all(
+			spirits.map(async ({ name, maxItemsBit }) => this.update(interaction.user.id, name, maxItemsBit)),
+		);
+
 		await SpiritTracker.viewRealm(interaction, realm);
 	}
 
