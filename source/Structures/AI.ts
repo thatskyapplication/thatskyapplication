@@ -21,13 +21,22 @@ interface AIData {
 	frequency: AIFrequency;
 }
 
-type AIFrequency = (typeof AI_FREQUENCY)[number];
+type AIFrequency = (typeof AI_FREQUENCY_OPTIONS)[number]["value"];
 type AISetData = Omit<AIPacket, "guild_id">;
 type AIPatchData = Omit<AIPacket, "guild_id">;
 
-export const AI_FREQUENCY_DEFAULT = 5 as const;
+export const AI_FREQUENCY_DEFAULT = 0.005 as const;
+
+const AI_FREQUENCY_OPTIONS = [
+	{ label: "Disable", value: 0 },
+	{ label: "Very rare", value: 0.000_1 },
+	{ label: "Rare", value: 0.001 },
+	{ label: "Default", value: AI_FREQUENCY_DEFAULT },
+	{ label: "Common", value: 0.01 },
+	{ label: "Very common", value: 0.05 },
+] as const;
+
 export const AI_FREQUENCY_SELECT_MENU_CUSTOM_ID = "AI_FREQUENCY_SELECT_MENU_CUSTOM_ID" as const;
-export const AI_FREQUENCY = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const;
 
 export const AI_FREQUENCY_DESCRIPTION = `I may sporadically respond to a message and spice up your day!
 
@@ -36,7 +45,7 @@ The frequency at which I will respond may be configured. The default is \`${AI_F
 You can set the frequency to \`0\` to turn off this feature and I will no longer sporadically reply.` as const;
 
 function isAIFrequency(number: number): number is AIFrequency {
-	return AI_FREQUENCY.includes(number as AIFrequency);
+	return AI_FREQUENCY_OPTIONS.map(({ value }) => value).includes(number as AIFrequency);
 }
 
 export default class AI {
@@ -100,20 +109,12 @@ export default class AI {
 						.setMaxValues(1)
 						.setMinValues(1)
 						.setOptions(
-							AI_FREQUENCY.map((number) => {
-								const stringSelectMenuOption = new StringSelectMenuOptionBuilder()
-									.setDefault(number === (ai?.frequency ?? AI_FREQUENCY_DEFAULT))
-									.setLabel(String(number))
-									.setValue(String(number));
-
-								if (number === 0) {
-									stringSelectMenuOption.setDescription("Turn this feature off.");
-								} else if (number === AI_FREQUENCY_DEFAULT) {
-									stringSelectMenuOption.setDescription("Default.");
-								}
-
-								return stringSelectMenuOption;
-							}),
+							AI_FREQUENCY_OPTIONS.map(({ label, value }) =>
+								new StringSelectMenuOptionBuilder()
+									.setDefault(value === (ai?.frequency ?? AI_FREQUENCY_DEFAULT))
+									.setLabel(label)
+									.setValue(String(value)),
+							),
 						)
 						.setPlaceholder("Set the frequency."),
 				),

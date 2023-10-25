@@ -23,7 +23,7 @@ export const event: Event<typeof name> = {
 			return;
 		}
 
-		const frequency = (AI.cache.get(message.guildId)?.frequency ?? AI_FREQUENCY_DEFAULT) / 1_000;
+		const frequency = AI.cache.get(message.guildId)?.frequency ?? AI_FREQUENCY_DEFAULT;
 		if (frequency === 0) return;
 		if (Math.random() < frequency && message.content.length > 0) void messageCreateResponse(message);
 	},
