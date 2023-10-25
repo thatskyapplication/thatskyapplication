@@ -1538,7 +1538,7 @@ export class SpiritTracker {
 			customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID) ||
 			customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID)
 		) {
-			const parsedCustomId = customId.slice(customId.indexOf("-") + 1);
+			const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
 			if (isRealm(parsedCustomId)) await this.viewRealm(interaction, parsedCustomId);
 			if (isSeason(parsedCustomId)) await this.viewSeason(interaction, parsedCustomId);
 			return;
@@ -1790,8 +1790,8 @@ export class SpiritTracker {
 					spirit.isElderSpirit()
 						? SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID
 						: spirit.isStandardSpirit()
-						? `${SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID}-${spirit.realm}`
-						: `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}-${spirit.season}`,
+						? `${SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID}§${spirit.realm}`
+						: `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}§${spirit.season}`,
 				)
 				.setEmoji("⏪")
 				.setStyle(ButtonStyle.Primary),
