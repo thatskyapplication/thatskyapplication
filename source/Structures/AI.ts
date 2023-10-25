@@ -13,47 +13,69 @@ import pg, { Table } from "../pg.js";
 
 export interface AIPacket {
 	guild_id: Snowflake;
-	frequency: number;
+	frequency_type: number;
 }
 
 interface AIData {
 	guildId: AIPacket["guild_id"];
-	frequency: AIFrequency;
+	frequencyType: AIFrequencyTypes;
 }
 
-type AIFrequency = (typeof AI_FREQUENCY_OPTIONS)[number]["value"];
 type AISetData = Omit<AIPacket, "guild_id">;
 type AIPatchData = Omit<AIPacket, "guild_id">;
 
-export const AI_FREQUENCY_DEFAULT = 0.005 as const;
+export const AIFrequencyType = {
+	Disabled: 0,
+	VeryRare: 1,
+	Rare: 2,
+	Default: 3,
+	Common: 4,
+	VeryCommon: 5,
+} as const;
 
-const AI_FREQUENCY_OPTIONS = [
-	{ label: "Disable", value: 0 },
-	{ label: "Very rare", value: 0.000_1 },
-	{ label: "Rare", value: 0.001 },
-	{ label: "Default", value: AI_FREQUENCY_DEFAULT },
-	{ label: "Common", value: 0.01 },
-	{ label: "Very common", value: 0.05 },
-] as const;
+const AI_FREQUENCY_VALUES = Object.values(AIFrequencyType);
+type AIFrequencyTypes = (typeof AI_FREQUENCY_VALUES)[number];
+
+const AIFrequencyTypeToString = {
+	[AIFrequencyType.Disabled]: "Disabled",
+	[AIFrequencyType.VeryRare]: "Very rare",
+	[AIFrequencyType.Rare]: "Rare",
+	[AIFrequencyType.Default]: "Default",
+	[AIFrequencyType.Common]: "Common",
+	[AIFrequencyType.VeryCommon]: "Very common",
+} as const satisfies Readonly<Record<AIFrequencyTypes, string>>;
+
+export const AIFrequencyTypeToValue = {
+	[AIFrequencyType.Disabled]: 0,
+	[AIFrequencyType.VeryRare]: 0.000_1,
+	[AIFrequencyType.Rare]: 0.001,
+	[AIFrequencyType.Default]: 0.005,
+	[AIFrequencyType.Common]: 0.01,
+	[AIFrequencyType.VeryCommon]: 0.05,
+} as const satisfies Readonly<Record<AIFrequencyTypes, number>>;
+
+type AIFrequencyValues = (typeof AIFrequencyTypeToValue)[keyof typeof AIFrequencyTypeToValue];
+
+function isAIFrequency(number: number): number is AIFrequencyTypes {
+	return AI_FREQUENCY_VALUES.includes(number as AIFrequencyTypes);
+}
 
 export const AI_FREQUENCY_SELECT_MENU_CUSTOM_ID = "AI_FREQUENCY_SELECT_MENU_CUSTOM_ID" as const;
 
 export const AI_FREQUENCY_DESCRIPTION = `I may sporadically respond to a message and spice up your day!
 
-The frequency at which I will respond may be configured. The default is \`${AI_FREQUENCY_DEFAULT}\`. The higher the frequency, the more likely I will respond.
+The frequency at which I will respond may be configured. The higher the frequency, the more likely I will respond.
 
-You can set the frequency to \`0\` to turn off this feature and I will no longer sporadically reply.` as const;
-
-function isAIFrequency(number: number): number is AIFrequency {
-	return AI_FREQUENCY_OPTIONS.map(({ value }) => value).includes(number as AIFrequency);
-}
+You can disable the frequency to turn this feature off and I will no longer sporadically reply.` as const;
 
 export default class AI {
 	public static readonly cache = new Collection<Snowflake, AI>();
 
 	public readonly guildId: AIData["guildId"];
 
-	public frequency!: AIData["frequency"];
+	public frequencyType!: AIData["frequencyType"];
+
+	public frequency!: AIFrequencyValues;
 
 	public constructor(notification: AIPacket) {
 		this.guildId = notification.guild_id;
@@ -61,7 +83,8 @@ export default class AI {
 	}
 
 	private patch(data: AIPatchData) {
-		this.frequency = data.frequency as AIFrequency;
+		this.frequencyType = isAIFrequency(data.frequency_type) ? data.frequency_type : AIFrequencyType.Default;
+		this.frequency = AIFrequencyTypeToValue[this.frequencyType];
 	}
 
 	private static async upsert(guildId: AI["guildId"], data: AISetData) {
@@ -80,9 +103,9 @@ export default class AI {
 	}
 
 	public static async set(interaction: StringSelectMenuInteraction<"cached">) {
-		const frequency = Number(interaction.values[0]);
+		const frequencyType = Number(interaction.values[0]);
 
-		if (!isAIFrequency(frequency)) {
+		if (!isAIFrequency(frequencyType)) {
 			await interaction.update({
 				components: [],
 				content: "Unknown frequency. Please try again.",
@@ -92,11 +115,11 @@ export default class AI {
 			return;
 		}
 
-		const ai = await this.upsert(interaction.guildId, { frequency });
+		const ai = await this.upsert(interaction.guildId, { frequency_type: frequencyType });
 
 		await interaction.update({
 			...this.response(interaction.guild, ai),
-			content: `Frequency set to \`${frequency}\`.`,
+			content: `Frequency set to \`${AIFrequencyTypeToString[frequencyType]}\`.`,
 		});
 	}
 
@@ -109,12 +132,12 @@ export default class AI {
 						.setMaxValues(1)
 						.setMinValues(1)
 						.setOptions(
-							AI_FREQUENCY_OPTIONS.map(({ label, value }) =>
-								new StringSelectMenuOptionBuilder()
-									.setDefault(value === (ai?.frequency ?? AI_FREQUENCY_DEFAULT))
-									.setLabel(label)
-									.setValue(String(value)),
-							),
+							AI_FREQUENCY_VALUES.map((aIFrequencyValue) => {
+								return new StringSelectMenuOptionBuilder()
+									.setDefault(aIFrequencyValue === (ai?.frequencyType ?? AIFrequencyType.Default))
+									.setLabel(AIFrequencyTypeToString[aIFrequencyValue])
+									.setValue(String(aIFrequencyValue));
+							}),
 						)
 						.setPlaceholder("Set the frequency."),
 				),
