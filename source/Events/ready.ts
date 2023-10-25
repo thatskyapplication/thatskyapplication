@@ -1,5 +1,6 @@
 import process from "node:process";
 import { Events } from "discord.js";
+import AI, { type AIPacket } from "../Structures/AI.js";
 import type { DailyGuidesPacket } from "../Structures/DailyGuides.js";
 import DailyGuides from "../Structures/DailyGuides.js";
 import heartbeat from "../Structures/Heartbeat.js";
@@ -13,11 +14,19 @@ const name = Events.ClientReady;
 
 async function collectFromDatabase() {
 	try {
+		await collectAI();
 		await collectNotifications();
 		await collectDailyGuides();
 	} catch (error) {
 		consoleLog(error);
 		process.exit(1);
+	}
+}
+
+async function collectAI() {
+	for (const aIPacket of await pg<AIPacket>(Table.AI)) {
+		const ai = new AI(aIPacket);
+		AI.cache.set(ai.guildId, ai);
 	}
 }
 

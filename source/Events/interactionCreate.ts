@@ -39,6 +39,7 @@ import {
 } from "../Commands/General/sky-profile.js";
 import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../Commands/General/spirit.js";
 import COMMANDS, { resolveCommand } from "../Commands/index.js";
+import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../Structures/AI.js";
 import Profile from "../Structures/Profile.js";
 import {
 	SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID,
@@ -388,7 +389,7 @@ export const event: Event<typeof name> = {
 
 				if (!interaction.inCachedGuild()) {
 					void interaction.client.log({
-						content: `Attempted to perform \`${interaction.customId}\` via a select menu interaction in an uncached guild.`,
+						content: `Attempted to perform \`${customId}\` via a select menu interaction in an uncached guild.`,
 						error: interaction,
 					});
 
@@ -403,6 +404,11 @@ export const event: Event<typeof name> = {
 
 				if (customId === DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID) {
 					await COMMANDS.admin.questSwap(interaction);
+					return;
+				}
+
+				if (customId === AI_FREQUENCY_SELECT_MENU_CUSTOM_ID) {
+					await AI.set(interaction);
 					return;
 				}
 			} catch (error) {

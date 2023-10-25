@@ -24,6 +24,7 @@ import hug from "./Fun/hug.js";
 import SkyStory from "./Fun/Sky Story.js";
 
 // General
+import ai from "./General/ai.js";
 import about from "./General/about.js";
 import calculate from "./General/calculate.js";
 import sharderuption from "./General/shard-eruption.js";
@@ -34,6 +35,7 @@ import spirit from "./General/spirit.js";
 const COMMANDS = {
 	about,
 	admin,
+	ai,
 	bonk,
 	calculate,
 	dailyguides,

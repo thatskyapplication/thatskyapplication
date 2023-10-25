@@ -3,6 +3,7 @@ import knex from "knex";
 import { PRODUCTION } from "./Utility/Constants.js";
 
 export enum Table {
+	AI = "ai",
 	Bonks = "bonks",
 	DailyGuides = "daily_guides",
 	DailyGuidesDistribution = "daily_guides_distribution",
