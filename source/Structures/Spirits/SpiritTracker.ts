@@ -715,9 +715,9 @@ export class SpiritTracker {
 
 	public remnantOfAForgottenHaven!: SpiritTrackerData["remnantOfAForgottenHaven"];
 
-	public constructor(profile: SpiritTrackerPacket) {
-		this.userId = profile.user_id;
-		this.patch(profile);
+	public constructor(spiritTrack: SpiritTrackerPacket) {
+		this.userId = spiritTrack.user_id;
+		this.patch(spiritTrack);
 	}
 
 	private patch(data: SpiritTrackerPatchData) {
