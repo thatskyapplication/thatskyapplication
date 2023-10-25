@@ -18,6 +18,7 @@ export const event: Event<typeof name> = {
 			!message.channel
 				.permissionsFor(me)
 				.has(PermissionFlagsBits.ReadMessageHistory | PermissionFlagsBits.SendMessages) ||
+			message.content.length <= 1 ||
 			message.mentions.has(message.client.user.id, { ignoreEveryone: true, ignoreRoles: true })
 		) {
 			return;
@@ -25,6 +26,6 @@ export const event: Event<typeof name> = {
 
 		const frequency = AI.cache.get(message.guildId)?.frequency ?? AIFrequencyTypeToValue[AIFrequencyType.Default];
 		if (frequency === 0) return;
-		if (Math.random() < frequency && message.content.length > 0) void messageCreateResponse(message);
+		if (Math.random() < frequency) void messageCreateResponse(message);
 	},
 };
