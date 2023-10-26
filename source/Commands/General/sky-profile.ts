@@ -260,8 +260,8 @@ export default new (class implements AutocompleteCommand {
 		await interaction.showModal(modal);
 	}
 
-	private async validateAttachment(interaction: ChatInputCommandInteraction, { size, url }: Attachment) {
-		if (size > SKY_MAXIMUM_ASSET_SIZE || !ALLOWED_EXTENSIONS.some((extension) => url.endsWith(`.${extension}`))) {
+	private async validateAttachment(interaction: ChatInputCommandInteraction, { size, name }: Attachment) {
+		if (size > SKY_MAXIMUM_ASSET_SIZE || !ALLOWED_EXTENSIONS.some((extension) => name.endsWith(`.${extension}`))) {
 			await interaction.reply({
 				content: `Please upload a valid attachment! It must be less than 5 megabytes and in any of the following formats:\n${ALLOWED_EXTENSIONS.map(
 					(extension) => `- .${extension}`,
