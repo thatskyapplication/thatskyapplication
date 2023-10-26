@@ -19,7 +19,7 @@ Every 2 weeks, a seasonal spirit will visit. This is known as a travelling spiri
 3. Once the spirit has arrived, the following need to be done:
    1. Ensure the friendship tree is updated.
    2. Ensure the infographic is updated. This should be uploaded to the CDN.
-   3. Ensure the marketing video is uploaded to the CDN.
+   3. Ensure the marketing video is uploaded to the CDN, if any.
 
 ### Returning spirits
 
