@@ -515,6 +515,163 @@ const SpiritTrackerNameToRawName = {
 	[SpiritName.RemnantOfAForgottenHaven]: "remnant_of_a_forgotten_haven",
 } as const satisfies Readonly<Record<SpiritName, Exclude<keyof SpiritTrackerPacket, "user_id">>>;
 
+const SpiritNameToSpiritTrackerName = {
+	[SpiritName.PointingCandlemaker]: "pointingCandlemaker",
+	[SpiritName.UsheringStargazer]: "usheringStargazer",
+	[SpiritName.RejectingVoyager]: "rejectingVoyager",
+	[SpiritName.ElderOfTheIsle]: "elderOfTheIsle",
+	[SpiritName.ButterflyCharmer]: "butterflyCharmer",
+	[SpiritName.ApplaudingBellmaker]: "applaudingBellmaker",
+	[SpiritName.WavingBellmaker]: "wavingBellmaker",
+	[SpiritName.SlumberingShipwright]: "slumberingShipwright",
+	[SpiritName.LaughingLightCatcher]: "laughingLightCatcher",
+	[SpiritName.BirdWhisperer]: "birdWhisperer",
+	[SpiritName.ExhaustedDockWorker]: "exhaustedDockWorker",
+	[SpiritName.CeremonialWorshiper]: "ceremonialWorshiper",
+	[SpiritName.ElderOfThePrairie]: "elderOfThePrairie",
+	[SpiritName.ShiveringTrailblazer]: "shiveringTrailblazer",
+	[SpiritName.BlushingProspector]: "blushingProspector",
+	[SpiritName.HideNSeekPioneer]: "hideNSeekPioneer",
+	[SpiritName.PoutyPorter]: "poutyPorter",
+	[SpiritName.DismayedHunter]: "dismayedHunter",
+	[SpiritName.ApologeticLumberjack]: "apologeticLumberjack",
+	[SpiritName.TearfulLightMiner]: "tearfulLightMiner",
+	[SpiritName.WhaleWhisperer]: "whaleWhisperer",
+	[SpiritName.ElderOfTheForest]: "elderOfTheForest",
+	[SpiritName.ConfidentSightseer]: "confidentSightseer",
+	[SpiritName.HandstandingThrillseeker]: "handstandingThrillseeker",
+	[SpiritName.MantaWhisperer]: "mantaWhisperer",
+	[SpiritName.BackflippingChampion]: "backflippingChampion",
+	[SpiritName.CheerfulSpectator]: "cheerfulSpectator",
+	[SpiritName.BowingMedalist]: "bowingMedalist",
+	[SpiritName.ProudVictor]: "proudVictor",
+	[SpiritName.ElderOfTheValley]: "elderOfTheValley",
+	[SpiritName.FrightenedRefugee]: "frightenedRefugee",
+	[SpiritName.FaintingWarrior]: "faintingWarrior",
+	[SpiritName.CourageousSoldier]: "courageousSoldier",
+	[SpiritName.StealthySurvivor]: "stealthySurvivor",
+	[SpiritName.SalutingCaptain]: "salutingCaptain",
+	[SpiritName.LookoutScout]: "lookoutScout",
+	[SpiritName.ElderOfTheWasteland]: "elderOfTheWasteland",
+	[SpiritName.PrayingAcolyte]: "prayingAcolyte",
+	[SpiritName.LevitatingAdept]: "levitatingAdept",
+	[SpiritName.PoliteScholar]: "politeScholar",
+	[SpiritName.MemoryWhisperer]: "memoryWhisperer",
+	[SpiritName.MeditatingMonastic]: "meditatingMonastic",
+	[SpiritName.ElderOfTheVault]: "elderOfTheVault",
+	[SpiritName.GratitudeGuide]: "gratitudeGuide",
+	[SpiritName.SassyDrifter]: "sassyDrifter",
+	[SpiritName.StretchingGuru]: "stretchingGuru",
+	[SpiritName.ProvokingPerformer]: "provokingPerformer",
+	[SpiritName.LeapingDancer]: "leapingDancer",
+	[SpiritName.SalutingProtector]: "salutingProtector",
+	[SpiritName.GreetingShaman]: "greetingShaman",
+	[SpiritName.LightseekersGuide]: "lightseekersGuide",
+	[SpiritName.PiggybackLightseeker]: "piggybackLightseeker",
+	[SpiritName.DoublefiveLightCatcher]: "doublefiveLightCatcher",
+	[SpiritName.LaidbackPioneer]: "laidbackPioneer",
+	[SpiritName.TwirlingChampion]: "twirlingChampion",
+	[SpiritName.CrabWhisperer]: "crabWhisperer",
+	[SpiritName.ShushingLightScholar]: "shushingLightScholar",
+	[SpiritName.BelongingGuide]: "belongingGuide",
+	[SpiritName.BoogieKid]: "boogieKid",
+	[SpiritName.ConfettiCousin]: "confettiCousin",
+	[SpiritName.HairtousleTeen]: "hairtousleTeen",
+	[SpiritName.SparklerParent]: "sparklerParent",
+	[SpiritName.PleafulParent]: "pleafulParent",
+	[SpiritName.WiseGrandparent]: "wiseGrandparent",
+	[SpiritName.RhythmGuide]: "rhythmGuide",
+	[SpiritName.TroupeGreeter]: "troupeGreeter",
+	[SpiritName.FestivalSpinDancer]: "festivalSpinDancer",
+	[SpiritName.AdmiringActor]: "admiringActor",
+	[SpiritName.TroupeJuggler]: "troupeJuggler",
+	[SpiritName.RespectfulPianist]: "respectfulPianist",
+	[SpiritName.ThoughtfulDirector]: "thoughtfulDirector",
+	[SpiritName.EnchantmentGuide]: "enchantmentGuide",
+	[SpiritName.NoddingMuralist]: "noddingMuralist",
+	[SpiritName.IndifferentAlchemist]: "indifferentAlchemist",
+	[SpiritName.CrabWalker]: "crabWalker",
+	[SpiritName.ScarecrowFarmer]: "scarecrowFarmer",
+	[SpiritName.SnoozingCarpenter]: "snoozingCarpenter",
+	[SpiritName.PlayfightingHerbalist]: "playfightingHerbalist",
+	[SpiritName.SanctuaryGuide]: "sanctuaryGuide",
+	[SpiritName.JellyWhisperer]: "jellyWhisperer",
+	[SpiritName.TimidBookworm]: "timidBookworm",
+	[SpiritName.RallyingThrillseeker]: "rallyingThrillseeker",
+	[SpiritName.HikingGrouch]: "hikingGrouch",
+	[SpiritName.GratefulShellCollector]: "gratefulShellCollector",
+	[SpiritName.ChillSunbather]: "chillSunbather",
+	[SpiritName.ProphecyGuide]: "prophecyGuide",
+	[SpiritName.ProphetOfWater]: "prophetOfWater",
+	[SpiritName.ProphetOfEarth]: "prophetOfEarth",
+	[SpiritName.ProphetOfAir]: "prophetOfAir",
+	[SpiritName.ProphetOfFire]: "prophetOfFire",
+	[SpiritName.DreamsGuide]: "dreamsGuide",
+	[SpiritName.SpinningMentor]: "spinningMentor",
+	[SpiritName.DancingPerformer]: "dancingPerformer",
+	[SpiritName.PeekingPostman]: "peekingPostman",
+	[SpiritName.BearhugHermit]: "bearhugHermit",
+	[SpiritName.AssemblyGuide]: "assemblyGuide",
+	[SpiritName.BaffledBotanist]: "baffledBotanist",
+	[SpiritName.ScoldingStudent]: "scoldingStudent",
+	[SpiritName.ScaredyCadet]: "scaredyCadet",
+	[SpiritName.MarchingAdventurer]: "marchingAdventurer",
+	[SpiritName.ChucklingScout]: "chucklingScout",
+	[SpiritName.DaydreamForester]: "daydreamForester",
+	[SpiritName.TheRose]: "theRose",
+	[SpiritName.BeckoningRuler]: "beckoningRuler",
+	[SpiritName.GloatingNarcissist]: "gloatingNarcissist",
+	[SpiritName.StretchingLamplighter]: "stretchingLamplighter",
+	[SpiritName.SlouchingSoldier]: "slouchingSoldier",
+	[SpiritName.SneezingGeographer]: "sneezingGeographer",
+	[SpiritName.StarCollector]: "starCollector",
+	[SpiritName.FlightGuide]: "flightGuide",
+	[SpiritName.LivelyNavigator]: "livelyNavigator",
+	[SpiritName.LightWhisperer]: "lightWhisperer",
+	[SpiritName.TinkeringChimesmith]: "tinkeringChimesmith",
+	[SpiritName.TalentedBuilder]: "talentedBuilder",
+	[SpiritName.AbyssGuide]: "abyssGuide",
+	[SpiritName.AnxiousAngler]: "anxiousAngler",
+	[SpiritName.CeasingCommodore]: "ceasingCommodore",
+	[SpiritName.BumblingBoatswain]: "bumblingBoatswain",
+	[SpiritName.CacklingCannoneer]: "cacklingCannoneer",
+	[SpiritName.PerformanceGuide]: "performanceGuide",
+	[SpiritName.FranticStagehand]: "franticStagehand",
+	[SpiritName.ForgetfulStoryteller]: "forgetfulStoryteller",
+	[SpiritName.MellowMusician]: "mellowMusician",
+	[SpiritName.ModestDancer]: "modestDancer",
+	[SpiritName.TheVoidOfShattering]: "theVoidOfShattering",
+	[SpiritName.AncientLight1]: "ancientLight1",
+	[SpiritName.AncientLight2]: "ancientLight2",
+	[SpiritName.AncientDarkness1]: "ancientDarkness1",
+	[SpiritName.AncientDarkness2]: "ancientDarkness2",
+	[SpiritName.AURORAGuide]: "auroraGuide",
+	[SpiritName.RunningWayfarer]: "runningWayfarer",
+	[SpiritName.MindfulMiner]: "mindfulMiner",
+	[SpiritName.WarriorOfLove]: "warriorOfLove",
+	[SpiritName.SeedOfHope]: "seedOfHope",
+	[SpiritName.RemembranceGuide]: "remembranceGuide",
+	[SpiritName.BereftVeteran]: "bereftVeteran",
+	[SpiritName.PleadingChild]: "pleadingChild",
+	[SpiritName.TiptoeingTeaBrewer]: "tiptoeingTeaBrewer",
+	[SpiritName.WoundedWarrior]: "woundedWarrior",
+	[SpiritName.PassageGuide]: "passageGuide",
+	[SpiritName.OddballOutcast]: "oddballOutcast",
+	[SpiritName.TumblingTroublemaker]: "tumblingTroublemaker",
+	[SpiritName.MelancholyMope]: "melancholyMope",
+	[SpiritName.OveractiveOverachiever]: "overactiveOverachiever",
+	[SpiritName.MomentsGuide]: "momentsGuide",
+	[SpiritName.ReassuringRanger]: "reassuringRanger",
+	[SpiritName.NightbirdWhisperer]: "nightbirdWhisperer",
+	[SpiritName.JollyGeologist]: "jollyGeologist",
+	[SpiritName.AsceticMonk]: "asceticMonk",
+	[SpiritName.HopefulSteward]: "hopefulSteward",
+	[SpiritName.VestigeOfADesertedOasis]: "vestigeOfADesertedOasis",
+	[SpiritName.MemoryOfALostVillage]: "memoryOfALostVillage",
+	[SpiritName.EchoOfAnAbandonedRefuge]: "echoOfAnAbandonedRefuge",
+	[SpiritName.RemnantOfAForgottenHaven]: "remnantOfAForgottenHaven",
+} as const satisfies Readonly<Record<SpiritName, Exclude<keyof SpiritTrackerData, "user_id">>>;
+
 export const SPIRIT_TRACKER_VIEW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID" as const;
@@ -1139,7 +1296,7 @@ export class SpiritTracker {
 
 	public elderProgress() {
 		return this.averageProgress(
-			Elder.map(({ name, maxItemsBit }) => bitPercentage(this.resolveNameToBit(name), maxItemsBit)),
+			Elder.map(({ name, maxItemsBit }) => bitPercentage(this[SpiritNameToSpiritTrackerName[name]], maxItemsBit)),
 			true,
 		);
 	}
@@ -1273,7 +1430,7 @@ export class SpiritTracker {
 
 	private realmProgress(realm: Realm, round?: boolean) {
 		return Standard.filter((spirit) => spirit.realm === realm).map(({ name, maxItemsBit }) =>
-			maxItemsBit ? bitPercentage(this.resolveNameToBit(name), maxItemsBit, round) : 100,
+			maxItemsBit ? bitPercentage(this[SpiritNameToSpiritTrackerName[name]], maxItemsBit, round) : 100,
 		);
 	}
 
@@ -1312,7 +1469,7 @@ export class SpiritTracker {
 		let hasEverything = true;
 
 		const options = Standard.filter((spirit) => spirit.realm === realm).map(({ name, maxItemsBit }) => {
-			const bit = spiritTracker.resolveNameToBit(name);
+			const bit = spiritTracker[SpiritNameToSpiritTrackerName[name]];
 			if (bit !== maxItemsBit) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
@@ -1357,7 +1514,7 @@ export class SpiritTracker {
 		let hasEverything = true;
 
 		const options = Elder.map(({ name, maxItemsBit }) => {
-			const bit = spiritTracker.resolveNameToBit(name);
+			const bit = spiritTracker[SpiritNameToSpiritTrackerName[name]];
 			if (bit !== maxItemsBit) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
@@ -1395,7 +1552,7 @@ export class SpiritTracker {
 
 	public seasonProgress(season: Season, round?: boolean) {
 		return Seasonal.filter((spirit) => spirit.season === season).map(({ name, maxItemsBit }) =>
-			maxItemsBit ? bitPercentage(this.resolveNameToBit(name), maxItemsBit, round) : 100,
+			maxItemsBit ? bitPercentage(this[SpiritNameToSpiritTrackerName[name]], maxItemsBit, round) : 100,
 		);
 	}
 
@@ -1435,7 +1592,7 @@ export class SpiritTracker {
 		let hasEverything = true;
 
 		const options = Seasonal.filter((spirit) => spirit.season === season).map(({ name, maxItemsBit }) => {
-			const bit = spiritTracker.resolveNameToBit(name);
+			const bit = spiritTracker[SpiritNameToSpiritTrackerName[name]];
 			if (bit !== maxItemsBit) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
@@ -1496,8 +1653,7 @@ export class SpiritTracker {
 			return;
 		}
 
-		const bit = spiritTracker.resolveNameToBit(spirit.name);
-		await this.viewSpiritResponse(interaction, bit, spirit);
+		await this.viewSpiritResponse(interaction, spiritTracker[SpiritNameToSpiritTrackerName[spirit.name]], spirit);
 	}
 
 	private static async viewSpiritResponse(
@@ -1642,318 +1798,5 @@ export class SpiritTracker {
 
 		components.push(buttons);
 		await interaction.update({ components, embeds });
-	}
-
-	private resolveNameToBit(spiritName: SpiritName) {
-		switch (spiritName) {
-			case SpiritName.PointingCandlemaker:
-				return this.pointingCandlemaker;
-			case SpiritName.UsheringStargazer:
-				return this.usheringStargazer;
-			case SpiritName.RejectingVoyager:
-				return this.rejectingVoyager;
-			case SpiritName.ElderOfTheIsle:
-				return this.elderOfTheIsle;
-			case SpiritName.ButterflyCharmer:
-				return this.butterflyCharmer;
-			case SpiritName.ApplaudingBellmaker:
-				return this.applaudingBellmaker;
-			case SpiritName.WavingBellmaker:
-				return this.wavingBellmaker;
-			case SpiritName.SlumberingShipwright:
-				return this.slumberingShipwright;
-			case SpiritName.LaughingLightCatcher:
-				return this.laughingLightCatcher;
-			case SpiritName.BirdWhisperer:
-				return this.birdWhisperer;
-			case SpiritName.ExhaustedDockWorker:
-				return this.exhaustedDockWorker;
-			case SpiritName.CeremonialWorshiper:
-				return this.ceremonialWorshiper;
-			case SpiritName.ElderOfThePrairie:
-				return this.elderOfThePrairie;
-			case SpiritName.ShiveringTrailblazer:
-				return this.shiveringTrailblazer;
-			case SpiritName.BlushingProspector:
-				return this.blushingProspector;
-			case SpiritName.HideNSeekPioneer:
-				return this.hideNSeekPioneer;
-			case SpiritName.PoutyPorter:
-				return this.poutyPorter;
-			case SpiritName.DismayedHunter:
-				return this.dismayedHunter;
-			case SpiritName.ApologeticLumberjack:
-				return this.apologeticLumberjack;
-			case SpiritName.TearfulLightMiner:
-				return this.tearfulLightMiner;
-			case SpiritName.WhaleWhisperer:
-				return this.whaleWhisperer;
-			case SpiritName.ElderOfTheForest:
-				return this.elderOfTheForest;
-			case SpiritName.ConfidentSightseer:
-				return this.confidentSightseer;
-			case SpiritName.HandstandingThrillseeker:
-				return this.handstandingThrillseeker;
-			case SpiritName.MantaWhisperer:
-				return this.mantaWhisperer;
-			case SpiritName.BackflippingChampion:
-				return this.backflippingChampion;
-			case SpiritName.CheerfulSpectator:
-				return this.cheerfulSpectator;
-			case SpiritName.BowingMedalist:
-				return this.bowingMedalist;
-			case SpiritName.ProudVictor:
-				return this.proudVictor;
-			case SpiritName.ElderOfTheValley:
-				return this.elderOfTheValley;
-			case SpiritName.FrightenedRefugee:
-				return this.frightenedRefugee;
-			case SpiritName.FaintingWarrior:
-				return this.faintingWarrior;
-			case SpiritName.CourageousSoldier:
-				return this.courageousSoldier;
-			case SpiritName.StealthySurvivor:
-				return this.stealthySurvivor;
-			case SpiritName.SalutingCaptain:
-				return this.salutingCaptain;
-			case SpiritName.LookoutScout:
-				return this.lookoutScout;
-			case SpiritName.ElderOfTheWasteland:
-				return this.elderOfTheWasteland;
-			case SpiritName.PrayingAcolyte:
-				return this.prayingAcolyte;
-			case SpiritName.LevitatingAdept:
-				return this.levitatingAdept;
-			case SpiritName.PoliteScholar:
-				return this.politeScholar;
-			case SpiritName.MemoryWhisperer:
-				return this.memoryWhisperer;
-			case SpiritName.MeditatingMonastic:
-				return this.meditatingMonastic;
-			case SpiritName.ElderOfTheVault:
-				return this.elderOfTheVault;
-			case SpiritName.GratitudeGuide:
-				return this.gratitudeGuide;
-			case SpiritName.SassyDrifter:
-				return this.sassyDrifter;
-			case SpiritName.StretchingGuru:
-				return this.stretchingGuru;
-			case SpiritName.ProvokingPerformer:
-				return this.provokingPerformer;
-			case SpiritName.LeapingDancer:
-				return this.leapingDancer;
-			case SpiritName.SalutingProtector:
-				return this.salutingProtector;
-			case SpiritName.GreetingShaman:
-				return this.greetingShaman;
-			case SpiritName.LightseekersGuide:
-				return this.lightseekersGuide;
-			case SpiritName.PiggybackLightseeker:
-				return this.piggybackLightseeker;
-			case SpiritName.DoublefiveLightCatcher:
-				return this.doublefiveLightCatcher;
-			case SpiritName.LaidbackPioneer:
-				return this.laidbackPioneer;
-			case SpiritName.TwirlingChampion:
-				return this.twirlingChampion;
-			case SpiritName.CrabWhisperer:
-				return this.crabWhisperer;
-			case SpiritName.ShushingLightScholar:
-				return this.shushingLightScholar;
-			case SpiritName.BelongingGuide:
-				return this.belongingGuide;
-			case SpiritName.BoogieKid:
-				return this.boogieKid;
-			case SpiritName.ConfettiCousin:
-				return this.confettiCousin;
-			case SpiritName.HairtousleTeen:
-				return this.hairtousleTeen;
-			case SpiritName.SparklerParent:
-				return this.sparklerParent;
-			case SpiritName.PleafulParent:
-				return this.pleafulParent;
-			case SpiritName.WiseGrandparent:
-				return this.wiseGrandparent;
-			case SpiritName.RhythmGuide:
-				return this.rhythmGuide;
-			case SpiritName.TroupeGreeter:
-				return this.troupeGreeter;
-			case SpiritName.FestivalSpinDancer:
-				return this.festivalSpinDancer;
-			case SpiritName.AdmiringActor:
-				return this.admiringActor;
-			case SpiritName.TroupeJuggler:
-				return this.troupeJuggler;
-			case SpiritName.RespectfulPianist:
-				return this.respectfulPianist;
-			case SpiritName.ThoughtfulDirector:
-				return this.thoughtfulDirector;
-			case SpiritName.EnchantmentGuide:
-				return this.enchantmentGuide;
-			case SpiritName.NoddingMuralist:
-				return this.noddingMuralist;
-			case SpiritName.IndifferentAlchemist:
-				return this.indifferentAlchemist;
-			case SpiritName.CrabWalker:
-				return this.crabWalker;
-			case SpiritName.ScarecrowFarmer:
-				return this.scarecrowFarmer;
-			case SpiritName.SnoozingCarpenter:
-				return this.snoozingCarpenter;
-			case SpiritName.PlayfightingHerbalist:
-				return this.playfightingHerbalist;
-			case SpiritName.SanctuaryGuide:
-				return this.sanctuaryGuide;
-			case SpiritName.JellyWhisperer:
-				return this.jellyWhisperer;
-			case SpiritName.TimidBookworm:
-				return this.timidBookworm;
-			case SpiritName.RallyingThrillseeker:
-				return this.rallyingThrillseeker;
-			case SpiritName.HikingGrouch:
-				return this.hikingGrouch;
-			case SpiritName.GratefulShellCollector:
-				return this.gratefulShellCollector;
-			case SpiritName.ChillSunbather:
-				return this.chillSunbather;
-			case SpiritName.ProphecyGuide:
-				return this.prophecyGuide;
-			case SpiritName.ProphetOfWater:
-				return this.prophetOfWater;
-			case SpiritName.ProphetOfEarth:
-				return this.prophetOfEarth;
-			case SpiritName.ProphetOfAir:
-				return this.prophetOfAir;
-			case SpiritName.ProphetOfFire:
-				return this.prophetOfFire;
-			case SpiritName.DreamsGuide:
-				return this.dreamsGuide;
-			case SpiritName.SpinningMentor:
-				return this.spinningMentor;
-			case SpiritName.DancingPerformer:
-				return this.dancingPerformer;
-			case SpiritName.PeekingPostman:
-				return this.peekingPostman;
-			case SpiritName.BearhugHermit:
-				return this.bearhugHermit;
-			case SpiritName.AssemblyGuide:
-				return this.assemblyGuide;
-			case SpiritName.BaffledBotanist:
-				return this.baffledBotanist;
-			case SpiritName.ScoldingStudent:
-				return this.scoldingStudent;
-			case SpiritName.ScaredyCadet:
-				return this.scaredyCadet;
-			case SpiritName.MarchingAdventurer:
-				return this.marchingAdventurer;
-			case SpiritName.ChucklingScout:
-				return this.chucklingScout;
-			case SpiritName.DaydreamForester:
-				return this.daydreamForester;
-			case SpiritName.TheRose:
-				return this.theRose;
-			case SpiritName.BeckoningRuler:
-				return this.beckoningRuler;
-			case SpiritName.GloatingNarcissist:
-				return this.gloatingNarcissist;
-			case SpiritName.StretchingLamplighter:
-				return this.stretchingLamplighter;
-			case SpiritName.SlouchingSoldier:
-				return this.slouchingSoldier;
-			case SpiritName.SneezingGeographer:
-				return this.sneezingGeographer;
-			case SpiritName.StarCollector:
-				return this.starCollector;
-			case SpiritName.FlightGuide:
-				return this.flightGuide;
-			case SpiritName.LivelyNavigator:
-				return this.livelyNavigator;
-			case SpiritName.LightWhisperer:
-				return this.lightWhisperer;
-			case SpiritName.TinkeringChimesmith:
-				return this.tinkeringChimesmith;
-			case SpiritName.TalentedBuilder:
-				return this.talentedBuilder;
-			case SpiritName.AbyssGuide:
-				return this.abyssGuide;
-			case SpiritName.AnxiousAngler:
-				return this.anxiousAngler;
-			case SpiritName.CeasingCommodore:
-				return this.ceasingCommodore;
-			case SpiritName.BumblingBoatswain:
-				return this.bumblingBoatswain;
-			case SpiritName.CacklingCannoneer:
-				return this.cacklingCannoneer;
-			case SpiritName.PerformanceGuide:
-				return this.performanceGuide;
-			case SpiritName.FranticStagehand:
-				return this.franticStagehand;
-			case SpiritName.ForgetfulStoryteller:
-				return this.forgetfulStoryteller;
-			case SpiritName.MellowMusician:
-				return this.mellowMusician;
-			case SpiritName.ModestDancer:
-				return this.modestDancer;
-			case SpiritName.TheVoidOfShattering:
-				return this.theVoidOfShattering;
-			case SpiritName.AncientLight1:
-				return this.ancientLight1;
-			case SpiritName.AncientLight2:
-				return this.ancientLight2;
-			case SpiritName.AncientDarkness1:
-				return this.ancientDarkness1;
-			case SpiritName.AncientDarkness2:
-				return this.ancientDarkness2;
-			case SpiritName.AURORAGuide:
-				return this.auroraGuide;
-			case SpiritName.RunningWayfarer:
-				return this.runningWayfarer;
-			case SpiritName.MindfulMiner:
-				return this.mindfulMiner;
-			case SpiritName.WarriorOfLove:
-				return this.warriorOfLove;
-			case SpiritName.SeedOfHope:
-				return this.seedOfHope;
-			case SpiritName.RemembranceGuide:
-				return this.remembranceGuide;
-			case SpiritName.BereftVeteran:
-				return this.bereftVeteran;
-			case SpiritName.PleadingChild:
-				return this.pleadingChild;
-			case SpiritName.TiptoeingTeaBrewer:
-				return this.tiptoeingTeaBrewer;
-			case SpiritName.WoundedWarrior:
-				return this.woundedWarrior;
-			case SpiritName.PassageGuide:
-				return this.passageGuide;
-			case SpiritName.OddballOutcast:
-				return this.oddballOutcast;
-			case SpiritName.TumblingTroublemaker:
-				return this.tumblingTroublemaker;
-			case SpiritName.MelancholyMope:
-				return this.melancholyMope;
-			case SpiritName.OveractiveOverachiever:
-				return this.overactiveOverachiever;
-			case SpiritName.MomentsGuide:
-				return this.momentsGuide;
-			case SpiritName.ReassuringRanger:
-				return this.reassuringRanger;
-			case SpiritName.NightbirdWhisperer:
-				return this.nightbirdWhisperer;
-			case SpiritName.JollyGeologist:
-				return this.jollyGeologist;
-			case SpiritName.AsceticMonk:
-				return this.asceticMonk;
-			case SpiritName.HopefulSteward:
-				return this.hopefulSteward;
-			case SpiritName.VestigeOfADesertedOasis:
-				return this.vestigeOfADesertedOasis;
-			case SpiritName.MemoryOfALostVillage:
-				return this.memoryOfALostVillage;
-			case SpiritName.EchoOfAnAbandonedRefuge:
-				return this.echoOfAnAbandonedRefuge;
-			case SpiritName.RemnantOfAForgottenHaven:
-				return this.remnantOfAForgottenHaven;
-		}
 	}
 }
