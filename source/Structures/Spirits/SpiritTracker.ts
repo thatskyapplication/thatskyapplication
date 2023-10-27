@@ -356,6 +356,7 @@ interface SpiritTrackerData {
 }
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
+type SpiritTracketSetData = Partial<Omit<SpiritTrackerPacket, "user_id">>;
 
 const SpiritTrackerNameToRawName = {
 	[SpiritName.PointingCandlemaker]: "pointing_candlemaker",
@@ -1044,29 +1045,42 @@ export class SpiritTracker {
 	}
 
 	public static async setSpirits(interaction: ButtonInteraction) {
-		const { customId } = interaction;
+		const { customId, user } = interaction;
 		const realm = customId.slice(customId.indexOf("§") + 1) as Realm;
-		const spirits = Standard.filter((spirit) => spirit.realm === realm);
 
-		await Promise.all(
-			spirits.map(async ({ name, maxItemsBit }) => this.update(interaction.user.id, name, maxItemsBit)),
+		await this.update(
+			user.id,
+			Standard.filter((spirit) => spirit.realm === realm).reduce<SpiritTracketSetData>((data, spirit) => {
+				data[SpiritTrackerNameToRawName[spirit.name]] = spirit.maxItemsBit;
+				return data;
+			}, {}),
 		);
 
 		await SpiritTracker.viewRealm(interaction, realm);
 	}
 
 	public static async setElders(interaction: ButtonInteraction) {
-		await Promise.all(Elder.map(async ({ name, maxItemsBit }) => this.update(interaction.user.id, name, maxItemsBit)));
+		await this.update(
+			interaction.user.id,
+			Elder.reduce<SpiritTracketSetData>((data, spirit) => {
+				data[SpiritTrackerNameToRawName[spirit.name]] = spirit.maxItemsBit;
+				return data;
+			}, {}),
+		);
+
 		await SpiritTracker.viewElders(interaction);
 	}
 
 	public static async setSeason(interaction: ButtonInteraction) {
-		const { customId } = interaction;
+		const { customId, user } = interaction;
 		const season = customId.slice(customId.indexOf("§") + 1) as Season;
-		const spirits = Seasonal.filter((spirit) => spirit.season === season);
 
-		await Promise.all(
-			spirits.map(async ({ name, maxItemsBit }) => this.update(interaction.user.id, name, maxItemsBit)),
+		await this.update(
+			user.id,
+			Seasonal.filter((spirit) => spirit.season === season).reduce<SpiritTracketSetData>((data, spirit) => {
+				data[SpiritTrackerNameToRawName[spirit.name]] = spirit.maxItemsBit;
+				return data;
+			}, {}),
 		);
 
 		await SpiritTracker.viewSeason(interaction, season);
@@ -1098,15 +1112,12 @@ export class SpiritTracker {
 			);
 		}
 
-		await this.update(interaction.user.id, spiritName, newBit);
+		await this.update(interaction.user.id, { [SpiritTrackerNameToRawName[spiritName]]: newBit });
 		await SpiritTracker.viewSpiritResponse(interaction, newBit, spirit);
 	}
 
-	private static async update(userId: SpiritTracker["userId"], spiritName: SpiritName, bit: number | null) {
-		return pg<SpiritTrackerPacket>(Table.SpiritTracker)
-			.update({ [SpiritTrackerNameToRawName[spiritName]]: bit })
-			.where({ user_id: userId })
-			.returning("*");
+	private static async update(userId: SpiritTracker["userId"], data: SpiritTracketSetData) {
+		return pg<SpiritTrackerPacket>(Table.SpiritTracker).update(data).where({ user_id: userId }).returning("*");
 	}
 
 	private averageProgress(progresses: number[], round?: boolean) {
