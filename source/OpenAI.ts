@@ -20,7 +20,7 @@ function parseAIName(input: string) {
 }
 
 export async function messageCreateResponse(message: Message<true>) {
-	const messages = message.channel.messages.cache.first(5).reverse();
+	const messages = message.channel.messages.cache.last(5);
 	const lastMessageId = messages.at(-1)?.id;
 	if (!lastMessageId) return;
 
