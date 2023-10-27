@@ -9,12 +9,21 @@ const openAI = new OpenAI({ apiKey: OPENAI_API_KEY });
 
 const AI_DEFAULT_RESPONSE = "Oh my gosh! Could you be the... the legendary Sky kid?" as const;
 
+const AI_DESCRIPTION =
+	"You are called Caelus. Responses should be short and whimsical. Responses should be relevant to Sky: Children of the Light. Do not refer to yourself as an AI." as const;
+
+const AI_LAST_MESSAGE_CONTEXT = `${AI_DESCRIPTION} Use the previous messages as context.` as const;
+
 function parseAIName(input: string) {
 	const cleaned = input.replaceAll(/[^\w-]/g, "");
 	return cleaned.length >= 1 ? cleaned : null;
 }
 
 export async function messageCreateResponse(message: Message<true>) {
+	const messages = message.channel.messages.cache.first(5).reverse();
+	const lastMessageId = messages.at(-1)?.id;
+	if (!lastMessageId) return;
+
 	try {
 		const [, completion] = await Promise.all([
 			message.channel.sendTyping(),
@@ -22,22 +31,19 @@ export async function messageCreateResponse(message: Message<true>) {
 				frequency_penalty: 1,
 				max_tokens: 100,
 				messages: [
-					...message.channel.messages.cache
-						.map((message) => {
-							const chatCompletionRequestMessage: ChatCompletionMessageParam = {
-								content: message.content,
-								role: message.author.id === message.client.user.id ? "assistant" : "user",
-							};
+					{ role: "system", content: AI_DESCRIPTION },
+					...messages.map((message) => {
+						const chatCompletionRequestMessage: ChatCompletionMessageParam = {
+							content: `${message.id === lastMessageId ? `${AI_LAST_MESSAGE_CONTEXT}\n\n---\n\n` : ""}${
+								message.content
+							}`,
+							role: message.author.id === message.client.user.id ? "assistant" : "user",
+						};
 
-							const name = parseAIName(message.member?.displayName ?? message.author.username);
-							if (name) chatCompletionRequestMessage.name = name;
-							return chatCompletionRequestMessage;
-						})
-						.slice(-5),
-					{
-						role: "system",
-						content: `You are called ${message.client.user.username}. Responses should be short and whimsical. Responses should be relevant to Sky: Children of the Light. Do not refer to yourself as an AI.`,
-					},
+						const name = parseAIName(message.member?.displayName ?? message.author.username);
+						if (name) chatCompletionRequestMessage.name = name;
+						return chatCompletionRequestMessage;
+					}),
 				],
 				model: "gpt-3.5-turbo",
 				user: message.author.id,
