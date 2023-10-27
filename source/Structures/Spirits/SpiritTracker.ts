@@ -357,6 +357,163 @@ interface SpiritTrackerData {
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
 
+const SpiritTrackerNameToRawName = {
+	[SpiritName.PointingCandlemaker]: "pointing_candlemaker",
+	[SpiritName.UsheringStargazer]: "ushering_stargazer",
+	[SpiritName.RejectingVoyager]: "rejecting_voyager",
+	[SpiritName.ElderOfTheIsle]: "elder_of_the_isle",
+	[SpiritName.ButterflyCharmer]: "butterfly_charmer",
+	[SpiritName.ApplaudingBellmaker]: "applauding_bellmaker",
+	[SpiritName.WavingBellmaker]: "waving_bellmaker",
+	[SpiritName.SlumberingShipwright]: "slumbering_shipwright",
+	[SpiritName.LaughingLightCatcher]: "laughing_light_catcher",
+	[SpiritName.BirdWhisperer]: "bird_whisperer",
+	[SpiritName.ExhaustedDockWorker]: "exhausted_dock_worker",
+	[SpiritName.CeremonialWorshiper]: "ceremonial_worshiper",
+	[SpiritName.ElderOfThePrairie]: "elder_of_the_prairie",
+	[SpiritName.ShiveringTrailblazer]: "shivering_trailblazer",
+	[SpiritName.BlushingProspector]: "blushing_prospector",
+	[SpiritName.HideNSeekPioneer]: "hide_n_seek_pioneer",
+	[SpiritName.PoutyPorter]: "pouty_porter",
+	[SpiritName.DismayedHunter]: "dismayed_hunter",
+	[SpiritName.ApologeticLumberjack]: "apologetic_lumberjack",
+	[SpiritName.TearfulLightMiner]: "tearful_light_miner",
+	[SpiritName.WhaleWhisperer]: "whale_whisperer",
+	[SpiritName.ElderOfTheForest]: "elder_of_the_forest",
+	[SpiritName.ConfidentSightseer]: "confident_sightseer",
+	[SpiritName.HandstandingThrillseeker]: "handstanding_thrillseeker",
+	[SpiritName.MantaWhisperer]: "manta_whisperer",
+	[SpiritName.BackflippingChampion]: "backflipping_champion",
+	[SpiritName.CheerfulSpectator]: "cheerful_spectator",
+	[SpiritName.BowingMedalist]: "bowing_medalist",
+	[SpiritName.ProudVictor]: "proud_victor",
+	[SpiritName.ElderOfTheValley]: "elder_of_the_valley",
+	[SpiritName.FrightenedRefugee]: "frightened_refugee",
+	[SpiritName.FaintingWarrior]: "fainting_warrior",
+	[SpiritName.CourageousSoldier]: "courageous_soldier",
+	[SpiritName.StealthySurvivor]: "stealthy_survivor",
+	[SpiritName.SalutingCaptain]: "saluting_captain",
+	[SpiritName.LookoutScout]: "lookout_scout",
+	[SpiritName.ElderOfTheWasteland]: "elder_of_the_wasteland",
+	[SpiritName.PrayingAcolyte]: "praying_acolyte",
+	[SpiritName.LevitatingAdept]: "levitating_adept",
+	[SpiritName.PoliteScholar]: "polite_scholar",
+	[SpiritName.MemoryWhisperer]: "memory_whisperer",
+	[SpiritName.MeditatingMonastic]: "meditating_monastic",
+	[SpiritName.ElderOfTheVault]: "elder_of_the_vault",
+	[SpiritName.GratitudeGuide]: "gratitude_guide",
+	[SpiritName.SassyDrifter]: "sassy_drifter",
+	[SpiritName.StretchingGuru]: "stretching_guru",
+	[SpiritName.ProvokingPerformer]: "provoking_performer",
+	[SpiritName.LeapingDancer]: "leaping_dancer",
+	[SpiritName.SalutingProtector]: "saluting_protector",
+	[SpiritName.GreetingShaman]: "greeting_shaman",
+	[SpiritName.LightseekersGuide]: "lightseekers_guide",
+	[SpiritName.PiggybackLightseeker]: "piggyback_lightseeker",
+	[SpiritName.DoublefiveLightCatcher]: "doublefive_light_catcher",
+	[SpiritName.LaidbackPioneer]: "laidback_pioneer",
+	[SpiritName.TwirlingChampion]: "twirling_champion",
+	[SpiritName.CrabWhisperer]: "crab_whisperer",
+	[SpiritName.ShushingLightScholar]: "shushing_light_scholar",
+	[SpiritName.BelongingGuide]: "belonging_guide",
+	[SpiritName.BoogieKid]: "boogie_kid",
+	[SpiritName.ConfettiCousin]: "confetti_cousin",
+	[SpiritName.HairtousleTeen]: "hairtousle_teen",
+	[SpiritName.SparklerParent]: "sparkler_parent",
+	[SpiritName.PleafulParent]: "pleaful_parent",
+	[SpiritName.WiseGrandparent]: "wise_grandparent",
+	[SpiritName.RhythmGuide]: "rhythm_guide",
+	[SpiritName.TroupeGreeter]: "troupe_greeter",
+	[SpiritName.FestivalSpinDancer]: "festival_spin_dancer",
+	[SpiritName.AdmiringActor]: "admiring_actor",
+	[SpiritName.TroupeJuggler]: "troupe_juggler",
+	[SpiritName.RespectfulPianist]: "respectful_pianist",
+	[SpiritName.ThoughtfulDirector]: "thoughtful_director",
+	[SpiritName.EnchantmentGuide]: "enchantment_guide",
+	[SpiritName.NoddingMuralist]: "nodding_muralist",
+	[SpiritName.IndifferentAlchemist]: "indifferent_alchemist",
+	[SpiritName.CrabWalker]: "crab_walker",
+	[SpiritName.ScarecrowFarmer]: "scarecrow_farmer",
+	[SpiritName.SnoozingCarpenter]: "snoozing_carpenter",
+	[SpiritName.PlayfightingHerbalist]: "playfighting_herbalist",
+	[SpiritName.SanctuaryGuide]: "sanctuary_guide",
+	[SpiritName.JellyWhisperer]: "jelly_whisperer",
+	[SpiritName.TimidBookworm]: "timid_bookworm",
+	[SpiritName.RallyingThrillseeker]: "rallying_thrillseeker",
+	[SpiritName.HikingGrouch]: "hiking_grouch",
+	[SpiritName.GratefulShellCollector]: "grateful_shell_collector",
+	[SpiritName.ChillSunbather]: "chill_sunbather",
+	[SpiritName.ProphecyGuide]: "prophecy_guide",
+	[SpiritName.ProphetOfWater]: "prophet_of_water",
+	[SpiritName.ProphetOfEarth]: "prophet_of_earth",
+	[SpiritName.ProphetOfAir]: "prophet_of_air",
+	[SpiritName.ProphetOfFire]: "prophet_of_fire",
+	[SpiritName.DreamsGuide]: "dreams_guide",
+	[SpiritName.SpinningMentor]: "spinning_mentor",
+	[SpiritName.DancingPerformer]: "dancing_performer",
+	[SpiritName.PeekingPostman]: "peeking_postman",
+	[SpiritName.BearhugHermit]: "bearhug_hermit",
+	[SpiritName.AssemblyGuide]: "assembly_guide",
+	[SpiritName.BaffledBotanist]: "baffled_botanist",
+	[SpiritName.ScoldingStudent]: "scolding_student",
+	[SpiritName.ScaredyCadet]: "scaredy_cadet",
+	[SpiritName.MarchingAdventurer]: "marching_adventurer",
+	[SpiritName.ChucklingScout]: "chuckling_scout",
+	[SpiritName.DaydreamForester]: "daydream_forester",
+	[SpiritName.TheRose]: "the_rose",
+	[SpiritName.BeckoningRuler]: "beckoning_ruler",
+	[SpiritName.GloatingNarcissist]: "gloating_narcissist",
+	[SpiritName.StretchingLamplighter]: "stretching_lamplighter",
+	[SpiritName.SlouchingSoldier]: "slouching_soldier",
+	[SpiritName.SneezingGeographer]: "sneezing_geographer",
+	[SpiritName.StarCollector]: "star_collector",
+	[SpiritName.FlightGuide]: "flight_guide",
+	[SpiritName.LivelyNavigator]: "lively_navigator",
+	[SpiritName.LightWhisperer]: "light_whisperer",
+	[SpiritName.TinkeringChimesmith]: "tinkering_chimesmith",
+	[SpiritName.TalentedBuilder]: "talented_builder",
+	[SpiritName.AbyssGuide]: "abyss_guide",
+	[SpiritName.AnxiousAngler]: "anxious_angler",
+	[SpiritName.CeasingCommodore]: "ceasing_commodore",
+	[SpiritName.BumblingBoatswain]: "bumbling_boatswain",
+	[SpiritName.CacklingCannoneer]: "cackling_cannoneer",
+	[SpiritName.PerformanceGuide]: "performance_guide",
+	[SpiritName.FranticStagehand]: "frantic_stagehand",
+	[SpiritName.ForgetfulStoryteller]: "forgetful_storyteller",
+	[SpiritName.MellowMusician]: "mellow_musician",
+	[SpiritName.ModestDancer]: "modest_dancer",
+	[SpiritName.TheVoidOfShattering]: "the_void_of_shattering",
+	[SpiritName.AncientLight1]: "ancient_light1",
+	[SpiritName.AncientLight2]: "ancient_light2",
+	[SpiritName.AncientDarkness1]: "ancient_darkness1",
+	[SpiritName.AncientDarkness2]: "ancient_darkness2",
+	[SpiritName.AURORAGuide]: "aurora_guide",
+	[SpiritName.RunningWayfarer]: "running_wayfarer",
+	[SpiritName.MindfulMiner]: "mindful_miner",
+	[SpiritName.WarriorOfLove]: "warrior_of_love",
+	[SpiritName.SeedOfHope]: "seed_of_hope",
+	[SpiritName.RemembranceGuide]: "remembrance_guide",
+	[SpiritName.BereftVeteran]: "bereft_veteran",
+	[SpiritName.PleadingChild]: "pleading_child",
+	[SpiritName.TiptoeingTeaBrewer]: "tiptoeing_tea_brewer",
+	[SpiritName.WoundedWarrior]: "wounded_warrior",
+	[SpiritName.PassageGuide]: "passage_guide",
+	[SpiritName.OddballOutcast]: "oddball_outcast",
+	[SpiritName.TumblingTroublemaker]: "tumbling_troublemaker",
+	[SpiritName.MelancholyMope]: "melancholy_mope",
+	[SpiritName.OveractiveOverachiever]: "overactive_overachiever",
+	[SpiritName.MomentsGuide]: "moments_guide",
+	[SpiritName.ReassuringRanger]: "reassuring_ranger",
+	[SpiritName.NightbirdWhisperer]: "nightbird_whisperer",
+	[SpiritName.JollyGeologist]: "jolly_geologist",
+	[SpiritName.AsceticMonk]: "ascetic_monk",
+	[SpiritName.HopefulSteward]: "hopeful_steward",
+	[SpiritName.VestigeOfADesertedOasis]: "vestige_of_a_deserted_oasis",
+	[SpiritName.MemoryOfALostVillage]: "memory_of_a_lost_village",
+	[SpiritName.EchoOfAnAbandonedRefuge]: "echo_of_an_abandoned_refuge",
+	[SpiritName.RemnantOfAForgottenHaven]: "remnant_of_a_forgotten_haven",
+} as const satisfies Readonly<Record<SpiritName, Exclude<keyof SpiritTrackerPacket, "user_id">>>;
+
 export const SPIRIT_TRACKER_VIEW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID" as const;
@@ -946,475 +1103,8 @@ export class SpiritTracker {
 	}
 
 	private static async update(userId: SpiritTracker["userId"], spiritName: SpiritName, bit: number | null) {
-		let spirit_name;
-
-		switch (spiritName) {
-			case SpiritName.PointingCandlemaker:
-				spirit_name = "pointing_candlemaker";
-				break;
-			case SpiritName.UsheringStargazer:
-				spirit_name = "ushering_stargazer";
-				break;
-			case SpiritName.RejectingVoyager:
-				spirit_name = "rejecting_voyager";
-				break;
-			case SpiritName.ElderOfTheIsle:
-				spirit_name = "elder_of_the_isle";
-				break;
-			case SpiritName.ButterflyCharmer:
-				spirit_name = "butterfly_charmer";
-				break;
-			case SpiritName.ApplaudingBellmaker:
-				spirit_name = "applauding_bellmaker";
-				break;
-			case SpiritName.WavingBellmaker:
-				spirit_name = "waving_bellmaker";
-				break;
-			case SpiritName.SlumberingShipwright:
-				spirit_name = "slumbering_shipwright";
-				break;
-			case SpiritName.LaughingLightCatcher:
-				spirit_name = "laughing_light_catcher";
-				break;
-			case SpiritName.BirdWhisperer:
-				spirit_name = "bird_whisperer";
-				break;
-			case SpiritName.ExhaustedDockWorker:
-				spirit_name = "exhausted_dock_worker";
-				break;
-			case SpiritName.CeremonialWorshiper:
-				spirit_name = "ceremonial_worshiper";
-				break;
-			case SpiritName.ElderOfThePrairie:
-				spirit_name = "elder_of_the_prairie";
-				break;
-			case SpiritName.ShiveringTrailblazer:
-				spirit_name = "shivering_trailblazer";
-				break;
-			case SpiritName.BlushingProspector:
-				spirit_name = "blushing_prospector";
-				break;
-			case SpiritName.HideNSeekPioneer:
-				spirit_name = "hide_n_seek_pioneer";
-				break;
-			case SpiritName.PoutyPorter:
-				spirit_name = "pouty_porter";
-				break;
-			case SpiritName.DismayedHunter:
-				spirit_name = "dismayed_hunter";
-				break;
-			case SpiritName.ApologeticLumberjack:
-				spirit_name = "apologetic_lumberjack";
-				break;
-			case SpiritName.TearfulLightMiner:
-				spirit_name = "tearful_light_miner";
-				break;
-			case SpiritName.WhaleWhisperer:
-				spirit_name = "whale_whisperer";
-				break;
-			case SpiritName.ElderOfTheForest:
-				spirit_name = "elder_of_the_forest";
-				break;
-			case SpiritName.ConfidentSightseer:
-				spirit_name = "confident_sightseer";
-				break;
-			case SpiritName.HandstandingThrillseeker:
-				spirit_name = "handstanding_thrillseeker";
-				break;
-			case SpiritName.MantaWhisperer:
-				spirit_name = "manta_whisperer";
-				break;
-			case SpiritName.BackflippingChampion:
-				spirit_name = "backflipping_champion";
-				break;
-			case SpiritName.CheerfulSpectator:
-				spirit_name = "cheerful_spectator";
-				break;
-			case SpiritName.BowingMedalist:
-				spirit_name = "bowing_medalist";
-				break;
-			case SpiritName.ProudVictor:
-				spirit_name = "proud_victor";
-				break;
-			case SpiritName.ElderOfTheValley:
-				spirit_name = "elder_of_the_valley";
-				break;
-			case SpiritName.FrightenedRefugee:
-				spirit_name = "frightened_refugee";
-				break;
-			case SpiritName.FaintingWarrior:
-				spirit_name = "fainting_warrior";
-				break;
-			case SpiritName.CourageousSoldier:
-				spirit_name = "courageous_soldier";
-				break;
-			case SpiritName.StealthySurvivor:
-				spirit_name = "stealthy_survivor";
-				break;
-			case SpiritName.SalutingCaptain:
-				spirit_name = "saluting_captain";
-				break;
-			case SpiritName.LookoutScout:
-				spirit_name = "lookout_scout";
-				break;
-			case SpiritName.ElderOfTheWasteland:
-				spirit_name = "elder_of_the_wasteland";
-				break;
-			case SpiritName.PrayingAcolyte:
-				spirit_name = "praying_acolyte";
-				break;
-			case SpiritName.LevitatingAdept:
-				spirit_name = "levitating_adept";
-				break;
-			case SpiritName.PoliteScholar:
-				spirit_name = "polite_scholar";
-				break;
-			case SpiritName.MemoryWhisperer:
-				spirit_name = "memory_whisperer";
-				break;
-			case SpiritName.MeditatingMonastic:
-				spirit_name = "meditating_monastic";
-				break;
-			case SpiritName.ElderOfTheVault:
-				spirit_name = "elder_of_the_vault";
-				break;
-			case SpiritName.GratitudeGuide:
-				spirit_name = "gratitude_guide";
-				break;
-			case SpiritName.SassyDrifter:
-				spirit_name = "sassy_drifter";
-				break;
-			case SpiritName.StretchingGuru:
-				spirit_name = "stretching_guru";
-				break;
-			case SpiritName.ProvokingPerformer:
-				spirit_name = "provoking_performer";
-				break;
-			case SpiritName.LeapingDancer:
-				spirit_name = "leaping_dancer";
-				break;
-			case SpiritName.SalutingProtector:
-				spirit_name = "saluting_protector";
-				break;
-			case SpiritName.GreetingShaman:
-				spirit_name = "greeting_shaman";
-				break;
-			case SpiritName.LightseekersGuide:
-				spirit_name = "lightseekers_guide";
-				break;
-			case SpiritName.PiggybackLightseeker:
-				spirit_name = "piggyback_lightseeker";
-				break;
-			case SpiritName.DoublefiveLightCatcher:
-				spirit_name = "doublefive_light_catcher";
-				break;
-			case SpiritName.LaidbackPioneer:
-				spirit_name = "laidback_pioneer";
-				break;
-			case SpiritName.TwirlingChampion:
-				spirit_name = "twirling_champion";
-				break;
-			case SpiritName.CrabWhisperer:
-				spirit_name = "crab_whisperer";
-				break;
-			case SpiritName.ShushingLightScholar:
-				spirit_name = "shushing_light_scholar";
-				break;
-			case SpiritName.BelongingGuide:
-				spirit_name = "belonging_guide";
-				break;
-			case SpiritName.BoogieKid:
-				spirit_name = "boogie_kid";
-				break;
-			case SpiritName.ConfettiCousin:
-				spirit_name = "confetti_cousin";
-				break;
-			case SpiritName.HairtousleTeen:
-				spirit_name = "hairtousle_teen";
-				break;
-			case SpiritName.SparklerParent:
-				spirit_name = "sparkler_parent";
-				break;
-			case SpiritName.PleafulParent:
-				spirit_name = "pleaful_parent";
-				break;
-			case SpiritName.WiseGrandparent:
-				spirit_name = "wise_grandparent";
-				break;
-			case SpiritName.RhythmGuide:
-				spirit_name = "rhythm_guide";
-				break;
-			case SpiritName.TroupeGreeter:
-				spirit_name = "troupe_greeter";
-				break;
-			case SpiritName.FestivalSpinDancer:
-				spirit_name = "festival_spin_dancer";
-				break;
-			case SpiritName.AdmiringActor:
-				spirit_name = "admiring_actor";
-				break;
-			case SpiritName.TroupeJuggler:
-				spirit_name = "troupe_juggler";
-				break;
-			case SpiritName.RespectfulPianist:
-				spirit_name = "respectful_pianist";
-				break;
-			case SpiritName.ThoughtfulDirector:
-				spirit_name = "thoughtful_director";
-				break;
-			case SpiritName.EnchantmentGuide:
-				spirit_name = "enchantment_guide";
-				break;
-			case SpiritName.NoddingMuralist:
-				spirit_name = "nodding_muralist";
-				break;
-			case SpiritName.IndifferentAlchemist:
-				spirit_name = "indifferent_alchemist";
-				break;
-			case SpiritName.CrabWalker:
-				spirit_name = "crab_walker";
-				break;
-			case SpiritName.ScarecrowFarmer:
-				spirit_name = "scarecrow_farmer";
-				break;
-			case SpiritName.SnoozingCarpenter:
-				spirit_name = "snoozing_carpenter";
-				break;
-			case SpiritName.PlayfightingHerbalist:
-				spirit_name = "playfighting_herbalist";
-				break;
-			case SpiritName.SanctuaryGuide:
-				spirit_name = "sanctuary_guide";
-				break;
-			case SpiritName.JellyWhisperer:
-				spirit_name = "jelly_whisperer";
-				break;
-			case SpiritName.TimidBookworm:
-				spirit_name = "timid_bookworm";
-				break;
-			case SpiritName.RallyingThrillseeker:
-				spirit_name = "rallying_thrillseeker";
-				break;
-			case SpiritName.HikingGrouch:
-				spirit_name = "hiking_grouch";
-				break;
-			case SpiritName.GratefulShellCollector:
-				spirit_name = "grateful_shell_collector";
-				break;
-			case SpiritName.ChillSunbather:
-				spirit_name = "chill_sunbather";
-				break;
-			case SpiritName.ProphecyGuide:
-				spirit_name = "prophecy_guide";
-				break;
-			case SpiritName.ProphetOfWater:
-				spirit_name = "prophet_of_water";
-				break;
-			case SpiritName.ProphetOfEarth:
-				spirit_name = "prophet_of_earth";
-				break;
-			case SpiritName.ProphetOfAir:
-				spirit_name = "prophet_of_air";
-				break;
-			case SpiritName.ProphetOfFire:
-				spirit_name = "prophet_of_fire";
-				break;
-			case SpiritName.DreamsGuide:
-				spirit_name = "dreams_guide";
-				break;
-			case SpiritName.SpinningMentor:
-				spirit_name = "spinning_mentor";
-				break;
-			case SpiritName.DancingPerformer:
-				spirit_name = "dancing_performer";
-				break;
-			case SpiritName.PeekingPostman:
-				spirit_name = "peeking_postman";
-				break;
-			case SpiritName.BearhugHermit:
-				spirit_name = "bearhug_hermit";
-				break;
-			case SpiritName.AssemblyGuide:
-				spirit_name = "assembly_guide";
-				break;
-			case SpiritName.BaffledBotanist:
-				spirit_name = "baffled_botanist";
-				break;
-			case SpiritName.ScoldingStudent:
-				spirit_name = "scolding_student";
-				break;
-			case SpiritName.ScaredyCadet:
-				spirit_name = "scaredy_cadet";
-				break;
-			case SpiritName.MarchingAdventurer:
-				spirit_name = "marching_adventurer";
-				break;
-			case SpiritName.ChucklingScout:
-				spirit_name = "chuckling_scout";
-				break;
-			case SpiritName.DaydreamForester:
-				spirit_name = "daydream_forester";
-				break;
-			case SpiritName.TheRose:
-				spirit_name = "the_rose";
-				break;
-			case SpiritName.BeckoningRuler:
-				spirit_name = "beckoning_ruler";
-				break;
-			case SpiritName.GloatingNarcissist:
-				spirit_name = "gloating_narcissist";
-				break;
-			case SpiritName.StretchingLamplighter:
-				spirit_name = "stretching_lamplighter";
-				break;
-			case SpiritName.SlouchingSoldier:
-				spirit_name = "slouching_soldier";
-				break;
-			case SpiritName.SneezingGeographer:
-				spirit_name = "sneezing_geographer";
-				break;
-			case SpiritName.StarCollector:
-				spirit_name = "star_collector";
-				break;
-			case SpiritName.FlightGuide:
-				spirit_name = "flight_guide";
-				break;
-			case SpiritName.LivelyNavigator:
-				spirit_name = "lively_navigator";
-				break;
-			case SpiritName.LightWhisperer:
-				spirit_name = "light_whisperer";
-				break;
-			case SpiritName.TinkeringChimesmith:
-				spirit_name = "tinkering_chimesmith";
-				break;
-			case SpiritName.TalentedBuilder:
-				spirit_name = "talented_builder";
-				break;
-			case SpiritName.AbyssGuide:
-				spirit_name = "abyss_guide";
-				break;
-			case SpiritName.AnxiousAngler:
-				spirit_name = "anxious_angler";
-				break;
-			case SpiritName.CeasingCommodore:
-				spirit_name = "ceasing_commodore";
-				break;
-			case SpiritName.BumblingBoatswain:
-				spirit_name = "bumbling_boatswain";
-				break;
-			case SpiritName.CacklingCannoneer:
-				spirit_name = "cackling_cannoneer";
-				break;
-			case SpiritName.PerformanceGuide:
-				spirit_name = "performance_guide";
-				break;
-			case SpiritName.FranticStagehand:
-				spirit_name = "frantic_stagehand";
-				break;
-			case SpiritName.ForgetfulStoryteller:
-				spirit_name = "forgetful_storyteller";
-				break;
-			case SpiritName.MellowMusician:
-				spirit_name = "mellow_musician";
-				break;
-			case SpiritName.ModestDancer:
-				spirit_name = "modest_dancer";
-				break;
-			case SpiritName.TheVoidOfShattering:
-				spirit_name = "the_void_of_shattering";
-				break;
-			case SpiritName.AncientLight1:
-				spirit_name = "ancient_light1";
-				break;
-			case SpiritName.AncientLight2:
-				spirit_name = "ancient_light2";
-				break;
-			case SpiritName.AncientDarkness1:
-				spirit_name = "ancient_darkness1";
-				break;
-			case SpiritName.AncientDarkness2:
-				spirit_name = "ancient_darkness2";
-				break;
-			case SpiritName.AURORAGuide:
-				spirit_name = "aurora_guide";
-				break;
-			case SpiritName.RunningWayfarer:
-				spirit_name = "running_wayfarer";
-				break;
-			case SpiritName.MindfulMiner:
-				spirit_name = "mindful_miner";
-				break;
-			case SpiritName.WarriorOfLove:
-				spirit_name = "warrior_of_love";
-				break;
-			case SpiritName.SeedOfHope:
-				spirit_name = "seed_of_hope";
-				break;
-			case SpiritName.RemembranceGuide:
-				spirit_name = "remembrance_guide";
-				break;
-			case SpiritName.BereftVeteran:
-				spirit_name = "bereft_veteran";
-				break;
-			case SpiritName.PleadingChild:
-				spirit_name = "pleading_child";
-				break;
-			case SpiritName.TiptoeingTeaBrewer:
-				spirit_name = "tiptoeing_tea_brewer";
-				break;
-			case SpiritName.WoundedWarrior:
-				spirit_name = "wounded_warrior";
-				break;
-			case SpiritName.PassageGuide:
-				spirit_name = "passage_guide";
-				break;
-			case SpiritName.OddballOutcast:
-				spirit_name = "oddball_outcast";
-				break;
-			case SpiritName.TumblingTroublemaker:
-				spirit_name = "tumbling_troublemaker";
-				break;
-			case SpiritName.MelancholyMope:
-				spirit_name = "melancholy_mope";
-				break;
-			case SpiritName.OveractiveOverachiever:
-				spirit_name = "overactive_overachiever";
-				break;
-			case SpiritName.MomentsGuide:
-				spirit_name = "moments_guide";
-				break;
-			case SpiritName.ReassuringRanger:
-				spirit_name = "reassuring_ranger";
-				break;
-			case SpiritName.NightbirdWhisperer:
-				spirit_name = "nightbird_whisperer";
-				break;
-			case SpiritName.JollyGeologist:
-				spirit_name = "jolly_geologist";
-				break;
-			case SpiritName.AsceticMonk:
-				spirit_name = "ascetic_monk";
-				break;
-			case SpiritName.HopefulSteward:
-				spirit_name = "hopeful_steward";
-				break;
-			case SpiritName.VestigeOfADesertedOasis:
-				spirit_name = "vestige_of_a_deserted_oasis";
-				break;
-			case SpiritName.MemoryOfALostVillage:
-				spirit_name = "memory_of_a_lost_village";
-				break;
-			case SpiritName.EchoOfAnAbandonedRefuge:
-				spirit_name = "echo_of_an_abandoned_refuge";
-				break;
-			case SpiritName.RemnantOfAForgottenHaven:
-				spirit_name = "remnant_of_a_forgotten_haven";
-				break;
-		}
-
 		return pg<SpiritTrackerPacket>(Table.SpiritTracker)
-			.update({ [spirit_name]: bit })
+			.update({ [SpiritTrackerNameToRawName[spiritName]]: bit })
 			.where({ user_id: userId })
 			.returning("*");
 	}
