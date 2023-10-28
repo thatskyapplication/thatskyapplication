@@ -110,7 +110,7 @@ export const QUESTS = [
 		content: `Relive the ${spirit.name}`,
 		url: String(new URL(`daily_guides/quests/spirits/${spirit.cdnName}/relive.webp`, CDN_URL)),
 	})),
-] as const satisfies Readonly<{ content: string; url: string }[]>;
+] as const satisfies Readonly<DailyGuideQuest[]>;
 
 const regularExpressionRealms = REALM_VALUES.join("|").replaceAll(" ", "\\s+");
 const mapRegExp = [...Object.values(Map), ...inconsistentMapKeys].join("|").replaceAll(" ", "\\s+");
