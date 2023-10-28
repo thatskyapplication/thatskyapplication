@@ -78,6 +78,7 @@ const BOW_AT_A_PLAYER = "Bow at a player" as const;
 const FOLLOW_A_FRIEND = "Follow a friend" as const;
 const HUG_A_FRIEND = `${Expression.Hug} a friend` as const;
 const WAVE_TO_A_FRIEND = `${Expression.Wave} to a friend` as const;
+const HOLD_A_FRIENDS_HAND = "Hold a friend's hand" as const;
 
 export const QUESTS = [
 	{
@@ -99,6 +100,10 @@ export const QUESTS = [
 	{
 		content: WAVE_TO_A_FRIEND,
 		url: String(new URL(`daily_guides/quests/social/wave_to_a_friend.webp`, CDN_URL)),
+	},
+	{
+		content: HOLD_A_FRIENDS_HAND,
+		url: String(new URL(`daily_guides/quests/social/hold_a_friends_hand.webp`, CDN_URL)),
 	},
 	...VALID_REALM.map((realm) => ({
 		content: `Find the candles at the end of the rainbow in the ${realm}`,
@@ -275,7 +280,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("FOLLOW A FRIEND")) return FOLLOW_A_FRIEND;
 		if (upperPureContent.includes("HUG A FRIEND")) return HUG_A_FRIEND;
 		if (upperPureContent.includes("WAVE TO A FRIEND")) return WAVE_TO_A_FRIEND;
-		if (upperPureContent.includes("HOLD THE HAND")) return "Hold a friend's hand";
+		if (upperPureContent.includes("HOLD THE HAND")) return HOLD_A_FRIENDS_HAND;
 		if (upperPureContent.includes("SEND A GIFT")) return "Send a gift to a friend";
 		if (upperPureContent.includes("ACQUAINTANCE")) return "Make a new acquaintance";
 		if (upperPureContent.includes("HIGH-FIVE")) return `${Expression.HighFive} a friend`;
