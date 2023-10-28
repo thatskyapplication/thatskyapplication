@@ -181,6 +181,8 @@ export enum Realm {
 	EyeOfEden = "Eye of Eden",
 }
 
+export const REALM_VALUES = Object.values(Realm);
+
 export enum Map {
 	// Daylight Prairie
 	BirdNest = "Bird Nest",
@@ -290,7 +292,7 @@ export const SHARD_ERUPTION_PREDICTION_DATA = [
 	},
 ] as const;
 
-export const WINGED_LIGHT_AREAS = [...Object.values(Realm), Map.AncientMemory] as const;
+export const WINGED_LIGHT_AREAS = [...REALM_VALUES, Map.AncientMemory] as const;
 
 // This exists due to the Infographics server's inconsistencies and faults alongside no desire to fix them.
 export const INCONSISTENT_MAP = {

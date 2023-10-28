@@ -14,10 +14,11 @@ import {
 	Channel,
 	INFOGRAPHICS_DATABASE_GUILD_ID,
 	Map,
-	Realm,
 	inconsistentMapKeys,
 	CDN_URL,
 	Season,
+	REALM_VALUES,
+	VALID_REALM,
 } from "../Utility/Constants.js";
 import { consoleLog, resolveMap, resolveValidRealm, todayDate } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
@@ -72,24 +73,46 @@ interface DailyGuideMessage {
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
+const KNOCK_OVER_DARK_CRABS = "Knock over 5 dark crabs" as const;
 const FOLLOW_A_FRIEND = "Follow a friend" as const;
+const BOW_AT_A_PLAYER = "Bow at a player" as const;
 
 export const QUESTS = [
 	{
-		content: FOLLOW_A_FRIEND,
-		url: new URL(`daily_guides/quests/follow_a_friend.webp`, CDN_URL),
+		content: KNOCK_OVER_DARK_CRABS,
+		url: String(new URL(`daily_guides/quests/miscellaneous/knock_over_dark_crabs.webp`, CDN_URL)),
 	},
+	{
+		content: BOW_AT_A_PLAYER,
+		url: String(new URL(`daily_guides/quests/social/bow_at_a_player.webp`, CDN_URL)),
+	},
+	{
+		content: FOLLOW_A_FRIEND,
+		url: String(new URL(`daily_guides/quests/social/follow_a_friend.webp`, CDN_URL)),
+	},
+	...VALID_REALM.map((realm) => ({
+		content: `Find the candles at the end of the rainbow in the ${realm}`,
+		url: String(
+			new URL(`daily_guides/quests/days_of_rainbow/find/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
+		),
+	})),
+	...[Map.SanctuaryIslands, Map.WindPaths, Map.HermitValley, Map.TreasureReef, Map.StarlightDesert].map((map) => ({
+		content: `Admire the rainbow in the ${map}`,
+		url: String(
+			new URL(`daily_guides/quests/days_of_rainbow/admire/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
+		),
+	})),
 	...Spirits.filter((spirit) => {
 		if (spirit.isStandardSpirit()) return true;
 		if (spirit.isSeasonalSpirit()) return spirit.season !== Season.Shattering;
 		return false;
 	}).map((spirit) => ({
 		content: `Relive the ${spirit.name}`,
-		url: new URL(`daily_guides/quests/spirits/${spirit.cdnName}/relive.webp`, CDN_URL),
+		url: String(new URL(`daily_guides/quests/spirits/${spirit.cdnName}/relive.webp`, CDN_URL)),
 	})),
-] as const;
+] as const satisfies Readonly<{ content: string; url: string }[]>;
 
-const regularExpressionRealms = Object.values(Realm).join("|").replaceAll(" ", "\\s+");
+const regularExpressionRealms = REALM_VALUES.join("|").replaceAll(" ", "\\s+");
 const mapRegExp = [...Object.values(Map), ...inconsistentMapKeys].join("|").replaceAll(" ", "\\s+");
 
 export default new (class DailyGuides {
@@ -235,10 +258,10 @@ export default new (class DailyGuides {
 		const upperPureContent = pureContent.toUpperCase();
 
 		if (upperPureContent.includes("BOW AT A PLAYER") || upperPureContent.includes("BOW TO A PLAYER")) {
-			return "Bow at a player";
+			return BOW_AT_A_PLAYER;
 		}
 
-		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) return "Knock over 5 dark crabs";
+		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) return KNOCK_OVER_DARK_CRABS;
 		if (upperPureContent.includes("FOLLOW A FRIEND")) return FOLLOW_A_FRIEND;
 		if (upperPureContent.includes("HUG A FRIEND")) return `${Expression.Hug} a friend`;
 		if (upperPureContent.includes("WAVE TO A FRIEND")) return `${Expression.Wave} to a friend`;

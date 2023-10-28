@@ -23,6 +23,7 @@ import {
 } from "discord.js";
 import { DAILY_GUIDE_EVENT_ROTATION } from "../Structures/DailyGuides.js";
 import {
+	type Realm,
 	CURRENT_SEASONAL_CANDLE_EMOJI,
 	CURRENT_SEASONAL_EMOJI,
 	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
@@ -34,7 +35,7 @@ import {
 	inconsistentMapKeys,
 	INITIAL_TREASURE_CANDLE_REALM_SEEK,
 	Map,
-	Realm,
+	REALM_VALUES,
 	Season,
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
 	SEASONAL_CANDLES_PER_DAY,
@@ -351,7 +352,7 @@ export function remainingSeasonalCandles() {
 }
 
 export function isRealm(realm: string): realm is Realm {
-	return Object.values(Realm).includes(realm as Realm);
+	return REALM_VALUES.includes(realm as Realm);
 }
 
 export function isWingedLightArea(area: string): area is Realm | Map.AncientMemory {
