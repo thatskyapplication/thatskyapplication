@@ -74,8 +74,9 @@ export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
 const KNOCK_OVER_DARK_CRABS = "Knock over 5 dark crabs" as const;
-const FOLLOW_A_FRIEND = "Follow a friend" as const;
 const BOW_AT_A_PLAYER = "Bow at a player" as const;
+const FOLLOW_A_FRIEND = "Follow a friend" as const;
+const HUG_A_FRIEND = `${Expression.Hug} a friend` as const;
 
 export const QUESTS = [
 	{
@@ -89,6 +90,10 @@ export const QUESTS = [
 	{
 		content: FOLLOW_A_FRIEND,
 		url: String(new URL(`daily_guides/quests/social/follow_a_friend.webp`, CDN_URL)),
+	},
+	{
+		content: HUG_A_FRIEND,
+		url: String(new URL(`daily_guides/quests/social/hug_a_friend.webp`, CDN_URL)),
 	},
 	...VALID_REALM.map((realm) => ({
 		content: `Find the candles at the end of the rainbow in the ${realm}`,
@@ -263,7 +268,7 @@ export default new (class DailyGuides {
 
 		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) return KNOCK_OVER_DARK_CRABS;
 		if (upperPureContent.includes("FOLLOW A FRIEND")) return FOLLOW_A_FRIEND;
-		if (upperPureContent.includes("HUG A FRIEND")) return `${Expression.Hug} a friend`;
+		if (upperPureContent.includes("HUG A FRIEND")) return HUG_A_FRIEND;
 		if (upperPureContent.includes("WAVE TO A FRIEND")) return `${Expression.Wave} to a friend`;
 		if (upperPureContent.includes("HOLD THE HAND")) return "Hold a friend's hand";
 		if (upperPureContent.includes("SEND A GIFT")) return "Send a gift to a friend";
