@@ -1,3 +1,4 @@
+import { URL } from "node:url";
 import { AsyncQueue } from "@sapphire/async-queue";
 import {
 	type Attachment,
@@ -15,11 +16,14 @@ import {
 	Map,
 	Realm,
 	inconsistentMapKeys,
+	CDN_URL,
+	Season,
 } from "../Utility/Constants.js";
 import { consoleLog, resolveMap, resolveValidRealm, todayDate } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import { Expression, spiritNames } from "./Spirits/Base.js";
+import Spirits from "./Spirits/index.js";
 
 export interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;
@@ -67,6 +71,24 @@ interface DailyGuideMessage {
 
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
+
+const FOLLOW_A_FRIEND = "Follow a friend" as const;
+
+export const QUESTS = [
+	{
+		content: FOLLOW_A_FRIEND,
+		url: new URL(`daily_guides/quests/follow_a_friend.webp`, CDN_URL),
+	},
+	...Spirits.filter((spirit) => {
+		if (spirit.isStandardSpirit()) return true;
+		if (spirit.isSeasonalSpirit()) return spirit.season !== Season.Shattering;
+		return false;
+	}).map((spirit) => ({
+		content: `Relive the ${spirit.name}`,
+		url: new URL(`daily_guides/quests/spirits/${spirit.cdnName}/relive.webp`, CDN_URL),
+	})),
+] as const;
+
 const regularExpressionRealms = Object.values(Realm).join("|").replaceAll(" ", "\\s+");
 const mapRegExp = [...Object.values(Map), ...inconsistentMapKeys].join("|").replaceAll(" ", "\\s+");
 
@@ -217,7 +239,7 @@ export default new (class DailyGuides {
 		}
 
 		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) return "Knock over 5 dark crabs";
-		if (upperPureContent.includes("FOLLOW A FRIEND")) return "Follow a friend";
+		if (upperPureContent.includes("FOLLOW A FRIEND")) return FOLLOW_A_FRIEND;
 		if (upperPureContent.includes("HUG A FRIEND")) return `${Expression.Hug} a friend`;
 		if (upperPureContent.includes("WAVE TO A FRIEND")) return `${Expression.Wave} to a friend`;
 		if (upperPureContent.includes("HOLD THE HAND")) return "Hold a friend's hand";

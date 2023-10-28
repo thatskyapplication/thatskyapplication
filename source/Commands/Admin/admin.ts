@@ -1,5 +1,6 @@
 import {
 	type ApplicationCommandData,
+	type AutocompleteInteraction,
 	type ButtonInteraction,
 	type ModalMessageModalSubmitInteraction,
 	type StringSelectMenuInteraction,
@@ -16,30 +17,17 @@ import {
 	ButtonStyle,
 	ActivityType,
 } from "discord.js";
-import DailyGuides, { type QuestNumber, QUEST_NUMBER } from "../../Structures/DailyGuides.js";
+import DailyGuides, { type QuestNumber, QUEST_NUMBER, QUESTS } from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import { MAXIMUM_EMBED_FIELD_NAME_LENGTH, MAXIMUM_EMBED_FIELD_VALUE_LENGTH } from "../../Utility/Constants.js";
 import { userLogFormat } from "../../Utility/Utility.js";
 import { LogType } from "../../index.js";
-import type { ChatInputCommand } from "../index.js";
+import type { AutocompleteCommand } from "../index.js";
 
 export const DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID = "DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID" as const;
-export const DAILY_GUIDES_QUESTS_SET_SELECT_MENU_CUSTOM_ID = "DAILY_GUIDES_QUESTS_SET_SELECT_MENU_CUSTOM_ID" as const;
 export const DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID = "DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID" as const;
 export const DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID = "DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID" as const;
 export const DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID = "DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID" as const;
-export const DAILY_GUIDES_QUEST_1_MODAL = "DAILY_GUIDES_QUEST_1_MODAL" as const;
-const DAILY_GUIDES_QUEST_1_TEXT_INPUT_CONTENT = "DAILY_GUIDES_QUEST_1_TEXT_INPUT_CONTENT" as const;
-const DAILY_GUIDES_QUEST_1_TEXT_INPUT_URL = "DAILY_GUIDES_QUEST_1_TEXT_INPUT_URL" as const;
-export const DAILY_GUIDES_QUEST_2_MODAL = "DAILY_GUIDES_QUEST_2_MODAL" as const;
-const DAILY_GUIDES_QUEST_2_TEXT_INPUT_CONTENT = "DAILY_GUIDES_QUEST_2_TEXT_INPUT_CONTENT" as const;
-const DAILY_GUIDES_QUEST_2_TEXT_INPUT_URL = "DAILY_GUIDES_QUEST_2_TEXT_INPUT_URL" as const;
-export const DAILY_GUIDES_QUEST_3_MODAL = "DAILY_GUIDES_QUEST_3_MODAL" as const;
-const DAILY_GUIDES_QUEST_3_TEXT_INPUT_CONTENT = "DAILY_GUIDES_QUEST_3_TEXT_INPUT_CONTENT" as const;
-const DAILY_GUIDES_QUEST_3_TEXT_INPUT_URL = "DAILY_GUIDES_QUEST_3_TEXT_INPUT_URL" as const;
-export const DAILY_GUIDES_QUEST_4_MODAL = "DAILY_GUIDES_QUEST_4_MODAL" as const;
-const DAILY_GUIDES_QUEST_4_TEXT_INPUT_CONTENT = "DAILY_GUIDES_QUEST_4_TEXT_INPUT_CONTENT" as const;
-const DAILY_GUIDES_QUEST_4_TEXT_INPUT_URL = "DAILY_GUIDES_QUEST_4_TEXT_INPUT_URL" as const;
 export const DAILY_GUIDES_DAILY_MESSAGE_MODAL = "DAILY_GUIDES_DAILY_MESSAGE_MODAL" as const;
 const DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE = "DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT" as const;
 const DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION = "DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION" as const;
@@ -51,7 +39,7 @@ function isQuestNumber(questNumber: number): questNumber is QuestNumber {
 	return QUEST_NUMBER.includes(questNumber as QuestNumber);
 }
 
-export default new (class implements ChatInputCommand {
+export default new (class implements AutocompleteCommand {
 	public readonly data = {
 		name: "admin",
 		description: "Developer-specific commands.",
@@ -78,7 +66,34 @@ export default new (class implements ChatInputCommand {
 					{
 						type: ApplicationCommandOptionType.Subcommand,
 						name: "interactive",
-						description: "Interactively edits the daily guides embed.",
+						description: "Interactively edits the daily guides.",
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: "set-quest",
+						description: "Sets a quest for the daily guides.",
+						options: [
+							{
+								type: ApplicationCommandOptionType.Integer,
+								name: "number",
+								description: "The quest number.",
+								required: true,
+								choices: QUEST_NUMBER.map((questNumber) => ({ name: String(questNumber), value: questNumber })),
+							},
+							{
+								type: ApplicationCommandOptionType.String,
+								name: "content",
+								description: "The content of the quest.",
+								autocomplete: true,
+								required: true,
+							},
+							{
+								type: ApplicationCommandOptionType.String,
+								name: "url",
+								description: "The URL of the quest's infographic.",
+								required: false,
+							},
+						],
 					},
 				],
 			},
@@ -87,6 +102,13 @@ export default new (class implements ChatInputCommand {
 	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public readonly developer = true;
+
+	public async autocomplete(interaction: AutocompleteInteraction) {
+		switch (interaction.options.getSubcommand()) {
+			case "set-quest":
+				await this.setQuestAutocomplete(interaction);
+		}
+	}
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { options } = interaction;
@@ -110,6 +132,9 @@ export default new (class implements ChatInputCommand {
 		switch (interaction.options.getSubcommand()) {
 			case "interactive":
 				await this.interactive(interaction);
+				return;
+			case "set-quest":
+				await this.setQuest(interaction);
 		}
 	}
 
@@ -137,14 +162,6 @@ export default new (class implements ChatInputCommand {
 						.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID)
 						.setLabel("Treasure Candles")
 						.setStyle(ButtonStyle.Primary),
-				),
-				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId(DAILY_GUIDES_QUESTS_SET_SELECT_MENU_CUSTOM_ID)
-						.setMaxValues(1)
-						.setMinValues(1)
-						.setOptions(questOptions)
-						.setPlaceholder("Set a quest."),
 				),
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -185,94 +202,28 @@ export default new (class implements ChatInputCommand {
 		await this.interactive(interaction, "Distributed daily guides.");
 	}
 
-	public async questModalResponse(interaction: StringSelectMenuInteraction) {
-		const number = Number(interaction.values[0]!);
+	public async setQuestAutocomplete(interaction: AutocompleteInteraction) {
+		const focused = interaction.options.getFocused().toUpperCase();
+
+		return interaction.respond(
+			focused === ""
+				? []
+				: QUESTS.map(({ content }) => content)
+						.filter((quest) => quest.toUpperCase().includes(focused))
+						.map((quest) => ({ name: quest, value: quest }))
+						.slice(0, 25),
+		);
+	}
+
+	public async setQuest(interaction: ChatInputCommandInteraction) {
+		const { client, options, user } = interaction;
+		const number = options.getInteger("number", true);
+		const content = options.getString("content", true);
+		const url = QUESTS.find((quest) => quest.content === content)?.url ?? options.getString("url");
 
 		if (!isQuestNumber(number)) {
 			await interaction.reply(`Detected an unknown quest number: ${number}.`);
 			return;
-		}
-
-		const { quest1, quest2, quest3, quest4 } = DailyGuides;
-		let quest;
-		let modalCustomId;
-		let textInputCustomId;
-		let textInput2CustomId;
-
-		switch (number) {
-			case 1:
-				quest = quest1;
-				modalCustomId = DAILY_GUIDES_QUEST_1_MODAL;
-				textInputCustomId = DAILY_GUIDES_QUEST_1_TEXT_INPUT_CONTENT;
-				textInput2CustomId = DAILY_GUIDES_QUEST_1_TEXT_INPUT_URL;
-				break;
-			case 2:
-				quest = quest2;
-				modalCustomId = DAILY_GUIDES_QUEST_2_MODAL;
-				textInputCustomId = DAILY_GUIDES_QUEST_2_TEXT_INPUT_CONTENT;
-				textInput2CustomId = DAILY_GUIDES_QUEST_2_TEXT_INPUT_URL;
-				break;
-			case 3:
-				quest = quest3;
-				modalCustomId = DAILY_GUIDES_QUEST_3_MODAL;
-				textInputCustomId = DAILY_GUIDES_QUEST_3_TEXT_INPUT_CONTENT;
-				textInput2CustomId = DAILY_GUIDES_QUEST_3_TEXT_INPUT_URL;
-				break;
-			case 4:
-				quest = quest4;
-				modalCustomId = DAILY_GUIDES_QUEST_4_MODAL;
-				textInputCustomId = DAILY_GUIDES_QUEST_4_TEXT_INPUT_CONTENT;
-				textInput2CustomId = DAILY_GUIDES_QUEST_4_TEXT_INPUT_URL;
-				break;
-		}
-
-		await interaction.showModal(
-			new ModalBuilder()
-				.setComponents(
-					new ActionRowBuilder<TextInputBuilder>().setComponents(
-						new TextInputBuilder()
-							.setCustomId(textInputCustomId)
-							.setLabel("The description of the quest.")
-							.setRequired()
-							.setStyle(TextInputStyle.Short)
-							.setValue(quest?.content ?? ""),
-					),
-					new ActionRowBuilder<TextInputBuilder>().setComponents(
-						new TextInputBuilder()
-							.setCustomId(textInput2CustomId)
-							.setLabel("The infographic URL of the quest.")
-							.setRequired(false)
-							.setStyle(TextInputStyle.Short)
-							.setValue(quest?.url ?? ""),
-					),
-				)
-				.setCustomId(modalCustomId)
-				.setTitle(`Quest ${number}`),
-		);
-	}
-
-	public async setQuest(interaction: ModalMessageModalSubmitInteraction, number: QuestNumber) {
-		const { client, fields, user } = interaction;
-		let content;
-		let url;
-
-		switch (number) {
-			case 1:
-				content = fields.getTextInputValue(DAILY_GUIDES_QUEST_1_TEXT_INPUT_CONTENT);
-				url = fields.getTextInputValue(DAILY_GUIDES_QUEST_1_TEXT_INPUT_URL);
-				break;
-			case 2:
-				content = fields.getTextInputValue(DAILY_GUIDES_QUEST_2_TEXT_INPUT_CONTENT);
-				url = fields.getTextInputValue(DAILY_GUIDES_QUEST_2_TEXT_INPUT_URL);
-				break;
-			case 3:
-				content = fields.getTextInputValue(DAILY_GUIDES_QUEST_3_TEXT_INPUT_CONTENT);
-				url = fields.getTextInputValue(DAILY_GUIDES_QUEST_3_TEXT_INPUT_URL);
-				break;
-			case 4:
-				content = fields.getTextInputValue(DAILY_GUIDES_QUEST_4_TEXT_INPUT_CONTENT);
-				url = fields.getTextInputValue(DAILY_GUIDES_QUEST_4_TEXT_INPUT_URL);
-				break;
 		}
 
 		const previousEmbed = DailyGuidesDistribution.embed();

@@ -12,12 +12,7 @@ import {
 	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_DAILY_MESSAGE_MODAL,
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
-	DAILY_GUIDES_QUESTS_SET_SELECT_MENU_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
-	DAILY_GUIDES_QUEST_1_MODAL,
-	DAILY_GUIDES_QUEST_2_MODAL,
-	DAILY_GUIDES_QUEST_3_MODAL,
-	DAILY_GUIDES_QUEST_4_MODAL,
 	DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_TREASURE_CANDLES_MODAL,
 } from "../Commands/Admin/admin.js";
@@ -415,11 +410,6 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (customId === DAILY_GUIDES_QUESTS_SET_SELECT_MENU_CUSTOM_ID) {
-					await COMMANDS.admin.questModalResponse(interaction);
-					return;
-				}
-
 				if (customId === DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID) {
 					await COMMANDS.admin.questSwap(interaction);
 					return;
@@ -484,26 +474,6 @@ export const event: Event<typeof name> = {
 					});
 
 					await interaction.reply({ content: "This modal submitted itself to the dark dragon.", ephemeral: true });
-					return;
-				}
-
-				if (DAILY_GUIDES_QUEST_1_MODAL === customId) {
-					await COMMANDS.admin.setQuest(interaction, 1);
-					return;
-				}
-
-				if (DAILY_GUIDES_QUEST_2_MODAL === customId) {
-					await COMMANDS.admin.setQuest(interaction, 2);
-					return;
-				}
-
-				if (DAILY_GUIDES_QUEST_3_MODAL === customId) {
-					await COMMANDS.admin.setQuest(interaction, 3);
-					return;
-				}
-
-				if (DAILY_GUIDES_QUEST_4_MODAL === customId) {
-					await COMMANDS.admin.setQuest(interaction, 4);
 					return;
 				}
 
