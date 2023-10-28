@@ -71,9 +71,16 @@ export default new (class implements ChatInputCommand {
 				],
 			},
 			{
-				type: ApplicationCommandOptionType.Subcommand,
+				type: ApplicationCommandOptionType.SubcommandGroup,
 				name: "daily-guides",
 				description: "Edits the daily guides embed.",
+				options: [
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: "interactive",
+						description: "Interactively edits the daily guides embed.",
+					},
+				],
 			},
 		],
 		defaultMemberPermissions: 0n,
@@ -82,7 +89,9 @@ export default new (class implements ChatInputCommand {
 	public readonly developer = true;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		switch (interaction.options.getSubcommand()) {
+		const { options } = interaction;
+
+		switch (options.getSubcommandGroup() ?? options.getSubcommand()) {
 			case "custom-status":
 				await this.customStatus(interaction);
 				return;
@@ -97,7 +106,14 @@ export default new (class implements ChatInputCommand {
 		await interaction.reply({ content: "Custom status set.", ephemeral: true });
 	}
 
-	private async respond(
+	public async dailyGuides(interaction: ChatInputCommandInteraction) {
+		switch (interaction.options.getSubcommand()) {
+			case "interactive":
+				await this.interactive(interaction);
+		}
+	}
+
+	private async interactive(
 		interaction:
 			| ButtonInteraction
 			| ChatInputCommandInteraction
@@ -156,10 +172,6 @@ export default new (class implements ChatInputCommand {
 		}
 	}
 
-	public async dailyGuides(interaction: ChatInputCommandInteraction) {
-		await this.respond(interaction);
-	}
-
 	public async distribute(interaction: ButtonInteraction) {
 		const { client, user } = interaction;
 		await DailyGuidesDistribution.distribute(client);
@@ -170,7 +182,7 @@ export default new (class implements ChatInputCommand {
 			type: LogType.ManualDailyGuides,
 		});
 
-		await this.respond(interaction, "Distributed daily guides.");
+		await this.interactive(interaction, "Distributed daily guides.");
 	}
 
 	public async questModalResponse(interaction: StringSelectMenuInteraction) {
@@ -272,7 +284,7 @@ export default new (class implements ChatInputCommand {
 			type: LogType.ManualDailyGuides,
 		});
 
-		await this.respond(interaction, `Successfully updated quest ${number}.`);
+		await this.interactive(interaction, `Successfully updated quest ${number}.`);
 	}
 
 	public async questSwap(interaction: StringSelectMenuInteraction) {
@@ -303,7 +315,7 @@ export default new (class implements ChatInputCommand {
 			type: LogType.ManualDailyGuides,
 		});
 
-		await this.respond(interaction, `Successfully swapped quests ${quest1} & ${quest2}.`);
+		await this.interactive(interaction, `Successfully swapped quests ${quest1} & ${quest2}.`);
 	}
 
 	public async dailyMessageModalResponse(interaction: ButtonInteraction) {
@@ -349,7 +361,7 @@ export default new (class implements ChatInputCommand {
 			type: LogType.ManualDailyGuides,
 		});
 
-		await this.respond(interaction, "Successfully updated the daily message.");
+		await this.interactive(interaction, "Successfully updated the daily message.");
 	}
 
 	public async treasureCandlesModalResponse(interaction: ButtonInteraction) {
@@ -395,6 +407,6 @@ export default new (class implements ChatInputCommand {
 			type: LogType.ManualDailyGuides,
 		});
 
-		await this.respond(interaction, "Successfully updated the treasure candles.");
+		await this.interactive(interaction, "Successfully updated the treasure candles.");
 	}
 })();
