@@ -119,9 +119,7 @@ export const QUESTS = [
 	})),
 	...VALID_REALM.map((realm) => ({
 		content: `Admire the sapling in the ${realm}`,
-		url: String(
-			new URL(`daily_guides/quests/days_of_bloom/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
-		),
+		url: String(new URL(`daily_guides/quests/days_of_bloom/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL)),
 	})),
 	...[Map.SanctuaryIslands, Map.WindPaths, Map.HermitValley, Map.TreasureReef, Map.StarlightDesert].map((map) => ({
 		content: `Admire the rainbow in the ${map}`,
