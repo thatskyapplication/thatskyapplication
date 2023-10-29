@@ -75,6 +75,8 @@ export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
 const FACE_THE_DARK_DRAGON = "Face the dark dragon" as const;
 const KNOCK_OVER_5_DARK_CRABS = "Knock over 5 dark crabs" as const;
+const RECHARGE_FROM_A_JELLYFISH = "Recharge from a jellyfish" as const;
+const RECHARGE_FROM_A_LIGHT_BLOOM = "Recharge from a light bloom" as const;
 const RIDE_A_MANTA = "Ride a manta" as const;
 const BOW_AT_A_PLAYER = "Bow at a player" as const;
 const FOLLOW_A_FRIEND = "Follow a friend" as const;
@@ -107,6 +109,14 @@ export const QUESTS = [
 	{
 		content: KNOCK_OVER_5_DARK_CRABS,
 		url: String(new URL(`daily_guides/quests/miscellaneous/knock_over_5_dark_crabs.webp`, CDN_URL)),
+	},
+	{
+		content: RECHARGE_FROM_A_JELLYFISH,
+		url: String(new URL(`daily_guides/quests/miscellaneous/recharge_from_a_jellyfish.webp`, CDN_URL)),
+	},
+	{
+		content: RECHARGE_FROM_A_LIGHT_BLOOM,
+		url: String(new URL(`daily_guides/quests/miscellaneous/recharge_from_a_light_bloom.webp`, CDN_URL)),
 	},
 	{
 		content: RIDE_A_MANTA,
@@ -323,8 +333,8 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("BENCH")) return SIT_ON_A_BENCH_WITH_A_STRANGER;
 		if (upperPureContent.includes("RIDE A MANTA")) return RIDE_A_MANTA;
 		if (upperPureContent.includes("DARK DRAGON")) return FACE_THE_DARK_DRAGON;
-		if (upperPureContent.includes("RECHARGE FROM A LIGHT BLOOM")) return "Recharge from a light bloom";
-		if (upperPureContent.includes("RECHARGE FROM A JELLYFISH")) return "Recharge from a jellyfish";
+		if (upperPureContent.includes("RECHARGE FROM A JELLYFISH")) return RECHARGE_FROM_A_JELLYFISH;
+		if (upperPureContent.includes("RECHARGE FROM A LIGHT BLOOM")) return RECHARGE_FROM_A_LIGHT_BLOOM;
 		if (upperPureContent.includes("ADMIRE THE RAINBOW")) return `Admire the rainbow${map ? ` in the ${map}` : ""}`;
 
 		if (upperPureContent.includes("RAINBOW")) {
