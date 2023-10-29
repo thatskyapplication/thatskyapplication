@@ -107,7 +107,9 @@ const SIT_ON_A_BENCH_WITH_A_STRANGER = "Sit on a bench with a stranger" as const
 export const QUESTS = [
 	...VALID_REALM.map((realm) => ({
 		content: `Catch the light in the ${realm}`,
-		url: String(new URL(`daily_guides/quests/catch_the_light/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL)),
+		url: String(
+			new URL(`daily_guides/quests/catch_the_light/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
+		),
 	})),
 	...[Map.SanctuaryIslands, Map.WindPaths, Map.HermitValley, Map.TreasureReef, Map.StarlightDesert].map((map) => ({
 		content: `Admire the rainbow in the ${map}`,
