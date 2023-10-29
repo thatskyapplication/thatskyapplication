@@ -134,13 +134,13 @@ export const QUESTS = [
 	...[Map.SanctuaryIslands, Map.WindPaths, Map.HermitValley, Map.TreasureReef, Map.StarlightDesert].map((map) => ({
 		content: `Admire the rainbow in the ${map}`,
 		url: String(
-			new URL(`daily_guides/quests/days_of_rainbow/admire/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
+			new URL(`daily_guides/quests/days_of_colour/admire/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
 		),
 	})),
 	...VALID_REALM.map((realm) => ({
 		content: `Find the candles at the end of the rainbow in the ${realm}`,
 		url: String(
-			new URL(`daily_guides/quests/days_of_rainbow/find/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
+			new URL(`daily_guides/quests/days_of_colour/find/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
 		),
 	})),
 	{
