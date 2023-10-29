@@ -228,6 +228,29 @@ export enum Map {
 	AncientMemory = "Ancient Memory",
 }
 
+export const MEDITATION_MAPS = [
+	Map.ButterflyFields,
+	Map.SanctuaryIslands,
+	Map.Cave,
+	Map.KoiPond,
+	Map.ForestClearing,
+	Map.ForestBrook,
+	Map.ElevatedClearing,
+	Map.Boneyard,
+	Map.IceRink,
+	Map.Citadel,
+	Map.Coliseum,
+	Map.BrokenTemple,
+	Map.ForgottenArk,
+	Map.Graveyard,
+	Map.Boat,
+	Map.Battlefield,
+	Map.VaultEntrance,
+	Map.VaultSecondFloor,
+	Map.VaultSummit,
+] as const;
+
+export type MeditationMaps = (typeof MEDITATION_MAPS)[number];
 export const SOCIAL_LIGHT_AREA_MAPS = [Map.Cave, Map.ElevatedClearing, Map.VillageOfDreams, Map.Graveyard] as const;
 export type SocialLightAreaMaps = (typeof SOCIAL_LIGHT_AREA_MAPS)[number];
 

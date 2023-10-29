@@ -21,11 +21,14 @@ import {
 	SOCIAL_LIGHT_AREA_MAPS,
 	SocialLightAreaMapToCDNString,
 	VALID_REALM,
+	MEDITATION_MAPS,
 } from "../Utility/Constants.js";
 import {
 	consoleLog,
+	isMeditationMap,
 	isSocialLightAreaMap,
 	resolveMap,
+	resolveMeditationMap,
 	resolveSocialLightAreaMap,
 	resolveValidRealm,
 	todayDate,
@@ -94,6 +97,8 @@ const COLLECT_ORANGE_LIGHT = "Collect orange light" as const;
 const COLLECT_BLUE_LIGHT = "Collect blue light" as const;
 const COLLECT_RED_LIGHT = "Collect red light" as const;
 const COLLECT_PURPLE_LIGHT = "Collect purple light" as const;
+const MEDITATE_CITADEL_ARCH = `Meditate above the ${Map.Citadel}'s arch` as const;
+const MEDITATE_CITADEL_HIGH_ABOVE = `Meditate high above the ${Map.Citadel}` as const;
 const BOW_AT_A_PLAYER = "Bow at a player" as const;
 const FOLLOW_A_FRIEND = "Follow a friend" as const;
 const HUG_A_FRIEND = `${Expression.Hug} a friend` as const;
@@ -179,6 +184,27 @@ export const QUESTS = [
 		content: COLLECT_PURPLE_LIGHT,
 		url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_purple_light.webp`, CDN_URL)),
 	},
+	...MEDITATION_MAPS.flatMap((map) => {
+		const cdnMap = map.toLowerCase().replaceAll(" ", "_");
+
+		if (map === Map.Citadel) {
+			return [
+				{
+					content: MEDITATE_CITADEL_ARCH,
+					url: String(new URL(`daily_guides/quests/season_of_gratitude/${cdnMap}/arch.webp`, CDN_URL)),
+				},
+				{
+					content: MEDITATE_CITADEL_HIGH_ABOVE,
+					url: String(new URL(`daily_guides/quests/season_of_gratitude/${cdnMap}/high_above.webp`, CDN_URL)),
+				},
+			];
+		}
+
+		return {
+			content: `Meditate ${resolveMeditationMap(map)}`,
+			url: String(new URL(`daily_guides/quests/season_of_gratitude/${cdnMap}.webp`, CDN_URL)),
+		};
+	}),
 	{
 		content: BOW_AT_A_PLAYER,
 		url: String(new URL(`daily_guides/quests/social/bow_at_a_player.webp`, CDN_URL)),
@@ -324,37 +350,6 @@ export default new (class DailyGuides {
 		this.patch(dailyGuidesPacket!);
 	}
 
-	private resolveMeditateMap(map: Map | null) {
-		switch (map) {
-			case Map.ForestBrook:
-			case Map.Citadel:
-				return `above the ${map}`;
-			case Map.SanctuaryIslands:
-			case Map.Boneyard:
-			case Map.ForestClearing:
-			case Map.Coliseum:
-			case Map.VaultEntrance:
-			case Map.VaultSummit:
-				return `at the ${map}`;
-			case Map.KoiPond:
-				return `by the ${map}`;
-			case Map.ButterflyFields:
-			case Map.Cave:
-			case Map.ElevatedClearing:
-			case Map.BrokenTemple:
-			case Map.ForgottenArk:
-			case Map.Graveyard:
-			case Map.VaultSecondFloor:
-				return `in the ${map}`;
-			case Map.Battlefield:
-			case Map.Boat:
-				return `on the ${map}`;
-			default:
-				consoleLog("Failed to match a meditation map.");
-				return `at the ${map}`;
-		}
-	}
-
 	private resolveDailyGuideContent(pureContent: string, realm: ValidRealm | null, map: Map | null) {
 		const upperPureContent = pureContent.toUpperCase();
 
@@ -383,7 +378,18 @@ export default new (class DailyGuides {
 		}
 
 		if (upperPureContent.includes("CATCH THE LIGHT")) return `Catch the light${realm ? ` in the ${realm}` : ""}`;
-		if (upperPureContent.includes("MEDITATION")) return `Meditate ${this.resolveMeditateMap(map)}`;
+
+		if (upperPureContent.includes("MEDITATION")) {
+			if (upperPureContent.includes(Map.Citadel.toUpperCase())) {
+				if (upperPureContent.includes("ARCH")) return MEDITATE_CITADEL_ARCH;
+				if (upperPureContent.includes("HIGH ABOVE")) return MEDITATE_CITADEL_HIGH_ABOVE;
+			}
+
+			if (map && isMeditationMap(map)) return `Meditate ${resolveMeditationMap(map)}`;
+			consoleLog("Failed to match a meditation map.");
+			return `Meditate at the ${map}`;
+		}
+
 		if (upperPureContent.includes("GREEN LIGHT")) return COLLECT_GREEN_LIGHT;
 		if (upperPureContent.includes("ORANGE LIGHT")) return COLLECT_ORANGE_LIGHT;
 		if (upperPureContent.includes("BLUE LIGHT")) return COLLECT_BLUE_LIGHT;

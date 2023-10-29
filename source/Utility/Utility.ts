@@ -23,6 +23,7 @@ import {
 } from "discord.js";
 import { DAILY_GUIDE_EVENT_ROTATION } from "../Structures/DailyGuides.js";
 import {
+	type MeditationMaps,
 	type Realm,
 	type SocialLightAreaMaps,
 	CURRENT_SEASONAL_CANDLE_EMOJI,
@@ -36,6 +37,7 @@ import {
 	inconsistentMapKeys,
 	INITIAL_TREASURE_CANDLE_REALM_SEEK,
 	Map,
+	MEDITATION_MAPS,
 	REALM_VALUES,
 	Season,
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
@@ -377,6 +379,39 @@ export function resolveMap(rawMap: string) {
 	return inconsistentResult
 		? INCONSISTENT_MAP[inconsistentResult]
 		: Object.values(Map).find((map) => map.toUpperCase() === upperRawMap) ?? null;
+}
+
+export function resolveMeditationMap(map: MeditationMaps) {
+	switch (map) {
+		case Map.ForestBrook:
+		case Map.Citadel:
+			return `above the ${map}`;
+		case Map.SanctuaryIslands:
+		case Map.Boneyard:
+		case Map.ForestClearing:
+		case Map.Coliseum:
+		case Map.VaultEntrance:
+		case Map.VaultSummit:
+			return `at the ${map}`;
+		case Map.KoiPond:
+		case Map.IceRink:
+			return `by the ${map}`;
+		case Map.ButterflyFields:
+		case Map.Cave:
+		case Map.ElevatedClearing:
+		case Map.BrokenTemple:
+		case Map.ForgottenArk:
+		case Map.Graveyard:
+		case Map.VaultSecondFloor:
+			return `in the ${map}`;
+		case Map.Battlefield:
+		case Map.Boat:
+			return `on the ${map}`;
+	}
+}
+
+export function isMeditationMap(map: Map): map is MeditationMaps {
+	return MEDITATION_MAPS.includes(map as MeditationMaps);
 }
 
 export function resolveSocialLightAreaMap(map: SocialLightAreaMaps) {
