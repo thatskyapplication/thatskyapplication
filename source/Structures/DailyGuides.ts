@@ -83,6 +83,7 @@ const SEND_A_GIFT_TO_A_FRIEND = "Send a gift to a friend" as const;
 const MAKE_A_NEW_ACQUAINTANCE = "Make a new acquaintance" as const;
 const HIGH_FIVE_A_FRIEND = `${Expression.HighFive} a friend` as const;
 const USE_AN_EXPRESSION_NEAR_A_FRIEND = "Use an expression near a friend" as const;
+const SIT_ON_A_BENCH_WITH_A_STRANGER = "Sit on a bench with a stranger" as const;
 
 export const QUESTS = [
 	{
@@ -124,6 +125,10 @@ export const QUESTS = [
 	{
 		content: USE_AN_EXPRESSION_NEAR_A_FRIEND,
 		url: String(new URL(`daily_guides/quests/social/use_an_expression_near_a_friend.webp`, CDN_URL)),
+	},
+	{
+		content: SIT_ON_A_BENCH_WITH_A_STRANGER,
+		url: String(new URL(`daily_guides/quests/social/sit_on_a_bench_with_a_stranger.webp`, CDN_URL)),
 	},
 	...VALID_REALM.map((realm) => ({
 		content: `Find the candles at the end of the rainbow in the ${realm}`,
@@ -305,7 +310,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("ACQUAINTANCE")) return MAKE_A_NEW_ACQUAINTANCE;
 		if (upperPureContent.includes("HIGH-FIVE")) return HIGH_FIVE_A_FRIEND;
 		if (upperPureContent.includes("EXPRESSION NEAR A FRIEND")) return USE_AN_EXPRESSION_NEAR_A_FRIEND;
-		if (upperPureContent.includes("BENCH")) return "Sit on a bench with a stranger";
+		if (upperPureContent.includes("BENCH")) return SIT_ON_A_BENCH_WITH_A_STRANGER;
 		if (upperPureContent.includes("RIDE A MANTA")) return "Ride a manta";
 		if (upperPureContent.includes("DARK DRAGON")) return "Face the dark dragon";
 		if (upperPureContent.includes("RECHARGE FROM A LIGHT BLOOM")) return "Recharge from a light bloom";
