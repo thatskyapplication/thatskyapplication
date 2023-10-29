@@ -161,12 +161,13 @@ const RIDE_A_MANTA = {
 	url: String(new URL(`daily_guides/quests/miscellaneous/ride_a_manta.webp`, CDN_URL)),
 } as const;
 
-const SOCIAL_LIGHT_AREA = (map: SocialLightAreaMaps) => ({
-	content: `Visit the ${resolveSocialLightAreaMap(map)}`,
-	url: String(
-		new URL(`daily_guides/quests/miscellaneous/visit_the_${SocialLightAreaMapToCDNString[map]}.webp`, CDN_URL),
-	),
-});
+const SOCIAL_LIGHT_AREA = (map: SocialLightAreaMaps) =>
+	({
+		content: `Visit the ${resolveSocialLightAreaMap(map)}`,
+		url: String(
+			new URL(`daily_guides/quests/miscellaneous/visit_the_${SocialLightAreaMapToCDNString[map]}.webp`, CDN_URL),
+		),
+	}) as const;
 
 const COMPLETE_THE_HOOP_SCAVENGER_HUNT = {
 	content: "Complete the hoop scavenger hunt",
