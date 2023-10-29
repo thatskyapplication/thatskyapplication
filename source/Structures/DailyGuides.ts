@@ -88,6 +88,7 @@ const RECHARGE_FROM_A_JELLYFISH = "Recharge from a jellyfish" as const;
 const RECHARGE_FROM_A_LIGHT_BLOOM = "Recharge from a light bloom" as const;
 const RELIVE_A_SPIRITS_MEMORIES = "Relive a spirit's memories" as const;
 const RIDE_A_MANTA = "Ride a manta" as const;
+const COMPLETE_THE_HOOP_SCAVENGER_HUNT = "Complete the hoop scavenger hunt" as const;
 const COLLECT_GREEN_LIGHT = "Collect green light" as const;
 const COLLECT_ORANGE_LIGHT = "Collect orange light" as const;
 const COLLECT_BLUE_LIGHT = "Collect blue light" as const;
@@ -153,6 +154,10 @@ export const QUESTS = [
 			new URL(`daily_guides/quests/miscellaneous/visit_the_${SocialLightAreaMapToCDNString[map]}.webp`, CDN_URL),
 		),
 	})),
+	{
+		content: COMPLETE_THE_HOOP_SCAVENGER_HUNT,
+		url: String(new URL(`daily_guides/quests/season_of_assembly/hoop.webp`, CDN_URL)),
+	},
 	{
 		content: COLLECT_GREEN_LIGHT,
 		url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_green_light.webp`, CDN_URL)),
@@ -393,7 +398,7 @@ export default new (class DailyGuides {
 		}
 
 		if (upperPureContent.includes("POLLUTED GEYSER")) return "Visit the polluted geyser";
-		if (upperPureContent.includes("SCAVENGER HUNT")) return "Complete the hoop scavenger hunt";
+		if (upperPureContent.includes("SCAVENGER HUNT")) return COMPLETE_THE_HOOP_SCAVENGER_HUNT;
 		if (upperPureContent.includes("RACE DOWN THE SLOPES")) return "Race down the slopes with the skater";
 		if (upperPureContent.includes("RACE DOWN THE MOUNTAIN")) return "Race down the mountain with the skater";
 		if (upperPureContent.includes("PRACTICE WITH THE SKATER")) return "Practice with the skater";
