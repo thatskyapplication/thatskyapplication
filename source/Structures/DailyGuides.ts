@@ -16,11 +16,20 @@ import {
 	Map,
 	inconsistentMapKeys,
 	CDN_URL,
-	Season,
 	REALM_VALUES,
+	Season,
+	SOCIAL_LIGHT_AREA_MAPS,
+	SocialLightAreaMapToCDNString,
 	VALID_REALM,
 } from "../Utility/Constants.js";
-import { consoleLog, resolveMap, resolveValidRealm, todayDate } from "../Utility/Utility.js";
+import {
+	consoleLog,
+	isSocialLightAreaMap,
+	resolveMap,
+	resolveSocialLightAreaMap,
+	resolveValidRealm,
+	todayDate,
+} from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import { Expression, spiritNames } from "./Spirits/Base.js";
@@ -127,6 +136,12 @@ export const QUESTS = [
 		content: RIDE_A_MANTA,
 		url: String(new URL(`daily_guides/quests/miscellaneous/ride_a_manta.webp`, CDN_URL)),
 	},
+	...SOCIAL_LIGHT_AREA_MAPS.map((map) => ({
+		content: `Visit the ${resolveSocialLightAreaMap(map)}`,
+		url: String(
+			new URL(`daily_guides/quests/miscellaneous/visit_the_${SocialLightAreaMapToCDNString[map]}.webp`, CDN_URL),
+		),
+	})),
 	{
 		content: BOW_AT_A_PLAYER,
 		url: String(new URL(`daily_guides/quests/social/bow_at_a_player.webp`, CDN_URL)),
@@ -303,22 +318,6 @@ export default new (class DailyGuides {
 		}
 	}
 
-	private resolveSocialLightAreaMap(map: Map | null) {
-		switch (map) {
-			case Map.Cave:
-				return `cosy hideout in the ${map}`;
-			case Map.ElevatedClearing:
-				return `ancestor's table of belonging in the ${map}`;
-			case Map.Graveyard:
-				return `bonfire at the ${map}`;
-			case Map.VillageOfDreams:
-				return `hot spring in the ${map}`;
-			default:
-				consoleLog("Failed to match a social light area map.");
-				return "social light area";
-		}
-	}
-
 	private resolveDailyGuideContent(pureContent: string, realm: ValidRealm | null, map: Map | null) {
 		const upperPureContent = pureContent.toUpperCase();
 
@@ -356,7 +355,9 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("SAPLING")) return `Admire the sapling${realm ? ` in the ${realm}` : ""}`;
 
 		if (upperPureContent.includes("SOCIAL LIGHT") || upperPureContent.includes("VISIT THE ANCESTOR")) {
-			return `Visit the ${this.resolveSocialLightAreaMap(map)}`;
+			if (map && isSocialLightAreaMap(map)) return `Visit the ${resolveSocialLightAreaMap(map)}`;
+			consoleLog("Failed to match a social light area map.");
+			return "Visit the social light area";
 		}
 
 		if (upperPureContent.includes("POLLUTED GEYSER")) return "Visit the polluted geyser";

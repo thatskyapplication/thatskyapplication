@@ -24,6 +24,7 @@ import {
 import { DAILY_GUIDE_EVENT_ROTATION } from "../Structures/DailyGuides.js";
 import {
 	type Realm,
+	type SocialLightAreaMaps,
 	CURRENT_SEASONAL_CANDLE_EMOJI,
 	CURRENT_SEASONAL_EMOJI,
 	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
@@ -44,10 +45,11 @@ import {
 	SEASON_END_DATE,
 	SEASON_DURATION,
 	SEASON_START_DATE,
+	SHARD_ERUPTION_PREDICTION_DATA,
+	SOCIAL_LIGHT_AREA_MAPS,
 	VALID_REALM,
 	CURRENT_SEASON,
 	CDN_URL,
-	SHARD_ERUPTION_PREDICTION_DATA,
 } from "./Constants.js";
 
 const cdn = new CDN();
@@ -375,6 +377,23 @@ export function resolveMap(rawMap: string) {
 	return inconsistentResult
 		? INCONSISTENT_MAP[inconsistentResult]
 		: Object.values(Map).find((map) => map.toUpperCase() === upperRawMap) ?? null;
+}
+
+export function resolveSocialLightAreaMap(map: SocialLightAreaMaps) {
+	switch (map) {
+		case Map.Cave:
+			return `cosy hideout in the ${map}`;
+		case Map.ElevatedClearing:
+			return `ancestor's table of belonging in the ${map}`;
+		case Map.VillageOfDreams:
+			return `hot spring in the ${map}`;
+		case Map.Graveyard:
+			return `bonfire at the ${map}`;
+	}
+}
+
+export function isSocialLightAreaMap(map: Map): map is SocialLightAreaMaps {
+	return SOCIAL_LIGHT_AREA_MAPS.includes(map as SocialLightAreaMaps);
 }
 
 export function resolveShardEruptionMapURL(map: Map) {

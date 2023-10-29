@@ -228,6 +228,16 @@ export enum Map {
 	AncientMemory = "Ancient Memory",
 }
 
+export const SOCIAL_LIGHT_AREA_MAPS = [Map.Cave, Map.ElevatedClearing, Map.VillageOfDreams, Map.Graveyard] as const;
+export type SocialLightAreaMaps = (typeof SOCIAL_LIGHT_AREA_MAPS)[number];
+
+export const SocialLightAreaMapToCDNString = {
+	[Map.Cave]: "cosy_hideout",
+	[Map.ElevatedClearing]: "ancestors_table_of_belonging",
+	[Map.VillageOfDreams]: "hot_spring",
+	[Map.Graveyard]: "bonfire",
+} as const satisfies Readonly<Record<SocialLightAreaMaps, string>>;
+
 export const SHARD_ERUPTION_PREDICTION_DATA = [
 	{
 		noShardWeekDay: [6, 0], // Saturday, Sunday
