@@ -302,7 +302,7 @@ export const QUESTS = [
 		return false;
 	}).map((spirit) => ({
 		content: `Relive the ${spirit.name}`,
-		url: String(new URL(`daily_guides/quests/spirits/${spirit.cdnName}/relive.webp`, CDN_URL)),
+		url: String(new URL(`daily_guides/quests/spirits/${spirit.cdnName}.webp`, CDN_URL)),
 	})),
 ] as const satisfies Readonly<DailyGuideQuest[]>;
 
