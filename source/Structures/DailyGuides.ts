@@ -85,6 +85,8 @@ interface DailyGuideMessage {
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
+const VISIT_THE_POLLUTED_GEYSER = "Visit the polluted geyser" as const;
+const RID_THE_SANCTUARY_VORTEX_OF_DARKNESS = "Rid the sanctuary vortex of darkness" as const;
 const FACE_THE_DARK_DRAGON = "Face the dark dragon" as const;
 const KNOCK_OVER_5_DARK_CRABS = "Knock over 5 dark crabs" as const;
 const RECHARGE_FROM_A_JELLYFISH = "Recharge from a jellyfish" as const;
@@ -121,6 +123,14 @@ export const QUESTS = [
 		content: `Admire the sapling in the ${realm}`,
 		url: String(new URL(`daily_guides/quests/days_of_bloom/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL)),
 	})),
+	{
+		content: VISIT_THE_POLLUTED_GEYSER,
+		url: String(new URL(`daily_guides/quests/days_of_nature/visit_the_polluted_geyser.webp`, CDN_URL)),
+	},
+	{
+		content: RID_THE_SANCTUARY_VORTEX_OF_DARKNESS,
+		url: String(new URL(`daily_guides/quests/days_of_nature/rid_the_sanctuary_vortex_of_darkness.webp`, CDN_URL)),
+	},
 	...[Map.SanctuaryIslands, Map.WindPaths, Map.HermitValley, Map.TreasureReef, Map.StarlightDesert].map((map) => ({
 		content: `Admire the rainbow in the ${map}`,
 		url: String(
@@ -407,13 +417,13 @@ export default new (class DailyGuides {
 			return "Visit the social light area";
 		}
 
-		if (upperPureContent.includes("POLLUTED GEYSER")) return "Visit the polluted geyser";
+		if (upperPureContent.includes("POLLUTED GEYSER")) return VISIT_THE_POLLUTED_GEYSER;
 		if (upperPureContent.includes("SCAVENGER HUNT")) return COMPLETE_THE_HOOP_SCAVENGER_HUNT;
 		if (upperPureContent.includes("RACE DOWN THE SLOPES")) return "Race down the slopes with the skater";
 		if (upperPureContent.includes("RACE DOWN THE MOUNTAIN")) return "Race down the mountain with the skater";
 		if (upperPureContent.includes("PRACTICE WITH THE SKATER")) return "Practice with the skater";
 		if (upperPureContent.includes("REHEARSE FOR A PERFORMANCE")) return "Rehearse for a performance with the skater";
-		if (upperPureContent.includes("GREAT VORTEX")) return "Rid the sanctuary vortex of darkness";
+		if (upperPureContent.includes("GREAT VORTEX")) return RID_THE_SANCTUARY_VORTEX_OF_DARKNESS;
 		if (upperPureContent.includes("RELIVE A SPIRIT'S MEMORY")) return RELIVE_A_SPIRITS_MEMORIES;
 
 		for (const spiritName of spiritNames) {
