@@ -219,7 +219,7 @@ export default new (class implements AutocompleteCommand {
 		const { client, options, user } = interaction;
 		const number = options.getInteger("number", true);
 		const content = options.getString("content", true);
-		const url = QUESTS.find((quest) => quest.content === content)?.url ?? options.getString("url");
+		const url = options.getString("url") ?? QUESTS.find((quest) => quest.content === content)?.url ?? null;
 
 		if (!isQuestNumber(number)) {
 			await interaction.reply(`Detected an unknown quest number: ${number}.`);
