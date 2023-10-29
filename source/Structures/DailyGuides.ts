@@ -88,6 +88,11 @@ const RECHARGE_FROM_A_JELLYFISH = "Recharge from a jellyfish" as const;
 const RECHARGE_FROM_A_LIGHT_BLOOM = "Recharge from a light bloom" as const;
 const RELIVE_A_SPIRITS_MEMORIES = "Relive a spirit's memories" as const;
 const RIDE_A_MANTA = "Ride a manta" as const;
+const COLLECT_GREEN_LIGHT = "Collect green light" as const;
+const COLLECT_ORANGE_LIGHT = "Collect orange light" as const;
+const COLLECT_BLUE_LIGHT = "Collect blue light" as const;
+const COLLECT_RED_LIGHT = "Collect red light" as const;
+const COLLECT_PURPLE_LIGHT = "Collect purple light" as const;
 const BOW_AT_A_PLAYER = "Bow at a player" as const;
 const FOLLOW_A_FRIEND = "Follow a friend" as const;
 const HUG_A_FRIEND = `${Expression.Hug} a friend` as const;
@@ -142,6 +147,27 @@ export const QUESTS = [
 			new URL(`daily_guides/quests/miscellaneous/visit_the_${SocialLightAreaMapToCDNString[map]}.webp`, CDN_URL),
 		),
 	})),
+	{
+		content: COLLECT_GREEN_LIGHT,
+		url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_green_light.webp`, CDN_URL)),
+	},
+	{
+		content: COLLECT_ORANGE_LIGHT,
+		url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_orange_light.webp`, CDN_URL)),
+	},
+	{
+		content: COLLECT_BLUE_LIGHT,
+		url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_blue_light.webp`, CDN_URL)),
+	},
+
+	{
+		content: COLLECT_RED_LIGHT,
+		url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_red_light.webp`, CDN_URL)),
+	},
+	{
+		content: COLLECT_PURPLE_LIGHT,
+		url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_purple_light.webp`, CDN_URL)),
+	},
 	{
 		content: BOW_AT_A_PLAYER,
 		url: String(new URL(`daily_guides/quests/social/bow_at_a_player.webp`, CDN_URL)),
@@ -347,11 +373,11 @@ export default new (class DailyGuides {
 
 		if (upperPureContent.includes("CATCH THE LIGHT")) return `Catch the light${realm ? ` in the ${realm}` : ""}`;
 		if (upperPureContent.includes("MEDITATION")) return `Meditate ${this.resolveMeditateMap(map)}`;
-		if (upperPureContent.includes("BLUE LIGHT")) return "Collect blue light";
-		if (upperPureContent.includes("GREEN LIGHT")) return "Collect green light";
-		if (upperPureContent.includes("ORANGE LIGHT")) return "Collect orange light";
-		if (upperPureContent.includes("PURPLE LIGHT")) return "Collect purple light";
-		if (upperPureContent.includes("RED LIGHT")) return "Collect red light";
+		if (upperPureContent.includes("GREEN LIGHT")) return COLLECT_GREEN_LIGHT;
+		if (upperPureContent.includes("ORANGE LIGHT")) return COLLECT_ORANGE_LIGHT;
+		if (upperPureContent.includes("BLUE LIGHT")) return COLLECT_BLUE_LIGHT;
+		if (upperPureContent.includes("RED LIGHT")) return COLLECT_RED_LIGHT;
+		if (upperPureContent.includes("PURPLE LIGHT")) return COLLECT_PURPLE_LIGHT;
 		if (upperPureContent.includes("SAPLING")) return `Admire the sapling${realm ? ` in the ${realm}` : ""}`;
 
 		if (upperPureContent.includes("SOCIAL LIGHT") || upperPureContent.includes("VISIT THE ANCESTOR")) {
