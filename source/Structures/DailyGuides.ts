@@ -74,6 +74,7 @@ export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
 const KNOCK_OVER_5_DARK_CRABS = "Knock over 5 dark crabs" as const;
+const RIDE_A_MANTA = "Ride a manta" as const;
 const BOW_AT_A_PLAYER = "Bow at a player" as const;
 const FOLLOW_A_FRIEND = "Follow a friend" as const;
 const HUG_A_FRIEND = `${Expression.Hug} a friend` as const;
@@ -101,6 +102,10 @@ export const QUESTS = [
 	{
 		content: KNOCK_OVER_5_DARK_CRABS,
 		url: String(new URL(`daily_guides/quests/miscellaneous/knock_over_5_dark_crabs.webp`, CDN_URL)),
+	},
+	{
+		content: RIDE_A_MANTA,
+		url: String(new URL(`daily_guides/quests/miscellaneous/ride_a_manta.webp`, CDN_URL)),
 	},
 	{
 		content: BOW_AT_A_PLAYER,
@@ -311,7 +316,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("HIGH-FIVE")) return HIGH_FIVE_A_FRIEND;
 		if (upperPureContent.includes("EXPRESSION NEAR A FRIEND")) return USE_AN_EXPRESSION_NEAR_A_FRIEND;
 		if (upperPureContent.includes("BENCH")) return SIT_ON_A_BENCH_WITH_A_STRANGER;
-		if (upperPureContent.includes("RIDE A MANTA")) return "Ride a manta";
+		if (upperPureContent.includes("RIDE A MANTA")) return RIDE_A_MANTA;
 		if (upperPureContent.includes("DARK DRAGON")) return "Face the dark dragon";
 		if (upperPureContent.includes("RECHARGE FROM A LIGHT BLOOM")) return "Recharge from a light bloom";
 		if (upperPureContent.includes("RECHARGE FROM A JELLYFISH")) return "Recharge from a jellyfish";
