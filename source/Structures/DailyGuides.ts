@@ -11,17 +11,18 @@ import {
 } from "discord.js";
 import {
 	type ValidRealm,
+	CDN_URL,
 	Channel,
+	inconsistentMapKeys,
 	INFOGRAPHICS_DATABASE_GUILD_ID,
 	Map,
-	inconsistentMapKeys,
-	CDN_URL,
+	MEDITATION_MAPS,
+	Realm,
 	REALM_VALUES,
 	Season,
 	SOCIAL_LIGHT_AREA_MAPS,
 	SocialLightAreaMapToCDNString,
 	VALID_REALM,
-	MEDITATION_MAPS,
 } from "../Utility/Constants.js";
 import {
 	consoleLog,
@@ -282,8 +283,22 @@ export const QUESTS = [
 		url: String(new URL(`daily_guides/quests/social/sit_on_a_bench_with_a_stranger.webp`, CDN_URL)),
 	},
 	...Spirits.filter((spirit) => {
+		if (spirit.realm === Realm.IslesOfDawn) return false;
 		if (spirit.isStandardSpirit()) return true;
-		if (spirit.isSeasonalSpirit()) return spirit.season !== Season.Shattering;
+
+		if (spirit.isSeasonalSpirit()) {
+			return [
+				Season.Gratitude,
+				Season.Lightseekers,
+				Season.Belonging,
+				Season.Rhythm,
+				Season.Enchantment,
+				Season.Sanctuary,
+				Season.Dreams,
+				Season.Assembly,
+			].includes(spirit.season);
+		}
+
 		return false;
 	}).map((spirit) => ({
 		content: `Relive the ${spirit.name}`,
