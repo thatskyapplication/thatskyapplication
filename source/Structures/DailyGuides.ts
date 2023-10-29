@@ -94,6 +94,10 @@ const RECHARGE_FROM_A_LIGHT_BLOOM = "Recharge from a light bloom" as const;
 const RELIVE_A_SPIRITS_MEMORIES = "Relive a spirit's memories" as const;
 const RIDE_A_MANTA = "Ride a manta" as const;
 const COMPLETE_THE_HOOP_SCAVENGER_HUNT = "Complete the hoop scavenger hunt" as const;
+const PRACTICE_WITH_THE_SKATER = "Practice with the skater" as const;
+const RACE_DOWN_THE_SLOPES_WITH_THE_SKATER = "Race down the slopes with the skater" as const;
+const RACE_DOWN_THE_MOUNTAIN_WITH_THE_SKATER = "Race down the mountain with the skater" as const;
+const REHEARSE_FOR_A_PERFORMANCE_WITH_THE_SKATER = "Rehearse for a performance with the skater" as const;
 const COLLECT_GREEN_LIGHT = "Collect green light" as const;
 const COLLECT_ORANGE_LIGHT = "Collect orange light" as const;
 const COLLECT_BLUE_LIGHT = "Collect blue light" as const;
@@ -176,6 +180,24 @@ export const QUESTS = [
 	{
 		content: COMPLETE_THE_HOOP_SCAVENGER_HUNT,
 		url: String(new URL(`daily_guides/quests/season_of_assembly/hoop.webp`, CDN_URL)),
+	},
+	{
+		content: PRACTICE_WITH_THE_SKATER,
+		url: String(new URL(`daily_guides/quests/season_of_dreams/practice_with_the_skater.webp`, CDN_URL)),
+	},
+	{
+		content: RACE_DOWN_THE_SLOPES_WITH_THE_SKATER,
+		url: String(new URL(`daily_guides/quests/season_of_dreams/race_down_the_slopes_with_the_skater.webp`, CDN_URL)),
+	},
+	{
+		content: RACE_DOWN_THE_MOUNTAIN_WITH_THE_SKATER,
+		url: String(new URL(`daily_guides/quests/season_of_dreams/race_down_the_mountain_with_the_skater.webp`, CDN_URL)),
+	},
+	{
+		content: REHEARSE_FOR_A_PERFORMANCE_WITH_THE_SKATER,
+		url: String(
+			new URL(`daily_guides/quests/season_of_dreams/rehearse_for_a_performance_with_the_skater.webp`, CDN_URL),
+		),
 	},
 	{
 		content: COLLECT_GREEN_LIGHT,
@@ -419,10 +441,10 @@ export default new (class DailyGuides {
 
 		if (upperPureContent.includes("POLLUTED GEYSER")) return VISIT_THE_POLLUTED_GEYSER;
 		if (upperPureContent.includes("SCAVENGER HUNT")) return COMPLETE_THE_HOOP_SCAVENGER_HUNT;
-		if (upperPureContent.includes("RACE DOWN THE SLOPES")) return "Race down the slopes with the skater";
-		if (upperPureContent.includes("RACE DOWN THE MOUNTAIN")) return "Race down the mountain with the skater";
-		if (upperPureContent.includes("PRACTICE WITH THE SKATER")) return "Practice with the skater";
-		if (upperPureContent.includes("REHEARSE FOR A PERFORMANCE")) return "Rehearse for a performance with the skater";
+		if (upperPureContent.includes("PRACTICE WITH THE SKATER")) return PRACTICE_WITH_THE_SKATER;
+		if (upperPureContent.includes("RACE DOWN THE SLOPES")) return RACE_DOWN_THE_SLOPES_WITH_THE_SKATER;
+		if (upperPureContent.includes("RACE DOWN THE MOUNTAIN")) return RACE_DOWN_THE_MOUNTAIN_WITH_THE_SKATER;
+		if (upperPureContent.includes("REHEARSE FOR A PERFORMANCE")) return REHEARSE_FOR_A_PERFORMANCE_WITH_THE_SKATER;
 		if (upperPureContent.includes("GREAT VORTEX")) return RID_THE_SANCTUARY_VORTEX_OF_DARKNESS;
 		if (upperPureContent.includes("RELIVE A SPIRIT'S MEMORY")) return RELIVE_A_SPIRITS_MEMORIES;
 
