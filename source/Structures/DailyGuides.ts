@@ -77,6 +77,7 @@ const FACE_THE_DARK_DRAGON = "Face the dark dragon" as const;
 const KNOCK_OVER_5_DARK_CRABS = "Knock over 5 dark crabs" as const;
 const RECHARGE_FROM_A_JELLYFISH = "Recharge from a jellyfish" as const;
 const RECHARGE_FROM_A_LIGHT_BLOOM = "Recharge from a light bloom" as const;
+const RELIVE_A_SPIRITS_MEMORIES = "Relive a spirit's memories" as const;
 const RIDE_A_MANTA = "Ride a manta" as const;
 const BOW_AT_A_PLAYER = "Bow at a player" as const;
 const FOLLOW_A_FRIEND = "Follow a friend" as const;
@@ -117,6 +118,10 @@ export const QUESTS = [
 	{
 		content: RECHARGE_FROM_A_LIGHT_BLOOM,
 		url: String(new URL(`daily_guides/quests/miscellaneous/recharge_from_a_light_bloom.webp`, CDN_URL)),
+	},
+	{
+		content: RELIVE_A_SPIRITS_MEMORIES,
+		url: String(new URL(`daily_guides/quests/miscellaneous/relive_a_spirits_memories.webp`, CDN_URL)),
 	},
 	{
 		content: RIDE_A_MANTA,
@@ -361,7 +366,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("PRACTICE WITH THE SKATER")) return "Practice with the skater";
 		if (upperPureContent.includes("REHEARSE FOR A PERFORMANCE")) return "Rehearse for a performance with the skater";
 		if (upperPureContent.includes("GREAT VORTEX")) return "Rid the sanctuary vortex of darkness";
-		if (upperPureContent.includes("RELIVE A SPIRIT'S MEMORY")) return "Relive a spirit's memories";
+		if (upperPureContent.includes("RELIVE A SPIRIT'S MEMORY")) return RELIVE_A_SPIRITS_MEMORIES;
 
 		for (const spiritName of spiritNames) {
 			if (upperPureContent.replaceAll("’", "'").includes(spiritName.toUpperCase())) return `Relive the ${spiritName}`;
