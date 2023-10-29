@@ -73,7 +73,7 @@ interface DailyGuideMessage {
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
-const KNOCK_OVER_DARK_CRABS = "Knock over 5 dark crabs" as const;
+const KNOCK_OVER_5_DARK_CRABS = "Knock over 5 dark crabs" as const;
 const BOW_AT_A_PLAYER = "Bow at a player" as const;
 const FOLLOW_A_FRIEND = "Follow a friend" as const;
 const HUG_A_FRIEND = `${Expression.Hug} a friend` as const;
@@ -87,8 +87,8 @@ const SIT_ON_A_BENCH_WITH_A_STRANGER = "Sit on a bench with a stranger" as const
 
 export const QUESTS = [
 	{
-		content: KNOCK_OVER_DARK_CRABS,
-		url: String(new URL(`daily_guides/quests/miscellaneous/knock_over_dark_crabs.webp`, CDN_URL)),
+		content: KNOCK_OVER_5_DARK_CRABS,
+		url: String(new URL(`daily_guides/quests/miscellaneous/knock_over_5_dark_crabs.webp`, CDN_URL)),
 	},
 	{
 		content: BOW_AT_A_PLAYER,
@@ -301,7 +301,7 @@ export default new (class DailyGuides {
 			return BOW_AT_A_PLAYER;
 		}
 
-		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) return KNOCK_OVER_DARK_CRABS;
+		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) return KNOCK_OVER_5_DARK_CRABS;
 		if (upperPureContent.includes("FOLLOW A FRIEND")) return FOLLOW_A_FRIEND;
 		if (upperPureContent.includes("HUG A FRIEND")) return HUG_A_FRIEND;
 		if (upperPureContent.includes("WAVE TO A FRIEND")) return WAVE_TO_A_FRIEND;
