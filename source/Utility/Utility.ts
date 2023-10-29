@@ -22,10 +22,14 @@ import {
 	hyperlink,
 } from "discord.js";
 import { DAILY_GUIDE_EVENT_ROTATION } from "../Structures/DailyGuides.js";
+import type { SeasonalSpirit, StandardSpirit } from "../Structures/Spirits/Base.js";
+import type Spirits from "../Structures/Spirits/index.js";
 import {
 	type MeditationMaps,
-	type Realm,
+	type RainbowAdmireMaps,
 	type SocialLightAreaMaps,
+	CDN_URL,
+	CURRENT_SEASON,
 	CURRENT_SEASONAL_CANDLE_EMOJI,
 	CURRENT_SEASONAL_EMOJI,
 	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
@@ -38,6 +42,8 @@ import {
 	INITIAL_TREASURE_CANDLE_REALM_SEEK,
 	Map,
 	MEDITATION_MAPS,
+	RAINBOW_ADMIRE_MAPS,
+	Realm,
 	REALM_VALUES,
 	Season,
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
@@ -50,8 +56,9 @@ import {
 	SHARD_ERUPTION_PREDICTION_DATA,
 	SOCIAL_LIGHT_AREA_MAPS,
 	VALID_REALM,
-	CURRENT_SEASON,
-	CDN_URL,
+	type ValidRealm,
+	type QuestSpiritSeasons,
+	QUEST_SPIRITS_SEASONS,
 } from "./Constants.js";
 
 const cdn = new CDN();
@@ -355,6 +362,33 @@ export function remainingSeasonalCandles() {
 	};
 }
 
+/**
+ * @privateRemarks Defines a spirit that may be encountered in a daily quest. So far, that includes:
+ *
+ * - Standard spirits.
+ * - Seasonal spirits from ({@link QuestSpiritSeasons}).
+ *
+ * Spirits must not be in the {@link Realm.IslesOfDawn | Isles of Dawn}.
+ *
+ * These spirits must have an associated infographic.
+ */
+export type QuestSpirit = (StandardSpirit | (SeasonalSpirit & { season: QuestSpiritSeasons })) & { realm: ValidRealm };
+
+export function isQuestSpiritsSeason(season: Season): season is QuestSpiritSeasons {
+	return QUEST_SPIRITS_SEASONS.includes(season as QuestSpiritSeasons);
+}
+
+export function isQuestSpirit(spirit: (typeof Spirits)[number]): spirit is QuestSpirit {
+	if (spirit.realm === Realm.IslesOfDawn) return false;
+	if (spirit.isStandardSpirit()) return true;
+
+	if (spirit.isSeasonalSpirit() && isQuestSpiritsSeason(spirit.season)) {
+		return QUEST_SPIRITS_SEASONS.includes(spirit.season);
+	}
+
+	return false;
+}
+
 export function isRealm(realm: string): realm is Realm {
 	return REALM_VALUES.includes(realm as Realm);
 }
@@ -429,6 +463,10 @@ export function resolveSocialLightAreaMap(map: SocialLightAreaMaps) {
 
 export function isSocialLightAreaMap(map: Map): map is SocialLightAreaMaps {
 	return SOCIAL_LIGHT_AREA_MAPS.includes(map as SocialLightAreaMaps);
+}
+
+export function isRainbowAdmireMap(map: Map): map is RainbowAdmireMaps {
+	return RAINBOW_ADMIRE_MAPS.includes(map as RainbowAdmireMaps);
 }
 
 export function resolveShardEruptionMapURL(map: Map) {

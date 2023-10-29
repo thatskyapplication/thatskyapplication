@@ -104,6 +104,19 @@ export enum Season {
 	Revival = "Revival",
 }
 
+export const QUEST_SPIRITS_SEASONS = [
+	Season.Gratitude,
+	Season.Lightseekers,
+	Season.Belonging,
+	Season.Rhythm,
+	Season.Enchantment,
+	Season.Sanctuary,
+	Season.Dreams,
+	Season.Assembly,
+] as const;
+
+export type QuestSpiritSeasons = (typeof QUEST_SPIRITS_SEASONS)[number];
+
 // Content delivery network bucket.
 export const CDN_BUCKET = "thatskyapplication" as const;
 
@@ -260,6 +273,15 @@ export const SocialLightAreaMapToCDNString = {
 	[Map.VillageOfDreams]: "hot_spring",
 	[Map.Graveyard]: "bonfire",
 } as const satisfies Readonly<Record<SocialLightAreaMaps, string>>;
+
+export const RAINBOW_ADMIRE_MAPS = [
+	Map.SanctuaryIslands,
+	Map.WindPaths,
+	Map.HermitValley,
+	Map.TreasureReef,
+	Map.StarlightDesert,
+] as const;
+export type RainbowAdmireMaps = (typeof RAINBOW_ADMIRE_MAPS)[number];
 
 export const SHARD_ERUPTION_PREDICTION_DATA = [
 	{
