@@ -86,6 +86,18 @@ const USE_AN_EXPRESSION_NEAR_A_FRIEND = "Use an expression near a friend" as con
 const SIT_ON_A_BENCH_WITH_A_STRANGER = "Sit on a bench with a stranger" as const;
 
 export const QUESTS = [
+	...[Map.SanctuaryIslands, Map.WindPaths, Map.HermitValley, Map.TreasureReef, Map.StarlightDesert].map((map) => ({
+		content: `Admire the rainbow in the ${map}`,
+		url: String(
+			new URL(`daily_guides/quests/days_of_rainbow/admire/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
+		),
+	})),
+	...VALID_REALM.map((realm) => ({
+		content: `Find the candles at the end of the rainbow in the ${realm}`,
+		url: String(
+			new URL(`daily_guides/quests/days_of_rainbow/find/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
+		),
+	})),
 	{
 		content: KNOCK_OVER_5_DARK_CRABS,
 		url: String(new URL(`daily_guides/quests/miscellaneous/knock_over_5_dark_crabs.webp`, CDN_URL)),
@@ -130,18 +142,6 @@ export const QUESTS = [
 		content: SIT_ON_A_BENCH_WITH_A_STRANGER,
 		url: String(new URL(`daily_guides/quests/social/sit_on_a_bench_with_a_stranger.webp`, CDN_URL)),
 	},
-	...VALID_REALM.map((realm) => ({
-		content: `Find the candles at the end of the rainbow in the ${realm}`,
-		url: String(
-			new URL(`daily_guides/quests/days_of_rainbow/find/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
-		),
-	})),
-	...[Map.SanctuaryIslands, Map.WindPaths, Map.HermitValley, Map.TreasureReef, Map.StarlightDesert].map((map) => ({
-		content: `Admire the rainbow in the ${map}`,
-		url: String(
-			new URL(`daily_guides/quests/days_of_rainbow/admire/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
-		),
-	})),
 	...Spirits.filter((spirit) => {
 		if (spirit.isStandardSpirit()) return true;
 		if (spirit.isSeasonalSpirit()) return spirit.season !== Season.Shattering;
