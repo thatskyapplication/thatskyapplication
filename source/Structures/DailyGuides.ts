@@ -73,6 +73,7 @@ interface DailyGuideMessage {
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
+const FACE_THE_DARK_DRAGON = "Face the dark dragon" as const;
 const KNOCK_OVER_5_DARK_CRABS = "Knock over 5 dark crabs" as const;
 const RIDE_A_MANTA = "Ride a manta" as const;
 const BOW_AT_A_PLAYER = "Bow at a player" as const;
@@ -99,6 +100,10 @@ export const QUESTS = [
 			new URL(`daily_guides/quests/days_of_rainbow/find/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
 		),
 	})),
+	{
+		content: FACE_THE_DARK_DRAGON,
+		url: String(new URL(`daily_guides/quests/miscellaneous/face_the_dark_dragon.gif`, CDN_URL)),
+	},
 	{
 		content: KNOCK_OVER_5_DARK_CRABS,
 		url: String(new URL(`daily_guides/quests/miscellaneous/knock_over_5_dark_crabs.webp`, CDN_URL)),
@@ -317,7 +322,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("EXPRESSION NEAR A FRIEND")) return USE_AN_EXPRESSION_NEAR_A_FRIEND;
 		if (upperPureContent.includes("BENCH")) return SIT_ON_A_BENCH_WITH_A_STRANGER;
 		if (upperPureContent.includes("RIDE A MANTA")) return RIDE_A_MANTA;
-		if (upperPureContent.includes("DARK DRAGON")) return "Face the dark dragon";
+		if (upperPureContent.includes("DARK DRAGON")) return FACE_THE_DARK_DRAGON;
 		if (upperPureContent.includes("RECHARGE FROM A LIGHT BLOOM")) return "Recharge from a light bloom";
 		if (upperPureContent.includes("RECHARGE FROM A JELLYFISH")) return "Recharge from a jellyfish";
 		if (upperPureContent.includes("ADMIRE THE RAINBOW")) return `Admire the rainbow${map ? ` in the ${map}` : ""}`;
