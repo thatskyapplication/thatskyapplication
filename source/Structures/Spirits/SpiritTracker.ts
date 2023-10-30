@@ -1610,9 +1610,11 @@ export class SpiritTracker {
 						.setMinValues(0)
 						.setOptions(options)
 						.setPlaceholder(
-							`Select ${
-								season === Season.Shattering ? "an entity" : season === Season.Revival ? "a shop" : "a spirit"
-							}!`,
+							season === Season.Shattering
+								? "Select an entity!"
+								: season === Season.Revival
+								? "Select a spirit or a shop!"
+								: "Select a spirit!",
 						),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
