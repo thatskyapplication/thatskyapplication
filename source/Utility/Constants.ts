@@ -104,6 +104,19 @@ export enum Season {
 	Revival = "Revival",
 }
 
+export const QUEST_SPIRITS_SEASONS = [
+	Season.Gratitude,
+	Season.Lightseekers,
+	Season.Belonging,
+	Season.Rhythm,
+	Season.Enchantment,
+	Season.Sanctuary,
+	Season.Dreams,
+	Season.Assembly,
+] as const;
+
+export type QuestSpiritSeasons = (typeof QUEST_SPIRITS_SEASONS)[number];
+
 // Content delivery network bucket.
 export const CDN_BUCKET = "thatskyapplication" as const;
 
@@ -181,6 +194,8 @@ export enum Realm {
 	EyeOfEden = "Eye of Eden",
 }
 
+export const REALM_VALUES = Object.values(Realm);
+
 export enum Map {
 	// Daylight Prairie
 	BirdNest = "Bird Nest",
@@ -225,6 +240,48 @@ export enum Map {
 	// Season of Shattering
 	AncientMemory = "Ancient Memory",
 }
+
+export const MEDITATION_MAPS = [
+	Map.ButterflyFields,
+	Map.SanctuaryIslands,
+	Map.Cave,
+	Map.KoiPond,
+	Map.ForestClearing,
+	Map.ForestBrook,
+	Map.ElevatedClearing,
+	Map.Boneyard,
+	Map.IceRink,
+	Map.Citadel,
+	Map.Coliseum,
+	Map.BrokenTemple,
+	Map.ForgottenArk,
+	Map.Graveyard,
+	Map.Boat,
+	Map.Battlefield,
+	Map.VaultEntrance,
+	Map.VaultSecondFloor,
+	Map.VaultSummit,
+] as const;
+
+export type MeditationMaps = (typeof MEDITATION_MAPS)[number];
+export const SOCIAL_LIGHT_AREA_MAPS = [Map.Cave, Map.ElevatedClearing, Map.VillageOfDreams, Map.Graveyard] as const;
+export type SocialLightAreaMaps = (typeof SOCIAL_LIGHT_AREA_MAPS)[number];
+
+export const SocialLightAreaMapToCDNString = {
+	[Map.Cave]: "cosy_hideout",
+	[Map.ElevatedClearing]: "ancestors_table_of_belonging",
+	[Map.VillageOfDreams]: "hot_spring",
+	[Map.Graveyard]: "bonfire",
+} as const satisfies Readonly<Record<SocialLightAreaMaps, string>>;
+
+export const RAINBOW_ADMIRE_MAPS = [
+	Map.SanctuaryIslands,
+	Map.WindPaths,
+	Map.HermitValley,
+	Map.TreasureReef,
+	Map.StarlightDesert,
+] as const;
+export type RainbowAdmireMaps = (typeof RAINBOW_ADMIRE_MAPS)[number];
 
 export const SHARD_ERUPTION_PREDICTION_DATA = [
 	{
@@ -290,7 +347,7 @@ export const SHARD_ERUPTION_PREDICTION_DATA = [
 	},
 ] as const;
 
-export const WINGED_LIGHT_AREAS = [...Object.values(Realm), Map.AncientMemory] as const;
+export const WINGED_LIGHT_AREAS = [...REALM_VALUES, Map.AncientMemory] as const;
 
 // This exists due to the Infographics server's inconsistencies and faults alongside no desire to fix them.
 export const INCONSISTENT_MAP = {

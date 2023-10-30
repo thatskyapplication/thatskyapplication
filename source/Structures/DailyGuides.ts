@@ -1,3 +1,4 @@
+import { URL } from "node:url";
 import { AsyncQueue } from "@sapphire/async-queue";
 import {
 	type Attachment,
@@ -9,17 +10,39 @@ import {
 	SnowflakeUtil,
 } from "discord.js";
 import {
+	type MeditationMaps,
+	type RainbowAdmireMaps,
+	type SocialLightAreaMaps,
 	type ValidRealm,
+	CDN_URL,
 	Channel,
+	inconsistentMapKeys,
 	INFOGRAPHICS_DATABASE_GUILD_ID,
 	Map,
-	Realm,
-	inconsistentMapKeys,
+	MEDITATION_MAPS,
+	REALM_VALUES,
+	SOCIAL_LIGHT_AREA_MAPS,
+	SocialLightAreaMapToCDNString,
+	VALID_REALM,
+	RAINBOW_ADMIRE_MAPS,
 } from "../Utility/Constants.js";
-import { consoleLog, resolveMap, resolveValidRealm, todayDate } from "../Utility/Utility.js";
+import {
+	type QuestSpirit,
+	consoleLog,
+	isMeditationMap,
+	isQuestSpirit,
+	isRainbowAdmireMap,
+	isSocialLightAreaMap,
+	resolveMap,
+	resolveMeditationMap,
+	resolveSocialLightAreaMap,
+	resolveValidRealm,
+	todayDate,
+} from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
-import { Expression, spiritNames } from "./Spirits/Base.js";
+import { Expression } from "./Spirits/Base.js";
+import Spirits from "./Spirits/index.js";
 
 export interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;
@@ -43,7 +66,7 @@ type DailyGuidesSetQuestsData = Partial<Pick<DailyGuidesData, "quest1" | "quest2
 
 export interface DailyGuideQuest {
 	content: string;
-	url: string;
+	url: string | null;
 }
 
 const DAILY_GUIDES_RESET_DATA = {
@@ -67,7 +90,260 @@ interface DailyGuideMessage {
 
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
-const regularExpressionRealms = Object.values(Realm).join("|").replaceAll(" ", "\\s+");
+
+const BOW_AT_A_PLAYER = {
+	content: "Bow at a player",
+	url: String(new URL(`daily_guides/quests/social/bow_at_a_player.webp`, CDN_URL)),
+} as const;
+
+const FOLLOW_A_FRIEND = {
+	content: "Follow a friend",
+	url: String(new URL(`daily_guides/quests/social/follow_a_friend.webp`, CDN_URL)),
+} as const;
+
+const HUG_A_FRIEND = {
+	content: `${Expression.Hug} a friend`,
+	url: String(new URL(`daily_guides/quests/social/hug_a_friend.webp`, CDN_URL)),
+} as const;
+
+const WAVE_TO_A_FRIEND = {
+	content: `${Expression.Wave} to a friend`,
+	url: String(new URL(`daily_guides/quests/social/wave_to_a_friend.webp`, CDN_URL)),
+} as const;
+
+const HOLD_A_FRIENDS_HAND = {
+	content: "Hold a friend's hand",
+	url: String(new URL(`daily_guides/quests/social/hold_a_friends_hand.webp`, CDN_URL)),
+} as const;
+
+const SEND_A_GIFT_TO_A_FRIEND = {
+	content: "Send a gift to a friend",
+	url: String(new URL(`daily_guides/quests/social/send_a_gift_to_a_friend.webp`, CDN_URL)),
+} as const;
+
+const MAKE_A_NEW_ACQUAINTANCE = {
+	content: "Make a new acquaintance",
+	url: String(new URL(`daily_guides/quests/social/make_a_new_acquaintance.webp`, CDN_URL)),
+} as const;
+
+const HIGH_FIVE_A_FRIEND = {
+	content: `${Expression.HighFive} a friend`,
+	url: String(new URL(`daily_guides/quests/social/high_five_a_friend.webp`, CDN_URL)),
+} as const;
+
+const USE_AN_EXPRESSION_NEAR_A_FRIEND = {
+	content: "Use an expression near a friend",
+	url: String(new URL(`daily_guides/quests/social/use_an_expression_near_a_friend.webp`, CDN_URL)),
+} as const;
+
+const SIT_ON_A_BENCH_WITH_A_STRANGER = {
+	content: "Sit on a bench with a stranger",
+	url: String(new URL(`daily_guides/quests/social/sit_on_a_bench_with_a_stranger.webp`, CDN_URL)),
+} as const;
+
+const RECHARGE_FROM_A_JELLYFISH = {
+	content: "Recharge from a jellyfish",
+	url: String(new URL(`daily_guides/quests/miscellaneous/recharge_from_a_jellyfish.webp`, CDN_URL)),
+} as const;
+
+const RECHARGE_FROM_A_LIGHT_BLOOM = {
+	content: "Recharge from a light bloom",
+	url: String(new URL(`daily_guides/quests/miscellaneous/recharge_from_a_light_bloom.webp`, CDN_URL)),
+} as const;
+
+const RIDE_A_MANTA = {
+	content: "Ride a manta",
+	url: String(new URL(`daily_guides/quests/miscellaneous/ride_a_manta.webp`, CDN_URL)),
+} as const;
+
+const RELIVE_A_SPIRITS_MEMORIES = {
+	content: "Relive a spirit's memories",
+	url: String(new URL(`daily_guides/quests/miscellaneous/relive_a_spirits_memories.webp`, CDN_URL)),
+} as const;
+
+const FACE_THE_DARK_DRAGON = {
+	content: "Face the dark dragon",
+	url: String(new URL(`daily_guides/quests/miscellaneous/face_the_dark_dragon.gif`, CDN_URL)),
+} as const;
+
+const KNOCK_OVER_5_DARK_CRABS = {
+	content: "Knock over 5 dark crabs",
+	url: String(new URL(`daily_guides/quests/miscellaneous/knock_over_5_dark_crabs.webp`, CDN_URL)),
+} as const;
+
+const CATCH_THE_LIGHT = (realm: ValidRealm) =>
+	({
+		content: `Catch the light in the ${realm}`,
+		url: String(
+			new URL(`daily_guides/quests/catch_the_light/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
+		),
+	}) as const;
+
+const SOCIAL_LIGHT_AREA = (map: SocialLightAreaMaps) =>
+	({
+		content: `Visit the ${resolveSocialLightAreaMap(map)}`,
+		url: String(
+			new URL(`daily_guides/quests/miscellaneous/visit_the_${SocialLightAreaMapToCDNString[map]}.webp`, CDN_URL),
+		),
+	}) as const;
+
+const ADMIRE_THE_SAPLING = (realm: ValidRealm) =>
+	({
+		content: `Admire the sapling in the ${realm}`,
+		url: String(new URL(`daily_guides/quests/days_of_bloom/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL)),
+	}) as const;
+
+const VISIT_THE_POLLUTED_GEYSER = {
+	content: "Visit the polluted geyser",
+	url: String(new URL(`daily_guides/quests/days_of_nature/visit_the_polluted_geyser.webp`, CDN_URL)),
+} as const;
+
+const RID_THE_SANCTUARY_VORTEX_OF_DARKNESS = {
+	content: "Rid the sanctuary vortex of darkness",
+	url: String(new URL(`daily_guides/quests/days_of_nature/rid_the_sanctuary_vortex_of_darkness.webp`, CDN_URL)),
+} as const;
+
+const RAINBOW_FIND = (realm: ValidRealm) =>
+	({
+		content: `Find the candles at the end of the rainbow in the ${realm}`,
+		url: String(
+			new URL(`daily_guides/quests/days_of_colour/find/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
+		),
+	}) as const;
+
+const RAINBOW_ADMIRE = (map: RainbowAdmireMaps) =>
+	({
+		content: `Admire the rainbow in the ${map}`,
+		url: String(
+			new URL(`daily_guides/quests/days_of_colour/admire/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
+		),
+	}) as const;
+
+const MEDITATE_CITADEL_ARCH = {
+	content: `Meditate above the ${Map.Citadel}'s arch`,
+	url: String(new URL(`daily_guides/quests/season_of_gratitude/${Map.Citadel.toLowerCase()}/arch.webp`, CDN_URL)),
+} as const;
+
+const MEDITATE_CITADEL_HIGH_ABOVE = {
+	content: `Meditate high above the ${Map.Citadel}`,
+	url: String(new URL(`daily_guides/quests/season_of_gratitude/${Map.Citadel.toLowerCase()}/high_above.webp`, CDN_URL)),
+} as const;
+
+function meditate(map: Map.Citadel): [typeof MEDITATE_CITADEL_ARCH, typeof MEDITATE_CITADEL_HIGH_ABOVE];
+function meditate(map: Exclude<MeditationMaps, Map.Citadel>): DailyGuideQuest;
+
+function meditate(
+	map: MeditationMaps,
+): [typeof MEDITATE_CITADEL_ARCH, typeof MEDITATE_CITADEL_HIGH_ABOVE] | DailyGuideQuest;
+
+function meditate(
+	map: MeditationMaps,
+): [typeof MEDITATE_CITADEL_ARCH, typeof MEDITATE_CITADEL_HIGH_ABOVE] | DailyGuideQuest {
+	if (map === Map.Citadel) return [MEDITATE_CITADEL_ARCH, MEDITATE_CITADEL_HIGH_ABOVE];
+
+	return {
+		content: `Meditate ${resolveMeditationMap(map)}`,
+		url: String(
+			new URL(`daily_guides/quests/season_of_gratitude/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
+		),
+	};
+}
+
+const COLLECT_GREEN_LIGHT = {
+	content: "Collect green light",
+	url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_green_light.webp`, CDN_URL)),
+} as const;
+
+const COLLECT_ORANGE_LIGHT = {
+	content: "Collect orange light",
+	url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_orange_light.webp`, CDN_URL)),
+} as const;
+
+const COLLECT_BLUE_LIGHT = {
+	content: "Collect blue light",
+	url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_blue_light.webp`, CDN_URL)),
+} as const;
+
+const COLLECT_RED_LIGHT = {
+	content: "Collect red light",
+	url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_red_light.webp`, CDN_URL)),
+} as const;
+
+const COLLECT_PURPLE_LIGHT = {
+	content: "Collect purple light",
+	url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_purple_light.webp`, CDN_URL)),
+} as const;
+
+const PRACTICE_WITH_THE_SKATER = {
+	content: "Practice with the skater",
+	url: String(new URL(`daily_guides/quests/season_of_dreams/practice_with_the_skater.webp`, CDN_URL)),
+} as const;
+
+const RACE_DOWN_THE_SLOPES_WITH_THE_SKATER = {
+	content: "Race down the slopes with the skater",
+	url: String(new URL(`daily_guides/quests/season_of_dreams/race_down_the_slopes_with_the_skater.webp`, CDN_URL)),
+} as const;
+
+const RACE_DOWN_THE_MOUNTAIN_WITH_THE_SKATER = {
+	content: "Race down the mountain with the skater",
+	url: String(new URL(`daily_guides/quests/season_of_dreams/race_down_the_mountain_with_the_skater.webp`, CDN_URL)),
+} as const;
+
+const REHEARSE_FOR_A_PERFORMANCE_WITH_THE_SKATER = {
+	content: "Rehearse for a performance with the skater",
+	url: String(new URL(`daily_guides/quests/season_of_dreams/rehearse_for_a_performance_with_the_skater.webp`, CDN_URL)),
+} as const;
+
+const COMPLETE_THE_HOOP_SCAVENGER_HUNT = {
+	content: "Complete the hoop scavenger hunt",
+	url: String(new URL(`daily_guides/quests/season_of_assembly/hoop.webp`, CDN_URL)),
+} as const;
+
+const SPIRIT_QUEST = (spirit: QuestSpirit) =>
+	({
+		content: `Relive the ${spirit.name}`,
+		url: String(new URL(`daily_guides/quests/spirits/${spirit.cdnName}.webp`, CDN_URL)),
+	}) as const;
+
+export const QUESTS = [
+	BOW_AT_A_PLAYER,
+	FOLLOW_A_FRIEND,
+	HUG_A_FRIEND,
+	WAVE_TO_A_FRIEND,
+	HOLD_A_FRIENDS_HAND,
+	SEND_A_GIFT_TO_A_FRIEND,
+	MAKE_A_NEW_ACQUAINTANCE,
+	HIGH_FIVE_A_FRIEND,
+	USE_AN_EXPRESSION_NEAR_A_FRIEND,
+	SIT_ON_A_BENCH_WITH_A_STRANGER,
+	RECHARGE_FROM_A_JELLYFISH,
+	RECHARGE_FROM_A_LIGHT_BLOOM,
+	RIDE_A_MANTA,
+	RELIVE_A_SPIRITS_MEMORIES,
+	FACE_THE_DARK_DRAGON,
+	KNOCK_OVER_5_DARK_CRABS,
+	...VALID_REALM.map((realm) => CATCH_THE_LIGHT(realm)),
+	...SOCIAL_LIGHT_AREA_MAPS.map((map) => SOCIAL_LIGHT_AREA(map)),
+	...VALID_REALM.map((realm) => ADMIRE_THE_SAPLING(realm)),
+	VISIT_THE_POLLUTED_GEYSER,
+	RID_THE_SANCTUARY_VORTEX_OF_DARKNESS,
+	...VALID_REALM.map((realm) => RAINBOW_FIND(realm)),
+	...RAINBOW_ADMIRE_MAPS.map((map) => RAINBOW_ADMIRE(map)),
+	...MEDITATION_MAPS.flatMap((map) => meditate(map)),
+	COLLECT_GREEN_LIGHT,
+	COLLECT_ORANGE_LIGHT,
+	COLLECT_BLUE_LIGHT,
+	COLLECT_RED_LIGHT,
+	COLLECT_PURPLE_LIGHT,
+	PRACTICE_WITH_THE_SKATER,
+	RACE_DOWN_THE_SLOPES_WITH_THE_SKATER,
+	RACE_DOWN_THE_MOUNTAIN_WITH_THE_SKATER,
+	REHEARSE_FOR_A_PERFORMANCE_WITH_THE_SKATER,
+	COMPLETE_THE_HOOP_SCAVENGER_HUNT,
+	...Spirits.filter(isQuestSpirit).map((spirit) => SPIRIT_QUEST(spirit)),
+] as const satisfies Readonly<DailyGuideQuest[]>;
+
+const regularExpressionRealms = REALM_VALUES.join("|").replaceAll(" ", "\\s+");
 const mapRegExp = [...Object.values(Map), ...inconsistentMapKeys].join("|").replaceAll(" ", "\\s+");
 
 export default new (class DailyGuides {
@@ -162,104 +438,91 @@ export default new (class DailyGuides {
 		this.patch(dailyGuidesPacket!);
 	}
 
-	private resolveMeditateMap(map: Map | null) {
-		switch (map) {
-			case Map.ForestBrook:
-			case Map.Citadel:
-				return `above the ${map}`;
-			case Map.SanctuaryIslands:
-			case Map.Boneyard:
-			case Map.ForestClearing:
-			case Map.Coliseum:
-			case Map.VaultEntrance:
-			case Map.VaultSummit:
-				return `at the ${map}`;
-			case Map.KoiPond:
-				return `by the ${map}`;
-			case Map.ButterflyFields:
-			case Map.Cave:
-			case Map.ElevatedClearing:
-			case Map.BrokenTemple:
-			case Map.ForgottenArk:
-			case Map.Graveyard:
-			case Map.VaultSecondFloor:
-				return `in the ${map}`;
-			case Map.Battlefield:
-			case Map.Boat:
-				return `on the ${map}`;
-			default:
-				consoleLog("Failed to match a meditation map.");
-				return `at the ${map}`;
-		}
-	}
-
-	private resolveSocialLightAreaMap(map: Map | null) {
-		switch (map) {
-			case Map.Cave:
-				return `cosy hideout in the ${map}`;
-			case Map.ElevatedClearing:
-				return `ancestor's table of belonging in the ${map}`;
-			case Map.Graveyard:
-				return `bonfire at the ${map}`;
-			case Map.VillageOfDreams:
-				return `hot spring in the ${map}`;
-			default:
-				consoleLog("Failed to match a social light area map.");
-				return "social light area";
-		}
-	}
-
-	private resolveDailyGuideContent(pureContent: string, realm: ValidRealm | null, map: Map | null) {
+	private resolveDailyGuide(pureContent: string, realm: ValidRealm | null, map: Map | null, url: string | null) {
 		const upperPureContent = pureContent.toUpperCase();
 
 		if (upperPureContent.includes("BOW AT A PLAYER") || upperPureContent.includes("BOW TO A PLAYER")) {
-			return "Bow at a player";
+			return BOW_AT_A_PLAYER;
 		}
 
-		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) return "Knock over 5 dark crabs";
-		if (upperPureContent.includes("FOLLOW A FRIEND")) return "Follow a friend";
-		if (upperPureContent.includes("HUG A FRIEND")) return `${Expression.Hug} a friend`;
-		if (upperPureContent.includes("WAVE TO A FRIEND")) return `${Expression.Wave} to a friend`;
-		if (upperPureContent.includes("HOLD THE HAND")) return "Hold a friend's hand";
-		if (upperPureContent.includes("SEND A GIFT")) return "Send a gift to a friend";
-		if (upperPureContent.includes("ACQUAINTANCE")) return "Make a new acquaintance";
-		if (upperPureContent.includes("HIGH-FIVE")) return `${Expression.HighFive} a friend`;
-		if (upperPureContent.includes("EXPRESSION NEAR A FRIEND")) return "Use an expression near a friend";
-		if (upperPureContent.includes("BENCH")) return "Sit on a bench with a stranger";
-		if (upperPureContent.includes("RIDE A MANTA")) return "Ride a manta";
-		if (upperPureContent.includes("DARK DRAGON")) return "Face the dark dragon";
-		if (upperPureContent.includes("RECHARGE FROM A LIGHT BLOOM")) return "Recharge from a light bloom";
-		if (upperPureContent.includes("RECHARGE FROM A JELLYFISH")) return "Recharge from a jellyfish";
-		if (upperPureContent.includes("ADMIRE THE RAINBOW")) return `Admire the rainbow${map ? ` in the ${map}` : ""}`;
+		if (upperPureContent.includes("FOLLOW A FRIEND")) return FOLLOW_A_FRIEND;
+		if (upperPureContent.includes("HUG A FRIEND")) return HUG_A_FRIEND;
+		if (upperPureContent.includes("WAVE TO A FRIEND")) return WAVE_TO_A_FRIEND;
+		if (upperPureContent.includes("HOLD THE HAND")) return HOLD_A_FRIENDS_HAND;
+		if (upperPureContent.includes("SEND A GIFT")) return SEND_A_GIFT_TO_A_FRIEND;
+		if (upperPureContent.includes("ACQUAINTANCE")) return MAKE_A_NEW_ACQUAINTANCE;
+		if (upperPureContent.includes("HIGH-FIVE")) return HIGH_FIVE_A_FRIEND;
+		if (upperPureContent.includes("EXPRESSION NEAR A FRIEND")) return USE_AN_EXPRESSION_NEAR_A_FRIEND;
+		if (upperPureContent.includes("BENCH")) return SIT_ON_A_BENCH_WITH_A_STRANGER;
+		if (upperPureContent.includes("RECHARGE FROM A JELLYFISH")) return RECHARGE_FROM_A_JELLYFISH;
+		if (upperPureContent.includes("RECHARGE FROM A LIGHT BLOOM")) return RECHARGE_FROM_A_LIGHT_BLOOM;
+		if (upperPureContent.includes("RIDE A MANTA")) return RIDE_A_MANTA;
+		if (upperPureContent.includes("RELIVE A SPIRIT'S MEMORY")) return RELIVE_A_SPIRITS_MEMORIES;
+		if (upperPureContent.includes("DARK DRAGON")) return FACE_THE_DARK_DRAGON;
+		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) return KNOCK_OVER_5_DARK_CRABS;
 
-		if (upperPureContent.includes("RAINBOW")) {
-			return `Find the candles at the end of the rainbow${realm ? ` in the ${realm}` : ""}`;
+		if (upperPureContent.includes("CATCH THE LIGHT")) {
+			if (realm) return CATCH_THE_LIGHT(realm);
+			consoleLog("Failed to match a catch the light realm.");
+			return { content: `Catch the light`, url };
 		}
-
-		if (upperPureContent.includes("CATCH THE LIGHT")) return `Catch the light${realm ? ` in the ${realm}` : ""}`;
-		if (upperPureContent.includes("MEDITATION")) return `Meditate ${this.resolveMeditateMap(map)}`;
-		if (upperPureContent.includes("BLUE LIGHT")) return "Collect blue light";
-		if (upperPureContent.includes("GREEN LIGHT")) return "Collect green light";
-		if (upperPureContent.includes("ORANGE LIGHT")) return "Collect orange light";
-		if (upperPureContent.includes("PURPLE LIGHT")) return "Collect purple light";
-		if (upperPureContent.includes("RED LIGHT")) return "Collect red light";
-		if (upperPureContent.includes("SAPLING")) return `Admire the sapling${realm ? ` in the ${realm}` : ""}`;
 
 		if (upperPureContent.includes("SOCIAL LIGHT") || upperPureContent.includes("VISIT THE ANCESTOR")) {
-			return `Visit the ${this.resolveSocialLightAreaMap(map)}`;
+			if (map && isSocialLightAreaMap(map)) return SOCIAL_LIGHT_AREA(map);
+			consoleLog("Failed to match a social light area map.");
+			return { content: "Visit the social light area", url };
 		}
 
-		if (upperPureContent.includes("POLLUTED GEYSER")) return "Visit the polluted geyser";
-		if (upperPureContent.includes("SCAVENGER HUNT")) return "Complete the hoop scavenger hunt";
-		if (upperPureContent.includes("RACE DOWN THE SLOPES")) return "Race down the slopes with the skater";
-		if (upperPureContent.includes("RACE DOWN THE MOUNTAIN")) return "Race down the mountain with the skater";
-		if (upperPureContent.includes("PRACTICE WITH THE SKATER")) return "Practice with the skater";
-		if (upperPureContent.includes("REHEARSE FOR A PERFORMANCE")) return "Rehearse for a performance with the skater";
-		if (upperPureContent.includes("GREAT VORTEX")) return "Rid the sanctuary vortex of darkness";
-		if (upperPureContent.includes("RELIVE A SPIRIT'S MEMORY")) return "Relive a spirit's memories";
+		if (upperPureContent.includes("SAPLING")) {
+			if (realm) return ADMIRE_THE_SAPLING(realm);
+			consoleLog("Failed to match an admire the sapling realm.");
+			return { content: "Admire the sapling", url };
+		}
 
-		for (const spiritName of spiritNames) {
-			if (upperPureContent.replaceAll("’", "'").includes(spiritName.toUpperCase())) return `Relive the ${spiritName}`;
+		if (upperPureContent.includes("POLLUTED GEYSER")) return VISIT_THE_POLLUTED_GEYSER;
+		if (upperPureContent.includes("GREAT VORTEX")) return RID_THE_SANCTUARY_VORTEX_OF_DARKNESS;
+
+		if (upperPureContent.includes("DAYS OF RAINBOW 2021")) {
+			if (realm) return RAINBOW_FIND(realm);
+			consoleLog("Failed to match a rainbow find realm.");
+			return { content: "Find the candles at the end of the rainbow", url };
+		}
+
+		if (upperPureContent.includes("ADMIRE THE RAINBOW")) {
+			if (map && isRainbowAdmireMap(map)) return RAINBOW_ADMIRE(map);
+			consoleLog("Failed to match a rainbow admire map.");
+			return { content: `Admire the rainbow${map ? ` in the ${map}` : ""}`, url };
+		}
+
+		if (upperPureContent.includes("MEDITATION")) {
+			if (map === Map.Citadel) {
+				if (upperPureContent.includes("ARCH")) return MEDITATE_CITADEL_ARCH;
+				if (upperPureContent.includes("HIGH ABOVE")) return MEDITATE_CITADEL_HIGH_ABOVE;
+			} else if (map && isMeditationMap(map)) {
+				return meditate(map);
+			}
+
+			consoleLog("Failed to match a meditation map.");
+			return { content: `Meditate${map ? ` at the ${map}` : ""}`, url };
+		}
+
+		if (upperPureContent.includes("GREEN LIGHT")) return COLLECT_GREEN_LIGHT;
+		if (upperPureContent.includes("ORANGE LIGHT")) return COLLECT_ORANGE_LIGHT;
+		if (upperPureContent.includes("BLUE LIGHT")) return COLLECT_BLUE_LIGHT;
+		if (upperPureContent.includes("RED LIGHT")) return COLLECT_RED_LIGHT;
+		if (upperPureContent.includes("PURPLE LIGHT")) return COLLECT_PURPLE_LIGHT;
+		if (upperPureContent.includes("PRACTICE WITH THE SKATER")) return PRACTICE_WITH_THE_SKATER;
+		if (upperPureContent.includes("RACE DOWN THE SLOPES")) return RACE_DOWN_THE_SLOPES_WITH_THE_SKATER;
+		if (upperPureContent.includes("RACE DOWN THE MOUNTAIN")) return RACE_DOWN_THE_MOUNTAIN_WITH_THE_SKATER;
+		if (upperPureContent.includes("REHEARSE FOR A PERFORMANCE")) return REHEARSE_FOR_A_PERFORMANCE_WITH_THE_SKATER;
+		if (upperPureContent.includes("SCAVENGER HUNT")) return COMPLETE_THE_HOOP_SCAVENGER_HUNT;
+
+		for (const spirit of Spirits) {
+			if (upperPureContent.replaceAll("’", "'").includes(spirit.name.toUpperCase())) {
+				if (isQuestSpirit(spirit)) return SPIRIT_QUEST(spirit);
+				consoleLog(`Failed to match a spirit for ${spirit.name}.`);
+				return { content: `Relive the ${spirit.name}`, url };
+			}
 		}
 
 		return null;
@@ -273,12 +536,7 @@ export default new (class DailyGuides {
 			return false;
 		}
 
-		const url = attachments.first()?.url;
-
-		if (!url) {
-			consoleLog("Failed to fetch a daily quest URL.");
-			return false;
-		}
+		const url = attachments.first()?.url ?? null;
 
 		// Remove the message link, if any.
 		const pureContent = (/\n<?https?/.test(content) ? content.slice(0, content.indexOf("\n")) : content).replaceAll(
@@ -294,21 +552,17 @@ export default new (class DailyGuides {
 		const potentialMapRegExp = new RegExp(`\\s(${mapRegExp})`, "i").exec(pureContent)?.[1] ?? null;
 		const map = potentialMapRegExp ? resolveMap(potentialMapRegExp) : null;
 
-		// Attempt to manually set the daily guide.
-		const dailyGuideContent = this.resolveDailyGuideContent(pureContent, realm, map);
+		// Resolve the daily guide.
+		const dailyGuide = this.resolveDailyGuide(pureContent, realm, map, url);
+
+		// Log that we will be falling back to the original string in case of no output.
+		if (!dailyGuide) consoleLog("Failed to match a daily quest. Falling back to original string.");
 
 		// Initialise the output.
-		let output = dailyGuideContent;
-
-		// Fallback in case of no output.
-		if (!output) {
-			consoleLog("Failed to match a daily quest. Falling back to original string.");
-
-			// Ensure no bold markdown is present.
-			output = pureContent.replaceAll("**", "").replaceAll(/  +/g, " ").trim();
-		}
-
-		const data = { content: output, url };
+		const data = {
+			content: dailyGuide?.content ?? pureContent.replaceAll("**", "").replaceAll(/  +/g, " ").trim(),
+			url,
+		};
 
 		// Duplicate check in case of manually updating.
 		if ([quest1, quest2, quest3, quest4].some((quest) => quest?.content === data.content)) return false;

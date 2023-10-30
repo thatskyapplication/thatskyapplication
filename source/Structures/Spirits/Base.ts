@@ -216,8 +216,6 @@ export enum SpiritName {
 	RemnantOfAForgottenHaven = "Remnant of a Forgotten Haven",
 }
 
-export const spiritNames = Object.values(SpiritName);
-
 export const enum Call {
 	Original = "Original",
 	Bird = "Bird",
