@@ -35,6 +35,11 @@ import type { ChatInputCommand } from "../index.js";
 const doubleSeasonalLightEventStart = time(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE.unix(), TimestampStyles.ShortDate);
 const doubleSeasonalLightEventEnd = time(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.unix(), TimestampStyles.ShortDate);
 
+const ASCENDED_CANDLE_MINIMUM_TIME_EYE_OF_EDEN_TEXT =
+	`all statues in the ${Realm.EyeOfEden} were gifted winged light` as const;
+
+const ASCENDED_CANDLE_MINIMUM_TIME_SHARD_ERUPTIONS_TEXT = "all shard eruptions were cleansed" as const;
+
 const wingedLightInAreas = Object.values(WingedLightCount).reduce(
 	(wingedLightCount, wingedLight) => wingedLightCount + wingedLight,
 	0,
@@ -67,6 +72,18 @@ export default new (class implements ChatInputCommand {
 						maxValue: 10_000,
 						minValue: 1,
 						required: true,
+					},
+					{
+						type: ApplicationCommandOptionType.Boolean,
+						name: "eye-of-eden",
+						description: "Whether to include the Eye of Eden in the calculation.",
+						required: false,
+					},
+					{
+						type: ApplicationCommandOptionType.Boolean,
+						name: "shard-eruptions",
+						description: "Whether to include shard eruptions in the calculation.",
+						required: false,
 					},
 				],
 			},
@@ -176,9 +193,16 @@ export default new (class implements ChatInputCommand {
 		const { options } = interaction;
 		const start = options.getInteger("start", true);
 		const goal = options.getInteger("goal", true);
+		const eyeOfEden = options.getBoolean("eye-of-eden") ?? true;
+		const shardEruptions = options.getBoolean("shard-eruptions") ?? true;
 
 		if (start >= goal) {
 			await interaction.reply({ content: "The goal has already been achieved.", ephemeral: true });
+			return;
+		}
+
+		if (eyeOfEden === false && shardEruptions === false) {
+			await interaction.reply({ content: "You must have a source for gaining ascended candles!", ephemeral: true });
 			return;
 		}
 
@@ -188,19 +212,32 @@ export default new (class implements ChatInputCommand {
 		let result = 0;
 
 		for (let index = 0; ; index++) {
-			const shardEruptionToday = shardEruption(index);
+			if (shardEruptions) {
+				const shardEruptionToday = shardEruption(index);
 
-			if (shardEruptionToday) {
-				const { strong, reward } = shardEruptionToday;
-				if (strong) result += reward;
+				if (shardEruptionToday) {
+					const { strong, reward } = shardEruptionToday;
+					if (strong) result += reward;
+				}
 			}
 
-			if (day.day() === 0) result += ASCENDED_CANDLES_PER_WEEK;
+			if (eyeOfEden && day.day() === 0) result += ASCENDED_CANDLES_PER_WEEK;
 			if (result >= amountRequired) break;
 			day = day.add(1, "day");
 		}
 
 		const timestamp = day.unix();
+		let minimumTimeText = "Minimum time derived by assuming ";
+
+		if (eyeOfEden && shardEruptions) {
+			minimumTimeText += `${ASCENDED_CANDLE_MINIMUM_TIME_EYE_OF_EDEN_TEXT} and ${ASCENDED_CANDLE_MINIMUM_TIME_SHARD_ERUPTIONS_TEXT}`;
+		} else if (eyeOfEden) {
+			minimumTimeText += ASCENDED_CANDLE_MINIMUM_TIME_EYE_OF_EDEN_TEXT;
+		} else if (shardEruptions) {
+			minimumTimeText += ASCENDED_CANDLE_MINIMUM_TIME_SHARD_ERUPTIONS_TEXT;
+		}
+
+		minimumTimeText += ".";
 
 		await interaction.reply({
 			embeds: [
@@ -225,9 +262,7 @@ export default new (class implements ChatInputCommand {
 							TimestampStyles.RelativeTime,
 						)}).`,
 					})
-					.setFooter({
-						text: "This calculator derives the minimum time by assuming all statues in the Eye of Eden were gifted winged light and all shard eruptions were cleansed.",
-					})
+					.setFooter({ text: minimumTimeText })
 					.setTitle("Ascended Candle Calculator"),
 			],
 		});
