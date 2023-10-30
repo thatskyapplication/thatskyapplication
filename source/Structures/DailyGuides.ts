@@ -561,7 +561,7 @@ export default new (class DailyGuides {
 		// Initialise the output.
 		const data = {
 			content: dailyGuide?.content ?? pureContent.replaceAll("**", "").replaceAll(/  +/g, " ").trim(),
-			url,
+			url: dailyGuide?.url ?? url,
 		};
 
 		// Duplicate check in case of manually updating.
