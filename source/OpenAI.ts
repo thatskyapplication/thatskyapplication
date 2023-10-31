@@ -10,7 +10,7 @@ const openAI = new OpenAI({ apiKey: OPENAI_API_KEY });
 const AI_DEFAULT_RESPONSE = "Oh my gosh! Could you be the... the legendary Sky kid?" as const;
 
 const AI_DESCRIPTION =
-	"You are called Caelus. Responses should be short. Responses should be relevant to Sky: Children of the Light. Do not refer to yourself as an AI. Use a positive tone." as const;
+	"You are called Caelus. Responses should be short and happy. Responses should be relevant to Sky: Children of the Light. Do not refer to yourself as an AI." as const;
 
 const AI_LAST_MESSAGE_CONTEXT = `${AI_DESCRIPTION} Use the previous messages as context.` as const;
 
