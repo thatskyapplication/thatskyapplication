@@ -1,5 +1,5 @@
 import { Events, PermissionFlagsBits } from "discord.js";
-import { messageCreateResponse } from "../OpenAI.js";
+import { messageCreateEmojiResponse, messageCreateResponse } from "../OpenAI.js";
 import AI, { AIFrequencyType, AIFrequencyTypeToValue } from "../Structures/AI.js";
 import DailyGuides from "../Structures/DailyGuides.js";
 import type { Event } from "./index.js";
@@ -26,6 +26,9 @@ export const event: Event<typeof name> = {
 
 		const frequency = AI.cache.get(message.guildId)?.frequency ?? AIFrequencyTypeToValue[AIFrequencyType.Default];
 		if (frequency === 0) return;
-		if (Math.random() < frequency) void messageCreateResponse(message);
+
+		if (Math.random() < frequency) {
+			void (Math.random() < 0.2 ? messageCreateEmojiResponse(message) : messageCreateResponse(message));
+		}
 	},
 };

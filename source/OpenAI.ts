@@ -14,9 +14,42 @@ const AI_DESCRIPTION =
 
 const AI_LAST_MESSAGE_CONTEXT = `${AI_DESCRIPTION} Use the previous messages as context.` as const;
 
+const AI_DESCRIPTION_EMOJIS = "Respond with 3 emojis that represent this message." as const;
+
 function parseAIName(input: string) {
 	const cleaned = input.replaceAll(/[^\w-]/g, "");
 	return cleaned.length >= 1 ? cleaned : null;
+}
+
+export async function messageCreateEmojiResponse(message: Message<true>) {
+	const chatCompletionRequestMessage: ChatCompletionMessageParam = {
+		content: message.content,
+		role: "user",
+	};
+
+	const name = parseAIName(message.member?.displayName ?? message.author.username);
+	if (name) chatCompletionRequestMessage.name = name;
+
+	try {
+		const [, completion] = await Promise.all([
+			message.channel.sendTyping(),
+			openAI.chat.completions.create({
+				frequency_penalty: 1,
+				max_tokens: 100,
+				messages: [{ role: "system", content: AI_DESCRIPTION_EMOJIS }, chatCompletionRequestMessage],
+				model: "gpt-3.5-turbo",
+				user: message.author.id,
+			}),
+		]);
+
+		await message.reply({
+			allowedMentions: { parse: ["users"], repliedUser: false },
+			content: completion.choices[0]!.message.content ?? AI_DEFAULT_RESPONSE,
+			failIfNotExists: false,
+		});
+	} catch (error) {
+		void message.client.log({ content: "AI error.", error });
+	}
 }
 
 export async function messageCreateResponse(message: Message<true>) {
