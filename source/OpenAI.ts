@@ -10,9 +10,10 @@ const openAI = new OpenAI({ apiKey: OPENAI_API_KEY });
 const AI_DEFAULT_RESPONSE = "Oh my gosh! Could you be the... the legendary Sky kid?" as const;
 
 const AI_DESCRIPTION =
-	"You are named Caelus and you are currently chatting in a Discord server. Responses should be no longer than a sentence. Responses should be relevant to Sky: Children of the Light. Do not refer to yourself as an AI." as const;
+	"You are named Caelus and you are currently chatting in a Discord server. Responses should be no longer than a sentence and relevant to Sky: Children of the Light. If you are going to refer to Sky: Children of the Light, simply say Sky. Do not refer to yourself as an AI." as const;
 
-const AI_LAST_MESSAGE_CONTEXT = `${AI_DESCRIPTION} Use the previous messages as context.` as const;
+const AI_LAST_MESSAGE_CONTEXT =
+	`${AI_DESCRIPTION} Use the previous messages as context. Do not assume I am talking to you unless I explicitly say your name.` as const;
 
 const AI_DESCRIPTION_EMOJIS = "Respond with 3 emojis that represent this message." as const;
 
