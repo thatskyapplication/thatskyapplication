@@ -18,7 +18,7 @@ export const event: Event<typeof name> = {
 			!message.channel
 				.permissionsFor(me)
 				.has(PermissionFlagsBits.ReadMessageHistory | PermissionFlagsBits.SendMessages) ||
-			message.content.length <= 1 ||
+			message.content.length <= 5 ||
 			message.mentions.has(message.client.user.id, { ignoreEveryone: true, ignoreRoles: true })
 		) {
 			return;
