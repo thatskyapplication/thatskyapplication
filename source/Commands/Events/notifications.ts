@@ -177,13 +177,13 @@ export default new (class implements ChatInputCommand {
 				data.iss_channel_id = channel.id;
 				data.iss_role_id = role.id;
 				break;
-			case NotificationEvent.StandardShardEruption:
-				data.standard_shard_eruption_channel_id = channel.id;
-				data.standard_shard_eruption_role_id = role.id;
+			case NotificationEvent.RegularShardEruption:
+				data.regular_shard_eruption_channel_id = channel.id;
+				data.regular_shard_eruption_role_id = role.id;
 				break;
-			case NotificationEvent.DangerousShardEruption:
-				data.dangerous_shard_eruption_channel_id = channel.id;
-				data.dangerous_shard_eruption_role_id = role.id;
+			case NotificationEvent.StrongShardEruption:
+				data.strong_shard_eruption_channel_id = channel.id;
+				data.strong_shard_eruption_role_id = role.id;
 				break;
 			case NotificationEvent.AURORA:
 				data.aurora_channel_id = channel.id;
@@ -249,13 +249,13 @@ export default new (class implements ChatInputCommand {
 				data.iss_channel_id = null;
 				data.iss_role_id = null;
 				break;
-			case NotificationEvent.StandardShardEruption:
-				data.standard_shard_eruption_channel_id = null;
-				data.standard_shard_eruption_role_id = null;
+			case NotificationEvent.RegularShardEruption:
+				data.regular_shard_eruption_channel_id = null;
+				data.regular_shard_eruption_role_id = null;
 				break;
-			case NotificationEvent.DangerousShardEruption:
-				data.dangerous_shard_eruption_channel_id = null;
-				data.dangerous_shard_eruption_role_id = null;
+			case NotificationEvent.StrongShardEruption:
+				data.strong_shard_eruption_channel_id = null;
+				data.strong_shard_eruption_role_id = null;
 				break;
 			case NotificationEvent.AURORA:
 				data.aurora_channel_id = null;

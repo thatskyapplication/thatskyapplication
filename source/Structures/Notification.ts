@@ -36,12 +36,12 @@ export interface NotificationPacket {
 	passage_role_id: Snowflake | null;
 	aurora_channel_id: Snowflake | null;
 	aurora_role_id: Snowflake | null;
-	standard_shard_eruption_channel_id: Snowflake | null;
-	standard_shard_eruption_role_id: Snowflake | null;
+	regular_shard_eruption_channel_id: Snowflake | null;
+	regular_shard_eruption_role_id: Snowflake | null;
 	iss_channel_id: Snowflake | null;
 	iss_role_id: Snowflake | null;
-	dangerous_shard_eruption_channel_id: Snowflake | null;
-	dangerous_shard_eruption_role_id: Snowflake | null;
+	strong_shard_eruption_channel_id: Snowflake | null;
+	strong_shard_eruption_role_id: Snowflake | null;
 }
 
 interface NotificationData {
@@ -61,12 +61,12 @@ interface NotificationData {
 	passageRoleId: NotificationPacket["passage_role_id"];
 	auroraChannelId: NotificationPacket["aurora_channel_id"];
 	auroraRoleId: NotificationPacket["aurora_role_id"];
-	standardShardEruptionChannelId: NotificationPacket["standard_shard_eruption_channel_id"];
-	standardShardEruptionRoleId: NotificationPacket["standard_shard_eruption_role_id"];
+	regularShardEruptionChannelId: NotificationPacket["regular_shard_eruption_channel_id"];
+	regularShardEruptionRoleId: NotificationPacket["regular_shard_eruption_role_id"];
 	issChannelId: NotificationPacket["iss_channel_id"];
 	issRoleId: NotificationPacket["iss_role_id"];
-	dangerousShardEruptionChannelId: NotificationPacket["dangerous_shard_eruption_channel_id"];
-	dangerousShardEruptionRoleId: NotificationPacket["dangerous_shard_eruption_role_id"];
+	strongShardEruptionChannelId: NotificationPacket["strong_shard_eruption_channel_id"];
+	strongShardEruptionRoleId: NotificationPacket["strong_shard_eruption_role_id"];
 }
 
 type NotificationPatchData = Omit<NotificationPacket, "id" | "guild_id">;
@@ -80,8 +80,8 @@ export enum NotificationEvent {
 	DailyReset = "Daily Reset",
 	EyeOfEden = "Eye of Eden",
 	ISS = "ISS",
-	StandardShardEruption = "Shard Eruption (Standard)",
-	DangerousShardEruption = "Shard Eruption (Dangerous)",
+	RegularShardEruption = "Shard Eruption (Regular)",
+	StrongShardEruption = "Shard Eruption (Strong)",
 	AURORA = "AURORA",
 	Passage = "Passage",
 }
@@ -185,13 +185,13 @@ export default class Notification {
 
 	public issRoleId!: NotificationData["issRoleId"];
 
-	public standardShardEruptionChannelId!: NotificationData["standardShardEruptionChannelId"];
+	public regularShardEruptionChannelId!: NotificationData["regularShardEruptionChannelId"];
 
-	public standardShardEruptionRoleId!: NotificationData["standardShardEruptionRoleId"];
+	public regularShardEruptionRoleId!: NotificationData["regularShardEruptionRoleId"];
 
-	public dangerousShardEruptionChannelId!: NotificationData["dangerousShardEruptionChannelId"];
+	public strongShardEruptionChannelId!: NotificationData["strongShardEruptionChannelId"];
 
-	public dangerousShardEruptionRoleId!: NotificationData["dangerousShardEruptionRoleId"];
+	public strongShardEruptionRoleId!: NotificationData["strongShardEruptionRoleId"];
 
 	public auroraChannelId!: NotificationData["auroraChannelId"];
 
@@ -220,10 +220,10 @@ export default class Notification {
 		this.dailyResetRoleId = data.daily_reset_role_id;
 		this.issChannelId = data.iss_channel_id;
 		this.issRoleId = data.iss_role_id;
-		this.standardShardEruptionChannelId = data.standard_shard_eruption_channel_id;
-		this.standardShardEruptionRoleId = data.standard_shard_eruption_role_id;
-		this.dangerousShardEruptionChannelId = data.dangerous_shard_eruption_channel_id;
-		this.dangerousShardEruptionRoleId = data.dangerous_shard_eruption_role_id;
+		this.regularShardEruptionChannelId = data.regular_shard_eruption_channel_id;
+		this.regularShardEruptionRoleId = data.regular_shard_eruption_role_id;
+		this.strongShardEruptionChannelId = data.strong_shard_eruption_channel_id;
+		this.strongShardEruptionRoleId = data.strong_shard_eruption_role_id;
 		this.auroraChannelId = data.aurora_channel_id;
 		this.auroraRoleId = data.aurora_role_id;
 		this.passageChannelId = data.passage_channel_id;
@@ -286,10 +286,10 @@ export default class Notification {
 			dailyResetRoleId,
 			issChannelId,
 			issRoleId,
-			standardShardEruptionChannelId,
-			standardShardEruptionRoleId,
-			dangerousShardEruptionChannelId,
-			dangerousShardEruptionRoleId,
+			regularShardEruptionChannelId,
+			regularShardEruptionRoleId,
+			strongShardEruptionChannelId,
+			strongShardEruptionRoleId,
 			auroraChannelId,
 			auroraRoleId,
 			passageChannelId,
@@ -331,15 +331,15 @@ export default class Notification {
 				roleId = issRoleId;
 				suffix = "The International Space Station is accessible!";
 				break;
-			case NotificationEvent.StandardShardEruption:
-				channelId = standardShardEruptionChannelId;
-				roleId = standardShardEruptionRoleId;
-				suffix = `A standard shard eruption begins ${timeString}!`;
+			case NotificationEvent.RegularShardEruption:
+				channelId = regularShardEruptionChannelId;
+				roleId = regularShardEruptionRoleId;
+				suffix = `A regular shard eruption begins ${timeString}!`;
 				break;
-			case NotificationEvent.DangerousShardEruption:
-				channelId = dangerousShardEruptionChannelId;
-				roleId = dangerousShardEruptionRoleId;
-				suffix = `A dangerous shard eruption begins ${timeString}!`;
+			case NotificationEvent.StrongShardEruption:
+				channelId = strongShardEruptionChannelId;
+				roleId = strongShardEruptionRoleId;
+				suffix = `A strong shard eruption begins ${timeString}!`;
 				break;
 			case NotificationEvent.AURORA:
 				channelId = auroraChannelId;
@@ -379,10 +379,10 @@ export default class Notification {
 			dailyResetRoleId,
 			issChannelId,
 			issRoleId,
-			standardShardEruptionChannelId,
-			standardShardEruptionRoleId,
-			dangerousShardEruptionChannelId,
-			dangerousShardEruptionRoleId,
+			regularShardEruptionChannelId,
+			regularShardEruptionRoleId,
+			strongShardEruptionChannelId,
+			strongShardEruptionRoleId,
 			auroraChannelId,
 			auroraRoleId,
 			passageChannelId,
@@ -423,13 +423,13 @@ export default class Notification {
 					inline: true,
 				},
 				{
-					name: NotificationEvent.StandardShardEruption,
-					value: this.overviewValue(me, standardShardEruptionChannelId, standardShardEruptionRoleId),
+					name: NotificationEvent.RegularShardEruption,
+					value: this.overviewValue(me, regularShardEruptionChannelId, regularShardEruptionRoleId),
 					inline: true,
 				},
 				{
-					name: NotificationEvent.DangerousShardEruption,
-					value: this.overviewValue(me, dangerousShardEruptionChannelId, dangerousShardEruptionRoleId),
+					name: NotificationEvent.StrongShardEruption,
+					value: this.overviewValue(me, strongShardEruptionChannelId, strongShardEruptionRoleId),
 					inline: true,
 				},
 				{
