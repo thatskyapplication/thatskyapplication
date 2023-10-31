@@ -91,6 +91,8 @@ interface DailyGuideMessage {
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
+const FORGE_A_CANDLE = { content: "Forge a candle", url: null } as const;
+
 const BOW_AT_A_PLAYER = {
 	content: "Bow at a player",
 	url: String(new URL(`daily_guides/quests/social/bow_at_a_player.webp`, CDN_URL)),
@@ -306,6 +308,7 @@ const SPIRIT_QUEST = (spirit: QuestSpirit) =>
 	}) as const;
 
 export const QUESTS = [
+	FORGE_A_CANDLE,
 	BOW_AT_A_PLAYER,
 	FOLLOW_A_FRIEND,
 	HUG_A_FRIEND,
