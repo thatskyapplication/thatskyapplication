@@ -10,13 +10,16 @@ import {
 	ChannelType,
 	Collection,
 	EmbedBuilder,
+	formatEmoji,
+	hyperlink,
+	MessageFlags,
 	PermissionFlagsBits,
 	roleMention,
 	time,
 	TimestampStyles,
-	formatEmoji,
 } from "discord.js";
 import { DEFAULT_EMBED_COLOUR, Emoji, Season } from "../Utility/Constants.js";
+import type { ShardEruptionData } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 
 export interface NotificationPacket {
@@ -148,6 +151,7 @@ export function isNotificationSendable(
 
 export interface NotificationSendExtra {
 	startTime?: number;
+	shardEruption?: ShardEruptionData;
 }
 
 export function isEvent(event: string): event is NotificationEvent {
@@ -271,7 +275,11 @@ export default class Notification {
 		});
 	}
 
-	public async send(client: Client<true>, type: NotificationEvent, { startTime }: NotificationSendExtra = {}) {
+	public async send(
+		client: Client<true>,
+		type: NotificationEvent,
+		{ startTime, shardEruption }: NotificationSendExtra = {},
+	) {
 		const {
 			guildId,
 			pollutedGeyserChannelId,
@@ -296,6 +304,7 @@ export default class Notification {
 			passageRoleId,
 		} = this;
 		const timeString = startTime ? time(startTime, TimestampStyles.RelativeTime) : "soon";
+		const { realm, map, url } = shardEruption ?? {};
 		let channelId;
 		let roleId;
 		let suffix;
@@ -334,12 +343,16 @@ export default class Notification {
 			case NotificationEvent.RegularShardEruption:
 				channelId = regularShardEruptionChannelId;
 				roleId = regularShardEruptionRoleId;
-				suffix = `A regular shard eruption begins ${timeString}!`;
+
+				suffix = `A regular shard eruption lands in the ${hyperlink(`${realm!} (${map!})`, url!)} ${timeString}!`;
+
 				break;
 			case NotificationEvent.StrongShardEruption:
 				channelId = strongShardEruptionChannelId;
 				roleId = strongShardEruptionRoleId;
-				suffix = `A strong shard eruption begins ${timeString}!`;
+
+				suffix = `A strong shard eruption lands in the ${hyperlink(`${realm!} (${map!})`, url!)} ${timeString}!`;
+
 				break;
 			case NotificationEvent.AURORA:
 				channelId = auroraChannelId;
@@ -360,7 +373,7 @@ export default class Notification {
 		if (!role) return;
 		const me = await channel.guild.members.fetchMe();
 		if (!isNotificationSendable(channel, role, me)) return;
-		await channel.send(`${role} ${suffix}`).catch(() => null);
+		await channel.send({ content: `${role} ${suffix}`, flags: MessageFlags.SuppressEmbeds }).catch(() => null);
 	}
 
 	public async overview(interaction: ChatInputCommandInteraction<"cached">) {

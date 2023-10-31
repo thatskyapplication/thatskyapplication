@@ -51,9 +51,7 @@ export default function heartbeat(client: Client<true>): void {
 					sendNotification(
 						client,
 						strong ? NotificationEvent.StrongShardEruption : NotificationEvent.RegularShardEruption,
-						{
-							startTime: unix + 300,
-						},
+						{ startTime: unix + 300, shardEruption: shardEruptionToday },
 					);
 				}
 			}

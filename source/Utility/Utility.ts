@@ -478,7 +478,7 @@ interface ShardEruptionTimestampsData {
 	end: Dayjs;
 }
 
-interface ShardEruptionData {
+export interface ShardEruptionData {
 	realm: Realm;
 	map: Map;
 	strong: boolean;
