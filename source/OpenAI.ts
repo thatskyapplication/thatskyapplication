@@ -15,7 +15,7 @@ const AI_DESCRIPTION =
 const AI_LAST_MESSAGE_CONTEXT =
 	`${AI_DESCRIPTION} Use the previous messages as context. Do not assume I am talking to you unless I explicitly say your name.` as const;
 
-const AI_DESCRIPTION_EMOJIS = "Respond with 3 emojis that represent this message." as const;
+const AI_DESCRIPTION_EMOJIS = "Respond with up to 3 emojis that represent this message." as const;
 
 function parseAIName(input: string) {
 	const cleaned = input.replaceAll(/[^\w-]/g, "");

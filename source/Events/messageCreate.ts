@@ -28,7 +28,7 @@ export const event: Event<typeof name> = {
 		if (frequency === 0) return;
 
 		if (Math.random() < frequency) {
-			void (Math.random() < 0.2 ? messageCreateEmojiResponse(message) : messageCreateResponse(message));
+			void (Math.random() < 0.1 ? messageCreateEmojiResponse(message) : messageCreateResponse(message));
 		}
 	},
 };
