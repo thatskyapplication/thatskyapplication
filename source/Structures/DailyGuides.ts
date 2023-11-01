@@ -432,7 +432,11 @@ export default new (class DailyGuides {
 			return parsed;
 		});
 
-		if (parsed && this.queue.pending === 0 && this.queue.size === 0) await DailyGuidesDistribution.distribute(client);
+		if (parsed && this.queue.pending === 0 && this.queue.size === 0) {
+			this.queue.pause();
+			await DailyGuidesDistribution.distribute(client);
+			this.queue.start();
+		}
 	}
 
 	public async updateDailyMessage(data: DailyGuideMessage) {

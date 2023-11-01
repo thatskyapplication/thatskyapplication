@@ -13,6 +13,7 @@ import {
 	EmbedBuilder,
 	formatEmoji,
 } from "discord.js";
+import PQueue from "p-queue";
 import {
 	type RotationNumber,
 	Emoji,
@@ -20,13 +21,13 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	EVENT_END_DATE,
 	EVENT_START_DATE,
+	MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT,
 	SEASON_END_DATE,
 	EVENT_CURRENCY_INFOGRAPHIC_URL,
 	SEASON_START_DATE,
 	DEFAULT_EMBED_COLOUR,
 } from "../Utility/Constants.js";
 import {
-	consoleLog,
 	resolveCurrencyEmoji,
 	todayDate,
 	treasureCandleRealm,
@@ -126,6 +127,8 @@ export default class DailyGuidesDistribution {
 	public channelId!: DailyGuidesDistributionData["channelId"];
 
 	public messageId!: DailyGuidesDistributionData["messageId"];
+
+	public readonly queue = new PQueue({ concurrency: MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT });
 
 	public constructor(dailyGuidesDistribution: DailyGuidesDistributionPacket) {
 		this.id = dailyGuidesDistribution.id;
@@ -375,23 +378,17 @@ export default class DailyGuidesDistribution {
 			Table.DailyGuidesDistribution,
 		).whereNotNull("channel_id");
 
-		const distributions = await Promise.allSettled(
+		const settled = await Promise.allSettled(
 			dailyGuidesDistributionPackets.map(async (dailyGuidesDistributionPacket) => {
 				const dailyGuidesDistribution = new DailyGuidesDistribution(dailyGuidesDistributionPacket);
-				return dailyGuidesDistribution.send(client);
+				return dailyGuidesDistribution.queue.add(async () => dailyGuidesDistribution.send(client));
 			}),
 		);
 
-		const rejected = [];
-		for (const settled of distributions) if (settled.status === "rejected") rejected.push(settled.reason);
-		consoleLog("- - - - - Distribution Status Start - - - - -");
+		const errors = settled
+			.filter((result): result is PromiseRejectedResult => result.status === "rejected")
+			.map((result) => result.reason);
 
-		if (rejected.length > 0) {
-			for (const reject of rejected) consoleLog(reject);
-		} else {
-			consoleLog("All good.");
-		}
-
-		consoleLog("- - - - - Distribution Status End - - - - -");
+		if (errors.length > 0) void client.log({ content: "Error whilst distributing daily guides.", error: errors });
 	}
 }
