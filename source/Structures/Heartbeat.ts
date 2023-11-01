@@ -17,11 +17,19 @@ dayjs.extend(timezone);
 dayjs.extend(utc);
 
 async function sendNotification(client: Client<true>, type: NotificationEvent, extra?: NotificationSendExtra) {
-	await queue.addAll(Notification.cache.map((notification) => async () => notification.send(client, type, extra)));
+	const settled = await Promise.allSettled(
+		Notification.cache.map(async (notification) => queue.add(async () => notification.send(client, type, extra))),
+	);
+
+	const errors = settled
+		.filter((result): result is PromiseRejectedResult => result.status === "rejected")
+		.map((result) => result.reason);
+
+	if (errors.length > 0) void client.log({ content: "Error whilst sending notifications.", error: errors });
 }
 
 async function dailyReset(client: Client<true>) {
-	sendNotification(client, NotificationEvent.DailyReset);
+	void sendNotification(client, NotificationEvent.DailyReset);
 	await DailyGuides.reset();
 	await DailyGuidesDistribution.reset();
 	await DailyGuidesDistribution.distribute(client);
@@ -41,16 +49,16 @@ export default function heartbeat(client: Client<true>): void {
 		if (second === 0) {
 			if (hour === 0 && minute === 0) {
 				void dailyReset(client);
-				if (day === 0) sendNotification(client, NotificationEvent.EyeOfEden);
+				if (day === 0) void sendNotification(client, NotificationEvent.EyeOfEden);
 				// @ts-expect-error Too narrow.
-				if (ISS_DATES_ACCESSIBLE.includes(date)) sendNotification(client, NotificationEvent.ISS);
+				if (ISS_DATES_ACCESSIBLE.includes(date)) void sendNotification(client, NotificationEvent.ISS);
 			}
 
 			if (shardEruptionToday) {
 				const { strong, timestamps } = shardEruptionToday;
 
 				if (timestamps.some(({ start }) => start.diff(dayjsDate, "minutes") === 5)) {
-					sendNotification(
+					void sendNotification(
 						client,
 						strong ? NotificationEvent.StrongShardEruption : NotificationEvent.RegularShardEruption,
 						{ startTime: unix + 300, shardEruption: shardEruptionToday },
@@ -58,22 +66,22 @@ export default function heartbeat(client: Client<true>): void {
 				}
 			}
 
-			if ((minute + 5) % 15 === 0) sendNotification(client, NotificationEvent.Passage, { startTime: unix + 300 });
+			if ((minute + 5) % 15 === 0) void sendNotification(client, NotificationEvent.Passage, { startTime: unix + 300 });
 
 			if ((hour + 3) % 4 === 0 && minute === 45) {
-				sendNotification(client, NotificationEvent.AURORA, { startTime: unix + 900 });
+				void sendNotification(client, NotificationEvent.AURORA, { startTime: unix + 900 });
 			}
 
 			if (hour % 2 === 0) {
 				switch (minute) {
 					case 0:
-						sendNotification(client, NotificationEvent.PollutedGeyser, { startTime: unix + 300 });
+						void sendNotification(client, NotificationEvent.PollutedGeyser, { startTime: unix + 300 });
 						break;
 					case 30:
-						sendNotification(client, NotificationEvent.Grandma, { startTime: unix + 300 });
+						void sendNotification(client, NotificationEvent.Grandma, { startTime: unix + 300 });
 						break;
 					case 45:
-						sendNotification(client, NotificationEvent.Turtle, { startTime: unix + 300 });
+						void sendNotification(client, NotificationEvent.Turtle, { startTime: unix + 300 });
 						break;
 				}
 			}
