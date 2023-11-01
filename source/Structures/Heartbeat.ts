@@ -3,19 +3,21 @@ import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
 import type { Client } from "discord.js";
-import { ISS_DATES_ACCESSIBLE } from "../Utility/Constants.js";
+import pQueue from "p-queue";
+import { ISS_DATES_ACCESSIBLE, MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT } from "../Utility/Constants.js";
 import { shardEruption } from "../Utility/Utility.js";
 import DailyGuides from "./DailyGuides.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import Notification, { NotificationEvent, type NotificationSendExtra } from "./Notification.js";
 
+const queue = new pQueue({ concurrency: MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT });
 let shardEruptionToday = shardEruption();
 
 dayjs.extend(timezone);
 dayjs.extend(utc);
 
-function sendNotification(client: Client<true>, type: NotificationEvent, extra?: NotificationSendExtra) {
-	for (const notification of Notification.cache.values()) void notification.send(client, type, extra);
+async function sendNotification(client: Client<true>, type: NotificationEvent, extra?: NotificationSendExtra) {
+	await queue.addAll(Notification.cache.map((notification) => async () => notification.send(client, type, extra)));
 }
 
 async function dailyReset(client: Client<true>) {

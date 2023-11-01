@@ -152,6 +152,9 @@ export const CURRENT_SEASON = Season.Revival;
 export const CURRENT_SEASONAL_EMOJI = Emoji.SeasonRevival;
 export const CURRENT_SEASONAL_CANDLE_EMOJI = Emoji.CandleRevival;
 
+// Concurrency limit for notifications. There is a global rate limit of 50 per second.
+export const MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT = 45 as const;
+
 // Miscellaneous constants.
 export const PRODUCTION = process.env.NODE_ENV === "production";
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
