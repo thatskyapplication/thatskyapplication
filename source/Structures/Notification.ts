@@ -92,7 +92,6 @@ export enum NotificationEvent {
 export const NOTIFICATION_CHANNEL_TYPES = [
 	ChannelType.GuildText,
 	ChannelType.GuildAnnouncement,
-	ChannelType.PrivateThread,
 ] as const satisfies Readonly<ChannelType[]>;
 
 type NotificationAllowedChannel = Extract<GuildBasedChannel, { type: (typeof NOTIFICATION_CHANNEL_TYPES)[number] }>;
@@ -122,22 +121,10 @@ export function isNotificationSendable(
 	returnErrors = false,
 ) {
 	const errors = [];
-	const isPrivateThread = channel.type === ChannelType.PrivateThread;
 
-	if (
-		!channel
-			.permissionsFor(me)
-			.has(
-				PermissionFlagsBits.ViewChannel |
-					(isPrivateThread ? PermissionFlagsBits.SendMessagesInThreads : PermissionFlagsBits.SendMessages),
-			)
-	) {
-		errors.push(
-			`\`View Channel\` & \`Send Messages${
-				isPrivateThread ? " in Threads" : ""
-				// eslint-disable-next-line @typescript-eslint/no-base-to-string
-			}\` are required for ${channel}.`,
-		);
+	if (!channel.permissionsFor(me).has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages)) {
+		// eslint-disable-next-line @typescript-eslint/no-base-to-string
+		errors.push(`\`View Channel\` & \`Send Messages\` are required for ${channel}.`);
 	}
 
 	if (!channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone) && !role.mentionable) {
