@@ -3,14 +3,13 @@ import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
 import type { Client } from "discord.js";
-import pQueue from "p-queue";
-import { ISS_DATES_ACCESSIBLE, MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT } from "../Utility/Constants.js";
+import { ISS_DATES_ACCESSIBLE } from "../Utility/Constants.js";
 import { shardEruption } from "../Utility/Utility.js";
+import pQueue from "../pQueue.js";
 import DailyGuides from "./DailyGuides.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import Notification, { NotificationEvent, type NotificationSendExtra } from "./Notification.js";
 
-const queue = new pQueue({ concurrency: MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT });
 let shardEruptionToday = shardEruption();
 
 dayjs.extend(timezone);
@@ -18,7 +17,7 @@ dayjs.extend(utc);
 
 async function sendNotification(client: Client<true>, type: NotificationEvent, extra?: NotificationSendExtra) {
 	const settled = await Promise.allSettled(
-		Notification.cache.map(async (notification) => queue.add(async () => notification.send(client, type, extra))),
+		Notification.cache.map(async (notification) => pQueue.add(async () => notification.send(client, type, extra))),
 	);
 
 	const errors = settled
