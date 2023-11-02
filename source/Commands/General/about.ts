@@ -7,6 +7,7 @@ import {
 	hyperlink,
 } from "discord.js";
 import {
+	APPLICATION_INVITE_URL,
 	DEFAULT_EMBED_COLOUR,
 	GITHUB_SPONSORS_URL,
 	KO_FI_URL,
@@ -58,7 +59,7 @@ export default new (class implements ChatInputCommand {
 						},
 						{
 							name: "Invite",
-							value: hyperlink("Link", new URL("invite", WEBSITE_URL)),
+							value: hyperlink("Link", APPLICATION_INVITE_URL),
 							inline: true,
 						},
 						{

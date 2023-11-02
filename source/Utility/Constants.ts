@@ -159,6 +159,7 @@ export const MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT = 45 as const;
 export const PRODUCTION = process.env.NODE_ENV === "production";
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
+export const APPLICATION_INVITE_URL = String(new URL("invite", WEBSITE_URL));
 export const THATSKYGAME_URL = "https://thatskygame.com" as const;
 export const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
 export const PATREON_URL = "https://patreon.com/Jiralite" as const;
