@@ -367,9 +367,9 @@ export default class Notification {
 		}
 
 		if (!channelId || !roleId) return;
-		const channel = client.guilds.resolve(guildId)?.channels.resolve(channelId);
+		const channel = client.guilds.cache.get(guildId)?.channels.cache.get(channelId);
 		if (!channel || !isNotificationChannel(channel)) return;
-		const role = channel.guild.roles.resolve(roleId);
+		const role = channel.guild.roles.cache.get(roleId);
 		if (!role) return;
 		const me = await channel.guild.members.fetchMe();
 		if (!isNotificationSendable(channel, role, me)) return;
@@ -461,8 +461,8 @@ export default class Notification {
 
 	private overviewValue(member: GuildMember, channelId: Snowflake | null, roleId: Snowflake | null) {
 		const { channels, roles } = member.guild;
-		const channel = channelId ? channels.resolve(channelId) : null;
-		const role = roleId ? roles.resolve(roleId) : null;
+		const channel = channelId ? channels.cache.get(channelId) : null;
+		const role = roleId ? roles.cache.get(roleId) : null;
 		const sending = channel && isNotificationChannel(channel) && role && isNotificationSendable(channel, role, member);
 
 		return `${channelId ? channelMention(channelId) : "No channel"}\n${roleId ? roleMention(roleId) : "No role"}\n${

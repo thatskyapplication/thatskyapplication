@@ -147,7 +147,7 @@ class Caelus extends Client {
 	public override async applyCommands() {
 		try {
 			if (!this.isReady()) throw new Error("Client applying commands when not ready.");
-			const developerGuild = this.guilds.resolve(DEVELOPER_GUILD_ID);
+			const developerGuild = this.guilds.cache.get(DEVELOPER_GUILD_ID);
 			if (!developerGuild) throw new Error("Could not find the developer guild.");
 			const fetchedGlobalCommands = await this.application.commands.fetch({ cache: false });
 			const fetchedDeveloperCommands = await developerGuild.commands.fetch({ cache: false });
