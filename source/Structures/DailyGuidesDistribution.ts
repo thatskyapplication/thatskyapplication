@@ -26,7 +26,6 @@ import {
 	DEFAULT_EMBED_COLOUR,
 } from "../Utility/Constants.js";
 import {
-	consoleLog,
 	resolveCurrencyEmoji,
 	todayDate,
 	treasureCandleRealm,
@@ -44,6 +43,7 @@ import {
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
 } from "../Utility/Utility.js";
+import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
 
@@ -375,23 +375,17 @@ export default class DailyGuidesDistribution {
 			Table.DailyGuidesDistribution,
 		).whereNotNull("channel_id");
 
-		const distributions = await Promise.allSettled(
+		const settled = await Promise.allSettled(
 			dailyGuidesDistributionPackets.map(async (dailyGuidesDistributionPacket) => {
 				const dailyGuidesDistribution = new DailyGuidesDistribution(dailyGuidesDistributionPacket);
-				return dailyGuidesDistribution.send(client);
+				return pQueue.add(async () => dailyGuidesDistribution.send(client));
 			}),
 		);
 
-		const rejected = [];
-		for (const settled of distributions) if (settled.status === "rejected") rejected.push(settled.reason);
-		consoleLog("- - - - - Distribution Status Start - - - - -");
+		const errors = settled
+			.filter((result): result is PromiseRejectedResult => result.status === "rejected")
+			.map((result) => result.reason);
 
-		if (rejected.length > 0) {
-			for (const reject of rejected) consoleLog(reject);
-		} else {
-			consoleLog("All good.");
-		}
-
-		consoleLog("- - - - - Distribution Status End - - - - -");
+		if (errors.length > 0) void client.log({ content: "Error whilst distributing daily guides.", error: errors });
 	}
 }

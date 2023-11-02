@@ -1,5 +1,4 @@
 import { URL } from "node:url";
-import { AsyncQueue } from "@sapphire/async-queue";
 import {
 	type Attachment,
 	type Collection,
@@ -9,6 +8,7 @@ import {
 	MessageFlags,
 	SnowflakeUtil,
 } from "discord.js";
+import pQueue from "p-queue";
 import {
 	type MeditationMaps,
 	type RainbowAdmireMaps,
@@ -362,7 +362,7 @@ export default new (class DailyGuides {
 
 	public dailyMessage: DailyGuidesData["dailyMessage"] = null;
 
-	public readonly queue = new AsyncQueue();
+	public readonly queue = new pQueue({ concurrency: 1 });
 
 	public async reset(insert = false) {
 		let query = pg<DailyGuidesPacket>(Table.DailyGuides);
@@ -395,8 +395,6 @@ export default new (class DailyGuides {
 		const { attachments, client, content, flags } = message;
 		if (flags.has(MessageFlags.SourceMessageDeleted)) return;
 		const transformedContent = content.toUpperCase();
-		await this.queue.wait();
-		let parsed;
 
 		if (
 			(transformedContent.includes("DAILY QUEST") && transformedContent.length <= 20) ||
@@ -409,28 +407,36 @@ export default new (class DailyGuides {
 			 * - The general photo of quests (not needed)
 			 * - The seasonal candles infographic (automated)
 			 * - The shard eruption infographic (automated)
-			 * - The Days of Color event currency rotation (we have a trend for this already and they were late sending this)
+			 * - The Days of Colour event currency rotation (we have a trend for this already and they were late sending this)
 			 */
-			this.queue.shift();
-			return;
-		} else if (
-			transformedContent.includes("QUEST") ||
-			transformedContent.includes("RAINBOW") ||
-			transformedContent.includes("SOCIAL LIGHT") ||
-			transformedContent.includes("SAPLING") ||
-			transformedContent.includes("NATURE")
-		) {
-			parsed = await this.parseQuests(content, attachments);
-		} else if (transformedContent.includes("TREASURE CANDLE")) {
-			parsed = await this.parseTreasureCandles(attachments);
-		} else {
-			consoleLog("Intercepted an unparsed message.");
-			this.queue.shift();
 			return;
 		}
 
-		if (parsed && this.queue.queued === 0) await DailyGuidesDistribution.distribute(client);
-		this.queue.shift();
+		const parsed = await this.queue.add(async () => {
+			let parsed = false;
+
+			if (
+				transformedContent.includes("QUEST") ||
+				transformedContent.includes("RAINBOW") ||
+				transformedContent.includes("SOCIAL LIGHT") ||
+				transformedContent.includes("SAPLING") ||
+				transformedContent.includes("NATURE")
+			) {
+				parsed = await this.parseQuests(content, attachments);
+			} else if (transformedContent.includes("TREASURE CANDLE")) {
+				parsed = await this.parseTreasureCandles(attachments);
+			} else {
+				consoleLog("Intercepted an unparsed message.");
+			}
+
+			return parsed;
+		});
+
+		if (parsed && this.queue.pending === 0 && this.queue.size === 0) {
+			this.queue.pause();
+			await DailyGuidesDistribution.distribute(client);
+			this.queue.start();
+		}
 	}
 
 	public async updateDailyMessage(data: DailyGuideMessage) {
