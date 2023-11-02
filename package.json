@@ -12,24 +12,24 @@
 		"update": "pnpm update --interactive --latest"
 	},
 	"dependencies": {
-		"@aws-sdk/client-s3": "^3.425.0",
+		"@aws-sdk/client-s3": "^3.441.0",
 		"dayjs": "^1.11.10",
 		"discord.js": "14.13.0",
 		"dotenv": "^16.3.1",
 		"hasha": "^5.2.2",
 		"knex": "^3.0.1",
-		"openai": "^4.11.1",
+		"openai": "^4.14.2",
 		"p-queue": "^7.4.1",
 		"pg": "^8.11.3",
 		"sharp": "^0.32.6",
 		"ts-mixer": "^6.0.3",
-		"undici": "^5.25.4"
+		"undici": "^5.27.0"
 	},
 	"devDependencies": {
-		"eslint": "^8.50.0",
+		"eslint": "^8.52.0",
 		"eslint-config-neon": "^0.1.57",
 		"prettier": "^3.0.3",
-		"tsx": "^3.13.0",
+		"tsx": "^3.14.0",
 		"typescript": "^5.2.2"
 	},
 	"packageManager": "pnpm@8.7.1"
