@@ -14,8 +14,8 @@ import {
 	ButtonStyle,
 	formatEmoji,
 } from "discord.js";
-import { type Realm, Emoji, Season, DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, isRealm, isSeason, resolveSeasonToSeasonalEmoji } from "../../Utility/Utility.js";
+import { type Realm, Emoji, Season, DEFAULT_EMBED_COLOUR, SeasonToSeasonalEmoji } from "../../Utility/Constants.js";
+import { cannotUseCustomEmojis, isRealm, isSeason } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
 import {
 	type ElderSpirit,
@@ -1570,7 +1570,7 @@ export class SpiritTracker {
 						.setOptions(
 							validSeasons.map((season) =>
 								new StringSelectMenuOptionBuilder()
-									.setEmoji(resolveSeasonToSeasonalEmoji(season))
+									.setEmoji(SeasonToSeasonalEmoji[season])
 									.setLabel(`${season} (${spiritTracker.averageProgress(spiritTracker.seasonProgress(season), true)}%)`)
 									.setValue(season),
 							),

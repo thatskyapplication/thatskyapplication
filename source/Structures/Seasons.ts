@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-literal-enum-member, unicorn/prefer-math-trunc */
 import { formatEmoji } from "discord.js";
-import { Season } from "../Utility/Constants.js";
-import { resolveSeasonToSeasonalEmoji } from "../Utility/Utility.js";
+import { Season, SeasonToSeasonalEmoji } from "../Utility/Constants.js";
 
 enum SeasonFlags {
 	Gratitude = 1 << 0,
@@ -52,7 +51,7 @@ export function resolveBitsToSeasons(bits: number) {
 
 	for (const [bit, season] of Object.entries(SeasonFlagsToString)) {
 		const _bit = Number(bit);
-		if ((bits & _bit) === _bit) platforms.push(formatEmoji(resolveSeasonToSeasonalEmoji(season)));
+		if ((bits & _bit) === _bit) platforms.push(formatEmoji(SeasonToSeasonalEmoji[season]));
 	}
 
 	return platforms;

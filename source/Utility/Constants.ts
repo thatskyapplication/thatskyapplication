@@ -104,6 +104,28 @@ export enum Season {
 	Revival = "Revival",
 }
 
+export const SeasonToSeasonalEmoji = {
+	[Season.Gratitude]: Emoji.SeasonGratitude,
+	[Season.Lightseekers]: Emoji.SeasonLightseekers,
+	[Season.Belonging]: Emoji.SeasonBelonging,
+	[Season.Rhythm]: Emoji.SeasonRhythm,
+	[Season.Enchantment]: Emoji.SeasonEnchantment,
+	[Season.Sanctuary]: Emoji.SeasonSanctuary,
+	[Season.Prophecy]: Emoji.SeasonProphecy,
+	[Season.Dreams]: Emoji.SeasonDreams,
+	[Season.Assembly]: Emoji.SeasonAssembly,
+	[Season.LittlePrince]: Emoji.SeasonLittlePrince,
+	[Season.Flight]: Emoji.SeasonFlight,
+	[Season.Abyss]: Emoji.SeasonAbyss,
+	[Season.Performance]: Emoji.SeasonPerformance,
+	[Season.Shattering]: Emoji.SeasonShattering,
+	[Season.Aurora]: Emoji.SeasonAurora,
+	[Season.Remembrance]: Emoji.SeasonRemembrance,
+	[Season.Passage]: Emoji.SeasonPassage,
+	[Season.Moments]: Emoji.SeasonMoments,
+	[Season.Revival]: Emoji.SeasonRevival,
+} as const satisfies Readonly<Record<Season, Emoji>>;
+
 export const QUEST_SPIRITS_SEASONS = [
 	Season.Gratitude,
 	Season.Lightseekers,

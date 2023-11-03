@@ -175,49 +175,6 @@ export function isSeason(season: string): season is Season {
 	return Object.values(Season).includes(season as Season);
 }
 
-export function resolveSeasonToSeasonalEmoji(season: Season) {
-	switch (season) {
-		case Season.Gratitude:
-			return Emoji.SeasonGratitude;
-		case Season.Lightseekers:
-			return Emoji.SeasonLightseekers;
-		case Season.Belonging:
-			return Emoji.SeasonBelonging;
-		case Season.Rhythm:
-			return Emoji.SeasonRhythm;
-		case Season.Enchantment:
-			return Emoji.SeasonEnchantment;
-		case Season.Sanctuary:
-			return Emoji.SeasonSanctuary;
-		case Season.Prophecy:
-			return Emoji.SeasonProphecy;
-		case Season.Dreams:
-			return Emoji.SeasonDreams;
-		case Season.Assembly:
-			return Emoji.SeasonAssembly;
-		case Season.LittlePrince:
-			return Emoji.SeasonLittlePrince;
-		case Season.Flight:
-			return Emoji.SeasonFlight;
-		case Season.Abyss:
-			return Emoji.SeasonAbyss;
-		case Season.Performance:
-			return Emoji.SeasonPerformance;
-		case Season.Shattering:
-			return Emoji.SeasonShattering;
-		case Season.Aurora:
-			return Emoji.SeasonAurora;
-		case Season.Remembrance:
-			return Emoji.SeasonRemembrance;
-		case Season.Passage:
-			return Emoji.SeasonPassage;
-		case Season.Moments:
-			return Emoji.SeasonMoments;
-		case Season.Revival:
-			return Emoji.SeasonRevival;
-	}
-}
-
 export function resolveSeasonToCandleEmoji(season: Season) {
 	switch (season) {
 		case Season.Gratitude:

@@ -27,8 +27,8 @@ import {
 import Seasonal from "../../Structures/Spirits/Seasonal/index.js";
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
 import Spirits from "../../Structures/Spirits/index.js";
-import { DEFAULT_EMBED_COLOUR, Season } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, resolveSeasonToSeasonalEmoji } from "../../Utility/Utility.js";
+import { DEFAULT_EMBED_COLOUR, Season, SeasonToSeasonalEmoji } from "../../Utility/Constants.js";
+import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID = "SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;
@@ -139,7 +139,7 @@ export default new (class implements AutocompleteCommand {
 		if (spiritSeason) {
 			embed.addFields({
 				name: "Season",
-				value: `${formatEmoji(resolveSeasonToSeasonalEmoji(spiritSeason))}${spiritSeason}`,
+				value: `${formatEmoji(SeasonToSeasonalEmoji[spiritSeason])}${spiritSeason}`,
 				inline: true,
 			});
 		}
