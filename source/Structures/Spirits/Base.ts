@@ -2,13 +2,8 @@ import { URL } from "node:url";
 import type { Dayjs } from "dayjs";
 import { Collection } from "discord.js";
 import { Mixin } from "ts-mixer";
-import { type Realm, Season, CDN_URL, WIKI_URL, Emoji } from "../../Utility/Constants.js";
-import {
-	resolveCurrencyEmoji,
-	resolveSeasonToCandleEmoji,
-	resolveSeasonToHeartEmoji,
-	todayDate,
-} from "../../Utility/Utility.js";
+import { type Realm, Season, CDN_URL, WIKI_URL, Emoji, SeasonToSeasonalCandleEmoji } from "../../Utility/Constants.js";
+import { resolveCurrencyEmoji, resolveSeasonToHeartEmoji, todayDate } from "../../Utility/Utility.js";
 
 export enum SpiritName {
 	// Isles of Dawn
@@ -507,7 +502,7 @@ export function resolveOfferToCurrency(cost: SpiritCost, season?: Season | null)
 	if (cost.seasonalCandles) {
 		totalCost.push(
 			resolveCurrencyEmoji({
-				emoji: season ? resolveSeasonToCandleEmoji(season) : Emoji.SeasonalCandle,
+				emoji: season ? SeasonToSeasonalCandleEmoji[season] : Emoji.SeasonalCandle,
 				number: cost.seasonalCandles,
 			}),
 		);

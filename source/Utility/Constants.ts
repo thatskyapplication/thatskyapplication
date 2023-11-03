@@ -126,6 +126,28 @@ export const SeasonToSeasonalEmoji = {
 	[Season.Revival]: Emoji.SeasonRevival,
 } as const satisfies Readonly<Record<Season, Emoji>>;
 
+export const SeasonToSeasonalCandleEmoji = {
+	[Season.Gratitude]: Emoji.CandleGratitude,
+	[Season.Lightseekers]: Emoji.CandleLightseekers,
+	[Season.Belonging]: Emoji.CandleBelonging,
+	[Season.Rhythm]: Emoji.CandleRhythm,
+	[Season.Enchantment]: Emoji.CandleEnchantment,
+	[Season.Sanctuary]: Emoji.CandleSanctuary,
+	[Season.Prophecy]: Emoji.CandleProphecy,
+	[Season.Dreams]: Emoji.CandleDreams,
+	[Season.Assembly]: Emoji.CandleAssembly,
+	[Season.LittlePrince]: Emoji.CandleLittlePrince,
+	[Season.Flight]: Emoji.CandleFlight,
+	[Season.Abyss]: Emoji.CandleAbyss,
+	[Season.Performance]: Emoji.CandlePerformance,
+	[Season.Shattering]: Emoji.CandleShattering,
+	[Season.Aurora]: Emoji.CandleAurora,
+	[Season.Remembrance]: Emoji.CandleRemembrance,
+	[Season.Passage]: Emoji.CandlePassage,
+	[Season.Moments]: Emoji.CandleMoments,
+	[Season.Revival]: Emoji.CandleRevival,
+} as const satisfies Readonly<Record<Season, Emoji>>;
+
 export const QUEST_SPIRITS_SEASONS = [
 	Season.Gratitude,
 	Season.Lightseekers,

@@ -175,49 +175,6 @@ export function isSeason(season: string): season is Season {
 	return Object.values(Season).includes(season as Season);
 }
 
-export function resolveSeasonToCandleEmoji(season: Season) {
-	switch (season) {
-		case Season.Gratitude:
-			return Emoji.CandleGratitude;
-		case Season.Lightseekers:
-			return Emoji.CandleLightseekers;
-		case Season.Belonging:
-			return Emoji.CandleBelonging;
-		case Season.Rhythm:
-			return Emoji.CandleRhythm;
-		case Season.Enchantment:
-			return Emoji.CandleEnchantment;
-		case Season.Sanctuary:
-			return Emoji.CandleSanctuary;
-		case Season.Prophecy:
-			return Emoji.CandleProphecy;
-		case Season.Dreams:
-			return Emoji.CandleDreams;
-		case Season.Assembly:
-			return Emoji.CandleAssembly;
-		case Season.LittlePrince:
-			return Emoji.CandleLittlePrince;
-		case Season.Flight:
-			return Emoji.CandleFlight;
-		case Season.Abyss:
-			return Emoji.CandleAbyss;
-		case Season.Performance:
-			return Emoji.CandlePerformance;
-		case Season.Shattering:
-			return Emoji.CandleShattering;
-		case Season.Aurora:
-			return Emoji.CandleAurora;
-		case Season.Remembrance:
-			return Emoji.CandleRemembrance;
-		case Season.Passage:
-			return Emoji.CandlePassage;
-		case Season.Moments:
-			return Emoji.CandleMoments;
-		case Season.Revival:
-			return Emoji.CandleRevival;
-	}
-}
-
 export function resolveSeasonToHeartEmoji(season: Exclude<Season, Season.Gratitude | Season.Lightseekers>) {
 	switch (season) {
 		case Season.Belonging:
