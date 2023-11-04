@@ -11,6 +11,7 @@ export default {
 				"goal-achieved": "You have already achieved your goal!",
 			},
 			"winged-light": {
+				"command-name": "winged-light",
 				"duplicate-areas": "Duplicate areas detected. Make sure to only provide unique areas!",
 				"started-with": "Started with",
 				"reborn-with": "Reborn with",

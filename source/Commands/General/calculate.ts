@@ -122,7 +122,7 @@ export default new (class implements ChatInputCommand {
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: "winged-light",
-				nameLocalizations: { [Locale.SpanishES]: "luz-alada" },
+				nameLocalizations: { [Locale.SpanishES]: t("calculate.winged-light.command-name", { lng: Locale.SpanishES, ns: "commands" }) },
 				description: "Calculates how much winged light one should possess.",
 				options: [
 					{

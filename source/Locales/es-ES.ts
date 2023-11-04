@@ -11,6 +11,7 @@ export default {
 				"goal-achieved": "¡Ya has alcanzado tu objetivo!",
 			},
 			"winged-light": {
+				"command-name": "luz-alada",
 				"duplicate-areas": "Áreas duplicadas detectadas. ¡Asegúrate de dar una única área!",
 				"started-with": "Empezaste con",
 				"reborn-with": "Renaciste con",
