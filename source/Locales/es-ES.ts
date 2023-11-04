@@ -10,6 +10,7 @@ export default {
 	commands: {
 		calculate: {
 			"winged-light": {
+				"duplicate-areas": "Áreas duplicadas detectadas. ¡Asegúrate de dar una única área!",
 				"started-with": "Empezó con",
 				"reborn-with": "Renació con",
 				unknown: "Área desconocida detectada. Por favor, ¡reporta este problema!",

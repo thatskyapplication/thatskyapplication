@@ -385,7 +385,7 @@ export default new (class implements ChatInputCommand {
 
 		if (new Set(areas).size !== areas.length) {
 			await interaction.reply({
-				content: "Duplicate areas detected. Make sure to only provide unique areas!",
+				content: t("calculate.winged-light.duplicate-areas", { lng, ns: "commands" }),
 				ephemeral: true,
 			});
 
