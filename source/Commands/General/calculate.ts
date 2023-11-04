@@ -3,10 +3,13 @@ import {
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	EmbedBuilder,
+	Locale,
 	time,
 	TimestampStyles,
 } from "discord.js";
+import { t } from "i18next";
 import {
+	AreaToWingedLightCount,
 	Emoji,
 	MAXIMUM_WINGED_LIGHT,
 	Realm,
@@ -14,11 +17,13 @@ import {
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
-	WingedLightCount,
 	ASCENDED_CANDLES_PER_WEEK,
 	Map,
 	WINGED_LIGHT_AREAS,
 	DEFAULT_EMBED_COLOUR,
+	WingedLightAreasToSpanish,
+	WINGED_LIGHT_AREAS_COUNT_VALUES,
+	WINGED_LIGHT_AREAS_COUNT,
 } from "../../Utility/Constants.js";
 import {
 	cannotUseCustomEmojis,
@@ -40,12 +45,16 @@ const ASCENDED_CANDLE_MINIMUM_TIME_EYE_OF_EDEN_TEXT =
 
 const ASCENDED_CANDLE_MINIMUM_TIME_SHARD_ERUPTIONS_TEXT = "all shard eruptions were cleansed" as const;
 
-const wingedLightInAreas = Object.values(WingedLightCount).reduce(
+const wingedLightInAreas = WINGED_LIGHT_AREAS_COUNT_VALUES.reduce(
 	(wingedLightCount, wingedLight) => wingedLightCount + wingedLight,
 	0,
 );
 
-const wingedLightAreaChoices = WINGED_LIGHT_AREAS.map((area) => ({ name: area, value: area }));
+const wingedLightAreaChoices = WINGED_LIGHT_AREAS.map((area) => ({
+	name: area,
+	nameLocalizations: { [Locale.SpanishES]: WingedLightAreasToSpanish[area] },
+	value: area,
+}));
 
 export default new (class implements ChatInputCommand {
 	public readonly data = {
@@ -113,6 +122,7 @@ export default new (class implements ChatInputCommand {
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: "winged-light",
+				nameLocalizations: { [Locale.SpanishES]: "luz-alada" },
 				description: "Calculates how much winged light one should possess.",
 				options: [
 					{
@@ -350,7 +360,7 @@ export default new (class implements ChatInputCommand {
 
 	public async wingedLight(interaction: ChatInputCommandInteraction) {
 		if (await cannotUseCustomEmojis(interaction)) return;
-		const { options } = interaction;
+		const { locale: lng, options } = interaction;
 		const wingBuffs = options.getInteger("wing-buffs", true);
 		const area1 = options.getString("area-1");
 		const area2 = options.getString("area-2");
@@ -366,7 +376,7 @@ export default new (class implements ChatInputCommand {
 			void interaction.client.log({ content: "Received an unknown area.", error: areas });
 
 			await interaction.reply({
-				content: "Unknown area detected. How odd? We can't do anything about this...",
+				content: t("calculate.winged-light.unknown", { lng, ns: "commands" }),
 				ephemeral: true,
 			});
 
@@ -382,94 +392,39 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		const path = areas.length === 0 ? WINGED_LIGHT_AREAS : areas;
 		let accumulation = wingBuffs;
 
-		const embed = new EmbedBuilder()
-			.setColor(DEFAULT_EMBED_COLOUR)
-			.setDescription(
-				`Started with ${resolveCurrencyEmoji({
-					emoji: Emoji.WingedLight,
-					number: wingBuffs,
-					includeSpaceInEmoji: true,
-				})}.\nReborn with ${resolveCurrencyEmoji({
-					emoji: Emoji.WingedLight,
-					number: (accumulation += WingedLightCount.Orbit),
-					includeSpaceInEmoji: true,
-				})} (+${WingedLightCount.Orbit}).`,
-			)
-			.setTitle("Winged Light Calculator");
-
-		for (const area of path) {
-			switch (area) {
-				case Realm.IslesOfDawn:
-					embed.addFields({
-						name: area,
-						value: `${(accumulation += WingedLightCount.IslesOfDawn)} (+${WingedLightCount.IslesOfDawn})`,
-					});
-
-					break;
-				case Realm.DaylightPrairie:
-					embed.addFields({
-						name: area,
-						value: `${(accumulation += WingedLightCount.DaylightPrairie)} (+${WingedLightCount.DaylightPrairie})`,
-					});
-
-					break;
-				case Realm.HiddenForest:
-					embed.addFields({
-						name: area,
-						value: `${(accumulation += WingedLightCount.HiddenForest)} (+${WingedLightCount.HiddenForest})`,
-					});
-
-					break;
-				case Realm.ValleyOfTriumph:
-					embed.addFields({
-						name: area,
-						value: `${(accumulation += WingedLightCount.ValleyOfTriumph)} (+${WingedLightCount.ValleyOfTriumph})`,
-					});
-
-					break;
-				case Realm.GoldenWasteland:
-					embed.addFields({
-						name: area,
-						value: `${(accumulation += WingedLightCount.GoldenWasteland)} (+${WingedLightCount.GoldenWasteland})`,
-					});
-
-					break;
-				case Realm.VaultOfKnowledge:
-					embed.addFields({
-						name: area,
-						value: `${(accumulation += WingedLightCount.VaultOfKnowledge)} (+${WingedLightCount.VaultOfKnowledge})`,
-					});
-
-					break;
-				case Realm.EyeOfEden:
-					embed.addFields({
-						name: area,
-						value: `${(accumulation += WingedLightCount.EyeOfEden)} (+${WingedLightCount.EyeOfEden})`,
-					});
-
-					break;
-				case Map.AncientMemory:
-					embed.addFields({
-						name: area,
-						value: `${(accumulation += WingedLightCount.AncientMemory)} (+${WingedLightCount.AncientMemory})`,
-					});
-
-					break;
-			}
-		}
-
-		embed.addFields({
-			name: "Total",
-			value: `You should have ${resolveCurrencyEmoji({
-				emoji: Emoji.WingedLight,
-				number: accumulation,
-				includeSpaceInEmoji: true,
-			})}.`,
+		await interaction.reply({
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(
+						`${t("calculate.winged-light.started-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji({
+							emoji: Emoji.WingedLight,
+							number: wingBuffs,
+							includeSpaceInEmoji: true,
+						})}.\n${t("calculate.winged-light.reborn-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji({
+							emoji: Emoji.WingedLight,
+							number: (accumulation += WINGED_LIGHT_AREAS_COUNT.Orbit),
+							includeSpaceInEmoji: true,
+						})} (+${WINGED_LIGHT_AREAS_COUNT.Orbit}).`,
+					)
+					.setFields(
+						...(areas.length === 0 ? WINGED_LIGHT_AREAS : areas).map((area) => ({
+							name: t(`${area === Map.AncientMemory ? "maps" : "realms"}.${area}`, { lng, ns: "general" }),
+							value: `${(accumulation += AreaToWingedLightCount[area])} (+${AreaToWingedLightCount[area]})`,
+						})),
+						{
+							name: "Total",
+							value: `${t("calculate.winged-light.you-should-have", { lng, ns: "commands" })} ${resolveCurrencyEmoji({
+								emoji: Emoji.WingedLight,
+								number: accumulation,
+								includeSpaceInEmoji: true,
+							})}.`,
+						},
+					)
+					.setTitle("Winged Light Calculator"),
+			],
 		});
-
-		await interaction.reply({ embeds: [embed] });
 	}
 })();

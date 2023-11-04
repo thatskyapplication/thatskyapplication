@@ -9,10 +9,13 @@ import type {
 	Guild,
 	ClientOptions,
 } from "discord.js";
-import { Client, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits } from "discord.js";
+import { Client, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits, Locale } from "discord.js";
+import { init } from "i18next";
 import commands from "./Commands/index.js";
 import type { Event } from "./Events/index.js";
 import events from "./Events/index.js";
+import enGB from "./Locales/en-GB.js";
+import esES from "./Locales/es-ES.js";
 import {
 	COMMAND_LOG_CHANNEL_ID,
 	DEFAULT_EMBED_COLOUR,
@@ -44,6 +47,19 @@ declare module "discord.js" {
 		applyCommands(): Promise<void>;
 	}
 }
+
+void init({
+	fallbackLng: Locale.EnglishGB,
+	missingKeyHandler: (locale, namespace, key) =>
+		consoleLog(`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`),
+	ns: ["general", "commands"],
+	resources: {
+		[Locale.EnglishGB]: enGB,
+		[Locale.SpanishES]: esES,
+	},
+	returnEmptyString: false,
+	saveMissing: true,
+});
 
 class Caelus extends Client {
 	public constructor(options: ClientOptions) {
@@ -149,8 +165,8 @@ class Caelus extends Client {
 			if (!this.isReady()) throw new Error("Client applying commands when not ready.");
 			const developerGuild = this.guilds.cache.get(DEVELOPER_GUILD_ID);
 			if (!developerGuild) throw new Error("Could not find the developer guild.");
-			const fetchedGlobalCommands = await this.application.commands.fetch({ cache: false });
-			const fetchedDeveloperCommands = await developerGuild.commands.fetch({ cache: false });
+			const fetchedGlobalCommands = await this.application.commands.fetch({ cache: false, withLocalizations: true });
+			const fetchedDeveloperCommands = await developerGuild.commands.fetch({ cache: false, withLocalizations: true });
 			const globalCommandData = [];
 			const developerCommandData = [];
 

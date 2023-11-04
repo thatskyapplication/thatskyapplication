@@ -264,6 +264,16 @@ export enum Realm {
 
 export const REALM_VALUES = Object.values(Realm);
 
+export const RealmToSpanishRealm = {
+	[Realm.IslesOfDawn]: "Isla del Amanecer",
+	[Realm.DaylightPrairie]: "Planicie Luz de Día",
+	[Realm.HiddenForest]: "Bosque Escondido",
+	[Realm.ValleyOfTriumph]: "Valle del Triunfo",
+	[Realm.GoldenWasteland]: "Páramo Dorado",
+	[Realm.VaultOfKnowledge]: "Bóveda de Conocimiento",
+	[Realm.EyeOfEden]: "Ojo de edén",
+} as const satisfies Readonly<Record<Realm, string>>;
+
 export enum Map {
 	// Daylight Prairie
 	BirdNest = "Bird Nest",
@@ -305,9 +315,14 @@ export enum Map {
 	VaultSecondFloor = "Vault Second Floor",
 	VaultSummit = "Vault Summit",
 
+	// Orbit
+	Orbit = "Orbit",
+
 	// Season of Shattering
 	AncientMemory = "Ancient Memory",
 }
+
+export const MAP_VALUES = Object.values(Map);
 
 export const MEDITATION_MAPS = [
 	Map.ButterflyFields,
@@ -416,6 +431,7 @@ export const SHARD_ERUPTION_PREDICTION_DATA = [
 ] as const;
 
 export const WINGED_LIGHT_AREAS = [...REALM_VALUES, Map.AncientMemory] as const;
+export const WingedLightAreasToSpanish = { ...RealmToSpanishRealm, [Map.AncientMemory]: "Recuerdo Ancestral" } as const;
 
 // This exists due to the Infographics server's inconsistencies and faults alongside no desire to fix them.
 export const INCONSISTENT_MAP = {
@@ -455,7 +471,7 @@ export const SEASONAL_CANDLES_ROTATION = [
 	{ rotation: 2, realm: Realm.VaultOfKnowledge },
 ] as const satisfies Readonly<{ rotation: RotationNumber; realm: Realm }[]>;
 
-export const WingedLightCount = {
+export const WINGED_LIGHT_AREAS_COUNT = {
 	IslesOfDawn: 9,
 	DaylightPrairie: 24,
 	HiddenForest: 19,
@@ -466,3 +482,18 @@ export const WingedLightCount = {
 	AncientMemory: 6,
 	Orbit: 1,
 } as const;
+
+export const WINGED_LIGHT_AREAS_COUNT_VALUES = Object.values(WINGED_LIGHT_AREAS_COUNT);
+type WingedLightAreasCount = (typeof WINGED_LIGHT_AREAS_COUNT_VALUES)[number];
+
+export const AreaToWingedLightCount = {
+	[Realm.IslesOfDawn]: WINGED_LIGHT_AREAS_COUNT.IslesOfDawn,
+	[Realm.DaylightPrairie]: WINGED_LIGHT_AREAS_COUNT.DaylightPrairie,
+	[Realm.HiddenForest]: WINGED_LIGHT_AREAS_COUNT.HiddenForest,
+	[Realm.ValleyOfTriumph]: WINGED_LIGHT_AREAS_COUNT.ValleyOfTriumph,
+	[Realm.GoldenWasteland]: WINGED_LIGHT_AREAS_COUNT.GoldenWasteland,
+	[Realm.VaultOfKnowledge]: WINGED_LIGHT_AREAS_COUNT.VaultOfKnowledge,
+	[Realm.EyeOfEden]: WINGED_LIGHT_AREAS_COUNT.EyeOfEden,
+	[Map.AncientMemory]: WINGED_LIGHT_AREAS_COUNT.AncientMemory,
+	[Map.Orbit]: WINGED_LIGHT_AREAS_COUNT.Orbit,
+} as const satisfies Readonly<Record<Realm | Map.AncientMemory | Map.Orbit, WingedLightAreasCount>>;
