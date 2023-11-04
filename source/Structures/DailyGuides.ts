@@ -518,7 +518,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("GREEN LIGHT")) return COLLECT_GREEN_LIGHT;
 		if (upperPureContent.includes("ORANGE LIGHT")) return COLLECT_ORANGE_LIGHT;
 		if (upperPureContent.includes("BLUE LIGHT")) return COLLECT_BLUE_LIGHT;
-		if (upperPureContent.includes("RED LIGHT")) return COLLECT_RED_LIGHT;
+		if (upperPureContent.includes(" RED LIGHT")) return COLLECT_RED_LIGHT; // Prefix a space because "coloured light" contains red light.
 		if (upperPureContent.includes("PURPLE LIGHT")) return COLLECT_PURPLE_LIGHT;
 		if (upperPureContent.includes("PRACTICE WITH THE SKATER")) return PRACTICE_WITH_THE_SKATER;
 		if (upperPureContent.includes("RACE DOWN THE SLOPES")) return RACE_DOWN_THE_SLOPES_WITH_THE_SKATER;
