@@ -3,6 +3,7 @@ import { URL } from "node:url";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
+import { Locale } from "discord.js";
 import { resolveShardEruptionMapURL, skyDate } from "./Utility.js";
 
 dayjs.extend(timezone);
@@ -497,3 +498,5 @@ export const AreaToWingedLightCount = {
 	[Map.AncientMemory]: WINGED_LIGHT_AREAS_COUNT.AncientMemory,
 	[Map.Orbit]: WINGED_LIGHT_AREAS_COUNT.Orbit,
 } as const satisfies Readonly<Record<Realm | Map.AncientMemory | Map.Orbit, WingedLightAreasCount>>;
+
+export const LOCALES = Object.values(Locale);

@@ -12,6 +12,7 @@ export default {
 			},
 			"winged-light": {
 				"command-name": "luz-alada",
+				"command-description": "Calcula cuánta luz alada deberías tener.",
 				"duplicate-areas": "Áreas duplicadas detectadas. ¡Asegúrate de dar una única área!",
 				"started-with": "Empezaste con",
 				"reborn-with": "Renaciste con",
