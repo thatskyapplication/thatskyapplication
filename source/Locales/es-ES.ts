@@ -11,8 +11,8 @@ export default {
 		calculate: {
 			"winged-light": {
 				"duplicate-areas": "Áreas duplicadas detectadas. ¡Asegúrate de dar una única área!",
-				"started-with": "Empezó con",
-				"reborn-with": "Renació con",
+				"started-with": "Empezaste con",
+				"reborn-with": "Renaciste con",
 				unknown: "Área desconocida detectada. Por favor, ¡reporta este problema!",
 				"winged-light-calculator": "Calculadora de Luz Alada",
 				"you-should-have": "Deberías tener",
