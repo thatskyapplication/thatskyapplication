@@ -279,12 +279,16 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async seasonalCandles(interaction: ChatInputCommandInteraction) {
-		const { options } = interaction;
+		const { locale: lng, options } = interaction;
 		const start = options.getInteger("start", true);
 		const goal = options.getInteger("goal", true);
 
 		if (start >= goal) {
-			await interaction.reply({ content: "The goal has already been achieved.", ephemeral: true });
+			await interaction.reply({
+				content: t("calculate.seasonal-candles.goal-achieved", { lng, ns: "commands" }),
+				ephemeral: true,
+			});
+
 			return;
 		}
 

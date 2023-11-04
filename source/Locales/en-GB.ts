@@ -7,6 +7,9 @@ export default {
 	},
 	commands: {
 		calculate: {
+			"seasonal-candles": {
+				"goal-achieved": "You have already achieved your goal!",
+			},
 			"winged-light": {
 				"duplicate-areas": "Duplicate areas detected. Make sure to only provide unique areas!",
 				"started-with": "Started with",
