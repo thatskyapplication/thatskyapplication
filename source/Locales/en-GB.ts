@@ -12,6 +12,7 @@ export default {
 				"started-with": "Started with",
 				"reborn-with": "Reborn with",
 				unknown: "Unknown area detected. Please report this issue!",
+				"winged-light-calculator": "Winged Light Calculator",
 				"you-should-have": "You should have",
 			},
 		},

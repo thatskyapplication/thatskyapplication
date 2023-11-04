@@ -423,7 +423,7 @@ export default new (class implements ChatInputCommand {
 							})}.`,
 						},
 					)
-					.setTitle("Winged Light Calculator"),
+					.setTitle(t("calculate.winged-light.winged-light-calculator", { lng, ns: "commands" })),
 			],
 		});
 	}
