@@ -195,10 +195,8 @@ export function remainingSeasonalCandles() {
 	const today = todayDate();
 
 	const seasonalDoubleLightEvent =
-		(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE.isSame(SEASON_START_DATE) ||
-			DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE.isAfter(SEASON_START_DATE)) &&
-		(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.isSame(SEASON_END_DATE) ||
-			DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.isBefore(SEASON_END_DATE));
+		DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE >= SEASON_START_DATE &&
+		DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE <= SEASON_END_DATE;
 
 	// Calculate the total amount of seasonal candles.
 	let seasonalCandlesTotal = SEASON_DURATION * SEASONAL_CANDLES_PER_DAY;
@@ -212,14 +210,14 @@ export function remainingSeasonalCandles() {
 	}
 
 	// Calculate the amount of seasonal candles so far.
-	const daysSoFar = today.diff(SEASON_START_DATE, "days") + 1;
+	const daysSoFar = today.diff(SEASON_START_DATE, "days").days + 1;
 	let seasonalCandlesSoFar = daysSoFar * SEASONAL_CANDLES_PER_DAY;
 
 	let seasonalCandlesSoFarWithSeasonPass =
 		daysSoFar * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
 
-	if (seasonalDoubleLightEvent && today.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days") >= 0) {
-		const difference = today.diff(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, "days");
+	if (seasonalDoubleLightEvent && today.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days").days >= 0) {
+		const difference = today.diff(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, "days").days;
 
 		const extraSeasonalCandles =
 			// The difference will be a negative number if the event is still ongoing.
