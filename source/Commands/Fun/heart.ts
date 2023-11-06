@@ -150,7 +150,7 @@ export default new (class implements ChatInputCommand {
 		const timestamp = heartPackets[0]?.timestamp;
 		const today = todayDate();
 
-		if (timestamp && timestamp.getTime() >= today.valueOf()) {
+		if (timestamp && timestamp.getTime() >= today.toMillis()) {
 			await interaction.reply({
 				content: `You have already gifted a ${formatEmoji(Emoji.Heart)} today!\nYou can give another one ${time(
 					Math.floor(today.plus({ day: 1 }).toUnixInteger()),
