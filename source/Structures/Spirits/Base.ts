@@ -1,6 +1,6 @@
 import { URL } from "node:url";
-import type { Dayjs } from "dayjs";
 import { Collection } from "discord.js";
+import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import {
 	type Realm,
@@ -458,7 +458,7 @@ interface ElderSpiritData extends BaseSpiritData, ElderFriendshipTreeData {
 }
 
 export type SeasonalSpiritVisitCollectionKey = number | "Error";
-export type SeasonalSpiritVisitData = Collection<SeasonalSpiritVisitCollectionKey, Dayjs>;
+export type SeasonalSpiritVisitData = Collection<SeasonalSpiritVisitCollectionKey, DateTime>;
 
 export interface SeasonalSpiritVisit {
 	travelling?: SeasonalSpiritVisitData;
@@ -757,8 +757,8 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 			: null;
 
 		this.visits = {
-			travelling: spirit.visits?.travelling ?? new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
-			returning: spirit.visits?.returning ?? new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>(),
+			travelling: spirit.visits?.travelling ?? new Collection<SeasonalSpiritVisitCollectionKey, DateTime>(),
+			returning: spirit.visits?.returning ?? new Collection<SeasonalSpiritVisitCollectionKey, DateTime>(),
 		};
 	}
 
@@ -767,15 +767,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 		const firstTravelling = travelling.first();
 		const firstReturning = returning.first();
 		const today = todayDate();
-
-		/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-		return (
-			firstTravelling?.isBefore(today) ||
-			firstTravelling?.isSame(today) ||
-			firstReturning?.isBefore(today) ||
-			firstReturning?.isSame(today)
-		);
-		/* eslint-enable @typescript-eslint/prefer-nullish-coalescing */
+		return (firstTravelling && firstTravelling <= today) || (firstReturning && firstReturning <= today);
 	}
 }
 
