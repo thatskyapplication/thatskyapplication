@@ -19,6 +19,7 @@
 		"hasha": "^5.2.2",
 		"i18next": "^23.6.0",
 		"knex": "^3.0.1",
+		"luxon": "^3.4.3",
 		"openai": "^4.14.2",
 		"p-queue": "^7.4.1",
 		"pg": "^8.11.3",
@@ -27,6 +28,7 @@
 		"undici": "^5.27.0"
 	},
 	"devDependencies": {
+		"@types/luxon": "^3.3.3",
 		"eslint": "^8.52.0",
 		"eslint-config-neon": "^0.1.57",
 		"prettier": "^3.0.3",

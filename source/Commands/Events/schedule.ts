@@ -1,4 +1,3 @@
-import type { ManipulateType } from "dayjs";
 import {
 	type ChatInputCommandInteraction,
 	ApplicationCommandType,
@@ -6,6 +5,7 @@ import {
 	time,
 	TimestampStyles,
 } from "discord.js";
+import { DateTime } from "luxon";
 import DailyGuidesDistribution, { SHARD_ERUPTION_NONE } from "../../Structures/DailyGuidesDistribution.js";
 import { NotificationEvent } from "../../Structures/Notification.js";
 import { ISS_DATES_ACCESSIBLE, INITIAL_TRAVELLING_SPIRIT_SEEK, DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
@@ -41,16 +41,30 @@ function travellingSpiritTime() {
 	}
 }
 
-function scheduleTimes(startingMinute: number, interval: number, intervalType: ManipulateType) {
-	const today = todayDate();
-	const tomorrow = today.add(1, "day");
-	const output = [];
+function scheduleTimes() {
+	const today = DateTime.now().setZone("America/Los_Angeles").startOf("day");
+	const tomorrow = today.plus({ days: 1 });
+	const pollutedGeyser = [];
+	const grandma = [];
+	const turtle = [];
+	const aurora = [];
+	const passage = [];
 
-	for (let start = today.minute(startingMinute); start < tomorrow; start = start.add(interval, intervalType)) {
-		output.push(time(start.unix(), TimestampStyles.ShortTime));
+	// 5 minutes is the least common denominator.
+	for (let start = today; start < tomorrow; start = start.plus({ minutes: 5 })) {
+		const timeString = time(start.toUnixInteger(), TimestampStyles.ShortTime);
+		passage.push(timeString);
+
+		if (start.hour % 2 === 0) {
+			if (start.minute === 5) pollutedGeyser.push(timeString);
+			if (start.minute === 35) grandma.push(timeString);
+			if (start.minute === 50) turtle.push(timeString);
+		}
+
+		if (start.minute === 0 && (start.hour + 2) % 4 === 0) aurora.push(timeString);
 	}
 
-	return output;
+	return { pollutedGeyser, grandma, turtle, aurora, passage };
 }
 
 export default new (class implements ChatInputCommand {
@@ -61,9 +75,9 @@ export default new (class implements ChatInputCommand {
 	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const passageTimes = scheduleTimes(0, 15, "minutes");
-		const passageTimesStart = passageTimes.slice(0, PASSAGE_TRUNCATION_LIMIT);
-		const passageTimesEnd = passageTimes.slice(-PASSAGE_TRUNCATION_LIMIT);
+		const { pollutedGeyser, grandma, turtle, passage, aurora } = scheduleTimes();
+		const passageTimesStart = passage.slice(0, PASSAGE_TRUNCATION_LIMIT);
+		const passageTimesEnd = passage.slice(-PASSAGE_TRUNCATION_LIMIT);
 		const passageTimesString = `${passageTimesStart.join(" ")}... every 15 minutes... ${passageTimesEnd.join(" ")}`;
 
 		const embed = new EmbedBuilder()
@@ -97,12 +111,12 @@ export default new (class implements ChatInputCommand {
 					)})`,
 				},
 				{ name: "Travelling Spirit", value: travellingSpiritTime() },
-				{ name: NotificationEvent.PollutedGeyser, value: scheduleTimes(5, 2, "hours").join(" ") },
-				{ name: NotificationEvent.Grandma, value: scheduleTimes(35, 2, "hours").join(" ") },
-				{ name: NotificationEvent.Turtle, value: scheduleTimes(50, 2, "hours").join(" ") },
+				{ name: NotificationEvent.PollutedGeyser, value: pollutedGeyser.join(" ") },
+				{ name: NotificationEvent.Grandma, value: grandma.join(" ") },
+				{ name: NotificationEvent.Turtle, value: turtle.join(" ") },
 				{
 					name: NotificationEvent.AURORA,
-					value: scheduleTimes(120, 4, "hours").join(" "),
+					value: aurora.join(" "),
 				},
 				{ name: NotificationEvent.Passage, value: passageTimesString },
 			)
