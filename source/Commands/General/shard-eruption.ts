@@ -14,7 +14,7 @@ import {
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
 import { DateTime } from "luxon";
-import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR, TIME_ZONE } from "../../Utility/Constants.js";
 import {
 	cannotUseCustomEmojis,
 	chatInputApplicationCommandMention,
@@ -110,7 +110,7 @@ export default new (class implements ChatInputCommand {
 
 		if (fromMessageComponent) {
 			const { message } = interaction;
-			const expiresAt = DateTime.fromMillis(message.createdTimestamp, { zone: "America/Los_Angeles" }).endOf("day");
+			const expiresAt = DateTime.fromMillis(message.createdTimestamp, { zone: TIME_ZONE }).endOf("day");
 
 			if (today > expiresAt) {
 				const hasEmbeds = message.embeds.length > 0;

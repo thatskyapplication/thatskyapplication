@@ -1,7 +1,7 @@
 import { setInterval } from "node:timers";
 import type { Client } from "discord.js";
 import { DateTime } from "luxon";
-import { ISS_DATES_ACCESSIBLE } from "../Utility/Constants.js";
+import { ISS_DATES_ACCESSIBLE, TIME_ZONE } from "../Utility/Constants.js";
 import { shardEruption } from "../Utility/Utility.js";
 import pQueue from "../pQueue.js";
 import DailyGuides from "./DailyGuides.js";
@@ -32,7 +32,7 @@ async function dailyReset(client: Client<true>) {
 
 export default function heartbeat(client: Client<true>): void {
 	setInterval(() => {
-		const date = DateTime.now().setZone("America/Los_Angeles");
+		const date = DateTime.now().setZone(TIME_ZONE);
 		const { day, weekday, hour, minute, second } = date;
 		const unix = date.toUnixInteger();
 

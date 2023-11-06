@@ -188,6 +188,9 @@ export const GUILD_LOG_CHANNEL_ID = "1107804841813749780" as const;
 export const COMMAND_LOG_CHANNEL_ID = "1114135883604566057" as const;
 export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const;
 
+// Time zone.
+export const TIME_ZONE = "America/Los_Angeles" as const;
+
 // Infographic URLs.
 export const EVENT_CURRENCY_INFOGRAPHIC_URL: string | null = String(
 	new URL("daily_guides/events/days_of_mischief/2023.webp", CDN_URL),

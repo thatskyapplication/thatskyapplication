@@ -24,8 +24,10 @@ import type { SeasonalSpirit, StandardSpirit } from "../Structures/Spirits/Base.
 import type Spirits from "../Structures/Spirits/index.js";
 import {
 	type MeditationMaps,
+	type QuestSpiritSeasons,
 	type RainbowAdmireMaps,
 	type SocialLightAreaMaps,
+	type ValidRealm,
 	CDN_URL,
 	CURRENT_SEASON,
 	CURRENT_SEASONAL_CANDLE_EMOJI,
@@ -53,9 +55,8 @@ import {
 	SEASON_START_DATE,
 	SHARD_ERUPTION_PREDICTION_DATA,
 	SOCIAL_LIGHT_AREA_MAPS,
+	TIME_ZONE,
 	VALID_REALM,
-	type ValidRealm,
-	type QuestSpiritSeasons,
 	QUEST_SPIRITS_SEASONS,
 } from "./Constants.js";
 
@@ -71,11 +72,11 @@ export function notNull<T>(value: T | null): value is T {
 }
 
 export function todayDate() {
-	return DateTime.now().setZone("America/Los_Angeles").startOf("day");
+	return DateTime.now().setZone(TIME_ZONE).startOf("day");
 }
 
 export function skyDate(year: number, month: number, day: number, hour?: number, minute?: number, second?: number) {
-	return DateTime.fromObject({ year, month, day, hour, minute, second }, { zone: "America/Los_Angeles" });
+	return DateTime.fromObject({ year, month, day, hour, minute, second }, { zone: TIME_ZONE });
 }
 
 export function isDuring(start: DateTime, end: DateTime, date = todayDate()) {
