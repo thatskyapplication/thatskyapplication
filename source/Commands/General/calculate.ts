@@ -154,49 +154,97 @@ export default new (class implements ChatInputCommand {
 						},
 						{
 							type: ApplicationCommandOptionType.String,
-							name: "area-1",
+							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 1 }),
+							nameLocalizations: Object.fromEntries(
+								LOCALES.map((locale) => [
+									locale,
+									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 1 }),
+								]),
+							),
 							description: "The first area to calculate winged light from.",
 							choices: wingedLightAreaChoices,
 						},
 						{
 							type: ApplicationCommandOptionType.String,
-							name: "area-2",
+							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 2 }),
+							nameLocalizations: Object.fromEntries(
+								LOCALES.map((locale) => [
+									locale,
+									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 2 }),
+								]),
+							),
 							description: "The second area to calculate winged light from.",
 							choices: wingedLightAreaChoices,
 						},
 						{
 							type: ApplicationCommandOptionType.String,
-							name: "area-3",
+							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 3 }),
+							nameLocalizations: Object.fromEntries(
+								LOCALES.map((locale) => [
+									locale,
+									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 3 }),
+								]),
+							),
 							description: "The third area to calculate winged light from.",
 							choices: wingedLightAreaChoices,
 						},
 						{
 							type: ApplicationCommandOptionType.String,
-							name: "area-4",
+							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 4 }),
+							nameLocalizations: Object.fromEntries(
+								LOCALES.map((locale) => [
+									locale,
+									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 4 }),
+								]),
+							),
 							description: "The fourth area to calculate winged light from.",
 							choices: wingedLightAreaChoices,
 						},
 						{
 							type: ApplicationCommandOptionType.String,
-							name: "area-5",
+							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 5 }),
+							nameLocalizations: Object.fromEntries(
+								LOCALES.map((locale) => [
+									locale,
+									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 5 }),
+								]),
+							),
 							description: "The fifth area to calculate winged light from.",
 							choices: wingedLightAreaChoices,
 						},
 						{
 							type: ApplicationCommandOptionType.String,
-							name: "area-6",
+							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 6 }),
+							nameLocalizations: Object.fromEntries(
+								LOCALES.map((locale) => [
+									locale,
+									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 6 }),
+								]),
+							),
 							description: "The sixth area to calculate winged light from.",
 							choices: wingedLightAreaChoices,
 						},
 						{
 							type: ApplicationCommandOptionType.String,
-							name: "area-7",
+							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 7 }),
+							nameLocalizations: Object.fromEntries(
+								LOCALES.map((locale) => [
+									locale,
+									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 7 }),
+								]),
+							),
 							description: "The seventh area to calculate winged light from.",
 							choices: wingedLightAreaChoices,
 						},
 						{
 							type: ApplicationCommandOptionType.String,
-							name: "area-8",
+							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 8 }),
+							nameLocalizations: Object.fromEntries(
+								LOCALES.map((locale) => [
+									locale,
+									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 8 }),
+								]),
+							),
 							description: "The eighth area to calculate winged light from.",
 							choices: wingedLightAreaChoices,
 						},
