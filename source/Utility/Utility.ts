@@ -1,6 +1,6 @@
 import { URL } from "node:url";
 import { inspect } from "node:util";
-import dayjs, { type Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
 import {
@@ -406,13 +406,16 @@ export function shardEruptionTimestampsString({ timestamps }: ShardEruptionData)
 	return timestamps
 		.map(
 			({ start, end }) =>
-				`${discordTime(start.unix(), TimestampStyles.LongTime)} - ${discordTime(end.unix(), TimestampStyles.LongTime)}`,
+				`${discordTime(start.toUnixInteger(), TimestampStyles.LongTime)} - ${discordTime(
+					end.toUnixInteger(),
+					TimestampStyles.LongTime,
+				)}`,
 		)
 		.join("\n");
 }
 
 export function dateString(date: DateTime) {
-	return date.toFormat("dddd, D MMMM YYYY");
+	return date.toFormat("cccc, d MMMM y");
 }
 
 export function time(timestamp: number, style: TimestampStylesString, relative = false) {

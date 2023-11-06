@@ -1,4 +1,3 @@
-import type { Dayjs } from "dayjs";
 import {
 	type ChatInputCommandInteraction,
 	type MessageComponentInteraction,
@@ -14,12 +13,12 @@ import {
 	StringSelectMenuBuilder,
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
+import { DateTime } from "luxon";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import {
 	cannotUseCustomEmojis,
 	chatInputApplicationCommandMention,
 	dateString,
-	dayjsDate,
 	resolveShardEruptionEmoji,
 	shardEruption,
 	shardEruptionInformationString,
@@ -49,9 +48,9 @@ export const SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS = [
 const SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH = SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.length;
 
 const MAXIMUM_OPTION_NUMBER = 25 as const;
-const DATE_FORMAT_STRING = "D MMMM";
+const DATE_FORMAT_STRING = "d LLLL" as const;
 
-function generateShardEruptionSelectMenuOptions(date: Dayjs, indexStart: number, offset: number) {
+function generateShardEruptionSelectMenuOptions(date: DateTime, indexStart: number, offset: number) {
 	const options = [];
 	const maximumIndex = MAXIMUM_OPTION_NUMBER + indexStart;
 
@@ -59,7 +58,7 @@ function generateShardEruptionSelectMenuOptions(date: Dayjs, indexStart: number,
 		const shardNow = shardEruption(index + offset);
 
 		const stringSelectMenuOption = new StringSelectMenuOptionBuilder()
-			.setLabel(dateString(date.add(index, "days")))
+			.setLabel(dateString(date.plus({ days: index })))
 			.setValue(String(index + offset));
 
 		if (shardNow) {
@@ -111,9 +110,9 @@ export default new (class implements ChatInputCommand {
 
 		if (fromMessageComponent) {
 			const { message } = interaction;
-			const expiresAt = dayjsDate(message.createdTimestamp).add(1, "day").startOf("day");
+			const expiresAt = DateTime.fromMillis(message.createdTimestamp, { zone: "America/Los_Angeles" }).endOf("day");
 
-			if (today.isSame(expiresAt) || today.isAfter(expiresAt)) {
+			if (today > expiresAt) {
 				const hasEmbeds = message.embeds.length > 0;
 
 				const expiryMessage = `This command has expired. Run ${
@@ -156,7 +155,7 @@ export default new (class implements ChatInputCommand {
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
-			.setTitle(dateString(todayDate().add(offset, "days")));
+			.setTitle(dateString(todayDate().plus({ days: offset })));
 
 		const buttonYesterday = new ButtonBuilder()
 			.setCustomId(`${SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID}§${offset - 1}`)
@@ -223,7 +222,7 @@ export default new (class implements ChatInputCommand {
 
 	public async browse(interaction: ButtonInteraction | ChatInputCommandInteraction, offset = 0) {
 		if (await this.hasExpired(interaction)) return;
-		const shardToday = todayDate().add(offset, "days");
+		const shardToday = todayDate().plus({ days: offset });
 
 		const response = {
 			components: [
@@ -236,9 +235,9 @@ export default new (class implements ChatInputCommand {
 							.setMaxValues(1)
 							.setMinValues(1)
 							.setPlaceholder(
-								`${shardToday.add(currentIndex, "days").format(DATE_FORMAT_STRING)} - ${shardToday
-									.add(MAXIMUM_OPTION_NUMBER * (index + 1) - 1, "days")
-									.format(DATE_FORMAT_STRING)}`,
+								`${shardToday.plus({ days: currentIndex }).toFormat(DATE_FORMAT_STRING)} - ${shardToday
+									.plus({ days: MAXIMUM_OPTION_NUMBER * (index + 1) - 1 })
+									.toFormat(DATE_FORMAT_STRING)}`,
 							)
 							.setOptions(generateShardEruptionSelectMenuOptions(shardToday, currentIndex, offset)),
 					);
