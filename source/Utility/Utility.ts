@@ -21,6 +21,7 @@ import {
 	TimestampStyles,
 	hyperlink,
 } from "discord.js";
+import { DateTime } from "luxon";
 import { DAILY_GUIDE_EVENT_ROTATION } from "../Structures/DailyGuides.js";
 import type { SeasonalSpirit, StandardSpirit } from "../Structures/Spirits/Base.js";
 import type Spirits from "../Structures/Spirits/index.js";
@@ -79,17 +80,15 @@ export function dayjsDate(timestamp: number) {
 }
 
 export function todayDate() {
-	const now = dayjs().tz("America/Los_Angeles");
-	return skyDate(now.year(), now.month() + 1, now.date());
+	return DateTime.now().setZone("America/Los_Angeles").startOf("day");
 }
 
-export function skyDate(year: number, month: number, date: number, hour = 0, minute = 0, second = 0) {
-	// https://github.com/iamkun/dayjs/issues/1827
-	return dayjs.tz(`${year}-${month}-${date} ${hour}:${minute}:${second}`, "America/Los_Angeles");
+export function skyDate(year: number, month: number, day: number, hour?: number, minute?: number, second?: number) {
+	return DateTime.fromObject({ year, month, day, hour, minute, second }, { zone: "America/Los_Angeles" });
 }
 
-export function isDuring(start: Dayjs, end: Dayjs, date = todayDate()) {
-	return (date.isSame(start) || date.isAfter(start)) && (date.isBefore(end) || date.isSame(end));
+export function isDuring(start: DateTime, end: DateTime, date = todayDate()) {
+	return date >= start && date <= end;
 }
 
 export function treasureCandleRealm() {
@@ -349,8 +348,8 @@ export function resolveShardEruptionMapURL(map: Map) {
 }
 
 interface ShardEruptionTimestampsData {
-	start: Dayjs;
-	end: Dayjs;
+	start: DateTime;
+	end: DateTime;
 }
 
 export interface ShardEruptionData {
@@ -363,9 +362,9 @@ export interface ShardEruptionData {
 }
 
 export function shardEruption(daysOffset = 0): ShardEruptionData | null {
-	const date = todayDate().add(daysOffset, "days");
-	const dayOfMonth = date.date();
-	const dayOfWeek = date.day();
+	const date = todayDate().plus({ day: daysOffset });
+	const dayOfMonth = date.day;
+	const dayOfWeek = date.weekday;
 	const strong = dayOfMonth % 2 === 1;
 	const infoIndex = strong ? (((dayOfMonth - 1) / 2) % 3) + 2 : (dayOfMonth / 2) % 2;
 	const { noShardWeekDay, interval, offset, area } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex]!;
@@ -377,11 +376,11 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	const timestamps = [];
 
 	for (
-		let startTime = date.add(offset, "milliseconds");
+		let startTime = date.plus({ millisecond: offset });
 		timestamps.length < 3;
-		startTime = startTime.add(interval * 3_600_000, "milliseconds")
+		startTime = startTime.plus({ millisecond: interval * 3_600_000 })
 	) {
-		timestamps.push({ start: startTime.add(520, "seconds"), end: startTime.add(4, "hours") });
+		timestamps.push({ start: startTime.plus({ second: 520 }), end: startTime.plus({ hour: 4 }) });
 	}
 
 	return { realm: VALID_REALM[realmIndex]!, map, strong, reward, timestamps, url };
@@ -414,8 +413,8 @@ export function shardEruptionTimestampsString({ timestamps }: ShardEruptionData)
 		.join("\n");
 }
 
-export function dateString(date: Dayjs) {
-	return date.format("dddd, D MMMM YYYY");
+export function dateString(date: DateTime) {
+	return date.toFormat("dddd, D MMMM YYYY");
 }
 
 export function time(timestamp: number, style: TimestampStylesString, relative = false) {

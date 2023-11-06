@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone.js";
 import utc from "dayjs/plugin/utc.js";
 import { Locale } from "discord.js";
+import { DateTime } from "luxon";
 import { resolveShardEruptionMapURL, skyDate } from "./Utility.js";
 
 dayjs.extend(timezone);
@@ -204,11 +205,11 @@ export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE = skyDate(2_023, 11, 20);
 export const DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE = skyDate(2_023, 11, 26);
 
 export const DOUBLE_SEASONAL_LIGHT_EVENT_DURATION =
-	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days") + 1;
+	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days").days + 1;
 
 export const SEASON_START_DATE = skyDate(2_023, 10, 16); // Season of Revival.
 export const SEASON_END_DATE = skyDate(2_023, 12, 31); // Season of Revival.
-export const SEASON_DURATION = SEASON_END_DATE.diff(SEASON_START_DATE, "days") + 1;
+export const SEASON_DURATION = SEASON_END_DATE.diff(SEASON_START_DATE, "days").days + 1;
 export const EVENT_START_DATE = skyDate(2_023, 10, 23); // Days of Mischief.
 export const EVENT_END_DATE = skyDate(2_023, 11, 12); // Days of Mischief.
 
@@ -238,7 +239,7 @@ export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
 export const SEASON_PASS_SEASONAL_CANDLES_BONUS = 30 as const;
 export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
 export const MAX_HUG_NO = 24 as const;
-export const INITIAL_TRAVELLING_SPIRIT_SEEK = dayjs.tz("2023-05-25 00:00:00", "America/Los_Angeles"); // #88 Grateful Shell Collector.
+export const INITIAL_TRAVELLING_SPIRIT_SEEK = skyDate(2_023, 5, 25); // #88 Grateful Shell Collector.
 export const INITIAL_TREASURE_CANDLE_REALM_SEEK = skyDate(2_023, 9, 29); // Daylight Prairie.
 export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
 export const DEFAULT_EMBED_COLOUR = 0x6f68c9 as const;
@@ -369,7 +370,7 @@ export type RainbowAdmireMaps = (typeof RAINBOW_ADMIRE_MAPS)[number];
 
 export const SHARD_ERUPTION_PREDICTION_DATA = [
 	{
-		noShardWeekDay: [6, 0], // Saturday, Sunday
+		noShardWeekDay: [6, 7], // Saturday, Sunday
 		interval: 8,
 		// 1 hour and 50 minutes.
 		offset: 6_600_000,
@@ -380,7 +381,7 @@ export const SHARD_ERUPTION_PREDICTION_DATA = [
 		})),
 	},
 	{
-		noShardWeekDay: [0, 1], // Sunday, Monday
+		noShardWeekDay: [7, 1], // Sunday, Monday
 		interval: 8,
 		// 2 hours and 10 minutes.
 		offset: 7_800_000,

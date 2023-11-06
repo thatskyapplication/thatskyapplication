@@ -38,8 +38,15 @@ import {
 } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
-const doubleSeasonalLightEventStart = time(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE.unix(), TimestampStyles.ShortDate);
-const doubleSeasonalLightEventEnd = time(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.unix(), TimestampStyles.ShortDate);
+const doubleSeasonalLightEventStart = time(
+	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE.toUnixInteger(),
+	TimestampStyles.ShortDate,
+);
+
+const doubleSeasonalLightEventEnd = time(
+	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.toUnixInteger(),
+	TimestampStyles.ShortDate,
+);
 
 const ASCENDED_CANDLE_MINIMUM_TIME_EYE_OF_EDEN_TEXT =
 	`all statues in the ${Realm.EyeOfEden} were gifted winged light` as const;
