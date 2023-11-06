@@ -386,7 +386,7 @@ export default new (class DailyGuides {
 				reference?.guildId === INFOGRAPHICS_DATABASE_GUILD_ID &&
 				flags.has(MessageFlags.IsCrosspost) &&
 				reference.messageId &&
-				SnowflakeUtil.timestampFrom(reference.messageId) >= todayDate().valueOf(),
+				SnowflakeUtil.timestampFrom(reference.messageId) >= todayDate().toMillis(),
 		);
 	}
 

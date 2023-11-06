@@ -263,8 +263,8 @@ export default class DailyGuidesDistribution {
 
 	public static embed() {
 		const { dailyMessage, quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
-		const date = todayDate();
-		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(dateString(date));
+		const today = todayDate();
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(dateString(today));
 		if (dailyMessage) embed.addFields({ name: dailyMessage.title, value: dailyMessage.description });
 		const quests = [quest1, quest2, quest3, quest4].filter((quest): quest is DailyGuideQuest => quest !== null);
 
@@ -285,7 +285,7 @@ export default class DailyGuidesDistribution {
 		}
 
 		if (inSeason()) {
-			const daysLeftInSeason = SEASON_END_DATE.diff(date, "days");
+			const daysLeftInSeason = SEASON_END_DATE.diff(today, "days").days;
 
 			embed.setFooter({
 				text:
@@ -299,7 +299,7 @@ export default class DailyGuidesDistribution {
 			let rotationNumber: RotationNumber | 3 = rotation;
 			let url = seasonalCandlesRotationURL(realm, rotation);
 
-			if (isDuring(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, date)) {
+			if (isDuring(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, today)) {
 				rotationNumber = 3;
 				url = seasonalCandlesRotationURL(realm, rotation);
 			}
@@ -320,8 +320,8 @@ export default class DailyGuidesDistribution {
 					number: seasonalCandlesLeftWithSeasonPass!,
 				})} remain in the season with a Season Pass.`,
 			});
-		} else if (date.isBefore(SEASON_START_DATE)) {
-			const daysUntilSeason = SEASON_START_DATE.diff(date, "days");
+		} else if (today < SEASON_START_DATE) {
+			const daysUntilSeason = SEASON_START_DATE.diff(today, "days").days;
 
 			embed.setFooter({
 				text: `The new season starts ${daysUntilSeason === 1 ? `tomorrow` : `in ${daysUntilSeason} days`}.`,

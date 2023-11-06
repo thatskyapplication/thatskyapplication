@@ -5,7 +5,6 @@ import {
 	time,
 	TimestampStyles,
 } from "discord.js";
-import { DateTime } from "luxon";
 import DailyGuidesDistribution, { SHARD_ERUPTION_NONE } from "../../Structures/DailyGuidesDistribution.js";
 import { NotificationEvent } from "../../Structures/Notification.js";
 import { ISS_DATES_ACCESSIBLE, INITIAL_TRAVELLING_SPIRIT_SEEK, DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
@@ -15,23 +14,23 @@ import type { ChatInputCommand } from "../index.js";
 const PASSAGE_TRUNCATION_LIMIT = 9 as const;
 
 function dailyResetTime() {
-	return todayDate().add(1, "day").unix();
+	return todayDate().plus({ day: 1 }).toUnixInteger();
 }
 
 function eyeOfEdenResetTime() {
-	return todayDate().day(7).unix();
+	return todayDate().set({ weekday: 7 }).toUnixInteger();
 }
 
 function travellingSpiritTime() {
 	const today = todayDate();
 
-	for (let start = INITIAL_TRAVELLING_SPIRIT_SEEK; ; start = start.add(2, "weeks")) {
-		if (start.isBefore(today) && start.add(3, "days").isBefore(today)) continue;
+	for (let start = INITIAL_TRAVELLING_SPIRIT_SEEK; ; start = start.plus({ week: 2 })) {
+		if (start < today && start.plus({ day: 3 }) < today) continue;
 
-		if (start.isSame(today) || start.isBefore(today) || start.add(3, "days").isBefore(today)) {
+		if (start.equals(today) || start < today || start.plus({ day: 3 }) < today) {
 			return "Today!";
 		} else {
-			const startUnix = start.unix();
+			const startUnix = start.toUnixInteger();
 
 			return `None\n_Next visit at ${time(startUnix, TimestampStyles.ShortDate)} (${time(
 				startUnix,
@@ -42,7 +41,7 @@ function travellingSpiritTime() {
 }
 
 function scheduleTimes() {
-	const today = DateTime.now().setZone("America/Los_Angeles").startOf("day");
+	const today = todayDate();
 	const tomorrow = today.plus({ days: 1 });
 	const pollutedGeyser = [];
 	const grandma = [];
@@ -92,9 +91,9 @@ export default new (class implements ChatInputCommand {
 				},
 				{
 					name: NotificationEvent.ISS,
-					value: ISS_DATES_ACCESSIBLE.filter((issDateAccessible) => issDateAccessible <= todayDate().daysInMonth())
+					value: ISS_DATES_ACCESSIBLE.filter((issDateAccessible) => issDateAccessible <= todayDate().daysInMonth!)
 						.map((issDateAccessible) => {
-							const issDateUnix = todayDate().date(issDateAccessible).unix();
+							const issDateUnix = todayDate().set({ day: issDateAccessible }).toUnixInteger();
 
 							return `${time(issDateUnix, TimestampStyles.ShortDate)} (${time(
 								issDateUnix,

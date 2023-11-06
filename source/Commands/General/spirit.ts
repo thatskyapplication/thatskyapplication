@@ -75,8 +75,8 @@ export default new (class implements AutocompleteCommand {
 		return seasonalSpiritVisit
 			.reduce<string[]>((visits, date, visit) => {
 				visits.push(
-					`${visit === "Error" ? "" : `#`}${visit}: ${time(date.unix(), TimestampStyles.LongDate)} (${time(
-						date.unix(),
+					`${visit === "Error" ? "" : `#`}${visit}: ${time(date.toUnixInteger(), TimestampStyles.LongDate)} (${time(
+						date.toUnixInteger(),
 						TimestampStyles.RelativeTime,
 					)})`,
 				);

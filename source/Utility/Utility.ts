@@ -1,8 +1,5 @@
 import { URL } from "node:url";
 import { inspect } from "node:util";
-import dayjs, { type Dayjs } from "dayjs";
-import timezone from "dayjs/plugin/timezone.js";
-import utc from "dayjs/plugin/utc.js";
 import {
 	type ButtonInteraction,
 	type ChatInputCommandInteraction,
@@ -21,13 +18,16 @@ import {
 	TimestampStyles,
 	hyperlink,
 } from "discord.js";
+import { DateTime } from "luxon";
 import { DAILY_GUIDE_EVENT_ROTATION } from "../Structures/DailyGuides.js";
 import type { SeasonalSpirit, StandardSpirit } from "../Structures/Spirits/Base.js";
 import type Spirits from "../Structures/Spirits/index.js";
 import {
 	type MeditationMaps,
+	type QuestSpiritSeasons,
 	type RainbowAdmireMaps,
 	type SocialLightAreaMaps,
+	type ValidRealm,
 	CDN_URL,
 	CURRENT_SEASON,
 	CURRENT_SEASONAL_CANDLE_EMOJI,
@@ -55,15 +55,12 @@ import {
 	SEASON_START_DATE,
 	SHARD_ERUPTION_PREDICTION_DATA,
 	SOCIAL_LIGHT_AREA_MAPS,
+	TIME_ZONE,
 	VALID_REALM,
-	type ValidRealm,
-	type QuestSpiritSeasons,
 	QUEST_SPIRITS_SEASONS,
 } from "./Constants.js";
 
 const cdn = new CDN();
-dayjs.extend(timezone);
-dayjs.extend(utc);
 
 export function consoleLog(consoleLog: any, stamp = new Date().toISOString()): void {
 	console.log(`- - - - - ${stamp} - - - - -`);
@@ -74,38 +71,24 @@ export function notNull<T>(value: T | null): value is T {
 	return value !== null;
 }
 
-export function dayjsDate(timestamp: number) {
-	return dayjs.tz(timestamp, "America/Los_Angeles");
-}
-
 export function todayDate() {
-	const now = dayjs().tz("America/Los_Angeles");
-	return skyDate(now.year(), now.month() + 1, now.date());
+	return DateTime.now().setZone(TIME_ZONE).startOf("day");
 }
 
-export function skyDate(year: number, month: number, date: number, hour = 0, minute = 0, second = 0) {
-	// https://github.com/iamkun/dayjs/issues/1827
-	return dayjs.tz(`${year}-${month}-${date} ${hour}:${minute}:${second}`, "America/Los_Angeles");
+export function skyDate(year: number, month: number, day: number, hour?: number, minute?: number, second?: number) {
+	return DateTime.fromObject({ year, month, day, hour, minute, second }, { zone: TIME_ZONE });
 }
 
-export function isDuring(start: Dayjs, end: Dayjs, date = todayDate()) {
-	return (date.isSame(start) || date.isAfter(start)) && (date.isBefore(end) || date.isSame(end));
+export function isDuring(start: DateTime, end: DateTime, date = todayDate()) {
+	return date >= start && date <= end;
 }
 
 export function treasureCandleRealm() {
-	return VALID_REALM[
-		dayjs()
-			.tz("America/Los_Angeles")
-			.hour(0)
-			.minute(0)
-			.second(0)
-			.millisecond(0)
-			.diff(INITIAL_TREASURE_CANDLE_REALM_SEEK, "day") % 5
-	]!;
+	return VALID_REALM[todayDate().diff(INITIAL_TREASURE_CANDLE_REALM_SEEK, "day").days % 5]!;
 }
 
 export function seasonalCandlesRotation() {
-	return SEASONAL_CANDLES_ROTATION[todayDate().diff(SEASON_START_DATE, "days") % 10]!;
+	return SEASONAL_CANDLES_ROTATION[todayDate().diff(SEASON_START_DATE, "days").days % 10]!;
 }
 
 export function seasonalCandlesRotationURL(realm: Realm, rotation: 1 | 2 | 3) {
@@ -120,7 +103,7 @@ export function seasonalCandlesRotationURL(realm: Realm, rotation: 1 | 2 | 3) {
 }
 
 export function eventRotationLetter() {
-	return DAILY_GUIDE_EVENT_ROTATION[todayDate().diff(EVENT_START_DATE, "day") % 3]!;
+	return DAILY_GUIDE_EVENT_ROTATION[todayDate().diff(EVENT_START_DATE, "day").days % 3]!;
 }
 
 export async function cannotUseCustomEmojis(
@@ -196,10 +179,8 @@ export function remainingSeasonalCandles() {
 	const today = todayDate();
 
 	const seasonalDoubleLightEvent =
-		(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE.isSame(SEASON_START_DATE) ||
-			DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE.isAfter(SEASON_START_DATE)) &&
-		(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.isSame(SEASON_END_DATE) ||
-			DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.isBefore(SEASON_END_DATE));
+		DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE >= SEASON_START_DATE &&
+		DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE <= SEASON_END_DATE;
 
 	// Calculate the total amount of seasonal candles.
 	let seasonalCandlesTotal = SEASON_DURATION * SEASONAL_CANDLES_PER_DAY;
@@ -213,14 +194,14 @@ export function remainingSeasonalCandles() {
 	}
 
 	// Calculate the amount of seasonal candles so far.
-	const daysSoFar = today.diff(SEASON_START_DATE, "days") + 1;
+	const daysSoFar = today.diff(SEASON_START_DATE, "days").days + 1;
 	let seasonalCandlesSoFar = daysSoFar * SEASONAL_CANDLES_PER_DAY;
 
 	let seasonalCandlesSoFarWithSeasonPass =
 		daysSoFar * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
 
-	if (seasonalDoubleLightEvent && today.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days") >= 0) {
-		const difference = today.diff(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, "days");
+	if (seasonalDoubleLightEvent && today.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days").days >= 0) {
+		const difference = today.diff(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, "days").days;
 
 		const extraSeasonalCandles =
 			// The difference will be a negative number if the event is still ongoing.
@@ -349,8 +330,8 @@ export function resolveShardEruptionMapURL(map: Map) {
 }
 
 interface ShardEruptionTimestampsData {
-	start: Dayjs;
-	end: Dayjs;
+	start: DateTime;
+	end: DateTime;
 }
 
 export interface ShardEruptionData {
@@ -363,9 +344,9 @@ export interface ShardEruptionData {
 }
 
 export function shardEruption(daysOffset = 0): ShardEruptionData | null {
-	const date = todayDate().add(daysOffset, "days");
-	const dayOfMonth = date.date();
-	const dayOfWeek = date.day();
+	const date = todayDate().plus({ day: daysOffset });
+	const dayOfMonth = date.day;
+	const dayOfWeek = date.weekday;
 	const strong = dayOfMonth % 2 === 1;
 	const infoIndex = strong ? (((dayOfMonth - 1) / 2) % 3) + 2 : (dayOfMonth / 2) % 2;
 	const { noShardWeekDay, interval, offset, area } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex]!;
@@ -377,11 +358,11 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	const timestamps = [];
 
 	for (
-		let startTime = date.add(offset, "milliseconds");
+		let startTime = date.plus({ millisecond: offset });
 		timestamps.length < 3;
-		startTime = startTime.add(interval * 3_600_000, "milliseconds")
+		startTime = startTime.plus({ millisecond: interval * 3_600_000 })
 	) {
-		timestamps.push({ start: startTime.add(520, "seconds"), end: startTime.add(4, "hours") });
+		timestamps.push({ start: startTime.plus({ second: 520 }), end: startTime.plus({ hour: 4 }) });
 	}
 
 	return { realm: VALID_REALM[realmIndex]!, map, strong, reward, timestamps, url };
@@ -409,13 +390,16 @@ export function shardEruptionTimestampsString({ timestamps }: ShardEruptionData)
 	return timestamps
 		.map(
 			({ start, end }) =>
-				`${discordTime(start.unix(), TimestampStyles.LongTime)} - ${discordTime(end.unix(), TimestampStyles.LongTime)}`,
+				`${discordTime(start.toUnixInteger(), TimestampStyles.LongTime)} - ${discordTime(
+					end.toUnixInteger(),
+					TimestampStyles.LongTime,
+				)}`,
 		)
 		.join("\n");
 }
 
-export function dateString(date: Dayjs) {
-	return date.format("dddd, D MMMM YYYY");
+export function dateString(date: DateTime) {
+	return date.toFormat("cccc, d MMMM y");
 }
 
 export function time(timestamp: number, style: TimestampStylesString, relative = false) {

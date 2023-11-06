@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/prefer-math-trunc */
-import type { Dayjs } from "dayjs";
 import { Collection } from "discord.js";
+import type { DateTime } from "luxon";
 import { Realm, Season } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/Utility.js";
 import {
@@ -45,6 +45,6 @@ export default new SeasonalSpirit({
 			.set(1 << 8, { item: "Prop", cost: { candles: 70 } }),
 	},
 	visits: {
-		travelling: new Collection<SeasonalSpiritVisitCollectionKey, Dayjs>().set(96, skyDate(2_023, 9, 14)),
+		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(96, skyDate(2_023, 9, 14)),
 	},
 });

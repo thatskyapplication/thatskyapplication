@@ -38,8 +38,15 @@ import {
 } from "../../Utility/Utility.js";
 import type { ChatInputCommand } from "../index.js";
 
-const doubleSeasonalLightEventStart = time(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE.unix(), TimestampStyles.ShortDate);
-const doubleSeasonalLightEventEnd = time(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.unix(), TimestampStyles.ShortDate);
+const doubleSeasonalLightEventStart = time(
+	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE.toUnixInteger(),
+	TimestampStyles.ShortDate,
+);
+
+const doubleSeasonalLightEventEnd = time(
+	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.toUnixInteger(),
+	TimestampStyles.ShortDate,
+);
 
 const ASCENDED_CANDLE_MINIMUM_TIME_EYE_OF_EDEN_TEXT =
 	`all statues in the ${Realm.EyeOfEden} were gifted winged light` as const;
@@ -299,12 +306,12 @@ export default new (class implements ChatInputCommand {
 				}
 			}
 
-			if (eyeOfEden && day.day() === 0) result += ASCENDED_CANDLES_PER_WEEK;
+			if (eyeOfEden && day.weekday === 7) result += ASCENDED_CANDLES_PER_WEEK;
 			if (result >= amountRequired) break;
-			day = day.add(1, "day");
+			day = day.plus({ day: 1 });
 		}
 
-		const timestamp = day.unix();
+		const timestamp = day.toUnixInteger();
 		let minimumTimeText = "Minimum time derived by assuming ";
 
 		if (eyeOfEden && shardEruptions) {
@@ -374,7 +381,7 @@ export default new (class implements ChatInputCommand {
 		let daysWithSeasonPass = 1;
 		let includedDoubleLight = false;
 
-		for (let day = today; result < amountRequired; day = day.add(1, "day"), days++) {
+		for (let day = today; result < amountRequired; day = day.plus({ day: 1 }), days++) {
 			result += SEASONAL_CANDLES_PER_DAY;
 			resultWithSeasonPass += SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS;
 
