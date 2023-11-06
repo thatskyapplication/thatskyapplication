@@ -1,8 +1,5 @@
 import { URL } from "node:url";
 import { inspect } from "node:util";
-import dayjs from "dayjs";
-import timezone from "dayjs/plugin/timezone.js";
-import utc from "dayjs/plugin/utc.js";
 import {
 	type ButtonInteraction,
 	type ChatInputCommandInteraction,
@@ -63,8 +60,6 @@ import {
 } from "./Constants.js";
 
 const cdn = new CDN();
-dayjs.extend(timezone);
-dayjs.extend(utc);
 
 export function consoleLog(consoleLog: any, stamp = new Date().toISOString()): void {
 	console.log(`- - - - - ${stamp} - - - - -`);
@@ -73,10 +68,6 @@ export function consoleLog(consoleLog: any, stamp = new Date().toISOString()): v
 
 export function notNull<T>(value: T | null): value is T {
 	return value !== null;
-}
-
-export function dayjsDate(timestamp: number) {
-	return dayjs.tz(timestamp, "America/Los_Angeles");
 }
 
 export function todayDate() {
@@ -92,19 +83,11 @@ export function isDuring(start: DateTime, end: DateTime, date = todayDate()) {
 }
 
 export function treasureCandleRealm() {
-	return VALID_REALM[
-		dayjs()
-			.tz("America/Los_Angeles")
-			.hour(0)
-			.minute(0)
-			.second(0)
-			.millisecond(0)
-			.diff(INITIAL_TREASURE_CANDLE_REALM_SEEK, "day") % 5
-	]!;
+	return VALID_REALM[todayDate().diff(INITIAL_TREASURE_CANDLE_REALM_SEEK, "day").days % 5]!;
 }
 
 export function seasonalCandlesRotation() {
-	return SEASONAL_CANDLES_ROTATION[todayDate().diff(SEASON_START_DATE, "days") % 10]!;
+	return SEASONAL_CANDLES_ROTATION[todayDate().diff(SEASON_START_DATE, "days").days % 10]!;
 }
 
 export function seasonalCandlesRotationURL(realm: Realm, rotation: 1 | 2 | 3) {
@@ -119,7 +102,7 @@ export function seasonalCandlesRotationURL(realm: Realm, rotation: 1 | 2 | 3) {
 }
 
 export function eventRotationLetter() {
-	return DAILY_GUIDE_EVENT_ROTATION[todayDate().diff(EVENT_START_DATE, "day") % 3]!;
+	return DAILY_GUIDE_EVENT_ROTATION[todayDate().diff(EVENT_START_DATE, "day").days % 3]!;
 }
 
 export async function cannotUseCustomEmojis(

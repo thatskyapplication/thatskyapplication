@@ -1,7 +1,4 @@
 import { setInterval } from "node:timers";
-import dayjs from "dayjs";
-import timezone from "dayjs/plugin/timezone.js";
-import utc from "dayjs/plugin/utc.js";
 import type { Client } from "discord.js";
 import { ISS_DATES_ACCESSIBLE } from "../Utility/Constants.js";
 import { shardEruption } from "../Utility/Utility.js";
@@ -11,9 +8,6 @@ import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import Notification, { NotificationEvent, type NotificationSendExtra } from "./Notification.js";
 
 let shardEruptionToday = shardEruption();
-
-dayjs.extend(timezone);
-dayjs.extend(utc);
 
 async function sendNotification(client: Client<true>, type: NotificationEvent, extra?: NotificationSendExtra) {
 	const settled = await Promise.allSettled(
