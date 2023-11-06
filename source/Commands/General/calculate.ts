@@ -60,8 +60,14 @@ const wingedLightAreaChoices = WINGED_LIGHT_AREAS.map((area) => ({
 export default new (class implements ChatInputCommand {
 	public get data() {
 		return {
-			name: "calculate",
-			description: "The command containing various calculators.",
+			name: t("calculate.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+			nameLocalizations: Object.fromEntries(
+				LOCALES.map((locale) => [locale, t("calculate.command-name", { lng: locale, ns: "commands" })]),
+			),
+			description: t("calculate.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+			descriptionLocalizations: Object.fromEntries(
+				LOCALES.map((locale) => [locale, t("calculate.command-description", { lng: locale, ns: "commands" })]),
+			),
 			type: ApplicationCommandType.ChatInput,
 			options: [
 				{

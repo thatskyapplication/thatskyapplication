@@ -7,6 +7,8 @@ export default {
 	},
 	commands: {
 		calculate: {
+			"command-name": "calculate",
+			"command-description": "The command containing various calculators.",
 			"seasonal-candles": {
 				"goal-achieved": "You have already achieved your goal!",
 			},
