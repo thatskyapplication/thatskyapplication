@@ -1,5 +1,6 @@
 import { setInterval } from "node:timers";
 import type { Client } from "discord.js";
+import { DateTime } from "luxon";
 import { ISS_DATES_ACCESSIBLE } from "../Utility/Constants.js";
 import { shardEruption } from "../Utility/Utility.js";
 import pQueue from "../pQueue.js";
@@ -31,26 +32,22 @@ async function dailyReset(client: Client<true>) {
 
 export default function heartbeat(client: Client<true>): void {
 	setInterval(() => {
-		const dayjsDate = dayjs().tz("America/Los_Angeles");
-		const unix = dayjsDate.unix();
-		const date = dayjsDate.date();
-		const day = dayjsDate.day();
-		const hour = dayjsDate.hour();
-		const minute = dayjsDate.minute();
-		const second = dayjsDate.second();
+		const date = DateTime.now().setZone("America/Los_Angeles");
+		const { day, weekday, hour, minute, second } = date;
+		const unix = date.toUnixInteger();
 
 		if (second === 0) {
 			if (hour === 0 && minute === 0) {
 				void dailyReset(client);
-				if (day === 0) void sendNotification(client, NotificationEvent.EyeOfEden);
+				if (weekday === 7) void sendNotification(client, NotificationEvent.EyeOfEden);
 				// @ts-expect-error Too narrow.
-				if (ISS_DATES_ACCESSIBLE.includes(date)) void sendNotification(client, NotificationEvent.ISS);
+				if (ISS_DATES_ACCESSIBLE.includes(day)) void sendNotification(client, NotificationEvent.ISS);
 			}
 
 			if (shardEruptionToday) {
 				const { strong, timestamps } = shardEruptionToday;
 
-				if (timestamps.some(({ start }) => start.diff(dayjsDate, "minutes") === 5)) {
+				if (timestamps.some(({ start }) => start.diff(date, "minutes").minutes === 5)) {
 					void sendNotification(
 						client,
 						strong ? NotificationEvent.StrongShardEruption : NotificationEvent.RegularShardEruption,
