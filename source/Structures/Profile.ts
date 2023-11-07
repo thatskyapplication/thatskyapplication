@@ -18,7 +18,6 @@ import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-prof
 import commands from "../Commands/index.js";
 import S3Client from "../S3Client.js";
 import { CDN_BUCKET, CDN_URL, DEFAULT_EMBED_COLOUR, Emoji, MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
-import { cannotUseCustomEmojis } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
 import { resolveBitsToSeasons } from "./Seasons.js";
@@ -135,14 +134,6 @@ export default class Profile {
 		data: ProfileSetData,
 	) {
 		let profile = await this.fetch(interaction.user.id).catch(() => null);
-
-		if (
-			((data.seasons !== 0 && (data.seasons || profile?.seasons)) ||
-				(data.platform !== 0 && (data.platform || profile?.platform))) &&
-			(await cannotUseCustomEmojis(interaction))
-		) {
-			return;
-		}
 
 		if (profile) {
 			const [profilePacket] = await pg<ProfilePacket>(Table.Profiles)

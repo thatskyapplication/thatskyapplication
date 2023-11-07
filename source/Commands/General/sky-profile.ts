@@ -190,6 +190,7 @@ export default new (class implements AutocompleteCommand {
 	}
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
+		if (await cannotUseCustomEmojis(interaction)) return;
 		const { options } = interaction;
 
 		switch (options.getSubcommandGroup() ?? options.getSubcommand()) {
