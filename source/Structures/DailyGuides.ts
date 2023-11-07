@@ -91,6 +91,7 @@ interface DailyGuideMessage {
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
+const LIGHT_20_CANDLES = { content: "Light 20 candles", url: null } as const;
 const FORGE_A_CANDLE = { content: "Forge a candle", url: null } as const;
 
 const BOW_AT_A_PLAYER = {
@@ -308,6 +309,7 @@ const SPIRIT_QUEST = (spirit: QuestSpirit) =>
 	}) as const;
 
 export const QUESTS = [
+	LIGHT_20_CANDLES,
 	FORGE_A_CANDLE,
 	BOW_AT_A_PLAYER,
 	FOLLOW_A_FRIEND,
