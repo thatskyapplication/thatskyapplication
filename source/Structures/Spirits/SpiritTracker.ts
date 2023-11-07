@@ -718,7 +718,13 @@ function bitPercentage(bit: SpiritTrackerValue, maximumBit: number, round?: bool
 		? ((bit.toString(2).split("1").length - 1) / (maximumBit.toString(2).split("1").length - 1)) * 100
 		: 0;
 
-	if (round) percentage = Math.round(percentage);
+	if (round) {
+		const integer = Math.trunc(percentage);
+
+		percentage =
+			integer === 0 ? Math.ceil(percentage) : integer === 99 ? Math.floor(percentage) : Math.round(percentage);
+	}
+
 	return percentage;
 }
 
@@ -1283,7 +1289,11 @@ export class SpiritTracker {
 				? 100
 				: progresses.reduce((number, progression) => number + progression, 0) / progresses.length;
 
-		if (round) progress = Math.round(progress);
+		if (round) {
+			const integer = Math.trunc(progress);
+			progress = integer === 0 ? Math.ceil(progress) : integer === 99 ? Math.floor(progress) : Math.round(progress);
+		}
+
 		return progress;
 	}
 
