@@ -7,16 +7,17 @@ import {
 	type ModalSubmitInteraction,
 	type Snowflake,
 	type UserContextMenuCommandInteraction,
-	EmbedBuilder,
-	StringSelectMenuInteraction,
 	chatInputApplicationCommandMention,
+	EmbedBuilder,
+	formatEmoji,
+	StringSelectMenuInteraction,
 } from "discord.js";
 import hasha from "hasha";
 import sharp from "sharp";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import commands from "../Commands/index.js";
 import S3Client from "../S3Client.js";
-import { CDN_BUCKET, CDN_URL, DEFAULT_EMBED_COLOUR, MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
+import { CDN_BUCKET, CDN_URL, DEFAULT_EMBED_COLOUR, Emoji, MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
 import { cannotUseCustomEmojis } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
@@ -358,7 +359,7 @@ export default class Profile {
 					wingedLight === 0
 						? "Capeless"
 						: wingedLight === MAXIMUM_WINGED_LIGHT
-						? `${wingedLight} (Max 🪽)`
+						? `${wingedLight} (Max ${formatEmoji(Emoji.WingedLight)})`
 						: String(wingedLight),
 				inline: true,
 			});
