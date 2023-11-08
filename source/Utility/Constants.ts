@@ -1,7 +1,6 @@
 import process from "node:process";
 import { URL } from "node:url";
 import { Locale } from "discord.js";
-import { resolveShardEruptionMapURL, skyDate } from "./Utility.js";
 
 export const enum Emoji {
 	AscendedCandle = "1074399464627912755",
@@ -196,19 +195,6 @@ export const EVENT_CURRENCY_INFOGRAPHIC_URL: string | null = String(
 	new URL("daily_guides/events/days_of_mischief/2023.webp", CDN_URL),
 );
 
-// Dates.
-export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE = skyDate(2_023, 11, 20);
-export const DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE = skyDate(2_023, 11, 26);
-
-export const DOUBLE_SEASONAL_LIGHT_EVENT_DURATION =
-	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days").days + 1;
-
-export const SEASON_START_DATE = skyDate(2_023, 10, 16); // Season of Revival.
-export const SEASON_END_DATE = skyDate(2_023, 12, 31); // Season of Revival.
-export const SEASON_DURATION = SEASON_END_DATE.diff(SEASON_START_DATE, "days").days + 1;
-export const EVENT_START_DATE = skyDate(2_023, 10, 23); // Days of Mischief.
-export const EVENT_END_DATE = skyDate(2_023, 11, 12); // Days of Mischief.
-
 // Current seasonal information.
 export const CURRENT_SEASON = Season.Revival;
 export const CURRENT_SEASONAL_EMOJI = Emoji.SeasonRevival;
@@ -235,8 +221,6 @@ export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
 export const SEASON_PASS_SEASONAL_CANDLES_BONUS = 30 as const;
 export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
 export const MAX_HUG_NO = 24 as const;
-export const INITIAL_TRAVELLING_SPIRIT_SEEK = skyDate(2_023, 5, 25); // #88 Grateful Shell Collector.
-export const INITIAL_TREASURE_CANDLE_REALM_SEEK = skyDate(2_023, 9, 29); // Daylight Prairie.
 export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
 export const DEFAULT_EMBED_COLOUR = 0x6f68c9 as const;
 export const MAXIMUM_EMBED_FIELD_NAME_LENGTH = 256 as const;
@@ -363,70 +347,6 @@ export const RAINBOW_ADMIRE_MAPS = [
 	Map.StarlightDesert,
 ] as const;
 export type RainbowAdmireMaps = (typeof RAINBOW_ADMIRE_MAPS)[number];
-
-export const SHARD_ERUPTION_PREDICTION_DATA = [
-	{
-		noShardWeekDay: [6, 7], // Saturday, Sunday
-		interval: 8,
-		// 1 hour and 50 minutes.
-		offset: 6_600_000,
-		area: [Map.ButterflyFields, Map.ForestBrook, Map.IceRink, Map.BrokenTemple, Map.StarlightDesert].map((map) => ({
-			map,
-			url: resolveShardEruptionMapURL(map),
-			reward: 200,
-		})),
-	},
-	{
-		noShardWeekDay: [7, 1], // Sunday, Monday
-		interval: 8,
-		// 2 hours and 10 minutes.
-		offset: 7_800_000,
-		area: [Map.KoiPond, Map.Boneyard, Map.IceRink, Map.Battlefield, Map.StarlightDesert].map((map) => ({
-			map,
-			url: resolveShardEruptionMapURL(map),
-			reward: 200,
-		})),
-	},
-	{
-		noShardWeekDay: [1, 2], // Monday, Tuesday
-		interval: 6,
-		// 7 hours and 40 minutes.
-		offset: 27_600_000,
-		area: [
-			{ map: Map.Cave, url: resolveShardEruptionMapURL(Map.Cave), reward: 2 },
-			{ map: Map.ForestEnd, url: resolveShardEruptionMapURL(Map.ForestEnd), reward: 2.5 },
-			{ map: Map.VillageOfDreams, url: resolveShardEruptionMapURL(Map.VillageOfDreams), reward: 2.5 },
-			{ map: Map.Graveyard, url: resolveShardEruptionMapURL(Map.Graveyard), reward: 2 },
-			{ map: Map.JellyfishCove, url: resolveShardEruptionMapURL(Map.JellyfishCove), reward: 3.5 },
-		],
-	},
-	{
-		noShardWeekDay: [2, 3], // Tuesday, Wednesday
-		interval: 6,
-		// 2 hours and 20 minutes.
-		offset: 8_400_000,
-		area: [
-			{ map: Map.BirdNest, url: resolveShardEruptionMapURL(Map.BirdNest), reward: 2.5 },
-			{ map: Map.Treehouse, url: resolveShardEruptionMapURL(Map.Treehouse), reward: 3.5 },
-			{ map: Map.VillageOfDreams, url: resolveShardEruptionMapURL(Map.VillageOfDreams), reward: 2.5 },
-			{ map: Map.CrabFields, url: resolveShardEruptionMapURL(Map.CrabFields), reward: 2.5 },
-			{ map: Map.JellyfishCove, url: resolveShardEruptionMapURL(Map.JellyfishCove), reward: 3.5 },
-		],
-	},
-	{
-		noShardWeekDay: [3, 4], // Wednesday, Thursday
-		interval: 6,
-		// 3 hours and 30 minutes.
-		offset: 12_600_000,
-		area: [
-			{ map: Map.SanctuaryIslands, url: resolveShardEruptionMapURL(Map.SanctuaryIslands), reward: 3.5 },
-			{ map: Map.ElevatedClearing, url: resolveShardEruptionMapURL(Map.ElevatedClearing), reward: 3.5 },
-			{ map: Map.HermitValley, url: resolveShardEruptionMapURL(Map.HermitValley), reward: 3.5 },
-			{ map: Map.ForgottenArk, url: resolveShardEruptionMapURL(Map.ForgottenArk), reward: 3.5 },
-			{ map: Map.JellyfishCove, url: resolveShardEruptionMapURL(Map.JellyfishCove), reward: 3.5 },
-		],
-	},
-] as const;
 
 export const WINGED_LIGHT_AREAS = [...REALM_VALUES, Map.AncientMemory] as const;
 export const WingedLightAreasToSpanish = { ...RealmToSpanishRealm, [Map.AncientMemory]: "Recuerdo Ancestral" } as const;
