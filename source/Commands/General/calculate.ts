@@ -16,8 +16,6 @@ import {
 	Realm,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
-	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
-	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	ASCENDED_CANDLES_PER_WEEK,
 	Map,
 	WINGED_LIGHT_AREAS,
@@ -36,6 +34,7 @@ import {
 	shardEruption,
 	todayDate,
 } from "../../Utility/Utility.js";
+import { DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE } from "../../Utility/dates.js";
 import type { ChatInputCommand } from "../index.js";
 
 const doubleSeasonalLightEventStart = time(

@@ -1,6 +1,7 @@
 import process from "node:process";
 import { Events } from "discord.js";
 import AI, { type AIPacket } from "../Structures/AI.js";
+import Configuration, { type ConfigurationPacket } from "../Structures/Configuration.js";
 import type { DailyGuidesPacket } from "../Structures/DailyGuides.js";
 import DailyGuides from "../Structures/DailyGuides.js";
 import heartbeat from "../Structures/Heartbeat.js";
@@ -14,6 +15,7 @@ const name = Events.ClientReady;
 
 async function collectFromDatabase() {
 	try {
+		await collectConfigurations();
 		await collectAI();
 		await collectNotifications();
 		await collectDailyGuides();
@@ -21,6 +23,11 @@ async function collectFromDatabase() {
 		consoleLog(error);
 		process.exit(1);
 	}
+}
+
+async function collectConfigurations() {
+	const [configurationPacket] = await pg<ConfigurationPacket>(Table.Configuration);
+	Configuration.patch(configurationPacket!);
 }
 
 async function collectAI() {

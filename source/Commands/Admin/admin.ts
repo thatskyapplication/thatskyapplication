@@ -17,6 +17,7 @@ import {
 	ButtonStyle,
 	ActivityType,
 } from "discord.js";
+import Configuration from "../../Structures/Configuration.js";
 import DailyGuides, { type QuestNumber, QUEST_NUMBER, QUESTS } from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import { MAXIMUM_EMBED_FIELD_NAME_LENGTH, MAXIMUM_EMBED_FIELD_VALUE_LENGTH } from "../../Utility/Constants.js";
@@ -45,6 +46,19 @@ export default new (class implements AutocompleteCommand {
 		description: "Developer-specific commands.",
 		type: ApplicationCommandType.ChatInput,
 		options: [
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "ai",
+				description: "Toggles the AI feature.",
+				options: [
+					{
+						type: ApplicationCommandOptionType.Boolean,
+						name: "enable",
+						description: "Whether the AI feature should be enabled.",
+						required: true,
+					},
+				],
+			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: "custom-status",
@@ -114,12 +128,21 @@ export default new (class implements AutocompleteCommand {
 		const { options } = interaction;
 
 		switch (options.getSubcommandGroup() ?? options.getSubcommand()) {
+			case "ai":
+				await this.ai(interaction);
+				return;
 			case "custom-status":
 				await this.customStatus(interaction);
 				return;
 			case "daily-guides":
 				await this.dailyGuides(interaction);
 		}
+	}
+
+	public async ai(interaction: ChatInputCommandInteraction) {
+		const enable = interaction.options.getBoolean("enable", true);
+		await Configuration.edit({ ai: enable });
+		await interaction.reply({ content: `AI feature set to \`${Configuration.ai}\`.`, ephemeral: true });
 	}
 
 	public async customStatus(interaction: ChatInputCommandInteraction) {

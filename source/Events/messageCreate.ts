@@ -1,6 +1,7 @@
 import { Events, PermissionFlagsBits } from "discord.js";
 import { messageCreateEmojiResponse, messageCreateResponse } from "../OpenAI.js";
 import AI, { AIFrequencyType, AIFrequencyTypeToValue } from "../Structures/AI.js";
+import Configuration from "../Structures/Configuration.js";
 import DailyGuides from "../Structures/DailyGuides.js";
 import type { Event } from "./index.js";
 
@@ -14,6 +15,7 @@ export const event: Event<typeof name> = {
 		const me = await message.guild.members.fetchMe();
 
 		if (
+			!Configuration.ai ||
 			message.author.bot ||
 			!message.channel
 				.permissionsFor(me)
