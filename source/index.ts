@@ -1,19 +1,23 @@
 import { stat, unlink, writeFile } from "node:fs/promises";
 import process from "node:process";
 import { inspect } from "node:util";
-import type {
-	ApplicationCommandData,
-	Snowflake,
-	ApplicationCommand,
-	Collection,
-	Guild,
-	ClientOptions,
+import {
+	type ApplicationCommand,
+	type ApplicationCommandData,
+	type ClientOptions,
+	type Collection,
+	type Guild,
+	type Snowflake,
+	Client,
+	EmbedBuilder,
+	GatewayIntentBits,
+	Locale,
+	PermissionFlagsBits,
+	TextChannel,
 } from "discord.js";
-import { Client, GatewayIntentBits, TextChannel, EmbedBuilder, PermissionFlagsBits, Locale } from "discord.js";
 import { init } from "i18next";
 import commands from "./Commands/index.js";
-import type { Event } from "./Events/index.js";
-import events from "./Events/index.js";
+import events, { type Event } from "./Events/index.js";
 import enGB from "./Locales/en-GB.js";
 import esES from "./Locales/es-ES.js";
 import {
