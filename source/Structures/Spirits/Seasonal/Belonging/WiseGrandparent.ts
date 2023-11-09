@@ -19,7 +19,6 @@ export default new SeasonalSpirit({
 	stance,
 	realm: Realm.VaultOfKnowledge,
 	offer: {
-		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${stance} stance`, cost: null })
 			.set(1 << 3, { item: "Blessing 1", cost: { seasonalCandles: 10 } })
