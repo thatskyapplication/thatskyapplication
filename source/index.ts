@@ -12,6 +12,7 @@ import {
 	EmbedBuilder,
 	GatewayIntentBits,
 	Locale,
+	Options,
 	PermissionFlagsBits,
 	TextChannel,
 } from "discord.js";
@@ -200,6 +201,7 @@ class Caelus extends Client {
 
 const client = new Caelus({
 	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMessages | GatewayIntentBits.MessageContent,
+	makeCache: Options.cacheWithLimits({ MessageManager: 15 }),
 });
 
 for (const event of events) {
