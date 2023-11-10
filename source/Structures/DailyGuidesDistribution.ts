@@ -17,10 +17,8 @@ import type { DateTime } from "luxon";
 import { DEFAULT_EMBED_COLOUR, Emoji } from "../Utility/Constants.js";
 import {
 	resolveCurrencyEmoji,
-	todayDate,
 	treasureCandleRealm,
 	formatEmojiURL,
-	isDuring,
 	shardEruption,
 	dateString,
 	shardEruptionInformationString,
@@ -30,6 +28,8 @@ import {
 	currentEvent,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
+	isDuring,
+	todayDate,
 } from "../Utility/dates.js";
 import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";

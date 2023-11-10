@@ -18,16 +18,12 @@ import {
 	TimestampStyles,
 	hyperlink,
 } from "discord.js";
-import { DateTime } from "luxon";
-import { type SeasonName } from "../Structures/Season.js";
-import type { SeasonalSpirit, StandardSpirit } from "../Structures/Spirits/Base.js";
-import type Spirits from "../Structures/Spirits/index.js";
+import type { DateTime } from "luxon";
 import {
 	type MeditationMaps,
-	type QuestSpiritSeasons,
 	type RainbowAdmireMaps,
+	type Realm,
 	type SocialLightAreaMaps,
-	type ValidRealm,
 	CDN_URL,
 	Emoji,
 	INCONSISTENT_MAP,
@@ -35,14 +31,11 @@ import {
 	Map,
 	MEDITATION_MAPS,
 	RAINBOW_ADMIRE_MAPS,
-	Realm,
 	REALM_VALUES,
 	SOCIAL_LIGHT_AREA_MAPS,
-	TIME_ZONE,
 	VALID_REALM,
-	QUEST_SPIRITS_SEASONS,
 } from "./Constants.js";
-import { INITIAL_TREASURE_CANDLE_REALM_SEEK } from "./dates.js";
+import { INITIAL_TREASURE_CANDLE_REALM_SEEK, todayDate } from "./dates.js";
 import { SHARD_ERUPTION_PREDICTION_DATA } from "./shardEruption.js";
 
 const cdn = new CDN();
@@ -54,18 +47,6 @@ export function consoleLog(consoleLog: any, stamp = new Date().toISOString()): v
 
 export function notNull<T>(value: T | null): value is T {
 	return value !== null;
-}
-
-export function todayDate() {
-	return DateTime.now().setZone(TIME_ZONE).startOf("day");
-}
-
-export function skyDate(year: number, month: number, day: number, hour?: number, minute?: number, second?: number) {
-	return DateTime.fromObject({ year, month, day, hour, minute, second }, { zone: TIME_ZONE });
-}
-
-export function isDuring(start: DateTime, end: DateTime, date = todayDate()) {
-	return date >= start && date <= end;
 }
 
 export function treasureCandleRealm() {
@@ -114,33 +95,6 @@ export function resolveCurrencyEmoji({
 	includeSpaceInEmoji = false,
 }: CurrencyEmojiOptions) {
 	return `${number}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji, animated)}`;
-}
-
-/**
- * @privateRemarks Defines a spirit that may be encountered in a daily quest. So far, that includes:
- *
- * - Standard spirits.
- * - Seasonal spirits from ({@link QuestSpiritSeasons}).
- *
- * Spirits must not be in the {@link Realm.IslesOfDawn | Isles of Dawn}.
- *
- * These spirits must have an associated infographic.
- */
-export type QuestSpirit = (StandardSpirit | (SeasonalSpirit & { season: QuestSpiritSeasons })) & { realm: ValidRealm };
-
-export function isQuestSpiritsSeason(season: SeasonName): season is QuestSpiritSeasons {
-	return QUEST_SPIRITS_SEASONS.includes(season as QuestSpiritSeasons);
-}
-
-export function isQuestSpirit(spirit: (typeof Spirits)[number]): spirit is QuestSpirit {
-	if (spirit.realm === Realm.IslesOfDawn) return false;
-	if (spirit.isStandardSpirit()) return true;
-
-	if (spirit.isSeasonalSpirit() && isQuestSpiritsSeason(spirit.season)) {
-		return QUEST_SPIRITS_SEASONS.includes(spirit.season);
-	}
-
-	return false;
 }
 
 export function isRealm(realm: string): realm is Realm {

@@ -20,28 +20,28 @@ import {
 	INFOGRAPHICS_DATABASE_GUILD_ID,
 	Map,
 	MEDITATION_MAPS,
+	RAINBOW_ADMIRE_MAPS,
+	Realm,
 	REALM_VALUES,
 	SOCIAL_LIGHT_AREA_MAPS,
 	SocialLightAreaMapToCDNString,
 	VALID_REALM,
-	RAINBOW_ADMIRE_MAPS,
 } from "../Utility/Constants.js";
 import {
-	type QuestSpirit,
 	consoleLog,
 	isMeditationMap,
-	isQuestSpirit,
 	isRainbowAdmireMap,
 	isSocialLightAreaMap,
 	resolveMap,
 	resolveMeditationMap,
 	resolveSocialLightAreaMap,
 	resolveValidRealm,
-	todayDate,
 } from "../Utility/Utility.js";
+import { todayDate } from "../Utility/dates.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
-import { Expression } from "./Spirits/Base.js";
+import { SeasonName } from "./Season.js";
+import { type SeasonalSpirit, type StandardSpirit, Expression } from "./Spirits/Base.js";
 import Spirits from "./Spirits/index.js";
 
 export interface DailyGuidesPacket {
@@ -87,6 +87,46 @@ interface DailyGuideMessage {
 
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
+
+export const QUEST_SPIRITS_SEASONS = [
+	SeasonName.Gratitude,
+	SeasonName.Lightseekers,
+	SeasonName.Belonging,
+	SeasonName.Rhythm,
+	SeasonName.Enchantment,
+	SeasonName.Sanctuary,
+	SeasonName.Dreams,
+	SeasonName.Assembly,
+] as const;
+
+export type QuestSpiritSeasons = (typeof QUEST_SPIRITS_SEASONS)[number];
+
+/**
+ * @privateRemarks Defines a spirit that may be encountered in a daily quest. So far, that includes:
+ *
+ * - Standard spirits.
+ * - Seasonal spirits from ({@link QuestSpiritSeasons}).
+ *
+ * Spirits must not be in the {@link Realm.IslesOfDawn | Isles of Dawn}.
+ *
+ * These spirits must have an associated infographic.
+ */
+export type QuestSpirit = (StandardSpirit | (SeasonalSpirit & { season: QuestSpiritSeasons })) & { realm: ValidRealm };
+
+export function isQuestSpiritsSeason(season: SeasonName): season is QuestSpiritSeasons {
+	return QUEST_SPIRITS_SEASONS.includes(season as QuestSpiritSeasons);
+}
+
+export function isQuestSpirit(spirit: (typeof Spirits)[number]): spirit is QuestSpirit {
+	if (spirit.realm === Realm.IslesOfDawn) return false;
+	if (spirit.isStandardSpirit()) return true;
+
+	if (spirit.isSeasonalSpirit() && isQuestSpiritsSeason(spirit.season)) {
+		return QUEST_SPIRITS_SEASONS.includes(spirit.season);
+	}
+
+	return false;
+}
 
 const LIGHT_20_CANDLES = { content: "Light 20 candles", url: null } as const;
 const FORGE_A_CANDLE = { content: "Forge a candle", url: null } as const;

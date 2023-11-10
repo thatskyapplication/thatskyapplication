@@ -14,7 +14,7 @@ import {
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
 import { DateTime } from "luxon";
-import { DEFAULT_EMBED_COLOUR, TIME_ZONE } from "../../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import {
 	cannotUseCustomEmojis,
 	chatInputApplicationCommandMention,
@@ -23,8 +23,8 @@ import {
 	shardEruption,
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
-	todayDate,
 } from "../../Utility/Utility.js";
+import { TIME_ZONE, todayDate } from "../../Utility/dates.js";
 import type { ChatInputCommand } from "../index.js";
 
 export const SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID" as const;

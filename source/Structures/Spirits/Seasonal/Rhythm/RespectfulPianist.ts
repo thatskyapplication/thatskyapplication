@@ -2,7 +2,7 @@
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
-import { skyDate } from "../../../../Utility/Utility.js";
+import { skyDate } from "../../../../Utility/dates.js";
 import { SeasonName } from "../../../Season.js";
 import {
 	type SeasonalSpiritVisitCollectionKey,

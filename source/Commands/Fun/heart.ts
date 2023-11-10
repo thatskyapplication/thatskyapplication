@@ -16,7 +16,8 @@ import {
 	userMention,
 } from "discord.js";
 import { DEFAULT_EMBED_COLOUR, Emoji } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, resolveCurrencyEmoji, todayDate } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis, resolveCurrencyEmoji } from "../../Utility/Utility.js";
+import { todayDate } from "../../Utility/dates.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 

@@ -3,7 +3,8 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import { type Realm, CDN_URL, Emoji, WIKI_URL } from "../../Utility/Constants.js";
-import { resolveCurrencyEmoji, todayDate } from "../../Utility/Utility.js";
+import { resolveCurrencyEmoji } from "../../Utility/Utility.js";
+import { todayDate } from "../../Utility/dates.js";
 import { SeasonNameToSeasonalCandleEmoji, SeasonName, SeasonNameToSeasonalHeartEmoji } from "../Season.js";
 
 export enum SpiritName {

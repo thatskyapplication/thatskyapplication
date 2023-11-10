@@ -1,7 +1,6 @@
 import process from "node:process";
 import { URL } from "node:url";
 import { Locale } from "discord.js";
-import { SeasonName } from "../Structures/Season.js";
 
 export const enum Emoji {
 	AscendedCandle = "1074399464627912755",
@@ -77,19 +76,6 @@ export const enum Emoji {
 	ShardStrong = "1164672254911713382",
 }
 
-export const QUEST_SPIRITS_SEASONS = [
-	SeasonName.Gratitude,
-	SeasonName.Lightseekers,
-	SeasonName.Belonging,
-	SeasonName.Rhythm,
-	SeasonName.Enchantment,
-	SeasonName.Sanctuary,
-	SeasonName.Dreams,
-	SeasonName.Assembly,
-] as const;
-
-export type QuestSpiritSeasons = (typeof QUEST_SPIRITS_SEASONS)[number];
-
 // Content delivery network bucket.
 export const CDN_BUCKET = "thatskyapplication" as const;
 
@@ -101,9 +87,6 @@ export const ERROR_LOG_CHANNEL_ID = "1040806599293407263" as const;
 export const GUILD_LOG_CHANNEL_ID = "1107804841813749780" as const;
 export const COMMAND_LOG_CHANNEL_ID = "1114135883604566057" as const;
 export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const;
-
-// Time zone.
-export const TIME_ZONE = "America/Los_Angeles" as const;
 
 // Concurrency limit to not hit the global rate limit of 50 requests per second.
 export const MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT = 45 as const;
