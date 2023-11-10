@@ -21,7 +21,6 @@ import fight from "./Fun/fight.js";
 import GiftHeart from "./Fun/Gift Heart.js";
 import heart from "./Fun/heart.js";
 import hug from "./Fun/hug.js";
-import SkyStory from "./Fun/Sky Story.js";
 
 // General
 import ai from "./General/ai.js";
@@ -48,7 +47,6 @@ const COMMANDS = {
 	sharderuption,
 	SkyProfile,
 	skyprofile,
-	SkyStory,
 	spirit,
 } as const;
 

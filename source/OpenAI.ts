@@ -1,5 +1,5 @@
 import process from "node:process";
-import type { Message, MessageContextMenuCommandInteraction } from "discord.js";
+import type { Message } from "discord.js";
 import OpenAI from "openai";
 import type { ChatCompletionMessageParam } from "openai/resources/chat/index.mjs";
 
@@ -92,53 +92,4 @@ export async function messageCreateResponse(message: Message<true>) {
 	} catch (error) {
 		void message.client.log({ content: "AI error.", error });
 	}
-}
-
-export async function skyStory(interaction: MessageContextMenuCommandInteraction) {
-	await interaction.deferReply({ ephemeral: true });
-
-	const chatCompletionRequestMessage: ChatCompletionMessageParam = {
-		role: "user",
-		content: interaction.targetMessage.content,
-	};
-
-	const name = parseAIName(interaction.user.username);
-	if (name) chatCompletionRequestMessage.name = name;
-
-	let completion;
-
-	try {
-		completion = await openAI.chat.completions.create({
-			max_tokens: 1_000,
-			messages: [
-				{
-					role: "system",
-					content: "Generate a story about this message based on the game Sky: Children of the Light.",
-				},
-				chatCompletionRequestMessage,
-			],
-			model: "gpt-3.5-turbo",
-			user: interaction.user.id,
-		});
-	} catch {
-		await interaction.editReply(
-			"The story I was thinking of was so beautiful and emotional that I forgot what I wrote. Sorry about that.",
-		);
-
-		return;
-	}
-
-	const response = completion.choices[0]!.message.content ?? AI_DEFAULT_RESPONSE;
-	const responses = response.match(/.{1,2000}/gs);
-
-	if (!responses) {
-		await interaction.reply({
-			content: "Quick! This is an ultra rare message. Screenshot it and show us!",
-			ephemeral: true,
-		});
-
-		return;
-	}
-
-	for (const response of responses) await interaction.followUp({ content: response, ephemeral: true });
 }
