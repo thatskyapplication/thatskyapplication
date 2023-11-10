@@ -372,12 +372,12 @@ export type ValidRealm = (typeof VALID_REALM)[number];
 export type RotationNumber = 1 | 2;
 
 export const SEASONAL_CANDLES_ROTATION = [
-	{ rotation: 1, realm: Realm.DaylightPrairie },
+	{ rotation: 2, realm: Realm.DaylightPrairie },
 	{ rotation: 1, realm: Realm.HiddenForest },
 	{ rotation: 1, realm: Realm.ValleyOfTriumph },
 	{ rotation: 1, realm: Realm.GoldenWasteland },
 	{ rotation: 1, realm: Realm.VaultOfKnowledge },
-	{ rotation: 2, realm: Realm.DaylightPrairie },
+	{ rotation: 1, realm: Realm.DaylightPrairie },
 	{ rotation: 2, realm: Realm.HiddenForest },
 	{ rotation: 2, realm: Realm.ValleyOfTriumph },
 	{ rotation: 2, realm: Realm.GoldenWasteland },
