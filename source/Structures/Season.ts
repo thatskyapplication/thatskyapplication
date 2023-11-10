@@ -258,7 +258,7 @@ const SEASONS = [
 			{ rotation: 2, realm: Realm.VaultOfKnowledge },
 		],
 	}),
-] as const;
+] as const satisfies Readonly<Season[]>;
 
 export function currentSeason(date: DateTime) {
 	return SEASONS.find(({ start, end }) => date >= start && date <= end) ?? null;
