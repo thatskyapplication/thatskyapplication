@@ -13,12 +13,8 @@ import {
 	EmbedBuilder,
 	formatEmoji,
 } from "discord.js";
-import {
-	type RotationNumber,
-	DEFAULT_EMBED_COLOUR,
-	Emoji,
-	EVENT_CURRENCY_INFOGRAPHIC_URL,
-} from "../Utility/Constants.js";
+import type { DateTime } from "luxon";
+import { type RotationNumber, DEFAULT_EMBED_COLOUR, Emoji } from "../Utility/Constants.js";
 import {
 	resolveCurrencyEmoji,
 	todayDate,
@@ -29,7 +25,6 @@ import {
 	resolveCurrentSeasonalCandleEmoji,
 	resolveCurrentSeasonalEmoji,
 	formatEmojiURL,
-	eventRotationLetter,
 	isDuring,
 	seasonalCandlesRotationURL,
 	shardEruption,
@@ -38,10 +33,9 @@ import {
 	shardEruptionTimestampsString,
 } from "../Utility/Utility.js";
 import {
+	currentEvent,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
-	EVENT_END_DATE,
-	EVENT_START_DATE,
 	SEASON_END_DATE,
 	SEASON_START_DATE,
 } from "../Utility/dates.js";
@@ -239,14 +233,9 @@ export default class DailyGuidesDistribution {
 			.setTitle(guild.name);
 	}
 
-	public static eventCurrencyFieldData() {
-		if (EVENT_CURRENCY_INFOGRAPHIC_URL && isDuring(EVENT_START_DATE, EVENT_END_DATE)) {
-			return {
-				name: "Event Currency",
-				value: hyperlink(`Rotation ${eventRotationLetter()}`, EVENT_CURRENCY_INFOGRAPHIC_URL),
-			};
-		}
-
+	public static eventCurrencyFieldData(date: DateTime) {
+		const event = currentEvent(date);
+		if (event?.url) return { name: "Event Currency", value: hyperlink(`Rotation ${event.rotation()}`, event.url) };
 		return null;
 	}
 
@@ -330,7 +319,7 @@ export default class DailyGuidesDistribution {
 			});
 		}
 
-		const eventCurrencyFieldData = this.eventCurrencyFieldData();
+		const eventCurrencyFieldData = this.eventCurrencyFieldData(today);
 		if (eventCurrencyFieldData) embed.addFields(eventCurrencyFieldData);
 		embed.addFields(this.shardEruptionFieldData());
 		return embed;

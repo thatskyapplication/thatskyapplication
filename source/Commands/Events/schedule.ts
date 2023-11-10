@@ -5,6 +5,7 @@ import {
 	time,
 	TimestampStyles,
 } from "discord.js";
+import type { DateTime } from "luxon";
 import DailyGuidesDistribution, { SHARD_ERUPTION_NONE } from "../../Structures/DailyGuidesDistribution.js";
 import { NotificationEvent } from "../../Structures/Notification.js";
 import { DEFAULT_EMBED_COLOUR, ISS_DATES_ACCESSIBLE } from "../../Utility/Constants.js";
@@ -41,9 +42,8 @@ function travellingSpiritTime() {
 	}
 }
 
-function scheduleTimes() {
-	const today = todayDate();
-	const tomorrow = today.plus({ days: 1 });
+function scheduleTimes(date: DateTime) {
+	const tomorrow = date.plus({ days: 1 });
 	const pollutedGeyser = [];
 	const grandma = [];
 	const turtle = [];
@@ -51,7 +51,7 @@ function scheduleTimes() {
 	const passage = [];
 
 	// 5 minutes is the least common denominator.
-	for (let start = today; start < tomorrow; start = start.plus({ minutes: 5 })) {
+	for (let start = date; start < tomorrow; start = start.plus({ minutes: 5 })) {
 		const timeString = time(start.toUnixInteger(), TimestampStyles.ShortTime);
 		passage.push(timeString);
 
@@ -75,7 +75,8 @@ export default new (class implements ChatInputCommand {
 	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { pollutedGeyser, grandma, turtle, passage, aurora } = scheduleTimes();
+		const today = todayDate();
+		const { pollutedGeyser, grandma, turtle, passage, aurora } = scheduleTimes(today);
 		const passageTimesStart = passage.slice(0, PASSAGE_TRUNCATION_LIMIT);
 		const passageTimesEnd = passage.slice(-PASSAGE_TRUNCATION_LIMIT);
 		const passageTimesString = `${passageTimesStart.join(" ")}... every 15 minutes... ${passageTimesEnd.join(" ")}`;
@@ -123,7 +124,7 @@ export default new (class implements ChatInputCommand {
 			.setFooter({ text: "Times are relative to your time zone." })
 			.setTitle("Schedule Today");
 
-		const eventCurrencyFieldData = DailyGuidesDistribution.eventCurrencyFieldData();
+		const eventCurrencyFieldData = DailyGuidesDistribution.eventCurrencyFieldData(today);
 		if (eventCurrencyFieldData) embed.addFields(eventCurrencyFieldData);
 		const shardEruptionFieldData = DailyGuidesDistribution.shardEruptionFieldData();
 

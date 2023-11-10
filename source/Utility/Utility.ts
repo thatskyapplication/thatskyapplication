@@ -19,7 +19,6 @@ import {
 	hyperlink,
 } from "discord.js";
 import { DateTime } from "luxon";
-import { DAILY_GUIDE_EVENT_ROTATION } from "../Structures/DailyGuides.js";
 import type { SeasonalSpirit, StandardSpirit } from "../Structures/Spirits/Base.js";
 import type Spirits from "../Structures/Spirits/index.js";
 import {
@@ -54,7 +53,6 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
-	EVENT_START_DATE,
 	INITIAL_TREASURE_CANDLE_REALM_SEEK,
 	SEASON_END_DATE,
 	SEASON_DURATION,
@@ -102,10 +100,6 @@ export function seasonalCandlesRotationURL(realm: Realm, rotation: 1 | 2 | 3) {
 			CDN_URL,
 		),
 	);
-}
-
-export function eventRotationLetter() {
-	return DAILY_GUIDE_EVENT_ROTATION[todayDate().diff(EVENT_START_DATE, "day").days % 3]!;
 }
 
 export async function cannotUseCustomEmojis(

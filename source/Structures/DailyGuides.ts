@@ -80,9 +80,6 @@ const DAILY_GUIDES_RESET_DATA = {
 	[DailyGuide in keyof DailyGuidesPacket]: null;
 }>;
 
-export const DAILY_GUIDE_EVENT_ROTATION = ["B", "C", "A"] as const;
-export type DailyGuideEventRotation = (typeof DAILY_GUIDE_EVENT_ROTATION)[number];
-
 interface DailyGuideMessage {
 	title: string;
 	description: string;
