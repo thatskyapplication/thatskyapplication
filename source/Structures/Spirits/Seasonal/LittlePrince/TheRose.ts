@@ -1,11 +1,12 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { Realm, Season } from "../../../../Utility/Constants.js";
+import { Realm } from "../../../../Utility/Constants.js";
+import { SeasonName } from "../../../Season.js";
 import { type ItemsData, GuideSpirit, SpiritName } from "../../Base.js";
 
 export default new GuideSpirit({
 	name: SpiritName.TheRose,
-	season: Season.LittlePrince,
+	season: SeasonName.LittlePrince,
 	realm: Realm.VaultOfKnowledge,
 	offer: {
 		hasInfographic: false,

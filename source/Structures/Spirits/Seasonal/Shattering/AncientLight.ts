@@ -1,12 +1,12 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { Season } from "../../../../Utility/Constants.js";
+import { SeasonName } from "../../../Season.js";
 import { type ItemsData, SeasonalSpirit, SpiritName } from "../../Base.js";
 
 export default [
 	new SeasonalSpirit({
 		name: SpiritName.AncientLight1,
-		season: Season.Shattering,
+		season: SeasonName.Shattering,
 		offer: {
 			hasInfographic: false,
 			seasonal: new Collection<number, ItemsData>()
@@ -21,7 +21,7 @@ export default [
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.AncientLight2,
-		season: Season.Shattering,
+		season: SeasonName.Shattering,
 		offer: {
 			hasInfographic: false,
 			seasonal: new Collection<number, ItemsData>()

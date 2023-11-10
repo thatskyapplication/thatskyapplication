@@ -1,7 +1,7 @@
-import { Season } from "../../../../Utility/Constants.js";
+import { SeasonName } from "../../../Season.js";
 import { SpiritName, GuideSpirit } from "../../Base.js";
 
 export default new GuideSpirit({
 	name: SpiritName.LightseekersGuide,
-	season: Season.Lightseekers,
+	season: SeasonName.Lightseekers,
 });

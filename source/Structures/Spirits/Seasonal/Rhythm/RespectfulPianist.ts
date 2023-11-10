@@ -1,8 +1,9 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
-import { Realm, Season } from "../../../../Utility/Constants.js";
+import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/Utility.js";
+import { SeasonName } from "../../../Season.js";
 import {
 	type SeasonalSpiritVisitCollectionKey,
 	Expression,
@@ -15,7 +16,7 @@ const expression = Expression.Respect;
 
 export default new SeasonalSpirit({
 	name: SpiritName.RespectfulPianist,
-	season: Season.Rhythm,
+	season: SeasonName.Rhythm,
 	expression,
 	realm: Realm.GoldenWasteland,
 	offer: {

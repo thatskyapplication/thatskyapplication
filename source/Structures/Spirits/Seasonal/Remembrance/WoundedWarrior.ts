@@ -1,13 +1,14 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { Realm, Season } from "../../../../Utility/Constants.js";
+import { Realm } from "../../../../Utility/Constants.js";
+import { SeasonName } from "../../../Season.js";
 import { type ItemsData, SeasonalSpirit, SpiritName, Stance } from "../../Base.js";
 
 const stance = Stance.Injured;
 
 export default new SeasonalSpirit({
 	name: SpiritName.WoundedWarrior,
-	season: Season.Remembrance,
+	season: SeasonName.Remembrance,
 	stance,
 	realm: Realm.VaultOfKnowledge,
 	offer: {

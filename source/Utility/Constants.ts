@@ -1,6 +1,7 @@
 import process from "node:process";
 import { URL } from "node:url";
 import { Locale } from "discord.js";
+import { SeasonName } from "../Structures/Season.js";
 
 export const enum Emoji {
 	AscendedCandle = "1074399464627912755",
@@ -76,101 +77,15 @@ export const enum Emoji {
 	ShardStrong = "1164672254911713382",
 }
 
-export enum Season {
-	Gratitude = "Gratitude",
-	Lightseekers = "Lightseekers",
-	Belonging = "Belonging",
-	Rhythm = "Rhythm",
-	Enchantment = "Enchantment",
-	Sanctuary = "Sanctuary",
-	Prophecy = "Prophecy",
-	Dreams = "Dreams",
-	Assembly = "Assembly",
-	LittlePrince = "Little Prince",
-	Flight = "Flight",
-	Abyss = "Abyss",
-	Performance = "Performance",
-	Shattering = "Shattering",
-	Aurora = "AURORA",
-	Remembrance = "Remembrance",
-	Passage = "Passage",
-	Moments = "Moments",
-	Revival = "Revival",
-}
-
-export const SeasonToSeasonalEmoji = {
-	[Season.Gratitude]: Emoji.SeasonGratitude,
-	[Season.Lightseekers]: Emoji.SeasonLightseekers,
-	[Season.Belonging]: Emoji.SeasonBelonging,
-	[Season.Rhythm]: Emoji.SeasonRhythm,
-	[Season.Enchantment]: Emoji.SeasonEnchantment,
-	[Season.Sanctuary]: Emoji.SeasonSanctuary,
-	[Season.Prophecy]: Emoji.SeasonProphecy,
-	[Season.Dreams]: Emoji.SeasonDreams,
-	[Season.Assembly]: Emoji.SeasonAssembly,
-	[Season.LittlePrince]: Emoji.SeasonLittlePrince,
-	[Season.Flight]: Emoji.SeasonFlight,
-	[Season.Abyss]: Emoji.SeasonAbyss,
-	[Season.Performance]: Emoji.SeasonPerformance,
-	[Season.Shattering]: Emoji.SeasonShattering,
-	[Season.Aurora]: Emoji.SeasonAurora,
-	[Season.Remembrance]: Emoji.SeasonRemembrance,
-	[Season.Passage]: Emoji.SeasonPassage,
-	[Season.Moments]: Emoji.SeasonMoments,
-	[Season.Revival]: Emoji.SeasonRevival,
-} as const satisfies Readonly<Record<Season, Emoji>>;
-
-export const SeasonToSeasonalCandleEmoji = {
-	[Season.Gratitude]: Emoji.CandleGratitude,
-	[Season.Lightseekers]: Emoji.CandleLightseekers,
-	[Season.Belonging]: Emoji.CandleBelonging,
-	[Season.Rhythm]: Emoji.CandleRhythm,
-	[Season.Enchantment]: Emoji.CandleEnchantment,
-	[Season.Sanctuary]: Emoji.CandleSanctuary,
-	[Season.Prophecy]: Emoji.CandleProphecy,
-	[Season.Dreams]: Emoji.CandleDreams,
-	[Season.Assembly]: Emoji.CandleAssembly,
-	[Season.LittlePrince]: Emoji.CandleLittlePrince,
-	[Season.Flight]: Emoji.CandleFlight,
-	[Season.Abyss]: Emoji.CandleAbyss,
-	[Season.Performance]: Emoji.CandlePerformance,
-	[Season.Shattering]: Emoji.CandleShattering,
-	[Season.Aurora]: Emoji.CandleAurora,
-	[Season.Remembrance]: Emoji.CandleRemembrance,
-	[Season.Passage]: Emoji.CandlePassage,
-	[Season.Moments]: Emoji.CandleMoments,
-	[Season.Revival]: Emoji.CandleRevival,
-} as const satisfies Readonly<Record<Season, Emoji>>;
-
-export const seasonToSeasonalHeartEmoji = {
-	[Season.Belonging]: Emoji.HeartBelonging,
-	[Season.Rhythm]: Emoji.HeartRhythm,
-	[Season.Enchantment]: Emoji.HeartEnchantment,
-	[Season.Sanctuary]: Emoji.HeartSanctuary,
-	[Season.Prophecy]: Emoji.HeartProphecy,
-	[Season.Dreams]: Emoji.HeartDreams,
-	[Season.Assembly]: Emoji.HeartAssembly,
-	[Season.LittlePrince]: Emoji.HeartLittlePrince,
-	[Season.Flight]: Emoji.HeartFlight,
-	[Season.Abyss]: Emoji.HeartAbyss,
-	[Season.Performance]: Emoji.HeartPerformance,
-	[Season.Shattering]: Emoji.HeartShattering,
-	[Season.Aurora]: Emoji.HeartAurora,
-	[Season.Remembrance]: Emoji.HeartRemembrance,
-	[Season.Passage]: Emoji.HeartPassage,
-	[Season.Moments]: Emoji.HeartMoments,
-	[Season.Revival]: Emoji.HeartRevival,
-} as const satisfies Readonly<Record<Exclude<Season, Season.Gratitude | Season.Lightseekers>, Emoji>>;
-
 export const QUEST_SPIRITS_SEASONS = [
-	Season.Gratitude,
-	Season.Lightseekers,
-	Season.Belonging,
-	Season.Rhythm,
-	Season.Enchantment,
-	Season.Sanctuary,
-	Season.Dreams,
-	Season.Assembly,
+	SeasonName.Gratitude,
+	SeasonName.Lightseekers,
+	SeasonName.Belonging,
+	SeasonName.Rhythm,
+	SeasonName.Enchantment,
+	SeasonName.Sanctuary,
+	SeasonName.Dreams,
+	SeasonName.Assembly,
 ] as const;
 
 export type QuestSpiritSeasons = (typeof QUEST_SPIRITS_SEASONS)[number];
@@ -190,11 +105,6 @@ export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const
 // Time zone.
 export const TIME_ZONE = "America/Los_Angeles" as const;
 
-// Current seasonal information.
-export const CURRENT_SEASON = Season.Revival;
-export const CURRENT_SEASONAL_EMOJI = Emoji.SeasonRevival;
-export const CURRENT_SEASONAL_CANDLE_EMOJI = Emoji.CandleRevival;
-
 // Concurrency limit to not hit the global rate limit of 50 requests per second.
 export const MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT = 45 as const;
 
@@ -211,9 +121,6 @@ export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki" as c
 export const MINIMUM_WINGED_LIGHT = 0 as const;
 export const MAXIMUM_WINGED_LIGHT = 222 as const;
 export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
-export const SEASONAL_CANDLES_PER_DAY = 5 as const;
-export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
-export const SEASON_PASS_SEASONAL_CANDLES_BONUS = 30 as const;
 export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
 export const MAX_HUG_NO = 24 as const;
 export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
@@ -369,20 +276,6 @@ export const VALID_REALM = [
 ] as const;
 
 export type ValidRealm = (typeof VALID_REALM)[number];
-export type RotationNumber = 1 | 2;
-
-export const SEASONAL_CANDLES_ROTATION = [
-	{ rotation: 2, realm: Realm.DaylightPrairie },
-	{ rotation: 1, realm: Realm.HiddenForest },
-	{ rotation: 1, realm: Realm.ValleyOfTriumph },
-	{ rotation: 1, realm: Realm.GoldenWasteland },
-	{ rotation: 1, realm: Realm.VaultOfKnowledge },
-	{ rotation: 1, realm: Realm.DaylightPrairie },
-	{ rotation: 2, realm: Realm.HiddenForest },
-	{ rotation: 2, realm: Realm.ValleyOfTriumph },
-	{ rotation: 2, realm: Realm.GoldenWasteland },
-	{ rotation: 2, realm: Realm.VaultOfKnowledge },
-] as const satisfies Readonly<{ rotation: RotationNumber; realm: Realm }[]>;
 
 export const WINGED_LIGHT_AREAS_COUNT = {
 	IslesOfDawn: 9,

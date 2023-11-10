@@ -19,6 +19,7 @@ import {
 	hyperlink,
 } from "discord.js";
 import { DateTime } from "luxon";
+import { type SeasonName } from "../Structures/Season.js";
 import type { SeasonalSpirit, StandardSpirit } from "../Structures/Spirits/Base.js";
 import type Spirits from "../Structures/Spirits/index.js";
 import {
@@ -28,9 +29,6 @@ import {
 	type SocialLightAreaMaps,
 	type ValidRealm,
 	CDN_URL,
-	CURRENT_SEASON,
-	CURRENT_SEASONAL_CANDLE_EMOJI,
-	CURRENT_SEASONAL_EMOJI,
 	Emoji,
 	INCONSISTENT_MAP,
 	inconsistentMapKeys,
@@ -39,25 +37,12 @@ import {
 	RAINBOW_ADMIRE_MAPS,
 	Realm,
 	REALM_VALUES,
-	Season,
-	SEASON_PASS_SEASONAL_CANDLES_BONUS,
-	SEASONAL_CANDLES_PER_DAY,
-	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
-	SEASONAL_CANDLES_ROTATION,
 	SOCIAL_LIGHT_AREA_MAPS,
 	TIME_ZONE,
 	VALID_REALM,
 	QUEST_SPIRITS_SEASONS,
 } from "./Constants.js";
-import {
-	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
-	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
-	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
-	INITIAL_TREASURE_CANDLE_REALM_SEEK,
-	SEASON_END_DATE,
-	SEASON_DURATION,
-	SEASON_START_DATE,
-} from "./dates.js";
+import { INITIAL_TREASURE_CANDLE_REALM_SEEK } from "./dates.js";
 import { SHARD_ERUPTION_PREDICTION_DATA } from "./shardEruption.js";
 
 const cdn = new CDN();
@@ -85,21 +70,6 @@ export function isDuring(start: DateTime, end: DateTime, date = todayDate()) {
 
 export function treasureCandleRealm() {
 	return VALID_REALM[todayDate().diff(INITIAL_TREASURE_CANDLE_REALM_SEEK, "day").days % 5]!;
-}
-
-export function seasonalCandlesRotation() {
-	return SEASONAL_CANDLES_ROTATION[todayDate().diff(SEASON_START_DATE, "days").days % 10]!;
-}
-
-export function seasonalCandlesRotationURL(realm: Realm, rotation: 1 | 2 | 3) {
-	return String(
-		new URL(
-			`daily_guides/seasonal_candles/${fullSeasonName(resolveCurrentSeason()!)
-				.toLowerCase()
-				.replaceAll(" ", "_")}/${realm.toLowerCase().replaceAll(" ", "_")}/rotation_${rotation}.webp`,
-			CDN_URL,
-		),
-	);
 }
 
 export async function cannotUseCustomEmojis(
@@ -146,74 +116,6 @@ export function resolveCurrencyEmoji({
 	return `${number}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji, animated)}`;
 }
 
-export function inSeason() {
-	return isDuring(SEASON_START_DATE, SEASON_END_DATE);
-}
-
-export function isSeason(season: string): season is Season {
-	return Object.values(Season).includes(season as Season);
-}
-
-export function resolveCurrentSeason() {
-	return inSeason() ? CURRENT_SEASON : null;
-}
-
-export function resolveCurrentSeasonalEmoji() {
-	return inSeason() ? CURRENT_SEASONAL_EMOJI : null;
-}
-
-export function resolveCurrentSeasonalCandleEmoji() {
-	return inSeason() ? CURRENT_SEASONAL_CANDLE_EMOJI : Emoji.SeasonalCandle;
-}
-
-export function fullSeasonName(season: Season) {
-	return `Season of ${season === Season.LittlePrince ? "the " : ""}${season}`;
-}
-
-export function remainingSeasonalCandles() {
-	if (!inSeason()) return null;
-	const today = todayDate();
-
-	const seasonalDoubleLightEvent =
-		DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE >= SEASON_START_DATE &&
-		DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE <= SEASON_END_DATE;
-
-	// Calculate the total amount of seasonal candles.
-	let seasonalCandlesTotal = SEASON_DURATION * SEASONAL_CANDLES_PER_DAY;
-
-	let seasonalCandlesTotalWithSeasonPass =
-		SEASON_DURATION * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
-
-	if (seasonalDoubleLightEvent) {
-		seasonalCandlesTotal += DOUBLE_SEASONAL_LIGHT_EVENT_DURATION;
-		seasonalCandlesTotalWithSeasonPass += DOUBLE_SEASONAL_LIGHT_EVENT_DURATION;
-	}
-
-	// Calculate the amount of seasonal candles so far.
-	const daysSoFar = today.diff(SEASON_START_DATE, "days").days + 1;
-	let seasonalCandlesSoFar = daysSoFar * SEASONAL_CANDLES_PER_DAY;
-
-	let seasonalCandlesSoFarWithSeasonPass =
-		daysSoFar * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
-
-	if (seasonalDoubleLightEvent && today.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days").days >= 0) {
-		const difference = today.diff(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, "days").days;
-
-		const extraSeasonalCandles =
-			// The difference will be a negative number if the event is still ongoing.
-			difference > 0 ? DOUBLE_SEASONAL_LIGHT_EVENT_DURATION : DOUBLE_SEASONAL_LIGHT_EVENT_DURATION + difference;
-
-		seasonalCandlesSoFar += extraSeasonalCandles;
-		seasonalCandlesSoFarWithSeasonPass += extraSeasonalCandles;
-	}
-
-	// Calculate the amount of seasonal candles left.
-	return {
-		seasonalCandlesLeft: seasonalCandlesTotal - seasonalCandlesSoFar,
-		seasonalCandlesLeftWithSeasonPass: seasonalCandlesTotalWithSeasonPass - seasonalCandlesSoFarWithSeasonPass,
-	};
-}
-
 /**
  * @privateRemarks Defines a spirit that may be encountered in a daily quest. So far, that includes:
  *
@@ -226,7 +128,7 @@ export function remainingSeasonalCandles() {
  */
 export type QuestSpirit = (StandardSpirit | (SeasonalSpirit & { season: QuestSpiritSeasons })) & { realm: ValidRealm };
 
-export function isQuestSpiritsSeason(season: Season): season is QuestSpiritSeasons {
+export function isQuestSpiritsSeason(season: SeasonName): season is QuestSpiritSeasons {
 	return QUEST_SPIRITS_SEASONS.includes(season as QuestSpiritSeasons);
 }
 

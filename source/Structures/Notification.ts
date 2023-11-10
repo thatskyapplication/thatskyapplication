@@ -18,9 +18,10 @@ import {
 	time,
 	TimestampStyles,
 } from "discord.js";
-import { DEFAULT_EMBED_COLOUR, Emoji, Season } from "../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR, Emoji } from "../Utility/Constants.js";
 import type { ShardEruptionData } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
+import { SeasonName, resolveFullSeasonName } from "./Season.js";
 
 export interface NotificationPacket {
 	id: number;
@@ -330,16 +331,12 @@ export default class Notification {
 			case NotificationEvent.RegularShardEruption:
 				channelId = regularShardEruptionChannelId;
 				roleId = regularShardEruptionRoleId;
-
 				suffix = `A regular shard eruption lands in the ${hyperlink(`${realm!} (${map!})`, url!)} ${timeString}!`;
-
 				break;
 			case NotificationEvent.StrongShardEruption:
 				channelId = strongShardEruptionChannelId;
 				roleId = strongShardEruptionRoleId;
-
 				suffix = `A strong shard eruption lands in the ${hyperlink(`${realm!} (${map!})`, url!)} ${timeString}!`;
-
 				break;
 			case NotificationEvent.AURORA:
 				channelId = auroraChannelId;
@@ -349,7 +346,7 @@ export default class Notification {
 			case NotificationEvent.Passage:
 				channelId = passageChannelId;
 				roleId = passageRoleId;
-				suffix = `The Season of ${Season.Passage} quests are starting ${timeString}!`;
+				suffix = `The ${resolveFullSeasonName(SeasonName.Passage)} quests are starting ${timeString}!`;
 				break;
 		}
 

@@ -9,28 +9,29 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import {
-	AreaToWingedLightCount,
-	Emoji,
-	LOCALES,
-	MAXIMUM_WINGED_LIGHT,
-	Realm,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
+	currentSeason,
+} from "../../Structures/Season.js";
+import {
+	AreaToWingedLightCount,
 	ASCENDED_CANDLES_PER_WEEK,
-	Map,
-	WINGED_LIGHT_AREAS,
 	DEFAULT_EMBED_COLOUR,
-	WingedLightAreasToSpanish,
+	Emoji,
+	LOCALES,
+	Map,
+	MAXIMUM_WINGED_LIGHT,
+	Realm,
+	WINGED_LIGHT_AREAS,
 	WINGED_LIGHT_AREAS_COUNT_VALUES,
 	WINGED_LIGHT_AREAS_COUNT,
+	WingedLightAreasToSpanish,
 } from "../../Utility/Constants.js";
 import {
 	cannotUseCustomEmojis,
 	isWingedLightArea,
 	notNull,
-	remainingSeasonalCandles,
 	resolveCurrencyEmoji,
-	resolveCurrentSeasonalCandleEmoji,
 	shardEruption,
 	todayDate,
 } from "../../Utility/Utility.js";
@@ -368,11 +369,9 @@ export default new (class implements ChatInputCommand {
 
 		if (await cannotUseCustomEmojis(interaction)) return;
 		const today = todayDate();
-		const remainingCandles = remainingSeasonalCandles();
-		let seasonalCandlesLeft;
-		let seasonalCandlesLeftWithSeasonPass;
-		if (remainingCandles) ({ seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } = remainingCandles);
-
+		const season = currentSeason(today);
+		const remainingCandles = season?.remainingSeasonalCandles(today);
+		const emoji = season?.candleEmoji ?? Emoji.SeasonalCandle;
 		const amountRequired = goal - start;
 		let result = 0;
 		let days = 0;
@@ -395,7 +394,6 @@ export default new (class implements ChatInputCommand {
 
 		const resultString = `${days} day${days === 1 ? "" : "s"}`;
 		const resultWithSeasonPassString = `${daysWithSeasonPass} day${daysWithSeasonPass === 1 ? "" : "s"}`;
-		const emoji = resolveCurrentSeasonalCandleEmoji();
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
@@ -413,7 +411,9 @@ export default new (class implements ChatInputCommand {
 			})
 			.setTitle("Seasonal Candle Calculator");
 
-		if (typeof seasonalCandlesLeft === "number" && typeof seasonalCandlesLeftWithSeasonPass === "number") {
+		if (remainingCandles) {
+			const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } = remainingCandles;
+
 			embed.addFields({
 				name: "Season Calculations",
 				value: `${resolveCurrencyEmoji({

@@ -20,7 +20,7 @@ import S3Client from "../S3Client.js";
 import { CDN_BUCKET, CDN_URL, DEFAULT_EMBED_COLOUR, Emoji, MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
 import pg, { Table } from "../pg.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
-import { resolveBitsToSeasons } from "./Seasons.js";
+import { resolveBitsToSeasons } from "./Season.js";
 import { SpiritTracker } from "./Spirits/SpiritTracker.js";
 
 interface ProfilePacket {

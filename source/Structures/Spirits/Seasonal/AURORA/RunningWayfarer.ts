@@ -1,13 +1,14 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { Realm, Season } from "../../../../Utility/Constants.js";
+import { Realm } from "../../../../Utility/Constants.js";
+import { SeasonName } from "../../../Season.js";
 import { type ItemsData, Expression, SeasonalSpirit, SpiritName } from "../../Base.js";
 
 const expression = Expression.WavingLight;
 
 export default new SeasonalSpirit({
 	name: SpiritName.RunningWayfarer,
-	season: Season.Aurora,
+	season: SeasonName.Aurora,
 	expression,
 	realm: Realm.ValleyOfTriumph,
 	offer: {

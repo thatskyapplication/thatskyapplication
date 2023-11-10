@@ -1,15 +1,16 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
-import { Realm, Season } from "../../../../Utility/Constants.js";
+import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/Utility.js";
+import { SeasonName } from "../../../Season.js";
 import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, SpiritName, Call } from "../../Base.js";
 
 const call = Call.Crab;
 
 export default new SeasonalSpirit({
 	name: SpiritName.CrabWhisperer,
-	season: Season.Lightseekers,
+	season: SeasonName.Lightseekers,
 	call,
 	realm: Realm.GoldenWasteland,
 	offer: {

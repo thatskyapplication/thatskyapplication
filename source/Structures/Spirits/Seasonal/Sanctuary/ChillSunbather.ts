@@ -1,8 +1,9 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
-import { Realm, Season } from "../../../../Utility/Constants.js";
+import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/Utility.js";
+import { SeasonName } from "../../../Season.js";
 import {
 	type ItemsData,
 	type SeasonalSpiritVisitCollectionKey,
@@ -15,7 +16,7 @@ const expression = Expression.BellyScratch;
 
 export default new SeasonalSpirit({
 	name: SpiritName.ChillSunbather,
-	season: Season.Sanctuary,
+	season: SeasonName.Sanctuary,
 	expression,
 	realm: Realm.DaylightPrairie,
 	offer: {
