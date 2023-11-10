@@ -9,8 +9,8 @@ import type { DateTime } from "luxon";
 import DailyGuidesDistribution, { SHARD_ERUPTION_NONE } from "../../Structures/DailyGuidesDistribution.js";
 import { NotificationEvent } from "../../Structures/Notification.js";
 import { DEFAULT_EMBED_COLOUR, ISS_DATES_ACCESSIBLE } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, todayDate } from "../../Utility/Utility.js";
-import { INITIAL_TRAVELLING_SPIRIT_SEEK } from "../../Utility/dates.js";
+import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
+import { INITIAL_TRAVELLING_SPIRIT_SEEK, todayDate } from "../../Utility/dates.js";
 import type { ChatInputCommand } from "../index.js";
 
 const PASSAGE_TRUNCATION_LIMIT = 9 as const;

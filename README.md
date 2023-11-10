@@ -8,7 +8,7 @@ Caelus needs to be updated every now and then to reflect accurate information.
 
 ### New season
 
-New season, new spirits! The season start & end dates should be updated too.
+New season, new spirits (maybe)! The season data should be updated in Season.ts.
 
 ### Travelling spirits
 

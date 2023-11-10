@@ -1,8 +1,9 @@
 import { setInterval } from "node:timers";
 import type { Client } from "discord.js";
 import { DateTime } from "luxon";
-import { ISS_DATES_ACCESSIBLE, TIME_ZONE } from "../Utility/Constants.js";
+import { ISS_DATES_ACCESSIBLE } from "../Utility/Constants.js";
 import { shardEruption } from "../Utility/Utility.js";
+import { TIME_ZONE } from "../Utility/dates.js";
 import pQueue from "../pQueue.js";
 import DailyGuides from "./DailyGuides.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";

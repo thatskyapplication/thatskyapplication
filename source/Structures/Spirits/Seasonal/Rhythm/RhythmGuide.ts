@@ -1,11 +1,11 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { Season } from "../../../../Utility/Constants.js";
+import { SeasonName } from "../../../Season.js";
 import { type ItemsData, SpiritName, GuideSpirit } from "../../Base.js";
 
 export default new GuideSpirit({
 	name: SpiritName.RhythmGuide,
-	season: Season.Rhythm,
+	season: SeasonName.Rhythm,
 	offer: {
 		hasInfographic: false,
 		current: new Collection<number, ItemsData>()

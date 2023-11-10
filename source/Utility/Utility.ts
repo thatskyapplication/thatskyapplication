@@ -18,46 +18,24 @@ import {
 	TimestampStyles,
 	hyperlink,
 } from "discord.js";
-import { DateTime } from "luxon";
-import type { SeasonalSpirit, StandardSpirit } from "../Structures/Spirits/Base.js";
-import type Spirits from "../Structures/Spirits/index.js";
+import type { DateTime } from "luxon";
 import {
 	type MeditationMaps,
-	type QuestSpiritSeasons,
 	type RainbowAdmireMaps,
+	type Realm,
 	type SocialLightAreaMaps,
-	type ValidRealm,
 	CDN_URL,
-	CURRENT_SEASON,
-	CURRENT_SEASONAL_CANDLE_EMOJI,
-	CURRENT_SEASONAL_EMOJI,
 	Emoji,
 	INCONSISTENT_MAP,
 	inconsistentMapKeys,
 	Map,
 	MEDITATION_MAPS,
 	RAINBOW_ADMIRE_MAPS,
-	Realm,
 	REALM_VALUES,
-	Season,
-	SEASON_PASS_SEASONAL_CANDLES_BONUS,
-	SEASONAL_CANDLES_PER_DAY,
-	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
-	SEASONAL_CANDLES_ROTATION,
 	SOCIAL_LIGHT_AREA_MAPS,
-	TIME_ZONE,
 	VALID_REALM,
-	QUEST_SPIRITS_SEASONS,
 } from "./Constants.js";
-import {
-	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
-	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
-	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
-	INITIAL_TREASURE_CANDLE_REALM_SEEK,
-	SEASON_END_DATE,
-	SEASON_DURATION,
-	SEASON_START_DATE,
-} from "./dates.js";
+import { INITIAL_TREASURE_CANDLE_REALM_SEEK, todayDate } from "./dates.js";
 import { SHARD_ERUPTION_PREDICTION_DATA } from "./shardEruption.js";
 
 const cdn = new CDN();
@@ -71,35 +49,8 @@ export function notNull<T>(value: T | null): value is T {
 	return value !== null;
 }
 
-export function todayDate() {
-	return DateTime.now().setZone(TIME_ZONE).startOf("day");
-}
-
-export function skyDate(year: number, month: number, day: number, hour?: number, minute?: number, second?: number) {
-	return DateTime.fromObject({ year, month, day, hour, minute, second }, { zone: TIME_ZONE });
-}
-
-export function isDuring(start: DateTime, end: DateTime, date = todayDate()) {
-	return date >= start && date <= end;
-}
-
 export function treasureCandleRealm() {
 	return VALID_REALM[todayDate().diff(INITIAL_TREASURE_CANDLE_REALM_SEEK, "day").days % 5]!;
-}
-
-export function seasonalCandlesRotation() {
-	return SEASONAL_CANDLES_ROTATION[todayDate().diff(SEASON_START_DATE, "days").days % 10]!;
-}
-
-export function seasonalCandlesRotationURL(realm: Realm, rotation: 1 | 2 | 3) {
-	return String(
-		new URL(
-			`daily_guides/seasonal_candles/${fullSeasonName(resolveCurrentSeason()!)
-				.toLowerCase()
-				.replaceAll(" ", "_")}/${realm.toLowerCase().replaceAll(" ", "_")}/rotation_${rotation}.webp`,
-			CDN_URL,
-		),
-	);
 }
 
 export async function cannotUseCustomEmojis(
@@ -144,101 +95,6 @@ export function resolveCurrencyEmoji({
 	includeSpaceInEmoji = false,
 }: CurrencyEmojiOptions) {
 	return `${number}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji, animated)}`;
-}
-
-export function inSeason() {
-	return isDuring(SEASON_START_DATE, SEASON_END_DATE);
-}
-
-export function isSeason(season: string): season is Season {
-	return Object.values(Season).includes(season as Season);
-}
-
-export function resolveCurrentSeason() {
-	return inSeason() ? CURRENT_SEASON : null;
-}
-
-export function resolveCurrentSeasonalEmoji() {
-	return inSeason() ? CURRENT_SEASONAL_EMOJI : null;
-}
-
-export function resolveCurrentSeasonalCandleEmoji() {
-	return inSeason() ? CURRENT_SEASONAL_CANDLE_EMOJI : Emoji.SeasonalCandle;
-}
-
-export function fullSeasonName(season: Season) {
-	return `Season of ${season === Season.LittlePrince ? "the " : ""}${season}`;
-}
-
-export function remainingSeasonalCandles() {
-	if (!inSeason()) return null;
-	const today = todayDate();
-
-	const seasonalDoubleLightEvent =
-		DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE >= SEASON_START_DATE &&
-		DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE <= SEASON_END_DATE;
-
-	// Calculate the total amount of seasonal candles.
-	let seasonalCandlesTotal = SEASON_DURATION * SEASONAL_CANDLES_PER_DAY;
-
-	let seasonalCandlesTotalWithSeasonPass =
-		SEASON_DURATION * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
-
-	if (seasonalDoubleLightEvent) {
-		seasonalCandlesTotal += DOUBLE_SEASONAL_LIGHT_EVENT_DURATION;
-		seasonalCandlesTotalWithSeasonPass += DOUBLE_SEASONAL_LIGHT_EVENT_DURATION;
-	}
-
-	// Calculate the amount of seasonal candles so far.
-	const daysSoFar = today.diff(SEASON_START_DATE, "days").days + 1;
-	let seasonalCandlesSoFar = daysSoFar * SEASONAL_CANDLES_PER_DAY;
-
-	let seasonalCandlesSoFarWithSeasonPass =
-		daysSoFar * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
-
-	if (seasonalDoubleLightEvent && today.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days").days >= 0) {
-		const difference = today.diff(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, "days").days;
-
-		const extraSeasonalCandles =
-			// The difference will be a negative number if the event is still ongoing.
-			difference > 0 ? DOUBLE_SEASONAL_LIGHT_EVENT_DURATION : DOUBLE_SEASONAL_LIGHT_EVENT_DURATION + difference;
-
-		seasonalCandlesSoFar += extraSeasonalCandles;
-		seasonalCandlesSoFarWithSeasonPass += extraSeasonalCandles;
-	}
-
-	// Calculate the amount of seasonal candles left.
-	return {
-		seasonalCandlesLeft: seasonalCandlesTotal - seasonalCandlesSoFar,
-		seasonalCandlesLeftWithSeasonPass: seasonalCandlesTotalWithSeasonPass - seasonalCandlesSoFarWithSeasonPass,
-	};
-}
-
-/**
- * @privateRemarks Defines a spirit that may be encountered in a daily quest. So far, that includes:
- *
- * - Standard spirits.
- * - Seasonal spirits from ({@link QuestSpiritSeasons}).
- *
- * Spirits must not be in the {@link Realm.IslesOfDawn | Isles of Dawn}.
- *
- * These spirits must have an associated infographic.
- */
-export type QuestSpirit = (StandardSpirit | (SeasonalSpirit & { season: QuestSpiritSeasons })) & { realm: ValidRealm };
-
-export function isQuestSpiritsSeason(season: Season): season is QuestSpiritSeasons {
-	return QUEST_SPIRITS_SEASONS.includes(season as QuestSpiritSeasons);
-}
-
-export function isQuestSpirit(spirit: (typeof Spirits)[number]): spirit is QuestSpirit {
-	if (spirit.realm === Realm.IslesOfDawn) return false;
-	if (spirit.isStandardSpirit()) return true;
-
-	if (spirit.isSeasonalSpirit() && isQuestSpiritsSeason(spirit.season)) {
-		return QUEST_SPIRITS_SEASONS.includes(spirit.season);
-	}
-
-	return false;
 }
 
 export function isRealm(realm: string): realm is Realm {

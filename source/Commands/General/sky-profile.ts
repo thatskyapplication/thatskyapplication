@@ -17,9 +17,9 @@ import {
 } from "discord.js";
 import { PlatformFlagsToString, resolvePlatformToEmoji } from "../../Structures/Platforms.js";
 import Profile, { AssetType } from "../../Structures/Profile.js";
-import { SeasonFlagsToString } from "../../Structures/Seasons.js";
+import { SEASON_FLAGS_TO_SEASON_NAME_ENTRIES, SeasonNameToSeasonalEmoji } from "../../Structures/Season.js";
 import Spirits from "../../Structures/Spirits/index.js";
-import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT, SeasonToSeasonalEmoji } from "../../Utility/Constants.js";
+import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
 import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
 import COMMANDS, { type AutocompleteCommand } from "../index.js";
 
@@ -323,13 +323,13 @@ export default new (class implements AutocompleteCommand {
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
 						.setCustomId(SKY_PROFILE_SEASONS_CUSTOM_ID)
-						.setMaxValues(Object.values(SeasonFlagsToString).length)
+						.setMaxValues(SEASON_FLAGS_TO_SEASON_NAME_ENTRIES.length)
 						.setMinValues(0)
 						.setOptions(
-							Object.entries(SeasonFlagsToString).map(([flag, season]) =>
+							SEASON_FLAGS_TO_SEASON_NAME_ENTRIES.map(([flag, season]) =>
 								new StringSelectMenuOptionBuilder()
 									.setDefault(Boolean(currentSeasons && currentSeasons & Number(flag)))
-									.setEmoji(SeasonToSeasonalEmoji[season])
+									.setEmoji(SeasonNameToSeasonalEmoji[season])
 									.setLabel(season)
 									.setValue(flag),
 							),

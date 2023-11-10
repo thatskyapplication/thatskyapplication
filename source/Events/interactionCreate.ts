@@ -36,6 +36,7 @@ import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../Commands/Ge
 import COMMANDS, { resolveCommand } from "../Commands/index.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../Structures/AI.js";
 import Profile from "../Structures/Profile.js";
+import { isSeasonName } from "../Structures/Season.js";
 import {
 	SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID,
 	SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID,
@@ -60,7 +61,7 @@ import {
 	SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID,
 	SpiritTracker,
 } from "../Structures/Spirits/SpiritTracker.js";
-import { chatInputApplicationCommandMention, consoleLog, guildLink, isRealm, isSeason } from "../Utility/Utility.js";
+import { chatInputApplicationCommandMention, consoleLog, guildLink, isRealm } from "../Utility/Utility.js";
 import { LogType } from "../index.js";
 import type { Event } from "./index.js";
 
@@ -359,7 +360,7 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (customId === SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID && isSeason(value0)) {
+				if (customId === SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID && isSeasonName(value0)) {
 					await SpiritTracker.viewSeason(interaction, value0);
 					return;
 				}

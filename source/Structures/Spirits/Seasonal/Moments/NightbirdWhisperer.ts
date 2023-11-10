@@ -1,13 +1,14 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { Realm, Season } from "../../../../Utility/Constants.js";
+import { Realm } from "../../../../Utility/Constants.js";
+import { SeasonName } from "../../../Season.js";
 import { type ItemsData, Call, SeasonalSpirit, SpiritName } from "../../Base.js";
 
 const call = Call.Nightbird;
 
 export default new SeasonalSpirit({
 	name: SpiritName.NightbirdWhisperer,
-	season: Season.Moments,
+	season: SeasonName.Moments,
 	call,
 	realm: Realm.DaylightPrairie,
 	offer: {

@@ -2,16 +2,10 @@ import { URL } from "node:url";
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
-import {
-	type Realm,
-	Season,
-	CDN_URL,
-	WIKI_URL,
-	Emoji,
-	SeasonToSeasonalCandleEmoji,
-	seasonToSeasonalHeartEmoji,
-} from "../../Utility/Constants.js";
-import { resolveCurrencyEmoji, todayDate } from "../../Utility/Utility.js";
+import { type Realm, CDN_URL, Emoji, WIKI_URL } from "../../Utility/Constants.js";
+import { resolveCurrencyEmoji } from "../../Utility/Utility.js";
+import { todayDate } from "../../Utility/dates.js";
+import { SeasonNameToSeasonalCandleEmoji, SeasonName, SeasonNameToSeasonalHeartEmoji } from "../Season.js";
 
 export enum SpiritName {
 	// Isles of Dawn
@@ -466,13 +460,13 @@ export interface SeasonalSpiritVisit {
 }
 
 interface SeasonalSpiritData extends BaseSpiritData, SeasonalFriendshipTreeData, ExpressiveSpiritData {
-	season: Season;
+	season: SeasonName;
 	hasMarketingVideo?: boolean;
 	visits?: SeasonalSpiritVisit;
 }
 
 interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
-	season: Season;
+	season: SeasonName;
 }
 
 export const NO_FRIENDSHIP_TREE_TEXT = "This spirit does not have a friendship tree." as const;
@@ -492,7 +486,7 @@ export function resolveSpiritTypeToString(spiritType: SpiritType) {
 	}
 }
 
-export function resolveOfferToCurrency(cost: SpiritCost, season?: Season | null) {
+export function resolveOfferToCurrency(cost: SpiritCost, seasonName?: SeasonName | null) {
 	const totalCost = [];
 
 	if (cost.candles) {
@@ -510,7 +504,7 @@ export function resolveOfferToCurrency(cost: SpiritCost, season?: Season | null)
 	if (cost.seasonalCandles) {
 		totalCost.push(
 			resolveCurrencyEmoji({
-				emoji: season ? SeasonToSeasonalCandleEmoji[season] : Emoji.SeasonalCandle,
+				emoji: seasonName ? SeasonNameToSeasonalCandleEmoji[seasonName] : Emoji.SeasonalCandle,
 				number: cost.seasonalCandles,
 			}),
 		);
@@ -520,8 +514,8 @@ export function resolveOfferToCurrency(cost: SpiritCost, season?: Season | null)
 		totalCost.push(
 			resolveCurrencyEmoji({
 				emoji:
-					season && season !== Season.Gratitude && season !== Season.Lightseekers
-						? seasonToSeasonalHeartEmoji[season]
+					seasonName && seasonName !== SeasonName.Gratitude && seasonName !== SeasonName.Lightseekers
+						? SeasonNameToSeasonalHeartEmoji[seasonName]
 						: Emoji.SeasonalHeart,
 				number: cost.seasonalHearts,
 			}),
@@ -742,7 +736,7 @@ export class ElderSpirit extends Mixin(BaseSpirit, ElderFriendshipTree) {
 export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, ExpressiveSpirit) {
 	public override readonly type = SPIRIT_TYPE.Seasonal;
 
-	public readonly season: Season;
+	public readonly season: SeasonName;
 
 	public readonly marketingVideoURL: string | null;
 
@@ -774,7 +768,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 export class GuideSpirit extends Mixin(BaseSpirit, GuideFriendshipTree) {
 	public override readonly type = SPIRIT_TYPE.Guide;
 
-	public readonly season: Season;
+	public readonly season: SeasonName;
 
 	public constructor(spirit: GuideSpiritData) {
 		super(spirit);

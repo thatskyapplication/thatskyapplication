@@ -13,6 +13,7 @@ import {
 	time,
 	TimestampStyles,
 } from "discord.js";
+import { SeasonName, SeasonNameToSeasonalEmoji } from "../../Structures/Season.js";
 import {
 	type ElderSpirit,
 	type GuideSpirit,
@@ -27,7 +28,7 @@ import {
 import Seasonal from "../../Structures/Spirits/Seasonal/index.js";
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
 import Spirits from "../../Structures/Spirits/index.js";
-import { DEFAULT_EMBED_COLOUR, Season, SeasonToSeasonalEmoji } from "../../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 
@@ -139,7 +140,7 @@ export default new (class implements AutocompleteCommand {
 		if (spiritSeason) {
 			embed.addFields({
 				name: "Season",
-				value: `${formatEmoji(SeasonToSeasonalEmoji[spiritSeason])}${spiritSeason}`,
+				value: `${formatEmoji(SeasonNameToSeasonalEmoji[spiritSeason])}${spiritSeason}`,
 				inline: true,
 			});
 		}
@@ -171,7 +172,7 @@ export default new (class implements AutocompleteCommand {
 			} else {
 				description.push(
 					`⚠️ This ${
-						spiritSeason === Season.Shattering ? "entity" : spiritSeason === Season.Revival ? "shop" : "spirit"
+						spiritSeason === SeasonName.Shattering ? "entity" : spiritSeason === SeasonName.Revival ? "shop" : "spirit"
 					} has not yet returned.`,
 				);
 			}

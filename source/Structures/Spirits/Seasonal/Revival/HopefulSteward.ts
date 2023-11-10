@@ -1,11 +1,11 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { Season } from "../../../../Utility/Constants.js";
+import { SeasonName } from "../../../Season.js";
 import { type ItemsData, GuideSpirit, SpiritName } from "../../Base.js";
 
 export default new GuideSpirit({
 	name: SpiritName.HopefulSteward,
-	season: Season.Revival,
+	season: SeasonName.Revival,
 	offer: {
 		inProgress: true,
 		current: new Collection<number, ItemsData>()

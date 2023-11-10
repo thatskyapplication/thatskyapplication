@@ -14,19 +14,11 @@ import {
 	formatEmoji,
 } from "discord.js";
 import type { DateTime } from "luxon";
-import { type RotationNumber, DEFAULT_EMBED_COLOUR, Emoji } from "../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR, Emoji } from "../Utility/Constants.js";
 import {
 	resolveCurrencyEmoji,
-	todayDate,
 	treasureCandleRealm,
-	seasonalCandlesRotation,
-	inSeason,
-	remainingSeasonalCandles,
-	resolveCurrentSeasonalCandleEmoji,
-	resolveCurrentSeasonalEmoji,
 	formatEmojiURL,
-	isDuring,
-	seasonalCandlesRotationURL,
 	shardEruption,
 	dateString,
 	shardEruptionInformationString,
@@ -36,12 +28,13 @@ import {
 	currentEvent,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
-	SEASON_END_DATE,
-	SEASON_START_DATE,
+	isDuring,
+	todayDate,
 } from "../Utility/dates.js";
 import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
+import { currentSeason, nextSeason, type RotationNumber } from "./Season.js";
 
 export interface DailyGuidesDistributionPacket {
 	id: number;
@@ -275,31 +268,32 @@ export default class DailyGuidesDistribution {
 			});
 		}
 
-		if (inSeason()) {
-			const daysLeftInSeason = SEASON_END_DATE.diff(today, "days").days;
+		const season = currentSeason(today);
+
+		if (season) {
+			const { emoji, end } = season;
+			const daysLeftInSeason = end.diff(today, "days").days;
 
 			embed.setFooter({
 				text:
 					daysLeftInSeason === 0
 						? "The season ends today."
 						: `${daysLeftInSeason === 1 ? `${daysLeftInSeason} day` : `${daysLeftInSeason} days`} left in the season.`,
-				iconURL: formatEmojiURL(resolveCurrentSeasonalEmoji()!),
+				iconURL: formatEmojiURL(emoji),
 			});
 
-			const { rotation, realm } = seasonalCandlesRotation();
-			let rotationNumber: RotationNumber | 3 = rotation;
-			let url = seasonalCandlesRotationURL(realm, rotation);
+			const { rotation, realm } = season.resolveSeasonalCandlesRotation(today);
+			let rotationNumber: RotationNumber = rotation;
 
 			if (isDuring(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, today)) {
 				rotationNumber = 3;
-				url = seasonalCandlesRotationURL(realm, rotation);
 			}
 
-			const remainingCandles = remainingSeasonalCandles();
+			const url = season.seasonalCandlesRotationURL(realm, rotationNumber);
+			const remainingCandles = season.remainingSeasonalCandles(today);
 			let seasonalCandlesLeft;
 			let seasonalCandlesLeftWithSeasonPass;
 			if (remainingCandles) ({ seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } = remainingCandles);
-			const emoji = resolveCurrentSeasonalCandleEmoji();
 
 			embed.addFields({
 				name: "Seasonal Candles",
@@ -311,12 +305,16 @@ export default class DailyGuidesDistribution {
 					number: seasonalCandlesLeftWithSeasonPass!,
 				})} remain in the season with a Season Pass.`,
 			});
-		} else if (today < SEASON_START_DATE) {
-			const daysUntilSeason = SEASON_START_DATE.diff(today, "days").days;
+		} else {
+			const next = nextSeason(today);
 
-			embed.setFooter({
-				text: `The new season starts ${daysUntilSeason === 1 ? `tomorrow` : `in ${daysUntilSeason} days`}.`,
-			});
+			if (next) {
+				const daysUntilSeason = next.start.diff(today, "days").days;
+
+				embed.setFooter({
+					text: `The new season starts ${daysUntilSeason === 1 ? `tomorrow` : `in ${daysUntilSeason} days`}.`,
+				});
+			}
 		}
 
 		const eventCurrencyFieldData = this.eventCurrencyFieldData(today);

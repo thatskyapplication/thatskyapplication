@@ -1,15 +1,16 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
-import { Realm, Season } from "../../../../Utility/Constants.js";
-import { skyDate } from "../../../../Utility/Utility.js";
+import { Realm } from "../../../../Utility/Constants.js";
+import { skyDate } from "../../../../Utility/dates.js";
+import { SeasonName } from "../../../Season.js";
 import { type ItemsData, type SeasonalSpiritVisitCollectionKey, Call, SeasonalSpirit, SpiritName } from "../../Base.js";
 
 const call = Call.Jellyfish;
 
 export default new SeasonalSpirit({
 	name: SpiritName.JellyWhisperer,
-	season: Season.Sanctuary,
+	season: SeasonName.Sanctuary,
 	call,
 	realm: Realm.DaylightPrairie,
 	offer: {

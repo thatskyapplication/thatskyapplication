@@ -1,8 +1,9 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
-import { Realm, Season } from "../../../../Utility/Constants.js";
-import { skyDate } from "../../../../Utility/Utility.js";
+import { Realm } from "../../../../Utility/Constants.js";
+import { skyDate } from "../../../../Utility/dates.js";
+import { SeasonName } from "../../../Season.js";
 import {
 	type ItemsData,
 	type SeasonalSpiritVisitCollectionKey,
@@ -15,7 +16,7 @@ const expression = Expression.DontGo;
 
 export default new SeasonalSpirit({
 	name: SpiritName.PleafulParent,
-	season: Season.Belonging,
+	season: SeasonName.Belonging,
 	expression: Expression.DontGo,
 	realm: Realm.GoldenWasteland,
 	hasMarketingVideo: true,

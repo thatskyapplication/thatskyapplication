@@ -1,11 +1,12 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { Realm, Season } from "../../../../Utility/Constants.js";
+import { Realm } from "../../../../Utility/Constants.js";
+import { SeasonName } from "../../../Season.js";
 import { type ItemsData, Expression, GuideSpirit, SpiritName } from "../../Base.js";
 
 export default new GuideSpirit({
 	name: SpiritName.MomentsGuide,
-	season: Season.Moments,
+	season: SeasonName.Moments,
 	realm: Realm.DaylightPrairie,
 	offer: {
 		current: new Collection<number, ItemsData>()

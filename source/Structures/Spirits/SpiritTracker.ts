@@ -14,9 +14,10 @@ import {
 	ButtonStyle,
 	formatEmoji,
 } from "discord.js";
-import { type Realm, Emoji, Season, DEFAULT_EMBED_COLOUR, SeasonToSeasonalEmoji } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, isRealm, isSeason } from "../../Utility/Utility.js";
+import { type Realm, DEFAULT_EMBED_COLOUR, Emoji } from "../../Utility/Constants.js";
+import { cannotUseCustomEmojis, isRealm } from "../../Utility/Utility.js";
 import pg, { Table } from "../../pg.js";
+import { isSeasonName, SeasonName, SeasonNameToSeasonalEmoji } from "../Season.js";
 import {
 	type ElderSpirit,
 	type GuideSpirit,
@@ -703,7 +704,7 @@ const validRealms = Standard.reduce<Realm[]>((realms, { realm }) => {
 	return realms;
 }, []);
 
-const validSeasons = Seasonal.reduce<Season[]>((seasons, { season }) => {
+const validSeasons = Seasonal.reduce<SeasonName[]>((seasons, { season }) => {
 	if (!seasons.includes(season)) seasons.push(season);
 	return seasons;
 }, []);
@@ -1236,7 +1237,7 @@ export class SpiritTracker {
 
 	public static async setSeason(interaction: ButtonInteraction) {
 		const { customId, user } = interaction;
-		const season = customId.slice(customId.indexOf("§") + 1) as Season;
+		const season = customId.slice(customId.indexOf("§") + 1) as SeasonName;
 
 		await this.update(
 			user.id,
@@ -1421,7 +1422,7 @@ export class SpiritTracker {
 		) {
 			const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
 			if (isRealm(parsedCustomId)) await this.viewRealm(interaction, parsedCustomId);
-			if (isSeason(parsedCustomId)) await this.viewSeason(interaction, parsedCustomId);
+			if (isSeasonName(parsedCustomId)) await this.viewSeason(interaction, parsedCustomId);
 			return;
 		}
 
@@ -1560,7 +1561,7 @@ export class SpiritTracker {
 		});
 	}
 
-	public seasonProgress(season: Season, round?: boolean) {
+	public seasonProgress(season: SeasonName, round?: boolean) {
 		return Seasonal.filter((spirit) => spirit.season === season).map(({ name, maxItemsBit }) =>
 			maxItemsBit ? bitPercentage(this[SpiritNameToSpiritTrackerName[name]], maxItemsBit, round) : 100,
 		);
@@ -1580,7 +1581,7 @@ export class SpiritTracker {
 						.setOptions(
 							validSeasons.map((season) =>
 								new StringSelectMenuOptionBuilder()
-									.setEmoji(SeasonToSeasonalEmoji[season])
+									.setEmoji(SeasonNameToSeasonalEmoji[season])
 									.setLabel(`${season} (${spiritTracker.averageProgress(spiritTracker.seasonProgress(season), true)}%)`)
 									.setValue(season),
 							),
@@ -1597,7 +1598,7 @@ export class SpiritTracker {
 		});
 	}
 
-	public static async viewSeason(interaction: ButtonInteraction | StringSelectMenuInteraction, season: Season) {
+	public static async viewSeason(interaction: ButtonInteraction | StringSelectMenuInteraction, season: SeasonName) {
 		const spiritTracker = await this.fetch(interaction.user.id);
 		let hasEverything = true;
 
@@ -1620,9 +1621,9 @@ export class SpiritTracker {
 						.setMinValues(0)
 						.setOptions(options)
 						.setPlaceholder(
-							season === Season.Shattering
+							season === SeasonName.Shattering
 								? "Select an entity!"
-								: season === Season.Revival
+								: season === SeasonName.Revival
 								? "Select a spirit or a shop!"
 								: "Select a spirit!",
 						),
