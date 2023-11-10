@@ -25,7 +25,6 @@ import {
 	shardEruptionTimestampsString,
 } from "../Utility/Utility.js";
 import {
-	currentEvent,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	isDuring,
@@ -34,7 +33,8 @@ import {
 import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
-import { currentSeason, nextSeason, type RotationNumber } from "./Season.js";
+import { resolveEvent } from "./Event.js";
+import { type RotationNumber, nextSeason, resolveSeason } from "./Season.js";
 
 export interface DailyGuidesDistributionPacket {
 	id: number;
@@ -227,8 +227,8 @@ export default class DailyGuidesDistribution {
 	}
 
 	public static eventCurrencyFieldData(date: DateTime) {
-		const event = currentEvent(date);
-		if (event?.url) return { name: "Event Currency", value: hyperlink(`Rotation ${event.rotation()}`, event.url) };
+		const event = resolveEvent(date);
+		if (event?.url) return { name: "Event Currency", value: hyperlink(`Rotation ${event.rotation(date)}`, event.url) };
 		return null;
 	}
 
@@ -268,7 +268,7 @@ export default class DailyGuidesDistribution {
 			});
 		}
 
-		const season = currentSeason(today);
+		const season = resolveSeason(today);
 
 		if (season) {
 			const { emoji, end } = season;

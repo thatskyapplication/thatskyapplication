@@ -1,0 +1,53 @@
+import { URL } from "node:url";
+import type { DateTime } from "luxon";
+import { CDN_URL } from "../Utility/Constants.js";
+import { skyDate } from "../Utility/dates.js";
+
+const EVENT_ROTATION_LETTER = ["B", "C", "A"] as const;
+
+interface EventData {
+	name: string;
+	start: DateTime;
+	end: DateTime;
+	url: string | null;
+}
+
+class Event {
+	public readonly name: string;
+
+	public readonly start: DateTime;
+
+	public readonly end: DateTime;
+
+	public readonly url: string | null;
+
+	public constructor(data: EventData) {
+		this.name = data.name;
+		this.start = data.start;
+		this.end = data.end;
+		this.url = data.url;
+	}
+
+	public rotation(date: DateTime) {
+		return EVENT_ROTATION_LETTER[date.diff(this.start, "day").days % 3]!;
+	}
+}
+
+const EVENTS = [
+	new Event({
+		name: "Days of Mischief",
+		start: skyDate(2_023, 10, 23),
+		end: skyDate(2_023, 11, 12),
+		url: String(new URL("daily_guides/events/days_of_mischief/2023.webp", CDN_URL)),
+	}),
+	new Event({
+		name: "Aviary Fireworks Festival",
+		start: skyDate(2_023, 11, 27),
+		end: skyDate(2_023, 12, 11),
+		url: null,
+	}),
+] as const satisfies Readonly<Event[]>;
+
+export function resolveEvent(date: DateTime) {
+	return EVENTS.find(({ start, end }) => date >= start && date <= end) ?? null;
+}

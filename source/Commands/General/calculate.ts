@@ -11,7 +11,7 @@ import { t } from "i18next";
 import {
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
-	currentSeason,
+	resolveSeason,
 } from "../../Structures/Season.js";
 import {
 	AreaToWingedLightCount,
@@ -34,7 +34,11 @@ import {
 	resolveCurrencyEmoji,
 	shardEruption,
 } from "../../Utility/Utility.js";
-import { DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, todayDate } from "../../Utility/dates.js";
+import {
+	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
+	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
+	todayDate,
+} from "../../Utility/dates.js";
 import type { ChatInputCommand } from "../index.js";
 
 const doubleSeasonalLightEventStart = time(
@@ -368,7 +372,7 @@ export default new (class implements ChatInputCommand {
 
 		if (await cannotUseCustomEmojis(interaction)) return;
 		const today = todayDate();
-		const season = currentSeason(today);
+		const season = resolveSeason(today);
 		const remainingCandles = season?.remainingSeasonalCandles(today);
 		const emoji = season?.candleEmoji ?? Emoji.SeasonalCandle;
 		const amountRequired = goal - start;

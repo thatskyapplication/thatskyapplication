@@ -260,7 +260,7 @@ const SEASONS = [
 	}),
 ] as const satisfies Readonly<Season[]>;
 
-export function currentSeason(date: DateTime) {
+export function resolveSeason(date: DateTime) {
 	return SEASONS.find(({ start, end }) => date >= start && date <= end) ?? null;
 }
 
