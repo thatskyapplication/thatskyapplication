@@ -546,7 +546,7 @@ function cdnName(name: SpiritName) {
 abstract class BaseFriendshipTree {
 	public readonly offer: BaseFriendshipTreeOffer | null;
 
-	public readonly totalCost: SpiritCost | null;
+	public readonly totalCost: Required<SpiritCost> | null;
 
 	public readonly maxItemsBit: number | null;
 
@@ -560,52 +560,25 @@ abstract class BaseFriendshipTree {
 	}
 
 	protected resolveTotalCost(offer: Collection<number, ItemsData>) {
-		return offer.reduce<SpiritCost>((offer, { cost }) => {
-			if (!cost) return offer;
-			const { candles, hearts, ascendedCandles, seasonalCandles, seasonalHearts } = cost;
-
-			if (candles) {
-				if (offer.candles) {
-					offer.candles += candles;
-				} else {
-					offer.candles = candles;
-				}
-			}
-
-			if (hearts) {
-				if (offer.hearts) {
-					offer.hearts += hearts;
-				} else {
-					offer.hearts = hearts;
-				}
-			}
-
-			if (ascendedCandles) {
-				if (offer.ascendedCandles) {
-					offer.ascendedCandles += ascendedCandles;
-				} else {
-					offer.ascendedCandles = ascendedCandles;
-				}
-			}
-
-			if (seasonalCandles) {
-				if (offer.seasonalCandles) {
-					offer.seasonalCandles += seasonalCandles;
-				} else {
-					offer.seasonalCandles = seasonalCandles;
-				}
-			}
-
-			if (seasonalHearts) {
-				if (offer.seasonalHearts) {
-					offer.seasonalHearts += seasonalHearts;
-				} else {
-					offer.seasonalHearts = seasonalHearts;
-				}
-			}
-
-			return offer;
-		}, {});
+		return offer.reduce<Required<SpiritCost>>(
+			(offer, { cost }) => {
+				if (!cost) return offer;
+				const { candles, hearts, ascendedCandles, seasonalCandles, seasonalHearts } = cost;
+				if (candles) offer.candles += candles;
+				if (hearts) offer.hearts += hearts;
+				if (ascendedCandles) offer.ascendedCandles += ascendedCandles;
+				if (seasonalCandles) offer.seasonalCandles += seasonalCandles;
+				if (seasonalHearts) offer.seasonalHearts += seasonalHearts;
+				return offer;
+			},
+			{
+				candles: 0,
+				hearts: 0,
+				ascendedCandles: 0,
+				seasonalCandles: 0,
+				seasonalHearts: 0,
+			},
+		);
 	}
 
 	protected resolveMaxItemsBit(offer: Collection<number, ItemsData>) {
@@ -628,7 +601,7 @@ abstract class BaseFriendshipTree {
 abstract class StandardFriendshipTree extends BaseFriendshipTree {
 	public declare readonly offer: StandardFriendshipTreeOffer;
 
-	public declare readonly totalCost: SpiritCost;
+	public declare readonly totalCost: Required<SpiritCost>;
 
 	public declare readonly maxItemsBit: number;
 }
@@ -636,7 +609,7 @@ abstract class StandardFriendshipTree extends BaseFriendshipTree {
 abstract class ElderFriendshipTree extends BaseFriendshipTree {
 	public declare readonly offer: ElderFriendshipTreeOffer;
 
-	public declare readonly totalCost: SpiritCost;
+	public declare readonly totalCost: Required<SpiritCost>;
 
 	public declare readonly maxItemsBit: number;
 }
@@ -646,7 +619,7 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 
 	public override readonly maxItemsBit: number;
 
-	public readonly totalCostSeasonal: SpiritCost;
+	public readonly totalCostSeasonal: Required<SpiritCost>;
 
 	public imageURLSeasonal: string | null;
 
