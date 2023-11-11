@@ -3,7 +3,7 @@ import type { DateTime } from "luxon";
 import { CDN_URL } from "../Utility/Constants.js";
 import { skyDate } from "../Utility/dates.js";
 
-const EVENT_ROTATION_LETTER = ["B", "C", "A"] as const;
+const EVENT_ROTATION_LETTER = ["A", "B", "C"] as const;
 
 interface EventData {
 	name: string;
