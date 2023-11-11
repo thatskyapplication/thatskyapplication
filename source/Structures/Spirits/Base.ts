@@ -486,6 +486,16 @@ export function resolveSpiritTypeToString(spiritType: SpiritType) {
 	}
 }
 
+export function addCurrency(currency1: SpiritCost, currency2: SpiritCost): Required<SpiritCost> {
+	return {
+		candles: (currency1.candles ?? 0) + (currency2.candles ?? 0),
+		hearts: (currency1.hearts ?? 0) + (currency2.hearts ?? 0),
+		ascendedCandles: (currency1.ascendedCandles ?? 0) + (currency2.ascendedCandles ?? 0),
+		seasonalCandles: (currency1.seasonalCandles ?? 0) + (currency2.seasonalCandles ?? 0),
+		seasonalHearts: (currency1.seasonalHearts ?? 0) + (currency2.seasonalHearts ?? 0),
+	};
+}
+
 export function resolveOfferToCurrency(cost: SpiritCost, seasonName?: SeasonName | null) {
 	const totalCost = [];
 

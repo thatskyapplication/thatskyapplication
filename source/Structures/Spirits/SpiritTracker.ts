@@ -16,8 +16,9 @@ import {
 } from "discord.js";
 import { type Realm, DEFAULT_EMBED_COLOUR, Emoji } from "../../Utility/Constants.js";
 import { cannotUseCustomEmojis, isRealm } from "../../Utility/Utility.js";
+import { todayDate } from "../../Utility/dates.js";
 import pg, { Table } from "../../pg.js";
-import { isSeasonName, SeasonName, SeasonNameToSeasonalEmoji } from "../Season.js";
+import { isSeasonName, resolveSeason, SeasonName, SeasonNameToSeasonalEmoji } from "../Season.js";
 import {
 	type ElderSpirit,
 	type GuideSpirit,
@@ -25,6 +26,7 @@ import {
 	type SpiritCost,
 	type SpiritType,
 	type StandardSpirit,
+	addCurrency,
 	SpiritName,
 	SPIRIT_TYPE,
 	resolveSpiritTypeToString,
@@ -695,9 +697,7 @@ export const SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_ELDERS
 export const SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID" as const;
 const SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT = 24 as const;
-
-const SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE =
-	"This calculates averages wholly, but the game calculates averages excluding beyond the second wing buff." as const;
+const SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE = "Averages are calculated even beyond the second wing buff." as const;
 
 const validRealms = Standard.reduce<Realm[]>((realms, { realm }) => {
 	if (!realms.includes(realm)) realms.push(realm);
@@ -1448,8 +1448,17 @@ export class SpiritTracker {
 	public static async viewRealms(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		const spiritTracker = await this.fetch(interaction.user.id);
 
+		const resolvedRemainingCurrency = resolveOfferToCurrency(
+			Standard.reduce((remainingCurrency, spirit) => {
+				const remaining = spiritTracker.remainingCurrency(spirit);
+				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
+			}, {}),
+		);
+
 		await interaction.update({
-			content: SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE,
+			content: `${
+				resolvedRemainingCurrency.length > 0 ? `## Remaining Currency\n${resolvedRemainingCurrency.join("")}\n` : ""
+			}${SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE}`,
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1477,9 +1486,10 @@ export class SpiritTracker {
 
 	public static async viewRealm(interaction: ButtonInteraction | StringSelectMenuInteraction, realm: Realm) {
 		const spiritTracker = await this.fetch(interaction.user.id);
+		const spirits = Standard.filter((spirit) => spirit.realm === realm);
 		let hasEverything = true;
 
-		const options = Standard.filter((spirit) => spirit.realm === realm).map(({ name, maxItemsBit }) => {
+		const options = spirits.map(({ name, maxItemsBit }) => {
 			const bit = spiritTracker[SpiritNameToSpiritTrackerName[name]];
 			if (bit !== maxItemsBit) hasEverything = false;
 
@@ -1488,8 +1498,17 @@ export class SpiritTracker {
 				.setValue(name);
 		});
 
+		const resolvedRemainingCurrency = resolveOfferToCurrency(
+			spirits.reduce((remainingCurrency, spirit) => {
+				const remaining = spiritTracker.remainingCurrency(spirit);
+				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
+			}, {}),
+		);
+
 		const response = {
-			content: options.length === 0 ? "There are no spirits." : SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE,
+			content: `${
+				resolvedRemainingCurrency.length > 0 ? `## Remaining Currency\n${resolvedRemainingCurrency.join("")}\n` : ""
+			}${SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE}`,
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1516,7 +1535,6 @@ export class SpiritTracker {
 			embeds: [],
 		} satisfies InteractionUpdateOptions;
 
-		if (options.length === 0) response.components.shift();
 		await interaction.update(response);
 	}
 
@@ -1533,8 +1551,16 @@ export class SpiritTracker {
 				.setValue(name);
 		});
 
+		const resolvedRemainingCurrency = resolveOfferToCurrency(
+			Elder.reduce((remainingCurrency, spirit) => {
+				const remaining = spiritTracker.remainingCurrency(spirit);
+				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
+			}, {}),
+		);
+
 		await interaction.update({
-			content: "",
+			content:
+				resolvedRemainingCurrency.length > 0 ? `## Remaining Currency\n${resolvedRemainingCurrency.join("")}` : "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1600,9 +1626,11 @@ export class SpiritTracker {
 
 	public static async viewSeason(interaction: ButtonInteraction | StringSelectMenuInteraction, season: SeasonName) {
 		const spiritTracker = await this.fetch(interaction.user.id);
+		const spirits = Seasonal.filter((spirit) => spirit.season === season);
 		let hasEverything = true;
 
-		const options = Seasonal.filter((spirit) => spirit.season === season).map(({ name, maxItemsBit }) => {
+		const options = spirits.map((spirit) => {
+			const { name, maxItemsBit } = spirit;
 			const bit = spiritTracker[SpiritNameToSpiritTrackerName[name]];
 			if (bit !== maxItemsBit) hasEverything = false;
 
@@ -1611,8 +1639,19 @@ export class SpiritTracker {
 				.setValue(name);
 		});
 
+		const currentSeason = resolveSeason(todayDate())?.name === season;
+
+		const resolvedRemainingCurrency = resolveOfferToCurrency(
+			spirits.reduce((remainingCurrency, spirit) => {
+				const remaining = spiritTracker.remainingCurrency(spirit, currentSeason);
+				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
+			}, {}),
+			season,
+		);
+
 		const response = {
-			content: "",
+			content:
+				resolvedRemainingCurrency.length > 0 ? `## Remaining Currency\n${resolvedRemainingCurrency.join("")}` : "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1810,6 +1849,35 @@ export class SpiritTracker {
 		}
 
 		components.push(buttons);
-		await interaction.update({ components, embeds });
+		await interaction.update({ components, content: "", embeds });
+	}
+
+	private remainingCurrency(
+		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
+		includeSeasonalCurrency?: boolean,
+	) {
+		const seasonalParsing = spirit.isSeasonalSpirit() && !spirit.visited;
+		const resolvedOffer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
+		if (!resolvedOffer) return null;
+		const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
+
+		return resolvedOffer.reduce<Required<SpiritCost>>(
+			(remaining, { cost }, flag) => {
+				if (!cost || (bit && (bit & flag) === flag)) return remaining;
+				if (cost.candles) remaining.candles += cost.candles;
+				if (cost.hearts) remaining.hearts += cost.hearts;
+				if (cost.ascendedCandles) remaining.ascendedCandles += cost.ascendedCandles;
+				if (includeSeasonalCurrency && cost.seasonalCandles) remaining.seasonalCandles += cost.seasonalCandles;
+				if (includeSeasonalCurrency && cost.seasonalHearts) remaining.seasonalHearts += cost.seasonalHearts;
+				return remaining;
+			},
+			{
+				candles: 0,
+				hearts: 0,
+				ascendedCandles: 0,
+				seasonalCandles: 0,
+				seasonalHearts: 0,
+			},
+		);
 	}
 }
