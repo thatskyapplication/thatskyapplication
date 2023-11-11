@@ -1251,6 +1251,7 @@ export class SpiritTracker {
 	}
 
 	public static async setSpirit(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		const spiritTracker = await this.fetch(interaction.user.id);
 		const { customId } = interaction;
 		const spiritName = customId.slice(customId.indexOf("§") + 1) as SpiritName;
 		const spirit = Spirits.find(({ name }) => name === spiritName)!;
@@ -1277,7 +1278,7 @@ export class SpiritTracker {
 		}
 
 		await this.update(interaction.user.id, { [SpiritTrackerNameToRawName[spiritName]]: newBit });
-		await SpiritTracker.viewSpiritResponse(interaction, newBit, spirit);
+		await spiritTracker.viewSpiritResponse(interaction, newBit, spirit);
 	}
 
 	private static async update(userId: SpiritTracker["userId"], data: SpiritTracketSetData) {
@@ -1321,7 +1322,7 @@ export class SpiritTracker {
 
 	public static async viewTracker(interaction: ButtonInteraction | ChatInputCommandInteraction) {
 		const existingSpiritTracker = await this.fetch(interaction.user.id).catch(() => null);
-		let spiritTracker: SpiritTracker;
+		let spiritTracker;
 
 		if (existingSpiritTracker) {
 			spiritTracker = existingSpiritTracker;
@@ -1705,10 +1706,14 @@ export class SpiritTracker {
 			return;
 		}
 
-		await this.viewSpiritResponse(interaction, spiritTracker[SpiritNameToSpiritTrackerName[spirit.name]], spirit);
+		await spiritTracker.viewSpiritResponse(
+			interaction,
+			spiritTracker[SpiritNameToSpiritTrackerName[spirit.name]],
+			spirit,
+		);
 	}
 
-	private static async viewSpiritResponse(
+	private async viewSpiritResponse(
 		interaction: ButtonInteraction | StringSelectMenuInteraction,
 		bit: SpiritTrackerValue,
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
@@ -1731,14 +1736,6 @@ export class SpiritTracker {
 			return;
 		}
 
-		const remainingCurrency = {
-			candles: 0,
-			hearts: 0,
-			ascendedCandles: 0,
-			seasonalCandles: 0,
-			seasonalHearts: 0,
-		} satisfies SpiritCost;
-
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
 		const seasonalParsing = isSeasonalSpirit && !spirit.visited;
@@ -1753,11 +1750,6 @@ export class SpiritTracker {
 				if (bit && (bit & flag) === flag) {
 					value = formatEmoji(Emoji.Yes, true);
 				} else {
-					if (cost?.candles) remainingCurrency.candles += cost.candles;
-					if (cost?.hearts) remainingCurrency.hearts += cost.hearts;
-					if (cost?.ascendedCandles) remainingCurrency.ascendedCandles += cost.ascendedCandles;
-					if (cost?.seasonalCandles) remainingCurrency.seasonalCandles += cost.seasonalCandles;
-					if (cost?.seasonalHearts) remainingCurrency.seasonalHearts += cost.seasonalHearts;
 					value = resolveOfferToCurrency(cost ?? {}, spiritSeason).join("") || formatEmoji(Emoji.No, true);
 				}
 
@@ -1784,10 +1776,14 @@ export class SpiritTracker {
 
 		const lastEmbed = embeds.at(-1)!;
 		const description = [];
-		const resolvedRemainingCurrency = resolveOfferToCurrency(remainingCurrency, spiritSeason);
+		const remainingCurrency = this.remainingCurrency(spirit, true);
 
-		if (resolvedRemainingCurrency.length > 0) {
-			description.push(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);
+		if (remainingCurrency) {
+			const resolvedRemainingCurrency = resolveOfferToCurrency(remainingCurrency, spiritSeason);
+
+			if (resolvedRemainingCurrency.length > 0) {
+				description.push(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);
+			}
 		}
 
 		if (imageURL) {
