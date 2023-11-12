@@ -15,21 +15,19 @@ import type { ChatInputCommand } from "../index.js";
 
 const PASSAGE_TRUNCATION_LIMIT = 9 as const;
 
-function dailyResetTime() {
-	return todayDate().plus({ day: 1 }).toUnixInteger();
+function dailyResetTime(date: DateTime) {
+	return date.plus({ day: 1 }).toUnixInteger();
 }
 
-function eyeOfEdenResetTime() {
-	return todayDate().set({ weekday: 7 }).toUnixInteger();
+function eyeOfEdenResetTime(date: DateTime) {
+	return date.set({ weekday: 7 }).toUnixInteger();
 }
 
-function travellingSpiritTime() {
-	const today = todayDate();
-
+function travellingSpiritTime(date: DateTime) {
 	for (let start = INITIAL_TRAVELLING_SPIRIT_SEEK; ; start = start.plus({ week: 2 })) {
-		if (start < today && start.plus({ day: 3 }) < today) continue;
+		if (start < date && start.plus({ day: 3 }) < date) continue;
 
-		if (start.equals(today) || start < today || start.plus({ day: 3 }) < today) {
+		if (start.equals(date) || start < date || start.plus({ day: 3 }) < date) {
 			return "Today!";
 		} else {
 			const startUnix = start.toUnixInteger();
@@ -87,16 +85,16 @@ export default new (class implements ChatInputCommand {
 			.setFields(
 				{
 					name: NotificationEvent.DailyReset,
-					value: `${time(dailyResetTime(), TimestampStyles.ShortTime)} (${time(
-						dailyResetTime(),
+					value: `${time(dailyResetTime(today), TimestampStyles.ShortTime)} (${time(
+						dailyResetTime(today),
 						TimestampStyles.RelativeTime,
 					)})`,
 				},
 				{
 					name: NotificationEvent.ISS,
-					value: ISS_DATES_ACCESSIBLE.filter((issDateAccessible) => issDateAccessible <= todayDate().daysInMonth!)
+					value: ISS_DATES_ACCESSIBLE.filter((issDateAccessible) => issDateAccessible <= today.daysInMonth!)
 						.map((issDateAccessible) => {
-							const issDateUnix = todayDate().set({ day: issDateAccessible }).toUnixInteger();
+							const issDateUnix = today.set({ day: issDateAccessible }).toUnixInteger();
 
 							return `${time(issDateUnix, TimestampStyles.ShortDate)} (${time(
 								issDateUnix,
@@ -107,12 +105,12 @@ export default new (class implements ChatInputCommand {
 				},
 				{
 					name: NotificationEvent.EyeOfEden,
-					value: `${time(eyeOfEdenResetTime(), TimestampStyles.ShortTime)} (${time(
-						eyeOfEdenResetTime(),
+					value: `${time(eyeOfEdenResetTime(today), TimestampStyles.ShortTime)} (${time(
+						eyeOfEdenResetTime(today),
 						TimestampStyles.RelativeTime,
 					)})`,
 				},
-				{ name: "Travelling Spirit", value: travellingSpiritTime() },
+				{ name: "Travelling Spirit", value: travellingSpiritTime(today) },
 				{ name: NotificationEvent.PollutedGeyser, value: pollutedGeyser.join(" ") },
 				{ name: NotificationEvent.Grandma, value: grandma.join(" ") },
 				{ name: NotificationEvent.Turtle, value: turtle.join(" ") },
