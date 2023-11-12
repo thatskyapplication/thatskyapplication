@@ -53,15 +53,16 @@ function scheduleTimes(date: DateTime) {
 	// 5 minutes is the least common denominator.
 	for (let start = date; start < tomorrow; start = start.plus({ minutes: 5 })) {
 		const timeString = time(start.toUnixInteger(), TimestampStyles.ShortTime);
-		passage.push(timeString);
+		const { minute, hour } = start;
+		if (minute % 15 === 0) passage.push(timeString);
 
-		if (start.hour % 2 === 0) {
-			if (start.minute === 5) pollutedGeyser.push(timeString);
-			if (start.minute === 35) grandma.push(timeString);
-			if (start.minute === 50) turtle.push(timeString);
+		if (hour % 2 === 0) {
+			if (minute === 5) pollutedGeyser.push(timeString);
+			if (minute === 35) grandma.push(timeString);
+			if (minute === 50) turtle.push(timeString);
 		}
 
-		if (start.minute === 0 && (start.hour + 2) % 4 === 0) aurora.push(timeString);
+		if (minute === 0 && (hour + 2) % 4 === 0) aurora.push(timeString);
 	}
 
 	return { pollutedGeyser, grandma, turtle, aurora, passage };
