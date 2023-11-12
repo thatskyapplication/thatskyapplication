@@ -12,9 +12,6 @@ const AI_DEFAULT_RESPONSE = "Oh my gosh! Could you be the... the legendary Sky k
 const AI_DESCRIPTION =
 	"You are named Caelus and you are currently chatting in a Discord server. Responses should be no longer than a sentence. Be engaging, positive, and happy. If you are going to refer to Sky: Children of the Light, simply say Sky. Do not refer to yourself as an AI." as const;
 
-const AI_LAST_MESSAGE_CONTEXT =
-	`${AI_DESCRIPTION} Use the previous messages as context. What are your thoughts?` as const;
-
 const AI_DESCRIPTION_EMOJIS = "Respond with up to 3 emojis that represent this message." as const;
 
 function parseAIName(input: string) {
@@ -38,7 +35,7 @@ export async function messageCreateEmojiResponse(message: Message<true>) {
 				frequency_penalty: 1,
 				max_tokens: 100,
 				messages: [{ role: "system", content: AI_DESCRIPTION_EMOJIS }, chatCompletionRequestMessage],
-				model: "gpt-3.5-turbo",
+				model: "gpt-4-1106-preview",
 				user: message.author.id,
 			}),
 		]);
@@ -68,9 +65,7 @@ export async function messageCreateResponse(message: Message<true>) {
 					{ role: "system", content: AI_DESCRIPTION },
 					...messages.map((message) => {
 						const chatCompletionRequestMessage: ChatCompletionMessageParam = {
-							content: `${message.id === lastMessageId ? `${AI_LAST_MESSAGE_CONTEXT}\n\n---\n\n` : ""}${
-								message.content
-							}`,
+							content: message.content,
 							role: message.author.id === message.client.user.id ? "assistant" : "user",
 						};
 
@@ -79,7 +74,7 @@ export async function messageCreateResponse(message: Message<true>) {
 						return chatCompletionRequestMessage;
 					}),
 				],
-				model: "gpt-3.5-turbo",
+				model: "gpt-4-1106-preview",
 				user: message.author.id,
 			}),
 		]);
