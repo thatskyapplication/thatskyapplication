@@ -17,6 +17,8 @@ export default new GuideSpirit({
 			.set(1 << 5, { item: "Quest 2", cost: null })
 			.set(1 << 6, { item: "Heart 2", cost: null })
 			.set(1 << 7, { item: "Quest 3", cost: null })
-			.set(1 << 8, { item: "Heart 3", cost: null }),
+			.set(1 << 8, { item: "Heart 3", cost: null })
+			.set(1 << 9, { item: "Quest 4", cost: null })
+			.set(1 << 10, { item: "Heart 4", cost: null }),
 	},
 });
