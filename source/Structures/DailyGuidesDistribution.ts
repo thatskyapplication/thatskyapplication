@@ -271,7 +271,7 @@ export default class DailyGuidesDistribution {
 		const season = resolveSeason(today);
 
 		if (season) {
-			const { emoji, end } = season;
+			const { candleEmoji, emoji, end } = season;
 			const daysLeftInSeason = end.diff(today, "days").days;
 
 			embed.setFooter({
@@ -298,10 +298,10 @@ export default class DailyGuidesDistribution {
 			embed.addFields({
 				name: "Seasonal Candles",
 				value: `${hyperlink(`Rotation ${rotationNumber}`, url)}\n${resolveCurrencyEmoji({
-					emoji,
+					emoji: candleEmoji,
 					number: seasonalCandlesLeft!,
 				})} remain in the season.\n${resolveCurrencyEmoji({
-					emoji,
+					emoji: candleEmoji,
 					number: seasonalCandlesLeftWithSeasonPass!,
 				})} remain in the season with a Season Pass.`,
 			});
