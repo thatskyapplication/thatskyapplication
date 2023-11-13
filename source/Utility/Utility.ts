@@ -49,8 +49,8 @@ export function notNull<T>(value: T | null): value is T {
 	return value !== null;
 }
 
-export function treasureCandleRealm() {
-	return VALID_REALM[todayDate().diff(INITIAL_TREASURE_CANDLE_REALM_SEEK, "day").days % 5]!;
+export function treasureCandleRealm(date: DateTime) {
+	return VALID_REALM[date.diff(INITIAL_TREASURE_CANDLE_REALM_SEEK, "day").days % 5]!;
 }
 
 export async function cannotUseCustomEmojis(

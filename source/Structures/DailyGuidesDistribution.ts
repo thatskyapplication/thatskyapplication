@@ -263,7 +263,7 @@ export default class DailyGuidesDistribution {
 
 		if (treasureCandles) {
 			embed.addFields({
-				name: `Treasure Candles - ${treasureCandleRealm()}`,
+				name: `Treasure Candles - ${treasureCandleRealm(today)}`,
 				value: treasureCandles.map((url, index) => hyperlink(`${index * 4 + 1} - ${(index + 1) * 4}`, url)).join(" | "),
 			});
 		}
