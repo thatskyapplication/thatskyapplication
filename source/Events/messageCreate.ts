@@ -1,5 +1,5 @@
 import { Events, PermissionFlagsBits } from "discord.js";
-import { messageCreateEmojiResponse, messageCreateResponse } from "../OpenAI.js";
+import { messageCreateEmojiResponse, messageCreateReactionResponse, messageCreateResponse } from "../OpenAI.js";
 import AI, { AIFrequencyType, AIFrequencyTypeToValue } from "../Structures/AI.js";
 import Configuration from "../Structures/Configuration.js";
 import DailyGuides from "../Structures/DailyGuides.js";
@@ -30,7 +30,11 @@ export const event: Event<typeof name> = {
 		if (frequency === 0) return;
 
 		if (Math.random() < frequency) {
-			void (Math.random() < 0.1 ? messageCreateEmojiResponse(message) : messageCreateResponse(message));
+			void (Math.random() < 0.1
+				? Math.random() < 0.5 && me.permissions.has(PermissionFlagsBits.AddReactions)
+					? messageCreateReactionResponse(message)
+					: messageCreateEmojiResponse(message)
+				: messageCreateResponse(message));
 		}
 	},
 };
