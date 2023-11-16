@@ -1,12 +1,10 @@
 import process from "node:process";
 import type { Message } from "discord.js";
 import OpenAI from "openai";
-import type { ChatCompletionMessageParam } from "openai/resources/chat/index.mjs";
 
 const { OPENAI_API_KEY } = process.env;
 if (!OPENAI_API_KEY) throw new Error("No OpenAI API key.");
 const openAI = new OpenAI({ apiKey: OPENAI_API_KEY });
-
 const AI_DEFAULT_RESPONSE = "Oh my gosh! Could you be the... the legendary Sky kid?" as const;
 
 const AI_DESCRIPTION =
@@ -14,27 +12,17 @@ const AI_DESCRIPTION =
 
 const AI_DESCRIPTION_EMOJIS = "Respond with up to 3 emojis that represent this message." as const;
 
-function parseAIName(input: string) {
-	const cleaned = input.replaceAll(/[^\w-]/g, "");
-	return cleaned.length >= 1 ? cleaned : null;
-}
-
 export async function messageCreateEmojiResponse(message: Message<true>) {
-	const chatCompletionRequestMessage: ChatCompletionMessageParam = {
-		content: message.content,
-		role: "user",
-	};
-
-	const name = parseAIName(message.member?.displayName ?? message.author.username);
-	if (name) chatCompletionRequestMessage.name = name;
-
 	try {
 		const [, completion] = await Promise.all([
 			message.channel.sendTyping(),
 			openAI.chat.completions.create({
 				frequency_penalty: 1,
 				max_tokens: 100,
-				messages: [{ role: "system", content: AI_DESCRIPTION_EMOJIS }, chatCompletionRequestMessage],
+				messages: [
+					{ role: "system", content: AI_DESCRIPTION_EMOJIS },
+					{ content: message.content, name: message.author.username, role: "user" },
+				],
 				model: "gpt-4-1106-preview",
 				user: message.author.id,
 			}),
@@ -63,16 +51,14 @@ export async function messageCreateResponse(message: Message<true>) {
 				max_tokens: 100,
 				messages: [
 					{ role: "system", content: AI_DESCRIPTION },
-					...messages.map((message) => {
-						const chatCompletionRequestMessage: ChatCompletionMessageParam = {
-							content: message.content,
-							role: message.author.id === message.client.user.id ? "assistant" : "user",
-						};
-
-						const name = parseAIName(message.member?.displayName ?? message.author.username);
-						if (name) chatCompletionRequestMessage.name = name;
-						return chatCompletionRequestMessage;
-					}),
+					...messages.map(
+						(message) =>
+							({
+								content: message.content,
+								name: message.author.username,
+								role: message.author.id === message.client.user.id ? "assistant" : "user",
+							}) as const,
+					),
 				],
 				model: "gpt-4-1106-preview",
 				user: message.author.id,
