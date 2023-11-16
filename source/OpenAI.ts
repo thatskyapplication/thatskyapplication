@@ -15,6 +15,11 @@ const AI_DESCRIPTION =
 const AI_DESCRIPTION_EMOJIS = "Respond with up to 3 emojis that represent this message." as const;
 const AI_DESCRIPTION_REACTION = `${AI_DESCRIPTION_EMOJIS} Put each emoji on a new line.` as const;
 
+function parseAIName(input: string) {
+	// It's not possible for a Discord username to be longer than 32 characers or return an empty output.
+	return input.replaceAll(/[^\w-]/g, "");
+}
+
 export async function messageCreateEmojiResponse(message: Message<true>) {
 	const abortController = new AbortController();
 	const timeout = setTimeout(() => abortController.abort(), 10_000);
@@ -28,7 +33,7 @@ export async function messageCreateEmojiResponse(message: Message<true>) {
 					max_tokens: 35,
 					messages: [
 						{ role: "system", content: AI_DESCRIPTION_EMOJIS },
-						{ content: message.content, name: message.author.username, role: "user" },
+						{ content: message.content, name: parseAIName(message.author.username), role: "user" },
 					],
 					model: "gpt-3.5-turbo-1106",
 					user: message.author.id,
@@ -60,7 +65,7 @@ export async function messageCreateReactionResponse(message: Message<true>) {
 				max_tokens: 35,
 				messages: [
 					{ role: "system", content: AI_DESCRIPTION_REACTION },
-					{ content: message.content, name: message.author.username, role: "user" },
+					{ content: message.content, name: parseAIName(message.author.username), role: "user" },
 				],
 				model: "gpt-3.5-turbo-1106",
 				user: message.author.id,
@@ -98,7 +103,7 @@ export async function messageCreateResponse(message: Message<true>) {
 							(message) =>
 								({
 									content: message.content,
-									name: message.author.username,
+									name: parseAIName(message.author.username),
 									role: message.author.id === message.client.user.id ? "assistant" : "user",
 								}) as const,
 						),
