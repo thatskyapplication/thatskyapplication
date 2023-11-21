@@ -1,8 +1,16 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
+import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
+import { skyDate } from "../../../../Utility/dates.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, Expression, SeasonalSpirit, SpiritName } from "../../Base.js";
+import {
+	type ItemsData,
+	type SeasonalSpiritVisitCollectionKey,
+	Expression,
+	SeasonalSpirit,
+	SpiritName,
+} from "../../Base.js";
 
 const expression = Expression.Voilà;
 
@@ -27,5 +35,8 @@ export default new SeasonalSpirit({
 			.set(1 << 10, { item: "Hair", cost: { seasonalCandles: 26 } })
 			.set(1 << 11, { item: "Trail spell 2", cost: null })
 			.set(1 << 12, { item: "Seasonal heart", cost: { seasonalCandles: 3 } }),
+	},
+	visits: {
+		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(101, skyDate(2_023, 11, 23)),
 	},
 });
