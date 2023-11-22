@@ -46,6 +46,8 @@ export interface NotificationPacket {
 	iss_role_id: Snowflake | null;
 	strong_shard_eruption_channel_id: Snowflake | null;
 	strong_shard_eruption_role_id: Snowflake | null;
+	aviarys_firework_festival_channel_id: Snowflake | null;
+	aviarys_firework_festival_role_id: Snowflake | null;
 }
 
 interface NotificationData {
@@ -71,6 +73,8 @@ interface NotificationData {
 	issRoleId: NotificationPacket["iss_role_id"];
 	strongShardEruptionChannelId: NotificationPacket["strong_shard_eruption_channel_id"];
 	strongShardEruptionRoleId: NotificationPacket["strong_shard_eruption_role_id"];
+	aviarysFireworkFestivalChannelId: NotificationPacket["aviarys_firework_festival_channel_id"];
+	aviarysFireworkFestivalRoleId: NotificationPacket["aviarys_firework_festival_role_id"];
 }
 
 type NotificationPatchData = Omit<NotificationPacket, "id" | "guild_id">;
@@ -88,6 +92,7 @@ export enum NotificationEvent {
 	StrongShardEruption = "Shard Eruption (Strong)",
 	AURORA = "AURORA",
 	Passage = "Passage",
+	AviarysFireworkFestival = "Aviary's Firework Festival",
 }
 
 export const NOTIFICATION_CHANNEL_TYPES = [
@@ -193,6 +198,10 @@ export default class Notification {
 
 	public passageRoleId!: NotificationData["passageRoleId"];
 
+	public aviarysFireworkFestivalChannelId!: NotificationData["aviarysFireworkFestivalChannelId"];
+
+	public aviarysFireworkFestivalRoleId!: NotificationData["aviarysFireworkFestivalRoleId"];
+
 	public constructor(notification: NotificationPacket) {
 		this.id = notification.id;
 		this.guildId = notification.guild_id;
@@ -220,6 +229,8 @@ export default class Notification {
 		this.auroraRoleId = data.aurora_role_id;
 		this.passageChannelId = data.passage_channel_id;
 		this.passageRoleId = data.passage_role_id;
+		this.aviarysFireworkFestivalChannelId = data.aviarys_firework_festival_channel_id;
+		this.aviarysFireworkFestivalRoleId = data.aviarys_firework_festival_role_id;
 	}
 
 	public static async setup(
@@ -290,6 +301,8 @@ export default class Notification {
 			auroraRoleId,
 			passageChannelId,
 			passageRoleId,
+			aviarysFireworkFestivalChannelId,
+			aviarysFireworkFestivalRoleId,
 		} = this;
 		const timeString = startTime ? time(startTime, TimestampStyles.RelativeTime) : "soon";
 		const { realm, map, url } = shardEruption ?? {};
@@ -348,6 +361,11 @@ export default class Notification {
 				roleId = passageRoleId;
 				suffix = `The ${resolveFullSeasonName(SeasonName.Passage)} quests are starting ${timeString}!`;
 				break;
+			case NotificationEvent.AviarysFireworkFestival:
+				channelId = aviarysFireworkFestivalChannelId;
+				roleId = aviarysFireworkFestivalRoleId;
+				suffix = `Aviary's Firework Festival begins ${timeString}!`;
+				break;
 		}
 
 		if (!channelId || !roleId) return;
@@ -384,6 +402,8 @@ export default class Notification {
 			auroraRoleId,
 			passageChannelId,
 			passageRoleId,
+			aviarysFireworkFestivalChannelId,
+			aviarysFireworkFestivalRoleId
 		} = this;
 
 		return new EmbedBuilder()
@@ -437,6 +457,11 @@ export default class Notification {
 				{
 					name: NotificationEvent.Passage,
 					value: this.overviewValue(me, passageChannelId, passageRoleId),
+					inline: true,
+				},
+				{
+					name: NotificationEvent.AviarysFireworkFestival,
+					value: this.overviewValue(me, aviarysFireworkFestivalChannelId, aviarysFireworkFestivalRoleId),
 					inline: true,
 				},
 			)
