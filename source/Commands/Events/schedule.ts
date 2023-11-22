@@ -114,10 +114,7 @@ export default new (class implements ChatInputCommand {
 				{ name: NotificationEvent.PollutedGeyser, value: pollutedGeyser.join(" ") },
 				{ name: NotificationEvent.Grandma, value: grandma.join(" ") },
 				{ name: NotificationEvent.Turtle, value: turtle.join(" ") },
-				{
-					name: NotificationEvent.AURORA,
-					value: aurora.join(" "),
-				},
+				{ name: NotificationEvent.AURORA, value: aurora.join(" ") },
 				{ name: NotificationEvent.Passage, value: passageTimesString },
 			)
 			.setFooter({ text: "Times are relative to your time zone." })
