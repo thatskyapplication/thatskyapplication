@@ -3,11 +3,20 @@ import type { Client } from "discord.js";
 import { DateTime } from "luxon";
 import { ISS_DATES_ACCESSIBLE } from "../Utility/Constants.js";
 import { shardEruption } from "../Utility/Utility.js";
-import { TIME_ZONE } from "../Utility/dates.js";
+import {
+	AVIARY_FIREWORK_FESTIVAL_FIRST_SHOW_START_DATE,
+	AVIARY_FIREWORK_FESTIVAL_LAST_SHOW_END_DATE,
+	TIME_ZONE,
+	isDuring,
+} from "../Utility/dates.js";
 import pQueue from "../pQueue.js";
 import DailyGuides from "./DailyGuides.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import Notification, { NotificationEvent, type NotificationSendExtra } from "./Notification.js";
+
+const AVIARY_FIREWORKS_FESTIVAL_FIRST_REMINDER_START_DATE = AVIARY_FIREWORK_FESTIVAL_FIRST_SHOW_START_DATE.minus({
+	minutes: 10,
+});
 
 let shardEruptionToday = shardEruption();
 
@@ -75,6 +84,18 @@ export default function heartbeat(client: Client<true>): void {
 						void sendNotification(client, NotificationEvent.Turtle, { startTime: unix + 300 });
 						break;
 				}
+			}
+
+			if (
+				isDuring(
+					AVIARY_FIREWORKS_FESTIVAL_FIRST_REMINDER_START_DATE,
+					AVIARY_FIREWORK_FESTIVAL_LAST_SHOW_END_DATE,
+					date,
+				) &&
+				(hour + 1) % 4 === 0 &&
+				minute === 50
+			) {
+				void sendNotification(client, NotificationEvent.AviarysFireworkFestival, { startTime: unix + 600 });
 			}
 		}
 	}, 1_000);

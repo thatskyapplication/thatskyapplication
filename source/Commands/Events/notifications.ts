@@ -193,6 +193,10 @@ export default new (class implements ChatInputCommand {
 				data.passage_channel_id = channel.id;
 				data.passage_role_id = role.id;
 				break;
+			case NotificationEvent.AviarysFireworkFestival:
+				data.aviarys_firework_festival_channel_id = channel.id;
+				data.aviarys_firework_festival_role_id = role.id;
+				break;
 		}
 
 		await Notification.setup(interaction, data);
@@ -264,6 +268,10 @@ export default new (class implements ChatInputCommand {
 			case NotificationEvent.Passage:
 				data.passage_channel_id = null;
 				data.passage_role_id = null;
+				break;
+			case NotificationEvent.AviarysFireworkFestival:
+				data.aviarys_firework_festival_channel_id = null;
+				data.aviarys_firework_festival_role_id = null;
 				break;
 		}
 
