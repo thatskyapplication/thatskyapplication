@@ -403,7 +403,7 @@ export default class Notification {
 			passageChannelId,
 			passageRoleId,
 			aviarysFireworkFestivalChannelId,
-			aviarysFireworkFestivalRoleId
+			aviarysFireworkFestivalRoleId,
 		} = this;
 
 		return new EmbedBuilder()
