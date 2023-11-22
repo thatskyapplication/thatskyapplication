@@ -87,26 +87,17 @@ export default new (class implements AutocompleteCommand {
 						name: "set-quest",
 						description: "Sets a quest for the daily guides.",
 						options: [
-							{
-								type: ApplicationCommandOptionType.Integer,
-								name: "number",
-								description: "The quest number.",
-								required: true,
-								choices: QUEST_NUMBER.map((questNumber) => ({ name: String(questNumber), value: questNumber })),
-							},
-							{
-								type: ApplicationCommandOptionType.String,
-								name: "content",
-								description: "The content of the quest.",
+							...QUEST_NUMBER.map((questNumber) => ({
+								type: ApplicationCommandOptionType.String as const,
+								name: `quest-${questNumber}`,
+								description: "The daily quest.",
 								autocomplete: true,
-								required: true,
-							},
-							{
-								type: ApplicationCommandOptionType.String,
-								name: "url",
-								description: "The URL of the quest's infographic.",
-								required: false,
-							},
+							})),
+							...QUEST_NUMBER.map((questNumber) => ({
+								type: ApplicationCommandOptionType.String as const,
+								name: `url-${questNumber}`,
+								description: "Override the respective daily quest's infographic.",
+							})),
 						],
 					},
 				],
@@ -240,25 +231,36 @@ export default new (class implements AutocompleteCommand {
 
 	public async setQuest(interaction: ChatInputCommandInteraction) {
 		const { client, options, user } = interaction;
-		const number = options.getInteger("number", true);
-		const content = options.getString("content", true);
-		const url = options.getString("url") ?? QUESTS.find((quest) => quest.content === content)?.url ?? null;
 
-		if (!isQuestNumber(number)) {
-			await interaction.reply(`Detected an unknown quest number: ${number}.`);
+		if (options.data[0]!.options![0]!.options!.length === 0) {
+			await interaction.reply({ content: "At least one option must be specified.", ephemeral: true });
 			return;
 		}
 
+		const quest1 = options.getString("quest-1") ?? DailyGuides.quest1?.content;
+		const quest2 = options.getString("quest-2") ?? DailyGuides.quest2?.content;
+		const quest3 = options.getString("quest-3") ?? DailyGuides.quest3?.content;
+		const quest4 = options.getString("quest-4") ?? DailyGuides.quest4?.content;
+		const url1 = options.getString("url-1") ?? QUESTS.find((quest) => quest.content === quest1)?.url ?? null;
+		const url2 = options.getString("url-2") ?? QUESTS.find((quest) => quest.content === quest2)?.url ?? null;
+		const url3 = options.getString("url-3") ?? QUESTS.find((quest) => quest.content === quest3)?.url ?? null;
+		const url4 = options.getString("url-4") ?? QUESTS.find((quest) => quest.content === quest4)?.url ?? null;
 		const previousEmbed = DailyGuidesDistribution.embed();
-		await DailyGuides.updateQuests({ [`quest${number}`]: { content, url } });
+
+		await DailyGuides.updateQuests({
+			quest1: quest1 ? { content: quest1, url: url1 } : null,
+			quest2: quest2 ? { content: quest2, url: url2 } : null,
+			quest3: quest3 ? { content: quest3, url: url3 } : null,
+			quest4: quest4 ? { content: quest4, url: url4 } : null,
+		});
 
 		void client.log({
-			content: `${userLogFormat(user)} manually updated quest ${number}.`,
+			content: `${userLogFormat(user)} manually updated the daily quests.`,
 			embeds: [previousEmbed, DailyGuidesDistribution.embed()],
 			type: LogType.ManualDailyGuides,
 		});
 
-		await this.interactive(interaction, `Successfully updated quest ${number}.`);
+		await this.interactive(interaction, "Successfully updated the daily quests.");
 	}
 
 	public async questSwap(interaction: StringSelectMenuInteraction) {
