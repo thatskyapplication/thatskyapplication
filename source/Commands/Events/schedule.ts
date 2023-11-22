@@ -10,7 +10,13 @@ import DailyGuidesDistribution, { SHARD_ERUPTION_NONE } from "../../Structures/D
 import { NotificationEvent } from "../../Structures/Notification.js";
 import { DEFAULT_EMBED_COLOUR, ISS_DATES_ACCESSIBLE } from "../../Utility/Constants.js";
 import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
-import { INITIAL_TRAVELLING_SPIRIT_SEEK, todayDate } from "../../Utility/dates.js";
+import {
+	AVIARY_FIREWORK_FESTIVAL_FIRST_SHOW_START_DATE,
+	AVIARY_FIREWORK_FESTIVAL_LAST_SHOW_END_DATE,
+	INITIAL_TRAVELLING_SPIRIT_SEEK,
+	isDuring,
+	todayDate,
+} from "../../Utility/dates.js";
 import type { ChatInputCommand } from "../index.js";
 
 const PASSAGE_TRUNCATION_LIMIT = 9 as const;
@@ -47,6 +53,7 @@ function scheduleTimes(date: DateTime) {
 	const turtle = [];
 	const aurora = [];
 	const passage = [];
+	const aviarysFireworkFestival = [];
 
 	// 5 minutes is the least common denominator.
 	for (let start = date; start < tomorrow; start = start.plus({ minutes: 5 })) {
@@ -60,10 +67,13 @@ function scheduleTimes(date: DateTime) {
 			if (minute === 50) turtle.push(timeString);
 		}
 
-		if (minute === 0 && (hour + 2) % 4 === 0) aurora.push(timeString);
+		if (minute === 0) {
+			if (hour % 4 === 0) aviarysFireworkFestival.push(timeString);
+			if ((hour + 2) % 4 === 0) aurora.push(timeString);
+		}
 	}
 
-	return { pollutedGeyser, grandma, turtle, aurora, passage };
+	return { pollutedGeyser, grandma, turtle, aurora, passage, aviarysFireworkFestival };
 }
 
 export default new (class implements ChatInputCommand {
@@ -75,7 +85,7 @@ export default new (class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const today = todayDate();
-		const { pollutedGeyser, grandma, turtle, passage, aurora } = scheduleTimes(today);
+		const { pollutedGeyser, grandma, turtle, passage, aurora, aviarysFireworkFestival } = scheduleTimes(today);
 		const passageTimesStart = passage.slice(0, PASSAGE_TRUNCATION_LIMIT);
 		const passageTimesEnd = passage.slice(-PASSAGE_TRUNCATION_LIMIT);
 		const passageTimesString = `${passageTimesStart.join(" ")}... every 15 minutes... ${passageTimesEnd.join(" ")}`;
@@ -123,6 +133,10 @@ export default new (class implements ChatInputCommand {
 		const eventCurrencyFieldData = DailyGuidesDistribution.eventCurrencyFieldData(today);
 		if (eventCurrencyFieldData) embed.addFields(eventCurrencyFieldData);
 		const shardEruptionFieldData = DailyGuidesDistribution.shardEruptionFieldData();
+
+		if (isDuring(AVIARY_FIREWORK_FESTIVAL_FIRST_SHOW_START_DATE, AVIARY_FIREWORK_FESTIVAL_LAST_SHOW_END_DATE, today)) {
+			embed.addFields({ name: NotificationEvent.AviarysFireworkFestival, value: aviarysFireworkFestival.join(" ") });
+		}
 
 		if (
 			shardEruptionFieldData[0] &&
