@@ -12,7 +12,7 @@ import {
 	SpiritName,
 } from "../../Base.js";
 
-const expression = Expression.Dismiss;
+const expression = Expression.Acknowledge;
 
 export default new SeasonalSpirit({
 	name: SpiritName.SalutingProtector,

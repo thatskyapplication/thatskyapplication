@@ -12,7 +12,7 @@ import {
 	SpiritName,
 } from "../../Base.js";
 
-const expression = Expression.Boogie;
+const expression = Expression.BoogieDance;
 
 export default new SeasonalSpirit({
 	name: SpiritName.BoogieKid,

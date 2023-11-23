@@ -12,7 +12,7 @@ import {
 	SpiritName,
 } from "../../Base.js";
 
-const expression = Expression.Scare;
+const expression = Expression.Boo;
 
 export default new SeasonalSpirit({
 	name: SpiritName.ScarecrowFarmer,

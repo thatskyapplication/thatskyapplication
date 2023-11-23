@@ -12,7 +12,7 @@ import {
 	SpiritName,
 } from "../../Base.js";
 
-const expression = Expression.Dance;
+const expression = Expression.SpinDance;
 
 export default new SeasonalSpirit({
 	name: SpiritName.FestivalSpinDancer,

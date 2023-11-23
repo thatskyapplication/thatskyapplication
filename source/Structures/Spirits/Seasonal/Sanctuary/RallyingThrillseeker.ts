@@ -12,7 +12,7 @@ import {
 	SpiritName,
 } from "../../Base.js";
 
-const expression = Expression.Rally;
+const expression = Expression.RallyCheer;
 
 export default new SeasonalSpirit({
 	name: SpiritName.RallyingThrillseeker,

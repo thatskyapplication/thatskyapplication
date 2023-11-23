@@ -12,7 +12,7 @@ import {
 	SpiritName,
 } from "../../Base.js";
 
-const expression = Expression.Grouchy;
+const expression = Expression.Grumpy;
 
 export default new SeasonalSpirit({
 	name: SpiritName.HikingGrouch,

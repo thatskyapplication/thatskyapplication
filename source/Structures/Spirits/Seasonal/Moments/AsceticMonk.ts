@@ -4,7 +4,7 @@ import { Realm } from "../../../../Utility/Constants.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, Expression, SeasonalSpirit, SpiritName } from "../../Base.js";
 
-const expression = Expression.WindPose;
+const expression = Expression.BlindfoldBalancePose;
 
 export default new SeasonalSpirit({
 	name: SpiritName.AsceticMonk,

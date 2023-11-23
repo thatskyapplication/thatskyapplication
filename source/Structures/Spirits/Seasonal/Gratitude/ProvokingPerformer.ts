@@ -12,12 +12,12 @@ import {
 	SpiritName,
 } from "../../Base.js";
 
-const expression = Expression.Karate;
+const expression = Expression.Kabuki;
 
 export default new SeasonalSpirit({
 	name: SpiritName.ProvokingPerformer,
 	season: SeasonName.Gratitude,
-	expression: Expression.Karate,
+	expression,
 	realm: Realm.HiddenForest,
 	hasMarketingVideo: true,
 	offer: {
