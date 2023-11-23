@@ -153,6 +153,7 @@ export const RAINBOW_ADMIRE_MAPS = [
 	Map.TreasureReef,
 	Map.StarlightDesert,
 ] as const;
+
 export type RainbowAdmireMaps = (typeof RAINBOW_ADMIRE_MAPS)[number];
 
 export const WINGED_LIGHT_AREAS = [...REALM_VALUES, Map.AncientMemory] as const;
