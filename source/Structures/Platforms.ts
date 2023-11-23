@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/prefer-literal-enum-member, unicorn/prefer-math-trunc */
-import { formatEmoji } from "discord.js";
-import { Emoji } from "../Utility/Constants.js";
+import { EMOJI, formatEmoji } from "../Utility/emojis.js";
 
 enum PlatformFlags {
 	iOS = 1 << 0,
@@ -35,14 +34,14 @@ export function resolveBitsToPlatform(bits: number) {
 export function resolvePlatformToEmoji(platform: (typeof PlatformFlagsToString)[keyof typeof PlatformFlagsToString]) {
 	switch (platform) {
 		case PlatformFlagsToString[PlatformFlags.iOS]:
-			return Emoji.PlatformIOS;
+			return EMOJI.PlatformIOS;
 		case PlatformFlagsToString[PlatformFlags.Android]:
-			return Emoji.PlatformAndroid;
+			return EMOJI.PlatformAndroid;
 		case PlatformFlagsToString[PlatformFlags.Mac]:
-			return Emoji.PlatformMac;
+			return EMOJI.PlatformMac;
 		case PlatformFlagsToString[PlatformFlags.NintendoSwitch]:
-			return Emoji.PlatformSwitch;
+			return EMOJI.PlatformSwitch;
 		case PlatformFlagsToString[PlatformFlags.PlayStation]:
-			return Emoji.PlatformPlayStation;
+			return EMOJI.PlatformPlayStation;
 	}
 }

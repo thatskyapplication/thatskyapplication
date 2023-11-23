@@ -12,11 +12,11 @@ import {
 	EmbedBuilder,
 	ButtonBuilder,
 	ButtonStyle,
-	formatEmoji,
 } from "discord.js";
-import { type Realm, DEFAULT_EMBED_COLOUR, Emoji } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, isRealm } from "../../Utility/Utility.js";
+import { type Realm, DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
+import { isRealm } from "../../Utility/Utility.js";
 import { todayDate } from "../../Utility/dates.js";
+import { cannotUseCustomEmojis, EMOJI, formatEmoji } from "../../Utility/emojis.js";
 import pg, { Table } from "../../pg.js";
 import { isSeasonName, resolveSeason, SeasonName, SeasonNameToSeasonalEmoji } from "../Season.js";
 import {
@@ -1752,9 +1752,9 @@ export class SpiritTracker {
 				let value;
 
 				if (bit && (bit & flag) === flag) {
-					value = formatEmoji(Emoji.Yes, true);
+					value = formatEmoji(EMOJI.Yes);
 				} else {
-					value = resolveOfferToCurrency(cost ?? {}, spiritSeason).join("") || formatEmoji(Emoji.No, true);
+					value = resolveOfferToCurrency(cost ?? {}, spiritSeason).join("") || formatEmoji(EMOJI.No);
 				}
 
 				return { name: item, value, inline: true };

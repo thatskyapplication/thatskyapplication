@@ -1,19 +1,9 @@
 import { URL } from "node:url";
 import { inspect } from "node:util";
 import {
-	type ButtonInteraction,
-	type ChatInputCommandInteraction,
-	type InteractionReplyOptions,
-	type InteractionUpdateOptions,
-	type ModalSubmitInteraction,
 	type Snowflake,
-	type StringSelectMenuInteraction,
 	type TimestampStylesString,
 	type User,
-	type UserContextMenuCommandInteraction,
-	CDN,
-	formatEmoji,
-	PermissionFlagsBits,
 	time as discordTime,
 	TimestampStyles,
 	hyperlink,
@@ -25,7 +15,6 @@ import {
 	type Realm,
 	type SocialLightAreaMaps,
 	CDN_URL,
-	Emoji,
 	INCONSISTENT_MAP,
 	inconsistentMapKeys,
 	Map,
@@ -36,9 +25,8 @@ import {
 	VALID_REALM,
 } from "./Constants.js";
 import { INITIAL_TREASURE_CANDLE_REALM_SEEK, todayDate } from "./dates.js";
+import { EMOJI, formatEmoji, resolveCurrencyEmoji } from "./emojis.js";
 import { SHARD_ERUPTION_PREDICTION_DATA } from "./shardEruption.js";
-
-const cdn = new CDN();
 
 export function consoleLog(consoleLog: any, stamp = new Date().toISOString()): void {
 	console.log(`- - - - - ${stamp} - - - - -`);
@@ -51,50 +39,6 @@ export function notNull<T>(value: T | null): value is T {
 
 export function treasureCandleRealm(date: DateTime) {
 	return VALID_REALM[date.diff(INITIAL_TREASURE_CANDLE_REALM_SEEK, "day").days % 5]!;
-}
-
-export async function cannotUseCustomEmojis(
-	interaction:
-		| ButtonInteraction
-		| ChatInputCommandInteraction
-		| ModalSubmitInteraction
-		| StringSelectMenuInteraction
-		| UserContextMenuCommandInteraction,
-	options?: InteractionReplyOptions | InteractionUpdateOptions,
-) {
-	if (!interaction.inGuild() || interaction.appPermissions.has(PermissionFlagsBits.UseExternalEmojis)) return false;
-
-	const response = {
-		content: "Missing the `Use External Emojis` permission. Someone needs to adjust the permissions!",
-		ephemeral: true,
-		...options,
-	};
-
-	if (interaction.isMessageComponent()) {
-		// @ts-expect-error Too generic.
-		await interaction.update(response);
-	} else {
-		// @ts-expect-error Too generic.
-		await interaction.reply(response);
-	}
-
-	return true;
-}
-
-export interface CurrencyEmojiOptions {
-	emoji: Emoji;
-	animated?: boolean;
-	number: number;
-	includeSpaceInEmoji?: boolean;
-}
-
-export function resolveCurrencyEmoji({
-	emoji,
-	animated = false,
-	number,
-	includeSpaceInEmoji = false,
-}: CurrencyEmojiOptions) {
-	return `${number}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji, animated)}`;
 }
 
 export function isRealm(realm: string): realm is Realm {
@@ -220,8 +164,8 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	return { realm: VALID_REALM[realmIndex]!, map, strong, reward, timestamps, url };
 }
 
-export function resolveShardEruptionEmoji(dangerous: boolean) {
-	return dangerous ? Emoji.ShardStrong : Emoji.ShardRegular;
+export function resolveShardEruptionEmoji(strong: boolean) {
+	return strong ? EMOJI.ShardStrong : EMOJI.ShardRegular;
 }
 
 export function shardEruptionInformationString(
@@ -233,8 +177,8 @@ export function shardEruptionInformationString(
 
 	return `${formatEmoji(resolveShardEruptionEmoji(strong))} ${realmMap}\n${
 		reward === 200
-			? `200 ${formatEmoji(Emoji.Light)}`
-			: resolveCurrencyEmoji({ emoji: Emoji.AscendedCandle, number: reward })
+			? `200 ${formatEmoji(EMOJI.Light)}`
+			: resolveCurrencyEmoji({ emoji: EMOJI.AscendedCandle, number: reward })
 	}`;
 }
 
@@ -279,8 +223,4 @@ export function chatInputApplicationCommandMention(
 
 export function userLogFormat(user: User) {
 	return `${user} (${user.tag})`;
-}
-
-export function formatEmojiURL(id: Snowflake) {
-	return cdn.emoji(id);
 }

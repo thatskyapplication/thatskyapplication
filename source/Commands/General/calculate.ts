@@ -17,7 +17,6 @@ import {
 	AreaToWingedLightCount,
 	ASCENDED_CANDLES_PER_WEEK,
 	DEFAULT_EMBED_COLOUR,
-	Emoji,
 	LOCALES,
 	Map,
 	MAXIMUM_WINGED_LIGHT,
@@ -27,18 +26,13 @@ import {
 	WINGED_LIGHT_AREAS_COUNT,
 	WingedLightAreasToSpanish,
 } from "../../Utility/Constants.js";
-import {
-	cannotUseCustomEmojis,
-	isWingedLightArea,
-	notNull,
-	resolveCurrencyEmoji,
-	shardEruption,
-} from "../../Utility/Utility.js";
+import { isWingedLightArea, notNull, shardEruption } from "../../Utility/Utility.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	todayDate,
 } from "../../Utility/dates.js";
+import { cannotUseCustomEmojis, EMOJI, resolveCurrencyEmoji } from "../../Utility/emojis.js";
 import type { ChatInputCommand } from "../index.js";
 
 const doubleSeasonalLightEventStart = time(
@@ -333,13 +327,13 @@ export default new (class implements ChatInputCommand {
 					.setColor(DEFAULT_EMBED_COLOUR)
 					.setDescription(
 						`Start: ${resolveCurrencyEmoji({
-							emoji: Emoji.AscendedCandle,
+							emoji: EMOJI.AscendedCandle,
 							number: start,
 						})}\nGoal: ${resolveCurrencyEmoji({
-							emoji: Emoji.AscendedCandle,
+							emoji: EMOJI.AscendedCandle,
 							number: goal,
 						})}\nRequired: ${resolveCurrencyEmoji({
-							emoji: Emoji.AscendedCandle,
+							emoji: EMOJI.AscendedCandle,
 							number: amountRequired,
 						})}`,
 					)
@@ -374,7 +368,7 @@ export default new (class implements ChatInputCommand {
 		const today = todayDate();
 		const season = resolveSeason(today);
 		const remainingCandles = season?.remainingSeasonalCandles(today);
-		const emoji = season?.candleEmoji ?? Emoji.SeasonalCandle;
+		const emoji = season?.candleEmoji ?? EMOJI.SeasonalCandle;
 		const amountRequired = goal - start;
 		let result = 0;
 		let days = 0;
@@ -481,11 +475,11 @@ export default new (class implements ChatInputCommand {
 					.setColor(DEFAULT_EMBED_COLOUR)
 					.setDescription(
 						`${t("calculate.winged-light.started-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji({
-							emoji: Emoji.WingedLight,
+							emoji: EMOJI.WingedLight,
 							number: wingBuffs,
 							includeSpaceInEmoji: true,
 						})}.\n${t("calculate.winged-light.reborn-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji({
-							emoji: Emoji.WingedLight,
+							emoji: EMOJI.WingedLight,
 							number: (accumulation += WINGED_LIGHT_AREAS_COUNT.Orbit),
 							includeSpaceInEmoji: true,
 						})} (+${WINGED_LIGHT_AREAS_COUNT.Orbit}).`,
@@ -498,7 +492,7 @@ export default new (class implements ChatInputCommand {
 						{
 							name: "Total",
 							value: `${t("calculate.winged-light.you-should-have", { lng, ns: "commands" })} ${resolveCurrencyEmoji({
-								emoji: Emoji.WingedLight,
+								emoji: EMOJI.WingedLight,
 								number: accumulation,
 								includeSpaceInEmoji: true,
 							})}.`,

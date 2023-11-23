@@ -9,7 +9,6 @@ import type { DateTime } from "luxon";
 import DailyGuidesDistribution, { SHARD_ERUPTION_NONE } from "../../Structures/DailyGuidesDistribution.js";
 import { NotificationEvent } from "../../Structures/Notification.js";
 import { DEFAULT_EMBED_COLOUR, ISS_DATES_ACCESSIBLE } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
 import {
 	AVIARY_FIREWORK_FESTIVAL_FIRST_SHOW_START_DATE,
 	AVIARY_FIREWORK_FESTIVAL_LAST_SHOW_END_DATE,
@@ -17,6 +16,7 @@ import {
 	isDuring,
 	todayDate,
 } from "../../Utility/dates.js";
+import { cannotUseCustomEmojis } from "../../Utility/emojis.js";
 import type { ChatInputCommand } from "../index.js";
 
 const PASSAGE_TRUNCATION_LIMIT = 9 as const;

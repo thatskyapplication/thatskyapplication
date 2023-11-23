@@ -13,7 +13,7 @@ import Notification, {
 	NotificationEvent,
 	NOTIFICATION_CHANNEL_TYPES,
 } from "../../Structures/Notification.js";
-import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis } from "../../Utility/emojis.js";
 import type { ChatInputCommand } from "../index.js";
 
 const notificationEventChoices = Object.values(NotificationEvent).map((notificationEvent) => ({

@@ -8,7 +8,6 @@ import {
 	ButtonInteraction,
 	ButtonStyle,
 	EmbedBuilder,
-	formatEmoji,
 	hyperlink,
 	time,
 	TimestampStyles,
@@ -29,7 +28,7 @@ import Seasonal from "../../Structures/Spirits/Seasonal/index.js";
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
 import Spirits from "../../Structures/Spirits/index.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis, formatEmoji } from "../../Utility/emojis.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID = "SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;

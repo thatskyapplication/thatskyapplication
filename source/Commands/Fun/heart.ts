@@ -9,15 +9,14 @@ import {
 	ButtonInteraction,
 	ButtonStyle,
 	EmbedBuilder,
-	formatEmoji,
 	time,
 	TimestampStyles,
 	PermissionFlagsBits,
 	userMention,
 } from "discord.js";
-import { DEFAULT_EMBED_COLOUR, Emoji } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, resolveCurrencyEmoji } from "../../Utility/Utility.js";
+import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { todayDate } from "../../Utility/dates.js";
+import { cannotUseCustomEmojis, EMOJI, formatEmoji, resolveCurrencyEmoji } from "../../Utility/emojis.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -102,7 +101,7 @@ export default new (class implements ChatInputCommand {
 
 		if (user.id === interaction.user.id) {
 			await interaction.reply({
-				content: `You cannot gift a ${formatEmoji(Emoji.Heart)} to yourself!`,
+				content: `You cannot gift a ${formatEmoji(EMOJI.Heart)} to yourself!`,
 				ephemeral: true,
 			});
 
@@ -111,7 +110,7 @@ export default new (class implements ChatInputCommand {
 
 		if (!member) {
 			await interaction.reply({
-				content: `${user} is not in this server to gift a ${formatEmoji(Emoji.Heart)} to.`,
+				content: `${user} is not in this server to gift a ${formatEmoji(EMOJI.Heart)} to.`,
 				ephemeral: true,
 			});
 
@@ -125,7 +124,7 @@ export default new (class implements ChatInputCommand {
 			!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
 		) {
 			await interaction.reply({
-				content: `${user} is not around to receive the ${formatEmoji(Emoji.Heart)}!`,
+				content: `${user} is not around to receive the ${formatEmoji(EMOJI.Heart)}!`,
 				ephemeral: true,
 			});
 
@@ -153,7 +152,7 @@ export default new (class implements ChatInputCommand {
 
 		if (timestamp && timestamp.getTime() >= today.toMillis()) {
 			await interaction.reply({
-				content: `You have already gifted a ${formatEmoji(Emoji.Heart)} today!\nYou can give another one ${time(
+				content: `You have already gifted a ${formatEmoji(EMOJI.Heart)} today!\nYou can give another one ${time(
 					Math.floor(today.plus({ day: 1 }).toUnixInteger()),
 					TimestampStyles.RelativeTime,
 				)}.`,
@@ -173,13 +172,13 @@ export default new (class implements ChatInputCommand {
 
 		const heartMessage = HEARTS[Math.floor(Math.random() * HEARTS.length)]!.replaceAll(
 			"heart",
-			formatEmoji(Emoji.Heart),
+			formatEmoji(EMOJI.Heart),
 		)
 			.replaceAll("{{gifter}}", String(interaction.user))
 			.replaceAll("{{giftee}}", String(user));
 
 		await interaction.reply(
-			`${heartMessage}\n${user} now has ${resolveCurrencyEmoji({ emoji: Emoji.Heart, number: hearts })}.`,
+			`${heartMessage}\n${user} now has ${resolveCurrencyEmoji({ emoji: EMOJI.Heart, number: hearts })}.`,
 		);
 	}
 
@@ -203,7 +202,7 @@ export default new (class implements ChatInputCommand {
 		if (hearts.length === 0) {
 			const response = {
 				components: [],
-				content: `You have ${resolveCurrencyEmoji({ emoji: Emoji.Heart, number: 0 })}.`,
+				content: `You have ${resolveCurrencyEmoji({ emoji: EMOJI.Heart, number: 0 })}.`,
 				embeds: [],
 				ephemeral: true,
 			};
@@ -227,10 +226,10 @@ export default new (class implements ChatInputCommand {
 			.setColor(DEFAULT_EMBED_COLOUR)
 			.setDescription(
 				`Gifted: ${resolveCurrencyEmoji({
-					emoji: Emoji.Heart,
+					emoji: EMOJI.Heart,
 					number: hearts.filter((heart) => heart.gifter_id === interaction.user.id).length,
 				})}\nReceived: ${resolveCurrencyEmoji({
-					emoji: Emoji.Heart,
+					emoji: EMOJI.Heart,
 					number: hearts.filter((heart) => heart.giftee_id === interaction.user.id).length,
 				})}`,
 			)

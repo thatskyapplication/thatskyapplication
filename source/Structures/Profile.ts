@@ -9,7 +9,6 @@ import {
 	type UserContextMenuCommandInteraction,
 	chatInputApplicationCommandMention,
 	EmbedBuilder,
-	formatEmoji,
 	StringSelectMenuInteraction,
 } from "discord.js";
 import hasha from "hasha";
@@ -17,7 +16,8 @@ import sharp from "sharp";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import commands from "../Commands/index.js";
 import S3Client from "../S3Client.js";
-import { CDN_BUCKET, CDN_URL, DEFAULT_EMBED_COLOUR, Emoji, MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
+import { CDN_BUCKET, CDN_URL, DEFAULT_EMBED_COLOUR, MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
+import { EMOJI, formatEmoji } from "../Utility/emojis.js";
 import pg, { Table } from "../pg.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
 import { resolveBitsToSeasons } from "./Season.js";
@@ -350,7 +350,7 @@ export default class Profile {
 					wingedLight === 0
 						? "Capeless"
 						: wingedLight === MAXIMUM_WINGED_LIGHT
-						? `${wingedLight} (Max ${formatEmoji(Emoji.WingedLight)})`
+						? `${wingedLight} (Max ${formatEmoji(EMOJI.WingedLight)})`
 						: String(wingedLight),
 				inline: true,
 			});

@@ -8,7 +8,7 @@ import DailyGuidesDistribution, {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	isDailyGuidesDistributable,
 } from "../../Structures/DailyGuidesDistribution.js";
-import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis } from "../../Utility/emojis.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default new (class implements ChatInputCommand {

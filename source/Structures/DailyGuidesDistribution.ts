@@ -8,17 +8,14 @@ import {
 	type Snowflake,
 	channelMention,
 	ChannelType,
+	EmbedBuilder,
 	hyperlink,
 	PermissionFlagsBits,
-	EmbedBuilder,
-	formatEmoji,
 } from "discord.js";
 import type { DateTime } from "luxon";
-import { DEFAULT_EMBED_COLOUR, Emoji } from "../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
 import {
-	resolveCurrencyEmoji,
 	treasureCandleRealm,
-	formatEmojiURL,
 	shardEruption,
 	dateString,
 	shardEruptionInformationString,
@@ -30,6 +27,7 @@ import {
 	isDuring,
 	todayDate,
 } from "../Utility/dates.js";
+import { EMOJI, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "../Utility/emojis.js";
 import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
@@ -220,7 +218,7 @@ export default class DailyGuidesDistribution {
 				name: "Daily Guides Status",
 				value: `${channelId ? channelMention(channelId) : "No channel"}\n${
 					sending ? "Sending!" : "Stopped!"
-				} ${formatEmoji(sending ? Emoji.Yes : Emoji.No, true)}`,
+				} ${formatEmoji(sending ? EMOJI.Yes : EMOJI.No)}`,
 				inline: true,
 			})
 			.setTitle(guild.name);
@@ -279,7 +277,7 @@ export default class DailyGuidesDistribution {
 					daysLeftInSeason === 0
 						? "The season ends today."
 						: `${daysLeftInSeason === 1 ? `${daysLeftInSeason} day` : `${daysLeftInSeason} days`} left in the season.`,
-				iconURL: formatEmojiURL(emoji),
+				iconURL: formatEmojiURL(emoji.id),
 			});
 
 			const { rotation, realm } = season.resolveSeasonalCandlesRotation(today);

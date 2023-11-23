@@ -10,7 +10,6 @@ import {
 	ChannelType,
 	Collection,
 	EmbedBuilder,
-	formatEmoji,
 	hyperlink,
 	MessageFlags,
 	PermissionFlagsBits,
@@ -18,8 +17,9 @@ import {
 	time,
 	TimestampStyles,
 } from "discord.js";
-import { DEFAULT_EMBED_COLOUR, Emoji } from "../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
 import type { ShardEruptionData } from "../Utility/Utility.js";
+import { EMOJI, formatEmoji } from "../Utility/emojis.js";
 import pg, { Table } from "../pg.js";
 import { SeasonName, resolveFullSeasonName } from "./Season.js";
 
@@ -476,6 +476,6 @@ export default class Notification {
 
 		return `${channelId ? channelMention(channelId) : "No channel"}\n${roleId ? roleMention(roleId) : "No role"}\n${
 			sending ? "Sending!" : "Stopped!"
-		} ${formatEmoji(sending ? Emoji.Yes : Emoji.No, true)}`;
+		} ${formatEmoji(sending ? EMOJI.Yes : EMOJI.No)}`;
 	}
 }

@@ -20,7 +20,7 @@ import Profile, { AssetType } from "../../Structures/Profile.js";
 import { SEASON_FLAGS_TO_SEASON_NAME_ENTRIES, SeasonNameToSeasonalEmoji } from "../../Structures/Season.js";
 import Spirits from "../../Structures/Spirits/index.js";
 import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis } from "../../Utility/Utility.js";
+import { cannotUseCustomEmojis } from "../../Utility/emojis.js";
 import COMMANDS, { type AutocompleteCommand } from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;

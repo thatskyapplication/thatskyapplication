@@ -2,9 +2,9 @@ import { URL } from "node:url";
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
-import { type Realm, CDN_URL, Emoji, WIKI_URL } from "../../Utility/Constants.js";
-import { resolveCurrencyEmoji } from "../../Utility/Utility.js";
+import { type Realm, CDN_URL, WIKI_URL } from "../../Utility/Constants.js";
 import { todayDate } from "../../Utility/dates.js";
+import { EMOJI, resolveCurrencyEmoji } from "../../Utility/emojis.js";
 import { SeasonNameToSeasonalCandleEmoji, SeasonName, SeasonNameToSeasonalHeartEmoji } from "../Season.js";
 
 export enum SpiritName {
@@ -500,21 +500,21 @@ export function resolveOfferToCurrency(cost: SpiritCost, seasonName?: SeasonName
 	const totalCost = [];
 
 	if (cost.candles) {
-		totalCost.push(resolveCurrencyEmoji({ emoji: Emoji.Candle, number: cost.candles }));
+		totalCost.push(resolveCurrencyEmoji({ emoji: EMOJI.Candle, number: cost.candles }));
 	}
 
 	if (cost.hearts) {
-		totalCost.push(resolveCurrencyEmoji({ emoji: Emoji.Heart, number: cost.hearts }));
+		totalCost.push(resolveCurrencyEmoji({ emoji: EMOJI.Heart, number: cost.hearts }));
 	}
 
 	if (cost.ascendedCandles) {
-		totalCost.push(resolveCurrencyEmoji({ emoji: Emoji.AscendedCandle, number: cost.ascendedCandles }));
+		totalCost.push(resolveCurrencyEmoji({ emoji: EMOJI.AscendedCandle, number: cost.ascendedCandles }));
 	}
 
 	if (cost.seasonalCandles) {
 		totalCost.push(
 			resolveCurrencyEmoji({
-				emoji: seasonName ? SeasonNameToSeasonalCandleEmoji[seasonName] : Emoji.SeasonalCandle,
+				emoji: seasonName ? SeasonNameToSeasonalCandleEmoji[seasonName] : EMOJI.SeasonalCandle,
 				number: cost.seasonalCandles,
 			}),
 		);
@@ -526,7 +526,7 @@ export function resolveOfferToCurrency(cost: SpiritCost, seasonName?: SeasonName
 				emoji:
 					seasonName && seasonName !== SeasonName.Gratitude && seasonName !== SeasonName.Lightseekers
 						? SeasonNameToSeasonalHeartEmoji[seasonName]
-						: Emoji.SeasonalHeart,
+						: EMOJI.SeasonalHeart,
 				number: cost.seasonalHearts,
 			}),
 		);
