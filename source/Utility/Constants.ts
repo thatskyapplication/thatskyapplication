@@ -115,10 +115,6 @@ export const enum Channel {
 	dailyGuides = "1041420071614042152",
 }
 
-export const enum User {
-	Jiralite = "618976181026422814",
-}
-
 export enum Realm {
 	IslesOfDawn = "Isles of Dawn",
 	DaylightPrairie = "Daylight Prairie",
