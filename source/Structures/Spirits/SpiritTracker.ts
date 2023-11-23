@@ -1277,7 +1277,11 @@ export class SpiritTracker {
 			);
 		}
 
-		await this.update(interaction.user.id, { [SpiritTrackerNameToRawName[spiritName]]: newBit });
+		const [spiritTrackerPacket] = await this.update(interaction.user.id, {
+			[SpiritTrackerNameToRawName[spiritName]]: newBit,
+		});
+
+		spiritTracker.patch(spiritTrackerPacket!);
 		await spiritTracker.viewSpiritResponse(interaction, newBit, spirit);
 	}
 
