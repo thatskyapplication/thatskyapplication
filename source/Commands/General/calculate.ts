@@ -14,6 +14,7 @@ import {
 	resolveSeason,
 } from "../../Structures/Season.js";
 import {
+	AREA_TO_WINGED_LIGHT_COUNT_VALUES,
 	AreaToWingedLightCount,
 	ASCENDED_CANDLES_PER_WEEK,
 	DEFAULT_EMBED_COLOUR,
@@ -22,8 +23,6 @@ import {
 	MAXIMUM_WINGED_LIGHT,
 	Realm,
 	WINGED_LIGHT_AREAS,
-	WINGED_LIGHT_AREAS_COUNT_VALUES,
-	WINGED_LIGHT_AREAS_COUNT,
 	WingedLightAreasToSpanish,
 } from "../../Utility/Constants.js";
 import { isWingedLightArea, notNull, shardEruption } from "../../Utility/Utility.js";
@@ -50,7 +49,7 @@ const ASCENDED_CANDLE_MINIMUM_TIME_EYE_OF_EDEN_TEXT =
 
 const ASCENDED_CANDLE_MINIMUM_TIME_SHARD_ERUPTIONS_TEXT = "all shard eruptions were cleansed" as const;
 
-const wingedLightInAreas = WINGED_LIGHT_AREAS_COUNT_VALUES.reduce(
+const wingedLightInAreas = AREA_TO_WINGED_LIGHT_COUNT_VALUES.reduce(
 	(wingedLightCount, wingedLight) => wingedLightCount + wingedLight,
 	0,
 );
@@ -480,9 +479,9 @@ export default new (class implements ChatInputCommand {
 							includeSpaceInEmoji: true,
 						})}.\n${t("calculate.winged-light.reborn-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji({
 							emoji: EMOJI.WingedLight,
-							number: (accumulation += WINGED_LIGHT_AREAS_COUNT.Orbit),
+							number: (accumulation += AreaToWingedLightCount[Map.Orbit]),
 							includeSpaceInEmoji: true,
-						})} (+${WINGED_LIGHT_AREAS_COUNT.Orbit}).`,
+						})} (+${AreaToWingedLightCount[Map.Orbit]}).`,
 					)
 					.setFields(
 						...(areas.length === 0 ? WINGED_LIGHT_AREAS : areas).map((area) => ({

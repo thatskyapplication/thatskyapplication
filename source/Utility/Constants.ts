@@ -182,31 +182,19 @@ export const VALID_REALM = [
 
 export type ValidRealm = (typeof VALID_REALM)[number];
 
-export const WINGED_LIGHT_AREAS_COUNT = {
-	IslesOfDawn: 9,
-	DaylightPrairie: 24,
-	HiddenForest: 19,
-	ValleyOfTriumph: 17,
-	GoldenWasteland: 18,
-	VaultOfKnowledge: 12,
-	EyeOfEden: 10,
-	AncientMemory: 6,
-	Orbit: 1,
-} as const;
-
-export const WINGED_LIGHT_AREAS_COUNT_VALUES = Object.values(WINGED_LIGHT_AREAS_COUNT);
-type WingedLightAreasCount = (typeof WINGED_LIGHT_AREAS_COUNT_VALUES)[number];
-
 export const AreaToWingedLightCount = {
-	[Realm.IslesOfDawn]: WINGED_LIGHT_AREAS_COUNT.IslesOfDawn,
-	[Realm.DaylightPrairie]: WINGED_LIGHT_AREAS_COUNT.DaylightPrairie,
-	[Realm.HiddenForest]: WINGED_LIGHT_AREAS_COUNT.HiddenForest,
-	[Realm.ValleyOfTriumph]: WINGED_LIGHT_AREAS_COUNT.ValleyOfTriumph,
-	[Realm.GoldenWasteland]: WINGED_LIGHT_AREAS_COUNT.GoldenWasteland,
-	[Realm.VaultOfKnowledge]: WINGED_LIGHT_AREAS_COUNT.VaultOfKnowledge,
-	[Realm.EyeOfEden]: WINGED_LIGHT_AREAS_COUNT.EyeOfEden,
-	[Map.AncientMemory]: WINGED_LIGHT_AREAS_COUNT.AncientMemory,
-	[Map.Orbit]: WINGED_LIGHT_AREAS_COUNT.Orbit,
-} as const satisfies Readonly<Record<Realm | Map.AncientMemory | Map.Orbit, WingedLightAreasCount>>;
+	[Realm.IslesOfDawn]: 9,
+	[Realm.DaylightPrairie]: 24,
+	[Realm.HiddenForest]: 19,
+	[Realm.ValleyOfTriumph]: 17,
+	[Realm.GoldenWasteland]: 18,
+	[Realm.VaultOfKnowledge]: 12,
+	[Realm.EyeOfEden]: 10,
+	[Map.AncientMemory]: 6,
+	[Map.Orbit]: 1,
+} as const satisfies Readonly<Record<Realm | Map.AncientMemory | Map.Orbit, number>>;
+
+export const AREA_TO_WINGED_LIGHT_COUNT_VALUES = Object.values(AreaToWingedLightCount);
+
 
 export const LOCALES = Object.values(Locale);
