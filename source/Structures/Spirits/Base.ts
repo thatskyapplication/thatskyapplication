@@ -316,7 +316,7 @@ export const enum Emote {
 }
 
 export const enum Stance {
-	Normal = "Normal",
+	Base = "Base",
 	Courageous = "Courageous",
 	Confident = "Confident",
 	Sneaky = "Sneaky",
@@ -465,6 +465,20 @@ export const ExpressionToEmoji = {
 	[Emote.BlindfoldBalancePose]: EMOJI.BlindfoldBalancePose,
 	[Emote.CureForMeDance]: EMOJI.CureForMeDance,
 
+	// Stances.
+	[Stance.Base]: EMOJI.Base,
+	[Stance.Courageous]: EMOJI.Courageous,
+	[Stance.Confident]: EMOJI.Confident,
+	[Stance.Sneaky]: EMOJI.Sneaky,
+	[Stance.Proud]: EMOJI.Proud,
+	[Stance.Polite]: EMOJI.Polite,
+	[Stance.Sassy]: EMOJI.Sassy,
+	[Stance.Laidback]: EMOJI.Laidback,
+	[Stance.Wise]: EMOJI.Wise,
+	[Stance.Timid]: EMOJI.Timid,
+	[Stance.Tinker]: EMOJI.Tinker,
+	[Stance.Injured]: EMOJI.Injured,
+
 	// Friend actions.
 	[FriendAction.HoldHand]: EMOJI.HoldHand,
 	[FriendAction.HighFive]: EMOJI.HighFive,
@@ -478,7 +492,7 @@ export const ExpressionToEmoji = {
 	[FriendAction.Handshake]: EMOJI.Handshake,
 	[FriendAction.DuetDance]: EMOJI.DuetDance,
 	[FriendAction.SideHug]: EMOJI.SideHug,
-} as const satisfies Readonly<Record<Emote | FriendAction, Emoji>>;
+} as const satisfies Readonly<Record<Emote | Stance | FriendAction, Emoji>>;
 
 export const SPIRIT_TYPE = {
 	Standard: 0,

@@ -199,6 +199,20 @@ export const EMOJI = {
 	BlindfoldBalancePose: { name: "blindfold_balance_pose", id: "1177412000444338186" },
 	CureForMeDance: { name: "cure_for_me_dance", id: "1177412031654146168" },
 
+	// Stances.
+	Base: { name: "base", id: "1177462825145356348" },
+	Courageous: { name: "courageous", id: "1177462882099810434" },
+	Confident: { name: "confident", id: "1177462894657548368" },
+	Sneaky: { name: "sneaky", id: "1177462972310888530" },
+	Proud: { name: "proud", id: "1177463016304934952" },
+	Polite: { name: "polite", id: "1177463048387186750" },
+	Sassy: { name: "sassy", id: "1177463083141189663" },
+	Laidback: { name: "laidback", id: "1177463109003255818" },
+	Wise: { name: "wise", id: "1177463130754908290" },
+	Timid: { name: "timid", id: "1177463232068333600" },
+	Tinker: { name: "tinker", id: "1177463284685873163" },
+	Injured: { name: "injured", id: "1177463309293867069" },
+
 	// Friend actions.
 	HoldHand: { name: "hold_hand", id: "1177437567105368124" },
 	HighFive: { name: "high_five", id: "1177438862356795422" },

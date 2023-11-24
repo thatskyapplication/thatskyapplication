@@ -150,9 +150,15 @@ export default new (class implements AutocompleteCommand {
 				embed.addFields({ name: "Emote", value: formatEmoji(ExpressionToEmoji[spirit.emote]), inline: true });
 			}
 
-			if (spirit.stance) embed.addFields({ name: "Stance", value: spirit.stance, inline: true });
+			if (spirit.stance) {
+				embed.addFields({ name: "Stance", value: formatEmoji(ExpressionToEmoji[spirit.stance]), inline: true });
+			}
+
 			if (spirit.call) embed.addFields({ name: "Call", value: spirit.call, inline: true });
-			if (spirit.action) embed.addFields({ name: "Action", value: formatEmoji(ExpressionToEmoji[spirit.action]), inline: true });
+
+			if (spirit.action) {
+				embed.addFields({ name: "Action", value: formatEmoji(ExpressionToEmoji[spirit.action]), inline: true });
+			}
 		}
 
 		const components = [];
