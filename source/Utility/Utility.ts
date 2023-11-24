@@ -25,7 +25,7 @@ import {
 	VALID_REALM,
 } from "./Constants.js";
 import { INITIAL_TREASURE_CANDLE_REALM_SEEK, todayDate } from "./dates.js";
-import { EMOJI, formatEmoji, resolveCurrencyEmoji } from "./emojis.js";
+import { formatEmoji, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "./emojis.js";
 import { SHARD_ERUPTION_PREDICTION_DATA } from "./shardEruption.js";
 
 export function consoleLog(consoleLog: any, stamp = new Date().toISOString()): void {
@@ -165,7 +165,7 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 }
 
 export function resolveShardEruptionEmoji(strong: boolean) {
-	return strong ? EMOJI.ShardStrong : EMOJI.ShardRegular;
+	return strong ? MISCELLANEOUS_EMOJIS.ShardStrong : MISCELLANEOUS_EMOJIS.ShardRegular;
 }
 
 export function shardEruptionInformationString(
@@ -177,8 +177,8 @@ export function shardEruptionInformationString(
 
 	return `${formatEmoji(resolveShardEruptionEmoji(strong))} ${realmMap}\n${
 		reward === 200
-			? `200 ${formatEmoji(EMOJI.Light)}`
-			: resolveCurrencyEmoji({ emoji: EMOJI.AscendedCandle, number: reward })
+			? `200 ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}`
+			: resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.AscendedCandle, number: reward })
 	}`;
 }
 

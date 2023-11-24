@@ -19,7 +19,10 @@ interface EmojiData {
 	animated?: boolean;
 }
 
-export const EMOJI = {
+/**
+ * Emojis from the support server.
+ */
+export const MISCELLANEOUS_EMOJIS = {
 	AscendedCandle: { name: "ascended_candle", id: "1074399464627912755" },
 	WingedLight: { name: "winged_light", id: "1075042577776136313" },
 	Yes: { name: "yes", id: "1111792276394475580", animated: true },
@@ -95,8 +98,14 @@ export const EMOJI = {
 	EventMischief: { name: "event_mischief", id: "1177665479612039270" },
 	EventAviarysFireworkFestival: { name: "event_aviarys_firework_festival", id: "1177665489976176670" },
 	EventFeast: { name: "event_feast", id: "1182501356980932698" },
+} as const satisfies Readonly<Record<string, EmojiData>>;
 
-	// Emotes 1.
+export type MiscellaneousEmojis = (typeof MISCELLANEOUS_EMOJIS)[keyof typeof MISCELLANEOUS_EMOJIS];
+
+/**
+ * Emojis from the emotes servers.
+ */
+export const EMOTES_EMOJIS = {
 	Sit: { name: "sit", id: "1177210235774054441" },
 	Point: { name: "point", id: "1177213563111231581" },
 	Come: { name: "come", id: "1177333067317268480" },
@@ -147,8 +156,6 @@ export const EMOJI = {
 	Respect: { name: "respect", id: "1177368605285957763" },
 	LookAround: { name: "look_around", id: "1177377419674534028" },
 	Salute: { name: "salute", id: "1177377433175998615" },
-
-	// Emotes 2.
 	Acknowledge: { name: "acknowledge", id: "1177393399964373054" },
 	KungFu: { name: "kung_fu", id: "1177393417987297290" },
 	DontGo: { name: "dont_go", id: "1177394732373114891" },
@@ -198,7 +205,14 @@ export const EMOJI = {
 	JollyDance: { name: "jolly_dance", id: "1177411979909009458" },
 	BlindfoldBalancePose: { name: "blindfold_balance_pose", id: "1177412000444338186" },
 	CureForMeDance: { name: "cure_for_me_dance", id: "1177412031654146168" },
+} as const satisfies Readonly<Record<string, EmojiData>>;
 
+export type EmotesEmojis = (typeof EMOTES_EMOJIS)[keyof typeof EMOTES_EMOJIS];
+
+/**
+ * Emojis from the stances server.
+ */
+export const STANCES_EMOJIS = {
 	// Stances.
 	Base: { name: "base", id: "1177462825145356348" },
 	Courageous: { name: "courageous", id: "1177462882099810434" },
@@ -212,8 +226,31 @@ export const EMOJI = {
 	Timid: { name: "timid", id: "1177463232068333600" },
 	Tinker: { name: "tinker", id: "1177463284685873163" },
 	Injured: { name: "injured", id: "1177463309293867069" },
+} as const satisfies Readonly<Record<string, EmojiData>>;
 
-	// Friend actions.
+export type StancesEmojis = (typeof STANCES_EMOJIS)[keyof typeof STANCES_EMOJIS];
+
+/**
+ * Emojis from the calls server.
+ */
+export const CALLS_EMOJIS = {
+	Base: { name: "base", id: "1177471163040006185" },
+	Bird: { name: "bird", id: "1177471216878096404" },
+	Whale: { name: "whale", id: "1177471237321150584" },
+	Manta: { name: "manta", id: "1177471263657185280" },
+	CosmicManta: { name: "cosmic_manta", id: "1177471285631131668" },
+	Crab: { name: "crab", id: "1177471325326016522" },
+	Jellyfish: { name: "jellyfish", id: "1177471347455184896" },
+	BabyManta: { name: "baby_manta", id: "1177471733779939348" },
+	Nightbird: { name: "nightbird", id: "1177471757133807747" },
+} as const satisfies Readonly<Record<string, EmojiData>>;
+
+export type CallsEmojis = (typeof CALLS_EMOJIS)[keyof typeof CALLS_EMOJIS];
+
+/**
+ * Emojis from the friend actions server.
+ */
+export const FRIEND_ACTIONS_EMOJIS = {
 	HoldHand: { name: "hold_hand", id: "1177437567105368124" },
 	HighFive: { name: "high_five", id: "1177438862356795422" },
 	Hug: { name: "hug", id: "1177438880887222272" },
@@ -228,7 +265,8 @@ export const EMOJI = {
 	SideHug: { name: "side_hug", id: "1177439594870997032" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type Emoji = (typeof EMOJI)[keyof typeof EMOJI];
+export type FriendActionsEmojis = (typeof FRIEND_ACTIONS_EMOJIS)[keyof typeof FRIEND_ACTIONS_EMOJIS];
+export type Emoji = MiscellaneousEmojis | EmotesEmojis | StancesEmojis | CallsEmojis | FriendActionsEmojis;
 
 export async function cannotUseCustomEmojis(
 	interaction:

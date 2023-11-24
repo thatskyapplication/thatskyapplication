@@ -17,7 +17,7 @@ import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-prof
 import commands from "../Commands/index.js";
 import S3Client from "../S3Client.js";
 import { CDN_BUCKET, CDN_URL, DEFAULT_EMBED_COLOUR, MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
-import { EMOJI, formatEmoji } from "../Utility/emojis.js";
+import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
 import pg, { Table } from "../pg.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
 import { resolveBitsToSeasons } from "./Season.js";
@@ -348,7 +348,7 @@ export default class Profile {
 					wingedLight === 0
 						? "Capeless"
 						: wingedLight === MAXIMUM_WINGED_LIGHT
-						? `${wingedLight} (Max ${formatEmoji(EMOJI.WingedLight)})`
+						? `${wingedLight} (Max ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)})`
 						: String(wingedLight),
 				inline: true,
 			});

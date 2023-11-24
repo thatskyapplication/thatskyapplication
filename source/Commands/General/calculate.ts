@@ -32,7 +32,7 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	todayDate,
 } from "../../Utility/dates.js";
-import { cannotUseCustomEmojis, EMOJI, resolveCurrencyEmoji } from "../../Utility/emojis.js";
+import { cannotUseCustomEmojis, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../../Utility/emojis.js";
 import type { ChatInputCommand } from "../index.js";
 
 const doubleSeasonalLightEventStart = time(
@@ -352,13 +352,13 @@ export default new (class implements ChatInputCommand {
 					.setColor(DEFAULT_EMBED_COLOUR)
 					.setDescription(
 						`Start: ${resolveCurrencyEmoji({
-							emoji: EMOJI.AscendedCandle,
+							emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
 							number: start,
 						})}\nGoal: ${resolveCurrencyEmoji({
-							emoji: EMOJI.AscendedCandle,
+							emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
 							number: goal,
 						})}\nRequired: ${resolveCurrencyEmoji({
-							emoji: EMOJI.AscendedCandle,
+							emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
 							number: amountRequired,
 						})}`,
 					)
@@ -445,7 +445,7 @@ export default new (class implements ChatInputCommand {
 		const today = todayDate();
 		const season = resolveSeason(today);
 		const remainingCandles = season?.remainingSeasonalCandles(today);
-		const emoji = season?.candleEmoji ?? EMOJI.SeasonalCandle;
+		const emoji = season?.candleEmoji ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
 		const amountRequired = goal - start;
 		let result = 0;
 		let days = 0;
@@ -552,11 +552,11 @@ export default new (class implements ChatInputCommand {
 					.setColor(DEFAULT_EMBED_COLOUR)
 					.setDescription(
 						`${t("calculate.winged-light.started-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji({
-							emoji: EMOJI.WingedLight,
+							emoji: MISCELLANEOUS_EMOJIS.WingedLight,
 							number: wingBuffs,
 							includeSpaceInEmoji: true,
 						})}.\n${t("calculate.winged-light.reborn-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji({
-							emoji: EMOJI.WingedLight,
+							emoji: MISCELLANEOUS_EMOJIS.WingedLight,
 							number: (accumulation += AreaToWingedLightCount[Map.Orbit]),
 							includeSpaceInEmoji: true,
 						})} (+${AreaToWingedLightCount[Map.Orbit]}).`,
@@ -569,7 +569,7 @@ export default new (class implements ChatInputCommand {
 						{
 							name: "Total",
 							value: `${t("calculate.winged-light.you-should-have", { lng, ns: "commands" })} ${resolveCurrencyEmoji({
-								emoji: EMOJI.WingedLight,
+								emoji: MISCELLANEOUS_EMOJIS.WingedLight,
 								number: accumulation,
 								includeSpaceInEmoji: true,
 							})}.`,
