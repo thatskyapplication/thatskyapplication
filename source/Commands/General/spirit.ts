@@ -152,7 +152,7 @@ export default new (class implements AutocompleteCommand {
 
 			if (spirit.stance) embed.addFields({ name: "Stance", value: spirit.stance, inline: true });
 			if (spirit.call) embed.addFields({ name: "Call", value: spirit.call, inline: true });
-			if (spirit.action) embed.addFields({ name: "Action", value: spirit.action, inline: true });
+			if (spirit.action) embed.addFields({ name: "Action", value: formatEmoji(ExpressionToEmoji[spirit.action]), inline: true });
 		}
 
 		const components = [];
