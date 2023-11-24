@@ -364,20 +364,6 @@ export const enum FriendAction {
 }
 
 export const ExpressionToEmoji = {
-	// Friend actions.
-	[FriendAction.HoldHand]: EMOJI.HoldHand,
-	[FriendAction.HighFive]: EMOJI.HighFive,
-	[FriendAction.Hug]: EMOJI.Hug,
-	[FriendAction.FistBump]: EMOJI.FistBump,
-	[FriendAction.DoubleFive]: EMOJI.DoubleFive,
-	[FriendAction.HairTousle]: EMOJI.HairTousle,
-	[FriendAction.Carry]: EMOJI.Carry,
-	[FriendAction.PlayFight]: EMOJI.PlayFight,
-	[FriendAction.Bearhug]: EMOJI.Bearhug,
-	[FriendAction.Handshake]: EMOJI.Handshake,
-	[FriendAction.DuetDance]: EMOJI.DuetDance,
-	[FriendAction.SideHug]: EMOJI.SideHug,
-
 	// Emotes.
 	[Emote.Sit]: EMOJI.Sit,
 	[Emote.Point]: EMOJI.Point,
@@ -478,7 +464,21 @@ export const ExpressionToEmoji = {
 	[Emote.JollyDance]: EMOJI.JollyDance,
 	[Emote.BlindfoldBalancePose]: EMOJI.BlindfoldBalancePose,
 	[Emote.CureForMeDance]: EMOJI.CureForMeDance,
-} as const satisfies Readonly<Record<FriendAction | Emote, Emoji>>;
+
+	// Friend actions.
+	[FriendAction.HoldHand]: EMOJI.HoldHand,
+	[FriendAction.HighFive]: EMOJI.HighFive,
+	[FriendAction.Hug]: EMOJI.Hug,
+	[FriendAction.FistBump]: EMOJI.FistBump,
+	[FriendAction.DoubleFive]: EMOJI.DoubleFive,
+	[FriendAction.HairTousle]: EMOJI.HairTousle,
+	[FriendAction.Carry]: EMOJI.Carry,
+	[FriendAction.PlayFight]: EMOJI.PlayFight,
+	[FriendAction.Bearhug]: EMOJI.Bearhug,
+	[FriendAction.Handshake]: EMOJI.Handshake,
+	[FriendAction.DuetDance]: EMOJI.DuetDance,
+	[FriendAction.SideHug]: EMOJI.SideHug,
+} as const satisfies Readonly<Record<Emote | FriendAction, Emoji>>;
 
 export const SPIRIT_TYPE = {
 	Standard: 0,
