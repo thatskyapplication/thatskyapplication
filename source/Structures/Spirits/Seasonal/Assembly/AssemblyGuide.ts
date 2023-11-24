@@ -2,7 +2,7 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, Expression, GuideSpirit, SpiritName } from "../../Base.js";
+import { type ItemsData, FriendAction, GuideSpirit, SpiritName } from "../../Base.js";
 
 export default new GuideSpirit({
 	name: SpiritName.AssemblyGuide,
@@ -18,17 +18,17 @@ export default new GuideSpirit({
 			.set(1 << 4, { item: "Ultimate hair", cost: { seasonalHearts: 1 } })
 			.set(1 << 5, { item: "Bugle", cost: { seasonalHearts: 2 } })
 			.set(1 << 6, { item: "Ultimate cape", cost: { seasonalHearts: 2 } })
-			.set(1 << 7, { item: Expression.HighFive, cost: null })
+			.set(1 << 7, { item: FriendAction.HighFive, cost: null })
 			.set(1 << 8, { item: "Quest 2", cost: null })
 			.set(1 << 9, { item: "Pillow", cost: { candles: 5 } })
 			.set(1 << 10, { item: "Quest 3", cost: null })
 			.set(1 << 11, { item: "Heart 2", cost: { candles: 3 } })
-			.set(1 << 12, { item: Expression.Hug, cost: null })
+			.set(1 << 12, { item: FriendAction.Hug, cost: null })
 			.set(1 << 13, { item: "Quest 4", cost: null })
 			.set(1 << 14, { item: "Jar", cost: { candles: 8 } })
 			.set(1 << 15, { item: "Quest 5", cost: null })
 			.set(1 << 16, { item: "Brazier", cost: { hearts: 12 } })
-			.set(1 << 17, { item: Expression.DoubleFive, cost: null })
+			.set(1 << 17, { item: FriendAction.DoubleFive, cost: null })
 			.set(1 << 18, { item: "Quest 6", cost: null })
 			.set(1 << 19, { item: "Heart 3", cost: { candles: 3 } })
 			.set(1 << 20, { item: "Bookcase", cost: { candles: 30 } })

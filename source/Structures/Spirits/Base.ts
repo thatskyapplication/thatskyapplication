@@ -213,40 +213,7 @@ export enum SpiritName {
 	RemnantOfAForgottenHaven = "Remnant of a Forgotten Haven",
 }
 
-export const enum Call {
-	Original = "Original",
-	Bird = "Bird",
-	Whale = "Whale",
-	Manta = "Manta",
-	CosmicManta = "Cosmic manta",
-	Crab = "Crab",
-	Jellyfish = "Jellyfish",
-	BabyManta = "Baby manta",
-	Nightbird = "Nightbird",
-
-	// From the Kizuna-AI pin.
-	KizunaAI = "Kizuna-AI",
-
-	// From the PlayStation starter pack.
-	Journey = "Journey",
-}
-
-export const enum Expression {
-	// Friend expressions.
-	HoldHand = "Hold hand",
-	HighFive = "High-five",
-	Hug = "Hug",
-	FistBump = "Fist bump",
-	DoubleFive = "Double-five",
-	HairTousle = "Hair tousle",
-	Carry = "Carry",
-	PlayFight = "Play fight",
-	Bearhug = "Bearhug",
-	Handshake = "Handshake",
-	DuetDance = "Duet dance",
-	SideHug = "Side hug",
-
-	// Regular expressions.
+export const enum Emote {
 	Sit = "Sit",
 	Point = "Point",
 	Come = "Come",
@@ -348,123 +315,6 @@ export const enum Expression {
 	CureForMeDance = "Cure for me dance",
 }
 
-export const ExpressionToEmoji = {
-	// Friend expressions.
-	[Expression.HoldHand]: EMOJI.HoldHand,
-	[Expression.HighFive]: EMOJI.HighFive,
-	[Expression.Hug]: EMOJI.Hug,
-	[Expression.FistBump]: EMOJI.FistBump,
-	[Expression.DoubleFive]: EMOJI.DoubleFive,
-	[Expression.HairTousle]: EMOJI.HairTousle,
-	[Expression.Carry]: EMOJI.Carry,
-	[Expression.PlayFight]: EMOJI.PlayFight,
-	[Expression.Bearhug]: EMOJI.Bearhug,
-	[Expression.Handshake]: EMOJI.Handshake,
-	[Expression.DuetDance]: EMOJI.DuetDance,
-	[Expression.SideHug]: EMOJI.SideHug,
-
-	// Regular expressions.
-	[Expression.Sit]: EMOJI.Sit,
-	[Expression.Point]: EMOJI.Point,
-	[Expression.Come]: EMOJI.Come,
-	[Expression.NoThanks]: EMOJI.NoThanks,
-	[Expression.Welcome]: EMOJI.Welcome,
-	[Expression.Nod]: EMOJI.Nod,
-	[Expression.Scold]: EMOJI.Scold,
-	[Expression.Butterfly]: EMOJI.Butterfly,
-	[Expression.Clap]: EMOJI.Clap,
-	[Expression.Wave]: EMOJI.Wave,
-	[Expression.Laugh]: EMOJI.Laugh,
-	[Expression.Yawn]: EMOJI.Yawn,
-	[Expression.WipeBrow]: EMOJI.WipeBrow,
-	[Expression.Teamwork]: EMOJI.Teamwork,
-	[Expression.BlowKiss]: EMOJI.BlowKiss,
-	[Expression.Grateful]: EMOJI.Grateful,
-	[Expression.BellyScratch]: EMOJI.BellyScratch,
-	[Expression.Chuckle]: EMOJI.Chuckle,
-	[Expression.Shiver]: EMOJI.Shiver,
-	[Expression.HideAndSeek]: EMOJI.HideAndSeek,
-	[Expression.Angry]: EMOJI.Angry,
-	[Expression.Shy]: EMOJI.Shy,
-	[Expression.Shocked]: EMOJI.Shocked,
-	[Expression.Apologise]: EMOJI.Apologise,
-	[Expression.Crying]: EMOJI.Crying,
-	[Expression.Kabuki]: EMOJI.Kabuki,
-	[Expression.Shrug]: EMOJI.Shrug,
-	[Expression.Grumpy]: EMOJI.Grumpy,
-	[Expression.Peek]: EMOJI.Peek,
-	[Expression.Eww]: EMOJI.Eww,
-	[Expression.Facepalm]: EMOJI.Facepalm,
-	[Expression.Handstand]: EMOJI.Handstand,
-	[Expression.Backflip]: EMOJI.Backflip,
-	[Expression.Bow]: EMOJI.Bow,
-	[Expression.Cheer]: EMOJI.Cheer,
-	[Expression.Leap]: EMOJI.Leap,
-	[Expression.TripleAxel]: EMOJI.TripleAxel,
-	[Expression.Confetti]: EMOJI.Confetti,
-	[Expression.BoogieDance]: EMOJI.BoogieDance,
-	[Expression.SpinDance]: EMOJI.SpinDance,
-	[Expression.Juggle]: EMOJI.Juggle,
-	[Expression.CrabWalk]: EMOJI.CrabWalk,
-	[Expression.RallyCheer]: EMOJI.RallyCheer,
-	[Expression.SpinTrick]: EMOJI.SpinTrick,
-	[Expression.ShowDance]: EMOJI.ShowDance,
-	[Expression.Duck]: EMOJI.Duck,
-	[Expression.Faint]: EMOJI.Faint,
-	[Expression.Respect]: EMOJI.Respect,
-	[Expression.LookAround]: EMOJI.LookAround,
-	[Expression.Salute]: EMOJI.Salute,
-	[Expression.Acknowledge]: EMOJI.Acknowledge,
-	[Expression.KungFu]: EMOJI.KungFu,
-	[Expression.DontGo]: EMOJI.DontGo,
-	[Expression.Boo]: EMOJI.Boo,
-	[Expression.DustOff]: EMOJI.DustOff,
-	[Expression.ChestPound]: EMOJI.ChestPound,
-	[Expression.Marching]: EMOJI.Marching,
-	[Expression.Telekinesis]: EMOJI.Telekinesis,
-	[Expression.Float]: EMOJI.Float,
-	[Expression.Pray]: EMOJI.Pray,
-	[Expression.Yoga]: EMOJI.Yoga,
-	[Expression.Shush]: EMOJI.Shush,
-	[Expression.Sparkler]: EMOJI.Sparkler,
-	[Expression.Thinking]: EMOJI.Thinking,
-	[Expression.Doze]: EMOJI.Doze,
-	[Expression.Balance]: EMOJI.Balance,
-	[Expression.DeepBreath]: EMOJI.DeepBreath,
-	[Expression.Bubbles]: EMOJI.Bubbles,
-	[Expression.Beckon]: EMOJI.Beckon,
-	[Expression.Gloat]: EMOJI.Gloat,
-	[Expression.Stretch]: EMOJI.Stretch,
-	[Expression.Slouch]: EMOJI.Slouch,
-	[Expression.Sneeze]: EMOJI.Sneeze,
-	[Expression.HandRub]: EMOJI.HandRub,
-	[Expression.Voilà]: EMOJI.Voilà,
-	[Expression.Navigate]: EMOJI.Navigate,
-	[Expression.CalmDown]: EMOJI.CalmDown,
-	[Expression.EvilLaugh]: EMOJI.EvilLaugh,
-	[Expression.Ouch]: EMOJI.Ouch,
-	[Expression.Anxious]: EMOJI.Anxious,
-	[Expression.Headbob]: EMOJI.Headbob,
-	[Expression.Aww]: EMOJI.Aww,
-	[Expression.WavingLight]: EMOJI.WavingLight,
-	[Expression.RaiseTheRoof]: EMOJI.RaiseTheRoof,
-	[Expression.Twirl]: EMOJI.Twirl,
-	[Expression.RhythmicClap]: EMOJI.RhythmicClap,
-	[Expression.Conduct]: EMOJI.Conduct,
-	[Expression.SilentClap]: EMOJI.SilentClap,
-	[Expression.Skipping]: EMOJI.Skipping,
-	[Expression.Pleading]: EMOJI.Pleading,
-	[Expression.Tiptoeing]: EMOJI.Tiptoeing,
-	[Expression.Grieving]: EMOJI.Grieving,
-	[Expression.HackySack]: EMOJI.HackySack,
-	[Expression.Somersault]: EMOJI.Somersault,
-	[Expression.Moping]: EMOJI.Moping,
-	[Expression.PullUp]: EMOJI.PullUp,
-	[Expression.JollyDance]: EMOJI.JollyDance,
-	[Expression.BlindfoldBalancePose]: EMOJI.BlindfoldBalancePose,
-	[Expression.CureForMeDance]: EMOJI.CureForMeDance,
-} as const satisfies Readonly<Record<Expression, Emoji>>;
-
 export const enum Stance {
 	Normal = "Normal",
 	Courageous = "Courageous",
@@ -479,6 +329,156 @@ export const enum Stance {
 	Tinker = "Tinker",
 	Injured = "Injured",
 }
+
+export const enum Call {
+	Original = "Original",
+	Bird = "Bird",
+	Whale = "Whale",
+	Manta = "Manta",
+	CosmicManta = "Cosmic manta",
+	Crab = "Crab",
+	Jellyfish = "Jellyfish",
+	BabyManta = "Baby manta",
+	Nightbird = "Nightbird",
+
+	// From the Kizuna-AI pin.
+	KizunaAI = "Kizuna-AI",
+
+	// From the PlayStation starter pack.
+	Journey = "Journey",
+}
+
+export const enum FriendAction {
+	HoldHand = "Hold hand",
+	HighFive = "High-five",
+	Hug = "Hug",
+	FistBump = "Fist bump",
+	DoubleFive = "Double-five",
+	HairTousle = "Hair tousle",
+	Carry = "Carry",
+	PlayFight = "Play fight",
+	Bearhug = "Bearhug",
+	Handshake = "Handshake",
+	DuetDance = "Duet dance",
+	SideHug = "Side hug",
+}
+
+export const ExpressionToEmoji = {
+	// Friend actions.
+	[FriendAction.HoldHand]: EMOJI.HoldHand,
+	[FriendAction.HighFive]: EMOJI.HighFive,
+	[FriendAction.Hug]: EMOJI.Hug,
+	[FriendAction.FistBump]: EMOJI.FistBump,
+	[FriendAction.DoubleFive]: EMOJI.DoubleFive,
+	[FriendAction.HairTousle]: EMOJI.HairTousle,
+	[FriendAction.Carry]: EMOJI.Carry,
+	[FriendAction.PlayFight]: EMOJI.PlayFight,
+	[FriendAction.Bearhug]: EMOJI.Bearhug,
+	[FriendAction.Handshake]: EMOJI.Handshake,
+	[FriendAction.DuetDance]: EMOJI.DuetDance,
+	[FriendAction.SideHug]: EMOJI.SideHug,
+
+	// Emotes.
+	[Emote.Sit]: EMOJI.Sit,
+	[Emote.Point]: EMOJI.Point,
+	[Emote.Come]: EMOJI.Come,
+	[Emote.NoThanks]: EMOJI.NoThanks,
+	[Emote.Welcome]: EMOJI.Welcome,
+	[Emote.Nod]: EMOJI.Nod,
+	[Emote.Scold]: EMOJI.Scold,
+	[Emote.Butterfly]: EMOJI.Butterfly,
+	[Emote.Clap]: EMOJI.Clap,
+	[Emote.Wave]: EMOJI.Wave,
+	[Emote.Laugh]: EMOJI.Laugh,
+	[Emote.Yawn]: EMOJI.Yawn,
+	[Emote.WipeBrow]: EMOJI.WipeBrow,
+	[Emote.Teamwork]: EMOJI.Teamwork,
+	[Emote.BlowKiss]: EMOJI.BlowKiss,
+	[Emote.Grateful]: EMOJI.Grateful,
+	[Emote.BellyScratch]: EMOJI.BellyScratch,
+	[Emote.Chuckle]: EMOJI.Chuckle,
+	[Emote.Shiver]: EMOJI.Shiver,
+	[Emote.HideAndSeek]: EMOJI.HideAndSeek,
+	[Emote.Angry]: EMOJI.Angry,
+	[Emote.Shy]: EMOJI.Shy,
+	[Emote.Shocked]: EMOJI.Shocked,
+	[Emote.Apologise]: EMOJI.Apologise,
+	[Emote.Crying]: EMOJI.Crying,
+	[Emote.Kabuki]: EMOJI.Kabuki,
+	[Emote.Shrug]: EMOJI.Shrug,
+	[Emote.Grumpy]: EMOJI.Grumpy,
+	[Emote.Peek]: EMOJI.Peek,
+	[Emote.Eww]: EMOJI.Eww,
+	[Emote.Facepalm]: EMOJI.Facepalm,
+	[Emote.Handstand]: EMOJI.Handstand,
+	[Emote.Backflip]: EMOJI.Backflip,
+	[Emote.Bow]: EMOJI.Bow,
+	[Emote.Cheer]: EMOJI.Cheer,
+	[Emote.Leap]: EMOJI.Leap,
+	[Emote.TripleAxel]: EMOJI.TripleAxel,
+	[Emote.Confetti]: EMOJI.Confetti,
+	[Emote.BoogieDance]: EMOJI.BoogieDance,
+	[Emote.SpinDance]: EMOJI.SpinDance,
+	[Emote.Juggle]: EMOJI.Juggle,
+	[Emote.CrabWalk]: EMOJI.CrabWalk,
+	[Emote.RallyCheer]: EMOJI.RallyCheer,
+	[Emote.SpinTrick]: EMOJI.SpinTrick,
+	[Emote.ShowDance]: EMOJI.ShowDance,
+	[Emote.Duck]: EMOJI.Duck,
+	[Emote.Faint]: EMOJI.Faint,
+	[Emote.Respect]: EMOJI.Respect,
+	[Emote.LookAround]: EMOJI.LookAround,
+	[Emote.Salute]: EMOJI.Salute,
+	[Emote.Acknowledge]: EMOJI.Acknowledge,
+	[Emote.KungFu]: EMOJI.KungFu,
+	[Emote.DontGo]: EMOJI.DontGo,
+	[Emote.Boo]: EMOJI.Boo,
+	[Emote.DustOff]: EMOJI.DustOff,
+	[Emote.ChestPound]: EMOJI.ChestPound,
+	[Emote.Marching]: EMOJI.Marching,
+	[Emote.Telekinesis]: EMOJI.Telekinesis,
+	[Emote.Float]: EMOJI.Float,
+	[Emote.Pray]: EMOJI.Pray,
+	[Emote.Yoga]: EMOJI.Yoga,
+	[Emote.Shush]: EMOJI.Shush,
+	[Emote.Sparkler]: EMOJI.Sparkler,
+	[Emote.Thinking]: EMOJI.Thinking,
+	[Emote.Doze]: EMOJI.Doze,
+	[Emote.Balance]: EMOJI.Balance,
+	[Emote.DeepBreath]: EMOJI.DeepBreath,
+	[Emote.Bubbles]: EMOJI.Bubbles,
+	[Emote.Beckon]: EMOJI.Beckon,
+	[Emote.Gloat]: EMOJI.Gloat,
+	[Emote.Stretch]: EMOJI.Stretch,
+	[Emote.Slouch]: EMOJI.Slouch,
+	[Emote.Sneeze]: EMOJI.Sneeze,
+	[Emote.HandRub]: EMOJI.HandRub,
+	[Emote.Voilà]: EMOJI.Voilà,
+	[Emote.Navigate]: EMOJI.Navigate,
+	[Emote.CalmDown]: EMOJI.CalmDown,
+	[Emote.EvilLaugh]: EMOJI.EvilLaugh,
+	[Emote.Ouch]: EMOJI.Ouch,
+	[Emote.Anxious]: EMOJI.Anxious,
+	[Emote.Headbob]: EMOJI.Headbob,
+	[Emote.Aww]: EMOJI.Aww,
+	[Emote.WavingLight]: EMOJI.WavingLight,
+	[Emote.RaiseTheRoof]: EMOJI.RaiseTheRoof,
+	[Emote.Twirl]: EMOJI.Twirl,
+	[Emote.RhythmicClap]: EMOJI.RhythmicClap,
+	[Emote.Conduct]: EMOJI.Conduct,
+	[Emote.SilentClap]: EMOJI.SilentClap,
+	[Emote.Skipping]: EMOJI.Skipping,
+	[Emote.Pleading]: EMOJI.Pleading,
+	[Emote.Tiptoeing]: EMOJI.Tiptoeing,
+	[Emote.Grieving]: EMOJI.Grieving,
+	[Emote.HackySack]: EMOJI.HackySack,
+	[Emote.Somersault]: EMOJI.Somersault,
+	[Emote.Moping]: EMOJI.Moping,
+	[Emote.PullUp]: EMOJI.PullUp,
+	[Emote.JollyDance]: EMOJI.JollyDance,
+	[Emote.BlindfoldBalancePose]: EMOJI.BlindfoldBalancePose,
+	[Emote.CureForMeDance]: EMOJI.CureForMeDance,
+} as const satisfies Readonly<Record<FriendAction | Emote, Emoji>>;
 
 export const SPIRIT_TYPE = {
 	Standard: 0,
@@ -550,9 +550,10 @@ interface GuideFriendshipTreeData extends BaseFriendshipTreeData {
 }
 
 interface ExpressiveSpiritData {
-	expression?: Expression;
+	emote?: Emote;
 	stance?: Stance;
 	call?: Call;
+	action?: FriendAction;
 }
 
 interface BaseSpiritData {
@@ -759,16 +760,19 @@ abstract class GuideFriendshipTree extends BaseFriendshipTree {
 }
 
 abstract class ExpressiveSpirit {
-	public readonly expression: Expression | null;
+	public readonly emote: Emote | null;
 
 	public readonly stance: Stance | null;
 
 	public readonly call: Call | null;
 
-	public constructor({ expression, stance, call }: ExpressiveSpiritData) {
-		this.expression = expression ?? null;
+	public readonly action: FriendAction | null;
+
+	public constructor({ emote, stance, call, action }: ExpressiveSpiritData) {
+		this.emote = emote ?? null;
 		this.stance = stance ?? null;
 		this.call = call ?? null;
+		this.action = action ?? null;
 	}
 }
 

@@ -2,20 +2,20 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, Expression, SeasonalSpirit, SpiritName } from "../../Base.js";
+import { type ItemsData, FriendAction, SeasonalSpirit, SpiritName } from "../../Base.js";
 
-const expression = Expression.SideHug;
+const action = FriendAction.SideHug;
 
 export default new SeasonalSpirit({
 	name: SpiritName.ReassuringRanger,
 	season: SeasonName.Moments,
-	expression,
+	action,
 	realm: Realm.DaylightPrairie,
 	offer: {
 		hasInfographic: false,
 		seasonal: new Collection<number, ItemsData>()
-			.set(1 << 0, { item: `${expression} 1`, cost: null })
-			.set(1 << 1, { item: `${expression} 2`, cost: null })
+			.set(1 << 0, { item: `${action} 1`, cost: null })
+			.set(1 << 1, { item: `${action} 2`, cost: null })
 			.set(1 << 2, { item: "Blessing 1", cost: { seasonalCandles: 16 } })
 			.set(1 << 3, { item: "Face accessory", cost: null })
 			.set(1 << 4, { item: "Mask", cost: { seasonalCandles: 26 } })

@@ -146,12 +146,13 @@ export default new (class implements AutocompleteCommand {
 		}
 
 		if (spirit.isStandardSpirit() || isSeasonalSpirit) {
-			if (spirit.expression) {
-				embed.addFields({ name: "Expression", value: formatEmoji(ExpressionToEmoji[spirit.expression]), inline: true });
+			if (spirit.emote) {
+				embed.addFields({ name: "Emote", value: formatEmoji(ExpressionToEmoji[spirit.emote]), inline: true });
 			}
 
 			if (spirit.stance) embed.addFields({ name: "Stance", value: spirit.stance, inline: true });
 			if (spirit.call) embed.addFields({ name: "Call", value: spirit.call, inline: true });
+			if (spirit.action) embed.addFields({ name: "Action", value: spirit.action, inline: true });
 		}
 
 		const components = [];
@@ -216,15 +217,17 @@ export default new (class implements AutocompleteCommand {
 				? []
 				: Spirits.filter((spirit) => {
 						const { name, keywords } = spirit;
-						let expression = null;
+						let emote = null;
 						let stance = null;
 						let call = null;
+						let action = null;
 						const isSeasonalSpirit = spirit.isSeasonalSpirit();
 
-						if (isSeasonalSpirit) {
-							expression = spirit.expression?.toUpperCase() ?? null;
+						if (spirit.isStandardSpirit() || isSeasonalSpirit) {
+							emote = spirit.emote?.toUpperCase() ?? null;
 							stance = spirit.stance?.toUpperCase() ?? null;
 							call = spirit.call?.toUpperCase() ?? null;
+							action = spirit.action?.toUpperCase() ?? null;
 						}
 
 						const seasonName = isSeasonalSpirit || spirit.isGuideSpirit() ? spirit.season.toUpperCase() : null;
@@ -233,9 +236,10 @@ export default new (class implements AutocompleteCommand {
 						return (
 							name.toUpperCase().includes(focused) ||
 							keywords.some((keyword) => keyword.toUpperCase().includes(focused)) ||
-							expression?.toUpperCase().includes(focused) ||
+							emote?.toUpperCase().includes(focused) ||
 							stance?.toUpperCase().includes(focused) ||
 							call?.toUpperCase().includes(focused) ||
+							action?.toUpperCase().includes(focused) ||
 							seasonName?.includes(focused)
 						);
 						/* eslint-enable @typescript-eslint/prefer-nullish-coalescing */

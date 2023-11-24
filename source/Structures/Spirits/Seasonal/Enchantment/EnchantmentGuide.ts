@@ -2,7 +2,7 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, GuideSpirit, Expression, SpiritName } from "../../Base.js";
+import { type ItemsData, FriendAction, GuideSpirit, SpiritName } from "../../Base.js";
 
 export default new GuideSpirit({
 	name: SpiritName.EnchantmentGuide,
@@ -26,6 +26,6 @@ export default new GuideSpirit({
 			.set(1 << 12, { item: "Heart 5", cost: { candles: 3 } })
 			.set(1 << 13, { item: "Quest 6", cost: null })
 			.set(1 << 14, { item: "Heart 6", cost: { candles: 3 } })
-			.set(1 << 15, { item: Expression.Hug, cost: null }),
+			.set(1 << 15, { item: FriendAction.Hug, cost: null }),
 	},
 });

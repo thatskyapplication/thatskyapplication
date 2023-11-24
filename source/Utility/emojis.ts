@@ -96,7 +96,7 @@ export const EMOJI = {
 	EventAviarysFireworkFestival: { name: "event_aviarys_firework_festival", id: "1177665489976176670" },
 	EventFeast: { name: "event_feast", id: "1182501356980932698" },
 
-	// Expressions 1.
+	// Emotes 1.
 	Sit: { name: "sit", id: "1177210235774054441" },
 	Point: { name: "point", id: "1177213563111231581" },
 	Come: { name: "come", id: "1177333067317268480" },
@@ -148,7 +148,7 @@ export const EMOJI = {
 	LookAround: { name: "look_around", id: "1177377419674534028" },
 	Salute: { name: "salute", id: "1177377433175998615" },
 
-	// Expressions 2.
+	// Emotes 2.
 	Acknowledge: { name: "acknowledge", id: "1177393399964373054" },
 	KungFu: { name: "kung_fu", id: "1177393417987297290" },
 	DontGo: { name: "dont_go", id: "1177394732373114891" },
@@ -198,6 +198,20 @@ export const EMOJI = {
 	JollyDance: { name: "jolly_dance", id: "1177411979909009458" },
 	BlindfoldBalancePose: { name: "blindfold_balance_pose", id: "1177412000444338186" },
 	CureForMeDance: { name: "cure_for_me_dance", id: "1177412031654146168" },
+
+	// Friend actions.
+	HoldHand: { name: "hold_hand", id: "1177437567105368124" },
+	HighFive: { name: "high_five", id: "1177438862356795422" },
+	Hug: { name: "hug", id: "1177438880887222272" },
+	FistBump: { name: "fist_bump", id: "1177438905742659685" },
+	DoubleFive: { name: "double_five", id: "1177438926605140039" },
+	HairTousle: { name: "hair_tousle", id: "1177438961325592616" },
+	Carry: { name: "carry", id: "1177438977725317190" },
+	PlayFight: { name: "play_fight", id: "1177439040488869888" },
+	Bearhug: { name: "bearhug", id: "1177439077360992347" },
+	Handshake: { name: "handshake", id: "1177439544245751869" },
+	DuetDance: { name: "duet_dance", id: "1177439576604803072" },
+	SideHug: { name: "side_hug", id: "1177439594870997032" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type Emoji = (typeof EMOJI)[keyof typeof EMOJI];

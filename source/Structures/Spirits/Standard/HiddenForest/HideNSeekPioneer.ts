@@ -1,17 +1,17 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { type ItemsData, Expression, SpiritName, StandardSpirit } from "../../Base.js";
+import { type ItemsData, Emote, SpiritName, StandardSpirit } from "../../Base.js";
 
-const expression = Expression.HideAndSeek;
+const emote = Emote.HideAndSeek;
 
 export default new StandardSpirit({
 	name: SpiritName.HideNSeekPioneer,
-	expression,
+	emote,
 	realm: Realm.HiddenForest,
 	offer: {
 		current: new Collection<number, ItemsData>()
-			.set(1 << 0, { item: expression, cost: null })
+			.set(1 << 0, { item: emote, cost: null })
 			.set(1 << 1, { item: "Hair", cost: { hearts: 2 } })
 			.set(1 << 2, { item: "Blessing 1", cost: { candles: 1 } })
 			.set(1 << 3, { item: "Heart", cost: { candles: 3 } })

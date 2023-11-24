@@ -2,24 +2,24 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, Expression, SeasonalSpirit, SpiritName } from "../../Base.js";
+import { type ItemsData, Emote, SeasonalSpirit, SpiritName } from "../../Base.js";
 
-const expression = Expression.PullUp;
+const emote = Emote.PullUp;
 
 export default new SeasonalSpirit({
 	name: SpiritName.OveractiveOverachiever,
 	season: SeasonName.Passage,
-	expression,
+	emote,
 	realm: Realm.IslesOfDawn,
 	offer: {
 		hasInfographic: false,
 		seasonal: new Collection<number, ItemsData>()
-			.set(1 << 0, { item: `${expression} 1`, cost: null })
-			.set(1 << 1, { item: `${expression} 2`, cost: null })
+			.set(1 << 0, { item: `${emote} 1`, cost: null })
+			.set(1 << 1, { item: `${emote} 2`, cost: null })
 			.set(1 << 2, { item: "Blessing 1", cost: { seasonalCandles: 14 } })
 			.set(1 << 3, { item: "Manta ocarina", cost: null })
-			.set(1 << 4, { item: `${expression} 3`, cost: { seasonalCandles: 22 } })
-			.set(1 << 5, { item: `${expression} 4`, cost: null })
+			.set(1 << 4, { item: `${emote} 3`, cost: { seasonalCandles: 22 } })
+			.set(1 << 5, { item: `${emote} 4`, cost: null })
 			.set(1 << 6, { item: "Cape", cost: { seasonalCandles: 30 } })
 			.set(1 << 7, { item: "Blessing 2", cost: null })
 			.set(1 << 8, { item: "Blessing 3", cost: { seasonalCandles: 32 } })
