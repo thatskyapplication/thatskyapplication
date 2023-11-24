@@ -4,8 +4,8 @@ import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import { type Realm, CDN_URL, WIKI_URL } from "../../Utility/Constants.js";
 import { todayDate } from "../../Utility/dates.js";
-import { EMOJI, resolveCurrencyEmoji, type Emoji } from "../../Utility/emojis.js";
-import { SeasonNameToSeasonalCandleEmoji, SeasonName, SeasonNameToSeasonalHeartEmoji } from "../Season.js";
+import { type Emoji, EMOJI, resolveCurrencyEmoji } from "../../Utility/emojis.js";
+import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../Season.js";
 
 export enum SpiritName {
 	// Isles of Dawn
