@@ -51,6 +51,7 @@ export const EMOJI = {
 	SeasonMoments: { name: "season_moments", id: "1130091541151629332" },
 	Candle: { name: "candle", id: "1134669696822689882" },
 	Heart: { name: "heart", id: "1134669722353401977" },
+	PlatformSteam: { name: "platform_steam", id: "1134673226107191336" },
 	CandleGratitude: { name: "candle_gratitude", id: "1135233671255830619" },
 	CandleLightseekers: { name: "candle_lightseekers", id: "1135233695343718411" },
 	CandleBelonging: { name: "candle_belonging", id: "1135302561088409741" },
