@@ -19,6 +19,7 @@ import {
 	type SeasonalSpirit,
 	type SeasonalSpiritVisitData,
 	type StandardSpirit,
+	ExpressionToEmoji,
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	resolveOfferToCurrency,
@@ -126,13 +127,13 @@ export default new (class implements AutocompleteCommand {
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 		seasonalOffer = false,
 	) {
+		if (await cannotUseCustomEmojis(interaction)) return;
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
 		const seasonalParsing = isSeasonalSpirit && seasonalOffer;
 		const spiritSeason = isSeasonalSpirit || isGuideSpirit ? spirit.season : null;
 		const totalCost = seasonalParsing ? spirit.totalCostSeasonal : spirit.totalCost;
 		const totalOffer = totalCost ? resolveOfferToCurrency(totalCost, spiritSeason).join("") : null;
-		if (totalOffer && (await cannotUseCustomEmojis(interaction))) return;
 		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(spirit.name).setURL(spirit.wikiURL);
 		if (spirit.realm) embed.addFields({ name: "Realm", value: spirit.realm, inline: true });
 
@@ -145,7 +146,10 @@ export default new (class implements AutocompleteCommand {
 		}
 
 		if (spirit.isStandardSpirit() || isSeasonalSpirit) {
-			if (spirit.expression) embed.addFields({ name: "Expression", value: spirit.expression, inline: true });
+			if (spirit.expression) {
+				embed.addFields({ name: "Expression", value: formatEmoji(ExpressionToEmoji[spirit.expression]), inline: true });
+			}
+
 			if (spirit.stance) embed.addFields({ name: "Stance", value: spirit.stance, inline: true });
 			if (spirit.call) embed.addFields({ name: "Call", value: spirit.call, inline: true });
 		}
