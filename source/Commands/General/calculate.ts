@@ -8,6 +8,7 @@ import {
 	TimestampStyles,
 } from "discord.js";
 import { t } from "i18next";
+import { resolveEvent } from "../../Structures/Event.js";
 import {
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
@@ -104,6 +105,28 @@ export default new (class implements ChatInputCommand {
 							name: "shard-eruptions",
 							description: "Whether to include shard eruptions in the calculation.",
 							required: false,
+						},
+					],
+				},
+				{
+					type: ApplicationCommandOptionType.Subcommand,
+					name: "event-currency",
+					description: "Calculates the number of days it would take to achieve a number of event currency.",
+					options: [
+						{
+							type: ApplicationCommandOptionType.Integer,
+							name: "start",
+							description: "The starting number of event currency.",
+							minValue: 0,
+							required: true,
+						},
+						{
+							type: ApplicationCommandOptionType.Integer,
+							name: "goal",
+							description: "The desired number of event currency.",
+							maxValue: 250,
+							minValue: 1,
+							required: true,
 						},
 					],
 				},
@@ -262,6 +285,9 @@ export default new (class implements ChatInputCommand {
 			case "ascended-candles":
 				await this.ascendedCandles(interaction);
 				return;
+			case "event-currency":
+				await this.eventCurrency(interaction);
+				return;
 			case "seasonal-candles":
 				await this.seasonalCandles(interaction);
 				return;
@@ -345,6 +371,52 @@ export default new (class implements ChatInputCommand {
 					})
 					.setFooter({ text: minimumTimeText })
 					.setTitle("Ascended Candle Calculator"),
+			],
+		});
+	}
+
+	public async eventCurrency(interaction: ChatInputCommandInteraction) {
+		const { options } = interaction;
+		const start = options.getInteger("start", true);
+		const goal = options.getInteger("goal", true);
+
+		if (start >= goal) {
+			await interaction.reply({ content: "The goal has already been achieved.", ephemeral: true });
+			return;
+		}
+
+		// This calculator may only be used during events.
+		const event = resolveEvent(todayDate());
+
+		if (!event) {
+			await interaction.reply({ content: "There is no event currently active.", ephemeral: true });
+			return;
+		}
+
+		if (await cannotUseCustomEmojis(interaction)) return;
+		const amountRequired = goal - start;
+		const { eventCurrencyEmoji, eventCurrencyPerDay } = event;
+		const days = Math.ceil(amountRequired / eventCurrencyPerDay);
+
+		await interaction.reply({
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(
+						`Start: ${resolveCurrencyEmoji({
+							emoji: eventCurrencyEmoji,
+							number: start,
+						})}\nGoal: ${resolveCurrencyEmoji({
+							emoji: eventCurrencyEmoji,
+							number: goal,
+						})}\nRequired: ${resolveCurrencyEmoji({
+							emoji: eventCurrencyEmoji,
+							number: amountRequired,
+						})}`,
+					)
+					.setFields({ name: "Result", value: `${days} day${days === 1 ? "" : "s"}` })
+					.setFooter({ text: `Calculations assume ${eventCurrencyPerDay} event currency per day.` })
+					.setTitle("Event Currency Calculator"),
 			],
 		});
 	}
