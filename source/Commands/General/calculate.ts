@@ -386,10 +386,16 @@ export default new (class implements ChatInputCommand {
 		}
 
 		// This calculator may only be used during events.
-		const event = resolveEvent(todayDate());
+		const today = todayDate();
+		const event = resolveEvent(today);
 
 		if (!event) {
 			await interaction.reply({ content: "There is no event currently active.", ephemeral: true });
+			return;
+		}
+
+		if (today > event.eventCurrencyEnd) {
+			await interaction.reply({ content: "There are no more event currency in this event.", ephemeral: true });
 			return;
 		}
 

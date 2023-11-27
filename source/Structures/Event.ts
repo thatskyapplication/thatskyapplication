@@ -10,6 +10,7 @@ interface EventData {
 	name: string;
 	start: DateTime;
 	end: DateTime;
+	eventCurrencyEnd?: DateTime;
 	url: string | null;
 	eventCurrencyPerDay: number;
 	eventCurrencyEmoji: Emoji;
@@ -22,6 +23,8 @@ class Event {
 
 	public readonly end: DateTime;
 
+	public readonly eventCurrencyEnd: DateTime;
+
 	public readonly url: string | null;
 
 	public readonly eventCurrencyPerDay: number;
@@ -32,6 +35,7 @@ class Event {
 		this.name = data.name;
 		this.start = data.start;
 		this.end = data.end;
+		this.eventCurrencyEnd = data.eventCurrencyEnd ?? data.end;
 		this.url = data.url;
 		this.eventCurrencyPerDay = data.eventCurrencyPerDay;
 		this.eventCurrencyEmoji = data.eventCurrencyEmoji;
@@ -54,8 +58,8 @@ const EVENTS = [
 	new Event({
 		name: "Aviary Fireworks Festival",
 		start: skyDate(2_023, 11, 27),
-		// This event ends on 17th December, but event currency is only obtainable until 11th December.
-		end: skyDate(2_023, 12, 11),
+		end: skyDate(2_023, 12, 17),
+		eventCurrencyEnd: skyDate(2_023, 12, 11),
 		url: null,
 		eventCurrencyPerDay: 5,
 		eventCurrencyEmoji: EMOJI.EventAviarysFireworkFestival,
@@ -64,4 +68,9 @@ const EVENTS = [
 
 export function resolveEvent(date: DateTime) {
 	return EVENTS.find(({ start, end }) => date >= start && date <= end) ?? null;
+}
+
+export function nextEvent(date: DateTime) {
+	const closestEventIndex = EVENTS.findLastIndex(({ start }) => date >= start);
+	return closestEventIndex === -1 ? null : EVENTS.at(closestEventIndex + 1) ?? null;
 }

@@ -130,8 +130,8 @@ export default new (class implements ChatInputCommand {
 			.setFooter({ text: "Times are relative to your time zone." })
 			.setTitle("Schedule Today");
 
-		const eventCurrencyFieldData = DailyGuidesDistribution.eventCurrencyFieldData(today);
-		if (eventCurrencyFieldData) embed.addFields(eventCurrencyFieldData);
+		const eventData = DailyGuidesDistribution.eventData(today);
+		if (eventData.eventCurrency) embed.addFields(eventData.eventCurrency);
 		const shardEruptionFieldData = DailyGuidesDistribution.shardEruptionFieldData();
 
 		if (isDuring(AVIARY_FIREWORK_FESTIVAL_FIRST_SHOW_START_DATE, AVIARY_FIREWORK_FESTIVAL_LAST_SHOW_END_DATE, today)) {

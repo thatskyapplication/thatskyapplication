@@ -2,6 +2,7 @@ import {
 	type Channel,
 	type ChatInputCommandInteraction,
 	type Client,
+	type EmbedFooterOptions,
 	type Guild,
 	type GuildBasedChannel,
 	type GuildMember,
@@ -31,7 +32,7 @@ import { EMOJI, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "../Uti
 import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
-import { resolveEvent } from "./Event.js";
+import { nextEvent, resolveEvent } from "./Event.js";
 import { type RotationNumber, nextSeason, resolveSeason } from "./Season.js";
 
 export interface DailyGuidesDistributionPacket {
@@ -224,10 +225,36 @@ export default class DailyGuidesDistribution {
 			.setTitle(guild.name);
 	}
 
-	public static eventCurrencyFieldData(date: DateTime) {
+	public static eventData(date: DateTime) {
 		const event = resolveEvent(date);
-		if (event?.url) return { name: "Event Currency", value: hyperlink(`Rotation ${event.rotation(date)}`, event.url) };
-		return null;
+		let eventEndText = null;
+		let iconURL = null;
+		let eventCurrency = null;
+
+		if (event) {
+			const { end, eventCurrencyEmoji, eventCurrencyEnd, url } = event;
+			const daysLeftInEvent = end.diff(date, "days").days;
+
+			eventEndText =
+				daysLeftInEvent === 0
+					? "The event ends today."
+					: `${daysLeftInEvent === 1 ? `${daysLeftInEvent} day` : `${daysLeftInEvent} days`} left in the event.`;
+
+			iconURL = formatEmojiURL(eventCurrencyEmoji.id);
+
+			if (date <= eventCurrencyEnd && url) {
+				eventCurrency = { name: "Event Currency", value: hyperlink(`Rotation ${event.rotation(date)}`, url) };
+			}
+		} else {
+			const next = nextEvent(date);
+
+			if (next) {
+				const daysUntilEvent = next.start.diff(date, "days").days;
+				eventEndText = `The new event starts ${daysUntilEvent === 1 ? "tomorrow" : `in ${daysUntilEvent} days`}.`;
+			}
+		}
+
+		return { eventEndText, iconURL, eventCurrency };
 	}
 
 	public static shardEruptionFieldData() {
@@ -267,18 +294,19 @@ export default class DailyGuidesDistribution {
 		}
 
 		const season = resolveSeason(today);
+		let seasonFooterText = null;
+		let iconURL = null;
 
 		if (season) {
 			const { candleEmoji, emoji, end } = season;
 			const daysLeftInSeason = end.diff(today, "days").days;
 
-			embed.setFooter({
-				text:
-					daysLeftInSeason === 0
-						? "The season ends today."
-						: `${daysLeftInSeason === 1 ? `${daysLeftInSeason} day` : `${daysLeftInSeason} days`} left in the season.`,
-				iconURL: formatEmojiURL(emoji.id),
-			});
+			seasonFooterText =
+				daysLeftInSeason === 0
+					? "The season ends today."
+					: `${daysLeftInSeason === 1 ? `${daysLeftInSeason} day` : `${daysLeftInSeason} days`} left in the season.`;
+
+			iconURL = formatEmojiURL(emoji.id);
 
 			const { rotation, realm } = season.resolveSeasonalCandlesRotation(today);
 			let rotationNumber: RotationNumber = rotation;
@@ -309,14 +337,26 @@ export default class DailyGuidesDistribution {
 			if (next) {
 				const daysUntilSeason = next.start.diff(today, "days").days;
 
-				embed.setFooter({
-					text: `The new season starts ${daysUntilSeason === 1 ? `tomorrow` : `in ${daysUntilSeason} days`}.`,
-				});
+				seasonFooterText = `The new season starts ${
+					daysUntilSeason === 1 ? "tomorrow" : `in ${daysUntilSeason} days`
+				}.`;
 			}
 		}
 
-		const eventCurrencyFieldData = this.eventCurrencyFieldData(today);
-		if (eventCurrencyFieldData) embed.addFields(eventCurrencyFieldData);
+		const eventData = this.eventData(today);
+		const eventFooterText = eventData.eventEndText;
+		iconURL ??= eventData.iconURL;
+
+		if (seasonFooterText || eventFooterText) {
+			const footer: EmbedFooterOptions = {
+				text: [seasonFooterText, eventFooterText].filter((footerText) => footerText !== null).join("\n"),
+			};
+
+			if (iconURL) footer.iconURL = iconURL;
+			embed.setFooter(footer);
+		}
+
+		if (eventData.eventCurrency) embed.addFields(eventData.eventCurrency);
 		embed.addFields(this.shardEruptionFieldData());
 		return embed;
 	}
