@@ -4,7 +4,7 @@ import { CDN_URL } from "../Utility/Constants.js";
 import { skyDate } from "../Utility/dates.js";
 import { type Emoji, EMOJI } from "../Utility/emojis.js";
 
-const EVENT_ROTATION_LETTER = ["A", "B", "C"] as const;
+// const EVENT_ROTATION_LETTER = ["A", "B", "C"] as const;
 
 interface EventData {
 	name: string;
@@ -41,8 +41,9 @@ class Event {
 		this.eventCurrencyEmoji = data.eventCurrencyEmoji;
 	}
 
-	public rotation(date: DateTime) {
-		return EVENT_ROTATION_LETTER[date.diff(this.start, "day").days % 3]!;
+	public rotation(/* date: DateTime */) {
+		return null;
+		// return EVENT_ROTATION_LETTER[date.diff(this.start, "day").days % 3]!;
 	}
 }
 
@@ -60,7 +61,7 @@ const EVENTS = [
 		start: skyDate(2_023, 11, 27),
 		end: skyDate(2_023, 12, 17),
 		eventCurrencyEnd: skyDate(2_023, 12, 11),
-		url: null,
+		url: String(new URL("daily_guides/events/aviarys_firework_festival/2023.webp", CDN_URL)),
 		eventCurrencyPerDay: 5,
 		eventCurrencyEmoji: EMOJI.EventAviarysFireworkFestival,
 	}),
