@@ -56,7 +56,7 @@ const EVENTS = [
 		eventCurrencyEmoji: EMOJI.EventMischief,
 	}),
 	new Event({
-		name: "Aviary Fireworks Festival",
+		name: "Aviary's Firework Festival",
 		start: skyDate(2_023, 11, 27),
 		end: skyDate(2_023, 12, 17),
 		eventCurrencyEnd: skyDate(2_023, 12, 11),
