@@ -32,7 +32,7 @@ import { EMOJI, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "../Uti
 import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
-import { nextEvent, resolveEvent } from "./Event.js";
+import { plannedEvents, resolveEvent } from "./Event.js";
 import { type RotationNumber, nextSeason, resolveSeason } from "./Season.js";
 
 export interface DailyGuidesDistributionPacket {
@@ -226,31 +226,32 @@ export default class DailyGuidesDistribution {
 	}
 
 	public static eventData(date: DateTime) {
-		const event = resolveEvent(date);
-		let eventEndText = null;
+		const events = plannedEvents(date);
+		const currentEvent = resolveEvent(date);
+		const eventEndText = [];
 		let iconURL = null;
 		let eventCurrency = null;
 
-		if (event) {
-			const { end, eventCurrencyEmoji, eventCurrencyEnd, url } = event;
-			const daysLeftInEvent = end.diff(date, "days").days;
+		for (const event of events) {
+			const { end, eventCurrencyEmoji, eventCurrencyEnd, name, start, url } = event;
 
-			eventEndText =
-				daysLeftInEvent === 0
-					? "The event ends today."
-					: `${daysLeftInEvent === 1 ? `${daysLeftInEvent} day` : `${daysLeftInEvent} days`} left in the event.`;
+			if (currentEvent?.name === event.name) {
+				const daysLeftInEvent = end.diff(date, "days").days;
 
-			iconURL = formatEmojiURL(eventCurrencyEmoji.id);
+				eventEndText.push(
+					daysLeftInEvent === 0
+						? `${name} ends today.`
+						: `${daysLeftInEvent === 1 ? `${daysLeftInEvent} day` : `${daysLeftInEvent} days`} left in ${name}.`,
+				);
 
-			if (date <= eventCurrencyEnd && url) {
-				eventCurrency = { name: "Event Currency", value: hyperlink(`Rotation ${event.rotation(date)}`, url) };
-			}
-		} else {
-			const next = nextEvent(date);
+				iconURL = formatEmojiURL(eventCurrencyEmoji.id);
 
-			if (next) {
-				const daysUntilEvent = next.start.diff(date, "days").days;
-				eventEndText = `The new event starts ${daysUntilEvent === 1 ? "tomorrow" : `in ${daysUntilEvent} days`}.`;
+				if (date <= eventCurrencyEnd && url) {
+					eventCurrency = { name: "Event Currency", value: hyperlink(`Rotation ${event.rotation(date)}`, url) };
+				}
+			} else {
+				const daysUntilEvent = start.diff(date, "days").days;
+				eventEndText.push(`${name} starts ${daysUntilEvent === 1 ? "tomorrow" : `in ${daysUntilEvent} days`}.`);
 			}
 		}
 
@@ -344,7 +345,7 @@ export default class DailyGuidesDistribution {
 		}
 
 		const eventData = this.eventData(today);
-		const eventFooterText = eventData.eventEndText;
+		const eventFooterText = eventData.eventEndText.join("\n");
 		iconURL ??= eventData.iconURL;
 
 		if (seasonFooterText || eventFooterText) {

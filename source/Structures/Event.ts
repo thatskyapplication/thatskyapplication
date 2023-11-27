@@ -70,7 +70,6 @@ export function resolveEvent(date: DateTime) {
 	return EVENTS.find(({ start, end }) => date >= start && date <= end) ?? null;
 }
 
-export function nextEvent(date: DateTime) {
-	const closestEventIndex = EVENTS.findLastIndex(({ start }) => date >= start);
-	return closestEventIndex === -1 ? null : EVENTS.at(closestEventIndex + 1) ?? null;
+export function plannedEvents(date: DateTime) {
+	return EVENTS.filter(({ end }) => date <= end);
 }
