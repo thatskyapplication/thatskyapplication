@@ -197,5 +197,4 @@ export const AreaToWingedLightCount = {
 
 export const AREA_TO_WINGED_LIGHT_COUNT_VALUES = Object.values(AreaToWingedLightCount);
 
-
 export const LOCALES = Object.values(Locale);
