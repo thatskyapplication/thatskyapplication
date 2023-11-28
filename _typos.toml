@@ -1,2 +1,5 @@
 [default.extend-words]
 Ba = "Ba"
+
+[files]
+extend-exclude = ["source/Locales/es-ES.ts"]
