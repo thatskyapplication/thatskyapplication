@@ -96,7 +96,9 @@ export const SeasonNameToSeasonalHeartEmoji = {
 	[SeasonName.Passage]: MISCELLANEOUS_EMOJIS.HeartPassage,
 	[SeasonName.Moments]: MISCELLANEOUS_EMOJIS.HeartMoments,
 	[SeasonName.Revival]: MISCELLANEOUS_EMOJIS.HeartRevival,
-} as const satisfies Readonly<Record<Exclude<SeasonName, SeasonName.Gratitude | SeasonName.Lightseekers>, MiscellaneousEmojis>>;
+} as const satisfies Readonly<
+	Record<Exclude<SeasonName, SeasonName.Gratitude | SeasonName.Lightseekers>, MiscellaneousEmojis>
+>;
 
 export type RotationNumber = 1 | 2 | 3;
 export const SEASONAL_CANDLES_PER_DAY = 5 as const;
