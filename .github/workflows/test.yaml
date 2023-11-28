@@ -2,9 +2,26 @@ name: Test
 on: [pull_request, push]
 jobs:
   run:
-    name: Check for typographical errors
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: crate-ci/typos@master
+      - name: Check for typographical errors
+        uses: crate-ci/typos@master
+
+      - name: Install Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        uses: pnpm/action-setup@v2
+        with:
+          run_install: |
+            - args: [--frozen-lockfile]
+
+      - name: Lint codebase
+        run: pnpm run lint
+
+      - name: Test codebase
+        run: pnpm run test
