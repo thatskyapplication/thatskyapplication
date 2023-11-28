@@ -16,7 +16,7 @@ const AI_DESCRIPTION_EMOJIS = "Respond with up to 3 emojis that represent this m
 const AI_DESCRIPTION_REACTION = `${AI_DESCRIPTION_EMOJIS} Put each emoji on a new line.` as const;
 
 function parseAIName(input: string) {
-	// It's not possible for a Discord username to be longer than 32 characers or return an empty output.
+	// It's not possible for a Discord username to be longer than 32 characters or return an empty output.
 	return input.replaceAll(/[^\w-]/g, "");
 }
 
