@@ -9,7 +9,7 @@
 		"lint": "prettier --check . && eslint .",
 		"dev": "tsx --require dotenv/config source/index.ts",
 		"start": "node --enable-source-maps --require dotenv/config distribution/index.js",
-		"update": "pnpm update --interactive --latest"
+		"update": "pnpm update --interactive --latest && pre-commit autoupdate"
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.441.0",
