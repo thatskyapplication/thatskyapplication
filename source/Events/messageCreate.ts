@@ -21,7 +21,8 @@ export const event: Event<typeof name> = {
 				.permissionsFor(me)
 				.has(PermissionFlagsBits.ReadMessageHistory | PermissionFlagsBits.SendMessages) ||
 			message.content.length <= 5 ||
-			message.mentions.has(message.client.user.id, { ignoreEveryone: true, ignoreRoles: true })
+			message.mentions.has(message.client.user.id, { ignoreEveryone: true, ignoreRoles: true }) ||
+			me.isCommunicationDisabled()
 		) {
 			return;
 		}

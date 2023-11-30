@@ -86,6 +86,7 @@ export function isDailyGuidesDistributable(
 	returnErrors = false,
 ) {
 	const errors = [];
+	if (me.isCommunicationDisabled()) errors.push("I am timed out.");
 
 	if (
 		!channel
