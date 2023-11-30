@@ -275,6 +275,15 @@ export default class Notification {
 		});
 	}
 
+	public static async delete(guildId: Snowflake) {
+		await pg<NotificationPacket>(Table.Notifications).delete().where({ guild_id: guildId });
+		const notification = this.cache.findKey((notificationToFind) => notificationToFind.guildId === guildId);
+
+		if (notification) {
+			this.cache.delete(notification);
+		}
+	}
+
 	public async send(
 		client: Client<true>,
 		type: NotificationEvent,

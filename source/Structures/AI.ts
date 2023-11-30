@@ -148,4 +148,9 @@ export default class AI {
 			ephemeral: true,
 		};
 	}
+
+	public static async delete(guildId: Snowflake) {
+		await pg<AIPacket>(Table.AI).delete().where({ guild_id: guildId });
+		this.cache.delete(guildId);
+	}
 }
