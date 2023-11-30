@@ -81,9 +81,9 @@ export const event: Event<typeof name> = {
 		// Remove guild configurations we no longer have access to.
 		const settled = await Promise.allSettled(
 			[...guildIds].map(async (guildId) => [
-				AI.cache.find((ai) => ai.guildId === guildId)?.delete(),
+				AI.delete(guildId),
 				DailyGuidesDistribution.delete(guildId),
-				Notification.cache.find((notification) => notification.guildId === guildId)?.delete(),
+				Notification.delete(guildId),
 			]),
 		);
 

@@ -149,7 +149,8 @@ export default class AI {
 		};
 	}
 
-	public async delete() {
-		await pg<AIPacket>(Table.AI).delete().where({ guild_id: this.guildId });
+	public static async delete(guildId: Snowflake) {
+		await pg<AIPacket>(Table.AI).delete().where({ guild_id: guildId });
+		this.cache.delete(guildId);
 	}
 }
