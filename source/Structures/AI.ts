@@ -148,4 +148,8 @@ export default class AI {
 			ephemeral: true,
 		};
 	}
+
+	public async delete() {
+		await pg<AIPacket>(Table.AI).delete().where({ guild_id: this.guildId });
+	}
 }

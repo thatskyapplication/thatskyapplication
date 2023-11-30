@@ -1,5 +1,5 @@
 import { Events } from "discord.js";
-import { logGuild, type Event } from "./index.js";
+import { type Event, logGuild } from "./index.js";
 
 const name = Events.GuildDelete;
 

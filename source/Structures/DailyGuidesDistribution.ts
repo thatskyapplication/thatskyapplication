@@ -140,6 +140,10 @@ export default class DailyGuidesDistribution {
 		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).update({ message_id: null });
 	}
 
+	public static async delete(guildId: Snowflake) {
+		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).delete().where({ guild_id: guildId });
+	}
+
 	public static async setup(
 		interaction: ChatInputCommandInteraction<"cached">,
 		data: DailyGuidesDistributionInsertQuery | DailyGuidesDistributionUpdateQuery,

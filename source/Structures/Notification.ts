@@ -275,6 +275,10 @@ export default class Notification {
 		});
 	}
 
+	public async delete() {
+		await pg<NotificationPacket>(Table.Notifications).delete().where({ guild_id: this.guildId });
+	}
+
 	public async send(
 		client: Client<true>,
 		type: NotificationEvent,
