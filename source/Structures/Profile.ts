@@ -24,7 +24,6 @@ import { resolveBitsToSeasons } from "./Season.js";
 import { SpiritTracker } from "./Spirits/SpiritTracker.js";
 
 interface ProfilePacket {
-	id: number;
 	user_id: Snowflake;
 	name: string | null;
 	icon: string | null;
@@ -39,7 +38,6 @@ interface ProfilePacket {
 }
 
 interface ProfileData {
-	id: ProfilePacket["id"];
 	userId: ProfilePacket["user_id"];
 	name: ProfilePacket["name"];
 	icon: ProfilePacket["icon"];
@@ -66,7 +64,7 @@ interface ProfileSetData {
 	spot?: string;
 }
 
-type ProfilePatchData = Omit<ProfilePacket, "id" | "user_id">;
+type ProfilePatchData = Omit<ProfilePacket, "user_id">;
 
 export const enum AssetType {
 	Icon,
@@ -80,8 +78,6 @@ function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${
 }
 
 export default class Profile {
-	public readonly id: ProfileData["id"];
-
 	public readonly userId: ProfileData["userId"];
 
 	public name!: ProfileData["name"];
@@ -105,7 +101,6 @@ export default class Profile {
 	public spot!: ProfilePacket["spot"];
 
 	public constructor(profile: ProfilePacket) {
-		this.id = profile.id;
 		this.userId = profile.user_id;
 		this.patch(profile);
 	}
@@ -138,7 +133,7 @@ export default class Profile {
 		if (profile) {
 			const [profilePacket] = await pg<ProfilePacket>(Table.Profiles)
 				.update(data)
-				.where("id", profile.id)
+				.where({ user_id: profile.userId })
 				.returning("*");
 
 			profile.patch(profilePacket!);
