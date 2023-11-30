@@ -47,7 +47,7 @@ async function collectNotifications(cache: Collection<Snowflake, Guild>) {
 		const notification = new Notification(notificationPacket);
 
 		if (cache.has(notification.guildId)) {
-			Notification.cache.set(notification.id, notification);
+			Notification.cache.set(notification.guildId, notification);
 		} else {
 			guildIds.add(notification.guildId);
 		}

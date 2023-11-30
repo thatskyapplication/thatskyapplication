@@ -106,7 +106,7 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async overview(interaction: ChatInputCommandInteraction<"cached">) {
-		const notification = Notification.cache.find(({ guildId }) => interaction.guildId === guildId);
+		const notification = Notification.cache.get(interaction.guildId);
 
 		if (!notification) {
 			await interaction.reply({ content: "This server has nothing set up.", ephemeral: true });
@@ -203,14 +203,14 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async unset(interaction: ChatInputCommandInteraction<"cached">) {
-		const notification = Notification.cache.find(({ guildId }) => interaction.guildId === guildId);
+		const { guildId, options } = interaction;
+		const notification = Notification.cache.get(guildId);
 
 		if (!notification) {
 			await interaction.reply({ content: "This server has nothing set up.", ephemeral: true });
 			return;
 		}
 
-		const { options } = interaction;
 		const event = options.getString("event", true);
 
 		if (!isEvent(event)) {

@@ -24,7 +24,6 @@ import pg, { Table } from "../pg.js";
 import { SeasonName, resolveFullSeasonName } from "./Season.js";
 
 export interface NotificationPacket {
-	id: number;
 	guild_id: Snowflake;
 	polluted_geyser_channel_id: Snowflake | null;
 	polluted_geyser_role_id: Snowflake | null;
@@ -51,7 +50,6 @@ export interface NotificationPacket {
 }
 
 interface NotificationData {
-	id: NotificationPacket["id"];
 	guildId: NotificationPacket["guild_id"];
 	pollutedGeyserChannelId: NotificationPacket["polluted_geyser_channel_id"];
 	pollutedGeyserRoleId: NotificationPacket["polluted_geyser_role_id"];
@@ -77,7 +75,7 @@ interface NotificationData {
 	aviarysFireworkFestivalRoleId: NotificationPacket["aviarys_firework_festival_role_id"];
 }
 
-type NotificationPatchData = Omit<NotificationPacket, "id" | "guild_id">;
+type NotificationPatchData = Omit<NotificationPacket, "guild_id">;
 export type NotificationInsertQuery = Partial<NotificationPatchData> & Pick<NotificationPacket, "guild_id">;
 export type NotificationUpdateQuery = Omit<NotificationInsertQuery, "guild_id">;
 
@@ -153,9 +151,7 @@ export function isEvent(event: string): event is NotificationEvent {
 }
 
 export default class Notification {
-	public static readonly cache = new Collection<number, Notification>();
-
-	public readonly id: NotificationData["id"];
+	public static readonly cache = new Collection<Snowflake, Notification>();
 
 	public readonly guildId: NotificationData["guildId"];
 
@@ -204,7 +200,6 @@ export default class Notification {
 	public aviarysFireworkFestivalRoleId!: NotificationData["aviarysFireworkFestivalRoleId"];
 
 	public constructor(notification: NotificationPacket) {
-		this.id = notification.id;
 		this.guildId = notification.guild_id;
 		this.patch(notification);
 	}
@@ -244,14 +239,14 @@ export default class Notification {
 		if (notification) {
 			const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications)
 				.update(data)
-				.where("id", notification.id)
+				.where({ guild_id: notification.guildId })
 				.returning("*");
 
 			notification.patch(notificationPacket!);
 		} else {
 			const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications).insert(data, "*");
 			notification = new this(notificationPacket!);
-			this.cache.set(notification.id, notification);
+			this.cache.set(notification.guildId, notification);
 		}
 
 		await interaction.reply({
@@ -265,7 +260,7 @@ export default class Notification {
 
 		const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications)
 			.update(data)
-			.where("guild_id", guildId)
+			.where({ guild_id: guildId })
 			.returning("*");
 
 		this.patch(notificationPacket!);
@@ -277,11 +272,7 @@ export default class Notification {
 
 	public static async delete(guildId: Snowflake) {
 		await pg<NotificationPacket>(Table.Notifications).delete().where({ guild_id: guildId });
-		const notification = this.cache.findKey((notificationToFind) => notificationToFind.guildId === guildId);
-
-		if (notification) {
-			this.cache.delete(notification);
-		}
+		this.cache.delete(guildId);
 	}
 
 	public async send(
