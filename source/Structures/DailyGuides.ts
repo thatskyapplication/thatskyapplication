@@ -128,6 +128,7 @@ export function isQuestSpirit(spirit: (typeof Spirits)[number]): spirit is Quest
 	return false;
 }
 
+const COLLECT_30_PIECES_OF_LIGHT = { content: "Collect 30 pieces of light", url: null } as const;
 const LIGHT_20_CANDLES = { content: "Light 20 candles", url: null } as const;
 const FORGE_A_CANDLE = { content: "Forge a candle", url: null } as const;
 const MELT_10_DARKNESS = { content: "Melt 10 darkness", url: null } as const;
@@ -347,6 +348,7 @@ const SPIRIT_QUEST = (spirit: QuestSpirit) =>
 	}) as const;
 
 export const QUESTS = [
+	COLLECT_30_PIECES_OF_LIGHT,
 	LIGHT_20_CANDLES,
 	FORGE_A_CANDLE,
 	MELT_10_DARKNESS,
