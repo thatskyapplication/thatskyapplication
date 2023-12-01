@@ -36,21 +36,19 @@ import { plannedEvents, resolveEvent } from "./Event.js";
 import { type RotationNumber, nextSeason, resolveSeason } from "./Season.js";
 
 export interface DailyGuidesDistributionPacket {
-	id: number;
 	guild_id: Snowflake;
 	channel_id: Snowflake | null;
 	message_id: Snowflake | null;
 }
 
 export interface DailyGuidesDistributionData {
-	id: DailyGuidesDistributionPacket["id"];
 	guildId: DailyGuidesDistributionPacket["guild_id"];
 	channelId: DailyGuidesDistributionPacket["channel_id"];
 	messageId: DailyGuidesDistributionPacket["message_id"];
 }
 
-type DailyGuidesDistributionPatchData = Omit<DailyGuidesDistributionPacket, "id" | "guild_id">;
-type DailyGuidesDistributionInsertQuery = Omit<DailyGuidesDistributionPacket, "id" | "message_id">;
+type DailyGuidesDistributionPatchData = Omit<DailyGuidesDistributionPacket, "guild_id">;
+type DailyGuidesDistributionInsertQuery = Omit<DailyGuidesDistributionPacket, "message_id">;
 type DailyGuidesDistributionUpdateQuery = Omit<DailyGuidesDistributionInsertQuery, "guild_id">;
 
 export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [ChannelType.GuildText, ChannelType.GuildAnnouncement] as const;
@@ -108,8 +106,6 @@ export function isDailyGuidesDistributable(
 }
 
 export default class DailyGuidesDistribution {
-	public readonly id: DailyGuidesDistributionData["id"];
-
 	public readonly guildId: DailyGuidesDistributionData["guildId"];
 
 	public channelId!: DailyGuidesDistributionData["channelId"];
@@ -117,7 +113,6 @@ export default class DailyGuidesDistribution {
 	public messageId!: DailyGuidesDistributionData["messageId"];
 
 	public constructor(dailyGuidesDistribution: DailyGuidesDistributionPacket) {
-		this.id = dailyGuidesDistribution.id;
 		this.guildId = dailyGuidesDistribution.guild_id;
 		this.patch(dailyGuidesDistribution);
 	}
@@ -174,7 +169,7 @@ export default class DailyGuidesDistribution {
 
 			const [dailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
 				.update(updateData)
-				.where({ id: dailyGuidesDistribution.id })
+				.where({ guild_id: dailyGuidesDistribution.guildId })
 				.returning("*");
 
 			dailyGuidesDistribution.patch(dailyGuidesDistributionPacket!);
