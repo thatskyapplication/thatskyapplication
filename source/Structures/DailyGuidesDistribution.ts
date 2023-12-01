@@ -318,10 +318,7 @@ export default class DailyGuidesDistribution {
 			}
 
 			const url = season.seasonalCandlesRotationURL(realm, rotationNumber);
-			const remainingCandles = season.remainingSeasonalCandles(today);
-			let seasonalCandlesLeft;
-			let seasonalCandlesLeftWithSeasonPass;
-			if (remainingCandles) ({ seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } = remainingCandles);
+			const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } = season.remainingSeasonalCandles(today);
 
 			embed.addFields({
 				name: "Seasonal Candles",
