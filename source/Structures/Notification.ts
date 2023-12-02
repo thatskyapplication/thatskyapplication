@@ -18,7 +18,7 @@ import {
 	TimestampStyles,
 } from "discord.js";
 import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
-import { type ShardEruptionData, consoleLog } from "../Utility/Utility.js";
+import type { ShardEruptionData } from "../Utility/Utility.js";
 import { EMOJI, formatEmoji } from "../Utility/emojis.js";
 import pg, { Table } from "../pg.js";
 import { SeasonName, resolveFullSeasonName } from "./Season.js";
@@ -376,10 +376,7 @@ export default class Notification {
 		if (!role) return;
 		const me = await channel.guild.members.fetchMe();
 		if (!isNotificationSendable(channel, role, me)) return;
-
-		await channel
-			.send({ content: `${role} ${suffix}`, flags: MessageFlags.SuppressEmbeds })
-			.catch((error) => consoleLog(error));
+		await channel.send({ content: `${role} ${suffix}`, flags: MessageFlags.SuppressEmbeds });
 	}
 
 	public async overview(interaction: ChatInputCommandInteraction<"cached">) {
