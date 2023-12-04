@@ -3,6 +3,7 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
+import { MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
 	type ItemsData,
@@ -37,7 +38,7 @@ export default new SeasonalSpirit({
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${emote} 1`, cost: null })
 			.set(1 << 1, { item: `${emote} 2`, cost: { hearts: 4 } })
-			.set(1 << 2, { item: "Heart", cost: { candles: 3 } })
+			.set(1 << 2, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 3, { item: "Blessing 1", cost: { candles: 5 } })
 			.set(1 << 4, { item: "Music sheet", cost: { candles: 15 } })
 			.set(1 << 5, { item: "Hair", cost: { candles: 42 } })

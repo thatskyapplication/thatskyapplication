@@ -13,7 +13,7 @@ import {
 
 const cdn = new CDN();
 
-interface EmojiData {
+export interface EmojiData {
 	name: string;
 	id: Snowflake;
 	animated?: boolean;

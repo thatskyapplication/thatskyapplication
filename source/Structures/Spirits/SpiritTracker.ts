@@ -1808,12 +1808,15 @@ export class SpiritTracker {
 					.setStyle(ButtonStyle.Success),
 			);
 
-			const itemSelectionOptions = offer.map(({ item }, flag) =>
-				new StringSelectMenuOptionBuilder()
+			const itemSelectionOptions = offer.map(({ emoji, item }, flag) => {
+				const stringSelectMenuOption = new StringSelectMenuOptionBuilder()
 					.setDefault(Boolean(bit && bit & flag))
 					.setLabel(item)
-					.setValue(String(flag)),
-			);
+					.setValue(String(flag));
+
+				if (emoji) stringSelectMenuOption.setEmoji(emoji);
+				return stringSelectMenuOption;
+			});
 
 			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT);
 
