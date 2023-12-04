@@ -26,6 +26,7 @@ import hug from "./Fun/hug.js";
 import ai from "./General/ai.js";
 import about from "./General/about.js";
 import calculate from "./General/calculate.js";
+import data from "./General/data.js";
 import sharderuption from "./General/shard-eruption.js";
 import SkyProfile from "./General/Sky Profile.js";
 import skyprofile from "./General/sky-profile.js";
@@ -38,6 +39,7 @@ const COMMANDS = {
 	bonk,
 	calculate,
 	dailyguides,
+	data,
 	fight,
 	GiftHeart,
 	heart,

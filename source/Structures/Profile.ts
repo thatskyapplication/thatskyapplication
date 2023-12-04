@@ -23,7 +23,7 @@ import { resolveBitsToPlatform } from "./Platforms.js";
 import { resolveBitsToSeasons } from "./Season.js";
 import { SpiritTracker } from "./Spirits/SpiritTracker.js";
 
-interface ProfilePacket {
+export interface ProfilePacket {
 	user_id: Snowflake;
 	name: string | null;
 	icon: string | null;

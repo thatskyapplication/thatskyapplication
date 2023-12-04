@@ -44,7 +44,7 @@ import Spirits from "./index.js";
 
 type SpiritTrackerValue = number | null;
 
-interface SpiritTrackerPacket {
+export interface SpiritTrackerPacket {
 	user_id: Snowflake;
 	pointing_candlemaker: SpiritTrackerValue;
 	ushering_stargazer: SpiritTrackerValue;

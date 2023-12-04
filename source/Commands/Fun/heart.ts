@@ -20,9 +20,9 @@ import { cannotUseCustomEmojis, EMOJI, formatEmoji, resolveCurrencyEmoji } from 
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
-interface HeartPacket {
-	gifter_id: Snowflake;
-	giftee_id: Snowflake;
+export interface HeartPacket {
+	gifter_id: Snowflake | null;
+	giftee_id: Snowflake | null;
 	timestamp: Date;
 }
 
@@ -48,6 +48,7 @@ const HEARTS = [
 	"A wholesome heart delivered to {{giftee}} from {{gifter}}!",
 ] as const satisfies Readonly<string[]>;
 
+const DELETED_USER_TEXT = "<deleted>" as const;
 export const HEART_HISTORY_BACK = "HEART_HISTORY_BACK" as const;
 export const HEART_HISTORY_FORWARD = "HEART_HISTORY_FORWARD" as const;
 
@@ -236,10 +237,11 @@ export default new (class implements ChatInputCommand {
 			.setFields(
 				heartsFiltered.map((heart) => {
 					const gifted = heart.gifter_id === interaction.user.id;
+					const user = gifted ? heart.giftee_id : heart.gifter_id;
 
 					return {
 						name: gifted ? "Gifted" : "Received",
-						value: `${userMention(gifted ? heart.giftee_id : heart.gifter_id)}\n${time(
+						value: `${user ? userMention(user) : DELETED_USER_TEXT}\n${time(
 							Math.floor(heart.timestamp.getTime() / 1_000),
 							TimestampStyles.ShortDate,
 						)}\n(${time(Math.floor(heart.timestamp.getTime() / 1_000), TimestampStyles.RelativeTime)})`,

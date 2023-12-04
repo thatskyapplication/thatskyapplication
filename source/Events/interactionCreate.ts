@@ -17,6 +17,7 @@ import {
 	DAILY_GUIDES_TREASURE_CANDLES_MODAL,
 } from "../Commands/Admin/admin.js";
 import { HeartHistoryNavigationType, HEART_HISTORY_BACK, HEART_HISTORY_FORWARD } from "../Commands/Fun/heart.js";
+import { DATA_DELETION_CUSTOM_ID } from "../Commands/General/data.js";
 import {
 	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
 	SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID,
@@ -35,6 +36,7 @@ import {
 import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../Commands/General/spirit.js";
 import COMMANDS, { resolveCommand } from "../Commands/index.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../Structures/AI.js";
+import { deleteUserData } from "../Structures/Data.js";
 import Profile from "../Structures/Profile.js";
 import { isSeasonName } from "../Structures/Season.js";
 import {
@@ -235,6 +237,11 @@ export const event: Event<typeof name> = {
 			const { customId } = interaction;
 
 			try {
+				if (customId === DATA_DELETION_CUSTOM_ID) {
+					await deleteUserData(interaction);
+					return;
+				}
+
 				if (
 					customId === SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID ||
 					customId === SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID ||
