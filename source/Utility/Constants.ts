@@ -2,11 +2,18 @@ import process from "node:process";
 import { URL } from "node:url";
 import { Locale } from "discord.js";
 
-// Content delivery network bucket.
-export const CDN_BUCKET = "thatskyapplication" as const;
+// Production detection.
+export const PRODUCTION = process.env.NODE_ENV === "production";
 
-// Content delivery network link.
-export const CDN_URL = "https://cdn.thatskyapplication.com" as const;
+// Content delivery network buckets.
+const CDN_BUCKET_DEVELOPMENT = "thatskyapplication-dev" as const;
+const CDN_BUCKET_PRODUCTION = "thatskyapplication" as const;
+export const CDN_BUCKET = PRODUCTION ? CDN_BUCKET_PRODUCTION : CDN_BUCKET_DEVELOPMENT;
+
+// Content delivery network links.
+const CDN_URL_DEVELOPMENT = "https://cdn-development.thatskyapplication.com" as const;
+const CDN_URL_PRODUCTION = "https://cdn.thatskyapplication.com" as const;
+export const CDN_URL = PRODUCTION ? CDN_URL_PRODUCTION : CDN_URL_DEVELOPMENT;
 
 // Log channels.
 export const ERROR_LOG_CHANNEL_ID = "1040806599293407263" as const;
@@ -18,7 +25,6 @@ export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const
 export const MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT = 45 as const;
 
 // Miscellaneous constants.
-export const PRODUCTION = process.env.NODE_ENV === "production";
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const APPLICATION_INVITE_URL = String(new URL("invite", WEBSITE_URL));
