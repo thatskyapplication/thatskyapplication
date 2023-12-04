@@ -1,12 +1,21 @@
+import { URL } from "node:url";
 import { DeleteObjectsCommand } from "@aws-sdk/client-s3";
-import type { ButtonInteraction } from "discord.js";
+import { type ButtonInteraction, userMention, hyperlink, MessageFlags } from "discord.js";
 import type { HeartPacket } from "../Commands/Fun/heart.js";
 import S3Client from "../S3Client.js";
-import { CDN_BUCKET } from "../Utility/Constants.js";
+import { CDN_BUCKET, WEBSITE_URL } from "../Utility/Constants.js";
 import pg, { Table } from "../pg.js";
 import type { ProfilePacket } from "./Profile.js";
 import Profile from "./Profile.js";
 import type { SpiritTrackerPacket } from "./Spirits/SpiritTracker.js";
+
+const DELETE_ERROR_MESSAGE =
+	`There was an issue deleting your user data. Don't worry, this incident is being tracked and has been converted into a manual data deletion request (as opposed to an automatic one). Your data will be deleted within 30 days.
+	
+If you want, you may join the ${hyperlink(
+		"support server",
+		new URL("support", WEBSITE_URL),
+	)} and request to see the status of your data deletion request.` as const;
 
 export async function deleteUserData(interaction: ButtonInteraction) {
 	const { id } = interaction.user;
@@ -33,7 +42,14 @@ export async function deleteUserData(interaction: ButtonInteraction) {
 	promises.push(pg<SpiritTrackerPacket>(Table.SpiritTracker).delete().where({ user_id: id }));
 	promises.push(pg<HeartPacket>(Table.Hearts).update({ gifter_id: null }).where({ gifter_id: id }));
 	promises.push(pg<HeartPacket>(Table.Hearts).update({ giftee_id: null }).where({ giftee_id: id }));
-	await Promise.all(promises);
+
+	try {
+		await Promise.all(promises);
+	} catch (error) {
+		void interaction.client.log({ content: `Error deleting user data for ${userMention(id)}.`, error });
+		await interaction.update({ components: [], content: DELETE_ERROR_MESSAGE, flags: MessageFlags.SuppressEmbeds });
+		return;
+	}
 
 	await interaction.update({
 		components: [],
