@@ -275,13 +275,73 @@ export const SEASON_EMOJIS = {
 
 export type SeasonEmojis = (typeof SEASON_EMOJIS)[keyof typeof SEASON_EMOJIS];
 
+/**
+ * Emojis from the outfits servers.
+ */
+export const OUTFIT_EMOJIS = {
+	Outfit1: { name: "outfit", id: "1181712845830901811" },
+	Outfit2: { name: "outfit", id: "1181712849488330793" },
+	Outfit3: { name: "outfit", id: "1181712852676001793" },
+	Outfit4: { name: "outfit", id: "1181712855410671627" },
+	Outfit5: { name: "outfit", id: "1181712859013586984" },
+	Outfit6: { name: "outfit", id: "1181712862104789014" },
+	Outfit7: { name: "outfit", id: "1181712865716092928" },
+	Outfit8: { name: "outfit", id: "1181712869147017359" },
+	Outfit9: { name: "outfit", id: "1181712872439566466" },
+	Outfit10: { name: "outfit", id: "1181712875119714446" },
+	Outfit11: { name: "outfit", id: "1181712878101872791" },
+	Outfit12: { name: "outfit", id: "1181712881243402331" },
+	Outfit13: { name: "outfit", id: "1181712884267503717" },
+	Outfit14: { name: "outfit", id: "1181712887643910284" },
+	Outfit15: { name: "outfit", id: "1181712890584125500" },
+	Outfit16: { name: "outfit", id: "1181712893763395634" },
+	Outfit17: { name: "outfit", id: "1181712896951079033" },
+	Outfit18: { name: "outfit", id: "1181712900725944320" },
+	Outfit19: { name: "outfit", id: "1181712903179616318" },
+	Outfit20: { name: "outfit", id: "1181712906388262973" },
+	Outfit21: { name: "outfit", id: "1181712909374586972" },
+	Outfit22: { name: "outfit", id: "1181712912948138055" },
+	Outfit23: { name: "outfit", id: "1181712916572029119" },
+	Outfit24: { name: "outfit", id: "1181712919956828311" },
+	Outfit25: { name: "outfit", id: "1181712923001884716" },
+	Outfit26: { name: "outfit", id: "1181712926525104238" },
+	Outfit27: { name: "outfit", id: "1181712929381429248" },
+	Outfit28: { name: "outfit", id: "1181712932304863355" },
+	Outfit29: { name: "outfit", id: "1181712935257653360" },
+	Outfit30: { name: "outfit", id: "1181712938105585745" },
+	Outfit31: { name: "outfit", id: "1181712941117095976" },
+	Outfit32: { name: "outfit", id: "1181712944527060992" },
+	Outfit33: { name: "outfit", id: "1181712947148501003" },
+	Outfit34: { name: "outfit", id: "1181712950139039805" },
+	Outfit35: { name: "outfit", id: "1181712953536421958" },
+	Outfit36: { name: "outfit", id: "1181712956711510016" },
+	Outfit37: { name: "outfit", id: "1181712959601377310" },
+	Outfit38: { name: "outfit", id: "1181712962893914153" },
+	Outfit39: { name: "outfit", id: "1181712965607637123" },
+	Outfit40: { name: "outfit", id: "1181712968245850236" },
+	Outfit41: { name: "outfit", id: "1181712971127337011" },
+	Outfit42: { name: "outfit", id: "1181712973908168787" },
+	Outfit43: { name: "outfit", id: "1181712977167138936" },
+	Outfit44: { name: "outfit", id: "1181712980254150750" },
+	Outfit45: { name: "outfit", id: "1181712983882203166" },
+	Outfit46: { name: "outfit", id: "1181712986801447004" },
+	Outfit47: { name: "outfit", id: "1181712990177874021" },
+	Outfit48: { name: "outfit", id: "1181712994212790352" },
+	Outfit49: { name: "outfit", id: "1181712996762923018" },
+	Outfit50: { name: "outfit", id: "1181712999388565544" },
+	Outfit51: { name: "outfit", id: "1181716521479847966" },
+} as const satisfies Readonly<Record<string, EmojiData>>;
+
+export type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
+
 export type Emoji =
 	| MiscellaneousEmojis
 	| EmotesEmojis
 	| StancesEmojis
 	| CallsEmojis
 	| FriendActionsEmojis
-	| SeasonEmojis;
+	| SeasonEmojis
+	| OutfitEmojis;
 
 export async function cannotUseCustomEmojis(
 	interaction:
