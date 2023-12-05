@@ -334,6 +334,26 @@ export const OUTFIT_EMOJIS = {
 
 export type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
 
+/**
+ * Emojis from the shoes server.
+ */
+export const SHOE_EMOJIS = {
+	Shoe1: { name: "shoe", id: "1181741591799537774" },
+	Shoe2: { name: "shoe", id: "1181741593175281755" },
+	Shoe3: { name: "shoe", id: "1181741595519881236" },
+	Shoe4: { name: "shoe", id: "1181741598187475055" },
+	Shoe5: { name: "shoe", id: "1181741600855035964" },
+	Shoe6: { name: "shoe", id: "1181741602935418943" },
+	Shoe7: { name: "shoe", id: "1181741604889960549" },
+	Shoe8: { name: "shoe", id: "1181741607570128966" },
+	Shoe9: { name: "shoe", id: "1181741610074124319" },
+	Shoe10: { name: "shoe", id: "1181741612766863472" },
+	Shoe11: { name: "shoe", id: "1181741615564476437" },
+	Shoe12: { name: "shoe", id: "1181741618454351993" },
+} as const satisfies Readonly<Record<string, EmojiData>>;
+
+export type ShoeEmojis = (typeof SHOE_EMOJIS)[keyof typeof SHOE_EMOJIS];
+
 export type Emoji =
 	| MiscellaneousEmojis
 	| EmotesEmojis
@@ -341,7 +361,8 @@ export type Emoji =
 	| CallsEmojis
 	| FriendActionsEmojis
 	| SeasonEmojis
-	| OutfitEmojis;
+	| OutfitEmojis
+	| ShoeEmojis;
 
 export async function cannotUseCustomEmojis(
 	interaction:
