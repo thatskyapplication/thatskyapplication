@@ -3,7 +3,7 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { MISCELLANEOUS_EMOJIS, EMOTES_EMOJIS } from "../../../../Utility/emojis.js";
+import { EMOTES_EMOJIS, MISCELLANEOUS_EMOJIS, SEASON_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
 	type ItemsData,
@@ -48,7 +48,7 @@ export default new SeasonalSpirit({
 			.set(1 << 9, { item: "Blessing 3", cost: null })
 			.set(1 << 10, { item: "Blessing 4", cost: { seasonalCandles: 34 } })
 			.set(1 << 11, { item: "Hair", cost: null })
-			.set(1 << 12, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: MISCELLANEOUS_EMOJIS.HeartAbyss }),
+			.set(1 << 12, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.AbyssHeart }),
 	},
 	visits: {
 		returning: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(4, skyDate(2_023, 8, 7)),
