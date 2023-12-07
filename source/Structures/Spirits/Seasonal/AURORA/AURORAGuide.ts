@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, Emote, GuideSpirit, SpiritName } from "../../Base.js";
 
@@ -15,7 +15,7 @@ export default new GuideSpirit({
 			.set(1 << 1, { item: `${Emote.SilentClap} 2`, cost: { hearts: 3 } })
 			.set(1 << 2, { item: "Pendant", cost: null })
 			.set(1 << 3, { item: "Aurora hair", cost: { seasonalHearts: 1 } })
-			.set(1 << 4, { item: "Ultimate outfit", cost: { seasonalHearts: 2 } })
+			.set(1 << 4, { item: "Ultimate outfit", cost: { seasonalHearts: 2 }, emoji: OUTFIT_EMOJIS.Outfit36 })
 			.set(1 << 5, { item: "Ultimate cape", cost: { seasonalHearts: 1 } })
 			.set(1 << 6, { item: `${Emote.SilentClap} 1`, cost: null })
 			.set(1 << 7, { item: `${Emote.SilentClap} 3`, cost: { candles: 5 } })
@@ -35,7 +35,7 @@ export default new GuideSpirit({
 			.set(1 << 21, { item: "Music sheet 1", cost: { candles: 20 } })
 			.set(1 << 22, { item: "Quest 5", cost: null })
 			.set(1 << 23, { item: "Music sheet 2", cost: { candles: 20 } })
-			.set(1 << 24, { item: "Outfit", cost: { candles: 200 } })
+			.set(1 << 24, { item: "Outfit", cost: { candles: 200 }, emoji: OUTFIT_EMOJIS.Outfit37 })
 			.set(1 << 25, { item: "Mask", cost: { candles: 50 } }),
 	},
 });

@@ -405,27 +405,93 @@ export const OUTFIT_EMOJIS = {
 	 * Anxious Angler.
 	 */
 	Outfit29: { name: "outfit", id: "1181712935257653360" },
+	/**
+	 * Modest Dancer.
+	 */
 	Outfit30: { name: "outfit", id: "1181712938105585745" },
+	/**
+	 * Frantic Stagehand
+	 */
 	Outfit31: { name: "outfit", id: "1181712941117095976" },
+	/**
+	 * Forgetful Storyteller.
+	 */
 	Outfit32: { name: "outfit", id: "1181712944527060992" },
+	/**
+	 * Days of Colour 2022.
+	 */
 	Outfit33: { name: "outfit", id: "1181712947148501003" },
+	/**
+	 * Ancient Light (Manta).
+	 */
 	Outfit34: { name: "outfit", id: "1181712950139039805" },
+	/**
+	 * Mindful Miner.
+	 */
 	Outfit35: { name: "outfit", id: "1181712953536421958" },
+	/**
+	 * AURORA Guide (ultimate).
+	 */
 	Outfit36: { name: "outfit", id: "1181712956711510016" },
+	/**
+	 * AURORA Guide (non-ultimate).
+	 */
 	Outfit37: { name: "outfit", id: "1181712959601377310" },
+	/**
+	 * Cure for Me.
+	 */
 	Outfit38: { name: "outfit", id: "1181712962893914153" },
+	/**
+	 * Pleading Child.
+	 */
 	Outfit39: { name: "outfit", id: "1181712965607637123" },
+	/**
+	 * Wounded Warrior.
+	 */
 	Outfit40: { name: "outfit", id: "1181712968245850236" },
+	/**
+	 * Tiptoeing Tea-Brewer.
+	 */
 	Outfit41: { name: "outfit", id: "1181712971127337011" },
+	/**
+	 * Days of Fortune 2023.
+	 */
 	Outfit42: { name: "outfit", id: "1181712973908168787" },
+	/**
+	 * Days of Bloom 2023.
+	 */
 	Outfit43: { name: "outfit", id: "1181712977167138936" },
+	/**
+	 * Melancholy Mope.
+	 */
 	Outfit44: { name: "outfit", id: "1181712980254150750" },
+	/**
+	 * Oddball Outcast.
+	 */
 	Outfit45: { name: "outfit", id: "1181712983882203166" },
+	/**
+	 * Days of Colour 2023.
+	 */
 	Outfit46: { name: "outfit", id: "1181712986801447004" },
+	/**
+	 * Ascetic Monk.
+	 */
 	Outfit47: { name: "outfit", id: "1181712990177874021" },
+	/**
+	 * Nightbird Whisperer.
+	 */
 	Outfit48: { name: "outfit", id: "1181712994212790352" },
+	/**
+	 * Days of Style 2023.
+	 */
 	Outfit49: { name: "outfit", id: "1181712996762923018" },
+	/**
+	 * Memory of a Lost Village.
+	 */
 	Outfit50: { name: "outfit", id: "1181712999388565544" },
+	/**
+	 * Days of Mischief 2023.
+	 */
 	Outfit51: { name: "outfit", id: "1181716521479847966" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 

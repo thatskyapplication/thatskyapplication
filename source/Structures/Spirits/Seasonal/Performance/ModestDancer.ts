@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { SEASON_EMOJIS, FRIEND_ACTIONS_EMOJIS } from "../../../../Utility/emojis.js";
+import { SEASON_EMOJIS, FRIEND_ACTIONS_EMOJIS, OUTFIT_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, FriendAction, SeasonalSpirit, SpiritName } from "../../Base.js";
 
@@ -23,7 +23,7 @@ export default new SeasonalSpirit({
 			.set(1 << 4, { item: "Blessing 2", cost: null })
 			.set(1 << 5, { item: "Blessing 3", cost: { seasonalCandles: 26 } })
 			.set(1 << 6, { item: `${action} 2`, cost: null, emoji: actionEmoji })
-			.set(1 << 7, { item: "Outfit", cost: { seasonalCandles: 30 } })
+			.set(1 << 7, { item: "Outfit", cost: { seasonalCandles: 30 }, emoji: OUTFIT_EMOJIS.Outfit30 })
 			.set(1 << 8, { item: "Hair", cost: null })
 			.set(1 << 9, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.PerformanceHeart }),
 	},
