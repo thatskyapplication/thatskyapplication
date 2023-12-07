@@ -324,25 +324,86 @@ export const OUTFIT_EMOJIS = {
 	 */
 	Outfit09: { name: "outfit", id: "1181712872439566466" },
 
+	/**
+	 * Boogie Kid.
+	 */
 	Outfit10: { name: "outfit", id: "1181712875119714446" },
+
+	/**
+	 * Troupe Greeter.
+	 */
 	Outfit11: { name: "outfit", id: "1181712878101872791" },
+	/**
+	 * Troupe Juggler.
+	 */
 	Outfit12: { name: "outfit", id: "1181712881243402331" },
+	/**
+	 * Festival Spin Dancer.
+	 */
 	Outfit13: { name: "outfit", id: "1181712884267503717" },
+	/**
+	 * Admiring Actor.
+	 */
 	Outfit14: { name: "outfit", id: "1181712887643910284" },
+	/**
+	 * Jellyfish Whisperer.
+	 */
 	Outfit15: { name: "outfit", id: "1181712890584125500" },
+	/**
+	 * Rallying Thrillseeker.
+	 */
 	Outfit16: { name: "outfit", id: "1181712893763395634" },
+	/**
+	 * Prophet of Fire.
+	 */
 	Outfit17: { name: "outfit", id: "1181712896951079033" },
+	/**
+	 * Peeking Postman.
+	 */
 	Outfit18: { name: "outfit", id: "1181712900725944320" },
+	/**
+	 * Bearhug Yeti.
+	 */
 	Outfit19: { name: "outfit", id: "1181712903179616318" },
+	/**
+	 * Chuckling Scout.
+	 */
 	Outfit20: { name: "outfit", id: "1181712906388262973" },
+	/**
+	 * Gloating Narcissist.
+	 */
 	Outfit21: { name: "outfit", id: "1181712909374586972" },
+	/**
+	 * The Rose (non-ultimate).
+	 */
 	Outfit22: { name: "outfit", id: "1181712912948138055" },
+	/**
+	 * The Rose (ultimate).
+	 */
 	Outfit23: { name: "outfit", id: "1181712916572029119" },
+	/**
+	 * Flight Guide.
+	 */
 	Outfit24: { name: "outfit", id: "1181712919956828311" },
+	/**
+	 * Talented Builder.
+	 */
 	Outfit25: { name: "outfit", id: "1181712923001884716" },
+	/**
+	 * Tinkering Chimesmith.
+	 */
 	Outfit26: { name: "outfit", id: "1181712926525104238" },
+	/**
+	 * Light Whisperer.
+	 */
 	Outfit27: { name: "outfit", id: "1181712929381429248" },
+	/**
+	 * Days of Mischief 2021.
+	 */
 	Outfit28: { name: "outfit", id: "1181712932304863355" },
+	/**
+	 * Anxious Angler.
+	 */
 	Outfit29: { name: "outfit", id: "1181712935257653360" },
 	Outfit30: { name: "outfit", id: "1181712938105585745" },
 	Outfit31: { name: "outfit", id: "1181712941117095976" },
