@@ -158,7 +158,6 @@ export type EmotesEmojis = (typeof EMOTES_EMOJIS)[keyof typeof EMOTES_EMOJIS];
  * Emojis from the stances server.
  */
 export const STANCES_EMOJIS = {
-	// Stances.
 	Base: { name: "base", id: "1177462825145356348" },
 	Courageous: { name: "courageous", id: "1177462882099810434" },
 	Confident: { name: "confident", id: "1177462894657548368" },
