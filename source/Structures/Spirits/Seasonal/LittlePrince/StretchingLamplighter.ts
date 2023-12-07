@@ -20,7 +20,6 @@ export default new SeasonalSpirit({
 	expression,
 	realm: Realm.VaultOfKnowledge,
 	offer: {
-		hasInfographic: false,
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${expression} 1`, cost: null })
 			.set(1 << 1, { item: `${expression} 2`, cost: null })
@@ -31,6 +30,17 @@ export default new SeasonalSpirit({
 			.set(1 << 6, { item: "Cape", cost: { seasonalCandles: 22 } })
 			.set(1 << 7, { item: "Blessing 2", cost: null })
 			.set(1 << 8, { item: "Seasonal heart", cost: { seasonalCandles: 3 } }),
+		current: new Collection<number, ItemsData>()
+			.set(1 << 0, { item: `${expression} 1`, cost: null })
+			.set(1 << 1, { item: `${expression} 2`, cost: { hearts: 4 } })
+			.set(1 << 8, { item: "Heart", cost: { candles: 3 } })
+			.set(1 << 2, { item: "Blessing 1", cost: { candles: 5 } })
+			.set(1 << 3, { item: "Hair", cost: { candles: 44 } })
+			.set(1 << 9, { item: "Wing buff", cost: { ascendedCandles: 2 } })
+			.set(1 << 4, { item: `${expression} 3`, cost: { hearts: 3 } })
+			.set(1 << 5, { item: `${expression} 4`, cost: { hearts: 6 } })
+			.set(1 << 7, { item: "Blessing 2", cost: { candles: 5 } })
+			.set(1 << 6, { item: "Cape", cost: { candles: 70 } }),
 	},
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(102, skyDate(2_023, 12, 7)),
