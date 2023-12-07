@@ -1,5 +1,6 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
+import { SEASON_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, SeasonalSpirit, SpiritName } from "../../Base.js";
 
@@ -15,6 +16,6 @@ export default new SeasonalSpirit({
 			.set(1 << 3, { item: "Blessing 2", cost: null })
 			.set(1 << 4, { item: "Blessing 3", cost: { seasonalCandles: 40 } })
 			.set(1 << 5, { item: "Hair accessory", cost: null })
-			.set(1 << 6, { item: "Seasonal heart", cost: { seasonalCandles: 3 } }),
+			.set(1 << 6, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.RevivalHeart }),
 	},
 });
