@@ -278,15 +278,52 @@ export type SeasonEmojis = (typeof SEASON_EMOJIS)[keyof typeof SEASON_EMOJIS];
  * Emojis from the outfits servers.
  */
 export const OUTFIT_EMOJIS = {
-	Outfit1: { name: "outfit", id: "1181712845830901811" },
-	Outfit2: { name: "outfit", id: "1181712849488330793" },
-	Outfit3: { name: "outfit", id: "1181712852676001793" },
-	Outfit4: { name: "outfit", id: "1181712855410671627" },
-	Outfit5: { name: "outfit", id: "1181712859013586984" },
-	Outfit6: { name: "outfit", id: "1181712862104789014" },
-	Outfit7: { name: "outfit", id: "1181712865716092928" },
-	Outfit8: { name: "outfit", id: "1181712869147017359" },
-	Outfit9: { name: "outfit", id: "1181712872439566466" },
+	/**
+	 * Base.
+	 */
+	Outfit01: { name: "outfit", id: "1181712845830901811" },
+
+	/**
+	 * Pointing Candlemaker.
+	 */
+	Outfit02: { name: "outfit", id: "1181712849488330793" },
+
+	/**
+	 * Ushering Stargazer.
+	 */
+	Outfit03: { name: "outfit", id: "1181712852676001793" },
+
+	/**
+	 * Butterfly Charmer.
+	 */
+	Outfit04: { name: "outfit", id: "1181712855410671627" },
+
+	/**
+	 * Shivering Trailblazer.
+	 *
+	 */
+	Outfit05: { name: "outfit", id: "1181712859013586984" },
+
+	/**
+	 * Hide'n'Seek Pioneer.
+	 */
+	Outfit06: { name: "outfit", id: "1181712862104789014" },
+
+	/**
+	 * Confident Sightseer.
+	 */
+	Outfit07: { name: "outfit", id: "1181712865716092928" },
+
+	/**
+	 * Polite Scholar.
+	 */
+	Outfit08: { name: "outfit", id: "1181712869147017359" },
+
+	/**
+	 * Memory Whisperer.
+	 */
+	Outfit09: { name: "outfit", id: "1181712872439566466" },
+
 	Outfit10: { name: "outfit", id: "1181712875119714446" },
 	Outfit11: { name: "outfit", id: "1181712878101872791" },
 	Outfit12: { name: "outfit", id: "1181712881243402331" },

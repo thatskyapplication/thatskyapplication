@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { MISCELLANEOUS_EMOJIS, STANCES_EMOJIS } from "../../../../Utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS, STANCES_EMOJIS } from "../../../../Utility/emojis.js";
 import { type ItemsData, Stance, SpiritName, StandardSpirit } from "../../Base.js";
 
 const stance = Stance.Polite;
@@ -15,7 +15,7 @@ export default new StandardSpirit({
 		hasInfographic: false,
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${stance} stance`, cost: null, emoji: stanceEmoji })
-			.set(1 << 1, { item: "Outfit", cost: { hearts: 2 } })
+			.set(1 << 1, { item: "Outfit", cost: { hearts: 2 }, emoji: OUTFIT_EMOJIS.Outfit08 })
 			.set(1 << 2, { item: "Blessing 1", cost: { candles: 1 } })
 			.set(1 << 3, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
