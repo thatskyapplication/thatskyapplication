@@ -398,7 +398,7 @@ export const OUTFIT_EMOJIS = {
 	 */
 	Outfit27: { name: "outfit", id: "1181712929381429248" },
 	/**
-	 * Days of Mischief 2021.
+	 * Mischief Witch Jumper.
 	 */
 	Outfit28: { name: "outfit", id: "1181712932304863355" },
 	/**
@@ -454,11 +454,11 @@ export const OUTFIT_EMOJIS = {
 	 */
 	Outfit41: { name: "outfit", id: "1181712971127337011" },
 	/**
-	 * Days of Fortune 2023.
+	 * Days of Fortune Muralist's Smock.
 	 */
 	Outfit42: { name: "outfit", id: "1181712973908168787" },
 	/**
-	 * Days of Bloom 2023.
+	 * Bloom Gardening Tunic.
 	 */
 	Outfit43: { name: "outfit", id: "1181712977167138936" },
 	/**
@@ -470,7 +470,7 @@ export const OUTFIT_EMOJIS = {
 	 */
 	Outfit45: { name: "outfit", id: "1181712983882203166" },
 	/**
-	 * Days of Colour 2023.
+	 * Dark Rainbow Tunic.
 	 */
 	Outfit46: { name: "outfit", id: "1181712986801447004" },
 	/**
@@ -482,7 +482,7 @@ export const OUTFIT_EMOJIS = {
 	 */
 	Outfit48: { name: "outfit", id: "1181712994212790352" },
 	/**
-	 * Days of Style 2023.
+	 * Style Wide-Leg Jeans.
 	 */
 	Outfit49: { name: "outfit", id: "1181712996762923018" },
 	/**
@@ -490,7 +490,7 @@ export const OUTFIT_EMOJIS = {
 	 */
 	Outfit50: { name: "outfit", id: "1181712999388565544" },
 	/**
-	 * Days of Mischief 2023.
+	 * Mischief Goth Garment.
 	 */
 	Outfit51: { name: "outfit", id: "1181716521479847966" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
