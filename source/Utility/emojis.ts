@@ -501,17 +501,53 @@ export type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
  * Emojis from the shoes server.
  */
 export const SHOE_EMOJIS = {
-	Shoe1: { name: "shoe", id: "1181741591799537774" },
-	Shoe2: { name: "shoe", id: "1181741593175281755" },
-	Shoe3: { name: "shoe", id: "1181741595519881236" },
-	Shoe4: { name: "shoe", id: "1181741598187475055" },
-	Shoe5: { name: "shoe", id: "1181741600855035964" },
-	Shoe6: { name: "shoe", id: "1181741602935418943" },
-	Shoe7: { name: "shoe", id: "1181741604889960549" },
-	Shoe8: { name: "shoe", id: "1181741607570128966" },
-	Shoe9: { name: "shoe", id: "1181741610074124319" },
+	/**
+	 * Chucking Scout.
+	 */
+	Shoe01: { name: "shoe", id: "1181741591799537774" },
+	/**
+	 * Days of Mischief 2021.
+	 */
+	Shoe02: { name: "shoe", id: "1181741593175281755" },
+	/**
+	 * Pleading Child.
+	 */
+	Shoe03: { name: "shoe", id: "1181741595519881236" },
+	/**
+	 * Nightbird Whisperer.
+	 */
+	Shoe04: { name: "shoe", id: "1181741598187475055" },
+	/**
+	 * Musical Voyage Sneakers.
+	 */
+	Shoe05: { name: "shoe", id: "1181741600855035964" },
+	/**
+	 * Sunlight Chunky Sandals.
+	 */
+	Shoe06: { name: "shoe", id: "1181741602935418943" },
+	/**
+	 * Style Silk Ballet Slippers.
+	 */
+	Shoe07: { name: "shoe", id: "1181741604889960549" },
+	/**
+	 * Style Bunny Slippers.
+	 */
+	Shoe08: { name: "shoe", id: "1181741607570128966" },
+	/**
+	 * Vestige of a Deserted Oasis.
+	 */
+	Shoe09: { name: "shoe", id: "1181741610074124319" },
+	/**
+	 * Echo of an Abandoned Refuge.
+	 */
 	Shoe10: { name: "shoe", id: "1181741612766863472" },
+	/**
+	 * Remnant of a Forgotten Haven.
+	 */
 	Shoe11: { name: "shoe", id: "1181741615564476437" },
+	/**
+	 * Mischief Goth Boots.
+	 */
 	Shoe12: { name: "shoe", id: "1181741618454351993" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
