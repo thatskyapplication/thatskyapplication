@@ -3,11 +3,12 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { CALLS_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, SpiritName, Call } from "../../Base.js";
 
 const call = Call.Crab;
+const callEmoji = CALLS_EMOJIS.Crab;
 
 export default new SeasonalSpirit({
 	name: SpiritName.CrabWhisperer,
@@ -17,7 +18,7 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemsData>()
-			.set(1 << 0, { item: `${call} call`, cost: null })
+			.set(1 << 0, { item: `${call} call`, cost: null, emoji: callEmoji })
 			.set(1 << 3, { item: "Mask", cost: { seasonalCandles: 12 } })
 			.set(1 << 2, { item: "Blessing 1", cost: null })
 			.set(1 << 6, { item: "Blessing 2", cost: { seasonalCandles: 14 } })
@@ -27,7 +28,7 @@ export default new SeasonalSpirit({
 			.set(1 << 8, { item: "Hair", cost: { seasonalCandles: 18 } })
 			.set(1 << 9, { item: "Cape", cost: null }),
 		current: new Collection<number, ItemsData>()
-			.set(1 << 0, { item: `${call} call`, cost: null })
+			.set(1 << 0, { item: `${call} call`, cost: null, emoji: callEmoji })
 			.set(1 << 1, { item: "Pipe", cost: { candles: 20 } })
 			.set(1 << 2, { item: "Blessing 1", cost: { candles: 5 } })
 			.set(1 << 3, { item: "Mask", cost: { candles: 30 } })

@@ -1,11 +1,12 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { SEASON_EMOJIS } from "../../../../Utility/emojis.js";
+import { CALLS_EMOJIS, SEASON_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, Call, SeasonalSpirit, SpiritName } from "../../Base.js";
 
 const call = Call.BabyManta;
+const callEmoji = CALLS_EMOJIS.BabyManta;
 
 export default new SeasonalSpirit({
 	name: SpiritName.LightWhisperer,
@@ -15,7 +16,7 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: new Collection<number, ItemsData>()
-			.set(1 << 0, { item: `${call} call`, cost: null })
+			.set(1 << 0, { item: `${call} call`, cost: null, emoji: callEmoji })
 			.set(1 << 1, { item: "Blessing 1", cost: { seasonalCandles: 14 } })
 			.set(1 << 2, { item: "Hair accessory", cost: null })
 			.set(1 << 3, { item: "Hair", cost: { seasonalCandles: 22 } })

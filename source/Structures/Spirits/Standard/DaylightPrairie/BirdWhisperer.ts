@@ -1,10 +1,11 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { CALLS_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { type ItemsData, Call, SpiritName, StandardSpirit } from "../../Base.js";
 
 const call = Call.Bird;
+const callEmoji = CALLS_EMOJIS.Bird;
 
 export default new StandardSpirit({
 	name: SpiritName.BirdWhisperer,
@@ -12,7 +13,7 @@ export default new StandardSpirit({
 	realm: Realm.DaylightPrairie,
 	offer: {
 		current: new Collection<number, ItemsData>()
-			.set(1 << 0, { item: `${call} call`, cost: null })
+			.set(1 << 0, { item: `${call} call`, cost: null, emoji: callEmoji })
 			.set(1 << 1, { item: "Music sheet", cost: { hearts: 1 } })
 			.set(1 << 2, { item: "Blessing 1", cost: { candles: 1 } })
 			.set(1 << 3, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
