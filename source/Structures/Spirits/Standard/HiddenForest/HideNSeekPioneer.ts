@@ -1,10 +1,11 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { EMOTES_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { type ItemsData, Emote, SpiritName, StandardSpirit } from "../../Base.js";
 
 const emote = Emote.HideAndSeek;
+const emoteEmoji = EMOTES_EMOJIS.HideAndSeek;
 
 export default new StandardSpirit({
 	name: SpiritName.HideNSeekPioneer,
@@ -12,7 +13,7 @@ export default new StandardSpirit({
 	realm: Realm.HiddenForest,
 	offer: {
 		current: new Collection<number, ItemsData>()
-			.set(1 << 0, { item: emote, cost: null })
+			.set(1 << 0, { item: emote, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { item: "Hair", cost: { hearts: 2 } })
 			.set(1 << 2, { item: "Blessing 1", cost: { candles: 1 } })
 			.set(1 << 3, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
