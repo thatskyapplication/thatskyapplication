@@ -3,7 +3,7 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS, STANCES_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
 	type ItemsData,
@@ -14,6 +14,7 @@ import {
 } from "../../Base.js";
 
 const stance = Stance.Laidback;
+const stanceEmoji = STANCES_EMOJIS.Laidback;
 
 export default new SeasonalSpirit({
 	name: SpiritName.LaidbackPioneer,
@@ -23,7 +24,7 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemsData>()
-			.set(1 << 0, { item: `${stance} stance`, cost: null })
+			.set(1 << 0, { item: `${stance} stance`, cost: null, emoji: stanceEmoji })
 			.set(1 << 2, { item: "Mask", cost: { seasonalCandles: 6 } })
 			.set(1 << 1, { item: "Blessing 1", cost: null })
 			.set(1 << 5, { item: "Blessing 2", cost: { seasonalCandles: 8 } })
@@ -33,7 +34,7 @@ export default new SeasonalSpirit({
 			.set(1 << 10, { item: "Blessing 4", cost: { seasonalCandles: 20 } })
 			.set(1 << 8, { item: "Umbrella", cost: null }),
 		current: new Collection<number, ItemsData>()
-			.set(1 << 0, { item: `${stance} stance`, cost: null })
+			.set(1 << 0, { item: `${stance} stance`, cost: null, emoji: stanceEmoji })
 			.set(1 << 1, { item: "Blessing 1", cost: { candles: 5 } })
 			.set(1 << 2, { item: "Mask", cost: { candles: 30 } })
 			.set(1 << 3, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })

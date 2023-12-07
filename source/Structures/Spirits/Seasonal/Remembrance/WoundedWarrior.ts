@@ -1,11 +1,12 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { SEASON_EMOJIS } from "../../../../Utility/emojis.js";
+import { SEASON_EMOJIS, STANCES_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, SeasonalSpirit, SpiritName, Stance } from "../../Base.js";
 
 const stance = Stance.Injured;
+const stanceEmoji = STANCES_EMOJIS.Injured;
 
 export default new SeasonalSpirit({
 	name: SpiritName.WoundedWarrior,
@@ -15,7 +16,7 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: new Collection<number, ItemsData>()
-			.set(1 << 0, { item: `${stance} stance`, cost: null })
+			.set(1 << 0, { item: `${stance} stance`, cost: null, emoji: stanceEmoji })
 			.set(1 << 1, { item: "Blessing 1", cost: { seasonalCandles: 14 } })
 			.set(1 << 2, { item: "Mask", cost: null })
 			.set(1 << 3, { item: "Outfit", cost: { seasonalCandles: 30 } })
