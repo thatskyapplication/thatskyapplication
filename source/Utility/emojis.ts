@@ -814,7 +814,7 @@ export const MASK_EMOJIS = {
 	 */
 	Mask64: { name: "mask", id: "1182639065011585064" },
 	/**
-	 * Ancient Darkness (darkness).
+	 * Ancient Darkness (plant).
 	 */
 	Mask65: { name: "mask", id: "1182639068308316180" },
 	/**

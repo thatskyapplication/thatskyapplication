@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../Utility/emojis.js";
+import { MASK_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, Emote, GuideSpirit, SpiritName } from "../../Base.js";
 
@@ -36,6 +36,6 @@ export default new GuideSpirit({
 			.set(1 << 22, { item: "Quest 5", cost: null })
 			.set(1 << 23, { item: "Music sheet 2", cost: { candles: 20 } })
 			.set(1 << 24, { item: "Outfit", cost: { candles: 200 }, emoji: OUTFIT_EMOJIS.Outfit37 })
-			.set(1 << 25, { item: "Mask", cost: { candles: 50 } }),
+			.set(1 << 25, { item: "Mask", cost: { candles: 50 }, emoji: MASK_EMOJIS.Mask70 }),
 	},
 });
