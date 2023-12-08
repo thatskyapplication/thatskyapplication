@@ -65,6 +65,14 @@ const EVENTS = [
 		eventCurrencyPerDay: 5,
 		eventCurrencyEmoji: EMOJI.EventAviarysFireworkFestival,
 	}),
+	new Event({
+		name: "Days of Feast",
+		start: skyDate(2_023, 12, 18),
+		end: skyDate(2_024, 1, 7),
+		url: null,
+		eventCurrencyPerDay: 5,
+		eventCurrencyEmoji: EMOJI.EventFeast,
+	}),
 ] as const satisfies Readonly<Event[]>;
 
 export function resolveEvent(date: DateTime) {

@@ -94,6 +94,7 @@ export const EMOJI = {
 	ShardStrong: { name: "shard_strong", id: "1164672254911713382" },
 	EventMischief: { name: "event_mischief", id: "1177665479612039270" },
 	EventAviarysFireworkFestival: { name: "event_aviarys_firework_festival", id: "1177665489976176670" },
+	EventFeast: { name: "event_feast", id: "1182501356980932698" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type Emoji = (typeof EMOJI)[keyof typeof EMOJI];
