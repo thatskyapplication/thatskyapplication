@@ -8,6 +8,7 @@ import { type ItemsData, Call, SeasonalSpirit, SpiritName } from "../../Base.js"
 const call = Call.Nightbird;
 const callEmoji = CALLS_EMOJIS.Nightbird;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit48;
+const shoeEmoji = SHOE_EMOJIS.Shoe04;
 
 export default new SeasonalSpirit({
 	name: SpiritName.NightbirdWhisperer,
@@ -25,7 +26,7 @@ export default new SeasonalSpirit({
 			.set(1 << 5, { item: "Outfit", cost: { seasonalCandles: 28 }, emoji: outfitEmoji })
 			.set(1 << 6, { item: "Blessing 3", cost: null })
 			.set(1 << 7, { item: "Blessing 4", cost: { seasonalCandles: 36 } })
-			.set(1 << 8, { item: "Shoes", cost: null, emoji: SHOE_EMOJIS.Shoe04 })
+			.set(1 << 8, { item: "Shoes", cost: null, emoji: shoeEmoji })
 			.set(1 << 9, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.MomentsHeart }),
 	},
 });

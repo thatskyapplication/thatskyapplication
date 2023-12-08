@@ -4,6 +4,8 @@ import { SEASON_EMOJIS, SHOE_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, SeasonalSpirit, SpiritName } from "../../Base.js";
 
+const shoeEmoji = SHOE_EMOJIS.Shoe10;
+
 export default new SeasonalSpirit({
 	name: SpiritName.EchoOfAnAbandonedRefuge,
 	season: SeasonName.Revival,
@@ -11,7 +13,7 @@ export default new SeasonalSpirit({
 		hasInfographic: false,
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Blessing 1", cost: { seasonalCandles: 18 } })
-			.set(1 << 1, { item: "Shoes", cost: null, emoji: SHOE_EMOJIS.Shoe10 })
+			.set(1 << 1, { item: "Shoes", cost: null, emoji: shoeEmoji })
 			.set(1 << 2, { item: "Music sheet", cost: { seasonalCandles: 24 } })
 			.set(1 << 3, { item: "Blessing 2", cost: null })
 			.set(1 << 4, { item: "Blessing 3", cost: { seasonalCandles: 32 } })
