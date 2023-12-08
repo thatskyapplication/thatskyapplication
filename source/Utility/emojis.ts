@@ -502,7 +502,7 @@ export type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
  */
 export const SHOE_EMOJIS = {
 	/**
-	 * Chucking Scout.
+	 * Chuckling Scout.
 	 */
 	Shoe01: { name: "shoe", id: "1181741591799537774" },
 	/**
