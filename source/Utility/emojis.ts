@@ -901,6 +901,146 @@ export const MASK_EMOJIS = {
 
 export type MaskEmojis = (typeof MASK_EMOJIS)[keyof typeof MASK_EMOJIS];
 
+/**
+ * Emojis from the face accessories server.
+ */
+export const FACE_ACCESSORY_EMOJIS = {
+	/**
+	 * Rejecting Voyager.
+	 */
+	FaceAccessory01: { name: "face_accessory", id: "1182821638966870177" },
+	/**
+	 * Exhausted Dock Worker.
+	 */
+	FaceAccessory02: { name: "face_accessory", id: "1182821641777074297" },
+	/**
+	 * Apologetic Lumberjack.
+	 */
+	FaceAccessory03: { name: "face_accessory", id: "1182821644989911051" },
+	/**
+	 * Backflipping Champion.
+	 */
+	FaceAccessory04: { name: "face_accessory", id: "1182821648550854696" },
+	/**
+	 * Bowing Medalist.
+	 */
+	FaceAccessory05: { name: "face_accessory", id: "1182821651654647869" },
+	/**
+	 * Lookout Scout.
+	 */
+	FaceAccessory06: { name: "face_accessory", id: "1182821654980726824" },
+	/**
+	 * Levitating Adept.
+	 */
+	FaceAccessory07: { name: "face_accessory", id: "1182821658600427592" },
+	/**
+	 * Hairtousle Teen.
+	 */
+	FaceAccessory08: { name: "face_accessory", id: "1182821662484332544" },
+	/**
+	 * Enchantment Guide (ultimate).
+	 */
+	FaceAccessory09: { name: "face_accessory", id: "1182821666250834010" },
+	/**
+	 * Chill Sunbather.
+	 */
+	FaceAccessory10: { name: "face_accessory", id: "1182821669446889535" },
+	/**
+	 * Days of Feast Horns.
+	 */
+	FaceAccessory11: { name: "face_accessory", id: "1182821673418883133" },
+	/**
+	 * Bearhug Hermit.
+	 */
+	FaceAccessory12: { name: "face_accessory", id: "1182821677176991786" },
+	/**
+	 * Rainbow Braid.
+	 */
+	FaceAccessory13: { name: "face_accessory", id: "1182821682281451520" },
+	/**
+	 * Mischief Withered Antlers.
+	 */
+	FaceAccessory14: { name: "face_accessory", id: "1182821685913714761" },
+	/**
+	 * Abyss Guide (ultimate).
+	 */
+	FaceAccessory15: { name: "face_accessory", id: "1182821689281740851" },
+	/**
+	 * Rainbow Earring.
+	 */
+	FaceAccessory16: { name: "face_accessory", id: "1182821692872069211" },
+	/**
+	 * Rainbow Headphones.
+	 */
+	FaceAccessory17: { name: "face_accessory", id: "1182821695787114587" },
+	/**
+	 * Elder of the Isle.
+	 */
+	FaceAccessory18: { name: "face_accessory", id: "1182821698576339066" },
+	/**
+	 * Elder of the Prairie.
+	 */
+	FaceAccessory19: { name: "face_accessory", id: "1182821701411680267" },
+	/**
+	 * Elder of the Forest.
+	 */
+	FaceAccessory20: { name: "face_accessory", id: "1182821704444153866" },
+	/**
+	 * Tiara We Can Touch.
+	 */
+	FaceAccessory21: { name: "face_accessory", id: "1182821707636031508" },
+	/**
+	 * Days of Feast 2022.
+	 */
+	FaceAccessory22: { name: "face_accessory", id: "1182821710660128878" },
+	/**
+	 * Melancholy Mope.
+	 */
+	FaceAccessory23: { name: "face_accessory", id: "1182821714309160960" },
+	/**
+	 * Tumbling Troublemaker.
+	 */
+	FaceAccessory24: { name: "face_accessory", id: "1182821717433909299" },
+	/**
+	 * Nature Glasses.
+	 */
+	FaceAccessory25: { name: "face_accessory", id: "1182821720063741972" },
+	/**
+	 * Days of Colour 2023.
+	 */
+	FaceAccessory26: { name: "face_accessory", id: "1182821722668417055" },
+	/**
+	 * Reassuring Ranger.
+	 */
+	FaceAccessory27: { name: "face_accessory", id: "1182821725684121683" },
+	/**
+	 * Moments Guide (ultimate).
+	 */
+	FaceAccessory28: { name: "face_accessory", id: "1182821728603357287" },
+	/**
+	 * Jolly Geologist.
+	 */
+	FaceAccessory29: { name: "face_accessory", id: "1182821731413540914" },
+	/**
+	 * Days of Style 2023 1.
+	 */
+	FaceAccessory30: { name: "face_accessory", id: "1182821734563459093" },
+	/**
+	 * Style Flame Sunglasses.
+	 */
+	FaceAccessory31: { name: "face_accessory", id: "1182821737180700673" },
+	/**
+	 * Style Heart Sunglasses.
+	 */
+	FaceAccessory32: { name: "face_accessory", id: "1182821740200607846" },
+	/**
+	 * Aviary's Firework Festival.
+	 */
+	FaceAccessory33: { name: "face_accessory", id: "1182821742926889041" },
+} as const satisfies Readonly<Record<string, EmojiData>>;
+
+export type FaceAccessoryEmojis = (typeof FACE_ACCESSORY_EMOJIS)[keyof typeof FACE_ACCESSORY_EMOJIS];
+
 export type Emoji =
 	| MiscellaneousEmojis
 	| EmotesEmojis
@@ -910,7 +1050,8 @@ export type Emoji =
 	| SeasonEmojis
 	| OutfitEmojis
 	| ShoeEmojis
-	| MaskEmojis;
+	| MaskEmojis
+	| FaceAccessoryEmojis;
 
 export async function cannotUseCustomEmojis(
 	interaction:
