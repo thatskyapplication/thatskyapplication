@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { EMOTES_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { EMOTES_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { type ItemsData, Emote, SpiritName, StandardSpirit } from "../../Base.js";
 
 const emote = Emote.Wave;
@@ -22,7 +22,7 @@ export default new StandardSpirit({
 			.set(1 << 6, { item: `${emote} 3`, cost: { candles: 2 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: { candles: 2 }, emoji: emoteEmoji })
 			.set(1 << 8, { item: "Blessing 2", cost: { candles: 5 } })
-			.set(1 << 9, { item: "Mask", cost: { hearts: 5 } })
+			.set(1 << 9, { item: "Mask", cost: { hearts: 5 }, emoji: MASK_EMOJIS.Mask01 })
 			.set(1 << 10, { item: "Wing buff 2", cost: { ascendedCandles: 6 } })
 			.set(1 << 11, { item: `${emote} 5`, cost: { candles: 3 }, emoji: emoteEmoji })
 			.set(1 << 12, { item: `${emote} 6`, cost: { candles: 3 }, emoji: emoteEmoji }),
