@@ -15,6 +15,7 @@ import {
 
 const emote = Emote.RallyCheer;
 const emoteEmoji = EMOTES_EMOJIS.RallyCheer;
+const outfitEmoji = OUTFIT_EMOJIS.Outfit16;
 
 export default new SeasonalSpirit({
 	name: SpiritName.RallyingThrillseeker,
@@ -31,7 +32,7 @@ export default new SeasonalSpirit({
 			.set(1 << 2, { item: "Blessing 1", cost: null })
 			.set(1 << 6, { item: `${emote} 3`, cost: { seasonalCandles: 12 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: null, emoji: emoteEmoji })
-			.set(1 << 9, { item: "Outfit", cost: { seasonalCandles: 14 }, emoji: OUTFIT_EMOJIS.Outfit16 })
+			.set(1 << 9, { item: "Outfit", cost: { seasonalCandles: 14 }, emoji: outfitEmoji })
 			.set(1 << 8, { item: "Blessing 2", cost: null })
 			.set(1 << 4, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.SanctuaryHeart }),
 		current: new Collection<number, ItemsData>()
@@ -44,7 +45,7 @@ export default new SeasonalSpirit({
 			.set(1 << 6, { item: `${emote} 3`, cost: { hearts: 3 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: { hearts: 6 }, emoji: emoteEmoji })
 			.set(1 << 8, { item: "Blessing 2", cost: { candles: 5 } })
-			.set(1 << 9, { item: "Outfit", cost: { candles: 70 }, emoji: OUTFIT_EMOJIS.Outfit16 }),
+			.set(1 << 9, { item: "Outfit", cost: { candles: 70 }, emoji: outfitEmoji }),
 	},
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>()

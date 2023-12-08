@@ -9,6 +9,7 @@ import { type ItemsData, type SeasonalSpiritVisitCollectionKey, Call, SeasonalSp
 
 const call = Call.Jellyfish;
 const callEmoji = CALLS_EMOJIS.Jellyfish;
+const outfitEmoji = OUTFIT_EMOJIS.Outfit15;
 
 export default new SeasonalSpirit({
 	name: SpiritName.JellyWhisperer,
@@ -23,7 +24,7 @@ export default new SeasonalSpirit({
 			.set(1 << 5, { item: "Hair", cost: { seasonalCandles: 8 } })
 			.set(1 << 6, { item: "Blessing 2", cost: null })
 			.set(1 << 9, { item: "Blessing 3", cost: { seasonalCandles: 10 } })
-			.set(1 << 8, { item: "Outfit", cost: null, emoji: OUTFIT_EMOJIS.Outfit15 })
+			.set(1 << 8, { item: "Outfit", cost: null, emoji: outfitEmoji })
 			.set(1 << 3, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.SanctuaryHeart }),
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${call} call`, cost: null, emoji: callEmoji })
@@ -34,7 +35,7 @@ export default new SeasonalSpirit({
 			.set(1 << 6, { item: "Blessing 2", cost: { candles: 5 } })
 			.set(1 << 7, { item: "Umbrella", cost: { hearts: 15 } })
 			.set(1 << 5, { item: "Hair", cost: { candles: 42 } })
-			.set(1 << 8, { item: "Outfit", cost: { candles: 65 }, emoji: OUTFIT_EMOJIS.Outfit15 }),
+			.set(1 << 8, { item: "Outfit", cost: { candles: 65 }, emoji: outfitEmoji }),
 	},
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>()

@@ -7,6 +7,7 @@ import { type ItemsData, Call, SeasonalSpirit, SpiritName } from "../../Base.js"
 
 const call = Call.BabyManta;
 const callEmoji = CALLS_EMOJIS.BabyManta;
+const outfitEmoji = OUTFIT_EMOJIS.Outfit27;
 
 export default new SeasonalSpirit({
 	name: SpiritName.LightWhisperer,
@@ -23,7 +24,7 @@ export default new SeasonalSpirit({
 			.set(1 << 4, { item: "Blessing 2", cost: null })
 			.set(1 << 5, { item: "Trail spell 1", cost: { seasonalCandles: 26 } })
 			.set(1 << 6, { item: "Cape", cost: null })
-			.set(1 << 7, { item: "Outfit", cost: { seasonalCandles: 28 }, emoji: OUTFIT_EMOJIS.Outfit27 })
+			.set(1 << 7, { item: "Outfit", cost: { seasonalCandles: 28 }, emoji: outfitEmoji })
 			.set(1 << 8, { item: "Trail spell 2", cost: null })
 			.set(1 << 9, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.FlightHeart }),
 	},

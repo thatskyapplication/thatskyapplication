@@ -21,6 +21,7 @@ import {
 
 const emote = Emote.ChestPound;
 const emoteEmoji = EMOTES_EMOJIS.ChestPound;
+const outfitEmoji = OUTFIT_EMOJIS.Outfit17;
 const maskEmoji = MASK_EMOJIS.Mask35;
 
 export default new SeasonalSpirit({
@@ -39,7 +40,7 @@ export default new SeasonalSpirit({
 			.set(1 << 9, { item: "Blessing 2", cost: { seasonalCandles: 23 } })
 			.set(1 << 8, { item: "Music sheet", cost: null })
 			.set(1 << 10, { item: "Mask", cost: { seasonalCandles: 29 }, emoji: maskEmoji })
-			.set(1 << 12, { item: "Outfit", cost: null, emoji: OUTFIT_EMOJIS.Outfit17 })
+			.set(1 << 12, { item: "Outfit", cost: null, emoji: outfitEmoji })
 			.set(1 << 4, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.ProphecyHeart }),
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${emote} 1`, cost: null, emoji: emoteEmoji })
@@ -55,7 +56,7 @@ export default new SeasonalSpirit({
 			.set(1 << 9, { item: "Blessing 2", cost: { candles: 5 } })
 			.set(1 << 10, { item: "Mask", cost: { candles: 54 }, emoji: maskEmoji })
 			.set(1 << 11, { item: "Cauldron", cost: { hearts: 13 } })
-			.set(1 << 12, { item: "Outfit", cost: { candles: 75 }, emoji: OUTFIT_EMOJIS.Outfit17 }),
+			.set(1 << 12, { item: "Outfit", cost: { candles: 75 }, emoji: outfitEmoji }),
 	},
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>()

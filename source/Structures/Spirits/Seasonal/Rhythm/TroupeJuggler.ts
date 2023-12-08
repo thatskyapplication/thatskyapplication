@@ -15,6 +15,7 @@ import {
 
 const emote = Emote.Juggle;
 const emoteEmoji = EMOTES_EMOJIS.Juggle;
+const outfitEmoji = OUTFIT_EMOJIS.Outfit12;
 
 export default new SeasonalSpirit({
 	name: SpiritName.TroupeJuggler,
@@ -31,7 +32,7 @@ export default new SeasonalSpirit({
 			.set(1 << 8, { item: `${emote} 4`, cost: null, emoji: emoteEmoji })
 			.set(1 << 9, { item: "Blessing 2", cost: { seasonalCandles: 16 } })
 			.set(1 << 10, { item: "Cape", cost: null })
-			.set(1 << 11, { item: "Outfit", cost: { seasonalCandles: 18 }, emoji: OUTFIT_EMOJIS.Outfit12 })
+			.set(1 << 11, { item: "Outfit", cost: { seasonalCandles: 18 }, emoji: outfitEmoji })
 			.set(1 << 12, { item: "Blessing 3", cost: null })
 			.set(1 << 5, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.RhythmHeart }),
 		current: new Collection<number, ItemsData>()
@@ -46,7 +47,7 @@ export default new SeasonalSpirit({
 			.set(1 << 8, { item: `${emote} 4`, cost: { hearts: 6 }, emoji: emoteEmoji })
 			.set(1 << 9, { item: "Blessing 2", cost: { candles: 5 } })
 			.set(1 << 10, { item: "Cape", cost: { candles: 75 } })
-			.set(1 << 11, { item: "Outfit", cost: { candles: 75 }, emoji: OUTFIT_EMOJIS.Outfit12 }),
+			.set(1 << 11, { item: "Outfit", cost: { candles: 75 }, emoji: outfitEmoji }),
 	},
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>()

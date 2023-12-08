@@ -7,6 +7,7 @@ import { type ItemsData, Emote, SeasonalSpirit, SpiritName } from "../../Base.js
 
 const emote = Emote.HackySack;
 const emoteEmoji = EMOTES_EMOJIS.HackySack;
+const outfitEmoji = OUTFIT_EMOJIS.Outfit45;
 
 export default new SeasonalSpirit({
 	name: SpiritName.OddballOutcast,
@@ -24,7 +25,7 @@ export default new SeasonalSpirit({
 			.set(1 << 5, { item: "Neck accessory", cost: null })
 			.set(1 << 6, { item: `${emote} 3`, cost: { seasonalCandles: 24 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: null, emoji: emoteEmoji })
-			.set(1 << 8, { item: "Outfit", cost: { seasonalCandles: 32 }, emoji: OUTFIT_EMOJIS.Outfit45 })
+			.set(1 << 8, { item: "Outfit", cost: { seasonalCandles: 32 }, emoji: outfitEmoji })
 			.set(1 << 9, { item: "Blessing 3", cost: null })
 			.set(1 << 10, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.PassageHeart }),
 	},

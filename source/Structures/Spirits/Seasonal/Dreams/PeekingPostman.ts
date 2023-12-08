@@ -21,6 +21,7 @@ import {
 
 const emote = Emote.Peek;
 const emoteEmoji = EMOTES_EMOJIS.Peek;
+const outfitEmoji = OUTFIT_EMOJIS.Outfit18;
 const maskEmoji = MASK_EMOJIS.Mask37;
 
 export default new SeasonalSpirit({
@@ -37,7 +38,7 @@ export default new SeasonalSpirit({
 			.set(1 << 3, { item: "Blessing 1", cost: null })
 			.set(1 << 7, { item: `${emote} 3`, cost: { seasonalCandles: 16 }, emoji: emoteEmoji })
 			.set(1 << 8, { item: `${emote} 4`, cost: null, emoji: emoteEmoji })
-			.set(1 << 11, { item: "Outfit", cost: { seasonalCandles: 21 }, emoji: OUTFIT_EMOJIS.Outfit18 })
+			.set(1 << 11, { item: "Outfit", cost: { seasonalCandles: 21 }, emoji: outfitEmoji })
 			.set(1 << 10, { item: "Blessing 2", cost: null })
 			.set(1 << 9, { item: "Cape", cost: { seasonalCandles: 27 } })
 			.set(1 << 4, { item: "Rabbit mask", cost: null, emoji: maskEmoji })
@@ -54,7 +55,7 @@ export default new SeasonalSpirit({
 			.set(1 << 8, { item: `${emote} 4`, cost: { hearts: 6 }, emoji: emoteEmoji })
 			.set(1 << 9, { item: "Cape", cost: { candles: 65 } })
 			.set(1 << 10, { item: "Blessing 2", cost: { candles: 5 } })
-			.set(1 << 11, { item: "Outfit", cost: { candles: 70 }, emoji: OUTFIT_EMOJIS.Outfit18 }),
+			.set(1 << 11, { item: "Outfit", cost: { candles: 70 }, emoji: outfitEmoji }),
 	},
 	keywords: ["rabbit", "rabbit mask"],
 	visits: {

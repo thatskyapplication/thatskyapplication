@@ -4,6 +4,8 @@ import { OUTFIT_EMOJIS, SEASON_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, SeasonalSpirit, SpiritName } from "../../Base.js";
 
+const outfitEmoji = OUTFIT_EMOJIS.Outfit34;
+
 export default [
 	new SeasonalSpirit({
 		name: SpiritName.AncientLight1,
@@ -33,7 +35,7 @@ export default [
 				.set(1 << 4, { item: "Cape", cost: { seasonalCandles: 35 } })
 				.set(1 << 5, { item: "Blessing 3", cost: null })
 				.set(1 << 4, { item: "Blessing 4", cost: { seasonalCandles: 16 } })
-				.set(1 << 5, { item: "Outfit", cost: null, emoji: OUTFIT_EMOJIS.Outfit34 })
+				.set(1 << 5, { item: "Outfit", cost: null, emoji: outfitEmoji })
 				.set(1 << 6, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.ShatteringHeart }),
 		},
 	}),

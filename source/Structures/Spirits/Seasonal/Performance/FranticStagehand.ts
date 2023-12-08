@@ -7,6 +7,7 @@ import { type ItemsData, FriendAction, SeasonalSpirit, SpiritName } from "../../
 
 const action = FriendAction.Handshake;
 const actionEmoji = FRIEND_ACTIONS_EMOJIS.Handshake;
+const outfitEmoji = OUTFIT_EMOJIS.Outfit31;
 const maskEmoji = MASK_EMOJIS.Mask61;
 
 export default new SeasonalSpirit({
@@ -25,7 +26,7 @@ export default new SeasonalSpirit({
 			.set(1 << 5, { item: "Blessing 3", cost: { seasonalCandles: 26 } })
 			.set(1 << 6, { item: `${action} 2`, cost: null, emoji: actionEmoji })
 			.set(1 << 7, { item: "Mask", cost: { seasonalCandles: 30 }, emoji: maskEmoji })
-			.set(1 << 8, { item: "Outfit", cost: null, emoji: OUTFIT_EMOJIS.Outfit31 })
+			.set(1 << 8, { item: "Outfit", cost: null, emoji: outfitEmoji })
 			.set(1 << 9, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.PerformanceHeart }),
 	},
 });

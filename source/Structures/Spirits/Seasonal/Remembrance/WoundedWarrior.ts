@@ -7,6 +7,7 @@ import { type ItemsData, SeasonalSpirit, SpiritName, Stance } from "../../Base.j
 
 const stance = Stance.Injured;
 const stanceEmoji = STANCES_EMOJIS.Injured;
+const outfitEmoji = OUTFIT_EMOJIS.Outfit40;
 const maskEmoji = MASK_EMOJIS.Mask74;
 
 export default new SeasonalSpirit({
@@ -20,7 +21,7 @@ export default new SeasonalSpirit({
 			.set(1 << 0, { item: `${stance} stance`, cost: null, emoji: stanceEmoji })
 			.set(1 << 1, { item: "Blessing 1", cost: { seasonalCandles: 14 } })
 			.set(1 << 2, { item: "Mask", cost: null, emoji: maskEmoji })
-			.set(1 << 3, { item: "Outfit", cost: { seasonalCandles: 30 }, emoji: OUTFIT_EMOJIS.Outfit40 })
+			.set(1 << 3, { item: "Outfit", cost: { seasonalCandles: 30 }, emoji: outfitEmoji })
 			.set(1 << 4, { item: "Blessing 2", cost: null })
 			.set(1 << 5, { item: "Blessing 3", cost: { seasonalCandles: 36 } })
 			.set(1 << 6, { item: "Cape", cost: null })
