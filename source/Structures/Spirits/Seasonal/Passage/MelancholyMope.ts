@@ -16,7 +16,7 @@ export default new SeasonalSpirit({
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${expression} 1`, cost: null })
 			.set(1 << 1, { item: `${expression} 2`, cost: null })
-			.set(1 << 2, { item: "Hair accessory", cost: { seasonalCandles: 6 } })
+			.set(1 << 2, { item: "Face accessory", cost: { seasonalCandles: 6 } })
 			.set(1 << 3, { item: "Blessing 1", cost: null })
 			.set(1 << 4, { item: "Blessing 2", cost: { seasonalCandles: 18 } })
 			.set(1 << 5, { item: "Hair", cost: null })

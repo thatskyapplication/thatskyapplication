@@ -9,6 +9,6 @@ export default new ElderSpirit({
 	offer: {
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Hair", cost: { ascendedCandles: 6 } })
-			.set(1 << 1, { item: "Mask", cost: { ascendedCandles: 250 } }),
+			.set(1 << 1, { item: "Face accessory", cost: { ascendedCandles: 250 } }),
 	},
 });
