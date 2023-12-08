@@ -553,6 +553,354 @@ export const SHOE_EMOJIS = {
 
 export type ShoeEmojis = (typeof SHOE_EMOJIS)[keyof typeof SHOE_EMOJIS];
 
+/**
+ * Emojis from the masks servers.
+ */
+export const MASK_EMOJIS = {
+	/**
+	 * Base.
+	 */
+	Mask01: { name: "mask", id: "1182637780489211935" },
+	/**
+	 * Waving Bellmaker.
+	 */
+	Mask02: { name: "mask", id: "1182637781944639510" },
+	/**
+	 * Hide'n'Seek Pioneer.
+	 */
+	Mask03: { name: "mask", id: "1182637783815307347" },
+	/**
+	 * Proud Victor.
+	 */
+	Mask04: { name: "mask", id: "1182637786147336284" },
+	/**
+	 * Fainting Warrior.
+	 */
+	Mask05: { name: "mask", id: "1182637788357726209" },
+	/**
+	 * Provoking Performer.
+	 */
+	Mask06: { name: "mask", id: "1182637790194847855" },
+	/**
+	 * Leaping Dancer.
+	 */
+	Mask07: { name: "mask", id: "1182637792078086184" },
+	/**
+	 * Saluting Protector.
+	 */
+	Mask08: { name: "mask", id: "1182637794246529085" },
+	/**
+	 * Greeting Shaman.
+	 */
+	Mask09: { name: "mask", id: "1182637796431777853" },
+	/**
+	 * Gratitude Guide (ultimate).
+	 */
+	Mask10: { name: "mask", id: "1182637798386319380" },
+	/**
+	 * Sassy Drifter.
+	 */
+	Mask11: { name: "mask", id: "1182637799975944232" },
+	/**
+	 * Piggyback Lightseeker.
+	 */
+	Mask12: { name: "mask", id: "1182637801905324043" },
+	/**
+	 * Doublefive Light Catcher.
+	 */
+	Mask13: { name: "mask", id: "1182637803876651059" },
+	/**
+	 * Laidback Pioneer.
+	 */
+	Mask14: { name: "mask", id: "1182637805847973938" },
+	/**
+	 * Twirling Champion.
+	 */
+	Mask15: { name: "mask", id: "1182637807525695609" },
+	/**
+	 * Crab Whisperer.
+	 */
+	Mask16: { name: "mask", id: "1182637809526374441" },
+	/**
+	 * Shushing Light Scholar.
+	 */
+	Mask17: { name: "mask", id: "1182637811459969075" },
+	/**
+	 * Boogie Kid.
+	 */
+	Mask18: { name: "mask", id: "1182637814005891193" },
+	/**
+	 * Wise Grandparent.
+	 */
+	Mask19: { name: "mask", id: "1182637816577003570" },
+	/**
+	 * Pleaful Parent.
+	 */
+	Mask20: { name: "mask", id: "1182637817923375145" },
+	/**
+	 * Sparkler Parent.
+	 */
+	Mask21: { name: "mask", id: "1182637820091830353" },
+	/**
+	 * Rhythm Guide (ultimate).
+	 */
+	Mask22: { name: "mask", id: "1182637821933142017" },
+	/**
+	 * Troupe Greeter.
+	 */
+	Mask23: { name: "mask", id: "1182637823807987712" },
+	/**
+	 * Admiring Actor.
+	 */
+	Mask24: { name: "mask", id: "1182637825754140752" },
+	/**
+	 * Thoughtful Director.
+	 */
+	Mask25: { name: "mask", id: "1182637827603841034" },
+	/**
+	 * Respectful Pianist.
+	 */
+	Mask26: { name: "mask", id: "1182637829428367490" },
+	/**
+	 * Nodding Muralist.
+	 */
+	Mask27: { name: "mask", id: "1182637831273857055" },
+	/**
+	 * Playfighting Herbalist.
+	 */
+	Mask28: { name: "mask", id: "1182637832620216332" },
+	/**
+	 * Indifferent Alchemist.
+	 */
+	Mask29: { name: "mask", id: "1182637834780299354" },
+	/**
+	 * Scarecrow Farmer.
+	 */
+	Mask30: { name: "mask", id: "1182637836684501012" },
+	/**
+	 * Hiking Grouch.
+	 */
+	Mask31: { name: "mask", id: "1182637840388075550" },
+	/**
+	 * Prophet of Water.
+	 */
+	Mask32: { name: "mask", id: "1182637842489430106" },
+	/**
+	 * Prophet of Earth.
+	 */
+	Mask33: { name: "mask", id: "1182637844079054931" },
+	/**
+	 * Prophet of Air.
+	 */
+	Mask34: { name: "mask", id: "1182637846377549904" },
+	/**
+	 * Prophet of Fire.
+	 */
+	Mask35: { name: "mask", id: "1182637869144211467" },
+	/**
+	 * Prophecy Guide (ultimate).
+	 */
+	Mask36: { name: "mask", id: "1182637870889062441" },
+	/**
+	 * Peeking Postman.
+	 */
+	Mask37: { name: "mask", id: "1182637873057501265" },
+	/**
+	 * Dancing Performer.
+	 */
+	Mask38: { name: "mask", id: "1182637875888668723" },
+	/**
+	 * Spinning Mentor.
+	 */
+	Mask39: { name: "mask", id: "1182637878208122880" },
+	/**
+	 * Dreams Guide (ultimate).
+	 */
+	Mask40: { name: "mask", id: "1182637880917631046" },
+	/**
+	 * Fortune Blushing Mask.
+	 */
+	Mask41: { name: "mask", id: "1182637882943479818" },
+	/**
+	 * Days of Fortune 2021 Bull Mask.
+	 */
+	Mask42: { name: "mask", id: "1182637885321658449" },
+	/**
+	 * Days of Love 2021.
+	 */
+	Mask43: { name: "mask", id: "1182637887804669963" },
+	/**
+	 * Assembly Guide (ultimate).
+	 */
+	Mask44: { name: "mask", id: "1182637889868271616" },
+	/**
+	 * Marching Adventurer.
+	 */
+	Mask45: { name: "mask", id: "1182637893139832892" },
+	/**
+	 * Chuckling Scout.
+	 */
+	Mask46: { name: "mask", id: "1182637894951784459" },
+	/**
+	 * Daydream Forester.
+	 */
+	Mask47: { name: "mask", id: "1182637896805658664" },
+	/**
+	 * Scolding Student.
+	 */
+	Mask48: { name: "mask", id: "1182637898827313243" },
+	/**
+	 * Baffled Botanist.
+	 */
+	Mask49: { name: "mask", id: "1182637900744097883" },
+	/**
+	 * Scaredy Cadet.
+	 */
+	Mask50: { name: "mask", id: "1182637903290052609" },
+	/**
+	 * Beckoning Ruler.
+	 */
+	Mask51: { name: "mask", id: "1182639022795927563" },
+	/**
+	 * Bumbling Boatswain.
+	 */
+	Mask52: { name: "mask", id: "1182639025983586314" },
+	/**
+	 * Ceasing Commodore.
+	 */
+	Mask53: { name: "mask", id: "1182639028558905415" },
+	/**
+	 * Cackling Cannoneer.
+	 */
+	Mask54: { name: "mask", id: "1182639032199557170" },
+	/**
+	 * Abyss Guide (ultimate).
+	 */
+	Mask55: { name: "mask", id: "1182639034607079569" },
+	/**
+	 * Abyss Guide (non-ultimate).
+	 */
+	Mask56: { name: "mask", id: "1182639038272901120" },
+	/**
+	 * Anxious Angler.
+	 */
+	Mask57: { name: "mask", id: "1182639041741602898" },
+	/**
+	 * Days of Fortune 2022.
+	 */
+	Mask58: { name: "mask", id: "1182639044920885318" },
+	/**
+	 * Performance Guide (ultimate).
+	 */
+	Mask59: { name: "mask", id: "1182639048586698785" },
+	/**
+	 * Modest Dancer.
+	 */
+	Mask60: { name: "mask", id: "1182639051921178684" },
+	/**
+	 * Frantic Stagehand.
+	 */
+	Mask61: { name: "mask", id: "1182639054660055100" },
+	/**
+	 * Performance Guide (non-ultimate).
+	 */
+	Mask62: { name: "mask", id: "1182639057436692560" },
+	/**
+	 * Forgetful Storyteller.
+	 */
+	Mask63: { name: "mask", id: "1182639060766949386" },
+	/**
+	 * Mellow Musician.
+	 */
+	Mask64: { name: "mask", id: "1182639065011585064" },
+	/**
+	 * Ancient Darkness (darkness).
+	 */
+	Mask65: { name: "mask", id: "1182639068308316180" },
+	/**
+	 * Seed of Hope.
+	 */
+	Mask66: { name: "mask", id: "1182639071424675850" },
+	/**
+	 * Running Wayfarer.
+	 */
+	Mask67: { name: "mask", id: "1182639074075480204" },
+	/**
+	 * Warrior of Love.
+	 */
+	Mask68: { name: "mask", id: "1182639076948594728" },
+	/**
+	 * Mindful Miner.
+	 */
+	Mask69: { name: "mask", id: "1182639079796527114" },
+	/**
+	 * AURORA Guide (non-ultimate).
+	 */
+	Mask70: { name: "mask", id: "1182639083076468827" },
+	/**
+	 * Days of Mischief 2022.
+	 */
+	Mask71: { name: "mask", id: "1182639086008279051" },
+	/**
+	 * Journey Mask.
+	 */
+	Mask72: { name: "mask", id: "1182639089128833158" },
+	/**
+	 * Bereft Veteran.
+	 */
+	Mask73: { name: "mask", id: "1182639092534620191" },
+	/**
+	 * Wounded Warrior.
+	 */
+	Mask74: { name: "mask", id: "1182639095449649202" },
+	/**
+	 * Days of Fortune 2023.
+	 */
+	Mask75: { name: "mask", id: "1182639098108858408" },
+	/**
+	 * Passage Guide (ultimate).
+	 */
+	Mask76: { name: "mask", id: "1182639101166497843" },
+	/**
+	 * Passage Guide (non-ultimate 1).
+	 */
+	Mask77: { name: "mask", id: "1182639104836517929" },
+	/**
+	 * Passage Guide (non-ultimate 2).
+	 */
+	Mask78: { name: "mask", id: "1182639108166778920" },
+	/**
+	 * Passage Guide (non-ultimate 3).
+	 */
+	Mask79: { name: "mask", id: "1182639111060856942" },
+	/**
+	 * Passage Guide (non-ultimate 4).
+	 */
+	Mask80: { name: "mask", id: "1182639114168832020" },
+	/**
+	 * Reassuring Ranger.
+	 */
+	Mask81: { name: "mask", id: "1182639117310361620" },
+	/**
+	 * Ascetic Monk.
+	 */
+	Mask82: { name: "mask", id: "1182639120930066482" },
+	/**
+	 * Days of Style 2023.
+	 */
+	Mask83: { name: "mask", id: "1182639124042223646" },
+	/**
+	 * Mischief Crabula Mask.
+	 */
+	Mask84: { name: "mask", id: "1182639127242477648" },
+	/**
+	 * Sparrow Mask.
+	 */
+	Mask85: { name: "mask", id: "1182639130094620694" },
+} as const satisfies Readonly<Record<string, EmojiData>>;
+
+export type MaskEmojis = (typeof MASK_EMOJIS)[keyof typeof MASK_EMOJIS];
+
 export type Emoji =
 	| MiscellaneousEmojis
 	| EmotesEmojis
@@ -561,7 +909,8 @@ export type Emoji =
 	| FriendActionsEmojis
 	| SeasonEmojis
 	| OutfitEmojis
-	| ShoeEmojis;
+	| ShoeEmojis
+	| MaskEmojis;
 
 export async function cannotUseCustomEmojis(
 	interaction:
