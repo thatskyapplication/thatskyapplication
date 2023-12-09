@@ -1041,6 +1041,138 @@ export const FACE_ACCESSORY_EMOJIS = {
 
 export type FaceAccessoryEmojis = (typeof FACE_ACCESSORY_EMOJIS)[keyof typeof FACE_ACCESSORY_EMOJIS];
 
+/**
+ * Emojis from the necklace server.
+ */
+export const NECKLACE_EMOJIS = {
+	/**
+	 * Gratitude Pendant.
+	 */
+	Necklace01: { name: "necklace", id: "1182861448691585044" },
+	/**
+	 * Lightseekers Pendant.
+	 */
+	Necklace02: { name: "necklace", id: "1182861496326295653" },
+	/**
+	 * Belonging Pendant.
+	 */
+	Necklace03: { name: "necklace", id: "1182861497496506413" },
+	/**
+	 * Rhythm Pendant.
+	 */
+	Necklace04: { name: "necklace", id: "1182861499438477362" },
+	/**
+	 * Enchantment Pendant.
+	 */
+	Necklace05: { name: "necklace", id: "1182861500638040096" },
+	/**
+	 * Sanctuary Pendant.
+	 */
+	Necklace06: { name: "necklace", id: "1182861502798119082" },
+	/**
+	 * Hiking Grouch.
+	 */
+	Necklace07: { name: "necklace", id: "1182861504178028605" },
+	/**
+	 * Prophecy Pendant.
+	 */
+	Necklace08: { name: "necklace", id: "1182861507009183861" },
+	/**
+	 * Days of Feast 2020.
+	 */
+	Necklace09: { name: "necklace", id: "1182861508896620617" },
+	/**
+	 * Dreams Pendant.
+	 */
+	Necklace10: { name: "necklace", id: "1182861511161557102" },
+	/**
+	 * Assembly Pendant.
+	 */
+	Necklace11: { name: "necklace", id: "1182861513137074298" },
+	/**
+	 * Ocean Necklace.
+	 */
+	Necklace12: { name: "necklace", id: "1182861515586551869" },
+	/**
+	 * Little Prince Pendant.
+	 */
+	Necklace13: { name: "necklace", id: "1182861517754990633" },
+	/**
+	 * Star Collector.
+	 */
+	Necklace14: { name: "necklace", id: "1182861519759888444" },
+	/**
+	 * Flight Pendant.
+	 */
+	Necklace15: { name: "necklace", id: "1182861521622155376" },
+	/**
+	 * Talented Builder.
+	 */
+	Necklace16: { name: "necklace", id: "1182861524772073473" },
+	/**
+	 * Days of Feast 2021
+	 */
+	Necklace17: { name: "necklace", id: "1182861526865031250" },
+	/**
+	 * Abyss Pendant.
+	 */
+	Necklace18: { name: "necklace", id: "1182861528786010114" },
+	/**
+	 * Performance Pendant.
+	 */
+	Necklace19: { name: "necklace", id: "1182861531348734002" },
+	/**
+	 * Days of Nature 2022.
+	 */
+	Necklace20: { name: "necklace", id: "1182861533064208484" },
+	/**
+	 * Shattering Pendant.
+	 */
+	Necklace21: { name: "necklace", id: "1182861534540611736" },
+	/**
+	 * Jelly Shoulder Buddy
+	 */
+	Necklace22: { name: "necklace", id: "1182861535622725673" },
+	/**
+	 * AURORA Pendant.
+	 */
+	Necklace23: { name: "necklace", id: "1182861538281918545" },
+	/**
+	 * Remembrance Pendant.
+	 */
+	Necklace24: { name: "necklace", id: "1182861540400054372" },
+	/**
+	 * Pleading Child.
+	 */
+	Necklace25: { name: "necklace", id: "1182861542182621324" },
+	/**
+	 * Remembrance Guide.
+	 */
+	Necklace26: { name: "necklace", id: "1182861544128790528" },
+	/**
+	 * Days of Love Classy Cravat.
+	 */
+	Necklace27: { name: "necklace", id: "1182861545697452062" },
+	/**
+	 * Passage Pendant.
+	 */
+	Necklace28: { name: "necklace", id: "1182861547844948029" },
+	/**
+	 * Oddball Outcast.
+	 */
+	Necklace29: { name: "necklace", id: "1182861549967253614" },
+	/**
+	 * Moments Pendant.
+	 */
+	Necklace30: { name: "necklace", id: "1182861554803290235" },
+	/**
+	 * Revival Pendant.
+	 */
+	Necklace31: { name: "necklace", id: "1182862051647959161" },
+} as const satisfies Readonly<Record<string, EmojiData>>;
+
+export type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
+
 export type Emoji =
 	| MiscellaneousEmojis
 	| EmotesEmojis
@@ -1051,7 +1183,8 @@ export type Emoji =
 	| OutfitEmojis
 	| ShoeEmojis
 	| MaskEmojis
-	| FaceAccessoryEmojis;
+	| FaceAccessoryEmojis
+	| NecklaceEmojis;
 
 export async function cannotUseCustomEmojis(
 	interaction:
