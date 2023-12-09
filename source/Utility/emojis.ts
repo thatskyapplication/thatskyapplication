@@ -954,7 +954,7 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 */
 	FaceAccessory12: { name: "face_accessory", id: "1182821677176991786" },
 	/**
-	 * Rainbow Braid.
+	 * Days of Rainbow 2021.
 	 */
 	FaceAccessory13: { name: "face_accessory", id: "1182821682281451520" },
 	/**
