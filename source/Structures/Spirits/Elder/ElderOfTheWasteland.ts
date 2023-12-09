@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../Utility/Constants.js";
-import { SpiritName, ElderSpirit, type ItemsData } from "../Base.js";
+import { type ItemsData, ElderSpirit, SpiritName } from "../Base.js";
 
 export default new ElderSpirit({
 	name: SpiritName.ElderOfTheWasteland,
