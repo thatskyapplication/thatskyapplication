@@ -1,11 +1,12 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { EMOTES_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { EMOTES_EMOJIS, FACE_ACCESSORY_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { type ItemsData, Emote, SpiritName, StandardSpirit } from "../../Base.js";
 
 const emote = Emote.Apologise;
 const emoteEmoji = EMOTES_EMOJIS.Apologise;
+const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory03;
 
 export default new StandardSpirit({
 	name: SpiritName.ApologeticLumberjack,
@@ -22,6 +23,6 @@ export default new StandardSpirit({
 			.set(1 << 6, { item: `${emote} 3`, cost: { candles: 3 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: { candles: 3 }, emoji: emoteEmoji })
 			.set(1 << 8, { item: "Blessing 2", cost: { candles: 5 } })
-			.set(1 << 9, { item: "Face accessory", cost: { hearts: 5 } }),
+			.set(1 << 9, { item: "Face accessory", cost: { hearts: 5 }, emoji: faceAccessoryEmoji }),
 	},
 });

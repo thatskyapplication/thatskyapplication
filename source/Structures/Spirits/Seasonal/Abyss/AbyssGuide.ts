@@ -1,11 +1,12 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { FACE_ACCESSORY_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, GuideSpirit, SpiritName } from "../../Base.js";
 
 const heartEmoji = MISCELLANEOUS_EMOJIS.Heart;
+const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory15;
 
 export default new GuideSpirit({
 	name: SpiritName.AbyssGuide,
@@ -16,7 +17,7 @@ export default new GuideSpirit({
 			.set(1 << 0, { item: "Quest 1", cost: null })
 			.set(1 << 1, { item: "Heart 1", cost: { candles: 3 }, emoji: heartEmoji })
 			.set(1 << 2, { item: "Pendant", cost: null })
-			.set(1 << 3, { item: "Ultimate face accessory", cost: { seasonalHearts: 1 } })
+			.set(1 << 3, { item: "Ultimate face accessory", cost: { seasonalHearts: 1 }, emoji: faceAccessoryEmoji })
 			.set(1 << 4, { item: "Ultimate cape", cost: { seasonalHearts: 2 } })
 			.set(1 << 5, { item: "Ultimate mask", cost: { seasonalHearts: 1 }, emoji: MASK_EMOJIS.Mask55 })
 			.set(1 << 6, { item: "Quest 2", cost: null })
