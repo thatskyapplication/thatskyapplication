@@ -1,7 +1,12 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { FACE_ACCESSORY_EMOJIS, FRIEND_ACTIONS_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import {
+	FACE_ACCESSORY_EMOJIS,
+	FRIEND_ACTIONS_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	NECKLACE_EMOJIS,
+} from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, FriendAction, GuideSpirit, SpiritName } from "../../Base.js";
 
@@ -12,7 +17,7 @@ export default new GuideSpirit({
 	offer: {
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Camera", cost: null })
-			.set(1 << 1, { item: "Pendant", cost: null })
+			.set(1 << 1, { item: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace30 })
 			.set(1 << 2, {
 				item: "Ultimate face accessory",
 				cost: { seasonalHearts: 1 },
