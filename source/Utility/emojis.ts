@@ -1173,6 +1173,554 @@ export const NECKLACE_EMOJIS = {
 
 export type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
 
+/**
+ * Emojis from the hair servers.
+ */
+export const HAIR_EMOJIS = {
+	/**
+	 * Base 1.
+	 */
+	Hair01: { name: "hair", id: "1183623035337588887" },
+	/**
+	 * Pointing Candlemaker.
+	 */
+	Hair02: { name: "hair", id: "1183623039133425805" },
+	/**
+	 * Ushering Stargazer.
+	 */
+	Hair03: { name: "hair", id: "1183623042417578045" },
+	/**
+	 * Rejecting Voyager.
+	 */
+	Hair04: { name: "hair", id: "1183623045668163685" },
+	/**
+	 * Applauding Bellmaker.
+	 */
+	Hair05: { name: "hair", id: "1183623048629330071" },
+	/**
+	 * Waving Bellmaker.
+	 */
+	Hair06: { name: "hair", id: "1183623051892502568" },
+	/**
+	 * Slumbering Shipwright.
+	 */
+	Hair07: { name: "hair", id: "1183623055101132811" },
+	/**
+	 * Laughing Light Catcher.
+	 */
+	Hair08: { name: "hair", id: "1183623058985058314" },
+	/**
+	 * Bird Whisperer.
+	 */
+	Hair09: { name: "hair", id: "1183623062671855706" },
+	/**
+	 * Shivering Trailblazer.
+	 */
+	Hair10: { name: "hair", id: "1183623066648059994" },
+	/**
+	 * Blushing Prospector.
+	 */
+	Hair11: { name: "hair", id: "1183623071094030386" },
+	/**
+	 * Hide'n'Seek Pioneer.
+	 */
+	Hair12: { name: "hair", id: "1183623075263172608" },
+	/**
+	 * Pouty Porter.
+	 */
+	Hair13: { name: "hair", id: "1183623078287253574" },
+	/**
+	 * Dismayed Hunter.
+	 */
+	Hair14: { name: "hair", id: "1183623081353281536" },
+	/**
+	 * Apologetic Lumberjack.
+	 */
+	Hair15: { name: "hair", id: "1183623084310282290" },
+	/**
+	 * Tearful Light Miner.
+	 */
+	Hair16: { name: "hair", id: "1183623087393095791" },
+	/**
+	 * Confident Sightseer.
+	 */
+	Hair17: { name: "hair", id: "1183623090589155379" },
+	/**
+	 * Backflipping Champion.
+	 */
+	Hair18: { name: "hair", id: "1183623093965570069" },
+	/**
+	 * Cheerful Spectator.
+	 */
+	Hair19: { name: "hair", id: "1183623096830267412" },
+	/**
+	 * Bowing Medalist.
+	 */
+	Hair20: { name: "hair", id: "1183623100387033108" },
+	/**
+	 * Frightened Refugee.
+	 */
+	Hair21: { name: "hair", id: "1183623103360806963" },
+	/**
+	 * Fainting Warrior.
+	 */
+	Hair22: { name: "hair", id: "1183623106145828905" },
+	/**
+	 * Courageous Soldier.
+	 */
+	Hair23: { name: "hair", id: "1183623109404794930" },
+	/**
+	 * Stealthy Survivor.
+	 */
+	Hair24: { name: "hair", id: "1183623112886079521" },
+	/**
+	 * Saluting Captain.
+	 */
+	Hair25: { name: "hair", id: "1183623115754963024" },
+	/**
+	 * Praying Acolyte.
+	 */
+	Hair26: { name: "hair", id: "1183623119068483618" },
+	/**
+	 * Levitating Adept.
+	 */
+	Hair27: { name: "hair", id: "1183623122562326559" },
+	/**
+	 * Polite Scholar.
+	 */
+	Hair28: { name: "hair", id: "1183623125724839977" },
+	/**
+	 * Meditating Monastic.
+	 */
+	Hair29: { name: "hair", id: "1183623129445175376" },
+	/**
+	 * Elder of the Isle.
+	 */
+	Hair30: { name: "hair", id: "1183623132217614377" },
+	/**
+	 * Elder of the Prairie.
+	 */
+	Hair31: { name: "hair", id: "1183623135665328180" },
+	/**
+	 * Elder of the Forest.
+	 */
+	Hair32: { name: "hair", id: "1183623139003998208" },
+	/**
+	 * Elder of the Valley 1.
+	 */
+	Hair33: { name: "hair", id: "1183623141784817765" },
+	/**
+	 * Elder of the Valley 2.
+	 */
+	Hair34: { name: "hair", id: "1183623145190596610" },
+	/**
+	 * Elder of the Wasteland.
+	 */
+	Hair35: { name: "hair", id: "1183623148172742746" },
+	/**
+	 * Elder of the Vault.
+	 */
+	Hair36: { name: "hair", id: "1183623151305895966" },
+	/**
+	 * Sassy Drifter.
+	 */
+	Hair37: { name: "hair", id: "1183623154640375879" },
+	/**
+	 * Provoking Performer.
+	 */
+	Hair38: { name: "hair", id: "1183623158943715408" },
+	/**
+	 * Stretching Guru.
+	 */
+	Hair39: { name: "hair", id: "1183623162710216755" },
+	/**
+	 * Crab Whisperer.
+	 */
+	Hair40: { name: "hair", id: "1183623166082437241" },
+	/**
+	 * Twirling Champion.
+	 */
+	Hair41: { name: "hair", id: "1183623171354665050" },
+	/**
+	 * Piggyback Lightseeker.
+	 */
+	Hair42: { name: "hair", id: "1183623175012102144" },
+	/**
+	 * Laidback Pioneer.
+	 */
+	Hair43: { name: "hair", id: "1183623178090721280" },
+	/**
+	 * Doublefive Light Catcher.
+	 */
+	Hair44: { name: "hair", id: "1183623181446168626" },
+	/**
+	 * Hungry Pumpkin Hat.
+	 */
+	Hair45: { name: "hair", id: "1183623184696750101" },
+	/**
+	 * Confetti Cousin.
+	 */
+	Hair46: { name: "hair", id: "1183623188756840538" },
+	/**
+	 * Sparkler Parent.
+	 */
+	Hair47: { name: "hair", id: "1183623192175194143" },
+	/**
+	 * Days of Feast 2019.
+	 */
+	Hair48: { name: "hair", id: "1183623196528877608" },
+	/**
+	 * Festival Spin Dancer.
+	 */
+	Hair49: { name: "hair", id: "1183623199909494825" },
+	/**
+	 * Troupe Juggler.
+	 */
+	Hair50: { name: "hair", id: "1183623202488987682" },
+	/**
+	 * Respectful Pianist.
+	 */
+	Hair51: { name: "hair", id: "1183626759237804073" },
+	/**
+	 * Rhythm Guide (ultimate).
+	 */
+	Hair52: { name: "hair", id: "1183626763276914719" },
+	/**
+	 * Nodding Muralist.
+	 */
+	Hair53: { name: "hair", id: "1183626767156658216" },
+	/**
+	 * Scarecrow Farmer.
+	 */
+	Hair54: { name: "hair", id: "1183626770038140998" },
+	/**
+	 * Snoozing Carpenter.
+	 */
+	Hair55: { name: "hair", id: "1183626774689619978" },
+	/**
+	 * Crab Walker.
+	 */
+	Hair56: { name: "hair", id: "1183626780901396530" },
+	/**
+	 * Indifferent Alchemist.
+	 */
+	Hair57: { name: "hair", id: "1183626783703171095" },
+	/**
+	 * Playfighting Herbalist.
+	 */
+	Hair58: { name: "hair", id: "1183626786098135090" },
+	/**
+	 * Enchantment Ultimate.
+	 */
+	Hair59: { name: "hair", id: "1183626790439227473" },
+	/**
+	 * Jelly Whisperer.
+	 */
+	Hair60: { name: "hair", id: "1183626793874362562" },
+	/**
+	 * Timid Bookworm.
+	 */
+	Hair61: { name: "hair", id: "1183626798534250538" },
+	/**
+	 * Rallying Thrillseeker.
+	 */
+	Hair62: { name: "hair", id: "1183626802162315295" },
+	/**
+	 * Hiking Grouch.
+	 */
+	Hair63: { name: "hair", id: "1183626805949775882" },
+	/**
+	 * Grateful Shell Collector.
+	 */
+	Hair64: { name: "hair", id: "1183626809464594495" },
+	/**
+	 * Prophet of Water.
+	 */
+	Hair65: { name: "hair", id: "1183626813327560745" },
+	/**
+	 * Prophet of Earth.
+	 */
+	Hair66: { name: "hair", id: "1183626816213241876" },
+	/**
+	 * Prophet of Air.
+	 */
+	Hair67: { name: "hair", id: "1183626819119874110" },
+	/**
+	 * Prophet of Fire.
+	 */
+	Hair68: { name: "hair", id: "1183626822735376384" },
+	/**
+	 * Mischief Witch Hat.
+	 */
+	Hair69: { name: "hair", id: "1183626826032091167" },
+	/**
+	 * Bearhug Hermit.
+	 */
+	Hair70: { name: "hair", id: "1183626830264156222" },
+	/**
+	 * Dancing Performer.
+	 */
+	Hair71: { name: "hair", id: "1183626833976111114" },
+	/**
+	 * Spinning Mentor.
+	 */
+	Hair72: { name: "hair", id: "1183626837121835048" },
+	/**
+	 * Days of Fortune 2021 1.
+	 */
+	Hair73: { name: "hair", id: "1183626840137551922" },
+	/**
+	 * Days of Fortune Wool Hat.
+	 */
+	Hair74: { name: "hair", id: "1183626843874676808" },
+	/**
+	 * Days of Fortune 2021 2.
+	 */
+	Hair75: { name: "hair", id: "1183626847519527062" },
+	/**
+	 * Days of Bloom 2021.
+	 */
+	Hair76: { name: "hair", id: "1183626851579613204" },
+	/**
+	 * Assembly Guide (ultimate).
+	 */
+	Hair77: { name: "hair", id: "1183626855878762496" },
+	/**
+	 * Daydream Forester.
+	 */
+	Hair78: { name: "hair", id: "1183626860584763423" },
+	/**
+	 * Marching Adventurer.
+	 */
+	Hair79: { name: "hair", id: "1183626864523231304" },
+	/**
+	 * Baffled Botanist.
+	 */
+	Hair80: { name: "hair", id: "1183626868050628680" },
+	/**
+	 * Scolding Student.
+	 */
+	Hair81: { name: "hair", id: "1183626872437874688" },
+	/**
+	 * Scaredy Cadet.
+	 */
+	Hair82: { name: "hair", id: "1183626875805909082" },
+	/**
+	 * Rainbow Hat.
+	 */
+	Hair83: { name: "hair", id: "1183626878897115167" },
+	/**
+	 * Nintendo.
+	 */
+	Hair84: { name: "hair", id: "1183626882177044541" },
+	/**
+	 * Slouching Soldier.
+	 */
+	Hair85: { name: "hair", id: "1183626885972885534" },
+	/**
+	 * Gloating Narcissist.
+	 */
+	Hair86: { name: "hair", id: "1183626888724353125" },
+	/**
+	 * Stretching Lamplighter.
+	 */
+	Hair87: { name: "hair", id: "1183626890611806238" },
+	/**
+	 * Beckoning Ruler.
+	 */
+	Hair88: { name: "hair", id: "1183626894072094770" },
+	/**
+	 * Sneezing Geographer.
+	 */
+	Hair89: { name: "hair", id: "1183626897217814659" },
+	/**
+	 * The Rose (ultimate).
+	 */
+	Hair90: { name: "hair", id: "1183626899721818163" },
+	/**
+	 * Talented Builder.
+	 */
+	Hair91: { name: "hair", id: "1183626902695575653" },
+	/**
+	 * Tinkering Chimesmith.
+	 */
+	Hair92: { name: "hair", id: "1183626906571112489" },
+	/**
+	 * Light Whisperer.
+	 */
+	Hair93: { name: "hair", id: "1183626909658132550" },
+	/**
+	 * Lively Navigator.
+	 */
+	Hair94: { name: "hair", id: "1183626912589950989" },
+	/**
+	 * Days of Mischief 2021.
+	 */
+	Hair95: { name: "hair", id: "1183626915857301556" },
+	/**
+	 * Mischief Spider Hair.
+	 */
+	Hair96: { name: "hair", id: "1183626920517185547" },
+	/**
+	 * Days of Feast 2021.
+	 */
+	Hair97: { name: "hair", id: "1183626925063807056" },
+	/**
+	 * Cackling Cannoneer.
+	 */
+	Hair98: { name: "hair", id: "1183626928658325645" },
+	/**
+	 * Ceasing Commodore.
+	 */
+	Hair99: { name: "hair", id: "1183626931984404480" },
+	/**
+	 * Anxious Angler.
+	 */
+	Hair100: { name: "hair", id: "1183626935331459192" },
+	/**
+	 * Days of Fortune 2022 1.
+	 */
+	Hair101: { name: "hair", id: "1183627290123456514" },
+	/**
+	 * Kizuna AI.
+	 */
+	Hair102: { name: "hair", id: "1183627293424373811" },
+	/**
+	 * Performance Guide (ultimate).
+	 */
+	Hair103: { name: "hair", id: "1183627297706758254" },
+	/**
+	 * Modest Dancer.
+	 */
+	Hair104: { name: "hair", id: "1183627300663738418" },
+	/**
+	 * Frantic Stagehand.
+	 */
+	Hair105: { name: "hair", id: "1183627303247425537" },
+	/**
+	 * Forgetful Storyteller.
+	 */
+	Hair106: { name: "hair", id: "1183627306594488320" },
+	/**
+	 * Mellow Musician.
+	 */
+	Hair107: { name: "hair", id: "1183627310964953199" },
+	/**
+	 * Ancient Darkness (Dragon).
+	 */
+	Hair108: { name: "hair", id: "1183627314265853962" },
+	/**
+	 * Ancient Light (Manta).
+	 */
+	Hair109: { name: "hair", id: "1183627318246248478" },
+	/**
+	 * Ancient Light (Jellyfish).
+	 */
+	Hair110: { name: "hair", id: "1183627322096631909" },
+	/**
+	 * Seed of Hope.
+	 */
+	Hair111: { name: "hair", id: "1183627325187829881" },
+	/**
+	 * Running Wayfarer.
+	 */
+	Hair112: { name: "hair", id: "1183627329377939496" },
+	/**
+	 * Warrior of Love.
+	 */
+	Hair113: { name: "hair", id: "1183627333492555977" },
+	/**
+	 * Mindful Miner.
+	 */
+	Hair114: { name: "hair", id: "1183627336676016162" },
+	/**
+	 * Season of AURORA in-app purchase.
+	 */
+	Hair115: { name: "hair", id: "1183627340065030144" },
+	/**
+	 * AURORA Guide (ultimate).
+	 */
+	Hair116: { name: "hair", id: "1183627343466602570" },
+	/**
+	 * Days of Mischief 2022.
+	 */
+	Hair117: { name: "hair", id: "1183627346700415009" },
+	/**
+	 * PlayStation.
+	 */
+	Hair118: { name: "hair", id: "1183627350269771808" },
+	/**
+	 * Pleading Child.
+	 */
+	Hair119: { name: "hair", id: "1183627354329849886" },
+	/**
+	 * Bereft Veteran.
+	 */
+	Hair120: { name: "hair", id: "1183627358486417539" },
+	/**
+	 * Tiptoeing Tea-Brewer.
+	 */
+	Hair121: { name: "hair", id: "1183627362320011314" },
+	/**
+	 * Tumbling Troublemaker.
+	 */
+	Hair122: { name: "hair", id: "1183627365969051780" },
+	/**
+	 * Melancholy Mope.
+	 */
+	Hair123: { name: "hair", id: "1183627370033320037" },
+	/**
+	 * Overactive Overachiever.
+	 */
+	Hair124: { name: "hair", id: "1183627373049020446" },
+	/**
+	 * Oddball Outcast.
+	 */
+	Hair125: { name: "hair", id: "1183627376408658010" },
+	/**
+	 * Days of Music 2023.
+	 */
+	Hair126: { name: "hair", id: "1183627379512455209" },
+	/**
+	 * Nightbird Whisperer.
+	 */
+	Hair127: { name: "hair", id: "1183627383383785503" },
+	/**
+	 * Ascetic Monk.
+	 */
+	Hair128: { name: "hair", id: "1183627386307223623" },
+	/**
+	 * Jolly Geologist.
+	 */
+	Hair129: { name: "hair", id: "1183627390216323072" },
+	/**
+	 * Vestige of a Deserted Oasis.
+	 */
+	Hair130: { name: "hair", id: "1183627392657395722" },
+	/**
+	 * Memory of a Lost Village.
+	 */
+	Hair131: { name: "hair", id: "1183627395601813605" },
+	/**
+	 * Revival Guide (ultimate).
+	 */
+	Hair132: { name: "hair", id: "1183627399355703348" },
+	/**
+	 * Revival Guide (non-ultimate).
+	 */
+	Hair133: { name: "hair", id: "1183627402258157608" },
+	/**
+	 * Base 2.
+	 */
+	Hair134: { name: "hair", id: "1183627404988665926" },
+	/**
+	 * Base 3.
+	 */
+	Hair135: { name: "hair", id: "1183627407517818971" },
+} as const satisfies Readonly<Record<string, EmojiData>>;
+
+export type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
+
 export type Emoji =
 	| MiscellaneousEmojis
 	| EmotesEmojis
@@ -1184,7 +1732,8 @@ export type Emoji =
 	| ShoeEmojis
 	| MaskEmojis
 	| FaceAccessoryEmojis
-	| NecklaceEmojis;
+	| NecklaceEmojis
+	| HairEmojis;
 
 export async function cannotUseCustomEmojis(
 	interaction:
