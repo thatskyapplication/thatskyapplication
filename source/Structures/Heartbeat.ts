@@ -14,10 +14,6 @@ import DailyGuides from "./DailyGuides.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import Notification, { NotificationEvent, type NotificationSendExtra } from "./Notification.js";
 
-const AVIARY_FIREWORKS_FESTIVAL_FIRST_REMINDER_START_DATE = AVIARY_FIREWORK_FESTIVAL_FIRST_SHOW_START_DATE.minus({
-	minutes: 10,
-});
-
 let shardEruptionToday = shardEruption();
 
 async function sendNotification(client: Client<true>, type: NotificationEvent, extra?: NotificationSendExtra) {
@@ -86,16 +82,32 @@ export default function heartbeat(client: Client<true>): void {
 				}
 			}
 
+			const aviarysFireworkFestivalCheck = date.plus({ seconds: 600 });
+			const aviarysFireworkFestivalCheckUnix = aviarysFireworkFestivalCheck.toUnixInteger();
+
+			// TODO: Remove this once the event is over.
 			if (
 				isDuring(
-					AVIARY_FIREWORKS_FESTIVAL_FIRST_REMINDER_START_DATE,
+					AVIARY_FIREWORK_FESTIVAL_FIRST_SHOW_START_DATE,
 					AVIARY_FIREWORK_FESTIVAL_LAST_SHOW_END_DATE,
-					date,
+					aviarysFireworkFestivalCheck,
 				) &&
-				(hour + 1) % 4 === 0 &&
-				minute === 50
+				aviarysFireworkFestivalCheck.hour % 4 === 0 &&
+				aviarysFireworkFestivalCheck.minute === 0
 			) {
-				void sendNotification(client, NotificationEvent.AviarysFireworkFestival, { startTime: unix + 600 });
+				void sendNotification(client, NotificationEvent.AviarysFireworkFestival, {
+					startTime: aviarysFireworkFestivalCheckUnix,
+				});
+			}
+
+			if (
+				aviarysFireworkFestivalCheck.day === 1 &&
+				aviarysFireworkFestivalCheck.hour % 4 === 0 &&
+				aviarysFireworkFestivalCheck.minute === 0
+			) {
+				void sendNotification(client, NotificationEvent.AviarysFireworkFestival, {
+					startTime: aviarysFireworkFestivalCheckUnix,
+				});
 			}
 		}
 	}, 1_000);
