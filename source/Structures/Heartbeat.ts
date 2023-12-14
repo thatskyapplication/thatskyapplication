@@ -82,32 +82,18 @@ export default function heartbeat(client: Client<true>): void {
 				}
 			}
 
-			const aviarysFireworkFestivalCheck = date.plus({ seconds: 600 });
-			const aviarysFireworkFestivalCheckUnix = aviarysFireworkFestivalCheck.toUnixInteger();
-
-			// TODO: Remove this once the event is over.
+			// TODO: Remove `isDuring()` once the event is over.
 			if (
-				isDuring(
-					AVIARY_FIREWORK_FESTIVAL_FIRST_SHOW_START_DATE,
-					AVIARY_FIREWORK_FESTIVAL_LAST_SHOW_END_DATE,
-					aviarysFireworkFestivalCheck,
-				) &&
-				aviarysFireworkFestivalCheck.hour % 4 === 0 &&
-				aviarysFireworkFestivalCheck.minute === 0
+				(day === 1 ||
+					isDuring(
+						AVIARY_FIREWORK_FESTIVAL_FIRST_SHOW_START_DATE,
+						AVIARY_FIREWORK_FESTIVAL_LAST_SHOW_END_DATE,
+						date,
+					)) &&
+				hour % 4 === 0 &&
+				minute === 0
 			) {
-				void sendNotification(client, NotificationEvent.AviarysFireworkFestival, {
-					startTime: aviarysFireworkFestivalCheckUnix,
-				});
-			}
-
-			if (
-				aviarysFireworkFestivalCheck.day === 1 &&
-				aviarysFireworkFestivalCheck.hour % 4 === 0 &&
-				aviarysFireworkFestivalCheck.minute === 0
-			) {
-				void sendNotification(client, NotificationEvent.AviarysFireworkFestival, {
-					startTime: aviarysFireworkFestivalCheckUnix,
-				});
+				void sendNotification(client, NotificationEvent.AviarysFireworkFestival, { startTime: unix + 600 });
 			}
 		}
 	}, 1_000);
