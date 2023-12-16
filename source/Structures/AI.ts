@@ -28,7 +28,7 @@ export const AIFrequencyType = {
 	Disabled: 0,
 	VeryRare: 1,
 	Rare: 2,
-	Default: 3,
+	Normal: 3,
 	Common: 4,
 	VeryCommon: 5,
 } as const;
@@ -40,7 +40,7 @@ const AIFrequencyTypeToString = {
 	[AIFrequencyType.Disabled]: "Disabled",
 	[AIFrequencyType.VeryRare]: "Very rare",
 	[AIFrequencyType.Rare]: "Rare",
-	[AIFrequencyType.Default]: "Default",
+	[AIFrequencyType.Normal]: "Normal",
 	[AIFrequencyType.Common]: "Common",
 	[AIFrequencyType.VeryCommon]: "Very common",
 } as const satisfies Readonly<Record<AIFrequencyTypes, string>>;
@@ -49,7 +49,7 @@ export const AIFrequencyTypeToValue = {
 	[AIFrequencyType.Disabled]: 0,
 	[AIFrequencyType.VeryRare]: 0.000_1,
 	[AIFrequencyType.Rare]: 0.001,
-	[AIFrequencyType.Default]: 0.005,
+	[AIFrequencyType.Normal]: 0.005,
 	[AIFrequencyType.Common]: 0.01,
 	[AIFrequencyType.VeryCommon]: 0.05,
 } as const satisfies Readonly<Record<AIFrequencyTypes, number>>;
@@ -83,7 +83,7 @@ export default class AI {
 	}
 
 	private patch(data: AIPatchData) {
-		this.frequencyType = isAIFrequency(data.frequency_type) ? data.frequency_type : AIFrequencyType.Default;
+		this.frequencyType = isAIFrequency(data.frequency_type) ? data.frequency_type : AIFrequencyType.Disabled;
 		this.frequency = AIFrequencyTypeToValue[this.frequencyType];
 	}
 
@@ -134,7 +134,7 @@ export default class AI {
 						.setOptions(
 							AI_FREQUENCY_VALUES.map((aIFrequencyValue) => {
 								return new StringSelectMenuOptionBuilder()
-									.setDefault(aIFrequencyValue === (ai?.frequencyType ?? AIFrequencyType.Default))
+									.setDefault(aIFrequencyValue === ai?.frequencyType)
 									.setLabel(AIFrequencyTypeToString[aIFrequencyValue])
 									.setValue(String(aIFrequencyValue));
 							}),
