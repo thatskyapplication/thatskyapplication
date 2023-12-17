@@ -3,7 +3,13 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { EMOTES_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS, SEASON_EMOJIS } from "../../../../Utility/emojis.js";
+import {
+	EMOTES_EMOJIS,
+	HAIR_EMOJIS,
+	MASK_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	SEASON_EMOJIS,
+} from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
 	type ItemsData,
@@ -16,6 +22,7 @@ import {
 const emote = Emote.Facepalm;
 const emoteEmoji = EMOTES_EMOJIS.Facepalm;
 const maskEmoji = MASK_EMOJIS.Mask49;
+const hairEmoji = HAIR_EMOJIS.Hair80;
 
 export default new SeasonalSpirit({
 	name: SpiritName.BaffledBotanist,
@@ -29,7 +36,7 @@ export default new SeasonalSpirit({
 			.set(1 << 0, { item: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { item: `${emote} 2`, cost: null, emoji: emoteEmoji })
 			.set(1 << 2, { item: "Blessing 1", cost: { seasonalCandles: 10 } })
-			.set(1 << 8, { item: "Hair", cost: null })
+			.set(1 << 8, { item: "Hair", cost: null, emoji: hairEmoji })
 			.set(1 << 6, { item: `${emote} 3`, cost: { seasonalCandles: 12 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: null, emoji: emoteEmoji })
 			.set(1 << 3, { item: "Mask", cost: { seasonalCandles: 14 }, emoji: maskEmoji })
@@ -46,7 +53,7 @@ export default new SeasonalSpirit({
 			.set(1 << 5, { item: "Wing buff", cost: { ascendedCandles: 2 } })
 			.set(1 << 6, { item: `${emote} 3`, cost: { hearts: 3 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: { hearts: 6 }, emoji: emoteEmoji })
-			.set(1 << 8, { item: "Hair", cost: { candles: 45 } })
+			.set(1 << 8, { item: "Hair", cost: { candles: 45 }, emoji: hairEmoji })
 			.set(1 << 9, { item: "Blessing 2", cost: { candles: 5 } })
 			.set(1 << 10, { item: "Prop", cost: { candles: 45 } }),
 	},

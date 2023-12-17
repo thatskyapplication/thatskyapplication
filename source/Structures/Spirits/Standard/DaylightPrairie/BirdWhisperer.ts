@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { CALLS_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { CALLS_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { type ItemsData, Call, SpiritName, StandardSpirit } from "../../Base.js";
 
 const call = Call.Bird;
@@ -19,6 +19,6 @@ export default new StandardSpirit({
 			.set(1 << 3, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
 			.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 } })
-			.set(1 << 6, { item: "Hair", cost: { hearts: 5 } }),
+			.set(1 << 6, { item: "Hair", cost: { hearts: 5 }, emoji: HAIR_EMOJIS.Hair09 }),
 	},
 });

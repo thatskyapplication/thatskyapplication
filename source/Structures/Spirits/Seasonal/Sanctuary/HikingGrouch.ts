@@ -5,10 +5,11 @@ import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	EMOTES_EMOJIS,
-	SEASON_EMOJIS,
-	MISCELLANEOUS_EMOJIS,
+	HAIR_EMOJIS,
 	MASK_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
+	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
@@ -23,6 +24,7 @@ const emote = Emote.Grumpy;
 const emoteEmoji = EMOTES_EMOJIS.Grumpy;
 const maskEmoji = MASK_EMOJIS.Mask31;
 const necklaceEmoji = NECKLACE_EMOJIS.Necklace07;
+const hairEmoji = HAIR_EMOJIS.Hair63;
 
 export default new SeasonalSpirit({
 	name: SpiritName.HikingGrouch,
@@ -38,7 +40,7 @@ export default new SeasonalSpirit({
 			.set(1 << 4, { item: "Mask", cost: null, emoji: maskEmoji })
 			.set(1 << 7, { item: `${emote} 3`, cost: { seasonalCandles: 14 }, emoji: emoteEmoji })
 			.set(1 << 8, { item: `${emote} 4`, cost: null, emoji: emoteEmoji })
-			.set(1 << 9, { item: "Hair", cost: { seasonalCandles: 16 } })
+			.set(1 << 9, { item: "Hair", cost: { seasonalCandles: 16 }, emoji: hairEmoji })
 			.set(1 << 10, { item: "Blessing 2", cost: null })
 			.set(1 << 12, { item: "Blessing 3", cost: { seasonalCandles: 18 } })
 			.set(1 << 11, { item: "Bow tie", cost: null, emoji: necklaceEmoji })
@@ -53,7 +55,7 @@ export default new SeasonalSpirit({
 			.set(1 << 6, { item: "Wing buff", cost: { ascendedCandles: 2 } })
 			.set(1 << 7, { item: `${emote} 3`, cost: { hearts: 3 }, emoji: emoteEmoji })
 			.set(1 << 8, { item: `${emote} 4`, cost: { hearts: 6 }, emoji: emoteEmoji })
-			.set(1 << 9, { item: "Hair", cost: { candles: 42 } })
+			.set(1 << 9, { item: "Hair", cost: { candles: 42 }, emoji: hairEmoji })
 			.set(1 << 10, { item: "Blessing 2", cost: { candles: 5 } })
 			.set(1 << 11, { item: "Bow tie", cost: { candles: 50 }, emoji: necklaceEmoji }),
 	},

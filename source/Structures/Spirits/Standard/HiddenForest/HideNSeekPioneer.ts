@@ -1,7 +1,13 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { EMOTES_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../Utility/emojis.js";
+import {
+	EMOTES_EMOJIS,
+	HAIR_EMOJIS,
+	MASK_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	OUTFIT_EMOJIS,
+} from "../../../../Utility/emojis.js";
 import { type ItemsData, Emote, SpiritName, StandardSpirit } from "../../Base.js";
 
 const emote = Emote.HideAndSeek;
@@ -14,7 +20,7 @@ export default new StandardSpirit({
 	offer: {
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: emote, cost: null, emoji: emoteEmoji })
-			.set(1 << 1, { item: "Hair", cost: { hearts: 2 } })
+			.set(1 << 1, { item: "Hair", cost: { hearts: 2 }, emoji: HAIR_EMOJIS.Hair12 })
 			.set(1 << 2, { item: "Blessing 1", cost: { candles: 1 } })
 			.set(1 << 3, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 4, { item: "Wing buff 1", cost: { ascendedCandles: 3 } })

@@ -1702,11 +1702,11 @@ export const HAIR_EMOJIS = {
 	 */
 	Hair131: { name: "hair", id: "1183627395601813605" },
 	/**
-	 * Revival Guide (ultimate).
+	 * Hopeful Steward (ultimate).
 	 */
 	Hair132: { name: "hair", id: "1183627399355703348" },
 	/**
-	 * Revival Guide (non-ultimate).
+	 * Hopeful Steward (non-ultimate).
 	 */
 	Hair133: { name: "hair", id: "1183627402258157608" },
 	/**

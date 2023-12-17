@@ -3,13 +3,20 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { CALLS_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS, SEASON_EMOJIS } from "../../../../Utility/emojis.js";
+import {
+	CALLS_EMOJIS,
+	HAIR_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	OUTFIT_EMOJIS,
+	SEASON_EMOJIS,
+} from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, type SeasonalSpiritVisitCollectionKey, Call, SeasonalSpirit, SpiritName } from "../../Base.js";
 
 const call = Call.Jellyfish;
 const callEmoji = CALLS_EMOJIS.Jellyfish;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit15;
+const hairEmoji = HAIR_EMOJIS.Hair60;
 
 export default new SeasonalSpirit({
 	name: SpiritName.JellyWhisperer,
@@ -21,7 +28,7 @@ export default new SeasonalSpirit({
 			.set(1 << 0, { item: `${call} call`, cost: null, emoji: callEmoji })
 			.set(1 << 2, { item: "Music sheet", cost: { seasonalCandles: 6 } })
 			.set(1 << 1, { item: "Blessing 1", cost: null })
-			.set(1 << 5, { item: "Hair", cost: { seasonalCandles: 8 } })
+			.set(1 << 5, { item: "Hair", cost: { seasonalCandles: 8 }, emoji: hairEmoji })
 			.set(1 << 6, { item: "Blessing 2", cost: null })
 			.set(1 << 9, { item: "Blessing 3", cost: { seasonalCandles: 10 } })
 			.set(1 << 8, { item: "Outfit", cost: null, emoji: outfitEmoji })
@@ -34,7 +41,7 @@ export default new SeasonalSpirit({
 			.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
 			.set(1 << 6, { item: "Blessing 2", cost: { candles: 5 } })
 			.set(1 << 7, { item: "Umbrella", cost: { hearts: 15 } })
-			.set(1 << 5, { item: "Hair", cost: { candles: 42 } })
+			.set(1 << 5, { item: "Hair", cost: { candles: 42 }, emoji: hairEmoji })
 			.set(1 << 8, { item: "Outfit", cost: { candles: 65 }, emoji: outfitEmoji }),
 	},
 	visits: {

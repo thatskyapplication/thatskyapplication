@@ -6,6 +6,7 @@ import { skyDate } from "../../../../Utility/dates.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
 	FRIEND_ACTIONS_EMOJIS,
+	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
 	SEASON_EMOJIS,
@@ -23,6 +24,7 @@ const action = FriendAction.Bearhug;
 const actionEmoji = FRIEND_ACTIONS_EMOJIS.Bearhug;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit19;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory12;
+const hairEmoji = HAIR_EMOJIS.Hair70;
 
 export default new SeasonalSpirit({
 	name: SpiritName.BearhugHermit,
@@ -40,7 +42,7 @@ export default new SeasonalSpirit({
 			.set(1 << 1, { item: "Music sheet", cost: null })
 			.set(1 << 10, { item: "Blessing 3", cost: { seasonalCandles: 23 } })
 			.set(1 << 7, { item: `${action} 2`, cost: null, emoji: actionEmoji })
-			.set(1 << 8, { item: "Hair", cost: { seasonalCandles: 29 } })
+			.set(1 << 8, { item: "Hair", cost: { seasonalCandles: 29 }, emoji: hairEmoji })
 			.set(1 << 9, { item: "Outfit", cost: null, emoji: outfitEmoji })
 			.set(1 << 4, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.DreamsHeart }),
 		current: new Collection<number, ItemsData>()
@@ -52,7 +54,7 @@ export default new SeasonalSpirit({
 			.set(1 << 5, { item: "Wing buff", cost: { ascendedCandles: 2 } })
 			.set(1 << 6, { item: "Blessing 2", cost: { candles: 5 } })
 			.set(1 << 7, { item: `${action} 2`, cost: { hearts: 8 }, emoji: actionEmoji })
-			.set(1 << 8, { item: "Hair", cost: { candles: 50 } })
+			.set(1 << 8, { item: "Hair", cost: { candles: 50 }, emoji: hairEmoji })
 			.set(1 << 9, { item: "Outfit", cost: { candles: 70 }, emoji: outfitEmoji }),
 	},
 	keywords: ["yeti"],

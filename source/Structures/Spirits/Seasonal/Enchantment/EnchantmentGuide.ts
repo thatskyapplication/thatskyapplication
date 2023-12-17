@@ -4,6 +4,7 @@ import { Realm } from "../../../../Utility/Constants.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
 	FRIEND_ACTIONS_EMOJIS,
+	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
 } from "../../../../Utility/emojis.js";
@@ -25,7 +26,7 @@ export default new GuideSpirit({
 				cost: { seasonalHearts: 2 },
 				emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory09,
 			})
-			.set(1 << 4, { item: "Turban", cost: { seasonalHearts: 4 } })
+			.set(1 << 4, { item: "Turban", cost: { seasonalHearts: 4 }, emoji: HAIR_EMOJIS.Hair59 })
 			.set(1 << 5, { item: "Quest 2", cost: null })
 			.set(1 << 6, { item: "Heart 2", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 7, { item: "Quest 3", cost: null })

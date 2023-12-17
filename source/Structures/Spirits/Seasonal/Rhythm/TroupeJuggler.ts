@@ -3,7 +3,13 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { EMOTES_EMOJIS, SEASON_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../Utility/emojis.js";
+import {
+	EMOTES_EMOJIS,
+	SEASON_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	OUTFIT_EMOJIS,
+	HAIR_EMOJIS,
+} from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
 	type ItemsData,
@@ -16,6 +22,7 @@ import {
 const emote = Emote.Juggle;
 const emoteEmoji = EMOTES_EMOJIS.Juggle;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit12;
+const hairEmoji = HAIR_EMOJIS.Hair50;
 
 export default new SeasonalSpirit({
 	name: SpiritName.TroupeJuggler,
@@ -26,7 +33,7 @@ export default new SeasonalSpirit({
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { item: `${emote} 2`, cost: null, emoji: emoteEmoji })
-			.set(1 << 4, { item: "Hair", cost: { seasonalCandles: 12 } })
+			.set(1 << 4, { item: "Hair", cost: { seasonalCandles: 12 }, emoji: hairEmoji })
 			.set(1 << 3, { item: "Blessing 1", cost: null })
 			.set(1 << 7, { item: `${emote} 3`, cost: { seasonalCandles: 14 }, emoji: emoteEmoji })
 			.set(1 << 8, { item: `${emote} 4`, cost: null, emoji: emoteEmoji })
@@ -40,7 +47,7 @@ export default new SeasonalSpirit({
 			.set(1 << 1, { item: `${emote} 2`, cost: { hearts: 4 }, emoji: emoteEmoji })
 			.set(1 << 2, { item: "Prop", cost: { hearts: 14 } })
 			.set(1 << 3, { item: "Blessing 1", cost: { candles: 5 } })
-			.set(1 << 4, { item: "Hair", cost: { candles: 42 } })
+			.set(1 << 4, { item: "Hair", cost: { candles: 42 }, emoji: hairEmoji })
 			.set(1 << 5, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 6, { item: "Wing buff", cost: { ascendedCandles: 2 } })
 			.set(1 << 7, { item: `${emote} 3`, cost: { hearts: 3 }, emoji: emoteEmoji })

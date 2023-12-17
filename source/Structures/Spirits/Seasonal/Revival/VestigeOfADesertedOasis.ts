@@ -1,10 +1,11 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { SEASON_EMOJIS, SHOE_EMOJIS } from "../../../../Utility/emojis.js";
+import { HAIR_EMOJIS, SEASON_EMOJIS, SHOE_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, SeasonalSpirit, SpiritName } from "../../Base.js";
 
 const shoeEmoji = SHOE_EMOJIS.Shoe09;
+const hairEmoji = HAIR_EMOJIS.Hair130;
 
 export default new SeasonalSpirit({
 	name: SpiritName.VestigeOfADesertedOasis,
@@ -12,7 +13,7 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: new Collection<number, ItemsData>()
-			.set(1 << 0, { item: "Hair", cost: { seasonalCandles: 16 } })
+			.set(1 << 0, { item: "Hair", cost: { seasonalCandles: 16 }, emoji: hairEmoji })
 			.set(1 << 1, { item: "Blessing 1", cost: null })
 			.set(1 << 2, { item: "Blessing 2", cost: { seasonalCandles: 28 } })
 			.set(1 << 3, { item: "Cape", cost: null })
