@@ -69,7 +69,7 @@ const EVENTS = [
 		name: "Days of Feast",
 		start: skyDate(2_023, 12, 18),
 		end: skyDate(2_024, 1, 7),
-		url: null,
+		url: String(new URL("daily_guides/events/days_of_feast/2023.webp", CDN_URL)),
 		eventCurrencyPerDay: 5,
 		eventCurrencyEmoji: EMOJI.EventFeast,
 	}),
