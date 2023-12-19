@@ -1721,6 +1721,146 @@ export const HAIR_EMOJIS = {
 
 export type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
 
+/**
+ * Emojis from the hair accessory server.
+ */
+export const HAIR_ACCESSORY_EMOJIS = {
+	/**
+	 * Days of Healing.
+	 */
+	HairAccessory01: { name: "hair_accessory", id: "1186592068986998866" },
+	/**
+	 * Chill Sunbather.
+	 */
+	HairAccessory02: { name: "hair_accessory", id: "1186592073378435152" },
+	/**
+	 * First Sky Anniversary.
+	 */
+	HairAccessory03: { name: "hair_accessory", id: "1186592076985536642" },
+	/**
+	 * Days of Fortune Orange.
+	 */
+	HairAccessory04: { name: "hair_accessory", id: "1186592079699267584" },
+	/**
+	 * Days of Rainbow 2021.
+	 */
+	HairAccessory05: { name: "hair_accessory", id: "1186592082941444167" },
+	/**
+	 * Second Sky Anniversary.
+	 */
+	HairAccessory06: { name: "hair_accessory", id: "1186592086414331974" },
+	/**
+	 * Days of Summer 2021.
+	 */
+	HairAccessory07: { name: "hair_accessory", id: "1186592088981246063" },
+	/**
+	 * Bunny Accessory.
+	 */
+	HairAccessory08: { name: "hair_accessory", id: "1186592091749490719" },
+	/**
+	 * Light Whisperer.
+	 */
+	HairAccessory09: { name: "hair_accessory", id: "1186592094337368104" },
+	/**
+	 * Tinkering Chimesmith.
+	 */
+	HairAccessory10: { name: "hair_accessory", id: "1186592096648445964" },
+	/**
+	 * Lively Navigator.
+	 */
+	HairAccessory11: { name: "hair_accessory", id: "1186592099991306250" },
+	/**
+	 * Flight Guide (ultimate).
+	 */
+	HairAccessory12: { name: "hair_accessory", id: "1186592102805680189" },
+	/**
+	 * Snowflake Hair Accessory.
+	 */
+	HairAccessory13: { name: "hair_accessory", id: "1186592105800421426" },
+	/**
+	 * Bumbling Boatswain.
+	 */
+	HairAccessory14: { name: "hair_accessory", id: "1186592108614791223" },
+	/**
+	 * Days of Fortune Fish Accessory.
+	 */
+	HairAccessory15: { name: "hair_accessory", id: "1186592111739535422" },
+	/**
+	 * Days of Love 2022.
+	 */
+	HairAccessory16: { name: "hair_accessory", id: "1186592114688147547" },
+	/**
+	 * Kizuna AI.
+	 */
+	HairAccessory17: { name: "hair_accessory", id: "1186592118131662940" },
+	/**
+	 * Days of Nature 2022.
+	 */
+	HairAccessory18: { name: "hair_accessory", id: "1186592120908288031" },
+	/**
+	 * Harmony Hall Grand Opening.
+	 */
+	HairAccessory19: { name: "hair_accessory", id: "1186592123978522675" },
+	/**
+	 * Days of Rainbow 2022.
+	 */
+	HairAccessory20: { name: "hair_accessory", id: "1186592126725791764" },
+	/**
+	 * Ancient Darkness (plant).
+	 */
+	HairAccessory21: { name: "hair_accessory", id: "1186592129544360066" },
+	/**
+	 * Ancient Light (jellyfish).
+	 */
+	HairAccessory22: { name: "hair_accessory", id: "1186592132203544621" },
+	/**
+	 * Third Sky Anniversary.
+	 */
+	HairAccessory23: { name: "hair_accessory", id: "1186592135542231111" },
+	/**
+	 * Seashell Hairpin.
+	 */
+	HairAccessory24: { name: "hair_accessory", id: "1186592138612441149" },
+	/**
+	 * Reassuring Ranger.
+	 */
+	HairAccessory25: { name: "hair_accessory", id: "1186592144924868638" },
+	/**
+	 * Nightbird Whisperer.
+	 */
+	HairAccessory26: { name: "hair_accessory", id: "1186592147441471549" },
+	/**
+	 * Moments Guide (ultimate).
+	 */
+	HairAccessory27: { name: "hair_accessory", id: "1186592150243250257" },
+	/**
+	 * Fourth Sky Anniversary.
+	 */
+	HairAccessory28: { name: "hair_accessory", id: "1186592153175072838" },
+	/**
+	 * Days of Style 2023.
+	 */
+	HairAccessory29: { name: "hair_accessory", id: "1186592155414839306" },
+	/**
+	 * Echo of an Abandoned Refuge.
+	 */
+	HairAccessory30: { name: "hair_accessory", id: "1186592157889482782" },
+	/**
+	 * Remnant of a Forgotten Haven.
+	 */
+	HairAccessory31: { name: "hair_accessory", id: "1186592160011784288" },
+	/**
+	 * Days of Mischief 2023.
+	 */
+	HairAccessory32: { name: "hair_accessory", id: "1186592162981347328" },
+	/**
+	 * Moth Appreciation.
+	 */
+	HairAccessory33: { name: "hair_accessory", id: "1186592165158203455" },
+} as const satisfies Readonly<Record<string, EmojiData>>;
+
+export type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
+
 export type Emoji =
 	| MiscellaneousEmojis
 	| EmotesEmojis
@@ -1733,7 +1873,8 @@ export type Emoji =
 	| MaskEmojis
 	| FaceAccessoryEmojis
 	| NecklaceEmojis
-	| HairEmojis;
+	| HairEmojis
+	| HairAccessoryEmojis;
 
 export async function cannotUseCustomEmojis(
 	interaction:
