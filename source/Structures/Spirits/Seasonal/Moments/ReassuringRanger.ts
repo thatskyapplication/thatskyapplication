@@ -4,6 +4,7 @@ import { Realm } from "../../../../Utility/Constants.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
 	FRIEND_ACTIONS_EMOJIS,
+	HAIR_ACCESSORY_EMOJIS,
 	MASK_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
@@ -14,6 +15,7 @@ const action = FriendAction.SideHug;
 const actionEmoji = FRIEND_ACTIONS_EMOJIS.SideHug;
 const maskEmoji = MASK_EMOJIS.Mask81;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory27;
+const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory25;
 
 export default new SeasonalSpirit({
 	name: SpiritName.ReassuringRanger,
@@ -31,7 +33,7 @@ export default new SeasonalSpirit({
 			.set(1 << 5, { item: "Blessing 2", cost: null })
 			.set(1 << 6, { item: "Blessing 3", cost: { seasonalCandles: 30 } })
 			.set(1 << 7, { item: "Cape", cost: null })
-			.set(1 << 8, { item: "Hair accessory", cost: { seasonalCandles: 36 } })
+			.set(1 << 8, { item: "Hair accessory", cost: { seasonalCandles: 36 }, emoji: hairAccessoryEmoji })
 			.set(1 << 9, { item: "Blessing 4", cost: null })
 			.set(1 << 10, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.MomentsHeart }),
 	},

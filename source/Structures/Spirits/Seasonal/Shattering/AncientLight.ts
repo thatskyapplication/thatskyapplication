@@ -1,12 +1,13 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { HAIR_EMOJIS, OUTFIT_EMOJIS, SEASON_EMOJIS } from "../../../../Utility/emojis.js";
+import { HAIR_ACCESSORY_EMOJIS, HAIR_EMOJIS, OUTFIT_EMOJIS, SEASON_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, SeasonalSpirit, SpiritName } from "../../Base.js";
 
 const outfitEmoji = OUTFIT_EMOJIS.Outfit34;
 const hairEmoji1 = HAIR_EMOJIS.Hair109;
 const hairEmoji2 = HAIR_EMOJIS.Hair110;
+const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory22;
 
 export default [
 	new SeasonalSpirit({
@@ -18,7 +19,7 @@ export default [
 				.set(1 << 0, { item: "Hair", cost: { seasonalCandles: 35 }, emoji: hairEmoji2 })
 				.set(1 << 1, { item: "Blessing 1", cost: null })
 				.set(1 << 2, { item: "Blessing 2", cost: { seasonalCandles: 16 } })
-				.set(1 << 3, { item: "Hair accessory", cost: null })
+				.set(1 << 3, { item: "Hair accessory", cost: null, emoji: hairAccessoryEmoji })
 				.set(1 << 4, { item: "Cape", cost: { seasonalCandles: 42 } })
 				.set(1 << 5, { item: "Blessing 3", cost: null })
 				.set(1 << 6, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.ShatteringHeart }),
