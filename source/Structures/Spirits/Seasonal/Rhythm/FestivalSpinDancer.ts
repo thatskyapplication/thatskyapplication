@@ -20,7 +20,6 @@ export default new SeasonalSpirit({
 	expression,
 	realm: Realm.DaylightPrairie,
 	offer: {
-		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${expression} 1`, cost: null })
 			.set(1 << 1, { item: `${expression} 2`, cost: null })
