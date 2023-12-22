@@ -363,6 +363,11 @@ interface SpiritTrackerData {
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
 type SpiritTracketSetData = Partial<Omit<SpiritTrackerPacket, "user_id">>;
 
+interface ElderProgressOptions {
+	spirit?: ElderSpirit;
+	round?: boolean;
+}
+
 interface SeasonProgressOptions {
 	season?: SeasonName;
 	round?: boolean;
@@ -1316,11 +1321,29 @@ export class SpiritTracker {
 		);
 	}
 
-	public elderProgress() {
-		return this.averageProgress(
-			Elder.map(({ name, offer }) => bitPercentage(this[SpiritNameToSpiritTrackerName[name]], offer.current)),
-			true,
-		);
+	public elderProgress({ spirit, round }: ElderProgressOptions = {}) {
+		const spirits = spirit ? [spirit] : Elder;
+		const numbers = [];
+		let total = 0;
+
+		for (const spirit of spirits) {
+			const resolvedOffer = spirit.offer.current;
+
+			if (!resolvedOffer) {
+				numbers.push(0);
+				continue;
+			}
+
+			const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
+			numbers.push(resolvedOffer.filter((_, itemBit) => bit && (bit & itemBit) === itemBit).size);
+			total += resolvedOffer.size;
+		}
+
+		if (total === 0) return null;
+		const percentage = (numbers.reduce((totalNumber, number) => totalNumber + number, 0) / total) * 100;
+		if (!round) return percentage;
+		const integer = Math.trunc(percentage);
+		return integer === 0 ? Math.ceil(percentage) : integer === 99 ? Math.floor(percentage) : Math.round(percentage);
 	}
 
 	public seasonProgress({ season, round }: SeasonProgressOptions = {}) {
@@ -1363,7 +1386,7 @@ export class SpiritTracker {
 		}
 
 		const standardProgress = spiritTracker.standardProgress();
-		const elderProgress = spiritTracker.elderProgress();
+		const elderProgress = spiritTracker.elderProgress({ round: true });
 		const seasonalProgress = spiritTracker.seasonProgress({ round: true });
 
 		const response = {
@@ -1383,10 +1406,16 @@ export class SpiritTracker {
 										label = `${resolveSpiritTypeToString(spiritType)} (${standardProgress}%)`;
 										break;
 									case SPIRIT_TYPE.Elder:
-										label = `${resolveSpiritTypeToString(spiritType)} (${elderProgress}%)`;
+										label = `${resolveSpiritTypeToString(spiritType)}${
+											elderProgress === null ? "" : ` (${elderProgress}%)`
+										}`;
+
 										break;
 									case SPIRIT_TYPE.Seasonal:
-										label = `${resolveSpiritTypeToString(spiritType)} (${seasonalProgress}%)`;
+										label = `${resolveSpiritTypeToString(spiritType)}${
+											seasonalProgress === null ? "" : ` (${seasonalProgress}%)`
+										}`;
+
 										break;
 								}
 
@@ -1571,11 +1600,13 @@ export class SpiritTracker {
 		const spiritTracker = await this.fetch(interaction.user.id);
 		let hasEverything = true;
 
-		const options = Elder.map(({ name, offer }) => {
-			const bit = spiritTracker[SpiritNameToSpiritTrackerName[name]];
-			const percentage = bitPercentage(bit, offer.current, true);
-			if (percentage !== 100) hasEverything = false;
-			return new StringSelectMenuOptionBuilder().setLabel(`${name} (${percentage}%)`).setValue(name);
+		const options = Elder.map((spirit) => {
+			const percentage = spiritTracker.elderProgress({ spirit, round: true });
+			if (percentage && percentage !== 100) hasEverything = false;
+
+			return new StringSelectMenuOptionBuilder()
+				.setLabel(`${spirit.name}${percentage === null ? "" : ` (${percentage}%)`}`)
+				.setValue(spirit.name);
 		});
 
 		const resolvedRemainingCurrency = resolveOfferToCurrency(
