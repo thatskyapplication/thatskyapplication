@@ -363,6 +363,11 @@ interface SpiritTrackerData {
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
 type SpiritTracketSetData = Partial<Omit<SpiritTrackerPacket, "user_id">>;
 
+interface SeasonProgressOptions {
+	season?: SeasonName;
+	round?: boolean;
+}
+
 const SpiritTrackerNameToRawName = {
 	[SpiritName.PointingCandlemaker]: "pointing_candlemaker",
 	[SpiritName.UsheringStargazer]: "ushering_stargazer",
@@ -1318,11 +1323,31 @@ export class SpiritTracker {
 		);
 	}
 
-	public seasonalProgress() {
-		return this.averageProgress(
-			validSeasons.map((season) => this.averageProgress(this.seasonProgress(season))),
-			true,
-		);
+	public seasonProgress({ season, round }: SeasonProgressOptions = {}) {
+		const spirits = season ? Seasonal.filter((spirit) => spirit.season === season) : Seasonal;
+		const numbers = [];
+		let total = 0;
+
+		for (const spirit of spirits) {
+			const resolvedOffer = spirit.isGuideSpirit()
+				? spirit.offer?.current ?? null
+				: spirit.offer.current ?? spirit.offer.seasonal;
+
+			if (!resolvedOffer) {
+				numbers.push(0);
+				continue;
+			}
+
+			const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
+			numbers.push(resolvedOffer.filter((_, itemBit) => bit && (bit & itemBit) === itemBit).size);
+			total += resolvedOffer.size;
+		}
+
+		if (total === 0) return null;
+		const percentage = (numbers.reduce((totalNumber, number) => totalNumber + number, 0) / total) * 100;
+		if (!round) return percentage;
+		const integer = Math.trunc(percentage);
+		return integer === 0 ? Math.ceil(percentage) : integer === 99 ? Math.floor(percentage) : Math.round(percentage);
 	}
 
 	public static async viewTracker(interaction: ButtonInteraction | ChatInputCommandInteraction) {
@@ -1339,7 +1364,7 @@ export class SpiritTracker {
 
 		const standardProgress = spiritTracker.standardProgress();
 		const elderProgress = spiritTracker.elderProgress();
-		const seasonalProgress = spiritTracker.seasonalProgress();
+		const seasonalProgress = spiritTracker.seasonProgress({ round: true });
 
 		const response = {
 			content: "",
@@ -1589,20 +1614,6 @@ export class SpiritTracker {
 		});
 	}
 
-	public seasonProgress(season: SeasonName, round?: boolean) {
-		return Seasonal.filter((spirit) => spirit.season === season).map((spirit) =>
-			spirit.isGuideSpirit()
-				? spirit.offer?.current
-					? bitPercentage(this[SpiritNameToSpiritTrackerName[spirit.name]], spirit.offer.current, round)
-					: 100
-				: bitPercentage(
-						this[SpiritNameToSpiritTrackerName[spirit.name]],
-						spirit.offer.current ?? spirit.offer.seasonal,
-						round,
-				  ),
-		);
-	}
-
 	public static async viewSeasons(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		const spiritTracker = await this.fetch(interaction.user.id);
 
@@ -1615,12 +1626,14 @@ export class SpiritTracker {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							validSeasons.map((season) =>
-								new StringSelectMenuOptionBuilder()
+							validSeasons.map((season) => {
+								const percentage = spiritTracker.seasonProgress({ season, round: true });
+
+								return new StringSelectMenuOptionBuilder()
 									.setEmoji(SeasonNameToSeasonalEmoji[season])
-									.setLabel(`${season} (${spiritTracker.averageProgress(spiritTracker.seasonProgress(season), true)}%)`)
-									.setValue(season),
-							),
+									.setLabel(`${season}${percentage === null ? "" : ` (${percentage}%)`}`)
+									.setValue(season);
+							}),
 						)
 						.setPlaceholder("Select a season!"),
 				),
@@ -1646,11 +1659,14 @@ export class SpiritTracker {
 			const percentage = spirit.isGuideSpirit()
 				? spirit.offer?.current
 					? bitPercentage(bit, spirit.offer.current, true)
-					: 100
+					: null
 				: bitPercentage(bit, spirit.offer.current ?? spirit.offer.seasonal, true);
 
-			if (percentage !== 100) hasEverything = false;
-			return new StringSelectMenuOptionBuilder().setLabel(`${name} (${percentage}%)`).setValue(name);
+			if (percentage && percentage !== 100) hasEverything = false;
+
+			return new StringSelectMenuOptionBuilder()
+				.setLabel(`${name}${percentage === null ? "" : ` (${percentage}%)`}`)
+				.setValue(name);
 		});
 
 		const currentSeason = resolveSeason(todayDate())?.name === season;
