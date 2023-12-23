@@ -28,6 +28,7 @@ import {
 	type SpiritCost,
 	type SpiritType,
 	type StandardSpirit,
+	type StandardSpiritRealm,
 	addCurrency,
 	SpiritName,
 	SPIRIT_TYPE,
@@ -362,6 +363,11 @@ interface SpiritTrackerData {
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
 type SpiritTracketSetData = Partial<Omit<SpiritTrackerPacket, "user_id">>;
+
+interface StandardProgressOptions {
+	realm?: StandardSpiritRealm;
+	round?: boolean;
+}
 
 interface ElderProgressOptions {
 	spirit?: ElderSpirit;
@@ -711,7 +717,7 @@ export const SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT
 const SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT = 24 as const;
 const SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE = "Averages are calculated even beyond the second wing buff." as const;
 
-const validRealms = Standard.reduce<Realm[]>((realms, { realm }) => {
+const validRealms = Standard.reduce<StandardSpiritRealm[]>((realms, { realm }) => {
 	if (!realms.includes(realm)) realms.push(realm);
 	return realms;
 }, []);
@@ -1314,11 +1320,29 @@ export class SpiritTracker {
 		return progress;
 	}
 
-	public standardProgress() {
-		return this.averageProgress(
-			validRealms.map((realm) => this.averageProgress(this.realmProgress(realm))),
-			true,
-		);
+	public standardProgress({ realm, round }: StandardProgressOptions = {}) {
+		const spirits = realm ? Standard.filter((spirit) => spirit.realm === realm) : Standard;
+		const numbers = [];
+		let total = 0;
+
+		for (const spirit of spirits) {
+			const resolvedOffer = spirit.offer.current;
+
+			if (!resolvedOffer) {
+				numbers.push(0);
+				continue;
+			}
+
+			const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
+			numbers.push(resolvedOffer.filter((_, itemBit) => bit && (bit & itemBit) === itemBit).size);
+			total += resolvedOffer.size;
+		}
+
+		if (total === 0) return null;
+		const percentage = (numbers.reduce((totalNumber, number) => totalNumber + number, 0) / total) * 100;
+		if (!round) return percentage;
+		const integer = Math.trunc(percentage);
+		return integer === 0 ? Math.ceil(percentage) : integer === 99 ? Math.floor(percentage) : Math.round(percentage);
 	}
 
 	public elderProgress({ spirit, round }: ElderProgressOptions = {}) {
@@ -1385,7 +1409,7 @@ export class SpiritTracker {
 			);
 		}
 
-		const standardProgress = spiritTracker.standardProgress();
+		const standardProgress = spiritTracker.standardProgress({ round: true });
 		const elderProgress = spiritTracker.elderProgress({ round: true });
 		const seasonalProgress = spiritTracker.seasonProgress({ round: true });
 
@@ -1499,12 +1523,6 @@ export class SpiritTracker {
 		});
 	}
 
-	private realmProgress(realm: Realm, round?: boolean) {
-		return Standard.filter((spirit) => spirit.realm === realm).map(({ name, offer }) =>
-			bitPercentage(this[SpiritNameToSpiritTrackerName[name]], offer.current, round),
-		);
-	}
-
 	public static async viewRealms(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		const spiritTracker = await this.fetch(interaction.user.id);
 
@@ -1526,11 +1544,13 @@ export class SpiritTracker {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							validRealms.map((realm) =>
-								new StringSelectMenuOptionBuilder()
-									.setLabel(`${realm} (${spiritTracker.averageProgress(spiritTracker.realmProgress(realm), true)}%)`)
-									.setValue(realm),
-							),
+							validRealms.map((realm) => {
+								const percentage = spiritTracker.standardProgress({ realm, round: true });
+
+								return new StringSelectMenuOptionBuilder()
+									.setLabel(`${realm}${percentage === null ? "" : ` (${percentage}%)`}`)
+									.setValue(realm);
+							}),
 						)
 						.setPlaceholder("Select a realm!"),
 				),

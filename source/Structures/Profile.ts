@@ -262,7 +262,7 @@ export default class Profile {
 
 		const { userId, name, icon, thumbnail, description, country, wingedLight, seasons, platform, spirit, spot } = this;
 		const spiritTracker = await SpiritTracker.fetch(userId).catch(() => null);
-		const standardProgress = spiritTracker?.standardProgress() ?? 0;
+		const standardProgress = spiritTracker?.standardProgress({ round: true }) ?? 0;
 		const elderProgress = spiritTracker?.elderProgress({ round: true }) ?? 0;
 		const seasonalProgress = spiritTracker?.seasonProgress({ round: true }) ?? 0;
 
