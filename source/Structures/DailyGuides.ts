@@ -134,7 +134,7 @@ const FORGE_A_CANDLE = { content: "Forge a candle", url: null } as const;
 const MELT_10_DARKNESS = { content: "Melt 10 darkness", url: null } as const;
 
 const BOW_AT_A_PLAYER = {
-	content: "Bow at a player",
+	content: `${Expression.Bow} at a player`,
 	url: String(new URL(`daily_guides/quests/social/bow_at_a_player.webp`, CDN_URL)),
 } as const;
 
