@@ -21,7 +21,10 @@ import { EMOJI, formatEmoji } from "../Utility/emojis.js";
 import pg, { Table } from "../pg.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
 import { resolveBitsToSeasons } from "./Season.js";
+import Elder from "./Spirits/Elder/index.js";
+import Seasonal from "./Spirits/Seasonal/index.js";
 import { SpiritTracker } from "./Spirits/SpiritTracker.js";
+import Standard from "./Spirits/Standard/index.js";
 
 export interface ProfilePacket {
 	user_id: Snowflake;
@@ -262,9 +265,9 @@ export default class Profile {
 
 		const { userId, name, icon, thumbnail, description, country, wingedLight, seasons, platform, spirit, spot } = this;
 		const spiritTracker = await SpiritTracker.fetch(userId).catch(() => null);
-		const standardProgress = spiritTracker?.standardProgress({ round: true }) ?? 0;
-		const elderProgress = spiritTracker?.elderProgress({ round: true }) ?? 0;
-		const seasonalProgress = spiritTracker?.seasonProgress({ round: true }) ?? 0;
+		const standardProgress = spiritTracker?.spiritProgress(Standard, true) ?? 0;
+		const elderProgress = spiritTracker?.spiritProgress(Elder, true) ?? 0;
+		const seasonalProgress = spiritTracker?.spiritProgress(Seasonal, true) ?? 0;
 
 		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setFooter({
 			text: `Hearts: ${hearts}\nStandard progress: ${standardProgress}%\nElder progress: ${elderProgress}%\nSeasonal progress: ${seasonalProgress}%`,

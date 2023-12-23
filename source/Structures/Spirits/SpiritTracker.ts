@@ -1,7 +1,6 @@
 import {
 	type ActionRow,
 	type ChatInputCommandInteraction,
-	type Collection,
 	type InteractionUpdateOptions,
 	type Snowflake,
 	type StringSelectMenuComponent,
@@ -23,7 +22,6 @@ import { isSeasonName, resolveSeason, SeasonName, SeasonNameToSeasonalEmoji } fr
 import {
 	type ElderSpirit,
 	type GuideSpirit,
-	type ItemsData,
 	type SeasonalSpirit,
 	type SpiritCost,
 	type SpiritType,
@@ -363,21 +361,6 @@ interface SpiritTrackerData {
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
 type SpiritTracketSetData = Partial<Omit<SpiritTrackerPacket, "user_id">>;
-
-interface StandardProgressOptions {
-	realm?: StandardSpiritRealm;
-	round?: boolean;
-}
-
-interface ElderProgressOptions {
-	spirit?: ElderSpirit;
-	round?: boolean;
-}
-
-interface SeasonProgressOptions {
-	season?: SeasonName;
-	round?: boolean;
-}
 
 const SpiritTrackerNameToRawName = {
 	[SpiritName.PointingCandlemaker]: "pointing_candlemaker",
@@ -731,20 +714,6 @@ const backToStartButtonBuilder = new ButtonBuilder()
 	.setCustomId(SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID)
 	.setEmoji("⏮️")
 	.setStyle(ButtonStyle.Primary);
-
-function bitPercentage(bit: SpiritTrackerValue, items: Collection<number, ItemsData>, round?: boolean) {
-	if (!bit) return 0;
-	let percentage = (items.filter((_, itemBit) => (bit & itemBit) === itemBit).size / items.size) * 100;
-
-	if (round) {
-		const integer = Math.trunc(percentage);
-
-		percentage =
-			integer === 0 ? Math.ceil(percentage) : integer === 99 ? Math.floor(percentage) : Math.round(percentage);
-	}
-
-	return percentage;
-}
 
 export class SpiritTracker {
 	public readonly userId: SpiritTrackerData["userId"];
@@ -1306,95 +1275,44 @@ export class SpiritTracker {
 		return pg<SpiritTrackerPacket>(Table.SpiritTracker).update(data).where({ user_id: userId }).returning("*");
 	}
 
-	private averageProgress(progresses: number[], round?: boolean) {
-		let progress =
-			progresses.length === 0
-				? 100
-				: progresses.reduce((number, progression) => number + progression, 0) / progresses.length;
-
-		if (round) {
-			const integer = Math.trunc(progress);
-			progress = integer === 0 ? Math.ceil(progress) : integer === 99 ? Math.floor(progress) : Math.round(progress);
-		}
-
-		return progress;
-	}
-
-	public standardProgress({ realm, round }: StandardProgressOptions = {}) {
-		const spirits = realm ? Standard.filter((spirit) => spirit.realm === realm) : Standard;
-		const numbers = [];
-		let total = 0;
-
-		for (const spirit of spirits) {
-			const resolvedOffer = spirit.offer.current;
-
-			if (!resolvedOffer) {
-				numbers.push(0);
-				continue;
-			}
-
-			const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
-			numbers.push(resolvedOffer.filter((_, itemBit) => bit && (bit & itemBit) === itemBit).size);
-			total += resolvedOffer.size;
-		}
-
-		if (total === 0) return null;
-		const percentage = (numbers.reduce((totalNumber, number) => totalNumber + number, 0) / total) * 100;
-		if (!round) return percentage;
-		const integer = Math.trunc(percentage);
-		return integer === 0 ? Math.ceil(percentage) : integer === 99 ? Math.floor(percentage) : Math.round(percentage);
-	}
-
-	public elderProgress({ spirit, round }: ElderProgressOptions = {}) {
-		const spirits = spirit ? [spirit] : Elder;
-		const numbers = [];
-		let total = 0;
-
-		for (const spirit of spirits) {
-			const resolvedOffer = spirit.offer.current;
-
-			if (!resolvedOffer) {
-				numbers.push(0);
-				continue;
-			}
-
-			const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
-			numbers.push(resolvedOffer.filter((_, itemBit) => bit && (bit & itemBit) === itemBit).size);
-			total += resolvedOffer.size;
-		}
-
-		if (total === 0) return null;
-		const percentage = (numbers.reduce((totalNumber, number) => totalNumber + number, 0) / total) * 100;
-		if (!round) return percentage;
-		const integer = Math.trunc(percentage);
-		return integer === 0 ? Math.ceil(percentage) : integer === 99 ? Math.floor(percentage) : Math.round(percentage);
-	}
-
-	public seasonProgress({ season, round }: SeasonProgressOptions = {}) {
-		const spirits = season ? Seasonal.filter((spirit) => spirit.season === season) : Seasonal;
-		const numbers = [];
-		let total = 0;
-
-		for (const spirit of spirits) {
-			const resolvedOffer = spirit.isGuideSpirit()
+	private ownedProgress(spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit) {
+		const resolvedOffer =
+			spirit.isStandardSpirit() || spirit.isElderSpirit()
+				? spirit.offer.current
+				: spirit.isGuideSpirit()
 				? spirit.offer?.current ?? null
 				: spirit.offer.current ?? spirit.offer.seasonal;
 
-			if (!resolvedOffer) {
-				numbers.push(0);
-				continue;
-			}
+		const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
 
-			const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
-			numbers.push(resolvedOffer.filter((_, itemBit) => bit && (bit & itemBit) === itemBit).size);
-			total += resolvedOffer.size;
-		}
+		return {
+			owned: resolvedOffer?.filter((_, itemBit) => bit && (bit & itemBit) === itemBit).size ?? 0,
+			total: resolvedOffer?.size ?? 0,
+		};
+	}
 
+	private progressPercentage(owned: number[], total: number, round?: boolean) {
 		if (total === 0) return null;
-		const percentage = (numbers.reduce((totalNumber, number) => totalNumber + number, 0) / total) * 100;
+		const percentage = (owned.reduce((totalOwned, number) => totalOwned + number, 0) / total) * 100;
 		if (!round) return percentage;
 		const integer = Math.trunc(percentage);
 		return integer === 0 ? Math.ceil(percentage) : integer === 99 ? Math.floor(percentage) : Math.round(percentage);
+	}
+
+	public spiritProgress(
+		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
+		round?: boolean,
+	) {
+		const numbers = [];
+		let total = 0;
+
+		for (const spirit of spirits) {
+			const { owned, total: offerTotal } = this.ownedProgress(spirit);
+			numbers.push(owned);
+			total += offerTotal;
+		}
+
+		return this.progressPercentage(numbers, total, round);
 	}
 
 	public static async viewTracker(interaction: ButtonInteraction | ChatInputCommandInteraction) {
@@ -1409,9 +1327,9 @@ export class SpiritTracker {
 			);
 		}
 
-		const standardProgress = spiritTracker.standardProgress({ round: true });
-		const elderProgress = spiritTracker.elderProgress({ round: true });
-		const seasonalProgress = spiritTracker.seasonProgress({ round: true });
+		const standardProgress = spiritTracker.spiritProgress(Standard, true);
+		const elderProgress = spiritTracker.spiritProgress(Elder, true);
+		const seasonalProgress = spiritTracker.spiritProgress(Seasonal, true);
 
 		const response = {
 			content: "",
@@ -1427,7 +1345,10 @@ export class SpiritTracker {
 
 								switch (spiritType) {
 									case SPIRIT_TYPE.Standard:
-										label = `${resolveSpiritTypeToString(spiritType)} (${standardProgress}%)`;
+										label = `${resolveSpiritTypeToString(spiritType)}${
+											standardProgress === null ? "" : ` (${standardProgress}%)`
+										}`;
+
 										break;
 									case SPIRIT_TYPE.Elder:
 										label = `${resolveSpiritTypeToString(spiritType)}${
@@ -1545,7 +1466,10 @@ export class SpiritTracker {
 						.setMinValues(0)
 						.setOptions(
 							validRealms.map((realm) => {
-								const percentage = spiritTracker.standardProgress({ realm, round: true });
+								const percentage = spiritTracker.spiritProgress(
+									Standard.filter((spirit) => spirit.realm === realm),
+									true,
+								);
 
 								return new StringSelectMenuOptionBuilder()
 									.setLabel(`${realm}${percentage === null ? "" : ` (${percentage}%)`}`)
@@ -1569,11 +1493,13 @@ export class SpiritTracker {
 		const spirits = Standard.filter((spirit) => spirit.realm === realm);
 		let hasEverything = true;
 
-		const options = spirits.map(({ name, offer }) => {
-			const bit = spiritTracker[SpiritNameToSpiritTrackerName[name]];
-			const percentage = bitPercentage(bit, offer.current, true);
-			if (percentage !== 100) hasEverything = false;
-			return new StringSelectMenuOptionBuilder().setLabel(`${name} (${percentage}%)`).setValue(name);
+		const options = spirits.map((spirit) => {
+			const percentage = spiritTracker.spiritProgress([spirit], true);
+			if (percentage && percentage !== 100) hasEverything = false;
+
+			return new StringSelectMenuOptionBuilder()
+				.setLabel(`${spirit.name}${percentage === null ? "" : ` (${percentage}%)`}`)
+				.setValue(spirit.name);
 		});
 
 		const resolvedRemainingCurrency = resolveOfferToCurrency(
@@ -1621,7 +1547,7 @@ export class SpiritTracker {
 		let hasEverything = true;
 
 		const options = Elder.map((spirit) => {
-			const percentage = spiritTracker.elderProgress({ spirit, round: true });
+			const percentage = spiritTracker.spiritProgress([spirit], true);
 			if (percentage && percentage !== 100) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
@@ -1678,7 +1604,10 @@ export class SpiritTracker {
 						.setMinValues(0)
 						.setOptions(
 							validSeasons.map((season) => {
-								const percentage = spiritTracker.seasonProgress({ season, round: true });
+								const percentage = spiritTracker.spiritProgress(
+									Seasonal.filter((spirit) => spirit.season === season),
+									true,
+								);
 
 								return new StringSelectMenuOptionBuilder()
 									.setEmoji(SeasonNameToSeasonalEmoji[season])
@@ -1705,14 +1634,7 @@ export class SpiritTracker {
 
 		const options = spirits.map((spirit) => {
 			const { name } = spirit;
-			const bit = spiritTracker[SpiritNameToSpiritTrackerName[name]];
-
-			const percentage = spirit.isGuideSpirit()
-				? spirit.offer?.current
-					? bitPercentage(bit, spirit.offer.current, true)
-					: null
-				: bitPercentage(bit, spirit.offer.current ?? spirit.offer.seasonal, true);
-
+			const percentage = spiritTracker.spiritProgress([spirit], true);
 			if (percentage && percentage !== 100) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
@@ -1880,7 +1802,7 @@ export class SpiritTracker {
 			buttons.addComponents(
 				new ButtonBuilder()
 					.setCustomId(`${SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID}§${spirit.name}`)
-					.setDisabled(bitPercentage(bit, offer) === 100)
+					.setDisabled(this.spiritProgress([spirit]) === 100)
 					.setEmoji("💯")
 					.setLabel("I have everything!")
 					.setStyle(ButtonStyle.Success),
