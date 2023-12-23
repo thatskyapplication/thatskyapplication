@@ -3,12 +3,7 @@ import type { Client } from "discord.js";
 import { DateTime } from "luxon";
 import { ISS_DATES_ACCESSIBLE } from "../Utility/Constants.js";
 import { shardEruption } from "../Utility/Utility.js";
-import {
-	AVIARY_FIREWORK_FESTIVAL_FIRST_SHOW_START_DATE,
-	AVIARY_FIREWORK_FESTIVAL_LAST_SHOW_END_DATE,
-	TIME_ZONE,
-	isDuring,
-} from "../Utility/dates.js";
+import { TIME_ZONE } from "../Utility/dates.js";
 import pQueue from "../pQueue.js";
 import DailyGuides from "./DailyGuides.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
@@ -82,17 +77,7 @@ export default function heartbeat(client: Client<true>): void {
 				}
 			}
 
-			// TODO: Remove `isDuring()` once the event is over.
-			if (
-				(day === 1 ||
-					isDuring(
-						AVIARY_FIREWORK_FESTIVAL_FIRST_SHOW_START_DATE,
-						AVIARY_FIREWORK_FESTIVAL_LAST_SHOW_END_DATE,
-						date,
-					)) &&
-				hour % 4 === 0 &&
-				minute === 0
-			) {
+			if (day === 1 && hour % 4 === 0 && minute === 0) {
 				void sendNotification(client, NotificationEvent.AviarysFireworkFestival, { startTime: unix + 600 });
 			}
 		}

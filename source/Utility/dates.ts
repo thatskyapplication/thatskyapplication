@@ -10,10 +10,6 @@ export const DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE = skyDate(2_023, 11, 26);
 export const DOUBLE_SEASONAL_LIGHT_EVENT_DURATION =
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days").days + 1;
 
-// Aviary's Firework Festival show.
-export const AVIARY_FIREWORK_FESTIVAL_FIRST_SHOW_START_DATE = skyDate(2_023, 12, 12);
-export const AVIARY_FIREWORK_FESTIVAL_LAST_SHOW_END_DATE = skyDate(2_023, 12, 17, 20);
-
 // Miscellaneous.
 export const INITIAL_TRAVELLING_SPIRIT_SEEK = skyDate(2_023, 5, 25); // #88 Grateful Shell Collector.
 export const INITIAL_TREASURE_CANDLE_REALM_SEEK = skyDate(2_023, 9, 29); // Daylight Prairie.
