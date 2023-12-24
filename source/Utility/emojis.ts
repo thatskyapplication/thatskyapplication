@@ -894,7 +894,7 @@ export const MASK_EMOJIS = {
 	 */
 	Mask84: { name: "mask", id: "1182639127242477648" },
 	/**
-	 * Sparrow Mask.
+	 * Sparrow Appreciation.
 	 */
 	Mask85: { name: "mask", id: "1182639130094620694" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
