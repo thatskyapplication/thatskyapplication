@@ -1861,6 +1861,490 @@ export const HAIR_ACCESSORY_EMOJIS = {
 
 export type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
 
+/**
+ * Emojis from the cape servers.
+ */
+export const CAPE_EMOJIS = {
+	/**
+	 * Base.
+	 */
+	Cape01: { name: "cape", id: "1188421277082456124" },
+	/**
+	 * Beta.
+	 */
+	Cape02: { name: "cape", id: "1188421281280954409" },
+	/**
+	 * Starter Pack.
+	 */
+	Cape03: { name: "cape", id: "1188421285135528008" },
+	/**
+	 * Butterfly Charmer 1.
+	 */
+	Cape04: { name: "cape", id: "1188421289627619368" },
+	/**
+	 * Pouty Porter 1.
+	 */
+	Cape05: { name: "cape", id: "1188421291796070452" },
+	/**
+	 * Dismayed Hunter 1.
+	 */
+	Cape06: { name: "cape", id: "1188421295176699924" },
+	/**
+	 * Proud Victor 1.
+	 */
+	Cape07: { name: "cape", id: "1188421297714249749" },
+	/**
+	 * Handstanding Thrillseeker 1.
+	 */
+	Cape08: { name: "cape", id: "1188421300960636980" },
+	/**
+	 * Courageous Soldier 1.
+	 */
+	Cape09: { name: "cape", id: "1188421305175900201" },
+	/**
+	 * Stealthy Survivor 1.
+	 */
+	Cape10: { name: "cape", id: "1188421307881226240" },
+	/**
+	 * Praying Acolyte 1.
+	 */
+	Cape11: { name: "cape", id: "1188421310754340954" },
+	/**
+	 * Memory Whisperer 1.
+	 */
+	Cape12: { name: "cape", id: "1188421314311110667" },
+	/**
+	 * Saluting Protector.
+	 */
+	Cape13: { name: "cape", id: "1188421317830127687" },
+	/**
+	 * Stretching Guru.
+	 */
+	Cape14: { name: "cape", id: "1188421319579144266" },
+	/**
+	 * Founder's Pack.
+	 */
+	Cape15: { name: "cape", id: "1188421323421134858" },
+	/**
+	 * Crab Whisperer.
+	 */
+	Cape16: { name: "cape", id: "1188421326294233200" },
+	/**
+	 * Piggyback Lightseeker.
+	 */
+	Cape17: { name: "cape", id: "1188421329796472872" },
+	/**
+	 * Shushing Light Scholar.
+	 */
+	Cape18: { name: "cape", id: "1188421332669575220" },
+	/**
+	 * Spooky Bat Cape.
+	 */
+	Cape19: { name: "cape", id: "1188421335563645008" },
+	/**
+	 * Confetti Cousin.
+	 */
+	Cape20: { name: "cape", id: "1188421338155724851" },
+	/**
+	 * Pleaful Parent.
+	 */
+	Cape21: { name: "cape", id: "1188421340756185181" },
+	/**
+	 * Wise Grandparent.
+	 */
+	Cape22: { name: "cape", id: "1188421343377621042" },
+	/**
+	 * Troupe Juggler.
+	 */
+	Cape23: { name: "cape", id: "1188421344531071008" },
+	/**
+	 * Thoughtful Director.
+	 */
+	Cape24: { name: "cape", id: "1188421347366408283" },
+	/**
+	 * Crab Walker.
+	 */
+	Cape25: { name: "cape", id: "1188421350294036632" },
+	/**
+	 * Snoozing Carpenter.
+	 */
+	Cape26: { name: "cape", id: "1188421352982581320" },
+	/**
+	 * Indifferent Alchemist.
+	 */
+	Cape27: { name: "cape", id: "1188421355151040602" },
+	/**
+	 * Playfighting Herbalist.
+	 */
+	Cape28: { name: "cape", id: "1188421358149976135" },
+	/**
+	 * Earth Cape.
+	 */
+	Cape29: { name: "cape", id: "1188421360813342750" },
+	/**
+	 * Timid Bookworm.
+	 */
+	Cape30: { name: "cape", id: "1188421363652890695" },
+	/**
+	 * Sanctuary Ultimate Cape.
+	 */
+	Cape31: { name: "cape", id: "1188421366656020491" },
+	/**
+	 * Grateful Shell Collector.
+	 */
+	Cape32: { name: "cape", id: "1188421368816078889" },
+	/**
+	 * Chill Sunbather.
+	 */
+	Cape33: { name: "cape", id: "1188421372444147723" },
+	/**
+	 * Prophet of Air.
+	 */
+	Cape34: { name: "cape", id: "1188421375115931688" },
+	/**
+	 * Prophet of Water.
+	 */
+	Cape35: { name: "cape", id: "1188421378194550795" },
+	/**
+	 * Prophet of Earth.
+	 */
+	Cape36: { name: "cape", id: "1188421381189292032" },
+	/**
+	 * Mischief Web Cape.
+	 */
+	Cape37: { name: "cape", id: "1188421383894601769" },
+	/**
+	 * Butterfly Charmer 2.
+	 */
+	Cape38: { name: "cape", id: "1188421387426222170" },
+	/**
+	 * Pouty Porter 2.
+	 */
+	Cape39: { name: "cape", id: "1188421390857150554" },
+	/**
+	 * Proud Victor 2.
+	 */
+	Cape40: { name: "cape", id: "1188421394267131934" },
+	/**
+	 * Days of Feast 2020.
+	 */
+	Cape41: { name: "cape", id: "1188421397161197628" },
+	/**
+	 * Snowflake Cape.
+	 */
+	Cape42: { name: "cape", id: "1188421400113987664" },
+	/**
+	 * Peeking Postman.
+	 */
+	Cape43: { name: "cape", id: "1188421402953515148" },
+	/**
+	 * Dancing Performer.
+	 */
+	Cape44: { name: "cape", id: "1188421405218443285" },
+	/**
+	 * Spinning Mentor.
+	 */
+	Cape45: { name: "cape", id: "1188421408146079745" },
+	/**
+	 * Dreams Ultimate Cape.
+	 */
+	Cape46: { name: "cape", id: "1188421410532634654" },
+	/**
+	 * Courageous Soldier 2.
+	 */
+	Cape47: { name: "cape", id: "1188421414336872508" },
+	/**
+	 * Praying Acolyte 2.
+	 */
+	Cape48: { name: "cape", id: "1188421417872666645" },
+	/**
+	 * Days of Fortune 2021.
+	 */
+	Cape49: { name: "cape", id: "1188421421211324437" },
+	/**
+	 * Dismayed Hunter 2.
+	 */
+	Cape50: { name: "cape", id: "1188421426043158528" },
+	/**
+	 * Days of Bloom 2021.
+	 */
+	Cape51: { name: "cape", id: "1188422749908123678" },
+	/**
+	 * Assembly Ultimate Cape.
+	 */
+	Cape52: { name: "cape", id: "1188422752194019339" },
+	/**
+	 * Scolding Student.
+	 */
+	Cape53: { name: "cape", id: "1188422754781888563" },
+	/**
+	 * Ocean Cape.
+	 */
+	Cape54: { name: "cape", id: "1188422757835362326" },
+	/**
+	 * Handstanding Thrillseeker 2.
+	 */
+	Cape55: { name: "cape", id: "1188422761882849370" },
+	/**
+	 * Days of Rainbow 2021.
+	 */
+	Cape56: { name: "cape", id: "1188422764248444928" },
+	/**
+	 * Nintendo Switch (red).
+	 */
+	Cape57: { name: "cape", id: "1188422767209623563" },
+	/**
+	 * Nintendo Switch (blue).
+	 */
+	Cape58: { name: "cape", id: "1188422769642307685" },
+	/**
+	 * Star Collector.
+	 */
+	Cape59: { name: "cape", id: "1188422772217618542" },
+	/**
+	 * Slouching Soldier.
+	 */
+	Cape60: { name: "cape", id: "1188422774474162316" },
+	/**
+	 * Stretching Lamplighter.
+	 */
+	Cape61: { name: "cape", id: "1188422776881688646" },
+	/**
+	 * Sneezing Geographer.
+	 */
+	Cape62: { name: "cape", id: "1188422778764922992" },
+	/**
+	 * Little Prince Scarf Cape.
+	 */
+	Cape63: { name: "cape", id: "1188422781898076201" },
+	/**
+	 * Little Prince Asteroid Jacket.
+	 */
+	Cape64: { name: "cape", id: "1188422784725037077" },
+	/**
+	 * Light Whisperer.
+	 */
+	Cape65: { name: "cape", id: "1188422786801225768" },
+	/**
+	 * Lively Navigator.
+	 */
+	Cape66: { name: "cape", id: "1188422789514932307" },
+	/**
+	 * Days of Mischief 2021.
+	 */
+	Cape67: { name: "cape", id: "1188422791528206387" },
+	/**
+	 * Winter Ancestor Cape.
+	 */
+	Cape68: { name: "cape", id: "1188422794413871124" },
+	/**
+	 * Ceasing Commodore.
+	 */
+	Cape69: { name: "cape", id: "1188422796645253210" },
+	/**
+	 * Cackling Cannoneer.
+	 */
+	Cape70: { name: "cape", id: "1188422799732256809" },
+	/**
+	 * Anxious Angler.
+	 */
+	Cape71: { name: "cape", id: "1188422802148171776" },
+	/**
+	 * Bumbling Boatswain.
+	 */
+	Cape72: { name: "cape", id: "1188422804341788713" },
+	/**
+	 * Abyss Ultimate Cape.
+	 */
+	Cape73: { name: "cape", id: "1188422806610911263" },
+	/**
+	 * Days of Fortune 2022.
+	 */
+	Cape74: { name: "cape", id: "1188422809198788668" },
+	/**
+	 * Kizuna AI Cape.
+	 */
+	Cape75: { name: "cape", id: "1188422811451129887" },
+	/**
+	 * Days of Bloom 2022.
+	 */
+	Cape76: { name: "cape", id: "1188422814408126504" },
+	/**
+	 * Memory Whisperer 2.
+	 */
+	Cape77: { name: "cape", id: "1188422818354974730" },
+	/**
+	 * Performance Ultimate Cape.
+	 */
+	Cape78: { name: "cape", id: "1188422820678615041" },
+	/**
+	 * Forgetful Storyteller.
+	 */
+	Cape79: { name: "cape", id: "1188422824294101024" },
+	/**
+	 * Mellow Musician.
+	 */
+	Cape80: { name: "cape", id: "1188422827364331580" },
+	/**
+	 * Days of Nature 2022.
+	 */
+	Cape81: { name: "cape", id: "1188422829746696214" },
+	/**
+	 * Stealthy Survivor 2.
+	 */
+	Cape82: { name: "cape", id: "1188422833047609354" },
+	/**
+	 * Ancient Darkness.
+	 */
+	Cape83: { name: "cape", id: "1188422835610341436" },
+	/**
+	 * Krill Ultimate Cape.
+	 */
+	Cape84: { name: "cape", id: "1188422838269521971" },
+	/**
+	 * Ancient Light (Jellyfish).
+	 */
+	Cape85: { name: "cape", id: "1188422840542822431" },
+	/**
+	 * Ancient Light (Manta).
+	 */
+	Cape86: { name: "cape", id: "1188422843327840318" },
+	/**
+	 * Manta Ultimate Cape.
+	 */
+	Cape87: { name: "cape", id: "1188422846167400499" },
+	/**
+	 * Days of Sunlight 2023 1.
+	 */
+	Cape88: { name: "cape", id: "1188422848503615529" },
+	/**
+	 * Days of Sunlight 2023 2.
+	 */
+	Cape89: { name: "cape", id: "1188422850827276359" },
+	/**
+	 * Days of Sunlight 2023 3.
+	 */
+	Cape90: { name: "cape", id: "1188422853905883136" },
+	/**
+	 * Seed of Hope.
+	 */
+	Cape91: { name: "cape", id: "1188422856640581674" },
+	/**
+	 * Running Wayfarer.
+	 */
+	Cape92: { name: "cape", id: "1188422858897117284" },
+	/**
+	 * Warrior of Love.
+	 */
+	Cape93: { name: "cape", id: "1188422861707288676" },
+	/**
+	 * Mindful Miner.
+	 */
+	Cape94: { name: "cape", id: "1188422863972212737" },
+	/**
+	 * AURORA Ultimate Cape.
+	 */
+	Cape95: { name: "cape", id: "1188422867327651931" },
+	/**
+	 * Days of Mischief 2022.
+	 */
+	Cape96: { name: "cape", id: "1188422869655506954" },
+	/**
+	 * PlayStation.
+	 */
+	Cape97: { name: "cape", id: "1188422873094828155" },
+	/**
+	 * Giving In Cape.
+	 */
+	Cape98: { name: "cape", id: "1188422875972112444" },
+	/**
+	 * Wings of AURORA.
+	 */
+	Cape99: { name: "cape", id: "1188422878409003048" },
+	/**
+	 * Cozy Hermit Cape.
+	 */
+	Cape100: { name: "cape", id: "1188422881349222430" },
+	/**
+	 * Bereft Veteran.
+	 */
+	Cape101: { name: "cape", id: "1188423423697899540" },
+	/**
+	 * Wounded Warrior.
+	 */
+	Cape102: { name: "cape", id: "1188423425828593684" },
+	/**
+	 * Tiptoeing Tea-Brewer.
+	 */
+	Cape103: { name: "cape", id: "1188423428202573875" },
+	/**
+	 * Days of Bloom 2023.
+	 */
+	Cape104: { name: "cape", id: "1188423431461535805" },
+	/**
+	 * Tumbling Troublemaker.
+	 */
+	Cape105: { name: "cape", id: "1188423434619854918" },
+	/**
+	 * Overactive Overachiever.
+	 */
+	Cape106: { name: "cape", id: "1188423437220319263" },
+	/**
+	 * Passage Ultimate Cape.
+	 */
+	Cape107: { name: "cape", id: "1188423440122773608" },
+	/**
+	 * Days of Nature 2023.
+	 */
+	Cape108: { name: "cape", id: "1188423442324795507" },
+	/**
+	 * Days of Colour 2023.
+	 */
+	Cape109: { name: "cape", id: "1188423445059489843" },
+	/**
+	 * Reassuring Ranger.
+	 */
+	Cape110: { name: "cape", id: "1188423448091955210" },
+	/**
+	 * Vestige of a Deserted Oasis.
+	 */
+	Cape111: { name: "cape", id: "1188423450231046185" },
+	/**
+	 * Echo of an Abandoned Refuge.
+	 */
+	Cape112: { name: "cape", id: "1188423453129314436" },
+	/**
+	 * Remnant of a Forgotten Haven.
+	 */
+	Cape113: { name: "cape", id: "1188423455239049278" },
+	/**
+	 * Memory of a Lost Village.
+	 */
+	Cape114: { name: "cape", id: "1188423458309296148" },
+	/**
+	 * Revival Ultimate Cape.
+	 */
+	Cape115: { name: "cape", id: "1188423460200927273" },
+	/**
+	 * Mischief Gossamer Cape.
+	 */
+	Cape116: { name: "cape", id: "1188423462713307147" },
+	/**
+	 * Mischief Crabula Cloak.
+	 */
+	Cape117: { name: "cape", id: "1188423465397653574" },
+	/**
+	 * Sparrow Appreciation.
+	 */
+	Cape118: { name: "cape", id: "1188423467889074269" },
+	/**
+	 * Moth Appreciation.
+	 */
+	Cape119: { name: "cape", id: "1188423470841872395" },
+} as const satisfies Readonly<Record<string, EmojiData>>;
+
+export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
+
 export type Emoji =
 	| MiscellaneousEmojis
 	| EmotesEmojis
@@ -1874,7 +2358,8 @@ export type Emoji =
 	| FaceAccessoryEmojis
 	| NecklaceEmojis
 	| HairEmojis
-	| HairAccessoryEmojis;
+	| HairAccessoryEmojis
+	| CapeEmojis;
 
 export async function cannotUseCustomEmojis(
 	interaction:
