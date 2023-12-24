@@ -3,6 +3,7 @@ import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import {
 	CALLS_EMOJIS,
+	CAPE_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
 	OUTFIT_EMOJIS,
@@ -16,6 +17,7 @@ const callEmoji = CALLS_EMOJIS.BabyManta;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit27;
 const hairEmoji = HAIR_EMOJIS.Hair93;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory09;
+const capeEmoji = CAPE_EMOJIS.Cape65;
 
 export default new SeasonalSpirit({
 	name: SpiritName.LightWhisperer,
@@ -31,7 +33,7 @@ export default new SeasonalSpirit({
 			.set(1 << 3, { item: "Hair", cost: { seasonalCandles: 22 }, emoji: hairEmoji })
 			.set(1 << 4, { item: "Blessing 2", cost: null })
 			.set(1 << 5, { item: "Trail spell 1", cost: { seasonalCandles: 26 } })
-			.set(1 << 6, { item: "Cape", cost: null })
+			.set(1 << 6, { item: "Cape", cost: null, emoji: capeEmoji })
 			.set(1 << 7, { item: "Outfit", cost: { seasonalCandles: 28 }, emoji: outfitEmoji })
 			.set(1 << 8, { item: "Trail spell 2", cost: null })
 			.set(1 << 9, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.FlightHeart }),

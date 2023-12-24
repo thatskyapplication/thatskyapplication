@@ -422,7 +422,7 @@ export const OUTFIT_EMOJIS = {
 	 */
 	Outfit33: { name: "outfit", id: "1181712947148501003" },
 	/**
-	 * Ancient Light (Manta).
+	 * Ancient Light (manta).
 	 */
 	Outfit34: { name: "outfit", id: "1181712950139039805" },
 	/**
@@ -430,11 +430,11 @@ export const OUTFIT_EMOJIS = {
 	 */
 	Outfit35: { name: "outfit", id: "1181712953536421958" },
 	/**
-	 * AURORA Guide (ultimate).
+	 * AURORA (ultimate).
 	 */
 	Outfit36: { name: "outfit", id: "1181712956711510016" },
 	/**
-	 * AURORA Guide (non-ultimate).
+	 * AURORA (non-ultimate).
 	 */
 	Outfit37: { name: "outfit", id: "1181712959601377310" },
 	/**
@@ -834,7 +834,7 @@ export const MASK_EMOJIS = {
 	 */
 	Mask69: { name: "mask", id: "1182639079796527114" },
 	/**
-	 * AURORA Guide (non-ultimate).
+	 * AURORA (non-ultimate).
 	 */
 	Mask70: { name: "mask", id: "1182639083076468827" },
 	/**
@@ -1606,15 +1606,15 @@ export const HAIR_EMOJIS = {
 	 */
 	Hair107: { name: "hair", id: "1183627310964953199" },
 	/**
-	 * Ancient Darkness (Dragon).
+	 * Ancient Darkness (dragon).
 	 */
 	Hair108: { name: "hair", id: "1183627314265853962" },
 	/**
-	 * Ancient Light (Manta).
+	 * Ancient Light (manta).
 	 */
 	Hair109: { name: "hair", id: "1183627318246248478" },
 	/**
-	 * Ancient Light (Jellyfish).
+	 * Ancient Light (jellyfish).
 	 */
 	Hair110: { name: "hair", id: "1183627322096631909" },
 	/**
@@ -1638,7 +1638,7 @@ export const HAIR_EMOJIS = {
 	 */
 	Hair115: { name: "hair", id: "1183627340065030144" },
 	/**
-	 * AURORA Guide (ultimate).
+	 * AURORA (ultimate).
 	 */
 	Hair116: { name: "hair", id: "1183627343466602570" },
 	/**
@@ -1986,7 +1986,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape30: { name: "cape", id: "1188421363652890695" },
 	/**
-	 * Sanctuary Ultimate Cape.
+	 * Sanctuary Guide (ultimate).
 	 */
 	Cape31: { name: "cape", id: "1188421366656020491" },
 	/**
@@ -2046,7 +2046,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape45: { name: "cape", id: "1188421408146079745" },
 	/**
-	 * Dreams Ultimate Cape.
+	 * Dreams Guide (ultimate).
 	 */
 	Cape46: { name: "cape", id: "1188421410532634654" },
 	/**
@@ -2070,7 +2070,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape51: { name: "cape", id: "1188422749908123678" },
 	/**
-	 * Assembly Ultimate Cape.
+	 * Assembly Guide (ultimate).
 	 */
 	Cape52: { name: "cape", id: "1188422752194019339" },
 	/**
@@ -2154,7 +2154,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape72: { name: "cape", id: "1188422804341788713" },
 	/**
-	 * Abyss Ultimate Cape.
+	 * Abyss Guide (ultimate).
 	 */
 	Cape73: { name: "cape", id: "1188422806610911263" },
 	/**
@@ -2174,7 +2174,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape77: { name: "cape", id: "1188422818354974730" },
 	/**
-	 * Performance Ultimate Cape.
+	 * Performance Guide (ultimate).
 	 */
 	Cape78: { name: "cape", id: "1188422820678615041" },
 	/**
@@ -2194,23 +2194,23 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape82: { name: "cape", id: "1188422833047609354" },
 	/**
-	 * Ancient Darkness.
+	 * Ancient Darkness (plant).
 	 */
 	Cape83: { name: "cape", id: "1188422835610341436" },
 	/**
-	 * Krill Ultimate Cape.
+	 * The Void of Shattering (ultimate 1).
 	 */
 	Cape84: { name: "cape", id: "1188422838269521971" },
 	/**
-	 * Ancient Light (Jellyfish).
+	 * Ancient Light (jellyfish).
 	 */
 	Cape85: { name: "cape", id: "1188422840542822431" },
 	/**
-	 * Ancient Light (Manta).
+	 * Ancient Light (manta).
 	 */
 	Cape86: { name: "cape", id: "1188422843327840318" },
 	/**
-	 * Manta Ultimate Cape.
+	 * The Void of Shattering (ultimate 2).
 	 */
 	Cape87: { name: "cape", id: "1188422846167400499" },
 	/**
@@ -2242,7 +2242,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape94: { name: "cape", id: "1188422863972212737" },
 	/**
-	 * AURORA Ultimate Cape.
+	 * AURORA (ultimate).
 	 */
 	Cape95: { name: "cape", id: "1188422867327651931" },
 	/**
@@ -2290,7 +2290,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape106: { name: "cape", id: "1188423437220319263" },
 	/**
-	 * Passage Ultimate Cape.
+	 * Passage Guide (ultimate).
 	 */
 	Cape107: { name: "cape", id: "1188423440122773608" },
 	/**
@@ -2322,7 +2322,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape114: { name: "cape", id: "1188423458309296148" },
 	/**
-	 * Revival Ultimate Cape.
+	 * Hopeful Steward (ultimate).
 	 */
 	Cape115: { name: "cape", id: "1188423460200927273" },
 	/**

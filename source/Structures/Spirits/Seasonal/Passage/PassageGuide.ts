@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { MASK_EMOJIS, MISCELLANEOUS_EMOJIS, NECKLACE_EMOJIS } from "../../../../Utility/emojis.js";
+import { CAPE_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS, NECKLACE_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, GuideSpirit, SpiritName } from "../../Base.js";
 
@@ -16,7 +16,7 @@ export default new GuideSpirit({
 			.set(1 << 1, { item: "Heart 1", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 2, { item: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace28 })
 			.set(1 << 3, { item: "Ultimate mask", cost: { seasonalHearts: 2 }, emoji: MASK_EMOJIS.Mask76 })
-			.set(1 << 4, { item: "Ultimate cape", cost: { seasonalHearts: 2 } })
+			.set(1 << 4, { item: "Ultimate cape", cost: { seasonalHearts: 2 }, emoji: CAPE_EMOJIS.Cape107 })
 			.set(1 << 5, { item: "Quest 2", cost: null })
 			.set(1 << 6, { item: "Serow mask", cost: { candles: 48 }, emoji: MASK_EMOJIS.Mask77 })
 			.set(1 << 7, { item: "Quest 3", cost: null })

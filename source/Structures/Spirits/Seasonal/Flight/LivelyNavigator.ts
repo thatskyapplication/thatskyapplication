@@ -4,6 +4,7 @@ import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
+	CAPE_EMOJIS,
 	EMOTES_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
@@ -23,6 +24,7 @@ const emote = Emote.Navigate;
 const emoteEmoji = EMOTES_EMOJIS.Navigate;
 const hairEmoji = HAIR_EMOJIS.Hair94;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory11;
+const capeEmoji = CAPE_EMOJIS.Cape66;
 
 export default new SeasonalSpirit({
 	name: SpiritName.LivelyNavigator,
@@ -42,7 +44,7 @@ export default new SeasonalSpirit({
 			.set(1 << 10, { item: "Music sheet", cost: { candles: 15 } })
 			.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 } })
 			.set(1 << 3, { item: "Hair", cost: { candles: 55 }, emoji: hairEmoji })
-			.set(1 << 9, { item: "Cape", cost: { candles: 70 } }),
+			.set(1 << 9, { item: "Cape", cost: { candles: 70 }, emoji: capeEmoji }),
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { item: `${emote} 2`, cost: null, emoji: emoteEmoji })
@@ -53,7 +55,7 @@ export default new SeasonalSpirit({
 			.set(1 << 6, { item: `${emote} 3`, cost: { seasonalCandles: 18 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: null, emoji: emoteEmoji })
 			.set(1 << 8, { item: "Trail spell 1", cost: { seasonalCandles: 24 } })
-			.set(1 << 9, { item: "Cape", cost: null })
+			.set(1 << 9, { item: "Cape", cost: null, emoji: capeEmoji })
 			.set(1 << 10, { item: "Music sheet", cost: { seasonalCandles: 28 } })
 			.set(1 << 11, { item: "Trail spell 2", cost: null })
 			.set(1 << 12, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.FlightHeart }),

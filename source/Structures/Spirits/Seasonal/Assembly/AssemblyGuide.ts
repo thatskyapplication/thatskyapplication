@@ -2,6 +2,7 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import {
+	CAPE_EMOJIS,
 	FRIEND_ACTIONS_EMOJIS,
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
@@ -26,7 +27,7 @@ export default new GuideSpirit({
 			.set(1 << 3, { item: "Ultimate mask", cost: { seasonalHearts: 1 }, emoji: MASK_EMOJIS.Mask44 })
 			.set(1 << 4, { item: "Ultimate hair", cost: { seasonalHearts: 1 }, emoji: HAIR_EMOJIS.Hair77 })
 			.set(1 << 5, { item: "Bugle", cost: { seasonalHearts: 2 } })
-			.set(1 << 6, { item: "Ultimate cape", cost: { seasonalHearts: 2 } })
+			.set(1 << 6, { item: "Ultimate cape", cost: { seasonalHearts: 2 }, emoji: CAPE_EMOJIS.Cape52 })
 			.set(1 << 7, { item: FriendAction.HighFive, cost: null, emoji: FRIEND_ACTIONS_EMOJIS.HighFive })
 			.set(1 << 8, { item: "Quest 2", cost: null })
 			.set(1 << 9, { item: "Pillow", cost: { candles: 5 } })

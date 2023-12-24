@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { EMOTES_EMOJIS, HAIR_EMOJIS, MASK_EMOJIS, SEASON_EMOJIS } from "../../../../Utility/emojis.js";
+import { CAPE_EMOJIS, EMOTES_EMOJIS, HAIR_EMOJIS, MASK_EMOJIS, SEASON_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, Emote, SeasonalSpirit, SpiritName } from "../../Base.js";
 
@@ -9,6 +9,7 @@ const emote = Emote.WavingLight;
 const emoteEmoji = EMOTES_EMOJIS.WavingLight;
 const maskEmoji = MASK_EMOJIS.Mask67;
 const hairEmoji = HAIR_EMOJIS.Hair112;
+const capeEmoji = CAPE_EMOJIS.Cape92;
 
 export default new SeasonalSpirit({
 	name: SpiritName.RunningWayfarer,
@@ -28,7 +29,7 @@ export default new SeasonalSpirit({
 			.set(1 << 7, { item: `${emote} 4`, cost: null, emoji: emoteEmoji })
 			.set(1 << 8, { item: "Blessing 3", cost: { seasonalCandles: 24 } })
 			.set(1 << 9, { item: "Music sheet", cost: null })
-			.set(1 << 10, { item: "Cape", cost: { seasonalCandles: 30 } })
+			.set(1 << 10, { item: "Cape", cost: { seasonalCandles: 30 }, emoji: capeEmoji })
 			.set(1 << 11, { item: "Blessing 4", cost: null })
 			.set(1 << 12, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.AuroraHeart }),
 	},

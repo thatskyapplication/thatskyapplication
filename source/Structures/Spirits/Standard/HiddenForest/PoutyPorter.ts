@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { EMOTES_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { CAPE_EMOJIS, EMOTES_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { type ItemsData, Emote, SpiritName, StandardSpirit } from "../../Base.js";
 
 const emote = Emote.Angry;
@@ -22,8 +22,8 @@ export default new StandardSpirit({
 			.set(1 << 6, { item: `${emote} 3`, cost: { candles: 4 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: { candles: 4 }, emoji: emoteEmoji })
 			.set(1 << 8, { item: "Blessing 2", cost: { candles: 5 } })
-			.set(1 << 9, { item: "Cape 1", cost: { hearts: 20 } })
+			.set(1 << 9, { item: "Cape 1", cost: { hearts: 20 }, emoji: CAPE_EMOJIS.Cape05 })
 			.set(1 << 10, { item: "Wing buff 2", cost: { ascendedCandles: 6 } })
-			.set(1 << 11, { item: "Cape 2", cost: { hearts: 60 } }),
+			.set(1 << 11, { item: "Cape 2", cost: { hearts: 60 }, emoji: CAPE_EMOJIS.Cape39 }),
 	},
 });
