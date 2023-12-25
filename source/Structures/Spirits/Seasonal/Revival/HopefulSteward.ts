@@ -7,7 +7,6 @@ export default new GuideSpirit({
 	name: SpiritName.HopefulSteward,
 	season: SeasonName.Revival,
 	offer: {
-		inProgress: true,
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Quest 1", cost: null })
 			.set(1 << 1, { item: "Heart 1", cost: null })
@@ -29,6 +28,7 @@ export default new GuideSpirit({
 			.set(1 << 16, { item: "Heart 7", cost: null })
 			.set(1 << 18, { item: "Quest 8", cost: null })
 			.set(1 << 20, { item: "Quest 9", cost: null })
+			.set(1 << 21, { item: "Quest 10", cost: null })
 			.set(1 << 19, { item: "Hair", cost: { candles: 46 } }),
 	},
 });
