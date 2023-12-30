@@ -594,7 +594,7 @@ export const MASK_EMOJIS = {
 	 */
 	Mask09: { name: "mask", id: "1182637796431777853" },
 	/**
-	 * Gratitude Guide (ultimate).
+	 * Season of Gratitude ultimate.
 	 */
 	Mask10: { name: "mask", id: "1182637798386319380" },
 	/**
@@ -1510,7 +1510,7 @@ export const HAIR_EMOJIS = {
 	 */
 	Hair83: { name: "hair", id: "1183626878897115167" },
 	/**
-	 * Nintendo.
+	 * Nintendo Switch.
 	 */
 	Hair84: { name: "hair", id: "1183626882177044541" },
 	/**
@@ -2345,6 +2345,174 @@ export const CAPE_EMOJIS = {
 
 export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
 
+/**
+ * Emojis from the held props server.
+ */
+export const HELD_PROPS_EMOJIS = {
+	/**
+	 * Laughing Light Catcher.
+	 */
+	HeldProp01: { name: "held_prop", id: "1190678766977040525" },
+	/**
+	 * Blushing Prospector.
+	 */
+	HeldProp02: { name: "held_prop", id: "1190678771917930667" },
+	/**
+	 * Cheerful Spectator.
+	 */
+	HeldProp03: { name: "held_prop", id: "1190678774283501668" },
+	/**
+	 * Frightened Refugee.
+	 */
+	HeldProp04: { name: "held_prop", id: "1190678778058383440" },
+	/**
+	 * Lookout Scout.
+	 */
+	HeldProp05: { name: "held_prop", id: "1190678780344279071" },
+	/**
+	 * Saluting Captain.
+	 */
+	HeldProp06: { name: "held_prop", id: "1190678783339024544" },
+	/**
+	 * Leaping Dancer.
+	 */
+	HeldProp07: { name: "held_prop", id: "1190678785834618950" },
+	/**
+	 * Greeting Shaman.
+	 */
+	HeldProp08: { name: "held_prop", id: "1190678788732887110" },
+	/**
+	 * Doublefive Light Catcher.
+	 */
+	HeldProp09: { name: "held_prop", id: "1190678791073321051" },
+	/**
+	 * Twirling Champion.
+	 */
+	HeldProp10: { name: "held_prop", id: "1190678793933820014" },
+	/**
+	 * Laidback Pioneer.
+	 */
+	HeldProp11: { name: "held_prop", id: "1190678796194553877" },
+	/**
+	 * Season of Lightseekers ultimate.
+	 */
+	HeldProp12: { name: "held_prop", id: "1190678799092826283" },
+	/**
+	 * Pleaful Parent.
+	 */
+	HeldProp13: { name: "held_prop", id: "1190678801978511381" },
+	/**
+	 * Hairtousle Teen.
+	 */
+	HeldProp14: { name: "held_prop", id: "1190678804541231205" },
+	/**
+	 * Respectful Pianist.
+	 */
+	HeldProp15: { name: "held_prop", id: "1190678807988928684" },
+	/**
+	 * Thoughtful Director.
+	 */
+	HeldProp16: { name: "held_prop", id: "1190678812451688539" },
+	/**
+	 * Sanctuary Guide.
+	 */
+	HeldProp17: { name: "held_prop", id: "1190678815576440923" },
+	/**
+	 * Days of Summer Lights 2020.
+	 */
+	HeldProp18: { name: "held_prop", id: "1190678818650861619" },
+	/**
+	 * Prophecy Guide.
+	 */
+	HeldProp19: { name: "held_prop", id: "1190678822945837157" },
+	/**
+	 * Dancing Performer.
+	 */
+	HeldProp20: { name: "held_prop", id: "1190678827152703528" },
+	/**
+	 * Assembly Guide.
+	 */
+	HeldProp21: { name: "held_prop", id: "1190678831284093008" },
+	/**
+	 * Nintendo Switch.
+	 */
+	HeldProp22: { name: "held_prop", id: "1190678833901338665" },
+	/**
+	 * Days of Summer Umbrella.
+	 */
+	HeldProp23: { name: "held_prop", id: "1190678836787019777" },
+	/**
+	 * Tinkering Chimesmith.
+	 */
+	HeldProp24: { name: "held_prop", id: "1190678840377344062" },
+	/**
+	 * Mellow Musician.
+	 */
+	HeldProp25: { name: "held_prop", id: "1190678843145584670" },
+	/**
+	 * Fledgling Harp.
+	 */
+	HeldProp26: { name: "held_prop", id: "1190678846157095043" },
+	/**
+	 * Rhythm Guitar.
+	 */
+	HeldProp27: { name: "held_prop", id: "1190678848954703903" },
+	/**
+	 * Triumph Handpan.
+	 */
+	HeldProp28: { name: "held_prop", id: "1190678852121395231" },
+	/**
+	 * Ancient Darkness (dragon).
+	 */
+	HeldProp29: { name: "held_prop", id: "1190678855694942218" },
+	/**
+	 * TGC Guitar.
+	 */
+	HeldProp30: { name: "held_prop", id: "1190678859075571752" },
+	/**
+	 * Voice of AURORA.
+	 */
+	HeldProp31: { name: "held_prop", id: "1190678862762344448" },
+	/**
+	 * Days of Fortune Enchanted Umbrella.
+	 */
+	HeldProp32: { name: "held_prop", id: "1190678866063273997" },
+	/**
+	 * Days of Love Serendipitous Sceptre.
+	 */
+	HeldProp33: { name: "held_prop", id: "1190678868886036541" },
+	/**
+	 * Overactive Overachiever.
+	 */
+	HeldProp34: { name: "held_prop", id: "1190678872732221651" },
+	/**
+	 * Triumph Violin.
+	 */
+	HeldProp35: { name: "held_prop", id: "1190678875299123200" },
+	/**
+	 * Triumph Saxophone.
+	 */
+	HeldProp36: { name: "held_prop", id: "1190678877362737172" },
+	/**
+	 * Moments Guide (ultimate).
+	 */
+	HeldProp37: { name: "held_prop", id: "1190678880755908610" },
+	/**
+	 * Moments Guide (non-ultimate).
+	 */
+	HeldProp38: { name: "held_prop", id: "1190678883767435304" },
+	/**
+	 * Aviary's Firework Festival.
+	 */
+	HeldProp39: { name: "held_prop", id: "1190678885877157941" },
+	/**
+	 * Days of Feast 2023.
+	 */
+	HeldProp40: { name: "held_prop", id: "1190678898522980505" },
+} as const satisfies Readonly<Record<string, EmojiData>>;
+
+export type HeldPropsEmojis = (typeof HELD_PROPS_EMOJIS)[keyof typeof HELD_PROPS_EMOJIS];
+
 export type Emoji =
 	| MiscellaneousEmojis
 	| EmotesEmojis
@@ -2359,7 +2527,8 @@ export type Emoji =
 	| NecklaceEmojis
 	| HairEmojis
 	| HairAccessoryEmojis
-	| CapeEmojis;
+	| CapeEmojis
+	| HeldPropsEmojis;
 
 export async function cannotUseCustomEmojis(
 	interaction:
