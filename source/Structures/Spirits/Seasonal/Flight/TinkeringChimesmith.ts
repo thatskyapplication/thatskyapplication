@@ -6,6 +6,7 @@ import { skyDate } from "../../../../Utility/dates.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
+	HELD_PROPS_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
 	SEASON_EMOJIS,
@@ -25,6 +26,7 @@ const stanceEmoji = STANCES_EMOJIS.Tinker;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit26;
 const hairEmoji = HAIR_EMOJIS.Hair92;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory10;
+const heldProp = HELD_PROPS_EMOJIS.HeldProp24;
 
 export default new SeasonalSpirit({
 	name: SpiritName.TinkeringChimesmith,
@@ -41,7 +43,7 @@ export default new SeasonalSpirit({
 			.set(1 << 6, { item: "Hair accessory", cost: { seasonalCandles: 22 }, emoji: hairAccessoryEmoji })
 			.set(1 << 5, { item: "Blessing 2", cost: null })
 			.set(1 << 9, { item: "Trail spell 1", cost: { seasonalCandles: 26 } })
-			.set(1 << 8, { item: "Kalimba", cost: null })
+			.set(1 << 8, { item: "Kalimba", cost: null, emoji: heldProp })
 			.set(1 << 2, { item: "Hair", cost: { seasonalCandles: 28 }, emoji: hairEmoji })
 			.set(1 << 10, { item: "Trail spell 2", cost: null })
 			.set(1 << 3, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.FlightHeart }),
@@ -54,7 +56,7 @@ export default new SeasonalSpirit({
 			.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 } })
 			.set(1 << 6, { item: "Hair accessory", cost: { candles: 35 }, emoji: hairAccessoryEmoji })
 			.set(1 << 7, { item: "Outfit", cost: { candles: 70 }, emoji: outfitEmoji })
-			.set(1 << 8, { item: "Kalimba", cost: { candles: 75 } }),
+			.set(1 << 8, { item: "Kalimba", cost: { candles: 75 }, emoji: heldProp }),
 	},
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(87, skyDate(2_023, 5, 11)),

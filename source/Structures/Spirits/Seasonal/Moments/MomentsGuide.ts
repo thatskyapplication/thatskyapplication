@@ -5,6 +5,7 @@ import {
 	FACE_ACCESSORY_EMOJIS,
 	FRIEND_ACTIONS_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
+	HELD_PROPS_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
 } from "../../../../Utility/emojis.js";
@@ -17,14 +18,14 @@ export default new GuideSpirit({
 	realm: Realm.DaylightPrairie,
 	offer: {
 		current: new Collection<number, ItemsData>()
-			.set(1 << 0, { item: "Camera", cost: null })
+			.set(1 << 0, { item: "Camera", cost: null, emoji: HELD_PROPS_EMOJIS.HeldProp38 })
 			.set(1 << 1, { item: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace30 })
 			.set(1 << 2, {
 				item: "Ultimate face accessory",
 				cost: { seasonalHearts: 1 },
 				emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory28,
 			})
-			.set(1 << 3, { item: "Ultimate camera", cost: { seasonalHearts: 1 } })
+			.set(1 << 3, { item: "Ultimate camera", cost: { seasonalHearts: 1 }, emoji: HELD_PROPS_EMOJIS.HeldProp37 })
 			.set(1 << 4, {
 				item: "Ultimate hair accessory",
 				cost: { seasonalHearts: 2 },

@@ -6,6 +6,7 @@ import { skyDate } from "../../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
 	EMOTES_EMOJIS,
+	HELD_PROPS_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
@@ -23,6 +24,7 @@ const emote = Emote.Thinking;
 const emoteEmoji = EMOTES_EMOJIS.Thinking;
 const maskEmoji = MASK_EMOJIS.Mask25;
 const capeEmoji = CAPE_EMOJIS.Cape24;
+const heldProp = HELD_PROPS_EMOJIS.HeldProp16;
 
 export default new SeasonalSpirit({
 	name: SpiritName.ThoughtfulDirector,
@@ -38,7 +40,7 @@ export default new SeasonalSpirit({
 			.set(1 << 3, { item: "Mask", cost: null, emoji: maskEmoji })
 			.set(1 << 6, { item: `${emote} 3`, cost: { seasonalCandles: 18 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: null, emoji: emoteEmoji })
-			.set(1 << 9, { item: "Xylophone", cost: { seasonalCandles: 20 } })
+			.set(1 << 9, { item: "Xylophone", cost: { seasonalCandles: 20 }, emoji: heldProp })
 			.set(1 << 8, { item: "Blessing 2", cost: null })
 			.set(1 << 11, { item: "Blessing 3", cost: { seasonalCandles: 22 } })
 			.set(1 << 10, { item: "Cape", cost: null, emoji: capeEmoji })
@@ -53,7 +55,7 @@ export default new SeasonalSpirit({
 			.set(1 << 6, { item: `${emote} 3`, cost: { hearts: 3 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: { hearts: 6 }, emoji: emoteEmoji })
 			.set(1 << 8, { item: "Blessing 2", cost: { candles: 5 } })
-			.set(1 << 9, { item: "Xylophone", cost: { candles: 65 } })
+			.set(1 << 9, { item: "Xylophone", cost: { candles: 65 }, emoji: heldProp })
 			.set(1 << 10, { item: "Cape", cost: { candles: 75 }, emoji: capeEmoji }),
 	},
 	visits: {
