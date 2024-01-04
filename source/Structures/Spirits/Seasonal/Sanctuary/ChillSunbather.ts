@@ -20,7 +20,6 @@ export default new SeasonalSpirit({
 	expression,
 	realm: Realm.DaylightPrairie,
 	offer: {
-		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${expression} 1`, cost: null })
 			.set(1 << 1, { item: `${expression} 2`, cost: null })
@@ -38,7 +37,7 @@ export default new SeasonalSpirit({
 			.set(1 << 1, { item: `${expression} 2`, cost: { hearts: 4 } })
 			.set(1 << 2, { item: "Sunlounger", cost: { candles: 20 } })
 			.set(1 << 3, { item: "Blessing 1", cost: { candles: 5 } })
-			.set(1 << 4, { item: "Face accessory", cost: { candles: 50 } })
+			.set(1 << 4, { item: "Face accessory", cost: { candles: 66 } })
 			.set(1 << 5, { item: "Heart", cost: { candles: 3 } })
 			.set(1 << 6, { item: "Wing buff", cost: { ascendedCandles: 2 } })
 			.set(1 << 7, { item: `${expression} 3`, cost: { hearts: 3 } })
