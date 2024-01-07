@@ -9,6 +9,7 @@ import {
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
+	PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, SpiritName, Call } from "../../Base.js";
@@ -18,6 +19,7 @@ const callEmoji = CALLS_EMOJIS.Crab;
 const maskEmoji = MASK_EMOJIS.Mask16;
 const hairEmoji = HAIR_EMOJIS.Hair40;
 const capeEmoji = CAPE_EMOJIS.Cape16;
+const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp21;
 
 export default new SeasonalSpirit({
 	name: SpiritName.CrabWhisperer,
@@ -38,7 +40,7 @@ export default new SeasonalSpirit({
 			.set(1 << 9, { item: "Cape", cost: null, emoji: capeEmoji }),
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${call} call`, cost: null, emoji: callEmoji })
-			.set(1 << 1, { item: "Pipe", cost: { candles: 20 } })
+			.set(1 << 1, { item: "Pipe", cost: { candles: 20 }, emoji: placeablePropEmoji })
 			.set(1 << 2, { item: "Blessing 1", cost: { candles: 5 } })
 			.set(1 << 3, { item: "Mask", cost: { candles: 30 }, emoji: maskEmoji })
 			.set(1 << 4, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })

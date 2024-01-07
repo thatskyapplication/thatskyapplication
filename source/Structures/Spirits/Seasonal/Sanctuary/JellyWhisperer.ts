@@ -8,6 +8,7 @@ import {
 	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
+	PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
@@ -17,6 +18,7 @@ const call = Call.Jellyfish;
 const callEmoji = CALLS_EMOJIS.Jellyfish;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit15;
 const hairEmoji = HAIR_EMOJIS.Hair60;
+const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp29;
 
 export default new SeasonalSpirit({
 	name: SpiritName.JellyWhisperer,
@@ -40,7 +42,7 @@ export default new SeasonalSpirit({
 			.set(1 << 3, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
 			.set(1 << 6, { item: "Blessing 2", cost: { candles: 5 } })
-			.set(1 << 7, { item: "Umbrella", cost: { hearts: 15 } })
+			.set(1 << 7, { item: "Umbrella", cost: { hearts: 15 }, emoji: placeablePropEmoji })
 			.set(1 << 5, { item: "Hair", cost: { candles: 42 }, emoji: hairEmoji })
 			.set(1 << 8, { item: "Outfit", cost: { candles: 65 }, emoji: outfitEmoji }),
 	},

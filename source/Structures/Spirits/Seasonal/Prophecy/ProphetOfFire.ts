@@ -9,6 +9,7 @@ import {
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
+	PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
@@ -25,6 +26,8 @@ const emoteEmoji = EMOTES_EMOJIS.ChestPound;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit17;
 const maskEmoji = MASK_EMOJIS.Mask35;
 const hairEmoji = HAIR_EMOJIS.Hair68;
+const placeablePropEmoji1 = PLACEABLE_PROPS_EMOJIS.PlaceableProp30;
+const placeablePropEmoji2 = PLACEABLE_PROPS_EMOJIS.PlaceableProp64;
 
 export default new SeasonalSpirit({
 	name: SpiritName.ProphetOfFire,
@@ -47,7 +50,7 @@ export default new SeasonalSpirit({
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { item: `${emote} 2`, cost: { hearts: 4 }, emoji: emoteEmoji })
-			.set(1 << 13, { item: "Prop", cost: { candles: 15 } })
+			.set(1 << 13, { item: "Prop", cost: { candles: 15 }, emoji: placeablePropEmoji2 })
 			.set(1 << 2, { item: "Blessing 1", cost: { candles: 5 } })
 			.set(1 << 3, { item: "Hair", cost: { candles: 44 }, emoji: hairEmoji })
 			.set(1 << 4, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
@@ -57,7 +60,7 @@ export default new SeasonalSpirit({
 			.set(1 << 8, { item: "Music sheet", cost: { candles: 15 } })
 			.set(1 << 9, { item: "Blessing 2", cost: { candles: 5 } })
 			.set(1 << 10, { item: "Mask", cost: { candles: 54 }, emoji: maskEmoji })
-			.set(1 << 11, { item: "Cauldron", cost: { hearts: 13 } })
+			.set(1 << 11, { item: "Cauldron", cost: { hearts: 13 }, emoji: placeablePropEmoji1 })
 			.set(1 << 12, { item: "Outfit", cost: { candles: 75 }, emoji: outfitEmoji }),
 	},
 	visits: {

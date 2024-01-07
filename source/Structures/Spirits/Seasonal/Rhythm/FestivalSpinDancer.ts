@@ -9,6 +9,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
 	HAIR_EMOJIS,
+	PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
@@ -23,6 +24,7 @@ const emote = Emote.SpinDance;
 const emoteEmoji = EMOTES_EMOJIS.SpinDance;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit13;
 const hairEmoji = HAIR_EMOJIS.Hair49;
+const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp24;
 
 export default new SeasonalSpirit({
 	name: SpiritName.FestivalSpinDancer,
@@ -51,7 +53,7 @@ export default new SeasonalSpirit({
 			.set(1 << 7, { item: `${emote} 4`, cost: { hearts: 10 }, emoji: emoteEmoji })
 			.set(1 << 8, { item: "Blessing 2", cost: { candles: 5 } })
 			.set(1 << 9, { item: "Hair", cost: { candles: 34 }, emoji: hairEmoji })
-			.set(1 << 10, { item: "Prop", cost: { candles: 30 } })
+			.set(1 << 10, { item: "Prop", cost: { candles: 30 }, emoji: placeablePropEmoji })
 			.set(1 << 11, { item: "Outfit", cost: { candles: 65 }, emoji: outfitEmoji }),
 	},
 	visits: {

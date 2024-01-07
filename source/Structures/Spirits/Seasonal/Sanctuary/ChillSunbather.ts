@@ -9,6 +9,7 @@ import {
 	FACE_ACCESSORY_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
+	PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
@@ -25,6 +26,7 @@ const emoteEmoji = EMOTES_EMOJIS.BellyScratch;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory10;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory02;
 const capeEmoji = CAPE_EMOJIS.Cape33;
+const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp20;
 
 export default new SeasonalSpirit({
 	name: SpiritName.ChillSunbather,
@@ -47,7 +49,7 @@ export default new SeasonalSpirit({
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { item: `${emote} 2`, cost: { hearts: 4 }, emoji: emoteEmoji })
-			.set(1 << 2, { item: "Sunlounger", cost: { candles: 20 } })
+			.set(1 << 2, { item: "Sunlounger", cost: { candles: 20 }, emoji: placeablePropEmoji })
 			.set(1 << 3, { item: "Blessing 1", cost: { candles: 5 } })
 			.set(1 << 4, { item: "Face accessory", cost: { candles: 66 }, emoji: faceAccessoryEmoji })
 			.set(1 << 5, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })

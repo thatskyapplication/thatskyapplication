@@ -9,6 +9,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	MASK_EMOJIS,
 	HAIR_EMOJIS,
+	PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
@@ -23,6 +24,7 @@ const emote = Emote.Sparkler;
 const emoteEmoji = EMOTES_EMOJIS.Sparkler;
 const maskEmoji = MASK_EMOJIS.Mask21;
 const hairEmoji = HAIR_EMOJIS.Hair47;
+const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp33;
 
 export default new SeasonalSpirit({
 	name: SpiritName.SparklerParent,
@@ -53,7 +55,7 @@ export default new SeasonalSpirit({
 			.set(1 << 7, { item: `${emote} 4`, cost: { hearts: 6 }, emoji: emoteEmoji })
 			.set(1 << 8, { item: "Blessing 2", cost: { candles: 5 } })
 			.set(1 << 9, { item: "Hair", cost: { candles: 34 }, emoji: hairEmoji })
-			.set(1 << 10, { item: "Pinwheel", cost: { candles: 33 } }),
+			.set(1 << 10, { item: "Pinwheel", cost: { candles: 33 }, emoji: placeablePropEmoji }),
 	},
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>()

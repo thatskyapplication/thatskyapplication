@@ -9,6 +9,7 @@ import {
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
+	PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
@@ -25,6 +26,7 @@ const actionEmoji = FRIEND_ACTIONS_EMOJIS.PlayFight;
 const maskEmoji = MASK_EMOJIS.Mask28;
 const hairEmoji = HAIR_EMOJIS.Hair58;
 const capeEmoji = CAPE_EMOJIS.Cape28;
+const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp27;
 
 export default new SeasonalSpirit({
 	name: SpiritName.PlayfightingHerbalist,
@@ -55,7 +57,7 @@ export default new SeasonalSpirit({
 			.set(1 << 7, { item: "Music sheet", cost: { candles: 15 } })
 			.set(1 << 8, { item: "Blessing 3", cost: { candles: 5 } })
 			.set(1 << 9, { item: "Hair", cost: { candles: 42 }, emoji: hairEmoji })
-			.set(1 << 10, { item: "Orb", cost: { candles: 20 } })
+			.set(1 << 10, { item: "Orb", cost: { candles: 20 }, emoji: placeablePropEmoji })
 			.set(1 << 11, { item: "Cape", cost: { candles: 70 }, emoji: capeEmoji }),
 	},
 	visits: {

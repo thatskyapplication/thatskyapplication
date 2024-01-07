@@ -2634,7 +2634,7 @@ export const PLACEABLE_PROPS_EMOJIS = {
 	 */
 	PlaceableProp29: { name: "placeable_prop", id: "1193625923170349156" },
 	/**
-	 * Prophet of Fire.
+	 * Prophet of Fire 1.
 	 */
 	PlaceableProp30: { name: "placeable_prop", id: "1193625925875662959" },
 	/**
@@ -2770,7 +2770,7 @@ export const PLACEABLE_PROPS_EMOJIS = {
 	 */
 	PlaceableProp63: { name: "placeable_prop", id: "1193627458075902113" },
 	/**
-	 * Prophet of Fire.
+	 * Prophet of Fire 2.
 	 */
 	PlaceableProp64: { name: "placeable_prop", id: "1193627460726685887" },
 	/**

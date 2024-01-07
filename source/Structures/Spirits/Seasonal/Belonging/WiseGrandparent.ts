@@ -7,6 +7,7 @@ import {
 	CAPE_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
+	PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 	STANCES_EMOJIS,
 } from "../../../../Utility/emojis.js";
@@ -23,6 +24,7 @@ const stance = Stance.Wise;
 const stanceEmoji = STANCES_EMOJIS.Wise;
 const maskEmoji = MASK_EMOJIS.Mask19;
 const capeEmoji = CAPE_EMOJIS.Cape22;
+const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp28;
 
 export default new SeasonalSpirit({
 	name: SpiritName.WiseGrandparent,
@@ -49,7 +51,7 @@ export default new SeasonalSpirit({
 			.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
 			.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 } })
 			.set(1 << 6, { item: "Cape", cost: { candles: 70 }, emoji: capeEmoji })
-			.set(1 << 7, { item: "Prop", cost: { candles: 10 } })
+			.set(1 << 7, { item: "Prop", cost: { candles: 10 }, emoji: placeablePropEmoji })
 			.set(1 << 8, { item: "Mask", cost: { candles: 48 }, emoji: maskEmoji }),
 	},
 	visits: {
