@@ -21,13 +21,13 @@ export default new StandardSpirit({
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { item: `${emote} 2`, cost: { candles: 10 }, emoji: emoteEmoji })
-			.set(1 << 2, { item: "Blessing 1", cost: { candles: 1 } })
+			.set(1 << 2, { item: "Blessing 1", cost: { candles: 1 }, emoji: MISCELLANEOUS_EMOJIS.Blessing1 })
 			.set(1 << 3, { item: "Hair", cost: { hearts: 10 }, emoji: HAIR_EMOJIS.Hair29 })
 			.set(1 << 4, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 5, { item: "Wing buff", cost: { ascendedCandles: 3 } })
 			.set(1 << 6, { item: `${emote} 3`, cost: { candles: 7 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: { candles: 10 }, emoji: emoteEmoji })
-			.set(1 << 8, { item: "Blessing 2", cost: { candles: 5 } })
+			.set(1 << 8, { item: "Blessing 2", cost: { candles: 5 }, emoji: MISCELLANEOUS_EMOJIS.Blessing2 })
 			.set(1 << 9, { item: "Chair", cost: { hearts: 30 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp01 }),
 	},
 });

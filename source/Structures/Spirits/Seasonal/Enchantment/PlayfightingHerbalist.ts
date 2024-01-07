@@ -22,6 +22,7 @@ import {
 } from "../../Base.js";
 
 const action = FriendAction.PlayFight;
+const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const actionEmoji = FRIEND_ACTIONS_EMOJIS.PlayFight;
 const maskEmoji = MASK_EMOJIS.Mask28;
 const hairEmoji = HAIR_EMOJIS.Hair58;
@@ -36,26 +37,26 @@ export default new SeasonalSpirit({
 	offer: {
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${action} 1`, cost: null, emoji: actionEmoji })
-			.set(1 << 1, { item: "Blessing 1", cost: null })
+			.set(1 << 1, { item: "Blessing 1", cost: null, emoji: blessing2 })
 			.set(1 << 2, { item: "Mask", cost: { seasonalCandles: 14 }, emoji: maskEmoji })
-			.set(1 << 5, { item: "Blessing 2", cost: null })
-			.set(1 << 8, { item: "Blessing 3", cost: { seasonalCandles: 16 } })
+			.set(1 << 5, { item: "Blessing 2", cost: null, emoji: blessing2 })
+			.set(1 << 8, { item: "Blessing 3", cost: { seasonalCandles: 16 }, emoji: blessing2 })
 			.set(1 << 6, { item: `${action} 2`, cost: null, emoji: actionEmoji })
 			.set(1 << 7, { item: "Music sheet", cost: { seasonalCandles: 18 } })
 			.set(1 << 9, { item: "Hair", cost: null, emoji: hairEmoji })
 			.set(1 << 11, { item: "Cape", cost: { seasonalCandles: 20 }, emoji: capeEmoji })
-			.set(1 << 12, { item: "Blessing 4", cost: null })
+			.set(1 << 12, { item: "Blessing 4", cost: null, emoji: blessing2 })
 			.set(1 << 3, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.EnchantmentHeart }),
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${action} 1`, cost: null, emoji: actionEmoji })
-			.set(1 << 1, { item: "Blessing 1", cost: { candles: 5 } })
+			.set(1 << 1, { item: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 2, { item: "Mask", cost: { candles: 30 }, emoji: maskEmoji })
 			.set(1 << 3, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
-			.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 } })
+			.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 6, { item: `${action} 2`, cost: { hearts: 10 }, emoji: actionEmoji })
 			.set(1 << 7, { item: "Music sheet", cost: { candles: 15 } })
-			.set(1 << 8, { item: "Blessing 3", cost: { candles: 5 } })
+			.set(1 << 8, { item: "Blessing 3", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 9, { item: "Hair", cost: { candles: 42 }, emoji: hairEmoji })
 			.set(1 << 10, { item: "Orb", cost: { candles: 20 }, emoji: placeablePropEmoji })
 			.set(1 << 11, { item: "Cape", cost: { candles: 70 }, emoji: capeEmoji }),

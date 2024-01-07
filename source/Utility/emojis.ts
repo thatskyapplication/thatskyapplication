@@ -40,6 +40,9 @@ export const MISCELLANEOUS_EMOJIS = {
 	Light: { name: "light", id: "1193651883622006867" },
 	ShardRegular: { name: "shard_regular", id: "1193651885685616650" },
 	ShardStrong: { name: "shard_strong", id: "1193651888042811452" },
+	Blessing1: { name: "blessing", id: "1193670451990368346" },
+	Blessing2: { name: "blessing", id: "1193670463117873272" },
+	Blessing3: { name: "blessing", id: "1193678502705250475" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type MiscellaneousEmojis = (typeof MISCELLANEOUS_EMOJIS)[keyof typeof MISCELLANEOUS_EMOJIS];

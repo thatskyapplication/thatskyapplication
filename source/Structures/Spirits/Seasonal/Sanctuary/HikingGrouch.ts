@@ -22,6 +22,7 @@ import {
 } from "../../Base.js";
 
 const emote = Emote.Grumpy;
+const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const emoteEmoji = EMOTES_EMOJIS.Grumpy;
 const maskEmoji = MASK_EMOJIS.Mask31;
 const necklaceEmoji = NECKLACE_EMOJIS.Necklace07;
@@ -38,27 +39,27 @@ export default new SeasonalSpirit({
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { item: `${emote} 2`, cost: null, emoji: emoteEmoji })
-			.set(1 << 3, { item: "Blessing 1", cost: { seasonalCandles: 12 } })
+			.set(1 << 3, { item: "Blessing 1", cost: { seasonalCandles: 12 }, emoji: blessing2 })
 			.set(1 << 4, { item: "Mask", cost: null, emoji: maskEmoji })
 			.set(1 << 7, { item: `${emote} 3`, cost: { seasonalCandles: 14 }, emoji: emoteEmoji })
 			.set(1 << 8, { item: `${emote} 4`, cost: null, emoji: emoteEmoji })
 			.set(1 << 9, { item: "Hair", cost: { seasonalCandles: 16 }, emoji: hairEmoji })
-			.set(1 << 10, { item: "Blessing 2", cost: null })
-			.set(1 << 12, { item: "Blessing 3", cost: { seasonalCandles: 18 } })
+			.set(1 << 10, { item: "Blessing 2", cost: null, emoji: blessing2 })
+			.set(1 << 12, { item: "Blessing 3", cost: { seasonalCandles: 18 }, emoji: blessing2 })
 			.set(1 << 11, { item: "Bow tie", cost: null, emoji: necklaceEmoji })
 			.set(1 << 5, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.SanctuaryHeart }),
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { item: `${emote} 2`, cost: { hearts: 4 }, emoji: emoteEmoji })
 			.set(1 << 2, { item: "Beach chairs", cost: { hearts: 16 }, emoji: placeablePropEmoji })
-			.set(1 << 3, { item: "Blessing 1", cost: { candles: 5 } })
+			.set(1 << 3, { item: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 4, { item: "Mask", cost: { candles: 34 }, emoji: maskEmoji })
 			.set(1 << 5, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 6, { item: "Wing buff", cost: { ascendedCandles: 2 } })
 			.set(1 << 7, { item: `${emote} 3`, cost: { hearts: 3 }, emoji: emoteEmoji })
 			.set(1 << 8, { item: `${emote} 4`, cost: { hearts: 6 }, emoji: emoteEmoji })
 			.set(1 << 9, { item: "Hair", cost: { candles: 42 }, emoji: hairEmoji })
-			.set(1 << 10, { item: "Blessing 2", cost: { candles: 5 } })
+			.set(1 << 10, { item: "Blessing 2", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 11, { item: "Bow tie", cost: { candles: 50 }, emoji: necklaceEmoji }),
 	},
 	visits: {

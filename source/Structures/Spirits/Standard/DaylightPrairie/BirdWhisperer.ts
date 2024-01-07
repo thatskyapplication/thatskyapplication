@@ -15,10 +15,10 @@ export default new StandardSpirit({
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${call} call`, cost: null, emoji: callEmoji })
 			.set(1 << 1, { item: "Music sheet", cost: { hearts: 1 } })
-			.set(1 << 2, { item: "Blessing 1", cost: { candles: 1 } })
+			.set(1 << 2, { item: "Blessing 1", cost: { candles: 1 }, emoji: MISCELLANEOUS_EMOJIS.Blessing1 })
 			.set(1 << 3, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
-			.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 } })
+			.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 }, emoji: MISCELLANEOUS_EMOJIS.Blessing2 })
 			.set(1 << 6, { item: "Hair", cost: { hearts: 5 }, emoji: HAIR_EMOJIS.Hair09 }),
 	},
 });

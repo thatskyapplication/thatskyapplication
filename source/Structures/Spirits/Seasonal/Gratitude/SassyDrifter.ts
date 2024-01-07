@@ -14,6 +14,7 @@ import {
 } from "../../Base.js";
 
 const stance = Stance.Sassy;
+const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const stanceEmoji = STANCES_EMOJIS.Sassy;
 const maskEmoji = MASK_EMOJIS.Mask11;
 const hairEmoji = HAIR_EMOJIS.Hair37;
@@ -28,16 +29,16 @@ export default new SeasonalSpirit({
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${stance} stance`, cost: null, emoji: stanceEmoji })
 			.set(1 << 2, { item: "Hair", cost: { seasonalCandles: 6 }, emoji: hairEmoji })
-			.set(1 << 1, { item: "Blessing 1", cost: null })
-			.set(1 << 5, { item: "Blessing 2", cost: { seasonalCandles: 8 } })
+			.set(1 << 1, { item: "Blessing 1", cost: null, emoji: blessing2 })
+			.set(1 << 5, { item: "Blessing 2", cost: { seasonalCandles: 8 }, emoji: blessing2 })
 			.set(1 << 6, { item: "Weasel mask", cost: null, emoji: maskEmoji }),
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${stance} stance`, cost: null, emoji: stanceEmoji })
-			.set(1 << 1, { item: "Blessing 1", cost: { candles: 5 } })
+			.set(1 << 1, { item: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 2, { item: "Hair", cost: { candles: 26 }, emoji: hairEmoji })
 			.set(1 << 3, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
-			.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 } })
+			.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 6, { item: "Weasel mask", cost: { candles: 48 }, emoji: maskEmoji }),
 	},
 	visits: {
