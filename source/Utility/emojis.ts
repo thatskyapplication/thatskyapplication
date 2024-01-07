@@ -23,26 +23,23 @@ export interface EmojiData {
  * Emojis from the support server.
  */
 export const MISCELLANEOUS_EMOJIS = {
-	AscendedCandle: { name: "ascended_candle", id: "1074399464627912755" },
-	WingedLight: { name: "winged_light", id: "1075042577776136313" },
-	Yes: { name: "yes", id: "1111792276394475580", animated: true },
-	No: { name: "no", id: "1111792367104708699", animated: true },
-	PlatformIOS: { name: "platform_iOS", id: "1112935921197789304" },
-	PlatformAndroid: { name: "platform_android", id: "1112936417182621727" },
-	PlatformMac: { name: "platform_mac", id: "1112936431464235058" },
-	PlatformSwitch: { name: "platform_switch", id: "1112936564004237392" },
-	PlatformPlayStation: { name: "platform_playstation", id: "1112937466312278036" },
-	SeasonalCandle: { name: "seasonal_candle", id: "1115305105642758145" },
-	SeasonalHeart: { name: "seasonal_heart", id: "1115841397493346325" },
-	Candle: { name: "candle", id: "1134669696822689882" },
-	Heart: { name: "heart", id: "1134669722353401977" },
-	PlatformSteam: { name: "platform_steam", id: "1134673226107191336" },
-	Light: { name: "light", id: "1164342686950625300" },
-	ShardRegular: { name: "shard_regular", id: "1164672237761200130" },
-	ShardStrong: { name: "shard_strong", id: "1164672254911713382" },
-	EventMischief: { name: "event_mischief", id: "1177665479612039270" },
-	EventAviarysFireworkFestival: { name: "event_aviarys_firework_festival", id: "1177665489976176670" },
-	EventFeast: { name: "event_feast", id: "1182501356980932698" },
+	AscendedCandle: { name: "ascended_candle", id: "1193651853880213665" },
+	WingedLight: { name: "winged_light", id: "1193651856103194674" },
+	Yes: { name: "yes", id: "1193651858523312268", animated: true },
+	No: { name: "no", id: "1193651860503007323", animated: true },
+	PlatformIOS: { name: "platform_iOS", id: "1193651862113616004" },
+	PlatformAndroid: { name: "platform_android", id: "1193651864684732476" },
+	PlatformMac: { name: "platform_mac", id: "1193651866941259846" },
+	PlatformSwitch: { name: "platform_switch", id: "1193651868778385548" },
+	PlatformPlayStation: { name: "platform_playstation", id: "1193651870569336983" },
+	SeasonalCandle: { name: "seasonal_candle", id: "1193651872196743181" },
+	SeasonalHeart: { name: "seasonal_heart", id: "1193651874931429486" },
+	Candle: { name: "candle", id: "1193651876881768488" },
+	Heart: { name: "heart", id: "1193651878345592953" },
+	PlatformSteam: { name: "platform_steam", id: "1193651881101230150" },
+	Light: { name: "light", id: "1193651883622006867" },
+	ShardRegular: { name: "shard_regular", id: "1193651885685616650" },
+	ShardStrong: { name: "shard_strong", id: "1193651888042811452" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type MiscellaneousEmojis = (typeof MISCELLANEOUS_EMOJIS)[keyof typeof MISCELLANEOUS_EMOJIS];
@@ -273,6 +270,22 @@ export const SEASON_EMOJIS = {
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type SeasonEmojis = (typeof SEASON_EMOJIS)[keyof typeof SEASON_EMOJIS];
+
+/**
+ * Emojis from the events server.
+ */
+export const EVENT_EMOJIS = {
+	Colour: { name: "colour", id: "1193659265852919848" },
+	Music: { name: "music", id: "1193659510766714980" },
+	SkyAnniversary: { name: "sky_anniversary", id: "1193659759476355095" },
+	Sunlight: { name: "sunlight", id: "1193660129359442000" },
+	Style: { name: "style", id: "1193660318400913530" },
+	Mischief: { name: "mischief", id: "1193660479785144320" },
+	AviarysFireworkFestival: { name: "aviarys_firework_festival", id: "1193661057374371992" },
+	Feast: { name: "feast", id: "1193661248231977066" },
+} as const satisfies Readonly<Record<string, EmojiData>>;
+
+export type EventEmojis = (typeof EVENT_EMOJIS)[keyof typeof EVENT_EMOJIS];
 
 /**
  * Emojis from the outfits servers.
@@ -2792,6 +2805,7 @@ export type Emoji =
 	| CallsEmojis
 	| FriendActionsEmojis
 	| SeasonEmojis
+	| EventEmojis
 	| OutfitEmojis
 	| ShoeEmojis
 	| MaskEmojis
