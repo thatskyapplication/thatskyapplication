@@ -2542,7 +2542,7 @@ export const PLACEABLE_PROPS_EMOJIS = {
 	 */
 	PlaceableProp01: { name: "placeable_prop", id: "1193625843671515156" },
 	/**
-	 * Season of Belonging ultimate.
+	 * Belonging Guide (ultimate).
 	 */
 	PlaceableProp02: { name: "placeable_prop", id: "1193625846347468900" },
 	/**
