@@ -22,7 +22,7 @@ export default new GuideSpirit({
 	realm: Realm.HiddenForest,
 	offer: {
 		current: new Collection<number, ItemsData>()
-			.set(1 << 22, { item: "Blessing", cost: null })
+			.set(1 << 22, { item: "Shared space spell", cost: null, emoji: MISCELLANEOUS_EMOJIS.SpellSharedSpace })
 			.set(1 << 0, { item: "Quest 1", cost: null })
 			.set(1 << 1, { item: "Heart 1", cost: { candles: 3 }, emoji: heartEmoji })
 			.set(1 << 2, { item: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace11 })
