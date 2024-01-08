@@ -21,7 +21,7 @@ export default new GuideSpirit({
 			.set(1 << 7, { item: "Quest 3", cost: null })
 			.set(1 << 8, { item: "Heart 2", cost: { candles: 3 } })
 			.set(1 << 9, { item: "Boar mask", cost: { candles: 44 } })
-			.set(1 << 10, { item: "Quest 4", cost: { candles: 3 } })
+			.set(1 << 10, { item: "Quest 4", cost: null })
 			.set(1 << 11, { item: "Heart 3", cost: { candles: 3 } })
 			.set(1 << 12, { item: "Monkey mask", cost: { candles: 46 } })
 			.set(1 << 13, { item: "Quest 5", cost: null })
