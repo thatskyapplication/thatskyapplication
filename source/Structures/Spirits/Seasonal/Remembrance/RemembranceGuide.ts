@@ -19,8 +19,8 @@ export default new GuideSpirit({
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Quest 1", cost: null })
 			.set(1 << 1, { item: "Heart 1", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 2, { item: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace24 })
-			.set(1 << 3, { item: "Ultimate neck accessory", cost: { seasonalHearts: 2 }, emoji: NECKLACE_EMOJIS.Necklace26 })
+			.set(1 << 2, { item: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace25 })
+			.set(1 << 3, { item: "Ultimate neck accessory", cost: { seasonalHearts: 2 }, emoji: NECKLACE_EMOJIS.Necklace27 })
 			.set(1 << 4, {
 				item: "Ultimate prop",
 				cost: { seasonalHearts: 2 },

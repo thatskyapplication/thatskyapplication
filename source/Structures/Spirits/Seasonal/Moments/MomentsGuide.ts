@@ -19,7 +19,7 @@ export default new GuideSpirit({
 	offer: {
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Camera", cost: null, emoji: HELD_PROPS_EMOJIS.HeldProp38 })
-			.set(1 << 1, { item: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace30 })
+			.set(1 << 1, { item: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace31 })
 			.set(1 << 2, {
 				item: "Ultimate face accessory",
 				cost: { seasonalHearts: 1 },

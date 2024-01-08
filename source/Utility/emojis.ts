@@ -1150,45 +1150,49 @@ export const NECKLACE_EMOJIS = {
 	 */
 	Necklace21: { name: "necklace", id: "1182861534540611736" },
 	/**
+	 * Ancient Darkness (dragon).
+	 */
+	Necklace22: { name: "necklace", id: "1193724954064203827" },
+	/**
 	 * Jelly Shoulder Buddy.
 	 */
-	Necklace22: { name: "necklace", id: "1182861535622725673" },
+	Necklace23: { name: "necklace", id: "1193724957868433539" },
 	/**
 	 * AURORA Pendant.
 	 */
-	Necklace23: { name: "necklace", id: "1182861538281918545" },
+	Necklace24: { name: "necklace", id: "1193724962289242153" },
 	/**
 	 * Remembrance Pendant.
 	 */
-	Necklace24: { name: "necklace", id: "1182861540400054372" },
+	Necklace25: { name: "necklace", id: "1193724968152866886" },
 	/**
 	 * Pleading Child.
 	 */
-	Necklace25: { name: "necklace", id: "1182861542182621324" },
+	Necklace26: { name: "necklace", id: "1193724972389126245" },
 	/**
 	 * Remembrance Guide.
 	 */
-	Necklace26: { name: "necklace", id: "1182861544128790528" },
+	Necklace27: { name: "necklace", id: "1193724976822485133" },
 	/**
 	 * Days of Love Classy Cravat.
 	 */
-	Necklace27: { name: "necklace", id: "1182861545697452062" },
+	Necklace28: { name: "necklace", id: "1193724979188076584" },
 	/**
 	 * Passage Pendant.
 	 */
-	Necklace28: { name: "necklace", id: "1182861547844948029" },
+	Necklace29: { name: "necklace", id: "1193724982400917607" },
 	/**
 	 * Oddball Outcast.
 	 */
-	Necklace29: { name: "necklace", id: "1182861549967253614" },
+	Necklace30: { name: "necklace", id: "1193724986632962099" },
 	/**
 	 * Moments Pendant.
 	 */
-	Necklace30: { name: "necklace", id: "1182861554803290235" },
+	Necklace31: { name: "necklace", id: "1193724990399447141" },
 	/**
 	 * Revival Pendant.
 	 */
-	Necklace31: { name: "necklace", id: "1182862051647959161" },
+	Necklace32: { name: "necklace", id: "1193725247157960794" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];

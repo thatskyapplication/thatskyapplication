@@ -16,7 +16,7 @@ const emote = Emote.Pleading;
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const emoteEmoji = EMOTES_EMOJIS.Pleading;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit39;
-const necklaceEmoji = NECKLACE_EMOJIS.Necklace25;
+const necklaceEmoji = NECKLACE_EMOJIS.Necklace26;
 const hairEmoji = HAIR_EMOJIS.Hair119;
 
 export default new SeasonalSpirit({
