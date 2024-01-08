@@ -46,6 +46,7 @@ export const MISCELLANEOUS_EMOJIS = {
 	SpellColourTrail: { name: "spell_colour_trail", id: "1193711383477493901" },
 	SpellSharedMemory: { name: "spell_shared_memory", id: "1193711402259587112" },
 	SpellSharedSpace: { name: "spell_shared_space", id: "1193711413391265862" },
+	WingBuff: { name: "wing_buff", id: "1193714656645230754" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type MiscellaneousEmojis = (typeof MISCELLANEOUS_EMOJIS)[keyof typeof MISCELLANEOUS_EMOJIS];

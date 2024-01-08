@@ -54,7 +54,7 @@ export default new SeasonalSpirit({
 			.set(1 << 1, { item: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 2, { item: "Hair", cost: { candles: 45 }, emoji: hairEmoji })
 			.set(1 << 3, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
+			.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff })
 			.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 6, { item: "Hair accessory", cost: { candles: 35 }, emoji: hairAccessoryEmoji })
 			.set(1 << 7, { item: "Outfit", cost: { candles: 70 }, emoji: outfitEmoji })

@@ -17,7 +17,7 @@ export default new StandardSpirit({
 			.set(1 << 1, { item: "Hair", cost: { hearts: 2 }, emoji: HAIR_EMOJIS.Hair17 })
 			.set(1 << 2, { item: "Blessing 1", cost: { candles: 1 }, emoji: MISCELLANEOUS_EMOJIS.Blessing1 })
 			.set(1 << 3, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 } })
+			.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff })
 			.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 }, emoji: MISCELLANEOUS_EMOJIS.Blessing2 })
 			.set(1 << 6, { item: "Outfit", cost: { hearts: 5 }, emoji: OUTFIT_EMOJIS.Outfit07 }),
 	},
