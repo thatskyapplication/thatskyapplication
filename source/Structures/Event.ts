@@ -2,7 +2,7 @@ import { URL } from "node:url";
 import type { DateTime } from "luxon";
 import { CDN_URL } from "../Utility/Constants.js";
 import { skyDate } from "../Utility/dates.js";
-import { type Emoji, EVENT_EMOJIS } from "../Utility/emojis.js";
+import { type EventEmojis, EVENT_EMOJIS } from "../Utility/emojis.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "B", "C"] as const;
 
@@ -13,7 +13,7 @@ interface EventData {
 	eventCurrencyEnd?: DateTime;
 	url: string | null;
 	eventCurrencyPerDay: number;
-	eventCurrencyEmoji: Emoji;
+	eventCurrencyEmoji: EventEmojis;
 }
 
 class Event {
@@ -29,7 +29,7 @@ class Event {
 
 	public readonly eventCurrencyPerDay: number;
 
-	public readonly eventCurrencyEmoji: Emoji;
+	public readonly eventCurrencyEmoji: EventEmojis;
 
 	public constructor(data: EventData) {
 		this.name = data.name;

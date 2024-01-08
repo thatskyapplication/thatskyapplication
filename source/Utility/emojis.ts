@@ -2811,7 +2811,7 @@ export const PLACEABLE_PROPS_EMOJIS = {
 
 export type PlaceablePropsEmojis = (typeof PLACEABLE_PROPS_EMOJIS)[keyof typeof PLACEABLE_PROPS_EMOJIS];
 
-export type Emoji =
+type Emoji =
 	| MiscellaneousEmojis
 	| EmotesEmojis
 	| StancesEmojis

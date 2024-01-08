@@ -8,7 +8,7 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	skyDate,
 } from "../Utility/dates.js";
-import { type Emoji, type SeasonEmojis, formatEmoji, SEASON_EMOJIS } from "../Utility/emojis.js";
+import { type SeasonEmojis, formatEmoji, SEASON_EMOJIS } from "../Utility/emojis.js";
 
 export enum SeasonName {
 	Gratitude = "Gratitude",
@@ -168,9 +168,9 @@ class Season {
 
 	public readonly duration: number;
 
-	public readonly emoji: Emoji;
+	public readonly emoji: SeasonEmojis;
 
-	public readonly candleEmoji: Emoji;
+	public readonly candleEmoji: SeasonEmojis;
 
 	private readonly seasonalCandlesRotation: SeasonalCandlesRotation;
 
