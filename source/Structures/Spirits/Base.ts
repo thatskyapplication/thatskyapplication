@@ -539,8 +539,7 @@ export interface SpiritCost {
 export interface ItemsData {
 	item: string;
 	cost: SpiritCost | null;
-	// TODO: This is temporarily optional. It should be required.
-	emoji?: EmojiData;
+	emoji: EmojiData;
 }
 
 interface BaseFriendshipTreeOffer {
