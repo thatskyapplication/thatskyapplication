@@ -16,7 +16,7 @@ import {
 import { type Realm, DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { isRealm } from "../../Utility/Utility.js";
 import { todayDate } from "../../Utility/dates.js";
-import { cannotUseCustomEmojis, EMOJI, formatEmoji } from "../../Utility/emojis.js";
+import { cannotUseCustomEmojis, formatEmoji, MISCELLANEOUS_EMOJIS } from "../../Utility/emojis.js";
 import pg, { Table } from "../../pg.js";
 import { isSeasonName, resolveSeason, SeasonName, SeasonNameToSeasonalEmoji } from "../Season.js";
 import {
@@ -1750,9 +1750,9 @@ export class SpiritTracker {
 				let value;
 
 				if (bit && (bit & flag) === flag) {
-					value = formatEmoji(EMOJI.Yes);
+					value = formatEmoji(MISCELLANEOUS_EMOJIS.Yes);
 				} else {
-					value = resolveOfferToCurrency(cost ?? {}, spiritSeason).join("") || formatEmoji(EMOJI.No);
+					value = resolveOfferToCurrency(cost ?? {}, spiritSeason).join("") || formatEmoji(MISCELLANEOUS_EMOJIS.No);
 				}
 
 				return { name: item, value, inline: true };
@@ -1808,12 +1808,15 @@ export class SpiritTracker {
 					.setStyle(ButtonStyle.Success),
 			);
 
-			const itemSelectionOptions = offer.map(({ item }, flag) =>
-				new StringSelectMenuOptionBuilder()
+			const itemSelectionOptions = offer.map(({ emoji, item }, flag) => {
+				const stringSelectMenuOption = new StringSelectMenuOptionBuilder()
 					.setDefault(Boolean(bit && bit & flag))
 					.setLabel(item)
-					.setValue(String(flag)),
-			);
+					.setValue(String(flag));
+
+				if (emoji) stringSelectMenuOption.setEmoji(emoji);
+				return stringSelectMenuOption;
+			});
 
 			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT);
 

@@ -2,7 +2,7 @@ import { URL } from "node:url";
 import type { DateTime } from "luxon";
 import { CDN_URL } from "../Utility/Constants.js";
 import { skyDate } from "../Utility/dates.js";
-import { type Emoji, EMOJI } from "../Utility/emojis.js";
+import { type EventEmojis, EVENT_EMOJIS } from "../Utility/emojis.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "B", "C"] as const;
 
@@ -13,7 +13,7 @@ interface EventData {
 	eventCurrencyEnd?: DateTime;
 	url: string | null;
 	eventCurrencyPerDay: number;
-	eventCurrencyEmoji: Emoji;
+	eventCurrencyEmoji: EventEmojis;
 }
 
 class Event {
@@ -29,7 +29,7 @@ class Event {
 
 	public readonly eventCurrencyPerDay: number;
 
-	public readonly eventCurrencyEmoji: Emoji;
+	public readonly eventCurrencyEmoji: EventEmojis;
 
 	public constructor(data: EventData) {
 		this.name = data.name;
@@ -54,7 +54,7 @@ const EVENTS = [
 		end: skyDate(2_023, 11, 12),
 		url: String(new URL("daily_guides/events/days_of_mischief/2023.webp", CDN_URL)),
 		eventCurrencyPerDay: 6,
-		eventCurrencyEmoji: EMOJI.EventMischief,
+		eventCurrencyEmoji: EVENT_EMOJIS.Mischief,
 	}),
 	new Event({
 		name: "Aviary's Firework Festival",
@@ -63,7 +63,7 @@ const EVENTS = [
 		eventCurrencyEnd: skyDate(2_023, 12, 11),
 		url: String(new URL("daily_guides/events/aviarys_firework_festival/2023.webp", CDN_URL)),
 		eventCurrencyPerDay: 5,
-		eventCurrencyEmoji: EMOJI.EventAviarysFireworkFestival,
+		eventCurrencyEmoji: EVENT_EMOJIS.AviarysFireworkFestival,
 	}),
 	new Event({
 		name: "Days of Feast",
@@ -71,7 +71,7 @@ const EVENTS = [
 		end: skyDate(2_024, 1, 7),
 		url: String(new URL("daily_guides/events/days_of_feast/2023.webp", CDN_URL)),
 		eventCurrencyPerDay: 5,
-		eventCurrencyEmoji: EMOJI.EventFeast,
+		eventCurrencyEmoji: EVENT_EMOJIS.Feast,
 	}),
 ] as const satisfies Readonly<Event[]>;
 

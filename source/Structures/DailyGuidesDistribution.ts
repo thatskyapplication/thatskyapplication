@@ -28,7 +28,7 @@ import {
 	isDuring,
 	todayDate,
 } from "../Utility/dates.js";
-import { EMOJI, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "../Utility/emojis.js";
+import { formatEmoji, formatEmojiURL, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../Utility/emojis.js";
 import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
@@ -219,7 +219,7 @@ export default class DailyGuidesDistribution {
 				name: "Daily Guides Status",
 				value: `${channelId ? channelMention(channelId) : "No channel"}\n${
 					sending ? "Sending!" : "Stopped!"
-				} ${formatEmoji(sending ? EMOJI.Yes : EMOJI.No)}`,
+				} ${formatEmoji(sending ? MISCELLANEOUS_EMOJIS.Yes : MISCELLANEOUS_EMOJIS.No)}`,
 				inline: true,
 			})
 			.setTitle(guild.name);

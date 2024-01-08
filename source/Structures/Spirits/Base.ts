@@ -4,8 +4,20 @@ import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import { type Realm, CDN_URL, WIKI_URL } from "../../Utility/Constants.js";
 import { todayDate } from "../../Utility/dates.js";
-import { EMOJI, resolveCurrencyEmoji } from "../../Utility/emojis.js";
-import { SeasonNameToSeasonalCandleEmoji, SeasonName, SeasonNameToSeasonalHeartEmoji } from "../Season.js";
+import {
+	type CallsEmojis,
+	type EmojiData,
+	type EmotesEmojis,
+	type FriendActionsEmojis,
+	type StancesEmojis,
+	CALL_EMOJIS,
+	EMOTE_EMOJIS,
+	FRIEND_ACTION_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	resolveCurrencyEmoji,
+	STANCE_EMOJIS,
+} from "../../Utility/emojis.js";
+import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../Season.js";
 
 export enum SpiritName {
 	// Isles of Dawn
@@ -213,40 +225,7 @@ export enum SpiritName {
 	RemnantOfAForgottenHaven = "Remnant of a Forgotten Haven",
 }
 
-export const enum Call {
-	Original = "Original",
-	Bird = "Bird",
-	Whale = "Whale",
-	Manta = "Manta",
-	CosmicManta = "Cosmic manta",
-	Crab = "Crab",
-	Jellyfish = "Jellyfish",
-	BabyManta = "Baby manta",
-	Nightbird = "Nightbird",
-
-	// From the Kizuna-AI pin.
-	KizunaAI = "Kizuna-AI",
-
-	// From the PlayStation starter pack.
-	Journey = "Journey",
-}
-
-export const enum Expression {
-	// Friend expressions
-	HoldHand = "Hold hand",
-	HighFive = "High-five",
-	Hug = "Hug",
-	FistBump = "Fist bump",
-	DoubleFive = "Double-five",
-	HairTousle = "Hair tousle",
-	Carry = "Carry",
-	PlayFight = "Play fight",
-	Bearhug = "Bearhug",
-	Handshake = "Handshake",
-	DuetDance = "Duet dance",
-	SideHug = "Side hug",
-
-	// Regular expressions
+export const enum Emote {
 	Sit = "Sit",
 	Point = "Point",
 	Come = "Come",
@@ -349,7 +328,7 @@ export const enum Expression {
 }
 
 export const enum Stance {
-	Normal = "Normal",
+	Base = "Base",
 	Courageous = "Courageous",
 	Confident = "Confident",
 	Sneaky = "Sneaky",
@@ -362,6 +341,183 @@ export const enum Stance {
 	Tinker = "Tinker",
 	Injured = "Injured",
 }
+
+export const enum Call {
+	Base = "Base",
+	Bird = "Bird",
+	Whale = "Whale",
+	Manta = "Manta",
+	CosmicManta = "Cosmic manta",
+	Crab = "Crab",
+	Jellyfish = "Jellyfish",
+	BabyManta = "Baby manta",
+	Nightbird = "Nightbird",
+
+	// From the Kizuna-AI pin.
+	KizunaAI = "Kizuna-AI",
+
+	// From the PlayStation starter pack.
+	Journey = "Journey",
+}
+
+export const enum FriendAction {
+	HoldHand = "Hold hand",
+	HighFive = "High-five",
+	Hug = "Hug",
+	FistBump = "Fist bump",
+	DoubleFive = "Double-five",
+	HairTousle = "Hair tousle",
+	Carry = "Carry",
+	PlayFight = "Play fight",
+	Bearhug = "Bearhug",
+	Handshake = "Handshake",
+	DuetDance = "Duet dance",
+	SideHug = "Side hug",
+}
+
+export const EmoteToEmoji = {
+	[Emote.Sit]: EMOTE_EMOJIS.Sit,
+	[Emote.Point]: EMOTE_EMOJIS.Point,
+	[Emote.Come]: EMOTE_EMOJIS.Come,
+	[Emote.NoThanks]: EMOTE_EMOJIS.NoThanks,
+	[Emote.Welcome]: EMOTE_EMOJIS.Welcome,
+	[Emote.Nod]: EMOTE_EMOJIS.Nod,
+	[Emote.Scold]: EMOTE_EMOJIS.Scold,
+	[Emote.Butterfly]: EMOTE_EMOJIS.Butterfly,
+	[Emote.Clap]: EMOTE_EMOJIS.Clap,
+	[Emote.Wave]: EMOTE_EMOJIS.Wave,
+	[Emote.Laugh]: EMOTE_EMOJIS.Laugh,
+	[Emote.Yawn]: EMOTE_EMOJIS.Yawn,
+	[Emote.WipeBrow]: EMOTE_EMOJIS.WipeBrow,
+	[Emote.Teamwork]: EMOTE_EMOJIS.Teamwork,
+	[Emote.BlowKiss]: EMOTE_EMOJIS.BlowKiss,
+	[Emote.Grateful]: EMOTE_EMOJIS.Grateful,
+	[Emote.BellyScratch]: EMOTE_EMOJIS.BellyScratch,
+	[Emote.Chuckle]: EMOTE_EMOJIS.Chuckle,
+	[Emote.Shiver]: EMOTE_EMOJIS.Shiver,
+	[Emote.HideAndSeek]: EMOTE_EMOJIS.HideAndSeek,
+	[Emote.Angry]: EMOTE_EMOJIS.Angry,
+	[Emote.Shy]: EMOTE_EMOJIS.Shy,
+	[Emote.Shocked]: EMOTE_EMOJIS.Shocked,
+	[Emote.Apologise]: EMOTE_EMOJIS.Apologise,
+	[Emote.Crying]: EMOTE_EMOJIS.Crying,
+	[Emote.Kabuki]: EMOTE_EMOJIS.Kabuki,
+	[Emote.Shrug]: EMOTE_EMOJIS.Shrug,
+	[Emote.Grumpy]: EMOTE_EMOJIS.Grumpy,
+	[Emote.Peek]: EMOTE_EMOJIS.Peek,
+	[Emote.Eww]: EMOTE_EMOJIS.Eww,
+	[Emote.Facepalm]: EMOTE_EMOJIS.Facepalm,
+	[Emote.Handstand]: EMOTE_EMOJIS.Handstand,
+	[Emote.Backflip]: EMOTE_EMOJIS.Backflip,
+	[Emote.Bow]: EMOTE_EMOJIS.Bow,
+	[Emote.Cheer]: EMOTE_EMOJIS.Cheer,
+	[Emote.Leap]: EMOTE_EMOJIS.Leap,
+	[Emote.TripleAxel]: EMOTE_EMOJIS.TripleAxel,
+	[Emote.Confetti]: EMOTE_EMOJIS.Confetti,
+	[Emote.BoogieDance]: EMOTE_EMOJIS.BoogieDance,
+	[Emote.SpinDance]: EMOTE_EMOJIS.SpinDance,
+	[Emote.Juggle]: EMOTE_EMOJIS.Juggle,
+	[Emote.CrabWalk]: EMOTE_EMOJIS.CrabWalk,
+	[Emote.RallyCheer]: EMOTE_EMOJIS.RallyCheer,
+	[Emote.SpinTrick]: EMOTE_EMOJIS.SpinTrick,
+	[Emote.ShowDance]: EMOTE_EMOJIS.ShowDance,
+	[Emote.Duck]: EMOTE_EMOJIS.Duck,
+	[Emote.Faint]: EMOTE_EMOJIS.Faint,
+	[Emote.Respect]: EMOTE_EMOJIS.Respect,
+	[Emote.LookAround]: EMOTE_EMOJIS.LookAround,
+	[Emote.Salute]: EMOTE_EMOJIS.Salute,
+	[Emote.Acknowledge]: EMOTE_EMOJIS.Acknowledge,
+	[Emote.KungFu]: EMOTE_EMOJIS.KungFu,
+	[Emote.DontGo]: EMOTE_EMOJIS.DontGo,
+	[Emote.Boo]: EMOTE_EMOJIS.Boo,
+	[Emote.DustOff]: EMOTE_EMOJIS.DustOff,
+	[Emote.ChestPound]: EMOTE_EMOJIS.ChestPound,
+	[Emote.Marching]: EMOTE_EMOJIS.Marching,
+	[Emote.Telekinesis]: EMOTE_EMOJIS.Telekinesis,
+	[Emote.Float]: EMOTE_EMOJIS.Float,
+	[Emote.Pray]: EMOTE_EMOJIS.Pray,
+	[Emote.Yoga]: EMOTE_EMOJIS.Yoga,
+	[Emote.Shush]: EMOTE_EMOJIS.Shush,
+	[Emote.Sparkler]: EMOTE_EMOJIS.Sparkler,
+	[Emote.Thinking]: EMOTE_EMOJIS.Thinking,
+	[Emote.Doze]: EMOTE_EMOJIS.Doze,
+	[Emote.Balance]: EMOTE_EMOJIS.Balance,
+	[Emote.DeepBreath]: EMOTE_EMOJIS.DeepBreath,
+	[Emote.Bubbles]: EMOTE_EMOJIS.Bubbles,
+	[Emote.Beckon]: EMOTE_EMOJIS.Beckon,
+	[Emote.Gloat]: EMOTE_EMOJIS.Gloat,
+	[Emote.Stretch]: EMOTE_EMOJIS.Stretch,
+	[Emote.Slouch]: EMOTE_EMOJIS.Slouch,
+	[Emote.Sneeze]: EMOTE_EMOJIS.Sneeze,
+	[Emote.HandRub]: EMOTE_EMOJIS.HandRub,
+	[Emote.Voilà]: EMOTE_EMOJIS.Voilà,
+	[Emote.Navigate]: EMOTE_EMOJIS.Navigate,
+	[Emote.CalmDown]: EMOTE_EMOJIS.CalmDown,
+	[Emote.EvilLaugh]: EMOTE_EMOJIS.EvilLaugh,
+	[Emote.Ouch]: EMOTE_EMOJIS.Ouch,
+	[Emote.Anxious]: EMOTE_EMOJIS.Anxious,
+	[Emote.Headbob]: EMOTE_EMOJIS.Headbob,
+	[Emote.Aww]: EMOTE_EMOJIS.Aww,
+	[Emote.WavingLight]: EMOTE_EMOJIS.WavingLight,
+	[Emote.RaiseTheRoof]: EMOTE_EMOJIS.RaiseTheRoof,
+	[Emote.Twirl]: EMOTE_EMOJIS.Twirl,
+	[Emote.RhythmicClap]: EMOTE_EMOJIS.RhythmicClap,
+	[Emote.Conduct]: EMOTE_EMOJIS.Conduct,
+	[Emote.SilentClap]: EMOTE_EMOJIS.SilentClap,
+	[Emote.Skipping]: EMOTE_EMOJIS.Skipping,
+	[Emote.Pleading]: EMOTE_EMOJIS.Pleading,
+	[Emote.Tiptoeing]: EMOTE_EMOJIS.Tiptoeing,
+	[Emote.Grieving]: EMOTE_EMOJIS.Grieving,
+	[Emote.HackySack]: EMOTE_EMOJIS.HackySack,
+	[Emote.Somersault]: EMOTE_EMOJIS.Somersault,
+	[Emote.Moping]: EMOTE_EMOJIS.Moping,
+	[Emote.PullUp]: EMOTE_EMOJIS.PullUp,
+	[Emote.JollyDance]: EMOTE_EMOJIS.JollyDance,
+	[Emote.BlindfoldBalancePose]: EMOTE_EMOJIS.BlindfoldBalancePose,
+	[Emote.CureForMeDance]: EMOTE_EMOJIS.CureForMeDance,
+} as const satisfies Readonly<Record<Emote, EmotesEmojis>>;
+
+export const StanceToEmoji = {
+	[Stance.Base]: STANCE_EMOJIS.Base,
+	[Stance.Courageous]: STANCE_EMOJIS.Courageous,
+	[Stance.Confident]: STANCE_EMOJIS.Confident,
+	[Stance.Sneaky]: STANCE_EMOJIS.Sneaky,
+	[Stance.Proud]: STANCE_EMOJIS.Proud,
+	[Stance.Polite]: STANCE_EMOJIS.Polite,
+	[Stance.Sassy]: STANCE_EMOJIS.Sassy,
+	[Stance.Laidback]: STANCE_EMOJIS.Laidback,
+	[Stance.Wise]: STANCE_EMOJIS.Wise,
+	[Stance.Timid]: STANCE_EMOJIS.Timid,
+	[Stance.Tinker]: STANCE_EMOJIS.Tinker,
+	[Stance.Injured]: STANCE_EMOJIS.Injured,
+} as const satisfies Readonly<Record<Stance, StancesEmojis>>;
+
+export const CallToEmoji = {
+	[Call.Base]: CALL_EMOJIS.Base,
+	[Call.Bird]: CALL_EMOJIS.Bird,
+	[Call.Whale]: CALL_EMOJIS.Whale,
+	[Call.Manta]: CALL_EMOJIS.Manta,
+	[Call.CosmicManta]: CALL_EMOJIS.CosmicManta,
+	[Call.Crab]: CALL_EMOJIS.Crab,
+	[Call.Jellyfish]: CALL_EMOJIS.Jellyfish,
+	[Call.BabyManta]: CALL_EMOJIS.BabyManta,
+	[Call.Nightbird]: CALL_EMOJIS.Nightbird,
+} as const satisfies Readonly<Record<Exclude<Call, Call.KizunaAI | Call.Journey>, CallsEmojis>>;
+
+export const FriendActionToEmoji = {
+	[FriendAction.HoldHand]: FRIEND_ACTION_EMOJIS.HoldHand,
+	[FriendAction.HighFive]: FRIEND_ACTION_EMOJIS.HighFive,
+	[FriendAction.Hug]: FRIEND_ACTION_EMOJIS.Hug,
+	[FriendAction.FistBump]: FRIEND_ACTION_EMOJIS.FistBump,
+	[FriendAction.DoubleFive]: FRIEND_ACTION_EMOJIS.DoubleFive,
+	[FriendAction.HairTousle]: FRIEND_ACTION_EMOJIS.HairTousle,
+	[FriendAction.Carry]: FRIEND_ACTION_EMOJIS.Carry,
+	[FriendAction.PlayFight]: FRIEND_ACTION_EMOJIS.PlayFight,
+	[FriendAction.Bearhug]: FRIEND_ACTION_EMOJIS.Bearhug,
+	[FriendAction.Handshake]: FRIEND_ACTION_EMOJIS.Handshake,
+	[FriendAction.DuetDance]: FRIEND_ACTION_EMOJIS.DuetDance,
+	[FriendAction.SideHug]: FRIEND_ACTION_EMOJIS.SideHug,
+} as const satisfies Readonly<Record<FriendAction, FriendActionsEmojis>>;
 
 export const SPIRIT_TYPE = {
 	Standard: 0,
@@ -383,6 +539,7 @@ export interface SpiritCost {
 export interface ItemsData {
 	item: string;
 	cost: SpiritCost | null;
+	emoji: EmojiData;
 }
 
 interface BaseFriendshipTreeOffer {
@@ -433,9 +590,10 @@ interface GuideFriendshipTreeData extends BaseFriendshipTreeData {
 }
 
 interface ExpressiveSpiritData {
-	expression?: Expression;
+	emote?: Emote;
 	stance?: Stance;
-	call?: Call;
+	call?: Exclude<Call, Call.KizunaAI | Call.Journey>;
+	action?: FriendAction;
 }
 
 interface BaseSpiritData {
@@ -503,21 +661,21 @@ export function resolveOfferToCurrency(cost: SpiritCost, seasonName?: SeasonName
 	const totalCost = [];
 
 	if (cost.candles) {
-		totalCost.push(resolveCurrencyEmoji({ emoji: EMOJI.Candle, number: cost.candles }));
+		totalCost.push(resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Candle, number: cost.candles }));
 	}
 
 	if (cost.hearts) {
-		totalCost.push(resolveCurrencyEmoji({ emoji: EMOJI.Heart, number: cost.hearts }));
+		totalCost.push(resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: cost.hearts }));
 	}
 
 	if (cost.ascendedCandles) {
-		totalCost.push(resolveCurrencyEmoji({ emoji: EMOJI.AscendedCandle, number: cost.ascendedCandles }));
+		totalCost.push(resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.AscendedCandle, number: cost.ascendedCandles }));
 	}
 
 	if (cost.seasonalCandles) {
 		totalCost.push(
 			resolveCurrencyEmoji({
-				emoji: seasonName ? SeasonNameToSeasonalCandleEmoji[seasonName] : EMOJI.SeasonalCandle,
+				emoji: seasonName ? SeasonNameToSeasonalCandleEmoji[seasonName] : MISCELLANEOUS_EMOJIS.SeasonalCandle,
 				number: cost.seasonalCandles,
 			}),
 		);
@@ -529,7 +687,7 @@ export function resolveOfferToCurrency(cost: SpiritCost, seasonName?: SeasonName
 				emoji:
 					seasonName && seasonName !== SeasonName.Gratitude && seasonName !== SeasonName.Lightseekers
 						? SeasonNameToSeasonalHeartEmoji[seasonName]
-						: EMOJI.SeasonalHeart,
+						: MISCELLANEOUS_EMOJIS.SeasonalHeart,
 				number: cost.seasonalHearts,
 			}),
 		);
@@ -642,16 +800,19 @@ abstract class GuideFriendshipTree extends BaseFriendshipTree {
 }
 
 abstract class ExpressiveSpirit {
-	public readonly expression: Expression | null;
+	public readonly emote: Emote | null;
 
 	public readonly stance: Stance | null;
 
-	public readonly call: Call | null;
+	public readonly call: Exclude<Call, Call.KizunaAI | Call.Journey> | null;
 
-	public constructor({ expression, stance, call }: ExpressiveSpiritData) {
-		this.expression = expression ?? null;
+	public readonly action: FriendAction | null;
+
+	public constructor({ emote, stance, call, action }: ExpressiveSpiritData) {
+		this.emote = emote ?? null;
 		this.stance = stance ?? null;
 		this.call = call ?? null;
+		this.action = action ?? null;
 	}
 }
 

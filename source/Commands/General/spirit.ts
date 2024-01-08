@@ -19,10 +19,14 @@ import {
 	type SeasonalSpirit,
 	type SeasonalSpiritVisitData,
 	type StandardSpirit,
+	CallToEmoji,
+	EmoteToEmoji,
+	FriendActionToEmoji,
+	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	resolveOfferToCurrency,
-	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
+	StanceToEmoji,
 } from "../../Structures/Spirits/Base.js";
 import Seasonal from "../../Structures/Spirits/Seasonal/index.js";
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
@@ -126,13 +130,13 @@ export default new (class implements AutocompleteCommand {
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 		seasonalOffer = false,
 	) {
+		if (await cannotUseCustomEmojis(interaction)) return;
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
 		const seasonalParsing = isSeasonalSpirit && seasonalOffer;
 		const spiritSeason = isSeasonalSpirit || isGuideSpirit ? spirit.season : null;
 		const totalCost = seasonalParsing ? spirit.totalCostSeasonal : spirit.totalCost;
 		const totalOffer = totalCost ? resolveOfferToCurrency(totalCost, spiritSeason).join("") : null;
-		if (totalOffer && (await cannotUseCustomEmojis(interaction))) return;
 		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(spirit.name).setURL(spirit.wikiURL);
 		if (spirit.realm) embed.addFields({ name: "Realm", value: spirit.realm, inline: true });
 
@@ -145,9 +149,21 @@ export default new (class implements AutocompleteCommand {
 		}
 
 		if (spirit.isStandardSpirit() || isSeasonalSpirit) {
-			if (spirit.expression) embed.addFields({ name: "Expression", value: spirit.expression, inline: true });
-			if (spirit.stance) embed.addFields({ name: "Stance", value: spirit.stance, inline: true });
-			if (spirit.call) embed.addFields({ name: "Call", value: spirit.call, inline: true });
+			if (spirit.emote) {
+				embed.addFields({ name: "Emote", value: formatEmoji(EmoteToEmoji[spirit.emote]), inline: true });
+			}
+
+			if (spirit.stance) {
+				embed.addFields({ name: "Stance", value: formatEmoji(StanceToEmoji[spirit.stance]), inline: true });
+			}
+
+			if (spirit.call) {
+				embed.addFields({ name: "Call", value: formatEmoji(CallToEmoji[spirit.call]), inline: true });
+			}
+
+			if (spirit.action) {
+				embed.addFields({ name: "Action", value: formatEmoji(FriendActionToEmoji[spirit.action]), inline: true });
+			}
 		}
 
 		const components = [];
@@ -212,15 +228,17 @@ export default new (class implements AutocompleteCommand {
 				? []
 				: Spirits.filter((spirit) => {
 						const { name, keywords } = spirit;
-						let expression = null;
+						let emote = null;
 						let stance = null;
 						let call = null;
+						let action = null;
 						const isSeasonalSpirit = spirit.isSeasonalSpirit();
 
-						if (isSeasonalSpirit) {
-							expression = spirit.expression?.toUpperCase() ?? null;
+						if (spirit.isStandardSpirit() || isSeasonalSpirit) {
+							emote = spirit.emote?.toUpperCase() ?? null;
 							stance = spirit.stance?.toUpperCase() ?? null;
 							call = spirit.call?.toUpperCase() ?? null;
+							action = spirit.action?.toUpperCase() ?? null;
 						}
 
 						const seasonName = isSeasonalSpirit || spirit.isGuideSpirit() ? spirit.season.toUpperCase() : null;
@@ -229,9 +247,10 @@ export default new (class implements AutocompleteCommand {
 						return (
 							name.toUpperCase().includes(focused) ||
 							keywords.some((keyword) => keyword.toUpperCase().includes(focused)) ||
-							expression?.toUpperCase().includes(focused) ||
+							emote?.toUpperCase().includes(focused) ||
 							stance?.toUpperCase().includes(focused) ||
 							call?.toUpperCase().includes(focused) ||
+							action?.toUpperCase().includes(focused) ||
 							seasonName?.includes(focused)
 						);
 						/* eslint-enable @typescript-eslint/prefer-nullish-coalescing */

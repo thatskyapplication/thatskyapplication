@@ -3,49 +3,62 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
+import {
+	EMOTE_EMOJIS,
+	HAIR_EMOJIS,
+	MASK_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	PLACEABLE_PROPS_EMOJIS,
+	SEASON_EMOJIS,
+} from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
 	type ItemsData,
 	type SeasonalSpiritVisitCollectionKey,
-	Expression,
+	Emote,
 	SeasonalSpirit,
 	SpiritName,
 } from "../../Base.js";
 
-const expression = Expression.Facepalm;
+const emote = Emote.Facepalm;
+const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
+const emoteEmoji = EMOTE_EMOJIS.Facepalm;
+const maskEmoji = MASK_EMOJIS.Mask49;
+const hairEmoji = HAIR_EMOJIS.Hair80;
+const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp14;
 
 export default new SeasonalSpirit({
 	name: SpiritName.BaffledBotanist,
 	season: SeasonName.Assembly,
-	expression,
+	emote,
 	realm: Realm.HiddenForest,
 	hasMarketingVideo: true,
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemsData>()
-			.set(1 << 0, { item: `${expression} 1`, cost: null })
-			.set(1 << 1, { item: `${expression} 2`, cost: null })
-			.set(1 << 2, { item: "Blessing 1", cost: { seasonalCandles: 10 } })
-			.set(1 << 8, { item: "Hair", cost: null })
-			.set(1 << 6, { item: `${expression} 3`, cost: { seasonalCandles: 12 } })
-			.set(1 << 7, { item: `${expression} 4`, cost: null })
-			.set(1 << 3, { item: "Mask", cost: { seasonalCandles: 14 } })
-			.set(1 << 9, { item: "Blessing 2", cost: null })
-			.set(1 << 11, { item: "Blessing 3", cost: { seasonalCandles: 16 } })
-			.set(1 << 10, { item: "Prop", cost: null })
-			.set(1 << 4, { item: "Seasonal heart", cost: { seasonalCandles: 3 } }),
+			.set(1 << 0, { item: `${emote} 1`, cost: null, emoji: emoteEmoji })
+			.set(1 << 1, { item: `${emote} 2`, cost: null, emoji: emoteEmoji })
+			.set(1 << 2, { item: "Blessing 1", cost: { seasonalCandles: 10 }, emoji: blessing2 })
+			.set(1 << 8, { item: "Hair", cost: null, emoji: hairEmoji })
+			.set(1 << 6, { item: `${emote} 3`, cost: { seasonalCandles: 12 }, emoji: emoteEmoji })
+			.set(1 << 7, { item: `${emote} 4`, cost: null, emoji: emoteEmoji })
+			.set(1 << 3, { item: "Mask", cost: { seasonalCandles: 14 }, emoji: maskEmoji })
+			.set(1 << 9, { item: "Blessing 2", cost: null, emoji: blessing2 })
+			.set(1 << 11, { item: "Blessing 3", cost: { seasonalCandles: 16 }, emoji: blessing2 })
+			.set(1 << 10, { item: "Prop", cost: null, emoji: placeablePropEmoji })
+			.set(1 << 4, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.AssemblyHeart }),
 		current: new Collection<number, ItemsData>()
-			.set(1 << 0, { item: `${expression} 1`, cost: null })
-			.set(1 << 1, { item: `${expression} 2`, cost: { hearts: 4 } })
-			.set(1 << 2, { item: "Blessing 1", cost: { candles: 5 } })
-			.set(1 << 3, { item: "Mask", cost: { candles: 24 } })
-			.set(1 << 4, { item: "Heart", cost: { candles: 3 } })
-			.set(1 << 5, { item: "Wing buff", cost: { ascendedCandles: 2 } })
-			.set(1 << 6, { item: `${expression} 3`, cost: { hearts: 3 } })
-			.set(1 << 7, { item: `${expression} 4`, cost: { hearts: 6 } })
-			.set(1 << 8, { item: "Hair", cost: { candles: 45 } })
-			.set(1 << 9, { item: "Blessing 2", cost: { candles: 5 } })
-			.set(1 << 10, { item: "Prop", cost: { candles: 45 } }),
+			.set(1 << 0, { item: `${emote} 1`, cost: null, emoji: emoteEmoji })
+			.set(1 << 1, { item: `${emote} 2`, cost: { hearts: 4 }, emoji: emoteEmoji })
+			.set(1 << 2, { item: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
+			.set(1 << 3, { item: "Mask", cost: { candles: 24 }, emoji: maskEmoji })
+			.set(1 << 4, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
+			.set(1 << 5, { item: "Wing buff", cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff })
+			.set(1 << 6, { item: `${emote} 3`, cost: { hearts: 3 }, emoji: emoteEmoji })
+			.set(1 << 7, { item: `${emote} 4`, cost: { hearts: 6 }, emoji: emoteEmoji })
+			.set(1 << 8, { item: "Hair", cost: { candles: 45 }, emoji: hairEmoji })
+			.set(1 << 9, { item: "Blessing 2", cost: { candles: 5 }, emoji: blessing2 })
+			.set(1 << 10, { item: "Prop", cost: { candles: 45 }, emoji: placeablePropEmoji }),
 	},
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(78, skyDate(2_023, 1, 5)),

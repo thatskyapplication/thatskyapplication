@@ -8,7 +8,7 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	skyDate,
 } from "../Utility/dates.js";
-import { type Emoji, EMOJI, formatEmoji } from "../Utility/emojis.js";
+import { type SeasonEmojis, formatEmoji, SEASON_EMOJIS } from "../Utility/emojis.js";
 
 export enum SeasonName {
 	Gratitude = "Gratitude",
@@ -35,68 +35,70 @@ export enum SeasonName {
 const SEASON_NAME_VALUES = Object.values(SeasonName);
 
 export const SeasonNameToSeasonalEmoji = {
-	[SeasonName.Gratitude]: EMOJI.SeasonGratitude,
-	[SeasonName.Lightseekers]: EMOJI.SeasonLightseekers,
-	[SeasonName.Belonging]: EMOJI.SeasonBelonging,
-	[SeasonName.Rhythm]: EMOJI.SeasonRhythm,
-	[SeasonName.Enchantment]: EMOJI.SeasonEnchantment,
-	[SeasonName.Sanctuary]: EMOJI.SeasonSanctuary,
-	[SeasonName.Prophecy]: EMOJI.SeasonProphecy,
-	[SeasonName.Dreams]: EMOJI.SeasonDreams,
-	[SeasonName.Assembly]: EMOJI.SeasonAssembly,
-	[SeasonName.LittlePrince]: EMOJI.SeasonLittlePrince,
-	[SeasonName.Flight]: EMOJI.SeasonFlight,
-	[SeasonName.Abyss]: EMOJI.SeasonAbyss,
-	[SeasonName.Performance]: EMOJI.SeasonPerformance,
-	[SeasonName.Shattering]: EMOJI.SeasonShattering,
-	[SeasonName.Aurora]: EMOJI.SeasonAurora,
-	[SeasonName.Remembrance]: EMOJI.SeasonRemembrance,
-	[SeasonName.Passage]: EMOJI.SeasonPassage,
-	[SeasonName.Moments]: EMOJI.SeasonMoments,
-	[SeasonName.Revival]: EMOJI.SeasonRevival,
-} as const satisfies Readonly<Record<SeasonName, Emoji>>;
+	[SeasonName.Gratitude]: SEASON_EMOJIS.Gratitude,
+	[SeasonName.Lightseekers]: SEASON_EMOJIS.Lightseekers,
+	[SeasonName.Belonging]: SEASON_EMOJIS.Belonging,
+	[SeasonName.Rhythm]: SEASON_EMOJIS.Rhythm,
+	[SeasonName.Enchantment]: SEASON_EMOJIS.Enchantment,
+	[SeasonName.Sanctuary]: SEASON_EMOJIS.Sanctuary,
+	[SeasonName.Prophecy]: SEASON_EMOJIS.Prophecy,
+	[SeasonName.Dreams]: SEASON_EMOJIS.Dreams,
+	[SeasonName.Assembly]: SEASON_EMOJIS.Assembly,
+	[SeasonName.LittlePrince]: SEASON_EMOJIS.LittlePrince,
+	[SeasonName.Flight]: SEASON_EMOJIS.Flight,
+	[SeasonName.Abyss]: SEASON_EMOJIS.Abyss,
+	[SeasonName.Performance]: SEASON_EMOJIS.Performance,
+	[SeasonName.Shattering]: SEASON_EMOJIS.Shattering,
+	[SeasonName.Aurora]: SEASON_EMOJIS.Aurora,
+	[SeasonName.Remembrance]: SEASON_EMOJIS.Remembrance,
+	[SeasonName.Passage]: SEASON_EMOJIS.Passage,
+	[SeasonName.Moments]: SEASON_EMOJIS.Moments,
+	[SeasonName.Revival]: SEASON_EMOJIS.Revival,
+} as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
 export const SeasonNameToSeasonalCandleEmoji = {
-	[SeasonName.Gratitude]: EMOJI.CandleGratitude,
-	[SeasonName.Lightseekers]: EMOJI.CandleLightseekers,
-	[SeasonName.Belonging]: EMOJI.CandleBelonging,
-	[SeasonName.Rhythm]: EMOJI.CandleRhythm,
-	[SeasonName.Enchantment]: EMOJI.CandleEnchantment,
-	[SeasonName.Sanctuary]: EMOJI.CandleSanctuary,
-	[SeasonName.Prophecy]: EMOJI.CandleProphecy,
-	[SeasonName.Dreams]: EMOJI.CandleDreams,
-	[SeasonName.Assembly]: EMOJI.CandleAssembly,
-	[SeasonName.LittlePrince]: EMOJI.CandleLittlePrince,
-	[SeasonName.Flight]: EMOJI.CandleFlight,
-	[SeasonName.Abyss]: EMOJI.CandleAbyss,
-	[SeasonName.Performance]: EMOJI.CandlePerformance,
-	[SeasonName.Shattering]: EMOJI.CandleShattering,
-	[SeasonName.Aurora]: EMOJI.CandleAurora,
-	[SeasonName.Remembrance]: EMOJI.CandleRemembrance,
-	[SeasonName.Passage]: EMOJI.CandlePassage,
-	[SeasonName.Moments]: EMOJI.CandleMoments,
-	[SeasonName.Revival]: EMOJI.CandleRevival,
-} as const satisfies Readonly<Record<SeasonName, Emoji>>;
+	[SeasonName.Gratitude]: SEASON_EMOJIS.GratitudeCandle,
+	[SeasonName.Lightseekers]: SEASON_EMOJIS.LightseekersCandle,
+	[SeasonName.Belonging]: SEASON_EMOJIS.BelongingCandle,
+	[SeasonName.Rhythm]: SEASON_EMOJIS.RhythmCandle,
+	[SeasonName.Enchantment]: SEASON_EMOJIS.EnchantmentCandle,
+	[SeasonName.Sanctuary]: SEASON_EMOJIS.SanctuaryCandle,
+	[SeasonName.Prophecy]: SEASON_EMOJIS.ProphecyCandle,
+	[SeasonName.Dreams]: SEASON_EMOJIS.DreamsCandle,
+	[SeasonName.Assembly]: SEASON_EMOJIS.AssemblyCandle,
+	[SeasonName.LittlePrince]: SEASON_EMOJIS.LittlePrinceCandle,
+	[SeasonName.Flight]: SEASON_EMOJIS.FlightCandle,
+	[SeasonName.Abyss]: SEASON_EMOJIS.AbyssCandle,
+	[SeasonName.Performance]: SEASON_EMOJIS.PerformanceCandle,
+	[SeasonName.Shattering]: SEASON_EMOJIS.ShatteringCandle,
+	[SeasonName.Aurora]: SEASON_EMOJIS.AuroraCandle,
+	[SeasonName.Remembrance]: SEASON_EMOJIS.RemembranceCandle,
+	[SeasonName.Passage]: SEASON_EMOJIS.PassageCandle,
+	[SeasonName.Moments]: SEASON_EMOJIS.MomentsCandle,
+	[SeasonName.Revival]: SEASON_EMOJIS.RevivalCandle,
+} as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
 export const SeasonNameToSeasonalHeartEmoji = {
-	[SeasonName.Belonging]: EMOJI.HeartBelonging,
-	[SeasonName.Rhythm]: EMOJI.HeartRhythm,
-	[SeasonName.Enchantment]: EMOJI.HeartEnchantment,
-	[SeasonName.Sanctuary]: EMOJI.HeartSanctuary,
-	[SeasonName.Prophecy]: EMOJI.HeartProphecy,
-	[SeasonName.Dreams]: EMOJI.HeartDreams,
-	[SeasonName.Assembly]: EMOJI.HeartAssembly,
-	[SeasonName.LittlePrince]: EMOJI.HeartLittlePrince,
-	[SeasonName.Flight]: EMOJI.HeartFlight,
-	[SeasonName.Abyss]: EMOJI.HeartAbyss,
-	[SeasonName.Performance]: EMOJI.HeartPerformance,
-	[SeasonName.Shattering]: EMOJI.HeartShattering,
-	[SeasonName.Aurora]: EMOJI.HeartAurora,
-	[SeasonName.Remembrance]: EMOJI.HeartRemembrance,
-	[SeasonName.Passage]: EMOJI.HeartPassage,
-	[SeasonName.Moments]: EMOJI.HeartMoments,
-	[SeasonName.Revival]: EMOJI.HeartRevival,
-} as const satisfies Readonly<Record<Exclude<SeasonName, SeasonName.Gratitude | SeasonName.Lightseekers>, Emoji>>;
+	[SeasonName.Belonging]: SEASON_EMOJIS.BelongingHeart,
+	[SeasonName.Rhythm]: SEASON_EMOJIS.RhythmHeart,
+	[SeasonName.Enchantment]: SEASON_EMOJIS.EnchantmentHeart,
+	[SeasonName.Sanctuary]: SEASON_EMOJIS.SanctuaryHeart,
+	[SeasonName.Prophecy]: SEASON_EMOJIS.ProphecyHeart,
+	[SeasonName.Dreams]: SEASON_EMOJIS.DreamsHeart,
+	[SeasonName.Assembly]: SEASON_EMOJIS.AssemblyHeart,
+	[SeasonName.LittlePrince]: SEASON_EMOJIS.LittlePrinceHeart,
+	[SeasonName.Flight]: SEASON_EMOJIS.FlightHeart,
+	[SeasonName.Abyss]: SEASON_EMOJIS.AbyssHeart,
+	[SeasonName.Performance]: SEASON_EMOJIS.PerformanceHeart,
+	[SeasonName.Shattering]: SEASON_EMOJIS.ShatteringHeart,
+	[SeasonName.Aurora]: SEASON_EMOJIS.AuroraHeart,
+	[SeasonName.Remembrance]: SEASON_EMOJIS.RemembranceHeart,
+	[SeasonName.Passage]: SEASON_EMOJIS.PassageHeart,
+	[SeasonName.Moments]: SEASON_EMOJIS.MomentsHeart,
+	[SeasonName.Revival]: SEASON_EMOJIS.RevivalHeart,
+} as const satisfies Readonly<
+	Record<Exclude<SeasonName, SeasonName.Gratitude | SeasonName.Lightseekers>, SeasonEmojis>
+>;
 
 export type RotationNumber = 1 | 2 | 3;
 export const SEASONAL_CANDLES_PER_DAY = 5 as const;
@@ -166,9 +168,9 @@ class Season {
 
 	public readonly duration: number;
 
-	public readonly emoji: Emoji;
+	public readonly emoji: SeasonEmojis;
 
-	public readonly candleEmoji: Emoji;
+	public readonly candleEmoji: SeasonEmojis;
 
 	private readonly seasonalCandlesRotation: SeasonalCandlesRotation;
 

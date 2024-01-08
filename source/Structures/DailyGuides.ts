@@ -41,7 +41,7 @@ import { todayDate } from "../Utility/dates.js";
 import pg, { Table } from "../pg.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import { SeasonName } from "./Season.js";
-import { type SeasonalSpirit, type StandardSpirit, Expression } from "./Spirits/Base.js";
+import { type SeasonalSpirit, type StandardSpirit, Emote, FriendAction } from "./Spirits/Base.js";
 import Spirits from "./Spirits/index.js";
 
 export interface DailyGuidesPacket {
@@ -134,7 +134,7 @@ const FORGE_A_CANDLE = { content: "Forge a candle", url: null } as const;
 const MELT_10_DARKNESS = { content: "Melt 10 darkness", url: null } as const;
 
 const BOW_AT_A_PLAYER = {
-	content: `${Expression.Bow} at a player`,
+	content: `${Emote.Bow} at a player`,
 	url: String(new URL(`daily_guides/quests/social/bow_at_a_player.webp`, CDN_URL)),
 } as const;
 
@@ -144,12 +144,12 @@ const FOLLOW_A_FRIEND = {
 } as const;
 
 const HUG_A_FRIEND = {
-	content: `${Expression.Hug} a friend`,
+	content: `${FriendAction.Hug} a friend`,
 	url: String(new URL(`daily_guides/quests/social/hug_a_friend.webp`, CDN_URL)),
 } as const;
 
 const WAVE_TO_A_FRIEND = {
-	content: `${Expression.Wave} to a friend`,
+	content: `${Emote.Wave} to a friend`,
 	url: String(new URL(`daily_guides/quests/social/wave_to_a_friend.webp`, CDN_URL)),
 } as const;
 
@@ -169,7 +169,7 @@ const MAKE_A_NEW_ACQUAINTANCE = {
 } as const;
 
 const HIGH_FIVE_A_FRIEND = {
-	content: `${Expression.HighFive} a friend`,
+	content: `${FriendAction.HighFive} a friend`,
 	url: String(new URL(`daily_guides/quests/social/high_five_a_friend.webp`, CDN_URL)),
 } as const;
 
