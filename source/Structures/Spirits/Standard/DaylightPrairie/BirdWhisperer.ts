@@ -1,11 +1,11 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { CALLS_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { CALL_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { type ItemsData, Call, SpiritName, StandardSpirit } from "../../Base.js";
 
 const call = Call.Bird;
-const callEmoji = CALLS_EMOJIS.Bird;
+const callEmoji = CALL_EMOJIS.Bird;
 
 export default new StandardSpirit({
 	name: SpiritName.BirdWhisperer,

@@ -8,7 +8,7 @@ import {
 	HELD_PROPS_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
-	STANCES_EMOJIS,
+	STANCE_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
@@ -21,7 +21,7 @@ import {
 
 const stance = Stance.Laidback;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
-const stanceEmoji = STANCES_EMOJIS.Laidback;
+const stanceEmoji = STANCE_EMOJIS.Laidback;
 const maskEmoji = MASK_EMOJIS.Mask14;
 const hairEmoji = HAIR_EMOJIS.Hair43;
 const heldProp = HELD_PROPS_EMOJIS.HeldProp11;

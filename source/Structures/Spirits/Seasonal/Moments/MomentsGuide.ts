@@ -3,7 +3,7 @@ import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
-	FRIEND_ACTIONS_EMOJIS,
+	FRIEND_ACTION_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
 	HELD_PROPS_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
@@ -35,7 +35,7 @@ export default new GuideSpirit({
 			.set(1 << 6, { item: "Heart 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 7, { item: "Quest 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 8, { item: "Heart 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 9, { item: FriendAction.DoubleFive, cost: null, emoji: FRIEND_ACTIONS_EMOJIS.DoubleFive })
+			.set(1 << 9, { item: FriendAction.DoubleFive, cost: null, emoji: FRIEND_ACTION_EMOJIS.DoubleFive })
 			.set(1 << 10, { item: "Quest 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 11, { item: "Heart 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 12, { item: "Quest 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })

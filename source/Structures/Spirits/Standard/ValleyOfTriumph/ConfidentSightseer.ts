@@ -1,11 +1,11 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { HAIR_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS, STANCES_EMOJIS } from "../../../../Utility/emojis.js";
+import { HAIR_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS, STANCE_EMOJIS } from "../../../../Utility/emojis.js";
 import { type ItemsData, Stance, SpiritName, StandardSpirit } from "../../Base.js";
 
 const stance = Stance.Confident;
-const stanceEmoji = STANCES_EMOJIS.Confident;
+const stanceEmoji = STANCE_EMOJIS.Confident;
 
 export default new StandardSpirit({
 	name: SpiritName.ConfidentSightseer,

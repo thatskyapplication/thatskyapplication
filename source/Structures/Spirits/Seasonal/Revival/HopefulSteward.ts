@@ -2,7 +2,7 @@
 import { Collection } from "discord.js";
 import {
 	CAPE_EMOJIS,
-	FRIEND_ACTIONS_EMOJIS,
+	FRIEND_ACTION_EMOJIS,
 	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
@@ -26,7 +26,7 @@ export default new GuideSpirit({
 			.set(1 << 8, { item: "Heart 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 9, { item: "Quest 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 10, { item: "Heart 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 17, { item: FriendAction.Hug, cost: null, emoji: FRIEND_ACTIONS_EMOJIS.Hug })
+			.set(1 << 17, { item: FriendAction.Hug, cost: null, emoji: FRIEND_ACTION_EMOJIS.Hug })
 			.set(1 << 11, { item: "Quest 5", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 12, { item: "Heart 5", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 13, { item: "Quest 6", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })

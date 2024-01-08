@@ -3,7 +3,7 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS, STANCES_EMOJIS } from "../../../../Utility/emojis.js";
+import { HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS, STANCE_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
 	type ItemsData,
@@ -15,7 +15,7 @@ import {
 
 const stance = Stance.Sassy;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
-const stanceEmoji = STANCES_EMOJIS.Sassy;
+const stanceEmoji = STANCE_EMOJIS.Sassy;
 const maskEmoji = MASK_EMOJIS.Mask11;
 const hairEmoji = HAIR_EMOJIS.Hair37;
 

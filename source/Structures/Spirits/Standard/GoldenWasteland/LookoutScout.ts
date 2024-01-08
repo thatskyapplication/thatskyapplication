@@ -2,7 +2,7 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import {
-	EMOTES_EMOJIS,
+	EMOTE_EMOJIS,
 	FACE_ACCESSORY_EMOJIS,
 	HELD_PROPS_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
@@ -10,7 +10,7 @@ import {
 import { type ItemsData, Emote, SpiritName, StandardSpirit } from "../../Base.js";
 
 const emote = Emote.LookAround;
-const emoteEmoji = EMOTES_EMOJIS.LookAround;
+const emoteEmoji = EMOTE_EMOJIS.LookAround;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory06;
 
 export default new StandardSpirit({

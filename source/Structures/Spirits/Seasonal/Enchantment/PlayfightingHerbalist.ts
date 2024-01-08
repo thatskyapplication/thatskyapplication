@@ -5,7 +5,7 @@ import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
-	FRIEND_ACTIONS_EMOJIS,
+	FRIEND_ACTION_EMOJIS,
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
@@ -23,7 +23,7 @@ import {
 
 const action = FriendAction.PlayFight;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
-const actionEmoji = FRIEND_ACTIONS_EMOJIS.PlayFight;
+const actionEmoji = FRIEND_ACTION_EMOJIS.PlayFight;
 const maskEmoji = MASK_EMOJIS.Mask28;
 const hairEmoji = HAIR_EMOJIS.Hair58;
 const capeEmoji = CAPE_EMOJIS.Cape28;

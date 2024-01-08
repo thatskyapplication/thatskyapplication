@@ -4,7 +4,7 @@ import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
-	CALLS_EMOJIS,
+	CALL_EMOJIS,
 	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
@@ -16,7 +16,7 @@ import { type ItemsData, type SeasonalSpiritVisitCollectionKey, Call, SeasonalSp
 
 const call = Call.Jellyfish;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
-const callEmoji = CALLS_EMOJIS.Jellyfish;
+const callEmoji = CALL_EMOJIS.Jellyfish;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit15;
 const hairEmoji = HAIR_EMOJIS.Hair60;
 const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp29;

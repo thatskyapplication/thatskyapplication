@@ -1,11 +1,11 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { CAPE_EMOJIS, EMOTES_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../Utility/emojis.js";
+import { CAPE_EMOJIS, EMOTE_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../Utility/emojis.js";
 import { type ItemsData, Emote, SpiritName, StandardSpirit } from "../../Base.js";
 
 const emote = Emote.Butterfly;
-const emoteEmoji = EMOTES_EMOJIS.Butterfly;
+const emoteEmoji = EMOTE_EMOJIS.Butterfly;
 
 export default new StandardSpirit({
 	name: SpiritName.ButterflyCharmer,

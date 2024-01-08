@@ -3,7 +3,7 @@ import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import {
 	CAPE_EMOJIS,
-	FRIEND_ACTIONS_EMOJIS,
+	FRIEND_ACTION_EMOJIS,
 	HAIR_EMOJIS,
 	HELD_PROPS_EMOJIS,
 	MASK_EMOJIS,
@@ -30,17 +30,17 @@ export default new GuideSpirit({
 			.set(1 << 4, { item: "Ultimate hair", cost: { seasonalHearts: 1 }, emoji: HAIR_EMOJIS.Hair77 })
 			.set(1 << 5, { item: "Bugle", cost: { seasonalHearts: 2 }, emoji: HELD_PROPS_EMOJIS.HeldProp21 })
 			.set(1 << 6, { item: "Ultimate cape", cost: { seasonalHearts: 2 }, emoji: CAPE_EMOJIS.Cape52 })
-			.set(1 << 7, { item: FriendAction.HighFive, cost: null, emoji: FRIEND_ACTIONS_EMOJIS.HighFive })
+			.set(1 << 7, { item: FriendAction.HighFive, cost: null, emoji: FRIEND_ACTION_EMOJIS.HighFive })
 			.set(1 << 8, { item: "Quest 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 9, { item: "Pillow", cost: { candles: 5 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp11 })
 			.set(1 << 10, { item: "Quest 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 11, { item: "Heart 2", cost: { candles: 3 }, emoji: heartEmoji })
-			.set(1 << 12, { item: FriendAction.Hug, cost: null, emoji: FRIEND_ACTIONS_EMOJIS.Hug })
+			.set(1 << 12, { item: FriendAction.Hug, cost: null, emoji: FRIEND_ACTION_EMOJIS.Hug })
 			.set(1 << 13, { item: "Quest 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 14, { item: "Jar", cost: { candles: 8 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp10 })
 			.set(1 << 15, { item: "Quest 5", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 16, { item: "Brazier", cost: { hearts: 12 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp07 })
-			.set(1 << 17, { item: FriendAction.DoubleFive, cost: null, emoji: FRIEND_ACTIONS_EMOJIS.DoubleFive })
+			.set(1 << 17, { item: FriendAction.DoubleFive, cost: null, emoji: FRIEND_ACTION_EMOJIS.DoubleFive })
 			.set(1 << 18, { item: "Quest 6", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 19, { item: "Heart 3", cost: { candles: 3 }, emoji: heartEmoji })
 			.set(1 << 20, { item: "Bookcase", cost: { candles: 30 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp08 })

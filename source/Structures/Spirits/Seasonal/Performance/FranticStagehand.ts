@@ -2,7 +2,7 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import {
-	FRIEND_ACTIONS_EMOJIS,
+	FRIEND_ACTION_EMOJIS,
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
@@ -14,7 +14,7 @@ import { type ItemsData, FriendAction, SeasonalSpirit, SpiritName } from "../../
 
 const action = FriendAction.Handshake;
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
-const actionEmoji = FRIEND_ACTIONS_EMOJIS.Handshake;
+const actionEmoji = FRIEND_ACTION_EMOJIS.Handshake;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit31;
 const maskEmoji = MASK_EMOJIS.Mask61;
 const hairEmoji = HAIR_EMOJIS.Hair105;

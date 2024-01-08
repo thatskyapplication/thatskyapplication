@@ -10,7 +10,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
 	SEASON_EMOJIS,
-	STANCES_EMOJIS,
+	STANCE_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
@@ -24,7 +24,7 @@ import {
 const stance = Stance.Tinker;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const colourTrail = MISCELLANEOUS_EMOJIS.SpellColourTrail;
-const stanceEmoji = STANCES_EMOJIS.Tinker;
+const stanceEmoji = STANCE_EMOJIS.Tinker;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit26;
 const hairEmoji = HAIR_EMOJIS.Hair92;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory10;

@@ -3,7 +3,7 @@ import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import {
 	CAPE_EMOJIS,
-	EMOTES_EMOJIS,
+	EMOTE_EMOJIS,
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
@@ -16,7 +16,7 @@ import { type ItemsData, Emote, SeasonalSpirit, SpiritName } from "../../Base.js
 const emote = Emote.Anxious;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
-const emoteEmoji = EMOTES_EMOJIS.Anxious;
+const emoteEmoji = EMOTE_EMOJIS.Anxious;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit29;
 const maskEmoji = MASK_EMOJIS.Mask57;
 const hairEmoji = HAIR_EMOJIS.Hair100;

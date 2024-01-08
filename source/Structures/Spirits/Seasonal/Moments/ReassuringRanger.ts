@@ -4,7 +4,7 @@ import { Realm } from "../../../../Utility/Constants.js";
 import {
 	CAPE_EMOJIS,
 	FACE_ACCESSORY_EMOJIS,
-	FRIEND_ACTIONS_EMOJIS,
+	FRIEND_ACTION_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
@@ -15,7 +15,7 @@ import { type ItemsData, FriendAction, SeasonalSpirit, SpiritName } from "../../
 
 const action = FriendAction.SideHug;
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
-const actionEmoji = FRIEND_ACTIONS_EMOJIS.SideHug;
+const actionEmoji = FRIEND_ACTION_EMOJIS.SideHug;
 const maskEmoji = MASK_EMOJIS.Mask81;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory27;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory25;

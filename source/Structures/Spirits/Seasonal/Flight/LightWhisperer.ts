@@ -2,7 +2,7 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import {
-	CALLS_EMOJIS,
+	CALL_EMOJIS,
 	CAPE_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
@@ -16,7 +16,7 @@ import { type ItemsData, Call, SeasonalSpirit, SpiritName } from "../../Base.js"
 const call = Call.BabyManta;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const colourTrail = MISCELLANEOUS_EMOJIS.SpellColourTrail;
-const callEmoji = CALLS_EMOJIS.BabyManta;
+const callEmoji = CALL_EMOJIS.BabyManta;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit27;
 const hairEmoji = HAIR_EMOJIS.Hair93;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory09;

@@ -4,7 +4,7 @@ import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
-	EMOTES_EMOJIS,
+	EMOTE_EMOJIS,
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
@@ -23,7 +23,7 @@ import {
 
 const emote = Emote.Grumpy;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
-const emoteEmoji = EMOTES_EMOJIS.Grumpy;
+const emoteEmoji = EMOTE_EMOJIS.Grumpy;
 const maskEmoji = MASK_EMOJIS.Mask31;
 const necklaceEmoji = NECKLACE_EMOJIS.Necklace07;
 const hairEmoji = HAIR_EMOJIS.Hair63;

@@ -55,7 +55,7 @@ export type MiscellaneousEmojis = (typeof MISCELLANEOUS_EMOJIS)[keyof typeof MIS
 /**
  * Emojis from the emotes servers.
  */
-export const EMOTES_EMOJIS = {
+export const EMOTE_EMOJIS = {
 	Sit: { name: "sit", id: "1177210235774054441" },
 	Point: { name: "point", id: "1177213563111231581" },
 	Come: { name: "come", id: "1177333067317268480" },
@@ -157,12 +157,12 @@ export const EMOTES_EMOJIS = {
 	CureForMeDance: { name: "cure_for_me_dance", id: "1177412031654146168" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type EmotesEmojis = (typeof EMOTES_EMOJIS)[keyof typeof EMOTES_EMOJIS];
+export type EmotesEmojis = (typeof EMOTE_EMOJIS)[keyof typeof EMOTE_EMOJIS];
 
 /**
  * Emojis from the stances server.
  */
-export const STANCES_EMOJIS = {
+export const STANCE_EMOJIS = {
 	Base: { name: "base", id: "1177462825145356348" },
 	Courageous: { name: "courageous", id: "1177462882099810434" },
 	Confident: { name: "confident", id: "1177462894657548368" },
@@ -177,12 +177,12 @@ export const STANCES_EMOJIS = {
 	Injured: { name: "injured", id: "1177463309293867069" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type StancesEmojis = (typeof STANCES_EMOJIS)[keyof typeof STANCES_EMOJIS];
+export type StancesEmojis = (typeof STANCE_EMOJIS)[keyof typeof STANCE_EMOJIS];
 
 /**
  * Emojis from the calls server.
  */
-export const CALLS_EMOJIS = {
+export const CALL_EMOJIS = {
 	Base: { name: "base", id: "1177471163040006185" },
 	Bird: { name: "bird", id: "1177471216878096404" },
 	Whale: { name: "whale", id: "1177471237321150584" },
@@ -194,12 +194,12 @@ export const CALLS_EMOJIS = {
 	Nightbird: { name: "nightbird", id: "1177471757133807747" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type CallsEmojis = (typeof CALLS_EMOJIS)[keyof typeof CALLS_EMOJIS];
+export type CallsEmojis = (typeof CALL_EMOJIS)[keyof typeof CALL_EMOJIS];
 
 /**
  * Emojis from the friend actions server.
  */
-export const FRIEND_ACTIONS_EMOJIS = {
+export const FRIEND_ACTION_EMOJIS = {
 	HoldHand: { name: "hold_hand", id: "1177437567105368124" },
 	HighFive: { name: "high_five", id: "1177438862356795422" },
 	Hug: { name: "hug", id: "1177438880887222272" },
@@ -214,7 +214,7 @@ export const FRIEND_ACTIONS_EMOJIS = {
 	SideHug: { name: "side_hug", id: "1177439594870997032" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type FriendActionsEmojis = (typeof FRIEND_ACTIONS_EMOJIS)[keyof typeof FRIEND_ACTIONS_EMOJIS];
+export type FriendActionsEmojis = (typeof FRIEND_ACTION_EMOJIS)[keyof typeof FRIEND_ACTION_EMOJIS];
 
 /**
  * Emojis from the seasons servers.

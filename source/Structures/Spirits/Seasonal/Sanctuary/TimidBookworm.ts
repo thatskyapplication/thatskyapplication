@@ -8,7 +8,7 @@ import {
 	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
-	STANCES_EMOJIS,
+	STANCE_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
@@ -21,7 +21,7 @@ import {
 
 const stance = Stance.Timid;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
-const stanceEmoji = STANCES_EMOJIS.Timid;
+const stanceEmoji = STANCE_EMOJIS.Timid;
 const hairEmoji = HAIR_EMOJIS.Hair61;
 const capeEmoji = CAPE_EMOJIS.Cape30;
 

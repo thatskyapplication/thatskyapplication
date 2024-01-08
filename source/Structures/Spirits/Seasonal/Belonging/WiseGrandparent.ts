@@ -9,7 +9,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
-	STANCES_EMOJIS,
+	STANCE_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
@@ -23,7 +23,7 @@ import {
 const stance = Stance.Wise;
 const blessing1 = MISCELLANEOUS_EMOJIS.Blessing1;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
-const stanceEmoji = STANCES_EMOJIS.Wise;
+const stanceEmoji = STANCE_EMOJIS.Wise;
 const maskEmoji = MASK_EMOJIS.Mask19;
 const capeEmoji = CAPE_EMOJIS.Cape22;
 const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp28;

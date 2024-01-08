@@ -1,11 +1,11 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { EMOTES_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { EMOTE_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { type ItemsData, Emote, SpiritName, StandardSpirit } from "../../Base.js";
 
 const emote = Emote.Teamwork;
-const emoteEmoji = EMOTES_EMOJIS.Teamwork;
+const emoteEmoji = EMOTE_EMOJIS.Teamwork;
 
 export default new StandardSpirit({
 	name: SpiritName.CeremonialWorshiper,

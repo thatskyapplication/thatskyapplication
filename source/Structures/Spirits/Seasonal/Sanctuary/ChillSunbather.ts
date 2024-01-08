@@ -5,7 +5,7 @@ import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
-	EMOTES_EMOJIS,
+	EMOTE_EMOJIS,
 	FACE_ACCESSORY_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
@@ -23,7 +23,7 @@ import {
 
 const emote = Emote.BellyScratch;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
-const emoteEmoji = EMOTES_EMOJIS.BellyScratch;
+const emoteEmoji = EMOTE_EMOJIS.BellyScratch;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory10;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory02;
 const capeEmoji = CAPE_EMOJIS.Cape33;

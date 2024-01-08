@@ -2,7 +2,7 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import {
-	EMOTES_EMOJIS,
+	EMOTE_EMOJIS,
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
@@ -11,7 +11,7 @@ import {
 import { type ItemsData, Emote, SpiritName, StandardSpirit } from "../../Base.js";
 
 const emote = Emote.HideAndSeek;
-const emoteEmoji = EMOTES_EMOJIS.HideAndSeek;
+const emoteEmoji = EMOTE_EMOJIS.HideAndSeek;
 
 export default new StandardSpirit({
 	name: SpiritName.HideNSeekPioneer,

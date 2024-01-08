@@ -1,11 +1,11 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { EMOTES_EMOJIS, FACE_ACCESSORY_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { EMOTE_EMOJIS, FACE_ACCESSORY_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { type ItemsData, Emote, SpiritName, StandardSpirit } from "../../Base.js";
 
 const emote = Emote.Telekinesis;
-const emoteEmoji = EMOTES_EMOJIS.Telekinesis;
+const emoteEmoji = EMOTE_EMOJIS.Telekinesis;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory07;
 
 export default new StandardSpirit({

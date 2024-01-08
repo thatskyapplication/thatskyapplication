@@ -3,7 +3,7 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { CAPE_EMOJIS, EMOTES_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { CAPE_EMOJIS, EMOTE_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
 	type ItemsData,
@@ -15,7 +15,7 @@ import {
 
 const emote = Emote.Acknowledge;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
-const emoteEmoji = EMOTES_EMOJIS.Acknowledge;
+const emoteEmoji = EMOTE_EMOJIS.Acknowledge;
 const maskEmoji = MASK_EMOJIS.Mask08;
 const capeEmoji = CAPE_EMOJIS.Cape13;
 
