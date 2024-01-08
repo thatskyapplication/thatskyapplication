@@ -20,7 +20,7 @@ export interface EmojiData {
 }
 
 /**
- * Emojis from the support server.
+ * Emojis from the miscellaneous server.
  */
 export const MISCELLANEOUS_EMOJIS = {
 	AscendedCandle: { name: "ascended_candle", id: "1193651853880213665" },
@@ -43,6 +43,9 @@ export const MISCELLANEOUS_EMOJIS = {
 	Blessing1: { name: "blessing", id: "1193670451990368346" },
 	Blessing2: { name: "blessing", id: "1193670463117873272" },
 	Blessing3: { name: "blessing", id: "1193678502705250475" },
+	SpellColourTrail: { name: "spell_colour_trail", id: "1193711383477493901" },
+	SpellSharedMemory: { name: "spell_shared_memory", id: "1193711402259587112" },
+	SpellSharedSpace: { name: "spell_shared_space", id: "1193711413391265862" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type MiscellaneousEmojis = (typeof MISCELLANEOUS_EMOJIS)[keyof typeof MISCELLANEOUS_EMOJIS];

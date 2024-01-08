@@ -23,6 +23,7 @@ import {
 
 const stance = Stance.Tinker;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
+const colourTrail = MISCELLANEOUS_EMOJIS.SpellColourTrail;
 const stanceEmoji = STANCES_EMOJIS.Tinker;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit26;
 const hairEmoji = HAIR_EMOJIS.Hair92;
@@ -43,10 +44,10 @@ export default new SeasonalSpirit({
 			.set(1 << 7, { item: "Outfit", cost: null, emoji: outfitEmoji })
 			.set(1 << 6, { item: "Hair accessory", cost: { seasonalCandles: 22 }, emoji: hairAccessoryEmoji })
 			.set(1 << 5, { item: "Blessing 2", cost: null, emoji: blessing2 })
-			.set(1 << 9, { item: "Trail spell 1", cost: { seasonalCandles: 26 } })
+			.set(1 << 9, { item: "Trail spell 1", cost: { seasonalCandles: 26 }, emoji: colourTrail })
 			.set(1 << 8, { item: "Kalimba", cost: null, emoji: heldProp })
 			.set(1 << 2, { item: "Hair", cost: { seasonalCandles: 28 }, emoji: hairEmoji })
-			.set(1 << 10, { item: "Trail spell 2", cost: null })
+			.set(1 << 10, { item: "Trail spell 2", cost: null, emoji: colourTrail })
 			.set(1 << 3, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.FlightHeart }),
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${stance} stance`, cost: null, emoji: stanceEmoji })

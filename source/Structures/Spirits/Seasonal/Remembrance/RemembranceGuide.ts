@@ -29,13 +29,13 @@ export default new GuideSpirit({
 			.set(1 << 5, { item: "Quest 2", cost: null })
 			.set(1 << 6, { item: "Chimes", cost: { candles: 30 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp49 })
 			.set(1 << 7, { item: FriendAction.HighFive, cost: null, emoji: FRIEND_ACTIONS_EMOJIS.HighFive })
-			.set(1 << 8, { item: "Blessing 1", cost: null })
+			.set(1 << 8, { item: "Shared space spell 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.SpellSharedSpace })
 			.set(1 << 9, { item: "Quest 3", cost: null })
 			.set(1 << 10, { item: "Heart 2", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 11, { item: "Quest 4", cost: null })
 			.set(1 << 12, { item: "Kettle", cost: { candles: 50 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp51 })
 			.set(1 << 13, { item: FriendAction.DoubleFive, cost: null, emoji: FRIEND_ACTIONS_EMOJIS.DoubleFive })
-			.set(1 << 14, { item: "Blessing 2", cost: null })
+			.set(1 << 14, { item: "Shared space spell 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.SpellSharedSpace })
 			.set(1 << 15, { item: "Quest 5", cost: null })
 			.set(1 << 16, { item: "Heart 3", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 17, { item: "Quest 6", cost: null })
@@ -46,9 +46,9 @@ export default new GuideSpirit({
 			.set(1 << 22, { item: "Crab plushie", cost: { hearts: 19 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp53 })
 			.set(1 << 23, { item: "Manta plushie", cost: { hearts: 17 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp54 })
 			.set(1 << 24, { item: FriendAction.Hug, cost: null, emoji: FRIEND_ACTIONS_EMOJIS.Hug })
-			.set(1 << 25, { item: "Blessing 3", cost: null })
+			.set(1 << 25, { item: "Shared space spell 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.SpellSharedSpace })
 			.set(1 << 26, { item: "Quest 9", cost: null })
-			.set(1 << 27, { item: "Blessing 4", cost: null })
+			.set(1 << 27, { item: "Shared space spell 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.SpellSharedSpace })
 			.set(1 << 28, { item: "Quest 10", cost: null }),
 	},
 });

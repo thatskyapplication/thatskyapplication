@@ -15,6 +15,7 @@ import { type ItemsData, Call, SeasonalSpirit, SpiritName } from "../../Base.js"
 
 const call = Call.BabyManta;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
+const colourTrail = MISCELLANEOUS_EMOJIS.SpellColourTrail;
 const callEmoji = CALLS_EMOJIS.BabyManta;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit27;
 const hairEmoji = HAIR_EMOJIS.Hair93;
@@ -34,10 +35,10 @@ export default new SeasonalSpirit({
 			.set(1 << 2, { item: "Hair accessory", cost: null, emoji: hairAccessoryEmoji })
 			.set(1 << 3, { item: "Hair", cost: { seasonalCandles: 22 }, emoji: hairEmoji })
 			.set(1 << 4, { item: "Blessing 2", cost: null, emoji: blessing2 })
-			.set(1 << 5, { item: "Trail spell 1", cost: { seasonalCandles: 26 } })
+			.set(1 << 5, { item: "Trail spell 1", cost: { seasonalCandles: 26 }, emoji: colourTrail })
 			.set(1 << 6, { item: "Cape", cost: null, emoji: capeEmoji })
 			.set(1 << 7, { item: "Outfit", cost: { seasonalCandles: 28 }, emoji: outfitEmoji })
-			.set(1 << 8, { item: "Trail spell 2", cost: null })
+			.set(1 << 8, { item: "Trail spell 2", cost: null, emoji: colourTrail })
 			.set(1 << 9, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.FlightHeart }),
 	},
 });

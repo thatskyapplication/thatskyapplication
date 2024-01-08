@@ -22,6 +22,7 @@ import {
 
 const emote = Emote.Navigate;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
+const colourTrail = MISCELLANEOUS_EMOJIS.SpellColourTrail;
 const emoteEmoji = EMOTES_EMOJIS.Navigate;
 const hairEmoji = HAIR_EMOJIS.Hair94;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory11;
@@ -55,10 +56,10 @@ export default new SeasonalSpirit({
 			.set(1 << 5, { item: "Blessing 2", cost: null, emoji: blessing2 })
 			.set(1 << 6, { item: `${emote} 3`, cost: { seasonalCandles: 18 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: null, emoji: emoteEmoji })
-			.set(1 << 8, { item: "Trail spell 1", cost: { seasonalCandles: 24 } })
+			.set(1 << 8, { item: "Trail spell 1", cost: { seasonalCandles: 24 }, emoji: colourTrail })
 			.set(1 << 9, { item: "Cape", cost: null, emoji: capeEmoji })
 			.set(1 << 10, { item: "Music sheet", cost: { seasonalCandles: 28 } })
-			.set(1 << 11, { item: "Trail spell 2", cost: null })
+			.set(1 << 11, { item: "Trail spell 2", cost: null, emoji: colourTrail })
 			.set(1 << 12, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.FlightHeart }),
 	},
 	visits: {
