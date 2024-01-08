@@ -1130,7 +1130,7 @@ export const NECKLACE_EMOJIS = {
 	 */
 	Necklace16: { name: "necklace", id: "1182861524772073473" },
 	/**
-	 * Days of Feast 2021
+	 * Days of Feast 2021.
 	 */
 	Necklace17: { name: "necklace", id: "1182861526865031250" },
 	/**
@@ -1150,7 +1150,7 @@ export const NECKLACE_EMOJIS = {
 	 */
 	Necklace21: { name: "necklace", id: "1182861534540611736" },
 	/**
-	 * Jelly Shoulder Buddy
+	 * Jelly Shoulder Buddy.
 	 */
 	Necklace22: { name: "necklace", id: "1182861535622725673" },
 	/**
