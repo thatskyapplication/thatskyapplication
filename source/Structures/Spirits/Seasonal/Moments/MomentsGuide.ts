@@ -31,16 +31,16 @@ export default new GuideSpirit({
 				cost: { seasonalHearts: 2 },
 				emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory27,
 			})
-			.set(1 << 5, { item: "Quest 1", cost: null })
+			.set(1 << 5, { item: "Quest 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 6, { item: "Heart 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 7, { item: "Quest 2", cost: null })
+			.set(1 << 7, { item: "Quest 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 8, { item: "Heart 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 9, { item: FriendAction.DoubleFive, cost: null, emoji: FRIEND_ACTIONS_EMOJIS.DoubleFive })
-			.set(1 << 10, { item: "Quest 3", cost: null })
+			.set(1 << 10, { item: "Quest 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 11, { item: "Heart 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 12, { item: "Quest 4", cost: null })
+			.set(1 << 12, { item: "Quest 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 13, { item: "Heart 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 14, { item: "Quest 5", cost: null })
+			.set(1 << 14, { item: "Quest 5", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 15, { item: "Heart 5", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart }),
 	},
 });
