@@ -40,9 +40,9 @@ export default new GuideSpirit({
 			.set(1 << 18, { item: `${Emote.Skipping} 3`, cost: { candles: 5 }, emoji: EMOTE_EMOJIS.Skipping })
 			.set(1 << 19, { item: `${Emote.Skipping} 4`, cost: { hearts: 5 }, emoji: EMOTE_EMOJIS.Skipping })
 			.set(1 << 20, { item: "Quest 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 21, { item: "Music sheet 1", cost: { candles: 20 } })
+			.set(1 << 21, { item: "Music sheet 1", cost: { candles: 20 }, emoji: MISCELLANEOUS_EMOJIS.MusicSheet })
 			.set(1 << 22, { item: "Quest 5", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 23, { item: "Music sheet 2", cost: { candles: 20 } })
+			.set(1 << 23, { item: "Music sheet 2", cost: { candles: 20 }, emoji: MISCELLANEOUS_EMOJIS.MusicSheet })
 			.set(1 << 24, { item: "Outfit", cost: { candles: 200 }, emoji: OUTFIT_EMOJIS.Outfit37 })
 			.set(1 << 25, { item: "Mask", cost: { candles: 50 }, emoji: MASK_EMOJIS.Mask70 }),
 	},

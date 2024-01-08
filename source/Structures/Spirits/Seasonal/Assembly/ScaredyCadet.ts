@@ -22,6 +22,7 @@ import {
 
 const emote = Emote.Eww;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
+const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const emoteEmoji = EMOTE_EMOJIS.Eww;
 const maskEmoji = MASK_EMOJIS.Mask50;
 const hairEmoji = HAIR_EMOJIS.Hair82;
@@ -41,7 +42,7 @@ export default new SeasonalSpirit({
 			.set(1 << 2, { item: "Blessing 1", cost: null, emoji: blessing2 })
 			.set(1 << 6, { item: `${emote} 3`, cost: { seasonalCandles: 10 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: null, emoji: emoteEmoji })
-			.set(1 << 8, { item: "Music sheet", cost: { seasonalCandles: 15 } })
+			.set(1 << 8, { item: "Music sheet", cost: { seasonalCandles: 15 }, emoji: musicSheet })
 			.set(1 << 10, { item: "Hair", cost: null, emoji: hairEmoji })
 			.set(1 << 11, { item: "Hammock", cost: { seasonalCandles: 20 }, emoji: placeablePropEmoji })
 			.set(1 << 9, { item: "Blessing 2", cost: null, emoji: blessing2 })
@@ -55,7 +56,7 @@ export default new SeasonalSpirit({
 			.set(1 << 5, { item: "Wing buff", cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff })
 			.set(1 << 6, { item: `${emote} 3`, cost: { hearts: 3 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: { hearts: 6 }, emoji: emoteEmoji })
-			.set(1 << 8, { item: "Music sheet", cost: { candles: 15 } })
+			.set(1 << 8, { item: "Music sheet", cost: { candles: 15 }, emoji: musicSheet })
 			.set(1 << 9, { item: "Blessing 2", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 10, { item: "Hair", cost: { candles: 45 }, emoji: hairEmoji })
 			.set(1 << 11, { item: "Hammock", cost: { candles: 55 }, emoji: placeablePropEmoji }),

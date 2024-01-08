@@ -18,6 +18,6 @@ export default new StandardSpirit({
 			.set(1 << 2, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 3, { item: "Wing buff", cost: { ascendedCandles: 1 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff })
 			.set(1 << 4, { item: "Blessing 2", cost: { candles: 5 }, emoji: MISCELLANEOUS_EMOJIS.Blessing2 })
-			.set(1 << 5, { item: "Music sheet", cost: { hearts: 3 } }),
+			.set(1 << 5, { item: "Music sheet", cost: { hearts: 3 }, emoji: MISCELLANEOUS_EMOJIS.MusicSheet }),
 	},
 });

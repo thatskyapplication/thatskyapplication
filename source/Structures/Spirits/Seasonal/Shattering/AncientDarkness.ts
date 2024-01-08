@@ -14,6 +14,7 @@ import { SeasonName } from "../../../Season.js";
 import { type ItemsData, SeasonalSpirit, SpiritName } from "../../Base.js";
 
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
+const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const maskEmoji = MASK_EMOJIS.Mask65;
 const necklaceEmoji = NECKLACE_EMOJIS.Necklace22;
 const hairEmoji = HAIR_EMOJIS.Hair108;
@@ -32,7 +33,7 @@ export default [
 				.set(1 << 1, { item: "Blessing 1", cost: null, emoji: blessing3 })
 				.set(1 << 2, { item: "Blessing 2", cost: { seasonalCandles: 16 }, emoji: blessing3 })
 				.set(1 << 3, { item: "Mask", cost: null, emoji: maskEmoji })
-				.set(1 << 4, { item: "Music sheet", cost: { seasonalCandles: 35 } })
+				.set(1 << 4, { item: "Music sheet", cost: { seasonalCandles: 35 }, emoji: musicSheet })
 				.set(1 << 5, { item: "Blessing 3", cost: null, emoji: blessing3 })
 				.set(1 << 6, { item: "Blessing 4", cost: { seasonalCandles: 16 }, emoji: blessing3 })
 				.set(1 << 7, { item: "Cape", cost: null, emoji: capeEmoji })

@@ -16,6 +16,7 @@ import { type ItemsData, type SeasonalSpiritVisitCollectionKey, Call, SeasonalSp
 
 const call = Call.Jellyfish;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
+const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const callEmoji = CALL_EMOJIS.Jellyfish;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit15;
 const hairEmoji = HAIR_EMOJIS.Hair60;
@@ -29,7 +30,7 @@ export default new SeasonalSpirit({
 	offer: {
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${call} call`, cost: null, emoji: callEmoji })
-			.set(1 << 2, { item: "Music sheet", cost: { seasonalCandles: 6 } })
+			.set(1 << 2, { item: "Music sheet", cost: { seasonalCandles: 6 }, emoji: musicSheet })
 			.set(1 << 1, { item: "Blessing 1", cost: null, emoji: blessing2 })
 			.set(1 << 5, { item: "Hair", cost: { seasonalCandles: 8 }, emoji: hairEmoji })
 			.set(1 << 6, { item: "Blessing 2", cost: null, emoji: blessing2 })
@@ -39,7 +40,7 @@ export default new SeasonalSpirit({
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${call} call`, cost: null, emoji: callEmoji })
 			.set(1 << 1, { item: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
-			.set(1 << 2, { item: "Music sheet", cost: { candles: 15 } })
+			.set(1 << 2, { item: "Music sheet", cost: { candles: 15 }, emoji: musicSheet })
 			.set(1 << 3, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 4, { item: "Wing buff", cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff })
 			.set(1 << 6, { item: "Blessing 2", cost: { candles: 5 }, emoji: blessing2 })

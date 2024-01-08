@@ -23,6 +23,7 @@ import {
 const emote = Emote.EvilLaugh;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
+const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const emoteEmoji = EMOTE_EMOJIS.EvilLaugh;
 const maskEmoji = MASK_EMOJIS.Mask54;
 const hairEmoji = HAIR_EMOJIS.Hair98;
@@ -46,12 +47,12 @@ export default new SeasonalSpirit({
 			.set(1 << 11, { item: "Hair", cost: { candles: 50 }, emoji: hairEmoji })
 			.set(1 << 5, { item: "Blessing 2", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 8, { item: "Cape", cost: { candles: 70 }, emoji: capeEmoji })
-			.set(1 << 3, { item: "Music sheet", cost: { candles: 15 } }),
+			.set(1 << 3, { item: "Music sheet", cost: { candles: 15 }, emoji: musicSheet }),
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { item: `${emote} 2`, cost: null, emoji: emoteEmoji })
 			.set(1 << 2, { item: "Blessing 1", cost: { seasonalCandles: 12 }, emoji: blessing2 })
-			.set(1 << 3, { item: "Music sheet", cost: null })
+			.set(1 << 3, { item: "Music sheet", cost: null, emoji: musicSheet })
 			.set(1 << 4, { item: "Mask", cost: { seasonalCandles: 16 }, emoji: maskEmoji })
 			.set(1 << 5, { item: "Blessing 2", cost: null, emoji: blessing3 })
 			.set(1 << 6, { item: `${emote} 3`, cost: { seasonalCandles: 20 }, emoji: emoteEmoji })

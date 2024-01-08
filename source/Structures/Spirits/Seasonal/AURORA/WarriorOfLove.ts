@@ -14,6 +14,7 @@ import { type ItemsData, Emote, SeasonalSpirit, SpiritName } from "../../Base.js
 
 const emote = Emote.Twirl;
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
+const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const emoteEmoji = EMOTE_EMOJIS.Twirl;
 const maskEmoji = MASK_EMOJIS.Mask68;
 const hairEmoji = HAIR_EMOJIS.Hair113;
@@ -35,7 +36,7 @@ export default new SeasonalSpirit({
 			.set(1 << 5, { item: "Hair", cost: null, emoji: hairEmoji })
 			.set(1 << 6, { item: `${emote} 3`, cost: { seasonalCandles: 20 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: null, emoji: emoteEmoji })
-			.set(1 << 8, { item: "Music sheet", cost: { seasonalCandles: 24 } })
+			.set(1 << 8, { item: "Music sheet", cost: { seasonalCandles: 24 }, emoji: musicSheet })
 			.set(1 << 9, { item: "Blessing 3", cost: null, emoji: blessing3 })
 			.set(1 << 10, { item: "Blessing 4", cost: { seasonalCandles: 30 }, emoji: blessing3 })
 			.set(1 << 11, { item: "Cape", cost: null, emoji: capeEmoji })

@@ -12,6 +12,7 @@ import { SeasonName } from "../../../Season.js";
 import { type ItemsData, SeasonalSpirit, SpiritName } from "../../Base.js";
 
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
+const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit34;
 const hairEmoji1 = HAIR_EMOJIS.Hair109;
 const hairEmoji2 = HAIR_EMOJIS.Hair110;
@@ -41,7 +42,7 @@ export default [
 		offer: {
 			hasInfographic: false,
 			seasonal: new Collection<number, ItemsData>()
-				.set(1 << 0, { item: "Music sheet", cost: { seasonalCandles: 27 } })
+				.set(1 << 0, { item: "Music sheet", cost: { seasonalCandles: 27 }, emoji: musicSheet })
 				.set(1 << 1, { item: "Blessing 1", cost: null, emoji: blessing3 })
 				.set(1 << 2, { item: "Blessing 2", cost: { seasonalCandles: 16 }, emoji: blessing3 })
 				.set(1 << 3, { item: "Hair", cost: null, emoji: hairEmoji1 })
