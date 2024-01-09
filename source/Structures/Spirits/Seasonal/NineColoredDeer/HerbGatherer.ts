@@ -2,12 +2,7 @@
 import { Collection } from "discord.js";
 import { EMOTE_EMOJIS, MISCELLANEOUS_EMOJIS, SEASON_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
-import {
-	type ItemsData,
-	Emote,
-	SeasonalSpirit,
-	SpiritName,
-} from "../../Base.js";
+import { type ItemsData, Emote, SeasonalSpirit, SpiritName } from "../../Base.js";
 
 const emote = Emote.Whistle;
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
@@ -18,6 +13,8 @@ export default new SeasonalSpirit({
 	season: SeasonName.NineColoredDeer,
 	emote,
 	offer: {
+		hasInfographic: false,
+		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { item: `${emote} 2`, cost: null, emoji: emoteEmoji })
