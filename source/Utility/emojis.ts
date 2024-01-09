@@ -277,6 +277,9 @@ export const SEASON_EMOJIS = {
 	Revival: { name: "revival", id: "1181387134008049854" },
 	RevivalCandle: { name: "revival_candle", id: "1181387135476043839" },
 	RevivalHeart: { name: "revival_heart", id: "1181387137879380048" },
+	NineColoredDeer: { name: "nine_colored_deer", id: "1194228859541930094" },
+	NineColoredDeerCandle: { name: "nine_colored_deer_candle", id: "1194228980539215914" },
+	NineColoredDeerHeart: { name: "nine_colored_deer_heart", id: "1194228991805108244" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type SeasonEmojis = (typeof SEASON_EMOJIS)[keyof typeof SEASON_EMOJIS];

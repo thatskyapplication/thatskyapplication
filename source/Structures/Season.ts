@@ -55,6 +55,7 @@ export const SeasonNameToSeasonalEmoji = {
 	[SeasonName.Passage]: SEASON_EMOJIS.Passage,
 	[SeasonName.Moments]: SEASON_EMOJIS.Moments,
 	[SeasonName.Revival]: SEASON_EMOJIS.Revival,
+	[SeasonName.NineColoredDeer]: SEASON_EMOJIS.NineColoredDeer,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
 export const SeasonNameToSeasonalCandleEmoji = {
@@ -77,6 +78,7 @@ export const SeasonNameToSeasonalCandleEmoji = {
 	[SeasonName.Passage]: SEASON_EMOJIS.PassageCandle,
 	[SeasonName.Moments]: SEASON_EMOJIS.MomentsCandle,
 	[SeasonName.Revival]: SEASON_EMOJIS.RevivalCandle,
+	[SeasonName.NineColoredDeer]: SEASON_EMOJIS.NineColoredDeerCandle,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
 export const SeasonNameToSeasonalHeartEmoji = {
@@ -97,6 +99,7 @@ export const SeasonNameToSeasonalHeartEmoji = {
 	[SeasonName.Passage]: SEASON_EMOJIS.PassageHeart,
 	[SeasonName.Moments]: SEASON_EMOJIS.MomentsHeart,
 	[SeasonName.Revival]: SEASON_EMOJIS.RevivalHeart,
+	[SeasonName.NineColoredDeer]: SEASON_EMOJIS.NineColoredDeerHeart,
 } as const satisfies Readonly<
 	Record<Exclude<SeasonName, SeasonName.Gratitude | SeasonName.Lightseekers>, SeasonEmojis>
 >;
