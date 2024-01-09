@@ -260,6 +260,12 @@ const SEASONS = [
 			{ rotation: 2, realm: Realm.VaultOfKnowledge },
 		],
 	}),
+	new Season({
+		// @ts-expect-error Nine-coloured deer is not around yet.
+		name: "Nine-Coloured Deer",
+		start: skyDate(2_024, 1, 15),
+		end: skyDate(2_024, 3, 31),
+	}),
 ] as const satisfies Readonly<Season[]>;
 
 export function resolveSeason(date: DateTime) {
