@@ -1,1 +1,3 @@
-export default [] as const;
+import SpiritOfMural from "./SpiritOfMural.js";
+
+export default [SpiritOfMural] as const;

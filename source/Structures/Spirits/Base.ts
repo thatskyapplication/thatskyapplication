@@ -223,6 +223,9 @@ export enum SpiritName {
 	MemoryOfALostVillage = "Memory of a Lost Village",
 	EchoOfAnAbandonedRefuge = "Echo of an Abandoned Refuge",
 	RemnantOfAForgottenHaven = "Remnant of a Forgotten Haven",
+
+	// Season of the Nine-Colored Deer
+	SpiritOfMural = "Spirit of Mural"
 }
 
 export const enum Emote {
