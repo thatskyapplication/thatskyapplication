@@ -1,12 +1,9 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import type { DateTime } from "luxon";
-import { skyDate } from "../../../../Utility/dates.js";
 import { EMOTE_EMOJIS, MISCELLANEOUS_EMOJIS, SEASON_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
 	type ItemsData,
-	type SeasonalSpiritVisitCollectionKey,
 	Emote,
 	SeasonalSpirit,
 	SpiritName,
@@ -37,8 +34,5 @@ export default new SeasonalSpirit({
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.NineColoredDeerHeart,
 			}),
-	},
-	visits: {
-		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(102, skyDate(2_023, 12, 7)),
 	},
 });
