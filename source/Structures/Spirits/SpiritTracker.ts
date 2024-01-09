@@ -199,6 +199,8 @@ export interface SpiritTrackerPacket {
 	memory_of_a_lost_village: SpiritTrackerValue;
 	echo_of_an_abandoned_refuge: SpiritTrackerValue;
 	remnant_of_a_forgotten_haven: SpiritTrackerValue;
+	spirit_of_mural: SpiritTrackerValue;
+	herb_gatherer: SpiritTrackerValue;
 }
 
 interface SpiritTrackerData {
@@ -357,6 +359,8 @@ interface SpiritTrackerData {
 	memoryOfALostVillage: SpiritTrackerPacket["memory_of_a_lost_village"];
 	echoOfAnAbandonedRefuge: SpiritTrackerPacket["echo_of_an_abandoned_refuge"];
 	remnantOfAForgottenHaven: SpiritTrackerPacket["remnant_of_a_forgotten_haven"];
+	spiritOfMural: SpiritTrackerPacket["spirit_of_mural"];
+	herbGatherer: SpiritTrackerPacket["herb_gatherer"];
 }
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
@@ -517,6 +521,8 @@ const SpiritTrackerNameToRawName = {
 	[SpiritName.MemoryOfALostVillage]: "memory_of_a_lost_village",
 	[SpiritName.EchoOfAnAbandonedRefuge]: "echo_of_an_abandoned_refuge",
 	[SpiritName.RemnantOfAForgottenHaven]: "remnant_of_a_forgotten_haven",
+	[SpiritName.SpiritOfMural]: "spirit_of_mural",
+	[SpiritName.HerbGatherer]: "herb_gatherer",
 } as const satisfies Readonly<Record<SpiritName, Exclude<keyof SpiritTrackerPacket, "user_id">>>;
 
 const SpiritNameToSpiritTrackerName = {
@@ -674,6 +680,8 @@ const SpiritNameToSpiritTrackerName = {
 	[SpiritName.MemoryOfALostVillage]: "memoryOfALostVillage",
 	[SpiritName.EchoOfAnAbandonedRefuge]: "echoOfAnAbandonedRefuge",
 	[SpiritName.RemnantOfAForgottenHaven]: "remnantOfAForgottenHaven",
+	[SpiritName.SpiritOfMural]: "spiritOfMural",
+	[SpiritName.HerbGatherer]: "herbGatherer",
 } as const satisfies Readonly<Record<SpiritName, Exclude<keyof SpiritTrackerData, "user_id">>>;
 
 export const SPIRIT_TRACKER_VIEW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_CUSTOM_ID" as const;
@@ -1026,6 +1034,10 @@ export class SpiritTracker {
 
 	public remnantOfAForgottenHaven!: SpiritTrackerData["remnantOfAForgottenHaven"];
 
+	public spiritOfMural!: SpiritTrackerData["spiritOfMural"];
+
+	public herbGatherer!: SpiritTrackerData["herbGatherer"];
+
 	public constructor(spiritTrack: SpiritTrackerPacket) {
 		this.userId = spiritTrack.user_id;
 		this.patch(spiritTrack);
@@ -1186,6 +1198,8 @@ export class SpiritTracker {
 		this.memoryOfALostVillage = data.memory_of_a_lost_village;
 		this.echoOfAnAbandonedRefuge = data.echo_of_an_abandoned_refuge;
 		this.remnantOfAForgottenHaven = data.remnant_of_a_forgotten_haven;
+		this.spiritOfMural = data.spirit_of_mural;
+		this.herbGatherer = data.herb_gatherer;
 	}
 
 	public static async fetch(userId: Snowflake) {
