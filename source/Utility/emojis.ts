@@ -156,6 +156,7 @@ export const EMOTE_EMOJIS = {
 	JollyDance: { name: "jolly_dance", id: "1177411979909009458" },
 	BlindfoldBalancePose: { name: "blindfold_balance_pose", id: "1177412000444338186" },
 	CureForMeDance: { name: "cure_for_me_dance", id: "1177412031654146168" },
+	Whistle: { name: "whistle", id: "1194237041525932033" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type EmotesEmojis = (typeof EMOTE_EMOJIS)[keyof typeof EMOTE_EMOJIS];
