@@ -287,11 +287,12 @@ export const EVENT_EMOJIS = {
 	Colour: { name: "colour", id: "1193659265852919848" },
 	Music: { name: "music", id: "1193659510766714980" },
 	SkyAnniversary: { name: "sky_anniversary", id: "1193659759476355095" },
-	Sunlight: { name: "sunlight", id: "1193660129359442000" },
-	Style: { name: "style", id: "1193660318400913530" },
-	Mischief: { name: "mischief", id: "1193660479785144320" },
-	AviarysFireworkFestival: { name: "aviarys_firework_festival", id: "1193661057374371992" },
-	Feast: { name: "feast", id: "1193661248231977066" },
+	AURORAEncore: { name: "aurora_encore", id: "1194766197103796224" },
+	Sunlight: { name: "sunlight", id: "1194766254016311358" },
+	Style: { name: "style", id: "1194766491975962685" },
+	Mischief: { name: "mischief", id: "1194766528831303721" },
+	AviarysFireworkFestival: { name: "aviarys_firework_festival", id: "1194766620829175929" },
+	Feast: { name: "feast", id: "1194766661299994624" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type EventEmojis = (typeof EVENT_EMOJIS)[keyof typeof EVENT_EMOJIS];
