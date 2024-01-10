@@ -73,6 +73,22 @@ const EVENTS = [
 		eventCurrencyPerDay: 5,
 		eventCurrencyEmoji: EVENT_EMOJIS.Feast,
 	}),
+	new Event({
+		name: "Days of Fortune",
+		start: skyDate(2_024, 1, 29),
+		end: skyDate(2_024, 2, 11),
+		url: null,
+		eventCurrencyPerDay: 5,
+		eventCurrencyEmoji: EVENT_EMOJIS.Fortune,
+	}),
+	new Event({
+		name: "Days of Love",
+		start: skyDate(2_024, 2, 12),
+		end: skyDate(2_024, 2, 25),
+		url: null,
+		eventCurrencyPerDay: 5,
+		eventCurrencyEmoji: EVENT_EMOJIS.Love,
+	}),
 ] as const satisfies Readonly<Event[]>;
 
 export function resolveEvent(date: DateTime) {
