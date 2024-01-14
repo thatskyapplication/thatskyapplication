@@ -307,53 +307,42 @@ export const OUTFIT_EMOJIS = {
 	 * Base.
 	 */
 	Outfit01: { name: "outfit", id: "1181712845830901811" },
-
 	/**
 	 * Pointing Candlemaker.
 	 */
 	Outfit02: { name: "outfit", id: "1181712849488330793" },
-
 	/**
 	 * Ushering Stargazer.
 	 */
 	Outfit03: { name: "outfit", id: "1181712852676001793" },
-
 	/**
 	 * Butterfly Charmer.
 	 */
 	Outfit04: { name: "outfit", id: "1181712855410671627" },
-
 	/**
 	 * Shivering Trailblazer.
-	 *
 	 */
 	Outfit05: { name: "outfit", id: "1181712859013586984" },
-
 	/**
 	 * Hide'n'Seek Pioneer.
 	 */
 	Outfit06: { name: "outfit", id: "1181712862104789014" },
-
 	/**
 	 * Confident Sightseer.
 	 */
 	Outfit07: { name: "outfit", id: "1181712865716092928" },
-
 	/**
 	 * Polite Scholar.
 	 */
 	Outfit08: { name: "outfit", id: "1181712869147017359" },
-
 	/**
 	 * Memory Whisperer.
 	 */
 	Outfit09: { name: "outfit", id: "1181712872439566466" },
-
 	/**
 	 * Boogie Kid.
 	 */
 	Outfit10: { name: "outfit", id: "1181712875119714446" },
-
 	/**
 	 * Troupe Greeter.
 	 */
