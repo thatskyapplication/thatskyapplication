@@ -239,7 +239,7 @@ class Season {
 	public seasonalCandlesRotationURL(realm: Realm, rotation: RotationNumber) {
 		return String(
 			new URL(
-				`daily_guides/seasonal_candles/${resolveFullSeasonName(this.name).toLowerCase().replaceAll(" ", "_")}/${realm
+				`daily_guides/seasonal_candles/${resolveFullSeasonName(this.name).toLowerCase().replaceAll(/ |-/g, "_")}/${realm
 					.toLowerCase()
 					.replaceAll(" ", "_")}/rotation_${rotation}.webp`,
 				CDN_URL,
