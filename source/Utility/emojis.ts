@@ -516,6 +516,10 @@ export const OUTFIT_EMOJIS = {
 	 * Spirit of Mural (ultimate).
 	 */
 	Outfit52: { name: "outfit", id: "1195925478763143208" },
+	/**
+	 * Herb Gatherer.
+	 */
+	Outfit53: { name: "outfit", id: "1195930123610882159" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -1756,6 +1760,10 @@ export const HAIR_EMOJIS = {
 	 * Spirit of Mural (ultimate).
 	 */
 	Hair136: { name: "hair", id: "1195927512652456067" },
+	/**
+	 * Herb Gatherer.
+	 */
+	Hair137: { name: "hair", id: "1195931135205711942" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -2828,6 +2836,10 @@ export const PLACEABLE_PROPS_EMOJIS = {
 	 * Days of Feast 2023.
 	 */
 	PlaceableProp66: { name: "placeable_prop", id: "1193627466099597362" },
+	/**
+	 * Herb Gatherer.
+	 */
+	PlaceableProp67: { name: "placeable_prop", id: "1195931438311297116" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type PlaceablePropsEmojis = (typeof PLACEABLE_PROPS_EMOJIS)[keyof typeof PLACEABLE_PROPS_EMOJIS];
