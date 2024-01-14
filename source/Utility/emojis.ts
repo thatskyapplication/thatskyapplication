@@ -512,6 +512,10 @@ export const OUTFIT_EMOJIS = {
 	 * Mischief Goth Garment.
 	 */
 	Outfit51: { name: "outfit", id: "1181716521479847966" },
+	/**
+	 * Spirit of Mural (ultimate).
+	 */
+	Outfit52: { name: "outfit", id: "1195925478763143208" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -916,6 +920,10 @@ export const MASK_EMOJIS = {
 	 * Sparrow Appreciation.
 	 */
 	Mask85: { name: "mask", id: "1182639130094620694" },
+	/**
+	 * Spirit of Mural (non-ultimate).
+	 */
+	Mask86: { name: "mask", id: "1195926154645864488" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type MaskEmojis = (typeof MASK_EMOJIS)[keyof typeof MASK_EMOJIS];
@@ -1192,6 +1200,10 @@ export const NECKLACE_EMOJIS = {
 	 * Revival Pendant.
 	 */
 	Necklace32: { name: "necklace", id: "1193725247157960794" },
+	/**
+	 * Nine-Colored Deer Pendant.
+	 */
+	Necklace33: { name: "necklace", id: "1195926793836834857" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
@@ -1740,6 +1752,10 @@ export const HAIR_EMOJIS = {
 	 * Base 3.
 	 */
 	Hair135: { name: "hair", id: "1183627407517818971" },
+	/**
+	 * Spirit of Mural (ultimate).
+	 */
+	Hair136: { name: "hair", id: "1195927512652456067" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -1880,6 +1896,10 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 * Moth Appreciation.
 	 */
 	HairAccessory33: { name: "hair_accessory", id: "1186592165158203455" },
+	/**
+	 * Spirit of Mural (non-ultimate).
+	 */
+	HairAccessory34: { name: "hair_accessory", id: "1195928033228500992" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
@@ -2364,6 +2384,10 @@ export const CAPE_EMOJIS = {
 	 * Moth Appreciation.
 	 */
 	Cape119: { name: "cape", id: "1188423470841872395" },
+	/**
+	 * Spirit of Mural (ultimate).
+	 */
+	Cape120: { name: "cape", id: "1195928342071877712" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
