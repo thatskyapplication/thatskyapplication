@@ -229,6 +229,7 @@ export enum SpiritName {
 	HerbGatherer = "Herb Gatherer",
 	Hunter = "Hunter",
 	FeudalLord = "Feudal Lord",
+	Princess = "Princess",
 }
 
 export const enum Emote {
@@ -333,6 +334,7 @@ export const enum Emote {
 	CureForMeDance = "Cure for me dance",
 	Whistle = "Whistle",
 	Flex = "Flex",
+	FloatSpin = "Float spin",
 }
 
 export const enum Stance {
@@ -486,6 +488,7 @@ export const EmoteToEmoji = {
 	[Emote.CureForMeDance]: EMOTE_EMOJIS.CureForMeDance,
 	[Emote.Whistle]: EMOTE_EMOJIS.Whistle,
 	[Emote.Flex]: EMOTE_EMOJIS.Flex,
+	[Emote.FloatSpin]: EMOTE_EMOJIS.FloatSpin,
 } as const satisfies Readonly<Record<Emote, EmotesEmojis>>;
 
 export const StanceToEmoji = {

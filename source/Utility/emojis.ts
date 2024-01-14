@@ -158,6 +158,7 @@ export const EMOTE_EMOJIS = {
 	CureForMeDance: { name: "cure_for_me_dance", id: "1177412031654146168" },
 	Whistle: { name: "whistle", id: "1194237041525932033" },
 	Flex: { name: "flex", id: "1195935196688678953" },
+	FloatSpin: { name: "float_spin", id: "1195956496987594842" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type EmotesEmojis = (typeof EMOTE_EMOJIS)[keyof typeof EMOTE_EMOJIS];
@@ -525,6 +526,10 @@ export const OUTFIT_EMOJIS = {
 	 * Hunter.
 	 */
 	Outfit54: { name: "outfit", id: "1195937722234310666" },
+	/**
+	 * Princess.
+	 */
+	Outfit55: { name: "outfit", id: "1195958681376927804" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -937,6 +942,10 @@ export const MASK_EMOJIS = {
 	 * Feudal Lord.
 	 */
 	Mask87: { name: "mask", id: "1195948322553339934" },
+	/**
+	 * Princess.
+	 */
+	Mask88: { name: "mask", id: "1195958052034199622" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type MaskEmojis = (typeof MASK_EMOJIS)[keyof typeof MASK_EMOJIS];
@@ -1777,6 +1786,10 @@ export const HAIR_EMOJIS = {
 	 * Hunter.
 	 */
 	Hair138: { name: "hair", id: "1195938006985609256" },
+	/**
+	 * Princess.
+	 */
+	Hair139: { name: "hair", id: "1195958349150294186" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -2421,6 +2434,10 @@ export const CAPE_EMOJIS = {
 	 * Feudal Lord.
 	 */
 	Cape122: { name: "cape", id: "1195947735728259154" },
+	/**
+	 * Princess.
+	 */
+	Cape123: { name: "cape", id: "1195958801623421018" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
