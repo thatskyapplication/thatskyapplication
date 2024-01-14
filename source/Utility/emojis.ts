@@ -946,6 +946,10 @@ export const MASK_EMOJIS = {
 	 * Princess.
 	 */
 	Mask88: { name: "mask", id: "1195958052034199622" },
+	/**
+	 * Gift of the Nine-Colored Deer.
+	 */
+	Mask89: { name: "mask", id: "1196158869840339094" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type MaskEmojis = (typeof MASK_EMOJIS)[keyof typeof MASK_EMOJIS];
@@ -1086,6 +1090,10 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 * Aviary's Firework Festival.
 	 */
 	FaceAccessory33: { name: "face_accessory", id: "1182821742926889041" },
+	/**
+	 * Gift of the Nine-Colored Deer.
+	 */
+	FaceAccessory34: { name: "face_accessory", id: "1196158435268497529" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type FaceAccessoryEmojis = (typeof FACE_ACCESSORY_EMOJIS)[keyof typeof FACE_ACCESSORY_EMOJIS];
@@ -2438,6 +2446,10 @@ export const CAPE_EMOJIS = {
 	 * Princess.
 	 */
 	Cape123: { name: "cape", id: "1195958801623421018" },
+	/**
+	 * Radiance of the Nine-Colored Deer.
+	 */
+	Cape124: { name: "cape", id: "1196159126535938158" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
