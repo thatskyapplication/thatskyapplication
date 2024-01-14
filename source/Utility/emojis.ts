@@ -157,6 +157,7 @@ export const EMOTE_EMOJIS = {
 	BlindfoldBalancePose: { name: "blindfold_balance_pose", id: "1177412000444338186" },
 	CureForMeDance: { name: "cure_for_me_dance", id: "1177412031654146168" },
 	Whistle: { name: "whistle", id: "1194237041525932033" },
+	Flex: { name: "flex", id: "1195935196688678953" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type EmotesEmojis = (typeof EMOTE_EMOJIS)[keyof typeof EMOTE_EMOJIS];
@@ -520,6 +521,10 @@ export const OUTFIT_EMOJIS = {
 	 * Herb Gatherer.
 	 */
 	Outfit53: { name: "outfit", id: "1195930123610882159" },
+	/**
+	 * Hunter.
+	 */
+	Outfit54: { name: "outfit", id: "1195937722234310666" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -1764,6 +1769,10 @@ export const HAIR_EMOJIS = {
 	 * Herb Gatherer.
 	 */
 	Hair137: { name: "hair", id: "1195931135205711942" },
+	/**
+	 * Hunter.
+	 */
+	Hair138: { name: "hair", id: "1195938006985609256" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -2396,6 +2405,10 @@ export const CAPE_EMOJIS = {
 	 * Spirit of Mural (ultimate).
 	 */
 	Cape120: { name: "cape", id: "1195928342071877712" },
+	/**
+	 * Hunter.
+	 */
+	Cape121: { name: "cape", id: "1195938177878327306" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];

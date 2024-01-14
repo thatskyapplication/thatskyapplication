@@ -201,6 +201,7 @@ export interface SpiritTrackerPacket {
 	remnant_of_a_forgotten_haven: SpiritTrackerValue;
 	spirit_of_mural: SpiritTrackerValue;
 	herb_gatherer: SpiritTrackerValue;
+	hunter: SpiritTrackerValue;
 }
 
 interface SpiritTrackerData {
@@ -361,6 +362,7 @@ interface SpiritTrackerData {
 	remnantOfAForgottenHaven: SpiritTrackerPacket["remnant_of_a_forgotten_haven"];
 	spiritOfMural: SpiritTrackerPacket["spirit_of_mural"];
 	herbGatherer: SpiritTrackerPacket["herb_gatherer"];
+	hunter: SpiritTrackerPacket["hunter"];
 }
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
@@ -523,6 +525,7 @@ const SpiritTrackerNameToRawName = {
 	[SpiritName.RemnantOfAForgottenHaven]: "remnant_of_a_forgotten_haven",
 	[SpiritName.SpiritOfMural]: "spirit_of_mural",
 	[SpiritName.HerbGatherer]: "herb_gatherer",
+	[SpiritName.Hunter]: "hunter",
 } as const satisfies Readonly<Record<SpiritName, Exclude<keyof SpiritTrackerPacket, "user_id">>>;
 
 const SpiritNameToSpiritTrackerName = {
@@ -682,6 +685,7 @@ const SpiritNameToSpiritTrackerName = {
 	[SpiritName.RemnantOfAForgottenHaven]: "remnantOfAForgottenHaven",
 	[SpiritName.SpiritOfMural]: "spiritOfMural",
 	[SpiritName.HerbGatherer]: "herbGatherer",
+	[SpiritName.Hunter]: "hunter",
 } as const satisfies Readonly<Record<SpiritName, Exclude<keyof SpiritTrackerData, "user_id">>>;
 
 export const SPIRIT_TRACKER_VIEW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_CUSTOM_ID" as const;
@@ -1038,6 +1042,8 @@ export class SpiritTracker {
 
 	public herbGatherer!: SpiritTrackerData["herbGatherer"];
 
+	public hunter!: SpiritTrackerData["hunter"];
+
 	public constructor(spiritTrack: SpiritTrackerPacket) {
 		this.userId = spiritTrack.user_id;
 		this.patch(spiritTrack);
@@ -1200,6 +1206,7 @@ export class SpiritTracker {
 		this.remnantOfAForgottenHaven = data.remnant_of_a_forgotten_haven;
 		this.spiritOfMural = data.spirit_of_mural;
 		this.herbGatherer = data.herb_gatherer;
+		this.hunter = data.hunter;
 	}
 
 	public static async fetch(userId: Snowflake) {
