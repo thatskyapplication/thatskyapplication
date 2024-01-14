@@ -933,6 +933,10 @@ export const MASK_EMOJIS = {
 	 * Spirit of Mural (non-ultimate).
 	 */
 	Mask86: { name: "mask", id: "1195926154645864488" },
+	/**
+	 * Feudal Lord.
+	 */
+	Mask87: { name: "mask", id: "1195948322553339934" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type MaskEmojis = (typeof MASK_EMOJIS)[keyof typeof MASK_EMOJIS];
@@ -1917,6 +1921,10 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 * Spirit of Mural (non-ultimate).
 	 */
 	HairAccessory34: { name: "hair_accessory", id: "1195928033228500992" },
+	/**
+	 * Feudal Lord.
+	 */
+	HairAccessory35: { name: "hair_accessory", id: "1195948067560620063" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
@@ -2409,6 +2417,10 @@ export const CAPE_EMOJIS = {
 	 * Hunter.
 	 */
 	Cape121: { name: "cape", id: "1195938177878327306" },
+	/**
+	 * Feudal Lord.
+	 */
+	Cape122: { name: "cape", id: "1195947735728259154" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];

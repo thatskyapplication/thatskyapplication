@@ -202,6 +202,7 @@ export interface SpiritTrackerPacket {
 	spirit_of_mural: SpiritTrackerValue;
 	herb_gatherer: SpiritTrackerValue;
 	hunter: SpiritTrackerValue;
+	feudal_lord: SpiritTrackerValue;
 }
 
 interface SpiritTrackerData {
@@ -363,6 +364,7 @@ interface SpiritTrackerData {
 	spiritOfMural: SpiritTrackerPacket["spirit_of_mural"];
 	herbGatherer: SpiritTrackerPacket["herb_gatherer"];
 	hunter: SpiritTrackerPacket["hunter"];
+	feudalLord: SpiritTrackerPacket["feudal_lord"];
 }
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
@@ -526,6 +528,7 @@ const SpiritTrackerNameToRawName = {
 	[SpiritName.SpiritOfMural]: "spirit_of_mural",
 	[SpiritName.HerbGatherer]: "herb_gatherer",
 	[SpiritName.Hunter]: "hunter",
+	[SpiritName.FeudalLord]: "feudal_lord",
 } as const satisfies Readonly<Record<SpiritName, Exclude<keyof SpiritTrackerPacket, "user_id">>>;
 
 const SpiritNameToSpiritTrackerName = {
@@ -686,6 +689,7 @@ const SpiritNameToSpiritTrackerName = {
 	[SpiritName.SpiritOfMural]: "spiritOfMural",
 	[SpiritName.HerbGatherer]: "herbGatherer",
 	[SpiritName.Hunter]: "hunter",
+	[SpiritName.FeudalLord]: "feudalLord",
 } as const satisfies Readonly<Record<SpiritName, Exclude<keyof SpiritTrackerData, "user_id">>>;
 
 export const SPIRIT_TRACKER_VIEW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_CUSTOM_ID" as const;
@@ -1044,6 +1048,8 @@ export class SpiritTracker {
 
 	public hunter!: SpiritTrackerData["hunter"];
 
+	public feudalLord!: SpiritTrackerData["feudalLord"];
+
 	public constructor(spiritTrack: SpiritTrackerPacket) {
 		this.userId = spiritTrack.user_id;
 		this.patch(spiritTrack);
@@ -1207,6 +1213,7 @@ export class SpiritTracker {
 		this.spiritOfMural = data.spirit_of_mural;
 		this.herbGatherer = data.herb_gatherer;
 		this.hunter = data.hunter;
+		this.feudalLord = data.feudal_lord;
 	}
 
 	public static async fetch(userId: Snowflake) {

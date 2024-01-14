@@ -228,6 +228,7 @@ export enum SpiritName {
 	SpiritOfMural = "Spirit of Mural",
 	HerbGatherer = "Herb Gatherer",
 	Hunter = "Hunter",
+	FeudalLord = "Feudal Lord",
 }
 
 export const enum Emote {
