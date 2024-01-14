@@ -213,6 +213,7 @@ export const FRIEND_ACTION_EMOJIS = {
 	Handshake: { name: "handshake", id: "1177439544245751869" },
 	DuetDance: { name: "duet_dance", id: "1177439576604803072" },
 	SideHug: { name: "side_hug", id: "1177439594870997032" },
+	CradleCarry: { name: "cradle_carry", id: "1195942545063153785" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type FriendActionsEmojis = (typeof FRIEND_ACTION_EMOJIS)[keyof typeof FRIEND_ACTION_EMOJIS];

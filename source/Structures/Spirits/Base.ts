@@ -373,6 +373,7 @@ export const enum FriendAction {
 	Handshake = "Handshake",
 	DuetDance = "Duet dance",
 	SideHug = "Side hug",
+	CradleCarry = "Cradle carry",
 }
 
 export const EmoteToEmoji = {
@@ -517,6 +518,7 @@ export const FriendActionToEmoji = {
 	[FriendAction.Handshake]: FRIEND_ACTION_EMOJIS.Handshake,
 	[FriendAction.DuetDance]: FRIEND_ACTION_EMOJIS.DuetDance,
 	[FriendAction.SideHug]: FRIEND_ACTION_EMOJIS.SideHug,
+	[FriendAction.CradleCarry]: FRIEND_ACTION_EMOJIS.CradleCarry,
 } as const satisfies Readonly<Record<FriendAction, FriendActionsEmojis>>;
 
 export const SPIRIT_TYPE = {
