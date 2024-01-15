@@ -3,7 +3,7 @@ import { Map, REALM_VALUES, RealmToSpanishRealm } from "../Utility/Constants.js"
 export default {
 	general: {
 		realms: Object.fromEntries(REALM_VALUES.map((realm) => [realm, RealmToSpanishRealm[realm]])),
-		maps: { [Map.AncientMemory]: "Recuerdo Ancestral" },
+		maps: { [Map.AncientMemory]: "Recuerdo Ancestral", [Map.CrescentOasis]: "Oasis creciente" },
 	},
 	commands: {
 		calculate: {

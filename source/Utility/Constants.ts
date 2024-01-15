@@ -34,7 +34,7 @@ export const PATREON_URL = "https://patreon.com/Jiralite" as const;
 export const KO_FI_URL = "https://ko-fi.com/jiralite" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki" as const;
 export const MINIMUM_WINGED_LIGHT = 0 as const;
-export const MAXIMUM_WINGED_LIGHT = 224 as const;
+export const MAXIMUM_WINGED_LIGHT = 226 as const;
 export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
 export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
 export const MAX_HUG_NO = 24 as const;
@@ -115,6 +115,9 @@ export enum Map {
 
 	// Season of Shattering
 	AncientMemory = "Ancient Memory",
+
+	// Season of the Nine-Colored Deer
+	CrescentOasis = "Crescent Oasis",
 }
 
 export const MAP_VALUES = Object.values(Map);
@@ -162,8 +165,14 @@ export const RAINBOW_ADMIRE_MAPS = [
 
 export type RainbowAdmireMaps = (typeof RAINBOW_ADMIRE_MAPS)[number];
 
-export const WINGED_LIGHT_AREAS = [...REALM_VALUES, Map.AncientMemory] as const;
-export const WingedLightAreasToSpanish = { ...RealmToSpanishRealm, [Map.AncientMemory]: "Recuerdo Ancestral" } as const;
+export const WINGED_LIGHT_AREAS = [...REALM_VALUES, Map.AncientMemory, Map.CrescentOasis] as const;
+export type WingedLightAreas = (typeof WINGED_LIGHT_AREAS)[number];
+
+export const WingedLightAreasToSpanish = {
+	...RealmToSpanishRealm,
+	[Map.AncientMemory]: "Recuerdo Ancestral",
+	[Map.CrescentOasis]: "Oasis creciente",
+} as const;
 
 // This exists due to the Infographics server's inconsistencies and faults alongside no desire to fix them.
 export const INCONSISTENT_MAP = {
@@ -199,8 +208,8 @@ export const AreaToWingedLightCount = {
 	[Realm.EyeOfEden]: 10,
 	[Map.AncientMemory]: 6,
 	[Map.Orbit]: 1,
-} as const satisfies Readonly<Record<Realm | Map.AncientMemory | Map.Orbit, number>>;
+	[Map.CrescentOasis]: 2,
+} as const satisfies Readonly<Record<WingedLightAreas | Map.Orbit, number>>;
 
 export const AREA_TO_WINGED_LIGHT_COUNT_VALUES = Object.values(AreaToWingedLightCount);
-
 export const LOCALES = Object.values(Locale);

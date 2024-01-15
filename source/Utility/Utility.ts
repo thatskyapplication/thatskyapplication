@@ -14,6 +14,7 @@ import {
 	type RainbowAdmireMaps,
 	type Realm,
 	type SocialLightAreaMaps,
+	type WingedLightAreas,
 	CDN_URL,
 	INCONSISTENT_MAP,
 	inconsistentMapKeys,
@@ -45,8 +46,8 @@ export function isRealm(realm: string): realm is Realm {
 	return REALM_VALUES.includes(realm as Realm);
 }
 
-export function isWingedLightArea(area: string): area is Realm | Map.AncientMemory {
-	return isRealm(area) || area === Map.AncientMemory;
+export function isWingedLightArea(area: string): area is WingedLightAreas {
+	return isRealm(area) || area === Map.AncientMemory || area === Map.CrescentOasis;
 }
 
 export function resolveValidRealm(realm: string) {

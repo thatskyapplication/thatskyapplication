@@ -274,6 +274,18 @@ export default new (class implements ChatInputCommand {
 							description: "The eighth area to calculate winged light from.",
 							choices: wingedLightAreaChoices,
 						},
+						{
+							type: ApplicationCommandOptionType.String,
+							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 9 }),
+							nameLocalizations: Object.fromEntries(
+								LOCALES.map((locale) => [
+									locale,
+									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 9 }),
+								]),
+							),
+							description: "The ninth area to calculate winged light from.",
+							choices: wingedLightAreaChoices,
+						},
 					],
 				},
 			],
@@ -522,7 +534,8 @@ export default new (class implements ChatInputCommand {
 		const area6 = options.getString("area-6");
 		const area7 = options.getString("area-7");
 		const area8 = options.getString("area-8");
-		const areas = [area1, area2, area3, area4, area5, area6, area7, area8].filter(notNull);
+		const area9 = options.getString("area-9");
+		const areas = [area1, area2, area3, area4, area5, area6, area7, area8, area9].filter(notNull);
 
 		if (!areas.every(isWingedLightArea)) {
 			void interaction.client.log({ content: "Received an unknown area.", error: areas });
@@ -563,7 +576,10 @@ export default new (class implements ChatInputCommand {
 					)
 					.setFields(
 						...(areas.length === 0 ? WINGED_LIGHT_AREAS : areas).map((area) => ({
-							name: t(`${area === Map.AncientMemory ? "maps" : "realms"}.${area}`, { lng, ns: "general" }),
+							name: t(`${area === Map.AncientMemory || area === Map.CrescentOasis ? "maps" : "realms"}.${area}`, {
+								lng,
+								ns: "general",
+							}),
 							value: `${(accumulation += AreaToWingedLightCount[area])} (+${AreaToWingedLightCount[area]})`,
 						})),
 						{
