@@ -223,6 +223,13 @@ export enum SpiritName {
 	MemoryOfALostVillage = "Memory of a Lost Village",
 	EchoOfAnAbandonedRefuge = "Echo of an Abandoned Refuge",
 	RemnantOfAForgottenHaven = "Remnant of a Forgotten Haven",
+
+	// Season of the Nine-Colored Deer
+	SpiritOfMural = "Spirit of Mural",
+	HerbGatherer = "Herb Gatherer",
+	Hunter = "Hunter",
+	FeudalLord = "Feudal Lord",
+	Princess = "Princess",
 }
 
 export const enum Emote {
@@ -325,6 +332,9 @@ export const enum Emote {
 	JollyDance = "Jolly dance",
 	BlindfoldBalancePose = "Blindfold balance pose",
 	CureForMeDance = "Cure for me dance",
+	Whistle = "Whistle",
+	Flex = "Flex",
+	FloatSpin = "Float spin",
 }
 
 export const enum Stance {
@@ -476,6 +486,9 @@ export const EmoteToEmoji = {
 	[Emote.JollyDance]: EMOTE_EMOJIS.JollyDance,
 	[Emote.BlindfoldBalancePose]: EMOTE_EMOJIS.BlindfoldBalancePose,
 	[Emote.CureForMeDance]: EMOTE_EMOJIS.CureForMeDance,
+	[Emote.Whistle]: EMOTE_EMOJIS.Whistle,
+	[Emote.Flex]: EMOTE_EMOJIS.Flex,
+	[Emote.FloatSpin]: EMOTE_EMOJIS.FloatSpin,
 } as const satisfies Readonly<Record<Emote, EmotesEmojis>>;
 
 export const StanceToEmoji = {

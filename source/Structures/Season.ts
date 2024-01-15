@@ -30,6 +30,7 @@ export enum SeasonName {
 	Passage = "Passage",
 	Moments = "Moments",
 	Revival = "Revival",
+	NineColoredDeer = "Nine-Colored Deer",
 }
 
 const SEASON_NAME_VALUES = Object.values(SeasonName);
@@ -54,6 +55,7 @@ export const SeasonNameToSeasonalEmoji = {
 	[SeasonName.Passage]: SEASON_EMOJIS.Passage,
 	[SeasonName.Moments]: SEASON_EMOJIS.Moments,
 	[SeasonName.Revival]: SEASON_EMOJIS.Revival,
+	[SeasonName.NineColoredDeer]: SEASON_EMOJIS.NineColoredDeer,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
 export const SeasonNameToSeasonalCandleEmoji = {
@@ -76,6 +78,7 @@ export const SeasonNameToSeasonalCandleEmoji = {
 	[SeasonName.Passage]: SEASON_EMOJIS.PassageCandle,
 	[SeasonName.Moments]: SEASON_EMOJIS.MomentsCandle,
 	[SeasonName.Revival]: SEASON_EMOJIS.RevivalCandle,
+	[SeasonName.NineColoredDeer]: SEASON_EMOJIS.NineColoredDeerCandle,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
 export const SeasonNameToSeasonalHeartEmoji = {
@@ -96,6 +99,7 @@ export const SeasonNameToSeasonalHeartEmoji = {
 	[SeasonName.Passage]: SEASON_EMOJIS.PassageHeart,
 	[SeasonName.Moments]: SEASON_EMOJIS.MomentsHeart,
 	[SeasonName.Revival]: SEASON_EMOJIS.RevivalHeart,
+	[SeasonName.NineColoredDeer]: SEASON_EMOJIS.NineColoredDeerHeart,
 } as const satisfies Readonly<
 	Record<Exclude<SeasonName, SeasonName.Gratitude | SeasonName.Lightseekers>, SeasonEmojis>
 >;
@@ -125,6 +129,7 @@ enum SeasonFlags {
 	Passage = 1 << 16,
 	Moments = 1 << 17,
 	Revival = 1 << 18,
+	NineColoredDeer = 1 << 19,
 }
 
 export const SeasonFlagsToSeasonName = {
@@ -147,6 +152,7 @@ export const SeasonFlagsToSeasonName = {
 	[SeasonFlags.Passage]: SeasonName.Passage,
 	[SeasonFlags.Moments]: SeasonName.Moments,
 	[SeasonFlags.Revival]: SeasonName.Revival,
+	[SeasonFlags.NineColoredDeer]: SeasonName.NineColoredDeer,
 } as const satisfies Readonly<Record<SeasonFlags, SeasonName>>;
 
 export const SEASON_FLAGS_TO_SEASON_NAME_ENTRIES = Object.entries(SeasonFlagsToSeasonName);
@@ -233,7 +239,7 @@ class Season {
 	public seasonalCandlesRotationURL(realm: Realm, rotation: RotationNumber) {
 		return String(
 			new URL(
-				`daily_guides/seasonal_candles/${resolveFullSeasonName(this.name).toLowerCase().replaceAll(" ", "_")}/${realm
+				`daily_guides/seasonal_candles/${resolveFullSeasonName(this.name).toLowerCase().replaceAll(/ |-/g, "_")}/${realm
 					.toLowerCase()
 					.replaceAll(" ", "_")}/rotation_${rotation}.webp`,
 				CDN_URL,
@@ -261,10 +267,21 @@ const SEASONS = [
 		],
 	}),
 	new Season({
-		// @ts-expect-error Nine-coloured deer is not around yet.
-		name: "Nine-Coloured Deer",
+		name: SeasonName.NineColoredDeer,
 		start: skyDate(2_024, 1, 15),
 		end: skyDate(2_024, 3, 31),
+		seasonalCandlesRotation: [
+			{ rotation: 1, realm: Realm.HiddenForest },
+			{ rotation: 1, realm: Realm.ValleyOfTriumph },
+			{ rotation: 1, realm: Realm.GoldenWasteland },
+			{ rotation: 1, realm: Realm.VaultOfKnowledge },
+			{ rotation: 1, realm: Realm.DaylightPrairie },
+			{ rotation: 2, realm: Realm.HiddenForest },
+			{ rotation: 2, realm: Realm.ValleyOfTriumph },
+			{ rotation: 2, realm: Realm.GoldenWasteland },
+			{ rotation: 2, realm: Realm.VaultOfKnowledge },
+			{ rotation: 2, realm: Realm.DaylightPrairie },
+		],
 	}),
 ] as const satisfies Readonly<Season[]>;
 
@@ -282,7 +299,9 @@ export function isSeasonName(season: string): season is SeasonName {
 }
 
 export function resolveFullSeasonName(season: SeasonName) {
-	return `Season of ${season === SeasonName.LittlePrince ? "the " : ""}${season}`;
+	return `Season of ${
+		season === SeasonName.LittlePrince || season === SeasonName.NineColoredDeer ? "the " : ""
+	}${season}`;
 }
 
 export function resolveBitsToSeasons(bits: number) {

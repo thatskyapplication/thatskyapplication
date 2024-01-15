@@ -156,6 +156,9 @@ export const EMOTE_EMOJIS = {
 	JollyDance: { name: "jolly_dance", id: "1177411979909009458" },
 	BlindfoldBalancePose: { name: "blindfold_balance_pose", id: "1177412000444338186" },
 	CureForMeDance: { name: "cure_for_me_dance", id: "1177412031654146168" },
+	Whistle: { name: "whistle", id: "1194237041525932033" },
+	Flex: { name: "flex", id: "1195935196688678953" },
+	FloatSpin: { name: "float_spin", id: "1195956496987594842" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type EmotesEmojis = (typeof EMOTE_EMOJIS)[keyof typeof EMOTE_EMOJIS];
@@ -277,6 +280,9 @@ export const SEASON_EMOJIS = {
 	Revival: { name: "revival", id: "1181387134008049854" },
 	RevivalCandle: { name: "revival_candle", id: "1181387135476043839" },
 	RevivalHeart: { name: "revival_heart", id: "1181387137879380048" },
+	NineColoredDeer: { name: "nine_colored_deer", id: "1194228859541930094" },
+	NineColoredDeerCandle: { name: "nine_colored_deer_candle", id: "1194228980539215914" },
+	NineColoredDeerHeart: { name: "nine_colored_deer_heart", id: "1194228991805108244" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type SeasonEmojis = (typeof SEASON_EMOJIS)[keyof typeof SEASON_EMOJIS];
@@ -508,6 +514,22 @@ export const OUTFIT_EMOJIS = {
 	 * Mischief Goth Garment.
 	 */
 	Outfit51: { name: "outfit", id: "1181716521479847966" },
+	/**
+	 * Spirit of Mural (ultimate).
+	 */
+	Outfit52: { name: "outfit", id: "1195925478763143208" },
+	/**
+	 * Herb Gatherer.
+	 */
+	Outfit53: { name: "outfit", id: "1195930123610882159" },
+	/**
+	 * Hunter.
+	 */
+	Outfit54: { name: "outfit", id: "1195937722234310666" },
+	/**
+	 * Princess.
+	 */
+	Outfit55: { name: "outfit", id: "1195958681376927804" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -912,6 +934,22 @@ export const MASK_EMOJIS = {
 	 * Sparrow Appreciation.
 	 */
 	Mask85: { name: "mask", id: "1182639130094620694" },
+	/**
+	 * Spirit of Mural (non-ultimate).
+	 */
+	Mask86: { name: "mask", id: "1195926154645864488" },
+	/**
+	 * Feudal Lord.
+	 */
+	Mask87: { name: "mask", id: "1195948322553339934" },
+	/**
+	 * Princess.
+	 */
+	Mask88: { name: "mask", id: "1195958052034199622" },
+	/**
+	 * Gift of the Nine-Colored Deer.
+	 */
+	Mask89: { name: "mask", id: "1196158869840339094" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type MaskEmojis = (typeof MASK_EMOJIS)[keyof typeof MASK_EMOJIS];
@@ -1052,6 +1090,10 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 * Aviary's Firework Festival.
 	 */
 	FaceAccessory33: { name: "face_accessory", id: "1182821742926889041" },
+	/**
+	 * Gift of the Nine-Colored Deer.
+	 */
+	FaceAccessory34: { name: "face_accessory", id: "1196158435268497529" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type FaceAccessoryEmojis = (typeof FACE_ACCESSORY_EMOJIS)[keyof typeof FACE_ACCESSORY_EMOJIS];
@@ -1188,6 +1230,10 @@ export const NECKLACE_EMOJIS = {
 	 * Revival Pendant.
 	 */
 	Necklace32: { name: "necklace", id: "1193725247157960794" },
+	/**
+	 * Nine-Colored Deer Pendant.
+	 */
+	Necklace33: { name: "necklace", id: "1195926793836834857" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
@@ -1736,6 +1782,22 @@ export const HAIR_EMOJIS = {
 	 * Base 3.
 	 */
 	Hair135: { name: "hair", id: "1183627407517818971" },
+	/**
+	 * Spirit of Mural (ultimate).
+	 */
+	Hair136: { name: "hair", id: "1195927512652456067" },
+	/**
+	 * Herb Gatherer.
+	 */
+	Hair137: { name: "hair", id: "1195931135205711942" },
+	/**
+	 * Hunter.
+	 */
+	Hair138: { name: "hair", id: "1195938006985609256" },
+	/**
+	 * Princess.
+	 */
+	Hair139: { name: "hair", id: "1195958349150294186" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -1876,6 +1938,14 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 * Moth Appreciation.
 	 */
 	HairAccessory33: { name: "hair_accessory", id: "1186592165158203455" },
+	/**
+	 * Spirit of Mural (non-ultimate).
+	 */
+	HairAccessory34: { name: "hair_accessory", id: "1195928033228500992" },
+	/**
+	 * Feudal Lord.
+	 */
+	HairAccessory35: { name: "hair_accessory", id: "1195948067560620063" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
@@ -2360,6 +2430,26 @@ export const CAPE_EMOJIS = {
 	 * Moth Appreciation.
 	 */
 	Cape119: { name: "cape", id: "1188423470841872395" },
+	/**
+	 * Spirit of Mural (ultimate).
+	 */
+	Cape120: { name: "cape", id: "1195928342071877712" },
+	/**
+	 * Hunter.
+	 */
+	Cape121: { name: "cape", id: "1195938177878327306" },
+	/**
+	 * Feudal Lord.
+	 */
+	Cape122: { name: "cape", id: "1195947735728259154" },
+	/**
+	 * Princess.
+	 */
+	Cape123: { name: "cape", id: "1195958801623421018" },
+	/**
+	 * Radiance of the Nine-Colored Deer.
+	 */
+	Cape124: { name: "cape", id: "1196159126535938158" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -2800,6 +2890,10 @@ export const PLACEABLE_PROPS_EMOJIS = {
 	 * Days of Feast 2023.
 	 */
 	PlaceableProp66: { name: "placeable_prop", id: "1193627466099597362" },
+	/**
+	 * Herb Gatherer.
+	 */
+	PlaceableProp67: { name: "placeable_prop", id: "1195931438311297116" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type PlaceablePropsEmojis = (typeof PLACEABLE_PROPS_EMOJIS)[keyof typeof PLACEABLE_PROPS_EMOJIS];

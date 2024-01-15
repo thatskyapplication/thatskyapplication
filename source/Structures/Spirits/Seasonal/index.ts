@@ -9,6 +9,7 @@ import Gratitude from "./Gratitude/index.js";
 import Lightseekers from "./Lightseekers/index.js";
 import LittlePrince from "./LittlePrince/index.js";
 import Moments from "./Moments/index.js";
+import NineColoredDeer from "./NineColoredDeer/index.js";
 import Passage from "./Passage/index.js";
 import Performance from "./Performance/index.js";
 import Prophecy from "./Prophecy/index.js";
@@ -38,4 +39,5 @@ export default [
 	...Passage,
 	...Moments,
 	...Revival,
+	...NineColoredDeer,
 ] as const;
