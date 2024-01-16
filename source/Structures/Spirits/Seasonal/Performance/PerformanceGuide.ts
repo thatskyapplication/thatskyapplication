@@ -18,7 +18,6 @@ export default new GuideSpirit({
 	season: SeasonName.Performance,
 	realm: Realm.ValleyOfTriumph,
 	offer: {
-		hasInfographic: false,
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Quest 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 1, { item: "Shared memory spell 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.SpellSharedMemory })
