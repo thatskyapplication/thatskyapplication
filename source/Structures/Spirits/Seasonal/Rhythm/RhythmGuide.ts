@@ -8,7 +8,6 @@ export default new GuideSpirit({
 	name: SpiritName.RhythmGuide,
 	season: SeasonName.Rhythm,
 	offer: {
-		hasInfographic: false,
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace04 })
 			.set(1 << 1, { item: "Ultimate mask", cost: { seasonalHearts: 2 }, emoji: MASK_EMOJIS.Mask22 })
