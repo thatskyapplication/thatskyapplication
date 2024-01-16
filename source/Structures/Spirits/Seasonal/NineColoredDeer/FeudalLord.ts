@@ -25,7 +25,6 @@ export default new SeasonalSpirit({
 	action,
 	offer: {
 		hasInfographic: false,
-		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${action} 1`, cost: null, emoji: actionEmoji })
 			.set(1 << 1, { item: `${action} 2`, cost: null, emoji: actionEmoji })
