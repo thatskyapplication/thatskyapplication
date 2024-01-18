@@ -22,6 +22,7 @@ import events, { type Event } from "./Events/index.js";
 import enGB from "./Locales/en-GB.js";
 import esES from "./Locales/es-ES.js";
 import {
+	APPLICATION_ID,
 	COMMAND_LOG_CHANNEL_ID,
 	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
@@ -201,7 +202,32 @@ class Caelus extends Client {
 
 const client = new Caelus({
 	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMessages | GatewayIntentBits.MessageContent,
-	makeCache: Options.cacheWithLimits({ MessageManager: 15 }),
+	makeCache: Options.cacheWithLimits({
+		ApplicationCommandManager: 0,
+		AutoModerationRuleManager: 0,
+		BaseGuildEmojiManager: 0,
+		GuildBanManager: 0,
+		GuildEmojiManager: 0,
+		GuildInviteManager: 0,
+		GuildMemberManager: {
+			keepOverLimit: (member) => member.user.id === APPLICATION_ID,
+			maxSize: 50,
+		},
+		GuildScheduledEventManager: 0,
+		GuildStickerManager: 0,
+		MessageManager: 15,
+		PresenceManager: 0,
+		ReactionManager: 0,
+		ReactionUserManager: 0,
+		StageInstanceManager: 0,
+		ThreadManager: 0,
+		ThreadMemberManager: 0,
+		UserManager: {
+			keepOverLimit: (user) => user.id === APPLICATION_ID,
+			maxSize: 50,
+		},
+		VoiceStateManager: 0,
+	}),
 });
 
 for (const event of events) {

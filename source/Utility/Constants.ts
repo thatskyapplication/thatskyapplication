@@ -5,6 +5,11 @@ import { Locale } from "discord.js";
 // Production detection.
 export const PRODUCTION = process.env.NODE_ENV === "production";
 
+// Application ids.
+const APPLICATION_ID_DEVELOPMENT = "1071822091814441000" as const;
+const APPLICATION_ID_PRODUCTION = "982740693070012506" as const;
+export const APPLICATION_ID = PRODUCTION ? APPLICATION_ID_PRODUCTION : APPLICATION_ID_DEVELOPMENT;
+
 // Content delivery network buckets.
 const CDN_BUCKET_DEVELOPMENT = "thatskyapplication-dev" as const;
 const CDN_BUCKET_PRODUCTION = "thatskyapplication" as const;
