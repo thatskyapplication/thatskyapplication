@@ -1245,6 +1245,8 @@ export class SpiritTracker {
 	}
 
 	public static async setElders(interaction: ButtonInteraction) {
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+
 		await this.update(
 			interaction.user.id,
 			Elder.reduce<SpiritTracketSetData>((data, spirit) => {
@@ -1257,6 +1259,7 @@ export class SpiritTracker {
 	}
 
 	public static async setSeason(interaction: ButtonInteraction) {
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
 		const { customId, user } = interaction;
 		const season = customId.slice(customId.indexOf("§") + 1) as SeasonName;
 
@@ -1272,6 +1275,7 @@ export class SpiritTracker {
 	}
 
 	public static async setSpirit(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
 		const { customId } = interaction;
 		const spiritName = customId.slice(customId.indexOf("§") + 1) as SpiritName;
@@ -1351,6 +1355,7 @@ export class SpiritTracker {
 	}
 
 	public static async viewTracker(interaction: ButtonInteraction | ChatInputCommandInteraction) {
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
 		const existingSpiritTracker = await this.fetch(interaction.user.id).catch(() => null);
 		let spiritTracker;
 
@@ -1417,6 +1422,8 @@ export class SpiritTracker {
 	}
 
 	public static async parseSpiritType(interaction: StringSelectMenuInteraction) {
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+
 		switch (Number(interaction.values[0]) as Exclude<SpiritType, (typeof SPIRIT_TYPE)["Guide"]>) {
 			case SPIRIT_TYPE.Standard:
 				await this.viewRealms(interaction);
@@ -1430,6 +1437,7 @@ export class SpiritTracker {
 	}
 
 	public static async parseBack(interaction: ButtonInteraction) {
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
 		const { customId } = interaction;
 
 		if (
@@ -1480,6 +1488,7 @@ export class SpiritTracker {
 	}
 
 	public static async viewRealms(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
 
 		const resolvedRemainingCurrency = resolveOfferToCurrency(
@@ -1524,6 +1533,7 @@ export class SpiritTracker {
 	}
 
 	public static async viewRealm(interaction: ButtonInteraction | StringSelectMenuInteraction, realm: Realm) {
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
 		const spirits = Standard.filter((spirit) => spirit.realm === realm);
 		let hasEverything = true;
@@ -1578,6 +1588,7 @@ export class SpiritTracker {
 	}
 
 	public static async viewElders(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
 		let hasEverything = true;
 
@@ -1627,6 +1638,7 @@ export class SpiritTracker {
 	}
 
 	public static async viewSeasons(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
 
 		await interaction.update({
@@ -1663,6 +1675,7 @@ export class SpiritTracker {
 	}
 
 	public static async viewSeason(interaction: ButtonInteraction | StringSelectMenuInteraction, season: SeasonName) {
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
 		const spirits = Seasonal.filter((spirit) => spirit.season === season);
 		let hasEverything = true;
@@ -1755,24 +1768,7 @@ export class SpiritTracker {
 		bit: SpiritTrackerValue,
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 	) {
-		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(
-			backToStartButtonBuilder,
-			new ButtonBuilder()
-				.setCustomId(
-					spirit.isElderSpirit()
-						? SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID
-						: spirit.isStandardSpirit()
-						? `${SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID}§${spirit.realm}`
-						: `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}§${spirit.season}`,
-				)
-				.setEmoji("⏪")
-				.setStyle(ButtonStyle.Primary),
-		);
-
-		if (spirit.totalCost && (await cannotUseCustomEmojis(interaction, { components: [buttons], embeds: [] }))) {
-			return;
-		}
-
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
 		const seasonalParsing = isSeasonalSpirit && !spirit.visited;
@@ -1832,6 +1828,20 @@ export class SpiritTracker {
 		if (isGuideSpirit && spirit.offer?.inProgress) lastEmbed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
 		if (description.length > 0) embed.setDescription(description.join("\n"));
 		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
+
+		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(
+			backToStartButtonBuilder,
+			new ButtonBuilder()
+				.setCustomId(
+					spirit.isElderSpirit()
+						? SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID
+						: spirit.isStandardSpirit()
+						? `${SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID}§${spirit.realm}`
+						: `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}§${spirit.season}`,
+				)
+				.setEmoji("⏪")
+				.setStyle(ButtonStyle.Primary),
+		);
 
 		if (offer) {
 			buttons.addComponents(
