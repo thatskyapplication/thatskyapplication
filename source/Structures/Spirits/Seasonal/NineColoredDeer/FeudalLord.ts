@@ -1,5 +1,6 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
+import { Realm } from "../../../../Utility/Constants.js";
 import {
 	CAPE_EMOJIS,
 	FRIEND_ACTION_EMOJIS,
@@ -23,6 +24,7 @@ export default new SeasonalSpirit({
 	name: SpiritName.FeudalLord,
 	season: SeasonName.NineColoredDeer,
 	action,
+	realm: Realm.VaultOfKnowledge,
 	offer: {
 		hasInfographic: false,
 		seasonal: new Collection<number, ItemsData>()

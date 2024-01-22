@@ -1,5 +1,6 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
+import { Realm } from "../../../../Utility/Constants.js";
 import {
 	EMOTE_EMOJIS,
 	HAIR_EMOJIS,
@@ -22,6 +23,7 @@ export default new SeasonalSpirit({
 	name: SpiritName.HerbGatherer,
 	season: SeasonName.NineColoredDeer,
 	emote,
+	realm: Realm.VaultOfKnowledge,
 	offer: {
 		hasInfographic: false,
 		seasonal: new Collection<number, ItemsData>()

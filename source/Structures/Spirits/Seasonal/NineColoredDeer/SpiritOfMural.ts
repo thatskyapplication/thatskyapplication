@@ -1,5 +1,6 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
+import { Realm } from "../../../../Utility/Constants.js";
 import {
 	CAPE_EMOJIS,
 	HAIR_EMOJIS,
@@ -13,6 +14,7 @@ import { type ItemsData, SpiritName, GuideSpirit } from "../../Base.js";
 export default new GuideSpirit({
 	name: SpiritName.SpiritOfMural,
 	season: SeasonName.NineColoredDeer,
+	realm: Realm.VaultOfKnowledge,
 	offer: {
 		inProgress: true,
 		current: new Collection<number, ItemsData>()
