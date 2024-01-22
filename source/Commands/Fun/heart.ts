@@ -53,6 +53,7 @@ const HEARTS = [
 	"A wholesome heart delivered to {{giftee}} from {{gifter}}!",
 ] as const satisfies Readonly<string[]>;
 
+const MAXIMUM_HEARTS_PER_DAY = 3 as const;
 const DELETED_USER_TEXT = "<deleted>" as const;
 export const HEART_HISTORY_BACK = "HEART_HISTORY_BACK" as const;
 export const HEART_HISTORY_FORWARD = "HEART_HISTORY_FORWARD" as const;
@@ -146,26 +147,34 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
+		const today = todayDate();
+		const tomorrowTimestamp = time(Math.floor(today.plus({ day: 1 }).toUnixInteger()), TimestampStyles.RelativeTime);
+
 		const heartPackets = await pg<HeartPacket>(Table.Hearts)
 			.select()
 			.where({ gifter_id: interaction.user.id })
 			.orderBy("timestamp", "desc")
-			.limit(1);
+			.limit(MAXIMUM_HEARTS_PER_DAY);
 
-		const timestamp = heartPackets[0]?.timestamp;
-		const today = todayDate();
+		const filteredHeartPackets = heartPackets.filter((heart) => heart.timestamp.getTime() >= today.toMillis());
 
-		if (timestamp && timestamp.getTime() >= today.toMillis()) {
+		if (filteredHeartPackets.some((heart) => heart.giftee_id === user.id)) {
 			await interaction.reply({
-				content: `You have already gifted a ${formatEmoji(
+				content: `You've already sent ${user} a ${formatEmoji(
 					MISCELLANEOUS_EMOJIS.Heart,
-				)} today!\nYou can give another one ${time(
-					Math.floor(today.plus({ day: 1 }).toUnixInteger()),
-					TimestampStyles.RelativeTime,
-				)}.`,
+				)} today!\nYou can gift another one to them ${tomorrowTimestamp}.`,
 				ephemeral: true,
 			});
 
+			return;
+		}
+
+		const noMoreHeartsLeft = `You have no more ${formatEmoji(
+			MISCELLANEOUS_EMOJIS.Heart,
+		)} left to gift today.\nYou can gift more ${tomorrowTimestamp}.`;
+
+		if (filteredHeartPackets.length >= MAXIMUM_HEARTS_PER_DAY) {
+			await interaction.reply({ content: noMoreHeartsLeft, ephemeral: true });
 			return;
 		}
 
@@ -190,6 +199,16 @@ export default new (class implements ChatInputCommand {
 				number: hearts,
 			})}.`,
 		);
+
+		const heartsLeftToGift = MAXIMUM_HEARTS_PER_DAY - filteredHeartPackets.length - 1;
+
+		await interaction.followUp({
+			content:
+				heartsLeftToGift === 0
+					? noMoreHeartsLeft
+					: `You can gift ${heartsLeftToGift} more ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} today.`,
+			ephemeral: true,
+		});
 	}
 
 	public async history(interaction: ChatInputCommandInteraction) {
