@@ -190,7 +190,7 @@ export enum SpiritName {
 	AncientDarkness2 = "Ancient Darkness (Dragon)",
 
 	// Season of AURORA
-	AURORAGuide = "AURORA Guide",
+	AURORA = "AURORA",
 	RunningWayfarer = "Running Wayfarer",
 	MindfulMiner = "Mindful Miner",
 	WarriorOfLove = "Warrior of Love",
