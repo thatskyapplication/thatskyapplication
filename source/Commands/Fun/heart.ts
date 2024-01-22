@@ -130,7 +130,7 @@ export default new (class implements ChatInputCommand {
 			!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
 		) {
 			await interaction.reply({
-				content: `${user} is not around to receive the ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)}!`,
+				content: `${user} is not around to receive a ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)}!`,
 				ephemeral: true,
 			});
 
