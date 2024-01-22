@@ -146,8 +146,7 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		// This is possibly undefined.
-		const heartPackets: (HeartPacket | undefined)[] = await pg<HeartPacket>(Table.Hearts)
+		const heartPackets = await pg<HeartPacket>(Table.Hearts)
 			.select()
 			.where({ gifter_id: interaction.user.id })
 			.orderBy("timestamp", "desc")
