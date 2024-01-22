@@ -14,7 +14,7 @@ import { SeasonName } from "../../../Season.js";
 import { type ItemsData, Emote, GuideSpirit, SpiritName } from "../../Base.js";
 
 export default new GuideSpirit({
-	name: SpiritName.AURORAGuide,
+	name: SpiritName.AURORA,
 	season: SeasonName.Aurora,
 	realm: Realm.ValleyOfTriumph,
 	offer: {

@@ -174,7 +174,7 @@ export interface SpiritTrackerPacket {
 	ancient_light2: SpiritTrackerValue;
 	ancient_darkness1: SpiritTrackerValue;
 	ancient_darkness2: SpiritTrackerValue;
-	aurora_guide: SpiritTrackerValue;
+	aurora: SpiritTrackerValue;
 	running_wayfarer: SpiritTrackerValue;
 	mindful_miner: SpiritTrackerValue;
 	warrior_of_love: SpiritTrackerValue;
@@ -337,7 +337,7 @@ interface SpiritTrackerData {
 	ancientLight2: SpiritTrackerPacket["ancient_light2"];
 	ancientDarkness1: SpiritTrackerPacket["ancient_darkness1"];
 	ancientDarkness2: SpiritTrackerPacket["ancient_darkness2"];
-	auroraGuide: SpiritTrackerPacket["aurora_guide"];
+	aurora: SpiritTrackerPacket["aurora"];
 	runningWayfarer: SpiritTrackerPacket["running_wayfarer"];
 	mindfulMiner: SpiritTrackerPacket["mindful_miner"];
 	warriorOfLove: SpiritTrackerPacket["warrior_of_love"];
@@ -502,7 +502,7 @@ const SpiritTrackerNameToRawName = {
 	[SpiritName.AncientLight2]: "ancient_light2",
 	[SpiritName.AncientDarkness1]: "ancient_darkness1",
 	[SpiritName.AncientDarkness2]: "ancient_darkness2",
-	[SpiritName.AURORAGuide]: "aurora_guide",
+	[SpiritName.AURORA]: "aurora",
 	[SpiritName.RunningWayfarer]: "running_wayfarer",
 	[SpiritName.MindfulMiner]: "mindful_miner",
 	[SpiritName.WarriorOfLove]: "warrior_of_love",
@@ -664,7 +664,7 @@ const SpiritNameToSpiritTrackerName = {
 	[SpiritName.AncientLight2]: "ancientLight2",
 	[SpiritName.AncientDarkness1]: "ancientDarkness1",
 	[SpiritName.AncientDarkness2]: "ancientDarkness2",
-	[SpiritName.AURORAGuide]: "auroraGuide",
+	[SpiritName.AURORA]: "aurora",
 	[SpiritName.RunningWayfarer]: "runningWayfarer",
 	[SpiritName.MindfulMiner]: "mindfulMiner",
 	[SpiritName.WarriorOfLove]: "warriorOfLove",
@@ -996,7 +996,7 @@ export class SpiritTracker {
 
 	public ancientDarkness2!: SpiritTrackerData["ancientDarkness2"];
 
-	public auroraGuide!: SpiritTrackerData["auroraGuide"];
+	public aurora!: SpiritTrackerData["aurora"];
 
 	public runningWayfarer!: SpiritTrackerData["runningWayfarer"];
 
@@ -1191,7 +1191,7 @@ export class SpiritTracker {
 		this.ancientLight2 = data.ancient_light2;
 		this.ancientDarkness1 = data.ancient_darkness1;
 		this.ancientDarkness2 = data.ancient_darkness2;
-		this.auroraGuide = data.aurora_guide;
+		this.aurora = data.aurora;
 		this.runningWayfarer = data.running_wayfarer;
 		this.mindfulMiner = data.mindful_miner;
 		this.warriorOfLove = data.warrior_of_love;
