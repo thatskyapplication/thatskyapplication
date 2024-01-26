@@ -66,7 +66,7 @@ export const REALM_VALUES = Object.values(Realm);
 
 export const RealmToSpanishRealm = {
 	[Realm.IslesOfDawn]: "Isla del Amanecer",
-	[Realm.DaylightPrairie]: "Planicie Luz de Día",
+	[Realm.DaylightPrairie]: "Planicie Luz de Dia",
 	[Realm.HiddenForest]: "Bosque Escondido",
 	[Realm.ValleyOfTriumph]: "Valle del Triunfo",
 	[Realm.GoldenWasteland]: "Páramo Dorado",
