@@ -1540,7 +1540,7 @@ export class SpiritTracker {
 
 		const options = spirits.map((spirit) => {
 			const percentage = spiritTracker.spiritProgress([spirit], true);
-			if (percentage && percentage !== 100) hasEverything = false;
+			if (percentage !== null && percentage !== 100) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
 				.setLabel(`${spirit.name}${percentage === null ? "" : ` (${percentage}%)`}`)
@@ -1594,7 +1594,7 @@ export class SpiritTracker {
 
 		const options = Elder.map((spirit) => {
 			const percentage = spiritTracker.spiritProgress([spirit], true);
-			if (percentage && percentage !== 100) hasEverything = false;
+			if (percentage !== null && percentage !== 100) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
 				.setLabel(`${spirit.name}${percentage === null ? "" : ` (${percentage}%)`}`)
@@ -1683,7 +1683,7 @@ export class SpiritTracker {
 		const options = spirits.map((spirit) => {
 			const { name } = spirit;
 			const percentage = spiritTracker.spiritProgress([spirit], true);
-			if (percentage && percentage !== 100) hasEverything = false;
+			if (percentage !== null && percentage !== 100) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
 				.setLabel(`${name}${percentage === null ? "" : ` (${percentage}%)`}`)
