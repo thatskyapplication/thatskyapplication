@@ -143,6 +143,7 @@ export function isNotificationSendable(
 
 export interface NotificationSendExtra {
 	startTime?: number;
+	endTime?: number;
 	shardEruption?: ShardEruptionData;
 }
 
@@ -278,7 +279,7 @@ export default class Notification {
 	public async send(
 		client: Client<true>,
 		type: NotificationEvent,
-		{ startTime, shardEruption }: NotificationSendExtra = {},
+		{ startTime, endTime, shardEruption }: NotificationSendExtra = {},
 	) {
 		const {
 			guildId,
@@ -305,7 +306,8 @@ export default class Notification {
 			aviarysFireworkFestivalChannelId,
 			aviarysFireworkFestivalRoleId,
 		} = this;
-		const timeString = startTime ? time(startTime, TimestampStyles.RelativeTime) : "soon";
+		const startTimeString = startTime ? time(startTime, TimestampStyles.RelativeTime) : "soon";
+		const endTimeString = endTime ? time(endTime, TimestampStyles.RelativeTime) : "soon";
 		const { realm, map, url } = shardEruption ?? {};
 		let channelId;
 		let roleId;
@@ -315,17 +317,17 @@ export default class Notification {
 			case NotificationEvent.PollutedGeyser:
 				channelId = pollutedGeyserChannelId;
 				roleId = pollutedGeyserRoleId;
-				suffix = `The polluted geyser will erupt ${timeString}!`;
+				suffix = `The polluted geyser will erupt ${startTimeString}!`;
 				break;
 			case NotificationEvent.Grandma:
 				channelId = grandmaChannelId;
 				roleId = grandmaRoleId;
-				suffix = `Grandma will share her light ${timeString}!`;
+				suffix = `Grandma will share her light ${startTimeString}!`;
 				break;
 			case NotificationEvent.Turtle:
 				channelId = turtleChannelId;
 				roleId = turtleRoleId;
-				suffix = `The turtle will need cleansing of darkness ${timeString}!`;
+				suffix = `The turtle will need cleansing of darkness ${startTimeString}!`;
 				break;
 			case NotificationEvent.EyeOfEden:
 				channelId = eyeOfEdenChannelId;
@@ -345,27 +347,37 @@ export default class Notification {
 			case NotificationEvent.RegularShardEruption:
 				channelId = regularShardEruptionChannelId;
 				roleId = regularShardEruptionRoleId;
-				suffix = `A regular shard eruption lands in the ${hyperlink(`${realm!} (${map!})`, url!)} ${timeString}!`;
+
+				suffix = `A regular shard eruption lands in the ${hyperlink(
+					`${realm!} (${map!})`,
+					url!,
+				)} ${startTimeString} and clears up ${endTimeString}!`;
+
 				break;
 			case NotificationEvent.StrongShardEruption:
 				channelId = strongShardEruptionChannelId;
 				roleId = strongShardEruptionRoleId;
-				suffix = `A strong shard eruption lands in the ${hyperlink(`${realm!} (${map!})`, url!)} ${timeString}!`;
+
+				suffix = `A strong shard eruption lands in the ${hyperlink(
+					`${realm!} (${map!})`,
+					url!,
+				)} ${startTimeString} and clears up ${endTimeString}!`;
+
 				break;
 			case NotificationEvent.AURORA:
 				channelId = auroraChannelId;
 				roleId = auroraRoleId;
-				suffix = `The AURORA concert is starting ${timeString}! Take your friends!`;
+				suffix = `The AURORA concert is starting ${startTimeString}! Take your friends!`;
 				break;
 			case NotificationEvent.Passage:
 				channelId = passageChannelId;
 				roleId = passageRoleId;
-				suffix = `The ${resolveFullSeasonName(SeasonName.Passage)} quests are starting ${timeString}!`;
+				suffix = `The ${resolveFullSeasonName(SeasonName.Passage)} quests are starting ${startTimeString}!`;
 				break;
 			case NotificationEvent.AviarysFireworkFestival:
 				channelId = aviarysFireworkFestivalChannelId;
 				roleId = aviarysFireworkFestivalRoleId;
-				suffix = `Aviary's Firework Festival begins ${timeString}!`;
+				suffix = `Aviary's Firework Festival begins ${startTimeString}!`;
 				break;
 		}
 

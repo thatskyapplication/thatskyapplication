@@ -47,12 +47,17 @@ export default function heartbeat(client: Client<true>): void {
 
 			if (shardEruptionToday) {
 				const { strong, timestamps } = shardEruptionToday;
+				const timestamp = timestamps.find(({ start }) => Math.trunc(start.diff(date, "minutes").minutes) === 5);
 
-				if (timestamps.some(({ start }) => Math.trunc(start.diff(date, "minutes").minutes) === 5)) {
+				if (timestamp) {
 					void sendNotification(
 						client,
 						strong ? NotificationEvent.StrongShardEruption : NotificationEvent.RegularShardEruption,
-						{ startTime: unix + 300, shardEruption: shardEruptionToday },
+						{
+							startTime: timestamp.start.toUnixInteger(),
+							endTime: timestamp.end.toUnixInteger(),
+							shardEruption: shardEruptionToday,
+						},
 					);
 				}
 			}
