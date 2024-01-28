@@ -21,6 +21,7 @@ import fight from "./Fun/fight.js";
 import GiftHeart from "./Fun/Gift Heart.js";
 import heart from "./Fun/heart.js";
 import hug from "./Fun/hug.js";
+import krill from "./Fun/krill.js";
 
 // General
 import ai from "./General/ai.js";
@@ -44,6 +45,7 @@ const COMMANDS = {
 	GiftHeart,
 	heart,
 	hug,
+	krill,
 	notifications,
 	schedule,
 	sharderuption,

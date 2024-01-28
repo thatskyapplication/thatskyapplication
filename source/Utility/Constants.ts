@@ -29,6 +29,10 @@ export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const
 // Concurrency limit to not hit the global rate limit of 50 requests per second.
 export const MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT = 45 as const;
 
+// Maximum GIF numbers.
+export const MAX_HUG_NO = 25 as const;
+export const MAX_KRILL_NO = 6 as const;
+
 // Miscellaneous constants.
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
@@ -42,7 +46,6 @@ export const MINIMUM_WINGED_LIGHT = 0 as const;
 export const MAXIMUM_WINGED_LIGHT = 227 as const;
 export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
 export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
-export const MAX_HUG_NO = 25 as const;
 export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
 export const DEFAULT_EMBED_COLOUR = 0x6f68c9 as const;
 export const MAXIMUM_EMBED_FIELD_NAME_LENGTH = 256 as const;
