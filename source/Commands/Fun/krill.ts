@@ -32,7 +32,7 @@ export default new (class implements ChatInputCommand {
 		const member = options.getMember("user");
 
 		if (user.id === interaction.user.id) {
-			await interaction.reply({ content: `Self-krilling is no joke.`, ephemeral: true });
+			await interaction.reply({ content: "Self-krilling is no joke.", ephemeral: true });
 			return;
 		}
 
