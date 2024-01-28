@@ -31,7 +31,7 @@ export const MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT = 45 as const;
 
 // Maximum GIF numbers.
 export const MAX_HUG_NO = 25 as const;
-export const MAX_KRILL_NO = 6 as const;
+export const MAX_KRILL_NO = 7 as const;
 
 // Miscellaneous constants.
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
