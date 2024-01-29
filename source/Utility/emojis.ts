@@ -530,6 +530,10 @@ export const OUTFIT_EMOJIS = {
 	 * Princess.
 	 */
 	Outfit55: { name: "outfit", id: "1195958681376927804" },
+	/**
+	 * Days of Fortune Dragon Vestment.
+	 */
+	Outfit56: { name: "outfit", id: "1201595022949224469" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -586,6 +590,10 @@ export const SHOE_EMOJIS = {
 	 * Mischief Goth Boots.
 	 */
 	Shoe12: { name: "shoe", id: "1181741618454351993" },
+	/**
+	 * Cozy Hermit Boots.
+	 */
+	Shoe13: { name: "shoe", id: "1201598024783233175" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type ShoeEmojis = (typeof SHOE_EMOJIS)[keyof typeof SHOE_EMOJIS];
@@ -821,7 +829,7 @@ export const MASK_EMOJIS = {
 	/**
 	 * Anxious Angler.
 	 */
-	Mask57: { name: "mask", id: "1182639041741602898" },
+	Mask57: { name: "mask", id: "1201602650324607056" },
 	/**
 	 * Days of Fortune 2022.
 	 */
@@ -950,6 +958,10 @@ export const MASK_EMOJIS = {
 	 * Gift of the Nine-Colored Deer.
 	 */
 	Mask89: { name: "mask", id: "1196158869840339094" },
+	/**
+	 * Days of Fortune 2024.
+	 */
+	Mask90: { name: "mask", id: "1201599955748524113" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type MaskEmojis = (typeof MASK_EMOJIS)[keyof typeof MASK_EMOJIS];
@@ -1094,6 +1106,10 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 * Gift of the Nine-Colored Deer.
 	 */
 	FaceAccessory34: { name: "face_accessory", id: "1196158435268497529" },
+	/**
+	 * Days of Fortune Dragn Bangles.
+	 */
+	FaceAccessory35: { name: "face_accessory", id: "1201600819468968027" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type FaceAccessoryEmojis = (typeof FACE_ACCESSORY_EMOJIS)[keyof typeof FACE_ACCESSORY_EMOJIS];
@@ -1939,13 +1955,17 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 */
 	HairAccessory33: { name: "hair_accessory", id: "1186592165158203455" },
 	/**
+	 * Days of Feast 2023.
+	 */
+	HairAccessory34: { name: "hair_accessory", id: "1201604722994454688" },
+	/**
 	 * Spirit of Mural (non-ultimate).
 	 */
-	HairAccessory34: { name: "hair_accessory", id: "1195928033228500992" },
+	HairAccessory35: { name: "hair_accessory", id: "1201604734532997271" },
 	/**
 	 * Feudal Lord.
 	 */
-	HairAccessory35: { name: "hair_accessory", id: "1195948067560620063" },
+	HairAccessory36: { name: "hair_accessory", id: "1201604744725155860" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
@@ -2431,25 +2451,33 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape119: { name: "cape", id: "1188423470841872395" },
 	/**
+	 * Winter Quilted Cape.
+	 */
+	Cape120: { name: "cape", id: "1201606594232864840" },
+	/**
 	 * Spirit of Mural (ultimate).
 	 */
-	Cape120: { name: "cape", id: "1195928342071877712" },
+	Cape121: { name: "cape", id: "1201606605360353350" },
 	/**
 	 * Hunter.
 	 */
-	Cape121: { name: "cape", id: "1195938177878327306" },
+	Cape122: { name: "cape", id: "1201606614596194346" },
 	/**
 	 * Feudal Lord.
 	 */
-	Cape122: { name: "cape", id: "1195947735728259154" },
+	Cape123: { name: "cape", id: "1201606624318591129" },
 	/**
 	 * Princess.
 	 */
-	Cape123: { name: "cape", id: "1195958801623421018" },
+	Cape124: { name: "cape", id: "1201606633944514692" },
 	/**
 	 * Radiance of the Nine-Colored Deer.
 	 */
-	Cape124: { name: "cape", id: "1196159126535938158" },
+	Cape125: { name: "cape", id: "1201606642614157412" },
+	/**
+	 * Days of Fortune Dragon Stole.
+	 */
+	Cape126: { name: "cape", id: "1201607350621048863" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -2618,6 +2646,10 @@ export const HELD_PROPS_EMOJIS = {
 	 * Days of Feast 2023.
 	 */
 	HeldProp40: { name: "held_prop", id: "1190678898522980505" },
+	/**
+	 * Days of Fortune 2024.
+	 */
+	HeldProp41: { name: "held_prop", id: "1201607955754270721" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HeldPropsEmojis = (typeof HELD_PROPS_EMOJIS)[keyof typeof HELD_PROPS_EMOJIS];

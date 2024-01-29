@@ -19,7 +19,7 @@ const emoteEmoji = EMOTE_EMOJIS.FloatSpin;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit55;
 const maskEmoji = MASK_EMOJIS.Mask88;
 const hairEmoji = HAIR_EMOJIS.Hair139;
-const capeEmoji = CAPE_EMOJIS.Cape123;
+const capeEmoji = CAPE_EMOJIS.Cape124;
 
 export default new SeasonalSpirit({
 	name: SpiritName.Princess,

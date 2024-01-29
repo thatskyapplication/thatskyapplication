@@ -17,7 +17,7 @@ const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const emoteEmoji = EMOTE_EMOJIS.Flex;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit54;
 const hairEmoji = HAIR_EMOJIS.Hair138;
-const capeEmoji = CAPE_EMOJIS.Cape121;
+const capeEmoji = CAPE_EMOJIS.Cape122;
 
 export default new SeasonalSpirit({
 	name: SpiritName.Hunter,

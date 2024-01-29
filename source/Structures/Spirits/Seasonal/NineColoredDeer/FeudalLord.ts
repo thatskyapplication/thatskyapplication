@@ -17,8 +17,8 @@ const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const actionEmoji = FRIEND_ACTION_EMOJIS.CradleCarry;
 const maskEmoji = MASK_EMOJIS.Mask87;
-const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory35;
-const capeEmoji = CAPE_EMOJIS.Cape122;
+const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory36;
+const capeEmoji = CAPE_EMOJIS.Cape123;
 
 export default new SeasonalSpirit({
 	name: SpiritName.FeudalLord,
