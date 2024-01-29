@@ -4,7 +4,7 @@ import { CDN_URL } from "../Utility/Constants.js";
 import { skyDate } from "../Utility/dates.js";
 import { type EventEmojis, EVENT_EMOJIS } from "../Utility/emojis.js";
 
-// const EVENT_ROTATION_LETTER = ["A", "B", "C"] as const;
+const EVENT_ROTATION_LETTER = ["A", "B", "C"] as const;
 
 interface EventData {
 	name: string;
@@ -41,9 +41,9 @@ class Event {
 		this.eventCurrencyEmoji = data.eventCurrencyEmoji;
 	}
 
-	public rotation(/* date: DateTime */) {
-		return null;
-		// return EVENT_ROTATION_LETTER[date.diff(this.start, "day").days % 3]!;
+	public rotation(date: DateTime) {
+		// return null;
+		return EVENT_ROTATION_LETTER[date.diff(this.start, "day").days % 3]!;
 	}
 }
 
@@ -77,7 +77,7 @@ const EVENTS = [
 		name: "Days of Fortune",
 		start: skyDate(2_024, 1, 29),
 		end: skyDate(2_024, 2, 11),
-		url: null,
+		url: String(new URL("daily_guides/events/days_of_fortune/2024.webp", CDN_URL)),
 		eventCurrencyPerDay: 5,
 		eventCurrencyEmoji: EVENT_EMOJIS.Fortune,
 	}),

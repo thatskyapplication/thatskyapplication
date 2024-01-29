@@ -247,8 +247,8 @@ export default class DailyGuidesDistribution {
 				iconURL = formatEmojiURL(eventCurrencyEmoji.id);
 
 				if (date <= eventCurrencyEnd && url) {
-					// eventCurrency = { name: "Event Currency", value: hyperlink(`Rotation ${event.rotation(date)}`, url) };
-					eventCurrency = { name: "Event Currency", value: hyperlink("View", url) };
+					eventCurrency = { name: "Event Currency", value: hyperlink(`Rotation ${event.rotation(date)}`, url) };
+					// eventCurrency = { name: "Event Currency", value: hyperlink("View", url) };
 				}
 			} else {
 				const daysUntilEvent = start.diff(date, "days").days;
