@@ -47,6 +47,8 @@ export interface NotificationPacket {
 	strong_shard_eruption_role_id: Snowflake | null;
 	aviarys_firework_festival_channel_id: Snowflake | null;
 	aviarys_firework_festival_role_id: Snowflake | null;
+	dragon_channel_id: Snowflake | null;
+	dragon_role_id: Snowflake | null;
 }
 
 interface NotificationData {
@@ -73,6 +75,8 @@ interface NotificationData {
 	strongShardEruptionRoleId: NotificationPacket["strong_shard_eruption_role_id"];
 	aviarysFireworkFestivalChannelId: NotificationPacket["aviarys_firework_festival_channel_id"];
 	aviarysFireworkFestivalRoleId: NotificationPacket["aviarys_firework_festival_role_id"];
+	dragonChannelId: NotificationPacket["dragon_channel_id"];
+	dragonRoleId: NotificationPacket["dragon_role_id"];
 }
 
 type NotificationPatchData = Omit<NotificationPacket, "guild_id">;
@@ -91,6 +95,7 @@ export enum NotificationEvent {
 	AURORA = "AURORA",
 	Passage = "Passage",
 	AviarysFireworkFestival = "Aviary's Firework Festival",
+	Dragon = "Dragon",
 }
 
 export const NOTIFICATION_CHANNEL_TYPES = [
@@ -200,6 +205,10 @@ export default class Notification {
 
 	public aviarysFireworkFestivalRoleId!: NotificationData["aviarysFireworkFestivalRoleId"];
 
+	public dragonChannelId!: NotificationData["dragonChannelId"];
+
+	public dragonRoleId!: NotificationData["dragonRoleId"];
+
 	public constructor(notification: NotificationPacket) {
 		this.guildId = notification.guild_id;
 		this.patch(notification);
@@ -228,6 +237,8 @@ export default class Notification {
 		this.passageRoleId = data.passage_role_id;
 		this.aviarysFireworkFestivalChannelId = data.aviarys_firework_festival_channel_id;
 		this.aviarysFireworkFestivalRoleId = data.aviarys_firework_festival_role_id;
+		this.dragonChannelId = data.dragon_channel_id;
+		this.dragonRoleId = data.dragon_role_id;
 	}
 
 	public static async setup(
@@ -305,6 +316,8 @@ export default class Notification {
 			passageRoleId,
 			aviarysFireworkFestivalChannelId,
 			aviarysFireworkFestivalRoleId,
+			dragonChannelId,
+			dragonRoleId,
 		} = this;
 		const startTimeString = startTime ? time(startTime, TimestampStyles.RelativeTime) : "soon";
 		const endTimeString = endTime ? time(endTime, TimestampStyles.RelativeTime) : "soon";
@@ -379,6 +392,11 @@ export default class Notification {
 				roleId = aviarysFireworkFestivalRoleId;
 				suffix = `Aviary's Firework Festival begins ${startTimeString}!`;
 				break;
+			case NotificationEvent.Dragon:
+				channelId = dragonChannelId;
+				roleId = dragonRoleId;
+				suffix = `The dragon will appear ${startTimeString}!`;
+				break;
 		}
 
 		if (!channelId || !roleId) return;
@@ -417,6 +435,8 @@ export default class Notification {
 			passageRoleId,
 			aviarysFireworkFestivalChannelId,
 			aviarysFireworkFestivalRoleId,
+			dragonChannelId,
+			dragonRoleId,
 		} = this;
 
 		return new EmbedBuilder()
@@ -475,6 +495,11 @@ export default class Notification {
 				{
 					name: NotificationEvent.AviarysFireworkFestival,
 					value: this.overviewValue(me, aviarysFireworkFestivalChannelId, aviarysFireworkFestivalRoleId),
+					inline: true,
+				},
+				{
+					name: NotificationEvent.Dragon,
+					value: this.overviewValue(me, dragonChannelId, dragonRoleId),
 					inline: true,
 				},
 			)

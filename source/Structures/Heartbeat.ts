@@ -85,6 +85,8 @@ export default function heartbeat(client: Client<true>): void {
 			if (day === 1 && hour % 4 === 0 && minute === 0) {
 				void sendNotification(client, NotificationEvent.AviarysFireworkFestival, { startTime: unix + 600 });
 			}
+
+			if (minute === 55) void sendNotification(client, NotificationEvent.Dragon, { startTime: unix + 300 });
 		}
 	}, 1_000);
 }
