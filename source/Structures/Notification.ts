@@ -263,7 +263,8 @@ export default class Notification {
 
 		await interaction.reply({
 			content: "Notifications have been modified.",
-			embeds: [await notification.overview(interaction)],
+			embeds: [await notification.embed(interaction)],
+			ephemeral: true,
 		});
 	}
 
@@ -278,7 +279,8 @@ export default class Notification {
 		this.patch(notificationPacket!);
 		await interaction.reply({
 			content: "Notifications have been modified.",
-			embeds: [await this.overview(interaction)],
+			embeds: [await this.embed(interaction)],
+			ephemeral: true,
 		});
 	}
 
@@ -409,7 +411,7 @@ export default class Notification {
 		await channel.send({ content: `${role} ${suffix}`, flags: MessageFlags.SuppressEmbeds });
 	}
 
-	public async overview(interaction: ChatInputCommandInteraction<"cached">) {
+	public async embed(interaction: ChatInputCommandInteraction<"cached">) {
 		const me = await interaction.guild.members.fetchMe();
 
 		const {

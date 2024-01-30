@@ -29,11 +29,6 @@ export default new (class implements ChatInputCommand {
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "overview",
-				description: "Shows the notifications in this server.",
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
 				name: "setup",
 				description: "Sets up notifications in the server.",
 				options: [
@@ -58,6 +53,11 @@ export default new (class implements ChatInputCommand {
 						required: true,
 					},
 				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "status",
+				description: "Shows the status of notifications in this server.",
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
@@ -94,29 +94,15 @@ export default new (class implements ChatInputCommand {
 		if (await cannotUseCustomEmojis(interaction)) return;
 
 		switch (interaction.options.getSubcommand()) {
-			case "overview":
-				await this.overview(interaction);
-				return;
 			case "setup":
 				await this.setup(interaction);
+				return;
+			case "status":
+				await this.status(interaction);
 				return;
 			case "unset":
 				await this.unset(interaction);
 		}
-	}
-
-	public async overview(interaction: ChatInputCommandInteraction<"cached">) {
-		const notification = Notification.cache.get(interaction.guildId);
-
-		if (!notification) {
-			await interaction.reply({ content: "This server has nothing set up.", ephemeral: true });
-			return;
-		}
-
-		await interaction.reply({
-			embeds: [await notification.overview(interaction)],
-			ephemeral: true,
-		});
 	}
 
 	public async setup(interaction: ChatInputCommandInteraction<"cached">) {
@@ -204,6 +190,20 @@ export default new (class implements ChatInputCommand {
 		}
 
 		await Notification.setup(interaction, data);
+	}
+
+	public async status(interaction: ChatInputCommandInteraction<"cached">) {
+		const notification = Notification.cache.get(interaction.guildId);
+
+		if (!notification) {
+			await interaction.reply({ content: "This server has nothing set up.", ephemeral: true });
+			return;
+		}
+
+		await interaction.reply({
+			embeds: [await notification.embed(interaction)],
+			ephemeral: true,
+		});
 	}
 
 	public async unset(interaction: ChatInputCommandInteraction<"cached">) {
