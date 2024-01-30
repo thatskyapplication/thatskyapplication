@@ -19,11 +19,6 @@ export default new (class implements ChatInputCommand {
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "overview",
-				description: "Shows the daily guides overview in this server.",
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
 				name: "setup",
 				description: "Sets up the daily guides in the server.",
 				options: [
@@ -35,6 +30,11 @@ export default new (class implements ChatInputCommand {
 						channelTypes: DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 					},
 				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "status",
+				description: "Shows the status of daily guides in this server.",
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
@@ -62,30 +62,15 @@ export default new (class implements ChatInputCommand {
 		if (await cannotUseCustomEmojis(interaction)) return;
 
 		switch (interaction.options.getSubcommand()) {
-			case "overview":
-				await this.overview(interaction);
-				return;
 			case "setup":
 				await this.setup(interaction);
+				return;
+			case "status":
+				await this.status(interaction);
 				return;
 			case "unset":
 				await this.unset(interaction);
 		}
-	}
-
-	public async overview(interaction: ChatInputCommandInteraction<"cached">) {
-		const { guild, guildId } = interaction;
-		const dailyGuidesDistribution = await DailyGuidesDistribution.fetch(guildId).catch(() => null);
-
-		if (!dailyGuidesDistribution) {
-			await interaction.reply({ content: "This server does not have this feature set up.", ephemeral: true });
-			return;
-		}
-
-		await interaction.reply({
-			embeds: [await dailyGuidesDistribution.overview(guild)],
-			ephemeral: true,
-		});
 	}
 
 	public async setup(interaction: ChatInputCommandInteraction<"cached">) {
@@ -104,6 +89,21 @@ export default new (class implements ChatInputCommand {
 		}
 
 		await DailyGuidesDistribution.setup(interaction, { guild_id: guildId, channel_id: channel.id });
+	}
+
+	public async status(interaction: ChatInputCommandInteraction<"cached">) {
+		const { guild, guildId } = interaction;
+		const dailyGuidesDistribution = await DailyGuidesDistribution.fetch(guildId).catch(() => null);
+
+		if (!dailyGuidesDistribution) {
+			await interaction.reply({ content: "This server does not have this feature set up.", ephemeral: true });
+			return;
+		}
+
+		await interaction.reply({
+			embeds: [await dailyGuidesDistribution.embed(guild)],
+			ephemeral: true,
+		});
 	}
 
 	public async unset(interaction: ChatInputCommandInteraction<"cached">) {

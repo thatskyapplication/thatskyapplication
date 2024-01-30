@@ -187,7 +187,8 @@ export default class DailyGuidesDistribution {
 
 		await interaction.reply({
 			content: "Daily guides have been modified.",
-			embeds: [await dailyGuidesDistribution.overview(guild)],
+			embeds: [await dailyGuidesDistribution.embed(guild)],
+			ephemeral: true,
 		});
 	}
 
@@ -203,11 +204,12 @@ export default class DailyGuidesDistribution {
 			content: dailyGuidesDistributionPacket
 				? "Daily guides have been unset."
 				: "There were no daily guide updates in this server.",
-			embeds: dailyGuidesDistributionPacket ? [await new this(dailyGuidesDistributionPacket).overview(guild)] : [],
+			embeds: dailyGuidesDistributionPacket ? [await new this(dailyGuidesDistributionPacket).embed(guild)] : [],
+			ephemeral: true,
 		});
 	}
 
-	public async overview(guild: Guild) {
+	public async embed(guild: Guild) {
 		const me = await guild.members.fetchMe();
 		const { channelId } = this;
 		const channel = channelId ? guild.channels.cache.get(channelId) : null;
@@ -216,7 +218,7 @@ export default class DailyGuidesDistribution {
 		return new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
 			.setFields({
-				name: "Daily Guides Status",
+				name: "Daily Guides",
 				value: `${channelId ? channelMention(channelId) : "No channel"}\n${
 					sending ? "Sending!" : "Stopped!"
 				} ${formatEmoji(sending ? MISCELLANEOUS_EMOJIS.Yes : MISCELLANEOUS_EMOJIS.No)}`,
