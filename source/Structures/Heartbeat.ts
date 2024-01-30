@@ -7,6 +7,7 @@ import { TIME_ZONE } from "../Utility/dates.js";
 import pQueue from "../pQueue.js";
 import DailyGuides from "./DailyGuides.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
+import { EventName, resolveEvent } from "./Event.js";
 import Notification, { NotificationEvent, type NotificationSendExtra } from "./Notification.js";
 
 let shardEruptionToday = shardEruption();
@@ -36,6 +37,7 @@ export default function heartbeat(client: Client<true>): void {
 		const date = DateTime.now().setZone(TIME_ZONE);
 		const { day, weekday, hour, minute, second } = date;
 		const unix = date.toUnixInteger();
+		const event = resolveEvent(date);
 
 		if (second === 0) {
 			if (hour === 0 && minute === 0) {
@@ -86,7 +88,9 @@ export default function heartbeat(client: Client<true>): void {
 				void sendNotification(client, NotificationEvent.AviarysFireworkFestival, { startTime: unix + 600 });
 			}
 
-			if (minute === 55) void sendNotification(client, NotificationEvent.Dragon, { startTime: unix + 300 });
+			if (minute === 55 && event?.name === EventName.DaysOfFortune) {
+				void sendNotification(client, NotificationEvent.Dragon, { startTime: unix + 300 });
+			}
 		}
 	}, 1_000);
 }
