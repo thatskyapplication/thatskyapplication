@@ -12,7 +12,7 @@ export const enum EventName {
 	DaysOfLove = "Days of Love",
 }
 
-const EVENT_ROTATION_LETTER = ["A", "B", "C"] as const;
+const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
 
 interface EventData {
 	name: EventName;
