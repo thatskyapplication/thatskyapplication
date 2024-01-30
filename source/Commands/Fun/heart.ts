@@ -61,7 +61,7 @@ export const HEART_HISTORY_FORWARD = "HEART_HISTORY_FORWARD" as const;
 export default new (class implements ChatInputCommand {
 	public readonly data = {
 		name: "heart",
-		description: "Feeling generous? You have one heart to give per day!",
+		description: "Feeling generous? You have up to 3 hearts to gift per day!",
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
@@ -72,7 +72,7 @@ export default new (class implements ChatInputCommand {
 					{
 						type: ApplicationCommandOptionType.User,
 						name: "user",
-						description: "The user to give a heart to.",
+						description: "The user to gift a heart to.",
 						required: true,
 					},
 				],
