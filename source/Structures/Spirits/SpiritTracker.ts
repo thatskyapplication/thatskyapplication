@@ -717,7 +717,7 @@ export const SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_REALM_E
 export const SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID" as const;
-const SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT = 24 as const;
+const SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT = 25 as const;
 const SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE = "Averages are calculated even beyond the second wing buff." as const;
 
 const validRealms = Standard.reduce<StandardSpiritRealm[]>((realms, { realm }) => {
@@ -1775,58 +1775,41 @@ export class SpiritTracker {
 		const spiritSeason = isSeasonalSpirit || isGuideSpirit ? spirit.season : null;
 		const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
-
-		const embedFields =
-			offer?.map(({ item, cost }, flag) => {
-				let value;
-
-				if (bit && (bit & flag) === flag) {
-					value = formatEmoji(MISCELLANEOUS_EMOJIS.Yes);
-				} else {
-					value = resolveOfferToCurrency(cost ?? {}, spiritSeason).join("") || formatEmoji(MISCELLANEOUS_EMOJIS.No);
-				}
-
-				return { name: item, value, inline: true };
-			}) ?? [];
-
-		const embeds = [];
-
-		const embed = new EmbedBuilder()
-			.setColor(DEFAULT_EMBED_COLOUR)
-			.setFields(embedFields.slice(0, SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT))
-			.setTitle(spirit.name)
-			.setURL(spirit.wikiURL);
-
-		embeds.push(embed);
-
-		if (embedFields.length > SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT) {
-			embeds.push(
-				new EmbedBuilder()
-					.setColor(DEFAULT_EMBED_COLOUR)
-					.setFields(embedFields.slice(SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT)),
-			);
-		}
-
-		const lastEmbed = embeds.at(-1)!;
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(spirit.name).setURL(spirit.wikiURL);
 		const description = [];
+		const owned = [];
+		const unowned = [];
+
+		if (offer) {
+			for (const [flag, { emoji }] of offer.entries()) {
+				if (bit && (bit & flag) === flag) {
+					owned.push(formatEmoji(emoji));
+				} else {
+					unowned.push(formatEmoji(emoji));
+				}
+			}
+		}
+		
+		if (owned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
+		if (unowned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
 		const remainingCurrency = this.remainingCurrency(spirit, true);
 
 		if (remainingCurrency) {
 			const resolvedRemainingCurrency = resolveOfferToCurrency(remainingCurrency, spiritSeason);
 
 			if (resolvedRemainingCurrency.length > 0) {
-				description.push(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);
+				description.push(`${resolvedRemainingCurrency.join("")} remaining.`);
 			}
 		}
 
 		if (imageURL) {
-			lastEmbed.setImage(imageURL);
+			embed.setImage(imageURL);
 		} else {
 			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
-		if (isGuideSpirit && spirit.offer?.inProgress) lastEmbed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
 		if (description.length > 0) embed.setDescription(description.join("\n"));
+		if (isGuideSpirit && spirit.offer?.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
 		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
 
 		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(
@@ -1863,7 +1846,7 @@ export class SpiritTracker {
 				return stringSelectMenuOption;
 			});
 
-			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT);
+			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT);
 
 			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
@@ -1876,9 +1859,9 @@ export class SpiritTracker {
 
 			components.push(itemSelection);
 
-			if (itemSelectionOptions.length > SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT) {
+			if (itemSelectionOptions.length > SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT) {
 				const itemSelectionOverflowOptionsMaximumLimit = itemSelectionOptions.slice(
-					SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT,
+					SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT,
 				);
 
 				components.push(
@@ -1895,7 +1878,7 @@ export class SpiritTracker {
 		}
 
 		components.push(buttons);
-		await interaction.update({ components, content: "", embeds });
+		await interaction.update({ components, content: "", embeds: [embed] });
 	}
 
 	private remainingCurrency(

@@ -13,7 +13,7 @@ import {
 
 const cdn = new CDN();
 
-export interface EmojiData {
+interface EmojiData {
 	name: string;
 	id: Snowflake;
 	animated?: boolean;
@@ -2930,7 +2930,7 @@ export const PLACEABLE_PROPS_EMOJIS = {
 
 export type PlaceablePropsEmojis = (typeof PLACEABLE_PROPS_EMOJIS)[keyof typeof PLACEABLE_PROPS_EMOJIS];
 
-type Emoji =
+export type Emoji =
 	| MiscellaneousEmojis
 	| EmotesEmojis
 	| StancesEmojis
