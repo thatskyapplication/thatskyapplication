@@ -1940,8 +1940,13 @@ export class SpiritTracker {
 
 	public static async sharePrompt(interaction: ButtonInteraction) {
 		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
-		const { customId } = interaction;
+		const { customId, user } = interaction;
+		const spiritTracker = await this.fetch(user.id);
 		const season = customId.slice(customId.indexOf("§") + 1) as SeasonName;
+		const embed = spiritTracker.spiritEmbed(Seasonal.filter((spirit) => spirit.season === season));
+		const profile = await Profile.fetch(user.id).catch(() => null);
+		const embedAuthorOptions: EmbedAuthorOptions = { name: profile?.name ?? user.tag };
+		if (profile?.iconURL) embedAuthorOptions.iconURL = profile.iconURL;
 
 		await interaction.update({
 			components: [
@@ -1952,20 +1957,25 @@ export class SpiritTracker {
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
-						.setCustomId(`${SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID}§${season}`)
+						.setCustomId(SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID)
 						.setEmoji("🔗")
 						.setLabel("Send")
 						.setStyle(ButtonStyle.Success),
 				),
 			],
 			content: "This will share your progress in this channel. Is this okay?",
-			embeds: [],
+			embeds: [
+				embed
+					.setAuthor(embedAuthorOptions)
+					.setTimestamp()
+					.setTitle(`${resolveFullSeasonName(season)} Progress`),
+			],
 		});
 	}
 
 	public static async shareSend(interaction: ButtonInteraction) {
 		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
-		const { channel, customId, message, user } = interaction;
+		const { channel, message } = interaction;
 
 		if (!channel) {
 			await interaction.client.log({ content: "Failed to share a spirit tracker.", error: interaction });
@@ -1979,21 +1989,7 @@ export class SpiritTracker {
 			return;
 		}
 
-		const spiritTracker = await this.fetch(interaction.user.id);
-		const season = customId.slice(customId.indexOf("§") + 1) as SeasonName;
-		const embed = spiritTracker.spiritEmbed(Seasonal.filter((spirit) => spirit.season === season));
-		const profile = await Profile.fetch(user.id).catch(() => null);
-		const embedAuthorOptions: EmbedAuthorOptions = { name: profile?.name ?? user.tag };
-		if (profile?.iconURL) embedAuthorOptions.iconURL = profile.iconURL;
-
-		await channel.send({
-			embeds: [
-				embed
-					.setAuthor(embedAuthorOptions)
-					.setTimestamp()
-					.setTitle(`${resolveFullSeasonName(season)} Progress`),
-			],
-		});
+		await channel.send({ embeds: interaction.message.embeds });
 
 		const components = message.components.map((component) =>
 			ActionRowBuilder.from<MessageActionRowComponentBuilder>(component),
@@ -2003,12 +1999,12 @@ export class SpiritTracker {
 			actionRow.components
 				.find(
 					(component) =>
-						"custom_id" in component.data && component.data.custom_id.startsWith(SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID),
+						"custom_id" in component.data && component.data.custom_id === SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID,
 				)
 				?.setDisabled(true);
 		}
 
-		await interaction.update({ components, content: "Progress shared!" });
+		await interaction.update({ components, content: "Progress shared!", embeds: [] });
 	}
 
 	private remainingCurrency(

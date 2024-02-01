@@ -276,7 +276,7 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (customId.startsWith(SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID)) {
+				if (customId === SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID) {
 					await SpiritTracker.shareSend(interaction);
 					return;
 				}
