@@ -749,10 +749,14 @@ const validSeasons = Seasonal.reduce<SeasonName[]>((seasons, { season }) => {
 	return seasons;
 }, []);
 
-const backToStartButtonBuilder = new ButtonBuilder()
-	.setCustomId(SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID)
-	.setEmoji("⏮️")
-	.setStyle(ButtonStyle.Primary);
+function backToStartButton(disabled = false) {
+	return new ButtonBuilder()
+		.setCustomId(SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID)
+		.setDisabled(disabled)
+		.setEmoji("⏮️")
+		.setLabel("Start")
+		.setStyle(ButtonStyle.Primary);
+}
 
 export class SpiritTracker {
 	public readonly userId: SpiritTrackerData["userId"];
@@ -1428,6 +1432,7 @@ export class SpiritTracker {
 						)
 						.setPlaceholder("What kind of spirit do you want to see?"),
 				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(backToStartButton(true)),
 			],
 			embeds: [],
 			ephemeral: true,
@@ -1542,9 +1547,11 @@ export class SpiritTracker {
 						.setPlaceholder("Select a realm!"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID)
 						.setEmoji("⏪")
+						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 				),
 			],
@@ -1587,10 +1594,11 @@ export class SpiritTracker {
 						.setPlaceholder("Select a spirit!"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					backToStartButtonBuilder,
+					backToStartButton(),
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID)
 						.setEmoji("⏪")
+						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
 						.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${realm}`)
@@ -1645,9 +1653,11 @@ export class SpiritTracker {
 						.setPlaceholder("Select an elder!"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID)
 						.setEmoji("⏪")
+						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
 						.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${SPIRIT_TRACKER_SHARE_ELDER_KEY}`)
@@ -1694,9 +1704,11 @@ export class SpiritTracker {
 						.setPlaceholder("Select a season!"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID)
 						.setEmoji("⏪")
+						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 				),
 			],
@@ -1752,10 +1764,11 @@ export class SpiritTracker {
 						),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					backToStartButtonBuilder,
+					backToStartButton(),
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID)
 						.setEmoji("⏪")
+						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
 						.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${season}`)
@@ -1825,19 +1838,19 @@ export class SpiritTracker {
 		if (isGuideSpirit && spirit.offer?.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
 		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
 
-		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(
-			backToStartButtonBuilder,
-			new ButtonBuilder()
-				.setCustomId(
-					spirit.isElderSpirit()
-						? SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID
-						: spirit.isStandardSpirit()
-						? `${SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID}§${spirit.realm}`
-						: `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}§${spirit.season}`,
-				)
-				.setEmoji("⏪")
-				.setStyle(ButtonStyle.Primary),
-		);
+		const backButton = new ButtonBuilder()
+			.setCustomId(
+				spirit.isElderSpirit()
+					? SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID
+					: spirit.isStandardSpirit()
+					? `${SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID}§${spirit.realm}`
+					: `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}§${spirit.season}`,
+			)
+			.setLabel("Back")
+			.setStyle(ButtonStyle.Primary);
+
+		if (isSeasonalSpirit || isGuideSpirit) backButton.setEmoji(SeasonNameToSeasonalEmoji[spirit.season]);
+		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(backToStartButton(), backButton);
 
 		if (offer) {
 			buttons.addComponents(
@@ -2056,7 +2069,7 @@ export class SpiritTracker {
 					(component) =>
 						"custom_id" in component.data && component.data.custom_id === SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID,
 				)
-				?.setDisabled(true);
+				?.setDisabled();
 		}
 
 		await interaction.update({ components, content: "Progress shared!", embeds: [] });
