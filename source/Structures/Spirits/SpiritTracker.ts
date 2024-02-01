@@ -1794,35 +1794,10 @@ export class SpiritTracker {
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
 		const seasonalParsing = isSeasonalSpirit && !spirit.visited;
-		const spiritSeason = isSeasonalSpirit || isGuideSpirit ? spirit.season : null;
 		const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
-		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(spirit.name).setURL(spirit.wikiURL);
-		const description = [];
-		const owned = [];
-		const unowned = [];
-
-		if (offer) {
-			for (const [flag, { emoji }] of offer.entries()) {
-				if (bit && (bit & flag) === flag) {
-					owned.push(formatEmoji(emoji));
-				} else {
-					unowned.push(formatEmoji(emoji));
-				}
-			}
-		}
-
-		if (owned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
-		if (unowned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
-		const remainingCurrency = this.remainingCurrency(spirit, true);
-
-		if (remainingCurrency) {
-			const resolvedRemainingCurrency = resolveOfferToCurrency(remainingCurrency, spiritSeason);
-
-			if (resolvedRemainingCurrency.length > 0) {
-				description.push(`${resolvedRemainingCurrency.join("")} remaining`);
-			}
-		}
+		const embed = this.spiritEmbed([spirit]).setTitle(spirit.name).setURL(spirit.wikiURL);
+		const description = embed.data.description ? [embed.data.description] : [];
 
 		if (imageURL) {
 			embed.setImage(imageURL);
@@ -1830,7 +1805,7 @@ export class SpiritTracker {
 			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
-		if (description.length > 0) embed.setDescription(description.join("\n"));
+		embed.setDescription(description.join("\n"));
 		if (isGuideSpirit && spirit.offer?.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
 		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
 
@@ -1903,6 +1878,66 @@ export class SpiritTracker {
 		await interaction.update({ components, content: "", embeds: [embed] });
 	}
 
+	private spiritEmbed(spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[]) {
+		const multiple = spirits.length > 1;
+		const description = [];
+
+		// This method only needs a single spirit to determine the season if invoked from a season.
+		const aSpirit = spirits[0]!;
+		const spiritSeason = aSpirit.isSeasonalSpirit() || aSpirit.isGuideSpirit() ? aSpirit.season : null;
+
+		if (multiple) {
+			const resolvedRemainingCurrency = resolveOfferToCurrency(
+				spirits.reduce((remainingCurrency, spirit) => {
+					const remaining = this.remainingCurrency(spirit, resolveSeason(todayDate())?.name === spiritSeason);
+					return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
+				}, {}),
+				spiritSeason,
+			);
+
+			if (resolvedRemainingCurrency.length > 0) {
+				description.push(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);
+			}
+		}
+
+		for (const spirit of spirits) {
+			const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
+			const spiritDescription = [];
+			const isSeasonalSpirit = spirit.isSeasonalSpirit();
+			const seasonalParsing = isSeasonalSpirit && !spirit.visited;
+			const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
+			const owned = [];
+			const unowned = [];
+
+			if (offer) {
+				for (const [flag, { emoji }] of offer.entries()) {
+					if (bit && (bit & flag) === flag) {
+						owned.push(formatEmoji(emoji));
+					} else {
+						unowned.push(formatEmoji(emoji));
+					}
+				}
+			}
+
+			if (owned.length > 0) spiritDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
+			if (unowned.length > 0) spiritDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
+
+			const remainingCurrency = this.remainingCurrency(spirit, true);
+
+			if (remainingCurrency) {
+				const resolvedRemainingCurrency = resolveOfferToCurrency(remainingCurrency, spiritSeason);
+
+				if (resolvedRemainingCurrency.length > 0) {
+					spiritDescription.push(`${resolvedRemainingCurrency.join("")} remaining`);
+				}
+			}
+
+			description.push(`${multiple ? `__${spirit.name}__\n` : ""}${spiritDescription.join("\n")}`);
+		}
+
+		return new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setDescription(description.join("\n\n"));
+	}
+
 	public static async sharePrompt(interaction: ButtonInteraction) {
 		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
 		const { customId } = interaction;
@@ -1946,65 +1981,15 @@ export class SpiritTracker {
 
 		const spiritTracker = await this.fetch(interaction.user.id);
 		const season = customId.slice(customId.indexOf("§") + 1) as SeasonName;
-		const spirits = Seasonal.filter((spirit) => spirit.season === season);
-		const description = [];
-
-		const resolvedRemainingCurrency = resolveOfferToCurrency(
-			spirits.reduce((remainingCurrency, spirit) => {
-				const remaining = spiritTracker.remainingCurrency(spirit, resolveSeason(todayDate())?.name === season);
-				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
-			}, {}),
-			season,
-		);
-
-		if (resolvedRemainingCurrency.length > 0) {
-			description.push(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);
-		}
-
-		for (const spirit of spirits) {
-			const bit = spiritTracker[SpiritNameToSpiritTrackerName[spirit.name]];
-			const spiritDescription = [];
-			const isSeasonalSpirit = spirit.isSeasonalSpirit();
-			const seasonalParsing = isSeasonalSpirit && !spirit.visited;
-			const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
-			const owned = [];
-			const unowned = [];
-
-			if (offer) {
-				for (const [flag, { emoji }] of offer.entries()) {
-					if (bit && (bit & flag) === flag) {
-						owned.push(formatEmoji(emoji));
-					} else {
-						unowned.push(formatEmoji(emoji));
-					}
-				}
-			}
-
-			if (owned.length > 0) spiritDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
-			if (unowned.length > 0) spiritDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
-			const remainingCurrency = spiritTracker.remainingCurrency(spirit, true);
-
-			if (remainingCurrency) {
-				const resolvedRemainingCurrency = resolveOfferToCurrency(remainingCurrency, season);
-
-				if (resolvedRemainingCurrency.length > 0) {
-					spiritDescription.push(`${resolvedRemainingCurrency.join("")} remaining`);
-				}
-			}
-
-			description.push(`__${spirit.name}__\n${spiritDescription.join("\n")}`);
-		}
-
+		const embed = spiritTracker.spiritEmbed(Seasonal.filter((spirit) => spirit.season === season));
 		const profile = await Profile.fetch(user.id).catch(() => null);
 		const embedAuthorOptions: EmbedAuthorOptions = { name: profile?.name ?? user.tag };
 		if (profile?.iconURL) embedAuthorOptions.iconURL = profile.iconURL;
 
 		await channel.send({
 			embeds: [
-				new EmbedBuilder()
+				embed
 					.setAuthor(embedAuthorOptions)
-					.setColor(DEFAULT_EMBED_COLOUR)
-					.setDescription(description.join("\n\n"))
 					.setTimestamp()
 					.setTitle(`${resolveFullSeasonName(season)} Progress`),
 			],
