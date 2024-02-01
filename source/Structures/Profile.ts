@@ -247,6 +247,14 @@ export default class Profile {
 		return `sky_profiles/thumbnails/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
 	}
 
+	public get iconURL() {
+		return this.icon ? String(new URL(Profile.iconRoute(this.userId, this.icon), CDN_URL)) : null;
+	}
+
+	public get thumbnailURL() {
+		return this.thumbnail ? String(new URL(Profile.thumbnailRoute(this.userId, this.thumbnail), CDN_URL)) : null;
+	}
+
 	public async embed(
 		interaction:
 			| ChatInputCommandInteraction
@@ -263,7 +271,8 @@ export default class Profile {
 			void interaction.client.log({ content: `Could not find the \`${commandName}\` command.` });
 		}
 
-		const { userId, name, icon, thumbnail, description, country, wingedLight, seasons, platform, spirit, spot } = this;
+		const { userId, name, iconURL, thumbnailURL, description, country, wingedLight, seasons, platform, spirit, spot } =
+			this;
 		const spiritTracker = await SpiritTracker.fetch(userId).catch(() => null);
 		const standardProgress = spiritTracker?.spiritProgress(Standard, true) ?? 0;
 		const elderProgress = spiritTracker?.spiritProgress(Elder, true) ?? 0;
@@ -305,8 +314,8 @@ export default class Profile {
 
 		if (descriptions.length > 0) embed.setDescription(descriptions.join("\n"));
 
-		if (thumbnail) {
-			embed.setThumbnail(String(new URL(Profile.thumbnailRoute(this.userId, thumbnail), CDN_URL)));
+		if (thumbnailURL) {
+			embed.setThumbnail(thumbnailURL);
 		} else if (commandId) {
 			unfilled.push(
 				`- Use ${chatInputApplicationCommandMention(
@@ -321,8 +330,8 @@ export default class Profile {
 		if (name) {
 			const embedAuthorOptions: EmbedAuthorOptions = { name };
 
-			if (icon) {
-				embedAuthorOptions.iconURL = String(new URL(Profile.iconRoute(this.userId, icon), CDN_URL));
+			if (iconURL) {
+				embedAuthorOptions.iconURL = iconURL;
 			} else if (commandId) {
 				unfilled.push(
 					`- Use ${chatInputApplicationCommandMention(

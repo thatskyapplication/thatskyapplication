@@ -2,6 +2,7 @@ import {
 	type ActionRow,
 	type ChatInputCommandInteraction,
 	type InteractionUpdateOptions,
+	type MessageActionRowComponentBuilder,
 	type Snowflake,
 	type StringSelectMenuComponent,
 	type StringSelectMenuInteraction,
@@ -12,13 +13,21 @@ import {
 	EmbedBuilder,
 	ButtonBuilder,
 	ButtonStyle,
+	type EmbedAuthorOptions,
 } from "discord.js";
 import { type Realm, DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { isRealm } from "../../Utility/Utility.js";
 import { todayDate } from "../../Utility/dates.js";
 import { cannotUseCustomEmojis, formatEmoji, MISCELLANEOUS_EMOJIS } from "../../Utility/emojis.js";
 import pg, { Table } from "../../pg.js";
-import { isSeasonName, resolveSeason, SeasonName, SeasonNameToSeasonalEmoji } from "../Season.js";
+import Profile from "../Profile.js";
+import {
+	isSeasonName,
+	resolveFullSeasonName,
+	resolveSeason,
+	SeasonName,
+	SeasonNameToSeasonalEmoji,
+} from "../Season.js";
 import {
 	type ElderSpirit,
 	type GuideSpirit,
@@ -713,6 +722,9 @@ export const SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID = "SPIRIT_TRACKER_SPI
 export const SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_SEASON_SHARE_PROMPT_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_SHARE_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_SHARE_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SHARE_BACK_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID = "SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID" as const;
@@ -1466,7 +1478,8 @@ export class SpiritTracker {
 
 		if (
 			customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID) ||
-			customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID)
+			customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID) ||
+			customId.startsWith(SPIRIT_TRACKER_SHARE_BACK_CUSTOM_ID)
 		) {
 			const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
 			if (isRealm(parsedCustomId)) await this.viewRealm(interaction, parsedCustomId);
@@ -1691,6 +1704,7 @@ export class SpiritTracker {
 		});
 
 		const currentSeason = resolveSeason(todayDate())?.name === season;
+		let content = `# ${formatEmoji(SeasonNameToSeasonalEmoji[season])} ${resolveFullSeasonName(season)}`;
 
 		const resolvedRemainingCurrency = resolveOfferToCurrency(
 			spirits.reduce((remainingCurrency, spirit) => {
@@ -1700,9 +1714,12 @@ export class SpiritTracker {
 			season,
 		);
 
+		if (resolvedRemainingCurrency.length > 0) {
+			content += `\n## Remaining Currency\n${resolvedRemainingCurrency.join("")}`;
+		}
+
 		const response = {
-			content:
-				resolvedRemainingCurrency.length > 0 ? `## Remaining Currency\n${resolvedRemainingCurrency.join("")}` : "",
+			content,
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1723,6 +1740,11 @@ export class SpiritTracker {
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID)
 						.setEmoji("⏪")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${SPIRIT_TRACKER_SEASON_SHARE_PROMPT_CUSTOM_ID}§${season}`)
+						.setEmoji("🔗")
+						.setLabel("Share")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
 						.setCustomId(`${SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID}§${season}`)
@@ -1789,7 +1811,7 @@ export class SpiritTracker {
 				}
 			}
 		}
-		
+
 		if (owned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
 		if (unowned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
 		const remainingCurrency = this.remainingCurrency(spirit, true);
@@ -1798,7 +1820,7 @@ export class SpiritTracker {
 			const resolvedRemainingCurrency = resolveOfferToCurrency(remainingCurrency, spiritSeason);
 
 			if (resolvedRemainingCurrency.length > 0) {
-				description.push(`${resolvedRemainingCurrency.join("")} remaining.`);
+				description.push(`${resolvedRemainingCurrency.join("")} remaining`);
 			}
 		}
 
@@ -1879,6 +1901,129 @@ export class SpiritTracker {
 
 		components.push(buttons);
 		await interaction.update({ components, content: "", embeds: [embed] });
+	}
+
+	public static async sharePrompt(interaction: ButtonInteraction) {
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		const { customId } = interaction;
+		const season = customId.slice(customId.indexOf("§") + 1) as SeasonName;
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(`${SPIRIT_TRACKER_SHARE_BACK_CUSTOM_ID}§${season}`)
+						.setEmoji(SeasonNameToSeasonalEmoji[season])
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID}§${season}`)
+						.setEmoji("🔗")
+						.setLabel("Send")
+						.setStyle(ButtonStyle.Success),
+				),
+			],
+			content: "This will share your progress in this channel. Is this okay?",
+			embeds: [],
+		});
+	}
+
+	public static async shareSend(interaction: ButtonInteraction) {
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		const { channel, customId, message, user } = interaction;
+
+		if (!channel) {
+			await interaction.client.log({ content: "Failed to share a spirit tracker.", error: interaction });
+
+			await interaction.update({
+				components: [],
+				content: "This share button has been krilled. This may have been a mistake. Or not.",
+				embeds: [],
+			});
+
+			return;
+		}
+
+		const spiritTracker = await this.fetch(interaction.user.id);
+		const season = customId.slice(customId.indexOf("§") + 1) as SeasonName;
+		const spirits = Seasonal.filter((spirit) => spirit.season === season);
+		const description = [];
+
+		const resolvedRemainingCurrency = resolveOfferToCurrency(
+			spirits.reduce((remainingCurrency, spirit) => {
+				const remaining = spiritTracker.remainingCurrency(spirit, resolveSeason(todayDate())?.name === season);
+				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
+			}, {}),
+			season,
+		);
+
+		if (resolvedRemainingCurrency.length > 0) {
+			description.push(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);
+		}
+
+		for (const spirit of spirits) {
+			const bit = spiritTracker[SpiritNameToSpiritTrackerName[spirit.name]];
+			const spiritDescription = [];
+			const isSeasonalSpirit = spirit.isSeasonalSpirit();
+			const seasonalParsing = isSeasonalSpirit && !spirit.visited;
+			const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
+			const owned = [];
+			const unowned = [];
+
+			if (offer) {
+				for (const [flag, { emoji }] of offer.entries()) {
+					if (bit && (bit & flag) === flag) {
+						owned.push(formatEmoji(emoji));
+					} else {
+						unowned.push(formatEmoji(emoji));
+					}
+				}
+			}
+
+			if (owned.length > 0) spiritDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
+			if (unowned.length > 0) spiritDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
+			const remainingCurrency = spiritTracker.remainingCurrency(spirit, true);
+
+			if (remainingCurrency) {
+				const resolvedRemainingCurrency = resolveOfferToCurrency(remainingCurrency, season);
+
+				if (resolvedRemainingCurrency.length > 0) {
+					spiritDescription.push(`${resolvedRemainingCurrency.join("")} remaining`);
+				}
+			}
+
+			description.push(`__${spirit.name}__\n${spiritDescription.join("\n")}`);
+		}
+
+		const profile = await Profile.fetch(user.id).catch(() => null);
+		const embedAuthorOptions: EmbedAuthorOptions = { name: profile?.name ?? user.tag };
+		if (profile?.iconURL) embedAuthorOptions.iconURL = profile.iconURL;
+
+		await channel.send({
+			embeds: [
+				new EmbedBuilder()
+					.setAuthor(embedAuthorOptions)
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(description.join("\n\n"))
+					.setTimestamp()
+					.setTitle(`${resolveFullSeasonName(season)} Progress`),
+			],
+		});
+
+		const components = message.components.map((component) =>
+			ActionRowBuilder.from<MessageActionRowComponentBuilder>(component),
+		);
+
+		for (const actionRow of components) {
+			actionRow.components
+				.find(
+					(component) =>
+						"custom_id" in component.data && component.data.custom_id.startsWith(SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID),
+				)
+				?.setDisabled(true);
+		}
+
+		await interaction.update({ components, content: "Progress shared!" });
 	}
 
 	private remainingCurrency(
