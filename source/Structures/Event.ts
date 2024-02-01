@@ -12,7 +12,7 @@ export const enum EventName {
 	DaysOfLove = "Days of Love",
 }
 
-const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
+// const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
 
 interface EventData {
 	name: EventName;
@@ -49,9 +49,9 @@ class Event {
 		this.eventCurrencyEmoji = data.eventCurrencyEmoji;
 	}
 
-	public rotation(date: DateTime) {
-		// return null;
-		return EVENT_ROTATION_LETTER[date.diff(this.start, "day").days % 3]!;
+	public rotation(/* date: DateTime */) {
+		return null;
+		// return EVENT_ROTATION_LETTER[date.diff(this.start, "day").days % 3]!;
 	}
 }
 
