@@ -18,7 +18,7 @@ import {
 import { type Realm, DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { isRealm } from "../../Utility/Utility.js";
 import { todayDate } from "../../Utility/dates.js";
-import { cannotUseCustomEmojis, formatEmoji, MISCELLANEOUS_EMOJIS } from "../../Utility/emojis.js";
+import { cannotUseCustomEmojis, formatEmoji, MISCELLANEOUS_EMOJIS, type Emoji } from "../../Utility/emojis.js";
 import pg, { Table } from "../../pg.js";
 import Profile from "../Profile.js";
 import {
@@ -705,6 +705,13 @@ const SpiritNameToSpiritTrackerName = {
 	[SpiritName.Princess]: "princess",
 } as const satisfies Readonly<Record<SpiritName, Exclude<keyof SpiritTrackerData, "user_id">>>;
 
+interface SharePromptOptions {
+	spirits: readonly StandardSpirit[] | readonly ElderSpirit[] | readonly (GuideSpirit | SeasonalSpirit)[];
+	backButtonCustomId: string;
+	title: string;
+	emoji: Emoji | null;
+}
+
 export const SPIRIT_TRACKER_VIEW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID" as const;
@@ -722,8 +729,8 @@ export const SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID = "SPIRIT_TRACKER_SPI
 export const SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_SEASON_SHARE_PROMPT_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_SHARE_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_SHARE_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SHARE_BACK_CUSTOM_ID" as const;
+const SPIRIT_TRACKER_SHARE_ELDER_KEY = "elders" as const;
+export const SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID = "SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID = "SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID" as const;
@@ -1478,8 +1485,7 @@ export class SpiritTracker {
 
 		if (
 			customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID) ||
-			customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID) ||
-			customId.startsWith(SPIRIT_TRACKER_SHARE_BACK_CUSTOM_ID)
+			customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID)
 		) {
 			const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
 			if (isRealm(parsedCustomId)) await this.viewRealm(interaction, parsedCustomId);
@@ -1587,6 +1593,11 @@ export class SpiritTracker {
 						.setEmoji("⏪")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
+						.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${realm}`)
+						.setEmoji("🔗")
+						.setLabel("Share")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
 						.setCustomId(`${SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID}§${realm}`)
 						.setDisabled(hasEverything)
 						.setEmoji("💯")
@@ -1637,6 +1648,11 @@ export class SpiritTracker {
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID)
 						.setEmoji("⏪")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${SPIRIT_TRACKER_SHARE_ELDER_KEY}`)
+						.setEmoji("🔗")
+						.setLabel("Share")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID)
@@ -1742,7 +1758,7 @@ export class SpiritTracker {
 						.setEmoji("⏪")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
-						.setCustomId(`${SPIRIT_TRACKER_SEASON_SHARE_PROMPT_CUSTOM_ID}§${season}`)
+						.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${season}`)
 						.setEmoji("🔗")
 						.setLabel("Share")
 						.setStyle(ButtonStyle.Primary),
@@ -1938,24 +1954,68 @@ export class SpiritTracker {
 		return new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setDescription(description.join("\n\n"));
 	}
 
-	public static async sharePrompt(interaction: ButtonInteraction) {
+	public static async sharePromptParse(interaction: ButtonInteraction) {
 		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
-		const { customId, user } = interaction;
+		const { customId } = interaction;
+		const realmOrElderOrSeason = customId.slice(customId.indexOf("§") + 1);
+		let backButtonCustomId;
+		let emoji = null;
+		let spirits;
+		let title;
+
+		if (isRealm(realmOrElderOrSeason)) {
+			backButtonCustomId = `${SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID}§${realmOrElderOrSeason}`;
+			spirits = Standard.filter((spirit) => spirit.realm === realmOrElderOrSeason);
+			title = `${realmOrElderOrSeason} Progress`;
+		} else if (isSeasonName(realmOrElderOrSeason)) {
+			backButtonCustomId = `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}§${realmOrElderOrSeason}`;
+			emoji = SeasonNameToSeasonalEmoji[realmOrElderOrSeason];
+			spirits = Seasonal.filter((spirit) => spirit.season === realmOrElderOrSeason);
+			title = `${resolveFullSeasonName(realmOrElderOrSeason)} Progress`;
+		} else if (realmOrElderOrSeason === SPIRIT_TRACKER_SHARE_ELDER_KEY) {
+			backButtonCustomId = SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID;
+			spirits = Elder;
+			title = "Elders Progress";
+		}
+
+		if (!backButtonCustomId || !spirits || !title) {
+			void interaction.client.log({ content: "Failed to parse spirits from a share prompt.", error: interaction });
+
+			await interaction.update({
+				components: [],
+				content: "Seems a dark crab did not like this. This incident will be taken care of!",
+				embeds: [],
+			});
+
+			return;
+		}
+
+		await this.sharePrompt(interaction, { spirits, backButtonCustomId, title, emoji });
+	}
+
+	public static async sharePrompt(
+		interaction: ButtonInteraction,
+		{ spirits, backButtonCustomId, title, emoji }: SharePromptOptions,
+	) {
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		const { user } = interaction;
 		const spiritTracker = await this.fetch(user.id);
-		const season = customId.slice(customId.indexOf("§") + 1) as SeasonName;
-		const embed = spiritTracker.spiritEmbed(Seasonal.filter((spirit) => spirit.season === season));
+		const embed = spiritTracker.spiritEmbed(spirits);
 		const profile = await Profile.fetch(user.id).catch(() => null);
 		const embedAuthorOptions: EmbedAuthorOptions = { name: profile?.name ?? user.tag };
 		if (profile?.iconURL) embedAuthorOptions.iconURL = profile.iconURL;
 
+		const backButton = new ButtonBuilder()
+			.setCustomId(backButtonCustomId)
+			.setLabel("Back")
+			.setStyle(ButtonStyle.Primary);
+
+		if (emoji) backButton.setEmoji(emoji);
+
 		await interaction.update({
 			components: [
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					new ButtonBuilder()
-						.setCustomId(`${SPIRIT_TRACKER_SHARE_BACK_CUSTOM_ID}§${season}`)
-						.setEmoji(SeasonNameToSeasonalEmoji[season])
-						.setLabel("Back")
-						.setStyle(ButtonStyle.Primary),
+					backButton,
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID)
 						.setEmoji("🔗")
@@ -1964,12 +2024,7 @@ export class SpiritTracker {
 				),
 			],
 			content: "This will share your progress in this channel. Is this okay?",
-			embeds: [
-				embed
-					.setAuthor(embedAuthorOptions)
-					.setTimestamp()
-					.setTitle(`${resolveFullSeasonName(season)} Progress`),
-			],
+			embeds: [embed.setAuthor(embedAuthorOptions).setTimestamp().setTitle(title)],
 		});
 	}
 
