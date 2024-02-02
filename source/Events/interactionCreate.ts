@@ -270,7 +270,7 @@ export const event: Event<typeof name> = {
 				}
 
 				if (customId.startsWith(SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID)) {
-					await SpiritTracker.sharePromptParse(interaction);
+					await SpiritTracker.sharePrompt(interaction);
 					return;
 				}
 
