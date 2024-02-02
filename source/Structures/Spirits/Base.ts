@@ -6,7 +6,7 @@ import { type Realm, CDN_URL, WIKI_URL } from "../../Utility/Constants.js";
 import { todayDate } from "../../Utility/dates.js";
 import {
 	type CallsEmojis,
-	type EmojiData,
+	type Emoji,
 	type EmotesEmojis,
 	type FriendActionsEmojis,
 	type StancesEmojis,
@@ -554,7 +554,7 @@ export interface SpiritCost {
 export interface ItemsData {
 	item: string;
 	cost: SpiritCost | null;
-	emoji: EmojiData;
+	emoji: Emoji;
 }
 
 interface BaseFriendshipTreeOffer {

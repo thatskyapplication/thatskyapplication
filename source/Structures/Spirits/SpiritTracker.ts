@@ -2,6 +2,7 @@ import {
 	type ActionRow,
 	type ChatInputCommandInteraction,
 	type InteractionUpdateOptions,
+	type MessageActionRowComponentBuilder,
 	type Snowflake,
 	type StringSelectMenuComponent,
 	type StringSelectMenuInteraction,
@@ -12,13 +13,22 @@ import {
 	EmbedBuilder,
 	ButtonBuilder,
 	ButtonStyle,
+	type EmbedAuthorOptions,
 } from "discord.js";
-import { type Realm, DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
+import type { Realm } from "../../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { isRealm } from "../../Utility/Utility.js";
 import { todayDate } from "../../Utility/dates.js";
 import { cannotUseCustomEmojis, formatEmoji, MISCELLANEOUS_EMOJIS } from "../../Utility/emojis.js";
 import pg, { Table } from "../../pg.js";
-import { isSeasonName, resolveSeason, SeasonName, SeasonNameToSeasonalEmoji } from "../Season.js";
+import Profile from "../Profile.js";
+import {
+	isSeasonName,
+	resolveFullSeasonName,
+	resolveSeason,
+	SeasonName,
+	SeasonNameToSeasonalEmoji,
+} from "../Season.js";
 import {
 	type ElderSpirit,
 	type GuideSpirit,
@@ -713,11 +723,15 @@ export const SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID = "SPIRIT_TRACKER_SPI
 export const SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
+const SPIRIT_TRACKER_SHARE_REALMS_KEY = "realms" as const;
+const SPIRIT_TRACKER_SHARE_ELDER_KEY = "elders" as const;
+export const SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID = "SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID = "SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID" as const;
-const SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT = 24 as const;
+const SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT = 25 as const;
 const SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE = "Averages are calculated even beyond the second wing buff." as const;
 
 const validRealms = Standard.reduce<StandardSpiritRealm[]>((realms, { realm }) => {
@@ -730,10 +744,14 @@ const validSeasons = Seasonal.reduce<SeasonName[]>((seasons, { season }) => {
 	return seasons;
 }, []);
 
-const backToStartButtonBuilder = new ButtonBuilder()
-	.setCustomId(SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID)
-	.setEmoji("⏮️")
-	.setStyle(ButtonStyle.Primary);
+function backToStartButton(disabled = false) {
+	return new ButtonBuilder()
+		.setCustomId(SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID)
+		.setDisabled(disabled)
+		.setEmoji("⏮️")
+		.setLabel("Start")
+		.setStyle(ButtonStyle.Primary);
+}
 
 export class SpiritTracker {
 	public readonly userId: SpiritTrackerData["userId"];
@@ -1409,6 +1427,7 @@ export class SpiritTracker {
 						)
 						.setPlaceholder("What kind of spirit do you want to see?"),
 				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(backToStartButton(true)),
 			],
 			embeds: [],
 			ephemeral: true,
@@ -1491,17 +1510,8 @@ export class SpiritTracker {
 		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
 
-		const resolvedRemainingCurrency = resolveOfferToCurrency(
-			Standard.reduce((remainingCurrency, spirit) => {
-				const remaining = spiritTracker.remainingCurrency(spirit);
-				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
-			}, {}),
-		);
-
 		await interaction.update({
-			content: `${
-				resolvedRemainingCurrency.length > 0 ? `## Remaining Currency\n${resolvedRemainingCurrency.join("")}\n` : ""
-			}${SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE}`,
+			content: "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1523,11 +1533,21 @@ export class SpiritTracker {
 						.setPlaceholder("Select a realm!"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID)
 						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${SPIRIT_TRACKER_SHARE_REALMS_KEY}`)
+						.setEmoji("🔗")
+						.setLabel("Share")
 						.setStyle(ButtonStyle.Primary),
 				),
+			],
+			embeds: [
+				spiritTracker.realmsEmbed().setFooter({ text: SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE }).setTitle("Realms"),
 			],
 		});
 	}
@@ -1547,17 +1567,8 @@ export class SpiritTracker {
 				.setValue(spirit.name);
 		});
 
-		const resolvedRemainingCurrency = resolveOfferToCurrency(
-			spirits.reduce((remainingCurrency, spirit) => {
-				const remaining = spiritTracker.remainingCurrency(spirit);
-				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
-			}, {}),
-		);
-
 		const response = {
-			content: `${
-				resolvedRemainingCurrency.length > 0 ? `## Remaining Currency\n${resolvedRemainingCurrency.join("")}\n` : ""
-			}${SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE}`,
+			content: "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1568,10 +1579,16 @@ export class SpiritTracker {
 						.setPlaceholder("Select a spirit!"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					backToStartButtonBuilder,
+					backToStartButton(),
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID)
 						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${realm}`)
+						.setEmoji("🔗")
+						.setLabel("Share")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
 						.setCustomId(`${SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID}§${realm}`)
@@ -1581,7 +1598,9 @@ export class SpiritTracker {
 						.setStyle(ButtonStyle.Success),
 				),
 			],
-			embeds: [],
+			embeds: [
+				spiritTracker.spiritEmbed(spirits).setFooter({ text: SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE }).setTitle(realm),
+			],
 		} satisfies InteractionUpdateOptions;
 
 		await interaction.update(response);
@@ -1601,16 +1620,8 @@ export class SpiritTracker {
 				.setValue(spirit.name);
 		});
 
-		const resolvedRemainingCurrency = resolveOfferToCurrency(
-			Elder.reduce((remainingCurrency, spirit) => {
-				const remaining = spiritTracker.remainingCurrency(spirit);
-				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
-			}, {}),
-		);
-
 		await interaction.update({
-			content:
-				resolvedRemainingCurrency.length > 0 ? `## Remaining Currency\n${resolvedRemainingCurrency.join("")}` : "",
+			content: "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1621,9 +1632,16 @@ export class SpiritTracker {
 						.setPlaceholder("Select an elder!"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID)
 						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${SPIRIT_TRACKER_SHARE_ELDER_KEY}`)
+						.setEmoji("🔗")
+						.setLabel("Share")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID)
@@ -1633,7 +1651,7 @@ export class SpiritTracker {
 						.setStyle(ButtonStyle.Success),
 				),
 			],
-			embeds: [],
+			embeds: [spiritTracker.spiritEmbed(Elder).setTitle("Elders")],
 		});
 	}
 
@@ -1665,12 +1683,15 @@ export class SpiritTracker {
 						.setPlaceholder("Select a season!"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID)
 						.setEmoji("⏪")
+						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 				),
 			],
+			embeds: [],
 		});
 	}
 
@@ -1690,19 +1711,8 @@ export class SpiritTracker {
 				.setValue(name);
 		});
 
-		const currentSeason = resolveSeason(todayDate())?.name === season;
-
-		const resolvedRemainingCurrency = resolveOfferToCurrency(
-			spirits.reduce((remainingCurrency, spirit) => {
-				const remaining = spiritTracker.remainingCurrency(spirit, currentSeason);
-				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
-			}, {}),
-			season,
-		);
-
 		const response = {
-			content:
-				resolvedRemainingCurrency.length > 0 ? `## Remaining Currency\n${resolvedRemainingCurrency.join("")}` : "",
+			content: "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1719,10 +1729,16 @@ export class SpiritTracker {
 						),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					backToStartButtonBuilder,
+					backToStartButton(),
 					new ButtonBuilder()
 						.setCustomId(SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID)
 						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${season}`)
+						.setEmoji("🔗")
+						.setLabel("Share")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
 						.setCustomId(`${SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID}§${season}`)
@@ -1732,7 +1748,11 @@ export class SpiritTracker {
 						.setStyle(ButtonStyle.Success),
 				),
 			],
-			embeds: [],
+			embeds: [
+				spiritTracker
+					.spiritEmbed(spirits)
+					.setTitle(`${formatEmoji(SeasonNameToSeasonalEmoji[season])} ${resolveFullSeasonName(season)}`),
+			],
 		} satisfies InteractionUpdateOptions;
 
 		if (options.length === 0) {
@@ -1772,65 +1792,23 @@ export class SpiritTracker {
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
 		const seasonalParsing = isSeasonalSpirit && !spirit.visited;
-		const spiritSeason = isSeasonalSpirit || isGuideSpirit ? spirit.season : null;
 		const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
-
-		const embedFields =
-			offer?.map(({ item, cost }, flag) => {
-				let value;
-
-				if (bit && (bit & flag) === flag) {
-					value = formatEmoji(MISCELLANEOUS_EMOJIS.Yes);
-				} else {
-					value = resolveOfferToCurrency(cost ?? {}, spiritSeason).join("") || formatEmoji(MISCELLANEOUS_EMOJIS.No);
-				}
-
-				return { name: item, value, inline: true };
-			}) ?? [];
-
-		const embeds = [];
-
-		const embed = new EmbedBuilder()
-			.setColor(DEFAULT_EMBED_COLOUR)
-			.setFields(embedFields.slice(0, SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT))
-			.setTitle(spirit.name)
-			.setURL(spirit.wikiURL);
-
-		embeds.push(embed);
-
-		if (embedFields.length > SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT) {
-			embeds.push(
-				new EmbedBuilder()
-					.setColor(DEFAULT_EMBED_COLOUR)
-					.setFields(embedFields.slice(SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT)),
-			);
-		}
-
-		const lastEmbed = embeds.at(-1)!;
-		const description = [];
-		const remainingCurrency = this.remainingCurrency(spirit, true);
-
-		if (remainingCurrency) {
-			const resolvedRemainingCurrency = resolveOfferToCurrency(remainingCurrency, spiritSeason);
-
-			if (resolvedRemainingCurrency.length > 0) {
-				description.push(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);
-			}
-		}
+		const embed = this.spiritEmbed([spirit]).setTitle(spirit.name).setURL(spirit.wikiURL);
+		const description = embed.data.description ? [embed.data.description] : [];
 
 		if (imageURL) {
-			lastEmbed.setImage(imageURL);
+			embed.setImage(imageURL);
 		} else {
 			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
-		if (isGuideSpirit && spirit.offer?.inProgress) lastEmbed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
-		if (description.length > 0) embed.setDescription(description.join("\n"));
+		embed.setDescription(description.join("\n"));
+		if (isGuideSpirit && spirit.offer?.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
 		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
 
 		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(
-			backToStartButtonBuilder,
+			backToStartButton(),
 			new ButtonBuilder()
 				.setCustomId(
 					spirit.isElderSpirit()
@@ -1839,7 +1817,8 @@ export class SpiritTracker {
 						? `${SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID}§${spirit.realm}`
 						: `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}§${spirit.season}`,
 				)
-				.setEmoji("⏪")
+				.setEmoji(isSeasonalSpirit || isGuideSpirit ? SeasonNameToSeasonalEmoji[spirit.season] : "⏪")
+				.setLabel("Back")
 				.setStyle(ButtonStyle.Primary),
 		);
 
@@ -1863,7 +1842,7 @@ export class SpiritTracker {
 				return stringSelectMenuOption;
 			});
 
-			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT);
+			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT);
 
 			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
@@ -1876,9 +1855,9 @@ export class SpiritTracker {
 
 			components.push(itemSelection);
 
-			if (itemSelectionOptions.length > SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT) {
+			if (itemSelectionOptions.length > SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT) {
 				const itemSelectionOverflowOptionsMaximumLimit = itemSelectionOptions.slice(
-					SPIRIT_TRACKER_MAXIMUM_FIELDS_LIMIT,
+					SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT,
 				);
 
 				components.push(
@@ -1895,7 +1874,185 @@ export class SpiritTracker {
 		}
 
 		components.push(buttons);
-		await interaction.update({ components, content: "", embeds });
+		await interaction.update({ components, content: "", embeds: [embed] });
+	}
+
+	private summateCurrency(
+		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
+		season?: SeasonName | null,
+	) {
+		return resolveOfferToCurrency(
+			spirits.reduce((remainingCurrency, spirit) => {
+				const remaining = this.remainingCurrency(spirit, resolveSeason(todayDate())?.name === season);
+				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
+			}, {}),
+			season,
+		);
+	}
+
+	private spiritEmbed(spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[]) {
+		const multiple = spirits.length > 1;
+		const description = [];
+
+		// This method only needs a single spirit to determine the season if invoked from a season.
+		const aSpirit = spirits[0]!;
+		const spiritSeason = aSpirit.isSeasonalSpirit() || aSpirit.isGuideSpirit() ? aSpirit.season : null;
+
+		if (multiple) {
+			const resolvedRemainingCurrency = this.summateCurrency(spirits, spiritSeason);
+
+			if (resolvedRemainingCurrency.length > 0) {
+				description.push(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);
+			}
+		}
+
+		for (const spirit of spirits) {
+			const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
+			const spiritDescription = [];
+			const isSeasonalSpirit = spirit.isSeasonalSpirit();
+			const seasonalParsing = isSeasonalSpirit && !spirit.visited;
+			const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
+			if (!offer) continue;
+			const owned = [];
+			const unowned = [];
+
+			for (const [flag, { emoji }] of offer.entries()) {
+				if (bit && (bit & flag) === flag) {
+					owned.push(formatEmoji(emoji));
+				} else {
+					unowned.push(formatEmoji(emoji));
+				}
+			}
+
+			if (owned.length > 0) spiritDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
+			if (unowned.length > 0) spiritDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
+
+			const remainingCurrency = this.remainingCurrency(spirit, true);
+
+			if (remainingCurrency) {
+				const resolvedRemainingCurrency = resolveOfferToCurrency(remainingCurrency, spiritSeason);
+
+				if (resolvedRemainingCurrency.length > 0) {
+					spiritDescription.push(`${resolvedRemainingCurrency.join("")} remaining`);
+				}
+			}
+
+			description.push(`${multiple ? `__${spirit.name}__\n` : ""}${spiritDescription.join("\n")}`);
+		}
+
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR);
+		if (description.length > 0) embed.setDescription(description.join("\n\n"));
+		return embed;
+	}
+
+	private realmsEmbed() {
+		return new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setDescription(
+			validRealms
+				.map((validRealm) => {
+					const remainingCurrency = this.summateCurrency(Standard.filter((spirit) => spirit.realm === validRealm));
+
+					return `__${validRealm}__\n${
+						remainingCurrency.length > 0 ? remainingCurrency.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
+					}`;
+				})
+				.join("\n\n"),
+		);
+	}
+
+	public static async sharePrompt(interaction: ButtonInteraction) {
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		const { customId, user } = interaction;
+		const spiritTracker = await this.fetch(user.id);
+		const type = customId.slice(customId.indexOf("§") + 1);
+		const backButton = new ButtonBuilder().setLabel("Back").setStyle(ButtonStyle.Primary);
+
+		let embed;
+
+		if (type === SPIRIT_TRACKER_SHARE_REALMS_KEY) {
+			backButton.setCustomId(SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID);
+			embed = spiritTracker.realmsEmbed().setTitle("Realms Progress");
+		} else if (isRealm(type)) {
+			backButton.setCustomId(`${SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID}§${type}`);
+
+			embed = spiritTracker
+				.spiritEmbed(Standard.filter((spirit) => spirit.realm === type))
+				.setTitle(`${type} Progress`);
+		} else if (isSeasonName(type)) {
+			const emoji = SeasonNameToSeasonalEmoji[type];
+			backButton.setCustomId(`${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}§${type}`).setEmoji(emoji);
+
+			embed = spiritTracker
+				.spiritEmbed(Seasonal.filter((spirit) => spirit.season === type))
+				.setTitle(`${formatEmoji(emoji)} ${resolveFullSeasonName(type)} Progress`);
+		} else if (type === SPIRIT_TRACKER_SHARE_ELDER_KEY) {
+			backButton.setCustomId(SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID);
+			embed = spiritTracker.spiritEmbed(Elder).setTitle("Elders Progress");
+		}
+
+		if (!embed) {
+			void interaction.client.log({ content: "Failed to parse spirits from a share prompt.", error: interaction });
+
+			await interaction.update({
+				components: [],
+				content: "Seems a dark crab did not like this. This incident will be taken care of!",
+				embeds: [],
+			});
+
+			return;
+		}
+
+		const profile = await Profile.fetch(user.id).catch(() => null);
+		const embedAuthorOptions: EmbedAuthorOptions = { name: profile?.name ?? user.tag };
+		if (profile?.iconURL) embedAuthorOptions.iconURL = profile.iconURL;
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backButton,
+					new ButtonBuilder()
+						.setCustomId(SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID)
+						.setEmoji("🔗")
+						.setLabel("Send")
+						.setStyle(ButtonStyle.Success),
+				),
+			],
+			content: "This will share your progress in this channel. Is this okay?",
+			embeds: [embed.setAuthor(embedAuthorOptions)],
+		});
+	}
+
+	public static async shareSend(interaction: ButtonInteraction) {
+		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		const { channel, message } = interaction;
+
+		if (!channel) {
+			await interaction.client.log({ content: "Failed to share a spirit tracker.", error: interaction });
+
+			await interaction.update({
+				components: [],
+				content: "This share button has been krilled. This may have been a mistake. Or not.",
+				embeds: [],
+			});
+
+			return;
+		}
+
+		await channel.send({ embeds: interaction.message.embeds });
+
+		const components = message.components.map((component) =>
+			ActionRowBuilder.from<MessageActionRowComponentBuilder>(component),
+		);
+
+		for (const actionRow of components) {
+			actionRow.components
+				.find(
+					(component) =>
+						"custom_id" in component.data && component.data.custom_id === SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID,
+				)
+				?.setDisabled();
+		}
+
+		await interaction.update({ components, content: "Progress shared!", embeds: [] });
 	}
 
 	private remainingCurrency(

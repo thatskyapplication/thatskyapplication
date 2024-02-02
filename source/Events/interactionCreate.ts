@@ -49,6 +49,8 @@ import {
 	SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID,
 	SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID,
 	SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID,
+	SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID,
+	SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID,
 	SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID,
 	SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID,
 	SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID,
@@ -264,6 +266,16 @@ export const event: Event<typeof name> = {
 
 				if (customId === SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID) {
 					await SpiritTracker.setElders(interaction);
+					return;
+				}
+
+				if (customId.startsWith(SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID)) {
+					await SpiritTracker.sharePrompt(interaction);
+					return;
+				}
+
+				if (customId === SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID) {
+					await SpiritTracker.shareSend(interaction);
 					return;
 				}
 
