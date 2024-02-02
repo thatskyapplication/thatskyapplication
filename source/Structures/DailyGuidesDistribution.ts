@@ -326,10 +326,10 @@ export default class DailyGuidesDistribution {
 				name: "Seasonal Candles",
 				value: `${hyperlink(`Rotation ${rotationNumber}`, url)}\n${resolveCurrencyEmoji({
 					emoji: candleEmoji,
-					number: seasonalCandlesLeft!,
+					number: seasonalCandlesLeft,
 				})} remain in the season.\n${resolveCurrencyEmoji({
 					emoji: candleEmoji,
-					number: seasonalCandlesLeftWithSeasonPass!,
+					number: seasonalCandlesLeftWithSeasonPass,
 				})} remain in the season with a Season Pass.`,
 			});
 		} else {
