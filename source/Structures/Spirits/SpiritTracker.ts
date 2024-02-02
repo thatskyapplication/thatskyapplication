@@ -15,7 +15,8 @@ import {
 	ButtonStyle,
 	type EmbedAuthorOptions,
 } from "discord.js";
-import { type Realm, DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
+import type { Realm } from "../../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { isRealm } from "../../Utility/Utility.js";
 import { todayDate } from "../../Utility/dates.js";
 import { cannotUseCustomEmojis, formatEmoji, MISCELLANEOUS_EMOJIS, type Emoji } from "../../Utility/emojis.js";
@@ -1515,17 +1516,8 @@ export class SpiritTracker {
 		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
 
-		const resolvedRemainingCurrency = resolveOfferToCurrency(
-			Standard.reduce((remainingCurrency, spirit) => {
-				const remaining = spiritTracker.remainingCurrency(spirit);
-				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
-			}, {}),
-		);
-
 		await interaction.update({
-			content: `${
-				resolvedRemainingCurrency.length > 0 ? `## Remaining Currency\n${resolvedRemainingCurrency.join("")}\n` : ""
-			}${SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE}`,
+			content: "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1555,6 +1547,25 @@ export class SpiritTracker {
 						.setStyle(ButtonStyle.Primary),
 				),
 			],
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(
+						validRealms
+							.map((validRealm) => {
+								const remainingCurrency = spiritTracker.summateCurrency(
+									Standard.filter((spirit) => spirit.realm === validRealm),
+								);
+
+								return `__${validRealm}__\n${
+									remainingCurrency.length > 0 ? remainingCurrency.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
+								}`;
+							})
+							.join("\n\n"),
+					)
+					.setFooter({ text: SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE })
+					.setTitle("Realms"),
+			],
 		});
 	}
 
@@ -1573,17 +1584,8 @@ export class SpiritTracker {
 				.setValue(spirit.name);
 		});
 
-		const resolvedRemainingCurrency = resolveOfferToCurrency(
-			spirits.reduce((remainingCurrency, spirit) => {
-				const remaining = spiritTracker.remainingCurrency(spirit);
-				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
-			}, {}),
-		);
-
 		const response = {
-			content: `${
-				resolvedRemainingCurrency.length > 0 ? `## Remaining Currency\n${resolvedRemainingCurrency.join("")}\n` : ""
-			}${SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE}`,
+			content: "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1613,7 +1615,9 @@ export class SpiritTracker {
 						.setStyle(ButtonStyle.Success),
 				),
 			],
-			embeds: [],
+			embeds: [
+				spiritTracker.spiritEmbed(spirits).setFooter({ text: SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE }).setTitle(realm),
+			],
 		} satisfies InteractionUpdateOptions;
 
 		await interaction.update(response);
@@ -1633,16 +1637,8 @@ export class SpiritTracker {
 				.setValue(spirit.name);
 		});
 
-		const resolvedRemainingCurrency = resolveOfferToCurrency(
-			Elder.reduce((remainingCurrency, spirit) => {
-				const remaining = spiritTracker.remainingCurrency(spirit);
-				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
-			}, {}),
-		);
-
 		await interaction.update({
-			content:
-				resolvedRemainingCurrency.length > 0 ? `## Remaining Currency\n${resolvedRemainingCurrency.join("")}` : "",
+			content: "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1672,7 +1668,7 @@ export class SpiritTracker {
 						.setStyle(ButtonStyle.Success),
 				),
 			],
-			embeds: [],
+			embeds: [spiritTracker.spiritEmbed(Elder).setTitle("Elders")],
 		});
 	}
 
@@ -1712,6 +1708,7 @@ export class SpiritTracker {
 						.setStyle(ButtonStyle.Primary),
 				),
 			],
+			embeds: [],
 		});
 	}
 
@@ -1731,23 +1728,8 @@ export class SpiritTracker {
 				.setValue(name);
 		});
 
-		const currentSeason = resolveSeason(todayDate())?.name === season;
-		let content = `# ${formatEmoji(SeasonNameToSeasonalEmoji[season])} ${resolveFullSeasonName(season)}`;
-
-		const resolvedRemainingCurrency = resolveOfferToCurrency(
-			spirits.reduce((remainingCurrency, spirit) => {
-				const remaining = spiritTracker.remainingCurrency(spirit, currentSeason);
-				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
-			}, {}),
-			season,
-		);
-
-		if (resolvedRemainingCurrency.length > 0) {
-			content += `\n## Remaining Currency\n${resolvedRemainingCurrency.join("")}`;
-		}
-
 		const response = {
-			content,
+			content: "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
@@ -1783,7 +1765,11 @@ export class SpiritTracker {
 						.setStyle(ButtonStyle.Success),
 				),
 			],
-			embeds: [],
+			embeds: [
+				spiritTracker
+					.spiritEmbed(spirits)
+					.setTitle(`${formatEmoji(SeasonNameToSeasonalEmoji[season])} ${resolveFullSeasonName(season)}`),
+			],
 		} satisfies InteractionUpdateOptions;
 
 		if (options.length === 0) {
@@ -1838,19 +1824,20 @@ export class SpiritTracker {
 		if (isGuideSpirit && spirit.offer?.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
 		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
 
-		const backButton = new ButtonBuilder()
-			.setCustomId(
-				spirit.isElderSpirit()
-					? SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID
-					: spirit.isStandardSpirit()
-					? `${SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID}§${spirit.realm}`
-					: `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}§${spirit.season}`,
-			)
-			.setLabel("Back")
-			.setStyle(ButtonStyle.Primary);
-
-		if (isSeasonalSpirit || isGuideSpirit) backButton.setEmoji(SeasonNameToSeasonalEmoji[spirit.season]);
-		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(backToStartButton(), backButton);
+		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(
+			backToStartButton(),
+			new ButtonBuilder()
+				.setCustomId(
+					spirit.isElderSpirit()
+						? SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID
+						: spirit.isStandardSpirit()
+						? `${SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID}§${spirit.realm}`
+						: `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}§${spirit.season}`,
+				)
+				.setEmoji(isSeasonalSpirit || isGuideSpirit ? SeasonNameToSeasonalEmoji[spirit.season] : "⏪")
+				.setLabel("Back")
+				.setStyle(ButtonStyle.Primary),
+		);
 
 		if (offer) {
 			buttons.addComponents(
@@ -1907,6 +1894,19 @@ export class SpiritTracker {
 		await interaction.update({ components, content: "", embeds: [embed] });
 	}
 
+	private summateCurrency(
+		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
+		season?: SeasonName | null,
+	) {
+		return resolveOfferToCurrency(
+			spirits.reduce((remainingCurrency, spirit) => {
+				const remaining = this.remainingCurrency(spirit, resolveSeason(todayDate())?.name === season);
+				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
+			}, {}),
+			season,
+		);
+	}
+
 	private spiritEmbed(spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[]) {
 		const multiple = spirits.length > 1;
 		const description = [];
@@ -1916,13 +1916,7 @@ export class SpiritTracker {
 		const spiritSeason = aSpirit.isSeasonalSpirit() || aSpirit.isGuideSpirit() ? aSpirit.season : null;
 
 		if (multiple) {
-			const resolvedRemainingCurrency = resolveOfferToCurrency(
-				spirits.reduce((remainingCurrency, spirit) => {
-					const remaining = this.remainingCurrency(spirit, resolveSeason(todayDate())?.name === spiritSeason);
-					return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
-				}, {}),
-				spiritSeason,
-			);
+			const resolvedRemainingCurrency = this.summateCurrency(spirits, spiritSeason);
 
 			if (resolvedRemainingCurrency.length > 0) {
 				description.push(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);
@@ -1935,16 +1929,15 @@ export class SpiritTracker {
 			const isSeasonalSpirit = spirit.isSeasonalSpirit();
 			const seasonalParsing = isSeasonalSpirit && !spirit.visited;
 			const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
+			if (!offer) continue;
 			const owned = [];
 			const unowned = [];
 
-			if (offer) {
-				for (const [flag, { emoji }] of offer.entries()) {
-					if (bit && (bit & flag) === flag) {
-						owned.push(formatEmoji(emoji));
-					} else {
-						unowned.push(formatEmoji(emoji));
-					}
+			for (const [flag, { emoji }] of offer.entries()) {
+				if (bit && (bit & flag) === flag) {
+					owned.push(formatEmoji(emoji));
+				} else {
+					unowned.push(formatEmoji(emoji));
 				}
 			}
 
@@ -1964,7 +1957,9 @@ export class SpiritTracker {
 			description.push(`${multiple ? `__${spirit.name}__\n` : ""}${spiritDescription.join("\n")}`);
 		}
 
-		return new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setDescription(description.join("\n\n"));
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR);
+		if (description.length > 0) embed.setDescription(description.join("\n\n"));
+		return embed;
 	}
 
 	public static async sharePromptParse(interaction: ButtonInteraction) {
@@ -1984,7 +1979,7 @@ export class SpiritTracker {
 			backButtonCustomId = `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}§${realmOrElderOrSeason}`;
 			emoji = SeasonNameToSeasonalEmoji[realmOrElderOrSeason];
 			spirits = Seasonal.filter((spirit) => spirit.season === realmOrElderOrSeason);
-			title = `${resolveFullSeasonName(realmOrElderOrSeason)} Progress`;
+			title = `${formatEmoji(emoji)} ${resolveFullSeasonName(realmOrElderOrSeason)} Progress`;
 		} else if (realmOrElderOrSeason === SPIRIT_TRACKER_SHARE_ELDER_KEY) {
 			backButtonCustomId = SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID;
 			spirits = Elder;
