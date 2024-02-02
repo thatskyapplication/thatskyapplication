@@ -1933,7 +1933,7 @@ export class SpiritTracker {
 				const resolvedRemainingCurrency = resolveOfferToCurrency(remainingCurrency, spiritSeason);
 
 				if (resolvedRemainingCurrency.length > 0) {
-					spiritDescription.push(`${resolvedRemainingCurrency.join("")} remaining`);
+					spiritDescription.push(`${resolvedRemainingCurrency.join("")}`);
 				}
 			}
 
@@ -1941,7 +1941,20 @@ export class SpiritTracker {
 		}
 
 		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR);
-		if (description.length > 0) embed.setDescription(description.join("\n\n"));
+
+		if (description.length > 0) {
+			let descriptionString = description.join("\n\n");
+
+			// If the resulting description exceeds 4,096 characters, replace the yes and no emojis with Unicode variants.
+			if (descriptionString.length > 4_096) {
+				descriptionString = descriptionString
+					.replaceAll(formatEmoji(MISCELLANEOUS_EMOJIS.Yes), "✅")
+					.replaceAll(formatEmoji(MISCELLANEOUS_EMOJIS.No), "❌");
+			}
+
+			embed.setDescription(descriptionString);
+		}
+
 		return embed;
 	}
 
