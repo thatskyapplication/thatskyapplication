@@ -19,7 +19,10 @@ export const event: Event<typeof name> = {
 			message.author.bot ||
 			!message.channel
 				.permissionsFor(me)
-				.has(PermissionFlagsBits.ReadMessageHistory | PermissionFlagsBits.SendMessages) ||
+				.has(
+					PermissionFlagsBits.ReadMessageHistory |
+						(message.channel.isThread() ? PermissionFlagsBits.SendMessagesInThreads : PermissionFlagsBits.SendMessages),
+				) ||
 			message.content.length <= 5 ||
 			message.mentions.has(message.client.user.id, { ignoreEveryone: true, ignoreRoles: true }) ||
 			me.isCommunicationDisabled()
