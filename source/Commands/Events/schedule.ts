@@ -4,13 +4,14 @@ import {
 	EmbedBuilder,
 	time,
 	TimestampStyles,
+	PermissionFlagsBits,
 } from "discord.js";
 import type { DateTime } from "luxon";
 import DailyGuidesDistribution, { SHARD_ERUPTION_NONE } from "../../Structures/DailyGuidesDistribution.js";
 import { NotificationEvent } from "../../Structures/Notification.js";
 import { DEFAULT_EMBED_COLOUR, ISS_DATES_ACCESSIBLE } from "../../Utility/Constants.js";
 import { INITIAL_TRAVELLING_SPIRIT_SEEK, todayDate } from "../../Utility/dates.js";
-import { cannotUseCustomEmojis } from "../../Utility/emojis.js";
+import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { ChatInputCommand } from "../index.js";
 
 const PASSAGE_TRUNCATION_LIMIT = 9 as const;
@@ -143,7 +144,7 @@ export default new (class implements ChatInputCommand {
 		if (
 			shardEruptionFieldData[0] &&
 			shardEruptionFieldData[0].value !== SHARD_ERUPTION_NONE &&
-			(await cannotUseCustomEmojis(interaction))
+			(await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis))
 		) {
 			return;
 		}

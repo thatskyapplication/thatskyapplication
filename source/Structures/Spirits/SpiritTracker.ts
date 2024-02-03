@@ -14,12 +14,15 @@ import {
 	ButtonBuilder,
 	ButtonStyle,
 	type EmbedAuthorOptions,
+	PermissionFlagsBits,
+	ChannelType,
 } from "discord.js";
 import type { Realm } from "../../Utility/Constants.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { isRealm } from "../../Utility/Utility.js";
 import { todayDate } from "../../Utility/dates.js";
-import { cannotUseCustomEmojis, formatEmoji, MISCELLANEOUS_EMOJIS } from "../../Utility/emojis.js";
+import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../../Utility/emojis.js";
+import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import pg, { Table } from "../../pg.js";
 import Profile from "../Profile.js";
 import {
@@ -1263,7 +1266,7 @@ export class SpiritTracker {
 	}
 
 	public static async setElders(interaction: ButtonInteraction) {
-		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 
 		await this.update(
 			interaction.user.id,
@@ -1277,7 +1280,7 @@ export class SpiritTracker {
 	}
 
 	public static async setSeason(interaction: ButtonInteraction) {
-		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { customId, user } = interaction;
 		const season = customId.slice(customId.indexOf("§") + 1) as SeasonName;
 
@@ -1293,7 +1296,7 @@ export class SpiritTracker {
 	}
 
 	public static async setSpirit(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
 		const { customId } = interaction;
 		const spiritName = customId.slice(customId.indexOf("§") + 1) as SpiritName;
@@ -1373,7 +1376,7 @@ export class SpiritTracker {
 	}
 
 	public static async viewTracker(interaction: ButtonInteraction | ChatInputCommandInteraction) {
-		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const existingSpiritTracker = await this.fetch(interaction.user.id).catch(() => null);
 		let spiritTracker;
 
@@ -1441,7 +1444,7 @@ export class SpiritTracker {
 	}
 
 	public static async parseSpiritType(interaction: StringSelectMenuInteraction) {
-		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 
 		switch (Number(interaction.values[0]) as Exclude<SpiritType, (typeof SPIRIT_TYPE)["Guide"]>) {
 			case SPIRIT_TYPE.Standard:
@@ -1456,7 +1459,7 @@ export class SpiritTracker {
 	}
 
 	public static async parseBack(interaction: ButtonInteraction) {
-		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { customId } = interaction;
 
 		if (
@@ -1507,7 +1510,7 @@ export class SpiritTracker {
 	}
 
 	public static async viewRealms(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
 
 		await interaction.update({
@@ -1553,7 +1556,7 @@ export class SpiritTracker {
 	}
 
 	public static async viewRealm(interaction: ButtonInteraction | StringSelectMenuInteraction, realm: Realm) {
-		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
 		const spirits = Standard.filter((spirit) => spirit.realm === realm);
 		let hasEverything = true;
@@ -1607,7 +1610,7 @@ export class SpiritTracker {
 	}
 
 	public static async viewElders(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
 		let hasEverything = true;
 
@@ -1656,7 +1659,7 @@ export class SpiritTracker {
 	}
 
 	public static async viewSeasons(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
 
 		await interaction.update({
@@ -1696,7 +1699,7 @@ export class SpiritTracker {
 	}
 
 	public static async viewSeason(interaction: ButtonInteraction | StringSelectMenuInteraction, season: SeasonName) {
-		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
 		const spirits = Seasonal.filter((spirit) => spirit.season === season);
 		let hasEverything = true;
@@ -1788,7 +1791,7 @@ export class SpiritTracker {
 		bit: SpiritTrackerValue,
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 	) {
-		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
 		const seasonalParsing = isSeasonalSpirit && !spirit.visited;
@@ -1973,8 +1976,30 @@ export class SpiritTracker {
 	}
 
 	public static async sharePrompt(interaction: ButtonInteraction) {
-		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
-		const { customId, user } = interaction;
+		const { channel, customId, user } = interaction;
+
+		if (!channel || (channel.type === ChannelType.PrivateThread && !channel.members.me)) {
+			await interaction.update({
+				components: [],
+				content: "I cannot see this channel.",
+				embeds: [],
+			});
+
+			return;
+		}
+
+		if (
+			await cannotUsePermissions(
+				interaction,
+				PermissionFlagsBits.ViewChannel |
+					(channel.isThread() ? PermissionFlagsBits.SendMessagesInThreads : PermissionFlagsBits.SendMessages) |
+					PermissionFlagsBits.EmbedLinks |
+					PermissionFlagsBits.UseExternalEmojis,
+			)
+		) {
+			return;
+		}
+
 		const spiritTracker = await this.fetch(user.id);
 		const type = customId.slice(customId.indexOf("§") + 1);
 		const backButton = new ButtonBuilder().setLabel("Back").setStyle(ButtonStyle.Primary);
@@ -2035,18 +2060,27 @@ export class SpiritTracker {
 	}
 
 	public static async shareSend(interaction: ButtonInteraction) {
-		if (await cannotUseCustomEmojis(interaction, { components: [], embeds: [] })) return;
 		const { channel, message } = interaction;
 
-		if (!channel) {
-			await interaction.client.log({ content: "Failed to share a spirit tracker.", error: interaction });
-
+		if (!channel || (channel.type === ChannelType.PrivateThread && !channel.members.me)) {
 			await interaction.update({
 				components: [],
-				content: "This share button has been krilled. This may have been a mistake. Or not.",
+				content: "I cannot see this channel.",
 				embeds: [],
 			});
 
+			return;
+		}
+
+		if (
+			await cannotUsePermissions(
+				interaction,
+				PermissionFlagsBits.ViewChannel |
+					(channel.isThread() ? PermissionFlagsBits.SendMessagesInThreads : PermissionFlagsBits.SendMessages) |
+					PermissionFlagsBits.EmbedLinks |
+					PermissionFlagsBits.UseExternalEmojis,
+			)
+		) {
 			return;
 		}
 

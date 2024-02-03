@@ -1,15 +1,4 @@
-import {
-	type ButtonInteraction,
-	type ChatInputCommandInteraction,
-	type InteractionReplyOptions,
-	type InteractionUpdateOptions,
-	type ModalSubmitInteraction,
-	type Snowflake,
-	type StringSelectMenuInteraction,
-	type UserContextMenuCommandInteraction,
-	CDN,
-	PermissionFlagsBits,
-} from "discord.js";
+import { type Snowflake, CDN } from "discord.js";
 
 const cdn = new CDN();
 
@@ -2948,34 +2937,6 @@ export type Emoji =
 	| CapeEmojis
 	| HeldPropsEmojis
 	| PlaceablePropsEmojis;
-
-export async function cannotUseCustomEmojis(
-	interaction:
-		| ButtonInteraction
-		| ChatInputCommandInteraction
-		| ModalSubmitInteraction
-		| StringSelectMenuInteraction
-		| UserContextMenuCommandInteraction,
-	options?: InteractionReplyOptions | InteractionUpdateOptions,
-) {
-	if (!interaction.inGuild() || interaction.appPermissions.has(PermissionFlagsBits.UseExternalEmojis)) return false;
-
-	const response = {
-		content: "Missing the `Use External Emojis` permission. Someone needs to adjust the permissions!",
-		ephemeral: true,
-		...options,
-	};
-
-	if (interaction.isMessageComponent()) {
-		// @ts-expect-error Too generic.
-		await interaction.update(response);
-	} else {
-		// @ts-expect-error Too generic.
-		await interaction.reply(response);
-	}
-
-	return true;
-}
 
 export function formatEmoji(emoji: Emoji) {
 	return "animated" in emoji ? `<a:${emoji.name}:${emoji.id}>` : `<:${emoji.name}:${emoji.id}>`;

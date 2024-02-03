@@ -12,6 +12,7 @@ import {
 	EmbedBuilder,
 	StringSelectMenuBuilder,
 	StringSelectMenuOptionBuilder,
+	PermissionFlagsBits,
 } from "discord.js";
 import { DateTime } from "luxon";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
@@ -24,7 +25,7 @@ import {
 	shardEruptionTimestampsString,
 } from "../../Utility/Utility.js";
 import { TIME_ZONE, todayDate } from "../../Utility/dates.js";
-import { cannotUseCustomEmojis } from "../../Utility/emojis.js";
+import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { ChatInputCommand } from "../index.js";
 
 export const SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID" as const;
@@ -146,7 +147,7 @@ export default new (class implements ChatInputCommand {
 		interaction: ButtonInteraction | ChatInputCommandInteraction | StringSelectMenuInteraction,
 		offset = 0,
 	) {
-		if (await cannotUseCustomEmojis(interaction, { components: [] })) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		if (await this.hasExpired(interaction)) return;
 		const shardYesterday = shardEruption(offset - 1);
 		const shardToday = shardEruption(offset);

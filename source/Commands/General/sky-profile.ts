@@ -14,13 +14,14 @@ import {
 	TextInputStyle,
 	StringSelectMenuOptionBuilder,
 	UserContextMenuCommandInteraction,
+	PermissionFlagsBits,
 } from "discord.js";
 import { PlatformFlagsToString, resolvePlatformToEmoji } from "../../Structures/Platforms.js";
 import Profile, { AssetType } from "../../Structures/Profile.js";
 import { SEASON_FLAGS_TO_SEASON_NAME_ENTRIES, SeasonNameToSeasonalEmoji } from "../../Structures/Season.js";
 import Spirits from "../../Structures/Spirits/index.js";
 import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis } from "../../Utility/emojis.js";
+import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import COMMANDS, { type AutocompleteCommand } from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
@@ -190,7 +191,7 @@ export default new (class implements AutocompleteCommand {
 	}
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		if (await cannotUseCustomEmojis(interaction)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { options } = interaction;
 
 		switch (options.getSubcommandGroup() ?? options.getSubcommand()) {
@@ -402,7 +403,13 @@ export default new (class implements AutocompleteCommand {
 			return;
 		}
 
-		if ((profile.seasons || profile.platform) && (await cannotUseCustomEmojis(interaction))) return;
+		if (
+			(profile.seasons || profile.platform) &&
+			(await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis))
+		) {
+			return;
+		}
+
 		const { embed, unfilled } = await profile.embed(interaction);
 		await interaction.reply({ embeds: [embed], ephemeral: hide });
 		if (unfilled && userIsInvoker) await interaction.followUp({ content: unfilled, ephemeral: true });
