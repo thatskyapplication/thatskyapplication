@@ -274,7 +274,7 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (customId === SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID) {
+				if (customId === SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID && interaction.inCachedGuild()) {
 					await SpiritTracker.shareSend(interaction);
 					return;
 				}

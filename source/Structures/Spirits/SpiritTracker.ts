@@ -1,21 +1,22 @@
 import {
 	type ActionRow,
 	type ChatInputCommandInteraction,
+	type EmbedAuthorOptions,
 	type InteractionUpdateOptions,
 	type MessageActionRowComponentBuilder,
 	type Snowflake,
 	type StringSelectMenuComponent,
 	type StringSelectMenuInteraction,
 	ActionRowBuilder,
+	ButtonBuilder,
 	ButtonInteraction,
+	ButtonStyle,
+	ChannelType,
+	EmbedBuilder,
+	MessageFlags,
+	PermissionFlagsBits,
 	StringSelectMenuBuilder,
 	StringSelectMenuOptionBuilder,
-	EmbedBuilder,
-	ButtonBuilder,
-	ButtonStyle,
-	type EmbedAuthorOptions,
-	PermissionFlagsBits,
-	ChannelType,
 } from "discord.js";
 import type { Realm } from "../../Utility/Constants.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
@@ -1978,6 +1979,15 @@ export class SpiritTracker {
 	public static async sharePrompt(interaction: ButtonInteraction) {
 		const { channel, customId, user } = interaction;
 
+		if (!interaction.inGuild()) {
+			await interaction.reply({
+				content: "Only [you & I](https://youtu.be/WJjHIOewllc) are around here. Try sharing in a server!",
+				flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
 		if (!channel || (channel.type === ChannelType.PrivateThread && !channel.members.me)) {
 			await interaction.update({
 				components: [],
@@ -2059,7 +2069,7 @@ export class SpiritTracker {
 		});
 	}
 
-	public static async shareSend(interaction: ButtonInteraction) {
+	public static async shareSend(interaction: ButtonInteraction<"cached">) {
 		const { channel, message } = interaction;
 
 		if (!channel || (channel.type === ChannelType.PrivateThread && !channel.members.me)) {
