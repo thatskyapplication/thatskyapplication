@@ -65,7 +65,7 @@ export default new (class implements ChatInputCommand {
 			embeds: [
 				new EmbedBuilder()
 					.setColor(DEFAULT_EMBED_COLOUR)
-					.setImage(String(new URL(`play-fights/${Math.floor(Math.random() * MAX_PLAY_FIGHT_NO + 1)}.gif`, CDN_URL))),
+					.setImage(String(new URL(`play_fights/${Math.floor(Math.random() * MAX_PLAY_FIGHT_NO + 1)}.gif`, CDN_URL))),
 			],
 		});
 	}
