@@ -2,9 +2,9 @@ import {
 	type ChatInputCommandInteraction,
 	ApplicationCommandType,
 	EmbedBuilder,
+	PermissionFlagsBits,
 	time,
 	TimestampStyles,
-	PermissionFlagsBits,
 } from "discord.js";
 import type { DateTime } from "luxon";
 import DailyGuidesDistribution, { SHARD_ERUPTION_NONE } from "../../Structures/DailyGuidesDistribution.js";

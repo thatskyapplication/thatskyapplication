@@ -4,9 +4,9 @@ import {
 	ApplicationCommandType,
 	EmbedBuilder,
 	Locale,
+	PermissionFlagsBits,
 	time,
 	TimestampStyles,
-	PermissionFlagsBits,
 } from "discord.js";
 import { t } from "i18next";
 import { resolveEvent } from "../../Structures/Event.js";

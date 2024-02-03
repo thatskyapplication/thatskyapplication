@@ -9,12 +9,12 @@ import {
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	ModalBuilder,
+	PermissionFlagsBits,
 	StringSelectMenuBuilder,
 	TextInputBuilder,
 	TextInputStyle,
 	StringSelectMenuOptionBuilder,
 	UserContextMenuCommandInteraction,
-	PermissionFlagsBits,
 } from "discord.js";
 import { PlatformFlagsToString, resolvePlatformToEmoji } from "../../Structures/Platforms.js";
 import Profile, { AssetType } from "../../Structures/Profile.js";
