@@ -20,6 +20,7 @@ import bonk from "./Fun/bonk.js";
 import fight from "./Fun/fight.js";
 import GiftHeart from "./Fun/Gift Heart.js";
 import heart from "./Fun/heart.js";
+import highfive from "./Fun/high-five.js";
 import hug from "./Fun/hug.js";
 import krill from "./Fun/krill.js";
 import playfight from "./Fun/play-fight.js";
@@ -45,6 +46,7 @@ const COMMANDS = {
 	fight,
 	GiftHeart,
 	heart,
+	highfive,
 	hug,
 	krill,
 	notifications,
