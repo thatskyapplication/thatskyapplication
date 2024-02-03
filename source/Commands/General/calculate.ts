@@ -4,6 +4,7 @@ import {
 	ApplicationCommandType,
 	EmbedBuilder,
 	Locale,
+	PermissionFlagsBits,
 	time,
 	TimestampStyles,
 } from "discord.js";
@@ -32,7 +33,8 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	todayDate,
 } from "../../Utility/dates.js";
-import { cannotUseCustomEmojis, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../../Utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../../Utility/emojis.js";
+import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { ChatInputCommand } from "../index.js";
 
 const doubleSeasonalLightEventStart = time(
@@ -325,7 +327,7 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		if (await cannotUseCustomEmojis(interaction)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const amountRequired = goal - start;
 		let day = todayDate();
 		let result = 0;
@@ -411,7 +413,7 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		if (await cannotUseCustomEmojis(interaction)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const amountRequired = goal - start;
 		const { eventCurrencyEmoji, eventCurrencyPerDay } = event;
 		const days = Math.ceil(amountRequired / eventCurrencyPerDay);
@@ -453,7 +455,7 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		if (await cannotUseCustomEmojis(interaction)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const today = todayDate();
 		const season = resolveSeason(today);
 		const remainingCandles = season?.remainingSeasonalCandles(today);
@@ -523,7 +525,7 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async wingedLight(interaction: ChatInputCommandInteraction) {
-		if (await cannotUseCustomEmojis(interaction)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale: lng, options } = interaction;
 		const wingBuffs = options.getInteger("wing-buffs", true);
 		const area1 = options.getString("area-1");

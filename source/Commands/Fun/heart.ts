@@ -16,12 +16,8 @@ import {
 } from "discord.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { todayDate } from "../../Utility/dates.js";
-import {
-	cannotUseCustomEmojis,
-	formatEmoji,
-	MISCELLANEOUS_EMOJIS,
-	resolveCurrencyEmoji,
-} from "../../Utility/emojis.js";
+import { formatEmoji, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../../Utility/emojis.js";
+import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -101,7 +97,7 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async gift(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
-		if (await cannotUseCustomEmojis(interaction)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { channel, createdAt, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
@@ -220,7 +216,7 @@ export default new (class implements ChatInputCommand {
 		interaction: ButtonInteraction | ChatInputCommandInteraction,
 		options: HeartHistoryOptions | null = null,
 	) {
-		if (await cannotUseCustomEmojis(interaction)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const buttonInteraction = interaction instanceof ButtonInteraction;
 
 		const hearts = await pg<HeartPacket>(Table.Hearts)

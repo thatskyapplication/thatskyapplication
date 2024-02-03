@@ -221,7 +221,10 @@ const client = new Caelus({
 		ReactionUserManager: 0,
 		StageInstanceManager: 0,
 		ThreadManager: 0,
-		ThreadMemberManager: 0,
+		ThreadMemberManager: {
+			keepOverLimit: (user) => user.id === APPLICATION_ID,
+			maxSize: 5,
+		},
 		UserManager: {
 			keepOverLimit: (user) => user.id === APPLICATION_ID,
 			maxSize: 50,

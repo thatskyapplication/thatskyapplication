@@ -9,6 +9,7 @@ import {
 	ButtonStyle,
 	EmbedBuilder,
 	hyperlink,
+	PermissionFlagsBits,
 	time,
 	TimestampStyles,
 } from "discord.js";
@@ -32,7 +33,8 @@ import Seasonal from "../../Structures/Spirits/Seasonal/index.js";
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
 import Spirits from "../../Structures/Spirits/index.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
-import { cannotUseCustomEmojis, formatEmoji } from "../../Utility/emojis.js";
+import { formatEmoji } from "../../Utility/emojis.js";
+import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID = "SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;
@@ -130,7 +132,7 @@ export default new (class implements AutocompleteCommand {
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 		seasonalOffer = false,
 	) {
-		if (await cannotUseCustomEmojis(interaction)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
 		const seasonalParsing = isSeasonalSpirit && seasonalOffer;

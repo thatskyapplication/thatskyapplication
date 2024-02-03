@@ -13,7 +13,7 @@ import Notification, {
 	NotificationEvent,
 	NOTIFICATION_CHANNEL_TYPES,
 } from "../../Structures/Notification.js";
-import { cannotUseCustomEmojis } from "../../Utility/emojis.js";
+import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { ChatInputCommand } from "../index.js";
 
 const notificationEventChoices = Object.values(NotificationEvent).map((notificationEvent) => ({
@@ -91,7 +91,7 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		if (await cannotUseCustomEmojis(interaction)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 
 		switch (interaction.options.getSubcommand()) {
 			case "setup":
