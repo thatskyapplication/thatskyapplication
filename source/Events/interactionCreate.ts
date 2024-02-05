@@ -42,20 +42,18 @@ import { isSeasonName } from "../Structures/Season.js";
 import {
 	SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID,
 	SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID,
-	SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID,
 	SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID,
-	SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID,
 	SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID,
 	SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID,
 	SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID,
-	SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID,
-	SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID,
-	SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID,
 	SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_START_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID,
@@ -245,12 +243,40 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
+				if (customId === SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID) {
+					await SpiritTracker.viewRealms(interaction);
+					return;
+				}
+
+				if (customId.startsWith(SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID)) {
+					const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
+
+					if (isRealm(parsedCustomId)) {
+						await SpiritTracker.viewRealm(interaction, parsedCustomId);
+						return;
+					}
+				}
+
+				if (customId === SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID) {
+					await SpiritTracker.viewElders(interaction);
+					return;
+				}
+
+				if (customId === SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID) {
+					await SpiritTracker.viewSeasons(interaction);
+					return;
+				}
+
+				if (customId.startsWith(SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID)) {
+					const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
+
+					if (isSeasonName(parsedCustomId)) {
+						await SpiritTracker.viewSeason(interaction, parsedCustomId);
+						return;
+					}
+				}
+
 				if (
-					customId === SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID ||
-					customId === SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID ||
-					customId === SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID ||
-					customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID) ||
-					customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID) ||
 					customId === SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID
 				) {
 					await SpiritTracker.parseBack(interaction);
@@ -372,12 +398,12 @@ export const event: Event<typeof name> = {
 
 				const value0 = values[0]!;
 
-				if (customId === SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID && isRealm(value0)) {
+				if (customId === SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID && isRealm(value0)) {
 					await SpiritTracker.viewRealm(interaction, value0);
 					return;
 				}
 
-				if (customId === SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID && isSeasonName(value0)) {
+				if (customId === SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID && isSeasonName(value0)) {
 					await SpiritTracker.viewSeason(interaction, value0);
 					return;
 				}
