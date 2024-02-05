@@ -1,11 +1,9 @@
 import {
-	type ActionRow,
 	type ChatInputCommandInteraction,
 	type EmbedAuthorOptions,
 	type InteractionUpdateOptions,
 	type MessageActionRowComponentBuilder,
 	type Snowflake,
-	type StringSelectMenuComponent,
 	type StringSelectMenuInteraction,
 	ActionRowBuilder,
 	ButtonBuilder,
@@ -1305,21 +1303,17 @@ export class SpiritTracker {
 		if (interaction instanceof ButtonInteraction) {
 			newBit = spirit.maxItemsBit;
 		} else {
-			newBit = interaction.values.reduce(
-				(bit, value) => bit | Number(value),
-				interaction.message.components
-					.find((actionRow): actionRow is ActionRow<StringSelectMenuComponent> =>
-						actionRow.components.some(
-							(component) =>
-								component.customId?.startsWith(
-									customId.startsWith(SPIRIT_TRACKER_VIEW_OFFER_CUSTOM_ID)
-										? SPIRIT_TRACKER_VIEW_OFFER_OVERFLOW_CUSTOM_ID
-										: SPIRIT_TRACKER_VIEW_OFFER_CUSTOM_ID,
-								),
-						),
-					)
-					?.components[0]!.options.reduce((bit, option) => (option.default ? bit | Number(option.value) : bit), 0) ?? 0,
-			);
+			// Get the select menu this interaction came from.
+			const { component } = interaction;
+
+			// Calculate the total bit in this select menu.
+			const selectMenuTotalBit = component.options.reduce((bit, { value }) => bit | Number(value), 0);
+
+			// Clear this bit from the total bit.
+			const modifiedTotal = (spiritTracker[SpiritNameToSpiritTrackerName[spiritName]] ?? 0) & ~selectMenuTotalBit;
+
+			// Calculate the new bit.
+			newBit = interaction.values.reduce((bit, value) => bit | Number(value), modifiedTotal);
 		}
 
 		const [spiritTrackerPacket] = await this.update(interaction.user.id, {
