@@ -710,6 +710,7 @@ const SpiritNameToSpiritTrackerName = {
 	[SpiritName.Princess]: "princess",
 } as const satisfies Readonly<Record<SpiritName, Exclude<keyof SpiritTrackerData, "user_id">>>;
 
+export const SPIRIT_TRACKER_VIEW_START_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_START_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID" as const;
@@ -718,10 +719,7 @@ export const SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASON
 export const SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID = "SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID = "SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID = "SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID" as const;
@@ -1463,15 +1461,6 @@ export class SpiritTracker {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { customId } = interaction;
 
-		if (
-			customId === SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID ||
-			customId === SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID ||
-			customId === SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID
-		) {
-			await this.viewTracker(interaction);
-			return;
-		}
-
 		if (customId === SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID) {
 			await this.viewRealms(interaction);
 			return;
@@ -1539,7 +1528,7 @@ export class SpiritTracker {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backToStartButton(),
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_START_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
@@ -1638,7 +1627,7 @@ export class SpiritTracker {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backToStartButton(),
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_START_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
@@ -1689,7 +1678,7 @@ export class SpiritTracker {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backToStartButton(),
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_START_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),

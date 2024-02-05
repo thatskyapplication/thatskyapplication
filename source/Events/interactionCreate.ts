@@ -41,12 +41,9 @@ import Profile from "../Structures/Profile.js";
 import { isSeasonName } from "../Structures/Season.js";
 import {
 	SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID,
-	SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID,
 	SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID,
-	SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID,
 	SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID,
 	SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID,
-	SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID,
 	SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID,
 	SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID,
 	SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID,
@@ -63,6 +60,7 @@ import {
 	SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_START_CUSTOM_ID,
 	SpiritTracker,
 } from "../Structures/Spirits/SpiritTracker.js";
 import { chatInputApplicationCommandMention, consoleLog, guildLink, isRealm } from "../Utility/Utility.js";
@@ -244,11 +242,13 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
+				if (customId === SPIRIT_TRACKER_VIEW_START_CUSTOM_ID) {
+					await SpiritTracker.viewTracker(interaction);
+					return;
+				}
+
 				if (
-					customId === SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID ||
 					customId === SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID ||
-					customId === SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID ||
-					customId === SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID ||
 					customId === SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID ||
 					customId === SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID ||
 					customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID) ||
