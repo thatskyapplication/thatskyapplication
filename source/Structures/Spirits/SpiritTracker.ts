@@ -717,8 +717,8 @@ export const SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALM_CU
 export const SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_OFFER_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_OFFER_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_OFFER_OVERFLOW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_OFFER_OVERFLOW_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID = "SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID" as const;
@@ -1312,9 +1312,9 @@ export class SpiritTracker {
 						actionRow.components.some(
 							(component) =>
 								component.customId?.startsWith(
-									customId.startsWith(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
-										? SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID
-										: SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID,
+									customId.startsWith(SPIRIT_TRACKER_VIEW_OFFER_CUSTOM_ID)
+										? SPIRIT_TRACKER_VIEW_OFFER_OVERFLOW_CUSTOM_ID
+										: SPIRIT_TRACKER_VIEW_OFFER_CUSTOM_ID,
 								),
 						),
 					)
@@ -1839,7 +1839,7 @@ export class SpiritTracker {
 
 			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
-					.setCustomId(`${SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID}§${spirit.name}`)
+					.setCustomId(`${SPIRIT_TRACKER_VIEW_OFFER_CUSTOM_ID}§${spirit.name}`)
 					.setMaxValues(itemSelectionOptionsMaximumLimit.length)
 					.setMinValues(0)
 					.setOptions(itemSelectionOptionsMaximumLimit)
@@ -1856,7 +1856,7 @@ export class SpiritTracker {
 				components.push(
 					new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 						new StringSelectMenuBuilder()
-							.setCustomId(`${SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID}§${spirit.name}`)
+							.setCustomId(`${SPIRIT_TRACKER_VIEW_OFFER_OVERFLOW_CUSTOM_ID}§${spirit.name}`)
 							.setMaxValues(itemSelectionOverflowOptionsMaximumLimit.length)
 							.setMinValues(0)
 							.setOptions(itemSelectionOverflowOptionsMaximumLimit)
