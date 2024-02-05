@@ -52,7 +52,6 @@ import {
 	SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID,
 	SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID,
 	SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID,
-	SPIRIT_TRACKER_VIEW_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID,
@@ -61,6 +60,7 @@ import {
 	SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_START_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID,
 	SpiritTracker,
 } from "../Structures/Spirits/SpiritTracker.js";
 import { chatInputApplicationCommandMention, consoleLog, guildLink, isRealm } from "../Utility/Utility.js";
@@ -367,7 +367,7 @@ export const event: Event<typeof name> = {
 			const { customId, values } = interaction;
 
 			try {
-				if (customId === SPIRIT_TRACKER_VIEW_CUSTOM_ID) {
+				if (customId === SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID) {
 					await SpiritTracker.parseSpiritType(interaction);
 					return;
 				}
