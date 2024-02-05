@@ -1451,23 +1451,6 @@ export class SpiritTracker {
 		}
 	}
 
-	public static async parseBack(interaction: ButtonInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		const { customId } = interaction;
-
-		if (customId === SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID) {
-			await this.viewTracker(interaction);
-			return;
-		}
-
-		void interaction.client.log({ content: "Could not parse a back button.", error: interaction });
-
-		await interaction.reply({
-			content: "This back button took me to the '70s. Anyway, I'm back now, and you should probably report this bug!",
-			ephemeral: true,
-		});
-	}
-
 	public static async viewRealms(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const spiritTracker = await this.fetch(interaction.user.id);

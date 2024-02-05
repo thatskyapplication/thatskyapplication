@@ -238,7 +238,7 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (customId === SPIRIT_TRACKER_VIEW_START_CUSTOM_ID) {
+				if (customId === SPIRIT_TRACKER_VIEW_START_CUSTOM_ID || customId === SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID) {
 					await SpiritTracker.viewTracker(interaction);
 					return;
 				}
@@ -274,13 +274,6 @@ export const event: Event<typeof name> = {
 						await SpiritTracker.viewSeason(interaction, parsedCustomId);
 						return;
 					}
-				}
-
-				if (
-					customId === SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID
-				) {
-					await SpiritTracker.parseBack(interaction);
-					return;
 				}
 
 				if (customId.startsWith(SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID)) {
