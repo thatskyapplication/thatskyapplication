@@ -711,10 +711,8 @@ const SpiritNameToSpiritTrackerName = {
 export const SPIRIT_TRACKER_VIEW_START_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_START_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID = "SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID" as const;
@@ -1559,7 +1557,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(options)
@@ -1612,7 +1610,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(options)
@@ -1703,7 +1701,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(options)
