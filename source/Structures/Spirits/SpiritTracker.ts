@@ -1279,7 +1279,11 @@ export class SpiritTracker {
 	public static async setSeason(interaction: ButtonInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { customId, user } = interaction;
-		const season = customId.slice(customId.indexOf("§") + 1) as SeasonName;
+		const season = customId.slice(customId.indexOf("§") + 1);
+
+		if (!isSeasonName(season)) {
+			throw new Error("Unknown season.");
+		}
 
 		await this.update(
 			user.id,
