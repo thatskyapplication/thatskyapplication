@@ -49,6 +49,15 @@ class Event {
 		this.eventCurrencyEmoji = data.eventCurrencyEmoji;
 	}
 
+	public daysLeft(date: DateTime) {
+		const { end, name } = this;
+		const daysLeftInEvent = end.diff(date, "days").days;
+
+		return daysLeftInEvent === 0
+			? `${name} ends today.`
+			: `${daysLeftInEvent === 1 ? `${daysLeftInEvent} day` : `${daysLeftInEvent} days`} left in ${name}.`;
+	}
+
 	public rotation(/* date: DateTime */) {
 		return null;
 		// return EVENT_ROTATION_LETTER[date.diff(this.start, "day").days % 3]!;

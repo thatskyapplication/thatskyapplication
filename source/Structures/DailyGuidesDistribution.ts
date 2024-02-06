@@ -235,17 +235,10 @@ export default class DailyGuidesDistribution {
 		let eventCurrency = null;
 
 		for (const event of events) {
-			const { end, eventCurrencyEmoji, eventCurrencyEnd, name, start, url } = event;
+			const { eventCurrencyEmoji, eventCurrencyEnd, name, start, url } = event;
 
 			if (currentEvent?.name === event.name) {
-				const daysLeftInEvent = end.diff(date, "days").days;
-
-				eventEndText.push(
-					daysLeftInEvent === 0
-						? `${name} ends today.`
-						: `${daysLeftInEvent === 1 ? `${daysLeftInEvent} day` : `${daysLeftInEvent} days`} left in ${name}.`,
-				);
-
+				eventEndText.push(currentEvent.daysLeft(date));
 				iconURL = formatEmojiURL(eventCurrencyEmoji.id);
 
 				if (date <= eventCurrencyEnd && url) {
@@ -302,17 +295,10 @@ export default class DailyGuidesDistribution {
 		let iconURL = null;
 
 		if (season) {
-			const { candleEmoji, emoji, end } = season;
-			const daysLeftInSeason = end.diff(today, "days").days;
-
-			seasonFooterText =
-				daysLeftInSeason === 0
-					? "The season ends today."
-					: `${daysLeftInSeason === 1 ? `${daysLeftInSeason} day` : `${daysLeftInSeason} days`} left in the season.`;
-
-			iconURL = formatEmojiURL(emoji.id);
-
+			const { candleEmoji, emoji } = season;
 			const { rotation, realm } = season.resolveSeasonalCandlesRotation(today);
+			seasonFooterText = season.daysLeft(today);
+			iconURL = formatEmojiURL(emoji.id);
 			let rotationNumber: RotationNumber = rotation;
 
 			if (isDuring(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, today)) {

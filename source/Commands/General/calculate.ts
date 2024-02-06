@@ -33,7 +33,7 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	todayDate,
 } from "../../Utility/dates.js";
-import { MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../../Utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS, formatEmojiURL, resolveCurrencyEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -435,7 +435,10 @@ export default new (class implements ChatInputCommand {
 						})}`,
 					)
 					.setFields({ name: "Result", value: `${days} day${days === 1 ? "" : "s"}` })
-					.setFooter({ text: `Calculations assume ${eventCurrencyPerDay} event currency per day.` })
+					.setFooter({
+						iconURL: formatEmojiURL(event.eventCurrencyEmoji.id),
+						text: `${event.daysLeft(today)}\nCalculations assume ${eventCurrencyPerDay} event currency per day.`,
+					})
 					.setTitle("Event Currency Calculator"),
 			],
 		});
@@ -458,7 +461,6 @@ export default new (class implements ChatInputCommand {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const today = todayDate();
 		const season = resolveSeason(today);
-		const remainingCandles = season?.remainingSeasonalCandles(today);
 		const emoji = season?.candleEmoji ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
 		const amountRequired = goal - start;
 		let result = 0;
@@ -499,8 +501,9 @@ export default new (class implements ChatInputCommand {
 			})
 			.setTitle("Seasonal Candle Calculator");
 
-		if (remainingCandles) {
-			const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } = remainingCandles;
+		if (season) {
+			const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } = season.remainingSeasonalCandles(today);
+			const daysLeft = season.daysLeft(today);
 
 			embed.addFields({
 				name: "Season Calculations",
@@ -512,6 +515,8 @@ export default new (class implements ChatInputCommand {
 					number: seasonalCandlesLeftWithSeasonPass,
 				})} remain in the season with a Season Pass.`,
 			});
+
+			embed.setFooter({ iconURL: formatEmojiURL(season.emoji.id), text: daysLeft });
 		}
 
 		if (includedDoubleLight) {

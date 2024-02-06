@@ -190,6 +190,14 @@ class Season {
 		this.seasonalCandlesRotation = data.seasonalCandlesRotation;
 	}
 
+	public daysLeft(date: DateTime) {
+		const daysLeftInSeason = this.end.diff(date, "days").days;
+
+		return daysLeftInSeason === 0
+			? "The season ends today."
+			: `${daysLeftInSeason === 1 ? `${daysLeftInSeason} day` : `${daysLeftInSeason} days`} left in the season.`;
+	}
+
 	public remainingSeasonalCandles(date: DateTime) {
 		const { end, duration, start } = this;
 
