@@ -120,6 +120,19 @@ export default new (class implements AutocompleteCommand {
 					},
 					{
 						type: ApplicationCommandOptionType.Subcommand,
+						name: "spirit-progression",
+						description: "Decide if you want to show your spirit progression!",
+						options: [
+							{
+								type: ApplicationCommandOptionType.Boolean,
+								name: "state",
+								description: "Show your spirit progression from the spirit tracker?",
+								required: true,
+							},
+						],
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
 						name: "spot",
 						description: "Set the favourite spot of your Skykid in your Sky profile!",
 						options: [
@@ -225,6 +238,9 @@ export default new (class implements AutocompleteCommand {
 				return;
 			case "spirit":
 				await this.setSpirit(interaction);
+				return;
+			case "spirit-progression":
+				await this.setSpiritProgression(interaction);
 				return;
 			case "spot":
 				await this.setSpot(interaction);
@@ -356,6 +372,11 @@ export default new (class implements AutocompleteCommand {
 		}
 
 		await Profile.set(interaction, { spirit: spirit.name });
+	}
+
+	public async setSpiritProgression(interaction: ChatInputCommandInteraction) {
+		const state = interaction.options.getBoolean("state", true);
+		await Profile.set(interaction, { spirit_progression: state });
 	}
 
 	public async setSpot(interaction: ChatInputCommandInteraction) {

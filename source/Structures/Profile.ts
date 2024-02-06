@@ -38,6 +38,7 @@ export interface ProfilePacket {
 	platform: number | null;
 	spirit: string | null;
 	spot: string | null;
+	spirit_progression: boolean | null;
 }
 
 interface ProfileData {
@@ -52,6 +53,7 @@ interface ProfileData {
 	platform: ProfilePacket["platform"];
 	spirit: ProfilePacket["spirit"];
 	spot: ProfilePacket["spot"];
+	spiritProgression: ProfilePacket["spirit_progression"];
 }
 
 interface ProfileSetData {
@@ -65,6 +67,7 @@ interface ProfileSetData {
 	platform?: number;
 	spirit?: string;
 	spot?: string;
+	spirit_progression?: boolean;
 }
 
 type ProfilePatchData = Omit<ProfilePacket, "user_id">;
@@ -103,6 +106,8 @@ export default class Profile {
 
 	public spot!: ProfilePacket["spot"];
 
+	public spiritProgression!: ProfilePacket["spirit_progression"];
+
 	public constructor(profile: ProfilePacket) {
 		this.userId = profile.user_id;
 		this.patch(profile);
@@ -119,6 +124,7 @@ export default class Profile {
 		this.platform = data.platform;
 		this.spirit = data.spirit;
 		this.spot = data.spot;
+		this.spiritProgression = data.spirit_progression;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -271,17 +277,22 @@ export default class Profile {
 			void interaction.client.log({ content: `Could not find the \`${commandName}\` command.` });
 		}
 
-		const { userId, name, iconURL, thumbnailURL, description, country, wingedLight, seasons, platform, spirit, spot } =
-			this;
-		const spiritTracker = await SpiritTracker.fetch(userId).catch(() => null);
-		const standardProgress = spiritTracker?.spiritProgress(Standard, true) ?? 0;
-		const elderProgress = spiritTracker?.spiritProgress(Elder, true) ?? 0;
-		const seasonalProgress = spiritTracker?.spiritProgress(Seasonal, true) ?? 0;
+		const {
+			userId,
+			name,
+			iconURL,
+			thumbnailURL,
+			description,
+			country,
+			wingedLight,
+			seasons,
+			platform,
+			spirit,
+			spot,
+			spiritProgression,
+		} = this;
 
-		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setFooter({
-			text: `Hearts: ${hearts}\nStandard progress: ${standardProgress}%\nElder progress: ${elderProgress}%\nSeasonal progress: ${seasonalProgress}%`,
-		});
-
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setFooter({ text: `Hearts: ${hearts}` });
 		const descriptions = [];
 		const fields = [];
 		const unfilled = [];
@@ -429,6 +440,28 @@ export default class Profile {
 					"platform",
 					commandId,
 				)} to show what platforms you play on!`,
+			);
+		}
+
+		if (spiritProgression) {
+			const spiritTracker = await SpiritTracker.fetch(userId).catch(() => null);
+			const standardProgress = spiritTracker?.spiritProgress(Standard, true) ?? 0;
+			const elderProgress = spiritTracker?.spiritProgress(Elder, true) ?? 0;
+			const seasonalProgress = spiritTracker?.spiritProgress(Seasonal, true) ?? 0;
+
+			fields.push({
+				name: "Spirit Progression",
+				value: `Standard: ${standardProgress}%\nElder: ${elderProgress}%\nSeasonal: ${seasonalProgress}%`,
+				inline: true,
+			});
+		} else if (commandId) {
+			unfilled.push(
+				`- Use ${chatInputApplicationCommandMention(
+					commandName,
+					"set",
+					"spirit-progression",
+					commandId,
+				)} to show your spirit progression!`,
 			);
 		}
 
