@@ -276,6 +276,11 @@ export const event: Event<typeof name> = {
 					}
 				}
 
+				if (customId.startsWith(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)) {
+					await SpiritTracker.viewSpirit(interaction);
+					return;
+				}
+
 				if (customId.startsWith(SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID)) {
 					await SpiritTracker.setSpirits(interaction);
 					return;
@@ -465,28 +470,6 @@ export const event: Event<typeof name> = {
 				content: "We interact with a lot of options here. But that option... we have no idea what that is.",
 				ephemeral: true,
 			});
-
-			return;
-		}
-
-		if (interaction.isAutocomplete()) {
-			const { commandName } = interaction;
-			const command = resolveCommand(interaction);
-
-			if (!command) {
-				void interaction.client.log({
-					content: `Received an unknown command autocomplete interaction (\`${commandName}\`).`,
-				});
-
-				void interaction.respond([]);
-				return;
-			}
-
-			try {
-				await command.autocomplete(interaction);
-			} catch (error) {
-				void recoverInteractionError(interaction, error);
-			}
 
 			return;
 		}
