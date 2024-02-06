@@ -13,6 +13,7 @@ import {
 	time,
 	TimestampStyles,
 } from "discord.js";
+import { t } from "i18next";
 import { SeasonName, SeasonNameToSeasonalEmoji } from "../../Structures/Season.js";
 import {
 	type ElderSpirit,
@@ -133,13 +134,19 @@ export default new (class implements AutocompleteCommand {
 		seasonalOffer = false,
 	) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		const { locale } = interaction;
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
 		const seasonalParsing = isSeasonalSpirit && seasonalOffer;
 		const spiritSeason = isSeasonalSpirit || isGuideSpirit ? spirit.season : null;
 		const totalCost = seasonalParsing ? spirit.totalCostSeasonal : spirit.totalCost;
 		const totalOffer = totalCost ? resolveOfferToCurrency(totalCost, spiritSeason).join("") : null;
-		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(spirit.name).setURL(spirit.wikiURL);
+
+		const embed = new EmbedBuilder()
+			.setColor(DEFAULT_EMBED_COLOUR)
+			.setTitle(t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" }))
+			.setURL(spirit.wikiURL);
+
 		if (spirit.realm) embed.addFields({ name: "Realm", value: spirit.realm, inline: true });
 
 		if (spiritSeason) {
@@ -223,13 +230,15 @@ export default new (class implements AutocompleteCommand {
 	}
 
 	public async autocomplete(interaction: AutocompleteInteraction) {
-		const focused = interaction.options.getFocused().toUpperCase();
+		const { locale, options } = interaction;
+		const focused = options.getFocused().toUpperCase();
 
 		await interaction.respond(
 			focused === ""
 				? []
 				: Spirits.filter((spirit) => {
 						const { name, keywords } = spirit;
+						const localisedName = t(`spiritNames.${name}`, { lng: locale, ns: "general" });
 						let emote = null;
 						let stance = null;
 						let call = null;
@@ -247,7 +256,7 @@ export default new (class implements AutocompleteCommand {
 
 						/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 						return (
-							name.toUpperCase().includes(focused) ||
+							localisedName.toUpperCase().includes(focused) ||
 							keywords.some((keyword) => keyword.toUpperCase().includes(focused)) ||
 							emote?.toUpperCase().includes(focused) ||
 							stance?.toUpperCase().includes(focused) ||
@@ -257,7 +266,7 @@ export default new (class implements AutocompleteCommand {
 						);
 						/* eslint-enable @typescript-eslint/prefer-nullish-coalescing */
 				  })
-						.map(({ name }) => ({ name, value: name }))
+						.map(({ name }) => ({ name: t(`spiritNames.${name}`, { lng: locale, ns: "general" }), value: name }))
 						.slice(0, 25),
 		);
 	}

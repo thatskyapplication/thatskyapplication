@@ -2,6 +2,7 @@ import {
 	type ChatInputCommandInteraction,
 	type EmbedAuthorOptions,
 	type InteractionUpdateOptions,
+	type Locale,
 	type MessageActionRowComponentBuilder,
 	type Snowflake,
 	type StringSelectMenuInteraction,
@@ -16,6 +17,7 @@ import {
 	StringSelectMenuBuilder,
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
+import { t } from "i18next";
 import type { Realm } from "../../Utility/Constants.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { isRealm } from "../../Utility/Utility.js";
@@ -1540,7 +1542,8 @@ export class SpiritTracker {
 
 	public static async viewRealm(interaction: ButtonInteraction | StringSelectMenuInteraction, realm: Realm) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		const spiritTracker = await this.fetch(interaction.user.id);
+		const { locale, user } = interaction;
+		const spiritTracker = await this.fetch(user.id);
 		const spirits = Standard.filter((spirit) => spirit.realm === realm);
 		let hasEverything = true;
 
@@ -1549,7 +1552,11 @@ export class SpiritTracker {
 			if (percentage !== null && percentage !== 100) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
-				.setLabel(`${spirit.name}${percentage === null ? "" : ` (${percentage}%)`}`)
+				.setLabel(
+					`${t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" })}${
+						percentage === null ? "" : ` (${percentage}%)`
+					}`,
+				)
 				.setValue(spirit.name);
 		});
 
@@ -1585,7 +1592,10 @@ export class SpiritTracker {
 				),
 			],
 			embeds: [
-				spiritTracker.spiritEmbed(spirits).setFooter({ text: SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE }).setTitle(realm),
+				spiritTracker
+					.spiritEmbed(spirits, locale)
+					.setFooter({ text: SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE })
+					.setTitle(realm),
 			],
 		} satisfies InteractionUpdateOptions;
 
@@ -1594,7 +1604,8 @@ export class SpiritTracker {
 
 	public static async viewElders(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		const spiritTracker = await this.fetch(interaction.user.id);
+		const { locale, user } = interaction;
+		const spiritTracker = await this.fetch(user.id);
 		let hasEverything = true;
 
 		const options = Elder.map((spirit) => {
@@ -1602,7 +1613,11 @@ export class SpiritTracker {
 			if (percentage !== null && percentage !== 100) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
-				.setLabel(`${spirit.name}${percentage === null ? "" : ` (${percentage}%)`}`)
+				.setLabel(
+					`${t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" })}${
+						percentage === null ? "" : ` (${percentage}%)`
+					}`,
+				)
 				.setValue(spirit.name);
 		});
 
@@ -1637,7 +1652,7 @@ export class SpiritTracker {
 						.setStyle(ButtonStyle.Success),
 				),
 			],
-			embeds: [spiritTracker.spiritEmbed(Elder).setTitle("Elders")],
+			embeds: [spiritTracker.spiritEmbed(Elder, locale).setTitle("Elders")],
 		});
 	}
 
@@ -1683,7 +1698,8 @@ export class SpiritTracker {
 
 	public static async viewSeason(interaction: ButtonInteraction | StringSelectMenuInteraction, season: SeasonName) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		const spiritTracker = await this.fetch(interaction.user.id);
+		const { locale, user } = interaction;
+		const spiritTracker = await this.fetch(user.id);
 		const spirits = Seasonal.filter((spirit) => spirit.season === season);
 		let hasEverything = true;
 
@@ -1693,7 +1709,11 @@ export class SpiritTracker {
 			if (percentage !== null && percentage !== 100) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
-				.setLabel(`${name}${percentage === null ? "" : ` (${percentage}%)`}`)
+				.setLabel(
+					`${t(`spiritNames.${name}`, { lng: locale, ns: "general" })}${
+						percentage === null ? "" : ` (${percentage}%)`
+					}`,
+				)
 				.setValue(name);
 		});
 
@@ -1736,7 +1756,7 @@ export class SpiritTracker {
 			],
 			embeds: [
 				spiritTracker
-					.spiritEmbed(spirits)
+					.spiritEmbed(spirits, locale)
 					.setTitle(`${formatEmoji(SeasonNameToSeasonalEmoji[season])} ${resolveFullSeasonName(season)}`),
 			],
 		} satisfies InteractionUpdateOptions;
@@ -1781,12 +1801,17 @@ export class SpiritTracker {
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 	) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		const { locale } = interaction;
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
 		const seasonalParsing = isSeasonalSpirit && !spirit.visited;
 		const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
-		const embed = this.spiritEmbed([spirit]).setTitle(spirit.name).setURL(spirit.wikiURL);
+
+		const embed = this.spiritEmbed([spirit], locale)
+			.setTitle(t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" }))
+			.setURL(spirit.wikiURL);
+
 		const description = embed.data.description ? [embed.data.description] : [];
 
 		if (imageURL) {
@@ -1882,7 +1907,10 @@ export class SpiritTracker {
 		);
 	}
 
-	private spiritEmbed(spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[]) {
+	private spiritEmbed(
+		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
+		locale: Locale,
+	) {
 		const multiple = spirits.length > 1;
 		const description = [];
 
@@ -1929,7 +1957,11 @@ export class SpiritTracker {
 				}
 			}
 
-			description.push(`${multiple ? `__${spirit.name}__\n` : ""}${spiritDescription.join("\n")}`);
+			description.push(
+				`${
+					multiple ? `__${t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" })}__\n` : ""
+				}${spiritDescription.join("\n")}`,
+			);
 		}
 
 		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR);
@@ -1965,7 +1997,7 @@ export class SpiritTracker {
 	}
 
 	public static async sharePrompt(interaction: ButtonInteraction) {
-		const { channel, customId, user } = interaction;
+		const { channel, customId, locale, user } = interaction;
 
 		if (!interaction.inGuild()) {
 			await interaction.reply({
@@ -2011,18 +2043,24 @@ export class SpiritTracker {
 			backButton.setCustomId(`${SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID}§${type}`);
 
 			embed = spiritTracker
-				.spiritEmbed(Standard.filter((spirit) => spirit.realm === type))
+				.spiritEmbed(
+					Standard.filter((spirit) => spirit.realm === type),
+					locale,
+				)
 				.setTitle(`${type} Progress`);
 		} else if (isSeasonName(type)) {
 			const emoji = SeasonNameToSeasonalEmoji[type];
 			backButton.setCustomId(`${SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID}§${type}`).setEmoji(emoji);
 
 			embed = spiritTracker
-				.spiritEmbed(Seasonal.filter((spirit) => spirit.season === type))
+				.spiritEmbed(
+					Seasonal.filter((spirit) => spirit.season === type),
+					locale,
+				)
 				.setTitle(`${formatEmoji(emoji)} ${resolveFullSeasonName(type)} Progress`);
 		} else if (type === SPIRIT_TRACKER_SHARE_ELDER_KEY) {
 			backButton.setCustomId(SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID);
-			embed = spiritTracker.spiritEmbed(Elder).setTitle("Elders Progress");
+			embed = spiritTracker.spiritEmbed(Elder, locale).setTitle("Elders Progress");
 		}
 
 		if (!embed) {

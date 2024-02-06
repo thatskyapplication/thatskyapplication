@@ -359,7 +359,8 @@ export default new (class implements AutocompleteCommand {
 	}
 
 	public async setSpirit(interaction: ChatInputCommandInteraction) {
-		const query = interaction.options.getString("spirit", true);
+		const { options } = interaction;
+		const query = options.getString("spirit", true);
 		const spirit = Spirits.find(({ name }) => name === query);
 
 		if (!spirit) {

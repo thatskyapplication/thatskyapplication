@@ -12,6 +12,7 @@ import {
 	StringSelectMenuInteraction,
 } from "discord.js";
 import hasha from "hasha";
+import { t } from "i18next";
 import sharp from "sharp";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import commands from "../Commands/index.js";
@@ -268,13 +269,14 @@ export default class Profile {
 			| ModalSubmitInteraction
 			| UserContextMenuCommandInteraction,
 	) {
+		const { client, locale } = interaction;
 		const hearts = await commands.heart.heartCount(this.userId);
 		const skyProfileCommand = commands.skyprofile;
 		const commandId = skyProfileCommand.id;
 		const commandName = skyProfileCommand.data.name;
 
 		if (!commandId) {
-			void interaction.client.log({ content: `Could not find the \`${commandName}\` command.` });
+			void client.log({ content: `Could not find the \`${commandName}\` command.` });
 		}
 
 		const {
@@ -389,7 +391,7 @@ export default class Profile {
 		if (spirit) {
 			fields.push({
 				name: "Favourite Spirit",
-				value: spirit,
+				value: t(`spiritNames.${spirit}`, { lng: locale, ns: "general" }),
 				inline: true,
 			});
 		} else if (commandId) {
