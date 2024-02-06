@@ -474,6 +474,28 @@ export const event: Event<typeof name> = {
 			return;
 		}
 
+		if (interaction.isAutocomplete()) {
+			const { commandName } = interaction;
+			const command = resolveCommand(interaction);
+
+			if (!command) {
+				void interaction.client.log({
+					content: `Received an unknown command autocomplete interaction (\`${commandName}\`).`,
+				});
+
+				void interaction.respond([]);
+				return;
+			}
+
+			try {
+				await command.autocomplete(interaction);
+			} catch (error) {
+				void recoverInteractionError(interaction, error);
+			}
+
+			return;
+		}
+
 		if (interaction.isModalSubmit()) {
 			const { customId } = interaction;
 
