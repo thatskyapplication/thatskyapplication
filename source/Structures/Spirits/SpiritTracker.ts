@@ -19,7 +19,7 @@ import {
 import type { Realm } from "../../Utility/Constants.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { isRealm } from "../../Utility/Utility.js";
-import { skyDate, todayDate } from "../../Utility/dates.js";
+import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import pg, { Table } from "../../pg.js";
