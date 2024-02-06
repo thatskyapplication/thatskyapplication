@@ -1248,7 +1248,7 @@ export class SpiritTracker {
 		const realm = customId.slice(customId.indexOf("§") + 1);
 
 		if (!isRealm(realm)) {
-			throw new Error("Invalid realm.");
+			throw new Error("Unknown realm.");
 		}
 
 		await this.update(
