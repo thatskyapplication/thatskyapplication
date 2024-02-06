@@ -51,7 +51,7 @@ import {
 import Elder from "./Elder/index.js";
 import Seasonal from "./Seasonal/index.js";
 import Standard from "./Standard/index.js";
-import Spirits from "./index.js";
+import Spirits, { resolveTravellingSpirit } from "./index.js";
 
 type SpiritTrackerValue = number | null;
 
@@ -1388,7 +1388,9 @@ export class SpiritTracker {
 		const standardProgress = spiritTracker.spiritProgress(Standard, true);
 		const elderProgress = spiritTracker.spiritProgress(Elder, true);
 		const seasonalProgress = spiritTracker.spiritProgress(Seasonal, true);
-		const currentSeason = resolveSeason(todayDate());
+		const today = todayDate();
+		const currentSeason = resolveSeason(today);
+		const currentTravellingSpirit = resolveTravellingSpirit(today);
 
 		const currentSeasonButton = new ButtonBuilder()
 			.setCustomId(
@@ -1402,6 +1404,21 @@ export class SpiritTracker {
 
 		if (currentSeason) {
 			currentSeasonButton.setEmoji(currentSeason.emoji);
+		}
+
+		const currentTravellingSpiritButton = new ButtonBuilder()
+			.setCustomId(
+				currentTravellingSpirit
+					? `${SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID}§${currentTravellingSpirit.name}`
+					: // This would not happen, but it's here to satisfy the API.
+					  SPIRIT_TRACKER_VIEW_START_CUSTOM_ID,
+			)
+			.setDisabled(!currentTravellingSpirit)
+			.setLabel("Travelling Spirit")
+			.setStyle(ButtonStyle.Success);
+
+		if (currentTravellingSpirit) {
+			currentTravellingSpiritButton.setEmoji(SeasonNameToSeasonalEmoji[currentTravellingSpirit.season]);
 		}
 
 		const response = {
@@ -1443,7 +1460,7 @@ export class SpiritTracker {
 						.setPlaceholder("What kind of spirit do you want to see?"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(backToStartButton(true)),
-				new ActionRowBuilder<ButtonBuilder>().setComponents(currentSeasonButton),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(currentSeasonButton, currentTravellingSpiritButton),
 			],
 			embeds: [],
 			ephemeral: true,
@@ -1728,9 +1745,15 @@ export class SpiritTracker {
 		await interaction.update(response);
 	}
 
-	public static async viewSpirit(interaction: StringSelectMenuInteraction) {
+	public static async viewSpirit(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		const spiritTracker = await this.fetch(interaction.user.id);
-		const spirit = Spirits.find(({ name }) => name === interaction.values[0]);
+
+		const parsedCustomId =
+			interaction instanceof ButtonInteraction
+				? interaction.customId.slice(interaction.customId.indexOf("§") + 1)
+				: interaction.values[0];
+
+		const spirit = Spirits.find(({ name }) => name === parsedCustomId);
 
 		if (!spirit) {
 			await interaction.update({

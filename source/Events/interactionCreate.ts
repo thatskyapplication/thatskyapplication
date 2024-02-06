@@ -276,6 +276,11 @@ export const event: Event<typeof name> = {
 					}
 				}
 
+				if (customId.startsWith(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)) {
+					await SpiritTracker.viewSpirit(interaction);
+					return;
+				}
+
 				if (customId.startsWith(SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID)) {
 					await SpiritTracker.setSpirits(interaction);
 					return;
