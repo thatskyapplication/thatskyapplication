@@ -1399,7 +1399,8 @@ export class SpiritTracker {
 			.setCustomId(
 				currentSeason
 					? `${SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID}§${currentSeason.name}`
-					: SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID,
+					: // This would not happen, but it's here to satisfy the API.
+					  SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID,
 			)
 			.setDisabled(!currentSeason)
 			.setLabel("Current Season")
