@@ -1,11 +1,9 @@
 import {
-	type ActionRow,
 	type ChatInputCommandInteraction,
 	type EmbedAuthorOptions,
 	type InteractionUpdateOptions,
 	type MessageActionRowComponentBuilder,
 	type Snowflake,
-	type StringSelectMenuComponent,
 	type StringSelectMenuInteraction,
 	ActionRowBuilder,
 	ButtonBuilder,
@@ -710,23 +708,17 @@ const SpiritNameToSpiritTrackerName = {
 	[SpiritName.Princess]: "princess",
 } as const satisfies Readonly<Record<SpiritName, Exclude<keyof SpiritTrackerData, "user_id">>>;
 
-export const SPIRIT_TRACKER_VIEW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_START_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_START_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID = "SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID = "SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID = "SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID" as const;
 const SPIRIT_TRACKER_SHARE_REALMS_KEY = "realms" as const;
 const SPIRIT_TRACKER_SHARE_ELDER_KEY = "elders" as const;
 export const SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID = "SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID" as const;
@@ -1253,7 +1245,11 @@ export class SpiritTracker {
 
 	public static async setSpirits(interaction: ButtonInteraction) {
 		const { customId, user } = interaction;
-		const realm = customId.slice(customId.indexOf("§") + 1) as Realm;
+		const realm = customId.slice(customId.indexOf("§") + 1);
+
+		if (!isRealm(realm)) {
+			throw new Error("Unknown realm.");
+		}
 
 		await this.update(
 			user.id,
@@ -1283,7 +1279,11 @@ export class SpiritTracker {
 	public static async setSeason(interaction: ButtonInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { customId, user } = interaction;
-		const season = customId.slice(customId.indexOf("§") + 1) as SeasonName;
+		const season = customId.slice(customId.indexOf("§") + 1);
+
+		if (!isSeasonName(season)) {
+			throw new Error("Unknown season.");
+		}
 
 		await this.update(
 			user.id,
@@ -1307,21 +1307,17 @@ export class SpiritTracker {
 		if (interaction instanceof ButtonInteraction) {
 			newBit = spirit.maxItemsBit;
 		} else {
-			newBit = interaction.values.reduce(
-				(bit, value) => bit | Number(value),
-				interaction.message.components
-					.find((actionRow): actionRow is ActionRow<StringSelectMenuComponent> =>
-						actionRow.components.some(
-							(component) =>
-								component.customId?.startsWith(
-									customId.startsWith(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
-										? SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID
-										: SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID,
-								),
-						),
-					)
-					?.components[0]!.options.reduce((bit, option) => (option.default ? bit | Number(option.value) : bit), 0) ?? 0,
-			);
+			// Get the select menu this interaction came from.
+			const { component } = interaction;
+
+			// Calculate the total bit in this select menu.
+			const selectMenuTotalBit = component.options.reduce((bit, { value }) => bit | Number(value), 0);
+
+			// Clear this bit from the total bit.
+			const modifiedTotal = (spiritTracker[SpiritNameToSpiritTrackerName[spiritName]] ?? 0) & ~selectMenuTotalBit;
+
+			// Calculate the new bit.
+			newBit = interaction.values.reduce((bit, value) => bit | Number(value), modifiedTotal);
 		}
 
 		const [spiritTrackerPacket] = await this.update(interaction.user.id, {
@@ -1398,7 +1394,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
@@ -1459,57 +1455,6 @@ export class SpiritTracker {
 		}
 	}
 
-	public static async parseBack(interaction: ButtonInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		const { customId } = interaction;
-
-		if (
-			customId === SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID ||
-			customId === SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID ||
-			customId === SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID
-		) {
-			await this.viewTracker(interaction);
-			return;
-		}
-
-		if (customId === SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID) {
-			await this.viewRealms(interaction);
-			return;
-		}
-
-		if (customId === SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID) {
-			await this.viewSeasons(interaction);
-			return;
-		}
-
-		if (customId === SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID) {
-			await this.viewElders(interaction);
-			return;
-		}
-
-		if (
-			customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID) ||
-			customId.startsWith(SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID)
-		) {
-			const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
-			if (isRealm(parsedCustomId)) await this.viewRealm(interaction, parsedCustomId);
-			if (isSeasonName(parsedCustomId)) await this.viewSeason(interaction, parsedCustomId);
-			return;
-		}
-
-		if (customId === SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID) {
-			await this.viewTracker(interaction);
-			return;
-		}
-
-		void interaction.client.log({ content: "Could not parse a back button.", error: interaction });
-
-		await interaction.reply({
-			content: "This back button took me to the '70s. Anyway, I'm back now, and you should probably report this bug!",
-			ephemeral: true,
-		});
-	}
-
 	public static async viewRealms(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
@@ -1519,7 +1464,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
@@ -1539,7 +1484,7 @@ export class SpiritTracker {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backToStartButton(),
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_REALMS_BACK_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_START_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
@@ -1576,7 +1521,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(options)
@@ -1585,7 +1530,7 @@ export class SpiritTracker {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backToStartButton(),
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
@@ -1629,7 +1574,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(options)
@@ -1638,7 +1583,7 @@ export class SpiritTracker {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backToStartButton(),
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_ELDERS_BACK_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_START_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
@@ -1668,7 +1613,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
@@ -1689,7 +1634,7 @@ export class SpiritTracker {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backToStartButton(),
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_SEASONS_BACK_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_START_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
@@ -1720,7 +1665,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(options)
@@ -1735,7 +1680,7 @@ export class SpiritTracker {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backToStartButton(),
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_SEASON_BACK_CUSTOM_ID)
+						.setCustomId(SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
@@ -1816,10 +1761,10 @@ export class SpiritTracker {
 			new ButtonBuilder()
 				.setCustomId(
 					spirit.isElderSpirit()
-						? SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID
+						? SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID
 						: spirit.isStandardSpirit()
-						? `${SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID}§${spirit.realm}`
-						: `${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}§${spirit.season}`,
+						? `${SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID}§${spirit.realm}`
+						: `${SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID}§${spirit.season}`,
 				)
 				.setEmoji(isSeasonalSpirit || isGuideSpirit ? SeasonNameToSeasonalEmoji[spirit.season] : "⏪")
 				.setLabel("Back")
@@ -1850,7 +1795,7 @@ export class SpiritTracker {
 
 			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
-					.setCustomId(`${SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID}§${spirit.name}`)
+					.setCustomId(`${SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID}§${spirit.name}`)
 					.setMaxValues(itemSelectionOptionsMaximumLimit.length)
 					.setMinValues(0)
 					.setOptions(itemSelectionOptionsMaximumLimit)
@@ -1867,7 +1812,7 @@ export class SpiritTracker {
 				components.push(
 					new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 						new StringSelectMenuBuilder()
-							.setCustomId(`${SPIRIT_TRACKER_VIEW_SPIRIT_OVERFLOW_CUSTOM_ID}§${spirit.name}`)
+							.setCustomId(`${SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID}§${spirit.name}`)
 							.setMaxValues(itemSelectionOverflowOptionsMaximumLimit.length)
 							.setMinValues(0)
 							.setOptions(itemSelectionOverflowOptionsMaximumLimit)
@@ -2017,23 +1962,23 @@ export class SpiritTracker {
 		let embed;
 
 		if (type === SPIRIT_TRACKER_SHARE_REALMS_KEY) {
-			backButton.setCustomId(SPIRIT_TRACKER_REALM_BACK_CUSTOM_ID);
+			backButton.setCustomId(SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID);
 			embed = spiritTracker.realmsEmbed().setTitle("Realms Progress");
 		} else if (isRealm(type)) {
-			backButton.setCustomId(`${SPIRIT_TRACKER_SPIRIT_BACK_STANDARD_CUSTOM_ID}§${type}`);
+			backButton.setCustomId(`${SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID}§${type}`);
 
 			embed = spiritTracker
 				.spiritEmbed(Standard.filter((spirit) => spirit.realm === type))
 				.setTitle(`${type} Progress`);
 		} else if (isSeasonName(type)) {
 			const emoji = SeasonNameToSeasonalEmoji[type];
-			backButton.setCustomId(`${SPIRIT_TRACKER_SPIRIT_BACK_SEASONAL_CUSTOM_ID}§${type}`).setEmoji(emoji);
+			backButton.setCustomId(`${SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID}§${type}`).setEmoji(emoji);
 
 			embed = spiritTracker
 				.spiritEmbed(Seasonal.filter((spirit) => spirit.season === type))
 				.setTitle(`${formatEmoji(emoji)} ${resolveFullSeasonName(type)} Progress`);
 		} else if (type === SPIRIT_TRACKER_SHARE_ELDER_KEY) {
-			backButton.setCustomId(SPIRIT_TRACKER_SPIRIT_BACK_ELDER_CUSTOM_ID);
+			backButton.setCustomId(SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID);
 			embed = spiritTracker.spiritEmbed(Elder).setTitle("Elders Progress");
 		}
 
