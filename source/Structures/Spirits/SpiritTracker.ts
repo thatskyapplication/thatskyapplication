@@ -1388,6 +1388,21 @@ export class SpiritTracker {
 		const standardProgress = spiritTracker.spiritProgress(Standard, true);
 		const elderProgress = spiritTracker.spiritProgress(Elder, true);
 		const seasonalProgress = spiritTracker.spiritProgress(Seasonal, true);
+		const currentSeason = resolveSeason(todayDate());
+
+		const currentSeasonButton = new ButtonBuilder()
+			.setCustomId(
+				currentSeason
+					? `${SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID}§${currentSeason.name}`
+					: SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID,
+			)
+			.setDisabled(!currentSeason)
+			.setLabel("Current Season")
+			.setStyle(ButtonStyle.Success);
+
+		if (currentSeason) {
+			currentSeasonButton.setEmoji(currentSeason.emoji);
+		}
 
 		const response = {
 			content: "",
@@ -1428,6 +1443,7 @@ export class SpiritTracker {
 						.setPlaceholder("What kind of spirit do you want to see?"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(backToStartButton(true)),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(currentSeasonButton),
 			],
 			embeds: [],
 			ephemeral: true,
