@@ -1414,7 +1414,7 @@ export class SpiritTracker {
 					  SPIRIT_TRACKER_VIEW_START_CUSTOM_ID,
 			)
 			.setDisabled(!currentTravellingSpirit)
-			.setLabel("Current Travelling Spirit")
+			.setLabel("Travelling Spirit")
 			.setStyle(ButtonStyle.Success);
 
 		if (currentTravellingSpirit) {
