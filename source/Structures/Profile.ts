@@ -443,7 +443,7 @@ export default class Profile {
 			);
 		}
 
-		if (spiritProgression) {
+		if (typeof spiritProgression === "boolean") {
 			const spiritTracker = await SpiritTracker.fetch(userId).catch(() => null);
 			const standardProgress = spiritTracker?.spiritProgress(Standard, true) ?? 0;
 			const elderProgress = spiritTracker?.spiritProgress(Elder, true) ?? 0;
