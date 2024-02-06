@@ -741,12 +741,15 @@ const validSeasons = Seasonal.reduce<SeasonName[]>((seasons, { season }) => {
 }, []);
 
 function backToStartButton(disabled = false) {
-	return new ButtonBuilder()
-		.setCustomId(SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID)
-		.setDisabled(disabled)
-		.setEmoji("⏮️")
-		.setLabel("Start")
-		.setStyle(ButtonStyle.Primary);
+	return (
+		new ButtonBuilder()
+			// This custom id must differ to avoid duplicate custom ids.
+			.setCustomId(SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID)
+			.setDisabled(disabled)
+			.setEmoji("⏮️")
+			.setLabel("Start")
+			.setStyle(ButtonStyle.Primary)
+	);
 }
 
 export class SpiritTracker {
