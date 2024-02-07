@@ -1,7 +1,30 @@
+import { SeasonName } from "../Structures/Season.js";
 import { SpiritName } from "../Structures/Spirits/Base.js";
 
 export default {
 	general: {
+		seasons: {
+			[SeasonName.Gratitude]: "Сезон благодарности",
+			[SeasonName.Lightseekers]: "Сезон искателей света",
+			[SeasonName.Belonging]: "Сезон сопричастности",
+			[SeasonName.Rhythm]: "Сезон ритма",
+			[SeasonName.Enchantment]: "Сезон волшебства",
+			[SeasonName.Sanctuary]: "Сезон укрытия",
+			[SeasonName.Prophecy]: "Сезон пророчества",
+			[SeasonName.Dreams]: "Сезон Мечтаний",
+			[SeasonName.Assembly]: "Сезон Собрания",
+			[SeasonName.LittlePrince]: "Сезон «Маленького принца»",
+			[SeasonName.Flight]: "Сезон Полёта",
+			[SeasonName.Abyss]: "Сезон бездны",
+			[SeasonName.Performance]: "Сезон представлений",
+			[SeasonName.Shattering]: "Сезон крушения",
+			[SeasonName.Aurora]: "Сезон AURORA",
+			[SeasonName.Remembrance]: "Сезон Памяти",
+			[SeasonName.Passage]: "Сезон посвящения",
+			[SeasonName.Moments]: "Сезон мгновений",
+			[SeasonName.Revival]: "Сезон возрождения",
+			[SeasonName.NineColoredDeer]: "Сезон Девятицветного оленя",
+		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Указующий свечной мастер",
 			[SpiritName.UsheringStargazer]: "Манящая мечтательница",

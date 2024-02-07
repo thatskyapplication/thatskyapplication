@@ -1,7 +1,30 @@
+import { SeasonName } from "../Structures/Season.js";
 import { SpiritName } from "../Structures/Spirits/Base.js";
 
 export default {
 	general: {
+		seasons: {
+			[SeasonName.Gratitude]: "感謝の季節",
+			[SeasonName.Lightseekers]: "光の探求者の季節",
+			[SeasonName.Belonging]: "想いを編む季節",
+			[SeasonName.Rhythm]: "リズムが弾ける季節",
+			[SeasonName.Enchantment]: "魔法の季節",
+			[SeasonName.Sanctuary]: "楽園の季節",
+			[SeasonName.Prophecy]: "預言者の季節",
+			[SeasonName.Dreams]: "夢かなう季節",
+			[SeasonName.Assembly]: "大樹に集う季節",
+			[SeasonName.LittlePrince]: "星の王子さまの季節",
+			[SeasonName.Flight]: "羽ばたく季節",
+			[SeasonName.Abyss]: "深淵の季節",
+			[SeasonName.Performance]: "表現者たちの季節",
+			[SeasonName.Shattering]: "砕ケル闇ノ季節",
+			[SeasonName.Aurora]: "AURORAの季節",
+			[SeasonName.Remembrance]: "追慕の季節",
+			[SeasonName.Passage]: "ならいの季節",
+			[SeasonName.Moments]: "瞬きの季節",
+			[SeasonName.Revival]: "復古の季節",
+			[SeasonName.NineColoredDeer]: "九色の鹿の季節",
+		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "指差すキャンドル職人",
 			[SpiritName.UsheringStargazer]: "先導する星読み",

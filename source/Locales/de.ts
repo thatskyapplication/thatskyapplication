@@ -1,7 +1,30 @@
+import { SeasonName } from "../Structures/Season.js";
 import { SpiritName } from "../Structures/Spirits/Base.js";
 
 export default {
 	general: {
+		seasons: {
+			[SeasonName.Gratitude]: "Saison der Dankbarkeit",
+			[SeasonName.Lightseekers]: "Saison der Lichtsucher",
+			[SeasonName.Belonging]: "Saison des Zusammengehörens",
+			[SeasonName.Rhythm]: "Saison des Rhythmus",
+			[SeasonName.Enchantment]: "Saison der Verzauberung",
+			[SeasonName.Sanctuary]: "Saison der Zuflucht",
+			[SeasonName.Prophecy]: "Saison der Prophezeiung",
+			[SeasonName.Dreams]: "Saison der Träume",
+			[SeasonName.Assembly]: "Saison des Zusammenbaus",
+			[SeasonName.LittlePrince]: "Saison des kleinen Prinzen",
+			[SeasonName.Flight]: "Saison des Fliegens",
+			[SeasonName.Abyss]: "Saison des Abgrunds",
+			[SeasonName.Performance]: "Saison der Darbietung",
+			[SeasonName.Shattering]: "Saison der Zertrümmerung",
+			[SeasonName.Aurora]: "Saison von AURORA",
+			[SeasonName.Remembrance]: "Saison des Gedenkens",
+			[SeasonName.Passage]: "Die Saison des Übergangs",
+			[SeasonName.Moments]: "Die Saison der Momente",
+			[SeasonName.Revival]: "Saison der Wiederbelebung",
+			[SeasonName.NineColoredDeer]: "Saison des Neunfarbigen Hirsches",
+		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Deutender Kerzenmacher",
 			[SpiritName.UsheringStargazer]: "Geleitende Sternguckerin",

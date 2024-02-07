@@ -1,7 +1,30 @@
+import { SeasonName } from "../Structures/Season.js";
 import { SpiritName } from "../Structures/Spirits/Base.js";
 
 export default {
 	general: {
+		seasons: {
+			[SeasonName.Gratitude]: "Saison de la gratitude",
+			[SeasonName.Lightseekers]: "Saison des Chercheurs de lumière",
+			[SeasonName.Belonging]: "Saison de l'Appartenance",
+			[SeasonName.Rhythm]: "Saison du Rythme",
+			[SeasonName.Enchantment]: "Saison de l'Enchantement",
+			[SeasonName.Sanctuary]: "Saison du sanctuaire",
+			[SeasonName.Prophecy]: "Saison de la Prophétie",
+			[SeasonName.Dreams]: "Saison des Rêves",
+			[SeasonName.Assembly]: "Saison du Rassemblement",
+			[SeasonName.LittlePrince]: "Saison du Petit Prince",
+			[SeasonName.Flight]: "Saison de l'Envol",
+			[SeasonName.Abyss]: "Saison des Abysses",
+			[SeasonName.Performance]: "Saison de l'Interprétation",
+			[SeasonName.Shattering]: "Saison de l'Éclatement",
+			[SeasonName.Aurora]: "Saison d'AURORA",
+			[SeasonName.Remembrance]: "Saison du Souvenir",
+			[SeasonName.Passage]: "La saison de l'Initiation",
+			[SeasonName.Moments]: "La saison des Instants",
+			[SeasonName.Revival]: "Saison du Renouveau",
+			[SeasonName.NineColoredDeer]: "Saison du Cerf aux neuf couleurs",
+		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Cirier pointant",
 			[SpiritName.UsheringStargazer]: "Guide astronome",

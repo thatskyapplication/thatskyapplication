@@ -1,7 +1,30 @@
+import { SeasonName } from "../Structures/Season.js";
 import { SpiritName } from "../Structures/Spirits/Base.js";
 
 export default {
 	general: {
+		seasons: {
+			[SeasonName.Gratitude]: "Temporada da Gratidão",
+			[SeasonName.Lightseekers]: "Temporada dos Caçadores de Luz",
+			[SeasonName.Belonging]: "Temporada do Pertencer",
+			[SeasonName.Rhythm]: "Temporada do Rítmo",
+			[SeasonName.Enchantment]: "Temporada dos Encantos",
+			[SeasonName.Sanctuary]: "Temporada do Santuário",
+			[SeasonName.Prophecy]: "Temporada da Profecia",
+			[SeasonName.Dreams]: "Temporada dos Sonhos",
+			[SeasonName.Assembly]: "Temporada da União",
+			[SeasonName.LittlePrince]: "Temporada do Pequeno Príncipe",
+			[SeasonName.Flight]: "Temporada de Vôo",
+			[SeasonName.Abyss]: "Temporada do Abismo",
+			[SeasonName.Performance]: "Temporada da Performance",
+			[SeasonName.Shattering]: "Temporada do Despedaçar",
+			[SeasonName.Aurora]: "Temporada da AURORA",
+			[SeasonName.Remembrance]: "Temporada da Recordação",
+			[SeasonName.Passage]: "A Temporada da Passagem",
+			[SeasonName.Moments]: "Temporada dos Momentos",
+			[SeasonName.Revival]: "Temporada do Reavivamento",
+			[SeasonName.NineColoredDeer]: "Temporada do Cervo de Nove Cores",
+		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Candeeiro Denotante",
 			[SpiritName.UsheringStargazer]: "Astrólogo Convidativo",

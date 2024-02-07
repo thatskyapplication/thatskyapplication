@@ -1,7 +1,30 @@
+import { SeasonName } from "../Structures/Season.js";
 import { SpiritName } from "../Structures/Spirits/Base.js";
 
 export default {
 	general: {
+		seasons: {
+			[SeasonName.Gratitude]: "感恩季",
+			[SeasonName.Lightseekers]: "追光季",
+			[SeasonName.Belonging]: "归属季",
+			[SeasonName.Rhythm]: "音韵季",
+			[SeasonName.Enchantment]: "魔法季",
+			[SeasonName.Sanctuary]: "圣岛季",
+			[SeasonName.Prophecy]: "预言季",
+			[SeasonName.Dreams]: "梦想季",
+			[SeasonName.Assembly]: "重组季",
+			[SeasonName.LittlePrince]: "小王子季",
+			[SeasonName.Flight]: "飞翔季",
+			[SeasonName.Abyss]: "深渊季",
+			[SeasonName.Performance]: "表演季",
+			[SeasonName.Shattering]: "破晓季",
+			[SeasonName.Aurora]: "AURORA季",
+			[SeasonName.Remembrance]: "缅怀季",
+			[SeasonName.Passage]: "夜行季",
+			[SeasonName.Moments]: "拾光季",
+			[SeasonName.Revival]: "归巢季",
+			[SeasonName.NineColoredDeer]: "九色鹿季",
+		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "指路蜡烛匠",
 			[SpiritName.UsheringStargazer]: "引路望星客",
