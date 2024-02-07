@@ -23,7 +23,7 @@ Every 2 weeks, a seasonal spirit will visit. This is known as a travelling spiri
 
 ### Returning spirits
 
-Every season (as of 06/03/2023), a group of spirits visit. These are known as returning spirits.
+Almost every season (as of 06/03/2023), a group of spirits visit. These are known as returning spirits.
 
 1. Once the spirits have arrived, the respective visit dates them should be updated.
 2. If there is a new infographic for these spirits, it should be uploaded to the CDN.
