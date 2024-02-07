@@ -103,7 +103,12 @@ export default new (class implements ChatInputCommand {
 		});
 
 		await interaction.reply({
-			content: t("hug.message", { lng: guildLocale, ns: "commands", user: String(user), invoker: String(interaction.user) }),
+			content: t("hug.message", {
+				lng: guildLocale,
+				ns: "commands",
+				user: String(user),
+				invoker: String(interaction.user),
+			}),
 			embeds: [
 				new EmbedBuilder()
 					.setColor(DEFAULT_EMBED_COLOUR)
