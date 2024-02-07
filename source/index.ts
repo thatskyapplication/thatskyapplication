@@ -68,8 +68,6 @@ void init({
 		consoleLog(`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`),
 	ns: ["general", "commands"],
 	resources: {
-		[Locale.ChineseCN]: zhCN,
-		[Locale.ChineseTW]: zhTW,
 		[Locale.German]: de,
 		[Locale.EnglishGB]: enGB,
 		[Locale.SpanishES]: esES,
@@ -78,6 +76,8 @@ void init({
 		[Locale.Japanese]: ja,
 		[Locale.PortugueseBR]: ptBR,
 		[Locale.Russian]: ru,
+		[Locale.ChineseCN]: zhCN,
+		[Locale.ChineseTW]: zhTW,
 	},
 	returnEmptyString: false,
 	saveMissing: true,
