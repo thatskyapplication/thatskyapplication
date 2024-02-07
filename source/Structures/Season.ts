@@ -11,29 +11,29 @@ import {
 import { type SeasonEmojis, formatEmoji, SEASON_EMOJIS } from "../Utility/emojis.js";
 
 export enum SeasonName {
-	Gratitude = "Gratitude",
-	Lightseekers = "Lightseekers",
-	Belonging = "Belonging",
-	Rhythm = "Rhythm",
-	Enchantment = "Enchantment",
-	Sanctuary = "Sanctuary",
-	Prophecy = "Prophecy",
-	Dreams = "Dreams",
-	Assembly = "Assembly",
-	LittlePrince = "Little Prince",
-	Flight = "Flight",
-	Abyss = "Abyss",
-	Performance = "Performance",
-	Shattering = "Shattering",
-	Aurora = "AURORA",
-	Remembrance = "Remembrance",
-	Passage = "Passage",
-	Moments = "Moments",
-	Revival = "Revival",
-	NineColoredDeer = "Nine-Colored Deer",
+	Gratitude = "Season of Gratitude",
+	Lightseekers = "Season of Lightseekers",
+	Belonging = "Season of Belonging",
+	Rhythm = "Season of Rhythm",
+	Enchantment = "Season of Enchantment",
+	Sanctuary = "Season of Sanctuary",
+	Prophecy = "Season of Prophecy",
+	Dreams = "Season of Dreams",
+	Assembly = "Season of Assembly",
+	LittlePrince = "Season of the Little Prince",
+	Flight = "Season of Flight",
+	Abyss = "Season of Abyss",
+	Performance = "Season of Performance",
+	Shattering = "Season of Shattering",
+	Aurora = "Season of AURORA",
+	Remembrance = "Season of Remembrance",
+	Passage = "Season of Passage",
+	Moments = "The Season of Moments",
+	Revival = "Season of Revival",
+	NineColoredDeer = "Season of the Nine-Colored Deer",
 }
 
-const SEASON_NAME_VALUES = Object.values(SeasonName);
+export const SEASON_NAME_VALUES = Object.values(SeasonName);
 
 export const SeasonNameToSeasonalEmoji = {
 	[SeasonName.Gratitude]: SEASON_EMOJIS.Gratitude,
@@ -247,7 +247,7 @@ class Season {
 	public seasonalCandlesRotationURL(realm: Realm, rotation: RotationNumber) {
 		return String(
 			new URL(
-				`daily_guides/seasonal_candles/${resolveFullSeasonName(this.name).toLowerCase().replaceAll(/ |-/g, "_")}/${realm
+				`daily_guides/seasonal_candles/${this.name.toLowerCase().replaceAll(/ |-/g, "_")}/${realm
 					.toLowerCase()
 					.replaceAll(" ", "_")}/rotation_${rotation}.webp`,
 				CDN_URL,
@@ -304,12 +304,6 @@ export function nextSeason(date: DateTime) {
 
 export function isSeasonName(season: string): season is SeasonName {
 	return SEASON_NAME_VALUES.includes(season as SeasonName);
-}
-
-export function resolveFullSeasonName(season: SeasonName) {
-	return `Season of ${
-		season === SeasonName.LittlePrince || season === SeasonName.NineColoredDeer ? "the " : ""
-	}${season}`;
 }
 
 export function resolveBitsToSeasons(bits: number) {

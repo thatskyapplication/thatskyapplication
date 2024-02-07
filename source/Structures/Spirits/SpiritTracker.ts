@@ -26,13 +26,7 @@ import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import pg, { Table } from "../../pg.js";
 import Profile from "../Profile.js";
-import {
-	isSeasonName,
-	resolveFullSeasonName,
-	resolveSeason,
-	SeasonName,
-	SeasonNameToSeasonalEmoji,
-} from "../Season.js";
+import { isSeasonName, resolveSeason, SeasonName, SeasonNameToSeasonalEmoji } from "../Season.js";
 import {
 	type ElderSpirit,
 	type GuideSpirit,
@@ -1658,7 +1652,8 @@ export class SpiritTracker {
 
 	public static async viewSeasons(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		const spiritTracker = await this.fetch(interaction.user.id);
+		const { locale, user } = interaction;
+		const spiritTracker = await this.fetch(user.id);
 
 		await interaction.update({
 			content: "",
@@ -1677,7 +1672,11 @@ export class SpiritTracker {
 
 								return new StringSelectMenuOptionBuilder()
 									.setEmoji(SeasonNameToSeasonalEmoji[season])
-									.setLabel(`${season}${percentage === null ? "" : ` (${percentage}%)`}`)
+									.setLabel(
+										`${t(`seasons.${season}`, { lng: locale, ns: "general" })}${
+											percentage === null ? "" : ` (${percentage}%)`
+										}`,
+									)
 									.setValue(season);
 							}),
 						)
@@ -1755,9 +1754,12 @@ export class SpiritTracker {
 				),
 			],
 			embeds: [
-				spiritTracker
-					.spiritEmbed(spirits, locale)
-					.setTitle(`${formatEmoji(SeasonNameToSeasonalEmoji[season])} ${resolveFullSeasonName(season)}`),
+				spiritTracker.spiritEmbed(spirits, locale).setTitle(
+					`${formatEmoji(SeasonNameToSeasonalEmoji[season])} ${t(`seasons.${season}`, {
+						lng: locale,
+						ns: "general",
+					})}`,
+				),
 			],
 		} satisfies InteractionUpdateOptions;
 
@@ -2057,7 +2059,7 @@ export class SpiritTracker {
 					Seasonal.filter((spirit) => spirit.season === type),
 					locale,
 				)
-				.setTitle(`${formatEmoji(emoji)} ${resolveFullSeasonName(type)} Progress`);
+				.setTitle(`${formatEmoji(emoji)} ${t(`seasons.${type}`, { lng: locale, ns: "general" })} Progress`);
 		} else if (type === SPIRIT_TRACKER_SHARE_ELDER_KEY) {
 			backButton.setCustomId(SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID);
 			embed = spiritTracker.spiritEmbed(Elder, locale).setTitle("Elders Progress");

@@ -1,3 +1,4 @@
+import { SEASON_NAME_VALUES } from "../Structures/Season.js";
 import { SpiritName } from "../Structures/Spirits/Base.js";
 import { MAP_VALUES, REALM_VALUES } from "../Utility/Constants.js";
 
@@ -5,6 +6,7 @@ export default {
 	general: {
 		realms: Object.fromEntries(REALM_VALUES.map((realm) => [realm, realm])),
 		maps: Object.fromEntries(MAP_VALUES.map((map) => [map, map])),
+		seasons: Object.fromEntries(SEASON_NAME_VALUES.map((season) => [season, season])),
 		spiritNames: Object.fromEntries(Object.values(SpiritName).map((spiritName) => [spiritName, spiritName])),
 	},
 	commands: {

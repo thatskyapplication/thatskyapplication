@@ -1,3 +1,4 @@
+import { SeasonName } from "../Structures/Season.js";
 import { SpiritName } from "../Structures/Spirits/Base.js";
 import { Map, REALM_VALUES, RealmToSpanishRealm } from "../Utility/Constants.js";
 
@@ -5,6 +6,28 @@ export default {
 	general: {
 		realms: Object.fromEntries(REALM_VALUES.map((realm) => [realm, RealmToSpanishRealm[realm]])),
 		maps: { [Map.AncientMemory]: "Recuerdo Ancestral", [Map.CrescentOasis]: "Oasis creciente" },
+		seasons: {
+			[SeasonName.Gratitude]: "Temporada de la gratitud",
+			[SeasonName.Lightseekers]: "Temporada de los buscadores de la luz",
+			[SeasonName.Belonging]: "Temporada de la pertenencia",
+			[SeasonName.Rhythm]: "Temporada del ritmo",
+			[SeasonName.Enchantment]: "Temporada del Encanto",
+			[SeasonName.Sanctuary]: "Temporada del Santuario",
+			[SeasonName.Prophecy]: "Temporada de la Profecía",
+			[SeasonName.Dreams]: "Temporada de los sueños",
+			[SeasonName.Assembly]: "Temporada del Ensamblaje",
+			[SeasonName.LittlePrince]: "Temporada de El Principito",
+			[SeasonName.Flight]: "Temporada de vuelo",
+			[SeasonName.Abyss]: "Temporada del abismo",
+			[SeasonName.Performance]: "Temporada de obras",
+			[SeasonName.Shattering]: "Temporada de la Destrucción",
+			[SeasonName.Aurora]: "Temporada de AURORA",
+			[SeasonName.Remembrance]: "Temporada de conmemoración",
+			[SeasonName.Passage]: "La temporada de iniciación",
+			[SeasonName.Moments]: "La temporada de los momentos",
+			[SeasonName.Revival]: "Temporada del Renacimiento",
+			[SeasonName.NineColoredDeer]: "Temporada del ciervo de los nueve colores",
+		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Candelero que apunta",
 			[SpiritName.UsheringStargazer]: "Soñadora escolta",

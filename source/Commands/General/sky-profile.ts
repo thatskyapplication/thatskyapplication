@@ -16,6 +16,7 @@ import {
 	StringSelectMenuOptionBuilder,
 	UserContextMenuCommandInteraction,
 } from "discord.js";
+import { t } from "i18next";
 import { PlatformFlagsToString, resolvePlatformToEmoji } from "../../Structures/Platforms.js";
 import Profile, { AssetType } from "../../Structures/Profile.js";
 import { SEASON_FLAGS_TO_SEASON_NAME_ENTRIES, SeasonNameToSeasonalEmoji } from "../../Structures/Season.js";
@@ -332,6 +333,7 @@ export default new (class implements AutocompleteCommand {
 	}
 
 	public async setSeasons(interaction: ChatInputCommandInteraction) {
+		const { locale } = interaction;
 		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
 		const currentSeasons = profile?.seasons;
 
@@ -347,7 +349,7 @@ export default new (class implements AutocompleteCommand {
 								new StringSelectMenuOptionBuilder()
 									.setDefault(Boolean(currentSeasons && currentSeasons & Number(flag)))
 									.setEmoji(SeasonNameToSeasonalEmoji[season])
-									.setLabel(season)
+									.setLabel(t(`seasons.${season}`, { lng: locale, ns: "general" }))
 									.setValue(flag),
 							),
 						)

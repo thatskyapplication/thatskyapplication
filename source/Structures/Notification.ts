@@ -21,7 +21,7 @@ import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
 import type { ShardEruptionData } from "../Utility/Utility.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
 import pg, { Table } from "../pg.js";
-import { SeasonName, resolveFullSeasonName } from "./Season.js";
+import { SeasonName } from "./Season.js";
 
 export interface NotificationPacket {
 	guild_id: Snowflake;
@@ -387,7 +387,7 @@ export default class Notification {
 			case NotificationEvent.Passage:
 				channelId = passageChannelId;
 				roleId = passageRoleId;
-				suffix = `The ${resolveFullSeasonName(SeasonName.Passage)} quests are starting ${startTimeString}!`;
+				suffix = `The ${SeasonName.Passage} quests are starting ${startTimeString}!`;
 				break;
 			case NotificationEvent.AviarysFireworkFestival:
 				channelId = aviarysFireworkFestivalChannelId;
