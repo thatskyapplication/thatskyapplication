@@ -53,7 +53,7 @@ export default {
 			[SpiritName.LeapingDancer]: "跳跃舞者",
 			[SpiritName.SalutingProtector]: "敬礼护卫",
 			[SpiritName.GreetingShaman]: "拳礼武僧",
-			[SpiritName.LightseekersGuide]: "追光向导",
+			[SpiritName.LightseekerGuide]: "追光向导",
 			[SpiritName.PiggybackLightseeker]: "肩背追光者",
 			[SpiritName.DoublefiveLightCatcher]: "击掌光农",
 			[SpiritName.LaidbackPioneer]: "随性拓荒者",

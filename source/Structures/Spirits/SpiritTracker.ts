@@ -109,7 +109,7 @@ export interface SpiritTrackerPacket {
 	leaping_dancer: SpiritTrackerValue;
 	saluting_protector: SpiritTrackerValue;
 	greeting_shaman: SpiritTrackerValue;
-	lightseekers_guide: SpiritTrackerValue;
+	lightseeker_guide: SpiritTrackerValue;
 	piggyback_lightseeker: SpiritTrackerValue;
 	doublefive_light_catcher: SpiritTrackerValue;
 	laidback_pioneer: SpiritTrackerValue;
@@ -272,7 +272,7 @@ interface SpiritTrackerData {
 	leapingDancer: SpiritTrackerPacket["leaping_dancer"];
 	salutingProtector: SpiritTrackerPacket["saluting_protector"];
 	greetingShaman: SpiritTrackerPacket["greeting_shaman"];
-	lightseekersGuide: SpiritTrackerPacket["lightseekers_guide"];
+	lightseekerGuide: SpiritTrackerPacket["lightseeker_guide"];
 	piggybackLightseeker: SpiritTrackerPacket["piggyback_lightseeker"];
 	doublefiveLightCatcher: SpiritTrackerPacket["doublefive_light_catcher"];
 	laidbackPioneer: SpiritTrackerPacket["laidback_pioneer"];
@@ -437,7 +437,7 @@ const SpiritTrackerNameToRawName = {
 	[SpiritName.LeapingDancer]: "leaping_dancer",
 	[SpiritName.SalutingProtector]: "saluting_protector",
 	[SpiritName.GreetingShaman]: "greeting_shaman",
-	[SpiritName.LightseekersGuide]: "lightseekers_guide",
+	[SpiritName.LightseekerGuide]: "lightseeker_guide",
 	[SpiritName.PiggybackLightseeker]: "piggyback_lightseeker",
 	[SpiritName.DoublefiveLightCatcher]: "doublefive_light_catcher",
 	[SpiritName.LaidbackPioneer]: "laidback_pioneer",
@@ -599,7 +599,7 @@ const SpiritNameToSpiritTrackerName = {
 	[SpiritName.LeapingDancer]: "leapingDancer",
 	[SpiritName.SalutingProtector]: "salutingProtector",
 	[SpiritName.GreetingShaman]: "greetingShaman",
-	[SpiritName.LightseekersGuide]: "lightseekersGuide",
+	[SpiritName.LightseekerGuide]: "lightseekerGuide",
 	[SpiritName.PiggybackLightseeker]: "piggybackLightseeker",
 	[SpiritName.DoublefiveLightCatcher]: "doublefiveLightCatcher",
 	[SpiritName.LaidbackPioneer]: "laidbackPioneer",
@@ -857,7 +857,7 @@ export class SpiritTracker {
 
 	public greetingShaman!: SpiritTrackerData["greetingShaman"];
 
-	public lightseekersGuide!: SpiritTrackerData["lightseekersGuide"];
+	public lightseekerGuide!: SpiritTrackerData["lightseekerGuide"];
 
 	public piggybackLightseeker!: SpiritTrackerData["piggybackLightseeker"];
 
@@ -1131,7 +1131,7 @@ export class SpiritTracker {
 		this.leapingDancer = data.leaping_dancer;
 		this.salutingProtector = data.saluting_protector;
 		this.greetingShaman = data.greeting_shaman;
-		this.lightseekersGuide = data.lightseekers_guide;
+		this.lightseekerGuide = data.lightseeker_guide;
 		this.piggybackLightseeker = data.piggyback_lightseeker;
 		this.doublefiveLightCatcher = data.doublefive_light_catcher;
 		this.laidbackPioneer = data.laidback_pioneer;

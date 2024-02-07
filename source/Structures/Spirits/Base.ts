@@ -85,7 +85,7 @@ export enum SpiritName {
 	GreetingShaman = "Greeting Shaman",
 
 	// Season of Lightseekers.
-	LightseekersGuide = "Lightseekers Guide",
+	LightseekerGuide = "Lightseeker Guide",
 	PiggybackLightseeker = "Piggyback Lightseeker",
 	DoublefiveLightCatcher = "Doublefive Light Catcher",
 	LaidbackPioneer = "Laidback Pioneer",

@@ -53,7 +53,7 @@ export default {
 			[SpiritName.LeapingDancer]: "飛び跳ねる舞踏家",
 			[SpiritName.SalutingProtector]: "敬礼する守護者",
 			[SpiritName.GreetingShaman]: "礼を尽くす祈祷師",
-			[SpiritName.LightseekersGuide]: "光を探求する案内人",
+			[SpiritName.LightseekerGuide]: "光を探求する案内人",
 			[SpiritName.PiggybackLightseeker]: "おんぶする光探求者",
 			[SpiritName.DoublefiveLightCatcher]: "ダブルタッチの光採取者",
 			[SpiritName.LaidbackPioneer]: "くつろぐ開拓者",

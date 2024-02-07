@@ -53,7 +53,7 @@ export default {
 			[SpiritName.LeapingDancer]: "Скачущий танцор",
 			[SpiritName.SalutingProtector]: "Салютующий защитник",
 			[SpiritName.GreetingShaman]: "Приветствующий шаман",
-			[SpiritName.LightseekersGuide]: "Проводник (искатель света)",
+			[SpiritName.LightseekerGuide]: "Проводник (искатель света)",
 			[SpiritName.PiggybackLightseeker]: "Искатель света на закорках",
 			[SpiritName.DoublefiveLightCatcher]: "Ловец света «дай пять»",
 			[SpiritName.LaidbackPioneer]: "Расслабленный первопроходец",

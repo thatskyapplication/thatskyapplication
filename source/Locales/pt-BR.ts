@@ -53,7 +53,7 @@ export default {
 			[SpiritName.LeapingDancer]: "Dançarino saltitante",
 			[SpiritName.SalutingProtector]: "Protetor saudoso",
 			[SpiritName.GreetingShaman]: "Xamã acolhedor",
-			[SpiritName.LightseekersGuide]: "Guia buscador da luz",
+			[SpiritName.LightseekerGuide]: "Guia buscador da luz",
 			[SpiritName.PiggybackLightseeker]: "Buscadora da luz de carona",
 			[SpiritName.DoublefiveLightCatcher]: "Caçador de luz celebrante",
 			[SpiritName.LaidbackPioneer]: "Pioneiro descontraído",
