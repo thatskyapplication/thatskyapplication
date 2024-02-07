@@ -27,7 +27,7 @@ export enum SeasonName {
 	Shattering = "Season of Shattering",
 	Aurora = "Season of AURORA",
 	Remembrance = "Season of Remembrance",
-	Passage = "Season of Passage",
+	Passage = "The Season of Passage",
 	Moments = "The Season of Moments",
 	Revival = "Season of Revival",
 	NineColoredDeer = "Season of the Nine-Colored Deer",
