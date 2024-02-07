@@ -21,6 +21,7 @@ import commands from "./Commands/index.js";
 import events, { type Event } from "./Events/index.js";
 import enGB from "./Locales/en-GB.js";
 import esES from "./Locales/es-ES.js";
+import fr from "./Locales/fr.js";
 import ja from "./Locales/ja.js";
 import {
 	APPLICATION_ID,
@@ -63,6 +64,7 @@ void init({
 	resources: {
 		[Locale.EnglishGB]: enGB,
 		[Locale.SpanishES]: esES,
+		[Locale.French]: fr,
 		[Locale.Japanese]: ja,
 	},
 	returnEmptyString: false,
