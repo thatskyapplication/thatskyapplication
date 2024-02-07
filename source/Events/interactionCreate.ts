@@ -142,7 +142,13 @@ async function logCommand(interaction: ChatInputCommandInteraction | ContextMenu
 		.setTimestamp();
 
 	if (appPermissions) embed.addFields({ name: "Permissions", value: `\`${appPermissions.bitfield}\``, inline: true });
-	embed.addFields({ name: "Locale", value: interaction.locale, inline: true });
+
+	embed.addFields({
+		name: "Locale",
+		value: `User: ${interaction.locale}\nGuild: ${interaction.guildLocale}`,
+		inline: true,
+	});
+
 	void interaction.client.log({ embeds: [embed], type: LogType.Command });
 }
 
