@@ -22,6 +22,7 @@ import events, { type Event } from "./Events/index.js";
 import enGB from "./Locales/en-GB.js";
 import esES from "./Locales/es-ES.js";
 import fr from "./Locales/fr.js";
+import it from "./Locales/it.js";
 import ja from "./Locales/ja.js";
 import {
 	APPLICATION_ID,
@@ -65,6 +66,7 @@ void init({
 		[Locale.EnglishGB]: enGB,
 		[Locale.SpanishES]: esES,
 		[Locale.French]: fr,
+		[Locale.Italian]: it,
 		[Locale.Japanese]: ja,
 	},
 	returnEmptyString: false,
