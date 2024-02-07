@@ -19,6 +19,7 @@ import {
 import { init } from "i18next";
 import commands from "./Commands/index.js";
 import events, { type Event } from "./Events/index.js";
+import de from "./Locales/de.js";
 import enGB from "./Locales/en-GB.js";
 import esES from "./Locales/es-ES.js";
 import fr from "./Locales/fr.js";
@@ -69,6 +70,7 @@ void init({
 	resources: {
 		[Locale.ChineseCN]: zhCN,
 		[Locale.ChineseTW]: zhTW,
+		[Locale.German]: de,
 		[Locale.EnglishGB]: enGB,
 		[Locale.SpanishES]: esES,
 		[Locale.French]: fr,
