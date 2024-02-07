@@ -80,7 +80,7 @@ export const RealmToSpanishRealm = {
 } as const satisfies Readonly<Record<Realm, string>>;
 
 export enum Map {
-	// Daylight Prairie
+	// Daylight Prairie.
 	BirdNest = "Bird Nest",
 	ButterflyFields = "Butterfly Fields",
 	Cave = "Cave",
@@ -88,7 +88,7 @@ export enum Map {
 	VillageIslands = "Village Islands",
 	SanctuaryIslands = "Sanctuary Islands",
 
-	// Hidden Forest
+	// Hidden Forest.
 	Boneyard = "Boneyard",
 	ElevatedClearing = "Elevated Clearing",
 	ForestBrook = "Forest Brook",
@@ -97,14 +97,14 @@ export enum Map {
 	Treehouse = "Treehouse",
 	WindPaths = "Wind Paths",
 
-	// Valley of Triumph
+	// Valley of Triumph.
 	IceRink = "Ice Rink",
 	Citadel = "Citadel",
 	Coliseum = "Coliseum",
 	HermitValley = "Hermit Valley",
 	VillageOfDreams = "Village of Dreams",
 
-	// Golden Wasteland
+	// Golden Wasteland.
 	Battlefield = "Battlefield",
 	Boat = "Boat",
 	BrokenTemple = "Broken Temple",
@@ -113,20 +113,20 @@ export enum Map {
 	Graveyard = "Graveyard",
 	TreasureReef = "Treasure Reef",
 
-	// Vault of Knowledge
+	// Vault of Knowledge.
 	VaultEntrance = "Vault Entrance",
 	JellyfishCove = "Jellyfish Cove",
 	StarlightDesert = "Starlight Desert",
 	VaultSecondFloor = "Vault Second Floor",
 	VaultSummit = "Vault Summit",
 
-	// Orbit
+	// Orbit.
 	Orbit = "Orbit",
 
-	// Season of Shattering
+	// Season of Shattering.
 	AncientMemory = "Ancient Memory",
 
-	// Season of the Nine-Colored Deer
+	// Season of the Nine-Colored Deer.
 	CrescentOasis = "Crescent Oasis",
 }
 
@@ -186,13 +186,13 @@ export const WingedLightAreasToSpanish = {
 
 // This exists due to the Infographics server's inconsistencies and faults alongside no desire to fix them.
 export const INCONSISTENT_MAP = {
-	// Daylight Prairie
+	// Daylight Prairie.
 	"Sanctuary Island": Map.SanctuaryIslands,
 
-	// Hidden Forest
+	// Hidden Forest.
 	"Forest's Brook": Map.ForestBrook,
 
-	// Valley of Triumph
+	// Valley of Triumph.
 	"Race End": Map.Coliseum,
 } as const;
 
