@@ -27,6 +27,7 @@ import ja from "./Locales/ja.js";
 import ptBR from "./Locales/pt-BR.js";
 import ru from "./Locales/ru.js";
 import zhCN from "./Locales/zh-CN.js";
+import zhTW from "./Locales/zh-TW.js";
 import {
 	APPLICATION_ID,
 	COMMAND_LOG_CHANNEL_ID,
@@ -67,6 +68,7 @@ void init({
 	ns: ["general", "commands"],
 	resources: {
 		[Locale.ChineseCN]: zhCN,
+		[Locale.ChineseTW]: zhTW,
 		[Locale.EnglishGB]: enGB,
 		[Locale.SpanishES]: esES,
 		[Locale.French]: fr,
