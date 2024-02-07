@@ -164,4 +164,17 @@ export default {
 			[SpiritName.Princess]: "Princesse",
 		},
 	},
+	commands: {
+		hug: {
+			"command-name": "câlin",
+			"command-description": "Fais un câlin à quelqu'un!",
+			user: "utilisateur",
+			"user-description": "La personne a qui tu veux faire un câlin.",
+			"hug-self": "Fais en profiter les autres! Va câliner quelqu'un!",
+			"not-in-server": "{{-user}} n'est pas dans ce serveur pour recevoir ton câlin.",
+			"not-around": "{{-user}} n'est pas dans le coin pour voir recevoir ton câlin!",
+			bot: "{{-user}} est un bot. Ils ne ressentent pas grand chose. Tu peux essayer, mais je crois qu'ils ne sont pas très sensible aux câlins.",
+			message: "{{-user}}, {{-invoker}} te fait un câlin!",
+		},
+	},
 } as const;

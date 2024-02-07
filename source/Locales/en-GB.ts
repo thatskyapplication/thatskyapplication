@@ -26,5 +26,16 @@ export default {
 				"you-should-have": "You should have",
 			},
 		},
+		hug: {
+			"command-name": "hug",
+			"command-description": "Hug someone!",
+			user: "user",
+			"user-description": "The individual to be hugged.",
+			"hug-self": "Share the love! Hug someone other than yourself!",
+			"not-in-server": "{{-user}} is not in this server to be hugged.",
+			"not-around": "{{-user}} is not around for the hug!",
+			bot: "{{-user}} is a bot. They're pretty emotionless. Immune to hugs, I'd say.",
+			message: "{{-user}}, {{-invoker}} hugged you!",
+		},
 	},
 } as const;
