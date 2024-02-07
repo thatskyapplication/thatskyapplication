@@ -24,6 +24,7 @@ import esES from "./Locales/es-ES.js";
 import fr from "./Locales/fr.js";
 import it from "./Locales/it.js";
 import ja from "./Locales/ja.js";
+import ptBR from "./Locales/pt-BR.js";
 import {
 	APPLICATION_ID,
 	COMMAND_LOG_CHANNEL_ID,
@@ -68,6 +69,7 @@ void init({
 		[Locale.French]: fr,
 		[Locale.Italian]: it,
 		[Locale.Japanese]: ja,
+		[Locale.PortugueseBR]: ptBR,
 	},
 	returnEmptyString: false,
 	saveMissing: true,
