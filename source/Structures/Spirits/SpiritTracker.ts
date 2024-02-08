@@ -1490,7 +1490,8 @@ export class SpiritTracker {
 
 	public static async viewRealms(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		const spiritTracker = await this.fetch(interaction.user.id);
+		const { locale, user } = interaction;
+		const spiritTracker = await this.fetch(user.id);
 
 		await interaction.update({
 			content: "",
@@ -1508,7 +1509,11 @@ export class SpiritTracker {
 								);
 
 								return new StringSelectMenuOptionBuilder()
-									.setLabel(`${realm}${percentage === null ? "" : ` (${percentage}%)`}`)
+									.setLabel(
+										`${t(`realms.${realm}`, { lng: locale, ns: "general" })}${
+											percentage === null ? "" : ` (${percentage}%)`
+										}`,
+									)
 									.setValue(realm);
 							}),
 						)
@@ -1529,7 +1534,10 @@ export class SpiritTracker {
 				),
 			],
 			embeds: [
-				spiritTracker.realmsEmbed().setFooter({ text: SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE }).setTitle("Realms"),
+				spiritTracker
+					.realmsEmbed(locale)
+					.setFooter({ text: SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE })
+					.setTitle("Realms"),
 			],
 		});
 	}
@@ -1589,7 +1597,7 @@ export class SpiritTracker {
 				spiritTracker
 					.spiritEmbed(spirits, locale)
 					.setFooter({ text: SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE })
-					.setTitle(realm),
+					.setTitle(t(`realms.${realm}`, { lng: locale, ns: "general" })),
 			],
 		} satisfies InteractionUpdateOptions;
 
@@ -1984,13 +1992,13 @@ export class SpiritTracker {
 		return embed;
 	}
 
-	private realmsEmbed() {
+	private realmsEmbed(locale: Locale) {
 		return new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setDescription(
 			validRealms
 				.map((validRealm) => {
 					const remainingCurrency = this.summateCurrency(Standard.filter((spirit) => spirit.realm === validRealm));
 
-					return `__${validRealm}__\n${
+					return `__${t(`realms.${validRealm}`, { lng: locale, ns: "general" })}__\n${
 						remainingCurrency.length > 0 ? remainingCurrency.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
 					}`;
 				})
@@ -2040,7 +2048,7 @@ export class SpiritTracker {
 
 		if (type === SPIRIT_TRACKER_SHARE_REALMS_KEY) {
 			backButton.setCustomId(SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID);
-			embed = spiritTracker.realmsEmbed().setTitle("Realms Progress");
+			embed = spiritTracker.realmsEmbed(locale).setTitle("Realms Progress");
 		} else if (isRealm(type)) {
 			backButton.setCustomId(`${SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID}§${type}`);
 

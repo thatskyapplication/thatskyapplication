@@ -147,7 +147,13 @@ export default new (class implements AutocompleteCommand {
 			.setTitle(t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" }))
 			.setURL(spirit.wikiURL);
 
-		if (spirit.realm) embed.addFields({ name: "Realm", value: spirit.realm, inline: true });
+		if (spirit.realm) {
+			embed.addFields({
+				name: "Realm",
+				value: t(`realms.${spirit.realm}`, { lng: locale, ns: "general" }),
+				inline: true,
+			});
+		}
 
 		if (spiritSeason) {
 			embed.addFields({
