@@ -32,7 +32,7 @@ export const MISCELLANEOUS_EMOJIS = {
 	Blessing1: { name: "blessing", id: "1193670451990368346" },
 	Blessing2: { name: "blessing", id: "1193670463117873272" },
 	Blessing3: { name: "blessing", id: "1193678502705250475" },
-	SpellColourTrail: { name: "spell_colour_trail", id: "1193711383477493901" },
+	SpellColourTrail: { name: "spell_colour_trail", id: "1205286853947818055" },
 	SpellSharedMemory: { name: "spell_shared_memory", id: "1193711402259587112" },
 	SpellSharedSpace: { name: "spell_shared_space", id: "1193711413391265862" },
 	WingBuff: { name: "wing_buff", id: "1193714656645230754" },
