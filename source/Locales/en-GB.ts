@@ -4,6 +4,11 @@ import { MAP_VALUES, REALM_VALUES } from "../Utility/Constants.js";
 
 export default {
 	general: {
+		"days-left": {
+			season_zero: "The season ends today.",
+			season_one: "{{count}} day left in the season.",
+			season_other: "{{count}} days left in the season.",
+		},
 		realms: Object.fromEntries(REALM_VALUES.map((realm) => [realm, realm])),
 		maps: Object.fromEntries(MAP_VALUES.map((map) => [map, map])),
 		seasons: Object.fromEntries(SEASON_NAME_VALUES.map((season) => [season, season])),
@@ -14,7 +19,27 @@ export default {
 			"command-name": "calculate",
 			"command-description": "The command containing various calculators.",
 			"seasonal-candles": {
+				"command-name": "seasonal-candles",
+				"command-description": "Calculates the number of days it would take to achieve a number of seasonal candles.",
+				"command-option-start-name": "start",
+				"command-option-start-description": "The starting number of seasonal candles.",
+				"command-option-goal-name": "goal",
+				"command-option-goal-description": "The desired number of seasonal candles.",
 				"goal-achieved": "You have already achieved your goal!",
+				start: "Start",
+				goal: "Goal",
+				required: "Required",
+				result: "Result",
+				day_one: "{{count}} day",
+				day_other: "{{count}} days",
+				"day-season-pass_one": "({{count}} day with a Season Pass).",
+				"day-season-pass_other": "({{count}} days with a Season Pass).",
+				"seasonal-candle-calculator": "Seasonal Candle Calculator",
+				"season-calculations": "Season Calculations",
+				"remain-in-the-season": "remain in the season.",
+				"remain-in-the-season-with-a-season-pass": "remain in the season with a Season Pass.",
+				notes: "Notes",
+				"double-seasonal-light-calculation": "Double Seasonal Light event included in calculation.",
 			},
 			"winged-light": {
 				"command-name": "winged-light",

@@ -142,21 +142,66 @@ export default new (class implements ChatInputCommand {
 				},
 				{
 					type: ApplicationCommandOptionType.Subcommand,
-					name: "seasonal-candles",
-					description: "Calculates the number of days it would take to achieve a number of seasonal candles.",
+					name: t("calculate.seasonal-candles.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+					nameLocalizations: Object.fromEntries(
+						LOCALES.map((locale) => [
+							locale,
+							t("calculate.seasonal-candles.command-name", { lng: locale, ns: "commands" }),
+						]),
+					),
+					description: t("calculate.seasonal-candles.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+					descriptionLocalizations: Object.fromEntries(
+						LOCALES.map((locale) => [
+							locale,
+							t("calculate.seasonal-candles.command-description", { lng: locale, ns: "commands" }),
+						]),
+					),
 					options: [
 						{
 							type: ApplicationCommandOptionType.Integer,
-							name: "start",
-							description: "The starting number of seasonal candles.",
+							name: t("calculate.seasonal-candles.command-option-start-name", {
+								lng: Locale.EnglishGB,
+								ns: "commands",
+							}),
+							nameLocalizations: Object.fromEntries(
+								LOCALES.map((locale) => [
+									locale,
+									t("calculate.seasonal-candles.command-option-start-name", { lng: locale, ns: "commands" }),
+								]),
+							),
+							description: t("calculate.seasonal-candles.command-option-start-description", {
+								lng: Locale.EnglishGB,
+								ns: "commands",
+							}),
+							descriptionLocalizations: Object.fromEntries(
+								LOCALES.map((locale) => [
+									locale,
+									t("calculate.seasonal-candles.command-option-start-description", { lng: locale, ns: "commands" }),
+								]),
+							),
 							minValue: 0,
 							maxValue: 1_000,
 							required: true,
 						},
 						{
 							type: ApplicationCommandOptionType.Integer,
-							name: "goal",
-							description: "The desired number of seasonal candles.",
+							name: t("calculate.seasonal-candles.command-option-goal-name", { lng: Locale.EnglishGB, ns: "commands" }),
+							nameLocalizations: Object.fromEntries(
+								LOCALES.map((locale) => [
+									locale,
+									t("calculate.seasonal-candles.command-option-goal-name", { lng: locale, ns: "commands" }),
+								]),
+							),
+							description: t("calculate.seasonal-candles.command-option-goal-description", {
+								lng: Locale.EnglishGB,
+								ns: "commands",
+							}),
+							descriptionLocalizations: Object.fromEntries(
+								LOCALES.map((locale) => [
+									locale,
+									t("calculate.seasonal-candles.command-option-goal-description", { lng: locale, ns: "commands" }),
+								]),
+							),
 							minValue: 1,
 							maxValue: 1_000,
 							required: true,
@@ -490,38 +535,47 @@ export default new (class implements ChatInputCommand {
 			if (resultWithSeasonPass < amountRequired) daysWithSeasonPass++;
 		}
 
-		const resultString = `${days} day${days === 1 ? "" : "s"}`;
-		const resultWithSeasonPassString = `${daysWithSeasonPass} day${daysWithSeasonPass === 1 ? "" : "s"}`;
-
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
 			.setDescription(
-				`Start: ${resolveCurrencyEmoji({ emoji, number: start })}\nGoal: ${resolveCurrencyEmoji({
+				`${t("calculate.seasonal-candles.start", { lng, ns: "commands" })}: ${resolveCurrencyEmoji({
+					emoji,
+					number: start,
+				})}\n${t("calculate.seasonal-candles.goal", { lng, ns: "commands" })}: ${resolveCurrencyEmoji({
 					emoji,
 					number: goal,
-				})}\nRequired: ${resolveCurrencyEmoji({ emoji, number: amountRequired })}`,
+				})}\n${t("calculate.seasonal-candles.required", { lng, ns: "commands" })}: ${resolveCurrencyEmoji({
+					emoji,
+					number: amountRequired,
+				})}`,
 			)
 			.setFields({
-				name: "Result",
-				value: `${resultString}${
-					days === daysWithSeasonPass ? "" : ` (${resultWithSeasonPassString} with a Season Pass).`
+				name: t("calculate.seasonal-candles.result", { lng, ns: "commands" }),
+				value: `${t("calculate.seasonal-candles.day", { lng, ns: "commands", count: days })}${
+					days === daysWithSeasonPass
+						? ""
+						: ` ${t("calculate.seasonal-candles.day-season-pass", {
+								lng,
+								ns: "commands",
+								count: daysWithSeasonPass,
+						  })}`
 				}`,
 			})
-			.setTitle("Seasonal Candle Calculator");
+			.setTitle(t("calculate.seasonal-candles.seasonal-candle-calculator", { lng, ns: "commands" }));
 
 		if (season) {
 			const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } = season.remainingSeasonalCandles(today);
-			const daysLeft = season.daysLeft(today);
+			const daysLeft = season.daysLeft(today, lng);
 
 			embed.addFields({
-				name: "Season Calculations",
+				name: t("calculate.seasonal-candles.season-calculations", { lng, ns: "commands" }),
 				value: `${resolveCurrencyEmoji({
 					emoji,
 					number: seasonalCandlesLeft,
-				})} remain in the season.\n${resolveCurrencyEmoji({
+				})} ${t("calculate.seasonal-candles.remain-in-the-season", { lng, ns: "commands" })}\n${resolveCurrencyEmoji({
 					emoji,
 					number: seasonalCandlesLeftWithSeasonPass,
-				})} remain in the season with a Season Pass.`,
+				})} ${t("calculate.seasonal-candles.remain-in-the-season-with-a-season-pass", { lng, ns: "commands" })}`,
 			});
 
 			embed.setFooter({ iconURL: formatEmojiURL(season.emoji.id), text: daysLeft });
@@ -529,8 +583,11 @@ export default new (class implements ChatInputCommand {
 
 		if (includedDoubleLight) {
 			embed.addFields({
-				name: "Notes",
-				value: `Double Seasonal Light event included in calculation.\n${doubleSeasonalLightEventStart} - ${doubleSeasonalLightEventEnd}`,
+				name: t("calculate.seasonal-candles.notes", { lng, ns: "commands" }),
+				value: `${t("calculate.seasonal-candles.double-seasonal-light-calculation", {
+					lng,
+					ns: "commands",
+				})}\n${doubleSeasonalLightEventStart} - ${doubleSeasonalLightEventEnd}`,
 			});
 		}
 

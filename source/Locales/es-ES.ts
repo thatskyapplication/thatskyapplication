@@ -4,6 +4,11 @@ import { Map, Realm } from "../Utility/Constants.js";
 
 export default {
 	general: {
+		"days-left": {
+			season_zero: "La temporada termina hoy.",
+			season_one: "Resta {{count}} día en la temporada.",
+			season_other: "Restan {{count}} días en la temporada.",
+		},
 		realms: {
 			[Realm.IslesOfDawn]: "Isla del Amanecer",
 			[Realm.DaylightPrairie]: "Planicie Luz de Dia",
@@ -203,7 +208,28 @@ export default {
 			"command-name": "calcular",
 			"command-description": "El comando contiene varias calculadoras.",
 			"seasonal-candles": {
+				"command-name": "velas-de-temporada",
+				"command-description":
+					"Este comando indica cuántos días se necesitan para conseguir cierta cantidad de velas de temporada.",
+				"command-option-start-name": "inicio",
+				"command-option-start-description": "Número inicial de velas de temporada.",
+				"command-option-goal-name": "meta",
+				"command-option-goal-description": "Número de velas de temporada que deseas",
 				"goal-achieved": "¡Ya has alcanzado tu objetivo!",
+				start: "Inicio",
+				goal: "Meta",
+				required: "Requeridos",
+				result: "Resultado",
+				day_one: "{{count}} día",
+				day_other: "{{count}} días",
+				"day-season-pass_one": "({{count}} día con el Pase).",
+				"day-season-pass_other": "({{count}} días con el Pase).",
+				"seasonal-candle-calculator": "Calculadora de Velas de Temporada",
+				"season-calculations": "Cálculos de Temporada",
+				"remain-in-the-season": "Restantes en la temporada.",
+				"remain-in-the-season-with-a-season-pass": "Restantes en la temporada con el Pase.",
+				notes: "Notas",
+				"double-seasonal-light-calculation": "Evento de luz doble de Temporada incluído en los cálculos.",
 			},
 			"winged-light": {
 				"command-name": "luz-alada",
