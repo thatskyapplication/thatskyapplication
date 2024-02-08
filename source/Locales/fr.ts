@@ -1,8 +1,18 @@
 import { SeasonName } from "../Structures/Season.js";
 import { SpiritName } from "../Structures/Spirits/Base.js";
+import { Realm } from "../Utility/Constants.js";
 
 export default {
 	general: {
+		realms: {
+			[Realm.IslesOfDawn]: "Île de l'aube",
+			[Realm.DaylightPrairie]: "Prairie illuminée",
+			[Realm.HiddenForest]: "Forêt cachée",
+			[Realm.ValleyOfTriumph]: "Vallée du triomphe",
+			[Realm.GoldenWasteland]: "Désert d'or",
+			[Realm.VaultOfKnowledge]: "Chambre forte de connaissance",
+			[Realm.EyeOfEden]: "Œil d'Éden",
+		},
 		seasons: {
 			[SeasonName.Gratitude]: "Saison de la gratitude",
 			[SeasonName.Lightseekers]: "Saison des Chercheurs de lumière",
