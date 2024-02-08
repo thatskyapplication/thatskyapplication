@@ -25,9 +25,8 @@ import {
 	MAXIMUM_WINGED_LIGHT,
 	Realm,
 	WINGED_LIGHT_AREAS,
-	WingedLightAreasToSpanish,
 } from "../../Utility/Constants.js";
-import { isWingedLightArea, notNull, shardEruption } from "../../Utility/Utility.js";
+import { isRealm, isWingedLightArea, notNull, shardEruption } from "../../Utility/Utility.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
@@ -57,14 +56,23 @@ const wingedLightInAreas = AREA_TO_WINGED_LIGHT_COUNT_VALUES.reduce(
 	0,
 );
 
-const wingedLightAreaChoices = WINGED_LIGHT_AREAS.map((area) => ({
-	name: area,
-	nameLocalizations: { [Locale.SpanishES]: WingedLightAreasToSpanish[area] },
-	value: area,
-}));
-
 export default new (class implements ChatInputCommand {
 	public get data() {
+		const wingedLightAreaChoices = WINGED_LIGHT_AREAS.map((area) => ({
+			name: area,
+			nameLocalizations: Object.fromEntries(
+				LOCALES.map((locale) => {
+					return [
+						locale,
+						isRealm(area)
+							? t(`realms.${area}`, { lng: locale, ns: "general" })
+							: t(`maps.${area}`, { lng: locale, ns: "general" }),
+					];
+				}),
+			),
+			value: area,
+		}));
+
 		return {
 			name: t("calculate.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 			nameLocalizations: Object.fromEntries(

@@ -1,10 +1,18 @@
 import { SeasonName } from "../Structures/Season.js";
 import { SpiritName } from "../Structures/Spirits/Base.js";
-import { Map, REALM_VALUES, RealmToSpanishRealm } from "../Utility/Constants.js";
+import { Map, Realm } from "../Utility/Constants.js";
 
 export default {
 	general: {
-		realms: Object.fromEntries(REALM_VALUES.map((realm) => [realm, RealmToSpanishRealm[realm]])),
+		realms: {
+			[Realm.IslesOfDawn]: "Isla del Amanecer",
+			[Realm.DaylightPrairie]: "Planicie Luz de Dia",
+			[Realm.HiddenForest]: "Bosque Escondido",
+			[Realm.ValleyOfTriumph]: "Valle del Triunfo",
+			[Realm.GoldenWasteland]: "Páramo Dorado",
+			[Realm.VaultOfKnowledge]: "Bóveda de Conocimiento",
+			[Realm.EyeOfEden]: "Ojo de edén",
+		},
 		maps: { [Map.AncientMemory]: "Recuerdo Ancestral", [Map.CrescentOasis]: "Oasis creciente" },
 		seasons: {
 			[SeasonName.Gratitude]: "Temporada de la gratitud",

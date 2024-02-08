@@ -69,16 +69,6 @@ export enum Realm {
 
 export const REALM_VALUES = Object.values(Realm);
 
-export const RealmToSpanishRealm = {
-	[Realm.IslesOfDawn]: "Isla del Amanecer",
-	[Realm.DaylightPrairie]: "Planicie Luz de Dia",
-	[Realm.HiddenForest]: "Bosque Escondido",
-	[Realm.ValleyOfTriumph]: "Valle del Triunfo",
-	[Realm.GoldenWasteland]: "Páramo Dorado",
-	[Realm.VaultOfKnowledge]: "Bóveda de Conocimiento",
-	[Realm.EyeOfEden]: "Ojo de edén",
-} as const satisfies Readonly<Record<Realm, string>>;
-
 export enum Map {
 	// Daylight Prairie.
 	BirdNest = "Bird Nest",
@@ -177,12 +167,6 @@ export type RainbowAdmireMaps = (typeof RAINBOW_ADMIRE_MAPS)[number];
 
 export const WINGED_LIGHT_AREAS = [...REALM_VALUES, Map.AncientMemory, Map.CrescentOasis] as const;
 export type WingedLightAreas = (typeof WINGED_LIGHT_AREAS)[number];
-
-export const WingedLightAreasToSpanish = {
-	...RealmToSpanishRealm,
-	[Map.AncientMemory]: "Recuerdo Ancestral",
-	[Map.CrescentOasis]: "Oasis creciente",
-} as const;
 
 // This exists due to the Infographics server's inconsistencies and faults alongside no desire to fix them.
 export const INCONSISTENT_MAP = {
