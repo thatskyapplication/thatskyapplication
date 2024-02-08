@@ -1,8 +1,18 @@
 import { SeasonName } from "../Structures/Season.js";
 import { SpiritName } from "../Structures/Spirits/Base.js";
+import { Realm } from "../Utility/Constants.js";
 
 export default {
 	general: {
+		realms: {
+			[Realm.IslesOfDawn]: "晨島",
+			[Realm.DaylightPrairie]: "雲野",
+			[Realm.HiddenForest]: "雨林",
+			[Realm.ValleyOfTriumph]: "霞谷",
+			[Realm.GoldenWasteland]: "暮土",
+			[Realm.VaultOfKnowledge]: "禁閣",
+			[Realm.EyeOfEden]: "暴風眼",
+		},
 		seasons: {
 			[SeasonName.Gratitude]: "感恩季",
 			[SeasonName.Lightseekers]: "追光季",
