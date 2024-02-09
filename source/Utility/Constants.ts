@@ -166,7 +166,7 @@ export const RAINBOW_ADMIRE_MAPS = [
 export type RainbowAdmireMaps = (typeof RAINBOW_ADMIRE_MAPS)[number];
 
 export const WINGED_LIGHT_AREAS = [...REALM_VALUES, Map.AncientMemory, Map.CrescentOasis] as const;
-export type WingedLightAreas = (typeof WINGED_LIGHT_AREAS)[number];
+type WingedLightAreas = (typeof WINGED_LIGHT_AREAS)[number];
 
 // This exists due to the Infographics server's inconsistencies and faults alongside no desire to fix them.
 export const INCONSISTENT_MAP = {

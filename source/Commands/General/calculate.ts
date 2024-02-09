@@ -26,7 +26,7 @@ import {
 	Realm,
 	WINGED_LIGHT_AREAS,
 } from "../../Utility/Constants.js";
-import { isRealm, isWingedLightArea, notNull, shardEruption } from "../../Utility/Utility.js";
+import { shardEruption } from "../../Utility/Utility.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
@@ -58,21 +58,6 @@ const wingedLightInAreas = AREA_TO_WINGED_LIGHT_COUNT_VALUES.reduce(
 
 export default new (class implements ChatInputCommand {
 	public get data() {
-		const wingedLightAreaChoices = WINGED_LIGHT_AREAS.map((area) => ({
-			name: area,
-			nameLocalizations: Object.fromEntries(
-				LOCALES.map((locale) => {
-					return [
-						locale,
-						isRealm(area)
-							? t(`realms.${area}`, { lng: locale, ns: "general" })
-							: t(`maps.${area}`, { lng: locale, ns: "general" }),
-					];
-				}),
-			),
-			value: area,
-		}));
-
 		return {
 			name: t("calculate.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 			nameLocalizations: Object.fromEntries(
@@ -232,114 +217,6 @@ export default new (class implements ChatInputCommand {
 							maxValue: MAXIMUM_WINGED_LIGHT - wingedLightInAreas,
 							minValue: 0,
 							required: true,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 1 }),
-							nameLocalizations: Object.fromEntries(
-								LOCALES.map((locale) => [
-									locale,
-									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 1 }),
-								]),
-							),
-							description: "The first area to calculate winged light from.",
-							choices: wingedLightAreaChoices,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 2 }),
-							nameLocalizations: Object.fromEntries(
-								LOCALES.map((locale) => [
-									locale,
-									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 2 }),
-								]),
-							),
-							description: "The second area to calculate winged light from.",
-							choices: wingedLightAreaChoices,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 3 }),
-							nameLocalizations: Object.fromEntries(
-								LOCALES.map((locale) => [
-									locale,
-									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 3 }),
-								]),
-							),
-							description: "The third area to calculate winged light from.",
-							choices: wingedLightAreaChoices,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 4 }),
-							nameLocalizations: Object.fromEntries(
-								LOCALES.map((locale) => [
-									locale,
-									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 4 }),
-								]),
-							),
-							description: "The fourth area to calculate winged light from.",
-							choices: wingedLightAreaChoices,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 5 }),
-							nameLocalizations: Object.fromEntries(
-								LOCALES.map((locale) => [
-									locale,
-									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 5 }),
-								]),
-							),
-							description: "The fifth area to calculate winged light from.",
-							choices: wingedLightAreaChoices,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 6 }),
-							nameLocalizations: Object.fromEntries(
-								LOCALES.map((locale) => [
-									locale,
-									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 6 }),
-								]),
-							),
-							description: "The sixth area to calculate winged light from.",
-							choices: wingedLightAreaChoices,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 7 }),
-							nameLocalizations: Object.fromEntries(
-								LOCALES.map((locale) => [
-									locale,
-									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 7 }),
-								]),
-							),
-							description: "The seventh area to calculate winged light from.",
-							choices: wingedLightAreaChoices,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 8 }),
-							nameLocalizations: Object.fromEntries(
-								LOCALES.map((locale) => [
-									locale,
-									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 8 }),
-								]),
-							),
-							description: "The eighth area to calculate winged light from.",
-							choices: wingedLightAreaChoices,
-						},
-						{
-							type: ApplicationCommandOptionType.String,
-							name: t("calculate.winged-light.area", { lng: Locale.EnglishGB, ns: "commands", area: 9 }),
-							nameLocalizations: Object.fromEntries(
-								LOCALES.map((locale) => [
-									locale,
-									t("calculate.winged-light.area", { lng: locale, ns: "commands", area: 9 }),
-								]),
-							),
-							description: "The ninth area to calculate winged light from.",
-							choices: wingedLightAreaChoices,
 						},
 					],
 				},
@@ -598,37 +475,6 @@ export default new (class implements ChatInputCommand {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale: lng, options } = interaction;
 		const wingBuffs = options.getInteger("wing-buffs", true);
-		const area1 = options.getString("area-1");
-		const area2 = options.getString("area-2");
-		const area3 = options.getString("area-3");
-		const area4 = options.getString("area-4");
-		const area5 = options.getString("area-5");
-		const area6 = options.getString("area-6");
-		const area7 = options.getString("area-7");
-		const area8 = options.getString("area-8");
-		const area9 = options.getString("area-9");
-		const areas = [area1, area2, area3, area4, area5, area6, area7, area8, area9].filter(notNull);
-
-		if (!areas.every(isWingedLightArea)) {
-			void interaction.client.log({ content: "Received an unknown area.", error: areas });
-
-			await interaction.reply({
-				content: t("calculate.winged-light.unknown", { lng, ns: "commands" }),
-				ephemeral: true,
-			});
-
-			return;
-		}
-
-		if (new Set(areas).size !== areas.length) {
-			await interaction.reply({
-				content: t("calculate.winged-light.duplicate-areas", { lng, ns: "commands" }),
-				ephemeral: true,
-			});
-
-			return;
-		}
-
 		let accumulation = wingBuffs;
 
 		await interaction.reply({
@@ -647,7 +493,7 @@ export default new (class implements ChatInputCommand {
 						})} (+${AreaToWingedLightCount[Map.Orbit]}).`,
 					)
 					.setFields(
-						...(areas.length === 0 ? WINGED_LIGHT_AREAS : areas).map((area) => ({
+						...WINGED_LIGHT_AREAS.map((area) => ({
 							name: t(`${area === Map.AncientMemory || area === Map.CrescentOasis ? "maps" : "realms"}.${area}`, {
 								lng,
 								ns: "general",

@@ -14,7 +14,6 @@ import {
 	type RainbowAdmireMaps,
 	type Realm,
 	type SocialLightAreaMaps,
-	type WingedLightAreas,
 	CDN_URL,
 	INCONSISTENT_MAP,
 	inconsistentMapKeys,
@@ -34,20 +33,12 @@ export function consoleLog(consoleLog: any, stamp = new Date().toISOString()): v
 	console.log(inspect(consoleLog, false, Number.POSITIVE_INFINITY, true));
 }
 
-export function notNull<T>(value: T | null): value is T {
-	return value !== null;
-}
-
 export function treasureCandleRealm(date: DateTime) {
 	return VALID_REALM[date.diff(INITIAL_TREASURE_CANDLE_REALM_SEEK, "day").days % 5]!;
 }
 
 export function isRealm(realm: string): realm is Realm {
 	return REALM_VALUES.includes(realm as Realm);
-}
-
-export function isWingedLightArea(area: string): area is WingedLightAreas {
-	return isRealm(area) || area === Map.AncientMemory || area === Map.CrescentOasis;
 }
 
 export function resolveValidRealm(realm: string) {
