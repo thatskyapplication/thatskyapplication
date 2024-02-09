@@ -1,7 +1,17 @@
 import { SeasonName } from "../Structures/Season.js";
+import { Realm } from "../Utility/Constants.js";
 
 export default {
 	general: {
+		realms: {
+			[Realm.IslesOfDawn]: "여명의 섬",
+			[Realm.DaylightPrairie]: "햇빛 초원",
+			[Realm.HiddenForest]: "비밀의 숲",
+			[Realm.ValleyOfTriumph]: "승리의 계곡",
+			[Realm.GoldenWasteland]: "황금 황무지",
+			[Realm.VaultOfKnowledge]: "지식의 도서관",
+			[Realm.EyeOfEden]: "에덴의 눈",
+		},
 		seasons: {
 			[SeasonName.Gratitude]: "감사의 시즌",
 			[SeasonName.Lightseekers]: "빛 추적자의 시즌",
