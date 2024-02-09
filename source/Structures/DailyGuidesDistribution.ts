@@ -10,9 +10,11 @@ import {
 	channelMention,
 	ChannelType,
 	EmbedBuilder,
+	Locale,
 	hyperlink,
 	PermissionFlagsBits,
 } from "discord.js";
+import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
 import {
@@ -52,8 +54,6 @@ type DailyGuidesDistributionInsertQuery = Omit<DailyGuidesDistributionPacket, "m
 type DailyGuidesDistributionUpdateQuery = Omit<DailyGuidesDistributionInsertQuery, "guild_id">;
 
 export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [ChannelType.GuildText, ChannelType.GuildAnnouncement] as const;
-export const SHARD_ERUPTION_NAME = "Shard Eruption" as const;
-export const SHARD_ERUPTION_NONE = "None" as const;
 
 type DailyGuidesDistributionAllowedChannel = Extract<
 	GuildBasedChannel,
@@ -227,7 +227,8 @@ export default class DailyGuidesDistribution {
 			.setTitle(guild.name);
 	}
 
-	public static eventData(date: DateTime) {
+	// TODO: Remove default value upon localisation.
+	public static eventData(date: DateTime, locale: Locale = Locale.EnglishGB) {
 		const events = plannedEvents(date);
 		const currentEvent = resolveEvent(date);
 		const eventEndText = [];
@@ -242,8 +243,15 @@ export default class DailyGuidesDistribution {
 				iconURL = formatEmojiURL(eventCurrencyEmoji.id);
 
 				if (date <= eventCurrencyEnd && url) {
-					// eventCurrency = { name: "Event Currency", value: hyperlink(`Rotation ${event.rotation(date)}`, url) };
-					eventCurrency = { name: "Event Currency", value: hyperlink("View", url) };
+					// eventCurrency = {
+					// 	name: t("event-currency", { lng: locale, ns: "general" }),
+					// 	value: hyperlink(`Rotation ${event.rotation(date)}`, url),
+					// };
+
+					eventCurrency = {
+						name: t("event-currency", { lng: locale, ns: "general" }),
+						value: hyperlink(t("view", { lng: locale, ns: "general" }), url),
+					};
 				}
 			} else {
 				const daysUntilEvent = start.diff(date, "days").days;
@@ -254,17 +262,31 @@ export default class DailyGuidesDistribution {
 		return { eventEndText, iconURL, eventCurrency };
 	}
 
-	public static shardEruptionFieldData() {
+	// TODO: Remove default value upon localisation.
+	public static shardEruptionFieldData(locale: Locale = Locale.EnglishGB) {
 		const shard = shardEruption();
 
 		if (shard) {
 			return [
-				{ name: SHARD_ERUPTION_NAME, value: shardEruptionInformationString(shard, true), inline: true },
-				{ name: "Timestamps", value: shardEruptionTimestampsString(shard), inline: true },
+				{
+					name: t("shard-eruption", { lng: locale, ns: "general" }),
+					value: shardEruptionInformationString(shard, true),
+					inline: true,
+				},
+				{
+					name: t("timestamps", { lng: locale, ns: "general" }),
+					value: shardEruptionTimestampsString(shard),
+					inline: true,
+				},
 			];
 		}
 
-		return [{ name: SHARD_ERUPTION_NAME, value: SHARD_ERUPTION_NONE }];
+		return [
+			{
+				name: t("shard-eruption", { lng: locale, ns: "general" }),
+				value: t("shard-eruption-none", { lng: locale, ns: "general" }),
+			},
+		];
 	}
 
 	public static embed() {

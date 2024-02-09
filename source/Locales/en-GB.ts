@@ -1,3 +1,4 @@
+import { NOTIFICATION_EVENT_VALUES } from "../Structures/Notification.js";
 import { SEASON_NAME_VALUES } from "../Structures/Season.js";
 import { SpiritName } from "../Structures/Spirits/Base.js";
 import { MAP_VALUES, REALM_VALUES } from "../Utility/Constants.js";
@@ -9,10 +10,18 @@ export default {
 			season_one: "{{count}} day left in the season.",
 			season_other: "{{count}} days left in the season.",
 		},
+		"event-currency": "Event Currency",
 		realms: Object.fromEntries(REALM_VALUES.map((realm) => [realm, realm])),
 		maps: Object.fromEntries(MAP_VALUES.map((map) => [map, map])),
+		notificationEvent: Object.fromEntries(
+			NOTIFICATION_EVENT_VALUES.map((notificationEvent) => [notificationEvent, notificationEvent]),
+		),
 		seasons: Object.fromEntries(SEASON_NAME_VALUES.map((season) => [season, season])),
+		"shard-eruption": "Shard Eruption",
+		"shard-eruption-none": "None",
 		spiritNames: Object.fromEntries(Object.values(SpiritName).map((spiritName) => [spiritName, spiritName])),
+		timestamps: "Timestamps",
+		view: "View"
 	},
 	commands: {
 		calculate: {
@@ -63,6 +72,18 @@ export default {
 			"not-around": "{{-user}} is not around for the hug!",
 			bot: "{{-user}} is a bot. They're pretty emotionless. Immune to hugs, I'd say.",
 			message: "{{-user}}, {{-invoker}} hugged you!",
+		},
+		schedule: {
+			"command-name": "schedule",
+			"command-description": "Returns a schedule of events in Sky!",
+			"every-15-minutes": "... every 15 minutes...",
+			"travelling-spirit": "Travelling Spirit",
+			"travelling-spirit-today": "Today!",
+			"travelling-spirit-none": "None",
+			"travelling-spirit-next-visit": "Next visit at",
+			"first-of-month": "_On the first of every month_",
+			"times-are-relative": "Times are relative to your time zone.",
+			"schedule-today": "Schedule Today",
 		},
 	},
 } as const;

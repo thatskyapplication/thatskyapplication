@@ -2,14 +2,16 @@ import {
 	type ChatInputCommandInteraction,
 	ApplicationCommandType,
 	EmbedBuilder,
+	Locale,
 	PermissionFlagsBits,
 	time,
 	TimestampStyles,
 } from "discord.js";
+import { t } from "i18next";
 import type { DateTime } from "luxon";
-import DailyGuidesDistribution, { SHARD_ERUPTION_NONE } from "../../Structures/DailyGuidesDistribution.js";
+import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import { NotificationEvent } from "../../Structures/Notification.js";
-import { DEFAULT_EMBED_COLOUR, ISS_DATES_ACCESSIBLE } from "../../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR, ISS_DATES_ACCESSIBLE, LOCALES } from "../../Utility/Constants.js";
 import { INITIAL_TRAVELLING_SPIRIT_SEEK, todayDate } from "../../Utility/dates.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { ChatInputCommand } from "../index.js";
@@ -24,19 +26,19 @@ function eyeOfEdenResetTime(date: DateTime) {
 	return date.set({ weekday: 7 }).toUnixInteger();
 }
 
-function travellingSpiritTime(date: DateTime) {
+function travellingSpiritTime(date: DateTime, locale: Locale) {
 	for (let start = INITIAL_TRAVELLING_SPIRIT_SEEK; ; start = start.plus({ week: 2 })) {
 		if (start < date && start.plus({ day: 3 }) < date) continue;
 
 		if (start.equals(date) || start < date || start.plus({ day: 3 }) < date) {
-			return "Today!";
+			return t("schedule.travelling-spirit-today", { lng: locale, ns: "commands" });
 		} else {
 			const startUnix = start.toUnixInteger();
 
-			return `None\n_Next visit at ${time(startUnix, TimestampStyles.ShortDate)} (${time(
-				startUnix,
-				TimestampStyles.RelativeTime,
-			)})_`;
+			return `${t("schedule.travelling-spirit-none", { lng: locale, ns: "commands" })}\n_${t(
+				"schedule.travelling-spirit-next-visit",
+				{ lng: locale, ns: "commands" },
+			)} ${time(startUnix, TimestampStyles.ShortDate)} (${time(startUnix, TimestampStyles.RelativeTime)})_`;
 		}
 	}
 }
@@ -80,31 +82,44 @@ function aviarysFireworkFestivalTime(date: DateTime) {
 }
 
 export default new (class implements ChatInputCommand {
-	public readonly data = {
-		name: "schedule",
-		description: "Returns a schedule of events in Sky!",
-		type: ApplicationCommandType.ChatInput,
-	} as const;
+	public get data() {
+		return {
+			name: t("schedule.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+			nameLocalizations: Object.fromEntries(
+				LOCALES.map((locale) => [locale, t("schedule.command-name", { lng: locale, ns: "commands" })]),
+			),
+			description: t("schedule.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+			descriptionLocalizations: Object.fromEntries(
+				LOCALES.map((locale) => [locale, t("schedule.command-description", { lng: locale, ns: "commands" })]),
+			),
+			type: ApplicationCommandType.ChatInput,
+		};
+	}
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
+		const { locale } = interaction;
 		const today = todayDate();
 		const { pollutedGeyser, grandma, turtle, passage, aurora } = scheduleTimes(today);
 		const passageTimesStart = passage.slice(0, PASSAGE_TRUNCATION_LIMIT);
 		const passageTimesEnd = passage.slice(-PASSAGE_TRUNCATION_LIMIT);
-		const passageTimesString = `${passageTimesStart.join(" ")}... every 15 minutes... ${passageTimesEnd.join(" ")}`;
+
+		const passageTimesString = `${passageTimesStart.join(" ")}${t("schedule.every-15-minutes", {
+			lng: locale,
+			ns: "commands",
+		})} ${passageTimesEnd.join(" ")}`;
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
 			.setFields(
 				{
-					name: NotificationEvent.DailyReset,
+					name: t(`notificationEvent.${NotificationEvent.DailyReset}`, { lng: locale, ns: "general" }),
 					value: `${time(dailyResetTime(today), TimestampStyles.ShortTime)} (${time(
 						dailyResetTime(today),
 						TimestampStyles.RelativeTime,
 					)})`,
 				},
 				{
-					name: NotificationEvent.ISS,
+					name: t(`notificationEvent.${NotificationEvent.ISS}`, { lng: locale, ns: "general" }),
 					value: ISS_DATES_ACCESSIBLE.filter((issDateAccessible) => issDateAccessible <= today.daysInMonth!)
 						.map((issDateAccessible) => {
 							const issDateUnix = today.set({ day: issDateAccessible }).toUnixInteger();
@@ -117,33 +132,52 @@ export default new (class implements ChatInputCommand {
 						.join("\n"),
 				},
 				{
-					name: NotificationEvent.EyeOfEden,
+					name: t(`notificationEvent.${NotificationEvent.EyeOfEden}`, { lng: locale, ns: "general" }),
 					value: `${time(eyeOfEdenResetTime(today), TimestampStyles.ShortTime)} (${time(
 						eyeOfEdenResetTime(today),
 						TimestampStyles.RelativeTime,
 					)})`,
 				},
-				{ name: "Travelling Spirit", value: travellingSpiritTime(today) },
-				{ name: NotificationEvent.PollutedGeyser, value: pollutedGeyser.join(" ") },
-				{ name: NotificationEvent.Grandma, value: grandma.join(" ") },
-				{ name: NotificationEvent.Turtle, value: turtle.join(" ") },
-				{ name: NotificationEvent.AURORA, value: aurora.join(" ") },
-				{ name: NotificationEvent.Passage, value: passageTimesString },
 				{
-					name: NotificationEvent.AviarysFireworkFestival,
-					value: `_On the first of every month_\n${aviarysFireworkFestivalTime(today).join(" ")}`,
+					name: t("schedule.travelling-spirit", { lng: locale, ns: "commands" }),
+					value: travellingSpiritTime(today, locale),
+				},
+				{
+					name: t(`notificationEvent.${NotificationEvent.PollutedGeyser}`, { lng: locale, ns: "general" }),
+					value: pollutedGeyser.join(" "),
+				},
+				{
+					name: t(`notificationEvent.${NotificationEvent.Grandma}`, { lng: locale, ns: "general" }),
+					value: grandma.join(" "),
+				},
+				{
+					name: t(`notificationEvent.${NotificationEvent.Turtle}`, { lng: locale, ns: "general" }),
+					value: turtle.join(" "),
+				},
+				{
+					name: t(`notificationEvent.${NotificationEvent.AURORA}`, { lng: locale, ns: "general" }),
+					value: aurora.join(" "),
+				},
+				{
+					name: t(`notificationEvent.${NotificationEvent.Passage}`, { lng: locale, ns: "general" }),
+					value: passageTimesString,
+				},
+				{
+					name: t(`notificationEvent.${NotificationEvent.AviarysFireworkFestival}`, { lng: locale, ns: "general" }),
+					value: `${t("schedule.first-of-month", { lng: locale, ns: "commands" })}\n${aviarysFireworkFestivalTime(
+						today,
+					).join(" ")}`,
 				},
 			)
-			.setFooter({ text: "Times are relative to your time zone." })
-			.setTitle("Schedule Today");
+			.setFooter({ text: t("schedule.times-are-relative", { lng: locale, ns: "commands" }) })
+			.setTitle(t("schedule.schedule-today", { lng: locale, ns: "commands" }));
 
-		const eventData = DailyGuidesDistribution.eventData(today);
+		const eventData = DailyGuidesDistribution.eventData(today, locale);
 		if (eventData.eventCurrency) embed.addFields(eventData.eventCurrency);
-		const shardEruptionFieldData = DailyGuidesDistribution.shardEruptionFieldData();
+		const shardEruptionFieldData = DailyGuidesDistribution.shardEruptionFieldData(locale);
 
 		if (
-			shardEruptionFieldData[0] &&
-			shardEruptionFieldData[0].value !== SHARD_ERUPTION_NONE &&
+			shardEruptionFieldData.length === 2 &&
 			(await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis))
 		) {
 			return;

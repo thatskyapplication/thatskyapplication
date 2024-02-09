@@ -1,9 +1,11 @@
+import { NotificationEvent } from "../Structures/Notification.js";
 import { SeasonName } from "../Structures/Season.js";
 import { SpiritName } from "../Structures/Spirits/Base.js";
 import { Realm } from "../Utility/Constants.js";
 
 export default {
 	general: {
+		"event-currency": "Devise d'Événement",
 		realms: {
 			[Realm.IslesOfDawn]: "Île de l'aube",
 			[Realm.DaylightPrairie]: "Prairie illuminée",
@@ -12,6 +14,20 @@ export default {
 			[Realm.GoldenWasteland]: "Désert d'or",
 			[Realm.VaultOfKnowledge]: "Chambre forte de connaissance",
 			[Realm.EyeOfEden]: "Œil d'Éden",
+		},
+		notificationEvent: {
+			[NotificationEvent.PollutedGeyser]: "Geyser Pollué",
+			[NotificationEvent.Grandma]: "Mamie",
+			[NotificationEvent.Turtle]: "Tortue",
+			[NotificationEvent.DailyReset]: "Reset Quotidien",
+			[NotificationEvent.EyeOfEden]: "Œil d'Éden",
+			[NotificationEvent.ISS]: "SSI",
+			[NotificationEvent.RegularShardEruption]: "Faible Éruption d'Éclats",
+			[NotificationEvent.StrongShardEruption]: "Forte Éruption d'Éclats",
+			[NotificationEvent.AURORA]: "AURORA",
+			[NotificationEvent.Passage]: "Initiation",
+			[NotificationEvent.AviarysFireworkFestival]: "Feux d'artifices du Village Volière",
+			[NotificationEvent.Dragon]: "Dragon",
 		},
 		seasons: {
 			[SeasonName.Gratitude]: "Saison de la gratitude",
@@ -35,6 +51,8 @@ export default {
 			[SeasonName.Revival]: "Saison du Renouveau",
 			[SeasonName.NineColoredDeer]: "Saison du Cerf aux neuf couleurs",
 		},
+		"shard-eruption": "Éruption d'Éclats",
+		"shard-eruption-none": "Aucun",
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Cirier pointant",
 			[SpiritName.UsheringStargazer]: "Guide astronome",
@@ -196,6 +214,8 @@ export default {
 			[SpiritName.FeudalLord]: "Seigneur féodal",
 			[SpiritName.Princess]: "Princesse",
 		},
+		timestamps: "Heures",
+		view: "Voir",
 	},
 	commands: {
 		hug: {
@@ -208,6 +228,18 @@ export default {
 			"not-around": "{{-user}} n'est pas dans le coin pour voir recevoir ton câlin!",
 			bot: "{{-user}} est un bot. Ils ne ressentent pas grand chose. Tu peux essayer, mais je crois qu'ils ne sont pas très sensible aux câlins.",
 			message: "{{-user}}, {{-invoker}} te fait un câlin!",
+		},
+		schedule: {
+			"command-name": "planning",
+			"command-description": "Montre un planning des événements de Sky!",
+			"every-15-minutes": "... Toutes les 15 minutes...",
+			"travelling-spirit": "Esprit Voyageur",
+			"travelling-spirit-today": "Aujourd'hui!",
+			"travelling-spirit-none": "Aucun",
+			"travelling-spirit-next-visit": "Prochaine visite le",
+			"first-of-month": "_Tout les premiers du mois_",
+			"times-are-relative": "Les heures correspondent a votre localisation.",
+			"schedule-today": "Planning d'aujourd'hui",
 		},
 	},
 } as const;

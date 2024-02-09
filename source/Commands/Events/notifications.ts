@@ -12,11 +12,12 @@ import Notification, {
 	isNotificationSendable,
 	NotificationEvent,
 	NOTIFICATION_CHANNEL_TYPES,
+	NOTIFICATION_EVENT_VALUES,
 } from "../../Structures/Notification.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { ChatInputCommand } from "../index.js";
 
-const notificationEventChoices = Object.values(NotificationEvent).map((notificationEvent) => ({
+const notificationEventChoices = NOTIFICATION_EVENT_VALUES.map((notificationEvent) => ({
 	name: notificationEvent,
 	value: notificationEvent,
 }));

@@ -98,6 +98,8 @@ export enum NotificationEvent {
 	Dragon = "Dragon",
 }
 
+export const NOTIFICATION_EVENT_VALUES = Object.values(NotificationEvent);
+
 export const NOTIFICATION_CHANNEL_TYPES = [
 	ChannelType.GuildText,
 	ChannelType.GuildAnnouncement,
@@ -153,7 +155,7 @@ export interface NotificationSendExtra {
 }
 
 export function isEvent(event: string): event is NotificationEvent {
-	return Object.values(NotificationEvent).includes(event as NotificationEvent);
+	return NOTIFICATION_EVENT_VALUES.includes(event as NotificationEvent);
 }
 
 export default class Notification {
