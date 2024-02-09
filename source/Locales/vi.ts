@@ -1,7 +1,17 @@
 import { SeasonName } from "../Structures/Season.js";
+import { Realm } from "../Utility/Constants.js";
 
 export default {
 	general: {
+		realms: {
+			[Realm.IslesOfDawn]: "Đảo Bình Minh",
+			[Realm.DaylightPrairie]: "Thảo Nguyên Ánh Sáng",
+			[Realm.HiddenForest]: "Rừng Mưa",
+			[Realm.ValleyOfTriumph]: "Thung Lũng Vinh Quang",
+			[Realm.GoldenWasteland]: "Hoang Mạc Hoàng Kim",
+			[Realm.VaultOfKnowledge]: "Kho Tri Thức",
+			[Realm.EyeOfEden]: "Mắt Địa Đàng",
+		},
 		seasons: {
 			[SeasonName.Gratitude]: "Mùa Tri Ân",
 			[SeasonName.Lightseekers]: "Mùa Ánh Sáng",
