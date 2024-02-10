@@ -1,4 +1,3 @@
-import { URL } from "node:url";
 import {
 	type ApplicationCommandData,
 	type ChatInputCommandInteraction,
@@ -13,6 +12,7 @@ import {
 	KO_FI_URL,
 	Map,
 	PATREON_URL,
+	SUPPORT_SERVER_INVITE_URL,
 	THATSKYGAME_URL,
 	WEBSITE_URL,
 } from "../../Utility/Constants.js";
@@ -64,7 +64,7 @@ export default new (class implements ChatInputCommand {
 						},
 						{
 							name: "Support Server",
-							value: hyperlink("Link", new URL("support", WEBSITE_URL)),
+							value: hyperlink("Link", SUPPORT_SERVER_INVITE_URL),
 							inline: true,
 						},
 						{
