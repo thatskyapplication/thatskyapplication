@@ -12,7 +12,7 @@ import {
 import { t } from "i18next";
 import { CDN_URL, DEFAULT_EMBED_COLOUR, LOCALES, MAX_HUG_NO } from "../../Utility/Constants.js";
 import pg, { Table } from "../../pg.js";
-import type { ChatInputCommand } from "../index.js";
+import { NOT_IN_GUILD_RESPONSE, type ChatInputCommand } from "../index.js";
 
 interface HugPacket {
 	hugger_id: Snowflake;
@@ -50,7 +50,12 @@ export default new (class implements ChatInputCommand {
 		} as const satisfies Readonly<ApplicationCommandData>;
 	}
 
-	public async chatInput(interaction: ChatInputCommandInteraction<"cached">) {
+	public async chatInput(interaction: ChatInputCommandInteraction) {
+		if (!interaction.inGuild()) {
+			await interaction.reply(NOT_IN_GUILD_RESPONSE);
+			return;
+		}
+
 		const { channel, createdAt, guildLocale, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");

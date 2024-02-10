@@ -9,7 +9,7 @@ import DailyGuidesDistribution, {
 	isDailyGuidesDistributable,
 } from "../../Structures/DailyGuidesDistribution.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
-import type { ChatInputCommand } from "../index.js";
+import { type ChatInputCommand, NOT_IN_CACHED_GUILD_RESPONSE } from "../index.js";
 
 export default new (class implements ChatInputCommand {
 	public readonly data = {
@@ -48,14 +48,7 @@ export default new (class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		if (!interaction.inCachedGuild()) {
-			const { name } = this.data;
-
-			void interaction.client.log({
-				content: `The \`/${name}\` command was used in an uncached guild, somehow.`,
-				error: interaction,
-			});
-
-			await interaction.reply({ content: `There is no \`/${name}\` command in Ba Sing Se.`, ephemeral: true });
+			await interaction.reply(NOT_IN_CACHED_GUILD_RESPONSE);
 			return;
 		}
 
