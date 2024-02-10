@@ -2,6 +2,7 @@ import {
 	type ChatInputCommandInteraction,
 	type ContextMenuCommandInteraction,
 	type Interaction,
+	type Locale,
 	Events,
 	InteractionType,
 } from "discord.js";
@@ -9,6 +10,7 @@ import {
 	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_DAILY_MESSAGE_MODAL,
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
+	DAILY_GUIDES_LOCALE_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
 	DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_TREASURE_CANDLES_MODAL,
@@ -387,6 +389,11 @@ export const event: Event<typeof name> = {
 				if (interaction.inCachedGuild()) {
 					if (customId === DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID) {
 						await COMMANDS.admin.questSwap(interaction);
+						return;
+					}
+
+					if (customId === DAILY_GUIDES_LOCALE_CUSTOM_ID) {
+						await COMMANDS.admin.interactive(interaction, { locale: value0 as Locale });
 						return;
 					}
 

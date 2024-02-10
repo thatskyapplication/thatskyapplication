@@ -217,4 +217,18 @@ export const AreaToWingedLightCount = {
 } as const satisfies Readonly<Record<WingedLightAreas | Map.Orbit, number>>;
 
 export const AREA_TO_WINGED_LIGHT_COUNT_VALUES = Object.values(AreaToWingedLightCount);
-export const LOCALES = Object.values(Locale);
+
+export const LOCALES = [
+	Locale.German,
+	Locale.EnglishGB,
+	Locale.EnglishUS,
+	Locale.French,
+	Locale.Italian,
+	Locale.Japanese,
+	Locale.Korean,
+	Locale.PortugueseBR,
+	Locale.Russian,
+	Locale.Vietnamese,
+	Locale.ChineseCN,
+	Locale.ChineseTW,
+] as const satisfies Readonly<Locale[]>;

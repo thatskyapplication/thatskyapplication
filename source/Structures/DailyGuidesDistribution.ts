@@ -6,11 +6,11 @@ import {
 	type Guild,
 	type GuildBasedChannel,
 	type GuildMember,
+	type Locale,
 	type Snowflake,
 	channelMention,
 	ChannelType,
 	EmbedBuilder,
-	Locale,
 	hyperlink,
 	PermissionFlagsBits,
 } from "discord.js";
@@ -228,8 +228,7 @@ export default class DailyGuidesDistribution {
 			.setTitle(guild.name);
 	}
 
-	// TODO: Remove default value upon localisation.
-	public static eventData(date: DateTime, locale: Locale = Locale.EnglishGB) {
+	public static eventData(date: DateTime, locale: Locale) {
 		const events = plannedEvents(date);
 		const currentEvent = resolveEvent(date);
 		const eventEndText = [];
@@ -263,8 +262,7 @@ export default class DailyGuidesDistribution {
 		return { eventEndText, iconURL, eventCurrency };
 	}
 
-	// TODO: Remove default value upon localisation.
-	public static shardEruptionFieldData(locale: Locale = Locale.EnglishGB) {
+	public static shardEruptionFieldData(locale: Locale) {
 		const shard = shardEruption();
 
 		if (shard) {
@@ -290,10 +288,10 @@ export default class DailyGuidesDistribution {
 		];
 	}
 
-	public static embed() {
+	public static embed(locale: Locale) {
 		const { dailyMessage, quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
 		const today = todayDate();
-		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(dateString(today));
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(dateString(today, locale));
 		if (dailyMessage) embed.addFields({ name: dailyMessage.title, value: dailyMessage.description });
 		const quests = [quest1, quest2, quest3, quest4].filter((quest): quest is DailyGuideQuest => quest !== null);
 
@@ -320,7 +318,7 @@ export default class DailyGuidesDistribution {
 		if (season) {
 			const { candleEmoji, emoji } = season;
 			const { rotation, realm } = season.resolveSeasonalCandlesRotation(today);
-			seasonFooterText = season.daysLeft(today);
+			seasonFooterText = season.daysLeft(today, locale);
 			iconURL = formatEmojiURL(emoji.id);
 			let rotationNumber: RotationNumber = rotation;
 
@@ -353,7 +351,7 @@ export default class DailyGuidesDistribution {
 			}
 		}
 
-		const eventData = this.eventData(today);
+		const eventData = this.eventData(today, locale);
 		const eventFooterText = eventData.eventEndText.join("\n");
 		iconURL ??= eventData.iconURL;
 
@@ -367,7 +365,7 @@ export default class DailyGuidesDistribution {
 		}
 
 		if (eventData.eventCurrency) embed.addFields(eventData.eventCurrency);
-		embed.addFields(this.shardEruptionFieldData());
+		embed.addFields(this.shardEruptionFieldData(locale));
 		return embed;
 	}
 
@@ -394,7 +392,7 @@ export default class DailyGuidesDistribution {
 		}
 
 		// Retrieve our embed.
-		const embed = DailyGuidesDistribution.embed();
+		const embed = DailyGuidesDistribution.embed(channel.guild.preferredLocale);
 
 		// Update the embed if a message exists.
 		if (messageId) {

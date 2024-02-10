@@ -1,5 +1,6 @@
 import {
 	type ChatInputCommandInteraction,
+	type Locale,
 	type MessageComponentInteraction,
 	type Snowflake,
 	type StringSelectMenuInteraction,
@@ -51,7 +52,7 @@ const SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH = SHARD_ERUPTION_BROWS
 const MAXIMUM_OPTION_NUMBER = 25 as const;
 const DATE_FORMAT_STRING = "d LLLL" as const;
 
-function generateShardEruptionSelectMenuOptions(date: DateTime, indexStart: number, offset: number) {
+function generateShardEruptionSelectMenuOptions(date: DateTime, indexStart: number, offset: number, locale: Locale) {
 	const options = [];
 	const maximumIndex = MAXIMUM_OPTION_NUMBER + indexStart;
 
@@ -59,7 +60,7 @@ function generateShardEruptionSelectMenuOptions(date: DateTime, indexStart: numb
 		const shardNow = shardEruption(index + offset);
 
 		const stringSelectMenuOption = new StringSelectMenuOptionBuilder()
-			.setLabel(dateString(date.plus({ days: index })))
+			.setLabel(dateString(date.plus({ days: index }), locale))
 			.setValue(String(index + offset));
 
 		if (shardNow) {
@@ -157,7 +158,7 @@ export default new (class implements ChatInputCommand {
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
-			.setTitle(dateString(todayDate().plus({ days: offset })));
+			.setTitle(dateString(todayDate().plus({ days: offset }), locale));
 
 		const buttonYesterday = new ButtonBuilder()
 			.setCustomId(`${SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID}§${offset - 1}`)
@@ -224,6 +225,7 @@ export default new (class implements ChatInputCommand {
 
 	public async browse(interaction: ButtonInteraction | ChatInputCommandInteraction, offset = 0) {
 		if (await this.hasExpired(interaction)) return;
+		const { locale } = interaction;
 		const shardToday = todayDate().plus({ days: offset });
 
 		const response = {
@@ -241,7 +243,7 @@ export default new (class implements ChatInputCommand {
 									.plus({ days: MAXIMUM_OPTION_NUMBER * (index + 1) - 1 })
 									.toFormat(DATE_FORMAT_STRING)}`,
 							)
-							.setOptions(generateShardEruptionSelectMenuOptions(shardToday, currentIndex, offset)),
+							.setOptions(generateShardEruptionSelectMenuOptions(shardToday, currentIndex, offset, locale)),
 					);
 				}),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(

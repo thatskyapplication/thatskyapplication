@@ -2,31 +2,38 @@ import {
 	type ApplicationCommandData,
 	type AutocompleteInteraction,
 	type ButtonInteraction,
+	type Locale,
 	type ModalMessageModalSubmitInteraction,
 	type StringSelectMenuInteraction,
-	ChatInputCommandInteraction,
-	TextInputStyle,
+	ActivityType,
 	ActionRowBuilder,
-	ModalBuilder,
-	TextInputBuilder,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
-	StringSelectMenuBuilder,
-	StringSelectMenuOptionBuilder,
 	ButtonBuilder,
 	ButtonStyle,
-	ActivityType,
+	ChatInputCommandInteraction,
+	ModalBuilder,
+	StringSelectMenuBuilder,
+	StringSelectMenuOptionBuilder,
+	TextInputStyle,
+	TextInputBuilder,
 } from "discord.js";
 import Configuration from "../../Structures/Configuration.js";
 import DailyGuides, { type QuestNumber, QUEST_NUMBER, QUESTS } from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
-import { MAXIMUM_EMBED_FIELD_NAME_LENGTH, MAXIMUM_EMBED_FIELD_VALUE_LENGTH } from "../../Utility/Constants.js";
+import { LOCALES, MAXIMUM_EMBED_FIELD_NAME_LENGTH, MAXIMUM_EMBED_FIELD_VALUE_LENGTH } from "../../Utility/Constants.js";
 import { userLogFormat } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 
+interface InteractiveOptions {
+	content?: string;
+	locale: Locale;
+}
+
 export const DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID = "DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID" as const;
-export const DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID = "DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID" as const;
 export const DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID = "DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID" as const;
+export const DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID = "DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID" as const;
+export const DAILY_GUIDES_LOCALE_CUSTOM_ID = "DAILY_GUIDES_LOCALE_CUSTOM_ID" as const;
 export const DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID = "DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID" as const;
 export const DAILY_GUIDES_DAILY_MESSAGE_MODAL = "DAILY_GUIDES_DAILY_MESSAGE_MODAL" as const;
 const DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE = "DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT" as const;
@@ -34,6 +41,12 @@ const DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION = "DAILY_GUIDES_DAILY_ME
 export const DAILY_GUIDES_TREASURE_CANDLES_MODAL = "DAILY_GUIDES_TREASURE_CANDLES_MODAL" as const;
 const DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1_4 = "DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1_4" as const;
 const DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_5_8 = "DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_5_8" as const;
+
+const QUEST_OPTIONS = QUEST_NUMBER.map((questNumber) =>
+	new StringSelectMenuOptionBuilder().setLabel(`Quest ${questNumber}`).setValue(String(questNumber)),
+);
+
+const LOCALE_OPTIONS = LOCALES.map((locale) => new StringSelectMenuOptionBuilder().setLabel(locale).setValue(locale));
 
 function isQuestNumber(questNumber: number): questNumber is QuestNumber {
 	return QUEST_NUMBER.includes(questNumber as QuestNumber);
@@ -151,20 +164,19 @@ export default new (class implements AutocompleteCommand {
 		}
 	}
 
-	private async interactive(
+	public async interactive(
 		interaction:
 			| ButtonInteraction
 			| ChatInputCommandInteraction
 			| ModalMessageModalSubmitInteraction
 			| StringSelectMenuInteraction,
-		content?: string,
+		options?: InteractiveOptions,
 	) {
-		const questOptions = QUEST_NUMBER.map((questNumber) =>
-			new StringSelectMenuOptionBuilder().setLabel(`Quest ${questNumber}`).setValue(String(questNumber)),
-		);
+		const resolvedContent = options?.content ?? "";
+		const resolvedLocale = options?.locale ?? interaction.locale;
 
 		const response = {
-			content: content ?? "",
+			content: resolvedContent,
 			components: [
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
@@ -181,8 +193,16 @@ export default new (class implements AutocompleteCommand {
 						.setCustomId(DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID)
 						.setMaxValues(2)
 						.setMinValues(2)
-						.setOptions(questOptions)
+						.setOptions(QUEST_OPTIONS)
 						.setPlaceholder("Swap 2 quests."),
+				),
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(DAILY_GUIDES_LOCALE_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(1)
+						.setOptions(LOCALE_OPTIONS)
+						.setPlaceholder("View in a locale."),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
@@ -191,7 +211,7 @@ export default new (class implements AutocompleteCommand {
 						.setStyle(ButtonStyle.Success),
 				),
 			],
-			embeds: [DailyGuidesDistribution.embed()],
+			embeds: [DailyGuidesDistribution.embed(resolvedLocale)],
 			ephemeral: true,
 		};
 
@@ -203,15 +223,15 @@ export default new (class implements AutocompleteCommand {
 	}
 
 	public async distribute(interaction: ButtonInteraction) {
-		const { client, user } = interaction;
+		const { client, locale, user } = interaction;
 		await DailyGuidesDistribution.distribute(client);
 
 		void client.log({
 			content: `${userLogFormat(user)} manually distributed the daily guides.`,
-			embeds: [DailyGuidesDistribution.embed()],
+			embeds: [DailyGuidesDistribution.embed(locale)],
 		});
 
-		await this.interactive(interaction, "Distributed daily guides.");
+		await this.interactive(interaction, { content: "Distributed daily guides.", locale });
 	}
 
 	public async setQuestAutocomplete(interaction: AutocompleteInteraction) {
@@ -228,7 +248,7 @@ export default new (class implements AutocompleteCommand {
 	}
 
 	public async setQuest(interaction: ChatInputCommandInteraction) {
-		const { client, options, user } = interaction;
+		const { client, locale, options, user } = interaction;
 
 		if (options.data[0]!.options![0]!.options!.length === 0) {
 			await interaction.reply({ content: "At least one option must be specified.", ephemeral: true });
@@ -243,7 +263,7 @@ export default new (class implements AutocompleteCommand {
 		const url2 = options.getString("url-2") ?? QUESTS.find((quest) => quest.content === quest2)?.url ?? null;
 		const url3 = options.getString("url-3") ?? QUESTS.find((quest) => quest.content === quest3)?.url ?? null;
 		const url4 = options.getString("url-4") ?? QUESTS.find((quest) => quest.content === quest4)?.url ?? null;
-		const previousEmbed = DailyGuidesDistribution.embed();
+		const previousEmbed = DailyGuidesDistribution.embed(locale);
 
 		await DailyGuides.updateQuests({
 			quest1: quest1 ? { content: quest1, url: url1 } : null,
@@ -254,14 +274,14 @@ export default new (class implements AutocompleteCommand {
 
 		void client.log({
 			content: `${userLogFormat(user)} manually updated the daily quests.`,
-			embeds: [previousEmbed, DailyGuidesDistribution.embed()],
+			embeds: [previousEmbed, DailyGuidesDistribution.embed(locale)],
 		});
 
-		await this.interactive(interaction, "Successfully updated the daily quests.");
+		await this.interactive(interaction, { content: "Successfully updated the daily quests.", locale });
 	}
 
 	public async questSwap(interaction: StringSelectMenuInteraction) {
-		const { client, user, values } = interaction;
+		const { client, locale, user, values } = interaction;
 		const quest1 = Number(values[0]);
 		const quest2 = Number(values[1]);
 
@@ -275,7 +295,7 @@ export default new (class implements AutocompleteCommand {
 			return;
 		}
 
-		const previousEmbed = DailyGuidesDistribution.embed();
+		const previousEmbed = DailyGuidesDistribution.embed(locale);
 
 		await DailyGuides.updateQuests({
 			[`quest${quest1}`]: DailyGuides[`quest${quest2}`],
@@ -284,10 +304,10 @@ export default new (class implements AutocompleteCommand {
 
 		void client.log({
 			content: `${userLogFormat(user)} manually swapped quests ${quest1} & ${quest2}.`,
-			embeds: [previousEmbed, DailyGuidesDistribution.embed()],
+			embeds: [previousEmbed, DailyGuidesDistribution.embed(locale)],
 		});
 
-		await this.interactive(interaction, `Successfully swapped quests ${quest1} & ${quest2}.`);
+		await this.interactive(interaction, { content: `Successfully swapped quests ${quest1} & ${quest2}.`, locale });
 	}
 
 	public async dailyMessageModalResponse(interaction: ButtonInteraction) {
@@ -321,18 +341,18 @@ export default new (class implements AutocompleteCommand {
 	}
 
 	public async setDailyMessage(interaction: ModalMessageModalSubmitInteraction) {
-		const { client, fields, user } = interaction;
+		const { client, locale, fields, user } = interaction;
 		const title = fields.getTextInputValue(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE);
 		const description = fields.getTextInputValue(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION);
-		const previousEmbed = DailyGuidesDistribution.embed();
+		const previousEmbed = DailyGuidesDistribution.embed(locale);
 		await DailyGuides.updateDailyMessage({ title, description });
 
 		void client.log({
 			content: `${userLogFormat(user)} manually updated the daily message.`,
-			embeds: [previousEmbed, DailyGuidesDistribution.embed()],
+			embeds: [previousEmbed, DailyGuidesDistribution.embed(locale)],
 		});
 
-		await this.interactive(interaction, "Successfully updated the daily message.");
+		await this.interactive(interaction, { content: "Successfully updated the daily message.", locale });
 	}
 
 	public async treasureCandlesModalResponse(interaction: ButtonInteraction) {
@@ -364,19 +384,19 @@ export default new (class implements AutocompleteCommand {
 	}
 
 	public async setTreasureCandles(interaction: ModalMessageModalSubmitInteraction) {
-		const { client, fields, user } = interaction;
+		const { client, locale, fields, user } = interaction;
 		const batch1 = fields.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1_4);
 		const batch2 = fields.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_5_8);
 		const treasureCandles = [batch1];
 		if (batch2) treasureCandles.push(batch2);
-		const previousEmbed = DailyGuidesDistribution.embed();
+		const previousEmbed = DailyGuidesDistribution.embed(locale);
 		await DailyGuides.updateTreasureCandles(treasureCandles);
 
 		void client.log({
 			content: `${userLogFormat(user)} manually updated the treasure candles.`,
-			embeds: [previousEmbed, DailyGuidesDistribution.embed()],
+			embeds: [previousEmbed, DailyGuidesDistribution.embed(locale)],
 		});
 
-		await this.interactive(interaction, "Successfully updated the treasure candles.");
+		await this.interactive(interaction, { content: "Successfully updated the treasure candles.", locale });
 	}
 })();

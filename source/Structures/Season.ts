@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-literal-enum-member, unicorn/prefer-math-trunc */
 import { URL } from "node:url";
-import { Locale } from "discord.js";
+import type { Locale } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { CDN_URL, Realm } from "../Utility/Constants.js";
@@ -192,8 +192,7 @@ class Season {
 		this.seasonalCandlesRotation = data.seasonalCandlesRotation;
 	}
 
-	// TODO: Remove default value upon localisation.
-	public daysLeft(date: DateTime, locale: Locale = Locale.EnglishGB) {
+	public daysLeft(date: DateTime, locale: Locale) {
 		const daysLeftInSeason = this.end.diff(date, "days").days;
 		return t("days-left.season", { lng: locale, ns: "general", count: daysLeftInSeason });
 	}
