@@ -1,6 +1,7 @@
 import { URL } from "node:url";
 import { inspect } from "node:util";
 import {
+	type Locale,
 	type Snowflake,
 	type TimestampStylesString,
 	type User,
@@ -8,6 +9,7 @@ import {
 	TimestampStyles,
 	hyperlink,
 } from "discord.js";
+import { t } from "i18next";
 import type { DateTime } from "luxon";
 import {
 	type MeditationMaps,
@@ -163,8 +165,13 @@ export function resolveShardEruptionEmoji(strong: boolean) {
 export function shardEruptionInformationString(
 	{ realm, map, strong, reward, url }: ShardEruptionData,
 	useHyperlink: boolean,
+	locale: Locale,
 ) {
-	let realmMap = `${realm} (${map})`;
+	let realmMap = `${t(`realms.${realm}`, { lng: locale, ns: "general" })} (${t(`maps.${map}`, {
+		lng: locale,
+		ns: "general",
+	})})`;
+
 	if (useHyperlink) realmMap = hyperlink(realmMap, url);
 
 	return `${formatEmoji(resolveShardEruptionEmoji(strong))} ${realmMap}\n${

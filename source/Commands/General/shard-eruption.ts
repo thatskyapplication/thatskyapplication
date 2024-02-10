@@ -149,6 +149,7 @@ export default new (class implements ChatInputCommand {
 	) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		if (await this.hasExpired(interaction)) return;
+		const { locale } = interaction;
 		const shardYesterday = shardEruption(offset - 1);
 		const shardToday = shardEruption(offset);
 		const shard = shardEruption();
@@ -181,7 +182,7 @@ export default new (class implements ChatInputCommand {
 				.setFields(
 					{
 						name: "Information",
-						value: shardEruptionInformationString(shardToday, false),
+						value: shardEruptionInformationString(shardToday, false, locale),
 						inline: true,
 					},
 					{

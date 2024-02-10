@@ -270,7 +270,7 @@ export default class DailyGuidesDistribution {
 			return [
 				{
 					name: t("shard-eruption", { lng: locale, ns: "general" }),
-					value: shardEruptionInformationString(shard, true),
+					value: shardEruptionInformationString(shard, true, locale),
 					inline: true,
 				},
 				{
