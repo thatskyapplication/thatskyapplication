@@ -269,15 +269,11 @@ export default class Profile {
 			| ModalSubmitInteraction
 			| UserContextMenuCommandInteraction,
 	) {
-		const { client, locale } = interaction;
+		const { locale } = interaction;
 		const hearts = await commands.heart.heartCount(this.userId);
 		const skyProfileCommand = commands.skyprofile;
 		const commandId = skyProfileCommand.id;
 		const commandName = skyProfileCommand.data.name;
-
-		if (!commandId) {
-			void client.log({ content: `Could not find the \`${commandName}\` command.` });
-		}
 
 		const {
 			userId,
