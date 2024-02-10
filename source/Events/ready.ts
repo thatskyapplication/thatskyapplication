@@ -20,7 +20,7 @@ async function collectFromDatabase(cache: Collection<Snowflake, Guild>) {
 		await collectNotifications(cache);
 		await collectDailyGuides();
 	} catch (error) {
-		pino.fatal(error, "Error collecting configurations from the database.")
+		pino.fatal(error, "Error collecting configurations from the database.");
 		process.exit(1);
 	}
 }
