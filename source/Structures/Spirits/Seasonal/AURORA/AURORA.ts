@@ -34,7 +34,7 @@ export default new GuideSpirit({
 			.set(1 << 12, { item: `${Emote.Conduct} 3`, cost: { candles: 5 }, emoji: EMOTE_EMOJIS.Conduct })
 			.set(1 << 13, { item: `${Emote.Conduct} 4`, cost: { hearts: 5 }, emoji: EMOTE_EMOJIS.Conduct })
 			.set(1 << 14, { item: "Quest 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 15, { item: "Heart", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
+			.set(1 << 15, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 16, { item: `${Emote.Skipping} 1`, cost: null, emoji: EMOTE_EMOJIS.Skipping })
 			.set(1 << 17, { item: `${Emote.Skipping} 2`, cost: { hearts: 3 }, emoji: EMOTE_EMOJIS.Skipping })
 			.set(1 << 18, { item: `${Emote.Skipping} 3`, cost: { candles: 5 }, emoji: EMOTE_EMOJIS.Skipping })
