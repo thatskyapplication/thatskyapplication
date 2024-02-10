@@ -617,7 +617,10 @@ export default new (class DailyGuides {
 
 		// Log that we will be falling back to the original string in case of no output.
 		if (!dailyGuide) {
-			pino.error({ content, attachments }, "Failed to match a daily quest. Falling back to original string.");
+			pino.error(
+				{ content, attachments: attachments.toJSON() },
+				"Failed to match a daily quest. Falling back to original string.",
+			);
 		}
 
 		// Initialise the output.
