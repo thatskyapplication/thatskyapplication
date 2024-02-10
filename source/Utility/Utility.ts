@@ -1,14 +1,6 @@
 import { URL } from "node:url";
 import { inspect } from "node:util";
-import {
-	type Locale,
-	type Snowflake,
-	type TimestampStylesString,
-	type User,
-	time as discordTime,
-	TimestampStyles,
-	hyperlink,
-} from "discord.js";
+import { type Locale, type Snowflake, type User, time, TimestampStyles, hyperlink } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import {
@@ -185,7 +177,7 @@ export function shardEruptionTimestampsString({ timestamps }: ShardEruptionData)
 	return timestamps
 		.map(
 			({ start, end }) =>
-				`${discordTime(start.toUnixInteger(), TimestampStyles.LongTime)} - ${discordTime(
+				`${time(start.toUnixInteger(), TimestampStyles.LongTime)} - ${time(
 					end.toUnixInteger(),
 					TimestampStyles.LongTime,
 				)}`,
@@ -195,18 +187,6 @@ export function shardEruptionTimestampsString({ timestamps }: ShardEruptionData)
 
 export function dateString(date: DateTime) {
 	return date.toFormat("cccc, d MMMM y");
-}
-
-export function time(timestamp: number, style: TimestampStylesString, relative = false) {
-	const resolvedTimestamp = Math.floor(timestamp / 1_000);
-
-	return `${discordTime(resolvedTimestamp, style)}${
-		relative ? ` (${discordTime(resolvedTimestamp, TimestampStyles.RelativeTime)})` : ""
-	}`;
-}
-
-export function guildLink(guildId: Snowflake) {
-	return `https://discord.com/channels/${guildId}`;
 }
 
 export function chatInputApplicationCommandMention(
