@@ -8,6 +8,7 @@ import heartbeat from "../Structures/Heartbeat.js";
 import Notification, { type NotificationPacket } from "../Structures/Notification.js";
 import { consoleLog } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
 import type { Event } from "./index.js";
 
 const name = Events.ClientReady;
@@ -92,7 +93,7 @@ export const event: Event<typeof name> = {
 			.map((result) => result.reason);
 
 		if (errors.length > 0) {
-			void client.log({ content: "Error whilst removing guild configurations.", error: errors });
+			pino.error(errors, "Error whilst removing guild configurations.");
 		}
 
 		heartbeat(client);
