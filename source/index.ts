@@ -34,28 +34,17 @@ import zhCN from "./Locales/zh-CN.js";
 import zhTW from "./Locales/zh-TW.js";
 import {
 	APPLICATION_ID,
-	COMMAND_LOG_CHANNEL_ID,
 	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
-	ERROR_LOG_CHANNEL_ID,
-	GUILD_LOG_CHANNEL_ID,
 	MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID,
 	PRODUCTION,
 } from "./Utility/Constants.js";
 import pino from "./pino.js";
 
-export const enum LogType {
-	Error,
-	Guild,
-	Command,
-	ManualDailyGuides,
-}
-
 interface LogOptions {
 	content?: string;
 	embeds?: EmbedBuilder[];
 	error?: unknown;
-	type?: LogType;
 }
 
 declare module "discord.js" {
@@ -93,26 +82,10 @@ class Caelus extends Client {
 		super(options);
 	}
 
-	public override async log({ content, embeds = [], error, type = LogType.Error }: LogOptions) {
+	public override async log({ content, embeds = [], error }: LogOptions) {
 		const output = error ?? content;
 		if (output) pino.info(output);
-		let channel;
-
-		switch (type) {
-			case LogType.Error:
-				channel = this.channels.cache.get(ERROR_LOG_CHANNEL_ID);
-				break;
-			case LogType.Guild:
-				channel = this.channels.cache.get(GUILD_LOG_CHANNEL_ID);
-				break;
-			case LogType.Command:
-				channel = this.channels.cache.get(COMMAND_LOG_CHANNEL_ID);
-				break;
-			case LogType.ManualDailyGuides:
-				channel = this.channels.cache.get(MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID);
-				break;
-		}
-
+		const channel = this.channels.cache.get(MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID);
 		if (!(channel instanceof TextChannel)) return;
 		const potentialFileName = `../error-${Date.now()}.xl`;
 
