@@ -19,12 +19,13 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import type { Realm } from "../../Utility/Constants.js";
-import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../../Utility/Constants.js";
 import { isRealm } from "../../Utility/Utility.js";
 import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import pg, { Table } from "../../pg.js";
+import pino from "../../pino.js";
 import Profile from "../Profile.js";
 import { isSeasonName, resolveSeason, SeasonName, SeasonNameToSeasonalEmoji } from "../Season.js";
 import {
@@ -2043,7 +2044,6 @@ export class SpiritTracker {
 		const spiritTracker = await this.fetch(user.id);
 		const type = customId.slice(customId.indexOf("§") + 1);
 		const backButton = new ButtonBuilder().setLabel("Back").setStyle(ButtonStyle.Primary);
-
 		let embed;
 
 		if (type === SPIRIT_TRACKER_SHARE_REALMS_KEY) {
@@ -2074,14 +2074,8 @@ export class SpiritTracker {
 		}
 
 		if (!embed) {
-			void interaction.client.log({ content: "Failed to parse spirits from a share prompt.", error: interaction });
-
-			await interaction.update({
-				components: [],
-				content: "Seems a dark crab did not like this. This incident will be taken care of!",
-				embeds: [],
-			});
-
+			pino.error(interaction, "Failed to parse spirits from a spirit tracker share prompt.");
+			await interaction.update(ERROR_RESPONSE);
 			return;
 		}
 
