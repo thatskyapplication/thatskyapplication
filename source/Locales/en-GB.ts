@@ -53,7 +53,6 @@ export default {
 			"winged-light": {
 				"command-name": "winged-light",
 				"command-description": "Calculates how much winged light one should possess.",
-				area: "area-{{area}}",
 				"duplicate-areas": "Duplicate areas detected. Make sure to only provide unique areas!",
 				"started-with": "Started with",
 				"reborn-with": "Reborn with",
