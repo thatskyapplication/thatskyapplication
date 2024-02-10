@@ -14,7 +14,9 @@ import Notification, {
 	NOTIFICATION_CHANNEL_TYPES,
 	NOTIFICATION_EVENT_VALUES,
 } from "../../Structures/Notification.js";
+import { ERROR_RESPONSE } from "../../Utility/Constants.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
+import pino from "../../pino.js";
 import { type ChatInputCommand, NOT_IN_CACHED_GUILD_RESPONSE } from "../index.js";
 
 const notificationEventChoices = NOTIFICATION_EVENT_VALUES.map((notificationEvent) => ({
@@ -107,15 +109,8 @@ export default new (class implements ChatInputCommand {
 		const me = await channel.guild.members.fetchMe();
 
 		if (!isEvent(event)) {
-			void interaction.client.log({
-				content: `Received an unknown notification event: ${event} whilst setting up notifications.`,
-			});
-
-			await interaction.reply({
-				content: "The dark dragon has obliterated this event. It's gone... for now.",
-				ephemeral: true,
-			});
-
+			pino.error(interaction, "Received an unknown notification event whilst setting up notifications.");
+			await interaction.reply(ERROR_RESPONSE);
 			return;
 		}
 
@@ -212,15 +207,8 @@ export default new (class implements ChatInputCommand {
 		const event = options.getString("event", true);
 
 		if (!isEvent(event)) {
-			void interaction.client.log({
-				content: `Received an unknown notification event: ${event} whilst setting up notifications.`,
-			});
-
-			await interaction.reply({
-				content: "The dark dragon has obliterated this event. It's gone... for now.",
-				ephemeral: true,
-			});
-
+			pino.error(interaction, "Received an unknown notification event whilst setting up notifications.");
+			await interaction.reply(ERROR_RESPONSE);
 			return;
 		}
 
