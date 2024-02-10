@@ -33,6 +33,7 @@ import {
 import { formatEmoji, formatEmojiURL, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../Utility/emojis.js";
 import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
 import { plannedEvents, resolveEvent } from "./Event.js";
 import { type RotationNumber, nextSeason, resolveSeason } from "./Season.js";
@@ -375,15 +376,21 @@ export default class DailyGuidesDistribution {
 		const channel = client.channels.cache.get(channelId!);
 
 		if (!channel || !isDailyGuidesDistributionChannel(channel)) {
-			throw new Error(
-				`Guild id ${guildId} had no detectable channel id ${channelId}, or did not satisfy the allowed channel types.`,
+			pino.info(
+				`Did not distribute daily guides to guild id ${guildId} as it had no detectable channel id ${channelId}, or did not satisfy the allowed channel types.`,
 			);
+
+			return;
 		}
 
 		const me = await channel.guild.members.fetchMe();
 
 		if (!isDailyGuidesDistributable(channel, me)) {
-			throw new Error(`Guild id ${guildId} did not have suitable permissions in channel id ${channelId}.`);
+			pino.info(
+				`Did not distribute daily guides to guild id ${guildId} as it did not have suitable permissions in channel id ${channelId}.`,
+			);
+
+			return;
 		}
 
 		// Retrieve our embed.
@@ -422,6 +429,6 @@ export default class DailyGuidesDistribution {
 			.filter((result): result is PromiseRejectedResult => result.status === "rejected")
 			.map((result) => result.reason);
 
-		if (errors.length > 0) void client.log({ content: "Error whilst distributing daily guides.", error: errors });
+		if (errors.length > 0) pino.error(errors, "Error whilst distributing daily guides.");
 	}
 }
