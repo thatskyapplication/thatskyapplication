@@ -7,12 +7,13 @@
 		"test": "tsc --noEmit",
 		"format": "prettier --write . && eslint --fix .",
 		"lint": "prettier --check . && eslint .",
-		"dev": "tsx --require dotenv/config source/index.ts",
+		"dev": "tsx --require dotenv/config source/index.ts | pino-pretty",
 		"start": "node --enable-source-maps --require dotenv/config distribution/index.js",
 		"update": "pnpm update --interactive --latest && pre-commit autoupdate"
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.441.0",
+		"@logtail/pino": "^0.4.19",
 		"discord.js": "14.14.1",
 		"dotenv": "^16.3.1",
 		"hasha": "^5.2.2",
@@ -22,6 +23,7 @@
 		"openai": "^4.14.2",
 		"p-queue": "^7.4.1",
 		"pg": "^8.11.3",
+		"pino": "^8.18.0",
 		"sharp": "^0.32.6",
 		"ts-mixer": "^6.0.3",
 		"undici": "^5.27.0"
@@ -30,6 +32,7 @@
 		"@types/luxon": "^3.3.3",
 		"eslint": "^8.52.0",
 		"eslint-config-neon": "^0.1.57",
+		"pino-pretty": "^10.3.1",
 		"prettier": "^3.0.3",
 		"tsx": "^3.14.0",
 		"typescript": "^5.2.2"
