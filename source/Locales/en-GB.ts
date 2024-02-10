@@ -21,7 +21,7 @@ export default {
 		"shard-eruption-none": "None",
 		spiritNames: Object.fromEntries(Object.values(SpiritName).map((spiritName) => [spiritName, spiritName])),
 		timestamps: "Timestamps",
-		view: "View"
+		view: "View",
 	},
 	commands: {
 		calculate: {
