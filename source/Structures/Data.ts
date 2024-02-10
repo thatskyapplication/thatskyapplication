@@ -1,10 +1,10 @@
-import { URL } from "node:url";
 import { DeleteObjectsCommand } from "@aws-sdk/client-s3";
-import { type ButtonInteraction, userMention, hyperlink, MessageFlags } from "discord.js";
+import { type ButtonInteraction, hyperlink, MessageFlags } from "discord.js";
 import type { HeartPacket } from "../Commands/Fun/heart.js";
 import S3Client from "../S3Client.js";
-import { CDN_BUCKET, WEBSITE_URL } from "../Utility/Constants.js";
+import { CDN_BUCKET, SUPPORT_SERVER_INVITE_URL } from "../Utility/Constants.js";
 import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
 import type { ProfilePacket } from "./Profile.js";
 import Profile from "./Profile.js";
 import type { SpiritTrackerPacket } from "./Spirits/SpiritTracker.js";
@@ -14,7 +14,7 @@ const DELETE_ERROR_MESSAGE =
 	
 If you want, you may join the ${hyperlink(
 		"support server",
-		new URL("support", WEBSITE_URL),
+		SUPPORT_SERVER_INVITE_URL,
 	)} and request to see the status of your data deletion request.` as const;
 
 export async function deleteUserData(interaction: ButtonInteraction) {
@@ -46,7 +46,7 @@ export async function deleteUserData(interaction: ButtonInteraction) {
 	try {
 		await Promise.all(promises);
 	} catch (error) {
-		void interaction.client.log({ content: `Error deleting user data for ${userMention(id)}.`, error });
+		pino.error(error, `Error deleting user data for ${id}.`);
 		await interaction.update({ components: [], content: DELETE_ERROR_MESSAGE, flags: MessageFlags.SuppressEmbeds });
 		return;
 	}
