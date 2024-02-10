@@ -1,5 +1,4 @@
 import { URL } from "node:url";
-import { inspect } from "node:util";
 import { type Locale, type Snowflake, type User, time, TimestampStyles, hyperlink } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
@@ -21,11 +20,6 @@ import {
 import { INITIAL_TREASURE_CANDLE_REALM_SEEK, todayDate } from "./dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "./emojis.js";
 import { SHARD_ERUPTION_PREDICTION_DATA } from "./shardEruption.js";
-
-export function consoleLog(consoleLog: any, stamp = new Date().toISOString()): void {
-	console.log(`- - - - - ${stamp} - - - - -`);
-	console.log(inspect(consoleLog, false, Number.POSITIVE_INFINITY, true));
-}
 
 export function treasureCandleRealm(date: DateTime) {
 	return VALID_REALM[date.diff(INITIAL_TREASURE_CANDLE_REALM_SEEK, "day").days % 5]!;

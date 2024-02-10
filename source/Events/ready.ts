@@ -6,7 +6,6 @@ import DailyGuides, { type DailyGuidesPacket } from "../Structures/DailyGuides.j
 import DailyGuidesDistribution, { type DailyGuidesDistributionPacket } from "../Structures/DailyGuidesDistribution.js";
 import heartbeat from "../Structures/Heartbeat.js";
 import Notification, { type NotificationPacket } from "../Structures/Notification.js";
-import { consoleLog } from "../Utility/Utility.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import type { Event } from "./index.js";
@@ -21,7 +20,7 @@ async function collectFromDatabase(cache: Collection<Snowflake, Guild>) {
 		await collectNotifications(cache);
 		await collectDailyGuides();
 	} catch (error) {
-		consoleLog(error);
+		pino.fatal(error, "Error collecting configurations from the database.")
 		process.exit(1);
 	}
 }

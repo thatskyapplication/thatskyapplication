@@ -42,7 +42,6 @@ import {
 	MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID,
 	PRODUCTION,
 } from "./Utility/Constants.js";
-import { consoleLog } from "./Utility/Utility.js";
 import pino from "./pino.js";
 
 export const enum LogType {
@@ -69,7 +68,7 @@ declare module "discord.js" {
 void init({
 	fallbackLng: Locale.EnglishGB,
 	missingKeyHandler: (locale, namespace, key) =>
-		consoleLog(`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`),
+		pino.warn(`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`),
 	ns: ["general", "commands"],
 	resources: {
 		[Locale.German]: de,
@@ -95,9 +94,8 @@ class Caelus extends Client {
 	}
 
 	public override async log({ content, embeds = [], error, type = LogType.Error }: LogOptions) {
-		let stamp = new Date().toISOString();
 		const output = error ?? content;
-		if (output) consoleLog(output, stamp);
+		if (output) pino.info(output);
 		let channel;
 
 		switch (type) {
@@ -134,7 +132,7 @@ class Caelus extends Client {
 				return;
 			}
 
-			stamp = `\`[${stamp}]\``;
+			const stamp = `\`[${new Date().toISOString()}]\``;
 			const files = [];
 
 			if (error) {
@@ -158,10 +156,10 @@ class Caelus extends Client {
 			await stat(potentialFileName)
 				.then(async () => unlink(potentialFileName))
 				.catch(async (unlinkError) => {
-					if (unlinkError.code !== "ENOENT") consoleLog(unlinkError);
+					if (unlinkError.code !== "ENOENT") pino.error(unlinkError, "Failed to unlink file.");
 				});
 
-			consoleLog(error);
+			pino.error(error, "Failed to log to Discord.");
 		}
 	}
 

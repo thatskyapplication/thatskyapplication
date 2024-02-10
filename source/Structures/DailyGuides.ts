@@ -28,7 +28,6 @@ import {
 	VALID_REALM,
 } from "../Utility/Constants.js";
 import {
-	consoleLog,
 	isMeditationMap,
 	isRainbowAdmireMap,
 	isSocialLightAreaMap,
@@ -39,6 +38,7 @@ import {
 } from "../Utility/Utility.js";
 import { todayDate } from "../Utility/dates.js";
 import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import { SeasonName } from "./Season.js";
 import { type SeasonalSpirit, type StandardSpirit, Emote, FriendAction } from "./Spirits/Base.js";
@@ -98,6 +98,13 @@ export const QUEST_SPIRITS_SEASONS = [
 	SeasonName.Dreams,
 	SeasonName.Assembly,
 ] as const;
+
+interface ResolveDailyGuideOptions {
+	pureContent: string;
+	realm: ValidRealm | null;
+	map: Map | null;
+	url: string | null;
+}
 
 export type QuestSpiritSeasons = (typeof QUEST_SPIRITS_SEASONS)[number];
 
@@ -469,7 +476,7 @@ export default new (class DailyGuides {
 			} else if (transformedContent.includes("TREASURE CANDLE")) {
 				parsed = await this.parseTreasureCandles(attachments);
 			} else {
-				consoleLog("Intercepted an unparsed message.");
+				pino.warn(message, "Intercepted an unparsed message.");
 			}
 
 			return parsed;
@@ -490,7 +497,8 @@ export default new (class DailyGuides {
 		this.patch(dailyGuidesPacket!);
 	}
 
-	private resolveDailyGuide(pureContent: string, realm: ValidRealm | null, map: Map | null, url: string | null) {
+	private resolveDailyGuide(options: ResolveDailyGuideOptions) {
+		const { pureContent, realm, map, url } = options;
 		const upperPureContent = pureContent.toUpperCase();
 
 		if (upperPureContent.includes("BOW AT A PLAYER") || upperPureContent.includes("BOW TO A PLAYER")) {
@@ -515,19 +523,19 @@ export default new (class DailyGuides {
 
 		if (upperPureContent.includes("CATCH THE LIGHT")) {
 			if (realm) return CATCH_THE_LIGHT(realm);
-			consoleLog("Failed to match a catch the light realm.");
+			pino.error(options, "Failed to match a catch the light realm.");
 			return { content: `Catch the light`, url };
 		}
 
 		if (upperPureContent.includes("SOCIAL LIGHT") || upperPureContent.includes("VISIT THE ANCESTOR")) {
 			if (map && isSocialLightAreaMap(map)) return SOCIAL_LIGHT_AREA(map);
-			consoleLog("Failed to match a social light area map.");
+			pino.error(options, "Failed to match a social light area map.");
 			return { content: "Visit the social light area", url };
 		}
 
 		if (upperPureContent.includes("SAPLING")) {
 			if (realm) return ADMIRE_THE_SAPLING(realm);
-			consoleLog("Failed to match an admire the sapling realm.");
+			pino.error(options, "Failed to match an admire the sapling realm.");
 			return { content: "Admire the sapling", url };
 		}
 
@@ -536,13 +544,13 @@ export default new (class DailyGuides {
 
 		if (upperPureContent.includes("DAYS OF RAINBOW 2021")) {
 			if (realm) return RAINBOW_FIND(realm);
-			consoleLog("Failed to match a rainbow find realm.");
+			pino.error(options, "Failed to match a rainbow find realm.");
 			return { content: "Find the candles at the end of the rainbow", url };
 		}
 
 		if (upperPureContent.includes("ADMIRE THE RAINBOW")) {
 			if (map && isRainbowAdmireMap(map)) return RAINBOW_ADMIRE(map);
-			consoleLog("Failed to match a rainbow admire map.");
+			pino.error(options, "Failed to match a rainbow admire map.");
 			return { content: `Admire the rainbow${map ? ` in the ${map}` : ""}`, url };
 		}
 
@@ -554,7 +562,7 @@ export default new (class DailyGuides {
 				return meditate(map);
 			}
 
-			consoleLog("Failed to match a meditation map.");
+			pino.error(options, "Failed to match a meditation map.");
 			return { content: `Meditate${map ? ` at the ${map}` : ""}`, url };
 		}
 
@@ -572,7 +580,7 @@ export default new (class DailyGuides {
 		for (const spirit of Spirits) {
 			if (upperPureContent.replaceAll("’", "'").includes(spirit.name.toUpperCase())) {
 				if (isQuestSpirit(spirit)) return SPIRIT_QUEST(spirit);
-				consoleLog(`Failed to match a spirit for ${spirit.name}.`);
+				pino.error(options, `Failed to match a spirit for ${spirit.name}.`);
 				return { content: `Relive the ${spirit.name}`, url };
 			}
 		}
@@ -584,7 +592,7 @@ export default new (class DailyGuides {
 		const { quest1, quest2, quest3, quest4 } = this;
 
 		if (quest1 && quest2 && quest3 && quest4) {
-			consoleLog("Attempted to parse daily quests despite all quest variables exhausted.");
+			pino.info("Attempted to parse daily quests despite all quest variables exhausted.");
 			return false;
 		}
 
@@ -605,10 +613,12 @@ export default new (class DailyGuides {
 		const map = potentialMapRegExp ? resolveMap(potentialMapRegExp) : null;
 
 		// Resolve the daily guide.
-		const dailyGuide = this.resolveDailyGuide(pureContent, realm, map, url);
+		const dailyGuide = this.resolveDailyGuide({ pureContent, realm, map, url });
 
 		// Log that we will be falling back to the original string in case of no output.
-		if (!dailyGuide) consoleLog("Failed to match a daily quest. Falling back to original string.");
+		if (!dailyGuide) {
+			pino.error({ content, attachments }, "Failed to match a daily quest. Falling back to original string.");
+		}
 
 		// Initialise the output.
 		const data = {
@@ -651,14 +661,14 @@ export default new (class DailyGuides {
 
 	public async parseTreasureCandles(attachments: Collection<Snowflake, Attachment>) {
 		if (Array.isArray(this.treasureCandles)) {
-			consoleLog("Attempted to update the treasure candles which were already updated.");
+			pino.info("Attempted to update the treasure candles which were already updated.");
 			return false;
 		}
 
 		const urls = attachments.map(({ url }) => url);
 
 		if (urls.length === 0) {
-			consoleLog("Failed to fetch the treasure candle locations.");
+			pino.error(attachments.toJSON(), "Failed to fetch the treasure candle locations.");
 			return false;
 		}
 
