@@ -6,7 +6,7 @@ import {
 	type UserContextMenuCommandInteraction,
 	PermissionFlagsBits,
 } from "discord.js";
-import { consoleLog } from "./Utility.js";
+import pino from "../pino.js";
 
 const PermissionFlagBitsToString = new Map<bigint, string>()
 	.set(PermissionFlagsBits.ViewChannel, "View Channel")
@@ -19,7 +19,7 @@ function getPermissionString(bit: bigint) {
 	const string = PermissionFlagBitsToString.get(bit);
 
 	if (string === undefined) {
-		consoleLog(`No permission string exists for ${bit}.`);
+		pino.warn(`No permission string exists for ${bit}.`);
 		return "Unknown";
 	}
 

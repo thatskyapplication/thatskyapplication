@@ -1,6 +1,6 @@
 import process from "node:process";
 import { URL } from "node:url";
-import { Locale } from "discord.js";
+import { Locale, MessageFlags, hyperlink } from "discord.js";
 
 // Production detection.
 export const PRODUCTION = process.env.NODE_ENV === "production";
@@ -21,9 +21,6 @@ const CDN_URL_PRODUCTION = "https://cdn.thatskyapplication.com" as const;
 export const CDN_URL = PRODUCTION ? CDN_URL_PRODUCTION : CDN_URL_DEVELOPMENT;
 
 // Log channels.
-export const ERROR_LOG_CHANNEL_ID = "1040806599293407263" as const;
-export const GUILD_LOG_CHANNEL_ID = "1107804841813749780" as const;
-export const COMMAND_LOG_CHANNEL_ID = "1114135883604566057" as const;
 export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const;
 
 // Concurrency limit to not hit the global rate limit of 50 requests per second.
@@ -35,10 +32,24 @@ export const MAX_HUG_NO = 25 as const;
 export const MAX_PLAY_FIGHT_NO = 5 as const;
 export const MAX_KRILL_NO = 10 as const;
 
-// Miscellaneous constants.
-export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
+// Website URLs.
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const APPLICATION_INVITE_URL = String(new URL("invite", WEBSITE_URL));
+export const SUPPORT_SERVER_INVITE_URL = String(new URL("support", WEBSITE_URL));
+
+// Error response.
+export const ERROR_RESPONSE = {
+	content: `Oh no, that wasn't supposed to happen!\n\nFeel free to join our ${hyperlink(
+		"support server",
+		SUPPORT_SERVER_INVITE_URL,
+	)} and report this issue! 🩵`,
+	components: [],
+	embeds: [],
+	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
+};
+
+// Miscellaneous constants.
+export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 export const THATSKYGAME_URL = "https://thatskygame.com" as const;
 export const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
 export const PATREON_URL = "https://patreon.com/Jiralite" as const;

@@ -3,6 +3,7 @@ import { clearTimeout, setTimeout } from "node:timers";
 import type { Message } from "discord.js";
 import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
+import pino from "./pino.js";
 
 const { OPENAI_API_KEY } = process.env;
 if (!OPENAI_API_KEY) throw new Error("No OpenAI API key.");
@@ -17,7 +18,14 @@ const AI_DESCRIPTION_REACTION = `${AI_DESCRIPTION_EMOJIS} Put each emoji on a ne
 
 function parseAIName(input: string) {
 	// It's not possible for a Discord username to be longer than 32 characters or return an empty output.
-	return input.replaceAll(/[^\w-]/g, "");
+	const name = input.replaceAll(/[^\w-]/g, "");
+
+	// This should never happen, but it did once... somehow.
+	if (name.length === 0) {
+		pino.warn(input, "AI name parsing failed.");
+	}
+
+	return name;
 }
 
 export async function messageCreateEmojiResponse(message: Message<true>) {
@@ -48,7 +56,7 @@ export async function messageCreateEmojiResponse(message: Message<true>) {
 			failIfNotExists: false,
 		});
 	} catch (error) {
-		if (!(error instanceof APIUserAbortError)) void message.client.log({ content: "AI error.", error });
+		if (!(error instanceof APIUserAbortError)) pino.error(error, "AI error.");
 	} finally {
 		clearTimeout(timeout);
 	}
@@ -77,7 +85,7 @@ export async function messageCreateReactionResponse(message: Message<true>) {
 		if (!emojis) return;
 		await Promise.all(emojis.split("\n").map(async (emoji) => message.react(emoji)));
 	} catch (error) {
-		if (!(error instanceof APIUserAbortError)) void message.client.log({ content: "AI error.", error });
+		if (!(error instanceof APIUserAbortError)) pino.error(error, "AI error.");
 	} finally {
 		clearTimeout(timeout);
 	}
@@ -121,7 +129,7 @@ export async function messageCreateResponse(message: Message<true>) {
 			failIfNotExists: false,
 		});
 	} catch (error) {
-		if (!(error instanceof APIUserAbortError)) void message.client.log({ content: "AI error.", error });
+		if (!(error instanceof APIUserAbortError)) pino.error(error, "AI error.");
 	} finally {
 		clearTimeout(timeout);
 	}

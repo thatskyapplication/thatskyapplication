@@ -2,11 +2,12 @@ import { stat, unlink, writeFile } from "node:fs/promises";
 import process from "node:process";
 import { inspect } from "node:util";
 import {
+	type ApplicationCommandManager,
 	type ApplicationCommand,
 	type ApplicationCommandData,
 	type ClientOptions,
 	type Collection,
-	type Guild,
+	type GuildApplicationCommandManager,
 	type Snowflake,
 	Client,
 	EmbedBuilder,
@@ -33,28 +34,17 @@ import zhCN from "./Locales/zh-CN.js";
 import zhTW from "./Locales/zh-TW.js";
 import {
 	APPLICATION_ID,
-	COMMAND_LOG_CHANNEL_ID,
 	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
-	ERROR_LOG_CHANNEL_ID,
-	GUILD_LOG_CHANNEL_ID,
 	MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID,
 	PRODUCTION,
 } from "./Utility/Constants.js";
-import { consoleLog } from "./Utility/Utility.js";
-
-export const enum LogType {
-	Error,
-	Guild,
-	Command,
-	ManualDailyGuides,
-}
+import pino from "./pino.js";
 
 interface LogOptions {
 	content?: string;
 	embeds?: EmbedBuilder[];
 	error?: unknown;
-	type?: LogType;
 }
 
 declare module "discord.js" {
@@ -67,7 +57,7 @@ declare module "discord.js" {
 void init({
 	fallbackLng: Locale.EnglishGB,
 	missingKeyHandler: (locale, namespace, key) =>
-		consoleLog(`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`),
+		pino.warn(`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`),
 	ns: ["general", "commands"],
 	resources: {
 		[Locale.German]: de,
@@ -92,27 +82,10 @@ class Caelus extends Client {
 		super(options);
 	}
 
-	public override async log({ content, embeds = [], error, type = LogType.Error }: LogOptions) {
-		let stamp = new Date().toISOString();
+	public override async log({ content, embeds = [], error }: LogOptions) {
 		const output = error ?? content;
-		if (output) consoleLog(output, stamp);
-		let channel;
-
-		switch (type) {
-			case LogType.Error:
-				channel = this.channels.cache.get(ERROR_LOG_CHANNEL_ID);
-				break;
-			case LogType.Guild:
-				channel = this.channels.cache.get(GUILD_LOG_CHANNEL_ID);
-				break;
-			case LogType.Command:
-				channel = this.channels.cache.get(COMMAND_LOG_CHANNEL_ID);
-				break;
-			case LogType.ManualDailyGuides:
-				channel = this.channels.cache.get(MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID);
-				break;
-		}
-
+		if (output) pino.info(output);
+		const channel = this.channels.cache.get(MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID);
 		if (!(channel instanceof TextChannel)) return;
 		const potentialFileName = `../error-${Date.now()}.xl`;
 
@@ -132,7 +105,7 @@ class Caelus extends Client {
 				return;
 			}
 
-			stamp = `\`[${stamp}]\``;
+			const stamp = `\`[${new Date().toISOString()}]\``;
 			const files = [];
 
 			if (error) {
@@ -156,34 +129,25 @@ class Caelus extends Client {
 			await stat(potentialFileName)
 				.then(async () => unlink(potentialFileName))
 				.catch(async (unlinkError) => {
-					if (unlinkError.code !== "ENOENT") consoleLog(unlinkError);
+					if (unlinkError.code !== "ENOENT") pino.error(unlinkError, "Failed to unlink file.");
 				});
 
-			consoleLog(error);
+			pino.error(error, "Failed to log to Discord.");
 		}
 	}
 
 	private async deployCommands(
-		client: Client<true>,
+		commandManager: ApplicationCommandManager | GuildApplicationCommandManager,
 		fetchedCommands: Collection<Snowflake, ApplicationCommand>,
 		data: ApplicationCommandData[],
-		guild?: Guild,
 	) {
-		if (
-			fetchedCommands.size !== data.length ||
+		return fetchedCommands.size !== data.length ||
 			fetchedCommands.some((fetchedCommand) => {
 				const localCommand = data.find(({ name }) => name === fetchedCommand.name);
 				return !localCommand || !fetchedCommand.equals(localCommand, true);
 			})
-		) {
-			const applicationCommands = await (guild ?? client.application).commands.set(data);
-
-			consoleLog(
-				applicationCommands.map(({ name, type }) => `Set ${name} as a ${type} application command.`).join("\n"),
-			);
-
-			consoleLog("Finished applying commands!");
-		}
+			? commandManager.set(data)
+			: null;
 	}
 
 	public override async applyCommands() {
@@ -204,8 +168,13 @@ class Caelus extends Client {
 				}
 			}
 
-			await this.deployCommands(this, fetchedGlobalCommands, globalCommandData);
-			await this.deployCommands(this, fetchedDeveloperCommands, developerCommandData, developerGuild);
+			const [globalCommands, developerCommands] = await Promise.all([
+				this.deployCommands(this.application.commands, fetchedGlobalCommands, globalCommandData),
+				this.deployCommands(developerGuild.commands, fetchedDeveloperCommands, developerCommandData),
+			]);
+
+			if (globalCommands) pino.info("Set global commands.");
+			if (developerCommands) pino.info("Set developer commands.");
 
 			/* eslint-disable require-atomic-updates */
 			commands.sharderuption.id =
@@ -215,7 +184,7 @@ class Caelus extends Client {
 				fetchedGlobalCommands.find(({ name }) => name === commands.skyprofile.data.name)?.id ?? null;
 			/* eslint-enable require-atomic-updates */
 		} catch (error) {
-			void this.log({ content: "Failed to apply commands.", error });
+			pino.error(error, "Failed to set commands.");
 		}
 	}
 }

@@ -22,7 +22,6 @@ import DailyGuides, { type QuestNumber, QUEST_NUMBER, QUESTS } from "../../Struc
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import { MAXIMUM_EMBED_FIELD_NAME_LENGTH, MAXIMUM_EMBED_FIELD_VALUE_LENGTH } from "../../Utility/Constants.js";
 import { userLogFormat } from "../../Utility/Utility.js";
-import { LogType } from "../../index.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export const DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID = "DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID" as const;
@@ -210,7 +209,6 @@ export default new (class implements AutocompleteCommand {
 		void client.log({
 			content: `${userLogFormat(user)} manually distributed the daily guides.`,
 			embeds: [DailyGuidesDistribution.embed()],
-			type: LogType.ManualDailyGuides,
 		});
 
 		await this.interactive(interaction, "Distributed daily guides.");
@@ -257,7 +255,6 @@ export default new (class implements AutocompleteCommand {
 		void client.log({
 			content: `${userLogFormat(user)} manually updated the daily quests.`,
 			embeds: [previousEmbed, DailyGuidesDistribution.embed()],
-			type: LogType.ManualDailyGuides,
 		});
 
 		await this.interactive(interaction, "Successfully updated the daily quests.");
@@ -288,7 +285,6 @@ export default new (class implements AutocompleteCommand {
 		void client.log({
 			content: `${userLogFormat(user)} manually swapped quests ${quest1} & ${quest2}.`,
 			embeds: [previousEmbed, DailyGuidesDistribution.embed()],
-			type: LogType.ManualDailyGuides,
 		});
 
 		await this.interactive(interaction, `Successfully swapped quests ${quest1} & ${quest2}.`);
@@ -334,7 +330,6 @@ export default new (class implements AutocompleteCommand {
 		void client.log({
 			content: `${userLogFormat(user)} manually updated the daily message.`,
 			embeds: [previousEmbed, DailyGuidesDistribution.embed()],
-			type: LogType.ManualDailyGuides,
 		});
 
 		await this.interactive(interaction, "Successfully updated the daily message.");
@@ -380,7 +375,6 @@ export default new (class implements AutocompleteCommand {
 		void client.log({
 			content: `${userLogFormat(user)} manually updated the treasure candles.`,
 			embeds: [previousEmbed, DailyGuidesDistribution.embed()],
-			type: LogType.ManualDailyGuides,
 		});
 
 		await this.interactive(interaction, "Successfully updated the treasure candles.");

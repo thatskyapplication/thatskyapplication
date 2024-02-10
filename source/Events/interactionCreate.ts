@@ -4,9 +4,6 @@ import {
 	type Interaction,
 	Events,
 	InteractionType,
-	EmbedBuilder,
-	hyperlink,
-	channelLink,
 } from "discord.js";
 import {
 	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
@@ -59,8 +56,9 @@ import {
 	SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID,
 	SpiritTracker,
 } from "../Structures/Spirits/SpiritTracker.js";
-import { chatInputApplicationCommandMention, consoleLog, guildLink, isRealm } from "../Utility/Utility.js";
-import { LogType } from "../index.js";
+import { ERROR_RESPONSE } from "../Utility/Constants.js";
+import { isRealm } from "../Utility/Utility.js";
+import pino from "../pino.js";
 import type { Event } from "./index.js";
 
 const name = Events.InteractionCreate;
@@ -72,19 +70,13 @@ const INTERACTION_ERROR_RESPONSE_BODY = {
 } as const;
 
 async function recoverInteractionError(interaction: Interaction, error: unknown) {
-	let errorTypeString = `Error from ${interaction.user} (${interaction.user.tag}) in ${interaction.channel} (${interaction.channelId}) from `;
+	let errorTypeString = `Error from ${interaction.user.tag} in ${interaction.channelId} from `;
 
 	switch (interaction.type) {
 		case InteractionType.ApplicationCommand:
-			// eslint-disable-next-line no-case-declarations
-			const isChatInputCommand = interaction.isChatInputCommand();
-
-			errorTypeString += `running command ${chatInputApplicationCommandMention(
-				interaction.commandId,
-				interaction.commandName,
-				isChatInputCommand ? interaction.options.getSubcommand(false) : undefined,
-				isChatInputCommand ? interaction.options.getSubcommandGroup() : undefined,
-			)}.`;
+			errorTypeString += `running command ${
+				interaction.isChatInputCommand() ? String(interaction) : interaction.commandName
+			}.`;
 
 			break;
 		case InteractionType.MessageComponent:
@@ -100,7 +92,7 @@ async function recoverInteractionError(interaction: Interaction, error: unknown)
 			break;
 	}
 
-	void interaction.client.log({ content: errorTypeString, error });
+	pino.error(error, errorTypeString);
 
 	try {
 		if (interaction.isAutocomplete()) {
@@ -111,65 +103,33 @@ async function recoverInteractionError(interaction: Interaction, error: unknown)
 			await interaction.reply(INTERACTION_ERROR_RESPONSE_BODY);
 		}
 	} catch (error) {
-		consoleLog(`Failed to follow up or reply from recovering an interaction error: ${error}`);
+		pino.error(error, "Failed to follow up or reply from recovering an interaction error.");
 	}
 }
 
-async function logCommand(interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) {
-	const { appPermissions, channelId, guildId, guild, user } = interaction;
+function logCommand(interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) {
+	const { appPermissions, channelId, commandName, guildId, guildLocale, locale, user } = interaction;
 
-	const embed = new EmbedBuilder()
-		.setAuthor({ name: `${user.tag} (${user.id})`, iconURL: user.displayAvatarURL() })
-		.setDescription(`\`${interaction.isChatInputCommand() ? interaction.toString() : interaction.commandName}\``)
-		.setFields(
-			{
-				name: "Guild",
-				value: guildId
-					? guild
-						? `${guild.name} (${hyperlink(`\`${guildId}\``, guildLink(guildId))})`
-						: hyperlink(`\`${guildId}\``, guildLink(guildId))
-					: "None",
-				inline: true,
-			},
-			{
-				name: "Channel",
-				value: guildId
-					? hyperlink(`\`${channelId}\``, channelLink(channelId, guildId))
-					: hyperlink(`\`${channelId}\``, channelLink(channelId)),
-				inline: true,
-			},
-		)
-		.setTimestamp();
-
-	if (appPermissions) embed.addFields({ name: "Permissions", value: `\`${appPermissions.bitfield}\``, inline: true });
-
-	embed.addFields({
-		name: "Locale",
-		value: `User: ${interaction.locale}\nGuild: ${interaction.guildLocale}`,
-		inline: true,
+	pino.info({
+		user: { id: user.id, username: user.username },
+		command: interaction.isChatInputCommand() ? String(interaction) : commandName,
+		guildId,
+		channelId,
+		permissions: appPermissions ? String(appPermissions.bitfield) : null,
+		locale: { user: locale, guild: guildLocale },
 	});
-
-	void interaction.client.log({ embeds: [embed], type: LogType.Command });
 }
 
 export const event: Event<typeof name> = {
 	name,
 	async fire(interaction) {
 		if (interaction.isChatInputCommand()) {
-			void logCommand(interaction);
-			const { commandName } = interaction;
+			logCommand(interaction);
 			const command = resolveCommand(interaction);
 
 			if (!command) {
-				void interaction.client.log({
-					content: `Received an unknown chat input command interaction (\`${commandName}\`).`,
-				});
-
-				void interaction.reply({
-					content: "A dark crab appeared out of nowhere and gobbled this command up. It doesn't seem to exist.",
-					ephemeral: true,
-				});
-
+				pino.warn(interaction, "Received an unknown chat input command interaction.");
+				await interaction.reply(ERROR_RESPONSE);
 				return;
 			}
 
@@ -183,20 +143,12 @@ export const event: Event<typeof name> = {
 		}
 
 		if (interaction.isUserContextMenuCommand()) {
-			void logCommand(interaction);
-			const { commandName } = interaction;
+			logCommand(interaction);
 			const command = resolveCommand(interaction);
 
 			if (!command) {
-				void interaction.client.log({
-					content: `Received an unknown user context menu command interaction (\`${commandName}\`).`,
-				});
-
-				void interaction.reply({
-					content: "A dark dragon appeared and struck the user. The command flew away.",
-					ephemeral: true,
-				});
-
+				pino.warn(interaction, "Received an unknown user context menu command interaction.");
+				await interaction.reply(ERROR_RESPONSE);
 				return;
 			}
 
@@ -210,20 +162,12 @@ export const event: Event<typeof name> = {
 		}
 
 		if (interaction.isMessageContextMenuCommand()) {
-			void logCommand(interaction);
-			const { commandName } = interaction;
+			logCommand(interaction);
 			const command = resolveCommand(interaction);
 
 			if (!command) {
-				void interaction.client.log({
-					content: `Received an unknown message context menu command interaction (\`${commandName}\`).`,
-				});
-
-				void interaction.reply({
-					content: "A nearby jellyfish gobbled up this message context menu command.",
-					ephemeral: true,
-				});
-
+				pino.warn(interaction, "Received an unknown message context menu command interaction.");
+				await interaction.reply(ERROR_RESPONSE);
 				return;
 			}
 
@@ -382,13 +326,8 @@ export const event: Event<typeof name> = {
 				return;
 			}
 
-			void interaction.client.log({ content: `Received an unknown button interaction (\`${customId}\`).` });
-
-			void interaction.reply({
-				content: "A button a day keeps a button away. This useless proverb was brought to you by an unknown button.",
-				ephemeral: true,
-			});
-
+			pino.warn(interaction, "Received an unknown button interaction.");
+			await interaction.update(ERROR_RESPONSE);
 			return;
 		}
 
@@ -445,52 +384,33 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (!interaction.inCachedGuild()) {
-					void interaction.client.log({
-						content: `Attempted to perform \`${customId}\` via a select menu interaction in an uncached guild.`,
-						error: interaction,
-					});
+				if (interaction.inCachedGuild()) {
+					if (customId === DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID) {
+						await COMMANDS.admin.questSwap(interaction);
+						return;
+					}
 
-					await interaction.reply({ content: "This option does not exist in Ba Sing Se.", ephemeral: true });
-					return;
-				}
-
-				if (customId === DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID) {
-					await COMMANDS.admin.questSwap(interaction);
-					return;
-				}
-
-				if (customId === AI_FREQUENCY_SELECT_MENU_CUSTOM_ID) {
-					await AI.set(interaction);
-					return;
+					if (customId === AI_FREQUENCY_SELECT_MENU_CUSTOM_ID) {
+						await AI.set(interaction);
+						return;
+					}
 				}
 			} catch (error) {
 				void recoverInteractionError(interaction, error);
 				return;
 			}
 
-			void interaction.client.log({
-				content: `Received an unknown select menu interaction (\`${customId}\`).`,
-			});
-
-			void interaction.reply({
-				content: "We interact with a lot of options here. But that option... we have no idea what that is.",
-				ephemeral: true,
-			});
-
+			pino.warn(interaction, "Received an unknown select menu interaction.");
+			await interaction.update(ERROR_RESPONSE);
 			return;
 		}
 
 		if (interaction.isAutocomplete()) {
-			const { commandName } = interaction;
 			const command = resolveCommand(interaction);
 
 			if (!command) {
-				void interaction.client.log({
-					content: `Received an unknown command autocomplete interaction (\`${commandName}\`).`,
-				});
-
-				void interaction.respond([]);
+				pino.warn(interaction, "Received an unknown command autocomplete interaction.");
+				await interaction.respond([]);
 				return;
 			}
 
@@ -512,37 +432,24 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (!interaction.isFromMessage()) {
-					void interaction.client.log({
-						content: `Attempted to perform \`${customId}\` via a modal submit interaction, but expected it to be from a message.`,
-						error: interaction,
-					});
+				if (interaction.isFromMessage()) {
+					if (DAILY_GUIDES_DAILY_MESSAGE_MODAL === customId) {
+						await COMMANDS.admin.setDailyMessage(interaction);
+						return;
+					}
 
-					await interaction.reply({ content: "This modal submitted itself to the dark dragon.", ephemeral: true });
-					return;
-				}
-
-				if (DAILY_GUIDES_DAILY_MESSAGE_MODAL === customId) {
-					await COMMANDS.admin.setDailyMessage(interaction);
-					return;
-				}
-
-				if (DAILY_GUIDES_TREASURE_CANDLES_MODAL === customId) {
-					await COMMANDS.admin.setTreasureCandles(interaction);
-					return;
+					if (DAILY_GUIDES_TREASURE_CANDLES_MODAL === customId) {
+						await COMMANDS.admin.setTreasureCandles(interaction);
+						return;
+					}
 				}
 			} catch (error) {
 				void recoverInteractionError(interaction, error);
 				return;
 			}
 
-			void interaction.client.log({ content: `Received an unknown modal interaction (\`${customId}\`).` });
-
-			void interaction.reply({
-				content:
-					"It seems the heavens have opened. But inside... there was nothing to be found for that modal you submitted.",
-				ephemeral: true,
-			});
+			pino.warn(interaction, "Received an unknown modal interaction.");
+			await interaction.reply(ERROR_RESPONSE);
 		}
 	},
 };

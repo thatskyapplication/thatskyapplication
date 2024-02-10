@@ -5,6 +5,7 @@ import { ISS_DATES_ACCESSIBLE } from "../Utility/Constants.js";
 import { shardEruption } from "../Utility/Utility.js";
 import { TIME_ZONE } from "../Utility/dates.js";
 import pQueue from "../pQueue.js";
+import pino from "../pino.js";
 import DailyGuides from "./DailyGuides.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import { EventName, resolveEvent } from "./Event.js";
@@ -21,7 +22,7 @@ async function sendNotification(client: Client<true>, type: NotificationEvent, e
 		.filter((result): result is PromiseRejectedResult => result.status === "rejected")
 		.map((result) => result.reason);
 
-	if (errors.length > 0) void client.log({ content: "Error whilst sending notifications.", error: errors });
+	if (errors.length > 0) pino.error(errors, "Error whilst sending notifications.");
 }
 
 async function dailyReset(client: Client<true>) {
