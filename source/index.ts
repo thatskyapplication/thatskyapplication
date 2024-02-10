@@ -2,11 +2,12 @@ import { stat, unlink, writeFile } from "node:fs/promises";
 import process from "node:process";
 import { inspect } from "node:util";
 import {
+	type ApplicationCommandManager,
 	type ApplicationCommand,
 	type ApplicationCommandData,
 	type ClientOptions,
 	type Collection,
-	type Guild,
+	type GuildApplicationCommandManager,
 	type Snowflake,
 	Client,
 	EmbedBuilder,
@@ -42,6 +43,7 @@ import {
 	PRODUCTION,
 } from "./Utility/Constants.js";
 import { consoleLog } from "./Utility/Utility.js";
+import pino from "./pino.js";
 
 export const enum LogType {
 	Error,
@@ -164,26 +166,17 @@ class Caelus extends Client {
 	}
 
 	private async deployCommands(
-		client: Client<true>,
+		commandManager: ApplicationCommandManager | GuildApplicationCommandManager,
 		fetchedCommands: Collection<Snowflake, ApplicationCommand>,
 		data: ApplicationCommandData[],
-		guild?: Guild,
 	) {
-		if (
-			fetchedCommands.size !== data.length ||
+		return fetchedCommands.size !== data.length ||
 			fetchedCommands.some((fetchedCommand) => {
 				const localCommand = data.find(({ name }) => name === fetchedCommand.name);
 				return !localCommand || !fetchedCommand.equals(localCommand, true);
 			})
-		) {
-			const applicationCommands = await (guild ?? client.application).commands.set(data);
-
-			consoleLog(
-				applicationCommands.map(({ name, type }) => `Set ${name} as a ${type} application command.`).join("\n"),
-			);
-
-			consoleLog("Finished applying commands!");
-		}
+			? commandManager.set(data)
+			: null;
 	}
 
 	public override async applyCommands() {
@@ -204,8 +197,13 @@ class Caelus extends Client {
 				}
 			}
 
-			await this.deployCommands(this, fetchedGlobalCommands, globalCommandData);
-			await this.deployCommands(this, fetchedDeveloperCommands, developerCommandData, developerGuild);
+			const [globalCommands, developerCommands] = await Promise.all([
+				this.deployCommands(this.application.commands, fetchedGlobalCommands, globalCommandData),
+				this.deployCommands(developerGuild.commands, fetchedDeveloperCommands, developerCommandData),
+			]);
+
+			if (globalCommands) pino.info("Set global commands.");
+			if (developerCommands) pino.info("Set developer commands.");
 
 			/* eslint-disable require-atomic-updates */
 			commands.sharderuption.id =
@@ -215,7 +213,7 @@ class Caelus extends Client {
 				fetchedGlobalCommands.find(({ name }) => name === commands.skyprofile.data.name)?.id ?? null;
 			/* eslint-enable require-atomic-updates */
 		} catch (error) {
-			void this.log({ content: "Failed to apply commands.", error });
+			pino.error(error, "Failed to set commands.");
 		}
 	}
 }
