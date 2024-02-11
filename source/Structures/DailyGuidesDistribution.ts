@@ -20,13 +20,13 @@ import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
 import {
 	treasureCandleRealm,
 	shardEruption,
-	dateString,
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
 } from "../Utility/Utility.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
+	dateString,
 	isDuring,
 	todayDate,
 } from "../Utility/dates.js";

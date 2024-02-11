@@ -19,13 +19,12 @@ import { DateTime } from "luxon";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import {
 	chatInputApplicationCommandMention,
-	dateString,
 	resolveShardEruptionEmoji,
 	shardEruption,
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
 } from "../../Utility/Utility.js";
-import { TIME_ZONE, todayDate } from "../../Utility/dates.js";
+import { TIME_ZONE, dateRangeString, dateString, todayDate } from "../../Utility/dates.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -48,9 +47,7 @@ export const SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS = [
 ] as const;
 
 const SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH = SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.length;
-
 const MAXIMUM_OPTION_NUMBER = 25 as const;
-const DATE_FORMAT_STRING = "d LLLL" as const;
 
 function generateShardEruptionSelectMenuOptions(date: DateTime, indexStart: number, offset: number, locale: Locale) {
 	const options = [];
@@ -239,9 +236,11 @@ export default new (class implements ChatInputCommand {
 							.setMaxValues(1)
 							.setMinValues(1)
 							.setPlaceholder(
-								`${shardToday.plus({ days: currentIndex }).toFormat(DATE_FORMAT_STRING)} - ${shardToday
-									.plus({ days: MAXIMUM_OPTION_NUMBER * (index + 1) - 1 })
-									.toFormat(DATE_FORMAT_STRING)}`,
+								dateRangeString(
+									shardToday.plus({ days: currentIndex }),
+									shardToday.plus({ days: MAXIMUM_OPTION_NUMBER * (index + 1) - 1 }),
+									locale,
+								),
 							)
 							.setOptions(generateShardEruptionSelectMenuOptions(shardToday, currentIndex, offset, locale)),
 					);

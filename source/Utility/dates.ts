@@ -68,3 +68,41 @@ export function dateString(date: DateTime, locale: Locale) {
 
 	return date.toFormat(format, { locale: resolvedLocale });
 }
+
+export function dateRangeString(start: DateTime, end: DateTime, locale: Locale) {
+	let resolvedLocale = locale;
+	let format;
+
+	switch (locale) {
+		case Locale.German:
+		case Locale.EnglishGB:
+		case Locale.French:
+		case Locale.Italian:
+		case Locale.Russian:
+			format = "d MMMM";
+			break;
+		case Locale.EnglishUS:
+			format = "MMMM d";
+			break;
+		case Locale.Japanese:
+		case Locale.ChineseCN:
+		case Locale.ChineseTW:
+			format = "M月d日";
+			break;
+		case Locale.Korean:
+			format = "M월 d일";
+			break;
+		case Locale.PortugueseBR:
+			format = "d 'de' MMMM";
+			break;
+		case Locale.Vietnamese:
+			format = "'ngày' d 'tháng' M";
+			break;
+		default:
+			resolvedLocale = Locale.EnglishGB;
+			format = "d MMMM";
+			break;
+	}
+
+	return `${start.toFormat(format, { locale: resolvedLocale })} - ${end.toFormat(format, { locale: resolvedLocale })}`;
+}
