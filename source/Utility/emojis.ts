@@ -1955,6 +1955,10 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 * Feudal Lord.
 	 */
 	HairAccessory36: { name: "hair_accessory", id: "1201604744725155860" },
+	/**
+	 * Love Heart Beret.
+	 */
+	HairAccessory37: { name: "hair_accessory", id: "1206353254292783125" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
@@ -2467,6 +2471,10 @@ export const CAPE_EMOJIS = {
 	 * Days of Fortune Dragon Stole.
 	 */
 	Cape126: { name: "cape", id: "1201607350621048863" },
+	/**
+	 * Days of Love Meteor Mantle.
+	 */
+	Cape127: { name: "cape", id: "1206351312279703683" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -2915,6 +2923,10 @@ export const PLACEABLE_PROPS_EMOJIS = {
 	 * Herb Gatherer.
 	 */
 	PlaceableProp67: { name: "placeable_prop", id: "1195931438311297116" },
+	/**
+	 * Love Heart Plushie.
+	 */
+	PlaceableProp68: { name: "placeable_prop", id: "1206357740969271346" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type PlaceablePropsEmojis = (typeof PLACEABLE_PROPS_EMOJIS)[keyof typeof PLACEABLE_PROPS_EMOJIS];
