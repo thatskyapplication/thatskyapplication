@@ -9,7 +9,7 @@ import {
 	TimestampStyles,
 } from "discord.js";
 import { t } from "i18next";
-import { resolveEvent } from "../../Structures/Event.js";
+import { resolveEvents } from "../../Structures/Event.js";
 import {
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
@@ -32,7 +32,7 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	todayDate,
 } from "../../Utility/dates.js";
-import { MISCELLANEOUS_EMOJIS, formatEmojiURL, resolveCurrencyEmoji } from "../../Utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -331,43 +331,44 @@ export default new (class implements ChatInputCommand {
 
 		// This calculator may only be used during events.
 		const today = todayDate();
-		const event = resolveEvent(today);
+		const events = resolveEvents(today);
 
-		if (!event) {
+		if (events.length === 0) {
 			await interaction.reply({ content: "There is no event currently active.", ephemeral: true });
 			return;
 		}
 
-		if (today > event.eventCurrencyEnd) {
-			await interaction.reply({ content: "There are no more event currency in this event.", ephemeral: true });
+		if (events.every(({ eventCurrencyEnd }) => today > eventCurrencyEnd)) {
+			await interaction.reply({ content: "There is no more event currency.", ephemeral: true });
 			return;
 		}
 
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const amountRequired = goal - start;
-		const { eventCurrencyEmoji, eventCurrencyPerDay } = event;
-		const days = Math.ceil(amountRequired / eventCurrencyPerDay);
+		const startEmojis = `${start} ${events.map(({ eventCurrencyEmoji }) => formatEmoji(eventCurrencyEmoji)).join("")}`;
+		const goalEmojis = `${goal} ${events.map(({ eventCurrencyEmoji }) => formatEmoji(eventCurrencyEmoji)).join("")}`;
+
+		const amountRequiredEmojis = `${amountRequired} ${events
+			.map(({ eventCurrencyEmoji }) => formatEmoji(eventCurrencyEmoji))
+			.join("")}`;
+
+		const result = events.map((event) => {
+			const days = Math.ceil(amountRequired / event.eventCurrencyPerDay);
+
+			return `${formatEmoji(event.eventCurrencyEmoji)}${days} day${days === 1 ? "" : "s"} (${
+				event.eventCurrencyPerDay
+			}/day)`;
+		});
 
 		await interaction.reply({
 			embeds: [
 				new EmbedBuilder()
 					.setColor(DEFAULT_EMBED_COLOUR)
-					.setDescription(
-						`Start: ${resolveCurrencyEmoji({
-							emoji: eventCurrencyEmoji,
-							number: start,
-						})}\nGoal: ${resolveCurrencyEmoji({
-							emoji: eventCurrencyEmoji,
-							number: goal,
-						})}\nRequired: ${resolveCurrencyEmoji({
-							emoji: eventCurrencyEmoji,
-							number: amountRequired,
-						})}`,
-					)
-					.setFields({ name: "Result", value: `${days} day${days === 1 ? "" : "s"}` })
+					.setDescription(`Start: ${startEmojis}\nGoal: ${goalEmojis}\nRequired: ${amountRequiredEmojis}`)
+					.setFields({ name: "Result", value: result.join("\n") })
 					.setFooter({
-						iconURL: formatEmojiURL(event.eventCurrencyEmoji.id),
-						text: `${event.daysLeft(today)}\nCalculations assume ${eventCurrencyPerDay} event currency per day.`,
+						iconURL: formatEmojiURL(events.at(0)!.eventCurrencyEmoji.id),
+						text: events.map((event) => event.daysText(today)).join("\n"),
 					})
 					.setTitle("Event Currency Calculator"),
 			],

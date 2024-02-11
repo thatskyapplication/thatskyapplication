@@ -35,7 +35,7 @@ import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
-import { plannedEvents, resolveEvent } from "./Event.js";
+import { plannedEvents, resolveEvents } from "./Event.js";
 import { type RotationNumber, nextSeason, resolveSeason } from "./Season.js";
 
 export interface DailyGuidesDistributionPacket {
@@ -229,35 +229,23 @@ export default class DailyGuidesDistribution {
 	}
 
 	public static eventData(date: DateTime, locale: Locale) {
-		const events = plannedEvents(date);
-		const currentEvent = resolveEvent(date);
-		const eventEndText = [];
-		let iconURL = null;
-		let eventCurrency = null;
+		// date = date.plus({ days: 1 });
+		const events = resolveEvents(date);
+		const eventEndText = plannedEvents(date).map((event) => event.daysText(date));
+		const iconURL = events[0] ? formatEmojiURL(events[0].eventCurrencyEmoji.id) : null;
+		const currentEventsWithEventCurrency = events.filter((event) => date <= event.eventCurrencyEnd && event.url);
 
-		for (const event of events) {
-			const { eventCurrencyEmoji, eventCurrencyEnd, name, start, url } = event;
-
-			if (currentEvent?.name === event.name) {
-				eventEndText.push(currentEvent.daysLeft(date));
-				iconURL = formatEmojiURL(eventCurrencyEmoji.id);
-
-				if (date <= eventCurrencyEnd && url) {
-					// eventCurrency = {
-					// 	name: t("event-currency", { lng: locale, ns: "general" }),
-					// 	value: hyperlink(`Rotation ${event.rotation(date)}`, url),
-					// };
-
-					eventCurrency = {
+		const eventCurrency =
+			currentEventsWithEventCurrency.length > 0
+				? {
 						name: t("event-currency", { lng: locale, ns: "general" }),
-						value: hyperlink(t("view", { lng: locale, ns: "general" }), url),
-					};
-				}
-			} else {
-				const daysUntilEvent = start.diff(date, "days").days;
-				eventEndText.push(`${name} starts ${daysUntilEvent === 1 ? "tomorrow" : `in ${daysUntilEvent} days`}.`);
-			}
-		}
+						value: currentEventsWithEventCurrency
+							.map(({ name, eventCurrencyEmoji, url }) =>
+								hyperlink(`${formatEmoji(eventCurrencyEmoji)}${t("view", { lng: locale, ns: "general" })}`, url!, name),
+							)
+							.join(" | "),
+				  }
+				: null;
 
 		return { eventEndText, iconURL, eventCurrency };
 	}

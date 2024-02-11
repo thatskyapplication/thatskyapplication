@@ -49,13 +49,22 @@ class Event {
 		this.eventCurrencyEmoji = data.eventCurrencyEmoji;
 	}
 
-	public daysLeft(date: DateTime) {
-		const { end, name } = this;
+	public daysText(date: DateTime) {
+		const { end, start, name } = this;
 		const daysLeftInEvent = end.diff(date, "days").days;
+		const daysUntilStart = start.diff(date, "days").days;
 
-		return daysLeftInEvent === 0
-			? `${name} ends today.`
-			: `${daysLeftInEvent === 1 ? `${daysLeftInEvent} day` : `${daysLeftInEvent} days`} left in ${name}.`;
+		return daysUntilStart <= 0 && daysLeftInEvent >= 0
+			? daysLeftInEvent === 0
+				? `${name} ends today.`
+				: `${daysLeftInEvent === 1 ? `${daysLeftInEvent} day` : `${daysLeftInEvent} days`} left in ${name}.`
+			: daysUntilStart > 0
+			? daysUntilStart === 1
+				? `${name} starts tomorrow.`
+				: `${name} starts in ${daysUntilStart} days.`
+			: daysLeftInEvent === -1
+			? `${name} ended ${Math.abs(daysLeftInEvent)} day ago.`
+			: `${name} ended ${Math.abs(daysLeftInEvent)} days ago.`;
 	}
 
 	public rotation(/* date: DateTime */) {
@@ -108,8 +117,8 @@ const EVENTS = [
 	}),
 ] as const satisfies Readonly<Event[]>;
 
-export function resolveEvent(date: DateTime) {
-	return EVENTS.find(({ start, end }) => date >= start && date <= end) ?? null;
+export function resolveEvents(date: DateTime) {
+	return EVENTS.filter(({ start, end }) => date >= start && date <= end) ?? null;
 }
 
 export function plannedEvents(date: DateTime) {
