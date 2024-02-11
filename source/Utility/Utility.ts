@@ -1,5 +1,5 @@
 import { URL } from "node:url";
-import { type Snowflake, type User, hyperlink, Locale, time, TimestampStyles } from "discord.js";
+import { type Locale, type Snowflake, type User, hyperlink, time, TimestampStyles } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import {
@@ -177,33 +177,6 @@ export function shardEruptionTimestampsString({ timestamps }: ShardEruptionData)
 				)}`,
 		)
 		.join("\n");
-}
-
-export function dateString(date: DateTime, locale: Locale) {
-	switch (locale) {
-		case Locale.German:
-		case Locale.EnglishGB:
-			return date.toFormat("cccc, d MMMM y", { locale });
-		case Locale.EnglishUS:
-			return date.toFormat("cccc, MMMM d, y", { locale });
-		case Locale.French:
-		case Locale.Italian:
-			return date.toFormat("cccc d MMMM y", { locale });
-		case Locale.Japanese:
-		case Locale.ChineseCN:
-		case Locale.ChineseTW:
-			return date.toFormat("y年L月d日 cccc", { locale });
-		case Locale.Korean:
-			return date.toFormat("y년 L월 d일 cccc", { locale });
-		case Locale.PortugueseBR:
-			return date.toFormat("cccc, d 'de' MMMM 'de' y", { locale });
-		case Locale.Russian:
-			return date.toFormat("cccc, d MMMM y 'г'.", { locale });
-		case Locale.Vietnamese:
-			return date.toFormat("cccc, 'ngày' d 'tháng' L, y", { locale });
-		default:
-			return date.toFormat("cccc, d MMMM y", { locale });
-	}
 }
 
 export function chatInputApplicationCommandMention(

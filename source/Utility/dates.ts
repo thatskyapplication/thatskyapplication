@@ -1,3 +1,4 @@
+import { Locale } from "discord.js";
 import { DateTime } from "luxon";
 
 // Time zone.
@@ -24,4 +25,46 @@ export function skyDate(year: number, month: number, day: number, hour?: number,
 
 export function isDuring(start: DateTime, end: DateTime, date = todayDate()) {
 	return date >= start && date <= end;
+}
+
+export function dateString(date: DateTime, locale: Locale) {
+	let resolvedLocale = locale;
+	let format;
+
+	switch (locale) {
+		case Locale.German:
+		case Locale.EnglishGB:
+			format = "cccc, d MMMM y";
+			break;
+		case Locale.EnglishUS:
+			format = "cccc, MMMM d, y";
+			break;
+		case Locale.French:
+		case Locale.Italian:
+			format = "cccc d MMMM y";
+			break;
+		case Locale.Japanese:
+		case Locale.ChineseCN:
+		case Locale.ChineseTW:
+			format = "y年L月d日 cccc";
+			break;
+		case Locale.Korean:
+			format = "y년 L월 d일 cccc";
+			break;
+		case Locale.PortugueseBR:
+			format = "cccc, d 'de' MMMM 'de' y";
+			break;
+		case Locale.Russian:
+			format = "cccc, d MMMM y 'г'.";
+			break;
+		case Locale.Vietnamese:
+			format = "cccc, 'ngày' d 'tháng' L, y";
+			break;
+		default:
+			format = "cccc, d MMMM y";
+			resolvedLocale = Locale.EnglishGB;
+			break;
+	}
+
+	return date.toFormat(format, { locale: resolvedLocale });
 }
