@@ -111,7 +111,7 @@ const EVENTS = [
 		name: EventName.DaysOfLove,
 		start: skyDate(2_024, 2, 12),
 		end: skyDate(2_024, 2, 25),
-		url: null,
+		url: String(new URL("daily_guides/events/days_of_love/2024.webp", CDN_URL)),
 		eventCurrencyPerDay: 5,
 		eventCurrencyEmoji: EVENT_EMOJIS.Love,
 	}),
