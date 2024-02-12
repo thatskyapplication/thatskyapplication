@@ -1,7 +1,7 @@
 import { NotificationEvent } from "../Structures/Notification.js";
 import { SeasonName } from "../Structures/Season.js";
 import { SpiritName } from "../Structures/Spirits/Base.js";
-import { Realm } from "../Utility/Constants.js";
+import { Map, Realm } from "../Utility/Constants.js";
 
 export default {
 	general: {
@@ -15,6 +15,7 @@ export default {
 			[Realm.VaultOfKnowledge]: "Chambre forte de connaissance",
 			[Realm.EyeOfEden]: "Œil d'Éden",
 		},
+		maps: { [Map.JellyfishCove]: "Crique aux Méduses" },
 		notificationEvent: {
 			[NotificationEvent.PollutedGeyser]: "Geyser Pollué",
 			[NotificationEvent.Grandma]: "Mamie",

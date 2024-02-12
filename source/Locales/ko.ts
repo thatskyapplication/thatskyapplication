@@ -1,5 +1,5 @@
 import { SeasonName } from "../Structures/Season.js";
-import { Realm } from "../Utility/Constants.js";
+import { Map, Realm } from "../Utility/Constants.js";
 
 export default {
 	general: {
@@ -12,6 +12,7 @@ export default {
 			[Realm.VaultOfKnowledge]: "지식의 도서관",
 			[Realm.EyeOfEden]: "에덴의 눈",
 		},
+		maps: { [Map.JellyfishCove]: "해파리 만" },
 		seasons: {
 			[SeasonName.Gratitude]: "감사의 시즌",
 			[SeasonName.Lightseekers]: "빛 추적자의 시즌",

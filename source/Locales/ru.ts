@@ -1,6 +1,6 @@
 import { SeasonName } from "../Structures/Season.js";
 import { SpiritName } from "../Structures/Spirits/Base.js";
-import { Realm } from "../Utility/Constants.js";
+import { Map, Realm } from "../Utility/Constants.js";
 
 export default {
 	general: {
@@ -13,6 +13,7 @@ export default {
 			[Realm.VaultOfKnowledge]: "Хранилище знаний",
 			[Realm.EyeOfEden]: "Сердце Эдема",
 		},
+		maps: { [Map.JellyfishCove]: "Бухту медуз" },
 		seasons: {
 			[SeasonName.Gratitude]: "Сезон благодарности",
 			[SeasonName.Lightseekers]: "Сезон искателей света",

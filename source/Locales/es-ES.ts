@@ -18,7 +18,11 @@ export default {
 			[Realm.VaultOfKnowledge]: "Bóveda de Conocimiento",
 			[Realm.EyeOfEden]: "Ojo de edén",
 		},
-		maps: { [Map.AncientMemory]: "Recuerdo Ancestral", [Map.CrescentOasis]: "Oasis creciente" },
+		maps: {
+			[Map.AncientMemory]: "Recuerdo Ancestral",
+			[Map.JellyfishCove]: "Ensenada de la Medusa",
+			[Map.CrescentOasis]: "Oasis creciente",
+		},
 		seasons: {
 			[SeasonName.Gratitude]: "Temporada de la gratitud",
 			[SeasonName.Lightseekers]: "Temporada de los buscadores de la luz",
