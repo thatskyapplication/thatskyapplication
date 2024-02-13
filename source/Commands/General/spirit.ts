@@ -158,7 +158,10 @@ export default new (class implements AutocompleteCommand {
 		if (spiritSeason) {
 			embed.addFields({
 				name: "Season",
-				value: `${formatEmoji(SeasonNameToSeasonalEmoji[spiritSeason])}${spiritSeason}`,
+				value: `${formatEmoji(SeasonNameToSeasonalEmoji[spiritSeason])}${t(`seasons.${spiritSeason}`, {
+					lng: locale,
+					ns: "general",
+				})}`,
 				inline: true,
 			});
 		}
