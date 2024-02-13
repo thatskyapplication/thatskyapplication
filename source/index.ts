@@ -22,6 +22,7 @@ import commands from "./Commands/index.js";
 import events, { type Event } from "./Events/index.js";
 import de from "./Locales/de.js";
 import enGB from "./Locales/en-GB.js";
+import es419 from "./Locales/es-419.js";
 import esES from "./Locales/es-ES.js";
 import fr from "./Locales/fr.js";
 import it from "./Locales/it.js";
@@ -62,6 +63,8 @@ void init({
 	resources: {
 		[Locale.German]: de,
 		[Locale.EnglishGB]: enGB,
+		// TODO: Replace with Locale when it's updated.
+		"es-419": es419,
 		[Locale.SpanishES]: esES,
 		[Locale.French]: fr,
 		[Locale.Italian]: it,
