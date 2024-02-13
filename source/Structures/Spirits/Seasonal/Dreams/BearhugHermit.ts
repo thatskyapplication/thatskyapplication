@@ -61,6 +61,8 @@ export default new SeasonalSpirit({
 	},
 	keywords: ["yeti"],
 	visits: {
-		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(75, skyDate(2_022, 11, 24)),
+		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>()
+			.set(75, skyDate(2_022, 11, 24))
+			.set(107, skyDate(2_024, 2, 15)),
 	},
 });
