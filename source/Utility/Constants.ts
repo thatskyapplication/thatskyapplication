@@ -222,6 +222,7 @@ export const LOCALES = [
 	Locale.German,
 	Locale.EnglishGB,
 	Locale.EnglishUS,
+	Locale.SpanishES,
 	Locale.French,
 	Locale.Italian,
 	Locale.Japanese,
