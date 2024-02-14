@@ -116,15 +116,19 @@ async function recoverInteractionError(interaction: Interaction, error: unknown)
 
 function logCommand(interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) {
 	const { appPermissions, channelId, commandName, guildId, guildLocale, locale, user } = interaction;
+	const command = interaction.isChatInputCommand() ? String(interaction) : commandName;
 
-	pino.info({
-		user: { id: user.id, username: user.username },
-		command: interaction.isChatInputCommand() ? String(interaction) : commandName,
-		guildId,
-		channelId,
-		permissions: appPermissions ? String(appPermissions.bitfield) : null,
-		locale: { user: locale, guild: guildLocale },
-	});
+	pino.info(
+		{
+			user: { id: user.id, username: user.username },
+			command,
+			guildId,
+			channelId,
+			permissions: appPermissions ? String(appPermissions.bitfield) : null,
+			locale: { user: locale, guild: guildLocale },
+		},
+		`Command: ${command}`,
+	);
 }
 
 export const event: Event<typeof name> = {
