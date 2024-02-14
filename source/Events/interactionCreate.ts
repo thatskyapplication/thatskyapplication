@@ -3,8 +3,10 @@ import {
 	type ContextMenuCommandInteraction,
 	type Interaction,
 	type Locale,
+	DiscordAPIError,
 	Events,
 	InteractionType,
+	RESTJSONErrorCodes,
 } from "discord.js";
 import {
 	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
@@ -95,6 +97,9 @@ async function recoverInteractionError(interaction: Interaction, error: unknown)
 	}
 
 	pino.error(error, errorTypeString);
+
+	// We cannot respond to this.
+	if (error instanceof DiscordAPIError && error.code === RESTJSONErrorCodes.UnknownInteraction) return;
 
 	try {
 		if (interaction.isAutocomplete()) {
