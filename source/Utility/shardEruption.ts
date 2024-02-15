@@ -10,7 +10,7 @@ function resolveShardEruptionMapURL(map: Map) {
 	return new URL(`daily_guides/shard_eruptions/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL);
 }
 
-export const SHARD_ERUPTION_PREDICTION_DATA = [
+const SHARD_ERUPTION_PREDICTION_DATA = [
 	{
 		noShardWeekDay: [6, 7], // Saturday, Sunday
 		interval: 8,
