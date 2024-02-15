@@ -3,7 +3,7 @@ import { hyperlink, TimestampStyles, type Locale, time } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { type Realm, CDN_URL, Map, VALID_REALM } from "./Constants.js";
-import { todayDate } from "./dates.js";
+import { skyDate, todayDate } from "./dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "./emojis.js";
 
 function resolveShardEruptionMapURL(map: Map) {
@@ -88,8 +88,18 @@ export interface ShardEruptionData {
 	url: URL;
 }
 
+/**
+ * Dates where shard eruptions are supposed to happen, but did not.
+ */
+const BAD_DATES = [
+	// Days of Love 2024 happened in Jellyfish Cove, which affected these shard eruptions that landed there.
+	skyDate(2_024, 2, 15),
+	skyDate(2_024, 2, 25),
+] as const;
+
 export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	const date = todayDate().plus({ day: daysOffset });
+	if (BAD_DATES.some((badDate) => badDate.equals(date))) return null;
 	const dayOfMonth = date.day;
 	const dayOfWeek = date.weekday;
 	const strong = dayOfMonth % 2 === 1;
