@@ -17,12 +17,7 @@ import {
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
-import {
-	treasureCandleRealm,
-	shardEruption,
-	shardEruptionInformationString,
-	shardEruptionTimestampsString,
-} from "../Utility/Utility.js";
+import { treasureCandleRealm } from "../Utility/Utility.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
@@ -31,6 +26,11 @@ import {
 	todayDate,
 } from "../Utility/dates.js";
 import { formatEmoji, formatEmojiURL, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../Utility/emojis.js";
+import {
+	shardEruption,
+	shardEruptionInformationString,
+	shardEruptionTimestampsString,
+} from "../Utility/shardEruption.js";
 import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";

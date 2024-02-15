@@ -17,15 +17,15 @@ import {
 } from "discord.js";
 import { DateTime } from "luxon";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
+import { chatInputApplicationCommandMention } from "../../Utility/Utility.js";
+import { TIME_ZONE, dateRangeString, dateString, todayDate } from "../../Utility/dates.js";
+import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import {
-	chatInputApplicationCommandMention,
 	resolveShardEruptionEmoji,
 	shardEruption,
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
-} from "../../Utility/Utility.js";
-import { TIME_ZONE, dateRangeString, dateString, todayDate } from "../../Utility/dates.js";
-import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
+} from "../../Utility/shardEruption.js";
 import type { ChatInputCommand } from "../index.js";
 
 export const SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID" as const;

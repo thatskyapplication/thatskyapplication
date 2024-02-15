@@ -1,5 +1,10 @@
-import { Map } from "./Constants.js";
-import { resolveShardEruptionMapURL } from "./Utility.js";
+import { URL } from "node:url";
+import { hyperlink, TimestampStyles, type Locale, time } from "discord.js";
+import { t } from "i18next";
+import type { DateTime } from "luxon";
+import { type Realm, CDN_URL, Map, VALID_REALM } from "./Constants.js";
+import { todayDate } from "./dates.js";
+import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "./emojis.js";
 
 export const SHARD_ERUPTION_PREDICTION_DATA = [
 	{
@@ -64,3 +69,81 @@ export const SHARD_ERUPTION_PREDICTION_DATA = [
 		],
 	},
 ] as const;
+
+interface ShardEruptionTimestampsData {
+	start: DateTime;
+	end: DateTime;
+}
+
+export interface ShardEruptionData {
+	realm: Realm;
+	map: Map;
+	strong: boolean;
+	reward: number;
+	timestamps: ShardEruptionTimestampsData[];
+	url: URL;
+}
+
+export function shardEruption(daysOffset = 0): ShardEruptionData | null {
+	const date = todayDate().plus({ day: daysOffset });
+	const dayOfMonth = date.day;
+	const dayOfWeek = date.weekday;
+	const strong = dayOfMonth % 2 === 1;
+	const infoIndex = strong ? (((dayOfMonth - 1) / 2) % 3) + 2 : (dayOfMonth / 2) % 2;
+	const { noShardWeekDay, interval, offset, area } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex]!;
+	// @ts-expect-error Too narrow.
+	const noShardDay = noShardWeekDay.includes(dayOfWeek);
+	if (noShardDay) return null;
+	const realmIndex = (dayOfMonth - 1) % 5;
+	const { map, url, reward } = area[realmIndex]!;
+	const timestamps = [];
+
+	for (
+		let startTime = date.plus({ millisecond: offset });
+		timestamps.length < 3;
+		startTime = startTime.plus({ millisecond: interval * 3_600_000 })
+	) {
+		timestamps.push({ start: startTime.plus({ second: 520 }), end: startTime.plus({ hour: 4 }) });
+	}
+
+	return { realm: VALID_REALM[realmIndex]!, map, strong, reward, timestamps, url };
+}
+
+export function resolveShardEruptionMapURL(map: Map) {
+	return new URL(`daily_guides/shard_eruptions/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL);
+}
+
+export function resolveShardEruptionEmoji(strong: boolean) {
+	return strong ? MISCELLANEOUS_EMOJIS.ShardStrong : MISCELLANEOUS_EMOJIS.ShardRegular;
+}
+
+export function shardEruptionInformationString(
+	{ realm, map, strong, reward, url }: ShardEruptionData,
+	useHyperlink: boolean,
+	locale: Locale,
+) {
+	let realmMap = `${t(`realms.${realm}`, { lng: locale, ns: "general" })} (${t(`maps.${map}`, {
+		lng: locale,
+		ns: "general",
+	})})`;
+
+	if (useHyperlink) realmMap = hyperlink(realmMap, url);
+
+	return `${formatEmoji(resolveShardEruptionEmoji(strong))} ${realmMap}\n${
+		reward === 200
+			? `200 ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}`
+			: resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.AscendedCandle, number: reward })
+	}`;
+}
+
+export function shardEruptionTimestampsString({ timestamps }: ShardEruptionData) {
+	return timestamps
+		.map(
+			({ start, end }) =>
+				`${time(start.toUnixInteger(), TimestampStyles.LongTime)} - ${time(
+					end.toUnixInteger(),
+					TimestampStyles.LongTime,
+				)}`,
+		)
+		.join("\n");
+}

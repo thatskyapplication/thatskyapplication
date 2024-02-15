@@ -1,13 +1,10 @@
-import { URL } from "node:url";
-import { type Locale, type Snowflake, type User, hyperlink, time, TimestampStyles } from "discord.js";
-import { t } from "i18next";
+import { type Snowflake, type User } from "discord.js";
 import type { DateTime } from "luxon";
 import {
 	type MeditationMaps,
 	type RainbowAdmireMaps,
 	type Realm,
 	type SocialLightAreaMaps,
-	CDN_URL,
 	INCONSISTENT_MAP,
 	inconsistentMapKeys,
 	Map,
@@ -17,9 +14,7 @@ import {
 	SOCIAL_LIGHT_AREA_MAPS,
 	VALID_REALM,
 } from "./Constants.js";
-import { INITIAL_TREASURE_CANDLE_REALM_SEEK, todayDate } from "./dates.js";
-import { formatEmoji, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "./emojis.js";
-import { SHARD_ERUPTION_PREDICTION_DATA } from "./shardEruption.js";
+import { INITIAL_TREASURE_CANDLE_REALM_SEEK } from "./dates.js";
 
 export function treasureCandleRealm(date: DateTime) {
 	return VALID_REALM[date.diff(INITIAL_TREASURE_CANDLE_REALM_SEEK, "day").days % 5]!;
@@ -99,84 +94,6 @@ export function isSocialLightAreaMap(map: Map): map is SocialLightAreaMaps {
 
 export function isRainbowAdmireMap(map: Map): map is RainbowAdmireMaps {
 	return RAINBOW_ADMIRE_MAPS.includes(map as RainbowAdmireMaps);
-}
-
-export function resolveShardEruptionMapURL(map: Map) {
-	return new URL(`daily_guides/shard_eruptions/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL);
-}
-
-interface ShardEruptionTimestampsData {
-	start: DateTime;
-	end: DateTime;
-}
-
-export interface ShardEruptionData {
-	realm: Realm;
-	map: Map;
-	strong: boolean;
-	reward: number;
-	timestamps: ShardEruptionTimestampsData[];
-	url: URL;
-}
-
-export function shardEruption(daysOffset = 0): ShardEruptionData | null {
-	const date = todayDate().plus({ day: daysOffset });
-	const dayOfMonth = date.day;
-	const dayOfWeek = date.weekday;
-	const strong = dayOfMonth % 2 === 1;
-	const infoIndex = strong ? (((dayOfMonth - 1) / 2) % 3) + 2 : (dayOfMonth / 2) % 2;
-	const { noShardWeekDay, interval, offset, area } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex]!;
-	// @ts-expect-error Too narrow.
-	const noShardDay = noShardWeekDay.includes(dayOfWeek);
-	if (noShardDay) return null;
-	const realmIndex = (dayOfMonth - 1) % 5;
-	const { map, url, reward } = area[realmIndex]!;
-	const timestamps = [];
-
-	for (
-		let startTime = date.plus({ millisecond: offset });
-		timestamps.length < 3;
-		startTime = startTime.plus({ millisecond: interval * 3_600_000 })
-	) {
-		timestamps.push({ start: startTime.plus({ second: 520 }), end: startTime.plus({ hour: 4 }) });
-	}
-
-	return { realm: VALID_REALM[realmIndex]!, map, strong, reward, timestamps, url };
-}
-
-export function resolveShardEruptionEmoji(strong: boolean) {
-	return strong ? MISCELLANEOUS_EMOJIS.ShardStrong : MISCELLANEOUS_EMOJIS.ShardRegular;
-}
-
-export function shardEruptionInformationString(
-	{ realm, map, strong, reward, url }: ShardEruptionData,
-	useHyperlink: boolean,
-	locale: Locale,
-) {
-	let realmMap = `${t(`realms.${realm}`, { lng: locale, ns: "general" })} (${t(`maps.${map}`, {
-		lng: locale,
-		ns: "general",
-	})})`;
-
-	if (useHyperlink) realmMap = hyperlink(realmMap, url);
-
-	return `${formatEmoji(resolveShardEruptionEmoji(strong))} ${realmMap}\n${
-		reward === 200
-			? `200 ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}`
-			: resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.AscendedCandle, number: reward })
-	}`;
-}
-
-export function shardEruptionTimestampsString({ timestamps }: ShardEruptionData) {
-	return timestamps
-		.map(
-			({ start, end }) =>
-				`${time(start.toUnixInteger(), TimestampStyles.LongTime)} - ${time(
-					end.toUnixInteger(),
-					TimestampStyles.LongTime,
-				)}`,
-		)
-		.join("\n");
 }
 
 export function chatInputApplicationCommandMention(

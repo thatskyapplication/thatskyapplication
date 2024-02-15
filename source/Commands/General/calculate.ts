@@ -26,7 +26,6 @@ import {
 	Realm,
 	WINGED_LIGHT_AREAS,
 } from "../../Utility/Constants.js";
-import { shardEruption } from "../../Utility/Utility.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
@@ -34,6 +33,7 @@ import {
 } from "../../Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
+import { shardEruption } from "../../Utility/shardEruption.js";
 import type { ChatInputCommand } from "../index.js";
 
 const doubleSeasonalLightEventStart = time(
