@@ -6,6 +6,10 @@ import { type Realm, CDN_URL, Map, VALID_REALM } from "./Constants.js";
 import { todayDate } from "./dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "./emojis.js";
 
+function resolveShardEruptionMapURL(map: Map) {
+	return new URL(`daily_guides/shard_eruptions/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL);
+}
+
 export const SHARD_ERUPTION_PREDICTION_DATA = [
 	{
 		noShardWeekDay: [6, 7], // Saturday, Sunday
@@ -107,10 +111,6 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	}
 
 	return { realm: VALID_REALM[realmIndex]!, map, strong, reward, timestamps, url };
-}
-
-export function resolveShardEruptionMapURL(map: Map) {
-	return new URL(`daily_guides/shard_eruptions/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL);
 }
 
 export function resolveShardEruptionEmoji(strong: boolean) {
