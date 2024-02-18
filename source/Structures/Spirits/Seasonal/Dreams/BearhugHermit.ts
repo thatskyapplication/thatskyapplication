@@ -35,7 +35,6 @@ export default new SeasonalSpirit({
 	realm: Realm.ValleyOfTriumph,
 	hasMarketingVideo: true,
 	offer: {
-		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${action} 1`, cost: null, emoji: actionEmoji })
 			.set(1 << 2, { item: "Blessing 1", cost: { seasonalCandles: 13 }, emoji: blessing2 })
