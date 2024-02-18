@@ -450,14 +450,16 @@ export default new (class DailyGuides {
 			(transformedContent.includes("DAILY QUEST") && transformedContent.length <= 20) ||
 			transformedContent.includes("SEASONAL CANDLE") ||
 			transformedContent.includes("SHATTERING SHARD SUMMARY") ||
-			transformedContent.includes("DAYS OF COLOUR 2023")
+			transformedContent.includes("DAYS OF COLOUR 2023") ||
+			transformedContent.includes("2024 DAYS OF LOVE")
 		) {
 			/*
 			 * Parsing for the following are redundant:
 			 * - The general photo of quests (not needed)
 			 * - The seasonal candles infographic (automated)
 			 * - The shard eruption infographic (automated)
-			 * - The Days of Colour event currency rotation (we have a trend for this already and they were late sending this)
+			 * - Days of Colour event currency rotation
+			 * - Days of Love event currency
 			 */
 			return;
 		}
