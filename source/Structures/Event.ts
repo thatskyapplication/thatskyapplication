@@ -10,6 +10,7 @@ export const enum EventName {
 	DaysOfFeast = "Days of Feast",
 	DaysOfFortune = "Days of Fortune",
 	DaysOfLove = "Days of Love",
+	DaysOfBloom = "Days of Bloom",
 }
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
@@ -114,6 +115,14 @@ const EVENTS = [
 		url: String(new URL("daily_guides/events/days_of_love/2024.webp", CDN_URL)),
 		eventCurrencyPerDay: 5,
 		eventCurrencyEmoji: EVENT_EMOJIS.Love,
+	}),
+	new Event({
+		name: EventName.DaysOfBloom,
+		start: skyDate(2_024, 3, 25),
+		end: skyDate(2_024, 4, 14),
+		url: null,
+		eventCurrencyPerDay: 5,
+		eventCurrencyEmoji: EVENT_EMOJIS.Bloom,
 	}),
 ] as const satisfies Readonly<Event[]>;
 
