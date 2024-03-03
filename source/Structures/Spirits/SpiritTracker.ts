@@ -1815,7 +1815,7 @@ export class SpiritTracker {
 		const { locale } = interaction;
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
-		const seasonalParsing = isSeasonalSpirit && !spirit.visited;
+		const seasonalParsing = isSeasonalSpirit && !spirit.visit(todayDate()).visited;
 		const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 
@@ -1941,7 +1941,7 @@ export class SpiritTracker {
 			const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
 			const spiritDescription = [];
 			const isSeasonalSpirit = spirit.isSeasonalSpirit();
-			const seasonalParsing = isSeasonalSpirit && !spirit.visited;
+			const seasonalParsing = isSeasonalSpirit && !spirit.visit(todayDate()).visited;
 			const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
 			if (!offer) continue;
 			const owned = [];
@@ -2146,7 +2146,7 @@ export class SpiritTracker {
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 		includeSeasonalCurrency?: boolean,
 	) {
-		const seasonalParsing = spirit.isSeasonalSpirit() && !spirit.visited;
+		const seasonalParsing = spirit.isSeasonalSpirit() && !spirit.visit(todayDate()).visited;
 		const resolvedOffer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
 		if (!resolvedOffer) return null;
 		const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];

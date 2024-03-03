@@ -8,11 +8,8 @@ export default [...Standard, ...Elder, ...Seasonal] as const;
 
 export function resolveTravellingSpirit(date: DateTime) {
 	return (
-		Seasonal.find((spirit): spirit is SeasonalSpirit => {
-			if (!spirit.isSeasonalSpirit()) return false;
-			const visit = spirit.visits.travelling.last();
-			if (!visit) return false;
-			return date >= visit && date <= visit.plus({ days: 3 }).endOf("day");
-		}) ?? null
+		Seasonal.find((spirit): spirit is SeasonalSpirit =>
+			spirit.isSeasonalSpirit() ? spirit.visit(date).current.travelling : false,
+		) ?? null
 	);
 }

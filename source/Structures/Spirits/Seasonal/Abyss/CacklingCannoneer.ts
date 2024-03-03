@@ -1,8 +1,6 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
-import { skyDate } from "../../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
 	EMOTE_EMOJIS,
@@ -12,13 +10,7 @@ import {
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
-import {
-	type ItemsData,
-	type SeasonalSpiritVisitCollectionKey,
-	Emote,
-	SeasonalSpirit,
-	SpiritName,
-} from "../../Base.js";
+import { type ItemsData, Emote, SeasonalSpirit, SpiritName } from "../../Base.js";
 
 const emote = Emote.EvilLaugh;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
@@ -64,6 +56,6 @@ export default new SeasonalSpirit({
 			.set(1 << 12, { item: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.AbyssHeart }),
 	},
 	visits: {
-		returning: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(4, skyDate(2_023, 8, 7)),
+		returning: [4],
 	},
 });
