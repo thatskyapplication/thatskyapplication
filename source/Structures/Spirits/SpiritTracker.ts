@@ -1406,7 +1406,7 @@ export class SpiritTracker {
 			)
 			.setDisabled(!currentSeason)
 			.setLabel("Current Season")
-			.setStyle(ButtonStyle.Success);
+			.setStyle(currentSeason ? ButtonStyle.Success : ButtonStyle.Secondary);
 
 		if (currentSeason) {
 			currentSeasonButton.setEmoji(currentSeason.emoji);
@@ -1421,7 +1421,7 @@ export class SpiritTracker {
 			)
 			.setDisabled(!currentTravellingSpirit)
 			.setLabel("Travelling Spirit")
-			.setStyle(ButtonStyle.Success);
+			.setStyle(currentTravellingSpirit ? ButtonStyle.Success : ButtonStyle.Secondary);
 
 		if (currentTravellingSpirit) {
 			currentTravellingSpiritButton.setEmoji(SeasonNameToSeasonalEmoji[currentTravellingSpirit.season]);
@@ -1478,7 +1478,7 @@ export class SpiritTracker {
 						)
 						.setDisabled(!currentReturningSpirits)
 						.setLabel("Returning Spirits")
-						.setStyle(ButtonStyle.Success),
+						.setStyle(currentReturningSpirits ? ButtonStyle.Success : ButtonStyle.Secondary),
 				),
 			],
 			embeds: [],
