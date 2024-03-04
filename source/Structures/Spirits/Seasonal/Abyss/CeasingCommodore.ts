@@ -10,12 +10,7 @@ import {
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
-import {
-	type ItemsData,
-	Emote,
-	SeasonalSpirit,
-	SpiritName,
-} from "../../Base.js";
+import { type ItemsData, Emote, SeasonalSpirit, SpiritName } from "../../Base.js";
 
 const emote = Emote.CalmDown;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
