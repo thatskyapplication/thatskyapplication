@@ -27,6 +27,17 @@ export default new SeasonalSpirit({
 	realm: Realm.ValleyOfTriumph,
 	offer: {
 		hasInfographic: false,
+		current: new Collection<number, ItemsData>()
+			.set(1 << 0, { item: `${action} 1`, cost: null, emoji: actionEmoji })
+			.set(1 << 3, { item: "Music sheet", cost: { candles: 22 }, emoji: musicSheet })
+			.set(1 << 1, { item: "Blessing 1", cost: { candles: 5 }, emoji: blessing3 })
+			.set(1 << 2, { item: "Hood", cost: { candles: 48 }, emoji: hairEmoji })
+			.set(1 << 9, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
+			.set(1 << 10, { item: "Wing buff", cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff })
+			.set(1 << 4, { item: "Blessing 2", cost: null, emoji: blessing3 })
+			.set(1 << 6, { item: `${action} 2`, cost: { hearts: 8 }, emoji: actionEmoji })
+			.set(1 << 8, { item: "Outfit", cost: { candles: 70 }, emoji: outfitEmoji })
+			.set(1 << 7, { item: "Mask", cost: { candles: 34 }, emoji: maskEmoji }),
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${action} 1`, cost: null, emoji: actionEmoji })
 			.set(1 << 1, { item: "Blessing 1", cost: { seasonalCandles: 10 }, emoji: blessing3 })
