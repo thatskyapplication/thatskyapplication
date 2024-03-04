@@ -53,6 +53,7 @@ import {
 	SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_RETURNING_SPIRITS_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID,
@@ -236,6 +237,11 @@ export const event: Event<typeof name> = {
 						await SpiritTracker.viewSeason(interaction, parsedCustomId);
 						return;
 					}
+				}
+
+				if (customId === SPIRIT_TRACKER_VIEW_RETURNING_SPIRITS_CUSTOM_ID) {
+					await SpiritTracker.viewReturningSpirits(interaction);
+					return;
 				}
 
 				if (customId.startsWith(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)) {

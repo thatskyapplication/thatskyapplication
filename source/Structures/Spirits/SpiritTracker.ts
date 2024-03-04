@@ -48,7 +48,7 @@ import {
 import Elder from "./Elder/index.js";
 import Seasonal from "./Seasonal/index.js";
 import Standard from "./Standard/index.js";
-import Spirits, { resolveTravellingSpirit } from "./index.js";
+import Spirits, { resolveReturningSpirits, resolveTravellingSpirit } from "./index.js";
 
 type SpiritTrackerValue = number | null;
 
@@ -713,6 +713,10 @@ export const SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_ELDERS_
 export const SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID" as const;
+
+export const SPIRIT_TRACKER_VIEW_RETURNING_SPIRITS_CUSTOM_ID =
+	"SPIRIT_TRACKER_VIEW_RETURNING_SPIRITS_CUSTOM_ID" as const;
+
 export const SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID" as const;
@@ -1391,6 +1395,7 @@ export class SpiritTracker {
 		const today = todayDate();
 		const currentSeason = resolveSeason(today);
 		const currentTravellingSpirit = resolveTravellingSpirit(today);
+		const currentReturningSpirits = resolveReturningSpirits(today);
 
 		const currentSeasonButton = new ButtonBuilder()
 			.setCustomId(
@@ -1461,7 +1466,20 @@ export class SpiritTracker {
 						.setPlaceholder("What kind of spirit do you want to see?"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(backToStartButton(true)),
-				new ActionRowBuilder<ButtonBuilder>().setComponents(currentSeasonButton, currentTravellingSpiritButton),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					currentSeasonButton,
+					currentTravellingSpiritButton,
+					new ButtonBuilder()
+						.setCustomId(
+							currentReturningSpirits
+								? SPIRIT_TRACKER_VIEW_RETURNING_SPIRITS_CUSTOM_ID
+								: // This would not happen, but it's here to satisfy the API.
+								  SPIRIT_TRACKER_VIEW_START_CUSTOM_ID,
+						)
+						.setDisabled(!currentReturningSpirits)
+						.setLabel("Returning Spirits")
+						.setStyle(ButtonStyle.Success),
+				),
 			],
 			embeds: [],
 			ephemeral: true,
@@ -1780,6 +1798,51 @@ export class SpiritTracker {
 		await interaction.update(response);
 	}
 
+	public static async viewReturningSpirits(interaction: ButtonInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		const { locale, user } = interaction;
+		const spiritTracker = await this.fetch(user.id);
+		const spirits = resolveReturningSpirits(todayDate());
+
+		if (!spirits) {
+			await SpiritTracker.viewTracker(interaction);
+			return;
+		}
+
+		const options = spirits.map((spirit) => {
+			const { name } = spirit;
+			const percentage = spiritTracker.spiritProgress([spirit], true);
+
+			return new StringSelectMenuOptionBuilder()
+				.setEmoji(SeasonNameToSeasonalEmoji[spirit.season])
+				.setLabel(
+					`${t(`spiritNames.${name}`, { lng: locale, ns: "general" })}${
+						percentage === null ? "" : ` (${percentage}%)`
+					}`,
+				)
+				.setValue(name);
+		});
+
+		const response = {
+			content: "",
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(0)
+						.setOptions(options)
+						.setPlaceholder("Select a spirit!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(backToStartButton()),
+			],
+			// TODO: It is improper to use this method as spirits may come from different seasons.
+			embeds: [spiritTracker.spiritEmbed(spirits, locale, false).setTitle("Returning Spirits")],
+		};
+
+		await interaction.update(response);
+	}
+
 	public static async viewSpirit(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		const spiritTracker = await this.fetch(interaction.user.id);
 
@@ -1815,7 +1878,7 @@ export class SpiritTracker {
 		const { locale } = interaction;
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
-		const seasonalParsing = isSeasonalSpirit && !spirit.visit(todayDate()).visited;
+		const seasonalParsing = isSeasonalSpirit && !spirit.offer.current;
 		const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 
@@ -1921,6 +1984,7 @@ export class SpiritTracker {
 	private spiritEmbed(
 		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
 		locale: Locale,
+		includeTotalCurrency = true,
 	) {
 		const multiple = spirits.length > 1;
 		const description = [];
@@ -1929,7 +1993,7 @@ export class SpiritTracker {
 		const aSpirit = spirits[0]!;
 		const spiritSeason = aSpirit.isSeasonalSpirit() || aSpirit.isGuideSpirit() ? aSpirit.season : null;
 
-		if (multiple) {
+		if (includeTotalCurrency && multiple) {
 			const resolvedRemainingCurrency = this.summateCurrency(spirits, spiritSeason);
 
 			if (resolvedRemainingCurrency.length > 0) {
@@ -1941,7 +2005,7 @@ export class SpiritTracker {
 			const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
 			const spiritDescription = [];
 			const isSeasonalSpirit = spirit.isSeasonalSpirit();
-			const seasonalParsing = isSeasonalSpirit && !spirit.visit(todayDate()).visited;
+			const seasonalParsing = isSeasonalSpirit && !spirit.offer.current;
 			const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
 			if (!offer) continue;
 			const owned = [];
@@ -2146,7 +2210,7 @@ export class SpiritTracker {
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 		includeSeasonalCurrency?: boolean,
 	) {
-		const seasonalParsing = spirit.isSeasonalSpirit() && !spirit.visit(todayDate()).visited;
+		const seasonalParsing = spirit.isSeasonalSpirit() && !spirit.offer.current;
 		const resolvedOffer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
 		if (!resolvedOffer) return null;
 		const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];

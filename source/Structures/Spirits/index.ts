@@ -13,3 +13,11 @@ export function resolveTravellingSpirit(date: DateTime) {
 		) ?? null
 	);
 }
+
+export function resolveReturningSpirits(date: DateTime) {
+	const returningSpirits = Seasonal.filter((spirit): spirit is SeasonalSpirit =>
+		spirit.isSeasonalSpirit() ? spirit.visit(date).current.returning : false,
+	);
+
+	return returningSpirits.length === 0 ? null : returningSpirits;
+}

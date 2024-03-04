@@ -110,7 +110,7 @@ export default new (class implements AutocompleteCommand {
 			return;
 		}
 
-		await this.searchResponse(interaction, spirit, spirit.isSeasonalSpirit() && !spirit.visit(todayDate()).visited);
+		await this.searchResponse(interaction, spirit, spirit.isSeasonalSpirit() && !spirit.offer.current);
 	}
 
 	public async parseSpiritSwitch(interaction: ButtonInteraction) {
