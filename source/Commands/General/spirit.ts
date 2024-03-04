@@ -19,7 +19,8 @@ import {
 	type ElderSpirit,
 	type GuideSpirit,
 	type SeasonalSpirit,
-	type SeasonalSpiritVisitData,
+	type SeasonalSpiritVisitReturningData,
+	type SeasonalSpiritVisitTravellingData,
 	type StandardSpirit,
 	CallToEmoji,
 	EmoteToEmoji,
@@ -34,6 +35,7 @@ import Seasonal from "../../Structures/Spirits/Seasonal/index.js";
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
 import Spirits from "../../Structures/Spirits/index.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
+import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { AutocompleteCommand } from "../index.js";
@@ -78,14 +80,16 @@ export default new (class implements AutocompleteCommand {
 		}
 	}
 
-	private visitField(seasonalSpiritVisit: SeasonalSpiritVisitData) {
+	private visitField(seasonalSpiritVisit: SeasonalSpiritVisitTravellingData | SeasonalSpiritVisitReturningData) {
 		return seasonalSpiritVisit
 			.reduce<string[]>((visits, date, visit) => {
+				const resolvedDate = "start" in date ? date.start : date;
+
 				visits.push(
-					`${visit === "Error" ? "" : `#`}${visit}: ${time(date.toUnixInteger(), TimestampStyles.LongDate)} (${time(
-						date.toUnixInteger(),
-						TimestampStyles.RelativeTime,
-					)})`,
+					`${visit === "Error" ? "" : `#`}${visit}: ${time(
+						resolvedDate.toUnixInteger(),
+						TimestampStyles.LongDate,
+					)} (${time(resolvedDate.toUnixInteger(), TimestampStyles.RelativeTime)})`,
 				);
 
 				return visits;
@@ -106,7 +110,7 @@ export default new (class implements AutocompleteCommand {
 			return;
 		}
 
-		await this.searchResponse(interaction, spirit, spirit.isSeasonalSpirit() && !spirit.visited);
+		await this.searchResponse(interaction, spirit, spirit.isSeasonalSpirit() && !spirit.offer.current);
 	}
 
 	public async parseSpiritSwitch(interaction: ButtonInteraction) {
@@ -193,7 +197,7 @@ export default new (class implements AutocompleteCommand {
 			if (travelling.size > 0) embed.addFields({ name: "Travelling", value: this.visitField(travelling) });
 			if (returning.size > 0) embed.addFields({ name: "Returning", value: this.visitField(returning) });
 
-			if (spirit.visited) {
+			if (spirit.visit(todayDate()).visited) {
 				components.push(
 					new ActionRowBuilder<ButtonBuilder>().setComponents(
 						new ButtonBuilder()

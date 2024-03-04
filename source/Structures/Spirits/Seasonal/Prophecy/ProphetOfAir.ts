@@ -64,6 +64,6 @@ export default new SeasonalSpirit({
 	},
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(61, skyDate(2_022, 5, 12)),
-		returning: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(2, skyDate(2_023, 5, 15)),
+		returning: [2],
 	},
 });

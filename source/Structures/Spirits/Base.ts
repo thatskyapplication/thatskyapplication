@@ -1,9 +1,10 @@
+import process from "node:process";
 import { URL } from "node:url";
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import { type Realm, CDN_URL, WIKI_URL } from "../../Utility/Constants.js";
-import { todayDate } from "../../Utility/dates.js";
+import { skyDate } from "../../Utility/dates.js";
 import {
 	type CallsEmojis,
 	type Emoji,
@@ -17,6 +18,7 @@ import {
 	resolveCurrencyEmoji,
 	STANCE_EMOJIS,
 } from "../../Utility/emojis.js";
+import pino from "../../pino.js";
 import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../Season.js";
 
 export enum SpiritName {
@@ -541,6 +543,20 @@ export const SPIRIT_TYPE = {
 	Guide: 3,
 } as const;
 
+export type SeasonalSpiritVisitCollectionKey = number | "Error";
+
+interface ReturningDatesData {
+	start: DateTime;
+	end: DateTime;
+}
+
+const RETURNING_DATES = new Collection<SeasonalSpiritVisitCollectionKey, ReturningDatesData>()
+	.set(1, { start: skyDate(2_023, 3, 6), end: skyDate(2_023, 3, 19) })
+	.set(2, { start: skyDate(2_023, 5, 15), end: skyDate(2_023, 5, 21) })
+	.set(3, { start: skyDate(2_023, 7, 3), end: skyDate(2_023, 7, 16) })
+	.set(4, { start: skyDate(2_023, 8, 7), end: skyDate(2_023, 8, 13) })
+	.set(5, { start: skyDate(2_024, 3, 4), end: skyDate(2_024, 3, 17) });
+
 export type SpiritType = (typeof SPIRIT_TYPE)[keyof typeof SPIRIT_TYPE];
 
 export interface SpiritCost {
@@ -627,18 +643,23 @@ interface ElderSpiritData extends BaseSpiritData, ElderFriendshipTreeData {
 	realm: Realm;
 }
 
-export type SeasonalSpiritVisitCollectionKey = number | "Error";
-export type SeasonalSpiritVisitData = Collection<SeasonalSpiritVisitCollectionKey, DateTime>;
+export type SeasonalSpiritVisitTravellingData = Collection<SeasonalSpiritVisitCollectionKey, DateTime>;
+export type SeasonalSpiritVisitReturningData = Collection<SeasonalSpiritVisitCollectionKey, ReturningDatesData>;
 
-export interface SeasonalSpiritVisit {
-	travelling?: SeasonalSpiritVisitData;
-	returning?: SeasonalSpiritVisitData;
+interface SeasonalSpiritVisitData {
+	travelling?: SeasonalSpiritVisitTravellingData;
+	returning?: SeasonalSpiritVisitCollectionKey[];
+}
+
+interface SeasonalSpiritVisit {
+	travelling: SeasonalSpiritVisitTravellingData;
+	returning: SeasonalSpiritVisitReturningData;
 }
 
 interface SeasonalSpiritData extends BaseSpiritData, SeasonalFriendshipTreeData, ExpressiveSpiritData {
 	season: SeasonName;
 	hasMarketingVideo?: boolean;
-	visits?: SeasonalSpiritVisit;
+	visits?: SeasonalSpiritVisitData;
 }
 
 interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
@@ -902,7 +923,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 
 	public readonly marketingVideoURL: string | null;
 
-	public readonly visits: Required<SeasonalSpiritVisit>;
+	public readonly visits: SeasonalSpiritVisit;
 
 	public constructor(spirit: SeasonalSpiritData) {
 		super(spirit);
@@ -914,16 +935,38 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 
 		this.visits = {
 			travelling: spirit.visits?.travelling ?? new Collection<SeasonalSpiritVisitCollectionKey, DateTime>(),
-			returning: spirit.visits?.returning ?? new Collection<SeasonalSpiritVisitCollectionKey, DateTime>(),
+			returning:
+				spirit.visits?.returning?.reduce((collection, returning) => {
+					const period = RETURNING_DATES.get(returning);
+
+					if (!period) {
+						pino.fatal(`${this.name} had a returning index of ${returning}, but there was no date for it.`);
+						process.exit(1);
+					}
+
+					return collection.set(returning, period);
+				}, new Collection<SeasonalSpiritVisitCollectionKey, ReturningDatesData>()) ??
+				new Collection<SeasonalSpiritVisitCollectionKey, ReturningDatesData>(),
 		};
 	}
 
-	public get visited() {
+	public visit(date: DateTime) {
 		const { travelling, returning } = this.visits;
 		const firstTravelling = travelling.first();
+		const lastTravelling = travelling.last();
 		const firstReturning = returning.first();
-		const today = todayDate();
-		return (firstTravelling && firstTravelling <= today) || (firstReturning && firstReturning <= today);
+
+		return {
+			visited: Boolean(
+				(firstTravelling && firstTravelling <= date) || (firstReturning && firstReturning.start <= date),
+			),
+			current: {
+				travelling: Boolean(
+					lastTravelling && date >= lastTravelling && date <= lastTravelling.plus({ days: 3 }).endOf("day"),
+				),
+				returning: returning.some(({ start, end }) => date >= start && date <= end),
+			},
+		};
 	}
 }
 
