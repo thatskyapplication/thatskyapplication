@@ -26,7 +26,6 @@ export default new SeasonalSpirit({
 	action,
 	realm: Realm.ValleyOfTriumph,
 	offer: {
-		hasInfographic: false,
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${action} 1`, cost: null, emoji: actionEmoji })
 			.set(1 << 3, { item: "Music sheet", cost: { candles: 22 }, emoji: musicSheet })
