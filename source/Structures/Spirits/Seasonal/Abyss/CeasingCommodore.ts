@@ -26,7 +26,6 @@ export default new SeasonalSpirit({
 	emote,
 	realm: Realm.GoldenWasteland,
 	offer: {
-		hasInfographic: false,
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { item: `${emote} 2`, cost: { hearts: 4 }, emoji: emoteEmoji })
