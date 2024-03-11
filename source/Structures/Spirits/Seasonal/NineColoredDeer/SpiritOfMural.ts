@@ -5,6 +5,7 @@ import {
 	CAPE_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
+	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
 	OUTFIT_EMOJIS,
@@ -17,7 +18,6 @@ export default new GuideSpirit({
 	season: SeasonName.NineColoredDeer,
 	realm: Realm.VaultOfKnowledge,
 	offer: {
-		inProgress: true,
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Quest 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 1, { item: "Heart 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
@@ -30,6 +30,8 @@ export default new GuideSpirit({
 			.set(1 << 8, { item: "Quest 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 9, { item: "Hair accessory", cost: null, emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory35 })
 			.set(1 << 10, { item: "Quest 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 11, { item: "Heart 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart }),
+			.set(1 << 11, { item: "Heart 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
+			.set(1 << 12, { item: "Quest 5", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
+			.set(1 << 13, { item: "Mask", cost: null, emoji: MASK_EMOJIS.Mask86 }),
 	},
 });
