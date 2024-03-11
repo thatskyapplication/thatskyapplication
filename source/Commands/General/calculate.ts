@@ -495,7 +495,7 @@ export default new (class implements ChatInputCommand {
 					)
 					.setFields(
 						...WINGED_LIGHT_AREAS.map((area) => ({
-							name: t(`${area === Map.AncientMemory || area === Map.CrescentOasis ? "maps" : "realms"}.${area}`, {
+							name: t(`${area === Map.AncientMemory ? "maps" : "realms"}.${area}`, {
 								lng,
 								ns: "general",
 							}),

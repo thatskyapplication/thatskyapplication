@@ -176,7 +176,7 @@ export const RAINBOW_ADMIRE_MAPS = [
 
 export type RainbowAdmireMaps = (typeof RAINBOW_ADMIRE_MAPS)[number];
 
-export const WINGED_LIGHT_AREAS = [...REALM_VALUES, Map.AncientMemory, Map.CrescentOasis] as const;
+export const WINGED_LIGHT_AREAS = [...REALM_VALUES, Map.AncientMemory] as const;
 type WingedLightAreas = (typeof WINGED_LIGHT_AREAS)[number];
 
 // This exists due to the Infographics server's inconsistencies and faults alongside no desire to fix them.
@@ -209,11 +209,10 @@ export const AreaToWingedLightCount = {
 	[Realm.HiddenForest]: 19,
 	[Realm.ValleyOfTriumph]: 17,
 	[Realm.GoldenWasteland]: 18,
-	[Realm.VaultOfKnowledge]: 12,
+	[Realm.VaultOfKnowledge]: 15,
 	[Realm.EyeOfEden]: 10,
 	[Map.AncientMemory]: 6,
 	[Map.Orbit]: 1,
-	[Map.CrescentOasis]: 3,
 } as const satisfies Readonly<Record<WingedLightAreas | Map.Orbit, number>>;
 
 export const AREA_TO_WINGED_LIGHT_COUNT_VALUES = Object.values(AreaToWingedLightCount);
