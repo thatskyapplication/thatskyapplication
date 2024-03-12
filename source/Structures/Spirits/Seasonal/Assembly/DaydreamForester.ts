@@ -59,6 +59,8 @@ export default new SeasonalSpirit({
 			.set(1 << 10, { item: "Hair", cost: { candles: 60 }, emoji: hairEmoji }),
 	},
 	visits: {
-		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(60, skyDate(2_022, 4, 28)),
+		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>()
+			.set(60, skyDate(2_022, 4, 28))
+			.set(109, skyDate(2_024, 3, 14)),
 	},
 });
