@@ -8,7 +8,6 @@ export default new GuideSpirit({
 	name: SpiritName.TheVoidOfShattering,
 	season: SeasonName.Shattering,
 	offer: {
-		hasInfographic: false,
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Quest 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 1, { item: "Heart 1", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
