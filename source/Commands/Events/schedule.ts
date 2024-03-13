@@ -81,6 +81,38 @@ function aviarysFireworkFestivalTime(date: DateTime) {
 	return times;
 }
 
+function deer(locale: Locale) {
+	const date = new Date();
+	date.setUTCMinutes(date.getUTCMinutes() >= 30 ? 30 : 0);
+	date.setUTCSeconds(0);
+	date.setUTCMilliseconds(0);
+	const unix = date.getTime() / 1_000;
+
+	return [
+		{ text: t("schedule.deer-0", { lng: locale, ns: "commands" }), time: time(unix, TimestampStyles.ShortTime) },
+		{
+			text: t("schedule.deer-120", { lng: locale, ns: "commands" }),
+			time: time(unix + 120, TimestampStyles.ShortTime),
+		},
+		{
+			text: t("schedule.deer-600", { lng: locale, ns: "commands" }),
+			time: time(unix + 600, TimestampStyles.ShortTime),
+		},
+		{
+			text: t("schedule.deer-720", { lng: locale, ns: "commands" }),
+			time: time(unix + 720, TimestampStyles.ShortTime),
+		},
+		{
+			text: t("schedule.deer-1200", { lng: locale, ns: "commands" }),
+			time: time(unix + 1_200, TimestampStyles.ShortTime),
+		},
+		{
+			text: t("schedule.deer-1800", { lng: locale, ns: "commands" }),
+			time: time(unix + 1_800, TimestampStyles.ShortTime),
+		},
+	];
+}
+
 export default new (class implements ChatInputCommand {
 	public get data() {
 		return {
@@ -167,6 +199,12 @@ export default new (class implements ChatInputCommand {
 					value: `${t("schedule.first-of-month", { lng: locale, ns: "commands" })}\n${aviarysFireworkFestivalTime(
 						today,
 					).join(" ")}`,
+				},
+				{
+					name: "Deer",
+					value: `${deer()
+						.map(({ text, time }, index) => `${index + 1}. ${time} _(${text})_`)
+						.join("\n")}`,
 				},
 			)
 			.setFooter({ text: t("schedule.times-are-relative", { lng: locale, ns: "commands" }) })
