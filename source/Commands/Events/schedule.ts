@@ -203,7 +203,7 @@ export default new (class implements ChatInputCommand {
 				},
 				{
 					name: "Deer",
-					value: `${deer()
+					value: `${deer(locale)
 						.map(({ text, time }, index) => `${index + 1}. ${time} _(${text})_`)
 						.join("\n")}`,
 				},
