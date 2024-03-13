@@ -3,6 +3,7 @@ import {
 	ApplicationCommandType,
 	EmbedBuilder,
 	Locale,
+	MessageFlags,
 	PermissionFlagsBits,
 	time,
 	TimestampStyles,
@@ -222,6 +223,6 @@ export default new (class implements ChatInputCommand {
 		}
 
 		embed.addFields(shardEruptionFieldData);
-		await interaction.reply({ embeds: [embed], ephemeral: true });
+		await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
 	}
 })();
