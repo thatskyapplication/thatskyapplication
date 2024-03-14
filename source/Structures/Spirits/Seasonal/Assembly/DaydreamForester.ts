@@ -55,7 +55,7 @@ export default new SeasonalSpirit({
 			.set(1 << 7, { item: `${emote} 4`, cost: { hearts: 6 }, emoji: emoteEmoji })
 			.set(1 << 8, { item: "Music sheet", cost: { candles: 15 }, emoji: musicSheet })
 			.set(1 << 9, { item: "Blessing 2", cost: { candles: 5 }, emoji: blessing2 })
-			.set(1 << 10, { item: "Hair", cost: { candles: 60 }, emoji: hairEmoji }),
+			.set(1 << 10, { item: "Hair", cost: { candles: 44 }, emoji: hairEmoji }),
 	},
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>()
