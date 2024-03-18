@@ -1417,7 +1417,7 @@ export class SpiritTracker {
 				currentTravellingSpirit
 					? `${SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID}§${currentTravellingSpirit.name}`
 					: // This would not happen, but it's here to satisfy the API.
-					  SPIRIT_TRACKER_VIEW_START_CUSTOM_ID,
+					  `${SPIRIT_TRACKER_VIEW_START_CUSTOM_ID}-travelling`,
 			)
 			.setDisabled(!currentTravellingSpirit)
 			.setLabel("Travelling Spirit")
@@ -1474,7 +1474,7 @@ export class SpiritTracker {
 							currentReturningSpirits
 								? SPIRIT_TRACKER_VIEW_RETURNING_SPIRITS_CUSTOM_ID
 								: // This would not happen, but it's here to satisfy the API.
-								  SPIRIT_TRACKER_VIEW_START_CUSTOM_ID,
+								  `${SPIRIT_TRACKER_VIEW_START_CUSTOM_ID}-returning`,
 						)
 						.setDisabled(!currentReturningSpirits)
 						.setLabel("Returning Spirits")
