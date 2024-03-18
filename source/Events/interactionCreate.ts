@@ -69,11 +69,6 @@ import type { Event } from "./index.js";
 const name = Events.InteractionCreate;
 const heartHistoryRegExp = new RegExp(`(${HEART_HISTORY_BACK}|${HEART_HISTORY_FORWARD})-(\\d+)`);
 
-const INTERACTION_ERROR_RESPONSE_BODY = {
-	content: "An error was encountered. Rest easy, it's being tracked!",
-	ephemeral: true,
-} as const;
-
 async function recoverInteractionError(interaction: Interaction, error: unknown) {
 	let errorTypeString = `Error from ${interaction.user.tag} in ${interaction.channelId} from `;
 
@@ -106,9 +101,9 @@ async function recoverInteractionError(interaction: Interaction, error: unknown)
 		if (interaction.isAutocomplete()) {
 			await interaction.respond([]);
 		} else if (interaction.deferred || interaction.replied) {
-			await interaction.followUp(INTERACTION_ERROR_RESPONSE_BODY);
+			await interaction.followUp(ERROR_RESPONSE);
 		} else {
-			await interaction.reply(INTERACTION_ERROR_RESPONSE_BODY);
+			await interaction.reply(ERROR_RESPONSE);
 		}
 	} catch (error) {
 		pino.error(error, "Failed to follow up or reply from recovering an interaction error.");
