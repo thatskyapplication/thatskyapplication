@@ -19,7 +19,6 @@ import schedule from "./Events/schedule.js";
 
 // Fun
 import bonk from "./Fun/bonk.js";
-import fight from "./Fun/fight.js";
 import GiftHeart from "./Fun/Gift Heart.js";
 import heart from "./Fun/heart.js";
 import highfive from "./Fun/high-five.js";
@@ -46,7 +45,6 @@ const COMMANDS = {
 	calculate,
 	dailyguides,
 	data,
-	fight,
 	GiftHeart,
 	heart,
 	highfive,
