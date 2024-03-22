@@ -1804,6 +1804,14 @@ export const HAIR_EMOJIS = {
 	 * Princess.
 	 */
 	Hair139: { name: "hair", id: "1195958349150294186" },
+	/**
+	 * Bloom Spiky Sprig Hair.
+	 */
+	Hair140: { name: "hair", id: "1220813384208093247" },
+	/**
+	 * Bloom Arum Petal Hair.
+	 */
+	Hair141: { name: "hair", id: "1220813410598523084" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -2476,6 +2484,10 @@ export const CAPE_EMOJIS = {
 	 * Days of Love Meteor Mantle.
 	 */
 	Cape127: { name: "cape", id: "1206351312279703683" },
+	/**
+	 * Bloom Arum Petal Cape.
+	 */
+	Cape128: { name: "cape", id: "1220812166077354045" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -2648,6 +2660,10 @@ export const HELD_PROPS_EMOJIS = {
 	 * Days of Fortune 2024.
 	 */
 	HeldProp41: { name: "held_prop", id: "1201607955754270721" },
+	/**
+	 * Bloom Lilypad Umbrella.
+	 */
+	HeldProp42: { name: "held_prop", id: "1220814676884197456" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HeldPropsEmojis = (typeof HELD_PROPS_EMOJIS)[keyof typeof HELD_PROPS_EMOJIS];
