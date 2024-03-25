@@ -241,7 +241,11 @@ export default class DailyGuidesDistribution {
 						name: t("event-currency", { lng: locale, ns: "general" }),
 						value: currentEventsWithEventCurrency
 							.map(({ name, eventCurrencyEmoji, url }) =>
-								hyperlink(`${formatEmoji(eventCurrencyEmoji)}${t("view", { lng: locale, ns: "general" })}`, url!, name),
+								hyperlink(
+									`${formatEmoji(eventCurrencyEmoji)}${t("view", { lng: locale, ns: "general" })}`,
+									Array.isArray(url) ? url.findLast((eventDataURL) => date >= eventDataURL.date)!.url : url!,
+									name,
+								),
 							)
 							.join(" | "),
 				  }
