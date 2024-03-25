@@ -20,9 +20,14 @@ interface EventData {
 	start: DateTime;
 	end: DateTime;
 	eventCurrencyEnd?: DateTime;
-	url: string | null;
+	url: string | EventDataURL[] | null;
 	eventCurrencyPerDay: number;
 	eventCurrencyEmoji: EventEmojis;
+}
+
+interface EventDataURL {
+	date: DateTime;
+	url: string;
 }
 
 class Event {
@@ -34,7 +39,7 @@ class Event {
 
 	public readonly eventCurrencyEnd: DateTime;
 
-	public readonly url: string | null;
+	public readonly url: string | EventDataURL[] | null;
 
 	public readonly eventCurrencyPerDay: number;
 
@@ -120,7 +125,20 @@ const EVENTS = [
 		name: EventName.DaysOfBloom,
 		start: skyDate(2_024, 3, 25),
 		end: skyDate(2_024, 4, 14),
-		url: null,
+		url: [
+			{
+				date: skyDate(2_024, 3, 25),
+				url: String(new URL("daily_guides/events/days_of_bloom/2024/1.webp", CDN_URL)),
+			},
+			{
+				date: skyDate(2_024, 4, 1),
+				url: String(new URL("daily_guides/events/days_of_bloom/2024/2.webp", CDN_URL)),
+			},
+			{
+				date: skyDate(2_024, 4, 8),
+				url: String(new URL("daily_guides/events/days_of_bloom/2024/3.webp", CDN_URL)),
+			}
+		],
 		eventCurrencyPerDay: 5,
 		eventCurrencyEmoji: EVENT_EMOJIS.Bloom,
 	}),
