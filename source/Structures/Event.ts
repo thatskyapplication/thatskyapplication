@@ -137,7 +137,7 @@ const EVENTS = [
 			{
 				date: skyDate(2_024, 4, 8),
 				url: String(new URL("daily_guides/events/days_of_bloom/2024/3.webp", CDN_URL)),
-			}
+			},
 		],
 		eventCurrencyPerDay: 5,
 		eventCurrencyEmoji: EVENT_EMOJIS.Bloom,
