@@ -33,7 +33,6 @@ export default new SeasonalSpirit({
 	action,
 	realm: Realm.HiddenForest,
 	offer: {
-		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${action} 1`, cost: null, emoji: actionEmoji })
 			.set(1 << 1, { item: "Blessing 1", cost: { seasonalCandles: 12 }, emoji: blessing1 })
