@@ -33,6 +33,7 @@ export enum SeasonName {
 	Moments = "The Season of Moments",
 	Revival = "Season of Revival",
 	NineColoredDeer = "Season of the Nine-Colored Deer",
+	Nesting = "Season of Nesting",
 }
 
 export const SEASON_NAME_VALUES = Object.values(SeasonName);
@@ -58,6 +59,8 @@ export const SeasonNameToSeasonalEmoji = {
 	[SeasonName.Moments]: SEASON_EMOJIS.Moments,
 	[SeasonName.Revival]: SEASON_EMOJIS.Revival,
 	[SeasonName.NineColoredDeer]: SEASON_EMOJIS.NineColoredDeer,
+	// @ts-expect-error No seasonal emoji for Season of Nesting.
+	[SeasonName.Nesting]: SEASON_EMOJIS.Nesting,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
 export const SeasonNameToSeasonalCandleEmoji = {
@@ -81,6 +84,8 @@ export const SeasonNameToSeasonalCandleEmoji = {
 	[SeasonName.Moments]: SEASON_EMOJIS.MomentsCandle,
 	[SeasonName.Revival]: SEASON_EMOJIS.RevivalCandle,
 	[SeasonName.NineColoredDeer]: SEASON_EMOJIS.NineColoredDeerCandle,
+	// @ts-expect-error Seasonal emoji needs to be added first.
+	[SeasonName.Nesting]: SEASON_EMOJIS.NestingCandle,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
 export const SeasonNameToSeasonalHeartEmoji = {
@@ -102,6 +107,8 @@ export const SeasonNameToSeasonalHeartEmoji = {
 	[SeasonName.Moments]: SEASON_EMOJIS.MomentsHeart,
 	[SeasonName.Revival]: SEASON_EMOJIS.RevivalHeart,
 	[SeasonName.NineColoredDeer]: SEASON_EMOJIS.NineColoredDeerHeart,
+	// @ts-expect-error Seasonal emoji needs to be added first.
+	[SeasonName.Nesting]: SEASON_EMOJIS.NestingHeart,
 } as const satisfies Readonly<
 	Record<Exclude<SeasonName, SeasonName.Gratitude | SeasonName.Lightseekers>, SeasonEmojis>
 >;
@@ -288,6 +295,24 @@ const SEASONS = [
 			{ rotation: 2, realm: Realm.GoldenWasteland },
 			{ rotation: 2, realm: Realm.VaultOfKnowledge },
 			{ rotation: 2, realm: Realm.DaylightPrairie },
+		],
+	}),
+	new Season({
+		name: SeasonName.Nesting,
+		start: skyDate(2_024, 4, 15),
+		// @ts-expect-error Unknown.
+		end: skyDate(2_024),
+		seasonalCandlesRotation: [
+			{ rotation: 1, realm: Realm.ValleyOfTriumph },
+			{ rotation: 1, realm: Realm.GoldenWasteland },
+			{ rotation: 1, realm: Realm.VaultOfKnowledge },
+			{ rotation: 1, realm: Realm.DaylightPrairie },
+			{ rotation: 1, realm: Realm.HiddenForest },
+			{ rotation: 2, realm: Realm.ValleyOfTriumph },
+			{ rotation: 2, realm: Realm.GoldenWasteland },
+			{ rotation: 2, realm: Realm.VaultOfKnowledge },
+			{ rotation: 2, realm: Realm.DaylightPrairie },
+			{ rotation: 2, realm: Realm.HiddenForest },
 		],
 	}),
 ] as const satisfies Readonly<Season[]>;
