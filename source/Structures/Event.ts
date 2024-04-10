@@ -11,6 +11,7 @@ export const enum EventName {
 	DaysOfFortune = "Days of Fortune",
 	DaysOfLove = "Days of Love",
 	DaysOfBloom = "Days of Bloom",
+	SkyXCinnamorollPopUpCafe = "Sky x Cinnamoroll Pop-Up Cafe",
 }
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
@@ -149,6 +150,15 @@ const EVENTS = [
 		],
 		eventCurrencyPerDay: 5,
 		eventCurrencyEmoji: EVENT_EMOJIS.Bloom,
+	}),
+	new Event({
+		name: EventName.SkyXCinnamorollPopUpCafe,
+		start: skyDate(2_024, 4, 27),
+		end: skyDate(2_024, 5, 18),
+		url: null,
+		eventCurrencyPerDay: 5,
+		// @ts-expect-error Not yet created.
+		eventCurrencyEmoji: null,
 	}),
 ] as const satisfies Readonly<Event[]>;
 
