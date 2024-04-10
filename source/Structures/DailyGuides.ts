@@ -1,4 +1,5 @@
 import { URL } from "node:url";
+import { PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	type Attachment,
 	type Collection,
@@ -8,7 +9,10 @@ import {
 	MessageFlags,
 	SnowflakeUtil,
 } from "discord.js";
+import hasha from "hasha";
 import pQueue from "p-queue";
+import sharp from "sharp";
+import S3Client from "../S3Client.js";
 import {
 	type MeditationMaps,
 	type RainbowAdmireMaps,
@@ -26,6 +30,7 @@ import {
 	SOCIAL_LIGHT_AREA_MAPS,
 	SocialLightAreaMapToCDNString,
 	VALID_REALM,
+	CDN_BUCKET,
 } from "../Utility/Constants.js";
 import {
 	isMeditationMap,
@@ -49,9 +54,13 @@ export interface DailyGuidesPacket {
 	quest2: DailyGuideQuest | null;
 	quest3: DailyGuideQuest | null;
 	quest4: DailyGuideQuest | null;
-	treasure_candles: string[] | null;
+	treasure_candles: TreasureCandlesData | null;
 	daily_message: DailyGuideMessage | null;
 }
+
+type TreasureCandlesData = {
+	[Realm in ValidRealm]: string[];
+};
 
 interface DailyGuidesData {
 	quest1: DailyGuidesPacket["quest1"];
@@ -63,6 +72,7 @@ interface DailyGuidesData {
 }
 
 type DailyGuidesSetQuestsData = Partial<Pick<DailyGuidesData, "quest1" | "quest2" | "quest3" | "quest4">>;
+type DailyGuidesSetTreasureCandlesData = Partial<TreasureCandlesData>;
 
 export interface DailyGuideQuest {
 	content: string;
@@ -476,7 +486,7 @@ export default new (class DailyGuides {
 			) {
 				parsed = await this.parseQuests(content, attachments);
 			} else if (transformedContent.includes("TREASURE CANDLE")) {
-				parsed = await this.parseTreasureCandles(attachments);
+				parsed = await this.parseTreasureCandles(content, attachments);
 			} else {
 				pino.warn(message, "Intercepted an unparsed message.");
 			}
@@ -664,8 +674,16 @@ export default new (class DailyGuides {
 		this.patch(dailyGuidesPacket!);
 	}
 
-	public async parseTreasureCandles(attachments: Collection<Snowflake, Attachment>) {
-		if (Array.isArray(this.treasureCandles)) {
+	public async parseTreasureCandles(content: string, attachments: Collection<Snowflake, Attachment>) {
+		const potentialRealmRegExp = new RegExp(`(${regularExpressionRealms})`, "i").exec(content)?.[1] ?? null;
+		const realm = potentialRealmRegExp ? resolveValidRealm(potentialRealmRegExp) : null;
+
+		if (!realm) {
+			pino.error(attachments.toJSON(), "Failed to fetch the treasure candles realm.");
+			return false;
+		}
+
+		if (this.treasureCandles && this.treasureCandles[realm].length > 0) {
 			pino.info("Attempted to update the treasure candles which were already updated.");
 			return false;
 		}
@@ -673,20 +691,68 @@ export default new (class DailyGuides {
 		const urls = attachments.map(({ url }) => url);
 
 		if (urls.length === 0) {
-			pino.error(attachments.toJSON(), "Failed to fetch the treasure candle locations.");
+			pino.error(attachments.toJSON(), "Failed to fetch the treasure candles locations.");
 			return false;
 		}
 
-		await this.updateTreasureCandles(urls);
+		const hashes = await Promise.all(
+			urls.map(async (url) => {
+				const buffer = await sharp(await (await fetch(url)).arrayBuffer())
+					.webp()
+					.toBuffer();
+
+				const hash = await hasha.async(buffer, { algorithm: "md5" });
+
+				await S3Client.send(
+					new PutObjectCommand({
+						Bucket: CDN_BUCKET,
+						Key: this.treasureCandlesRoute(hash),
+						Body: buffer,
+					}),
+				);
+
+				return hash;
+			}),
+		);
+
+		await this.updateTreasureCandles({ [realm]: hashes });
 		return true;
 	}
 
-	public async updateTreasureCandles(urls: string[]) {
+	public async updateTreasureCandles(data: DailyGuidesSetTreasureCandlesData) {
 		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-			// @ts-expect-error Arrays must be stringified. TypeScript does not like this.
-			.update({ treasure_candles: JSON.stringify(urls) })
+			.update({
+				treasure_candles: {
+					[Realm.DaylightPrairie]:
+						Realm.DaylightPrairie in data
+							? data[Realm.DaylightPrairie]
+							: this.treasureCandles?.[Realm.DaylightPrairie] ?? [],
+					[Realm.HiddenForest]:
+						Realm.HiddenForest in data ? data[Realm.HiddenForest] : this.treasureCandles?.[Realm.HiddenForest] ?? [],
+					[Realm.ValleyOfTriumph]:
+						Realm.ValleyOfTriumph in data
+							? data[Realm.ValleyOfTriumph]
+							: this.treasureCandles?.[Realm.ValleyOfTriumph] ?? [],
+					[Realm.GoldenWasteland]:
+						Realm.GoldenWasteland in data
+							? data[Realm.GoldenWasteland]
+							: this.treasureCandles?.[Realm.GoldenWasteland] ?? [],
+					[Realm.VaultOfKnowledge]:
+						Realm.VaultOfKnowledge in data
+							? data[Realm.VaultOfKnowledge]
+							: this.treasureCandles?.[Realm.VaultOfKnowledge] ?? [],
+				},
+			})
 			.returning("*");
 
 		this.patch(dailyGuidesPacket!);
+	}
+
+	public treasureCandlesRoute(hash: string) {
+		return `daily_guides/tc/${hash}.webp`;
+	}
+
+	public treasureCandlesURL(hash: string) {
+		return String(new URL(this.treasureCandlesRoute(hash), CDN_URL));
 	}
 })();

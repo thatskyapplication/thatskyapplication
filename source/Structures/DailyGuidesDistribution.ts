@@ -1,4 +1,3 @@
-import { URL } from "node:url";
 import {
 	type Channel,
 	type ChatInputCommandInteraction,
@@ -17,13 +16,10 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import { CDN_URL, DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
-import { treasureCandleRealm } from "../Utility/Utility.js";
+import { DEFAULT_EMBED_COLOUR, Realm } from "../Utility/Constants.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
-	STEAM_RELEASE_TREASURE_CANDLES_END_DATE,
-	STEAM_RELEASE_TREASURE_CANDLES_START_DATE,
 	dateString,
 	isDuring,
 	todayDate,
@@ -300,16 +296,30 @@ export default class DailyGuidesDistribution {
 		}
 
 		if (treasureCandles) {
-			embed.addFields({
-				name: `Treasure Candles${
-					isDuring(STEAM_RELEASE_TREASURE_CANDLES_START_DATE, STEAM_RELEASE_TREASURE_CANDLES_END_DATE, today)
-						? ""
-						: ` - ${treasureCandleRealm(today)}`
-				}`,
-				value: treasureCandles
-					.map((hash, index) => hyperlink(`${index * 4 + 1} - ${(index + 1) * 4}`, this.treasureCandlesURL(hash)))
-					.join(" | "),
-			});
+			const values = [];
+			let number = 1;
+
+			for (const hashes of [
+				treasureCandles[Realm.DaylightPrairie],
+				treasureCandles[Realm.HiddenForest],
+				treasureCandles[Realm.ValleyOfTriumph],
+				treasureCandles[Realm.GoldenWasteland],
+				treasureCandles[Realm.VaultOfKnowledge],
+			]) {
+				if (hashes.length === 0) continue;
+
+				for (const hash of hashes) {
+					values.push(hyperlink(`${number} - ${number + 3}`, DailyGuides.treasureCandlesURL(hash)));
+					number += 4;
+				}
+			}
+
+			if (values.length > 0) {
+				embed.addFields({
+					name: "Treasure Candles",
+					value: values.join(" | "),
+				});
+			}
 		}
 
 		const season = resolveSeason(today);
@@ -368,10 +378,6 @@ export default class DailyGuidesDistribution {
 		if (eventData.eventCurrency) embed.addFields(eventData.eventCurrency);
 		embed.addFields(this.shardEruptionFieldData(locale));
 		return embed;
-	}
-
-	public static treasureCandlesURL(hash: string) {
-		return String(new URL(`daily_guides/treasure_candles/${hash}.jpeg`, CDN_URL));
 	}
 
 	private async send(client: Client<true>) {

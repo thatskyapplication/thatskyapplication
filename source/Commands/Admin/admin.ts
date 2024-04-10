@@ -1,3 +1,4 @@
+import { PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	type ApplicationCommandData,
 	type AutocompleteInteraction,
@@ -18,11 +19,20 @@ import {
 	TextInputStyle,
 	TextInputBuilder,
 } from "discord.js";
+import hasha from "hasha";
+import sharp from "sharp";
+import S3Client from "../../S3Client.js";
 import Configuration from "../../Structures/Configuration.js";
 import DailyGuides, { type QuestNumber, QUEST_NUMBER, QUESTS } from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
-import { LOCALES, MAXIMUM_EMBED_FIELD_NAME_LENGTH, MAXIMUM_EMBED_FIELD_VALUE_LENGTH } from "../../Utility/Constants.js";
-import { userLogFormat } from "../../Utility/Utility.js";
+import {
+	CDN_BUCKET,
+	LOCALES,
+	MAXIMUM_EMBED_FIELD_NAME_LENGTH,
+	MAXIMUM_EMBED_FIELD_VALUE_LENGTH,
+	VALID_REALM,
+} from "../../Utility/Constants.js";
+import { resolveValidRealm, userLogFormat } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
 
 interface InteractiveOptions {
@@ -39,8 +49,10 @@ export const DAILY_GUIDES_DAILY_MESSAGE_MODAL = "DAILY_GUIDES_DAILY_MESSAGE_MODA
 const DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE = "DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT" as const;
 const DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION = "DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION" as const;
 export const DAILY_GUIDES_TREASURE_CANDLES_MODAL = "DAILY_GUIDES_TREASURE_CANDLES_MODAL" as const;
-const DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1_4 = "DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1_4" as const;
-const DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_5_8 = "DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_5_8" as const;
+export const DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID =
+	"DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID" as const;
+const DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1 = "DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1" as const;
+const DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2 = "DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2" as const;
 
 const QUEST_OPTIONS = QUEST_NUMBER.map((questNumber) =>
 	new StringSelectMenuOptionBuilder().setLabel(`Quest ${questNumber}`).setValue(String(questNumber)),
@@ -356,41 +368,100 @@ export default new (class implements AutocompleteCommand {
 	}
 
 	public async treasureCandlesModalResponse(interaction: ButtonInteraction) {
+		await interaction.update({
+			content: "",
+			embeds: [],
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(1)
+						.setOptions(VALID_REALM.map((realm) => new StringSelectMenuOptionBuilder().setLabel(realm).setValue(realm)))
+						.setPlaceholder("Select a realm."),
+				),
+			],
+		});
+	}
+
+	public async treasureCandlesSelectMenuResponse(interaction: StringSelectMenuInteraction) {
 		const { treasureCandles } = DailyGuides;
+		const realm = resolveValidRealm(interaction.values[0]!);
+
+		if (!realm) {
+			await interaction.reply(`Detected an unknown realm: ${realm}.`);
+			return;
+		}
+
+		const batch1 = treasureCandles?.[realm][0];
+		const batch2 = treasureCandles?.[realm][1];
+		let batch1URL;
+		let batch2URL;
+		if (batch1) batch1URL = DailyGuides.treasureCandlesURL(batch1);
+		if (batch2) batch2URL = DailyGuides.treasureCandlesURL(batch2);
 
 		await interaction.showModal(
 			new ModalBuilder()
 				.setComponents(
 					new ActionRowBuilder<TextInputBuilder>().setComponents(
 						new TextInputBuilder()
-							.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1_4)
-							.setLabel("The URL of the first batch (1-4).")
-							.setRequired()
+							.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1)
+							.setLabel("The URL of the first batch.")
+							.setRequired(false)
 							.setStyle(TextInputStyle.Short)
-							.setValue(treasureCandles?.[0] ?? ""),
+							.setValue(batch1URL ?? ""),
 					),
 					new ActionRowBuilder<TextInputBuilder>().setComponents(
 						new TextInputBuilder()
-							.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_5_8)
-							.setLabel("The URL of the second batch (5-8).")
+							.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2)
+							.setLabel("The URL of the second batch.")
 							.setRequired(false)
 							.setStyle(TextInputStyle.Short)
-							.setValue(treasureCandles?.[1] ?? ""),
+							.setValue(batch2URL ?? ""),
 					),
 				)
-				.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_MODAL)
+				.setCustomId(`${DAILY_GUIDES_TREASURE_CANDLES_MODAL}§${realm}`)
 				.setTitle("Treasure Candles"),
 		);
 	}
 
 	public async setTreasureCandles(interaction: ModalMessageModalSubmitInteraction) {
-		const { client, locale, fields, user } = interaction;
-		const batch1 = fields.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1_4);
-		const batch2 = fields.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_5_8);
-		const treasureCandles = [batch1];
+		const { client, customId, locale, fields, user } = interaction;
+		const realm = resolveValidRealm(customId.slice(customId.indexOf("§") + 1));
+
+		if (!realm) {
+			await interaction.reply(`Detected an unknown realm: ${realm}.`);
+			return;
+		}
+
+		const batch1 = fields.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1);
+		const batch2 = fields.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2);
+		const treasureCandles = [];
+		if (batch1) treasureCandles.push(batch1);
 		if (batch2) treasureCandles.push(batch2);
 		const previousEmbed = DailyGuidesDistribution.embed(locale);
-		await DailyGuides.updateTreasureCandles(treasureCandles);
+
+		const hashes = await Promise.all(
+			treasureCandles.map(async (url) => {
+				const buffer = await sharp(await (await fetch(url)).arrayBuffer())
+					.webp()
+					.toBuffer();
+
+				const hash = await hasha.async(buffer, { algorithm: "md5" });
+
+				await S3Client.send(
+					new PutObjectCommand({
+						Bucket: CDN_BUCKET,
+						Key: DailyGuides.treasureCandlesRoute(hash),
+						Body: buffer,
+					}),
+				);
+
+				return hash;
+			}),
+		);
+
+		await DailyGuides.updateTreasureCandles({ [realm]: hashes });
 
 		void client.log({
 			content: `${userLogFormat(user)} manually updated the treasure candles.`,

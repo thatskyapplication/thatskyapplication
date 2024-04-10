@@ -1,5 +1,4 @@
 import { type Snowflake, type User } from "discord.js";
-import type { DateTime } from "luxon";
 import {
 	type MeditationMaps,
 	type RainbowAdmireMaps,
@@ -14,11 +13,6 @@ import {
 	SOCIAL_LIGHT_AREA_MAPS,
 	VALID_REALM,
 } from "./Constants.js";
-import { INITIAL_TREASURE_CANDLE_REALM_SEEK } from "./dates.js";
-
-export function treasureCandleRealm(date: DateTime) {
-	return VALID_REALM[date.diff(INITIAL_TREASURE_CANDLE_REALM_SEEK, "day").days % 5]!;
-}
 
 export function isRealm(realm: string): realm is Realm {
 	return REALM_VALUES.includes(realm as Realm);

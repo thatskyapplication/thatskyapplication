@@ -16,6 +16,7 @@ import {
 	DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
 	DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_TREASURE_CANDLES_MODAL,
+	DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID,
 } from "../Commands/Admin/admin.js";
 import { HeartHistoryNavigationType, HEART_HISTORY_BACK, HEART_HISTORY_FORWARD } from "../Commands/Fun/heart.js";
 import { DATA_DELETION_CUSTOM_ID } from "../Commands/General/data.js";
@@ -402,6 +403,11 @@ export const event: Event<typeof name> = {
 						return;
 					}
 
+					if (customId === DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID) {
+						await COMMANDS.admin.treasureCandlesSelectMenuResponse(interaction);
+						return;
+					}
+
 					if (customId === DAILY_GUIDES_LOCALE_CUSTOM_ID) {
 						await COMMANDS.admin.interactive(interaction, { locale: value0 as Locale });
 						return;
@@ -455,7 +461,7 @@ export const event: Event<typeof name> = {
 						return;
 					}
 
-					if (DAILY_GUIDES_TREASURE_CANDLES_MODAL === customId) {
+					if (customId.startsWith(DAILY_GUIDES_TREASURE_CANDLES_MODAL)) {
 						await COMMANDS.admin.setTreasureCandles(interaction);
 						return;
 					}
