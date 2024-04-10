@@ -136,6 +136,7 @@ enum SeasonFlags {
 	Moments = 1 << 17,
 	Revival = 1 << 18,
 	NineColoredDeer = 1 << 19,
+	Nesting = 1 << 20,
 }
 
 export const SeasonFlagsToSeasonName = {
