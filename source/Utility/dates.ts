@@ -33,17 +33,19 @@ export function dateString(date: DateTime, locale: Locale) {
 	// TODO: Replace es-419 with Locale when it's updated.
 	switch (locale as Locale | "es-419") {
 		case Locale.German:
-		case Locale.EnglishGB:
+			format = "cccc, d. MMMM y";
+			break;
 		case "es-419":
 		case Locale.SpanishES:
 			format = "cccc, d MMMM y";
 			break;
-		case Locale.EnglishUS:
-			format = "cccc, MMMM d, y";
-			break;
+		case Locale.EnglishGB:
 		case Locale.French:
 		case Locale.Italian:
 			format = "cccc d MMMM y";
+			break;
+		case Locale.EnglishUS:
+			format = "cccc, MMMM d, y";
 			break;
 		case Locale.Japanese:
 		case Locale.ChineseCN:
@@ -63,8 +65,8 @@ export function dateString(date: DateTime, locale: Locale) {
 			format = "cccc, 'ngày' d 'tháng' L, y";
 			break;
 		default:
-			format = "cccc, d MMMM y";
 			resolvedLocale = Locale.EnglishGB;
+			format = "cccc d MMMM y";
 			break;
 	}
 
