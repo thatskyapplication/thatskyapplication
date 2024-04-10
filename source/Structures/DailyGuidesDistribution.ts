@@ -1,3 +1,4 @@
+import { URL } from "node:url";
 import {
 	type Channel,
 	type ChatInputCommandInteraction,
@@ -16,11 +17,13 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
+import { CDN_URL, DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
 import { treasureCandleRealm } from "../Utility/Utility.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
+	STEAM_RELEASE_TREASURE_CANDLES_END_DATE,
+	STEAM_RELEASE_TREASURE_CANDLES_START_DATE,
 	dateString,
 	isDuring,
 	todayDate,
@@ -298,8 +301,14 @@ export default class DailyGuidesDistribution {
 
 		if (treasureCandles) {
 			embed.addFields({
-				name: `Treasure Candles - ${treasureCandleRealm(today)}`,
-				value: treasureCandles.map((url, index) => hyperlink(`${index * 4 + 1} - ${(index + 1) * 4}`, url)).join(" | "),
+				name: `Treasure Candles${
+					isDuring(STEAM_RELEASE_TREASURE_CANDLES_START_DATE, STEAM_RELEASE_TREASURE_CANDLES_END_DATE, today)
+						? ""
+						: ` - ${treasureCandleRealm(today)}`
+				}`,
+				value: treasureCandles
+					.map((hash, index) => hyperlink(`${index * 4 + 1} - ${(index + 1) * 4}`, this.treasureCandlesURL(hash)))
+					.join(" | "),
 			});
 		}
 
@@ -359,6 +368,10 @@ export default class DailyGuidesDistribution {
 		if (eventData.eventCurrency) embed.addFields(eventData.eventCurrency);
 		embed.addFields(this.shardEruptionFieldData(locale));
 		return embed;
+	}
+
+	public static treasureCandlesURL(hash: string) {
+		return String(new URL(`daily_guides/treasure_candles/${hash}.jpeg`, CDN_URL));
 	}
 
 	private async send(client: Client<true>) {
