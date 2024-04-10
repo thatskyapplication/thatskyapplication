@@ -300,8 +300,7 @@ const SEASONS = [
 	new Season({
 		name: SeasonName.Nesting,
 		start: skyDate(2_024, 4, 15),
-		// @ts-expect-error Unknown.
-		end: skyDate(2_024),
+		end: skyDate(2_024, 6, 30),
 		seasonalCandlesRotation: [
 			{ rotation: 1, realm: Realm.ValleyOfTriumph },
 			{ rotation: 1, realm: Realm.GoldenWasteland },
