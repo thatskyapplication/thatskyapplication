@@ -80,6 +80,8 @@ export function dateRangeString(start: DateTime, end: DateTime, locale: Locale) 
 	// TODO: Replace es-419 with Locale when it's updated.
 	switch (locale as Locale | "es-419") {
 		case Locale.German:
+			format = "d. MMMM";
+			break;
 		case Locale.EnglishGB:
 		case Locale.French:
 		case Locale.Italian:
