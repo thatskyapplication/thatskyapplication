@@ -697,7 +697,9 @@ export default new (class DailyGuides {
 
 		const hashes = await Promise.all(
 			urls.map(async (url) => {
-				const buffer = await sharp(await (await fetch(url)).arrayBuffer())
+				const fetchedURL = await fetch(url);
+
+				const buffer = await sharp(await fetchedURL.arrayBuffer())
 					.webp()
 					.toBuffer();
 
@@ -708,6 +710,8 @@ export default new (class DailyGuides {
 						Bucket: CDN_BUCKET,
 						Key: this.treasureCandlesRoute(hash),
 						Body: buffer,
+						ContentDisposition: "inline",
+						ContentType: fetchedURL.headers.get("content-type")!,
 					}),
 				);
 

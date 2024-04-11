@@ -443,7 +443,9 @@ export default new (class implements AutocompleteCommand {
 
 		const hashes = await Promise.all(
 			treasureCandles.map(async (url) => {
-				const buffer = await sharp(await (await fetch(url)).arrayBuffer())
+				const fetchedURL = await fetch(url);
+
+				const buffer = await sharp(await fetchedURL.arrayBuffer())
 					.webp()
 					.toBuffer();
 
@@ -454,6 +456,8 @@ export default new (class implements AutocompleteCommand {
 						Bucket: CDN_BUCKET,
 						Key: DailyGuides.treasureCandlesRoute(hash),
 						Body: buffer,
+						ContentDisposition: "inline",
+						ContentType: fetchedURL.headers.get("content-type")!,
 					}),
 				);
 
