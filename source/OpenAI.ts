@@ -83,7 +83,13 @@ export async function messageCreateReactionResponse(message: Message<true>) {
 
 		const emojis = completion.choices[0]!.message.content;
 		if (!emojis) return;
-		await Promise.all(emojis.split("\n").map(async (emoji) => message.react(emoji)));
+
+		await Promise.all(
+			emojis
+			.split("\n")
+			// Responses uncommonly have a trailing space.
+				.map(async (emoji) => message.react(emoji.trim())),
+		);
 	} catch (error) {
 		if (!(error instanceof APIUserAbortError)) pino.error(error, "AI error.");
 	} finally {
