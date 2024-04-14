@@ -2953,6 +2953,10 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Love Heart Plushie.
 	 */
 	SmallPlaceableProp35: { name: "small_placeable_prop", id: "1206357740969271346" },
+	/**
+	 * Companion Cube.
+	 */
+	SmallPlaceableProp36: { name: "small_placeable_prop", id: "1229130190471303168" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type SmallPlaceablePropsEmojis =
