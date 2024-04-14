@@ -86,8 +86,8 @@ export async function messageCreateReactionResponse(message: Message<true>) {
 
 		await Promise.all(
 			emojis
-			.split("\n")
-			// Responses uncommonly have a trailing space.
+				.split("\n")
+				// Responses uncommonly have a trailing space.
 				.map(async (emoji) => message.react(emoji.trim())),
 		);
 	} catch (error) {
