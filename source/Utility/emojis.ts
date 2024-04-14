@@ -2965,6 +2965,10 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Companion Cube.
 	 */
 	SmallPlaceableProp36: { name: "small_placeable_prop", id: "1229130190471303168" },
+	/**
+	 * Nesting Guide (ultimate).
+	 */
+	SmallPlaceableProp37: { name: "small_placeable_prop", id: "1229166023085789327" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type SmallPlaceablePropsEmojis =
