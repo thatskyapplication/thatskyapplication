@@ -2982,7 +2982,7 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	SmallPlaceableProp37: { name: "small_placeable_prop", id: "1229166023085789327" },
 	/**
-	 * Nesting Solarium 1.
+	 * Nesting Solarium.
 	 */
 	SmallPlaceableProp38: { name: "small_placeable_prop", id: "1229167913760718898" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
