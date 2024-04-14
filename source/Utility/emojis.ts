@@ -2815,6 +2815,18 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Fourth Sky Anniversary 2.
 	 */
 	LargePlaceableProp33: { name: "large_placeable_prop", id: "1229126722767552713" },
+	/**
+	 * Nesting Solarium 1.
+	 */
+	LargePlaceableProp34: { name: "large_placeable_prop", id: "1229168587608948779" },
+	/**
+	 * Nesting Solarium 2.
+	 */
+	LargePlaceableProp35: { name: "large_placeable_prop", id: "1229169699015622706" },
+	/**
+	 * Nesting Solarium 3.
+	 */
+	LargePlaceableProp36: { name: "large_placeable_prop", id: "1229170318472384613" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type LargePlaceablePropsEmojis =
@@ -2969,6 +2981,10 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Nesting Guide (ultimate).
 	 */
 	SmallPlaceableProp37: { name: "small_placeable_prop", id: "1229166023085789327" },
+	/**
+	 * Nesting Solarium 1.
+	 */
+	SmallPlaceableProp38: { name: "small_placeable_prop", id: "1229167913760718898" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type SmallPlaceablePropsEmojis =
