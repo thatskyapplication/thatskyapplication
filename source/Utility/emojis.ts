@@ -2499,6 +2499,10 @@ export const CAPE_EMOJIS = {
 	 * Bloom Arum Petal Cape.
 	 */
 	Cape128: { name: "cape", id: "1220812166077354045" },
+	/**
+	 * Nesting Loft.
+	 */
+	Cape129: { name: "cape", id: "1229193708340121696" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -2827,6 +2831,14 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Nesting Solarium 3.
 	 */
 	LargePlaceableProp36: { name: "large_placeable_prop", id: "1229170318472384613" },
+	/**
+	 * Nesting Loft 1.
+	 */
+	LargePlaceableProp37: { name: "large_placeable_prop", id: "1229192882879991910" },
+	/**
+	 * Nesting Loft 2.
+	 */
+	LargePlaceableProp38: { name: "large_placeable_prop", id: "1229193291103473845" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type LargePlaceablePropsEmojis =
@@ -2985,6 +2997,10 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Nesting Solarium.
 	 */
 	SmallPlaceableProp38: { name: "small_placeable_prop", id: "1229167913760718898" },
+	/**
+	 * Nesting Loft.
+	 */
+	SmallPlaceableProp39: { name: "small_placeable_prop", id: "1229194292606795837" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type SmallPlaceablePropsEmojis =
