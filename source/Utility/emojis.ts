@@ -1243,6 +1243,10 @@ export const NECKLACE_EMOJIS = {
 	 * Nine-Colored Deer Pendant.
 	 */
 	Necklace33: { name: "necklace", id: "1195926793836834857" },
+	/**
+	 * Nesting Pendant.
+	 */
+	Necklace34: { name: "necklace", id: "1229145373876949073" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
