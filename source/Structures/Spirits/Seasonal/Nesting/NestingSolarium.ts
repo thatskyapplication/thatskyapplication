@@ -11,7 +11,7 @@ import { type ItemsData, SeasonalSpirit, SpiritName } from "../../Base.js";
 
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const { LargePlaceableProp34, LargePlaceableProp35, LargePlaceableProp36 } = LARGE_PLACEABLE_PROPS_EMOJIS;
-const placeablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp34;
+const { SmallPlaceableProp38 } = SMALL_PLACEABLE_PROPS_EMOJIS;
 
 export default new SeasonalSpirit({
 	name: SpiritName.NestingSolarium,
@@ -21,7 +21,7 @@ export default new SeasonalSpirit({
 		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Blessing 1", cost: { seasonalCandles: 14 }, emoji: blessing3 })
-			.set(1 << 1, { item: "Prop 1", cost: null, emoji: placeablePropEmoji })
+			.set(1 << 1, { item: "Prop 1", cost: null, emoji: SmallPlaceableProp38 })
 			.set(1 << 2, { item: "Prop 2", cost: { seasonalCandles: 22 }, emoji: LargePlaceableProp34 })
 			.set(1 << 3, { item: "Blessing 2", cost: null, emoji: blessing3 })
 			.set(1 << 4, { item: "Blessing 3", cost: { seasonalCandles: 30 }, emoji: blessing3 })
