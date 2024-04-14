@@ -527,6 +527,10 @@ export const OUTFIT_EMOJIS = {
 	 * Days of Fortune Dragon Vestment.
 	 */
 	Outfit56: { name: "outfit", id: "1201595022949224469" },
+	/**
+	 * Nesting Guide (ultimate).
+	 */
+	Outfit57: { name: "outfit", id: "1229145924064907334" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
