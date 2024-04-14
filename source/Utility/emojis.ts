@@ -1983,6 +1983,10 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 * Love Heart Beret.
 	 */
 	HairAccessory37: { name: "hair_accessory", id: "1206353254292783125" },
+	/**
+	 * Nesting Nook.
+	 */
+	HairAccessory38: { name: "hair_accessory", id: "1229204549915508756" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
@@ -2851,6 +2855,10 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Nesting Atrium 2.
 	 */
 	LargePlaceableProp40: { name: "large_placeable_prop", id: "1229197997359759390" },
+	/**
+	 * Nesting Nook.
+	 */
+	LargePlaceableProp41: { name: "large_placeable_prop", id: "1229203555047702538" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type LargePlaceablePropsEmojis =
@@ -3017,6 +3025,14 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Nesting Atrium.
 	 */
 	SmallPlaceableProp40: { name: "small_placeable_prop", id: "1229196348130197514" },
+	/**
+	 * Nesting Nook 1.
+	 */
+	SmallPlaceableProp41: { name: "small_placeable_prop", id: "1229203138376892416" },
+	/**
+	 * Nesting Nook 2.
+	 */
+	SmallPlaceableProp42: { name: "small_placeable_prop", id: "1229204140949766196" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type SmallPlaceablePropsEmojis =
