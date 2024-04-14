@@ -9,7 +9,7 @@ import {
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, SpiritName, Call } from "../../Base.js";
@@ -21,7 +21,7 @@ const callEmoji = CALL_EMOJIS.Crab;
 const maskEmoji = MASK_EMOJIS.Mask16;
 const hairEmoji = HAIR_EMOJIS.Hair40;
 const capeEmoji = CAPE_EMOJIS.Cape16;
-const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp21;
+const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp14;
 
 export default new SeasonalSpirit({
 	name: SpiritName.CrabWhisperer,

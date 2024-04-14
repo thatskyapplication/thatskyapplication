@@ -9,7 +9,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
 	HAIR_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
@@ -26,7 +26,7 @@ const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const emoteEmoji = EMOTE_EMOJIS.SpinDance;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit13;
 const hairEmoji = HAIR_EMOJIS.Hair49;
-const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp24;
+const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp17;
 
 export default new SeasonalSpirit({
 	name: SpiritName.FestivalSpinDancer,

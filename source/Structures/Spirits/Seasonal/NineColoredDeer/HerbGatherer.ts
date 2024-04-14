@@ -6,8 +6,8 @@ import {
 	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, Emote, SeasonalSpirit, SpiritName } from "../../Base.js";
@@ -17,7 +17,7 @@ const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const emoteEmoji = EMOTE_EMOJIS.Whistle;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit53;
 const hairEmoji = HAIR_EMOJIS.Hair137;
-const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp67;
+const placeablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp34;
 
 export default new SeasonalSpirit({
 	name: SpiritName.HerbGatherer,

@@ -1,7 +1,12 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { EMOTE_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS, PLACEABLE_PROPS_EMOJIS } from "../../../../Utility/emojis.js";
+import {
+	EMOTE_EMOJIS,
+	HAIR_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
+} from "../../../../Utility/emojis.js";
 import { type ItemsData, Emote, SpiritName, StandardSpirit } from "../../Base.js";
 
 const emote = Emote.Float;
@@ -23,6 +28,6 @@ export default new StandardSpirit({
 			.set(1 << 6, { item: `${emote} 3`, cost: { candles: 7 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: `${emote} 4`, cost: { candles: 10 }, emoji: emoteEmoji })
 			.set(1 << 8, { item: "Blessing 2", cost: { candles: 5 }, emoji: MISCELLANEOUS_EMOJIS.Blessing2 })
-			.set(1 << 9, { item: "Chair", cost: { hearts: 30 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp01 }),
+			.set(1 << 9, { item: "Chair", cost: { hearts: 30 }, emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp01 }),
 	},
 });

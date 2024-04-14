@@ -9,7 +9,7 @@ import {
 	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
@@ -27,7 +27,7 @@ const emoteEmoji = EMOTE_EMOJIS.Juggle;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit12;
 const hairEmoji = HAIR_EMOJIS.Hair50;
 const capeEmoji = CAPE_EMOJIS.Cape23;
-const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp22;
+const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp15;
 
 export default new SeasonalSpirit({
 	name: SpiritName.TroupeJuggler,

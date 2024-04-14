@@ -6,7 +6,7 @@ import {
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
@@ -17,7 +17,7 @@ const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const emoteEmoji = EMOTE_EMOJIS.Chuckle;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit20;
 const maskEmoji = MASK_EMOJIS.Mask46;
-const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp15;
+const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp11;
 
 export default new SeasonalSpirit({
 	name: SpiritName.ChucklingScout,

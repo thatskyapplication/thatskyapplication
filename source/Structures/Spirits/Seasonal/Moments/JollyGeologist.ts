@@ -6,8 +6,8 @@ import {
 	FACE_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, Emote, SeasonalSpirit, SpiritName } from "../../Base.js";
@@ -18,7 +18,7 @@ const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const emoteEmoji = EMOTE_EMOJIS.JollyDance;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory29;
 const hairEmoji = HAIR_EMOJIS.Hair129;
-const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp60;
+const placeablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp28;
 
 export default new SeasonalSpirit({
 	name: SpiritName.JollyGeologist,

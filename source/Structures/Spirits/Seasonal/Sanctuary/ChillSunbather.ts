@@ -9,7 +9,7 @@ import {
 	FACE_ACCESSORY_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
@@ -27,7 +27,7 @@ const emoteEmoji = EMOTE_EMOJIS.BellyScratch;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory10;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory02;
 const capeEmoji = CAPE_EMOJIS.Cape33;
-const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp20;
+const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp13;
 
 export default new SeasonalSpirit({
 	name: SpiritName.ChillSunbather,

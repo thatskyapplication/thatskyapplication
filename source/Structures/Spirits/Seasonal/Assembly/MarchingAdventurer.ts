@@ -6,7 +6,7 @@ import {
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
@@ -17,7 +17,7 @@ const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const emoteEmoji = EMOTE_EMOJIS.Marching;
 const maskEmoji = MASK_EMOJIS.Mask45;
 const hairEmoji = HAIR_EMOJIS.Hair79;
-const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp12;
+const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp08;
 
 export default new SeasonalSpirit({
 	name: SpiritName.MarchingAdventurer,

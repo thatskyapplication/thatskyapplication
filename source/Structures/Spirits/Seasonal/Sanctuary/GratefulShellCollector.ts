@@ -8,7 +8,7 @@ import {
 	EMOTE_EMOJIS,
 	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
@@ -25,7 +25,7 @@ const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const emoteEmoji = EMOTE_EMOJIS.Grateful;
 const hairEmoji = HAIR_EMOJIS.Hair64;
 const capeEmoji = CAPE_EMOJIS.Cape32;
-const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp23;
+const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp16;
 
 export default new SeasonalSpirit({
 	name: SpiritName.GratefulShellCollector,

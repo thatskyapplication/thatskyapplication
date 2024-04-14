@@ -9,7 +9,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	MASK_EMOJIS,
 	HAIR_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
@@ -26,7 +26,7 @@ const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const emoteEmoji = EMOTE_EMOJIS.Sparkler;
 const maskEmoji = MASK_EMOJIS.Mask21;
 const hairEmoji = HAIR_EMOJIS.Hair47;
-const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp33;
+const placeablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp12;
 
 export default new SeasonalSpirit({
 	name: SpiritName.SparklerParent,

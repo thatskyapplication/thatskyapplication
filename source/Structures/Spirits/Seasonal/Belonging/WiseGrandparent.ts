@@ -7,9 +7,9 @@ import {
 	CAPE_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 	STANCE_EMOJIS,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import {
@@ -27,7 +27,7 @@ const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const stanceEmoji = STANCE_EMOJIS.Wise;
 const maskEmoji = MASK_EMOJIS.Mask19;
 const capeEmoji = CAPE_EMOJIS.Cape22;
-const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp28;
+const placeablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp09;
 
 export default new SeasonalSpirit({
 	name: SpiritName.WiseGrandparent,

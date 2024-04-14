@@ -2674,282 +2674,289 @@ export type HeldPropsEmojis = (typeof HELD_PROPS_EMOJIS)[keyof typeof HELD_PROPS
 /**
  * Emojis from the placeable props servers.
  */
-export const PLACEABLE_PROPS_EMOJIS = {
+export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Meditating Monastic.
 	 */
-	PlaceableProp01: { name: "placeable_prop", id: "1193625843671515156" },
+	LargePlaceableProp01: { name: "large_placeable_prop", id: "1193625843671515156" },
 	/**
 	 * Belonging Guide (ultimate).
 	 */
-	PlaceableProp02: { name: "placeable_prop", id: "1193625846347468900" },
-	/**
-	 * Days of Love 2020.
-	 */
-	PlaceableProp03: { name: "placeable_prop", id: "1193625849212174417" },
+	LargePlaceableProp02: { name: "large_placeable_prop", id: "1193625846347468900" },
 	/**
 	 * Days of Feast 2020.
 	 */
-	PlaceableProp04: { name: "placeable_prop", id: "1193625851191906435" },
-	/**
-	 * Days of Love Seesaw.
-	 */
-	PlaceableProp05: { name: "placeable_prop", id: "1193625854127898727" },
+	LargePlaceableProp03: { name: "large_placeable_prop", id: "1193625851191906435" },
 	/**
 	 * Pink Bloom Teaset.
 	 */
-	PlaceableProp06: { name: "placeable_prop", id: "1193625857378496677" },
+	LargePlaceableProp04: { name: "large_placeable_prop", id: "1193625857378496677" },
 	/**
 	 * Assembly Guide (non-ultimate 1).
 	 */
-	PlaceableProp07: { name: "placeable_prop", id: "1193625861132398603" },
+	LargePlaceableProp05: { name: "large_placeable_prop", id: "1193625861132398603" },
 	/**
 	 * Assembly Guide (non-ultimate 2).
 	 */
-	PlaceableProp08: { name: "placeable_prop", id: "1193625863443456084" },
+	LargePlaceableProp06: { name: "large_placeable_prop", id: "1193625863443456084" },
 	/**
 	 * Scaredy Cadet.
 	 */
-	PlaceableProp09: { name: "placeable_prop", id: "1193625866610163763" },
-	/**
-	 * Assembly Guide (non-ultimate 3).
-	 */
-	PlaceableProp10: { name: "placeable_prop", id: "1193625870854783106" },
-	/**
-	 * Assembly Guide (non-ultimate 4).
-	 */
-	PlaceableProp11: { name: "placeable_prop", id: "1193625873941807244" },
+	LargePlaceableProp07: { name: "large_placeable_prop", id: "1193625866610163763" },
 	/**
 	 * Marching Adventurer.
 	 */
-	PlaceableProp12: { name: "placeable_prop", id: "1193625877985112174" },
+	LargePlaceableProp08: { name: "large_placeable_prop", id: "1193625877985112174" },
 	/**
 	 * Assembly Guide (non-ultimate 5).
 	 */
-	PlaceableProp13: { name: "placeable_prop", id: "1193625881848057997" },
+	LargePlaceableProp09: { name: "large_placeable_prop", id: "1193625881848057997" },
 	/**
 	 * Baffled Botanist.
 	 */
-	PlaceableProp14: { name: "placeable_prop", id: "1193625885115424769" },
+	LargePlaceableProp10: { name: "large_placeable_prop", id: "1193625885115424769" },
 	/**
 	 * Chuckling Scout.
 	 */
-	PlaceableProp15: { name: "placeable_prop", id: "1193625888034668625" },
+	LargePlaceableProp11: { name: "large_placeable_prop", id: "1193625888034668625" },
 	/**
 	 * Star Collector.
 	 */
-	PlaceableProp16: { name: "placeable_prop", id: "1193625890345730099" },
-	/**
-	 * The Rose.
-	 */
-	PlaceableProp17: { name: "placeable_prop", id: "1193625893264953364" },
-	/**
-	 * Little Prince Fox.
-	 */
-	PlaceableProp18: { name: "placeable_prop", id: "1193625895773143141" },
-	/**
-	 * Second Sky Anniversary.
-	 */
-	PlaceableProp19: { name: "placeable_prop", id: "1193625899975839904" },
+	LargePlaceableProp12: { name: "large_placeable_prop", id: "1193625890345730099" },
 	/**
 	 * Chill Sunbather.
 	 */
-	PlaceableProp20: { name: "placeable_prop", id: "1193625901485797386" },
+	LargePlaceableProp13: { name: "large_placeable_prop", id: "1193625901485797386" },
 	/**
 	 * Crab Whisperer.
 	 */
-	PlaceableProp21: { name: "placeable_prop", id: "1193625903608107189" },
+	LargePlaceableProp14: { name: "large_placeable_prop", id: "1193625903608107189" },
 	/**
 	 * Troupe Juggler.
 	 */
-	PlaceableProp22: { name: "placeable_prop", id: "1193625905361330207" },
+	LargePlaceableProp15: { name: "large_placeable_prop", id: "1193625905361330207" },
 	/**
 	 * Grateful Shell Collector.
 	 */
-	PlaceableProp23: { name: "placeable_prop", id: "1193625908511248504" },
+	LargePlaceableProp16: { name: "large_placeable_prop", id: "1193625908511248504" },
 	/**
 	 * Festival Spin Dancer.
 	 */
-	PlaceableProp24: { name: "placeable_prop", id: "1193625910365138986" },
+	LargePlaceableProp17: { name: "large_placeable_prop", id: "1193625910365138986" },
 	/**
 	 * Days of Mischief 2021 1.
 	 */
-	PlaceableProp25: { name: "placeable_prop", id: "1193625912676192346" },
-	/**
-	 * Days of Mischief 2021 2.
-	 */
-	PlaceableProp26: { name: "placeable_prop", id: "1193625915092123831" },
+	LargePlaceableProp18: { name: "large_placeable_prop", id: "1193625912676192346" },
 	/**
 	 * Playfighting Herbalist.
 	 */
-	PlaceableProp27: { name: "placeable_prop", id: "1193625918145581166" },
-	/**
-	 * Wise Grandparent.
-	 */
-	PlaceableProp28: { name: "placeable_prop", id: "1193625920607637525" },
+	LargePlaceableProp19: { name: "large_placeable_prop", id: "1193625918145581166" },
 	/**
 	 * Jelly Whisperer.
 	 */
-	PlaceableProp29: { name: "placeable_prop", id: "1193625923170349156" },
+	LargePlaceableProp20: { name: "large_placeable_prop", id: "1193625923170349156" },
 	/**
 	 * Prophet of Fire 1.
 	 */
-	PlaceableProp30: { name: "placeable_prop", id: "1193625925875662959" },
-	/**
-	 * Days of Feast 2021 1.
-	 */
-	PlaceableProp31: { name: "placeable_prop", id: "1193625929268867152" },
-	/**
-	 * Days of Feast 2021 2.
-	 */
-	PlaceableProp32: { name: "placeable_prop", id: "1193625932137779281" },
-	/**
-	 * Sparkler Parent.
-	 */
-	PlaceableProp33: { name: "placeable_prop", id: "1193625934855671918" },
-	/**
-	 * Prophet of Earth.
-	 */
-	PlaceableProp34: { name: "placeable_prop", id: "1193625937191899207" },
-	/**
-	 * Days of Love Gondola.
-	 */
-	PlaceableProp35: { name: "placeable_prop", id: "1193625939624599673" },
+	LargePlaceableProp21: { name: "large_placeable_prop", id: "1193625925875662959" },
 	/**
 	 * Hiking Grouch.
 	 */
-	PlaceableProp36: { name: "placeable_prop", id: "1193625942501892227" },
+	LargePlaceableProp22: { name: "large_placeable_prop", id: "1193625942501892227" },
 	/**
 	 * Purple Bloom Teaset.
 	 */
-	PlaceableProp37: { name: "placeable_prop", id: "1193625945291116644" },
+	LargePlaceableProp23: { name: "large_placeable_prop", id: "1193625945291116644" },
 	/**
 	 * Performance Guide (non-ultmate).
 	 */
-	PlaceableProp38: { name: "placeable_prop", id: "1193625949481213982" },
-	/**
-	 * Prophet of Air.
-	 */
-	PlaceableProp39: { name: "placeable_prop", id: "1193625953033797702" },
+	LargePlaceableProp24: { name: "large_placeable_prop", id: "1193625949481213982" },
 	/**
 	 * Days of Sunlight 2022.
 	 */
-	PlaceableProp40: { name: "placeable_prop", id: "1193625955730735205" },
-	/**
-	 * Third Sky Anniversary 1.
-	 */
-	PlaceableProp41: { name: "placeable_prop", id: "1193625958570266745" },
+	LargePlaceableProp25: { name: "large_placeable_prop", id: "1193625955730735205" },
 	/**
 	 * Third Sky Anniversary 2.
 	 */
-	PlaceableProp42: { name: "placeable_prop", id: "1193625961690845346" },
-	/**
-	 * Third Sky Anniversary 3.
-	 */
-	PlaceableProp43: { name: "placeable_prop", id: "1193625964240973875" },
-	/**
-	 * Campfire Snack Kit.
-	 */
-	PlaceableProp44: { name: "placeable_prop", id: "1193625967000830014" },
-	/**
-	 * Feline Familiar Prop.
-	 */
-	PlaceableProp45: { name: "placeable_prop", id: "1193625969630650459" },
-	/**
-	 * Prophet of Water.
-	 */
-	PlaceableProp46: { name: "placeable_prop", id: "1193625979508232302" },
-	/**
-	 * Tournament Skyball Set.
-	 */
-	PlaceableProp47: { name: "placeable_prop", id: "1193625982540710000" },
+	LargePlaceableProp26: { name: "large_placeable_prop", id: "1193625961690845346" },
 	/**
 	 * Days of Feast 2022.
 	 */
-	PlaceableProp48: { name: "placeable_prop", id: "1193625985455771799" },
-	/**
-	 * Remembrance Guide (non-ultimate 1).
-	 */
-	PlaceableProp49: { name: "placeable_prop", id: "1193625988454686802" },
+	LargePlaceableProp27: { name: "large_placeable_prop", id: "1193625985455771799" },
 	/**
 	 * Remembrance Guide (non-ultimate 2).
 	 */
-	PlaceableProp50: { name: "placeable_prop", id: "1193625992611250257" },
+	LargePlaceableProp28: { name: "large_placeable_prop", id: "1193625992611250257" },
 	/**
 	 * Remembrance Guide (non-ultimate 3).
 	 */
-	PlaceableProp51: { name: "placeable_prop", id: "1193627417093341204" },
+	LargePlaceableProp29: { name: "large_placeable_prop", id: "1229123375369158767" },
 	/**
 	 * Remembrance Guide (ultimate).
 	 */
-	PlaceableProp52: { name: "placeable_prop", id: "1193627421413474344" },
-	/**
-	 * Remembrance Guide (non-ultimate 4).
-	 */
-	PlaceableProp53: { name: "placeable_prop", id: "1193627425913978980" },
-	/**
-	 * Remembrance Guide (non-ultimate 5).
-	 */
-	PlaceableProp54: { name: "placeable_prop", id: "1193627429890170891" },
+	LargePlaceableProp30: { name: "large_placeable_prop", id: "1229123814936412250" },
 	/**
 	 * Days of Love 2023.
 	 */
-	PlaceableProp55: { name: "placeable_prop", id: "1193627432444502047" },
+	LargePlaceableProp31: { name: "large_placeable_prop", id: "1229124760064098484" },
 	/**
 	 * Bloom Picnic Basket.
 	 */
-	PlaceableProp56: { name: "placeable_prop", id: "1193627435334377594" },
-	/**
-	 * Days of Bloom 2023.
-	 */
-	PlaceableProp57: { name: "placeable_prop", id: "1193627438576578631" },
-	/**
-	 * Passage Guide (non-ultimate).
-	 */
-	PlaceableProp58: { name: "placeable_prop", id: "1193627441969766521" },
-	/**
-	 * Nature Sonorous Seashell.
-	 */
-	PlaceableProp59: { name: "placeable_prop", id: "1193627444398272573" },
-	/**
-	 * Jolly Geologist.
-	 */
-	PlaceableProp60: { name: "placeable_prop", id: "1193627448466735174" },
-	/**
-	 * Fourth Sky Anniversary 1.
-	 */
-	PlaceableProp61: { name: "placeable_prop", id: "1193627450710691840" },
+	LargePlaceableProp32: { name: "large_placeable_prop", id: "1229125194694660118" },
 	/**
 	 * Fourth Sky Anniversary 2.
 	 */
-	PlaceableProp62: { name: "placeable_prop", id: "1193627454242312232" },
+	LargePlaceableProp33: { name: "large_placeable_prop", id: "1229126722767552713" },
+} as const satisfies Readonly<Record<string, EmojiData>>;
+
+export type LargePlaceablePropsEmojis =
+	(typeof LARGE_PLACEABLE_PROPS_EMOJIS)[keyof typeof LARGE_PLACEABLE_PROPS_EMOJIS];
+
+export const SMALL_PLACEABLE_PROPS_EMOJIS = {
+	/**
+	 * Days of Love 2020.
+	 */
+	SmallPlaceableProp01: { name: "small_placeable_prop", id: "1229059962182041650" },
+	/**
+	 * Days of Love Seesaw.
+	 */
+	SmallPlaceableProp02: { name: "small_placeable_prop", id: "1229064354737950820" },
+	/**
+	 * Assembly Guide (non-ultimate 3).
+	 */
+	SmallPlaceableProp03: { name: "small_placeable_prop", id: "1229104130723811430" },
+	/**
+	 * Assembly Guide (non-ultimate 4).
+	 */
+	SmallPlaceableProp04: { name: "small_placeable_prop", id: "1229105312892715148" },
+	/**
+	 * The Rose.
+	 */
+	SmallPlaceableProp05: { name: "small_placeable_prop", id: "1229106807608185055" },
+	/**
+	 * Little Prince Fox.
+	 */
+	SmallPlaceableProp06: { name: "small_placeable_prop", id: "1229107119085584385" },
+	/**
+	 * Second Sky Anniversary.
+	 */
+	SmallPlaceableProp07: { name: "small_placeable_prop", id: "1229107999168139264" },
+	/**
+	 * Days of Mischief 2021 2.
+	 */
+	SmallPlaceableProp08: { name: "small_placeable_prop", id: "1229110422666219540" },
+	/**
+	 * Wise Grandparent.
+	 */
+	SmallPlaceableProp09: { name: "small_placeable_prop", id: "1229111178551230536" },
+	/**
+	 * Days of Feast 2021 1.
+	 */
+	SmallPlaceableProp10: { name: "small_placeable_prop", id: "1229112946001707089" },
+	/**
+	 * Days of Feast 2021 2.
+	 */
+	SmallPlaceableProp11: { name: "small_placeable_prop", id: "1229113621737504860" },
+	/**
+	 * Sparkler Parent.
+	 */
+	SmallPlaceableProp12: { name: "small_placeable_prop", id: "1229114153050837092" },
+	/**
+	 * Prophet of Earth.
+	 */
+	SmallPlaceableProp13: { name: "small_placeable_prop", id: "1229115242328359104" },
+	/**
+	 * Days of Love Gondola.
+	 */
+	SmallPlaceableProp14: { name: "small_placeable_prop", id: "1229115708101627935" },
+	/**
+	 * Prophet of Air.
+	 */
+	SmallPlaceableProp15: { name: "small_placeable_prop", id: "1229117006054162573" },
+	/**
+	 * Third Sky Anniversary 1.
+	 */
+	SmallPlaceableProp16: { name: "small_placeable_prop", id: "1229117830977425520" },
+	/**
+	 * Third Sky Anniversary 3.
+	 */
+	SmallPlaceableProp17: { name: "small_placeable_prop", id: "1229119915378741369" },
+	/**
+	 * Campfire Snack Kit.
+	 */
+	SmallPlaceableProp18: { name: "small_placeable_prop", id: "1229120222775087226" },
+	/**
+	 * Feline Familiar Prop.
+	 */
+	SmallPlaceableProp19: { name: "small_placeable_prop", id: "1229120793292832850" },
+	/**
+	 * Prophet of Water.
+	 */
+	SmallPlaceableProp20: { name: "small_placeable_prop", id: "1229121247452069909" },
+	/**
+	 * Tournament Skyball Set.
+	 */
+	SmallPlaceableProp21: { name: "small_placeable_prop", id: "1229121713837441155" },
+	/**
+	 * Remembrance Guide (non-ultimate 1).
+	 */
+	SmallPlaceableProp22: { name: "small_placeable_prop", id: "1229122368467894434" },
+	/**
+	 * Remembrance Guide (non-ultimate 4).
+	 */
+	SmallPlaceableProp23: { name: "small_placeable_prop", id: "1193627425913978980" },
+	/**
+	 * Remembrance Guide (non-ultimate 5).
+	 */
+	SmallPlaceableProp24: { name: "small_placeable_prop", id: "1193627429890170891" },
+	/**
+	 * Days of Bloom 2023.
+	 */
+	SmallPlaceableProp25: { name: "small_placeable_prop", id: "1193627438576578631" },
+	/**
+	 * Passage Guide (non-ultimate).
+	 */
+	SmallPlaceableProp26: { name: "small_placeable_prop", id: "1193627441969766521" },
+	/**
+	 * Nature Sonorous Seashell.
+	 */
+	SmallPlaceableProp27: { name: "small_placeable_prop", id: "1193627444398272573" },
+	/**
+	 * Jolly Geologist.
+	 */
+	SmallPlaceableProp28: { name: "small_placeable_prop", id: "1193627448466735174" },
+	/**
+	 * Fourth Sky Anniversary 1.
+	 */
+	SmallPlaceableProp29: { name: "small_placeable_prop", id: "1193627450710691840" },
 	/**
 	 * Anniversary Plush.
 	 */
-	PlaceableProp63: { name: "placeable_prop", id: "1193627458075902113" },
+	SmallPlaceableProp30: { name: "small_placeable_prop", id: "1193627458075902113" },
 	/**
 	 * Prophet of Fire 2.
 	 */
-	PlaceableProp64: { name: "placeable_prop", id: "1193627460726685887" },
+	SmallPlaceableProp31: { name: "small_placeable_prop", id: "1193627460726685887" },
 	/**
 	 * Sunlight Surfboard.
 	 */
-	PlaceableProp65: { name: "placeable_prop", id: "1193627463683674252" },
+	SmallPlaceableProp32: { name: "small_placeable_prop", id: "1193627463683674252" },
 	/**
 	 * Days of Feast 2023.
 	 */
-	PlaceableProp66: { name: "placeable_prop", id: "1193627466099597362" },
+	SmallPlaceableProp33: { name: "small_placeable_prop", id: "1193627466099597362" },
 	/**
 	 * Herb Gatherer.
 	 */
-	PlaceableProp67: { name: "placeable_prop", id: "1195931438311297116" },
+	SmallPlaceableProp34: { name: "small_placeable_prop", id: "1195931438311297116" },
 	/**
 	 * Love Heart Plushie.
 	 */
-	PlaceableProp68: { name: "placeable_prop", id: "1206357740969271346" },
+	SmallPlaceableProp35: { name: "small_placeable_prop", id: "1206357740969271346" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type PlaceablePropsEmojis = (typeof PLACEABLE_PROPS_EMOJIS)[keyof typeof PLACEABLE_PROPS_EMOJIS];
+export type SmallPlaceablePropsEmojis =
+	(typeof SMALL_PLACEABLE_PROPS_EMOJIS)[keyof typeof SMALL_PLACEABLE_PROPS_EMOJIS];
 
 export type Emoji =
 	| MiscellaneousEmojis
@@ -2968,7 +2975,8 @@ export type Emoji =
 	| HairAccessoryEmojis
 	| CapeEmojis
 	| HeldPropsEmojis
-	| PlaceablePropsEmojis;
+	| LargePlaceablePropsEmojis
+	| SmallPlaceablePropsEmojis;
 
 export function formatEmoji(emoji: Emoji) {
 	return "animated" in emoji ? `<a:${emoji.name}:${emoji.id}>` : `<:${emoji.name}:${emoji.id}>`;

@@ -9,7 +9,7 @@ import {
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
@@ -28,7 +28,7 @@ const actionEmoji = FRIEND_ACTION_EMOJIS.PlayFight;
 const maskEmoji = MASK_EMOJIS.Mask28;
 const hairEmoji = HAIR_EMOJIS.Hair58;
 const capeEmoji = CAPE_EMOJIS.Cape28;
-const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp27;
+const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp19;
 
 export default new SeasonalSpirit({
 	name: SpiritName.PlayfightingHerbalist,

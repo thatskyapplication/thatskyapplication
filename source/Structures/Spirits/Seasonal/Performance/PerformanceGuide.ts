@@ -8,7 +8,7 @@ import {
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, FriendAction, GuideSpirit, SpiritName } from "../../Base.js";
@@ -41,6 +41,10 @@ export default new GuideSpirit({
 			.set(1 << 19, { item: "Shared memory spell 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.SpellSharedMemory })
 			.set(1 << 20, { item: FriendAction.DuetDance, cost: null, emoji: FRIEND_ACTION_EMOJIS.DuetDance })
 			.set(1 << 21, { item: "Heart 4", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 22, { item: "Flower pot", cost: { candles: 52 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp38 }),
+			.set(1 << 22, {
+				item: "Flower pot",
+				cost: { candles: 52 },
+				emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp24,
+			}),
 	},
 });

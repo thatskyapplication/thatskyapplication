@@ -6,7 +6,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
 	OUTFIT_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, GuideSpirit, SpiritName } from "../../Base.js";
@@ -23,7 +23,11 @@ export default new GuideSpirit({
 			.set(1 << 2, { item: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace13 })
 			.set(1 << 3, { item: "Ultimate hair", cost: { seasonalHearts: 1 }, emoji: HAIR_EMOJIS.Hair90 })
 			.set(1 << 4, { item: "Ultimate outfit", cost: { seasonalHearts: 2 }, emoji: OUTFIT_EMOJIS.Outfit23 })
-			.set(1 << 5, { item: "Rose", cost: { seasonalHearts: 1 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp17 })
+			.set(1 << 5, {
+				item: "Rose",
+				cost: { seasonalHearts: 1 },
+				emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp05,
+			})
 			.set(1 << 6, { item: "Quest 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 7, { item: "Heart 2", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 8, { item: "Quest 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })

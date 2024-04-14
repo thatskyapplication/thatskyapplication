@@ -6,7 +6,7 @@ import {
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, GuideSpirit, SpiritName } from "../../Base.js";
@@ -33,7 +33,11 @@ export default new GuideSpirit({
 			.set(1 << 12, { item: "Monkey mask", cost: { candles: 46 }, emoji: MASK_EMOJIS.Mask79 })
 			.set(1 << 13, { item: "Quest 5", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 14, { item: "Heart 4", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 15, { item: "Hacky sack", cost: { hearts: 39 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp58 })
+			.set(1 << 15, {
+				item: "Hacky sack",
+				cost: { hearts: 39 },
+				emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp26,
+			})
 			.set(1 << 16, { item: "Racoon mask", cost: { candles: 52 }, emoji: MASK_EMOJIS.Mask80 }),
 	},
 });

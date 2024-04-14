@@ -8,7 +8,7 @@ import {
 	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
@@ -20,7 +20,7 @@ const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const callEmoji = CALL_EMOJIS.Jellyfish;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit15;
 const hairEmoji = HAIR_EMOJIS.Hair60;
-const placeablePropEmoji = PLACEABLE_PROPS_EMOJIS.PlaceableProp29;
+const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp20;
 
 export default new SeasonalSpirit({
 	name: SpiritName.JellyWhisperer,

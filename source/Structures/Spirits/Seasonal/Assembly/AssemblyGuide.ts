@@ -6,10 +6,11 @@ import {
 	FRIEND_ACTION_EMOJIS,
 	HAIR_EMOJIS,
 	HELD_PROPS_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
-	PLACEABLE_PROPS_EMOJIS,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, FriendAction, GuideSpirit, SpiritName } from "../../Base.js";
@@ -32,18 +33,26 @@ export default new GuideSpirit({
 			.set(1 << 6, { item: "Ultimate cape", cost: { seasonalHearts: 2 }, emoji: CAPE_EMOJIS.Cape52 })
 			.set(1 << 7, { item: FriendAction.HighFive, cost: null, emoji: FRIEND_ACTION_EMOJIS.HighFive })
 			.set(1 << 8, { item: "Quest 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 9, { item: "Pillow", cost: { candles: 5 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp11 })
+			.set(1 << 9, { item: "Pillow", cost: { candles: 5 }, emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp04 })
 			.set(1 << 10, { item: "Quest 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 11, { item: "Heart 2", cost: { candles: 3 }, emoji: heartEmoji })
 			.set(1 << 12, { item: FriendAction.Hug, cost: null, emoji: FRIEND_ACTION_EMOJIS.Hug })
 			.set(1 << 13, { item: "Quest 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 14, { item: "Jar", cost: { candles: 8 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp10 })
+			.set(1 << 14, { item: "Jar", cost: { candles: 8 }, emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp03 })
 			.set(1 << 15, { item: "Quest 5", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 16, { item: "Brazier", cost: { hearts: 12 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp07 })
+			.set(1 << 16, { item: "Brazier", cost: { hearts: 12 }, emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp05 })
 			.set(1 << 17, { item: FriendAction.DoubleFive, cost: null, emoji: FRIEND_ACTION_EMOJIS.DoubleFive })
 			.set(1 << 18, { item: "Quest 6", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 19, { item: "Heart 3", cost: { candles: 3 }, emoji: heartEmoji })
-			.set(1 << 20, { item: "Bookcase", cost: { candles: 30 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp08 })
-			.set(1 << 21, { item: "Tarpaulin", cost: { hearts: 24 }, emoji: PLACEABLE_PROPS_EMOJIS.PlaceableProp13 }),
+			.set(1 << 20, {
+				item: "Bookcase",
+				cost: { candles: 30 },
+				emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp06,
+			})
+			.set(1 << 21, {
+				item: "Tarpaulin",
+				cost: { hearts: 24 },
+				emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp09,
+			}),
 	},
 });
