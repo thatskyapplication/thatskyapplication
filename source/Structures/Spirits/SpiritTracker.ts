@@ -1753,7 +1753,7 @@ export class SpiritTracker {
 						.setMinValues(0)
 						.setOptions(options)
 						.setPlaceholder(
-							season === SeasonName.Shattering
+							season === SeasonName.Shattering || season === SeasonName.Nesting
 								? "Select an entity!"
 								: season === SeasonName.Revival
 								? "Select a spirit or a shop!"

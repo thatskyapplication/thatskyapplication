@@ -209,7 +209,11 @@ export default new (class implements AutocompleteCommand {
 			} else {
 				description.push(
 					`⚠️ This ${
-						spiritSeason === SeasonName.Shattering ? "entity" : spiritSeason === SeasonName.Revival ? "shop" : "spirit"
+						spiritSeason === SeasonName.Shattering || spiritSeason === SeasonName.Nesting
+							? "entity"
+							: spiritSeason === SeasonName.Revival
+							? "shop"
+							: "spirit"
 					} has not yet returned.`,
 				);
 			}
