@@ -1,5 +1,8 @@
+/* eslint-disable unicorn/prefer-math-trunc */
+import { Collection } from "discord.js";
+import { MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { SeasonName } from "../../../Season.js";
-import { SpiritName, GuideSpirit } from "../../Base.js";
+import { type ItemsData, GuideSpirit, SpiritName } from "../../Base.js";
 
 export default new GuideSpirit({
 	name: SpiritName.NestingGuide,
@@ -7,5 +10,10 @@ export default new GuideSpirit({
 	offer: {
 		inProgress: true,
 		hasInfographic: false,
+		current: new Collection<number, ItemsData>().set(1 << 0, {
+			item: "Quest 1",
+			cost: null,
+			emoji: MISCELLANEOUS_EMOJIS.Quest,
+		}),
 	},
 });
