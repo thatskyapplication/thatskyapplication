@@ -136,6 +136,7 @@ enum SeasonFlags {
 	Moments = 1 << 17,
 	Revival = 1 << 18,
 	NineColoredDeer = 1 << 19,
+	Nesting = 1 << 20,
 }
 
 export const SeasonFlagsToSeasonName = {
@@ -159,6 +160,7 @@ export const SeasonFlagsToSeasonName = {
 	[SeasonFlags.Moments]: SeasonName.Moments,
 	[SeasonFlags.Revival]: SeasonName.Revival,
 	[SeasonFlags.NineColoredDeer]: SeasonName.NineColoredDeer,
+	[SeasonFlags.Nesting]: SeasonName.Nesting,
 } as const satisfies Readonly<Record<SeasonFlags, SeasonName>>;
 
 export const SEASON_FLAGS_TO_SEASON_NAME_ENTRIES = Object.entries(SeasonFlagsToSeasonName);

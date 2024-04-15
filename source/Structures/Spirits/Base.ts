@@ -232,6 +232,13 @@ export enum SpiritName {
 	Hunter = "Hunter",
 	FeudalLord = "Feudal Lord",
 	Princess = "Princess",
+
+	// Season of Nesting.
+	NestingGuide = "Nesting Guide",
+	NestingSolarium = "Nesting Solarium",
+	NestingLoft = "Nesting Loft",
+	NestingAtrium = "Nesting Atrium",
+	NestingNook = "Nesting Nook",
 }
 
 export const enum Emote {

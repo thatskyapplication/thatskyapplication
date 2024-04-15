@@ -527,6 +527,10 @@ export const OUTFIT_EMOJIS = {
 	 * Days of Fortune Dragon Vestment.
 	 */
 	Outfit56: { name: "outfit", id: "1201595022949224469" },
+	/**
+	 * Nesting Guide (ultimate).
+	 */
+	Outfit57: { name: "outfit", id: "1229145924064907334" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -1243,6 +1247,10 @@ export const NECKLACE_EMOJIS = {
 	 * Nine-Colored Deer Pendant.
 	 */
 	Necklace33: { name: "necklace", id: "1195926793836834857" },
+	/**
+	 * Nesting Pendant.
+	 */
+	Necklace34: { name: "necklace", id: "1229145373876949073" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
@@ -1815,6 +1823,10 @@ export const HAIR_EMOJIS = {
 	 * Bloom Arum Petal Hair.
 	 */
 	Hair141: { name: "hair", id: "1220813410598523084" },
+	/**
+	 * Nesting Atrium.
+	 */
+	Hair142: { name: "hair", id: "1229197356189225000" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -1971,6 +1983,10 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 * Love Heart Beret.
 	 */
 	HairAccessory37: { name: "hair_accessory", id: "1206353254292783125" },
+	/**
+	 * Nesting Nook.
+	 */
+	HairAccessory38: { name: "hair_accessory", id: "1229204549915508756" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
@@ -2491,6 +2507,10 @@ export const CAPE_EMOJIS = {
 	 * Bloom Arum Petal Cape.
 	 */
 	Cape128: { name: "cape", id: "1220812166077354045" },
+	/**
+	 * Nesting Loft.
+	 */
+	Cape129: { name: "cape", id: "1229193708340121696" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -2807,6 +2827,38 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Fourth Sky Anniversary 2.
 	 */
 	LargePlaceableProp33: { name: "large_placeable_prop", id: "1229126722767552713" },
+	/**
+	 * Nesting Solarium 1.
+	 */
+	LargePlaceableProp34: { name: "large_placeable_prop", id: "1229168587608948779" },
+	/**
+	 * Nesting Solarium 2.
+	 */
+	LargePlaceableProp35: { name: "large_placeable_prop", id: "1229169699015622706" },
+	/**
+	 * Nesting Solarium 3.
+	 */
+	LargePlaceableProp36: { name: "large_placeable_prop", id: "1229170318472384613" },
+	/**
+	 * Nesting Loft 1.
+	 */
+	LargePlaceableProp37: { name: "large_placeable_prop", id: "1229192882879991910" },
+	/**
+	 * Nesting Loft 2.
+	 */
+	LargePlaceableProp38: { name: "large_placeable_prop", id: "1229193291103473845" },
+	/**
+	 * Nesting Atrium 1.
+	 */
+	LargePlaceableProp39: { name: "large_placeable_prop", id: "1229196932791144589" },
+	/**
+	 * Nesting Atrium 2.
+	 */
+	LargePlaceableProp40: { name: "large_placeable_prop", id: "1229197997359759390" },
+	/**
+	 * Nesting Nook.
+	 */
+	LargePlaceableProp41: { name: "large_placeable_prop", id: "1229203555047702538" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type LargePlaceablePropsEmojis =
@@ -2957,6 +3009,30 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Companion Cube.
 	 */
 	SmallPlaceableProp36: { name: "small_placeable_prop", id: "1229130190471303168" },
+	/**
+	 * Nesting Guide (ultimate).
+	 */
+	SmallPlaceableProp37: { name: "small_placeable_prop", id: "1229166023085789327" },
+	/**
+	 * Nesting Solarium.
+	 */
+	SmallPlaceableProp38: { name: "small_placeable_prop", id: "1229167913760718898" },
+	/**
+	 * Nesting Loft.
+	 */
+	SmallPlaceableProp39: { name: "small_placeable_prop", id: "1229194292606795837" },
+	/**
+	 * Nesting Atrium.
+	 */
+	SmallPlaceableProp40: { name: "small_placeable_prop", id: "1229196348130197514" },
+	/**
+	 * Nesting Nook 1.
+	 */
+	SmallPlaceableProp41: { name: "small_placeable_prop", id: "1229203138376892416" },
+	/**
+	 * Nesting Nook 2.
+	 */
+	SmallPlaceableProp42: { name: "small_placeable_prop", id: "1229204140949766196" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type SmallPlaceablePropsEmojis =

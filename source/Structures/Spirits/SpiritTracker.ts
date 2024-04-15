@@ -213,6 +213,11 @@ export interface SpiritTrackerPacket {
 	hunter: SpiritTrackerValue;
 	feudal_lord: SpiritTrackerValue;
 	princess: SpiritTrackerValue;
+	nesting_guide: SpiritTrackerValue;
+	nesting_solarium: SpiritTrackerValue;
+	nesting_loft: SpiritTrackerValue;
+	nesting_atrium: SpiritTrackerValue;
+	nesting_nook: SpiritTrackerValue;
 }
 
 interface SpiritTrackerData {
@@ -376,6 +381,11 @@ interface SpiritTrackerData {
 	hunter: SpiritTrackerPacket["hunter"];
 	feudalLord: SpiritTrackerPacket["feudal_lord"];
 	princess: SpiritTrackerPacket["princess"];
+	nestingGuide: SpiritTrackerPacket["nesting_guide"];
+	nestingSolarium: SpiritTrackerPacket["nesting_solarium"];
+	nestingLoft: SpiritTrackerPacket["nesting_loft"];
+	nestingAtrium: SpiritTrackerPacket["nesting_atrium"];
+	nestingNook: SpiritTrackerPacket["nesting_nook"];
 }
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
@@ -541,6 +551,11 @@ const SpiritTrackerNameToRawName = {
 	[SpiritName.Hunter]: "hunter",
 	[SpiritName.FeudalLord]: "feudal_lord",
 	[SpiritName.Princess]: "princess",
+	[SpiritName.NestingGuide]: "nesting_guide",
+	[SpiritName.NestingSolarium]: "nesting_solarium",
+	[SpiritName.NestingLoft]: "nesting_loft",
+	[SpiritName.NestingAtrium]: "nesting_atrium",
+	[SpiritName.NestingNook]: "nesting_nook",
 } as const satisfies Readonly<Record<SpiritName, Exclude<keyof SpiritTrackerPacket, "user_id">>>;
 
 const SpiritNameToSpiritTrackerName = {
@@ -703,6 +718,11 @@ const SpiritNameToSpiritTrackerName = {
 	[SpiritName.Hunter]: "hunter",
 	[SpiritName.FeudalLord]: "feudalLord",
 	[SpiritName.Princess]: "princess",
+	[SpiritName.NestingGuide]: "nestingGuide",
+	[SpiritName.NestingSolarium]: "nestingSolarium",
+	[SpiritName.NestingLoft]: "nestingLoft",
+	[SpiritName.NestingAtrium]: "nestingAtrium",
+	[SpiritName.NestingNook]: "nestingNook",
 } as const satisfies Readonly<Record<SpiritName, Exclude<keyof SpiritTrackerData, "user_id">>>;
 
 export const SPIRIT_TRACKER_VIEW_START_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_START_CUSTOM_ID" as const;
@@ -1074,6 +1094,16 @@ export class SpiritTracker {
 
 	public princess!: SpiritTrackerData["princess"];
 
+	public nestingGuide!: SpiritTrackerData["nestingGuide"];
+
+	public nestingSolarium!: SpiritTrackerData["nestingSolarium"];
+
+	public nestingLoft!: SpiritTrackerData["nestingLoft"];
+
+	public nestingAtrium!: SpiritTrackerData["nestingAtrium"];
+
+	public nestingNook!: SpiritTrackerData["nestingNook"];
+
 	public constructor(spiritTrack: SpiritTrackerPacket) {
 		this.userId = spiritTrack.user_id;
 		this.patch(spiritTrack);
@@ -1239,6 +1269,11 @@ export class SpiritTracker {
 		this.hunter = data.hunter;
 		this.feudalLord = data.feudal_lord;
 		this.princess = data.princess;
+		this.nestingGuide = data.nesting_guide;
+		this.nestingSolarium = data.nesting_solarium;
+		this.nestingLoft = data.nesting_loft;
+		this.nestingAtrium = data.nesting_atrium;
+		this.nestingNook = data.nesting_nook;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -1753,7 +1788,7 @@ export class SpiritTracker {
 						.setMinValues(0)
 						.setOptions(options)
 						.setPlaceholder(
-							season === SeasonName.Shattering
+							season === SeasonName.Shattering || season === SeasonName.Nesting
 								? "Select an entity!"
 								: season === SeasonName.Revival
 								? "Select a spirit or a shop!"
