@@ -35,6 +35,7 @@ export default {
 			[SeasonName.Moments]: "순간의 시즌",
 			[SeasonName.Revival]: "재생의 시즌",
 			[SeasonName.NineColoredDeer]: "아홉 빛깔 사슴의 시즌",
+			[SeasonName.Nesting]: "보금자리의 시즌",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "가리키는 양초장이",
@@ -196,6 +197,11 @@ export default {
 			[SpiritName.Hunter]: "사냥꾼",
 			[SpiritName.FeudalLord]: "봉건 영주",
 			[SpiritName.Princess]: "공주",
+			[SpiritName.NestingGuide]: "보금자리 안내자",
+			[SpiritName.NestingSolarium]: "보금자리 온실",
+			[SpiritName.NestingLoft]: "보금자리 가구점",
+			[SpiritName.NestingAtrium]: "보금자리 안마당",
+			[SpiritName.NestingNook]: "보금자리 구석",
 		},
 	},
 } as const;

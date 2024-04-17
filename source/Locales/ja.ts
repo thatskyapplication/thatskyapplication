@@ -35,6 +35,7 @@ export default {
 			[SeasonName.Moments]: "瞬きの季節",
 			[SeasonName.Revival]: "復古の季節",
 			[SeasonName.NineColoredDeer]: "九色の鹿の季節",
+			[SeasonName.Nesting]: "巣づくりの季節",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "指差すキャンドル職人",
@@ -196,6 +197,11 @@ export default {
 			[SpiritName.Hunter]: "狩人",
 			[SpiritName.FeudalLord]: "国王",
 			[SpiritName.Princess]: "王女",
+			[SpiritName.NestingGuide]: "巣づくりの案内人",
+			[SpiritName.NestingSolarium]: "巣づくりのサンルーム",
+			[SpiritName.NestingLoft]: "巣づくりのロフト",
+			[SpiritName.NestingAtrium]: "巣づくりの吹き抜け",
+			[SpiritName.NestingNook]: "巣づくりの小部屋",
 		},
 	},
 } as const;

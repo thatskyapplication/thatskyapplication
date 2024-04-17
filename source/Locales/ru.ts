@@ -35,6 +35,7 @@ export default {
 			[SeasonName.Moments]: "Сезон мгновений",
 			[SeasonName.Revival]: "Сезон возрождения",
 			[SeasonName.NineColoredDeer]: "Сезон Девятицветного оленя",
+			[SeasonName.Nesting]: "Сезон гнездования",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Указующий свечной мастер",
@@ -196,6 +197,11 @@ export default {
 			[SpiritName.Hunter]: "Охотник",
 			[SpiritName.FeudalLord]: "Феодальный господин",
 			[SpiritName.Princess]: "Принцесса",
+			[SpiritName.NestingGuide]: "Проводник гнездования",
+			[SpiritName.NestingSolarium]: "Гнездовой солярий",
+			[SpiritName.NestingLoft]: "Гнездовой лофт",
+			[SpiritName.NestingAtrium]: "Гнездовой атриум",
+			[SpiritName.NestingNook]: "Уголок гнездования",
 		},
 	},
 } as const;

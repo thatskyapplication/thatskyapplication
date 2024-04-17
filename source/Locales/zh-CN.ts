@@ -35,6 +35,7 @@ export default {
 			[SeasonName.Moments]: "拾光季",
 			[SeasonName.Revival]: "归巢季",
 			[SeasonName.NineColoredDeer]: "九色鹿季",
+			[SeasonName.Nesting]: "筑巢季",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "指路蜡烛匠",
@@ -196,6 +197,11 @@ export default {
 			[SpiritName.Hunter]: "猎人",
 			[SpiritName.FeudalLord]: "封建领主",
 			[SpiritName.Princess]: "公主",
+			[SpiritName.NestingGuide]: "筑巢向导",
+			[SpiritName.NestingSolarium]: "筑巢日光室",
+			[SpiritName.NestingLoft]: "筑巢阁楼",
+			[SpiritName.NestingAtrium]: "筑巢中庭",
+			[SpiritName.NestingNook]: "筑巢角落",
 		},
 	},
 } as const;

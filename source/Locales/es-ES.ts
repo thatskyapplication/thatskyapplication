@@ -44,6 +44,7 @@ export default {
 			[SeasonName.Moments]: "La temporada de los momentos",
 			[SeasonName.Revival]: "Temporada del Renacimiento",
 			[SeasonName.NineColoredDeer]: "Temporada del ciervo de los nueve colores",
+			[SeasonName.Nesting]: "Temporada Acogedora",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Candelero que apunta",
@@ -205,6 +206,11 @@ export default {
 			[SpiritName.Hunter]: "Cazador",
 			[SpiritName.FeudalLord]: "Señor feudal",
 			[SpiritName.Princess]: "Princesa",
+			[SpiritName.NestingGuide]: "Guía acogedora",
+			[SpiritName.NestingSolarium]: "Solárium acogedor",
+			[SpiritName.NestingLoft]: "Ático acogedor",
+			[SpiritName.NestingAtrium]: "Pórtico acogedor",
+			[SpiritName.NestingNook]: "Rincón acogedor",
 		},
 	},
 	commands: {

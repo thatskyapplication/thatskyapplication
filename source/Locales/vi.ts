@@ -35,6 +35,7 @@ export default {
 			[SeasonName.Moments]: "Mùa Khoảnh Khắc",
 			[SeasonName.Revival]: "Mùa Phục Hưng",
 			[SeasonName.NineColoredDeer]: "Mùa Cửu Sắc Lộc",
+			[SeasonName.Nesting]: "Mùa Xây Tổ",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Thợ Nến Dẫn Đường",
@@ -196,6 +197,11 @@ export default {
 			[SpiritName.Hunter]: "Thợ săn",
 			[SpiritName.FeudalLord]: "Lãnh chúa phong kiến",
 			[SpiritName.Princess]: "Công chúa",
+			[SpiritName.NestingGuide]: "Chỉ Dẫn Xây Tổ",
+			[SpiritName.NestingSolarium]: "Xây Tổ Tắm Nắng",
+			[SpiritName.NestingLoft]: "Xây Tổ Gác Xép",
+			[SpiritName.NestingAtrium]: "Xây Tổ Sân Nhỏ",
+			[SpiritName.NestingNook]: "Xây Tổ Góc Nhỏ",
 		},
 	},
 } as const;

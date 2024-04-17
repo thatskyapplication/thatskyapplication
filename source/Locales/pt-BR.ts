@@ -35,6 +35,7 @@ export default {
 			[SeasonName.Moments]: "Temporada dos Momentos",
 			[SeasonName.Revival]: "Temporada do Reavivamento",
 			[SeasonName.NineColoredDeer]: "Temporada do Cervo de Nove Cores",
+			[SeasonName.Nesting]: "Temporada do Ninho",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Candeeiro Denotante",
@@ -196,6 +197,11 @@ export default {
 			[SpiritName.Hunter]: "Caçador",
 			[SpiritName.FeudalLord]: "Senhor feudal",
 			[SpiritName.Princess]: "Princesa",
+			[SpiritName.NestingGuide]: "Guia do Ninho",
+			[SpiritName.NestingSolarium]: "Solarium do Ninho",
+			[SpiritName.NestingLoft]: "Loft do Ninho",
+			[SpiritName.NestingAtrium]: "Átrio do Ninho",
+			[SpiritName.NestingNook]: "Recanto do Ninho",
 		},
 	},
 } as const;

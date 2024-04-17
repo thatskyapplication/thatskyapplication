@@ -35,6 +35,7 @@ export default {
 			[SeasonName.Moments]: "Die Saison der Momente",
 			[SeasonName.Revival]: "Saison der Wiederbelebung",
 			[SeasonName.NineColoredDeer]: "Saison des Neunfarbigen Hirsches",
+			[SeasonName.Nesting]: "Saison des Nistens",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Deutender Kerzenmacher",
@@ -196,6 +197,11 @@ export default {
 			[SpiritName.Hunter]: "Jäger",
 			[SpiritName.FeudalLord]: "Feudalherr",
 			[SpiritName.Princess]: "Prinzessin",
+			[SpiritName.NestingGuide]: "Nest-Helfer",
+			[SpiritName.NestingSolarium]: "Nest-Solarium",
+			[SpiritName.NestingLoft]: "Nistboden",
+			[SpiritName.NestingAtrium]: "Nest-Aula",
+			[SpiritName.NestingNook]: "Nistecke",
 		},
 	},
 } as const;
