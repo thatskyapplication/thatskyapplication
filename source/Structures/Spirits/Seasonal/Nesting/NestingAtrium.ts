@@ -20,7 +20,6 @@ export default new SeasonalSpirit({
 	season: SeasonName.Nesting,
 	offer: {
 		hasInfographic: false,
-		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Prop 1", cost: { seasonalCandles: 16 }, emoji: SmallPlaceableProp40 })
 			.set(1 << 1, { item: "Blessing 1", cost: null, emoji: blessing3 })
