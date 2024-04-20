@@ -7,6 +7,7 @@ import {
 	type GuildBasedChannel,
 	type GuildMember,
 	type Locale,
+	type PublicThreadChannel,
 	type Snowflake,
 	channelMention,
 	ChannelType,
@@ -53,12 +54,16 @@ type DailyGuidesDistributionPatchData = Omit<DailyGuidesDistributionPacket, "gui
 type DailyGuidesDistributionInsertQuery = Omit<DailyGuidesDistributionPacket, "message_id">;
 type DailyGuidesDistributionUpdateQuery = Omit<DailyGuidesDistributionInsertQuery, "guild_id">;
 
-export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [ChannelType.GuildText, ChannelType.GuildAnnouncement] as const;
+export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
+	ChannelType.GuildText,
+	ChannelType.GuildAnnouncement,
+	ChannelType.PublicThread,
+] as const;
 
-type DailyGuidesDistributionAllowedChannel = Extract<
-	GuildBasedChannel,
-	{ type: (typeof DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES)[number] }
->;
+type DailyGuidesDistributionAllowedChannel =
+	| Extract<GuildBasedChannel, { type: (typeof DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES)[number] }>
+	// Public thread channels do not dynamically narrow down because of the union within the channel's class.
+	| PublicThreadChannel;
 
 function isDailyGuidesDistributionChannel(channel: Channel): channel is DailyGuidesDistributionAllowedChannel {
 	return DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES.includes(
@@ -85,20 +90,28 @@ export function isDailyGuidesDistributable(
 ) {
 	const errors = [];
 	if (me.isCommunicationDisabled()) errors.push("I am timed out.");
+	const isThread = channel.type === ChannelType.PublicThread;
 
-	if (
-		!channel
-			.permissionsFor(me)
-			.has(
-				PermissionFlagsBits.ViewChannel |
-					PermissionFlagsBits.SendMessages |
-					PermissionFlagsBits.EmbedLinks |
-					PermissionFlagsBits.UseExternalEmojis,
-			)
-	) {
+	if (isThread) {
+		if (channel.archived) errors.push("The thread is archived.");
+
+		if (!channel.permissionsFor(me).has(PermissionFlagsBits.ManageThreads) && channel.locked) {
+			errors.push("The thread is locked.");
+		}
+	}
+
+	const permissions =
+		PermissionFlagsBits.ViewChannel |
+		(isThread ? PermissionFlagsBits.SendMessagesInThreads : PermissionFlagsBits.SendMessages) |
+		PermissionFlagsBits.EmbedLinks |
+		PermissionFlagsBits.UseExternalEmojis;
+
+	if (!channel.permissionsFor(me).has(permissions)) {
 		errors.push(
-			// eslint-disable-next-line @typescript-eslint/no-base-to-string
-			`\`View Channel\` & \`Send Messages\` & \`Embed Links\` & \`Use External Emojis\` are required for ${channel}.`,
+			`\`View Channel\` & \`${
+				isThread ? "Send Messages in Threads" : "Send Messages"
+				// eslint-disable-next-line @typescript-eslint/no-base-to-string
+			}\` & \`Embed Links\` & \`Use External Emojis\` are required for ${channel}.`,
 		);
 	}
 
