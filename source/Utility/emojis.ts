@@ -2859,6 +2859,26 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Nesting Nook.
 	 */
 	LargePlaceableProp41: { name: "large_placeable_prop", id: "1229203555047702538" },
+	/**
+	 * Season of Nesting quest 1.
+	 */
+	LargePlaceableProp42: { name: "large_placeable_prop", id: "1231718600532955227" },
+	/**
+	 * Stone single bench.
+	 */
+	LargePlaceableProp43: { name: "large_placeable_prop", id: "1231719423518183476" },
+	/**
+	 * Stone wood fired oven.
+	 */
+	LargePlaceableProp44: { name: "large_placeable_prop", id: "1231720430801518714" },
+	/**
+	 * Stone tall cube.
+	 */
+	LargePlaceableProp45: { name: "large_placeable_prop", id: "1231720954955169852" },
+	/**
+	 * Stone single bed.
+	 */
+	LargePlaceableProp46: { name: "large_placeable_prop", id: "1231721865681174630" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type LargePlaceablePropsEmojis =
