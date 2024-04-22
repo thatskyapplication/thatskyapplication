@@ -23,6 +23,8 @@ export default new GuideSpirit({
 				item: "Ultimate prop",
 				cost: { seasonalHearts: 2 },
 				emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp37,
-			}),
+			})
+			.set(1 << 5, { item: "Quest 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
+			.set(1 << 6, { item: "Heart 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart }),
 	},
 });
