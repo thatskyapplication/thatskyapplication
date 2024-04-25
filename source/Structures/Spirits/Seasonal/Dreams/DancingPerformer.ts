@@ -46,8 +46,8 @@ export default new SeasonalSpirit({
 			.set(1 << 5, { item: `${emote} 4`, cost: { hearts: 6 }, emoji: emoteEmoji })
 			.set(1 << 7, { item: "Mask", cost: { candles: 48 }, emoji: maskEmoji })
 			.set(1 << 6, { item: "Blessing 2", cost: { candles: 5 }, emoji: blessing2 })
-			.set(1 << 9, { item: "Lute", cost: { candles: 48 }, emoji: heldProp })
-			.set(1 << 8, { item: "Cape", cost: { candles: 70 }, emoji: capeEmoji }),
+			.set(1 << 9, { item: "Lute", cost: { candles: 70 }, emoji: heldProp })
+			.set(1 << 8, { item: "Cape", cost: { candles: 75 }, emoji: capeEmoji }),
 		seasonal: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { item: `${emote} 2`, cost: null, emoji: emoteEmoji })
