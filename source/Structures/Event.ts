@@ -173,8 +173,7 @@ const EVENTS = [
 		end: skyDate(2_024, 5, 18),
 		url: null,
 		eventCurrencyPerDay: 5,
-		// @ts-expect-error Not yet created.
-		eventCurrencyEmoji: null,
+		eventCurrencyEmoji: EVENT_EMOJIS.SkyXCinnamorollPopUpCafe,
 	}),
 ] as const satisfies Readonly<Event[]>;
 

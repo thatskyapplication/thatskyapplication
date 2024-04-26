@@ -295,6 +295,7 @@ export const EVENT_EMOJIS = {
 	Fortune: { name: "fortune", id: "1195715431974064238" },
 	Love: { name: "love", id: "1195715582306299955" },
 	Bloom: { name: "bloom", id: "1211584587440848926" },
+	SkyXCinnamorollPopUpCafe: { name: "sky_x_cinnamoroll_pop_up_cafe", id: "1233467708515942450" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type EventEmojis = (typeof EVENT_EMOJIS)[keyof typeof EVENT_EMOJIS];
