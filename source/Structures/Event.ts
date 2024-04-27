@@ -171,7 +171,7 @@ const EVENTS = [
 		name: EventName.SkyXCinnamorollPopUpCafe,
 		start: skyDate(2_024, 4, 27),
 		end: skyDate(2_024, 5, 18),
-		url: null,
+		url: String(new URL("daily_guides/events/sky_x_cinnamoroll_pop_up_cafe/2024.webp", CDN_URL)),
 		eventCurrencyPerDay: 5,
 		eventCurrencyEmoji: EVENT_EMOJIS.SkyXCinnamorollPopUpCafe,
 	}),
