@@ -368,6 +368,16 @@ const MEET_CINNAMOROLL_ON_A_HILL_IN_AVIARY_VILLAGE = {
 	),
 } as const;
 
+const SMELL_FLOWERS_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE = {
+	content: "Smell flowers with Cinnamoroll in Aviary Village",
+	url: String(
+		new URL(
+			`daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/smell_flowers_with_cinnamoroll_in_aviary_village.webp`,
+			CDN_URL,
+		),
+	),
+} as const;
+
 const SPIRIT_QUEST = (spirit: QuestSpirit) =>
 	({
 		content: `Relive the ${spirit.name}`,
@@ -414,6 +424,7 @@ export const QUESTS = [
 	REHEARSE_FOR_A_PERFORMANCE_WITH_THE_SKATER,
 	COMPLETE_THE_HOOP_SCAVENGER_HUNT,
 	MEET_CINNAMOROLL_ON_A_HILL_IN_AVIARY_VILLAGE,
+	SMELL_FLOWERS_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE,
 	...Spirits.filter(isQuestSpirit).map((spirit) => SPIRIT_QUEST(spirit)),
 ] as const satisfies Readonly<DailyGuideQuest[]>;
 
@@ -599,7 +610,6 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("RACE DOWN THE MOUNTAIN")) return RACE_DOWN_THE_MOUNTAIN_WITH_THE_SKATER;
 		if (upperPureContent.includes("REHEARSE FOR A PERFORMANCE")) return REHEARSE_FOR_A_PERFORMANCE_WITH_THE_SKATER;
 		if (upperPureContent.includes("SCAVENGER HUNT")) return COMPLETE_THE_HOOP_SCAVENGER_HUNT;
-		if (upperPureContent.includes("MEET CINNAMOROLL")) return MEET_CINNAMOROLL_ON_A_HILL_IN_AVIARY_VILLAGE;
 
 		for (const spirit of Spirits) {
 			if (upperPureContent.replaceAll("’", "'").includes(spirit.name.toUpperCase())) {
