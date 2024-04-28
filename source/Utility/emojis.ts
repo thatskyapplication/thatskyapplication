@@ -1252,6 +1252,10 @@ export const NECKLACE_EMOJIS = {
 	 * Nesting Pendant.
 	 */
 	Necklace34: { name: "necklace", id: "1229145373876949073" },
+	/**
+	 * Cinnamoroll Pop-Up Cafe Bowtie.
+	 */
+	Necklace35: { name: "necklace", id: "1234054706914005052" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
@@ -1828,6 +1832,10 @@ export const HAIR_EMOJIS = {
 	 * Nesting Atrium.
 	 */
 	Hair142: { name: "hair", id: "1229197356189225000" },
+	/**
+	 * Cinnamoroll Pop-Up Cafe Combo.
+	 */
+	Hair143: { name: "hair", id: "1234055628058529814" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -1988,6 +1996,18 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 * Nesting Nook.
 	 */
 	HairAccessory38: { name: "hair_accessory", id: "1229204549915508756" },
+	/**
+	 * Cinnamoroll Pop-Up Cafe Mini Companion.
+	 */
+	HairAccessory39: { name: "hair_accessory", id: "1234053050742607962" },
+	/**
+	 * Cinnamoroll Pop-Up Cafe Combo.
+	 */
+	HairAccessory40: { name: "hair_accessory", id: "1234053751304880178" },
+	/**
+	 * Cosy Teacup Headband.
+	 */
+	HairAccessory41: { name: "hair_accessory", id: "1234054082352910386" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
@@ -2512,6 +2532,10 @@ export const CAPE_EMOJIS = {
 	 * Nesting Loft.
 	 */
 	Cape129: { name: "cape", id: "1229193708340121696" },
+	/**
+	 * Cinnamoroll Pop-Up Cafe Cloud Cape.
+	 */
+	Cape130: { name: "cape", id: "1234055162725662761" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -3070,6 +3094,14 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Decor pillow one colour.
 	 */
 	SmallPlaceableProp43: { name: "small_placeable_prop", id: "1233436049074556939" },
+	/**
+	 * Cinnamoroll Pop-Up Cafe Plushie.
+	 */
+	SmallPlaceableProp44: { name: "small_placeable_prop", id: "1234057273685442580" },
+	/**
+	 * Cosy Cafe Table.
+	 */
+	SmallPlaceableProp45: { name: "small_placeable_prop", id: "1234060383103225928" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type SmallPlaceablePropsEmojis =
