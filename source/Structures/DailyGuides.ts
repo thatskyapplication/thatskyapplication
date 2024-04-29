@@ -378,6 +378,16 @@ const SMELL_FLOWERS_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE = {
 	),
 } as const;
 
+const FIND_CINNAMOROLL_PEEKING_AROUND_AVIARY_VILLAGE = {
+	content: "Find Cinnamoroll peeking around Aviary Village",
+	url: String(
+		new URL(
+			`daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/find_cinnamoroll_peeking_around_aviary_village.webp`,
+			CDN_URL,
+		),
+	),
+} as const;
+
 const SPIRIT_QUEST = (spirit: QuestSpirit) =>
 	({
 		content: `Relive the ${spirit.name}`,
@@ -425,6 +435,7 @@ export const QUESTS = [
 	COMPLETE_THE_HOOP_SCAVENGER_HUNT,
 	MEET_CINNAMOROLL_ON_A_HILL_IN_AVIARY_VILLAGE,
 	SMELL_FLOWERS_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE,
+	FIND_CINNAMOROLL_PEEKING_AROUND_AVIARY_VILLAGE,
 	...Spirits.filter(isQuestSpirit).map((spirit) => SPIRIT_QUEST(spirit)),
 ] as const satisfies Readonly<DailyGuideQuest[]>;
 
