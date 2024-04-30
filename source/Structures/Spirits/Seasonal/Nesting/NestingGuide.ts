@@ -25,6 +25,8 @@ export default new GuideSpirit({
 				emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp37,
 			})
 			.set(1 << 5, { item: "Quest 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 6, { item: "Heart 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart }),
+			.set(1 << 6, { item: "Heart 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
+			.set(1 << 7, { item: "Quest 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
+			.set(1 << 8, { item: "Heart 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart }),
 	},
 });
