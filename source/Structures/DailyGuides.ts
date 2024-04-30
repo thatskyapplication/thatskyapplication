@@ -152,12 +152,12 @@ const MELT_10_DARKNESS = { content: "Melt 10 darkness", url: null } as const;
 
 const BOW_AT_A_PLAYER = {
 	content: `${Emote.Bow} at a player`,
-	url: String(new URL(`daily_guides/quests/social/bow_at_a_player.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/social/bow_at_a_player.webp", CDN_URL)),
 } as const;
 
 const FOLLOW_A_FRIEND = {
 	content: "Follow a friend",
-	url: String(new URL(`daily_guides/quests/social/follow_a_friend.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/social/follow_a_friend.webp", CDN_URL)),
 } as const;
 
 const HUG_A_FRIEND = {
@@ -167,67 +167,67 @@ const HUG_A_FRIEND = {
 
 const WAVE_TO_A_FRIEND = {
 	content: `${Emote.Wave} to a friend`,
-	url: String(new URL(`daily_guides/quests/social/wave_to_a_friend.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/social/wave_to_a_friend.webp", CDN_URL)),
 } as const;
 
 const HOLD_A_FRIENDS_HAND = {
 	content: "Hold a friend's hand",
-	url: String(new URL(`daily_guides/quests/social/hold_a_friends_hand.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/social/hold_a_friends_hand.webp", CDN_URL)),
 } as const;
 
 const SEND_A_GIFT_TO_A_FRIEND = {
 	content: "Send a gift to a friend",
-	url: String(new URL(`daily_guides/quests/social/send_a_gift_to_a_friend.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/social/send_a_gift_to_a_friend.webp", CDN_URL)),
 } as const;
 
 const MAKE_A_NEW_ACQUAINTANCE = {
 	content: "Make a new acquaintance",
-	url: String(new URL(`daily_guides/quests/social/make_a_new_acquaintance.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/social/make_a_new_acquaintance.webp", CDN_URL)),
 } as const;
 
 const HIGH_FIVE_A_FRIEND = {
 	content: `${FriendAction.HighFive} a friend`,
-	url: String(new URL(`daily_guides/quests/social/high_five_a_friend.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/social/high_five_a_friend.webp", CDN_URL)),
 } as const;
 
 const USE_AN_EXPRESSION_NEAR_A_FRIEND = {
 	content: "Use an expression near a friend",
-	url: String(new URL(`daily_guides/quests/social/use_an_expression_near_a_friend.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/social/use_an_expression_near_a_friend.webp", CDN_URL)),
 } as const;
 
 const SIT_ON_A_BENCH_WITH_A_STRANGER = {
 	content: "Sit on a bench with a stranger",
-	url: String(new URL(`daily_guides/quests/social/sit_on_a_bench_with_a_stranger.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/social/sit_on_a_bench_with_a_stranger.webp", CDN_URL)),
 } as const;
 
 const RECHARGE_FROM_A_JELLYFISH = {
 	content: "Recharge from a jellyfish",
-	url: String(new URL(`daily_guides/quests/miscellaneous/recharge_from_a_jellyfish.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/miscellaneous/recharge_from_a_jellyfish.webp", CDN_URL)),
 } as const;
 
 const RECHARGE_FROM_A_LIGHT_BLOOM = {
 	content: "Recharge from a light bloom",
-	url: String(new URL(`daily_guides/quests/miscellaneous/recharge_from_a_light_bloom.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/miscellaneous/recharge_from_a_light_bloom.webp", CDN_URL)),
 } as const;
 
 const RIDE_A_MANTA = {
 	content: "Ride a manta",
-	url: String(new URL(`daily_guides/quests/miscellaneous/ride_a_manta.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/miscellaneous/ride_a_manta.webp", CDN_URL)),
 } as const;
 
 const RELIVE_A_SPIRITS_MEMORIES = {
 	content: "Relive a spirit's memories",
-	url: String(new URL(`daily_guides/quests/miscellaneous/relive_a_spirits_memories.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/miscellaneous/relive_a_spirits_memories.webp", CDN_URL)),
 } as const;
 
 const FACE_THE_DARK_DRAGON = {
 	content: "Face the dark dragon",
-	url: String(new URL(`daily_guides/quests/miscellaneous/face_the_dark_dragon.gif`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/miscellaneous/face_the_dark_dragon.gif", CDN_URL)),
 } as const;
 
 const KNOCK_OVER_5_DARK_CRABS = {
 	content: "Knock over 5 dark crabs",
-	url: String(new URL(`daily_guides/quests/miscellaneous/knock_over_5_dark_crabs.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/miscellaneous/knock_over_5_dark_crabs.webp", CDN_URL)),
 } as const;
 
 const CATCH_THE_LIGHT = (realm: ValidRealm) =>
@@ -254,12 +254,12 @@ const ADMIRE_THE_SAPLING = (realm: ValidRealm) =>
 
 const VISIT_THE_POLLUTED_GEYSER = {
 	content: "Visit the polluted geyser",
-	url: String(new URL(`daily_guides/quests/days_of_nature/visit_the_polluted_geyser.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/days_of_nature/visit_the_polluted_geyser.webp", CDN_URL)),
 } as const;
 
 const RID_THE_SANCTUARY_VORTEX_OF_DARKNESS = {
 	content: "Rid the sanctuary vortex of darkness",
-	url: String(new URL(`daily_guides/quests/days_of_nature/rid_the_sanctuary_vortex_of_darkness.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/days_of_nature/rid_the_sanctuary_vortex_of_darkness.webp", CDN_URL)),
 } as const;
 
 const RAINBOW_FIND = (realm: ValidRealm) =>
@@ -310,59 +310,59 @@ function meditate(
 
 const COLLECT_GREEN_LIGHT = {
 	content: "Collect green light",
-	url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_green_light.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/season_of_enchantment/collect_green_light.webp", CDN_URL)),
 } as const;
 
 const COLLECT_ORANGE_LIGHT = {
 	content: "Collect orange light",
-	url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_orange_light.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/season_of_enchantment/collect_orange_light.webp", CDN_URL)),
 } as const;
 
 const COLLECT_BLUE_LIGHT = {
 	content: "Collect blue light",
-	url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_blue_light.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/season_of_enchantment/collect_blue_light.webp", CDN_URL)),
 } as const;
 
 const COLLECT_RED_LIGHT = {
 	content: "Collect red light",
-	url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_red_light.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/season_of_enchantment/collect_red_light.webp", CDN_URL)),
 } as const;
 
 const COLLECT_PURPLE_LIGHT = {
 	content: "Collect purple light",
-	url: String(new URL(`daily_guides/quests/season_of_enchantment/collect_purple_light.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/season_of_enchantment/collect_purple_light.webp", CDN_URL)),
 } as const;
 
 const PRACTICE_WITH_THE_SKATER = {
 	content: "Practice with the skater",
-	url: String(new URL(`daily_guides/quests/season_of_dreams/practice_with_the_skater.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/season_of_dreams/practice_with_the_skater.webp", CDN_URL)),
 } as const;
 
 const RACE_DOWN_THE_SLOPES_WITH_THE_SKATER = {
 	content: "Race down the slopes with the skater",
-	url: String(new URL(`daily_guides/quests/season_of_dreams/race_down_the_slopes_with_the_skater.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/season_of_dreams/race_down_the_slopes_with_the_skater.webp", CDN_URL)),
 } as const;
 
 const RACE_DOWN_THE_MOUNTAIN_WITH_THE_SKATER = {
 	content: "Race down the mountain with the skater",
-	url: String(new URL(`daily_guides/quests/season_of_dreams/race_down_the_mountain_with_the_skater.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/season_of_dreams/race_down_the_mountain_with_the_skater.webp", CDN_URL)),
 } as const;
 
 const REHEARSE_FOR_A_PERFORMANCE_WITH_THE_SKATER = {
 	content: "Rehearse for a performance with the skater",
-	url: String(new URL(`daily_guides/quests/season_of_dreams/rehearse_for_a_performance_with_the_skater.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/season_of_dreams/rehearse_for_a_performance_with_the_skater.webp", CDN_URL)),
 } as const;
 
 const COMPLETE_THE_HOOP_SCAVENGER_HUNT = {
 	content: "Complete the hoop scavenger hunt",
-	url: String(new URL(`daily_guides/quests/season_of_assembly/hoop.webp`, CDN_URL)),
+	url: String(new URL("daily_guides/quests/season_of_assembly/hoop.webp", CDN_URL)),
 } as const;
 
 const MEET_CINNAMOROLL_ON_A_HILL_IN_AVIARY_VILLAGE = {
 	content: "Meet Cinnamoroll on a hill in Aviary Village",
 	url: String(
 		new URL(
-			`daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/meet_cinnamoroll_on_a_hill_in_aviary_village.webp`,
+			"daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/meet_cinnamoroll_on_a_hill_in_aviary_village.webp",
 			CDN_URL,
 		),
 	),
@@ -372,7 +372,7 @@ const SMELL_FLOWERS_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE = {
 	content: "Smell flowers with Cinnamoroll in Aviary Village",
 	url: String(
 		new URL(
-			`daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/smell_flowers_with_cinnamoroll_in_aviary_village.webp`,
+			"daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/smell_flowers_with_cinnamoroll_in_aviary_village.webp",
 			CDN_URL,
 		),
 	),
@@ -382,7 +382,7 @@ const FIND_CINNAMOROLL_PEEKING_AROUND_AVIARY_VILLAGE = {
 	content: "Find Cinnamoroll peeking around Aviary Village",
 	url: String(
 		new URL(
-			`daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/find_cinnamoroll_peeking_around_aviary_village.webp`,
+			"daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/find_cinnamoroll_peeking_around_aviary_village.webp",
 			CDN_URL,
 		),
 	),
