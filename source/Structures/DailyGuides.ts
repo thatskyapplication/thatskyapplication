@@ -395,6 +395,16 @@ const WAKE_UP_CINNAMOROLL_IN_AVIARY_VILLAGE = {
 	),
 } as const;
 
+const FLY_UP_TO_THE_TOWER_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE = {
+	content: "Fly up to the tower with Cinnamoroll in Aviary Village",
+	url: String(
+		new URL(
+			"daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/fly_up_to_the_tower_with_cinnamoroll_in_aviary_village.webp",
+			CDN_URL,
+		),
+	),
+} as const;
+
 const SPIRIT_QUEST = (spirit: QuestSpirit) =>
 	({
 		content: `Relive the ${spirit.name}`,
@@ -444,6 +454,7 @@ export const QUESTS = [
 	SMELL_FLOWERS_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE,
 	FIND_CINNAMOROLL_PEEKING_AROUND_AVIARY_VILLAGE,
 	WAKE_UP_CINNAMOROLL_IN_AVIARY_VILLAGE,
+	FLY_UP_TO_THE_TOWER_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE,
 	...Spirits.filter(isQuestSpirit).map((spirit) => SPIRIT_QUEST(spirit)),
 ] as const satisfies Readonly<DailyGuideQuest[]>;
 
