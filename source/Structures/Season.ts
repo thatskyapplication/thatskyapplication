@@ -301,16 +301,16 @@ const SEASONS = [
 		start: skyDate(2_024, 4, 15),
 		end: skyDate(2_024, 6, 30),
 		seasonalCandlesRotation: [
+			{ rotation: 1, realm: Realm.ValleyOfTriumph },
 			{ rotation: 1, realm: Realm.GoldenWasteland },
 			{ rotation: 1, realm: Realm.VaultOfKnowledge },
 			{ rotation: 1, realm: Realm.DaylightPrairie },
 			{ rotation: 1, realm: Realm.HiddenForest },
-			{ rotation: 1, realm: Realm.ValleyOfTriumph },
+			{ rotation: 2, realm: Realm.ValleyOfTriumph },
 			{ rotation: 2, realm: Realm.GoldenWasteland },
 			{ rotation: 2, realm: Realm.VaultOfKnowledge },
 			{ rotation: 2, realm: Realm.DaylightPrairie },
 			{ rotation: 2, realm: Realm.HiddenForest },
-			{ rotation: 2, realm: Realm.ValleyOfTriumph },
 		],
 	}),
 ] as const satisfies Readonly<Season[]>;
