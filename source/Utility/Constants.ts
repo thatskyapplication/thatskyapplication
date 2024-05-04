@@ -28,7 +28,7 @@ export const MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT = 45 as const;
 
 // Maximum GIF numbers.
 export const MAX_HIGH_FIVE_NO = 7 as const;
-export const MAX_HUG_NO = 26 as const;
+export const MAX_HUG_NO = 27 as const;
 export const MAX_PLAY_FIGHT_NO = 5 as const;
 export const MAX_KRILL_NO = 10 as const;
 
