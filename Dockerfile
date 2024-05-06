@@ -4,7 +4,7 @@ FROM node:lts-bullseye-slim AS builder
 WORKDIR /app
 
 # Install pnpm and copy the required files.
-RUN npm install --global pnpm@9.0.4
+RUN npm install --global pnpm@9.1.0
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 
