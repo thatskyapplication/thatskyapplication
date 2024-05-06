@@ -12,7 +12,7 @@ import {
 import { t } from "i18next";
 import { CDN_URL, DEFAULT_EMBED_COLOUR, LOCALES, MAX_HUG_NO } from "../../Utility/Constants.js";
 import pg, { Table } from "../../pg.js";
-import { NOT_IN_GUILD_RESPONSE, type ChatInputCommand } from "../index.js";
+import type { ChatInputCommand } from "../index.js";
 
 interface HugPacket {
 	hugger_id: Snowflake;
@@ -51,27 +51,23 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		if (!interaction.inGuild()) {
-			await interaction.reply(NOT_IN_GUILD_RESPONSE);
-			return;
-		}
-
 		const { channel, createdAt, guildLocale, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
+		const resolvedLocale = guildLocale ?? Locale.EnglishGB;
 
 		if (user.id === interaction.user.id) {
 			await interaction.reply({
-				content: t("hug.hug-self", { lng: guildLocale, ns: "commands" }),
+				content: t("hug.hug-self", { lng: resolvedLocale, ns: "commands" }),
 				ephemeral: true,
 			});
 
 			return;
 		}
 
-		if (!member) {
+		if (interaction.inGuild() && !member) {
 			await interaction.reply({
-				content: t("hug.not-in-server", { lng: guildLocale, ns: "commands", user: String(user) }),
+				content: t("hug.not-in-server", { lng: resolvedLocale, ns: "commands", user: String(user) }),
 				ephemeral: true,
 			});
 
@@ -80,12 +76,13 @@ export default new (class implements ChatInputCommand {
 
 		if (
 			channel &&
-			"user" in member &&
 			!channel.isDMBased() &&
+			member &&
+			"user" in member &&
 			!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
 		) {
 			await interaction.reply({
-				content: t("hug.not-around", { lng: guildLocale, ns: "commands", user: String(user) }),
+				content: t("hug.not-around", { lng: resolvedLocale, ns: "commands", user: String(user) }),
 				ephemeral: true,
 			});
 
@@ -94,7 +91,7 @@ export default new (class implements ChatInputCommand {
 
 		if (user.bot) {
 			await interaction.reply({
-				content: t("hug.bot", { lng: guildLocale, ns: "commands", user: String(user) }),
+				content: t("hug.bot", { lng: resolvedLocale, ns: "commands", user: String(user) }),
 				ephemeral: true,
 			});
 
@@ -109,7 +106,7 @@ export default new (class implements ChatInputCommand {
 
 		await interaction.reply({
 			content: t("hug.message", {
-				lng: guildLocale,
+				lng: resolvedLocale,
 				ns: "commands",
 				user: String(user),
 				invoker: String(interaction.user),
