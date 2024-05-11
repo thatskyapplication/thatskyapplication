@@ -12,7 +12,7 @@ index 884ad9258cde25c9d33124dbeb58388fd3c27b1f..7282067c4bc2e35fd2bb48d6fb1ff463
        type: command.type,
        options: command.options?.map(option => ApplicationCommand.transformOption(option)),
 diff --git a/src/structures/ApplicationCommand.js b/src/structures/ApplicationCommand.js
-index fe45763b438d59ff2ea951cb25645042cd1cb0cd..e21551afaffac57a2b589bf65a9a5f7eabb41ebf 100644
+index fe45763b438d59ff2ea951cb25645042cd1cb0cd..546b7b54a460f9f2ebb4b00852e478532883ba1c 100644
 --- a/src/structures/ApplicationCommand.js
 +++ b/src/structures/ApplicationCommand.js
 @@ -158,6 +158,18 @@ class ApplicationCommand extends Base {
@@ -38,8 +38,8 @@ index fe45763b438d59ff2ea951cb25645042cd1cb0cd..e21551afaffac57a2b589bf65a9a5f7e
        ('description' in command && command.description !== this.description) ||
        ('version' in command && command.version !== this.version) ||
        (command.type && command.type !== this.type) ||
-+      isEqual(command.contexts ?? [], this.contexts ?? []) ||
-+      isEqual(command.integrationTypes ?? command.integration_types ?? [], this.integrationTypes ?? []) ||
++      !isEqual(command.contexts ?? [], this.contexts ?? []) ||
++      !isEqual(command.integrationTypes ?? command.integration_types ?? [], this.integrationTypes ?? []) ||
        ('nsfw' in command && command.nsfw !== this.nsfw) ||
        // Future proof for options being nullable
        // TODO: remove ?? 0 on each when nullable
