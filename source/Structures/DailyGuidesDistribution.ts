@@ -110,7 +110,6 @@ export function isDailyGuidesDistributable(
 		errors.push(
 			`\`View Channel\` & \`${
 				isThread ? "Send Messages in Threads" : "Send Messages"
-				// eslint-disable-next-line @typescript-eslint/no-base-to-string
 			}\` & \`Embed Links\` & \`Use External Emojis\` are required for ${channel}.`,
 		);
 	}

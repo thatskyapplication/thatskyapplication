@@ -9,7 +9,8 @@ export default new (class implements UserContextMenuCommand {
 	public readonly data = {
 		name: "Gift Heart",
 		type: ApplicationCommandType.User,
-		dmPermission: false,
+		integrationTypes: [0, 1],
+		contexts: [0, 2],
 	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async userContextMenu(interaction: UserContextMenuCommandInteraction) {

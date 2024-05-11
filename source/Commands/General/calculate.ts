@@ -221,6 +221,8 @@ export default new (class implements ChatInputCommand {
 					],
 				},
 			],
+			integrationTypes: [0, 1],
+			contexts: [0, 1, 2],
 		} as const;
 	}
 

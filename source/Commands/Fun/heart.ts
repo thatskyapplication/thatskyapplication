@@ -79,7 +79,8 @@ export default new (class implements ChatInputCommand {
 				description: "Display a history of your hearts!",
 			},
 		],
-		dmPermission: false,
+		integrationTypes: [0, 1],
+		contexts: [0, 2],
 	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
@@ -111,7 +112,7 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		if (!member) {
+		if (interaction.inGuild() && !member) {
 			await interaction.reply({
 				content: `${user} is not in this server to gift a ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} to.`,
 				ephemeral: true,
@@ -122,8 +123,9 @@ export default new (class implements ChatInputCommand {
 
 		if (
 			channel &&
-			"user" in member &&
 			!channel.isDMBased() &&
+			member &&
+			"user" in member &&
 			!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
 		) {
 			await interaction.reply({

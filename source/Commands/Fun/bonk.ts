@@ -167,7 +167,8 @@ export default new (class implements ChatInputCommand {
 				required: true,
 			},
 		],
-		dmPermission: false,
+		integrationTypes: [0, 1],
+		contexts: [0, 2],
 	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
@@ -180,15 +181,16 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		if (!member) {
+		if (interaction.inGuild() && !member) {
 			await interaction.reply({ content: `${user} is not in this server to be bonked.`, ephemeral: true });
 			return;
 		}
 
 		if (
 			channel &&
-			"user" in member &&
 			!channel.isDMBased() &&
+			member &&
+			"user" in member &&
 			!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
 		) {
 			await interaction.reply({ content: `${user} is not around for the bonk!`, ephemeral: true });

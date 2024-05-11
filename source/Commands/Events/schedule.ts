@@ -1,4 +1,5 @@
 import {
+	type ApplicationCommandData,
 	type ChatInputCommandInteraction,
 	ApplicationCommandType,
 	EmbedBuilder,
@@ -126,7 +127,9 @@ export default new (class implements ChatInputCommand {
 				LOCALES.map((locale) => [locale, t("schedule.command-description", { lng: locale, ns: "commands" })]),
 			),
 			type: ApplicationCommandType.ChatInput,
-		};
+			integrationTypes: [0, 1],
+			contexts: [0, 1, 2],
+		} as const satisfies Readonly<ApplicationCommandData>;
 	}
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {

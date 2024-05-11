@@ -135,7 +135,6 @@ export function isNotificationSendable(
 	if (me.isCommunicationDisabled()) errors.push("I am timed out.");
 
 	if (!channel.permissionsFor(me).has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages)) {
-		// eslint-disable-next-line @typescript-eslint/no-base-to-string
 		errors.push(`\`View Channel\` & \`Send Messages\` are required for ${channel}.`);
 	}
 

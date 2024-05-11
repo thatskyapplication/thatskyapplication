@@ -195,6 +195,8 @@ export default new (class implements AutocompleteCommand {
 				],
 			},
 		],
+		integrationTypes: [0, 1],
+		contexts: [0, 1, 2],
 	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public id: Snowflake | null = null;

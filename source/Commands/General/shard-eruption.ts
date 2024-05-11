@@ -89,6 +89,8 @@ export default new (class implements ChatInputCommand {
 				description: "View the shard eruption today.",
 			},
 		],
+		integrationTypes: [0, 1],
+		contexts: [0, 1, 2],
 	} as const;
 
 	public id: Snowflake | null = null;

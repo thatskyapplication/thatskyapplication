@@ -16,7 +16,8 @@ export default new (class implements ChatInputCommand {
 		description: "Configure the AI.",
 		type: ApplicationCommandType.ChatInput,
 		defaultMemberPermissions: PermissionFlagsBits.ManageGuild,
-		dmPermission: false,
+		integrationTypes: [0],
+		contexts: [0],
 	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {

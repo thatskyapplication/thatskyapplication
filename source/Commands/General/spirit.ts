@@ -68,6 +68,8 @@ export default new (class implements AutocompleteCommand {
 				description: "Track your spirit progress!",
 			},
 		],
+		integrationTypes: [0, 1],
+		contexts: [0, 1, 2],
 	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {

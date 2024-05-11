@@ -28,6 +28,8 @@ export default new (class implements ChatInputCommand {
 				description: "Deletes your data.",
 			},
 		],
+		integrationTypes: [0, 1],
+		contexts: [0, 1, 2],
 	} as const;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {

@@ -78,7 +78,8 @@ export default new (class implements ChatInputCommand {
 			},
 		],
 		defaultMemberPermissions: PermissionFlagsBits.ManageGuild,
-		dmPermission: false,
+		integrationTypes: [0],
+		contexts: [0],
 	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {

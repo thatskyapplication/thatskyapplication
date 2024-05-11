@@ -41,6 +41,8 @@ export default new (class implements ChatInputCommand {
 		name: "about",
 		description: "About me, the wondrous little Sky helper!",
 		type: ApplicationCommandType.ChatInput,
+		integrationTypes: [0, 1],
+		contexts: [0, 1, 2],
 	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
