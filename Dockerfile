@@ -7,6 +7,7 @@ WORKDIR /app
 RUN npm install --global pnpm@9.1.0
 COPY package.json ./
 COPY pnpm-lock.yaml ./
+COPY patches ./patches
 
 # Install dependencies.
 RUN pnpm install --frozen-lockfile

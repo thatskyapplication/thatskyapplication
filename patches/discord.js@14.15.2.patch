@@ -1,0 +1,89 @@
+diff --git a/src/managers/ApplicationCommandManager.js b/src/managers/ApplicationCommandManager.js
+index 884ad9258cde25c9d33124dbeb58388fd3c27b1f..7282067c4bc2e35fd2bb48d6fb1ff46349c15fa2 100644
+--- a/src/managers/ApplicationCommandManager.js
++++ b/src/managers/ApplicationCommandManager.js
+@@ -254,6 +254,8 @@ class ApplicationCommandManager extends CachedManager {
+       name_localizations: command.nameLocalizations ?? command.name_localizations,
+       description: command.description,
+       nsfw: command.nsfw,
++      contexts: command.contexts,
++      integration_types: command.integrationTypes ?? command.integration_types,
+       description_localizations: command.descriptionLocalizations ?? command.description_localizations,
+       type: command.type,
+       options: command.options?.map(option => ApplicationCommand.transformOption(option)),
+diff --git a/src/structures/ApplicationCommand.js b/src/structures/ApplicationCommand.js
+index fe45763b438d59ff2ea951cb25645042cd1cb0cd..e21551afaffac57a2b589bf65a9a5f7eabb41ebf 100644
+--- a/src/structures/ApplicationCommand.js
++++ b/src/structures/ApplicationCommand.js
+@@ -158,6 +158,18 @@ class ApplicationCommand extends Base {
+        */
+       this.version = data.version;
+     }
++
++    if ('contexts' in data) {
++      this.contexts = data.contexts;
++    } else {
++      this.contexts ??= [];
++    }
++
++    if ('integration_types' in data) {
++      this.integrationTypes = data.integration_types;
++    } else {
++      this.integrationTypes ??= [];
++    }
+   }
+ 
+   /**
+@@ -384,6 +396,8 @@ class ApplicationCommand extends Base {
+       ('description' in command && command.description !== this.description) ||
+       ('version' in command && command.version !== this.version) ||
+       (command.type && command.type !== this.type) ||
++      isEqual(command.contexts ?? [], this.contexts ?? []) ||
++      isEqual(command.integrationTypes ?? command.integration_types ?? [], this.integrationTypes ?? []) ||
+       ('nsfw' in command && command.nsfw !== this.nsfw) ||
+       // Future proof for options being nullable
+       // TODO: remove ?? 0 on each when nullable
+diff --git a/typings/index.d.mts b/typings/index.d.mts
+index f08c31226b0205b070e63dcc2552fddc951cff50..18d48a266d435e630f971b18a04a09bfc5f4270c 100644
+--- a/typings/index.d.mts
++++ b/typings/index.d.mts
+@@ -461,6 +461,8 @@ export class ApplicationCommand<PermissionsFetchType = {}> extends Base {
+   >;
+   public type: ApplicationCommandType;
+   public version: Snowflake;
++  public contexts: number[];
++  public integrationTypes: number[];
+   public nsfw: boolean;
+   public delete(): Promise<ApplicationCommand<PermissionsFetchType>>;
+   public edit(data: Partial<ApplicationCommandData>): Promise<ApplicationCommand<PermissionsFetchType>>;
+@@ -4677,6 +4679,8 @@ export interface BaseApplicationCommandData {
+   dmPermission?: boolean;
+   defaultMemberPermissions?: PermissionResolvable | null;
+   nsfw?: boolean;
++  contexts?: readonly number[];
++  integrationTypes?: readonly number[];
+ }
+ 
+ export interface AttachmentData {
+diff --git a/typings/index.d.ts b/typings/index.d.ts
+index 76fdcc12c6d653e02c3574e76f33d22fd613b206..bf5fbd7d6fd0c38b7d59697f700af28455ac971f 100644
+--- a/typings/index.d.ts
++++ b/typings/index.d.ts
+@@ -461,6 +461,8 @@ export class ApplicationCommand<PermissionsFetchType = {}> extends Base {
+   >;
+   public type: ApplicationCommandType;
+   public version: Snowflake;
++  public contexts: number[];
++  public integrationTypes: number[];
+   public nsfw: boolean;
+   public delete(): Promise<ApplicationCommand<PermissionsFetchType>>;
+   public edit(data: Partial<ApplicationCommandData>): Promise<ApplicationCommand<PermissionsFetchType>>;
+@@ -4677,6 +4679,8 @@ export interface BaseApplicationCommandData {
+   dmPermission?: boolean;
+   defaultMemberPermissions?: PermissionResolvable | null;
+   nsfw?: boolean;
++  contexts?: readonly number[];
++  integrationTypes?: readonly number[];
+ }
+ 
+ export interface AttachmentData {

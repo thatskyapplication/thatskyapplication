@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  discord.js@14.15.2:
+    hash: nlnpsfkglx3fxjrnk4pkyynbf4
+    path: patches/discord.js@14.15.2.patch
+
 importers:
 
   .:
@@ -16,7 +21,7 @@ importers:
         version: 0.4.19(pino@8.18.0)
       discord.js:
         specifier: 14.15.2
-        version: 14.15.2
+        version: 14.15.2(patch_hash=nlnpsfkglx3fxjrnk4pkyynbf4)
       dotenv:
         specifier: ^16.3.1
         version: 16.3.1
@@ -5373,7 +5378,7 @@ snapshots:
 
   discord-api-types@0.37.83: {}
 
-  discord.js@14.15.2:
+  discord.js@14.15.2(patch_hash=nlnpsfkglx3fxjrnk4pkyynbf4):
     dependencies:
       '@discordjs/builders': 1.8.1
       '@discordjs/collection': 1.5.3

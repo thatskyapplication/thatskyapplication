@@ -47,6 +47,8 @@ export default new (class implements ChatInputCommand {
 				},
 			],
 			dmPermission: false,
+			integrationTypes: [0, 1],
+			contexts: [0, 2],
 		} as const satisfies Readonly<ApplicationCommandData>;
 	}
 
