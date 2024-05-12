@@ -1,12 +1,12 @@
 import {
+	type CallsEmojis,
 	type EmotesEmojis,
-	EMOTE_EMOJIS,
-	STANCE_EMOJIS,
+	type FriendActionsEmojis,
 	type StancesEmojis,
 	CALL_EMOJIS,
-	type CallsEmojis,
+	EMOTE_EMOJIS,
 	FRIEND_ACTION_EMOJIS,
-	type FriendActionsEmojis,
+	STANCE_EMOJIS,
 } from "./emojis.js";
 
 export enum SpiritName {
