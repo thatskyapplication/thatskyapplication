@@ -22,7 +22,6 @@ import {
 	type SeasonalSpiritVisitReturningData,
 	type SeasonalSpiritVisitTravellingData,
 	type StandardSpirit,
-	CallToEmoji,
 	FriendActionToEmoji,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
@@ -36,7 +35,7 @@ import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
-import { SpiritEmoteToEmoji, SpiritStanceToEmoji } from "../../Utility/spirits.js";
+import { SpiritCallToEmoji, SpiritEmoteToEmoji, SpiritStanceToEmoji } from "../../Utility/spirits.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID = "SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;
@@ -181,7 +180,7 @@ export default new (class implements AutocompleteCommand {
 			}
 
 			if (spirit.call) {
-				embed.addFields({ name: "Call", value: formatEmoji(CallToEmoji[spirit.call]), inline: true });
+				embed.addFields({ name: "Call", value: formatEmoji(SpiritCallToEmoji[spirit.call]), inline: true });
 			}
 
 			if (spirit.action) {

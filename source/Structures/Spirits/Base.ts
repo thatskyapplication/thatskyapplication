@@ -6,37 +6,23 @@ import { Mixin } from "ts-mixer";
 import { type Realm, CDN_URL, WIKI_URL } from "../../Utility/Constants.js";
 import { skyDate } from "../../Utility/dates.js";
 import {
-	type CallsEmojis,
 	type Emoji,
 	type FriendActionsEmojis,
-	CALL_EMOJIS,
 	FRIEND_ACTION_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	resolveCurrencyEmoji,
 } from "../../Utility/emojis.js";
 import {
+	type SpiritCall,
 	type SpiritEmote,
 	type SpiritStance,
 	type SpiritType,
 	FriendAction,
 	SPIRIT_TYPE,
-	SpiritCall,
 	SpiritName,
 } from "../../Utility/spirits.js";
 import pino from "../../pino.js";
 import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../Season.js";
-
-export const CallToEmoji = {
-	[SpiritCall.Base]: CALL_EMOJIS.Base,
-	[SpiritCall.Bird]: CALL_EMOJIS.Bird,
-	[SpiritCall.Whale]: CALL_EMOJIS.Whale,
-	[SpiritCall.Manta]: CALL_EMOJIS.Manta,
-	[SpiritCall.CosmicManta]: CALL_EMOJIS.CosmicManta,
-	[SpiritCall.Crab]: CALL_EMOJIS.Crab,
-	[SpiritCall.Jellyfish]: CALL_EMOJIS.Jellyfish,
-	[SpiritCall.BabyManta]: CALL_EMOJIS.BabyManta,
-	[SpiritCall.Nightbird]: CALL_EMOJIS.Nightbird,
-} as const satisfies Readonly<Record<Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey>, CallsEmojis>>;
 
 export const FriendActionToEmoji = {
 	[FriendAction.HoldHand]: FRIEND_ACTION_EMOJIS.HoldHand,

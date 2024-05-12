@@ -1,4 +1,11 @@
-import { type EmotesEmojis, EMOTE_EMOJIS, STANCE_EMOJIS, type StancesEmojis } from "./emojis.js";
+import {
+	type EmotesEmojis,
+	EMOTE_EMOJIS,
+	STANCE_EMOJIS,
+	type StancesEmojis,
+	CALL_EMOJIS,
+	type CallsEmojis,
+} from "./emojis.js";
 
 export enum SpiritName {
 	// Isles of Dawn.
@@ -477,6 +484,18 @@ export const enum SpiritCall {
 	// From the PlayStation starter pack.
 	Journey = "Journey",
 }
+
+export const SpiritCallToEmoji = {
+	[SpiritCall.Base]: CALL_EMOJIS.Base,
+	[SpiritCall.Bird]: CALL_EMOJIS.Bird,
+	[SpiritCall.Whale]: CALL_EMOJIS.Whale,
+	[SpiritCall.Manta]: CALL_EMOJIS.Manta,
+	[SpiritCall.CosmicManta]: CALL_EMOJIS.CosmicManta,
+	[SpiritCall.Crab]: CALL_EMOJIS.Crab,
+	[SpiritCall.Jellyfish]: CALL_EMOJIS.Jellyfish,
+	[SpiritCall.BabyManta]: CALL_EMOJIS.BabyManta,
+	[SpiritCall.Nightbird]: CALL_EMOJIS.Nightbird,
+} as const satisfies Readonly<Record<Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey>, CallsEmojis>>;
 
 export const enum FriendAction {
 	HoldHand = "Hold hand",
