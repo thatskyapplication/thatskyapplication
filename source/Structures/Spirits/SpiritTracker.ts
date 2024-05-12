@@ -24,7 +24,7 @@ import { isRealm } from "../../Utility/Utility.js";
 import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
-import { SpiritName } from "../../Utility/spirits.js";
+import { type SpiritType, SPIRIT_TYPE, SpiritName, SpiritTypeToString } from "../../Utility/spirits.js";
 import pg, { Table } from "../../pg.js";
 import pino from "../../pino.js";
 import Profile from "../Profile.js";
@@ -34,12 +34,9 @@ import {
 	type GuideSpirit,
 	type SeasonalSpirit,
 	type SpiritCost,
-	type SpiritType,
 	type StandardSpirit,
 	type StandardSpiritRealm,
 	addCurrency,
-	SPIRIT_TYPE,
-	resolveSpiritTypeToString,
 	resolveOfferToCurrency,
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
@@ -1476,19 +1473,16 @@ export class SpiritTracker {
 
 								switch (spiritType) {
 									case SPIRIT_TYPE.Standard:
-										label = `${resolveSpiritTypeToString(spiritType)}${
+										label = `${SpiritTypeToString[spiritType]}${
 											standardProgress === null ? "" : ` (${standardProgress}%)`
 										}`;
 
 										break;
 									case SPIRIT_TYPE.Elder:
-										label = `${resolveSpiritTypeToString(spiritType)}${
-											elderProgress === null ? "" : ` (${elderProgress}%)`
-										}`;
-
+										label = `${SpiritTypeToString[spiritType]}${elderProgress === null ? "" : ` (${elderProgress}%)`}`;
 										break;
 									case SPIRIT_TYPE.Seasonal:
-										label = `${resolveSpiritTypeToString(spiritType)}${
+										label = `${SpiritTypeToString[spiritType]}${
 											seasonalProgress === null ? "" : ` (${seasonalProgress}%)`
 										}`;
 

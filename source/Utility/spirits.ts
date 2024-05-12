@@ -371,3 +371,19 @@ export const enum FriendAction {
 	SideHug = "Side hug",
 	CradleCarry = "Cradle carry",
 }
+
+export const SPIRIT_TYPE = {
+	Standard: 0,
+	Elder: 1,
+	Seasonal: 2,
+	Guide: 3,
+} as const satisfies Readonly<Record<string, number>>;
+
+export type SpiritType = (typeof SPIRIT_TYPE)[keyof typeof SPIRIT_TYPE];
+
+export const SpiritTypeToString = {
+	[SPIRIT_TYPE.Standard]: "Standard Spirits",
+	[SPIRIT_TYPE.Elder]: "Elders",
+	[SPIRIT_TYPE.Seasonal]: "Seasonal Spirits",
+	[SPIRIT_TYPE.Guide]: "Guide Spirits",
+} as const satisfies Readonly<Record<SpiritType, string>>;

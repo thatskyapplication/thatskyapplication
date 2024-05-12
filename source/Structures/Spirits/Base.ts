@@ -18,7 +18,15 @@ import {
 	resolveCurrencyEmoji,
 	STANCE_EMOJIS,
 } from "../../Utility/emojis.js";
-import { FriendAction, SpiritCall, SpiritEmote, SpiritName, SpiritStance } from "../../Utility/spirits.js";
+import {
+	type SpiritType,
+	FriendAction,
+	SPIRIT_TYPE,
+	SpiritCall,
+	SpiritEmote,
+	SpiritName,
+	SpiritStance,
+} from "../../Utility/spirits.js";
 import pino from "../../pino.js";
 import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../Season.js";
 
@@ -170,13 +178,6 @@ export const FriendActionToEmoji = {
 	[FriendAction.CradleCarry]: FRIEND_ACTION_EMOJIS.CradleCarry,
 } as const satisfies Readonly<Record<FriendAction, FriendActionsEmojis>>;
 
-export const SPIRIT_TYPE = {
-	Standard: 0,
-	Elder: 1,
-	Seasonal: 2,
-	Guide: 3,
-} as const;
-
 export type SeasonalSpiritVisitCollectionKey = number | "Error";
 
 interface ReturningDatesData {
@@ -190,8 +191,6 @@ const RETURNING_DATES = new Collection<SeasonalSpiritVisitCollectionKey, Returni
 	.set(3, { start: skyDate(2_023, 7, 3), end: skyDate(2_023, 7, 16) })
 	.set(4, { start: skyDate(2_023, 8, 7), end: skyDate(2_023, 8, 13) })
 	.set(5, { start: skyDate(2_024, 3, 4), end: skyDate(2_024, 3, 17) });
-
-export type SpiritType = (typeof SPIRIT_TYPE)[keyof typeof SPIRIT_TYPE];
 
 export interface SpiritCost {
 	candles?: number;
@@ -303,19 +302,6 @@ interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
 export const NO_FRIENDSHIP_TREE_TEXT = "This spirit does not have a friendship tree." as const;
 export const NO_FRIENDSHIP_TREE_YET_TEXT = "This spirit does not have a friendship tree. Maybe it should?" as const;
 export const GUIDE_SPIRIT_IN_PROGRESS_TEXT = "This spirit's friendship tree has not been fully revealed." as const;
-
-export function resolveSpiritTypeToString(spiritType: SpiritType) {
-	switch (spiritType) {
-		case SPIRIT_TYPE.Standard:
-			return "Standard Spirits";
-		case SPIRIT_TYPE.Elder:
-			return "Elders";
-		case SPIRIT_TYPE.Seasonal:
-			return "Seasonal Spirits";
-		case SPIRIT_TYPE.Guide:
-			return "Guide Spirits";
-	}
-}
 
 export function addCurrency(currency1: SpiritCost, currency2: SpiritCost): Required<SpiritCost> {
 	return {
