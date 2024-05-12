@@ -11,8 +11,9 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
+import { SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, SpiritName, Call } from "../../Base.js";
+import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, Call } from "../../Base.js";
 
 const call = Call.Crab;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;

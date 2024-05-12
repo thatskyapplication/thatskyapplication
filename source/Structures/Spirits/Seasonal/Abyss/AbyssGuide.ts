@@ -8,8 +8,9 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
 } from "../../../../Utility/emojis.js";
+import { SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, GuideSpirit, SpiritName } from "../../Base.js";
+import { type ItemsData, GuideSpirit } from "../../Base.js";
 
 const heartEmoji = MISCELLANEOUS_EMOJIS.Heart;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory15;

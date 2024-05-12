@@ -11,14 +11,9 @@ import {
 	HAIR_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
+import { SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import {
-	type ItemsData,
-	type SeasonalSpiritVisitCollectionKey,
-	Emote,
-	SeasonalSpirit,
-	SpiritName,
-} from "../../Base.js";
+import { type ItemsData, type SeasonalSpiritVisitCollectionKey, Emote, SeasonalSpirit } from "../../Base.js";
 
 const emote = Emote.Sparkler;
 const blessing1 = MISCELLANEOUS_EMOJIS.Blessing1;

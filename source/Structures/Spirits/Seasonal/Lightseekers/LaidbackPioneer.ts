@@ -10,14 +10,9 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	STANCE_EMOJIS,
 } from "../../../../Utility/emojis.js";
+import { SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import {
-	type ItemsData,
-	type SeasonalSpiritVisitCollectionKey,
-	SeasonalSpirit,
-	SpiritName,
-	Stance,
-} from "../../Base.js";
+import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, Stance } from "../../Base.js";
 
 const stance = Stance.Laidback;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;

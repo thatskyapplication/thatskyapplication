@@ -10,8 +10,9 @@ import {
 	NECKLACE_EMOJIS,
 	OUTFIT_EMOJIS,
 } from "../../../../Utility/emojis.js";
+import { SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, Emote, GuideSpirit, SpiritName } from "../../Base.js";
+import { type ItemsData, Emote, GuideSpirit } from "../../Base.js";
 
 export default new GuideSpirit({
 	name: SpiritName.AURORA,

@@ -8,7 +8,8 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { type ItemsData, Emote, SpiritName, StandardSpirit } from "../../Base.js";
+import { SpiritName } from "../../../../Utility/spirits.js";
+import { type ItemsData, Emote, StandardSpirit } from "../../Base.js";
 
 const emote = Emote.HideAndSeek;
 const emoteEmoji = EMOTE_EMOJIS.HideAndSeek;

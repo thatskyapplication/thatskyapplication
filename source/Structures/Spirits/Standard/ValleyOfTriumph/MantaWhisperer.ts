@@ -2,7 +2,8 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import { CALL_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
-import { type ItemsData, Call, SpiritName, StandardSpirit } from "../../Base.js";
+import { SpiritName } from "../../../../Utility/spirits.js";
+import { type ItemsData, Call, StandardSpirit } from "../../Base.js";
 
 const call = Call.Manta;
 const callEmoji = CALL_EMOJIS.Manta;

@@ -4,14 +4,9 @@ import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS, STANCE_EMOJIS } from "../../../../Utility/emojis.js";
+import { SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import {
-	type ItemsData,
-	type SeasonalSpiritVisitCollectionKey,
-	SeasonalSpirit,
-	SpiritName,
-	Stance,
-} from "../../Base.js";
+import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, Stance } from "../../Base.js";
 
 const stance = Stance.Sassy;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;

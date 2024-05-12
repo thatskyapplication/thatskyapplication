@@ -24,6 +24,7 @@ import { isRealm } from "../../Utility/Utility.js";
 import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
+import { SpiritName } from "../../Utility/spirits.js";
 import pg, { Table } from "../../pg.js";
 import pino from "../../pino.js";
 import Profile from "../Profile.js";
@@ -37,7 +38,6 @@ import {
 	type StandardSpirit,
 	type StandardSpiritRealm,
 	addCurrency,
-	SpiritName,
 	SPIRIT_TYPE,
 	resolveSpiritTypeToString,
 	resolveOfferToCurrency,

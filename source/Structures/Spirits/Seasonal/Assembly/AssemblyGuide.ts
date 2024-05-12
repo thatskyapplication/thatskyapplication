@@ -12,8 +12,9 @@ import {
 	NECKLACE_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
+import { SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, FriendAction, GuideSpirit, SpiritName } from "../../Base.js";
+import { type ItemsData, FriendAction, GuideSpirit } from "../../Base.js";
 
 const heartEmoji = MISCELLANEOUS_EMOJIS.Heart;
 

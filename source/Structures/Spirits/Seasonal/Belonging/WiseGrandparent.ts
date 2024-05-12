@@ -11,14 +11,9 @@ import {
 	STANCE_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
+import { SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import {
-	type ItemsData,
-	type SeasonalSpiritVisitCollectionKey,
-	SeasonalSpirit,
-	SpiritName,
-	Stance,
-} from "../../Base.js";
+import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, Stance } from "../../Base.js";
 
 const stance = Stance.Wise;
 const blessing1 = MISCELLANEOUS_EMOJIS.Blessing1;

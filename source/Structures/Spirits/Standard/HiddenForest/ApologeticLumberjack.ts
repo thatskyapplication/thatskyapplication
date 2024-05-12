@@ -2,7 +2,8 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import { EMOTE_EMOJIS, FACE_ACCESSORY_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
-import { type ItemsData, Emote, SpiritName, StandardSpirit } from "../../Base.js";
+import { SpiritName } from "../../../../Utility/spirits.js";
+import { type ItemsData, Emote, StandardSpirit } from "../../Base.js";
 
 const emote = Emote.Apologise;
 const emoteEmoji = EMOTE_EMOJIS.Apologise;

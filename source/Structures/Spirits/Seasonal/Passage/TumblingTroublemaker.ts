@@ -9,8 +9,9 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
+import { SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, Emote, SeasonalSpirit, SpiritName } from "../../Base.js";
+import { type ItemsData, Emote, SeasonalSpirit } from "../../Base.js";
 
 const emote = Emote.Somersault;
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;

@@ -2,7 +2,8 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import { CAPE_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS, STANCE_EMOJIS } from "../../../../Utility/emojis.js";
-import { type ItemsData, Stance, SpiritName, StandardSpirit } from "../../Base.js";
+import { SpiritName } from "../../../../Utility/spirits.js";
+import { type ItemsData, Stance, StandardSpirit } from "../../Base.js";
 
 const stance = Stance.Proud;
 const stanceEmoji = STANCE_EMOJIS.Proud;
