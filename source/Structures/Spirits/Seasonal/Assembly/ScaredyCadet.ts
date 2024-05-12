@@ -2,21 +2,20 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import {
-	EMOTE_EMOJIS,
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritEmote, SpiritName } from "../../../../Utility/spirits.js";
+import { SpiritEmote, SpiritName, SpiritEmoteToEmoji } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, SeasonalSpirit } from "../../Base.js";
 
 const emote = SpiritEmote.Eww;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
-const emoteEmoji = EMOTE_EMOJIS.Eww;
+const emoteEmoji = SpiritEmoteToEmoji[emote];
 const maskEmoji = MASK_EMOJIS.Mask50;
 const hairEmoji = HAIR_EMOJIS.Hair82;
 const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp07;

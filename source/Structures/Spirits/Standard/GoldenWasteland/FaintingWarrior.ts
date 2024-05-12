@@ -1,12 +1,12 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { EMOTE_EMOJIS, HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
-import { SpiritEmote, SpiritName } from "../../../../Utility/spirits.js";
+import { HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { SpiritEmote, SpiritName, SpiritEmoteToEmoji } from "../../../../Utility/spirits.js";
 import { type ItemsData, StandardSpirit } from "../../Base.js";
 
 const emote = SpiritEmote.Faint;
-const emoteEmoji = EMOTE_EMOJIS.Faint;
+const emoteEmoji = SpiritEmoteToEmoji[emote];
 
 export default new StandardSpirit({
 	name: SpiritName.FaintingWarrior,
