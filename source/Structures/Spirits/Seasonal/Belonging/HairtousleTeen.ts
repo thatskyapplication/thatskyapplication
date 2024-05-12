@@ -10,9 +10,9 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { FriendAction, SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, type SeasonalSpiritVisitCollectionKey, FriendAction, SeasonalSpirit } from "../../Base.js";
+import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
 const action = FriendAction.HairTousle;
 const blessing1 = MISCELLANEOUS_EMOJIS.Blessing1;

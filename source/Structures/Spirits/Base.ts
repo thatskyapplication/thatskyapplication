@@ -18,25 +18,9 @@ import {
 	resolveCurrencyEmoji,
 	STANCE_EMOJIS,
 } from "../../Utility/emojis.js";
-import { SpiritCall, SpiritEmote, SpiritName, SpiritStance } from "../../Utility/spirits.js";
+import { FriendAction, SpiritCall, SpiritEmote, SpiritName, SpiritStance } from "../../Utility/spirits.js";
 import pino from "../../pino.js";
 import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../Season.js";
-
-export const enum FriendAction {
-	HoldHand = "Hold hand",
-	HighFive = "High-five",
-	Hug = "Hug",
-	FistBump = "Fist bump",
-	DoubleFive = "Double-five",
-	HairTousle = "Hair tousle",
-	Carry = "Carry",
-	PlayFight = "Play fight",
-	Bearhug = "Bearhug",
-	Handshake = "Handshake",
-	DuetDance = "Duet dance",
-	SideHug = "Side hug",
-	CradleCarry = "Cradle carry",
-}
 
 export const EmoteToEmoji = {
 	[SpiritEmote.Sit]: EMOTE_EMOJIS.Sit,

@@ -355,3 +355,19 @@ export const enum SpiritCall {
 	// From the PlayStation starter pack.
 	Journey = "Journey",
 }
+
+export const enum FriendAction {
+	HoldHand = "Hold hand",
+	HighFive = "High-five",
+	Hug = "Hug",
+	FistBump = "Fist bump",
+	DoubleFive = "Double-five",
+	HairTousle = "Hair tousle",
+	Carry = "Carry",
+	PlayFight = "Play fight",
+	Bearhug = "Bearhug",
+	Handshake = "Handshake",
+	DuetDance = "Duet dance",
+	SideHug = "Side hug",
+	CradleCarry = "Cradle carry",
+}
