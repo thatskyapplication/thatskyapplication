@@ -5,6 +5,8 @@ import {
 	type StancesEmojis,
 	CALL_EMOJIS,
 	type CallsEmojis,
+	FRIEND_ACTION_EMOJIS,
+	type FriendActionsEmojis,
 } from "./emojis.js";
 
 export enum SpiritName {
@@ -512,6 +514,22 @@ export const enum FriendAction {
 	SideHug = "Side hug",
 	CradleCarry = "Cradle carry",
 }
+
+export const FriendActionToEmoji = {
+	[FriendAction.HoldHand]: FRIEND_ACTION_EMOJIS.HoldHand,
+	[FriendAction.HighFive]: FRIEND_ACTION_EMOJIS.HighFive,
+	[FriendAction.Hug]: FRIEND_ACTION_EMOJIS.Hug,
+	[FriendAction.FistBump]: FRIEND_ACTION_EMOJIS.FistBump,
+	[FriendAction.DoubleFive]: FRIEND_ACTION_EMOJIS.DoubleFive,
+	[FriendAction.HairTousle]: FRIEND_ACTION_EMOJIS.HairTousle,
+	[FriendAction.Carry]: FRIEND_ACTION_EMOJIS.Carry,
+	[FriendAction.PlayFight]: FRIEND_ACTION_EMOJIS.PlayFight,
+	[FriendAction.Bearhug]: FRIEND_ACTION_EMOJIS.Bearhug,
+	[FriendAction.Handshake]: FRIEND_ACTION_EMOJIS.Handshake,
+	[FriendAction.DuetDance]: FRIEND_ACTION_EMOJIS.DuetDance,
+	[FriendAction.SideHug]: FRIEND_ACTION_EMOJIS.SideHug,
+	[FriendAction.CradleCarry]: FRIEND_ACTION_EMOJIS.CradleCarry,
+} as const satisfies Readonly<Record<FriendAction, FriendActionsEmojis>>;
 
 export const SPIRIT_TYPE = {
 	Standard: 0,
