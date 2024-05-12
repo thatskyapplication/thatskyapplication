@@ -9,39 +9,22 @@ import {
 	type CallsEmojis,
 	type Emoji,
 	type FriendActionsEmojis,
-	type StancesEmojis,
 	CALL_EMOJIS,
 	FRIEND_ACTION_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	resolveCurrencyEmoji,
-	STANCE_EMOJIS,
 } from "../../Utility/emojis.js";
 import {
 	type SpiritEmote,
+	type SpiritStance,
 	type SpiritType,
 	FriendAction,
 	SPIRIT_TYPE,
 	SpiritCall,
 	SpiritName,
-	SpiritStance,
 } from "../../Utility/spirits.js";
 import pino from "../../pino.js";
 import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../Season.js";
-
-export const StanceToEmoji = {
-	[SpiritStance.Base]: STANCE_EMOJIS.Base,
-	[SpiritStance.Courageous]: STANCE_EMOJIS.Courageous,
-	[SpiritStance.Confident]: STANCE_EMOJIS.Confident,
-	[SpiritStance.Sneaky]: STANCE_EMOJIS.Sneaky,
-	[SpiritStance.Proud]: STANCE_EMOJIS.Proud,
-	[SpiritStance.Polite]: STANCE_EMOJIS.Polite,
-	[SpiritStance.Sassy]: STANCE_EMOJIS.Sassy,
-	[SpiritStance.Laidback]: STANCE_EMOJIS.Laidback,
-	[SpiritStance.Wise]: STANCE_EMOJIS.Wise,
-	[SpiritStance.Timid]: STANCE_EMOJIS.Timid,
-	[SpiritStance.Tinker]: STANCE_EMOJIS.Tinker,
-	[SpiritStance.Injured]: STANCE_EMOJIS.Injured,
-} as const satisfies Readonly<Record<SpiritStance, StancesEmojis>>;
 
 export const CallToEmoji = {
 	[SpiritCall.Base]: CALL_EMOJIS.Base,

@@ -1,4 +1,4 @@
-import { type EmotesEmojis, EMOTE_EMOJIS } from "./emojis.js";
+import { type EmotesEmojis, EMOTE_EMOJIS, STANCE_EMOJIS, type StancesEmojis } from "./emojis.js";
 
 export enum SpiritName {
 	// Isles of Dawn.
@@ -444,6 +444,21 @@ export const enum SpiritStance {
 	Tinker = "Tinker",
 	Injured = "Injured",
 }
+
+export const SpiritStanceToEmoji = {
+	[SpiritStance.Base]: STANCE_EMOJIS.Base,
+	[SpiritStance.Courageous]: STANCE_EMOJIS.Courageous,
+	[SpiritStance.Confident]: STANCE_EMOJIS.Confident,
+	[SpiritStance.Sneaky]: STANCE_EMOJIS.Sneaky,
+	[SpiritStance.Proud]: STANCE_EMOJIS.Proud,
+	[SpiritStance.Polite]: STANCE_EMOJIS.Polite,
+	[SpiritStance.Sassy]: STANCE_EMOJIS.Sassy,
+	[SpiritStance.Laidback]: STANCE_EMOJIS.Laidback,
+	[SpiritStance.Wise]: STANCE_EMOJIS.Wise,
+	[SpiritStance.Timid]: STANCE_EMOJIS.Timid,
+	[SpiritStance.Tinker]: STANCE_EMOJIS.Tinker,
+	[SpiritStance.Injured]: STANCE_EMOJIS.Injured,
+} as const satisfies Readonly<Record<SpiritStance, StancesEmojis>>;
 
 export const enum SpiritCall {
 	Base = "Base",
