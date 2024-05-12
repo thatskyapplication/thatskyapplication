@@ -18,24 +18,9 @@ import {
 	resolveCurrencyEmoji,
 	STANCE_EMOJIS,
 } from "../../Utility/emojis.js";
-import { SpiritEmote, SpiritName } from "../../Utility/spirits.js";
+import { SpiritEmote, SpiritName, SpiritStance } from "../../Utility/spirits.js";
 import pino from "../../pino.js";
 import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../Season.js";
-
-export const enum Stance {
-	Base = "Base",
-	Courageous = "Courageous",
-	Confident = "Confident",
-	Sneaky = "Sneaky",
-	Proud = "Proud",
-	Polite = "Polite",
-	Sassy = "Sassy",
-	Laidback = "Laidback",
-	Wise = "Wise",
-	Timid = "Timid",
-	Tinker = "Tinker",
-	Injured = "Injured",
-}
 
 export const enum Call {
 	Base = "Base",
@@ -177,19 +162,19 @@ export const EmoteToEmoji = {
 } as const satisfies Readonly<Record<SpiritEmote, EmotesEmojis>>;
 
 export const StanceToEmoji = {
-	[Stance.Base]: STANCE_EMOJIS.Base,
-	[Stance.Courageous]: STANCE_EMOJIS.Courageous,
-	[Stance.Confident]: STANCE_EMOJIS.Confident,
-	[Stance.Sneaky]: STANCE_EMOJIS.Sneaky,
-	[Stance.Proud]: STANCE_EMOJIS.Proud,
-	[Stance.Polite]: STANCE_EMOJIS.Polite,
-	[Stance.Sassy]: STANCE_EMOJIS.Sassy,
-	[Stance.Laidback]: STANCE_EMOJIS.Laidback,
-	[Stance.Wise]: STANCE_EMOJIS.Wise,
-	[Stance.Timid]: STANCE_EMOJIS.Timid,
-	[Stance.Tinker]: STANCE_EMOJIS.Tinker,
-	[Stance.Injured]: STANCE_EMOJIS.Injured,
-} as const satisfies Readonly<Record<Stance, StancesEmojis>>;
+	[SpiritStance.Base]: STANCE_EMOJIS.Base,
+	[SpiritStance.Courageous]: STANCE_EMOJIS.Courageous,
+	[SpiritStance.Confident]: STANCE_EMOJIS.Confident,
+	[SpiritStance.Sneaky]: STANCE_EMOJIS.Sneaky,
+	[SpiritStance.Proud]: STANCE_EMOJIS.Proud,
+	[SpiritStance.Polite]: STANCE_EMOJIS.Polite,
+	[SpiritStance.Sassy]: STANCE_EMOJIS.Sassy,
+	[SpiritStance.Laidback]: STANCE_EMOJIS.Laidback,
+	[SpiritStance.Wise]: STANCE_EMOJIS.Wise,
+	[SpiritStance.Timid]: STANCE_EMOJIS.Timid,
+	[SpiritStance.Tinker]: STANCE_EMOJIS.Tinker,
+	[SpiritStance.Injured]: STANCE_EMOJIS.Injured,
+} as const satisfies Readonly<Record<SpiritStance, StancesEmojis>>;
 
 export const CallToEmoji = {
 	[Call.Base]: CALL_EMOJIS.Base,
@@ -305,7 +290,7 @@ interface GuideFriendshipTreeData extends BaseFriendshipTreeData {
 
 interface ExpressiveSpiritData {
 	emote?: SpiritEmote;
-	stance?: Stance;
+	stance?: SpiritStance;
 	call?: Exclude<Call, Call.KizunaAI | Call.Journey>;
 	action?: FriendAction;
 }
@@ -521,7 +506,7 @@ abstract class GuideFriendshipTree extends BaseFriendshipTree {
 abstract class ExpressiveSpirit {
 	public readonly emote: SpiritEmote | null;
 
-	public readonly stance: Stance | null;
+	public readonly stance: SpiritStance | null;
 
 	public readonly call: Exclude<Call, Call.KizunaAI | Call.Journey> | null;
 

@@ -322,3 +322,18 @@ export const enum SpiritEmote {
 	Flex = "Flex",
 	FloatSpin = "Float spin",
 }
+
+export const enum SpiritStance {
+	Base = "Base",
+	Courageous = "Courageous",
+	Confident = "Confident",
+	Sneaky = "Sneaky",
+	Proud = "Proud",
+	Polite = "Polite",
+	Sassy = "Sassy",
+	Laidback = "Laidback",
+	Wise = "Wise",
+	Timid = "Timid",
+	Tinker = "Tinker",
+	Injured = "Injured",
+}

@@ -4,11 +4,11 @@ import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS, STANCE_EMOJIS } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { SpiritName, SpiritStance } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, Stance } from "../../Base.js";
+import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
-const stance = Stance.Sassy;
+const stance = SpiritStance.Sassy;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const stanceEmoji = STANCE_EMOJIS.Sassy;
 const maskEmoji = MASK_EMOJIS.Mask11;

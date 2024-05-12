@@ -2,10 +2,10 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import { HAIR_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS, STANCE_EMOJIS } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
-import { type ItemsData, Stance, StandardSpirit } from "../../Base.js";
+import { SpiritName, SpiritStance } from "../../../../Utility/spirits.js";
+import { type ItemsData, StandardSpirit } from "../../Base.js";
 
-const stance = Stance.Confident;
+const stance = SpiritStance.Confident;
 const stanceEmoji = STANCE_EMOJIS.Confident;
 
 export default new StandardSpirit({
