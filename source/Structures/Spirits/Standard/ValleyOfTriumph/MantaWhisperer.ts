@@ -2,10 +2,10 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import { CALL_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
-import { type ItemsData, Call, StandardSpirit } from "../../Base.js";
+import { SpiritCall, SpiritName } from "../../../../Utility/spirits.js";
+import { type ItemsData, StandardSpirit } from "../../Base.js";
 
-const call = Call.Manta;
+const call = SpiritCall.Manta;
 const callEmoji = CALL_EMOJIS.Manta;
 
 export default new StandardSpirit({

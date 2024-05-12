@@ -337,3 +337,21 @@ export const enum SpiritStance {
 	Tinker = "Tinker",
 	Injured = "Injured",
 }
+
+export const enum SpiritCall {
+	Base = "Base",
+	Bird = "Bird",
+	Whale = "Whale",
+	Manta = "Manta",
+	CosmicManta = "Cosmic manta",
+	Crab = "Crab",
+	Jellyfish = "Jellyfish",
+	BabyManta = "Baby manta",
+	Nightbird = "Nightbird",
+
+	// From the Kizuna-AI pin.
+	KizunaAI = "Kizuna-AI",
+
+	// From the PlayStation starter pack.
+	Journey = "Journey",
+}

@@ -10,11 +10,11 @@ import {
 	SEASON_EMOJIS,
 	SHOE_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { SpiritCall, SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, Call, SeasonalSpirit } from "../../Base.js";
+import { type ItemsData, SeasonalSpirit } from "../../Base.js";
 
-const call = Call.Nightbird;
+const call = SpiritCall.Nightbird;
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const callEmoji = CALL_EMOJIS.Nightbird;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit48;

@@ -18,27 +18,9 @@ import {
 	resolveCurrencyEmoji,
 	STANCE_EMOJIS,
 } from "../../Utility/emojis.js";
-import { SpiritEmote, SpiritName, SpiritStance } from "../../Utility/spirits.js";
+import { SpiritCall, SpiritEmote, SpiritName, SpiritStance } from "../../Utility/spirits.js";
 import pino from "../../pino.js";
 import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../Season.js";
-
-export const enum Call {
-	Base = "Base",
-	Bird = "Bird",
-	Whale = "Whale",
-	Manta = "Manta",
-	CosmicManta = "Cosmic manta",
-	Crab = "Crab",
-	Jellyfish = "Jellyfish",
-	BabyManta = "Baby manta",
-	Nightbird = "Nightbird",
-
-	// From the Kizuna-AI pin.
-	KizunaAI = "Kizuna-AI",
-
-	// From the PlayStation starter pack.
-	Journey = "Journey",
-}
 
 export const enum FriendAction {
 	HoldHand = "Hold hand",
@@ -177,16 +159,16 @@ export const StanceToEmoji = {
 } as const satisfies Readonly<Record<SpiritStance, StancesEmojis>>;
 
 export const CallToEmoji = {
-	[Call.Base]: CALL_EMOJIS.Base,
-	[Call.Bird]: CALL_EMOJIS.Bird,
-	[Call.Whale]: CALL_EMOJIS.Whale,
-	[Call.Manta]: CALL_EMOJIS.Manta,
-	[Call.CosmicManta]: CALL_EMOJIS.CosmicManta,
-	[Call.Crab]: CALL_EMOJIS.Crab,
-	[Call.Jellyfish]: CALL_EMOJIS.Jellyfish,
-	[Call.BabyManta]: CALL_EMOJIS.BabyManta,
-	[Call.Nightbird]: CALL_EMOJIS.Nightbird,
-} as const satisfies Readonly<Record<Exclude<Call, Call.KizunaAI | Call.Journey>, CallsEmojis>>;
+	[SpiritCall.Base]: CALL_EMOJIS.Base,
+	[SpiritCall.Bird]: CALL_EMOJIS.Bird,
+	[SpiritCall.Whale]: CALL_EMOJIS.Whale,
+	[SpiritCall.Manta]: CALL_EMOJIS.Manta,
+	[SpiritCall.CosmicManta]: CALL_EMOJIS.CosmicManta,
+	[SpiritCall.Crab]: CALL_EMOJIS.Crab,
+	[SpiritCall.Jellyfish]: CALL_EMOJIS.Jellyfish,
+	[SpiritCall.BabyManta]: CALL_EMOJIS.BabyManta,
+	[SpiritCall.Nightbird]: CALL_EMOJIS.Nightbird,
+} as const satisfies Readonly<Record<Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey>, CallsEmojis>>;
 
 export const FriendActionToEmoji = {
 	[FriendAction.HoldHand]: FRIEND_ACTION_EMOJIS.HoldHand,
@@ -291,7 +273,7 @@ interface GuideFriendshipTreeData extends BaseFriendshipTreeData {
 interface ExpressiveSpiritData {
 	emote?: SpiritEmote;
 	stance?: SpiritStance;
-	call?: Exclude<Call, Call.KizunaAI | Call.Journey>;
+	call?: Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey>;
 	action?: FriendAction;
 }
 
@@ -508,7 +490,7 @@ abstract class ExpressiveSpirit {
 
 	public readonly stance: SpiritStance | null;
 
-	public readonly call: Exclude<Call, Call.KizunaAI | Call.Journey> | null;
+	public readonly call: Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey> | null;
 
 	public readonly action: FriendAction | null;
 
