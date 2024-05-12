@@ -9,11 +9,11 @@ import {
 	OUTFIT_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { SpiritEmote, SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, Emote, SeasonalSpirit } from "../../Base.js";
+import { type ItemsData, SeasonalSpirit } from "../../Base.js";
 
-const emote = Emote.Moping;
+const emote = SpiritEmote.Moping;
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const emoteEmoji = EMOTE_EMOJIS.Moping;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit44;

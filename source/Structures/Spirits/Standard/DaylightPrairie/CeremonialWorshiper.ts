@@ -2,10 +2,10 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import { EMOTE_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
-import { type ItemsData, Emote, StandardSpirit } from "../../Base.js";
+import { SpiritEmote, SpiritName } from "../../../../Utility/spirits.js";
+import { type ItemsData, StandardSpirit } from "../../Base.js";
 
-const emote = Emote.Teamwork;
+const emote = SpiritEmote.Teamwork;
 const emoteEmoji = EMOTE_EMOJIS.Teamwork;
 
 export default new StandardSpirit({
@@ -14,7 +14,7 @@ export default new StandardSpirit({
 	realm: Realm.DaylightPrairie,
 	offer: {
 		current: new Collection<number, ItemsData>()
-			.set(1 << 0, { item: Emote.Teamwork, cost: null, emoji: emoteEmoji })
+			.set(1 << 0, { item: emote, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { item: "Blessing 1", cost: { candles: 1 }, emoji: MISCELLANEOUS_EMOJIS.Blessing1 })
 			.set(1 << 2, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 3, { item: "Wing buff", cost: { ascendedCandles: 1 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff })

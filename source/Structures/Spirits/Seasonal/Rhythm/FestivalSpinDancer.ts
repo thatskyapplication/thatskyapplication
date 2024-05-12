@@ -11,11 +11,11 @@ import {
 	HAIR_EMOJIS,
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { SpiritEmote, SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, type SeasonalSpiritVisitCollectionKey, Emote, SeasonalSpirit } from "../../Base.js";
+import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
-const emote = Emote.SpinDance;
+const emote = SpiritEmote.SpinDance;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const emoteEmoji = EMOTE_EMOJIS.SpinDance;

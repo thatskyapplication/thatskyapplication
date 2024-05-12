@@ -42,11 +42,12 @@ import {
 	resolveValidRealm,
 } from "../Utility/Utility.js";
 import { todayDate } from "../Utility/dates.js";
+import { SpiritEmote } from "../Utility/spirits.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import { SeasonName } from "./Season.js";
-import { type SeasonalSpirit, type StandardSpirit, Emote, FriendAction } from "./Spirits/Base.js";
+import { type SeasonalSpirit, type StandardSpirit, FriendAction } from "./Spirits/Base.js";
 import Spirits from "./Spirits/index.js";
 
 export interface DailyGuidesPacket {
@@ -151,7 +152,7 @@ const FORGE_A_CANDLE = { content: "Forge a candle", url: null } as const;
 const MELT_10_DARKNESS = { content: "Melt 10 darkness", url: null } as const;
 
 const BOW_AT_A_PLAYER = {
-	content: `${Emote.Bow} at a player`,
+	content: `${SpiritEmote.Bow} at a player`,
 	url: String(new URL("daily_guides/quests/social/bow_at_a_player.webp", CDN_URL)),
 } as const;
 
@@ -166,7 +167,7 @@ const HUG_A_FRIEND = {
 } as const;
 
 const WAVE_TO_A_FRIEND = {
-	content: `${Emote.Wave} to a friend`,
+	content: `${SpiritEmote.Wave} to a friend`,
 	url: String(new URL("daily_guides/quests/social/wave_to_a_friend.webp", CDN_URL)),
 } as const;
 

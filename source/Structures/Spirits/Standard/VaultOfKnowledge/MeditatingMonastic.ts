@@ -7,10 +7,10 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
-import { type ItemsData, Emote, StandardSpirit } from "../../Base.js";
+import { SpiritEmote, SpiritName } from "../../../../Utility/spirits.js";
+import { type ItemsData, StandardSpirit } from "../../Base.js";
 
-const emote = Emote.Float;
+const emote = SpiritEmote.Float;
 const emoteEmoji = EMOTE_EMOJIS.Float;
 
 export default new StandardSpirit({

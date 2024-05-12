@@ -12,11 +12,11 @@ import {
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { SpiritEmote, SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, type SeasonalSpiritVisitCollectionKey, Emote, SeasonalSpirit } from "../../Base.js";
+import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
-const emote = Emote.BellyScratch;
+const emote = SpiritEmote.BellyScratch;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const emoteEmoji = EMOTE_EMOJIS.BellyScratch;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory10;

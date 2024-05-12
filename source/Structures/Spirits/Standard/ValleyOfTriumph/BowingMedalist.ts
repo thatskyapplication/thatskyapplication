@@ -2,10 +2,10 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import { EMOTE_EMOJIS, FACE_ACCESSORY_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
-import { type ItemsData, Emote, StandardSpirit } from "../../Base.js";
+import { SpiritEmote, SpiritName } from "../../../../Utility/spirits.js";
+import { type ItemsData, StandardSpirit } from "../../Base.js";
 
-const emote = Emote.Bow;
+const emote = SpiritEmote.Bow;
 const emoteEmoji = EMOTE_EMOJIS.Bow;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory05;
 

@@ -9,11 +9,11 @@ import {
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { SpiritEmote, SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, Emote, SeasonalSpirit } from "../../Base.js";
+import { type ItemsData, SeasonalSpirit } from "../../Base.js";
 
-const emote = Emote.Eww;
+const emote = SpiritEmote.Eww;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const emoteEmoji = EMOTE_EMOJIS.Eww;

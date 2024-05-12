@@ -10,9 +10,9 @@ import {
 	NECKLACE_EMOJIS,
 	OUTFIT_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { SpiritEmote, SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, Emote, GuideSpirit } from "../../Base.js";
+import { type ItemsData, GuideSpirit } from "../../Base.js";
 
 export default new GuideSpirit({
 	name: SpiritName.AURORA,
@@ -21,25 +21,25 @@ export default new GuideSpirit({
 	offer: {
 		current: new Collection<number, ItemsData>()
 			.set(1 << 0, { item: "Quest 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 1, { item: `${Emote.SilentClap} 2`, cost: { hearts: 3 }, emoji: EMOTE_EMOJIS.SilentClap })
+			.set(1 << 1, { item: `${SpiritEmote.SilentClap} 2`, cost: { hearts: 3 }, emoji: EMOTE_EMOJIS.SilentClap })
 			.set(1 << 2, { item: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace24 })
 			.set(1 << 3, { item: "Aurora hair", cost: { seasonalHearts: 1 }, emoji: HAIR_EMOJIS.Hair116 })
 			.set(1 << 4, { item: "Ultimate outfit", cost: { seasonalHearts: 2 }, emoji: OUTFIT_EMOJIS.Outfit36 })
 			.set(1 << 5, { item: "Ultimate cape", cost: { seasonalHearts: 1 }, emoji: CAPE_EMOJIS.Cape95 })
-			.set(1 << 6, { item: `${Emote.SilentClap} 1`, cost: null, emoji: EMOTE_EMOJIS.SilentClap })
-			.set(1 << 7, { item: `${Emote.SilentClap} 3`, cost: { candles: 5 }, emoji: EMOTE_EMOJIS.SilentClap })
-			.set(1 << 8, { item: `${Emote.SilentClap} 4`, cost: { hearts: 5 }, emoji: EMOTE_EMOJIS.SilentClap })
+			.set(1 << 6, { item: `${SpiritEmote.SilentClap} 1`, cost: null, emoji: EMOTE_EMOJIS.SilentClap })
+			.set(1 << 7, { item: `${SpiritEmote.SilentClap} 3`, cost: { candles: 5 }, emoji: EMOTE_EMOJIS.SilentClap })
+			.set(1 << 8, { item: `${SpiritEmote.SilentClap} 4`, cost: { hearts: 5 }, emoji: EMOTE_EMOJIS.SilentClap })
 			.set(1 << 9, { item: "Quest 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 10, { item: `${Emote.Conduct} 1`, cost: null, emoji: EMOTE_EMOJIS.Conduct })
-			.set(1 << 11, { item: `${Emote.Conduct} 2`, cost: { hearts: 3 }, emoji: EMOTE_EMOJIS.Conduct })
-			.set(1 << 12, { item: `${Emote.Conduct} 3`, cost: { candles: 5 }, emoji: EMOTE_EMOJIS.Conduct })
-			.set(1 << 13, { item: `${Emote.Conduct} 4`, cost: { hearts: 5 }, emoji: EMOTE_EMOJIS.Conduct })
+			.set(1 << 10, { item: `${SpiritEmote.Conduct} 1`, cost: null, emoji: EMOTE_EMOJIS.Conduct })
+			.set(1 << 11, { item: `${SpiritEmote.Conduct} 2`, cost: { hearts: 3 }, emoji: EMOTE_EMOJIS.Conduct })
+			.set(1 << 12, { item: `${SpiritEmote.Conduct} 3`, cost: { candles: 5 }, emoji: EMOTE_EMOJIS.Conduct })
+			.set(1 << 13, { item: `${SpiritEmote.Conduct} 4`, cost: { hearts: 5 }, emoji: EMOTE_EMOJIS.Conduct })
 			.set(1 << 14, { item: "Quest 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 15, { item: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 16, { item: `${Emote.Skipping} 1`, cost: null, emoji: EMOTE_EMOJIS.Skipping })
-			.set(1 << 17, { item: `${Emote.Skipping} 2`, cost: { hearts: 3 }, emoji: EMOTE_EMOJIS.Skipping })
-			.set(1 << 18, { item: `${Emote.Skipping} 3`, cost: { candles: 5 }, emoji: EMOTE_EMOJIS.Skipping })
-			.set(1 << 19, { item: `${Emote.Skipping} 4`, cost: { hearts: 5 }, emoji: EMOTE_EMOJIS.Skipping })
+			.set(1 << 16, { item: `${SpiritEmote.Skipping} 1`, cost: null, emoji: EMOTE_EMOJIS.Skipping })
+			.set(1 << 17, { item: `${SpiritEmote.Skipping} 2`, cost: { hearts: 3 }, emoji: EMOTE_EMOJIS.Skipping })
+			.set(1 << 18, { item: `${SpiritEmote.Skipping} 3`, cost: { candles: 5 }, emoji: EMOTE_EMOJIS.Skipping })
+			.set(1 << 19, { item: `${SpiritEmote.Skipping} 4`, cost: { hearts: 5 }, emoji: EMOTE_EMOJIS.Skipping })
 			.set(1 << 20, { item: "Quest 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 21, { item: "Music sheet 1", cost: { candles: 20 }, emoji: MISCELLANEOUS_EMOJIS.MusicSheet })
 			.set(1 << 22, { item: "Quest 5", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
