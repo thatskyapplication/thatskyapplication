@@ -1,8 +1,10 @@
 import { URL } from "node:url";
+import { Collection } from "discord.js";
 import { Event } from "../../../Structures/Event.js";
 import { CDN_URL } from "../../../Utility/Constants.js";
-import { EventName } from "../../../Utility/catalogue.js";
+import { type ItemRaw, EventName } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
+import { CAPE_EMOJIS, HAIR_EMOJIS, HELD_PROPS_EMOJIS } from "../../../Utility/emojis.js";
 
 export default new Event({
 	name: EventName.DaysOfBloom,
@@ -47,4 +49,12 @@ export default new Event({
 		},
 	],
 	eventCurrencyPerDay: 5,
+	offer: {
+		hasInfographic: false,
+		items: new Collection<number, ItemRaw>()
+			.set(1 << 0, { name: "Hair 1", cost: { hearts: 25 }, emoji: HAIR_EMOJIS.Hair141 })
+			.set(1 << 1, { name: "Hair 2", cost: { eventCurrency: 24 }, emoji: HAIR_EMOJIS.Hair140 })
+			.set(1 << 2, { name: "Cape", cost: { eventCurrency: 48 }, emoji: CAPE_EMOJIS.Cape128 })
+			.set(1 << 3, { name: "Bloom Lilypad Umbrella", cost: { money: 14.99 }, emoji: HELD_PROPS_EMOJIS.HeldProp42 }),
+	},
 });

@@ -224,6 +224,12 @@ export interface SpiritTrackerPacket {
 	nesting_loft: SpiritTrackerValue;
 	nesting_atrium: SpiritTrackerValue;
 	nesting_nook: SpiritTrackerValue;
+	aviarys_firework_festival: SpiritTrackerValue;
+	days_of_feast: SpiritTrackerValue;
+	days_of_mischief: SpiritTrackerValue;
+	days_of_bloom: SpiritTrackerValue;
+	days_of_fortune: SpiritTrackerValue;
+	days_of_love: SpiritTrackerValue;
 	sky_x_cinnamoroll_pop_up_cafe: SpiritTrackerValue;
 }
 
@@ -393,6 +399,12 @@ interface SpiritTrackerData {
 	nestingLoft: SpiritTrackerPacket["nesting_loft"];
 	nestingAtrium: SpiritTrackerPacket["nesting_atrium"];
 	nestingNook: SpiritTrackerPacket["nesting_nook"];
+	aviarysFireworkFestival: SpiritTrackerPacket["aviarys_firework_festival"];
+	daysOfFeast: SpiritTrackerPacket["days_of_feast"];
+	daysOfMischief: SpiritTrackerPacket["days_of_mischief"];
+	daysOfBloom: SpiritTrackerPacket["days_of_bloom"];
+	daysOfFortune: SpiritTrackerPacket["days_of_fortune"];
+	daysOfLove: SpiritTrackerPacket["days_of_love"];
 	skyXCinnamorollPopUpCafe: SpiritTrackerPacket["sky_x_cinnamoroll_pop_up_cafe"];
 }
 
@@ -564,10 +576,14 @@ const SpiritTrackerNameToRawName = {
 	[SpiritName.NestingLoft]: "nesting_loft",
 	[SpiritName.NestingAtrium]: "nesting_atrium",
 	[SpiritName.NestingNook]: "nesting_nook",
+	[EventName.AviarysFireworkFestival]: "aviarys_firework_festival",
+	[EventName.DaysOfFeast]: "days_of_feast",
+	[EventName.DaysOfMischief]: "days_of_mischief",
+	[EventName.DaysOfBloom]: "days_of_bloom",
+	[EventName.DaysOfFortune]: "days_of_fortune",
+	[EventName.DaysOfLove]: "days_of_love",
 	[EventName.SkyXCinnamorollPopUpCafe]: "sky_x_cinnamoroll_pop_up_cafe",
-} as const satisfies Readonly<
-	Record<SpiritName | EventName.SkyXCinnamorollPopUpCafe, Exclude<keyof SpiritTrackerPacket, "user_id">>
->;
+} as const satisfies Readonly<Record<SpiritName | EventName, Exclude<keyof SpiritTrackerPacket, "user_id">>>;
 
 const SpiritNameToSpiritTrackerName = {
 	[SpiritName.PointingCandlemaker]: "pointingCandlemaker",
@@ -734,10 +750,14 @@ const SpiritNameToSpiritTrackerName = {
 	[SpiritName.NestingLoft]: "nestingLoft",
 	[SpiritName.NestingAtrium]: "nestingAtrium",
 	[SpiritName.NestingNook]: "nestingNook",
+	[EventName.AviarysFireworkFestival]: "aviarysFireworkFestival",
+	[EventName.DaysOfFeast]: "daysOfFeast",
+	[EventName.DaysOfMischief]: "daysOfMischief",
+	[EventName.DaysOfBloom]: "daysOfBloom",
+	[EventName.DaysOfFortune]: "daysOfFortune",
+	[EventName.DaysOfLove]: "daysOfLove",
 	[EventName.SkyXCinnamorollPopUpCafe]: "skyXCinnamorollPopUpCafe",
-} as const satisfies Readonly<
-	Record<SpiritName | EventName.SkyXCinnamorollPopUpCafe, Exclude<keyof SpiritTrackerData, "user_id">>
->;
+} as const satisfies Readonly<Record<SpiritName | EventName, Exclude<keyof SpiritTrackerData, "user_id">>>;
 
 export const SPIRIT_TRACKER_VIEW_START_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_START_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
@@ -1126,6 +1146,18 @@ export class SpiritTracker {
 
 	public nestingNook!: SpiritTrackerData["nestingNook"];
 
+	public aviarysFireworkFestival!: SpiritTrackerData["aviarysFireworkFestival"];
+
+	public daysOfFeast!: SpiritTrackerData["daysOfFeast"];
+
+	public daysOfMischief!: SpiritTrackerData["daysOfMischief"];
+
+	public daysOfBloom!: SpiritTrackerData["daysOfBloom"];
+
+	public daysOfFortune!: SpiritTrackerData["daysOfFortune"];
+
+	public daysOfLove!: SpiritTrackerData["daysOfLove"];
+
 	public skyXCinnamorollPopUpCafe!: SpiritTrackerData["skyXCinnamorollPopUpCafe"];
 
 	public constructor(spiritTrack: SpiritTrackerPacket) {
@@ -1298,6 +1330,12 @@ export class SpiritTracker {
 		this.nestingLoft = data.nesting_loft;
 		this.nestingAtrium = data.nesting_atrium;
 		this.nestingNook = data.nesting_nook;
+		this.aviarysFireworkFestival = data.aviarys_firework_festival;
+		this.daysOfFeast = data.days_of_feast;
+		this.daysOfMischief = data.days_of_mischief;
+		this.daysOfBloom = data.days_of_bloom;
+		this.daysOfFortune = data.days_of_fortune;
+		this.daysOfLove = data.days_of_love;
 		this.skyXCinnamorollPopUpCafe = data.sky_x_cinnamoroll_pop_up_cafe;
 	}
 
@@ -1417,8 +1455,7 @@ export class SpiritTracker {
 				? spirit.current
 				: spirit.current ?? spirit.seasonal;
 
-		// TODO: Remove as.
-		const bit = this[SpiritNameToSpiritTrackerName[spirit.name as EventName.SkyXCinnamorollPopUpCafe]];
+		const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
 
 		return {
 			owned: resolvedOffer?.filter((_, itemBit) => bit && (bit & itemBit) === itemBit).size ?? 0,
@@ -2159,7 +2196,7 @@ export class SpiritTracker {
 	public async viewEvent(interaction: ButtonInteraction | StringSelectMenuInteraction, event: Event) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		// const { locale } = interaction;
-		const bit = this[SpiritNameToSpiritTrackerName[event.name as EventName.SkyXCinnamorollPopUpCafe]];
+		const bit = this[SpiritNameToSpiritTrackerName[event.name]];
 		const { name, start, offer, imageURL } = event;
 
 		// const embed = this.spiritEmbed([spirit], locale)
