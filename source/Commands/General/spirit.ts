@@ -14,7 +14,6 @@ import {
 	TimestampStyles,
 } from "discord.js";
 import { t } from "i18next";
-import { SeasonNameToSeasonalEmoji } from "../../Structures/Season/index.js";
 import {
 	type ElderSpirit,
 	type GuideSpirit,
@@ -34,7 +33,7 @@ import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
-import { SeasonName } from "../../Utility/seasons.js";
+import { SeasonName, SeasonNameToSeasonalEmoji } from "../../Utility/seasons.js";
 import {
 	FriendActionToEmoji,
 	SpiritCallToEmoji,

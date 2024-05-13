@@ -6,7 +6,7 @@ import { Mixin } from "ts-mixer";
 import { type Realm, CDN_URL, WIKI_URL } from "../../Utility/Constants.js";
 import { skyDate } from "../../Utility/dates.js";
 import { type Emoji, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../../Utility/emojis.js";
-import { SeasonName } from "../../Utility/seasons.js";
+import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../../Utility/seasons.js";
 import {
 	type FriendAction,
 	type SpiritCall,
@@ -17,7 +17,6 @@ import {
 	SpiritName,
 } from "../../Utility/spirits.js";
 import pino from "../../pino.js";
-import { SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../Season/index.js";
 
 export type SeasonalSpiritVisitCollectionKey = number | "Error";
 
