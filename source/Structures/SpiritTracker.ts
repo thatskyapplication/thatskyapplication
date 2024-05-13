@@ -1982,11 +1982,6 @@ export class SpiritTracker {
 						.setEmoji("⏪")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
-					// new ButtonBuilder()
-					// 	.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${season}`)
-					// 	.setEmoji("🔗")
-					// 	.setLabel("Share")
-					// 	.setStyle(ButtonStyle.Primary),
 				),
 			],
 			embeds: [
