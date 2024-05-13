@@ -7,15 +7,14 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
 	SEASON_EMOJIS,
-	STANCE_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, SeasonalSpirit, Stance } from "../../Base.js";
+import { type ItemsData, SeasonalSpirit } from "../../Base.js";
 
-const stance = Stance.Injured;
+const stance = SpiritStance.Injured;
+const stanceEmoji = SpiritStanceToEmoji[stance];
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
-const stanceEmoji = STANCE_EMOJIS.Injured;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit40;
 const maskEmoji = MASK_EMOJIS.Mask74;
 const capeEmoji = CAPE_EMOJIS.Cape102;

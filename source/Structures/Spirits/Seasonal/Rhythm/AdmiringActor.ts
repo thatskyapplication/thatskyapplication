@@ -3,21 +3,15 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import {
-	EMOTE_EMOJIS,
-	MASK_EMOJIS,
-	MISCELLANEOUS_EMOJIS,
-	OUTFIT_EMOJIS,
-	SEASON_EMOJIS,
-} from "../../../../Utility/emojis.js";
-import { SpiritEmote, SpiritName } from "../../../../Utility/spirits.js";
+import { MASK_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS, SEASON_EMOJIS } from "../../../../Utility/emojis.js";
+import { SpiritEmote, SpiritName, SpiritEmoteToEmoji } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
 const emote = SpiritEmote.BlowKiss;
+const emoteEmoji = SpiritEmoteToEmoji[emote];
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
-const emoteEmoji = EMOTE_EMOJIS.BlowKiss;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit14;
 const maskEmoji = MASK_EMOJIS.Mask24;
 

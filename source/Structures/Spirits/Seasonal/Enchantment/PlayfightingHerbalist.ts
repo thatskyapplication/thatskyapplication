@@ -5,21 +5,20 @@ import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
-	FRIEND_ACTION_EMOJIS,
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { FriendAction, FriendActionToEmoji, SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, type SeasonalSpiritVisitCollectionKey, FriendAction, SeasonalSpirit } from "../../Base.js";
+import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
 const action = FriendAction.PlayFight;
+const actionEmoji = FriendActionToEmoji[action];
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
-const actionEmoji = FRIEND_ACTION_EMOJIS.PlayFight;
 const maskEmoji = MASK_EMOJIS.Mask28;
 const hairEmoji = HAIR_EMOJIS.Hair58;
 const capeEmoji = CAPE_EMOJIS.Cape28;

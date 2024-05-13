@@ -2,21 +2,20 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import {
-	FRIEND_ACTION_EMOJIS,
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { FriendAction, FriendActionToEmoji, SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, FriendAction, SeasonalSpirit } from "../../Base.js";
+import { type ItemsData, SeasonalSpirit } from "../../Base.js";
 
 const action = FriendAction.Handshake;
+const actionEmoji = FriendActionToEmoji[action];
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
-const actionEmoji = FRIEND_ACTION_EMOJIS.Handshake;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit31;
 const maskEmoji = MASK_EMOJIS.Mask61;
 const hairEmoji = HAIR_EMOJIS.Hair105;

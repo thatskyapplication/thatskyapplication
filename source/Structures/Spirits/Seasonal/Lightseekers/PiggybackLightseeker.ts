@@ -3,20 +3,14 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import {
-	CAPE_EMOJIS,
-	FRIEND_ACTION_EMOJIS,
-	HAIR_EMOJIS,
-	MASK_EMOJIS,
-	MISCELLANEOUS_EMOJIS,
-} from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { CAPE_EMOJIS, HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { FriendAction, FriendActionToEmoji, SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, type SeasonalSpiritVisitCollectionKey, FriendAction, SeasonalSpirit } from "../../Base.js";
+import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
 const action = FriendAction.Carry;
+const actionEmoji = FriendActionToEmoji[action];
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
-const actionEmoji = FRIEND_ACTION_EMOJIS.Carry;
 const maskEmoji = MASK_EMOJIS.Mask12;
 const hairEmoji = HAIR_EMOJIS.Hair42;
 const capeEmoji = CAPE_EMOJIS.Cape17;

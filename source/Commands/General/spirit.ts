@@ -22,14 +22,10 @@ import {
 	type SeasonalSpiritVisitReturningData,
 	type SeasonalSpiritVisitTravellingData,
 	type StandardSpirit,
-	CallToEmoji,
-	EmoteToEmoji,
-	FriendActionToEmoji,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	resolveOfferToCurrency,
-	StanceToEmoji,
 } from "../../Structures/Spirits/Base.js";
 import Seasonal from "../../Structures/Spirits/Seasonal/index.js";
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
@@ -38,6 +34,12 @@ import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
+import {
+	FriendActionToEmoji,
+	SpiritCallToEmoji,
+	SpiritEmoteToEmoji,
+	SpiritStanceToEmoji,
+} from "../../Utility/spirits.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID = "SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;
@@ -174,15 +176,15 @@ export default new (class implements AutocompleteCommand {
 
 		if (spirit.isStandardSpirit() || isSeasonalSpirit) {
 			if (spirit.emote) {
-				embed.addFields({ name: "Emote", value: formatEmoji(EmoteToEmoji[spirit.emote]), inline: true });
+				embed.addFields({ name: "Emote", value: formatEmoji(SpiritEmoteToEmoji[spirit.emote]), inline: true });
 			}
 
 			if (spirit.stance) {
-				embed.addFields({ name: "Stance", value: formatEmoji(StanceToEmoji[spirit.stance]), inline: true });
+				embed.addFields({ name: "Stance", value: formatEmoji(SpiritStanceToEmoji[spirit.stance]), inline: true });
 			}
 
 			if (spirit.call) {
-				embed.addFields({ name: "Call", value: formatEmoji(CallToEmoji[spirit.call]), inline: true });
+				embed.addFields({ name: "Call", value: formatEmoji(SpiritCallToEmoji[spirit.call]), inline: true });
 			}
 
 			if (spirit.action) {

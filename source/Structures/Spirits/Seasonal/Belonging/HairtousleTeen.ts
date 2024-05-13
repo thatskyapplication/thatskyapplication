@@ -5,20 +5,19 @@ import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
-	FRIEND_ACTION_EMOJIS,
 	HELD_PROPS_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { FriendAction, FriendActionToEmoji, SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, type SeasonalSpiritVisitCollectionKey, FriendAction, SeasonalSpirit } from "../../Base.js";
+import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
 const action = FriendAction.HairTousle;
+const actionEmoji = FriendActionToEmoji[action];
 const blessing1 = MISCELLANEOUS_EMOJIS.Blessing1;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
-const actionEmoji = FRIEND_ACTION_EMOJIS.HairTousle;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory08;
 const heldProp = HELD_PROPS_EMOJIS.HeldProp14;
 

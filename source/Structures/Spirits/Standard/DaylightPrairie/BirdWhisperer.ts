@@ -1,12 +1,12 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { CALL_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
-import { type ItemsData, Call, StandardSpirit } from "../../Base.js";
+import { HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { SpiritCall, SpiritCallToEmoji, SpiritName } from "../../../../Utility/spirits.js";
+import { type ItemsData, StandardSpirit } from "../../Base.js";
 
-const call = Call.Bird;
-const callEmoji = CALL_EMOJIS.Bird;
+const call = SpiritCall.Bird;
+const callEmoji = SpiritCallToEmoji[call];
 
 export default new StandardSpirit({
 	name: SpiritName.BirdWhisperer,

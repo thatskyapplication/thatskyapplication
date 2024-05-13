@@ -3,20 +3,19 @@ import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import {
 	CAPE_EMOJIS,
-	EMOTE_EMOJIS,
 	HAIR_EMOJIS,
 	HELD_PROPS_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritEmote, SpiritName } from "../../../../Utility/spirits.js";
+import { SpiritEmote, SpiritName, SpiritEmoteToEmoji } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, SeasonalSpirit } from "../../Base.js";
 
 const emote = SpiritEmote.Headbob;
+const emoteEmoji = SpiritEmoteToEmoji[emote];
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
-const emoteEmoji = EMOTE_EMOJIS.Headbob;
 const maskEmoji = MASK_EMOJIS.Mask64;
 const hairEmoji = HAIR_EMOJIS.Hair107;
 const capeEmoji = CAPE_EMOJIS.Cape80;

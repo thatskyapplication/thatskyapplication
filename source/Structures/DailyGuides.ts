@@ -42,12 +42,12 @@ import {
 	resolveValidRealm,
 } from "../Utility/Utility.js";
 import { todayDate } from "../Utility/dates.js";
-import { SpiritEmote } from "../Utility/spirits.js";
+import { FriendAction, SpiritEmote } from "../Utility/spirits.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import { SeasonName } from "./Season.js";
-import { type SeasonalSpirit, type StandardSpirit, FriendAction } from "./Spirits/Base.js";
+import { type SeasonalSpirit, type StandardSpirit } from "./Spirits/Base.js";
 import Spirits from "./Spirits/index.js";
 
 export interface DailyGuidesPacket {

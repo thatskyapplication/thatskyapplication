@@ -1,12 +1,12 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
-import { HAIR_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS, STANCE_EMOJIS } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
-import { type ItemsData, Stance, StandardSpirit } from "../../Base.js";
+import { HAIR_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../Utility/emojis.js";
+import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../Utility/spirits.js";
+import { type ItemsData, StandardSpirit } from "../../Base.js";
 
-const stance = Stance.Polite;
-const stanceEmoji = STANCE_EMOJIS.Polite;
+const stance = SpiritStance.Polite;
+const stanceEmoji = SpiritStanceToEmoji[stance];
 
 export default new StandardSpirit({
 	name: SpiritName.PoliteScholar,

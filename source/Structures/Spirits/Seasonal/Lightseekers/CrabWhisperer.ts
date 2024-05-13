@@ -4,21 +4,20 @@ import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
-	CALL_EMOJIS,
 	CAPE_EMOJIS,
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { SpiritCall, SpiritCallToEmoji, SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, Call } from "../../Base.js";
+import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
-const call = Call.Crab;
+const call = SpiritCall.Crab;
+const callEmoji = SpiritCallToEmoji[call];
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
-const callEmoji = CALL_EMOJIS.Crab;
 const maskEmoji = MASK_EMOJIS.Mask16;
 const hairEmoji = HAIR_EMOJIS.Hair40;
 const capeEmoji = CAPE_EMOJIS.Cape16;

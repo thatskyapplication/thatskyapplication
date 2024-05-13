@@ -3,21 +3,15 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import {
-	CAPE_EMOJIS,
-	HAIR_EMOJIS,
-	MISCELLANEOUS_EMOJIS,
-	SEASON_EMOJIS,
-	STANCE_EMOJIS,
-} from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { CAPE_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS, SEASON_EMOJIS } from "../../../../Utility/emojis.js";
+import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, Stance } from "../../Base.js";
+import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
-const stance = Stance.Timid;
+const stance = SpiritStance.Timid;
+const stanceEmoji = SpiritStanceToEmoji[stance];
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
-const stanceEmoji = STANCE_EMOJIS.Timid;
 const hairEmoji = HAIR_EMOJIS.Hair61;
 const capeEmoji = CAPE_EMOJIS.Cape30;
 

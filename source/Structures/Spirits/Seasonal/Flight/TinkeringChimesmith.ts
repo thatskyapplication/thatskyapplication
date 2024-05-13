@@ -10,16 +10,15 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
 	SEASON_EMOJIS,
-	STANCE_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
-import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit, Stance } from "../../Base.js";
+import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
-const stance = Stance.Tinker;
+const stance = SpiritStance.Tinker;
+const stanceEmoji = SpiritStanceToEmoji[stance];
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const colourTrail = MISCELLANEOUS_EMOJIS.SpellColourTrail;
-const stanceEmoji = STANCE_EMOJIS.Tinker;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit26;
 const hairEmoji = HAIR_EMOJIS.Hair92;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory10;
