@@ -16,8 +16,8 @@ import { SeasonName } from "../../../Season.js";
 import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
 const emote = SpiritEmote.BellyScratch;
-const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const emoteEmoji = SpiritEmoteToEmoji[emote];
+const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory10;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory02;
 const capeEmoji = CAPE_EMOJIS.Cape33;

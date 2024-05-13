@@ -15,10 +15,10 @@ import { SeasonName } from "../../../Season.js";
 import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
 const emote = SpiritEmote.Voilà;
+const emoteEmoji = SpiritEmoteToEmoji[emote];
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const colourTrail = MISCELLANEOUS_EMOJIS.SpellColourTrail;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
-const emoteEmoji = SpiritEmoteToEmoji[emote];
 const outfitEmoji = OUTFIT_EMOJIS.Outfit25;
 const necklaceEmoji = NECKLACE_EMOJIS.Necklace16;
 const hairEmoji = HAIR_EMOJIS.Hair91;
