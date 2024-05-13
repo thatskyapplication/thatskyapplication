@@ -14,7 +14,7 @@ import {
 	TimestampStyles,
 } from "discord.js";
 import { t } from "i18next";
-import { SeasonName, SeasonNameToSeasonalEmoji } from "../../Structures/Season.js";
+import { SeasonName, SeasonNameToSeasonalEmoji } from "../../Structures/Season/index.js";
 import {
 	type ElderSpirit,
 	type GuideSpirit,

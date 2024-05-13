@@ -14,7 +14,7 @@ import {
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	resolveSeason,
-} from "../../Structures/Season.js";
+} from "../../Structures/Season/index.js";
 import {
 	AREA_TO_WINGED_LIGHT_COUNT_VALUES,
 	AreaToWingedLightCount,

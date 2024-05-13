@@ -11,7 +11,7 @@ import {
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SpiritEmote, SpiritName, SpiritEmoteToEmoji } from "../../../../Utility/spirits.js";
-import { SeasonName } from "../../../Season.js";
+import { SeasonName } from "../../../Season/index.js";
 import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
 const emote = SpiritEmote.SpinDance;

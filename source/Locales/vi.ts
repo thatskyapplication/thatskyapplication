@@ -1,4 +1,4 @@
-import { SeasonName } from "../Structures/Season.js";
+import { SeasonName } from "../Structures/Season/index.js";
 import { Map, Realm } from "../Utility/Constants.js";
 import { SpiritName } from "../Utility/spirits.js";
 

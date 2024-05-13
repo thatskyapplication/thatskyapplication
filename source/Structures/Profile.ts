@@ -21,7 +21,7 @@ import { CDN_BUCKET, CDN_URL, DEFAULT_EMBED_COLOUR, MAXIMUM_WINGED_LIGHT } from 
 import { formatEmoji, formatEmojiURL, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
 import pg, { Table } from "../pg.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
-import { resolveBitsToSeasons } from "./Season.js";
+import { resolveBitsToSeasons } from "./Season/index.js";
 import Elder from "./Spirits/Elder/index.js";
 import Seasonal from "./Spirits/Seasonal/index.js";
 import { SpiritTracker } from "./Spirits/SpiritTracker.js";

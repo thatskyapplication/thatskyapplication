@@ -36,7 +36,7 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
 import { plannedEvents, resolveEvents } from "./Event.js";
-import { type RotationNumber, nextSeason, resolveSeason } from "./Season.js";
+import { type RotationNumber, nextSeason, resolveSeason } from "./Season/index.js";
 
 export interface DailyGuidesDistributionPacket {
 	guild_id: Snowflake;

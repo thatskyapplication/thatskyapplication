@@ -10,7 +10,7 @@ import {
 	NECKLACE_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { FriendAction, SpiritName } from "../../../../Utility/spirits.js";
-import { SeasonName } from "../../../Season.js";
+import { SeasonName } from "../../../Season/index.js";
 import { type ItemsData, GuideSpirit } from "../../Base.js";
 
 export default new GuideSpirit({

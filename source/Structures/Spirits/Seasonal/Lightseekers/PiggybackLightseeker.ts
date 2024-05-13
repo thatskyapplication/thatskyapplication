@@ -5,7 +5,7 @@ import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { CAPE_EMOJIS, HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { FriendAction, FriendActionToEmoji, SpiritName } from "../../../../Utility/spirits.js";
-import { SeasonName } from "../../../Season.js";
+import { SeasonName } from "../../../Season/index.js";
 import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
 const action = FriendAction.Carry;

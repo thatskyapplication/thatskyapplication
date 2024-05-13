@@ -16,7 +16,7 @@ import {
 	SpiritName,
 } from "../../Utility/spirits.js";
 import pino from "../../pino.js";
-import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../Season.js";
+import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../Season/index.js";
 
 export type SeasonalSpiritVisitCollectionKey = number | "Error";
 

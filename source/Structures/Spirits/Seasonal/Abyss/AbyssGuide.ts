@@ -9,7 +9,7 @@ import {
 	NECKLACE_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { SpiritName } from "../../../../Utility/spirits.js";
-import { SeasonName } from "../../../Season.js";
+import { SeasonName } from "../../../Season/index.js";
 import { type ItemsData, GuideSpirit } from "../../Base.js";
 
 const heartEmoji = MISCELLANEOUS_EMOJIS.Heart;

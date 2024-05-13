@@ -46,7 +46,7 @@ import { FriendAction, SpiritEmote } from "../Utility/spirits.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
-import { SeasonName } from "./Season.js";
+import { SeasonName } from "./Season/index.js";
 import { type SeasonalSpirit, type StandardSpirit } from "./Spirits/Base.js";
 import Spirits from "./Spirits/index.js";
 

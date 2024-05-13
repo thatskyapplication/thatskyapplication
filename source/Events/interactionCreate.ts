@@ -40,7 +40,7 @@ import COMMANDS, { resolveCommand } from "../Commands/index.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../Structures/AI.js";
 import { deleteUserData } from "../Structures/Data.js";
 import Profile from "../Structures/Profile.js";
-import { isSeasonName } from "../Structures/Season.js";
+import { isSeasonName } from "../Structures/Season/index.js";
 import {
 	SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID,
 	SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID,

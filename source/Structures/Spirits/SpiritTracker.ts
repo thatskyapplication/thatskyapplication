@@ -28,7 +28,7 @@ import { type SpiritType, SPIRIT_TYPE, SpiritName, SpiritTypeToString } from "..
 import pg, { Table } from "../../pg.js";
 import pino from "../../pino.js";
 import Profile from "../Profile.js";
-import { isSeasonName, resolveSeason, SeasonName, SeasonNameToSeasonalEmoji } from "../Season.js";
+import { isSeasonName, resolveSeason, SeasonName, SeasonNameToSeasonalEmoji } from "../Season/index.js";
 import {
 	type ElderSpirit,
 	type GuideSpirit,

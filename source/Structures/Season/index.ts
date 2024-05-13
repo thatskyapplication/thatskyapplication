@@ -3,14 +3,14 @@ import { URL } from "node:url";
 import type { Locale } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import { CDN_URL, Realm } from "../Utility/Constants.js";
+import { CDN_URL, Realm } from "../../Utility/Constants.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	skyDate,
-} from "../Utility/dates.js";
-import { type SeasonEmojis, formatEmoji, SEASON_EMOJIS } from "../Utility/emojis.js";
+} from "../../Utility/dates.js";
+import { type SeasonEmojis, formatEmoji, SEASON_EMOJIS } from "../../Utility/emojis.js";
 
 export enum SeasonName {
 	Gratitude = "Season of Gratitude",
@@ -170,7 +170,9 @@ interface SeasonData {
 	name: SeasonName;
 	start: DateTime;
 	end: DateTime;
-	readonly seasonalCandlesRotation: SeasonalCandlesRotation;
+	// guide: GuideSpirit;
+	// spirits: readonly SeasonalSpirit[];
+	seasonalCandlesRotation: SeasonalCandlesRotation;
 }
 
 class Season {

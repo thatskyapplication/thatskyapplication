@@ -10,7 +10,7 @@ import {
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
 import { FriendAction, FriendActionToEmoji, SpiritName } from "../../../../Utility/spirits.js";
-import { SeasonName } from "../../../Season.js";
+import { SeasonName } from "../../../Season/index.js";
 import { type ItemsData, SeasonalSpirit } from "../../Base.js";
 
 const action = FriendAction.SideHug;
