@@ -4,11 +4,11 @@ import type { Collection } from "discord.js";
 import { WIKI_URL } from "./Constants.js";
 import {
 	type Emoji,
+	type EventEmojis,
 	type SeasonEmojis,
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
 	resolveCurrencyEmoji,
-	type EventEmojis,
 	EVENT_EMOJIS,
 } from "./emojis.js";
 
@@ -198,6 +198,7 @@ export function wikiURL(name: string) {
 }
 
 export interface ItemCostRaw {
+	money?: number;
 	candles?: number;
 	hearts?: number;
 	ascendedCandles?: number;
@@ -207,6 +208,7 @@ export interface ItemCostRaw {
 }
 
 export interface ItemCost {
+	money?: number;
 	candles?: number;
 	hearts?: number;
 	ascendedCandles?: number;
@@ -261,11 +263,20 @@ export function resolveOffer(items: Collection<number, ItemRaw>, { seasonName, e
 }
 
 export function addCosts(items: ItemCost[]) {
-	return items.reduce<Required<ItemCost>>(
+	const result = items.reduce<Required<ItemCost>>(
 		(
 			total,
-			{ candles = 0, hearts = 0, ascendedCandles = 0, seasonalCandles = [], seasonalHearts = [], eventCurrency = [] },
+			{
+				money = 0,
+				candles = 0,
+				hearts = 0,
+				ascendedCandles = 0,
+				seasonalCandles = [],
+				seasonalHearts = [],
+				eventCurrency = [],
+			},
 		) => {
+			total.money += money * 100;
 			total.candles += candles;
 			total.hearts += hearts;
 			total.ascendedCandles += ascendedCandles;
@@ -307,8 +318,11 @@ export function addCosts(items: ItemCost[]) {
 
 			return total;
 		},
-		{ candles: 0, hearts: 0, ascendedCandles: 0, seasonalCandles: [], seasonalHearts: [], eventCurrency: [] },
+		{ money: 0, candles: 0, hearts: 0, ascendedCandles: 0, seasonalCandles: [], seasonalHearts: [], eventCurrency: [] },
 	);
+
+	result.money /= 100;
+	return result;
 }
 
 export function resolveCostToString(cost: ItemCost) {
@@ -365,4 +379,11 @@ export function resolveCostToString(cost: ItemCost) {
 	}
 
 	return totalCost;
+}
+
+export const enum CatalogueType {
+	StandardSpirits,
+	Elders,
+	SeasonalSpirits,
+	Events,
 }

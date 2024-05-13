@@ -1,8 +1,14 @@
+import type { Collection } from "discord.js";
 import type { DateTime } from "luxon";
-import { type EventName, EventNameToEventCurrencyEmoji } from "../Utility/catalogue.js";
+import { type EventName, type Item, type ItemRaw, EventNameToEventCurrencyEmoji, resolveOffer } from "../Utility/catalogue.js";
 import { type EventEmojis } from "../Utility/emojis.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
+
+interface EventFriendshipTreeOfferData {
+	hasInfographic?: boolean;
+	items: Collection<number, ItemRaw>;
+}
 
 interface EventData {
 	name: EventName;
@@ -11,6 +17,7 @@ interface EventData {
 	eventCurrencyEnd?: DateTime;
 	url: string | readonly EventDataURL[] | null;
 	eventCurrencyPerDay: number;
+	offer: EventFriendshipTreeOfferData;
 }
 
 interface EventDataURL {
@@ -33,6 +40,12 @@ export class Event {
 
 	public readonly eventCurrencyEmoji: EventEmojis;
 
+	public readonly offer: Collection<number, Item>;
+
+	public readonly maxItemsBit: number;
+
+	public readonly imageURL: string | null;
+
 	public constructor(data: EventData) {
 		this.name = data.name;
 		this.start = data.start;
@@ -41,6 +54,16 @@ export class Event {
 		this.url = data.url;
 		this.eventCurrencyPerDay = data.eventCurrencyPerDay;
 		this.eventCurrencyEmoji = EventNameToEventCurrencyEmoji[data.name];
+		this.offer = resolveOffer(data.offer.items);
+		// TODO: Remove ?.items.
+		this.maxItemsBit = this.resolveMaxItemsBit(data.offer?.items);
+		// TODO: Remove ?.hasInfographic.
+		this.imageURL = data.offer?.hasInfographic ?? true ? "https://cdn.thatskyapplication.com/hugs/1.gif" : null;
+	}
+
+	private resolveMaxItemsBit(offer: Collection<number, ItemRaw>) {
+		// TODO: Remove ?.reduce.
+		return offer?.reduce((bits, _, bit) => bit | bits, 0) ?? 0;
 	}
 
 	public daysText(date: DateTime) {

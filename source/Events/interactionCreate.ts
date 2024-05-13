@@ -49,6 +49,9 @@ import {
 	SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID,
 	SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_EVENT_YEARS_CUSTOM_ID,
+	SPIRIT_TRACKER_VIEW_EVENT_YEAR_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID,
@@ -235,6 +238,17 @@ export const event: Event<typeof name> = {
 					}
 				}
 
+				if (customId === SPIRIT_TRACKER_VIEW_EVENT_YEARS_CUSTOM_ID) {
+					await SpiritTracker.viewEventYears(interaction);
+					return;
+				}
+
+				if (customId.startsWith(SPIRIT_TRACKER_VIEW_EVENT_YEAR_CUSTOM_ID)) {
+					const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
+					await SpiritTracker.viewEvents(interaction, parsedCustomId);
+					return;
+				}
+
 				if (customId === SPIRIT_TRACKER_VIEW_RETURNING_SPIRITS_CUSTOM_ID) {
 					await SpiritTracker.viewReturningSpirits(interaction);
 					return;
@@ -349,7 +363,7 @@ export const event: Event<typeof name> = {
 
 			try {
 				if (customId === SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID) {
-					await SpiritTracker.parseSpiritType(interaction);
+					await SpiritTracker.parseCatalogueType(interaction);
 					return;
 				}
 
@@ -365,8 +379,18 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
+				if (customId === SPIRIT_TRACKER_VIEW_EVENT_YEAR_CUSTOM_ID) {
+					await SpiritTracker.viewEvents(interaction, value0);
+					return;
+				}
+
 				if (customId === SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID) {
 					await SpiritTracker.viewSpirit(interaction);
+					return;
+				}
+
+				if (customId.startsWith(SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID)) {
+					await SpiritTracker.parseViewEvent(interaction);
 					return;
 				}
 

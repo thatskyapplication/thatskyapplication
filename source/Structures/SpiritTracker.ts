@@ -23,6 +23,8 @@ import { isRealm } from "../Utility/Utility.js";
 import {
 	type ItemCost,
 	addCosts,
+	CatalogueType,
+	EventName,
 	resolveCostToString,
 	SeasonName,
 	SeasonNameToSeasonalEmoji,
@@ -31,14 +33,12 @@ import { todayDate } from "../Utility/dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import {
-	type SpiritType,
-	SPIRIT_TYPE,
 	SpiritName,
-	SpiritTypeToString,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 } from "../Utility/spirits.js";
+import { EVENTS } from "../catalogue/events/index.js";
 import { SPIRITS } from "../catalogue/spirits/index.js";
 import { ELDER_SPIRITS, REALMS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
 import {
@@ -51,6 +51,7 @@ import {
 } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
+import { Event } from "./Event.js";
 import Profile from "./Profile.js";
 import type { Season } from "./Season.js";
 import type { ElderSpirit, GuideSpirit, SeasonalSpirit, StandardSpirit, StandardSpiritRealm } from "./Spirits.js";
@@ -223,6 +224,7 @@ export interface SpiritTrackerPacket {
 	nesting_loft: SpiritTrackerValue;
 	nesting_atrium: SpiritTrackerValue;
 	nesting_nook: SpiritTrackerValue;
+	sky_x_cinnamoroll_pop_up_cafe: SpiritTrackerValue;
 }
 
 interface SpiritTrackerData {
@@ -391,6 +393,7 @@ interface SpiritTrackerData {
 	nestingLoft: SpiritTrackerPacket["nesting_loft"];
 	nestingAtrium: SpiritTrackerPacket["nesting_atrium"];
 	nestingNook: SpiritTrackerPacket["nesting_nook"];
+	skyXCinnamorollPopUpCafe: SpiritTrackerPacket["sky_x_cinnamoroll_pop_up_cafe"];
 }
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
@@ -561,7 +564,10 @@ const SpiritTrackerNameToRawName = {
 	[SpiritName.NestingLoft]: "nesting_loft",
 	[SpiritName.NestingAtrium]: "nesting_atrium",
 	[SpiritName.NestingNook]: "nesting_nook",
-} as const satisfies Readonly<Record<SpiritName, Exclude<keyof SpiritTrackerPacket, "user_id">>>;
+	[EventName.SkyXCinnamorollPopUpCafe]: "sky_x_cinnamoroll_pop_up_cafe",
+} as const satisfies Readonly<
+	Record<SpiritName | EventName.SkyXCinnamorollPopUpCafe, Exclude<keyof SpiritTrackerPacket, "user_id">>
+>;
 
 const SpiritNameToSpiritTrackerName = {
 	[SpiritName.PointingCandlemaker]: "pointingCandlemaker",
@@ -728,7 +734,10 @@ const SpiritNameToSpiritTrackerName = {
 	[SpiritName.NestingLoft]: "nestingLoft",
 	[SpiritName.NestingAtrium]: "nestingAtrium",
 	[SpiritName.NestingNook]: "nestingNook",
-} as const satisfies Readonly<Record<SpiritName, Exclude<keyof SpiritTrackerData, "user_id">>>;
+	[EventName.SkyXCinnamorollPopUpCafe]: "skyXCinnamorollPopUpCafe",
+} as const satisfies Readonly<
+	Record<SpiritName | EventName.SkyXCinnamorollPopUpCafe, Exclude<keyof SpiritTrackerData, "user_id">>
+>;
 
 export const SPIRIT_TRACKER_VIEW_START_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_START_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
@@ -736,13 +745,16 @@ export const SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_TYPE_CUST
 export const SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_EVENT_YEARS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_EVENT_YEARS_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_EVENT_YEAR_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_EVENT_YEAR_CUSTOM_ID" as const;
 
 export const SPIRIT_TRACKER_VIEW_RETURNING_SPIRITS_CUSTOM_ID =
 	"SPIRIT_TRACKER_VIEW_RETURNING_SPIRITS_CUSTOM_ID" as const;
 
 export const SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID" as const;
+export const SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID" as const;
 const SPIRIT_TRACKER_SHARE_REALMS_KEY = "realms" as const;
@@ -764,6 +776,11 @@ const validRealms = REALMS.reduce<StandardSpiritRealm[]>((realms, { name, spirit
 const validSeasons = SEASONS.reduce<Season[]>((seasons, season) => {
 	if (season.guide || season.spirits.length > 0) seasons.push(season);
 	return seasons;
+}, []);
+
+const validEventsYears = EVENTS.reduce<number[]>((events, { start: { year }, offer }) => {
+	if (offer.size > 0 && !events.includes(year)) events.push(year);
+	return events;
 }, []);
 
 function backToStartButton(disabled = false) {
@@ -1109,6 +1126,8 @@ export class SpiritTracker {
 
 	public nestingNook!: SpiritTrackerData["nestingNook"];
 
+	public skyXCinnamorollPopUpCafe!: SpiritTrackerData["skyXCinnamorollPopUpCafe"];
+
 	public constructor(spiritTrack: SpiritTrackerPacket) {
 		this.userId = spiritTrack.user_id;
 		this.patch(spiritTrack);
@@ -1279,6 +1298,7 @@ export class SpiritTracker {
 		this.nestingLoft = data.nesting_loft;
 		this.nestingAtrium = data.nesting_atrium;
 		this.nestingNook = data.nesting_nook;
+		this.skyXCinnamorollPopUpCafe = data.sky_x_cinnamoroll_pop_up_cafe;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -1344,12 +1364,21 @@ export class SpiritTracker {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
 		const { customId } = interaction;
-		const spiritName = customId.slice(customId.indexOf("§") + 1) as SpiritName;
-		const spirit = SPIRITS.find(({ name }) => name === spiritName)!;
+		const resolvedName = customId.slice(customId.indexOf("§") + 1);
+
+		const spiritOrEvent =
+			SPIRITS.find(({ name }) => name === resolvedName) ?? EVENTS.find(({ name }) => name === resolvedName);
+
+		if (!spiritOrEvent) {
+			pino.error(interaction, "Unknown spirit or event.");
+			await interaction.update(ERROR_RESPONSE);
+			return;
+		}
+
 		let newBit;
 
 		if (interaction instanceof ButtonInteraction) {
-			newBit = spirit.maxItemsBit;
+			newBit = spiritOrEvent.maxItemsBit;
 		} else {
 			// Get the select menu where this interaction came from.
 			const { component } = interaction;
@@ -1358,18 +1387,22 @@ export class SpiritTracker {
 			const selectMenuTotalBit = component.options.reduce((bit, { value }) => bit | Number(value), 0);
 
 			// Clear this bit from the total bit.
-			const modifiedTotal = (spiritTracker[SpiritNameToSpiritTrackerName[spiritName]] ?? 0) & ~selectMenuTotalBit;
+			const modifiedTotal =
+				(spiritTracker[SpiritNameToSpiritTrackerName[spiritOrEvent.name]] ?? 0) & ~selectMenuTotalBit;
 
 			// Calculate the new bit.
 			newBit = interaction.values.reduce((bit, value) => bit | Number(value), modifiedTotal);
 		}
 
 		const [spiritTrackerPacket] = await this.update(interaction.user.id, {
-			[SpiritTrackerNameToRawName[spiritName]]: newBit,
+			[SpiritTrackerNameToRawName[spiritOrEvent.name]]: newBit,
 		});
 
 		spiritTracker.patch(spiritTrackerPacket!);
-		await spiritTracker.viewSpiritResponse(interaction, newBit, spirit);
+
+		await (spiritOrEvent instanceof Event
+			? spiritTracker.viewEvent(interaction, spiritOrEvent)
+			: spiritTracker.viewSpiritResponse(interaction, newBit, spiritOrEvent));
 	}
 
 	private static async update(userId: SpiritTracker["userId"], data: SpiritTracketSetData) {
@@ -1474,31 +1507,18 @@ export class SpiritTracker {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							[SPIRIT_TYPE.Standard, SPIRIT_TYPE.Elder, SPIRIT_TYPE.Seasonal].map((spiritType) => {
-								let label;
-
-								switch (spiritType) {
-									case SPIRIT_TYPE.Standard:
-										label = `${SpiritTypeToString[spiritType]}${
-											standardProgress === null ? "" : ` (${standardProgress}%)`
-										}`;
-
-										break;
-									case SPIRIT_TYPE.Elder:
-										label = `${SpiritTypeToString[spiritType]}${elderProgress === null ? "" : ` (${elderProgress}%)`}`;
-										break;
-									case SPIRIT_TYPE.Seasonal:
-										label = `${SpiritTypeToString[spiritType]}${
-											seasonalProgress === null ? "" : ` (${seasonalProgress}%)`
-										}`;
-
-										break;
-								}
-
-								return new StringSelectMenuOptionBuilder().setLabel(label).setValue(String(spiritType));
-							}),
+							new StringSelectMenuOptionBuilder()
+								.setLabel(`Standard Spirits${standardProgress === null ? "" : ` (${standardProgress}%)`}`)
+								.setValue(String(CatalogueType.StandardSpirits)),
+							new StringSelectMenuOptionBuilder()
+								.setLabel(`Elders${elderProgress === null ? "" : ` (${elderProgress}%)`}`)
+								.setValue(String(CatalogueType.Elders)),
+							new StringSelectMenuOptionBuilder()
+								.setLabel(`Seasonal Spirits${seasonalProgress === null ? "" : ` (${seasonalProgress}%)`}`)
+								.setValue(String(CatalogueType.SeasonalSpirits)),
+							new StringSelectMenuOptionBuilder().setLabel("Events").setValue(String(CatalogueType.Events)),
 						)
-						.setPlaceholder("What kind of spirit do you want to see?"),
+						.setPlaceholder("What do you want to see?"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(backToStartButton(true)),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
@@ -1527,18 +1547,21 @@ export class SpiritTracker {
 		}
 	}
 
-	public static async parseSpiritType(interaction: StringSelectMenuInteraction) {
+	public static async parseCatalogueType(interaction: StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 
-		switch (Number(interaction.values[0]) as Exclude<SpiritType, (typeof SPIRIT_TYPE)["Guide"]>) {
-			case SPIRIT_TYPE.Standard:
+		switch (Number(interaction.values[0]) as CatalogueType) {
+			case CatalogueType.StandardSpirits:
 				await this.viewRealms(interaction);
 				return;
-			case SPIRIT_TYPE.Elder:
+			case CatalogueType.Elders:
 				await this.viewElders(interaction);
 				return;
-			case SPIRIT_TYPE.Seasonal:
+			case CatalogueType.SeasonalSpirits:
 				await this.viewSeasons(interaction);
+				return;
+			case CatalogueType.Events:
+				await this.viewEventYears(interaction);
 		}
 	}
 
@@ -1841,6 +1864,114 @@ export class SpiritTracker {
 		await interaction.update(response);
 	}
 
+	public static async viewEventYears(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		// const { locale, user } = interaction;
+		// const spiritTracker = await this.fetch(user.id);
+
+		await interaction.update({
+			content: "",
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(SPIRIT_TRACKER_VIEW_EVENT_YEAR_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(0)
+						.setOptions(
+							validEventsYears.map((year) => {
+								// const percentage = spiritTracker.spiritProgress(
+								// 	SEASON_SPIRITS.filter((spirit) => spirit.season === season),
+								// 	true,
+								// );
+								return new StringSelectMenuOptionBuilder().setLabel(`${year}`).setValue(String(year));
+							}),
+						)
+						.setPlaceholder("Select a year!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
+					new ButtonBuilder()
+						.setCustomId(SPIRIT_TRACKER_VIEW_START_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+				),
+			],
+			embeds: [],
+		});
+	}
+
+	public static async viewEvents(interaction: ButtonInteraction | StringSelectMenuInteraction, year: string) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		// const { locale, user } = interaction;
+		// const spiritTracker = await this.fetch(user.id);
+		const events = EVENTS.filter((event) => event.start.year === Number(year));
+		// let hasEverything = true;
+
+		const options = events.map((event) => {
+			const { name } = event;
+			// const percentage = spiritTracker.spiritProgress([spirit], true);
+			// if (percentage !== null && percentage !== 100) hasEverything = false;
+
+			return new StringSelectMenuOptionBuilder()
+				.setLabel(
+					name,
+					// `${t(`spiritNames.${name}`, { lng: locale, ns: "general" })}${
+					// 	percentage === null ? "" : ` (${percentage}%)`
+					// }`,
+				)
+				.setValue(name);
+		});
+
+		const response = {
+			content: "",
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(`${SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID}§${year}`)
+						.setMaxValues(1)
+						.setMinValues(0)
+						.setOptions(options)
+						.setPlaceholder("Select an event!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
+					new ButtonBuilder()
+						.setCustomId(SPIRIT_TRACKER_VIEW_EVENT_YEARS_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					// new ButtonBuilder()
+					// 	.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${season}`)
+					// 	.setEmoji("🔗")
+					// 	.setLabel("Share")
+					// 	.setStyle(ButtonStyle.Primary),
+					// new ButtonBuilder()
+					// 	.setCustomId(`${SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID}§${season}`)
+					// 	.setDisabled(hasEverything)
+					// 	.setEmoji("💯")
+					// 	.setLabel("I have everything!")
+					// 	.setStyle(ButtonStyle.Success),
+				),
+			],
+			embeds: [
+				// spiritTracker.spiritEmbed(spirits, locale).setTitle(
+				// 	`${formatEmoji(SeasonNameToSeasonalEmoji[season])} ${t(`seasons.${season}`, {
+				// 		lng: locale,
+				// 		ns: "general",
+				// 	})}`,
+				// ),
+			],
+		} satisfies InteractionUpdateOptions;
+
+		if (options.length === 0) {
+			response.components.shift();
+			response.content = "There are no spirits.";
+		}
+
+		await interaction.update(response);
+	}
+
 	public static async viewReturningSpirits(interaction: ButtonInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale, user } = interaction;
@@ -1899,6 +2030,7 @@ export class SpiritTracker {
 			await interaction.update({
 				content: "Woah, it seems we have not encountered that spirit yet. How strange!",
 				components: [],
+				embeds: [],
 			});
 
 			return;
@@ -1997,6 +2129,108 @@ export class SpiritTracker {
 					new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 						new StringSelectMenuBuilder()
 							.setCustomId(`${SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID}§${spirit.name}`)
+							.setMaxValues(itemSelectionOverflowOptionsMaximumLimit.length)
+							.setMinValues(0)
+							.setOptions(itemSelectionOverflowOptionsMaximumLimit)
+							.setPlaceholder("Select what you have!"),
+					),
+				);
+			}
+		}
+
+		components.push(buttons);
+		await interaction.update({ components, content: "", embeds: [embed] });
+	}
+
+	public static async parseViewEvent(interaction: StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		const spiritTracker = await this.fetch(interaction.user.id);
+		const year = Number(interaction.customId.slice(interaction.customId.indexOf("§") + 1));
+		const eventName = interaction.values[0];
+		const event = EVENTS.find(({ name, start }) => name === eventName && start.year === year);
+
+		if (!event) {
+			await interaction.update(ERROR_RESPONSE);
+			pino.error(interaction, "Could not parse an event for the catalogue.");
+			return;
+		}
+
+		await spiritTracker.viewEvent(interaction, event);
+	}
+
+	public async viewEvent(interaction: ButtonInteraction | StringSelectMenuInteraction, event: Event) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		// const { locale } = interaction;
+		const bit = this[SpiritNameToSpiritTrackerName[event.name as EventName.SkyXCinnamorollPopUpCafe]];
+		const { name, start, offer, imageURL } = event;
+
+		// const embed = this.spiritEmbed([spirit], locale)
+		// 	.setTitle(t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" }))
+		// 	.setURL(spirit.wikiURL);
+
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(name);
+		const description = embed.data.description ? [embed.data.description] : [];
+
+		if (imageURL) {
+			embed.setImage(imageURL);
+		} else {
+			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
+		}
+
+		embed.setDescription(description.join("\n"));
+		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
+
+		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(
+			backToStartButton(),
+			new ButtonBuilder()
+				.setCustomId(`${SPIRIT_TRACKER_VIEW_EVENT_YEAR_CUSTOM_ID}§${start.year}`)
+				.setEmoji(event.eventCurrencyEmoji)
+				.setLabel("Back")
+				.setStyle(ButtonStyle.Primary),
+		);
+
+		if (offer) {
+			// buttons.addComponents(
+			// 	new ButtonBuilder()
+			// 		.setCustomId(`${SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID}§${spirit.name}`)
+			// 		.setDisabled(this.spiritProgress([spirit]) === 100)
+			// 		.setEmoji("💯")
+			// 		.setLabel("I have everything!")
+			// 		.setStyle(ButtonStyle.Success),
+			// );
+
+			const itemSelectionOptions = offer.map(({ emoji, name }, flag) => {
+				const stringSelectMenuOption = new StringSelectMenuOptionBuilder()
+					.setDefault(Boolean(bit && bit & flag))
+					.setLabel(name)
+					.setValue(String(flag));
+
+				if (emoji) stringSelectMenuOption.setEmoji(emoji);
+				return stringSelectMenuOption;
+			});
+
+			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT);
+
+			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+				new StringSelectMenuBuilder()
+					.setCustomId(`${SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID}§${name}`)
+					.setMaxValues(itemSelectionOptionsMaximumLimit.length)
+					.setMinValues(0)
+					.setOptions(itemSelectionOptionsMaximumLimit)
+					.setPlaceholder("Select what you have!"),
+			);
+
+			components.push(itemSelection);
+
+			if (itemSelectionOptions.length > SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT) {
+				const itemSelectionOverflowOptionsMaximumLimit = itemSelectionOptions.slice(
+					SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT,
+				);
+
+				components.push(
+					new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+						new StringSelectMenuBuilder()
+							.setCustomId(`${SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID}§${name}`)
 							.setMaxValues(itemSelectionOverflowOptionsMaximumLimit.length)
 							.setMinValues(0)
 							.setOptions(itemSelectionOverflowOptionsMaximumLimit)
