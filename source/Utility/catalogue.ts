@@ -161,7 +161,7 @@ export const enum EventName {
 	DaysOfFortune = "Days of Fortune",
 	DaysOfLove = "Days of Love",
 	DaysOfBloom = "Days of Bloom",
-	SkyXCinnamorollPopUpCafe = "Sky x Cinnamoroll Pop-Up Cafe",
+	SkyXCinnamorollPopUpCafe = "Sky × Cinnamoroll Pop-Up Cafe",
 }
 
 export interface FriendshipTreeItemCost {
