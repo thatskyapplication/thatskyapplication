@@ -63,8 +63,8 @@ import {
 } from "../Structures/SpiritTracker.js";
 import { ERROR_RESPONSE } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
+import { isSeasonName } from "../catalogue/spirits/seasons/index.js";
 import pino from "../pino.js";
-import { isSeasonName } from "../spirits/seasons/index.js";
 import type { Event } from "./index.js";
 
 const name = Events.InteractionCreate;

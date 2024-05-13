@@ -2,7 +2,7 @@ import { URL } from "node:url";
 import { hyperlink, TimestampStyles, type Locale, time } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import { resolveEvents } from "../Structures/Event.js";
+import { resolveEvents } from "../catalogue/events/index.js";
 import { type RealmName, CDN_URL, Map, VALID_REALM_NAME } from "./Constants.js";
 import { todayDate } from "./dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "./emojis.js";

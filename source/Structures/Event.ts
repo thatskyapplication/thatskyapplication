@@ -1,9 +1,6 @@
-import { URL } from "node:url";
 import type { DateTime } from "luxon";
-import { CDN_URL } from "../Utility/Constants.js";
-import { skyDate } from "../Utility/dates.js";
-import { type EventEmojis, EVENT_EMOJIS } from "../Utility/emojis.js";
-import { EventName } from "../Utility/events.js";
+import { type EventEmojis } from "../Utility/emojis.js";
+import type { EventName } from "../Utility/events.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
 
@@ -12,7 +9,7 @@ interface EventData {
 	start: DateTime;
 	end: DateTime;
 	eventCurrencyEnd?: DateTime;
-	url: string | EventDataURL[] | null;
+	url: string | readonly EventDataURL[] | null;
 	eventCurrencyPerDay: number;
 	eventCurrencyEmoji: EventEmojis;
 }
@@ -22,7 +19,7 @@ interface EventDataURL {
 	url: string;
 }
 
-class Event {
+export class Event {
 	public readonly name: EventName;
 
 	public readonly start: DateTime;
@@ -31,7 +28,7 @@ class Event {
 
 	public readonly eventCurrencyEnd: DateTime;
 
-	public readonly url: string | EventDataURL[] | null;
+	public readonly url: string | readonly EventDataURL[] | null;
 
 	public readonly eventCurrencyPerDay: number;
 
@@ -69,109 +66,4 @@ class Event {
 		return null;
 		// return EVENT_ROTATION_LETTER[date.diff(this.start, "day").days % 3]!;
 	}
-}
-
-const EVENTS = [
-	new Event({
-		name: EventName.DaysOfMischief,
-		start: skyDate(2_023, 10, 23),
-		end: skyDate(2_023, 11, 12),
-		url: String(new URL("daily_guides/events/days_of_mischief/2023.webp", CDN_URL)),
-		eventCurrencyPerDay: 6,
-		eventCurrencyEmoji: EVENT_EMOJIS.Mischief,
-	}),
-	new Event({
-		name: EventName.AviarysFireworkFestival,
-		start: skyDate(2_023, 11, 27),
-		end: skyDate(2_023, 12, 17),
-		eventCurrencyEnd: skyDate(2_023, 12, 11),
-		url: String(new URL("daily_guides/events/aviarys_firework_festival/2023.webp", CDN_URL)),
-		eventCurrencyPerDay: 5,
-		eventCurrencyEmoji: EVENT_EMOJIS.AviarysFireworkFestival,
-	}),
-	new Event({
-		name: EventName.DaysOfFeast,
-		start: skyDate(2_023, 12, 18),
-		end: skyDate(2_024, 1, 7),
-		url: String(new URL("daily_guides/events/days_of_feast/2023.webp", CDN_URL)),
-		eventCurrencyPerDay: 5,
-		eventCurrencyEmoji: EVENT_EMOJIS.Feast,
-	}),
-	new Event({
-		name: EventName.DaysOfFortune,
-		start: skyDate(2_024, 1, 29),
-		end: skyDate(2_024, 2, 14),
-		url: String(new URL("daily_guides/events/days_of_fortune/2024.webp", CDN_URL)),
-		eventCurrencyPerDay: 5,
-		eventCurrencyEmoji: EVENT_EMOJIS.Fortune,
-	}),
-	new Event({
-		name: EventName.DaysOfLove,
-		start: skyDate(2_024, 2, 12),
-		end: skyDate(2_024, 2, 25),
-		url: String(new URL("daily_guides/events/days_of_love/2024.webp", CDN_URL)),
-		eventCurrencyPerDay: 5,
-		eventCurrencyEmoji: EVENT_EMOJIS.Love,
-	}),
-	new Event({
-		name: EventName.DaysOfBloom,
-		start: skyDate(2_024, 3, 25),
-		end: skyDate(2_024, 4, 14),
-		url: [
-			{
-				date: skyDate(2_024, 3, 25),
-				url: String(new URL("daily_guides/events/days_of_bloom/2024/1.webp", CDN_URL)),
-			},
-			{
-				date: skyDate(2_024, 4, 1),
-				url: String(new URL("daily_guides/events/days_of_bloom/2024/2.webp", CDN_URL)),
-			},
-			{
-				date: skyDate(2_024, 4, 8),
-				url: String(new URL("daily_guides/events/days_of_bloom/2024/week_3/1.webp", CDN_URL)),
-			},
-			{
-				date: skyDate(2_024, 4, 9),
-				url: String(new URL("daily_guides/events/days_of_bloom/2024/week_3/2.webp", CDN_URL)),
-			},
-			{
-				date: skyDate(2_024, 4, 10),
-				url: String(new URL("daily_guides/events/days_of_bloom/2024/week_3/3.webp", CDN_URL)),
-			},
-			{
-				date: skyDate(2_024, 4, 11),
-				url: String(new URL("daily_guides/events/days_of_bloom/2024/week_3/4.webp", CDN_URL)),
-			},
-			{
-				date: skyDate(2_024, 4, 12),
-				url: String(new URL("daily_guides/events/days_of_bloom/2024/week_3/5.webp", CDN_URL)),
-			},
-			{
-				date: skyDate(2_024, 4, 13),
-				url: String(new URL("daily_guides/events/days_of_bloom/2024/week_3/6.webp", CDN_URL)),
-			},
-			{
-				date: skyDate(2_024, 4, 14),
-				url: String(new URL("daily_guides/events/days_of_bloom/2024/week_3/7.webp", CDN_URL)),
-			},
-		],
-		eventCurrencyPerDay: 5,
-		eventCurrencyEmoji: EVENT_EMOJIS.Bloom,
-	}),
-	new Event({
-		name: EventName.SkyXCinnamorollPopUpCafe,
-		start: skyDate(2_024, 4, 27),
-		end: skyDate(2_024, 5, 18),
-		url: String(new URL("daily_guides/events/sky_x_cinnamoroll_pop_up_cafe/2024.webp", CDN_URL)),
-		eventCurrencyPerDay: 5,
-		eventCurrencyEmoji: EVENT_EMOJIS.SkyXCinnamorollPopUpCafe,
-	}),
-] as const satisfies Readonly<Event[]>;
-
-export function resolveEvents(date: DateTime) {
-	return EVENTS.filter(({ start, end }) => date >= start && date <= end) ?? null;
-}
-
-export function plannedEvents(date: DateTime) {
-	return EVENTS.filter(({ end }) => date <= end);
 }

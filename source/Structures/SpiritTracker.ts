@@ -34,10 +34,8 @@ import {
 	NO_FRIENDSHIP_TREE_TEXT,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 } from "../Utility/spirits.js";
-import pg, { Table } from "../pg.js";
-import pino from "../pino.js";
-import { SPIRITS } from "../spirits/index.js";
-import { ELDER_SPIRITS, REALMS, STANDARD_SPIRITS } from "../spirits/realms/index.js";
+import { SPIRITS } from "../catalogue/spirits/index.js";
+import { ELDER_SPIRITS, REALMS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
 import {
 	SEASONS,
 	SEASON_SPIRITS,
@@ -45,7 +43,9 @@ import {
 	resolveReturningSpirits,
 	resolveSeason,
 	resolveTravellingSpirit,
-} from "../spirits/seasons/index.js";
+} from "../catalogue/spirits/seasons/index.js";
+import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
 import Profile from "./Profile.js";
 import {
 	type ElderSpirit,

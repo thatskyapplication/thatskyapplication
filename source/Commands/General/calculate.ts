@@ -9,7 +9,6 @@ import {
 	TimestampStyles,
 } from "discord.js";
 import { t } from "i18next";
-import { resolveEvents } from "../../Structures/Event.js";
 import {
 	AREA_TO_WINGED_LIGHT_COUNT_VALUES,
 	AreaToWingedLightCount,
@@ -30,7 +29,8 @@ import { MISCELLANEOUS_EMOJIS, formatEmoji, formatEmojiURL, resolveCurrencyEmoji
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { SEASONAL_CANDLES_PER_DAY, SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS } from "../../Utility/seasons.js";
 import { shardEruption } from "../../Utility/shardEruption.js";
-import { resolveSeason } from "../../spirits/seasons/index.js";
+import { resolveEvents } from "../../catalogue/events/index.js";
+import { resolveSeason } from "../../catalogue/spirits/seasons/index.js";
 import type { ChatInputCommand } from "../index.js";
 
 const doubleSeasonalLightEventStart = time(

@@ -32,12 +32,12 @@ import {
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
 } from "../Utility/shardEruption.js";
+import { plannedEvents, resolveEvents } from "../catalogue/events/index.js";
+import { nextSeason, resolveSeason } from "../catalogue/spirits/seasons/index.js";
 import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
-import { nextSeason, resolveSeason } from "../spirits/seasons/index.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
-import { plannedEvents, resolveEvents } from "./Event.js";
 
 export interface DailyGuidesDistributionPacket {
 	guild_id: Snowflake;
