@@ -224,6 +224,7 @@ export interface SpiritTrackerPacket {
 	nesting_loft: SpiritTrackerValue;
 	nesting_atrium: SpiritTrackerValue;
 	nesting_nook: SpiritTrackerValue;
+	halloween_office_event: SpiritTrackerValue;
 	aviarys_firework_festival: SpiritTrackerValue;
 	days_of_feast: SpiritTrackerValue;
 	days_of_mischief: SpiritTrackerValue;
@@ -399,6 +400,7 @@ interface SpiritTrackerData {
 	nestingLoft: SpiritTrackerPacket["nesting_loft"];
 	nestingAtrium: SpiritTrackerPacket["nesting_atrium"];
 	nestingNook: SpiritTrackerPacket["nesting_nook"];
+	halloweenOfficeEvent: SpiritTrackerPacket["halloween_office_event"];
 	aviarysFireworkFestival: SpiritTrackerPacket["aviarys_firework_festival"];
 	daysOfFeast: SpiritTrackerPacket["days_of_feast"];
 	daysOfMischief: SpiritTrackerPacket["days_of_mischief"];
@@ -576,6 +578,7 @@ const SpiritTrackerNameToRawName = {
 	[SpiritName.NestingLoft]: "nesting_loft",
 	[SpiritName.NestingAtrium]: "nesting_atrium",
 	[SpiritName.NestingNook]: "nesting_nook",
+	[EventName.HalloweenOfficeEvent]: "halloween_office_event",
 	[EventName.AviarysFireworkFestival]: "aviarys_firework_festival",
 	[EventName.DaysOfFeast]: "days_of_feast",
 	[EventName.DaysOfMischief]: "days_of_mischief",
@@ -750,6 +753,7 @@ const SpiritNameToSpiritTrackerName = {
 	[SpiritName.NestingLoft]: "nestingLoft",
 	[SpiritName.NestingAtrium]: "nestingAtrium",
 	[SpiritName.NestingNook]: "nestingNook",
+	[EventName.HalloweenOfficeEvent]: "halloweenOfficeEvent",
 	[EventName.AviarysFireworkFestival]: "aviarysFireworkFestival",
 	[EventName.DaysOfFeast]: "daysOfFeast",
 	[EventName.DaysOfMischief]: "daysOfMischief",
@@ -1146,6 +1150,8 @@ export class SpiritTracker {
 
 	public nestingNook!: SpiritTrackerData["nestingNook"];
 
+	public halloweenOfficeEvent!: SpiritTrackerData["halloweenOfficeEvent"];
+
 	public aviarysFireworkFestival!: SpiritTrackerData["aviarysFireworkFestival"];
 
 	public daysOfFeast!: SpiritTrackerData["daysOfFeast"];
@@ -1330,6 +1336,7 @@ export class SpiritTracker {
 		this.nestingLoft = data.nesting_loft;
 		this.nestingAtrium = data.nesting_atrium;
 		this.nestingNook = data.nesting_nook;
+		this.halloweenOfficeEvent = data.halloween_office_event;
 		this.aviarysFireworkFestival = data.aviarys_firework_festival;
 		this.daysOfFeast = data.days_of_feast;
 		this.daysOfMischief = data.days_of_mischief;
@@ -1526,13 +1533,12 @@ export class SpiritTracker {
 		}
 
 		const currentEventButtons = currentEvents.reduce<ButtonBuilder[]>((buttons, event) => {
-			buttons.push(
-				new ButtonBuilder()
-					.setCustomId(`${SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID}§${event.start.year}§${event.name}`)
-					.setEmoji(event.eventCurrencyEmoji)
-					.setStyle(ButtonStyle.Success),
-			);
+			const button = new ButtonBuilder()
+				.setCustomId(`${SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID}§${event.start.year}§${event.name}`)
+				.setStyle(ButtonStyle.Success);
 
+			if (event.eventCurrencyEmoji) button.setEmoji(event.eventCurrencyEmoji);
+			buttons.push(button);
 			return buttons;
 		}, []);
 
@@ -1983,12 +1989,14 @@ export class SpiritTracker {
 			const { name } = event;
 			const percentage = spiritTracker.spiritProgress([event], true);
 
-			return new StringSelectMenuOptionBuilder()
-				.setEmoji(event.eventCurrencyEmoji)
+			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 				.setLabel(
 					`${t(`events.${name}`, { lng: locale, ns: "general" })}${percentage === null ? "" : ` (${percentage}%)`}`,
 				)
 				.setValue(name);
+
+			if (event.eventCurrencyEmoji) stringSelectMenuOptionBuilder.setEmoji(event.eventCurrencyEmoji);
+			return stringSelectMenuOptionBuilder;
 		});
 
 		const response = {
@@ -2229,11 +2237,16 @@ export class SpiritTracker {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale } = interaction;
 		const bit = this[SpiritNameToSpiritTrackerName[event.name]];
-		const { name, start, offer, imageURL } = event;
+		const { name, start, eventCurrencyEmoji, offer, imageURL } = event;
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
-			.setTitle(`${formatEmoji(event.eventCurrencyEmoji)}${t(`events.${name}`, { lng: locale, ns: "general" })}`)
+			.setTitle(
+				`${eventCurrencyEmoji ? formatEmoji(eventCurrencyEmoji) : ""}${t(`events.${name}`, {
+					lng: locale,
+					ns: "general",
+				})}`,
+			)
 			.setURL(event.wikiURL);
 
 		const description = [];

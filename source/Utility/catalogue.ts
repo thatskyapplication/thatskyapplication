@@ -166,6 +166,7 @@ export const SeasonFlagsToSeasonName = {
 export const SEASON_FLAGS_TO_SEASON_NAME_ENTRIES = Object.entries(SeasonFlagsToSeasonName);
 
 export enum EventName {
+	HalloweenOfficeEvent = "Halloween Office Event",
 	DaysOfMischief = "Days of Mischief",
 	AviarysFireworkFestival = "Aviary's Firework Festival",
 	DaysOfFeast = "Days of Feast",
@@ -180,6 +181,7 @@ export enum EventName {
 export const EVENT_NAME_VALUES = Object.values(EventName);
 
 export const EventNameToEventCurrencyEmoji = {
+	[EventName.HalloweenOfficeEvent]: null,
 	[EventName.DaysOfMischief]: EVENT_EMOJIS.Mischief,
 	[EventName.AviarysFireworkFestival]: EVENT_EMOJIS.AviarysFireworkFestival,
 	[EventName.DaysOfFeast]: EVENT_EMOJIS.Feast,
@@ -187,7 +189,7 @@ export const EventNameToEventCurrencyEmoji = {
 	[EventName.DaysOfLove]: EVENT_EMOJIS.Love,
 	[EventName.DaysOfBloom]: EVENT_EMOJIS.Bloom,
 	[EventName.SkyXCinnamorollPopUpCafe]: EVENT_EMOJIS.SkyXCinnamorollPopUpCafe,
-} as const satisfies Readonly<Record<EventName, EventEmojis>>;
+} as const satisfies Readonly<Record<EventName, EventEmojis | null>>;
 
 export function snakeCaseName(name: string) {
 	return name.replaceAll(/[ '-]/g, "_").replaceAll(/[()]/g, "").replaceAll("×", "x").toLowerCase();
@@ -374,7 +376,7 @@ export function resolveCostToString(cost: ItemCost) {
 		for (const event of cost.eventCurrency) {
 			totalCost.push(
 				resolveCurrencyEmoji({
-					emoji: EventNameToEventCurrencyEmoji[event.eventName],
+					emoji: EventNameToEventCurrencyEmoji[event.eventName] ?? MISCELLANEOUS_EMOJIS.EventCurrency,
 					number: event.cost,
 				}),
 			);

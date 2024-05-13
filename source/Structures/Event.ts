@@ -1,6 +1,13 @@
 import type { Collection } from "discord.js";
 import type { DateTime } from "luxon";
-import { type EventName, type Item, type ItemRaw, EventNameToEventCurrencyEmoji, resolveOffer, wikiURL } from "../Utility/catalogue.js";
+import {
+	type EventName,
+	type Item,
+	type ItemRaw,
+	EventNameToEventCurrencyEmoji,
+	resolveOffer,
+	wikiURL,
+} from "../Utility/catalogue.js";
 import { type EventEmojis } from "../Utility/emojis.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
@@ -16,7 +23,7 @@ interface EventData {
 	end: DateTime;
 	eventCurrencyEnd?: DateTime;
 	url: string | readonly EventDataURL[] | null;
-	eventCurrencyPerDay: number;
+	eventCurrencyPerDay?: number;
 	offer: EventFriendshipTreeOfferData;
 }
 
@@ -36,9 +43,14 @@ export class Event {
 
 	public readonly url: string | readonly EventDataURL[] | null;
 
-	public readonly eventCurrencyPerDay: number;
+	public readonly eventCurrencyPerDay: number | null;
 
-	public readonly eventCurrencyEmoji: EventEmojis;
+	/**
+	 * The emoji representing the event currency.
+	 *
+	 * @remarks This may be `null` for an upcoming event (emoji not yet created).
+	 */
+	public readonly eventCurrencyEmoji: EventEmojis | null;
 
 	public readonly offer: Collection<number, Item>;
 
@@ -54,7 +66,7 @@ export class Event {
 		this.end = data.end;
 		this.eventCurrencyEnd = data.eventCurrencyEnd ?? data.end;
 		this.url = data.url;
-		this.eventCurrencyPerDay = data.eventCurrencyPerDay;
+		this.eventCurrencyPerDay = data.eventCurrencyPerDay ?? null;
 		this.eventCurrencyEmoji = EventNameToEventCurrencyEmoji[data.name];
 		this.offer = resolveOffer(data.offer.items);
 		this.maxItemsBit = this.resolveMaxItemsBit(data.offer.items);

@@ -1,5 +1,6 @@
 import {
 	type ChatInputCommandInteraction,
+	type EmbedFooterOptions,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	EmbedBuilder,
@@ -9,6 +10,7 @@ import {
 	TimestampStyles,
 } from "discord.js";
 import { t } from "i18next";
+import type { Event } from "../../Structures/Event.js";
 import {
 	AREA_TO_WINGED_LIGHT_COUNT_VALUES,
 	AreaToWingedLightCount,
@@ -330,10 +332,14 @@ export default new (class implements ChatInputCommand {
 
 		// This calculator may only be used during events.
 		const today = todayDate();
-		const events = resolveEvents(today);
+
+		// Filter out events that do not have event currency.
+		const events = resolveEvents(today).filter(
+			(event): event is Event & { readonly eventCurrencyPerDay: number } => event.eventCurrencyPerDay !== null,
+		);
 
 		if (events.length === 0) {
-			await interaction.reply({ content: "There is no event currently active.", ephemeral: true });
+			await interaction.reply({ content: "There is no event currently active with event currency.", ephemeral: true });
 			return;
 		}
 
@@ -344,34 +350,38 @@ export default new (class implements ChatInputCommand {
 
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const amountRequired = goal - start;
-		const startEmojis = `${start} ${events.map(({ eventCurrencyEmoji }) => formatEmoji(eventCurrencyEmoji)).join("")}`;
-		const goalEmojis = `${goal} ${events.map(({ eventCurrencyEmoji }) => formatEmoji(eventCurrencyEmoji)).join("")}`;
 
-		const amountRequiredEmojis = `${amountRequired} ${events
-			.map(({ eventCurrencyEmoji }) => formatEmoji(eventCurrencyEmoji))
-			.join("")}`;
+		const suffix = events
+			.map((event) => (event.eventCurrencyEmoji ? formatEmoji(event.eventCurrencyEmoji) : event.name))
+			.join("");
+
+		const startEmojis = `${start} ${suffix}`;
+		const goalEmojis = `${goal} ${suffix}`;
+		const amountRequiredEmojis = `${amountRequired} ${suffix}`;
 
 		const result = events.map((event) => {
 			const days = Math.ceil(amountRequired / event.eventCurrencyPerDay);
 
-			return `${formatEmoji(event.eventCurrencyEmoji)}${days} day${days === 1 ? "" : "s"} (${
-				event.eventCurrencyPerDay
-			}/day)`;
+			return `${event.eventCurrencyEmoji ? formatEmoji(event.eventCurrencyEmoji) : `${event.name}: `}${days} day${
+				days === 1 ? "" : "s"
+			} (${event.eventCurrencyPerDay}/day)`;
 		});
 
-		await interaction.reply({
-			embeds: [
-				new EmbedBuilder()
-					.setColor(DEFAULT_EMBED_COLOUR)
-					.setDescription(`Start: ${startEmojis}\nGoal: ${goalEmojis}\nRequired: ${amountRequiredEmojis}`)
-					.setFields({ name: "Result", value: result.join("\n") })
-					.setFooter({
-						iconURL: formatEmojiURL(events.at(0)!.eventCurrencyEmoji.id),
-						text: events.map((event) => event.daysText(today)).join("\n"),
-					})
-					.setTitle("Event Currency Calculator"),
-			],
-		});
+		const embed = new EmbedBuilder()
+			.setColor(DEFAULT_EMBED_COLOUR)
+			.setDescription(`Start: ${startEmojis}\nGoal: ${goalEmojis}\nRequired: ${amountRequiredEmojis}`)
+			.setFields({ name: "Result", value: result.join("\n") })
+			.setTitle("Event Currency Calculator");
+
+		const footer: EmbedFooterOptions = { text: events.map((event) => event.daysText(today)).join("\n") };
+		const event0 = events.at(0);
+
+		if (events.length === 1 && event0?.eventCurrencyEmoji) {
+			footer.iconURL = formatEmojiURL(event0.eventCurrencyEmoji.id);
+		}
+
+		embed.setFooter(footer);
+		await interaction.reply({ embeds: [embed] });
 	}
 
 	public async seasonalCandles(interaction: ChatInputCommandInteraction) {

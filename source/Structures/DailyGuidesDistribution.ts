@@ -243,7 +243,8 @@ export default class DailyGuidesDistribution {
 	public static eventData(date: DateTime, locale: Locale) {
 		const events = resolveEvents(date);
 		const eventEndText = plannedEvents(date).map((event) => event.daysText(date));
-		const iconURL = events[0] ? formatEmojiURL(events[0].eventCurrencyEmoji.id) : null;
+		const event0 = events[0];
+		const iconURL = event0?.eventCurrencyEmoji ? formatEmojiURL(event0.eventCurrencyEmoji.id) : null;
 		const currentEventsWithEventCurrency = events.filter((event) => date <= event.eventCurrencyEnd && event.url);
 
 		const eventCurrency =
@@ -253,7 +254,10 @@ export default class DailyGuidesDistribution {
 						value: currentEventsWithEventCurrency
 							.map(({ name, eventCurrencyEmoji, url }) =>
 								hyperlink(
-									`${formatEmoji(eventCurrencyEmoji)}${t("view", { lng: locale, ns: "general" })}`,
+									`${eventCurrencyEmoji ? formatEmoji(eventCurrencyEmoji) : ""}${t("view", {
+										lng: locale,
+										ns: "general",
+									})}`,
 									Array.isArray(url) ? url.findLast((eventDataURL) => date >= eventDataURL.date)!.url : url!,
 									name,
 								),

@@ -8,6 +8,4 @@ export default new Event({
 	end: skyDate(2_024, 6, 16),
 	url: null,
 	eventCurrencyPerDay: 4,
-	// @ts-expect-error No emojis has been created for this event yet.
-	eventCurrencyEmoji: null,
 });
