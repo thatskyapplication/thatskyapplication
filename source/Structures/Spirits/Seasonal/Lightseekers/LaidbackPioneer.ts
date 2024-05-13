@@ -3,21 +3,15 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import {
-	HAIR_EMOJIS,
-	HELD_PROPS_EMOJIS,
-	MASK_EMOJIS,
-	MISCELLANEOUS_EMOJIS,
-	STANCE_EMOJIS,
-} from "../../../../Utility/emojis.js";
-import { SpiritName, SpiritStance } from "../../../../Utility/spirits.js";
+import { HAIR_EMOJIS, HELD_PROPS_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
 const stance = SpiritStance.Laidback;
+const stanceEmoji = SpiritStanceToEmoji[stance];
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
-const stanceEmoji = STANCE_EMOJIS.Laidback;
 const maskEmoji = MASK_EMOJIS.Mask14;
 const hairEmoji = HAIR_EMOJIS.Hair43;
 const heldProp = HELD_PROPS_EMOJIS.HeldProp11;

@@ -8,18 +8,17 @@ import {
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
-	STANCE_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritName, SpiritStance } from "../../../../Utility/spirits.js";
+import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
 const stance = SpiritStance.Wise;
+const stanceEmoji = SpiritStanceToEmoji[stance];
 const blessing1 = MISCELLANEOUS_EMOJIS.Blessing1;
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
-const stanceEmoji = STANCE_EMOJIS.Wise;
 const maskEmoji = MASK_EMOJIS.Mask19;
 const capeEmoji = CAPE_EMOJIS.Cape22;
 const placeablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp09;
