@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { Event } from "../../../Structures/Event.js";
 import { type ItemRaw, EventName } from "../../../Utility/catalogue.js";
