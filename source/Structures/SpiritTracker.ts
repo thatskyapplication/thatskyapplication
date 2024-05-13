@@ -2201,7 +2201,8 @@ export class SpiritTracker {
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
-			.setTitle(t(`events.${name}`, { lng: locale, ns: "general" }));
+			.setTitle(t(`events.${name}`, { lng: locale, ns: "general" }))
+			.setURL(event.wikiURL);
 
 		const description = [];
 		const owned = [];

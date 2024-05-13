@@ -1,6 +1,6 @@
 import type { Collection } from "discord.js";
 import type { DateTime } from "luxon";
-import { type EventName, type Item, type ItemRaw, EventNameToEventCurrencyEmoji, resolveOffer } from "../Utility/catalogue.js";
+import { type EventName, type Item, type ItemRaw, EventNameToEventCurrencyEmoji, resolveOffer, wikiURL } from "../Utility/catalogue.js";
 import { type EventEmojis } from "../Utility/emojis.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
@@ -46,6 +46,8 @@ export class Event {
 
 	public readonly imageURL: string | null;
 
+	public readonly wikiURL: string;
+
 	public constructor(data: EventData) {
 		this.name = data.name;
 		this.start = data.start;
@@ -57,6 +59,7 @@ export class Event {
 		this.offer = resolveOffer(data.offer.items);
 		this.maxItemsBit = this.resolveMaxItemsBit(data.offer.items);
 		this.imageURL = data.offer.hasInfographic ?? true ? "https://cdn.thatskyapplication.com/hugs/1.gif" : null;
+		this.wikiURL = wikiURL(data.name);
 	}
 
 	private resolveMaxItemsBit(offer: Collection<number, ItemRaw>) {
