@@ -2237,7 +2237,7 @@ export class SpiritTracker {
 			backToStartButton(),
 			new ButtonBuilder()
 				.setCustomId(`${SPIRIT_TRACKER_VIEW_EVENT_YEAR_CUSTOM_ID}§${start.year}`)
-				.setEmoji(event.eventCurrencyEmoji)
+				.setEmoji("⏪")
 				.setLabel("Back")
 				.setStyle(ButtonStyle.Primary),
 		);
