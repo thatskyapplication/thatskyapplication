@@ -11,6 +11,7 @@ import {
 } from "../../Utility/dates.js";
 import { type SeasonEmojis, formatEmoji } from "../../Utility/emojis.js";
 import {
+	type RotationNumber,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	SEASON_NAME_VALUES,
@@ -19,7 +20,6 @@ import {
 	SeasonName,
 	SeasonNameToSeasonalCandleEmoji,
 	SeasonNameToSeasonalEmoji,
-	type RotationNumber,
 } from "../../Utility/seasons.js";
 
 type SeasonalCandlesRotation = Readonly<{ rotation: Exclude<RotationNumber, 3>; realm: Realm }[]>;
