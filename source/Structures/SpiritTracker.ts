@@ -1912,7 +1912,7 @@ export class SpiritTracker {
 
 	public static async viewEvents(interaction: ButtonInteraction | StringSelectMenuInteraction, year: string) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		const { user } = interaction;
+		const { locale, user } = interaction;
 		const spiritTracker = await this.fetch(user.id);
 		const events = EVENTS.filter((event) => event.start.year === Number(year));
 
@@ -1921,7 +1921,9 @@ export class SpiritTracker {
 			const percentage = spiritTracker.spiritProgress([event], true);
 
 			return new StringSelectMenuOptionBuilder()
-				.setLabel(`${name}${percentage === null ? "" : ` (${percentage}%)`}`)
+				.setLabel(
+					`${t(`events.${name}`, { lng: locale, ns: "general" })}${percentage === null ? "" : ` (${percentage}%)`}`,
+				)
 				.setValue(name);
 		});
 
