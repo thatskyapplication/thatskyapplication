@@ -30,12 +30,11 @@ export function dateString(date: DateTime, locale: Locale) {
 	let resolvedLocale = locale;
 	let format;
 
-	// TODO: Replace es-419 with Locale when it's updated.
-	switch (locale as Locale | "es-419") {
+	switch (locale) {
 		case Locale.German:
 			format = "cccc, d. MMMM y";
 			break;
-		case "es-419":
+		case Locale.SpanishLATAM:
 		case Locale.SpanishES:
 			format = "cccc, d MMMM y";
 			break;
@@ -77,8 +76,7 @@ export function dateRangeString(start: DateTime, end: DateTime, locale: Locale) 
 	let resolvedLocale = locale;
 	let format;
 
-	// TODO: Replace es-419 with Locale when it's updated.
-	switch (locale as Locale | "es-419") {
+	switch (locale) {
 		case Locale.German:
 			format = "d. MMMM";
 			break;
@@ -88,7 +86,7 @@ export function dateRangeString(start: DateTime, end: DateTime, locale: Locale) 
 		case Locale.Russian:
 			format = "d MMMM";
 			break;
-		case "es-419":
+		case Locale.SpanishLATAM:
 		case Locale.SpanishES:
 		case Locale.PortugueseBR:
 			format = "d 'de' MMMM";

@@ -63,8 +63,7 @@ void init({
 	resources: {
 		[Locale.German]: de,
 		[Locale.EnglishGB]: enGB,
-		// TODO: Replace with Locale when it's updated.
-		"es-419": es419,
+		[Locale.SpanishLATAM]: es419,
 		[Locale.SpanishES]: esES,
 		[Locale.French]: fr,
 		[Locale.Italian]: it,

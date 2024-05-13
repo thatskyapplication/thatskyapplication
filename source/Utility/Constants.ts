@@ -221,8 +221,7 @@ export const LOCALES = [
 	Locale.German,
 	Locale.EnglishGB,
 	Locale.EnglishUS,
-	// TODO: Replace with Locale when it's updated.
-	"es-419",
+	Locale.SpanishLATAM,
 	Locale.SpanishES,
 	Locale.French,
 	Locale.Italian,
@@ -233,4 +232,4 @@ export const LOCALES = [
 	Locale.Vietnamese,
 	Locale.ChineseCN,
 	Locale.ChineseTW,
-] as const satisfies Readonly<(Locale | "es-419")[]>;
+] as const satisfies Readonly<Locale[]>;
