@@ -38,7 +38,7 @@ import {
 	NO_FRIENDSHIP_TREE_TEXT,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 } from "../Utility/spirits.js";
-import { EVENTS } from "../catalogue/events/index.js";
+import { EVENTS, resolveEvents } from "../catalogue/events/index.js";
 import { SPIRITS } from "../catalogue/spirits/index.js";
 import { ELDER_SPIRITS, REALMS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
 import {
@@ -1506,6 +1506,7 @@ export class SpiritTracker {
 		const eventProgress = spiritTracker.spiritProgress(EVENTS, true);
 		const today = todayDate();
 		const currentSeason = resolveSeason(today);
+		const currentEvents = resolveEvents(today);
 		const currentTravellingSpirit = resolveTravellingSpirit(today);
 		const currentReturningSpirits = resolveReturningSpirits(today);
 
@@ -1523,6 +1524,30 @@ export class SpiritTracker {
 		if (currentSeason) {
 			currentSeasonButton.setEmoji(currentSeason.emoji);
 		}
+
+		const currentEventButtons = currentEvents.reduce<ButtonBuilder[]>((buttons, event) => {
+			buttons.push(
+				new ButtonBuilder()
+					.setCustomId(`${SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID}§${event.start.year}§${event.name}`)
+					.setEmoji(event.eventCurrencyEmoji)
+					.setStyle(ButtonStyle.Success),
+			);
+
+			return buttons;
+		}, []);
+
+		if (currentEventButtons.length === 0) {
+			currentEventButtons.push(
+				new ButtonBuilder()
+					// This would not happen, but it's here to satisfy the API.
+					.setCustomId(SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID)
+					.setDisabled()
+					.setLabel("Current Event")
+					.setStyle(ButtonStyle.Secondary),
+			);
+		}
+
+		if (currentEventButtons.length === 1) currentEventButtons[0]!.setLabel("Current Event");
 
 		const currentTravellingSpiritButton = new ButtonBuilder()
 			.setCustomId(
@@ -1564,8 +1589,9 @@ export class SpiritTracker {
 						.setPlaceholder("What do you want to see?"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(backToStartButton(true)),
+				// Limit the potential current event buttons to 4 to not exceed the limit.
+				new ActionRowBuilder<ButtonBuilder>().setComponents(currentSeasonButton, ...currentEventButtons.slice(0, 4)),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					currentSeasonButton,
 					currentTravellingSpiritButton,
 					new ButtonBuilder()
 						.setCustomId(
@@ -2173,11 +2199,21 @@ export class SpiritTracker {
 		await interaction.update({ components, content: "", embeds: [embed] });
 	}
 
-	public static async parseViewEvent(interaction: StringSelectMenuInteraction) {
+	public static async parseViewEvent(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
-		const year = Number(interaction.customId.slice(interaction.customId.indexOf("§") + 1));
-		const eventName = interaction.values[0];
+		let year;
+		let eventName;
+
+		if (interaction instanceof ButtonInteraction) {
+			const data = interaction.customId.split("§");
+			year = Number(data[1]);
+			eventName = data[2];
+		} else {
+			year = Number(interaction.customId.slice(interaction.customId.indexOf("§") + 1));
+			eventName = interaction.values[0];
+		}
+
 		const event = EVENTS.find(({ name, start }) => name === eventName && start.year === year);
 
 		if (!event) {
