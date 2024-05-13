@@ -1466,6 +1466,7 @@ export class SpiritTracker {
 		const standardProgress = spiritTracker.spiritProgress(STANDARD_SPIRITS, true);
 		const elderProgress = spiritTracker.spiritProgress(ELDER_SPIRITS, true);
 		const seasonalProgress = spiritTracker.spiritProgress(SEASON_SPIRITS, true);
+		const eventProgress = spiritTracker.spiritProgress(EVENTS, true);
 		const today = todayDate();
 		const currentSeason = resolveSeason(today);
 		const currentTravellingSpirit = resolveTravellingSpirit(today);
@@ -1519,7 +1520,9 @@ export class SpiritTracker {
 							new StringSelectMenuOptionBuilder()
 								.setLabel(`Seasonal Spirits${seasonalProgress === null ? "" : ` (${seasonalProgress}%)`}`)
 								.setValue(String(CatalogueType.SeasonalSpirits)),
-							new StringSelectMenuOptionBuilder().setLabel("Events").setValue(String(CatalogueType.Events)),
+							new StringSelectMenuOptionBuilder()
+								.setLabel(`Events${eventProgress === null ? "" : ` (${eventProgress}%)`}`)
+								.setValue(String(CatalogueType.Events)),
 						)
 						.setPlaceholder("What do you want to see?"),
 				),
@@ -1869,8 +1872,8 @@ export class SpiritTracker {
 
 	public static async viewEventYears(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		// const { locale, user } = interaction;
-		// const spiritTracker = await this.fetch(user.id);
+		const { user } = interaction;
+		const spiritTracker = await this.fetch(user.id);
 
 		await interaction.update({
 			content: "",
@@ -1882,11 +1885,14 @@ export class SpiritTracker {
 						.setMinValues(0)
 						.setOptions(
 							validEventsYears.map((year) => {
-								// const percentage = spiritTracker.spiritProgress(
-								// 	SEASON_SPIRITS.filter((spirit) => spirit.season === season),
-								// 	true,
-								// );
-								return new StringSelectMenuOptionBuilder().setLabel(`${year}`).setValue(String(year));
+								const percentage = spiritTracker.spiritProgress(
+									EVENTS.filter((event) => event.start.year === year),
+									true,
+								);
+
+								return new StringSelectMenuOptionBuilder()
+									.setLabel(`${year}${percentage === null ? "" : ` (${percentage}%)`}`)
+									.setValue(String(year));
 							}),
 						)
 						.setPlaceholder("Select a year!"),
@@ -1906,23 +1912,16 @@ export class SpiritTracker {
 
 	public static async viewEvents(interaction: ButtonInteraction | StringSelectMenuInteraction, year: string) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		// const { locale, user } = interaction;
-		// const spiritTracker = await this.fetch(user.id);
+		const { user } = interaction;
+		const spiritTracker = await this.fetch(user.id);
 		const events = EVENTS.filter((event) => event.start.year === Number(year));
-		// let hasEverything = true;
 
 		const options = events.map((event) => {
 			const { name } = event;
-			// const percentage = spiritTracker.spiritProgress([spirit], true);
-			// if (percentage !== null && percentage !== 100) hasEverything = false;
+			const percentage = spiritTracker.spiritProgress([event], true);
 
 			return new StringSelectMenuOptionBuilder()
-				.setLabel(
-					name,
-					// `${t(`spiritNames.${name}`, { lng: locale, ns: "general" })}${
-					// 	percentage === null ? "" : ` (${percentage}%)`
-					// }`,
-				)
+				.setLabel(`${name}${percentage === null ? "" : ` (${percentage}%)`}`)
 				.setValue(name);
 		});
 
@@ -1949,12 +1948,6 @@ export class SpiritTracker {
 					// 	.setEmoji("🔗")
 					// 	.setLabel("Share")
 					// 	.setStyle(ButtonStyle.Primary),
-					// new ButtonBuilder()
-					// 	.setCustomId(`${SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID}§${season}`)
-					// 	.setDisabled(hasEverything)
-					// 	.setEmoji("💯")
-					// 	.setLabel("I have everything!")
-					// 	.setStyle(ButtonStyle.Success),
 				),
 			],
 			embeds: [
