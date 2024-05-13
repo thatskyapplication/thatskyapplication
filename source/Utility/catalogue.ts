@@ -165,7 +165,7 @@ export const SeasonFlagsToSeasonName = {
 
 export const SEASON_FLAGS_TO_SEASON_NAME_ENTRIES = Object.entries(SeasonFlagsToSeasonName);
 
-export const enum EventName {
+export enum EventName {
 	DaysOfMischief = "Days of Mischief",
 	AviarysFireworkFestival = "Aviary's Firework Festival",
 	DaysOfFeast = "Days of Feast",
@@ -176,6 +176,8 @@ export const enum EventName {
 	DaysOfNature = "Days of Nature",
 	DaysOfColour = "Days of Colour",
 }
+
+export const EVENT_NAME_VALUES = Object.values(EventName);
 
 export const EventNameToEventCurrencyEmoji = {
 	[EventName.DaysOfMischief]: EVENT_EMOJIS.Mischief,
