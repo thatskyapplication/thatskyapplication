@@ -25,7 +25,15 @@ import { todayDate } from "../Utility/dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { SeasonName, SeasonNameToSeasonalEmoji } from "../Utility/seasons.js";
-import { type SpiritType, SPIRIT_TYPE, SpiritName, SpiritTypeToString, NO_FRIENDSHIP_TREE_YET_TEXT, NO_FRIENDSHIP_TREE_TEXT, GUIDE_SPIRIT_IN_PROGRESS_TEXT } from "../Utility/spirits.js";
+import {
+	type SpiritType,
+	SPIRIT_TYPE,
+	SpiritName,
+	SpiritTypeToString,
+	NO_FRIENDSHIP_TREE_YET_TEXT,
+	NO_FRIENDSHIP_TREE_TEXT,
+	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
+} from "../Utility/spirits.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { SPIRITS } from "../spirits/index.js";
