@@ -24,11 +24,12 @@ import { isRealm } from "../../Utility/Utility.js";
 import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
+import { SeasonName } from "../../Utility/seasons.js";
 import { type SpiritType, SPIRIT_TYPE, SpiritName, SpiritTypeToString } from "../../Utility/spirits.js";
 import pg, { Table } from "../../pg.js";
 import pino from "../../pino.js";
 import Profile from "../Profile.js";
-import { isSeasonName, resolveSeason, SeasonName, SeasonNameToSeasonalEmoji } from "../Season/index.js";
+import { isSeasonName, resolveSeason, SeasonNameToSeasonalEmoji } from "../Season/index.js";
 import {
 	type ElderSpirit,
 	type GuideSpirit,

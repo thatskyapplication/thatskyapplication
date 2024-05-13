@@ -11,8 +11,8 @@ import {
 	OUTFIT_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
+import { SeasonName } from "../../../../Utility/seasons.js";
 import { SpiritCall, SpiritCallToEmoji, SpiritName } from "../../../../Utility/spirits.js";
-import { SeasonName } from "../../../Season/index.js";
 import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
 const call = SpiritCall.BabyManta;

@@ -1,8 +1,8 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { NECKLACE_EMOJIS, LARGE_PLACEABLE_PROPS_EMOJIS } from "../../../../Utility/emojis.js";
+import { SeasonName } from "../../../../Utility/seasons.js";
 import { SpiritName } from "../../../../Utility/spirits.js";
-import { SeasonName } from "../../../Season/index.js";
 import { type ItemsData, GuideSpirit } from "../../Base.js";
 
 export default new GuideSpirit({

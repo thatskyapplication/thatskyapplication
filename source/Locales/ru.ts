@@ -1,5 +1,5 @@
-import { SeasonName } from "../Structures/Season/index.js";
 import { Map, Realm } from "../Utility/Constants.js";
+import { SeasonName } from "../Utility/seasons.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {

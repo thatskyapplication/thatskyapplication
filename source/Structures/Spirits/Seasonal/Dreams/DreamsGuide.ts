@@ -2,8 +2,8 @@
 import { Collection } from "discord.js";
 import { Realm } from "../../../../Utility/Constants.js";
 import { CAPE_EMOJIS, FRIEND_ACTION_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import { SeasonName } from "../../../../Utility/seasons.js";
 import { FriendAction, SpiritName } from "../../../../Utility/spirits.js";
-import { SeasonName } from "../../../Season/index.js";
 import { type ItemsData, GuideSpirit } from "../../Base.js";
 
 export default new GuideSpirit({

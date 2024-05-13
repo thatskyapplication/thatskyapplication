@@ -1,0 +1,25 @@
+export enum SeasonName {
+	Gratitude = "Season of Gratitude",
+	Lightseekers = "Season of Lightseekers",
+	Belonging = "Season of Belonging",
+	Rhythm = "Season of Rhythm",
+	Enchantment = "Season of Enchantment",
+	Sanctuary = "Season of Sanctuary",
+	Prophecy = "Season of Prophecy",
+	Dreams = "Season of Dreams",
+	Assembly = "Season of Assembly",
+	LittlePrince = "Season of the Little Prince",
+	Flight = "Season of Flight",
+	Abyss = "Season of Abyss",
+	Performance = "Season of Performance",
+	Shattering = "Season of Shattering",
+	Aurora = "Season of AURORA",
+	Remembrance = "Season of Remembrance",
+	Passage = "The Season of Passage",
+	Moments = "The Season of Moments",
+	Revival = "Season of Revival",
+	NineColoredDeer = "Season of the Nine-Colored Deer",
+	Nesting = "Season of Nesting",
+}
+
+export const SEASON_NAME_VALUES = Object.values(SeasonName);

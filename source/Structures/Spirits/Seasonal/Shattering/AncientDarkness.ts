@@ -10,8 +10,8 @@ import {
 	NECKLACE_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
+import { SeasonName } from "../../../../Utility/seasons.js";
 import { SpiritName } from "../../../../Utility/spirits.js";
-import { SeasonName } from "../../../Season/index.js";
 import { type ItemsData, SeasonalSpirit } from "../../Base.js";
 
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;

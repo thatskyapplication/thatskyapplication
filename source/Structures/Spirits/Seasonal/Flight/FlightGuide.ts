@@ -8,8 +8,8 @@ import {
 	NECKLACE_EMOJIS,
 	OUTFIT_EMOJIS,
 } from "../../../../Utility/emojis.js";
+import { SeasonName } from "../../../../Utility/seasons.js";
 import { FriendAction, SpiritName } from "../../../../Utility/spirits.js";
-import { SeasonName } from "../../../Season/index.js";
 import { type ItemsData, GuideSpirit } from "../../Base.js";
 
 export default new GuideSpirit({

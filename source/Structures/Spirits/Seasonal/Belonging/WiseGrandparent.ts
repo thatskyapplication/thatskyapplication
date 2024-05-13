@@ -10,8 +10,8 @@ import {
 	SEASON_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
+import { SeasonName } from "../../../../Utility/seasons.js";
 import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../Utility/spirits.js";
-import { SeasonName } from "../../../Season/index.js";
 import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
 const stance = SpiritStance.Wise;

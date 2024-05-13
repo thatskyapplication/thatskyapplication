@@ -9,8 +9,8 @@ import {
 	NECKLACE_EMOJIS,
 	OUTFIT_EMOJIS,
 } from "../../../../Utility/emojis.js";
+import { SeasonName } from "../../../../Utility/seasons.js";
 import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../Utility/spirits.js";
-import { SeasonName } from "../../../Season/index.js";
 import { type ItemsData, GuideSpirit } from "../../Base.js";
 
 const emote1 = SpiritEmote.SilentClap;
