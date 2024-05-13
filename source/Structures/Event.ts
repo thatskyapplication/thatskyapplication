@@ -55,15 +55,12 @@ export class Event {
 		this.eventCurrencyPerDay = data.eventCurrencyPerDay;
 		this.eventCurrencyEmoji = EventNameToEventCurrencyEmoji[data.name];
 		this.offer = resolveOffer(data.offer.items);
-		// TODO: Remove ?.items.
-		this.maxItemsBit = this.resolveMaxItemsBit(data.offer?.items);
-		// TODO: Remove ?.hasInfographic.
-		this.imageURL = data.offer?.hasInfographic ?? true ? "https://cdn.thatskyapplication.com/hugs/1.gif" : null;
+		this.maxItemsBit = this.resolveMaxItemsBit(data.offer.items);
+		this.imageURL = data.offer.hasInfographic ?? true ? "https://cdn.thatskyapplication.com/hugs/1.gif" : null;
 	}
 
 	private resolveMaxItemsBit(offer: Collection<number, ItemRaw>) {
-		// TODO: Remove ?.reduce.
-		return offer?.reduce((bits, _, bit) => bit | bits, 0) ?? 0;
+		return offer.reduce((bits, _, bit) => bit | bits, 0) ?? 0;
 	}
 
 	public daysText(date: DateTime) {
