@@ -14,6 +14,7 @@ import {
 	TimestampStyles,
 } from "discord.js";
 import { t } from "i18next";
+import { SpiritTracker } from "../../Structures/SpiritTracker.js";
 import {
 	type ElderSpirit,
 	type GuideSpirit,
@@ -26,7 +27,6 @@ import {
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	resolveOfferToCurrency,
 } from "../../Structures/Spirits/Base.js";
-import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji } from "../../Utility/emojis.js";

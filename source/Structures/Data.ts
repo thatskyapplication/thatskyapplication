@@ -7,7 +7,7 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import type { ProfilePacket } from "./Profile.js";
 import Profile from "./Profile.js";
-import type { SpiritTrackerPacket } from "./Spirits/SpiritTracker.js";
+import type { SpiritTrackerPacket } from "./SpiritTracker.js";
 
 const DELETE_ERROR_MESSAGE =
 	`There was an issue deleting your user data. Don't worry, this incident is being tracked and has been converted into a manual data deletion request (as opposed to an automatic one). Your data will be deleted within 30 days.

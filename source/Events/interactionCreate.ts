@@ -60,7 +60,7 @@ import {
 	SPIRIT_TRACKER_VIEW_START_CUSTOM_ID,
 	SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID,
 	SpiritTracker,
-} from "../Structures/Spirits/SpiritTracker.js";
+} from "../Structures/SpiritTracker.js";
 import { ERROR_RESPONSE } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
 import pino from "../pino.js";

@@ -23,7 +23,7 @@ import pg, { Table } from "../pg.js";
 import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../spirits/realms/index.js";
 import { SEASON_SPIRITS, resolveBitsToSeasons } from "../spirits/seasons/index.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
-import { SpiritTracker } from "./Spirits/SpiritTracker.js";
+import { SpiritTracker } from "./SpiritTracker.js";
 
 export interface ProfilePacket {
 	user_id: Snowflake;

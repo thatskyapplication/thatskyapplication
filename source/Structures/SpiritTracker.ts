@@ -18,18 +18,18 @@ import {
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
 import { t } from "i18next";
-import type { RealmName } from "../../Utility/Constants.js";
-import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../../Utility/Constants.js";
-import { isRealm } from "../../Utility/Utility.js";
-import { todayDate } from "../../Utility/dates.js";
-import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../../Utility/emojis.js";
-import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
-import { SeasonName, SeasonNameToSeasonalEmoji } from "../../Utility/seasons.js";
-import { type SpiritType, SPIRIT_TYPE, SpiritName, SpiritTypeToString } from "../../Utility/spirits.js";
-import pg, { Table } from "../../pg.js";
-import pino from "../../pino.js";
-import { SPIRITS } from "../../spirits/index.js";
-import { ELDER_SPIRITS, REALMS, STANDARD_SPIRITS } from "../../spirits/realms/index.js";
+import type { RealmName } from "../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../Utility/Constants.js";
+import { isRealm } from "../Utility/Utility.js";
+import { todayDate } from "../Utility/dates.js";
+import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
+import { cannotUsePermissions } from "../Utility/permissionChecks.js";
+import { SeasonName, SeasonNameToSeasonalEmoji } from "../Utility/seasons.js";
+import { type SpiritType, SPIRIT_TYPE, SpiritName, SpiritTypeToString } from "../Utility/spirits.js";
+import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
+import { SPIRITS } from "../spirits/index.js";
+import { ELDER_SPIRITS, REALMS, STANDARD_SPIRITS } from "../spirits/realms/index.js";
 import {
 	SEASONS,
 	SEASON_SPIRITS,
@@ -37,8 +37,8 @@ import {
 	resolveReturningSpirits,
 	resolveSeason,
 	resolveTravellingSpirit,
-} from "../../spirits/seasons/index.js";
-import Profile from "../Profile.js";
+} from "../spirits/seasons/index.js";
+import Profile from "./Profile.js";
 import {
 	type ElderSpirit,
 	type GuideSpirit,
@@ -51,7 +51,7 @@ import {
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
-} from "./Base.js";
+} from "./Spirits/Base.js";
 
 type SpiritTrackerValue = number | null;
 
