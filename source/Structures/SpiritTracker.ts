@@ -1409,13 +1409,16 @@ export class SpiritTracker {
 		return pg<SpiritTrackerPacket>(Table.Catalogue).update(data).where({ user_id: userId }).returning("*");
 	}
 
-	private ownedProgress(spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit) {
+	private ownedProgress(spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit | Event) {
 		const resolvedOffer =
-			spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
+			spirit instanceof Event
+				? spirit.offer
+				: spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
 				? spirit.current
 				: spirit.current ?? spirit.seasonal;
 
-		const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
+		// TODO: Remove as.
+		const bit = this[SpiritNameToSpiritTrackerName[spirit.name as EventName.SkyXCinnamorollPopUpCafe]];
 
 		return {
 			owned: resolvedOffer?.filter((_, itemBit) => bit && (bit & itemBit) === itemBit).size ?? 0,
@@ -1432,7 +1435,7 @@ export class SpiritTracker {
 	}
 
 	public spiritProgress(
-		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
+		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit | Event)[],
 		round?: boolean,
 	) {
 		const numbers = [];
@@ -2190,14 +2193,14 @@ export class SpiritTracker {
 		);
 
 		if (offer) {
-			// buttons.addComponents(
-			// 	new ButtonBuilder()
-			// 		.setCustomId(`${SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID}§${spirit.name}`)
-			// 		.setDisabled(this.spiritProgress([spirit]) === 100)
-			// 		.setEmoji("💯")
-			// 		.setLabel("I have everything!")
-			// 		.setStyle(ButtonStyle.Success),
-			// );
+			buttons.addComponents(
+				new ButtonBuilder()
+					.setCustomId(`${SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID}§${event.name}`)
+					.setDisabled(this.spiritProgress([event]) === 100)
+					.setEmoji("💯")
+					.setLabel("I have everything!")
+					.setStyle(ButtonStyle.Success),
+			);
 
 			const itemSelectionOptions = offer.map(({ emoji, name }, flag) => {
 				const stringSelectMenuOption = new StringSelectMenuOptionBuilder()
