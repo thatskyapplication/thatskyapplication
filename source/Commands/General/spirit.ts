@@ -26,7 +26,7 @@ import {
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	resolveOfferToCurrency,
-} from "../../Structures/Spirits/Base.js";
+} from "../../Structures/Spirits.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji } from "../../Utility/emojis.js";

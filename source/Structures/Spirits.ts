@@ -3,10 +3,10 @@ import { URL } from "node:url";
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
-import { type RealmName, CDN_URL, WIKI_URL } from "../../Utility/Constants.js";
-import { skyDate } from "../../Utility/dates.js";
-import { type Emoji, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../../Utility/emojis.js";
-import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../../Utility/seasons.js";
+import { type RealmName, CDN_URL, WIKI_URL } from "../Utility/Constants.js";
+import { skyDate } from "../Utility/dates.js";
+import { type Emoji, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../Utility/emojis.js";
+import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../Utility/seasons.js";
 import {
 	type FriendAction,
 	type SpiritCall,
@@ -15,8 +15,8 @@ import {
 	type SpiritType,
 	SPIRIT_TYPE,
 	SpiritName,
-} from "../../Utility/spirits.js";
-import pino from "../../pino.js";
+} from "../Utility/spirits.js";
+import pino from "../pino.js";
 
 export type SeasonalSpiritVisitCollectionKey = number | "Error";
 

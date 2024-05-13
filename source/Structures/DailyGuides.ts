@@ -48,7 +48,7 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { SPIRITS } from "../spirits/index.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
-import type { SeasonalSpirit, StandardSpirit } from "./Spirits/Base.js";
+import type { SeasonalSpirit, StandardSpirit } from "./Spirits.js";
 
 export interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;

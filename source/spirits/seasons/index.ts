@@ -1,5 +1,5 @@
 import type { DateTime } from "luxon";
-import type { SeasonalSpirit } from "../../Structures/Spirits/Base.js";
+import type { SeasonalSpirit } from "../../Structures/Spirits.js";
 import { formatEmoji } from "../../Utility/emojis.js";
 import {
 	type SeasonName,

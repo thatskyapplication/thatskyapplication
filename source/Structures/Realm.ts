@@ -1,4 +1,4 @@
-import type { ElderSpirit, StandardSpirit, StandardSpiritRealm } from "./Spirits/Base.js";
+import type { ElderSpirit, StandardSpirit, StandardSpiritRealm } from "./Spirits.js";
 
 interface RealmData {
 	name: StandardSpiritRealm;

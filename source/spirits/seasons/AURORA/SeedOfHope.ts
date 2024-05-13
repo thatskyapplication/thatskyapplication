@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { type ItemsData, SeasonalSpirit } from "../../../Structures/Spirits/Base.js";
+import { type ItemsData, SeasonalSpirit } from "../../../Structures/Spirits.js";
 import { RealmName } from "../../../Utility/Constants.js";
 import { CAPE_EMOJIS, HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS, SEASON_EMOJIS } from "../../../Utility/emojis.js";
 import { SeasonName } from "../../../Utility/seasons.js";

@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { type ItemsData, GuideSpirit } from "../../../Structures/Spirits/Base.js";
+import { type ItemsData, GuideSpirit } from "../../../Structures/Spirits.js";
 import {
 	CAPE_EMOJIS,
 	FRIEND_ACTION_EMOJIS,

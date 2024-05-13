@@ -1,11 +1,7 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
-import {
-	type ItemsData,
-	type SeasonalSpiritVisitCollectionKey,
-	SeasonalSpirit,
-} from "../../../Structures/Spirits/Base.js";
+import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../../Structures/Spirits.js";
 import { RealmName } from "../../../Utility/Constants.js";
 import { skyDate } from "../../../Utility/dates.js";
 import { HELD_PROPS_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../Utility/emojis.js";

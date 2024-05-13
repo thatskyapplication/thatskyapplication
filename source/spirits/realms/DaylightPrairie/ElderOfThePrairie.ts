@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { type ItemsData, ElderSpirit } from "../../../Structures/Spirits/Base.js";
+import { type ItemsData, ElderSpirit } from "../../../Structures/Spirits.js";
 import { RealmName } from "../../../Utility/Constants.js";
 import { FACE_ACCESSORY_EMOJIS, HAIR_EMOJIS } from "../../../Utility/emojis.js";
 import { SpiritName } from "../../../Utility/spirits.js";

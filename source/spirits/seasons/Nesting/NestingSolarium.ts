@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { type ItemsData, SeasonalSpirit } from "../../../Structures/Spirits/Base.js";
+import { type ItemsData, SeasonalSpirit } from "../../../Structures/Spirits.js";
 import {
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 	MISCELLANEOUS_EMOJIS,

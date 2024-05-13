@@ -18,7 +18,7 @@ import {
 	SeasonNameToSeasonalCandleEmoji,
 	SeasonNameToSeasonalEmoji,
 } from "../Utility/seasons.js";
-import type { GuideSpirit, SeasonalSpirit } from "./Spirits/Base.js";
+import type { GuideSpirit, SeasonalSpirit } from "./Spirits.js";
 
 type SeasonalCandlesRotation = Readonly<{ rotation: Exclude<RotationNumber, 3>; realm: RealmName }[]>;
 

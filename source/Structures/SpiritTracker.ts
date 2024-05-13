@@ -51,7 +51,7 @@ import {
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
-} from "./Spirits/Base.js";
+} from "./Spirits.js";
 
 type SpiritTrackerValue = number | null;
 

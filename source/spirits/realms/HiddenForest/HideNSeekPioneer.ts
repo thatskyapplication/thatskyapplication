@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
-import { type ItemsData, StandardSpirit } from "../../../Structures/Spirits/Base.js";
+import { type ItemsData, StandardSpirit } from "../../../Structures/Spirits.js";
 import { RealmName } from "../../../Utility/Constants.js";
 import { HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../Utility/emojis.js";
 import { SpiritEmote, SpiritName, SpiritEmoteToEmoji } from "../../../Utility/spirits.js";
