@@ -1958,6 +1958,7 @@ export class SpiritTracker {
 			const percentage = spiritTracker.spiritProgress([event], true);
 
 			return new StringSelectMenuOptionBuilder()
+				.setEmoji(event.eventCurrencyEmoji)
 				.setLabel(
 					`${t(`events.${name}`, { lng: locale, ns: "general" })}${percentage === null ? "" : ` (${percentage}%)`}`,
 				)
