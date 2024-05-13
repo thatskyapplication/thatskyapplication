@@ -3,7 +3,6 @@ import { Event } from "../../../Structures/Event.js";
 import { CDN_URL } from "../../../Utility/Constants.js";
 import { EventName } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
-import { EVENT_EMOJIS } from "../../../Utility/emojis.js";
 
 export default new Event({
 	name: EventName.DaysOfBloom,
@@ -48,5 +47,4 @@ export default new Event({
 		},
 	],
 	eventCurrencyPerDay: 5,
-	eventCurrencyEmoji: EVENT_EMOJIS.Bloom,
 });

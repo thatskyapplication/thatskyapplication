@@ -1,5 +1,5 @@
 import type { DateTime } from "luxon";
-import type { EventName } from "../Utility/catalogue.js";
+import { type EventName, EventNameToEventCurrencyEmoji } from "../Utility/catalogue.js";
 import { type EventEmojis } from "../Utility/emojis.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
@@ -11,7 +11,6 @@ interface EventData {
 	eventCurrencyEnd?: DateTime;
 	url: string | readonly EventDataURL[] | null;
 	eventCurrencyPerDay: number;
-	eventCurrencyEmoji: EventEmojis;
 }
 
 interface EventDataURL {
@@ -41,7 +40,7 @@ export class Event {
 		this.eventCurrencyEnd = data.eventCurrencyEnd ?? data.end;
 		this.url = data.url;
 		this.eventCurrencyPerDay = data.eventCurrencyPerDay;
-		this.eventCurrencyEmoji = data.eventCurrencyEmoji;
+		this.eventCurrencyEmoji = EventNameToEventCurrencyEmoji[data.name];
 	}
 
 	public daysText(date: DateTime) {

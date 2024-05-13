@@ -12,6 +12,7 @@ import {
 	addCosts,
 	snakeCaseName,
 	wikiURL,
+	resolveOffer,
 } from "../Utility/catalogue.js";
 import { skyDate } from "../Utility/dates.js";
 import {
@@ -142,7 +143,7 @@ abstract class BaseFriendshipTree {
 	public imageURL: string | null;
 
 	public constructor({ name, offer }: BaseFriendshipTreeData) {
-		this.current = offer?.current ? this.resolveOffer(offer.current) : null;
+		this.current = offer?.current ? resolveOffer(offer.current) : null;
 
 		this.totalCost = this.current
 			? addCosts(this.current.map((item) => item.cost).filter((cost): cost is ItemCost => cost !== null))
@@ -150,23 +151,6 @@ abstract class BaseFriendshipTree {
 
 		this.maxItemsBit = offer?.current ? this.resolveMaxItemsBit(offer?.current) : null;
 		this.imageURL = (offer ? offer.hasInfographic ?? true : false) ? this.resolveImageURL(name) : null;
-	}
-
-	protected resolveOffer(items: Collection<number, ItemRaw>, seasonName?: SeasonName): Collection<number, Item> {
-		return items.mapValues((item) => {
-			return {
-				...item,
-				cost: item.cost
-					? {
-							...item.cost,
-							seasonalCandles:
-								seasonName && item.cost.seasonalCandles ? [{ cost: item.cost.seasonalCandles, seasonName }] : [],
-							seasonalHearts:
-								seasonName && item.cost.seasonalHearts ? [{ cost: item.cost.seasonalHearts, seasonName }] : [],
-					  }
-					: null,
-			};
-		});
 	}
 
 	protected resolveMaxItemsBit(offer: Collection<number, ItemRaw>) {
@@ -207,7 +191,10 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 
 	public constructor(seasonalFriendshipTreeData: SeasonalFriendshipTreeData) {
 		super(seasonalFriendshipTreeData);
-		this.seasonal = this.resolveOffer(seasonalFriendshipTreeData.offer.seasonal, seasonalFriendshipTreeData.season);
+
+		this.seasonal = resolveOffer(seasonalFriendshipTreeData.offer.seasonal, {
+			seasonName: seasonalFriendshipTreeData.season,
+		});
 
 		this.maxItemsBit = this.resolveMaxItemsBit(
 			seasonalFriendshipTreeData.offer.current ?? seasonalFriendshipTreeData.offer.seasonal,

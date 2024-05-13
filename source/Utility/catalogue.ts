@@ -1,7 +1,16 @@
 /* eslint-disable @typescript-eslint/prefer-literal-enum-member */
 import { URL } from "node:url";
+import type { Collection } from "discord.js";
 import { WIKI_URL } from "./Constants.js";
-import { type Emoji, type SeasonEmojis, MISCELLANEOUS_EMOJIS, SEASON_EMOJIS, resolveCurrencyEmoji } from "./emojis.js";
+import {
+	type Emoji,
+	type SeasonEmojis,
+	MISCELLANEOUS_EMOJIS,
+	SEASON_EMOJIS,
+	resolveCurrencyEmoji,
+	type EventEmojis,
+	EVENT_EMOJIS,
+} from "./emojis.js";
 
 export type RotationNumber = 1 | 2 | 3;
 export const SEASONAL_CANDLES_PER_DAY = 5 as const;
@@ -168,6 +177,16 @@ export const enum EventName {
 	DaysOfColour = "Days of Colour",
 }
 
+export const EventNameToEventCurrencyEmoji = {
+	[EventName.DaysOfMischief]: EVENT_EMOJIS.Mischief,
+	[EventName.AviarysFireworkFestival]: EVENT_EMOJIS.AviarysFireworkFestival,
+	[EventName.DaysOfFeast]: EVENT_EMOJIS.Feast,
+	[EventName.DaysOfFortune]: EVENT_EMOJIS.Fortune,
+	[EventName.DaysOfLove]: EVENT_EMOJIS.Love,
+	[EventName.DaysOfBloom]: EVENT_EMOJIS.Bloom,
+	[EventName.SkyXCinnamorollPopUpCafe]: EVENT_EMOJIS.SkyXCinnamorollPopUpCafe,
+} as const satisfies Readonly<Record<EventName, EventEmojis>>;
+
 export function snakeCaseName(name: string) {
 	return name.replaceAll(/[ '-]/g, "_").replaceAll(/[()]/g, "").replaceAll("×", "x").toLowerCase();
 }
@@ -184,6 +203,7 @@ export interface ItemCostRaw {
 	ascendedCandles?: number;
 	seasonalCandles?: number;
 	seasonalHearts?: number;
+	eventCurrency?: number;
 }
 
 export interface ItemCost {
@@ -192,11 +212,17 @@ export interface ItemCost {
 	ascendedCandles?: number;
 	seasonalCandles?: ItemCostSeasonal[];
 	seasonalHearts?: ItemCostSeasonal[];
+	eventCurrency?: ItemCostEvent[];
 }
 
 interface ItemCostSeasonal {
 	cost: number;
 	seasonName: SeasonName;
+}
+
+interface ItemCostEvent {
+	cost: number;
+	eventName: EventName;
 }
 
 export interface ItemRaw {
@@ -211,9 +237,35 @@ export interface Item {
 	emoji: Emoji;
 }
 
+interface ResolveOfferOptions {
+	seasonName?: SeasonName;
+	eventName?: EventName;
+}
+
+export function resolveOffer(items: Collection<number, ItemRaw>, { seasonName, eventName }: ResolveOfferOptions = {}) {
+	return items.mapValues((item) => {
+		return {
+			...item,
+			cost: item.cost
+				? {
+						...item.cost,
+						seasonalCandles:
+							seasonName && item.cost.seasonalCandles ? [{ cost: item.cost.seasonalCandles, seasonName }] : [],
+						seasonalHearts:
+							seasonName && item.cost.seasonalHearts ? [{ cost: item.cost.seasonalHearts, seasonName }] : [],
+						eventCurrency: eventName && item.cost.eventCurrency ? [{ cost: item.cost.eventCurrency, eventName }] : [],
+				  }
+				: null,
+		};
+	});
+}
+
 export function addCosts(items: ItemCost[]) {
 	return items.reduce<Required<ItemCost>>(
-		(total, { candles = 0, hearts = 0, ascendedCandles = 0, seasonalCandles = [], seasonalHearts = [] }) => {
+		(
+			total,
+			{ candles = 0, hearts = 0, ascendedCandles = 0, seasonalCandles = [], seasonalHearts = [], eventCurrency = [] },
+		) => {
 			total.candles += candles;
 			total.hearts += hearts;
 			total.ascendedCandles += ascendedCandles;
@@ -242,9 +294,20 @@ export function addCosts(items: ItemCost[]) {
 				}
 			}
 
+			for (const event of eventCurrency) {
+				const sameEvent = total.eventCurrency.findIndex(({ eventName }) => eventName === event.eventName);
+
+				if (sameEvent === -1) {
+					// Prevents mutation.
+					total.eventCurrency.push({ ...event });
+				} else {
+					total.eventCurrency.at(sameEvent)!.cost += event.cost;
+				}
+			}
+
 			return total;
 		},
-		{ candles: 0, hearts: 0, ascendedCandles: 0, seasonalCandles: [], seasonalHearts: [] },
+		{ candles: 0, hearts: 0, ascendedCandles: 0, seasonalCandles: [], seasonalHearts: [], eventCurrency: [] },
 	);
 }
 
@@ -285,6 +348,17 @@ export function resolveCostToString(cost: ItemCost) {
 							? SeasonNameToSeasonalHeartEmoji[seasonName]
 							: MISCELLANEOUS_EMOJIS.SeasonalHeart,
 					number: seasonalHearts.cost,
+				}),
+			);
+		}
+	}
+
+	if (cost.eventCurrency) {
+		for (const event of cost.eventCurrency) {
+			totalCost.push(
+				resolveCurrencyEmoji({
+					emoji: EventNameToEventCurrencyEmoji[event.eventName],
+					number: event.cost,
 				}),
 			);
 		}
