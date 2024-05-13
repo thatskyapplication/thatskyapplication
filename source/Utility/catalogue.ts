@@ -329,6 +329,7 @@ export function addCosts(items: ItemCost[]) {
 
 export function resolveCostToString(cost: ItemCost) {
 	const totalCost = [];
+	if (cost.money) totalCost.push(`$${cost.money} `);
 
 	if (cost.candles) {
 		totalCost.push(resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Candle, number: cost.candles }));

@@ -2195,16 +2195,37 @@ export class SpiritTracker {
 
 	public async viewEvent(interaction: ButtonInteraction | StringSelectMenuInteraction, event: Event) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		// const { locale } = interaction;
+		const { locale } = interaction;
 		const bit = this[SpiritNameToSpiritTrackerName[event.name]];
 		const { name, start, offer, imageURL } = event;
 
-		// const embed = this.spiritEmbed([spirit], locale)
-		// 	.setTitle(t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" }))
-		// 	.setURL(spirit.wikiURL);
+		const embed = new EmbedBuilder()
+			.setColor(DEFAULT_EMBED_COLOUR)
+			.setTitle(t(`events.${name}`, { lng: locale, ns: "general" }));
 
-		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(name);
-		const description = embed.data.description ? [embed.data.description] : [];
+		const description = [];
+		const owned = [];
+		const unowned = [];
+
+		for (const [flag, { emoji }] of offer.entries()) {
+			if (bit && (bit & flag) === flag) {
+				owned.push(formatEmoji(emoji));
+			} else {
+				unowned.push(formatEmoji(emoji));
+			}
+		}
+
+		if (owned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
+		if (unowned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
+		const remainingCurrency = this.remainingCurrency(event, true);
+
+		if (remainingCurrency) {
+			const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
+
+			if (resolvedRemainingCurrency.length > 0) {
+				description.push(`${resolvedRemainingCurrency.join("")}`);
+			}
+		}
 
 		if (imageURL) {
 			embed.setImage(imageURL);
@@ -2515,13 +2536,20 @@ export class SpiritTracker {
 	}
 
 	private remainingCurrency(
-		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
+		spiritOrEvent: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit | Event,
 		includeSeasonalCurrency?: boolean,
 	) {
-		const seasonalParsing = spirit.isSeasonalSpirit() && !spirit.current;
-		const resolvedOffer = seasonalParsing ? spirit.seasonal : spirit.current;
+		let resolvedOffer;
+
+		if (spiritOrEvent instanceof Event) {
+			resolvedOffer = spiritOrEvent.offer;
+		} else {
+			const seasonalParsing = spiritOrEvent.isSeasonalSpirit() && !spiritOrEvent.current;
+			resolvedOffer = seasonalParsing ? spiritOrEvent.seasonal : spiritOrEvent.current;
+		}
+
 		if (!resolvedOffer) return null;
-		const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
+		const bit = this[SpiritNameToSpiritTrackerName[spiritOrEvent.name]];
 
 		const result = addCosts(
 			resolvedOffer
