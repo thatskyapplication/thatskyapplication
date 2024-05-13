@@ -10,11 +10,7 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import { resolveEvents } from "../../Structures/Event.js";
-import {
-	SEASONAL_CANDLES_PER_DAY,
-	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
-	resolveSeason,
-} from "../../Structures/Season/index.js";
+import { resolveSeason } from "../../Structures/Season/index.js";
 import {
 	AREA_TO_WINGED_LIGHT_COUNT_VALUES,
 	AreaToWingedLightCount,
@@ -33,6 +29,7 @@ import {
 } from "../../Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
+import { SEASONAL_CANDLES_PER_DAY, SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS } from "../../Utility/seasons.js";
 import { shardEruption } from "../../Utility/shardEruption.js";
 import type { ChatInputCommand } from "../index.js";
 

@@ -26,6 +26,7 @@ import {
 	todayDate,
 } from "../Utility/dates.js";
 import { formatEmoji, formatEmojiURL, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../Utility/emojis.js";
+import type { RotationNumber } from "../Utility/seasons.js";
 import {
 	shardEruption,
 	shardEruptionInformationString,
@@ -36,7 +37,7 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
 import { plannedEvents, resolveEvents } from "./Event.js";
-import { type RotationNumber, nextSeason, resolveSeason } from "./Season/index.js";
+import { nextSeason, resolveSeason } from "./Season/index.js";
 
 export interface DailyGuidesDistributionPacket {
 	guild_id: Snowflake;
