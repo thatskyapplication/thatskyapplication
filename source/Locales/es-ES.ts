@@ -1,5 +1,5 @@
-import { SeasonName } from "../Structures/Season.js";
-import { Map, Realm } from "../Utility/Constants.js";
+import { Map, RealmName } from "../Utility/Constants.js";
+import { SeasonName } from "../Utility/seasons.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {
@@ -10,13 +10,13 @@ export default {
 			season_other: "Restan {{count}} días en la temporada.",
 		},
 		realms: {
-			[Realm.IslesOfDawn]: "Isla del Amanecer",
-			[Realm.DaylightPrairie]: "Planicie Luz de Dia",
-			[Realm.HiddenForest]: "Bosque Escondido",
-			[Realm.ValleyOfTriumph]: "Valle del Triunfo",
-			[Realm.GoldenWasteland]: "Páramo Dorado",
-			[Realm.VaultOfKnowledge]: "Bóveda de Conocimiento",
-			[Realm.EyeOfEden]: "Ojo de edén",
+			[RealmName.IslesOfDawn]: "Isla del Amanecer",
+			[RealmName.DaylightPrairie]: "Planicie Luz de Dia",
+			[RealmName.HiddenForest]: "Bosque Escondido",
+			[RealmName.ValleyOfTriumph]: "Valle del Triunfo",
+			[RealmName.GoldenWasteland]: "Páramo Dorado",
+			[RealmName.VaultOfKnowledge]: "Bóveda de Conocimiento",
+			[RealmName.EyeOfEden]: "Ojo de edén",
 		},
 		maps: {
 			[Map.AncientMemory]: "Recuerdo Ancestral",

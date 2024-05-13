@@ -1,19 +1,19 @@
 import { NotificationEvent } from "../Structures/Notification.js";
-import { SeasonName } from "../Structures/Season.js";
-import { Map, Realm } from "../Utility/Constants.js";
+import { Map, RealmName } from "../Utility/Constants.js";
+import { SeasonName } from "../Utility/seasons.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {
 	general: {
 		"event-currency": "Devise d'Événement",
 		realms: {
-			[Realm.IslesOfDawn]: "Île de l'aube",
-			[Realm.DaylightPrairie]: "Prairie illuminée",
-			[Realm.HiddenForest]: "Forêt cachée",
-			[Realm.ValleyOfTriumph]: "Vallée du triomphe",
-			[Realm.GoldenWasteland]: "Désert d'or",
-			[Realm.VaultOfKnowledge]: "Chambre forte de connaissance",
-			[Realm.EyeOfEden]: "Œil d'Éden",
+			[RealmName.IslesOfDawn]: "Île de l'aube",
+			[RealmName.DaylightPrairie]: "Prairie illuminée",
+			[RealmName.HiddenForest]: "Forêt cachée",
+			[RealmName.ValleyOfTriumph]: "Vallée du triomphe",
+			[RealmName.GoldenWasteland]: "Désert d'or",
+			[RealmName.VaultOfKnowledge]: "Chambre forte de connaissance",
+			[RealmName.EyeOfEden]: "Œil d'Éden",
 		},
 		maps: { [Map.JellyfishCove]: "Crique aux Méduses" },
 		notificationEvent: {

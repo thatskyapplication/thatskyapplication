@@ -1,6 +1,6 @@
 import { NOTIFICATION_EVENT_VALUES } from "../Structures/Notification.js";
-import { SEASON_NAME_VALUES } from "../Structures/Season.js";
-import { MAP_VALUES, REALM_VALUES } from "../Utility/Constants.js";
+import { MAP_VALUES, REALM_NAME_VALUES } from "../Utility/Constants.js";
+import { SEASON_NAME_VALUES } from "../Utility/seasons.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {
@@ -11,7 +11,7 @@ export default {
 			season_other: "{{count}} days left in the season.",
 		},
 		"event-currency": "Event Currency",
-		realms: Object.fromEntries(REALM_VALUES.map((realm) => [realm, realm])),
+		realms: Object.fromEntries(REALM_NAME_VALUES.map((realmName) => [realmName, realmName])),
 		maps: Object.fromEntries(MAP_VALUES.map((map) => [map, map])),
 		notificationEvent: Object.fromEntries(
 			NOTIFICATION_EVENT_VALUES.map((notificationEvent) => [notificationEvent, notificationEvent]),

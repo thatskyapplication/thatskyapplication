@@ -1,17 +1,17 @@
-import { SeasonName } from "../Structures/Season.js";
-import { Map, Realm } from "../Utility/Constants.js";
+import { Map, RealmName } from "../Utility/Constants.js";
+import { SeasonName } from "../Utility/seasons.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {
 	general: {
 		realms: {
-			[Realm.IslesOfDawn]: "Isola dell'Alba",
-			[Realm.DaylightPrairie]: "Prateria Diurna",
-			[Realm.HiddenForest]: "Foresta Nascosta",
-			[Realm.ValleyOfTriumph]: "Valle del Trionfo",
-			[Realm.GoldenWasteland]: "Deserto Dorato",
-			[Realm.VaultOfKnowledge]: "Cupola della Conoscenza",
-			[Realm.EyeOfEden]: "Occhio di Eden",
+			[RealmName.IslesOfDawn]: "Isola dell'Alba",
+			[RealmName.DaylightPrairie]: "Prateria Diurna",
+			[RealmName.HiddenForest]: "Foresta Nascosta",
+			[RealmName.ValleyOfTriumph]: "Valle del Trionfo",
+			[RealmName.GoldenWasteland]: "Deserto Dorato",
+			[RealmName.VaultOfKnowledge]: "Cupola della Conoscenza",
+			[RealmName.EyeOfEden]: "Occhio di Eden",
 		},
 		maps: { [Map.JellyfishCove]: "Baia delle Meduse" },
 		seasons: {

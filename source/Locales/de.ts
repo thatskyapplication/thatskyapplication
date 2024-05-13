@@ -1,17 +1,17 @@
-import { SeasonName } from "../Structures/Season.js";
-import { Map, Realm } from "../Utility/Constants.js";
+import { Map, RealmName } from "../Utility/Constants.js";
+import { SeasonName } from "../Utility/seasons.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {
 	general: {
 		realms: {
-			[Realm.IslesOfDawn]: "Insel der Dämmerung",
-			[Realm.DaylightPrairie]: "Tageslichtprärie",
-			[Realm.HiddenForest]: "Verborgener Wald",
-			[Realm.ValleyOfTriumph]: "Tal des Triumphs",
-			[Realm.GoldenWasteland]: "Goldene Ödnis",
-			[Realm.VaultOfKnowledge]: "Tresor des Wissens",
-			[Realm.EyeOfEden]: "Auge von Eden",
+			[RealmName.IslesOfDawn]: "Insel der Dämmerung",
+			[RealmName.DaylightPrairie]: "Tageslichtprärie",
+			[RealmName.HiddenForest]: "Verborgener Wald",
+			[RealmName.ValleyOfTriumph]: "Tal des Triumphs",
+			[RealmName.GoldenWasteland]: "Goldene Ödnis",
+			[RealmName.VaultOfKnowledge]: "Tresor des Wissens",
+			[RealmName.EyeOfEden]: "Auge von Eden",
 		},
 		maps: { [Map.JellyfishCove]: "Quallenbucht" },
 		seasons: {

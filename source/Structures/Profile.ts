@@ -20,12 +20,10 @@ import S3Client from "../S3Client.js";
 import { CDN_BUCKET, CDN_URL, DEFAULT_EMBED_COLOUR, MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
 import { formatEmoji, formatEmojiURL, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
 import pg, { Table } from "../pg.js";
+import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../spirits/realms/index.js";
+import { SEASON_SPIRITS, resolveBitsToSeasons } from "../spirits/seasons/index.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
-import { resolveBitsToSeasons } from "./Season.js";
-import Elder from "./Spirits/Elder/index.js";
-import Seasonal from "./Spirits/Seasonal/index.js";
-import { SpiritTracker } from "./Spirits/SpiritTracker.js";
-import Standard from "./Spirits/Standard/index.js";
+import { SpiritTracker } from "./SpiritTracker.js";
 
 export interface ProfilePacket {
 	user_id: Snowflake;
@@ -446,9 +444,9 @@ export default class Profile {
 
 		if (typeof spiritProgression === "boolean") {
 			const spiritTracker = await SpiritTracker.fetch(userId).catch(() => null);
-			const standardProgress = spiritTracker?.spiritProgress(Standard, true) ?? 0;
-			const elderProgress = spiritTracker?.spiritProgress(Elder, true) ?? 0;
-			const seasonalProgress = spiritTracker?.spiritProgress(Seasonal, true) ?? 0;
+			const standardProgress = spiritTracker?.spiritProgress(STANDARD_SPIRITS, true) ?? 0;
+			const elderProgress = spiritTracker?.spiritProgress(ELDER_SPIRITS, true) ?? 0;
+			const seasonalProgress = spiritTracker?.spiritProgress(SEASON_SPIRITS, true) ?? 0;
 
 			fields.push({
 				name: "Spirit Progression",

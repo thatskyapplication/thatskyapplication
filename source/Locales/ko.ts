@@ -1,17 +1,17 @@
-import { SeasonName } from "../Structures/Season.js";
-import { Map, Realm } from "../Utility/Constants.js";
+import { Map, RealmName } from "../Utility/Constants.js";
+import { SeasonName } from "../Utility/seasons.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {
 	general: {
 		realms: {
-			[Realm.IslesOfDawn]: "여명의 섬",
-			[Realm.DaylightPrairie]: "햇빛 초원",
-			[Realm.HiddenForest]: "비밀의 숲",
-			[Realm.ValleyOfTriumph]: "승리의 계곡",
-			[Realm.GoldenWasteland]: "황금 황무지",
-			[Realm.VaultOfKnowledge]: "지식의 도서관",
-			[Realm.EyeOfEden]: "에덴의 눈",
+			[RealmName.IslesOfDawn]: "여명의 섬",
+			[RealmName.DaylightPrairie]: "햇빛 초원",
+			[RealmName.HiddenForest]: "비밀의 숲",
+			[RealmName.ValleyOfTriumph]: "승리의 계곡",
+			[RealmName.GoldenWasteland]: "황금 황무지",
+			[RealmName.VaultOfKnowledge]: "지식의 도서관",
+			[RealmName.EyeOfEden]: "에덴의 눈",
 		},
 		maps: { [Map.JellyfishCove]: "해파리 만" },
 		seasons: {

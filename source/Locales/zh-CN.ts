@@ -1,17 +1,17 @@
-import { SeasonName } from "../Structures/Season.js";
-import { Map, Realm } from "../Utility/Constants.js";
+import { Map, RealmName } from "../Utility/Constants.js";
+import { SeasonName } from "../Utility/seasons.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {
 	general: {
 		realms: {
-			[Realm.IslesOfDawn]: "晨岛",
-			[Realm.DaylightPrairie]: "云野",
-			[Realm.HiddenForest]: "雨林",
-			[Realm.ValleyOfTriumph]: "霞谷",
-			[Realm.GoldenWasteland]: "暮土",
-			[Realm.VaultOfKnowledge]: "禁阁",
-			[Realm.EyeOfEden]: "暴风眼",
+			[RealmName.IslesOfDawn]: "晨岛",
+			[RealmName.DaylightPrairie]: "云野",
+			[RealmName.HiddenForest]: "雨林",
+			[RealmName.ValleyOfTriumph]: "霞谷",
+			[RealmName.GoldenWasteland]: "暮土",
+			[RealmName.VaultOfKnowledge]: "禁阁",
+			[RealmName.EyeOfEden]: "暴风眼",
 		},
 		maps: { [Map.JellyfishCove]: "水母湾区" },
 		seasons: {

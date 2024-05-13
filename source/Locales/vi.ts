@@ -1,17 +1,17 @@
-import { SeasonName } from "../Structures/Season.js";
-import { Map, Realm } from "../Utility/Constants.js";
+import { Map, RealmName } from "../Utility/Constants.js";
+import { SeasonName } from "../Utility/seasons.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {
 	general: {
 		realms: {
-			[Realm.IslesOfDawn]: "Đảo Bình Minh",
-			[Realm.DaylightPrairie]: "Thảo Nguyên Ánh Sáng",
-			[Realm.HiddenForest]: "Rừng Mưa",
-			[Realm.ValleyOfTriumph]: "Thung Lũng Vinh Quang",
-			[Realm.GoldenWasteland]: "Hoang Mạc Hoàng Kim",
-			[Realm.VaultOfKnowledge]: "Kho Tri Thức",
-			[Realm.EyeOfEden]: "Mắt Địa Đàng",
+			[RealmName.IslesOfDawn]: "Đảo Bình Minh",
+			[RealmName.DaylightPrairie]: "Thảo Nguyên Ánh Sáng",
+			[RealmName.HiddenForest]: "Rừng Mưa",
+			[RealmName.ValleyOfTriumph]: "Thung Lũng Vinh Quang",
+			[RealmName.GoldenWasteland]: "Hoang Mạc Hoàng Kim",
+			[RealmName.VaultOfKnowledge]: "Kho Tri Thức",
+			[RealmName.EyeOfEden]: "Mắt Địa Đàng",
 		},
 		maps: { [Map.JellyfishCove]: "Vịnh Sứa" },
 		seasons: {

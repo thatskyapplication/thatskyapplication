@@ -19,9 +19,9 @@ import {
 } from "discord.js";
 import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
+import { SeasonName } from "../Utility/seasons.js";
 import type { ShardEruptionData } from "../Utility/shardEruption.js";
 import pg, { Table } from "../pg.js";
-import { SeasonName } from "./Season.js";
 
 export interface NotificationPacket {
 	guild_id: Snowflake;

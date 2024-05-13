@@ -1,17 +1,17 @@
-import { SeasonName } from "../Structures/Season.js";
-import { Map, Realm } from "../Utility/Constants.js";
+import { Map, RealmName } from "../Utility/Constants.js";
+import { SeasonName } from "../Utility/seasons.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {
 	general: {
 		realms: {
-			[Realm.IslesOfDawn]: "Ilha do Alvorecer",
-			[Realm.DaylightPrairie]: "Campina da Aurora",
-			[Realm.HiddenForest]: "Floresta Oculta",
-			[Realm.ValleyOfTriumph]: "Vale do Triunfo",
-			[Realm.GoldenWasteland]: "Sertão Dourado",
-			[Realm.VaultOfKnowledge]: "Relicário do Conhecimento",
-			[Realm.EyeOfEden]: "Olho de Éden",
+			[RealmName.IslesOfDawn]: "Ilha do Alvorecer",
+			[RealmName.DaylightPrairie]: "Campina da Aurora",
+			[RealmName.HiddenForest]: "Floresta Oculta",
+			[RealmName.ValleyOfTriumph]: "Vale do Triunfo",
+			[RealmName.GoldenWasteland]: "Sertão Dourado",
+			[RealmName.VaultOfKnowledge]: "Relicário do Conhecimento",
+			[RealmName.EyeOfEden]: "Olho de Éden",
 		},
 		maps: { [Map.JellyfishCove]: "Enseada das Águas-vivas" },
 		seasons: {
