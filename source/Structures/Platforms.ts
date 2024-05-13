@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/prefer-literal-enum-member, unicorn/prefer-math-trunc */
+/* eslint-disable @typescript-eslint/prefer-literal-enum-member */
 import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
 
 enum PlatformFlags {

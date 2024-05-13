@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../../../Structures/Spirits.js";

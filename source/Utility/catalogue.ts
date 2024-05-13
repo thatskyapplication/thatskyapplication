@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/prefer-literal-enum-member, unicorn/prefer-math-trunc */
+/* eslint-disable @typescript-eslint/prefer-literal-enum-member */
 import { type Emoji, type SeasonEmojis, SEASON_EMOJIS } from "./emojis.js";
 
 export type RotationNumber = 1 | 2 | 3;

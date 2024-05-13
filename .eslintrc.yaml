@@ -18,3 +18,4 @@ rules:
   "@typescript-eslint/sort-type-union-intersection-members": 0
   "typescript-sort-keys/interface": 0
   "typescript-sort-keys/string-enum": 0
+  unicorn/prefer-math-trunc: 0

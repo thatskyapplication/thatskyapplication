@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prefer-math-trunc */
 import { Collection } from "discord.js";
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
