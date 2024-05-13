@@ -4,7 +4,6 @@ import type { DateTime } from "luxon";
 import { Realm } from "../../../../Utility/Constants.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
-	CALL_EMOJIS,
 	CAPE_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
@@ -12,14 +11,14 @@ import {
 	OUTFIT_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritCall, SpiritName } from "../../../../Utility/spirits.js";
+import { SpiritCall, SpiritCallToEmoji, SpiritName } from "../../../../Utility/spirits.js";
 import { SeasonName } from "../../../Season.js";
 import { type ItemsData, type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../Base.js";
 
 const call = SpiritCall.BabyManta;
+const callEmoji = SpiritCallToEmoji[call];
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const colourTrail = MISCELLANEOUS_EMOJIS.SpellColourTrail;
-const callEmoji = CALL_EMOJIS.BabyManta;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit27;
 const hairEmoji = HAIR_EMOJIS.Hair93;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory09;
