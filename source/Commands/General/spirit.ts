@@ -22,9 +22,6 @@ import {
 	type SeasonalSpiritVisitReturningData,
 	type SeasonalSpiritVisitTravellingData,
 	type StandardSpirit,
-	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
-	NO_FRIENDSHIP_TREE_TEXT,
-	NO_FRIENDSHIP_TREE_YET_TEXT,
 	resolveOfferToCurrency,
 } from "../../Structures/Spirits.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
@@ -34,6 +31,9 @@ import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { SeasonName, SeasonNameToSeasonalEmoji } from "../../Utility/seasons.js";
 import {
 	FriendActionToEmoji,
+	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
+	NO_FRIENDSHIP_TREE_TEXT,
+	NO_FRIENDSHIP_TREE_YET_TEXT,
 	SpiritCallToEmoji,
 	SpiritEmoteToEmoji,
 	SpiritStanceToEmoji,

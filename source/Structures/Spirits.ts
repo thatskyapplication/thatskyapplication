@@ -139,10 +139,6 @@ interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
 	season: SeasonName;
 }
 
-export const NO_FRIENDSHIP_TREE_TEXT = "This spirit does not have a friendship tree." as const;
-export const NO_FRIENDSHIP_TREE_YET_TEXT = "This spirit does not have a friendship tree. Maybe it should?" as const;
-export const GUIDE_SPIRIT_IN_PROGRESS_TEXT = "This spirit's friendship tree has not been fully revealed." as const;
-
 export function addCurrency(currency1: SpiritCost, currency2: SpiritCost): Required<SpiritCost> {
 	return {
 		candles: (currency1.candles ?? 0) + (currency2.candles ?? 0),
