@@ -17,7 +17,7 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import { DEFAULT_EMBED_COLOUR, Realm } from "../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR, RealmName } from "../Utility/Constants.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
@@ -35,9 +35,9 @@ import {
 import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
+import { nextSeason, resolveSeason } from "../spirits/seasons/index.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
 import { plannedEvents, resolveEvents } from "./Event.js";
-import { nextSeason, resolveSeason } from "./Season/index.js";
 
 export interface DailyGuidesDistributionPacket {
 	guild_id: Snowflake;
@@ -313,11 +313,11 @@ export default class DailyGuidesDistribution {
 			let number = 1;
 
 			for (const hashes of [
-				treasureCandles[Realm.DaylightPrairie],
-				treasureCandles[Realm.HiddenForest],
-				treasureCandles[Realm.ValleyOfTriumph],
-				treasureCandles[Realm.GoldenWasteland],
-				treasureCandles[Realm.VaultOfKnowledge],
+				treasureCandles[RealmName.DaylightPrairie],
+				treasureCandles[RealmName.HiddenForest],
+				treasureCandles[RealmName.ValleyOfTriumph],
+				treasureCandles[RealmName.GoldenWasteland],
+				treasureCandles[RealmName.VaultOfKnowledge],
 			]) {
 				if (hashes.length === 0) continue;
 
@@ -341,28 +341,36 @@ export default class DailyGuidesDistribution {
 
 		if (season) {
 			const { candleEmoji, emoji } = season;
-			const { rotation, realm } = season.resolveSeasonalCandlesRotation(today);
+			const seasonalCandlesRotation = season.resolveSeasonalCandlesRotation(today);
+			const values = [];
 			seasonFooterText = season.daysLeft(today, locale);
 			iconURL = formatEmojiURL(emoji.id);
-			let rotationNumber: RotationNumber = rotation;
 
-			if (isDuring(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, today)) {
-				rotationNumber = 3;
+			if (seasonalCandlesRotation) {
+				const { rotation, realm } = seasonalCandlesRotation;
+				let rotationNumber: RotationNumber = rotation;
+
+				if (isDuring(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, today)) {
+					rotationNumber = 3;
+				}
+
+				const url = season.seasonalCandlesRotationURL(realm, rotationNumber);
+				values.push(hyperlink(`Rotation ${rotationNumber}`, url));
 			}
 
-			const url = season.seasonalCandlesRotationURL(realm, rotationNumber);
 			const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } = season.remainingSeasonalCandles(today);
 
-			embed.addFields({
-				name: "Seasonal Candles",
-				value: `${hyperlink(`Rotation ${rotationNumber}`, url)}\n${resolveCurrencyEmoji({
+			values.push(
+				`${resolveCurrencyEmoji({
 					emoji: candleEmoji,
 					number: seasonalCandlesLeft,
 				})} remain in the season.\n${resolveCurrencyEmoji({
 					emoji: candleEmoji,
 					number: seasonalCandlesLeftWithSeasonPass,
 				})} remain in the season with a Season Pass.`,
-			});
+			);
+
+			embed.addFields({ name: "Seasonal Candles", value: values.join("\n") });
 		} else {
 			const next = nextSeason(today);
 

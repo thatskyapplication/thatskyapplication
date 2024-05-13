@@ -18,7 +18,7 @@ import {
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
 import { t } from "i18next";
-import type { Realm } from "../../Utility/Constants.js";
+import type { RealmName } from "../../Utility/Constants.js";
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../../Utility/Constants.js";
 import { isRealm } from "../../Utility/Utility.js";
 import { todayDate } from "../../Utility/dates.js";
@@ -28,8 +28,17 @@ import { SeasonName, SeasonNameToSeasonalEmoji } from "../../Utility/seasons.js"
 import { type SpiritType, SPIRIT_TYPE, SpiritName, SpiritTypeToString } from "../../Utility/spirits.js";
 import pg, { Table } from "../../pg.js";
 import pino from "../../pino.js";
+import { SPIRITS } from "../../spirits/index.js";
+import { ELDER_SPIRITS, REALMS, STANDARD_SPIRITS } from "../../spirits/realms/index.js";
+import {
+	SEASONS,
+	SEASON_SPIRITS,
+	isSeasonName,
+	resolveReturningSpirits,
+	resolveSeason,
+	resolveTravellingSpirit,
+} from "../../spirits/seasons/index.js";
 import Profile from "../Profile.js";
-import { isSeasonName, resolveSeason } from "../Season/index.js";
 import {
 	type ElderSpirit,
 	type GuideSpirit,
@@ -43,10 +52,6 @@ import {
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 } from "./Base.js";
-import Elder from "./Elder/index.js";
-import Seasonal from "./Seasonal/index.js";
-import Standard from "./Standard/index.js";
-import Spirits, { resolveReturningSpirits, resolveTravellingSpirit } from "./index.js";
 
 type SpiritTrackerValue = number | null;
 
@@ -749,13 +754,13 @@ export const SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT
 const SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT = 25 as const;
 const SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE = "Averages are calculated even beyond the second wing buff." as const;
 
-const validRealms = Standard.reduce<StandardSpiritRealm[]>((realms, { realm }) => {
-	if (!realms.includes(realm)) realms.push(realm);
+const validRealms = REALMS.reduce<StandardSpiritRealm[]>((realms, { name, spirits }) => {
+	if (spirits.length > 0) realms.push(name);
 	return realms;
 }, []);
 
-const validSeasons = Seasonal.reduce<SeasonName[]>((seasons, { season }) => {
-	if (!seasons.includes(season)) seasons.push(season);
+const validSeasons = SEASONS.reduce<SeasonName[]>((seasons, { name, guide, spirits }) => {
+	if (guide || spirits.length > 0) seasons.push(name);
 	return seasons;
 }, []);
 
@@ -1290,7 +1295,7 @@ export class SpiritTracker {
 
 		await this.update(
 			user.id,
-			Standard.filter((spirit) => spirit.realm === realm).reduce<SpiritTracketSetData>((data, spirit) => {
+			STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm).reduce<SpiritTracketSetData>((data, spirit) => {
 				data[SpiritTrackerNameToRawName[spirit.name]] = spirit.maxItemsBit;
 				return data;
 			}, {}),
@@ -1304,7 +1309,7 @@ export class SpiritTracker {
 
 		await this.update(
 			interaction.user.id,
-			Elder.reduce<SpiritTracketSetData>((data, spirit) => {
+			ELDER_SPIRITS.reduce<SpiritTracketSetData>((data, spirit) => {
 				data[SpiritTrackerNameToRawName[spirit.name]] = spirit.maxItemsBit;
 				return data;
 			}, {}),
@@ -1324,7 +1329,7 @@ export class SpiritTracker {
 
 		await this.update(
 			user.id,
-			Seasonal.filter((spirit) => spirit.season === season).reduce<SpiritTracketSetData>((data, spirit) => {
+			SEASON_SPIRITS.filter((spirit) => spirit.season === season).reduce<SpiritTracketSetData>((data, spirit) => {
 				data[SpiritTrackerNameToRawName[spirit.name]] = spirit.maxItemsBit;
 				return data;
 			}, {}),
@@ -1338,13 +1343,13 @@ export class SpiritTracker {
 		const spiritTracker = await this.fetch(interaction.user.id);
 		const { customId } = interaction;
 		const spiritName = customId.slice(customId.indexOf("§") + 1) as SpiritName;
-		const spirit = Spirits.find(({ name }) => name === spiritName)!;
+		const spirit = SPIRITS.find(({ name }) => name === spiritName)!;
 		let newBit;
 
 		if (interaction instanceof ButtonInteraction) {
 			newBit = spirit.maxItemsBit;
 		} else {
-			// Get the select menu this interaction came from.
+			// Get the select menu where this interaction came from.
 			const { component } = interaction;
 
 			// Calculate the total bit in this select menu.
@@ -1422,9 +1427,9 @@ export class SpiritTracker {
 			);
 		}
 
-		const standardProgress = spiritTracker.spiritProgress(Standard, true);
-		const elderProgress = spiritTracker.spiritProgress(Elder, true);
-		const seasonalProgress = spiritTracker.spiritProgress(Seasonal, true);
+		const standardProgress = spiritTracker.spiritProgress(STANDARD_SPIRITS, true);
+		const elderProgress = spiritTracker.spiritProgress(ELDER_SPIRITS, true);
+		const seasonalProgress = spiritTracker.spiritProgress(SEASON_SPIRITS, true);
 		const today = todayDate();
 		const currentSeason = resolveSeason(today);
 		const currentTravellingSpirit = resolveTravellingSpirit(today);
@@ -1553,7 +1558,7 @@ export class SpiritTracker {
 						.setOptions(
 							validRealms.map((realm) => {
 								const percentage = spiritTracker.spiritProgress(
-									Standard.filter((spirit) => spirit.realm === realm),
+									STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm),
 									true,
 								);
 
@@ -1591,11 +1596,11 @@ export class SpiritTracker {
 		});
 	}
 
-	public static async viewRealm(interaction: ButtonInteraction | StringSelectMenuInteraction, realm: Realm) {
+	public static async viewRealm(interaction: ButtonInteraction | StringSelectMenuInteraction, realm: RealmName) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale, user } = interaction;
 		const spiritTracker = await this.fetch(user.id);
-		const spirits = Standard.filter((spirit) => spirit.realm === realm);
+		const spirits = STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm);
 		let hasEverything = true;
 
 		const options = spirits.map((spirit) => {
@@ -1659,7 +1664,7 @@ export class SpiritTracker {
 		const spiritTracker = await this.fetch(user.id);
 		let hasEverything = true;
 
-		const options = Elder.map((spirit) => {
+		const options = ELDER_SPIRITS.map((spirit) => {
 			const percentage = spiritTracker.spiritProgress([spirit], true);
 			if (percentage !== null && percentage !== 100) hasEverything = false;
 
@@ -1703,7 +1708,7 @@ export class SpiritTracker {
 						.setStyle(ButtonStyle.Success),
 				),
 			],
-			embeds: [spiritTracker.spiritEmbed(Elder, locale).setTitle("Elders")],
+			embeds: [spiritTracker.spiritEmbed(ELDER_SPIRITS, locale).setTitle("Elders")],
 		});
 	}
 
@@ -1723,7 +1728,7 @@ export class SpiritTracker {
 						.setOptions(
 							validSeasons.map((season) => {
 								const percentage = spiritTracker.spiritProgress(
-									Seasonal.filter((spirit) => spirit.season === season),
+									SEASON_SPIRITS.filter((spirit) => spirit.season === season),
 									true,
 								);
 
@@ -1756,7 +1761,7 @@ export class SpiritTracker {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale, user } = interaction;
 		const spiritTracker = await this.fetch(user.id);
-		const spirits = Seasonal.filter((spirit) => spirit.season === season);
+		const spirits = SEASON_SPIRITS.filter((spirit) => spirit.season === season);
 		let hasEverything = true;
 
 		const options = spirits.map((spirit) => {
@@ -1881,7 +1886,7 @@ export class SpiritTracker {
 				? interaction.customId.slice(interaction.customId.indexOf("§") + 1)
 				: interaction.values[0];
 
-		const spirit = Spirits.find(({ name }) => name === parsedCustomId);
+		const spirit = SPIRITS.find(({ name }) => name === parsedCustomId);
 
 		if (!spirit) {
 			await interaction.update({
@@ -2091,7 +2096,9 @@ export class SpiritTracker {
 		return new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setDescription(
 			validRealms
 				.map((validRealm) => {
-					const remainingCurrency = this.summateCurrency(Standard.filter((spirit) => spirit.realm === validRealm));
+					const remainingCurrency = this.summateCurrency(
+						STANDARD_SPIRITS.filter((spirit) => spirit.realm === validRealm),
+					);
 
 					return `__${t(`realms.${validRealm}`, { lng: locale, ns: "general" })}__\n${
 						remainingCurrency.length > 0 ? remainingCurrency.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
@@ -2148,7 +2155,7 @@ export class SpiritTracker {
 
 			embed = spiritTracker
 				.spiritEmbed(
-					Standard.filter((spirit) => spirit.realm === type),
+					STANDARD_SPIRITS.filter((spirit) => spirit.realm === type),
 					locale,
 				)
 				.setTitle(`${type} Progress`);
@@ -2158,13 +2165,13 @@ export class SpiritTracker {
 
 			embed = spiritTracker
 				.spiritEmbed(
-					Seasonal.filter((spirit) => spirit.season === type),
+					SEASON_SPIRITS.filter((spirit) => spirit.season === type),
 					locale,
 				)
 				.setTitle(`${formatEmoji(emoji)} ${t(`seasons.${type}`, { lng: locale, ns: "general" })} Progress`);
 		} else if (type === SPIRIT_TRACKER_SHARE_ELDER_KEY) {
 			backButton.setCustomId(SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID);
-			embed = spiritTracker.spiritEmbed(Elder, locale).setTitle("Elders Progress");
+			embed = spiritTracker.spiritEmbed(ELDER_SPIRITS, locale).setTitle("Elders Progress");
 		}
 
 		if (!embed) {

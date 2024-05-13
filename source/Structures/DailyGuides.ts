@@ -17,20 +17,20 @@ import {
 	type MeditationMaps,
 	type RainbowAdmireMaps,
 	type SocialLightAreaMaps,
-	type ValidRealm,
+	type ValidRealmName,
+	CDN_BUCKET,
 	CDN_URL,
+	INFOGRAPHICS_DATABASE_GUILD_ID,
+	REALM_NAME_VALUES,
+	VALID_REALM_NAME,
 	Channel,
 	inconsistentMapKeys,
-	INFOGRAPHICS_DATABASE_GUILD_ID,
 	Map,
 	MEDITATION_MAPS,
 	RAINBOW_ADMIRE_MAPS,
-	Realm,
-	REALM_VALUES,
 	SOCIAL_LIGHT_AREA_MAPS,
 	SocialLightAreaMapToCDNString,
-	VALID_REALM,
-	CDN_BUCKET,
+	RealmName,
 } from "../Utility/Constants.js";
 import {
 	isMeditationMap,
@@ -46,9 +46,9 @@ import { SeasonName } from "../Utility/seasons.js";
 import { FriendAction, SpiritEmote } from "../Utility/spirits.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
+import { SPIRITS } from "../spirits/index.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
-import { type SeasonalSpirit, type StandardSpirit } from "./Spirits/Base.js";
-import Spirits from "./Spirits/index.js";
+import type { SeasonalSpirit, StandardSpirit } from "./Spirits/Base.js";
 
 export interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;
@@ -60,7 +60,7 @@ export interface DailyGuidesPacket {
 }
 
 type TreasureCandlesData = {
-	[Realm in ValidRealm]: string[];
+	[Realm in ValidRealmName]: string[];
 };
 
 interface DailyGuidesData {
@@ -112,7 +112,7 @@ export const QUEST_SPIRITS_SEASONS = [
 
 interface ResolveDailyGuideOptions {
 	pureContent: string;
-	realm: ValidRealm | null;
+	realm: ValidRealmName | null;
 	map: Map | null;
 	url: string | null;
 }
@@ -125,18 +125,20 @@ export type QuestSpiritSeasons = (typeof QUEST_SPIRITS_SEASONS)[number];
  * - Standard spirits.
  * - Seasonal spirits from ({@link QuestSpiritSeasons}).
  *
- * Spirits must not be in the {@link Realm.IslesOfDawn | Isles of Dawn}.
+ * Spirits must not be in the {@link RealmName.IslesOfDawn | Isles of Dawn}.
  *
  * These spirits must have an associated infographic.
  */
-export type QuestSpirit = (StandardSpirit | (SeasonalSpirit & { season: QuestSpiritSeasons })) & { realm: ValidRealm };
+export type QuestSpirit = (StandardSpirit | (SeasonalSpirit & { season: QuestSpiritSeasons })) & {
+	realm: ValidRealmName;
+};
 
 export function isQuestSpiritsSeason(season: SeasonName): season is QuestSpiritSeasons {
 	return QUEST_SPIRITS_SEASONS.includes(season as QuestSpiritSeasons);
 }
 
-export function isQuestSpirit(spirit: (typeof Spirits)[number]): spirit is QuestSpirit {
-	if (spirit.realm === Realm.IslesOfDawn) return false;
+export function isQuestSpirit(spirit: (typeof SPIRITS)[number]): spirit is QuestSpirit {
+	if (spirit.realm === RealmName.IslesOfDawn) return false;
 	if (spirit.isStandardSpirit()) return true;
 
 	if (spirit.isSeasonalSpirit() && isQuestSpiritsSeason(spirit.season)) {
@@ -231,7 +233,7 @@ const KNOCK_OVER_5_DARK_CRABS = {
 	url: String(new URL("daily_guides/quests/miscellaneous/knock_over_5_dark_crabs.webp", CDN_URL)),
 } as const;
 
-const CATCH_THE_LIGHT = (realm: ValidRealm) =>
+const CATCH_THE_LIGHT = (realm: ValidRealmName) =>
 	({
 		content: `Catch the light in the ${realm}`,
 		url: String(
@@ -247,7 +249,7 @@ const SOCIAL_LIGHT_AREA = (map: SocialLightAreaMaps) =>
 		),
 	}) as const;
 
-const ADMIRE_THE_SAPLING = (realm: ValidRealm) =>
+const ADMIRE_THE_SAPLING = (realm: ValidRealmName) =>
 	({
 		content: `Admire the sapling in the ${realm}`,
 		url: String(new URL(`daily_guides/quests/days_of_bloom/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL)),
@@ -263,7 +265,7 @@ const RID_THE_SANCTUARY_VORTEX_OF_DARKNESS = {
 	url: String(new URL("daily_guides/quests/days_of_nature/rid_the_sanctuary_vortex_of_darkness.webp", CDN_URL)),
 } as const;
 
-const RAINBOW_FIND = (realm: ValidRealm) =>
+const RAINBOW_FIND = (realm: ValidRealmName) =>
 	({
 		content: `Find the candles at the end of the rainbow in the ${realm}`,
 		url: String(
@@ -443,12 +445,12 @@ export const QUESTS = [
 	RELIVE_A_SPIRITS_MEMORIES,
 	FACE_THE_DARK_DRAGON,
 	KNOCK_OVER_5_DARK_CRABS,
-	...VALID_REALM.map((realm) => CATCH_THE_LIGHT(realm)),
+	...VALID_REALM_NAME.map((realm) => CATCH_THE_LIGHT(realm)),
 	...SOCIAL_LIGHT_AREA_MAPS.map((map) => SOCIAL_LIGHT_AREA(map)),
-	...VALID_REALM.map((realm) => ADMIRE_THE_SAPLING(realm)),
+	...VALID_REALM_NAME.map((realm) => ADMIRE_THE_SAPLING(realm)),
 	VISIT_THE_POLLUTED_GEYSER,
 	RID_THE_SANCTUARY_VORTEX_OF_DARKNESS,
-	...VALID_REALM.map((realm) => RAINBOW_FIND(realm)),
+	...VALID_REALM_NAME.map((realm) => RAINBOW_FIND(realm)),
 	...RAINBOW_ADMIRE_MAPS.map((map) => RAINBOW_ADMIRE(map)),
 	...MEDITATION_MAPS.flatMap((map) => meditate(map)),
 	COLLECT_GREEN_LIGHT,
@@ -467,10 +469,10 @@ export const QUESTS = [
 	WAKE_UP_CINNAMOROLL_IN_AVIARY_VILLAGE,
 	FLY_UP_TO_THE_TOWER_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE,
 	SPLASH_IN_THE_WATER_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE,
-	...Spirits.filter(isQuestSpirit).map((spirit) => SPIRIT_QUEST(spirit)),
+	...SPIRITS.filter(isQuestSpirit).map((spirit) => SPIRIT_QUEST(spirit)),
 ] as const satisfies Readonly<DailyGuideQuest[]>;
 
-const regularExpressionRealms = REALM_VALUES.join("|").replaceAll(" ", "\\s+");
+const regularExpressionRealms = REALM_NAME_VALUES.join("|").replaceAll(" ", "\\s+");
 const mapRegExp = [...Object.values(Map), ...inconsistentMapKeys].join("|").replaceAll(" ", "\\s+");
 
 export default new (class DailyGuides {
@@ -653,7 +655,7 @@ export default new (class DailyGuides {
 		if (upperPureContent.includes("REHEARSE FOR A PERFORMANCE")) return REHEARSE_FOR_A_PERFORMANCE_WITH_THE_SKATER;
 		if (upperPureContent.includes("SCAVENGER HUNT")) return COMPLETE_THE_HOOP_SCAVENGER_HUNT;
 
-		for (const spirit of Spirits) {
+		for (const spirit of SPIRITS) {
 			if (upperPureContent.replaceAll("’", "'").includes(spirit.name.toUpperCase())) {
 				if (isQuestSpirit(spirit)) return SPIRIT_QUEST(spirit);
 				pino.error(options, `Failed to match a spirit for ${spirit.name}.`);
@@ -791,24 +793,26 @@ export default new (class DailyGuides {
 		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
 			.update({
 				treasure_candles: {
-					[Realm.DaylightPrairie]:
-						Realm.DaylightPrairie in data
-							? data[Realm.DaylightPrairie]
-							: this.treasureCandles?.[Realm.DaylightPrairie] ?? [],
-					[Realm.HiddenForest]:
-						Realm.HiddenForest in data ? data[Realm.HiddenForest] : this.treasureCandles?.[Realm.HiddenForest] ?? [],
-					[Realm.ValleyOfTriumph]:
-						Realm.ValleyOfTriumph in data
-							? data[Realm.ValleyOfTriumph]
-							: this.treasureCandles?.[Realm.ValleyOfTriumph] ?? [],
-					[Realm.GoldenWasteland]:
-						Realm.GoldenWasteland in data
-							? data[Realm.GoldenWasteland]
-							: this.treasureCandles?.[Realm.GoldenWasteland] ?? [],
-					[Realm.VaultOfKnowledge]:
-						Realm.VaultOfKnowledge in data
-							? data[Realm.VaultOfKnowledge]
-							: this.treasureCandles?.[Realm.VaultOfKnowledge] ?? [],
+					[RealmName.DaylightPrairie]:
+						RealmName.DaylightPrairie in data
+							? data[RealmName.DaylightPrairie]
+							: this.treasureCandles?.[RealmName.DaylightPrairie] ?? [],
+					[RealmName.HiddenForest]:
+						RealmName.HiddenForest in data
+							? data[RealmName.HiddenForest]
+							: this.treasureCandles?.[RealmName.HiddenForest] ?? [],
+					[RealmName.ValleyOfTriumph]:
+						RealmName.ValleyOfTriumph in data
+							? data[RealmName.ValleyOfTriumph]
+							: this.treasureCandles?.[RealmName.ValleyOfTriumph] ?? [],
+					[RealmName.GoldenWasteland]:
+						RealmName.GoldenWasteland in data
+							? data[RealmName.GoldenWasteland]
+							: this.treasureCandles?.[RealmName.GoldenWasteland] ?? [],
+					[RealmName.VaultOfKnowledge]:
+						RealmName.VaultOfKnowledge in data
+							? data[RealmName.VaultOfKnowledge]
+							: this.treasureCandles?.[RealmName.VaultOfKnowledge] ?? [],
 				},
 			})
 			.returning("*");

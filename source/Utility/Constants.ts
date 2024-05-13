@@ -68,7 +68,7 @@ export const enum Channel {
 	dailyGuides = "1041420071614042152",
 }
 
-export enum Realm {
+export enum RealmName {
 	IslesOfDawn = "Isles of Dawn",
 	DaylightPrairie = "Daylight Prairie",
 	HiddenForest = "Hidden Forest",
@@ -78,7 +78,7 @@ export enum Realm {
 	EyeOfEden = "Eye of Eden",
 }
 
-export const REALM_VALUES = Object.values(Realm);
+export const REALM_NAME_VALUES = Object.values(RealmName);
 
 export enum Map {
 	// Daylight Prairie.
@@ -176,7 +176,7 @@ export const RAINBOW_ADMIRE_MAPS = [
 
 export type RainbowAdmireMaps = (typeof RAINBOW_ADMIRE_MAPS)[number];
 
-export const WINGED_LIGHT_AREAS = [...REALM_VALUES, Map.AncientMemory] as const;
+export const WINGED_LIGHT_AREAS = [...REALM_NAME_VALUES, Map.AncientMemory] as const;
 type WingedLightAreas = (typeof WINGED_LIGHT_AREAS)[number];
 
 // This exists due to the Infographics server's inconsistencies and faults alongside no desire to fix them.
@@ -193,24 +193,24 @@ export const INCONSISTENT_MAP = {
 
 export const inconsistentMapKeys = Object.keys(INCONSISTENT_MAP);
 
-export const VALID_REALM = [
-	Realm.DaylightPrairie,
-	Realm.HiddenForest,
-	Realm.ValleyOfTriumph,
-	Realm.GoldenWasteland,
-	Realm.VaultOfKnowledge,
+export const VALID_REALM_NAME = [
+	RealmName.DaylightPrairie,
+	RealmName.HiddenForest,
+	RealmName.ValleyOfTriumph,
+	RealmName.GoldenWasteland,
+	RealmName.VaultOfKnowledge,
 ] as const;
 
-export type ValidRealm = (typeof VALID_REALM)[number];
+export type ValidRealmName = (typeof VALID_REALM_NAME)[number];
 
 export const AreaToWingedLightCount = {
-	[Realm.IslesOfDawn]: 9,
-	[Realm.DaylightPrairie]: 24,
-	[Realm.HiddenForest]: 19,
-	[Realm.ValleyOfTriumph]: 17,
-	[Realm.GoldenWasteland]: 18,
-	[Realm.VaultOfKnowledge]: 15,
-	[Realm.EyeOfEden]: 10,
+	[RealmName.IslesOfDawn]: 9,
+	[RealmName.DaylightPrairie]: 24,
+	[RealmName.HiddenForest]: 19,
+	[RealmName.ValleyOfTriumph]: 17,
+	[RealmName.GoldenWasteland]: 18,
+	[RealmName.VaultOfKnowledge]: 15,
+	[RealmName.EyeOfEden]: 10,
 	[Map.AncientMemory]: 6,
 	[Map.Orbit]: 1,
 } as const satisfies Readonly<Record<WingedLightAreas | Map.Orbit, number>>;

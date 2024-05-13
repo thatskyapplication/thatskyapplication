@@ -19,10 +19,10 @@ import {
 import { t } from "i18next";
 import { PlatformFlagsToString, resolvePlatformToEmoji } from "../../Structures/Platforms.js";
 import Profile, { AssetType } from "../../Structures/Profile.js";
-import Spirits from "../../Structures/Spirits/index.js";
 import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { SEASON_FLAGS_TO_SEASON_NAME_ENTRIES, SeasonNameToSeasonalEmoji } from "../../Utility/seasons.js";
+import { SPIRITS } from "../../spirits/index.js";
 import COMMANDS, { type AutocompleteCommand } from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
@@ -365,7 +365,7 @@ export default new (class implements AutocompleteCommand {
 	public async setSpirit(interaction: ChatInputCommandInteraction) {
 		const { options } = interaction;
 		const query = options.getString("spirit", true);
-		const spirit = Spirits.find(({ name }) => name === query);
+		const spirit = SPIRITS.find(({ name }) => name === query);
 
 		if (!spirit) {
 			await interaction.reply({

@@ -10,7 +10,6 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import { resolveEvents } from "../../Structures/Event.js";
-import { resolveSeason } from "../../Structures/Season/index.js";
 import {
 	AREA_TO_WINGED_LIGHT_COUNT_VALUES,
 	AreaToWingedLightCount,
@@ -19,7 +18,7 @@ import {
 	LOCALES,
 	Map,
 	MAXIMUM_WINGED_LIGHT,
-	Realm,
+	RealmName,
 	WINGED_LIGHT_AREAS,
 } from "../../Utility/Constants.js";
 import {
@@ -31,6 +30,7 @@ import { MISCELLANEOUS_EMOJIS, formatEmoji, formatEmojiURL, resolveCurrencyEmoji
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { SEASONAL_CANDLES_PER_DAY, SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS } from "../../Utility/seasons.js";
 import { shardEruption } from "../../Utility/shardEruption.js";
+import { resolveSeason } from "../../spirits/seasons/index.js";
 import type { ChatInputCommand } from "../index.js";
 
 const doubleSeasonalLightEventStart = time(
@@ -44,7 +44,7 @@ const doubleSeasonalLightEventEnd = time(
 );
 
 const ASCENDED_CANDLE_MINIMUM_TIME_EYE_OF_EDEN_TEXT =
-	`all statues in the ${Realm.EyeOfEden} were gifted winged light` as const;
+	`all statues in the ${RealmName.EyeOfEden} were gifted winged light` as const;
 
 const ASCENDED_CANDLE_MINIMUM_TIME_SHARD_ERUPTIONS_TEXT = "all shard eruptions were cleansed" as const;
 

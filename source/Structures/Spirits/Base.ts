@@ -3,7 +3,7 @@ import { URL } from "node:url";
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
-import { type Realm, CDN_URL, WIKI_URL } from "../../Utility/Constants.js";
+import { type RealmName, CDN_URL, WIKI_URL } from "../../Utility/Constants.js";
 import { skyDate } from "../../Utility/dates.js";
 import { type Emoji, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../../Utility/emojis.js";
 import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../../Utility/seasons.js";
@@ -102,18 +102,18 @@ interface ExpressiveSpiritData {
 
 interface BaseSpiritData {
 	name: SpiritName;
-	realm?: Realm;
+	realm?: RealmName;
 	keywords?: readonly string[];
 }
 
-export type StandardSpiritRealm = Exclude<Realm, Realm.EyeOfEden>;
+export type StandardSpiritRealm = Exclude<RealmName, RealmName.EyeOfEden>;
 
 interface StandardSpiritData extends BaseSpiritData, StandardFriendshipTreeData, ExpressiveSpiritData {
 	realm: StandardSpiritRealm;
 }
 
 interface ElderSpiritData extends BaseSpiritData, ElderFriendshipTreeData {
-	realm: Realm;
+	realm: RealmName;
 }
 
 export type SeasonalSpiritVisitTravellingData = Collection<SeasonalSpiritVisitCollectionKey, DateTime>;
@@ -321,7 +321,7 @@ abstract class BaseSpirit {
 
 	public readonly type!: SpiritType;
 
-	public readonly realm: Realm | null;
+	public readonly realm: RealmName | null;
 
 	public readonly keywords: NonNullable<BaseSpiritData["keywords"]>;
 
@@ -368,7 +368,7 @@ export class StandardSpirit extends Mixin(BaseSpirit, StandardFriendshipTree, Ex
 export class ElderSpirit extends Mixin(BaseSpirit, ElderFriendshipTree) {
 	public override readonly type = SPIRIT_TYPE.Elder;
 
-	public declare readonly realm: Realm;
+	public declare readonly realm: RealmName;
 
 	public constructor(spirit: ElderSpiritData) {
 		super(spirit);

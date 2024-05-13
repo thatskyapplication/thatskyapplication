@@ -1,17 +1,17 @@
-import { Map, Realm } from "../Utility/Constants.js";
+import { Map, RealmName } from "../Utility/Constants.js";
 import { SeasonName } from "../Utility/seasons.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {
 	general: {
 		realms: {
-			[Realm.IslesOfDawn]: "Остров рассвета",
-			[Realm.DaylightPrairie]: "Полуденная прерия",
-			[Realm.HiddenForest]: "Тайный лес",
-			[Realm.ValleyOfTriumph]: "Долина триумфа",
-			[Realm.GoldenWasteland]: "Золотая пустошь",
-			[Realm.VaultOfKnowledge]: "Хранилище знаний",
-			[Realm.EyeOfEden]: "Сердце Эдема",
+			[RealmName.IslesOfDawn]: "Остров рассвета",
+			[RealmName.DaylightPrairie]: "Полуденная прерия",
+			[RealmName.HiddenForest]: "Тайный лес",
+			[RealmName.ValleyOfTriumph]: "Долина триумфа",
+			[RealmName.GoldenWasteland]: "Золотая пустошь",
+			[RealmName.VaultOfKnowledge]: "Хранилище знаний",
+			[RealmName.EyeOfEden]: "Сердце Эдема",
 		},
 		maps: { [Map.JellyfishCove]: "Бухту медуз" },
 		seasons: {

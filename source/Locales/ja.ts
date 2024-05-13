@@ -1,17 +1,17 @@
-import { Map, Realm } from "../Utility/Constants.js";
+import { Map, RealmName } from "../Utility/Constants.js";
 import { SeasonName } from "../Utility/seasons.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {
 	general: {
 		realms: {
-			[Realm.IslesOfDawn]: "孤島",
-			[Realm.DaylightPrairie]: "草原",
-			[Realm.HiddenForest]: "雨林",
-			[Realm.ValleyOfTriumph]: "峡谷",
-			[Realm.GoldenWasteland]: "捨てられた地",
-			[Realm.VaultOfKnowledge]: "書庫",
-			[Realm.EyeOfEden]: "暴風域",
+			[RealmName.IslesOfDawn]: "孤島",
+			[RealmName.DaylightPrairie]: "草原",
+			[RealmName.HiddenForest]: "雨林",
+			[RealmName.ValleyOfTriumph]: "峡谷",
+			[RealmName.GoldenWasteland]: "捨てられた地",
+			[RealmName.VaultOfKnowledge]: "書庫",
+			[RealmName.EyeOfEden]: "暴風域",
 		},
 		maps: { [Map.JellyfishCove]: "海月の入り江" },
 		seasons: {

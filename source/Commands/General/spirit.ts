@@ -26,9 +26,7 @@ import {
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	resolveOfferToCurrency,
 } from "../../Structures/Spirits/Base.js";
-import Seasonal from "../../Structures/Spirits/Seasonal/index.js";
 import { SpiritTracker } from "../../Structures/Spirits/SpiritTracker.js";
-import Spirits from "../../Structures/Spirits/index.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji } from "../../Utility/emojis.js";
@@ -40,6 +38,8 @@ import {
 	SpiritEmoteToEmoji,
 	SpiritStanceToEmoji,
 } from "../../Utility/spirits.js";
+import { SPIRITS } from "../../spirits/index.js";
+import { resolveSeasonalSpirit } from "../../spirits/seasons/index.js";
 import type { AutocompleteCommand } from "../index.js";
 
 export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID = "SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;
@@ -103,7 +103,7 @@ export default new (class implements AutocompleteCommand {
 
 	public async search(interaction: ChatInputCommandInteraction) {
 		const query = interaction.options.getString("query", true);
-		const spirit = Spirits.find(({ name }) => name === query);
+		const spirit = SPIRITS.find(({ name }) => name === query);
 
 		if (!spirit) {
 			await interaction.reply({
@@ -122,7 +122,7 @@ export default new (class implements AutocompleteCommand {
 		const data = customId.split("§");
 		const name = data[1]!;
 		const seasonalOffer = data[2] === "true";
-		const spirit = Seasonal.find((spirit) => spirit.name === name);
+		const spirit = resolveSeasonalSpirit(name);
 
 		if (!spirit) {
 			await interaction.reply({
@@ -257,7 +257,7 @@ export default new (class implements AutocompleteCommand {
 		await interaction.respond(
 			focused === ""
 				? []
-				: Spirits.filter((spirit) => {
+				: SPIRITS.filter((spirit) => {
 						const { name, keywords } = spirit;
 						const localisedName = t(`spiritNames.${name}`, { lng: locale, ns: "general" });
 						let emote = null;

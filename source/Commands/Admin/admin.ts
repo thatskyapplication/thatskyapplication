@@ -30,7 +30,7 @@ import {
 	LOCALES,
 	MAXIMUM_EMBED_FIELD_NAME_LENGTH,
 	MAXIMUM_EMBED_FIELD_VALUE_LENGTH,
-	VALID_REALM,
+	VALID_REALM_NAME,
 } from "../../Utility/Constants.js";
 import { resolveValidRealm, userLogFormat } from "../../Utility/Utility.js";
 import type { AutocompleteCommand } from "../index.js";
@@ -377,7 +377,9 @@ export default new (class implements AutocompleteCommand {
 						.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(1)
-						.setOptions(VALID_REALM.map((realm) => new StringSelectMenuOptionBuilder().setLabel(realm).setValue(realm)))
+						.setOptions(
+							VALID_REALM_NAME.map((realm) => new StringSelectMenuOptionBuilder().setLabel(realm).setValue(realm)),
+						)
 						.setPlaceholder("Select a realm."),
 				),
 			],

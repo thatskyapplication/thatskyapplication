@@ -2,25 +2,25 @@ import { type Snowflake, type User } from "discord.js";
 import {
 	type MeditationMaps,
 	type RainbowAdmireMaps,
-	type Realm,
+	type RealmName,
 	type SocialLightAreaMaps,
 	INCONSISTENT_MAP,
 	inconsistentMapKeys,
 	Map,
 	MEDITATION_MAPS,
 	RAINBOW_ADMIRE_MAPS,
-	REALM_VALUES,
+	REALM_NAME_VALUES,
 	SOCIAL_LIGHT_AREA_MAPS,
-	VALID_REALM,
+	VALID_REALM_NAME,
 } from "./Constants.js";
 
-export function isRealm(realm: string): realm is Realm {
-	return REALM_VALUES.includes(realm as Realm);
+export function isRealm(realm: string): realm is RealmName {
+	return REALM_NAME_VALUES.includes(realm as RealmName);
 }
 
 export function resolveValidRealm(realm: string) {
 	const upperRealm = realm.toUpperCase();
-	return Object.values(VALID_REALM).find((validRealm) => validRealm.toUpperCase() === upperRealm) ?? null;
+	return Object.values(VALID_REALM_NAME).find((validRealm) => validRealm.toUpperCase() === upperRealm) ?? null;
 }
 
 export function resolveMap(rawMap: string) {

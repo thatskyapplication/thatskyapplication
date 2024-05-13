@@ -3,7 +3,7 @@ import { hyperlink, TimestampStyles, type Locale, time } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { EventName, resolveEvents } from "../Structures/Event.js";
-import { type Realm, CDN_URL, Map, VALID_REALM } from "./Constants.js";
+import { type RealmName, CDN_URL, Map, VALID_REALM_NAME } from "./Constants.js";
 import { todayDate } from "./dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "./emojis.js";
 
@@ -81,7 +81,7 @@ interface ShardEruptionTimestampsData {
 }
 
 export interface ShardEruptionData {
-	realm: Realm;
+	realm: RealmName;
 	map: Map;
 	strong: boolean;
 	reward: number;
@@ -120,7 +120,7 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		timestamps.push({ start: startTime.plus({ second: 520 }), end: startTime.plus({ hour: 4 }) });
 	}
 
-	return { realm: VALID_REALM[realmIndex]!, map, strong, reward, timestamps, url };
+	return { realm: VALID_REALM_NAME[realmIndex]!, map, strong, reward, timestamps, url };
 }
 
 export function resolveShardEruptionEmoji(strong: boolean) {
