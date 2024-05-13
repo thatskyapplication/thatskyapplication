@@ -3,16 +3,7 @@ import type { DateTime } from "luxon";
 import { CDN_URL } from "../Utility/Constants.js";
 import { skyDate } from "../Utility/dates.js";
 import { type EventEmojis, EVENT_EMOJIS } from "../Utility/emojis.js";
-
-export const enum EventName {
-	DaysOfMischief = "Days of Mischief",
-	AviarysFireworkFestival = "Aviary's Firework Festival",
-	DaysOfFeast = "Days of Feast",
-	DaysOfFortune = "Days of Fortune",
-	DaysOfLove = "Days of Love",
-	DaysOfBloom = "Days of Bloom",
-	SkyXCinnamorollPopUpCafe = "Sky x Cinnamoroll Pop-Up Cafe",
-}
+import { EventName } from "../Utility/events.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
 

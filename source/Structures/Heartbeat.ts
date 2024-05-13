@@ -3,12 +3,13 @@ import type { Client } from "discord.js";
 import { DateTime } from "luxon";
 import { ISS_DATES_ACCESSIBLE } from "../Utility/Constants.js";
 import { TIME_ZONE } from "../Utility/dates.js";
+import { EventName } from "../Utility/events.js";
 import { shardEruption } from "../Utility/shardEruption.js";
 import pQueue from "../pQueue.js";
 import pino from "../pino.js";
 import DailyGuides from "./DailyGuides.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
-import { EventName, resolveEvents } from "./Event.js";
+import { resolveEvents } from "./Event.js";
 import Notification, { NotificationEvent, type NotificationSendExtra } from "./Notification.js";
 
 let shardEruptionToday = shardEruption();

@@ -2,10 +2,11 @@ import { URL } from "node:url";
 import { hyperlink, TimestampStyles, type Locale, time } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import { EventName, resolveEvents } from "../Structures/Event.js";
+import { resolveEvents } from "../Structures/Event.js";
 import { type RealmName, CDN_URL, Map, VALID_REALM_NAME } from "./Constants.js";
 import { todayDate } from "./dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "./emojis.js";
+import { EventName } from "./events.js";
 
 function resolveShardEruptionMapURL(map: Map) {
 	return new URL(`daily_guides/shard_eruptions/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL);
