@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-literal-enum-member, unicorn/prefer-math-trunc */
 import { URL } from "node:url";
 import type { Locale } from "discord.js";
 import { t } from "i18next";
@@ -16,61 +15,13 @@ import {
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	SEASON_NAME_VALUES,
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
+	SeasonFlagsToSeasonName,
 	SeasonName,
 	SeasonNameToSeasonalCandleEmoji,
 	SeasonNameToSeasonalEmoji,
 	type RotationNumber,
 } from "../../Utility/seasons.js";
 
-enum SeasonFlags {
-	Gratitude = 1 << 0,
-	Lightseekers = 1 << 1,
-	Belonging = 1 << 2,
-	Rhythm = 1 << 3,
-	Enchantment = 1 << 4,
-	Sanctuary = 1 << 5,
-	Prophecy = 1 << 6,
-	Dreams = 1 << 7,
-	Assembly = 1 << 8,
-	LittlePrince = 1 << 9,
-	Flight = 1 << 10,
-	Abyss = 1 << 11,
-	Performance = 1 << 12,
-	Shattering = 1 << 13,
-	Aurora = 1 << 14,
-	Remembrance = 1 << 15,
-	Passage = 1 << 16,
-	Moments = 1 << 17,
-	Revival = 1 << 18,
-	NineColoredDeer = 1 << 19,
-	Nesting = 1 << 20,
-}
-
-export const SeasonFlagsToSeasonName = {
-	[SeasonFlags.Gratitude]: SeasonName.Gratitude,
-	[SeasonFlags.Lightseekers]: SeasonName.Lightseekers,
-	[SeasonFlags.Belonging]: SeasonName.Belonging,
-	[SeasonFlags.Rhythm]: SeasonName.Rhythm,
-	[SeasonFlags.Enchantment]: SeasonName.Enchantment,
-	[SeasonFlags.Sanctuary]: SeasonName.Sanctuary,
-	[SeasonFlags.Prophecy]: SeasonName.Prophecy,
-	[SeasonFlags.Dreams]: SeasonName.Dreams,
-	[SeasonFlags.Assembly]: SeasonName.Assembly,
-	[SeasonFlags.LittlePrince]: SeasonName.LittlePrince,
-	[SeasonFlags.Flight]: SeasonName.Flight,
-	[SeasonFlags.Abyss]: SeasonName.Abyss,
-	[SeasonFlags.Performance]: SeasonName.Performance,
-	[SeasonFlags.Shattering]: SeasonName.Shattering,
-	[SeasonFlags.Aurora]: SeasonName.Aurora,
-	[SeasonFlags.Remembrance]: SeasonName.Remembrance,
-	[SeasonFlags.Passage]: SeasonName.Passage,
-	[SeasonFlags.Moments]: SeasonName.Moments,
-	[SeasonFlags.Revival]: SeasonName.Revival,
-	[SeasonFlags.NineColoredDeer]: SeasonName.NineColoredDeer,
-	[SeasonFlags.Nesting]: SeasonName.Nesting,
-} as const satisfies Readonly<Record<SeasonFlags, SeasonName>>;
-
-export const SEASON_FLAGS_TO_SEASON_NAME_ENTRIES = Object.entries(SeasonFlagsToSeasonName);
 type SeasonalCandlesRotation = Readonly<{ rotation: Exclude<RotationNumber, 3>; realm: Realm }[]>;
 
 interface SeasonData {
