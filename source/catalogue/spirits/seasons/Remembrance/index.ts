@@ -1,6 +1,6 @@
 import { Season } from "../../../../Structures/Season.js";
+import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { SeasonName } from "../../../../Utility/seasons.js";
 import BereftVeteran from "./BereftVeteran.js";
 import PleadingChild from "./PleadingChild.js";
 import RemembranceGuide from "./RemembranceGuide.js";

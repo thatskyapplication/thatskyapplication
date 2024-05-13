@@ -1,6 +1,6 @@
 import { NOTIFICATION_EVENT_VALUES } from "../Structures/Notification.js";
 import { MAP_VALUES, REALM_NAME_VALUES } from "../Utility/Constants.js";
-import { SEASON_NAME_VALUES } from "../Utility/seasons.js";
+import { SEASON_NAME_VALUES } from "../Utility/catalogue.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {

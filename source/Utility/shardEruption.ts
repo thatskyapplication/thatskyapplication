@@ -4,9 +4,9 @@ import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { resolveEvents } from "../catalogue/events/index.js";
 import { type RealmName, CDN_URL, Map, VALID_REALM_NAME } from "./Constants.js";
+import { EventName } from "./catalogue.js";
 import { todayDate } from "./dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "./emojis.js";
-import { EventName } from "./events.js";
 
 function resolveShardEruptionMapURL(map: Map) {
 	return new URL(`daily_guides/shard_eruptions/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL);

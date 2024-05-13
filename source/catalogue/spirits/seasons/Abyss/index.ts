@@ -1,6 +1,6 @@
 import { Season } from "../../../../Structures/Season.js";
+import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { SeasonName } from "../../../../Utility/seasons.js";
 import AbyssGuide from "./AbyssGuide.js";
 import AnxiousAngler from "./AnxiousAngler.js";
 import BumblingBoatswain from "./BumblingBoatswain.js";

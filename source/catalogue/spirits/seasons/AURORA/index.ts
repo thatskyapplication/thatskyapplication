@@ -1,6 +1,6 @@
 import { Season } from "../../../../Structures/Season.js";
+import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { SeasonName } from "../../../../Utility/seasons.js";
 import AURORA from "./AURORA.js";
 import MindfulMiner from "./MindfulMiner.js";
 import RunningWayfarer from "./RunningWayfarer.js";

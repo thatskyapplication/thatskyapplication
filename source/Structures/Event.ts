@@ -1,6 +1,6 @@
 import type { DateTime } from "luxon";
+import type { EventName } from "../Utility/catalogue.js";
 import { type EventEmojis } from "../Utility/emojis.js";
-import type { EventName } from "../Utility/events.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
 

@@ -21,10 +21,10 @@ import { t } from "i18next";
 import type { RealmName } from "../Utility/Constants.js";
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
+import { type FriendshipTreeItemCost, SeasonName, SeasonNameToSeasonalEmoji } from "../Utility/catalogue.js";
 import { todayDate } from "../Utility/dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
-import { SeasonName, SeasonNameToSeasonalEmoji } from "../Utility/seasons.js";
 import {
 	type SpiritType,
 	SPIRIT_TYPE,
@@ -51,7 +51,6 @@ import {
 	type ElderSpirit,
 	type GuideSpirit,
 	type SeasonalSpirit,
-	type SpiritCost,
 	type StandardSpirit,
 	type StandardSpiritRealm,
 	addCurrency,
@@ -1963,10 +1962,10 @@ export class SpiritTracker {
 					.setStyle(ButtonStyle.Success),
 			);
 
-			const itemSelectionOptions = offer.map(({ emoji, item }, flag) => {
+			const itemSelectionOptions = offer.map(({ emoji, name }, flag) => {
 				const stringSelectMenuOption = new StringSelectMenuOptionBuilder()
 					.setDefault(Boolean(bit && bit & flag))
-					.setLabel(item)
+					.setLabel(name)
 					.setValue(String(flag));
 
 				if (emoji) stringSelectMenuOption.setEmoji(emoji);
@@ -2257,7 +2256,7 @@ export class SpiritTracker {
 		if (!resolvedOffer) return null;
 		const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
 
-		return resolvedOffer.reduce<Required<SpiritCost>>(
+		return resolvedOffer.reduce<Required<FriendshipTreeItemCost>>(
 			(remaining, { cost }, flag) => {
 				if (!cost || (bit && (bit & flag) === flag)) return remaining;
 				if (cost.candles) remaining.candles += cost.candles;

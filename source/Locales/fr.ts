@@ -1,6 +1,6 @@
 import { NotificationEvent } from "../Structures/Notification.js";
 import { Map, RealmName } from "../Utility/Constants.js";
-import { SeasonName } from "../Utility/seasons.js";
+import { SeasonName } from "../Utility/catalogue.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {

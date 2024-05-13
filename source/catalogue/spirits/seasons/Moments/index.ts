@@ -1,6 +1,6 @@
 import { Season } from "../../../../Structures/Season.js";
+import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { SeasonName } from "../../../../Utility/seasons.js";
 import AsceticMonk from "./AsceticMonk.js";
 import JollyGeologist from "./JollyGeologist.js";
 import MomentsGuide from "./MomentsGuide.js";

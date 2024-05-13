@@ -4,12 +4,6 @@ import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { type RealmName, CDN_URL } from "../Utility/Constants.js";
 import {
-	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
-	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
-	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
-} from "../Utility/dates.js";
-import type { SeasonEmojis } from "../Utility/emojis.js";
-import {
 	type RotationNumber,
 	type SeasonName,
 	SEASONAL_CANDLES_PER_DAY,
@@ -17,7 +11,13 @@ import {
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
 	SeasonNameToSeasonalCandleEmoji,
 	SeasonNameToSeasonalEmoji,
-} from "../Utility/seasons.js";
+} from "../Utility/catalogue.js";
+import {
+	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
+	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
+	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
+} from "../Utility/dates.js";
+import type { SeasonEmojis } from "../Utility/emojis.js";
 import type { GuideSpirit, SeasonalSpirit } from "./Spirits.js";
 
 type SeasonalCandlesRotation = Readonly<{ rotation: Exclude<RotationNumber, 3>; realm: RealmName }[]>;

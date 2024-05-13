@@ -1,6 +1,6 @@
 import { Season } from "../../../../Structures/Season.js";
+import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { SeasonName } from "../../../../Utility/seasons.js";
 import BeckoningRuler from "./BeckoningRuler.js";
 import GloatingNarcissist from "./GloatingNarcissist.js";
 import SlouchingSoldier from "./SlouchingSoldier.js";

@@ -1,7 +1,7 @@
 import { Season } from "../../../../Structures/Season.js";
 import { RealmName } from "../../../../Utility/Constants.js";
+import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { SeasonName } from "../../../../Utility/seasons.js";
 import FeudalLord from "./FeudalLord.js";
 import HerbGatherer from "./HerbGatherer.js";
 import Hunter from "./Hunter.js";

@@ -18,8 +18,8 @@ import {
 	TimestampStyles,
 } from "discord.js";
 import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
+import { SeasonName } from "../Utility/catalogue.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
-import { SeasonName } from "../Utility/seasons.js";
 import type { ShardEruptionData } from "../Utility/shardEruption.js";
 import pg, { Table } from "../pg.js";
 

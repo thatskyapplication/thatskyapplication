@@ -1,9 +1,9 @@
 import { URL } from "node:url";
 import { Event } from "../../../Structures/Event.js";
 import { CDN_URL } from "../../../Utility/Constants.js";
+import { EventName } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import { EVENT_EMOJIS } from "../../../Utility/emojis.js";
-import { EventName } from "../../../Utility/events.js";
 
 export default new Event({
 	name: EventName.SkyXCinnamorollPopUpCafe,

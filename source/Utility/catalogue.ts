@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/prefer-literal-enum-member, unicorn/prefer-math-trunc */
-import { type SeasonEmojis, SEASON_EMOJIS } from "./emojis.js";
+import { type Emoji, type SeasonEmojis, SEASON_EMOJIS } from "./emojis.js";
 
 export type RotationNumber = 1 | 2 | 3;
 export const SEASONAL_CANDLES_PER_DAY = 5 as const;
@@ -153,3 +153,27 @@ export const SeasonFlagsToSeasonName = {
 } as const satisfies Readonly<Record<SeasonFlags, SeasonName>>;
 
 export const SEASON_FLAGS_TO_SEASON_NAME_ENTRIES = Object.entries(SeasonFlagsToSeasonName);
+
+export const enum EventName {
+	DaysOfMischief = "Days of Mischief",
+	AviarysFireworkFestival = "Aviary's Firework Festival",
+	DaysOfFeast = "Days of Feast",
+	DaysOfFortune = "Days of Fortune",
+	DaysOfLove = "Days of Love",
+	DaysOfBloom = "Days of Bloom",
+	SkyXCinnamorollPopUpCafe = "Sky x Cinnamoroll Pop-Up Cafe",
+}
+
+export interface FriendshipTreeItemCost {
+	candles?: number;
+	hearts?: number;
+	ascendedCandles?: number;
+	seasonalCandles?: number;
+	seasonalHearts?: number;
+}
+
+export interface FriendshipTreeItem {
+	name: string;
+	cost: FriendshipTreeItemCost | null;
+	emoji: Emoji;
+}

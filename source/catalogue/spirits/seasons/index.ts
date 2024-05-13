@@ -1,12 +1,12 @@
 import type { DateTime } from "luxon";
 import type { SeasonalSpirit } from "../../../Structures/Spirits.js";
-import { formatEmoji } from "../../../Utility/emojis.js";
 import {
 	type SeasonName,
 	SEASON_FLAGS_TO_SEASON_NAME_ENTRIES,
 	SEASON_NAME_VALUES,
 	SeasonNameToSeasonalEmoji,
-} from "../../../Utility/seasons.js";
+} from "../../../Utility/catalogue.js";
+import { formatEmoji } from "../../../Utility/emojis.js";
 import AURORA from "./AURORA/index.js";
 import Abyss from "./Abyss/index.js";
 import Assembly from "./Assembly/index.js";

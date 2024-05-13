@@ -4,9 +4,10 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import { type RealmName, CDN_URL, WIKI_URL } from "../Utility/Constants.js";
+import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../Utility/catalogue.js";
+import type { FriendshipTreeItemCost, FriendshipTreeItem } from "../Utility/catalogue.js";
 import { skyDate } from "../Utility/dates.js";
-import { type Emoji, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../Utility/emojis.js";
-import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../Utility/seasons.js";
+import { MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../Utility/emojis.js";
 import {
 	type FriendAction,
 	type SpiritCall,
@@ -32,36 +33,22 @@ const RETURNING_DATES = new Collection<SeasonalSpiritVisitCollectionKey, Returni
 	.set(4, { start: skyDate(2_023, 8, 7), end: skyDate(2_023, 8, 13) })
 	.set(5, { start: skyDate(2_024, 3, 4), end: skyDate(2_024, 3, 17) });
 
-export interface SpiritCost {
-	candles?: number;
-	hearts?: number;
-	ascendedCandles?: number;
-	seasonalCandles?: number;
-	seasonalHearts?: number;
-}
-
-export interface ItemsData {
-	item: string;
-	cost: SpiritCost | null;
-	emoji: Emoji;
-}
-
 interface BaseFriendshipTreeOffer {
 	hasInfographic?: boolean;
-	current?: Collection<number, ItemsData>;
+	current?: Collection<number, FriendshipTreeItem>;
 }
 
 interface StandardFriendshipTreeOffer extends BaseFriendshipTreeOffer {
-	current: Collection<number, ItemsData>;
+	current: Collection<number, FriendshipTreeItem>;
 }
 
 interface ElderFriendshipTreeOffer extends BaseFriendshipTreeOffer {
-	current: Collection<number, ItemsData>;
+	current: Collection<number, FriendshipTreeItem>;
 }
 
 interface SeasonalFriendshipTreeOffer extends BaseFriendshipTreeOffer {
 	hasInfographicSeasonal?: boolean;
-	seasonal: Collection<number, ItemsData>;
+	seasonal: Collection<number, FriendshipTreeItem>;
 }
 
 interface GuideFriendshipTreeOffer extends BaseFriendshipTreeOffer {
@@ -139,7 +126,10 @@ interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
 	season: SeasonName;
 }
 
-export function addCurrency(currency1: SpiritCost, currency2: SpiritCost): Required<SpiritCost> {
+export function addCurrency(
+	currency1: FriendshipTreeItemCost,
+	currency2: FriendshipTreeItemCost,
+): Required<FriendshipTreeItemCost> {
 	return {
 		candles: (currency1.candles ?? 0) + (currency2.candles ?? 0),
 		hearts: (currency1.hearts ?? 0) + (currency2.hearts ?? 0),
@@ -149,7 +139,7 @@ export function addCurrency(currency1: SpiritCost, currency2: SpiritCost): Requi
 	};
 }
 
-export function resolveOfferToCurrency(cost: SpiritCost, seasonName?: SeasonName | null) {
+export function resolveOfferToCurrency(cost: FriendshipTreeItemCost, seasonName?: SeasonName | null) {
 	const totalCost = [];
 
 	if (cost.candles) {
@@ -199,7 +189,7 @@ function cdnName(name: SpiritName) {
 abstract class BaseFriendshipTree {
 	public readonly offer: BaseFriendshipTreeOffer | null;
 
-	public readonly totalCost: Required<SpiritCost> | null;
+	public readonly totalCost: Required<FriendshipTreeItemCost> | null;
 
 	public readonly maxItemsBit: number | null;
 
@@ -212,8 +202,8 @@ abstract class BaseFriendshipTree {
 		this.imageURL = (offer ? offer.hasInfographic ?? true : false) ? this.resolveImageURL(name) : null;
 	}
 
-	protected resolveTotalCost(offer: Collection<number, ItemsData>) {
-		return offer.reduce<Required<SpiritCost>>(
+	protected resolveTotalCost(offer: Collection<number, FriendshipTreeItem>) {
+		return offer.reduce<Required<FriendshipTreeItemCost>>(
 			(offer, { cost }) => {
 				if (!cost) return offer;
 				const { candles, hearts, ascendedCandles, seasonalCandles, seasonalHearts } = cost;
@@ -234,7 +224,7 @@ abstract class BaseFriendshipTree {
 		);
 	}
 
-	protected resolveMaxItemsBit(offer: Collection<number, ItemsData>) {
+	protected resolveMaxItemsBit(offer: Collection<number, FriendshipTreeItem>) {
 		return offer.reduce((bits, _, bit) => bit | bits, 0);
 	}
 
@@ -254,7 +244,7 @@ abstract class BaseFriendshipTree {
 abstract class StandardFriendshipTree extends BaseFriendshipTree {
 	public declare readonly offer: StandardFriendshipTreeOffer;
 
-	public declare readonly totalCost: Required<SpiritCost>;
+	public declare readonly totalCost: Required<FriendshipTreeItemCost>;
 
 	public declare readonly maxItemsBit: number;
 }
@@ -262,7 +252,7 @@ abstract class StandardFriendshipTree extends BaseFriendshipTree {
 abstract class ElderFriendshipTree extends BaseFriendshipTree {
 	public declare readonly offer: ElderFriendshipTreeOffer;
 
-	public declare readonly totalCost: Required<SpiritCost>;
+	public declare readonly totalCost: Required<FriendshipTreeItemCost>;
 
 	public declare readonly maxItemsBit: number;
 }
@@ -272,7 +262,7 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 
 	public override readonly maxItemsBit: number;
 
-	public readonly totalCostSeasonal: Required<SpiritCost>;
+	public readonly totalCostSeasonal: Required<FriendshipTreeItemCost>;
 
 	public imageURLSeasonal: string | null;
 

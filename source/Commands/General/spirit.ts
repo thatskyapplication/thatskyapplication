@@ -25,10 +25,10 @@ import {
 	resolveOfferToCurrency,
 } from "../../Structures/Spirits.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
+import { SeasonName, SeasonNameToSeasonalEmoji } from "../../Utility/catalogue.js";
 import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
-import { SeasonName, SeasonNameToSeasonalEmoji } from "../../Utility/seasons.js";
 import {
 	FriendActionToEmoji,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,

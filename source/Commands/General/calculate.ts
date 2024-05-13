@@ -20,6 +20,7 @@ import {
 	RealmName,
 	WINGED_LIGHT_AREAS,
 } from "../../Utility/Constants.js";
+import { SEASONAL_CANDLES_PER_DAY, SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS } from "../../Utility/catalogue.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
@@ -27,7 +28,6 @@ import {
 } from "../../Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
-import { SEASONAL_CANDLES_PER_DAY, SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS } from "../../Utility/seasons.js";
 import { shardEruption } from "../../Utility/shardEruption.js";
 import { resolveEvents } from "../../catalogue/events/index.js";
 import { resolveSeason } from "../../catalogue/spirits/seasons/index.js";

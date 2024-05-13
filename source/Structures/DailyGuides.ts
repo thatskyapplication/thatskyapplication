@@ -41,8 +41,8 @@ import {
 	resolveSocialLightAreaMap,
 	resolveValidRealm,
 } from "../Utility/Utility.js";
+import { SeasonName } from "../Utility/catalogue.js";
 import { todayDate } from "../Utility/dates.js";
-import { SeasonName } from "../Utility/seasons.js";
 import { FriendAction, SpiritEmote } from "../Utility/spirits.js";
 import { SPIRITS } from "../catalogue/spirits/index.js";
 import pg, { Table } from "../pg.js";

@@ -1,6 +1,6 @@
 import { Season } from "../../../../Structures/Season.js";
+import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { SeasonName } from "../../../../Utility/seasons.js";
 import GratitudeGuide from "./GratitudeGuide.js";
 import GreetingShaman from "./GreetingShaman.js";
 import LeapingDancer from "./LeapingDancer.js";

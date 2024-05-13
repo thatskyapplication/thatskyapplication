@@ -1,6 +1,6 @@
 import { Season } from "../../../../Structures/Season.js";
+import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { SeasonName } from "../../../../Utility/seasons.js";
 import CrabWalker from "./CrabWalker.js";
 import EnchantmentGuide from "./EnchantmentGuide.js";
 import IndifferentAlchemist from "./IndifferentAlchemist.js";

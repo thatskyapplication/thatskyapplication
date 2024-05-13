@@ -18,6 +18,7 @@ import {
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { DEFAULT_EMBED_COLOUR, RealmName } from "../Utility/Constants.js";
+import type { RotationNumber } from "../Utility/catalogue.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
@@ -26,7 +27,6 @@ import {
 	todayDate,
 } from "../Utility/dates.js";
 import { formatEmoji, formatEmojiURL, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../Utility/emojis.js";
-import type { RotationNumber } from "../Utility/seasons.js";
 import {
 	shardEruption,
 	shardEruptionInformationString,
