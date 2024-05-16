@@ -225,6 +225,7 @@ export interface SpiritTrackerPacket {
 	nesting_atrium: SpiritTrackerValue;
 	nesting_nook: SpiritTrackerValue;
 	halloween_office_event_2019: SpiritTrackerValue;
+	days_of_feast_2019: SpiritTrackerValue;
 	aviarys_firework_festival_2023: SpiritTrackerValue;
 	days_of_feast_2023: SpiritTrackerValue;
 	days_of_mischief_2023: SpiritTrackerValue;
@@ -401,6 +402,7 @@ interface SpiritTrackerData {
 	nestingAtrium: SpiritTrackerPacket["nesting_atrium"];
 	nestingNook: SpiritTrackerPacket["nesting_nook"];
 	halloweenOfficeEvent2019: SpiritTrackerPacket["halloween_office_event_2019"];
+	daysOfFeast2019: SpiritTrackerPacket["days_of_feast_2019"];
 	aviarysFireworkFestival2023: SpiritTrackerPacket["aviarys_firework_festival_2023"];
 	daysOfFeast2023: SpiritTrackerPacket["days_of_feast_2023"];
 	daysOfMischief2023: SpiritTrackerPacket["days_of_mischief_2023"];
@@ -579,6 +581,7 @@ const SpiritTrackerNameToRawName = {
 	[SpiritName.NestingAtrium]: "nesting_atrium",
 	[SpiritName.NestingNook]: "nesting_nook",
 	[EventNameUnique.HalloweenOfficeEvent2019]: "halloween_office_event_2019",
+	[EventNameUnique.DaysOfFeast2019]: "days_of_feast_2019",
 	[EventNameUnique.AviarysFireworkFestival2023]: "aviarys_firework_festival_2023",
 	[EventNameUnique.DaysOfFeast2023]: "days_of_feast_2023",
 	[EventNameUnique.DaysOfMischief2023]: "days_of_mischief_2023",
@@ -754,6 +757,7 @@ const SpiritNameToSpiritTrackerName = {
 	[SpiritName.NestingAtrium]: "nestingAtrium",
 	[SpiritName.NestingNook]: "nestingNook",
 	[EventNameUnique.HalloweenOfficeEvent2019]: "halloweenOfficeEvent2019",
+	[EventNameUnique.DaysOfFeast2019]: "daysOfFeast2019",
 	[EventNameUnique.AviarysFireworkFestival2023]: "aviarysFireworkFestival2023",
 	[EventNameUnique.DaysOfFeast2023]: "daysOfFeast2023",
 	[EventNameUnique.DaysOfMischief2023]: "daysOfMischief2023",
@@ -1152,6 +1156,8 @@ export class SpiritTracker {
 
 	public halloweenOfficeEvent2019!: SpiritTrackerData["halloweenOfficeEvent2019"];
 
+	public daysOfFeast2019!: SpiritTrackerData["daysOfFeast2019"];
+
 	public aviarysFireworkFestival2023!: SpiritTrackerData["aviarysFireworkFestival2023"];
 
 	public daysOfFeast2023!: SpiritTrackerData["daysOfFeast2023"];
@@ -1337,6 +1343,7 @@ export class SpiritTracker {
 		this.nestingAtrium = data.nesting_atrium;
 		this.nestingNook = data.nesting_nook;
 		this.halloweenOfficeEvent2019 = data.halloween_office_event_2019;
+		this.daysOfFeast2019 = data.days_of_feast_2019;
 		this.aviarysFireworkFestival2023 = data.aviarys_firework_festival_2023;
 		this.daysOfFeast2023 = data.days_of_feast_2023;
 		this.daysOfMischief2023 = data.days_of_mischief_2023;
