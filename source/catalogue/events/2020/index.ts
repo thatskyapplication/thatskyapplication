@@ -1,3 +1,4 @@
 import DaysOfLove from "./DaysOfLove.js";
+import DaysOfNature from "./DaysOfNature.js";
 
-export default [DaysOfLove] as const;
+export default [DaysOfLove, DaysOfNature] as const;
