@@ -23,12 +23,35 @@ import type { GuideSpirit, SeasonalSpirit } from "./Spirits.js";
 
 type SeasonalCandlesRotation = Readonly<{ rotation: Exclude<RotationNumber, 3>; realm: RealmName }[]>;
 
+/**
+ * Data to create a season.
+ */
 interface SeasonData {
+	/**
+	 * The name of the season.
+	 */
 	name: SeasonName;
+	/**
+	 * The start date of the season.
+	 */
 	start: DateTime;
+	/**
+	 * The end date of the season.
+	 *
+	 * @remarks The end date is inclusive.
+	 */
 	end: DateTime;
+	/**
+	 * The guide spirit of the season.
+	 */
 	guide: GuideSpirit;
+	/**
+	 * The spirits of the season.
+	 */
 	spirits: readonly SeasonalSpirit[];
+	/**
+	 * The seasonal candles rotation.
+	 */
 	seasonalCandlesRotation: SeasonalCandlesRotation | null;
 }
 

@@ -19,13 +19,41 @@ interface EventFriendshipTreeOfferData {
 	items: Collection<number, ItemRaw>;
 }
 
+/**
+ * Data to create an event.
+ */
 interface EventData {
+	/**
+	 * The unique name of the event.
+	 */
 	nameUnique: EventNameUnique;
+	/**
+	 * The start date of the event.
+	 */
 	start: DateTime;
+	/**
+	 * The end date of the event.
+	 *
+	 * @remarks The end date is inclusive.
+	 */
 	end: DateTime;
+	/**
+	 * The date at which event currency is no longer available.
+	 *
+	 * @remarks The end date is inclusive.
+	 */
 	eventCurrencyEnd?: DateTime;
+	/**
+	 * The URL to the infographic of the event.
+	 */
 	url: string | readonly EventDataURL[] | null;
+	/**
+	 * The amount of event currency available per day.
+	 */
 	eventCurrencyPerDay?: number;
+	/**
+	 * What the event offers.
+	 */
 	offer: EventFriendshipTreeOfferData;
 }
 
