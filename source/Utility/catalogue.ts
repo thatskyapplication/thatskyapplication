@@ -178,6 +178,33 @@ export enum EventName {
 	DaysOfColour = "Days of Colour",
 }
 
+export enum EventNameUnique {
+	// 2019.
+	HalloweenOfficeEvent2019 = "Halloween Office Event 2019",
+
+	// 2023.
+	DaysOfMischief2023 = "Days of Mischief 2023",
+	AviarysFireworkFestival2023 = "Aviary's Firework Festival 2023",
+	DaysOfFeast2023 = "Days of Feast 2023",
+
+	// 2024.
+	DaysOfFortune2024 = "Days of Fortune 2024",
+	DaysOfLove2024 = "Days of Love 2024",
+	DaysOfBloom2024 = "Days of Bloom 2024",
+	SkyXCinnamorollPopUpCafe2024 = "Sky × Cinnamoroll Pop-Up Cafe 2024",
+}
+
+export const EventNameUniqueToEventName = {
+	[EventNameUnique.HalloweenOfficeEvent2019]: EventName.HalloweenOfficeEvent,
+	[EventNameUnique.DaysOfMischief2023]: EventName.DaysOfMischief,
+	[EventNameUnique.AviarysFireworkFestival2023]: EventName.AviarysFireworkFestival,
+	[EventNameUnique.DaysOfFeast2023]: EventName.DaysOfFeast,
+	[EventNameUnique.DaysOfFortune2024]: EventName.DaysOfFortune,
+	[EventNameUnique.DaysOfLove2024]: EventName.DaysOfLove,
+	[EventNameUnique.DaysOfBloom2024]: EventName.DaysOfBloom,
+	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: EventName.SkyXCinnamorollPopUpCafe,
+} as const satisfies Readonly<Record<EventNameUnique, EventName>>;
+
 export const EVENT_NAME_VALUES = Object.values(EventName);
 
 export const EventNameToEventCurrencyEmoji = {

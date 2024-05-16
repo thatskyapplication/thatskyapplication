@@ -2,9 +2,11 @@ import type { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import {
 	type EventName,
+	type EventNameUnique,
 	type Item,
 	type ItemRaw,
 	EventNameToEventCurrencyEmoji,
+	EventNameUniqueToEventName,
 	resolveOffer,
 	wikiURL,
 } from "../Utility/catalogue.js";
@@ -18,7 +20,7 @@ interface EventFriendshipTreeOfferData {
 }
 
 interface EventData {
-	name: EventName;
+	nameUnique: EventNameUnique;
 	start: DateTime;
 	end: DateTime;
 	eventCurrencyEnd?: DateTime;
@@ -34,6 +36,8 @@ interface EventDataURL {
 
 export class Event {
 	public readonly name: EventName;
+
+	public readonly nameUnique: EventNameUnique;
 
 	public readonly start: DateTime;
 
@@ -61,17 +65,18 @@ export class Event {
 	public readonly wikiURL: string;
 
 	public constructor(data: EventData) {
-		this.name = data.name;
+		this.name = EventNameUniqueToEventName[data.nameUnique];
+		this.nameUnique = data.nameUnique;
 		this.start = data.start;
 		this.end = data.end;
 		this.eventCurrencyEnd = data.eventCurrencyEnd ?? data.end;
 		this.url = data.url;
 		this.eventCurrencyPerDay = data.eventCurrencyPerDay ?? null;
-		this.eventCurrencyEmoji = EventNameToEventCurrencyEmoji[data.name];
+		this.eventCurrencyEmoji = EventNameToEventCurrencyEmoji[this.name];
 		this.offer = resolveOffer(data.offer.items);
 		this.maxItemsBit = this.resolveMaxItemsBit(data.offer.items);
 		this.imageURL = data.offer.hasInfographic ?? true ? "https://cdn.thatskyapplication.com/hugs/1.gif" : null;
-		this.wikiURL = wikiURL(data.name);
+		this.wikiURL = wikiURL(this.name);
 	}
 
 	private resolveMaxItemsBit(offer: Collection<number, ItemRaw>) {

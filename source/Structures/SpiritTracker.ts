@@ -24,7 +24,7 @@ import {
 	type ItemCost,
 	addCosts,
 	CatalogueType,
-	EventName,
+	EventNameUnique,
 	resolveCostToString,
 	SeasonName,
 	SeasonNameToSeasonalEmoji,
@@ -224,14 +224,14 @@ export interface SpiritTrackerPacket {
 	nesting_loft: SpiritTrackerValue;
 	nesting_atrium: SpiritTrackerValue;
 	nesting_nook: SpiritTrackerValue;
-	halloween_office_event: SpiritTrackerValue;
-	aviarys_firework_festival: SpiritTrackerValue;
-	days_of_feast: SpiritTrackerValue;
-	days_of_mischief: SpiritTrackerValue;
-	days_of_bloom: SpiritTrackerValue;
-	days_of_fortune: SpiritTrackerValue;
-	days_of_love: SpiritTrackerValue;
-	sky_x_cinnamoroll_pop_up_cafe: SpiritTrackerValue;
+	halloween_office_event_2019: SpiritTrackerValue;
+	aviarys_firework_festival_2023: SpiritTrackerValue;
+	days_of_feast_2023: SpiritTrackerValue;
+	days_of_mischief_2023: SpiritTrackerValue;
+	days_of_bloom_2024: SpiritTrackerValue;
+	days_of_fortune_2024: SpiritTrackerValue;
+	days_of_love_2024: SpiritTrackerValue;
+	sky_x_cinnamoroll_pop_up_cafe_2024: SpiritTrackerValue;
 }
 
 interface SpiritTrackerData {
@@ -400,14 +400,14 @@ interface SpiritTrackerData {
 	nestingLoft: SpiritTrackerPacket["nesting_loft"];
 	nestingAtrium: SpiritTrackerPacket["nesting_atrium"];
 	nestingNook: SpiritTrackerPacket["nesting_nook"];
-	halloweenOfficeEvent: SpiritTrackerPacket["halloween_office_event"];
-	aviarysFireworkFestival: SpiritTrackerPacket["aviarys_firework_festival"];
-	daysOfFeast: SpiritTrackerPacket["days_of_feast"];
-	daysOfMischief: SpiritTrackerPacket["days_of_mischief"];
-	daysOfBloom: SpiritTrackerPacket["days_of_bloom"];
-	daysOfFortune: SpiritTrackerPacket["days_of_fortune"];
-	daysOfLove: SpiritTrackerPacket["days_of_love"];
-	skyXCinnamorollPopUpCafe: SpiritTrackerPacket["sky_x_cinnamoroll_pop_up_cafe"];
+	halloweenOfficeEvent2019: SpiritTrackerPacket["halloween_office_event_2019"];
+	aviarysFireworkFestival2023: SpiritTrackerPacket["aviarys_firework_festival_2023"];
+	daysOfFeast2023: SpiritTrackerPacket["days_of_feast_2023"];
+	daysOfMischief2023: SpiritTrackerPacket["days_of_mischief_2023"];
+	daysOfBloom2024: SpiritTrackerPacket["days_of_bloom_2024"];
+	daysOfFortune2024: SpiritTrackerPacket["days_of_fortune_2024"];
+	daysOfLove2024: SpiritTrackerPacket["days_of_love_2024"];
+	skyXCinnamorollPopUpCafe2024: SpiritTrackerPacket["sky_x_cinnamoroll_pop_up_cafe_2024"];
 }
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
@@ -578,15 +578,15 @@ const SpiritTrackerNameToRawName = {
 	[SpiritName.NestingLoft]: "nesting_loft",
 	[SpiritName.NestingAtrium]: "nesting_atrium",
 	[SpiritName.NestingNook]: "nesting_nook",
-	[EventName.HalloweenOfficeEvent]: "halloween_office_event",
-	[EventName.AviarysFireworkFestival]: "aviarys_firework_festival",
-	[EventName.DaysOfFeast]: "days_of_feast",
-	[EventName.DaysOfMischief]: "days_of_mischief",
-	[EventName.DaysOfBloom]: "days_of_bloom",
-	[EventName.DaysOfFortune]: "days_of_fortune",
-	[EventName.DaysOfLove]: "days_of_love",
-	[EventName.SkyXCinnamorollPopUpCafe]: "sky_x_cinnamoroll_pop_up_cafe",
-} as const satisfies Readonly<Record<SpiritName | EventName, Exclude<keyof SpiritTrackerPacket, "user_id">>>;
+	[EventNameUnique.HalloweenOfficeEvent2019]: "halloween_office_event_2019",
+	[EventNameUnique.AviarysFireworkFestival2023]: "aviarys_firework_festival_2023",
+	[EventNameUnique.DaysOfFeast2023]: "days_of_feast_2023",
+	[EventNameUnique.DaysOfMischief2023]: "days_of_mischief_2023",
+	[EventNameUnique.DaysOfBloom2024]: "days_of_bloom_2024",
+	[EventNameUnique.DaysOfFortune2024]: "days_of_fortune_2024",
+	[EventNameUnique.DaysOfLove2024]: "days_of_love_2024",
+	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: "sky_x_cinnamoroll_pop_up_cafe_2024",
+} as const satisfies Readonly<Record<SpiritName | EventNameUnique, Exclude<keyof SpiritTrackerPacket, "user_id">>>;
 
 const SpiritNameToSpiritTrackerName = {
 	[SpiritName.PointingCandlemaker]: "pointingCandlemaker",
@@ -753,15 +753,15 @@ const SpiritNameToSpiritTrackerName = {
 	[SpiritName.NestingLoft]: "nestingLoft",
 	[SpiritName.NestingAtrium]: "nestingAtrium",
 	[SpiritName.NestingNook]: "nestingNook",
-	[EventName.HalloweenOfficeEvent]: "halloweenOfficeEvent",
-	[EventName.AviarysFireworkFestival]: "aviarysFireworkFestival",
-	[EventName.DaysOfFeast]: "daysOfFeast",
-	[EventName.DaysOfMischief]: "daysOfMischief",
-	[EventName.DaysOfBloom]: "daysOfBloom",
-	[EventName.DaysOfFortune]: "daysOfFortune",
-	[EventName.DaysOfLove]: "daysOfLove",
-	[EventName.SkyXCinnamorollPopUpCafe]: "skyXCinnamorollPopUpCafe",
-} as const satisfies Readonly<Record<SpiritName | EventName, Exclude<keyof SpiritTrackerData, "user_id">>>;
+	[EventNameUnique.HalloweenOfficeEvent2019]: "halloweenOfficeEvent2019",
+	[EventNameUnique.AviarysFireworkFestival2023]: "aviarysFireworkFestival2023",
+	[EventNameUnique.DaysOfFeast2023]: "daysOfFeast2023",
+	[EventNameUnique.DaysOfMischief2023]: "daysOfMischief2023",
+	[EventNameUnique.DaysOfBloom2024]: "daysOfBloom2024",
+	[EventNameUnique.DaysOfFortune2024]: "daysOfFortune2024",
+	[EventNameUnique.DaysOfLove2024]: "daysOfLove2024",
+	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: "skyXCinnamorollPopUpCafe2024",
+} as const satisfies Readonly<Record<SpiritName | EventNameUnique, Exclude<keyof SpiritTrackerData, "user_id">>>;
 
 export const SPIRIT_TRACKER_VIEW_START_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_START_CUSTOM_ID" as const;
 export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
@@ -1150,21 +1150,21 @@ export class SpiritTracker {
 
 	public nestingNook!: SpiritTrackerData["nestingNook"];
 
-	public halloweenOfficeEvent!: SpiritTrackerData["halloweenOfficeEvent"];
+	public halloweenOfficeEvent2019!: SpiritTrackerData["halloweenOfficeEvent2019"];
 
-	public aviarysFireworkFestival!: SpiritTrackerData["aviarysFireworkFestival"];
+	public aviarysFireworkFestival2023!: SpiritTrackerData["aviarysFireworkFestival2023"];
 
-	public daysOfFeast!: SpiritTrackerData["daysOfFeast"];
+	public daysOfFeast2023!: SpiritTrackerData["daysOfFeast2023"];
 
-	public daysOfMischief!: SpiritTrackerData["daysOfMischief"];
+	public daysOfMischief2023!: SpiritTrackerData["daysOfMischief2023"];
 
-	public daysOfBloom!: SpiritTrackerData["daysOfBloom"];
+	public daysOfBloom2024!: SpiritTrackerData["daysOfBloom2024"];
 
-	public daysOfFortune!: SpiritTrackerData["daysOfFortune"];
+	public daysOfFortune2024!: SpiritTrackerData["daysOfFortune2024"];
 
-	public daysOfLove!: SpiritTrackerData["daysOfLove"];
+	public daysOfLove2024!: SpiritTrackerData["daysOfLove2024"];
 
-	public skyXCinnamorollPopUpCafe!: SpiritTrackerData["skyXCinnamorollPopUpCafe"];
+	public skyXCinnamorollPopUpCafe2024!: SpiritTrackerData["skyXCinnamorollPopUpCafe2024"];
 
 	public constructor(spiritTrack: SpiritTrackerPacket) {
 		this.userId = spiritTrack.user_id;
@@ -1336,14 +1336,14 @@ export class SpiritTracker {
 		this.nestingLoft = data.nesting_loft;
 		this.nestingAtrium = data.nesting_atrium;
 		this.nestingNook = data.nesting_nook;
-		this.halloweenOfficeEvent = data.halloween_office_event;
-		this.aviarysFireworkFestival = data.aviarys_firework_festival;
-		this.daysOfFeast = data.days_of_feast;
-		this.daysOfMischief = data.days_of_mischief;
-		this.daysOfBloom = data.days_of_bloom;
-		this.daysOfFortune = data.days_of_fortune;
-		this.daysOfLove = data.days_of_love;
-		this.skyXCinnamorollPopUpCafe = data.sky_x_cinnamoroll_pop_up_cafe;
+		this.halloweenOfficeEvent2019 = data.halloween_office_event_2019;
+		this.aviarysFireworkFestival2023 = data.aviarys_firework_festival_2023;
+		this.daysOfFeast2023 = data.days_of_feast_2023;
+		this.daysOfMischief2023 = data.days_of_mischief_2023;
+		this.daysOfBloom2024 = data.days_of_bloom_2024;
+		this.daysOfFortune2024 = data.days_of_fortune_2024;
+		this.daysOfLove2024 = data.days_of_love_2024;
+		this.skyXCinnamorollPopUpCafe2024 = data.sky_x_cinnamoroll_pop_up_cafe_2024;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -1420,6 +1420,7 @@ export class SpiritTracker {
 			return;
 		}
 
+		const name = spiritOrEvent instanceof Event ? spiritOrEvent.nameUnique : spiritOrEvent.name;
 		let newBit;
 
 		if (interaction instanceof ButtonInteraction) {
@@ -1432,15 +1433,14 @@ export class SpiritTracker {
 			const selectMenuTotalBit = component.options.reduce((bit, { value }) => bit | Number(value), 0);
 
 			// Clear this bit from the total bit.
-			const modifiedTotal =
-				(spiritTracker[SpiritNameToSpiritTrackerName[spiritOrEvent.name]] ?? 0) & ~selectMenuTotalBit;
+			const modifiedTotal = (spiritTracker[SpiritNameToSpiritTrackerName[name]] ?? 0) & ~selectMenuTotalBit;
 
 			// Calculate the new bit.
 			newBit = interaction.values.reduce((bit, value) => bit | Number(value), modifiedTotal);
 		}
 
 		const [spiritTrackerPacket] = await this.update(interaction.user.id, {
-			[SpiritTrackerNameToRawName[spiritOrEvent.name]]: newBit,
+			[SpiritTrackerNameToRawName[name]]: newBit,
 		});
 
 		spiritTracker.patch(spiritTrackerPacket!);
@@ -1462,7 +1462,7 @@ export class SpiritTracker {
 				? spirit.current
 				: spirit.current ?? spirit.seasonal;
 
-		const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
+		const bit = this[SpiritNameToSpiritTrackerName[spirit instanceof Event ? spirit.nameUnique : spirit.name]];
 
 		return {
 			owned: resolvedOffer?.filter((_, itemBit) => bit && (bit & itemBit) === itemBit).size ?? 0,
@@ -2236,7 +2236,7 @@ export class SpiritTracker {
 	public async viewEvent(interaction: ButtonInteraction | StringSelectMenuInteraction, event: Event) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale } = interaction;
-		const bit = this[SpiritNameToSpiritTrackerName[event.name]];
+		const bit = this[SpiritNameToSpiritTrackerName[event.nameUnique]];
 		const { name, start, eventCurrencyEmoji, offer, imageURL } = event;
 
 		const embed = new EmbedBuilder()
@@ -2595,7 +2595,11 @@ export class SpiritTracker {
 		}
 
 		if (!resolvedOffer) return null;
-		const bit = this[SpiritNameToSpiritTrackerName[spiritOrEvent.name]];
+
+		const bit =
+			this[
+				SpiritNameToSpiritTrackerName[spiritOrEvent instanceof Event ? spiritOrEvent.nameUnique : spiritOrEvent.name]
+			];
 
 		const result = addCosts(
 			resolvedOffer

@@ -2,12 +2,12 @@ import { URL } from "node:url";
 import { Collection } from "discord.js";
 import { Event } from "../../../Structures/Event.js";
 import { CDN_URL } from "../../../Utility/Constants.js";
-import { type ItemRaw, EventName } from "../../../Utility/catalogue.js";
+import { type ItemRaw, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import { FACE_ACCESSORY_EMOJIS, HELD_PROPS_EMOJIS } from "../../../Utility/emojis.js";
 
 export default new Event({
-	name: EventName.AviarysFireworkFestival,
+	nameUnique: EventNameUnique.AviarysFireworkFestival2023,
 	start: skyDate(2_023, 11, 27),
 	end: skyDate(2_023, 12, 17),
 	eventCurrencyEnd: skyDate(2_023, 12, 11),

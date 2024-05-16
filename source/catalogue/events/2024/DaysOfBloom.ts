@@ -2,12 +2,12 @@ import { URL } from "node:url";
 import { Collection } from "discord.js";
 import { Event } from "../../../Structures/Event.js";
 import { CDN_URL } from "../../../Utility/Constants.js";
-import { type ItemRaw, EventName } from "../../../Utility/catalogue.js";
+import { type ItemRaw, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import { CAPE_EMOJIS, HAIR_EMOJIS, HELD_PROPS_EMOJIS } from "../../../Utility/emojis.js";
 
 export default new Event({
-	name: EventName.DaysOfBloom,
+	nameUnique: EventNameUnique.DaysOfBloom2024,
 	start: skyDate(2_024, 3, 25),
 	end: skyDate(2_024, 4, 14),
 	url: [
