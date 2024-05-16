@@ -233,6 +233,7 @@ export interface SpiritTrackerPacket {
 	days_of_summer_lights_2020: SpiritTrackerValue;
 	days_of_mischief_2020: SpiritTrackerValue;
 	days_of_feast_2020: SpiritTrackerValue;
+	days_of_fortune_2021: SpiritTrackerValue;
 	aviarys_firework_festival_2023: SpiritTrackerValue;
 	days_of_feast_2023: SpiritTrackerValue;
 	days_of_mischief_2023: SpiritTrackerValue;
@@ -417,6 +418,7 @@ interface SpiritTrackerData {
 	daysOfSummerLights2020: SpiritTrackerPacket["days_of_summer_lights_2020"];
 	daysOfMischief2020: SpiritTrackerPacket["days_of_mischief_2020"];
 	daysOfFeast2020: SpiritTrackerPacket["days_of_feast_2020"];
+	daysOfFortune2021: SpiritTrackerPacket["days_of_fortune_2021"];
 	aviarysFireworkFestival2023: SpiritTrackerPacket["aviarys_firework_festival_2023"];
 	daysOfFeast2023: SpiritTrackerPacket["days_of_feast_2023"];
 	daysOfMischief2023: SpiritTrackerPacket["days_of_mischief_2023"];
@@ -603,6 +605,7 @@ const SpiritTrackerNameToRawName = {
 	[EventNameUnique.DaysOfSummerLights2020]: "days_of_summer_lights_2020",
 	[EventNameUnique.DaysOfMischief2020]: "days_of_mischief_2020",
 	[EventNameUnique.DaysOfFeast2020]: "days_of_feast_2020",
+	[EventNameUnique.DaysOfFortune2021]: "days_of_fortune_2021",
 	[EventNameUnique.AviarysFireworkFestival2023]: "aviarys_firework_festival_2023",
 	[EventNameUnique.DaysOfFeast2023]: "days_of_feast_2023",
 	[EventNameUnique.DaysOfMischief2023]: "days_of_mischief_2023",
@@ -786,6 +789,7 @@ const SpiritNameToSpiritTrackerName = {
 	[EventNameUnique.DaysOfSummerLights2020]: "daysOfSummerLights2020",
 	[EventNameUnique.DaysOfMischief2020]: "daysOfMischief2020",
 	[EventNameUnique.DaysOfFeast2020]: "daysOfFeast2020",
+	[EventNameUnique.DaysOfFortune2021]: "daysOfFortune2021",
 	[EventNameUnique.AviarysFireworkFestival2023]: "aviarysFireworkFestival2023",
 	[EventNameUnique.DaysOfFeast2023]: "daysOfFeast2023",
 	[EventNameUnique.DaysOfMischief2023]: "daysOfMischief2023",
@@ -1200,6 +1204,8 @@ export class SpiritTracker {
 
 	public daysOfFeast2020!: SpiritTrackerData["daysOfFeast2020"];
 
+	public daysOfFortune2021!: SpiritTrackerData["daysOfFortune2021"];
+
 	public aviarysFireworkFestival2023!: SpiritTrackerData["aviarysFireworkFestival2023"];
 
 	public daysOfFeast2023!: SpiritTrackerData["daysOfFeast2023"];
@@ -1393,6 +1399,7 @@ export class SpiritTracker {
 		this.daysOfSummerLights2020 = data.days_of_summer_lights_2020;
 		this.daysOfMischief2020 = data.days_of_mischief_2020;
 		this.daysOfFeast2020 = data.days_of_feast_2020;
+		this.daysOfFortune2021 = data.days_of_fortune_2021;
 		this.aviarysFireworkFestival2023 = data.aviarys_firework_festival_2023;
 		this.daysOfFeast2023 = data.days_of_feast_2023;
 		this.daysOfMischief2023 = data.days_of_mischief_2023;
