@@ -394,7 +394,7 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (customId.startsWith(SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID)) {
+				if (customId === SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID) {
 					await SpiritTracker.parseViewEvent(interaction);
 					return;
 				}

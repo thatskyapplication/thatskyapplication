@@ -1475,7 +1475,7 @@ export class SpiritTracker {
 		const resolvedName = customId.slice(customId.indexOf("§") + 1);
 
 		const spiritOrEvent =
-			SPIRITS.find(({ name }) => name === resolvedName) ?? EVENTS.find(({ name }) => name === resolvedName);
+			SPIRITS.find(({ name }) => name === resolvedName) ?? EVENTS.find(({ nameUnique }) => nameUnique === resolvedName);
 
 		if (!spiritOrEvent) {
 			pino.error(interaction, "Unknown spirit or event.");
@@ -1597,7 +1597,7 @@ export class SpiritTracker {
 
 		const currentEventButtons = currentEvents.reduce<ButtonBuilder[]>((buttons, event) => {
 			const button = new ButtonBuilder()
-				.setCustomId(`${SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID}§${event.start.year}§${event.name}`)
+				.setCustomId(`${SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID}§${event.nameUnique}`)
 				.setStyle(ButtonStyle.Success);
 
 			if (event.eventCurrencyEmoji) button.setEmoji(event.eventCurrencyEmoji);
@@ -2049,14 +2049,14 @@ export class SpiritTracker {
 		const events = EVENTS.filter((event) => event.start.year === Number(year));
 
 		const options = events.map((event) => {
-			const { name } = event;
+			const { name, nameUnique } = event;
 			const percentage = spiritTracker.spiritProgress([event], true);
 
 			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 				.setLabel(
 					`${t(`events.${name}`, { lng: locale, ns: "general" })}${percentage === null ? "" : ` (${percentage}%)`}`,
 				)
-				.setValue(name);
+				.setValue(nameUnique);
 
 			if (event.eventCurrencyEmoji) stringSelectMenuOptionBuilder.setEmoji(event.eventCurrencyEmoji);
 			return stringSelectMenuOptionBuilder;
@@ -2067,7 +2067,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(`${SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID}§${year}`)
+						.setCustomId(SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(options)
@@ -2273,19 +2273,13 @@ export class SpiritTracker {
 	public static async parseViewEvent(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const spiritTracker = await this.fetch(interaction.user.id);
-		let year;
-		let eventName;
 
-		if (interaction instanceof ButtonInteraction) {
-			const data = interaction.customId.split("§");
-			year = Number(data[1]);
-			eventName = data[2];
-		} else {
-			year = Number(interaction.customId.slice(interaction.customId.indexOf("§") + 1));
-			eventName = interaction.values[0];
-		}
+		const eventName =
+			interaction instanceof ButtonInteraction
+				? interaction.customId.slice(interaction.customId.indexOf("§") + 1)
+				: interaction.values[0];
 
-		const event = EVENTS.find(({ name, start }) => name === eventName && start.year === year);
+		const event = EVENTS.find(({ nameUnique }) => nameUnique === eventName);
 
 		if (!event) {
 			await interaction.update(ERROR_RESPONSE);
@@ -2300,7 +2294,7 @@ export class SpiritTracker {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale } = interaction;
 		const bit = this[SpiritNameToSpiritTrackerName[event.nameUnique]];
-		const { name, start, eventCurrencyEmoji, offer, imageURL } = event;
+		const { name, nameUnique, start, eventCurrencyEmoji, offer, imageURL } = event;
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
@@ -2357,7 +2351,7 @@ export class SpiritTracker {
 		if (offer) {
 			buttons.addComponents(
 				new ButtonBuilder()
-					.setCustomId(`${SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID}§${event.name}`)
+					.setCustomId(`${SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID}§${nameUnique}`)
 					.setDisabled(this.spiritProgress([event]) === 100)
 					.setEmoji("💯")
 					.setLabel("I have everything!")
@@ -2378,7 +2372,7 @@ export class SpiritTracker {
 
 			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
-					.setCustomId(`${SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID}§${name}`)
+					.setCustomId(`${SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID}§${nameUnique}`)
 					.setMaxValues(itemSelectionOptionsMaximumLimit.length)
 					.setMinValues(0)
 					.setOptions(itemSelectionOptionsMaximumLimit)
@@ -2395,7 +2389,7 @@ export class SpiritTracker {
 				components.push(
 					new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 						new StringSelectMenuBuilder()
-							.setCustomId(`${SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID}§${name}`)
+							.setCustomId(`${SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID}§${nameUnique}`)
 							.setMaxValues(itemSelectionOverflowOptionsMaximumLimit.length)
 							.setMinValues(0)
 							.setOptions(itemSelectionOverflowOptionsMaximumLimit)
