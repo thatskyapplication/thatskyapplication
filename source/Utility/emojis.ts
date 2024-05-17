@@ -1022,7 +1022,7 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 */
 	FaceAccessory12: { name: "face_accessory", id: "1182821677176991786" },
 	/**
-	 * Days of Rainbow 2021.
+	 * Rainbow braid.
 	 */
 	FaceAccessory13: { name: "face_accessory", id: "1182821682281451520" },
 	/**
@@ -2242,7 +2242,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape55: { name: "cape", id: "1188422761882849370" },
 	/**
-	 * Days of Rainbow 2021.
+	 * Rainbow cape.
 	 */
 	Cape56: { name: "cape", id: "1188422764248444928" },
 	/**
