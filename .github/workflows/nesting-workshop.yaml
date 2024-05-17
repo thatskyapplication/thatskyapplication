@@ -1,0 +1,27 @@
+name: Nesting Workshop reminder
+on:
+  schedule:
+    - cron: 0 7 * * 1
+jobs:
+  issue:
+    name: Nesting Workshop reminder
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create token
+        id: create-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: thatskyapplication
+          repositories: caelus
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.create-token.outputs.token }}
+          persist-credentials: false
+      - name: Open issue
+        run: gh issue create --body "$ISSUE_BODY" --title "Add Nesting Workshop props ($(date +%d/%m/%Y))"
+        env:
+          GITHUB_TOKEN: ${{ steps.create-token.outputs.token }}
+          ISSUE_BODY: |
+            Ensure all props available this week are added.
