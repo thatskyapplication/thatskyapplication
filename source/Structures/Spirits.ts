@@ -4,7 +4,12 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import { type RealmName, CDN_URL, WIKI_URL } from "../Utility/Constants.js";
-import { SeasonName, SeasonNameToSeasonalCandleEmoji, SeasonNameToSeasonalHeartEmoji } from "../Utility/catalogue.js";
+import {
+	addCosts,
+	SeasonName,
+	SeasonNameToSeasonalCandleEmoji,
+	SeasonNameToSeasonalHeartEmoji,
+} from "../Utility/catalogue.js";
 import type { FriendshipTreeItemCost, FriendshipTreeItem } from "../Utility/catalogue.js";
 import { skyDate } from "../Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../Utility/emojis.js";
@@ -139,7 +144,7 @@ export function addCurrency(
 	};
 }
 
-export function resolveOfferToCurrency(cost: FriendshipTreeItemCost, seasonName?: SeasonName | null) {
+export function resolveCostToString(cost: FriendshipTreeItemCost, seasonName?: SeasonName | null) {
 	const totalCost = [];
 
 	if (cost.candles) {
@@ -197,7 +202,7 @@ abstract class BaseFriendshipTree {
 
 	public constructor({ name, offer }: BaseFriendshipTreeData) {
 		this.offer = offer ?? null;
-		this.totalCost = offer?.current ? this.resolveTotalCost(offer.current) : null;
+		this.totalCost = offer?.current ? addCosts(offer.current.map((item) => item.cost)) : null;
 		this.maxItemsBit = offer?.current ? this.resolveMaxItemsBit(offer?.current) : null;
 		this.imageURL = (offer ? offer.hasInfographic ?? true : false) ? this.resolveImageURL(name) : null;
 	}
@@ -270,7 +275,7 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 		super(seasonalFriendshipTreeData);
 		this.offer = seasonalFriendshipTreeData.offer;
 		this.maxItemsBit = this.resolveMaxItemsBit(this.offer.current ?? this.offer.seasonal);
-		this.totalCostSeasonal = this.resolveTotalCost(this.offer.seasonal);
+		this.totalCostSeasonal = addCosts(this.offer.seasonal.map((item) => item.cost));
 
 		this.imageURLSeasonal =
 			this.offer.hasInfographicSeasonal ?? true ? this.resolveImageURL(seasonalFriendshipTreeData.name, true) : null;

@@ -22,7 +22,7 @@ import {
 	type SeasonalSpiritVisitReturningData,
 	type SeasonalSpiritVisitTravellingData,
 	type StandardSpirit,
-	resolveOfferToCurrency,
+	resolveCostToString,
 } from "../../Structures/Spirits.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { SeasonName, SeasonNameToSeasonalEmoji } from "../../Utility/catalogue.js";
@@ -148,7 +148,7 @@ export default new (class implements AutocompleteCommand {
 		const seasonalParsing = isSeasonalSpirit && seasonalOffer;
 		const spiritSeason = isSeasonalSpirit || isGuideSpirit ? spirit.season : null;
 		const totalCost = seasonalParsing ? spirit.totalCostSeasonal : spirit.totalCost;
-		const totalOffer = totalCost ? resolveOfferToCurrency(totalCost, spiritSeason).join("") : null;
+		const totalOffer = totalCost ? resolveCostToString(totalCost, spiritSeason).join("") : null;
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)

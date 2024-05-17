@@ -21,7 +21,7 @@ import { t } from "i18next";
 import type { RealmName } from "../Utility/Constants.js";
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
-import { type FriendshipTreeItemCost, SeasonName, SeasonNameToSeasonalEmoji } from "../Utility/catalogue.js";
+import { addCosts, SeasonName, SeasonNameToSeasonalEmoji } from "../Utility/catalogue.js";
 import { todayDate } from "../Utility/dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
@@ -53,8 +53,7 @@ import {
 	type SeasonalSpirit,
 	type StandardSpirit,
 	type StandardSpiritRealm,
-	addCurrency,
-	resolveOfferToCurrency,
+	resolveCostToString,
 } from "./Spirits.js";
 
 type SpiritTrackerValue = number | null;
@@ -2011,11 +2010,12 @@ export class SpiritTracker {
 		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
 		season?: SeasonName | null,
 	) {
-		return resolveOfferToCurrency(
-			spirits.reduce((remainingCurrency, spirit) => {
-				const remaining = this.remainingCurrency(spirit, resolveSeason(todayDate())?.name === season);
-				return remaining ? addCurrency(remainingCurrency, remaining) : remainingCurrency;
-			}, {}),
+		return resolveCostToString(
+			spirits.reduce(
+				(remainingCurrency, spirit) =>
+					addCosts([remainingCurrency, this.remainingCurrency(spirit, resolveSeason(todayDate())?.name === season)]),
+				{},
+			),
 			season,
 		);
 	}
@@ -2064,7 +2064,7 @@ export class SpiritTracker {
 			const remainingCurrency = this.remainingCurrency(spirit, true);
 
 			if (remainingCurrency) {
-				const resolvedRemainingCurrency = resolveOfferToCurrency(remainingCurrency, spiritSeason);
+				const resolvedRemainingCurrency = resolveCostToString(remainingCurrency, spiritSeason);
 
 				if (resolvedRemainingCurrency.length > 0) {
 					spiritDescription.push(`${resolvedRemainingCurrency.join("")}`);
@@ -2255,24 +2255,13 @@ export class SpiritTracker {
 		const resolvedOffer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
 		if (!resolvedOffer) return null;
 		const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
+		const result = addCosts(resolvedOffer.filter((_, flag) => !bit || (bit & flag) !== flag).map((item) => item.cost));
 
-		return resolvedOffer.reduce<Required<FriendshipTreeItemCost>>(
-			(remaining, { cost }, flag) => {
-				if (!cost || (bit && (bit & flag) === flag)) return remaining;
-				if (cost.candles) remaining.candles += cost.candles;
-				if (cost.hearts) remaining.hearts += cost.hearts;
-				if (cost.ascendedCandles) remaining.ascendedCandles += cost.ascendedCandles;
-				if (includeSeasonalCurrency && cost.seasonalCandles) remaining.seasonalCandles += cost.seasonalCandles;
-				if (includeSeasonalCurrency && cost.seasonalHearts) remaining.seasonalHearts += cost.seasonalHearts;
-				return remaining;
-			},
-			{
-				candles: 0,
-				hearts: 0,
-				ascendedCandles: 0,
-				seasonalCandles: 0,
-				seasonalHearts: 0,
-			},
-		);
+		if (!includeSeasonalCurrency) {
+			result.seasonalCandles = 0;
+			result.seasonalHearts = 0;
+		}
+
+		return result;
 	}
 }

@@ -177,3 +177,19 @@ export interface FriendshipTreeItem {
 	cost: FriendshipTreeItemCost | null;
 	emoji: Emoji;
 }
+
+export function addCosts(offer: FriendshipTreeItem["cost"][]) {
+	return offer.reduce<Required<FriendshipTreeItemCost>>(
+		(offer, cost) => {
+			if (!cost) return offer;
+			const { candles, hearts, ascendedCandles, seasonalCandles, seasonalHearts } = cost;
+			if (candles) offer.candles += candles;
+			if (hearts) offer.hearts += hearts;
+			if (ascendedCandles) offer.ascendedCandles += ascendedCandles;
+			if (seasonalCandles) offer.seasonalCandles += seasonalCandles;
+			if (seasonalHearts) offer.seasonalHearts += seasonalHearts;
+			return offer;
+		},
+		{ candles: 0, hearts: 0, ascendedCandles: 0, seasonalCandles: 0, seasonalHearts: 0 },
+	);
+}
