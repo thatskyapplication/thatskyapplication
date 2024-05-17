@@ -1,6 +1,6 @@
 import { Collection } from "discord.js";
 import { Event } from "../../../Structures/Event.js";
-import { type FriendshipTreeItem, EventNameUnique } from "../../../Utility/catalogue.js";
+import { type ItemRaw, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -16,7 +16,7 @@ export default new Event({
 	url: null,
 	offer: {
 		hasInfographic: false,
-		items: new Collection<number, FriendshipTreeItem>()
+		items: new Collection<number, ItemRaw>()
 			.set(1 << 0, { name: "Neck accessory", cost: { hearts: 15 }, emoji: NECKLACE_EMOJIS.Necklace09 })
 			.set(1 << 1, { name: "Cape", cost: { candles: 65 }, emoji: CAPE_EMOJIS.Cape41 })
 			.set(1 << 2, { name: "Prop", cost: { candles: 150 }, emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp03 })

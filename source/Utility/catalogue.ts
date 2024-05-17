@@ -6,10 +6,10 @@ import {
 	type Emoji,
 	type EventEmojis,
 	type SeasonEmojis,
-	MISCELLANEOUS_EMOJIS,
-	SEASON_EMOJIS,
-	resolveCurrencyEmoji,
 	EVENT_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	resolveCurrencyEmoji,
+	SEASON_EMOJIS,
 } from "./emojis.js";
 
 export type RotationNumber = 1 | 2 | 3;
@@ -244,12 +244,17 @@ export const EVENT_NAME_VALUES = Object.values(EventName);
 
 export const EventNameToEventCurrencyEmoji = {
 	[EventName.HalloweenOfficeEvent]: null,
-	[EventName.DaysOfMischief]: EVENT_EMOJIS.Mischief,
-	[EventName.AviarysFireworkFestival]: EVENT_EMOJIS.AviarysFireworkFestival,
 	[EventName.DaysOfFeast]: EVENT_EMOJIS.Feast,
-	[EventName.DaysOfFortune]: EVENT_EMOJIS.Fortune,
 	[EventName.DaysOfLove]: EVENT_EMOJIS.Love,
+	[EventName.DaysOfNature]: null,
+	[EventName.DaysOfHealing]: null,
+	[EventName.SkyAnniversary]: null,
+	[EventName.DaysOfSummerLights]: null,
+	[EventName.DaysOfMischief]: EVENT_EMOJIS.Mischief,
+	[EventName.DaysOfFortune]: EVENT_EMOJIS.Fortune,
 	[EventName.DaysOfBloom]: EVENT_EMOJIS.Bloom,
+	[EventName.DaysOfRainbow]: EVENT_EMOJIS.Colour,
+	[EventName.AviarysFireworkFestival]: EVENT_EMOJIS.AviarysFireworkFestival,
 	[EventName.SkyXCinnamorollPopUpCafe]: EVENT_EMOJIS.SkyXCinnamorollPopUpCafe,
 } as const satisfies Readonly<Record<EventName, EventEmojis | null>>;
 

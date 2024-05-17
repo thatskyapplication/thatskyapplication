@@ -80,7 +80,7 @@ export class Event {
 	/**
 	 * The emoji representing the event currency.
 	 *
-	 * @remarks This may be `null` for an upcoming event (emoji not yet created).
+	 * @remarks This is `null` for events that do not (yet) have event currency.
 	 */
 	public readonly eventCurrencyEmoji: EventEmojis | null;
 
