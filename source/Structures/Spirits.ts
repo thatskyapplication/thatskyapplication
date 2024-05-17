@@ -131,19 +131,6 @@ interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
 	season: SeasonName;
 }
 
-export function addCurrency(
-	currency1: FriendshipTreeItemCost,
-	currency2: FriendshipTreeItemCost,
-): Required<FriendshipTreeItemCost> {
-	return {
-		candles: (currency1.candles ?? 0) + (currency2.candles ?? 0),
-		hearts: (currency1.hearts ?? 0) + (currency2.hearts ?? 0),
-		ascendedCandles: (currency1.ascendedCandles ?? 0) + (currency2.ascendedCandles ?? 0),
-		seasonalCandles: (currency1.seasonalCandles ?? 0) + (currency2.seasonalCandles ?? 0),
-		seasonalHearts: (currency1.seasonalHearts ?? 0) + (currency2.seasonalHearts ?? 0),
-	};
-}
-
 export function resolveCostToString(cost: FriendshipTreeItemCost, seasonName?: SeasonName | null) {
 	const totalCost = [];
 
