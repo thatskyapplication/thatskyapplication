@@ -291,7 +291,7 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 
 	public constructor(seasonalFriendshipTreeData: SeasonalFriendshipTreeData) {
 		super(seasonalFriendshipTreeData);
-		this.seasonal = this.resolveOffer(seasonalFriendshipTreeData.offer.seasonal);
+		this.seasonal = this.resolveOffer(seasonalFriendshipTreeData.offer.seasonal, seasonalFriendshipTreeData.season);
 
 		this.maxItemsBit = this.resolveMaxItemsBit(
 			seasonalFriendshipTreeData.offer.current ?? seasonalFriendshipTreeData.offer.seasonal,
