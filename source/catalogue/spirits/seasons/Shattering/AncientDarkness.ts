@@ -1,6 +1,6 @@
 import { Collection } from "discord.js";
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import type { FriendshipTreeItemRaw } from "../../../../Utility/catalogue.js";
+import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
@@ -29,7 +29,7 @@ export default [
 		season: SeasonName.Shattering,
 		offer: {
 			hasInfographic: false,
-			seasonal: new Collection<number, FriendshipTreeItemRaw>()
+			seasonal: new Collection<number, ItemRaw>()
 				.set(1 << 0, { name: "Hair accessory", cost: { seasonalCandles: 27 }, emoji: hairAccessoryEmoji })
 				.set(1 << 1, { name: "Blessing 1", cost: null, emoji: blessing3 })
 				.set(1 << 2, { name: "Blessing 2", cost: { seasonalCandles: 16 }, emoji: blessing3 })
@@ -46,7 +46,7 @@ export default [
 		season: SeasonName.Shattering,
 		offer: {
 			hasInfographic: false,
-			seasonal: new Collection<number, FriendshipTreeItemRaw>()
+			seasonal: new Collection<number, ItemRaw>()
 				.set(1 << 0, { name: "Neck accessory", cost: { seasonalCandles: 35 }, emoji: necklaceEmoji })
 				.set(1 << 1, { name: "Blessing 1", cost: null, emoji: blessing3 })
 				.set(1 << 2, { name: "Blessing 2", cost: { seasonalCandles: 16 }, emoji: blessing3 })

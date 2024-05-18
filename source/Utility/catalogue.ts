@@ -185,13 +185,13 @@ interface ItemCostSeasonal {
 	seasonName: SeasonName;
 }
 
-export interface FriendshipTreeItemRaw {
+export interface ItemRaw {
 	name: string;
 	cost: ItemCostRaw | null;
 	emoji: Emoji;
 }
 
-export interface FriendshipTreeItem {
+export interface Item {
 	name: string;
 	cost: ItemCost | null;
 	emoji: Emoji;

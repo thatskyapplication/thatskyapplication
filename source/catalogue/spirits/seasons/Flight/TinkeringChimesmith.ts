@@ -2,7 +2,7 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { FriendshipTreeItemRaw } from "../../../../Utility/catalogue.js";
+import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
@@ -32,7 +32,7 @@ export default new SeasonalSpirit({
 	hasMarketingVideo: true,
 	offer: {
 		hasInfographicSeasonal: false,
-		seasonal: new Collection<number, FriendshipTreeItemRaw>()
+		seasonal: new Collection<number, ItemRaw>()
 			.set(1 << 0, { name: `${stance} stance`, cost: null, emoji: stanceEmoji })
 			.set(1 << 1, { name: "Blessing 1", cost: { seasonalCandles: 16 }, emoji: blessing2 })
 			.set(1 << 7, { name: "Outfit", cost: null, emoji: outfitEmoji })
@@ -43,7 +43,7 @@ export default new SeasonalSpirit({
 			.set(1 << 2, { name: "Hair", cost: { seasonalCandles: 28 }, emoji: hairEmoji })
 			.set(1 << 10, { name: "Trail spell 2", cost: null, emoji: colourTrail })
 			.set(1 << 3, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.FlightHeart }),
-		current: new Collection<number, FriendshipTreeItemRaw>()
+		current: new Collection<number, ItemRaw>()
 			.set(1 << 0, { name: `${stance} stance`, cost: null, emoji: stanceEmoji })
 			.set(1 << 1, { name: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 2, { name: "Hair", cost: { candles: 45 }, emoji: hairEmoji })

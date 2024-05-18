@@ -1,7 +1,7 @@
 import { Collection } from "discord.js";
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { FriendshipTreeItemRaw } from "../../../../Utility/catalogue.js";
+import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
@@ -19,7 +19,7 @@ export default new GuideSpirit({
 	season: SeasonName.Performance,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
-		current: new Collection<number, FriendshipTreeItemRaw>()
+		current: new Collection<number, ItemRaw>()
 			.set(1 << 0, { name: "Quest 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 1, { name: "Shared memory spell 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.SpellSharedMemory })
 			.set(1 << 2, { name: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace19 })

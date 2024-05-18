@@ -1,7 +1,7 @@
 import { Collection } from "discord.js";
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { FriendshipTreeItemRaw } from "../../../../Utility/catalogue.js";
+import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
@@ -18,7 +18,7 @@ export default new GuideSpirit({
 	season: SeasonName.Moments,
 	realm: RealmName.DaylightPrairie,
 	offer: {
-		current: new Collection<number, FriendshipTreeItemRaw>()
+		current: new Collection<number, ItemRaw>()
 			.set(1 << 0, { name: "Camera", cost: null, emoji: HELD_PROPS_EMOJIS.HeldProp38 })
 			.set(1 << 1, { name: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace31 })
 			.set(1 << 2, {

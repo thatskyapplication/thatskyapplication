@@ -1,6 +1,6 @@
 import { Collection } from "discord.js";
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
-import type { FriendshipTreeItemRaw } from "../../../../Utility/catalogue.js";
+import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import { CAPE_EMOJIS, MISCELLANEOUS_EMOJIS, NECKLACE_EMOJIS } from "../../../../Utility/emojis.js";
 import { SpiritName } from "../../../../Utility/spirits.js";
@@ -9,7 +9,7 @@ export default new GuideSpirit({
 	name: SpiritName.TheVoidOfShattering,
 	season: SeasonName.Shattering,
 	offer: {
-		current: new Collection<number, FriendshipTreeItemRaw>()
+		current: new Collection<number, ItemRaw>()
 			.set(1 << 0, { name: "Quest 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 1, { name: "Heart 1", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 2, { name: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace21 })

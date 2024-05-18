@@ -1,7 +1,7 @@
 import { Collection } from "discord.js";
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { FriendshipTreeItemRaw } from "../../../../Utility/catalogue.js";
+import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
@@ -27,7 +27,7 @@ export default new SeasonalSpirit({
 	emote,
 	realm: RealmName.GoldenWasteland,
 	offer: {
-		current: new Collection<number, FriendshipTreeItemRaw>()
+		current: new Collection<number, ItemRaw>()
 			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { name: `${emote} 2`, cost: { hearts: 4 }, emoji: emoteEmoji })
 			.set(1 << 2, { name: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
@@ -40,7 +40,7 @@ export default new SeasonalSpirit({
 			.set(1 << 5, { name: "Blessing 2", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 8, { name: "Cape", cost: { candles: 70 }, emoji: capeEmoji })
 			.set(1 << 3, { name: "Music sheet", cost: { candles: 15 }, emoji: musicSheet }),
-		seasonal: new Collection<number, FriendshipTreeItemRaw>()
+		seasonal: new Collection<number, ItemRaw>()
 			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { name: `${emote} 2`, cost: null, emoji: emoteEmoji })
 			.set(1 << 2, { name: "Blessing 1", cost: { seasonalCandles: 12 }, emoji: blessing2 })

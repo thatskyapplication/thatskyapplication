@@ -1,7 +1,7 @@
 import { Collection } from "discord.js";
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { FriendshipTreeItemRaw } from "../../../../Utility/catalogue.js";
+import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
@@ -27,7 +27,7 @@ export default new SeasonalSpirit({
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		hasInfographic: false,
-		seasonal: new Collection<number, FriendshipTreeItemRaw>()
+		seasonal: new Collection<number, ItemRaw>()
 			.set(1 << 0, { name: `${action} 1`, cost: null, emoji: actionEmoji })
 			.set(1 << 1, { name: `${action} 2`, cost: null, emoji: actionEmoji })
 			.set(1 << 2, { name: "Blessing 1", cost: { seasonalCandles: 6 }, emoji: blessing3 })

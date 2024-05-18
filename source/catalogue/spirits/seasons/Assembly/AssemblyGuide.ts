@@ -1,7 +1,7 @@
 import { Collection } from "discord.js";
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { FriendshipTreeItemRaw } from "../../../../Utility/catalogue.js";
+import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
@@ -23,7 +23,7 @@ export default new GuideSpirit({
 	season: SeasonName.Assembly,
 	realm: RealmName.HiddenForest,
 	offer: {
-		current: new Collection<number, FriendshipTreeItemRaw>()
+		current: new Collection<number, ItemRaw>()
 			.set(1 << 22, { name: "Shared space spell", cost: null, emoji: MISCELLANEOUS_EMOJIS.SpellSharedSpace })
 			.set(1 << 0, { name: "Quest 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 1, { name: "Heart 1", cost: { candles: 3 }, emoji: heartEmoji })
