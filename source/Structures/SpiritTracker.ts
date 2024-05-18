@@ -1872,7 +1872,6 @@ export class SpiritTracker {
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(backToStartButton()),
 			],
-			// TODO: It is improper to use this method as spirits may come from different seasons.
 			embeds: [spiritTracker.spiritEmbed(spirits, locale, false).setTitle("Returning Spirits")],
 		};
 
