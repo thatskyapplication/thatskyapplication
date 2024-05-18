@@ -409,7 +409,13 @@ export default class Notification {
 		if (!role) return;
 		const me = await channel.guild.members.fetchMe();
 		if (!isNotificationSendable(channel, role, me)) return;
-		await channel.send({ content: `${role} ${suffix}`, flags: MessageFlags.SuppressEmbeds });
+
+		await channel.send({
+			content: `${role} ${suffix}`,
+			enforceNonce: true,
+			flags: MessageFlags.SuppressEmbeds,
+			nonce: `${type}-${channelId}`,
+		});
 	}
 
 	public async embed(interaction: ChatInputCommandInteraction<"cached">) {

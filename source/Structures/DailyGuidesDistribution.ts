@@ -430,7 +430,7 @@ export default class DailyGuidesDistribution {
 			return channel.messages.edit(messageId, { embeds: [embed] });
 		} else {
 			// There is no existing message. Send one.
-			const { id } = await channel.send({ embeds: [embed] });
+			const { id } = await channel.send({ embeds: [embed], enforceNonce: true, nonce: guildId });
 
 			const [newDailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
 				.update({ message_id: id })
