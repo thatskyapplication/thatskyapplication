@@ -421,7 +421,7 @@ const SPLASH_IN_THE_WATER_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE = {
 const SPIRIT_QUEST = (spirit: QuestSpirit) =>
 	({
 		content: `Relive the ${spirit.name}`,
-		url: String(new URL(`daily_guides/quests/spirits/${spirit.cdnName}.webp`, CDN_URL)),
+		url: String(new URL(`daily_guides/quests/spirits/${spirit.snakeCaseName}.webp`, CDN_URL)),
 	}) as const;
 
 export const QUESTS = [

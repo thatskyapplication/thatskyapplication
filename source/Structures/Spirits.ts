@@ -4,16 +4,23 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import { type RealmName, CDN_URL, WIKI_URL } from "../Utility/Constants.js";
-import { type ItemCost, type ItemRaw, type Item, type SeasonName, addCosts } from "../Utility/catalogue.js";
+import {
+	type ItemCost,
+	type ItemRaw,
+	type Item,
+	type SeasonName,
+	addCosts,
+	snakeCaseName,
+} from "../Utility/catalogue.js";
 import { skyDate } from "../Utility/dates.js";
 import {
 	type FriendAction,
 	type SpiritCall,
 	type SpiritEmote,
+	type SpiritName,
 	type SpiritStance,
 	type SpiritType,
-	SPIRIT_TYPE,
-	SpiritName,
+	SPIRIT_TYPE
 } from "../Utility/spirits.js";
 import pino from "../pino.js";
 
@@ -128,10 +135,6 @@ function wikiName(name: SpiritName) {
 	return (name.includes("(") ? name.slice(0, name.indexOf("(") - 1) : name).replaceAll(" ", "_");
 }
 
-function cdnName(name: SpiritName) {
-	return wikiName(name).replaceAll("'", "_").replaceAll("-", "_").toLowerCase();
-}
-
 abstract class BaseFriendshipTree {
 	public readonly current: Collection<number, Item> | null;
 
@@ -174,15 +177,9 @@ abstract class BaseFriendshipTree {
 	}
 
 	protected resolveImageURL(name: SpiritName, seasonal = false) {
-		let fileName = seasonal ? "seasonal" : "current";
-
-		if ([SpiritName.AncientLight1, SpiritName.AncientDarkness1].includes(name)) {
-			fileName += "1";
-		} else if ([SpiritName.AncientLight2, SpiritName.AncientDarkness2].includes(name)) {
-			fileName += "2";
-		}
-
-		return String(new URL(`spirits/${cdnName(name)}/friendship_tree/${fileName}.webp`, CDN_URL));
+		return String(
+			new URL(`spirits/${snakeCaseName(name)}/friendship_tree/${seasonal ? "seasonal" : "current"}.webp`, CDN_URL),
+		);
 	}
 }
 
@@ -261,9 +258,7 @@ abstract class ExpressiveSpirit {
 abstract class BaseSpirit {
 	public readonly name: BaseSpiritData["name"];
 
-	public readonly wikiName: string;
-
-	public readonly cdnName: string;
+	public readonly snakeCaseName: string;
 
 	public readonly type!: SpiritType;
 
@@ -276,11 +271,10 @@ abstract class BaseSpirit {
 	public constructor(spirit: BaseSpiritData) {
 		this.name = spirit.name;
 		const { name } = this;
-		this.wikiName = wikiName(name);
-		this.cdnName = cdnName(name);
+		this.snakeCaseName = snakeCaseName(name);
 		this.realm = spirit.realm ?? null;
 		this.keywords = spirit.keywords ?? [];
-		this.wikiURL = new URL(this.wikiName, WIKI_URL).toString();
+		this.wikiURL = new URL(wikiName(spirit.name), WIKI_URL).toString();
 	}
 
 	public isStandardSpirit(): this is StandardSpirit {
@@ -336,7 +330,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 		this.season = spirit.season;
 
 		this.marketingVideoURL = spirit.hasMarketingVideo
-			? String(new URL(`spirits/${this.cdnName}/marketing_video.mp4`, CDN_URL))
+			? String(new URL(`spirits/${this.snakeCaseName}/marketing_video.mp4`, CDN_URL))
 			: null;
 
 		this.visits = {

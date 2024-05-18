@@ -164,6 +164,10 @@ export const enum EventName {
 	SkyXCinnamorollPopUpCafe = "Sky × Cinnamoroll Pop-Up Cafe",
 }
 
+export function snakeCaseName(name: string) {
+	return name.replaceAll(/[ '-]/g, "_").replaceAll(/[()]/g, "").replaceAll("×", "x").toLowerCase();
+}
+
 export interface ItemCostRaw {
 	candles?: number;
 	hearts?: number;
