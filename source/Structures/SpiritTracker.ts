@@ -18,8 +18,7 @@ import {
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
 import { t } from "i18next";
-import type { RealmName } from "../Utility/Constants.js";
-import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../Utility/Constants.js";
+import { type RealmName, DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
 import {
 	type ItemCost,
