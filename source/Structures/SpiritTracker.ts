@@ -2021,18 +2021,7 @@ export class SpiritTracker {
 	) {
 		const multiple = spirits.length > 1;
 		const description = [];
-
-		// This method only needs a single spirit to determine the season if invoked from a season.
-		const aSpirit = spirits[0]!;
-		const spiritSeason = aSpirit.isSeasonalSpirit() || aSpirit.isGuideSpirit() ? aSpirit.season : null;
-
-		if (multiple) {
-			const resolvedRemainingCurrency = this.summateCurrency(spirits, spiritSeason);
-
-			if (resolvedRemainingCurrency.length > 0) {
-				description.push(`__Remaining Currency__\n${resolvedRemainingCurrency.join("")}`);
-			}
-		}
+		const remainingCurrencies = [];
 
 		for (const spirit of spirits) {
 			const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
@@ -2054,10 +2043,10 @@ export class SpiritTracker {
 
 			if (owned.length > 0) spiritDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
 			if (unowned.length > 0) spiritDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
-
 			const remainingCurrency = this.remainingCurrency(spirit, true);
 
 			if (remainingCurrency) {
+				remainingCurrencies.push(remainingCurrency);
 				const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
 
 				if (resolvedRemainingCurrency.length > 0) {
@@ -2070,6 +2059,12 @@ export class SpiritTracker {
 					multiple ? `__${t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" })}__\n` : ""
 				}${spiritDescription.join("\n")}`,
 			);
+		}
+
+		const totalRemainingCurrency = resolveCostToString(addCosts(remainingCurrencies));
+
+		if (totalRemainingCurrency.length > 0) {
+			description.unshift(`__Remaining Currency__\n${totalRemainingCurrency.join("")}`);
 		}
 
 		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR);
