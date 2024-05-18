@@ -98,6 +98,21 @@ export enum NotificationEvent {
 	Dragon = "Dragon",
 }
 
+const NotificationEventToNumber = {
+	[NotificationEvent.PollutedGeyser]: 0,
+	[NotificationEvent.Grandma]: 1,
+	[NotificationEvent.Turtle]: 2,
+	[NotificationEvent.DailyReset]: 3,
+	[NotificationEvent.EyeOfEden]: 4,
+	[NotificationEvent.ISS]: 5,
+	[NotificationEvent.RegularShardEruption]: 6,
+	[NotificationEvent.StrongShardEruption]: 7,
+	[NotificationEvent.AURORA]: 8,
+	[NotificationEvent.Passage]: 9,
+	[NotificationEvent.AviarysFireworkFestival]: 10,
+	[NotificationEvent.Dragon]: 11,
+} as const satisfies Readonly<Record<NotificationEvent, number>>;
+
 export const NOTIFICATION_EVENT_VALUES = Object.values(NotificationEvent);
 
 export const NOTIFICATION_CHANNEL_TYPES = [
@@ -414,7 +429,7 @@ export default class Notification {
 			content: `${role} ${suffix}`,
 			enforceNonce: true,
 			flags: MessageFlags.SuppressEmbeds,
-			nonce: `${type}-${channelId}`,
+			nonce: `${NotificationEventToNumber[type]}-${channelId}`,
 		});
 	}
 
