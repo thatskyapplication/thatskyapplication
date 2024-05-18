@@ -2061,10 +2061,12 @@ export class SpiritTracker {
 			);
 		}
 
-		const totalRemainingCurrency = resolveCostToString(addCosts(remainingCurrencies));
+		if (multiple) {
+			const totalRemainingCurrency = resolveCostToString(addCosts(remainingCurrencies));
 
-		if (totalRemainingCurrency.length > 0) {
-			description.unshift(`__Remaining Currency__\n${totalRemainingCurrency.join("")}`);
+			if (totalRemainingCurrency.length > 0) {
+				description.unshift(`__Remaining Currency__\n${totalRemainingCurrency.join("")}`);
+			}
 		}
 
 		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR);
