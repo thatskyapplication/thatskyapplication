@@ -21,7 +21,7 @@ import { t } from "i18next";
 import type { RealmName } from "../Utility/Constants.js";
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
-import { addCosts, SeasonName, SeasonNameToSeasonalEmoji } from "../Utility/catalogue.js";
+import { addCosts, SeasonName, SeasonNameToSeasonalEmoji, type ItemCost } from "../Utility/catalogue.js";
 import { todayDate } from "../Utility/dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
@@ -1379,11 +1379,9 @@ export class SpiritTracker {
 
 	private ownedProgress(spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit) {
 		const resolvedOffer =
-			spirit.isStandardSpirit() || spirit.isElderSpirit()
-				? spirit.offer.current
-				: spirit.isGuideSpirit()
-				? spirit.offer?.current ?? null
-				: spirit.offer.current ?? spirit.offer.seasonal;
+			spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
+				? spirit.current
+				: spirit.current ?? spirit.seasonal;
 
 		const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
 
@@ -1916,8 +1914,8 @@ export class SpiritTracker {
 		const { locale } = interaction;
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
-		const seasonalParsing = isSeasonalSpirit && !spirit.offer.current;
-		const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
+		const seasonalParsing = isSeasonalSpirit && !spirit.current;
+		const offer = seasonalParsing ? spirit.seasonal : spirit.current;
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 
 		const embed = this.spiritEmbed([spirit], locale)
@@ -1933,7 +1931,7 @@ export class SpiritTracker {
 		}
 
 		embed.setDescription(description.join("\n"));
-		if (isGuideSpirit && spirit.offer?.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
+		if (isGuideSpirit && spirit.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
 		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
 
 		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(
@@ -2011,12 +2009,10 @@ export class SpiritTracker {
 		season?: SeasonName | null,
 	) {
 		return resolveCostToString(
-			spirits.reduce(
-				(remainingCurrency, spirit) =>
-					addCosts([remainingCurrency, this.remainingCurrency(spirit, resolveSeason(todayDate())?.name === season)]),
-				{},
-			),
-			season,
+			spirits.reduce((remainingCurrency, spirit) => {
+				const totalCost = this.remainingCurrency(spirit, resolveSeason(todayDate())?.name === season);
+				return totalCost ? addCosts([remainingCurrency, totalCost]) : remainingCurrency;
+			}, {}),
 		);
 	}
 
@@ -2044,8 +2040,8 @@ export class SpiritTracker {
 			const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
 			const spiritDescription = [];
 			const isSeasonalSpirit = spirit.isSeasonalSpirit();
-			const seasonalParsing = isSeasonalSpirit && !spirit.offer.current;
-			const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
+			const seasonalParsing = isSeasonalSpirit && !spirit.current;
+			const offer = seasonalParsing ? spirit.seasonal : spirit.current;
 			if (!offer) continue;
 			const owned = [];
 			const unowned = [];
@@ -2064,7 +2060,7 @@ export class SpiritTracker {
 			const remainingCurrency = this.remainingCurrency(spirit, true);
 
 			if (remainingCurrency) {
-				const resolvedRemainingCurrency = resolveCostToString(remainingCurrency, spiritSeason);
+				const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
 
 				if (resolvedRemainingCurrency.length > 0) {
 					spiritDescription.push(`${resolvedRemainingCurrency.join("")}`);
@@ -2251,15 +2247,21 @@ export class SpiritTracker {
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 		includeSeasonalCurrency?: boolean,
 	) {
-		const seasonalParsing = spirit.isSeasonalSpirit() && !spirit.offer.current;
-		const resolvedOffer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
+		const seasonalParsing = spirit.isSeasonalSpirit() && !spirit.current;
+		const resolvedOffer = seasonalParsing ? spirit.seasonal : spirit.current;
 		if (!resolvedOffer) return null;
 		const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
-		const result = addCosts(resolvedOffer.filter((_, flag) => !bit || (bit & flag) !== flag).map((item) => item.cost));
+
+		const result = addCosts(
+			resolvedOffer
+				.filter((_, flag) => !bit || (bit & flag) !== flag)
+				.map((item) => item.cost)
+				.filter((cost): cost is ItemCost => cost !== null),
+		);
 
 		if (!includeSeasonalCurrency) {
-			result.seasonalCandles = 0;
-			result.seasonalHearts = 0;
+			for (const seasonalCandle of result.seasonalCandles) seasonalCandle.cost = 0;
+			for (const seasonalHeart of result.seasonalHearts) seasonalHeart.cost = 0;
 		}
 
 		return result;
