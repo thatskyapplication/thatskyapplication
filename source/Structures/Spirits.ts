@@ -10,7 +10,7 @@ import {
 	SeasonNameToSeasonalCandleEmoji,
 	SeasonNameToSeasonalHeartEmoji,
 } from "../Utility/catalogue.js";
-import type { ItemCost, ItemCostRaw, FriendshipTreeItemRaw, FriendshipTreeItem } from "../Utility/catalogue.js";
+import type { ItemCost, FriendshipTreeItemRaw, FriendshipTreeItem } from "../Utility/catalogue.js";
 import { skyDate } from "../Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../Utility/emojis.js";
 import {
@@ -222,28 +222,6 @@ abstract class BaseFriendshipTree {
 					: null,
 			};
 		});
-	}
-
-	protected resolveTotalCost(offer: Collection<number, FriendshipTreeItemRaw>) {
-		return offer.reduce<Required<ItemCostRaw>>(
-			(offer, { cost }) => {
-				if (!cost) return offer;
-				const { candles, hearts, ascendedCandles, seasonalCandles, seasonalHearts } = cost;
-				if (candles) offer.candles += candles;
-				if (hearts) offer.hearts += hearts;
-				if (ascendedCandles) offer.ascendedCandles += ascendedCandles;
-				if (seasonalCandles) offer.seasonalCandles += seasonalCandles;
-				if (seasonalHearts) offer.seasonalHearts += seasonalHearts;
-				return offer;
-			},
-			{
-				candles: 0,
-				hearts: 0,
-				ascendedCandles: 0,
-				seasonalCandles: 0,
-				seasonalHearts: 0,
-			},
-		);
 	}
 
 	protected resolveMaxItemsBit(offer: Collection<number, FriendshipTreeItemRaw>) {
