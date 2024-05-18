@@ -241,7 +241,6 @@ export default class DailyGuidesDistribution {
 	}
 
 	public static eventData(date: DateTime, locale: Locale) {
-		// date = date.plus({ days: 1 });
 		const events = resolveEvents(date);
 		const eventEndText = plannedEvents(date).map((event) => event.daysText(date));
 		const iconURL = events[0] ? formatEmojiURL(events[0].eventCurrencyEmoji.id) : null;
