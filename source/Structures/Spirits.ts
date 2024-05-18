@@ -10,7 +10,7 @@ import {
 	SeasonNameToSeasonalCandleEmoji,
 	SeasonNameToSeasonalHeartEmoji,
 } from "../Utility/catalogue.js";
-import type { FriendshipTreeItemCost, FriendshipTreeItem } from "../Utility/catalogue.js";
+import type { ItemCost, ItemCostRaw, FriendshipTreeItemRaw, FriendshipTreeItem } from "../Utility/catalogue.js";
 import { skyDate } from "../Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../Utility/emojis.js";
 import {
@@ -38,51 +38,52 @@ const RETURNING_DATES = new Collection<SeasonalSpiritVisitCollectionKey, Returni
 	.set(4, { start: skyDate(2_023, 8, 7), end: skyDate(2_023, 8, 13) })
 	.set(5, { start: skyDate(2_024, 3, 4), end: skyDate(2_024, 3, 17) });
 
-interface BaseFriendshipTreeOffer {
+interface BaseFriendshipTreeOfferData {
 	hasInfographic?: boolean;
-	current?: Collection<number, FriendshipTreeItem>;
+	current?: Collection<number, FriendshipTreeItemRaw>;
 }
 
-interface StandardFriendshipTreeOffer extends BaseFriendshipTreeOffer {
-	current: Collection<number, FriendshipTreeItem>;
+interface StandardFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
+	current: Collection<number, FriendshipTreeItemRaw>;
 }
 
-interface ElderFriendshipTreeOffer extends BaseFriendshipTreeOffer {
-	current: Collection<number, FriendshipTreeItem>;
+interface ElderFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
+	current: Collection<number, FriendshipTreeItemRaw>;
 }
 
-interface SeasonalFriendshipTreeOffer extends BaseFriendshipTreeOffer {
+interface SeasonalFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
 	hasInfographicSeasonal?: boolean;
-	seasonal: Collection<number, FriendshipTreeItem>;
+	seasonal: Collection<number, FriendshipTreeItemRaw>;
 }
 
-interface GuideFriendshipTreeOffer extends BaseFriendshipTreeOffer {
+interface GuideFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
 	inProgress?: boolean;
 }
 
 interface BaseFriendshipTreeData {
 	name: SpiritName;
 	offer?:
-		| StandardFriendshipTreeOffer
-		| ElderFriendshipTreeOffer
-		| SeasonalFriendshipTreeOffer
-		| GuideFriendshipTreeOffer;
+		| StandardFriendshipTreeOfferData
+		| ElderFriendshipTreeOfferData
+		| SeasonalFriendshipTreeOfferData
+		| GuideFriendshipTreeOfferData;
 }
 
 interface StandardFriendshipTreeData extends BaseFriendshipTreeData {
-	offer: StandardFriendshipTreeOffer;
+	offer: StandardFriendshipTreeOfferData;
 }
 
 interface ElderFriendshipTreeData extends BaseFriendshipTreeData {
-	offer?: ElderFriendshipTreeOffer;
+	offer?: ElderFriendshipTreeOfferData;
 }
 
 interface SeasonalFriendshipTreeData extends BaseFriendshipTreeData {
-	offer: SeasonalFriendshipTreeOffer;
+	offer: SeasonalFriendshipTreeOfferData;
+	season: SeasonName;
 }
 
 interface GuideFriendshipTreeData extends BaseFriendshipTreeData {
-	offer?: GuideFriendshipTreeOffer;
+	offer?: GuideFriendshipTreeOfferData;
 }
 
 interface ExpressiveSpiritData {
@@ -122,7 +123,6 @@ interface SeasonalSpiritVisit {
 }
 
 interface SeasonalSpiritData extends BaseSpiritData, SeasonalFriendshipTreeData, ExpressiveSpiritData {
-	season: SeasonName;
 	hasMarketingVideo?: boolean;
 	visits?: SeasonalSpiritVisitData;
 }
@@ -131,7 +131,7 @@ interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
 	season: SeasonName;
 }
 
-export function resolveCostToString(cost: FriendshipTreeItemCost, seasonName?: SeasonName | null) {
+export function resolveCostToString(cost: ItemCost) {
 	const totalCost = [];
 
 	if (cost.candles) {
@@ -147,24 +147,30 @@ export function resolveCostToString(cost: FriendshipTreeItemCost, seasonName?: S
 	}
 
 	if (cost.seasonalCandles) {
-		totalCost.push(
-			resolveCurrencyEmoji({
-				emoji: seasonName ? SeasonNameToSeasonalCandleEmoji[seasonName] : MISCELLANEOUS_EMOJIS.SeasonalCandle,
-				number: cost.seasonalCandles,
-			}),
-		);
+		for (const seasonalCandles of cost.seasonalCandles) {
+			totalCost.push(
+				resolveCurrencyEmoji({
+					emoji: SeasonNameToSeasonalCandleEmoji[seasonalCandles.seasonName],
+					number: seasonalCandles.cost,
+				}),
+			);
+		}
 	}
 
 	if (cost.seasonalHearts) {
-		totalCost.push(
-			resolveCurrencyEmoji({
-				emoji:
-					seasonName && seasonName !== SeasonName.Gratitude && seasonName !== SeasonName.Lightseekers
-						? SeasonNameToSeasonalHeartEmoji[seasonName]
-						: MISCELLANEOUS_EMOJIS.SeasonalHeart,
-				number: cost.seasonalHearts,
-			}),
-		);
+		for (const seasonalHearts of cost.seasonalHearts) {
+			const { seasonName } = seasonalHearts;
+
+			totalCost.push(
+				resolveCurrencyEmoji({
+					emoji:
+						seasonName !== SeasonName.Gratitude && seasonName !== SeasonName.Lightseekers
+							? SeasonNameToSeasonalHeartEmoji[seasonName]
+							: MISCELLANEOUS_EMOJIS.SeasonalHeart,
+					number: seasonalHearts.cost,
+				}),
+			);
+		}
 	}
 
 	return totalCost;
@@ -179,23 +185,47 @@ function cdnName(name: SpiritName) {
 }
 
 abstract class BaseFriendshipTree {
-	public readonly offer: BaseFriendshipTreeOffer | null;
+	public readonly current: Collection<number, FriendshipTreeItem> | null;
 
-	public readonly totalCost: Required<FriendshipTreeItemCost> | null;
+	public readonly totalCost: Required<ItemCost> | null;
 
 	public readonly maxItemsBit: number | null;
 
 	public imageURL: string | null;
 
 	public constructor({ name, offer }: BaseFriendshipTreeData) {
-		this.offer = offer ?? null;
-		this.totalCost = offer?.current ? addCosts(offer.current.map((item) => item.cost)) : null;
+		this.current = offer?.current ? this.resolveOffer(offer.current) : null;
+
+		this.totalCost = this.current
+			? addCosts(this.current.map((item) => item.cost).filter((cost): cost is ItemCost => cost !== null))
+			: null;
+
 		this.maxItemsBit = offer?.current ? this.resolveMaxItemsBit(offer?.current) : null;
 		this.imageURL = (offer ? offer.hasInfographic ?? true : false) ? this.resolveImageURL(name) : null;
 	}
 
-	protected resolveTotalCost(offer: Collection<number, FriendshipTreeItem>) {
-		return offer.reduce<Required<FriendshipTreeItemCost>>(
+	protected resolveOffer(
+		items: Collection<number, FriendshipTreeItemRaw>,
+		seasonName?: SeasonName,
+	): Collection<number, FriendshipTreeItem> {
+		return items.mapValues((item) => {
+			return {
+				...item,
+				cost: item.cost
+					? {
+							...item.cost,
+							seasonalCandles:
+								seasonName && item.cost.seasonalCandles ? [{ cost: item.cost.seasonalCandles, seasonName }] : [],
+							seasonalHearts:
+								seasonName && item.cost.seasonalHearts ? [{ cost: item.cost.seasonalHearts, seasonName }] : [],
+					  }
+					: null,
+			};
+		});
+	}
+
+	protected resolveTotalCost(offer: Collection<number, FriendshipTreeItemRaw>) {
+		return offer.reduce<Required<ItemCostRaw>>(
 			(offer, { cost }) => {
 				if (!cost) return offer;
 				const { candles, hearts, ascendedCandles, seasonalCandles, seasonalHearts } = cost;
@@ -216,7 +246,7 @@ abstract class BaseFriendshipTree {
 		);
 	}
 
-	protected resolveMaxItemsBit(offer: Collection<number, FriendshipTreeItem>) {
+	protected resolveMaxItemsBit(offer: Collection<number, FriendshipTreeItemRaw>) {
 		return offer.reduce((bits, _, bit) => bit | bits, 0);
 	}
 
@@ -234,43 +264,58 @@ abstract class BaseFriendshipTree {
 }
 
 abstract class StandardFriendshipTree extends BaseFriendshipTree {
-	public declare readonly offer: StandardFriendshipTreeOffer;
+	public declare readonly current: Collection<number, FriendshipTreeItem> | null;
 
-	public declare readonly totalCost: Required<FriendshipTreeItemCost>;
+	public declare readonly totalCost: Required<ItemCost>;
 
 	public declare readonly maxItemsBit: number;
 }
 
 abstract class ElderFriendshipTree extends BaseFriendshipTree {
-	public declare readonly offer: ElderFriendshipTreeOffer;
+	public declare readonly current: Collection<number, FriendshipTreeItem> | null;
 
-	public declare readonly totalCost: Required<FriendshipTreeItemCost>;
+	public declare readonly totalCost: Required<ItemCost>;
 
 	public declare readonly maxItemsBit: number;
 }
 
 abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
-	public override readonly offer: SeasonalFriendshipTreeOffer;
-
 	public override readonly maxItemsBit: number;
 
-	public readonly totalCostSeasonal: Required<FriendshipTreeItemCost>;
+	public readonly seasonal: Collection<number, FriendshipTreeItem> | null;
+
+	public readonly totalCostSeasonal: Required<ItemCost>;
 
 	public imageURLSeasonal: string | null;
 
 	public constructor(seasonalFriendshipTreeData: SeasonalFriendshipTreeData) {
 		super(seasonalFriendshipTreeData);
-		this.offer = seasonalFriendshipTreeData.offer;
-		this.maxItemsBit = this.resolveMaxItemsBit(this.offer.current ?? this.offer.seasonal);
-		this.totalCostSeasonal = addCosts(this.offer.seasonal.map((item) => item.cost));
+		this.seasonal = this.resolveOffer(seasonalFriendshipTreeData.offer.seasonal, seasonalFriendshipTreeData.season);
+
+		this.maxItemsBit = this.resolveMaxItemsBit(
+			seasonalFriendshipTreeData.offer.current ?? seasonalFriendshipTreeData.offer.seasonal,
+		);
+
+		this.totalCostSeasonal = addCosts(
+			this.seasonal.map((item) => item.cost).filter((cost): cost is ItemCost => cost !== null),
+		);
 
 		this.imageURLSeasonal =
-			this.offer.hasInfographicSeasonal ?? true ? this.resolveImageURL(seasonalFriendshipTreeData.name, true) : null;
+			seasonalFriendshipTreeData.offer.hasInfographicSeasonal ?? true
+				? this.resolveImageURL(seasonalFriendshipTreeData.name, true)
+				: null;
 	}
 }
 
 abstract class GuideFriendshipTree extends BaseFriendshipTree {
-	public declare readonly offer: GuideFriendshipTreeOffer | null;
+	public declare readonly current: Collection<number, FriendshipTreeItem> | null;
+
+	public readonly inProgress: boolean;
+
+	public constructor(guideFriendshipTreeData: GuideFriendshipTreeData) {
+		super(guideFriendshipTreeData);
+		this.inProgress = guideFriendshipTreeData.offer?.inProgress ?? false;
+	}
 }
 
 abstract class ExpressiveSpirit {

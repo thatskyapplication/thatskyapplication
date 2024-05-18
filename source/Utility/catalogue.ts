@@ -164,7 +164,7 @@ export const enum EventName {
 	SkyXCinnamorollPopUpCafe = "Sky × Cinnamoroll Pop-Up Cafe",
 }
 
-export interface FriendshipTreeItemCost {
+export interface ItemCostRaw {
 	candles?: number;
 	hearts?: number;
 	ascendedCandles?: number;
@@ -172,24 +172,64 @@ export interface FriendshipTreeItemCost {
 	seasonalHearts?: number;
 }
 
-export interface FriendshipTreeItem {
+export interface ItemCost {
+	candles?: number;
+	hearts?: number;
+	ascendedCandles?: number;
+	seasonalCandles?: ItemCostSeasonal[];
+	seasonalHearts?: ItemCostSeasonal[];
+}
+
+interface ItemCostSeasonal {
+	cost: number;
+	seasonName: SeasonName;
+}
+
+export interface FriendshipTreeItemRaw {
 	name: string;
-	cost: FriendshipTreeItemCost | null;
+	cost: ItemCostRaw | null;
 	emoji: Emoji;
 }
 
-export function addCosts(offer: FriendshipTreeItem["cost"][]) {
-	return offer.reduce<Required<FriendshipTreeItemCost>>(
-		(offer, cost) => {
-			if (!cost) return offer;
-			const { candles, hearts, ascendedCandles, seasonalCandles, seasonalHearts } = cost;
-			if (candles) offer.candles += candles;
-			if (hearts) offer.hearts += hearts;
-			if (ascendedCandles) offer.ascendedCandles += ascendedCandles;
-			if (seasonalCandles) offer.seasonalCandles += seasonalCandles;
-			if (seasonalHearts) offer.seasonalHearts += seasonalHearts;
-			return offer;
+export interface FriendshipTreeItem {
+	name: string;
+	cost: ItemCost | null;
+	emoji: Emoji;
+}
+
+export function addCosts(items: ItemCost[]) {
+	return items.reduce<Required<ItemCost>>(
+		(total, { candles = 0, hearts = 0, ascendedCandles = 0, seasonalCandles = [], seasonalHearts = [] }) => {
+			total.candles += candles;
+			total.hearts += hearts;
+			total.ascendedCandles += ascendedCandles;
+
+			for (const seasonalCandle of seasonalCandles) {
+				const sameSeason = total.seasonalCandles.findIndex(
+					({ seasonName }) => seasonName === seasonalCandle.seasonName,
+				);
+
+				if (sameSeason === -1) {
+					// Prevents mutation.
+					total.seasonalCandles.push({ ...seasonalCandle });
+				} else {
+					total.seasonalCandles.at(sameSeason)!.cost += seasonalCandle.cost;
+				}
+			}
+
+			for (const seasonalHeart of seasonalHearts) {
+				const sameSeason = total.seasonalHearts.findIndex(({ seasonName }) => seasonName === seasonalHeart.seasonName);
+
+				if (sameSeason === -1) {
+					// Prevents mutation.
+					total.seasonalHearts.push({ ...seasonalHeart });
+				} else {
+					total.seasonalHearts.at(sameSeason)!.cost += seasonalHeart.cost;
+				}
+			}
+
+			return total;
 		},
-		{ candles: 0, hearts: 0, ascendedCandles: 0, seasonalCandles: 0, seasonalHearts: 0 },
+		{ candles: 0, hearts: 0, ascendedCandles: 0, seasonalCandles: [], seasonalHearts: [] },
 	);
 }

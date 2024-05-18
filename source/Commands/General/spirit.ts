@@ -114,7 +114,7 @@ export default new (class implements AutocompleteCommand {
 			return;
 		}
 
-		await this.searchResponse(interaction, spirit, spirit.isSeasonalSpirit() && !spirit.offer.current);
+		await this.searchResponse(interaction, spirit, spirit.isSeasonalSpirit() && !spirit.current);
 	}
 
 	public async parseSpiritSwitch(interaction: ButtonInteraction) {
@@ -148,7 +148,7 @@ export default new (class implements AutocompleteCommand {
 		const seasonalParsing = isSeasonalSpirit && seasonalOffer;
 		const spiritSeason = isSeasonalSpirit || isGuideSpirit ? spirit.season : null;
 		const totalCost = seasonalParsing ? spirit.totalCostSeasonal : spirit.totalCost;
-		const totalOffer = totalCost ? resolveCostToString(totalCost, spiritSeason).join("") : null;
+		const totalOffer = totalCost ? resolveCostToString(totalCost).join("") : null;
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
@@ -226,11 +226,11 @@ export default new (class implements AutocompleteCommand {
 		if (imageURL) {
 			embed.setImage(imageURL);
 		} else {
-			const offer = seasonalParsing ? spirit.offer.seasonal : spirit.offer?.current;
+			const offer = seasonalParsing ? spirit.seasonal : spirit?.current;
 			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
-		if (isGuideSpirit && spirit.offer?.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
+		if (isGuideSpirit && spirit.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
 		if (totalOffer && totalOffer.length > 0) description.push(totalOffer);
 
 		if (isSeasonalSpirit && spirit.marketingVideoURL) {

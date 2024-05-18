@@ -1,7 +1,7 @@
 import { Collection } from "discord.js";
 import { StandardSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { FriendshipTreeItem } from "../../../../Utility/catalogue.js";
+import type { FriendshipTreeItemRaw } from "../../../../Utility/catalogue.js";
 import { HAIR_EMOJIS, HELD_PROPS_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { SpiritEmote, SpiritName, SpiritEmoteToEmoji } from "../../../../Utility/spirits.js";
 
@@ -13,7 +13,7 @@ export default new StandardSpirit({
 	emote,
 	realm: RealmName.DaylightPrairie,
 	offer: {
-		current: new Collection<number, FriendshipTreeItem>()
+		current: new Collection<number, FriendshipTreeItemRaw>()
 			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { name: `${emote} 2`, cost: { candles: 1 }, emoji: emoteEmoji })
 			.set(1 << 2, { name: "Blessing 1", cost: { candles: 1 }, emoji: MISCELLANEOUS_EMOJIS.Blessing1 })

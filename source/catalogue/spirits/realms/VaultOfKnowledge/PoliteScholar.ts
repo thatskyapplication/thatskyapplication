@@ -1,7 +1,7 @@
 import { Collection } from "discord.js";
 import { StandardSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { FriendshipTreeItem } from "../../../../Utility/catalogue.js";
+import type { FriendshipTreeItemRaw } from "../../../../Utility/catalogue.js";
 import { HAIR_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../Utility/emojis.js";
 import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../Utility/spirits.js";
 
@@ -14,7 +14,7 @@ export default new StandardSpirit({
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		hasInfographic: false,
-		current: new Collection<number, FriendshipTreeItem>()
+		current: new Collection<number, FriendshipTreeItemRaw>()
 			.set(1 << 0, { name: `${stance} stance`, cost: null, emoji: stanceEmoji })
 			.set(1 << 1, { name: "Outfit", cost: { hearts: 2 }, emoji: OUTFIT_EMOJIS.Outfit08 })
 			.set(1 << 2, { name: "Blessing 1", cost: { candles: 1 }, emoji: MISCELLANEOUS_EMOJIS.Blessing1 })

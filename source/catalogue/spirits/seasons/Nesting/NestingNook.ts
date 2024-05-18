@@ -1,6 +1,6 @@
 import { Collection } from "discord.js";
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import type { FriendshipTreeItem } from "../../../../Utility/catalogue.js";
+import type { FriendshipTreeItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
@@ -21,7 +21,7 @@ export default new SeasonalSpirit({
 	season: SeasonName.Nesting,
 	offer: {
 		hasInfographic: false,
-		seasonal: new Collection<number, FriendshipTreeItem>()
+		seasonal: new Collection<number, FriendshipTreeItemRaw>()
 			.set(1 << 0, { name: "Prop 1", cost: { seasonalCandles: 16 }, emoji: SmallPlaceableProp41 })
 			.set(1 << 1, { name: "Blessing 1", cost: null, emoji: blessing3 })
 			.set(1 << 2, { name: "Blessing 2", cost: { seasonalCandles: 20 }, emoji: blessing3 })

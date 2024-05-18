@@ -2,7 +2,7 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { FriendshipTreeItem } from "../../../../Utility/catalogue.js";
+import type { FriendshipTreeItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { HAIR_EMOJIS, HELD_PROPS_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
@@ -23,7 +23,7 @@ export default new SeasonalSpirit({
 	realm: RealmName.HiddenForest,
 	offer: {
 		hasInfographicSeasonal: false,
-		seasonal: new Collection<number, FriendshipTreeItem>()
+		seasonal: new Collection<number, FriendshipTreeItemRaw>()
 			.set(1 << 0, { name: `${stance} stance`, cost: null, emoji: stanceEmoji })
 			.set(1 << 2, { name: "Mask", cost: { seasonalCandles: 6 }, emoji: maskEmoji })
 			.set(1 << 1, { name: "Blessing 1", cost: null, emoji: blessing2 })
@@ -33,7 +33,7 @@ export default new SeasonalSpirit({
 			.set(1 << 9, { name: "Blessing 3", cost: null, emoji: blessing2 })
 			.set(1 << 10, { name: "Blessing 4", cost: { seasonalCandles: 20 }, emoji: blessing2 })
 			.set(1 << 8, { name: "Umbrella", cost: null, emoji: heldProp }),
-		current: new Collection<number, FriendshipTreeItem>()
+		current: new Collection<number, FriendshipTreeItemRaw>()
 			.set(1 << 0, { name: `${stance} stance`, cost: null, emoji: stanceEmoji })
 			.set(1 << 1, { name: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 2, { name: "Mask", cost: { candles: 30 }, emoji: maskEmoji })
