@@ -3,7 +3,7 @@ import { URL } from "node:url";
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
-import { type RealmName, CDN_URL, WIKI_URL } from "../Utility/Constants.js";
+import { type RealmName, CDN_URL } from "../Utility/Constants.js";
 import {
 	type ItemCost,
 	type ItemRaw,
@@ -11,6 +11,7 @@ import {
 	type SeasonName,
 	addCosts,
 	snakeCaseName,
+	wikiURL,
 } from "../Utility/catalogue.js";
 import { skyDate } from "../Utility/dates.js";
 import {
@@ -20,7 +21,7 @@ import {
 	type SpiritName,
 	type SpiritStance,
 	type SpiritType,
-	SPIRIT_TYPE
+	SPIRIT_TYPE,
 } from "../Utility/spirits.js";
 import pino from "../pino.js";
 
@@ -129,10 +130,6 @@ interface SeasonalSpiritData extends BaseSpiritData, SeasonalFriendshipTreeData,
 
 interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
 	season: SeasonName;
-}
-
-function wikiName(name: SpiritName) {
-	return (name.includes("(") ? name.slice(0, name.indexOf("(") - 1) : name).replaceAll(" ", "_");
 }
 
 abstract class BaseFriendshipTree {
@@ -274,7 +271,7 @@ abstract class BaseSpirit {
 		this.snakeCaseName = snakeCaseName(name);
 		this.realm = spirit.realm ?? null;
 		this.keywords = spirit.keywords ?? [];
-		this.wikiURL = new URL(wikiName(spirit.name), WIKI_URL).toString();
+		this.wikiURL = wikiURL(spirit.name);
 	}
 
 	public isStandardSpirit(): this is StandardSpirit {

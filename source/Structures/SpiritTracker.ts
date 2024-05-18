@@ -52,6 +52,7 @@ import {
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import Profile from "./Profile.js";
+import type { Season } from "./Season.js";
 import type { ElderSpirit, GuideSpirit, SeasonalSpirit, StandardSpirit, StandardSpiritRealm } from "./Spirits.js";
 
 type SpiritTrackerValue = number | null;
@@ -760,8 +761,8 @@ const validRealms = REALMS.reduce<StandardSpiritRealm[]>((realms, { name, spirit
 	return realms;
 }, []);
 
-const validSeasons = SEASONS.reduce<SeasonName[]>((seasons, { name, guide, spirits }) => {
-	if (guide || spirits.length > 0) seasons.push(name);
+const validSeasons = SEASONS.reduce<Season[]>((seasons, season) => {
+	if (season.guide || season.spirits.length > 0) seasons.push(season);
 	return seasons;
 }, []);
 
@@ -1726,19 +1727,16 @@ export class SpiritTracker {
 						.setMinValues(0)
 						.setOptions(
 							validSeasons.map((season) => {
-								const percentage = spiritTracker.spiritProgress(
-									SEASON_SPIRITS.filter((spirit) => spirit.season === season),
-									true,
-								);
+								const percentage = spiritTracker.spiritProgress([season.guide, ...season.spirits], true);
 
 								return new StringSelectMenuOptionBuilder()
-									.setEmoji(SeasonNameToSeasonalEmoji[season])
+									.setEmoji(SeasonNameToSeasonalEmoji[season.name])
 									.setLabel(
-										`${t(`seasons.${season}`, { lng: locale, ns: "general" })}${
+										`${t(`seasons.${season.name}`, { lng: locale, ns: "general" })}${
 											percentage === null ? "" : ` (${percentage}%)`
 										}`,
 									)
-									.setValue(season);
+									.setValue(season.name);
 							}),
 						)
 						.setPlaceholder("Select a season!"),
@@ -1756,11 +1754,19 @@ export class SpiritTracker {
 		});
 	}
 
-	public static async viewSeason(interaction: ButtonInteraction | StringSelectMenuInteraction, season: SeasonName) {
+	public static async viewSeason(interaction: ButtonInteraction | StringSelectMenuInteraction, seasonName: SeasonName) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale, user } = interaction;
+		const season = validSeasons.find(({ name }) => name === seasonName);
+
+		if (!season) {
+			pino.error(interaction, "Failed to view a season.");
+			await interaction.update(ERROR_RESPONSE);
+			return;
+		}
+
 		const spiritTracker = await this.fetch(user.id);
-		const spirits = SEASON_SPIRITS.filter((spirit) => spirit.season === season);
+		const spirits = [season.guide, ...season.spirits];
 		let hasEverything = true;
 
 		const options = spirits.map((spirit) => {
@@ -1787,9 +1793,9 @@ export class SpiritTracker {
 						.setMinValues(0)
 						.setOptions(options)
 						.setPlaceholder(
-							season === SeasonName.Shattering || season === SeasonName.Nesting
+							seasonName === SeasonName.Shattering || seasonName === SeasonName.Nesting
 								? "Select an entity!"
-								: season === SeasonName.Revival
+								: seasonName === SeasonName.Revival
 								? "Select a spirit or a shop!"
 								: "Select a spirit!",
 						),
@@ -1802,12 +1808,12 @@ export class SpiritTracker {
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
-						.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${season}`)
+						.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${seasonName}`)
 						.setEmoji("🔗")
 						.setLabel("Share")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
-						.setCustomId(`${SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID}§${season}`)
+						.setCustomId(`${SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID}§${seasonName}`)
 						.setDisabled(hasEverything)
 						.setEmoji("💯")
 						.setLabel("I have everything!")
@@ -1815,12 +1821,15 @@ export class SpiritTracker {
 				),
 			],
 			embeds: [
-				spiritTracker.spiritEmbed(spirits, locale).setTitle(
-					`${formatEmoji(SeasonNameToSeasonalEmoji[season])} ${t(`seasons.${season}`, {
-						lng: locale,
-						ns: "general",
-					})}`,
-				),
+				spiritTracker
+					.spiritEmbed(spirits, locale)
+					.setTitle(
+						`${formatEmoji(SeasonNameToSeasonalEmoji[seasonName])} ${t(`seasons.${seasonName}`, {
+							lng: locale,
+							ns: "general",
+						})}`,
+					)
+					.setURL(season.wikiURL),
 			],
 		} satisfies InteractionUpdateOptions;
 

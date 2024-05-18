@@ -11,6 +11,7 @@ import {
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
 	SeasonNameToSeasonalCandleEmoji,
 	SeasonNameToSeasonalEmoji,
+	wikiURL,
 } from "../Utility/catalogue.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
@@ -34,6 +35,8 @@ interface SeasonData {
 export class Season {
 	public readonly name: SeasonName;
 
+	public readonly wikiURL: string;
+
 	public readonly start: DateTime;
 
 	public readonly end: DateTime;
@@ -52,6 +55,7 @@ export class Season {
 
 	public constructor(data: SeasonData) {
 		this.name = data.name;
+		this.wikiURL = wikiURL(data.name);
 		this.start = data.start;
 		this.end = data.end;
 		this.duration = this.end.diff(this.start, "days").days + 1;

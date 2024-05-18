@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-literal-enum-member */
+import { URL } from "node:url";
+import { WIKI_URL } from "./Constants.js";
 import { type Emoji, type SeasonEmojis, MISCELLANEOUS_EMOJIS, SEASON_EMOJIS, resolveCurrencyEmoji } from "./emojis.js";
 
 export type RotationNumber = 1 | 2 | 3;
@@ -166,6 +168,12 @@ export const enum EventName {
 
 export function snakeCaseName(name: string) {
 	return name.replaceAll(/[ '-]/g, "_").replaceAll(/[()]/g, "").replaceAll("×", "x").toLowerCase();
+}
+
+export function wikiURL(name: string) {
+	return String(
+		new URL((name.includes("(") ? name.slice(0, name.indexOf("(") - 1) : name).replaceAll(" ", "_"), WIKI_URL),
+	);
 }
 
 export interface ItemCostRaw {
