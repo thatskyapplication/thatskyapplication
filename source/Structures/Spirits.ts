@@ -10,7 +10,7 @@ import {
 	SeasonNameToSeasonalCandleEmoji,
 	SeasonNameToSeasonalHeartEmoji,
 } from "../Utility/catalogue.js";
-import type { ItemCostRaw, FriendshipTreeItemRaw, FriendshipTreeItem, ItemCost } from "../Utility/catalogue.js";
+import type { ItemCost, ItemCostRaw, FriendshipTreeItemRaw, FriendshipTreeItem } from "../Utility/catalogue.js";
 import { skyDate } from "../Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../Utility/emojis.js";
 import {
