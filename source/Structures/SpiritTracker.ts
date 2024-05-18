@@ -1872,7 +1872,7 @@ export class SpiritTracker {
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(backToStartButton()),
 			],
-			embeds: [spiritTracker.spiritEmbed(spirits, locale, false).setTitle("Returning Spirits")],
+			embeds: [spiritTracker.spiritEmbed(spirits, locale).setTitle("Returning Spirits")],
 		};
 
 		await interaction.update(response);
@@ -2018,7 +2018,6 @@ export class SpiritTracker {
 	private spiritEmbed(
 		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
 		locale: Locale,
-		includeTotalCurrency = true,
 	) {
 		const multiple = spirits.length > 1;
 		const description = [];
@@ -2027,7 +2026,7 @@ export class SpiritTracker {
 		const aSpirit = spirits[0]!;
 		const spiritSeason = aSpirit.isSeasonalSpirit() || aSpirit.isGuideSpirit() ? aSpirit.season : null;
 
-		if (includeTotalCurrency && multiple) {
+		if (multiple) {
 			const resolvedRemainingCurrency = this.summateCurrency(spirits, spiritSeason);
 
 			if (resolvedRemainingCurrency.length > 0) {
