@@ -123,7 +123,6 @@ interface SeasonalSpiritVisit {
 }
 
 interface SeasonalSpiritData extends BaseSpiritData, SeasonalFriendshipTreeData, ExpressiveSpiritData {
-	season: SeasonName;
 	hasMarketingVideo?: boolean;
 	visits?: SeasonalSpiritVisitData;
 }
