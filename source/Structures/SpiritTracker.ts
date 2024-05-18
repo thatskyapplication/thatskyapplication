@@ -21,7 +21,13 @@ import { t } from "i18next";
 import type { RealmName } from "../Utility/Constants.js";
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
-import { addCosts, SeasonName, SeasonNameToSeasonalEmoji, type ItemCost } from "../Utility/catalogue.js";
+import {
+	type ItemCost,
+	addCosts,
+	resolveCostToString,
+	SeasonName,
+	SeasonNameToSeasonalEmoji,
+} from "../Utility/catalogue.js";
 import { todayDate } from "../Utility/dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
@@ -47,14 +53,7 @@ import {
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import Profile from "./Profile.js";
-import {
-	type ElderSpirit,
-	type GuideSpirit,
-	type SeasonalSpirit,
-	type StandardSpirit,
-	type StandardSpiritRealm,
-	resolveCostToString,
-} from "./Spirits.js";
+import type { ElderSpirit, GuideSpirit, SeasonalSpirit, StandardSpirit, StandardSpiritRealm } from "./Spirits.js";
 
 type SpiritTrackerValue = number | null;
 

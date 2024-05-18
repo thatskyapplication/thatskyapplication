@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/prefer-literal-enum-member */
-import { type Emoji, type SeasonEmojis, SEASON_EMOJIS } from "./emojis.js";
+import { type Emoji, type SeasonEmojis, MISCELLANEOUS_EMOJIS, SEASON_EMOJIS, resolveCurrencyEmoji } from "./emojis.js";
 
 export type RotationNumber = 1 | 2 | 3;
 export const SEASONAL_CANDLES_PER_DAY = 5 as const;
@@ -232,4 +232,49 @@ export function addCosts(items: ItemCost[]) {
 		},
 		{ candles: 0, hearts: 0, ascendedCandles: 0, seasonalCandles: [], seasonalHearts: [] },
 	);
+}
+
+export function resolveCostToString(cost: ItemCost) {
+	const totalCost = [];
+
+	if (cost.candles) {
+		totalCost.push(resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Candle, number: cost.candles }));
+	}
+
+	if (cost.hearts) {
+		totalCost.push(resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: cost.hearts }));
+	}
+
+	if (cost.ascendedCandles) {
+		totalCost.push(resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.AscendedCandle, number: cost.ascendedCandles }));
+	}
+
+	if (cost.seasonalCandles) {
+		for (const seasonalCandles of cost.seasonalCandles) {
+			totalCost.push(
+				resolveCurrencyEmoji({
+					emoji: SeasonNameToSeasonalCandleEmoji[seasonalCandles.seasonName],
+					number: seasonalCandles.cost,
+				}),
+			);
+		}
+	}
+
+	if (cost.seasonalHearts) {
+		for (const seasonalHearts of cost.seasonalHearts) {
+			const { seasonName } = seasonalHearts;
+
+			totalCost.push(
+				resolveCurrencyEmoji({
+					emoji:
+						seasonName !== SeasonName.Gratitude && seasonName !== SeasonName.Lightseekers
+							? SeasonNameToSeasonalHeartEmoji[seasonName]
+							: MISCELLANEOUS_EMOJIS.SeasonalHeart,
+					number: seasonalHearts.cost,
+				}),
+			);
+		}
+	}
+
+	return totalCost;
 }

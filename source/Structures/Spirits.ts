@@ -5,14 +5,13 @@ import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import { type RealmName, CDN_URL, WIKI_URL } from "../Utility/Constants.js";
 import {
+	type ItemCost,
+	type FriendshipTreeItemRaw,
+	type FriendshipTreeItem,
+	type SeasonName,
 	addCosts,
-	SeasonName,
-	SeasonNameToSeasonalCandleEmoji,
-	SeasonNameToSeasonalHeartEmoji,
 } from "../Utility/catalogue.js";
-import type { ItemCost, FriendshipTreeItemRaw, FriendshipTreeItem } from "../Utility/catalogue.js";
 import { skyDate } from "../Utility/dates.js";
-import { MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../Utility/emojis.js";
 import {
 	type FriendAction,
 	type SpiritCall,
@@ -129,51 +128,6 @@ interface SeasonalSpiritData extends BaseSpiritData, SeasonalFriendshipTreeData,
 
 interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
 	season: SeasonName;
-}
-
-export function resolveCostToString(cost: ItemCost) {
-	const totalCost = [];
-
-	if (cost.candles) {
-		totalCost.push(resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Candle, number: cost.candles }));
-	}
-
-	if (cost.hearts) {
-		totalCost.push(resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: cost.hearts }));
-	}
-
-	if (cost.ascendedCandles) {
-		totalCost.push(resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.AscendedCandle, number: cost.ascendedCandles }));
-	}
-
-	if (cost.seasonalCandles) {
-		for (const seasonalCandles of cost.seasonalCandles) {
-			totalCost.push(
-				resolveCurrencyEmoji({
-					emoji: SeasonNameToSeasonalCandleEmoji[seasonalCandles.seasonName],
-					number: seasonalCandles.cost,
-				}),
-			);
-		}
-	}
-
-	if (cost.seasonalHearts) {
-		for (const seasonalHearts of cost.seasonalHearts) {
-			const { seasonName } = seasonalHearts;
-
-			totalCost.push(
-				resolveCurrencyEmoji({
-					emoji:
-						seasonName !== SeasonName.Gratitude && seasonName !== SeasonName.Lightseekers
-							? SeasonNameToSeasonalHeartEmoji[seasonName]
-							: MISCELLANEOUS_EMOJIS.SeasonalHeart,
-					number: seasonalHearts.cost,
-				}),
-			);
-		}
-	}
-
-	return totalCost;
 }
 
 function wikiName(name: SpiritName) {

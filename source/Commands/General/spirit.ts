@@ -15,17 +15,16 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import { SpiritTracker } from "../../Structures/SpiritTracker.js";
-import {
-	type ElderSpirit,
-	type GuideSpirit,
-	type SeasonalSpirit,
-	type SeasonalSpiritVisitReturningData,
-	type SeasonalSpiritVisitTravellingData,
-	type StandardSpirit,
-	resolveCostToString,
+import type {
+	ElderSpirit,
+	GuideSpirit,
+	SeasonalSpirit,
+	SeasonalSpiritVisitReturningData,
+	SeasonalSpiritVisitTravellingData,
+	StandardSpirit,
 } from "../../Structures/Spirits.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
-import { SeasonName, SeasonNameToSeasonalEmoji } from "../../Utility/catalogue.js";
+import { SeasonName, SeasonNameToSeasonalEmoji, resolveCostToString } from "../../Utility/catalogue.js";
 import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
