@@ -210,7 +210,8 @@ export function addCosts(items: ItemCost[]) {
 				);
 
 				if (sameSeason === -1) {
-					total.seasonalCandles.push(seasonalCandle);
+					// Prevents mutation.
+					total.seasonalCandles.push({ ...seasonalCandle });
 				} else {
 					total.seasonalCandles.at(sameSeason)!.cost += seasonalCandle.cost;
 				}
@@ -220,7 +221,8 @@ export function addCosts(items: ItemCost[]) {
 				const sameSeason = total.seasonalHearts.findIndex(({ seasonName }) => seasonName === seasonalHeart.seasonName);
 
 				if (sameSeason === -1) {
-					total.seasonalHearts.push(seasonalHeart);
+					// Prevents mutation.
+					total.seasonalHearts.push({ ...seasonalHeart });
 				} else {
 					total.seasonalHearts.at(sameSeason)!.cost += seasonalHeart.cost;
 				}
