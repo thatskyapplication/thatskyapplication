@@ -5,6 +5,7 @@ import DaysOfNature from "./DaysOfNature.js";
 import DaysOfRainbow from "./DaysOfRainbow.js";
 import HarmonyHallGrandOpening from "./HarmonyHallGrandOpening.js";
 import KizunaAI from "./KizunaAI.js";
+import SkyAnniversary from "./SkyAnniversary.js";
 
 export default [
 	DaysOfFortune,
@@ -14,4 +15,5 @@ export default [
 	DaysOfNature,
 	HarmonyHallGrandOpening,
 	DaysOfRainbow,
+	SkyAnniversary,
 ] as const;
