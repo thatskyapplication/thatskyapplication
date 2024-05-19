@@ -248,6 +248,7 @@ export interface SpiritTrackerPacket {
 	kizuna_ai_2022: SpiritTrackerValue;
 	days_of_bloom_2022: SpiritTrackerValue;
 	days_of_nature_2022: SpiritTrackerValue;
+	harmony_hall_grand_opening_2022: SpiritTrackerValue;
 	aviarys_firework_festival_2023: SpiritTrackerValue;
 	days_of_feast_2023: SpiritTrackerValue;
 	days_of_mischief_2023: SpiritTrackerValue;
@@ -447,6 +448,7 @@ interface SpiritTrackerData {
 	kizunaAI2022: SpiritTrackerPacket["kizuna_ai_2022"];
 	daysOfBloom2022: SpiritTrackerPacket["days_of_bloom_2022"];
 	daysOfNature2022: SpiritTrackerPacket["days_of_nature_2022"];
+	harmonyHallGrandOpening2022: SpiritTrackerPacket["harmony_hall_grand_opening_2022"];
 	aviarysFireworkFestival2023: SpiritTrackerPacket["aviarys_firework_festival_2023"];
 	daysOfFeast2023: SpiritTrackerPacket["days_of_feast_2023"];
 	daysOfMischief2023: SpiritTrackerPacket["days_of_mischief_2023"];
@@ -648,6 +650,7 @@ const SpiritTrackerNameToRawName = {
 	[EventNameUnique.KizunaAI2022]: "kizuna_ai_2022",
 	[EventNameUnique.DaysOfBloom2022]: "days_of_bloom_2022",
 	[EventNameUnique.DaysOfNature2022]: "days_of_nature_2022",
+	[EventNameUnique.HarmonyHallGrandOpening2022]: "harmony_hall_grand_opening_2022",
 	[EventNameUnique.AviarysFireworkFestival2023]: "aviarys_firework_festival_2023",
 	[EventNameUnique.DaysOfFeast2023]: "days_of_feast_2023",
 	[EventNameUnique.DaysOfMischief2023]: "days_of_mischief_2023",
@@ -846,6 +849,7 @@ const SpiritNameToSpiritTrackerName = {
 	[EventNameUnique.KizunaAI2022]: "kizunaAI2022",
 	[EventNameUnique.DaysOfBloom2022]: "daysOfBloom2022",
 	[EventNameUnique.DaysOfNature2022]: "daysOfNature2022",
+	[EventNameUnique.HarmonyHallGrandOpening2022]: "harmonyHallGrandOpening2022",
 	[EventNameUnique.AviarysFireworkFestival2023]: "aviarysFireworkFestival2023",
 	[EventNameUnique.DaysOfFeast2023]: "daysOfFeast2023",
 	[EventNameUnique.DaysOfMischief2023]: "daysOfMischief2023",
@@ -1290,6 +1294,8 @@ export class SpiritTracker {
 
 	public daysOfNature2022!: SpiritTrackerData["daysOfNature2022"];
 
+	public harmonyHallGrandOpening2022!: SpiritTrackerData["harmonyHallGrandOpening2022"];
+
 	public aviarysFireworkFestival2023!: SpiritTrackerData["aviarysFireworkFestival2023"];
 
 	public daysOfFeast2023!: SpiritTrackerData["daysOfFeast2023"];
@@ -1498,6 +1504,7 @@ export class SpiritTracker {
 		this.kizunaAI2022 = data.kizuna_ai_2022;
 		this.daysOfBloom2022 = data.days_of_bloom_2022;
 		this.daysOfNature2022 = data.days_of_nature_2022;
+		this.harmonyHallGrandOpening2022 = data.harmony_hall_grand_opening_2022;
 		this.aviarysFireworkFestival2023 = data.aviarys_firework_festival_2023;
 		this.daysOfFeast2023 = data.days_of_feast_2023;
 		this.daysOfMischief2023 = data.days_of_mischief_2023;
