@@ -1922,7 +1922,7 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 */
 	HairAccessory18: { name: "hair_accessory", id: "1186592118131662940" },
 	/**
-	 * Days of Nature 2022.
+	 * Nature Coral Crown Accessory.
 	 */
 	HairAccessory19: { name: "hair_accessory", id: "1186592120908288031" },
 	/**
@@ -2342,7 +2342,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape80: { name: "cape", id: "1188422827364331580" },
 	/**
-	 * Days of Nature 2022.
+	 * Nature Turtle Cape.
 	 */
 	Cape81: { name: "cape", id: "1188422829746696214" },
 	/**
