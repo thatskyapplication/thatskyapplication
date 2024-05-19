@@ -434,7 +434,7 @@ export const OUTFIT_EMOJIS = {
 	 */
 	Outfit32: { name: "outfit", id: "1181712944527060992" },
 	/**
-	 * Days of Rainbow 2022.
+	 * Rainbow Trousers.
 	 */
 	Outfit33: { name: "outfit", id: "1181712947148501003" },
 	/**
