@@ -19,7 +19,7 @@ const emoteEmoji = SpiritEmoteToEmoji[emote];
 const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const hairEmoji = HAIR_EMOJIS.Hair64;
 const capeEmoji = CAPE_EMOJIS.Cape32;
-const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp16;
+const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp17;
 
 export default new SeasonalSpirit({
 	name: SpiritName.GratefulShellCollector,

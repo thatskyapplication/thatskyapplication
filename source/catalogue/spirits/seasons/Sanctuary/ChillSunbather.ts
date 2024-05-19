@@ -21,7 +21,7 @@ const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory10;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory02;
 const capeEmoji = CAPE_EMOJIS.Cape33;
-const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp13;
+const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp14;
 
 export default new SeasonalSpirit({
 	name: SpiritName.ChillSunbather,

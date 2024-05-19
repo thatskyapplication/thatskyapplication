@@ -21,7 +21,7 @@ const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit12;
 const hairEmoji = HAIR_EMOJIS.Hair50;
 const capeEmoji = CAPE_EMOJIS.Cape23;
-const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp15;
+const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp16;
 
 export default new SeasonalSpirit({
 	name: SpiritName.TroupeJuggler,

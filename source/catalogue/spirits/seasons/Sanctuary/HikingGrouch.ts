@@ -21,7 +21,7 @@ const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const maskEmoji = MASK_EMOJIS.Mask31;
 const necklaceEmoji = NECKLACE_EMOJIS.Necklace07;
 const hairEmoji = HAIR_EMOJIS.Hair63;
-const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp22;
+const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp13;
 
 export default new SeasonalSpirit({
 	name: SpiritName.HikingGrouch,

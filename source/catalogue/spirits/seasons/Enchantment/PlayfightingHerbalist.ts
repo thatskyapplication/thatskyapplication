@@ -22,7 +22,7 @@ const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const maskEmoji = MASK_EMOJIS.Mask28;
 const hairEmoji = HAIR_EMOJIS.Hair58;
 const capeEmoji = CAPE_EMOJIS.Cape28;
-const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp19;
+const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp20;
 
 export default new SeasonalSpirit({
 	name: SpiritName.PlayfightingHerbalist,

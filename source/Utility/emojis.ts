@@ -2769,45 +2769,45 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp12: { name: "large_placeable_prop", id: "1193625890345730099" },
 	/**
+	 * Days of Summer 2021.
+	 */
+	LargePlaceableProp13: { name: "large_placeable_prop", id: "1193625942501892227" },
+	/**
 	 * Chill Sunbather.
 	 */
-	LargePlaceableProp13: { name: "large_placeable_prop", id: "1193625901485797386" },
+	LargePlaceableProp14: { name: "large_placeable_prop", id: "1193625901485797386" },
 	/**
 	 * Crab Whisperer.
 	 */
-	LargePlaceableProp14: { name: "large_placeable_prop", id: "1193625903608107189" },
+	LargePlaceableProp15: { name: "large_placeable_prop", id: "1193625903608107189" },
 	/**
 	 * Troupe Juggler.
 	 */
-	LargePlaceableProp15: { name: "large_placeable_prop", id: "1193625905361330207" },
+	LargePlaceableProp16: { name: "large_placeable_prop", id: "1193625905361330207" },
 	/**
 	 * Grateful Shell Collector.
 	 */
-	LargePlaceableProp16: { name: "large_placeable_prop", id: "1193625908511248504" },
+	LargePlaceableProp17: { name: "large_placeable_prop", id: "1193625908511248504" },
 	/**
 	 * Festival Spin Dancer.
 	 */
-	LargePlaceableProp17: { name: "large_placeable_prop", id: "1193625910365138986" },
+	LargePlaceableProp18: { name: "large_placeable_prop", id: "1193625910365138986" },
 	/**
 	 * Days of Mischief 2021 1.
 	 */
-	LargePlaceableProp18: { name: "large_placeable_prop", id: "1193625912676192346" },
+	LargePlaceableProp19: { name: "large_placeable_prop", id: "1193625912676192346" },
 	/**
 	 * Playfighting Herbalist.
 	 */
-	LargePlaceableProp19: { name: "large_placeable_prop", id: "1193625918145581166" },
+	LargePlaceableProp20: { name: "large_placeable_prop", id: "1193625918145581166" },
 	/**
 	 * Jelly Whisperer.
 	 */
-	LargePlaceableProp20: { name: "large_placeable_prop", id: "1193625923170349156" },
+	LargePlaceableProp21: { name: "large_placeable_prop", id: "1193625923170349156" },
 	/**
 	 * Prophet of Fire 1.
 	 */
-	LargePlaceableProp21: { name: "large_placeable_prop", id: "1193625925875662959" },
-	/**
-	 * Hiking Grouch.
-	 */
-	LargePlaceableProp22: { name: "large_placeable_prop", id: "1193625942501892227" },
+	LargePlaceableProp22: { name: "large_placeable_prop", id: "1193625925875662959" },
 	/**
 	 * Purple Bloom Teaset.
 	 */

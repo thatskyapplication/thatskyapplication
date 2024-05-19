@@ -21,7 +21,7 @@ const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const maskEmoji = MASK_EMOJIS.Mask16;
 const hairEmoji = HAIR_EMOJIS.Hair40;
 const capeEmoji = CAPE_EMOJIS.Cape16;
-const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp14;
+const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp15;
 
 export default new SeasonalSpirit({
 	name: SpiritName.CrabWhisperer,

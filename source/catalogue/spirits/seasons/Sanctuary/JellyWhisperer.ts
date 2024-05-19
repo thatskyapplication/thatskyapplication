@@ -20,7 +20,7 @@ const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit15;
 const hairEmoji = HAIR_EMOJIS.Hair60;
-const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp20;
+const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp21;
 
 export default new SeasonalSpirit({
 	name: SpiritName.JellyWhisperer,
