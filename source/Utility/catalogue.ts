@@ -203,6 +203,7 @@ export enum EventNameUnique {
 	DaysOfBloom2021 = "Days of Bloom 2021",
 	DaysOfNature2021 = "Days of Nature 2021",
 	DaysOfRainbow2021 = "Days of Rainbow 2021",
+	SkyAnniversary2021 = "Sky Anniversary 2021",
 
 	// 2023.
 	DaysOfMischief2023 = "Days of Mischief 2023",
@@ -231,6 +232,7 @@ export const EventNameUniqueToEventName = {
 	[EventNameUnique.DaysOfBloom2021]: EventName.DaysOfBloom,
 	[EventNameUnique.DaysOfNature2021]: EventName.DaysOfNature,
 	[EventNameUnique.DaysOfRainbow2021]: EventName.DaysOfRainbow,
+	[EventNameUnique.SkyAnniversary2021]: EventName.SkyAnniversary,
 	[EventNameUnique.DaysOfMischief2023]: EventName.DaysOfMischief,
 	[EventNameUnique.AviarysFireworkFestival2023]: EventName.AviarysFireworkFestival,
 	[EventNameUnique.DaysOfFeast2023]: EventName.DaysOfFeast,
@@ -248,7 +250,7 @@ export const EventNameToEventCurrencyEmoji = {
 	[EventName.DaysOfLove]: EVENT_EMOJIS.Love,
 	[EventName.DaysOfNature]: null,
 	[EventName.DaysOfHealing]: null,
-	[EventName.SkyAnniversary]: null,
+	[EventName.SkyAnniversary]: EVENT_EMOJIS.SkyAnniversary,
 	[EventName.DaysOfSummerLights]: null,
 	[EventName.DaysOfMischief]: EVENT_EMOJIS.Mischief,
 	[EventName.DaysOfFortune]: EVENT_EMOJIS.Fortune,
