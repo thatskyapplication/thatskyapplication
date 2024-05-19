@@ -243,7 +243,7 @@ export const EventNameUniqueToEventName = {
 export const EVENT_NAME_VALUES = Object.values(EventName);
 
 export const EventNameToEventCurrencyEmoji = {
-	[EventName.HalloweenOfficeEvent]: null,
+	[EventName.HalloweenOfficeEvent]: EVENT_EMOJIS.Mischief,
 	[EventName.DaysOfFeast]: EVENT_EMOJIS.Feast,
 	[EventName.DaysOfLove]: EVENT_EMOJIS.Love,
 	[EventName.DaysOfNature]: null,
