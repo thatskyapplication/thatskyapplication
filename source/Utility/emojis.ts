@@ -1914,7 +1914,7 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 */
 	HairAccessory16: { name: "hair_accessory", id: "1186592111739535422" },
 	/**
-	 * Days of Love 2022.
+	 * Days of Love Flower Crown.
 	 */
 	HairAccessory17: { name: "hair_accessory", id: "1186592114688147547" },
 	/**
