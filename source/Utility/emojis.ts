@@ -2322,7 +2322,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape75: { name: "cape", id: "1188422811451129887" },
 	/**
-	 * Days of Bloom 2022.
+	 * Purple Bloom Cape.
 	 */
 	Cape76: { name: "cape", id: "1188422814408126504" },
 	/**
