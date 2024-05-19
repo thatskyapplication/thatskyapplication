@@ -208,6 +208,7 @@ export enum EventNameUnique {
 	DaysOfSummer2021 = "Days of Summer 2021",
 	DaysOfSummerLights2021 = "Days of Summer Lights 2021",
 	DaysOfMischief2021 = "Days of Mischief 2021",
+	DaysOfFeast2021 = "Days of Feast 2021",
 
 	// 2023.
 	DaysOfMischief2023 = "Days of Mischief 2023",
@@ -240,6 +241,7 @@ export const EventNameUniqueToEventName = {
 	[EventNameUnique.DaysOfSummer2021]: EventName.DaysOfSummer,
 	[EventNameUnique.DaysOfSummerLights2021]: EventName.DaysOfSummerLights,
 	[EventNameUnique.DaysOfMischief2021]: EventName.DaysOfMischief,
+	[EventNameUnique.DaysOfFeast2021]: EventName.DaysOfFeast,
 	[EventNameUnique.DaysOfMischief2023]: EventName.DaysOfMischief,
 	[EventNameUnique.AviarysFireworkFestival2023]: EventName.AviarysFireworkFestival,
 	[EventNameUnique.DaysOfFeast2023]: EventName.DaysOfFeast,
