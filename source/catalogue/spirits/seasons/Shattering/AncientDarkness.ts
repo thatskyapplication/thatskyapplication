@@ -19,7 +19,7 @@ const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const maskEmoji = MASK_EMOJIS.Mask65;
 const necklaceEmoji = NECKLACE_EMOJIS.Necklace22;
 const hairEmoji = HAIR_EMOJIS.Hair108;
-const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory21;
+const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory22;
 const capeEmoji = CAPE_EMOJIS.Cape83;
 const heldProp = HELD_PROPS_EMOJIS.HeldProp29;
 

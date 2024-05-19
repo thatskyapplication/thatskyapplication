@@ -1873,73 +1873,73 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 */
 	HairAccessory07: { name: "hair_accessory", id: "1186592088981246063" },
 	/**
+	 * Days of Summer Shell Hair Pin.
+	 */
+	HairAccessory08: { name: "hair_accessory", id: "1186592138612441149" },
+	/**
 	 * Bunny Accessory.
 	 */
-	HairAccessory08: { name: "hair_accessory", id: "1186592091749490719" },
+	HairAccessory09: { name: "hair_accessory", id: "1186592091749490719" },
 	/**
 	 * Light Whisperer.
 	 */
-	HairAccessory09: { name: "hair_accessory", id: "1186592094337368104" },
+	HairAccessory10: { name: "hair_accessory", id: "1186592094337368104" },
 	/**
 	 * Tinkering Chimesmith.
 	 */
-	HairAccessory10: { name: "hair_accessory", id: "1186592096648445964" },
+	HairAccessory11: { name: "hair_accessory", id: "1186592096648445964" },
 	/**
 	 * Lively Navigator.
 	 */
-	HairAccessory11: { name: "hair_accessory", id: "1186592099991306250" },
+	HairAccessory12: { name: "hair_accessory", id: "1186592099991306250" },
 	/**
 	 * Flight Guide (ultimate).
 	 */
-	HairAccessory12: { name: "hair_accessory", id: "1186592102805680189" },
+	HairAccessory13: { name: "hair_accessory", id: "1186592102805680189" },
 	/**
 	 * Snowflake Hair Accessory.
 	 */
-	HairAccessory13: { name: "hair_accessory", id: "1186592105800421426" },
+	HairAccessory14: { name: "hair_accessory", id: "1186592105800421426" },
 	/**
 	 * Bumbling Boatswain.
 	 */
-	HairAccessory14: { name: "hair_accessory", id: "1186592108614791223" },
+	HairAccessory15: { name: "hair_accessory", id: "1186592108614791223" },
 	/**
 	 * Days of Fortune Fish Accessory.
 	 */
-	HairAccessory15: { name: "hair_accessory", id: "1186592111739535422" },
+	HairAccessory16: { name: "hair_accessory", id: "1186592111739535422" },
 	/**
 	 * Days of Love 2022.
 	 */
-	HairAccessory16: { name: "hair_accessory", id: "1186592114688147547" },
+	HairAccessory17: { name: "hair_accessory", id: "1186592114688147547" },
 	/**
 	 * Kizuna AI.
 	 */
-	HairAccessory17: { name: "hair_accessory", id: "1186592118131662940" },
+	HairAccessory18: { name: "hair_accessory", id: "1186592118131662940" },
 	/**
 	 * Days of Nature 2022.
 	 */
-	HairAccessory18: { name: "hair_accessory", id: "1186592120908288031" },
+	HairAccessory19: { name: "hair_accessory", id: "1186592120908288031" },
 	/**
 	 * Harmony Hall Grand Opening.
 	 */
-	HairAccessory19: { name: "hair_accessory", id: "1186592123978522675" },
+	HairAccessory20: { name: "hair_accessory", id: "1186592123978522675" },
 	/**
 	 * Days of Rainbow 2022.
 	 */
-	HairAccessory20: { name: "hair_accessory", id: "1186592126725791764" },
+	HairAccessory21: { name: "hair_accessory", id: "1186592126725791764" },
 	/**
 	 * Ancient Darkness (plant).
 	 */
-	HairAccessory21: { name: "hair_accessory", id: "1186592129544360066" },
+	HairAccessory22: { name: "hair_accessory", id: "1186592129544360066" },
 	/**
 	 * Ancient Light (jellyfish).
 	 */
-	HairAccessory22: { name: "hair_accessory", id: "1186592132203544621" },
+	HairAccessory23: { name: "hair_accessory", id: "1186592132203544621" },
 	/**
 	 * Third Sky Anniversary.
 	 */
-	HairAccessory23: { name: "hair_accessory", id: "1186592135542231111" },
-	/**
-	 * Seashell Hairpin.
-	 */
-	HairAccessory24: { name: "hair_accessory", id: "1186592138612441149" },
+	HairAccessory24: { name: "hair_accessory", id: "1186592135542231111" },
 	/**
 	 * Reassuring Ranger.
 	 */

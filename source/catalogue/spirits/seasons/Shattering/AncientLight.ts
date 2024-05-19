@@ -17,7 +17,7 @@ const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit34;
 const hairEmoji1 = HAIR_EMOJIS.Hair109;
 const hairEmoji2 = HAIR_EMOJIS.Hair110;
-const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory22;
+const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory23;
 const capeEmoji1 = CAPE_EMOJIS.Cape85;
 const capeEmoji2 = CAPE_EMOJIS.Cape86;
 

@@ -20,7 +20,7 @@ const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const colourTrail = MISCELLANEOUS_EMOJIS.SpellColourTrail;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const hairEmoji = HAIR_EMOJIS.Hair94;
-const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory11;
+const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory12;
 const capeEmoji = CAPE_EMOJIS.Cape66;
 
 export default new SeasonalSpirit({

@@ -25,7 +25,7 @@ export default new GuideSpirit({
 			.set(1 << 3, {
 				name: "Ultimate hair accessory",
 				cost: { seasonalHearts: 2 },
-				emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory12,
+				emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory13,
 			})
 			.set(1 << 4, { name: "Ultimate outfit", cost: { seasonalHearts: 2 }, emoji: OUTFIT_EMOJIS.Outfit24 })
 			.set(1 << 5, { name: "Quest 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })

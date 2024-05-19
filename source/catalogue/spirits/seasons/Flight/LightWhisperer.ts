@@ -21,7 +21,7 @@ const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
 const colourTrail = MISCELLANEOUS_EMOJIS.SpellColourTrail;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit27;
 const hairEmoji = HAIR_EMOJIS.Hair93;
-const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory09;
+const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory10;
 const capeEmoji = CAPE_EMOJIS.Cape65;
 
 export default new SeasonalSpirit({
