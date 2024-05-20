@@ -31,7 +31,7 @@ export default new GuideSpirit({
 			.set(1 << 2, { name: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace24 })
 			.set(1 << 3, { name: "Aurora hair", cost: { seasonalHearts: 1 }, emoji: HAIR_EMOJIS.Hair116 })
 			.set(1 << 4, { name: "Ultimate outfit", cost: { seasonalHearts: 2 }, emoji: OUTFIT_EMOJIS.Outfit36 })
-			.set(1 << 5, { name: "Ultimate cape", cost: { seasonalHearts: 1 }, emoji: CAPE_EMOJIS.Cape95 })
+			.set(1 << 5, { name: "Ultimate cape", cost: { seasonalHearts: 1 }, emoji: CAPE_EMOJIS.Cape92 })
 			.set(1 << 6, { name: `${emote1} 1`, cost: null, emoji: emote1Emoji })
 			.set(1 << 7, { name: `${emote1} 3`, cost: { candles: 5 }, emoji: emote1Emoji })
 			.set(1 << 8, { name: `${emote1} 4`, cost: { hearts: 5 }, emoji: emote1Emoji })

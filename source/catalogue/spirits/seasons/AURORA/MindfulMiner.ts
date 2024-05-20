@@ -19,7 +19,7 @@ const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit35;
 const maskEmoji = MASK_EMOJIS.Mask69;
 const hairEmoji = HAIR_EMOJIS.Hair114;
-const capeEmoji = CAPE_EMOJIS.Cape94;
+const capeEmoji = CAPE_EMOJIS.Cape91;
 
 export default new SeasonalSpirit({
 	name: SpiritName.MindfulMiner,

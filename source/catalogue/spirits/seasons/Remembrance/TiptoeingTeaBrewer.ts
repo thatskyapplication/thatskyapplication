@@ -17,7 +17,7 @@ const emoteEmoji = SpiritEmoteToEmoji[emote];
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit41;
 const hairEmoji = HAIR_EMOJIS.Hair121;
-const capeEmoji = CAPE_EMOJIS.Cape103;
+const capeEmoji = CAPE_EMOJIS.Cape100;
 
 export default new SeasonalSpirit({
 	name: SpiritName.TiptoeingTeaBrewer,

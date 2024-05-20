@@ -17,7 +17,7 @@ const stanceEmoji = SpiritStanceToEmoji[stance];
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit40;
 const maskEmoji = MASK_EMOJIS.Mask74;
-const capeEmoji = CAPE_EMOJIS.Cape102;
+const capeEmoji = CAPE_EMOJIS.Cape99;
 
 export default new SeasonalSpirit({
 	name: SpiritName.WoundedWarrior,

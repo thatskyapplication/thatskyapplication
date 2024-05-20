@@ -16,7 +16,7 @@ const emote = SpiritEmote.PullUp;
 const emoteEmoji = SpiritEmoteToEmoji[emote];
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const hairEmoji = HAIR_EMOJIS.Hair124;
-const capeEmoji = CAPE_EMOJIS.Cape106;
+const capeEmoji = CAPE_EMOJIS.Cape103;
 const heldProp = HELD_PROPS_EMOJIS.HeldProp34;
 
 export default new SeasonalSpirit({

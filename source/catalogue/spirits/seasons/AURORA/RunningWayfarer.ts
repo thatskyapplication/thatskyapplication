@@ -18,7 +18,7 @@ const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;
 const maskEmoji = MASK_EMOJIS.Mask67;
 const hairEmoji = HAIR_EMOJIS.Hair112;
-const capeEmoji = CAPE_EMOJIS.Cape92;
+const capeEmoji = CAPE_EMOJIS.Cape89;
 
 export default new SeasonalSpirit({
 	name: SpiritName.RunningWayfarer,

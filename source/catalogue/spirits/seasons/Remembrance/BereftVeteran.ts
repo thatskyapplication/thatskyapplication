@@ -17,7 +17,7 @@ const emoteEmoji = SpiritEmoteToEmoji[emote];
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const maskEmoji = MASK_EMOJIS.Mask73;
 const hairEmoji = HAIR_EMOJIS.Hair120;
-const capeEmoji = CAPE_EMOJIS.Cape101;
+const capeEmoji = CAPE_EMOJIS.Cape98;
 
 export default new SeasonalSpirit({
 	name: SpiritName.BereftVeteran,

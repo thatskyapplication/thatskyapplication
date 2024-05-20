@@ -17,7 +17,7 @@ const emoteEmoji = SpiritEmoteToEmoji[emote];
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory24;
 const hairEmoji = HAIR_EMOJIS.Hair122;
-const capeEmoji = CAPE_EMOJIS.Cape105;
+const capeEmoji = CAPE_EMOJIS.Cape102;
 
 export default new SeasonalSpirit({
 	name: SpiritName.TumblingTroublemaker,

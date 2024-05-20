@@ -2365,97 +2365,97 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape87: { name: "cape", id: "1188422846167400499" },
 	/**
-	 * Days of Sunlight 2023 1.
-	 */
-	Cape88: { name: "cape", id: "1188422848503615529" },
-	/**
-	 * Days of Sunlight 2023 2.
-	 */
-	Cape89: { name: "cape", id: "1188422850827276359" },
-	/**
-	 * Days of Sunlight 2023 3.
-	 */
-	Cape90: { name: "cape", id: "1188422853905883136" },
-	/**
 	 * Seed of Hope.
 	 */
-	Cape91: { name: "cape", id: "1188422856640581674" },
+	Cape88: { name: "cape", id: "1188422856640581674" },
 	/**
 	 * Running Wayfarer.
 	 */
-	Cape92: { name: "cape", id: "1188422858897117284" },
+	Cape89: { name: "cape", id: "1188422858897117284" },
 	/**
 	 * Warrior of Love.
 	 */
-	Cape93: { name: "cape", id: "1188422861707288676" },
+	Cape90: { name: "cape", id: "1188422861707288676" },
 	/**
 	 * Mindful Miner.
 	 */
-	Cape94: { name: "cape", id: "1188422863972212737" },
+	Cape91: { name: "cape", id: "1188422863972212737" },
 	/**
 	 * AURORA (ultimate).
 	 */
-	Cape95: { name: "cape", id: "1188422867327651931" },
+	Cape92: { name: "cape", id: "1188422867327651931" },
 	/**
 	 * Days of Mischief 2022.
 	 */
-	Cape96: { name: "cape", id: "1188422869655506954" },
+	Cape93: { name: "cape", id: "1188422869655506954" },
 	/**
 	 * PlayStation.
 	 */
-	Cape97: { name: "cape", id: "1188422873094828155" },
+	Cape94: { name: "cape", id: "1188422873094828155" },
 	/**
 	 * Giving In Cape.
 	 */
-	Cape98: { name: "cape", id: "1188422875972112444" },
+	Cape95: { name: "cape", id: "1188422875972112444" },
 	/**
 	 * Wings of AURORA.
 	 */
-	Cape99: { name: "cape", id: "1188422878409003048" },
+	Cape96: { name: "cape", id: "1188422878409003048" },
 	/**
 	 * Cozy Hermit Cape.
 	 */
-	Cape100: { name: "cape", id: "1188422881349222430" },
+	Cape97: { name: "cape", id: "1188422881349222430" },
 	/**
 	 * Bereft Veteran.
 	 */
-	Cape101: { name: "cape", id: "1188423423697899540" },
+	Cape98: { name: "cape", id: "1188423423697899540" },
 	/**
 	 * Wounded Warrior.
 	 */
-	Cape102: { name: "cape", id: "1188423425828593684" },
+	Cape99: { name: "cape", id: "1188423425828593684" },
 	/**
 	 * Tiptoeing Tea-Brewer.
 	 */
-	Cape103: { name: "cape", id: "1188423428202573875" },
+	Cape100: { name: "cape", id: "1188423428202573875" },
 	/**
 	 * Days of Bloom 2023.
 	 */
-	Cape104: { name: "cape", id: "1188423431461535805" },
+	Cape101: { name: "cape", id: "1188423431461535805" },
 	/**
 	 * Tumbling Troublemaker.
 	 */
-	Cape105: { name: "cape", id: "1188423434619854918" },
+	Cape102: { name: "cape", id: "1188423434619854918" },
 	/**
 	 * Overactive Overachiever.
 	 */
-	Cape106: { name: "cape", id: "1188423437220319263" },
+	Cape103: { name: "cape", id: "1188423437220319263" },
 	/**
 	 * Passage Guide (ultimate).
 	 */
-	Cape107: { name: "cape", id: "1188423440122773608" },
+	Cape104: { name: "cape", id: "1188423440122773608" },
 	/**
 	 * Days of Nature 2023.
 	 */
-	Cape108: { name: "cape", id: "1188423442324795507" },
+	Cape105: { name: "cape", id: "1188423442324795507" },
 	/**
 	 * Days of Colour 2023.
 	 */
-	Cape109: { name: "cape", id: "1188423445059489843" },
+	Cape106: { name: "cape", id: "1188423445059489843" },
 	/**
 	 * Reassuring Ranger.
 	 */
-	Cape110: { name: "cape", id: "1188423448091955210" },
+	Cape107: { name: "cape", id: "1188423448091955210" },
+	/**
+	 * Days of Sunlight 2023 1.
+	 */
+	Cape108: { name: "cape", id: "1188422848503615529" },
+	/**
+	 * Days of Sunlight 2023 2.
+	 */
+	Cape109: { name: "cape", id: "1188422850827276359" },
+	/**
+	 * Days of Sunlight 2023 3.
+	 */
+	Cape110: { name: "cape", id: "1188422853905883136" },
 	/**
 	 * Vestige of a Deserted Oasis.
 	 */
