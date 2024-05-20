@@ -1,3 +1,4 @@
+import AURORAEncoreConcerts from "./AURORAEncoreConcerts.js";
 import AviarysFireworkFestival from "./AviarysFireworkFestival.js";
 import DaysOfBloom from "./DaysOfBloom.js";
 import DaysOfColour from "./DaysOfColour.js";
@@ -17,6 +18,7 @@ export default [
 	DaysOfColour,
 	DaysOfMusic,
 	SkyAnniversary,
+	AURORAEncoreConcerts,
 	DaysOfMischief,
 	AviarysFireworkFestival,
 	DaysOfFeast,
