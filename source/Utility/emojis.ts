@@ -1058,7 +1058,7 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 */
 	FaceAccessory21: { name: "face_accessory", id: "1182821707636031508" },
 	/**
-	 * Days of Feast 2022.
+	 * Feast Goggles.
 	 */
 	FaceAccessory22: { name: "face_accessory", id: "1182821710660128878" },
 	/**
