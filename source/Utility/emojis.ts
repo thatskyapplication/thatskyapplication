@@ -2407,15 +2407,15 @@ export const CAPE_EMOJIS = {
 	/**
 	 * Bereft Veteran.
 	 */
-	Cape98: { name: "cape", id: "1188423423697899540" },
+	Cape98: { name: "cape", id: "1241913629159325707" },
 	/**
 	 * Wounded Warrior.
 	 */
-	Cape99: { name: "cape", id: "1188423425828593684" },
+	Cape99: { name: "cape", id: "1241913638626001049" },
 	/**
 	 * Tiptoeing Tea-Brewer.
 	 */
-	Cape100: { name: "cape", id: "1188423428202573875" },
+	Cape100: { name: "cape", id: "1241913648444608543" },
 	/**
 	 * Days of Bloom 2023.
 	 */
@@ -2445,17 +2445,17 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape107: { name: "cape", id: "1188423448091955210" },
 	/**
-	 * Days of Sunlight 2023 1.
+	 * Sunlight Pink Beach Towel Cape.
 	 */
-	Cape108: { name: "cape", id: "1188422848503615529" },
+	Cape108: { name: "cape", id: "1241911856881340446" },
 	/**
-	 * Days of Sunlight 2023 2.
+	 * Sunlight Yellow Beach Towel Cape.
 	 */
-	Cape109: { name: "cape", id: "1188422850827276359" },
+	Cape109: { name: "cape", id: "1241911906751615056" },
 	/**
-	 * Days of Sunlight 2023 3.
+	 * Sunlight Blue Beach Towel Cape.
 	 */
-	Cape110: { name: "cape", id: "1188422853905883136" },
+	Cape110: { name: "cape", id: "1241911919259156550" },
 	/**
 	 * Vestige of a Deserted Oasis.
 	 */
