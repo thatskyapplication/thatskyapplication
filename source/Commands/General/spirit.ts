@@ -24,7 +24,14 @@ import type {
 	StandardSpirit,
 } from "../../Structures/Spirits.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
-import { GUIDE_SPIRIT_IN_PROGRESS_TEXT, NO_FRIENDSHIP_TREE_TEXT, NO_FRIENDSHIP_TREE_YET_TEXT, SeasonName, SeasonNameToSeasonalEmoji, resolveCostToString } from "../../Utility/catalogue.js";
+import {
+	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
+	NO_FRIENDSHIP_TREE_TEXT,
+	NO_FRIENDSHIP_TREE_YET_TEXT,
+	SeasonName,
+	SeasonNameToSeasonalEmoji,
+	resolveCostToString,
+} from "../../Utility/catalogue.js";
 import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";

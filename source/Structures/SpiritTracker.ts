@@ -26,6 +26,7 @@ import {
 	NO_EVENT_INFOGRAPHIC_YET,
 	NO_EVENT_OFFER_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
+	NO_FRIENDSHIP_TREE_TEXT,
 	addCosts,
 	CatalogueType,
 	EventNameUnique,
@@ -224,6 +225,7 @@ export interface SpiritTrackerPacket {
 	nesting_atrium: SpiritTrackerValue;
 	nesting_nook: SpiritTrackerValue;
 	halloween_office_event_2019: SpiritTrackerValue;
+	days_of_giving_2019: SpiritTrackerValue;
 	days_of_feast_2019: SpiritTrackerValue;
 	days_of_love_2020: SpiritTrackerValue;
 	days_of_nature_2020: SpiritTrackerValue;
@@ -439,6 +441,7 @@ interface SpiritTrackerData {
 	nestingAtrium: SpiritTrackerPacket["nesting_atrium"];
 	nestingNook: SpiritTrackerPacket["nesting_nook"];
 	halloweenOfficeEvent2019: SpiritTrackerPacket["halloween_office_event_2019"];
+	daysOfGiving2019: SpiritTrackerPacket["days_of_giving_2019"];
 	daysOfFeast2019: SpiritTrackerPacket["days_of_feast_2019"];
 	daysOfLove2020: SpiritTrackerPacket["days_of_love_2020"];
 	daysOfNature2020: SpiritTrackerPacket["days_of_nature_2020"];
@@ -656,6 +659,7 @@ const SpiritTrackerNameToRawName = {
 	[SpiritName.NestingAtrium]: "nesting_atrium",
 	[SpiritName.NestingNook]: "nesting_nook",
 	[EventNameUnique.HalloweenOfficeEvent2019]: "halloween_office_event_2019",
+	[EventNameUnique.DaysOfGiving2019]: "days_of_giving_2019",
 	[EventNameUnique.DaysOfFeast2019]: "days_of_feast_2019",
 	[EventNameUnique.DaysOfLove2020]: "days_of_love_2020",
 	[EventNameUnique.DaysOfNature2020]: "days_of_nature_2020",
@@ -870,6 +874,7 @@ const SpiritNameToSpiritTrackerName = {
 	[SpiritName.NestingAtrium]: "nestingAtrium",
 	[SpiritName.NestingNook]: "nestingNook",
 	[EventNameUnique.HalloweenOfficeEvent2019]: "halloweenOfficeEvent2019",
+	[EventNameUnique.DaysOfGiving2019]: "daysOfGiving2019",
 	[EventNameUnique.DaysOfFeast2019]: "daysOfFeast2019",
 	[EventNameUnique.DaysOfLove2020]: "daysOfLove2020",
 	[EventNameUnique.DaysOfNature2020]: "daysOfNature2020",
@@ -1307,6 +1312,8 @@ export class SpiritTracker {
 
 	public halloweenOfficeEvent2019!: SpiritTrackerData["halloweenOfficeEvent2019"];
 
+	public daysOfGiving2019!: SpiritTrackerData["daysOfGiving2019"];
+
 	public daysOfFeast2019!: SpiritTrackerData["daysOfFeast2019"];
 
 	public daysOfLove2020!: SpiritTrackerData["daysOfLove2020"];
@@ -1570,6 +1577,7 @@ export class SpiritTracker {
 		this.nestingAtrium = data.nesting_atrium;
 		this.nestingNook = data.nesting_nook;
 		this.halloweenOfficeEvent2019 = data.halloween_office_event_2019;
+		this.daysOfGiving2019 = data.days_of_giving_2019;
 		this.daysOfFeast2019 = data.days_of_feast_2019;
 		this.daysOfLove2020 = data.days_of_love_2020;
 		this.daysOfNature2020 = data.days_of_nature_2020;
@@ -2527,7 +2535,6 @@ export class SpiritTracker {
 					unowned.push(formatEmoji(emoji));
 				}
 			}
-		}
 
 			if (owned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
 			if (unowned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);

@@ -172,6 +172,7 @@ export const SEASON_FLAGS_TO_SEASON_NAME_ENTRIES = Object.entries(SeasonFlagsToS
 
 export enum EventName {
 	HalloweenOfficeEvent = "Halloween Office Event",
+	DaysOfGiving = "Days of Giving",
 	DaysOfFeast = "Days of Feast",
 	DaysOfLove = "Days of Love",
 	DaysOfNature = "Days of Nature",
@@ -199,6 +200,7 @@ export enum EventName {
 export enum EventNameUnique {
 	// 2019.
 	HalloweenOfficeEvent2019 = "Halloween Office Event 2019",
+	DaysOfGiving2019 = "Days of Giving 2019",
 	DaysOfFeast2019 = "Days of Feast 2019",
 
 	// 2020.
@@ -259,6 +261,7 @@ export enum EventNameUnique {
 
 export const EventNameUniqueToEventName = {
 	[EventNameUnique.HalloweenOfficeEvent2019]: EventName.HalloweenOfficeEvent,
+	[EventNameUnique.DaysOfGiving2019]: EventName.DaysOfGiving,
 	[EventNameUnique.DaysOfFeast2019]: EventName.DaysOfFeast,
 	[EventNameUnique.DaysOfLove2020]: EventName.DaysOfLove,
 	[EventNameUnique.DaysOfNature2020]: EventName.DaysOfNature,
@@ -311,6 +314,7 @@ export const EVENT_NAME_VALUES = Object.values(EventName);
 
 export const EventNameToEventCurrencyEmoji = {
 	[EventName.HalloweenOfficeEvent]: EVENT_EMOJIS.Mischief,
+	[EventName.DaysOfGiving]: null,
 	[EventName.DaysOfFeast]: EVENT_EMOJIS.Feast,
 	[EventName.DaysOfLove]: EVENT_EMOJIS.Love,
 	[EventName.DaysOfNature]: null,
