@@ -1734,7 +1734,7 @@ export const HAIR_EMOJIS = {
 	 */
 	Hair116: { name: "hair", id: "1183627343466602570" },
 	/**
-	 * Days of Mischief 2022.
+	 * Mischief Tufted Hair.
 	 */
 	Hair117: { name: "hair", id: "1183627346700415009" },
 	/**
