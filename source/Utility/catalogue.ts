@@ -180,6 +180,7 @@ export enum EventName {
 	DaysOfSummer = "Days of Summer",
 	KizunaAI = "Kizuna AI",
 	HarmonyHallGrandOpening = "Harmony Hall Grand Opening",
+	DaysfSunlight = "Days of Sunlight",
 	AviarysFireworkFestival = "Aviary's Firework Festival",
 	SkyXCinnamorollPopUpCafe = "Sky × Cinnamoroll Pop-Up Cafe",
 	DaysOfNature = "Days of Nature",
@@ -221,6 +222,7 @@ export enum EventNameUnique {
 	HarmonyHallGrandOpening2022 = "Harmony Hall Grand Opening 2022",
 	DaysOfRainbow2022 = "Days of Rainbow 2022",
 	SkyAnniversary2022 = "Sky Anniversary 2022",
+	DaysOfSunlight2022 = "Days of Sunlight 2022",
 
 	// 2023.
 	DaysOfMischief2023 = "Days of Mischief 2023",
@@ -262,6 +264,7 @@ export const EventNameUniqueToEventName = {
 	[EventNameUnique.HarmonyHallGrandOpening2022]: EventName.HarmonyHallGrandOpening,
 	[EventNameUnique.DaysOfRainbow2022]: EventName.DaysOfRainbow,
 	[EventNameUnique.SkyAnniversary2022]: EventName.SkyAnniversary,
+	[EventNameUnique.DaysOfSunlight2022]: EventName.DaysfSunlight,
 	[EventNameUnique.DaysOfMischief2023]: EventName.DaysOfMischief,
 	[EventNameUnique.AviarysFireworkFestival2023]: EventName.AviarysFireworkFestival,
 	[EventNameUnique.DaysOfFeast2023]: EventName.DaysOfFeast,
@@ -288,6 +291,7 @@ export const EventNameToEventCurrencyEmoji = {
 	[EventName.DaysOfSummer]: EVENT_EMOJIS.Sunlight,
 	[EventName.KizunaAI]: null,
 	[EventName.HarmonyHallGrandOpening]: EVENT_EMOJIS.Music,
+	[EventName.DaysfSunlight]: EVENT_EMOJIS.Sunlight,
 	[EventName.AviarysFireworkFestival]: EVENT_EMOJIS.AviarysFireworkFestival,
 	[EventName.SkyXCinnamorollPopUpCafe]: EVENT_EMOJIS.SkyXCinnamorollPopUpCafe,
 } as const satisfies Readonly<Record<EventName, EventEmojis | null>>;
