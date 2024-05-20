@@ -2438,7 +2438,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape104: { name: "cape", id: "1188423440122773608" },
 	/**
-	 * Days of Nature 2023.
+	 * Nature School Cape.
 	 */
 	Cape105: { name: "cape", id: "1188423442324795507" },
 	/**
