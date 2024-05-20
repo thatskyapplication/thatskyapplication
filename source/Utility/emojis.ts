@@ -2854,7 +2854,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp32: { name: "large_placeable_prop", id: "1229125194694660118" },
 	/**
-	 * Fourth Sky Anniversary 2.
+	 * Anniversary Party Lights.
 	 */
 	LargePlaceableProp33: { name: "large_placeable_prop", id: "1229126722767552713" },
 	/**
@@ -3080,7 +3080,7 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	SmallPlaceableProp28: { name: "small_placeable_prop", id: "1193627448466735174" },
 	/**
-	 * Fourth Sky Anniversary 1.
+	 * Anniversary Sonorous Seashell.
 	 */
 	SmallPlaceableProp29: { name: "small_placeable_prop", id: "1193627450710691840" },
 	/**
