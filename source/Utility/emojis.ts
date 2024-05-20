@@ -2678,7 +2678,7 @@ export const HELD_PROPS_EMOJIS = {
 	 */
 	HeldProp32: { name: "held_prop", id: "1190678866063273997" },
 	/**
-	 * Days of Love Serendipitous Sceptre.
+	 * Days of Love Serendipitous Sceptor.
 	 */
 	HeldProp33: { name: "held_prop", id: "1190678868886036541" },
 	/**
@@ -2846,7 +2846,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp30: { name: "large_placeable_prop", id: "1229123814936412250" },
 	/**
-	 * Days of Love 2023.
+	 * Day of Love Flowery Archway.
 	 */
 	LargePlaceableProp31: { name: "large_placeable_prop", id: "1229124760064098484" },
 	/**
