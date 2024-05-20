@@ -24,15 +24,12 @@ import type {
 	StandardSpirit,
 } from "../../Structures/Spirits.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
-import { SeasonName, SeasonNameToSeasonalEmoji, resolveCostToString } from "../../Utility/catalogue.js";
+import { GUIDE_SPIRIT_IN_PROGRESS_TEXT, NO_FRIENDSHIP_TREE_TEXT, NO_FRIENDSHIP_TREE_YET_TEXT, SeasonName, SeasonNameToSeasonalEmoji, resolveCostToString } from "../../Utility/catalogue.js";
 import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import {
 	FriendActionToEmoji,
-	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
-	NO_FRIENDSHIP_TREE_TEXT,
-	NO_FRIENDSHIP_TREE_YET_TEXT,
 	SpiritCallToEmoji,
 	SpiritEmoteToEmoji,
 	SpiritStanceToEmoji,
@@ -222,6 +219,8 @@ export default new (class implements AutocompleteCommand {
 			}
 		}
 
+		if (totalOffer && totalOffer.length > 0) description.push(totalOffer);
+
 		if (imageURL) {
 			embed.setImage(imageURL);
 		} else {
@@ -230,7 +229,6 @@ export default new (class implements AutocompleteCommand {
 		}
 
 		if (isGuideSpirit && spirit.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
-		if (totalOffer && totalOffer.length > 0) description.push(totalOffer);
 
 		if (isSeasonalSpirit && spirit.marketingVideoURL) {
 			description.push(hyperlink("Promotional Video", spirit.marketingVideoURL));

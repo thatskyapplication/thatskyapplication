@@ -54,7 +54,7 @@ interface EventData {
 	/**
 	 * What the event offers.
 	 */
-	offer: EventFriendshipTreeOfferData;
+	offer?: EventFriendshipTreeOfferData;
 }
 
 interface EventDataURL {
@@ -84,9 +84,9 @@ export class Event {
 	 */
 	public readonly eventCurrencyEmoji: EventEmojis | null;
 
-	public readonly offer: Collection<number, Item>;
+	public readonly offer: Collection<number, Item> | null;
 
-	public readonly maxItemsBit: number;
+	public readonly maxItemsBit: number | null;
 
 	public readonly imageURL: string | null;
 
@@ -101,9 +101,13 @@ export class Event {
 		this.url = data.url;
 		this.eventCurrencyPerDay = data.eventCurrencyPerDay ?? null;
 		this.eventCurrencyEmoji = EventNameToEventCurrencyEmoji[this.name];
-		this.offer = resolveOffer(data.offer.items, { eventName: this.name });
-		this.maxItemsBit = this.resolveMaxItemsBit(data.offer.items);
-		this.imageURL = data.offer.hasInfographic ?? true ? "https://cdn.thatskyapplication.com/hugs/1.gif" : null;
+		this.offer = data.offer ? resolveOffer(data.offer.items, { eventName: this.name }) : null;
+		this.maxItemsBit = data.offer ? this.resolveMaxItemsBit(data.offer.items) : null;
+		this.imageURL = data.offer
+			? data.offer.hasInfographic ?? true
+				? "https://cdn.thatskyapplication.com/hugs/1.gif"
+				: null
+			: null;
 		this.wikiURL = wikiURL(this.name);
 	}
 

@@ -16,6 +16,11 @@ export type RotationNumber = 1 | 2 | 3;
 export const SEASONAL_CANDLES_PER_DAY = 5 as const;
 export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
 export const SEASON_PASS_SEASONAL_CANDLES_BONUS = 30 as const;
+export const NO_FRIENDSHIP_TREE_TEXT = "This spirit does not have a friendship tree." as const;
+export const NO_FRIENDSHIP_TREE_YET_TEXT = "This spirit does not yet have an infographic." as const;
+export const GUIDE_SPIRIT_IN_PROGRESS_TEXT = "This spirit's friendship tree has not been fully revealed." as const;
+export const NO_EVENT_OFFER_TEXT = "There are no cosmetics for this event." as const;
+export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infographic." as const;
 
 export enum SeasonName {
 	Gratitude = "Season of Gratitude",

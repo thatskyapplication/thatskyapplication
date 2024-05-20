@@ -22,6 +22,10 @@ import { type RealmName, DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../Utility
 import { isRealm } from "../Utility/Utility.js";
 import {
 	type ItemCost,
+	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
+	NO_EVENT_INFOGRAPHIC_YET,
+	NO_EVENT_OFFER_TEXT,
+	NO_FRIENDSHIP_TREE_YET_TEXT,
 	addCosts,
 	CatalogueType,
 	EventNameUnique,
@@ -32,12 +36,7 @@ import {
 import { todayDate } from "../Utility/dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
-import {
-	SpiritName,
-	NO_FRIENDSHIP_TREE_YET_TEXT,
-	NO_FRIENDSHIP_TREE_TEXT,
-	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
-} from "../Utility/spirits.js";
+import { SpiritName } from "../Utility/spirits.js";
 import { EVENTS, resolveEvents } from "../catalogue/events/index.js";
 import { SPIRITS } from "../catalogue/spirits/index.js";
 import { ELDER_SPIRITS, REALMS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
@@ -959,7 +958,7 @@ const validSeasons = SEASONS.reduce<Season[]>((seasons, season) => {
 }, []);
 
 const validEventsYears = EVENTS.reduce<number[]>((events, { start: { year }, offer }) => {
-	if (offer.size > 0 && !events.includes(year)) events.push(year);
+	if (offer && offer.size > 0 && !events.includes(year)) events.push(year);
 	return events;
 }, []);
 
@@ -2520,33 +2519,36 @@ export class SpiritTracker {
 		const owned = [];
 		const unowned = [];
 
-		for (const [flag, { emoji }] of offer.entries()) {
-			if (bit && (bit & flag) === flag) {
-				owned.push(formatEmoji(emoji));
-			} else {
-				unowned.push(formatEmoji(emoji));
+		if (offer) {
+			for (const [flag, { emoji }] of offer.entries()) {
+				if (bit && (bit & flag) === flag) {
+					owned.push(formatEmoji(emoji));
+				} else {
+					unowned.push(formatEmoji(emoji));
+				}
 			}
 		}
 
-		if (owned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
-		if (unowned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
-		const remainingCurrency = this.remainingCurrency(event, true);
+			if (owned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
+			if (unowned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
+			const remainingCurrency = this.remainingCurrency(event, true);
 
-		if (remainingCurrency) {
-			const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
+			if (remainingCurrency) {
+				const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
 
-			if (resolvedRemainingCurrency.length > 0) {
-				description.push(`${resolvedRemainingCurrency.join("")}`);
+				if (resolvedRemainingCurrency.length > 0) {
+					description.push(`${resolvedRemainingCurrency.join("")}`);
+				}
 			}
 		}
 
 		if (imageURL) {
 			embed.setImage(imageURL);
 		} else {
-			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
+			description.push(offer ? NO_EVENT_INFOGRAPHIC_YET : NO_EVENT_OFFER_TEXT);
 		}
 
-		embed.setDescription(description.join("\n"));
+		if (description.length > 0) embed.setDescription(description.join("\n"));
 		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
 
 		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(
