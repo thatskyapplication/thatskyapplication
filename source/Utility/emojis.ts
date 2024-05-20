@@ -1770,7 +1770,7 @@ export const HAIR_EMOJIS = {
 	 */
 	Hair125: { name: "hair", id: "1183627376408658010" },
 	/**
-	 * Days of Music 2023.
+	 * Marching Band Hat.
 	 */
 	Hair126: { name: "hair", id: "1183627379512455209" },
 	/**

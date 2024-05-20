@@ -5,6 +5,7 @@ import DaysOfFeast from "./DaysOfFeast.js";
 import DaysOfFortune from "./DaysOfFortune.js";
 import DaysOfLove from "./DaysOfLove.js";
 import DaysOfMischief from "./DaysOfMischief.js";
+import DaysOfMusic from "./DaysOfMusic.js";
 import DaysOfNature from "./DaysOfNature.js";
 
 export default [
@@ -13,6 +14,7 @@ export default [
 	DaysOfBloom,
 	DaysOfNature,
 	DaysOfColour,
+	DaysOfMusic,
 	DaysOfMischief,
 	AviarysFireworkFestival,
 	DaysOfFeast,
