@@ -2422,7 +2422,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape100: { name: "cape", id: "1241913648444608543" },
 	/**
-	 * Days of Bloom 2023.
+	 * Red Bloom Cape.
 	 */
 	Cape101: { name: "cape", id: "1188423431461535805" },
 	/**
@@ -3064,7 +3064,7 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	SmallPlaceableProp24: { name: "small_placeable_prop", id: "1193627429890170891" },
 	/**
-	 * Days of Bloom 2023.
+	 * Bloom Butterfly Fountain.
 	 */
 	SmallPlaceableProp25: { name: "small_placeable_prop", id: "1193627438576578631" },
 	/**
