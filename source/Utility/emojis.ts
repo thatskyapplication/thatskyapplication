@@ -2442,7 +2442,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape105: { name: "cape", id: "1188423442324795507" },
 	/**
-	 * Days of Colour 2023.
+	 * Dark Rainbow Cape.
 	 */
 	Cape106: { name: "cape", id: "1188423445059489843" },
 	/**
