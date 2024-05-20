@@ -101,7 +101,7 @@ export class Event {
 		this.url = data.url;
 		this.eventCurrencyPerDay = data.eventCurrencyPerDay ?? null;
 		this.eventCurrencyEmoji = EventNameToEventCurrencyEmoji[this.name];
-		this.offer = resolveOffer(data.offer.items);
+		this.offer = resolveOffer(data.offer.items, { eventName: this.name });
 		this.maxItemsBit = this.resolveMaxItemsBit(data.offer.items);
 		this.imageURL = data.offer.hasInfographic ?? true ? "https://cdn.thatskyapplication.com/hugs/1.gif" : null;
 		this.wikiURL = wikiURL(this.name);
