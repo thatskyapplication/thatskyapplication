@@ -15,7 +15,7 @@ export default new Event({
 	offer: {
 		hasInfographic: false,
 		items: new Collection<number, ItemRaw>()
-			.set(Math.trunc(1), {
+			.set(1 << 0, {
 				name: "Prop",
 				cost: { eventCurrency: 44 },
 				emoji: HELD_PROPS_EMOJIS.HeldProp40,
