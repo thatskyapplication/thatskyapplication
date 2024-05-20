@@ -934,7 +934,7 @@ export const MASK_EMOJIS = {
 	 */
 	Mask82: { name: "mask", id: "1182639120930066482" },
 	/**
-	 * Days of Style 2023.
+	 * Style Runway Mask.
 	 */
 	Mask83: { name: "mask", id: "1182639124042223646" },
 	/**
@@ -1090,7 +1090,7 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 */
 	FaceAccessory29: { name: "face_accessory", id: "1182821731413540914" },
 	/**
-	 * Days of Style 2023 1.
+	 * Style Star Sunglasses.
 	 */
 	FaceAccessory30: { name: "face_accessory", id: "1182821734563459093" },
 	/**

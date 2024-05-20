@@ -8,6 +8,7 @@ import DaysOfLove from "./DaysOfLove.js";
 import DaysOfMischief from "./DaysOfMischief.js";
 import DaysOfMusic from "./DaysOfMusic.js";
 import DaysOfNature from "./DaysOfNature.js";
+import DaysOfStyle from "./DaysOfStyle.js";
 import DaysOfSunlight from "./DaysOfSunlight.js";
 import SkyAnniversary from "./SkyAnniversary.js";
 
@@ -21,6 +22,7 @@ export default [
 	SkyAnniversary,
 	AURORAEncoreConcerts,
 	DaysOfSunlight,
+	DaysOfStyle,
 	DaysOfMischief,
 	AviarysFireworkFestival,
 	DaysOfFeast,
