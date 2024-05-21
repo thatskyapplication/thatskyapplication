@@ -272,6 +272,7 @@ export interface SpiritTrackerPacket {
 	days_of_love_2024: SpiritTrackerValue;
 	days_of_bloom_2024: SpiritTrackerValue;
 	sky_x_cinnamoroll_pop_up_cafe_2024: SpiritTrackerValue;
+	days_of_nature_2024: SpiritTrackerValue;
 }
 
 interface SpiritTrackerData {
@@ -488,6 +489,7 @@ interface SpiritTrackerData {
 	daysOfLove2024: SpiritTrackerPacket["days_of_love_2024"];
 	daysOfBloom2024: SpiritTrackerPacket["days_of_bloom_2024"];
 	skyXCinnamorollPopUpCafe2024: SpiritTrackerPacket["sky_x_cinnamoroll_pop_up_cafe_2024"];
+	daysOfNature2024: SpiritTrackerPacket["days_of_nature_2024"];
 }
 
 type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
@@ -706,6 +708,7 @@ const SpiritTrackerNameToRawName = {
 	[EventNameUnique.DaysOfLove2024]: "days_of_love_2024",
 	[EventNameUnique.DaysOfBloom2024]: "days_of_bloom_2024",
 	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: "sky_x_cinnamoroll_pop_up_cafe_2024",
+	[EventNameUnique.DaysOfNature2024]: "days_of_nature_2024",
 } as const satisfies Readonly<Record<SpiritName | EventNameUnique, Exclude<keyof SpiritTrackerPacket, "user_id">>>;
 
 const SpiritNameToSpiritTrackerName = {
@@ -921,6 +924,7 @@ const SpiritNameToSpiritTrackerName = {
 	[EventNameUnique.DaysOfLove2024]: "daysOfLove2024",
 	[EventNameUnique.DaysOfBloom2024]: "daysOfBloom2024",
 	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: "skyXCinnamorollPopUpCafe2024",
+	[EventNameUnique.DaysOfNature2024]: "daysOfNature2024",
 } as const satisfies Readonly<Record<SpiritName | EventNameUnique, Exclude<keyof SpiritTrackerData, "user_id">>>;
 
 export const SPIRIT_TRACKER_VIEW_START_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_START_CUSTOM_ID" as const;
@@ -1406,6 +1410,8 @@ export class SpiritTracker {
 
 	public skyXCinnamorollPopUpCafe2024!: SpiritTrackerData["skyXCinnamorollPopUpCafe2024"];
 
+	public daysOfNature2024!: SpiritTrackerData["daysOfNature2024"];
+
 	public constructor(spiritTrack: SpiritTrackerPacket) {
 		this.userId = spiritTrack.user_id;
 		this.patch(spiritTrack);
@@ -1624,6 +1630,7 @@ export class SpiritTracker {
 		this.daysOfLove2024 = data.days_of_love_2024;
 		this.daysOfBloom2024 = data.days_of_bloom_2024;
 		this.skyXCinnamorollPopUpCafe2024 = data.sky_x_cinnamoroll_pop_up_cafe_2024;
+		this.daysOfNature2024 = data.days_of_nature_2024;
 	}
 
 	public static async fetch(userId: Snowflake) {

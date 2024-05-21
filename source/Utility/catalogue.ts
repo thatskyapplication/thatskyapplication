@@ -193,8 +193,6 @@ export enum EventName {
 	DaysOfStyle = "Days of Style",
 	AviarysFireworkFestival = "Aviary's Firework Festival",
 	SkyXCinnamorollPopUpCafe = "Sky × Cinnamoroll Pop-Up Cafe",
-	DaysOfNature = "Days of Nature",
-	DaysOfColour = "Days of Colour",
 }
 
 export enum EventNameUnique {
@@ -257,6 +255,8 @@ export enum EventNameUnique {
 	DaysOfLove2024 = "Days of Love 2024",
 	DaysOfBloom2024 = "Days of Bloom 2024",
 	SkyXCinnamorollPopUpCafe2024 = "Sky × Cinnamoroll Pop-Up Cafe 2024",
+	DaysOfNature2024 = "Days of Nature 2024",
+	DaysOfColour2024 = "Days of Colour 2024",
 }
 
 export const EventNameUniqueToEventName = {
@@ -308,6 +308,8 @@ export const EventNameUniqueToEventName = {
 	[EventNameUnique.DaysOfLove2024]: EventName.DaysOfLove,
 	[EventNameUnique.DaysOfBloom2024]: EventName.DaysOfBloom,
 	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: EventName.SkyXCinnamorollPopUpCafe,
+	[EventNameUnique.DaysOfNature2024]: EventName.DaysOfNature,
+	[EventNameUnique.DaysOfColour2024]: EventName.DaysOfColour,
 } as const satisfies Readonly<Record<EventNameUnique, EventName>>;
 
 export const EVENT_NAME_VALUES = Object.values(EventName);
