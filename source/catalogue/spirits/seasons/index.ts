@@ -6,6 +6,7 @@ import {
 	SEASON_NAME_VALUES,
 	SeasonNameToSeasonalEmoji,
 } from "../../../Utility/catalogue.js";
+import { todayDate } from "../../../Utility/dates.js";
 import { formatEmoji } from "../../../Utility/emojis.js";
 import AURORA from "./AURORA/index.js";
 import Abyss from "./Abyss/index.js";
@@ -29,7 +30,7 @@ import Rhythm from "./Rhythm/index.js";
 import Sanctuary from "./Sanctuary/index.js";
 import Shattering from "./Shattering/index.js";
 
-export const SEASONS = [
+const SEASONS = [
 	Gratitude,
 	Lightseekers,
 	Belonging,
@@ -52,6 +53,8 @@ export const SEASONS = [
 	NineColoredDeer,
 	Nesting,
 ] as const;
+
+export const CURRENT_SEASONS = SEASONS.filter((season) => todayDate() > season.start);
 
 export const SEASON_SPIRITS = [
 	Gratitude.guide,

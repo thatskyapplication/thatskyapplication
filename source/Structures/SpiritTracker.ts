@@ -38,11 +38,11 @@ import { todayDate } from "../Utility/dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { SpiritName } from "../Utility/spirits.js";
-import { CURRENT_EVENTS, CURRENT_EVENTS_YEARS, EVENTS, resolveEvents } from "../catalogue/events/index.js";
+import { CURRENT_EVENTS, CURRENT_EVENTS_YEARS, resolveEvents } from "../catalogue/events/index.js";
 import { SPIRITS } from "../catalogue/spirits/index.js";
 import { ELDER_SPIRITS, REALMS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
 import {
-	SEASONS,
+	CURRENT_SEASONS,
 	SEASON_SPIRITS,
 	isSeasonName,
 	resolveReturningSpirits,
@@ -53,7 +53,6 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { Event } from "./Event.js";
 import Profile from "./Profile.js";
-import type { Season } from "./Season.js";
 import type { ElderSpirit, GuideSpirit, SeasonalSpirit, StandardSpirit } from "./Spirits.js";
 
 type SpiritTrackerValue = number | null;
@@ -956,11 +955,6 @@ export const SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT
 const SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT = 25 as const;
 const SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE = "Averages are calculated even beyond the second wing buff." as const;
 
-const validSeasons = SEASONS.reduce<Season[]>((seasons, season) => {
-	if (season.guide || season.spirits.length > 0) seasons.push(season);
-	return seasons;
-}, []);
-
 function backToStartButton(disabled = false) {
 	return (
 		new ButtonBuilder()
@@ -1689,7 +1683,7 @@ export class SpiritTracker {
 		const resolvedName = customId.slice(customId.indexOf("§") + 1);
 
 		const spiritOrEvent =
-			SPIRITS.find(({ name }) => name === resolvedName) ?? EVENTS.find(({ nameUnique }) => nameUnique === resolvedName);
+			SPIRITS.find(({ name }) => name === resolvedName) ?? CURRENT_EVENTS.find(({ nameUnique }) => nameUnique === resolvedName);
 
 		if (!spiritOrEvent) {
 			pino.error(interaction, "Unknown spirit or event.");
@@ -1787,7 +1781,7 @@ export class SpiritTracker {
 		const standardProgress = spiritTracker.spiritProgress(STANDARD_SPIRITS, true);
 		const elderProgress = spiritTracker.spiritProgress(ELDER_SPIRITS, true);
 		const seasonalProgress = spiritTracker.spiritProgress(SEASON_SPIRITS, true);
-		const eventProgress = spiritTracker.spiritProgress(EVENTS, true);
+		const eventProgress = spiritTracker.spiritProgress(CURRENT_EVENTS, true);
 		const today = todayDate();
 		const currentSeason = resolveSeason(today);
 		const currentEvents = resolveEvents(today);
@@ -2101,7 +2095,7 @@ export class SpiritTracker {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							validSeasons.map((season) => {
+							CURRENT_SEASONS.map((season) => {
 								const percentage = spiritTracker.spiritProgress([season.guide, ...season.spirits], true);
 
 								return new StringSelectMenuOptionBuilder()
@@ -2132,7 +2126,7 @@ export class SpiritTracker {
 	public static async viewSeason(interaction: ButtonInteraction | StringSelectMenuInteraction, seasonName: SeasonName) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale, user } = interaction;
-		const season = validSeasons.find(({ name }) => name === seasonName);
+		const season = CURRENT_SEASONS.find(({ name }) => name === seasonName);
 
 		if (!season) {
 			pino.error(interaction, "Failed to view a season.");
@@ -2493,7 +2487,7 @@ export class SpiritTracker {
 				? interaction.customId.slice(interaction.customId.indexOf("§") + 1)
 				: interaction.values[0];
 
-		const event = EVENTS.find(({ nameUnique }) => nameUnique === eventName);
+		const event = CURRENT_EVENTS.find(({ nameUnique }) => nameUnique === eventName);
 
 		if (!event) {
 			await interaction.update(ERROR_RESPONSE);
