@@ -1683,7 +1683,8 @@ export class SpiritTracker {
 		const resolvedName = customId.slice(customId.indexOf("§") + 1);
 
 		const spiritOrEvent =
-			SPIRITS.find(({ name }) => name === resolvedName) ?? CURRENT_EVENTS.find(({ nameUnique }) => nameUnique === resolvedName);
+			SPIRITS.find(({ name }) => name === resolvedName) ??
+			CURRENT_EVENTS.find(({ nameUnique }) => nameUnique === resolvedName);
 
 		if (!spiritOrEvent) {
 			pino.error(interaction, "Unknown spirit or event.");
@@ -2699,17 +2700,13 @@ export class SpiritTracker {
 
 	private realmsEmbed(locale: Locale) {
 		return new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setDescription(
-			REALMS
-				.map(({ name }) => {
-					const remainingCurrency = this.summateCurrency(
-						STANDARD_SPIRITS.filter((spirit) => spirit.realm === name),
-					);
+			REALMS.map(({ name }) => {
+				const remainingCurrency = this.summateCurrency(STANDARD_SPIRITS.filter((spirit) => spirit.realm === name));
 
-					return `__${t(`realms.${name}`, { lng: locale, ns: "general" })}__\n${
-						remainingCurrency.length > 0 ? remainingCurrency.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
-					}`;
-				})
-				.join("\n\n"),
+				return `__${t(`realms.${name}`, { lng: locale, ns: "general" })}__\n${
+					remainingCurrency.length > 0 ? remainingCurrency.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
+				}`;
+			}).join("\n\n"),
 		);
 	}
 
