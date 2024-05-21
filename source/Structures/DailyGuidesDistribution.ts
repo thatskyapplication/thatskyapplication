@@ -196,7 +196,7 @@ export default class DailyGuidesDistribution {
 			dailyGuidesDistribution = new this(dailyGuidesDistributionPacket!);
 		}
 
-		if (shouldSend) await dailyGuidesDistribution.send(client);
+		if (shouldSend) await dailyGuidesDistribution.send(client, false);
 
 		await interaction.reply({
 			content: "Daily guides have been modified.",
@@ -400,7 +400,7 @@ export default class DailyGuidesDistribution {
 		return embed;
 	}
 
-	private async send(client: Client<true>) {
+	private async send(client: Client<true>, enforceNonce: boolean) {
 		const { guildId, channelId, messageId } = this;
 		const channel = client.channels.cache.get(channelId!);
 
@@ -430,7 +430,7 @@ export default class DailyGuidesDistribution {
 			return channel.messages.edit(messageId, { embeds: [embed] });
 		} else {
 			// There is no existing message. Send one.
-			const { id } = await channel.send({ embeds: [embed], enforceNonce: true, nonce: guildId });
+			const { id } = await channel.send({ embeds: [embed], enforceNonce, nonce: guildId });
 
 			const [newDailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
 				.update({ message_id: id })
@@ -450,7 +450,7 @@ export default class DailyGuidesDistribution {
 		const settled = await Promise.allSettled(
 			dailyGuidesDistributionPackets.map(async (dailyGuidesDistributionPacket) => {
 				const dailyGuidesDistribution = new DailyGuidesDistribution(dailyGuidesDistributionPacket);
-				return pQueue.add(async () => dailyGuidesDistribution.send(client));
+				return pQueue.add(async () => dailyGuidesDistribution.send(client, true));
 			}),
 		);
 
