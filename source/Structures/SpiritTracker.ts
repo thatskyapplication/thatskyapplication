@@ -2715,7 +2715,7 @@ export class SpiritTracker {
 
 		if (!interaction.inGuild()) {
 			await interaction.reply({
-				content: "Only [you & I](https://youtu.be/WJjHIOewllc) are around here. Try sharing in a server!",
+				content: "[You & I](https://youtu.be/_kqQDCxRCzM) are the only ones around here. Try sharing in a server!",
 				flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
 			});
 
