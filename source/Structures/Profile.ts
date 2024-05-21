@@ -23,8 +23,8 @@ import { CURRENT_EVENTS } from "../catalogue/events/index.js";
 import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
 import { SEASON_SPIRITS, resolveBitsToSeasons } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
+import { Catalogue } from "./Catalogue.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
-import { SpiritTracker } from "./SpiritTracker.js";
 
 export interface ProfilePacket {
 	user_id: Snowflake;
@@ -444,11 +444,11 @@ export default class Profile {
 		}
 
 		if (typeof spiritProgression === "boolean") {
-			const spiritTracker = await SpiritTracker.fetch(userId).catch(() => null);
-			const standardProgress = spiritTracker?.spiritProgress(STANDARD_SPIRITS, true) ?? 0;
-			const elderProgress = spiritTracker?.spiritProgress(ELDER_SPIRITS, true) ?? 0;
-			const seasonalProgress = spiritTracker?.spiritProgress(SEASON_SPIRITS, true) ?? 0;
-			const eventProgress = spiritTracker?.spiritProgress(CURRENT_EVENTS, true) ?? 0;
+			const catalogue = await Catalogue.fetch(userId).catch(() => null);
+			const standardProgress = catalogue?.spiritProgress(STANDARD_SPIRITS, true) ?? 0;
+			const elderProgress = catalogue?.spiritProgress(ELDER_SPIRITS, true) ?? 0;
+			const seasonalProgress = catalogue?.spiritProgress(SEASON_SPIRITS, true) ?? 0;
+			const eventProgress = catalogue?.spiritProgress(CURRENT_EVENTS, true) ?? 0;
 
 			fields.push({
 				name: "Spirit Progression",

@@ -55,446 +55,446 @@ import { Event } from "./Event.js";
 import Profile from "./Profile.js";
 import type { ElderSpirit, GuideSpirit, SeasonalSpirit, StandardSpirit } from "./Spirits.js";
 
-type SpiritTrackerValue = number | null;
+type CatalogueValue = number | null;
 
-export interface SpiritTrackerPacket {
+export interface CataloguePacket {
 	user_id: Snowflake;
-	pointing_candlemaker: SpiritTrackerValue;
-	ushering_stargazer: SpiritTrackerValue;
-	rejecting_voyager: SpiritTrackerValue;
-	elder_of_the_isle: SpiritTrackerValue;
-	butterfly_charmer: SpiritTrackerValue;
-	applauding_bellmaker: SpiritTrackerValue;
-	waving_bellmaker: SpiritTrackerValue;
-	slumbering_shipwright: SpiritTrackerValue;
-	laughing_light_catcher: SpiritTrackerValue;
-	bird_whisperer: SpiritTrackerValue;
-	exhausted_dock_worker: SpiritTrackerValue;
-	ceremonial_worshiper: SpiritTrackerValue;
-	elder_of_the_prairie: SpiritTrackerValue;
-	shivering_trailblazer: SpiritTrackerValue;
-	blushing_prospector: SpiritTrackerValue;
-	hide_n_seek_pioneer: SpiritTrackerValue;
-	pouty_porter: SpiritTrackerValue;
-	dismayed_hunter: SpiritTrackerValue;
-	apologetic_lumberjack: SpiritTrackerValue;
-	tearful_light_miner: SpiritTrackerValue;
-	whale_whisperer: SpiritTrackerValue;
-	elder_of_the_forest: SpiritTrackerValue;
-	confident_sightseer: SpiritTrackerValue;
-	handstanding_thrillseeker: SpiritTrackerValue;
-	manta_whisperer: SpiritTrackerValue;
-	backflipping_champion: SpiritTrackerValue;
-	cheerful_spectator: SpiritTrackerValue;
-	bowing_medalist: SpiritTrackerValue;
-	proud_victor: SpiritTrackerValue;
-	elder_of_the_valley: SpiritTrackerValue;
-	frightened_refugee: SpiritTrackerValue;
-	fainting_warrior: SpiritTrackerValue;
-	courageous_soldier: SpiritTrackerValue;
-	stealthy_survivor: SpiritTrackerValue;
-	saluting_captain: SpiritTrackerValue;
-	lookout_scout: SpiritTrackerValue;
-	elder_of_the_wasteland: SpiritTrackerValue;
-	praying_acolyte: SpiritTrackerValue;
-	levitating_adept: SpiritTrackerValue;
-	polite_scholar: SpiritTrackerValue;
-	memory_whisperer: SpiritTrackerValue;
-	meditating_monastic: SpiritTrackerValue;
-	elder_of_the_vault: SpiritTrackerValue;
-	gratitude_guide: SpiritTrackerValue;
-	sassy_drifter: SpiritTrackerValue;
-	stretching_guru: SpiritTrackerValue;
-	provoking_performer: SpiritTrackerValue;
-	leaping_dancer: SpiritTrackerValue;
-	saluting_protector: SpiritTrackerValue;
-	greeting_shaman: SpiritTrackerValue;
-	lightseeker_guide: SpiritTrackerValue;
-	piggyback_lightseeker: SpiritTrackerValue;
-	doublefive_light_catcher: SpiritTrackerValue;
-	laidback_pioneer: SpiritTrackerValue;
-	twirling_champion: SpiritTrackerValue;
-	crab_whisperer: SpiritTrackerValue;
-	shushing_light_scholar: SpiritTrackerValue;
-	belonging_guide: SpiritTrackerValue;
-	boogie_kid: SpiritTrackerValue;
-	confetti_cousin: SpiritTrackerValue;
-	hairtousle_teen: SpiritTrackerValue;
-	sparkler_parent: SpiritTrackerValue;
-	pleaful_parent: SpiritTrackerValue;
-	wise_grandparent: SpiritTrackerValue;
-	rhythm_guide: SpiritTrackerValue;
-	troupe_greeter: SpiritTrackerValue;
-	festival_spin_dancer: SpiritTrackerValue;
-	admiring_actor: SpiritTrackerValue;
-	troupe_juggler: SpiritTrackerValue;
-	respectful_pianist: SpiritTrackerValue;
-	thoughtful_director: SpiritTrackerValue;
-	enchantment_guide: SpiritTrackerValue;
-	nodding_muralist: SpiritTrackerValue;
-	indifferent_alchemist: SpiritTrackerValue;
-	crab_walker: SpiritTrackerValue;
-	scarecrow_farmer: SpiritTrackerValue;
-	snoozing_carpenter: SpiritTrackerValue;
-	playfighting_herbalist: SpiritTrackerValue;
-	sanctuary_guide: SpiritTrackerValue;
-	jelly_whisperer: SpiritTrackerValue;
-	timid_bookworm: SpiritTrackerValue;
-	rallying_thrillseeker: SpiritTrackerValue;
-	hiking_grouch: SpiritTrackerValue;
-	grateful_shell_collector: SpiritTrackerValue;
-	chill_sunbather: SpiritTrackerValue;
-	prophecy_guide: SpiritTrackerValue;
-	prophet_of_water: SpiritTrackerValue;
-	prophet_of_earth: SpiritTrackerValue;
-	prophet_of_air: SpiritTrackerValue;
-	prophet_of_fire: SpiritTrackerValue;
-	dreams_guide: SpiritTrackerValue;
-	spinning_mentor: SpiritTrackerValue;
-	dancing_performer: SpiritTrackerValue;
-	peeking_postman: SpiritTrackerValue;
-	bearhug_hermit: SpiritTrackerValue;
-	assembly_guide: SpiritTrackerValue;
-	baffled_botanist: SpiritTrackerValue;
-	scolding_student: SpiritTrackerValue;
-	scaredy_cadet: SpiritTrackerValue;
-	marching_adventurer: SpiritTrackerValue;
-	chuckling_scout: SpiritTrackerValue;
-	daydream_forester: SpiritTrackerValue;
-	the_rose: SpiritTrackerValue;
-	beckoning_ruler: SpiritTrackerValue;
-	gloating_narcissist: SpiritTrackerValue;
-	stretching_lamplighter: SpiritTrackerValue;
-	slouching_soldier: SpiritTrackerValue;
-	sneezing_geographer: SpiritTrackerValue;
-	star_collector: SpiritTrackerValue;
-	flight_guide: SpiritTrackerValue;
-	lively_navigator: SpiritTrackerValue;
-	light_whisperer: SpiritTrackerValue;
-	tinkering_chimesmith: SpiritTrackerValue;
-	talented_builder: SpiritTrackerValue;
-	abyss_guide: SpiritTrackerValue;
-	anxious_angler: SpiritTrackerValue;
-	ceasing_commodore: SpiritTrackerValue;
-	bumbling_boatswain: SpiritTrackerValue;
-	cackling_cannoneer: SpiritTrackerValue;
-	performance_guide: SpiritTrackerValue;
-	frantic_stagehand: SpiritTrackerValue;
-	forgetful_storyteller: SpiritTrackerValue;
-	mellow_musician: SpiritTrackerValue;
-	modest_dancer: SpiritTrackerValue;
-	the_void_of_shattering: SpiritTrackerValue;
-	ancient_light1: SpiritTrackerValue;
-	ancient_light2: SpiritTrackerValue;
-	ancient_darkness1: SpiritTrackerValue;
-	ancient_darkness2: SpiritTrackerValue;
-	aurora: SpiritTrackerValue;
-	running_wayfarer: SpiritTrackerValue;
-	mindful_miner: SpiritTrackerValue;
-	warrior_of_love: SpiritTrackerValue;
-	seed_of_hope: SpiritTrackerValue;
-	remembrance_guide: SpiritTrackerValue;
-	bereft_veteran: SpiritTrackerValue;
-	pleading_child: SpiritTrackerValue;
-	tiptoeing_tea_brewer: SpiritTrackerValue;
-	wounded_warrior: SpiritTrackerValue;
-	passage_guide: SpiritTrackerValue;
-	oddball_outcast: SpiritTrackerValue;
-	tumbling_troublemaker: SpiritTrackerValue;
-	melancholy_mope: SpiritTrackerValue;
-	overactive_overachiever: SpiritTrackerValue;
-	moments_guide: SpiritTrackerValue;
-	reassuring_ranger: SpiritTrackerValue;
-	nightbird_whisperer: SpiritTrackerValue;
-	jolly_geologist: SpiritTrackerValue;
-	ascetic_monk: SpiritTrackerValue;
-	hopeful_steward: SpiritTrackerValue;
-	vestige_of_a_deserted_oasis: SpiritTrackerValue;
-	memory_of_a_lost_village: SpiritTrackerValue;
-	echo_of_an_abandoned_refuge: SpiritTrackerValue;
-	remnant_of_a_forgotten_haven: SpiritTrackerValue;
-	spirit_of_mural: SpiritTrackerValue;
-	herb_gatherer: SpiritTrackerValue;
-	hunter: SpiritTrackerValue;
-	feudal_lord: SpiritTrackerValue;
-	princess: SpiritTrackerValue;
-	nesting_guide: SpiritTrackerValue;
-	nesting_solarium: SpiritTrackerValue;
-	nesting_loft: SpiritTrackerValue;
-	nesting_atrium: SpiritTrackerValue;
-	nesting_nook: SpiritTrackerValue;
-	halloween_office_event_2019: SpiritTrackerValue;
-	days_of_giving_2019: SpiritTrackerValue;
-	days_of_feast_2019: SpiritTrackerValue;
-	days_of_love_2020: SpiritTrackerValue;
-	days_of_nature_2020: SpiritTrackerValue;
-	days_of_healing_2020: SpiritTrackerValue;
-	sky_anniversary_2020: SpiritTrackerValue;
-	days_of_summer_lights_2020: SpiritTrackerValue;
-	days_of_mischief_2020: SpiritTrackerValue;
-	days_of_feast_2020: SpiritTrackerValue;
-	days_of_fortune_2021: SpiritTrackerValue;
-	days_of_love_2021: SpiritTrackerValue;
-	days_of_bloom_2021: SpiritTrackerValue;
-	days_of_nature_2021: SpiritTrackerValue;
-	days_of_rainbow_2021: SpiritTrackerValue;
-	sky_anniversary_2021: SpiritTrackerValue;
-	days_of_summer_2021: SpiritTrackerValue;
-	days_of_summer_lights_2021: SpiritTrackerValue;
-	days_of_mischief_2021: SpiritTrackerValue;
-	days_of_feast_2021: SpiritTrackerValue;
-	days_of_fortune_2022: SpiritTrackerValue;
-	days_of_love_2022: SpiritTrackerValue;
-	kizuna_ai_2022: SpiritTrackerValue;
-	days_of_bloom_2022: SpiritTrackerValue;
-	days_of_nature_2022: SpiritTrackerValue;
-	harmony_hall_grand_opening_2022: SpiritTrackerValue;
-	days_of_rainbow_2022: SpiritTrackerValue;
-	sky_anniversary_2022: SpiritTrackerValue;
-	days_of_sunlight_2022: SpiritTrackerValue;
-	days_of_mischief_2022: SpiritTrackerValue;
-	days_of_feast_2022: SpiritTrackerValue;
-	days_of_fortune_2023: SpiritTrackerValue;
-	days_of_love_2023: SpiritTrackerValue;
-	days_of_bloom_2023: SpiritTrackerValue;
-	days_of_nature_2023: SpiritTrackerValue;
-	days_of_colour_2023: SpiritTrackerValue;
-	days_of_music_2023: SpiritTrackerValue;
-	sky_anniversary_2023: SpiritTrackerValue;
-	aurora_encore_concerts_2023: SpiritTrackerValue;
-	days_of_sunlight_2023: SpiritTrackerValue;
-	days_of_style_2023: SpiritTrackerValue;
-	days_of_mischief_2023: SpiritTrackerValue;
-	aviarys_firework_festival_2023: SpiritTrackerValue;
-	days_of_feast_2023: SpiritTrackerValue;
-	days_of_fortune_2024: SpiritTrackerValue;
-	days_of_love_2024: SpiritTrackerValue;
-	days_of_bloom_2024: SpiritTrackerValue;
-	sky_x_cinnamoroll_pop_up_cafe_2024: SpiritTrackerValue;
-	days_of_nature_2024: SpiritTrackerValue;
+	pointing_candlemaker: CatalogueValue;
+	ushering_stargazer: CatalogueValue;
+	rejecting_voyager: CatalogueValue;
+	elder_of_the_isle: CatalogueValue;
+	butterfly_charmer: CatalogueValue;
+	applauding_bellmaker: CatalogueValue;
+	waving_bellmaker: CatalogueValue;
+	slumbering_shipwright: CatalogueValue;
+	laughing_light_catcher: CatalogueValue;
+	bird_whisperer: CatalogueValue;
+	exhausted_dock_worker: CatalogueValue;
+	ceremonial_worshiper: CatalogueValue;
+	elder_of_the_prairie: CatalogueValue;
+	shivering_trailblazer: CatalogueValue;
+	blushing_prospector: CatalogueValue;
+	hide_n_seek_pioneer: CatalogueValue;
+	pouty_porter: CatalogueValue;
+	dismayed_hunter: CatalogueValue;
+	apologetic_lumberjack: CatalogueValue;
+	tearful_light_miner: CatalogueValue;
+	whale_whisperer: CatalogueValue;
+	elder_of_the_forest: CatalogueValue;
+	confident_sightseer: CatalogueValue;
+	handstanding_thrillseeker: CatalogueValue;
+	manta_whisperer: CatalogueValue;
+	backflipping_champion: CatalogueValue;
+	cheerful_spectator: CatalogueValue;
+	bowing_medalist: CatalogueValue;
+	proud_victor: CatalogueValue;
+	elder_of_the_valley: CatalogueValue;
+	frightened_refugee: CatalogueValue;
+	fainting_warrior: CatalogueValue;
+	courageous_soldier: CatalogueValue;
+	stealthy_survivor: CatalogueValue;
+	saluting_captain: CatalogueValue;
+	lookout_scout: CatalogueValue;
+	elder_of_the_wasteland: CatalogueValue;
+	praying_acolyte: CatalogueValue;
+	levitating_adept: CatalogueValue;
+	polite_scholar: CatalogueValue;
+	memory_whisperer: CatalogueValue;
+	meditating_monastic: CatalogueValue;
+	elder_of_the_vault: CatalogueValue;
+	gratitude_guide: CatalogueValue;
+	sassy_drifter: CatalogueValue;
+	stretching_guru: CatalogueValue;
+	provoking_performer: CatalogueValue;
+	leaping_dancer: CatalogueValue;
+	saluting_protector: CatalogueValue;
+	greeting_shaman: CatalogueValue;
+	lightseeker_guide: CatalogueValue;
+	piggyback_lightseeker: CatalogueValue;
+	doublefive_light_catcher: CatalogueValue;
+	laidback_pioneer: CatalogueValue;
+	twirling_champion: CatalogueValue;
+	crab_whisperer: CatalogueValue;
+	shushing_light_scholar: CatalogueValue;
+	belonging_guide: CatalogueValue;
+	boogie_kid: CatalogueValue;
+	confetti_cousin: CatalogueValue;
+	hairtousle_teen: CatalogueValue;
+	sparkler_parent: CatalogueValue;
+	pleaful_parent: CatalogueValue;
+	wise_grandparent: CatalogueValue;
+	rhythm_guide: CatalogueValue;
+	troupe_greeter: CatalogueValue;
+	festival_spin_dancer: CatalogueValue;
+	admiring_actor: CatalogueValue;
+	troupe_juggler: CatalogueValue;
+	respectful_pianist: CatalogueValue;
+	thoughtful_director: CatalogueValue;
+	enchantment_guide: CatalogueValue;
+	nodding_muralist: CatalogueValue;
+	indifferent_alchemist: CatalogueValue;
+	crab_walker: CatalogueValue;
+	scarecrow_farmer: CatalogueValue;
+	snoozing_carpenter: CatalogueValue;
+	playfighting_herbalist: CatalogueValue;
+	sanctuary_guide: CatalogueValue;
+	jelly_whisperer: CatalogueValue;
+	timid_bookworm: CatalogueValue;
+	rallying_thrillseeker: CatalogueValue;
+	hiking_grouch: CatalogueValue;
+	grateful_shell_collector: CatalogueValue;
+	chill_sunbather: CatalogueValue;
+	prophecy_guide: CatalogueValue;
+	prophet_of_water: CatalogueValue;
+	prophet_of_earth: CatalogueValue;
+	prophet_of_air: CatalogueValue;
+	prophet_of_fire: CatalogueValue;
+	dreams_guide: CatalogueValue;
+	spinning_mentor: CatalogueValue;
+	dancing_performer: CatalogueValue;
+	peeking_postman: CatalogueValue;
+	bearhug_hermit: CatalogueValue;
+	assembly_guide: CatalogueValue;
+	baffled_botanist: CatalogueValue;
+	scolding_student: CatalogueValue;
+	scaredy_cadet: CatalogueValue;
+	marching_adventurer: CatalogueValue;
+	chuckling_scout: CatalogueValue;
+	daydream_forester: CatalogueValue;
+	the_rose: CatalogueValue;
+	beckoning_ruler: CatalogueValue;
+	gloating_narcissist: CatalogueValue;
+	stretching_lamplighter: CatalogueValue;
+	slouching_soldier: CatalogueValue;
+	sneezing_geographer: CatalogueValue;
+	star_collector: CatalogueValue;
+	flight_guide: CatalogueValue;
+	lively_navigator: CatalogueValue;
+	light_whisperer: CatalogueValue;
+	tinkering_chimesmith: CatalogueValue;
+	talented_builder: CatalogueValue;
+	abyss_guide: CatalogueValue;
+	anxious_angler: CatalogueValue;
+	ceasing_commodore: CatalogueValue;
+	bumbling_boatswain: CatalogueValue;
+	cackling_cannoneer: CatalogueValue;
+	performance_guide: CatalogueValue;
+	frantic_stagehand: CatalogueValue;
+	forgetful_storyteller: CatalogueValue;
+	mellow_musician: CatalogueValue;
+	modest_dancer: CatalogueValue;
+	the_void_of_shattering: CatalogueValue;
+	ancient_light1: CatalogueValue;
+	ancient_light2: CatalogueValue;
+	ancient_darkness1: CatalogueValue;
+	ancient_darkness2: CatalogueValue;
+	aurora: CatalogueValue;
+	running_wayfarer: CatalogueValue;
+	mindful_miner: CatalogueValue;
+	warrior_of_love: CatalogueValue;
+	seed_of_hope: CatalogueValue;
+	remembrance_guide: CatalogueValue;
+	bereft_veteran: CatalogueValue;
+	pleading_child: CatalogueValue;
+	tiptoeing_tea_brewer: CatalogueValue;
+	wounded_warrior: CatalogueValue;
+	passage_guide: CatalogueValue;
+	oddball_outcast: CatalogueValue;
+	tumbling_troublemaker: CatalogueValue;
+	melancholy_mope: CatalogueValue;
+	overactive_overachiever: CatalogueValue;
+	moments_guide: CatalogueValue;
+	reassuring_ranger: CatalogueValue;
+	nightbird_whisperer: CatalogueValue;
+	jolly_geologist: CatalogueValue;
+	ascetic_monk: CatalogueValue;
+	hopeful_steward: CatalogueValue;
+	vestige_of_a_deserted_oasis: CatalogueValue;
+	memory_of_a_lost_village: CatalogueValue;
+	echo_of_an_abandoned_refuge: CatalogueValue;
+	remnant_of_a_forgotten_haven: CatalogueValue;
+	spirit_of_mural: CatalogueValue;
+	herb_gatherer: CatalogueValue;
+	hunter: CatalogueValue;
+	feudal_lord: CatalogueValue;
+	princess: CatalogueValue;
+	nesting_guide: CatalogueValue;
+	nesting_solarium: CatalogueValue;
+	nesting_loft: CatalogueValue;
+	nesting_atrium: CatalogueValue;
+	nesting_nook: CatalogueValue;
+	halloween_office_event_2019: CatalogueValue;
+	days_of_giving_2019: CatalogueValue;
+	days_of_feast_2019: CatalogueValue;
+	days_of_love_2020: CatalogueValue;
+	days_of_nature_2020: CatalogueValue;
+	days_of_healing_2020: CatalogueValue;
+	sky_anniversary_2020: CatalogueValue;
+	days_of_summer_lights_2020: CatalogueValue;
+	days_of_mischief_2020: CatalogueValue;
+	days_of_feast_2020: CatalogueValue;
+	days_of_fortune_2021: CatalogueValue;
+	days_of_love_2021: CatalogueValue;
+	days_of_bloom_2021: CatalogueValue;
+	days_of_nature_2021: CatalogueValue;
+	days_of_rainbow_2021: CatalogueValue;
+	sky_anniversary_2021: CatalogueValue;
+	days_of_summer_2021: CatalogueValue;
+	days_of_summer_lights_2021: CatalogueValue;
+	days_of_mischief_2021: CatalogueValue;
+	days_of_feast_2021: CatalogueValue;
+	days_of_fortune_2022: CatalogueValue;
+	days_of_love_2022: CatalogueValue;
+	kizuna_ai_2022: CatalogueValue;
+	days_of_bloom_2022: CatalogueValue;
+	days_of_nature_2022: CatalogueValue;
+	harmony_hall_grand_opening_2022: CatalogueValue;
+	days_of_rainbow_2022: CatalogueValue;
+	sky_anniversary_2022: CatalogueValue;
+	days_of_sunlight_2022: CatalogueValue;
+	days_of_mischief_2022: CatalogueValue;
+	days_of_feast_2022: CatalogueValue;
+	days_of_fortune_2023: CatalogueValue;
+	days_of_love_2023: CatalogueValue;
+	days_of_bloom_2023: CatalogueValue;
+	days_of_nature_2023: CatalogueValue;
+	days_of_colour_2023: CatalogueValue;
+	days_of_music_2023: CatalogueValue;
+	sky_anniversary_2023: CatalogueValue;
+	aurora_encore_concerts_2023: CatalogueValue;
+	days_of_sunlight_2023: CatalogueValue;
+	days_of_style_2023: CatalogueValue;
+	days_of_mischief_2023: CatalogueValue;
+	aviarys_firework_festival_2023: CatalogueValue;
+	days_of_feast_2023: CatalogueValue;
+	days_of_fortune_2024: CatalogueValue;
+	days_of_love_2024: CatalogueValue;
+	days_of_bloom_2024: CatalogueValue;
+	sky_x_cinnamoroll_pop_up_cafe_2024: CatalogueValue;
+	days_of_nature_2024: CatalogueValue;
 }
 
-interface SpiritTrackerData {
-	userId: SpiritTrackerPacket["user_id"];
-	pointingCandlemaker: SpiritTrackerPacket["pointing_candlemaker"];
-	usheringStargazer: SpiritTrackerPacket["ushering_stargazer"];
-	rejectingVoyager: SpiritTrackerPacket["rejecting_voyager"];
-	elderOfTheIsle: SpiritTrackerPacket["elder_of_the_isle"];
-	butterflyCharmer: SpiritTrackerPacket["butterfly_charmer"];
-	applaudingBellmaker: SpiritTrackerPacket["applauding_bellmaker"];
-	wavingBellmaker: SpiritTrackerPacket["waving_bellmaker"];
-	slumberingShipwright: SpiritTrackerPacket["slumbering_shipwright"];
-	laughingLightCatcher: SpiritTrackerPacket["laughing_light_catcher"];
-	birdWhisperer: SpiritTrackerPacket["bird_whisperer"];
-	exhaustedDockWorker: SpiritTrackerPacket["exhausted_dock_worker"];
-	ceremonialWorshiper: SpiritTrackerPacket["ceremonial_worshiper"];
-	elderOfThePrairie: SpiritTrackerPacket["elder_of_the_prairie"];
-	shiveringTrailblazer: SpiritTrackerPacket["shivering_trailblazer"];
-	blushingProspector: SpiritTrackerPacket["blushing_prospector"];
-	hideNSeekPioneer: SpiritTrackerPacket["hide_n_seek_pioneer"];
-	poutyPorter: SpiritTrackerPacket["pouty_porter"];
-	dismayedHunter: SpiritTrackerPacket["dismayed_hunter"];
-	apologeticLumberjack: SpiritTrackerPacket["apologetic_lumberjack"];
-	tearfulLightMiner: SpiritTrackerPacket["tearful_light_miner"];
-	whaleWhisperer: SpiritTrackerPacket["whale_whisperer"];
-	elderOfTheForest: SpiritTrackerPacket["elder_of_the_forest"];
-	confidentSightseer: SpiritTrackerPacket["confident_sightseer"];
-	handstandingThrillseeker: SpiritTrackerPacket["handstanding_thrillseeker"];
-	mantaWhisperer: SpiritTrackerPacket["manta_whisperer"];
-	backflippingChampion: SpiritTrackerPacket["backflipping_champion"];
-	cheerfulSpectator: SpiritTrackerPacket["cheerful_spectator"];
-	bowingMedalist: SpiritTrackerPacket["bowing_medalist"];
-	proudVictor: SpiritTrackerPacket["proud_victor"];
-	elderOfTheValley: SpiritTrackerPacket["elder_of_the_valley"];
-	frightenedRefugee: SpiritTrackerPacket["frightened_refugee"];
-	faintingWarrior: SpiritTrackerPacket["fainting_warrior"];
-	courageousSoldier: SpiritTrackerPacket["courageous_soldier"];
-	stealthySurvivor: SpiritTrackerPacket["stealthy_survivor"];
-	salutingCaptain: SpiritTrackerPacket["saluting_captain"];
-	lookoutScout: SpiritTrackerPacket["lookout_scout"];
-	elderOfTheWasteland: SpiritTrackerPacket["elder_of_the_wasteland"];
-	prayingAcolyte: SpiritTrackerPacket["praying_acolyte"];
-	levitatingAdept: SpiritTrackerPacket["levitating_adept"];
-	politeScholar: SpiritTrackerPacket["polite_scholar"];
-	memoryWhisperer: SpiritTrackerPacket["memory_whisperer"];
-	meditatingMonastic: SpiritTrackerPacket["meditating_monastic"];
-	elderOfTheVault: SpiritTrackerPacket["elder_of_the_vault"];
-	gratitudeGuide: SpiritTrackerPacket["gratitude_guide"];
-	sassyDrifter: SpiritTrackerPacket["sassy_drifter"];
-	stretchingGuru: SpiritTrackerPacket["stretching_guru"];
-	provokingPerformer: SpiritTrackerPacket["provoking_performer"];
-	leapingDancer: SpiritTrackerPacket["leaping_dancer"];
-	salutingProtector: SpiritTrackerPacket["saluting_protector"];
-	greetingShaman: SpiritTrackerPacket["greeting_shaman"];
-	lightseekerGuide: SpiritTrackerPacket["lightseeker_guide"];
-	piggybackLightseeker: SpiritTrackerPacket["piggyback_lightseeker"];
-	doublefiveLightCatcher: SpiritTrackerPacket["doublefive_light_catcher"];
-	laidbackPioneer: SpiritTrackerPacket["laidback_pioneer"];
-	twirlingChampion: SpiritTrackerPacket["twirling_champion"];
-	crabWhisperer: SpiritTrackerPacket["crab_whisperer"];
-	shushingLightScholar: SpiritTrackerPacket["shushing_light_scholar"];
-	belongingGuide: SpiritTrackerPacket["belonging_guide"];
-	boogieKid: SpiritTrackerPacket["boogie_kid"];
-	confettiCousin: SpiritTrackerPacket["confetti_cousin"];
-	hairtousleTeen: SpiritTrackerPacket["hairtousle_teen"];
-	sparklerParent: SpiritTrackerPacket["sparkler_parent"];
-	pleafulParent: SpiritTrackerPacket["pleaful_parent"];
-	wiseGrandparent: SpiritTrackerPacket["wise_grandparent"];
-	rhythmGuide: SpiritTrackerPacket["rhythm_guide"];
-	troupeGreeter: SpiritTrackerPacket["troupe_greeter"];
-	festivalSpinDancer: SpiritTrackerPacket["festival_spin_dancer"];
-	admiringActor: SpiritTrackerPacket["admiring_actor"];
-	troupeJuggler: SpiritTrackerPacket["troupe_juggler"];
-	respectfulPianist: SpiritTrackerPacket["respectful_pianist"];
-	thoughtfulDirector: SpiritTrackerPacket["thoughtful_director"];
-	enchantmentGuide: SpiritTrackerPacket["enchantment_guide"];
-	noddingMuralist: SpiritTrackerPacket["nodding_muralist"];
-	indifferentAlchemist: SpiritTrackerPacket["indifferent_alchemist"];
-	crabWalker: SpiritTrackerPacket["crab_walker"];
-	scarecrowFarmer: SpiritTrackerPacket["scarecrow_farmer"];
-	snoozingCarpenter: SpiritTrackerPacket["snoozing_carpenter"];
-	playfightingHerbalist: SpiritTrackerPacket["playfighting_herbalist"];
-	sanctuaryGuide: SpiritTrackerPacket["sanctuary_guide"];
-	jellyWhisperer: SpiritTrackerPacket["jelly_whisperer"];
-	timidBookworm: SpiritTrackerPacket["timid_bookworm"];
-	rallyingThrillseeker: SpiritTrackerPacket["rallying_thrillseeker"];
-	hikingGrouch: SpiritTrackerPacket["hiking_grouch"];
-	gratefulShellCollector: SpiritTrackerPacket["grateful_shell_collector"];
-	chillSunbather: SpiritTrackerPacket["chill_sunbather"];
-	prophecyGuide: SpiritTrackerPacket["prophecy_guide"];
-	prophetOfWater: SpiritTrackerPacket["prophet_of_water"];
-	prophetOfEarth: SpiritTrackerPacket["prophet_of_earth"];
-	prophetOfAir: SpiritTrackerPacket["prophet_of_air"];
-	prophetOfFire: SpiritTrackerPacket["prophet_of_fire"];
-	dreamsGuide: SpiritTrackerPacket["dreams_guide"];
-	spinningMentor: SpiritTrackerPacket["spinning_mentor"];
-	dancingPerformer: SpiritTrackerPacket["dancing_performer"];
-	peekingPostman: SpiritTrackerPacket["peeking_postman"];
-	bearhugHermit: SpiritTrackerPacket["bearhug_hermit"];
-	assemblyGuide: SpiritTrackerPacket["assembly_guide"];
-	baffledBotanist: SpiritTrackerPacket["baffled_botanist"];
-	scoldingStudent: SpiritTrackerPacket["scolding_student"];
-	scaredyCadet: SpiritTrackerPacket["scaredy_cadet"];
-	marchingAdventurer: SpiritTrackerPacket["marching_adventurer"];
-	chucklingScout: SpiritTrackerPacket["chuckling_scout"];
-	daydreamForester: SpiritTrackerPacket["daydream_forester"];
-	theRose: SpiritTrackerPacket["the_rose"];
-	beckoningRuler: SpiritTrackerPacket["beckoning_ruler"];
-	gloatingNarcissist: SpiritTrackerPacket["gloating_narcissist"];
-	stretchingLamplighter: SpiritTrackerPacket["stretching_lamplighter"];
-	slouchingSoldier: SpiritTrackerPacket["slouching_soldier"];
-	sneezingGeographer: SpiritTrackerPacket["sneezing_geographer"];
-	starCollector: SpiritTrackerPacket["star_collector"];
-	flightGuide: SpiritTrackerPacket["flight_guide"];
-	livelyNavigator: SpiritTrackerPacket["lively_navigator"];
-	lightWhisperer: SpiritTrackerPacket["light_whisperer"];
-	tinkeringChimesmith: SpiritTrackerPacket["tinkering_chimesmith"];
-	talentedBuilder: SpiritTrackerPacket["talented_builder"];
-	abyssGuide: SpiritTrackerPacket["abyss_guide"];
-	anxiousAngler: SpiritTrackerPacket["anxious_angler"];
-	ceasingCommodore: SpiritTrackerPacket["ceasing_commodore"];
-	bumblingBoatswain: SpiritTrackerPacket["bumbling_boatswain"];
-	cacklingCannoneer: SpiritTrackerPacket["cackling_cannoneer"];
-	performanceGuide: SpiritTrackerPacket["performance_guide"];
-	franticStagehand: SpiritTrackerPacket["frantic_stagehand"];
-	forgetfulStoryteller: SpiritTrackerPacket["forgetful_storyteller"];
-	mellowMusician: SpiritTrackerPacket["mellow_musician"];
-	modestDancer: SpiritTrackerPacket["modest_dancer"];
-	theVoidOfShattering: SpiritTrackerPacket["the_void_of_shattering"];
-	ancientLight1: SpiritTrackerPacket["ancient_light1"];
-	ancientLight2: SpiritTrackerPacket["ancient_light2"];
-	ancientDarkness1: SpiritTrackerPacket["ancient_darkness1"];
-	ancientDarkness2: SpiritTrackerPacket["ancient_darkness2"];
-	aurora: SpiritTrackerPacket["aurora"];
-	runningWayfarer: SpiritTrackerPacket["running_wayfarer"];
-	mindfulMiner: SpiritTrackerPacket["mindful_miner"];
-	warriorOfLove: SpiritTrackerPacket["warrior_of_love"];
-	seedOfHope: SpiritTrackerPacket["seed_of_hope"];
-	remembranceGuide: SpiritTrackerPacket["remembrance_guide"];
-	bereftVeteran: SpiritTrackerPacket["bereft_veteran"];
-	pleadingChild: SpiritTrackerPacket["pleading_child"];
-	tiptoeingTeaBrewer: SpiritTrackerPacket["tiptoeing_tea_brewer"];
-	woundedWarrior: SpiritTrackerPacket["wounded_warrior"];
-	passageGuide: SpiritTrackerPacket["passage_guide"];
-	oddballOutcast: SpiritTrackerPacket["oddball_outcast"];
-	tumblingTroublemaker: SpiritTrackerPacket["tumbling_troublemaker"];
-	melancholyMope: SpiritTrackerPacket["melancholy_mope"];
-	overactiveOverachiever: SpiritTrackerPacket["overactive_overachiever"];
-	momentsGuide: SpiritTrackerPacket["moments_guide"];
-	reassuringRanger: SpiritTrackerPacket["reassuring_ranger"];
-	nightbirdWhisperer: SpiritTrackerPacket["nightbird_whisperer"];
-	jollyGeologist: SpiritTrackerPacket["jolly_geologist"];
-	asceticMonk: SpiritTrackerPacket["ascetic_monk"];
-	hopefulSteward: SpiritTrackerPacket["hopeful_steward"];
-	vestigeOfADesertedOasis: SpiritTrackerPacket["vestige_of_a_deserted_oasis"];
-	memoryOfALostVillage: SpiritTrackerPacket["memory_of_a_lost_village"];
-	echoOfAnAbandonedRefuge: SpiritTrackerPacket["echo_of_an_abandoned_refuge"];
-	remnantOfAForgottenHaven: SpiritTrackerPacket["remnant_of_a_forgotten_haven"];
-	spiritOfMural: SpiritTrackerPacket["spirit_of_mural"];
-	herbGatherer: SpiritTrackerPacket["herb_gatherer"];
-	hunter: SpiritTrackerPacket["hunter"];
-	feudalLord: SpiritTrackerPacket["feudal_lord"];
-	princess: SpiritTrackerPacket["princess"];
-	nestingGuide: SpiritTrackerPacket["nesting_guide"];
-	nestingSolarium: SpiritTrackerPacket["nesting_solarium"];
-	nestingLoft: SpiritTrackerPacket["nesting_loft"];
-	nestingAtrium: SpiritTrackerPacket["nesting_atrium"];
-	nestingNook: SpiritTrackerPacket["nesting_nook"];
-	halloweenOfficeEvent2019: SpiritTrackerPacket["halloween_office_event_2019"];
-	daysOfGiving2019: SpiritTrackerPacket["days_of_giving_2019"];
-	daysOfFeast2019: SpiritTrackerPacket["days_of_feast_2019"];
-	daysOfLove2020: SpiritTrackerPacket["days_of_love_2020"];
-	daysOfNature2020: SpiritTrackerPacket["days_of_nature_2020"];
-	daysOfHealing2020: SpiritTrackerPacket["days_of_healing_2020"];
-	skyAnniversary2020: SpiritTrackerPacket["sky_anniversary_2020"];
-	daysOfSummerLights2020: SpiritTrackerPacket["days_of_summer_lights_2020"];
-	daysOfMischief2020: SpiritTrackerPacket["days_of_mischief_2020"];
-	daysOfFeast2020: SpiritTrackerPacket["days_of_feast_2020"];
-	daysOfFortune2021: SpiritTrackerPacket["days_of_fortune_2021"];
-	daysOfLove2021: SpiritTrackerPacket["days_of_love_2021"];
-	daysOfBloom2021: SpiritTrackerPacket["days_of_bloom_2021"];
-	daysOfNature2021: SpiritTrackerPacket["days_of_nature_2021"];
-	daysOfRainbow2021: SpiritTrackerPacket["days_of_rainbow_2021"];
-	skyAnniversary2021: SpiritTrackerPacket["sky_anniversary_2021"];
-	daysOfSummer2021: SpiritTrackerPacket["days_of_summer_2021"];
-	daysOfSummerLights2021: SpiritTrackerPacket["days_of_summer_lights_2021"];
-	daysOfMischief2021: SpiritTrackerPacket["days_of_mischief_2021"];
-	daysOfFeast2021: SpiritTrackerPacket["days_of_feast_2021"];
-	daysOfFortune2022: SpiritTrackerPacket["days_of_fortune_2022"];
-	daysOfLove2022: SpiritTrackerPacket["days_of_love_2022"];
-	kizunaAI2022: SpiritTrackerPacket["kizuna_ai_2022"];
-	daysOfBloom2022: SpiritTrackerPacket["days_of_bloom_2022"];
-	daysOfNature2022: SpiritTrackerPacket["days_of_nature_2022"];
-	harmonyHallGrandOpening2022: SpiritTrackerPacket["harmony_hall_grand_opening_2022"];
-	daysOfRainbow2022: SpiritTrackerPacket["days_of_rainbow_2022"];
-	skyAnniversary2022: SpiritTrackerPacket["sky_anniversary_2022"];
-	daysOfSunlight2022: SpiritTrackerPacket["days_of_sunlight_2022"];
-	daysOfMischief2022: SpiritTrackerPacket["days_of_mischief_2022"];
-	daysOfFeast2022: SpiritTrackerPacket["days_of_feast_2022"];
-	daysOfFortune2023: SpiritTrackerPacket["days_of_fortune_2023"];
-	daysOfLove2023: SpiritTrackerPacket["days_of_love_2023"];
-	daysOfBloom2023: SpiritTrackerPacket["days_of_bloom_2023"];
-	daysOfNature2023: SpiritTrackerPacket["days_of_nature_2023"];
-	daysOfColour2023: SpiritTrackerPacket["days_of_colour_2023"];
-	daysOfMusic2023: SpiritTrackerPacket["days_of_music_2023"];
-	skyAnniversary2023: SpiritTrackerPacket["sky_anniversary_2023"];
-	auroraEncoreConcerts2023: SpiritTrackerPacket["aurora_encore_concerts_2023"];
-	daysOfSunlight2023: SpiritTrackerPacket["days_of_sunlight_2023"];
-	daysOfStyle2023: SpiritTrackerPacket["days_of_style_2023"];
-	daysOfMischief2023: SpiritTrackerPacket["days_of_mischief_2023"];
-	aviarysFireworkFestival2023: SpiritTrackerPacket["aviarys_firework_festival_2023"];
-	daysOfFeast2023: SpiritTrackerPacket["days_of_feast_2023"];
-	daysOfFortune2024: SpiritTrackerPacket["days_of_fortune_2024"];
-	daysOfLove2024: SpiritTrackerPacket["days_of_love_2024"];
-	daysOfBloom2024: SpiritTrackerPacket["days_of_bloom_2024"];
-	skyXCinnamorollPopUpCafe2024: SpiritTrackerPacket["sky_x_cinnamoroll_pop_up_cafe_2024"];
-	daysOfNature2024: SpiritTrackerPacket["days_of_nature_2024"];
+interface CatalogueData {
+	userId: CataloguePacket["user_id"];
+	pointingCandlemaker: CataloguePacket["pointing_candlemaker"];
+	usheringStargazer: CataloguePacket["ushering_stargazer"];
+	rejectingVoyager: CataloguePacket["rejecting_voyager"];
+	elderOfTheIsle: CataloguePacket["elder_of_the_isle"];
+	butterflyCharmer: CataloguePacket["butterfly_charmer"];
+	applaudingBellmaker: CataloguePacket["applauding_bellmaker"];
+	wavingBellmaker: CataloguePacket["waving_bellmaker"];
+	slumberingShipwright: CataloguePacket["slumbering_shipwright"];
+	laughingLightCatcher: CataloguePacket["laughing_light_catcher"];
+	birdWhisperer: CataloguePacket["bird_whisperer"];
+	exhaustedDockWorker: CataloguePacket["exhausted_dock_worker"];
+	ceremonialWorshiper: CataloguePacket["ceremonial_worshiper"];
+	elderOfThePrairie: CataloguePacket["elder_of_the_prairie"];
+	shiveringTrailblazer: CataloguePacket["shivering_trailblazer"];
+	blushingProspector: CataloguePacket["blushing_prospector"];
+	hideNSeekPioneer: CataloguePacket["hide_n_seek_pioneer"];
+	poutyPorter: CataloguePacket["pouty_porter"];
+	dismayedHunter: CataloguePacket["dismayed_hunter"];
+	apologeticLumberjack: CataloguePacket["apologetic_lumberjack"];
+	tearfulLightMiner: CataloguePacket["tearful_light_miner"];
+	whaleWhisperer: CataloguePacket["whale_whisperer"];
+	elderOfTheForest: CataloguePacket["elder_of_the_forest"];
+	confidentSightseer: CataloguePacket["confident_sightseer"];
+	handstandingThrillseeker: CataloguePacket["handstanding_thrillseeker"];
+	mantaWhisperer: CataloguePacket["manta_whisperer"];
+	backflippingChampion: CataloguePacket["backflipping_champion"];
+	cheerfulSpectator: CataloguePacket["cheerful_spectator"];
+	bowingMedalist: CataloguePacket["bowing_medalist"];
+	proudVictor: CataloguePacket["proud_victor"];
+	elderOfTheValley: CataloguePacket["elder_of_the_valley"];
+	frightenedRefugee: CataloguePacket["frightened_refugee"];
+	faintingWarrior: CataloguePacket["fainting_warrior"];
+	courageousSoldier: CataloguePacket["courageous_soldier"];
+	stealthySurvivor: CataloguePacket["stealthy_survivor"];
+	salutingCaptain: CataloguePacket["saluting_captain"];
+	lookoutScout: CataloguePacket["lookout_scout"];
+	elderOfTheWasteland: CataloguePacket["elder_of_the_wasteland"];
+	prayingAcolyte: CataloguePacket["praying_acolyte"];
+	levitatingAdept: CataloguePacket["levitating_adept"];
+	politeScholar: CataloguePacket["polite_scholar"];
+	memoryWhisperer: CataloguePacket["memory_whisperer"];
+	meditatingMonastic: CataloguePacket["meditating_monastic"];
+	elderOfTheVault: CataloguePacket["elder_of_the_vault"];
+	gratitudeGuide: CataloguePacket["gratitude_guide"];
+	sassyDrifter: CataloguePacket["sassy_drifter"];
+	stretchingGuru: CataloguePacket["stretching_guru"];
+	provokingPerformer: CataloguePacket["provoking_performer"];
+	leapingDancer: CataloguePacket["leaping_dancer"];
+	salutingProtector: CataloguePacket["saluting_protector"];
+	greetingShaman: CataloguePacket["greeting_shaman"];
+	lightseekerGuide: CataloguePacket["lightseeker_guide"];
+	piggybackLightseeker: CataloguePacket["piggyback_lightseeker"];
+	doublefiveLightCatcher: CataloguePacket["doublefive_light_catcher"];
+	laidbackPioneer: CataloguePacket["laidback_pioneer"];
+	twirlingChampion: CataloguePacket["twirling_champion"];
+	crabWhisperer: CataloguePacket["crab_whisperer"];
+	shushingLightScholar: CataloguePacket["shushing_light_scholar"];
+	belongingGuide: CataloguePacket["belonging_guide"];
+	boogieKid: CataloguePacket["boogie_kid"];
+	confettiCousin: CataloguePacket["confetti_cousin"];
+	hairtousleTeen: CataloguePacket["hairtousle_teen"];
+	sparklerParent: CataloguePacket["sparkler_parent"];
+	pleafulParent: CataloguePacket["pleaful_parent"];
+	wiseGrandparent: CataloguePacket["wise_grandparent"];
+	rhythmGuide: CataloguePacket["rhythm_guide"];
+	troupeGreeter: CataloguePacket["troupe_greeter"];
+	festivalSpinDancer: CataloguePacket["festival_spin_dancer"];
+	admiringActor: CataloguePacket["admiring_actor"];
+	troupeJuggler: CataloguePacket["troupe_juggler"];
+	respectfulPianist: CataloguePacket["respectful_pianist"];
+	thoughtfulDirector: CataloguePacket["thoughtful_director"];
+	enchantmentGuide: CataloguePacket["enchantment_guide"];
+	noddingMuralist: CataloguePacket["nodding_muralist"];
+	indifferentAlchemist: CataloguePacket["indifferent_alchemist"];
+	crabWalker: CataloguePacket["crab_walker"];
+	scarecrowFarmer: CataloguePacket["scarecrow_farmer"];
+	snoozingCarpenter: CataloguePacket["snoozing_carpenter"];
+	playfightingHerbalist: CataloguePacket["playfighting_herbalist"];
+	sanctuaryGuide: CataloguePacket["sanctuary_guide"];
+	jellyWhisperer: CataloguePacket["jelly_whisperer"];
+	timidBookworm: CataloguePacket["timid_bookworm"];
+	rallyingThrillseeker: CataloguePacket["rallying_thrillseeker"];
+	hikingGrouch: CataloguePacket["hiking_grouch"];
+	gratefulShellCollector: CataloguePacket["grateful_shell_collector"];
+	chillSunbather: CataloguePacket["chill_sunbather"];
+	prophecyGuide: CataloguePacket["prophecy_guide"];
+	prophetOfWater: CataloguePacket["prophet_of_water"];
+	prophetOfEarth: CataloguePacket["prophet_of_earth"];
+	prophetOfAir: CataloguePacket["prophet_of_air"];
+	prophetOfFire: CataloguePacket["prophet_of_fire"];
+	dreamsGuide: CataloguePacket["dreams_guide"];
+	spinningMentor: CataloguePacket["spinning_mentor"];
+	dancingPerformer: CataloguePacket["dancing_performer"];
+	peekingPostman: CataloguePacket["peeking_postman"];
+	bearhugHermit: CataloguePacket["bearhug_hermit"];
+	assemblyGuide: CataloguePacket["assembly_guide"];
+	baffledBotanist: CataloguePacket["baffled_botanist"];
+	scoldingStudent: CataloguePacket["scolding_student"];
+	scaredyCadet: CataloguePacket["scaredy_cadet"];
+	marchingAdventurer: CataloguePacket["marching_adventurer"];
+	chucklingScout: CataloguePacket["chuckling_scout"];
+	daydreamForester: CataloguePacket["daydream_forester"];
+	theRose: CataloguePacket["the_rose"];
+	beckoningRuler: CataloguePacket["beckoning_ruler"];
+	gloatingNarcissist: CataloguePacket["gloating_narcissist"];
+	stretchingLamplighter: CataloguePacket["stretching_lamplighter"];
+	slouchingSoldier: CataloguePacket["slouching_soldier"];
+	sneezingGeographer: CataloguePacket["sneezing_geographer"];
+	starCollector: CataloguePacket["star_collector"];
+	flightGuide: CataloguePacket["flight_guide"];
+	livelyNavigator: CataloguePacket["lively_navigator"];
+	lightWhisperer: CataloguePacket["light_whisperer"];
+	tinkeringChimesmith: CataloguePacket["tinkering_chimesmith"];
+	talentedBuilder: CataloguePacket["talented_builder"];
+	abyssGuide: CataloguePacket["abyss_guide"];
+	anxiousAngler: CataloguePacket["anxious_angler"];
+	ceasingCommodore: CataloguePacket["ceasing_commodore"];
+	bumblingBoatswain: CataloguePacket["bumbling_boatswain"];
+	cacklingCannoneer: CataloguePacket["cackling_cannoneer"];
+	performanceGuide: CataloguePacket["performance_guide"];
+	franticStagehand: CataloguePacket["frantic_stagehand"];
+	forgetfulStoryteller: CataloguePacket["forgetful_storyteller"];
+	mellowMusician: CataloguePacket["mellow_musician"];
+	modestDancer: CataloguePacket["modest_dancer"];
+	theVoidOfShattering: CataloguePacket["the_void_of_shattering"];
+	ancientLight1: CataloguePacket["ancient_light1"];
+	ancientLight2: CataloguePacket["ancient_light2"];
+	ancientDarkness1: CataloguePacket["ancient_darkness1"];
+	ancientDarkness2: CataloguePacket["ancient_darkness2"];
+	aurora: CataloguePacket["aurora"];
+	runningWayfarer: CataloguePacket["running_wayfarer"];
+	mindfulMiner: CataloguePacket["mindful_miner"];
+	warriorOfLove: CataloguePacket["warrior_of_love"];
+	seedOfHope: CataloguePacket["seed_of_hope"];
+	remembranceGuide: CataloguePacket["remembrance_guide"];
+	bereftVeteran: CataloguePacket["bereft_veteran"];
+	pleadingChild: CataloguePacket["pleading_child"];
+	tiptoeingTeaBrewer: CataloguePacket["tiptoeing_tea_brewer"];
+	woundedWarrior: CataloguePacket["wounded_warrior"];
+	passageGuide: CataloguePacket["passage_guide"];
+	oddballOutcast: CataloguePacket["oddball_outcast"];
+	tumblingTroublemaker: CataloguePacket["tumbling_troublemaker"];
+	melancholyMope: CataloguePacket["melancholy_mope"];
+	overactiveOverachiever: CataloguePacket["overactive_overachiever"];
+	momentsGuide: CataloguePacket["moments_guide"];
+	reassuringRanger: CataloguePacket["reassuring_ranger"];
+	nightbirdWhisperer: CataloguePacket["nightbird_whisperer"];
+	jollyGeologist: CataloguePacket["jolly_geologist"];
+	asceticMonk: CataloguePacket["ascetic_monk"];
+	hopefulSteward: CataloguePacket["hopeful_steward"];
+	vestigeOfADesertedOasis: CataloguePacket["vestige_of_a_deserted_oasis"];
+	memoryOfALostVillage: CataloguePacket["memory_of_a_lost_village"];
+	echoOfAnAbandonedRefuge: CataloguePacket["echo_of_an_abandoned_refuge"];
+	remnantOfAForgottenHaven: CataloguePacket["remnant_of_a_forgotten_haven"];
+	spiritOfMural: CataloguePacket["spirit_of_mural"];
+	herbGatherer: CataloguePacket["herb_gatherer"];
+	hunter: CataloguePacket["hunter"];
+	feudalLord: CataloguePacket["feudal_lord"];
+	princess: CataloguePacket["princess"];
+	nestingGuide: CataloguePacket["nesting_guide"];
+	nestingSolarium: CataloguePacket["nesting_solarium"];
+	nestingLoft: CataloguePacket["nesting_loft"];
+	nestingAtrium: CataloguePacket["nesting_atrium"];
+	nestingNook: CataloguePacket["nesting_nook"];
+	halloweenOfficeEvent2019: CataloguePacket["halloween_office_event_2019"];
+	daysOfGiving2019: CataloguePacket["days_of_giving_2019"];
+	daysOfFeast2019: CataloguePacket["days_of_feast_2019"];
+	daysOfLove2020: CataloguePacket["days_of_love_2020"];
+	daysOfNature2020: CataloguePacket["days_of_nature_2020"];
+	daysOfHealing2020: CataloguePacket["days_of_healing_2020"];
+	skyAnniversary2020: CataloguePacket["sky_anniversary_2020"];
+	daysOfSummerLights2020: CataloguePacket["days_of_summer_lights_2020"];
+	daysOfMischief2020: CataloguePacket["days_of_mischief_2020"];
+	daysOfFeast2020: CataloguePacket["days_of_feast_2020"];
+	daysOfFortune2021: CataloguePacket["days_of_fortune_2021"];
+	daysOfLove2021: CataloguePacket["days_of_love_2021"];
+	daysOfBloom2021: CataloguePacket["days_of_bloom_2021"];
+	daysOfNature2021: CataloguePacket["days_of_nature_2021"];
+	daysOfRainbow2021: CataloguePacket["days_of_rainbow_2021"];
+	skyAnniversary2021: CataloguePacket["sky_anniversary_2021"];
+	daysOfSummer2021: CataloguePacket["days_of_summer_2021"];
+	daysOfSummerLights2021: CataloguePacket["days_of_summer_lights_2021"];
+	daysOfMischief2021: CataloguePacket["days_of_mischief_2021"];
+	daysOfFeast2021: CataloguePacket["days_of_feast_2021"];
+	daysOfFortune2022: CataloguePacket["days_of_fortune_2022"];
+	daysOfLove2022: CataloguePacket["days_of_love_2022"];
+	kizunaAI2022: CataloguePacket["kizuna_ai_2022"];
+	daysOfBloom2022: CataloguePacket["days_of_bloom_2022"];
+	daysOfNature2022: CataloguePacket["days_of_nature_2022"];
+	harmonyHallGrandOpening2022: CataloguePacket["harmony_hall_grand_opening_2022"];
+	daysOfRainbow2022: CataloguePacket["days_of_rainbow_2022"];
+	skyAnniversary2022: CataloguePacket["sky_anniversary_2022"];
+	daysOfSunlight2022: CataloguePacket["days_of_sunlight_2022"];
+	daysOfMischief2022: CataloguePacket["days_of_mischief_2022"];
+	daysOfFeast2022: CataloguePacket["days_of_feast_2022"];
+	daysOfFortune2023: CataloguePacket["days_of_fortune_2023"];
+	daysOfLove2023: CataloguePacket["days_of_love_2023"];
+	daysOfBloom2023: CataloguePacket["days_of_bloom_2023"];
+	daysOfNature2023: CataloguePacket["days_of_nature_2023"];
+	daysOfColour2023: CataloguePacket["days_of_colour_2023"];
+	daysOfMusic2023: CataloguePacket["days_of_music_2023"];
+	skyAnniversary2023: CataloguePacket["sky_anniversary_2023"];
+	auroraEncoreConcerts2023: CataloguePacket["aurora_encore_concerts_2023"];
+	daysOfSunlight2023: CataloguePacket["days_of_sunlight_2023"];
+	daysOfStyle2023: CataloguePacket["days_of_style_2023"];
+	daysOfMischief2023: CataloguePacket["days_of_mischief_2023"];
+	aviarysFireworkFestival2023: CataloguePacket["aviarys_firework_festival_2023"];
+	daysOfFeast2023: CataloguePacket["days_of_feast_2023"];
+	daysOfFortune2024: CataloguePacket["days_of_fortune_2024"];
+	daysOfLove2024: CataloguePacket["days_of_love_2024"];
+	daysOfBloom2024: CataloguePacket["days_of_bloom_2024"];
+	skyXCinnamorollPopUpCafe2024: CataloguePacket["sky_x_cinnamoroll_pop_up_cafe_2024"];
+	daysOfNature2024: CataloguePacket["days_of_nature_2024"];
 }
 
-type SpiritTrackerPatchData = Omit<SpiritTrackerPacket, "user_id">;
-type SpiritTracketSetData = Partial<Omit<SpiritTrackerPacket, "user_id">>;
+type CataloguePatchData = Omit<CataloguePacket, "user_id">;
+type CatalogueSetData = Partial<Omit<CataloguePacket, "user_id">>;
 
-const SpiritTrackerNameToRawName = {
+const CatalogueNameToRawName = {
 	[SpiritName.PointingCandlemaker]: "pointing_candlemaker",
 	[SpiritName.UsheringStargazer]: "ushering_stargazer",
 	[SpiritName.RejectingVoyager]: "rejecting_voyager",
@@ -708,9 +708,9 @@ const SpiritTrackerNameToRawName = {
 	[EventNameUnique.DaysOfBloom2024]: "days_of_bloom_2024",
 	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: "sky_x_cinnamoroll_pop_up_cafe_2024",
 	[EventNameUnique.DaysOfNature2024]: "days_of_nature_2024",
-} as const satisfies Readonly<Record<SpiritName | EventNameUnique, Exclude<keyof SpiritTrackerPacket, "user_id">>>;
+} as const satisfies Readonly<Record<SpiritName | EventNameUnique, Exclude<keyof CataloguePacket, "user_id">>>;
 
-const SpiritNameToSpiritTrackerName = {
+const SpiritEventNameToCatalogueName = {
 	[SpiritName.PointingCandlemaker]: "pointingCandlemaker",
 	[SpiritName.UsheringStargazer]: "usheringStargazer",
 	[SpiritName.RejectingVoyager]: "rejectingVoyager",
@@ -924,42 +924,39 @@ const SpiritNameToSpiritTrackerName = {
 	[EventNameUnique.DaysOfBloom2024]: "daysOfBloom2024",
 	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: "skyXCinnamorollPopUpCafe2024",
 	[EventNameUnique.DaysOfNature2024]: "daysOfNature2024",
-} as const satisfies Readonly<Record<SpiritName | EventNameUnique, Exclude<keyof SpiritTrackerData, "user_id">>>;
+} as const satisfies Readonly<Record<SpiritName | EventNameUnique, Exclude<keyof CatalogueData, "user_id">>>;
 
-export const SPIRIT_TRACKER_VIEW_START_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_START_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID = "SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_EVENT_YEARS_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_EVENT_YEARS_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_EVENT_YEAR_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_EVENT_YEAR_CUSTOM_ID" as const;
-
-export const SPIRIT_TRACKER_VIEW_RETURNING_SPIRITS_CUSTOM_ID =
-	"SPIRIT_TRACKER_VIEW_RETURNING_SPIRITS_CUSTOM_ID" as const;
-
-export const SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID = "SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID" as const;
-const SPIRIT_TRACKER_SHARE_REALMS_KEY = "realms" as const;
-const SPIRIT_TRACKER_SHARE_ELDER_KEY = "elders" as const;
-export const SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID = "SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID = "SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID" as const;
-export const SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID" as const;
-const SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT = 25 as const;
-const SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE = "Averages are calculated even beyond the second wing buff." as const;
+export const CATALOGUE_VIEW_START_CUSTOM_ID = "CATALOGUE_VIEW_START_CUSTOM_ID" as const;
+export const CATALOGUE_BACK_TO_START_CUSTOM_ID = "CATALOGUE_BACK_TO_START_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_TYPE_CUSTOM_ID = "CATALOGUE_VIEW_TYPE_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_REALMS_CUSTOM_ID = "CATALOGUE_VIEW_REALMS_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_ELDERS_CUSTOM_ID = "CATALOGUE_VIEW_ELDERS_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_SEASONS_CUSTOM_ID = "CATALOGUE_VIEW_SEASONS_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_REALM_CUSTOM_ID = "CATALOGUE_VIEW_REALM_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_SEASON_CUSTOM_ID = "CATALOGUE_VIEW_SEASON_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID = "CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_SPIRIT_CUSTOM_ID = "CATALOGUE_VIEW_SPIRIT_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_EVENT_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_OFFER_1_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_1_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_OFFER_2_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_2_CUSTOM_ID" as const;
+const CATALOGUE_SHARE_REALMS_KEY = "realms" as const;
+const CATALOGUE_SHARE_ELDER_KEY = "elders" as const;
+export const CATALOGUE_SHARE_PROMPT_CUSTOM_ID = "CATALOGUE_SHARE_PROMPT_CUSTOM_ID" as const;
+export const CATALOGUE_SHARE_SEND_CUSTOM_ID = "CATALOGUE_SHARE_SEND_CUSTOM_ID" as const;
+export const CATALOGUE_REALM_EVERYTHING_CUSTOM_ID = "CATALOGUE_REALM_EVERYTHING_CUSTOM_ID" as const;
+export const CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID = "CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID" as const;
+export const CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID = "CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID" as const;
+export const CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID = "CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID" as const;
+const CATALOGUE_MAXIMUM_OPTIONS_LIMIT = 25 as const;
+const CATALOGUE_STANDARD_PERCENTAGE_NOTE = "Averages are calculated even beyond the second wing buff." as const;
 
 function backToStartButton(disabled = false) {
 	return (
 		new ButtonBuilder()
 			// This custom id must differ to avoid duplicate custom ids.
-			.setCustomId(SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID)
+			.setCustomId(CATALOGUE_BACK_TO_START_CUSTOM_ID)
 			.setDisabled(disabled)
 			.setEmoji("⏮️")
 			.setLabel("Start")
@@ -967,441 +964,441 @@ function backToStartButton(disabled = false) {
 	);
 }
 
-export class SpiritTracker {
-	public readonly userId: SpiritTrackerData["userId"];
+export class Catalogue {
+	public readonly userId: CatalogueData["userId"];
 
-	public pointingCandlemaker!: SpiritTrackerData["pointingCandlemaker"];
+	public pointingCandlemaker!: CatalogueData["pointingCandlemaker"];
 
-	public usheringStargazer!: SpiritTrackerData["usheringStargazer"];
+	public usheringStargazer!: CatalogueData["usheringStargazer"];
 
-	public rejectingVoyager!: SpiritTrackerData["rejectingVoyager"];
+	public rejectingVoyager!: CatalogueData["rejectingVoyager"];
 
-	public elderOfTheIsle!: SpiritTrackerData["elderOfTheIsle"];
+	public elderOfTheIsle!: CatalogueData["elderOfTheIsle"];
 
-	public butterflyCharmer!: SpiritTrackerData["butterflyCharmer"];
+	public butterflyCharmer!: CatalogueData["butterflyCharmer"];
 
-	public applaudingBellmaker!: SpiritTrackerData["applaudingBellmaker"];
+	public applaudingBellmaker!: CatalogueData["applaudingBellmaker"];
 
-	public wavingBellmaker!: SpiritTrackerData["wavingBellmaker"];
+	public wavingBellmaker!: CatalogueData["wavingBellmaker"];
 
-	public slumberingShipwright!: SpiritTrackerData["slumberingShipwright"];
+	public slumberingShipwright!: CatalogueData["slumberingShipwright"];
 
-	public laughingLightCatcher!: SpiritTrackerData["laughingLightCatcher"];
+	public laughingLightCatcher!: CatalogueData["laughingLightCatcher"];
 
-	public birdWhisperer!: SpiritTrackerData["birdWhisperer"];
+	public birdWhisperer!: CatalogueData["birdWhisperer"];
 
-	public exhaustedDockWorker!: SpiritTrackerData["exhaustedDockWorker"];
+	public exhaustedDockWorker!: CatalogueData["exhaustedDockWorker"];
 
-	public ceremonialWorshiper!: SpiritTrackerData["ceremonialWorshiper"];
+	public ceremonialWorshiper!: CatalogueData["ceremonialWorshiper"];
 
-	public elderOfThePrairie!: SpiritTrackerData["elderOfThePrairie"];
+	public elderOfThePrairie!: CatalogueData["elderOfThePrairie"];
 
-	public shiveringTrailblazer!: SpiritTrackerData["shiveringTrailblazer"];
+	public shiveringTrailblazer!: CatalogueData["shiveringTrailblazer"];
 
-	public blushingProspector!: SpiritTrackerData["blushingProspector"];
+	public blushingProspector!: CatalogueData["blushingProspector"];
 
-	public hideNSeekPioneer!: SpiritTrackerData["hideNSeekPioneer"];
+	public hideNSeekPioneer!: CatalogueData["hideNSeekPioneer"];
 
-	public poutyPorter!: SpiritTrackerData["poutyPorter"];
+	public poutyPorter!: CatalogueData["poutyPorter"];
 
-	public dismayedHunter!: SpiritTrackerData["dismayedHunter"];
+	public dismayedHunter!: CatalogueData["dismayedHunter"];
 
-	public apologeticLumberjack!: SpiritTrackerData["apologeticLumberjack"];
+	public apologeticLumberjack!: CatalogueData["apologeticLumberjack"];
 
-	public tearfulLightMiner!: SpiritTrackerData["tearfulLightMiner"];
+	public tearfulLightMiner!: CatalogueData["tearfulLightMiner"];
 
-	public whaleWhisperer!: SpiritTrackerData["whaleWhisperer"];
+	public whaleWhisperer!: CatalogueData["whaleWhisperer"];
 
-	public elderOfTheForest!: SpiritTrackerData["elderOfTheForest"];
+	public elderOfTheForest!: CatalogueData["elderOfTheForest"];
 
-	public confidentSightseer!: SpiritTrackerData["confidentSightseer"];
+	public confidentSightseer!: CatalogueData["confidentSightseer"];
 
-	public handstandingThrillseeker!: SpiritTrackerData["handstandingThrillseeker"];
+	public handstandingThrillseeker!: CatalogueData["handstandingThrillseeker"];
 
-	public mantaWhisperer!: SpiritTrackerData["mantaWhisperer"];
+	public mantaWhisperer!: CatalogueData["mantaWhisperer"];
 
-	public backflippingChampion!: SpiritTrackerData["backflippingChampion"];
+	public backflippingChampion!: CatalogueData["backflippingChampion"];
 
-	public cheerfulSpectator!: SpiritTrackerData["cheerfulSpectator"];
+	public cheerfulSpectator!: CatalogueData["cheerfulSpectator"];
 
-	public bowingMedalist!: SpiritTrackerData["bowingMedalist"];
+	public bowingMedalist!: CatalogueData["bowingMedalist"];
 
-	public proudVictor!: SpiritTrackerData["proudVictor"];
+	public proudVictor!: CatalogueData["proudVictor"];
 
-	public elderOfTheValley!: SpiritTrackerData["elderOfTheValley"];
+	public elderOfTheValley!: CatalogueData["elderOfTheValley"];
 
-	public frightenedRefugee!: SpiritTrackerData["frightenedRefugee"];
+	public frightenedRefugee!: CatalogueData["frightenedRefugee"];
 
-	public faintingWarrior!: SpiritTrackerData["faintingWarrior"];
+	public faintingWarrior!: CatalogueData["faintingWarrior"];
 
-	public courageousSoldier!: SpiritTrackerData["courageousSoldier"];
+	public courageousSoldier!: CatalogueData["courageousSoldier"];
 
-	public stealthySurvivor!: SpiritTrackerData["stealthySurvivor"];
+	public stealthySurvivor!: CatalogueData["stealthySurvivor"];
 
-	public salutingCaptain!: SpiritTrackerData["salutingCaptain"];
+	public salutingCaptain!: CatalogueData["salutingCaptain"];
 
-	public lookoutScout!: SpiritTrackerData["lookoutScout"];
+	public lookoutScout!: CatalogueData["lookoutScout"];
 
-	public elderOfTheWasteland!: SpiritTrackerData["elderOfTheWasteland"];
+	public elderOfTheWasteland!: CatalogueData["elderOfTheWasteland"];
 
-	public prayingAcolyte!: SpiritTrackerData["prayingAcolyte"];
+	public prayingAcolyte!: CatalogueData["prayingAcolyte"];
 
-	public levitatingAdept!: SpiritTrackerData["levitatingAdept"];
+	public levitatingAdept!: CatalogueData["levitatingAdept"];
 
-	public politeScholar!: SpiritTrackerData["politeScholar"];
+	public politeScholar!: CatalogueData["politeScholar"];
 
-	public memoryWhisperer!: SpiritTrackerData["memoryWhisperer"];
+	public memoryWhisperer!: CatalogueData["memoryWhisperer"];
 
-	public meditatingMonastic!: SpiritTrackerData["meditatingMonastic"];
+	public meditatingMonastic!: CatalogueData["meditatingMonastic"];
 
-	public elderOfTheVault!: SpiritTrackerData["elderOfTheVault"];
+	public elderOfTheVault!: CatalogueData["elderOfTheVault"];
 
-	public gratitudeGuide!: SpiritTrackerData["gratitudeGuide"];
+	public gratitudeGuide!: CatalogueData["gratitudeGuide"];
 
-	public sassyDrifter!: SpiritTrackerData["sassyDrifter"];
+	public sassyDrifter!: CatalogueData["sassyDrifter"];
 
-	public stretchingGuru!: SpiritTrackerData["stretchingGuru"];
+	public stretchingGuru!: CatalogueData["stretchingGuru"];
 
-	public provokingPerformer!: SpiritTrackerData["provokingPerformer"];
+	public provokingPerformer!: CatalogueData["provokingPerformer"];
 
-	public leapingDancer!: SpiritTrackerData["leapingDancer"];
+	public leapingDancer!: CatalogueData["leapingDancer"];
 
-	public salutingProtector!: SpiritTrackerData["salutingProtector"];
+	public salutingProtector!: CatalogueData["salutingProtector"];
 
-	public greetingShaman!: SpiritTrackerData["greetingShaman"];
+	public greetingShaman!: CatalogueData["greetingShaman"];
 
-	public lightseekerGuide!: SpiritTrackerData["lightseekerGuide"];
+	public lightseekerGuide!: CatalogueData["lightseekerGuide"];
 
-	public piggybackLightseeker!: SpiritTrackerData["piggybackLightseeker"];
+	public piggybackLightseeker!: CatalogueData["piggybackLightseeker"];
 
-	public doublefiveLightCatcher!: SpiritTrackerData["doublefiveLightCatcher"];
+	public doublefiveLightCatcher!: CatalogueData["doublefiveLightCatcher"];
 
-	public laidbackPioneer!: SpiritTrackerData["laidbackPioneer"];
+	public laidbackPioneer!: CatalogueData["laidbackPioneer"];
 
-	public twirlingChampion!: SpiritTrackerData["twirlingChampion"];
+	public twirlingChampion!: CatalogueData["twirlingChampion"];
 
-	public crabWhisperer!: SpiritTrackerData["crabWhisperer"];
+	public crabWhisperer!: CatalogueData["crabWhisperer"];
 
-	public shushingLightScholar!: SpiritTrackerData["shushingLightScholar"];
+	public shushingLightScholar!: CatalogueData["shushingLightScholar"];
 
-	public belongingGuide!: SpiritTrackerData["belongingGuide"];
+	public belongingGuide!: CatalogueData["belongingGuide"];
 
-	public boogieKid!: SpiritTrackerData["boogieKid"];
+	public boogieKid!: CatalogueData["boogieKid"];
 
-	public confettiCousin!: SpiritTrackerData["confettiCousin"];
+	public confettiCousin!: CatalogueData["confettiCousin"];
 
-	public hairtousleTeen!: SpiritTrackerData["hairtousleTeen"];
+	public hairtousleTeen!: CatalogueData["hairtousleTeen"];
 
-	public sparklerParent!: SpiritTrackerData["sparklerParent"];
+	public sparklerParent!: CatalogueData["sparklerParent"];
 
-	public pleafulParent!: SpiritTrackerData["pleafulParent"];
+	public pleafulParent!: CatalogueData["pleafulParent"];
 
-	public wiseGrandparent!: SpiritTrackerData["wiseGrandparent"];
+	public wiseGrandparent!: CatalogueData["wiseGrandparent"];
 
-	public rhythmGuide!: SpiritTrackerData["rhythmGuide"];
+	public rhythmGuide!: CatalogueData["rhythmGuide"];
 
-	public troupeGreeter!: SpiritTrackerData["troupeGreeter"];
+	public troupeGreeter!: CatalogueData["troupeGreeter"];
 
-	public festivalSpinDancer!: SpiritTrackerData["festivalSpinDancer"];
+	public festivalSpinDancer!: CatalogueData["festivalSpinDancer"];
 
-	public admiringActor!: SpiritTrackerData["admiringActor"];
+	public admiringActor!: CatalogueData["admiringActor"];
 
-	public troupeJuggler!: SpiritTrackerData["troupeJuggler"];
+	public troupeJuggler!: CatalogueData["troupeJuggler"];
 
-	public respectfulPianist!: SpiritTrackerData["respectfulPianist"];
+	public respectfulPianist!: CatalogueData["respectfulPianist"];
 
-	public thoughtfulDirector!: SpiritTrackerData["thoughtfulDirector"];
+	public thoughtfulDirector!: CatalogueData["thoughtfulDirector"];
 
-	public enchantmentGuide!: SpiritTrackerData["enchantmentGuide"];
+	public enchantmentGuide!: CatalogueData["enchantmentGuide"];
 
-	public noddingMuralist!: SpiritTrackerData["noddingMuralist"];
+	public noddingMuralist!: CatalogueData["noddingMuralist"];
 
-	public indifferentAlchemist!: SpiritTrackerData["indifferentAlchemist"];
+	public indifferentAlchemist!: CatalogueData["indifferentAlchemist"];
 
-	public crabWalker!: SpiritTrackerData["crabWalker"];
+	public crabWalker!: CatalogueData["crabWalker"];
 
-	public scarecrowFarmer!: SpiritTrackerData["scarecrowFarmer"];
+	public scarecrowFarmer!: CatalogueData["scarecrowFarmer"];
 
-	public snoozingCarpenter!: SpiritTrackerData["snoozingCarpenter"];
+	public snoozingCarpenter!: CatalogueData["snoozingCarpenter"];
 
-	public playfightingHerbalist!: SpiritTrackerData["playfightingHerbalist"];
+	public playfightingHerbalist!: CatalogueData["playfightingHerbalist"];
 
-	public sanctuaryGuide!: SpiritTrackerData["sanctuaryGuide"];
+	public sanctuaryGuide!: CatalogueData["sanctuaryGuide"];
 
-	public jellyWhisperer!: SpiritTrackerData["jellyWhisperer"];
+	public jellyWhisperer!: CatalogueData["jellyWhisperer"];
 
-	public timidBookworm!: SpiritTrackerData["timidBookworm"];
+	public timidBookworm!: CatalogueData["timidBookworm"];
 
-	public rallyingThrillseeker!: SpiritTrackerData["rallyingThrillseeker"];
+	public rallyingThrillseeker!: CatalogueData["rallyingThrillseeker"];
 
-	public hikingGrouch!: SpiritTrackerData["hikingGrouch"];
+	public hikingGrouch!: CatalogueData["hikingGrouch"];
 
-	public gratefulShellCollector!: SpiritTrackerData["gratefulShellCollector"];
+	public gratefulShellCollector!: CatalogueData["gratefulShellCollector"];
 
-	public chillSunbather!: SpiritTrackerData["chillSunbather"];
+	public chillSunbather!: CatalogueData["chillSunbather"];
 
-	public prophecyGuide!: SpiritTrackerData["prophecyGuide"];
+	public prophecyGuide!: CatalogueData["prophecyGuide"];
 
-	public prophetOfWater!: SpiritTrackerData["prophetOfWater"];
+	public prophetOfWater!: CatalogueData["prophetOfWater"];
 
-	public prophetOfEarth!: SpiritTrackerData["prophetOfEarth"];
+	public prophetOfEarth!: CatalogueData["prophetOfEarth"];
 
-	public prophetOfAir!: SpiritTrackerData["prophetOfAir"];
+	public prophetOfAir!: CatalogueData["prophetOfAir"];
 
-	public prophetOfFire!: SpiritTrackerData["prophetOfFire"];
+	public prophetOfFire!: CatalogueData["prophetOfFire"];
 
-	public dreamsGuide!: SpiritTrackerData["dreamsGuide"];
+	public dreamsGuide!: CatalogueData["dreamsGuide"];
 
-	public spinningMentor!: SpiritTrackerData["spinningMentor"];
+	public spinningMentor!: CatalogueData["spinningMentor"];
 
-	public dancingPerformer!: SpiritTrackerData["dancingPerformer"];
+	public dancingPerformer!: CatalogueData["dancingPerformer"];
 
-	public peekingPostman!: SpiritTrackerData["peekingPostman"];
+	public peekingPostman!: CatalogueData["peekingPostman"];
 
-	public bearhugHermit!: SpiritTrackerData["bearhugHermit"];
+	public bearhugHermit!: CatalogueData["bearhugHermit"];
 
-	public assemblyGuide!: SpiritTrackerData["assemblyGuide"];
+	public assemblyGuide!: CatalogueData["assemblyGuide"];
 
-	public baffledBotanist!: SpiritTrackerData["baffledBotanist"];
+	public baffledBotanist!: CatalogueData["baffledBotanist"];
 
-	public scoldingStudent!: SpiritTrackerData["scoldingStudent"];
+	public scoldingStudent!: CatalogueData["scoldingStudent"];
 
-	public scaredyCadet!: SpiritTrackerData["scaredyCadet"];
+	public scaredyCadet!: CatalogueData["scaredyCadet"];
 
-	public marchingAdventurer!: SpiritTrackerData["marchingAdventurer"];
+	public marchingAdventurer!: CatalogueData["marchingAdventurer"];
 
-	public chucklingScout!: SpiritTrackerData["chucklingScout"];
+	public chucklingScout!: CatalogueData["chucklingScout"];
 
-	public daydreamForester!: SpiritTrackerData["daydreamForester"];
+	public daydreamForester!: CatalogueData["daydreamForester"];
 
-	public theRose!: SpiritTrackerData["theRose"];
+	public theRose!: CatalogueData["theRose"];
 
-	public beckoningRuler!: SpiritTrackerData["beckoningRuler"];
+	public beckoningRuler!: CatalogueData["beckoningRuler"];
 
-	public gloatingNarcissist!: SpiritTrackerData["gloatingNarcissist"];
+	public gloatingNarcissist!: CatalogueData["gloatingNarcissist"];
 
-	public stretchingLamplighter!: SpiritTrackerData["stretchingLamplighter"];
+	public stretchingLamplighter!: CatalogueData["stretchingLamplighter"];
 
-	public slouchingSoldier!: SpiritTrackerData["slouchingSoldier"];
+	public slouchingSoldier!: CatalogueData["slouchingSoldier"];
 
-	public sneezingGeographer!: SpiritTrackerData["sneezingGeographer"];
+	public sneezingGeographer!: CatalogueData["sneezingGeographer"];
 
-	public starCollector!: SpiritTrackerData["starCollector"];
+	public starCollector!: CatalogueData["starCollector"];
 
-	public flightGuide!: SpiritTrackerData["flightGuide"];
+	public flightGuide!: CatalogueData["flightGuide"];
 
-	public livelyNavigator!: SpiritTrackerData["livelyNavigator"];
+	public livelyNavigator!: CatalogueData["livelyNavigator"];
 
-	public lightWhisperer!: SpiritTrackerData["lightWhisperer"];
+	public lightWhisperer!: CatalogueData["lightWhisperer"];
 
-	public tinkeringChimesmith!: SpiritTrackerData["tinkeringChimesmith"];
+	public tinkeringChimesmith!: CatalogueData["tinkeringChimesmith"];
 
-	public talentedBuilder!: SpiritTrackerData["talentedBuilder"];
+	public talentedBuilder!: CatalogueData["talentedBuilder"];
 
-	public abyssGuide!: SpiritTrackerData["abyssGuide"];
+	public abyssGuide!: CatalogueData["abyssGuide"];
 
-	public anxiousAngler!: SpiritTrackerData["anxiousAngler"];
+	public anxiousAngler!: CatalogueData["anxiousAngler"];
 
-	public ceasingCommodore!: SpiritTrackerData["ceasingCommodore"];
+	public ceasingCommodore!: CatalogueData["ceasingCommodore"];
 
-	public bumblingBoatswain!: SpiritTrackerData["bumblingBoatswain"];
+	public bumblingBoatswain!: CatalogueData["bumblingBoatswain"];
 
-	public cacklingCannoneer!: SpiritTrackerData["cacklingCannoneer"];
+	public cacklingCannoneer!: CatalogueData["cacklingCannoneer"];
 
-	public performanceGuide!: SpiritTrackerData["performanceGuide"];
+	public performanceGuide!: CatalogueData["performanceGuide"];
 
-	public franticStagehand!: SpiritTrackerData["franticStagehand"];
+	public franticStagehand!: CatalogueData["franticStagehand"];
 
-	public forgetfulStoryteller!: SpiritTrackerData["forgetfulStoryteller"];
+	public forgetfulStoryteller!: CatalogueData["forgetfulStoryteller"];
 
-	public mellowMusician!: SpiritTrackerData["mellowMusician"];
+	public mellowMusician!: CatalogueData["mellowMusician"];
 
-	public modestDancer!: SpiritTrackerData["modestDancer"];
+	public modestDancer!: CatalogueData["modestDancer"];
 
-	public theVoidOfShattering!: SpiritTrackerData["theVoidOfShattering"];
+	public theVoidOfShattering!: CatalogueData["theVoidOfShattering"];
 
-	public ancientLight1!: SpiritTrackerData["ancientLight1"];
+	public ancientLight1!: CatalogueData["ancientLight1"];
 
-	public ancientLight2!: SpiritTrackerData["ancientLight2"];
+	public ancientLight2!: CatalogueData["ancientLight2"];
 
-	public ancientDarkness1!: SpiritTrackerData["ancientDarkness1"];
+	public ancientDarkness1!: CatalogueData["ancientDarkness1"];
 
-	public ancientDarkness2!: SpiritTrackerData["ancientDarkness2"];
+	public ancientDarkness2!: CatalogueData["ancientDarkness2"];
 
-	public aurora!: SpiritTrackerData["aurora"];
+	public aurora!: CatalogueData["aurora"];
 
-	public runningWayfarer!: SpiritTrackerData["runningWayfarer"];
+	public runningWayfarer!: CatalogueData["runningWayfarer"];
 
-	public mindfulMiner!: SpiritTrackerData["mindfulMiner"];
+	public mindfulMiner!: CatalogueData["mindfulMiner"];
 
-	public warriorOfLove!: SpiritTrackerData["warriorOfLove"];
+	public warriorOfLove!: CatalogueData["warriorOfLove"];
 
-	public seedOfHope!: SpiritTrackerData["seedOfHope"];
+	public seedOfHope!: CatalogueData["seedOfHope"];
 
-	public remembranceGuide!: SpiritTrackerData["remembranceGuide"];
+	public remembranceGuide!: CatalogueData["remembranceGuide"];
 
-	public bereftVeteran!: SpiritTrackerData["bereftVeteran"];
+	public bereftVeteran!: CatalogueData["bereftVeteran"];
 
-	public pleadingChild!: SpiritTrackerData["pleadingChild"];
+	public pleadingChild!: CatalogueData["pleadingChild"];
 
-	public tiptoeingTeaBrewer!: SpiritTrackerData["tiptoeingTeaBrewer"];
+	public tiptoeingTeaBrewer!: CatalogueData["tiptoeingTeaBrewer"];
 
-	public woundedWarrior!: SpiritTrackerData["woundedWarrior"];
+	public woundedWarrior!: CatalogueData["woundedWarrior"];
 
-	public passageGuide!: SpiritTrackerData["passageGuide"];
+	public passageGuide!: CatalogueData["passageGuide"];
 
-	public oddballOutcast!: SpiritTrackerData["oddballOutcast"];
+	public oddballOutcast!: CatalogueData["oddballOutcast"];
 
-	public tumblingTroublemaker!: SpiritTrackerData["tumblingTroublemaker"];
+	public tumblingTroublemaker!: CatalogueData["tumblingTroublemaker"];
 
-	public melancholyMope!: SpiritTrackerData["melancholyMope"];
+	public melancholyMope!: CatalogueData["melancholyMope"];
 
-	public overactiveOverachiever!: SpiritTrackerData["overactiveOverachiever"];
+	public overactiveOverachiever!: CatalogueData["overactiveOverachiever"];
 
-	public momentsGuide!: SpiritTrackerData["momentsGuide"];
+	public momentsGuide!: CatalogueData["momentsGuide"];
 
-	public reassuringRanger!: SpiritTrackerData["reassuringRanger"];
+	public reassuringRanger!: CatalogueData["reassuringRanger"];
 
-	public nightbirdWhisperer!: SpiritTrackerData["nightbirdWhisperer"];
+	public nightbirdWhisperer!: CatalogueData["nightbirdWhisperer"];
 
-	public jollyGeologist!: SpiritTrackerData["jollyGeologist"];
+	public jollyGeologist!: CatalogueData["jollyGeologist"];
 
-	public asceticMonk!: SpiritTrackerData["asceticMonk"];
+	public asceticMonk!: CatalogueData["asceticMonk"];
 
-	public hopefulSteward!: SpiritTrackerData["hopefulSteward"];
+	public hopefulSteward!: CatalogueData["hopefulSteward"];
 
-	public vestigeOfADesertedOasis!: SpiritTrackerData["vestigeOfADesertedOasis"];
+	public vestigeOfADesertedOasis!: CatalogueData["vestigeOfADesertedOasis"];
 
-	public memoryOfALostVillage!: SpiritTrackerData["memoryOfALostVillage"];
+	public memoryOfALostVillage!: CatalogueData["memoryOfALostVillage"];
 
-	public echoOfAnAbandonedRefuge!: SpiritTrackerData["echoOfAnAbandonedRefuge"];
+	public echoOfAnAbandonedRefuge!: CatalogueData["echoOfAnAbandonedRefuge"];
 
-	public remnantOfAForgottenHaven!: SpiritTrackerData["remnantOfAForgottenHaven"];
+	public remnantOfAForgottenHaven!: CatalogueData["remnantOfAForgottenHaven"];
 
-	public spiritOfMural!: SpiritTrackerData["spiritOfMural"];
+	public spiritOfMural!: CatalogueData["spiritOfMural"];
 
-	public herbGatherer!: SpiritTrackerData["herbGatherer"];
+	public herbGatherer!: CatalogueData["herbGatherer"];
 
-	public hunter!: SpiritTrackerData["hunter"];
+	public hunter!: CatalogueData["hunter"];
 
-	public feudalLord!: SpiritTrackerData["feudalLord"];
+	public feudalLord!: CatalogueData["feudalLord"];
 
-	public princess!: SpiritTrackerData["princess"];
+	public princess!: CatalogueData["princess"];
 
-	public nestingGuide!: SpiritTrackerData["nestingGuide"];
+	public nestingGuide!: CatalogueData["nestingGuide"];
 
-	public nestingSolarium!: SpiritTrackerData["nestingSolarium"];
+	public nestingSolarium!: CatalogueData["nestingSolarium"];
 
-	public nestingLoft!: SpiritTrackerData["nestingLoft"];
+	public nestingLoft!: CatalogueData["nestingLoft"];
 
-	public nestingAtrium!: SpiritTrackerData["nestingAtrium"];
+	public nestingAtrium!: CatalogueData["nestingAtrium"];
 
-	public nestingNook!: SpiritTrackerData["nestingNook"];
+	public nestingNook!: CatalogueData["nestingNook"];
 
-	public halloweenOfficeEvent2019!: SpiritTrackerData["halloweenOfficeEvent2019"];
+	public halloweenOfficeEvent2019!: CatalogueData["halloweenOfficeEvent2019"];
 
-	public daysOfGiving2019!: SpiritTrackerData["daysOfGiving2019"];
+	public daysOfGiving2019!: CatalogueData["daysOfGiving2019"];
 
-	public daysOfFeast2019!: SpiritTrackerData["daysOfFeast2019"];
+	public daysOfFeast2019!: CatalogueData["daysOfFeast2019"];
 
-	public daysOfLove2020!: SpiritTrackerData["daysOfLove2020"];
+	public daysOfLove2020!: CatalogueData["daysOfLove2020"];
 
-	public daysOfNature2020!: SpiritTrackerData["daysOfNature2020"];
+	public daysOfNature2020!: CatalogueData["daysOfNature2020"];
 
-	public daysOfHealing2020!: SpiritTrackerData["daysOfHealing2020"];
+	public daysOfHealing2020!: CatalogueData["daysOfHealing2020"];
 
-	public skyAnniversary2020!: SpiritTrackerData["skyAnniversary2020"];
+	public skyAnniversary2020!: CatalogueData["skyAnniversary2020"];
 
-	public daysOfSummerLights2020!: SpiritTrackerData["daysOfSummerLights2020"];
+	public daysOfSummerLights2020!: CatalogueData["daysOfSummerLights2020"];
 
-	public daysOfMischief2020!: SpiritTrackerData["daysOfMischief2020"];
+	public daysOfMischief2020!: CatalogueData["daysOfMischief2020"];
 
-	public daysOfFeast2020!: SpiritTrackerData["daysOfFeast2020"];
+	public daysOfFeast2020!: CatalogueData["daysOfFeast2020"];
 
-	public daysOfFortune2021!: SpiritTrackerData["daysOfFortune2021"];
+	public daysOfFortune2021!: CatalogueData["daysOfFortune2021"];
 
-	public daysOfLove2021!: SpiritTrackerData["daysOfLove2021"];
+	public daysOfLove2021!: CatalogueData["daysOfLove2021"];
 
-	public daysOfBloom2021!: SpiritTrackerData["daysOfBloom2021"];
+	public daysOfBloom2021!: CatalogueData["daysOfBloom2021"];
 
-	public daysOfNature2021!: SpiritTrackerData["daysOfNature2021"];
+	public daysOfNature2021!: CatalogueData["daysOfNature2021"];
 
-	public daysOfRainbow2021!: SpiritTrackerData["daysOfRainbow2021"];
+	public daysOfRainbow2021!: CatalogueData["daysOfRainbow2021"];
 
-	public skyAnniversary2021!: SpiritTrackerData["skyAnniversary2021"];
+	public skyAnniversary2021!: CatalogueData["skyAnniversary2021"];
 
-	public daysOfSummer2021!: SpiritTrackerData["daysOfSummer2021"];
+	public daysOfSummer2021!: CatalogueData["daysOfSummer2021"];
 
-	public daysOfSummerLights2021!: SpiritTrackerData["daysOfSummerLights2021"];
+	public daysOfSummerLights2021!: CatalogueData["daysOfSummerLights2021"];
 
-	public daysOfMischief2021!: SpiritTrackerData["daysOfMischief2021"];
+	public daysOfMischief2021!: CatalogueData["daysOfMischief2021"];
 
-	public daysOfFeast2021!: SpiritTrackerData["daysOfFeast2021"];
+	public daysOfFeast2021!: CatalogueData["daysOfFeast2021"];
 
-	public daysOfFortune2022!: SpiritTrackerData["daysOfFortune2022"];
+	public daysOfFortune2022!: CatalogueData["daysOfFortune2022"];
 
-	public daysOfLove2022!: SpiritTrackerData["daysOfLove2022"];
+	public daysOfLove2022!: CatalogueData["daysOfLove2022"];
 
-	public kizunaAI2022!: SpiritTrackerData["kizunaAI2022"];
+	public kizunaAI2022!: CatalogueData["kizunaAI2022"];
 
-	public daysOfBloom2022!: SpiritTrackerData["daysOfBloom2022"];
+	public daysOfBloom2022!: CatalogueData["daysOfBloom2022"];
 
-	public daysOfNature2022!: SpiritTrackerData["daysOfNature2022"];
+	public daysOfNature2022!: CatalogueData["daysOfNature2022"];
 
-	public harmonyHallGrandOpening2022!: SpiritTrackerData["harmonyHallGrandOpening2022"];
+	public harmonyHallGrandOpening2022!: CatalogueData["harmonyHallGrandOpening2022"];
 
-	public daysOfRainbow2022!: SpiritTrackerData["daysOfRainbow2022"];
+	public daysOfRainbow2022!: CatalogueData["daysOfRainbow2022"];
 
-	public skyAnniversary2022!: SpiritTrackerData["skyAnniversary2022"];
+	public skyAnniversary2022!: CatalogueData["skyAnniversary2022"];
 
-	public daysOfSunlight2022!: SpiritTrackerData["daysOfSunlight2022"];
+	public daysOfSunlight2022!: CatalogueData["daysOfSunlight2022"];
 
-	public daysOfMischief2022!: SpiritTrackerData["daysOfMischief2022"];
+	public daysOfMischief2022!: CatalogueData["daysOfMischief2022"];
 
-	public daysOfFeast2022!: SpiritTrackerData["daysOfFeast2022"];
+	public daysOfFeast2022!: CatalogueData["daysOfFeast2022"];
 
-	public daysOfFortune2023!: SpiritTrackerData["daysOfFortune2023"];
+	public daysOfFortune2023!: CatalogueData["daysOfFortune2023"];
 
-	public daysOfLove2023!: SpiritTrackerData["daysOfLove2023"];
+	public daysOfLove2023!: CatalogueData["daysOfLove2023"];
 
-	public daysOfBloom2023!: SpiritTrackerData["daysOfBloom2023"];
+	public daysOfBloom2023!: CatalogueData["daysOfBloom2023"];
 
-	public daysOfNature2023!: SpiritTrackerData["daysOfNature2023"];
+	public daysOfNature2023!: CatalogueData["daysOfNature2023"];
 
-	public daysOfColour2023!: SpiritTrackerData["daysOfColour2023"];
+	public daysOfColour2023!: CatalogueData["daysOfColour2023"];
 
-	public daysOfMusic2023!: SpiritTrackerData["daysOfMusic2023"];
+	public daysOfMusic2023!: CatalogueData["daysOfMusic2023"];
 
-	public skyAnniversary2023!: SpiritTrackerData["skyAnniversary2023"];
+	public skyAnniversary2023!: CatalogueData["skyAnniversary2023"];
 
-	public auroraEncoreConcerts2023!: SpiritTrackerData["auroraEncoreConcerts2023"];
+	public auroraEncoreConcerts2023!: CatalogueData["auroraEncoreConcerts2023"];
 
-	public daysOfSunlight2023!: SpiritTrackerData["daysOfSunlight2023"];
+	public daysOfSunlight2023!: CatalogueData["daysOfSunlight2023"];
 
-	public daysOfStyle2023!: SpiritTrackerData["daysOfStyle2023"];
+	public daysOfStyle2023!: CatalogueData["daysOfStyle2023"];
 
-	public daysOfMischief2023!: SpiritTrackerData["daysOfMischief2023"];
+	public daysOfMischief2023!: CatalogueData["daysOfMischief2023"];
 
-	public aviarysFireworkFestival2023!: SpiritTrackerData["aviarysFireworkFestival2023"];
+	public aviarysFireworkFestival2023!: CatalogueData["aviarysFireworkFestival2023"];
 
-	public daysOfFeast2023!: SpiritTrackerData["daysOfFeast2023"];
+	public daysOfFeast2023!: CatalogueData["daysOfFeast2023"];
 
-	public daysOfFortune2024!: SpiritTrackerData["daysOfFortune2024"];
+	public daysOfFortune2024!: CatalogueData["daysOfFortune2024"];
 
-	public daysOfLove2024!: SpiritTrackerData["daysOfLove2024"];
+	public daysOfLove2024!: CatalogueData["daysOfLove2024"];
 
-	public daysOfBloom2024!: SpiritTrackerData["daysOfBloom2024"];
+	public daysOfBloom2024!: CatalogueData["daysOfBloom2024"];
 
-	public skyXCinnamorollPopUpCafe2024!: SpiritTrackerData["skyXCinnamorollPopUpCafe2024"];
+	public skyXCinnamorollPopUpCafe2024!: CatalogueData["skyXCinnamorollPopUpCafe2024"];
 
-	public daysOfNature2024!: SpiritTrackerData["daysOfNature2024"];
+	public daysOfNature2024!: CatalogueData["daysOfNature2024"];
 
-	public constructor(spiritTrack: SpiritTrackerPacket) {
+	public constructor(spiritTrack: CataloguePacket) {
 		this.userId = spiritTrack.user_id;
 		this.patch(spiritTrack);
 	}
 
-	private patch(data: SpiritTrackerPatchData) {
+	private patch(data: CataloguePatchData) {
 		this.pointingCandlemaker = data.pointing_candlemaker;
 		this.usheringStargazer = data.ushering_stargazer;
 		this.rejectingVoyager = data.rejecting_voyager;
@@ -1618,9 +1615,9 @@ export class SpiritTracker {
 	}
 
 	public static async fetch(userId: Snowflake) {
-		const [spiritTrackerPacket] = await pg<SpiritTrackerPacket>(Table.Catalogue).where("user_id", userId);
-		if (!spiritTrackerPacket) throw new Error("No spirit tracker data found.");
-		return new this(spiritTrackerPacket);
+		const [cataloguePacket] = await pg<CataloguePacket>(Table.Catalogue).where("user_id", userId);
+		if (!cataloguePacket) throw new Error("No catalogue data found.");
+		return new this(cataloguePacket);
 	}
 
 	public static async setSpirits(interaction: ButtonInteraction) {
@@ -1633,13 +1630,13 @@ export class SpiritTracker {
 
 		await this.update(
 			user.id,
-			STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm).reduce<SpiritTracketSetData>((data, spirit) => {
-				data[SpiritTrackerNameToRawName[spirit.name]] = spirit.maxItemsBit;
+			STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm).reduce<CatalogueSetData>((data, spirit) => {
+				data[CatalogueNameToRawName[spirit.name]] = spirit.maxItemsBit;
 				return data;
 			}, {}),
 		);
 
-		await SpiritTracker.viewRealm(interaction, realm);
+		await Catalogue.viewRealm(interaction, realm);
 	}
 
 	public static async setElders(interaction: ButtonInteraction) {
@@ -1647,13 +1644,13 @@ export class SpiritTracker {
 
 		await this.update(
 			interaction.user.id,
-			ELDER_SPIRITS.reduce<SpiritTracketSetData>((data, spirit) => {
-				data[SpiritTrackerNameToRawName[spirit.name]] = spirit.maxItemsBit;
+			ELDER_SPIRITS.reduce<CatalogueSetData>((data, spirit) => {
+				data[CatalogueNameToRawName[spirit.name]] = spirit.maxItemsBit;
 				return data;
 			}, {}),
 		);
 
-		await SpiritTracker.viewElders(interaction);
+		await Catalogue.viewElders(interaction);
 	}
 
 	public static async setSeason(interaction: ButtonInteraction) {
@@ -1667,18 +1664,18 @@ export class SpiritTracker {
 
 		await this.update(
 			user.id,
-			SEASON_SPIRITS.filter((spirit) => spirit.season === season).reduce<SpiritTracketSetData>((data, spirit) => {
-				data[SpiritTrackerNameToRawName[spirit.name]] = spirit.maxItemsBit;
+			SEASON_SPIRITS.filter((spirit) => spirit.season === season).reduce<CatalogueSetData>((data, spirit) => {
+				data[CatalogueNameToRawName[spirit.name]] = spirit.maxItemsBit;
 				return data;
 			}, {}),
 		);
 
-		await SpiritTracker.viewSeason(interaction, season);
+		await Catalogue.viewSeason(interaction, season);
 	}
 
 	public static async setSpirit(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		const spiritTracker = await this.fetch(interaction.user.id);
+		const catalogue = await this.fetch(interaction.user.id);
 		const { customId } = interaction;
 		const resolvedName = customId.slice(customId.indexOf("§") + 1);
 
@@ -1705,25 +1702,25 @@ export class SpiritTracker {
 			const selectMenuTotalBit = component.options.reduce((bit, { value }) => bit | Number(value), 0);
 
 			// Clear this bit from the total bit.
-			const modifiedTotal = (spiritTracker[SpiritNameToSpiritTrackerName[name]] ?? 0) & ~selectMenuTotalBit;
+			const modifiedTotal = (catalogue[SpiritEventNameToCatalogueName[name]] ?? 0) & ~selectMenuTotalBit;
 
 			// Calculate the new bit.
 			newBit = interaction.values.reduce((bit, value) => bit | Number(value), modifiedTotal);
 		}
 
-		const [spiritTrackerPacket] = await this.update(interaction.user.id, {
-			[SpiritTrackerNameToRawName[name]]: newBit,
+		const [cataloguePacket] = await this.update(interaction.user.id, {
+			[CatalogueNameToRawName[name]]: newBit,
 		});
 
-		spiritTracker.patch(spiritTrackerPacket!);
+		catalogue.patch(cataloguePacket!);
 
 		await (spiritOrEvent instanceof Event
-			? spiritTracker.viewEvent(interaction, spiritOrEvent)
-			: spiritTracker.viewSpiritResponse(interaction, newBit, spiritOrEvent));
+			? catalogue.viewEvent(interaction, spiritOrEvent)
+			: catalogue.viewSpiritResponse(interaction, newBit, spiritOrEvent));
 	}
 
-	private static async update(userId: SpiritTracker["userId"], data: SpiritTracketSetData) {
-		return pg<SpiritTrackerPacket>(Table.Catalogue).update(data).where({ user_id: userId }).returning("*");
+	private static async update(userId: Catalogue["userId"], data: CatalogueSetData) {
+		return pg<CataloguePacket>(Table.Catalogue).update(data).where({ user_id: userId }).returning("*");
 	}
 
 	private ownedProgress(spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit | Event) {
@@ -1734,7 +1731,7 @@ export class SpiritTracker {
 				? spirit.current
 				: spirit.current ?? spirit.seasonal;
 
-		const bit = this[SpiritNameToSpiritTrackerName[spirit instanceof Event ? spirit.nameUnique : spirit.name]];
+		const bit = this[SpiritEventNameToCatalogueName[spirit instanceof Event ? spirit.nameUnique : spirit.name]];
 
 		return {
 			owned: resolvedOffer?.filter((_, itemBit) => bit && (bit & itemBit) === itemBit).size ?? 0,
@@ -1768,21 +1765,21 @@ export class SpiritTracker {
 
 	public static async viewTracker(interaction: ButtonInteraction | ChatInputCommandInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		const existingSpiritTracker = await this.fetch(interaction.user.id).catch(() => null);
-		let spiritTracker;
+		const existingCatalogue = await this.fetch(interaction.user.id).catch(() => null);
+		let catalogue;
 
-		if (existingSpiritTracker) {
-			spiritTracker = existingSpiritTracker;
+		if (existingCatalogue) {
+			catalogue = existingCatalogue;
 		} else {
-			spiritTracker = new this(
-				(await pg<SpiritTrackerPacket>(Table.Catalogue).insert({ user_id: interaction.user.id }, "*"))[0]!,
+			catalogue = new this(
+				(await pg<CataloguePacket>(Table.Catalogue).insert({ user_id: interaction.user.id }, "*"))[0]!,
 			);
 		}
 
-		const standardProgress = spiritTracker.spiritProgress(STANDARD_SPIRITS, true);
-		const elderProgress = spiritTracker.spiritProgress(ELDER_SPIRITS, true);
-		const seasonalProgress = spiritTracker.spiritProgress(SEASON_SPIRITS, true);
-		const eventProgress = spiritTracker.spiritProgress(CURRENT_EVENTS, true);
+		const standardProgress = catalogue.spiritProgress(STANDARD_SPIRITS, true);
+		const elderProgress = catalogue.spiritProgress(ELDER_SPIRITS, true);
+		const seasonalProgress = catalogue.spiritProgress(SEASON_SPIRITS, true);
+		const eventProgress = catalogue.spiritProgress(CURRENT_EVENTS, true);
 		const today = todayDate();
 		const currentSeason = resolveSeason(today);
 		const currentEvents = resolveEvents(today);
@@ -1792,9 +1789,9 @@ export class SpiritTracker {
 		const currentSeasonButton = new ButtonBuilder()
 			.setCustomId(
 				currentSeason
-					? `${SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID}§${currentSeason.name}`
+					? `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${currentSeason.name}`
 					: // This would not happen, but it's here to satisfy the API.
-					  SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID,
+					  CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
 			)
 			.setDisabled(!currentSeason)
 			.setLabel("Current Season")
@@ -1806,7 +1803,7 @@ export class SpiritTracker {
 
 		const currentEventButtons = currentEvents.reduce<ButtonBuilder[]>((buttons, event) => {
 			const button = new ButtonBuilder()
-				.setCustomId(`${SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID}§${event.nameUnique}`)
+				.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${event.nameUnique}`)
 				.setStyle(ButtonStyle.Success);
 
 			if (event.eventCurrencyEmoji) button.setEmoji(event.eventCurrencyEmoji);
@@ -1818,7 +1815,7 @@ export class SpiritTracker {
 			currentEventButtons.push(
 				new ButtonBuilder()
 					// This would not happen, but it's here to satisfy the API.
-					.setCustomId(SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID)
+					.setCustomId(CATALOGUE_VIEW_EVENT_CUSTOM_ID)
 					.setDisabled()
 					.setLabel("Current Event")
 					.setStyle(ButtonStyle.Secondary),
@@ -1830,9 +1827,9 @@ export class SpiritTracker {
 		const currentTravellingSpiritButton = new ButtonBuilder()
 			.setCustomId(
 				currentTravellingSpirit
-					? `${SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID}§${currentTravellingSpirit.name}`
+					? `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${currentTravellingSpirit.name}`
 					: // This would not happen, but it's here to satisfy the API.
-					  `${SPIRIT_TRACKER_VIEW_START_CUSTOM_ID}-travelling`,
+					  `${CATALOGUE_VIEW_START_CUSTOM_ID}-travelling`,
 			)
 			.setDisabled(!currentTravellingSpirit)
 			.setLabel("Travelling Spirit")
@@ -1847,7 +1844,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID)
+						.setCustomId(CATALOGUE_VIEW_TYPE_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
@@ -1874,9 +1871,9 @@ export class SpiritTracker {
 					new ButtonBuilder()
 						.setCustomId(
 							currentReturningSpirits
-								? SPIRIT_TRACKER_VIEW_RETURNING_SPIRITS_CUSTOM_ID
+								? CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID
 								: // This would not happen, but it's here to satisfy the API.
-								  `${SPIRIT_TRACKER_VIEW_START_CUSTOM_ID}-returning`,
+								  `${CATALOGUE_VIEW_START_CUSTOM_ID}-returning`,
 						)
 						.setDisabled(!currentReturningSpirits)
 						.setLabel("Returning Spirits")
@@ -1915,19 +1912,19 @@ export class SpiritTracker {
 	public static async viewRealms(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale, user } = interaction;
-		const spiritTracker = await this.fetch(user.id);
+		const catalogue = await this.fetch(user.id);
 
 		await interaction.update({
 			content: "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID)
+						.setCustomId(CATALOGUE_VIEW_REALM_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
 							REALMS.map(({ name }) => {
-								const percentage = spiritTracker.spiritProgress(
+								const percentage = catalogue.spiritProgress(
 									STANDARD_SPIRITS.filter((spirit) => spirit.realm === name),
 									true,
 								);
@@ -1946,22 +1943,19 @@ export class SpiritTracker {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backToStartButton(),
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_START_CUSTOM_ID)
+						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
-						.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${SPIRIT_TRACKER_SHARE_REALMS_KEY}`)
+						.setCustomId(`${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${CATALOGUE_SHARE_REALMS_KEY}`)
 						.setEmoji("🔗")
 						.setLabel("Share")
 						.setStyle(ButtonStyle.Primary),
 				),
 			],
 			embeds: [
-				spiritTracker
-					.realmsEmbed(locale)
-					.setFooter({ text: SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE })
-					.setTitle("Realms"),
+				catalogue.realmsEmbed(locale).setFooter({ text: CATALOGUE_STANDARD_PERCENTAGE_NOTE }).setTitle("Realms"),
 			],
 		});
 	}
@@ -1969,12 +1963,12 @@ export class SpiritTracker {
 	public static async viewRealm(interaction: ButtonInteraction | StringSelectMenuInteraction, realm: RealmName) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale, user } = interaction;
-		const spiritTracker = await this.fetch(user.id);
+		const catalogue = await this.fetch(user.id);
 		const spirits = STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm);
 		let hasEverything = true;
 
 		const options = spirits.map((spirit) => {
-			const percentage = spiritTracker.spiritProgress([spirit], true);
+			const percentage = catalogue.spiritProgress([spirit], true);
 			if (percentage !== null && percentage !== 100) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
@@ -1991,7 +1985,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
+						.setCustomId(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(options)
@@ -2000,17 +1994,17 @@ export class SpiritTracker {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backToStartButton(),
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID)
+						.setCustomId(CATALOGUE_VIEW_REALMS_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
-						.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${realm}`)
+						.setCustomId(`${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${realm}`)
 						.setEmoji("🔗")
 						.setLabel("Share")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
-						.setCustomId(`${SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID}§${realm}`)
+						.setCustomId(`${CATALOGUE_REALM_EVERYTHING_CUSTOM_ID}§${realm}`)
 						.setDisabled(hasEverything)
 						.setEmoji("💯")
 						.setLabel("I have everything!")
@@ -2018,9 +2012,9 @@ export class SpiritTracker {
 				),
 			],
 			embeds: [
-				spiritTracker
+				catalogue
 					.spiritEmbed(spirits, locale)
-					.setFooter({ text: SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE })
+					.setFooter({ text: CATALOGUE_STANDARD_PERCENTAGE_NOTE })
 					.setTitle(t(`realms.${realm}`, { lng: locale, ns: "general" })),
 			],
 		} satisfies InteractionUpdateOptions;
@@ -2031,11 +2025,11 @@ export class SpiritTracker {
 	public static async viewElders(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale, user } = interaction;
-		const spiritTracker = await this.fetch(user.id);
+		const catalogue = await this.fetch(user.id);
 		let hasEverything = true;
 
 		const options = ELDER_SPIRITS.map((spirit) => {
-			const percentage = spiritTracker.spiritProgress([spirit], true);
+			const percentage = catalogue.spiritProgress([spirit], true);
 			if (percentage !== null && percentage !== 100) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
@@ -2052,7 +2046,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
+						.setCustomId(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(options)
@@ -2061,43 +2055,43 @@ export class SpiritTracker {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backToStartButton(),
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_START_CUSTOM_ID)
+						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
-						.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${SPIRIT_TRACKER_SHARE_ELDER_KEY}`)
+						.setCustomId(`${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${CATALOGUE_SHARE_ELDER_KEY}`)
 						.setEmoji("🔗")
 						.setLabel("Share")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID)
+						.setCustomId(CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID)
 						.setDisabled(hasEverything)
 						.setEmoji("💯")
 						.setLabel("I have everything!")
 						.setStyle(ButtonStyle.Success),
 				),
 			],
-			embeds: [spiritTracker.spiritEmbed(ELDER_SPIRITS, locale).setTitle("Elders")],
+			embeds: [catalogue.spiritEmbed(ELDER_SPIRITS, locale).setTitle("Elders")],
 		});
 	}
 
 	public static async viewSeasons(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale, user } = interaction;
-		const spiritTracker = await this.fetch(user.id);
+		const catalogue = await this.fetch(user.id);
 
 		await interaction.update({
 			content: "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID)
+						.setCustomId(CATALOGUE_VIEW_SEASON_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
 							CURRENT_SEASONS.map((season) => {
-								const percentage = spiritTracker.spiritProgress([season.guide, ...season.spirits], true);
+								const percentage = catalogue.spiritProgress([season.guide, ...season.spirits], true);
 
 								return new StringSelectMenuOptionBuilder()
 									.setEmoji(SeasonNameToSeasonalEmoji[season.name])
@@ -2114,7 +2108,7 @@ export class SpiritTracker {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backToStartButton(),
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_START_CUSTOM_ID)
+						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
@@ -2135,13 +2129,13 @@ export class SpiritTracker {
 			return;
 		}
 
-		const spiritTracker = await this.fetch(user.id);
+		const catalogue = await this.fetch(user.id);
 		const spirits = [season.guide, ...season.spirits];
 		let hasEverything = true;
 
 		const options = spirits.map((spirit) => {
 			const { name } = spirit;
-			const percentage = spiritTracker.spiritProgress([spirit], true);
+			const percentage = catalogue.spiritProgress([spirit], true);
 			if (percentage !== null && percentage !== 100) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
@@ -2158,7 +2152,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
+						.setCustomId(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(options)
@@ -2173,17 +2167,17 @@ export class SpiritTracker {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backToStartButton(),
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID)
+						.setCustomId(CATALOGUE_VIEW_SEASONS_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
-						.setCustomId(`${SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID}§${seasonName}`)
+						.setCustomId(`${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${seasonName}`)
 						.setEmoji("🔗")
 						.setLabel("Share")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
-						.setCustomId(`${SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID}§${seasonName}`)
+						.setCustomId(`${CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID}§${seasonName}`)
 						.setDisabled(hasEverything)
 						.setEmoji("💯")
 						.setLabel("I have everything!")
@@ -2191,7 +2185,7 @@ export class SpiritTracker {
 				),
 			],
 			embeds: [
-				spiritTracker
+				catalogue
 					.spiritEmbed(spirits, locale)
 					.setTitle(
 						`${formatEmoji(SeasonNameToSeasonalEmoji[seasonName])} ${t(`seasons.${seasonName}`, {
@@ -2214,19 +2208,19 @@ export class SpiritTracker {
 	public static async viewEventYears(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { user } = interaction;
-		const spiritTracker = await this.fetch(user.id);
+		const catalogue = await this.fetch(user.id);
 
 		await interaction.update({
 			content: "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_EVENT_YEAR_CUSTOM_ID)
+						.setCustomId(CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
 							CURRENT_EVENTS_YEARS.map((year) => {
-								const percentage = spiritTracker.spiritProgress(
+								const percentage = catalogue.spiritProgress(
 									CURRENT_EVENTS.filter((event) => event.start.year === year),
 									true,
 								);
@@ -2241,7 +2235,7 @@ export class SpiritTracker {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backToStartButton(),
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_START_CUSTOM_ID)
+						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
@@ -2254,12 +2248,12 @@ export class SpiritTracker {
 	public static async viewEvents(interaction: ButtonInteraction | StringSelectMenuInteraction, year: string) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale, user } = interaction;
-		const spiritTracker = await this.fetch(user.id);
+		const catalogue = await this.fetch(user.id);
 		const events = CURRENT_EVENTS.filter((event) => event.start.year === Number(year));
 
 		const options = events.map((event) => {
 			const { name, nameUnique } = event;
-			const percentage = spiritTracker.spiritProgress([event], true);
+			const percentage = catalogue.spiritProgress([event], true);
 
 			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 				.setLabel(
@@ -2276,7 +2270,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID)
+						.setCustomId(CATALOGUE_VIEW_EVENT_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(options)
@@ -2285,14 +2279,14 @@ export class SpiritTracker {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backToStartButton(),
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_EVENT_YEARS_CUSTOM_ID)
+						.setCustomId(CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 				),
 			],
 			embeds: [
-				// spiritTracker.spiritEmbed(spirits, locale).setTitle(
+				// catalogue.spiritEmbed(spirits, locale).setTitle(
 				// 	`${formatEmoji(SeasonNameToSeasonalEmoji[season])} ${t(`seasons.${season}`, {
 				// 		lng: locale,
 				// 		ns: "general",
@@ -2312,17 +2306,17 @@ export class SpiritTracker {
 	public static async viewReturningSpirits(interaction: ButtonInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale, user } = interaction;
-		const spiritTracker = await this.fetch(user.id);
+		const catalogue = await this.fetch(user.id);
 		const spirits = resolveReturningSpirits(todayDate());
 
 		if (!spirits) {
-			await SpiritTracker.viewTracker(interaction);
+			await Catalogue.viewTracker(interaction);
 			return;
 		}
 
 		const options = spirits.map((spirit) => {
 			const { name } = spirit;
-			const percentage = spiritTracker.spiritProgress([spirit], true);
+			const percentage = catalogue.spiritProgress([spirit], true);
 
 			return new StringSelectMenuOptionBuilder()
 				.setEmoji(SeasonNameToSeasonalEmoji[spirit.season])
@@ -2339,7 +2333,7 @@ export class SpiritTracker {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)
+						.setCustomId(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(options)
@@ -2347,14 +2341,14 @@ export class SpiritTracker {
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(backToStartButton()),
 			],
-			embeds: [spiritTracker.spiritEmbed(spirits, locale).setTitle("Returning Spirits")],
+			embeds: [catalogue.spiritEmbed(spirits, locale).setTitle("Returning Spirits")],
 		};
 
 		await interaction.update(response);
 	}
 
 	public static async viewSpirit(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		const spiritTracker = await this.fetch(interaction.user.id);
+		const catalogue = await this.fetch(interaction.user.id);
 
 		const parsedCustomId =
 			interaction instanceof ButtonInteraction
@@ -2373,16 +2367,12 @@ export class SpiritTracker {
 			return;
 		}
 
-		await spiritTracker.viewSpiritResponse(
-			interaction,
-			spiritTracker[SpiritNameToSpiritTrackerName[spirit.name]],
-			spirit,
-		);
+		await catalogue.viewSpiritResponse(interaction, catalogue[SpiritEventNameToCatalogueName[spirit.name]], spirit);
 	}
 
 	private async viewSpiritResponse(
 		interaction: ButtonInteraction | StringSelectMenuInteraction,
-		bit: SpiritTrackerValue,
+		bit: CatalogueValue,
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 	) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
@@ -2414,10 +2404,10 @@ export class SpiritTracker {
 			new ButtonBuilder()
 				.setCustomId(
 					spirit.isElderSpirit()
-						? SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID
+						? CATALOGUE_VIEW_ELDERS_CUSTOM_ID
 						: spirit.isStandardSpirit()
-						? `${SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID}§${spirit.realm}`
-						: `${SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID}§${spirit.season}`,
+						? `${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${spirit.realm}`
+						: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${spirit.season}`,
 				)
 				.setEmoji(isSeasonalSpirit || isGuideSpirit ? SeasonNameToSeasonalEmoji[spirit.season] : "⏪")
 				.setLabel("Back")
@@ -2427,7 +2417,7 @@ export class SpiritTracker {
 		if (offer) {
 			buttons.addComponents(
 				new ButtonBuilder()
-					.setCustomId(`${SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID}§${spirit.name}`)
+					.setCustomId(`${CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID}§${spirit.name}`)
 					.setDisabled(this.spiritProgress([spirit]) === 100)
 					.setEmoji("💯")
 					.setLabel("I have everything!")
@@ -2444,11 +2434,11 @@ export class SpiritTracker {
 				return stringSelectMenuOption;
 			});
 
-			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT);
+			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
 
 			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
-					.setCustomId(`${SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID}§${spirit.name}`)
+					.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${spirit.name}`)
 					.setMaxValues(itemSelectionOptionsMaximumLimit.length)
 					.setMinValues(0)
 					.setOptions(itemSelectionOptionsMaximumLimit)
@@ -2457,15 +2447,13 @@ export class SpiritTracker {
 
 			components.push(itemSelection);
 
-			if (itemSelectionOptions.length > SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT) {
-				const itemSelectionOverflowOptionsMaximumLimit = itemSelectionOptions.slice(
-					SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT,
-				);
+			if (itemSelectionOptions.length > CATALOGUE_MAXIMUM_OPTIONS_LIMIT) {
+				const itemSelectionOverflowOptionsMaximumLimit = itemSelectionOptions.slice(CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
 
 				components.push(
 					new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 						new StringSelectMenuBuilder()
-							.setCustomId(`${SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID}§${spirit.name}`)
+							.setCustomId(`${CATALOGUE_VIEW_OFFER_2_CUSTOM_ID}§${spirit.name}`)
 							.setMaxValues(itemSelectionOverflowOptionsMaximumLimit.length)
 							.setMinValues(0)
 							.setOptions(itemSelectionOverflowOptionsMaximumLimit)
@@ -2481,7 +2469,7 @@ export class SpiritTracker {
 
 	public static async parseViewEvent(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		const spiritTracker = await this.fetch(interaction.user.id);
+		const catalogue = await this.fetch(interaction.user.id);
 
 		const eventName =
 			interaction instanceof ButtonInteraction
@@ -2496,13 +2484,13 @@ export class SpiritTracker {
 			return;
 		}
 
-		await spiritTracker.viewEvent(interaction, event);
+		await catalogue.viewEvent(interaction, event);
 	}
 
 	public async viewEvent(interaction: ButtonInteraction | StringSelectMenuInteraction, event: Event) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale } = interaction;
-		const bit = this[SpiritNameToSpiritTrackerName[event.nameUnique]];
+		const bit = this[SpiritEventNameToCatalogueName[event.nameUnique]];
 		const { name, nameUnique, start, eventCurrencyEmoji, offer, offerInfographicURL } = event;
 
 		const embed = new EmbedBuilder()
@@ -2553,7 +2541,7 @@ export class SpiritTracker {
 		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(
 			backToStartButton(),
 			new ButtonBuilder()
-				.setCustomId(`${SPIRIT_TRACKER_VIEW_EVENT_YEAR_CUSTOM_ID}§${start.year}`)
+				.setCustomId(`${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${start.year}`)
 				.setEmoji("⏪")
 				.setLabel("Back")
 				.setStyle(ButtonStyle.Primary),
@@ -2562,7 +2550,7 @@ export class SpiritTracker {
 		if (offer) {
 			buttons.addComponents(
 				new ButtonBuilder()
-					.setCustomId(`${SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID}§${nameUnique}`)
+					.setCustomId(`${CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID}§${nameUnique}`)
 					.setDisabled(this.spiritProgress([event]) === 100)
 					.setEmoji("💯")
 					.setLabel("I have everything!")
@@ -2579,11 +2567,11 @@ export class SpiritTracker {
 				return stringSelectMenuOption;
 			});
 
-			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT);
+			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
 
 			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
-					.setCustomId(`${SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID}§${nameUnique}`)
+					.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${nameUnique}`)
 					.setMaxValues(itemSelectionOptionsMaximumLimit.length)
 					.setMinValues(0)
 					.setOptions(itemSelectionOptionsMaximumLimit)
@@ -2592,15 +2580,13 @@ export class SpiritTracker {
 
 			components.push(itemSelection);
 
-			if (itemSelectionOptions.length > SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT) {
-				const itemSelectionOverflowOptionsMaximumLimit = itemSelectionOptions.slice(
-					SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT,
-				);
+			if (itemSelectionOptions.length > CATALOGUE_MAXIMUM_OPTIONS_LIMIT) {
+				const itemSelectionOverflowOptionsMaximumLimit = itemSelectionOptions.slice(CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
 
 				components.push(
 					new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 						new StringSelectMenuBuilder()
-							.setCustomId(`${SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID}§${nameUnique}`)
+							.setCustomId(`${CATALOGUE_VIEW_OFFER_2_CUSTOM_ID}§${nameUnique}`)
 							.setMaxValues(itemSelectionOverflowOptionsMaximumLimit.length)
 							.setMinValues(0)
 							.setOptions(itemSelectionOverflowOptionsMaximumLimit)
@@ -2635,7 +2621,7 @@ export class SpiritTracker {
 		const remainingCurrencies = [];
 
 		for (const spirit of spirits) {
-			const bit = this[SpiritNameToSpiritTrackerName[spirit.name]];
+			const bit = this[SpiritEventNameToCatalogueName[spirit.name]];
 			const spiritDescription = [];
 			const isSeasonalSpirit = spirit.isSeasonalSpirit();
 			const seasonalParsing = isSeasonalSpirit && !spirit.current;
@@ -2744,18 +2730,18 @@ export class SpiritTracker {
 			return;
 		}
 
-		const spiritTracker = await this.fetch(user.id);
+		const catalogue = await this.fetch(user.id);
 		const type = customId.slice(customId.indexOf("§") + 1);
 		const backButton = new ButtonBuilder().setLabel("Back").setStyle(ButtonStyle.Primary);
 		let embed;
 
-		if (type === SPIRIT_TRACKER_SHARE_REALMS_KEY) {
-			backButton.setCustomId(SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID);
-			embed = spiritTracker.realmsEmbed(locale).setTitle("Realms Progress");
+		if (type === CATALOGUE_SHARE_REALMS_KEY) {
+			backButton.setCustomId(CATALOGUE_VIEW_REALMS_CUSTOM_ID);
+			embed = catalogue.realmsEmbed(locale).setTitle("Realms Progress");
 		} else if (isRealm(type)) {
-			backButton.setCustomId(`${SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID}§${type}`);
+			backButton.setCustomId(`${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${type}`);
 
-			embed = spiritTracker
+			embed = catalogue
 				.spiritEmbed(
 					STANDARD_SPIRITS.filter((spirit) => spirit.realm === type),
 					locale,
@@ -2763,21 +2749,21 @@ export class SpiritTracker {
 				.setTitle(`${type} Progress`);
 		} else if (isSeasonName(type)) {
 			const emoji = SeasonNameToSeasonalEmoji[type];
-			backButton.setCustomId(`${SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID}§${type}`).setEmoji(emoji);
+			backButton.setCustomId(`${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${type}`).setEmoji(emoji);
 
-			embed = spiritTracker
+			embed = catalogue
 				.spiritEmbed(
 					SEASON_SPIRITS.filter((spirit) => spirit.season === type),
 					locale,
 				)
 				.setTitle(`${formatEmoji(emoji)} ${t(`seasons.${type}`, { lng: locale, ns: "general" })} Progress`);
-		} else if (type === SPIRIT_TRACKER_SHARE_ELDER_KEY) {
-			backButton.setCustomId(SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID);
-			embed = spiritTracker.spiritEmbed(ELDER_SPIRITS, locale).setTitle("Elders Progress");
+		} else if (type === CATALOGUE_SHARE_ELDER_KEY) {
+			backButton.setCustomId(CATALOGUE_VIEW_ELDERS_CUSTOM_ID);
+			embed = catalogue.spiritEmbed(ELDER_SPIRITS, locale).setTitle("Elders Progress");
 		}
 
 		if (!embed) {
-			pino.error(interaction, "Failed to parse spirits from a spirit tracker share prompt.");
+			pino.error(interaction, "Failed to parse spirits from a catalogue share prompt.");
 			await interaction.update(ERROR_RESPONSE);
 			return;
 		}
@@ -2791,7 +2777,7 @@ export class SpiritTracker {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					backButton,
 					new ButtonBuilder()
-						.setCustomId(SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID)
+						.setCustomId(CATALOGUE_SHARE_SEND_CUSTOM_ID)
 						.setEmoji("🔗")
 						.setLabel("Send")
 						.setStyle(ButtonStyle.Success),
@@ -2836,8 +2822,7 @@ export class SpiritTracker {
 		for (const actionRow of components) {
 			actionRow.components
 				.find(
-					(component) =>
-						"custom_id" in component.data && component.data.custom_id === SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID,
+					(component) => "custom_id" in component.data && component.data.custom_id === CATALOGUE_SHARE_SEND_CUSTOM_ID,
 				)
 				?.setDisabled();
 		}
@@ -2862,7 +2847,7 @@ export class SpiritTracker {
 
 		const bit =
 			this[
-				SpiritNameToSpiritTrackerName[spiritOrEvent instanceof Event ? spiritOrEvent.nameUnique : spiritOrEvent.name]
+				SpiritEventNameToCatalogueName[spiritOrEvent instanceof Event ? spiritOrEvent.nameUnique : spiritOrEvent.name]
 			];
 
 		const result = addCosts(

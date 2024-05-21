@@ -38,32 +38,32 @@ import {
 import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../Commands/General/spirit.js";
 import COMMANDS, { resolveCommand } from "../Commands/index.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../Structures/AI.js";
+import {
+	Catalogue,
+	CATALOGUE_BACK_TO_START_CUSTOM_ID,
+	CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
+	CATALOGUE_REALM_EVERYTHING_CUSTOM_ID,
+	CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID,
+	CATALOGUE_SHARE_PROMPT_CUSTOM_ID,
+	CATALOGUE_SHARE_SEND_CUSTOM_ID,
+	CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID,
+	CATALOGUE_VIEW_ELDERS_CUSTOM_ID,
+	CATALOGUE_VIEW_EVENT_CUSTOM_ID,
+	CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
+	CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID,
+	CATALOGUE_VIEW_OFFER_1_CUSTOM_ID,
+	CATALOGUE_VIEW_OFFER_2_CUSTOM_ID,
+	CATALOGUE_VIEW_REALMS_CUSTOM_ID,
+	CATALOGUE_VIEW_REALM_CUSTOM_ID,
+	CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID,
+	CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
+	CATALOGUE_VIEW_SEASON_CUSTOM_ID,
+	CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
+	CATALOGUE_VIEW_START_CUSTOM_ID,
+	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
+} from "../Structures/Catalogue.js";
 import { deleteUserData } from "../Structures/Data.js";
 import Profile from "../Structures/Profile.js";
-import {
-	SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID,
-	SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID,
-	SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID,
-	SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID,
-	SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID,
-	SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID,
-	SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID,
-	SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID,
-	SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID,
-	SPIRIT_TRACKER_VIEW_EVENT_YEARS_CUSTOM_ID,
-	SPIRIT_TRACKER_VIEW_EVENT_YEAR_CUSTOM_ID,
-	SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID,
-	SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID,
-	SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID,
-	SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID,
-	SPIRIT_TRACKER_VIEW_RETURNING_SPIRITS_CUSTOM_ID,
-	SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID,
-	SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID,
-	SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID,
-	SPIRIT_TRACKER_VIEW_START_CUSTOM_ID,
-	SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID,
-	SpiritTracker,
-} from "../Structures/SpiritTracker.js";
 import { ERROR_RESPONSE } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
 import { isSeasonName } from "../catalogue/spirits/seasons/index.js";
@@ -200,97 +200,97 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (customId === SPIRIT_TRACKER_VIEW_START_CUSTOM_ID || customId === SPIRIT_TRACKER_BACK_TO_START_CUSTOM_ID) {
-					await SpiritTracker.viewTracker(interaction);
+				if (customId === CATALOGUE_VIEW_START_CUSTOM_ID || customId === CATALOGUE_BACK_TO_START_CUSTOM_ID) {
+					await Catalogue.viewTracker(interaction);
 					return;
 				}
 
-				if (customId === SPIRIT_TRACKER_VIEW_REALMS_CUSTOM_ID) {
-					await SpiritTracker.viewRealms(interaction);
+				if (customId === CATALOGUE_VIEW_REALMS_CUSTOM_ID) {
+					await Catalogue.viewRealms(interaction);
 					return;
 				}
 
-				if (customId.startsWith(SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID)) {
+				if (customId.startsWith(CATALOGUE_VIEW_REALM_CUSTOM_ID)) {
 					const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
 
 					if (isRealm(parsedCustomId)) {
-						await SpiritTracker.viewRealm(interaction, parsedCustomId);
+						await Catalogue.viewRealm(interaction, parsedCustomId);
 						return;
 					}
 				}
 
-				if (customId === SPIRIT_TRACKER_VIEW_ELDERS_CUSTOM_ID) {
-					await SpiritTracker.viewElders(interaction);
+				if (customId === CATALOGUE_VIEW_ELDERS_CUSTOM_ID) {
+					await Catalogue.viewElders(interaction);
 					return;
 				}
 
-				if (customId === SPIRIT_TRACKER_VIEW_SEASONS_CUSTOM_ID) {
-					await SpiritTracker.viewSeasons(interaction);
+				if (customId === CATALOGUE_VIEW_SEASONS_CUSTOM_ID) {
+					await Catalogue.viewSeasons(interaction);
 					return;
 				}
 
-				if (customId.startsWith(SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID)) {
+				if (customId.startsWith(CATALOGUE_VIEW_SEASON_CUSTOM_ID)) {
 					const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
 
 					if (isSeasonName(parsedCustomId)) {
-						await SpiritTracker.viewSeason(interaction, parsedCustomId);
+						await Catalogue.viewSeason(interaction, parsedCustomId);
 						return;
 					}
 				}
 
-				if (customId === SPIRIT_TRACKER_VIEW_EVENT_YEARS_CUSTOM_ID) {
-					await SpiritTracker.viewEventYears(interaction);
+				if (customId === CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID) {
+					await Catalogue.viewEventYears(interaction);
 					return;
 				}
 
-				if (customId.startsWith(SPIRIT_TRACKER_VIEW_EVENT_YEAR_CUSTOM_ID)) {
+				if (customId.startsWith(CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID)) {
 					const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
-					await SpiritTracker.viewEvents(interaction, parsedCustomId);
+					await Catalogue.viewEvents(interaction, parsedCustomId);
 					return;
 				}
 
-				if (customId.startsWith(SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID)) {
-					await SpiritTracker.parseViewEvent(interaction);
+				if (customId.startsWith(CATALOGUE_VIEW_EVENT_CUSTOM_ID)) {
+					await Catalogue.parseViewEvent(interaction);
 					return;
 				}
 
-				if (customId === SPIRIT_TRACKER_VIEW_RETURNING_SPIRITS_CUSTOM_ID) {
-					await SpiritTracker.viewReturningSpirits(interaction);
+				if (customId === CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID) {
+					await Catalogue.viewReturningSpirits(interaction);
 					return;
 				}
 
-				if (customId.startsWith(SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID)) {
-					await SpiritTracker.viewSpirit(interaction);
+				if (customId.startsWith(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)) {
+					await Catalogue.viewSpirit(interaction);
 					return;
 				}
 
-				if (customId.startsWith(SPIRIT_TRACKER_REALM_EVERYTHING_CUSTOM_ID)) {
-					await SpiritTracker.setSpirits(interaction);
+				if (customId.startsWith(CATALOGUE_REALM_EVERYTHING_CUSTOM_ID)) {
+					await Catalogue.setSpirits(interaction);
 					return;
 				}
 
-				if (customId === SPIRIT_TRACKER_ELDERS_EVERYTHING_CUSTOM_ID) {
-					await SpiritTracker.setElders(interaction);
+				if (customId === CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID) {
+					await Catalogue.setElders(interaction);
 					return;
 				}
 
-				if (customId.startsWith(SPIRIT_TRACKER_SHARE_PROMPT_CUSTOM_ID)) {
-					await SpiritTracker.sharePrompt(interaction);
+				if (customId.startsWith(CATALOGUE_SHARE_PROMPT_CUSTOM_ID)) {
+					await Catalogue.sharePrompt(interaction);
 					return;
 				}
 
-				if (customId === SPIRIT_TRACKER_SHARE_SEND_CUSTOM_ID && interaction.inCachedGuild()) {
-					await SpiritTracker.shareSend(interaction);
+				if (customId === CATALOGUE_SHARE_SEND_CUSTOM_ID && interaction.inCachedGuild()) {
+					await Catalogue.shareSend(interaction);
 					return;
 				}
 
-				if (customId.startsWith(SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID)) {
-					await SpiritTracker.setSeason(interaction);
+				if (customId.startsWith(CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID)) {
+					await Catalogue.setSeason(interaction);
 					return;
 				}
 
-				if (customId.startsWith(SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID)) {
-					await SpiritTracker.setSpirit(interaction);
+				if (customId.startsWith(CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID)) {
+					await Catalogue.setSpirit(interaction);
 					return;
 				}
 
@@ -367,43 +367,43 @@ export const event: Event<typeof name> = {
 			const { customId, values } = interaction;
 
 			try {
-				if (customId === SPIRIT_TRACKER_VIEW_TYPE_CUSTOM_ID) {
-					await SpiritTracker.parseCatalogueType(interaction);
+				if (customId === CATALOGUE_VIEW_TYPE_CUSTOM_ID) {
+					await Catalogue.parseCatalogueType(interaction);
 					return;
 				}
 
 				const value0 = values[0]!;
 
-				if (customId === SPIRIT_TRACKER_VIEW_REALM_CUSTOM_ID && isRealm(value0)) {
-					await SpiritTracker.viewRealm(interaction, value0);
+				if (customId === CATALOGUE_VIEW_REALM_CUSTOM_ID && isRealm(value0)) {
+					await Catalogue.viewRealm(interaction, value0);
 					return;
 				}
 
-				if (customId === SPIRIT_TRACKER_VIEW_SEASON_CUSTOM_ID && isSeasonName(value0)) {
-					await SpiritTracker.viewSeason(interaction, value0);
+				if (customId === CATALOGUE_VIEW_SEASON_CUSTOM_ID && isSeasonName(value0)) {
+					await Catalogue.viewSeason(interaction, value0);
 					return;
 				}
 
-				if (customId === SPIRIT_TRACKER_VIEW_EVENT_YEAR_CUSTOM_ID) {
-					await SpiritTracker.viewEvents(interaction, value0);
+				if (customId === CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID) {
+					await Catalogue.viewEvents(interaction, value0);
 					return;
 				}
 
-				if (customId === SPIRIT_TRACKER_VIEW_SPIRIT_CUSTOM_ID) {
-					await SpiritTracker.viewSpirit(interaction);
+				if (customId === CATALOGUE_VIEW_SPIRIT_CUSTOM_ID) {
+					await Catalogue.viewSpirit(interaction);
 					return;
 				}
 
-				if (customId === SPIRIT_TRACKER_VIEW_EVENT_CUSTOM_ID) {
-					await SpiritTracker.parseViewEvent(interaction);
+				if (customId === CATALOGUE_VIEW_EVENT_CUSTOM_ID) {
+					await Catalogue.parseViewEvent(interaction);
 					return;
 				}
 
 				if (
-					customId.startsWith(SPIRIT_TRACKER_VIEW_OFFER_1_CUSTOM_ID) ||
-					customId.startsWith(SPIRIT_TRACKER_VIEW_OFFER_2_CUSTOM_ID)
+					customId.startsWith(CATALOGUE_VIEW_OFFER_1_CUSTOM_ID) ||
+					customId.startsWith(CATALOGUE_VIEW_OFFER_2_CUSTOM_ID)
 				) {
-					await SpiritTracker.setSpirit(interaction);
+					await Catalogue.setSpirit(interaction);
 					return;
 				}
 

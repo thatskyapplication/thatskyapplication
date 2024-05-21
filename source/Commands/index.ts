@@ -30,6 +30,7 @@ import playfight from "./Fun/play-fight.js";
 import ai from "./General/ai.js";
 import about from "./General/about.js";
 import calculate from "./General/calculate.js";
+import catalogue from "./General/catalogue.js";
 import data from "./General/data.js";
 import sharderuption from "./General/shard-eruption.js";
 import SkyProfile from "./General/Sky Profile.js";
@@ -43,6 +44,7 @@ const COMMANDS = {
 	ai,
 	bonk,
 	calculate,
+	catalogue,
 	dailyguides,
 	data,
 	GiftHeart,
