@@ -426,7 +426,7 @@ export function addCosts(items: ItemCost[]) {
 				eventCurrency = [],
 			},
 		) => {
-			total.money += money * 100;
+			total.money += Math.round(money * 100);
 			total.candles += candles;
 			total.hearts += hearts;
 			total.ascendedCandles += ascendedCandles;
