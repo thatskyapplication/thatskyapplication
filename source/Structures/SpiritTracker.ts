@@ -54,7 +54,7 @@ import pino from "../pino.js";
 import { Event } from "./Event.js";
 import Profile from "./Profile.js";
 import type { Season } from "./Season.js";
-import type { ElderSpirit, GuideSpirit, SeasonalSpirit, StandardSpirit, StandardSpiritRealm } from "./Spirits.js";
+import type { ElderSpirit, GuideSpirit, SeasonalSpirit, StandardSpirit } from "./Spirits.js";
 
 type SpiritTrackerValue = number | null;
 
@@ -955,11 +955,6 @@ export const SPIRIT_TRACKER_SEASON_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SEASON
 export const SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID = "SPIRIT_TRACKER_SPIRIT_EVERYTHING_CUSTOM_ID" as const;
 const SPIRIT_TRACKER_MAXIMUM_OPTIONS_LIMIT = 25 as const;
 const SPIRIT_TRACKER_STANDARD_PERCENTAGE_NOTE = "Averages are calculated even beyond the second wing buff." as const;
-
-const validRealms = REALMS.reduce<StandardSpiritRealm[]>((realms, { name, spirits }) => {
-	if (spirits.length > 0) realms.push(name);
-	return realms;
-}, []);
 
 const validSeasons = SEASONS.reduce<Season[]>((seasons, season) => {
 	if (season.guide || season.spirits.length > 0) seasons.push(season);
@@ -1936,19 +1931,19 @@ export class SpiritTracker {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							validRealms.map((realm) => {
+							REALMS.map(({ name }) => {
 								const percentage = spiritTracker.spiritProgress(
-									STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm),
+									STANDARD_SPIRITS.filter((spirit) => spirit.realm === name),
 									true,
 								);
 
 								return new StringSelectMenuOptionBuilder()
 									.setLabel(
-										`${t(`realms.${realm}`, { lng: locale, ns: "general" })}${
+										`${t(`realms.${name}`, { lng: locale, ns: "general" })}${
 											percentage === null ? "" : ` (${percentage}%)`
 										}`,
 									)
-									.setValue(realm);
+									.setValue(name);
 							}),
 						)
 						.setPlaceholder("Select a realm!"),
@@ -2710,13 +2705,13 @@ export class SpiritTracker {
 
 	private realmsEmbed(locale: Locale) {
 		return new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setDescription(
-			validRealms
-				.map((validRealm) => {
+			REALMS
+				.map(({ name }) => {
 					const remainingCurrency = this.summateCurrency(
-						STANDARD_SPIRITS.filter((spirit) => spirit.realm === validRealm),
+						STANDARD_SPIRITS.filter((spirit) => spirit.realm === name),
 					);
 
-					return `__${t(`realms.${validRealm}`, { lng: locale, ns: "general" })}__\n${
+					return `__${t(`realms.${name}`, { lng: locale, ns: "general" })}__\n${
 						remainingCurrency.length > 0 ? remainingCurrency.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
 					}`;
 				})
