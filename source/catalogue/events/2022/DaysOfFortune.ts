@@ -8,16 +8,12 @@ export default new Event({
 	nameUnique: EventNameUnique.DaysOfFortune2022,
 	start: skyDate(2_022, 1, 24),
 	end: skyDate(2_022, 2, 6),
-	url: null,
-	offer: {
-		hasInfographic: false,
-		items: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: "Mask", cost: { candles: 58 }, emoji: MASK_EMOJIS.Mask58 })
-			.set(1 << 1, { name: "Days of Fortune Fish Pack", cost: { money: 19.99 }, emoji: CAPE_EMOJIS.Cape74 })
-			.set(1 << 2, {
-				name: "Days of Fortune Fish Accessory",
-				cost: { money: 1.99 },
-				emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory16,
-			}),
-	},
+	offer: new Collection<number, ItemRaw>()
+		.set(1 << 0, { name: "Mask", cost: { candles: 58 }, emoji: MASK_EMOJIS.Mask58 })
+		.set(1 << 1, { name: "Days of Fortune Fish Pack", cost: { money: 19.99 }, emoji: CAPE_EMOJIS.Cape74 })
+		.set(1 << 2, {
+			name: "Days of Fortune Fish Accessory",
+			cost: { money: 1.99 },
+			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory16,
+		}),
 });

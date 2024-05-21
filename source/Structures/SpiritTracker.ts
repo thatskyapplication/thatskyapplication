@@ -2518,7 +2518,7 @@ export class SpiritTracker {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale } = interaction;
 		const bit = this[SpiritNameToSpiritTrackerName[event.nameUnique]];
-		const { name, nameUnique, start, eventCurrencyEmoji, offer, imageURL } = event;
+		const { name, nameUnique, start, eventCurrencyEmoji, offer, offerInfographicURL } = event;
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
@@ -2556,8 +2556,8 @@ export class SpiritTracker {
 			}
 		}
 
-		if (imageURL) {
-			embed.setImage(imageURL);
+		if (offerInfographicURL) {
+			embed.setImage(offerInfographicURL);
 		} else {
 			description.push(offer ? NO_EVENT_INFOGRAPHIC_YET : NO_EVENT_OFFER_TEXT);
 		}

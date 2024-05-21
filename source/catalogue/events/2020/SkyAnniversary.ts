@@ -8,13 +8,9 @@ export default new Event({
 	nameUnique: EventNameUnique.SkyAnniversary2020,
 	start: skyDate(2_020, 7, 13),
 	end: skyDate(2_020, 7, 19),
-	url: null,
-	offer: {
-		hasInfographic: false,
-		items: new Collection<number, ItemRaw>().set(1 << 0, {
-			name: "Hair accessory",
-			cost: { hearts: 3 },
-			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory03,
-		}),
-	},
+	offer: new Collection<number, ItemRaw>().set(1 << 0, {
+		name: "Hair accessory",
+		cost: { hearts: 3 },
+		emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory03,
+	}),
 });

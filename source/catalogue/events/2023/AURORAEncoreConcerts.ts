@@ -12,12 +12,8 @@ export default new Event({
 	nameUnique: EventNameUnique.AURORAEncoreConcerts2023,
 	start: skyDate(2_023, 8, 23),
 	end: skyDate(2_023, 9, 3),
-	url: null,
-	offer: {
-		hasInfographic: false,
-		items: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${emote} 1`, cost: { eventCurrency: 12 }, emoji: emoteEmoji })
-			.set(1 << 1, { name: `${emote} 2`, cost: { eventCurrency: 33 }, emoji: emoteEmoji })
-			.set(1 << 2, { name: "Musical Voyage Sneakers", cost: { money: 6.99 }, emoji: SHOE_EMOJIS.Shoe05 }),
-	},
+	offer: new Collection<number, ItemRaw>()
+		.set(1 << 0, { name: `${emote} 1`, cost: { eventCurrency: 12 }, emoji: emoteEmoji })
+		.set(1 << 1, { name: `${emote} 2`, cost: { eventCurrency: 33 }, emoji: emoteEmoji })
+		.set(1 << 2, { name: "Musical Voyage Sneakers", cost: { money: 6.99 }, emoji: SHOE_EMOJIS.Shoe05 }),
 });

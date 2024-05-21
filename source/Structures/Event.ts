@@ -1,5 +1,7 @@
+import { URL } from "node:url";
 import type { Collection } from "discord.js";
 import type { DateTime } from "luxon";
+import { CDN_URL } from "../Utility/Constants.js";
 import {
 	type EventName,
 	type EventNameUnique,
@@ -9,15 +11,11 @@ import {
 	EventNameUniqueToEventName,
 	resolveOffer,
 	wikiURL,
+	snakeCaseName,
 } from "../Utility/catalogue.js";
 import { type EventEmojis } from "../Utility/emojis.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
-
-interface EventFriendshipTreeOfferData {
-	hasInfographic?: boolean;
-	items: Collection<number, ItemRaw>;
-}
 
 /**
  * Data to create an event.
@@ -44,9 +42,11 @@ interface EventData {
 	 */
 	eventCurrencyEnd?: DateTime;
 	/**
-	 * The URL to the infographic of the event.
+	 * Whether this event has an infographic URL regarding event currency.
+	 *
+	 * @remarks If the infographic needs to change over time, an array may be provided.
 	 */
-	url: string | readonly EventDataURL[] | null;
+	eventCurrencyInfographicURL?: boolean | readonly EventDataURL[];
 	/**
 	 * The amount of event currency available per day.
 	 */
@@ -54,7 +54,11 @@ interface EventData {
 	/**
 	 * What the event offers.
 	 */
-	offer?: EventFriendshipTreeOfferData;
+	offer?: Collection<number, ItemRaw>;
+	/**
+	 * Whether this event has an infographic URL regarding the items it offers.
+	 */
+	offerInfographicURL?: boolean;
 }
 
 interface EventDataURL {
@@ -73,7 +77,7 @@ export class Event {
 
 	public readonly eventCurrencyEnd: DateTime;
 
-	public readonly url: string | readonly EventDataURL[] | null;
+	public readonly eventCurrencyInfographicURL: string | readonly EventDataURL[] | null;
 
 	public readonly eventCurrencyPerDay: number | null;
 
@@ -88,7 +92,7 @@ export class Event {
 
 	public readonly maxItemsBit: number | null;
 
-	public readonly imageURL: string | null;
+	public readonly offerInfographicURL: string | null;
 
 	public readonly wikiURL: string;
 
@@ -98,16 +102,22 @@ export class Event {
 		this.start = data.start;
 		this.end = data.end;
 		this.eventCurrencyEnd = data.eventCurrencyEnd ?? data.end;
-		this.url = data.url;
+
+		this.eventCurrencyInfographicURL = Array.isArray(data.eventCurrencyInfographicURL)
+			? data.eventCurrencyInfographicURL
+			: data.eventCurrencyInfographicURL
+			? String(new URL(`events/${this.start.year}/${snakeCaseName(this.name)}/event_currency.webp`, CDN_URL))
+			: null;
+
 		this.eventCurrencyPerDay = data.eventCurrencyPerDay ?? null;
 		this.eventCurrencyEmoji = EventNameToEventCurrencyEmoji[this.name];
-		this.offer = data.offer ? resolveOffer(data.offer.items, { eventName: this.name }) : null;
-		this.maxItemsBit = data.offer ? this.resolveMaxItemsBit(data.offer.items) : null;
-		this.imageURL = data.offer
-			? data.offer.hasInfographic ?? true
-				? "https://cdn.thatskyapplication.com/hugs/1.gif"
-				: null
+		this.offer = data.offer ? resolveOffer(data.offer, { eventName: this.name }) : null;
+		this.maxItemsBit = data.offer ? this.resolveMaxItemsBit(data.offer) : null;
+
+		this.offerInfographicURL = data.offerInfographicURL
+			? String(new URL(`events/${this.start.year}/${snakeCaseName(this.name)}/offer.webp`, CDN_URL))
 			: null;
+
 		this.wikiURL = wikiURL(this.name);
 	}
 
@@ -131,6 +141,14 @@ export class Event {
 			: daysLeftInEvent === -1
 			? `${name} ended ${Math.abs(daysLeftInEvent)} day ago.`
 			: `${name} ended ${Math.abs(daysLeftInEvent)} days ago.`;
+	}
+
+	public resolveInfographicURL(date: DateTime): string | null {
+		const { eventCurrencyInfographicURL } = this;
+
+		return Array.isArray(eventCurrencyInfographicURL)
+			? eventCurrencyInfographicURL.findLast((url) => date >= url.date)?.url ?? null
+			: eventCurrencyInfographicURL;
 	}
 
 	public rotation(/* date: DateTime */) {

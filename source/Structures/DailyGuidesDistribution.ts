@@ -245,21 +245,24 @@ export default class DailyGuidesDistribution {
 		const eventEndText = plannedEvents(date).map((event) => event.daysText(date));
 		const event0 = events[0];
 		const iconURL = event0?.eventCurrencyEmoji ? formatEmojiURL(event0.eventCurrencyEmoji.id) : null;
-		const currentEventsWithEventCurrency = events.filter((event) => date <= event.eventCurrencyEnd && event.url);
+
+		const currentEventsWithEventCurrency = events.filter(
+			(event) => date <= event.eventCurrencyEnd && event.eventCurrencyInfographicURL,
+		);
 
 		const eventCurrency =
 			currentEventsWithEventCurrency.length > 0
 				? {
 						name: t("event-currency", { lng: locale, ns: "general" }),
 						value: currentEventsWithEventCurrency
-							.map(({ name, eventCurrencyEmoji, url }) =>
+							.map((event) =>
 								hyperlink(
-									`${eventCurrencyEmoji ? formatEmoji(eventCurrencyEmoji) : ""}${t("view", {
+									`${event.eventCurrencyEmoji ? formatEmoji(event.eventCurrencyEmoji) : ""}${t("view", {
 										lng: locale,
 										ns: "general",
 									})}`,
-									Array.isArray(url) ? url.findLast((eventDataURL) => date >= eventDataURL.date)!.url : url!,
-									name,
+									event.resolveInfographicURL(date)!,
+									event.name,
 								),
 							)
 							.join(" | "),

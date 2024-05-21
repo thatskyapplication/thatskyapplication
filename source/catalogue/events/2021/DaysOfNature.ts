@@ -8,11 +8,7 @@ export default new Event({
 	nameUnique: EventNameUnique.DaysOfNature2021,
 	start: skyDate(2_021, 4, 19),
 	end: skyDate(2_021, 5, 2),
-	url: null,
-	offer: {
-		hasInfographic: false,
-		items: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: "Ocean Necklace", cost: { money: 1.99 }, emoji: NECKLACE_EMOJIS.Necklace12 })
-			.set(1 << 1, { name: "Ocean Cape", cost: { money: 14.99 }, emoji: CAPE_EMOJIS.Cape54 }),
-	},
+	offer: new Collection<number, ItemRaw>()
+		.set(1 << 0, { name: "Ocean Necklace", cost: { money: 1.99 }, emoji: NECKLACE_EMOJIS.Necklace12 })
+		.set(1 << 1, { name: "Ocean Cape", cost: { money: 14.99 }, emoji: CAPE_EMOJIS.Cape54 }),
 });

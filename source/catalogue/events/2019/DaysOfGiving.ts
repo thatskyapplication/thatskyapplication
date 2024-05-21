@@ -6,5 +6,4 @@ export default new Event({
 	nameUnique: EventNameUnique.DaysOfGiving2019,
 	start: skyDate(2_019, 11, 26),
 	end: skyDate(2_019, 12, 3, 12),
-	url: null,
 });

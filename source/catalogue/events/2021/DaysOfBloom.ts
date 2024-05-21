@@ -8,16 +8,12 @@ export default new Event({
 	nameUnique: EventNameUnique.DaysOfBloom2021,
 	start: skyDate(2_021, 3, 22),
 	end: skyDate(2_021, 4, 4),
-	url: null,
-	offer: {
-		hasInfographic: false,
-		items: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: "Hair", cost: { hearts: 20 }, emoji: HAIR_EMOJIS.Hair76 })
-			.set(1 << 1, { name: "Cape", cost: { candles: 70 }, emoji: CAPE_EMOJIS.Cape51 })
-			.set(1 << 2, {
-				name: "Pink Bloom Teaset",
-				cost: { money: 19.99 },
-				emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp04,
-			}),
-	},
+	offer: new Collection<number, ItemRaw>()
+		.set(1 << 0, { name: "Hair", cost: { hearts: 20 }, emoji: HAIR_EMOJIS.Hair76 })
+		.set(1 << 1, { name: "Cape", cost: { candles: 70 }, emoji: CAPE_EMOJIS.Cape51 })
+		.set(1 << 2, {
+			name: "Pink Bloom Teaset",
+			cost: { money: 19.99 },
+			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp04,
+		}),
 });

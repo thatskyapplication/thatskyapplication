@@ -8,13 +8,9 @@ export default new Event({
 	nameUnique: EventNameUnique.DaysOfNature2020,
 	start: skyDate(2_020, 4, 20, 12),
 	end: skyDate(2_020, 4, 27, 12),
-	url: null,
-	offer: {
-		hasInfographic: false,
-		items: new Collection<number, ItemRaw>().set(1 << 0, {
-			name: "Earth Cape",
-			cost: { money: 4.99 },
-			emoji: CAPE_EMOJIS.Cape29,
-		}),
-	},
+	offer: new Collection<number, ItemRaw>().set(1 << 0, {
+		name: "Earth Cape",
+		cost: { money: 4.99 },
+		emoji: CAPE_EMOJIS.Cape29,
+	}),
 });

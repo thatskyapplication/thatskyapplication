@@ -8,12 +8,8 @@ export default new Event({
 	nameUnique: EventNameUnique.DaysOfMusic2023,
 	start: skyDate(2_023, 7, 3),
 	end: skyDate(2_023, 7, 16),
-	url: null,
-	offer: {
-		hasInfographic: false,
-		items: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: "Triumph Saxophone", cost: { eventCurrency: 102 }, emoji: HELD_PROPS_EMOJIS.HeldProp36 })
-			.set(1 << 1, { name: "Marching Band Hat", cost: { eventCurrency: 43 }, emoji: HAIR_EMOJIS.Hair126 })
-			.set(1 << 2, { name: "Triumph Violin", cost: { money: 19.99 }, emoji: HELD_PROPS_EMOJIS.HeldProp35 }),
-	},
+	offer: new Collection<number, ItemRaw>()
+		.set(1 << 0, { name: "Triumph Saxophone", cost: { eventCurrency: 102 }, emoji: HELD_PROPS_EMOJIS.HeldProp36 })
+		.set(1 << 1, { name: "Marching Band Hat", cost: { eventCurrency: 43 }, emoji: HAIR_EMOJIS.Hair126 })
+		.set(1 << 2, { name: "Triumph Violin", cost: { money: 19.99 }, emoji: HELD_PROPS_EMOJIS.HeldProp35 }),
 });

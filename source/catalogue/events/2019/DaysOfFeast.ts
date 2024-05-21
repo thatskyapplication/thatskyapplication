@@ -8,13 +8,9 @@ export default new Event({
 	nameUnique: EventNameUnique.DaysOfFeast2019,
 	start: skyDate(2_019, 12, 22),
 	end: skyDate(2_020, 1, 2),
-	url: null,
-	offer: {
-		hasInfographic: false,
-		items: new Collection<number, ItemRaw>().set(1 << 0, {
-			name: "Days of Feast Pack",
-			cost: { money: 6.99 },
-			emoji: HAIR_EMOJIS.Hair48,
-		}),
-	},
+	offer: new Collection<number, ItemRaw>().set(1 << 0, {
+		name: "Days of Feast Pack",
+		cost: { money: 6.99 },
+		emoji: HAIR_EMOJIS.Hair48,
+	}),
 });

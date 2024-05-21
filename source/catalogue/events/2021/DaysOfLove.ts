@@ -8,15 +8,11 @@ export default new Event({
 	nameUnique: EventNameUnique.DaysOfLove2021,
 	start: skyDate(2_021, 2, 12, 12),
 	end: skyDate(2_021, 2, 21, 12),
-	url: null,
-	offer: {
-		hasInfographic: false,
-		items: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: "Mask", cost: { hearts: 15 }, emoji: MASK_EMOJIS.Mask43 })
-			.set(1 << 1, {
-				name: "Days of Love Seesaw Pack",
-				cost: { candles: 66 },
-				emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp02,
-			}),
-	},
+	offer: new Collection<number, ItemRaw>()
+		.set(1 << 0, { name: "Mask", cost: { hearts: 15 }, emoji: MASK_EMOJIS.Mask43 })
+		.set(1 << 1, {
+			name: "Days of Love Seesaw Pack",
+			cost: { candles: 66 },
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp02,
+		}),
 });
