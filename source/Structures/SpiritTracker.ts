@@ -38,7 +38,7 @@ import { todayDate } from "../Utility/dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { SpiritName } from "../Utility/spirits.js";
-import { EVENTS, resolveEvents } from "../catalogue/events/index.js";
+import { CURRENT_EVENTS, CURRENT_EVENTS_YEARS, EVENTS, resolveEvents } from "../catalogue/events/index.js";
 import { SPIRITS } from "../catalogue/spirits/index.js";
 import { ELDER_SPIRITS, REALMS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
 import {
@@ -964,11 +964,6 @@ const validRealms = REALMS.reduce<StandardSpiritRealm[]>((realms, { name, spirit
 const validSeasons = SEASONS.reduce<Season[]>((seasons, season) => {
 	if (season.guide || season.spirits.length > 0) seasons.push(season);
 	return seasons;
-}, []);
-
-const validEventsYears = EVENTS.reduce<number[]>((events, { start: { year }, offer }) => {
-	if (offer && offer.size > 0 && !events.includes(year)) events.push(year);
-	return events;
 }, []);
 
 function backToStartButton(disabled = false) {
@@ -2240,9 +2235,9 @@ export class SpiritTracker {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							validEventsYears.map((year) => {
+							CURRENT_EVENTS_YEARS.map((year) => {
 								const percentage = spiritTracker.spiritProgress(
-									EVENTS.filter((event) => event.start.year === year),
+									CURRENT_EVENTS.filter((event) => event.start.year === year),
 									true,
 								);
 
@@ -2270,7 +2265,7 @@ export class SpiritTracker {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale, user } = interaction;
 		const spiritTracker = await this.fetch(user.id);
-		const events = EVENTS.filter((event) => event.start.year === Number(year));
+		const events = CURRENT_EVENTS.filter((event) => event.start.year === Number(year));
 
 		const options = events.map((event) => {
 			const { name, nameUnique } = event;
