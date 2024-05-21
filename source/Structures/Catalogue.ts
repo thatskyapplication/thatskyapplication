@@ -226,22 +226,28 @@ export interface CataloguePacket {
 	halloween_office_event_2019: CatalogueValue;
 	days_of_giving_2019: CatalogueValue;
 	days_of_feast_2019: CatalogueValue;
+	lunar_new_year_2020: CatalogueValue;
 	days_of_love_2020: CatalogueValue;
+	days_of_spring_2020: CatalogueValue;
 	days_of_nature_2020: CatalogueValue;
 	days_of_healing_2020: CatalogueValue;
+	days_of_rainbow_2020: CatalogueValue;
 	sky_anniversary_2020: CatalogueValue;
 	days_of_summer_lights_2020: CatalogueValue;
 	days_of_mischief_2020: CatalogueValue;
+	days_of_giving_2020: CatalogueValue;
 	days_of_feast_2020: CatalogueValue;
 	days_of_fortune_2021: CatalogueValue;
 	days_of_love_2021: CatalogueValue;
 	days_of_bloom_2021: CatalogueValue;
 	days_of_nature_2021: CatalogueValue;
+	childrens_day_2021: CatalogueValue;
 	days_of_rainbow_2021: CatalogueValue;
 	sky_anniversary_2021: CatalogueValue;
 	days_of_summer_2021: CatalogueValue;
 	days_of_summer_lights_2021: CatalogueValue;
 	days_of_mischief_2021: CatalogueValue;
+	days_of_giving_2021: CatalogueValue;
 	days_of_feast_2021: CatalogueValue;
 	days_of_fortune_2022: CatalogueValue;
 	days_of_love_2022: CatalogueValue;
@@ -252,7 +258,9 @@ export interface CataloguePacket {
 	days_of_rainbow_2022: CatalogueValue;
 	sky_anniversary_2022: CatalogueValue;
 	days_of_sunlight_2022: CatalogueValue;
+	lazy_days_2022: CatalogueValue;
 	days_of_mischief_2022: CatalogueValue;
+	days_of_giving_2022: CatalogueValue;
 	days_of_feast_2022: CatalogueValue;
 	days_of_fortune_2023: CatalogueValue;
 	days_of_love_2023: CatalogueValue;
@@ -265,10 +273,12 @@ export interface CataloguePacket {
 	days_of_sunlight_2023: CatalogueValue;
 	days_of_style_2023: CatalogueValue;
 	days_of_mischief_2023: CatalogueValue;
+	days_of_giving_2023: CatalogueValue;
 	aviarys_firework_festival_2023: CatalogueValue;
 	days_of_feast_2023: CatalogueValue;
 	days_of_fortune_2024: CatalogueValue;
 	days_of_love_2024: CatalogueValue;
+	spring_camping_2024: CatalogueValue;
 	days_of_bloom_2024: CatalogueValue;
 	sky_x_cinnamoroll_pop_up_cafe_2024: CatalogueValue;
 	days_of_nature_2024: CatalogueValue;
@@ -443,22 +453,28 @@ interface CatalogueData {
 	halloweenOfficeEvent2019: CataloguePacket["halloween_office_event_2019"];
 	daysOfGiving2019: CataloguePacket["days_of_giving_2019"];
 	daysOfFeast2019: CataloguePacket["days_of_feast_2019"];
+	lunarNewYear2020: CataloguePacket["lunar_new_year_2020"];
 	daysOfLove2020: CataloguePacket["days_of_love_2020"];
+	daysOfSpring2020: CataloguePacket["days_of_spring_2020"];
 	daysOfNature2020: CataloguePacket["days_of_nature_2020"];
 	daysOfHealing2020: CataloguePacket["days_of_healing_2020"];
+	daysOfRainbow2020: CataloguePacket["days_of_rainbow_2020"];
 	skyAnniversary2020: CataloguePacket["sky_anniversary_2020"];
 	daysOfSummerLights2020: CataloguePacket["days_of_summer_lights_2020"];
 	daysOfMischief2020: CataloguePacket["days_of_mischief_2020"];
+	daysOfGiving2020: CataloguePacket["days_of_giving_2020"];
 	daysOfFeast2020: CataloguePacket["days_of_feast_2020"];
 	daysOfFortune2021: CataloguePacket["days_of_fortune_2021"];
 	daysOfLove2021: CataloguePacket["days_of_love_2021"];
 	daysOfBloom2021: CataloguePacket["days_of_bloom_2021"];
 	daysOfNature2021: CataloguePacket["days_of_nature_2021"];
+	childrensDay2021: CataloguePacket["childrens_day_2021"];
 	daysOfRainbow2021: CataloguePacket["days_of_rainbow_2021"];
 	skyAnniversary2021: CataloguePacket["sky_anniversary_2021"];
 	daysOfSummer2021: CataloguePacket["days_of_summer_2021"];
 	daysOfSummerLights2021: CataloguePacket["days_of_summer_lights_2021"];
 	daysOfMischief2021: CataloguePacket["days_of_mischief_2021"];
+	daysOfGiving2021: CataloguePacket["days_of_giving_2021"];
 	daysOfFeast2021: CataloguePacket["days_of_feast_2021"];
 	daysOfFortune2022: CataloguePacket["days_of_fortune_2022"];
 	daysOfLove2022: CataloguePacket["days_of_love_2022"];
@@ -469,7 +485,9 @@ interface CatalogueData {
 	daysOfRainbow2022: CataloguePacket["days_of_rainbow_2022"];
 	skyAnniversary2022: CataloguePacket["sky_anniversary_2022"];
 	daysOfSunlight2022: CataloguePacket["days_of_sunlight_2022"];
+	lazyDays2022: CataloguePacket["lazy_days_2022"];
 	daysOfMischief2022: CataloguePacket["days_of_mischief_2022"];
+	daysOfGiving2022: CataloguePacket["days_of_giving_2022"];
 	daysOfFeast2022: CataloguePacket["days_of_feast_2022"];
 	daysOfFortune2023: CataloguePacket["days_of_fortune_2023"];
 	daysOfLove2023: CataloguePacket["days_of_love_2023"];
@@ -482,10 +500,12 @@ interface CatalogueData {
 	daysOfSunlight2023: CataloguePacket["days_of_sunlight_2023"];
 	daysOfStyle2023: CataloguePacket["days_of_style_2023"];
 	daysOfMischief2023: CataloguePacket["days_of_mischief_2023"];
+	daysOfGiving2023: CataloguePacket["days_of_giving_2023"];
 	aviarysFireworkFestival2023: CataloguePacket["aviarys_firework_festival_2023"];
 	daysOfFeast2023: CataloguePacket["days_of_feast_2023"];
 	daysOfFortune2024: CataloguePacket["days_of_fortune_2024"];
 	daysOfLove2024: CataloguePacket["days_of_love_2024"];
+	springCamping2024: CataloguePacket["spring_camping_2024"];
 	daysOfBloom2024: CataloguePacket["days_of_bloom_2024"];
 	skyXCinnamorollPopUpCafe2024: CataloguePacket["sky_x_cinnamoroll_pop_up_cafe_2024"];
 	daysOfNature2024: CataloguePacket["days_of_nature_2024"];
@@ -662,22 +682,28 @@ const CatalogueNameToRawName = {
 	[EventNameUnique.HalloweenOfficeEvent2019]: "halloween_office_event_2019",
 	[EventNameUnique.DaysOfGiving2019]: "days_of_giving_2019",
 	[EventNameUnique.DaysOfFeast2019]: "days_of_feast_2019",
+	[EventNameUnique.LunarNewYear2020]: "lunar_new_year_2020",
 	[EventNameUnique.DaysOfLove2020]: "days_of_love_2020",
+	[EventNameUnique.DaysOfSpring2020]: "days_of_spring_2020",
 	[EventNameUnique.DaysOfNature2020]: "days_of_nature_2020",
 	[EventNameUnique.DaysOfHealing2020]: "days_of_healing_2020",
+	[EventNameUnique.DaysOfRainbow2020]: "days_of_rainbow_2020",
 	[EventNameUnique.SkyAnniversary2020]: "sky_anniversary_2020",
 	[EventNameUnique.DaysOfSummerLights2020]: "days_of_summer_lights_2020",
 	[EventNameUnique.DaysOfMischief2020]: "days_of_mischief_2020",
+	[EventNameUnique.DaysOfGiving2020]: "days_of_giving_2020",
 	[EventNameUnique.DaysOfFeast2020]: "days_of_feast_2020",
 	[EventNameUnique.DaysOfFortune2021]: "days_of_fortune_2021",
 	[EventNameUnique.DaysOfLove2021]: "days_of_love_2021",
 	[EventNameUnique.DaysOfBloom2021]: "days_of_bloom_2021",
 	[EventNameUnique.DaysOfNature2021]: "days_of_nature_2021",
+	[EventNameUnique.ChildrensDay2021]: "childrens_day_2021",
 	[EventNameUnique.DaysOfRainbow2021]: "days_of_rainbow_2021",
 	[EventNameUnique.SkyAnniversary2021]: "sky_anniversary_2021",
 	[EventNameUnique.DaysOfSummer2021]: "days_of_summer_2021",
 	[EventNameUnique.DaysOfSummerLights2021]: "days_of_summer_lights_2021",
 	[EventNameUnique.DaysOfMischief2021]: "days_of_mischief_2021",
+	[EventNameUnique.DaysOfGiving2021]: "days_of_giving_2021",
 	[EventNameUnique.DaysOfFeast2021]: "days_of_feast_2021",
 	[EventNameUnique.DaysOfFortune2022]: "days_of_fortune_2022",
 	[EventNameUnique.DaysOfLove2022]: "days_of_love_2022",
@@ -688,7 +714,9 @@ const CatalogueNameToRawName = {
 	[EventNameUnique.DaysOfRainbow2022]: "days_of_rainbow_2022",
 	[EventNameUnique.SkyAnniversary2022]: "sky_anniversary_2022",
 	[EventNameUnique.DaysOfSunlight2022]: "days_of_sunlight_2022",
+	[EventNameUnique.LazyDays2022]: "lazy_days_2022",
 	[EventNameUnique.DaysOfMischief2022]: "days_of_mischief_2022",
+	[EventNameUnique.DaysOfGiving2022]: "days_of_giving_2022",
 	[EventNameUnique.DaysOfFeast2022]: "days_of_feast_2022",
 	[EventNameUnique.DaysOfFortune2023]: "days_of_fortune_2023",
 	[EventNameUnique.DaysOfLove2023]: "days_of_love_2023",
@@ -701,10 +729,12 @@ const CatalogueNameToRawName = {
 	[EventNameUnique.DaysOfSunlight2023]: "days_of_sunlight_2023",
 	[EventNameUnique.DaysOfStyle2023]: "days_of_style_2023",
 	[EventNameUnique.DaysOfMischief2023]: "days_of_mischief_2023",
+	[EventNameUnique.DaysOfGiving2023]: "days_of_giving_2023",
 	[EventNameUnique.AviarysFireworkFestival2023]: "aviarys_firework_festival_2023",
 	[EventNameUnique.DaysOfFeast2023]: "days_of_feast_2023",
 	[EventNameUnique.DaysOfFortune2024]: "days_of_fortune_2024",
 	[EventNameUnique.DaysOfLove2024]: "days_of_love_2024",
+	[EventNameUnique.SpringCamping2024]: "spring_camping_2024",
 	[EventNameUnique.DaysOfBloom2024]: "days_of_bloom_2024",
 	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: "sky_x_cinnamoroll_pop_up_cafe_2024",
 	[EventNameUnique.DaysOfNature2024]: "days_of_nature_2024",
@@ -878,22 +908,28 @@ const SpiritEventNameToCatalogueName = {
 	[EventNameUnique.HalloweenOfficeEvent2019]: "halloweenOfficeEvent2019",
 	[EventNameUnique.DaysOfGiving2019]: "daysOfGiving2019",
 	[EventNameUnique.DaysOfFeast2019]: "daysOfFeast2019",
+	[EventNameUnique.LunarNewYear2020]: "lunarNewYear2020",
 	[EventNameUnique.DaysOfLove2020]: "daysOfLove2020",
+	[EventNameUnique.DaysOfSpring2020]: "daysOfSpring2020",
 	[EventNameUnique.DaysOfNature2020]: "daysOfNature2020",
 	[EventNameUnique.DaysOfHealing2020]: "daysOfHealing2020",
+	[EventNameUnique.DaysOfRainbow2020]: "daysOfRainbow2020",
 	[EventNameUnique.SkyAnniversary2020]: "skyAnniversary2020",
 	[EventNameUnique.DaysOfSummerLights2020]: "daysOfSummerLights2020",
 	[EventNameUnique.DaysOfMischief2020]: "daysOfMischief2020",
+	[EventNameUnique.DaysOfGiving2020]: "daysOfGiving2020",
 	[EventNameUnique.DaysOfFeast2020]: "daysOfFeast2020",
 	[EventNameUnique.DaysOfFortune2021]: "daysOfFortune2021",
 	[EventNameUnique.DaysOfLove2021]: "daysOfLove2021",
 	[EventNameUnique.DaysOfBloom2021]: "daysOfBloom2021",
 	[EventNameUnique.DaysOfNature2021]: "daysOfNature2021",
+	[EventNameUnique.ChildrensDay2021]: "childrensDay2021",
 	[EventNameUnique.DaysOfRainbow2021]: "daysOfRainbow2021",
 	[EventNameUnique.SkyAnniversary2021]: "skyAnniversary2021",
 	[EventNameUnique.DaysOfSummer2021]: "daysOfSummer2021",
 	[EventNameUnique.DaysOfSummerLights2021]: "daysOfSummerLights2021",
 	[EventNameUnique.DaysOfMischief2021]: "daysOfMischief2021",
+	[EventNameUnique.DaysOfGiving2021]: "daysOfGiving2021",
 	[EventNameUnique.DaysOfFeast2021]: "daysOfFeast2021",
 	[EventNameUnique.DaysOfFortune2022]: "daysOfFortune2022",
 	[EventNameUnique.DaysOfLove2022]: "daysOfLove2022",
@@ -904,7 +940,9 @@ const SpiritEventNameToCatalogueName = {
 	[EventNameUnique.DaysOfRainbow2022]: "daysOfRainbow2022",
 	[EventNameUnique.SkyAnniversary2022]: "skyAnniversary2022",
 	[EventNameUnique.DaysOfSunlight2022]: "daysOfSunlight2022",
+	[EventNameUnique.LazyDays2022]: "lazyDays2022",
 	[EventNameUnique.DaysOfMischief2022]: "daysOfMischief2022",
+	[EventNameUnique.DaysOfGiving2022]: "daysOfGiving2022",
 	[EventNameUnique.DaysOfFeast2022]: "daysOfFeast2022",
 	[EventNameUnique.DaysOfFortune2023]: "daysOfFortune2023",
 	[EventNameUnique.DaysOfLove2023]: "daysOfLove2023",
@@ -917,10 +955,12 @@ const SpiritEventNameToCatalogueName = {
 	[EventNameUnique.DaysOfSunlight2023]: "daysOfSunlight2023",
 	[EventNameUnique.DaysOfStyle2023]: "daysOfStyle2023",
 	[EventNameUnique.DaysOfMischief2023]: "daysOfMischief2023",
+	[EventNameUnique.DaysOfGiving2023]: "daysOfGiving2023",
 	[EventNameUnique.AviarysFireworkFestival2023]: "aviarysFireworkFestival2023",
 	[EventNameUnique.DaysOfFeast2023]: "daysOfFeast2023",
 	[EventNameUnique.DaysOfFortune2024]: "daysOfFortune2024",
 	[EventNameUnique.DaysOfLove2024]: "daysOfLove2024",
+	[EventNameUnique.SpringCamping2024]: "springCamping2024",
 	[EventNameUnique.DaysOfBloom2024]: "daysOfBloom2024",
 	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: "skyXCinnamorollPopUpCafe2024",
 	[EventNameUnique.DaysOfNature2024]: "daysOfNature2024",
@@ -1301,17 +1341,25 @@ export class Catalogue {
 
 	public daysOfFeast2019!: CatalogueData["daysOfFeast2019"];
 
+	public lunarNewYear2020!: CatalogueData["lunarNewYear2020"];
+
 	public daysOfLove2020!: CatalogueData["daysOfLove2020"];
+
+	public daysOfSpring2020!: CatalogueData["daysOfSpring2020"];
 
 	public daysOfNature2020!: CatalogueData["daysOfNature2020"];
 
 	public daysOfHealing2020!: CatalogueData["daysOfHealing2020"];
+
+	public daysOfRainbow2020!: CatalogueData["daysOfRainbow2020"];
 
 	public skyAnniversary2020!: CatalogueData["skyAnniversary2020"];
 
 	public daysOfSummerLights2020!: CatalogueData["daysOfSummerLights2020"];
 
 	public daysOfMischief2020!: CatalogueData["daysOfMischief2020"];
+
+	public daysOfGiving2020!: CatalogueData["daysOfGiving2020"];
 
 	public daysOfFeast2020!: CatalogueData["daysOfFeast2020"];
 
@@ -1323,6 +1371,8 @@ export class Catalogue {
 
 	public daysOfNature2021!: CatalogueData["daysOfNature2021"];
 
+	public childrensDay2021!: CatalogueData["childrensDay2021"];
+
 	public daysOfRainbow2021!: CatalogueData["daysOfRainbow2021"];
 
 	public skyAnniversary2021!: CatalogueData["skyAnniversary2021"];
@@ -1332,6 +1382,8 @@ export class Catalogue {
 	public daysOfSummerLights2021!: CatalogueData["daysOfSummerLights2021"];
 
 	public daysOfMischief2021!: CatalogueData["daysOfMischief2021"];
+
+	public daysOfGiving2021!: CatalogueData["daysOfGiving2021"];
 
 	public daysOfFeast2021!: CatalogueData["daysOfFeast2021"];
 
@@ -1353,7 +1405,11 @@ export class Catalogue {
 
 	public daysOfSunlight2022!: CatalogueData["daysOfSunlight2022"];
 
+	public lazyDays2022!: CatalogueData["lazyDays2022"];
+
 	public daysOfMischief2022!: CatalogueData["daysOfMischief2022"];
+
+	public daysOfGiving2022!: CatalogueData["daysOfGiving2022"];
 
 	public daysOfFeast2022!: CatalogueData["daysOfFeast2022"];
 
@@ -1379,6 +1435,8 @@ export class Catalogue {
 
 	public daysOfMischief2023!: CatalogueData["daysOfMischief2023"];
 
+	public daysOfGiving2023!: CatalogueData["daysOfGiving2023"];
+
 	public aviarysFireworkFestival2023!: CatalogueData["aviarysFireworkFestival2023"];
 
 	public daysOfFeast2023!: CatalogueData["daysOfFeast2023"];
@@ -1386,6 +1444,8 @@ export class Catalogue {
 	public daysOfFortune2024!: CatalogueData["daysOfFortune2024"];
 
 	public daysOfLove2024!: CatalogueData["daysOfLove2024"];
+
+	public springCamping2024!: CatalogueData["springCamping2024"];
 
 	public daysOfBloom2024!: CatalogueData["daysOfBloom2024"];
 
@@ -1566,22 +1626,28 @@ export class Catalogue {
 		this.halloweenOfficeEvent2019 = data.halloween_office_event_2019;
 		this.daysOfGiving2019 = data.days_of_giving_2019;
 		this.daysOfFeast2019 = data.days_of_feast_2019;
+		this.lunarNewYear2020 = data.lunar_new_year_2020;
 		this.daysOfLove2020 = data.days_of_love_2020;
+		this.daysOfSpring2020 = data.days_of_spring_2020;
 		this.daysOfNature2020 = data.days_of_nature_2020;
 		this.daysOfHealing2020 = data.days_of_healing_2020;
+		this.daysOfRainbow2020 = data.days_of_rainbow_2020;
 		this.skyAnniversary2020 = data.sky_anniversary_2020;
 		this.daysOfSummerLights2020 = data.days_of_summer_lights_2020;
 		this.daysOfMischief2020 = data.days_of_mischief_2020;
+		this.daysOfGiving2020 = data.days_of_giving_2020;
 		this.daysOfFeast2020 = data.days_of_feast_2020;
 		this.daysOfFortune2021 = data.days_of_fortune_2021;
 		this.daysOfLove2021 = data.days_of_love_2021;
 		this.daysOfBloom2021 = data.days_of_bloom_2021;
 		this.daysOfNature2021 = data.days_of_nature_2021;
+		this.childrensDay2021 = data.childrens_day_2021;
 		this.daysOfRainbow2021 = data.days_of_rainbow_2021;
 		this.skyAnniversary2021 = data.sky_anniversary_2021;
 		this.daysOfSummer2021 = data.days_of_summer_2021;
 		this.daysOfSummerLights2021 = data.days_of_summer_lights_2021;
 		this.daysOfMischief2021 = data.days_of_mischief_2021;
+		this.daysOfGiving2021 = data.days_of_giving_2021;
 		this.daysOfFeast2021 = data.days_of_feast_2021;
 		this.daysOfFortune2022 = data.days_of_fortune_2022;
 		this.daysOfLove2022 = data.days_of_love_2022;
@@ -1592,7 +1658,9 @@ export class Catalogue {
 		this.daysOfRainbow2022 = data.days_of_rainbow_2022;
 		this.skyAnniversary2022 = data.sky_anniversary_2022;
 		this.daysOfSunlight2022 = data.days_of_sunlight_2022;
+		this.lazyDays2022 = data.lazy_days_2022;
 		this.daysOfMischief2022 = data.days_of_mischief_2022;
+		this.daysOfGiving2022 = data.days_of_giving_2022;
 		this.daysOfFeast2022 = data.days_of_feast_2022;
 		this.daysOfFortune2023 = data.days_of_fortune_2023;
 		this.daysOfLove2023 = data.days_of_love_2023;
@@ -1605,10 +1673,12 @@ export class Catalogue {
 		this.daysOfSunlight2023 = data.days_of_sunlight_2023;
 		this.daysOfStyle2023 = data.days_of_style_2023;
 		this.daysOfMischief2023 = data.days_of_mischief_2023;
+		this.daysOfGiving2023 = data.days_of_giving_2023;
 		this.aviarysFireworkFestival2023 = data.aviarys_firework_festival_2023;
 		this.daysOfFeast2023 = data.days_of_feast_2023;
 		this.daysOfFortune2024 = data.days_of_fortune_2024;
 		this.daysOfLove2024 = data.days_of_love_2024;
+		this.springCamping2024 = data.spring_camping_2024;
 		this.daysOfBloom2024 = data.days_of_bloom_2024;
 		this.skyXCinnamorollPopUpCafe2024 = data.sky_x_cinnamoroll_pop_up_cafe_2024;
 		this.daysOfNature2024 = data.days_of_nature_2024;
