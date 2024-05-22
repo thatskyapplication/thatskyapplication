@@ -2456,7 +2456,7 @@ export class Catalogue {
 		await catalogue.viewEvent(interaction, event);
 	}
 
-	public async viewEvent(interaction: ButtonInteraction | StringSelectMenuInteraction, event: Event) {
+	private async viewEvent(interaction: ButtonInteraction | StringSelectMenuInteraction, event: Event) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale } = interaction;
 		const bit = this[SpiritEventNameToCatalogueName[event.nameUnique]];
