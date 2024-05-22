@@ -260,7 +260,7 @@ export const event: Event<typeof name> = {
 				}
 
 				if (customId.startsWith(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)) {
-					await Catalogue.viewSpirit(interaction);
+					await Catalogue.parseViewEvent(interaction);
 					return;
 				}
 
@@ -390,7 +390,7 @@ export const event: Event<typeof name> = {
 				}
 
 				if (customId === CATALOGUE_VIEW_SPIRIT_CUSTOM_ID) {
-					await Catalogue.viewSpirit(interaction);
+					await Catalogue.parseViewEvent(interaction);
 					return;
 				}
 

@@ -2315,7 +2315,7 @@ export class Catalogue {
 		await interaction.update(response);
 	}
 
-	public static async viewSpirit(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+	public static async parseViewSpirit(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		const catalogue = await this.fetch(interaction.user.id);
 
 		const parsedCustomId =
@@ -2335,10 +2335,10 @@ export class Catalogue {
 			return;
 		}
 
-		await catalogue.viewSpiritResponse(interaction, catalogue[SpiritEventNameToCatalogueName[spirit.name]], spirit);
+		await catalogue.viewSpirit(interaction, catalogue[SpiritEventNameToCatalogueName[spirit.name]], spirit);
 	}
 
-	private async viewSpiritResponse(
+	private async viewSpirit(
 		interaction: ButtonInteraction | StringSelectMenuInteraction,
 		bit: CatalogueValue,
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
@@ -2665,7 +2665,7 @@ export class Catalogue {
 
 		await (isEvent
 			? catalogue.viewEvent(interaction, spiritOrEvent)
-			: catalogue.viewSpiritResponse(interaction, newBit, spiritOrEvent));
+			: catalogue.viewSpirit(interaction, newBit, spiritOrEvent));
 	}
 
 	private static async update(userId: Catalogue["userId"], data: CatalogueSetData) {
