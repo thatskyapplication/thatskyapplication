@@ -165,6 +165,7 @@ export const enum EventName {
 	DaysOfBloom = "Days of Bloom",
 	SkyXCinnamorollPopUpCafe = "Sky × Cinnamoroll Pop-Up Cafe",
 	DaysOfNature = "Days of Nature",
+	DaysOfColour = "Days of Colour",
 }
 
 export function snakeCaseName(name: string) {
