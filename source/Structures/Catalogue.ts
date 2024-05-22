@@ -2336,16 +2336,16 @@ export class Catalogue {
 			return;
 		}
 
-		await catalogue.viewSpirit(interaction, catalogue[SpiritEventNameToCatalogueName[spirit.name]], spirit);
+		await catalogue.viewSpirit(interaction, spirit);
 	}
 
 	private async viewSpirit(
 		interaction: ButtonInteraction | StringSelectMenuInteraction,
-		bit: CatalogueValue,
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 	) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale } = interaction;
+		const bit = this[SpiritEventNameToCatalogueName[spirit.name]];
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
 		const seasonalParsing = isSeasonalSpirit && !spirit.current;
@@ -2666,7 +2666,7 @@ export class Catalogue {
 
 		await (isEvent
 			? catalogue.viewEvent(interaction, spiritOrEvent)
-			: catalogue.viewSpirit(interaction, newBit, spiritOrEvent));
+			: catalogue.viewSpirit(interaction, spiritOrEvent));
 	}
 
 	private static async update(userId: Catalogue["userId"], data: CatalogueSetData) {
