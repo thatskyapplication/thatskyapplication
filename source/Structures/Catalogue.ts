@@ -1,5 +1,6 @@
 import {
 	type ChatInputCommandInteraction,
+	type Collection,
 	type EmbedAuthorOptions,
 	type InteractionUpdateOptions,
 	type Locale,
@@ -21,7 +22,9 @@ import { t } from "i18next";
 import { type RealmName, DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
 import {
+	type Item,
 	type ItemCost,
+	type SeasonNameWithIAPs,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 	NO_EVENT_INFOGRAPHIC_YET,
 	NO_EVENT_OFFER_TEXT,
@@ -30,6 +33,7 @@ import {
 	addCosts,
 	CatalogueType,
 	EventNameUnique,
+	isSeasonNameWithIAPs,
 	resolveCostToString,
 	SeasonName,
 	SeasonNameToSeasonalEmoji,
@@ -188,6 +192,7 @@ export interface CataloguePacket {
 	slouching_soldier: CatalogueValue;
 	sneezing_geographer: CatalogueValue;
 	star_collector: CatalogueValue;
+	season_of_the_little_prince_iaps: CatalogueValue;
 	sky_anniversary_2021: CatalogueValue;
 	days_of_summer_2021: CatalogueValue;
 	days_of_summer_lights_2021: CatalogueValue;
@@ -229,6 +234,7 @@ export interface CataloguePacket {
 	mindful_miner: CatalogueValue;
 	warrior_of_love: CatalogueValue;
 	seed_of_hope: CatalogueValue;
+	season_of_aurora_iaps: CatalogueValue;
 	days_of_mischief_2022: CatalogueValue;
 	days_of_giving_2022: CatalogueValue;
 	days_of_feast_2022: CatalogueValue;
@@ -416,6 +422,7 @@ interface CatalogueData {
 	slouchingSoldier: CataloguePacket["slouching_soldier"];
 	sneezingGeographer: CataloguePacket["sneezing_geographer"];
 	starCollector: CataloguePacket["star_collector"];
+	seasonOfTheLittlePrinceIAPs: CataloguePacket["season_of_the_little_prince_iaps"];
 	skyAnniversary2021: CataloguePacket["sky_anniversary_2021"];
 	daysOfSummer2021: CataloguePacket["days_of_summer_2021"];
 	daysOfSummerLights2021: CataloguePacket["days_of_summer_lights_2021"];
@@ -457,6 +464,7 @@ interface CatalogueData {
 	mindfulMiner: CataloguePacket["mindful_miner"];
 	warriorOfLove: CataloguePacket["warrior_of_love"];
 	seedOfHope: CataloguePacket["seed_of_hope"];
+	seasonOfAuroraIAPs: CataloguePacket["season_of_aurora_iaps"];
 	daysOfMischief2022: CataloguePacket["days_of_mischief_2022"];
 	daysOfGiving2022: CataloguePacket["days_of_giving_2022"];
 	daysOfFeast2022: CataloguePacket["days_of_feast_2022"];
@@ -646,6 +654,7 @@ const CatalogueNameToRawName = {
 	[SpiritName.SlouchingSoldier]: "slouching_soldier",
 	[SpiritName.SneezingGeographer]: "sneezing_geographer",
 	[SpiritName.StarCollector]: "star_collector",
+	[SeasonName.LittlePrince]: "season_of_the_little_prince_iaps",
 	[EventNameUnique.SkyAnniversary2021]: "sky_anniversary_2021",
 	[EventNameUnique.DaysOfSummer2021]: "days_of_summer_2021",
 	[EventNameUnique.DaysOfSummerLights2021]: "days_of_summer_lights_2021",
@@ -687,6 +696,7 @@ const CatalogueNameToRawName = {
 	[SpiritName.MindfulMiner]: "mindful_miner",
 	[SpiritName.WarriorOfLove]: "warrior_of_love",
 	[SpiritName.SeedOfHope]: "seed_of_hope",
+	[SeasonName.Aurora]: "season_of_aurora_iaps",
 	[EventNameUnique.DaysOfMischief2022]: "days_of_mischief_2022",
 	[EventNameUnique.DaysOfGiving2022]: "days_of_giving_2022",
 	[EventNameUnique.DaysOfFeast2022]: "days_of_feast_2022",
@@ -741,7 +751,9 @@ const CatalogueNameToRawName = {
 	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: "sky_x_cinnamoroll_pop_up_cafe_2024",
 	[EventNameUnique.DaysOfNature2024]: "days_of_nature_2024",
 	[EventNameUnique.DaysOfColour2024]: "days_of_colour_2024",
-} as const satisfies Readonly<Record<SpiritName | EventNameUnique, Exclude<keyof CataloguePacket, "user_id">>>;
+} as const satisfies Readonly<
+	Record<SpiritName | SeasonNameWithIAPs | EventNameUnique, Exclude<keyof CataloguePacket, "user_id">>
+>;
 
 const SpiritEventNameToCatalogueName = {
 	[SpiritName.PointingCandlemaker]: "pointingCandlemaker",
@@ -873,6 +885,7 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.SlouchingSoldier]: "slouchingSoldier",
 	[SpiritName.SneezingGeographer]: "sneezingGeographer",
 	[SpiritName.StarCollector]: "starCollector",
+	[SeasonName.LittlePrince]: "seasonOfTheLittlePrinceIAPs",
 	[EventNameUnique.SkyAnniversary2021]: "skyAnniversary2021",
 	[EventNameUnique.DaysOfSummer2021]: "daysOfSummer2021",
 	[EventNameUnique.DaysOfSummerLights2021]: "daysOfSummerLights2021",
@@ -914,6 +927,7 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.MindfulMiner]: "mindfulMiner",
 	[SpiritName.WarriorOfLove]: "warriorOfLove",
 	[SpiritName.SeedOfHope]: "seedOfHope",
+	[SeasonName.Aurora]: "seasonOfAuroraIAPs",
 	[EventNameUnique.DaysOfMischief2022]: "daysOfMischief2022",
 	[EventNameUnique.DaysOfGiving2022]: "daysOfGiving2022",
 	[EventNameUnique.DaysOfFeast2022]: "daysOfFeast2022",
@@ -968,7 +982,9 @@ const SpiritEventNameToCatalogueName = {
 	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: "skyXCinnamorollPopUpCafe2024",
 	[EventNameUnique.DaysOfNature2024]: "daysOfNature2024",
 	[EventNameUnique.DaysOfColour2024]: "daysOfColour2024",
-} as const satisfies Readonly<Record<SpiritName | EventNameUnique, Exclude<keyof CatalogueData, "user_id">>>;
+} as const satisfies Readonly<
+	Record<SpiritName | SeasonNameWithIAPs | EventNameUnique, Exclude<keyof CatalogueData, "user_id">>
+>;
 
 export const CATALOGUE_VIEW_START_CUSTOM_ID = "CATALOGUE_VIEW_START_CUSTOM_ID" as const;
 export const CATALOGUE_BACK_TO_START_CUSTOM_ID = "CATALOGUE_BACK_TO_START_CUSTOM_ID" as const;
@@ -976,6 +992,7 @@ export const CATALOGUE_VIEW_TYPE_CUSTOM_ID = "CATALOGUE_VIEW_TYPE_CUSTOM_ID" as 
 export const CATALOGUE_VIEW_REALMS_CUSTOM_ID = "CATALOGUE_VIEW_REALMS_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_ELDERS_CUSTOM_ID = "CATALOGUE_VIEW_ELDERS_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_SEASONS_CUSTOM_ID = "CATALOGUE_VIEW_SEASONS_CUSTOM_ID" as const;
+export const CATALOGUE_SET_SEASON_IAPS_CUSTOM_ID = "CATALOGUE_SET_SEASON_IAPS_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_REALM_CUSTOM_ID = "CATALOGUE_VIEW_REALM_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_SEASON_CUSTOM_ID = "CATALOGUE_VIEW_SEASON_CUSTOM_ID" as const;
@@ -1269,6 +1286,8 @@ export class Catalogue {
 
 	public starCollector!: CatalogueData["starCollector"];
 
+	public seasonOfTheLittlePrinceIAPs!: CatalogueData["seasonOfTheLittlePrinceIAPs"];
+
 	public skyAnniversary2021!: CatalogueData["skyAnniversary2021"];
 
 	public daysOfSummer2021!: CatalogueData["daysOfSummer2021"];
@@ -1350,6 +1369,8 @@ export class Catalogue {
 	public warriorOfLove!: CatalogueData["warriorOfLove"];
 
 	public seedOfHope!: CatalogueData["seedOfHope"];
+
+	public seasonOfAuroraIAPs!: CatalogueData["seasonOfAuroraIAPs"];
 
 	public daysOfMischief2022!: CatalogueData["daysOfMischief2022"];
 
@@ -1594,6 +1615,7 @@ export class Catalogue {
 		this.slouchingSoldier = data.slouching_soldier;
 		this.sneezingGeographer = data.sneezing_geographer;
 		this.starCollector = data.star_collector;
+		this.seasonOfTheLittlePrinceIAPs = data.season_of_the_little_prince_iaps;
 		this.skyAnniversary2021 = data.sky_anniversary_2021;
 		this.daysOfSummer2021 = data.days_of_summer_2021;
 		this.daysOfSummerLights2021 = data.days_of_summer_lights_2021;
@@ -1635,6 +1657,7 @@ export class Catalogue {
 		this.mindfulMiner = data.mindful_miner;
 		this.warriorOfLove = data.warrior_of_love;
 		this.seedOfHope = data.seed_of_hope;
+		this.seasonOfAuroraIAPs = data.season_of_aurora_iaps;
 		this.daysOfMischief2022 = data.days_of_mischief_2022;
 		this.daysOfGiving2022 = data.days_of_giving_2022;
 		this.daysOfFeast2022 = data.days_of_feast_2022;
@@ -2122,62 +2145,106 @@ export class Catalogue {
 				.setValue(name);
 		});
 
-		const response = {
-			content: "",
-			components: [
+		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [
+			new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+				new StringSelectMenuBuilder()
+					.setCustomId(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)
+					.setMaxValues(1)
+					.setMinValues(0)
+					.setOptions(options)
+					.setPlaceholder(
+						seasonName === SeasonName.Shattering || seasonName === SeasonName.Nesting
+							? "Select an entity!"
+							: seasonName === SeasonName.Revival
+							? "Select a spirit or a shop!"
+							: "Select a spirit!",
+					),
+			),
+		];
+
+		const embed = catalogue
+			.spiritEmbed(spirits, locale)
+			.setTitle(
+				`${formatEmoji(SeasonNameToSeasonalEmoji[seasonName])} ${t(`seasons.${seasonName}`, {
+					lng: locale,
+					ns: "general",
+				})}`,
+			)
+			.setURL(season.wikiURL);
+
+		if (season.inAppPurchases && isSeasonNameWithIAPs(seasonName)) {
+			// TODO: Remove assertion.
+			const bit = catalogue[SpiritEventNameToCatalogueName[seasonName as SeasonName.LittlePrince]];
+
+			const inAppPurchasesOptions = season.inAppPurchases.map(({ emoji, name }, flag) =>
+				new StringSelectMenuOptionBuilder()
+					.setDefault(Boolean(bit && bit & flag))
+					.setEmoji(emoji)
+					.setLabel(name)
+					.setValue(String(flag)),
+			);
+
+			components.push(
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)
-						.setMaxValues(1)
+						.setCustomId(`${CATALOGUE_SET_SEASON_IAPS_CUSTOM_ID}§${seasonName}`)
+						.setMaxValues(inAppPurchasesOptions.length)
 						.setMinValues(0)
-						.setOptions(options)
-						.setPlaceholder(
-							seasonName === SeasonName.Shattering || seasonName === SeasonName.Nesting
-								? "Select an entity!"
-								: seasonName === SeasonName.Revival
-								? "Select a spirit or a shop!"
-								: "Select a spirit!",
-						),
+						.setOptions(inAppPurchasesOptions)
+						.setPlaceholder("What IAPs do you have?"),
 				),
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					backToStartButton(),
-					new ButtonBuilder()
-						.setCustomId(CATALOGUE_VIEW_SEASONS_CUSTOM_ID)
-						.setEmoji("⏪")
-						.setLabel("Back")
-						.setStyle(ButtonStyle.Primary),
-					new ButtonBuilder()
-						.setCustomId(`${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${seasonName}`)
-						.setEmoji("🔗")
-						.setLabel("Share")
-						.setStyle(ButtonStyle.Primary),
-					new ButtonBuilder()
-						.setCustomId(`${CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID}§${seasonName}`)
-						.setDisabled(hasEverything)
-						.setEmoji("💯")
-						.setLabel("I have everything!")
-						.setStyle(ButtonStyle.Success),
-				),
-			],
-			embeds: [
-				catalogue
-					.spiritEmbed(spirits, locale)
-					.setTitle(
-						`${formatEmoji(SeasonNameToSeasonalEmoji[seasonName])} ${t(`seasons.${seasonName}`, {
-							lng: locale,
-							ns: "general",
-						})}`,
-					)
-					.setURL(season.wikiURL),
-			],
-		} satisfies InteractionUpdateOptions;
+			);
 
-		if (options.length === 0) {
-			response.components.shift();
-			response.content = "There are no spirits.";
+			const fieldValue = [];
+			const owned = [];
+			const unowned = [];
+
+			for (const [flag, { emoji }] of season.inAppPurchases.entries()) {
+				if (bit && (bit & flag) === flag) {
+					owned.push(formatEmoji(emoji));
+				} else {
+					unowned.push(formatEmoji(emoji));
+				}
+			}
+
+			if (owned.length > 0) fieldValue.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
+			if (unowned.length > 0) fieldValue.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
+			const remainingCurrency = catalogue.remainingCurrency(season.inAppPurchases, bit);
+
+			if (remainingCurrency) {
+				const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
+
+				if (resolvedRemainingCurrency.length > 0) {
+					fieldValue.push(`${resolvedRemainingCurrency.join("")}`);
+				}
+			}
+
+			embed.setFields({ name: "In-App Purchases", value: fieldValue.join("\n") });
 		}
 
-		await interaction.update(response);
+		components.push(
+			new ActionRowBuilder<ButtonBuilder>().setComponents(
+				backToStartButton(),
+				new ButtonBuilder()
+					.setCustomId(CATALOGUE_VIEW_SEASONS_CUSTOM_ID)
+					.setEmoji("⏪")
+					.setLabel("Back")
+					.setStyle(ButtonStyle.Primary),
+				new ButtonBuilder()
+					.setCustomId(`${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${seasonName}`)
+					.setEmoji("🔗")
+					.setLabel("Share")
+					.setStyle(ButtonStyle.Primary),
+				new ButtonBuilder()
+					.setCustomId(`${CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID}§${seasonName}`)
+					.setDisabled(hasEverything)
+					.setEmoji("💯")
+					.setLabel("I have everything!")
+					.setStyle(ButtonStyle.Success),
+			),
+		);
+
+		await interaction.update({ content: "", components, embeds: [embed] });
 	}
 
 	public static async viewEventYears(interaction: ButtonInteraction | StringSelectMenuInteraction) {
@@ -2494,7 +2561,10 @@ export class Catalogue {
 
 			if (owned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
 			if (unowned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
-			const remainingCurrency = this.remainingCurrency(event, true);
+
+			const remainingCurrency = event.offer
+				? this.remainingCurrency(event.offer, this[SpiritEventNameToCatalogueName[event.nameUnique]], true)
+				: null;
 
 			if (remainingCurrency) {
 				const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
@@ -2629,6 +2699,22 @@ export class Catalogue {
 		await Catalogue.viewSeason(interaction, season);
 	}
 
+	public static async setSeasonIAPs(interaction: StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		const { customId, user, values } = interaction;
+		const seasonName = customId.slice(customId.indexOf("§") + 1);
+
+		if (!isSeasonNameWithIAPs(seasonName)) {
+			pino.error(interaction, "Unknown season with IAPs.");
+			throw new Error("Unknown season.");
+		}
+
+		const bit = values.reduce((bit, value) => bit | Number(value), 0);
+		// TODO: Remove assertion.
+		await this.update(user.id, { [CatalogueNameToRawName[seasonName as SeasonName.LittlePrince]]: bit });
+		await Catalogue.viewSeason(interaction, seasonName);
+	}
+
 	public static async setItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const catalogue = await this.fetch(interaction.user.id);
@@ -2686,7 +2772,15 @@ export class Catalogue {
 	) {
 		return resolveCostToString(
 			spirits.reduce((remainingCurrency, spirit) => {
-				const totalCost = this.remainingCurrency(spirit, resolveSeason(todayDate())?.name === season);
+				const offer = spirit.isSeasonalSpirit() && !spirit.current ? spirit.seasonal : spirit.current;
+
+				const totalCost = offer
+					? this.remainingCurrency(
+							offer,
+							this[SpiritEventNameToCatalogueName[spirit.name]],
+							resolveSeason(todayDate())?.name === season,
+					  )
+					: null;
 				return totalCost ? addCosts([remainingCurrency, totalCost]) : remainingCurrency;
 			}, {}),
 		);
@@ -2720,7 +2814,7 @@ export class Catalogue {
 
 			if (owned.length > 0) spiritDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
 			if (unowned.length > 0) spiritDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
-			const remainingCurrency = this.remainingCurrency(spirit, true);
+			const remainingCurrency = this.remainingCurrency(offer, bit, true);
 
 			if (remainingCurrency) {
 				remainingCurrencies.push(remainingCurrency);
@@ -2910,25 +3004,9 @@ export class Catalogue {
 		await interaction.update({ components, content: "Progress shared!", embeds: [] });
 	}
 
-	private remainingCurrency(
-		spiritOrEvent: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit | Event,
-		includeSeasonalCurrency?: boolean,
-	) {
-		const isEvent = spiritOrEvent instanceof Event;
-		let resolvedOffer;
-
-		if (isEvent) {
-			resolvedOffer = spiritOrEvent.offer;
-		} else {
-			const seasonalParsing = spiritOrEvent.isSeasonalSpirit() && !spiritOrEvent.current;
-			resolvedOffer = seasonalParsing ? spiritOrEvent.seasonal : spiritOrEvent.current;
-		}
-
-		if (!resolvedOffer) return null;
-		const bit = this[SpiritEventNameToCatalogueName[isEvent ? spiritOrEvent.nameUnique : spiritOrEvent.name]];
-
+	private remainingCurrency(items: Collection<number, Item>, bit: CatalogueValue, includeSeasonalCurrency?: boolean) {
 		const result = addCosts(
-			resolvedOffer
+			items
 				.filter((_, flag) => !bit || (bit & flag) !== flag)
 				.map((item) => item.cost)
 				.filter((cost): cost is ItemCost => cost !== null),

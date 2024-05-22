@@ -48,6 +48,18 @@ export enum SeasonName {
 
 export const SEASON_NAME_VALUES = Object.values(SeasonName);
 
+const SEASON_NAME_WITH_IAPS = [
+	SeasonName.LittlePrince,
+	SeasonName.Aurora,
+	SeasonName.NineColoredDeer,
+] as const satisfies Readonly<SeasonName[]>;
+
+export type SeasonNameWithIAPs = (typeof SEASON_NAME_WITH_IAPS)[number];
+
+export function isSeasonNameWithIAPs(seasonName: string): seasonName is SeasonNameWithIAPs {
+	return SEASON_NAME_WITH_IAPS.includes(seasonName as SeasonNameWithIAPs);
+}
+
 export const SeasonNameToSeasonalEmoji = {
 	[SeasonName.Gratitude]: SEASON_EMOJIS.Gratitude,
 	[SeasonName.Lightseekers]: SEASON_EMOJIS.Lightseekers,

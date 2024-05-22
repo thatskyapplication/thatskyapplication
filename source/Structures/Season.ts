@@ -1,11 +1,14 @@
 import { URL } from "node:url";
-import type { Locale } from "discord.js";
+import type { Collection, Locale } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { type RealmName, CDN_URL } from "../Utility/Constants.js";
 import {
+	type Item,
+	type ItemRaw,
 	type RotationNumber,
 	type SeasonName,
+	resolveOffer,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
@@ -50,6 +53,10 @@ interface SeasonData {
 	 */
 	spirits: readonly SeasonalSpirit[];
 	/**
+	 * The in-app purchases that came with the season.
+	 */
+	inAppPurchases?: Collection<number, ItemRaw>;
+	/**
 	 * The seasonal candles rotation.
 	 */
 	seasonalCandlesRotation: SeasonalCandlesRotation | null;
@@ -70,6 +77,8 @@ export class Season {
 
 	public readonly spirits: readonly SeasonalSpirit[];
 
+	public readonly inAppPurchases: Collection<number, Item> | null;
+
 	public readonly emoji: SeasonEmojis;
 
 	public readonly candleEmoji: SeasonEmojis;
@@ -84,6 +93,7 @@ export class Season {
 		this.duration = this.end.diff(this.start, "days").days + 1;
 		this.guide = data.guide;
 		this.spirits = data.spirits;
+		this.inAppPurchases = data.inAppPurchases ? resolveOffer(data.inAppPurchases) : null;
 		this.emoji = SeasonNameToSeasonalEmoji[this.name];
 		this.candleEmoji = SeasonNameToSeasonalCandleEmoji[this.name];
 		this.seasonalCandlesRotation = data.seasonalCandlesRotation;
