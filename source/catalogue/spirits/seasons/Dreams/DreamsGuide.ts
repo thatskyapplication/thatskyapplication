@@ -14,17 +14,16 @@ export default new GuideSpirit({
 		current: new Collection<number, ItemRaw>()
 			.set(1 << 0, { name: "Quest 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 1, { name: "Heart 1", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			// 1 << 2 was the pendant.
-			.set(1 << 3, { name: "Phoenix mask", cost: { seasonalHearts: 2 }, emoji: MASK_EMOJIS.Mask40 })
-			.set(1 << 4, { name: "Ultimate cape", cost: { seasonalHearts: 2 }, emoji: CAPE_EMOJIS.Cape46 })
-			.set(1 << 5, { name: "Quest 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 6, { name: "Heart 2", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 7, { name: "Quest 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 8, { name: "Heart 3", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 9, { name: "Quest 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 10, { name: "Heart 4", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 11, { name: "Quest 5", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 12, { name: "Heart 5", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 13, { name: FriendAction.Hug, cost: null, emoji: FRIEND_ACTION_EMOJIS.Hug }),
+			.set(1 << 2, { name: "Phoenix mask", cost: { seasonalHearts: 2 }, emoji: MASK_EMOJIS.Mask40 })
+			.set(1 << 3, { name: "Ultimate cape", cost: { seasonalHearts: 2 }, emoji: CAPE_EMOJIS.Cape46 })
+			.set(1 << 4, { name: "Quest 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
+			.set(1 << 5, { name: "Heart 2", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
+			.set(1 << 6, { name: "Quest 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
+			.set(1 << 7, { name: "Heart 3", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
+			.set(1 << 8, { name: "Quest 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
+			.set(1 << 9, { name: "Heart 4", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
+			.set(1 << 10, { name: "Quest 5", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
+			.set(1 << 11, { name: "Heart 5", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
+			.set(1 << 12, { name: FriendAction.Hug, cost: null, emoji: FRIEND_ACTION_EMOJIS.Hug }),
 	},
 });
