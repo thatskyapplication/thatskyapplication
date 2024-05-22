@@ -282,6 +282,7 @@ export interface CataloguePacket {
 	nesting_nook: CatalogueValue;
 	sky_x_cinnamoroll_pop_up_cafe_2024: CatalogueValue;
 	days_of_nature_2024: CatalogueValue;
+	days_of_colour_2024: CatalogueValue;
 }
 
 interface CatalogueData {
@@ -509,6 +510,7 @@ interface CatalogueData {
 	nestingNook: CataloguePacket["nesting_nook"];
 	skyXCinnamorollPopUpCafe2024: CataloguePacket["sky_x_cinnamoroll_pop_up_cafe_2024"];
 	daysOfNature2024: CataloguePacket["days_of_nature_2024"];
+	daysOfColour2024: CataloguePacket["days_of_colour_2024"];
 }
 
 type CataloguePatchData = Omit<CataloguePacket, "user_id">;
@@ -738,6 +740,7 @@ const CatalogueNameToRawName = {
 	[SpiritName.NestingNook]: "nesting_nook",
 	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: "sky_x_cinnamoroll_pop_up_cafe_2024",
 	[EventNameUnique.DaysOfNature2024]: "days_of_nature_2024",
+	[EventNameUnique.DaysOfColour2024]: "days_of_colour_2024",
 } as const satisfies Readonly<Record<SpiritName | EventNameUnique, Exclude<keyof CataloguePacket, "user_id">>>;
 
 const SpiritEventNameToCatalogueName = {
@@ -964,6 +967,7 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.NestingNook]: "nestingNook",
 	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: "skyXCinnamorollPopUpCafe2024",
 	[EventNameUnique.DaysOfNature2024]: "daysOfNature2024",
+	[EventNameUnique.DaysOfColour2024]: "daysOfColour2024",
 } as const satisfies Readonly<Record<SpiritName | EventNameUnique, Exclude<keyof CatalogueData, "user_id">>>;
 
 export const CATALOGUE_VIEW_START_CUSTOM_ID = "CATALOGUE_VIEW_START_CUSTOM_ID" as const;
@@ -1453,6 +1457,8 @@ export class Catalogue {
 
 	public daysOfNature2024!: CatalogueData["daysOfNature2024"];
 
+	public daysOfColour2024!: CatalogueData["daysOfColour2024"];
+
 	public constructor(catalogue: CataloguePacket) {
 		this.userId = catalogue.user_id;
 		this.patch(catalogue);
@@ -1682,6 +1688,7 @@ export class Catalogue {
 		this.nestingNook = data.nesting_nook;
 		this.skyXCinnamorollPopUpCafe2024 = data.sky_x_cinnamoroll_pop_up_cafe_2024;
 		this.daysOfNature2024 = data.days_of_nature_2024;
+		this.daysOfColour2024 = data.days_of_colour_2024;
 	}
 
 	public static async fetch(userId: Snowflake) {
