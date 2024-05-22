@@ -116,6 +116,7 @@ export interface CataloguePacket {
 	twirling_champion: CatalogueValue;
 	crab_whisperer: CatalogueValue;
 	shushing_light_scholar: CatalogueValue;
+	halloween_office_event_2019: CatalogueValue;
 	belonging_guide: CatalogueValue;
 	boogie_kid: CatalogueValue;
 	confetti_cousin: CatalogueValue;
@@ -123,6 +124,8 @@ export interface CataloguePacket {
 	sparkler_parent: CatalogueValue;
 	pleaful_parent: CatalogueValue;
 	wise_grandparent: CatalogueValue;
+	days_of_giving_2019: CatalogueValue;
+	days_of_feast_2019: CatalogueValue;
 	rhythm_guide: CatalogueValue;
 	troupe_greeter: CatalogueValue;
 	festival_spin_dancer: CatalogueValue;
@@ -130,6 +133,9 @@ export interface CataloguePacket {
 	troupe_juggler: CatalogueValue;
 	respectful_pianist: CatalogueValue;
 	thoughtful_director: CatalogueValue;
+	lunar_new_year_2020: CatalogueValue;
+	days_of_love_2020: CatalogueValue;
+	days_of_spring_2020: CatalogueValue;
 	enchantment_guide: CatalogueValue;
 	nodding_muralist: CatalogueValue;
 	indifferent_alchemist: CatalogueValue;
@@ -137,6 +143,9 @@ export interface CataloguePacket {
 	scarecrow_farmer: CatalogueValue;
 	snoozing_carpenter: CatalogueValue;
 	playfighting_herbalist: CatalogueValue;
+	days_of_nature_2020: CatalogueValue;
+	days_of_healing_2020: CatalogueValue;
+	days_of_rainbow_2020: CatalogueValue;
 	sanctuary_guide: CatalogueValue;
 	jelly_whisperer: CatalogueValue;
 	timid_bookworm: CatalogueValue;
@@ -144,16 +153,24 @@ export interface CataloguePacket {
 	hiking_grouch: CatalogueValue;
 	grateful_shell_collector: CatalogueValue;
 	chill_sunbather: CatalogueValue;
+	sky_anniversary_2020: CatalogueValue;
+	days_of_summer_lights_2020: CatalogueValue;
 	prophecy_guide: CatalogueValue;
 	prophet_of_water: CatalogueValue;
 	prophet_of_earth: CatalogueValue;
 	prophet_of_air: CatalogueValue;
 	prophet_of_fire: CatalogueValue;
+	days_of_mischief_2020: CatalogueValue;
+	days_of_giving_2020: CatalogueValue;
+	days_of_feast_2020: CatalogueValue;
 	dreams_guide: CatalogueValue;
 	spinning_mentor: CatalogueValue;
 	dancing_performer: CatalogueValue;
 	peeking_postman: CatalogueValue;
 	bearhug_hermit: CatalogueValue;
+	days_of_fortune_2021: CatalogueValue;
+	days_of_love_2021: CatalogueValue;
+	days_of_bloom_2021: CatalogueValue;
 	assembly_guide: CatalogueValue;
 	baffled_botanist: CatalogueValue;
 	scolding_student: CatalogueValue;
@@ -161,6 +178,9 @@ export interface CataloguePacket {
 	marching_adventurer: CatalogueValue;
 	chuckling_scout: CatalogueValue;
 	daydream_forester: CatalogueValue;
+	days_of_nature_2021: CatalogueValue;
+	childrens_day_2021: CatalogueValue;
+	days_of_rainbow_2021: CatalogueValue;
 	the_rose: CatalogueValue;
 	beckoning_ruler: CatalogueValue;
 	gloating_narcissist: CatalogueValue;
@@ -168,118 +188,98 @@ export interface CataloguePacket {
 	slouching_soldier: CatalogueValue;
 	sneezing_geographer: CatalogueValue;
 	star_collector: CatalogueValue;
+	sky_anniversary_2021: CatalogueValue;
+	days_of_summer_2021: CatalogueValue;
+	days_of_summer_lights_2021: CatalogueValue;
 	flight_guide: CatalogueValue;
 	lively_navigator: CatalogueValue;
 	light_whisperer: CatalogueValue;
 	tinkering_chimesmith: CatalogueValue;
 	talented_builder: CatalogueValue;
+	days_of_mischief_2021: CatalogueValue;
+	days_of_giving_2021: CatalogueValue;
+	days_of_feast_2021: CatalogueValue;
 	abyss_guide: CatalogueValue;
 	anxious_angler: CatalogueValue;
 	ceasing_commodore: CatalogueValue;
 	bumbling_boatswain: CatalogueValue;
 	cackling_cannoneer: CatalogueValue;
+	days_of_fortune_2022: CatalogueValue;
+	days_of_love_2022: CatalogueValue;
+	kizuna_ai_2022: CatalogueValue;
+	days_of_bloom_2022: CatalogueValue;
 	performance_guide: CatalogueValue;
 	frantic_stagehand: CatalogueValue;
 	forgetful_storyteller: CatalogueValue;
 	mellow_musician: CatalogueValue;
 	modest_dancer: CatalogueValue;
+	days_of_nature_2022: CatalogueValue;
+	harmony_hall_grand_opening_2022: CatalogueValue;
+	days_of_rainbow_2022: CatalogueValue;
 	the_void_of_shattering: CatalogueValue;
 	ancient_light1: CatalogueValue;
 	ancient_light2: CatalogueValue;
 	ancient_darkness1: CatalogueValue;
 	ancient_darkness2: CatalogueValue;
+	sky_anniversary_2022: CatalogueValue;
+	days_of_sunlight_2022: CatalogueValue;
+	lazy_days_2022: CatalogueValue;
 	aurora: CatalogueValue;
 	running_wayfarer: CatalogueValue;
 	mindful_miner: CatalogueValue;
 	warrior_of_love: CatalogueValue;
 	seed_of_hope: CatalogueValue;
+	days_of_mischief_2022: CatalogueValue;
+	days_of_giving_2022: CatalogueValue;
+	days_of_feast_2022: CatalogueValue;
 	remembrance_guide: CatalogueValue;
 	bereft_veteran: CatalogueValue;
 	pleading_child: CatalogueValue;
 	tiptoeing_tea_brewer: CatalogueValue;
 	wounded_warrior: CatalogueValue;
+	days_of_fortune_2023: CatalogueValue;
+	days_of_love_2023: CatalogueValue;
+	days_of_bloom_2023: CatalogueValue;
 	passage_guide: CatalogueValue;
 	oddball_outcast: CatalogueValue;
 	tumbling_troublemaker: CatalogueValue;
 	melancholy_mope: CatalogueValue;
 	overactive_overachiever: CatalogueValue;
+	days_of_nature_2023: CatalogueValue;
+	days_of_colour_2023: CatalogueValue;
+	days_of_music_2023: CatalogueValue;
 	moments_guide: CatalogueValue;
 	reassuring_ranger: CatalogueValue;
 	nightbird_whisperer: CatalogueValue;
 	jolly_geologist: CatalogueValue;
 	ascetic_monk: CatalogueValue;
+	sky_anniversary_2023: CatalogueValue;
+	aurora_encore_concerts_2023: CatalogueValue;
+	days_of_sunlight_2023: CatalogueValue;
+	days_of_style_2023: CatalogueValue;
 	hopeful_steward: CatalogueValue;
 	vestige_of_a_deserted_oasis: CatalogueValue;
 	memory_of_a_lost_village: CatalogueValue;
 	echo_of_an_abandoned_refuge: CatalogueValue;
 	remnant_of_a_forgotten_haven: CatalogueValue;
+	days_of_mischief_2023: CatalogueValue;
+	days_of_giving_2023: CatalogueValue;
+	aviarys_firework_festival_2023: CatalogueValue;
+	days_of_feast_2023: CatalogueValue;
 	spirit_of_mural: CatalogueValue;
 	herb_gatherer: CatalogueValue;
 	hunter: CatalogueValue;
 	feudal_lord: CatalogueValue;
 	princess: CatalogueValue;
+	days_of_fortune_2024: CatalogueValue;
+	days_of_love_2024: CatalogueValue;
+	spring_camping_2024: CatalogueValue;
+	days_of_bloom_2024: CatalogueValue;
 	nesting_guide: CatalogueValue;
 	nesting_solarium: CatalogueValue;
 	nesting_loft: CatalogueValue;
 	nesting_atrium: CatalogueValue;
 	nesting_nook: CatalogueValue;
-	halloween_office_event_2019: CatalogueValue;
-	days_of_giving_2019: CatalogueValue;
-	days_of_feast_2019: CatalogueValue;
-	lunar_new_year_2020: CatalogueValue;
-	days_of_love_2020: CatalogueValue;
-	days_of_spring_2020: CatalogueValue;
-	days_of_nature_2020: CatalogueValue;
-	days_of_healing_2020: CatalogueValue;
-	days_of_rainbow_2020: CatalogueValue;
-	sky_anniversary_2020: CatalogueValue;
-	days_of_summer_lights_2020: CatalogueValue;
-	days_of_mischief_2020: CatalogueValue;
-	days_of_giving_2020: CatalogueValue;
-	days_of_feast_2020: CatalogueValue;
-	days_of_fortune_2021: CatalogueValue;
-	days_of_love_2021: CatalogueValue;
-	days_of_bloom_2021: CatalogueValue;
-	days_of_nature_2021: CatalogueValue;
-	childrens_day_2021: CatalogueValue;
-	days_of_rainbow_2021: CatalogueValue;
-	sky_anniversary_2021: CatalogueValue;
-	days_of_summer_2021: CatalogueValue;
-	days_of_summer_lights_2021: CatalogueValue;
-	days_of_mischief_2021: CatalogueValue;
-	days_of_giving_2021: CatalogueValue;
-	days_of_feast_2021: CatalogueValue;
-	days_of_fortune_2022: CatalogueValue;
-	days_of_love_2022: CatalogueValue;
-	kizuna_ai_2022: CatalogueValue;
-	days_of_bloom_2022: CatalogueValue;
-	days_of_nature_2022: CatalogueValue;
-	harmony_hall_grand_opening_2022: CatalogueValue;
-	days_of_rainbow_2022: CatalogueValue;
-	sky_anniversary_2022: CatalogueValue;
-	days_of_sunlight_2022: CatalogueValue;
-	lazy_days_2022: CatalogueValue;
-	days_of_mischief_2022: CatalogueValue;
-	days_of_giving_2022: CatalogueValue;
-	days_of_feast_2022: CatalogueValue;
-	days_of_fortune_2023: CatalogueValue;
-	days_of_love_2023: CatalogueValue;
-	days_of_bloom_2023: CatalogueValue;
-	days_of_nature_2023: CatalogueValue;
-	days_of_colour_2023: CatalogueValue;
-	days_of_music_2023: CatalogueValue;
-	sky_anniversary_2023: CatalogueValue;
-	aurora_encore_concerts_2023: CatalogueValue;
-	days_of_sunlight_2023: CatalogueValue;
-	days_of_style_2023: CatalogueValue;
-	days_of_mischief_2023: CatalogueValue;
-	days_of_giving_2023: CatalogueValue;
-	aviarys_firework_festival_2023: CatalogueValue;
-	days_of_feast_2023: CatalogueValue;
-	days_of_fortune_2024: CatalogueValue;
-	days_of_love_2024: CatalogueValue;
-	spring_camping_2024: CatalogueValue;
-	days_of_bloom_2024: CatalogueValue;
 	sky_x_cinnamoroll_pop_up_cafe_2024: CatalogueValue;
 	days_of_nature_2024: CatalogueValue;
 }
@@ -343,6 +343,7 @@ interface CatalogueData {
 	twirlingChampion: CataloguePacket["twirling_champion"];
 	crabWhisperer: CataloguePacket["crab_whisperer"];
 	shushingLightScholar: CataloguePacket["shushing_light_scholar"];
+	halloweenOfficeEvent2019: CataloguePacket["halloween_office_event_2019"];
 	belongingGuide: CataloguePacket["belonging_guide"];
 	boogieKid: CataloguePacket["boogie_kid"];
 	confettiCousin: CataloguePacket["confetti_cousin"];
@@ -350,6 +351,8 @@ interface CatalogueData {
 	sparklerParent: CataloguePacket["sparkler_parent"];
 	pleafulParent: CataloguePacket["pleaful_parent"];
 	wiseGrandparent: CataloguePacket["wise_grandparent"];
+	daysOfGiving2019: CataloguePacket["days_of_giving_2019"];
+	daysOfFeast2019: CataloguePacket["days_of_feast_2019"];
 	rhythmGuide: CataloguePacket["rhythm_guide"];
 	troupeGreeter: CataloguePacket["troupe_greeter"];
 	festivalSpinDancer: CataloguePacket["festival_spin_dancer"];
@@ -357,6 +360,9 @@ interface CatalogueData {
 	troupeJuggler: CataloguePacket["troupe_juggler"];
 	respectfulPianist: CataloguePacket["respectful_pianist"];
 	thoughtfulDirector: CataloguePacket["thoughtful_director"];
+	lunarNewYear2020: CataloguePacket["lunar_new_year_2020"];
+	daysOfLove2020: CataloguePacket["days_of_love_2020"];
+	daysOfSpring2020: CataloguePacket["days_of_spring_2020"];
 	enchantmentGuide: CataloguePacket["enchantment_guide"];
 	noddingMuralist: CataloguePacket["nodding_muralist"];
 	indifferentAlchemist: CataloguePacket["indifferent_alchemist"];
@@ -364,6 +370,9 @@ interface CatalogueData {
 	scarecrowFarmer: CataloguePacket["scarecrow_farmer"];
 	snoozingCarpenter: CataloguePacket["snoozing_carpenter"];
 	playfightingHerbalist: CataloguePacket["playfighting_herbalist"];
+	daysOfNature2020: CataloguePacket["days_of_nature_2020"];
+	daysOfHealing2020: CataloguePacket["days_of_healing_2020"];
+	daysOfRainbow2020: CataloguePacket["days_of_rainbow_2020"];
 	sanctuaryGuide: CataloguePacket["sanctuary_guide"];
 	jellyWhisperer: CataloguePacket["jelly_whisperer"];
 	timidBookworm: CataloguePacket["timid_bookworm"];
@@ -371,16 +380,24 @@ interface CatalogueData {
 	hikingGrouch: CataloguePacket["hiking_grouch"];
 	gratefulShellCollector: CataloguePacket["grateful_shell_collector"];
 	chillSunbather: CataloguePacket["chill_sunbather"];
+	skyAnniversary2020: CataloguePacket["sky_anniversary_2020"];
+	daysOfSummerLights2020: CataloguePacket["days_of_summer_lights_2020"];
 	prophecyGuide: CataloguePacket["prophecy_guide"];
 	prophetOfWater: CataloguePacket["prophet_of_water"];
 	prophetOfEarth: CataloguePacket["prophet_of_earth"];
 	prophetOfAir: CataloguePacket["prophet_of_air"];
 	prophetOfFire: CataloguePacket["prophet_of_fire"];
+	daysOfMischief2020: CataloguePacket["days_of_mischief_2020"];
+	daysOfGiving2020: CataloguePacket["days_of_giving_2020"];
+	daysOfFeast2020: CataloguePacket["days_of_feast_2020"];
 	dreamsGuide: CataloguePacket["dreams_guide"];
 	spinningMentor: CataloguePacket["spinning_mentor"];
 	dancingPerformer: CataloguePacket["dancing_performer"];
 	peekingPostman: CataloguePacket["peeking_postman"];
 	bearhugHermit: CataloguePacket["bearhug_hermit"];
+	daysOfFortune2021: CataloguePacket["days_of_fortune_2021"];
+	daysOfLove2021: CataloguePacket["days_of_love_2021"];
+	daysOfBloom2021: CataloguePacket["days_of_bloom_2021"];
 	assemblyGuide: CataloguePacket["assembly_guide"];
 	baffledBotanist: CataloguePacket["baffled_botanist"];
 	scoldingStudent: CataloguePacket["scolding_student"];
@@ -388,6 +405,9 @@ interface CatalogueData {
 	marchingAdventurer: CataloguePacket["marching_adventurer"];
 	chucklingScout: CataloguePacket["chuckling_scout"];
 	daydreamForester: CataloguePacket["daydream_forester"];
+	daysOfNature2021: CataloguePacket["days_of_nature_2021"];
+	childrensDay2021: CataloguePacket["childrens_day_2021"];
+	daysOfRainbow2021: CataloguePacket["days_of_rainbow_2021"];
 	theRose: CataloguePacket["the_rose"];
 	beckoningRuler: CataloguePacket["beckoning_ruler"];
 	gloatingNarcissist: CataloguePacket["gloating_narcissist"];
@@ -395,118 +415,98 @@ interface CatalogueData {
 	slouchingSoldier: CataloguePacket["slouching_soldier"];
 	sneezingGeographer: CataloguePacket["sneezing_geographer"];
 	starCollector: CataloguePacket["star_collector"];
+	skyAnniversary2021: CataloguePacket["sky_anniversary_2021"];
+	daysOfSummer2021: CataloguePacket["days_of_summer_2021"];
+	daysOfSummerLights2021: CataloguePacket["days_of_summer_lights_2021"];
 	flightGuide: CataloguePacket["flight_guide"];
 	livelyNavigator: CataloguePacket["lively_navigator"];
 	lightWhisperer: CataloguePacket["light_whisperer"];
 	tinkeringChimesmith: CataloguePacket["tinkering_chimesmith"];
 	talentedBuilder: CataloguePacket["talented_builder"];
+	daysOfMischief2021: CataloguePacket["days_of_mischief_2021"];
+	daysOfGiving2021: CataloguePacket["days_of_giving_2021"];
+	daysOfFeast2021: CataloguePacket["days_of_feast_2021"];
 	abyssGuide: CataloguePacket["abyss_guide"];
 	anxiousAngler: CataloguePacket["anxious_angler"];
 	ceasingCommodore: CataloguePacket["ceasing_commodore"];
 	bumblingBoatswain: CataloguePacket["bumbling_boatswain"];
 	cacklingCannoneer: CataloguePacket["cackling_cannoneer"];
+	daysOfFortune2022: CataloguePacket["days_of_fortune_2022"];
+	daysOfLove2022: CataloguePacket["days_of_love_2022"];
+	kizunaAI2022: CataloguePacket["kizuna_ai_2022"];
+	daysOfBloom2022: CataloguePacket["days_of_bloom_2022"];
 	performanceGuide: CataloguePacket["performance_guide"];
 	franticStagehand: CataloguePacket["frantic_stagehand"];
 	forgetfulStoryteller: CataloguePacket["forgetful_storyteller"];
 	mellowMusician: CataloguePacket["mellow_musician"];
 	modestDancer: CataloguePacket["modest_dancer"];
+	daysOfNature2022: CataloguePacket["days_of_nature_2022"];
+	harmonyHallGrandOpening2022: CataloguePacket["harmony_hall_grand_opening_2022"];
+	daysOfRainbow2022: CataloguePacket["days_of_rainbow_2022"];
 	theVoidOfShattering: CataloguePacket["the_void_of_shattering"];
 	ancientLight1: CataloguePacket["ancient_light1"];
 	ancientLight2: CataloguePacket["ancient_light2"];
 	ancientDarkness1: CataloguePacket["ancient_darkness1"];
 	ancientDarkness2: CataloguePacket["ancient_darkness2"];
+	skyAnniversary2022: CataloguePacket["sky_anniversary_2022"];
+	daysOfSunlight2022: CataloguePacket["days_of_sunlight_2022"];
+	lazyDays2022: CataloguePacket["lazy_days_2022"];
 	aurora: CataloguePacket["aurora"];
 	runningWayfarer: CataloguePacket["running_wayfarer"];
 	mindfulMiner: CataloguePacket["mindful_miner"];
 	warriorOfLove: CataloguePacket["warrior_of_love"];
 	seedOfHope: CataloguePacket["seed_of_hope"];
+	daysOfMischief2022: CataloguePacket["days_of_mischief_2022"];
+	daysOfGiving2022: CataloguePacket["days_of_giving_2022"];
+	daysOfFeast2022: CataloguePacket["days_of_feast_2022"];
 	remembranceGuide: CataloguePacket["remembrance_guide"];
 	bereftVeteran: CataloguePacket["bereft_veteran"];
 	pleadingChild: CataloguePacket["pleading_child"];
 	tiptoeingTeaBrewer: CataloguePacket["tiptoeing_tea_brewer"];
 	woundedWarrior: CataloguePacket["wounded_warrior"];
+	daysOfFortune2023: CataloguePacket["days_of_fortune_2023"];
+	daysOfLove2023: CataloguePacket["days_of_love_2023"];
+	daysOfBloom2023: CataloguePacket["days_of_bloom_2023"];
 	passageGuide: CataloguePacket["passage_guide"];
 	oddballOutcast: CataloguePacket["oddball_outcast"];
 	tumblingTroublemaker: CataloguePacket["tumbling_troublemaker"];
 	melancholyMope: CataloguePacket["melancholy_mope"];
 	overactiveOverachiever: CataloguePacket["overactive_overachiever"];
+	daysOfNature2023: CataloguePacket["days_of_nature_2023"];
+	daysOfColour2023: CataloguePacket["days_of_colour_2023"];
+	daysOfMusic2023: CataloguePacket["days_of_music_2023"];
 	momentsGuide: CataloguePacket["moments_guide"];
 	reassuringRanger: CataloguePacket["reassuring_ranger"];
 	nightbirdWhisperer: CataloguePacket["nightbird_whisperer"];
 	jollyGeologist: CataloguePacket["jolly_geologist"];
 	asceticMonk: CataloguePacket["ascetic_monk"];
+	skyAnniversary2023: CataloguePacket["sky_anniversary_2023"];
+	auroraEncoreConcerts2023: CataloguePacket["aurora_encore_concerts_2023"];
+	daysOfSunlight2023: CataloguePacket["days_of_sunlight_2023"];
+	daysOfStyle2023: CataloguePacket["days_of_style_2023"];
 	hopefulSteward: CataloguePacket["hopeful_steward"];
 	vestigeOfADesertedOasis: CataloguePacket["vestige_of_a_deserted_oasis"];
 	memoryOfALostVillage: CataloguePacket["memory_of_a_lost_village"];
 	echoOfAnAbandonedRefuge: CataloguePacket["echo_of_an_abandoned_refuge"];
 	remnantOfAForgottenHaven: CataloguePacket["remnant_of_a_forgotten_haven"];
+	daysOfMischief2023: CataloguePacket["days_of_mischief_2023"];
+	daysOfGiving2023: CataloguePacket["days_of_giving_2023"];
+	aviarysFireworkFestival2023: CataloguePacket["aviarys_firework_festival_2023"];
+	daysOfFeast2023: CataloguePacket["days_of_feast_2023"];
 	spiritOfMural: CataloguePacket["spirit_of_mural"];
 	herbGatherer: CataloguePacket["herb_gatherer"];
 	hunter: CataloguePacket["hunter"];
 	feudalLord: CataloguePacket["feudal_lord"];
 	princess: CataloguePacket["princess"];
+	daysOfFortune2024: CataloguePacket["days_of_fortune_2024"];
+	daysOfLove2024: CataloguePacket["days_of_love_2024"];
+	springCamping2024: CataloguePacket["spring_camping_2024"];
+	daysOfBloom2024: CataloguePacket["days_of_bloom_2024"];
 	nestingGuide: CataloguePacket["nesting_guide"];
 	nestingSolarium: CataloguePacket["nesting_solarium"];
 	nestingLoft: CataloguePacket["nesting_loft"];
 	nestingAtrium: CataloguePacket["nesting_atrium"];
 	nestingNook: CataloguePacket["nesting_nook"];
-	halloweenOfficeEvent2019: CataloguePacket["halloween_office_event_2019"];
-	daysOfGiving2019: CataloguePacket["days_of_giving_2019"];
-	daysOfFeast2019: CataloguePacket["days_of_feast_2019"];
-	lunarNewYear2020: CataloguePacket["lunar_new_year_2020"];
-	daysOfLove2020: CataloguePacket["days_of_love_2020"];
-	daysOfSpring2020: CataloguePacket["days_of_spring_2020"];
-	daysOfNature2020: CataloguePacket["days_of_nature_2020"];
-	daysOfHealing2020: CataloguePacket["days_of_healing_2020"];
-	daysOfRainbow2020: CataloguePacket["days_of_rainbow_2020"];
-	skyAnniversary2020: CataloguePacket["sky_anniversary_2020"];
-	daysOfSummerLights2020: CataloguePacket["days_of_summer_lights_2020"];
-	daysOfMischief2020: CataloguePacket["days_of_mischief_2020"];
-	daysOfGiving2020: CataloguePacket["days_of_giving_2020"];
-	daysOfFeast2020: CataloguePacket["days_of_feast_2020"];
-	daysOfFortune2021: CataloguePacket["days_of_fortune_2021"];
-	daysOfLove2021: CataloguePacket["days_of_love_2021"];
-	daysOfBloom2021: CataloguePacket["days_of_bloom_2021"];
-	daysOfNature2021: CataloguePacket["days_of_nature_2021"];
-	childrensDay2021: CataloguePacket["childrens_day_2021"];
-	daysOfRainbow2021: CataloguePacket["days_of_rainbow_2021"];
-	skyAnniversary2021: CataloguePacket["sky_anniversary_2021"];
-	daysOfSummer2021: CataloguePacket["days_of_summer_2021"];
-	daysOfSummerLights2021: CataloguePacket["days_of_summer_lights_2021"];
-	daysOfMischief2021: CataloguePacket["days_of_mischief_2021"];
-	daysOfGiving2021: CataloguePacket["days_of_giving_2021"];
-	daysOfFeast2021: CataloguePacket["days_of_feast_2021"];
-	daysOfFortune2022: CataloguePacket["days_of_fortune_2022"];
-	daysOfLove2022: CataloguePacket["days_of_love_2022"];
-	kizunaAI2022: CataloguePacket["kizuna_ai_2022"];
-	daysOfBloom2022: CataloguePacket["days_of_bloom_2022"];
-	daysOfNature2022: CataloguePacket["days_of_nature_2022"];
-	harmonyHallGrandOpening2022: CataloguePacket["harmony_hall_grand_opening_2022"];
-	daysOfRainbow2022: CataloguePacket["days_of_rainbow_2022"];
-	skyAnniversary2022: CataloguePacket["sky_anniversary_2022"];
-	daysOfSunlight2022: CataloguePacket["days_of_sunlight_2022"];
-	lazyDays2022: CataloguePacket["lazy_days_2022"];
-	daysOfMischief2022: CataloguePacket["days_of_mischief_2022"];
-	daysOfGiving2022: CataloguePacket["days_of_giving_2022"];
-	daysOfFeast2022: CataloguePacket["days_of_feast_2022"];
-	daysOfFortune2023: CataloguePacket["days_of_fortune_2023"];
-	daysOfLove2023: CataloguePacket["days_of_love_2023"];
-	daysOfBloom2023: CataloguePacket["days_of_bloom_2023"];
-	daysOfNature2023: CataloguePacket["days_of_nature_2023"];
-	daysOfColour2023: CataloguePacket["days_of_colour_2023"];
-	daysOfMusic2023: CataloguePacket["days_of_music_2023"];
-	skyAnniversary2023: CataloguePacket["sky_anniversary_2023"];
-	auroraEncoreConcerts2023: CataloguePacket["aurora_encore_concerts_2023"];
-	daysOfSunlight2023: CataloguePacket["days_of_sunlight_2023"];
-	daysOfStyle2023: CataloguePacket["days_of_style_2023"];
-	daysOfMischief2023: CataloguePacket["days_of_mischief_2023"];
-	daysOfGiving2023: CataloguePacket["days_of_giving_2023"];
-	aviarysFireworkFestival2023: CataloguePacket["aviarys_firework_festival_2023"];
-	daysOfFeast2023: CataloguePacket["days_of_feast_2023"];
-	daysOfFortune2024: CataloguePacket["days_of_fortune_2024"];
-	daysOfLove2024: CataloguePacket["days_of_love_2024"];
-	springCamping2024: CataloguePacket["spring_camping_2024"];
-	daysOfBloom2024: CataloguePacket["days_of_bloom_2024"];
 	skyXCinnamorollPopUpCafe2024: CataloguePacket["sky_x_cinnamoroll_pop_up_cafe_2024"];
 	daysOfNature2024: CataloguePacket["days_of_nature_2024"];
 }
@@ -572,6 +572,7 @@ const CatalogueNameToRawName = {
 	[SpiritName.TwirlingChampion]: "twirling_champion",
 	[SpiritName.CrabWhisperer]: "crab_whisperer",
 	[SpiritName.ShushingLightScholar]: "shushing_light_scholar",
+	[EventNameUnique.HalloweenOfficeEvent2019]: "halloween_office_event_2019",
 	[SpiritName.BelongingGuide]: "belonging_guide",
 	[SpiritName.BoogieKid]: "boogie_kid",
 	[SpiritName.ConfettiCousin]: "confetti_cousin",
@@ -579,6 +580,8 @@ const CatalogueNameToRawName = {
 	[SpiritName.SparklerParent]: "sparkler_parent",
 	[SpiritName.PleafulParent]: "pleaful_parent",
 	[SpiritName.WiseGrandparent]: "wise_grandparent",
+	[EventNameUnique.DaysOfGiving2019]: "days_of_giving_2019",
+	[EventNameUnique.DaysOfFeast2019]: "days_of_feast_2019",
 	[SpiritName.RhythmGuide]: "rhythm_guide",
 	[SpiritName.TroupeGreeter]: "troupe_greeter",
 	[SpiritName.FestivalSpinDancer]: "festival_spin_dancer",
@@ -586,6 +589,9 @@ const CatalogueNameToRawName = {
 	[SpiritName.TroupeJuggler]: "troupe_juggler",
 	[SpiritName.RespectfulPianist]: "respectful_pianist",
 	[SpiritName.ThoughtfulDirector]: "thoughtful_director",
+	[EventNameUnique.LunarNewYear2020]: "lunar_new_year_2020",
+	[EventNameUnique.DaysOfLove2020]: "days_of_love_2020",
+	[EventNameUnique.DaysOfSpring2020]: "days_of_spring_2020",
 	[SpiritName.EnchantmentGuide]: "enchantment_guide",
 	[SpiritName.NoddingMuralist]: "nodding_muralist",
 	[SpiritName.IndifferentAlchemist]: "indifferent_alchemist",
@@ -593,6 +599,9 @@ const CatalogueNameToRawName = {
 	[SpiritName.ScarecrowFarmer]: "scarecrow_farmer",
 	[SpiritName.SnoozingCarpenter]: "snoozing_carpenter",
 	[SpiritName.PlayfightingHerbalist]: "playfighting_herbalist",
+	[EventNameUnique.DaysOfNature2020]: "days_of_nature_2020",
+	[EventNameUnique.DaysOfHealing2020]: "days_of_healing_2020",
+	[EventNameUnique.DaysOfRainbow2020]: "days_of_rainbow_2020",
 	[SpiritName.SanctuaryGuide]: "sanctuary_guide",
 	[SpiritName.JellyWhisperer]: "jelly_whisperer",
 	[SpiritName.TimidBookworm]: "timid_bookworm",
@@ -600,16 +609,24 @@ const CatalogueNameToRawName = {
 	[SpiritName.HikingGrouch]: "hiking_grouch",
 	[SpiritName.GratefulShellCollector]: "grateful_shell_collector",
 	[SpiritName.ChillSunbather]: "chill_sunbather",
+	[EventNameUnique.SkyAnniversary2020]: "sky_anniversary_2020",
+	[EventNameUnique.DaysOfSummerLights2020]: "days_of_summer_lights_2020",
 	[SpiritName.ProphecyGuide]: "prophecy_guide",
 	[SpiritName.ProphetOfWater]: "prophet_of_water",
 	[SpiritName.ProphetOfEarth]: "prophet_of_earth",
 	[SpiritName.ProphetOfAir]: "prophet_of_air",
 	[SpiritName.ProphetOfFire]: "prophet_of_fire",
+	[EventNameUnique.DaysOfMischief2020]: "days_of_mischief_2020",
+	[EventNameUnique.DaysOfGiving2020]: "days_of_giving_2020",
+	[EventNameUnique.DaysOfFeast2020]: "days_of_feast_2020",
 	[SpiritName.DreamsGuide]: "dreams_guide",
 	[SpiritName.SpinningMentor]: "spinning_mentor",
 	[SpiritName.DancingPerformer]: "dancing_performer",
 	[SpiritName.PeekingPostman]: "peeking_postman",
 	[SpiritName.BearhugHermit]: "bearhug_hermit",
+	[EventNameUnique.DaysOfFortune2021]: "days_of_fortune_2021",
+	[EventNameUnique.DaysOfLove2021]: "days_of_love_2021",
+	[EventNameUnique.DaysOfBloom2021]: "days_of_bloom_2021",
 	[SpiritName.AssemblyGuide]: "assembly_guide",
 	[SpiritName.BaffledBotanist]: "baffled_botanist",
 	[SpiritName.ScoldingStudent]: "scolding_student",
@@ -617,6 +634,9 @@ const CatalogueNameToRawName = {
 	[SpiritName.MarchingAdventurer]: "marching_adventurer",
 	[SpiritName.ChucklingScout]: "chuckling_scout",
 	[SpiritName.DaydreamForester]: "daydream_forester",
+	[EventNameUnique.DaysOfNature2021]: "days_of_nature_2021",
+	[EventNameUnique.ChildrensDay2021]: "childrens_day_2021",
+	[EventNameUnique.DaysOfRainbow2021]: "days_of_rainbow_2021",
 	[SpiritName.TheRose]: "the_rose",
 	[SpiritName.BeckoningRuler]: "beckoning_ruler",
 	[SpiritName.GloatingNarcissist]: "gloating_narcissist",
@@ -624,118 +644,98 @@ const CatalogueNameToRawName = {
 	[SpiritName.SlouchingSoldier]: "slouching_soldier",
 	[SpiritName.SneezingGeographer]: "sneezing_geographer",
 	[SpiritName.StarCollector]: "star_collector",
+	[EventNameUnique.SkyAnniversary2021]: "sky_anniversary_2021",
+	[EventNameUnique.DaysOfSummer2021]: "days_of_summer_2021",
+	[EventNameUnique.DaysOfSummerLights2021]: "days_of_summer_lights_2021",
 	[SpiritName.FlightGuide]: "flight_guide",
 	[SpiritName.LivelyNavigator]: "lively_navigator",
 	[SpiritName.LightWhisperer]: "light_whisperer",
 	[SpiritName.TinkeringChimesmith]: "tinkering_chimesmith",
 	[SpiritName.TalentedBuilder]: "talented_builder",
+	[EventNameUnique.DaysOfMischief2021]: "days_of_mischief_2021",
+	[EventNameUnique.DaysOfGiving2021]: "days_of_giving_2021",
+	[EventNameUnique.DaysOfFeast2021]: "days_of_feast_2021",
 	[SpiritName.AbyssGuide]: "abyss_guide",
 	[SpiritName.AnxiousAngler]: "anxious_angler",
 	[SpiritName.CeasingCommodore]: "ceasing_commodore",
 	[SpiritName.BumblingBoatswain]: "bumbling_boatswain",
 	[SpiritName.CacklingCannoneer]: "cackling_cannoneer",
+	[EventNameUnique.DaysOfFortune2022]: "days_of_fortune_2022",
+	[EventNameUnique.DaysOfLove2022]: "days_of_love_2022",
+	[EventNameUnique.KizunaAI2022]: "kizuna_ai_2022",
+	[EventNameUnique.DaysOfBloom2022]: "days_of_bloom_2022",
 	[SpiritName.PerformanceGuide]: "performance_guide",
 	[SpiritName.FranticStagehand]: "frantic_stagehand",
 	[SpiritName.ForgetfulStoryteller]: "forgetful_storyteller",
 	[SpiritName.MellowMusician]: "mellow_musician",
 	[SpiritName.ModestDancer]: "modest_dancer",
+	[EventNameUnique.DaysOfNature2022]: "days_of_nature_2022",
+	[EventNameUnique.HarmonyHallGrandOpening2022]: "harmony_hall_grand_opening_2022",
+	[EventNameUnique.DaysOfRainbow2022]: "days_of_rainbow_2022",
 	[SpiritName.TheVoidOfShattering]: "the_void_of_shattering",
 	[SpiritName.AncientLight1]: "ancient_light1",
 	[SpiritName.AncientLight2]: "ancient_light2",
 	[SpiritName.AncientDarkness1]: "ancient_darkness1",
 	[SpiritName.AncientDarkness2]: "ancient_darkness2",
+	[EventNameUnique.SkyAnniversary2022]: "sky_anniversary_2022",
+	[EventNameUnique.DaysOfSunlight2022]: "days_of_sunlight_2022",
+	[EventNameUnique.LazyDays2022]: "lazy_days_2022",
 	[SpiritName.AURORA]: "aurora",
 	[SpiritName.RunningWayfarer]: "running_wayfarer",
 	[SpiritName.MindfulMiner]: "mindful_miner",
 	[SpiritName.WarriorOfLove]: "warrior_of_love",
 	[SpiritName.SeedOfHope]: "seed_of_hope",
+	[EventNameUnique.DaysOfMischief2022]: "days_of_mischief_2022",
+	[EventNameUnique.DaysOfGiving2022]: "days_of_giving_2022",
+	[EventNameUnique.DaysOfFeast2022]: "days_of_feast_2022",
 	[SpiritName.RemembranceGuide]: "remembrance_guide",
 	[SpiritName.BereftVeteran]: "bereft_veteran",
 	[SpiritName.PleadingChild]: "pleading_child",
 	[SpiritName.TiptoeingTeaBrewer]: "tiptoeing_tea_brewer",
 	[SpiritName.WoundedWarrior]: "wounded_warrior",
+	[EventNameUnique.DaysOfFortune2023]: "days_of_fortune_2023",
+	[EventNameUnique.DaysOfLove2023]: "days_of_love_2023",
+	[EventNameUnique.DaysOfBloom2023]: "days_of_bloom_2023",
 	[SpiritName.PassageGuide]: "passage_guide",
 	[SpiritName.OddballOutcast]: "oddball_outcast",
 	[SpiritName.TumblingTroublemaker]: "tumbling_troublemaker",
 	[SpiritName.MelancholyMope]: "melancholy_mope",
 	[SpiritName.OveractiveOverachiever]: "overactive_overachiever",
+	[EventNameUnique.DaysOfNature2023]: "days_of_nature_2023",
+	[EventNameUnique.DaysOfColour2023]: "days_of_colour_2023",
+	[EventNameUnique.DaysOfMusic2023]: "days_of_music_2023",
 	[SpiritName.MomentsGuide]: "moments_guide",
 	[SpiritName.ReassuringRanger]: "reassuring_ranger",
 	[SpiritName.NightbirdWhisperer]: "nightbird_whisperer",
 	[SpiritName.JollyGeologist]: "jolly_geologist",
 	[SpiritName.AsceticMonk]: "ascetic_monk",
+	[EventNameUnique.SkyAnniversary2023]: "sky_anniversary_2023",
+	[EventNameUnique.AURORAEncoreConcerts2023]: "aurora_encore_concerts_2023",
+	[EventNameUnique.DaysOfSunlight2023]: "days_of_sunlight_2023",
+	[EventNameUnique.DaysOfStyle2023]: "days_of_style_2023",
 	[SpiritName.HopefulSteward]: "hopeful_steward",
 	[SpiritName.VestigeOfADesertedOasis]: "vestige_of_a_deserted_oasis",
 	[SpiritName.MemoryOfALostVillage]: "memory_of_a_lost_village",
 	[SpiritName.EchoOfAnAbandonedRefuge]: "echo_of_an_abandoned_refuge",
 	[SpiritName.RemnantOfAForgottenHaven]: "remnant_of_a_forgotten_haven",
+	[EventNameUnique.DaysOfMischief2023]: "days_of_mischief_2023",
+	[EventNameUnique.DaysOfGiving2023]: "days_of_giving_2023",
+	[EventNameUnique.AviarysFireworkFestival2023]: "aviarys_firework_festival_2023",
+	[EventNameUnique.DaysOfFeast2023]: "days_of_feast_2023",
 	[SpiritName.SpiritOfMural]: "spirit_of_mural",
 	[SpiritName.HerbGatherer]: "herb_gatherer",
 	[SpiritName.Hunter]: "hunter",
 	[SpiritName.FeudalLord]: "feudal_lord",
 	[SpiritName.Princess]: "princess",
+	[EventNameUnique.DaysOfFortune2024]: "days_of_fortune_2024",
+	[EventNameUnique.DaysOfLove2024]: "days_of_love_2024",
+	[EventNameUnique.SpringCamping2024]: "spring_camping_2024",
+	[EventNameUnique.DaysOfBloom2024]: "days_of_bloom_2024",
 	[SpiritName.NestingGuide]: "nesting_guide",
 	[SpiritName.NestingSolarium]: "nesting_solarium",
 	[SpiritName.NestingLoft]: "nesting_loft",
 	[SpiritName.NestingAtrium]: "nesting_atrium",
 	[SpiritName.NestingNook]: "nesting_nook",
-	[EventNameUnique.HalloweenOfficeEvent2019]: "halloween_office_event_2019",
-	[EventNameUnique.DaysOfGiving2019]: "days_of_giving_2019",
-	[EventNameUnique.DaysOfFeast2019]: "days_of_feast_2019",
-	[EventNameUnique.LunarNewYear2020]: "lunar_new_year_2020",
-	[EventNameUnique.DaysOfLove2020]: "days_of_love_2020",
-	[EventNameUnique.DaysOfSpring2020]: "days_of_spring_2020",
-	[EventNameUnique.DaysOfNature2020]: "days_of_nature_2020",
-	[EventNameUnique.DaysOfHealing2020]: "days_of_healing_2020",
-	[EventNameUnique.DaysOfRainbow2020]: "days_of_rainbow_2020",
-	[EventNameUnique.SkyAnniversary2020]: "sky_anniversary_2020",
-	[EventNameUnique.DaysOfSummerLights2020]: "days_of_summer_lights_2020",
-	[EventNameUnique.DaysOfMischief2020]: "days_of_mischief_2020",
-	[EventNameUnique.DaysOfGiving2020]: "days_of_giving_2020",
-	[EventNameUnique.DaysOfFeast2020]: "days_of_feast_2020",
-	[EventNameUnique.DaysOfFortune2021]: "days_of_fortune_2021",
-	[EventNameUnique.DaysOfLove2021]: "days_of_love_2021",
-	[EventNameUnique.DaysOfBloom2021]: "days_of_bloom_2021",
-	[EventNameUnique.DaysOfNature2021]: "days_of_nature_2021",
-	[EventNameUnique.ChildrensDay2021]: "childrens_day_2021",
-	[EventNameUnique.DaysOfRainbow2021]: "days_of_rainbow_2021",
-	[EventNameUnique.SkyAnniversary2021]: "sky_anniversary_2021",
-	[EventNameUnique.DaysOfSummer2021]: "days_of_summer_2021",
-	[EventNameUnique.DaysOfSummerLights2021]: "days_of_summer_lights_2021",
-	[EventNameUnique.DaysOfMischief2021]: "days_of_mischief_2021",
-	[EventNameUnique.DaysOfGiving2021]: "days_of_giving_2021",
-	[EventNameUnique.DaysOfFeast2021]: "days_of_feast_2021",
-	[EventNameUnique.DaysOfFortune2022]: "days_of_fortune_2022",
-	[EventNameUnique.DaysOfLove2022]: "days_of_love_2022",
-	[EventNameUnique.KizunaAI2022]: "kizuna_ai_2022",
-	[EventNameUnique.DaysOfBloom2022]: "days_of_bloom_2022",
-	[EventNameUnique.DaysOfNature2022]: "days_of_nature_2022",
-	[EventNameUnique.HarmonyHallGrandOpening2022]: "harmony_hall_grand_opening_2022",
-	[EventNameUnique.DaysOfRainbow2022]: "days_of_rainbow_2022",
-	[EventNameUnique.SkyAnniversary2022]: "sky_anniversary_2022",
-	[EventNameUnique.DaysOfSunlight2022]: "days_of_sunlight_2022",
-	[EventNameUnique.LazyDays2022]: "lazy_days_2022",
-	[EventNameUnique.DaysOfMischief2022]: "days_of_mischief_2022",
-	[EventNameUnique.DaysOfGiving2022]: "days_of_giving_2022",
-	[EventNameUnique.DaysOfFeast2022]: "days_of_feast_2022",
-	[EventNameUnique.DaysOfFortune2023]: "days_of_fortune_2023",
-	[EventNameUnique.DaysOfLove2023]: "days_of_love_2023",
-	[EventNameUnique.DaysOfBloom2023]: "days_of_bloom_2023",
-	[EventNameUnique.DaysOfNature2023]: "days_of_nature_2023",
-	[EventNameUnique.DaysOfColour2023]: "days_of_colour_2023",
-	[EventNameUnique.DaysOfMusic2023]: "days_of_music_2023",
-	[EventNameUnique.SkyAnniversary2023]: "sky_anniversary_2023",
-	[EventNameUnique.AURORAEncoreConcerts2023]: "aurora_encore_concerts_2023",
-	[EventNameUnique.DaysOfSunlight2023]: "days_of_sunlight_2023",
-	[EventNameUnique.DaysOfStyle2023]: "days_of_style_2023",
-	[EventNameUnique.DaysOfMischief2023]: "days_of_mischief_2023",
-	[EventNameUnique.DaysOfGiving2023]: "days_of_giving_2023",
-	[EventNameUnique.AviarysFireworkFestival2023]: "aviarys_firework_festival_2023",
-	[EventNameUnique.DaysOfFeast2023]: "days_of_feast_2023",
-	[EventNameUnique.DaysOfFortune2024]: "days_of_fortune_2024",
-	[EventNameUnique.DaysOfLove2024]: "days_of_love_2024",
-	[EventNameUnique.SpringCamping2024]: "spring_camping_2024",
-	[EventNameUnique.DaysOfBloom2024]: "days_of_bloom_2024",
 	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: "sky_x_cinnamoroll_pop_up_cafe_2024",
 	[EventNameUnique.DaysOfNature2024]: "days_of_nature_2024",
 } as const satisfies Readonly<Record<SpiritName | EventNameUnique, Exclude<keyof CataloguePacket, "user_id">>>;
@@ -798,6 +798,7 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.TwirlingChampion]: "twirlingChampion",
 	[SpiritName.CrabWhisperer]: "crabWhisperer",
 	[SpiritName.ShushingLightScholar]: "shushingLightScholar",
+	[EventNameUnique.HalloweenOfficeEvent2019]: "halloweenOfficeEvent2019",
 	[SpiritName.BelongingGuide]: "belongingGuide",
 	[SpiritName.BoogieKid]: "boogieKid",
 	[SpiritName.ConfettiCousin]: "confettiCousin",
@@ -805,6 +806,8 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.SparklerParent]: "sparklerParent",
 	[SpiritName.PleafulParent]: "pleafulParent",
 	[SpiritName.WiseGrandparent]: "wiseGrandparent",
+	[EventNameUnique.DaysOfGiving2019]: "daysOfGiving2019",
+	[EventNameUnique.DaysOfFeast2019]: "daysOfFeast2019",
 	[SpiritName.RhythmGuide]: "rhythmGuide",
 	[SpiritName.TroupeGreeter]: "troupeGreeter",
 	[SpiritName.FestivalSpinDancer]: "festivalSpinDancer",
@@ -812,6 +815,9 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.TroupeJuggler]: "troupeJuggler",
 	[SpiritName.RespectfulPianist]: "respectfulPianist",
 	[SpiritName.ThoughtfulDirector]: "thoughtfulDirector",
+	[EventNameUnique.LunarNewYear2020]: "lunarNewYear2020",
+	[EventNameUnique.DaysOfLove2020]: "daysOfLove2020",
+	[EventNameUnique.DaysOfSpring2020]: "daysOfSpring2020",
 	[SpiritName.EnchantmentGuide]: "enchantmentGuide",
 	[SpiritName.NoddingMuralist]: "noddingMuralist",
 	[SpiritName.IndifferentAlchemist]: "indifferentAlchemist",
@@ -819,6 +825,9 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.ScarecrowFarmer]: "scarecrowFarmer",
 	[SpiritName.SnoozingCarpenter]: "snoozingCarpenter",
 	[SpiritName.PlayfightingHerbalist]: "playfightingHerbalist",
+	[EventNameUnique.DaysOfNature2020]: "daysOfNature2020",
+	[EventNameUnique.DaysOfHealing2020]: "daysOfHealing2020",
+	[EventNameUnique.DaysOfRainbow2020]: "daysOfRainbow2020",
 	[SpiritName.SanctuaryGuide]: "sanctuaryGuide",
 	[SpiritName.JellyWhisperer]: "jellyWhisperer",
 	[SpiritName.TimidBookworm]: "timidBookworm",
@@ -826,16 +835,24 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.HikingGrouch]: "hikingGrouch",
 	[SpiritName.GratefulShellCollector]: "gratefulShellCollector",
 	[SpiritName.ChillSunbather]: "chillSunbather",
+	[EventNameUnique.SkyAnniversary2020]: "skyAnniversary2020",
+	[EventNameUnique.DaysOfSummerLights2020]: "daysOfSummerLights2020",
 	[SpiritName.ProphecyGuide]: "prophecyGuide",
 	[SpiritName.ProphetOfWater]: "prophetOfWater",
 	[SpiritName.ProphetOfEarth]: "prophetOfEarth",
 	[SpiritName.ProphetOfAir]: "prophetOfAir",
 	[SpiritName.ProphetOfFire]: "prophetOfFire",
+	[EventNameUnique.DaysOfMischief2020]: "daysOfMischief2020",
+	[EventNameUnique.DaysOfGiving2020]: "daysOfGiving2020",
+	[EventNameUnique.DaysOfFeast2020]: "daysOfFeast2020",
 	[SpiritName.DreamsGuide]: "dreamsGuide",
 	[SpiritName.SpinningMentor]: "spinningMentor",
 	[SpiritName.DancingPerformer]: "dancingPerformer",
 	[SpiritName.PeekingPostman]: "peekingPostman",
 	[SpiritName.BearhugHermit]: "bearhugHermit",
+	[EventNameUnique.DaysOfFortune2021]: "daysOfFortune2021",
+	[EventNameUnique.DaysOfLove2021]: "daysOfLove2021",
+	[EventNameUnique.DaysOfBloom2021]: "daysOfBloom2021",
 	[SpiritName.AssemblyGuide]: "assemblyGuide",
 	[SpiritName.BaffledBotanist]: "baffledBotanist",
 	[SpiritName.ScoldingStudent]: "scoldingStudent",
@@ -843,6 +860,9 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.MarchingAdventurer]: "marchingAdventurer",
 	[SpiritName.ChucklingScout]: "chucklingScout",
 	[SpiritName.DaydreamForester]: "daydreamForester",
+	[EventNameUnique.DaysOfNature2021]: "daysOfNature2021",
+	[EventNameUnique.ChildrensDay2021]: "childrensDay2021",
+	[EventNameUnique.DaysOfRainbow2021]: "daysOfRainbow2021",
 	[SpiritName.TheRose]: "theRose",
 	[SpiritName.BeckoningRuler]: "beckoningRuler",
 	[SpiritName.GloatingNarcissist]: "gloatingNarcissist",
@@ -850,118 +870,98 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.SlouchingSoldier]: "slouchingSoldier",
 	[SpiritName.SneezingGeographer]: "sneezingGeographer",
 	[SpiritName.StarCollector]: "starCollector",
+	[EventNameUnique.SkyAnniversary2021]: "skyAnniversary2021",
+	[EventNameUnique.DaysOfSummer2021]: "daysOfSummer2021",
+	[EventNameUnique.DaysOfSummerLights2021]: "daysOfSummerLights2021",
 	[SpiritName.FlightGuide]: "flightGuide",
 	[SpiritName.LivelyNavigator]: "livelyNavigator",
 	[SpiritName.LightWhisperer]: "lightWhisperer",
 	[SpiritName.TinkeringChimesmith]: "tinkeringChimesmith",
 	[SpiritName.TalentedBuilder]: "talentedBuilder",
+	[EventNameUnique.DaysOfMischief2021]: "daysOfMischief2021",
+	[EventNameUnique.DaysOfGiving2021]: "daysOfGiving2021",
+	[EventNameUnique.DaysOfFeast2021]: "daysOfFeast2021",
 	[SpiritName.AbyssGuide]: "abyssGuide",
 	[SpiritName.AnxiousAngler]: "anxiousAngler",
 	[SpiritName.CeasingCommodore]: "ceasingCommodore",
 	[SpiritName.BumblingBoatswain]: "bumblingBoatswain",
 	[SpiritName.CacklingCannoneer]: "cacklingCannoneer",
+	[EventNameUnique.DaysOfFortune2022]: "daysOfFortune2022",
+	[EventNameUnique.DaysOfLove2022]: "daysOfLove2022",
+	[EventNameUnique.KizunaAI2022]: "kizunaAI2022",
+	[EventNameUnique.DaysOfBloom2022]: "daysOfBloom2022",
 	[SpiritName.PerformanceGuide]: "performanceGuide",
 	[SpiritName.FranticStagehand]: "franticStagehand",
 	[SpiritName.ForgetfulStoryteller]: "forgetfulStoryteller",
 	[SpiritName.MellowMusician]: "mellowMusician",
 	[SpiritName.ModestDancer]: "modestDancer",
+	[EventNameUnique.DaysOfNature2022]: "daysOfNature2022",
+	[EventNameUnique.HarmonyHallGrandOpening2022]: "harmonyHallGrandOpening2022",
+	[EventNameUnique.DaysOfRainbow2022]: "daysOfRainbow2022",
 	[SpiritName.TheVoidOfShattering]: "theVoidOfShattering",
 	[SpiritName.AncientLight1]: "ancientLight1",
 	[SpiritName.AncientLight2]: "ancientLight2",
 	[SpiritName.AncientDarkness1]: "ancientDarkness1",
 	[SpiritName.AncientDarkness2]: "ancientDarkness2",
+	[EventNameUnique.SkyAnniversary2022]: "skyAnniversary2022",
+	[EventNameUnique.DaysOfSunlight2022]: "daysOfSunlight2022",
+	[EventNameUnique.LazyDays2022]: "lazyDays2022",
 	[SpiritName.AURORA]: "aurora",
 	[SpiritName.RunningWayfarer]: "runningWayfarer",
 	[SpiritName.MindfulMiner]: "mindfulMiner",
 	[SpiritName.WarriorOfLove]: "warriorOfLove",
 	[SpiritName.SeedOfHope]: "seedOfHope",
+	[EventNameUnique.DaysOfMischief2022]: "daysOfMischief2022",
+	[EventNameUnique.DaysOfGiving2022]: "daysOfGiving2022",
+	[EventNameUnique.DaysOfFeast2022]: "daysOfFeast2022",
 	[SpiritName.RemembranceGuide]: "remembranceGuide",
 	[SpiritName.BereftVeteran]: "bereftVeteran",
 	[SpiritName.PleadingChild]: "pleadingChild",
 	[SpiritName.TiptoeingTeaBrewer]: "tiptoeingTeaBrewer",
 	[SpiritName.WoundedWarrior]: "woundedWarrior",
+	[EventNameUnique.DaysOfFortune2023]: "daysOfFortune2023",
+	[EventNameUnique.DaysOfLove2023]: "daysOfLove2023",
+	[EventNameUnique.DaysOfBloom2023]: "daysOfBloom2023",
 	[SpiritName.PassageGuide]: "passageGuide",
 	[SpiritName.OddballOutcast]: "oddballOutcast",
 	[SpiritName.TumblingTroublemaker]: "tumblingTroublemaker",
 	[SpiritName.MelancholyMope]: "melancholyMope",
 	[SpiritName.OveractiveOverachiever]: "overactiveOverachiever",
+	[EventNameUnique.DaysOfNature2023]: "daysOfNature2023",
+	[EventNameUnique.DaysOfColour2023]: "daysOfColour2023",
+	[EventNameUnique.DaysOfMusic2023]: "daysOfMusic2023",
 	[SpiritName.MomentsGuide]: "momentsGuide",
 	[SpiritName.ReassuringRanger]: "reassuringRanger",
 	[SpiritName.NightbirdWhisperer]: "nightbirdWhisperer",
 	[SpiritName.JollyGeologist]: "jollyGeologist",
 	[SpiritName.AsceticMonk]: "asceticMonk",
+	[EventNameUnique.SkyAnniversary2023]: "skyAnniversary2023",
+	[EventNameUnique.AURORAEncoreConcerts2023]: "auroraEncoreConcerts2023",
+	[EventNameUnique.DaysOfSunlight2023]: "daysOfSunlight2023",
+	[EventNameUnique.DaysOfStyle2023]: "daysOfStyle2023",
 	[SpiritName.HopefulSteward]: "hopefulSteward",
 	[SpiritName.VestigeOfADesertedOasis]: "vestigeOfADesertedOasis",
 	[SpiritName.MemoryOfALostVillage]: "memoryOfALostVillage",
 	[SpiritName.EchoOfAnAbandonedRefuge]: "echoOfAnAbandonedRefuge",
 	[SpiritName.RemnantOfAForgottenHaven]: "remnantOfAForgottenHaven",
+	[EventNameUnique.DaysOfMischief2023]: "daysOfMischief2023",
+	[EventNameUnique.DaysOfGiving2023]: "daysOfGiving2023",
+	[EventNameUnique.AviarysFireworkFestival2023]: "aviarysFireworkFestival2023",
+	[EventNameUnique.DaysOfFeast2023]: "daysOfFeast2023",
 	[SpiritName.SpiritOfMural]: "spiritOfMural",
 	[SpiritName.HerbGatherer]: "herbGatherer",
 	[SpiritName.Hunter]: "hunter",
 	[SpiritName.FeudalLord]: "feudalLord",
 	[SpiritName.Princess]: "princess",
+	[EventNameUnique.DaysOfFortune2024]: "daysOfFortune2024",
+	[EventNameUnique.DaysOfLove2024]: "daysOfLove2024",
+	[EventNameUnique.SpringCamping2024]: "springCamping2024",
+	[EventNameUnique.DaysOfBloom2024]: "daysOfBloom2024",
 	[SpiritName.NestingGuide]: "nestingGuide",
 	[SpiritName.NestingSolarium]: "nestingSolarium",
 	[SpiritName.NestingLoft]: "nestingLoft",
 	[SpiritName.NestingAtrium]: "nestingAtrium",
 	[SpiritName.NestingNook]: "nestingNook",
-	[EventNameUnique.HalloweenOfficeEvent2019]: "halloweenOfficeEvent2019",
-	[EventNameUnique.DaysOfGiving2019]: "daysOfGiving2019",
-	[EventNameUnique.DaysOfFeast2019]: "daysOfFeast2019",
-	[EventNameUnique.LunarNewYear2020]: "lunarNewYear2020",
-	[EventNameUnique.DaysOfLove2020]: "daysOfLove2020",
-	[EventNameUnique.DaysOfSpring2020]: "daysOfSpring2020",
-	[EventNameUnique.DaysOfNature2020]: "daysOfNature2020",
-	[EventNameUnique.DaysOfHealing2020]: "daysOfHealing2020",
-	[EventNameUnique.DaysOfRainbow2020]: "daysOfRainbow2020",
-	[EventNameUnique.SkyAnniversary2020]: "skyAnniversary2020",
-	[EventNameUnique.DaysOfSummerLights2020]: "daysOfSummerLights2020",
-	[EventNameUnique.DaysOfMischief2020]: "daysOfMischief2020",
-	[EventNameUnique.DaysOfGiving2020]: "daysOfGiving2020",
-	[EventNameUnique.DaysOfFeast2020]: "daysOfFeast2020",
-	[EventNameUnique.DaysOfFortune2021]: "daysOfFortune2021",
-	[EventNameUnique.DaysOfLove2021]: "daysOfLove2021",
-	[EventNameUnique.DaysOfBloom2021]: "daysOfBloom2021",
-	[EventNameUnique.DaysOfNature2021]: "daysOfNature2021",
-	[EventNameUnique.ChildrensDay2021]: "childrensDay2021",
-	[EventNameUnique.DaysOfRainbow2021]: "daysOfRainbow2021",
-	[EventNameUnique.SkyAnniversary2021]: "skyAnniversary2021",
-	[EventNameUnique.DaysOfSummer2021]: "daysOfSummer2021",
-	[EventNameUnique.DaysOfSummerLights2021]: "daysOfSummerLights2021",
-	[EventNameUnique.DaysOfMischief2021]: "daysOfMischief2021",
-	[EventNameUnique.DaysOfGiving2021]: "daysOfGiving2021",
-	[EventNameUnique.DaysOfFeast2021]: "daysOfFeast2021",
-	[EventNameUnique.DaysOfFortune2022]: "daysOfFortune2022",
-	[EventNameUnique.DaysOfLove2022]: "daysOfLove2022",
-	[EventNameUnique.KizunaAI2022]: "kizunaAI2022",
-	[EventNameUnique.DaysOfBloom2022]: "daysOfBloom2022",
-	[EventNameUnique.DaysOfNature2022]: "daysOfNature2022",
-	[EventNameUnique.HarmonyHallGrandOpening2022]: "harmonyHallGrandOpening2022",
-	[EventNameUnique.DaysOfRainbow2022]: "daysOfRainbow2022",
-	[EventNameUnique.SkyAnniversary2022]: "skyAnniversary2022",
-	[EventNameUnique.DaysOfSunlight2022]: "daysOfSunlight2022",
-	[EventNameUnique.LazyDays2022]: "lazyDays2022",
-	[EventNameUnique.DaysOfMischief2022]: "daysOfMischief2022",
-	[EventNameUnique.DaysOfGiving2022]: "daysOfGiving2022",
-	[EventNameUnique.DaysOfFeast2022]: "daysOfFeast2022",
-	[EventNameUnique.DaysOfFortune2023]: "daysOfFortune2023",
-	[EventNameUnique.DaysOfLove2023]: "daysOfLove2023",
-	[EventNameUnique.DaysOfBloom2023]: "daysOfBloom2023",
-	[EventNameUnique.DaysOfNature2023]: "daysOfNature2023",
-	[EventNameUnique.DaysOfColour2023]: "daysOfColour2023",
-	[EventNameUnique.DaysOfMusic2023]: "daysOfMusic2023",
-	[EventNameUnique.SkyAnniversary2023]: "skyAnniversary2023",
-	[EventNameUnique.AURORAEncoreConcerts2023]: "auroraEncoreConcerts2023",
-	[EventNameUnique.DaysOfSunlight2023]: "daysOfSunlight2023",
-	[EventNameUnique.DaysOfStyle2023]: "daysOfStyle2023",
-	[EventNameUnique.DaysOfMischief2023]: "daysOfMischief2023",
-	[EventNameUnique.DaysOfGiving2023]: "daysOfGiving2023",
-	[EventNameUnique.AviarysFireworkFestival2023]: "aviarysFireworkFestival2023",
-	[EventNameUnique.DaysOfFeast2023]: "daysOfFeast2023",
-	[EventNameUnique.DaysOfFortune2024]: "daysOfFortune2024",
-	[EventNameUnique.DaysOfLove2024]: "daysOfLove2024",
-	[EventNameUnique.SpringCamping2024]: "springCamping2024",
-	[EventNameUnique.DaysOfBloom2024]: "daysOfBloom2024",
 	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: "skyXCinnamorollPopUpCafe2024",
 	[EventNameUnique.DaysOfNature2024]: "daysOfNature2024",
 } as const satisfies Readonly<Record<SpiritName | EventNameUnique, Exclude<keyof CatalogueData, "user_id">>>;
@@ -1121,6 +1121,8 @@ export class Catalogue {
 
 	public shushingLightScholar!: CatalogueData["shushingLightScholar"];
 
+	public halloweenOfficeEvent2019!: CatalogueData["halloweenOfficeEvent2019"];
+
 	public belongingGuide!: CatalogueData["belongingGuide"];
 
 	public boogieKid!: CatalogueData["boogieKid"];
@@ -1134,6 +1136,10 @@ export class Catalogue {
 	public pleafulParent!: CatalogueData["pleafulParent"];
 
 	public wiseGrandparent!: CatalogueData["wiseGrandparent"];
+
+	public daysOfGiving2019!: CatalogueData["daysOfGiving2019"];
+
+	public daysOfFeast2019!: CatalogueData["daysOfFeast2019"];
 
 	public rhythmGuide!: CatalogueData["rhythmGuide"];
 
@@ -1149,6 +1155,12 @@ export class Catalogue {
 
 	public thoughtfulDirector!: CatalogueData["thoughtfulDirector"];
 
+	public lunarNewYear2020!: CatalogueData["lunarNewYear2020"];
+
+	public daysOfLove2020!: CatalogueData["daysOfLove2020"];
+
+	public daysOfSpring2020!: CatalogueData["daysOfSpring2020"];
+
 	public enchantmentGuide!: CatalogueData["enchantmentGuide"];
 
 	public noddingMuralist!: CatalogueData["noddingMuralist"];
@@ -1162,6 +1174,12 @@ export class Catalogue {
 	public snoozingCarpenter!: CatalogueData["snoozingCarpenter"];
 
 	public playfightingHerbalist!: CatalogueData["playfightingHerbalist"];
+
+	public daysOfNature2020!: CatalogueData["daysOfNature2020"];
+
+	public daysOfHealing2020!: CatalogueData["daysOfHealing2020"];
+
+	public daysOfRainbow2020!: CatalogueData["daysOfRainbow2020"];
 
 	public sanctuaryGuide!: CatalogueData["sanctuaryGuide"];
 
@@ -1177,6 +1195,10 @@ export class Catalogue {
 
 	public chillSunbather!: CatalogueData["chillSunbather"];
 
+	public skyAnniversary2020!: CatalogueData["skyAnniversary2020"];
+
+	public daysOfSummerLights2020!: CatalogueData["daysOfSummerLights2020"];
+
 	public prophecyGuide!: CatalogueData["prophecyGuide"];
 
 	public prophetOfWater!: CatalogueData["prophetOfWater"];
@@ -1187,6 +1209,12 @@ export class Catalogue {
 
 	public prophetOfFire!: CatalogueData["prophetOfFire"];
 
+	public daysOfMischief2020!: CatalogueData["daysOfMischief2020"];
+
+	public daysOfGiving2020!: CatalogueData["daysOfGiving2020"];
+
+	public daysOfFeast2020!: CatalogueData["daysOfFeast2020"];
+
 	public dreamsGuide!: CatalogueData["dreamsGuide"];
 
 	public spinningMentor!: CatalogueData["spinningMentor"];
@@ -1196,6 +1224,12 @@ export class Catalogue {
 	public peekingPostman!: CatalogueData["peekingPostman"];
 
 	public bearhugHermit!: CatalogueData["bearhugHermit"];
+
+	public daysOfFortune2021!: CatalogueData["daysOfFortune2021"];
+
+	public daysOfLove2021!: CatalogueData["daysOfLove2021"];
+
+	public daysOfBloom2021!: CatalogueData["daysOfBloom2021"];
 
 	public assemblyGuide!: CatalogueData["assemblyGuide"];
 
@@ -1211,6 +1245,12 @@ export class Catalogue {
 
 	public daydreamForester!: CatalogueData["daydreamForester"];
 
+	public daysOfNature2021!: CatalogueData["daysOfNature2021"];
+
+	public childrensDay2021!: CatalogueData["childrensDay2021"];
+
+	public daysOfRainbow2021!: CatalogueData["daysOfRainbow2021"];
+
 	public theRose!: CatalogueData["theRose"];
 
 	public beckoningRuler!: CatalogueData["beckoningRuler"];
@@ -1225,6 +1265,12 @@ export class Catalogue {
 
 	public starCollector!: CatalogueData["starCollector"];
 
+	public skyAnniversary2021!: CatalogueData["skyAnniversary2021"];
+
+	public daysOfSummer2021!: CatalogueData["daysOfSummer2021"];
+
+	public daysOfSummerLights2021!: CatalogueData["daysOfSummerLights2021"];
+
 	public flightGuide!: CatalogueData["flightGuide"];
 
 	public livelyNavigator!: CatalogueData["livelyNavigator"];
@@ -1234,6 +1280,12 @@ export class Catalogue {
 	public tinkeringChimesmith!: CatalogueData["tinkeringChimesmith"];
 
 	public talentedBuilder!: CatalogueData["talentedBuilder"];
+
+	public daysOfMischief2021!: CatalogueData["daysOfMischief2021"];
+
+	public daysOfGiving2021!: CatalogueData["daysOfGiving2021"];
+
+	public daysOfFeast2021!: CatalogueData["daysOfFeast2021"];
 
 	public abyssGuide!: CatalogueData["abyssGuide"];
 
@@ -1245,6 +1297,14 @@ export class Catalogue {
 
 	public cacklingCannoneer!: CatalogueData["cacklingCannoneer"];
 
+	public daysOfFortune2022!: CatalogueData["daysOfFortune2022"];
+
+	public daysOfLove2022!: CatalogueData["daysOfLove2022"];
+
+	public kizunaAI2022!: CatalogueData["kizunaAI2022"];
+
+	public daysOfBloom2022!: CatalogueData["daysOfBloom2022"];
+
 	public performanceGuide!: CatalogueData["performanceGuide"];
 
 	public franticStagehand!: CatalogueData["franticStagehand"];
@@ -1254,6 +1314,12 @@ export class Catalogue {
 	public mellowMusician!: CatalogueData["mellowMusician"];
 
 	public modestDancer!: CatalogueData["modestDancer"];
+
+	public daysOfNature2022!: CatalogueData["daysOfNature2022"];
+
+	public harmonyHallGrandOpening2022!: CatalogueData["harmonyHallGrandOpening2022"];
+
+	public daysOfRainbow2022!: CatalogueData["daysOfRainbow2022"];
 
 	public theVoidOfShattering!: CatalogueData["theVoidOfShattering"];
 
@@ -1265,6 +1331,12 @@ export class Catalogue {
 
 	public ancientDarkness2!: CatalogueData["ancientDarkness2"];
 
+	public skyAnniversary2022!: CatalogueData["skyAnniversary2022"];
+
+	public daysOfSunlight2022!: CatalogueData["daysOfSunlight2022"];
+
+	public lazyDays2022!: CatalogueData["lazyDays2022"];
+
 	public aurora!: CatalogueData["aurora"];
 
 	public runningWayfarer!: CatalogueData["runningWayfarer"];
@@ -1274,6 +1346,12 @@ export class Catalogue {
 	public warriorOfLove!: CatalogueData["warriorOfLove"];
 
 	public seedOfHope!: CatalogueData["seedOfHope"];
+
+	public daysOfMischief2022!: CatalogueData["daysOfMischief2022"];
+
+	public daysOfGiving2022!: CatalogueData["daysOfGiving2022"];
+
+	public daysOfFeast2022!: CatalogueData["daysOfFeast2022"];
 
 	public remembranceGuide!: CatalogueData["remembranceGuide"];
 
@@ -1285,6 +1363,12 @@ export class Catalogue {
 
 	public woundedWarrior!: CatalogueData["woundedWarrior"];
 
+	public daysOfFortune2023!: CatalogueData["daysOfFortune2023"];
+
+	public daysOfLove2023!: CatalogueData["daysOfLove2023"];
+
+	public daysOfBloom2023!: CatalogueData["daysOfBloom2023"];
+
 	public passageGuide!: CatalogueData["passageGuide"];
 
 	public oddballOutcast!: CatalogueData["oddballOutcast"];
@@ -1294,6 +1378,12 @@ export class Catalogue {
 	public melancholyMope!: CatalogueData["melancholyMope"];
 
 	public overactiveOverachiever!: CatalogueData["overactiveOverachiever"];
+
+	public daysOfNature2023!: CatalogueData["daysOfNature2023"];
+
+	public daysOfColour2023!: CatalogueData["daysOfColour2023"];
+
+	public daysOfMusic2023!: CatalogueData["daysOfMusic2023"];
 
 	public momentsGuide!: CatalogueData["momentsGuide"];
 
@@ -1305,6 +1395,14 @@ export class Catalogue {
 
 	public asceticMonk!: CatalogueData["asceticMonk"];
 
+	public skyAnniversary2023!: CatalogueData["skyAnniversary2023"];
+
+	public auroraEncoreConcerts2023!: CatalogueData["auroraEncoreConcerts2023"];
+
+	public daysOfSunlight2023!: CatalogueData["daysOfSunlight2023"];
+
+	public daysOfStyle2023!: CatalogueData["daysOfStyle2023"];
+
 	public hopefulSteward!: CatalogueData["hopefulSteward"];
 
 	public vestigeOfADesertedOasis!: CatalogueData["vestigeOfADesertedOasis"];
@@ -1314,6 +1412,14 @@ export class Catalogue {
 	public echoOfAnAbandonedRefuge!: CatalogueData["echoOfAnAbandonedRefuge"];
 
 	public remnantOfAForgottenHaven!: CatalogueData["remnantOfAForgottenHaven"];
+
+	public daysOfMischief2023!: CatalogueData["daysOfMischief2023"];
+
+	public daysOfGiving2023!: CatalogueData["daysOfGiving2023"];
+
+	public aviarysFireworkFestival2023!: CatalogueData["aviarysFireworkFestival2023"];
+
+	public daysOfFeast2023!: CatalogueData["daysOfFeast2023"];
 
 	public spiritOfMural!: CatalogueData["spiritOfMural"];
 
@@ -1325,6 +1431,14 @@ export class Catalogue {
 
 	public princess!: CatalogueData["princess"];
 
+	public daysOfFortune2024!: CatalogueData["daysOfFortune2024"];
+
+	public daysOfLove2024!: CatalogueData["daysOfLove2024"];
+
+	public springCamping2024!: CatalogueData["springCamping2024"];
+
+	public daysOfBloom2024!: CatalogueData["daysOfBloom2024"];
+
 	public nestingGuide!: CatalogueData["nestingGuide"];
 
 	public nestingSolarium!: CatalogueData["nestingSolarium"];
@@ -1334,120 +1448,6 @@ export class Catalogue {
 	public nestingAtrium!: CatalogueData["nestingAtrium"];
 
 	public nestingNook!: CatalogueData["nestingNook"];
-
-	public halloweenOfficeEvent2019!: CatalogueData["halloweenOfficeEvent2019"];
-
-	public daysOfGiving2019!: CatalogueData["daysOfGiving2019"];
-
-	public daysOfFeast2019!: CatalogueData["daysOfFeast2019"];
-
-	public lunarNewYear2020!: CatalogueData["lunarNewYear2020"];
-
-	public daysOfLove2020!: CatalogueData["daysOfLove2020"];
-
-	public daysOfSpring2020!: CatalogueData["daysOfSpring2020"];
-
-	public daysOfNature2020!: CatalogueData["daysOfNature2020"];
-
-	public daysOfHealing2020!: CatalogueData["daysOfHealing2020"];
-
-	public daysOfRainbow2020!: CatalogueData["daysOfRainbow2020"];
-
-	public skyAnniversary2020!: CatalogueData["skyAnniversary2020"];
-
-	public daysOfSummerLights2020!: CatalogueData["daysOfSummerLights2020"];
-
-	public daysOfMischief2020!: CatalogueData["daysOfMischief2020"];
-
-	public daysOfGiving2020!: CatalogueData["daysOfGiving2020"];
-
-	public daysOfFeast2020!: CatalogueData["daysOfFeast2020"];
-
-	public daysOfFortune2021!: CatalogueData["daysOfFortune2021"];
-
-	public daysOfLove2021!: CatalogueData["daysOfLove2021"];
-
-	public daysOfBloom2021!: CatalogueData["daysOfBloom2021"];
-
-	public daysOfNature2021!: CatalogueData["daysOfNature2021"];
-
-	public childrensDay2021!: CatalogueData["childrensDay2021"];
-
-	public daysOfRainbow2021!: CatalogueData["daysOfRainbow2021"];
-
-	public skyAnniversary2021!: CatalogueData["skyAnniversary2021"];
-
-	public daysOfSummer2021!: CatalogueData["daysOfSummer2021"];
-
-	public daysOfSummerLights2021!: CatalogueData["daysOfSummerLights2021"];
-
-	public daysOfMischief2021!: CatalogueData["daysOfMischief2021"];
-
-	public daysOfGiving2021!: CatalogueData["daysOfGiving2021"];
-
-	public daysOfFeast2021!: CatalogueData["daysOfFeast2021"];
-
-	public daysOfFortune2022!: CatalogueData["daysOfFortune2022"];
-
-	public daysOfLove2022!: CatalogueData["daysOfLove2022"];
-
-	public kizunaAI2022!: CatalogueData["kizunaAI2022"];
-
-	public daysOfBloom2022!: CatalogueData["daysOfBloom2022"];
-
-	public daysOfNature2022!: CatalogueData["daysOfNature2022"];
-
-	public harmonyHallGrandOpening2022!: CatalogueData["harmonyHallGrandOpening2022"];
-
-	public daysOfRainbow2022!: CatalogueData["daysOfRainbow2022"];
-
-	public skyAnniversary2022!: CatalogueData["skyAnniversary2022"];
-
-	public daysOfSunlight2022!: CatalogueData["daysOfSunlight2022"];
-
-	public lazyDays2022!: CatalogueData["lazyDays2022"];
-
-	public daysOfMischief2022!: CatalogueData["daysOfMischief2022"];
-
-	public daysOfGiving2022!: CatalogueData["daysOfGiving2022"];
-
-	public daysOfFeast2022!: CatalogueData["daysOfFeast2022"];
-
-	public daysOfFortune2023!: CatalogueData["daysOfFortune2023"];
-
-	public daysOfLove2023!: CatalogueData["daysOfLove2023"];
-
-	public daysOfBloom2023!: CatalogueData["daysOfBloom2023"];
-
-	public daysOfNature2023!: CatalogueData["daysOfNature2023"];
-
-	public daysOfColour2023!: CatalogueData["daysOfColour2023"];
-
-	public daysOfMusic2023!: CatalogueData["daysOfMusic2023"];
-
-	public skyAnniversary2023!: CatalogueData["skyAnniversary2023"];
-
-	public auroraEncoreConcerts2023!: CatalogueData["auroraEncoreConcerts2023"];
-
-	public daysOfSunlight2023!: CatalogueData["daysOfSunlight2023"];
-
-	public daysOfStyle2023!: CatalogueData["daysOfStyle2023"];
-
-	public daysOfMischief2023!: CatalogueData["daysOfMischief2023"];
-
-	public daysOfGiving2023!: CatalogueData["daysOfGiving2023"];
-
-	public aviarysFireworkFestival2023!: CatalogueData["aviarysFireworkFestival2023"];
-
-	public daysOfFeast2023!: CatalogueData["daysOfFeast2023"];
-
-	public daysOfFortune2024!: CatalogueData["daysOfFortune2024"];
-
-	public daysOfLove2024!: CatalogueData["daysOfLove2024"];
-
-	public springCamping2024!: CatalogueData["springCamping2024"];
-
-	public daysOfBloom2024!: CatalogueData["daysOfBloom2024"];
 
 	public skyXCinnamorollPopUpCafe2024!: CatalogueData["skyXCinnamorollPopUpCafe2024"];
 
@@ -1516,6 +1516,7 @@ export class Catalogue {
 		this.twirlingChampion = data.twirling_champion;
 		this.crabWhisperer = data.crab_whisperer;
 		this.shushingLightScholar = data.shushing_light_scholar;
+		this.halloweenOfficeEvent2019 = data.halloween_office_event_2019;
 		this.belongingGuide = data.belonging_guide;
 		this.boogieKid = data.boogie_kid;
 		this.confettiCousin = data.confetti_cousin;
@@ -1523,6 +1524,8 @@ export class Catalogue {
 		this.sparklerParent = data.sparkler_parent;
 		this.pleafulParent = data.pleaful_parent;
 		this.wiseGrandparent = data.wise_grandparent;
+		this.daysOfGiving2019 = data.days_of_giving_2019;
+		this.daysOfFeast2019 = data.days_of_feast_2019;
 		this.rhythmGuide = data.rhythm_guide;
 		this.troupeGreeter = data.troupe_greeter;
 		this.festivalSpinDancer = data.festival_spin_dancer;
@@ -1530,6 +1533,9 @@ export class Catalogue {
 		this.troupeJuggler = data.troupe_juggler;
 		this.respectfulPianist = data.respectful_pianist;
 		this.thoughtfulDirector = data.thoughtful_director;
+		this.lunarNewYear2020 = data.lunar_new_year_2020;
+		this.daysOfLove2020 = data.days_of_love_2020;
+		this.daysOfSpring2020 = data.days_of_spring_2020;
 		this.enchantmentGuide = data.enchantment_guide;
 		this.noddingMuralist = data.nodding_muralist;
 		this.indifferentAlchemist = data.indifferent_alchemist;
@@ -1537,6 +1543,9 @@ export class Catalogue {
 		this.scarecrowFarmer = data.scarecrow_farmer;
 		this.snoozingCarpenter = data.snoozing_carpenter;
 		this.playfightingHerbalist = data.playfighting_herbalist;
+		this.daysOfNature2020 = data.days_of_nature_2020;
+		this.daysOfHealing2020 = data.days_of_healing_2020;
+		this.daysOfRainbow2020 = data.days_of_rainbow_2020;
 		this.sanctuaryGuide = data.sanctuary_guide;
 		this.jellyWhisperer = data.jelly_whisperer;
 		this.timidBookworm = data.timid_bookworm;
@@ -1544,16 +1553,24 @@ export class Catalogue {
 		this.hikingGrouch = data.hiking_grouch;
 		this.gratefulShellCollector = data.grateful_shell_collector;
 		this.chillSunbather = data.chill_sunbather;
+		this.skyAnniversary2020 = data.sky_anniversary_2020;
+		this.daysOfSummerLights2020 = data.days_of_summer_lights_2020;
 		this.prophecyGuide = data.prophecy_guide;
 		this.prophetOfWater = data.prophet_of_water;
 		this.prophetOfEarth = data.prophet_of_earth;
 		this.prophetOfAir = data.prophet_of_air;
 		this.prophetOfFire = data.prophet_of_fire;
+		this.daysOfMischief2020 = data.days_of_mischief_2020;
+		this.daysOfGiving2020 = data.days_of_giving_2020;
+		this.daysOfFeast2020 = data.days_of_feast_2020;
 		this.dreamsGuide = data.dreams_guide;
 		this.spinningMentor = data.spinning_mentor;
 		this.dancingPerformer = data.dancing_performer;
 		this.peekingPostman = data.peeking_postman;
 		this.bearhugHermit = data.bearhug_hermit;
+		this.daysOfFortune2021 = data.days_of_fortune_2021;
+		this.daysOfLove2021 = data.days_of_love_2021;
+		this.daysOfBloom2021 = data.days_of_bloom_2021;
 		this.assemblyGuide = data.assembly_guide;
 		this.baffledBotanist = data.baffled_botanist;
 		this.scoldingStudent = data.scolding_student;
@@ -1561,6 +1578,9 @@ export class Catalogue {
 		this.marchingAdventurer = data.marching_adventurer;
 		this.chucklingScout = data.chuckling_scout;
 		this.daydreamForester = data.daydream_forester;
+		this.daysOfNature2021 = data.days_of_nature_2021;
+		this.childrensDay2021 = data.childrens_day_2021;
+		this.daysOfRainbow2021 = data.days_of_rainbow_2021;
 		this.theRose = data.the_rose;
 		this.beckoningRuler = data.beckoning_ruler;
 		this.gloatingNarcissist = data.gloating_narcissist;
@@ -1568,118 +1588,98 @@ export class Catalogue {
 		this.slouchingSoldier = data.slouching_soldier;
 		this.sneezingGeographer = data.sneezing_geographer;
 		this.starCollector = data.star_collector;
+		this.skyAnniversary2021 = data.sky_anniversary_2021;
+		this.daysOfSummer2021 = data.days_of_summer_2021;
+		this.daysOfSummerLights2021 = data.days_of_summer_lights_2021;
 		this.flightGuide = data.flight_guide;
 		this.livelyNavigator = data.lively_navigator;
 		this.lightWhisperer = data.light_whisperer;
 		this.tinkeringChimesmith = data.tinkering_chimesmith;
 		this.talentedBuilder = data.talented_builder;
+		this.daysOfMischief2021 = data.days_of_mischief_2021;
+		this.daysOfGiving2021 = data.days_of_giving_2021;
+		this.daysOfFeast2021 = data.days_of_feast_2021;
 		this.abyssGuide = data.abyss_guide;
 		this.anxiousAngler = data.anxious_angler;
 		this.ceasingCommodore = data.ceasing_commodore;
 		this.bumblingBoatswain = data.bumbling_boatswain;
 		this.cacklingCannoneer = data.cackling_cannoneer;
+		this.daysOfFortune2022 = data.days_of_fortune_2022;
+		this.daysOfLove2022 = data.days_of_love_2022;
+		this.kizunaAI2022 = data.kizuna_ai_2022;
+		this.daysOfBloom2022 = data.days_of_bloom_2022;
 		this.performanceGuide = data.performance_guide;
 		this.franticStagehand = data.frantic_stagehand;
 		this.forgetfulStoryteller = data.forgetful_storyteller;
 		this.mellowMusician = data.mellow_musician;
 		this.modestDancer = data.modest_dancer;
+		this.daysOfNature2022 = data.days_of_nature_2022;
+		this.harmonyHallGrandOpening2022 = data.harmony_hall_grand_opening_2022;
+		this.daysOfRainbow2022 = data.days_of_rainbow_2022;
 		this.theVoidOfShattering = data.the_void_of_shattering;
 		this.ancientLight1 = data.ancient_light1;
 		this.ancientLight2 = data.ancient_light2;
 		this.ancientDarkness1 = data.ancient_darkness1;
 		this.ancientDarkness2 = data.ancient_darkness2;
+		this.skyAnniversary2022 = data.sky_anniversary_2022;
+		this.daysOfSunlight2022 = data.days_of_sunlight_2022;
+		this.lazyDays2022 = data.lazy_days_2022;
 		this.aurora = data.aurora;
 		this.runningWayfarer = data.running_wayfarer;
 		this.mindfulMiner = data.mindful_miner;
 		this.warriorOfLove = data.warrior_of_love;
 		this.seedOfHope = data.seed_of_hope;
+		this.daysOfMischief2022 = data.days_of_mischief_2022;
+		this.daysOfGiving2022 = data.days_of_giving_2022;
+		this.daysOfFeast2022 = data.days_of_feast_2022;
 		this.remembranceGuide = data.remembrance_guide;
 		this.bereftVeteran = data.bereft_veteran;
 		this.pleadingChild = data.pleading_child;
 		this.tiptoeingTeaBrewer = data.tiptoeing_tea_brewer;
 		this.woundedWarrior = data.wounded_warrior;
+		this.daysOfFortune2023 = data.days_of_fortune_2023;
+		this.daysOfLove2023 = data.days_of_love_2023;
+		this.daysOfBloom2023 = data.days_of_bloom_2023;
 		this.passageGuide = data.passage_guide;
 		this.oddballOutcast = data.oddball_outcast;
 		this.tumblingTroublemaker = data.tumbling_troublemaker;
 		this.melancholyMope = data.melancholy_mope;
 		this.overactiveOverachiever = data.overactive_overachiever;
+		this.daysOfNature2023 = data.days_of_nature_2023;
+		this.daysOfColour2023 = data.days_of_colour_2023;
+		this.daysOfMusic2023 = data.days_of_music_2023;
 		this.momentsGuide = data.moments_guide;
 		this.reassuringRanger = data.reassuring_ranger;
 		this.nightbirdWhisperer = data.nightbird_whisperer;
 		this.jollyGeologist = data.jolly_geologist;
 		this.asceticMonk = data.ascetic_monk;
+		this.skyAnniversary2023 = data.sky_anniversary_2023;
+		this.auroraEncoreConcerts2023 = data.aurora_encore_concerts_2023;
+		this.daysOfSunlight2023 = data.days_of_sunlight_2023;
+		this.daysOfStyle2023 = data.days_of_style_2023;
 		this.hopefulSteward = data.hopeful_steward;
 		this.vestigeOfADesertedOasis = data.vestige_of_a_deserted_oasis;
 		this.memoryOfALostVillage = data.memory_of_a_lost_village;
 		this.echoOfAnAbandonedRefuge = data.echo_of_an_abandoned_refuge;
 		this.remnantOfAForgottenHaven = data.remnant_of_a_forgotten_haven;
+		this.daysOfMischief2023 = data.days_of_mischief_2023;
+		this.daysOfGiving2023 = data.days_of_giving_2023;
+		this.aviarysFireworkFestival2023 = data.aviarys_firework_festival_2023;
+		this.daysOfFeast2023 = data.days_of_feast_2023;
 		this.spiritOfMural = data.spirit_of_mural;
 		this.herbGatherer = data.herb_gatherer;
 		this.hunter = data.hunter;
 		this.feudalLord = data.feudal_lord;
 		this.princess = data.princess;
+		this.daysOfFortune2024 = data.days_of_fortune_2024;
+		this.daysOfLove2024 = data.days_of_love_2024;
+		this.springCamping2024 = data.spring_camping_2024;
+		this.daysOfBloom2024 = data.days_of_bloom_2024;
 		this.nestingGuide = data.nesting_guide;
 		this.nestingSolarium = data.nesting_solarium;
 		this.nestingLoft = data.nesting_loft;
 		this.nestingAtrium = data.nesting_atrium;
 		this.nestingNook = data.nesting_nook;
-		this.halloweenOfficeEvent2019 = data.halloween_office_event_2019;
-		this.daysOfGiving2019 = data.days_of_giving_2019;
-		this.daysOfFeast2019 = data.days_of_feast_2019;
-		this.lunarNewYear2020 = data.lunar_new_year_2020;
-		this.daysOfLove2020 = data.days_of_love_2020;
-		this.daysOfSpring2020 = data.days_of_spring_2020;
-		this.daysOfNature2020 = data.days_of_nature_2020;
-		this.daysOfHealing2020 = data.days_of_healing_2020;
-		this.daysOfRainbow2020 = data.days_of_rainbow_2020;
-		this.skyAnniversary2020 = data.sky_anniversary_2020;
-		this.daysOfSummerLights2020 = data.days_of_summer_lights_2020;
-		this.daysOfMischief2020 = data.days_of_mischief_2020;
-		this.daysOfGiving2020 = data.days_of_giving_2020;
-		this.daysOfFeast2020 = data.days_of_feast_2020;
-		this.daysOfFortune2021 = data.days_of_fortune_2021;
-		this.daysOfLove2021 = data.days_of_love_2021;
-		this.daysOfBloom2021 = data.days_of_bloom_2021;
-		this.daysOfNature2021 = data.days_of_nature_2021;
-		this.childrensDay2021 = data.childrens_day_2021;
-		this.daysOfRainbow2021 = data.days_of_rainbow_2021;
-		this.skyAnniversary2021 = data.sky_anniversary_2021;
-		this.daysOfSummer2021 = data.days_of_summer_2021;
-		this.daysOfSummerLights2021 = data.days_of_summer_lights_2021;
-		this.daysOfMischief2021 = data.days_of_mischief_2021;
-		this.daysOfGiving2021 = data.days_of_giving_2021;
-		this.daysOfFeast2021 = data.days_of_feast_2021;
-		this.daysOfFortune2022 = data.days_of_fortune_2022;
-		this.daysOfLove2022 = data.days_of_love_2022;
-		this.kizunaAI2022 = data.kizuna_ai_2022;
-		this.daysOfBloom2022 = data.days_of_bloom_2022;
-		this.daysOfNature2022 = data.days_of_nature_2022;
-		this.harmonyHallGrandOpening2022 = data.harmony_hall_grand_opening_2022;
-		this.daysOfRainbow2022 = data.days_of_rainbow_2022;
-		this.skyAnniversary2022 = data.sky_anniversary_2022;
-		this.daysOfSunlight2022 = data.days_of_sunlight_2022;
-		this.lazyDays2022 = data.lazy_days_2022;
-		this.daysOfMischief2022 = data.days_of_mischief_2022;
-		this.daysOfGiving2022 = data.days_of_giving_2022;
-		this.daysOfFeast2022 = data.days_of_feast_2022;
-		this.daysOfFortune2023 = data.days_of_fortune_2023;
-		this.daysOfLove2023 = data.days_of_love_2023;
-		this.daysOfBloom2023 = data.days_of_bloom_2023;
-		this.daysOfNature2023 = data.days_of_nature_2023;
-		this.daysOfColour2023 = data.days_of_colour_2023;
-		this.daysOfMusic2023 = data.days_of_music_2023;
-		this.skyAnniversary2023 = data.sky_anniversary_2023;
-		this.auroraEncoreConcerts2023 = data.aurora_encore_concerts_2023;
-		this.daysOfSunlight2023 = data.days_of_sunlight_2023;
-		this.daysOfStyle2023 = data.days_of_style_2023;
-		this.daysOfMischief2023 = data.days_of_mischief_2023;
-		this.daysOfGiving2023 = data.days_of_giving_2023;
-		this.aviarysFireworkFestival2023 = data.aviarys_firework_festival_2023;
-		this.daysOfFeast2023 = data.days_of_feast_2023;
-		this.daysOfFortune2024 = data.days_of_fortune_2024;
-		this.daysOfLove2024 = data.days_of_love_2024;
-		this.springCamping2024 = data.spring_camping_2024;
-		this.daysOfBloom2024 = data.days_of_bloom_2024;
 		this.skyXCinnamorollPopUpCafe2024 = data.sky_x_cinnamoroll_pop_up_cafe_2024;
 		this.daysOfNature2024 = data.days_of_nature_2024;
 	}
