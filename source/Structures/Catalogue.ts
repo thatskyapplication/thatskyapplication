@@ -1453,9 +1453,9 @@ export class Catalogue {
 
 	public daysOfNature2024!: CatalogueData["daysOfNature2024"];
 
-	public constructor(spiritTrack: CataloguePacket) {
-		this.userId = spiritTrack.user_id;
-		this.patch(spiritTrack);
+	public constructor(catalogue: CataloguePacket) {
+		this.userId = catalogue.user_id;
+		this.patch(catalogue);
 	}
 
 	private patch(data: CataloguePatchData) {
