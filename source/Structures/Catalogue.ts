@@ -2316,6 +2316,7 @@ export class Catalogue {
 	}
 
 	public static async parseViewSpirit(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const catalogue = await this.fetch(interaction.user.id);
 
 		const parsedCustomId =
