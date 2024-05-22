@@ -1690,7 +1690,7 @@ export class Catalogue {
 		return new this(cataloguePacket);
 	}
 
-	public static async setSpirits(interaction: ButtonInteraction) {
+	public static async setRealm(interaction: ButtonInteraction) {
 		const { customId, user } = interaction;
 		const realm = customId.slice(customId.indexOf("§") + 1);
 
@@ -1743,7 +1743,7 @@ export class Catalogue {
 		await Catalogue.viewSeason(interaction, season);
 	}
 
-	public static async setSpirit(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+	public static async setItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const catalogue = await this.fetch(interaction.user.id);
 		const { customId } = interaction;
@@ -1759,7 +1759,8 @@ export class Catalogue {
 			return;
 		}
 
-		const name = spiritOrEvent instanceof Event ? spiritOrEvent.nameUnique : spiritOrEvent.name;
+		const isEvent = spiritOrEvent instanceof Event;
+		const name = isEvent ? spiritOrEvent.nameUnique : spiritOrEvent.name;
 		let newBit;
 
 		if (interaction instanceof ButtonInteraction) {
@@ -1784,7 +1785,7 @@ export class Catalogue {
 
 		catalogue.patch(cataloguePacket!);
 
-		await (spiritOrEvent instanceof Event
+		await (isEvent
 			? catalogue.viewEvent(interaction, spiritOrEvent)
 			: catalogue.viewSpiritResponse(interaction, newBit, spiritOrEvent));
 	}
@@ -1793,15 +1794,16 @@ export class Catalogue {
 		return pg<CataloguePacket>(Table.Catalogue).update(data).where({ user_id: userId }).returning("*");
 	}
 
-	private ownedProgress(spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit | Event) {
-		const resolvedOffer =
-			spirit instanceof Event
-				? spirit.offer
-				: spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
-				? spirit.current
-				: spirit.current ?? spirit.seasonal;
+	private ownedProgress(spiritOrEvent: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit | Event) {
+		const isEvent = spiritOrEvent instanceof Event;
 
-		const bit = this[SpiritEventNameToCatalogueName[spirit instanceof Event ? spirit.nameUnique : spirit.name]];
+		const resolvedOffer = isEvent
+			? spiritOrEvent.offer
+			: spiritOrEvent.isStandardSpirit() || spiritOrEvent.isElderSpirit() || spiritOrEvent.isGuideSpirit()
+			? spiritOrEvent.current
+			: spiritOrEvent.current ?? spiritOrEvent.seasonal;
+
+		const bit = this[SpiritEventNameToCatalogueName[isEvent ? spiritOrEvent.nameUnique : spiritOrEvent.name]];
 
 		return {
 			owned: resolvedOffer?.filter((_, itemBit) => bit && (bit & itemBit) === itemBit).size ?? 0,
@@ -1817,7 +1819,7 @@ export class Catalogue {
 		return integer === 0 ? Math.ceil(percentage) : integer === 99 ? Math.floor(percentage) : Math.round(percentage);
 	}
 
-	public spiritProgress(
+	public progress(
 		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit | Event)[],
 		round?: boolean,
 	) {
@@ -1846,10 +1848,10 @@ export class Catalogue {
 			);
 		}
 
-		const standardProgress = catalogue.spiritProgress(STANDARD_SPIRITS, true);
-		const elderProgress = catalogue.spiritProgress(ELDER_SPIRITS, true);
-		const seasonalProgress = catalogue.spiritProgress(SEASON_SPIRITS, true);
-		const eventProgress = catalogue.spiritProgress(CURRENT_EVENTS, true);
+		const standardProgress = catalogue.progress(STANDARD_SPIRITS, true);
+		const elderProgress = catalogue.progress(ELDER_SPIRITS, true);
+		const seasonalProgress = catalogue.progress(SEASON_SPIRITS, true);
+		const eventProgress = catalogue.progress(CURRENT_EVENTS, true);
 		const today = todayDate();
 		const currentSeason = resolveSeason(today);
 		const currentEvents = resolveEvents(today);
@@ -1994,7 +1996,7 @@ export class Catalogue {
 						.setMinValues(0)
 						.setOptions(
 							REALMS.map(({ name }) => {
-								const percentage = catalogue.spiritProgress(
+								const percentage = catalogue.progress(
 									STANDARD_SPIRITS.filter((spirit) => spirit.realm === name),
 									true,
 								);
@@ -2038,7 +2040,7 @@ export class Catalogue {
 		let hasEverything = true;
 
 		const options = spirits.map((spirit) => {
-			const percentage = catalogue.spiritProgress([spirit], true);
+			const percentage = catalogue.progress([spirit], true);
 			if (percentage !== null && percentage !== 100) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
@@ -2099,7 +2101,7 @@ export class Catalogue {
 		let hasEverything = true;
 
 		const options = ELDER_SPIRITS.map((spirit) => {
-			const percentage = catalogue.spiritProgress([spirit], true);
+			const percentage = catalogue.progress([spirit], true);
 			if (percentage !== null && percentage !== 100) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
@@ -2161,7 +2163,7 @@ export class Catalogue {
 						.setMinValues(0)
 						.setOptions(
 							CURRENT_SEASONS.map((season) => {
-								const percentage = catalogue.spiritProgress([season.guide, ...season.spirits], true);
+								const percentage = catalogue.progress([season.guide, ...season.spirits], true);
 
 								return new StringSelectMenuOptionBuilder()
 									.setEmoji(SeasonNameToSeasonalEmoji[season.name])
@@ -2205,7 +2207,7 @@ export class Catalogue {
 
 		const options = spirits.map((spirit) => {
 			const { name } = spirit;
-			const percentage = catalogue.spiritProgress([spirit], true);
+			const percentage = catalogue.progress([spirit], true);
 			if (percentage !== null && percentage !== 100) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
@@ -2290,7 +2292,7 @@ export class Catalogue {
 						.setMinValues(0)
 						.setOptions(
 							CURRENT_EVENTS_YEARS.map((year) => {
-								const percentage = catalogue.spiritProgress(
+								const percentage = catalogue.progress(
 									CURRENT_EVENTS.filter((event) => event.start.year === year),
 									true,
 								);
@@ -2323,7 +2325,7 @@ export class Catalogue {
 
 		const options = events.map((event) => {
 			const { name, nameUnique } = event;
-			const percentage = catalogue.spiritProgress([event], true);
+			const percentage = catalogue.progress([event], true);
 
 			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 				.setLabel(
@@ -2386,7 +2388,7 @@ export class Catalogue {
 
 		const options = spirits.map((spirit) => {
 			const { name } = spirit;
-			const percentage = catalogue.spiritProgress([spirit], true);
+			const percentage = catalogue.progress([spirit], true);
 
 			return new StringSelectMenuOptionBuilder()
 				.setEmoji(SeasonNameToSeasonalEmoji[spirit.season])
@@ -2488,7 +2490,7 @@ export class Catalogue {
 			buttons.addComponents(
 				new ButtonBuilder()
 					.setCustomId(`${CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID}§${spirit.name}`)
-					.setDisabled(this.spiritProgress([spirit]) === 100)
+					.setDisabled(this.progress([spirit]) === 100)
 					.setEmoji("💯")
 					.setLabel("I have everything!")
 					.setStyle(ButtonStyle.Success),
@@ -2621,7 +2623,7 @@ export class Catalogue {
 			buttons.addComponents(
 				new ButtonBuilder()
 					.setCustomId(`${CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID}§${nameUnique}`)
-					.setDisabled(this.spiritProgress([event]) === 100)
+					.setDisabled(this.progress([event]) === 100)
 					.setEmoji("💯")
 					.setLabel("I have everything!")
 					.setStyle(ButtonStyle.Success),

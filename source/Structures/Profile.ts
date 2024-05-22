@@ -445,10 +445,10 @@ export default class Profile {
 
 		if (typeof spiritProgression === "boolean") {
 			const catalogue = await Catalogue.fetch(userId).catch(() => null);
-			const standardProgress = catalogue?.spiritProgress(STANDARD_SPIRITS, true) ?? 0;
-			const elderProgress = catalogue?.spiritProgress(ELDER_SPIRITS, true) ?? 0;
-			const seasonalProgress = catalogue?.spiritProgress(SEASON_SPIRITS, true) ?? 0;
-			const eventProgress = catalogue?.spiritProgress(CURRENT_EVENTS, true) ?? 0;
+			const standardProgress = catalogue?.progress(STANDARD_SPIRITS, true) ?? 0;
+			const elderProgress = catalogue?.progress(ELDER_SPIRITS, true) ?? 0;
+			const seasonalProgress = catalogue?.progress(SEASON_SPIRITS, true) ?? 0;
+			const eventProgress = catalogue?.progress(CURRENT_EVENTS, true) ?? 0;
 
 			fields.push({
 				name: "Spirit Progression",
