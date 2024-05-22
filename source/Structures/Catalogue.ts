@@ -1690,110 +1690,6 @@ export class Catalogue {
 		return new this(cataloguePacket);
 	}
 
-	public static async setRealm(interaction: ButtonInteraction) {
-		const { customId, user } = interaction;
-		const realm = customId.slice(customId.indexOf("§") + 1);
-
-		if (!isRealm(realm)) {
-			throw new Error("Unknown realm.");
-		}
-
-		await this.update(
-			user.id,
-			STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm).reduce<CatalogueSetData>((data, spirit) => {
-				data[CatalogueNameToRawName[spirit.name]] = spirit.maxItemsBit;
-				return data;
-			}, {}),
-		);
-
-		await Catalogue.viewRealm(interaction, realm);
-	}
-
-	public static async setElders(interaction: ButtonInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-
-		await this.update(
-			interaction.user.id,
-			ELDER_SPIRITS.reduce<CatalogueSetData>((data, spirit) => {
-				data[CatalogueNameToRawName[spirit.name]] = spirit.maxItemsBit;
-				return data;
-			}, {}),
-		);
-
-		await Catalogue.viewElders(interaction);
-	}
-
-	public static async setSeason(interaction: ButtonInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		const { customId, user } = interaction;
-		const season = customId.slice(customId.indexOf("§") + 1);
-
-		if (!isSeasonName(season)) {
-			throw new Error("Unknown season.");
-		}
-
-		await this.update(
-			user.id,
-			SEASON_SPIRITS.filter((spirit) => spirit.season === season).reduce<CatalogueSetData>((data, spirit) => {
-				data[CatalogueNameToRawName[spirit.name]] = spirit.maxItemsBit;
-				return data;
-			}, {}),
-		);
-
-		await Catalogue.viewSeason(interaction, season);
-	}
-
-	public static async setItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		const catalogue = await this.fetch(interaction.user.id);
-		const { customId } = interaction;
-		const resolvedName = customId.slice(customId.indexOf("§") + 1);
-
-		const spiritOrEvent =
-			SPIRITS.find(({ name }) => name === resolvedName) ??
-			CURRENT_EVENTS.find(({ nameUnique }) => nameUnique === resolvedName);
-
-		if (!spiritOrEvent) {
-			pino.error(interaction, "Unknown spirit or event.");
-			await interaction.update(ERROR_RESPONSE);
-			return;
-		}
-
-		const isEvent = spiritOrEvent instanceof Event;
-		const name = isEvent ? spiritOrEvent.nameUnique : spiritOrEvent.name;
-		let newBit;
-
-		if (interaction instanceof ButtonInteraction) {
-			newBit = spiritOrEvent.maxItemsBit;
-		} else {
-			// Get the select menu where this interaction came from.
-			const { component } = interaction;
-
-			// Calculate the total bit in this select menu.
-			const selectMenuTotalBit = component.options.reduce((bit, { value }) => bit | Number(value), 0);
-
-			// Clear this bit from the total bit.
-			const modifiedTotal = (catalogue[SpiritEventNameToCatalogueName[name]] ?? 0) & ~selectMenuTotalBit;
-
-			// Calculate the new bit.
-			newBit = interaction.values.reduce((bit, value) => bit | Number(value), modifiedTotal);
-		}
-
-		const [cataloguePacket] = await this.update(interaction.user.id, {
-			[CatalogueNameToRawName[name]]: newBit,
-		});
-
-		catalogue.patch(cataloguePacket!);
-
-		await (isEvent
-			? catalogue.viewEvent(interaction, spiritOrEvent)
-			: catalogue.viewSpiritResponse(interaction, newBit, spiritOrEvent));
-	}
-
-	private static async update(userId: Catalogue["userId"], data: CatalogueSetData) {
-		return pg<CataloguePacket>(Table.Catalogue).update(data).where({ user_id: userId }).returning("*");
-	}
-
 	private ownedProgress(spiritOrEvent: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit | Event) {
 		const isEvent = spiritOrEvent instanceof Event;
 
@@ -2670,6 +2566,110 @@ export class Catalogue {
 
 		components.push(buttons);
 		await interaction.update({ components, content: "", embeds: [embed] });
+	}
+
+	public static async setRealm(interaction: ButtonInteraction) {
+		const { customId, user } = interaction;
+		const realm = customId.slice(customId.indexOf("§") + 1);
+
+		if (!isRealm(realm)) {
+			throw new Error("Unknown realm.");
+		}
+
+		await this.update(
+			user.id,
+			STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm).reduce<CatalogueSetData>((data, spirit) => {
+				data[CatalogueNameToRawName[spirit.name]] = spirit.maxItemsBit;
+				return data;
+			}, {}),
+		);
+
+		await Catalogue.viewRealm(interaction, realm);
+	}
+
+	public static async setElders(interaction: ButtonInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+
+		await this.update(
+			interaction.user.id,
+			ELDER_SPIRITS.reduce<CatalogueSetData>((data, spirit) => {
+				data[CatalogueNameToRawName[spirit.name]] = spirit.maxItemsBit;
+				return data;
+			}, {}),
+		);
+
+		await Catalogue.viewElders(interaction);
+	}
+
+	public static async setSeason(interaction: ButtonInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		const { customId, user } = interaction;
+		const season = customId.slice(customId.indexOf("§") + 1);
+
+		if (!isSeasonName(season)) {
+			throw new Error("Unknown season.");
+		}
+
+		await this.update(
+			user.id,
+			SEASON_SPIRITS.filter((spirit) => spirit.season === season).reduce<CatalogueSetData>((data, spirit) => {
+				data[CatalogueNameToRawName[spirit.name]] = spirit.maxItemsBit;
+				return data;
+			}, {}),
+		);
+
+		await Catalogue.viewSeason(interaction, season);
+	}
+
+	public static async setItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		const catalogue = await this.fetch(interaction.user.id);
+		const { customId } = interaction;
+		const resolvedName = customId.slice(customId.indexOf("§") + 1);
+
+		const spiritOrEvent =
+			SPIRITS.find(({ name }) => name === resolvedName) ??
+			CURRENT_EVENTS.find(({ nameUnique }) => nameUnique === resolvedName);
+
+		if (!spiritOrEvent) {
+			pino.error(interaction, "Unknown spirit or event.");
+			await interaction.update(ERROR_RESPONSE);
+			return;
+		}
+
+		const isEvent = spiritOrEvent instanceof Event;
+		const name = isEvent ? spiritOrEvent.nameUnique : spiritOrEvent.name;
+		let newBit;
+
+		if (interaction instanceof ButtonInteraction) {
+			newBit = spiritOrEvent.maxItemsBit;
+		} else {
+			// Get the select menu where this interaction came from.
+			const { component } = interaction;
+
+			// Calculate the total bit in this select menu.
+			const selectMenuTotalBit = component.options.reduce((bit, { value }) => bit | Number(value), 0);
+
+			// Clear this bit from the total bit.
+			const modifiedTotal = (catalogue[SpiritEventNameToCatalogueName[name]] ?? 0) & ~selectMenuTotalBit;
+
+			// Calculate the new bit.
+			newBit = interaction.values.reduce((bit, value) => bit | Number(value), modifiedTotal);
+		}
+
+		const [cataloguePacket] = await this.update(interaction.user.id, {
+			[CatalogueNameToRawName[name]]: newBit,
+		});
+
+		catalogue.patch(cataloguePacket!);
+
+		await (isEvent
+			? catalogue.viewEvent(interaction, spiritOrEvent)
+			: catalogue.viewSpiritResponse(interaction, newBit, spiritOrEvent));
+	}
+
+	private static async update(userId: Catalogue["userId"], data: CatalogueSetData) {
+		return pg<CataloguePacket>(Table.Catalogue).update(data).where({ user_id: userId }).returning("*");
 	}
 
 	private summateCurrency(
