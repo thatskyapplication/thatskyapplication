@@ -1282,7 +1282,7 @@ export class SpiritTracker {
 	}
 
 	public static async fetch(userId: Snowflake) {
-		const [spiritTrackerPacket] = await pg<SpiritTrackerPacket>(Table.SpiritTracker).where("user_id", userId);
+		const [spiritTrackerPacket] = await pg<SpiritTrackerPacket>(Table.Catalogue).where("user_id", userId);
 		if (!spiritTrackerPacket) throw new Error("No spirit tracker data found.");
 		return new this(spiritTrackerPacket);
 	}
@@ -1373,7 +1373,7 @@ export class SpiritTracker {
 	}
 
 	private static async update(userId: SpiritTracker["userId"], data: SpiritTracketSetData) {
-		return pg<SpiritTrackerPacket>(Table.SpiritTracker).update(data).where({ user_id: userId }).returning("*");
+		return pg<SpiritTrackerPacket>(Table.Catalogue).update(data).where({ user_id: userId }).returning("*");
 	}
 
 	private ownedProgress(spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit) {
@@ -1423,7 +1423,7 @@ export class SpiritTracker {
 			spiritTracker = existingSpiritTracker;
 		} else {
 			spiritTracker = new this(
-				(await pg<SpiritTrackerPacket>(Table.SpiritTracker).insert({ user_id: interaction.user.id }, "*"))[0]!,
+				(await pg<SpiritTrackerPacket>(Table.Catalogue).insert({ user_id: interaction.user.id }, "*"))[0]!,
 			);
 		}
 

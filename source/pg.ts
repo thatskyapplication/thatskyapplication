@@ -12,7 +12,7 @@ export enum Table {
 	Hugs = "hugs",
 	Notifications = "notifications",
 	Profiles = "profiles",
-	SpiritTracker = "spirit_tracker",
+	Catalogue = "catalogue",
 }
 
 const { DATABASE_URL, DEVELOPMENT_DATABASE_URL } = process.env;

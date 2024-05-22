@@ -39,7 +39,7 @@ export async function deleteUserData(interaction: ButtonInteraction) {
 	}
 
 	promises.push(pg<ProfilePacket>(Table.Profiles).delete().where({ user_id: id }));
-	promises.push(pg<SpiritTrackerPacket>(Table.SpiritTracker).delete().where({ user_id: id }));
+	promises.push(pg<SpiritTrackerPacket>(Table.Catalogue).delete().where({ user_id: id }));
 	promises.push(pg<HeartPacket>(Table.Hearts).update({ gifter_id: null }).where({ gifter_id: id }));
 	promises.push(pg<HeartPacket>(Table.Hearts).update({ giftee_id: null }).where({ giftee_id: id }));
 
