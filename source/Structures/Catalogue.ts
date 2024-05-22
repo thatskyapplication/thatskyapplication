@@ -62,7 +62,6 @@ export interface CataloguePacket {
 	pointing_candlemaker: CatalogueValue;
 	ushering_stargazer: CatalogueValue;
 	rejecting_voyager: CatalogueValue;
-	elder_of_the_isle: CatalogueValue;
 	butterfly_charmer: CatalogueValue;
 	applauding_bellmaker: CatalogueValue;
 	waving_bellmaker: CatalogueValue;
@@ -71,7 +70,6 @@ export interface CataloguePacket {
 	bird_whisperer: CatalogueValue;
 	exhausted_dock_worker: CatalogueValue;
 	ceremonial_worshiper: CatalogueValue;
-	elder_of_the_prairie: CatalogueValue;
 	shivering_trailblazer: CatalogueValue;
 	blushing_prospector: CatalogueValue;
 	hide_n_seek_pioneer: CatalogueValue;
@@ -80,7 +78,6 @@ export interface CataloguePacket {
 	apologetic_lumberjack: CatalogueValue;
 	tearful_light_miner: CatalogueValue;
 	whale_whisperer: CatalogueValue;
-	elder_of_the_forest: CatalogueValue;
 	confident_sightseer: CatalogueValue;
 	handstanding_thrillseeker: CatalogueValue;
 	manta_whisperer: CatalogueValue;
@@ -88,19 +85,22 @@ export interface CataloguePacket {
 	cheerful_spectator: CatalogueValue;
 	bowing_medalist: CatalogueValue;
 	proud_victor: CatalogueValue;
-	elder_of_the_valley: CatalogueValue;
 	frightened_refugee: CatalogueValue;
 	fainting_warrior: CatalogueValue;
 	courageous_soldier: CatalogueValue;
 	stealthy_survivor: CatalogueValue;
 	saluting_captain: CatalogueValue;
 	lookout_scout: CatalogueValue;
-	elder_of_the_wasteland: CatalogueValue;
 	praying_acolyte: CatalogueValue;
 	levitating_adept: CatalogueValue;
 	polite_scholar: CatalogueValue;
 	memory_whisperer: CatalogueValue;
 	meditating_monastic: CatalogueValue;
+	elder_of_the_isle: CatalogueValue;
+	elder_of_the_prairie: CatalogueValue;
+	elder_of_the_forest: CatalogueValue;
+	elder_of_the_valley: CatalogueValue;
+	elder_of_the_wasteland: CatalogueValue;
 	elder_of_the_vault: CatalogueValue;
 	gratitude_guide: CatalogueValue;
 	sassy_drifter: CatalogueValue;
@@ -289,7 +289,6 @@ interface CatalogueData {
 	pointingCandlemaker: CataloguePacket["pointing_candlemaker"];
 	usheringStargazer: CataloguePacket["ushering_stargazer"];
 	rejectingVoyager: CataloguePacket["rejecting_voyager"];
-	elderOfTheIsle: CataloguePacket["elder_of_the_isle"];
 	butterflyCharmer: CataloguePacket["butterfly_charmer"];
 	applaudingBellmaker: CataloguePacket["applauding_bellmaker"];
 	wavingBellmaker: CataloguePacket["waving_bellmaker"];
@@ -298,7 +297,6 @@ interface CatalogueData {
 	birdWhisperer: CataloguePacket["bird_whisperer"];
 	exhaustedDockWorker: CataloguePacket["exhausted_dock_worker"];
 	ceremonialWorshiper: CataloguePacket["ceremonial_worshiper"];
-	elderOfThePrairie: CataloguePacket["elder_of_the_prairie"];
 	shiveringTrailblazer: CataloguePacket["shivering_trailblazer"];
 	blushingProspector: CataloguePacket["blushing_prospector"];
 	hideNSeekPioneer: CataloguePacket["hide_n_seek_pioneer"];
@@ -307,7 +305,6 @@ interface CatalogueData {
 	apologeticLumberjack: CataloguePacket["apologetic_lumberjack"];
 	tearfulLightMiner: CataloguePacket["tearful_light_miner"];
 	whaleWhisperer: CataloguePacket["whale_whisperer"];
-	elderOfTheForest: CataloguePacket["elder_of_the_forest"];
 	confidentSightseer: CataloguePacket["confident_sightseer"];
 	handstandingThrillseeker: CataloguePacket["handstanding_thrillseeker"];
 	mantaWhisperer: CataloguePacket["manta_whisperer"];
@@ -315,19 +312,22 @@ interface CatalogueData {
 	cheerfulSpectator: CataloguePacket["cheerful_spectator"];
 	bowingMedalist: CataloguePacket["bowing_medalist"];
 	proudVictor: CataloguePacket["proud_victor"];
-	elderOfTheValley: CataloguePacket["elder_of_the_valley"];
 	frightenedRefugee: CataloguePacket["frightened_refugee"];
 	faintingWarrior: CataloguePacket["fainting_warrior"];
 	courageousSoldier: CataloguePacket["courageous_soldier"];
 	stealthySurvivor: CataloguePacket["stealthy_survivor"];
 	salutingCaptain: CataloguePacket["saluting_captain"];
 	lookoutScout: CataloguePacket["lookout_scout"];
-	elderOfTheWasteland: CataloguePacket["elder_of_the_wasteland"];
 	prayingAcolyte: CataloguePacket["praying_acolyte"];
 	levitatingAdept: CataloguePacket["levitating_adept"];
 	politeScholar: CataloguePacket["polite_scholar"];
 	memoryWhisperer: CataloguePacket["memory_whisperer"];
 	meditatingMonastic: CataloguePacket["meditating_monastic"];
+	elderOfTheIsle: CataloguePacket["elder_of_the_isle"];
+	elderOfThePrairie: CataloguePacket["elder_of_the_prairie"];
+	elderOfTheForest: CataloguePacket["elder_of_the_forest"];
+	elderOfTheValley: CataloguePacket["elder_of_the_valley"];
+	elderOfTheWasteland: CataloguePacket["elder_of_the_wasteland"];
 	elderOfTheVault: CataloguePacket["elder_of_the_vault"];
 	gratitudeGuide: CataloguePacket["gratitude_guide"];
 	sassyDrifter: CataloguePacket["sassy_drifter"];
@@ -518,7 +518,6 @@ const CatalogueNameToRawName = {
 	[SpiritName.PointingCandlemaker]: "pointing_candlemaker",
 	[SpiritName.UsheringStargazer]: "ushering_stargazer",
 	[SpiritName.RejectingVoyager]: "rejecting_voyager",
-	[SpiritName.ElderOfTheIsle]: "elder_of_the_isle",
 	[SpiritName.ButterflyCharmer]: "butterfly_charmer",
 	[SpiritName.ApplaudingBellmaker]: "applauding_bellmaker",
 	[SpiritName.WavingBellmaker]: "waving_bellmaker",
@@ -527,7 +526,6 @@ const CatalogueNameToRawName = {
 	[SpiritName.BirdWhisperer]: "bird_whisperer",
 	[SpiritName.ExhaustedDockWorker]: "exhausted_dock_worker",
 	[SpiritName.CeremonialWorshiper]: "ceremonial_worshiper",
-	[SpiritName.ElderOfThePrairie]: "elder_of_the_prairie",
 	[SpiritName.ShiveringTrailblazer]: "shivering_trailblazer",
 	[SpiritName.BlushingProspector]: "blushing_prospector",
 	[SpiritName.HideNSeekPioneer]: "hide_n_seek_pioneer",
@@ -536,7 +534,6 @@ const CatalogueNameToRawName = {
 	[SpiritName.ApologeticLumberjack]: "apologetic_lumberjack",
 	[SpiritName.TearfulLightMiner]: "tearful_light_miner",
 	[SpiritName.WhaleWhisperer]: "whale_whisperer",
-	[SpiritName.ElderOfTheForest]: "elder_of_the_forest",
 	[SpiritName.ConfidentSightseer]: "confident_sightseer",
 	[SpiritName.HandstandingThrillseeker]: "handstanding_thrillseeker",
 	[SpiritName.MantaWhisperer]: "manta_whisperer",
@@ -544,19 +541,22 @@ const CatalogueNameToRawName = {
 	[SpiritName.CheerfulSpectator]: "cheerful_spectator",
 	[SpiritName.BowingMedalist]: "bowing_medalist",
 	[SpiritName.ProudVictor]: "proud_victor",
-	[SpiritName.ElderOfTheValley]: "elder_of_the_valley",
 	[SpiritName.FrightenedRefugee]: "frightened_refugee",
 	[SpiritName.FaintingWarrior]: "fainting_warrior",
 	[SpiritName.CourageousSoldier]: "courageous_soldier",
 	[SpiritName.StealthySurvivor]: "stealthy_survivor",
 	[SpiritName.SalutingCaptain]: "saluting_captain",
 	[SpiritName.LookoutScout]: "lookout_scout",
-	[SpiritName.ElderOfTheWasteland]: "elder_of_the_wasteland",
 	[SpiritName.PrayingAcolyte]: "praying_acolyte",
 	[SpiritName.LevitatingAdept]: "levitating_adept",
 	[SpiritName.PoliteScholar]: "polite_scholar",
 	[SpiritName.MemoryWhisperer]: "memory_whisperer",
 	[SpiritName.MeditatingMonastic]: "meditating_monastic",
+	[SpiritName.ElderOfTheIsle]: "elder_of_the_isle",
+	[SpiritName.ElderOfThePrairie]: "elder_of_the_prairie",
+	[SpiritName.ElderOfTheForest]: "elder_of_the_forest",
+	[SpiritName.ElderOfTheValley]: "elder_of_the_valley",
+	[SpiritName.ElderOfTheWasteland]: "elder_of_the_wasteland",
 	[SpiritName.ElderOfTheVault]: "elder_of_the_vault",
 	[SpiritName.GratitudeGuide]: "gratitude_guide",
 	[SpiritName.SassyDrifter]: "sassy_drifter",
@@ -744,7 +744,6 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.PointingCandlemaker]: "pointingCandlemaker",
 	[SpiritName.UsheringStargazer]: "usheringStargazer",
 	[SpiritName.RejectingVoyager]: "rejectingVoyager",
-	[SpiritName.ElderOfTheIsle]: "elderOfTheIsle",
 	[SpiritName.ButterflyCharmer]: "butterflyCharmer",
 	[SpiritName.ApplaudingBellmaker]: "applaudingBellmaker",
 	[SpiritName.WavingBellmaker]: "wavingBellmaker",
@@ -753,7 +752,6 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.BirdWhisperer]: "birdWhisperer",
 	[SpiritName.ExhaustedDockWorker]: "exhaustedDockWorker",
 	[SpiritName.CeremonialWorshiper]: "ceremonialWorshiper",
-	[SpiritName.ElderOfThePrairie]: "elderOfThePrairie",
 	[SpiritName.ShiveringTrailblazer]: "shiveringTrailblazer",
 	[SpiritName.BlushingProspector]: "blushingProspector",
 	[SpiritName.HideNSeekPioneer]: "hideNSeekPioneer",
@@ -762,7 +760,6 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.ApologeticLumberjack]: "apologeticLumberjack",
 	[SpiritName.TearfulLightMiner]: "tearfulLightMiner",
 	[SpiritName.WhaleWhisperer]: "whaleWhisperer",
-	[SpiritName.ElderOfTheForest]: "elderOfTheForest",
 	[SpiritName.ConfidentSightseer]: "confidentSightseer",
 	[SpiritName.HandstandingThrillseeker]: "handstandingThrillseeker",
 	[SpiritName.MantaWhisperer]: "mantaWhisperer",
@@ -770,19 +767,22 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.CheerfulSpectator]: "cheerfulSpectator",
 	[SpiritName.BowingMedalist]: "bowingMedalist",
 	[SpiritName.ProudVictor]: "proudVictor",
-	[SpiritName.ElderOfTheValley]: "elderOfTheValley",
 	[SpiritName.FrightenedRefugee]: "frightenedRefugee",
 	[SpiritName.FaintingWarrior]: "faintingWarrior",
 	[SpiritName.CourageousSoldier]: "courageousSoldier",
 	[SpiritName.StealthySurvivor]: "stealthySurvivor",
 	[SpiritName.SalutingCaptain]: "salutingCaptain",
 	[SpiritName.LookoutScout]: "lookoutScout",
-	[SpiritName.ElderOfTheWasteland]: "elderOfTheWasteland",
 	[SpiritName.PrayingAcolyte]: "prayingAcolyte",
 	[SpiritName.LevitatingAdept]: "levitatingAdept",
 	[SpiritName.PoliteScholar]: "politeScholar",
 	[SpiritName.MemoryWhisperer]: "memoryWhisperer",
 	[SpiritName.MeditatingMonastic]: "meditatingMonastic",
+	[SpiritName.ElderOfTheIsle]: "elderOfTheIsle",
+	[SpiritName.ElderOfThePrairie]: "elderOfThePrairie",
+	[SpiritName.ElderOfTheForest]: "elderOfTheForest",
+	[SpiritName.ElderOfTheValley]: "elderOfTheValley",
+	[SpiritName.ElderOfTheWasteland]: "elderOfTheWasteland",
 	[SpiritName.ElderOfTheVault]: "elderOfTheVault",
 	[SpiritName.GratitudeGuide]: "gratitudeGuide",
 	[SpiritName.SassyDrifter]: "sassyDrifter",
@@ -1013,8 +1013,6 @@ export class Catalogue {
 
 	public rejectingVoyager!: CatalogueData["rejectingVoyager"];
 
-	public elderOfTheIsle!: CatalogueData["elderOfTheIsle"];
-
 	public butterflyCharmer!: CatalogueData["butterflyCharmer"];
 
 	public applaudingBellmaker!: CatalogueData["applaudingBellmaker"];
@@ -1030,8 +1028,6 @@ export class Catalogue {
 	public exhaustedDockWorker!: CatalogueData["exhaustedDockWorker"];
 
 	public ceremonialWorshiper!: CatalogueData["ceremonialWorshiper"];
-
-	public elderOfThePrairie!: CatalogueData["elderOfThePrairie"];
 
 	public shiveringTrailblazer!: CatalogueData["shiveringTrailblazer"];
 
@@ -1049,8 +1045,6 @@ export class Catalogue {
 
 	public whaleWhisperer!: CatalogueData["whaleWhisperer"];
 
-	public elderOfTheForest!: CatalogueData["elderOfTheForest"];
-
 	public confidentSightseer!: CatalogueData["confidentSightseer"];
 
 	public handstandingThrillseeker!: CatalogueData["handstandingThrillseeker"];
@@ -1065,8 +1059,6 @@ export class Catalogue {
 
 	public proudVictor!: CatalogueData["proudVictor"];
 
-	public elderOfTheValley!: CatalogueData["elderOfTheValley"];
-
 	public frightenedRefugee!: CatalogueData["frightenedRefugee"];
 
 	public faintingWarrior!: CatalogueData["faintingWarrior"];
@@ -1079,8 +1071,6 @@ export class Catalogue {
 
 	public lookoutScout!: CatalogueData["lookoutScout"];
 
-	public elderOfTheWasteland!: CatalogueData["elderOfTheWasteland"];
-
 	public prayingAcolyte!: CatalogueData["prayingAcolyte"];
 
 	public levitatingAdept!: CatalogueData["levitatingAdept"];
@@ -1090,6 +1080,16 @@ export class Catalogue {
 	public memoryWhisperer!: CatalogueData["memoryWhisperer"];
 
 	public meditatingMonastic!: CatalogueData["meditatingMonastic"];
+
+	public elderOfTheIsle!: CatalogueData["elderOfTheIsle"];
+
+	public elderOfThePrairie!: CatalogueData["elderOfThePrairie"];
+
+	public elderOfTheForest!: CatalogueData["elderOfTheForest"];
+
+	public elderOfTheValley!: CatalogueData["elderOfTheValley"];
+
+	public elderOfTheWasteland!: CatalogueData["elderOfTheWasteland"];
 
 	public elderOfTheVault!: CatalogueData["elderOfTheVault"];
 
@@ -1462,7 +1462,6 @@ export class Catalogue {
 		this.pointingCandlemaker = data.pointing_candlemaker;
 		this.usheringStargazer = data.ushering_stargazer;
 		this.rejectingVoyager = data.rejecting_voyager;
-		this.elderOfTheIsle = data.elder_of_the_isle;
 		this.butterflyCharmer = data.butterfly_charmer;
 		this.applaudingBellmaker = data.applauding_bellmaker;
 		this.wavingBellmaker = data.waving_bellmaker;
@@ -1471,7 +1470,6 @@ export class Catalogue {
 		this.birdWhisperer = data.bird_whisperer;
 		this.exhaustedDockWorker = data.exhausted_dock_worker;
 		this.ceremonialWorshiper = data.ceremonial_worshiper;
-		this.elderOfThePrairie = data.elder_of_the_prairie;
 		this.shiveringTrailblazer = data.shivering_trailblazer;
 		this.blushingProspector = data.blushing_prospector;
 		this.hideNSeekPioneer = data.hide_n_seek_pioneer;
@@ -1480,7 +1478,6 @@ export class Catalogue {
 		this.apologeticLumberjack = data.apologetic_lumberjack;
 		this.tearfulLightMiner = data.tearful_light_miner;
 		this.whaleWhisperer = data.whale_whisperer;
-		this.elderOfTheForest = data.elder_of_the_forest;
 		this.confidentSightseer = data.confident_sightseer;
 		this.handstandingThrillseeker = data.handstanding_thrillseeker;
 		this.mantaWhisperer = data.manta_whisperer;
@@ -1488,19 +1485,22 @@ export class Catalogue {
 		this.cheerfulSpectator = data.cheerful_spectator;
 		this.bowingMedalist = data.bowing_medalist;
 		this.proudVictor = data.proud_victor;
-		this.elderOfTheValley = data.elder_of_the_valley;
 		this.frightenedRefugee = data.frightened_refugee;
 		this.faintingWarrior = data.fainting_warrior;
 		this.courageousSoldier = data.courageous_soldier;
 		this.stealthySurvivor = data.stealthy_survivor;
 		this.salutingCaptain = data.saluting_captain;
 		this.lookoutScout = data.lookout_scout;
-		this.elderOfTheWasteland = data.elder_of_the_wasteland;
 		this.prayingAcolyte = data.praying_acolyte;
 		this.levitatingAdept = data.levitating_adept;
 		this.politeScholar = data.polite_scholar;
 		this.memoryWhisperer = data.memory_whisperer;
 		this.meditatingMonastic = data.meditating_monastic;
+		this.elderOfTheIsle = data.elder_of_the_isle;
+		this.elderOfThePrairie = data.elder_of_the_prairie;
+		this.elderOfTheForest = data.elder_of_the_forest;
+		this.elderOfTheValley = data.elder_of_the_valley;
+		this.elderOfTheWasteland = data.elder_of_the_wasteland;
 		this.elderOfTheVault = data.elder_of_the_vault;
 		this.gratitudeGuide = data.gratitude_guide;
 		this.sassyDrifter = data.sassy_drifter;
