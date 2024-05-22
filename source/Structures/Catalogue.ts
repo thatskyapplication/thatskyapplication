@@ -2907,9 +2907,10 @@ export class Catalogue {
 		spiritOrEvent: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit | Event,
 		includeSeasonalCurrency?: boolean,
 	) {
+		const isEvent = spiritOrEvent instanceof Event;
 		let resolvedOffer;
 
-		if (spiritOrEvent instanceof Event) {
+		if (isEvent) {
 			resolvedOffer = spiritOrEvent.offer;
 		} else {
 			const seasonalParsing = spiritOrEvent.isSeasonalSpirit() && !spiritOrEvent.current;
@@ -2917,11 +2918,7 @@ export class Catalogue {
 		}
 
 		if (!resolvedOffer) return null;
-
-		const bit =
-			this[
-				SpiritEventNameToCatalogueName[spiritOrEvent instanceof Event ? spiritOrEvent.nameUnique : spiritOrEvent.name]
-			];
+		const bit = this[SpiritEventNameToCatalogueName[isEvent ? spiritOrEvent.nameUnique : spiritOrEvent.name]];
 
 		const result = addCosts(
 			resolvedOffer
