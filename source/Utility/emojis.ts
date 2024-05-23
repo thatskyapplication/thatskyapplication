@@ -454,7 +454,7 @@ export const OUTFIT_EMOJIS = {
 	 */
 	Outfit37: { name: "outfit", id: "1181712959601377310" },
 	/**
-	 * Cure for Me.
+	 * To The Love Outfit.
 	 */
 	Outfit38: { name: "outfit", id: "1181712962893914153" },
 	/**
@@ -1726,7 +1726,7 @@ export const HAIR_EMOJIS = {
 	 */
 	Hair114: { name: "hair", id: "1183627336676016162" },
 	/**
-	 * Season of AURORA in-app purchase.
+	 * Runaway Hairstyle.
 	 */
 	Hair115: { name: "hair", id: "1183627340065030144" },
 	/**
