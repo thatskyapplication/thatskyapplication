@@ -2205,16 +2205,6 @@ export class Catalogue {
 			),
 		];
 
-		const embed = catalogue
-			.spiritEmbed(spirits, locale)
-			.setTitle(
-				`${formatEmoji(SeasonNameToSeasonalEmoji[seasonName])} ${t(`seasons.${seasonName}`, {
-					lng: locale,
-					ns: "general",
-				})}`,
-			)
-			.setURL(season.wikiURL);
-
 		if (season.inAppPurchases && isSeasonNameWithIAPs(seasonName)) {
 			const bit = catalogue[SpiritEventNameToCatalogueName[seasonName]];
 
@@ -2236,32 +2226,6 @@ export class Catalogue {
 						.setPlaceholder("What IAPs do you have?"),
 				),
 			);
-
-			const fieldValue = [];
-			const owned = [];
-			const unowned = [];
-
-			for (const [flag, { emoji }] of season.inAppPurchases.entries()) {
-				if (bit && (bit & flag) === flag) {
-					owned.push(formatEmoji(emoji));
-				} else {
-					unowned.push(formatEmoji(emoji));
-				}
-			}
-
-			if (owned.length > 0) fieldValue.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
-			if (unowned.length > 0) fieldValue.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
-			const remainingCurrency = catalogue.remainingCurrency(season.inAppPurchases, bit);
-
-			if (remainingCurrency) {
-				const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
-
-				if (resolvedRemainingCurrency.length > 0) {
-					fieldValue.push(`${resolvedRemainingCurrency.join("")}`);
-				}
-			}
-
-			embed.setFields({ name: "In-App Purchases", value: fieldValue.join("\n") });
 		}
 
 		components.push(
@@ -2286,7 +2250,7 @@ export class Catalogue {
 			),
 		);
 
-		await interaction.update({ content: "", components, embeds: [embed] });
+		await interaction.update({ content: "", components, embeds: [catalogue.seasonEmbed(season, locale)] });
 	}
 
 	public static async viewEventYears(interaction: ButtonInteraction | StringSelectMenuInteraction) {
@@ -2825,6 +2789,86 @@ export class Catalogue {
 				return totalCost ? addCosts([remainingCurrency, totalCost]) : remainingCurrency;
 			}, {}),
 		);
+	}
+
+	private seasonEmbed(season: Season, locale: Locale) {
+		const description = [];
+		const remainingCurrencies = [];
+
+		const offers: [SpiritName | SeasonNameWithIAPs, Collection<number, Item> | null][] = [
+			[season.guide.name, season.guide.current],
+			...season.spirits.map<[SpiritName | SeasonNameWithIAPs, Collection<number, Item>]>((spirit) => [
+				spirit.name,
+				spirit.current ?? spirit.seasonal,
+			]),
+		];
+
+		if (isSeasonNameWithIAPs(season.name) && season.inAppPurchases) offers.push([season.name, season.inAppPurchases]);
+
+		for (const [index, offer] of offers) {
+			if (!offer) continue;
+			const bit = this[SpiritEventNameToCatalogueName[index]];
+			const offerDescription = [];
+			const owned = [];
+			const unowned = [];
+
+			for (const [flag, { emoji }] of offer.entries()) {
+				if (bit && (bit & flag) === flag) {
+					owned.push(formatEmoji(emoji));
+				} else {
+					unowned.push(formatEmoji(emoji));
+				}
+			}
+
+			if (owned.length > 0) offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
+			if (unowned.length > 0) offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
+			const remainingCurrency = this.remainingCurrency(offer, bit, true);
+			remainingCurrencies.push(remainingCurrency);
+			const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
+			if (resolvedRemainingCurrency.length > 0) offerDescription.push(`${resolvedRemainingCurrency.join("")}`);
+
+			description.push(
+				`${`__${
+					isSeasonNameWithIAPs(index)
+						? "In-App Purchases"
+						: t(`spiritNames.${index}`, {
+								lng: locale,
+								ns: "general",
+						  })
+				}__\n`}${offerDescription.join("\n")}`,
+			);
+		}
+
+		const totalRemainingCurrency = resolveCostToString(addCosts(remainingCurrencies));
+
+		if (totalRemainingCurrency.length > 0) {
+			description.unshift(`__Remaining Currency__\n${totalRemainingCurrency.join("")}`);
+		}
+
+		const embed = new EmbedBuilder()
+			.setColor(DEFAULT_EMBED_COLOUR)
+			.setTitle(
+				`${formatEmoji(SeasonNameToSeasonalEmoji[season.name])} ${t(`seasons.${season.name}`, {
+					lng: locale,
+					ns: "general",
+				})}`,
+			)
+			.setURL(season.wikiURL);
+
+		if (description.length > 0) {
+			let descriptionString = description.join("\n\n");
+
+			// If the resulting description exceeds 4,096 characters, replace the yes and no emojis with Unicode variants.
+			if (descriptionString.length > 4_096) {
+				descriptionString = descriptionString
+					.replaceAll(formatEmoji(MISCELLANEOUS_EMOJIS.Yes), "✅")
+					.replaceAll(formatEmoji(MISCELLANEOUS_EMOJIS.No), "❌");
+			}
+
+			embed.setDescription(descriptionString);
+		}
+
+		return embed;
 	}
 
 	private spiritEmbed(
