@@ -1794,7 +1794,11 @@ export class Catalogue {
 		let total = 0;
 
 		for (const event of events) {
-			const { owned, total: offerTotal } = this.ownedProgress(event.offer, this[SpiritEventNameToCatalogueName[event.nameUnique]]);
+			const { owned, total: offerTotal } = this.ownedProgress(
+				event.offer,
+				this[SpiritEventNameToCatalogueName[event.nameUnique]],
+			);
+
 			numbers.push(owned);
 			total += offerTotal;
 		}
