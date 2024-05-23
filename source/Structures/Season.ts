@@ -79,6 +79,8 @@ export class Season {
 
 	public readonly inAppPurchases: Collection<number, Item> | null;
 
+	public readonly maximumInAppPurchasesBits: number | null;
+
 	public readonly emoji: SeasonEmojis;
 
 	public readonly candleEmoji: SeasonEmojis;
@@ -94,6 +96,11 @@ export class Season {
 		this.guide = data.guide;
 		this.spirits = data.spirits;
 		this.inAppPurchases = data.inAppPurchases ? resolveOffer(data.inAppPurchases) : null;
+
+		this.maximumInAppPurchasesBits = data.inAppPurchases
+			? data.inAppPurchases.reduce((bits, _, bit) => bit | bits, 0)
+			: null;
+
 		this.emoji = SeasonNameToSeasonalEmoji[this.name];
 		this.candleEmoji = SeasonNameToSeasonalCandleEmoji[this.name];
 		this.seasonalCandlesRotation = data.seasonalCandlesRotation;

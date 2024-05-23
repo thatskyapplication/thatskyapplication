@@ -46,7 +46,6 @@ import { SPIRITS } from "../catalogue/spirits/index.js";
 import { ELDER_SPIRITS, REALMS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
 import {
 	CURRENT_SEASONS,
-	SEASON_SPIRITS,
 	isSeasonName,
 	resolveReturningSpirits,
 	resolveSeason,
@@ -2676,21 +2675,32 @@ export class Catalogue {
 	public static async setSeason(interaction: ButtonInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { customId, user } = interaction;
-		const season = customId.slice(customId.indexOf("§") + 1);
+		const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
+		const season = CURRENT_SEASONS.find((season) => season.name === parsedCustomId);
 
-		if (!isSeasonName(season)) {
+		if (!season) {
+			pino.error(interaction, "Unknown season.");
 			throw new Error("Unknown season.");
+		}
+
+		const offers: [SpiritName | SeasonNameWithIAPs, number | null][] = [
+			[season.guide.name, season.guide.maxItemsBit],
+			...season.spirits.map<[SpiritName, number]>((spirit) => [spirit.name, spirit.maxItemsBit]),
+		];
+
+		if (isSeasonNameWithIAPs(season.name) && season.inAppPurchases) {
+			offers.push([season.name, season.maximumInAppPurchasesBits]);
 		}
 
 		await this.update(
 			user.id,
-			SEASON_SPIRITS.filter((spirit) => spirit.season === season).reduce<CatalogueSetData>((data, spirit) => {
-				data[CatalogueNameToRawName[spirit.name]] = spirit.maxItemsBit;
+			offers.reduce<CatalogueSetData>((data, [index, maximumBit]) => {
+				data[CatalogueNameToRawName[index]] = maximumBit;
 				return data;
 			}, {}),
 		);
 
-		await Catalogue.viewSeason(interaction, season);
+		await Catalogue.viewSeason(interaction, season.name);
 	}
 
 	public static async setSeasonIAPs(interaction: StringSelectMenuInteraction) {
@@ -2700,7 +2710,7 @@ export class Catalogue {
 
 		if (!isSeasonNameWithIAPs(seasonName)) {
 			pino.error(interaction, "Unknown season with IAPs.");
-			throw new Error("Unknown season.");
+			throw new Error("Unknown season with IAPs.");
 		}
 
 		const bit = values.reduce((bit, value) => bit | Number(value), 0);
