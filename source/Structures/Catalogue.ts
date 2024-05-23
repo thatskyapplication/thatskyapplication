@@ -2912,15 +2912,9 @@ export class Catalogue {
 			if (owned.length > 0) spiritDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
 			if (unowned.length > 0) spiritDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
 			const remainingCurrency = this.remainingCurrency(offer, bit, true);
-
-			if (remainingCurrency) {
-				remainingCurrencies.push(remainingCurrency);
-				const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
-
-				if (resolvedRemainingCurrency.length > 0) {
-					spiritDescription.push(`${resolvedRemainingCurrency.join("")}`);
-				}
-			}
+			remainingCurrencies.push(remainingCurrency);
+			const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
+			if (resolvedRemainingCurrency.length > 0) spiritDescription.push(`${resolvedRemainingCurrency.join("")}`);
 
 			description.push(
 				`${
