@@ -2169,12 +2169,10 @@ export class Catalogue {
 
 		const catalogue = await this.fetch(user.id);
 		const spirits = [season.guide, ...season.spirits];
-		let hasEverything = true;
 
 		const options = spirits.map((spirit) => {
 			const { name } = spirit;
 			const percentage = catalogue.spiritProgress([spirit], true);
-			if (percentage !== null && percentage !== 100) hasEverything = false;
 
 			return new StringSelectMenuOptionBuilder()
 				.setLabel(
@@ -2240,7 +2238,7 @@ export class Catalogue {
 					.setStyle(ButtonStyle.Primary),
 				new ButtonBuilder()
 					.setCustomId(`${CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID}§${seasonName}`)
-					.setDisabled(hasEverything)
+					.setDisabled(catalogue.seasonProgress([season]) === 100)
 					.setEmoji("💯")
 					.setLabel("I have everything!")
 					.setStyle(ButtonStyle.Success),
