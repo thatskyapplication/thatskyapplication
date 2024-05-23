@@ -2841,14 +2841,9 @@ export class Catalogue {
 			remainingCurrencies.push(remainingCurrency);
 
 			description.push(
-				`${`__${
-					isSeasonNameWithIAPs(index)
-						? "In-App Purchases"
-						: t(`spiritNames.${index}`, {
-								lng: locale,
-								ns: "general",
-						  })
-				}__\n`}${offerDescription.join("\n")}`,
+				`__${
+					isSeasonNameWithIAPs(index) ? "In-App Purchases" : t(`spiritNames.${index}`, { lng: locale, ns: "general" })
+				}__\n${offerDescription.join("\n")}`,
 			);
 		}
 
