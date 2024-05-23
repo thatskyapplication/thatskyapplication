@@ -165,7 +165,7 @@ abstract class BaseFriendshipTree {
 }
 
 abstract class StandardFriendshipTree extends BaseFriendshipTree {
-	public declare readonly current: Collection<number, Item> | null;
+	public declare readonly current: Collection<number, Item>;
 
 	public declare readonly totalCost: Required<ItemCost>;
 
@@ -173,7 +173,7 @@ abstract class StandardFriendshipTree extends BaseFriendshipTree {
 }
 
 abstract class ElderFriendshipTree extends BaseFriendshipTree {
-	public declare readonly current: Collection<number, Item> | null;
+	public declare readonly current: Collection<number, Item>;
 
 	public declare readonly totalCost: Required<ItemCost>;
 
@@ -183,7 +183,7 @@ abstract class ElderFriendshipTree extends BaseFriendshipTree {
 abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 	public override readonly maxItemsBit: number;
 
-	public readonly seasonal: Collection<number, Item> | null;
+	public readonly seasonal: Collection<number, Item>;
 
 	public readonly totalCostSeasonal: Required<ItemCost>;
 
@@ -212,8 +212,6 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 }
 
 abstract class GuideFriendshipTree extends BaseFriendshipTree {
-	public declare readonly current: Collection<number, Item> | null;
-
 	public readonly inProgress: boolean;
 
 	public constructor(guideFriendshipTreeData: GuideFriendshipTreeData) {
