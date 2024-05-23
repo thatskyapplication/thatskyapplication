@@ -2555,32 +2555,10 @@ export class Catalogue {
 			.setURL(wikiURL);
 
 		const description = [];
-		const owned = [];
-		const unowned = [];
 
 		if (offer) {
-			for (const [flag, { emoji }] of offer.entries()) {
-				if (bit && (bit & flag) === flag) {
-					owned.push(formatEmoji(emoji));
-				} else {
-					unowned.push(formatEmoji(emoji));
-				}
-			}
-
-			if (owned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
-			if (unowned.length > 0) description.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
-
-			const remainingCurrency = event.offer
-				? this.remainingCurrency(event.offer, this[SpiritEventNameToCatalogueName[event.nameUnique]], true)
-				: null;
-
-			if (remainingCurrency) {
-				const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
-
-				if (resolvedRemainingCurrency.length > 0) {
-					description.push(`${resolvedRemainingCurrency.join("")}`);
-				}
-			}
+			const { offerDescription } = this.embedProgress(bit, offer);
+			description.push(offerDescription.join("\n"));
 		}
 
 		if (offerInfographicURL) {
