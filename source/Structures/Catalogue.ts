@@ -2312,6 +2312,23 @@ export class Catalogue {
 			return stringSelectMenuOptionBuilder;
 		});
 
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(`Events ${year}`);
+
+		for (const event of events) {
+			if (!event.offer) continue;
+
+			const { offerDescription } = catalogue.embedProgress(
+				catalogue[SpiritEventNameToCatalogueName[event.nameUnique]],
+				event.offer,
+			);
+
+			embed.addFields({
+				name: t(`events.${event.name}`, { lng: locale, ns: "general" }),
+				value: offerDescription.join("\n"),
+				inline: true,
+			});
+		}
+
 		await interaction.update({
 			content: "",
 			components: [
@@ -2332,14 +2349,7 @@ export class Catalogue {
 						.setStyle(ButtonStyle.Primary),
 				),
 			],
-			embeds: [
-				// catalogue.spiritEmbed(spirits, locale).setTitle(
-				// 	`${formatEmoji(SeasonNameToSeasonalEmoji[season])} ${t(`seasons.${season}`, {
-				// 		lng: locale,
-				// 		ns: "general",
-				// 	})}`,
-				// ),
-			],
+			embeds: [embed],
 		});
 	}
 
