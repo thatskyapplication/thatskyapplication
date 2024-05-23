@@ -2,7 +2,6 @@ import {
 	type ChatInputCommandInteraction,
 	type Collection,
 	type EmbedAuthorOptions,
-	type InteractionUpdateOptions,
 	type Locale,
 	type MessageActionRowComponentBuilder,
 	type Snowflake,
@@ -2021,7 +2020,7 @@ export class Catalogue {
 				.setValue(spirit.name);
 		});
 
-		const response = {
+		await interaction.update({
 			content: "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
@@ -2058,9 +2057,7 @@ export class Catalogue {
 					.setFooter({ text: CATALOGUE_STANDARD_PERCENTAGE_NOTE })
 					.setTitle(t(`realms.${realm}`, { lng: locale, ns: "general" })),
 			],
-		} satisfies InteractionUpdateOptions;
-
-		await interaction.update(response);
+		});
 	}
 
 	public static async viewElders(interaction: ButtonInteraction | StringSelectMenuInteraction) {
@@ -2313,7 +2310,7 @@ export class Catalogue {
 			return stringSelectMenuOptionBuilder;
 		});
 
-		const response = {
+		await interaction.update({
 			content: "",
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
@@ -2341,14 +2338,7 @@ export class Catalogue {
 				// 	})}`,
 				// ),
 			],
-		} satisfies InteractionUpdateOptions;
-
-		if (options.length === 0) {
-			response.components.shift();
-			response.content = "There are no spirits.";
-		}
-
-		await interaction.update(response);
+		});
 	}
 
 	public static async viewReturningSpirits(interaction: ButtonInteraction) {
