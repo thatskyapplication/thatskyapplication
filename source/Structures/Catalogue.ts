@@ -2995,10 +2995,7 @@ export class Catalogue {
 			backButton.setCustomId(`${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${type}`).setEmoji(emoji);
 
 			embed = catalogue
-				.spiritEmbed(
-					SEASON_SPIRITS.filter((spirit) => spirit.season === type),
-					locale,
-				)
+				.seasonEmbed(CURRENT_SEASONS.find((season) => season.name === type)!, locale)
 				.setTitle(`${formatEmoji(emoji)} ${t(`seasons.${type}`, { lng: locale, ns: "general" })} Progress`);
 		} else if (type === CATALOGUE_SHARE_ELDER_KEY) {
 			backButton.setCustomId(CATALOGUE_VIEW_ELDERS_CUSTOM_ID);
