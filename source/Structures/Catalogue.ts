@@ -2791,6 +2791,18 @@ export class Catalogue {
 		);
 	}
 
+	private realmsEmbed(locale: Locale) {
+		return new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setDescription(
+			REALMS.map(({ name }) => {
+				const remainingCurrency = this.summateCurrency(STANDARD_SPIRITS.filter((spirit) => spirit.realm === name));
+
+				return `__${t(`realms.${name}`, { lng: locale, ns: "general" })}__\n${
+					remainingCurrency.length > 0 ? remainingCurrency.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
+				}`;
+			}).join("\n\n"),
+		);
+	}
+
 	private seasonEmbed(season: Season, locale: Locale) {
 		const description = [];
 		const remainingCurrencies = [];
@@ -2941,18 +2953,6 @@ export class Catalogue {
 		}
 
 		return embed;
-	}
-
-	private realmsEmbed(locale: Locale) {
-		return new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setDescription(
-			REALMS.map(({ name }) => {
-				const remainingCurrency = this.summateCurrency(STANDARD_SPIRITS.filter((spirit) => spirit.realm === name));
-
-				return `__${t(`realms.${name}`, { lng: locale, ns: "general" })}__\n${
-					remainingCurrency.length > 0 ? remainingCurrency.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
-				}`;
-			}).join("\n\n"),
-		);
 	}
 
 	public static async sharePrompt(interaction: ButtonInteraction) {
