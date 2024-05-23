@@ -2761,36 +2761,46 @@ export class Catalogue {
 		return pg<CataloguePacket>(Table.Catalogue).update(data).where({ user_id: userId }).returning("*");
 	}
 
-	private summateCurrency(
-		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
-		season?: SeasonName | null,
-	) {
-		return resolveCostToString(
-			spirits.reduce((remainingCurrency, spirit) => {
-				const offer = spirit.isSeasonalSpirit() && !spirit.current ? spirit.seasonal : spirit.current;
-
-				const totalCost = offer
-					? this.remainingCurrency(
-							offer,
-							this[SpiritEventNameToCatalogueName[spirit.name]],
-							resolveSeason(todayDate())?.name === season,
-					  )
-					: null;
-				return totalCost ? addCosts([remainingCurrency, totalCost]) : remainingCurrency;
-			}, {}),
-		);
-	}
-
 	private realmsEmbed(locale: Locale) {
 		return new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setDescription(
-			REALMS.map(({ name }) => {
-				const remainingCurrency = this.summateCurrency(STANDARD_SPIRITS.filter((spirit) => spirit.realm === name));
+			REALMS.map((realm) => {
+				const remainingCurrency = resolveCostToString(
+					realm.spirits.reduce(
+						(remainingCurrency, spirit) =>
+							addCosts([
+								remainingCurrency,
+								this.remainingCurrency(spirit.current, this[SpiritEventNameToCatalogueName[spirit.name]]),
+							]),
+						{},
+					),
+				);
 
-				return `__${t(`realms.${name}`, { lng: locale, ns: "general" })}__\n${
+				return `__${t(`realms.${realm.name}`, { lng: locale, ns: "general" })}__\n${
 					remainingCurrency.length > 0 ? remainingCurrency.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
 				}`;
 			}).join("\n\n"),
 		);
+	}
+
+	private embedProgress(bit: CatalogueValue, offer: Collection<number, Item>) {
+		const offerDescription = [];
+		const owned = [];
+		const unowned = [];
+
+		for (const [flag, { emoji }] of offer.entries()) {
+			if (bit && (bit & flag) === flag) {
+				owned.push(formatEmoji(emoji));
+			} else {
+				unowned.push(formatEmoji(emoji));
+			}
+		}
+
+		if (owned.length > 0) offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
+		if (unowned.length > 0) offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
+		const remainingCurrency = this.remainingCurrency(offer, bit, true);
+		const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
+		if (resolvedRemainingCurrency.length > 0) offerDescription.push(`${resolvedRemainingCurrency.join("")}`);
+		return { remainingCurrency, offerDescription };
 	}
 
 	private seasonEmbed(season: Season, locale: Locale) {
@@ -2809,25 +2819,13 @@ export class Catalogue {
 
 		for (const [index, offer] of offers) {
 			if (!offer) continue;
-			const bit = this[SpiritEventNameToCatalogueName[index]];
-			const offerDescription = [];
-			const owned = [];
-			const unowned = [];
 
-			for (const [flag, { emoji }] of offer.entries()) {
-				if (bit && (bit & flag) === flag) {
-					owned.push(formatEmoji(emoji));
-				} else {
-					unowned.push(formatEmoji(emoji));
-				}
-			}
+			const { remainingCurrency, offerDescription } = this.embedProgress(
+				this[SpiritEventNameToCatalogueName[index]],
+				offer,
+			);
 
-			if (owned.length > 0) offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
-			if (unowned.length > 0) offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
-			const remainingCurrency = this.remainingCurrency(offer, bit, true);
 			remainingCurrencies.push(remainingCurrency);
-			const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
-			if (resolvedRemainingCurrency.length > 0) offerDescription.push(`${resolvedRemainingCurrency.join("")}`);
 
 			description.push(
 				`${`__${
@@ -2882,34 +2880,22 @@ export class Catalogue {
 		const remainingCurrencies = [];
 
 		for (const spirit of spirits) {
-			const bit = this[SpiritEventNameToCatalogueName[spirit.name]];
-			const spiritDescription = [];
 			const isSeasonalSpirit = spirit.isSeasonalSpirit();
 			const seasonalParsing = isSeasonalSpirit && !spirit.current;
 			const offer = seasonalParsing ? spirit.seasonal : spirit.current;
 			if (!offer) continue;
-			const owned = [];
-			const unowned = [];
 
-			for (const [flag, { emoji }] of offer.entries()) {
-				if (bit && (bit & flag) === flag) {
-					owned.push(formatEmoji(emoji));
-				} else {
-					unowned.push(formatEmoji(emoji));
-				}
-			}
+			const { remainingCurrency, offerDescription } = this.embedProgress(
+				this[SpiritEventNameToCatalogueName[spirit.name]],
+				offer,
+			);
 
-			if (owned.length > 0) spiritDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
-			if (unowned.length > 0) spiritDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
-			const remainingCurrency = this.remainingCurrency(offer, bit, true);
 			remainingCurrencies.push(remainingCurrency);
-			const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
-			if (resolvedRemainingCurrency.length > 0) spiritDescription.push(`${resolvedRemainingCurrency.join("")}`);
 
 			description.push(
 				`${
 					multiple ? `__${t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" })}__\n` : ""
-				}${spiritDescription.join("\n")}`,
+				}${offerDescription.join("\n")}`,
 			);
 		}
 
