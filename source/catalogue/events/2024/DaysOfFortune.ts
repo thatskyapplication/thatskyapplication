@@ -19,7 +19,7 @@ export default new Event({
 	offer: new Collection<number, ItemRaw>()
 		.set(1 << 0, { name: "Mask", cost: { eventCurrency: 14 }, emoji: MASK_EMOJIS.Mask90 })
 		.set(1 << 1, { name: "Prop", cost: { eventCurrency: 34 }, emoji: HELD_PROPS_EMOJIS.HeldProp41 })
-		.set(1 << 2, { name: "Days of Fortune Dragon Vestment", cost: { money: 9.99 }, emoji: OUTFIT_EMOJIS.Outfit56 })
+		.set(1 << 2, { name: "Days of Fortune Dragon Vestment", cost: { money: 9.99 }, emoji: OUTFIT_EMOJIS.Outfit57 })
 		.set(1 << 3, { name: "Days of Fortune Dragon Stole", cost: { money: 14.99 }, emoji: CAPE_EMOJIS.Cape126 })
 		.set(1 << 4, {
 			name: "Days of Fortune Dragon Bangles",

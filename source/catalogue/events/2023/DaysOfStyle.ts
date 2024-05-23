@@ -35,5 +35,5 @@ export default new Event({
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory32,
 		})
 		.set(1 << 6, { name: "Style Bunny Slippers", cost: { money: 6.99 }, emoji: SHOE_EMOJIS.Shoe08 })
-		.set(1 << 7, { name: "Style Wide-Leg Jeans", cost: { money: 9.99 }, emoji: OUTFIT_EMOJIS.Outfit49 }),
+		.set(1 << 7, { name: "Style Wide-Leg Jeans", cost: { money: 9.99 }, emoji: OUTFIT_EMOJIS.Outfit50 }),
 });
