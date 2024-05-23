@@ -2541,8 +2541,8 @@ export class Catalogue {
 	private async viewEvent(interaction: ButtonInteraction | StringSelectMenuInteraction, event: Event) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale } = interaction;
-		const bit = this[SpiritEventNameToCatalogueName[event.nameUnique]];
-		const { name, nameUnique, start, eventCurrencyEmoji, offer, offerInfographicURL } = event;
+		const { name, nameUnique, start, eventCurrencyEmoji, offer, offerInfographicURL, wikiURL } = event;
+		const bit = this[SpiritEventNameToCatalogueName[nameUnique]];
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
@@ -2552,7 +2552,7 @@ export class Catalogue {
 					ns: "general",
 				})}`,
 			)
-			.setURL(event.wikiURL);
+			.setURL(wikiURL);
 
 		const description = [];
 		const owned = [];
