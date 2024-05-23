@@ -2475,15 +2475,13 @@ export class Catalogue {
 					.setStyle(ButtonStyle.Success),
 			);
 
-			const itemSelectionOptions = offer.map(({ emoji, name }, flag) => {
-				const stringSelectMenuOption = new StringSelectMenuOptionBuilder()
+			const itemSelectionOptions = offer.map(({ emoji, name }, flag) =>
+				new StringSelectMenuOptionBuilder()
 					.setDefault(Boolean(bit && bit & flag))
+					.setEmoji(emoji)
 					.setLabel(name)
-					.setValue(String(flag));
-
-				if (emoji) stringSelectMenuOption.setEmoji(emoji);
-				return stringSelectMenuOption;
-			});
+					.setValue(String(flag)),
+			);
 
 			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
 
@@ -2589,15 +2587,13 @@ export class Catalogue {
 					.setStyle(ButtonStyle.Success),
 			);
 
-			const itemSelectionOptions = offer.map(({ emoji, name }, flag) => {
-				const stringSelectMenuOption = new StringSelectMenuOptionBuilder()
+			const itemSelectionOptions = offer.map(({ emoji, name }, flag) =>
+				new StringSelectMenuOptionBuilder()
 					.setDefault(Boolean(bit && bit & flag))
+					.setEmoji(emoji)
 					.setLabel(name)
-					.setValue(String(flag));
-
-				if (emoji) stringSelectMenuOption.setEmoji(emoji);
-				return stringSelectMenuOption;
-			});
+					.setValue(String(flag)),
+			);
 
 			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
 
