@@ -278,6 +278,7 @@ export interface CataloguePacket {
 	hunter: CatalogueValue;
 	feudal_lord: CatalogueValue;
 	princess: CatalogueValue;
+	season_of_the_nine_coloured_deer_iaps: CatalogueValue;
 	days_of_fortune_2024: CatalogueValue;
 	days_of_love_2024: CatalogueValue;
 	spring_camping_2024: CatalogueValue;
@@ -508,6 +509,7 @@ interface CatalogueData {
 	hunter: CataloguePacket["hunter"];
 	feudalLord: CataloguePacket["feudal_lord"];
 	princess: CataloguePacket["princess"];
+	seasonOfTheNineColouredDeerIAPs: CataloguePacket["season_of_the_nine_coloured_deer_iaps"];
 	daysOfFortune2024: CataloguePacket["days_of_fortune_2024"];
 	daysOfLove2024: CataloguePacket["days_of_love_2024"];
 	springCamping2024: CataloguePacket["spring_camping_2024"];
@@ -740,6 +742,7 @@ const CatalogueNameToRawName = {
 	[SpiritName.Hunter]: "hunter",
 	[SpiritName.FeudalLord]: "feudal_lord",
 	[SpiritName.Princess]: "princess",
+	[SeasonName.NineColoredDeer]: "season_of_the_nine_coloured_deer_iaps",
 	[EventNameUnique.DaysOfFortune2024]: "days_of_fortune_2024",
 	[EventNameUnique.DaysOfLove2024]: "days_of_love_2024",
 	[EventNameUnique.SpringCamping2024]: "spring_camping_2024",
@@ -971,6 +974,7 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.Hunter]: "hunter",
 	[SpiritName.FeudalLord]: "feudalLord",
 	[SpiritName.Princess]: "princess",
+	[SeasonName.NineColoredDeer]: "seasonOfTheNineColouredDeerIAPs",
 	[EventNameUnique.DaysOfFortune2024]: "daysOfFortune2024",
 	[EventNameUnique.DaysOfLove2024]: "daysOfLove2024",
 	[EventNameUnique.SpringCamping2024]: "springCamping2024",
@@ -1457,6 +1461,8 @@ export class Catalogue {
 
 	public princess!: CatalogueData["princess"];
 
+	public seasonOfTheNineColouredDeerIAPs!: CatalogueData["seasonOfTheNineColouredDeerIAPs"];
+
 	public daysOfFortune2024!: CatalogueData["daysOfFortune2024"];
 
 	public daysOfLove2024!: CatalogueData["daysOfLove2024"];
@@ -1701,6 +1707,7 @@ export class Catalogue {
 		this.hunter = data.hunter;
 		this.feudalLord = data.feudal_lord;
 		this.princess = data.princess;
+		this.seasonOfTheNineColouredDeerIAPs = data.season_of_the_nine_coloured_deer_iaps;
 		this.daysOfFortune2024 = data.days_of_fortune_2024;
 		this.daysOfLove2024 = data.days_of_love_2024;
 		this.springCamping2024 = data.spring_camping_2024;
