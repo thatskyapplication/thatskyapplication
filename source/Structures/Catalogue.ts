@@ -2212,8 +2212,7 @@ export class Catalogue {
 			.setURL(season.wikiURL);
 
 		if (season.inAppPurchases && isSeasonNameWithIAPs(seasonName)) {
-			// TODO: Remove assertion.
-			const bit = catalogue[SpiritEventNameToCatalogueName[seasonName as SeasonName.LittlePrince]];
+			const bit = catalogue[SpiritEventNameToCatalogueName[seasonName]];
 
 			const inAppPurchasesOptions = season.inAppPurchases.map(({ emoji, name }, flag) =>
 				new StringSelectMenuOptionBuilder()
@@ -2749,8 +2748,7 @@ export class Catalogue {
 		}
 
 		const bit = values.reduce((bit, value) => bit | Number(value), 0);
-		// TODO: Remove assertion.
-		await this.update(user.id, { [CatalogueNameToRawName[seasonName as SeasonName.LittlePrince]]: bit });
+		await this.update(user.id, { [CatalogueNameToRawName[seasonName]]: bit });
 		await Catalogue.viewSeason(interaction, seasonName);
 	}
 
