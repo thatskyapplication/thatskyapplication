@@ -149,7 +149,7 @@ abstract class BaseFriendshipTree {
 			? addCosts(this.current.map((item) => item.cost).filter((cost): cost is ItemCost => cost !== null))
 			: null;
 
-		this.maxItemsBit = offer?.current ? this.resolveMaxItemsBit(offer?.current) : null;
+		this.maxItemsBit = offer?.current ? this.resolveMaxItemsBit(offer.current) : null;
 		this.imageURL = (offer ? offer.hasInfographic ?? true : false) ? this.resolveImageURL(name) : null;
 	}
 

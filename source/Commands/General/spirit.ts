@@ -233,7 +233,7 @@ export default new (class implements AutocompleteCommand {
 		if (imageURL) {
 			embed.setImage(imageURL);
 		} else {
-			const offer = seasonalParsing ? spirit.seasonal : spirit?.current;
+			const offer = seasonalParsing ? spirit.seasonal : spirit.current;
 			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
