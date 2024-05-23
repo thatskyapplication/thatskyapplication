@@ -2283,7 +2283,12 @@ export class Catalogue {
 						.setStyle(ButtonStyle.Primary),
 				),
 			],
-			embeds: [],
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription("Events are grouped by year.")
+					.setTitle("Events By Year"),
+			],
 		});
 	}
 
