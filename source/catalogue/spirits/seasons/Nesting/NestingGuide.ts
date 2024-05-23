@@ -19,7 +19,7 @@ export default new GuideSpirit({
 			.set(1 << 0, { name: "Quest 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 1, { name: "Heart 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 2, { name: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace34 })
-			.set(1 << 3, { name: "Ultimate outfit", cost: { seasonalHearts: 2 }, emoji: OUTFIT_EMOJIS.Outfit57 })
+			.set(1 << 3, { name: "Ultimate outfit", cost: { seasonalHearts: 2 }, emoji: OUTFIT_EMOJIS.Outfit58 })
 			.set(1 << 4, {
 				name: "Ultimate prop",
 				cost: { seasonalHearts: 2 },

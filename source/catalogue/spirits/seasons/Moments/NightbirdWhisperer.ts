@@ -16,7 +16,7 @@ import { SpiritCall, SpiritCallToEmoji, SpiritName } from "../../../../Utility/s
 const call = SpiritCall.Nightbird;
 const callEmoji = SpiritCallToEmoji[call];
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
-const outfitEmoji = OUTFIT_EMOJIS.Outfit48;
+const outfitEmoji = OUTFIT_EMOJIS.Outfit49;
 const shoeEmoji = SHOE_EMOJIS.Shoe04;
 const hairEmoji = HAIR_EMOJIS.Hair127;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory26;

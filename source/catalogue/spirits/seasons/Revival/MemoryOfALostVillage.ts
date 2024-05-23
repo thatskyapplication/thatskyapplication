@@ -12,7 +12,7 @@ import {
 import { SpiritName } from "../../../../Utility/spirits.js";
 
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
-const outfitEmoji = OUTFIT_EMOJIS.Outfit50;
+const outfitEmoji = OUTFIT_EMOJIS.Outfit51;
 const hairEmoji = HAIR_EMOJIS.Hair131;
 const capeEmoji = CAPE_EMOJIS.Cape114;
 

@@ -15,7 +15,7 @@ import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../Utili
 const stance = SpiritStance.Injured;
 const stanceEmoji = SpiritStanceToEmoji[stance];
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
-const outfitEmoji = OUTFIT_EMOJIS.Outfit40;
+const outfitEmoji = OUTFIT_EMOJIS.Outfit41;
 const maskEmoji = MASK_EMOJIS.Mask74;
 const capeEmoji = CAPE_EMOJIS.Cape99;
 

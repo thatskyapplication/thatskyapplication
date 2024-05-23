@@ -457,81 +457,85 @@ export const OUTFIT_EMOJIS = {
 	 */
 	Outfit38: { name: "outfit", id: "1181712962893914153" },
 	/**
+	 * Runaway Outfit.
+	 */
+	Outfit39: { name: "outfit", id: "1243127630287343647" },
+	/**
 	 * Pleading Child.
 	 */
-	Outfit39: { name: "outfit", id: "1181712965607637123" },
+	Outfit40: { name: "outfit", id: "1181712965607637123" },
 	/**
 	 * Wounded Warrior.
 	 */
-	Outfit40: { name: "outfit", id: "1181712968245850236" },
+	Outfit41: { name: "outfit", id: "1181712968245850236" },
 	/**
 	 * Tiptoeing Tea-Brewer.
 	 */
-	Outfit41: { name: "outfit", id: "1181712971127337011" },
+	Outfit42: { name: "outfit", id: "1181712971127337011" },
 	/**
 	 * Days of Fortune Muralist's Smock.
 	 */
-	Outfit42: { name: "outfit", id: "1181712973908168787" },
+	Outfit43: { name: "outfit", id: "1181712973908168787" },
 	/**
 	 * Bloom Gardening Tunic.
 	 */
-	Outfit43: { name: "outfit", id: "1181712977167138936" },
+	Outfit44: { name: "outfit", id: "1181712977167138936" },
 	/**
 	 * Melancholy Mope.
 	 */
-	Outfit44: { name: "outfit", id: "1181712980254150750" },
+	Outfit45: { name: "outfit", id: "1181712980254150750" },
 	/**
 	 * Oddball Outcast.
 	 */
-	Outfit45: { name: "outfit", id: "1181712983882203166" },
+	Outfit46: { name: "outfit", id: "1181712983882203166" },
 	/**
 	 * Dark Rainbow Tunic.
 	 */
-	Outfit46: { name: "outfit", id: "1181712986801447004" },
+	Outfit47: { name: "outfit", id: "1181712986801447004" },
 	/**
 	 * Ascetic Monk.
 	 */
-	Outfit47: { name: "outfit", id: "1181712990177874021" },
+	Outfit48: { name: "outfit", id: "1181712990177874021" },
 	/**
 	 * Nightbird Whisperer.
 	 */
-	Outfit48: { name: "outfit", id: "1181712994212790352" },
+	Outfit49: { name: "outfit", id: "1181712994212790352" },
 	/**
 	 * Style Wide-Leg Jeans.
 	 */
-	Outfit49: { name: "outfit", id: "1181712996762923018" },
+	Outfit50: { name: "outfit", id: "1181712996762923018" },
 	/**
 	 * Memory of a Lost Village.
 	 */
-	Outfit50: { name: "outfit", id: "1181712999388565544" },
+	Outfit51: { name: "outfit", id: "1243124993936588820" },
 	/**
 	 * Mischief Goth Garment.
 	 */
-	Outfit51: { name: "outfit", id: "1181716521479847966" },
+	Outfit52: { name: "outfit", id: "1181716521479847966" },
 	/**
 	 * Spirit of Mural (ultimate).
 	 */
-	Outfit52: { name: "outfit", id: "1195925478763143208" },
+	Outfit53: { name: "outfit", id: "1195925478763143208" },
 	/**
 	 * Herb Gatherer.
 	 */
-	Outfit53: { name: "outfit", id: "1195930123610882159" },
+	Outfit54: { name: "outfit", id: "1195930123610882159" },
 	/**
 	 * Hunter.
 	 */
-	Outfit54: { name: "outfit", id: "1195937722234310666" },
+	Outfit55: { name: "outfit", id: "1195937722234310666" },
 	/**
 	 * Princess.
 	 */
-	Outfit55: { name: "outfit", id: "1195958681376927804" },
+	Outfit56: { name: "outfit", id: "1195958681376927804" },
 	/**
 	 * Days of Fortune Dragon Vestment.
 	 */
-	Outfit56: { name: "outfit", id: "1201595022949224469" },
+	Outfit57: { name: "outfit", id: "1201595022949224469" },
 	/**
 	 * Nesting Guide (ultimate).
 	 */
-	Outfit57: { name: "outfit", id: "1229145924064907334" },
+	Outfit58: { name: "outfit", id: "1229145924064907334" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];

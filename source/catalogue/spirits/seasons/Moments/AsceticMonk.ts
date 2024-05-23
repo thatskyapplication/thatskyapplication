@@ -15,7 +15,7 @@ import { SpiritEmote, SpiritName, SpiritEmoteToEmoji } from "../../../../Utility
 const emote = SpiritEmote.BlindfoldBalancePose;
 const emoteEmoji = SpiritEmoteToEmoji[emote];
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
-const outfitEmoji = OUTFIT_EMOJIS.Outfit47;
+const outfitEmoji = OUTFIT_EMOJIS.Outfit48;
 const maskEmoji = MASK_EMOJIS.Mask82;
 const hairEmoji = HAIR_EMOJIS.Hair128;
 
