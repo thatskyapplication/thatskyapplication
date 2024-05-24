@@ -50,7 +50,7 @@ export default {
 			[SeasonName.Passage]: "La saison de l'Initiation",
 			[SeasonName.Moments]: "La saison des Instants",
 			[SeasonName.Revival]: "Saison du Renouveau",
-			[SeasonName.NineColoredDeer]: "Saison du Cerf aux neuf couleurs",
+			[SeasonName.NineColouredDeer]: "Saison du Cerf aux neuf couleurs",
 			[SeasonName.Nesting]: "Saison de la Nidification",
 		},
 		"shard-eruption": "Éruption d'Éclats",

@@ -34,7 +34,7 @@ export default {
 			[SeasonName.Passage]: "성장의 시즌",
 			[SeasonName.Moments]: "순간의 시즌",
 			[SeasonName.Revival]: "재생의 시즌",
-			[SeasonName.NineColoredDeer]: "아홉 빛깔 사슴의 시즌",
+			[SeasonName.NineColouredDeer]: "아홉 빛깔 사슴의 시즌",
 			[SeasonName.Nesting]: "보금자리의 시즌",
 		},
 		spiritNames: {

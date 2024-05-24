@@ -20,7 +20,7 @@ import Lightseekers from "./Lightseekers/index.js";
 import LittlePrince from "./LittlePrince/index.js";
 import Moments from "./Moments/index.js";
 import Nesting from "./Nesting/index.js";
-import NineColoredDeer from "./NineColoredDeer/index.js";
+import NineColouredDeer from "./NineColouredDeer/index.js";
 import Passage from "./Passage/index.js";
 import Performance from "./Performance/index.js";
 import Prophecy from "./Prophecy/index.js";
@@ -50,7 +50,7 @@ const SEASONS = [
 	Passage,
 	Moments,
 	Revival,
-	NineColoredDeer,
+	NineColouredDeer,
 	Nesting,
 ] as const;
 
@@ -95,8 +95,8 @@ export const SEASON_SPIRITS = [
 	...Moments.spirits,
 	Revival.guide,
 	...Revival.spirits,
-	NineColoredDeer.guide,
-	...NineColoredDeer.spirits,
+	NineColouredDeer.guide,
+	...NineColouredDeer.spirits,
 	Nesting.guide,
 	...Nesting.spirits,
 ] as const;

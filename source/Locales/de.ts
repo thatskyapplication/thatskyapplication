@@ -34,7 +34,7 @@ export default {
 			[SeasonName.Passage]: "Die Saison des Übergangs",
 			[SeasonName.Moments]: "Die Saison der Momente",
 			[SeasonName.Revival]: "Saison der Wiederbelebung",
-			[SeasonName.NineColoredDeer]: "Saison des Neunfarbigen Hirsches",
+			[SeasonName.NineColouredDeer]: "Saison des Neunfarbigen Hirsches",
 			[SeasonName.Nesting]: "Saison des Nistens",
 		},
 		spiritNames: {

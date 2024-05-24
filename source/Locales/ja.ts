@@ -34,7 +34,7 @@ export default {
 			[SeasonName.Passage]: "ならいの季節",
 			[SeasonName.Moments]: "瞬きの季節",
 			[SeasonName.Revival]: "復古の季節",
-			[SeasonName.NineColoredDeer]: "九色の鹿の季節",
+			[SeasonName.NineColouredDeer]: "九色の鹿の季節",
 			[SeasonName.Nesting]: "巣づくりの季節",
 		},
 		spiritNames: {

@@ -34,7 +34,7 @@ export default {
 			[SeasonName.Passage]: "夜行季",
 			[SeasonName.Moments]: "拾光季",
 			[SeasonName.Revival]: "归巢季",
-			[SeasonName.NineColoredDeer]: "九色鹿季",
+			[SeasonName.NineColouredDeer]: "九色鹿季",
 			[SeasonName.Nesting]: "筑巢季",
 		},
 		spiritNames: {

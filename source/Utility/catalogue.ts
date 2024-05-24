@@ -42,7 +42,7 @@ export enum SeasonName {
 	Passage = "The Season of Passage",
 	Moments = "The Season of Moments",
 	Revival = "Season of Revival",
-	NineColoredDeer = "Season of the Nine-Colored Deer",
+	NineColouredDeer = "Season of the Nine-Coloured Deer",
 	Nesting = "Season of Nesting",
 }
 
@@ -68,7 +68,7 @@ export const SeasonNameToSeasonalEmoji = {
 	[SeasonName.Passage]: SEASON_EMOJIS.Passage,
 	[SeasonName.Moments]: SEASON_EMOJIS.Moments,
 	[SeasonName.Revival]: SEASON_EMOJIS.Revival,
-	[SeasonName.NineColoredDeer]: SEASON_EMOJIS.NineColoredDeer,
+	[SeasonName.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeer,
 	[SeasonName.Nesting]: SEASON_EMOJIS.Nesting,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
@@ -92,7 +92,7 @@ export const SeasonNameToSeasonalCandleEmoji = {
 	[SeasonName.Passage]: SEASON_EMOJIS.PassageCandle,
 	[SeasonName.Moments]: SEASON_EMOJIS.MomentsCandle,
 	[SeasonName.Revival]: SEASON_EMOJIS.RevivalCandle,
-	[SeasonName.NineColoredDeer]: SEASON_EMOJIS.NineColoredDeerCandle,
+	[SeasonName.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeerCandle,
 	[SeasonName.Nesting]: SEASON_EMOJIS.NestingCandle,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
@@ -114,7 +114,7 @@ export const SeasonNameToSeasonalHeartEmoji = {
 	[SeasonName.Passage]: SEASON_EMOJIS.PassageHeart,
 	[SeasonName.Moments]: SEASON_EMOJIS.MomentsHeart,
 	[SeasonName.Revival]: SEASON_EMOJIS.RevivalHeart,
-	[SeasonName.NineColoredDeer]: SEASON_EMOJIS.NineColoredDeerHeart,
+	[SeasonName.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeerHeart,
 	[SeasonName.Nesting]: SEASON_EMOJIS.NestingHeart,
 } as const satisfies Readonly<
 	Record<Exclude<SeasonName, SeasonName.Gratitude | SeasonName.Lightseekers>, SeasonEmojis>
@@ -135,12 +135,12 @@ enum SeasonFlags {
 	Abyss = 1 << 11,
 	Performance = 1 << 12,
 	Shattering = 1 << 13,
-	Aurora = 1 << 14,
+	AURORA = 1 << 14,
 	Remembrance = 1 << 15,
 	Passage = 1 << 16,
 	Moments = 1 << 17,
 	Revival = 1 << 18,
-	NineColoredDeer = 1 << 19,
+	NineColouredDeer = 1 << 19,
 	Nesting = 1 << 20,
 }
 
@@ -159,12 +159,12 @@ export const SeasonFlagsToSeasonName = {
 	[SeasonFlags.Abyss]: SeasonName.Abyss,
 	[SeasonFlags.Performance]: SeasonName.Performance,
 	[SeasonFlags.Shattering]: SeasonName.Shattering,
-	[SeasonFlags.Aurora]: SeasonName.AURORA,
+	[SeasonFlags.AURORA]: SeasonName.AURORA,
 	[SeasonFlags.Remembrance]: SeasonName.Remembrance,
 	[SeasonFlags.Passage]: SeasonName.Passage,
 	[SeasonFlags.Moments]: SeasonName.Moments,
 	[SeasonFlags.Revival]: SeasonName.Revival,
-	[SeasonFlags.NineColoredDeer]: SeasonName.NineColoredDeer,
+	[SeasonFlags.NineColouredDeer]: SeasonName.NineColouredDeer,
 	[SeasonFlags.Nesting]: SeasonName.Nesting,
 } as const satisfies Readonly<Record<SeasonFlags, SeasonName>>;
 

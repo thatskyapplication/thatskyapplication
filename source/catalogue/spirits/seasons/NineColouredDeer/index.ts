@@ -11,7 +11,7 @@ import Princess from "./Princess.js";
 import SpiritOfMural from "./SpiritOfMural.js";
 
 export default new Season({
-	name: SeasonName.NineColoredDeer,
+	name: SeasonName.NineColouredDeer,
 	start: skyDate(2_024, 1, 15),
 	end: skyDate(2_024, 3, 31),
 	guide: SpiritOfMural,

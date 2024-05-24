@@ -34,7 +34,7 @@ export default {
 			[SeasonName.Passage]: "Сезон посвящения",
 			[SeasonName.Moments]: "Сезон мгновений",
 			[SeasonName.Revival]: "Сезон возрождения",
-			[SeasonName.NineColoredDeer]: "Сезон Девятицветного оленя",
+			[SeasonName.NineColouredDeer]: "Сезон Девятицветного оленя",
 			[SeasonName.Nesting]: "Сезон гнездования",
 		},
 		spiritNames: {

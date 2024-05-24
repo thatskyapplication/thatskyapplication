@@ -214,7 +214,7 @@ export enum SpiritName {
 	EchoOfAnAbandonedRefuge = "Echo of an Abandoned Refuge",
 	RemnantOfAForgottenHaven = "Remnant of a Forgotten Haven",
 
-	// Season of the Nine-Colored Deer.
+	// Season of the Nine-Coloured Deer.
 	SpiritOfMural = "Spirit of Mural",
 	HerbGatherer = "Herb Gatherer",
 	Hunter = "Hunter",

@@ -270,9 +270,9 @@ export const SEASON_EMOJIS = {
 	Revival: { name: "revival", id: "1181387134008049854" },
 	RevivalCandle: { name: "revival_candle", id: "1181387135476043839" },
 	RevivalHeart: { name: "revival_heart", id: "1181387137879380048" },
-	NineColoredDeer: { name: "nine_colored_deer", id: "1194228859541930094" },
-	NineColoredDeerCandle: { name: "nine_colored_deer_candle", id: "1194228980539215914" },
-	NineColoredDeerHeart: { name: "nine_colored_deer_heart", id: "1194228991805108244" },
+	NineColouredDeer: { name: "nine_coloured_deer", id: "1194228859541930094" },
+	NineColouredDeerCandle: { name: "nine_coloured_deer_candle", id: "1194228980539215914" },
+	NineColouredDeerHeart: { name: "nine_coloured_deer_heart", id: "1194228991805108244" },
 	Nesting: { name: "nesting", id: "1227500778155937824" },
 	NestingCandle: { name: "nesting_candle", id: "1227500789862498368" },
 	NestingHeart: { name: "nesting_heart", id: "1227500803036545065" },
@@ -958,7 +958,7 @@ export const MASK_EMOJIS = {
 	 */
 	Mask88: { name: "mask", id: "1195958052034199622" },
 	/**
-	 * Gift of the Nine-Colored Deer.
+	 * Gift of the Nine-Coloured Deer.
 	 */
 	Mask89: { name: "mask", id: "1196158869840339094" },
 	/**
@@ -1106,7 +1106,7 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 */
 	FaceAccessory33: { name: "face_accessory", id: "1182821742926889041" },
 	/**
-	 * Gift of the Nine-Colored Deer.
+	 * Gift of the Nine-Coloured Deer.
 	 */
 	FaceAccessory34: { name: "face_accessory", id: "1196158435268497529" },
 	/**
@@ -1250,7 +1250,7 @@ export const NECKLACE_EMOJIS = {
 	 */
 	Necklace32: { name: "necklace", id: "1193725247157960794" },
 	/**
-	 * Nine-Colored Deer Pendant.
+	 * Nine-Coloured Deer Pendant.
 	 */
 	Necklace33: { name: "necklace", id: "1195926793836834857" },
 	/**
@@ -2518,7 +2518,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape124: { name: "cape", id: "1201606633944514692" },
 	/**
-	 * Radiance of the Nine-Colored Deer.
+	 * Radiance of the Nine-Coloured Deer.
 	 */
 	Cape125: { name: "cape", id: "1201606642614157412" },
 	/**

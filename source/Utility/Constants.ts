@@ -127,7 +127,7 @@ export enum Map {
 	// Season of Shattering.
 	AncientMemory = "Ancient Memory",
 
-	// Season of the Nine-Colored Deer.
+	// Season of the Nine-Coloured Deer.
 	CrescentOasis = "Crescent Oasis",
 }
 

@@ -34,7 +34,7 @@ export default {
 			[SeasonName.Passage]: "Mùa Thử Thách",
 			[SeasonName.Moments]: "Mùa Khoảnh Khắc",
 			[SeasonName.Revival]: "Mùa Phục Hưng",
-			[SeasonName.NineColoredDeer]: "Mùa Cửu Sắc Lộc",
+			[SeasonName.NineColouredDeer]: "Mùa Cửu Sắc Lộc",
 			[SeasonName.Nesting]: "Mùa Xây Tổ",
 		},
 		spiritNames: {

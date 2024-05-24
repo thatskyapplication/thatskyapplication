@@ -16,7 +16,7 @@ import { SpiritName } from "../../../../Utility/spirits.js";
 
 export default new GuideSpirit({
 	name: SpiritName.SpiritOfMural,
-	season: SeasonName.NineColoredDeer,
+	season: SeasonName.NineColouredDeer,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		current: new Collection<number, ItemRaw>()

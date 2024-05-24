@@ -34,7 +34,7 @@ export default {
 			[SeasonName.Passage]: "A Temporada da Passagem",
 			[SeasonName.Moments]: "Temporada dos Momentos",
 			[SeasonName.Revival]: "Temporada do Reavivamento",
-			[SeasonName.NineColoredDeer]: "Temporada do Cervo de Nove Cores",
+			[SeasonName.NineColouredDeer]: "Temporada do Cervo de Nove Cores",
 			[SeasonName.Nesting]: "Temporada do Ninho",
 		},
 		spiritNames: {
