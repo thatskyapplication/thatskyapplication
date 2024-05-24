@@ -2222,6 +2222,10 @@ export class Catalogue {
 			);
 		}
 
+		const index = CURRENT_SEASONS.indexOf(season);
+		const before = CURRENT_SEASONS[index - 1];
+		const after = CURRENT_SEASONS[index + 1];
+
 		components.push(
 			new ActionRowBuilder<ButtonBuilder>().setComponents(
 				backToStartButton(),
@@ -2241,6 +2245,20 @@ export class Catalogue {
 					.setEmoji("💯")
 					.setLabel("I have everything!")
 					.setStyle(ButtonStyle.Success),
+			),
+			new ActionRowBuilder<ButtonBuilder>().setComponents(
+				new ButtonBuilder()
+					.setCustomId(`${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${before?.name}`)
+					.setDisabled(!before)
+					.setEmoji("⬅️")
+					.setLabel("Previous season")
+					.setStyle(ButtonStyle.Primary),
+				new ButtonBuilder()
+					.setCustomId(`${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${after?.name}`)
+					.setDisabled(!after)
+					.setEmoji("➡️")
+					.setLabel("Next season")
+					.setStyle(ButtonStyle.Primary),
 			),
 		);
 
@@ -2292,11 +2310,12 @@ export class Catalogue {
 		});
 	}
 
-	public static async viewEvents(interaction: ButtonInteraction | StringSelectMenuInteraction, year: string) {
+	public static async viewEvents(interaction: ButtonInteraction | StringSelectMenuInteraction, yearString: string) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale, user } = interaction;
+		const year = Number(yearString);
 		const catalogue = await this.fetch(user.id);
-		const events = CURRENT_EVENTS.filter((event) => event.start.year === Number(year));
+		const events = CURRENT_EVENTS.filter((event) => event.start.year === year);
 
 		const options = events.map((event) => {
 			const { name, nameUnique } = event;
@@ -2329,6 +2348,10 @@ export class Catalogue {
 			});
 		}
 
+		const index = CURRENT_EVENTS_YEARS.indexOf(year);
+		const before = CURRENT_EVENTS_YEARS[index - 1];
+		const after = CURRENT_EVENTS_YEARS[index + 1];
+
 		await interaction.update({
 			content: "",
 			components: [
@@ -2346,6 +2369,20 @@ export class Catalogue {
 						.setCustomId(CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID)
 						.setEmoji("⏪")
 						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${before}`)
+						.setDisabled(!before)
+						.setEmoji("⬅️")
+						.setLabel("Previous year")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${after}`)
+						.setDisabled(!after)
+						.setEmoji("➡️")
+						.setLabel("Next year")
 						.setStyle(ButtonStyle.Primary),
 				),
 			],
@@ -2428,6 +2465,8 @@ export class Catalogue {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale } = interaction;
 		const bit = this[SpiritEventNameToCatalogueName[spirit.name]];
+		const isStandardSpirit = spirit.isStandardSpirit();
+		const isElderSpirit = spirit.isElderSpirit();
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
 		const seasonalParsing = isSeasonalSpirit && !spirit.current;
@@ -2454,9 +2493,9 @@ export class Catalogue {
 			backToStartButton(),
 			new ButtonBuilder()
 				.setCustomId(
-					spirit.isElderSpirit()
+					isElderSpirit
 						? CATALOGUE_VIEW_ELDERS_CUSTOM_ID
-						: spirit.isStandardSpirit()
+						: isStandardSpirit
 						? `${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${spirit.realm}`
 						: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${spirit.season}`,
 				)
@@ -2513,6 +2552,41 @@ export class Catalogue {
 		}
 
 		components.push(buttons);
+
+		let spirits;
+
+		if (isStandardSpirit) {
+			spirits = REALMS.find(({ name }) => name === spirit.realm)?.spirits;
+		} else if (isElderSpirit) {
+			spirits = ELDER_SPIRITS;
+		} else if (isSeasonalSpirit || isGuideSpirit) {
+			const season = CURRENT_SEASONS.find(({ name }) => name === spirit.season);
+			if (season) spirits = [season.guide, ...season.spirits];
+		}
+
+		if (spirits) {
+			const index = spirits.findIndex(({ name }) => name === spirit.name);
+			const before = spirits[index - 1];
+			const after = spirits[index + 1];
+
+			components.push(
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${before?.name}`)
+						.setDisabled(!before)
+						.setEmoji("⬅️")
+						.setLabel("Previous spirit")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${after?.name}`)
+						.setDisabled(!after)
+						.setEmoji("➡️")
+						.setLabel("Next spirit")
+						.setStyle(ButtonStyle.Primary),
+				),
+			);
+		}
+
 		await interaction.update({ components, content: "", embeds: [embed] });
 	}
 
@@ -2625,6 +2699,29 @@ export class Catalogue {
 		}
 
 		components.push(buttons);
+
+		const events = CURRENT_EVENTS.filter((event) => event.start.year === start.year);
+		const index = events.findIndex((event) => event.nameUnique === nameUnique);
+		const before = events[index - 1];
+		const after = events[index + 1];
+
+		components.push(
+			new ActionRowBuilder<ButtonBuilder>().setComponents(
+				new ButtonBuilder()
+					.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${before?.nameUnique}`)
+					.setDisabled(!before)
+					.setEmoji("⬅️")
+					.setLabel("Previous event")
+					.setStyle(ButtonStyle.Primary),
+				new ButtonBuilder()
+					.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${after?.nameUnique}`)
+					.setDisabled(!after)
+					.setEmoji("➡️")
+					.setLabel("Previous event")
+					.setStyle(ButtonStyle.Primary),
+			),
+		);
+
 		await interaction.update({ components, content: "", embeds: [embed] });
 	}
 
