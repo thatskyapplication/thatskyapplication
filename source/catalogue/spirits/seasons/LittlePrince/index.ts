@@ -24,7 +24,7 @@ export default new Season({
 		SneezingGeographer,
 		StarCollector,
 	],
-	inAppPurchases: new Collection<number, ItemRaw>()
+	items: new Collection<number, ItemRaw>()
 		.set(1 << 0, { name: "Little Prince Scarf Cape", cost: { money: 14.99 }, emoji: CAPE_EMOJIS.Cape63 })
 		.set(1 << 1, { name: "Little Prince Asteroid Jacket", cost: { money: 24.99 }, emoji: CAPE_EMOJIS.Cape64 })
 		.set(1 << 2, {

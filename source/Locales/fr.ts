@@ -45,7 +45,7 @@ export default {
 			[SeasonName.Abyss]: "Saison des Abysses",
 			[SeasonName.Performance]: "Saison de l'Interprétation",
 			[SeasonName.Shattering]: "Saison de l'Éclatement",
-			[SeasonName.Aurora]: "Saison d'AURORA",
+			[SeasonName.AURORA]: "Saison d'AURORA",
 			[SeasonName.Remembrance]: "Saison du Souvenir",
 			[SeasonName.Passage]: "La saison de l'Initiation",
 			[SeasonName.Moments]: "La saison des Instants",

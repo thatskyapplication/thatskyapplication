@@ -23,7 +23,6 @@ import { isRealm } from "../Utility/Utility.js";
 import {
 	type Item,
 	type ItemCost,
-	type SeasonNameWithIAPs,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 	NO_EVENT_INFOGRAPHIC_YET,
 	NO_EVENT_OFFER_TEXT,
@@ -32,7 +31,6 @@ import {
 	addCosts,
 	CatalogueType,
 	EventNameUnique,
-	isSeasonNameWithIAPs,
 	resolveCostToString,
 	SeasonName,
 	SeasonNameToSeasonalEmoji,
@@ -191,7 +189,7 @@ export interface CataloguePacket {
 	slouching_soldier: CatalogueValue;
 	sneezing_geographer: CatalogueValue;
 	star_collector: CatalogueValue;
-	season_of_the_little_prince_iaps: CatalogueValue;
+	season_of_the_little_prince: CatalogueValue;
 	sky_anniversary_2021: CatalogueValue;
 	days_of_summer_2021: CatalogueValue;
 	days_of_summer_lights_2021: CatalogueValue;
@@ -233,7 +231,7 @@ export interface CataloguePacket {
 	mindful_miner: CatalogueValue;
 	warrior_of_love: CatalogueValue;
 	seed_of_hope: CatalogueValue;
-	season_of_aurora_iaps: CatalogueValue;
+	season_of_aurora: CatalogueValue;
 	days_of_mischief_2022: CatalogueValue;
 	days_of_giving_2022: CatalogueValue;
 	days_of_feast_2022: CatalogueValue;
@@ -276,7 +274,7 @@ export interface CataloguePacket {
 	hunter: CatalogueValue;
 	feudal_lord: CatalogueValue;
 	princess: CatalogueValue;
-	season_of_the_nine_coloured_deer_iaps: CatalogueValue;
+	season_of_the_nine_coloured_deer: CatalogueValue;
 	days_of_fortune_2024: CatalogueValue;
 	days_of_love_2024: CatalogueValue;
 	spring_camping_2024: CatalogueValue;
@@ -422,7 +420,7 @@ interface CatalogueData {
 	slouchingSoldier: CataloguePacket["slouching_soldier"];
 	sneezingGeographer: CataloguePacket["sneezing_geographer"];
 	starCollector: CataloguePacket["star_collector"];
-	seasonOfTheLittlePrinceIAPs: CataloguePacket["season_of_the_little_prince_iaps"];
+	seasonOfTheLittlePrince: CataloguePacket["season_of_the_little_prince"];
 	skyAnniversary2021: CataloguePacket["sky_anniversary_2021"];
 	daysOfSummer2021: CataloguePacket["days_of_summer_2021"];
 	daysOfSummerLights2021: CataloguePacket["days_of_summer_lights_2021"];
@@ -464,7 +462,7 @@ interface CatalogueData {
 	mindfulMiner: CataloguePacket["mindful_miner"];
 	warriorOfLove: CataloguePacket["warrior_of_love"];
 	seedOfHope: CataloguePacket["seed_of_hope"];
-	seasonOfAuroraIAPs: CataloguePacket["season_of_aurora_iaps"];
+	seasonOfAURORA: CataloguePacket["season_of_aurora"];
 	daysOfMischief2022: CataloguePacket["days_of_mischief_2022"];
 	daysOfGiving2022: CataloguePacket["days_of_giving_2022"];
 	daysOfFeast2022: CataloguePacket["days_of_feast_2022"];
@@ -507,7 +505,7 @@ interface CatalogueData {
 	hunter: CataloguePacket["hunter"];
 	feudalLord: CataloguePacket["feudal_lord"];
 	princess: CataloguePacket["princess"];
-	seasonOfTheNineColouredDeerIAPs: CataloguePacket["season_of_the_nine_coloured_deer_iaps"];
+	seasonOfTheNineColouredDeer: CataloguePacket["season_of_the_nine_coloured_deer"];
 	daysOfFortune2024: CataloguePacket["days_of_fortune_2024"];
 	daysOfLove2024: CataloguePacket["days_of_love_2024"];
 	springCamping2024: CataloguePacket["spring_camping_2024"];
@@ -655,7 +653,7 @@ const CatalogueNameToRawName = {
 	[SpiritName.SlouchingSoldier]: "slouching_soldier",
 	[SpiritName.SneezingGeographer]: "sneezing_geographer",
 	[SpiritName.StarCollector]: "star_collector",
-	[SeasonName.LittlePrince]: "season_of_the_little_prince_iaps",
+	[SeasonName.LittlePrince]: "season_of_the_little_prince",
 	[EventNameUnique.SkyAnniversary2021]: "sky_anniversary_2021",
 	[EventNameUnique.DaysOfSummer2021]: "days_of_summer_2021",
 	[EventNameUnique.DaysOfSummerLights2021]: "days_of_summer_lights_2021",
@@ -697,7 +695,7 @@ const CatalogueNameToRawName = {
 	[SpiritName.MindfulMiner]: "mindful_miner",
 	[SpiritName.WarriorOfLove]: "warrior_of_love",
 	[SpiritName.SeedOfHope]: "seed_of_hope",
-	[SeasonName.Aurora]: "season_of_aurora_iaps",
+	[SeasonName.AURORA]: "season_of_aurora",
 	[EventNameUnique.DaysOfMischief2022]: "days_of_mischief_2022",
 	[EventNameUnique.DaysOfGiving2022]: "days_of_giving_2022",
 	[EventNameUnique.DaysOfFeast2022]: "days_of_feast_2022",
@@ -740,7 +738,7 @@ const CatalogueNameToRawName = {
 	[SpiritName.Hunter]: "hunter",
 	[SpiritName.FeudalLord]: "feudal_lord",
 	[SpiritName.Princess]: "princess",
-	[SeasonName.NineColoredDeer]: "season_of_the_nine_coloured_deer_iaps",
+	[SeasonName.NineColoredDeer]: "season_of_the_nine_coloured_deer",
 	[EventNameUnique.DaysOfFortune2024]: "days_of_fortune_2024",
 	[EventNameUnique.DaysOfLove2024]: "days_of_love_2024",
 	[EventNameUnique.SpringCamping2024]: "spring_camping_2024",
@@ -754,7 +752,7 @@ const CatalogueNameToRawName = {
 	[EventNameUnique.DaysOfNature2024]: "days_of_nature_2024",
 	[EventNameUnique.DaysOfColour2024]: "days_of_colour_2024",
 } as const satisfies Readonly<
-	Record<SpiritName | SeasonNameWithIAPs | EventNameUnique, Exclude<keyof CataloguePacket, "user_id">>
+	Record<SpiritName | SeasonName | EventNameUnique, Exclude<keyof CataloguePacket, "user_id">>
 >;
 
 const SpiritEventNameToCatalogueName = {
@@ -887,7 +885,7 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.SlouchingSoldier]: "slouchingSoldier",
 	[SpiritName.SneezingGeographer]: "sneezingGeographer",
 	[SpiritName.StarCollector]: "starCollector",
-	[SeasonName.LittlePrince]: "seasonOfTheLittlePrinceIAPs",
+	[SeasonName.LittlePrince]: "seasonOfTheLittlePrince",
 	[EventNameUnique.SkyAnniversary2021]: "skyAnniversary2021",
 	[EventNameUnique.DaysOfSummer2021]: "daysOfSummer2021",
 	[EventNameUnique.DaysOfSummerLights2021]: "daysOfSummerLights2021",
@@ -929,7 +927,7 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.MindfulMiner]: "mindfulMiner",
 	[SpiritName.WarriorOfLove]: "warriorOfLove",
 	[SpiritName.SeedOfHope]: "seedOfHope",
-	[SeasonName.Aurora]: "seasonOfAuroraIAPs",
+	[SeasonName.AURORA]: "seasonOfAURORA",
 	[EventNameUnique.DaysOfMischief2022]: "daysOfMischief2022",
 	[EventNameUnique.DaysOfGiving2022]: "daysOfGiving2022",
 	[EventNameUnique.DaysOfFeast2022]: "daysOfFeast2022",
@@ -972,7 +970,7 @@ const SpiritEventNameToCatalogueName = {
 	[SpiritName.Hunter]: "hunter",
 	[SpiritName.FeudalLord]: "feudalLord",
 	[SpiritName.Princess]: "princess",
-	[SeasonName.NineColoredDeer]: "seasonOfTheNineColouredDeerIAPs",
+	[SeasonName.NineColoredDeer]: "seasonOfTheNineColouredDeer",
 	[EventNameUnique.DaysOfFortune2024]: "daysOfFortune2024",
 	[EventNameUnique.DaysOfLove2024]: "daysOfLove2024",
 	[EventNameUnique.SpringCamping2024]: "springCamping2024",
@@ -986,7 +984,7 @@ const SpiritEventNameToCatalogueName = {
 	[EventNameUnique.DaysOfNature2024]: "daysOfNature2024",
 	[EventNameUnique.DaysOfColour2024]: "daysOfColour2024",
 } as const satisfies Readonly<
-	Record<SpiritName | SeasonNameWithIAPs | EventNameUnique, Exclude<keyof CatalogueData, "user_id">>
+	Record<SpiritName | SeasonName | EventNameUnique, Exclude<keyof CatalogueData, "user_id">>
 >;
 
 export const CATALOGUE_VIEW_START_CUSTOM_ID = "CATALOGUE_VIEW_START_CUSTOM_ID" as const;
@@ -995,7 +993,7 @@ export const CATALOGUE_VIEW_TYPE_CUSTOM_ID = "CATALOGUE_VIEW_TYPE_CUSTOM_ID" as 
 export const CATALOGUE_VIEW_REALMS_CUSTOM_ID = "CATALOGUE_VIEW_REALMS_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_ELDERS_CUSTOM_ID = "CATALOGUE_VIEW_ELDERS_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_SEASONS_CUSTOM_ID = "CATALOGUE_VIEW_SEASONS_CUSTOM_ID" as const;
-export const CATALOGUE_SET_SEASON_IAPS_CUSTOM_ID = "CATALOGUE_SET_SEASON_IAPS_CUSTOM_ID" as const;
+export const CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID = "CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_REALM_CUSTOM_ID = "CATALOGUE_VIEW_REALM_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_SEASON_CUSTOM_ID = "CATALOGUE_VIEW_SEASON_CUSTOM_ID" as const;
@@ -1289,7 +1287,7 @@ export class Catalogue {
 
 	public starCollector!: CatalogueData["starCollector"];
 
-	public seasonOfTheLittlePrinceIAPs!: CatalogueData["seasonOfTheLittlePrinceIAPs"];
+	public seasonOfTheLittlePrince!: CatalogueData["seasonOfTheLittlePrince"];
 
 	public skyAnniversary2021!: CatalogueData["skyAnniversary2021"];
 
@@ -1373,7 +1371,7 @@ export class Catalogue {
 
 	public seedOfHope!: CatalogueData["seedOfHope"];
 
-	public seasonOfAuroraIAPs!: CatalogueData["seasonOfAuroraIAPs"];
+	public seasonOfAURORA!: CatalogueData["seasonOfAURORA"];
 
 	public daysOfMischief2022!: CatalogueData["daysOfMischief2022"];
 
@@ -1459,7 +1457,7 @@ export class Catalogue {
 
 	public princess!: CatalogueData["princess"];
 
-	public seasonOfTheNineColouredDeerIAPs!: CatalogueData["seasonOfTheNineColouredDeerIAPs"];
+	public seasonOfTheNineColouredDeer!: CatalogueData["seasonOfTheNineColouredDeer"];
 
 	public daysOfFortune2024!: CatalogueData["daysOfFortune2024"];
 
@@ -1620,7 +1618,7 @@ export class Catalogue {
 		this.slouchingSoldier = data.slouching_soldier;
 		this.sneezingGeographer = data.sneezing_geographer;
 		this.starCollector = data.star_collector;
-		this.seasonOfTheLittlePrinceIAPs = data.season_of_the_little_prince_iaps;
+		this.seasonOfTheLittlePrince = data.season_of_the_little_prince;
 		this.skyAnniversary2021 = data.sky_anniversary_2021;
 		this.daysOfSummer2021 = data.days_of_summer_2021;
 		this.daysOfSummerLights2021 = data.days_of_summer_lights_2021;
@@ -1662,7 +1660,7 @@ export class Catalogue {
 		this.mindfulMiner = data.mindful_miner;
 		this.warriorOfLove = data.warrior_of_love;
 		this.seedOfHope = data.seed_of_hope;
-		this.seasonOfAuroraIAPs = data.season_of_aurora_iaps;
+		this.seasonOfAURORA = data.season_of_aurora;
 		this.daysOfMischief2022 = data.days_of_mischief_2022;
 		this.daysOfGiving2022 = data.days_of_giving_2022;
 		this.daysOfFeast2022 = data.days_of_feast_2022;
@@ -1705,7 +1703,7 @@ export class Catalogue {
 		this.hunter = data.hunter;
 		this.feudalLord = data.feudal_lord;
 		this.princess = data.princess;
-		this.seasonOfTheNineColouredDeerIAPs = data.season_of_the_nine_coloured_deer_iaps;
+		this.seasonOfTheNineColouredDeer = data.season_of_the_nine_coloured_deer;
 		this.daysOfFortune2024 = data.days_of_fortune_2024;
 		this.daysOfLove2024 = data.days_of_love_2024;
 		this.springCamping2024 = data.spring_camping_2024;
@@ -1767,15 +1765,14 @@ export class Catalogue {
 		let total = 0;
 
 		for (const season of seasons) {
-			const offers: [SpiritName | SeasonNameWithIAPs, Collection<number, Item> | null][] = [
+			const offers: [SpiritName | SeasonName, Collection<number, Item> | null][] = [
 				[season.guide.name, season.guide.current],
 				...season.spirits.map<[SpiritName, Collection<number, Item>]>((spirit) => [
 					spirit.name,
 					spirit.current ?? spirit.seasonal,
 				]),
+				[season.name, season.items],
 			];
-
-			if (isSeasonNameWithIAPs(season.name) && season.inAppPurchases) offers.push([season.name, season.inAppPurchases]);
 
 			for (const [index, offer] of offers) {
 				const { owned, total: offerTotal } = this.ownedProgress(offer, this[SpiritEventNameToCatalogueName[index]]);
@@ -2199,10 +2196,10 @@ export class Catalogue {
 			),
 		];
 
-		if (season.inAppPurchases && isSeasonNameWithIAPs(seasonName)) {
+		if (season.items) {
 			const bit = catalogue[SpiritEventNameToCatalogueName[seasonName]];
 
-			const inAppPurchasesOptions = season.inAppPurchases.map(({ emoji, name }, flag) =>
+			const itemsOptions = season.items.map(({ emoji, name }, flag) =>
 				new StringSelectMenuOptionBuilder()
 					.setDefault(Boolean(bit && bit & flag))
 					.setEmoji(emoji)
@@ -2213,11 +2210,11 @@ export class Catalogue {
 			components.push(
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(`${CATALOGUE_SET_SEASON_IAPS_CUSTOM_ID}§${seasonName}`)
-						.setMaxValues(inAppPurchasesOptions.length)
+						.setCustomId(`${CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID}§${seasonName}`)
+						.setMaxValues(itemsOptions.length)
 						.setMinValues(0)
-						.setOptions(inAppPurchasesOptions)
-						.setPlaceholder("What IAPs do you have?"),
+						.setOptions(itemsOptions)
+						.setPlaceholder("What items do you have?"),
 				),
 			);
 		}
@@ -2769,14 +2766,11 @@ export class Catalogue {
 			throw new Error("Unknown season.");
 		}
 
-		const offers: [SpiritName | SeasonNameWithIAPs, number | null][] = [
+		const offers: [SpiritName | SeasonName, number | null][] = [
 			[season.guide.name, season.guide.maxItemsBit],
 			...season.spirits.map<[SpiritName, number]>((spirit) => [spirit.name, spirit.maxItemsBit]),
+			[season.name, season.maximumItemsBits],
 		];
-
-		if (isSeasonNameWithIAPs(season.name) && season.inAppPurchases) {
-			offers.push([season.name, season.maximumInAppPurchasesBits]);
-		}
 
 		await this.update(
 			user.id,
@@ -2789,14 +2783,15 @@ export class Catalogue {
 		await Catalogue.viewSeason(interaction, season.name);
 	}
 
-	public static async setSeasonIAPs(interaction: StringSelectMenuInteraction) {
+	public static async setSeasonItems(interaction: StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { customId, user, values } = interaction;
-		const seasonName = customId.slice(customId.indexOf("§") + 1);
+		const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
+		const season = CURRENT_SEASONS.find((season) => season.name === parsedCustomId);
 
-		if (!isSeasonNameWithIAPs(seasonName)) {
-			pino.error(interaction, "Unknown season with IAPs.");
-			throw new Error("Unknown season with IAPs.");
+		if (!season) {
+			pino.error(interaction, "Unknown season.");
+			throw new Error("Unknown season.");
 		}
 
 		const bit = values.reduce((bit, value) => bit | Number(value), 0);
@@ -2901,15 +2896,14 @@ export class Catalogue {
 		const description = [];
 		const remainingCurrencies = [];
 
-		const offers: [SpiritName | SeasonNameWithIAPs, Collection<number, Item> | null][] = [
+		const offers: [SpiritName | SeasonName, Collection<number, Item> | null][] = [
 			[season.guide.name, season.guide.current],
-			...season.spirits.map<[SpiritName | SeasonNameWithIAPs, Collection<number, Item>]>((spirit) => [
+			...season.spirits.map<[SpiritName | SeasonName, Collection<number, Item>]>((spirit) => [
 				spirit.name,
 				spirit.current ?? spirit.seasonal,
 			]),
+			[season.name, season.items],
 		];
-
-		if (isSeasonNameWithIAPs(season.name) && season.inAppPurchases) offers.push([season.name, season.inAppPurchases]);
 
 		for (const [index, offer] of offers) {
 			if (!offer) continue;
@@ -2923,7 +2917,7 @@ export class Catalogue {
 
 			description.push(
 				`__${
-					isSeasonNameWithIAPs(index) ? "In-App Purchases" : t(`spiritNames.${index}`, { lng: locale, ns: "general" })
+					isSeasonName(index) ? "Items" : t(`spiritNames.${index}`, { lng: locale, ns: "general" })
 				}__\n${offerDescription.join("\n")}`,
 			);
 		}

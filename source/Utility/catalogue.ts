@@ -37,7 +37,7 @@ export enum SeasonName {
 	Abyss = "Season of Abyss",
 	Performance = "Season of Performance",
 	Shattering = "Season of Shattering",
-	Aurora = "Season of AURORA",
+	AURORA = "Season of AURORA",
 	Remembrance = "Season of Remembrance",
 	Passage = "The Season of Passage",
 	Moments = "The Season of Moments",
@@ -47,18 +47,6 @@ export enum SeasonName {
 }
 
 export const SEASON_NAME_VALUES = Object.values(SeasonName);
-
-const SEASON_NAME_WITH_IAPS = [
-	SeasonName.LittlePrince,
-	SeasonName.Aurora,
-	SeasonName.NineColoredDeer,
-] as const satisfies Readonly<SeasonName[]>;
-
-export type SeasonNameWithIAPs = (typeof SEASON_NAME_WITH_IAPS)[number];
-
-export function isSeasonNameWithIAPs(seasonName: string): seasonName is SeasonNameWithIAPs {
-	return SEASON_NAME_WITH_IAPS.includes(seasonName as SeasonNameWithIAPs);
-}
 
 export const SeasonNameToSeasonalEmoji = {
 	[SeasonName.Gratitude]: SEASON_EMOJIS.Gratitude,
@@ -75,7 +63,7 @@ export const SeasonNameToSeasonalEmoji = {
 	[SeasonName.Abyss]: SEASON_EMOJIS.Abyss,
 	[SeasonName.Performance]: SEASON_EMOJIS.Performance,
 	[SeasonName.Shattering]: SEASON_EMOJIS.Shattering,
-	[SeasonName.Aurora]: SEASON_EMOJIS.Aurora,
+	[SeasonName.AURORA]: SEASON_EMOJIS.Aurora,
 	[SeasonName.Remembrance]: SEASON_EMOJIS.Remembrance,
 	[SeasonName.Passage]: SEASON_EMOJIS.Passage,
 	[SeasonName.Moments]: SEASON_EMOJIS.Moments,
@@ -99,7 +87,7 @@ export const SeasonNameToSeasonalCandleEmoji = {
 	[SeasonName.Abyss]: SEASON_EMOJIS.AbyssCandle,
 	[SeasonName.Performance]: SEASON_EMOJIS.PerformanceCandle,
 	[SeasonName.Shattering]: SEASON_EMOJIS.ShatteringCandle,
-	[SeasonName.Aurora]: SEASON_EMOJIS.AuroraCandle,
+	[SeasonName.AURORA]: SEASON_EMOJIS.AuroraCandle,
 	[SeasonName.Remembrance]: SEASON_EMOJIS.RemembranceCandle,
 	[SeasonName.Passage]: SEASON_EMOJIS.PassageCandle,
 	[SeasonName.Moments]: SEASON_EMOJIS.MomentsCandle,
@@ -121,7 +109,7 @@ export const SeasonNameToSeasonalHeartEmoji = {
 	[SeasonName.Abyss]: SEASON_EMOJIS.AbyssHeart,
 	[SeasonName.Performance]: SEASON_EMOJIS.PerformanceHeart,
 	[SeasonName.Shattering]: SEASON_EMOJIS.ShatteringHeart,
-	[SeasonName.Aurora]: SEASON_EMOJIS.AuroraHeart,
+	[SeasonName.AURORA]: SEASON_EMOJIS.AuroraHeart,
 	[SeasonName.Remembrance]: SEASON_EMOJIS.RemembranceHeart,
 	[SeasonName.Passage]: SEASON_EMOJIS.PassageHeart,
 	[SeasonName.Moments]: SEASON_EMOJIS.MomentsHeart,
@@ -171,7 +159,7 @@ export const SeasonFlagsToSeasonName = {
 	[SeasonFlags.Abyss]: SeasonName.Abyss,
 	[SeasonFlags.Performance]: SeasonName.Performance,
 	[SeasonFlags.Shattering]: SeasonName.Shattering,
-	[SeasonFlags.Aurora]: SeasonName.Aurora,
+	[SeasonFlags.Aurora]: SeasonName.AURORA,
 	[SeasonFlags.Remembrance]: SeasonName.Remembrance,
 	[SeasonFlags.Passage]: SeasonName.Passage,
 	[SeasonFlags.Moments]: SeasonName.Moments,

@@ -16,7 +16,7 @@ export default new Season({
 	end: skyDate(2_024, 3, 31),
 	guide: SpiritOfMural,
 	spirits: [HerbGatherer, Hunter, FeudalLord, Princess],
-	inAppPurchases: new Collection<number, ItemRaw>()
+	items: new Collection<number, ItemRaw>()
 		.set(1 << 0, {
 			name: "Gift of the Nine-Coloured Deer",
 			cost: { money: 14.99 },

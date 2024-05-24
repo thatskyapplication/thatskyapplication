@@ -38,7 +38,7 @@ export default {
 			[SeasonName.Abyss]: "Temporada del abismo",
 			[SeasonName.Performance]: "Temporada de obras",
 			[SeasonName.Shattering]: "Temporada de la Destrucción",
-			[SeasonName.Aurora]: "Temporada de AURORA",
+			[SeasonName.AURORA]: "Temporada de AURORA",
 			[SeasonName.Remembrance]: "Temporada de conmemoración",
 			[SeasonName.Passage]: "La temporada de iniciación",
 			[SeasonName.Moments]: "La temporada de los momentos",

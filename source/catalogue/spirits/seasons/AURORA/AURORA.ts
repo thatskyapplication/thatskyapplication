@@ -22,7 +22,7 @@ const emote3Emoji = SpiritEmoteToEmoji[emote3];
 
 export default new GuideSpirit({
 	name: SpiritName.AURORA,
-	season: SeasonName.Aurora,
+	season: SeasonName.AURORA,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
 		current: new Collection<number, ItemRaw>()

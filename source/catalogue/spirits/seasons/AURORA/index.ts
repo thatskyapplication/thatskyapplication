@@ -16,12 +16,12 @@ import SeedOfHope from "./SeedOfHope.js";
 import WarriorOfLove from "./WarriorOfLove.js";
 
 export default new Season({
-	name: SeasonName.Aurora,
+	name: SeasonName.AURORA,
 	start: skyDate(2_022, 10, 17),
 	end: skyDate(2_023, 1, 2),
 	guide: AURORA,
 	spirits: [RunningWayfarer, MindfulMiner, WarriorOfLove, SeedOfHope],
-	inAppPurchases: new Collection<number, ItemRaw>()
+	items: new Collection<number, ItemRaw>()
 		.set(1 << 0, { name: "Tiara We Can Touch", cost: { money: 4.99 }, emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory21 })
 		.set(1 << 1, { name: "Runaway Hairstyle", cost: { money: 2.99 }, emoji: HAIR_EMOJIS.Hair115 })
 		.set(1 << 2, { name: "Runaway Outfit", cost: { money: 9.99 }, emoji: OUTFIT_EMOJIS.Outfit39 })

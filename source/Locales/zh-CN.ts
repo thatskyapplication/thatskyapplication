@@ -29,7 +29,7 @@ export default {
 			[SeasonName.Abyss]: "深渊季",
 			[SeasonName.Performance]: "表演季",
 			[SeasonName.Shattering]: "破晓季",
-			[SeasonName.Aurora]: "AURORA季",
+			[SeasonName.AURORA]: "AURORA季",
 			[SeasonName.Remembrance]: "缅怀季",
 			[SeasonName.Passage]: "夜行季",
 			[SeasonName.Moments]: "拾光季",

@@ -29,7 +29,7 @@ export default {
 			[SeasonName.Abyss]: "Temporada do Abismo",
 			[SeasonName.Performance]: "Temporada da Performance",
 			[SeasonName.Shattering]: "Temporada do Despedaçar",
-			[SeasonName.Aurora]: "Temporada da AURORA",
+			[SeasonName.AURORA]: "Temporada da AURORA",
 			[SeasonName.Remembrance]: "Temporada da Recordação",
 			[SeasonName.Passage]: "A Temporada da Passagem",
 			[SeasonName.Moments]: "Temporada dos Momentos",

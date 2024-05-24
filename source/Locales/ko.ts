@@ -29,7 +29,7 @@ export default {
 			[SeasonName.Abyss]: "심해의 시즌",
 			[SeasonName.Performance]: "공연의 시즌",
 			[SeasonName.Shattering]: "파편의 시즌",
-			[SeasonName.Aurora]: "AURORA의 시즌",
+			[SeasonName.AURORA]: "AURORA의 시즌",
 			[SeasonName.Remembrance]: "기억의 시즌",
 			[SeasonName.Passage]: "성장의 시즌",
 			[SeasonName.Moments]: "순간의 시즌",

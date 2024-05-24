@@ -53,9 +53,11 @@ interface SeasonData {
 	 */
 	spirits: readonly SeasonalSpirit[];
 	/**
-	 * The in-app purchases that came with the season.
+	 * The items that came with the season.
+	 *
+	 * @remarks When cosmetics are not tied to any entity, they should be stored here.
 	 */
-	inAppPurchases?: Collection<number, ItemRaw>;
+	items?: Collection<number, ItemRaw>;
 	/**
 	 * The seasonal candles rotation.
 	 */
@@ -77,9 +79,9 @@ export class Season {
 
 	public readonly spirits: readonly SeasonalSpirit[];
 
-	public readonly inAppPurchases: Collection<number, Item> | null;
+	public readonly items: Collection<number, Item> | null;
 
-	public readonly maximumInAppPurchasesBits: number | null;
+	public readonly maximumItemsBits: number | null;
 
 	public readonly emoji: SeasonEmojis;
 
@@ -95,12 +97,8 @@ export class Season {
 		this.duration = this.end.diff(this.start, "days").days + 1;
 		this.guide = data.guide;
 		this.spirits = data.spirits;
-		this.inAppPurchases = data.inAppPurchases ? resolveOffer(data.inAppPurchases) : null;
-
-		this.maximumInAppPurchasesBits = data.inAppPurchases
-			? data.inAppPurchases.reduce((bits, _, bit) => bit | bits, 0)
-			: null;
-
+		this.items = data.items ? resolveOffer(data.items) : null;
+		this.maximumItemsBits = data.items ? data.items.reduce((bits, _, bit) => bit | bits, 0) : null;
 		this.emoji = SeasonNameToSeasonalEmoji[this.name];
 		this.candleEmoji = SeasonNameToSeasonalCandleEmoji[this.name];
 		this.seasonalCandlesRotation = data.seasonalCandlesRotation;

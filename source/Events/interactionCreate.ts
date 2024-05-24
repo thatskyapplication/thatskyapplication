@@ -44,7 +44,7 @@ import {
 	CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
 	CATALOGUE_REALM_EVERYTHING_CUSTOM_ID,
 	CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID,
-	CATALOGUE_SET_SEASON_IAPS_CUSTOM_ID,
+	CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID,
 	CATALOGUE_SHARE_PROMPT_CUSTOM_ID,
 	CATALOGUE_SHARE_SEND_CUSTOM_ID,
 	CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID,
@@ -408,8 +408,8 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (customId.startsWith(CATALOGUE_SET_SEASON_IAPS_CUSTOM_ID)) {
-					await Catalogue.setSeasonIAPs(interaction);
+				if (customId.startsWith(CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID)) {
+					await Catalogue.setSeasonItems(interaction);
 					return;
 				}
 

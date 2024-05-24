@@ -29,7 +29,7 @@ export default {
 			[SeasonName.Abyss]: "Mùa Vực Sâu",
 			[SeasonName.Performance]: "Mùa Biểu Diễn",
 			[SeasonName.Shattering]: "Mùa Tan Vỡ",
-			[SeasonName.Aurora]: "Mùa AURORA",
+			[SeasonName.AURORA]: "Mùa AURORA",
 			[SeasonName.Remembrance]: "Mùa Tưởng Nhớ",
 			[SeasonName.Passage]: "Mùa Thử Thách",
 			[SeasonName.Moments]: "Mùa Khoảnh Khắc",

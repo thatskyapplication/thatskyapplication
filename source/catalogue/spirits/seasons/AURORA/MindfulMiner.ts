@@ -23,7 +23,7 @@ const capeEmoji = CAPE_EMOJIS.Cape91;
 
 export default new SeasonalSpirit({
 	name: SpiritName.MindfulMiner,
-	season: SeasonName.Aurora,
+	season: SeasonName.AURORA,
 	emote,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {

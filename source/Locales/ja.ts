@@ -29,7 +29,7 @@ export default {
 			[SeasonName.Abyss]: "深淵の季節",
 			[SeasonName.Performance]: "表現者たちの季節",
 			[SeasonName.Shattering]: "砕ケル闇ノ季節",
-			[SeasonName.Aurora]: "AURORAの季節",
+			[SeasonName.AURORA]: "AURORAの季節",
 			[SeasonName.Remembrance]: "追慕の季節",
 			[SeasonName.Passage]: "ならいの季節",
 			[SeasonName.Moments]: "瞬きの季節",
