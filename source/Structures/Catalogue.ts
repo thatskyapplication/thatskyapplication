@@ -2313,10 +2313,12 @@ export class Catalogue {
 					.setMinValues(0)
 					.setOptions(options)
 					.setPlaceholder(
-						seasonName === SeasonName.Shattering || seasonName === SeasonName.Nesting
+						seasonName === SeasonName.Shattering
 							? "Select an entity!"
 							: seasonName === SeasonName.Revival
 							? "Select a spirit or a shop!"
+							: seasonName === SeasonName.Nesting
+							? "Select a spirit or an entity!"
 							: "Select a spirit!",
 					),
 			),
