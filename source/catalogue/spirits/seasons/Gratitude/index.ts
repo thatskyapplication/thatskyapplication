@@ -1,6 +1,8 @@
+import { Collection } from "discord.js";
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { type ItemRaw, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
+import { MASK_EMOJIS, NECKLACE_EMOJIS } from "../../../../Utility/emojis.js";
 import GratitudeGuide from "./GratitudeGuide.js";
 import GreetingShaman from "./GreetingShaman.js";
 import LeapingDancer from "./LeapingDancer.js";
@@ -15,5 +17,8 @@ export default new Season({
 	end: skyDate(2_019, 9, 2),
 	guide: GratitudeGuide,
 	spirits: [SassyDrifter, StretchingGuru, ProvokingPerformer, LeapingDancer, SalutingProtector, GreetingShaman],
+	items: new Collection<number, ItemRaw>()
+		.set(1 << 0, { name: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace01 })
+		.set(1 << 1, { name: "Ultimate mask", cost: null, emoji: MASK_EMOJIS.Mask10 }),
 	seasonalCandlesRotation: null,
 });
