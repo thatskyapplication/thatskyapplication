@@ -2794,33 +2794,16 @@ export class Catalogue {
 					.setValue(String(flag)),
 			);
 
-			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
-
 			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
 					.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${nameUnique}`)
-					.setMaxValues(itemSelectionOptionsMaximumLimit.length)
+					.setMaxValues(itemSelectionOptions.length)
 					.setMinValues(0)
-					.setOptions(itemSelectionOptionsMaximumLimit)
+					.setOptions(itemSelectionOptions)
 					.setPlaceholder("Select what you have!"),
 			);
 
 			components.push(itemSelection);
-
-			if (itemSelectionOptions.length > CATALOGUE_MAXIMUM_OPTIONS_LIMIT) {
-				const itemSelectionOverflowOptionsMaximumLimit = itemSelectionOptions.slice(CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
-
-				components.push(
-					new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-						new StringSelectMenuBuilder()
-							.setCustomId(`${CATALOGUE_VIEW_OFFER_2_CUSTOM_ID}§${nameUnique}`)
-							.setMaxValues(itemSelectionOverflowOptionsMaximumLimit.length)
-							.setMinValues(0)
-							.setOptions(itemSelectionOverflowOptionsMaximumLimit)
-							.setPlaceholder("Select what you have!"),
-					),
-				);
-			}
 		}
 
 		components.push(buttons);
