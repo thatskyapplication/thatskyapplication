@@ -202,7 +202,7 @@ export const event: Event<typeof name> = {
 				}
 
 				if (customId === CATALOGUE_VIEW_START_CUSTOM_ID || customId === CATALOGUE_BACK_TO_START_CUSTOM_ID) {
-					await Catalogue.viewTracker(interaction);
+					await Catalogue.viewCatalogue(interaction);
 					return;
 				}
 

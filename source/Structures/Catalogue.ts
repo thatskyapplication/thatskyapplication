@@ -1927,7 +1927,7 @@ export class Catalogue {
 		return this.progressPercentage(numbers, total, round);
 	}
 
-	public static async viewTracker(interaction: ButtonInteraction | ChatInputCommandInteraction) {
+	public static async viewCatalogue(interaction: ButtonInteraction | ChatInputCommandInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const existingCatalogue = await this.fetch(interaction.user.id).catch(() => null);
 		let catalogue;
@@ -2522,7 +2522,7 @@ export class Catalogue {
 		const spirits = resolveReturningSpirits(todayDate());
 
 		if (!spirits) {
-			await Catalogue.viewTracker(interaction);
+			await Catalogue.viewCatalogue(interaction);
 			return;
 		}
 

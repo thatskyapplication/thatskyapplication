@@ -19,6 +19,6 @@ export default new (class implements ChatInputCommand {
 	public id: Snowflake | null = null;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		await Catalogue.viewTracker(interaction);
+		await Catalogue.viewCatalogue(interaction);
 	}
 })();
