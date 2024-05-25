@@ -14,6 +14,7 @@ import {
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
 	SeasonNameToSeasonalCandleEmoji,
 	SeasonNameToSeasonalEmoji,
+	snakeCaseName,
 	wikiURL,
 } from "../Utility/catalogue.js";
 import {
@@ -67,6 +68,8 @@ interface SeasonData {
 export class Season {
 	public readonly name: SeasonName;
 
+	private readonly snakeCaseName: string;
+
 	public readonly wikiURL: string;
 
 	public readonly start: DateTime;
@@ -91,6 +94,7 @@ export class Season {
 
 	public constructor(data: SeasonData) {
 		this.name = data.name;
+		this.snakeCaseName = snakeCaseName(data.name);
 		this.wikiURL = wikiURL(data.name);
 		this.start = data.start;
 		this.end = data.end;
@@ -158,9 +162,7 @@ export class Season {
 	public seasonalCandlesRotationURL(realm: RealmName, rotation: RotationNumber) {
 		return String(
 			new URL(
-				`daily_guides/seasonal_candles/${this.name.toLowerCase().replaceAll(/ |-/g, "_")}/${realm
-					.toLowerCase()
-					.replaceAll(" ", "_")}/rotation_${rotation}.webp`,
+				`daily_guides/seasonal_candles/${this.snakeCaseName}/${snakeCaseName(realm)}/rotation_${rotation}.webp`,
 				CDN_URL,
 			),
 		);

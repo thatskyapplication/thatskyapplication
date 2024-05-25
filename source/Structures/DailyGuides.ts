@@ -41,7 +41,7 @@ import {
 	resolveSocialLightAreaMap,
 	resolveValidRealm,
 } from "../Utility/Utility.js";
-import { SeasonName } from "../Utility/catalogue.js";
+import { SeasonName, snakeCaseName } from "../Utility/catalogue.js";
 import { todayDate } from "../Utility/dates.js";
 import { FriendAction, SpiritEmote } from "../Utility/spirits.js";
 import { SPIRITS } from "../catalogue/spirits/index.js";
@@ -236,9 +236,7 @@ const KNOCK_OVER_5_DARK_CRABS = {
 const CATCH_THE_LIGHT = (realm: ValidRealmName) =>
 	({
 		content: `Catch the light in the ${realm}`,
-		url: String(
-			new URL(`daily_guides/quests/catch_the_light/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
-		),
+		url: String(new URL(`daily_guides/quests/catch_the_light/${snakeCaseName(realm)}.webp`, CDN_URL)),
 	}) as const;
 
 const SOCIAL_LIGHT_AREA = (map: SocialLightAreaMaps) =>
@@ -252,7 +250,7 @@ const SOCIAL_LIGHT_AREA = (map: SocialLightAreaMaps) =>
 const ADMIRE_THE_SAPLING = (realm: ValidRealmName) =>
 	({
 		content: `Admire the sapling in the ${realm}`,
-		url: String(new URL(`daily_guides/quests/days_of_bloom/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL)),
+		url: String(new URL(`daily_guides/quests/days_of_bloom/${snakeCaseName(realm)}.webp`, CDN_URL)),
 	}) as const;
 
 const VISIT_THE_POLLUTED_GEYSER = {
@@ -268,17 +266,13 @@ const RID_THE_SANCTUARY_VORTEX_OF_DARKNESS = {
 const RAINBOW_FIND = (realm: ValidRealmName) =>
 	({
 		content: `Find the candles at the end of the rainbow in the ${realm}`,
-		url: String(
-			new URL(`daily_guides/quests/days_of_colour/find/${realm.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
-		),
+		url: String(new URL(`daily_guides/quests/days_of_colour/find/${snakeCaseName(realm)}.webp`, CDN_URL)),
 	}) as const;
 
 const RAINBOW_ADMIRE = (map: RainbowAdmireMaps) =>
 	({
 		content: `Admire the rainbow in the ${map}`,
-		url: String(
-			new URL(`daily_guides/quests/days_of_colour/admire/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
-		),
+		url: String(new URL(`daily_guides/quests/days_of_colour/admire/${snakeCaseName(map)}.webp`, CDN_URL)),
 	}) as const;
 
 const MEDITATE_CITADEL_ARCH = {
@@ -305,9 +299,7 @@ function meditate(
 
 	return {
 		content: `Meditate ${resolveMeditationMap(map)}`,
-		url: String(
-			new URL(`daily_guides/quests/season_of_gratitude/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL),
-		),
+		url: String(new URL(`daily_guides/quests/season_of_gratitude/${snakeCaseName(map)}.webp`, CDN_URL)),
 	};
 }
 
