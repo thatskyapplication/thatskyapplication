@@ -291,7 +291,7 @@ export const event: Event<typeof name> = {
 				}
 
 				if (customId.startsWith(CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID)) {
-					await Catalogue.setItems(interaction);
+					await Catalogue.parseSetItems(interaction);
 					return;
 				}
 
@@ -404,7 +404,7 @@ export const event: Event<typeof name> = {
 					customId.startsWith(CATALOGUE_VIEW_OFFER_1_CUSTOM_ID) ||
 					customId.startsWith(CATALOGUE_VIEW_OFFER_2_CUSTOM_ID)
 				) {
-					await Catalogue.setItems(interaction);
+					await Catalogue.parseSetItems(interaction);
 					return;
 				}
 

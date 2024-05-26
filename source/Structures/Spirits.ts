@@ -138,7 +138,7 @@ abstract class BaseFriendshipTree {
 
 	public readonly totalCost: Required<ItemCost> | null;
 
-	public readonly maxItemsBit: number | null;
+	public readonly maximumItemsBit: number | null;
 
 	public imageURL: string | null;
 
@@ -149,7 +149,7 @@ abstract class BaseFriendshipTree {
 			? addCosts(this.current.map((item) => item.cost).filter((cost): cost is ItemCost => cost !== null))
 			: null;
 
-		this.maxItemsBit = offer?.current ? this.resolveMaxItemsBit(offer.current) : null;
+		this.maximumItemsBit = offer?.current ? this.resolveMaxItemsBit(offer.current) : null;
 		this.imageURL = (offer ? offer.hasInfographic ?? true : false) ? this.resolveImageURL(name) : null;
 	}
 
@@ -169,7 +169,7 @@ abstract class StandardFriendshipTree extends BaseFriendshipTree {
 
 	public declare readonly totalCost: Required<ItemCost>;
 
-	public declare readonly maxItemsBit: number;
+	public declare readonly maximumItemsBit: number;
 }
 
 abstract class ElderFriendshipTree extends BaseFriendshipTree {
@@ -177,11 +177,11 @@ abstract class ElderFriendshipTree extends BaseFriendshipTree {
 
 	public declare readonly totalCost: Required<ItemCost>;
 
-	public declare readonly maxItemsBit: number;
+	public declare readonly maximumItemsBit: number;
 }
 
 abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
-	public override readonly maxItemsBit: number;
+	public override readonly maximumItemsBit: number;
 
 	public readonly seasonal: Collection<number, Item>;
 
@@ -196,7 +196,7 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 			seasonName: seasonalFriendshipTreeData.season,
 		});
 
-		this.maxItemsBit = this.resolveMaxItemsBit(
+		this.maximumItemsBit = this.resolveMaxItemsBit(
 			seasonalFriendshipTreeData.offer.current ?? seasonalFriendshipTreeData.offer.seasonal,
 		);
 

@@ -90,7 +90,7 @@ export class Event {
 
 	public readonly offer: Collection<number, Item> | null;
 
-	public readonly maxItemsBit: number | null;
+	public readonly maximumItemsBit: number | null;
 
 	public readonly offerInfographicURL: string | null;
 
@@ -112,7 +112,7 @@ export class Event {
 		this.eventCurrencyPerDay = data.eventCurrencyPerDay ?? null;
 		this.eventCurrencyEmoji = EventNameToEventCurrencyEmoji[this.name];
 		this.offer = data.offer ? resolveOffer(data.offer, { eventName: this.name }) : null;
-		this.maxItemsBit = data.offer ? this.resolveMaxItemsBit(data.offer) : null;
+		this.maximumItemsBit = data.offer ? this.resolveMaxItemsBit(data.offer) : null;
 
 		this.offerInfographicURL = data.offerInfographicURL
 			? String(new URL(`events/${this.start.year}/${snakeCaseName(this.name)}/offer.webp`, CDN_URL))
