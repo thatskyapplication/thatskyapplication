@@ -571,5 +571,6 @@ export const enum CatalogueType {
 	Events,
 	StarterPacks,
 	SecretArea,
+	HarmonyHall,
 	PermanentEventStore,
 }

@@ -10,6 +10,5 @@ export default new Event({
 	end: skyDate(2_023, 7, 16),
 	offer: new Collection<number, ItemRaw>()
 		.set(1 << 0, { name: "Triumph Saxophone", cost: { eventCurrency: 102 }, emoji: HELD_PROPS_EMOJIS.HeldProp36 })
-		.set(1 << 1, { name: "Marching Band Hat", cost: { eventCurrency: 43 }, emoji: HAIR_EMOJIS.Hair126 })
-		.set(1 << 2, { name: "Triumph Violin", cost: { money: 19.99 }, emoji: HELD_PROPS_EMOJIS.HeldProp35 }),
+		.set(1 << 1, { name: "Marching Band Hat", cost: { eventCurrency: 43 }, emoji: HAIR_EMOJIS.Hair126 }),
 });

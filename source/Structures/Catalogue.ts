@@ -40,6 +40,7 @@ import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { SpiritName } from "../Utility/spirits.js";
 import { CURRENT_EVENTS, CURRENT_EVENTS_YEARS, resolveEvents } from "../catalogue/events/index.js";
+import { HARMONY_HALL } from "../catalogue/harmonyHall.js";
 import { PERMANENT_EVENT_STORE } from "../catalogue/permanentEventStore.js";
 import { SECRET_AREA } from "../catalogue/secretArea.js";
 import { SPIRITS } from "../catalogue/spirits/index.js";
@@ -310,6 +311,7 @@ export interface CataloguePacket {
 	days_of_colour_2024: CatalogueValue;
 	starter_packs: CatalogueValue;
 	secret_area: CatalogueValue;
+	harmony_hall: CatalogueValue;
 	permanent_event_store: CatalogueValue;
 }
 
@@ -562,6 +564,7 @@ interface CatalogueData {
 	daysOfColour2024: CataloguePacket["days_of_colour_2024"];
 	starterPacks: CataloguePacket["starter_packs"];
 	secretArea: CataloguePacket["secret_area"];
+	harmonyHall: CataloguePacket["harmony_hall"];
 	permanentEventStore: CataloguePacket["permanent_event_store"];
 }
 
@@ -816,6 +819,7 @@ const CatalogueNameToRawName = {
 	[EventNameUnique.DaysOfColour2024]: "days_of_colour_2024",
 	[CatalogueType.StarterPacks]: "starter_packs",
 	[CatalogueType.SecretArea]: "secret_area",
+	[CatalogueType.HarmonyHall]: "harmony_hall",
 	[CatalogueType.PermanentEventStore]: "permanent_event_store",
 } as const satisfies Readonly<
 	Record<
@@ -1078,6 +1082,7 @@ const SpiritEventNameToCatalogueName = {
 	[EventNameUnique.DaysOfColour2024]: "daysOfColour2024",
 	[CatalogueType.StarterPacks]: "starterPacks",
 	[CatalogueType.SecretArea]: "secretArea",
+	[CatalogueType.HarmonyHall]: "harmonyHall",
 	[CatalogueType.PermanentEventStore]: "permanentEventStore",
 } as const satisfies Readonly<
 	Record<
@@ -1628,6 +1633,8 @@ export class Catalogue {
 
 	public secretArea!: CatalogueData["secretArea"];
 
+	public harmonyHall!: CatalogueData["harmonyHall"];
+
 	public permanentEventStore!: CatalogueData["permanentEventStore"];
 
 	public constructor(catalogue: CataloguePacket) {
@@ -1883,6 +1890,7 @@ export class Catalogue {
 		this.daysOfColour2024 = data.days_of_colour_2024;
 		this.starterPacks = data.starter_packs;
 		this.secretArea = data.secret_area;
+		this.harmonyHall = data.harmony_hall;
 		this.permanentEventStore = data.permanent_event_store;
 	}
 
@@ -1987,6 +1995,15 @@ export class Catalogue {
 		return this.progressPercentage([owned], total, round);
 	}
 
+	public harmonyHallProgress(round?: boolean) {
+		const { owned, total } = this.ownedProgress(
+			HARMONY_HALL.items,
+			this[SpiritEventNameToCatalogueName[CatalogueType.HarmonyHall]],
+		);
+
+		return this.progressPercentage([owned], total, round);
+	}
+
 	public permanentEventStoreProgress(round?: boolean) {
 		const { owned, total } = this.ownedProgress(
 			PERMANENT_EVENT_STORE.items,
@@ -2015,6 +2032,7 @@ export class Catalogue {
 		const eventProgress = catalogue.eventProgress(CURRENT_EVENTS, true);
 		const starterPackProgress = catalogue.starterPackProgress(true);
 		const secretAreaProgress = catalogue.secretAreaProgress(true);
+		const harmonyHallProgress = catalogue.harmonyHallProgress(true);
 		const permanentEventStoreProgress = catalogue.permanentEventStoreProgress(true);
 		const today = todayDate();
 		const currentSeason = resolveSeason(today);
@@ -2103,6 +2121,9 @@ export class Catalogue {
 								.setLabel(`Secret Area${secretAreaProgress === null ? "" : ` (${secretAreaProgress}%)`}`)
 								.setValue(String(CatalogueType.SecretArea)),
 							new StringSelectMenuOptionBuilder()
+								.setLabel(`Harmony Hall${harmonyHallProgress === null ? "" : ` (${harmonyHallProgress}%)`}`)
+								.setValue(String(CatalogueType.HarmonyHall)),
+							new StringSelectMenuOptionBuilder()
 								.setLabel(
 									`Permanent Event Store${
 										permanentEventStoreProgress === null ? "" : ` (${permanentEventStoreProgress}%)`
@@ -2161,6 +2182,9 @@ export class Catalogue {
 				return;
 			case CatalogueType.SecretArea:
 				await this.viewSecretArea(interaction);
+				return;
+			case CatalogueType.HarmonyHall:
+				await this.viewHarmonyHall(interaction);
 				return;
 			case CatalogueType.PermanentEventStore:
 				await this.viewPermanentEventStore(interaction);
@@ -3027,6 +3051,56 @@ export class Catalogue {
 		});
 	}
 
+	private static async viewHarmonyHall(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		const catalogue = await this.fetch(interaction.user.id);
+		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.HarmonyHall]];
+
+		const itemSelectionOptions = HARMONY_HALL.items.map(({ emoji, name }, flag) =>
+			new StringSelectMenuOptionBuilder()
+				.setDefault(Boolean(bit && bit & flag))
+				.setEmoji(emoji)
+				.setLabel(name)
+				.setValue(String(flag)),
+		);
+
+		const { offerDescription } = catalogue.embedProgress(bit, HARMONY_HALL.items);
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.HarmonyHall}`)
+						.setMaxValues(itemSelectionOptions.length)
+						.setMinValues(0)
+						.setOptions(itemSelectionOptions)
+						.setPlaceholder("Select what you have!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
+					new ButtonBuilder()
+						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.HarmonyHall}`)
+						.setDisabled(catalogue.harmonyHallProgress() === 100)
+						.setEmoji("💯")
+						.setLabel("I have everything!")
+						.setStyle(ButtonStyle.Success),
+				),
+			],
+			content: "",
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(offerDescription.join("\n"))
+					.setTitle("Harmony Hall"),
+			],
+		});
+	}
+
 	private static async viewPermanentEventStore(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const catalogue = await this.fetch(interaction.user.id);
@@ -3174,6 +3248,9 @@ export class Catalogue {
 				case CatalogueType.SecretArea:
 					await catalogue.setSecretAreaItems(interaction);
 					return;
+				case CatalogueType.HarmonyHall:
+					await catalogue.setHarmonyHallItems(interaction);
+					return;
 				case CatalogueType.PermanentEventStore:
 					await catalogue.setPermanentEventStoreItems(interaction);
 					return;
@@ -3271,6 +3348,21 @@ export class Catalogue {
 
 		this.patch(cataloguePacket!);
 		await Catalogue.viewSecretArea(interaction);
+	}
+
+	private async setHarmonyHallItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		const newBit = this.calculateSetItemsBit(
+			interaction,
+			this[SpiritEventNameToCatalogueName[CatalogueType.HarmonyHall]],
+			HARMONY_HALL.maximumItemsBit,
+		);
+
+		const [cataloguePacket] = await Catalogue.update(interaction.user.id, {
+			[CatalogueNameToRawName[CatalogueType.HarmonyHall]]: newBit,
+		});
+
+		this.patch(cataloguePacket!);
+		await Catalogue.viewHarmonyHall(interaction);
 	}
 
 	private async setPermanentEventStoreItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
