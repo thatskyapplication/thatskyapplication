@@ -39,15 +39,14 @@ import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../Commands/Ge
 import COMMANDS, { resolveCommand } from "../Commands/index.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../Structures/AI.js";
 import {
-	Catalogue,
 	CATALOGUE_BACK_TO_START_CUSTOM_ID,
 	CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
+	CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID,
 	CATALOGUE_REALM_EVERYTHING_CUSTOM_ID,
 	CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID,
 	CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID,
 	CATALOGUE_SHARE_PROMPT_CUSTOM_ID,
 	CATALOGUE_SHARE_SEND_CUSTOM_ID,
-	CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID,
 	CATALOGUE_VIEW_ELDERS_CUSTOM_ID,
 	CATALOGUE_VIEW_EVENT_CUSTOM_ID,
 	CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
@@ -62,6 +61,7 @@ import {
 	CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
 	CATALOGUE_VIEW_START_CUSTOM_ID,
 	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
+	Catalogue,
 } from "../Structures/Catalogue.js";
 import { deleteUserData } from "../Structures/Data.js";
 import Profile from "../Structures/Profile.js";
@@ -290,7 +290,7 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (customId.startsWith(CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID)) {
+				if (customId.startsWith(CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID)) {
 					await Catalogue.parseSetItems(interaction);
 					return;
 				}

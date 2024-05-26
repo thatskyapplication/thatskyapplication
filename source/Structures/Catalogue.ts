@@ -1115,7 +1115,7 @@ export const CATALOGUE_SHARE_SEND_CUSTOM_ID = "CATALOGUE_SHARE_SEND_CUSTOM_ID" a
 export const CATALOGUE_REALM_EVERYTHING_CUSTOM_ID = "CATALOGUE_REALM_EVERYTHING_CUSTOM_ID" as const;
 export const CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID = "CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID" as const;
 export const CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID = "CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID" as const;
-export const CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID = "CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID" as const;
+export const CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID = "CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID" as const;
 const CATALOGUE_MAXIMUM_OPTIONS_LIMIT = 25 as const;
 const CATALOGUE_STANDARD_PERCENTAGE_NOTE = "Averages are calculated even beyond the second wing buff." as const;
 
@@ -2726,7 +2726,7 @@ export class Catalogue {
 		if (offer) {
 			buttons.addComponents(
 				new ButtonBuilder()
-					.setCustomId(`${CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID}§${spirit.name}`)
+					.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${spirit.name}`)
 					.setDisabled(this.spiritProgress([spirit]) === 100)
 					.setEmoji("💯")
 					.setLabel("I have everything!")
@@ -2873,7 +2873,7 @@ export class Catalogue {
 		if (offer) {
 			buttons.addComponents(
 				new ButtonBuilder()
-					.setCustomId(`${CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID}§${nameUnique}`)
+					.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${nameUnique}`)
 					.setDisabled(this.eventProgress([event]) === 100)
 					.setEmoji("💯")
 					.setLabel("I have everything!")
@@ -2960,7 +2960,7 @@ export class Catalogue {
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
-						.setCustomId(`${CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID}§${CatalogueType.StarterPacks}`)
+						.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.StarterPacks}`)
 						.setDisabled(catalogue.starterPackProgress() === 100)
 						.setEmoji("💯")
 						.setLabel("I have everything!")
@@ -3010,7 +3010,7 @@ export class Catalogue {
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
-						.setCustomId(`${CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID}§${CatalogueType.SecretArea}`)
+						.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.SecretArea}`)
 						.setDisabled(catalogue.secretAreaProgress() === 100)
 						.setEmoji("💯")
 						.setLabel("I have everything!")
@@ -3060,7 +3060,7 @@ export class Catalogue {
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
-						.setCustomId(`${CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID}§${CatalogueType.PermanentEventStore}`)
+						.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.PermanentEventStore}`)
 						.setDisabled(catalogue.permanentEventStoreProgress() === 100)
 						.setEmoji("💯")
 						.setLabel("I have everything!")
