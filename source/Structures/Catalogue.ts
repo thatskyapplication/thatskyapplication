@@ -41,6 +41,7 @@ import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { SpiritName } from "../Utility/spirits.js";
 import { CURRENT_EVENTS, CURRENT_EVENTS_YEARS, resolveEvents } from "../catalogue/events/index.js";
 import { PERMANENT_EVENT_STORE } from "../catalogue/permanentEventStore.js";
+import { SECRET_AREA } from "../catalogue/secretArea.js";
 import { SPIRITS } from "../catalogue/spirits/index.js";
 import { ELDER_SPIRITS, REALMS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
 import {
@@ -308,6 +309,7 @@ export interface CataloguePacket {
 	days_of_nature_2024: CatalogueValue;
 	days_of_colour_2024: CatalogueValue;
 	starter_packs: CatalogueValue;
+	secret_area: CatalogueValue;
 	permanent_event_store: CatalogueValue;
 }
 
@@ -559,6 +561,7 @@ interface CatalogueData {
 	daysOfNature2024: CataloguePacket["days_of_nature_2024"];
 	daysOfColour2024: CataloguePacket["days_of_colour_2024"];
 	starterPacks: CataloguePacket["starter_packs"];
+	secretArea: CataloguePacket["secret_area"];
 	permanentEventStore: CataloguePacket["permanent_event_store"];
 }
 
@@ -812,10 +815,17 @@ const CatalogueNameToRawName = {
 	[EventNameUnique.DaysOfNature2024]: "days_of_nature_2024",
 	[EventNameUnique.DaysOfColour2024]: "days_of_colour_2024",
 	[CatalogueType.StarterPacks]: "starter_packs",
+	[CatalogueType.SecretArea]: "secret_area",
 	[CatalogueType.PermanentEventStore]: "permanent_event_store",
 } as const satisfies Readonly<
 	Record<
-		SpiritName | SeasonName | EventNameUnique | CatalogueType.StarterPacks | CatalogueType.PermanentEventStore,
+		| SpiritName
+		| SeasonName
+		| EventNameUnique
+		| Exclude<
+				CatalogueType,
+				CatalogueType.StandardSpirits | CatalogueType.Elders | CatalogueType.SeasonalSpirits | CatalogueType.Events
+		  >,
 		Exclude<keyof CataloguePacket, "user_id">
 	>
 >;
@@ -1067,10 +1077,17 @@ const SpiritEventNameToCatalogueName = {
 	[EventNameUnique.DaysOfNature2024]: "daysOfNature2024",
 	[EventNameUnique.DaysOfColour2024]: "daysOfColour2024",
 	[CatalogueType.StarterPacks]: "starterPacks",
+	[CatalogueType.SecretArea]: "secretArea",
 	[CatalogueType.PermanentEventStore]: "permanentEventStore",
 } as const satisfies Readonly<
 	Record<
-		SpiritName | SeasonName | EventNameUnique | CatalogueType.StarterPacks | CatalogueType.PermanentEventStore,
+		| SpiritName
+		| SeasonName
+		| EventNameUnique
+		| Exclude<
+				CatalogueType,
+				CatalogueType.StandardSpirits | CatalogueType.Elders | CatalogueType.SeasonalSpirits | CatalogueType.Events
+		  >,
 		Exclude<keyof CatalogueData, "user_id">
 	>
 >;
@@ -1609,6 +1626,8 @@ export class Catalogue {
 
 	public starterPacks!: CatalogueData["starterPacks"];
 
+	public secretArea!: CatalogueData["secretArea"];
+
 	public permanentEventStore!: CatalogueData["permanentEventStore"];
 
 	public constructor(catalogue: CataloguePacket) {
@@ -1863,6 +1882,7 @@ export class Catalogue {
 		this.daysOfNature2024 = data.days_of_nature_2024;
 		this.daysOfColour2024 = data.days_of_colour_2024;
 		this.starterPacks = data.starter_packs;
+		this.secretArea = data.secret_area;
 		this.permanentEventStore = data.permanent_event_store;
 	}
 
@@ -1958,6 +1978,15 @@ export class Catalogue {
 		return this.progressPercentage([owned], total, round);
 	}
 
+	public secretAreaProgress(round?: boolean) {
+		const { owned, total } = this.ownedProgress(
+			SECRET_AREA.items,
+			this[SpiritEventNameToCatalogueName[CatalogueType.SecretArea]],
+		);
+
+		return this.progressPercentage([owned], total, round);
+	}
+
 	public permanentEventStoreProgress(round?: boolean) {
 		const { owned, total } = this.ownedProgress(
 			PERMANENT_EVENT_STORE.items,
@@ -1985,6 +2014,7 @@ export class Catalogue {
 		const seasonalProgress = catalogue.seasonProgress(CURRENT_SEASONS, true);
 		const eventProgress = catalogue.eventProgress(CURRENT_EVENTS, true);
 		const starterPackProgress = catalogue.starterPackProgress(true);
+		const secretAreaProgress = catalogue.secretAreaProgress(true);
 		const permanentEventStoreProgress = catalogue.permanentEventStoreProgress(true);
 		const today = todayDate();
 		const currentSeason = resolveSeason(today);
@@ -2070,6 +2100,9 @@ export class Catalogue {
 								.setLabel(`Starter Packs${starterPackProgress === null ? "" : ` (${starterPackProgress}%)`}`)
 								.setValue(String(CatalogueType.StarterPacks)),
 							new StringSelectMenuOptionBuilder()
+								.setLabel(`Secret Area${secretAreaProgress === null ? "" : ` (${secretAreaProgress}%)`}`)
+								.setValue(String(CatalogueType.SecretArea)),
+							new StringSelectMenuOptionBuilder()
 								.setLabel(
 									`Permanent Event Store${
 										permanentEventStoreProgress === null ? "" : ` (${permanentEventStoreProgress}%)`
@@ -2125,6 +2158,9 @@ export class Catalogue {
 				return;
 			case CatalogueType.StarterPacks:
 				await this.viewStarterPacks(interaction);
+				return;
+			case CatalogueType.SecretArea:
+				await this.viewSecretArea(interaction);
 				return;
 			case CatalogueType.PermanentEventStore:
 				await this.viewPermanentEventStore(interaction);
@@ -2941,6 +2977,56 @@ export class Catalogue {
 		});
 	}
 
+	private static async viewSecretArea(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		const catalogue = await this.fetch(interaction.user.id);
+		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.SecretArea]];
+
+		const itemSelectionOptions = SECRET_AREA.items.map(({ emoji, name }, flag) =>
+			new StringSelectMenuOptionBuilder()
+				.setDefault(Boolean(bit && bit & flag))
+				.setEmoji(emoji)
+				.setLabel(name)
+				.setValue(String(flag)),
+		);
+
+		const { offerDescription } = catalogue.embedProgress(bit, SECRET_AREA.items);
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.SecretArea}`)
+						.setMaxValues(itemSelectionOptions.length)
+						.setMinValues(0)
+						.setOptions(itemSelectionOptions)
+						.setPlaceholder("Select what you have!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
+					new ButtonBuilder()
+						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID}§${CatalogueType.SecretArea}`)
+						.setDisabled(catalogue.secretAreaProgress() === 100)
+						.setEmoji("💯")
+						.setLabel("I have everything!")
+						.setStyle(ButtonStyle.Success),
+				),
+			],
+			content: "",
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(offerDescription.join("\n"))
+					.setTitle("Secret Area"),
+			],
+		});
+	}
+
 	private static async viewPermanentEventStore(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const catalogue = await this.fetch(interaction.user.id);
@@ -3080,13 +3166,21 @@ export class Catalogue {
 			await catalogue.setSpiritItems(interaction, spirit);
 		} else if (event) {
 			await catalogue.setEventItems(interaction, event);
-		} else if (resolvedCustomId === String(CatalogueType.StarterPacks)) {
-			await catalogue.setStarterPacksItems(interaction);
-		} else if (resolvedCustomId === String(CatalogueType.PermanentEventStore)) {
-			await catalogue.setPermanentEventStoreItems(interaction);
 		} else {
-			pino.error(interaction, "Could not parse items to set.");
-			await interaction.update(ERROR_RESPONSE);
+			switch (Number(resolvedCustomId)) {
+				case CatalogueType.StarterPacks:
+					await catalogue.setStarterPacksItems(interaction);
+					return;
+				case CatalogueType.SecretArea:
+					await catalogue.setSecretAreaItems(interaction);
+					return;
+				case CatalogueType.PermanentEventStore:
+					await catalogue.setPermanentEventStoreItems(interaction);
+					return;
+				default:
+					pino.error(interaction, "Could not parse items to set.");
+					await interaction.update(ERROR_RESPONSE);
+			}
 		}
 	}
 
@@ -3162,6 +3256,21 @@ export class Catalogue {
 
 		this.patch(cataloguePacket!);
 		await Catalogue.viewStarterPacks(interaction);
+	}
+
+	private async setSecretAreaItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		const newBit = this.calculateSetItemsBit(
+			interaction,
+			this[SpiritEventNameToCatalogueName[CatalogueType.SecretArea]],
+			SECRET_AREA.maximumItemsBit,
+		);
+
+		const [cataloguePacket] = await Catalogue.update(interaction.user.id, {
+			[CatalogueNameToRawName[CatalogueType.SecretArea]]: newBit,
+		});
+
+		this.patch(cataloguePacket!);
+		await Catalogue.viewSecretArea(interaction);
 	}
 
 	private async setPermanentEventStoreItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
