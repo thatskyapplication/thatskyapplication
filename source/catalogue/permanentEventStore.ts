@@ -19,4 +19,4 @@ const items = resolveOffer(
 		}),
 );
 
-export const PERMANENT_EVENT_STORE = { items, maximumItemsBit: items.reduce((bits, _, bit) => bit | bits, 0) };
+export const PERMANENT_EVENT_STORE = { items, maximumItemsBit: items.reduce((bits, _, bit) => bit | bits, 0) } as const;
