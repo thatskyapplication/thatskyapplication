@@ -2043,7 +2043,7 @@ export class Catalogue {
 								.setLabel(`Elders${elderProgress === null ? "" : ` (${elderProgress}%)`}`)
 								.setValue(String(CatalogueType.Elders)),
 							new StringSelectMenuOptionBuilder()
-								.setLabel(`Seasonal Spirits${seasonalProgress === null ? "" : ` (${seasonalProgress}%)`}`)
+								.setLabel(`Seasons${seasonalProgress === null ? "" : ` (${seasonalProgress}%)`}`)
 								.setValue(String(CatalogueType.SeasonalSpirits)),
 							new StringSelectMenuOptionBuilder()
 								.setLabel(`Events${eventProgress === null ? "" : ` (${eventProgress}%)`}`)
