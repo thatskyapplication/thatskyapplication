@@ -13,7 +13,7 @@ import {
 	wikiURL,
 	snakeCaseName,
 } from "../Utility/catalogue.js";
-import { type EventEmojis } from "../Utility/emojis.js";
+import type { EventEmojis } from "../Utility/emojis.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
 
