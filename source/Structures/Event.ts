@@ -1,6 +1,6 @@
 import type { DateTime } from "luxon";
 import type { EventName } from "../Utility/catalogue.js";
-import { type EventEmojis } from "../Utility/emojis.js";
+import type { MISCELLANEOUS_EMOJIS, EventEmojis } from "../Utility/emojis.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
 
@@ -11,7 +11,7 @@ interface EventData {
 	eventCurrencyEnd?: DateTime;
 	url: string | readonly EventDataURL[] | null;
 	eventCurrencyPerDay: number;
-	eventCurrencyEmoji: EventEmojis;
+	eventCurrencyEmoji: EventEmojis | typeof MISCELLANEOUS_EMOJIS.EventCurrency;
 }
 
 interface EventDataURL {
@@ -32,7 +32,7 @@ export class Event {
 
 	public readonly eventCurrencyPerDay: number;
 
-	public readonly eventCurrencyEmoji: EventEmojis;
+	public readonly eventCurrencyEmoji: EventEmojis | typeof MISCELLANEOUS_EMOJIS.EventCurrency;
 
 	public constructor(data: EventData) {
 		this.name = data.name;

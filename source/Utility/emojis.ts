@@ -38,6 +38,7 @@ export const MISCELLANEOUS_EMOJIS = {
 	WingBuff: { name: "wing_buff", id: "1193714656645230754" },
 	Quest: { name: "quest", id: "1193730169291153438" },
 	MusicSheet: { name: "music_sheet", id: "1193856769026424862" },
+	EventCurrency: { name: "event_currency", id: "1241346485791096852" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type MiscellaneousEmojis = (typeof MISCELLANEOUS_EMOJIS)[keyof typeof MISCELLANEOUS_EMOJIS];
