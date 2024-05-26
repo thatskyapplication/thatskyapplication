@@ -54,7 +54,7 @@ const SEASONS = [
 	Nesting,
 ] as const;
 
-export const CURRENT_SEASONS = SEASONS.filter((season) => todayDate() > season.start);
+export const CURRENT_SEASONS = SEASONS.filter((season) => todayDate() >= season.start);
 
 export const SEASON_SPIRITS = [
 	Gratitude.guide,
