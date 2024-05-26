@@ -2055,26 +2055,24 @@ export class Catalogue {
 			currentSeasonButton.setEmoji(currentSeason.emoji);
 		}
 
-		const currentEventButtons = currentEvents.reduce<ButtonBuilder[]>((buttons, event) => {
-			const button = new ButtonBuilder()
-				.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${event.nameUnique}`)
-				.setStyle(ButtonStyle.Success);
+		const currentEventButtons =
+			currentEvents.length === 0
+				? [
+						new ButtonBuilder()
+							// This would not happen, but it's here to satisfy the API.
+							.setCustomId(CATALOGUE_VIEW_EVENT_CUSTOM_ID)
+							.setDisabled()
+							.setStyle(ButtonStyle.Secondary),
+				  ]
+				: currentEvents.reduce<ButtonBuilder[]>((buttons, event) => {
+						const button = new ButtonBuilder()
+							.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${event.nameUnique}`)
+							.setStyle(ButtonStyle.Success);
 
-			if (event.eventCurrencyEmoji) button.setEmoji(event.eventCurrencyEmoji);
-			buttons.push(button);
-			return buttons;
-		}, []);
-
-		if (currentEventButtons.length === 0) {
-			currentEventButtons.push(
-				new ButtonBuilder()
-					// This would not happen, but it's here to satisfy the API.
-					.setCustomId(CATALOGUE_VIEW_EVENT_CUSTOM_ID)
-					.setDisabled()
-					.setLabel("Current Event")
-					.setStyle(ButtonStyle.Secondary),
-			);
-		}
+						if (event.eventCurrencyEmoji) button.setEmoji(event.eventCurrencyEmoji);
+						buttons.push(button);
+						return buttons;
+				  }, []);
 
 		if (currentEventButtons.length === 1) currentEventButtons[0]!.setLabel("Current Event");
 
