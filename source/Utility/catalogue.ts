@@ -569,5 +569,6 @@ export const enum CatalogueType {
 	Elders,
 	SeasonalSpirits,
 	Events,
+	StarterPacks,
 	PermanentEventStore,
 }

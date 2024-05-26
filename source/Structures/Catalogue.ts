@@ -50,6 +50,7 @@ import {
 	resolveSeason,
 	resolveTravellingSpirit,
 } from "../catalogue/spirits/seasons/index.js";
+import { STARTER_PACKS } from "../catalogue/starterPacks.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import type { Event } from "./Event.js";
@@ -306,6 +307,7 @@ export interface CataloguePacket {
 	sky_x_cinnamoroll_pop_up_cafe_2024: CatalogueValue;
 	days_of_nature_2024: CatalogueValue;
 	days_of_colour_2024: CatalogueValue;
+	starter_packs: CatalogueValue;
 	permanent_event_store: CatalogueValue;
 }
 
@@ -556,6 +558,7 @@ interface CatalogueData {
 	skyXCinnamorollPopUpCafe2024: CataloguePacket["sky_x_cinnamoroll_pop_up_cafe_2024"];
 	daysOfNature2024: CataloguePacket["days_of_nature_2024"];
 	daysOfColour2024: CataloguePacket["days_of_colour_2024"];
+	starterPacks: CataloguePacket["starter_packs"];
 	permanentEventStore: CataloguePacket["permanent_event_store"];
 }
 
@@ -808,10 +811,11 @@ const CatalogueNameToRawName = {
 	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: "sky_x_cinnamoroll_pop_up_cafe_2024",
 	[EventNameUnique.DaysOfNature2024]: "days_of_nature_2024",
 	[EventNameUnique.DaysOfColour2024]: "days_of_colour_2024",
+	[CatalogueType.StarterPacks]: "starter_packs",
 	[CatalogueType.PermanentEventStore]: "permanent_event_store",
 } as const satisfies Readonly<
 	Record<
-		SpiritName | SeasonName | EventNameUnique | CatalogueType.PermanentEventStore,
+		SpiritName | SeasonName | EventNameUnique | CatalogueType.StarterPacks | CatalogueType.PermanentEventStore,
 		Exclude<keyof CataloguePacket, "user_id">
 	>
 >;
@@ -1062,10 +1066,11 @@ const SpiritEventNameToCatalogueName = {
 	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: "skyXCinnamorollPopUpCafe2024",
 	[EventNameUnique.DaysOfNature2024]: "daysOfNature2024",
 	[EventNameUnique.DaysOfColour2024]: "daysOfColour2024",
+	[CatalogueType.StarterPacks]: "starterPacks",
 	[CatalogueType.PermanentEventStore]: "permanentEventStore",
 } as const satisfies Readonly<
 	Record<
-		SpiritName | SeasonName | EventNameUnique | CatalogueType.PermanentEventStore,
+		SpiritName | SeasonName | EventNameUnique | CatalogueType.StarterPacks | CatalogueType.PermanentEventStore,
 		Exclude<keyof CatalogueData, "user_id">
 	>
 >;
@@ -1602,6 +1607,8 @@ export class Catalogue {
 
 	public daysOfColour2024!: CatalogueData["daysOfColour2024"];
 
+	public starterPacks!: CatalogueData["starterPacks"];
+
 	public permanentEventStore!: CatalogueData["permanentEventStore"];
 
 	public constructor(catalogue: CataloguePacket) {
@@ -1855,6 +1862,7 @@ export class Catalogue {
 		this.skyXCinnamorollPopUpCafe2024 = data.sky_x_cinnamoroll_pop_up_cafe_2024;
 		this.daysOfNature2024 = data.days_of_nature_2024;
 		this.daysOfColour2024 = data.days_of_colour_2024;
+		this.starterPacks = data.starter_packs;
 		this.permanentEventStore = data.permanent_event_store;
 	}
 
@@ -1941,6 +1949,15 @@ export class Catalogue {
 		return this.progressPercentage(numbers, total, round);
 	}
 
+	public starterPackProgress(round?: boolean) {
+		const { owned, total } = this.ownedProgress(
+			STARTER_PACKS.items,
+			this[SpiritEventNameToCatalogueName[CatalogueType.StarterPacks]],
+		);
+
+		return this.progressPercentage([owned], total, round);
+	}
+
 	public permanentEventStoreProgress(round?: boolean) {
 		const { owned, total } = this.ownedProgress(
 			PERMANENT_EVENT_STORE.items,
@@ -1967,6 +1984,7 @@ export class Catalogue {
 		const elderProgress = catalogue.spiritProgress(ELDER_SPIRITS, true);
 		const seasonalProgress = catalogue.seasonProgress(CURRENT_SEASONS, true);
 		const eventProgress = catalogue.eventProgress(CURRENT_EVENTS, true);
+		const starterPackProgress = catalogue.starterPackProgress(true);
 		const permanentEventStoreProgress = catalogue.permanentEventStoreProgress(true);
 		const today = todayDate();
 		const currentSeason = resolveSeason(today);
@@ -2049,6 +2067,9 @@ export class Catalogue {
 								.setLabel(`Events${eventProgress === null ? "" : ` (${eventProgress}%)`}`)
 								.setValue(String(CatalogueType.Events)),
 							new StringSelectMenuOptionBuilder()
+								.setLabel(`Starter Packs${starterPackProgress === null ? "" : ` (${starterPackProgress}%)`}`)
+								.setValue(String(CatalogueType.StarterPacks)),
+							new StringSelectMenuOptionBuilder()
 								.setLabel(
 									`Permanent Event Store${
 										permanentEventStoreProgress === null ? "" : ` (${permanentEventStoreProgress}%)`
@@ -2101,6 +2122,9 @@ export class Catalogue {
 				return;
 			case CatalogueType.Events:
 				await this.viewEventYears(interaction);
+				return;
+			case CatalogueType.StarterPacks:
+				await this.viewStarterPacks(interaction);
 				return;
 			case CatalogueType.PermanentEventStore:
 				await this.viewPermanentEventStore(interaction);
@@ -2867,6 +2891,56 @@ export class Catalogue {
 		await interaction.update({ components, content: "", embeds: [embed] });
 	}
 
+	private static async viewStarterPacks(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		const catalogue = await this.fetch(interaction.user.id);
+		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.StarterPacks]];
+
+		const itemSelectionOptions = STARTER_PACKS.items.map(({ emoji, name }, flag) =>
+			new StringSelectMenuOptionBuilder()
+				.setDefault(Boolean(bit && bit & flag))
+				.setEmoji(emoji)
+				.setLabel(name)
+				.setValue(String(flag)),
+		);
+
+		const { offerDescription } = catalogue.embedProgress(bit, STARTER_PACKS.items);
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.StarterPacks}`)
+						.setMaxValues(itemSelectionOptions.length)
+						.setMinValues(0)
+						.setOptions(itemSelectionOptions)
+						.setPlaceholder("Select what you have!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
+					new ButtonBuilder()
+						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_SPIRIT_EVERYTHING_CUSTOM_ID}§${CatalogueType.StarterPacks}`)
+						.setDisabled(catalogue.starterPackProgress() === 100)
+						.setEmoji("💯")
+						.setLabel("I have everything!")
+						.setStyle(ButtonStyle.Success),
+				),
+			],
+			content: "",
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(offerDescription.join("\n"))
+					.setTitle("Starter Packs"),
+			],
+		});
+	}
+
 	private static async viewPermanentEventStore(interaction: ButtonInteraction | StringSelectMenuInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const catalogue = await this.fetch(interaction.user.id);
@@ -3002,14 +3076,13 @@ export class Catalogue {
 		const spirit = SPIRITS.find(({ name }) => name === resolvedCustomId);
 		const event = CURRENT_EVENTS.find(({ nameUnique }) => nameUnique === resolvedCustomId);
 
-		const permanentEventStore =
-			resolvedCustomId === String(CatalogueType.PermanentEventStore) ? PERMANENT_EVENT_STORE : null;
-
 		if (spirit) {
 			await catalogue.setSpiritItems(interaction, spirit);
 		} else if (event) {
 			await catalogue.setEventItems(interaction, event);
-		} else if (permanentEventStore) {
+		} else if (resolvedCustomId === String(CatalogueType.StarterPacks)) {
+			await catalogue.setStarterPacksItems(interaction);
+		} else if (resolvedCustomId === String(CatalogueType.PermanentEventStore)) {
 			await catalogue.setPermanentEventStoreItems(interaction);
 		} else {
 			pino.error(interaction, "Could not parse items to set.");
@@ -3074,6 +3147,21 @@ export class Catalogue {
 
 		this.patch(cataloguePacket!);
 		await this.viewEvent(interaction, event);
+	}
+
+	private async setStarterPacksItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		const newBit = this.calculateSetItemsBit(
+			interaction,
+			this[SpiritEventNameToCatalogueName[CatalogueType.StarterPacks]],
+			PERMANENT_EVENT_STORE.maximumItemsBit,
+		);
+
+		const [cataloguePacket] = await Catalogue.update(interaction.user.id, {
+			[CatalogueNameToRawName[CatalogueType.StarterPacks]]: newBit,
+		});
+
+		this.patch(cataloguePacket!);
+		await Catalogue.viewStarterPacks(interaction);
 	}
 
 	private async setPermanentEventStoreItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
