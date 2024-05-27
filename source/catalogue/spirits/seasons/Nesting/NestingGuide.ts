@@ -28,6 +28,8 @@ export default new GuideSpirit({
 			.set(1 << 5, { name: "Quest 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 6, { name: "Heart 2", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 7, { name: "Quest 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 8, { name: "Heart 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart }),
+			.set(1 << 8, { name: "Heart 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
+			.set(1 << 9, { name: "Quest 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
+			.set(1 << 10, { name: "Heart 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart }),
 	},
 });
