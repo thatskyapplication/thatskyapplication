@@ -297,6 +297,7 @@ export const EVENT_EMOJIS = {
 	Love: { name: "love", id: "1195715582306299955" },
 	Bloom: { name: "bloom", id: "1211584587440848926" },
 	SkyXCinnamorollPopUpCafe: { name: "sky_x_cinnamoroll_pop_up_cafe", id: "1233467708515942450" },
+	Nature: { name: "nature", id: "1244554648350883861" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type EventEmojis = (typeof EVENT_EMOJIS)[keyof typeof EVENT_EMOJIS];
@@ -965,6 +966,10 @@ export const MASK_EMOJIS = {
 	 * Days of Fortune 2024.
 	 */
 	Mask90: { name: "mask", id: "1201599955748524113" },
+	/**
+	 * Ocean Mask.
+	 */
+	Mask91: { name: "mask", id: "1244556563730006066" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type MaskEmojis = (typeof MASK_EMOJIS)[keyof typeof MASK_EMOJIS];
@@ -1261,6 +1266,10 @@ export const NECKLACE_EMOJIS = {
 	 * Cinnamoroll Pop-Up Cafe Bowtie.
 	 */
 	Necklace35: { name: "necklace", id: "1234054706914005052" },
+	/**
+	 * Ocean Blue Scarf.
+	 */
+	Necklace36: { name: "necklace", id: "1244556849005592576" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
@@ -1841,6 +1850,10 @@ export const HAIR_EMOJIS = {
 	 * Cinnamoroll Pop-Up Cafe Combo.
 	 */
 	Hair143: { name: "hair", id: "1234055628058529814" },
+	/**
+	 * Nature Wave-Touched Hair.
+	 */
+	Hair144: { name: "hair", id: "1244556095146692648" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -2541,6 +2554,10 @@ export const CAPE_EMOJIS = {
 	 * Cinnamoroll Pop-Up Cafe Cloud Cape.
 	 */
 	Cape130: { name: "cape", id: "1234055162725662761" },
+	/**
+	 * Nature Wave Pack.
+	 */
+	Cape131: { name: "cape", id: "1234055484258275844" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];

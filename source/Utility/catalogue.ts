@@ -346,7 +346,7 @@ export const EventNameToEventCurrencyEmoji = {
 	[EventName.LunarNewYear]: EVENT_EMOJIS.Fortune,
 	[EventName.DaysOfLove]: EVENT_EMOJIS.Love,
 	[EventName.DaysOfSpring]: null,
-	[EventName.DaysOfNature]: null,
+	[EventName.DaysOfNature]: EVENT_EMOJIS.Nature,
 	[EventName.DaysOfHealing]: null,
 	[EventName.DaysOfRainbow]: EVENT_EMOJIS.Colour,
 	[EventName.SkyAnniversary]: EVENT_EMOJIS.SkyAnniversary,
