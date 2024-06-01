@@ -3181,13 +3181,13 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	SmallPlaceableProp46: { name: "small_placeable_prop", id: "1235001431485055027" },
 	/**
-	 * Small stripes rug.
-	 */
-	SmallPlaceableProp47: { name: "small_placeable_prop", id: "1236939389314142309" },
-	/**
 	 * Decor folded cloth.
 	 */
-	SmallPlaceableProp48: { name: "small_placeable_prop", id: "1236939401905438810" },
+	SmallPlaceableProp47: { name: "small_placeable_prop", id: "1236939401905438810" },
+	/**
+	 * Small stripes rug.
+	 */
+	SmallPlaceableProp48: { name: "small_placeable_prop", id: "1236939389314142309" },
 	/**
 	 * Small classic rug.
 	 */

@@ -63,6 +63,26 @@ const items = resolveOffer(
 			name: "Small solid rug",
 			cost: { candles: 25 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp46,
+		})
+		.set(1 << 12, {
+			name: "Stone armchair",
+			cost: { hearts: 20 },
+			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp53,
+		})
+		.set(1 << 13, {
+			name: "Stone console table",
+			cost: { candles: 45 },
+			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp54,
+		})
+		.set(1 << 14, {
+			name: "Decor folded cloth",
+			cost: { hearts: 40 },
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp47,
+		})
+		.set(1 << 15, {
+			name: "Small stripes rug",
+			cost: { candles: 35 },
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp48,
 		}),
 );
 
