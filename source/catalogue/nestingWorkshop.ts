@@ -23,6 +23,26 @@ const items = resolveOffer(
 			name: "Stone tall cube",
 			cost: { candles: 88 },
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp46,
+		})
+		.set(1 << 4, {
+			name: "Stone chair",
+			cost: { candles: 64 },
+			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp47,
+		})
+		.set(1 << 5, {
+			name: "Stone small table",
+			cost: { candles: 20 },
+			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp48,
+		})
+		.set(1 << 6, {
+			name: "Decor pillow one colour",
+			cost: { candles: 32 },
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp43,
+		})
+		.set(1 << 7, {
+			name: "Stone tall shelf",
+			cost: { ascendedCandles: 30 },
+			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp49,
 		}),
 );
 
