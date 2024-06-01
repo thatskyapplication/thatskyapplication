@@ -573,4 +573,5 @@ export const enum CatalogueType {
 	SecretArea,
 	HarmonyHall,
 	PermanentEventStore,
+	NestingWorkshop,
 }

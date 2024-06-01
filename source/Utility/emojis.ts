@@ -2915,17 +2915,17 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp43: { name: "large_placeable_prop", id: "1231719423518183476" },
 	/**
-	 * Stone wood fired oven.
+	 * Stone wood-fired oven.
 	 */
 	LargePlaceableProp44: { name: "large_placeable_prop", id: "1231720430801518714" },
 	/**
-	 * Stone tall cube.
-	 */
-	LargePlaceableProp45: { name: "large_placeable_prop", id: "1231720954955169852" },
-	/**
 	 * Stone single bed.
 	 */
-	LargePlaceableProp46: { name: "large_placeable_prop", id: "1231721865681174630" },
+	LargePlaceableProp45: { name: "large_placeable_prop", id: "1231721865681174630" },
+	/**
+	 * Stone tall cube.
+	 */
+	LargePlaceableProp46: { name: "large_placeable_prop", id: "1231720954955169852" },
 	/**
 	 * Stone chair.
 	 */

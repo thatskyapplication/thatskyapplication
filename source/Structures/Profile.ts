@@ -444,6 +444,7 @@ export default class Profile {
 		}
 
 		if (typeof spiritProgression === "boolean") {
+			// TODO: Add the rest.
 			const catalogue = await Catalogue.fetch(userId).catch(() => null);
 			const standardProgress = catalogue?.spiritProgress(STANDARD_SPIRITS, true) ?? 0;
 			const elderProgress = catalogue?.spiritProgress(ELDER_SPIRITS, true) ?? 0;

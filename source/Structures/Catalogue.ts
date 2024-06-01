@@ -41,6 +41,7 @@ import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { SpiritName } from "../Utility/spirits.js";
 import { CURRENT_EVENTS, CURRENT_EVENTS_YEARS, resolveEvents } from "../catalogue/events/index.js";
 import { HARMONY_HALL } from "../catalogue/harmonyHall.js";
+import { NESTING_WORKSHOP } from "../catalogue/nestingWorkshop.js";
 import { PERMANENT_EVENT_STORE } from "../catalogue/permanentEventStore.js";
 import { SECRET_AREA } from "../catalogue/secretArea.js";
 import { SPIRITS } from "../catalogue/spirits/index.js";
@@ -313,6 +314,7 @@ export interface CataloguePacket {
 	secret_area: CatalogueValue;
 	harmony_hall: CatalogueValue;
 	permanent_event_store: CatalogueValue;
+	nesting_workshop: CatalogueValue;
 }
 
 interface CatalogueData {
@@ -566,6 +568,7 @@ interface CatalogueData {
 	secretArea: CataloguePacket["secret_area"];
 	harmonyHall: CataloguePacket["harmony_hall"];
 	permanentEventStore: CataloguePacket["permanent_event_store"];
+	nestingWorkshop: CataloguePacket["nesting_workshop"];
 }
 
 type CataloguePatchData = Omit<CataloguePacket, "user_id">;
@@ -821,6 +824,7 @@ const CatalogueNameToRawName = {
 	[CatalogueType.SecretArea]: "secret_area",
 	[CatalogueType.HarmonyHall]: "harmony_hall",
 	[CatalogueType.PermanentEventStore]: "permanent_event_store",
+	[CatalogueType.NestingWorkshop]: "nesting_workshop",
 } as const satisfies Readonly<
 	Record<
 		| SpiritName
@@ -1084,6 +1088,7 @@ const SpiritEventNameToCatalogueName = {
 	[CatalogueType.SecretArea]: "secretArea",
 	[CatalogueType.HarmonyHall]: "harmonyHall",
 	[CatalogueType.PermanentEventStore]: "permanentEventStore",
+	[CatalogueType.NestingWorkshop]: "nestingWorkshop",
 } as const satisfies Readonly<
 	Record<
 		| SpiritName
@@ -1637,6 +1642,8 @@ export class Catalogue {
 
 	public permanentEventStore!: CatalogueData["permanentEventStore"];
 
+	public nestingWorkshop!: CatalogueData["nestingWorkshop"];
+
 	public constructor(catalogue: CataloguePacket) {
 		this.userId = catalogue.user_id;
 		this.patch(catalogue);
@@ -1892,6 +1899,7 @@ export class Catalogue {
 		this.secretArea = data.secret_area;
 		this.harmonyHall = data.harmony_hall;
 		this.permanentEventStore = data.permanent_event_store;
+		this.nestingWorkshop = data.nesting_workshop;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -2013,6 +2021,15 @@ export class Catalogue {
 		return this.progressPercentage([owned], total, round);
 	}
 
+	public nestingWorkshopProgress(round?: boolean) {
+		const { owned, total } = this.ownedProgress(
+			NESTING_WORKSHOP.items,
+			this[SpiritEventNameToCatalogueName[CatalogueType.NestingWorkshop]],
+		);
+
+		return this.progressPercentage([owned], total, round);
+	}
+
 	public static async viewCatalogue(interaction: ButtonInteraction | ChatInputCommandInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const existingCatalogue = await this.fetch(interaction.user.id).catch(() => null);
@@ -2034,6 +2051,7 @@ export class Catalogue {
 		const secretAreaProgress = catalogue.secretAreaProgress(true);
 		const harmonyHallProgress = catalogue.harmonyHallProgress(true);
 		const permanentEventStoreProgress = catalogue.permanentEventStoreProgress(true);
+		const nestingWorkshopProgress = catalogue.nestingWorkshopProgress(true);
 		const today = todayDate();
 		const currentSeason = resolveSeason(today);
 		const currentEvents = resolveEvents(today);
@@ -2128,6 +2146,9 @@ export class Catalogue {
 									}`,
 								)
 								.setValue(String(CatalogueType.PermanentEventStore)),
+							new StringSelectMenuOptionBuilder()
+								.setLabel(`Nesting Workshop${nestingWorkshopProgress === null ? "" : ` (${nestingWorkshopProgress}%)`}`)
+								.setValue(String(CatalogueType.NestingWorkshop)),
 						)
 						.setPlaceholder("What do you want to see?"),
 				),
@@ -2186,6 +2207,9 @@ export class Catalogue {
 				return;
 			case CatalogueType.PermanentEventStore:
 				await this.viewPermanentEventStore(interaction);
+				return;
+			case CatalogueType.NestingWorkshop:
+				await this.viewNestingWorkshop(interaction);
 		}
 	}
 
@@ -3149,6 +3173,56 @@ export class Catalogue {
 		});
 	}
 
+	private static async viewNestingWorkshop(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		const catalogue = await this.fetch(interaction.user.id);
+		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.NestingWorkshop]];
+
+		const itemSelectionOptions = NESTING_WORKSHOP.items.map(({ emoji, name }, flag) =>
+			new StringSelectMenuOptionBuilder()
+				.setDefault(Boolean(bit && bit & flag))
+				.setEmoji(emoji)
+				.setLabel(name)
+				.setValue(String(flag)),
+		);
+
+		const { offerDescription } = catalogue.embedProgress(bit, NESTING_WORKSHOP.items);
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`)
+						.setMaxValues(itemSelectionOptions.length)
+						.setMinValues(0)
+						.setOptions(itemSelectionOptions)
+						.setPlaceholder("Select what you have!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
+					new ButtonBuilder()
+						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`)
+						.setDisabled(catalogue.nestingWorkshopProgress() === 100)
+						.setEmoji("💯")
+						.setLabel("I have everything!")
+						.setStyle(ButtonStyle.Success),
+				),
+			],
+			content: "",
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(offerDescription.join("\n"))
+					.setTitle("Nesting Workshop"),
+			],
+		});
+	}
+
 	public static async setRealm(interaction: ButtonInteraction) {
 		const { customId, user } = interaction;
 		const realm = customId.slice(customId.indexOf("§") + 1);
@@ -3251,6 +3325,9 @@ export class Catalogue {
 					return;
 				case CatalogueType.PermanentEventStore:
 					await catalogue.setPermanentEventStoreItems(interaction);
+					return;
+				case CatalogueType.NestingWorkshop:
+					await catalogue.setNestingWorkshopItems(interaction);
 					return;
 				default:
 					pino.error(interaction, "Could not parse items to set.");
@@ -3376,6 +3453,21 @@ export class Catalogue {
 
 		this.patch(cataloguePacket!);
 		await Catalogue.viewPermanentEventStore(interaction);
+	}
+
+	private async setNestingWorkshopItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		const newBit = this.calculateSetItemsBit(
+			interaction,
+			this[SpiritEventNameToCatalogueName[CatalogueType.NestingWorkshop]],
+			NESTING_WORKSHOP.maximumItemsBit,
+		);
+
+		const [cataloguePacket] = await Catalogue.update(interaction.user.id, {
+			[CatalogueNameToRawName[CatalogueType.NestingWorkshop]]: newBit,
+		});
+
+		this.patch(cataloguePacket!);
+		await Catalogue.viewNestingWorkshop(interaction);
 	}
 
 	private static async update(userId: Catalogue["userId"], data: CatalogueSetData) {
