@@ -3204,6 +3204,10 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Medium solid rug.
 	 */
 	SmallPlaceableProp52: { name: "small_placeable_prop", id: "1244564953701154856" },
+	/**
+	 * Stone figurine.
+	 */
+	SmallPlaceableProp53: { name: "small_placeable_prop", id: "1246552983404281987" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type SmallPlaceablePropsEmojis =
