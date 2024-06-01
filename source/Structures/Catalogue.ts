@@ -3186,6 +3186,8 @@ export class Catalogue {
 				.setValue(String(flag)),
 		);
 
+		const itemSelectionOptions1 = itemSelectionOptions.slice(0, CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
+		const itemSelectionOptions2 = itemSelectionOptions.slice(CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
 		const { offerDescription } = catalogue.embedProgress(bit, NESTING_WORKSHOP.items);
 
 		await interaction.update({
@@ -3193,9 +3195,17 @@ export class Catalogue {
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
 						.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`)
-						.setMaxValues(itemSelectionOptions.length)
+						.setMaxValues(itemSelectionOptions1.length)
 						.setMinValues(0)
-						.setOptions(itemSelectionOptions)
+						.setOptions(itemSelectionOptions1)
+						.setPlaceholder("Select what you have!"),
+				),
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_OFFER_2_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`)
+						.setMaxValues(itemSelectionOptions2.length)
+						.setMinValues(0)
+						.setOptions(itemSelectionOptions2)
 						.setPlaceholder("Select what you have!"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
