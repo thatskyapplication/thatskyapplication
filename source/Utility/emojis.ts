@@ -2975,7 +2975,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp58: { name: "large_placeable_prop", id: "1242014363519422589" },
 	/**
-	 * Stone sofa corner.
+	 * Stone square dining table.
 	 */
 	LargePlaceableProp59: { name: "large_placeable_prop", id: "1242014631908737074" },
 	/**
