@@ -2557,7 +2557,7 @@ export const CAPE_EMOJIS = {
 	/**
 	 * Nature Wave Pack.
 	 */
-	Cape131: { name: "cape", id: "1234055484258275844" },
+	Cape131: { name: "cape", id: "1244555490848145419" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
