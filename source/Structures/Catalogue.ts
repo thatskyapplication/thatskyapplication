@@ -2965,7 +2965,7 @@ export class Catalogue {
 					.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${after?.nameUnique}`)
 					.setDisabled(!after)
 					.setEmoji("➡️")
-					.setLabel("Previous event")
+					.setLabel("Next event")
 					.setStyle(ButtonStyle.Primary),
 			),
 		);
