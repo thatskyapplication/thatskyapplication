@@ -19,9 +19,7 @@ import commands from "../Commands/index.js";
 import S3Client from "../S3Client.js";
 import { CDN_BUCKET, CDN_URL, DEFAULT_EMBED_COLOUR, MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
 import { formatEmoji, formatEmojiURL, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
-import { CURRENT_EVENTS } from "../catalogue/events/index.js";
-import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
-import { CURRENT_SEASONS, resolveBitsToSeasons } from "../catalogue/spirits/seasons/index.js";
+import { resolveBitsToSeasons } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import { Catalogue } from "./Catalogue.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
@@ -444,18 +442,9 @@ export default class Profile {
 		}
 
 		if (typeof spiritProgression === "boolean") {
-			// TODO: Add the rest.
 			const catalogue = await Catalogue.fetch(userId).catch(() => null);
-			const standardProgress = catalogue?.spiritProgress(STANDARD_SPIRITS, true) ?? 0;
-			const elderProgress = catalogue?.spiritProgress(ELDER_SPIRITS, true) ?? 0;
-			const seasonalProgress = catalogue?.seasonProgress(CURRENT_SEASONS, true) ?? 0;
-			const eventProgress = catalogue?.eventProgress(CURRENT_EVENTS, true) ?? 0;
-
-			fields.push({
-				name: "Spirit Progression",
-				value: `Standard: ${standardProgress}%\nElder: ${elderProgress}%\nSeasonal: ${seasonalProgress}%\nEvent: ${eventProgress}%`,
-				inline: true,
-			});
+			const allProgress = catalogue?.allProgress(true) ?? 0;
+			fields.push({ name: "Catalogue Progression", value: `${allProgress}%`, inline: true });
 		} else if (commandId) {
 			unfilled.push(
 				`- Use ${chatInputApplicationCommandMention(

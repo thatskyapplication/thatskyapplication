@@ -45,7 +45,7 @@ import { NESTING_WORKSHOP } from "../catalogue/nestingWorkshop.js";
 import { PERMANENT_EVENT_STORE } from "../catalogue/permanentEventStore.js";
 import { SECRET_AREA } from "../catalogue/secretArea.js";
 import { SPIRITS } from "../catalogue/spirits/index.js";
-import { ELDER_SPIRITS, REALMS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
+import { ELDER_SPIRITS, REALMS, REALM_SPIRITS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
 import {
 	CURRENT_SEASONS,
 	isSeasonName,
@@ -1923,11 +1923,8 @@ export class Catalogue {
 		return integer === 0 ? Math.ceil(percentage) : integer === 99 ? Math.floor(percentage) : Math.round(percentage);
 	}
 
-	public spiritProgress(
-		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
-		round?: boolean,
-	) {
-		const numbers = [];
+	private spiritOwnedProgress(spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[]) {
+		const totalOwned = [];
 		let total = 0;
 
 		for (const spirit of spirits) {
@@ -1937,15 +1934,23 @@ export class Catalogue {
 					: spirit.current ?? spirit.seasonal;
 
 			const { owned, total: offerTotal } = this.ownedProgress(offer, this[SpiritEventNameToCatalogueName[spirit.name]]);
-			numbers.push(owned);
+			totalOwned.push(owned);
 			total += offerTotal;
 		}
 
-		return this.progressPercentage(numbers, total, round);
+		return { owned: totalOwned, total };
 	}
 
-	public seasonProgress(seasons: Season[], round?: boolean) {
-		const numbers = [];
+	public spiritProgress(
+		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
+		round?: boolean,
+	) {
+		const { owned, total } = this.spiritOwnedProgress(spirits);
+		return this.progressPercentage(owned, total, round);
+	}
+
+	private seasonOwnedProgress(seasons: Season[]) {
+		const totalOwned = [];
 		let total = 0;
 
 		for (const season of seasons) {
@@ -1960,16 +1965,21 @@ export class Catalogue {
 
 			for (const [index, offer] of offers) {
 				const { owned, total: offerTotal } = this.ownedProgress(offer, this[SpiritEventNameToCatalogueName[index]]);
-				numbers.push(owned);
+				totalOwned.push(owned);
 				total += offerTotal;
 			}
 		}
 
-		return this.progressPercentage(numbers, total, round);
+		return { owned: totalOwned, total };
 	}
 
-	public eventProgress(events: Event[], round?: boolean) {
-		const numbers = [];
+	public seasonProgress(seasons: Season[], round?: boolean) {
+		const { owned, total } = this.seasonOwnedProgress(seasons);
+		return this.progressPercentage(owned, total, round);
+	}
+
+	private eventOwnedProgress(events: Event[]) {
+		const totalOwned = [];
 		let total = 0;
 
 		for (const event of events) {
@@ -1978,56 +1988,103 @@ export class Catalogue {
 				this[SpiritEventNameToCatalogueName[event.nameUnique]],
 			);
 
-			numbers.push(owned);
+			totalOwned.push(owned);
 			total += offerTotal;
 		}
 
-		return this.progressPercentage(numbers, total, round);
+		return { owned: totalOwned, total };
+	}
+
+	public eventProgress(events: Event[], round?: boolean) {
+		const { owned, total } = this.eventOwnedProgress(events);
+		return this.progressPercentage(owned, total, round);
+	}
+
+	private starterPackOwnedProgress() {
+		return this.ownedProgress(STARTER_PACKS.items, this[SpiritEventNameToCatalogueName[CatalogueType.StarterPacks]]);
 	}
 
 	public starterPackProgress(round?: boolean) {
-		const { owned, total } = this.ownedProgress(
-			STARTER_PACKS.items,
-			this[SpiritEventNameToCatalogueName[CatalogueType.StarterPacks]],
-		);
-
+		const { owned, total } = this.starterPackOwnedProgress();
 		return this.progressPercentage([owned], total, round);
+	}
+
+	private secretAreaOwnedProgress() {
+		return this.ownedProgress(SECRET_AREA.items, this[SpiritEventNameToCatalogueName[CatalogueType.SecretArea]]);
 	}
 
 	public secretAreaProgress(round?: boolean) {
-		const { owned, total } = this.ownedProgress(
-			SECRET_AREA.items,
-			this[SpiritEventNameToCatalogueName[CatalogueType.SecretArea]],
-		);
-
+		const { owned, total } = this.secretAreaOwnedProgress();
 		return this.progressPercentage([owned], total, round);
+	}
+
+	private harmonyHallOwnedProgress() {
+		return this.ownedProgress(HARMONY_HALL.items, this[SpiritEventNameToCatalogueName[CatalogueType.HarmonyHall]]);
 	}
 
 	public harmonyHallProgress(round?: boolean) {
-		const { owned, total } = this.ownedProgress(
-			HARMONY_HALL.items,
-			this[SpiritEventNameToCatalogueName[CatalogueType.HarmonyHall]],
-		);
-
+		const { owned, total } = this.harmonyHallOwnedProgress();
 		return this.progressPercentage([owned], total, round);
 	}
 
-	public permanentEventStoreProgress(round?: boolean) {
-		const { owned, total } = this.ownedProgress(
+	private permanentEventStoreOwnedProgress() {
+		return this.ownedProgress(
 			PERMANENT_EVENT_STORE.items,
 			this[SpiritEventNameToCatalogueName[CatalogueType.PermanentEventStore]],
 		);
+	}
 
+	public permanentEventStoreProgress(round?: boolean) {
+		const { owned, total } = this.permanentEventStoreOwnedProgress();
 		return this.progressPercentage([owned], total, round);
 	}
 
-	public nestingWorkshopProgress(round?: boolean) {
-		const { owned, total } = this.ownedProgress(
+	private nestingWorkshopOwnedProgress() {
+		return this.ownedProgress(
 			NESTING_WORKSHOP.items,
 			this[SpiritEventNameToCatalogueName[CatalogueType.NestingWorkshop]],
 		);
+	}
 
+	public nestingWorkshopProgress(round?: boolean) {
+		const { owned, total } = this.nestingWorkshopOwnedProgress();
 		return this.progressPercentage([owned], total, round);
+	}
+
+	public allProgress(round?: boolean) {
+		const standardAndElderOwnedProgress = this.spiritOwnedProgress(REALM_SPIRITS);
+		const seasonalOwnedProgress = this.seasonOwnedProgress(CURRENT_SEASONS);
+		const eventOwnedProgress = this.eventOwnedProgress(CURRENT_EVENTS);
+		const starterPackOwnedProgress = this.starterPackOwnedProgress();
+		const secretAreaOwnedProgress = this.secretAreaOwnedProgress();
+		const harmonyHallOwnedProgress = this.harmonyHallOwnedProgress();
+		const permanentEventStoreOwnedProgress = this.permanentEventStoreOwnedProgress();
+		// const nestingWorkshopOwnedProgress = this.nestingWorkshopOwnedProgress();
+
+		const progresses = [
+			standardAndElderOwnedProgress,
+			seasonalOwnedProgress,
+			eventOwnedProgress,
+			starterPackOwnedProgress,
+			secretAreaOwnedProgress,
+			harmonyHallOwnedProgress,
+			permanentEventStoreOwnedProgress,
+			// nestingWorkshopOwnedProgress,
+		];
+
+		return this.progressPercentage(
+			progresses.reduce<number[]>((totalOwned, { owned }) => {
+				if (Array.isArray(owned)) {
+					totalOwned.push(...owned);
+				} else {
+					totalOwned.push(owned);
+				}
+
+				return totalOwned;
+			}, []),
+			progresses.reduce((totalTotal, { total }) => totalTotal + total, 0),
+			round,
+		);
 	}
 
 	public static async viewCatalogue(interaction: ButtonInteraction | ChatInputCommandInteraction) {
@@ -2051,7 +2108,7 @@ export class Catalogue {
 		const secretAreaProgress = catalogue.secretAreaProgress(true);
 		const harmonyHallProgress = catalogue.harmonyHallProgress(true);
 		const permanentEventStoreProgress = catalogue.permanentEventStoreProgress(true);
-		const nestingWorkshopProgress = catalogue.nestingWorkshopProgress(true);
+		// const nestingWorkshopProgress = catalogue.nestingWorkshopProgress(true);
 		const today = todayDate();
 		const currentSeason = resolveSeason(today);
 		const currentEvents = resolveEvents(today);
@@ -2146,9 +2203,9 @@ export class Catalogue {
 									}`,
 								)
 								.setValue(String(CatalogueType.PermanentEventStore)),
-							new StringSelectMenuOptionBuilder()
-								.setLabel(`Nesting Workshop${nestingWorkshopProgress === null ? "" : ` (${nestingWorkshopProgress}%)`}`)
-								.setValue(String(CatalogueType.NestingWorkshop)),
+							// new StringSelectMenuOptionBuilder()
+							// .setLabel(`Nesting Workshop${nestingWorkshopProgress === null ? "" : ` (${nestingWorkshopProgress}%)`}`)
+							// .setValue(String(CatalogueType.NestingWorkshop)),
 						)
 						.setPlaceholder("What do you want to see?"),
 				),
