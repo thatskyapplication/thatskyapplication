@@ -23,7 +23,7 @@ export default new Event({
 			cost: { eventCurrency: 14 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory30,
 		})
-		.set(1 << 3, { name: "Style Silk Ballet Slippers", cost: { eventCurrency: 18 }, emoji: SHOE_EMOJIS.Shoe06 })
+		.set(1 << 3, { name: "Style Silk Ballet Slippers", cost: { eventCurrency: 18 }, emoji: SHOE_EMOJIS.Shoe07 })
 		.set(1 << 4, {
 			name: "Style Flame Sunglasses",
 			cost: { money: 2.99 },
