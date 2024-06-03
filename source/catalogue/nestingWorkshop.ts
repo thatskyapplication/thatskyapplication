@@ -149,6 +149,27 @@ const items = resolveOffer(
 			cost: { ascendedCandles: 99 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp53,
 		}),
+	// From this point onwards, there are too many bits.
+	// .set(1 << 29, {
+	// 	name: "Stone kichen drawers",
+	// 	cost: { candles: 50 },
+	// 	emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp63,
+	// })
+	// .set(1 << 30, {
+	// 	name: "Stone coffee table",
+	// 	cost: { ascendedCandles: 28 },
+	// 	emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp64,
+	// })
+	// .set(1 << 31, {
+	// 	name: "Stone candle light",
+	// 	cost: { ascendedCandles: 32 },
+	// 	emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp65,
+	// })
+	// .set(1 << 32, {
+	// 	name: "Medium stripes rug",
+	// 	cost: { candles: 50 },
+	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp54,
+	// })
 );
 
 export const NESTING_WORKSHOP = { items, maximumItemsBit: items.reduce((bits, _, bit) => bit | bits, 0) } as const;
