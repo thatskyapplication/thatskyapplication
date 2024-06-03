@@ -3010,16 +3010,18 @@ export class Catalogue {
 		const before = events[index - 1];
 		const after = events[index + 1];
 
+		// It is possible that for the first event of a year, the custom ids will be the same, leading to an error.
+		// We use the nullish coalescing operator to fallback to some default values to mitigate this.
 		components.push(
 			new ActionRowBuilder<ButtonBuilder>().setComponents(
 				new ButtonBuilder()
-					.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${before?.nameUnique}`)
+					.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${before?.nameUnique ?? "before"}`)
 					.setDisabled(!before)
 					.setEmoji("⬅️")
 					.setLabel("Previous event")
 					.setStyle(ButtonStyle.Primary),
 				new ButtonBuilder()
-					.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${after?.nameUnique}`)
+					.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${after?.nameUnique ?? "after"}`)
 					.setDisabled(!after)
 					.setEmoji("➡️")
 					.setLabel("Next event")
