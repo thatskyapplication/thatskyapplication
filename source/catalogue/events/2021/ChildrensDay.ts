@@ -4,6 +4,6 @@ import { skyDate } from "../../../Utility/dates.js";
 
 export default new Event({
 	nameUnique: EventNameUnique.ChildrensDay2021,
-	start: skyDate(2_020, 5, 3),
-	end: skyDate(2_020, 5, 9),
+	start: skyDate(2_021, 5, 3),
+	end: skyDate(2_021, 5, 9),
 });
