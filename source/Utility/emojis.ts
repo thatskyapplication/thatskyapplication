@@ -270,9 +270,9 @@ export const SEASON_EMOJIS = {
 	Revival: { name: "revival", id: "1181387134008049854" },
 	RevivalCandle: { name: "revival_candle", id: "1181387135476043839" },
 	RevivalHeart: { name: "revival_heart", id: "1181387137879380048" },
-	NineColoredDeer: { name: "nine_colored_deer", id: "1194228859541930094" },
-	NineColoredDeerCandle: { name: "nine_colored_deer_candle", id: "1194228980539215914" },
-	NineColoredDeerHeart: { name: "nine_colored_deer_heart", id: "1194228991805108244" },
+	NineColouredDeer: { name: "nine_coloured_deer", id: "1194228859541930094" },
+	NineColouredDeerCandle: { name: "nine_coloured_deer_candle", id: "1194228980539215914" },
+	NineColouredDeerHeart: { name: "nine_coloured_deer_heart", id: "1194228991805108244" },
 	Nesting: { name: "nesting", id: "1227500778155937824" },
 	NestingCandle: { name: "nesting_candle", id: "1227500789862498368" },
 	NestingHeart: { name: "nesting_heart", id: "1227500803036545065" },
@@ -435,7 +435,7 @@ export const OUTFIT_EMOJIS = {
 	 */
 	Outfit32: { name: "outfit", id: "1181712944527060992" },
 	/**
-	 * Days of Rainbow 2022.
+	 * Rainbow Trousers.
 	 */
 	Outfit33: { name: "outfit", id: "1181712947148501003" },
 	/**
@@ -455,7 +455,7 @@ export const OUTFIT_EMOJIS = {
 	 */
 	Outfit37: { name: "outfit", id: "1181712959601377310" },
 	/**
-	 * Cure for Me.
+	 * To The Love Outfit.
 	 */
 	Outfit38: { name: "outfit", id: "1181712962893914153" },
 	/**
@@ -935,7 +935,7 @@ export const MASK_EMOJIS = {
 	 */
 	Mask82: { name: "mask", id: "1182639120930066482" },
 	/**
-	 * Days of Style 2023.
+	 * Style Runway Mask.
 	 */
 	Mask83: { name: "mask", id: "1182639124042223646" },
 	/**
@@ -959,7 +959,7 @@ export const MASK_EMOJIS = {
 	 */
 	Mask88: { name: "mask", id: "1195958052034199622" },
 	/**
-	 * Gift of the Nine-Colored Deer.
+	 * Gift of the Nine-Coloured Deer.
 	 */
 	Mask89: { name: "mask", id: "1196158869840339094" },
 	/**
@@ -1027,7 +1027,7 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 */
 	FaceAccessory12: { name: "face_accessory", id: "1182821677176991786" },
 	/**
-	 * Days of Rainbow 2021.
+	 * Rainbow braid.
 	 */
 	FaceAccessory13: { name: "face_accessory", id: "1182821682281451520" },
 	/**
@@ -1063,7 +1063,7 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 */
 	FaceAccessory21: { name: "face_accessory", id: "1182821707636031508" },
 	/**
-	 * Days of Feast 2022.
+	 * Feast Goggles.
 	 */
 	FaceAccessory22: { name: "face_accessory", id: "1182821710660128878" },
 	/**
@@ -1095,7 +1095,7 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 */
 	FaceAccessory29: { name: "face_accessory", id: "1182821731413540914" },
 	/**
-	 * Days of Style 2023 1.
+	 * Style Star Sunglasses.
 	 */
 	FaceAccessory30: { name: "face_accessory", id: "1182821734563459093" },
 	/**
@@ -1111,7 +1111,7 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 */
 	FaceAccessory33: { name: "face_accessory", id: "1182821742926889041" },
 	/**
-	 * Gift of the Nine-Colored Deer.
+	 * Gift of the Nine-Coloured Deer.
 	 */
 	FaceAccessory34: { name: "face_accessory", id: "1196158435268497529" },
 	/**
@@ -1255,7 +1255,7 @@ export const NECKLACE_EMOJIS = {
 	 */
 	Necklace32: { name: "necklace", id: "1193725247157960794" },
 	/**
-	 * Nine-Colored Deer Pendant.
+	 * Nine-Coloured Deer Pendant.
 	 */
 	Necklace33: { name: "necklace", id: "1195926793836834857" },
 	/**
@@ -1735,7 +1735,7 @@ export const HAIR_EMOJIS = {
 	 */
 	Hair114: { name: "hair", id: "1183627336676016162" },
 	/**
-	 * Season of AURORA in-app purchase.
+	 * Runaway Hairstyle.
 	 */
 	Hair115: { name: "hair", id: "1183627340065030144" },
 	/**
@@ -1743,7 +1743,7 @@ export const HAIR_EMOJIS = {
 	 */
 	Hair116: { name: "hair", id: "1183627343466602570" },
 	/**
-	 * Days of Mischief 2022.
+	 * Mischief Tufted Hair.
 	 */
 	Hair117: { name: "hair", id: "1183627346700415009" },
 	/**
@@ -1779,7 +1779,7 @@ export const HAIR_EMOJIS = {
 	 */
 	Hair125: { name: "hair", id: "1183627376408658010" },
 	/**
-	 * Days of Music 2023.
+	 * Marching Band Hat.
 	 */
 	Hair126: { name: "hair", id: "1183627379512455209" },
 	/**
@@ -1927,7 +1927,7 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 */
 	HairAccessory16: { name: "hair_accessory", id: "1186592111739535422" },
 	/**
-	 * Days of Love 2022.
+	 * Days of Love Flower Crown.
 	 */
 	HairAccessory17: { name: "hair_accessory", id: "1186592114688147547" },
 	/**
@@ -1935,7 +1935,7 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 */
 	HairAccessory18: { name: "hair_accessory", id: "1186592118131662940" },
 	/**
-	 * Days of Nature 2022.
+	 * Nature Coral Crown Accessory.
 	 */
 	HairAccessory19: { name: "hair_accessory", id: "1186592120908288031" },
 	/**
@@ -2255,7 +2255,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape55: { name: "cape", id: "1188422761882849370" },
 	/**
-	 * Days of Rainbow 2021.
+	 * Rainbow cape.
 	 */
 	Cape56: { name: "cape", id: "1188422764248444928" },
 	/**
@@ -2335,7 +2335,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape75: { name: "cape", id: "1188422811451129887" },
 	/**
-	 * Days of Bloom 2022.
+	 * Purple Bloom Cape.
 	 */
 	Cape76: { name: "cape", id: "1188422814408126504" },
 	/**
@@ -2355,7 +2355,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape80: { name: "cape", id: "1188422827364331580" },
 	/**
-	 * Days of Nature 2022.
+	 * Nature Turtle Cape.
 	 */
 	Cape81: { name: "cape", id: "1188422829746696214" },
 	/**
@@ -2435,7 +2435,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape100: { name: "cape", id: "1241913648444608543" },
 	/**
-	 * Days of Bloom 2023.
+	 * Red Bloom Cape.
 	 */
 	Cape101: { name: "cape", id: "1188423431461535805" },
 	/**
@@ -2451,11 +2451,11 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape104: { name: "cape", id: "1188423440122773608" },
 	/**
-	 * Days of Nature 2023.
+	 * Nature School Cape.
 	 */
 	Cape105: { name: "cape", id: "1188423442324795507" },
 	/**
-	 * Days of Colour 2023.
+	 * Dark Rainbow Cape.
 	 */
 	Cape106: { name: "cape", id: "1188423445059489843" },
 	/**
@@ -2531,7 +2531,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape124: { name: "cape", id: "1201606633944514692" },
 	/**
-	 * Radiance of the Nine-Colored Deer.
+	 * Radiance of the Nine-Coloured Deer.
 	 */
 	Cape125: { name: "cape", id: "1201606642614157412" },
 	/**
@@ -2557,7 +2557,7 @@ export const CAPE_EMOJIS = {
 	/**
 	 * Nature Wave Pack.
 	 */
-	Cape131: { name: "cape", id: "1234055484258275844" },
+	Cape131: { name: "cape", id: "1244555490848145419" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -2695,7 +2695,7 @@ export const HELD_PROPS_EMOJIS = {
 	 */
 	HeldProp32: { name: "held_prop", id: "1190678866063273997" },
 	/**
-	 * Days of Love Serendipitous Sceptre.
+	 * Days of Love Serendipitous Sceptor.
 	 */
 	HeldProp33: { name: "held_prop", id: "1190678868886036541" },
 	/**
@@ -2863,7 +2863,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp30: { name: "large_placeable_prop", id: "1229123814936412250" },
 	/**
-	 * Days of Love 2023.
+	 * Day of Love Flowery Archway.
 	 */
 	LargePlaceableProp31: { name: "large_placeable_prop", id: "1229124760064098484" },
 	/**
@@ -2871,7 +2871,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp32: { name: "large_placeable_prop", id: "1229125194694660118" },
 	/**
-	 * Fourth Sky Anniversary 2.
+	 * Anniversary Party Lights.
 	 */
 	LargePlaceableProp33: { name: "large_placeable_prop", id: "1229126722767552713" },
 	/**
@@ -2915,17 +2915,17 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp43: { name: "large_placeable_prop", id: "1231719423518183476" },
 	/**
-	 * Stone wood fired oven.
+	 * Stone wood-fired oven.
 	 */
 	LargePlaceableProp44: { name: "large_placeable_prop", id: "1231720430801518714" },
 	/**
-	 * Stone tall cube.
-	 */
-	LargePlaceableProp45: { name: "large_placeable_prop", id: "1231720954955169852" },
-	/**
 	 * Stone single bed.
 	 */
-	LargePlaceableProp46: { name: "large_placeable_prop", id: "1231721865681174630" },
+	LargePlaceableProp45: { name: "large_placeable_prop", id: "1231721865681174630" },
+	/**
+	 * Stone tall cube.
+	 */
+	LargePlaceableProp46: { name: "large_placeable_prop", id: "1231720954955169852" },
 	/**
 	 * Stone chair.
 	 */
@@ -2975,7 +2975,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp58: { name: "large_placeable_prop", id: "1242014363519422589" },
 	/**
-	 * Stone sofa corner.
+	 * Stone square dining table.
 	 */
 	LargePlaceableProp59: { name: "large_placeable_prop", id: "1242014631908737074" },
 	/**
@@ -3093,7 +3093,7 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	SmallPlaceableProp24: { name: "small_placeable_prop", id: "1193627429890170891" },
 	/**
-	 * Days of Bloom 2023.
+	 * Bloom Butterfly Fountain.
 	 */
 	SmallPlaceableProp25: { name: "small_placeable_prop", id: "1193627438576578631" },
 	/**
@@ -3109,7 +3109,7 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	SmallPlaceableProp28: { name: "small_placeable_prop", id: "1193627448466735174" },
 	/**
-	 * Fourth Sky Anniversary 1.
+	 * Anniversary Sonorous Seashell.
 	 */
 	SmallPlaceableProp29: { name: "small_placeable_prop", id: "1193627450710691840" },
 	/**
@@ -3181,13 +3181,13 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	SmallPlaceableProp46: { name: "small_placeable_prop", id: "1235001431485055027" },
 	/**
-	 * Small stripes rug.
-	 */
-	SmallPlaceableProp47: { name: "small_placeable_prop", id: "1236939389314142309" },
-	/**
 	 * Decor folded cloth.
 	 */
-	SmallPlaceableProp48: { name: "small_placeable_prop", id: "1236939401905438810" },
+	SmallPlaceableProp47: { name: "small_placeable_prop", id: "1236939401905438810" },
+	/**
+	 * Small stripes rug.
+	 */
+	SmallPlaceableProp48: { name: "small_placeable_prop", id: "1236939389314142309" },
 	/**
 	 * Small classic rug.
 	 */

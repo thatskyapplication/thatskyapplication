@@ -10,7 +10,7 @@ import type { ChatInputCommand } from "../index.js";
 
 const DATA_DELETION_MESSAGE = `Are you sure you want to delete your data? This will:
 - Delete your Sky profile
-- Delete your spirit tracker
+- Delete your catalogue
 - Delete your hearts
   - Your user id in heart histories for others will also be deleted` as const;
 

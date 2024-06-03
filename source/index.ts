@@ -184,6 +184,9 @@ class Caelus extends Client {
 
 			commands.skyprofile.id =
 				fetchedGlobalCommands.find(({ name }) => name === commands.skyprofile.data.name)?.id ?? null;
+
+			commands.catalogue.id =
+				fetchedGlobalCommands.find(({ name }) => name === commands.catalogue.data.name)?.id ?? null;
 			/* eslint-enable require-atomic-updates */
 		} catch (error) {
 			pino.error(error, "Failed to set commands.");

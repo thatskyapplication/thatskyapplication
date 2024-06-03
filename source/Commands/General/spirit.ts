@@ -9,12 +9,12 @@ import {
 	ButtonStyle,
 	EmbedBuilder,
 	hyperlink,
+	MessageFlags,
 	PermissionFlagsBits,
 	time,
 	TimestampStyles,
 } from "discord.js";
 import { t } from "i18next";
-import { SpiritTracker } from "../../Structures/SpiritTracker.js";
 import type {
 	ElderSpirit,
 	GuideSpirit,
@@ -23,16 +23,21 @@ import type {
 	SeasonalSpiritVisitTravellingData,
 	StandardSpirit,
 } from "../../Structures/Spirits.js";
-import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
-import { SeasonName, SeasonNameToSeasonalEmoji, resolveCostToString } from "../../Utility/catalogue.js";
+import { DEFAULT_EMBED_COLOUR, SUPPORT_SERVER_INVITE_URL } from "../../Utility/Constants.js";
+import { chatInputApplicationCommandMention } from "../../Utility/Utility.js";
+import {
+	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
+	NO_FRIENDSHIP_TREE_TEXT,
+	NO_FRIENDSHIP_TREE_YET_TEXT,
+	SeasonName,
+	SeasonNameToSeasonalEmoji,
+	resolveCostToString,
+} from "../../Utility/catalogue.js";
 import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import {
 	FriendActionToEmoji,
-	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
-	NO_FRIENDSHIP_TREE_TEXT,
-	NO_FRIENDSHIP_TREE_YET_TEXT,
 	SpiritCallToEmoji,
 	SpiritEmoteToEmoji,
 	SpiritStanceToEmoji,
@@ -40,6 +45,7 @@ import {
 import { SPIRITS } from "../../catalogue/spirits/index.js";
 import { resolveSeasonalSpirit } from "../../catalogue/spirits/seasons/index.js";
 import type { AutocompleteCommand } from "../index.js";
+import COMMANDS from "../index.js";
 
 export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID = "SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;
 
@@ -222,15 +228,16 @@ export default new (class implements AutocompleteCommand {
 			}
 		}
 
+		if (totalOffer && totalOffer.length > 0) description.push(totalOffer);
+
 		if (imageURL) {
 			embed.setImage(imageURL);
 		} else {
-			const offer = seasonalParsing ? spirit.seasonal : spirit?.current;
+			const offer = seasonalParsing ? spirit.seasonal : spirit.current;
 			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
 		if (isGuideSpirit && spirit.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
-		if (totalOffer && totalOffer.length > 0) description.push(totalOffer);
 
 		if (isSeasonalSpirit && spirit.marketingVideoURL) {
 			description.push(hyperlink("Promotional Video", spirit.marketingVideoURL));
@@ -246,7 +253,14 @@ export default new (class implements AutocompleteCommand {
 	}
 
 	public async track(interaction: ChatInputCommandInteraction) {
-		await SpiritTracker.viewTracker(interaction);
+		await interaction.reply({
+			content: `The spirit tracker has had an amazing update! Events, permanent IAPs, etc. are available, so the command has been renamed to ${
+				COMMANDS.catalogue.id
+					? chatInputApplicationCommandMention(COMMANDS.catalogue.id, COMMANDS.catalogue.data.name)
+					: `\`/${COMMANDS.catalogue.data.name}\``
+			}. Try it out!\n\nYou can also stay updated in our [support server](${SUPPORT_SERVER_INVITE_URL})!`,
+			flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
+		});
 	}
 
 	public async autocomplete(interaction: AutocompleteInteraction) {

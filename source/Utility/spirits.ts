@@ -9,10 +9,6 @@ import {
 	STANCE_EMOJIS,
 } from "./emojis.js";
 
-export const NO_FRIENDSHIP_TREE_TEXT = "This spirit does not have a friendship tree." as const;
-export const NO_FRIENDSHIP_TREE_YET_TEXT = "This spirit does not have a friendship tree. Maybe it should?" as const;
-export const GUIDE_SPIRIT_IN_PROGRESS_TEXT = "This spirit's friendship tree has not been fully revealed." as const;
-
 export enum SpiritName {
 	// Isles of Dawn.
 	PointingCandlemaker = "Pointing Candlemaker",
@@ -218,7 +214,7 @@ export enum SpiritName {
 	EchoOfAnAbandonedRefuge = "Echo of an Abandoned Refuge",
 	RemnantOfAForgottenHaven = "Remnant of a Forgotten Haven",
 
-	// Season of the Nine-Colored Deer.
+	// Season of the Nine-Coloured Deer.
 	SpiritOfMural = "Spirit of Mural",
 	HerbGatherer = "Herb Gatherer",
 	Hunter = "Hunter",

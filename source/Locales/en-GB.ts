@@ -1,6 +1,6 @@
 import { NOTIFICATION_EVENT_VALUES } from "../Structures/Notification.js";
 import { MAP_VALUES, REALM_NAME_VALUES } from "../Utility/Constants.js";
-import { SEASON_NAME_VALUES } from "../Utility/catalogue.js";
+import { EVENT_NAME_VALUES, SEASON_NAME_VALUES } from "../Utility/catalogue.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {
@@ -17,6 +17,7 @@ export default {
 			NOTIFICATION_EVENT_VALUES.map((notificationEvent) => [notificationEvent, notificationEvent]),
 		),
 		seasons: Object.fromEntries(SEASON_NAME_VALUES.map((season) => [season, season])),
+		events: Object.fromEntries(EVENT_NAME_VALUES.map((eventName) => [eventName, eventName])),
 		"shard-eruption": "Shard Eruption",
 		"shard-eruption-none": "None",
 		spiritNames: Object.fromEntries(Object.values(SpiritName).map((spiritName) => [spiritName, spiritName])),

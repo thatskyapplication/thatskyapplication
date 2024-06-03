@@ -127,7 +127,7 @@ export default new (class implements AutocompleteCommand {
 							{
 								type: ApplicationCommandOptionType.Boolean,
 								name: "state",
-								description: "Show your spirit progression from the spirit tracker?",
+								description: "Show your catalogue progression?",
 								required: true,
 							},
 						],

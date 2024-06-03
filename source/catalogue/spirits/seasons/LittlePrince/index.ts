@@ -1,6 +1,8 @@
+import { Collection } from "discord.js";
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { SeasonName, type ItemRaw } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
+import { CAPE_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../../../Utility/emojis.js";
 import BeckoningRuler from "./BeckoningRuler.js";
 import GloatingNarcissist from "./GloatingNarcissist.js";
 import SlouchingSoldier from "./SlouchingSoldier.js";
@@ -22,5 +24,13 @@ export default new Season({
 		SneezingGeographer,
 		StarCollector,
 	],
+	items: new Collection<number, ItemRaw>()
+		.set(1 << 0, { name: "Little Prince Scarf Cape", cost: { money: 14.99 }, emoji: CAPE_EMOJIS.Cape63 })
+		.set(1 << 1, { name: "Little Prince Asteroid Jacket", cost: { money: 24.99 }, emoji: CAPE_EMOJIS.Cape64 })
+		.set(1 << 2, {
+			name: "Little Prince Fox",
+			cost: { money: 9.99 },
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp06,
+		}),
 	seasonalCandlesRotation: null,
 });

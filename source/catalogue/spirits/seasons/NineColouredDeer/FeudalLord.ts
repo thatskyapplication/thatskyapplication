@@ -22,7 +22,7 @@ const capeEmoji = CAPE_EMOJIS.Cape123;
 
 export default new SeasonalSpirit({
 	name: SpiritName.FeudalLord,
-	season: SeasonName.NineColoredDeer,
+	season: SeasonName.NineColouredDeer,
 	action,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
@@ -41,7 +41,7 @@ export default new SeasonalSpirit({
 			.set(1 << 10, {
 				name: "Seasonal heart",
 				cost: { seasonalCandles: 3 },
-				emoji: SEASON_EMOJIS.NineColoredDeerHeart,
+				emoji: SEASON_EMOJIS.NineColouredDeerHeart,
 			}),
 	},
 });

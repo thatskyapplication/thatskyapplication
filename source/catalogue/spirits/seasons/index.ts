@@ -6,6 +6,7 @@ import {
 	SEASON_NAME_VALUES,
 	SeasonNameToSeasonalEmoji,
 } from "../../../Utility/catalogue.js";
+import { todayDate } from "../../../Utility/dates.js";
 import { formatEmoji } from "../../../Utility/emojis.js";
 import AURORA from "./AURORA/index.js";
 import Abyss from "./Abyss/index.js";
@@ -19,7 +20,7 @@ import Lightseekers from "./Lightseekers/index.js";
 import LittlePrince from "./LittlePrince/index.js";
 import Moments from "./Moments/index.js";
 import Nesting from "./Nesting/index.js";
-import NineColoredDeer from "./NineColoredDeer/index.js";
+import NineColouredDeer from "./NineColouredDeer/index.js";
 import Passage from "./Passage/index.js";
 import Performance from "./Performance/index.js";
 import Prophecy from "./Prophecy/index.js";
@@ -29,7 +30,7 @@ import Rhythm from "./Rhythm/index.js";
 import Sanctuary from "./Sanctuary/index.js";
 import Shattering from "./Shattering/index.js";
 
-export const SEASONS = [
+const SEASONS = [
 	Gratitude,
 	Lightseekers,
 	Belonging,
@@ -49,9 +50,11 @@ export const SEASONS = [
 	Passage,
 	Moments,
 	Revival,
-	NineColoredDeer,
+	NineColouredDeer,
 	Nesting,
 ] as const;
+
+export const CURRENT_SEASONS = SEASONS.filter((season) => todayDate() >= season.start);
 
 export const SEASON_SPIRITS = [
 	Gratitude.guide,
@@ -92,8 +95,8 @@ export const SEASON_SPIRITS = [
 	...Moments.spirits,
 	Revival.guide,
 	...Revival.spirits,
-	NineColoredDeer.guide,
-	...NineColoredDeer.spirits,
+	NineColouredDeer.guide,
+	...NineColouredDeer.spirits,
 	Nesting.guide,
 	...Nesting.spirits,
 ] as const;

@@ -22,7 +22,7 @@ const capeEmoji = CAPE_EMOJIS.Cape88;
 
 export default new SeasonalSpirit({
 	name: SpiritName.SeedOfHope,
-	season: SeasonName.Aurora,
+	season: SeasonName.AURORA,
 	emote,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {

@@ -1,16 +1,20 @@
 import { URL } from "node:url";
-import type { Locale } from "discord.js";
+import type { Collection, Locale } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { type RealmName, CDN_URL } from "../Utility/Constants.js";
 import {
+	type Item,
+	type ItemRaw,
 	type RotationNumber,
 	type SeasonName,
+	resolveOffer,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
 	SeasonNameToSeasonalCandleEmoji,
 	SeasonNameToSeasonalEmoji,
+	snakeCaseName,
 	wikiURL,
 } from "../Utility/catalogue.js";
 import {
@@ -23,17 +27,48 @@ import type { GuideSpirit, SeasonalSpirit } from "./Spirits.js";
 
 type SeasonalCandlesRotation = Readonly<{ rotation: Exclude<RotationNumber, 3>; realm: RealmName }[]>;
 
+/**
+ * Data to create a season.
+ */
 interface SeasonData {
+	/**
+	 * The name of the season.
+	 */
 	name: SeasonName;
+	/**
+	 * The start date of the season.
+	 */
 	start: DateTime;
+	/**
+	 * The end date of the season.
+	 *
+	 * @remarks The end date is inclusive.
+	 */
 	end: DateTime;
+	/**
+	 * The guide spirit of the season.
+	 */
 	guide: GuideSpirit;
+	/**
+	 * The spirits of the season.
+	 */
 	spirits: readonly SeasonalSpirit[];
+	/**
+	 * The items that came with the season.
+	 *
+	 * @remarks When cosmetics are not tied to any entity, they should be stored here.
+	 */
+	items?: Collection<number, ItemRaw>;
+	/**
+	 * The seasonal candles rotation.
+	 */
 	seasonalCandlesRotation: SeasonalCandlesRotation | null;
 }
 
 export class Season {
 	public readonly name: SeasonName;
+
+	private readonly snakeCaseName: string;
 
 	public readonly wikiURL: string;
 
@@ -47,6 +82,10 @@ export class Season {
 
 	public readonly spirits: readonly SeasonalSpirit[];
 
+	public readonly items: Collection<number, Item> | null;
+
+	public readonly maximumItemsBits: number | null;
+
 	public readonly emoji: SeasonEmojis;
 
 	public readonly candleEmoji: SeasonEmojis;
@@ -55,12 +94,15 @@ export class Season {
 
 	public constructor(data: SeasonData) {
 		this.name = data.name;
+		this.snakeCaseName = snakeCaseName(data.name);
 		this.wikiURL = wikiURL(data.name);
 		this.start = data.start;
 		this.end = data.end;
 		this.duration = this.end.diff(this.start, "days").days + 1;
 		this.guide = data.guide;
 		this.spirits = data.spirits;
+		this.items = data.items ? resolveOffer(data.items) : null;
+		this.maximumItemsBits = data.items ? data.items.reduce((bits, _, bit) => bit | bits, 0) : null;
 		this.emoji = SeasonNameToSeasonalEmoji[this.name];
 		this.candleEmoji = SeasonNameToSeasonalCandleEmoji[this.name];
 		this.seasonalCandlesRotation = data.seasonalCandlesRotation;
@@ -120,9 +162,7 @@ export class Season {
 	public seasonalCandlesRotationURL(realm: RealmName, rotation: RotationNumber) {
 		return String(
 			new URL(
-				`daily_guides/seasonal_candles/${this.name.toLowerCase().replaceAll(/ |-/g, "_")}/${realm
-					.toLowerCase()
-					.replaceAll(" ", "_")}/rotation_${rotation}.webp`,
+				`daily_guides/seasonal_candles/${this.snakeCaseName}/${snakeCaseName(realm)}/rotation_${rotation}.webp`,
 				CDN_URL,
 			),
 		);

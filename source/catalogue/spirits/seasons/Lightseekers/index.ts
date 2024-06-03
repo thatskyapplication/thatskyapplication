@@ -1,6 +1,8 @@
+import { Collection } from "discord.js";
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { type ItemRaw, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
+import { HELD_PROPS_EMOJIS, NECKLACE_EMOJIS } from "../../../../Utility/emojis.js";
 import CrabWhisperer from "./CrabWhisperer.js";
 import DoublefiveLightCatcher from "./DoublefiveLightCatcher.js";
 import LaidbackPioneer from "./LaidbackPioneer.js";
@@ -22,5 +24,8 @@ export default new Season({
 		CrabWhisperer,
 		ShushingLightScholar,
 	],
+	items: new Collection<number, ItemRaw>()
+		.set(1 << 0, { name: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace02 })
+		.set(1 << 1, { name: "Ultimate prop", cost: null, emoji: HELD_PROPS_EMOJIS.HeldProp12 }),
 	seasonalCandlesRotation: null,
 });

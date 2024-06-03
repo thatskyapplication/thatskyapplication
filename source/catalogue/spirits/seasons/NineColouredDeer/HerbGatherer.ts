@@ -21,7 +21,7 @@ const placeablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp34;
 
 export default new SeasonalSpirit({
 	name: SpiritName.HerbGatherer,
-	season: SeasonName.NineColoredDeer,
+	season: SeasonName.NineColouredDeer,
 	emote,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
@@ -40,7 +40,7 @@ export default new SeasonalSpirit({
 			.set(1 << 10, {
 				name: "Seasonal heart",
 				cost: { seasonalCandles: 3 },
-				emoji: SEASON_EMOJIS.NineColoredDeerHeart,
+				emoji: SEASON_EMOJIS.NineColouredDeerHeart,
 			}),
 	},
 });

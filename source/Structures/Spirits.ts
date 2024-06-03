@@ -5,11 +5,12 @@ import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import { type RealmName, CDN_URL } from "../Utility/Constants.js";
 import {
+	type Item,
 	type ItemCost,
 	type ItemRaw,
-	type Item,
 	type SeasonName,
 	addCosts,
+	resolveOffer,
 	snakeCaseName,
 	wikiURL,
 } from "../Utility/catalogue.js";
@@ -137,36 +138,19 @@ abstract class BaseFriendshipTree {
 
 	public readonly totalCost: Required<ItemCost> | null;
 
-	public readonly maxItemsBit: number | null;
+	public readonly maximumItemsBit: number | null;
 
 	public imageURL: string | null;
 
 	public constructor({ name, offer }: BaseFriendshipTreeData) {
-		this.current = offer?.current ? this.resolveOffer(offer.current) : null;
+		this.current = offer?.current ? resolveOffer(offer.current) : null;
 
 		this.totalCost = this.current
 			? addCosts(this.current.map((item) => item.cost).filter((cost): cost is ItemCost => cost !== null))
 			: null;
 
-		this.maxItemsBit = offer?.current ? this.resolveMaxItemsBit(offer?.current) : null;
+		this.maximumItemsBit = offer?.current ? this.resolveMaxItemsBit(offer.current) : null;
 		this.imageURL = (offer ? offer.hasInfographic ?? true : false) ? this.resolveImageURL(name) : null;
-	}
-
-	protected resolveOffer(items: Collection<number, ItemRaw>, seasonName?: SeasonName): Collection<number, Item> {
-		return items.mapValues((item) => {
-			return {
-				...item,
-				cost: item.cost
-					? {
-							...item.cost,
-							seasonalCandles:
-								seasonName && item.cost.seasonalCandles ? [{ cost: item.cost.seasonalCandles, seasonName }] : [],
-							seasonalHearts:
-								seasonName && item.cost.seasonalHearts ? [{ cost: item.cost.seasonalHearts, seasonName }] : [],
-					  }
-					: null,
-			};
-		});
 	}
 
 	protected resolveMaxItemsBit(offer: Collection<number, ItemRaw>) {
@@ -181,25 +165,25 @@ abstract class BaseFriendshipTree {
 }
 
 abstract class StandardFriendshipTree extends BaseFriendshipTree {
-	public declare readonly current: Collection<number, Item> | null;
+	public declare readonly current: Collection<number, Item>;
 
 	public declare readonly totalCost: Required<ItemCost>;
 
-	public declare readonly maxItemsBit: number;
+	public declare readonly maximumItemsBit: number;
 }
 
 abstract class ElderFriendshipTree extends BaseFriendshipTree {
-	public declare readonly current: Collection<number, Item> | null;
+	public declare readonly current: Collection<number, Item>;
 
 	public declare readonly totalCost: Required<ItemCost>;
 
-	public declare readonly maxItemsBit: number;
+	public declare readonly maximumItemsBit: number;
 }
 
 abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
-	public override readonly maxItemsBit: number;
+	public override readonly maximumItemsBit: number;
 
-	public readonly seasonal: Collection<number, Item> | null;
+	public readonly seasonal: Collection<number, Item>;
 
 	public readonly totalCostSeasonal: Required<ItemCost>;
 
@@ -207,9 +191,12 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 
 	public constructor(seasonalFriendshipTreeData: SeasonalFriendshipTreeData) {
 		super(seasonalFriendshipTreeData);
-		this.seasonal = this.resolveOffer(seasonalFriendshipTreeData.offer.seasonal, seasonalFriendshipTreeData.season);
 
-		this.maxItemsBit = this.resolveMaxItemsBit(
+		this.seasonal = resolveOffer(seasonalFriendshipTreeData.offer.seasonal, {
+			seasonName: seasonalFriendshipTreeData.season,
+		});
+
+		this.maximumItemsBit = this.resolveMaxItemsBit(
 			seasonalFriendshipTreeData.offer.current ?? seasonalFriendshipTreeData.offer.seasonal,
 		);
 
@@ -225,8 +212,6 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 }
 
 abstract class GuideFriendshipTree extends BaseFriendshipTree {
-	public declare readonly current: Collection<number, Item> | null;
-
 	public readonly inProgress: boolean;
 
 	public constructor(guideFriendshipTreeData: GuideFriendshipTreeData) {
