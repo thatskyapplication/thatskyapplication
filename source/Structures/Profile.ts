@@ -36,7 +36,7 @@ export interface ProfilePacket {
 	platform: number | null;
 	spirit: string | null;
 	spot: string | null;
-	spirit_progression: boolean | null;
+	catalogue_progression: boolean | null;
 }
 
 interface ProfileData {
@@ -51,7 +51,7 @@ interface ProfileData {
 	platform: ProfilePacket["platform"];
 	spirit: ProfilePacket["spirit"];
 	spot: ProfilePacket["spot"];
-	spiritProgression: ProfilePacket["spirit_progression"];
+	catalogueProgression: ProfilePacket["catalogue_progression"];
 }
 
 interface ProfileSetData {
@@ -65,7 +65,7 @@ interface ProfileSetData {
 	platform?: number;
 	spirit?: string;
 	spot?: string;
-	spirit_progression?: boolean;
+	catalogue_progression?: boolean;
 }
 
 type ProfilePatchData = Omit<ProfilePacket, "user_id">;
@@ -104,7 +104,7 @@ export default class Profile {
 
 	public spot!: ProfilePacket["spot"];
 
-	public spiritProgression!: ProfilePacket["spirit_progression"];
+	public catalogueProgression!: ProfilePacket["catalogue_progression"];
 
 	public constructor(profile: ProfilePacket) {
 		this.userId = profile.user_id;
@@ -122,7 +122,7 @@ export default class Profile {
 		this.platform = data.platform;
 		this.spirit = data.spirit;
 		this.spot = data.spot;
-		this.spiritProgression = data.spirit_progression;
+		this.catalogueProgression = data.catalogue_progression;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -284,7 +284,7 @@ export default class Profile {
 			platform,
 			spirit,
 			spot,
-			spiritProgression,
+			catalogueProgression,
 		} = this;
 
 		const embed = new EmbedBuilder()
@@ -441,7 +441,7 @@ export default class Profile {
 			);
 		}
 
-		if (typeof spiritProgression === "boolean") {
+		if (typeof catalogueProgression === "boolean") {
 			const catalogue = await Catalogue.fetch(userId).catch(() => null);
 			const allProgress = catalogue?.allProgress(true) ?? 0;
 			fields.push({ name: "Catalogue Progression", value: `${allProgress}%`, inline: true });
@@ -450,9 +450,9 @@ export default class Profile {
 				`- Use ${chatInputApplicationCommandMention(
 					commandName,
 					"set",
-					"spirit-progression",
+					"catalogue-progression",
 					commandId,
-				)} to show your spirit progression!`,
+				)} to show your catalogue progression!`,
 			);
 		}
 

@@ -121,8 +121,8 @@ export default new (class implements AutocompleteCommand {
 					},
 					{
 						type: ApplicationCommandOptionType.Subcommand,
-						name: "spirit-progression",
-						description: "Decide if you want to show your spirit progression!",
+						name: "catalogue-progression",
+						description: "Decide if you want to show your catalogue progression!",
 						options: [
 							{
 								type: ApplicationCommandOptionType.Boolean,
@@ -242,8 +242,8 @@ export default new (class implements AutocompleteCommand {
 			case "spirit":
 				await this.setSpirit(interaction);
 				return;
-			case "spirit-progression":
-				await this.setSpiritProgression(interaction);
+			case "catalogue-progression":
+				await this.setCatalogueProgression(interaction);
 				return;
 			case "spot":
 				await this.setSpot(interaction);
@@ -379,9 +379,9 @@ export default new (class implements AutocompleteCommand {
 		await Profile.set(interaction, { spirit: spirit.name });
 	}
 
-	public async setSpiritProgression(interaction: ChatInputCommandInteraction) {
+	public async setCatalogueProgression(interaction: ChatInputCommandInteraction) {
 		const state = interaction.options.getBoolean("state", true);
-		await Profile.set(interaction, { spirit_progression: state });
+		await Profile.set(interaction, { catalogue_progression: state });
 	}
 
 	public async setSpot(interaction: ChatInputCommandInteraction) {
