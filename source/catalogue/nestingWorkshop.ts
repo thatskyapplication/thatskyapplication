@@ -170,6 +170,11 @@ const items = resolveOffer(
 	// 	cost: { candles: 50 },
 	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp54,
 	// })
+	// .set(1 << 33, {
+	// 	name: "Instrument stand",
+	// 	cost: { ascendedCandles: 33 },
+	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp55,
+	// })
 );
 
 export const NESTING_WORKSHOP = { items, maximumItemsBit: items.reduce((bits, _, bit) => bit | bits, 0) } as const;
