@@ -539,10 +539,3 @@ export const SPIRIT_TYPE = {
 } as const satisfies Readonly<Record<string, number>>;
 
 export type SpiritType = (typeof SPIRIT_TYPE)[keyof typeof SPIRIT_TYPE];
-
-export const SpiritTypeToString = {
-	[SPIRIT_TYPE.Standard]: "Standard Spirits",
-	[SPIRIT_TYPE.Elder]: "Elders",
-	[SPIRIT_TYPE.Seasonal]: "Seasonal Spirits",
-	[SPIRIT_TYPE.Guide]: "Guide Spirits",
-} as const satisfies Readonly<Record<SpiritType, string>>;
