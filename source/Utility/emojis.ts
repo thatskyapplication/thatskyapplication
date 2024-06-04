@@ -595,7 +595,7 @@ export const SHOE_EMOJIS = {
 	 */
 	Shoe12: { name: "shoe", id: "1181741618454351993" },
 	/**
-	 * Cozy Hermit Boots.
+	 * Cosy Hermit Boots.
 	 */
 	Shoe13: { name: "shoe", id: "1201598024783233175" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
@@ -2419,7 +2419,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape96: { name: "cape", id: "1188422878409003048" },
 	/**
-	 * Cozy Hermit Cape.
+	 * Cosy Hermit Cape.
 	 */
 	Cape97: { name: "cape", id: "1188422881349222430" },
 	/**
