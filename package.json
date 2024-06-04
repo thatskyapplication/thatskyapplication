@@ -37,7 +37,7 @@
 		"tsx": "^3.14.0",
 		"typescript": "^5.4.5"
 	},
-	"packageManager": "pnpm@9.1.1",
+	"packageManager": "pnpm@9.1.4",
 	"pnpm": {
 		"patchedDependencies": {
 			"discord.js@14.15.2": "patches/discord.js@14.15.2.patch"
