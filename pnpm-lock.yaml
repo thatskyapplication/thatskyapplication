@@ -5,9 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  discord.js@14.15.2:
-    hash: trzuopvkmmkjrdjmegs2qrwyym
-    path: patches/discord.js@14.15.2.patch
+  discord.js@14.15.3:
+    hash: mzvjhosfif43je57lvpch3v4bq
+    path: patches/discord.js@14.15.3.patch
 
 importers:
 
@@ -20,8 +20,8 @@ importers:
         specifier: ^0.4.19
         version: 0.4.19(pino@8.18.0)
       discord.js:
-        specifier: 14.15.2
-        version: 14.15.2(patch_hash=trzuopvkmmkjrdjmegs2qrwyym)
+        specifier: 14.15.3
+        version: 14.15.3(patch_hash=mzvjhosfif43je57lvpch3v4bq)
       dotenv:
         specifier: ^16.3.1
         version: 16.3.1
@@ -67,7 +67,7 @@ importers:
         version: 8.52.0
       eslint-config-neon:
         specifier: ^0.1.57
-        version: 0.1.57(eslint@8.52.0)(svelte@4.2.16)(typescript@5.4.5)
+        version: 0.1.57(eslint@8.52.0)(svelte@4.2.17)(typescript@5.4.5)
       pino-pretty:
         specifier: ^10.3.1
         version: 10.3.1
@@ -337,8 +337,8 @@ packages:
     resolution: {integrity: sha512-0oIyUfKoI3mSqMvsxBdclDwxXKXAUA8v/apZbc+iSyARYou1o8ZGDxbUYyLFoW2arqS2jDGqJuZvv1d/io1axg==}
     engines: {node: '>=6.9.0'}
 
-  '@discordjs/builders@1.8.1':
-    resolution: {integrity: sha512-GkF+HM01FHy+NSoTaUPR8z44otfQgJ1AIsRxclYGUZDyUbdZEFyD/5QVv2Y1Flx6M+B0bQLzg2M9CJv5lGTqpA==}
+  '@discordjs/builders@1.8.2':
+    resolution: {integrity: sha512-6wvG3QaCjtMu0xnle4SoOIeFB4y6fKMN6WZfy3BMKJdQQtPLik8KGzDwBVL/+wTtcE/ZlFjgEk74GublyEVZ7g==}
     engines: {node: '>=16.11.0'}
 
   '@discordjs/collection@1.5.3':
@@ -361,8 +361,8 @@ packages:
     resolution: {integrity: sha512-IndcI5hzlNZ7GS96RV3Xw1R2kaDuXEp7tRIy/KlhidpN/BQ1qh1NZt3377dMLTa44xDUNKT7hnXkA/oUAzD/lg==}
     engines: {node: '>=16.11.0'}
 
-  '@discordjs/ws@1.1.0':
-    resolution: {integrity: sha512-O97DIeSvfNTn5wz5vaER6ciyUsr7nOqSEtsLoMhhIgeFkhnxLRqSr00/Fpq2/ppLgjDGLbQCDzIK7ilGoB/M7A==}
+  '@discordjs/ws@1.1.1':
+    resolution: {integrity: sha512-PZ+vLpxGCRtmr2RMkqh8Zp+BenUaJqlS6xhgWKEZcgC/vfHLEzpHtKkB0sl3nZWpwtcKk6YWy+pU3okL2I97FA==}
     engines: {node: '>=16.11.0'}
 
   '@es-joy/jsdoccomment@0.40.1':
@@ -877,8 +877,8 @@ packages:
   '@types/node@18.18.8':
     resolution: {integrity: sha512-OLGBaaK5V3VRBS1bAkMVP2/W9B+H8meUfl866OrMNQqt7wDgdpWPp5o6gmIc9pB+lIQHSq4ZL8ypeH1vPxcPaQ==}
 
-  '@types/node@20.12.11':
-    resolution: {integrity: sha512-vDg9PZ/zi+Nqp6boSOT7plNuthRugEKixDv5sFTIpkE89MmNtEArAShI4mxuX2+UrLEe9pxC1vm2cjm9YlWbJw==}
+  '@types/node@20.14.1':
+    resolution: {integrity: sha512-T2MzSGEu+ysB/FkWfqmhV3PLyQlowdptmmgD20C6QxsS8Fmv5SjpZ1ayXaEC0S21/h5UJ9iA6W/5vSNU5l00OA==}
 
   '@types/normalize-package-data@2.4.2':
     resolution: {integrity: sha512-lqa4UEhhv/2sjjIQgjX8B+RBjj47eo0mzGasklVJ78UKGQY1r0VpB9XHDaZZO9qzEFDdy4MrXLuEaSmPrPSe/A==}
@@ -1367,6 +1367,15 @@ packages:
       supports-color:
         optional: true
 
+  debug@4.3.5:
+    resolution: {integrity: sha512-pt0bNEmneDIvdL1Xsd9oDQ/wrQRkXDT4AUWlNZNPKvW5x/jyO9VFXkJUP07vQ2upmw5PlaITaPKc31jK13V+jg==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+
   decamelize@5.0.1:
     resolution: {integrity: sha512-VfxadyCECXgQlkoEAjeghAr5gY3Hf+IKjKb+X8tGVDtveCjN+USwprd2q3QXBR9T1+x2DG0XZF5/w+7HAtSaXA==}
     engines: {node: '>=10'}
@@ -1431,8 +1440,8 @@ packages:
   discord-api-types@0.37.83:
     resolution: {integrity: sha512-urGGYeWtWNYMKnYlZnOnDHm8fVRffQs3U0SpE8RHeiuLKb/u92APS8HoQnPTFbnXmY1vVnXjXO4dOxcAn3J+DA==}
 
-  discord.js@14.15.2:
-    resolution: {integrity: sha512-wGD37YCaTUNprtpqMIRuNiswwsvSWXrHykBSm2SAosoTYut0VUDj9yo9t4iLtMKvuhI49zYkvKc2TNdzdvpJhg==}
+  discord.js@14.15.3:
+    resolution: {integrity: sha512-/UJDQO10VuU6wQPglA4kz2bw2ngeeSbogiIPx/TsnctfzV/tNf+q+i1HlgtX1OGpeOBpJH9erZQNO5oRM2uAtQ==}
     engines: {node: '>=16.11.0'}
 
   doctrine@2.1.0:
@@ -3243,8 +3252,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  svelte@4.2.16:
-    resolution: {integrity: sha512-mQwHpqHD2PmFcCyHaZ7XiTqposaLvJ75WpYcyY5/ce3qxbYtwQpZ+M7ZKP+2CG5U6kfnBZBpPLyofhlE6ROrnQ==}
+  svelte@4.2.17:
+    resolution: {integrity: sha512-N7m1YnoXtRf5wya5Gyx3TWuTddI4nAyayyIWFojiWV5IayDYNV5i2mRp/7qNGol4DtxEYxljmrbgp1HM6hUbmQ==}
     engines: {node: '>=16'}
 
   synckit@0.8.5:
@@ -4146,7 +4155,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
 
-  '@discordjs/builders@1.8.1':
+  '@discordjs/builders@1.8.2':
     dependencies:
       '@discordjs/formatters': 0.4.0
       '@discordjs/util': 1.1.0
@@ -4178,7 +4187,7 @@ snapshots:
 
   '@discordjs/util@1.1.0': {}
 
-  '@discordjs/ws@1.1.0':
+  '@discordjs/ws@1.1.1':
     dependencies:
       '@discordjs/collection': 2.1.0
       '@discordjs/rest': 2.3.0
@@ -4794,7 +4803,7 @@ snapshots:
     dependencies:
       undici-types: 5.26.5
 
-  '@types/node@20.12.11':
+  '@types/node@20.14.1':
     dependencies:
       undici-types: 5.26.5
 
@@ -4810,7 +4819,7 @@ snapshots:
 
   '@types/ws@8.5.10':
     dependencies:
-      '@types/node': 20.12.11
+      '@types/node': 20.14.1
 
   '@types/yargs-parser@21.0.1': {}
 
@@ -5319,6 +5328,10 @@ snapshots:
     dependencies:
       ms: 2.1.2
 
+  debug@4.3.5:
+    dependencies:
+      ms: 2.1.2
+
   decamelize@5.0.1: {}
 
   decode-named-character-reference@1.0.2:
@@ -5378,14 +5391,14 @@ snapshots:
 
   discord-api-types@0.37.83: {}
 
-  discord.js@14.15.2(patch_hash=trzuopvkmmkjrdjmegs2qrwyym):
+  discord.js@14.15.3(patch_hash=mzvjhosfif43je57lvpch3v4bq):
     dependencies:
-      '@discordjs/builders': 1.8.1
+      '@discordjs/builders': 1.8.2
       '@discordjs/collection': 1.5.3
       '@discordjs/formatters': 0.4.0
       '@discordjs/rest': 2.3.0
       '@discordjs/util': 1.1.0
-      '@discordjs/ws': 1.1.0
+      '@discordjs/ws': 1.1.1
       '@sapphire/snowflake': 3.5.3
       discord-api-types: 0.37.83
       fast-deep-equal: 3.1.3
@@ -5531,7 +5544,7 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-neon@0.1.57(eslint@8.52.0)(svelte@4.2.16)(typescript@5.4.5):
+  eslint-config-neon@0.1.57(eslint@8.52.0)(svelte@4.2.17)(typescript@5.4.5):
     dependencies:
       '@angular-eslint/eslint-plugin': 16.2.0(eslint@8.52.0)(typescript@5.4.5)
       '@angular-eslint/eslint-plugin-template': 16.2.0(eslint@8.52.0)(typescript@5.4.5)
@@ -5557,7 +5570,7 @@ snapshots:
       eslint-plugin-rxjs: 5.0.3(eslint@8.52.0)(typescript@5.4.5)
       eslint-plugin-rxjs-angular: 2.0.1(eslint@8.52.0)(typescript@5.4.5)
       eslint-plugin-sonarjs: 0.21.0(eslint@8.52.0)
-      eslint-plugin-svelte3: 4.0.0(eslint@8.52.0)(svelte@4.2.16)
+      eslint-plugin-svelte3: 4.0.0(eslint@8.52.0)(svelte@4.2.17)
       eslint-plugin-tsdoc: 0.2.17
       eslint-plugin-typescript-sort-keys: 3.0.0(@typescript-eslint/parser@6.7.4(eslint@8.52.0)(typescript@5.4.5))(eslint@8.52.0)(typescript@5.4.5)
       eslint-plugin-unicorn: 48.0.1(eslint@8.52.0)
@@ -5677,7 +5690,7 @@ snapshots:
 
   eslint-plugin-i@2.29.1(@typescript-eslint/parser@6.7.4(eslint@8.52.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1)(eslint@8.52.0):
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.5
       doctrine: 3.0.0
       eslint: 8.52.0
       eslint-import-resolver-node: 0.3.9
@@ -5821,10 +5834,10 @@ snapshots:
     dependencies:
       eslint: 8.52.0
 
-  eslint-plugin-svelte3@4.0.0(eslint@8.52.0)(svelte@4.2.16):
+  eslint-plugin-svelte3@4.0.0(eslint@8.52.0)(svelte@4.2.17):
     dependencies:
       eslint: 8.52.0
-      svelte: 4.2.16
+      svelte: 4.2.17
 
   eslint-plugin-tsdoc@0.2.17:
     dependencies:
@@ -7666,7 +7679,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  svelte@4.2.16:
+  svelte@4.2.17:
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@jridgewell/sourcemap-codec': 1.4.15

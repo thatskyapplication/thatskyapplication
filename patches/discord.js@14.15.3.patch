@@ -12,7 +12,7 @@ index 884ad9258cde25c9d33124dbeb58388fd3c27b1f..7282067c4bc2e35fd2bb48d6fb1ff463
        type: command.type,
        options: command.options?.map(option => ApplicationCommand.transformOption(option)),
 diff --git a/src/structures/ApplicationCommand.js b/src/structures/ApplicationCommand.js
-index fe45763b438d59ff2ea951cb25645042cd1cb0cd..546b7b54a460f9f2ebb4b00852e478532883ba1c 100644
+index fe45763b438d59ff2ea951cb25645042cd1cb0cd..16238c0c80b48ba40e245d49de14fead8ab7d281 100644
 --- a/src/structures/ApplicationCommand.js
 +++ b/src/structures/ApplicationCommand.js
 @@ -158,6 +158,18 @@ class ApplicationCommand extends Base {
@@ -25,7 +25,7 @@ index fe45763b438d59ff2ea951cb25645042cd1cb0cd..546b7b54a460f9f2ebb4b00852e47853
 +    } else {
 +      this.contexts ??= [];
 +    }
-+
++  
 +    if ('integration_types' in data) {
 +      this.integrationTypes = data.integration_types;
 +    } else {
@@ -44,10 +44,10 @@ index fe45763b438d59ff2ea951cb25645042cd1cb0cd..546b7b54a460f9f2ebb4b00852e47853
        // Future proof for options being nullable
        // TODO: remove ?? 0 on each when nullable
 diff --git a/typings/index.d.mts b/typings/index.d.mts
-index f08c31226b0205b070e63dcc2552fddc951cff50..18d48a266d435e630f971b18a04a09bfc5f4270c 100644
+index 8605883a5fab0b2bde86d64b525f2dc502b44f9e..706b6c087f69be9e1053ba657d3929377f493a25 100644
 --- a/typings/index.d.mts
 +++ b/typings/index.d.mts
-@@ -461,6 +461,8 @@ export class ApplicationCommand<PermissionsFetchType = {}> extends Base {
+@@ -463,6 +463,8 @@ export class ApplicationCommand<PermissionsFetchType = {}> extends Base {
    >;
    public type: ApplicationCommandType;
    public version: Snowflake;
@@ -56,29 +56,7 @@ index f08c31226b0205b070e63dcc2552fddc951cff50..18d48a266d435e630f971b18a04a09bf
    public nsfw: boolean;
    public delete(): Promise<ApplicationCommand<PermissionsFetchType>>;
    public edit(data: Partial<ApplicationCommandData>): Promise<ApplicationCommand<PermissionsFetchType>>;
-@@ -4677,6 +4679,8 @@ export interface BaseApplicationCommandData {
-   dmPermission?: boolean;
-   defaultMemberPermissions?: PermissionResolvable | null;
-   nsfw?: boolean;
-+  contexts?: readonly number[];
-+  integrationTypes?: readonly number[];
- }
- 
- export interface AttachmentData {
-diff --git a/typings/index.d.ts b/typings/index.d.ts
-index 76fdcc12c6d653e02c3574e76f33d22fd613b206..bf5fbd7d6fd0c38b7d59697f700af28455ac971f 100644
---- a/typings/index.d.ts
-+++ b/typings/index.d.ts
-@@ -461,6 +461,8 @@ export class ApplicationCommand<PermissionsFetchType = {}> extends Base {
-   >;
-   public type: ApplicationCommandType;
-   public version: Snowflake;
-+  public contexts: number[];
-+  public integrationTypes: number[];
-   public nsfw: boolean;
-   public delete(): Promise<ApplicationCommand<PermissionsFetchType>>;
-   public edit(data: Partial<ApplicationCommandData>): Promise<ApplicationCommand<PermissionsFetchType>>;
-@@ -4677,6 +4679,8 @@ export interface BaseApplicationCommandData {
+@@ -4681,6 +4683,8 @@ export interface BaseApplicationCommandData {
    dmPermission?: boolean;
    defaultMemberPermissions?: PermissionResolvable | null;
    nsfw?: boolean;
