@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { CAPE_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../Utility/spirits.js";
@@ -24,31 +24,66 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, emoji: emoteEmoji },
-			{ name: "Hair", bit: 1 << 3, cost: { seasonalCandles: 6 }, emoji: hairEmoji },
-			{ name: "Blessing 1", bit: 1 << 2, emoji: blessing2 },
-			{ name: `${emote} 3`, bit: 1 << 6, cost: { seasonalCandles: 8 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 7, emoji: emoteEmoji },
-			{ name: "Blessing 2", bit: 1 << 8, cost: { seasonalCandles: 10 }, emoji: blessing2 },
-			{ name: "Cape", bit: 1 << 9, cost: { hearts: 5 }, emoji: capeEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteYoga1, emoji: emoteEmoji },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteYoga2, emoji: emoteEmoji },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.StretchingGuruHair,
+				cost: { seasonalCandles: 6 },
+				emoji: hairEmoji,
+			},
+			{ name: "Blessing 1", cosmetic: Cosmetic.StretchingGuruBlessing1, emoji: blessing2 },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteYoga3,
+				cost: { seasonalCandles: 8 },
+				emoji: emoteEmoji,
+			},
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteYoga4, emoji: emoteEmoji },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.StretchingGuruBlessing2,
+				cost: { seasonalCandles: 10 },
+				emoji: blessing2,
+			},
+			{
+				name: "Cape",
+				cosmetic: Cosmetic.StretchingGuruCape,
+				cost: { hearts: 5 },
+				emoji: capeEmoji,
+			},
 		],
 		current: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, cost: { hearts: 4 }, emoji: emoteEmoji },
-			{ name: "Blessing 1", bit: 1 << 2, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Hair", bit: 1 << 3, cost: { candles: 26 }, emoji: hairEmoji },
-			{ name: "Heart", bit: 1 << 4, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteYoga1, emoji: emoteEmoji },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteYoga2, cost: { hearts: 4 }, emoji: emoteEmoji },
 			{
-				name: "Wing buff",
-				bit: 1 << 5,
-				cost: { ascendedCandles: 2 },
-				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+				name: "Blessing 1",
+				cosmetic: Cosmetic.StretchingGuruBlessing1,
+				cost: { candles: 5 },
+				emoji: blessing2,
 			},
-			{ name: `${emote} 3`, bit: 1 << 6, cost: { hearts: 3 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 7, cost: { hearts: 6 }, emoji: emoteEmoji },
-			{ name: "Blessing 2", bit: 1 << 8, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Cape", bit: 1 << 9, cost: { candles: 65 }, emoji: capeEmoji },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.StretchingGuruHair,
+				cost: { candles: 26 },
+				emoji: hairEmoji,
+			},
+			{ name: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Wing buff", cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff },
+			{ name: `${emote} 3`, cosmetic: Cosmetic.EmoteYoga3, cost: { hearts: 3 }, emoji: emoteEmoji },
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteYoga4, cost: { hearts: 6 }, emoji: emoteEmoji },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.StretchingGuruBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Cape",
+				cosmetic: Cosmetic.StretchingGuruCape,
+				cost: { candles: 65 },
+				emoji: capeEmoji,
+			},
 		],
 	},
 	visits: {

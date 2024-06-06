@@ -1,4 +1,4 @@
-import { resolveOffer } from "../Utility/catalogue.js";
+import { resolveAllCosmetics, resolveOffer } from "../Utility/catalogue.js";
 import { LARGE_PLACEABLE_PROPS_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../Utility/emojis.js";
 
 const items = resolveOffer([
@@ -317,7 +317,4 @@ const items = resolveOffer([
 	// },
 ]);
 
-export const NESTING_WORKSHOP = {
-	items,
-	maximumItemsBit: items.reduce((bits, { bit }) => bit | bits, 0),
-} as const;
+export const NESTING_WORKSHOP = { items, allCosmetics: resolveAllCosmetics(items) } as const;

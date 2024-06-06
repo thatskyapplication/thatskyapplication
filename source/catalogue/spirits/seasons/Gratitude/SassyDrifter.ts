@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../Utility/spirits.js";
@@ -24,25 +24,50 @@ export default new SeasonalSpirit({
 	hasMarketingVideo: true,
 	offer: {
 		seasonal: [
-			{ name: `${stance} stance`, bit: 1 << 0, emoji: stanceEmoji },
-			{ name: "Hair", bit: 1 << 2, cost: { seasonalCandles: 6 }, emoji: hairEmoji },
-			{ name: "Blessing 1", bit: 1 << 1, emoji: blessing2 },
-			{ name: "Blessing 2", bit: 1 << 5, cost: { seasonalCandles: 8 }, emoji: blessing2 },
-			{ name: "Weasel mask", bit: 1 << 6, emoji: maskEmoji },
+			{ name: `${stance} stance`, cosmetic: Cosmetic.StanceSassy, emoji: stanceEmoji },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.SassyDrifterHair,
+				cost: { seasonalCandles: 6 },
+				emoji: hairEmoji,
+			},
+			{ name: "Blessing 1", cosmetic: Cosmetic.SassyDrifterBlessing1, emoji: blessing2 },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.SassyDrifterBlessing2,
+				cost: { seasonalCandles: 8 },
+				emoji: blessing2,
+			},
+			{ name: "Weasel mask", cosmetic: Cosmetic.SassyDrifterMask, emoji: maskEmoji },
 		],
 		current: [
-			{ name: `${stance} stance`, bit: 1 << 0, emoji: stanceEmoji },
-			{ name: "Blessing 1", bit: 1 << 1, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Hair", bit: 1 << 2, cost: { candles: 26 }, emoji: hairEmoji },
-			{ name: "Heart", bit: 1 << 3, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: `${stance} stance`, cosmetic: Cosmetic.StanceSassy, emoji: stanceEmoji },
 			{
-				name: "Wing buff",
-				bit: 1 << 4,
-				cost: { ascendedCandles: 2 },
-				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+				name: "Blessing 1",
+				cosmetic: Cosmetic.SassyDrifterBlessing1,
+				cost: { candles: 5 },
+				emoji: blessing2,
 			},
-			{ name: "Blessing 2", bit: 1 << 5, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Weasel mask", bit: 1 << 6, cost: { candles: 48 }, emoji: maskEmoji },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.SassyDrifterHair,
+				cost: { candles: 26 },
+				emoji: hairEmoji,
+			},
+			{ name: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Wing buff", cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.SassyDrifterBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Weasel mask",
+				cosmetic: Cosmetic.SassyDrifterMask,
+				cost: { candles: 48 },
+				emoji: maskEmoji,
+			},
 		],
 	},
 	visits: {

@@ -1,5 +1,6 @@
 import { StandardSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
+import { Cosmetic } from "../../../../Utility/catalogue.js";
 import {
 	HAIR_EMOJIS,
 	LARGE_PLACEABLE_PROPS_EMOJIS,
@@ -16,33 +17,58 @@ export default new StandardSpirit({
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		current: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, cost: { candles: 10 }, emoji: emoteEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteFloat1, emoji: emoteEmoji },
+			{
+				name: `${emote} 2`,
+				cosmetic: Cosmetic.EmoteFloat2,
+				cost: { candles: 10 },
+				emoji: emoteEmoji,
+			},
 			{
 				name: "Blessing 1",
-				bit: 1 << 2,
+				cosmetic: Cosmetic.MeditatingMonasticBlessing1,
 				cost: { candles: 1 },
 				emoji: MISCELLANEOUS_EMOJIS.Blessing1,
 			},
-			{ name: "Hair", bit: 1 << 3, cost: { hearts: 10 }, emoji: HAIR_EMOJIS.Hair29 },
-			{ name: "Heart", bit: 1 << 4, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.MeditatingMonasticHair,
+				cost: { hearts: 10 },
+				emoji: HAIR_EMOJIS.Hair29,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.MeditatingMonasticHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
 			{
 				name: "Wing buff",
-				bit: 1 << 5,
+				cosmetic: Cosmetic.MeditatingMonasticWingBuff,
 				cost: { ascendedCandles: 3 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
-			{ name: `${emote} 3`, bit: 1 << 6, cost: { candles: 7 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 7, cost: { candles: 10 }, emoji: emoteEmoji },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteFloat3,
+				cost: { candles: 7 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: `${emote} 4`,
+				cosmetic: Cosmetic.EmoteFloat4,
+				cost: { candles: 10 },
+				emoji: emoteEmoji,
+			},
 			{
 				name: "Blessing 2",
-				bit: 1 << 8,
+				cosmetic: Cosmetic.MeditatingMonasticBlessing2,
 				cost: { candles: 5 },
 				emoji: MISCELLANEOUS_EMOJIS.Blessing2,
 			},
 			{
 				name: "Chair",
-				bit: 1 << 9,
+				cosmetic: Cosmetic.MeditatingMonasticChair,
 				cost: { hearts: 30 },
 				emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp01,
 			},

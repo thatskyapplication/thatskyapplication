@@ -1,5 +1,6 @@
 import { StandardSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
+import { Cosmetic } from "../../../../Utility/catalogue.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
@@ -17,28 +18,58 @@ export default new StandardSpirit({
 	realm: RealmName.IslesOfDawn,
 	offer: {
 		current: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, cost: { candles: 1 }, emoji: emoteEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteNoThanks1, emoji: emoteEmoji },
+			{
+				name: `${emote} 2`,
+				cosmetic: Cosmetic.EmoteNoThanks2,
+				cost: { candles: 1 },
+				emoji: emoteEmoji,
+			},
 			{
 				name: "Blessing 1",
-				bit: 1 << 2,
+				cosmetic: Cosmetic.RejectingVoyagerBlessing1,
 				cost: { candles: 1 },
 				emoji: MISCELLANEOUS_EMOJIS.Blessing1,
 			},
-			{ name: "Hair", bit: 1 << 3, cost: { hearts: 1 }, emoji: HAIR_EMOJIS.Hair04 },
-			{ name: "Heart", bit: 1 << 4, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.RejectingVoyagerHair,
+				cost: { hearts: 1 },
+				emoji: HAIR_EMOJIS.Hair04,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.RejectingVoyagerHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
 			{
 				name: "Wing buff",
-				bit: 1 << 5,
+				cosmetic: Cosmetic.RejectingVoyagerWingBuff,
 				cost: { ascendedCandles: 1 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
-			{ name: `${emote} 3`, bit: 1 << 6, cost: { candles: 2 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 7, cost: { candles: 2 }, emoji: emoteEmoji },
-			{ name: "Face accessory", bit: 1 << 8, cost: { hearts: 3 }, emoji: faceAccessoryEmoji },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteNoThanks3,
+				cost: { candles: 2 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: `${emote} 4`,
+				cosmetic: Cosmetic.EmoteNoThanks4,
+				cost: { candles: 2 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: "Face accessory",
+				cosmetic: Cosmetic.RejectingVoyagerFaceAccessory,
+				cost: { hearts: 3 },
+				emoji: faceAccessoryEmoji,
+			},
 			{
 				name: "Blessing 2",
-				bit: 1 << 9,
+				cosmetic: Cosmetic.RejectingVoyagerBlessing2,
 				cost: { candles: 5 },
 				emoji: MISCELLANEOUS_EMOJIS.Blessing2,
 			},

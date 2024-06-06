@@ -1,4 +1,4 @@
-import { resolveOffer } from "../Utility/catalogue.js";
+import { resolveAllCosmetics, resolveOffer } from "../Utility/catalogue.js";
 import { CAPE_EMOJIS, HELD_PROPS_EMOJIS } from "../Utility/emojis.js";
 
 const items = resolveOffer([
@@ -11,7 +11,4 @@ const items = resolveOffer([
 	},
 ]);
 
-export const SECRET_AREA = {
-	items,
-	maximumItemsBit: items.reduce((bits, { bit }) => bit | bits, 0),
-} as const;
+export const SECRET_AREA = { items, allCosmetics: resolveAllCosmetics(items) } as const;

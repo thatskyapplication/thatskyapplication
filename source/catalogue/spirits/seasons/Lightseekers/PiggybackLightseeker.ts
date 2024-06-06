@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -31,29 +31,69 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ name: `${action} 1`, bit: 1 << 0, emoji: actionEmoji },
-			{ name: "Mask", bit: 1 << 2, cost: { seasonalCandles: 16 }, emoji: maskEmoji },
-			{ name: "Blessing 1", bit: 1 << 1, emoji: blessing2 },
-			{ name: "Blessing 2", bit: 1 << 5, cost: { seasonalCandles: 18 }, emoji: blessing2 },
-			{ name: `${action} 2`, bit: 1 << 6, emoji: actionEmoji },
-			{ name: "Hair", bit: 1 << 7, cost: { seasonalCandles: 20 }, emoji: hairEmoji },
-			{ name: "Cape", bit: 1 << 8, emoji: capeEmoji },
+			{ name: `${action} 1`, cosmetic: Cosmetic.FriendActionCarry1, emoji: actionEmoji },
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.PiggybackLightseekerMask,
+				cost: { seasonalCandles: 16 },
+				emoji: maskEmoji,
+			},
+			{ name: "Blessing 1", cosmetic: Cosmetic.PiggybackLightseekerBlessing1, emoji: blessing2 },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.PiggybackLightseekerBlessing2,
+				cost: { seasonalCandles: 18 },
+				emoji: blessing2,
+			},
+			{ name: `${action} 2`, cosmetic: Cosmetic.FriendActionCarry2, emoji: actionEmoji },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.PiggybackLightseekerHair,
+				cost: { seasonalCandles: 20 },
+				emoji: hairEmoji,
+			},
+			{ name: "Cape", cosmetic: Cosmetic.PiggybackLightseekerCape, emoji: capeEmoji },
 		],
 		current: [
-			{ name: `${action} 1`, bit: 1 << 0, emoji: actionEmoji },
-			{ name: "Blessing 1", bit: 1 << 1, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Mask", bit: 1 << 2, cost: { candles: 24 }, emoji: maskEmoji },
-			{ name: "Heart", bit: 1 << 3, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: `${action} 1`, cosmetic: Cosmetic.FriendActionCarry1, emoji: actionEmoji },
 			{
-				name: "Wing buff",
-				bit: 1 << 4,
-				cost: { ascendedCandles: 2 },
-				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+				name: "Blessing 1",
+				cosmetic: Cosmetic.PiggybackLightseekerBlessing1,
+				cost: { candles: 5 },
+				emoji: blessing2,
 			},
-			{ name: "Blessing 2", bit: 1 << 5, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: `${action} 2`, bit: 1 << 6, cost: { hearts: 8 }, emoji: actionEmoji },
-			{ name: "Hair", bit: 1 << 7, cost: { candles: 26 }, emoji: hairEmoji },
-			{ name: "Cape", bit: 1 << 8, cost: { candles: 60 }, emoji: capeEmoji },
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.PiggybackLightseekerMask,
+				cost: { candles: 24 },
+				emoji: maskEmoji,
+			},
+			{ name: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Wing buff", cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.PiggybackLightseekerBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: `${action} 2`,
+				cosmetic: Cosmetic.FriendActionCarry2,
+				cost: { hearts: 8 },
+				emoji: actionEmoji,
+			},
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.PiggybackLightseekerHair,
+				cost: { candles: 26 },
+				emoji: hairEmoji,
+			},
+			{
+				name: "Cape",
+				cosmetic: Cosmetic.PiggybackLightseekerCape,
+				cost: { candles: 60 },
+				emoji: capeEmoji,
+			},
 		],
 	},
 	visits: {

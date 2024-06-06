@@ -1,5 +1,6 @@
 import { StandardSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
+import { Cosmetic } from "../../../../Utility/catalogue.js";
 import { MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { SpiritCall, SpiritCallToEmoji, SpiritName } from "../../../../Utility/spirits.js";
 
@@ -12,29 +13,34 @@ export default new StandardSpirit({
 	realm: RealmName.HiddenForest,
 	offer: {
 		current: [
-			{ name: `${call} call`, bit: 1 << 0, emoji: callEmoji },
+			{ name: `${call} call`, cosmetic: Cosmetic.CallWhale, emoji: callEmoji },
 			{
 				name: "Blessing 1",
-				bit: 1 << 1,
+				cosmetic: Cosmetic.WhaleWhispererBlessing1,
 				cost: { candles: 1 },
 				emoji: MISCELLANEOUS_EMOJIS.Blessing1,
 			},
-			{ name: "Heart", bit: 1 << 2, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.WhaleWhispererHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
 			{
 				name: "Wing buff",
-				bit: 1 << 3,
+				cosmetic: Cosmetic.WhaleWhispererWingBuff,
 				cost: { ascendedCandles: 1 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
 			{
 				name: "Blessing 2",
-				bit: 1 << 4,
+				cosmetic: Cosmetic.WhaleWhispererBlessing2,
 				cost: { candles: 5 },
 				emoji: MISCELLANEOUS_EMOJIS.Blessing2,
 			},
 			{
 				name: "Music sheet",
-				bit: 1 << 5,
+				cosmetic: Cosmetic.WhaleWhispererMusicSheet,
 				cost: { hearts: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.MusicSheet,
 			},

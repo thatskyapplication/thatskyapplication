@@ -13,6 +13,7 @@ import {
 	type SeasonName,
 	SeasonNameToSeasonalCandleEmoji,
 	SeasonNameToSeasonalEmoji,
+	resolveAllCosmetics,
 	resolveOffer,
 	snakeCaseName,
 	wikiURL,
@@ -86,7 +87,7 @@ export class Season {
 
 	public readonly items: Item[];
 
-	public readonly maximumItemsBits: number | null;
+	public readonly allCosmetics: number[];
 
 	public readonly emoji: SeasonEmojis;
 
@@ -104,7 +105,7 @@ export class Season {
 		this.guide = data.guide;
 		this.spirits = data.spirits;
 		this.items = data.items ? resolveOffer(data.items) : [];
-		this.maximumItemsBits = data.items ? data.items.reduce((bits, { bit }) => bit | bits, 0) : null;
+		this.allCosmetics = data.items ? resolveAllCosmetics(this.items) : [];
 		this.emoji = SeasonNameToSeasonalEmoji[this.name];
 		this.candleEmoji = SeasonNameToSeasonalCandleEmoji[this.name];
 		this.seasonalCandlesRotation = data.seasonalCandlesRotation;

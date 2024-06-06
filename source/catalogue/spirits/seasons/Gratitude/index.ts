@@ -1,5 +1,5 @@
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { MASK_EMOJIS, NECKLACE_EMOJIS } from "../../../../Utility/emojis.js";
 import GratitudeGuide from "./GratitudeGuide.js";
@@ -24,8 +24,8 @@ export default new Season({
 		GreetingShaman,
 	],
 	items: [
-		{ name: "Pendant", bit: 1 << 0, emoji: NECKLACE_EMOJIS.Necklace01 },
-		{ name: "Ultimate mask", bit: 1 << 1, emoji: MASK_EMOJIS.Mask10 },
+		{ name: "Pendant", cosmetic: Cosmetic.GratitudePendant, emoji: NECKLACE_EMOJIS.Necklace01 },
+		{ name: "Ultimate mask", cosmetic: Cosmetic.GratitudeUltimateMask, emoji: MASK_EMOJIS.Mask10 },
 	],
 	seasonalCandlesRotation: null,
 });
