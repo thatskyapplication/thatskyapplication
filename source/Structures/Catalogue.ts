@@ -2365,7 +2365,7 @@ export class Catalogue {
 					new ButtonBuilder()
 						.setCustomId(`${CATALOGUE_REALM_EVERYTHING_CUSTOM_ID}§${realm}`)
 						.setDisabled(hasEverything)
-						.setEmoji("💯")
+						.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
 						.setLabel("I have everything!")
 						.setStyle(ButtonStyle.Success),
 				),
@@ -2424,7 +2424,7 @@ export class Catalogue {
 					new ButtonBuilder()
 						.setCustomId(CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID)
 						.setDisabled(hasEverything)
-						.setEmoji("💯")
+						.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
 						.setLabel("I have everything!")
 						.setStyle(ButtonStyle.Success),
 				),
@@ -2564,7 +2564,7 @@ export class Catalogue {
 				new ButtonBuilder()
 					.setCustomId(`${CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID}§${seasonName}`)
 					.setDisabled(catalogue.seasonProgress([season]) === 100)
-					.setEmoji("💯")
+					.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
 					.setLabel("I have everything!")
 					.setStyle(ButtonStyle.Success),
 			),
@@ -2831,7 +2831,7 @@ export class Catalogue {
 				new ButtonBuilder()
 					.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${spirit.name}`)
 					.setDisabled(this.spiritProgress([spirit]) === 100)
-					.setEmoji("💯")
+					.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
 					.setLabel("I have everything!")
 					.setStyle(ButtonStyle.Success),
 			);
@@ -2978,7 +2978,7 @@ export class Catalogue {
 				new ButtonBuilder()
 					.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${nameUnique}`)
 					.setDisabled(this.eventProgress([event]) === 100)
-					.setEmoji("💯")
+					.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
 					.setLabel("I have everything!")
 					.setStyle(ButtonStyle.Success),
 			);
@@ -3067,7 +3067,7 @@ export class Catalogue {
 					new ButtonBuilder()
 						.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.StarterPacks}`)
 						.setDisabled(catalogue.starterPackProgress() === 100)
-						.setEmoji("💯")
+						.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
 						.setLabel("I have everything!")
 						.setStyle(ButtonStyle.Success),
 				),
@@ -3117,7 +3117,7 @@ export class Catalogue {
 					new ButtonBuilder()
 						.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.SecretArea}`)
 						.setDisabled(catalogue.secretAreaProgress() === 100)
-						.setEmoji("💯")
+						.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
 						.setLabel("I have everything!")
 						.setStyle(ButtonStyle.Success),
 				),
@@ -3167,7 +3167,7 @@ export class Catalogue {
 					new ButtonBuilder()
 						.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.HarmonyHall}`)
 						.setDisabled(catalogue.harmonyHallProgress() === 100)
-						.setEmoji("💯")
+						.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
 						.setLabel("I have everything!")
 						.setStyle(ButtonStyle.Success),
 				),
@@ -3217,7 +3217,7 @@ export class Catalogue {
 					new ButtonBuilder()
 						.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.PermanentEventStore}`)
 						.setDisabled(catalogue.permanentEventStoreProgress() === 100)
-						.setEmoji("💯")
+						.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
 						.setLabel("I have everything!")
 						.setStyle(ButtonStyle.Success),
 				),
@@ -3277,7 +3277,7 @@ export class Catalogue {
 					new ButtonBuilder()
 						.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`)
 						.setDisabled(catalogue.nestingWorkshopProgress() === 100)
-						.setEmoji("💯")
+						.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
 						.setLabel("I have everything!")
 						.setStyle(ButtonStyle.Success),
 				),
