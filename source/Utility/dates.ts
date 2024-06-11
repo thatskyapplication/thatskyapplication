@@ -6,7 +6,7 @@ export const TIME_ZONE = "America/Los_Angeles" as const;
 
 // Double Seasonal Light.
 export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE = skyDate(2_024, 6, 10);
-export const DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE = skyDate(2_024, 6, 11);
+export const DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE = skyDate(2_024, 6, 16);
 
 export const DOUBLE_SEASONAL_LIGHT_EVENT_DURATION =
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days").days + 1;
