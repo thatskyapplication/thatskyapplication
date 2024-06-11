@@ -195,6 +195,11 @@ const items = resolveOffer(
 	// 	cost: { hearts: 18 },
 	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp58,
 	// })
+	// .set(1 << 38, {
+	// 	name: "Music player",
+	// 	cost: { ascendedCandles: 66 },
+	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp59,
+	// })
 );
 
 export const NESTING_WORKSHOP = { items, maximumItemsBit: items.reduce((bits, _, bit) => bit | bits, 0) } as const;
