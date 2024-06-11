@@ -175,6 +175,26 @@ const items = resolveOffer(
 	// 	cost: { ascendedCandles: 33 },
 	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp55,
 	// })
+	// .set(1 << 34, {
+	// 	name: "Stone wall pot rack",
+	// 	cost: { candles: 50 },
+	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp56,
+	// })
+	// .set(1 << 35, {
+	// 	name: "Stone closed box",
+	// 	cost: { candles: 30 },
+	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp57,
+	// })
+	// .set(1 << 36, {
+	// 	name: "Stone washstand",
+	// 	cost: { candles: 40 },
+	// 	emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp66,
+	// })
+	// .set(1 << 37, {
+	// 	name: "Medium diamonds rug",
+	// 	cost: { hearts: 18 },
+	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp58,
+	// })
 );
 
 export const NESTING_WORKSHOP = { items, maximumItemsBit: items.reduce((bits, _, bit) => bit | bits, 0) } as const;
