@@ -14,7 +14,6 @@ export default new GuideSpirit({
 	name: SpiritName.NestingGuide,
 	season: SeasonName.Nesting,
 	offer: {
-		inProgress: true,
 		current: new Collection<number, ItemRaw>()
 			.set(1 << 0, { name: "Quest 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 1, { name: "Heart 1", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
@@ -30,6 +29,8 @@ export default new GuideSpirit({
 			.set(1 << 7, { name: "Quest 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
 			.set(1 << 8, { name: "Heart 3", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 9, { name: "Quest 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 10, { name: "Heart 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart }),
+			.set(1 << 10, { name: "Heart 4", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart })
+			.set(1 << 11, { name: "Quest 5", cost: null, emoji: MISCELLANEOUS_EMOJIS.Quest })
+			.set(1 << 12, { name: "Heart 5", cost: null, emoji: MISCELLANEOUS_EMOJIS.Heart }),
 	},
 });
