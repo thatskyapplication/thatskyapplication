@@ -3254,6 +3254,26 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 export type SmallPlaceablePropsEmojis =
 	(typeof SMALL_PLACEABLE_PROPS_EMOJIS)[keyof typeof SMALL_PLACEABLE_PROPS_EMOJIS];
 
+export const COSMETIC_EMOJIS = [
+	...Object.values(EMOTE_EMOJIS),
+	...Object.values(STANCE_EMOJIS),
+	...Object.values(CALL_EMOJIS),
+	...Object.values(FRIEND_ACTION_EMOJIS),
+	...Object.values(OUTFIT_EMOJIS),
+	...Object.values(SHOE_EMOJIS),
+	...Object.values(MASK_EMOJIS),
+	...Object.values(FACE_ACCESSORY_EMOJIS),
+	...Object.values(NECKLACE_EMOJIS),
+	...Object.values(HAIR_EMOJIS),
+	...Object.values(HAIR_ACCESSORY_EMOJIS),
+	...Object.values(CAPE_EMOJIS),
+	...Object.values(HELD_PROPS_EMOJIS),
+	...Object.values(LARGE_PLACEABLE_PROPS_EMOJIS),
+	...Object.values(SMALL_PLACEABLE_PROPS_EMOJIS),
+] as const;
+
+export type CosmeticEmojis = typeof COSMETIC_EMOJIS[number];
+
 export type Emoji =
 	| MiscellaneousEmojis
 	| EmotesEmojis
