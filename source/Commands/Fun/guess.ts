@@ -104,7 +104,7 @@ export default new (class implements ChatInputCommand {
 			embeds: [
 				new EmbedBuilder()
 					.setColor(DEFAULT_EMBED_COLOUR)
-					.setFooter({ text: `Streak: ${streak}\nHighest: ${highestStreak[0]?.streak ?? 0}` })
+					.setFooter({ text: `Streak: ${streak} | Highest: ${highestStreak[0]?.streak ?? 0}` })
 					.setImage(formatEmojiURL(emoji.id))
 					.setTitle("Where does this come from?"),
 			],
