@@ -1,12 +1,12 @@
 import { DeleteObjectsCommand } from "@aws-sdk/client-s3";
 import { type ButtonInteraction, hyperlink, MessageFlags } from "discord.js";
-import type { GuessPacket } from "../Commands/Fun/guess.js";
 import type { HeartPacket } from "../Commands/Fun/heart.js";
 import S3Client from "../S3Client.js";
 import { CDN_BUCKET, SUPPORT_SERVER_INVITE_URL } from "../Utility/Constants.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import type { CataloguePacket } from "./Catalogue.js";
+import type { GuessPacket } from "./Guess.js";
 import type { ProfilePacket } from "./Profile.js";
 import Profile from "./Profile.js";
 
