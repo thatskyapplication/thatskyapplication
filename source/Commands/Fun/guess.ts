@@ -106,7 +106,7 @@ export default new (class implements ChatInputCommand {
 					.setColor(DEFAULT_EMBED_COLOUR)
 					.setFooter({ text: `Streak: ${streak}\nHighest: ${highestStreak[0]?.streak ?? 0}` })
 					.setImage(formatEmojiURL(emoji.id))
-					.setTitle("What does this come from?"),
+					.setTitle("Where does this come from?"),
 			],
 		};
 
@@ -127,19 +127,20 @@ export default new (class implements ChatInputCommand {
 
 		const [, answer, guess, streak] = customId.split("§");
 		const parsedStreak = Number(streak);
-		const embed = EmbedBuilder.from(message.embeds[0]!);
-		const isAnswerSpiritName = SPIRITS.some((spirit) => spirit.name === answer);
-		const isGuessSpiritName = SPIRITS.some((spirit) => spirit.name === guess);
-		embed.setTitle(t(`${isAnswerSpiritName ? "spiritNames" : "events"}.${answer}`, { lng: locale, ns: "general" }));
-
-		let description = `Your guess: ${t(`${isGuessSpiritName ? "spiritNames" : "events"}.${guess}`, {
-			lng: locale,
-			ns: "general",
-		})} `;
 
 		if (guess !== answer) {
-			description += formatEmoji(MISCELLANEOUS_EMOJIS.No);
-			embed.setDescription(description);
+			const embed = EmbedBuilder.from(message.embeds[0]!);
+			const isAnswerSpiritName = SPIRITS.some((spirit) => spirit.name === answer);
+			const isGuessSpiritName = SPIRITS.some((spirit) => spirit.name === guess);
+
+			embed
+				.setDescription(
+					`Your guess: ${t(`${isGuessSpiritName ? "spiritNames" : "events"}.${guess}`, {
+						lng: locale,
+						ns: "general",
+					})} ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`,
+				)
+				.setTitle(t(`${isAnswerSpiritName ? "spiritNames" : "events"}.${answer}`, { lng: locale, ns: "general" }));
 
 			await pg<GuessPacket>(Table.Guess)
 				.insert({ user_id: user.id, streak: parsedStreak })
