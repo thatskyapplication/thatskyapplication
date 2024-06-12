@@ -1,5 +1,6 @@
 import { DeleteObjectsCommand } from "@aws-sdk/client-s3";
 import { type ButtonInteraction, hyperlink, MessageFlags } from "discord.js";
+import type { GuessPacket } from "../Commands/Fun/guess.js";
 import type { HeartPacket } from "../Commands/Fun/heart.js";
 import S3Client from "../S3Client.js";
 import { CDN_BUCKET, SUPPORT_SERVER_INVITE_URL } from "../Utility/Constants.js";
@@ -42,6 +43,7 @@ export async function deleteUserData(interaction: ButtonInteraction) {
 	promises.push(pg<CataloguePacket>(Table.Catalogue).delete().where({ user_id: id }));
 	promises.push(pg<HeartPacket>(Table.Hearts).update({ gifter_id: null }).where({ gifter_id: id }));
 	promises.push(pg<HeartPacket>(Table.Hearts).update({ giftee_id: null }).where({ giftee_id: id }));
+	promises.push(pg<GuessPacket>(Table.Guess).delete().where({ user_id: id }));
 
 	try {
 		await Promise.all(promises);

@@ -24,7 +24,7 @@ import { SPIRITS } from "../../catalogue/spirits/index.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
-interface GuessPacket {
+export interface GuessPacket {
 	user_id: string;
 	streak: number;
 }

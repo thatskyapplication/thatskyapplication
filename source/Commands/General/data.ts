@@ -12,7 +12,8 @@ const DATA_DELETION_MESSAGE = `Are you sure you want to delete your data? This w
 - Delete your Sky profile
 - Delete your catalogue
 - Delete your hearts
-  - Your user id in heart histories for others will also be deleted` as const;
+  - Your user id in heart histories for others will be anonymised
+- Delete your maximum streak in the guessing game` as const;
 
 export const DATA_DELETION_CUSTOM_ID = "DATA_DELETION_CUSTOM_ID" as const;
 
