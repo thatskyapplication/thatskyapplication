@@ -56,7 +56,7 @@ function getAnswer(): [CosmeticEmojis, StandardSpirit | ElderSpirit | SeasonalSp
 export default new (class implements ChatInputCommand {
 	public readonly data = {
 		name: "guess",
-		description: "Guessing game!",
+		description: "Begin a Sky guessing game! How many can you get right in a row?",
 		type: ApplicationCommandType.ChatInput,
 		integrationTypes: [0, 1],
 		contexts: [0, 1, 2],
