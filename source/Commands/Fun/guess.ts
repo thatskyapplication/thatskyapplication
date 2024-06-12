@@ -9,6 +9,7 @@ import {
 	MessageFlags,
 } from "discord.js";
 import { t } from "i18next";
+import { Event } from "../../Structures/Event.js";
 import type { ElderSpirit, GuideSpirit, SeasonalSpirit, StandardSpirit } from "../../Structures/Spirits.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import {
@@ -18,6 +19,7 @@ import {
 	formatEmoji,
 	formatEmojiURL,
 } from "../../Utility/emojis.js";
+import { CURRENT_EVENTS } from "../../catalogue/events/index.js";
 import { SPIRITS } from "../../catalogue/spirits/index.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
@@ -31,11 +33,11 @@ export const GUESS_ANSWER_1 = "GUESS_ANSWER_1" as const;
 export const GUESS_ANSWER_2 = "GUESS_ANSWER_2" as const;
 export const GUESS_ANSWER_3 = "GUESS_ANSWER_3" as const;
 
-function getAnswer(): [CosmeticEmojis, StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit] {
+function getAnswer(): [CosmeticEmojis, StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit | Event] {
 	// Get a random emoji as the answer.
 	const emoji = COSMETIC_EMOJIS[Math.floor(Math.random() * COSMETIC_EMOJIS.length)]!;
 
-	// Find what spirit uses this emoji.
+	// Find what spirit or event uses this emoji.
 	const spirit = SPIRITS.find(
 		(spirit) =>
 			(spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
@@ -44,8 +46,11 @@ function getAnswer(): [CosmeticEmojis, StandardSpirit | ElderSpirit | SeasonalSp
 			)?.some((item) => item.emoji.id === emoji.id),
 	);
 
-	// No spirit may have this emoji. Run this again, if so.
-	return spirit ? [emoji, spirit] : getAnswer();
+	const event = CURRENT_EVENTS.find((event) => event.offer?.some((item) => item.emoji.id === emoji.id));
+	const spiritOrEvent = spirit ?? event;
+
+	// The emoji still may not be found. Run this again, if so.
+	return spiritOrEvent ? [emoji, spiritOrEvent] : getAnswer();
 }
 
 export default new (class implements ChatInputCommand {
@@ -62,26 +67,31 @@ export default new (class implements ChatInputCommand {
 	}
 
 	private async guess(interaction: ButtonInteraction | ChatInputCommandInteraction, streak: number) {
-		const [emoji, spirit] = getAnswer();
+		const [emoji, spiritOrEvent] = getAnswer();
 
-		// Use 2 others spirits as answers.
-		let filteredSpirits = SPIRITS.filter((originalSpirit) => originalSpirit.name !== spirit.name);
-		const answer2 = filteredSpirits[Math.floor(Math.random() * filteredSpirits.length)]!;
-		filteredSpirits = filteredSpirits.filter((originalSpirit) => originalSpirit.name !== answer2.name);
-		const answer3 = filteredSpirits[Math.floor(Math.random() * filteredSpirits.length)]!;
+		// Supply 2 other answers.
+		let filtered = [...SPIRITS, ...CURRENT_EVENTS].filter((original) => original.name !== spiritOrEvent.name);
+		const answer2 = filtered[Math.floor(Math.random() * filtered.length)]!;
+		filtered = filtered.filter((original) => original.name !== answer2.name);
+		const answer3 = filtered[Math.floor(Math.random() * filtered.length)]!;
 
 		// Shuffle the answers.
-		const answers = [spirit, answer2, answer3].sort(() => Math.random() - 0.5);
+		const answers = [spiritOrEvent, answer2, answer3].sort(() => Math.random() - 0.5);
 
 		// Create buttons from the answers.
 		const buttons = answers.map((answer, index) =>
 			new ButtonBuilder()
 				.setCustomId(
-					`${index === 0 ? GUESS_ANSWER_1 : index === 1 ? GUESS_ANSWER_2 : GUESS_ANSWER_3}§${spirit.name}§${
+					`${index === 0 ? GUESS_ANSWER_1 : index === 1 ? GUESS_ANSWER_2 : GUESS_ANSWER_3}§${spiritOrEvent.name}§${
 						answer.name
 					}§${streak}`,
 				)
-				.setLabel(t(`spiritNames.${answer.name}`, { lng: interaction.locale, ns: "general" }))
+				.setLabel(
+					t(`${answer instanceof Event ? "events" : "spiritNames"}.${answer.name}`, {
+						lng: interaction.locale,
+						ns: "general",
+					}),
+				)
 				.setStyle(ButtonStyle.Primary),
 		);
 
@@ -96,7 +106,7 @@ export default new (class implements ChatInputCommand {
 					.setColor(DEFAULT_EMBED_COLOUR)
 					.setFooter({ text: `Streak: ${streak}\nHighest: ${highestStreak[0]?.streak ?? 0}` })
 					.setImage(formatEmojiURL(emoji.id))
-					.setTitle("What spirit does this cosmetic come from?"),
+					.setTitle("What does this come from?"),
 			],
 		};
 
@@ -118,8 +128,14 @@ export default new (class implements ChatInputCommand {
 		const [, answer, guess, streak] = customId.split("§");
 		const parsedStreak = Number(streak);
 		const embed = EmbedBuilder.from(message.embeds[0]!);
-		embed.setTitle(t(`spiritNames.${answer}`, { lng: locale, ns: "general" }));
-		let description = `Your guess: ${t(`spiritNames.${guess}`, { lng: locale, ns: "general" })} `;
+		const isAnswerSpiritName = SPIRITS.some((spirit) => spirit.name === answer);
+		const isGuessSpiritName = SPIRITS.some((spirit) => spirit.name === guess);
+		embed.setTitle(t(`${isAnswerSpiritName ? "spiritNames" : "events"}.${answer}`, { lng: locale, ns: "general" }));
+
+		let description = `Your guess: ${t(`${isGuessSpiritName ? "spiritNames" : "events"}.${guess}`, {
+			lng: locale,
+			ns: "general",
+		})} `;
 
 		if (guess !== answer) {
 			description += formatEmoji(MISCELLANEOUS_EMOJIS.No);
