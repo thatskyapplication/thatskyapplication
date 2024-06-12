@@ -18,6 +18,7 @@ import {
 	DAILY_GUIDES_TREASURE_CANDLES_MODAL,
 	DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID,
 } from "../Commands/Admin/admin.js";
+import { GUESS_ANSWER_1, GUESS_ANSWER_2, GUESS_ANSWER_3 } from "../Commands/Fun/guess.js";
 import { HeartHistoryNavigationType, HEART_HISTORY_BACK, HEART_HISTORY_FORWARD } from "../Commands/Fun/heart.js";
 import { DATA_DELETION_CUSTOM_ID } from "../Commands/General/data.js";
 import {
@@ -337,6 +338,15 @@ export const event: Event<typeof name> = {
 
 				if (customId.startsWith(SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID)) {
 					await COMMANDS.spirit.parseSpiritSwitch(interaction);
+					return;
+				}
+
+				if (
+					customId.startsWith(GUESS_ANSWER_1) ||
+					customId.startsWith(GUESS_ANSWER_2) ||
+					customId.startsWith(GUESS_ANSWER_3)
+				) {
+					await COMMANDS.guess.answer(interaction);
 					return;
 				}
 

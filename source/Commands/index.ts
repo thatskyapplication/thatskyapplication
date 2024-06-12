@@ -20,6 +20,7 @@ import schedule from "./Events/schedule.js";
 // Fun
 import bonk from "./Fun/bonk.js";
 import GiftHeart from "./Fun/Gift Heart.js";
+import guess from "./Fun/guess.js";
 import heart from "./Fun/heart.js";
 import highfive from "./Fun/high-five.js";
 import hug from "./Fun/hug.js";
@@ -48,6 +49,7 @@ const COMMANDS = {
 	dailyguides,
 	data,
 	GiftHeart,
+	guess,
 	heart,
 	highfive,
 	hug,
