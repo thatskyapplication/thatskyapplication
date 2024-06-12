@@ -8,6 +8,7 @@ export enum Table {
 	Configuration = "configuration",
 	DailyGuides = "daily_guides",
 	DailyGuidesDistribution = "daily_guides_distribution",
+	Guess = "guess",
 	Hearts = "hearts",
 	Hugs = "hugs",
 	Notifications = "notifications",
