@@ -20,7 +20,7 @@ jobs:
           token: ${{ steps.create-token.outputs.token }}
           persist-credentials: false
       - name: Open issue
-        run: gh issue create --body "$ISSUE_BODY" --title "Add Nesting Workshop props ($(date +%d/%m/%Y))"
+        run: gh issue create --body "$ISSUE_BODY" --label "Game Changes" --title "Add Nesting Workshop props ($(date +%d/%m/%Y))"
         env:
           GITHUB_TOKEN: ${{ steps.create-token.outputs.token }}
           ISSUE_BODY: |
