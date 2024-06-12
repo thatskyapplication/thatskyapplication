@@ -3258,7 +3258,13 @@ export const COSMETIC_EMOJIS = [
 	...Object.values(EMOTE_EMOJIS),
 	...Object.values(STANCE_EMOJIS),
 	...Object.values(CALL_EMOJIS),
-	...Object.values(FRIEND_ACTION_EMOJIS),
+	...Object.values(FRIEND_ACTION_EMOJIS).filter(
+		(friendActionEmoji) =>
+			friendActionEmoji.id !== FRIEND_ACTION_EMOJIS.HoldHand.id &&
+			friendActionEmoji.id !== FRIEND_ACTION_EMOJIS.HighFive.id &&
+			friendActionEmoji.id !== FRIEND_ACTION_EMOJIS.Hug.id &&
+			friendActionEmoji.id !== FRIEND_ACTION_EMOJIS.FistBump.id,
+	),
 	...Object.values(OUTFIT_EMOJIS),
 	...Object.values(SHOE_EMOJIS),
 	...Object.values(MASK_EMOJIS),
