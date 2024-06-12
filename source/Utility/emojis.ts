@@ -3272,7 +3272,7 @@ export const COSMETIC_EMOJIS = [
 	...Object.values(SMALL_PLACEABLE_PROPS_EMOJIS),
 ] as const;
 
-export type CosmeticEmojis = typeof COSMETIC_EMOJIS[number];
+export type CosmeticEmojis = (typeof COSMETIC_EMOJIS)[number];
 
 export type Emoji =
 	| MiscellaneousEmojis

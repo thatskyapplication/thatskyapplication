@@ -341,7 +341,11 @@ export const event: Event<typeof name> = {
 					return;
 				}
 
-				if (customId.startsWith(GUESS_ANSWER_1) || customId.startsWith(GUESS_ANSWER_2) || customId.startsWith(GUESS_ANSWER_3)) {
+				if (
+					customId.startsWith(GUESS_ANSWER_1) ||
+					customId.startsWith(GUESS_ANSWER_2) ||
+					customId.startsWith(GUESS_ANSWER_3)
+				) {
 					await COMMANDS.guess.answer(interaction);
 					return;
 				}
