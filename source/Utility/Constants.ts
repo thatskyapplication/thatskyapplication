@@ -30,7 +30,7 @@ export const MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT = 45 as const;
 export const MAX_HIGH_FIVE_NO = 7 as const;
 export const MAX_HUG_NO = 27 as const;
 export const MAX_PLAY_FIGHT_NO = 5 as const;
-export const MAX_KRILL_NO = 10 as const;
+export const MAX_KRILL_NO = 11 as const;
 
 // Website URLs.
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
