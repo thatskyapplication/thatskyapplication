@@ -23,7 +23,7 @@ export default new StandardSpirit({
 			.set(1 << 6, { name: `${emote} 3`, cost: { candles: 2 }, emoji: emoteEmoji })
 			.set(1 << 7, { name: `${emote} 4`, cost: { candles: 2 }, emoji: emoteEmoji })
 			.set(1 << 8, { name: "Blessing 2", cost: { candles: 5 }, emoji: MISCELLANEOUS_EMOJIS.Blessing2 })
-			.set(1 << 9, { name: "Mask", cost: { hearts: 5 }, emoji: MASK_EMOJIS.Mask01 })
+			.set(1 << 9, { name: "Mask", cost: { hearts: 5 }, emoji: MASK_EMOJIS.Mask02 })
 			.set(1 << 10, { name: "Wing buff 2", cost: { ascendedCandles: 6 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff })
 			.set(1 << 11, { name: `${emote} 5`, cost: { candles: 3 }, emoji: emoteEmoji })
 			.set(1 << 12, { name: `${emote} 6`, cost: { candles: 3 }, emoji: emoteEmoji }),
