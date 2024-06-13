@@ -3042,7 +3042,7 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	SmallPlaceableProp07: { name: "small_placeable_prop", id: "1229107999168139264" },
 	/**
-	 * Days of Mischief 2021 2.
+	 * Mischief Pumpkin Prop.
 	 */
 	SmallPlaceableProp08: { name: "small_placeable_prop", id: "1229110422666219540" },
 	/**
