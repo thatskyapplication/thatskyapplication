@@ -31,7 +31,7 @@ export const GUESS_ANSWER_1 = "GUESS_ANSWER_1" as const;
 export const GUESS_ANSWER_2 = "GUESS_ANSWER_2" as const;
 export const GUESS_ANSWER_3 = "GUESS_ANSWER_3" as const;
 
-export function getAnswer(): [CosmeticEmojis, StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit | Event] {
+function getAnswer(): [CosmeticEmojis, StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit | Event] {
 	// Get a random emoji as the answer.
 	const emoji = COSMETIC_EMOJIS[Math.floor(Math.random() * COSMETIC_EMOJIS.length)]!;
 
