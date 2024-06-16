@@ -64,7 +64,7 @@ const COMMANDS = {
 } as const;
 
 type Command = (typeof COMMANDS)[keyof typeof COMMANDS];
-export const commands = Object.values(COMMANDS);
+const commands = Object.values(COMMANDS);
 
 export function resolveCommand(interaction: AutocompleteInteraction): (Command & AutocompleteCommand) | null;
 export function resolveCommand(interaction: ChatInputCommandInteraction): (Command & ChatInputCommand) | null;
@@ -104,17 +104,9 @@ export interface UserContextMenuCommand extends BaseCommandData {
 	userContextMenu(interaction: UserContextMenuCommandInteraction): Promise<void>;
 }
 
-export interface MessageContextMenuCommand extends BaseCommandData {
+interface MessageContextMenuCommand extends BaseCommandData {
 	messageContextMenu(interaction: MessageContextMenuCommandInteraction): Promise<void>;
 }
-
-export const NOT_IN_GUILD_RESPONSE = {
-	content: `This command may only be used in a server.\nIf you need help, join the ${hyperlink(
-		"support server",
-		SUPPORT_SERVER_INVITE_URL,
-	)}!`,
-	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
-} as const;
 
 export const NOT_IN_CACHED_GUILD_RESPONSE = {
 	content: `This command requires me to be present in the server. ${hyperlink(

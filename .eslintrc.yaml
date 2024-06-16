@@ -9,8 +9,6 @@ extends:
   - neon/node
   - neon/typescript
   - neon/prettier
-plugins:
-  - "@typescript-eslint"
 reportUnusedDisableDirectives: true
 rules:
   "@typescript-eslint/consistent-type-definitions": 0

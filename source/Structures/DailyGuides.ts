@@ -99,7 +99,7 @@ interface DailyGuideMessage {
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
-export const QUEST_SPIRITS_SEASONS = [
+const QUEST_SPIRITS_SEASONS = [
 	SeasonName.Gratitude,
 	SeasonName.Lightseekers,
 	SeasonName.Belonging,
@@ -117,7 +117,7 @@ interface ResolveDailyGuideOptions {
 	url: string | null;
 }
 
-export type QuestSpiritSeasons = (typeof QUEST_SPIRITS_SEASONS)[number];
+type QuestSpiritSeasons = (typeof QUEST_SPIRITS_SEASONS)[number];
 
 /**
  * @privateRemarks Defines a spirit that may be encountered in a daily quest. So far, that includes:
@@ -129,15 +129,15 @@ export type QuestSpiritSeasons = (typeof QUEST_SPIRITS_SEASONS)[number];
  *
  * These spirits must have an associated infographic.
  */
-export type QuestSpirit = (StandardSpirit | (SeasonalSpirit & { season: QuestSpiritSeasons })) & {
+type QuestSpirit = (StandardSpirit | (SeasonalSpirit & { season: QuestSpiritSeasons })) & {
 	realm: ValidRealmName;
 };
 
-export function isQuestSpiritsSeason(season: SeasonName): season is QuestSpiritSeasons {
+function isQuestSpiritsSeason(season: SeasonName): season is QuestSpiritSeasons {
 	return QUEST_SPIRITS_SEASONS.includes(season as QuestSpiritSeasons);
 }
 
-export function isQuestSpirit(spirit: (typeof SPIRITS)[number]): spirit is QuestSpirit {
+function isQuestSpirit(spirit: (typeof SPIRITS)[number]): spirit is QuestSpirit {
 	if (spirit.realm === RealmName.IslesOfDawn) return false;
 	if (spirit.isStandardSpirit()) return true;
 

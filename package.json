@@ -9,7 +9,8 @@
 		"lint": "prettier --check . && eslint .",
 		"dev": "tsx --require dotenv/config source/index.ts | pino-pretty",
 		"start": "node --enable-source-maps --require dotenv/config distribution/index.js",
-		"update": "pnpm update --interactive --latest && pre-commit autoupdate"
+		"update": "pnpm update --interactive --latest && pre-commit autoupdate",
+		"knip": "knip"
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.441.0",
@@ -25,13 +26,13 @@
 		"pg": "^8.11.3",
 		"pino": "^8.18.0",
 		"sharp": "^0.32.6",
-		"ts-mixer": "^6.0.3",
-		"undici": "^5.27.0"
+		"ts-mixer": "^6.0.3"
 	},
 	"devDependencies": {
 		"@types/luxon": "^3.3.3",
 		"eslint": "^8.52.0",
 		"eslint-config-neon": "^0.1.57",
+		"knip": "^5.20.0",
 		"pino-pretty": "^10.3.1",
 		"prettier": "^3.0.3",
 		"tsx": "^3.14.0",

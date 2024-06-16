@@ -96,7 +96,7 @@ export const SeasonNameToSeasonalCandleEmoji = {
 	[SeasonName.Nesting]: SEASON_EMOJIS.NestingCandle,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
-export const SeasonNameToSeasonalHeartEmoji = {
+const SeasonNameToSeasonalHeartEmoji = {
 	[SeasonName.Belonging]: SEASON_EMOJIS.BelongingHeart,
 	[SeasonName.Rhythm]: SEASON_EMOJIS.RhythmHeart,
 	[SeasonName.Enchantment]: SEASON_EMOJIS.EnchantmentHeart,
@@ -144,7 +144,7 @@ enum SeasonFlags {
 	Nesting = 1 << 20,
 }
 
-export const SeasonFlagsToSeasonName = {
+const SeasonFlagsToSeasonName = {
 	[SeasonFlags.Gratitude]: SeasonName.Gratitude,
 	[SeasonFlags.Lightseekers]: SeasonName.Lightseekers,
 	[SeasonFlags.Belonging]: SeasonName.Belonging,
@@ -379,7 +379,7 @@ export function wikiURL(name: string) {
 	);
 }
 
-export interface ItemCostRaw {
+interface ItemCostRaw {
 	money?: number;
 	candles?: number;
 	hearts?: number;

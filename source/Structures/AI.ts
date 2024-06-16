@@ -24,7 +24,7 @@ interface AIData {
 type AISetData = Omit<AIPacket, "guild_id">;
 type AIPatchData = Omit<AIPacket, "guild_id">;
 
-export const AIFrequencyType = {
+const AIFrequencyType = {
 	Disabled: 0,
 	VeryRare: 1,
 	Rare: 2,
@@ -45,7 +45,7 @@ const AIFrequencyTypeToString = {
 	[AIFrequencyType.VeryCommon]: "Very common",
 } as const satisfies Readonly<Record<AIFrequencyTypes, string>>;
 
-export const AIFrequencyTypeToValue = {
+const AIFrequencyTypeToValue = {
 	[AIFrequencyType.Disabled]: 0,
 	[AIFrequencyType.VeryRare]: 0.000_1,
 	[AIFrequencyType.Rare]: 0.001,
@@ -62,7 +62,7 @@ function isAIFrequency(number: number): number is AIFrequencyTypes {
 
 export const AI_FREQUENCY_SELECT_MENU_CUSTOM_ID = "AI_FREQUENCY_SELECT_MENU_CUSTOM_ID" as const;
 
-export const AI_FREQUENCY_DESCRIPTION = `I may sporadically respond to a message and spice up your day!
+const AI_FREQUENCY_DESCRIPTION = `I may sporadically respond to a message and spice up your day!
 
 The frequency at which I will respond may be configured. The higher the frequency, the more likely I will respond.
 

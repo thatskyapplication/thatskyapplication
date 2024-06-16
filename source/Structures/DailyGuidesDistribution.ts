@@ -45,7 +45,7 @@ export interface DailyGuidesDistributionPacket {
 	message_id: Snowflake | null;
 }
 
-export interface DailyGuidesDistributionData {
+interface DailyGuidesDistributionData {
 	guildId: DailyGuidesDistributionPacket["guild_id"];
 	channelId: DailyGuidesDistributionPacket["channel_id"];
 	messageId: DailyGuidesDistributionPacket["message_id"];

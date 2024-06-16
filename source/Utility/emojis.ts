@@ -42,7 +42,7 @@ export const MISCELLANEOUS_EMOJIS = {
 	ConstellationFlag: { name: "constellation_flag", id: "1249417812582334586" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type MiscellaneousEmojis = (typeof MISCELLANEOUS_EMOJIS)[keyof typeof MISCELLANEOUS_EMOJIS];
+type MiscellaneousEmojis = (typeof MISCELLANEOUS_EMOJIS)[keyof typeof MISCELLANEOUS_EMOJIS];
 
 /**
  * Emojis from the emotes servers.
@@ -541,7 +541,7 @@ export const OUTFIT_EMOJIS = {
 	Outfit58: { name: "outfit", id: "1229145924064907334" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
+type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
 
 /**
  * Emojis from the shoes server.
@@ -601,7 +601,7 @@ export const SHOE_EMOJIS = {
 	Shoe13: { name: "shoe", id: "1201598024783233175" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type ShoeEmojis = (typeof SHOE_EMOJIS)[keyof typeof SHOE_EMOJIS];
+type ShoeEmojis = (typeof SHOE_EMOJIS)[keyof typeof SHOE_EMOJIS];
 
 /**
  * Emojis from the masks servers.
@@ -973,7 +973,7 @@ export const MASK_EMOJIS = {
 	Mask91: { name: "mask", id: "1244556563730006066" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type MaskEmojis = (typeof MASK_EMOJIS)[keyof typeof MASK_EMOJIS];
+type MaskEmojis = (typeof MASK_EMOJIS)[keyof typeof MASK_EMOJIS];
 
 /**
  * Emojis from the face accessories server.
@@ -1121,7 +1121,7 @@ export const FACE_ACCESSORY_EMOJIS = {
 	FaceAccessory35: { name: "face_accessory", id: "1201600819468968027" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type FaceAccessoryEmojis = (typeof FACE_ACCESSORY_EMOJIS)[keyof typeof FACE_ACCESSORY_EMOJIS];
+type FaceAccessoryEmojis = (typeof FACE_ACCESSORY_EMOJIS)[keyof typeof FACE_ACCESSORY_EMOJIS];
 
 /**
  * Emojis from the necklace server.
@@ -1273,7 +1273,7 @@ export const NECKLACE_EMOJIS = {
 	Necklace36: { name: "necklace", id: "1244556849005592576" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
+type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
 
 /**
  * Emojis from the hair servers.
@@ -1857,7 +1857,7 @@ export const HAIR_EMOJIS = {
 	Hair144: { name: "hair", id: "1244556095146692648" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
+type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
 
 /**
  * Emojis from the hair accessory server.
@@ -2029,7 +2029,7 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	HairAccessory41: { name: "hair_accessory", id: "1234054082352910386" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
+type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
 
 /**
  * Emojis from the cape servers.
@@ -2561,7 +2561,7 @@ export const CAPE_EMOJIS = {
 	Cape131: { name: "cape", id: "1244555490848145419" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
+type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
 
 /**
  * Emojis from the held props server.
@@ -2737,7 +2737,7 @@ export const HELD_PROPS_EMOJIS = {
 	HeldProp42: { name: "held_prop", id: "1220814676884197456" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type HeldPropsEmojis = (typeof HELD_PROPS_EMOJIS)[keyof typeof HELD_PROPS_EMOJIS];
+type HeldPropsEmojis = (typeof HELD_PROPS_EMOJIS)[keyof typeof HELD_PROPS_EMOJIS];
 
 /**
  * Emojis from the placeable props servers.
@@ -3009,8 +3009,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	LargePlaceableProp66: { name: "large_placeable_prop", id: "1250011362122530837" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type LargePlaceablePropsEmojis =
-	(typeof LARGE_PLACEABLE_PROPS_EMOJIS)[keyof typeof LARGE_PLACEABLE_PROPS_EMOJIS];
+type LargePlaceablePropsEmojis = (typeof LARGE_PLACEABLE_PROPS_EMOJIS)[keyof typeof LARGE_PLACEABLE_PROPS_EMOJIS];
 
 export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
@@ -3251,8 +3250,7 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	SmallPlaceableProp59: { name: "small_placeable_prop", id: "1250013560092889111" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-export type SmallPlaceablePropsEmojis =
-	(typeof SMALL_PLACEABLE_PROPS_EMOJIS)[keyof typeof SMALL_PLACEABLE_PROPS_EMOJIS];
+type SmallPlaceablePropsEmojis = (typeof SMALL_PLACEABLE_PROPS_EMOJIS)[keyof typeof SMALL_PLACEABLE_PROPS_EMOJIS];
 
 export const COSMETIC_EMOJIS = [
 	...Object.values(EMOTE_EMOJIS),
@@ -3308,7 +3306,7 @@ export function formatEmojiURL(id: Snowflake) {
 	return cdn.emoji(id);
 }
 
-export interface CurrencyEmojiOptions {
+interface CurrencyEmojiOptions {
 	emoji: Emoji;
 	number: number;
 	includeSpaceInEmoji?: boolean;
