@@ -2,7 +2,13 @@ import { Collection } from "discord.js";
 import { Event } from "../../../Structures/Event.js";
 import { type ItemRaw, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
-import { CAPE_EMOJIS, HAIR_EMOJIS, LARGE_PLACEABLE_PROPS_EMOJIS, OUTFIT_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../../Utility/emojis.js";
+import {
+	CAPE_EMOJIS,
+	HAIR_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
+	OUTFIT_EMOJIS,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
+} from "../../../Utility/emojis.js";
 
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfMischief2021,
