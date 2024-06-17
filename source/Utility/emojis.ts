@@ -3248,6 +3248,18 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Music player.
 	 */
 	SmallPlaceableProp59: { name: "small_placeable_prop", id: "1250013560092889111" },
+	/**
+	 * Stone empty box.
+	 */
+	SmallPlaceableProp60: { name: "small_placeable_prop", id: "1252161664250286080" },
+	/**
+	 * Stone wall mirror.
+	 */
+	SmallPlaceableProp61: { name: "small_placeable_prop", id: "1252161677424853034" },
+	/**
+	 * Medium argyle rug.
+	 */
+	SmallPlaceableProp62: { name: "small_placeable_prop", id: "1252161687381872752" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis = (typeof SMALL_PLACEABLE_PROPS_EMOJIS)[keyof typeof SMALL_PLACEABLE_PROPS_EMOJIS];

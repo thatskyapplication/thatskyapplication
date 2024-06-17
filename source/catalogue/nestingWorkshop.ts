@@ -200,6 +200,21 @@ const items = resolveOffer(
 	// 	cost: { ascendedCandles: 66 },
 	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp59,
 	// })
+	// .set(1 << 39, {
+	// 	name: "Stone empty box",
+	// 	cost: { candles: 30 },
+	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp60,
+	// })
+	// .set(1 << 40, {
+	// 	name: "Stone wall mirror",
+	// 	cost: { candles: 60 },
+	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp61,
+	// })
+	// .set(1 << 41, {
+	// 	name: "Medium argyle rug",
+	// 	cost: { hearts: 20 },
+	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp62,
+	// })
 );
 
 export const NESTING_WORKSHOP = { items, maximumItemsBit: items.reduce((bits, _, bit) => bit | bits, 0) } as const;
