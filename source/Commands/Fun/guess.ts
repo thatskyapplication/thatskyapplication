@@ -1,7 +1,7 @@
 import {
+	type ApplicationCommandData,
 	type ChatInputCommandInteraction,
 	ApplicationCommandType,
-	type ApplicationCommandData,
 	ApplicationCommandOptionType,
 } from "discord.js";
 import {
@@ -9,6 +9,7 @@ import {
 	GuessDifficultyLevel,
 	GuessDifficultyLevelToName,
 	guess,
+	leaderboard,
 } from "../../Structures/Guess.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -21,19 +22,58 @@ export default new (class implements ChatInputCommand {
 		contexts: [0, 1, 2],
 		options: [
 			{
-				type: ApplicationCommandOptionType.Integer,
-				name: "difficulty",
-				description: "Adjust the difficulty level!",
-				choices: GUESS_DIFFICULTY_LEVEL_VALUES.map((guessDifficultyLevel) => ({
-					name: GuessDifficultyLevelToName[guessDifficultyLevel],
-					value: guessDifficultyLevel,
-				})),
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "game",
+				description: "Begin the guessing game!",
+				options: [
+					{
+						type: ApplicationCommandOptionType.Integer,
+						name: "difficulty",
+						description: "Adjust the difficulty level!",
+						choices: GUESS_DIFFICULTY_LEVEL_VALUES.map((guessDifficultyLevel) => ({
+							name: GuessDifficultyLevelToName[guessDifficultyLevel],
+							value: guessDifficultyLevel,
+						})),
+					},
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "leaderboard",
+				description: "View the leaderboard!",
+				options: [
+					{
+						type: ApplicationCommandOptionType.Integer,
+						name: "difficulty",
+						description: "What difficulty would you like to view?",
+						choices: GUESS_DIFFICULTY_LEVEL_VALUES.map((guessDifficultyLevel) => ({
+							name: GuessDifficultyLevelToName[guessDifficultyLevel],
+							value: guessDifficultyLevel,
+						})),
+						required: true,
+					},
+				],
 			},
 		],
 	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
+		switch (interaction.options.getSubcommand()) {
+			case "game":
+				await this.game(interaction);
+				return;
+			case "leaderboard":
+				await this.leaderboard(interaction);
+		}
+	}
+
+	private async game(interaction: ChatInputCommandInteraction) {
 		const difficulty = interaction.options.getInteger("difficulty") ?? GuessDifficultyLevel.Original;
 		await guess(interaction, difficulty, 0);
+	}
+
+	private async leaderboard(interaction: ChatInputCommandInteraction) {
+		const difficulty = interaction.options.getInteger("difficulty", true);
+		await leaderboard(interaction, difficulty);
 	}
 })();
