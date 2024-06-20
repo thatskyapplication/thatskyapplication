@@ -245,8 +245,7 @@ export async function leaderboard(interaction: ChatInputCommandInteraction, diff
 	const embed = new EmbedBuilder()
 		.setColor(DEFAULT_EMBED_COLOUR)
 		.setDescription(results.map((row, index) => `${index + 1}. <@${row.user_id}>: ${row.streak}`).join("\n"))
-		.setFooter({ text: `Difficulty: ${GuessDifficultyLevelToName[difficulty]}` })
-		.setTitle("Leaderboard");
+		.setTitle(`${GuessDifficultyLevelToName[difficulty]} Leaderboard`);
 
 	await interaction.reply({ embeds: [embed] });
 }
