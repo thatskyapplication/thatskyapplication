@@ -248,7 +248,7 @@ export async function leaderboard(interaction: ChatInputCommandInteraction, diff
 		.setDescription(
 			results
 				.slice(0, 10)
-				.map((row, index) => `${index + 1}. <@${row.user_id}>: ${row.streak}`)
+				.map((row, index) => `${index + 1}. <@${row.user_id}>: ${row[column]}`)
 				.join("\n"),
 		)
 		.setTitle(`${GuessDifficultyLevelToName[difficulty]} Leaderboard`);
