@@ -19,9 +19,11 @@ import {
 	formatEmojiURL,
 	formatEmoji,
 	MISCELLANEOUS_EMOJIS,
+	FRIEND_ACTION_EMOJIS,
 } from "../Utility/emojis.js";
 import { SPIRITS } from "../catalogue/spirits/index.js";
 import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
+import ModestDancer from "../catalogue/spirits/seasons/Performance/ModestDancer.js";
 import { SEASON_SPIRITS } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
@@ -67,13 +69,19 @@ function getAnswer(): [CosmeticEmojis, StandardSpirit | ElderSpirit | SeasonalSp
 	const emoji = getRandomElement(COSMETIC_EMOJIS)!;
 
 	// Find what spirit uses this emoji.
-	const spirit = SPIRITS.find(
-		(spirit) =>
-			(spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
-				? spirit.current
-				: spirit.current ?? spirit.seasonal
-			)?.some((item) => item.emoji.id === emoji.id),
-	);
+	let spirit;
+	if (emoji === FRIEND_ACTION_EMOJIS.DuetDance) {
+		// Early exit due to multiple sources.
+		spirit = ModestDancer;
+	} else {
+		spirit = SPIRITS.find(
+			(spirit) =>
+				(spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
+					? spirit.current
+					: spirit.current ?? spirit.seasonal
+				)?.some((item) => item.emoji.id === emoji.id),
+		);
+	}
 
 	// The emoji still may not be found. Run this again, if so.
 	return spirit ? [emoji, spirit] : getAnswer();
