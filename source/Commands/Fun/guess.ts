@@ -4,7 +4,12 @@ import {
 	type ApplicationCommandData,
 	ApplicationCommandOptionType,
 } from "discord.js";
-import { GUESS_DIFFICULTY_LEVEL_VALUES, GuessDifficultyLevel, GuessDifficultyLevelToName, guess } from "../../Structures/Guess.js";
+import {
+	GUESS_DIFFICULTY_LEVEL_VALUES,
+	GuessDifficultyLevel,
+	GuessDifficultyLevelToName,
+	guess,
+} from "../../Structures/Guess.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default new (class implements ChatInputCommand {
