@@ -240,12 +240,14 @@ async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, strea
 
 export async function leaderboard(interaction: ChatInputCommandInteraction, difficulty: GuessDifficultyLevel) {
 	const column = GuessDifficultyToStreakColumn[difficulty];
-	const results = await pg<GuessPacket>(Table.Guess).whereNotNull(column).orderBy(column, "desc").limit(10);
+	const results = await pg<GuessPacket>(Table.Guess).whereNotNull(column).orderBy(column, "desc");
+	const you = results.findIndex((row) => row.user_id === interaction.user.id);
 
 	const embed = new EmbedBuilder()
 		.setColor(DEFAULT_EMBED_COLOUR)
 		.setDescription(results.map((row, index) => `${index + 1}. <@${row.user_id}>: ${row.streak}`).join("\n"))
 		.setTitle(`${GuessDifficultyLevelToName[difficulty]} Leaderboard`);
 
+	if (you !== -1) embed.setFooter({ text: `You: #${you + 1} (${results[you]![column]})` });
 	await interaction.reply({ embeds: [embed] });
 }
