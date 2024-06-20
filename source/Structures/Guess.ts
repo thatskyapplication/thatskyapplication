@@ -1,14 +1,18 @@
 import {
 	type ChatInputCommandInteraction,
+	type Snowflake,
 	ActionRowBuilder,
 	ButtonBuilder,
 	ButtonInteraction,
 	ButtonStyle,
 	EmbedBuilder,
 	MessageFlags,
+	time,
+	TimestampStyles,
 } from "discord.js";
 import { t } from "i18next";
-import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../Utility/Constants.js";
+import { getRandomElement } from "../Utility/Utility.js";
 import {
 	type CosmeticEmojis,
 	COSMETIC_EMOJIS,
@@ -16,26 +20,53 @@ import {
 	formatEmoji,
 	MISCELLANEOUS_EMOJIS,
 } from "../Utility/emojis.js";
-import { CURRENT_EVENTS } from "../catalogue/events/index.js";
 import { SPIRITS } from "../catalogue/spirits/index.js";
+import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
+import { SEASON_SPIRITS } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
-import { Event } from "./Event.js";
+import pino from "../pino.js";
 import type { StandardSpirit, ElderSpirit, SeasonalSpirit, GuideSpirit } from "./Spirits.js";
 
 export interface GuessPacket {
 	user_id: string;
-	streak: number;
+	streak: number | null;
+	streak_hard: number | null;
 }
 
 export const GUESS_ANSWER_1 = "GUESS_ANSWER_1" as const;
 export const GUESS_ANSWER_2 = "GUESS_ANSWER_2" as const;
 export const GUESS_ANSWER_3 = "GUESS_ANSWER_3" as const;
 
-function getAnswer(): [CosmeticEmojis, StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit | Event] {
-	// Get a random emoji as the answer.
-	const emoji = COSMETIC_EMOJIS[Math.floor(Math.random() * COSMETIC_EMOJIS.length)]!;
+export enum GuessDifficultyLevel {
+	Original,
+	Hard,
+}
 
-	// Find what spirit or event uses this emoji.
+export const GUESS_DIFFICULTY_LEVEL_VALUES = Object.values(GuessDifficultyLevel).filter(
+	(guessDifficultyLevel): guessDifficultyLevel is GuessDifficultyLevel => typeof guessDifficultyLevel === "number",
+);
+
+function isGuessDifficultyLevel(level: unknown): level is GuessDifficultyLevel {
+	return GUESS_DIFFICULTY_LEVEL_VALUES.includes(level as GuessDifficultyLevel);
+}
+
+export const GuessDifficultyLevelToName = {
+	[GuessDifficultyLevel.Original]: "Original",
+	[GuessDifficultyLevel.Hard]: "Hard",
+} as const satisfies Readonly<Record<GuessDifficultyLevel, string>>;
+
+const GuessDifficultyToStreakColumn = {
+	[GuessDifficultyLevel.Original]: "streak",
+	[GuessDifficultyLevel.Hard]: "streak_hard",
+} as const satisfies Readonly<Record<GuessDifficultyLevel, string>>;
+
+const GUESS_TIMEOUT = 30_000 as const;
+
+function getAnswer(): [CosmeticEmojis, StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit] {
+	// Get a random emoji as the answer.
+	const emoji = getRandomElement(COSMETIC_EMOJIS);
+
+	// Find what spirit uses this emoji.
 	const spirit = SPIRITS.find(
 		(spirit) =>
 			(spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
@@ -44,44 +75,84 @@ function getAnswer(): [CosmeticEmojis, StandardSpirit | ElderSpirit | SeasonalSp
 			)?.some((item) => item.emoji.id === emoji.id),
 	);
 
-	const event = CURRENT_EVENTS.find((event) => event.offer?.some((item) => item.emoji.id === emoji.id));
-	const spiritOrEvent = spirit ?? event;
-
 	// The emoji still may not be found. Run this again, if so.
-	return spiritOrEvent ? [emoji, spiritOrEvent] : getAnswer();
+	return spirit ? [emoji, spirit] : getAnswer();
 }
 
-export async function guess(interaction: ButtonInteraction | ChatInputCommandInteraction, streak: number) {
-	const [emoji, spiritOrEvent] = getAnswer();
+function getOptions(difficulty: GuessDifficultyLevel) {
+	// Get the answer.
+	const [emoji, spirit] = getAnswer();
+	const answers = [spirit];
 
-	// Supply 2 other answers.
-	let filtered = [...SPIRITS, ...CURRENT_EVENTS].filter((original) => original.name !== spiritOrEvent.name);
-	const answer2 = filtered[Math.floor(Math.random() * filtered.length)]!;
-	filtered = filtered.filter((original) => original.name !== answer2.name);
-	const answer3 = filtered[Math.floor(Math.random() * filtered.length)]!;
+	// Generate other answers.
+	if (difficulty === GuessDifficultyLevel.Original) {
+		let filtered = SPIRITS.filter((original) => original.name !== spirit.name);
+		const answer2 = filtered[Math.floor(Math.random() * filtered.length)]!;
+		filtered = filtered.filter((original) => original.name !== answer2.name);
+		const answer3 = filtered[Math.floor(Math.random() * filtered.length)]!;
+		answers.push(answer2, answer3);
+	} else {
+		// Collect spirits from the same realm or season.
+		if (spirit.isStandardSpirit()) {
+			let filtered = STANDARD_SPIRITS.filter(
+				(original) => original.name !== spirit.name && original.realm === spirit.realm,
+			);
 
-	// Shuffle the answers.
-	const answers = [spiritOrEvent, answer2, answer3].sort(() => Math.random() - 0.5);
+			const answer2 = getRandomElement(filtered);
+			filtered = filtered.filter((original) => original.name !== answer2.name);
+			const answer3 = getRandomElement(filtered);
+			answers.push(answer2, answer3);
+		}
+
+		if (spirit.isElderSpirit()) {
+			let filtered = ELDER_SPIRITS.filter((original) => original.name !== spirit.name);
+			const answer2 = getRandomElement(filtered);
+			filtered = filtered.filter((original) => original.name !== answer2.name);
+			const answer3 = getRandomElement(filtered);
+			answers.push(answer2, answer3);
+		}
+
+		if (spirit.isSeasonalSpirit() || spirit.isGuideSpirit()) {
+			let filtered = SEASON_SPIRITS.filter(
+				(original) => original.name !== spirit.name && original.season === spirit.season,
+			);
+
+			const answer2 = getRandomElement(filtered);
+			filtered = filtered.filter((original) => original.name !== answer2.name);
+			const answer3 = getRandomElement(filtered);
+			answers.push(answer2, answer3);
+		}
+	}
+
+	return { answer: spirit, emoji, options: answers.sort(() => Math.random() - 0.5) };
+}
+
+export async function guess(
+	interaction: ButtonInteraction | ChatInputCommandInteraction,
+	difficulty: GuessDifficultyLevel,
+	streak: number,
+) {
+	const { answer, emoji, options } = getOptions(difficulty);
+
+	// Set the timeout timestamp.
+	const timeoutTimestamp = interaction.createdTimestamp + GUESS_TIMEOUT;
 
 	// Create buttons from the answers.
-	const buttons = answers.map((answer, index) =>
+	const buttons = options.map((option, index) =>
 		new ButtonBuilder()
 			.setCustomId(
-				`${index === 0 ? GUESS_ANSWER_1 : index === 1 ? GUESS_ANSWER_2 : GUESS_ANSWER_3}§${spiritOrEvent.name}§${
-					answer.name
-				}§${streak}`,
+				`${index === 0 ? GUESS_ANSWER_1 : index === 1 ? GUESS_ANSWER_2 : GUESS_ANSWER_3}§${answer.name}§${
+					option.name
+				}§${difficulty}§${streak}§${timeoutTimestamp}`,
 			)
-			.setLabel(
-				t(`${answer instanceof Event ? "events" : "spiritNames"}.${answer.name}`, {
-					lng: interaction.locale,
-					ns: "general",
-				}),
-			)
+			.setLabel(t(`spiritNames.${option.name}`, { lng: interaction.locale, ns: "general" }))
 			.setStyle(ButtonStyle.Primary),
 	);
 
 	// Retrieve the highest streak.
 	const highestStreak = await pg<GuessPacket>(Table.Guess).where({ user_id: interaction.user.id });
+	const difficultyString = GuessDifficultyLevelToName[difficulty];
+	const streakString = highestStreak[0]?.[GuessDifficultyToStreakColumn[difficulty]] ?? 0;
 
 	// Respond.
 	const response = {
@@ -89,7 +160,8 @@ export async function guess(interaction: ButtonInteraction | ChatInputCommandInt
 		embeds: [
 			new EmbedBuilder()
 				.setColor(DEFAULT_EMBED_COLOUR)
-				.setFooter({ text: `Streak: ${streak} | Highest: ${highestStreak[0]?.streak ?? 0}` })
+				.setDescription(`Guess ${time(Math.floor(timeoutTimestamp / 1_000), TimestampStyles.RelativeTime)}!`)
+				.setFooter({ text: `Difficulty: ${difficultyString} | Streak: ${streak} | Highest: ${streakString}` })
 				.setImage(formatEmojiURL(emoji.id))
 				.setTitle("Where does this come from?"),
 		],
@@ -110,32 +182,48 @@ export async function answer(interaction: ButtonInteraction) {
 		return;
 	}
 
-	const [, answer, guessedAnswer, streak] = customId.split("§");
+	const [, answer, guessedAnswer, difficulty, streak, timeoutTimestamp] = customId.split("§");
+	const parsedDifficulty = Number(difficulty);
 	const parsedStreak = Number(streak);
+	const parsedTimeoutTimestamp = Number(timeoutTimestamp);
+
+	if (!isGuessDifficultyLevel(parsedDifficulty)) {
+		pino.warn(interaction, `Invalid guessing game difficulty level: ${difficulty}`);
+		await interaction.update(ERROR_RESPONSE);
+		return;
+	}
+
+	if (Date.now() > parsedTimeoutTimestamp) {
+		await update(parsedDifficulty, user.id, parsedStreak);
+		await interaction.update({ components: [], content: "Too late!" });
+		return;
+	}
 
 	if (guessedAnswer !== answer) {
 		const embed = EmbedBuilder.from(message.embeds[0]!);
-		const isAnswerSpiritName = SPIRITS.some((spirit) => spirit.name === answer);
-		const isGuessSpiritName = SPIRITS.some((spirit) => spirit.name === guessedAnswer);
 
 		embed
 			.setDescription(
-				`Your guess: ${t(`${isGuessSpiritName ? "spiritNames" : "events"}.${guessedAnswer}`, {
+				`Your guess: ${t(`spiritNames.${guessedAnswer}`, {
 					lng: locale,
 					ns: "general",
 				})} ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`,
 			)
-			.setTitle(t(`${isAnswerSpiritName ? "spiritNames" : "events"}.${answer}`, { lng: locale, ns: "general" }));
+			.setTitle(t(`spiritNames.${answer}`, { lng: locale, ns: "general" }));
 
-		await pg<GuessPacket>(Table.Guess)
-			.insert({ user_id: user.id, streak: parsedStreak })
-			.onConflict("user_id")
-			.merge(["streak"])
-			.where(`${Table.Guess}.streak`, "<", parsedStreak);
-
+		await update(parsedDifficulty, user.id, parsedStreak);
 		await interaction.update({ components: [], embeds: [embed] });
 		return;
 	}
 
-	await guess(interaction, parsedStreak + 1);
+	await guess(interaction, parsedDifficulty, parsedStreak + 1);
+}
+
+async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, streak: number) {
+	await pg<GuessPacket>(Table.Guess)
+		.insert({ user_id: userId, [GuessDifficultyToStreakColumn[difficulty]]: streak })
+		.onConflict("user_id")
+		.merge([GuessDifficultyToStreakColumn[difficulty]])
+		.where(`${Table.Guess}.${[GuessDifficultyToStreakColumn[difficulty]]}`, "<", streak)
+		.orWhere(`${Table.Guess}.${[GuessDifficultyToStreakColumn[difficulty]]}`, "is", null);
 }

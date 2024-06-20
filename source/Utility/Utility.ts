@@ -14,6 +14,10 @@ import {
 	VALID_REALM_NAME,
 } from "./Constants.js";
 
+export function getRandomElement<const T>(array: readonly T[]): T {
+	return array[Math.floor(Math.random() * array.length)]!;
+}
+
 export function isRealm(realm: string): realm is RealmName {
 	return REALM_NAME_VALUES.includes(realm as RealmName);
 }

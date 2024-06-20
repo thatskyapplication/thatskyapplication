@@ -1,5 +1,10 @@
-import { type ChatInputCommandInteraction, ApplicationCommandType } from "discord.js";
-import { guess } from "../../Structures/Guess.js";
+import {
+	type ChatInputCommandInteraction,
+	ApplicationCommandType,
+	type ApplicationCommandData,
+	ApplicationCommandOptionType,
+} from "discord.js";
+import { GUESS_DIFFICULTY_LEVEL_VALUES, GuessDifficultyLevel, GuessDifficultyLevelToName, guess } from "../../Structures/Guess.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default new (class implements ChatInputCommand {
@@ -9,9 +14,21 @@ export default new (class implements ChatInputCommand {
 		type: ApplicationCommandType.ChatInput,
 		integrationTypes: [0, 1],
 		contexts: [0, 1, 2],
-	} as const;
+		options: [
+			{
+				type: ApplicationCommandOptionType.Integer,
+				name: "difficulty",
+				description: "Adjust the difficulty level!",
+				choices: GUESS_DIFFICULTY_LEVEL_VALUES.map((guessDifficultyLevel) => ({
+					name: GuessDifficultyLevelToName[guessDifficultyLevel],
+					value: guessDifficultyLevel,
+				})),
+			},
+		],
+	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		await guess(interaction, 0);
+		const difficulty = interaction.options.getInteger("difficulty") ?? GuessDifficultyLevel.Original;
+		await guess(interaction, difficulty, 0);
 	}
 })();
