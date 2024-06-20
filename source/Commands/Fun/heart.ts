@@ -15,6 +15,7 @@ import {
 	userMention,
 } from "discord.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
+import { getRandomElement } from "../../Utility/Utility.js";
 import { todayDate } from "../../Utility/dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
@@ -184,10 +185,8 @@ export default new (class implements ChatInputCommand {
 
 		const hearts = await this.heartCount(user.id);
 
-		const heartMessage = HEARTS[Math.floor(Math.random() * HEARTS.length)]!.replaceAll(
-			"heart",
-			formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
-		)
+		const heartMessage = getRandomElement(HEARTS)!
+			.replaceAll("heart", formatEmoji(MISCELLANEOUS_EMOJIS.Heart))
 			.replaceAll("{{gifter}}", String(interaction.user))
 			.replaceAll("{{giftee}}", String(user));
 

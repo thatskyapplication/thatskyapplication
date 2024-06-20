@@ -64,7 +64,7 @@ const GUESS_TIMEOUT = 30_000 as const;
 
 function getAnswer(): [CosmeticEmojis, StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit] {
 	// Get a random emoji as the answer.
-	const emoji = getRandomElement(COSMETIC_EMOJIS);
+	const emoji = getRandomElement(COSMETIC_EMOJIS)!;
 
 	// Find what spirit uses this emoji.
 	const spirit = SPIRITS.find(
@@ -87,9 +87,9 @@ function getOptions(difficulty: GuessDifficultyLevel) {
 	// Generate other answers.
 	if (difficulty === GuessDifficultyLevel.Original) {
 		let filtered = SPIRITS.filter((original) => original.name !== spirit.name);
-		const answer2 = filtered[Math.floor(Math.random() * filtered.length)]!;
+		const answer2 = getRandomElement(filtered)!;
 		filtered = filtered.filter((original) => original.name !== answer2.name);
-		const answer3 = filtered[Math.floor(Math.random() * filtered.length)]!;
+		const answer3 = getRandomElement(filtered)!;
 		answers.push(answer2, answer3);
 	} else {
 		// Collect spirits from the same realm or season.
@@ -98,17 +98,17 @@ function getOptions(difficulty: GuessDifficultyLevel) {
 				(original) => original.name !== spirit.name && original.realm === spirit.realm,
 			);
 
-			const answer2 = getRandomElement(filtered);
+			const answer2 = getRandomElement(filtered)!;
 			filtered = filtered.filter((original) => original.name !== answer2.name);
-			const answer3 = getRandomElement(filtered);
+			const answer3 = getRandomElement(filtered)!;
 			answers.push(answer2, answer3);
 		}
 
 		if (spirit.isElderSpirit()) {
 			let filtered = ELDER_SPIRITS.filter((original) => original.name !== spirit.name);
-			const answer2 = getRandomElement(filtered);
+			const answer2 = getRandomElement(filtered)!;
 			filtered = filtered.filter((original) => original.name !== answer2.name);
-			const answer3 = getRandomElement(filtered);
+			const answer3 = getRandomElement(filtered)!;
 			answers.push(answer2, answer3);
 		}
 
@@ -117,9 +117,9 @@ function getOptions(difficulty: GuessDifficultyLevel) {
 				(original) => original.name !== spirit.name && original.season === spirit.season,
 			);
 
-			const answer2 = getRandomElement(filtered);
+			const answer2 = getRandomElement(filtered)!;
 			filtered = filtered.filter((original) => original.name !== answer2.name);
-			const answer3 = getRandomElement(filtered);
+			const answer3 = getRandomElement(filtered)!;
 			answers.push(answer2, answer3);
 		}
 	}
