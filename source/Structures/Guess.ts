@@ -220,10 +220,12 @@ export async function answer(interaction: ButtonInteraction) {
 }
 
 async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, streak: number) {
+	const column = GuessDifficultyToStreakColumn[difficulty];
+
 	await pg<GuessPacket>(Table.Guess)
-		.insert({ user_id: userId, [GuessDifficultyToStreakColumn[difficulty]]: streak })
+		.insert({ user_id: userId, [column]: streak })
 		.onConflict("user_id")
-		.merge([GuessDifficultyToStreakColumn[difficulty]])
-		.where(`${Table.Guess}.${[GuessDifficultyToStreakColumn[difficulty]]}`, "<", streak)
-		.orWhere(`${Table.Guess}.${[GuessDifficultyToStreakColumn[difficulty]]}`, "is", null);
+		.merge([column])
+		.where(`${Table.Guess}.${[column]}`, "<", streak)
+		.orWhere(`${Table.Guess}.${[column]}`, "is", null);
 }
