@@ -22,5 +22,5 @@
 		"target": "ESNext",
 		"skipLibCheck": true
 	},
-	"exclude": ["scripts"]
+	"include": ["scripts"]
 }

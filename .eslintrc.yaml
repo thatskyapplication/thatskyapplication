@@ -1,6 +1,8 @@
 root: true
 parserOptions:
-  project: ./tsconfig.json
+  project:
+    - tsconfig.json
+    - tsconfig.scripts.json
 env:
   node: true
 extends:
@@ -17,3 +19,8 @@ rules:
   "typescript-sort-keys/interface": 0
   "typescript-sort-keys/string-enum": 0
   unicorn/prefer-math-trunc: 0
+overrides:
+  - files:
+      - scripts
+    parserOptions:
+      project: tsconfig.scripts.json
