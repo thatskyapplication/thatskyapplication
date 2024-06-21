@@ -14,6 +14,7 @@ import {
 	GatewayIntentBits,
 	Locale,
 	Options,
+	Partials,
 	PermissionFlagsBits,
 	TextChannel,
 } from "discord.js";
@@ -195,7 +196,11 @@ class Caelus extends Client {
 }
 
 const client = new Caelus({
-	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMessages | GatewayIntentBits.MessageContent,
+	intents:
+		GatewayIntentBits.Guilds |
+		GatewayIntentBits.GuildMembers |
+		GatewayIntentBits.GuildMessages |
+		GatewayIntentBits.MessageContent,
 	makeCache: Options.cacheWithLimits({
 		ApplicationCommandManager: 0,
 		AutoModerationRuleManager: 0,
@@ -225,6 +230,7 @@ const client = new Caelus({
 		},
 		VoiceStateManager: 0,
 	}),
+	partials: [Partials.GuildMember],
 });
 
 for (const event of events) {

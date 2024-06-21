@@ -1,5 +1,6 @@
 import {
 	type ChatInputCommandInteraction,
+	type Guild,
 	type Snowflake,
 	ActionRowBuilder,
 	ButtonBuilder,
@@ -33,6 +34,7 @@ export interface GuessPacket {
 	user_id: string;
 	streak: number | null;
 	streak_hard: number | null;
+	guild_ids: string[];
 }
 
 export const GUESS_ANSWER_1 = "GUESS_ANSWER_1" as const;
@@ -202,7 +204,7 @@ export async function answer(interaction: ButtonInteraction) {
 	}
 
 	if (Date.now() > parsedTimeoutTimestamp) {
-		await update(parsedDifficulty, user.id, parsedStreak);
+		await update(parsedDifficulty, user.id, parsedStreak, interaction.guildId);
 		await interaction.update({ components: [], content: "Too late!" });
 		return;
 	}
@@ -219,7 +221,7 @@ export async function answer(interaction: ButtonInteraction) {
 			)
 			.setTitle(t(`spiritNames.${answer}`, { lng: locale, ns: "general" }));
 
-		await update(parsedDifficulty, user.id, parsedStreak);
+		await update(parsedDifficulty, user.id, parsedStreak, interaction.guildId);
 		await interaction.update({ components: [], embeds: [embed] });
 		return;
 	}
@@ -227,15 +229,104 @@ export async function answer(interaction: ButtonInteraction) {
 	await guess(interaction, parsedDifficulty, parsedStreak + 1);
 }
 
-async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, streak: number) {
+async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, streak: number, guildId: Snowflake | null) {
 	const column = GuessDifficultyToStreakColumn[difficulty];
 
 	await pg<GuessPacket>(Table.Guess)
-		.insert({ user_id: userId, [column]: streak })
+		.insert({
+			user_id: userId,
+			[column]: streak,
+			// @ts-expect-error https://github.com/knex/knex/issues/5465
+			guild_ids: JSON.stringify(guildId ? [guildId] : []),
+		})
 		.onConflict("user_id")
-		.merge([column])
+		.merge({
+			[column]: streak,
+			guild_ids: guildId
+				? pg.raw(
+						`
+							CASE
+								WHEN NOT EXISTS (
+									SELECT 1
+									FROM jsonb_array_elements_text(${Table.Guess}.guild_ids) AS element
+									WHERE element = ?
+								)
+								THEN ${Table.Guess}.guild_ids || ?::jsonb
+								ELSE ${Table.Guess}.guild_ids
+							END
+						`,
+						[guildId, JSON.stringify([guildId])],
+				  )
+				: pg.raw(`${Table.Guess}.guild_ids`),
+		})
 		.where(`${Table.Guess}.${[column]}`, "<", streak)
 		.orWhere(`${Table.Guess}.${[column]}`, "is", null);
+}
+
+export async function updateGuildIds(userId: Snowflake, guildId: Snowflake) {
+	await pg<GuessPacket>(Table.Guess)
+		.update({ guild_ids: pg.raw("guild_ids || ?::jsonb", [JSON.stringify(guildId)]) })
+		.where({ user_id: userId });
+}
+
+export async function removeGuildId(userId: Snowflake, guildId: Snowflake) {
+	await pg<GuessPacket>(Table.Guess)
+		.update({
+			guild_ids: pg.raw(
+				`COALESCE((SELECT jsonb_agg(element) FROM jsonb_array_elements(??) AS element WHERE element != to_jsonb(?::text)), '[]'::jsonb)`,
+				[`${Table.Guess}.guild_ids`, guildId],
+			),
+		})
+		.where({ user_id: userId });
+}
+
+export async function handleGuildCreate(guild: Guild) {
+	const userIds = (await pg<GuessPacket>(Table.Guess).select("user_id")).map((row) => row.user_id);
+	const members = await guild.members.fetch({ user: userIds });
+
+	const data = members.reduce<Record<Snowflake, Snowflake>>((data, member) => {
+		data[member.user.id] = guild.id;
+		return data;
+	}, {});
+
+	const userGuildData = Object.entries(data).map(([user_id, guild_id]) => ({
+		user_id,
+		guild_id,
+	}));
+
+	await pg.raw(`
+		WITH updated_data (user_id, guild_id) AS (
+			VALUES ${userGuildData.map(({ user_id, guild_id }) => `('${user_id}', '${guild_id}')`).join(", ")}
+		)
+		UPDATE ${Table.Guess}
+		SET guild_ids = guild_ids || to_jsonb(updated_data.guild_id::text)
+		FROM updated_data
+		WHERE ${Table.Guess}.user_id = updated_data.user_id;
+	`);
+}
+
+export async function handleGuildRemove(guild: Guild) {
+	await pg.raw(
+		`
+		WITH affected_rows AS (
+			SELECT user_id, guild_ids
+			FROM ${Table.Guess}
+			WHERE guild_ids @> to_jsonb(?::text)
+		)
+		UPDATE ${Table.Guess}
+		SET guild_ids = COALESCE(
+			(
+				SELECT jsonb_agg(element)
+				FROM jsonb_array_elements_text(affected_rows.guild_ids) AS element
+				WHERE element != ?
+			),
+			'[]'::jsonb
+		)
+		FROM affected_rows
+		WHERE ${Table.Guess}.user_id = affected_rows.user_id
+		`,
+		[guild.id, guild.id],
+	);
 }
 
 export async function leaderboard(interaction: ChatInputCommandInteraction, difficulty: GuessDifficultyLevel) {
@@ -254,5 +345,39 @@ export async function leaderboard(interaction: ChatInputCommandInteraction, diff
 		.setTitle(`${GuessDifficultyLevelToName[difficulty]} Leaderboard`);
 
 	if (you !== -1) embed.setFooter({ text: `You: #${you + 1} (${results[you]![column]})` });
+	await interaction.reply({ embeds: [embed] });
+}
+
+export async function guildLeaderboard(
+	interaction: ChatInputCommandInteraction<"cached">,
+	difficulty: GuessDifficultyLevel,
+) {
+	const column = GuessDifficultyToStreakColumn[difficulty];
+
+	const results = await pg(Table.Guess)
+		.where(pg.raw("guild_ids @> ?", [JSON.stringify([interaction.guildId])]))
+		.and.whereNotNull(column)
+		.orderBy(column, "desc");
+
+	if (results.length === 0) {
+		await interaction.reply("No one in this server has played this game yet!");
+		return;
+	}
+
+	const you = results.findIndex((row) => row.user_id === interaction.user.id);
+
+	const embed = new EmbedBuilder()
+		.setColor(DEFAULT_EMBED_COLOUR)
+		.setDescription(
+			results
+				.slice(0, 10)
+				.map((row, index) => `${index + 1}. <@${row.user_id}>: ${row[column]}`)
+				.join("\n"),
+		)
+		.setTitle(`${GuessDifficultyLevelToName[difficulty]} Leaderboard`);
+
+	let footerText = interaction.guild!.name;
+	if (you !== -1) footerText += ` | You: #${you + 1} (${results[you]![column]})`;
+	embed.setFooter({ text: footerText });
 	await interaction.reply({ embeds: [embed] });
 }

@@ -1,12 +1,10 @@
 /* eslint-disable import/order */
-import {
-	type ApplicationCommandData,
-	type AutocompleteInteraction,
-	type ChatInputCommandInteraction,
-	type MessageContextMenuCommandInteraction,
-	type UserContextMenuCommandInteraction,
-	hyperlink,
-	MessageFlags,
+import type {
+	ApplicationCommandData,
+	AutocompleteInteraction,
+	ChatInputCommandInteraction,
+	MessageContextMenuCommandInteraction,
+	UserContextMenuCommandInteraction,
 } from "discord.js";
 
 // Developer
@@ -37,7 +35,6 @@ import sharderuption from "./General/shard-eruption.js";
 import SkyProfile from "./General/Sky Profile.js";
 import skyprofile from "./General/sky-profile.js";
 import spirit from "./General/spirit.js";
-import { APPLICATION_INVITE_URL, SUPPORT_SERVER_INVITE_URL } from "../Utility/Constants.js";
 
 const COMMANDS = {
 	about,
@@ -107,16 +104,5 @@ export interface UserContextMenuCommand extends BaseCommandData {
 interface MessageContextMenuCommand extends BaseCommandData {
 	messageContextMenu(interaction: MessageContextMenuCommandInteraction): Promise<void>;
 }
-
-export const NOT_IN_CACHED_GUILD_RESPONSE = {
-	content: `This command requires me to be present in the server. ${hyperlink(
-		"Invite me",
-		APPLICATION_INVITE_URL,
-	)} with the bot scope and try again!\nIf you need help, join the ${hyperlink(
-		"support server",
-		SUPPORT_SERVER_INVITE_URL,
-	)}!`,
-	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
-} as const;
 
 export default COMMANDS;

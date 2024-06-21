@@ -48,6 +48,18 @@ export const ERROR_RESPONSE = {
 	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
 };
 
+// Not in cached guild response.
+export const NOT_IN_CACHED_GUILD_RESPONSE = {
+	content: `This command requires me to be present in the server. ${hyperlink(
+		"Invite me",
+		APPLICATION_INVITE_URL,
+	)} with the bot scope and try again!\nIf you need help, join the ${hyperlink(
+		"support server",
+		SUPPORT_SERVER_INVITE_URL,
+	)}!`,
+	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
+} as const;
+
 // Miscellaneous constants.
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 export const THATSKYGAME_URL = "https://thatskygame.com" as const;

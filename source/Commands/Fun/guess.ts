@@ -9,8 +9,10 @@ import {
 	GuessDifficultyLevel,
 	GuessDifficultyLevelToName,
 	guess,
+	guildLeaderboard,
 	leaderboard,
 } from "../../Structures/Guess.js";
+import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../Utility/Constants.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default new (class implements ChatInputCommand {
@@ -52,6 +54,11 @@ export default new (class implements ChatInputCommand {
 						})),
 						required: true,
 					},
+					{
+						type: ApplicationCommandOptionType.Boolean,
+						name: "server",
+						description: "Scope the leaderboard to your server?",
+					},
 				],
 			},
 		],
@@ -68,12 +75,27 @@ export default new (class implements ChatInputCommand {
 	}
 
 	private async game(interaction: ChatInputCommandInteraction) {
+		if (interaction.inRawGuild()) {
+			await interaction.reply(NOT_IN_CACHED_GUILD_RESPONSE);
+			return;
+		}
+
 		const difficulty = interaction.options.getInteger("difficulty") ?? GuessDifficultyLevel.Original;
 		await guess(interaction, difficulty, 0);
 	}
 
 	private async leaderboard(interaction: ChatInputCommandInteraction) {
 		const difficulty = interaction.options.getInteger("difficulty", true);
-		await leaderboard(interaction, difficulty);
+		const server = interaction.options.getBoolean("server") ?? false;
+
+		if (server) {
+			if (interaction.inCachedGuild()) {
+				await guildLeaderboard(interaction, difficulty);
+			} else {
+				await interaction.reply(NOT_IN_CACHED_GUILD_RESPONSE);
+			}
+		} else {
+			await leaderboard(interaction, difficulty);
+		}
 	}
 })();
