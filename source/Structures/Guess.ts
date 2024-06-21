@@ -33,6 +33,7 @@ export interface GuessPacket {
 	user_id: string;
 	streak: number | null;
 	streak_hard: number | null;
+	guild_ids: string[];
 }
 
 export const GUESS_ANSWER_1 = "GUESS_ANSWER_1" as const;
@@ -236,6 +237,28 @@ async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, strea
 		.merge([column])
 		.where(`${Table.Guess}.${[column]}`, "<", streak)
 		.orWhere(`${Table.Guess}.${[column]}`, "is", null);
+}
+
+export async function updateGuildIds(userId: Snowflake, guildId: Snowflake) {
+	await pg<GuessPacket>(Table.Guess)
+		.insert({
+			user_id: userId,
+			// @ts-expect-error https://github.com/knex/knex/issues/5465
+			guild_ids: JSON.stringify([guildId]),
+		})
+		.onConflict("user_id")
+		.merge({ guild_ids: pg.raw("??.guild_ids || ?::jsonb", [Table.Guess, JSON.stringify([guildId])]) });
+}
+
+export async function removeGuildId(userId: Snowflake, guildId: Snowflake) {
+	await pg<GuessPacket>(Table.Guess)
+		.where({ user_id: userId })
+		.update({
+			guild_ids: pg.raw(
+				`COALESCE((SELECT jsonb_agg(element) FROM jsonb_array_elements(??) AS element WHERE element != to_jsonb(?::text)), '[]'::jsonb)`,
+				[`${Table.Guess}.guild_ids`, guildId],
+			),
+		});
 }
 
 export async function leaderboard(interaction: ChatInputCommandInteraction, difficulty: GuessDifficultyLevel) {
