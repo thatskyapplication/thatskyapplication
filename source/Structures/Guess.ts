@@ -241,13 +241,8 @@ async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, strea
 
 export async function updateGuildIds(userId: Snowflake, guildId: Snowflake) {
 	await pg<GuessPacket>(Table.Guess)
-		.insert({
-			user_id: userId,
-			// @ts-expect-error https://github.com/knex/knex/issues/5465
-			guild_ids: JSON.stringify([guildId]),
-		})
-		.onConflict("user_id")
-		.merge({ guild_ids: pg.raw("??.guild_ids || ?::jsonb", [Table.Guess, JSON.stringify([guildId])]) });
+		.update({ guild_ids: pg.raw("guild_ids || ?::jsonb", [JSON.stringify(guildId)]) })
+		.where({ user_id: userId });
 }
 
 export async function removeGuildId(userId: Snowflake, guildId: Snowflake) {
