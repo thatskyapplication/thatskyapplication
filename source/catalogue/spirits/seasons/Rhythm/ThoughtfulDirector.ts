@@ -27,7 +27,6 @@ export default new SeasonalSpirit({
 	emote,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
-		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemRaw>()
 			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { name: `${emote} 2`, cost: null, emoji: emoteEmoji })
