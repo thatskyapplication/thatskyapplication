@@ -204,7 +204,7 @@ export async function answer(interaction: ButtonInteraction) {
 	}
 
 	if (Date.now() > parsedTimeoutTimestamp) {
-		await update(parsedDifficulty, user.id, parsedStreak);
+		await update(parsedDifficulty, user.id, parsedStreak, interaction.guildId);
 		await interaction.update({ components: [], content: "Too late!" });
 		return;
 	}
@@ -221,7 +221,7 @@ export async function answer(interaction: ButtonInteraction) {
 			)
 			.setTitle(t(`spiritNames.${answer}`, { lng: locale, ns: "general" }));
 
-		await update(parsedDifficulty, user.id, parsedStreak);
+		await update(parsedDifficulty, user.id, parsedStreak, interaction.guildId);
 		await interaction.update({ components: [], embeds: [embed] });
 		return;
 	}
@@ -229,13 +229,33 @@ export async function answer(interaction: ButtonInteraction) {
 	await guess(interaction, parsedDifficulty, parsedStreak + 1);
 }
 
-async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, streak: number) {
+async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, streak: number, guildId: Snowflake | null) {
 	const column = GuessDifficultyToStreakColumn[difficulty];
 
 	await pg<GuessPacket>(Table.Guess)
-		.insert({ user_id: userId, [column]: streak })
+		.insert({
+			user_id: userId,
+			[column]: streak,
+			// @ts-expect-error https://github.com/knex/knex/issues/5465
+			guild_ids: JSON.stringify(guildId ? [guildId] : []),
+		})
 		.onConflict("user_id")
-		.merge([column])
+    .merge({
+			[column]: streak,
+			guild_ids: guildId
+					? pg.raw(`
+							CASE
+								WHEN NOT EXISTS (
+									SELECT 1
+									FROM jsonb_array_elements_text(${Table.Guess}.guild_ids) AS element
+									WHERE element = ?
+								)
+								THEN ${Table.Guess}.guild_ids || ?::jsonb
+								ELSE ${Table.Guess}.guild_ids
+							END
+						`, [guildId, JSON.stringify([guildId])])
+					: pg.raw(`${Table.Guess}.guild_ids`),
+	})
 		.where(`${Table.Guess}.${[column]}`, "<", streak)
 		.orWhere(`${Table.Guess}.${[column]}`, "is", null);
 }
