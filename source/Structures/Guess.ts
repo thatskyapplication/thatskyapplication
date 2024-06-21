@@ -247,13 +247,13 @@ export async function updateGuildIds(userId: Snowflake, guildId: Snowflake) {
 
 export async function removeGuildId(userId: Snowflake, guildId: Snowflake) {
 	await pg<GuessPacket>(Table.Guess)
-		.where({ user_id: userId })
 		.update({
 			guild_ids: pg.raw(
 				`COALESCE((SELECT jsonb_agg(element) FROM jsonb_array_elements(??) AS element WHERE element != to_jsonb(?::text)), '[]'::jsonb)`,
 				[`${Table.Guess}.guild_ids`, guildId],
 			),
-		});
+		})
+		.where({ user_id: userId });
 }
 
 export async function leaderboard(interaction: ChatInputCommandInteraction, difficulty: GuessDifficultyLevel) {
