@@ -1,5 +1,6 @@
 import {
 	type ChatInputCommandInteraction,
+	type Guild,
 	type Snowflake,
 	ActionRowBuilder,
 	ButtonBuilder,
@@ -254,6 +255,52 @@ export async function removeGuildId(userId: Snowflake, guildId: Snowflake) {
 			),
 		})
 		.where({ user_id: userId });
+}
+
+export async function handleGuildCreate(guild: Guild) {
+	const userIds = (await pg<GuessPacket>(Table.Guess).select("user_id")).map((row) => row.user_id);
+	const members = await guild.members.fetch({ user: userIds });
+
+	const data = members.reduce<Record<Snowflake, Snowflake>>((data, member) => {
+		data[member.user.id] = guild.id;
+		return data;
+	}, {});
+
+	const userGuildData = Object.entries(data).map(([user_id, guild_id]) => ({
+		user_id,
+		guild_id,
+	}));
+
+	await pg.raw(`
+		WITH updated_data (user_id, guild_id) AS (
+			VALUES ${userGuildData.map(({ user_id, guild_id }) => `('${user_id}', '${guild_id}')`).join(", ")}
+		)
+		UPDATE ${Table.Guess}
+		SET guild_ids = guild_ids || to_jsonb(updated_data.guild_id::text)
+		FROM updated_data
+		WHERE ${Table.Guess}.user_id = updated_data.user_id;
+	`);
+}
+
+export async function handleGuildRemove(guild: Guild) {
+	await pg.raw(
+		`
+		WITH affected_rows AS (
+			SELECT user_id, guild_ids
+			FROM ${Table.Guess}
+			WHERE guild_ids @> to_jsonb(?::text)
+		)
+		UPDATE ${Table.Guess}
+		SET guild_ids = (
+			SELECT jsonb_agg(element)
+			FROM jsonb_array_elements_text(affected_rows.guild_ids) AS element
+			WHERE element != ?::text
+		)
+		FROM affected_rows
+		WHERE ${Table.Guess}.user_id = affected_rows.user_id
+		`,
+		[guild.id],
+	);
 }
 
 export async function leaderboard(interaction: ChatInputCommandInteraction, difficulty: GuessDifficultyLevel) {
