@@ -279,3 +279,37 @@ export async function leaderboard(interaction: ChatInputCommandInteraction, diff
 	if (you !== -1) embed.setFooter({ text: `You: #${you + 1} (${results[you]![column]})` });
 	await interaction.reply({ embeds: [embed] });
 }
+
+export async function guildLeaderboard(
+	interaction: ChatInputCommandInteraction<"cached">,
+	difficulty: GuessDifficultyLevel,
+) {
+	const column = GuessDifficultyToStreakColumn[difficulty];
+
+	const results = await pg(Table.Guess)
+		.where(pg.raw("guild_ids @> ?", [JSON.stringify([interaction.guildId])]))
+		.and.whereNotNull(column)
+		.orderBy(column, "desc");
+
+	if (results.length === 0) {
+		await interaction.reply("No one in this server has played this game yet!");
+		return;
+	}
+
+	const you = results.findIndex((row) => row.user_id === interaction.user.id);
+
+	const embed = new EmbedBuilder()
+		.setColor(DEFAULT_EMBED_COLOUR)
+		.setDescription(
+			results
+				.slice(0, 10)
+				.map((row, index) => `${index + 1}. <@${row.user_id}>: ${row[column]}`)
+				.join("\n"),
+		)
+		.setTitle(`${GuessDifficultyLevelToName[difficulty]} Leaderboard`);
+
+	let footerText = interaction.guild!.name;
+	if (you !== -1) footerText += ` | You: #${you + 1} (${results[you]![column]})`;
+	embed.setFooter({ text: footerText });
+	await interaction.reply({ embeds: [embed] });
+}

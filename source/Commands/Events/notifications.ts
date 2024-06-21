@@ -14,10 +14,10 @@ import Notification, {
 	NOTIFICATION_CHANNEL_TYPES,
 	NOTIFICATION_EVENT_VALUES,
 } from "../../Structures/Notification.js";
-import { ERROR_RESPONSE } from "../../Utility/Constants.js";
+import { ERROR_RESPONSE, NOT_IN_CACHED_GUILD_RESPONSE } from "../../Utility/Constants.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import pino from "../../pino.js";
-import { type ChatInputCommand, NOT_IN_CACHED_GUILD_RESPONSE } from "../index.js";
+import { type ChatInputCommand } from "../index.js";
 
 const notificationEventChoices = NOTIFICATION_EVENT_VALUES.map((notificationEvent) => ({
 	name: notificationEvent,
