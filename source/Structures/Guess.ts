@@ -240,10 +240,11 @@ async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, strea
 			guild_ids: JSON.stringify(guildId ? [guildId] : []),
 		})
 		.onConflict("user_id")
-    .merge({
+		.merge({
 			[column]: streak,
 			guild_ids: guildId
-					? pg.raw(`
+				? pg.raw(
+						`
 							CASE
 								WHEN NOT EXISTS (
 									SELECT 1
@@ -253,9 +254,11 @@ async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, strea
 								THEN ${Table.Guess}.guild_ids || ?::jsonb
 								ELSE ${Table.Guess}.guild_ids
 							END
-						`, [guildId, JSON.stringify([guildId])])
-					: pg.raw(`${Table.Guess}.guild_ids`),
-	})
+						`,
+						[guildId, JSON.stringify([guildId])],
+				  )
+				: pg.raw(`${Table.Guess}.guild_ids`),
+		})
 		.where(`${Table.Guess}.${[column]}`, "<", streak)
 		.orWhere(`${Table.Guess}.${[column]}`, "is", null);
 }
