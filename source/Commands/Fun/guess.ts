@@ -75,6 +75,11 @@ export default new (class implements ChatInputCommand {
 	}
 
 	private async game(interaction: ChatInputCommandInteraction) {
+		if (interaction.inRawGuild()) {
+			await interaction.reply(NOT_IN_CACHED_GUILD_RESPONSE);
+			return;
+		}
+
 		const difficulty = interaction.options.getInteger("difficulty") ?? GuessDifficultyLevel.Original;
 		await guess(interaction, difficulty, 0);
 	}
