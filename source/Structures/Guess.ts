@@ -154,7 +154,7 @@ export async function guess(
 				}§${difficulty}§${streak}§${timeoutTimestamp}`,
 			)
 			.setLabel(t(`spiritNames.${option.name}`, { lng: interaction.locale, ns: "general" }))
-			.setStyle(ButtonStyle.Primary),
+			.setStyle(ButtonStyle.Secondary),
 	);
 
 	// Retrieve the highest streak.
