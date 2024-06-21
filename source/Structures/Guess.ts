@@ -314,15 +314,18 @@ export async function handleGuildRemove(guild: Guild) {
 			WHERE guild_ids @> to_jsonb(?::text)
 		)
 		UPDATE ${Table.Guess}
-		SET guild_ids = (
-			SELECT jsonb_agg(element)
-			FROM jsonb_array_elements_text(affected_rows.guild_ids) AS element
-			WHERE element != ?::text
+		SET guild_ids = COALESCE(
+			(
+				SELECT jsonb_agg(element)
+				FROM jsonb_array_elements_text(affected_rows.guild_ids) AS element
+				WHERE element != ?
+			),
+			'[]'::jsonb
 		)
 		FROM affected_rows
 		WHERE ${Table.Guess}.user_id = affected_rows.user_id
 		`,
-		[guild.id],
+		[guild.id, guild.id],
 	);
 }
 
