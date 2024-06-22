@@ -13,7 +13,6 @@ export default new StandardSpirit({
 	call,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
-		hasInfographic: false,
 		current: new Collection<number, ItemRaw>()
 			.set(1 << 0, { name: `${call} call`, cost: null, emoji: callEmoji })
 			.set(1 << 1, { name: "Outfit", cost: { hearts: 3 }, emoji: OUTFIT_EMOJIS.Outfit09 })
