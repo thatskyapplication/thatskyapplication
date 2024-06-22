@@ -294,6 +294,8 @@ export async function handleGuildCreate(guild: Guild) {
 		guild_id,
 	}));
 
+	if (userGuildData.length === 0) return;
+
 	await pg.raw(`
 		WITH updated_data (user_id, guild_id) AS (
 			VALUES ${userGuildData.map(({ user_id, guild_id }) => `('${user_id}', '${guild_id}')`).join(", ")}
