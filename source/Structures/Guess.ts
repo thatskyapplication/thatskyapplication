@@ -168,6 +168,7 @@ export async function guess(
 	// Respond.
 	const response = {
 		components: [new ActionRowBuilder<ButtonBuilder>().setComponents(buttons)],
+		content: "",
 		embeds: [
 			new EmbedBuilder()
 				.setColor(DEFAULT_EMBED_COLOUR)
