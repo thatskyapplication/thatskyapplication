@@ -64,7 +64,7 @@ import {
 	Catalogue,
 } from "../Structures/Catalogue.js";
 import { deleteUserData } from "../Structures/Data.js";
-import { GUESS_ANSWER_1, GUESS_ANSWER_2, GUESS_ANSWER_3, answer } from "../Structures/Guess.js";
+import { GUESS_ANSWER_1, GUESS_ANSWER_2, GUESS_ANSWER_3, GUESS_TRY_AGAIN, answer, tryAgain } from "../Structures/Guess.js";
 import Profile from "../Structures/Profile.js";
 import { ERROR_RESPONSE } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
@@ -347,6 +347,11 @@ export const event: Event<typeof name> = {
 					customId.startsWith(GUESS_ANSWER_3)
 				) {
 					await answer(interaction);
+					return;
+				}
+
+				if (customId.startsWith(GUESS_TRY_AGAIN)) {
+					await tryAgain(interaction);
 					return;
 				}
 

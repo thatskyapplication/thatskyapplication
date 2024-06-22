@@ -40,6 +40,7 @@ export interface GuessPacket {
 export const GUESS_ANSWER_1 = "GUESS_ANSWER_1" as const;
 export const GUESS_ANSWER_2 = "GUESS_ANSWER_2" as const;
 export const GUESS_ANSWER_3 = "GUESS_ANSWER_3" as const;
+export const GUESS_TRY_AGAIN = "GUESS_TRY_AGAIN_CUSTOM_ID" as const;
 
 export enum GuessDifficultyLevel {
 	Original,
@@ -184,6 +185,15 @@ export async function guess(
 	}
 }
 
+function tryAgainComponent(difficulty: GuessDifficultyLevel) {
+	return new ActionRowBuilder<ButtonBuilder>().addComponents(
+		new ButtonBuilder()
+			.setCustomId(`${GUESS_TRY_AGAIN}§${difficulty}`)
+			.setLabel("Try Again?")
+			.setStyle(ButtonStyle.Primary),
+	);
+}
+
 export async function answer(interaction: ButtonInteraction) {
 	const { customId, locale, message, user } = interaction;
 
@@ -205,7 +215,7 @@ export async function answer(interaction: ButtonInteraction) {
 
 	if (Date.now() > parsedTimeoutTimestamp) {
 		await update(parsedDifficulty, user.id, parsedStreak, interaction.guildId);
-		await interaction.update({ components: [], content: "Too late!" });
+		await interaction.update({ components: [tryAgainComponent(parsedDifficulty)], content: "Too late!" });
 		return;
 	}
 
@@ -222,11 +232,30 @@ export async function answer(interaction: ButtonInteraction) {
 			.setTitle(t(`spiritNames.${answer}`, { lng: locale, ns: "general" }));
 
 		await update(parsedDifficulty, user.id, parsedStreak, interaction.guildId);
-		await interaction.update({ components: [], embeds: [embed] });
+		await interaction.update({ components: [tryAgainComponent(parsedDifficulty)], embeds: [embed] });
 		return;
 	}
 
 	await guess(interaction, parsedDifficulty, parsedStreak + 1);
+}
+
+export async function tryAgain(interaction: ButtonInteraction) {
+	const { customId, message, user } = interaction;
+
+	if (message.interaction!.user.id !== user.id) {
+		await interaction.reply({ content: "You didn't start this game!", flags: MessageFlags.Ephemeral });
+		return;
+	}
+
+	const difficulty = Number(customId.slice(customId.indexOf("§") + 1));
+
+	if (!isGuessDifficultyLevel(difficulty)) {
+		pino.warn(interaction, `Invalid guessing game difficulty level: ${difficulty}`);
+		await interaction.update(ERROR_RESPONSE);
+		return;
+	}
+
+	await guess(interaction, difficulty, 0);
 }
 
 async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, streak: number, guildId: Snowflake | null) {
