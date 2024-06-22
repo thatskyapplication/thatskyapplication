@@ -14,7 +14,6 @@ export default new StandardSpirit({
 	emote,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
-		hasInfographic: false,
 		current: new Collection<number, ItemRaw>()
 			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
 			.set(1 << 1, { name: `${emote} 2`, cost: { candles: 5 }, emoji: emoteEmoji })
