@@ -14,7 +14,7 @@ export default new StandardSpirit({
 	realm: RealmName.GoldenWasteland,
 	offer: {
 		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${stance} stance`, cost: null, emoji: stanceEmoji })
+			.set(1 << 0, { name: `${stance} stance`, emoji: stanceEmoji })
 			.set(1 << 1, { name: "Hair", cost: { hearts: 5 }, emoji: HAIR_EMOJIS.Hair24 })
 			.set(1 << 2, { name: "Blessing 1", cost: { candles: 1 }, emoji: MISCELLANEOUS_EMOJIS.Blessing1 })
 			.set(1 << 3, { name: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })

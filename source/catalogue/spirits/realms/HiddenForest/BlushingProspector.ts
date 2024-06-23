@@ -14,7 +14,7 @@ export default new StandardSpirit({
 	realm: RealmName.HiddenForest,
 	offer: {
 		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
+			.set(1 << 0, { name: `${emote} 1`, emoji: emoteEmoji })
 			.set(1 << 1, { name: `${emote} 2`, cost: { candles: 3 }, emoji: emoteEmoji })
 			.set(1 << 2, { name: "Blessing 1", cost: { candles: 1 }, emoji: MISCELLANEOUS_EMOJIS.Blessing1 })
 			.set(1 << 3, { name: "Hair", cost: { hearts: 3 }, emoji: HAIR_EMOJIS.Hair11 })

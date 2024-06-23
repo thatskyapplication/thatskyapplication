@@ -28,16 +28,16 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${action} 1`, cost: null, emoji: actionEmoji })
-			.set(1 << 1, { name: `${action} 2`, cost: null, emoji: actionEmoji })
+			.set(1 << 0, { name: `${action} 1`, emoji: actionEmoji })
+			.set(1 << 1, { name: `${action} 2`, emoji: actionEmoji })
 			.set(1 << 2, { name: "Blessing 1", cost: { seasonalCandles: 6 }, emoji: blessing3 })
-			.set(1 << 3, { name: "Hair accessory", cost: null, emoji: hairAccessoryEmoji })
+			.set(1 << 3, { name: "Hair accessory", emoji: hairAccessoryEmoji })
 			.set(1 << 4, { name: "Mask", cost: { seasonalCandles: 18 }, emoji: maskEmoji })
-			.set(1 << 5, { name: "Blessing 2", cost: null, emoji: blessing3 })
+			.set(1 << 5, { name: "Blessing 2", emoji: blessing3 })
 			.set(1 << 6, { name: "Blessing 3", cost: { seasonalCandles: 26 }, emoji: blessing3 })
-			.set(1 << 7, { name: "Cape", cost: null, emoji: capeEmoji })
+			.set(1 << 7, { name: "Cape", emoji: capeEmoji })
 			.set(1 << 8, { name: "Music sheet", cost: { seasonalCandles: 32 }, emoji: musicSheet })
-			.set(1 << 9, { name: "Blessing 3", cost: null, emoji: blessing3 })
+			.set(1 << 9, { name: "Blessing 3", emoji: blessing3 })
 			.set(1 << 10, {
 				name: "Seasonal heart",
 				cost: { seasonalCandles: 3 },

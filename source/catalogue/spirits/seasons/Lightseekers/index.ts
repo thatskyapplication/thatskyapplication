@@ -25,7 +25,7 @@ export default new Season({
 		ShushingLightScholar,
 	],
 	items: new Collection<number, ItemRaw>()
-		.set(1 << 0, { name: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace02 })
-		.set(1 << 1, { name: "Ultimate prop", cost: null, emoji: HELD_PROPS_EMOJIS.HeldProp12 }),
+		.set(1 << 0, { name: "Pendant", emoji: NECKLACE_EMOJIS.Necklace02 })
+		.set(1 << 1, { name: "Ultimate prop", emoji: HELD_PROPS_EMOJIS.HeldProp12 }),
 	seasonalCandlesRotation: null,
 });

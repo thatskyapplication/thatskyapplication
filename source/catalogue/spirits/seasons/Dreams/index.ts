@@ -15,10 +15,6 @@ export default new Season({
 	end: skyDate(2_021, 3, 15),
 	guide: DreamsGuide,
 	spirits: [SpinningMentor, DancingPerformer, PeekingPostman, BearhugHermit],
-	items: new Collection<number, ItemRaw>().set(1 << 0, {
-		name: "Pendant",
-		cost: null,
-		emoji: NECKLACE_EMOJIS.Necklace10,
-	}),
+	items: new Collection<number, ItemRaw>().set(1 << 0, { name: "Pendant", emoji: NECKLACE_EMOJIS.Necklace10 }),
 	seasonalCandlesRotation: null,
 });

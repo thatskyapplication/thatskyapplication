@@ -22,13 +22,13 @@ export default new SeasonalSpirit({
 	hasMarketingVideo: true,
 	offer: {
 		seasonal: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${stance} stance`, cost: null, emoji: stanceEmoji })
+			.set(1 << 0, { name: `${stance} stance`, emoji: stanceEmoji })
 			.set(1 << 2, { name: "Hair", cost: { seasonalCandles: 6 }, emoji: hairEmoji })
-			.set(1 << 1, { name: "Blessing 1", cost: null, emoji: blessing2 })
+			.set(1 << 1, { name: "Blessing 1", emoji: blessing2 })
 			.set(1 << 5, { name: "Blessing 2", cost: { seasonalCandles: 8 }, emoji: blessing2 })
-			.set(1 << 6, { name: "Weasel mask", cost: null, emoji: maskEmoji }),
+			.set(1 << 6, { name: "Weasel mask", emoji: maskEmoji }),
 		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${stance} stance`, cost: null, emoji: stanceEmoji })
+			.set(1 << 0, { name: `${stance} stance`, emoji: stanceEmoji })
 			.set(1 << 1, { name: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 2, { name: "Hair", cost: { candles: 26 }, emoji: hairEmoji })
 			.set(1 << 3, { name: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })

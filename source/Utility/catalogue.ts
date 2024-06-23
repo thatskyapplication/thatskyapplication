@@ -411,7 +411,7 @@ interface ItemCostEvent {
 
 export interface ItemRaw {
 	name: string;
-	cost: ItemCostRaw | null;
+	cost?: ItemCostRaw;
 	emoji?: Emoji;
 }
 

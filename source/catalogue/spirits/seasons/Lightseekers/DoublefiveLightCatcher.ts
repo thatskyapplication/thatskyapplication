@@ -23,15 +23,15 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${action} 1`, cost: null, emoji: actionEmoji })
+			.set(1 << 0, { name: `${action} 1`, emoji: actionEmoji })
 			.set(1 << 1, { name: "Blessing 1", cost: { seasonalCandles: 4 }, emoji: blessing2 })
-			.set(1 << 8, { name: "Hair", cost: null, emoji: hairEmoji })
+			.set(1 << 8, { name: "Hair", emoji: hairEmoji })
 			.set(1 << 2, { name: "Mask", cost: { seasonalCandles: 6 }, emoji: maskEmoji })
-			.set(1 << 6, { name: `${action} 2`, cost: null, emoji: actionEmoji })
+			.set(1 << 6, { name: `${action} 2`, emoji: actionEmoji })
 			.set(1 << 5, { name: "Blessing 2", cost: { seasonalCandles: 8 }, emoji: blessing2 })
-			.set(1 << 7, { name: "Flute", cost: null, emoji: heldProp }),
+			.set(1 << 7, { name: "Flute", emoji: heldProp }),
 		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${action} 1`, cost: null, emoji: actionEmoji })
+			.set(1 << 0, { name: `${action} 1`, emoji: actionEmoji })
 			.set(1 << 1, { name: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 2, { name: "Mask", cost: { candles: 24 }, emoji: maskEmoji })
 			.set(1 << 3, { name: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })

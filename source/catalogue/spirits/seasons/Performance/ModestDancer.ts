@@ -28,15 +28,15 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${action} 1`, cost: null, emoji: actionEmoji })
+			.set(1 << 0, { name: `${action} 1`, emoji: actionEmoji })
 			.set(1 << 1, { name: "Blessing 1", cost: { seasonalCandles: 8 }, emoji: blessing3 })
-			.set(1 << 2, { name: "Music sheet", cost: null, emoji: musicSheet })
+			.set(1 << 2, { name: "Music sheet", emoji: musicSheet })
 			.set(1 << 3, { name: "Mask", cost: { seasonalCandles: 14 }, emoji: maskEmoji })
-			.set(1 << 4, { name: "Blessing 2", cost: null, emoji: blessing3 })
+			.set(1 << 4, { name: "Blessing 2", emoji: blessing3 })
 			.set(1 << 5, { name: "Blessing 3", cost: { seasonalCandles: 26 }, emoji: blessing3 })
-			.set(1 << 6, { name: `${action} 2`, cost: null, emoji: actionEmoji })
+			.set(1 << 6, { name: `${action} 2`, emoji: actionEmoji })
 			.set(1 << 7, { name: "Outfit", cost: { seasonalCandles: 30 }, emoji: outfitEmoji })
-			.set(1 << 8, { name: "Hair", cost: null, emoji: hairEmoji })
+			.set(1 << 8, { name: "Hair", emoji: hairEmoji })
 			.set(1 << 9, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.PerformanceHeart }),
 	},
 });

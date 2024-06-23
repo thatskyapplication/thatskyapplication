@@ -23,11 +23,11 @@ export default new SeasonalSpirit({
 		hasInfographic: false,
 		seasonal: new Collection<number, ItemRaw>()
 			.set(1 << 0, { name: "Hair", cost: { seasonalCandles: 16 }, emoji: hairEmoji })
-			.set(1 << 1, { name: "Blessing 1", cost: null, emoji: blessing3 })
+			.set(1 << 1, { name: "Blessing 1", emoji: blessing3 })
 			.set(1 << 2, { name: "Blessing 2", cost: { seasonalCandles: 28 }, emoji: blessing3 })
-			.set(1 << 3, { name: "Cape", cost: null, emoji: capeEmoji })
+			.set(1 << 3, { name: "Cape", emoji: capeEmoji })
 			.set(1 << 4, { name: "Shoes", cost: { seasonalCandles: 38 }, emoji: shoeEmoji })
-			.set(1 << 5, { name: "Blessing 3", cost: null, emoji: blessing3 })
+			.set(1 << 5, { name: "Blessing 3", emoji: blessing3 })
 			.set(1 << 6, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.RevivalHeart }),
 	},
 });

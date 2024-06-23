@@ -21,13 +21,13 @@ export default new SeasonalSpirit({
 		hasInfographic: false,
 		seasonal: new Collection<number, ItemRaw>()
 			.set(1 << 0, { name: "Blessing 1", cost: { seasonalCandles: 14 }, emoji: blessing3 })
-			.set(1 << 1, { name: "Prop 1", cost: null, emoji: SmallPlaceableProp38 })
+			.set(1 << 1, { name: "Prop 1", emoji: SmallPlaceableProp38 })
 			.set(1 << 2, { name: "Prop 2", cost: { seasonalCandles: 22 }, emoji: LargePlaceableProp34 })
-			.set(1 << 3, { name: "Blessing 2", cost: null, emoji: blessing3 })
+			.set(1 << 3, { name: "Blessing 2", emoji: blessing3 })
 			.set(1 << 4, { name: "Blessing 3", cost: { seasonalCandles: 30 }, emoji: blessing3 })
-			.set(1 << 5, { name: "Prop 3", cost: null, emoji: LargePlaceableProp35 })
+			.set(1 << 5, { name: "Prop 3", emoji: LargePlaceableProp35 })
 			.set(1 << 6, { name: "Prop 4", cost: { seasonalCandles: 34 }, emoji: LargePlaceableProp36 })
-			.set(1 << 7, { name: "Blessing 4", cost: null, emoji: blessing3 })
+			.set(1 << 7, { name: "Blessing 4", emoji: blessing3 })
 			.set(1 << 8, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.NestingHeart }),
 	},
 });

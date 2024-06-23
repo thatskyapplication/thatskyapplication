@@ -28,7 +28,7 @@ export default new SeasonalSpirit({
 	realm: RealmName.GoldenWasteland,
 	offer: {
 		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
+			.set(1 << 0, { name: `${emote} 1`, emoji: emoteEmoji })
 			.set(1 << 1, { name: `${emote} 2`, cost: { hearts: 4 }, emoji: emoteEmoji })
 			.set(1 << 2, { name: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 4, { name: "Mask", cost: { candles: 40 }, emoji: maskEmoji })
@@ -41,18 +41,18 @@ export default new SeasonalSpirit({
 			.set(1 << 8, { name: "Cape", cost: { candles: 70 }, emoji: capeEmoji })
 			.set(1 << 3, { name: "Music sheet", cost: { candles: 15 }, emoji: musicSheet }),
 		seasonal: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
-			.set(1 << 1, { name: `${emote} 2`, cost: null, emoji: emoteEmoji })
+			.set(1 << 0, { name: `${emote} 1`, emoji: emoteEmoji })
+			.set(1 << 1, { name: `${emote} 2`, emoji: emoteEmoji })
 			.set(1 << 2, { name: "Blessing 1", cost: { seasonalCandles: 12 }, emoji: blessing2 })
-			.set(1 << 3, { name: "Music sheet", cost: null, emoji: musicSheet })
+			.set(1 << 3, { name: "Music sheet", emoji: musicSheet })
 			.set(1 << 4, { name: "Mask", cost: { seasonalCandles: 16 }, emoji: maskEmoji })
-			.set(1 << 5, { name: "Blessing 2", cost: null, emoji: blessing3 })
+			.set(1 << 5, { name: "Blessing 2", emoji: blessing3 })
 			.set(1 << 6, { name: `${emote} 3`, cost: { seasonalCandles: 20 }, emoji: emoteEmoji })
-			.set(1 << 7, { name: `${emote} 4`, cost: null, emoji: emoteEmoji })
+			.set(1 << 7, { name: `${emote} 4`, emoji: emoteEmoji })
 			.set(1 << 8, { name: "Cape", cost: { seasonalCandles: 26 }, emoji: capeEmoji })
-			.set(1 << 9, { name: "Blessing 3", cost: null, emoji: blessing3 })
+			.set(1 << 9, { name: "Blessing 3", emoji: blessing3 })
 			.set(1 << 10, { name: "Blessing 4", cost: { seasonalCandles: 34 }, emoji: blessing3 })
-			.set(1 << 11, { name: "Hair", cost: null, emoji: hairEmoji })
+			.set(1 << 11, { name: "Hair", emoji: hairEmoji })
 			.set(1 << 12, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.AbyssHeart }),
 	},
 	visits: {

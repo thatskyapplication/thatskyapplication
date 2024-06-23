@@ -29,17 +29,17 @@ export default new SeasonalSpirit({
 	realm: RealmName.DaylightPrairie,
 	offer: {
 		seasonal: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
-			.set(1 << 1, { name: `${emote} 2`, cost: null, emoji: emoteEmoji })
+			.set(1 << 0, { name: `${emote} 1`, emoji: emoteEmoji })
+			.set(1 << 1, { name: `${emote} 2`, emoji: emoteEmoji })
 			.set(1 << 2, { name: "Blessing", cost: { seasonalCandles: 10 }, emoji: blessing2 })
-			.set(1 << 3, { name: "Music sheet", cost: null, emoji: musicSheet })
+			.set(1 << 3, { name: "Music sheet", emoji: musicSheet })
 			.set(1 << 6, { name: `${emote} 3`, cost: { seasonalCandles: 12 }, emoji: emoteEmoji })
-			.set(1 << 7, { name: `${emote} 4`, cost: null, emoji: emoteEmoji })
+			.set(1 << 7, { name: `${emote} 4`, emoji: emoteEmoji })
 			.set(1 << 9, { name: "Hair", cost: { seasonalCandles: 14 }, emoji: hairEmoji })
-			.set(1 << 11, { name: "Outfit", cost: null, emoji: outfitEmoji })
+			.set(1 << 11, { name: "Outfit", emoji: outfitEmoji })
 			.set(1 << 4, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.RhythmHeart }),
 		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
+			.set(1 << 0, { name: `${emote} 1`, emoji: emoteEmoji })
 			.set(1 << 1, { name: `${emote} 2`, cost: { hearts: 4 }, emoji: emoteEmoji })
 			.set(1 << 2, { name: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 3, { name: "Music sheet", cost: { candles: 15 }, emoji: musicSheet })

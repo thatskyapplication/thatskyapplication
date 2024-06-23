@@ -23,17 +23,17 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
-			.set(1 << 1, { name: `${emote} 2`, cost: null, emoji: emoteEmoji })
+			.set(1 << 0, { name: `${emote} 1`, emoji: emoteEmoji })
+			.set(1 << 1, { name: `${emote} 2`, emoji: emoteEmoji })
 			.set(1 << 3, { name: "Hair", cost: { seasonalCandles: 10 }, emoji: hairEmoji })
-			.set(1 << 2, { name: "Blessing 1", cost: null, emoji: blessing2 })
+			.set(1 << 2, { name: "Blessing 1", emoji: blessing2 })
 			.set(1 << 6, { name: `${emote} 3`, cost: { seasonalCandles: 12 }, emoji: emoteEmoji })
-			.set(1 << 7, { name: `${emote} 4`, cost: null, emoji: emoteEmoji })
+			.set(1 << 7, { name: `${emote} 4`, emoji: emoteEmoji })
 			.set(1 << 9, { name: "Outfit", cost: { seasonalCandles: 14 }, emoji: outfitEmoji })
-			.set(1 << 8, { name: "Blessing 2", cost: null, emoji: blessing2 })
+			.set(1 << 8, { name: "Blessing 2", emoji: blessing2 })
 			.set(1 << 4, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.SanctuaryHeart }),
 		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
+			.set(1 << 0, { name: `${emote} 1`, emoji: emoteEmoji })
 			.set(1 << 1, { name: `${emote} 2`, cost: { hearts: 4 }, emoji: emoteEmoji })
 			.set(1 << 2, { name: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 3, { name: "Hair", cost: { candles: 42 }, emoji: hairEmoji })

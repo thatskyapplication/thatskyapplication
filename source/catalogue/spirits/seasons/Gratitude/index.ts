@@ -18,7 +18,7 @@ export default new Season({
 	guide: GratitudeGuide,
 	spirits: [SassyDrifter, StretchingGuru, ProvokingPerformer, LeapingDancer, SalutingProtector, GreetingShaman],
 	items: new Collection<number, ItemRaw>()
-		.set(1 << 0, { name: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace01 })
-		.set(1 << 1, { name: "Ultimate mask", cost: null, emoji: MASK_EMOJIS.Mask10 }),
+		.set(1 << 0, { name: "Pendant", emoji: NECKLACE_EMOJIS.Necklace01 })
+		.set(1 << 1, { name: "Ultimate mask", emoji: MASK_EMOJIS.Mask10 }),
 	seasonalCandlesRotation: null,
 });

@@ -14,9 +14,9 @@ export default new StandardSpirit({
 	realm: RealmName.IslesOfDawn,
 	offer: {
 		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
+			.set(1 << 0, { name: `${emote} 1`, emoji: emoteEmoji })
 			.set(1 << 1, { name: `${emote} 2`, cost: { candles: 1 }, emoji: emoteEmoji })
-			.set(1 << 2, { name: "Hair", cost: null, emoji: HAIR_EMOJIS.Hair02 })
+			.set(1 << 2, { name: "Hair", emoji: HAIR_EMOJIS.Hair02 })
 			.set(1 << 3, { name: "Blessing 1", cost: { candles: 1 }, emoji: MISCELLANEOUS_EMOJIS.Blessing1 })
 			.set(1 << 4, { name: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
 			.set(1 << 5, { name: "Wing buff", cost: { ascendedCandles: 1 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff })

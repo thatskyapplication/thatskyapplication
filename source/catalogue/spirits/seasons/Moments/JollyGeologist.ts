@@ -28,16 +28,16 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
-			.set(1 << 1, { name: `${emote} 2`, cost: null, emoji: emoteEmoji })
+			.set(1 << 0, { name: `${emote} 1`, emoji: emoteEmoji })
+			.set(1 << 1, { name: `${emote} 2`, emoji: emoteEmoji })
 			.set(1 << 2, { name: "Face accessory", cost: { seasonalCandles: 8 }, emoji: faceAccessoryEmoji })
-			.set(1 << 3, { name: "Hair", cost: null, emoji: hairEmoji })
+			.set(1 << 3, { name: "Hair", emoji: hairEmoji })
 			.set(1 << 4, { name: `${emote} 3`, cost: { seasonalCandles: 20 }, emoji: emoteEmoji })
-			.set(1 << 5, { name: `${emote} 4`, cost: null, emoji: emoteEmoji })
+			.set(1 << 5, { name: `${emote} 4`, emoji: emoteEmoji })
 			.set(1 << 6, { name: "Blessing 1", cost: { seasonalCandles: 28 }, emoji: blessing3 })
-			.set(1 << 7, { name: "Blessing 2", cost: null, emoji: blessing3 })
+			.set(1 << 7, { name: "Blessing 2", emoji: blessing3 })
 			.set(1 << 8, { name: "Music sheet", cost: { seasonalCandles: 34 }, emoji: musicSheet })
-			.set(1 << 9, { name: "Prop", cost: null, emoji: placeablePropEmoji })
+			.set(1 << 9, { name: "Prop", emoji: placeablePropEmoji })
 			.set(1 << 10, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.MomentsHeart }),
 	},
 });

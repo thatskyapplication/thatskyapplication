@@ -14,7 +14,7 @@ export default new StandardSpirit({
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${call} call`, cost: null, emoji: callEmoji })
+			.set(1 << 0, { name: `${call} call`, emoji: callEmoji })
 			.set(1 << 1, { name: "Outfit", cost: { hearts: 3 }, emoji: OUTFIT_EMOJIS.Outfit09 })
 			.set(1 << 2, { name: "Blessing 1", cost: { candles: 1 }, emoji: MISCELLANEOUS_EMOJIS.Blessing1 })
 			.set(1 << 3, { name: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })

@@ -30,7 +30,7 @@ export default new SeasonalSpirit({
 	realm: RealmName.HiddenForest,
 	offer: {
 		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
+			.set(1 << 0, { name: `${emote} 1`, emoji: emoteEmoji })
 			.set(1 << 1, { name: `${emote} 2`, cost: { hearts: 4 }, emoji: emoteEmoji })
 			.set(1 << 2, { name: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 4, { name: "Hair accessory", cost: { candles: 45 }, emoji: hairAccessoryEmoji })
@@ -43,18 +43,18 @@ export default new SeasonalSpirit({
 			.set(1 << 3, { name: "Hair", cost: { candles: 55 }, emoji: hairEmoji })
 			.set(1 << 9, { name: "Cape", cost: { candles: 70 }, emoji: capeEmoji }),
 		seasonal: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
-			.set(1 << 1, { name: `${emote} 2`, cost: null, emoji: emoteEmoji })
+			.set(1 << 0, { name: `${emote} 1`, emoji: emoteEmoji })
+			.set(1 << 1, { name: `${emote} 2`, emoji: emoteEmoji })
 			.set(1 << 2, { name: "Blessing 1", cost: { seasonalCandles: 12 }, emoji: blessing2 })
-			.set(1 << 3, { name: "Hair", cost: null, emoji: hairEmoji })
+			.set(1 << 3, { name: "Hair", emoji: hairEmoji })
 			.set(1 << 4, { name: "Hair accessory", cost: { seasonalCandles: 16 }, emoji: hairAccessoryEmoji })
-			.set(1 << 5, { name: "Blessing 2", cost: null, emoji: blessing2 })
+			.set(1 << 5, { name: "Blessing 2", emoji: blessing2 })
 			.set(1 << 6, { name: `${emote} 3`, cost: { seasonalCandles: 18 }, emoji: emoteEmoji })
-			.set(1 << 7, { name: `${emote} 4`, cost: null, emoji: emoteEmoji })
+			.set(1 << 7, { name: `${emote} 4`, emoji: emoteEmoji })
 			.set(1 << 8, { name: "Trail spell 1", cost: { seasonalCandles: 24 }, emoji: colourTrail })
-			.set(1 << 9, { name: "Cape", cost: null, emoji: capeEmoji })
+			.set(1 << 9, { name: "Cape", emoji: capeEmoji })
 			.set(1 << 10, { name: "Music sheet", cost: { seasonalCandles: 28 }, emoji: musicSheet })
-			.set(1 << 11, { name: "Trail spell 2", cost: null, emoji: colourTrail })
+			.set(1 << 11, { name: "Trail spell 2", emoji: colourTrail })
 			.set(1 << 12, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.FlightHeart }),
 	},
 	visits: {

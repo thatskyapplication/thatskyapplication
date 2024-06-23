@@ -30,7 +30,7 @@ export default new SeasonalSpirit({
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
 		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
+			.set(1 << 0, { name: `${emote} 1`, emoji: emoteEmoji })
 			.set(1 << 1, { name: `${emote} 2`, cost: { hearts: 4 }, emoji: emoteEmoji })
 			.set(1 << 2, { name: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
 			.set(1 << 3, { name: "Hair", cost: { candles: 45 }, emoji: hairEmoji })
@@ -43,16 +43,16 @@ export default new SeasonalSpirit({
 			.set(1 << 9, { name: "Lute", cost: { candles: 70 }, emoji: heldProp })
 			.set(1 << 8, { name: "Cape", cost: { candles: 75 }, emoji: capeEmoji }),
 		seasonal: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${emote} 1`, cost: null, emoji: emoteEmoji })
-			.set(1 << 1, { name: `${emote} 2`, cost: null, emoji: emoteEmoji })
+			.set(1 << 0, { name: `${emote} 1`, emoji: emoteEmoji })
+			.set(1 << 1, { name: `${emote} 2`, emoji: emoteEmoji })
 			.set(1 << 2, { name: "Blessing 1", cost: { seasonalCandles: 12 }, emoji: blessing2 })
-			.set(1 << 3, { name: "Hair", cost: null, emoji: hairEmoji })
+			.set(1 << 3, { name: "Hair", emoji: hairEmoji })
 			.set(1 << 4, { name: `${emote} 3`, cost: { seasonalCandles: 16 }, emoji: emoteEmoji })
-			.set(1 << 5, { name: `${emote} 4`, cost: null, emoji: emoteEmoji })
+			.set(1 << 5, { name: `${emote} 4`, emoji: emoteEmoji })
 			.set(1 << 6, { name: "Blessing 2", cost: { seasonalCandles: 21 }, emoji: blessing2 })
-			.set(1 << 7, { name: "Mask", cost: null, emoji: maskEmoji })
+			.set(1 << 7, { name: "Mask", emoji: maskEmoji })
 			.set(1 << 8, { name: "Cape", cost: { seasonalCandles: 27 }, emoji: capeEmoji })
-			.set(1 << 9, { name: "Lute", cost: null, emoji: heldProp })
+			.set(1 << 9, { name: "Lute", emoji: heldProp })
 			.set(1 << 10, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.DreamsHeart }),
 	},
 	visits: {

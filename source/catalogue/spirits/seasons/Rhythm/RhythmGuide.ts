@@ -10,7 +10,7 @@ export default new GuideSpirit({
 	season: SeasonName.Rhythm,
 	offer: {
 		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: "Pendant", cost: null, emoji: NECKLACE_EMOJIS.Necklace04 })
+			.set(1 << 0, { name: "Pendant", emoji: NECKLACE_EMOJIS.Necklace04 })
 			.set(1 << 1, { name: "Ultimate mask", cost: { seasonalHearts: 2 }, emoji: MASK_EMOJIS.Mask22 })
 			.set(1 << 2, { name: "Ultimate hair", cost: { seasonalHearts: 4 }, emoji: HAIR_EMOJIS.Hair52 }),
 	},

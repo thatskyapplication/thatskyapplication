@@ -31,13 +31,13 @@ export default [
 			hasInfographic: false,
 			seasonal: new Collection<number, ItemRaw>()
 				.set(1 << 0, { name: "Hair accessory", cost: { seasonalCandles: 27 }, emoji: hairAccessoryEmoji })
-				.set(1 << 1, { name: "Blessing 1", cost: null, emoji: blessing3 })
+				.set(1 << 1, { name: "Blessing 1", emoji: blessing3 })
 				.set(1 << 2, { name: "Blessing 2", cost: { seasonalCandles: 16 }, emoji: blessing3 })
-				.set(1 << 3, { name: "Mask", cost: null, emoji: maskEmoji })
+				.set(1 << 3, { name: "Mask", emoji: maskEmoji })
 				.set(1 << 4, { name: "Music sheet", cost: { seasonalCandles: 35 }, emoji: musicSheet })
-				.set(1 << 5, { name: "Blessing 3", cost: null, emoji: blessing3 })
+				.set(1 << 5, { name: "Blessing 3", emoji: blessing3 })
 				.set(1 << 6, { name: "Blessing 4", cost: { seasonalCandles: 16 }, emoji: blessing3 })
-				.set(1 << 7, { name: "Cape", cost: null, emoji: capeEmoji })
+				.set(1 << 7, { name: "Cape", emoji: capeEmoji })
 				.set(1 << 8, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.ShatteringHeart }),
 		},
 	}),
@@ -48,11 +48,11 @@ export default [
 			hasInfographic: false,
 			seasonal: new Collection<number, ItemRaw>()
 				.set(1 << 0, { name: "Neck accessory", cost: { seasonalCandles: 35 }, emoji: necklaceEmoji })
-				.set(1 << 1, { name: "Blessing 1", cost: null, emoji: blessing3 })
+				.set(1 << 1, { name: "Blessing 1", emoji: blessing3 })
 				.set(1 << 2, { name: "Blessing 2", cost: { seasonalCandles: 16 }, emoji: blessing3 })
-				.set(1 << 3, { name: "Dark horn", cost: null, emoji: heldProp })
+				.set(1 << 3, { name: "Dark horn", emoji: heldProp })
 				.set(1 << 4, { name: "Hair", cost: { seasonalCandles: 42 }, emoji: hairEmoji })
-				.set(1 << 5, { name: "Blessing 3", cost: null, emoji: blessing3 })
+				.set(1 << 5, { name: "Blessing 3", emoji: blessing3 })
 				.set(1 << 6, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.ShatteringHeart }),
 		},
 	}),
