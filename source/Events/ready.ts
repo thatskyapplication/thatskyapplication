@@ -64,7 +64,7 @@ async function collectDailyGuides() {
 	}
 }
 
-export const event: Event<typeof name> = {
+export default {
 	name,
 	once: true,
 	async fire(client) {
@@ -98,4 +98,4 @@ export const event: Event<typeof name> = {
 		heartbeat(client);
 		await client.applyCommands();
 	},
-};
+} satisfies Event<typeof name>;

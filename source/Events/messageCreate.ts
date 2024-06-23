@@ -7,7 +7,7 @@ import type { Event } from "./index.js";
 
 const name = Events.MessageCreate;
 
-export const event: Event<typeof name> = {
+export default {
 	name,
 	async fire(message) {
 		if (!message.inGuild()) return;
@@ -41,4 +41,4 @@ export const event: Event<typeof name> = {
 				: messageCreateResponse(message));
 		}
 	},
-};
+} satisfies Event<typeof name>;

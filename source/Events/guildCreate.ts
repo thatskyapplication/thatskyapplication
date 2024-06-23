@@ -4,10 +4,10 @@ import { type Event, logGuild } from "./index.js";
 
 const name = Events.GuildCreate;
 
-export const event: Event<typeof name> = {
+export default {
 	name,
 	async fire(guild) {
 		logGuild(guild);
 		await handleGuildCreate(guild);
 	},
-};
+} satisfies Event<typeof name>;
