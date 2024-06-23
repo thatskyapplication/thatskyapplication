@@ -2822,7 +2822,7 @@ export class Catalogue {
 				.setStyle(ButtonStyle.Primary),
 		);
 
-		if (offer) {
+		if (offer.length > 0) {
 			buttons.addComponents(
 				new ButtonBuilder()
 					.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${spirit.name}`)
@@ -2948,7 +2948,7 @@ export class Catalogue {
 
 		const description = [];
 
-		if (offer) {
+		if (offer.length > 0) {
 			const { offerDescription } = this.embedProgress(bit, offer);
 			description.push(offerDescription.join("\n"));
 		}
@@ -2971,7 +2971,7 @@ export class Catalogue {
 				.setStyle(ButtonStyle.Primary),
 		);
 
-		if (offer) {
+		if (offer.length > 0) {
 			buttons.addComponents(
 				new ButtonBuilder()
 					.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${nameUnique}`)
@@ -3668,7 +3668,7 @@ export class Catalogue {
 			const isSeasonalSpirit = spirit.isSeasonalSpirit();
 			const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
 			const offer = seasonalParsing ? spirit.seasonal : spirit.current;
-			if (!offer) continue;
+			if (offer.length === 0) continue;
 
 			const { remainingCurrency, offerDescription } = this.embedProgress(
 				this[SpiritEventNameToCatalogueName[spirit.name]],
