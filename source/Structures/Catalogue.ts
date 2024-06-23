@@ -1928,9 +1928,7 @@ export class Catalogue {
 
 		for (const spirit of spirits) {
 			const offer =
-				spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
-					? spirit.current
-					: spirit.current ?? spirit.seasonal;
+				spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit() ? spirit.current : spirit.items;
 
 			const { owned, total: offerTotal } = this.ownedProgress(offer, this[SpiritEventNameToCatalogueName[spirit.name]]);
 			totalOwned.push(owned);
@@ -1955,10 +1953,7 @@ export class Catalogue {
 		for (const season of seasons) {
 			const offers: [SpiritName | SeasonName, readonly Item[]][] = [
 				[season.guide.name, season.guide.current],
-				...season.spirits.map<[SpiritName, readonly Item[]]>((spirit) => [
-					spirit.name,
-					spirit.current ?? spirit.seasonal,
-				]),
+				...season.spirits.map<[SpiritName, readonly Item[]]>((spirit) => [spirit.name, spirit.items]),
 				[season.name, season.items],
 			];
 
@@ -2792,7 +2787,7 @@ export class Catalogue {
 		const isElderSpirit = spirit.isElderSpirit();
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
-		const seasonalParsing = isSeasonalSpirit && !spirit.current;
+		const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
 		const offer = seasonalParsing ? spirit.seasonal : spirit.current;
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 
@@ -3608,10 +3603,7 @@ export class Catalogue {
 
 		const offers: [SpiritName | SeasonName, readonly Item[]][] = [
 			[season.guide.name, season.guide.current],
-			...season.spirits.map<[SpiritName | SeasonName, readonly Item[]]>((spirit) => [
-				spirit.name,
-				spirit.current ?? spirit.seasonal,
-			]),
+			...season.spirits.map<[SpiritName | SeasonName, readonly Item[]]>((spirit) => [spirit.name, spirit.items]),
 			[season.name, season.items],
 		];
 
@@ -3674,7 +3666,7 @@ export class Catalogue {
 
 		for (const spirit of spirits) {
 			const isSeasonalSpirit = spirit.isSeasonalSpirit();
-			const seasonalParsing = isSeasonalSpirit && !spirit.current;
+			const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
 			const offer = seasonalParsing ? spirit.seasonal : spirit.current;
 			if (!offer) continue;
 

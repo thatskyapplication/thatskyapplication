@@ -185,6 +185,8 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 
 	public readonly seasonal: readonly Item[];
 
+	public readonly items: readonly Item[];
+
 	public readonly totalCostSeasonal: Required<ItemCost>;
 
 	public imageURLSeasonal: string | null;
@@ -195,6 +197,8 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 		this.seasonal = resolveOffer(seasonalFriendshipTreeData.offer.seasonal, {
 			seasonName: seasonalFriendshipTreeData.season,
 		});
+
+		this.items = this.current.length > 0 ? this.current : this.seasonal;
 
 		this.maximumItemsBit = this.resolveMaxItemsBit(
 			seasonalFriendshipTreeData.offer.current ?? seasonalFriendshipTreeData.offer.seasonal,
