@@ -82,7 +82,7 @@ function getAnswer(): [CosmeticEmojis, StandardSpirit | ElderSpirit | SeasonalSp
 				(spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
 					? spirit.current
 					: spirit.current ?? spirit.seasonal
-				)?.some((item) => item.emoji.id === emoji.id),
+				)?.some((item) => item.emoji?.id === emoji.id),
 		);
 	}
 

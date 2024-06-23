@@ -412,13 +412,13 @@ interface ItemCostEvent {
 export interface ItemRaw {
 	name: string;
 	cost: ItemCostRaw | null;
-	emoji: Emoji;
+	emoji?: Emoji;
 }
 
 export interface Item {
 	name: string;
 	cost: ItemCost | null;
-	emoji: Emoji;
+	emoji: Emoji | null;
 }
 
 interface ResolveOfferOptions {
@@ -430,6 +430,7 @@ export function resolveOffer(items: Collection<number, ItemRaw>, { seasonName, e
 	return items.mapValues((item) => {
 		return {
 			...item,
+			emoji: item.emoji ?? null,
 			cost: item.cost
 				? {
 						...item.cost,

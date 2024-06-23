@@ -2524,13 +2524,15 @@ export class Catalogue {
 		if (season.items) {
 			const bit = catalogue[SpiritEventNameToCatalogueName[seasonName]];
 
-			const itemsOptions = season.items.map(({ emoji, name }, flag) =>
-				new StringSelectMenuOptionBuilder()
+			const itemsOptions = season.items.map(({ emoji, name }, flag) => {
+				const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 					.setDefault(Boolean(bit && bit & flag))
-					.setEmoji(emoji)
 					.setLabel(name)
-					.setValue(String(flag)),
-			);
+					.setValue(String(flag));
+
+				if (emoji) stringSelectMenuOptionBuilder.setEmoji(emoji);
+				return stringSelectMenuOptionBuilder;
+			});
 
 			components.push(
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
@@ -2836,13 +2838,15 @@ export class Catalogue {
 					.setStyle(ButtonStyle.Success),
 			);
 
-			const itemSelectionOptions = offer.map(({ emoji, name }, flag) =>
-				new StringSelectMenuOptionBuilder()
+			const itemSelectionOptions = offer.map(({ emoji, name }, flag) => {
+				const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 					.setDefault(Boolean(bit && bit & flag))
-					.setEmoji(emoji)
 					.setLabel(name)
-					.setValue(String(flag)),
-			);
+					.setValue(String(flag));
+
+				if (emoji) stringSelectMenuOptionBuilder.setEmoji(emoji);
+				return stringSelectMenuOptionBuilder;
+			});
 
 			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
 
@@ -2983,13 +2987,15 @@ export class Catalogue {
 					.setStyle(ButtonStyle.Success),
 			);
 
-			const itemSelectionOptions = offer.map(({ emoji, name }, flag) =>
-				new StringSelectMenuOptionBuilder()
+			const itemSelectionOptions = offer.map(({ emoji, name }, flag) => {
+				const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 					.setDefault(Boolean(bit && bit & flag))
-					.setEmoji(emoji)
 					.setLabel(name)
-					.setValue(String(flag)),
-			);
+					.setValue(String(flag));
+
+				if (emoji) stringSelectMenuOptionBuilder.setEmoji(emoji);
+				return stringSelectMenuOptionBuilder;
+			});
 
 			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
@@ -3037,13 +3043,15 @@ export class Catalogue {
 		const catalogue = await this.fetch(interaction.user.id);
 		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.StarterPacks]];
 
-		const itemSelectionOptions = STARTER_PACKS.items.map(({ emoji, name }, flag) =>
-			new StringSelectMenuOptionBuilder()
+		const itemSelectionOptions = STARTER_PACKS.items.map(({ emoji, name }, flag) => {
+			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 				.setDefault(Boolean(bit && bit & flag))
-				.setEmoji(emoji)
 				.setLabel(name)
-				.setValue(String(flag)),
-		);
+				.setValue(String(flag));
+
+			if (emoji) stringSelectMenuOptionBuilder.setEmoji(emoji);
+			return stringSelectMenuOptionBuilder;
+		});
 
 		const { offerDescription } = catalogue.embedProgress(bit, STARTER_PACKS.items);
 
@@ -3087,13 +3095,15 @@ export class Catalogue {
 		const catalogue = await this.fetch(interaction.user.id);
 		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.SecretArea]];
 
-		const itemSelectionOptions = SECRET_AREA.items.map(({ emoji, name }, flag) =>
-			new StringSelectMenuOptionBuilder()
+		const itemSelectionOptions = SECRET_AREA.items.map(({ emoji, name }, flag) => {
+			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 				.setDefault(Boolean(bit && bit & flag))
-				.setEmoji(emoji)
 				.setLabel(name)
-				.setValue(String(flag)),
-		);
+				.setValue(String(flag));
+
+			if (emoji) stringSelectMenuOptionBuilder.setEmoji(emoji);
+			return stringSelectMenuOptionBuilder;
+		});
 
 		const { offerDescription } = catalogue.embedProgress(bit, SECRET_AREA.items);
 
@@ -3137,13 +3147,15 @@ export class Catalogue {
 		const catalogue = await this.fetch(interaction.user.id);
 		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.HarmonyHall]];
 
-		const itemSelectionOptions = HARMONY_HALL.items.map(({ emoji, name }, flag) =>
-			new StringSelectMenuOptionBuilder()
+		const itemSelectionOptions = HARMONY_HALL.items.map(({ emoji, name }, flag) => {
+			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 				.setDefault(Boolean(bit && bit & flag))
-				.setEmoji(emoji)
 				.setLabel(name)
-				.setValue(String(flag)),
-		);
+				.setValue(String(flag));
+
+			if (emoji) stringSelectMenuOptionBuilder.setEmoji(emoji);
+			return stringSelectMenuOptionBuilder;
+		});
 
 		const { offerDescription } = catalogue.embedProgress(bit, HARMONY_HALL.items);
 
@@ -3187,13 +3199,15 @@ export class Catalogue {
 		const catalogue = await this.fetch(interaction.user.id);
 		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.PermanentEventStore]];
 
-		const itemSelectionOptions = PERMANENT_EVENT_STORE.items.map(({ emoji, name }, flag) =>
-			new StringSelectMenuOptionBuilder()
+		const itemSelectionOptions = PERMANENT_EVENT_STORE.items.map(({ emoji, name }, flag) => {
+			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 				.setDefault(Boolean(bit && bit & flag))
-				.setEmoji(emoji)
 				.setLabel(name)
-				.setValue(String(flag)),
-		);
+				.setValue(String(flag));
+
+			if (emoji) stringSelectMenuOptionBuilder.setEmoji(emoji);
+			return stringSelectMenuOptionBuilder;
+		});
 
 		const { offerDescription } = catalogue.embedProgress(bit, PERMANENT_EVENT_STORE.items);
 
@@ -3237,13 +3251,15 @@ export class Catalogue {
 		const catalogue = await this.fetch(interaction.user.id);
 		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.NestingWorkshop]];
 
-		const itemSelectionOptions = NESTING_WORKSHOP.items.map(({ emoji, name }, flag) =>
-			new StringSelectMenuOptionBuilder()
+		const itemSelectionOptions = NESTING_WORKSHOP.items.map(({ emoji, name }, flag) => {
+			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 				.setDefault(Boolean(bit && bit & flag))
-				.setEmoji(emoji)
 				.setLabel(name)
-				.setValue(String(flag)),
-		);
+				.setValue(String(flag));
+
+			if (emoji) stringSelectMenuOptionBuilder.setEmoji(emoji);
+			return stringSelectMenuOptionBuilder;
+		});
 
 		const itemSelectionOptions1 = itemSelectionOptions.slice(0, CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
 		const itemSelectionOptions2 = itemSelectionOptions.slice(CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
@@ -3569,11 +3585,13 @@ export class Catalogue {
 		const owned = [];
 		const unowned = [];
 
-		for (const [flag, { emoji }] of offer.entries()) {
+		for (const [flag, { name, emoji }] of offer.entries()) {
+			const toPush = emoji ? formatEmoji(emoji) : name;
+
 			if (bit && (bit & flag) === flag) {
-				owned.push(formatEmoji(emoji));
+				owned.push(toPush);
 			} else {
-				unowned.push(formatEmoji(emoji));
+				unowned.push(toPush);
 			}
 		}
 
