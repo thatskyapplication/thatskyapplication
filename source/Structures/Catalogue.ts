@@ -2520,7 +2520,7 @@ export class Catalogue {
 			),
 		];
 
-		if (season.items) {
+		if (season.items.length > 0) {
 			const bit = catalogue[SpiritEventNameToCatalogueName[seasonName]];
 
 			const itemsOptions = season.items.map(({ emoji, name, bit: flag }) => {
@@ -3606,7 +3606,7 @@ export class Catalogue {
 		const description = [];
 		const remainingCurrencies = [];
 
-		const offers: [SpiritName | SeasonName, readonly Item[] | null][] = [
+		const offers: [SpiritName | SeasonName, readonly Item[]][] = [
 			[season.guide.name, season.guide.current],
 			...season.spirits.map<[SpiritName | SeasonName, readonly Item[]]>((spirit) => [
 				spirit.name,
@@ -3616,7 +3616,7 @@ export class Catalogue {
 		];
 
 		for (const [index, offer] of offers) {
-			if (!offer) continue;
+			if (offer.length === 0) continue;
 
 			const { remainingCurrency, offerDescription } = this.embedProgress(
 				this[SpiritEventNameToCatalogueName[index]],
