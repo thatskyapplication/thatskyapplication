@@ -1,7 +1,5 @@
-import { Collection } from "discord.js";
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	FRIEND_ACTION_EMOJIS,
@@ -18,18 +16,19 @@ export default new GuideSpirit({
 	realm: RealmName.IslesOfDawn,
 	offer: {
 		hasInfographic: false,
-		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: "Quest 1", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 1, { name: "Heart 1", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 2, { name: "Pendant", emoji: NECKLACE_EMOJIS.Necklace08 })
-			.set(1 << 3, { name: "Dunun", cost: { seasonalHearts: 2 }, emoji: HELD_PROPS_EMOJIS.HeldProp19 })
-			.set(1 << 4, { name: "Anubis mask", cost: { seasonalHearts: 2 }, emoji: MASK_EMOJIS.Mask36 })
-			.set(1 << 5, { name: "Quest 2", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 6, { name: "Heart 2", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 7, { name: "Quest 3", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 8, { name: "Heart 3", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 9, { name: "Quest 4", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 10, { name: "Heart 4", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 11, { name: FriendAction.Hug, emoji: FRIEND_ACTION_EMOJIS.Hug }),
+		current: [
+			{ name: "Quest 1", bit: 1 << 0, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 1", bit: 1 << 1, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Pendant", bit: 1 << 2, emoji: NECKLACE_EMOJIS.Necklace08 },
+			{ name: "Dunun", bit: 1 << 3, cost: { seasonalHearts: 2 }, emoji: HELD_PROPS_EMOJIS.HeldProp19 },
+			{ name: "Anubis mask", bit: 1 << 4, cost: { seasonalHearts: 2 }, emoji: MASK_EMOJIS.Mask36 },
+			{ name: "Quest 2", bit: 1 << 5, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 2", bit: 1 << 6, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Quest 3", bit: 1 << 7, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 3", bit: 1 << 8, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Quest 4", bit: 1 << 9, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 4", bit: 1 << 10, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: FriendAction.Hug, bit: 1 << 11, emoji: FRIEND_ACTION_EMOJIS.Hug },
+		],
 	},
 });

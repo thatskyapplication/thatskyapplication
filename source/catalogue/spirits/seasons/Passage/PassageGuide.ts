@@ -1,7 +1,5 @@
-import { Collection } from "discord.js";
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
@@ -18,27 +16,29 @@ export default new GuideSpirit({
 	realm: RealmName.IslesOfDawn,
 	offer: {
 		hasInfographic: false,
-		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: "Quest 1", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 1, { name: "Heart 1", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 2, { name: "Pendant", emoji: NECKLACE_EMOJIS.Necklace29 })
-			.set(1 << 3, { name: "Ultimate mask", cost: { seasonalHearts: 2 }, emoji: MASK_EMOJIS.Mask76 })
-			.set(1 << 4, { name: "Ultimate cape", cost: { seasonalHearts: 2 }, emoji: CAPE_EMOJIS.Cape104 })
-			.set(1 << 5, { name: "Quest 2", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 6, { name: "Serow mask", cost: { candles: 48 }, emoji: MASK_EMOJIS.Mask77 })
-			.set(1 << 7, { name: "Quest 3", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 8, { name: "Heart 2", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 9, { name: "Boar mask", cost: { candles: 44 }, emoji: MASK_EMOJIS.Mask78 })
-			.set(1 << 10, { name: "Quest 4", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 11, { name: "Heart 3", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 12, { name: "Monkey mask", cost: { candles: 46 }, emoji: MASK_EMOJIS.Mask79 })
-			.set(1 << 13, { name: "Quest 5", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 14, { name: "Heart 4", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 15, {
+		current: [
+			{ name: "Quest 1", bit: 1 << 0, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 1", bit: 1 << 1, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Pendant", bit: 1 << 2, emoji: NECKLACE_EMOJIS.Necklace29 },
+			{ name: "Ultimate mask", bit: 1 << 3, cost: { seasonalHearts: 2 }, emoji: MASK_EMOJIS.Mask76 },
+			{ name: "Ultimate cape", bit: 1 << 4, cost: { seasonalHearts: 2 }, emoji: CAPE_EMOJIS.Cape104 },
+			{ name: "Quest 2", bit: 1 << 5, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Serow mask", bit: 1 << 6, cost: { candles: 48 }, emoji: MASK_EMOJIS.Mask77 },
+			{ name: "Quest 3", bit: 1 << 7, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 2", bit: 1 << 8, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Boar mask", bit: 1 << 9, cost: { candles: 44 }, emoji: MASK_EMOJIS.Mask78 },
+			{ name: "Quest 4", bit: 1 << 10, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 3", bit: 1 << 11, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Monkey mask", bit: 1 << 12, cost: { candles: 46 }, emoji: MASK_EMOJIS.Mask79 },
+			{ name: "Quest 5", bit: 1 << 13, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 4", bit: 1 << 14, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{
 				name: "Hacky sack",
+				bit: 1 << 15,
 				cost: { hearts: 39 },
 				emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp26,
-			})
-			.set(1 << 16, { name: "Racoon mask", cost: { candles: 52 }, emoji: MASK_EMOJIS.Mask80 }),
+			},
+			{ name: "Racoon mask", bit: 1 << 16, cost: { candles: 52 }, emoji: MASK_EMOJIS.Mask80 },
+		],
 	},
 });

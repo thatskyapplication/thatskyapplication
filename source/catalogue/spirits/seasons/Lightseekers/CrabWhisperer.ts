@@ -2,7 +2,6 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
@@ -30,27 +29,29 @@ export default new SeasonalSpirit({
 	realm: RealmName.GoldenWasteland,
 	offer: {
 		hasInfographicSeasonal: false,
-		seasonal: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${call} call`, emoji: callEmoji })
-			.set(1 << 3, { name: "Mask", cost: { seasonalCandles: 12 }, emoji: maskEmoji })
-			.set(1 << 2, { name: "Blessing 1", emoji: blessing2 })
-			.set(1 << 6, { name: "Blessing 2", cost: { seasonalCandles: 14 }, emoji: blessing2 })
-			.set(1 << 7, { name: "Music sheet", emoji: musicSheet })
-			.set(1 << 10, { name: "Blessing 3", cost: { seasonalCandles: 16 }, emoji: blessing2 })
-			.set(1 << 11, { name: "Blessing 4", emoji: blessing2 })
-			.set(1 << 8, { name: "Hair", cost: { seasonalCandles: 18 }, emoji: hairEmoji })
-			.set(1 << 9, { name: "Cape", emoji: capeEmoji }),
-		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${call} call`, emoji: callEmoji })
-			.set(1 << 1, { name: "Pipe", cost: { candles: 20 }, emoji: placeablePropEmoji })
-			.set(1 << 2, { name: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
-			.set(1 << 3, { name: "Mask", cost: { candles: 30 }, emoji: maskEmoji })
-			.set(1 << 4, { name: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 5, { name: "Wing buff", cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff })
-			.set(1 << 6, { name: "Blessing 2", cost: { candles: 5 }, emoji: blessing2 })
-			.set(1 << 7, { name: "Music sheet", cost: { candles: 15 }, emoji: musicSheet })
-			.set(1 << 8, { name: "Hair", cost: { candles: 42 }, emoji: hairEmoji })
-			.set(1 << 9, { name: "Cape", cost: { candles: 70 }, emoji: capeEmoji }),
+		seasonal: [
+			{ name: `${call} call`, bit: 1 << 0, emoji: callEmoji },
+			{ name: "Mask", bit: 1 << 3, cost: { seasonalCandles: 12 }, emoji: maskEmoji },
+			{ name: "Blessing 1", bit: 1 << 2, emoji: blessing2 },
+			{ name: "Blessing 2", bit: 1 << 6, cost: { seasonalCandles: 14 }, emoji: blessing2 },
+			{ name: "Music sheet", bit: 1 << 7, emoji: musicSheet },
+			{ name: "Blessing 3", bit: 1 << 10, cost: { seasonalCandles: 16 }, emoji: blessing2 },
+			{ name: "Blessing 4", bit: 1 << 11, emoji: blessing2 },
+			{ name: "Hair", bit: 1 << 8, cost: { seasonalCandles: 18 }, emoji: hairEmoji },
+			{ name: "Cape", bit: 1 << 9, emoji: capeEmoji },
+		],
+		current: [
+			{ name: `${call} call`, bit: 1 << 0, emoji: callEmoji },
+			{ name: "Pipe", bit: 1 << 1, cost: { candles: 20 }, emoji: placeablePropEmoji },
+			{ name: "Blessing 1", bit: 1 << 2, cost: { candles: 5 }, emoji: blessing2 },
+			{ name: "Mask", bit: 1 << 3, cost: { candles: 30 }, emoji: maskEmoji },
+			{ name: "Heart", bit: 1 << 4, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Wing buff", bit: 1 << 5, cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff },
+			{ name: "Blessing 2", bit: 1 << 6, cost: { candles: 5 }, emoji: blessing2 },
+			{ name: "Music sheet", bit: 1 << 7, cost: { candles: 15 }, emoji: musicSheet },
+			{ name: "Hair", bit: 1 << 8, cost: { candles: 42 }, emoji: hairEmoji },
+			{ name: "Cape", bit: 1 << 9, cost: { candles: 70 }, emoji: capeEmoji },
+		],
 	},
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>()

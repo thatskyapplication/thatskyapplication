@@ -1,7 +1,5 @@
-import { Collection } from "discord.js";
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
@@ -25,32 +23,33 @@ export default new GuideSpirit({
 	season: SeasonName.AURORA,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
-		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: "Quest 1", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 1, { name: `${emote1} 2`, cost: { hearts: 3 }, emoji: emote1Emoji })
-			.set(1 << 2, { name: "Pendant", emoji: NECKLACE_EMOJIS.Necklace24 })
-			.set(1 << 3, { name: "Aurora hair", cost: { seasonalHearts: 1 }, emoji: HAIR_EMOJIS.Hair116 })
-			.set(1 << 4, { name: "Ultimate outfit", cost: { seasonalHearts: 2 }, emoji: OUTFIT_EMOJIS.Outfit36 })
-			.set(1 << 5, { name: "Ultimate cape", cost: { seasonalHearts: 1 }, emoji: CAPE_EMOJIS.Cape92 })
-			.set(1 << 6, { name: `${emote1} 1`, emoji: emote1Emoji })
-			.set(1 << 7, { name: `${emote1} 3`, cost: { candles: 5 }, emoji: emote1Emoji })
-			.set(1 << 8, { name: `${emote1} 4`, cost: { hearts: 5 }, emoji: emote1Emoji })
-			.set(1 << 9, { name: "Quest 2", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 10, { name: `${emote2} 1`, emoji: emote2Emoji })
-			.set(1 << 11, { name: `${emote2} 2`, cost: { hearts: 3 }, emoji: emote2Emoji })
-			.set(1 << 12, { name: `${emote2} 3`, cost: { candles: 5 }, emoji: emote2Emoji })
-			.set(1 << 13, { name: `${emote2} 4`, cost: { hearts: 5 }, emoji: emote2Emoji })
-			.set(1 << 14, { name: "Quest 3", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 15, { name: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 16, { name: `${emote3} 1`, emoji: emote3Emoji })
-			.set(1 << 17, { name: `${emote3} 2`, cost: { hearts: 3 }, emoji: emote3Emoji })
-			.set(1 << 18, { name: `${emote3} 3`, cost: { candles: 5 }, emoji: emote3Emoji })
-			.set(1 << 19, { name: `${emote3} 4`, cost: { hearts: 5 }, emoji: emote3Emoji })
-			.set(1 << 20, { name: "Quest 4", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 21, { name: "Music sheet 1", cost: { candles: 20 }, emoji: MISCELLANEOUS_EMOJIS.MusicSheet })
-			.set(1 << 22, { name: "Quest 5", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 23, { name: "Music sheet 2", cost: { candles: 20 }, emoji: MISCELLANEOUS_EMOJIS.MusicSheet })
-			.set(1 << 24, { name: "Outfit", cost: { candles: 200 }, emoji: OUTFIT_EMOJIS.Outfit37 })
-			.set(1 << 25, { name: "Mask", cost: { candles: 50 }, emoji: MASK_EMOJIS.Mask70 }),
+		current: [
+			{ name: "Quest 1", bit: 1 << 0, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: `${emote1} 2`, bit: 1 << 1, cost: { hearts: 3 }, emoji: emote1Emoji },
+			{ name: "Pendant", bit: 1 << 2, emoji: NECKLACE_EMOJIS.Necklace24 },
+			{ name: "Aurora hair", bit: 1 << 3, cost: { seasonalHearts: 1 }, emoji: HAIR_EMOJIS.Hair116 },
+			{ name: "Ultimate outfit", bit: 1 << 4, cost: { seasonalHearts: 2 }, emoji: OUTFIT_EMOJIS.Outfit36 },
+			{ name: "Ultimate cape", bit: 1 << 5, cost: { seasonalHearts: 1 }, emoji: CAPE_EMOJIS.Cape92 },
+			{ name: `${emote1} 1`, bit: 1 << 6, emoji: emote1Emoji },
+			{ name: `${emote1} 3`, bit: 1 << 7, cost: { candles: 5 }, emoji: emote1Emoji },
+			{ name: `${emote1} 4`, bit: 1 << 8, cost: { hearts: 5 }, emoji: emote1Emoji },
+			{ name: "Quest 2", bit: 1 << 9, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: `${emote2} 1`, bit: 1 << 10, emoji: emote2Emoji },
+			{ name: `${emote2} 2`, bit: 1 << 11, cost: { hearts: 3 }, emoji: emote2Emoji },
+			{ name: `${emote2} 3`, bit: 1 << 12, cost: { candles: 5 }, emoji: emote2Emoji },
+			{ name: `${emote2} 4`, bit: 1 << 13, cost: { hearts: 5 }, emoji: emote2Emoji },
+			{ name: "Quest 3", bit: 1 << 14, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart", bit: 1 << 15, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: `${emote3} 1`, bit: 1 << 16, emoji: emote3Emoji },
+			{ name: `${emote3} 2`, bit: 1 << 17, cost: { hearts: 3 }, emoji: emote3Emoji },
+			{ name: `${emote3} 3`, bit: 1 << 18, cost: { candles: 5 }, emoji: emote3Emoji },
+			{ name: `${emote3} 4`, bit: 1 << 19, cost: { hearts: 5 }, emoji: emote3Emoji },
+			{ name: "Quest 4", bit: 1 << 20, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Music sheet 1", bit: 1 << 21, cost: { candles: 20 }, emoji: MISCELLANEOUS_EMOJIS.MusicSheet },
+			{ name: "Quest 5", bit: 1 << 22, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Music sheet 2", bit: 1 << 23, cost: { candles: 20 }, emoji: MISCELLANEOUS_EMOJIS.MusicSheet },
+			{ name: "Outfit", bit: 1 << 24, cost: { candles: 200 }, emoji: OUTFIT_EMOJIS.Outfit37 },
+			{ name: "Mask", bit: 1 << 25, cost: { candles: 50 }, emoji: MASK_EMOJIS.Mask70 },
+		],
 	},
 });
