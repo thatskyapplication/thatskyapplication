@@ -8,4 +8,4 @@ const items = resolveOffer(
 		.set(1 << 1, { name: "TGC Guitar Pack", cost: { money: 29.99 }, emoji: HELD_PROPS_EMOJIS.HeldProp30 }),
 );
 
-export const SECRET_AREA = { items, maximumItemsBit: items.reduce((bits, _, bit) => bit | bits, 0) } as const;
+export const SECRET_AREA = { items, maximumItemsBit: items.reduce((bits, { bit }) => bit | bits, 0) } as const;

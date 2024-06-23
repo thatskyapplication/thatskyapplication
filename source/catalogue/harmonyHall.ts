@@ -15,4 +15,4 @@ const items = resolveOffer(
 		.set(1 << 8, { name: "Triumph Violin", cost: { money: 19.99 }, emoji: HELD_PROPS_EMOJIS.HeldProp35 }),
 );
 
-export const HARMONY_HALL = { items, maximumItemsBit: items.reduce((bits, _, bit) => bit | bits, 0) } as const;
+export const HARMONY_HALL = { items, maximumItemsBit: items.reduce((bits, { bit }) => bit | bits, 0) } as const;

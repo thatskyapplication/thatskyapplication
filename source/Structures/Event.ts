@@ -1,5 +1,4 @@
 import { URL } from "node:url";
-import type { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { CDN_URL } from "../Utility/Constants.js";
 import {
@@ -54,7 +53,7 @@ interface EventData {
 	/**
 	 * What the event offers.
 	 */
-	offer?: Collection<number, ItemRaw>;
+	offer?: readonly ItemRaw[];
 	/**
 	 * Whether this event has an infographic URL regarding the items it offers.
 	 */
@@ -88,7 +87,7 @@ export class Event {
 	 */
 	public readonly eventCurrencyEmoji: EventEmojis | null;
 
-	public readonly offer: Collection<number, Item> | null;
+	public readonly offer: readonly Item[];
 
 	public readonly maximumItemsBit: number | null;
 
@@ -111,7 +110,7 @@ export class Event {
 
 		this.eventCurrencyPerDay = data.eventCurrencyPerDay ?? null;
 		this.eventCurrencyEmoji = EventNameToEventCurrencyEmoji[this.name];
-		this.offer = data.offer ? resolveOffer(data.offer, { eventName: this.name }) : null;
+		this.offer = data.offer ? resolveOffer(data.offer, { eventName: this.name }) : [];
 		this.maximumItemsBit = data.offer ? this.resolveMaxItemsBit(data.offer) : null;
 
 		this.offerInfographicURL = data.offerInfographicURL
@@ -121,8 +120,8 @@ export class Event {
 		this.wikiURL = wikiURL(this.name);
 	}
 
-	private resolveMaxItemsBit(offer: Collection<number, ItemRaw>) {
-		return offer.reduce((bits, _, bit) => bit | bits, 0) ?? 0;
+	private resolveMaxItemsBit(offer: readonly ItemRaw[]) {
+		return offer.reduce((bits, { bit }) => bit | bits, 0) ?? 0;
 	}
 
 	public daysText(date: DateTime) {

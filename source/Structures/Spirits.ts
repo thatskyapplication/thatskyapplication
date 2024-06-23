@@ -42,20 +42,20 @@ const RETURNING_DATES = new Collection<SeasonalSpiritVisitCollectionKey, Returni
 
 interface BaseFriendshipTreeOfferData {
 	hasInfographic?: boolean;
-	current?: Collection<number, ItemRaw>;
+	current?: readonly ItemRaw[];
 }
 
 interface StandardFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
-	current: Collection<number, ItemRaw>;
+	current: readonly ItemRaw[];
 }
 
 interface ElderFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
-	current: Collection<number, ItemRaw>;
+	current: readonly ItemRaw[];
 }
 
 interface SeasonalFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
 	hasInfographicSeasonal?: boolean;
-	seasonal: Collection<number, ItemRaw>;
+	seasonal: readonly ItemRaw[];
 }
 
 interface GuideFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
@@ -134,7 +134,7 @@ interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
 }
 
 abstract class BaseFriendshipTree {
-	public readonly current: Collection<number, Item> | null;
+	public readonly current: readonly Item[];
 
 	public readonly totalCost: Required<ItemCost> | null;
 
@@ -143,7 +143,7 @@ abstract class BaseFriendshipTree {
 	public imageURL: string | null;
 
 	public constructor({ name, offer }: BaseFriendshipTreeData) {
-		this.current = offer?.current ? resolveOffer(offer.current) : null;
+		this.current = offer?.current ? resolveOffer(offer.current) : [];
 
 		this.totalCost = this.current
 			? addCosts(this.current.map((item) => item.cost).filter((cost): cost is ItemCost => cost !== null))
@@ -153,8 +153,8 @@ abstract class BaseFriendshipTree {
 		this.imageURL = (offer ? offer.hasInfographic ?? true : false) ? this.resolveImageURL(name) : null;
 	}
 
-	protected resolveMaxItemsBit(offer: Collection<number, ItemRaw>) {
-		return offer.reduce((bits, _, bit) => bit | bits, 0);
+	protected resolveMaxItemsBit(offer: readonly ItemRaw[]) {
+		return offer.reduce((bits, { bit }) => bit | bits, 0);
 	}
 
 	protected resolveImageURL(name: SpiritName, seasonal = false) {
@@ -165,7 +165,7 @@ abstract class BaseFriendshipTree {
 }
 
 abstract class StandardFriendshipTree extends BaseFriendshipTree {
-	public declare readonly current: Collection<number, Item>;
+	public declare readonly current: readonly Item[];
 
 	public declare readonly totalCost: Required<ItemCost>;
 
@@ -173,7 +173,7 @@ abstract class StandardFriendshipTree extends BaseFriendshipTree {
 }
 
 abstract class ElderFriendshipTree extends BaseFriendshipTree {
-	public declare readonly current: Collection<number, Item>;
+	public declare readonly current: readonly Item[];
 
 	public declare readonly totalCost: Required<ItemCost>;
 
@@ -183,7 +183,7 @@ abstract class ElderFriendshipTree extends BaseFriendshipTree {
 abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 	public override readonly maximumItemsBit: number;
 
-	public readonly seasonal: Collection<number, Item>;
+	public readonly seasonal: readonly Item[];
 
 	public readonly totalCostSeasonal: Required<ItemCost>;
 
