@@ -38,7 +38,7 @@ import { todayDate } from "../Utility/dates.js";
 import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { SpiritName } from "../Utility/spirits.js";
-import { CURRENT_EVENTS, CURRENT_EVENTS_YEARS, resolveEvents } from "../catalogue/events/index.js";
+import { currentEvents, currentEventsYears, resolveEvents } from "../catalogue/events/index.js";
 import { HARMONY_HALL } from "../catalogue/harmonyHall.js";
 import { NESTING_WORKSHOP } from "../catalogue/nestingWorkshop.js";
 import { PERMANENT_EVENT_STORE } from "../catalogue/permanentEventStore.js";
@@ -46,7 +46,7 @@ import { SECRET_AREA } from "../catalogue/secretArea.js";
 import { SPIRITS } from "../catalogue/spirits/index.js";
 import { ELDER_SPIRITS, REALMS, REALM_SPIRITS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
 import {
-	CURRENT_SEASONS,
+	currentSeasons,
 	isSeasonName,
 	resolveReturningSpirits,
 	resolveSeason,
@@ -2047,8 +2047,8 @@ export class Catalogue {
 
 	public allProgress(round?: boolean) {
 		const standardAndElderOwnedProgress = this.spiritOwnedProgress(REALM_SPIRITS);
-		const seasonalOwnedProgress = this.seasonOwnedProgress(CURRENT_SEASONS);
-		const eventOwnedProgress = this.eventOwnedProgress(CURRENT_EVENTS);
+		const seasonalOwnedProgress = this.seasonOwnedProgress(currentSeasons());
+		const eventOwnedProgress = this.eventOwnedProgress(currentEvents());
 		const starterPackOwnedProgress = this.starterPackOwnedProgress();
 		const secretAreaOwnedProgress = this.secretAreaOwnedProgress();
 		const harmonyHallOwnedProgress = this.harmonyHallOwnedProgress();
@@ -2096,8 +2096,8 @@ export class Catalogue {
 
 		const standardProgress = catalogue.spiritProgress(STANDARD_SPIRITS, true);
 		const elderProgress = catalogue.spiritProgress(ELDER_SPIRITS, true);
-		const seasonalProgress = catalogue.seasonProgress(CURRENT_SEASONS, true);
-		const eventProgress = catalogue.eventProgress(CURRENT_EVENTS, true);
+		const seasonalProgress = catalogue.seasonProgress(currentSeasons(), true);
+		const eventProgress = catalogue.eventProgress(currentEvents(), true);
 		const starterPackProgress = catalogue.starterPackProgress(true);
 		const secretAreaProgress = catalogue.secretAreaProgress(true);
 		const harmonyHallProgress = catalogue.harmonyHallProgress(true);
@@ -2105,7 +2105,7 @@ export class Catalogue {
 		// const nestingWorkshopProgress = catalogue.nestingWorkshopProgress(true);
 		const today = todayDate();
 		const currentSeason = resolveSeason(today);
-		const currentEvents = resolveEvents(today);
+		const events = resolveEvents(today);
 		const currentTravellingSpirit = resolveTravellingSpirit(today);
 		const currentReturningSpirits = resolveReturningSpirits(today);
 
@@ -2125,7 +2125,7 @@ export class Catalogue {
 		}
 
 		const currentEventButtons =
-			currentEvents.length === 0
+			events.length === 0
 				? [
 						new ButtonBuilder()
 							// This would not happen, but it's here to satisfy the API.
@@ -2133,7 +2133,7 @@ export class Catalogue {
 							.setDisabled()
 							.setStyle(ButtonStyle.Secondary),
 				  ]
-				: currentEvents.reduce<ButtonBuilder[]>((buttons, event) => {
+				: events.reduce<ButtonBuilder[]>((buttons, event) => {
 						const button = new ButtonBuilder()
 							.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${event.nameUnique}`)
 							.setStyle(ButtonStyle.Success);
@@ -2441,7 +2441,7 @@ export class Catalogue {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							CURRENT_SEASONS.map((season) => {
+							currentSeasons().map((season) => {
 								const percentage = catalogue.seasonProgress([season], true);
 
 								return new StringSelectMenuOptionBuilder()
@@ -2472,7 +2472,7 @@ export class Catalogue {
 	public static async viewSeason(interaction: ButtonInteraction | StringSelectMenuInteraction, seasonName: SeasonName) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { locale, user } = interaction;
-		const season = CURRENT_SEASONS.find(({ name }) => name === seasonName);
+		const season = currentSeasons().find(({ name }) => name === seasonName);
 
 		if (!season) {
 			pino.error(interaction, "Failed to view a season.");
@@ -2540,9 +2540,10 @@ export class Catalogue {
 			);
 		}
 
-		const index = CURRENT_SEASONS.indexOf(season);
-		const before = CURRENT_SEASONS[index - 1];
-		const after = CURRENT_SEASONS[index + 1];
+		const seasons = currentSeasons();
+		const index = seasons.indexOf(season);
+		const before = seasons[index - 1];
+		const after = seasons[index + 1];
 
 		components.push(
 			new ActionRowBuilder<ButtonBuilder>().setComponents(
@@ -2597,9 +2598,9 @@ export class Catalogue {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							CURRENT_EVENTS_YEARS.map((year) => {
+							currentEventsYears().map((year) => {
 								const percentage = catalogue.eventProgress(
-									CURRENT_EVENTS.filter((event) => event.start.year === year),
+									currentEvents().filter((event) => event.start.year === year),
 									true,
 								);
 
@@ -2633,7 +2634,7 @@ export class Catalogue {
 		const { locale, user } = interaction;
 		const year = Number(yearString);
 		const catalogue = await this.fetch(user.id);
-		const events = CURRENT_EVENTS.filter((event) => event.start.year === year);
+		const events = currentEvents().filter((event) => event.start.year === year);
 
 		const options = events.map((event) => {
 			const { name, nameUnique } = event;
@@ -2666,9 +2667,10 @@ export class Catalogue {
 			});
 		}
 
-		const index = CURRENT_EVENTS_YEARS.indexOf(year);
-		const before = CURRENT_EVENTS_YEARS[index - 1];
-		const after = CURRENT_EVENTS_YEARS[index + 1];
+		const eventsYears = currentEventsYears();
+		const index = eventsYears.indexOf(year);
+		const before = eventsYears[index - 1];
+		const after = eventsYears[index + 1];
 
 		await interaction.update({
 			content: "",
@@ -2880,7 +2882,7 @@ export class Catalogue {
 		} else if (isElderSpirit) {
 			spirits = ELDER_SPIRITS;
 		} else if (isSeasonalSpirit || isGuideSpirit) {
-			const season = CURRENT_SEASONS.find(({ name }) => name === spirit.season);
+			const season = currentSeasons().find(({ name }) => name === spirit.season);
 			if (season) spirits = [season.guide, ...season.spirits];
 		}
 
@@ -2919,7 +2921,7 @@ export class Catalogue {
 				? interaction.customId.slice(interaction.customId.indexOf("§") + 1)
 				: interaction.values[0];
 
-		const event = CURRENT_EVENTS.find(({ nameUnique }) => nameUnique === eventName);
+		const event = currentEvents().find(({ nameUnique }) => nameUnique === eventName);
 
 		if (!event) {
 			await interaction.update(ERROR_RESPONSE);
@@ -3005,7 +3007,7 @@ export class Catalogue {
 
 		components.push(buttons);
 
-		const events = CURRENT_EVENTS.filter((event) => event.start.year === start.year);
+		const events = currentEvents().filter((event) => event.start.year === start.year);
 		const index = events.findIndex((event) => event.nameUnique === nameUnique);
 		const before = events[index - 1];
 		const after = events[index + 1];
@@ -3339,7 +3341,7 @@ export class Catalogue {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { customId, user } = interaction;
 		const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
-		const season = CURRENT_SEASONS.find((season) => season.name === parsedCustomId);
+		const season = currentSeasons().find((season) => season.name === parsedCustomId);
 
 		if (!season) {
 			pino.error(interaction, "Unknown season.");
@@ -3367,7 +3369,7 @@ export class Catalogue {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
 		const { customId, user, values } = interaction;
 		const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
-		const season = CURRENT_SEASONS.find((season) => season.name === parsedCustomId);
+		const season = currentSeasons().find((season) => season.name === parsedCustomId);
 
 		if (!season) {
 			pino.error(interaction, "Unknown season.");
@@ -3385,7 +3387,7 @@ export class Catalogue {
 		const { customId } = interaction;
 		const resolvedCustomId = customId.slice(customId.indexOf("§") + 1);
 		const spirit = SPIRITS.find(({ name }) => name === resolvedCustomId);
-		const event = CURRENT_EVENTS.find(({ nameUnique }) => nameUnique === resolvedCustomId);
+		const event = currentEvents().find(({ nameUnique }) => nameUnique === resolvedCustomId);
 
 		if (spirit) {
 			await catalogue.setSpiritItems(interaction, spirit);
@@ -3766,7 +3768,7 @@ export class Catalogue {
 			backButton.setCustomId(`${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${type}`).setEmoji(emoji);
 
 			embed = catalogue
-				.seasonEmbed(CURRENT_SEASONS.find((season) => season.name === type)!, locale)
+				.seasonEmbed(currentSeasons().find((season) => season.name === type)!, locale)
 				.setTitle(`${formatEmoji(emoji)} ${t(`seasons.${type}`, { lng: locale, ns: "general" })} Progress`);
 		} else if (type === CATALOGUE_SHARE_ELDER_KEY) {
 			backButton.setCustomId(CATALOGUE_VIEW_ELDERS_CUSTOM_ID);

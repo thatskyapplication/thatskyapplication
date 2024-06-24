@@ -54,8 +54,6 @@ const SEASONS = [
 	Nesting,
 ] as const;
 
-export const CURRENT_SEASONS = SEASONS.filter((season) => todayDate() >= season.start);
-
 export const SEASON_SPIRITS = [
 	Gratitude.guide,
 	...Gratitude.spirits,
@@ -100,6 +98,10 @@ export const SEASON_SPIRITS = [
 	Nesting.guide,
 	...Nesting.spirits,
 ] as const;
+
+export function currentSeasons() {
+	return SEASONS.filter(({ start }) => todayDate() >= start);
+}
 
 export function resolveSeason(date: DateTime) {
 	return SEASONS.find(({ start, end }) => date >= start && date <= end) ?? null;

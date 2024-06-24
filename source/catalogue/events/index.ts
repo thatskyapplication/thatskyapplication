@@ -8,8 +8,14 @@ import Year5 from "./2023/index.js";
 import Year6 from "./2024/index.js";
 
 const EVENTS = [...Year1, ...Year2, ...Year3, ...Year4, ...Year5, ...Year6] as const;
-export const CURRENT_EVENTS = EVENTS.filter((event) => todayDate() >= event.start);
-export const CURRENT_EVENTS_YEARS = [...new Set(CURRENT_EVENTS.map(({ start: { year } }) => year))];
+
+export function currentEvents() {
+	return EVENTS.filter((event) => todayDate() >= event.start);
+}
+
+export function currentEventsYears() {
+	return [...new Set(currentEvents().map(({ start: { year } }) => year))];
+}
 
 export function resolveEvents(date: DateTime) {
 	return EVENTS.filter(({ start, end }) => date >= start && date <= end) ?? null;
