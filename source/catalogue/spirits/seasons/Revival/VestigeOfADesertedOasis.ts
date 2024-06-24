@@ -1,6 +1,4 @@
-import { Collection } from "discord.js";
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
@@ -21,13 +19,14 @@ export default new SeasonalSpirit({
 	season: SeasonName.Revival,
 	offer: {
 		hasInfographic: false,
-		seasonal: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: "Hair", cost: { seasonalCandles: 16 }, emoji: hairEmoji })
-			.set(1 << 1, { name: "Blessing 1", emoji: blessing3 })
-			.set(1 << 2, { name: "Blessing 2", cost: { seasonalCandles: 28 }, emoji: blessing3 })
-			.set(1 << 3, { name: "Cape", emoji: capeEmoji })
-			.set(1 << 4, { name: "Shoes", cost: { seasonalCandles: 38 }, emoji: shoeEmoji })
-			.set(1 << 5, { name: "Blessing 3", emoji: blessing3 })
-			.set(1 << 6, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.RevivalHeart }),
+		seasonal: [
+			{ name: "Hair", bit: 1 << 0, cost: { seasonalCandles: 16 }, emoji: hairEmoji },
+			{ name: "Blessing 1", bit: 1 << 1, emoji: blessing3 },
+			{ name: "Blessing 2", bit: 1 << 2, cost: { seasonalCandles: 28 }, emoji: blessing3 },
+			{ name: "Cape", bit: 1 << 3, emoji: capeEmoji },
+			{ name: "Shoes", bit: 1 << 4, cost: { seasonalCandles: 38 }, emoji: shoeEmoji },
+			{ name: "Blessing 3", bit: 1 << 5, emoji: blessing3 },
+			{ name: "Seasonal heart", bit: 1 << 6, cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.RevivalHeart },
+		],
 	},
 });

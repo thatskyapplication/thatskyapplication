@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/prefer-literal-enum-member */
 import { URL } from "node:url";
-import type { Collection } from "discord.js";
 import { WIKI_URL } from "./Constants.js";
 import {
 	type Emoji,
@@ -411,12 +410,14 @@ interface ItemCostEvent {
 
 export interface ItemRaw {
 	name: string;
+	bit: number;
 	cost?: ItemCostRaw;
 	emoji?: Emoji;
 }
 
 export interface Item {
 	name: string;
+	bit: number;
 	cost: ItemCost | null;
 	emoji: Emoji | null;
 }
@@ -426,23 +427,21 @@ interface ResolveOfferOptions {
 	eventName?: EventName;
 }
 
-export function resolveOffer(items: Collection<number, ItemRaw>, { seasonName, eventName }: ResolveOfferOptions = {}) {
-	return items.mapValues((item) => {
-		return {
-			...item,
-			emoji: item.emoji ?? null,
-			cost: item.cost
-				? {
-						...item.cost,
-						seasonalCandles:
-							seasonName && item.cost.seasonalCandles ? [{ cost: item.cost.seasonalCandles, seasonName }] : [],
-						seasonalHearts:
-							seasonName && item.cost.seasonalHearts ? [{ cost: item.cost.seasonalHearts, seasonName }] : [],
-						eventCurrency: eventName && item.cost.eventCurrency ? [{ cost: item.cost.eventCurrency, eventName }] : [],
-				  }
-				: null,
-		};
-	});
+export function resolveOffer(items: readonly ItemRaw[], { seasonName, eventName }: ResolveOfferOptions = {}) {
+	return items.map((item) => ({
+		...item,
+		emoji: item.emoji ?? null,
+		cost: item.cost
+			? {
+					...item.cost,
+					seasonalCandles:
+						seasonName && item.cost.seasonalCandles ? [{ cost: item.cost.seasonalCandles, seasonName }] : [],
+					seasonalHearts:
+						seasonName && item.cost.seasonalHearts ? [{ cost: item.cost.seasonalHearts, seasonName }] : [],
+					eventCurrency: eventName && item.cost.eventCurrency ? [{ cost: item.cost.eventCurrency, eventName }] : [],
+			  }
+			: null,
+	}));
 }
 
 export function addCosts(items: ItemCost[]) {

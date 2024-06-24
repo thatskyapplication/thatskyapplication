@@ -1,5 +1,5 @@
 import { URL } from "node:url";
-import type { Collection, Locale } from "discord.js";
+import type { Locale } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { type RealmName, CDN_URL } from "../Utility/Constants.js";
@@ -58,7 +58,7 @@ interface SeasonData {
 	 *
 	 * @remarks When cosmetics are not tied to any entity, they should be stored here.
 	 */
-	items?: Collection<number, ItemRaw>;
+	items?: readonly ItemRaw[];
 	/**
 	 * The seasonal candles rotation.
 	 */
@@ -82,7 +82,7 @@ export class Season {
 
 	public readonly spirits: readonly SeasonalSpirit[];
 
-	public readonly items: Collection<number, Item> | null;
+	public readonly items: Item[];
 
 	public readonly maximumItemsBits: number | null;
 
@@ -101,8 +101,8 @@ export class Season {
 		this.duration = this.end.diff(this.start, "days").days + 1;
 		this.guide = data.guide;
 		this.spirits = data.spirits;
-		this.items = data.items ? resolveOffer(data.items) : null;
-		this.maximumItemsBits = data.items ? data.items.reduce((bits, _, bit) => bit | bits, 0) : null;
+		this.items = data.items ? resolveOffer(data.items) : [];
+		this.maximumItemsBits = data.items ? data.items.reduce((bits, { bit }) => bit | bits, 0) : null;
 		this.emoji = SeasonNameToSeasonalEmoji[this.name];
 		this.candleEmoji = SeasonNameToSeasonalCandleEmoji[this.name];
 		this.seasonalCandlesRotation = data.seasonalCandlesRotation;

@@ -1,6 +1,4 @@
-import { Collection } from "discord.js";
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
@@ -29,16 +27,17 @@ export default [
 		season: SeasonName.Shattering,
 		offer: {
 			hasInfographic: false,
-			seasonal: new Collection<number, ItemRaw>()
-				.set(1 << 0, { name: "Hair accessory", cost: { seasonalCandles: 27 }, emoji: hairAccessoryEmoji })
-				.set(1 << 1, { name: "Blessing 1", emoji: blessing3 })
-				.set(1 << 2, { name: "Blessing 2", cost: { seasonalCandles: 16 }, emoji: blessing3 })
-				.set(1 << 3, { name: "Mask", emoji: maskEmoji })
-				.set(1 << 4, { name: "Music sheet", cost: { seasonalCandles: 35 }, emoji: musicSheet })
-				.set(1 << 5, { name: "Blessing 3", emoji: blessing3 })
-				.set(1 << 6, { name: "Blessing 4", cost: { seasonalCandles: 16 }, emoji: blessing3 })
-				.set(1 << 7, { name: "Cape", emoji: capeEmoji })
-				.set(1 << 8, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.ShatteringHeart }),
+			seasonal: [
+				{ name: "Hair accessory", bit: 1 << 0, cost: { seasonalCandles: 27 }, emoji: hairAccessoryEmoji },
+				{ name: "Blessing 1", bit: 1 << 1, emoji: blessing3 },
+				{ name: "Blessing 2", bit: 1 << 2, cost: { seasonalCandles: 16 }, emoji: blessing3 },
+				{ name: "Mask", bit: 1 << 3, emoji: maskEmoji },
+				{ name: "Music sheet", bit: 1 << 4, cost: { seasonalCandles: 35 }, emoji: musicSheet },
+				{ name: "Blessing 3", bit: 1 << 5, emoji: blessing3 },
+				{ name: "Blessing 4", bit: 1 << 6, cost: { seasonalCandles: 16 }, emoji: blessing3 },
+				{ name: "Cape", bit: 1 << 7, emoji: capeEmoji },
+				{ name: "Seasonal heart", bit: 1 << 8, cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.ShatteringHeart },
+			],
 		},
 	}),
 	new SeasonalSpirit({
@@ -46,14 +45,15 @@ export default [
 		season: SeasonName.Shattering,
 		offer: {
 			hasInfographic: false,
-			seasonal: new Collection<number, ItemRaw>()
-				.set(1 << 0, { name: "Neck accessory", cost: { seasonalCandles: 35 }, emoji: necklaceEmoji })
-				.set(1 << 1, { name: "Blessing 1", emoji: blessing3 })
-				.set(1 << 2, { name: "Blessing 2", cost: { seasonalCandles: 16 }, emoji: blessing3 })
-				.set(1 << 3, { name: "Dark horn", emoji: heldProp })
-				.set(1 << 4, { name: "Hair", cost: { seasonalCandles: 42 }, emoji: hairEmoji })
-				.set(1 << 5, { name: "Blessing 3", emoji: blessing3 })
-				.set(1 << 6, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.ShatteringHeart }),
+			seasonal: [
+				{ name: "Neck accessory", bit: 1 << 0, cost: { seasonalCandles: 35 }, emoji: necklaceEmoji },
+				{ name: "Blessing 1", bit: 1 << 1, emoji: blessing3 },
+				{ name: "Blessing 2", bit: 1 << 2, cost: { seasonalCandles: 16 }, emoji: blessing3 },
+				{ name: "Dark horn", bit: 1 << 3, emoji: heldProp },
+				{ name: "Hair", bit: 1 << 4, cost: { seasonalCandles: 42 }, emoji: hairEmoji },
+				{ name: "Blessing 3", bit: 1 << 5, emoji: blessing3 },
+				{ name: "Seasonal heart", bit: 1 << 6, cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.ShatteringHeart },
+			],
 		},
 	}),
 ] as const;

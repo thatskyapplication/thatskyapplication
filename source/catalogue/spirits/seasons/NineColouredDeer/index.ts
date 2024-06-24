@@ -1,7 +1,6 @@
-import { Collection } from "discord.js";
 import { Season } from "../../../../Structures/Season.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { type ItemRaw, SeasonName } from "../../../../Utility/catalogue.js";
+import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { CAPE_EMOJIS, FACE_ACCESSORY_EMOJIS } from "../../../../Utility/emojis.js";
 import FeudalLord from "./FeudalLord.js";
@@ -16,13 +15,15 @@ export default new Season({
 	end: skyDate(2_024, 3, 31),
 	guide: SpiritOfMural,
 	spirits: [HerbGatherer, Hunter, FeudalLord, Princess],
-	items: new Collection<number, ItemRaw>()
-		.set(1 << 0, {
+	items: [
+		{
 			name: "Gift of the Nine-Coloured Deer",
+			bit: 1 << 0,
 			cost: { money: 14.99 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory34,
-		})
-		.set(1 << 1, { name: "Radiance of the Nine-Coloured Deer", cost: { money: 19.99 }, emoji: CAPE_EMOJIS.Cape125 }),
+		},
+		{ name: "Radiance of the Nine-Coloured Deer", bit: 1 << 1, cost: { money: 19.99 }, emoji: CAPE_EMOJIS.Cape125 },
+	],
 	seasonalCandlesRotation: [
 		{ rotation: 1, realm: RealmName.HiddenForest },
 		{ rotation: 1, realm: RealmName.ValleyOfTriumph },

@@ -2,7 +2,6 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { CAPE_EMOJIS, HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
@@ -23,24 +22,26 @@ export default new SeasonalSpirit({
 	hasMarketingVideo: true,
 	offer: {
 		hasInfographicSeasonal: false,
-		seasonal: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${action} 1`, emoji: actionEmoji })
-			.set(1 << 2, { name: "Mask", cost: { seasonalCandles: 16 }, emoji: maskEmoji })
-			.set(1 << 1, { name: "Blessing 1", emoji: blessing2 })
-			.set(1 << 5, { name: "Blessing 2", cost: { seasonalCandles: 18 }, emoji: blessing2 })
-			.set(1 << 6, { name: `${action} 2`, emoji: actionEmoji })
-			.set(1 << 7, { name: "Hair", cost: { seasonalCandles: 20 }, emoji: hairEmoji })
-			.set(1 << 8, { name: "Cape", emoji: capeEmoji }),
-		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${action} 1`, emoji: actionEmoji })
-			.set(1 << 1, { name: "Blessing 1", cost: { candles: 5 }, emoji: blessing2 })
-			.set(1 << 2, { name: "Mask", cost: { candles: 24 }, emoji: maskEmoji })
-			.set(1 << 3, { name: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 4, { name: "Wing buff", cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff })
-			.set(1 << 5, { name: "Blessing 2", cost: { candles: 5 }, emoji: blessing2 })
-			.set(1 << 6, { name: `${action} 2`, cost: { hearts: 8 }, emoji: actionEmoji })
-			.set(1 << 7, { name: "Hair", cost: { candles: 26 }, emoji: hairEmoji })
-			.set(1 << 8, { name: "Cape", cost: { candles: 60 }, emoji: capeEmoji }),
+		seasonal: [
+			{ name: `${action} 1`, bit: 1 << 0, emoji: actionEmoji },
+			{ name: "Mask", bit: 1 << 2, cost: { seasonalCandles: 16 }, emoji: maskEmoji },
+			{ name: "Blessing 1", bit: 1 << 1, emoji: blessing2 },
+			{ name: "Blessing 2", bit: 1 << 5, cost: { seasonalCandles: 18 }, emoji: blessing2 },
+			{ name: `${action} 2`, bit: 1 << 6, emoji: actionEmoji },
+			{ name: "Hair", bit: 1 << 7, cost: { seasonalCandles: 20 }, emoji: hairEmoji },
+			{ name: "Cape", bit: 1 << 8, emoji: capeEmoji },
+		],
+		current: [
+			{ name: `${action} 1`, bit: 1 << 0, emoji: actionEmoji },
+			{ name: "Blessing 1", bit: 1 << 1, cost: { candles: 5 }, emoji: blessing2 },
+			{ name: "Mask", bit: 1 << 2, cost: { candles: 24 }, emoji: maskEmoji },
+			{ name: "Heart", bit: 1 << 3, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Wing buff", bit: 1 << 4, cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff },
+			{ name: "Blessing 2", bit: 1 << 5, cost: { candles: 5 }, emoji: blessing2 },
+			{ name: `${action} 2`, bit: 1 << 6, cost: { hearts: 8 }, emoji: actionEmoji },
+			{ name: "Hair", bit: 1 << 7, cost: { candles: 26 }, emoji: hairEmoji },
+			{ name: "Cape", bit: 1 << 8, cost: { candles: 60 }, emoji: capeEmoji },
+		],
 	},
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>()

@@ -1,7 +1,5 @@
-import { Collection } from "discord.js";
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	HAIR_EMOJIS,
@@ -27,16 +25,17 @@ export default new SeasonalSpirit({
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
 		hasInfographic: false,
-		seasonal: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${action} 1`, emoji: actionEmoji })
-			.set(1 << 1, { name: "Blessing 1", cost: { seasonalCandles: 8 }, emoji: blessing3 })
-			.set(1 << 2, { name: "Music sheet", emoji: musicSheet })
-			.set(1 << 3, { name: "Mask", cost: { seasonalCandles: 14 }, emoji: maskEmoji })
-			.set(1 << 4, { name: "Blessing 2", emoji: blessing3 })
-			.set(1 << 5, { name: "Blessing 3", cost: { seasonalCandles: 26 }, emoji: blessing3 })
-			.set(1 << 6, { name: `${action} 2`, emoji: actionEmoji })
-			.set(1 << 7, { name: "Outfit", cost: { seasonalCandles: 30 }, emoji: outfitEmoji })
-			.set(1 << 8, { name: "Hair", emoji: hairEmoji })
-			.set(1 << 9, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.PerformanceHeart }),
+		seasonal: [
+			{ name: `${action} 1`, bit: 1 << 0, emoji: actionEmoji },
+			{ name: "Blessing 1", bit: 1 << 1, cost: { seasonalCandles: 8 }, emoji: blessing3 },
+			{ name: "Music sheet", bit: 1 << 2, emoji: musicSheet },
+			{ name: "Mask", bit: 1 << 3, cost: { seasonalCandles: 14 }, emoji: maskEmoji },
+			{ name: "Blessing 2", bit: 1 << 4, emoji: blessing3 },
+			{ name: "Blessing 3", bit: 1 << 5, cost: { seasonalCandles: 26 }, emoji: blessing3 },
+			{ name: `${action} 2`, bit: 1 << 6, emoji: actionEmoji },
+			{ name: "Outfit", bit: 1 << 7, cost: { seasonalCandles: 30 }, emoji: outfitEmoji },
+			{ name: "Hair", bit: 1 << 8, emoji: hairEmoji },
+			{ name: "Seasonal heart", bit: 1 << 9, cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.PerformanceHeart },
+		],
 	},
 });

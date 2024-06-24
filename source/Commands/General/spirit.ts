@@ -119,7 +119,7 @@ export default new (class implements AutocompleteCommand {
 			return;
 		}
 
-		await this.searchResponse(interaction, spirit, spirit.isSeasonalSpirit() && !spirit.current);
+		await this.searchResponse(interaction, spirit, spirit.isSeasonalSpirit() && spirit.current.length === 0);
 	}
 
 	public async parseSpiritSwitch(interaction: ButtonInteraction) {
@@ -234,7 +234,7 @@ export default new (class implements AutocompleteCommand {
 			embed.setImage(imageURL);
 		} else {
 			const offer = seasonalParsing ? spirit.seasonal : spirit.current;
-			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
+			description.push(offer.length > 0 ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
 		if (isGuideSpirit && spirit.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });

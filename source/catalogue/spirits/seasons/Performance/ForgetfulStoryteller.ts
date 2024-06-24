@@ -1,7 +1,5 @@
-import { Collection } from "discord.js";
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
@@ -28,19 +26,20 @@ export default new SeasonalSpirit({
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
 		hasInfographic: false,
-		seasonal: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: `${emote} 1`, emoji: emoteEmoji })
-			.set(1 << 1, { name: `${emote} 2`, emoji: emoteEmoji })
-			.set(1 << 2, { name: "Blessing 1", cost: { seasonalCandles: 12 }, emoji: blessing3 })
-			.set(1 << 3, { name: "Mask", emoji: maskEmoji })
-			.set(1 << 4, { name: "Hair", cost: { seasonalCandles: 16 }, emoji: hairEmoji })
-			.set(1 << 5, { name: "Blessing 2", emoji: blessing3 })
-			.set(1 << 6, { name: `${emote} 3`, cost: { seasonalCandles: 20 }, emoji: emoteEmoji })
-			.set(1 << 7, { name: `${emote} 4`, emoji: emoteEmoji })
-			.set(1 << 8, { name: "Blessing 3", cost: { seasonalCandles: 26 }, emoji: blessing3 })
-			.set(1 << 9, { name: "Outfit", emoji: outfitEmoji })
-			.set(1 << 10, { name: "Cape", cost: { seasonalCandles: 34 }, emoji: capeEmoji })
-			.set(1 << 11, { name: "Blessing 4", emoji: blessing3 })
-			.set(1 << 12, { name: "Seasonal heart", cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.PerformanceHeart }),
+		seasonal: [
+			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
+			{ name: `${emote} 2`, bit: 1 << 1, emoji: emoteEmoji },
+			{ name: "Blessing 1", bit: 1 << 2, cost: { seasonalCandles: 12 }, emoji: blessing3 },
+			{ name: "Mask", bit: 1 << 3, emoji: maskEmoji },
+			{ name: "Hair", bit: 1 << 4, cost: { seasonalCandles: 16 }, emoji: hairEmoji },
+			{ name: "Blessing 2", bit: 1 << 5, emoji: blessing3 },
+			{ name: `${emote} 3`, bit: 1 << 6, cost: { seasonalCandles: 20 }, emoji: emoteEmoji },
+			{ name: `${emote} 4`, bit: 1 << 7, emoji: emoteEmoji },
+			{ name: "Blessing 3", bit: 1 << 8, cost: { seasonalCandles: 26 }, emoji: blessing3 },
+			{ name: "Outfit", bit: 1 << 9, emoji: outfitEmoji },
+			{ name: "Cape", bit: 1 << 10, cost: { seasonalCandles: 34 }, emoji: capeEmoji },
+			{ name: "Blessing 4", bit: 1 << 11, emoji: blessing3 },
+			{ name: "Seasonal heart", bit: 1 << 12, cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.PerformanceHeart },
+		],
 	},
 });

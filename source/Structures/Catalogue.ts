@@ -1,6 +1,5 @@
 import {
 	type ChatInputCommandInteraction,
-	type Collection,
 	type EmbedAuthorOptions,
 	type Locale,
 	type MessageActionRowComponentBuilder,
@@ -1908,10 +1907,10 @@ export class Catalogue {
 		return new this(cataloguePacket);
 	}
 
-	private ownedProgress(items: Collection<number, Item> | null, bit: CatalogueValue) {
+	private ownedProgress(items: readonly Item[], bit: CatalogueValue) {
 		return {
-			owned: items?.filter((_, itemBit) => bit && (bit & itemBit) === itemBit).size ?? 0,
-			total: items?.size ?? 0,
+			owned: items.filter(({ bit: itemBit }) => bit && (bit & itemBit) === itemBit).length,
+			total: items.length,
 		};
 	}
 
@@ -1929,9 +1928,7 @@ export class Catalogue {
 
 		for (const spirit of spirits) {
 			const offer =
-				spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
-					? spirit.current
-					: spirit.current ?? spirit.seasonal;
+				spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit() ? spirit.current : spirit.items;
 
 			const { owned, total: offerTotal } = this.ownedProgress(offer, this[SpiritEventNameToCatalogueName[spirit.name]]);
 			totalOwned.push(owned);
@@ -1954,12 +1951,9 @@ export class Catalogue {
 		let total = 0;
 
 		for (const season of seasons) {
-			const offers: [SpiritName | SeasonName, Collection<number, Item> | null][] = [
+			const offers: [SpiritName | SeasonName, readonly Item[]][] = [
 				[season.guide.name, season.guide.current],
-				...season.spirits.map<[SpiritName, Collection<number, Item>]>((spirit) => [
-					spirit.name,
-					spirit.current ?? spirit.seasonal,
-				]),
+				...season.spirits.map<[SpiritName, readonly Item[]]>((spirit) => [spirit.name, spirit.items]),
 				[season.name, season.items],
 			];
 
@@ -2521,10 +2515,10 @@ export class Catalogue {
 			),
 		];
 
-		if (season.items) {
+		if (season.items.length > 0) {
 			const bit = catalogue[SpiritEventNameToCatalogueName[seasonName]];
 
-			const itemsOptions = season.items.map(({ emoji, name }, flag) => {
+			const itemsOptions = season.items.map(({ emoji, name, bit: flag }) => {
 				const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 					.setDefault(Boolean(bit && bit & flag))
 					.setLabel(name)
@@ -2658,7 +2652,7 @@ export class Catalogue {
 		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(`Events ${year}`);
 
 		for (const event of events) {
-			if (!event.offer) continue;
+			if (event.offer.length === 0) continue;
 
 			const { offerDescription } = catalogue.embedProgress(
 				catalogue[SpiritEventNameToCatalogueName[event.nameUnique]],
@@ -2793,7 +2787,7 @@ export class Catalogue {
 		const isElderSpirit = spirit.isElderSpirit();
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
-		const seasonalParsing = isSeasonalSpirit && !spirit.current;
+		const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
 		const offer = seasonalParsing ? spirit.seasonal : spirit.current;
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 
@@ -2806,7 +2800,7 @@ export class Catalogue {
 		if (imageURL) {
 			embed.setImage(imageURL);
 		} else {
-			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
+			description.push(offer.length > 0 ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
 		embed.setDescription(description.join("\n"));
@@ -2828,7 +2822,7 @@ export class Catalogue {
 				.setStyle(ButtonStyle.Primary),
 		);
 
-		if (offer) {
+		if (offer.length > 0) {
 			buttons.addComponents(
 				new ButtonBuilder()
 					.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${spirit.name}`)
@@ -2838,7 +2832,7 @@ export class Catalogue {
 					.setStyle(ButtonStyle.Success),
 			);
 
-			const itemSelectionOptions = offer.map(({ emoji, name }, flag) => {
+			const itemSelectionOptions = offer.map(({ emoji, name, bit: flag }) => {
 				const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 					.setDefault(Boolean(bit && bit & flag))
 					.setLabel(name)
@@ -2954,7 +2948,7 @@ export class Catalogue {
 
 		const description = [];
 
-		if (offer) {
+		if (offer.length > 0) {
 			const { offerDescription } = this.embedProgress(bit, offer);
 			description.push(offerDescription.join("\n"));
 		}
@@ -2962,7 +2956,7 @@ export class Catalogue {
 		if (offerInfographicURL) {
 			embed.setImage(offerInfographicURL);
 		} else {
-			description.push(offer ? NO_EVENT_INFOGRAPHIC_YET : NO_EVENT_OFFER_TEXT);
+			description.push(offer.length > 0 ? NO_EVENT_INFOGRAPHIC_YET : NO_EVENT_OFFER_TEXT);
 		}
 
 		if (description.length > 0) embed.setDescription(description.join("\n"));
@@ -2977,7 +2971,7 @@ export class Catalogue {
 				.setStyle(ButtonStyle.Primary),
 		);
 
-		if (offer) {
+		if (offer.length > 0) {
 			buttons.addComponents(
 				new ButtonBuilder()
 					.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${nameUnique}`)
@@ -2987,7 +2981,7 @@ export class Catalogue {
 					.setStyle(ButtonStyle.Success),
 			);
 
-			const itemSelectionOptions = offer.map(({ emoji, name }, flag) => {
+			const itemSelectionOptions = offer.map(({ emoji, name, bit: flag }) => {
 				const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 					.setDefault(Boolean(bit && bit & flag))
 					.setLabel(name)
@@ -3043,7 +3037,7 @@ export class Catalogue {
 		const catalogue = await this.fetch(interaction.user.id);
 		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.StarterPacks]];
 
-		const itemSelectionOptions = STARTER_PACKS.items.map(({ emoji, name }, flag) => {
+		const itemSelectionOptions = STARTER_PACKS.items.map(({ emoji, name, bit: flag }) => {
 			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 				.setDefault(Boolean(bit && bit & flag))
 				.setLabel(name)
@@ -3095,7 +3089,7 @@ export class Catalogue {
 		const catalogue = await this.fetch(interaction.user.id);
 		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.SecretArea]];
 
-		const itemSelectionOptions = SECRET_AREA.items.map(({ emoji, name }, flag) => {
+		const itemSelectionOptions = SECRET_AREA.items.map(({ emoji, name, bit: flag }) => {
 			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 				.setDefault(Boolean(bit && bit & flag))
 				.setLabel(name)
@@ -3147,7 +3141,7 @@ export class Catalogue {
 		const catalogue = await this.fetch(interaction.user.id);
 		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.HarmonyHall]];
 
-		const itemSelectionOptions = HARMONY_HALL.items.map(({ emoji, name }, flag) => {
+		const itemSelectionOptions = HARMONY_HALL.items.map(({ emoji, name, bit: flag }) => {
 			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 				.setDefault(Boolean(bit && bit & flag))
 				.setLabel(name)
@@ -3199,7 +3193,7 @@ export class Catalogue {
 		const catalogue = await this.fetch(interaction.user.id);
 		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.PermanentEventStore]];
 
-		const itemSelectionOptions = PERMANENT_EVENT_STORE.items.map(({ emoji, name }, flag) => {
+		const itemSelectionOptions = PERMANENT_EVENT_STORE.items.map(({ emoji, name, bit: flag }) => {
 			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 				.setDefault(Boolean(bit && bit & flag))
 				.setLabel(name)
@@ -3251,7 +3245,7 @@ export class Catalogue {
 		const catalogue = await this.fetch(interaction.user.id);
 		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.NestingWorkshop]];
 
-		const itemSelectionOptions = NESTING_WORKSHOP.items.map(({ emoji, name }, flag) => {
+		const itemSelectionOptions = NESTING_WORKSHOP.items.map(({ emoji, name, bit: flag }) => {
 			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 				.setDefault(Boolean(bit && bit & flag))
 				.setLabel(name)
@@ -3580,12 +3574,12 @@ export class Catalogue {
 		);
 	}
 
-	private embedProgress(bit: CatalogueValue, offer: Collection<number, Item>) {
+	private embedProgress(bit: CatalogueValue, offer: readonly Item[]) {
 		const offerDescription = [];
 		const owned = [];
 		const unowned = [];
 
-		for (const [flag, { name, emoji }] of offer.entries()) {
+		for (const { name, bit: flag, emoji } of offer) {
 			const toPush = emoji ? formatEmoji(emoji) : name;
 
 			if (bit && (bit & flag) === flag) {
@@ -3607,17 +3601,14 @@ export class Catalogue {
 		const description = [];
 		const remainingCurrencies = [];
 
-		const offers: [SpiritName | SeasonName, Collection<number, Item> | null][] = [
+		const offers: [SpiritName | SeasonName, readonly Item[]][] = [
 			[season.guide.name, season.guide.current],
-			...season.spirits.map<[SpiritName | SeasonName, Collection<number, Item>]>((spirit) => [
-				spirit.name,
-				spirit.current ?? spirit.seasonal,
-			]),
+			...season.spirits.map<[SpiritName | SeasonName, readonly Item[]]>((spirit) => [spirit.name, spirit.items]),
 			[season.name, season.items],
 		];
 
 		for (const [index, offer] of offers) {
-			if (!offer) continue;
+			if (offer.length === 0) continue;
 
 			const { remainingCurrency, offerDescription } = this.embedProgress(
 				this[SpiritEventNameToCatalogueName[index]],
@@ -3675,9 +3666,9 @@ export class Catalogue {
 
 		for (const spirit of spirits) {
 			const isSeasonalSpirit = spirit.isSeasonalSpirit();
-			const seasonalParsing = isSeasonalSpirit && !spirit.current;
+			const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
 			const offer = seasonalParsing ? spirit.seasonal : spirit.current;
-			if (!offer) continue;
+			if (offer.length === 0) continue;
 
 			const { remainingCurrency, offerDescription } = this.embedProgress(
 				this[SpiritEventNameToCatalogueName[spirit.name]],
@@ -3850,10 +3841,10 @@ export class Catalogue {
 		await interaction.update({ components, content: "Progress shared!", embeds: [] });
 	}
 
-	private remainingCurrency(items: Collection<number, Item>, bit: CatalogueValue, includeSeasonalCurrency?: boolean) {
+	private remainingCurrency(items: readonly Item[], bit: CatalogueValue, includeSeasonalCurrency?: boolean) {
 		const result = addCosts(
 			items
-				.filter((_, flag) => !bit || (bit & flag) !== flag)
+				.filter(({ bit: flag }) => !bit || (bit & flag) !== flag)
 				.map((item) => item.cost)
 				.filter((cost): cost is ItemCost => cost !== null),
 		);

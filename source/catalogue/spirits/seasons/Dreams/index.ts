@@ -1,6 +1,5 @@
-import { Collection } from "discord.js";
 import { Season } from "../../../../Structures/Season.js";
-import { type ItemRaw, SeasonName } from "../../../../Utility/catalogue.js";
+import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { NECKLACE_EMOJIS } from "../../../../Utility/emojis.js";
 import BearhugHermit from "./BearhugHermit.js";
@@ -15,6 +14,6 @@ export default new Season({
 	end: skyDate(2_021, 3, 15),
 	guide: DreamsGuide,
 	spirits: [SpinningMentor, DancingPerformer, PeekingPostman, BearhugHermit],
-	items: new Collection<number, ItemRaw>().set(1 << 0, { name: "Pendant", emoji: NECKLACE_EMOJIS.Necklace10 }),
+	items: [{ name: "Pendant", bit: 1 << 0, emoji: NECKLACE_EMOJIS.Necklace10 }],
 	seasonalCandlesRotation: null,
 });

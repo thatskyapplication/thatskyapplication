@@ -1,6 +1,5 @@
-import { Collection } from "discord.js";
 import { Event } from "../../../Structures/Event.js";
-import { type ItemRaw, EventNameUnique } from "../../../Utility/catalogue.js";
+import { EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import { FACE_ACCESSORY_EMOJIS, HELD_PROPS_EMOJIS } from "../../../Utility/emojis.js";
 
@@ -11,11 +10,8 @@ export default new Event({
 	eventCurrencyEnd: skyDate(2_023, 12, 11),
 	eventCurrencyInfographicURL: true,
 	eventCurrencyPerDay: 5,
-	offer: new Collection<number, ItemRaw>()
-		.set(1 << 0, {
-			name: "Face accessory",
-			cost: { eventCurrency: 15 },
-			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory33,
-		})
-		.set(1 << 1, { name: "Prop", cost: { eventCurrency: 36 }, emoji: HELD_PROPS_EMOJIS.HeldProp39 }),
+	offer: [
+		{ name: "Face accessory", bit: 1 << 0, cost: { eventCurrency: 15 }, emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory33 },
+		{ name: "Prop", bit: 1 << 1, cost: { eventCurrency: 36 }, emoji: HELD_PROPS_EMOJIS.HeldProp39 },
+	],
 });

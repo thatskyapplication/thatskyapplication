@@ -1,7 +1,5 @@
-import { Collection } from "discord.js";
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import type { ItemRaw } from "../../../../Utility/catalogue.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
@@ -18,30 +16,33 @@ export default new GuideSpirit({
 	season: SeasonName.Moments,
 	realm: RealmName.DaylightPrairie,
 	offer: {
-		current: new Collection<number, ItemRaw>()
-			.set(1 << 0, { name: "Camera", emoji: HELD_PROPS_EMOJIS.HeldProp38 })
-			.set(1 << 1, { name: "Pendant", emoji: NECKLACE_EMOJIS.Necklace31 })
-			.set(1 << 2, {
+		current: [
+			{ name: "Camera", bit: 1 << 0, emoji: HELD_PROPS_EMOJIS.HeldProp38 },
+			{ name: "Pendant", bit: 1 << 1, emoji: NECKLACE_EMOJIS.Necklace31 },
+			{
 				name: "Ultimate face accessory",
+				bit: 1 << 2,
 				cost: { seasonalHearts: 1 },
 				emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory28,
-			})
-			.set(1 << 3, { name: "Ultimate camera", cost: { seasonalHearts: 1 }, emoji: HELD_PROPS_EMOJIS.HeldProp37 })
-			.set(1 << 4, {
+			},
+			{ name: "Ultimate camera", bit: 1 << 3, cost: { seasonalHearts: 1 }, emoji: HELD_PROPS_EMOJIS.HeldProp37 },
+			{
 				name: "Ultimate hair accessory",
+				bit: 1 << 4,
 				cost: { seasonalHearts: 2 },
 				emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory27,
-			})
-			.set(1 << 5, { name: "Quest 1", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 6, { name: "Heart 1", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 7, { name: "Quest 2", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 8, { name: "Heart 2", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 9, { name: FriendAction.DoubleFive, emoji: FRIEND_ACTION_EMOJIS.DoubleFive })
-			.set(1 << 10, { name: "Quest 3", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 11, { name: "Heart 3", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 12, { name: "Quest 4", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 13, { name: "Heart 4", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart })
-			.set(1 << 14, { name: "Quest 5", emoji: MISCELLANEOUS_EMOJIS.Quest })
-			.set(1 << 15, { name: "Heart 5", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart }),
+			},
+			{ name: "Quest 1", bit: 1 << 5, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 1", bit: 1 << 6, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Quest 2", bit: 1 << 7, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 2", bit: 1 << 8, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: FriendAction.DoubleFive, bit: 1 << 9, emoji: FRIEND_ACTION_EMOJIS.DoubleFive },
+			{ name: "Quest 3", bit: 1 << 10, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 3", bit: 1 << 11, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Quest 4", bit: 1 << 12, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 4", bit: 1 << 13, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Quest 5", bit: 1 << 14, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 5", bit: 1 << 15, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+		],
 	},
 });
