@@ -2800,7 +2800,7 @@ export class Catalogue {
 		if (imageURL) {
 			embed.setImage(imageURL);
 		} else {
-			description.push(offer ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
+			description.push(offer.length > 0 ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
 		embed.setDescription(description.join("\n"));
@@ -2956,7 +2956,7 @@ export class Catalogue {
 		if (offerInfographicURL) {
 			embed.setImage(offerInfographicURL);
 		} else {
-			description.push(offer ? NO_EVENT_INFOGRAPHIC_YET : NO_EVENT_OFFER_TEXT);
+			description.push(offer.length > 0 ? NO_EVENT_INFOGRAPHIC_YET : NO_EVENT_OFFER_TEXT);
 		}
 
 		if (description.length > 0) embed.setDescription(description.join("\n"));
