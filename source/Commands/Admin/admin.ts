@@ -19,7 +19,7 @@ import {
 	TextInputStyle,
 	TextInputBuilder,
 } from "discord.js";
-import hasha from "hasha";
+import { hash } from "hasha";
 import sharp from "sharp";
 import S3Client from "../../S3Client.js";
 import Configuration from "../../Structures/Configuration.js";
@@ -451,19 +451,19 @@ export default new (class implements AutocompleteCommand {
 					.webp()
 					.toBuffer();
 
-				const hash = await hasha.async(buffer, { algorithm: "md5" });
+				const hashedBuffer = await hash(buffer, { algorithm: "md5" });
 
 				await S3Client.send(
 					new PutObjectCommand({
 						Bucket: CDN_BUCKET,
-						Key: DailyGuides.treasureCandlesRoute(hash),
+						Key: DailyGuides.treasureCandlesRoute(hashedBuffer),
 						Body: buffer,
 						ContentDisposition: "inline",
 						ContentType: fetchedURL.headers.get("content-type")!,
 					}),
 				);
 
-				return hash;
+				return hashedBuffer;
 			}),
 		);
 

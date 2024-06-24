@@ -11,7 +11,7 @@ import {
 	EmbedBuilder,
 	StringSelectMenuInteraction,
 } from "discord.js";
-import hasha from "hasha";
+import { hash } from "hasha";
 import { t } from "i18next";
 import sharp from "sharp";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
@@ -216,18 +216,21 @@ export default class Profile {
 			buffer = await assetBuffer.webp().toBuffer();
 		}
 
-		let hash = await hasha.async(buffer, { algorithm: "md5" });
-		if (gif) hash = `${ANIMATED_HASH_PREFIX}${hash}`;
+		let hashedBuffer = await hash(buffer, { algorithm: "md5" });
+		if (gif) hashedBuffer = `${ANIMATED_HASH_PREFIX}${hash}`;
 
 		await S3Client.send(
 			new PutObjectCommand({
 				Bucket: CDN_BUCKET,
-				Key: type === AssetType.Icon ? Profile.iconRoute(user.id, hash) : Profile.thumbnailRoute(user.id, hash),
+				Key:
+					type === AssetType.Icon
+						? Profile.iconRoute(user.id, hashedBuffer)
+						: Profile.thumbnailRoute(user.id, hashedBuffer),
 				Body: buffer,
 			}),
 		);
 
-		await Profile.set(interaction, { [type === AssetType.Icon ? "icon" : "thumbnail"]: hash });
+		await Profile.set(interaction, { [type === AssetType.Icon ? "icon" : "thumbnail"]: hashedBuffer });
 	}
 
 	public static async setDescription(interaction: ModalSubmitInteraction) {

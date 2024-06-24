@@ -9,7 +9,7 @@ import {
 	MessageFlags,
 	SnowflakeUtil,
 } from "discord.js";
-import hasha from "hasha";
+import { hash } from "hasha";
 import pQueue from "p-queue";
 import sharp from "sharp";
 import S3Client from "../S3Client.js";
@@ -761,19 +761,19 @@ export default new (class DailyGuides {
 					.webp()
 					.toBuffer();
 
-				const hash = await hasha.async(buffer, { algorithm: "md5" });
+				const hashedBuffer = await hash(buffer, { algorithm: "md5" });
 
 				await S3Client.send(
 					new PutObjectCommand({
 						Bucket: CDN_BUCKET,
-						Key: this.treasureCandlesRoute(hash),
+						Key: this.treasureCandlesRoute(hashedBuffer),
 						Body: buffer,
 						ContentDisposition: "inline",
 						ContentType: fetchedURL.headers.get("content-type")!,
 					}),
 				);
 
-				return hash;
+				return hashedBuffer;
 			}),
 		);
 
