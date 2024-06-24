@@ -2652,7 +2652,7 @@ export class Catalogue {
 		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(`Events ${year}`);
 
 		for (const event of events) {
-			if (!event.offer) continue;
+			if (event.offer.length === 0) continue;
 
 			const { offerDescription } = catalogue.embedProgress(
 				catalogue[SpiritEventNameToCatalogueName[event.nameUnique]],
