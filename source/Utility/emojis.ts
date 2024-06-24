@@ -599,6 +599,10 @@ export const SHOE_EMOJIS = {
 	 * Cosy Hermit Boots.
 	 */
 	Shoe13: { name: "shoe", id: "1201598024783233175" },
+	/**
+	 * Dark Rainbow Loafers.
+	 */
+	Shoe14: { name: "shoe", id: "1254633063732744274" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type ShoeEmojis = (typeof SHOE_EMOJIS)[keyof typeof SHOE_EMOJIS];
@@ -971,6 +975,10 @@ export const MASK_EMOJIS = {
 	 * Ocean Mask.
 	 */
 	Mask91: { name: "mask", id: "1244556563730006066" },
+	/**
+	 * Dark Rainbow Mask.
+	 */
+	Mask92: { name: "mask", id: "1254633317089935380" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type MaskEmojis = (typeof MASK_EMOJIS)[keyof typeof MASK_EMOJIS];
@@ -1855,6 +1863,10 @@ export const HAIR_EMOJIS = {
 	 * Nature Wave-Touched Hair.
 	 */
 	Hair144: { name: "hair", id: "1244556095146692648" },
+	/**
+	 * Colour Glam Cut.
+	 */
+	Hair145: { name: "hair", id: "1254632819360268318" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
