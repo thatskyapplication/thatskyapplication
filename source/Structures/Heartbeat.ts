@@ -35,6 +35,7 @@ async function dailyReset(client: Client<true>) {
 }
 
 export default function heartbeat(client: Client<true>): void {
+	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Effort.
 	setInterval(() => {
 		const date = DateTime.now().setZone(TIME_ZONE);
 		const { day, weekday, hour, minute, second } = date;

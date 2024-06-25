@@ -567,6 +567,7 @@ export default new (class DailyGuides {
 		this.patch(dailyGuidesPacket!);
 	}
 
+	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Effort.
 	private resolveDailyGuide(options: ResolveDailyGuideOptions) {
 		const { pureContent, realm, map, url } = options;
 		const upperPureContent = pureContent.toUpperCase();

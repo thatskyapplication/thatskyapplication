@@ -142,6 +142,7 @@ function logCommand(interaction: ChatInputCommandInteraction | ContextMenuComman
 
 export default {
 	name,
+	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: <explanation>
 	async fire(interaction) {
 		if (interaction.isChatInputCommand()) {
 			logCommand(interaction);

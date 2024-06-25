@@ -141,6 +141,7 @@ export default new (class implements AutocompleteCommand {
 		await this.searchResponse(interaction, spirit, !seasonalOffer);
 	}
 
+	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: <explanation>
 	public async searchResponse(
 		interaction: ButtonInteraction | ChatInputCommandInteraction,
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
