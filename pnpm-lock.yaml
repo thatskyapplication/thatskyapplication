@@ -22,9 +22,6 @@ importers:
       discord.js:
         specifier: 14.15.3
         version: 14.15.3(patch_hash=mzvjhosfif43je57lvpch3v4bq)
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.4.5
       hasha:
         specifier: ^6.0.0
         version: 6.0.0
@@ -1006,10 +1003,6 @@ packages:
   discord.js@14.15.3:
     resolution: {integrity: sha512-/UJDQO10VuU6wQPglA4kz2bw2ngeeSbogiIPx/TsnctfzV/tNf+q+i1HlgtX1OGpeOBpJH9erZQNO5oRM2uAtQ==}
     engines: {node: '>=16.11.0'}
-
-  dotenv@16.4.5:
-    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
-    engines: {node: '>=12'}
 
   easy-table@1.2.0:
     resolution: {integrity: sha512-OFzVOv03YpvtcWGe5AayU5G2hgybsg3iqA6drU8UaoZyB9jLGMTrz9+asnLp/E+6qPh88yEI1gvyZFZ41dmgww==}
@@ -2964,8 +2957,6 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
-
-  dotenv@16.4.5: {}
 
   easy-table@1.2.0:
     dependencies:

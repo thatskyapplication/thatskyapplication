@@ -7,8 +7,8 @@
 		"test": "tsc --noEmit",
 		"format": "biome check --write",
 		"lint": "biome check",
-		"dev": "tsx --require dotenv/config source/index.ts | pino-pretty",
-		"start": "node --enable-source-maps --require dotenv/config distribution/index.js",
+		"dev": "tsx --env-file=.env source/index.ts | pino-pretty",
+		"start": "node --enable-source-maps distribution/index.js",
 		"update": "pnpm update --interactive --latest && pre-commit autoupdate",
 		"knip": "knip"
 	},
@@ -16,7 +16,6 @@
 		"@aws-sdk/client-s3": "^3.600.0",
 		"@logtail/pino": "^0.4.22",
 		"discord.js": "14.15.3",
-		"dotenv": "^16.4.5",
 		"hasha": "^6.0.0",
 		"i18next": "^23.11.5",
 		"knex": "^3.1.0",
