@@ -1,9 +1,9 @@
 import type { DateTime } from "luxon";
 import type { SeasonalSpirit } from "../../../Structures/Spirits.js";
 import {
-	type SeasonName,
 	SEASON_FLAGS_TO_SEASON_NAME_ENTRIES,
 	SEASON_NAME_VALUES,
+	type SeasonName,
 	SeasonNameToSeasonalEmoji,
 } from "../../../Utility/catalogue.js";
 import { todayDate } from "../../../Utility/dates.js";
@@ -121,7 +121,10 @@ export function resolveBitsToSeasons(bits: number) {
 
 	for (const [bit, season] of SEASON_FLAGS_TO_SEASON_NAME_ENTRIES) {
 		const bit_ = Number(bit);
-		if ((bits & bit_) === bit_) platforms.push(formatEmoji(SeasonNameToSeasonalEmoji[season]));
+
+		if ((bits & bit_) === bit_) {
+			platforms.push(formatEmoji(SeasonNameToSeasonalEmoji[season]));
+		}
 	}
 
 	return platforms;
@@ -130,7 +133,10 @@ export function resolveBitsToSeasons(bits: number) {
 export function resolveSeasonalSpirit(spiritName: string) {
 	for (const season of SEASONS) {
 		const spirit = season.spirits.find((spirit) => spirit.name === spiritName);
-		if (spirit) return spirit;
+
+		if (spirit) {
+			return spirit;
+		}
 	}
 
 	return null;

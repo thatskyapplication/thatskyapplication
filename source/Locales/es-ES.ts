@@ -1,4 +1,4 @@
-import { Map, RealmName } from "../Utility/Constants.js";
+import { RealmName, SkyMap } from "../Utility/Constants.js";
 import { SeasonName } from "../Utility/catalogue.js";
 import { SpiritName } from "../Utility/spirits.js";
 
@@ -19,9 +19,9 @@ export default {
 			[RealmName.EyeOfEden]: "Ojo de edén",
 		},
 		maps: {
-			[Map.AncientMemory]: "Recuerdo Ancestral",
-			[Map.JellyfishCove]: "Ensenada de la Medusa",
-			[Map.CrescentOasis]: "Oasis creciente",
+			[SkyMap.AncientMemory]: "Recuerdo Ancestral",
+			[SkyMap.JellyfishCove]: "Ensenada de la Medusa",
+			[SkyMap.CrescentOasis]: "Oasis creciente",
 		},
 		seasons: {
 			[SeasonName.Gratitude]: "Temporada de la gratitud",
@@ -239,7 +239,8 @@ export default {
 				"remain-in-the-season": "Restantes en la temporada.",
 				"remain-in-the-season-with-a-season-pass": "Restantes en la temporada con el Pase.",
 				notes: "Notas",
-				"double-seasonal-light-calculation": "Evento de luz doble de Temporada incluído en los cálculos.",
+				"double-seasonal-light-calculation":
+					"Evento de luz doble de Temporada incluído en los cálculos.",
 			},
 			"winged-light": {
 				"command-name": "luz-alada",

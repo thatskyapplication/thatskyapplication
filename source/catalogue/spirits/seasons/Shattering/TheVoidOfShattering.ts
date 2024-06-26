@@ -12,7 +12,12 @@ export default new GuideSpirit({
 			{ name: "Heart 1", bit: 1 << 1, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
 			{ name: "Pendant", bit: 1 << 2, emoji: NECKLACE_EMOJIS.Necklace21 },
 			{ name: "Manta cape", bit: 1 << 3, cost: { seasonalHearts: 2 }, emoji: CAPE_EMOJIS.Cape87 },
-			{ name: "Dark dragon cape", bit: 1 << 4, cost: { seasonalHearts: 2 }, emoji: CAPE_EMOJIS.Cape84 },
+			{
+				name: "Dark dragon cape",
+				bit: 1 << 4,
+				cost: { seasonalHearts: 2 },
+				emoji: CAPE_EMOJIS.Cape84,
+			},
 			{ name: "Quest 2", bit: 1 << 5, emoji: MISCELLANEOUS_EMOJIS.Quest },
 			{ name: "Heart 2", bit: 1 << 6, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
 			{ name: "Quest 3", bit: 1 << 7, emoji: MISCELLANEOUS_EMOJIS.Quest },

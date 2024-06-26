@@ -14,6 +14,13 @@ export default new Season({
 	start: skyDate(2_019, 11, 18),
 	end: skyDate(2_020, 1, 12),
 	guide: BelongingGuide,
-	spirits: [BoogieKid, ConfettiCousin, HairtousleTeen, SparklerParent, PleafulParent, WiseGrandparent],
+	spirits: [
+		BoogieKid,
+		ConfettiCousin,
+		HairtousleTeen,
+		SparklerParent,
+		PleafulParent,
+		WiseGrandparent,
+	],
 	seasonalCandlesRotation: null,
 });

@@ -15,7 +15,14 @@ export default new Season({
 	start: skyDate(2_019, 7, 19),
 	end: skyDate(2_019, 9, 2),
 	guide: GratitudeGuide,
-	spirits: [SassyDrifter, StretchingGuru, ProvokingPerformer, LeapingDancer, SalutingProtector, GreetingShaman],
+	spirits: [
+		SassyDrifter,
+		StretchingGuru,
+		ProvokingPerformer,
+		LeapingDancer,
+		SalutingProtector,
+		GreetingShaman,
+	],
 	items: [
 		{ name: "Pendant", bit: 1 << 0, emoji: NECKLACE_EMOJIS.Necklace01 },
 		{ name: "Ultimate mask", bit: 1 << 1, emoji: MASK_EMOJIS.Mask10 },

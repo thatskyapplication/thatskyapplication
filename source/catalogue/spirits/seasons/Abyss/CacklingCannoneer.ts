@@ -8,7 +8,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritEmote, SpiritName, SpiritEmoteToEmoji } from "../../../../Utility/spirits.js";
+import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../Utility/spirits.js";
 
 const emote = SpiritEmote.EvilLaugh;
 const emoteEmoji = SpiritEmoteToEmoji[emote];
@@ -31,7 +31,12 @@ export default new SeasonalSpirit({
 			{ name: "Blessing 1", bit: 1 << 2, cost: { candles: 5 }, emoji: blessing2 },
 			{ name: "Mask", bit: 1 << 4, cost: { candles: 40 }, emoji: maskEmoji },
 			{ name: "Heart", bit: 1 << 12, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Wing buff", bit: 1 << 13, cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff },
+			{
+				name: "Wing buff",
+				bit: 1 << 13,
+				cost: { ascendedCandles: 2 },
+				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+			},
 			{ name: `${emote} 3`, bit: 1 << 6, cost: { hearts: 3 }, emoji: emoteEmoji },
 			{ name: `${emote} 4`, bit: 1 << 7, cost: { hearts: 6 }, emoji: emoteEmoji },
 			{ name: "Hair", bit: 1 << 11, cost: { candles: 50 }, emoji: hairEmoji },
@@ -52,7 +57,12 @@ export default new SeasonalSpirit({
 			{ name: "Blessing 3", bit: 1 << 9, emoji: blessing3 },
 			{ name: "Blessing 4", bit: 1 << 10, cost: { seasonalCandles: 34 }, emoji: blessing3 },
 			{ name: "Hair", bit: 1 << 11, emoji: hairEmoji },
-			{ name: "Seasonal heart", bit: 1 << 12, cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.AbyssHeart },
+			{
+				name: "Seasonal heart",
+				bit: 1 << 12,
+				cost: { seasonalCandles: 3 },
+				emoji: SEASON_EMOJIS.AbyssHeart,
+			},
 		],
 	},
 	visits: {

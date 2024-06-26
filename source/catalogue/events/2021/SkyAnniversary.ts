@@ -8,7 +8,17 @@ export default new Event({
 	start: skyDate(2_021, 7, 12),
 	end: skyDate(2_021, 7, 25),
 	offer: [
-		{ name: "Hair accessory", bit: 1 << 0, cost: { hearts: 3 }, emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory06 },
-		{ name: "Prop", bit: 1 << 1, cost: { candles: 20 }, emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp07 },
+		{
+			name: "Hair accessory",
+			bit: 1 << 0,
+			cost: { hearts: 3 },
+			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory06,
+		},
+		{
+			name: "Prop",
+			bit: 1 << 1,
+			cost: { candles: 20 },
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp07,
+		},
 	],
 });

@@ -1,6 +1,6 @@
 import { Events } from "discord.js";
 import { removeGuildId } from "../Structures/Guess.js";
-import { type Event } from "./index.js";
+import type { Event } from "./index.js";
 
 const name = Events.GuildMemberRemove;
 

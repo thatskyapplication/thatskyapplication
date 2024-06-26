@@ -8,6 +8,11 @@ export default new Event({
 	start: skyDate(2_020, 9, 8),
 	end: skyDate(2_020, 9, 20),
 	offer: [
-		{ name: "Days of Summer Lights Pack", bit: 1 << 0, cost: { money: 19.99 }, emoji: HELD_PROPS_EMOJIS.HeldProp18 },
+		{
+			name: "Days of Summer Lights Pack",
+			bit: 1 << 0,
+			cost: { money: 19.99 },
+			emoji: HELD_PROPS_EMOJIS.HeldProp18,
+		},
 	],
 });

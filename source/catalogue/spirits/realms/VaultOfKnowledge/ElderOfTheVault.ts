@@ -7,6 +7,8 @@ export default new ElderSpirit({
 	name: SpiritName.ElderOfTheVault,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
-		current: [{ name: "Hair", bit: 1 << 0, cost: { ascendedCandles: 5 }, emoji: HAIR_EMOJIS.Hair36 }],
+		current: [
+			{ name: "Hair", bit: 1 << 0, cost: { ascendedCandles: 5 }, emoji: HAIR_EMOJIS.Hair36 },
+		],
 	},
 });

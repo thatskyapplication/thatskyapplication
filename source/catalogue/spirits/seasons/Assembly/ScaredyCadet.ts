@@ -3,12 +3,12 @@ import { RealmName } from "../../../../Utility/Constants.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	HAIR_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
-	LARGE_PLACEABLE_PROPS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritEmote, SpiritName, SpiritEmoteToEmoji } from "../../../../Utility/spirits.js";
+import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../Utility/spirits.js";
 
 const emote = SpiritEmote.Eww;
 const emoteEmoji = SpiritEmoteToEmoji[emote];
@@ -36,7 +36,12 @@ export default new SeasonalSpirit({
 			{ name: "Hair", bit: 1 << 10, emoji: hairEmoji },
 			{ name: "Hammock", bit: 1 << 11, cost: { seasonalCandles: 20 }, emoji: placeablePropEmoji },
 			{ name: "Blessing 2", bit: 1 << 9, emoji: blessing2 },
-			{ name: "Seasonal heart", bit: 1 << 4, cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.AssemblyHeart },
+			{
+				name: "Seasonal heart",
+				bit: 1 << 4,
+				cost: { seasonalCandles: 3 },
+				emoji: SEASON_EMOJIS.AssemblyHeart,
+			},
 		],
 		current: [
 			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
@@ -44,7 +49,12 @@ export default new SeasonalSpirit({
 			{ name: "Blessing 1", bit: 1 << 2, cost: { candles: 5 }, emoji: blessing2 },
 			{ name: "Mask", bit: 1 << 3, cost: { candles: 24 }, emoji: maskEmoji },
 			{ name: "Heart", bit: 1 << 4, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Wing buff", bit: 1 << 5, cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff },
+			{
+				name: "Wing buff",
+				bit: 1 << 5,
+				cost: { ascendedCandles: 2 },
+				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+			},
 			{ name: `${emote} 3`, bit: 1 << 6, cost: { hearts: 3 }, emoji: emoteEmoji },
 			{ name: `${emote} 4`, bit: 1 << 7, cost: { hearts: 6 }, emoji: emoteEmoji },
 			{ name: "Music sheet", bit: 1 << 8, cost: { candles: 15 }, emoji: musicSheet },

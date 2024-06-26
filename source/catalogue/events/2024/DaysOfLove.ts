@@ -21,8 +21,23 @@ export default new Event({
 			cost: { eventCurrency: 14 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp35,
 		},
-		{ name: "Hair accessory", bit: 1 << 1, cost: { eventCurrency: 27 }, emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory37 },
-		{ name: "Music sheet", bit: 1 << 2, cost: { eventCurrency: 7 }, emoji: MISCELLANEOUS_EMOJIS.MusicSheet },
-		{ name: "Days of Love Meteor Mantle", bit: 1 << 3, cost: { money: 17.99 }, emoji: CAPE_EMOJIS.Cape127 },
+		{
+			name: "Hair accessory",
+			bit: 1 << 1,
+			cost: { eventCurrency: 27 },
+			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory37,
+		},
+		{
+			name: "Music sheet",
+			bit: 1 << 2,
+			cost: { eventCurrency: 7 },
+			emoji: MISCELLANEOUS_EMOJIS.MusicSheet,
+		},
+		{
+			name: "Days of Love Meteor Mantle",
+			bit: 1 << 3,
+			cost: { money: 17.99 },
+			emoji: CAPE_EMOJIS.Cape127,
+		},
 	],
 });

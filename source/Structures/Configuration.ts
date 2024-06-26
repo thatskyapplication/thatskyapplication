@@ -18,7 +18,10 @@ export default new (class Configuration {
 	}
 
 	public async edit({ ai = this.ai }: ConfigurationEditData) {
-		const [configurationPacket] = await pg<ConfigurationPacket>(Table.Configuration).update({ ai }).returning("*");
+		const [configurationPacket] = await pg<ConfigurationPacket>(Table.Configuration)
+			.update({ ai })
+			.returning("*");
+
 		this.patch(configurationPacket!);
 	}
 })();

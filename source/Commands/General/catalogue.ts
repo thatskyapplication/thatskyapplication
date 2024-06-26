@@ -1,8 +1,8 @@
 import {
 	type ApplicationCommandData,
+	ApplicationCommandType,
 	type ChatInputCommandInteraction,
 	type Snowflake,
-	ApplicationCommandType,
 } from "discord.js";
 import { Catalogue } from "../../Structures/Catalogue.js";
 import type { ChatInputCommand } from "../index.js";

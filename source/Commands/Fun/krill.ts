@@ -1,11 +1,11 @@
 import { URL } from "node:url";
 import {
 	type ApplicationCommandData,
-	type ChatInputCommandInteraction,
-	PermissionFlagsBits,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
+	type ChatInputCommandInteraction,
 	EmbedBuilder,
+	PermissionFlagsBits,
 } from "discord.js";
 import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_KRILL_NO } from "../../Utility/Constants.js";
 import type { ChatInputCommand } from "../index.js";
@@ -38,7 +38,11 @@ export default new (class implements ChatInputCommand {
 		}
 
 		if (interaction.inGuild() && !member) {
-			await interaction.reply({ content: `${user} is not in this server to be krilled.`, ephemeral: true });
+			await interaction.reply({
+				content: `${user} is not in this server to be krilled.`,
+				ephemeral: true,
+			});
+
 			return;
 		}
 
@@ -67,7 +71,9 @@ export default new (class implements ChatInputCommand {
 			embeds: [
 				new EmbedBuilder()
 					.setColor(DEFAULT_EMBED_COLOUR)
-					.setImage(String(new URL(`krills/${Math.floor(Math.random() * MAX_KRILL_NO + 1)}.gif`, CDN_URL))),
+					.setImage(
+						String(new URL(`krills/${Math.floor(Math.random() * MAX_KRILL_NO + 1)}.gif`, CDN_URL)),
+					),
 			],
 		});
 	}

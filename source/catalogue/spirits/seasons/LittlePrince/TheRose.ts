@@ -20,8 +20,18 @@ export default new GuideSpirit({
 			{ name: "Quest 1", bit: 1 << 0, emoji: MISCELLANEOUS_EMOJIS.Quest },
 			{ name: "Heart 1", bit: 1 << 1, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
 			{ name: "Pendant", bit: 1 << 2, emoji: NECKLACE_EMOJIS.Necklace13 },
-			{ name: "Ultimate hair", bit: 1 << 3, cost: { seasonalHearts: 1 }, emoji: HAIR_EMOJIS.Hair90 },
-			{ name: "Ultimate outfit", bit: 1 << 4, cost: { seasonalHearts: 2 }, emoji: OUTFIT_EMOJIS.Outfit23 },
+			{
+				name: "Ultimate hair",
+				bit: 1 << 3,
+				cost: { seasonalHearts: 1 },
+				emoji: HAIR_EMOJIS.Hair90,
+			},
+			{
+				name: "Ultimate outfit",
+				bit: 1 << 4,
+				cost: { seasonalHearts: 2 },
+				emoji: OUTFIT_EMOJIS.Outfit23,
+			},
 			{
 				name: "Rose",
 				bit: 1 << 5,

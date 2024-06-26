@@ -20,7 +20,12 @@ export default new GuideSpirit({
 			{ name: "Quest 1", bit: 1 << 0, emoji: MISCELLANEOUS_EMOJIS.Quest },
 			{ name: "Heart 1", bit: 1 << 1, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
 			{ name: "Pendant", bit: 1 << 2, emoji: NECKLACE_EMOJIS.Necklace06 },
-			{ name: "Handpan", bit: 1 << 3, cost: { seasonalHearts: 3 }, emoji: HELD_PROPS_EMOJIS.HeldProp17 },
+			{
+				name: "Handpan",
+				bit: 1 << 3,
+				cost: { seasonalHearts: 3 },
+				emoji: HELD_PROPS_EMOJIS.HeldProp17,
+			},
 			{ name: "Manta cape", bit: 1 << 4, cost: { seasonalHearts: 3 }, emoji: CAPE_EMOJIS.Cape31 },
 			{ name: "Quest 2", bit: 1 << 5, emoji: MISCELLANEOUS_EMOJIS.Quest },
 			{ name: "Heart 2", bit: 1 << 6, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },

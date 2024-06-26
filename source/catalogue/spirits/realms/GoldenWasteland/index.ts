@@ -11,5 +11,12 @@ import StealthySurvivor from "./StealthySurvivor.js";
 export default new Realm({
 	name: RealmName.GoldenWasteland,
 	elder: ElderOfTheWasteland,
-	spirits: [FrightenedRefugee, FaintingWarrior, CourageousSoldier, StealthySurvivor, SalutingCaptain, LookoutScout],
+	spirits: [
+		FrightenedRefugee,
+		FaintingWarrior,
+		CourageousSoldier,
+		StealthySurvivor,
+		SalutingCaptain,
+		LookoutScout,
+	],
 });

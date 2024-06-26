@@ -18,7 +18,12 @@ export default new Event({
 			cost: { candles: 90 },
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp25,
 		},
-		{ name: "Jelly Shoulder Buddy", bit: 1 << 1, cost: { money: 2.99 }, emoji: NECKLACE_EMOJIS.Necklace23 },
+		{
+			name: "Jelly Shoulder Buddy",
+			bit: 1 << 1,
+			cost: { money: 2.99 },
+			emoji: NECKLACE_EMOJIS.Necklace23,
+		},
 		{
 			name: "Campfire Snack Kit",
 			bit: 1 << 2,

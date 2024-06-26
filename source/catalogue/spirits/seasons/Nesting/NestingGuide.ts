@@ -16,7 +16,12 @@ export default new GuideSpirit({
 			{ name: "Quest 1", bit: 1 << 0, emoji: MISCELLANEOUS_EMOJIS.Quest },
 			{ name: "Heart 1", bit: 1 << 1, emoji: MISCELLANEOUS_EMOJIS.Heart },
 			{ name: "Pendant", bit: 1 << 2, emoji: NECKLACE_EMOJIS.Necklace34 },
-			{ name: "Ultimate outfit", bit: 1 << 3, cost: { seasonalHearts: 2 }, emoji: OUTFIT_EMOJIS.Outfit58 },
+			{
+				name: "Ultimate outfit",
+				bit: 1 << 3,
+				cost: { seasonalHearts: 2 },
+				emoji: OUTFIT_EMOJIS.Outfit58,
+			},
 			{
 				name: "Ultimate prop",
 				bit: 1 << 4,

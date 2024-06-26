@@ -9,8 +9,18 @@ export default new GuideSpirit({
 	offer: {
 		current: [
 			{ name: "Pendant", bit: 1 << 0, emoji: NECKLACE_EMOJIS.Necklace04 },
-			{ name: "Ultimate mask", bit: 1 << 1, cost: { seasonalHearts: 2 }, emoji: MASK_EMOJIS.Mask22 },
-			{ name: "Ultimate hair", bit: 1 << 2, cost: { seasonalHearts: 4 }, emoji: HAIR_EMOJIS.Hair52 },
+			{
+				name: "Ultimate mask",
+				bit: 1 << 1,
+				cost: { seasonalHearts: 2 },
+				emoji: MASK_EMOJIS.Mask22,
+			},
+			{
+				name: "Ultimate hair",
+				bit: 1 << 2,
+				cost: { seasonalHearts: 4 },
+				emoji: HAIR_EMOJIS.Hair52,
+			},
 		],
 	},
 });

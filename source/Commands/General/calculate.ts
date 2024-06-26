@@ -1,34 +1,42 @@
 import {
-	type ChatInputCommandInteraction,
-	type EmbedFooterOptions,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
+	type ChatInputCommandInteraction,
 	EmbedBuilder,
+	type EmbedFooterOptions,
 	Locale,
 	PermissionFlagsBits,
-	time,
 	TimestampStyles,
+	time,
 } from "discord.js";
 import { t } from "i18next";
 import type { Event } from "../../Structures/Event.js";
 import {
 	AREA_TO_WINGED_LIGHT_COUNT_VALUES,
-	AreaToWingedLightCount,
 	ASCENDED_CANDLES_PER_WEEK,
+	AreaToWingedLightCount,
 	DEFAULT_EMBED_COLOUR,
 	LOCALES,
-	Map,
 	MAXIMUM_WINGED_LIGHT,
 	RealmName,
+	SkyMap,
 	WINGED_LIGHT_AREAS,
 } from "../../Utility/Constants.js";
-import { SEASONAL_CANDLES_PER_DAY, SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS } from "../../Utility/catalogue.js";
+import {
+	SEASONAL_CANDLES_PER_DAY,
+	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
+} from "../../Utility/catalogue.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	todayDate,
 } from "../../Utility/dates.js";
-import { MISCELLANEOUS_EMOJIS, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "../../Utility/emojis.js";
+import {
+	MISCELLANEOUS_EMOJIS,
+	formatEmoji,
+	formatEmojiURL,
+	resolveCurrencyEmoji,
+} from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { shardEruption } from "../../Utility/shardEruption.js";
 import { resolveEvents } from "../../catalogue/events/index.js";
@@ -48,7 +56,8 @@ const doubleSeasonalLightEventEnd = time(
 const ASCENDED_CANDLE_MINIMUM_TIME_EYE_OF_EDEN_TEXT =
 	`all statues in the ${RealmName.EyeOfEden} were gifted winged light` as const;
 
-const ASCENDED_CANDLE_MINIMUM_TIME_SHARD_ERUPTIONS_TEXT = "all shard eruptions were cleansed" as const;
+const ASCENDED_CANDLE_MINIMUM_TIME_SHARD_ERUPTIONS_TEXT =
+	"all shard eruptions were cleansed" as const;
 
 const wingedLightInAreas = AREA_TO_WINGED_LIGHT_COUNT_VALUES.reduce(
 	(wingedLightCount, wingedLight) => wingedLightCount + wingedLight,
@@ -60,18 +69,25 @@ export default new (class implements ChatInputCommand {
 		return {
 			name: t("calculate.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 			nameLocalizations: Object.fromEntries(
-				LOCALES.map((locale) => [locale, t("calculate.command-name", { lng: locale, ns: "commands" })]),
+				LOCALES.map((locale) => [
+					locale,
+					t("calculate.command-name", { lng: locale, ns: "commands" }),
+				]),
 			),
 			description: t("calculate.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
 			descriptionLocalizations: Object.fromEntries(
-				LOCALES.map((locale) => [locale, t("calculate.command-description", { lng: locale, ns: "commands" })]),
+				LOCALES.map((locale) => [
+					locale,
+					t("calculate.command-description", { lng: locale, ns: "commands" }),
+				]),
 			),
 			type: ApplicationCommandType.ChatInput,
 			options: [
 				{
 					type: ApplicationCommandOptionType.Subcommand,
 					name: "ascended-candles",
-					description: "Calculates the number of days it would take to achieve a number of ascended candles.",
+					description:
+						"Calculates the number of days it would take to achieve a number of ascended candles.",
 					options: [
 						{
 							type: ApplicationCommandOptionType.Integer,
@@ -105,7 +121,8 @@ export default new (class implements ChatInputCommand {
 				{
 					type: ApplicationCommandOptionType.Subcommand,
 					name: "event-currency",
-					description: "Calculates the number of days it would take to achieve a number of event currency.",
+					description:
+						"Calculates the number of days it would take to achieve a number of event currency.",
 					options: [
 						{
 							type: ApplicationCommandOptionType.Integer,
@@ -126,14 +143,20 @@ export default new (class implements ChatInputCommand {
 				},
 				{
 					type: ApplicationCommandOptionType.Subcommand,
-					name: t("calculate.seasonal-candles.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+					name: t("calculate.seasonal-candles.command-name", {
+						lng: Locale.EnglishGB,
+						ns: "commands",
+					}),
 					nameLocalizations: Object.fromEntries(
 						LOCALES.map((locale) => [
 							locale,
 							t("calculate.seasonal-candles.command-name", { lng: locale, ns: "commands" }),
 						]),
 					),
-					description: t("calculate.seasonal-candles.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+					description: t("calculate.seasonal-candles.command-description", {
+						lng: Locale.EnglishGB,
+						ns: "commands",
+					}),
 					descriptionLocalizations: Object.fromEntries(
 						LOCALES.map((locale) => [
 							locale,
@@ -150,7 +173,10 @@ export default new (class implements ChatInputCommand {
 							nameLocalizations: Object.fromEntries(
 								LOCALES.map((locale) => [
 									locale,
-									t("calculate.seasonal-candles.command-option-start-name", { lng: locale, ns: "commands" }),
+									t("calculate.seasonal-candles.command-option-start-name", {
+										lng: locale,
+										ns: "commands",
+									}),
 								]),
 							),
 							description: t("calculate.seasonal-candles.command-option-start-description", {
@@ -160,7 +186,10 @@ export default new (class implements ChatInputCommand {
 							descriptionLocalizations: Object.fromEntries(
 								LOCALES.map((locale) => [
 									locale,
-									t("calculate.seasonal-candles.command-option-start-description", { lng: locale, ns: "commands" }),
+									t("calculate.seasonal-candles.command-option-start-description", {
+										lng: locale,
+										ns: "commands",
+									}),
 								]),
 							),
 							minValue: 0,
@@ -169,11 +198,17 @@ export default new (class implements ChatInputCommand {
 						},
 						{
 							type: ApplicationCommandOptionType.Integer,
-							name: t("calculate.seasonal-candles.command-option-goal-name", { lng: Locale.EnglishGB, ns: "commands" }),
+							name: t("calculate.seasonal-candles.command-option-goal-name", {
+								lng: Locale.EnglishGB,
+								ns: "commands",
+							}),
 							nameLocalizations: Object.fromEntries(
 								LOCALES.map((locale) => [
 									locale,
-									t("calculate.seasonal-candles.command-option-goal-name", { lng: locale, ns: "commands" }),
+									t("calculate.seasonal-candles.command-option-goal-name", {
+										lng: locale,
+										ns: "commands",
+									}),
 								]),
 							),
 							description: t("calculate.seasonal-candles.command-option-goal-description", {
@@ -183,7 +218,10 @@ export default new (class implements ChatInputCommand {
 							descriptionLocalizations: Object.fromEntries(
 								LOCALES.map((locale) => [
 									locale,
-									t("calculate.seasonal-candles.command-option-goal-description", { lng: locale, ns: "commands" }),
+									t("calculate.seasonal-candles.command-option-goal-description", {
+										lng: locale,
+										ns: "commands",
+									}),
 								]),
 							),
 							minValue: 1,
@@ -201,7 +239,10 @@ export default new (class implements ChatInputCommand {
 							t("calculate.winged-light.command-name", { lng: locale, ns: "commands" }),
 						]),
 					),
-					description: t("calculate.winged-light.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+					description: t("calculate.winged-light.command-description", {
+						lng: Locale.EnglishGB,
+						ns: "commands",
+					}),
 					descriptionLocalizations: Object.fromEntries(
 						LOCALES.map((locale) => [
 							locale,
@@ -212,7 +253,8 @@ export default new (class implements ChatInputCommand {
 						{
 							type: ApplicationCommandOptionType.Integer,
 							name: "wing-buffs",
-							description: "The number of wing buffs (total amount collected from ascended spirits).",
+							description:
+								"The number of wing buffs (total amount collected from ascended spirits).",
 							maxValue: MAXIMUM_WINGED_LIGHT - wingedLightInAreas,
 							minValue: 0,
 							required: true,
@@ -227,17 +269,21 @@ export default new (class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
-			case "ascended-candles":
+			case "ascended-candles": {
 				await this.ascendedCandles(interaction);
 				return;
-			case "event-currency":
+			}
+			case "event-currency": {
 				await this.eventCurrency(interaction);
 				return;
-			case "seasonal-candles":
+			}
+			case "seasonal-candles": {
 				await this.seasonalCandles(interaction);
 				return;
-			case "winged-light":
+			}
+			case "winged-light": {
 				await this.wingedLight(interaction);
+			}
 		}
 	}
 
@@ -254,11 +300,18 @@ export default new (class implements ChatInputCommand {
 		}
 
 		if (eyeOfEden === false && shardEruptions === false) {
-			await interaction.reply({ content: "You must have a source for gaining ascended candles!", ephemeral: true });
+			await interaction.reply({
+				content: "You must have a source for gaining ascended candles!",
+				ephemeral: true,
+			});
+
 			return;
 		}
 
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const amountRequired = goal - start;
 		let day = todayDate();
 		let result = 0;
@@ -269,12 +322,20 @@ export default new (class implements ChatInputCommand {
 
 				if (shardEruptionToday) {
 					const { strong, reward } = shardEruptionToday;
-					if (strong) result += reward;
+					if (strong) {
+						result += reward;
+					}
 				}
 			}
 
-			if (eyeOfEden && day.weekday === 7) result += ASCENDED_CANDLES_PER_WEEK;
-			if (result >= amountRequired) break;
+			if (eyeOfEden && day.weekday === 7) {
+				result += ASCENDED_CANDLES_PER_WEEK;
+			}
+
+			if (result >= amountRequired) {
+				break;
+			}
+
 			day = day.plus({ day: 1 });
 		}
 
@@ -335,11 +396,16 @@ export default new (class implements ChatInputCommand {
 
 		// Filter out events that do not have event currency.
 		const events = resolveEvents(today).filter(
-			(event): event is Event & { readonly eventCurrencyPerDay: number } => event.eventCurrencyPerDay !== null,
+			(event): event is Event & { readonly eventCurrencyPerDay: number } =>
+				event.eventCurrencyPerDay !== null,
 		);
 
 		if (events.length === 0) {
-			await interaction.reply({ content: "There is no event currently active with event currency.", ephemeral: true });
+			await interaction.reply({
+				content: "There is no event currently active with event currency.",
+				ephemeral: true,
+			});
+
 			return;
 		}
 
@@ -348,11 +414,16 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const amountRequired = goal - start;
 
 		const suffix = events
-			.map((event) => (event.eventCurrencyEmoji ? formatEmoji(event.eventCurrencyEmoji) : event.name))
+			.map((event) =>
+				event.eventCurrencyEmoji ? formatEmoji(event.eventCurrencyEmoji) : event.name,
+			)
 			.join("");
 
 		const startEmojis = `${start} ${suffix}`;
@@ -369,11 +440,16 @@ export default new (class implements ChatInputCommand {
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
-			.setDescription(`Start: ${startEmojis}\nGoal: ${goalEmojis}\nRequired: ${amountRequiredEmojis}`)
+			.setDescription(
+				`Start: ${startEmojis}\nGoal: ${goalEmojis}\nRequired: ${amountRequiredEmojis}`,
+			)
 			.setFields({ name: "Result", value: result.join("\n") })
 			.setTitle("Event Currency Calculator");
 
-		const footer: EmbedFooterOptions = { text: events.map((event) => event.daysText(today)).join("\n") };
+		const footer: EmbedFooterOptions = {
+			text: events.map((event) => event.daysText(today)).join("\n"),
+		};
+
 		const event0 = events.at(0);
 
 		if (events.length === 1 && event0?.eventCurrencyEmoji) {
@@ -398,7 +474,10 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const today = todayDate();
 		const season = resolveSeason(today);
 		const emoji = season?.candleEmoji ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
@@ -413,13 +492,18 @@ export default new (class implements ChatInputCommand {
 			result += SEASONAL_CANDLES_PER_DAY;
 			resultWithSeasonPass += SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS;
 
-			if (day >= DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE && day <= DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE) {
+			if (
+				day >= DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE &&
+				day <= DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE
+			) {
 				includedDoubleLight = true;
 				result += 1;
 				resultWithSeasonPass += 1;
 			}
 
-			if (resultWithSeasonPass < amountRequired) daysWithSeasonPass++;
+			if (resultWithSeasonPass < amountRequired) {
+				daysWithSeasonPass++;
+			}
 		}
 
 		const embed = new EmbedBuilder()
@@ -428,13 +512,17 @@ export default new (class implements ChatInputCommand {
 				`${t("calculate.seasonal-candles.start", { lng, ns: "commands" })}: ${resolveCurrencyEmoji({
 					emoji,
 					number: start,
-				})}\n${t("calculate.seasonal-candles.goal", { lng, ns: "commands" })}: ${resolveCurrencyEmoji({
-					emoji,
-					number: goal,
-				})}\n${t("calculate.seasonal-candles.required", { lng, ns: "commands" })}: ${resolveCurrencyEmoji({
-					emoji,
-					number: amountRequired,
-				})}`,
+				})}\n${t("calculate.seasonal-candles.goal", { lng, ns: "commands" })}: ${resolveCurrencyEmoji(
+					{
+						emoji,
+						number: goal,
+					},
+				)}\n${t("calculate.seasonal-candles.required", { lng, ns: "commands" })}: ${resolveCurrencyEmoji(
+					{
+						emoji,
+						number: amountRequired,
+					},
+				)}`,
 			)
 			.setFields({
 				name: t("calculate.seasonal-candles.result", { lng, ns: "commands" }),
@@ -445,13 +533,16 @@ export default new (class implements ChatInputCommand {
 								lng,
 								ns: "commands",
 								count: daysWithSeasonPass,
-						  })}`
+							})}`
 				}`,
 			})
-			.setTitle(t("calculate.seasonal-candles.seasonal-candle-calculator", { lng, ns: "commands" }));
+			.setTitle(
+				t("calculate.seasonal-candles.seasonal-candle-calculator", { lng, ns: "commands" }),
+			);
 
 		if (season) {
-			const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } = season.remainingSeasonalCandles(today);
+			const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
+				season.remainingSeasonalCandles(today);
 			const daysLeft = season.daysLeft(today, lng);
 
 			embed.addFields({
@@ -459,10 +550,12 @@ export default new (class implements ChatInputCommand {
 				value: `${resolveCurrencyEmoji({
 					emoji,
 					number: seasonalCandlesLeft,
-				})} ${t("calculate.seasonal-candles.remain-in-the-season", { lng, ns: "commands" })}\n${resolveCurrencyEmoji({
-					emoji,
-					number: seasonalCandlesLeftWithSeasonPass,
-				})} ${t("calculate.seasonal-candles.remain-in-the-season-with-a-season-pass", { lng, ns: "commands" })}`,
+				})} ${t("calculate.seasonal-candles.remain-in-the-season", { lng, ns: "commands" })}\n${resolveCurrencyEmoji(
+					{
+						emoji,
+						number: seasonalCandlesLeftWithSeasonPass,
+					},
+				)} ${t("calculate.seasonal-candles.remain-in-the-season-with-a-season-pass", { lng, ns: "commands" })}`,
 			});
 
 			embed.setFooter({ iconURL: formatEmojiURL(season.emoji.id), text: daysLeft });
@@ -482,7 +575,10 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async wingedLight(interaction: ChatInputCommandInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const { locale: lng, options } = interaction;
 		const wingBuffs = options.getInteger("wing-buffs", true);
 		let accumulation = wingBuffs;
@@ -492,31 +588,41 @@ export default new (class implements ChatInputCommand {
 				new EmbedBuilder()
 					.setColor(DEFAULT_EMBED_COLOUR)
 					.setDescription(
-						`${t("calculate.winged-light.started-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji({
-							emoji: MISCELLANEOUS_EMOJIS.WingedLight,
-							number: wingBuffs,
-							includeSpaceInEmoji: true,
-						})}.\n${t("calculate.winged-light.reborn-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji({
-							emoji: MISCELLANEOUS_EMOJIS.WingedLight,
-							number: (accumulation += AreaToWingedLightCount[Map.Orbit]),
-							includeSpaceInEmoji: true,
-						})} (+${AreaToWingedLightCount[Map.Orbit]}).`,
+						`${t("calculate.winged-light.started-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji(
+							{
+								emoji: MISCELLANEOUS_EMOJIS.WingedLight,
+								number: wingBuffs,
+								includeSpaceInEmoji: true,
+							},
+						)}.\n${t("calculate.winged-light.reborn-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji(
+							{
+								emoji: MISCELLANEOUS_EMOJIS.WingedLight,
+								// biome-ignore lint/suspicious/noAssignInExpressions: It's fine.
+								number: (accumulation += AreaToWingedLightCount[SkyMap.Orbit]),
+								includeSpaceInEmoji: true,
+							},
+						)} (+${AreaToWingedLightCount[SkyMap.Orbit]}).`,
 					)
 					.setFields(
 						...WINGED_LIGHT_AREAS.map((area) => ({
-							name: t(`${area === Map.AncientMemory ? "maps" : "realms"}.${area}`, {
+							name: t(`${area === SkyMap.AncientMemory ? "maps" : "realms"}.${area}`, {
 								lng,
 								ns: "general",
 							}),
-							value: `${(accumulation += AreaToWingedLightCount[area])} (+${AreaToWingedLightCount[area]})`,
+							value: `${
+								// biome-ignore lint/suspicious/noAssignInExpressions: It's fine.
+								(accumulation += AreaToWingedLightCount[area])
+							} (+${AreaToWingedLightCount[area]})`,
 						})),
 						{
 							name: "Total",
-							value: `${t("calculate.winged-light.you-should-have", { lng, ns: "commands" })} ${resolveCurrencyEmoji({
-								emoji: MISCELLANEOUS_EMOJIS.WingedLight,
-								number: accumulation,
-								includeSpaceInEmoji: true,
-							})}.`,
+							value: `${t("calculate.winged-light.you-should-have", { lng, ns: "commands" })} ${resolveCurrencyEmoji(
+								{
+									emoji: MISCELLANEOUS_EMOJIS.WingedLight,
+									number: accumulation,
+									includeSpaceInEmoji: true,
+								},
+							)}.`,
 						},
 					)
 					.setTitle(t("calculate.winged-light.winged-light-calculator", { lng, ns: "commands" })),

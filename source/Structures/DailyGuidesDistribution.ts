@@ -1,19 +1,19 @@
 import {
 	type Channel,
+	ChannelType,
 	type ChatInputCommandInteraction,
 	type Client,
+	EmbedBuilder,
 	type EmbedFooterOptions,
 	type Guild,
 	type GuildBasedChannel,
 	type GuildMember,
 	type Locale,
+	PermissionFlagsBits,
 	type PublicThreadChannel,
 	type Snowflake,
 	channelMention,
-	ChannelType,
-	EmbedBuilder,
 	hyperlink,
-	PermissionFlagsBits,
 } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
@@ -26,7 +26,12 @@ import {
 	isDuring,
 	todayDate,
 } from "../Utility/dates.js";
-import { formatEmoji, formatEmojiURL, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../Utility/emojis.js";
+import {
+	MISCELLANEOUS_EMOJIS,
+	formatEmoji,
+	formatEmojiURL,
+	resolveCurrencyEmoji,
+} from "../Utility/emojis.js";
 import {
 	shardEruption,
 	shardEruptionInformationString,
@@ -66,7 +71,9 @@ type DailyGuidesDistributionAllowedChannel =
 	// Public thread channels do not dynamically narrow down because of the union within the channel's class.
 	| PublicThreadChannel;
 
-function isDailyGuidesDistributionChannel(channel: Channel): channel is DailyGuidesDistributionAllowedChannel {
+function isDailyGuidesDistributionChannel(
+	channel: Channel,
+): channel is DailyGuidesDistributionAllowedChannel {
 	return DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES.includes(
 		channel.type as (typeof DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES)[number],
 	);
@@ -90,11 +97,17 @@ export function isDailyGuidesDistributable(
 	returnErrors = false,
 ) {
 	const errors = [];
-	if (me.isCommunicationDisabled()) errors.push("I am timed out.");
+
+	if (me.isCommunicationDisabled()) {
+		errors.push("I am timed out.");
+	}
+
 	const isThread = channel.type === ChannelType.PublicThread;
 
 	if (isThread) {
-		if (channel.archived) errors.push("The thread is archived.");
+		if (channel.archived) {
+			errors.push("The thread is archived.");
+		}
 
 		if (!channel.permissionsFor(me).has(PermissionFlagsBits.ManageThreads) && channel.locked) {
 			errors.push("The thread is locked.");
@@ -115,7 +128,11 @@ export function isDailyGuidesDistributable(
 		);
 	}
 
-	return returnErrors ? (errors.length > 1 ? errors.map((error) => `- ${error}`) : errors) : errors.length === 0;
+	return returnErrors
+		? errors.length > 1
+			? errors.map((error) => `- ${error}`)
+			: errors
+		: errors.length === 0;
 }
 
 export default class DailyGuidesDistribution {
@@ -140,16 +157,23 @@ export default class DailyGuidesDistribution {
 			Table.DailyGuidesDistribution,
 		).where("guild_id", guildId);
 
-		if (!dailyGuidesDistributionPacket) throw new Error("No daily guides distribution found.");
+		if (!dailyGuidesDistributionPacket) {
+			throw new Error("No daily guides distribution found.");
+		}
+
 		return new this(dailyGuidesDistributionPacket);
 	}
 
 	public static async reset() {
-		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).update({ message_id: null });
+		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).update({
+			message_id: null,
+		});
 	}
 
 	public static async delete(guildId: Snowflake) {
-		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).delete().where({ guild_id: guildId });
+		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
+			.delete()
+			.where({ guild_id: guildId });
 	}
 
 	public static async setup(
@@ -161,6 +185,7 @@ export default class DailyGuidesDistribution {
 		let shouldSend = false;
 
 		if (dailyGuidesDistribution) {
+			// biome-ignore lint/suspicious/noImplicitAnyLet: Effort.
 			let updateData;
 
 			if (dailyGuidesDistribution.channelId === data.channel_id) {
@@ -171,7 +196,6 @@ export default class DailyGuidesDistribution {
 					const channel = guild.channels.cache.get(dailyGuidesDistribution.channelId);
 
 					if (channel && isDailyGuidesDistributionChannel(channel)) {
-						// eslint-disable-next-line promise/prefer-await-to-then
 						channel.messages.delete(dailyGuidesDistribution.messageId).catch(() => null);
 					}
 				}
@@ -180,7 +204,9 @@ export default class DailyGuidesDistribution {
 				shouldSend = true;
 			}
 
-			const [dailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
+			const [dailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(
+				Table.DailyGuidesDistribution,
+			)
 				.update(updateData)
 				.where({ guild_id: dailyGuidesDistribution.guildId })
 				.returning("*");
@@ -196,7 +222,9 @@ export default class DailyGuidesDistribution {
 			dailyGuidesDistribution = new this(dailyGuidesDistributionPacket!);
 		}
 
-		if (shouldSend) await dailyGuidesDistribution.send(client, false);
+		if (shouldSend) {
+			await dailyGuidesDistribution.send(client, false);
+		}
 
 		await interaction.reply({
 			content: "Daily guides have been modified.",
@@ -208,7 +236,9 @@ export default class DailyGuidesDistribution {
 	public static async unset(interaction: ChatInputCommandInteraction<"cached">) {
 		const { guild, guildId } = interaction;
 
-		const [dailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
+		const [dailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(
+			Table.DailyGuidesDistribution,
+		)
 			.update({ channel_id: null, message_id: null })
 			.where("guild_id", guildId)
 			.returning("*");
@@ -217,7 +247,9 @@ export default class DailyGuidesDistribution {
 			content: dailyGuidesDistributionPacket
 				? "Daily guides have been unset."
 				: "There were no daily guide updates in this server.",
-			embeds: dailyGuidesDistributionPacket ? [await new this(dailyGuidesDistributionPacket).embed(guild)] : [],
+			embeds: dailyGuidesDistributionPacket
+				? [await new this(dailyGuidesDistributionPacket).embed(guild)]
+				: [],
 			ephemeral: true,
 		});
 	}
@@ -226,7 +258,10 @@ export default class DailyGuidesDistribution {
 		const me = await guild.members.fetchMe();
 		const { channelId } = this;
 		const channel = channelId ? guild.channels.cache.get(channelId) : null;
-		const sending = channel && isDailyGuidesDistributionChannel(channel) && isDailyGuidesDistributable(channel, me);
+		const sending =
+			channel &&
+			isDailyGuidesDistributionChannel(channel) &&
+			isDailyGuidesDistributable(channel, me);
 
 		return new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
@@ -244,7 +279,10 @@ export default class DailyGuidesDistribution {
 		const events = resolveEvents(date);
 		const eventEndText = plannedEvents(date).map((event) => event.daysText(date));
 		const event0 = events[0];
-		const iconURL = event0?.eventCurrencyEmoji ? formatEmojiURL(event0.eventCurrencyEmoji.id) : null;
+
+		const iconURL = event0?.eventCurrencyEmoji
+			? formatEmojiURL(event0.eventCurrencyEmoji.id)
+			: null;
 
 		const currentEventsWithEventCurrency = events.filter(
 			(event) => date <= event.eventCurrencyEnd && event.eventCurrencyInfographicURL,
@@ -257,16 +295,19 @@ export default class DailyGuidesDistribution {
 						value: currentEventsWithEventCurrency
 							.map((event) =>
 								hyperlink(
-									`${event.eventCurrencyEmoji ? formatEmoji(event.eventCurrencyEmoji) : ""}${t("view", {
-										lng: locale,
-										ns: "general",
-									})}`,
+									`${event.eventCurrencyEmoji ? formatEmoji(event.eventCurrencyEmoji) : ""}${t(
+										"view",
+										{
+											lng: locale,
+											ns: "general",
+										},
+									)}`,
 									event.resolveInfographicURL(date)!,
 									event.name,
 								),
 							)
 							.join(" | "),
-				  }
+					}
 				: null;
 
 		return { eventEndText, iconURL, eventCurrency };
@@ -301,15 +342,26 @@ export default class DailyGuidesDistribution {
 	public static embed(locale: Locale) {
 		const { dailyMessage, quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
 		const today = todayDate();
-		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(dateString(today, locale));
-		if (dailyMessage) embed.addFields({ name: dailyMessage.title, value: dailyMessage.description });
-		const quests = [quest1, quest2, quest3, quest4].filter((quest): quest is DailyGuideQuest => quest !== null);
+
+		const embed = new EmbedBuilder()
+			.setColor(DEFAULT_EMBED_COLOUR)
+			.setTitle(dateString(today, locale));
+
+		if (dailyMessage) {
+			embed.addFields({ name: dailyMessage.title, value: dailyMessage.description });
+		}
+
+		const quests = [quest1, quest2, quest3, quest4].filter(
+			(quest): quest is DailyGuideQuest => quest !== null,
+		);
 
 		if (quests.length > 0) {
 			embed.addFields({
 				name: "Quests",
 				value: quests
-					.map(({ content, url }, index) => `${index + 1}. ${url ? hyperlink(content, url) : content}`)
+					.map(
+						({ content, url }, index) => `${index + 1}. ${url ? hyperlink(content, url) : content}`,
+					)
 					.join("\n"),
 			});
 		}
@@ -325,7 +377,9 @@ export default class DailyGuidesDistribution {
 				treasureCandles[RealmName.GoldenWasteland],
 				treasureCandles[RealmName.VaultOfKnowledge],
 			]) {
-				if (hashes.length === 0) continue;
+				if (hashes.length === 0) {
+					continue;
+				}
 
 				for (const hash of hashes) {
 					values.push(hyperlink(`${number} - ${number + 3}`, DailyGuides.treasureCandlesURL(hash)));
@@ -356,7 +410,13 @@ export default class DailyGuidesDistribution {
 				const { rotation, realm } = seasonalCandlesRotation;
 				let rotationNumber: RotationNumber = rotation;
 
-				if (isDuring(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, today)) {
+				if (
+					isDuring(
+						DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
+						DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
+						today,
+					)
+				) {
 					rotationNumber = 3;
 				}
 
@@ -364,7 +424,8 @@ export default class DailyGuidesDistribution {
 				values.push(hyperlink(`Rotation ${rotationNumber}`, url));
 			}
 
-			const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } = season.remainingSeasonalCandles(today);
+			const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
+				season.remainingSeasonalCandles(today);
 
 			values.push(
 				`${resolveCurrencyEmoji({
@@ -395,14 +456,22 @@ export default class DailyGuidesDistribution {
 
 		if (seasonFooterText || eventFooterText) {
 			const footer: EmbedFooterOptions = {
-				text: [seasonFooterText, eventFooterText].filter((footerText) => footerText !== null).join("\n"),
+				text: [seasonFooterText, eventFooterText]
+					.filter((footerText) => footerText !== null)
+					.join("\n"),
 			};
 
-			if (iconURL) footer.iconURL = iconURL;
+			if (iconURL) {
+				footer.iconURL = iconURL;
+			}
+
 			embed.setFooter(footer);
 		}
 
-		if (eventData.eventCurrency) embed.addFields(eventData.eventCurrency);
+		if (eventData.eventCurrency) {
+			embed.addFields(eventData.eventCurrency);
+		}
+
 		embed.addFields(this.shardEruptionFieldData(locale));
 		return embed;
 	}
@@ -411,7 +480,7 @@ export default class DailyGuidesDistribution {
 		const { guildId, channelId, messageId } = this;
 		const channel = client.channels.cache.get(channelId!);
 
-		if (!channel || !isDailyGuidesDistributionChannel(channel)) {
+		if (!(channel && isDailyGuidesDistributionChannel(channel))) {
 			pino.info(
 				`Did not distribute daily guides to guild id ${guildId} as it had no detectable channel id ${channelId}, or did not satisfy the allowed channel types.`,
 			);
@@ -435,18 +504,20 @@ export default class DailyGuidesDistribution {
 		// Update the embed if a message exists.
 		if (messageId) {
 			return channel.messages.edit(messageId, { embeds: [embed] });
-		} else {
-			// There is no existing message. Send one.
-			const { id } = await channel.send({ embeds: [embed], enforceNonce, nonce: guildId });
-
-			const [newDailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
-				.update({ message_id: id })
-				.where({ guild_id: guildId })
-				.returning("*");
-
-			this.patch(newDailyGuidesDistributionPacket!);
-			return newDailyGuidesDistributionPacket;
 		}
+
+		// There is no existing message. Send one.
+		const { id } = await channel.send({ embeds: [embed], enforceNonce, nonce: guildId });
+
+		const [newDailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(
+			Table.DailyGuidesDistribution,
+		)
+			.update({ message_id: id })
+			.where({ guild_id: guildId })
+			.returning("*");
+
+		this.patch(newDailyGuidesDistributionPacket!);
+		return newDailyGuidesDistributionPacket;
 	}
 
 	public static async distribute(client: Client<true>) {
@@ -455,7 +526,7 @@ export default class DailyGuidesDistribution {
 		).whereNotNull("channel_id");
 
 		const settled = await Promise.allSettled(
-			dailyGuidesDistributionPackets.map(async (dailyGuidesDistributionPacket) => {
+			dailyGuidesDistributionPackets.map((dailyGuidesDistributionPacket) => {
 				const dailyGuidesDistribution = new DailyGuidesDistribution(dailyGuidesDistributionPacket);
 				return pQueue.add(async () => dailyGuidesDistribution.send(client, true));
 			}),
@@ -465,6 +536,8 @@ export default class DailyGuidesDistribution {
 			.filter((result): result is PromiseRejectedResult => result.status === "rejected")
 			.map((result) => result.reason);
 
-		if (errors.length > 0) pino.error(errors, "Error whilst distributing daily guides.");
+		if (errors.length > 0) {
+			pino.error(errors, "Error whilst distributing daily guides.");
+		}
 	}
 }

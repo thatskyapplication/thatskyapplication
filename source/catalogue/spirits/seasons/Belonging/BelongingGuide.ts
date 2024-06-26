@@ -1,6 +1,6 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
-import { NECKLACE_EMOJIS, LARGE_PLACEABLE_PROPS_EMOJIS } from "../../../../Utility/emojis.js";
+import { LARGE_PLACEABLE_PROPS_EMOJIS, NECKLACE_EMOJIS } from "../../../../Utility/emojis.js";
 import { SpiritName } from "../../../../Utility/spirits.js";
 
 export default new GuideSpirit({

@@ -1,9 +1,11 @@
 import process from "node:process";
-import { type Collection, type Guild, type Snowflake, Events } from "discord.js";
+import { type Collection, Events, type Guild, type Snowflake } from "discord.js";
 import AI, { type AIPacket } from "../Structures/AI.js";
 import Configuration, { type ConfigurationPacket } from "../Structures/Configuration.js";
 import DailyGuides, { type DailyGuidesPacket } from "../Structures/DailyGuides.js";
-import DailyGuidesDistribution, { type DailyGuidesDistributionPacket } from "../Structures/DailyGuidesDistribution.js";
+import DailyGuidesDistribution, {
+	type DailyGuidesDistributionPacket,
+} from "../Structures/DailyGuidesDistribution.js";
 import heartbeat from "../Structures/Heartbeat.js";
 import Notification, { type NotificationPacket } from "../Structures/Notification.js";
 import pg, { Table } from "../pg.js";
@@ -72,10 +74,12 @@ export default {
 		await collectFromDatabase(guildCache);
 
 		// Collect guild ids from daily guides distribution table for the set.
-		for (const { guild_id } of await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).select(
-			"guild_id",
-		)) {
-			if (!guildCache.has(guild_id)) guildIds.add(guild_id);
+		for (const { guild_id } of await pg<DailyGuidesDistributionPacket>(
+			Table.DailyGuidesDistribution,
+		).select("guild_id")) {
+			if (!guildCache.has(guild_id)) {
+				guildIds.add(guild_id);
+			}
 		}
 
 		// Remove guild configurations we no longer have access to.

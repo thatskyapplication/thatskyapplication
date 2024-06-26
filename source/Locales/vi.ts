@@ -1,4 +1,4 @@
-import { Map, RealmName } from "../Utility/Constants.js";
+import { RealmName, SkyMap } from "../Utility/Constants.js";
 import { SeasonName } from "../Utility/catalogue.js";
 import { SpiritName } from "../Utility/spirits.js";
 
@@ -13,7 +13,7 @@ export default {
 			[RealmName.VaultOfKnowledge]: "Kho Tri Thức",
 			[RealmName.EyeOfEden]: "Mắt Địa Đàng",
 		},
-		maps: { [Map.JellyfishCove]: "Vịnh Sứa" },
+		maps: { [SkyMap.JellyfishCove]: "Vịnh Sứa" },
 		seasons: {
 			[SeasonName.Gratitude]: "Mùa Tri Ân",
 			[SeasonName.Lightseekers]: "Mùa Ánh Sáng",

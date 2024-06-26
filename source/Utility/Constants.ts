@@ -92,7 +92,7 @@ export enum RealmName {
 
 export const REALM_NAME_VALUES = Object.values(RealmName);
 
-export enum Map {
+export enum SkyMap {
 	// Daylight Prairie.
 	BirdNest = "Bird Nest",
 	ButterflyFields = "Butterfly Fields",
@@ -146,61 +146,68 @@ export enum Map {
 export const MAP_VALUES = Object.values(Map);
 
 export const MEDITATION_MAPS = [
-	Map.ButterflyFields,
-	Map.SanctuaryIslands,
-	Map.Cave,
-	Map.KoiPond,
-	Map.ForestClearing,
-	Map.ForestBrook,
-	Map.ElevatedClearing,
-	Map.Boneyard,
-	Map.IceRink,
-	Map.Citadel,
-	Map.Coliseum,
-	Map.BrokenTemple,
-	Map.ForgottenArk,
-	Map.Graveyard,
-	Map.Boat,
-	Map.Battlefield,
-	Map.VaultEntrance,
-	Map.VaultSecondFloor,
-	Map.VaultSummit,
+	SkyMap.ButterflyFields,
+	SkyMap.SanctuaryIslands,
+	SkyMap.Cave,
+	SkyMap.KoiPond,
+	SkyMap.ForestClearing,
+	SkyMap.ForestBrook,
+	SkyMap.ElevatedClearing,
+	SkyMap.Boneyard,
+	SkyMap.IceRink,
+	SkyMap.Citadel,
+	SkyMap.Coliseum,
+	SkyMap.BrokenTemple,
+	SkyMap.ForgottenArk,
+	SkyMap.Graveyard,
+	SkyMap.Boat,
+	SkyMap.Battlefield,
+	SkyMap.VaultEntrance,
+	SkyMap.VaultSecondFloor,
+	SkyMap.VaultSummit,
 ] as const;
 
 export type MeditationMaps = (typeof MEDITATION_MAPS)[number];
-export const SOCIAL_LIGHT_AREA_MAPS = [Map.Cave, Map.ElevatedClearing, Map.VillageOfDreams, Map.Graveyard] as const;
+
+export const SOCIAL_LIGHT_AREA_MAPS = [
+	SkyMap.Cave,
+	SkyMap.ElevatedClearing,
+	SkyMap.VillageOfDreams,
+	SkyMap.Graveyard,
+] as const;
+
 export type SocialLightAreaMaps = (typeof SOCIAL_LIGHT_AREA_MAPS)[number];
 
 export const SocialLightAreaMapToCDNString = {
-	[Map.Cave]: "cosy_hideout",
-	[Map.ElevatedClearing]: "ancestors_table_of_belonging",
-	[Map.VillageOfDreams]: "hot_spring",
-	[Map.Graveyard]: "bonfire",
+	[SkyMap.Cave]: "cosy_hideout",
+	[SkyMap.ElevatedClearing]: "ancestors_table_of_belonging",
+	[SkyMap.VillageOfDreams]: "hot_spring",
+	[SkyMap.Graveyard]: "bonfire",
 } as const satisfies Readonly<Record<SocialLightAreaMaps, string>>;
 
 export const RAINBOW_ADMIRE_MAPS = [
-	Map.SanctuaryIslands,
-	Map.WindPaths,
-	Map.HermitValley,
-	Map.TreasureReef,
-	Map.StarlightDesert,
+	SkyMap.SanctuaryIslands,
+	SkyMap.WindPaths,
+	SkyMap.HermitValley,
+	SkyMap.TreasureReef,
+	SkyMap.StarlightDesert,
 ] as const;
 
 export type RainbowAdmireMaps = (typeof RAINBOW_ADMIRE_MAPS)[number];
 
-export const WINGED_LIGHT_AREAS = [...REALM_NAME_VALUES, Map.AncientMemory] as const;
+export const WINGED_LIGHT_AREAS = [...REALM_NAME_VALUES, SkyMap.AncientMemory] as const;
 type WingedLightAreas = (typeof WINGED_LIGHT_AREAS)[number];
 
 // This exists due to the Infographics server's inconsistencies and faults alongside no desire to fix them.
 export const INCONSISTENT_MAP = {
 	// Daylight Prairie.
-	"Sanctuary Island": Map.SanctuaryIslands,
+	"Sanctuary Island": SkyMap.SanctuaryIslands,
 
 	// Hidden Forest.
-	"Forest's Brook": Map.ForestBrook,
+	"Forest's Brook": SkyMap.ForestBrook,
 
 	// Valley of Triumph.
-	"Race End": Map.Coliseum,
+	"Race End": SkyMap.Coliseum,
 } as const;
 
 export const inconsistentMapKeys = Object.keys(INCONSISTENT_MAP);
@@ -223,9 +230,9 @@ export const AreaToWingedLightCount = {
 	[RealmName.GoldenWasteland]: 18,
 	[RealmName.VaultOfKnowledge]: 15,
 	[RealmName.EyeOfEden]: 10,
-	[Map.AncientMemory]: 6,
-	[Map.Orbit]: 1,
-} as const satisfies Readonly<Record<WingedLightAreas | Map.Orbit, number>>;
+	[SkyMap.AncientMemory]: 6,
+	[SkyMap.Orbit]: 1,
+} as const satisfies Readonly<Record<WingedLightAreas | SkyMap.Orbit, number>>;
 
 export const AREA_TO_WINGED_LIGHT_COUNT_VALUES = Object.values(AreaToWingedLightCount);
 

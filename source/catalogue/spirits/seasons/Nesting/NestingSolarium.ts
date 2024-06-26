@@ -9,7 +9,8 @@ import {
 import { SpiritName } from "../../../../Utility/spirits.js";
 
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
-const { LargePlaceableProp34, LargePlaceableProp35, LargePlaceableProp36 } = LARGE_PLACEABLE_PROPS_EMOJIS;
+const { LargePlaceableProp34, LargePlaceableProp35, LargePlaceableProp36 } =
+	LARGE_PLACEABLE_PROPS_EMOJIS;
 const { SmallPlaceableProp38 } = SMALL_PLACEABLE_PROPS_EMOJIS;
 
 export default new SeasonalSpirit({
@@ -26,7 +27,12 @@ export default new SeasonalSpirit({
 			{ name: "Prop 3", bit: 1 << 5, emoji: LargePlaceableProp35 },
 			{ name: "Prop 4", bit: 1 << 6, cost: { seasonalCandles: 34 }, emoji: LargePlaceableProp36 },
 			{ name: "Blessing 4", bit: 1 << 7, emoji: blessing3 },
-			{ name: "Seasonal heart", bit: 1 << 8, cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.NestingHeart },
+			{
+				name: "Seasonal heart",
+				bit: 1 << 8,
+				cost: { seasonalCandles: 3 },
+				emoji: SEASON_EMOJIS.NestingHeart,
+			},
 		],
 	},
 });

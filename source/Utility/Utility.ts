@@ -1,17 +1,17 @@
-import { type Snowflake, type User } from "discord.js";
+import type { Snowflake, User } from "discord.js";
 import {
-	type MeditationMaps,
-	type RainbowAdmireMaps,
-	type RealmName,
-	type SocialLightAreaMaps,
 	INCONSISTENT_MAP,
-	inconsistentMapKeys,
-	Map,
 	MEDITATION_MAPS,
+	type MeditationMaps,
 	RAINBOW_ADMIRE_MAPS,
 	REALM_NAME_VALUES,
+	type RainbowAdmireMaps,
+	type RealmName,
 	SOCIAL_LIGHT_AREA_MAPS,
+	SkyMap,
+	type SocialLightAreaMaps,
 	VALID_REALM_NAME,
+	inconsistentMapKeys,
 } from "./Constants.js";
 
 export function getRandomElement<const T>(array: readonly T[]) {
@@ -24,7 +24,10 @@ export function isRealm(realm: string): realm is RealmName {
 
 export function resolveValidRealm(realm: string) {
 	const upperRealm = realm.toUpperCase();
-	return Object.values(VALID_REALM_NAME).find((validRealm) => validRealm.toUpperCase() === upperRealm) ?? null;
+	return (
+		Object.values(VALID_REALM_NAME).find((validRealm) => validRealm.toUpperCase() === upperRealm) ??
+		null
+	);
 }
 
 export function resolveMap(rawMap: string) {
@@ -42,56 +45,56 @@ export function resolveMap(rawMap: string) {
 
 export function resolveMeditationMap(map: MeditationMaps) {
 	switch (map) {
-		case Map.ForestBrook:
-		case Map.Citadel:
+		case SkyMap.ForestBrook:
+		case SkyMap.Citadel:
 			return `above the ${map}`;
-		case Map.SanctuaryIslands:
-		case Map.Boneyard:
-		case Map.ForestClearing:
-		case Map.Coliseum:
-		case Map.VaultEntrance:
-		case Map.VaultSummit:
+		case SkyMap.SanctuaryIslands:
+		case SkyMap.Boneyard:
+		case SkyMap.ForestClearing:
+		case SkyMap.Coliseum:
+		case SkyMap.VaultEntrance:
+		case SkyMap.VaultSummit:
 			return `at the ${map}`;
-		case Map.KoiPond:
-		case Map.IceRink:
+		case SkyMap.KoiPond:
+		case SkyMap.IceRink:
 			return `by the ${map}`;
-		case Map.ButterflyFields:
-		case Map.Cave:
-		case Map.ElevatedClearing:
-		case Map.BrokenTemple:
-		case Map.ForgottenArk:
-		case Map.Graveyard:
-		case Map.VaultSecondFloor:
+		case SkyMap.ButterflyFields:
+		case SkyMap.Cave:
+		case SkyMap.ElevatedClearing:
+		case SkyMap.BrokenTemple:
+		case SkyMap.ForgottenArk:
+		case SkyMap.Graveyard:
+		case SkyMap.VaultSecondFloor:
 			return `in the ${map}`;
-		case Map.Battlefield:
-		case Map.Boat:
+		case SkyMap.Battlefield:
+		case SkyMap.Boat:
 			return `on the ${map}`;
 	}
 }
 
-export function isMeditationMap(map: Map): map is MeditationMaps {
-	return MEDITATION_MAPS.includes(map as MeditationMaps);
+export function isMeditationMap(skyMap: SkyMap): skyMap is MeditationMaps {
+	return MEDITATION_MAPS.includes(skyMap as MeditationMaps);
 }
 
-export function resolveSocialLightAreaMap(map: SocialLightAreaMaps) {
-	switch (map) {
-		case Map.Cave:
-			return `cosy hideout in the ${map}`;
-		case Map.ElevatedClearing:
-			return `ancestor's table of belonging in the ${map}`;
-		case Map.VillageOfDreams:
-			return `hot spring in the ${map}`;
-		case Map.Graveyard:
-			return `bonfire at the ${map}`;
+export function resolveSocialLightAreaMap(skyMap: SocialLightAreaMaps) {
+	switch (skyMap) {
+		case SkyMap.Cave:
+			return `cosy hideout in the ${skyMap}`;
+		case SkyMap.ElevatedClearing:
+			return `ancestor's table of belonging in the ${skyMap}`;
+		case SkyMap.VillageOfDreams:
+			return `hot spring in the ${skyMap}`;
+		case SkyMap.Graveyard:
+			return `bonfire at the ${skyMap}`;
 	}
 }
 
-export function isSocialLightAreaMap(map: Map): map is SocialLightAreaMaps {
-	return SOCIAL_LIGHT_AREA_MAPS.includes(map as SocialLightAreaMaps);
+export function isSocialLightAreaMap(skyMap: SkyMap): skyMap is SocialLightAreaMaps {
+	return SOCIAL_LIGHT_AREA_MAPS.includes(skyMap as SocialLightAreaMaps);
 }
 
-export function isRainbowAdmireMap(map: Map): map is RainbowAdmireMaps {
-	return RAINBOW_ADMIRE_MAPS.includes(map as RainbowAdmireMaps);
+export function isRainbowAdmireMap(skyMap: SkyMap): skyMap is RainbowAdmireMaps {
+	return RAINBOW_ADMIRE_MAPS.includes(skyMap as RainbowAdmireMaps);
 }
 
 export function chatInputApplicationCommandMention(

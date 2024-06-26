@@ -13,10 +13,25 @@ export default new Event({
 	start: skyDate(2_020, 12, 21),
 	end: skyDate(2_021, 1, 3),
 	offer: [
-		{ name: "Neck accessory", bit: 1 << 0, cost: { hearts: 15 }, emoji: NECKLACE_EMOJIS.Necklace09 },
+		{
+			name: "Neck accessory",
+			bit: 1 << 0,
+			cost: { hearts: 15 },
+			emoji: NECKLACE_EMOJIS.Necklace09,
+		},
 		{ name: "Cape", bit: 1 << 1, cost: { candles: 65 }, emoji: CAPE_EMOJIS.Cape41 },
-		{ name: "Prop", bit: 1 << 2, cost: { candles: 150 }, emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp03 },
-		{ name: "Days of Feast Horns", bit: 1 << 3, cost: { money: 14.99 }, emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory11 },
+		{
+			name: "Prop",
+			bit: 1 << 2,
+			cost: { candles: 150 },
+			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp03,
+		},
+		{
+			name: "Days of Feast Horns",
+			bit: 1 << 3,
+			cost: { money: 14.99 },
+			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory11,
+		},
 		{ name: "Snowflake Cape", bit: 1 << 4, cost: { money: 14.99 }, emoji: CAPE_EMOJIS.Cape42 },
 	],
 });

@@ -1,5 +1,5 @@
 import { DeleteObjectsCommand } from "@aws-sdk/client-s3";
-import { type ButtonInteraction, hyperlink, MessageFlags } from "discord.js";
+import { type ButtonInteraction, MessageFlags, hyperlink } from "discord.js";
 import type { HeartPacket } from "../Commands/Fun/heart.js";
 import S3Client from "../S3Client.js";
 import { CDN_BUCKET, SUPPORT_SERVER_INVITE_URL } from "../Utility/Constants.js";
@@ -10,13 +10,12 @@ import type { GuessPacket } from "./Guess.js";
 import type { ProfilePacket } from "./Profile.js";
 import Profile from "./Profile.js";
 
-const DELETE_ERROR_MESSAGE =
-	`There was an issue deleting your user data. Don't worry, this incident is being tracked and has been converted into a manual data deletion request (as opposed to an automatic one). Your data will be deleted within 30 days.
+const DELETE_ERROR_MESSAGE = `There was an issue deleting your user data. Don't worry, this incident is being tracked and has been converted into a manual data deletion request (as opposed to an automatic one). Your data will be deleted within 30 days.
 	
 If you want, you may join the ${hyperlink(
-		"support server",
-		SUPPORT_SERVER_INVITE_URL,
-	)} and request to see the status of your data deletion request.` as const;
+	"support server",
+	SUPPORT_SERVER_INVITE_URL,
+)} and request to see the status of your data deletion request.` as const;
 
 export async function deleteUserData(interaction: ButtonInteraction) {
 	const { id } = interaction.user;
@@ -35,7 +34,9 @@ export async function deleteUserData(interaction: ButtonInteraction) {
 		}
 
 		promises.push(
-			S3Client.send(new DeleteObjectsCommand({ Bucket: CDN_BUCKET, Delete: { Objects: profileDeleteData } })),
+			S3Client.send(
+				new DeleteObjectsCommand({ Bucket: CDN_BUCKET, Delete: { Objects: profileDeleteData } }),
+			),
 		);
 	}
 
@@ -49,7 +50,13 @@ export async function deleteUserData(interaction: ButtonInteraction) {
 		await Promise.all(promises);
 	} catch (error) {
 		pino.error(error, `Error deleting user data for ${id}.`);
-		await interaction.update({ components: [], content: DELETE_ERROR_MESSAGE, flags: MessageFlags.SuppressEmbeds });
+
+		await interaction.update({
+			components: [],
+			content: DELETE_ERROR_MESSAGE,
+			flags: MessageFlags.SuppressEmbeds,
+		});
+
 		return;
 	}
 

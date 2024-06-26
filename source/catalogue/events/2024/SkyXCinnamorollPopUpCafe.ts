@@ -15,7 +15,12 @@ export default new Event({
 	eventCurrencyInfographicURL: true,
 	eventCurrencyPerDay: 5,
 	offer: [
-		{ name: "Hair accessory", bit: 1 << 0, cost: { eventCurrency: 22 }, emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory41 },
+		{
+			name: "Hair accessory",
+			bit: 1 << 0,
+			cost: { eventCurrency: 22 },
+			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory41,
+		},
 		{
 			name: "Prop",
 			bit: 1 << 1,

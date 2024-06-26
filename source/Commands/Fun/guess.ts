@@ -1,8 +1,8 @@
 import {
 	type ApplicationCommandData,
-	type ChatInputCommandInteraction,
-	ApplicationCommandType,
 	ApplicationCommandOptionType,
+	ApplicationCommandType,
+	type ChatInputCommandInteraction,
 } from "discord.js";
 import {
 	GUESS_DIFFICULTY_LEVEL_VALUES,
@@ -66,11 +66,13 @@ export default new (class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
-			case "game":
+			case "game": {
 				await this.game(interaction);
 				return;
-			case "leaderboard":
+			}
+			case "leaderboard": {
 				await this.leaderboard(interaction);
+			}
 		}
 	}
 
@@ -80,7 +82,9 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		const difficulty = interaction.options.getInteger("difficulty") ?? GuessDifficultyLevel.Original;
+		const difficulty =
+			interaction.options.getInteger("difficulty") ?? GuessDifficultyLevel.Original;
+
 		await guess(interaction, difficulty, 0);
 	}
 

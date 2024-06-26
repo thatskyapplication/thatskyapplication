@@ -16,11 +16,31 @@ export default new Event({
 	eventCurrencyInfographicURL: true,
 	eventCurrencyPerDay: 6,
 	offer: [
-		{ name: "Hair accessory", bit: 1 << 0, cost: { eventCurrency: 24 }, emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory32 },
+		{
+			name: "Hair accessory",
+			bit: 1 << 0,
+			cost: { eventCurrency: 24 },
+			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory32,
+		},
 		{ name: "Shoes", bit: 1 << 1, cost: { eventCurrency: 16 }, emoji: SHOE_EMOJIS.Shoe12 },
 		{ name: "Outfit", bit: 1 << 2, cost: { eventCurrency: 41 }, emoji: OUTFIT_EMOJIS.Outfit52 },
-		{ name: "Mischief Gossamer Cape", bit: 1 << 3, cost: { money: 14.99 }, emoji: CAPE_EMOJIS.Cape116 },
-		{ name: "Mischief Crabula Cloak", bit: 1 << 4, cost: { money: 14.99 }, emoji: CAPE_EMOJIS.Cape117 },
-		{ name: "Mischief Crabula Mask", bit: 1 << 5, cost: { money: 2.99 }, emoji: MASK_EMOJIS.Mask84 },
+		{
+			name: "Mischief Gossamer Cape",
+			bit: 1 << 3,
+			cost: { money: 14.99 },
+			emoji: CAPE_EMOJIS.Cape116,
+		},
+		{
+			name: "Mischief Crabula Cloak",
+			bit: 1 << 4,
+			cost: { money: 14.99 },
+			emoji: CAPE_EMOJIS.Cape117,
+		},
+		{
+			name: "Mischief Crabula Mask",
+			bit: 1 << 5,
+			cost: { money: 2.99 },
+			emoji: MASK_EMOJIS.Mask84,
+		},
 	],
 });

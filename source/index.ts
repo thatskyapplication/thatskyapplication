@@ -2,20 +2,19 @@ import { stat, unlink, writeFile } from "node:fs/promises";
 import process from "node:process";
 import { inspect } from "node:util";
 import {
-	type ApplicationCommandManager,
 	type ApplicationCommand,
 	type ApplicationCommandData,
-	type ClientOptions,
-	type Collection,
-	type GuildApplicationCommandManager,
-	type Snowflake,
+	type ApplicationCommandManager,
 	Client,
+	type Collection,
 	EmbedBuilder,
 	GatewayIntentBits,
+	type GuildApplicationCommandManager,
 	Locale,
 	Options,
 	Partials,
 	PermissionFlagsBits,
+	type Snowflake,
 	TextChannel,
 } from "discord.js";
 import { init } from "i18next";
@@ -81,15 +80,19 @@ void init({
 });
 
 class Caelus extends Client {
-	public constructor(options: ClientOptions) {
-		super(options);
-	}
-
 	public override async log({ content, embeds = [], error }: LogOptions) {
 		const output = error ?? content;
-		if (output) pino.info(output);
+
+		if (output) {
+			pino.info(output);
+		}
+
 		const channel = this.channels.cache.get(MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID);
-		if (!(channel instanceof TextChannel)) return;
+
+		if (!(channel instanceof TextChannel)) {
+			return;
+		}
+
 		const potentialFileName = `../error-${Date.now()}.xl`;
 
 		try {
@@ -118,21 +121,42 @@ class Caelus extends Client {
 					await writeFile(potentialFileName, inspectedError);
 					files.push(potentialFileName);
 				} else {
-					const embed = new EmbedBuilder().setDescription(`\`\`\`xl\n${inspectedError}\n\`\`\``).setTitle("Error");
+					const embed = new EmbedBuilder()
+						.setDescription(`\`\`\`xl\n${inspectedError}\n\`\`\``)
+						.setTitle("Error");
+
 					embeds.push(embed);
 				}
 			}
 
-			for (const embed of embeds) if (embed.data.color === undefined) embed.setColor(DEFAULT_EMBED_COLOUR);
-			const payload: Parameters<TextChannel["send"]>[0] = { allowedMentions: { parse: [] }, embeds, files };
-			if (content) payload.content = `${stamp} ${content}`;
+			for (const embed of embeds) {
+				if (embed.data.color === undefined) {
+					embed.setColor(DEFAULT_EMBED_COLOUR);
+				}
+			}
+
+			const payload: Parameters<TextChannel["send"]>[0] = {
+				allowedMentions: { parse: [] },
+				embeds,
+				files,
+			};
+
+			if (content) {
+				payload.content = `${stamp} ${content}`;
+			}
+
 			await channel.send(payload);
-			if (files.length > 0) await unlink(potentialFileName);
+
+			if (files.length > 0) {
+				await unlink(potentialFileName);
+			}
 		} catch (error) {
 			await stat(potentialFileName)
 				.then(async () => unlink(potentialFileName))
-				.catch(async (unlinkError) => {
-					if (unlinkError.code !== "ENOENT") pino.error(unlinkError, "Failed to unlink file.");
+				.catch((unlinkError) => {
+					if (unlinkError.code !== "ENOENT") {
+						pino.error(unlinkError, "Failed to unlink file.");
+					}
 				});
 
 			pino.error(error, "Failed to log to Discord.");
@@ -147,7 +171,7 @@ class Caelus extends Client {
 		return fetchedCommands.size !== data.length ||
 			fetchedCommands.some((fetchedCommand) => {
 				const localCommand = data.find(({ name }) => name === fetchedCommand.name);
-				return !localCommand || !fetchedCommand.equals(localCommand, true);
+				return !(localCommand && fetchedCommand.equals(localCommand, true));
 			})
 			? commandManager.set(data)
 			: null;
@@ -155,11 +179,26 @@ class Caelus extends Client {
 
 	public override async applyCommands() {
 		try {
-			if (!this.isReady()) throw new Error("Client applying commands when not ready.");
+			if (!this.isReady()) {
+				throw new Error("Client applying commands when not ready.");
+			}
+
 			const developerGuild = this.guilds.cache.get(DEVELOPER_GUILD_ID);
-			if (!developerGuild) throw new Error("Could not find the developer guild.");
-			const fetchedGlobalCommands = await this.application.commands.fetch({ cache: false, withLocalizations: true });
-			const fetchedDeveloperCommands = await developerGuild.commands.fetch({ cache: false, withLocalizations: true });
+
+			if (!developerGuild) {
+				throw new Error("Could not find the developer guild.");
+			}
+
+			const fetchedGlobalCommands = await this.application.commands.fetch({
+				cache: false,
+				withLocalizations: true,
+			});
+
+			const fetchedDeveloperCommands = await developerGuild.commands.fetch({
+				cache: false,
+				withLocalizations: true,
+			});
+
 			const globalCommandData = [];
 			const developerCommandData = [];
 
@@ -173,22 +212,31 @@ class Caelus extends Client {
 
 			const [globalCommands, developerCommands] = await Promise.all([
 				this.deployCommands(this.application.commands, fetchedGlobalCommands, globalCommandData),
-				this.deployCommands(developerGuild.commands, fetchedDeveloperCommands, developerCommandData),
+				this.deployCommands(
+					developerGuild.commands,
+					fetchedDeveloperCommands,
+					developerCommandData,
+				),
 			]);
 
-			if (globalCommands) pino.info("Set global commands.");
-			if (developerCommands) pino.info("Set developer commands.");
+			if (globalCommands) {
+				pino.info("Set global commands.");
+			}
 
-			/* eslint-disable require-atomic-updates */
+			if (developerCommands) {
+				pino.info("Set developer commands.");
+			}
+
 			commands.sharderuption.id =
-				fetchedGlobalCommands.find(({ name }) => name === commands.sharderuption.data.name)?.id ?? null;
+				fetchedGlobalCommands.find(({ name }) => name === commands.sharderuption.data.name)?.id ??
+				null;
 
 			commands.skyprofile.id =
-				fetchedGlobalCommands.find(({ name }) => name === commands.skyprofile.data.name)?.id ?? null;
+				fetchedGlobalCommands.find(({ name }) => name === commands.skyprofile.data.name)?.id ??
+				null;
 
 			commands.catalogue.id =
 				fetchedGlobalCommands.find(({ name }) => name === commands.catalogue.data.name)?.id ?? null;
-			/* eslint-enable require-atomic-updates */
 		} catch (error) {
 			pino.error(error, "Failed to set commands.");
 		}

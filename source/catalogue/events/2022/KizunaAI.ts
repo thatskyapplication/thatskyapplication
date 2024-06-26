@@ -7,5 +7,7 @@ export default new Event({
 	nameUnique: EventNameUnique.KizunaAI2022,
 	start: skyDate(2_022, 2, 25),
 	end: skyDate(2_022, 3, 10),
-	offer: [{ name: "Kizuna AI Pack", bit: 1 << 0, cost: { money: 19.99 }, emoji: HAIR_EMOJIS.Hair102 }],
+	offer: [
+		{ name: "Kizuna AI Pack", bit: 1 << 0, cost: { money: 19.99 }, emoji: HAIR_EMOJIS.Hair102 },
+	],
 });

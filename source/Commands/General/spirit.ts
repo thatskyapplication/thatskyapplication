@@ -1,18 +1,18 @@
 import {
-	type AutocompleteInteraction,
-	type ChatInputCommandInteraction,
 	ActionRowBuilder,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
+	type AutocompleteInteraction,
 	ButtonBuilder,
 	ButtonInteraction,
 	ButtonStyle,
+	type ChatInputCommandInteraction,
 	EmbedBuilder,
-	hyperlink,
 	MessageFlags,
 	PermissionFlagsBits,
-	time,
 	TimestampStyles,
+	hyperlink,
+	time,
 } from "discord.js";
 import { t } from "i18next";
 import type {
@@ -47,7 +47,8 @@ import { resolveSeasonalSpirit } from "../../catalogue/spirits/seasons/index.js"
 import type { AutocompleteCommand } from "../index.js";
 import COMMANDS from "../index.js";
 
-export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID = "SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;
+export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID =
+	"SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;
 
 export default new (class implements AutocompleteCommand {
 	public readonly data = {
@@ -81,21 +82,25 @@ export default new (class implements AutocompleteCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
-			case "search":
+			case "search": {
 				await this.search(interaction);
 				return;
-			case "track":
+			}
+			case "track": {
 				await this.track(interaction);
+			}
 		}
 	}
 
-	private visitField(seasonalSpiritVisit: SeasonalSpiritVisitTravellingData | SeasonalSpiritVisitReturningData) {
+	private visitField(
+		seasonalSpiritVisit: SeasonalSpiritVisitTravellingData | SeasonalSpiritVisitReturningData,
+	) {
 		return seasonalSpiritVisit
 			.reduce<string[]>((visits, date, visit) => {
 				const resolvedDate = "start" in date ? date.start : date;
 
 				visits.push(
-					`${visit === "Error" ? "" : `#`}${visit}: ${time(
+					`${visit === "Error" ? "" : "#"}${visit}: ${time(
 						resolvedDate.toUnixInteger(),
 						TimestampStyles.LongDate,
 					)} (${time(resolvedDate.toUnixInteger(), TimestampStyles.RelativeTime)})`,
@@ -119,7 +124,11 @@ export default new (class implements AutocompleteCommand {
 			return;
 		}
 
-		await this.searchResponse(interaction, spirit, spirit.isSeasonalSpirit() && spirit.current.length === 0);
+		await this.searchResponse(
+			interaction,
+			spirit,
+			spirit.isSeasonalSpirit() && spirit.current.length === 0,
+		);
 	}
 
 	public async parseSpiritSwitch(interaction: ButtonInteraction) {
@@ -147,7 +156,10 @@ export default new (class implements AutocompleteCommand {
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 		seasonalOffer = false,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const { locale } = interaction;
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
@@ -172,29 +184,48 @@ export default new (class implements AutocompleteCommand {
 		if (spiritSeason) {
 			embed.addFields({
 				name: "Season",
-				value: `${formatEmoji(SeasonNameToSeasonalEmoji[spiritSeason])}${t(`seasons.${spiritSeason}`, {
-					lng: locale,
-					ns: "general",
-				})}`,
+				value: `${formatEmoji(SeasonNameToSeasonalEmoji[spiritSeason])}${t(
+					`seasons.${spiritSeason}`,
+					{
+						lng: locale,
+						ns: "general",
+					},
+				)}`,
 				inline: true,
 			});
 		}
 
 		if (spirit.isStandardSpirit() || isSeasonalSpirit) {
 			if (spirit.emote) {
-				embed.addFields({ name: "Emote", value: formatEmoji(SpiritEmoteToEmoji[spirit.emote]), inline: true });
+				embed.addFields({
+					name: "Emote",
+					value: formatEmoji(SpiritEmoteToEmoji[spirit.emote]),
+					inline: true,
+				});
 			}
 
 			if (spirit.stance) {
-				embed.addFields({ name: "Stance", value: formatEmoji(SpiritStanceToEmoji[spirit.stance]), inline: true });
+				embed.addFields({
+					name: "Stance",
+					value: formatEmoji(SpiritStanceToEmoji[spirit.stance]),
+					inline: true,
+				});
 			}
 
 			if (spirit.call) {
-				embed.addFields({ name: "Call", value: formatEmoji(SpiritCallToEmoji[spirit.call]), inline: true });
+				embed.addFields({
+					name: "Call",
+					value: formatEmoji(SpiritCallToEmoji[spirit.call]),
+					inline: true,
+				});
 			}
 
 			if (spirit.action) {
-				embed.addFields({ name: "Action", value: formatEmoji(FriendActionToEmoji[spirit.action]), inline: true });
+				embed.addFields({
+					name: "Action",
+					value: formatEmoji(FriendActionToEmoji[spirit.action]),
+					inline: true,
+				});
 			}
 		}
 
@@ -204,14 +235,22 @@ export default new (class implements AutocompleteCommand {
 
 		if (isSeasonalSpirit) {
 			const { travelling, returning } = spirit.visits;
-			if (travelling.size > 0) embed.addFields({ name: "Travelling", value: this.visitField(travelling) });
-			if (returning.size > 0) embed.addFields({ name: "Returning", value: this.visitField(returning) });
+
+			if (travelling.size > 0) {
+				embed.addFields({ name: "Travelling", value: this.visitField(travelling) });
+			}
+
+			if (returning.size > 0) {
+				embed.addFields({ name: "Returning", value: this.visitField(returning) });
+			}
 
 			if (spirit.visit(todayDate()).visited) {
 				components.push(
 					new ActionRowBuilder<ButtonBuilder>().setComponents(
 						new ButtonBuilder()
-							.setCustomId(`${SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID}§${spirit.name}§${seasonalOffer}`)
+							.setCustomId(
+								`${SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID}§${spirit.name}§${seasonalOffer}`,
+							)
 							.setLabel(`${seasonalOffer ? "Current" : "Seasonal"} Friendship Tree`)
 							.setStyle(ButtonStyle.Primary),
 					),
@@ -222,14 +261,16 @@ export default new (class implements AutocompleteCommand {
 						spiritSeason === SeasonName.Shattering || spiritSeason === SeasonName.Nesting
 							? "entity"
 							: spiritSeason === SeasonName.Revival
-							? "shop"
-							: "spirit"
+								? "shop"
+								: "spirit"
 					} has not yet returned.`,
 				);
 			}
 		}
 
-		if (totalOffer && totalOffer.length > 0) description.push(totalOffer);
+		if (totalOffer && totalOffer.length > 0) {
+			description.push(totalOffer);
+		}
 
 		if (imageURL) {
 			embed.setImage(imageURL);
@@ -238,13 +279,17 @@ export default new (class implements AutocompleteCommand {
 			description.push(offer.length > 0 ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 		}
 
-		if (isGuideSpirit && spirit.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
+		if (isGuideSpirit && spirit.inProgress) {
+			embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
+		}
 
 		if (isSeasonalSpirit && spirit.marketingVideoURL) {
 			description.push(hyperlink("Promotional Video", spirit.marketingVideoURL));
 		}
 
-		if (description.length > 0) embed.setDescription(description.join("\n"));
+		if (description.length > 0) {
+			embed.setDescription(description.join("\n"));
+		}
 
 		if (interaction instanceof ButtonInteraction) {
 			await interaction.update({ components, embeds: [embed] });
@@ -287,9 +332,9 @@ export default new (class implements AutocompleteCommand {
 							action = spirit.action?.toUpperCase() ?? null;
 						}
 
-						const seasonName = isSeasonalSpirit || spirit.isGuideSpirit() ? spirit.season.toUpperCase() : null;
+						const seasonName =
+							isSeasonalSpirit || spirit.isGuideSpirit() ? spirit.season.toUpperCase() : null;
 
-						/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 						return (
 							localisedName.toUpperCase().includes(focused) ||
 							keywords.some((keyword) => keyword.toUpperCase().includes(focused)) ||
@@ -299,9 +344,11 @@ export default new (class implements AutocompleteCommand {
 							action?.toUpperCase().includes(focused) ||
 							seasonName?.includes(focused)
 						);
-						/* eslint-enable @typescript-eslint/prefer-nullish-coalescing */
-				  })
-						.map(({ name }) => ({ name: t(`spiritNames.${name}`, { lng: locale, ns: "general" }), value: name }))
+					})
+						.map(({ name }) => ({
+							name: t(`spiritNames.${name}`, { lng: locale, ns: "general" }),
+							value: name,
+						}))
 						.slice(0, 25),
 		);
 	}

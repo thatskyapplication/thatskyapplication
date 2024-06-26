@@ -2,9 +2,9 @@ import {
 	type ButtonInteraction,
 	type ChatInputCommandInteraction,
 	type ModalSubmitInteraction,
+	PermissionFlagsBits,
 	type StringSelectMenuInteraction,
 	type UserContextMenuCommandInteraction,
-	PermissionFlagsBits,
 } from "discord.js";
 import pino from "../pino.js";
 
@@ -36,7 +36,9 @@ export async function cannotUsePermissions(
 	permissions: bigint,
 ) {
 	// Direct messages are fine.
-	if (!interaction.inGuild()) return false;
+	if (!interaction.inGuild()) {
+		return false;
+	}
 
 	const { appPermissions } = interaction;
 	const missingPermissions = [];
@@ -63,20 +65,24 @@ export async function cannotUsePermissions(
 	}
 
 	if (
-		(permissions & PermissionFlagsBits.UseExternalEmojis) === PermissionFlagsBits.UseExternalEmojis &&
+		(permissions & PermissionFlagsBits.UseExternalEmojis) ===
+			PermissionFlagsBits.UseExternalEmojis &&
 		!appPermissions.has(PermissionFlagsBits.UseExternalEmojis)
 	) {
 		missingPermissions.push(getPermissionString(PermissionFlagsBits.UseExternalEmojis));
 	}
 
 	if (
-		(permissions & PermissionFlagsBits.SendMessagesInThreads) === PermissionFlagsBits.SendMessagesInThreads &&
+		(permissions & PermissionFlagsBits.SendMessagesInThreads) ===
+			PermissionFlagsBits.SendMessagesInThreads &&
 		!appPermissions.has(PermissionFlagsBits.SendMessagesInThreads)
 	) {
 		missingPermissions.push(getPermissionString(PermissionFlagsBits.SendMessagesInThreads));
 	}
 
-	if (missingPermissions.length === 0) return false;
+	if (missingPermissions.length === 0) {
+		return false;
+	}
 
 	const response = {
 		components: [],

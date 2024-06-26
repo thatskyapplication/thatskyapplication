@@ -257,4 +257,7 @@ const items = resolveOffer([
 	// },
 ]);
 
-export const NESTING_WORKSHOP = { items, maximumItemsBit: items.reduce((bits, { bit }) => bit | bits, 0) } as const;
+export const NESTING_WORKSHOP = {
+	items,
+	maximumItemsBit: items.reduce((bits, { bit }) => bit | bits, 0),
+} as const;

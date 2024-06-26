@@ -20,7 +20,12 @@ export default new Event({
 			cost: { candles: 80 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp25,
 		},
-		{ name: "Bloom Gardening Tunic", bit: 1 << 2, cost: { money: 9.99 }, emoji: OUTFIT_EMOJIS.Outfit44 },
+		{
+			name: "Bloom Gardening Tunic",
+			bit: 1 << 2,
+			cost: { money: 9.99 },
+			emoji: OUTFIT_EMOJIS.Outfit44,
+		},
 		{
 			name: "Bloom Picnic Basket",
 			bit: 1 << 3,

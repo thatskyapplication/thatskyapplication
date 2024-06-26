@@ -1,15 +1,16 @@
+import type { Buffer } from "node:buffer";
 import { URL } from "node:url";
 import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	type Attachment,
 	type ChatInputCommandInteraction,
 	type EmbedAuthorOptions,
+	EmbedBuilder,
 	type ModalSubmitInteraction,
 	type Snowflake,
+	StringSelectMenuInteraction,
 	type UserContextMenuCommandInteraction,
 	chatInputApplicationCommandMention,
-	EmbedBuilder,
-	StringSelectMenuInteraction,
 } from "discord.js";
 import { hash } from "hasha";
 import { t } from "i18next";
@@ -17,8 +18,13 @@ import sharp from "sharp";
 import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import commands from "../Commands/index.js";
 import S3Client from "../S3Client.js";
-import { CDN_BUCKET, CDN_URL, DEFAULT_EMBED_COLOUR, MAXIMUM_WINGED_LIGHT } from "../Utility/Constants.js";
-import { formatEmoji, formatEmojiURL, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
+import {
+	CDN_BUCKET,
+	CDN_URL,
+	DEFAULT_EMBED_COLOUR,
+	MAXIMUM_WINGED_LIGHT,
+} from "../Utility/Constants.js";
+import { MISCELLANEOUS_EMOJIS, formatEmoji, formatEmojiURL } from "../Utility/emojis.js";
 import { resolveBitsToSeasons } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import { Catalogue } from "./Catalogue.js";
@@ -71,8 +77,8 @@ interface ProfileSetData {
 type ProfilePatchData = Omit<ProfilePacket, "user_id">;
 
 export const enum AssetType {
-	Icon,
-	Thumbnail,
+	Icon = 0,
+	Thumbnail = 1,
 }
 
 const ANIMATED_HASH_PREFIX = "a_" as const;
@@ -127,7 +133,11 @@ export default class Profile {
 
 	public static async fetch(userId: Snowflake) {
 		const [profilePacket] = await pg<ProfilePacket>(Table.Profiles).where("user_id", userId);
-		if (!profilePacket) throw new Error("No profile found.");
+
+		if (!profilePacket) {
+			throw new Error("No profile found.");
+		}
+
 		return new this(profilePacket);
 	}
 
@@ -173,7 +183,9 @@ export default class Profile {
 			});
 		}
 
-		if (unfilled) await interaction.followUp({ content: unfilled, ephemeral: true });
+		if (unfilled) {
+			await interaction.followUp({ content: unfilled, ephemeral: true });
+		}
 	}
 
 	public static async setAsset(
@@ -208,7 +220,7 @@ export default class Profile {
 
 		const gif = contentType === "image/gif";
 		const assetBuffer = sharp(await (await fetch(url)).arrayBuffer(), { animated: true });
-		let buffer;
+		let buffer: Buffer;
 
 		if (gif) {
 			buffer = await assetBuffer.gif().toBuffer();
@@ -217,7 +229,10 @@ export default class Profile {
 		}
 
 		let hashedBuffer = await hash(buffer, { algorithm: "md5" });
-		if (gif) hashedBuffer = `${ANIMATED_HASH_PREFIX}${hash}`;
+
+		if (gif) {
+			hashedBuffer = `${ANIMATED_HASH_PREFIX}${hash}`;
+		}
 
 		await S3Client.send(
 			new PutObjectCommand({
@@ -230,20 +245,29 @@ export default class Profile {
 			}),
 		);
 
-		await Profile.set(interaction, { [type === AssetType.Icon ? "icon" : "thumbnail"]: hashedBuffer });
+		await Profile.set(interaction, {
+			[type === AssetType.Icon ? "icon" : "thumbnail"]: hashedBuffer,
+		});
 	}
 
-	public static async setDescription(interaction: ModalSubmitInteraction) {
-		const description = interaction.fields.getTextInputValue(SKY_PROFILE_TEXT_INPUT_DESCRIPTION).trim();
+	public static setDescription(interaction: ModalSubmitInteraction) {
+		const description = interaction.fields
+			.getTextInputValue(SKY_PROFILE_TEXT_INPUT_DESCRIPTION)
+			.trim();
+
 		return this.set(interaction, { description });
 	}
 
 	public static async setSeasons(interaction: StringSelectMenuInteraction) {
-		return this.set(interaction, { seasons: interaction.values.reduce((bit, value) => bit | Number(value), 0) });
+		return this.set(interaction, {
+			seasons: interaction.values.reduce((bit, value) => bit | Number(value), 0),
+		});
 	}
 
 	public static async setPlatform(interaction: StringSelectMenuInteraction) {
-		return this.set(interaction, { platform: interaction.values.reduce((bit, value) => bit | Number(value), 0) });
+		return this.set(interaction, {
+			platform: interaction.values.reduce((bit, value) => bit | Number(value), 0),
+		});
 	}
 
 	public static iconRoute(userId: Snowflake, hash: string) {
@@ -259,7 +283,9 @@ export default class Profile {
 	}
 
 	public get thumbnailURL() {
-		return this.thumbnail ? String(new URL(Profile.thumbnailRoute(this.userId, this.thumbnail), CDN_URL)) : null;
+		return this.thumbnail
+			? String(new URL(Profile.thumbnailRoute(this.userId, this.thumbnail), CDN_URL))
+			: null;
 	}
 
 	public async embed(
@@ -324,7 +350,9 @@ export default class Profile {
 			);
 		}
 
-		if (descriptions.length > 0) embed.setDescription(descriptions.join("\n"));
+		if (descriptions.length > 0) {
+			embed.setDescription(descriptions.join("\n"));
+		}
 
 		if (thumbnailURL) {
 			embed.setThumbnail(thumbnailURL);
@@ -369,8 +397,8 @@ export default class Profile {
 					wingedLight === 0
 						? "Capeless"
 						: wingedLight === MAXIMUM_WINGED_LIGHT
-						? `${wingedLight} (Max ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)})`
-						: String(wingedLight),
+							? `${wingedLight} (Max ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)})`
+							: String(wingedLight),
 				inline: true,
 			});
 		} else if (commandId) {
@@ -459,7 +487,10 @@ export default class Profile {
 			);
 		}
 
-		if (fields.length > 4 && fields.length % 3 === 2) fields.push({ name: "\u200B", value: "\u200B", inline: true });
+		if (fields.length > 4 && fields.length % 3 === 2) {
+			fields.push({ name: "\u200B", value: "\u200B", inline: true });
+		}
+
 		embed.setFields(fields);
 		return { embed, unfilled: unfilled.join("\n") || null };
 	}

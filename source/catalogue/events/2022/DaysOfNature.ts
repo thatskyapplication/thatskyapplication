@@ -15,6 +15,11 @@ export default new Event({
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory19,
 		},
 		{ name: "Nature Turtle Cape", bit: 1 << 1, cost: { money: 14.99 }, emoji: CAPE_EMOJIS.Cape81 },
-		{ name: "Nature Turtle Pack", bit: 1 << 2, cost: { money: 19.99 }, emoji: NECKLACE_EMOJIS.Necklace20 },
+		{
+			name: "Nature Turtle Pack",
+			bit: 1 << 2,
+			cost: { money: 19.99 },
+			emoji: NECKLACE_EMOJIS.Necklace20,
+		},
 	],
 });

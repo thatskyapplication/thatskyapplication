@@ -1,7 +1,7 @@
 import {
 	type ApplicationCommandData,
-	type ChatInputCommandInteraction,
 	ApplicationCommandType,
+	type ChatInputCommandInteraction,
 	EmbedBuilder,
 	hyperlink,
 } from "discord.js";
@@ -10,9 +10,9 @@ import {
 	DEFAULT_EMBED_COLOUR,
 	GITHUB_SPONSORS_URL,
 	KO_FI_URL,
-	Map,
 	PATREON_URL,
 	SUPPORT_SERVER_INVITE_URL,
+	SkyMap,
 	THATSKYGAME_URL,
 	WEBSITE_URL,
 } from "../../Utility/Constants.js";
@@ -25,8 +25,8 @@ const DESCRIPTION_TEXT = `Welcome to the lovely Discord bot for ${hyperlink(
 )}!
 
 So you'd like to know about me, huh? Well, I like long walks across the ${
-	Map.SanctuaryIslands
-}. Oh, and don't forget about gliding all over the ${Map.StarlightDesert}. Also... JELLYFISH!
+	SkyMap.SanctuaryIslands
+}. Oh, and don't forget about gliding all over the ${SkyMap.StarlightDesert}. Also... JELLYFISH!
 
 In any case, you can invite me by opening up my profile or using the invite link below! If you need help, head on to the support server linked also below and we'll figure it out together!` as const;
 

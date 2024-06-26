@@ -14,6 +14,13 @@ export default new Season({
 	start: skyDate(2_020, 7, 13),
 	end: skyDate(2_020, 9, 21),
 	guide: SanctuaryGuide,
-	spirits: [JellyWhisperer, TimidBookworm, RallyingThrillseeker, HikingGrouch, GratefulShellCollector, ChillSunbather],
+	spirits: [
+		JellyWhisperer,
+		TimidBookworm,
+		RallyingThrillseeker,
+		HikingGrouch,
+		GratefulShellCollector,
+		ChillSunbather,
+	],
 	seasonalCandlesRotation: null,
 });
