@@ -1,5 +1,5 @@
 import { NOTIFICATION_EVENT_VALUES } from "../Structures/Notification.js";
-import { MAP_VALUES, REALM_NAME_VALUES } from "../Utility/Constants.js";
+import { REALM_NAME_VALUES, SKY_MAP_VALUES } from "../Utility/Constants.js";
 import { EVENT_NAME_VALUES, SEASON_NAME_VALUES } from "../Utility/catalogue.js";
 import { SpiritName } from "../Utility/spirits.js";
 
@@ -12,7 +12,7 @@ export default {
 		},
 		"event-currency": "Event Currency",
 		realms: Object.fromEntries(REALM_NAME_VALUES.map((realmName) => [realmName, realmName])),
-		maps: Object.fromEntries(MAP_VALUES.map((map) => [map, map])),
+		maps: Object.fromEntries(SKY_MAP_VALUES.map((skyMap) => [skyMap, skyMap])),
 		notificationEvent: Object.fromEntries(
 			NOTIFICATION_EVENT_VALUES.map((notificationEvent) => [notificationEvent, notificationEvent]),
 		),

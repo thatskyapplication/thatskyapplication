@@ -143,7 +143,7 @@ export enum SkyMap {
 	CrescentOasis = "Crescent Oasis",
 }
 
-export const MAP_VALUES = Object.values(Map);
+export const SKY_MAP_VALUES = Object.values(SkyMap);
 
 export const MEDITATION_MAPS = [
 	SkyMap.ButterflyFields,
