@@ -1,6 +1,6 @@
 import process from "node:process";
 import { clearTimeout, setTimeout } from "node:timers";
-import type { Message } from "discord.js";
+import type { Message, User } from "discord.js";
 import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
 import pino from "./pino.js";
@@ -16,13 +16,15 @@ const AI_DESCRIPTION =
 const AI_DESCRIPTION_EMOJIS = "Respond with up to 3 emojis that represent this message." as const;
 const AI_DESCRIPTION_REACTION = `${AI_DESCRIPTION_EMOJIS} Put each emoji on a new line.` as const;
 
-function parseAIName(input: string) {
-	// It's not possible for a Discord username to be longer than 32 characters or return an empty output.
-	const name = input.replaceAll(/[^\w-]/g, "");
+function parseAIName(user: User) {
+	const { username } = user;
 
-	// This should never happen, but it did once... somehow.
+	// It's not possible for a Discord username to be longer than 32 characters or return an empty output.
+	const name = username.replaceAll(/[^\w-]/g, "");
+
 	if (name.length === 0) {
-		pino.warn(input, "AI name parsing failed.");
+		pino.warn(user, "AI name parsing failed.");
+		if (name === "ココロ") return "Kokoro";
 	}
 
 	return name;
@@ -41,7 +43,7 @@ export async function messageCreateEmojiResponse(message: Message<true>) {
 					max_tokens: 35,
 					messages: [
 						{ role: "system", content: AI_DESCRIPTION_EMOJIS },
-						{ content: message.content, name: parseAIName(message.author.username), role: "user" },
+						{ content: message.content, name: parseAIName(message.author), role: "user" },
 					],
 					model: "gpt-3.5-turbo-1106",
 					user: message.author.id,
@@ -73,7 +75,7 @@ export async function messageCreateReactionResponse(message: Message<true>) {
 				max_tokens: 35,
 				messages: [
 					{ role: "system", content: AI_DESCRIPTION_REACTION },
-					{ content: message.content, name: parseAIName(message.author.username), role: "user" },
+					{ content: message.content, name: parseAIName(message.author), role: "user" },
 				],
 				model: "gpt-3.5-turbo-1106",
 				user: message.author.id,
@@ -117,7 +119,7 @@ export async function messageCreateResponse(message: Message<true>) {
 							(message) =>
 								({
 									content: message.content,
-									name: parseAIName(message.author.username),
+									name: parseAIName(message.author),
 									role: message.author.id === message.client.user.id ? "assistant" : "user",
 								}) as const,
 						),
