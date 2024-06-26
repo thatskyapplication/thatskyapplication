@@ -13,8 +13,18 @@ export default new Event({
 	start: skyDate(2_022, 12, 19),
 	end: skyDate(2_023, 1, 8),
 	offer: [
-		{ name: "Prop", bit: 1 << 0, cost: { candles: 120 }, emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp27 },
-		{ name: "Feast Goggles", bit: 1 << 1, cost: { candles: 50 }, emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory22 },
+		{
+			name: "Prop",
+			bit: 1 << 0,
+			cost: { candles: 120 },
+			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp27,
+		},
+		{
+			name: "Feast Goggles",
+			bit: 1 << 1,
+			cost: { candles: 50 },
+			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory22,
+		},
 		{
 			name: "Tournament Skyball Set",
 			bit: 1 << 2,

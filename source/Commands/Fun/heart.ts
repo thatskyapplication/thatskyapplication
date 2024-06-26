@@ -1,23 +1,23 @@
 import {
-	type ChatInputCommandInteraction,
-	type Snowflake,
-	type UserContextMenuCommandInteraction,
 	ActionRowBuilder,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	ButtonBuilder,
 	ButtonInteraction,
 	ButtonStyle,
+	type ChatInputCommandInteraction,
 	EmbedBuilder,
-	time,
-	TimestampStyles,
 	PermissionFlagsBits,
+	type Snowflake,
+	TimestampStyles,
+	type UserContextMenuCommandInteraction,
+	time,
 	userMention,
 } from "discord.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { getRandomElement } from "../../Utility/Utility.js";
 import { todayDate } from "../../Utility/dates.js";
-import { formatEmoji, MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../../Utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
@@ -29,8 +29,8 @@ export interface HeartPacket {
 }
 
 export const enum HeartHistoryNavigationType {
-	Back,
-	Forward,
+	Back = 0,
+	Forward = 1,
 }
 
 interface HeartHistoryOptions {
@@ -99,7 +99,10 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async gift(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const { channel, createdAt, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
@@ -147,7 +150,11 @@ export default new (class implements ChatInputCommand {
 		}
 
 		const today = todayDate();
-		const tomorrowTimestamp = time(Math.floor(today.plus({ day: 1 }).toUnixInteger()), TimestampStyles.RelativeTime);
+
+		const tomorrowTimestamp = time(
+			Math.floor(today.plus({ day: 1 }).toUnixInteger()),
+			TimestampStyles.RelativeTime,
+		);
 
 		const heartPackets = await pg<HeartPacket>(Table.Hearts)
 			.select()
@@ -155,7 +162,9 @@ export default new (class implements ChatInputCommand {
 			.orderBy("timestamp", "desc")
 			.limit(MAXIMUM_HEARTS_PER_DAY);
 
-		const filteredHeartPackets = heartPackets.filter((heart) => heart.timestamp.getTime() >= today.toMillis());
+		const filteredHeartPackets = heartPackets.filter(
+			(heart) => heart.timestamp.getTime() >= today.toMillis(),
+		);
 
 		if (filteredHeartPackets.some((heart) => heart.giftee_id === user.id)) {
 			await interaction.reply({
@@ -217,7 +226,10 @@ export default new (class implements ChatInputCommand {
 		interaction: ButtonInteraction | ChatInputCommandInteraction,
 		options: HeartHistoryOptions | null = null,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const buttonInteraction = interaction instanceof ButtonInteraction;
 
 		const hearts = await pg<HeartPacket>(Table.Hearts)

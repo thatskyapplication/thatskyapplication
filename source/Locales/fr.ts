@@ -1,5 +1,5 @@
 import { NotificationEvent } from "../Structures/Notification.js";
-import { Map, RealmName } from "../Utility/Constants.js";
+import { RealmName, SkyMap } from "../Utility/Constants.js";
 import { SeasonName } from "../Utility/catalogue.js";
 import { SpiritName } from "../Utility/spirits.js";
 
@@ -15,7 +15,7 @@ export default {
 			[RealmName.VaultOfKnowledge]: "Chambre forte de connaissance",
 			[RealmName.EyeOfEden]: "Œil d'Éden",
 		},
-		maps: { [Map.JellyfishCove]: "Crique aux Méduses" },
+		maps: { [SkyMap.JellyfishCove]: "Crique aux Méduses" },
 		notificationEvent: {
 			[NotificationEvent.PollutedGeyser]: "Geyser Pollué",
 			[NotificationEvent.Grandma]: "Mamie",

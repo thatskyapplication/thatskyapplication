@@ -16,8 +16,18 @@ export default new Event({
 	offer: [
 		{ name: "Hair", bit: 1 << 0, cost: { candles: 66 }, emoji: HAIR_EMOJIS.Hair95 },
 		{ name: "Cape", bit: 1 << 1, cost: { candles: 99 }, emoji: CAPE_EMOJIS.Cape67 },
-		{ name: "Prop", bit: 1 << 2, cost: { hearts: 33 }, emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp19 },
-		{ name: "Mischief Witch Jumper", bit: 1 << 3, cost: { money: 9.99 }, emoji: OUTFIT_EMOJIS.Outfit28 },
+		{
+			name: "Prop",
+			bit: 1 << 2,
+			cost: { hearts: 33 },
+			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp19,
+		},
+		{
+			name: "Mischief Witch Jumper",
+			bit: 1 << 3,
+			cost: { money: 9.99 },
+			emoji: OUTFIT_EMOJIS.Outfit28,
+		},
 		{ name: "Mischief Spider Hair", bit: 1 << 4, cost: { money: 4.99 }, emoji: HAIR_EMOJIS.Hair96 },
 		{
 			name: "Mischief Pumpkin Prop",

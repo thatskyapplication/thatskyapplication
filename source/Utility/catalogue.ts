@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/prefer-literal-enum-member */
 import { URL } from "node:url";
 import { WIKI_URL } from "./Constants.js";
 import {
+	EVENT_EMOJIS,
 	type Emoji,
 	type EventEmojis,
-	type SeasonEmojis,
-	EVENT_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
-	resolveCurrencyEmoji,
 	SEASON_EMOJIS,
+	type SeasonEmojis,
+	resolveCurrencyEmoji,
 } from "./emojis.js";
 
 export type RotationNumber = 1 | 2 | 3;
@@ -17,7 +16,10 @@ export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
 export const SEASON_PASS_SEASONAL_CANDLES_BONUS = 30 as const;
 export const NO_FRIENDSHIP_TREE_TEXT = "This spirit does not have a friendship tree." as const;
 export const NO_FRIENDSHIP_TREE_YET_TEXT = "This spirit does not yet have an infographic." as const;
-export const GUIDE_SPIRIT_IN_PROGRESS_TEXT = "This spirit's friendship tree has not been fully revealed." as const;
+
+export const GUIDE_SPIRIT_IN_PROGRESS_TEXT =
+	"This spirit's friendship tree has not been fully revealed." as const;
+
 export const NO_EVENT_OFFER_TEXT = "There are no cosmetics for this event." as const;
 export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infographic." as const;
 
@@ -374,7 +376,10 @@ export function snakeCaseName(name: string) {
 
 export function wikiURL(name: string) {
 	return String(
-		new URL((name.includes("(") ? name.slice(0, name.indexOf("(") - 1) : name).replaceAll(" ", "_"), WIKI_URL),
+		new URL(
+			(name.includes("(") ? name.slice(0, name.indexOf("(") - 1) : name).replaceAll(" ", "_"),
+			WIKI_URL,
+		),
 	);
 }
 
@@ -427,7 +432,10 @@ interface ResolveOfferOptions {
 	eventName?: EventName;
 }
 
-export function resolveOffer(items: readonly ItemRaw[], { seasonName, eventName }: ResolveOfferOptions = {}) {
+export function resolveOffer(
+	items: readonly ItemRaw[],
+	{ seasonName, eventName }: ResolveOfferOptions = {},
+) {
 	return items.map((item) => ({
 		...item,
 		emoji: item.emoji ?? null,
@@ -435,11 +443,18 @@ export function resolveOffer(items: readonly ItemRaw[], { seasonName, eventName 
 			? {
 					...item.cost,
 					seasonalCandles:
-						seasonName && item.cost.seasonalCandles ? [{ cost: item.cost.seasonalCandles, seasonName }] : [],
+						seasonName && item.cost.seasonalCandles
+							? [{ cost: item.cost.seasonalCandles, seasonName }]
+							: [],
 					seasonalHearts:
-						seasonName && item.cost.seasonalHearts ? [{ cost: item.cost.seasonalHearts, seasonName }] : [],
-					eventCurrency: eventName && item.cost.eventCurrency ? [{ cost: item.cost.eventCurrency, eventName }] : [],
-			  }
+						seasonName && item.cost.seasonalHearts
+							? [{ cost: item.cost.seasonalHearts, seasonName }]
+							: [],
+					eventCurrency:
+						eventName && item.cost.eventCurrency
+							? [{ cost: item.cost.eventCurrency, eventName }]
+							: [],
+				}
 			: null,
 	}));
 }
@@ -477,7 +492,9 @@ export function addCosts(items: ItemCost[]) {
 			}
 
 			for (const seasonalHeart of seasonalHearts) {
-				const sameSeason = total.seasonalHearts.findIndex(({ seasonName }) => seasonName === seasonalHeart.seasonName);
+				const sameSeason = total.seasonalHearts.findIndex(
+					({ seasonName }) => seasonName === seasonalHeart.seasonName,
+				);
 
 				if (sameSeason === -1) {
 					// Prevents mutation.
@@ -488,7 +505,9 @@ export function addCosts(items: ItemCost[]) {
 			}
 
 			for (const event of eventCurrency) {
-				const sameEvent = total.eventCurrency.findIndex(({ eventName }) => eventName === event.eventName);
+				const sameEvent = total.eventCurrency.findIndex(
+					({ eventName }) => eventName === event.eventName,
+				);
 
 				if (sameEvent === -1) {
 					// Prevents mutation.
@@ -500,7 +519,15 @@ export function addCosts(items: ItemCost[]) {
 
 			return total;
 		},
-		{ money: 0, candles: 0, hearts: 0, ascendedCandles: 0, seasonalCandles: [], seasonalHearts: [], eventCurrency: [] },
+		{
+			money: 0,
+			candles: 0,
+			hearts: 0,
+			ascendedCandles: 0,
+			seasonalCandles: [],
+			seasonalHearts: [],
+			eventCurrency: [],
+		},
 	);
 
 	result.money /= 100;
@@ -509,18 +536,30 @@ export function addCosts(items: ItemCost[]) {
 
 export function resolveCostToString(cost: ItemCost) {
 	const totalCost = [];
-	if (cost.money) totalCost.push(`$${cost.money} `);
+
+	if (cost.money) {
+		totalCost.push(`$${cost.money} `);
+	}
 
 	if (cost.candles) {
-		totalCost.push(resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Candle, number: cost.candles }));
+		totalCost.push(
+			resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Candle, number: cost.candles }),
+		);
 	}
 
 	if (cost.hearts) {
-		totalCost.push(resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: cost.hearts }));
+		totalCost.push(
+			resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: cost.hearts }),
+		);
 	}
 
 	if (cost.ascendedCandles) {
-		totalCost.push(resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.AscendedCandle, number: cost.ascendedCandles }));
+		totalCost.push(
+			resolveCurrencyEmoji({
+				emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+				number: cost.ascendedCandles,
+			}),
+		);
 	}
 
 	if (cost.seasonalCandles) {
@@ -554,7 +593,8 @@ export function resolveCostToString(cost: ItemCost) {
 		for (const event of cost.eventCurrency) {
 			totalCost.push(
 				resolveCurrencyEmoji({
-					emoji: EventNameToEventCurrencyEmoji[event.eventName] ?? MISCELLANEOUS_EMOJIS.EventCurrency,
+					emoji:
+						EventNameToEventCurrencyEmoji[event.eventName] ?? MISCELLANEOUS_EMOJIS.EventCurrency,
 					number: event.cost,
 				}),
 			);
@@ -565,13 +605,13 @@ export function resolveCostToString(cost: ItemCost) {
 }
 
 export const enum CatalogueType {
-	StandardSpirits,
-	Elders,
-	SeasonalSpirits,
-	Events,
-	StarterPacks,
-	SecretArea,
-	HarmonyHall,
-	PermanentEventStore,
-	NestingWorkshop,
+	StandardSpirits = 0,
+	Elders = 1,
+	SeasonalSpirits = 2,
+	Events = 3,
+	StarterPacks = 4,
+	SecretArea = 5,
+	HarmonyHall = 6,
+	PermanentEventStore = 7,
+	NestingWorkshop = 8,
 }

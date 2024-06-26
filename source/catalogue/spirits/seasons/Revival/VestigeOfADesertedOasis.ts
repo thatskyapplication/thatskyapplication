@@ -26,7 +26,12 @@ export default new SeasonalSpirit({
 			{ name: "Cape", bit: 1 << 3, emoji: capeEmoji },
 			{ name: "Shoes", bit: 1 << 4, cost: { seasonalCandles: 38 }, emoji: shoeEmoji },
 			{ name: "Blessing 3", bit: 1 << 5, emoji: blessing3 },
-			{ name: "Seasonal heart", bit: 1 << 6, cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.RevivalHeart },
+			{
+				name: "Seasonal heart",
+				bit: 1 << 6,
+				cost: { seasonalCandles: 3 },
+				emoji: SEASON_EMOJIS.RevivalHeart,
+			},
 		],
 	},
 });

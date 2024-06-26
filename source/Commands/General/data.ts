@@ -1,10 +1,10 @@
 import {
-	type ChatInputCommandInteraction,
+	ActionRowBuilder,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
-	ActionRowBuilder,
 	ButtonBuilder,
 	ButtonStyle,
+	type ChatInputCommandInteraction,
 } from "discord.js";
 import type { ChatInputCommand } from "../index.js";
 

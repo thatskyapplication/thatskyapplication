@@ -1,4 +1,4 @@
-import { Map, RealmName } from "../Utility/Constants.js";
+import { RealmName, SkyMap } from "../Utility/Constants.js";
 import { SeasonName } from "../Utility/catalogue.js";
 import { SpiritName } from "../Utility/spirits.js";
 
@@ -13,7 +13,7 @@ export default {
 			[RealmName.VaultOfKnowledge]: "書庫",
 			[RealmName.EyeOfEden]: "暴風域",
 		},
-		maps: { [Map.JellyfishCove]: "海月の入り江" },
+		maps: { [SkyMap.JellyfishCove]: "海月の入り江" },
 		seasons: {
 			[SeasonName.Gratitude]: "感謝の季節",
 			[SeasonName.Lightseekers]: "光の探求者の季節",

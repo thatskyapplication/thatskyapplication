@@ -8,7 +8,17 @@ export default new Event({
 	start: skyDate(2_023, 7, 3),
 	end: skyDate(2_023, 7, 16),
 	offer: [
-		{ name: "Triumph Saxophone", bit: 1 << 0, cost: { eventCurrency: 102 }, emoji: HELD_PROPS_EMOJIS.HeldProp36 },
-		{ name: "Marching Band Hat", bit: 1 << 1, cost: { eventCurrency: 43 }, emoji: HAIR_EMOJIS.Hair126 },
+		{
+			name: "Triumph Saxophone",
+			bit: 1 << 0,
+			cost: { eventCurrency: 102 },
+			emoji: HELD_PROPS_EMOJIS.HeldProp36,
+		},
+		{
+			name: "Marching Band Hat",
+			bit: 1 << 1,
+			cost: { eventCurrency: 43 },
+			emoji: HAIR_EMOJIS.Hair126,
+		},
 	],
 });

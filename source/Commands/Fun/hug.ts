@@ -1,13 +1,13 @@
 import { URL } from "node:url";
 import {
 	type ApplicationCommandData,
-	type ChatInputCommandInteraction,
-	type Snowflake,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
+	type ChatInputCommandInteraction,
 	EmbedBuilder,
 	Locale,
 	PermissionFlagsBits,
+	type Snowflake,
 } from "discord.js";
 import { t } from "i18next";
 import { CDN_URL, DEFAULT_EMBED_COLOUR, LOCALES, MAX_HUG_NO } from "../../Utility/Constants.js";
@@ -29,7 +29,10 @@ export default new (class implements ChatInputCommand {
 			),
 			description: t("hug.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
 			descriptionLocalizations: Object.fromEntries(
-				LOCALES.map((locale) => [locale, t("hug.command-description", { lng: locale, ns: "commands" })]),
+				LOCALES.map((locale) => [
+					locale,
+					t("hug.command-description", { lng: locale, ns: "commands" }),
+				]),
 			),
 			type: ApplicationCommandType.ChatInput,
 			options: [
@@ -41,7 +44,10 @@ export default new (class implements ChatInputCommand {
 					),
 					description: "The individual to be hugged.",
 					descriptionLocalizations: Object.fromEntries(
-						LOCALES.map((locale) => [locale, t("hug.user-description", { lng: locale, ns: "commands" })]),
+						LOCALES.map((locale) => [
+							locale,
+							t("hug.user-description", { lng: locale, ns: "commands" }),
+						]),
 					),
 					required: true,
 				},
@@ -68,7 +74,11 @@ export default new (class implements ChatInputCommand {
 
 		if (interaction.inGuild() && !member) {
 			await interaction.reply({
-				content: t("hug.not-in-server", { lng: resolvedLocale, ns: "commands", user: String(user) }),
+				content: t("hug.not-in-server", {
+					lng: resolvedLocale,
+					ns: "commands",
+					user: String(user),
+				}),
 				ephemeral: true,
 			});
 
@@ -115,7 +125,9 @@ export default new (class implements ChatInputCommand {
 			embeds: [
 				new EmbedBuilder()
 					.setColor(DEFAULT_EMBED_COLOUR)
-					.setImage(String(new URL(`hugs/${Math.floor(Math.random() * MAX_HUG_NO + 1)}.gif`, CDN_URL))),
+					.setImage(
+						String(new URL(`hugs/${Math.floor(Math.random() * MAX_HUG_NO + 1)}.gif`, CDN_URL)),
+					),
 			],
 		});
 	}

@@ -13,7 +13,12 @@ export default new Season({
 	start: skyDate(2_023, 10, 16),
 	end: skyDate(2_023, 12, 31),
 	guide: HopefulSteward,
-	spirits: [VestigeOfADesertedOasis, MemoryOfALostVillage, EchoOfAnAbandonedRefuge, RemnantOfAForgottenHaven],
+	spirits: [
+		VestigeOfADesertedOasis,
+		MemoryOfALostVillage,
+		EchoOfAnAbandonedRefuge,
+		RemnantOfAForgottenHaven,
+	],
 	seasonalCandlesRotation: [
 		{ rotation: 2, realm: RealmName.DaylightPrairie },
 		{ rotation: 1, realm: RealmName.HiddenForest },

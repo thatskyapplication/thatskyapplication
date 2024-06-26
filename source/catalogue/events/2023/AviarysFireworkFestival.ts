@@ -11,7 +11,12 @@ export default new Event({
 	eventCurrencyInfographicURL: true,
 	eventCurrencyPerDay: 5,
 	offer: [
-		{ name: "Face accessory", bit: 1 << 0, cost: { eventCurrency: 15 }, emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory33 },
+		{
+			name: "Face accessory",
+			bit: 1 << 0,
+			cost: { eventCurrency: 15 },
+			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory33,
+		},
 		{ name: "Prop", bit: 1 << 1, cost: { eventCurrency: 36 }, emoji: HELD_PROPS_EMOJIS.HeldProp39 },
 	],
 });

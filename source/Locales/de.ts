@@ -1,4 +1,4 @@
-import { Map, RealmName } from "../Utility/Constants.js";
+import { RealmName, SkyMap } from "../Utility/Constants.js";
 import { SeasonName } from "../Utility/catalogue.js";
 import { SpiritName } from "../Utility/spirits.js";
 
@@ -13,7 +13,7 @@ export default {
 			[RealmName.VaultOfKnowledge]: "Tresor des Wissens",
 			[RealmName.EyeOfEden]: "Auge von Eden",
 		},
-		maps: { [Map.JellyfishCove]: "Quallenbucht" },
+		maps: { [SkyMap.JellyfishCove]: "Quallenbucht" },
 		seasons: {
 			[SeasonName.Gratitude]: "Saison der Dankbarkeit",
 			[SeasonName.Lightseekers]: "Saison der Lichtsucher",

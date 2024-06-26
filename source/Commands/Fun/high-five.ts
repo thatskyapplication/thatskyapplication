@@ -1,11 +1,11 @@
 import { URL } from "node:url";
 import {
 	type ApplicationCommandData,
-	type ChatInputCommandInteraction,
-	PermissionFlagsBits,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
+	type ChatInputCommandInteraction,
 	EmbedBuilder,
+	PermissionFlagsBits,
 } from "discord.js";
 import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_HIGH_FIVE_NO } from "../../Utility/Constants.js";
 import type { ChatInputCommand } from "../index.js";
@@ -33,12 +33,20 @@ export default new (class implements ChatInputCommand {
 		const member = options.getMember("user");
 
 		if (user.id === interaction.user.id) {
-			await interaction.reply({ content: "You may have two hands, but... try someone else!.", ephemeral: true });
+			await interaction.reply({
+				content: "You may have two hands, but... try someone else!.",
+				ephemeral: true,
+			});
+
 			return;
 		}
 
 		if (interaction.inGuild() && !member) {
-			await interaction.reply({ content: `${user} is not in this server to high-five.`, ephemeral: true });
+			await interaction.reply({
+				content: `${user} is not in this server to high-five.`,
+				ephemeral: true,
+			});
+
 			return;
 		}
 
@@ -67,7 +75,14 @@ export default new (class implements ChatInputCommand {
 			embeds: [
 				new EmbedBuilder()
 					.setColor(DEFAULT_EMBED_COLOUR)
-					.setImage(String(new URL(`high_fives/${Math.floor(Math.random() * MAX_HIGH_FIVE_NO + 1)}.gif`, CDN_URL))),
+					.setImage(
+						String(
+							new URL(
+								`high_fives/${Math.floor(Math.random() * MAX_HIGH_FIVE_NO + 1)}.gif`,
+								CDN_URL,
+							),
+						),
+					),
 			],
 		});
 	}

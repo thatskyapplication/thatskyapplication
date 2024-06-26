@@ -14,6 +14,13 @@ export default new Season({
 	start: skyDate(2_021, 4, 5),
 	end: skyDate(2_021, 6, 13),
 	guide: AssemblyGuide,
-	spirits: [BaffledBotanist, ScoldingStudent, ScaredyCadet, MarchingAdventurer, ChucklingScout, DaydreamForester],
+	spirits: [
+		BaffledBotanist,
+		ScoldingStudent,
+		ScaredyCadet,
+		MarchingAdventurer,
+		ChucklingScout,
+		DaydreamForester,
+	],
 	seasonalCandlesRotation: null,
 });

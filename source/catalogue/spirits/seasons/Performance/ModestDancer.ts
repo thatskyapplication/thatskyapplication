@@ -35,7 +35,12 @@ export default new SeasonalSpirit({
 			{ name: `${action} 2`, bit: 1 << 6, emoji: actionEmoji },
 			{ name: "Outfit", bit: 1 << 7, cost: { seasonalCandles: 30 }, emoji: outfitEmoji },
 			{ name: "Hair", bit: 1 << 8, emoji: hairEmoji },
-			{ name: "Seasonal heart", bit: 1 << 9, cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.PerformanceHeart },
+			{
+				name: "Seasonal heart",
+				bit: 1 << 9,
+				cost: { seasonalCandles: 3 },
+				emoji: SEASON_EMOJIS.PerformanceHeart,
+			},
 		],
 	},
 });

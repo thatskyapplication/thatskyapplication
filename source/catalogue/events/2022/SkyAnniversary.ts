@@ -13,10 +13,35 @@ export default new Event({
 	start: skyDate(2_022, 7, 18),
 	end: skyDate(2_022, 8, 3),
 	offer: [
-		{ name: "Hair accessory", bit: 1 << 0, cost: { hearts: 3 }, emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory24 },
-		{ name: "Happy Birthday Music Sheet", bit: 1 << 1, cost: { hearts: 10 }, emoji: MISCELLANEOUS_EMOJIS.MusicSheet },
-		{ name: "Prop 1", bit: 1 << 2, cost: { candles: 30 }, emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp16 },
-		{ name: "Prop 2", bit: 1 << 3, cost: { candles: 20 }, emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp26 },
-		{ name: "Prop 3", bit: 1 << 4, cost: { hearts: 20 }, emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp17 },
+		{
+			name: "Hair accessory",
+			bit: 1 << 0,
+			cost: { hearts: 3 },
+			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory24,
+		},
+		{
+			name: "Happy Birthday Music Sheet",
+			bit: 1 << 1,
+			cost: { hearts: 10 },
+			emoji: MISCELLANEOUS_EMOJIS.MusicSheet,
+		},
+		{
+			name: "Prop 1",
+			bit: 1 << 2,
+			cost: { candles: 30 },
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp16,
+		},
+		{
+			name: "Prop 2",
+			bit: 1 << 3,
+			cost: { candles: 20 },
+			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp26,
+		},
+		{
+			name: "Prop 3",
+			bit: 1 << 4,
+			cost: { hearts: 20 },
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp17,
+		},
 	],
 });

@@ -18,7 +18,10 @@ export enum Table {
 
 const { DATABASE_URL, DEVELOPMENT_DATABASE_URL } = process.env;
 const databaseURL = PRODUCTION ? DATABASE_URL : DEVELOPMENT_DATABASE_URL;
-if (!databaseURL) throw new Error("Database URL missing.");
+
+if (!databaseURL) {
+	throw new Error("Database URL missing.");
+}
 
 export default knex({
 	client: "pg",

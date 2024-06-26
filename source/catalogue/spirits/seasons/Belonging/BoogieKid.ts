@@ -1,11 +1,19 @@
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
-import { type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../../../Structures/Spirits.js";
+import {
+	SeasonalSpirit,
+	type SeasonalSpiritVisitCollectionKey,
+} from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
-import { MASK_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS, SEASON_EMOJIS } from "../../../../Utility/emojis.js";
-import { SpiritEmote, SpiritName, SpiritEmoteToEmoji } from "../../../../Utility/spirits.js";
+import {
+	MASK_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	OUTFIT_EMOJIS,
+	SEASON_EMOJIS,
+} from "../../../../Utility/emojis.js";
+import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../Utility/spirits.js";
 
 const emote = SpiritEmote.BoogieDance;
 const emoteEmoji = SpiritEmoteToEmoji[emote];
@@ -31,7 +39,12 @@ export default new SeasonalSpirit({
 			{ name: `${emote} 4`, bit: 1 << 7, emoji: emoteEmoji },
 			{ name: "Mask", bit: 1 << 3, cost: { seasonalCandles: 12 }, emoji: maskEmoji },
 			{ name: "Outfit", bit: 1 << 9, emoji: outfitEmoji },
-			{ name: "Seasonal heart", bit: 1 << 4, cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.BelongingHeart },
+			{
+				name: "Seasonal heart",
+				bit: 1 << 4,
+				cost: { seasonalCandles: 3 },
+				emoji: SEASON_EMOJIS.BelongingHeart,
+			},
 		],
 		current: [
 			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
@@ -39,7 +52,12 @@ export default new SeasonalSpirit({
 			{ name: "Blessing 1", bit: 1 << 2, cost: { candles: 5 }, emoji: blessing2 },
 			{ name: "Mask", bit: 1 << 3, cost: { candles: 30 }, emoji: maskEmoji },
 			{ name: "Heart", bit: 1 << 4, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Wing buff", bit: 1 << 5, cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff },
+			{
+				name: "Wing buff",
+				bit: 1 << 5,
+				cost: { ascendedCandles: 2 },
+				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+			},
 			{ name: `${emote} 3`, bit: 1 << 6, cost: { hearts: 3 }, emoji: emoteEmoji },
 			{ name: `${emote} 4`, bit: 1 << 7, cost: { hearts: 6 }, emoji: emoteEmoji },
 			{ name: "Blessing 2", bit: 1 << 8, cost: { candles: 5 }, emoji: blessing2 },

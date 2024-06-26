@@ -10,8 +10,18 @@ export default new Event({
 	eventCurrencyPerDay: 4,
 	offer: [
 		{ name: "Ocean Mask", bit: 1 << 0, cost: { eventCurrency: 16 }, emoji: MASK_EMOJIS.Mask91 },
-		{ name: "Ocean Blue Scarf", bit: 1 << 1, cost: { eventCurrency: 40 }, emoji: NECKLACE_EMOJIS.Necklace36 },
+		{
+			name: "Ocean Blue Scarf",
+			bit: 1 << 1,
+			cost: { eventCurrency: 40 },
+			emoji: NECKLACE_EMOJIS.Necklace36,
+		},
 		{ name: "Nature Wave Pack", bit: 1 << 2, cost: { money: 19.99 }, emoji: CAPE_EMOJIS.Cape131 },
-		{ name: "Nature Wave-Touched Hair", bit: 1 << 3, cost: { money: 6.99 }, emoji: HAIR_EMOJIS.Hair144 },
+		{
+			name: "Nature Wave-Touched Hair",
+			bit: 1 << 3,
+			cost: { money: 6.99 },
+			emoji: HAIR_EMOJIS.Hair144,
+		},
 	],
 });

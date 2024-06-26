@@ -1,4 +1,4 @@
-import { type Snowflake, CDN } from "discord.js";
+import { CDN, type Snowflake } from "discord.js";
 
 const cdn = new CDN();
 
@@ -3021,7 +3021,8 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	LargePlaceableProp66: { name: "large_placeable_prop", id: "1250011362122530837" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-type LargePlaceablePropsEmojis = (typeof LARGE_PLACEABLE_PROPS_EMOJIS)[keyof typeof LARGE_PLACEABLE_PROPS_EMOJIS];
+type LargePlaceablePropsEmojis =
+	(typeof LARGE_PLACEABLE_PROPS_EMOJIS)[keyof typeof LARGE_PLACEABLE_PROPS_EMOJIS];
 
 export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
@@ -3272,13 +3273,14 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Medium argyle rug.
 	 */
 	SmallPlaceableProp62: { name: "small_placeable_prop", id: "1252161687381872752" },
-		/**
+	/**
 	 * Colour Bubble Machine.
 	 */
-		SmallPlaceableProp63: { name: "small_placeable_prop", id: "1254865652192116746" },
+	SmallPlaceableProp63: { name: "small_placeable_prop", id: "1254865652192116746" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-type SmallPlaceablePropsEmojis = (typeof SMALL_PLACEABLE_PROPS_EMOJIS)[keyof typeof SMALL_PLACEABLE_PROPS_EMOJIS];
+type SmallPlaceablePropsEmojis =
+	(typeof SMALL_PLACEABLE_PROPS_EMOJIS)[keyof typeof SMALL_PLACEABLE_PROPS_EMOJIS];
 
 export const COSMETIC_EMOJIS = [
 	...Object.values(EMOTE_EMOJIS),
@@ -3340,6 +3342,10 @@ interface CurrencyEmojiOptions {
 	includeSpaceInEmoji?: boolean;
 }
 
-export function resolveCurrencyEmoji({ emoji, number, includeSpaceInEmoji = false }: CurrencyEmojiOptions) {
+export function resolveCurrencyEmoji({
+	emoji,
+	number,
+	includeSpaceInEmoji = false,
+}: CurrencyEmojiOptions) {
 	return `${number}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji)}`;
 }

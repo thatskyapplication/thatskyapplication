@@ -30,7 +30,12 @@ export default new SeasonalSpirit({
 			{ name: "Blessing 1", bit: 1 << 1, cost: { candles: 5 }, emoji: blessing3 },
 			{ name: "Hood", bit: 1 << 2, cost: { candles: 48 }, emoji: hairEmoji },
 			{ name: "Heart", bit: 1 << 9, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Wing buff", bit: 1 << 10, cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff },
+			{
+				name: "Wing buff",
+				bit: 1 << 10,
+				cost: { ascendedCandles: 2 },
+				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+			},
 			{ name: "Blessing 2", bit: 1 << 4, emoji: blessing3 },
 			{ name: `${action} 2`, bit: 1 << 6, cost: { hearts: 8 }, emoji: actionEmoji },
 			{ name: "Outfit", bit: 1 << 8, cost: { candles: 70 }, emoji: outfitEmoji },
@@ -46,7 +51,12 @@ export default new SeasonalSpirit({
 			{ name: `${action} 2`, bit: 1 << 6, emoji: actionEmoji },
 			{ name: "Mask", bit: 1 << 7, cost: { seasonalCandles: 30 }, emoji: maskEmoji },
 			{ name: "Outfit", bit: 1 << 8, emoji: outfitEmoji },
-			{ name: "Seasonal heart", bit: 1 << 9, cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.PerformanceHeart },
+			{
+				name: "Seasonal heart",
+				bit: 1 << 9,
+				cost: { seasonalCandles: 3 },
+				emoji: SEASON_EMOJIS.PerformanceHeart,
+			},
 		],
 	},
 	visits: {

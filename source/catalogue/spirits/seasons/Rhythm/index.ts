@@ -14,6 +14,13 @@ export default new Season({
 	start: skyDate(2_020, 1, 24),
 	end: skyDate(2_020, 4, 5),
 	guide: RhythmGuide,
-	spirits: [TroupeGreeter, FestivalSpinDancer, AdmiringActor, TroupeJuggler, RespectfulPianist, ThoughtfulDirector],
+	spirits: [
+		TroupeGreeter,
+		FestivalSpinDancer,
+		AdmiringActor,
+		TroupeJuggler,
+		RespectfulPianist,
+		ThoughtfulDirector,
+	],
 	seasonalCandlesRotation: null,
 });

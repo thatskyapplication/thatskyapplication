@@ -25,7 +25,12 @@ export default new GuideSpirit({
 				cost: { seasonalHearts: 1 },
 				emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory28,
 			},
-			{ name: "Ultimate camera", bit: 1 << 3, cost: { seasonalHearts: 1 }, emoji: HELD_PROPS_EMOJIS.HeldProp37 },
+			{
+				name: "Ultimate camera",
+				bit: 1 << 3,
+				cost: { seasonalHearts: 1 },
+				emoji: HELD_PROPS_EMOJIS.HeldProp37,
+			},
 			{
 				name: "Ultimate hair accessory",
 				bit: 1 << 4,

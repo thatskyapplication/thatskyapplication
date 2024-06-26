@@ -1,11 +1,11 @@
 import {
-	type Guild,
-	type Snowflake,
-	type StringSelectMenuInteraction,
 	ActionRowBuilder,
 	Collection,
 	EmbedBuilder,
+	type Guild,
+	type Snowflake,
 	StringSelectMenuBuilder,
+	type StringSelectMenuInteraction,
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
 import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
@@ -83,7 +83,10 @@ export default class AI {
 	}
 
 	private patch(data: AIPatchData) {
-		this.frequencyType = isAIFrequency(data.frequency_type) ? data.frequency_type : AIFrequencyType.Disabled;
+		this.frequencyType = isAIFrequency(data.frequency_type)
+			? data.frequency_type
+			: AIFrequencyType.Disabled;
+
 		this.frequency = AIFrequencyTypeToValue[this.frequencyType];
 	}
 
@@ -91,7 +94,11 @@ export default class AI {
 		let ai = this.cache.find((cachedAI) => cachedAI.guildId === guildId);
 
 		if (ai) {
-			const [aiPacket] = await pg<AIPacket>(Table.AI).update(data).where({ guild_id: guildId }).returning("*");
+			const [aiPacket] = await pg<AIPacket>(Table.AI)
+				.update(data)
+				.where({ guild_id: guildId })
+				.returning("*");
+
 			ai.patch(aiPacket!);
 		} else {
 			const [aiPacket] = await pg<AIPacket>(Table.AI).insert({ ...data, guild_id: guildId }, "*");
@@ -143,7 +150,10 @@ export default class AI {
 				),
 			],
 			embeds: [
-				new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setDescription(AI_FREQUENCY_DESCRIPTION).setTitle(name),
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(AI_FREQUENCY_DESCRIPTION)
+					.setTitle(name),
 			],
 			ephemeral: true,
 		};

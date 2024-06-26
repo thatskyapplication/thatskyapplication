@@ -1,26 +1,26 @@
 import {
-	type ChatInputCommandInteraction,
-	type Guild,
-	type Snowflake,
 	ActionRowBuilder,
 	ButtonBuilder,
 	ButtonInteraction,
 	ButtonStyle,
+	type ChatInputCommandInteraction,
 	EmbedBuilder,
+	type Guild,
 	MessageFlags,
-	time,
+	type Snowflake,
 	TimestampStyles,
+	time,
 } from "discord.js";
 import { t } from "i18next";
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../Utility/Constants.js";
 import { getRandomElement } from "../Utility/Utility.js";
 import {
-	type CosmeticEmojis,
 	COSMETIC_EMOJIS,
-	formatEmojiURL,
-	formatEmoji,
-	MISCELLANEOUS_EMOJIS,
+	type CosmeticEmojis,
 	FRIEND_ACTION_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	formatEmoji,
+	formatEmojiURL,
 } from "../Utility/emojis.js";
 import { SPIRITS } from "../catalogue/spirits/index.js";
 import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
@@ -28,7 +28,7 @@ import ModestDancer from "../catalogue/spirits/seasons/Performance/ModestDancer.
 import { SEASON_SPIRITS } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
-import type { StandardSpirit, ElderSpirit, SeasonalSpirit, GuideSpirit } from "./Spirits.js";
+import type { ElderSpirit, GuideSpirit, SeasonalSpirit, StandardSpirit } from "./Spirits.js";
 
 export interface GuessPacket {
 	user_id: string;
@@ -43,12 +43,13 @@ export const GUESS_ANSWER_3 = "GUESS_ANSWER_3" as const;
 export const GUESS_TRY_AGAIN = "GUESS_TRY_AGAIN_CUSTOM_ID" as const;
 
 export enum GuessDifficultyLevel {
-	Original,
-	Hard,
+	Original = 0,
+	Hard = 1,
 }
 
 export const GUESS_DIFFICULTY_LEVEL_VALUES = Object.values(GuessDifficultyLevel).filter(
-	(guessDifficultyLevel): guessDifficultyLevel is GuessDifficultyLevel => typeof guessDifficultyLevel === "number",
+	(guessDifficultyLevel): guessDifficultyLevel is GuessDifficultyLevel =>
+		typeof guessDifficultyLevel === "number",
 );
 
 function isGuessDifficultyLevel(level: unknown): level is GuessDifficultyLevel {
@@ -67,22 +68,25 @@ const GuessDifficultyToStreakColumn = {
 
 const GUESS_TIMEOUT = 30_000 as const;
 
-function getAnswer(): [CosmeticEmojis, StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit] {
+function getAnswer(): [
+	CosmeticEmojis,
+	StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
+] {
 	// Get a random emoji as the answer.
 	const emoji = getRandomElement(COSMETIC_EMOJIS)!;
 
 	// Find what spirit uses this emoji.
-	let spirit;
+	let spirit: StandardSpirit | SeasonalSpirit | ElderSpirit | GuideSpirit | undefined;
+
 	if (emoji === FRIEND_ACTION_EMOJIS.DuetDance) {
 		// Early exit due to multiple sources.
 		spirit = ModestDancer;
 	} else {
-		spirit = SPIRITS.find(
-			(spirit) =>
-				(spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
-					? spirit.current
-					: spirit.current ?? spirit.seasonal
-				)?.some((item) => item.emoji?.id === emoji.id),
+		spirit = SPIRITS.find((spirit) =>
+			(spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
+				? spirit.current
+				: spirit.current ?? spirit.seasonal
+			)?.some((item) => item.emoji?.id === emoji.id),
 		);
 	}
 
@@ -172,8 +176,12 @@ export async function guess(
 		embeds: [
 			new EmbedBuilder()
 				.setColor(DEFAULT_EMBED_COLOUR)
-				.setDescription(`Guess ${time(Math.floor(timeoutTimestamp / 1_000), TimestampStyles.RelativeTime)}!`)
-				.setFooter({ text: `Difficulty: ${difficultyString} | Streak: ${streak} | Highest: ${streakString}` })
+				.setDescription(
+					`Guess ${time(Math.floor(timeoutTimestamp / 1_000), TimestampStyles.RelativeTime)}!`,
+				)
+				.setFooter({
+					text: `Difficulty: ${difficultyString} | Streak: ${streak} | Highest: ${streakString}`,
+				})
 				.setImage(formatEmojiURL(emoji.id))
 				.setTitle("Where does this come from?"),
 		],
@@ -199,7 +207,11 @@ export async function answer(interaction: ButtonInteraction) {
 	const { customId, locale, message, user } = interaction;
 
 	if (message.interaction!.user.id !== user.id) {
-		await interaction.reply({ content: "You didn't start this game!", flags: MessageFlags.Ephemeral });
+		await interaction.reply({
+			content: "You didn't start this game!",
+			flags: MessageFlags.Ephemeral,
+		});
+
 		return;
 	}
 
@@ -216,7 +228,12 @@ export async function answer(interaction: ButtonInteraction) {
 
 	if (Date.now() > parsedTimeoutTimestamp) {
 		await update(parsedDifficulty, user.id, parsedStreak, interaction.guildId);
-		await interaction.update({ components: [tryAgainComponent(parsedDifficulty)], content: "Too late!" });
+
+		await interaction.update({
+			components: [tryAgainComponent(parsedDifficulty)],
+			content: "Too late!",
+		});
+
 		return;
 	}
 
@@ -233,7 +250,12 @@ export async function answer(interaction: ButtonInteraction) {
 			.setTitle(t(`spiritNames.${answer}`, { lng: locale, ns: "general" }));
 
 		await update(parsedDifficulty, user.id, parsedStreak, interaction.guildId);
-		await interaction.update({ components: [tryAgainComponent(parsedDifficulty)], embeds: [embed] });
+
+		await interaction.update({
+			components: [tryAgainComponent(parsedDifficulty)],
+			embeds: [embed],
+		});
+
 		return;
 	}
 
@@ -244,7 +266,11 @@ export async function tryAgain(interaction: ButtonInteraction) {
 	const { customId, message, user } = interaction;
 
 	if (message.interaction!.user.id !== user.id) {
-		await interaction.reply({ content: "You didn't start this game!", flags: MessageFlags.Ephemeral });
+		await interaction.reply({
+			content: "You didn't start this game!",
+			flags: MessageFlags.Ephemeral,
+		});
+
 		return;
 	}
 
@@ -259,7 +285,12 @@ export async function tryAgain(interaction: ButtonInteraction) {
 	await guess(interaction, difficulty, 0);
 }
 
-async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, streak: number, guildId: Snowflake | null) {
+async function update(
+	difficulty: GuessDifficultyLevel,
+	userId: Snowflake,
+	streak: number,
+	guildId: Snowflake | null,
+) {
 	const column = GuessDifficultyToStreakColumn[difficulty];
 
 	await pg<GuessPacket>(Table.Guess)
@@ -286,7 +317,7 @@ async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, strea
 							END
 						`,
 						[guildId, JSON.stringify([guildId])],
-				  )
+					)
 				: pg.raw(`${Table.Guess}.guild_ids`),
 		})
 		.where(`${Table.Guess}.${[column]}`, "<", streak)
@@ -324,7 +355,9 @@ export async function handleGuildCreate(guild: Guild) {
 		guild_id,
 	}));
 
-	if (userGuildData.length === 0) return;
+	if (userGuildData.length === 0) {
+		return;
+	}
 
 	await pg.raw(`
 		WITH updated_data (user_id, guild_id) AS (
@@ -361,7 +394,10 @@ export async function handleGuildRemove(guild: Guild) {
 	);
 }
 
-export async function leaderboard(interaction: ChatInputCommandInteraction, difficulty: GuessDifficultyLevel) {
+export async function leaderboard(
+	interaction: ChatInputCommandInteraction,
+	difficulty: GuessDifficultyLevel,
+) {
 	const column = GuessDifficultyToStreakColumn[difficulty];
 	const results = await pg<GuessPacket>(Table.Guess).whereNotNull(column).orderBy(column, "desc");
 	const you = results.findIndex((row) => row.user_id === interaction.user.id);
@@ -376,7 +412,10 @@ export async function leaderboard(interaction: ChatInputCommandInteraction, diff
 		)
 		.setTitle(`${GuessDifficultyLevelToName[difficulty]} Leaderboard`);
 
-	if (you !== -1) embed.setFooter({ text: `You: #${you + 1} (${results[you]![column]})` });
+	if (you !== -1) {
+		embed.setFooter({ text: `You: #${you + 1} (${results[you]![column]})` });
+	}
+
 	await interaction.reply({ embeds: [embed] });
 }
 
@@ -409,7 +448,11 @@ export async function guildLeaderboard(
 		.setTitle(`${GuessDifficultyLevelToName[difficulty]} Leaderboard`);
 
 	let footerText = interaction.guild!.name;
-	if (you !== -1) footerText += ` | You: #${you + 1} (${results[you]![column]})`;
+
+	if (you !== -1) {
+		footerText += ` | You: #${you + 1} (${results[you]![column]})`;
+	}
+
 	embed.setFooter({ text: footerText });
 	await interaction.reply({ embeds: [embed] });
 }

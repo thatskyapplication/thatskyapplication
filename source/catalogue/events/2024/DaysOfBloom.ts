@@ -52,6 +52,11 @@ export default new Event({
 		{ name: "Hair 1", bit: 1 << 0, cost: { hearts: 25 }, emoji: HAIR_EMOJIS.Hair141 },
 		{ name: "Hair 2", bit: 1 << 1, cost: { eventCurrency: 24 }, emoji: HAIR_EMOJIS.Hair140 },
 		{ name: "Cape", bit: 1 << 2, cost: { eventCurrency: 48 }, emoji: CAPE_EMOJIS.Cape128 },
-		{ name: "Bloom Lilypad Umbrella", bit: 1 << 3, cost: { money: 14.99 }, emoji: HELD_PROPS_EMOJIS.HeldProp42 },
+		{
+			name: "Bloom Lilypad Umbrella",
+			bit: 1 << 3,
+			cost: { money: 14.99 },
+			emoji: HELD_PROPS_EMOJIS.HeldProp42,
+		},
 	],
 });

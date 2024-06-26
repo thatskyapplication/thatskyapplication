@@ -14,16 +14,24 @@ import Notification, { NotificationEvent, type NotificationSendExtra } from "./N
 
 let shardEruptionToday = shardEruption();
 
-async function sendNotification(client: Client<true>, type: NotificationEvent, extra?: NotificationSendExtra) {
+async function sendNotification(
+	client: Client<true>,
+	type: NotificationEvent,
+	extra?: NotificationSendExtra,
+) {
 	const settled = await Promise.allSettled(
-		Notification.cache.map(async (notification) => pQueue.add(async () => notification.send(client, type, extra))),
+		Notification.cache.map(async (notification) =>
+			pQueue.add(async () => notification.send(client, type, extra)),
+		),
 	);
 
 	const errors = settled
 		.filter((result): result is PromiseRejectedResult => result.status === "rejected")
 		.map((result) => result.reason);
 
-	if (errors.length > 0) pino.error(errors, "Error whilst sending notifications.");
+	if (errors.length > 0) {
+		pino.error(errors, "Error whilst sending notifications.");
+	}
 }
 
 async function dailyReset(client: Client<true>) {
@@ -35,6 +43,7 @@ async function dailyReset(client: Client<true>) {
 }
 
 export default function heartbeat(client: Client<true>): void {
+	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Effort.
 	setInterval(() => {
 		const date = DateTime.now().setZone(TIME_ZONE);
 		const { day, weekday, hour, minute, second } = date;
@@ -44,14 +53,23 @@ export default function heartbeat(client: Client<true>): void {
 		if (second === 0) {
 			if (hour === 0 && minute === 0) {
 				void dailyReset(client);
-				if (weekday === 7) void sendNotification(client, NotificationEvent.EyeOfEden);
+
+				if (weekday === 7) {
+					void sendNotification(client, NotificationEvent.EyeOfEden);
+				}
+
 				// @ts-expect-error Too narrow.
-				if (ISS_DATES_ACCESSIBLE.includes(day)) void sendNotification(client, NotificationEvent.ISS);
+				if (ISS_DATES_ACCESSIBLE.includes(day)) {
+					void sendNotification(client, NotificationEvent.ISS);
+				}
 			}
 
 			if (shardEruptionToday) {
 				const { strong, timestamps } = shardEruptionToday;
-				const timestamp = timestamps.find(({ start }) => Math.trunc(start.diff(date, "minutes").minutes) === 5);
+
+				const timestamp = timestamps.find(
+					({ start }) => Math.trunc(start.diff(date, "minutes").minutes) === 5,
+				);
 
 				if (timestamp) {
 					void sendNotification(
@@ -66,7 +84,9 @@ export default function heartbeat(client: Client<true>): void {
 				}
 			}
 
-			if ((minute + 5) % 15 === 0) void sendNotification(client, NotificationEvent.Passage, { startTime: unix + 300 });
+			if ((minute + 5) % 15 === 0) {
+				void sendNotification(client, NotificationEvent.Passage, { startTime: unix + 300 });
+			}
 
 			if ((hour + 3) % 4 === 0 && minute === 45) {
 				void sendNotification(client, NotificationEvent.AURORA, { startTime: unix + 900 });
@@ -75,7 +95,10 @@ export default function heartbeat(client: Client<true>): void {
 			if (hour % 2 === 0) {
 				switch (minute) {
 					case 0:
-						void sendNotification(client, NotificationEvent.PollutedGeyser, { startTime: unix + 300 });
+						void sendNotification(client, NotificationEvent.PollutedGeyser, {
+							startTime: unix + 300,
+						});
+
 						break;
 					case 30:
 						void sendNotification(client, NotificationEvent.Grandma, { startTime: unix + 300 });
@@ -87,7 +110,9 @@ export default function heartbeat(client: Client<true>): void {
 			}
 
 			if (day === 1 && hour % 4 === 0 && minute === 0) {
-				void sendNotification(client, NotificationEvent.AviarysFireworkFestival, { startTime: unix + 600 });
+				void sendNotification(client, NotificationEvent.AviarysFireworkFestival, {
+					startTime: unix + 600,
+				});
 			}
 
 			if (minute === 55 && events.some(({ name }) => name === EventName.DaysOfFortune)) {

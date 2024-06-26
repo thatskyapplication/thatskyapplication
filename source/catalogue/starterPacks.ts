@@ -6,4 +6,7 @@ const items = resolveOffer([
 	{ name: "Nintendo Pack", bit: 1 << 1, cost: { money: 29.99 }, emoji: CAPE_EMOJIS.Cape57 },
 ]);
 
-export const STARTER_PACKS = { items, maximumItemsBit: items.reduce((bits, { bit }) => bit | bits, 0) } as const;
+export const STARTER_PACKS = {
+	items,
+	maximumItemsBit: items.reduce((bits, { bit }) => bit | bits, 0),
+} as const;

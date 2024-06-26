@@ -1,5 +1,12 @@
 import process from "node:process";
-import { type Collection, type Guild, type Snowflake, Client, Events, GatewayIntentBits } from "discord.js";
+import {
+	Client,
+	type Collection,
+	Events,
+	GatewayIntentBits,
+	type Guild,
+	type Snowflake,
+} from "discord.js";
 import knex from "knex";
 
 interface GuessPacket {
@@ -10,11 +17,14 @@ interface GuessPacket {
 }
 
 const { DATABASE_URL } = process.env;
-const databaseURL = DATABASE_URL;
-if (!databaseURL) throw new Error("Database URL missing.");
+
+if (!DATABASE_URL) {
+	throw new Error("Database URL missing.");
+}
+
 const TABLE = "guess" as const;
 const client = new Client({ intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMembers });
-const pg = knex({ client: "pg", connection: databaseURL, pool: { min: 0 } });
+const pg = knex({ client: "pg", connection: DATABASE_URL, pool: { min: 0 } });
 const userIds = (await pg<GuessPacket>(TABLE).select("user_id")).map((row) => row.user_id);
 const data: Record<Snowflake, GuessPacket["guild_ids"]> = {};
 
@@ -36,7 +46,10 @@ async function setGuildIds(guilds: Collection<Snowflake, Guild>) {
 		await guild.members.fetch({ user: userIds });
 	}
 
-	const formattedData = Object.keys(data).map((user_id) => ({ user_id, guild_ids: JSON.stringify(data[user_id]) }));
+	const formattedData = Object.keys(data).map((user_id) => ({
+		user_id,
+		guild_ids: JSON.stringify(data[user_id]),
+	}));
 
 	await pg.raw(`
 		WITH updated_data (user_id, guild_ids) AS (

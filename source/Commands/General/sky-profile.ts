@@ -1,26 +1,29 @@
 import {
+	ALLOWED_EXTENSIONS,
+	ActionRowBuilder,
 	type ApplicationCommandData,
+	ApplicationCommandOptionType,
+	ApplicationCommandType,
 	type Attachment,
 	type AutocompleteInteraction,
 	type ChatInputCommandInteraction,
-	type Snowflake,
-	ActionRowBuilder,
-	ALLOWED_EXTENSIONS,
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
 	ModalBuilder,
 	PermissionFlagsBits,
+	type Snowflake,
 	StringSelectMenuBuilder,
+	StringSelectMenuOptionBuilder,
 	TextInputBuilder,
 	TextInputStyle,
-	StringSelectMenuOptionBuilder,
 	UserContextMenuCommandInteraction,
 } from "discord.js";
 import { t } from "i18next";
 import { PlatformFlagsToString, resolvePlatformToEmoji } from "../../Structures/Platforms.js";
 import Profile, { AssetType } from "../../Structures/Profile.js";
 import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
-import { SEASON_FLAGS_TO_SEASON_NAME_ENTRIES, SeasonNameToSeasonalEmoji } from "../../Utility/catalogue.js";
+import {
+	SEASON_FLAGS_TO_SEASON_NAME_ENTRIES,
+	SeasonNameToSeasonalEmoji,
+} from "../../Utility/catalogue.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { SPIRITS } from "../../catalogue/spirits/index.js";
 import COMMANDS, { type AutocompleteCommand } from "../index.js";
@@ -163,7 +166,8 @@ export default new (class implements AutocompleteCommand {
 					{
 						type: ApplicationCommandOptionType.Subcommand,
 						name: "winged-light",
-						description: "Set the maximum number of winged light your Skykid could possibly have in your Sky profile!",
+						description:
+							"Set the maximum number of winged light your Skykid could possibly have in your Sky profile!",
 						options: [
 							{
 								type: ApplicationCommandOptionType.Integer,
@@ -207,52 +211,68 @@ export default new (class implements AutocompleteCommand {
 	}
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const { options } = interaction;
 
 		switch (options.getSubcommandGroup() ?? options.getSubcommand()) {
-			case "set":
+			case "set": {
 				await this.set(interaction);
 				return;
-			case "show":
+			}
+			case "show": {
 				await this.show(interaction);
+			}
 		}
 	}
 
 	public async set(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
-			case "country":
+			case "country": {
 				await this.setCountry(interaction);
 				return;
-			case "description":
+			}
+			case "description": {
 				await this.setDescription(interaction);
 				return;
-			case "icon":
+			}
+			case "icon": {
 				await this.setIcon(interaction);
 				return;
-			case "name":
+			}
+			case "name": {
 				await this.setName(interaction);
 				return;
-			case "platform":
+			}
+			case "platform": {
 				await this.setPlatform(interaction);
 				return;
-			case "seasons":
+			}
+			case "seasons": {
 				await this.setSeasons(interaction);
 				return;
-			case "spirit":
+			}
+			case "spirit": {
 				await this.setSpirit(interaction);
 				return;
-			case "catalogue-progression":
+			}
+			case "catalogue-progression": {
 				await this.setCatalogueProgression(interaction);
 				return;
-			case "spot":
+			}
+			case "spot": {
 				await this.setSpot(interaction);
 				return;
-			case "thumbnail":
+			}
+			case "thumbnail": {
 				await this.setThumbnail(interaction);
 				return;
-			case "winged-light":
+			}
+			case "winged-light": {
 				await this.setWingedLight(interaction);
+			}
 		}
 	}
 
@@ -270,7 +290,10 @@ export default new (class implements AutocompleteCommand {
 			.setMaxLength(SKY_MAXIMUM_DESCRIPTION_LENGTH)
 			.setStyle(TextInputStyle.Paragraph);
 
-		if (profile?.description) textInput.setValue(profile.description);
+		if (profile?.description) {
+			textInput.setValue(profile.description);
+		}
+
 		const actionRow = new ActionRowBuilder<TextInputBuilder>().setComponents(textInput);
 
 		const modal = new ModalBuilder()
@@ -281,8 +304,14 @@ export default new (class implements AutocompleteCommand {
 		await interaction.showModal(modal);
 	}
 
-	private async validateAttachment(interaction: ChatInputCommandInteraction, { size, name }: Attachment) {
-		if (size > SKY_MAXIMUM_ASSET_SIZE || !ALLOWED_EXTENSIONS.some((extension) => name.endsWith(`.${extension}`))) {
+	private async validateAttachment(
+		interaction: ChatInputCommandInteraction,
+		{ size, name }: Attachment,
+	) {
+		if (
+			size > SKY_MAXIMUM_ASSET_SIZE ||
+			!ALLOWED_EXTENSIONS.some((extension) => name.endsWith(`.${extension}`))
+		) {
 			await interaction.reply({
 				content: `Please upload a valid attachment! It must be less than 5 megabytes and in any of the following formats:\n${ALLOWED_EXTENSIONS.map(
 					(extension) => `- .${extension}`,
@@ -298,7 +327,11 @@ export default new (class implements AutocompleteCommand {
 
 	public async setIcon(interaction: ChatInputCommandInteraction) {
 		const icon = interaction.options.getAttachment("icon", true);
-		if (!(await this.validateAttachment(interaction, icon))) return;
+
+		if (!(await this.validateAttachment(interaction, icon))) {
+			return;
+		}
+
 		await Profile.setAsset(interaction, icon, AssetType.Icon);
 	}
 
@@ -391,7 +424,11 @@ export default new (class implements AutocompleteCommand {
 
 	public async setThumbnail(interaction: ChatInputCommandInteraction) {
 		const thumbnail = interaction.options.getAttachment("thumbnail", true);
-		if (!(await this.validateAttachment(interaction, thumbnail))) return;
+
+		if (!(await this.validateAttachment(interaction, thumbnail))) {
+			return;
+		}
+
 		await Profile.setAsset(interaction, thumbnail, AssetType.Thumbnail);
 	}
 
@@ -404,7 +441,8 @@ export default new (class implements AutocompleteCommand {
 		const user = interaction.options.getUser("user");
 
 		const hide =
-			interaction instanceof UserContextMenuCommandInteraction || (interaction.options.getBoolean("hide") ?? false);
+			interaction instanceof UserContextMenuCommandInteraction ||
+			(interaction.options.getBoolean("hide") ?? false);
 
 		if (user?.bot) {
 			await interaction.reply({
@@ -438,6 +476,9 @@ export default new (class implements AutocompleteCommand {
 
 		const { embed, unfilled } = await profile.embed(interaction);
 		await interaction.reply({ embeds: [embed], ephemeral: hide });
-		if (unfilled && userIsInvoker) await interaction.followUp({ content: unfilled, ephemeral: true });
+
+		if (unfilled && userIsInvoker) {
+			await interaction.followUp({ content: unfilled, ephemeral: true });
+		}
 	}
 })();

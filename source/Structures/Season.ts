@@ -2,18 +2,18 @@ import { URL } from "node:url";
 import type { Locale } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import { type RealmName, CDN_URL } from "../Utility/Constants.js";
+import { CDN_URL, type RealmName } from "../Utility/Constants.js";
 import {
 	type Item,
 	type ItemRaw,
 	type RotationNumber,
-	type SeasonName,
-	resolveOffer,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
+	type SeasonName,
 	SeasonNameToSeasonalCandleEmoji,
 	SeasonNameToSeasonalEmoji,
+	resolveOffer,
 	snakeCaseName,
 	wikiURL,
 } from "../Utility/catalogue.js";
@@ -25,7 +25,9 @@ import {
 import type { SeasonEmojis } from "../Utility/emojis.js";
 import type { GuideSpirit, SeasonalSpirit } from "./Spirits.js";
 
-type SeasonalCandlesRotation = Readonly<{ rotation: Exclude<RotationNumber, 3>; realm: RealmName }[]>;
+type SeasonalCandlesRotation = Readonly<
+	{ rotation: Exclude<RotationNumber, 3>; realm: RealmName }[]
+>;
 
 /**
  * Data to create a season.
@@ -117,7 +119,8 @@ export class Season {
 		const { end, duration, start } = this;
 
 		const seasonalDoubleLightEvent =
-			DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE >= start && DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE <= end;
+			DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE >= start &&
+			DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE <= end;
 
 		// Calculate the total amount of seasonal candles.
 		let seasonalCandlesTotal = duration * SEASONAL_CANDLES_PER_DAY;
@@ -137,12 +140,17 @@ export class Season {
 		let seasonalCandlesSoFarWithSeasonPass =
 			daysSoFar * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
 
-		if (seasonalDoubleLightEvent && date.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days").days >= 0) {
+		if (
+			seasonalDoubleLightEvent &&
+			date.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days").days >= 0
+		) {
 			const difference = date.diff(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, "days").days;
 
 			const extraSeasonalCandles =
 				// The difference will be a negative number if the event is still ongoing.
-				difference > 0 ? DOUBLE_SEASONAL_LIGHT_EVENT_DURATION : DOUBLE_SEASONAL_LIGHT_EVENT_DURATION + difference;
+				difference > 0
+					? DOUBLE_SEASONAL_LIGHT_EVENT_DURATION
+					: DOUBLE_SEASONAL_LIGHT_EVENT_DURATION + difference;
 
 			seasonalCandlesSoFar += extraSeasonalCandles;
 			seasonalCandlesSoFarWithSeasonPass += extraSeasonalCandles;
@@ -151,7 +159,8 @@ export class Season {
 		// Calculate the amount of seasonal candles left.
 		return {
 			seasonalCandlesLeft: seasonalCandlesTotal - seasonalCandlesSoFar,
-			seasonalCandlesLeftWithSeasonPass: seasonalCandlesTotalWithSeasonPass - seasonalCandlesSoFarWithSeasonPass,
+			seasonalCandlesLeftWithSeasonPass:
+				seasonalCandlesTotalWithSeasonPass - seasonalCandlesSoFarWithSeasonPass,
 		};
 	}
 

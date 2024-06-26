@@ -12,7 +12,12 @@ export default new Event({
 	start: skyDate(2_023, 7, 17),
 	end: skyDate(2_023, 7, 30),
 	offer: [
-		{ name: "Hair accessory", bit: 1 << 0, cost: { eventCurrency: 8 }, emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory28 },
+		{
+			name: "Hair accessory",
+			bit: 1 << 0,
+			cost: { eventCurrency: 8 },
+			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory28,
+		},
 		{
 			name: "Anniversary Sonorous Seashell",
 			bit: 1 << 1,

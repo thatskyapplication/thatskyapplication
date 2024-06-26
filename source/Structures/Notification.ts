@@ -1,21 +1,21 @@
 import {
 	type Channel,
+	ChannelType,
 	type ChatInputCommandInteraction,
 	type Client,
-	type GuildBasedChannel,
-	type GuildMember,
-	type Role,
-	type Snowflake,
-	channelMention,
-	ChannelType,
 	Collection,
 	EmbedBuilder,
-	hyperlink,
+	type GuildBasedChannel,
+	type GuildMember,
 	MessageFlags,
 	PermissionFlagsBits,
+	type Role,
+	type Snowflake,
+	TimestampStyles,
+	channelMention,
+	hyperlink,
 	roleMention,
 	time,
-	TimestampStyles,
 } from "discord.js";
 import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
 import { SeasonName } from "../Utility/catalogue.js";
@@ -80,7 +80,10 @@ interface NotificationData {
 }
 
 type NotificationPatchData = Omit<NotificationPacket, "guild_id">;
-export type NotificationInsertQuery = Partial<NotificationPatchData> & Pick<NotificationPacket, "guild_id">;
+
+export type NotificationInsertQuery = Partial<NotificationPatchData> &
+	Pick<NotificationPacket, "guild_id">;
+
 export type NotificationUpdateQuery = Omit<NotificationInsertQuery, "guild_id">;
 
 export enum NotificationEvent {
@@ -120,10 +123,15 @@ export const NOTIFICATION_CHANNEL_TYPES = [
 	ChannelType.GuildAnnouncement,
 ] as const satisfies Readonly<ChannelType[]>;
 
-type NotificationAllowedChannel = Extract<GuildBasedChannel, { type: (typeof NOTIFICATION_CHANNEL_TYPES)[number] }>;
+type NotificationAllowedChannel = Extract<
+	GuildBasedChannel,
+	{ type: (typeof NOTIFICATION_CHANNEL_TYPES)[number] }
+>;
 
 function isNotificationChannel(channel: Channel): channel is NotificationAllowedChannel {
-	return NOTIFICATION_CHANNEL_TYPES.includes(channel.type as (typeof NOTIFICATION_CHANNEL_TYPES)[number]);
+	return NOTIFICATION_CHANNEL_TYPES.includes(
+		channel.type as (typeof NOTIFICATION_CHANNEL_TYPES)[number],
+	);
 }
 
 export function isNotificationSendable(
@@ -147,19 +155,30 @@ export function isNotificationSendable(
 	returnErrors = false,
 ) {
 	const errors = [];
-	if (me.isCommunicationDisabled()) errors.push("I am timed out.");
 
-	if (!channel.permissionsFor(me).has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages)) {
+	if (me.isCommunicationDisabled()) {
+		errors.push("I am timed out.");
+	}
+
+	if (
+		!channel
+			.permissionsFor(me)
+			.has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages)
+	) {
 		errors.push(`\`View Channel\` & \`Send Messages\` are required for ${channel}.`);
 	}
 
-	if (!channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone) && !role.mentionable) {
+	if (!(channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone) || role.mentionable)) {
 		errors.push(
 			`Cannot mention the ${role} role. Ensure \`Mention @everyone, @here and All Roles\` permission is enabled for ${me} in the channel or make the role mentionable.`,
 		);
 	}
 
-	return returnErrors ? (errors.length > 1 ? errors.map((error) => `- ${error}`) : errors) : errors.length === 0;
+	return returnErrors
+		? errors.length > 1
+			? errors.map((error) => `- ${error}`)
+			: errors
+		: errors.length === 0;
 }
 
 export interface NotificationSendExtra {
@@ -262,7 +281,10 @@ export default class Notification {
 		data: NotificationInsertQuery | NotificationUpdateQuery,
 	) {
 		const { guildId } = interaction;
-		let notification = this.cache.find((cachedNotification) => cachedNotification.guildId === guildId);
+
+		let notification = this.cache.find(
+			(cachedNotification) => cachedNotification.guildId === guildId,
+		);
 
 		if (notification) {
 			const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications)
@@ -272,7 +294,11 @@ export default class Notification {
 
 			notification.patch(notificationPacket!);
 		} else {
-			const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications).insert(data, "*");
+			const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications).insert(
+				data,
+				"*",
+			);
+
 			notification = new this(notificationPacket!);
 			this.cache.set(notification.guildId, notification);
 		}
@@ -284,7 +310,10 @@ export default class Notification {
 		});
 	}
 
-	public async unset(interaction: ChatInputCommandInteraction<"cached">, data: NotificationUpdateQuery) {
+	public async unset(
+		interaction: ChatInputCommandInteraction<"cached">,
+		data: NotificationUpdateQuery,
+	) {
 		const { guildId } = interaction;
 
 		const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications)
@@ -339,91 +368,117 @@ export default class Notification {
 		} = this;
 		const startTimeString = startTime ? time(startTime, TimestampStyles.RelativeTime) : "soon";
 		const endTimeString = endTime ? time(endTime, TimestampStyles.RelativeTime) : "soon";
-		const { realm, map, url } = shardEruption ?? {};
-		let channelId;
-		let roleId;
-		let suffix;
+		const { realm, skyMap, url } = shardEruption ?? {};
+		let channelId: Snowflake | null;
+		let roleId: Snowflake | null;
+		let suffix: string;
 
 		switch (type) {
-			case NotificationEvent.PollutedGeyser:
+			case NotificationEvent.PollutedGeyser: {
 				channelId = pollutedGeyserChannelId;
 				roleId = pollutedGeyserRoleId;
 				suffix = `The polluted geyser will erupt ${startTimeString}!`;
 				break;
-			case NotificationEvent.Grandma:
+			}
+			case NotificationEvent.Grandma: {
 				channelId = grandmaChannelId;
 				roleId = grandmaRoleId;
 				suffix = `Grandma will share her light ${startTimeString}!`;
 				break;
-			case NotificationEvent.Turtle:
+			}
+			case NotificationEvent.Turtle: {
 				channelId = turtleChannelId;
 				roleId = turtleRoleId;
 				suffix = `The turtle will need cleansing of darkness ${startTimeString}!`;
 				break;
-			case NotificationEvent.EyeOfEden:
+			}
+			case NotificationEvent.EyeOfEden: {
 				channelId = eyeOfEdenChannelId;
 				roleId = eyeOfEdenRoleId;
 				suffix = "Skykids may save statues in the Eye of Eden again!";
 				break;
-			case NotificationEvent.DailyReset:
+			}
+			case NotificationEvent.DailyReset: {
 				channelId = dailyResetChannelId;
 				roleId = dailyResetRoleId;
 				suffix = "It's a new day. Time to forge candles again!";
 				break;
-			case NotificationEvent.ISS:
+			}
+			case NotificationEvent.ISS: {
 				channelId = issChannelId;
 				roleId = issRoleId;
 				suffix = "The International Space Station is accessible!";
 				break;
-			case NotificationEvent.RegularShardEruption:
+			}
+			case NotificationEvent.RegularShardEruption: {
 				channelId = regularShardEruptionChannelId;
 				roleId = regularShardEruptionRoleId;
 
 				suffix = `A regular shard eruption lands in the ${hyperlink(
-					`${realm!} (${map!})`,
+					`${realm!} (${skyMap!})`,
 					url!,
 				)} ${startTimeString} and clears up ${endTimeString}!`;
 
 				break;
-			case NotificationEvent.StrongShardEruption:
+			}
+			case NotificationEvent.StrongShardEruption: {
 				channelId = strongShardEruptionChannelId;
 				roleId = strongShardEruptionRoleId;
 
 				suffix = `A strong shard eruption lands in the ${hyperlink(
-					`${realm!} (${map!})`,
+					`${realm!} (${skyMap!})`,
 					url!,
 				)} ${startTimeString} and clears up ${endTimeString}!`;
 
 				break;
-			case NotificationEvent.AURORA:
+			}
+			case NotificationEvent.AURORA: {
 				channelId = auroraChannelId;
 				roleId = auroraRoleId;
 				suffix = `The AURORA concert is starting ${startTimeString}! Take your friends!`;
 				break;
-			case NotificationEvent.Passage:
+			}
+			case NotificationEvent.Passage: {
 				channelId = passageChannelId;
 				roleId = passageRoleId;
 				suffix = `The ${SeasonName.Passage} quests are starting ${startTimeString}!`;
 				break;
-			case NotificationEvent.AviarysFireworkFestival:
+			}
+			case NotificationEvent.AviarysFireworkFestival: {
 				channelId = aviarysFireworkFestivalChannelId;
 				roleId = aviarysFireworkFestivalRoleId;
 				suffix = `Aviary's Firework Festival begins ${startTimeString}!`;
 				break;
-			case NotificationEvent.Dragon:
+			}
+			case NotificationEvent.Dragon: {
 				channelId = dragonChannelId;
 				roleId = dragonRoleId;
 				suffix = `The dragon will appear ${startTimeString}!`;
 				break;
+			}
 		}
 
-		if (!channelId || !roleId) return;
+		if (!(channelId && roleId)) {
+			return;
+		}
+
 		const channel = client.guilds.cache.get(guildId)?.channels.cache.get(channelId);
-		if (!channel || !isNotificationChannel(channel)) return;
+
+		if (!(channel && isNotificationChannel(channel))) {
+			return;
+		}
+
 		const role = channel.guild.roles.cache.get(roleId);
-		if (!role) return;
+
+		if (!role) {
+			return;
+		}
+
 		const me = await channel.guild.members.fetchMe();
-		if (!isNotificationSendable(channel, role, me)) return;
+
+		if (!isNotificationSendable(channel, role, me)) {
+			return;
+		}
 
 		await channel.send({
 			content: `${role} ${suffix}`,
@@ -518,7 +573,11 @@ export default class Notification {
 				},
 				{
 					name: NotificationEvent.AviarysFireworkFestival,
-					value: this.overviewValue(me, aviarysFireworkFestivalChannelId, aviarysFireworkFestivalRoleId),
+					value: this.overviewValue(
+						me,
+						aviarysFireworkFestivalChannelId,
+						aviarysFireworkFestivalRoleId,
+					),
 					inline: true,
 				},
 				{
@@ -530,11 +589,20 @@ export default class Notification {
 			.setTitle(interaction.guild.name);
 	}
 
-	private overviewValue(member: GuildMember, channelId: Snowflake | null, roleId: Snowflake | null) {
+	private overviewValue(
+		member: GuildMember,
+		channelId: Snowflake | null,
+		roleId: Snowflake | null,
+	) {
 		const { channels, roles } = member.guild;
 		const channel = channelId ? channels.cache.get(channelId) : null;
 		const role = roleId ? roles.cache.get(roleId) : null;
-		const sending = channel && isNotificationChannel(channel) && role && isNotificationSendable(channel, role, member);
+
+		const sending =
+			channel &&
+			isNotificationChannel(channel) &&
+			role &&
+			isNotificationSendable(channel, role, member);
 
 		return `${channelId ? channelMention(channelId) : "No channel"}\n${roleId ? roleMention(roleId) : "No role"}\n${
 			sending ? "Sending!" : "Stopped!"

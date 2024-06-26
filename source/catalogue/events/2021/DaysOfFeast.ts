@@ -15,9 +15,24 @@ export default new Event({
 	start: skyDate(2_021, 12, 20),
 	end: skyDate(2_022, 1, 9),
 	offer: [
-		{ name: "Ode to Joy music sheet", bit: 1 << 0, cost: { candles: 10 }, emoji: MISCELLANEOUS_EMOJIS.MusicSheet },
-		{ name: "Prop", bit: 1 << 1, cost: { candles: 10 }, emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp10 },
-		{ name: "Neck accessory", bit: 1 << 2, cost: { candles: 50 }, emoji: NECKLACE_EMOJIS.Necklace17 },
+		{
+			name: "Ode to Joy music sheet",
+			bit: 1 << 0,
+			cost: { candles: 10 },
+			emoji: MISCELLANEOUS_EMOJIS.MusicSheet,
+		},
+		{
+			name: "Prop",
+			bit: 1 << 1,
+			cost: { candles: 10 },
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp10,
+		},
+		{
+			name: "Neck accessory",
+			bit: 1 << 2,
+			cost: { candles: 50 },
+			emoji: NECKLACE_EMOJIS.Necklace17,
+		},
 		{ name: "Hair", bit: 1 << 3, cost: { hearts: 20 }, emoji: HAIR_EMOJIS.Hair97 },
 		{ name: "Winter Ancestor Cape", bit: 1 << 4, cost: { money: 9.99 }, emoji: CAPE_EMOJIS.Cape68 },
 		{

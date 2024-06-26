@@ -1,12 +1,12 @@
 import {
-	type CallsEmojis,
-	type EmotesEmojis,
-	type FriendActionsEmojis,
-	type StancesEmojis,
 	CALL_EMOJIS,
+	type CallsEmojis,
 	EMOTE_EMOJIS,
+	type EmotesEmojis,
 	FRIEND_ACTION_EMOJIS,
+	type FriendActionsEmojis,
 	STANCE_EMOJIS,
+	type StancesEmojis,
 } from "./emojis.js";
 
 export enum SpiritName {
@@ -497,7 +497,9 @@ export const SpiritCallToEmoji = {
 	[SpiritCall.Jellyfish]: CALL_EMOJIS.Jellyfish,
 	[SpiritCall.BabyManta]: CALL_EMOJIS.BabyManta,
 	[SpiritCall.Nightbird]: CALL_EMOJIS.Nightbird,
-} as const satisfies Readonly<Record<Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey>, CallsEmojis>>;
+} as const satisfies Readonly<
+	Record<Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey>, CallsEmojis>
+>;
 
 export const enum FriendAction {
 	HoldHand = "Hold hand",

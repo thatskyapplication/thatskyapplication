@@ -14,6 +14,11 @@ export default new Event({
 	offer: [
 		{ name: `${emote} 1`, bit: 1 << 0, cost: { eventCurrency: 12 }, emoji: emoteEmoji },
 		{ name: `${emote} 2`, bit: 1 << 1, cost: { eventCurrency: 33 }, emoji: emoteEmoji },
-		{ name: "Musical Voyage Sneakers", bit: 1 << 2, cost: { money: 6.99 }, emoji: SHOE_EMOJIS.Shoe05 },
+		{
+			name: "Musical Voyage Sneakers",
+			bit: 1 << 2,
+			cost: { money: 6.99 },
+			emoji: SHOE_EMOJIS.Shoe05,
+		},
 	],
 });

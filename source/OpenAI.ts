@@ -6,7 +6,11 @@ import { APIUserAbortError } from "openai/error.mjs";
 import pino from "./pino.js";
 
 const { OPENAI_API_KEY } = process.env;
-if (!OPENAI_API_KEY) throw new Error("No OpenAI API key.");
+
+if (!OPENAI_API_KEY) {
+	throw new Error("No OpenAI API key.");
+}
+
 const openAI = new OpenAI({ apiKey: OPENAI_API_KEY });
 const AI_DEFAULT_RESPONSE = "Oh my gosh! Could you be the... the legendary Sky kid?" as const;
 
@@ -24,7 +28,10 @@ function parseAIName(user: User) {
 
 	if (name.length === 0) {
 		pino.warn(user, "AI name parsing failed.");
-		if (name === "ココロ") return "Kokoro";
+
+		if (name === "ココロ") {
+			return "Kokoro";
+		}
 	}
 
 	return name;
@@ -58,7 +65,9 @@ export async function messageCreateEmojiResponse(message: Message<true>) {
 			failIfNotExists: false,
 		});
 	} catch (error) {
-		if (!(error instanceof APIUserAbortError)) pino.error(error, "AI error.");
+		if (!(error instanceof APIUserAbortError)) {
+			pino.error(error, "AI error.");
+		}
 	} finally {
 		clearTimeout(timeout);
 	}
@@ -84,7 +93,10 @@ export async function messageCreateReactionResponse(message: Message<true>) {
 		);
 
 		const emojis = completion.choices[0]!.message.content;
-		if (!emojis) return;
+
+		if (!emojis) {
+			return;
+		}
 
 		await Promise.all(
 			emojis
@@ -93,7 +105,9 @@ export async function messageCreateReactionResponse(message: Message<true>) {
 				.map(async (emoji) => message.react(emoji.trim())),
 		);
 	} catch (error) {
-		if (!(error instanceof APIUserAbortError)) pino.error(error, "AI error.");
+		if (!(error instanceof APIUserAbortError)) {
+			pino.error(error, "AI error.");
+		}
 	} finally {
 		clearTimeout(timeout);
 	}
@@ -104,7 +118,10 @@ export async function messageCreateResponse(message: Message<true>) {
 	const timeout = setTimeout(() => abortController.abort(), 20_000);
 	const messages = message.channel.messages.cache.last(5);
 	const lastMessageId = messages.at(-1)?.id;
-	if (!lastMessageId) return;
+
+	if (!lastMessageId) {
+		return;
+	}
 
 	try {
 		const [, completion] = await Promise.all([
@@ -137,7 +154,9 @@ export async function messageCreateResponse(message: Message<true>) {
 			failIfNotExists: false,
 		});
 	} catch (error) {
-		if (!(error instanceof APIUserAbortError)) pino.error(error, "AI error.");
+		if (!(error instanceof APIUserAbortError)) {
+			pino.error(error, "AI error.");
+		}
 	} finally {
 		clearTimeout(timeout);
 	}

@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/prefer-literal-enum-member */
-import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
 
 enum PlatformFlags {
 	iOS = 1 << 0,
@@ -33,7 +32,9 @@ export function resolveBitsToPlatform(bits: number) {
 	return platforms;
 }
 
-export function resolvePlatformToEmoji(platform: (typeof PlatformFlagsToString)[keyof typeof PlatformFlagsToString]) {
+export function resolvePlatformToEmoji(
+	platform: (typeof PlatformFlagsToString)[keyof typeof PlatformFlagsToString],
+) {
 	switch (platform) {
 		case PlatformFlagsToString[PlatformFlags.iOS]:
 			return MISCELLANEOUS_EMOJIS.PlatformIOS;

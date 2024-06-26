@@ -22,7 +22,12 @@ export default new Season({
 			cost: { money: 14.99 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory34,
 		},
-		{ name: "Radiance of the Nine-Coloured Deer", bit: 1 << 1, cost: { money: 19.99 }, emoji: CAPE_EMOJIS.Cape125 },
+		{
+			name: "Radiance of the Nine-Coloured Deer",
+			bit: 1 << 1,
+			cost: { money: 19.99 },
+			emoji: CAPE_EMOJIS.Cape125,
+		},
 	],
 	seasonalCandlesRotation: [
 		{ rotation: 1, realm: RealmName.HiddenForest },

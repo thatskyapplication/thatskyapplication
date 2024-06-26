@@ -1,8 +1,8 @@
 import {
 	type ApplicationCommandData,
-	type ChatInputCommandInteraction,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
+	type ChatInputCommandInteraction,
 	PermissionFlagsBits,
 } from "discord.js";
 import DailyGuidesDistribution, {
@@ -11,7 +11,7 @@ import DailyGuidesDistribution, {
 } from "../../Structures/DailyGuidesDistribution.js";
 import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../Utility/Constants.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
-import { type ChatInputCommand } from "../index.js";
+import type { ChatInputCommand } from "../index.js";
 
 export default new (class implements ChatInputCommand {
 	public readonly data = {
@@ -55,17 +55,22 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
 
 		switch (interaction.options.getSubcommand()) {
-			case "setup":
+			case "setup": {
 				await this.setup(interaction);
 				return;
-			case "status":
+			}
+			case "status": {
 				await this.status(interaction);
 				return;
-			case "unset":
+			}
+			case "unset": {
 				await this.unset(interaction);
+			}
 		}
 	}
 
@@ -92,7 +97,11 @@ export default new (class implements ChatInputCommand {
 		const dailyGuidesDistribution = await DailyGuidesDistribution.fetch(guildId).catch(() => null);
 
 		if (!dailyGuidesDistribution) {
-			await interaction.reply({ content: "This server does not have this feature set up.", ephemeral: true });
+			await interaction.reply({
+				content: "This server does not have this feature set up.",
+				ephemeral: true,
+			});
+
 			return;
 		}
 

@@ -1,41 +1,41 @@
 import {
-	type ChatInputCommandInteraction,
-	type EmbedAuthorOptions,
-	type Locale,
-	type MessageActionRowComponentBuilder,
-	type Snowflake,
-	type StringSelectMenuInteraction,
 	ActionRowBuilder,
 	ButtonBuilder,
 	ButtonInteraction,
 	ButtonStyle,
 	ChannelType,
+	type ChatInputCommandInteraction,
+	type EmbedAuthorOptions,
 	EmbedBuilder,
+	type Locale,
+	type MessageActionRowComponentBuilder,
 	MessageFlags,
 	PermissionFlagsBits,
+	type Snowflake,
 	StringSelectMenuBuilder,
+	type StringSelectMenuInteraction,
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
 import { t } from "i18next";
-import { type RealmName, DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE, type RealmName } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
 import {
-	type Item,
-	type ItemCost,
-	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
-	NO_EVENT_INFOGRAPHIC_YET,
-	NO_EVENT_OFFER_TEXT,
-	NO_FRIENDSHIP_TREE_YET_TEXT,
-	NO_FRIENDSHIP_TREE_TEXT,
-	addCosts,
 	CatalogueType,
 	EventNameUnique,
-	resolveCostToString,
+	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
+	type Item,
+	type ItemCost,
+	NO_EVENT_INFOGRAPHIC_YET,
+	NO_EVENT_OFFER_TEXT,
+	NO_FRIENDSHIP_TREE_TEXT,
+	NO_FRIENDSHIP_TREE_YET_TEXT,
 	SeasonName,
 	SeasonNameToSeasonalEmoji,
+	addCosts,
+	resolveCostToString,
 } from "../Utility/catalogue.js";
 import { todayDate } from "../Utility/dates.js";
-import { formatEmoji, MISCELLANEOUS_EMOJIS } from "../Utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { SpiritName } from "../Utility/spirits.js";
 import { currentEvents, currentEventsYears, resolveEvents } from "../catalogue/events/index.js";
@@ -44,7 +44,12 @@ import { NESTING_WORKSHOP } from "../catalogue/nestingWorkshop.js";
 import { PERMANENT_EVENT_STORE } from "../catalogue/permanentEventStore.js";
 import { SECRET_AREA } from "../catalogue/secretArea.js";
 import { SPIRITS } from "../catalogue/spirits/index.js";
-import { ELDER_SPIRITS, REALMS, REALM_SPIRITS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
+import {
+	ELDER_SPIRITS,
+	REALMS,
+	REALM_SPIRITS,
+	STANDARD_SPIRITS,
+} from "../catalogue/spirits/realms/index.js";
 import {
 	currentSeasons,
 	isSeasonName,
@@ -831,7 +836,10 @@ const CatalogueNameToRawName = {
 		| EventNameUnique
 		| Exclude<
 				CatalogueType,
-				CatalogueType.StandardSpirits | CatalogueType.Elders | CatalogueType.SeasonalSpirits | CatalogueType.Events
+				| CatalogueType.StandardSpirits
+				| CatalogueType.Elders
+				| CatalogueType.SeasonalSpirits
+				| CatalogueType.Events
 		  >,
 		Exclude<keyof CataloguePacket, "user_id">
 	>
@@ -1095,7 +1103,10 @@ const SpiritEventNameToCatalogueName = {
 		| EventNameUnique
 		| Exclude<
 				CatalogueType,
-				CatalogueType.StandardSpirits | CatalogueType.Elders | CatalogueType.SeasonalSpirits | CatalogueType.Events
+				| CatalogueType.StandardSpirits
+				| CatalogueType.Elders
+				| CatalogueType.SeasonalSpirits
+				| CatalogueType.Events
 		  >,
 		Exclude<keyof CatalogueData, "user_id">
 	>
@@ -1112,7 +1123,8 @@ export const CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_YEARS_
 export const CATALOGUE_VIEW_REALM_CUSTOM_ID = "CATALOGUE_VIEW_REALM_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_SEASON_CUSTOM_ID = "CATALOGUE_VIEW_SEASON_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID = "CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID =
+	"CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_SPIRIT_CUSTOM_ID = "CATALOGUE_VIEW_SPIRIT_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_EVENT_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_OFFER_1_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_1_CUSTOM_ID" as const;
@@ -1122,11 +1134,14 @@ const CATALOGUE_SHARE_ELDER_KEY = "elders" as const;
 export const CATALOGUE_SHARE_PROMPT_CUSTOM_ID = "CATALOGUE_SHARE_PROMPT_CUSTOM_ID" as const;
 export const CATALOGUE_SHARE_SEND_CUSTOM_ID = "CATALOGUE_SHARE_SEND_CUSTOM_ID" as const;
 export const CATALOGUE_REALM_EVERYTHING_CUSTOM_ID = "CATALOGUE_REALM_EVERYTHING_CUSTOM_ID" as const;
-export const CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID = "CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID" as const;
-export const CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID = "CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID" as const;
+export const CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID =
+	"CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID" as const;
+export const CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID =
+	"CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID" as const;
 export const CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID = "CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID" as const;
 const CATALOGUE_MAXIMUM_OPTIONS_LIMIT = 25 as const;
-const CATALOGUE_STANDARD_PERCENTAGE_NOTE = "Averages are calculated even beyond the second wing buff." as const;
+const CATALOGUE_STANDARD_PERCENTAGE_NOTE =
+	"Averages are calculated even beyond the second wing buff." as const;
 
 function backToStartButton(disabled = false) {
 	return (
@@ -1903,7 +1918,11 @@ export class Catalogue {
 
 	public static async fetch(userId: Snowflake) {
 		const [cataloguePacket] = await pg<CataloguePacket>(Table.Catalogue).where("user_id", userId);
-		if (!cataloguePacket) throw new Error("No catalogue data found.");
+
+		if (!cataloguePacket) {
+			throw new Error("No catalogue data found.");
+		}
+
 		return new this(cataloguePacket);
 	}
 
@@ -1915,22 +1934,41 @@ export class Catalogue {
 	}
 
 	private progressPercentage(owned: number[], total: number, round?: boolean) {
-		if (total === 0) return null;
+		if (total === 0) {
+			return null;
+		}
+
 		const percentage = (owned.reduce((totalOwned, number) => totalOwned + number, 0) / total) * 100;
-		if (!round) return percentage;
+
+		if (!round) {
+			return percentage;
+		}
+
 		const integer = Math.trunc(percentage);
-		return integer === 0 ? Math.ceil(percentage) : integer === 99 ? Math.floor(percentage) : Math.round(percentage);
+
+		return integer === 0
+			? Math.ceil(percentage)
+			: integer === 99
+				? Math.floor(percentage)
+				: Math.round(percentage);
 	}
 
-	private spiritOwnedProgress(spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[]) {
+	private spiritOwnedProgress(
+		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
+	) {
 		const totalOwned = [];
 		let total = 0;
 
 		for (const spirit of spirits) {
 			const offer =
-				spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit() ? spirit.current : spirit.items;
+				spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
+					? spirit.current
+					: spirit.items;
 
-			const { owned, total: offerTotal } = this.ownedProgress(offer, this[SpiritEventNameToCatalogueName[spirit.name]]);
+			const { owned, total: offerTotal } = this.ownedProgress(
+				offer,
+				this[SpiritEventNameToCatalogueName[spirit.name]],
+			);
 			totalOwned.push(owned);
 			total += offerTotal;
 		}
@@ -1953,12 +1991,18 @@ export class Catalogue {
 		for (const season of seasons) {
 			const offers: [SpiritName | SeasonName, readonly Item[]][] = [
 				[season.guide.name, season.guide.current],
-				...season.spirits.map<[SpiritName, readonly Item[]]>((spirit) => [spirit.name, spirit.items]),
+				...season.spirits.map<[SpiritName, readonly Item[]]>((spirit) => [
+					spirit.name,
+					spirit.items,
+				]),
 				[season.name, season.items],
 			];
 
 			for (const [index, offer] of offers) {
-				const { owned, total: offerTotal } = this.ownedProgress(offer, this[SpiritEventNameToCatalogueName[index]]);
+				const { owned, total: offerTotal } = this.ownedProgress(
+					offer,
+					this[SpiritEventNameToCatalogueName[index]],
+				);
 				totalOwned.push(owned);
 				total += offerTotal;
 			}
@@ -1995,7 +2039,10 @@ export class Catalogue {
 	}
 
 	private starterPackOwnedProgress() {
-		return this.ownedProgress(STARTER_PACKS.items, this[SpiritEventNameToCatalogueName[CatalogueType.StarterPacks]]);
+		return this.ownedProgress(
+			STARTER_PACKS.items,
+			this[SpiritEventNameToCatalogueName[CatalogueType.StarterPacks]],
+		);
 	}
 
 	public starterPackProgress(round?: boolean) {
@@ -2004,7 +2051,10 @@ export class Catalogue {
 	}
 
 	private secretAreaOwnedProgress() {
-		return this.ownedProgress(SECRET_AREA.items, this[SpiritEventNameToCatalogueName[CatalogueType.SecretArea]]);
+		return this.ownedProgress(
+			SECRET_AREA.items,
+			this[SpiritEventNameToCatalogueName[CatalogueType.SecretArea]],
+		);
 	}
 
 	public secretAreaProgress(round?: boolean) {
@@ -2013,7 +2063,10 @@ export class Catalogue {
 	}
 
 	private harmonyHallOwnedProgress() {
-		return this.ownedProgress(HARMONY_HALL.items, this[SpiritEventNameToCatalogueName[CatalogueType.HarmonyHall]]);
+		return this.ownedProgress(
+			HARMONY_HALL.items,
+			this[SpiritEventNameToCatalogueName[CatalogueType.HarmonyHall]],
+		);
 	}
 
 	public harmonyHallProgress(round?: boolean) {
@@ -2082,15 +2135,20 @@ export class Catalogue {
 	}
 
 	public static async viewCatalogue(interaction: ButtonInteraction | ChatInputCommandInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const existingCatalogue = await this.fetch(interaction.user.id).catch(() => null);
-		let catalogue;
+		let catalogue: Catalogue;
 
 		if (existingCatalogue) {
 			catalogue = existingCatalogue;
 		} else {
 			catalogue = new this(
-				(await pg<CataloguePacket>(Table.Catalogue).insert({ user_id: interaction.user.id }, "*"))[0]!,
+				(
+					await pg<CataloguePacket>(Table.Catalogue).insert({ user_id: interaction.user.id }, "*")
+				)[0]!,
 			);
 		}
 
@@ -2114,7 +2172,7 @@ export class Catalogue {
 				currentSeason
 					? `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${currentSeason.name}`
 					: // This would not happen, but it's here to satisfy the API.
-					  CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
+						CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
 			)
 			.setDisabled(!currentSeason)
 			.setLabel("Current Season")
@@ -2132,32 +2190,38 @@ export class Catalogue {
 							.setCustomId(CATALOGUE_VIEW_EVENT_CUSTOM_ID)
 							.setDisabled()
 							.setStyle(ButtonStyle.Secondary),
-				  ]
+					]
 				: events.reduce<ButtonBuilder[]>((buttons, event) => {
 						const button = new ButtonBuilder()
 							.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${event.nameUnique}`)
 							.setStyle(ButtonStyle.Success);
 
-						if (event.eventCurrencyEmoji) button.setEmoji(event.eventCurrencyEmoji);
+						if (event.eventCurrencyEmoji) {
+							button.setEmoji(event.eventCurrencyEmoji);
+						}
 						buttons.push(button);
 						return buttons;
-				  }, []);
+					}, []);
 
-		if (currentEventButtons.length === 1) currentEventButtons[0]!.setLabel("Current Event");
+		if (currentEventButtons.length === 1) {
+			currentEventButtons[0]!.setLabel("Current Event");
+		}
 
 		const currentTravellingSpiritButton = new ButtonBuilder()
 			.setCustomId(
 				currentTravellingSpirit
 					? `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${currentTravellingSpirit.name}`
 					: // This would not happen, but it's here to satisfy the API.
-					  `${CATALOGUE_VIEW_START_CUSTOM_ID}-travelling`,
+						`${CATALOGUE_VIEW_START_CUSTOM_ID}-travelling`,
 			)
 			.setDisabled(!currentTravellingSpirit)
 			.setLabel("Travelling Spirit")
 			.setStyle(currentTravellingSpirit ? ButtonStyle.Success : ButtonStyle.Secondary);
 
 		if (currentTravellingSpirit) {
-			currentTravellingSpiritButton.setEmoji(SeasonNameToSeasonalEmoji[currentTravellingSpirit.season]);
+			currentTravellingSpiritButton.setEmoji(
+				SeasonNameToSeasonalEmoji[currentTravellingSpirit.season],
+			);
 		}
 
 		const response = {
@@ -2170,7 +2234,9 @@ export class Catalogue {
 						.setMinValues(0)
 						.setOptions(
 							new StringSelectMenuOptionBuilder()
-								.setLabel(`Standard Spirits${standardProgress === null ? "" : ` (${standardProgress}%)`}`)
+								.setLabel(
+									`Standard Spirits${standardProgress === null ? "" : ` (${standardProgress}%)`}`,
+								)
 								.setValue(String(CatalogueType.StandardSpirits)),
 							new StringSelectMenuOptionBuilder()
 								.setLabel(`Elders${elderProgress === null ? "" : ` (${elderProgress}%)`}`)
@@ -2182,13 +2248,19 @@ export class Catalogue {
 								.setLabel(`Events${eventProgress === null ? "" : ` (${eventProgress}%)`}`)
 								.setValue(String(CatalogueType.Events)),
 							new StringSelectMenuOptionBuilder()
-								.setLabel(`Starter Packs${starterPackProgress === null ? "" : ` (${starterPackProgress}%)`}`)
+								.setLabel(
+									`Starter Packs${starterPackProgress === null ? "" : ` (${starterPackProgress}%)`}`,
+								)
 								.setValue(String(CatalogueType.StarterPacks)),
 							new StringSelectMenuOptionBuilder()
-								.setLabel(`Secret Area${secretAreaProgress === null ? "" : ` (${secretAreaProgress}%)`}`)
+								.setLabel(
+									`Secret Area${secretAreaProgress === null ? "" : ` (${secretAreaProgress}%)`}`,
+								)
 								.setValue(String(CatalogueType.SecretArea)),
 							new StringSelectMenuOptionBuilder()
-								.setLabel(`Harmony Hall${harmonyHallProgress === null ? "" : ` (${harmonyHallProgress}%)`}`)
+								.setLabel(
+									`Harmony Hall${harmonyHallProgress === null ? "" : ` (${harmonyHallProgress}%)`}`,
+								)
 								.setValue(String(CatalogueType.HarmonyHall)),
 							new StringSelectMenuOptionBuilder()
 								.setLabel(
@@ -2205,7 +2277,10 @@ export class Catalogue {
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(backToStartButton(true)),
 				// Limit the potential current event buttons to 4 to not exceed the limit.
-				new ActionRowBuilder<ButtonBuilder>().setComponents(currentSeasonButton, ...currentEventButtons.slice(0, 4)),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					currentSeasonButton,
+					...currentEventButtons.slice(0, 4),
+				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					currentTravellingSpiritButton,
 					new ButtonBuilder()
@@ -2213,7 +2288,7 @@ export class Catalogue {
 							currentReturningSpirits
 								? CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID
 								: // This would not happen, but it's here to satisfy the API.
-								  `${CATALOGUE_VIEW_START_CUSTOM_ID}-returning`,
+									`${CATALOGUE_VIEW_START_CUSTOM_ID}-returning`,
 						)
 						.setDisabled(!currentReturningSpirits)
 						.setLabel("Returning Spirits")
@@ -2232,40 +2307,54 @@ export class Catalogue {
 	}
 
 	public static async parseCatalogueType(interaction: StringSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
 
 		switch (Number(interaction.values[0]) as CatalogueType) {
-			case CatalogueType.StandardSpirits:
+			case CatalogueType.StandardSpirits: {
 				await this.viewRealms(interaction);
 				return;
-			case CatalogueType.Elders:
+			}
+			case CatalogueType.Elders: {
 				await this.viewElders(interaction);
 				return;
-			case CatalogueType.SeasonalSpirits:
+			}
+			case CatalogueType.SeasonalSpirits: {
 				await this.viewSeasons(interaction);
 				return;
-			case CatalogueType.Events:
+			}
+			case CatalogueType.Events: {
 				await this.viewEventYears(interaction);
 				return;
-			case CatalogueType.StarterPacks:
+			}
+			case CatalogueType.StarterPacks: {
 				await this.viewStarterPacks(interaction);
 				return;
-			case CatalogueType.SecretArea:
+			}
+			case CatalogueType.SecretArea: {
 				await this.viewSecretArea(interaction);
 				return;
-			case CatalogueType.HarmonyHall:
+			}
+			case CatalogueType.HarmonyHall: {
 				await this.viewHarmonyHall(interaction);
 				return;
-			case CatalogueType.PermanentEventStore:
+			}
+			case CatalogueType.PermanentEventStore: {
 				await this.viewPermanentEventStore(interaction);
 				return;
-			case CatalogueType.NestingWorkshop:
+			}
+			case CatalogueType.NestingWorkshop: {
 				await this.viewNestingWorkshop(interaction);
+			}
 		}
 	}
 
 	public static async viewRealms(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const { locale, user } = interaction;
 		const catalogue = await this.fetch(user.id);
 
@@ -2308,13 +2397,22 @@ export class Catalogue {
 				),
 			],
 			embeds: [
-				catalogue.realmsEmbed(locale).setFooter({ text: CATALOGUE_STANDARD_PERCENTAGE_NOTE }).setTitle("Realms"),
+				catalogue
+					.realmsEmbed(locale)
+					.setFooter({ text: CATALOGUE_STANDARD_PERCENTAGE_NOTE })
+					.setTitle("Realms"),
 			],
 		});
 	}
 
-	public static async viewRealm(interaction: ButtonInteraction | StringSelectMenuInteraction, realm: RealmName) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+	public static async viewRealm(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+		realm: RealmName,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const { locale, user } = interaction;
 		const catalogue = await this.fetch(user.id);
 		const spirits = STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm);
@@ -2322,7 +2420,10 @@ export class Catalogue {
 
 		const options = spirits.map((spirit) => {
 			const percentage = catalogue.spiritProgress([spirit], true);
-			if (percentage !== null && percentage !== 100) hasEverything = false;
+
+			if (percentage !== null && percentage !== 100) {
+				hasEverything = false;
+			}
 
 			return new StringSelectMenuOptionBuilder()
 				.setLabel(
@@ -2374,14 +2475,20 @@ export class Catalogue {
 	}
 
 	public static async viewElders(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const { locale, user } = interaction;
 		const catalogue = await this.fetch(user.id);
 		let hasEverything = true;
 
 		const options = ELDER_SPIRITS.map((spirit) => {
 			const percentage = catalogue.spiritProgress([spirit], true);
-			if (percentage !== null && percentage !== 100) hasEverything = false;
+
+			if (percentage !== null && percentage !== 100) {
+				hasEverything = false;
+			}
 
 			return new StringSelectMenuOptionBuilder()
 				.setLabel(
@@ -2428,7 +2535,9 @@ export class Catalogue {
 	}
 
 	public static async viewSeasons(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
 		const { locale, user } = interaction;
 		const catalogue = await this.fetch(user.id);
 
@@ -2469,8 +2578,14 @@ export class Catalogue {
 		});
 	}
 
-	public static async viewSeason(interaction: ButtonInteraction | StringSelectMenuInteraction, seasonName: SeasonName) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+	public static async viewSeason(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+		seasonName: SeasonName,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const { locale, user } = interaction;
 		const season = currentSeasons().find(({ name }) => name === seasonName);
 
@@ -2507,10 +2622,10 @@ export class Catalogue {
 						seasonName === SeasonName.Shattering
 							? "Select an entity!"
 							: seasonName === SeasonName.Revival
-							? "Select a spirit or a shop!"
-							: seasonName === SeasonName.Nesting
-							? "Select a spirit or an entity!"
-							: "Select a spirit!",
+								? "Select a spirit or a shop!"
+								: seasonName === SeasonName.Nesting
+									? "Select a spirit or an entity!"
+									: "Select a spirit!",
 					),
 			),
 		];
@@ -2524,7 +2639,10 @@ export class Catalogue {
 					.setLabel(name)
 					.setValue(String(flag));
 
-				if (emoji) stringSelectMenuOptionBuilder.setEmoji(emoji);
+				if (emoji) {
+					stringSelectMenuOptionBuilder.setEmoji(emoji);
+				}
+
 				return stringSelectMenuOptionBuilder;
 			});
 
@@ -2581,11 +2699,18 @@ export class Catalogue {
 			),
 		);
 
-		await interaction.update({ content: "", components, embeds: [catalogue.seasonEmbed(season, locale)] });
+		await interaction.update({
+			content: "",
+			components,
+			embeds: [catalogue.seasonEmbed(season, locale)],
+		});
 	}
 
 	public static async viewEventYears(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const { user } = interaction;
 		const catalogue = await this.fetch(user.id);
 
@@ -2629,8 +2754,14 @@ export class Catalogue {
 		});
 	}
 
-	public static async viewEvents(interaction: ButtonInteraction | StringSelectMenuInteraction, yearString: string) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+	public static async viewEvents(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+		yearString: string,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const { locale, user } = interaction;
 		const year = Number(yearString);
 		const catalogue = await this.fetch(user.id);
@@ -2646,14 +2777,19 @@ export class Catalogue {
 				)
 				.setValue(nameUnique);
 
-			if (event.eventCurrencyEmoji) stringSelectMenuOptionBuilder.setEmoji(event.eventCurrencyEmoji);
+			if (event.eventCurrencyEmoji) {
+				stringSelectMenuOptionBuilder.setEmoji(event.eventCurrencyEmoji);
+			}
+
 			return stringSelectMenuOptionBuilder;
 		});
 
 		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(`Events ${year}`);
 
 		for (const event of events) {
-			if (event.offer.length === 0) continue;
+			if (event.offer.length === 0) {
+				continue;
+			}
 
 			const { offerDescription } = catalogue.embedProgress(
 				catalogue[SpiritEventNameToCatalogueName[event.nameUnique]],
@@ -2711,7 +2847,10 @@ export class Catalogue {
 	}
 
 	public static async viewReturningSpirits(interaction: ButtonInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const { locale, user } = interaction;
 		const catalogue = await this.fetch(user.id);
 		const spirits = resolveReturningSpirits(todayDate());
@@ -2754,8 +2893,13 @@ export class Catalogue {
 		await interaction.update(response);
 	}
 
-	public static async parseViewSpirit(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+	public static async parseViewSpirit(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const catalogue = await this.fetch(interaction.user.id);
 
 		const parsedCustomId =
@@ -2782,7 +2926,10 @@ export class Catalogue {
 		interaction: ButtonInteraction | StringSelectMenuInteraction,
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const { locale } = interaction;
 		const bit = this[SpiritEventNameToCatalogueName[spirit.name]];
 		const isStandardSpirit = spirit.isStandardSpirit();
@@ -2806,7 +2953,11 @@ export class Catalogue {
 		}
 
 		embed.setDescription(description.join("\n"));
-		if (isGuideSpirit && spirit.inProgress) embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
+
+		if (isGuideSpirit && spirit.inProgress) {
+			embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
+		}
+
 		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
 
 		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(
@@ -2816,10 +2967,12 @@ export class Catalogue {
 					isElderSpirit
 						? CATALOGUE_VIEW_ELDERS_CUSTOM_ID
 						: isStandardSpirit
-						? `${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${spirit.realm}`
-						: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${spirit.season}`,
+							? `${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${spirit.realm}`
+							: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${spirit.season}`,
 				)
-				.setEmoji(isSeasonalSpirit || isGuideSpirit ? SeasonNameToSeasonalEmoji[spirit.season] : "⏪")
+				.setEmoji(
+					isSeasonalSpirit || isGuideSpirit ? SeasonNameToSeasonalEmoji[spirit.season] : "⏪",
+				)
 				.setLabel("Back")
 				.setStyle(ButtonStyle.Primary),
 		);
@@ -2840,11 +2993,17 @@ export class Catalogue {
 					.setLabel(name)
 					.setValue(String(flag));
 
-				if (emoji) stringSelectMenuOptionBuilder.setEmoji(emoji);
+				if (emoji) {
+					stringSelectMenuOptionBuilder.setEmoji(emoji);
+				}
+
 				return stringSelectMenuOptionBuilder;
 			});
 
-			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(0, CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
+			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(
+				0,
+				CATALOGUE_MAXIMUM_OPTIONS_LIMIT,
+			);
 
 			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
@@ -2858,7 +3017,9 @@ export class Catalogue {
 			components.push(itemSelection);
 
 			if (itemSelectionOptions.length > CATALOGUE_MAXIMUM_OPTIONS_LIMIT) {
-				const itemSelectionOverflowOptionsMaximumLimit = itemSelectionOptions.slice(CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
+				const itemSelectionOverflowOptionsMaximumLimit = itemSelectionOptions.slice(
+					CATALOGUE_MAXIMUM_OPTIONS_LIMIT,
+				);
 
 				components.push(
 					new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
@@ -2875,7 +3036,9 @@ export class Catalogue {
 
 		components.push(buttons);
 
-		let spirits;
+		let spirits:
+			| readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[]
+			| undefined;
 
 		if (isStandardSpirit) {
 			spirits = REALMS.find(({ name }) => name === spirit.realm)?.spirits;
@@ -2883,7 +3046,10 @@ export class Catalogue {
 			spirits = ELDER_SPIRITS;
 		} else if (isSeasonalSpirit || isGuideSpirit) {
 			const season = currentSeasons().find(({ name }) => name === spirit.season);
-			if (season) spirits = [season.guide, ...season.spirits];
+
+			if (season) {
+				spirits = [season.guide, ...season.spirits];
+			}
 		}
 
 		if (spirits) {
@@ -2913,7 +3079,10 @@ export class Catalogue {
 	}
 
 	public static async parseViewEvent(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const catalogue = await this.fetch(interaction.user.id);
 
 		const eventName =
@@ -2932,10 +3101,19 @@ export class Catalogue {
 		await catalogue.viewEvent(interaction, event);
 	}
 
-	private async viewEvent(interaction: ButtonInteraction | StringSelectMenuInteraction, event: Event) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+	private async viewEvent(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+		event: Event,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const { locale } = interaction;
-		const { name, nameUnique, start, eventCurrencyEmoji, offer, offerInfographicURL, wikiURL } = event;
+
+		const { name, nameUnique, start, eventCurrencyEmoji, offer, offerInfographicURL, wikiURL } =
+			event;
+
 		const bit = this[SpiritEventNameToCatalogueName[nameUnique]];
 
 		const embed = new EmbedBuilder()
@@ -2961,7 +3139,10 @@ export class Catalogue {
 			description.push(offer.length > 0 ? NO_EVENT_INFOGRAPHIC_YET : NO_EVENT_OFFER_TEXT);
 		}
 
-		if (description.length > 0) embed.setDescription(description.join("\n"));
+		if (description.length > 0) {
+			embed.setDescription(description.join("\n"));
+		}
+
 		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
 
 		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(
@@ -2989,7 +3170,10 @@ export class Catalogue {
 					.setLabel(name)
 					.setValue(String(flag));
 
-				if (emoji) stringSelectMenuOptionBuilder.setEmoji(emoji);
+				if (emoji) {
+					stringSelectMenuOptionBuilder.setEmoji(emoji);
+				}
+
 				return stringSelectMenuOptionBuilder;
 			});
 
@@ -3034,8 +3218,13 @@ export class Catalogue {
 		await interaction.update({ components, content: "", embeds: [embed] });
 	}
 
-	private static async viewStarterPacks(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+	private static async viewStarterPacks(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const catalogue = await this.fetch(interaction.user.id);
 		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.StarterPacks]];
 
@@ -3045,7 +3234,10 @@ export class Catalogue {
 				.setLabel(name)
 				.setValue(String(flag));
 
-			if (emoji) stringSelectMenuOptionBuilder.setEmoji(emoji);
+			if (emoji) {
+				stringSelectMenuOptionBuilder.setEmoji(emoji);
+			}
+
 			return stringSelectMenuOptionBuilder;
 		});
 
@@ -3086,8 +3278,13 @@ export class Catalogue {
 		});
 	}
 
-	private static async viewSecretArea(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+	private static async viewSecretArea(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const catalogue = await this.fetch(interaction.user.id);
 		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.SecretArea]];
 
@@ -3097,7 +3294,10 @@ export class Catalogue {
 				.setLabel(name)
 				.setValue(String(flag));
 
-			if (emoji) stringSelectMenuOptionBuilder.setEmoji(emoji);
+			if (emoji) {
+				stringSelectMenuOptionBuilder.setEmoji(emoji);
+			}
+
 			return stringSelectMenuOptionBuilder;
 		});
 
@@ -3138,8 +3338,13 @@ export class Catalogue {
 		});
 	}
 
-	private static async viewHarmonyHall(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+	private static async viewHarmonyHall(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const catalogue = await this.fetch(interaction.user.id);
 		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.HarmonyHall]];
 
@@ -3149,7 +3354,10 @@ export class Catalogue {
 				.setLabel(name)
 				.setValue(String(flag));
 
-			if (emoji) stringSelectMenuOptionBuilder.setEmoji(emoji);
+			if (emoji) {
+				stringSelectMenuOptionBuilder.setEmoji(emoji);
+			}
+
 			return stringSelectMenuOptionBuilder;
 		});
 
@@ -3190,8 +3398,13 @@ export class Catalogue {
 		});
 	}
 
-	private static async viewPermanentEventStore(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+	private static async viewPermanentEventStore(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const catalogue = await this.fetch(interaction.user.id);
 		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.PermanentEventStore]];
 
@@ -3201,7 +3414,10 @@ export class Catalogue {
 				.setLabel(name)
 				.setValue(String(flag));
 
-			if (emoji) stringSelectMenuOptionBuilder.setEmoji(emoji);
+			if (emoji) {
+				stringSelectMenuOptionBuilder.setEmoji(emoji);
+			}
+
 			return stringSelectMenuOptionBuilder;
 		});
 
@@ -3225,7 +3441,9 @@ export class Catalogue {
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
-						.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.PermanentEventStore}`)
+						.setCustomId(
+							`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.PermanentEventStore}`,
+						)
 						.setDisabled(catalogue.permanentEventStoreProgress() === 100)
 						.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
 						.setLabel("I have everything!")
@@ -3242,8 +3460,13 @@ export class Catalogue {
 		});
 	}
 
-	private static async viewNestingWorkshop(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+	private static async viewNestingWorkshop(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const catalogue = await this.fetch(interaction.user.id);
 		const bit = catalogue[SpiritEventNameToCatalogueName[CatalogueType.NestingWorkshop]];
 
@@ -3253,7 +3476,10 @@ export class Catalogue {
 				.setLabel(name)
 				.setValue(String(flag));
 
-			if (emoji) stringSelectMenuOptionBuilder.setEmoji(emoji);
+			if (emoji) {
+				stringSelectMenuOptionBuilder.setEmoji(emoji);
+			}
+
 			return stringSelectMenuOptionBuilder;
 		});
 
@@ -3314,17 +3540,22 @@ export class Catalogue {
 
 		await this.update(
 			user.id,
-			STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm).reduce<CatalogueSetData>((data, spirit) => {
-				data[CatalogueNameToRawName[spirit.name]] = spirit.maximumItemsBit;
-				return data;
-			}, {}),
+			STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm).reduce<CatalogueSetData>(
+				(data, spirit) => {
+					data[CatalogueNameToRawName[spirit.name]] = spirit.maximumItemsBit;
+					return data;
+				},
+				{},
+			),
 		);
 
 		await Catalogue.viewRealm(interaction, realm);
 	}
 
 	public static async setElders(interaction: ButtonInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
 
 		await this.update(
 			interaction.user.id,
@@ -3338,7 +3569,10 @@ export class Catalogue {
 	}
 
 	public static async setSeason(interaction: ButtonInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const { customId, user } = interaction;
 		const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
 		const season = currentSeasons().find((season) => season.name === parsedCustomId);
@@ -3350,7 +3584,10 @@ export class Catalogue {
 
 		const offers: [SpiritName | SeasonName, number | null][] = [
 			[season.guide.name, season.guide.maximumItemsBit],
-			...season.spirits.map<[SpiritName, number]>((spirit) => [spirit.name, spirit.maximumItemsBit]),
+			...season.spirits.map<[SpiritName, number]>((spirit) => [
+				spirit.name,
+				spirit.maximumItemsBit,
+			]),
 			[season.name, season.maximumItemsBits],
 		];
 
@@ -3366,7 +3603,10 @@ export class Catalogue {
 	}
 
 	public static async setSeasonItems(interaction: StringSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const { customId, user, values } = interaction;
 		const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
 		const season = currentSeasons().find((season) => season.name === parsedCustomId);
@@ -3382,7 +3622,10 @@ export class Catalogue {
 	}
 
 	public static async parseSetItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const catalogue = await this.fetch(interaction.user.id);
 		const { customId } = interaction;
 		const resolvedCustomId = customId.slice(customId.indexOf("§") + 1);
@@ -3395,24 +3638,30 @@ export class Catalogue {
 			await catalogue.setEventItems(interaction, event);
 		} else {
 			switch (Number(resolvedCustomId)) {
-				case CatalogueType.StarterPacks:
+				case CatalogueType.StarterPacks: {
 					await catalogue.setStarterPacksItems(interaction);
 					return;
-				case CatalogueType.SecretArea:
+				}
+				case CatalogueType.SecretArea: {
 					await catalogue.setSecretAreaItems(interaction);
 					return;
-				case CatalogueType.HarmonyHall:
+				}
+				case CatalogueType.HarmonyHall: {
 					await catalogue.setHarmonyHallItems(interaction);
 					return;
-				case CatalogueType.PermanentEventStore:
+				}
+				case CatalogueType.PermanentEventStore: {
 					await catalogue.setPermanentEventStoreItems(interaction);
 					return;
-				case CatalogueType.NestingWorkshop:
+				}
+				case CatalogueType.NestingWorkshop: {
 					await catalogue.setNestingWorkshopItems(interaction);
 					return;
-				default:
+				}
+				default: {
 					pino.error(interaction, "Could not parse items to set.");
 					await interaction.update(ERROR_RESPONSE);
+				}
 			}
 		}
 	}
@@ -3422,7 +3671,7 @@ export class Catalogue {
 		currentBit: CatalogueValue,
 		maximumItemsBit: number | null,
 	) {
-		let bit;
+		let bit: number | null;
 
 		if (interaction instanceof ButtonInteraction) {
 			bit = maximumItemsBit;
@@ -3431,7 +3680,10 @@ export class Catalogue {
 			const { component } = interaction;
 
 			// Calculate the total bit in this select menu.
-			const selectMenuTotalBit = component.options.reduce((bit, { value }) => bit | Number(value), 0);
+			const selectMenuTotalBit = component.options.reduce(
+				(bit, { value }) => bit | Number(value),
+				0,
+			);
 
 			// Clear this bit from the total bit.
 			const modifiedTotal = (currentBit ?? 0) & ~selectMenuTotalBit;
@@ -3461,7 +3713,10 @@ export class Catalogue {
 		await this.viewSpirit(interaction, spirit);
 	}
 
-	private async setEventItems(interaction: ButtonInteraction | StringSelectMenuInteraction, event: Event) {
+	private async setEventItems(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+		event: Event,
+	) {
 		const newBit = this.calculateSetItemsBit(
 			interaction,
 			this[SpiritEventNameToCatalogueName[event.nameUnique]],
@@ -3521,7 +3776,9 @@ export class Catalogue {
 		await Catalogue.viewHarmonyHall(interaction);
 	}
 
-	private async setPermanentEventStoreItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+	private async setPermanentEventStoreItems(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+	) {
 		const newBit = this.calculateSetItemsBit(
 			interaction,
 			this[SpiritEventNameToCatalogueName[CatalogueType.PermanentEventStore]],
@@ -3536,7 +3793,9 @@ export class Catalogue {
 		await Catalogue.viewPermanentEventStore(interaction);
 	}
 
-	private async setNestingWorkshopItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+	private async setNestingWorkshopItems(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+	) {
 		const newBit = this.calculateSetItemsBit(
 			interaction,
 			this[SpiritEventNameToCatalogueName[CatalogueType.NestingWorkshop]],
@@ -3551,8 +3810,11 @@ export class Catalogue {
 		await Catalogue.viewNestingWorkshop(interaction);
 	}
 
-	private static async update(userId: Catalogue["userId"], data: CatalogueSetData) {
-		return pg<CataloguePacket>(Table.Catalogue).update(data).where({ user_id: userId }).returning("*");
+	private static update(userId: Catalogue["userId"], data: CatalogueSetData) {
+		return pg<CataloguePacket>(Table.Catalogue)
+			.update(data)
+			.where({ user_id: userId })
+			.returning("*");
 	}
 
 	private realmsEmbed(locale: Locale) {
@@ -3563,14 +3825,19 @@ export class Catalogue {
 						(remainingCurrency, spirit) =>
 							addCosts([
 								remainingCurrency,
-								this.remainingCurrency(spirit.current, this[SpiritEventNameToCatalogueName[spirit.name]]),
+								this.remainingCurrency(
+									spirit.current,
+									this[SpiritEventNameToCatalogueName[spirit.name]],
+								),
 							]),
 						{},
 					),
 				);
 
 				return `__${t(`realms.${realm.name}`, { lng: locale, ns: "general" })}__\n${
-					remainingCurrency.length > 0 ? remainingCurrency.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
+					remainingCurrency.length > 0
+						? remainingCurrency.join("")
+						: formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
 				}`;
 			}).join("\n\n"),
 		);
@@ -3591,11 +3858,21 @@ export class Catalogue {
 			}
 		}
 
-		if (owned.length > 0) offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
-		if (unowned.length > 0) offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
+		if (owned.length > 0) {
+			offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
+		}
+
+		if (unowned.length > 0) {
+			offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
+		}
+
 		const remainingCurrency = this.remainingCurrency(offer, bit, true);
 		const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
-		if (resolvedRemainingCurrency.length > 0) offerDescription.push(`${resolvedRemainingCurrency.join("")}`);
+
+		if (resolvedRemainingCurrency.length > 0) {
+			offerDescription.push(`${resolvedRemainingCurrency.join("")}`);
+		}
+
 		return { remainingCurrency, offerDescription };
 	}
 
@@ -3605,12 +3882,17 @@ export class Catalogue {
 
 		const offers: [SpiritName | SeasonName, readonly Item[]][] = [
 			[season.guide.name, season.guide.current],
-			...season.spirits.map<[SpiritName | SeasonName, readonly Item[]]>((spirit) => [spirit.name, spirit.items]),
+			...season.spirits.map<[SpiritName | SeasonName, readonly Item[]]>((spirit) => [
+				spirit.name,
+				spirit.items,
+			]),
 			[season.name, season.items],
 		];
 
 		for (const [index, offer] of offers) {
-			if (offer.length === 0) continue;
+			if (offer.length === 0) {
+				continue;
+			}
 
 			const { remainingCurrency, offerDescription } = this.embedProgress(
 				this[SpiritEventNameToCatalogueName[index]],
@@ -3670,7 +3952,10 @@ export class Catalogue {
 			const isSeasonalSpirit = spirit.isSeasonalSpirit();
 			const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
 			const offer = seasonalParsing ? spirit.seasonal : spirit.current;
-			if (offer.length === 0) continue;
+
+			if (offer.length === 0) {
+				continue;
+			}
 
 			const { remainingCurrency, offerDescription } = this.embedProgress(
 				this[SpiritEventNameToCatalogueName[spirit.name]],
@@ -3717,7 +4002,8 @@ export class Catalogue {
 
 		if (!interaction.inGuild()) {
 			await interaction.reply({
-				content: "[You & I](https://youtu.be/_kqQDCxRCzM) are the only ones around here. Try sharing in a server!",
+				content:
+					"[You & I](https://youtu.be/_kqQDCxRCzM) are the only ones around here. Try sharing in a server!",
 				flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
 			});
 
@@ -3738,7 +4024,9 @@ export class Catalogue {
 			await cannotUsePermissions(
 				interaction,
 				PermissionFlagsBits.ViewChannel |
-					(channel.isThread() ? PermissionFlagsBits.SendMessagesInThreads : PermissionFlagsBits.SendMessages) |
+					(channel.isThread()
+						? PermissionFlagsBits.SendMessagesInThreads
+						: PermissionFlagsBits.SendMessages) |
 					PermissionFlagsBits.EmbedLinks |
 					PermissionFlagsBits.UseExternalEmojis,
 			)
@@ -3749,7 +4037,7 @@ export class Catalogue {
 		const catalogue = await this.fetch(user.id);
 		const type = customId.slice(customId.indexOf("§") + 1);
 		const backButton = new ButtonBuilder().setLabel("Back").setStyle(ButtonStyle.Primary);
-		let embed;
+		let embed: EmbedBuilder | undefined;
 
 		if (type === CATALOGUE_SHARE_REALMS_KEY) {
 			backButton.setCustomId(CATALOGUE_VIEW_REALMS_CUSTOM_ID);
@@ -3769,7 +4057,9 @@ export class Catalogue {
 
 			embed = catalogue
 				.seasonEmbed(currentSeasons().find((season) => season.name === type)!, locale)
-				.setTitle(`${formatEmoji(emoji)} ${t(`seasons.${type}`, { lng: locale, ns: "general" })} Progress`);
+				.setTitle(
+					`${formatEmoji(emoji)} ${t(`seasons.${type}`, { lng: locale, ns: "general" })} Progress`,
+				);
 		} else if (type === CATALOGUE_SHARE_ELDER_KEY) {
 			backButton.setCustomId(CATALOGUE_VIEW_ELDERS_CUSTOM_ID);
 			embed = catalogue.spiritEmbed(ELDER_SPIRITS, locale).setTitle("Elders Progress");
@@ -3783,7 +4073,10 @@ export class Catalogue {
 
 		const profile = await Profile.fetch(user.id).catch(() => null);
 		const embedAuthorOptions: EmbedAuthorOptions = { name: profile?.name ?? user.tag };
-		if (profile?.iconURL) embedAuthorOptions.iconURL = profile.iconURL;
+
+		if (profile?.iconURL) {
+			embedAuthorOptions.iconURL = profile.iconURL;
+		}
 
 		await interaction.update({
 			components: [
@@ -3818,7 +4111,9 @@ export class Catalogue {
 			await cannotUsePermissions(
 				interaction,
 				PermissionFlagsBits.ViewChannel |
-					(channel.isThread() ? PermissionFlagsBits.SendMessagesInThreads : PermissionFlagsBits.SendMessages) |
+					(channel.isThread()
+						? PermissionFlagsBits.SendMessagesInThreads
+						: PermissionFlagsBits.SendMessages) |
 					PermissionFlagsBits.EmbedLinks |
 					PermissionFlagsBits.UseExternalEmojis,
 			)
@@ -3835,7 +4130,9 @@ export class Catalogue {
 		for (const actionRow of components) {
 			actionRow.components
 				.find(
-					(component) => "custom_id" in component.data && component.data.custom_id === CATALOGUE_SHARE_SEND_CUSTOM_ID,
+					(component) =>
+						"custom_id" in component.data &&
+						component.data.custom_id === CATALOGUE_SHARE_SEND_CUSTOM_ID,
 				)
 				?.setDisabled();
 		}
@@ -3843,7 +4140,11 @@ export class Catalogue {
 		await interaction.update({ components, content: "Progress shared!", embeds: [] });
 	}
 
-	private remainingCurrency(items: readonly Item[], bit: CatalogueValue, includeSeasonalCurrency?: boolean) {
+	private remainingCurrency(
+		items: readonly Item[],
+		bit: CatalogueValue,
+		includeSeasonalCurrency?: boolean,
+	) {
 		const result = addCosts(
 			items
 				.filter(({ bit: flag }) => !bit || (bit & flag) !== flag)
@@ -3852,8 +4153,13 @@ export class Catalogue {
 		);
 
 		if (!includeSeasonalCurrency) {
-			for (const seasonalCandle of result.seasonalCandles) seasonalCandle.cost = 0;
-			for (const seasonalHeart of result.seasonalHearts) seasonalHeart.cost = 0;
+			for (const seasonalCandle of result.seasonalCandles) {
+				seasonalCandle.cost = 0;
+			}
+
+			for (const seasonalHeart of result.seasonalHearts) {
+				seasonalHeart.cost = 0;
+			}
 		}
 
 		return result;

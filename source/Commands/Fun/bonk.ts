@@ -1,10 +1,10 @@
 import {
 	type ApplicationCommandData,
-	type ChatInputCommandInteraction,
-	type Snowflake,
-	PermissionFlagsBits,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
+	type ChatInputCommandInteraction,
+	PermissionFlagsBits,
+	type Snowflake,
 } from "discord.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
@@ -21,7 +21,8 @@ const BONKS = {
 			message: "{{bonker}} bonked {{bonkee}}. Bonk bonk bonk.",
 		},
 		{
-			message: "An ethereal force bonked {{bonkee}} on the head. A shrill giggle can be heard from {{bonker}}.",
+			message:
+				"An ethereal force bonked {{bonkee}} on the head. A shrill giggle can be heard from {{bonker}}.",
 		},
 		{
 			message: "BONK! {{bonkee}} was destroyed by {{bonker}}.",
@@ -33,10 +34,12 @@ const BONKS = {
 			message: "{{bonker}} attempted to bonk {{bonkee}}. {{bonker}} was successful.",
 		},
 		{
-			message: "There was a 1% chance that {{bonkee}} would be bonked. {{bonker}} is that 1%. BONK.",
+			message:
+				"There was a 1% chance that {{bonkee}} would be bonked. {{bonker}} is that 1%. BONK.",
 		},
 		{
-			message: "How extraordinary! A MASSIVE, HUGE BONK was applied to the forehead of {{bonkee}} by {{bonker}}.",
+			message:
+				"How extraordinary! A MASSIVE, HUGE BONK was applied to the forehead of {{bonkee}} by {{bonker}}.",
 		},
 		{
 			message:
@@ -52,7 +55,8 @@ const BONKS = {
 			message: "We love {{bonkee}}, but {{bonker}} has other thoughts. BONK!",
 		},
 		{
-			message: "{{bonkee}} got BONKED by the BONKER called {{bonker}} with the BONKINATOR BONKTHOUSAND. B O N K.",
+			message:
+				"{{bonkee}} got BONKED by the BONKER called {{bonker}} with the BONKINATOR BONKTHOUSAND. B O N K.",
 		},
 		{
 			message:
@@ -63,13 +67,16 @@ const BONKS = {
 				"{{bonker}} entered the nearby building, scaled to its peak, and dove off the top to bonk {{bonkee}}'s forehead at terminal velocity.",
 		},
 		{
-			message: "A wild {{bonker}} appeared! {{bonker}} BONKED {{bonkee}} then mysteriously disappeared...",
+			message:
+				"A wild {{bonker}} appeared! {{bonker}} BONKED {{bonkee}} then mysteriously disappeared...",
 		},
 		{
-			message: "{{bonker}} picked {{bonkee}} up, threw them into the air, and bonked them into outer space.",
+			message:
+				"{{bonker}} picked {{bonkee}} up, threw them into the air, and bonked them into outer space.",
 		},
 		{
-			message: "Somebody was lurking in the shadows. It was {{bonker}} and they just bonked {{bonkee}}.",
+			message:
+				"Somebody was lurking in the shadows. It was {{bonker}} and they just bonked {{bonkee}}.",
 		},
 		{
 			message:
@@ -88,13 +95,15 @@ const BONKS = {
 			message: "{{bonker}} used bonk! It's super effective! {{bonkee}} took a lot of damage!",
 		},
 		{
-			message: "{{bonker}} used bonk! It's not very effective... {{bonkee}} didn't take that much damage.",
+			message:
+				"{{bonker}} used bonk! It's not very effective... {{bonkee}} didn't take that much damage.",
 		},
 		{
 			message: "{{bonker}} bonked {{bonkee}}, but at what cost?",
 		},
 		{
-			message: "Roses are red,\nViolets are blue,\n{{bonker}} bonked {{bonkee}},\nAnd smacked them up too.",
+			message:
+				"Roses are red,\nViolets are blue,\n{{bonker}} bonked {{bonkee}},\nAnd smacked them up too.",
 		},
 		{
 			message:
@@ -130,7 +139,11 @@ const BONKS = {
 				["El Guapo", "a pirate", "some sort of squirrel"],
 				["Dracula", "Pope Francis", "a pet lizard"],
 				["a moth", "the captain of the underworld", "Perry the Platypus"],
-				["Ed Sheeran", "a local microwave from a local fishing shop", "a piece of sentient bubble wrap"],
+				[
+					"Ed Sheeran",
+					"a local microwave from a local fishing shop",
+					"a piece of sentient bubble wrap",
+				],
 				["a duck", "the Yakuza", "a bubble that cannot be popped"],
 				["Aurora", "a mirror", "a nearby particle"],
 				["the NHS", "the inevitable darkness", "John Appleseed"],
@@ -138,7 +151,8 @@ const BONKS = {
 			] satisfies [string, string, string][],
 		},
 		{
-			message: "{{bonkee}} escaped the almighty bonk of {{bonker}}. Is this the final bonk by {{bonker}}?",
+			message:
+				"{{bonkee}} escaped the almighty bonk of {{bonker}}. Is this the final bonk by {{bonker}}?",
 		},
 		{
 			message:
@@ -182,7 +196,11 @@ export default new (class implements ChatInputCommand {
 		}
 
 		if (interaction.inGuild() && !member) {
-			await interaction.reply({ content: `${user} is not in this server to be bonked.`, ephemeral: true });
+			await interaction.reply({
+				content: `${user} is not in this server to be bonked.`,
+				ephemeral: true,
+			});
+
 			return;
 		}
 
@@ -206,7 +224,7 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		let decidingBonk;
+		let decidingBonk: typeof BONKS.successful | typeof BONKS.unsuccessful;
 		let successful = false;
 
 		if (Math.random() < 0.1) {
@@ -218,7 +236,10 @@ export default new (class implements ChatInputCommand {
 
 		const bonk = decidingBonk[Math.floor(Math.random() * decidingBonk.length)]!;
 		const { message } = bonk;
-		let bonkMessage = message.replaceAll("{{bonker}}", String(interaction.user)).replaceAll("{{bonkee}}", String(user));
+
+		let bonkMessage = message
+			.replaceAll("{{bonker}}", String(interaction.user))
+			.replaceAll("{{bonkee}}", String(user));
 
 		if ("entries" in bonk) {
 			const { entries } = bonk;

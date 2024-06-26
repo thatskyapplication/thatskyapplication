@@ -1,6 +1,9 @@
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
-import { type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../../../Structures/Spirits.js";
+import {
+	SeasonalSpirit,
+	type SeasonalSpiritVisitCollectionKey,
+} from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
@@ -12,7 +15,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritEmote, SpiritName, SpiritEmoteToEmoji } from "../../../../Utility/spirits.js";
+import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../Utility/spirits.js";
 
 const emote = SpiritEmote.ShowDance;
 const emoteEmoji = SpiritEmoteToEmoji[emote];
@@ -34,7 +37,12 @@ export default new SeasonalSpirit({
 			{ name: "Blessing 1", bit: 1 << 2, cost: { candles: 5 }, emoji: blessing2 },
 			{ name: "Hair", bit: 1 << 3, cost: { candles: 45 }, emoji: hairEmoji },
 			{ name: "Heart", bit: 1 << 10, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Wing buff", bit: 1 << 11, cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.AscendedCandle },
+			{
+				name: "Wing buff",
+				bit: 1 << 11,
+				cost: { ascendedCandles: 2 },
+				emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+			},
 			{ name: `${emote} 3`, bit: 1 << 4, cost: { hearts: 3 }, emoji: emoteEmoji },
 			{ name: `${emote} 4`, bit: 1 << 5, cost: { hearts: 6 }, emoji: emoteEmoji },
 			{ name: "Mask", bit: 1 << 7, cost: { candles: 48 }, emoji: maskEmoji },
@@ -53,10 +61,18 @@ export default new SeasonalSpirit({
 			{ name: "Mask", bit: 1 << 7, emoji: maskEmoji },
 			{ name: "Cape", bit: 1 << 8, cost: { seasonalCandles: 27 }, emoji: capeEmoji },
 			{ name: "Lute", bit: 1 << 9, emoji: heldProp },
-			{ name: "Seasonal heart", bit: 1 << 10, cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.DreamsHeart },
+			{
+				name: "Seasonal heart",
+				bit: 1 << 10,
+				cost: { seasonalCandles: 3 },
+				emoji: SEASON_EMOJIS.DreamsHeart,
+			},
 		],
 	},
 	visits: {
-		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(112, skyDate(2_024, 4, 25)),
+		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(
+			112,
+			skyDate(2_024, 4, 25),
+		),
 	},
 });

@@ -7,5 +7,12 @@ export default new Event({
 	nameUnique: EventNameUnique.SkyAnniversary2020,
 	start: skyDate(2_020, 7, 13),
 	end: skyDate(2_020, 7, 19),
-	offer: [{ name: "Hair accessory", bit: 1 << 0, cost: { hearts: 3 }, emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory03 }],
+	offer: [
+		{
+			name: "Hair accessory",
+			bit: 1 << 0,
+			cost: { hearts: 3 },
+			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory03,
+		},
+	],
 });

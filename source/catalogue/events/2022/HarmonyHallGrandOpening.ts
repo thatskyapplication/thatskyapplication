@@ -7,5 +7,12 @@ export default new Event({
 	nameUnique: EventNameUnique.HarmonyHallGrandOpening2022,
 	start: skyDate(2_022, 5, 23),
 	end: skyDate(2_022, 6, 5),
-	offer: [{ name: "Hair accessory", bit: 1 << 0, cost: { candles: 50 }, emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory20 }],
+	offer: [
+		{
+			name: "Hair accessory",
+			bit: 1 << 0,
+			cost: { candles: 50 },
+			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory20,
+		},
+	],
 });

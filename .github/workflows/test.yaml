@@ -1,14 +1,29 @@
 name: Test
-on: [pull_request, push]
+on: push
 jobs:
-  run:
-    name: Run tests
+  typographical-errors:
+    name: Typographical errors
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check for typographical errors
+      - name: Scan for typographical errors
         uses: crate-ci/typos@master
+  style:
+    name: Styling
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: biomejs/setup-biome@v2
+
+      - name: Run Biome
+        run: biome ci --reporter=github
+  typescript:
+    name: TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
       - name: Install Node.js 20
         uses: actions/setup-node@v4
@@ -21,8 +36,5 @@ jobs:
           run_install: |
             - args: [--frozen-lockfile]
 
-      - name: Lint codebase
-        run: pnpm run lint
-
-      - name: Test codebase
+      - name: Validate TypeScript
         run: pnpm run test

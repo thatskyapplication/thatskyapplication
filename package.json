@@ -5,8 +5,8 @@
 	"scripts": {
 		"build": "tsc",
 		"test": "tsc --noEmit",
-		"format": "prettier --write . && eslint --fix .",
-		"lint": "prettier --check . && eslint .",
+		"format": "biome check --write",
+		"lint": "biome check",
 		"dev": "tsx --require dotenv/config source/index.ts | pino-pretty",
 		"start": "node --enable-source-maps --require dotenv/config distribution/index.js",
 		"update": "pnpm update --interactive --latest && pre-commit autoupdate",
@@ -29,12 +29,10 @@
 		"ts-mixer": "^6.0.4"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "1.8.2",
 		"@types/luxon": "^3.4.2",
-		"eslint": "^9.5.0",
-		"eslint-config-neon": "^0.1.62",
 		"knip": "^5.22.2",
 		"pino-pretty": "^11.2.1",
-		"prettier": "^3.3.2",
 		"tsx": "^4.15.7",
 		"typescript": "5.4.5"
 	},

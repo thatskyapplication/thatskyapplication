@@ -8,7 +8,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritEmote, SpiritName, SpiritEmoteToEmoji } from "../../../../Utility/spirits.js";
+import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../Utility/spirits.js";
 
 const emote = SpiritEmote.Somersault;
 const emoteEmoji = SpiritEmoteToEmoji[emote];
@@ -35,7 +35,12 @@ export default new SeasonalSpirit({
 			{ name: "Cape", bit: 1 << 7, emoji: capeEmoji },
 			{ name: "Blessing 3", bit: 1 << 8, cost: { seasonalCandles: 32 }, emoji: blessing3 },
 			{ name: "Face accessory", bit: 1 << 9, emoji: faceAccessoryEmoji },
-			{ name: "Seasonal heart", bit: 1 << 10, cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.PassageHeart },
+			{
+				name: "Seasonal heart",
+				bit: 1 << 10,
+				cost: { seasonalCandles: 3 },
+				emoji: SEASON_EMOJIS.PassageHeart,
+			},
 		],
 	},
 });

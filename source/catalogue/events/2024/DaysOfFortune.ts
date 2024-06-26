@@ -18,8 +18,18 @@ export default new Event({
 	offer: [
 		{ name: "Mask", bit: 1 << 0, cost: { eventCurrency: 14 }, emoji: MASK_EMOJIS.Mask90 },
 		{ name: "Prop", bit: 1 << 1, cost: { eventCurrency: 34 }, emoji: HELD_PROPS_EMOJIS.HeldProp41 },
-		{ name: "Days of Fortune Dragon Vestment", bit: 1 << 2, cost: { money: 9.99 }, emoji: OUTFIT_EMOJIS.Outfit57 },
-		{ name: "Days of Fortune Dragon Stole", bit: 1 << 3, cost: { money: 14.99 }, emoji: CAPE_EMOJIS.Cape126 },
+		{
+			name: "Days of Fortune Dragon Vestment",
+			bit: 1 << 2,
+			cost: { money: 9.99 },
+			emoji: OUTFIT_EMOJIS.Outfit57,
+		},
+		{
+			name: "Days of Fortune Dragon Stole",
+			bit: 1 << 3,
+			cost: { money: 14.99 },
+			emoji: CAPE_EMOJIS.Cape126,
+		},
 		{
 			name: "Days of Fortune Dragon Bangles",
 			bit: 1 << 4,

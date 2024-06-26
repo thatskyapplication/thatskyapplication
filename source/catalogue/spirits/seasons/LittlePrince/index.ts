@@ -24,8 +24,18 @@ export default new Season({
 		StarCollector,
 	],
 	items: [
-		{ name: "Little Prince Scarf Cape", bit: 1 << 0, cost: { money: 14.99 }, emoji: CAPE_EMOJIS.Cape63 },
-		{ name: "Little Prince Asteroid Jacket", bit: 1 << 1, cost: { money: 24.99 }, emoji: CAPE_EMOJIS.Cape64 },
+		{
+			name: "Little Prince Scarf Cape",
+			bit: 1 << 0,
+			cost: { money: 14.99 },
+			emoji: CAPE_EMOJIS.Cape63,
+		},
+		{
+			name: "Little Prince Asteroid Jacket",
+			bit: 1 << 1,
+			cost: { money: 24.99 },
+			emoji: CAPE_EMOJIS.Cape64,
+		},
 		{
 			name: "Little Prince Fox",
 			bit: 1 << 2,

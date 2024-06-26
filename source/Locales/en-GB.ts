@@ -20,7 +20,9 @@ export default {
 		events: Object.fromEntries(EVENT_NAME_VALUES.map((eventName) => [eventName, eventName])),
 		"shard-eruption": "Shard Eruption",
 		"shard-eruption-none": "None",
-		spiritNames: Object.fromEntries(Object.values(SpiritName).map((spiritName) => [spiritName, spiritName])),
+		spiritNames: Object.fromEntries(
+			Object.values(SpiritName).map((spiritName) => [spiritName, spiritName]),
+		),
 		timestamps: "Timestamps",
 		view: "View",
 	},
@@ -30,7 +32,8 @@ export default {
 			"command-description": "The command containing various calculators.",
 			"seasonal-candles": {
 				"command-name": "seasonal-candles",
-				"command-description": "Calculates the number of days it would take to achieve a number of seasonal candles.",
+				"command-description":
+					"Calculates the number of days it would take to achieve a number of seasonal candles.",
 				"command-option-start-name": "start",
 				"command-option-start-description": "The starting number of seasonal candles.",
 				"command-option-goal-name": "goal",

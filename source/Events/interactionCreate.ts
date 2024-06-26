@@ -1,11 +1,11 @@
 import {
 	type ChatInputCommandInteraction,
 	type ContextMenuCommandInteraction,
-	type Interaction,
-	type Locale,
 	DiscordAPIError,
 	Events,
+	type Interaction,
 	InteractionType,
+	type Locale,
 	RESTJSONErrorCodes,
 } from "discord.js";
 import {
@@ -18,7 +18,11 @@ import {
 	DAILY_GUIDES_TREASURE_CANDLES_MODAL,
 	DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID,
 } from "../Commands/Admin/admin.js";
-import { HeartHistoryNavigationType, HEART_HISTORY_BACK, HEART_HISTORY_FORWARD } from "../Commands/Fun/heart.js";
+import {
+	HEART_HISTORY_BACK,
+	HEART_HISTORY_FORWARD,
+	HeartHistoryNavigationType,
+} from "../Commands/Fun/heart.js";
 import { DATA_DELETION_CUSTOM_ID } from "../Commands/General/data.js";
 import {
 	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
@@ -86,29 +90,34 @@ async function recoverInteractionError(interaction: Interaction, error: unknown)
 	let errorTypeString = `Error from ${interaction.user.tag} in ${interaction.channelId} from `;
 
 	switch (interaction.type) {
-		case InteractionType.ApplicationCommand:
+		case InteractionType.ApplicationCommand: {
 			errorTypeString += `running command ${
 				interaction.isChatInputCommand() ? String(interaction) : interaction.commandName
 			}.`;
 
 			break;
-		case InteractionType.MessageComponent:
+		}
+		case InteractionType.MessageComponent: {
 			errorTypeString += `interacting with a \`${interaction.customId}\` component.`;
 			break;
-		case InteractionType.ApplicationCommandAutocomplete:
-			// eslint-disable-next-line no-case-declarations
+		}
+		case InteractionType.ApplicationCommandAutocomplete: {
 			const focused = interaction.options.getFocused(true);
 			errorTypeString += `autocompleting \`/${interaction.commandName}\` (\`${focused.name}\`, \`${focused.value}\`).`;
 			break;
-		case InteractionType.ModalSubmit:
+		}
+		case InteractionType.ModalSubmit: {
 			errorTypeString += `submitting \`${interaction.customId}\`.`;
 			break;
+		}
 	}
 
 	pino.error(error, errorTypeString);
 
 	// We cannot respond to this.
-	if (error instanceof DiscordAPIError && error.code === RESTJSONErrorCodes.UnknownInteraction) return;
+	if (error instanceof DiscordAPIError && error.code === RESTJSONErrorCodes.UnknownInteraction) {
+		return;
+	}
 
 	try {
 		if (interaction.isAutocomplete()) {
@@ -124,7 +133,9 @@ async function recoverInteractionError(interaction: Interaction, error: unknown)
 }
 
 function logCommand(interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) {
-	const { appPermissions, channelId, commandName, guildId, guildLocale, locale, user } = interaction;
+	const { appPermissions, channelId, commandName, guildId, guildLocale, locale, user } =
+		interaction;
+
 	const command = interaction.isChatInputCommand() ? String(interaction) : commandName;
 
 	pino.info(
@@ -142,6 +153,7 @@ function logCommand(interaction: ChatInputCommandInteraction | ContextMenuComman
 
 export default {
 	name,
+	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: <explanation>
 	async fire(interaction) {
 		if (interaction.isChatInputCommand()) {
 			logCommand(interaction);
@@ -209,7 +221,10 @@ export default {
 					return;
 				}
 
-				if (customId === CATALOGUE_VIEW_START_CUSTOM_ID || customId === CATALOGUE_BACK_TO_START_CUSTOM_ID) {
+				if (
+					customId === CATALOGUE_VIEW_START_CUSTOM_ID ||
+					customId === CATALOGUE_BACK_TO_START_CUSTOM_ID
+				) {
 					await Catalogue.viewCatalogue(interaction);
 					return;
 				}
@@ -312,7 +327,11 @@ export default {
 					customId.startsWith(SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID) ||
 					customId.startsWith(SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID)
 				) {
-					await COMMANDS.sharderuption.today(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
+					await COMMANDS.sharderuption.today(
+						interaction,
+						Number(customId.slice(customId.indexOf("§") + 1)),
+					);
+
 					return;
 				}
 
@@ -326,7 +345,11 @@ export default {
 					customId.startsWith(SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID) ||
 					customId.startsWith(SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID)
 				) {
-					await COMMANDS.sharderuption.browse(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
+					await COMMANDS.sharderuption.browse(
+						interaction,
+						Number(customId.slice(customId.indexOf("§") + 1)),
+					);
+
 					return;
 				}
 
@@ -336,7 +359,10 @@ export default {
 					const [, type, timestamp] = heartHistoryResult;
 
 					await COMMANDS.heart.heartHistory(interaction, {
-						type: type === HEART_HISTORY_BACK ? HeartHistoryNavigationType.Back : HeartHistoryNavigationType.Forward,
+						type:
+							type === HEART_HISTORY_BACK
+								? HeartHistoryNavigationType.Back
+								: HeartHistoryNavigationType.Forward,
 						timestamp: Number(timestamp!),
 					});
 

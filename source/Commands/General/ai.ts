@@ -1,10 +1,10 @@
 import {
 	type ApplicationCommandData,
-	type ChatInputCommandInteraction,
 	ApplicationCommandType,
-	hyperlink,
+	type ChatInputCommandInteraction,
 	MessageFlags,
 	PermissionFlagsBits,
+	hyperlink,
 } from "discord.js";
 import AI from "../../Structures/AI.js";
 import { APPLICATION_INVITE_URL } from "../../Utility/Constants.js";

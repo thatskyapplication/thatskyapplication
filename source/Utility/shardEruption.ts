@@ -1,15 +1,18 @@
 import { URL } from "node:url";
-import { hyperlink, TimestampStyles, type Locale, time } from "discord.js";
+import { type Locale, TimestampStyles, hyperlink, time } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { resolveEvents } from "../catalogue/events/index.js";
-import { type RealmName, CDN_URL, Map, VALID_REALM_NAME } from "./Constants.js";
+import { CDN_URL, type RealmName, SkyMap, VALID_REALM_NAME } from "./Constants.js";
 import { EventName } from "./catalogue.js";
 import { todayDate } from "./dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "./emojis.js";
 
-function resolveShardEruptionMapURL(map: Map) {
-	return new URL(`daily_guides/shard_eruptions/${map.toLowerCase().replaceAll(" ", "_")}.webp`, CDN_URL);
+function resolveShardEruptionMapURL(skyMap: SkyMap) {
+	return new URL(
+		`daily_guides/shard_eruptions/${skyMap.toLowerCase().replaceAll(" ", "_")}.webp`,
+		CDN_URL,
+	);
 }
 
 const SHARD_ERUPTION_PREDICTION_DATA = [
@@ -18,8 +21,14 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 		interval: 8,
 		// 1 hour and 50 minutes.
 		offset: 6_600_000,
-		area: [Map.ButterflyFields, Map.ForestBrook, Map.IceRink, Map.BrokenTemple, Map.StarlightDesert].map((map) => ({
-			map,
+		area: [
+			SkyMap.ButterflyFields,
+			SkyMap.ForestBrook,
+			SkyMap.IceRink,
+			SkyMap.BrokenTemple,
+			SkyMap.StarlightDesert,
+		].map((map) => ({
+			skyMap: map,
 			url: resolveShardEruptionMapURL(map),
 			reward: 200,
 		})),
@@ -29,8 +38,14 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 		interval: 8,
 		// 2 hours and 10 minutes.
 		offset: 7_800_000,
-		area: [Map.KoiPond, Map.Boneyard, Map.IceRink, Map.Battlefield, Map.StarlightDesert].map((map) => ({
-			map,
+		area: [
+			SkyMap.KoiPond,
+			SkyMap.Boneyard,
+			SkyMap.IceRink,
+			SkyMap.Battlefield,
+			SkyMap.StarlightDesert,
+		].map((map) => ({
+			skyMap: map,
 			url: resolveShardEruptionMapURL(map),
 			reward: 200,
 		})),
@@ -41,11 +56,19 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 		// 7 hours and 40 minutes.
 		offset: 27_600_000,
 		area: [
-			{ map: Map.Cave, url: resolveShardEruptionMapURL(Map.Cave), reward: 2 },
-			{ map: Map.ForestEnd, url: resolveShardEruptionMapURL(Map.ForestEnd), reward: 2.5 },
-			{ map: Map.VillageOfDreams, url: resolveShardEruptionMapURL(Map.VillageOfDreams), reward: 2.5 },
-			{ map: Map.Graveyard, url: resolveShardEruptionMapURL(Map.Graveyard), reward: 2 },
-			{ map: Map.JellyfishCove, url: resolveShardEruptionMapURL(Map.JellyfishCove), reward: 3.5 },
+			{ skyMap: SkyMap.Cave, url: resolveShardEruptionMapURL(SkyMap.Cave), reward: 2 },
+			{ skyMap: SkyMap.ForestEnd, url: resolveShardEruptionMapURL(SkyMap.ForestEnd), reward: 2.5 },
+			{
+				skyMap: SkyMap.VillageOfDreams,
+				url: resolveShardEruptionMapURL(SkyMap.VillageOfDreams),
+				reward: 2.5,
+			},
+			{ skyMap: SkyMap.Graveyard, url: resolveShardEruptionMapURL(SkyMap.Graveyard), reward: 2 },
+			{
+				skyMap: SkyMap.JellyfishCove,
+				url: resolveShardEruptionMapURL(SkyMap.JellyfishCove),
+				reward: 3.5,
+			},
 		],
 	},
 	{
@@ -54,11 +77,23 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 		// 2 hours and 20 minutes.
 		offset: 8_400_000,
 		area: [
-			{ map: Map.BirdNest, url: resolveShardEruptionMapURL(Map.BirdNest), reward: 2.5 },
-			{ map: Map.Treehouse, url: resolveShardEruptionMapURL(Map.Treehouse), reward: 3.5 },
-			{ map: Map.VillageOfDreams, url: resolveShardEruptionMapURL(Map.VillageOfDreams), reward: 2.5 },
-			{ map: Map.CrabFields, url: resolveShardEruptionMapURL(Map.CrabFields), reward: 2.5 },
-			{ map: Map.JellyfishCove, url: resolveShardEruptionMapURL(Map.JellyfishCove), reward: 3.5 },
+			{ skyMap: SkyMap.BirdNest, url: resolveShardEruptionMapURL(SkyMap.BirdNest), reward: 2.5 },
+			{ skyMap: SkyMap.Treehouse, url: resolveShardEruptionMapURL(SkyMap.Treehouse), reward: 3.5 },
+			{
+				skyMap: SkyMap.VillageOfDreams,
+				url: resolveShardEruptionMapURL(SkyMap.VillageOfDreams),
+				reward: 2.5,
+			},
+			{
+				skyMap: SkyMap.CrabFields,
+				url: resolveShardEruptionMapURL(SkyMap.CrabFields),
+				reward: 2.5,
+			},
+			{
+				skyMap: SkyMap.JellyfishCove,
+				url: resolveShardEruptionMapURL(SkyMap.JellyfishCove),
+				reward: 3.5,
+			},
 		],
 	},
 	{
@@ -67,11 +102,31 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 		// 3 hours and 30 minutes.
 		offset: 12_600_000,
 		area: [
-			{ map: Map.SanctuaryIslands, url: resolveShardEruptionMapURL(Map.SanctuaryIslands), reward: 3.5 },
-			{ map: Map.ElevatedClearing, url: resolveShardEruptionMapURL(Map.ElevatedClearing), reward: 3.5 },
-			{ map: Map.HermitValley, url: resolveShardEruptionMapURL(Map.HermitValley), reward: 3.5 },
-			{ map: Map.ForgottenArk, url: resolveShardEruptionMapURL(Map.ForgottenArk), reward: 3.5 },
-			{ map: Map.JellyfishCove, url: resolveShardEruptionMapURL(Map.JellyfishCove), reward: 3.5 },
+			{
+				skyMap: SkyMap.SanctuaryIslands,
+				url: resolveShardEruptionMapURL(SkyMap.SanctuaryIslands),
+				reward: 3.5,
+			},
+			{
+				skyMap: SkyMap.ElevatedClearing,
+				url: resolveShardEruptionMapURL(SkyMap.ElevatedClearing),
+				reward: 3.5,
+			},
+			{
+				skyMap: SkyMap.HermitValley,
+				url: resolveShardEruptionMapURL(SkyMap.HermitValley),
+				reward: 3.5,
+			},
+			{
+				skyMap: SkyMap.ForgottenArk,
+				url: resolveShardEruptionMapURL(SkyMap.ForgottenArk),
+				reward: 3.5,
+			},
+			{
+				skyMap: SkyMap.JellyfishCove,
+				url: resolveShardEruptionMapURL(SkyMap.JellyfishCove),
+				reward: 3.5,
+			},
 		],
 	},
 ] as const;
@@ -83,7 +138,7 @@ interface ShardEruptionTimestampsData {
 
 export interface ShardEruptionData {
 	realm: RealmName;
-	map: Map;
+	skyMap: SkyMap;
 	strong: boolean;
 	reward: number;
 	timestamps: ShardEruptionTimestampsData[];
@@ -99,14 +154,20 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	const { noShardWeekDay, interval, offset, area } = SHARD_ERUPTION_PREDICTION_DATA[infoIndex]!;
 	// @ts-expect-error Too narrow.
 	const noShardDay = noShardWeekDay.includes(dayOfWeek);
-	if (noShardDay) return null;
+
+	if (noShardDay) {
+		return null;
+	}
+
 	const realmIndex = (dayOfMonth - 1) % 5;
-	const { map, url, reward } = area[realmIndex]!;
+	const { skyMap, url, reward } = area[realmIndex]!;
 
 	// https://x.com/whirthun/status/1758229071216152597
 	if (
-		map === Map.JellyfishCove &&
-		resolveEvents(date).some((event) => event.name === EventName.DaysOfLove && event.start.year === 2_024)
+		skyMap === SkyMap.JellyfishCove &&
+		resolveEvents(date).some(
+			(event) => event.name === EventName.DaysOfLove && event.start.year === 2_024,
+		)
 	) {
 		return null;
 	}
@@ -121,7 +182,7 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		timestamps.push({ start: startTime.plus({ second: 520 }), end: startTime.plus({ hour: 4 }) });
 	}
 
-	return { realm: VALID_REALM_NAME[realmIndex]!, map, strong, reward, timestamps, url };
+	return { realm: VALID_REALM_NAME[realmIndex]!, skyMap, strong, reward, timestamps, url };
 }
 
 export function resolveShardEruptionEmoji(strong: boolean) {
@@ -129,16 +190,18 @@ export function resolveShardEruptionEmoji(strong: boolean) {
 }
 
 export function shardEruptionInformationString(
-	{ realm, map, strong, reward, url }: ShardEruptionData,
+	{ realm, skyMap, strong, reward, url }: ShardEruptionData,
 	useHyperlink: boolean,
 	locale: Locale,
 ) {
-	let realmMap = `${t(`realms.${realm}`, { lng: locale, ns: "general" })} (${t(`maps.${map}`, {
+	let realmMap = `${t(`realms.${realm}`, { lng: locale, ns: "general" })} (${t(`maps.${skyMap}`, {
 		lng: locale,
 		ns: "general",
 	})})`;
 
-	if (useHyperlink) realmMap = hyperlink(realmMap, url);
+	if (useHyperlink) {
+		realmMap = hyperlink(realmMap, url);
+	}
 
 	return `${formatEmoji(resolveShardEruptionEmoji(strong))} ${realmMap}\n${
 		reward === 200

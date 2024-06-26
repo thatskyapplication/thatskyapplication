@@ -15,6 +15,11 @@ export default new Event({
 			cost: { money: 14.99 },
 			emoji: HELD_PROPS_EMOJIS.HeldProp32,
 		},
-		{ name: "Days of Fortune Muralist's Smock", bit: 1 << 2, cost: { money: 9.99 }, emoji: OUTFIT_EMOJIS.Outfit43 },
+		{
+			name: "Days of Fortune Muralist's Smock",
+			bit: 1 << 2,
+			cost: { money: 9.99 },
+			emoji: OUTFIT_EMOJIS.Outfit43,
+		},
 	],
 });

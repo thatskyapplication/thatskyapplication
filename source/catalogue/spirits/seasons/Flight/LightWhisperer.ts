@@ -1,6 +1,9 @@
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
-import { type SeasonalSpiritVisitCollectionKey, SeasonalSpirit } from "../../../../Structures/Spirits.js";
+import {
+	SeasonalSpirit,
+	type SeasonalSpiritVisitCollectionKey,
+} from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
@@ -34,7 +37,12 @@ export default new SeasonalSpirit({
 			{ name: "Blessing 1", bit: 1 << 1, cost: { candles: 5 }, emoji: blessing2 },
 			{ name: "Hair accessory", bit: 1 << 2, cost: { candles: 45 }, emoji: hairAccessoryEmoji },
 			{ name: "Heart", bit: 1 << 9, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Wing buff", bit: 1 << 10, cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff },
+			{
+				name: "Wing buff",
+				bit: 1 << 10,
+				cost: { ascendedCandles: 2 },
+				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+			},
 			{ name: "Blessing 2", bit: 1 << 4, cost: { candles: 5 }, emoji: blessing2 },
 			{ name: "Hair", bit: 1 << 3, cost: { candles: 50 }, emoji: hairEmoji },
 			{ name: "Outfit", bit: 1 << 7, cost: { candles: 65 }, emoji: outfitEmoji },
@@ -50,10 +58,18 @@ export default new SeasonalSpirit({
 			{ name: "Cape", bit: 1 << 6, emoji: capeEmoji },
 			{ name: "Outfit", bit: 1 << 7, cost: { seasonalCandles: 28 }, emoji: outfitEmoji },
 			{ name: "Trail spell 2", bit: 1 << 8, emoji: colourTrail },
-			{ name: "Seasonal heart", bit: 1 << 9, cost: { seasonalCandles: 3 }, emoji: SEASON_EMOJIS.FlightHeart },
+			{
+				name: "Seasonal heart",
+				bit: 1 << 9,
+				cost: { seasonalCandles: 3 },
+				emoji: SEASON_EMOJIS.FlightHeart,
+			},
 		],
 	},
 	visits: {
-		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(108, skyDate(2_024, 2, 29)),
+		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(
+			108,
+			skyDate(2_024, 2, 29),
+		),
 	},
 });

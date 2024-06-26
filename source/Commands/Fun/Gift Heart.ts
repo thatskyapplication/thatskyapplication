@@ -1,7 +1,7 @@
 import {
 	type ApplicationCommandData,
-	type UserContextMenuCommandInteraction,
 	ApplicationCommandType,
+	type UserContextMenuCommandInteraction,
 } from "discord.js";
 import COMMANDS, { type UserContextMenuCommand } from "../index.js";
 

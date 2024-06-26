@@ -8,7 +8,12 @@ export default new Event({
 	start: skyDate(2_022, 10, 24),
 	end: skyDate(2_022, 11, 13),
 	offer: [
-		{ name: "Mischief Tufted Hair", bit: 1 << 0, cost: { candles: 44 }, emoji: HAIR_EMOJIS.Hair117 },
+		{
+			name: "Mischief Tufted Hair",
+			bit: 1 << 0,
+			cost: { candles: 44 },
+			emoji: HAIR_EMOJIS.Hair117,
+		},
 		{
 			name: "Feline Familiar Prop",
 			bit: 1 << 1,

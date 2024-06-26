@@ -3,7 +3,7 @@ import { URL } from "node:url";
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
-import { type RealmName, CDN_URL } from "../Utility/Constants.js";
+import { CDN_URL, type RealmName } from "../Utility/Constants.js";
 import {
 	type Item,
 	type ItemCost,
@@ -17,12 +17,12 @@ import {
 import { skyDate } from "../Utility/dates.js";
 import {
 	type FriendAction,
+	SPIRIT_TYPE,
 	type SpiritCall,
 	type SpiritEmote,
 	type SpiritName,
 	type SpiritStance,
 	type SpiritType,
-	SPIRIT_TYPE,
 } from "../Utility/spirits.js";
 import pino from "../pino.js";
 
@@ -103,7 +103,10 @@ interface BaseSpiritData {
 
 export type StandardSpiritRealm = Exclude<RealmName, RealmName.EyeOfEden>;
 
-interface StandardSpiritData extends BaseSpiritData, StandardFriendshipTreeData, ExpressiveSpiritData {
+interface StandardSpiritData
+	extends BaseSpiritData,
+		StandardFriendshipTreeData,
+		ExpressiveSpiritData {
 	realm: StandardSpiritRealm;
 }
 
@@ -111,8 +114,15 @@ interface ElderSpiritData extends BaseSpiritData, ElderFriendshipTreeData {
 	realm: RealmName;
 }
 
-export type SeasonalSpiritVisitTravellingData = Collection<SeasonalSpiritVisitCollectionKey, DateTime>;
-export type SeasonalSpiritVisitReturningData = Collection<SeasonalSpiritVisitCollectionKey, ReturningDatesData>;
+export type SeasonalSpiritVisitTravellingData = Collection<
+	SeasonalSpiritVisitCollectionKey,
+	DateTime
+>;
+
+export type SeasonalSpiritVisitReturningData = Collection<
+	SeasonalSpiritVisitCollectionKey,
+	ReturningDatesData
+>;
 
 interface SeasonalSpiritVisitData {
 	travelling?: SeasonalSpiritVisitTravellingData;
@@ -124,7 +134,10 @@ interface SeasonalSpiritVisit {
 	returning: SeasonalSpiritVisitReturningData;
 }
 
-interface SeasonalSpiritData extends BaseSpiritData, SeasonalFriendshipTreeData, ExpressiveSpiritData {
+interface SeasonalSpiritData
+	extends BaseSpiritData,
+		SeasonalFriendshipTreeData,
+		ExpressiveSpiritData {
 	hasMarketingVideo?: boolean;
 	visits?: SeasonalSpiritVisitData;
 }
@@ -146,11 +159,16 @@ abstract class BaseFriendshipTree {
 		this.current = offer?.current ? resolveOffer(offer.current) : [];
 
 		this.totalCost = this.current
-			? addCosts(this.current.map((item) => item.cost).filter((cost): cost is ItemCost => cost !== null))
+			? addCosts(
+					this.current.map((item) => item.cost).filter((cost): cost is ItemCost => cost !== null),
+				)
 			: null;
 
 		this.maximumItemsBit = offer?.current ? this.resolveMaxItemsBit(offer.current) : null;
-		this.imageURL = (offer ? offer.hasInfographic ?? true : false) ? this.resolveImageURL(name) : null;
+
+		this.imageURL = (offer ? offer.hasInfographic ?? true : false)
+			? this.resolveImageURL(name)
+			: null;
 	}
 
 	protected resolveMaxItemsBit(offer: readonly ItemRaw[]) {
@@ -159,7 +177,10 @@ abstract class BaseFriendshipTree {
 
 	protected resolveImageURL(name: SpiritName, seasonal = false) {
 		return String(
-			new URL(`spirits/${snakeCaseName(name)}/friendship_tree/${seasonal ? "seasonal" : "current"}.webp`, CDN_URL),
+			new URL(
+				`spirits/${snakeCaseName(name)}/friendship_tree/${seasonal ? "seasonal" : "current"}.webp`,
+				CDN_URL,
+			),
 		);
 	}
 }
@@ -320,13 +341,16 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 			: null;
 
 		this.visits = {
-			travelling: spirit.visits?.travelling ?? new Collection<SeasonalSpiritVisitCollectionKey, DateTime>(),
+			travelling:
+				spirit.visits?.travelling ?? new Collection<SeasonalSpiritVisitCollectionKey, DateTime>(),
 			returning:
 				spirit.visits?.returning?.reduce((collection, returning) => {
 					const period = RETURNING_DATES.get(returning);
 
 					if (!period) {
-						pino.fatal(`${this.name} had a returning index of ${returning}, but there was no date for it.`);
+						pino.fatal(
+							`${this.name} had a returning index of ${returning}, but there was no date for it.`,
+						);
 						process.exit(1);
 					}
 
@@ -344,11 +368,14 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 
 		return {
 			visited: Boolean(
-				(firstTravelling && firstTravelling <= date) || (firstReturning && firstReturning.start <= date),
+				(firstTravelling && firstTravelling <= date) ||
+					(firstReturning && firstReturning.start <= date),
 			),
 			current: {
 				travelling: Boolean(
-					lastTravelling && date >= lastTravelling && date <= lastTravelling.plus({ days: 3 }).endOf("day"),
+					lastTravelling &&
+						date >= lastTravelling &&
+						date <= lastTravelling.plus({ days: 3 }).endOf("day"),
 				),
 				returning: returning.some(({ start, end }) => date >= start && date <= end),
 			},

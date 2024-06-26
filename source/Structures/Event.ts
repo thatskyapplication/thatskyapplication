@@ -3,14 +3,14 @@ import type { DateTime } from "luxon";
 import { CDN_URL } from "../Utility/Constants.js";
 import {
 	type EventName,
+	EventNameToEventCurrencyEmoji,
 	type EventNameUnique,
+	EventNameUniqueToEventName,
 	type Item,
 	type ItemRaw,
-	EventNameToEventCurrencyEmoji,
-	EventNameUniqueToEventName,
 	resolveOffer,
-	wikiURL,
 	snakeCaseName,
+	wikiURL,
 } from "../Utility/catalogue.js";
 import type { EventEmojis } from "../Utility/emojis.js";
 
@@ -105,8 +105,13 @@ export class Event {
 		this.eventCurrencyInfographicURL = Array.isArray(data.eventCurrencyInfographicURL)
 			? data.eventCurrencyInfographicURL
 			: data.eventCurrencyInfographicURL
-			? String(new URL(`events/${this.start.year}/${snakeCaseName(this.name)}/event_currency.webp`, CDN_URL))
-			: null;
+				? String(
+						new URL(
+							`events/${this.start.year}/${snakeCaseName(this.name)}/event_currency.webp`,
+							CDN_URL,
+						),
+					)
+				: null;
 
 		this.eventCurrencyPerDay = data.eventCurrencyPerDay ?? null;
 		this.eventCurrencyEmoji = EventNameToEventCurrencyEmoji[this.name];
@@ -134,12 +139,12 @@ export class Event {
 				? `${name} ends today.`
 				: `${daysLeftInEvent === 1 ? `${daysLeftInEvent} day` : `${daysLeftInEvent} days`} left in ${name}.`
 			: daysUntilStart > 0
-			? daysUntilStart === 1
-				? `${name} starts tomorrow.`
-				: `${name} starts in ${daysUntilStart} days.`
-			: daysLeftInEvent === -1
-			? `${name} ended ${Math.abs(daysLeftInEvent)} day ago.`
-			: `${name} ended ${Math.abs(daysLeftInEvent)} days ago.`;
+				? daysUntilStart === 1
+					? `${name} starts tomorrow.`
+					: `${name} starts in ${daysUntilStart} days.`
+				: daysLeftInEvent === -1
+					? `${name} ended ${Math.abs(daysLeftInEvent)} day ago.`
+					: `${name} ended ${Math.abs(daysLeftInEvent)} days ago.`;
 	}
 
 	public resolveInfographicURL(date: DateTime): string | null {

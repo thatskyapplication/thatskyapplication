@@ -1,18 +1,18 @@
 import {
-	type ChatInputCommandInteraction,
-	type Locale,
-	type MessageComponentInteraction,
-	type Snowflake,
-	type StringSelectMenuInteraction,
 	ActionRowBuilder,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	ButtonBuilder,
 	ButtonInteraction,
 	ButtonStyle,
+	type ChatInputCommandInteraction,
 	EmbedBuilder,
+	type Locale,
+	type MessageComponentInteraction,
 	PermissionFlagsBits,
+	type Snowflake,
 	StringSelectMenuBuilder,
+	type StringSelectMenuInteraction,
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
 import { DateTime } from "luxon";
@@ -29,15 +29,23 @@ import {
 import type { ChatInputCommand } from "../index.js";
 
 export const SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID" as const;
-export const SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID" as const;
+
+export const SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID =
+	"SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID" as const;
+
 export const SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID" as const;
 
 export const SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID =
 	"SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID" as const;
 
-export const SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID" as const;
-export const SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID" as const;
-export const SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID" as const;
+export const SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID =
+	"SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID" as const;
+
+export const SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID =
+	"SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID" as const;
+
+export const SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID =
+	"SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID" as const;
 
 export const SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS = [
 	"SHARD_ERUPTION_BROWSE_1_SELECT_MENU_CUSTOM_ID",
@@ -46,10 +54,16 @@ export const SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS = [
 	"SHARD_ERUPTION_BROWSE_4_SELECT_MENU_CUSTOM_ID",
 ] as const;
 
-const SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH = SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.length;
+const SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH =
+	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.length;
 const MAXIMUM_OPTION_NUMBER = 25 as const;
 
-function generateShardEruptionSelectMenuOptions(date: DateTime, indexStart: number, offset: number, locale: Locale) {
+function generateShardEruptionSelectMenuOptions(
+	date: DateTime,
+	indexStart: number,
+	offset: number,
+	locale: Locale,
+) {
 	const options = [];
 	const maximumIndex = MAXIMUM_OPTION_NUMBER + indexStart;
 
@@ -97,11 +111,13 @@ export default new (class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
-			case "browse":
+			case "browse": {
 				await this.browse(interaction);
 				return;
-			case "today":
+			}
+			case "today": {
 				await this.today(interaction);
+			}
 		}
 	}
 
@@ -111,14 +127,21 @@ export default new (class implements ChatInputCommand {
 
 		if (fromMessageComponent) {
 			const { message } = interaction;
-			const expiresAt = DateTime.fromMillis(message.createdTimestamp, { zone: TIME_ZONE }).endOf("day");
+
+			const expiresAt = DateTime.fromMillis(message.createdTimestamp, { zone: TIME_ZONE }).endOf(
+				"day",
+			);
 
 			if (today > expiresAt) {
 				const hasEmbeds = message.embeds.length > 0;
 
 				const expiryMessage = `This command has expired. Run ${
 					this.id
-						? chatInputApplicationCommandMention(this.id, this.data.name, this.data.options[hasEmbeds ? 1 : 0].name)
+						? chatInputApplicationCommandMention(
+								this.id,
+								this.data.name,
+								this.data.options[hasEmbeds ? 1 : 0].name,
+							)
 						: "it"
 				} again!`;
 
@@ -147,8 +170,14 @@ export default new (class implements ChatInputCommand {
 		interaction: ButtonInteraction | ChatInputCommandInteraction | StringSelectMenuInteraction,
 		offset = 0,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) return;
-		if (await this.hasExpired(interaction)) return;
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		if (await this.hasExpired(interaction)) {
+			return;
+		}
+
 		const { locale } = interaction;
 		const shardYesterday = shardEruption(offset - 1);
 		const shardToday = shardEruption(offset);
@@ -175,7 +204,9 @@ export default new (class implements ChatInputCommand {
 			.setLabel("Next")
 			.setStyle(ButtonStyle.Primary);
 
-		if (shardYesterday) buttonYesterday.setEmoji(resolveShardEruptionEmoji(shardYesterday.strong));
+		if (shardYesterday) {
+			buttonYesterday.setEmoji(resolveShardEruptionEmoji(shardYesterday.strong));
+		}
 
 		if (shardToday) {
 			embed
@@ -193,11 +224,18 @@ export default new (class implements ChatInputCommand {
 				)
 				.setImage(String(shardToday.url));
 		} else {
-			embed.setDescription(`There are no shard eruptions ${offset === 0 ? "today" : "on this day"}.`);
+			embed.setDescription(
+				`There are no shard eruptions ${offset === 0 ? "today" : "on this day"}.`,
+			);
 		}
 
-		if (shard) button.setEmoji(resolveShardEruptionEmoji(shard.strong));
-		if (shardTomorrow) buttonTomorrow.setEmoji(resolveShardEruptionEmoji(shardTomorrow.strong));
+		if (shard) {
+			button.setEmoji(resolveShardEruptionEmoji(shard.strong));
+		}
+
+		if (shardTomorrow) {
+			buttonTomorrow.setEmoji(resolveShardEruptionEmoji(shardTomorrow.strong));
+		}
 
 		const response = {
 			components: [
@@ -223,7 +261,10 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async browse(interaction: ButtonInteraction | ChatInputCommandInteraction, offset = 0) {
-		if (await this.hasExpired(interaction)) return;
+		if (await this.hasExpired(interaction)) {
+			return;
+		}
+
 		const { locale } = interaction;
 		const shardToday = todayDate().plus({ days: offset });
 
@@ -244,7 +285,9 @@ export default new (class implements ChatInputCommand {
 									locale,
 								),
 							)
-							.setOptions(generateShardEruptionSelectMenuOptions(shardToday, currentIndex, offset, locale)),
+							.setOptions(
+								generateShardEruptionSelectMenuOptions(shardToday, currentIndex, offset, locale),
+							),
 					);
 				}),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
