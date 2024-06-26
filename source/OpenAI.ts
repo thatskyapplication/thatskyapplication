@@ -141,7 +141,7 @@ export async function messageCreateResponse(message: Message<true>) {
 								}) as const,
 						),
 					],
-					model: "gpt-4-1106-preview",
+					model: "gpt-4o",
 					user: message.author.id,
 				},
 				{ signal: abortController.signal },
