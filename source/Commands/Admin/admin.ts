@@ -268,6 +268,8 @@ export default new (class implements AutocompleteCommand {
 
 		if (interaction instanceof ChatInputCommandInteraction) {
 			await interaction.reply(response);
+		} else if (interaction.deferred) {
+			await interaction.editReply(response);
 		} else {
 			await interaction.update(response);
 		}
@@ -275,6 +277,7 @@ export default new (class implements AutocompleteCommand {
 
 	public async distribute(interaction: ButtonInteraction) {
 		const { client, locale, user } = interaction;
+		await interaction.deferUpdate();
 		await DailyGuidesDistribution.distribute(client);
 
 		void client.log({
