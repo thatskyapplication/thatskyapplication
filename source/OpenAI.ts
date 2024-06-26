@@ -23,15 +23,13 @@ const AI_DESCRIPTION_REACTION = `${AI_DESCRIPTION_EMOJIS} Put each emoji on a ne
 function parseAIName(user: User) {
 	const { username } = user;
 
-	// It's not possible for a Discord username to be longer than 32 characters or return an empty output.
+	// It's not possible for a Discord username to be longer than 64 characters.
 	const name = username.replaceAll(/[^\w-]/g, "");
 
+	// Bots may return an empty output.
 	if (name.length === 0) {
 		pino.warn(user, "AI name parsing failed.");
-
-		if (name === "ココロ") {
-			return "Kokoro";
-		}
+		return "Stranger";
 	}
 
 	return name;
