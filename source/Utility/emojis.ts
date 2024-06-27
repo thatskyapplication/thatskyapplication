@@ -3277,6 +3277,18 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Colour Bubble Machine.
 	 */
 	SmallPlaceableProp63: { name: "small_placeable_prop", id: "1254865652192116746" },
+	/**
+	 * Stone wall mug rack.
+	 */
+	SmallPlaceableProp64: { name: "small_placeable_prop", id: "1255792723248545802" },
+	/**
+	 * Stone wall towel rack.
+	 */
+	SmallPlaceableProp65: { name: "small_placeable_prop", id: "1255792737488339025" },
+	/**
+	 * Medium circle rug.
+	 */
+	SmallPlaceableProp66: { name: "small_placeable_prop", id: "1255792750373244969" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =
