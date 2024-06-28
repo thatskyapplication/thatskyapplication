@@ -599,10 +599,13 @@ export default new (class DailyGuides {
 		if (!this.validToParse(message)) {
 			return;
 		}
+
 		const { attachments, client, content, flags } = message;
+
 		if (flags.has(MessageFlags.SourceMessageDeleted)) {
 			return;
 		}
+
 		const transformedContent = content.toUpperCase();
 
 		if (
