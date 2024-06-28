@@ -535,7 +535,10 @@ export const QUESTS = [
 ] as const satisfies Readonly<DailyGuideQuest[]>;
 
 const regularExpressionRealms = REALM_NAME_VALUES.join("|").replaceAll(" ", "\\s+");
-const skyMapRegExp = [...Object.values(SkyMap), ...inconsistentMapKeys].join("|").replaceAll(" ", "\\s+");
+
+const skyMapRegExp = [...Object.values(SkyMap), ...inconsistentMapKeys]
+	.join("|")
+	.replaceAll(" ", "\\s+");
 
 export default new (class DailyGuides {
 	public quest1: DailyGuidesData["quest1"] = null;
@@ -884,7 +887,9 @@ export default new (class DailyGuides {
 		const realm = potentialRealmRegExp ? resolveValidRealm(potentialRealmRegExp) : null;
 
 		// Attempt to find a map.
-		const potentialMapRegExp = new RegExp(`\\s(${skyMapRegExp})`, "i").exec(pureContent)?.[1] ?? null;
+		const potentialMapRegExp =
+			new RegExp(`\\s(${skyMapRegExp})`, "i").exec(pureContent)?.[1] ?? null;
+
 		const skyMap = potentialMapRegExp ? resolveMap(potentialMapRegExp) : null;
 
 		// Resolve the daily guide.
