@@ -40,7 +40,7 @@ export function resolveMap(rawMap: string) {
 
 	return inconsistentResult
 		? INCONSISTENT_MAP[inconsistentResult]
-		: Object.values(Map).find((map) => map.toUpperCase() === upperRawMap) ?? null;
+		: Object.values(SkyMap).find((skyMap) => skyMap.toUpperCase() === upperRawMap) ?? null;
 }
 
 export function resolveMeditationMap(map: MeditationMaps) {
