@@ -65,9 +65,8 @@ export default new SeasonalSpirit({
 	},
 	keywords: ["frog", "frog mask"],
 	visits: {
-		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(
-			71,
-			skyDate(2_022, 9, 29),
-		),
+		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>()
+			.set(71, skyDate(2_022, 9, 29))
+			.set(117, skyDate(2_024, 7, 4)),
 	},
 });
