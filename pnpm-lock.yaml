@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   discord.js@14.15.3:
-    hash: mzvjhosfif43je57lvpch3v4bq
+    hash: g564ws5fi2jt7wrinwpo5g5dxa
     path: patches/discord.js@14.15.3.patch
 
 importers:
@@ -21,7 +21,7 @@ importers:
         version: 0.4.22(pino@9.2.0)
       discord.js:
         specifier: 14.15.3
-        version: 14.15.3(patch_hash=mzvjhosfif43je57lvpch3v4bq)
+        version: 14.15.3(patch_hash=g564ws5fi2jt7wrinwpo5g5dxa)
       hasha:
         specifier: ^6.0.0
         version: 6.0.0
@@ -2940,7 +2940,7 @@ snapshots:
 
   discord-api-types@0.37.83: {}
 
-  discord.js@14.15.3(patch_hash=mzvjhosfif43je57lvpch3v4bq):
+  discord.js@14.15.3(patch_hash=g564ws5fi2jt7wrinwpo5g5dxa):
     dependencies:
       '@discordjs/builders': 1.8.2
       '@discordjs/collection': 1.5.3

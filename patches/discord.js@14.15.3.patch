@@ -43,6 +43,19 @@ index fe45763b438d59ff2ea951cb25645042cd1cb0cd..16238c0c80b48ba40e245d49de14fead
        ('nsfw' in command && command.nsfw !== this.nsfw) ||
        // Future proof for options being nullable
        // TODO: remove ?? 0 on each when nullable
+diff --git a/src/structures/BaseInteraction.js b/src/structures/BaseInteraction.js
+index 8a25f6f6ac324f2596cc1891aa4b0ef5146abbab..914a125b7ccb59e779607a12dc3678e77870eafc 100644
+--- a/src/structures/BaseInteraction.js
++++ b/src/structures/BaseInteraction.js
+@@ -103,7 +103,7 @@ class BaseInteraction extends Base {
+      * The entitlements for the invoking user, representing access to premium SKUs
+      * @type {Collection<Snowflake, Entitlement>}
+      */
+-    this.entitlements = data.entitlements.reduce(
++    this.entitlements = (data.entitlements ?? []).reduce(
+       (coll, entitlement) => coll.set(entitlement.id, this.client.application.entitlements._add(entitlement)),
+       new Collection(),
+     );
 diff --git a/typings/index.d.mts b/typings/index.d.mts
 index 8605883a5fab0b2bde86d64b525f2dc502b44f9e..706b6c087f69be9e1053ba657d3929377f493a25 100644
 --- a/typings/index.d.mts
