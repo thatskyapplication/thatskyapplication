@@ -227,7 +227,7 @@ export enum SpiritName {
 	NestingLoft = "Nesting Loft",
 	NestingAtrium = "Nesting Atrium",
 	NestingNook = "Nesting Nook",
-	
+
 	// Season of Duets.
 	DuetsGuide = "Duets Guide",
 }

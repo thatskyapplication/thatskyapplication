@@ -531,7 +531,9 @@ export const QUESTS = [
 	WAKE_UP_CINNAMOROLL_IN_AVIARY_VILLAGE,
 	FLY_UP_TO_THE_TOWER_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE,
 	SPLASH_IN_THE_WATER_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE,
-	...spirits().filter(isQuestSpirit).map((spirit) => SPIRIT_QUEST(spirit)),
+	...spirits()
+		.filter(isQuestSpirit)
+		.map((spirit) => SPIRIT_QUEST(spirit)),
 ] as const satisfies Readonly<DailyGuideQuest[]>;
 
 const regularExpressionRealms = REALM_NAME_VALUES.join("|").replaceAll(" ", "\\s+");
