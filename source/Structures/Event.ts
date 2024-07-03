@@ -131,17 +131,17 @@ export class Event {
 
 	public daysText(date: DateTime) {
 		const { end, start, name } = this;
-		const daysLeftInEvent = Math.floor(end.diff(date, "days").days);
+		const daysLeft = Math.floor(end.diff(date, "days").days);
 		const daysUntilStart = Math.floor(start.diff(date, "days").days);
 
-		if (daysLeftInEvent <= 0) {
-			if (daysLeftInEvent === 0) {
+		if (daysLeft <= 0) {
+			if (daysLeft === 0) {
 				return `${name} ends today.`;
 			}
 
-			return daysLeftInEvent === -1
-				? `${name} ended ${Math.abs(daysLeftInEvent)} day ago.`
-				: `${name} ended ${Math.abs(daysLeftInEvent)} days ago.`;
+			return daysLeft === -1
+				? `${name} ended ${Math.abs(daysLeft)} day ago.`
+				: `${name} ended ${Math.abs(daysLeft)} days ago.`;
 		}
 
 		if (daysUntilStart >= 0) {
@@ -152,7 +152,7 @@ export class Event {
 					: `${name} starts in ${daysUntilStart} days.`;
 		}
 
-		return `${daysLeftInEvent === 1 ? `${daysLeftInEvent} day` : `${daysLeftInEvent} days`} left in ${name}.`;
+		return `${daysLeft === 1 ? `${daysLeft} day` : `${daysLeft} days`} left in ${name}.`;
 	}
 
 	public resolveInfographicURL(date: DateTime): string | null {

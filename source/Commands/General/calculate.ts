@@ -543,7 +543,7 @@ export default new (class implements ChatInputCommand {
 		if (season) {
 			const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
 				season.remainingSeasonalCandles(today);
-			const daysLeft = season.daysLeft(today, lng);
+			const daysLeft = season.daysText(today, lng);
 
 			embed.addFields({
 				name: t("calculate.seasonal-candles.season-calculations", { lng, ns: "commands" }),

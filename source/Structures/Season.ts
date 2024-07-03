@@ -110,9 +110,24 @@ export class Season {
 		this.seasonalCandlesRotation = data.seasonalCandlesRotation;
 	}
 
-	public daysLeft(date: DateTime, locale: Locale) {
-		const daysLeftInSeason = this.end.diff(date, "days").days;
-		return t("days-left.season", { lng: locale, ns: "general", count: daysLeftInSeason });
+	public daysText(date: DateTime, locale: Locale) {
+		const { end, start } = this;
+		const daysLeft = Math.floor(end.diff(date, "days").days);
+		const daysUntilStart = Math.floor(start.diff(date, "days").days);
+
+		if (daysLeft < 0) {
+			return daysLeft === -1
+				? `The season ended ${Math.abs(daysLeft)} day ago.`
+				: `The season ended ${Math.abs(daysLeft)} days ago.`;
+		}
+
+		if (daysUntilStart > 0) {
+			return daysUntilStart === 1
+				? "The new season starts tomorrow."
+				: `The new season starts in ${daysUntilStart} days.`;
+		}
+
+		return t("days-left.season", { lng: locale, ns: "general", count: daysLeft });
 	}
 
 	public remainingSeasonalCandles(date: DateTime) {

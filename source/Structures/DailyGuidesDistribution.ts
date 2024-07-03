@@ -396,14 +396,14 @@ export default class DailyGuidesDistribution {
 		}
 
 		const season = resolveSeason(today);
-		let seasonFooterText = null;
+		const footerText = [];
 		let iconURL = null;
 
 		if (season) {
 			const { candleEmoji, emoji } = season;
 			const seasonalCandlesRotation = season.resolveSeasonalCandlesRotation(today);
 			const values = [];
-			seasonFooterText = season.daysLeft(today, locale);
+			footerText.push(season.daysText(today, locale));
 			iconURL = formatEmojiURL(emoji.id);
 
 			if (seasonalCandlesRotation) {
@@ -442,23 +442,17 @@ export default class DailyGuidesDistribution {
 			const next = nextSeason(today);
 
 			if (next) {
-				const daysUntilSeason = next.start.diff(today, "days").days;
-
-				seasonFooterText = `The new season starts ${
-					daysUntilSeason === 1 ? "tomorrow" : `in ${daysUntilSeason} days`
-				}.`;
+				footerText.push(next.daysText(today, locale));
 			}
 		}
 
 		const eventData = this.eventData(today, locale);
-		const eventFooterText = eventData.eventEndText.join("\n");
+		footerText.push(...eventData.eventEndText);
 		iconURL ??= eventData.iconURL;
 
-		if (seasonFooterText || eventFooterText) {
+		if (footerText.length > 0) {
 			const footer: EmbedFooterOptions = {
-				text: [seasonFooterText, eventFooterText]
-					.filter((footerText) => footerText !== null)
-					.join("\n"),
+				text: footerText.join("\n"),
 			};
 
 			if (iconURL) {
