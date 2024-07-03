@@ -3019,6 +3019,10 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Stone washstand.
 	 */
 	LargePlaceableProp66: { name: "large_placeable_prop", id: "1250011362122530837" },
+	/**
+	 * Stone kitchen cabinet.
+	 */
+	LargePlaceableProp67: { name: "large_placeable_prop", id: "1257965976549462086" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type LargePlaceablePropsEmojis =
@@ -3289,6 +3293,14 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Medium circle rug.
 	 */
 	SmallPlaceableProp66: { name: "small_placeable_prop", id: "1255792750373244969" },
+	/**
+	 * Stone wall shelf.
+	 */
+	SmallPlaceableProp67: { name: "small_placeable_prop", id: "1257966826973954078" },
+	/**
+	 * Large solid rug.
+	 */
+	SmallPlaceableProp68: { name: "small_placeable_prop", id: "1257966838915006514" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =

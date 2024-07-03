@@ -273,6 +273,24 @@ const items = resolveOffer([
 	// 	cost: { candles: 70 },
 	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp66,
 	// },
+	// {
+	// 	name: "Stone kitchen cabinet",
+	// 	bit: 1 << 45,
+	// 	cost: { candles: 40 },
+	// 	emoji: LARGE_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp67,
+	// },
+	// {
+	// 	name: "Stone wall shelf",
+	// 	bit: 1 << 46,
+	// 	cost: { candles: 30 },
+	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp67,
+	// },
+	// {
+	// 	name: "Large solid rug",
+	// 	bit: 1 << 47,
+	// 	cost: { candles: 80 },
+	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp68,
+	// },
 ]);
 
 export const NESTING_WORKSHOP = {
