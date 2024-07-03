@@ -6,6 +6,7 @@ import DaysOfNature from "./DaysOfNature.js";
 import SkyFest from "./SkyFest.js";
 import SkyXCinnamorollPopUpCafe from "./SkyXCinnamorollPopUpCafe.js";
 import SpringCamping from "./SpringCamping.js";
+import TournamentOfTriumph from "./TournamentOfTriumph.js";
 
 export default [
 	DaysOfFortune,
@@ -16,4 +17,5 @@ export default [
 	DaysOfNature,
 	DaysOfColour,
 	SkyFest,
+	TournamentOfTriumph,
 ] as const;

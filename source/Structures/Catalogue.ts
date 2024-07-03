@@ -322,6 +322,7 @@ export interface CataloguePacket {
 	sky_fest_2024: CatalogueValue;
 	duets_guide: CatalogueValue;
 	season_of_duets: CatalogueValue;
+	tournament_of_triumph_2024: CatalogueValue;
 }
 
 interface CatalogueData {
@@ -579,6 +580,7 @@ interface CatalogueData {
 	skyFest2024: CataloguePacket["sky_fest_2024"];
 	duetsGuide: CataloguePacket["duets_guide"];
 	seasonOfDuets: CataloguePacket["season_of_duets"];
+	tournamentOfTriumph2024: CataloguePacket["tournament_of_triumph_2024"];
 }
 
 type CataloguePatchData = Omit<CataloguePacket, "user_id">;
@@ -838,6 +840,7 @@ const CatalogueNameToRawName = {
 	[EventNameUnique.SkyFest2024]: "sky_fest_2024",
 	[SpiritName.DuetsGuide]: "duets_guide",
 	[SeasonName.Duets]: "season_of_duets",
+	[EventNameUnique.TournamentOfTriumph2024]: "tournament_of_triumph_2024",
 } as const satisfies Readonly<
 	Record<
 		| SpiritName
@@ -1108,6 +1111,7 @@ const SpiritEventNameToCatalogueName = {
 	[EventNameUnique.SkyFest2024]: "skyFest2024",
 	[SpiritName.DuetsGuide]: "duetsGuide",
 	[SeasonName.Duets]: "seasonOfDuets",
+	[EventNameUnique.TournamentOfTriumph2024]: "tournamentOfTriumph2024",
 } as const satisfies Readonly<
 	Record<
 		| SpiritName
@@ -1676,6 +1680,8 @@ export class Catalogue {
 
 	public seasonOfDuets!: CatalogueData["seasonOfDuets"];
 
+	public tournamentOfTriumph2024!: CatalogueData["tournamentOfTriumph2024"];
+
 	public constructor(catalogue: CataloguePacket) {
 		this.userId = catalogue.user_id;
 		this.patch(catalogue);
@@ -1935,6 +1941,7 @@ export class Catalogue {
 		this.skyFest2024 = data.sky_fest_2024;
 		this.duetsGuide = data.duets_guide;
 		this.seasonOfDuets = data.season_of_duets;
+		this.tournamentOfTriumph2024 = data.tournament_of_triumph_2024;
 	}
 
 	public static async fetch(userId: Snowflake) {
