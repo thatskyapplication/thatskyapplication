@@ -255,16 +255,19 @@ const items = resolveOffer([
 	// 	cost: { hearts: 20 },
 	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp62,
 	// },
+	// {
 	// 	name: "Stone wall mug rack",
 	// 	bit: 1 << 42,
 	// 	cost: { candles: 40 },
 	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp64,
 	// },
+	// {
 	// 	name: "Stone wall towel rack",
 	// 	bit: 1 << 43,
 	// 	cost: { candles: 30 },
 	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp65,
 	// },
+	// {
 	// 	name: "Medium circle rug",
 	// 	bit: 1 << 44,
 	// 	cost: { candles: 70 },
