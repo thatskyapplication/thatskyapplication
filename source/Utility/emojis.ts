@@ -277,6 +277,7 @@ export const SEASON_EMOJIS = {
 	Nesting: { name: "nesting", id: "1227500778155937824" },
 	NestingCandle: { name: "nesting_candle", id: "1227500789862498368" },
 	NestingHeart: { name: "nesting_heart", id: "1227500803036545065" },
+	Duets: { name: "duets", id: "1257994089849163816" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type SeasonEmojis = (typeof SEASON_EMOJIS)[keyof typeof SEASON_EMOJIS];

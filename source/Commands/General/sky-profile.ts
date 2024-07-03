@@ -25,7 +25,7 @@ import {
 	SeasonNameToSeasonalEmoji,
 } from "../../Utility/catalogue.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
-import { SPIRITS } from "../../catalogue/spirits/index.js";
+import { spirits } from "../../catalogue/spirits/index.js";
 import COMMANDS, { type AutocompleteCommand } from "../index.js";
 
 export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
@@ -398,7 +398,7 @@ export default new (class implements AutocompleteCommand {
 	public async setSpirit(interaction: ChatInputCommandInteraction) {
 		const { options } = interaction;
 		const query = options.getString("spirit", true);
-		const spirit = SPIRITS.find(({ name }) => name === query);
+		const spirit = spirits().find(({ name }) => name === query);
 
 		if (!spirit) {
 			await interaction.reply({

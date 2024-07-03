@@ -1,4 +1,6 @@
 import { REALM_SPIRITS } from "./realms/index.js";
-import { SEASON_SPIRITS } from "./seasons/index.js";
+import { currentSeasonalSpirits } from "./seasons/index.js";
 
-export const SPIRITS = [...REALM_SPIRITS, ...SEASON_SPIRITS] as const;
+export function spirits() {
+	return [...REALM_SPIRITS, ...currentSeasonalSpirits()];
+}

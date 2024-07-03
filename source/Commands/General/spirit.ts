@@ -42,7 +42,7 @@ import {
 	SpiritEmoteToEmoji,
 	SpiritStanceToEmoji,
 } from "../../Utility/spirits.js";
-import { SPIRITS } from "../../catalogue/spirits/index.js";
+import { spirits } from "../../catalogue/spirits/index.js";
 import { resolveSeasonalSpirit } from "../../catalogue/spirits/seasons/index.js";
 import type { AutocompleteCommand } from "../index.js";
 import COMMANDS from "../index.js";
@@ -113,7 +113,7 @@ export default new (class implements AutocompleteCommand {
 
 	public async search(interaction: ChatInputCommandInteraction) {
 		const query = interaction.options.getString("query", true);
-		const spirit = SPIRITS.find(({ name }) => name === query);
+		const spirit = spirits().find(({ name }) => name === query);
 
 		if (!spirit) {
 			await interaction.reply({
@@ -316,35 +316,36 @@ export default new (class implements AutocompleteCommand {
 		await interaction.respond(
 			focused === ""
 				? []
-				: SPIRITS.filter((spirit) => {
-						const { name, keywords } = spirit;
-						const localisedName = t(`spiritNames.${name}`, { lng: locale, ns: "general" });
-						let emote = null;
-						let stance = null;
-						let call = null;
-						let action = null;
-						const isSeasonalSpirit = spirit.isSeasonalSpirit();
+				: spirits()
+						.filter((spirit) => {
+							const { name, keywords } = spirit;
+							const localisedName = t(`spiritNames.${name}`, { lng: locale, ns: "general" });
+							let emote = null;
+							let stance = null;
+							let call = null;
+							let action = null;
+							const isSeasonalSpirit = spirit.isSeasonalSpirit();
 
-						if (spirit.isStandardSpirit() || isSeasonalSpirit) {
-							emote = spirit.emote?.toUpperCase() ?? null;
-							stance = spirit.stance?.toUpperCase() ?? null;
-							call = spirit.call?.toUpperCase() ?? null;
-							action = spirit.action?.toUpperCase() ?? null;
-						}
+							if (spirit.isStandardSpirit() || isSeasonalSpirit) {
+								emote = spirit.emote?.toUpperCase() ?? null;
+								stance = spirit.stance?.toUpperCase() ?? null;
+								call = spirit.call?.toUpperCase() ?? null;
+								action = spirit.action?.toUpperCase() ?? null;
+							}
 
-						const seasonName =
-							isSeasonalSpirit || spirit.isGuideSpirit() ? spirit.season.toUpperCase() : null;
+							const seasonName =
+								isSeasonalSpirit || spirit.isGuideSpirit() ? spirit.season.toUpperCase() : null;
 
-						return (
-							localisedName.toUpperCase().includes(focused) ||
-							keywords.some((keyword) => keyword.toUpperCase().includes(focused)) ||
-							emote?.toUpperCase().includes(focused) ||
-							stance?.toUpperCase().includes(focused) ||
-							call?.toUpperCase().includes(focused) ||
-							action?.toUpperCase().includes(focused) ||
-							seasonName?.includes(focused)
-						);
-					})
+							return (
+								localisedName.toUpperCase().includes(focused) ||
+								keywords.some((keyword) => keyword.toUpperCase().includes(focused)) ||
+								emote?.toUpperCase().includes(focused) ||
+								stance?.toUpperCase().includes(focused) ||
+								call?.toUpperCase().includes(focused) ||
+								action?.toUpperCase().includes(focused) ||
+								seasonName?.includes(focused)
+							);
+						})
 						.map(({ name }) => ({
 							name: t(`spiritNames.${name}`, { lng: locale, ns: "general" }),
 							value: name,

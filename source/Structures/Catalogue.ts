@@ -43,7 +43,7 @@ import { HARMONY_HALL } from "../catalogue/harmonyHall.js";
 import { NESTING_WORKSHOP } from "../catalogue/nestingWorkshop.js";
 import { PERMANENT_EVENT_STORE } from "../catalogue/permanentEventStore.js";
 import { SECRET_AREA } from "../catalogue/secretArea.js";
-import { SPIRITS } from "../catalogue/spirits/index.js";
+import { spirits } from "../catalogue/spirits/index.js";
 import {
 	ELDER_SPIRITS,
 	REALMS,
@@ -2928,7 +2928,7 @@ export class Catalogue {
 				? interaction.customId.slice(interaction.customId.indexOf("§") + 1)
 				: interaction.values[0];
 
-		const spirit = SPIRITS.find(({ name }) => name === parsedCustomId);
+		const spirit = spirits().find(({ name }) => name === parsedCustomId);
 
 		if (!spirit) {
 			await interaction.update({
@@ -3650,7 +3650,7 @@ export class Catalogue {
 		const catalogue = await this.fetch(interaction.user.id);
 		const { customId } = interaction;
 		const resolvedCustomId = customId.slice(customId.indexOf("§") + 1);
-		const spirit = SPIRITS.find(({ name }) => name === resolvedCustomId);
+		const spirit = spirits().find(({ name }) => name === resolvedCustomId);
 		const event = currentEvents().find(({ nameUnique }) => nameUnique === resolvedCustomId);
 
 		if (spirit) {

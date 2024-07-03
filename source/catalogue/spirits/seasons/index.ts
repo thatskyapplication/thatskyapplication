@@ -1,5 +1,5 @@
 import type { DateTime } from "luxon";
-import type { SeasonalSpirit } from "../../../Structures/Spirits.js";
+import type { GuideSpirit, SeasonalSpirit } from "../../../Structures/Spirits.js";
 import {
 	SEASON_FLAGS_TO_SEASON_NAME_ENTRIES,
 	SEASON_NAME_VALUES,
@@ -13,6 +13,7 @@ import Abyss from "./Abyss/index.js";
 import Assembly from "./Assembly/index.js";
 import Belonging from "./Belonging/index.js";
 import Dreams from "./Dreams/index.js";
+import Duets from "./Duets/index.js";
 import Enchantment from "./Enchantment/index.js";
 import Flight from "./Flight/index.js";
 import Gratitude from "./Gratitude/index.js";
@@ -52,64 +53,28 @@ const SEASONS = [
 	Revival,
 	NineColouredDeer,
 	Nesting,
+	Duets,
 ] as const;
 
-export const SEASON_SPIRITS = [
-	Gratitude.guide,
-	...Gratitude.spirits,
-	Lightseekers.guide,
-	...Lightseekers.spirits,
-	Belonging.guide,
-	...Belonging.spirits,
-	Rhythm.guide,
-	...Rhythm.spirits,
-	Enchantment.guide,
-	...Enchantment.spirits,
-	Sanctuary.guide,
-	...Sanctuary.spirits,
-	Prophecy.guide,
-	...Prophecy.spirits,
-	Dreams.guide,
-	...Dreams.spirits,
-	Assembly.guide,
-	...Assembly.spirits,
-	LittlePrince.guide,
-	...LittlePrince.spirits,
-	Flight.guide,
-	...Flight.spirits,
-	Abyss.guide,
-	...Abyss.spirits,
-	Performance.guide,
-	...Performance.spirits,
-	Shattering.guide,
-	...Shattering.spirits,
-	AURORA.guide,
-	...AURORA.spirits,
-	Remembrance.guide,
-	...Remembrance.spirits,
-	Passage.guide,
-	...Passage.spirits,
-	Moments.guide,
-	...Moments.spirits,
-	Revival.guide,
-	...Revival.spirits,
-	NineColouredDeer.guide,
-	...NineColouredDeer.spirits,
-	Nesting.guide,
-	...Nesting.spirits,
-] as const;
+export function currentSeasons(date = todayDate()) {
+	return SEASONS.filter(({ start }) => date >= start);
+}
 
-export function currentSeasons() {
-	return SEASONS.filter(({ start }) => todayDate() >= start);
+export function currentSeasonalSpirits() {
+	return currentSeasons().reduce<(GuideSpirit | SeasonalSpirit)[]>((seasonalSpirits, season) => {
+		seasonalSpirits.push(season.guide, ...season.spirits);
+		return seasonalSpirits;
+	}, []);
 }
 
 export function resolveSeason(date: DateTime) {
-	return SEASONS.find(({ start, end }) => date >= start && date <= end) ?? null;
+	return currentSeasons(date).find(({ start, end }) => date >= start && date <= end) ?? null;
 }
 
 export function nextSeason(date: DateTime) {
-	const closestSeasonIndex = SEASONS.findLastIndex(({ start }) => date >= start);
-	return closestSeasonIndex === -1 ? null : SEASONS.at(closestSeasonIndex + 1) ?? null;
+	const seasons = SEASONS;
+	const closestSeasonIndex = seasons.findLastIndex(({ start }) => date >= start);
+	return closestSeasonIndex === -1 ? null : seasons[closestSeasonIndex + 1] ?? null;
 }
 
 export function isSeasonName(season: string): season is SeasonName {
@@ -131,7 +96,7 @@ export function resolveBitsToSeasons(bits: number) {
 }
 
 export function resolveSeasonalSpirit(spiritName: string) {
-	for (const season of SEASONS) {
+	for (const season of currentSeasons()) {
 		const spirit = season.spirits.find((spirit) => spirit.name === spiritName);
 
 		if (spirit) {
@@ -144,14 +109,14 @@ export function resolveSeasonalSpirit(spiritName: string) {
 
 export function resolveTravellingSpirit(date: DateTime) {
 	return (
-		SEASON_SPIRITS.find((spirit): spirit is SeasonalSpirit =>
+		currentSeasonalSpirits().find((spirit): spirit is SeasonalSpirit =>
 			spirit.isSeasonalSpirit() ? spirit.visit(date).current.travelling : false,
 		) ?? null
 	);
 }
 
 export function resolveReturningSpirits(date: DateTime) {
-	const returningSpirits = SEASON_SPIRITS.filter((spirit): spirit is SeasonalSpirit =>
+	const returningSpirits = currentSeasonalSpirits().filter((spirit): spirit is SeasonalSpirit =>
 		spirit.isSeasonalSpirit() ? spirit.visit(date).current.returning : false,
 	);
 

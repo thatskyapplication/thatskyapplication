@@ -45,6 +45,7 @@ export enum SeasonName {
 	Revival = "Season of Revival",
 	NineColouredDeer = "Season of the Nine-Coloured Deer",
 	Nesting = "Season of Nesting",
+	Duets = "Season of Duets",
 }
 
 export const SEASON_NAME_VALUES = Object.values(SeasonName);
@@ -71,6 +72,7 @@ export const SeasonNameToSeasonalEmoji = {
 	[SeasonName.Revival]: SEASON_EMOJIS.Revival,
 	[SeasonName.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeer,
 	[SeasonName.Nesting]: SEASON_EMOJIS.Nesting,
+	[SeasonName.Duets]: SEASON_EMOJIS.Duets,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
 export const SeasonNameToSeasonalCandleEmoji = {
@@ -95,6 +97,8 @@ export const SeasonNameToSeasonalCandleEmoji = {
 	[SeasonName.Revival]: SEASON_EMOJIS.RevivalCandle,
 	[SeasonName.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeerCandle,
 	[SeasonName.Nesting]: SEASON_EMOJIS.NestingCandle,
+	// @ts-expect-error Awaiting asset.
+	[SeasonName.Duets]: SEASON_EMOJIS.DuetsCandle,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
 const SeasonNameToSeasonalHeartEmoji = {
@@ -117,6 +121,8 @@ const SeasonNameToSeasonalHeartEmoji = {
 	[SeasonName.Revival]: SEASON_EMOJIS.RevivalHeart,
 	[SeasonName.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeerHeart,
 	[SeasonName.Nesting]: SEASON_EMOJIS.NestingHeart,
+	// @ts-expect-error Awaiting asset.
+	[SeasonName.Duets]: SEASON_EMOJIS.DuetsHeart,
 } as const satisfies Readonly<
 	Record<Exclude<SeasonName, SeasonName.Gratitude | SeasonName.Lightseekers>, SeasonEmojis>
 >;
@@ -143,6 +149,7 @@ enum SeasonFlags {
 	Revival = 1 << 18,
 	NineColouredDeer = 1 << 19,
 	Nesting = 1 << 20,
+	Duets = 1 << 21,
 }
 
 const SeasonFlagsToSeasonName = {
@@ -167,6 +174,7 @@ const SeasonFlagsToSeasonName = {
 	[SeasonFlags.Revival]: SeasonName.Revival,
 	[SeasonFlags.NineColouredDeer]: SeasonName.NineColouredDeer,
 	[SeasonFlags.Nesting]: SeasonName.Nesting,
+	[SeasonFlags.Duets]: SeasonName.Duets,
 } as const satisfies Readonly<Record<SeasonFlags, SeasonName>>;
 
 export const SEASON_FLAGS_TO_SEASON_NAME_ENTRIES = Object.entries(SeasonFlagsToSeasonName);

@@ -44,7 +44,7 @@ import {
 import { SeasonName, snakeCaseName } from "../Utility/catalogue.js";
 import { todayDate } from "../Utility/dates.js";
 import { FriendAction, SpiritEmote } from "../Utility/spirits.js";
-import { SPIRITS } from "../catalogue/spirits/index.js";
+import { spirits } from "../catalogue/spirits/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
@@ -140,7 +140,7 @@ function isQuestSpiritsSeason(season: SeasonName): season is QuestSpiritSeasons 
 	return QUEST_SPIRITS_SEASONS.includes(season as QuestSpiritSeasons);
 }
 
-function isQuestSpirit(spirit: (typeof SPIRITS)[number]): spirit is QuestSpirit {
+function isQuestSpirit(spirit: ReturnType<typeof spirits>[number]): spirit is QuestSpirit {
 	if (spirit.realm === RealmName.IslesOfDawn) {
 		return false;
 	}
@@ -531,7 +531,7 @@ export const QUESTS = [
 	WAKE_UP_CINNAMOROLL_IN_AVIARY_VILLAGE,
 	FLY_UP_TO_THE_TOWER_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE,
 	SPLASH_IN_THE_WATER_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE,
-	...SPIRITS.filter(isQuestSpirit).map((spirit) => SPIRIT_QUEST(spirit)),
+	...spirits().filter(isQuestSpirit).map((spirit) => SPIRIT_QUEST(spirit)),
 ] as const satisfies Readonly<DailyGuideQuest[]>;
 
 const regularExpressionRealms = REALM_NAME_VALUES.join("|").replaceAll(" ", "\\s+");
@@ -851,7 +851,7 @@ export default new (class DailyGuides {
 
 		const sanitisedUpperPureContent = upperPureContent.replaceAll("’", "'");
 
-		for (const spirit of SPIRITS) {
+		for (const spirit of spirits()) {
 			if (sanitisedUpperPureContent.includes(spirit.name.toUpperCase())) {
 				if (isQuestSpirit(spirit)) {
 					return SPIRIT_QUEST(spirit);

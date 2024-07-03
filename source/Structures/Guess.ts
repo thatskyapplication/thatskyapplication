@@ -22,10 +22,10 @@ import {
 	formatEmoji,
 	formatEmojiURL,
 } from "../Utility/emojis.js";
-import { SPIRITS } from "../catalogue/spirits/index.js";
+import { spirits } from "../catalogue/spirits/index.js";
 import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
 import ModestDancer from "../catalogue/spirits/seasons/Performance/ModestDancer.js";
-import { SEASON_SPIRITS } from "../catalogue/spirits/seasons/index.js";
+import { currentSeasonalSpirits } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import type { ElderSpirit, GuideSpirit, SeasonalSpirit, StandardSpirit } from "./Spirits.js";
@@ -82,7 +82,7 @@ function getAnswer(): [
 		// Early exit due to multiple sources.
 		spirit = ModestDancer;
 	} else {
-		spirit = SPIRITS.find((spirit) =>
+		spirit = spirits().find((spirit) =>
 			(spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
 				? spirit.current
 				: spirit.current ?? spirit.seasonal
@@ -101,7 +101,7 @@ function getOptions(difficulty: GuessDifficultyLevel) {
 
 	// Generate other answers.
 	if (difficulty === GuessDifficultyLevel.Original) {
-		let filtered = SPIRITS.filter((original) => original.name !== spirit.name);
+		let filtered = spirits().filter((original) => original.name !== spirit.name);
 		const answer2 = getRandomElement(filtered)!;
 		filtered = filtered.filter((original) => original.name !== answer2.name);
 		const answer3 = getRandomElement(filtered)!;
@@ -128,7 +128,7 @@ function getOptions(difficulty: GuessDifficultyLevel) {
 		}
 
 		if (spirit.isSeasonalSpirit() || spirit.isGuideSpirit()) {
-			let filtered = SEASON_SPIRITS.filter(
+			let filtered = currentSeasonalSpirits().filter(
 				(original) => original.name !== spirit.name && original.season === spirit.season,
 			);
 
