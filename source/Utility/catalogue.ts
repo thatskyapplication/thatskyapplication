@@ -199,6 +199,7 @@ export enum EventName {
 	AviarysFireworkFestival = "Aviary's Firework Festival",
 	SpringCamping = "Spring Camping",
 	SkyXCinnamorollPopUpCafe = "Sky × Cinnamoroll Pop-Up Cafe",
+	SkyFest = "SkyFest",
 }
 
 export enum EventNameUnique {
@@ -273,6 +274,7 @@ export enum EventNameUnique {
 	SkyXCinnamorollPopUpCafe2024 = "Sky × Cinnamoroll Pop-Up Cafe 2024",
 	DaysOfNature2024 = "Days of Nature 2024",
 	DaysOfColour2024 = "Days of Colour 2024",
+	SkyFest2024 = "Sky Fest 2024",
 }
 
 export const EventNameUniqueToEventName = {
@@ -336,6 +338,7 @@ export const EventNameUniqueToEventName = {
 	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: EventName.SkyXCinnamorollPopUpCafe,
 	[EventNameUnique.DaysOfNature2024]: EventName.DaysOfNature,
 	[EventNameUnique.DaysOfColour2024]: EventName.DaysOfColour,
+	[EventNameUnique.SkyFest2024]: EventName.SkyFest,
 } as const satisfies Readonly<Record<EventNameUnique, EventName>>;
 
 export const EVENT_NAME_VALUES = Object.values(EventName);
@@ -368,6 +371,7 @@ export const EventNameToEventCurrencyEmoji = {
 	[EventName.AviarysFireworkFestival]: EVENT_EMOJIS.AviarysFireworkFestival,
 	[EventName.SpringCamping]: null,
 	[EventName.SkyXCinnamorollPopUpCafe]: EVENT_EMOJIS.SkyXCinnamorollPopUpCafe,
+	[EventName.SkyFest]: null,
 } as const satisfies Readonly<Record<EventName, EventEmojis | null>>;
 
 export function snakeCaseName(name: string) {

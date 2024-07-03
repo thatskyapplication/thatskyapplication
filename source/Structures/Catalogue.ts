@@ -319,6 +319,9 @@ export interface CataloguePacket {
 	harmony_hall: CatalogueValue;
 	permanent_event_store: CatalogueValue;
 	nesting_workshop: CatalogueValue;
+	sky_fest_2024: CatalogueValue;
+	duets_guide: CatalogueValue;
+	season_of_duets: CatalogueValue;
 }
 
 interface CatalogueData {
@@ -573,6 +576,9 @@ interface CatalogueData {
 	harmonyHall: CataloguePacket["harmony_hall"];
 	permanentEventStore: CataloguePacket["permanent_event_store"];
 	nestingWorkshop: CataloguePacket["nesting_workshop"];
+	skyFest2024: CataloguePacket["sky_fest_2024"];
+	duetsGuide: CataloguePacket["duets_guide"];
+	seasonOfDuets: CataloguePacket["season_of_duets"];
 }
 
 type CataloguePatchData = Omit<CataloguePacket, "user_id">;
@@ -829,6 +835,9 @@ const CatalogueNameToRawName = {
 	[CatalogueType.HarmonyHall]: "harmony_hall",
 	[CatalogueType.PermanentEventStore]: "permanent_event_store",
 	[CatalogueType.NestingWorkshop]: "nesting_workshop",
+	[EventNameUnique.SkyFest2024]: "sky_fest_2024",
+	[SpiritName.DuetsGuide]: "duets_guide",
+	[SeasonName.Duets]: "season_of_duets",
 } as const satisfies Readonly<
 	Record<
 		| SpiritName
@@ -1096,6 +1105,9 @@ const SpiritEventNameToCatalogueName = {
 	[CatalogueType.HarmonyHall]: "harmonyHall",
 	[CatalogueType.PermanentEventStore]: "permanentEventStore",
 	[CatalogueType.NestingWorkshop]: "nestingWorkshop",
+	[EventNameUnique.SkyFest2024]: "skyFest2024",
+	[SpiritName.DuetsGuide]: "duetsGuide",
+	[SeasonName.Duets]: "seasonOfDuets",
 } as const satisfies Readonly<
 	Record<
 		| SpiritName
@@ -1658,6 +1670,12 @@ export class Catalogue {
 
 	public nestingWorkshop!: CatalogueData["nestingWorkshop"];
 
+	public skyFest2024!: CatalogueData["skyFest2024"];
+
+	public duetsGuide!: CatalogueData["duetsGuide"];
+
+	public seasonOfDuets!: CatalogueData["seasonOfDuets"];
+
 	public constructor(catalogue: CataloguePacket) {
 		this.userId = catalogue.user_id;
 		this.patch(catalogue);
@@ -1914,6 +1932,9 @@ export class Catalogue {
 		this.harmonyHall = data.harmony_hall;
 		this.permanentEventStore = data.permanent_event_store;
 		this.nestingWorkshop = data.nesting_workshop;
+		this.skyFest2024 = data.sky_fest_2024;
+		this.duetsGuide = data.duets_guide;
+		this.seasonOfDuets = data.season_of_duets;
 	}
 
 	public static async fetch(userId: Snowflake) {
