@@ -3,6 +3,10 @@ import { clearTimeout, setTimeout } from "node:timers";
 import type { Message, User } from "discord.js";
 import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
+import { SEASON_NAME_VALUES } from "./Utility/catalogue.js";
+import { todayDate } from "./Utility/dates.js";
+import { resolveEvents, upcomingEvents } from "./catalogue/events/index.js";
+import { nextSeason } from "./catalogue/spirits/seasons/index.js";
 import pino from "./pino.js";
 
 const { OPENAI_API_KEY } = process.env;
@@ -13,10 +17,6 @@ if (!OPENAI_API_KEY) {
 
 const openAI = new OpenAI({ apiKey: OPENAI_API_KEY });
 const AI_DEFAULT_RESPONSE = "Oh my gosh! Could you be the... the legendary Sky kid?" as const;
-
-const AI_DESCRIPTION =
-	"You are named Caelus and you are currently chatting in a Discord server. Responses should be no longer than a sentence. Be engaging, positive, and happy. If you are going to refer to Sky: Children of the Light, simply say Sky. Do not refer to yourself as an AI." as const;
-
 const AI_DESCRIPTION_EMOJIS = "Respond with up to 3 emojis that represent this message." as const;
 const AI_DESCRIPTION_REACTION = `${AI_DESCRIPTION_EMOJIS} Put each emoji on a new line.` as const;
 
@@ -33,6 +33,50 @@ function parseAIName(user: User) {
 	}
 
 	return name;
+}
+
+function systemPromptContext(message: Message<true>) {
+	const today = todayDate();
+	let seasonText = `- The seasons in Sky are: ${JSON.stringify(SEASON_NAME_VALUES)}.`;
+	const next = nextSeason(today);
+
+	if (next) {
+		seasonText += `${next.name} has not started yet. It starts on ${next.start.toISO()}.`;
+	}
+
+	let eventText = "";
+	const events = resolveEvents(today);
+	const upcoming = upcomingEvents(today);
+
+	if (events.length > 0) {
+		eventText += `- The current events in Sky are: ${JSON.stringify(events.map((event) => event.name))}`;
+	}
+
+	if (upcoming.length > 0) {
+		eventText += `- The upcoming events in Sky are: ${JSON.stringify(upcoming.map((event) => ({ name: event.name, start: event.start.toISO() })))}.`;
+	}
+
+	const systemPrompt = [
+		`- You are named ${message.client.user.username}`,
+		"- Responses should be no longer than a sentence.",
+		`- It is currently ${message.createdAt.toISOString()}.`,
+		"- Be engaging, positive, and happy.",
+		'- Refer to "Sky: Children of the Light" as Sky.',
+		seasonText,
+	];
+
+	if (eventText.length > 0) {
+		systemPrompt.push(eventText);
+	}
+
+	systemPrompt.push(
+		"- If you are going to mention users, use the <@user_id> syntax.",
+		`- The author of this message is: ${JSON.stringify(message.author)}`,
+		`- The channel you are in is: ${JSON.stringify(message.channel)}`,
+		`- The guild you are in is: ${JSON.stringify(message.guild)}`,
+	);
+
+	return systemPrompt.join("\n");
 }
 
 export async function messageCreateEmojiResponse(message: Message<true>) {
@@ -129,7 +173,7 @@ export async function messageCreateResponse(message: Message<true>) {
 					frequency_penalty: 1,
 					max_tokens: 100,
 					messages: [
-						{ role: "system", content: AI_DESCRIPTION },
+						{ role: "system", content: systemPromptContext(message) },
 						...messages.map(
 							(message) =>
 								({
