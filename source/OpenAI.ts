@@ -44,16 +44,20 @@ function systemPromptContext(message: Message<true>) {
 		seasonText += `${next.name} has not started yet. It starts on ${next.start.toISO()}.`;
 	}
 
-	let eventText = "";
+	const eventText = [];
 	const events = resolveEvents(today);
 	const upcoming = upcomingEvents(today);
 
 	if (events.length > 0) {
-		eventText += `- The current events in Sky are: ${JSON.stringify(events.map((event) => event.name))}`;
+		eventText.push(
+			`- The current events in Sky are: ${JSON.stringify(events.map((event) => event.name))}.`,
+		);
 	}
 
 	if (upcoming.length > 0) {
-		eventText += `- The upcoming events in Sky are: ${JSON.stringify(upcoming.map((event) => ({ name: event.name, start: event.start.toISO() })))}.`;
+		eventText.push(
+			`- The upcoming events in Sky are: ${JSON.stringify(upcoming.map((event) => ({ name: event.name, start: event.start.toISO() })))}.`,
+		);
 	}
 
 	const systemPrompt = [
@@ -66,14 +70,14 @@ function systemPromptContext(message: Message<true>) {
 	];
 
 	if (eventText.length > 0) {
-		systemPrompt.push(eventText);
+		systemPrompt.push(...eventText);
 	}
 
 	systemPrompt.push(
 		"- If you are going to mention users, use the <@user_id> syntax.",
 		`- The author of this message is: ${JSON.stringify(message.author)}`,
-		`- The channel you are in is: ${JSON.stringify(message.channel)}`,
-		`- The guild you are in is: ${JSON.stringify(message.guild)}`,
+		`- The channel you are in is: ${JSON.stringify({ name: message.channel.name, id: message.channel.id })}`,
+		`- The guild you are in is: ${JSON.stringify({ name: message.guild.name, id: message.guild.id })}`,
 	);
 
 	return systemPrompt.join("\n");
