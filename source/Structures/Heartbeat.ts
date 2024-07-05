@@ -50,74 +50,76 @@ export default function heartbeat(client: Client<true>): void {
 		const unix = date.toUnixInteger();
 		const events = resolveEvents(date);
 
-		if (second === 0) {
-			if (hour === 0 && minute === 0) {
-				void dailyReset(client);
+		if (second !== 0) {
+			return;
+		}
 
-				if (weekday === 7) {
-					void sendNotification(client, NotificationEvent.EyeOfEden);
-				}
+		if (hour === 0 && minute === 0) {
+			void dailyReset(client);
 
-				// @ts-expect-error Too narrow.
-				if (ISS_DATES_ACCESSIBLE.includes(day)) {
-					void sendNotification(client, NotificationEvent.ISS);
-				}
+			if (weekday === 7) {
+				void sendNotification(client, NotificationEvent.EyeOfEden);
 			}
 
-			if (shardEruptionToday) {
-				const { strong, timestamps } = shardEruptionToday;
+			// @ts-expect-error Too narrow.
+			if (ISS_DATES_ACCESSIBLE.includes(day)) {
+				void sendNotification(client, NotificationEvent.ISS);
+			}
+		}
 
-				const timestamp = timestamps.find(
-					({ start }) => Math.trunc(start.diff(date, "minutes").minutes) === 5,
+		if (shardEruptionToday) {
+			const { strong, timestamps } = shardEruptionToday;
+
+			const timestamp = timestamps.find(
+				({ start }) => Math.trunc(start.diff(date, "minutes").minutes) === 5,
+			);
+
+			if (timestamp) {
+				void sendNotification(
+					client,
+					strong ? NotificationEvent.StrongShardEruption : NotificationEvent.RegularShardEruption,
+					{
+						startTime: timestamp.start.toUnixInteger(),
+						endTime: timestamp.end.toUnixInteger(),
+						shardEruption: shardEruptionToday,
+					},
 				);
-
-				if (timestamp) {
-					void sendNotification(
-						client,
-						strong ? NotificationEvent.StrongShardEruption : NotificationEvent.RegularShardEruption,
-						{
-							startTime: timestamp.start.toUnixInteger(),
-							endTime: timestamp.end.toUnixInteger(),
-							shardEruption: shardEruptionToday,
-						},
-					);
-				}
 			}
+		}
 
-			if ((minute + 5) % 15 === 0) {
-				void sendNotification(client, NotificationEvent.Passage, { startTime: unix + 300 });
+		if ((minute + 5) % 15 === 0) {
+			void sendNotification(client, NotificationEvent.Passage, { startTime: unix + 300 });
+		}
+
+		if ((hour + 3) % 4 === 0 && minute === 45) {
+			void sendNotification(client, NotificationEvent.AURORA, { startTime: unix + 900 });
+		}
+
+		if (hour % 2 === 0) {
+			switch (minute) {
+				case 0:
+					void sendNotification(client, NotificationEvent.PollutedGeyser, {
+						startTime: unix + 300,
+					});
+
+					break;
+				case 30:
+					void sendNotification(client, NotificationEvent.Grandma, { startTime: unix + 300 });
+					break;
+				case 45:
+					void sendNotification(client, NotificationEvent.Turtle, { startTime: unix + 300 });
+					break;
 			}
+		}
 
-			if ((hour + 3) % 4 === 0 && minute === 45) {
-				void sendNotification(client, NotificationEvent.AURORA, { startTime: unix + 900 });
-			}
+		if (day === 1 && hour % 4 === 0 && minute === 0) {
+			void sendNotification(client, NotificationEvent.AviarysFireworkFestival, {
+				startTime: unix + 600,
+			});
+		}
 
-			if (hour % 2 === 0) {
-				switch (minute) {
-					case 0:
-						void sendNotification(client, NotificationEvent.PollutedGeyser, {
-							startTime: unix + 300,
-						});
-
-						break;
-					case 30:
-						void sendNotification(client, NotificationEvent.Grandma, { startTime: unix + 300 });
-						break;
-					case 45:
-						void sendNotification(client, NotificationEvent.Turtle, { startTime: unix + 300 });
-						break;
-				}
-			}
-
-			if (day === 1 && hour % 4 === 0 && minute === 0) {
-				void sendNotification(client, NotificationEvent.AviarysFireworkFestival, {
-					startTime: unix + 600,
-				});
-			}
-
-			if (minute === 55 && events.some(({ name }) => name === EventName.DaysOfFortune)) {
-				void sendNotification(client, NotificationEvent.Dragon, { startTime: unix + 300 });
-			}
+		if (minute === 55 && events.some(({ name }) => name === EventName.DaysOfFortune)) {
+			void sendNotification(client, NotificationEvent.Dragon, { startTime: unix + 300 });
 		}
 	}, 1_000);
 }
