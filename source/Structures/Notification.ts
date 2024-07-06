@@ -281,10 +281,7 @@ export default class Notification {
 		data: NotificationInsertQuery | NotificationUpdateQuery,
 	) {
 		const { guildId } = interaction;
-
-		let notification = this.cache.find(
-			(cachedNotification) => cachedNotification.guildId === guildId,
-		);
+		let notification = this.cache.get(guildId);
 
 		if (notification) {
 			const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications)
