@@ -50,7 +50,9 @@ export default {
 				? Math.random() < 0.5 && me.permissions.has(PermissionFlagsBits.AddReactions)
 					? messageCreateReactionResponse(message)
 					: messageCreateEmojiResponse(message)
-				: messageCreateResponse(message));
+				: message.system
+					? undefined
+					: messageCreateResponse(message));
 		}
 	},
 } satisfies Event<typeof name>;
