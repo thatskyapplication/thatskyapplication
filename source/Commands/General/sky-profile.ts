@@ -6,7 +6,10 @@ import {
 	ApplicationCommandType,
 	type Attachment,
 	type AutocompleteInteraction,
+	ButtonBuilder,
+	ButtonStyle,
 	type ChatInputCommandInteraction,
+	MessageFlags,
 	ModalBuilder,
 	PermissionFlagsBits,
 	type Snowflake,
@@ -19,7 +22,7 @@ import {
 import { t } from "i18next";
 import { PlatformFlagsToString, resolvePlatformToEmoji } from "../../Structures/Platforms.js";
 import Profile, { AssetType } from "../../Structures/Profile.js";
-import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
+import {} from "../../Utility/Constants.js";
 import {
 	SEASON_FLAGS_TO_SEASON_NAME_ENTRIES,
 	SeasonNameToSeasonalEmoji,
@@ -32,8 +35,8 @@ export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
 export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as const;
 export const SKY_PROFILE_PLATFORM_CUSTOM_ID = "SKY_PROFILE_PLATFORM_CUSTOM_ID" as const;
 export const SKY_PROFILE_SEASONS_CUSTOM_ID = "SKY_PROFILE_SEASONS_CUSTOM_ID" as const;
+export const SKY_PROFILE_EDIT_NAME_CUSTOM_ID = "SKY_PROFILE_EDIT_NAME_CUSTOM_ID" as const;
 const SKY_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
-const SKY_MAXIMUM_NAME_LENGTH = 16 as const;
 const SKY_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
 const SKY_MINIMUM_COUNTRY_LENGTH = 2 as const;
 const SKY_MAXIMUM_COUNTRY_LENGTH = 60 as const;
@@ -43,9 +46,15 @@ const SKY_MAXIMUM_SPOT_LENGTH = 50 as const;
 export default new (class implements AutocompleteCommand {
 	public readonly data = {
 		name: "sky-profile",
-		description: "The command related to everything about your Sky profile.",
+		description: "Build a Sky profile for you and others to see!",
 		type: ApplicationCommandType.ChatInput,
 		options: [
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "edit",
+				description: "Edit your Sky profile.",
+			},
+			/*
 			{
 				type: ApplicationCommandOptionType.SubcommandGroup,
 				name: "set",
@@ -181,6 +190,7 @@ export default new (class implements AutocompleteCommand {
 					},
 				],
 			},
+			*/
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: "show",
@@ -218,6 +228,10 @@ export default new (class implements AutocompleteCommand {
 		const { options } = interaction;
 
 		switch (options.getSubcommandGroup() ?? options.getSubcommand()) {
+			case "edit": {
+				await this.edit(interaction);
+				return;
+			}
 			case "set": {
 				await this.set(interaction);
 				return;
@@ -226,6 +240,27 @@ export default new (class implements AutocompleteCommand {
 				await this.show(interaction);
 			}
 		}
+	}
+
+	public async edit(interaction: ChatInputCommandInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+
+		const embed = (await profile?.embed(interaction))?.embed;
+		const content = embed ? "" : "You do not have a Sky profile yet. Build one!";
+
+		await interaction.reply({
+			content,
+			components: [
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(SKY_PROFILE_EDIT_NAME_CUSTOM_ID)
+						.setLabel("Name")
+						.setStyle(ButtonStyle.Secondary),
+				),
+			],
+			embeds: embed ? [embed] : [],
+			flags: MessageFlags.Ephemeral,
+		});
 	}
 
 	public async set(interaction: ChatInputCommandInteraction) {

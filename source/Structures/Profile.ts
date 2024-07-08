@@ -2,13 +2,18 @@ import type { Buffer } from "node:buffer";
 import { URL } from "node:url";
 import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
+	ActionRowBuilder,
 	type Attachment,
+	type ButtonInteraction,
 	type ChatInputCommandInteraction,
 	type EmbedAuthorOptions,
 	EmbedBuilder,
+	ModalBuilder,
 	type ModalSubmitInteraction,
 	type Snowflake,
 	StringSelectMenuInteraction,
+	TextInputBuilder,
+	TextInputStyle,
 	type UserContextMenuCommandInteraction,
 	chatInputApplicationCommandMention,
 } from "discord.js";
@@ -81,6 +86,9 @@ export const enum AssetType {
 	Thumbnail = 1,
 }
 
+export const SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID = "SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID" as const;
+export const SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID" as const;
+export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
 const ANIMATED_HASH_PREFIX = "a_" as const;
 
 function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${string}` {
@@ -166,26 +174,28 @@ export default class Profile {
 			profile = new this(profilePacket!);
 		}
 
-		const { embed, unfilled } = await profile.embed(interaction);
-		const baseReplyOptions = { content: "Your profile has been updated!", embeds: [embed] };
+		const { embed } = await profile.embed(interaction);
+		await interaction.update({ content: "", embeds: [embed] });
 
-		if (interaction instanceof StringSelectMenuInteraction) {
-			await interaction.update({
-				...baseReplyOptions,
-				components: [],
-			});
-		} else if (interaction.deferred) {
-			await interaction.editReply(baseReplyOptions);
-		} else {
-			await interaction.reply({
-				...baseReplyOptions,
-				ephemeral: true,
-			});
-		}
+		// const baseReplyOptions = { content: "Your profile has been updated!", embeds: [embed] };
 
-		if (unfilled) {
-			await interaction.followUp({ content: unfilled, ephemeral: true });
-		}
+		// if (interaction instanceof StringSelectMenuInteraction) {
+		// 	await interaction.update({
+		// 		...baseReplyOptions,
+		// 		components: [],
+		// 	});
+		// } else if (interaction.deferred) {
+		// 	await interaction.editReply(baseReplyOptions);
+		// } else {
+		// 	await interaction.reply({
+		// 		...baseReplyOptions,
+		// 		ephemeral: true,
+		// 	});
+		// }
+
+		// if (unfilled) {
+			// await interaction.followUp({ content: unfilled, ephemeral: true });
+		// }
 	}
 
 	public static async setAsset(
@@ -248,6 +258,33 @@ export default class Profile {
 		await Profile.set(interaction, {
 			[type === AssetType.Icon ? "icon" : "thumbnail"]: hashedBuffer,
 		});
+	}
+
+	public static async showNameModal(interaction: ButtonInteraction) {
+		await interaction.showModal(
+			new ModalBuilder()
+				.setComponents(
+					new ActionRowBuilder<TextInputBuilder>().setComponents(
+						new TextInputBuilder()
+							.setCustomId(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID)
+							.setLabel("What's your name?")
+							.setMaxLength(SKY_PROFILE_MAXIMUM_NAME_LENGTH)
+							.setMinLength(1)
+							.setRequired()
+							.setStyle(TextInputStyle.Short),
+					),
+				)
+				.setCustomId(SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID)
+				.setTitle("Sky Profile"),
+		);
+	}
+
+	public static setName(interaction: ModalSubmitInteraction) {
+		const name = interaction.fields
+			.getTextInputValue(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID)
+			.trim();
+
+		return this.set(interaction, { name });
 	}
 
 	public static setDescription(interaction: ModalSubmitInteraction) {
