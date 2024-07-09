@@ -20,56 +20,94 @@ export interface NotificationPacket {
 	guild_id: Snowflake;
 	polluted_geyser_channel_id: Snowflake | null;
 	polluted_geyser_role_id: Snowflake | null;
+	polluted_geyser_sendable: boolean;
+	polluted_geyser_offset: number;
 	grandma_channel_id: Snowflake | null;
 	grandma_role_id: Snowflake | null;
+	grandma_sendable: boolean;
+	grandma_offset: number;
 	turtle_channel_id: Snowflake | null;
 	turtle_role_id: Snowflake | null;
+	turtle_sendable: boolean;
+	turtle_offset: number;
 	eye_of_eden_channel_id: Snowflake | null;
 	eye_of_eden_role_id: Snowflake | null;
+	eye_of_eden_sendable: boolean;
 	daily_reset_channel_id: Snowflake | null;
 	daily_reset_role_id: Snowflake | null;
+	daily_reset_sendable: boolean;
 	passage_channel_id: Snowflake | null;
 	passage_role_id: Snowflake | null;
+	passage_sendable: boolean;
+	passage_offset: number;
 	aurora_channel_id: Snowflake | null;
 	aurora_role_id: Snowflake | null;
+	aurora_sendable: boolean;
+	aurora_offset: number;
 	regular_shard_eruption_channel_id: Snowflake | null;
 	regular_shard_eruption_role_id: Snowflake | null;
+	regular_shard_eruption_sendable: boolean;
+	regular_shard_eruption_offset: number;
 	iss_channel_id: Snowflake | null;
 	iss_role_id: Snowflake | null;
+	iss_sendable: boolean;
 	strong_shard_eruption_channel_id: Snowflake | null;
 	strong_shard_eruption_role_id: Snowflake | null;
+	strong_shard_eruption_sendable: boolean;
+	strong_shard_eruption_offset: number;
 	aviarys_firework_festival_channel_id: Snowflake | null;
 	aviarys_firework_festival_role_id: Snowflake | null;
+	aviarys_firework_festival_sendable: boolean;
 	dragon_channel_id: Snowflake | null;
 	dragon_role_id: Snowflake | null;
+	dragon_sendable: boolean;
 }
 
 interface NotificationData {
 	guildId: NotificationPacket["guild_id"];
 	pollutedGeyserChannelId: NotificationPacket["polluted_geyser_channel_id"];
 	pollutedGeyserRoleId: NotificationPacket["polluted_geyser_role_id"];
+	pollutedGeyserSendable: NotificationPacket["polluted_geyser_sendable"];
+	pollutedGeyserOffset: NotificationPacket["polluted_geyser_offset"];
 	grandmaChannelId: NotificationPacket["grandma_channel_id"];
 	grandmaRoleId: NotificationPacket["grandma_role_id"];
+	grandmaSendable: NotificationPacket["grandma_sendable"];
+	grandmaOffset: NotificationPacket["grandma_offset"];
 	turtleChannelId: NotificationPacket["turtle_channel_id"];
 	turtleRoleId: NotificationPacket["turtle_role_id"];
+	turtleSendable: NotificationPacket["turtle_sendable"];
+	turtleOffset: NotificationPacket["turtle_offset"];
 	eyeOfEdenChannelId: NotificationPacket["eye_of_eden_channel_id"];
 	eyeOfEdenRoleId: NotificationPacket["eye_of_eden_role_id"];
+	eyeOfEdenSendable: NotificationPacket["eye_of_eden_sendable"];
 	dailyResetChannelId: NotificationPacket["daily_reset_channel_id"];
 	dailyResetRoleId: NotificationPacket["daily_reset_role_id"];
+	dailyResetSendable: NotificationPacket["daily_reset_sendable"];
 	passageChannelId: NotificationPacket["passage_channel_id"];
 	passageRoleId: NotificationPacket["passage_role_id"];
+	passageSendable: NotificationPacket["passage_sendable"];
+	passageOffset: NotificationPacket["passage_offset"];
 	auroraChannelId: NotificationPacket["aurora_channel_id"];
 	auroraRoleId: NotificationPacket["aurora_role_id"];
+	auroraSendable: NotificationPacket["aurora_sendable"];
+	auroraOffset: NotificationPacket["aurora_offset"];
 	regularShardEruptionChannelId: NotificationPacket["regular_shard_eruption_channel_id"];
 	regularShardEruptionRoleId: NotificationPacket["regular_shard_eruption_role_id"];
+	regularShardEruptionSendable: NotificationPacket["regular_shard_eruption_sendable"];
+	regularShardEruptionOffset: NotificationPacket["regular_shard_eruption_offset"];
 	issChannelId: NotificationPacket["iss_channel_id"];
 	issRoleId: NotificationPacket["iss_role_id"];
+	issSendable: NotificationPacket["iss_sendable"];
 	strongShardEruptionChannelId: NotificationPacket["strong_shard_eruption_channel_id"];
 	strongShardEruptionRoleId: NotificationPacket["strong_shard_eruption_role_id"];
+	strongShardEruptionSendable: NotificationPacket["strong_shard_eruption_sendable"];
+	strongShardEruptionOffset: NotificationPacket["strong_shard_eruption_offset"];
 	aviarysFireworkFestivalChannelId: NotificationPacket["aviarys_firework_festival_channel_id"];
 	aviarysFireworkFestivalRoleId: NotificationPacket["aviarys_firework_festival_role_id"];
+	aviarysFireworkFestivalSendable: NotificationPacket["aviarys_firework_festival_sendable"];
 	dragonChannelId: NotificationPacket["dragon_channel_id"];
 	dragonRoleId: NotificationPacket["dragon_role_id"];
+	dragonSendable: NotificationPacket["dragon_sendable"];
 }
 
 type NotificationPatchData = Omit<NotificationPacket, "guild_id">;
@@ -172,49 +210,87 @@ export default class Notification {
 
 	public pollutedGeyserRoleId!: NotificationData["pollutedGeyserRoleId"];
 
+	public pollutedGeyserSendable!: NotificationData["pollutedGeyserSendable"];
+
+	public pollutedGeyserOffset!: NotificationData["pollutedGeyserOffset"];
+
 	public grandmaChannelId!: NotificationData["grandmaChannelId"];
 
 	public grandmaRoleId!: NotificationData["grandmaRoleId"];
+
+	public grandmaSendable!: NotificationData["grandmaSendable"];
+
+	public grandmaOffset!: NotificationData["grandmaOffset"];
 
 	public turtleChannelId!: NotificationData["turtleChannelId"];
 
 	public turtleRoleId!: NotificationData["turtleRoleId"];
 
+	public turtleSendable!: NotificationData["turtleSendable"];
+
+	public turtleOffset!: NotificationData["turtleOffset"];
+
 	public eyeOfEdenChannelId!: NotificationData["eyeOfEdenChannelId"];
 
 	public eyeOfEdenRoleId!: NotificationData["eyeOfEdenRoleId"];
+
+	public eyeOfEdenSendable!: NotificationData["eyeOfEdenSendable"];
 
 	public dailyResetChannelId!: NotificationData["dailyResetChannelId"];
 
 	public dailyResetRoleId!: NotificationData["dailyResetRoleId"];
 
+	public dailyResetSendable!: NotificationData["dailyResetSendable"];
+
 	public issChannelId!: NotificationData["issChannelId"];
 
 	public issRoleId!: NotificationData["issRoleId"];
+
+	public issSendable!: NotificationData["issSendable"];
 
 	public regularShardEruptionChannelId!: NotificationData["regularShardEruptionChannelId"];
 
 	public regularShardEruptionRoleId!: NotificationData["regularShardEruptionRoleId"];
 
+	public regularShardEruptionSendable!: NotificationData["regularShardEruptionSendable"];
+
+	public regularShardEruptionOffset!: NotificationData["regularShardEruptionOffset"];
+
 	public strongShardEruptionChannelId!: NotificationData["strongShardEruptionChannelId"];
 
 	public strongShardEruptionRoleId!: NotificationData["strongShardEruptionRoleId"];
+
+	public strongShardEruptionSendable!: NotificationData["strongShardEruptionSendable"];
+
+	public strongShardEruptionOffset!: NotificationData["strongShardEruptionOffset"];
 
 	public auroraChannelId!: NotificationData["auroraChannelId"];
 
 	public auroraRoleId!: NotificationData["auroraRoleId"];
 
+	public auroraSendable!: NotificationData["auroraSendable"];
+
+	public auroraOffset!: NotificationData["auroraOffset"];
+
 	public passageChannelId!: NotificationData["passageChannelId"];
 
 	public passageRoleId!: NotificationData["passageRoleId"];
+
+	public passageSendable!: NotificationData["passageSendable"];
+
+	public passageOffset!: NotificationData["passageOffset"];
 
 	public aviarysFireworkFestivalChannelId!: NotificationData["aviarysFireworkFestivalChannelId"];
 
 	public aviarysFireworkFestivalRoleId!: NotificationData["aviarysFireworkFestivalRoleId"];
 
+	public aviarysFireworkFestivalSendable!: NotificationData["aviarysFireworkFestivalSendable"];
+
 	public dragonChannelId!: NotificationData["dragonChannelId"];
 
 	public dragonRoleId!: NotificationData["dragonRoleId"];
+
+	public dragonSendable!: NotificationData["dragonSendable"];
 
 	public constructor(notification: NotificationPacket) {
 		this.guildId = notification.guild_id;
@@ -224,28 +300,47 @@ export default class Notification {
 	private patch(data: NotificationPatchData) {
 		this.pollutedGeyserChannelId = data.polluted_geyser_channel_id;
 		this.pollutedGeyserRoleId = data.polluted_geyser_role_id;
+		this.pollutedGeyserSendable = data.polluted_geyser_sendable;
+		this.pollutedGeyserOffset = data.polluted_geyser_offset;
 		this.grandmaChannelId = data.grandma_channel_id;
 		this.grandmaRoleId = data.grandma_role_id;
+		this.grandmaSendable = data.grandma_sendable;
+		this.grandmaOffset = data.grandma_offset;
 		this.turtleChannelId = data.turtle_channel_id;
 		this.turtleRoleId = data.turtle_role_id;
+		this.turtleSendable = data.turtle_sendable;
+		this.turtleOffset = data.turtle_offset;
 		this.eyeOfEdenChannelId = data.eye_of_eden_channel_id;
 		this.eyeOfEdenRoleId = data.eye_of_eden_role_id;
+		this.eyeOfEdenSendable = data.eye_of_eden_sendable;
 		this.dailyResetChannelId = data.daily_reset_channel_id;
 		this.dailyResetRoleId = data.daily_reset_role_id;
+		this.dailyResetSendable = data.daily_reset_sendable;
 		this.issChannelId = data.iss_channel_id;
 		this.issRoleId = data.iss_role_id;
+		this.issSendable = data.iss_sendable;
 		this.regularShardEruptionChannelId = data.regular_shard_eruption_channel_id;
 		this.regularShardEruptionRoleId = data.regular_shard_eruption_role_id;
+		this.regularShardEruptionSendable = data.regular_shard_eruption_sendable;
+		this.regularShardEruptionOffset = data.regular_shard_eruption_offset;
 		this.strongShardEruptionChannelId = data.strong_shard_eruption_channel_id;
 		this.strongShardEruptionRoleId = data.strong_shard_eruption_role_id;
+		this.strongShardEruptionSendable = data.strong_shard_eruption_sendable;
+		this.strongShardEruptionOffset = data.strong_shard_eruption_offset;
 		this.auroraChannelId = data.aurora_channel_id;
 		this.auroraRoleId = data.aurora_role_id;
+		this.auroraSendable = data.aurora_sendable;
+		this.auroraOffset = data.aurora_offset;
 		this.passageChannelId = data.passage_channel_id;
 		this.passageRoleId = data.passage_role_id;
+		this.passageSendable = data.passage_sendable;
+		this.passageOffset = data.passage_offset;
 		this.aviarysFireworkFestivalChannelId = data.aviarys_firework_festival_channel_id;
 		this.aviarysFireworkFestivalRoleId = data.aviarys_firework_festival_role_id;
+		this.aviarysFireworkFestivalSendable = data.aviarys_firework_festival_sendable;
 		this.dragonChannelId = data.dragon_channel_id;
 		this.dragonRoleId = data.dragon_role_id;
+		this.dragonSendable = data.dragon_sendable;
 	}
 
 	public static async setup(
