@@ -1,82 +1,118 @@
 import {
 	type Channel,
 	ChannelType,
-	type ChatInputCommandInteraction,
+	ChatInputCommandInteraction,
 	type Client,
 	Collection,
 	EmbedBuilder,
 	type GuildBasedChannel,
 	type GuildMember,
+	type InteractionReplyOptions,
+	type InteractionUpdateOptions,
 	MessageFlags,
 	PermissionFlagsBits,
 	type Role,
 	type Snowflake,
-	TimestampStyles,
+	type StringSelectMenuInteraction,
 	channelMention,
-	hyperlink,
 	roleMention,
-	time,
 } from "discord.js";
 import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
-import { SeasonName } from "../Utility/catalogue.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
-import type { ShardEruptionData } from "../Utility/shardEruption.js";
 import pg, { Table } from "../pg.js";
 
 export interface NotificationPacket {
 	guild_id: Snowflake;
 	polluted_geyser_channel_id: Snowflake | null;
 	polluted_geyser_role_id: Snowflake | null;
+	polluted_geyser_sendable: boolean;
+	polluted_geyser_offset: number;
 	grandma_channel_id: Snowflake | null;
 	grandma_role_id: Snowflake | null;
+	grandma_sendable: boolean;
+	grandma_offset: number;
 	turtle_channel_id: Snowflake | null;
 	turtle_role_id: Snowflake | null;
+	turtle_sendable: boolean;
+	turtle_offset: number;
 	eye_of_eden_channel_id: Snowflake | null;
 	eye_of_eden_role_id: Snowflake | null;
+	eye_of_eden_sendable: boolean;
 	daily_reset_channel_id: Snowflake | null;
 	daily_reset_role_id: Snowflake | null;
+	daily_reset_sendable: boolean;
 	passage_channel_id: Snowflake | null;
 	passage_role_id: Snowflake | null;
+	passage_sendable: boolean;
+	passage_offset: number;
 	aurora_channel_id: Snowflake | null;
 	aurora_role_id: Snowflake | null;
+	aurora_sendable: boolean;
+	aurora_offset: number;
 	regular_shard_eruption_channel_id: Snowflake | null;
 	regular_shard_eruption_role_id: Snowflake | null;
+	regular_shard_eruption_sendable: boolean;
+	regular_shard_eruption_offset: number;
 	iss_channel_id: Snowflake | null;
 	iss_role_id: Snowflake | null;
+	iss_sendable: boolean;
 	strong_shard_eruption_channel_id: Snowflake | null;
 	strong_shard_eruption_role_id: Snowflake | null;
+	strong_shard_eruption_sendable: boolean;
+	strong_shard_eruption_offset: number;
 	aviarys_firework_festival_channel_id: Snowflake | null;
 	aviarys_firework_festival_role_id: Snowflake | null;
+	aviarys_firework_festival_sendable: boolean;
 	dragon_channel_id: Snowflake | null;
 	dragon_role_id: Snowflake | null;
+	dragon_sendable: boolean;
 }
 
 interface NotificationData {
 	guildId: NotificationPacket["guild_id"];
 	pollutedGeyserChannelId: NotificationPacket["polluted_geyser_channel_id"];
 	pollutedGeyserRoleId: NotificationPacket["polluted_geyser_role_id"];
+	pollutedGeyserSendable: NotificationPacket["polluted_geyser_sendable"];
+	pollutedGeyserOffset: NotificationPacket["polluted_geyser_offset"];
 	grandmaChannelId: NotificationPacket["grandma_channel_id"];
 	grandmaRoleId: NotificationPacket["grandma_role_id"];
+	grandmaSendable: NotificationPacket["grandma_sendable"];
+	grandmaOffset: NotificationPacket["grandma_offset"];
 	turtleChannelId: NotificationPacket["turtle_channel_id"];
 	turtleRoleId: NotificationPacket["turtle_role_id"];
+	turtleSendable: NotificationPacket["turtle_sendable"];
+	turtleOffset: NotificationPacket["turtle_offset"];
 	eyeOfEdenChannelId: NotificationPacket["eye_of_eden_channel_id"];
 	eyeOfEdenRoleId: NotificationPacket["eye_of_eden_role_id"];
+	eyeOfEdenSendable: NotificationPacket["eye_of_eden_sendable"];
 	dailyResetChannelId: NotificationPacket["daily_reset_channel_id"];
 	dailyResetRoleId: NotificationPacket["daily_reset_role_id"];
+	dailyResetSendable: NotificationPacket["daily_reset_sendable"];
 	passageChannelId: NotificationPacket["passage_channel_id"];
 	passageRoleId: NotificationPacket["passage_role_id"];
+	passageSendable: NotificationPacket["passage_sendable"];
+	passageOffset: NotificationPacket["passage_offset"];
 	auroraChannelId: NotificationPacket["aurora_channel_id"];
 	auroraRoleId: NotificationPacket["aurora_role_id"];
+	auroraSendable: NotificationPacket["aurora_sendable"];
+	auroraOffset: NotificationPacket["aurora_offset"];
 	regularShardEruptionChannelId: NotificationPacket["regular_shard_eruption_channel_id"];
 	regularShardEruptionRoleId: NotificationPacket["regular_shard_eruption_role_id"];
+	regularShardEruptionSendable: NotificationPacket["regular_shard_eruption_sendable"];
+	regularShardEruptionOffset: NotificationPacket["regular_shard_eruption_offset"];
 	issChannelId: NotificationPacket["iss_channel_id"];
 	issRoleId: NotificationPacket["iss_role_id"];
+	issSendable: NotificationPacket["iss_sendable"];
 	strongShardEruptionChannelId: NotificationPacket["strong_shard_eruption_channel_id"];
 	strongShardEruptionRoleId: NotificationPacket["strong_shard_eruption_role_id"];
+	strongShardEruptionSendable: NotificationPacket["strong_shard_eruption_sendable"];
+	strongShardEruptionOffset: NotificationPacket["strong_shard_eruption_offset"];
 	aviarysFireworkFestivalChannelId: NotificationPacket["aviarys_firework_festival_channel_id"];
 	aviarysFireworkFestivalRoleId: NotificationPacket["aviarys_firework_festival_role_id"];
+	aviarysFireworkFestivalSendable: NotificationPacket["aviarys_firework_festival_sendable"];
 	dragonChannelId: NotificationPacket["dragon_channel_id"];
 	dragonRoleId: NotificationPacket["dragon_role_id"];
+	dragonSendable: NotificationPacket["dragon_sendable"];
 }
 
 type NotificationPatchData = Omit<NotificationPacket, "guild_id">;
@@ -101,22 +137,29 @@ export enum NotificationEvent {
 	Dragon = "Dragon",
 }
 
-const NotificationEventToNumber = {
-	[NotificationEvent.PollutedGeyser]: 0,
-	[NotificationEvent.Grandma]: 1,
-	[NotificationEvent.Turtle]: 2,
-	[NotificationEvent.DailyReset]: 3,
-	[NotificationEvent.EyeOfEden]: 4,
-	[NotificationEvent.ISS]: 5,
-	[NotificationEvent.RegularShardEruption]: 6,
-	[NotificationEvent.StrongShardEruption]: 7,
-	[NotificationEvent.AURORA]: 8,
-	[NotificationEvent.Passage]: 9,
-	[NotificationEvent.AviarysFireworkFestival]: 10,
-	[NotificationEvent.Dragon]: 11,
-} as const satisfies Readonly<Record<NotificationEvent, number>>;
-
 export const NOTIFICATION_EVENT_VALUES = Object.values(NotificationEvent);
+
+const NOTIFICATION_OFFSETS = [
+	NotificationEvent.PollutedGeyser,
+	NotificationEvent.Grandma,
+	NotificationEvent.Turtle,
+	NotificationEvent.RegularShardEruption,
+	NotificationEvent.StrongShardEruption,
+	NotificationEvent.AURORA,
+	NotificationEvent.Passage,
+] as const;
+
+export type NotificationOffset = (typeof NOTIFICATION_OFFSETS)[number];
+
+export const NotificationOffsetToMaximumValues = {
+	[NotificationEvent.PollutedGeyser]: 10,
+	[NotificationEvent.Grandma]: 10,
+	[NotificationEvent.Turtle]: 10,
+	[NotificationEvent.RegularShardEruption]: 10,
+	[NotificationEvent.StrongShardEruption]: 10,
+	[NotificationEvent.AURORA]: 15,
+	[NotificationEvent.Passage]: 5,
+} as const satisfies Readonly<Record<NotificationOffset, number>>;
 
 export const NOTIFICATION_CHANNEL_TYPES = [
 	ChannelType.GuildText,
@@ -127,6 +170,8 @@ type NotificationAllowedChannel = Extract<
 	GuildBasedChannel,
 	{ type: (typeof NOTIFICATION_CHANNEL_TYPES)[number] }
 >;
+
+export const NOTIFICATION_SETUP_OFFSET_CUSTOM_ID = "NOTIFICATION_SETUP_OFFSET_CUSTOM_ID" as const;
 
 function isNotificationChannel(channel: Channel): channel is NotificationAllowedChannel {
 	return NOTIFICATION_CHANNEL_TYPES.includes(
@@ -181,14 +226,12 @@ export function isNotificationSendable(
 		: errors.length === 0;
 }
 
-export interface NotificationSendExtra {
-	startTime?: number;
-	endTime?: number;
-	shardEruption?: ShardEruptionData;
-}
-
 export function isEvent(event: string): event is NotificationEvent {
 	return NOTIFICATION_EVENT_VALUES.includes(event as NotificationEvent);
+}
+
+export function isNotificationOffset(event: string): event is NotificationOffset {
+	return NOTIFICATION_OFFSETS.includes(event as NotificationOffset);
 }
 
 export default class Notification {
@@ -200,49 +243,87 @@ export default class Notification {
 
 	public pollutedGeyserRoleId!: NotificationData["pollutedGeyserRoleId"];
 
+	public pollutedGeyserSendable!: NotificationData["pollutedGeyserSendable"];
+
+	public pollutedGeyserOffset!: NotificationData["pollutedGeyserOffset"];
+
 	public grandmaChannelId!: NotificationData["grandmaChannelId"];
 
 	public grandmaRoleId!: NotificationData["grandmaRoleId"];
+
+	public grandmaSendable!: NotificationData["grandmaSendable"];
+
+	public grandmaOffset!: NotificationData["grandmaOffset"];
 
 	public turtleChannelId!: NotificationData["turtleChannelId"];
 
 	public turtleRoleId!: NotificationData["turtleRoleId"];
 
+	public turtleSendable!: NotificationData["turtleSendable"];
+
+	public turtleOffset!: NotificationData["turtleOffset"];
+
 	public eyeOfEdenChannelId!: NotificationData["eyeOfEdenChannelId"];
 
 	public eyeOfEdenRoleId!: NotificationData["eyeOfEdenRoleId"];
+
+	public eyeOfEdenSendable!: NotificationData["eyeOfEdenSendable"];
 
 	public dailyResetChannelId!: NotificationData["dailyResetChannelId"];
 
 	public dailyResetRoleId!: NotificationData["dailyResetRoleId"];
 
+	public dailyResetSendable!: NotificationData["dailyResetSendable"];
+
 	public issChannelId!: NotificationData["issChannelId"];
 
 	public issRoleId!: NotificationData["issRoleId"];
+
+	public issSendable!: NotificationData["issSendable"];
 
 	public regularShardEruptionChannelId!: NotificationData["regularShardEruptionChannelId"];
 
 	public regularShardEruptionRoleId!: NotificationData["regularShardEruptionRoleId"];
 
+	public regularShardEruptionSendable!: NotificationData["regularShardEruptionSendable"];
+
+	public regularShardEruptionOffset!: NotificationData["regularShardEruptionOffset"];
+
 	public strongShardEruptionChannelId!: NotificationData["strongShardEruptionChannelId"];
 
 	public strongShardEruptionRoleId!: NotificationData["strongShardEruptionRoleId"];
+
+	public strongShardEruptionSendable!: NotificationData["strongShardEruptionSendable"];
+
+	public strongShardEruptionOffset!: NotificationData["strongShardEruptionOffset"];
 
 	public auroraChannelId!: NotificationData["auroraChannelId"];
 
 	public auroraRoleId!: NotificationData["auroraRoleId"];
 
+	public auroraSendable!: NotificationData["auroraSendable"];
+
+	public auroraOffset!: NotificationData["auroraOffset"];
+
 	public passageChannelId!: NotificationData["passageChannelId"];
 
 	public passageRoleId!: NotificationData["passageRoleId"];
+
+	public passageSendable!: NotificationData["passageSendable"];
+
+	public passageOffset!: NotificationData["passageOffset"];
 
 	public aviarysFireworkFestivalChannelId!: NotificationData["aviarysFireworkFestivalChannelId"];
 
 	public aviarysFireworkFestivalRoleId!: NotificationData["aviarysFireworkFestivalRoleId"];
 
+	public aviarysFireworkFestivalSendable!: NotificationData["aviarysFireworkFestivalSendable"];
+
 	public dragonChannelId!: NotificationData["dragonChannelId"];
 
 	public dragonRoleId!: NotificationData["dragonRoleId"];
+
+	public dragonSendable!: NotificationData["dragonSendable"];
 
 	public constructor(notification: NotificationPacket) {
 		this.guildId = notification.guild_id;
@@ -252,32 +333,51 @@ export default class Notification {
 	private patch(data: NotificationPatchData) {
 		this.pollutedGeyserChannelId = data.polluted_geyser_channel_id;
 		this.pollutedGeyserRoleId = data.polluted_geyser_role_id;
+		this.pollutedGeyserSendable = data.polluted_geyser_sendable;
+		this.pollutedGeyserOffset = data.polluted_geyser_offset;
 		this.grandmaChannelId = data.grandma_channel_id;
 		this.grandmaRoleId = data.grandma_role_id;
+		this.grandmaSendable = data.grandma_sendable;
+		this.grandmaOffset = data.grandma_offset;
 		this.turtleChannelId = data.turtle_channel_id;
 		this.turtleRoleId = data.turtle_role_id;
+		this.turtleSendable = data.turtle_sendable;
+		this.turtleOffset = data.turtle_offset;
 		this.eyeOfEdenChannelId = data.eye_of_eden_channel_id;
 		this.eyeOfEdenRoleId = data.eye_of_eden_role_id;
+		this.eyeOfEdenSendable = data.eye_of_eden_sendable;
 		this.dailyResetChannelId = data.daily_reset_channel_id;
 		this.dailyResetRoleId = data.daily_reset_role_id;
+		this.dailyResetSendable = data.daily_reset_sendable;
 		this.issChannelId = data.iss_channel_id;
 		this.issRoleId = data.iss_role_id;
+		this.issSendable = data.iss_sendable;
 		this.regularShardEruptionChannelId = data.regular_shard_eruption_channel_id;
 		this.regularShardEruptionRoleId = data.regular_shard_eruption_role_id;
+		this.regularShardEruptionSendable = data.regular_shard_eruption_sendable;
+		this.regularShardEruptionOffset = data.regular_shard_eruption_offset;
 		this.strongShardEruptionChannelId = data.strong_shard_eruption_channel_id;
 		this.strongShardEruptionRoleId = data.strong_shard_eruption_role_id;
+		this.strongShardEruptionSendable = data.strong_shard_eruption_sendable;
+		this.strongShardEruptionOffset = data.strong_shard_eruption_offset;
 		this.auroraChannelId = data.aurora_channel_id;
 		this.auroraRoleId = data.aurora_role_id;
+		this.auroraSendable = data.aurora_sendable;
+		this.auroraOffset = data.aurora_offset;
 		this.passageChannelId = data.passage_channel_id;
 		this.passageRoleId = data.passage_role_id;
+		this.passageSendable = data.passage_sendable;
+		this.passageOffset = data.passage_offset;
 		this.aviarysFireworkFestivalChannelId = data.aviarys_firework_festival_channel_id;
 		this.aviarysFireworkFestivalRoleId = data.aviarys_firework_festival_role_id;
+		this.aviarysFireworkFestivalSendable = data.aviarys_firework_festival_sendable;
 		this.dragonChannelId = data.dragon_channel_id;
 		this.dragonRoleId = data.dragon_role_id;
+		this.dragonSendable = data.dragon_sendable;
 	}
 
 	public static async setup(
-		interaction: ChatInputCommandInteraction<"cached">,
+		interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
 		data: NotificationInsertQuery | NotificationUpdateQuery,
 	) {
 		const { guildId } = interaction;
@@ -300,11 +400,15 @@ export default class Notification {
 			this.cache.set(notification.guildId, notification);
 		}
 
-		await interaction.reply({
+		const responseObject = {
+			components: [],
 			content: "Notifications have been modified.",
 			embeds: [await notification.embed(interaction)],
-			ephemeral: true,
-		});
+		} satisfies InteractionReplyOptions | InteractionUpdateOptions;
+
+		await (interaction instanceof ChatInputCommandInteraction
+			? interaction.reply({ ...responseObject, flags: MessageFlags.Ephemeral })
+			: interaction.update(responseObject));
 	}
 
 	public async unset(
@@ -332,13 +436,46 @@ export default class Notification {
 		this.cache.delete(guildId);
 	}
 
-	public async send(
-		client: Client<true>,
-		type: NotificationEvent,
-		{ startTime, endTime, shardEruption }: NotificationSendExtra = {},
+	private static isSendable(
+		me: GuildMember,
+		channelId: Snowflake | null,
+		roleId: Snowflake | null,
 	) {
+		if (!(channelId && roleId)) {
+			return false;
+		}
+
+		const channel = me.guild.channels.cache.get(channelId);
+		const role = me.guild.roles.cache.get(roleId);
+
+		return Boolean(
+			channel &&
+				isNotificationChannel(channel) &&
+				role &&
+				isNotificationSendable(channel, role, me),
+		);
+	}
+
+	public static async checkSendable(client: Client<true>, id: Snowflake) {
+		const notification = this.cache.get(id);
+
+		if (!notification) {
+			return;
+		}
+
+		// Can the guild be accessed?
+		const guild = client.guilds.cache.get(id);
+
+		if (!guild) {
+			// Just nuke everything.
+			await this.delete(id);
+			return;
+		}
+
+		const me = await guild.members.fetchMe();
+
+		// Check if we can still send to all the guild's notification channels.
 		const {
-			guildId,
 			pollutedGeyserChannelId,
 			pollutedGeyserRoleId,
 			grandmaChannelId,
@@ -349,153 +486,74 @@ export default class Notification {
 			eyeOfEdenRoleId,
 			dailyResetChannelId,
 			dailyResetRoleId,
-			issChannelId,
-			issRoleId,
+			passageChannelId,
+			passageRoleId,
+			auroraChannelId,
+			auroraRoleId,
 			regularShardEruptionChannelId,
 			regularShardEruptionRoleId,
 			strongShardEruptionChannelId,
 			strongShardEruptionRoleId,
-			auroraChannelId,
-			auroraRoleId,
-			passageChannelId,
-			passageRoleId,
+			issChannelId,
+			issRoleId,
 			aviarysFireworkFestivalChannelId,
 			aviarysFireworkFestivalRoleId,
 			dragonChannelId,
 			dragonRoleId,
-		} = this;
-		const startTimeString = startTime ? time(startTime, TimestampStyles.RelativeTime) : "soon";
-		const endTimeString = endTime ? time(endTime, TimestampStyles.RelativeTime) : "soon";
-		const { realm, skyMap, url } = shardEruption ?? {};
-		let channelId: Snowflake | null;
-		let roleId: Snowflake | null;
-		let suffix: string;
+		} = notification;
 
-		switch (type) {
-			case NotificationEvent.PollutedGeyser: {
-				channelId = pollutedGeyserChannelId;
-				roleId = pollutedGeyserRoleId;
-				suffix = `The polluted geyser will erupt ${startTimeString}!`;
-				break;
-			}
-			case NotificationEvent.Grandma: {
-				channelId = grandmaChannelId;
-				roleId = grandmaRoleId;
-				suffix = `Grandma will share her light ${startTimeString}!`;
-				break;
-			}
-			case NotificationEvent.Turtle: {
-				channelId = turtleChannelId;
-				roleId = turtleRoleId;
-				suffix = `The turtle will need cleansing of darkness ${startTimeString}!`;
-				break;
-			}
-			case NotificationEvent.EyeOfEden: {
-				channelId = eyeOfEdenChannelId;
-				roleId = eyeOfEdenRoleId;
-				suffix = "Skykids may save statues in the Eye of Eden again!";
-				break;
-			}
-			case NotificationEvent.DailyReset: {
-				channelId = dailyResetChannelId;
-				roleId = dailyResetRoleId;
-				suffix = "It's a new day. Time to forge candles again!";
-				break;
-			}
-			case NotificationEvent.ISS: {
-				channelId = issChannelId;
-				roleId = issRoleId;
-				suffix = "The International Space Station is accessible!";
-				break;
-			}
-			case NotificationEvent.RegularShardEruption: {
-				channelId = regularShardEruptionChannelId;
-				roleId = regularShardEruptionRoleId;
+		const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications)
+			.update({
+				polluted_geyser_sendable: this.isSendable(
+					me,
+					pollutedGeyserChannelId,
+					pollutedGeyserRoleId,
+				),
+				grandma_sendable: this.isSendable(me, grandmaChannelId, grandmaRoleId),
+				turtle_sendable: this.isSendable(me, turtleChannelId, turtleRoleId),
+				eye_of_eden_sendable: this.isSendable(me, eyeOfEdenChannelId, eyeOfEdenRoleId),
+				daily_reset_sendable: this.isSendable(me, dailyResetChannelId, dailyResetRoleId),
+				passage_sendable: this.isSendable(me, passageChannelId, passageRoleId),
+				aurora_sendable: this.isSendable(me, auroraChannelId, auroraRoleId),
+				regular_shard_eruption_sendable: this.isSendable(
+					me,
+					regularShardEruptionChannelId,
+					regularShardEruptionRoleId,
+				),
+				strong_shard_eruption_sendable: this.isSendable(
+					me,
+					strongShardEruptionChannelId,
+					strongShardEruptionRoleId,
+				),
+				iss_sendable: this.isSendable(me, issChannelId, issRoleId),
+				aviarys_firework_festival_sendable: this.isSendable(
+					me,
+					aviarysFireworkFestivalChannelId,
+					aviarysFireworkFestivalRoleId,
+				),
+				dragon_sendable: this.isSendable(me, dragonChannelId, dragonRoleId),
+			})
+			.where({ guild_id: id })
+			.returning("*");
 
-				suffix = `A regular shard eruption lands in the ${hyperlink(
-					`${realm!} (${skyMap!})`,
-					url!,
-				)} ${startTimeString} and clears up ${endTimeString}!`;
-
-				break;
-			}
-			case NotificationEvent.StrongShardEruption: {
-				channelId = strongShardEruptionChannelId;
-				roleId = strongShardEruptionRoleId;
-
-				suffix = `A strong shard eruption lands in the ${hyperlink(
-					`${realm!} (${skyMap!})`,
-					url!,
-				)} ${startTimeString} and clears up ${endTimeString}!`;
-
-				break;
-			}
-			case NotificationEvent.AURORA: {
-				channelId = auroraChannelId;
-				roleId = auroraRoleId;
-				suffix = `The AURORA concert is starting ${startTimeString}! Take your friends!`;
-				break;
-			}
-			case NotificationEvent.Passage: {
-				channelId = passageChannelId;
-				roleId = passageRoleId;
-				suffix = `The ${SeasonName.Passage} quests are starting ${startTimeString}!`;
-				break;
-			}
-			case NotificationEvent.AviarysFireworkFestival: {
-				channelId = aviarysFireworkFestivalChannelId;
-				roleId = aviarysFireworkFestivalRoleId;
-				suffix = `Aviary's Firework Festival begins ${startTimeString}!`;
-				break;
-			}
-			case NotificationEvent.Dragon: {
-				channelId = dragonChannelId;
-				roleId = dragonRoleId;
-				suffix = `The dragon will appear ${startTimeString}!`;
-				break;
-			}
-		}
-
-		if (!(channelId && roleId)) {
-			return;
-		}
-
-		const channel = client.guilds.cache.get(guildId)?.channels.cache.get(channelId);
-
-		if (!(channel && isNotificationChannel(channel))) {
-			return;
-		}
-
-		const role = channel.guild.roles.cache.get(roleId);
-
-		if (!role) {
-			return;
-		}
-
-		const me = await channel.guild.members.fetchMe();
-
-		if (!isNotificationSendable(channel, role, me)) {
-			return;
-		}
-
-		await channel.send({
-			content: `${role} ${suffix}`,
-			enforceNonce: true,
-			flags: MessageFlags.SuppressEmbeds,
-			nonce: `${NotificationEventToNumber[type]}-${channelId}`,
-		});
+		notification.patch(notificationPacket!);
 	}
 
-	public async embed(interaction: ChatInputCommandInteraction<"cached">) {
+	public async embed(
+		interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
+	) {
 		const me = await interaction.guild.members.fetchMe();
 
 		const {
 			pollutedGeyserChannelId,
 			pollutedGeyserRoleId,
+			pollutedGeyserOffset,
 			grandmaChannelId,
 			grandmaRoleId,
+			grandmaOffset,
 			turtleChannelId,
 			turtleRoleId,
+			turtleOffset,
 			eyeOfEdenChannelId,
 			eyeOfEdenRoleId,
 			dailyResetChannelId,
@@ -504,12 +562,16 @@ export default class Notification {
 			issRoleId,
 			regularShardEruptionChannelId,
 			regularShardEruptionRoleId,
+			regularShardEruptionOffset,
 			strongShardEruptionChannelId,
 			strongShardEruptionRoleId,
+			strongShardEruptionOffset,
 			auroraChannelId,
 			auroraRoleId,
+			auroraOffset,
 			passageChannelId,
 			passageRoleId,
+			passageOffset,
 			aviarysFireworkFestivalChannelId,
 			aviarysFireworkFestivalRoleId,
 			dragonChannelId,
@@ -521,17 +583,22 @@ export default class Notification {
 			.setFields(
 				{
 					name: NotificationEvent.PollutedGeyser,
-					value: this.overviewValue(me, pollutedGeyserChannelId, pollutedGeyserRoleId),
+					value: this.overviewValue(
+						me,
+						pollutedGeyserChannelId,
+						pollutedGeyserRoleId,
+						pollutedGeyserOffset,
+					),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.Grandma,
-					value: this.overviewValue(me, grandmaChannelId, grandmaRoleId),
+					value: this.overviewValue(me, grandmaChannelId, grandmaRoleId, grandmaOffset),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.Turtle,
-					value: this.overviewValue(me, turtleChannelId, turtleRoleId),
+					value: this.overviewValue(me, turtleChannelId, turtleRoleId, turtleOffset),
 					inline: true,
 				},
 				{
@@ -551,22 +618,32 @@ export default class Notification {
 				},
 				{
 					name: NotificationEvent.RegularShardEruption,
-					value: this.overviewValue(me, regularShardEruptionChannelId, regularShardEruptionRoleId),
+					value: this.overviewValue(
+						me,
+						regularShardEruptionChannelId,
+						regularShardEruptionRoleId,
+						regularShardEruptionOffset,
+					),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.StrongShardEruption,
-					value: this.overviewValue(me, strongShardEruptionChannelId, strongShardEruptionRoleId),
+					value: this.overviewValue(
+						me,
+						strongShardEruptionChannelId,
+						strongShardEruptionRoleId,
+						strongShardEruptionOffset,
+					),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.AURORA,
-					value: this.overviewValue(me, auroraChannelId, auroraRoleId),
+					value: this.overviewValue(me, auroraChannelId, auroraRoleId, auroraOffset),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.Passage,
-					value: this.overviewValue(me, passageChannelId, passageRoleId),
+					value: this.overviewValue(me, passageChannelId, passageRoleId, passageOffset),
 					inline: true,
 				},
 				{
@@ -591,19 +668,12 @@ export default class Notification {
 		member: GuildMember,
 		channelId: Snowflake | null,
 		roleId: Snowflake | null,
+		offset?: number,
 	) {
-		const { channels, roles } = member.guild;
-		const channel = channelId ? channels.cache.get(channelId) : null;
-		const role = roleId ? roles.cache.get(roleId) : null;
-
-		const sending =
-			channel &&
-			isNotificationChannel(channel) &&
-			role &&
-			isNotificationSendable(channel, role, member);
+		const sending = Notification.isSendable(member, channelId, roleId);
 
 		return `${channelId ? channelMention(channelId) : "No channel"}\n${roleId ? roleMention(roleId) : "No role"}\n${
 			sending ? "Sending!" : "Stopped!"
-		} ${formatEmoji(sending ? MISCELLANEOUS_EMOJIS.Yes : MISCELLANEOUS_EMOJIS.No)}`;
+		} ${formatEmoji(sending ? MISCELLANEOUS_EMOJIS.Yes : MISCELLANEOUS_EMOJIS.No)}${typeof offset === "number" ? `\nOffset: ${offset}` : ""}`;
 	}
 }

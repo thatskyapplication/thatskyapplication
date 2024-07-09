@@ -76,6 +76,7 @@ import {
 	answer,
 	tryAgain,
 } from "../Structures/Guess.js";
+import { NOTIFICATION_SETUP_OFFSET_CUSTOM_ID } from "../Structures/Notification.js";
 import Profile from "../Structures/Profile.js";
 import { ERROR_RESPONSE } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
@@ -481,6 +482,11 @@ export default {
 				}
 
 				if (interaction.inCachedGuild()) {
+					if (customId === NOTIFICATION_SETUP_OFFSET_CUSTOM_ID) {
+						// This is handled in the command itself.
+						return;
+					}
+
 					if (customId === DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID) {
 						await COMMANDS.admin.questSwap(interaction);
 						return;

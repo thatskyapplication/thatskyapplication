@@ -1,9 +1,17 @@
 import {
+	ActionRowBuilder,
 	type ApplicationCommandData,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	type ChatInputCommandInteraction,
+	ComponentType,
+	DiscordjsError,
+	DiscordjsErrorCodes,
+	MessageFlags,
 	PermissionFlagsBits,
+	StringSelectMenuBuilder,
+	type StringSelectMenuInteraction,
+	StringSelectMenuOptionBuilder,
 } from "discord.js";
 import Notification, {
 	type NotificationInsertQuery,
@@ -13,6 +21,9 @@ import Notification, {
 	NotificationEvent,
 	NOTIFICATION_CHANNEL_TYPES,
 	NOTIFICATION_EVENT_VALUES,
+	isNotificationOffset,
+	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
+	NotificationOffsetToMaximumValues,
 } from "../../Structures/Notification.js";
 import { ERROR_RESPONSE, NOT_IN_CACHED_GUILD_RESPONSE } from "../../Utility/Constants.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
@@ -112,7 +123,7 @@ export default new (class implements ChatInputCommand {
 		const event = options.getString("event", true);
 		const channel = options.getChannel("channel", true, NOTIFICATION_CHANNEL_TYPES);
 		const role = options.getRole("role", true);
-		const me = await channel.guild.members.fetchMe();
+		let offset = null;
 
 		if (!isEvent(event)) {
 			pino.error(
@@ -124,10 +135,78 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
+		// Some notifications may allow an offset.
+		let resolvedInteraction:
+			| ChatInputCommandInteraction<"cached">
+			| StringSelectMenuInteraction<"cached"> = interaction;
+
+		if (isNotificationOffset(event)) {
+			const options = [];
+			const maximumOffset = NotificationOffsetToMaximumValues[event];
+
+			for (let index = 0; index <= maximumOffset; index++) {
+				const indexString = String(index);
+
+				const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
+					.setLabel(indexString)
+					.setValue(indexString);
+
+				if (index === 0) {
+					stringSelectMenuOptionBuilder.setDescription("Notify as soon as the event occurs.");
+				}
+
+				options.push(stringSelectMenuOptionBuilder);
+			}
+
+			const message = await resolvedInteraction.reply({
+				components: [
+					new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+						new StringSelectMenuBuilder()
+							.setCustomId(NOTIFICATION_SETUP_OFFSET_CUSTOM_ID)
+							.setMaxValues(1)
+							.setMinValues(1)
+							.setOptions(options)
+							.setPlaceholder("How many minutes do you wish to offset the notification?"),
+					),
+				],
+				fetchReply: true,
+				flags: MessageFlags.Ephemeral,
+			});
+
+			try {
+				resolvedInteraction = await message.awaitMessageComponent({
+					componentType: ComponentType.StringSelect,
+					filter: (responseInteraction) =>
+						responseInteraction.customId === NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
+					time: 60000,
+				});
+
+				offset = Number(resolvedInteraction.values[0]);
+			} catch (error) {
+				if (
+					error instanceof DiscordjsError &&
+					error.code === DiscordjsErrorCodes.InteractionCollectorError
+				) {
+					await resolvedInteraction.editReply({
+						components: [],
+						content:
+							"Couldn't make a choice? We've stopped setting up notifications for now. Feel free to try again!",
+					});
+
+					return;
+				}
+
+				pino.error(error, "Error whilst awaiting a response regarding a notification offset.");
+				await resolvedInteraction.editReply(ERROR_RESPONSE);
+				return;
+			}
+		}
+
+		const me = await channel.guild.members.fetchMe();
 		const notificationSendable = isNotificationSendable(channel, role, me, true);
 
 		if (notificationSendable.length > 0) {
-			await interaction.reply({
+			await resolvedInteraction.reply({
 				content: notificationSendable.join("\n"),
 				ephemeral: true,
 			});
@@ -136,73 +215,92 @@ export default new (class implements ChatInputCommand {
 		}
 
 		const data: NotificationInsertQuery & NotificationUpdateQuery = {
-			guild_id: interaction.guildId,
+			guild_id: resolvedInteraction.guildId,
 		};
 
 		switch (event) {
 			case NotificationEvent.PollutedGeyser: {
 				data.polluted_geyser_channel_id = channel.id;
 				data.polluted_geyser_role_id = role.id;
+				data.polluted_geyser_sendable = true;
+				data.polluted_geyser_offset = offset as number;
 				break;
 			}
 			case NotificationEvent.Grandma: {
 				data.grandma_channel_id = channel.id;
 				data.grandma_role_id = role.id;
+				data.grandma_sendable = true;
+				data.grandma_offset = offset as number;
 				break;
 			}
 			case NotificationEvent.Turtle: {
 				data.turtle_channel_id = channel.id;
 				data.turtle_role_id = role.id;
+				data.turtle_sendable = true;
+				data.turtle_offset = offset as number;
 				break;
 			}
 			case NotificationEvent.EyeOfEden: {
 				data.eye_of_eden_channel_id = channel.id;
 				data.eye_of_eden_role_id = role.id;
+				data.eye_of_eden_sendable = true;
 				break;
 			}
 			case NotificationEvent.DailyReset: {
 				data.daily_reset_channel_id = channel.id;
 				data.daily_reset_role_id = role.id;
+				data.daily_reset_sendable = true;
 				break;
 			}
 			case NotificationEvent.ISS: {
 				data.iss_channel_id = channel.id;
 				data.iss_role_id = role.id;
+				data.iss_sendable = true;
 				break;
 			}
 			case NotificationEvent.RegularShardEruption: {
 				data.regular_shard_eruption_channel_id = channel.id;
 				data.regular_shard_eruption_role_id = role.id;
+				data.regular_shard_eruption_sendable = true;
+				data.regular_shard_eruption_offset = offset as number;
 				break;
 			}
 			case NotificationEvent.StrongShardEruption: {
 				data.strong_shard_eruption_channel_id = channel.id;
 				data.strong_shard_eruption_role_id = role.id;
+				data.strong_shard_eruption_sendable = true;
+				data.strong_shard_eruption_offset = offset as number;
 				break;
 			}
 			case NotificationEvent.AURORA: {
 				data.aurora_channel_id = channel.id;
 				data.aurora_role_id = role.id;
+				data.aurora_sendable = true;
+				data.aurora_offset = offset as number;
 				break;
 			}
 			case NotificationEvent.Passage: {
 				data.passage_channel_id = channel.id;
 				data.passage_role_id = role.id;
+				data.passage_sendable = true;
+				data.passage_offset = offset as number;
 				break;
 			}
 			case NotificationEvent.AviarysFireworkFestival: {
 				data.aviarys_firework_festival_channel_id = channel.id;
 				data.aviarys_firework_festival_role_id = role.id;
+				data.aviarys_firework_festival_sendable = true;
 				break;
 			}
 			case NotificationEvent.Dragon: {
 				data.dragon_channel_id = channel.id;
 				data.dragon_role_id = role.id;
+				data.dragon_sendable = true;
 				break;
 			}
 		}
 
-		await Notification.setup(interaction, data);
+		await Notification.setup(resolvedInteraction, data);
 	}
 
 	public async status(interaction: ChatInputCommandInteraction<"cached">) {
@@ -246,61 +344,73 @@ export default new (class implements ChatInputCommand {
 			case NotificationEvent.PollutedGeyser: {
 				data.polluted_geyser_channel_id = null;
 				data.polluted_geyser_role_id = null;
+				data.polluted_geyser_sendable = false;
 				break;
 			}
 			case NotificationEvent.Grandma: {
 				data.grandma_channel_id = null;
 				data.grandma_role_id = null;
+				data.grandma_sendable = false;
 				break;
 			}
 			case NotificationEvent.Turtle: {
 				data.turtle_channel_id = null;
 				data.turtle_role_id = null;
+				data.turtle_sendable = false;
 				break;
 			}
 			case NotificationEvent.EyeOfEden: {
 				data.eye_of_eden_channel_id = null;
 				data.eye_of_eden_role_id = null;
+				data.eye_of_eden_sendable = false;
 				break;
 			}
 			case NotificationEvent.DailyReset: {
 				data.daily_reset_channel_id = null;
 				data.daily_reset_role_id = null;
+				data.daily_reset_sendable = false;
 				break;
 			}
 			case NotificationEvent.ISS: {
 				data.iss_channel_id = null;
 				data.iss_role_id = null;
+				data.iss_sendable = false;
 				break;
 			}
 			case NotificationEvent.RegularShardEruption: {
 				data.regular_shard_eruption_channel_id = null;
 				data.regular_shard_eruption_role_id = null;
+				data.regular_shard_eruption_sendable = false;
 				break;
 			}
 			case NotificationEvent.StrongShardEruption: {
 				data.strong_shard_eruption_channel_id = null;
 				data.strong_shard_eruption_role_id = null;
+				data.strong_shard_eruption_sendable = false;
 				break;
 			}
 			case NotificationEvent.AURORA: {
 				data.aurora_channel_id = null;
 				data.aurora_role_id = null;
+				data.aurora_sendable = false;
 				break;
 			}
 			case NotificationEvent.Passage: {
 				data.passage_channel_id = null;
 				data.passage_role_id = null;
+				data.passage_sendable = false;
 				break;
 			}
 			case NotificationEvent.AviarysFireworkFestival: {
 				data.aviarys_firework_festival_channel_id = null;
 				data.aviarys_firework_festival_role_id = null;
+				data.aviarys_firework_festival_sendable = false;
 				break;
 			}
 			case NotificationEvent.Dragon: {
 				data.dragon_channel_id = null;
 				data.dragon_role_id = null;
+				data.dragon_sendable = false;
 				break;
 			}
 		}

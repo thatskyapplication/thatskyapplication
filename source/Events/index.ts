@@ -1,5 +1,6 @@
 import type { ClientEvents, Guild } from "discord.js";
 import pino from "../pino.js";
+import channelUpdate from "./channelUpdate.js";
 import guildCreate from "./guildCreate.js";
 import guildDelete from "./guildDelete.js";
 import guildMemberAdd from "./guildMemberAdd.js";
@@ -7,6 +8,7 @@ import guildMemberRemove from "./guildMemberRemove.js";
 import interactionCreate from "./interactionCreate.js";
 import messageCreate from "./messageCreate.js";
 import ready from "./ready.js";
+import roleUpdate from "./roleUpdate.js";
 
 export interface Event<T extends keyof ClientEvents = keyof ClientEvents> {
 	name: T;
@@ -30,6 +32,7 @@ export function logGuild(guild: Guild, join = true) {
 }
 
 export default [
+	channelUpdate,
 	guildCreate,
 	guildDelete,
 	guildMemberAdd,
@@ -37,4 +40,5 @@ export default [
 	interactionCreate,
 	messageCreate,
 	ready,
+	roleUpdate,
 ] as const;
