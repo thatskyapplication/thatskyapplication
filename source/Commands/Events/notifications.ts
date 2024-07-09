@@ -196,7 +196,7 @@ export default new (class implements ChatInputCommand {
 					return;
 				}
 
-				pino.error("Error whilst awaiting a response regarding a notification offset.");
+				pino.error(error, "Error whilst awaiting a response regarding a notification offset.");
 				await resolvedInteraction.editReply(ERROR_RESPONSE);
 				return;
 			}
