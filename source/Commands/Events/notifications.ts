@@ -166,7 +166,7 @@ export default new (class implements ChatInputCommand {
 							.setMaxValues(1)
 							.setMinValues(1)
 							.setOptions(options)
-							.setPlaceholder("How many minutes do you wish to offset the notification?"),
+							.setPlaceholder("Offset notification by how many minutes?"),
 					),
 				],
 				fetchReply: true,
