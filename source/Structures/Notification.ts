@@ -674,6 +674,6 @@ export default class Notification {
 
 		return `${channelId ? channelMention(channelId) : "No channel"}\n${roleId ? roleMention(roleId) : "No role"}\n${
 			sending ? "Sending!" : "Stopped!"
-		} ${formatEmoji(sending ? MISCELLANEOUS_EMOJIS.Yes : MISCELLANEOUS_EMOJIS.No)}${offset ? `\nOffset: ${offset}` : ""}`;
+		} ${formatEmoji(sending ? MISCELLANEOUS_EMOJIS.Yes : MISCELLANEOUS_EMOJIS.No)}${typeof offset === "number" ? `\nOffset: ${offset}` : ""}`;
 	}
 }
