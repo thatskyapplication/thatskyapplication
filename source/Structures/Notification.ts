@@ -2,6 +2,7 @@ import {
 	type Channel,
 	ChannelType,
 	ChatInputCommandInteraction,
+	type Client,
 	Collection,
 	EmbedBuilder,
 	type GuildBasedChannel,
@@ -435,6 +436,109 @@ export default class Notification {
 		this.cache.delete(guildId);
 	}
 
+	private static isSendable(
+		me: GuildMember,
+		channelId: Snowflake | null,
+		roleId: Snowflake | null,
+	) {
+		if (!(channelId && roleId)) {
+			return false;
+		}
+
+		const channel = me.guild.channels.cache.get(channelId);
+		const role = me.guild.roles.cache.get(roleId);
+
+		return Boolean(
+			channel &&
+				isNotificationChannel(channel) &&
+				role &&
+				isNotificationSendable(channel, role, me),
+		);
+	}
+
+	public static async checkSendable(client: Client<true>, id: Snowflake) {
+		const notification = this.cache.get(id);
+
+		if (!notification) {
+			return;
+		}
+
+		// Can the guild be accessed?
+		const guild = client.guilds.cache.get(id);
+
+		if (!guild) {
+			// Just nuke everything.
+			await this.delete(id);
+			return;
+		}
+
+		const me = await guild.members.fetchMe();
+
+		// Check if we can still send to all the guild's notification channels.
+		const {
+			pollutedGeyserChannelId,
+			pollutedGeyserRoleId,
+			grandmaChannelId,
+			grandmaRoleId,
+			turtleChannelId,
+			turtleRoleId,
+			eyeOfEdenChannelId,
+			eyeOfEdenRoleId,
+			dailyResetChannelId,
+			dailyResetRoleId,
+			passageChannelId,
+			passageRoleId,
+			auroraChannelId,
+			auroraRoleId,
+			regularShardEruptionChannelId,
+			regularShardEruptionRoleId,
+			strongShardEruptionChannelId,
+			strongShardEruptionRoleId,
+			issChannelId,
+			issRoleId,
+			aviarysFireworkFestivalChannelId,
+			aviarysFireworkFestivalRoleId,
+			dragonChannelId,
+			dragonRoleId,
+		} = notification;
+
+		const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications)
+			.update({
+				polluted_geyser_sendable: this.isSendable(
+					me,
+					pollutedGeyserChannelId,
+					pollutedGeyserRoleId,
+				),
+				grandma_sendable: this.isSendable(me, grandmaChannelId, grandmaRoleId),
+				turtle_sendable: this.isSendable(me, turtleChannelId, turtleRoleId),
+				eye_of_eden_sendable: this.isSendable(me, eyeOfEdenChannelId, eyeOfEdenRoleId),
+				daily_reset_sendable: this.isSendable(me, dailyResetChannelId, dailyResetRoleId),
+				passage_sendable: this.isSendable(me, passageChannelId, passageRoleId),
+				aurora_sendable: this.isSendable(me, auroraChannelId, auroraRoleId),
+				regular_shard_eruption_sendable: this.isSendable(
+					me,
+					regularShardEruptionChannelId,
+					regularShardEruptionRoleId,
+				),
+				strong_shard_eruption_sendable: this.isSendable(
+					me,
+					strongShardEruptionChannelId,
+					strongShardEruptionRoleId,
+				),
+				iss_sendable: this.isSendable(me, issChannelId, issRoleId),
+				aviarys_firework_festival_sendable: this.isSendable(
+					me,
+					aviarysFireworkFestivalChannelId,
+					aviarysFireworkFestivalRoleId,
+				),
+				dragon_sendable: this.isSendable(me, dragonChannelId, dragonRoleId),
+			})
+			.where({ guild_id: id })
+			.returning("*");
+
+		notification.patch(notificationPacket!);
+	}
+
 	public async embed(
 		interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
 	) {
@@ -566,15 +670,7 @@ export default class Notification {
 		roleId: Snowflake | null,
 		offset?: number,
 	) {
-		const { channels, roles } = member.guild;
-		const channel = channelId ? channels.cache.get(channelId) : null;
-		const role = roleId ? roles.cache.get(roleId) : null;
-
-		const sending =
-			channel &&
-			isNotificationChannel(channel) &&
-			role &&
-			isNotificationSendable(channel, role, member);
+		const sending = Notification.isSendable(member, channelId, roleId);
 
 		return `${channelId ? channelMention(channelId) : "No channel"}\n${roleId ? roleMention(roleId) : "No role"}\n${
 			sending ? "Sending!" : "Stopped!"
