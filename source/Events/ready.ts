@@ -99,6 +99,21 @@ export default {
 			pino.error(errors, "Error whilst removing guild configurations.");
 		}
 
+		// Perform a health check for our notification subscribers.
+		const notificationsSettled = await Promise.allSettled(
+			Notification.cache.map((notification) =>
+				Notification.checkSendable(client, notification.guildId),
+			),
+		);
+
+		const notificationsErrors = notificationsSettled
+			.filter((result): result is PromiseRejectedResult => result.status === "rejected")
+			.map((result) => result.reason);
+
+		if (notificationsErrors.length > 0) {
+			pino.error(notificationsErrors, "Error whilst performing the notification health check.");
+		}
+
 		heartbeat(client);
 		await client.applyCommands();
 	},
