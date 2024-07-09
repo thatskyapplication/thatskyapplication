@@ -1,14 +1,18 @@
 import {
 	type Channel,
 	ChannelType,
-	type ChatInputCommandInteraction,
+	ChatInputCommandInteraction,
 	Collection,
 	EmbedBuilder,
 	type GuildBasedChannel,
 	type GuildMember,
+	type InteractionReplyOptions,
+	type InteractionUpdateOptions,
+	MessageFlags,
 	PermissionFlagsBits,
 	type Role,
 	type Snowflake,
+	type StringSelectMenuInteraction,
 	channelMention,
 	roleMention,
 } from "discord.js";
@@ -134,6 +138,28 @@ export enum NotificationEvent {
 
 export const NOTIFICATION_EVENT_VALUES = Object.values(NotificationEvent);
 
+const NOTIFICATION_OFFSETS = [
+	NotificationEvent.PollutedGeyser,
+	NotificationEvent.Grandma,
+	NotificationEvent.Turtle,
+	NotificationEvent.RegularShardEruption,
+	NotificationEvent.StrongShardEruption,
+	NotificationEvent.AURORA,
+	NotificationEvent.Passage,
+] as const;
+
+export type NotificationOffset = (typeof NOTIFICATION_OFFSETS)[number];
+
+export const NotificationOffsetToMaximumValues = {
+	[NotificationEvent.PollutedGeyser]: 10,
+	[NotificationEvent.Grandma]: 10,
+	[NotificationEvent.Turtle]: 10,
+	[NotificationEvent.RegularShardEruption]: 10,
+	[NotificationEvent.StrongShardEruption]: 10,
+	[NotificationEvent.AURORA]: 15,
+	[NotificationEvent.Passage]: 5,
+} as const satisfies Readonly<Record<NotificationOffset, number>>;
+
 export const NOTIFICATION_CHANNEL_TYPES = [
 	ChannelType.GuildText,
 	ChannelType.GuildAnnouncement,
@@ -143,6 +169,8 @@ type NotificationAllowedChannel = Extract<
 	GuildBasedChannel,
 	{ type: (typeof NOTIFICATION_CHANNEL_TYPES)[number] }
 >;
+
+export const NOTIFICATION_SETUP_OFFSET_CUSTOM_ID = "NOTIFICATION_SETUP_OFFSET_CUSTOM_ID" as const;
 
 function isNotificationChannel(channel: Channel): channel is NotificationAllowedChannel {
 	return NOTIFICATION_CHANNEL_TYPES.includes(
@@ -199,6 +227,10 @@ export function isNotificationSendable(
 
 export function isEvent(event: string): event is NotificationEvent {
 	return NOTIFICATION_EVENT_VALUES.includes(event as NotificationEvent);
+}
+
+export function isNotificationOffset(event: string): event is NotificationOffset {
+	return NOTIFICATION_OFFSETS.includes(event as NotificationOffset);
 }
 
 export default class Notification {
@@ -344,7 +376,7 @@ export default class Notification {
 	}
 
 	public static async setup(
-		interaction: ChatInputCommandInteraction<"cached">,
+		interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
 		data: NotificationInsertQuery | NotificationUpdateQuery,
 	) {
 		const { guildId } = interaction;
@@ -367,11 +399,15 @@ export default class Notification {
 			this.cache.set(notification.guildId, notification);
 		}
 
-		await interaction.reply({
+		const responseObject = {
+			components: [],
 			content: "Notifications have been modified.",
 			embeds: [await notification.embed(interaction)],
-			ephemeral: true,
-		});
+		} satisfies InteractionReplyOptions | InteractionUpdateOptions;
+
+		await (interaction instanceof ChatInputCommandInteraction
+			? interaction.reply({ ...responseObject, flags: MessageFlags.Ephemeral })
+			: interaction.update(responseObject));
 	}
 
 	public async unset(
@@ -399,7 +435,9 @@ export default class Notification {
 		this.cache.delete(guildId);
 	}
 
-	public async embed(interaction: ChatInputCommandInteraction<"cached">) {
+	public async embed(
+		interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
+	) {
 		const me = await interaction.guild.members.fetchMe();
 
 		const {
