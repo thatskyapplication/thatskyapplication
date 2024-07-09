@@ -443,10 +443,13 @@ export default class Notification {
 		const {
 			pollutedGeyserChannelId,
 			pollutedGeyserRoleId,
+			pollutedGeyserOffset,
 			grandmaChannelId,
 			grandmaRoleId,
+			grandmaOffset,
 			turtleChannelId,
 			turtleRoleId,
+			turtleOffset,
 			eyeOfEdenChannelId,
 			eyeOfEdenRoleId,
 			dailyResetChannelId,
@@ -455,12 +458,16 @@ export default class Notification {
 			issRoleId,
 			regularShardEruptionChannelId,
 			regularShardEruptionRoleId,
+			regularShardEruptionOffset,
 			strongShardEruptionChannelId,
 			strongShardEruptionRoleId,
+			strongShardEruptionOffset,
 			auroraChannelId,
 			auroraRoleId,
+			auroraOffset,
 			passageChannelId,
 			passageRoleId,
+			passageOffset,
 			aviarysFireworkFestivalChannelId,
 			aviarysFireworkFestivalRoleId,
 			dragonChannelId,
@@ -472,17 +479,22 @@ export default class Notification {
 			.setFields(
 				{
 					name: NotificationEvent.PollutedGeyser,
-					value: this.overviewValue(me, pollutedGeyserChannelId, pollutedGeyserRoleId),
+					value: this.overviewValue(
+						me,
+						pollutedGeyserChannelId,
+						pollutedGeyserRoleId,
+						pollutedGeyserOffset,
+					),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.Grandma,
-					value: this.overviewValue(me, grandmaChannelId, grandmaRoleId),
+					value: this.overviewValue(me, grandmaChannelId, grandmaRoleId, grandmaOffset),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.Turtle,
-					value: this.overviewValue(me, turtleChannelId, turtleRoleId),
+					value: this.overviewValue(me, turtleChannelId, turtleRoleId, turtleOffset),
 					inline: true,
 				},
 				{
@@ -502,22 +514,32 @@ export default class Notification {
 				},
 				{
 					name: NotificationEvent.RegularShardEruption,
-					value: this.overviewValue(me, regularShardEruptionChannelId, regularShardEruptionRoleId),
+					value: this.overviewValue(
+						me,
+						regularShardEruptionChannelId,
+						regularShardEruptionRoleId,
+						regularShardEruptionOffset,
+					),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.StrongShardEruption,
-					value: this.overviewValue(me, strongShardEruptionChannelId, strongShardEruptionRoleId),
+					value: this.overviewValue(
+						me,
+						strongShardEruptionChannelId,
+						strongShardEruptionRoleId,
+						strongShardEruptionOffset,
+					),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.AURORA,
-					value: this.overviewValue(me, auroraChannelId, auroraRoleId),
+					value: this.overviewValue(me, auroraChannelId, auroraRoleId, auroraOffset),
 					inline: true,
 				},
 				{
 					name: NotificationEvent.Passage,
-					value: this.overviewValue(me, passageChannelId, passageRoleId),
+					value: this.overviewValue(me, passageChannelId, passageRoleId, passageOffset),
 					inline: true,
 				},
 				{
@@ -542,6 +564,7 @@ export default class Notification {
 		member: GuildMember,
 		channelId: Snowflake | null,
 		roleId: Snowflake | null,
+		offset?: number,
 	) {
 		const { channels, roles } = member.guild;
 		const channel = channelId ? channels.cache.get(channelId) : null;
@@ -555,6 +578,6 @@ export default class Notification {
 
 		return `${channelId ? channelMention(channelId) : "No channel"}\n${roleId ? roleMention(roleId) : "No role"}\n${
 			sending ? "Sending!" : "Stopped!"
-		} ${formatEmoji(sending ? MISCELLANEOUS_EMOJIS.Yes : MISCELLANEOUS_EMOJIS.No)}`;
+		} ${formatEmoji(sending ? MISCELLANEOUS_EMOJIS.Yes : MISCELLANEOUS_EMOJIS.No)}${offset ? `\nOffset: ${offset}` : ""}`;
 	}
 }
