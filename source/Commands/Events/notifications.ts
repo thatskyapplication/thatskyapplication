@@ -344,61 +344,73 @@ export default new (class implements ChatInputCommand {
 			case NotificationEvent.PollutedGeyser: {
 				data.polluted_geyser_channel_id = null;
 				data.polluted_geyser_role_id = null;
+				data.polluted_geyser_sendable = false;
 				break;
 			}
 			case NotificationEvent.Grandma: {
 				data.grandma_channel_id = null;
 				data.grandma_role_id = null;
+				data.grandma_sendable = false;
 				break;
 			}
 			case NotificationEvent.Turtle: {
 				data.turtle_channel_id = null;
 				data.turtle_role_id = null;
+				data.turtle_sendable = false;
 				break;
 			}
 			case NotificationEvent.EyeOfEden: {
 				data.eye_of_eden_channel_id = null;
 				data.eye_of_eden_role_id = null;
+				data.eye_of_eden_sendable = false;
 				break;
 			}
 			case NotificationEvent.DailyReset: {
 				data.daily_reset_channel_id = null;
 				data.daily_reset_role_id = null;
+				data.daily_reset_sendable = false;
 				break;
 			}
 			case NotificationEvent.ISS: {
 				data.iss_channel_id = null;
 				data.iss_role_id = null;
+				data.iss_sendable = false;
 				break;
 			}
 			case NotificationEvent.RegularShardEruption: {
 				data.regular_shard_eruption_channel_id = null;
 				data.regular_shard_eruption_role_id = null;
+				data.regular_shard_eruption_sendable = false;
 				break;
 			}
 			case NotificationEvent.StrongShardEruption: {
 				data.strong_shard_eruption_channel_id = null;
 				data.strong_shard_eruption_role_id = null;
+				data.strong_shard_eruption_sendable = false;
 				break;
 			}
 			case NotificationEvent.AURORA: {
 				data.aurora_channel_id = null;
 				data.aurora_role_id = null;
+				data.aurora_sendable = false;
 				break;
 			}
 			case NotificationEvent.Passage: {
 				data.passage_channel_id = null;
 				data.passage_role_id = null;
+				data.passage_sendable = false;
 				break;
 			}
 			case NotificationEvent.AviarysFireworkFestival: {
 				data.aviarys_firework_festival_channel_id = null;
 				data.aviarys_firework_festival_role_id = null;
+				data.aviarys_firework_festival_sendable = false;
 				break;
 			}
 			case NotificationEvent.Dragon: {
 				data.dragon_channel_id = null;
 				data.dragon_role_id = null;
+				data.dragon_sendable = false;
 				break;
 			}
 		}
