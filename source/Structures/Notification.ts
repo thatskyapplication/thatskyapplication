@@ -2,23 +2,17 @@ import {
 	type Channel,
 	ChannelType,
 	type ChatInputCommandInteraction,
-	type Client,
 	Collection,
 	EmbedBuilder,
 	type GuildBasedChannel,
 	type GuildMember,
-	MessageFlags,
 	PermissionFlagsBits,
 	type Role,
 	type Snowflake,
-	TimestampStyles,
 	channelMention,
-	hyperlink,
 	roleMention,
-	time,
 } from "discord.js";
 import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
-import { SeasonName } from "../Utility/catalogue.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
 import type { ShardEruptionData } from "../Utility/shardEruption.js";
 import pg, { Table } from "../pg.js";
@@ -100,21 +94,6 @@ export enum NotificationEvent {
 	AviarysFireworkFestival = "Aviary's Firework Festival",
 	Dragon = "Dragon",
 }
-
-const NotificationEventToNumber = {
-	[NotificationEvent.PollutedGeyser]: 0,
-	[NotificationEvent.Grandma]: 1,
-	[NotificationEvent.Turtle]: 2,
-	[NotificationEvent.DailyReset]: 3,
-	[NotificationEvent.EyeOfEden]: 4,
-	[NotificationEvent.ISS]: 5,
-	[NotificationEvent.RegularShardEruption]: 6,
-	[NotificationEvent.StrongShardEruption]: 7,
-	[NotificationEvent.AURORA]: 8,
-	[NotificationEvent.Passage]: 9,
-	[NotificationEvent.AviarysFireworkFestival]: 10,
-	[NotificationEvent.Dragon]: 11,
-} as const satisfies Readonly<Record<NotificationEvent, number>>;
 
 export const NOTIFICATION_EVENT_VALUES = Object.values(NotificationEvent);
 
@@ -330,160 +309,6 @@ export default class Notification {
 	public static async delete(guildId: Snowflake) {
 		await pg<NotificationPacket>(Table.Notifications).delete().where({ guild_id: guildId });
 		this.cache.delete(guildId);
-	}
-
-	public async send(
-		client: Client<true>,
-		type: NotificationEvent,
-		{ startTime, endTime, shardEruption }: NotificationSendExtra = {},
-	) {
-		const {
-			guildId,
-			pollutedGeyserChannelId,
-			pollutedGeyserRoleId,
-			grandmaChannelId,
-			grandmaRoleId,
-			turtleChannelId,
-			turtleRoleId,
-			eyeOfEdenChannelId,
-			eyeOfEdenRoleId,
-			dailyResetChannelId,
-			dailyResetRoleId,
-			issChannelId,
-			issRoleId,
-			regularShardEruptionChannelId,
-			regularShardEruptionRoleId,
-			strongShardEruptionChannelId,
-			strongShardEruptionRoleId,
-			auroraChannelId,
-			auroraRoleId,
-			passageChannelId,
-			passageRoleId,
-			aviarysFireworkFestivalChannelId,
-			aviarysFireworkFestivalRoleId,
-			dragonChannelId,
-			dragonRoleId,
-		} = this;
-		const startTimeString = startTime ? time(startTime, TimestampStyles.RelativeTime) : "soon";
-		const endTimeString = endTime ? time(endTime, TimestampStyles.RelativeTime) : "soon";
-		const { realm, skyMap, url } = shardEruption ?? {};
-		let channelId: Snowflake | null;
-		let roleId: Snowflake | null;
-		let suffix: string;
-
-		switch (type) {
-			case NotificationEvent.PollutedGeyser: {
-				channelId = pollutedGeyserChannelId;
-				roleId = pollutedGeyserRoleId;
-				suffix = `The polluted geyser will erupt ${startTimeString}!`;
-				break;
-			}
-			case NotificationEvent.Grandma: {
-				channelId = grandmaChannelId;
-				roleId = grandmaRoleId;
-				suffix = `Grandma will share her light ${startTimeString}!`;
-				break;
-			}
-			case NotificationEvent.Turtle: {
-				channelId = turtleChannelId;
-				roleId = turtleRoleId;
-				suffix = `The turtle will need cleansing of darkness ${startTimeString}!`;
-				break;
-			}
-			case NotificationEvent.EyeOfEden: {
-				channelId = eyeOfEdenChannelId;
-				roleId = eyeOfEdenRoleId;
-				suffix = "Skykids may save statues in the Eye of Eden again!";
-				break;
-			}
-			case NotificationEvent.DailyReset: {
-				channelId = dailyResetChannelId;
-				roleId = dailyResetRoleId;
-				suffix = "It's a new day. Time to forge candles again!";
-				break;
-			}
-			case NotificationEvent.ISS: {
-				channelId = issChannelId;
-				roleId = issRoleId;
-				suffix = "The International Space Station is accessible!";
-				break;
-			}
-			case NotificationEvent.RegularShardEruption: {
-				channelId = regularShardEruptionChannelId;
-				roleId = regularShardEruptionRoleId;
-
-				suffix = `A regular shard eruption lands in the ${hyperlink(
-					`${realm!} (${skyMap!})`,
-					url!,
-				)} ${startTimeString} and clears up ${endTimeString}!`;
-
-				break;
-			}
-			case NotificationEvent.StrongShardEruption: {
-				channelId = strongShardEruptionChannelId;
-				roleId = strongShardEruptionRoleId;
-
-				suffix = `A strong shard eruption lands in the ${hyperlink(
-					`${realm!} (${skyMap!})`,
-					url!,
-				)} ${startTimeString} and clears up ${endTimeString}!`;
-
-				break;
-			}
-			case NotificationEvent.AURORA: {
-				channelId = auroraChannelId;
-				roleId = auroraRoleId;
-				suffix = `The AURORA concert is starting ${startTimeString}! Take your friends!`;
-				break;
-			}
-			case NotificationEvent.Passage: {
-				channelId = passageChannelId;
-				roleId = passageRoleId;
-				suffix = `The ${SeasonName.Passage} quests are starting ${startTimeString}!`;
-				break;
-			}
-			case NotificationEvent.AviarysFireworkFestival: {
-				channelId = aviarysFireworkFestivalChannelId;
-				roleId = aviarysFireworkFestivalRoleId;
-				suffix = `Aviary's Firework Festival begins ${startTimeString}!`;
-				break;
-			}
-			case NotificationEvent.Dragon: {
-				channelId = dragonChannelId;
-				roleId = dragonRoleId;
-				suffix = `The dragon will appear ${startTimeString}!`;
-				break;
-			}
-		}
-
-		if (!(channelId && roleId)) {
-			return;
-		}
-
-		const channel = client.guilds.cache.get(guildId)?.channels.cache.get(channelId);
-
-		if (!(channel && isNotificationChannel(channel))) {
-			return;
-		}
-
-		const role = channel.guild.roles.cache.get(roleId);
-
-		if (!role) {
-			return;
-		}
-
-		const me = await channel.guild.members.fetchMe();
-
-		if (!isNotificationSendable(channel, role, me)) {
-			return;
-		}
-
-		await channel.send({
-			content: `${role} ${suffix}`,
-			enforceNonce: true,
-			flags: MessageFlags.SuppressEmbeds,
-			nonce: `${NotificationEventToNumber[type]}-${channelId}`,
-		});
 	}
 
 	public async embed(interaction: ChatInputCommandInteraction<"cached">) {
