@@ -35,6 +35,7 @@ export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as c
 export const SKY_PROFILE_PLATFORM_CUSTOM_ID = "SKY_PROFILE_PLATFORM_CUSTOM_ID" as const;
 export const SKY_PROFILE_SEASONS_CUSTOM_ID = "SKY_PROFILE_SEASONS_CUSTOM_ID" as const;
 export const SKY_PROFILE_EDIT_NAME_CUSTOM_ID = "SKY_PROFILE_EDIT_NAME_CUSTOM_ID" as const;
+export const SKY_PROFILE_EDIT_DESCRIPTION_CUSTOM_ID = "SKY_PROFILE_EDIT_DESCRIPTION_CUSTOM_ID" as const;
 const SKY_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
 const SKY_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
 const SKY_MINIMUM_COUNTRY_LENGTH = 2 as const;
@@ -243,7 +244,6 @@ export default new (class implements AutocompleteCommand {
 
 	public async edit(interaction: ChatInputCommandInteraction) {
 		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
-
 		const embed = (await profile?.embed(interaction))?.embed;
 		const content = embed ? "" : "You do not have a Sky profile yet. Build one!";
 
@@ -254,6 +254,10 @@ export default new (class implements AutocompleteCommand {
 					new ButtonBuilder()
 						.setCustomId(SKY_PROFILE_EDIT_NAME_CUSTOM_ID)
 						.setLabel("Name")
+						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(SKY_PROFILE_EDIT_DESCRIPTION_CUSTOM_ID)
+						.setLabel("Description")
 						.setStyle(ButtonStyle.Secondary),
 				),
 			],

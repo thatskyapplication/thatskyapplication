@@ -20,7 +20,6 @@ import {
 import { hash } from "hasha";
 import { t } from "i18next";
 import sharp from "sharp";
-import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import commands from "../Commands/index.js";
 import S3Client from "../S3Client.js";
 import {
@@ -88,7 +87,15 @@ export const enum AssetType {
 
 export const SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID = "SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID" as const;
 export const SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID" as const;
-export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
+
+export const SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID =
+	"SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID =
+	"SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID" as const;
+
+const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
+const SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
 const ANIMATED_HASH_PREFIX = "a_" as const;
 
 function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${string}` {
@@ -194,7 +201,7 @@ export default class Profile {
 		// }
 
 		// if (unfilled) {
-			// await interaction.followUp({ content: unfilled, ephemeral: true });
+		// await interaction.followUp({ content: unfilled, ephemeral: true });
 		// }
 	}
 
@@ -261,35 +268,59 @@ export default class Profile {
 	}
 
 	public static async showNameModal(interaction: ButtonInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+
+		const textInput = new TextInputBuilder()
+			.setCustomId(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID)
+			.setLabel("What's your name?")
+			.setMaxLength(SKY_PROFILE_MAXIMUM_NAME_LENGTH)
+			.setMinLength(1)
+			.setRequired()
+			.setStyle(TextInputStyle.Short);
+
+		if (profile?.name) {
+			textInput.setValue(profile.name);
+		}
+
 		await interaction.showModal(
 			new ModalBuilder()
-				.setComponents(
-					new ActionRowBuilder<TextInputBuilder>().setComponents(
-						new TextInputBuilder()
-							.setCustomId(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID)
-							.setLabel("What's your name?")
-							.setMaxLength(SKY_PROFILE_MAXIMUM_NAME_LENGTH)
-							.setMinLength(1)
-							.setRequired()
-							.setStyle(TextInputStyle.Short),
-					),
-				)
+				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
 				.setCustomId(SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID)
 				.setTitle("Sky Profile"),
 		);
 	}
 
 	public static setName(interaction: ModalSubmitInteraction) {
-		const name = interaction.fields
-			.getTextInputValue(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID)
-			.trim();
-
+		const name = interaction.fields.getTextInputValue(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID).trim();
 		return this.set(interaction, { name });
+	}
+
+	public static async showDescriptionModal(interaction: ButtonInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+
+		const textInput = new TextInputBuilder()
+			.setCustomId(SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID)
+			.setLabel("Type a lovely description about your Skykid!")
+			.setMaxLength(SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH)
+			.setMinLength(1)
+			.setRequired()
+			.setStyle(TextInputStyle.Paragraph);
+
+		if (profile?.description) {
+			textInput.setValue(profile.description);
+		}
+
+		await interaction.showModal(
+			new ModalBuilder()
+				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
+				.setCustomId(SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID)
+				.setTitle("Sky Profile"),
+		);
 	}
 
 	public static setDescription(interaction: ModalSubmitInteraction) {
 		const description = interaction.fields
-			.getTextInputValue(SKY_PROFILE_TEXT_INPUT_DESCRIPTION)
+			.getTextInputValue(SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID)
 			.trim();
 
 		return this.set(interaction, { description });
