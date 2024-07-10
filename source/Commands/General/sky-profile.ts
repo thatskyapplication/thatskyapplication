@@ -17,20 +17,14 @@ import {
 	TextInputStyle,
 	UserContextMenuCommandInteraction,
 } from "discord.js";
-import { t } from "i18next";
 import { PlatformFlagsToString, resolvePlatformToEmoji } from "../../Structures/Platforms.js";
-import Profile, { AssetType, PROFILE_EDIT_SELECT_MENU } from "../../Structures/Profile.js";
-import {
-	SEASON_FLAGS_TO_SEASON_NAME_ENTRIES,
-	SeasonNameToSeasonalEmoji,
-} from "../../Utility/catalogue.js";
+import Profile, { AssetType, SKY_PROFILE_EDIT_ACTION_ROW } from "../../Structures/Profile.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { spirits } from "../../catalogue/spirits/index.js";
 import COMMANDS, { type AutocompleteCommand } from "../index.js";
 
 export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as const;
 export const SKY_PROFILE_PLATFORM_CUSTOM_ID = "SKY_PROFILE_PLATFORM_CUSTOM_ID" as const;
-export const SKY_PROFILE_SEASONS_CUSTOM_ID = "SKY_PROFILE_SEASONS_CUSTOM_ID" as const;
 const SKY_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
 const SKY_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
 const SKY_MINIMUM_SPOT_LENGTH = 2 as const;
@@ -242,9 +236,7 @@ export default new (class implements AutocompleteCommand {
 
 		await interaction.reply({
 			content,
-			components: [
-				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(PROFILE_EDIT_SELECT_MENU),
-			],
+			components: [SKY_PROFILE_EDIT_ACTION_ROW],
 			embeds: embed ? [embed] : [],
 			flags: MessageFlags.Ephemeral,
 		});
@@ -270,10 +262,6 @@ export default new (class implements AutocompleteCommand {
 			}
 			case "platform": {
 				await this.setPlatform(interaction);
-				return;
-			}
-			case "seasons": {
-				await this.setSeasons(interaction);
 				return;
 			}
 			case "spirit": {
@@ -383,34 +371,6 @@ export default new (class implements AutocompleteCommand {
 							),
 						)
 						.setPlaceholder("Select the platforms you play on!"),
-				),
-			],
-			ephemeral: true,
-		});
-	}
-
-	public async setSeasons(interaction: ChatInputCommandInteraction) {
-		const { locale } = interaction;
-		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
-		const currentSeasons = profile?.seasons;
-
-		await interaction.reply({
-			components: [
-				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId(SKY_PROFILE_SEASONS_CUSTOM_ID)
-						.setMaxValues(SEASON_FLAGS_TO_SEASON_NAME_ENTRIES.length)
-						.setMinValues(0)
-						.setOptions(
-							SEASON_FLAGS_TO_SEASON_NAME_ENTRIES.map(([flag, season]) =>
-								new StringSelectMenuOptionBuilder()
-									.setDefault(Boolean(currentSeasons && currentSeasons & Number(flag)))
-									.setEmoji(SeasonNameToSeasonalEmoji[season])
-									.setLabel(t(`seasons.${season}`, { lng: locale, ns: "general" }))
-									.setValue(flag),
-							),
-						)
-						.setPlaceholder("Select the seasons you participated in!"),
 				),
 			],
 			ephemeral: true,

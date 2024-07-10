@@ -31,6 +31,10 @@ import {
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
 } from "../Utility/Constants.js";
+import {
+	SEASON_FLAGS_TO_SEASON_NAME_ENTRIES,
+	SeasonNameToSeasonalEmoji,
+} from "../Utility/catalogue.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, formatEmojiURL } from "../Utility/emojis.js";
 import { resolveBitsToSeasons } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
@@ -89,6 +93,7 @@ export enum ProfileEditType {
 	Description = "Description",
 	Country = "Country",
 	WingedLight = "Winged Light",
+	Seasons = "Seasons",
 }
 
 export const PROFILE_EDIT_TYPE_VALUES = Object.values(ProfileEditType);
@@ -119,14 +124,20 @@ export const SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID =
 export const SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID =
 	"SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID" as const;
 
-export const PROFILE_EDIT_SELECT_MENU = new StringSelectMenuBuilder()
-	.setCustomId(SKY_PROFILE_EDIT_CUSTOM_ID)
-	.setMaxValues(1)
-	.setMinValues(1)
-	.setOptions(
-		PROFILE_EDIT_TYPE_VALUES.map((profileEditType) =>
-			new StringSelectMenuOptionBuilder().setLabel(profileEditType).setValue(profileEditType),
-		),
+export const SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID =
+	"SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_EDIT_ACTION_ROW =
+	new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+		new StringSelectMenuBuilder()
+			.setCustomId(SKY_PROFILE_EDIT_CUSTOM_ID)
+			.setMaxValues(1)
+			.setMinValues(1)
+			.setOptions(
+				PROFILE_EDIT_TYPE_VALUES.map((profileEditType) =>
+					new StringSelectMenuOptionBuilder().setLabel(profileEditType).setValue(profileEditType),
+				),
+			),
 	);
 
 const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
@@ -226,7 +237,12 @@ export default class Profile {
 		}
 
 		const { embed } = await profile.embed(interaction);
-		await interaction.update({ content: "", embeds: [embed] });
+
+		await interaction.update({
+			components: [SKY_PROFILE_EDIT_ACTION_ROW],
+			content: "",
+			embeds: [embed],
+		});
 
 		// const baseReplyOptions = { content: "Your profile has been updated!", embeds: [embed] };
 
@@ -477,7 +493,39 @@ export default class Profile {
 				await this.showWingedLightModal(interaction);
 				return;
 			}
+			case ProfileEditType.Seasons: {
+				await this.showSeasonsSelectMenu(interaction);
+				return;
+			}
 		}
+	}
+
+	private static async showSeasonsSelectMenu(interaction: StringSelectMenuInteraction) {
+		const { locale } = interaction;
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+		const currentSeasons = profile?.seasons;
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID)
+						.setMaxValues(SEASON_FLAGS_TO_SEASON_NAME_ENTRIES.length)
+						.setMinValues(0)
+						.setOptions(
+							SEASON_FLAGS_TO_SEASON_NAME_ENTRIES.map(([flag, season]) =>
+								new StringSelectMenuOptionBuilder()
+									.setDefault(Boolean(currentSeasons && currentSeasons & Number(flag)))
+									.setEmoji(SeasonNameToSeasonalEmoji[season])
+									.setLabel(t(`seasons.${season}`, { lng: locale, ns: "general" }))
+									.setValue(flag),
+							),
+						)
+						.setPlaceholder("Select the seasons you participated in!"),
+				),
+			],
+			embeds: [],
+		});
 	}
 
 	public static async setSeasons(interaction: StringSelectMenuInteraction) {
