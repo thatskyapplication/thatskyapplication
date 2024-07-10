@@ -6,8 +6,6 @@ import {
 	ApplicationCommandType,
 	type Attachment,
 	type AutocompleteInteraction,
-	ButtonBuilder,
-	ButtonStyle,
 	type ChatInputCommandInteraction,
 	MessageFlags,
 	ModalBuilder,
@@ -21,7 +19,7 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import { PlatformFlagsToString, resolvePlatformToEmoji } from "../../Structures/Platforms.js";
-import Profile, { AssetType } from "../../Structures/Profile.js";
+import Profile, { AssetType, PROFILE_EDIT_SELECT_MENU } from "../../Structures/Profile.js";
 import {
 	SEASON_FLAGS_TO_SEASON_NAME_ENTRIES,
 	SeasonNameToSeasonalEmoji,
@@ -34,8 +32,6 @@ export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
 export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as const;
 export const SKY_PROFILE_PLATFORM_CUSTOM_ID = "SKY_PROFILE_PLATFORM_CUSTOM_ID" as const;
 export const SKY_PROFILE_SEASONS_CUSTOM_ID = "SKY_PROFILE_SEASONS_CUSTOM_ID" as const;
-export const SKY_PROFILE_EDIT_NAME_CUSTOM_ID = "SKY_PROFILE_EDIT_NAME_CUSTOM_ID" as const;
-export const SKY_PROFILE_EDIT_DESCRIPTION_CUSTOM_ID = "SKY_PROFILE_EDIT_DESCRIPTION_CUSTOM_ID" as const;
 const SKY_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
 const SKY_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
 const SKY_MINIMUM_COUNTRY_LENGTH = 2 as const;
@@ -250,16 +246,7 @@ export default new (class implements AutocompleteCommand {
 		await interaction.reply({
 			content,
 			components: [
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					new ButtonBuilder()
-						.setCustomId(SKY_PROFILE_EDIT_NAME_CUSTOM_ID)
-						.setLabel("Name")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(SKY_PROFILE_EDIT_DESCRIPTION_CUSTOM_ID)
-						.setLabel("Description")
-						.setStyle(ButtonStyle.Secondary),
-				),
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(PROFILE_EDIT_SELECT_MENU),
 			],
 			embeds: embed ? [embed] : [],
 			flags: MessageFlags.Ephemeral,

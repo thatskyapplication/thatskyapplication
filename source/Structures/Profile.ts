@@ -11,7 +11,9 @@ import {
 	ModalBuilder,
 	type ModalSubmitInteraction,
 	type Snowflake,
+	StringSelectMenuBuilder,
 	type StringSelectMenuInteraction,
+	StringSelectMenuOptionBuilder,
 	TextInputBuilder,
 	TextInputStyle,
 	type UserContextMenuCommandInteraction,
@@ -31,6 +33,7 @@ import {
 import { MISCELLANEOUS_EMOJIS, formatEmoji, formatEmojiURL } from "../Utility/emojis.js";
 import { resolveBitsToSeasons } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
 import { Catalogue } from "./Catalogue.js";
 import { resolveBitsToPlatform } from "./Platforms.js";
 
@@ -80,13 +83,35 @@ interface ProfileSetData {
 
 type ProfilePatchData = Omit<ProfilePacket, "user_id">;
 
+export enum ProfileEditType {
+	Name = "Name",
+	Description = "Description",
+}
+
+export const PROFILE_EDIT_TYPE_VALUES = Object.values(ProfileEditType);
+
+function isProfileEditType(value: unknown): value is ProfileEditType {
+	return PROFILE_EDIT_TYPE_VALUES.includes(value as ProfileEditType);
+}
+
+export const SKY_PROFILE_EDIT_CUSTOM_ID = "SKY_PROFILE_EDIT_CUSTOM_ID" as const;
+export const SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID = "SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID" as const;
+export const SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID" as const;
+
+export const PROFILE_EDIT_SELECT_MENU = new StringSelectMenuBuilder()
+	.setCustomId(SKY_PROFILE_EDIT_CUSTOM_ID)
+	.setMaxValues(1)
+	.setMinValues(1)
+	.setOptions(
+		PROFILE_EDIT_TYPE_VALUES.map((profileEditType) =>
+			new StringSelectMenuOptionBuilder().setLabel(profileEditType).setValue(profileEditType),
+		),
+	);
+
 export const enum AssetType {
 	Icon = 0,
 	Thumbnail = 1,
 }
-
-export const SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID = "SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID" as const;
-export const SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID =
 	"SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID" as const;
@@ -267,7 +292,7 @@ export default class Profile {
 		});
 	}
 
-	public static async showNameModal(interaction: ButtonInteraction) {
+	public static async showNameModal(interaction: StringSelectMenuInteraction) {
 		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
 
 		const textInput = new TextInputBuilder()
@@ -295,7 +320,7 @@ export default class Profile {
 		return this.set(interaction, { name });
 	}
 
-	public static async showDescriptionModal(interaction: ButtonInteraction) {
+	public static async showDescriptionModal(interaction: StringSelectMenuInteraction) {
 		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
 
 		const textInput = new TextInputBuilder()
@@ -324,6 +349,33 @@ export default class Profile {
 			.trim();
 
 		return this.set(interaction, { description });
+	}
+
+	public static async edit(interaction: StringSelectMenuInteraction) {
+		const profileEditType = interaction.values[0];
+
+		if (!isProfileEditType(profileEditType)) {
+			pino.warn(interaction, "Received an unknown profile edit type");
+
+			await interaction.update({
+				components: [],
+				content: "Unknown profile edit type. Please try again",
+				embeds: [],
+			});
+
+			return;
+		}
+
+		switch (profileEditType) {
+			case ProfileEditType.Name: {
+				await this.showNameModal(interaction);
+				return;
+			}
+			case ProfileEditType.Description: {
+				await this.showDescriptionModal(interaction);
+				return;
+			}
+		}
 	}
 
 	public static async setSeasons(interaction: StringSelectMenuInteraction) {
