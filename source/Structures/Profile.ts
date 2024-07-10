@@ -11,7 +11,7 @@ import {
 	ModalBuilder,
 	type ModalSubmitInteraction,
 	type Snowflake,
-	StringSelectMenuInteraction,
+	type StringSelectMenuInteraction,
 	TextInputBuilder,
 	TextInputStyle,
 	type UserContextMenuCommandInteraction,

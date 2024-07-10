@@ -22,7 +22,6 @@ import {
 import { t } from "i18next";
 import { PlatformFlagsToString, resolvePlatformToEmoji } from "../../Structures/Platforms.js";
 import Profile, { AssetType } from "../../Structures/Profile.js";
-import {} from "../../Utility/Constants.js";
 import {
 	SEASON_FLAGS_TO_SEASON_NAME_ENTRIES,
 	SeasonNameToSeasonalEmoji,
