@@ -40,7 +40,11 @@ import { resolveBitsToSeasons } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { Catalogue } from "./Catalogue.js";
-import { resolveBitsToPlatform } from "./Platforms.js";
+import {
+	PLATFORM_FLAGS_TO_STRING_ENTRIES,
+	resolveBitsToPlatform,
+	resolvePlatformToEmoji,
+} from "./Platforms.js";
 
 export interface ProfilePacket {
 	user_id: Snowflake;
@@ -94,6 +98,7 @@ export enum ProfileEditType {
 	Country = "Country",
 	WingedLight = "Winged Light",
 	Seasons = "Seasons",
+	Platforms = "Platforms",
 }
 
 export const PROFILE_EDIT_TYPE_VALUES = Object.values(ProfileEditType);
@@ -126,6 +131,9 @@ export const SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID =
 
 export const SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID =
 	"SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID =
+	"SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_EDIT_ACTION_ROW =
 	new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
@@ -497,6 +505,10 @@ export default class Profile {
 				await this.showSeasonsSelectMenu(interaction);
 				return;
 			}
+			case ProfileEditType.Platforms: {
+				await this.showPlatformsSelectMenu(interaction);
+				return;
+			}
 		}
 	}
 
@@ -522,6 +534,33 @@ export default class Profile {
 							),
 						)
 						.setPlaceholder("Select the seasons you participated in!"),
+				),
+			],
+			embeds: [],
+		});
+	}
+
+	private static async showPlatformsSelectMenu(interaction: StringSelectMenuInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+		const currentPlatforms = profile?.platform;
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID)
+						.setMaxValues(PLATFORM_FLAGS_TO_STRING_ENTRIES.length)
+						.setMinValues(0)
+						.setOptions(
+							PLATFORM_FLAGS_TO_STRING_ENTRIES.map(([flag, platform]) =>
+								new StringSelectMenuOptionBuilder()
+									.setDefault(Boolean(currentPlatforms && currentPlatforms & Number(flag)))
+									.setEmoji(resolvePlatformToEmoji(platform))
+									.setLabel(platform)
+									.setValue(flag),
+							),
+						)
+						.setPlaceholder("Select the platforms you play on!"),
 				),
 			],
 			embeds: [],

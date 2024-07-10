@@ -18,6 +18,8 @@ export const PlatformFlagsToString = {
 	[PlatformFlags.Steam]: "Steam",
 } as const satisfies Readonly<Record<PlatformFlags, string>>;
 
+export const PLATFORM_FLAGS_TO_STRING_ENTRIES = Object.entries(PlatformFlagsToString);
+
 export function resolveBitsToPlatform(bits: number) {
 	const platforms = [];
 

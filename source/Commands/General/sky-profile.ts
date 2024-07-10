@@ -11,24 +11,18 @@ import {
 	ModalBuilder,
 	PermissionFlagsBits,
 	type Snowflake,
-	StringSelectMenuBuilder,
-	StringSelectMenuOptionBuilder,
 	TextInputBuilder,
 	TextInputStyle,
 	UserContextMenuCommandInteraction,
 } from "discord.js";
-import { PlatformFlagsToString, resolvePlatformToEmoji } from "../../Structures/Platforms.js";
 import Profile, { AssetType, SKY_PROFILE_EDIT_ACTION_ROW } from "../../Structures/Profile.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { spirits } from "../../catalogue/spirits/index.js";
 import COMMANDS, { type AutocompleteCommand } from "../index.js";
 
 export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as const;
-export const SKY_PROFILE_PLATFORM_CUSTOM_ID = "SKY_PROFILE_PLATFORM_CUSTOM_ID" as const;
 const SKY_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
 const SKY_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
-const SKY_MINIMUM_SPOT_LENGTH = 2 as const;
-const SKY_MAXIMUM_SPOT_LENGTH = 50 as const;
 
 export default new (class implements AutocompleteCommand {
 	public readonly data = {
@@ -260,10 +254,6 @@ export default new (class implements AutocompleteCommand {
 				await this.setName(interaction);
 				return;
 			}
-			case "platform": {
-				await this.setPlatform(interaction);
-				return;
-			}
 			case "spirit": {
 				await this.setSpirit(interaction);
 				return;
@@ -348,33 +338,6 @@ export default new (class implements AutocompleteCommand {
 	public async setName(interaction: ChatInputCommandInteraction) {
 		const name = interaction.options.getString("name", true);
 		await Profile.set(interaction, { name });
-	}
-
-	public async setPlatform(interaction: ChatInputCommandInteraction) {
-		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
-		const currentPlatforms = profile?.platform;
-
-		await interaction.reply({
-			components: [
-				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId(SKY_PROFILE_PLATFORM_CUSTOM_ID)
-						.setMaxValues(Object.values(PlatformFlagsToString).length)
-						.setMinValues(0)
-						.setOptions(
-							Object.entries(PlatformFlagsToString).map(([flag, platform]) =>
-								new StringSelectMenuOptionBuilder()
-									.setDefault(Boolean(currentPlatforms && currentPlatforms & Number(flag)))
-									.setEmoji(resolvePlatformToEmoji(platform))
-									.setLabel(platform)
-									.setValue(flag),
-							),
-						)
-						.setPlaceholder("Select the platforms you play on!"),
-				),
-			],
-			ephemeral: true,
-		});
 	}
 
 	public async setSpirit(interaction: ChatInputCommandInteraction) {
