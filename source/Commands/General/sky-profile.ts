@@ -28,14 +28,11 @@ import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { spirits } from "../../catalogue/spirits/index.js";
 import COMMANDS, { type AutocompleteCommand } from "../index.js";
 
-export const SKY_PROFILE_MODAL = "SKY_PROFILE_MODAL" as const;
 export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as const;
 export const SKY_PROFILE_PLATFORM_CUSTOM_ID = "SKY_PROFILE_PLATFORM_CUSTOM_ID" as const;
 export const SKY_PROFILE_SEASONS_CUSTOM_ID = "SKY_PROFILE_SEASONS_CUSTOM_ID" as const;
 const SKY_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
 const SKY_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
-const SKY_MINIMUM_COUNTRY_LENGTH = 2 as const;
-const SKY_MAXIMUM_COUNTRY_LENGTH = 60 as const;
 const SKY_MINIMUM_SPOT_LENGTH = 2 as const;
 const SKY_MAXIMUM_SPOT_LENGTH = 50 as const;
 
@@ -323,7 +320,7 @@ export default new (class implements AutocompleteCommand {
 
 		const modal = new ModalBuilder()
 			.setComponents(actionRow)
-			.setCustomId(SKY_PROFILE_MODAL)
+			// .setCustomId(SKY_PROFILE_MODAL)
 			.setTitle("Set your Sky profile description!");
 
 		await interaction.showModal(modal);

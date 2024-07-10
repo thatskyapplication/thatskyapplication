@@ -4,7 +4,6 @@ import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	ActionRowBuilder,
 	type Attachment,
-	type ButtonInteraction,
 	type ChatInputCommandInteraction,
 	type EmbedAuthorOptions,
 	EmbedBuilder,
@@ -86,6 +85,7 @@ type ProfilePatchData = Omit<ProfilePacket, "user_id">;
 export enum ProfileEditType {
 	Name = "Name",
 	Description = "Description",
+	Country = "Country",
 }
 
 export const PROFILE_EDIT_TYPE_VALUES = Object.values(ProfileEditType);
@@ -97,6 +97,17 @@ function isProfileEditType(value: unknown): value is ProfileEditType {
 export const SKY_PROFILE_EDIT_CUSTOM_ID = "SKY_PROFILE_EDIT_CUSTOM_ID" as const;
 export const SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID = "SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID" as const;
 export const SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID =
+	"SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID =
+	"SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID =
+	"SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID" as const;
+export const SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID =
+	"SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID" as const;
 
 export const PROFILE_EDIT_SELECT_MENU = new StringSelectMenuBuilder()
 	.setCustomId(SKY_PROFILE_EDIT_CUSTOM_ID)
@@ -113,14 +124,10 @@ export const enum AssetType {
 	Thumbnail = 1,
 }
 
-export const SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID =
-	"SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID =
-	"SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID" as const;
-
 const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
 const SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
+const SKY_PROFILE_MINIMUM_COUNTRY_LENGTH = 2 as const;
+const SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH = 60 as const;
 const ANIMATED_HASH_PREFIX = "a_" as const;
 
 function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${string}` {
@@ -351,6 +358,37 @@ export default class Profile {
 		return this.set(interaction, { description });
 	}
 
+	public static async showCountryModal(interaction: StringSelectMenuInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+
+		const textInput = new TextInputBuilder()
+			.setCustomId(SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID)
+			.setLabel("Feel like specifying your country?")
+			.setMaxLength(SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH)
+			.setMinLength(SKY_PROFILE_MINIMUM_COUNTRY_LENGTH)
+			.setRequired()
+			.setStyle(TextInputStyle.Short);
+
+		if (profile?.country) {
+			textInput.setValue(profile.country);
+		}
+
+		await interaction.showModal(
+			new ModalBuilder()
+				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
+				.setCustomId(SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID)
+				.setTitle("Sky Profile"),
+		);
+	}
+
+	public static setCountry(interaction: ModalSubmitInteraction) {
+		const country = interaction.fields
+			.getTextInputValue(SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID)
+			.trim();
+
+		return this.set(interaction, { country });
+	}
+
 	public static async edit(interaction: StringSelectMenuInteraction) {
 		const profileEditType = interaction.values[0];
 
@@ -373,6 +411,10 @@ export default class Profile {
 			}
 			case ProfileEditType.Description: {
 				await this.showDescriptionModal(interaction);
+				return;
+			}
+			case ProfileEditType.Country: {
+				await this.showCountryModal(interaction);
 				return;
 			}
 		}

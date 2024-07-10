@@ -35,7 +35,6 @@ import {
 	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
 } from "../Commands/General/shard-eruption.js";
 import {
-	SKY_PROFILE_MODAL,
 	SKY_PROFILE_PLATFORM_CUSTOM_ID,
 	SKY_PROFILE_SEASONS_CUSTOM_ID,
 } from "../Commands/General/sky-profile.js";
@@ -77,7 +76,7 @@ import {
 	tryAgain,
 } from "../Structures/Guess.js";
 import { NOTIFICATION_SETUP_OFFSET_CUSTOM_ID } from "../Structures/Notification.js";
-import Profile, { SKY_PROFILE_EDIT_CUSTOM_ID, SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID, SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID } from "../Structures/Profile.js";
+import Profile, { SKY_PROFILE_EDIT_CUSTOM_ID, SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID, SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID, SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID } from "../Structures/Profile.js";
 import { ERROR_RESPONSE } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
 import { isSeasonName } from "../catalogue/spirits/seasons/index.js";
@@ -544,11 +543,6 @@ export default {
 			const { customId } = interaction;
 
 			try {
-				if (customId === SKY_PROFILE_MODAL) {
-					await Profile.setDescription(interaction);
-					return;
-				}
-
 				if (customId === SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID) {
 					await Profile.setName(interaction);
 					return;
@@ -556,6 +550,11 @@ export default {
 
 				if (customId === SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID) {
 					await Profile.setDescription(interaction);
+					return;
+				}
+
+				if (customId === SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID) {
+					await Profile.setCountry(interaction);
 					return;
 				}
 
