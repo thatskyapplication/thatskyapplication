@@ -7,6 +7,7 @@ import {
 	type ChatInputCommandInteraction,
 	type EmbedAuthorOptions,
 	EmbedBuilder,
+	MessageFlags,
 	ModalBuilder,
 	type ModalSubmitInteraction,
 	type Snowflake,
@@ -28,6 +29,7 @@ import {
 	CDN_URL,
 	DEFAULT_EMBED_COLOUR,
 	MAXIMUM_WINGED_LIGHT,
+	MINIMUM_WINGED_LIGHT,
 } from "../Utility/Constants.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, formatEmojiURL } from "../Utility/emojis.js";
 import { resolveBitsToSeasons } from "../catalogue/spirits/seasons/index.js";
@@ -86,6 +88,7 @@ export enum ProfileEditType {
 	Name = "Name",
 	Description = "Description",
 	Country = "Country",
+	WingedLight = "Winged Light",
 }
 
 export const PROFILE_EDIT_TYPE_VALUES = Object.values(ProfileEditType);
@@ -106,8 +109,15 @@ export const SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID =
 
 export const SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID =
 	"SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID" as const;
+
 export const SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID =
 	"SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID =
+	"SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID =
+	"SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID" as const;
 
 export const PROFILE_EDIT_SELECT_MENU = new StringSelectMenuBuilder()
 	.setCustomId(SKY_PROFILE_EDIT_CUSTOM_ID)
@@ -119,16 +129,18 @@ export const PROFILE_EDIT_SELECT_MENU = new StringSelectMenuBuilder()
 		),
 	);
 
-export const enum AssetType {
-	Icon = 0,
-	Thumbnail = 1,
-}
-
 const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
 const SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
 const SKY_PROFILE_MINIMUM_COUNTRY_LENGTH = 2 as const;
 const SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH = 60 as const;
+const SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH = 1 as const;
+const SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH = 3 as const;
 const ANIMATED_HASH_PREFIX = "a_" as const;
+
+export const enum AssetType {
+	Icon = 0,
+	Thumbnail = 1,
+}
 
 function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${string}` {
 	return hash.startsWith(ANIMATED_HASH_PREFIX);
@@ -322,11 +334,6 @@ export default class Profile {
 		);
 	}
 
-	public static setName(interaction: ModalSubmitInteraction) {
-		const name = interaction.fields.getTextInputValue(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID).trim();
-		return this.set(interaction, { name });
-	}
-
 	public static async showDescriptionModal(interaction: StringSelectMenuInteraction) {
 		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
 
@@ -348,14 +355,6 @@ export default class Profile {
 				.setCustomId(SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID)
 				.setTitle("Sky Profile"),
 		);
-	}
-
-	public static setDescription(interaction: ModalSubmitInteraction) {
-		const description = interaction.fields
-			.getTextInputValue(SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID)
-			.trim();
-
-		return this.set(interaction, { description });
 	}
 
 	public static async showCountryModal(interaction: StringSelectMenuInteraction) {
@@ -381,12 +380,69 @@ export default class Profile {
 		);
 	}
 
+	public static async showWingedLightModal(interaction: StringSelectMenuInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+
+		const textInput = new TextInputBuilder()
+			.setCustomId(SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID)
+			.setLabel(
+				`How much winged light do you have? (${MINIMUM_WINGED_LIGHT}-${MAXIMUM_WINGED_LIGHT}).`,
+			)
+			.setMaxLength(SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH)
+			.setMinLength(SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH)
+			.setRequired()
+			.setStyle(TextInputStyle.Short);
+
+		if (profile?.wingedLight) {
+			textInput.setValue(String(profile.wingedLight));
+		}
+
+		await interaction.showModal(
+			new ModalBuilder()
+				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
+				.setCustomId(SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID)
+				.setTitle("Sky Profile"),
+		);
+	}
+
+	public static setName(interaction: ModalSubmitInteraction) {
+		const name = interaction.fields.getTextInputValue(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID).trim();
+		return this.set(interaction, { name });
+	}
+
+	public static setDescription(interaction: ModalSubmitInteraction) {
+		const description = interaction.fields
+			.getTextInputValue(SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID)
+			.trim();
+
+		return this.set(interaction, { description });
+	}
+
 	public static setCountry(interaction: ModalSubmitInteraction) {
 		const country = interaction.fields
 			.getTextInputValue(SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID)
 			.trim();
 
 		return this.set(interaction, { country });
+	}
+
+	public static async setWingedLight(interaction: ModalSubmitInteraction) {
+		const wingedLight = interaction.fields
+			.getTextInputValue(SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID)
+			.trim();
+
+		const wingedLightNumber = Number(wingedLight);
+
+		if (!Number.isInteger(wingedLightNumber)) {
+			await interaction.reply({
+				content: `Please enter an integer between ${MINIMUM_WINGED_LIGHT} and ${MAXIMUM_WINGED_LIGHT}.`,
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		return this.set(interaction, { winged_light: wingedLightNumber });
 	}
 
 	public static async edit(interaction: StringSelectMenuInteraction) {
@@ -415,6 +471,10 @@ export default class Profile {
 			}
 			case ProfileEditType.Country: {
 				await this.showCountryModal(interaction);
+				return;
+			}
+			case ProfileEditType.WingedLight: {
+				await this.showWingedLightModal(interaction);
 				return;
 			}
 		}
