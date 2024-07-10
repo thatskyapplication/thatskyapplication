@@ -15,6 +15,10 @@ export const DOUBLE_SEASONAL_LIGHT_EVENT_DURATION =
 // Miscellaneous.
 export const INITIAL_TRAVELLING_SPIRIT_SEEK = skyDate(2_023, 5, 25); // #88 Grateful Shell Collector.
 
+// Community-organised AURORA concerts.
+export const COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1 = skyDate(2_024, 7, 20, 6);
+export const COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2 = skyDate(2_024, 7, 20, 18);
+
 export function todayDate() {
 	return DateTime.now().setZone(TIME_ZONE).startOf("day");
 }

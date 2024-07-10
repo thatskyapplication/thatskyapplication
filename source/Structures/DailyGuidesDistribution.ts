@@ -20,6 +20,7 @@ import type { DateTime } from "luxon";
 import { DEFAULT_EMBED_COLOUR, RealmName } from "../Utility/Constants.js";
 import type { RotationNumber } from "../Utility/catalogue.js";
 import {
+	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	dateString,
@@ -449,6 +450,20 @@ export default class DailyGuidesDistribution {
 		const eventData = this.eventData(today, locale);
 		footerText.push(...eventData.eventEndText);
 		iconURL ??= eventData.iconURL;
+
+		if (today < COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1) {
+			const daysUntilStart = Math.floor(
+				COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1.diff(today, "days").days,
+			);
+
+			footerText.push(
+				daysUntilStart === 0
+					? "The Sky Anniversary Mega Concert starts at 06:00 and 18:00 today."
+					: daysUntilStart === 1
+						? "The Sky Anniversary AURORA Mega Concert starts tomorrow."
+						: `The Sky Anniversary AURORA Mega Concert starts in ${daysUntilStart} days.`,
+			);
+		}
 
 		if (footerText.length > 0) {
 			const footer: EmbedFooterOptions = {

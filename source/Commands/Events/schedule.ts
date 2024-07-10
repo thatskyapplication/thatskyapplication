@@ -1,3 +1,4 @@
+import { URL } from "node:url";
 import {
 	type ApplicationCommandData,
 	ApplicationCommandType,
@@ -7,14 +8,25 @@ import {
 	MessageFlags,
 	PermissionFlagsBits,
 	TimestampStyles,
+	hyperlink,
 	time,
 } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import { NotificationEvent } from "../../Structures/Notification.js";
-import { DEFAULT_EMBED_COLOUR, ISS_DATES_ACCESSIBLE, LOCALES } from "../../Utility/Constants.js";
-import { INITIAL_TRAVELLING_SPIRIT_SEEK, todayDate } from "../../Utility/dates.js";
+import {
+	CDN_URL,
+	DEFAULT_EMBED_COLOUR,
+	ISS_DATES_ACCESSIBLE,
+	LOCALES,
+} from "../../Utility/Constants.js";
+import {
+	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1,
+	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2,
+	INITIAL_TRAVELLING_SPIRIT_SEEK,
+	todayDate,
+} from "../../Utility/dates.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -168,6 +180,22 @@ export default new (class implements ChatInputCommand {
 			ns: "commands",
 		})} ${passageTimesEnd.join(" ")}`;
 
+		let auroraText = aurora.join(" ");
+
+		if (today < COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1) {
+			const timestampMarkdown1 = time(
+				COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1.toUnixInteger(),
+				TimestampStyles.RelativeTime,
+			);
+
+			const timestampMarkdown2 = time(
+				COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2.toUnixInteger(),
+				TimestampStyles.RelativeTime,
+			);
+
+			auroraText += `\n${hyperlink("Sky Anniversary Mega Concerts", new URL("aurora_event/3.jpg", CDN_URL))}: ${timestampMarkdown1} | ${timestampMarkdown2}`;
+		}
+
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
 			.setFields(
@@ -227,7 +255,7 @@ export default new (class implements ChatInputCommand {
 				},
 				{
 					name: t(`notificationEvent.${NotificationEvent.AURORA}`, { lng: locale, ns: "general" }),
-					value: aurora.join(" "),
+					value: auroraText,
 				},
 				{
 					name: t(`notificationEvent.${NotificationEvent.Passage}`, { lng: locale, ns: "general" }),
