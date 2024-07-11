@@ -73,6 +73,7 @@ import {
 } from "../Structures/Guess.js";
 import { NOTIFICATION_SETUP_OFFSET_CUSTOM_ID } from "../Structures/Notification.js";
 import Profile, {
+	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
 	SKY_PROFILE_EDIT_CUSTOM_ID,
 	SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
@@ -355,6 +356,11 @@ export default {
 						Number(customId.slice(customId.indexOf("§") + 1)),
 					);
 
+					return;
+				}
+
+				if (customId === SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID) {
+					await Profile.showEdit(interaction);
 					return;
 				}
 

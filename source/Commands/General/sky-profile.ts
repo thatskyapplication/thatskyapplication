@@ -12,7 +12,6 @@ import {
 } from "discord.js";
 import Profile, {
 	AssetType,
-	SKY_PROFILE_EDIT_ACTION_ROW,
 	SKY_PROFILE_MAXIMUM_ASSET_SIZE,
 	SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
@@ -131,7 +130,6 @@ export default new (class implements AutocompleteCommand {
 		}
 	}
 
-	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Effort.
 	public async edit(interaction: ChatInputCommandInteraction) {
 		const { options } = interaction;
 		const name = options.getString("name");
@@ -221,16 +219,7 @@ export default new (class implements AutocompleteCommand {
 			return;
 		}
 
-		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
-		const embed = await profile?.embed(interaction);
-		const content = embed ? "" : "You do not have a Sky profile yet. Build one!";
-
-		await interaction.reply({
-			components: [SKY_PROFILE_EDIT_ACTION_ROW],
-			content,
-			embeds: embed ? [embed] : [],
-			flags: MessageFlags.Ephemeral,
-		});
+		await Profile.showEdit(interaction);
 	}
 
 	private async validateAttachment(

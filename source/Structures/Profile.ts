@@ -4,6 +4,9 @@ import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	ActionRowBuilder,
 	type Attachment,
+	ButtonBuilder,
+	type ButtonInteraction,
+	ButtonStyle,
 	ChatInputCommandInteraction,
 	type EmbedAuthorOptions,
 	EmbedBuilder,
@@ -139,6 +142,9 @@ export const SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID =
 export const SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID = "SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID" as const;
 const SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID" as const;
 
+export const SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID =
+	"SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID" as const;
+
 export const SKY_PROFILE_EDIT_ACTION_ROW =
 	new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 		new StringSelectMenuBuilder()
@@ -154,6 +160,14 @@ export const SKY_PROFILE_EDIT_ACTION_ROW =
 			)
 			.setPlaceholder("What do you want to edit?"),
 	);
+
+const SKY_PROFILE_BACK_TO_START_ACTION_ROW = new ActionRowBuilder<ButtonBuilder>().setComponents(
+	new ButtonBuilder()
+		.setCustomId(SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID)
+		.setEmoji("⏮️")
+		.setLabel("Back to Sky Profile")
+		.setStyle(ButtonStyle.Primary),
+);
 
 export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
 export const SKY_PROFILE_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
@@ -257,17 +271,7 @@ export default class Profile {
 			profile = new this(profilePacket!);
 		}
 
-		const baseReplyOptions = {
-			components: [SKY_PROFILE_EDIT_ACTION_ROW],
-			content: "",
-			embeds: [await profile.embed(interaction)],
-		};
-
-		if (interaction instanceof ChatInputCommandInteraction) {
-			await interaction.editReply(baseReplyOptions);
-		} else {
-			await interaction.update(baseReplyOptions);
-		}
+		await this.showEdit(interaction);
 	}
 
 	public static async setAsset(
@@ -496,6 +500,7 @@ export default class Profile {
 						)
 						.setPlaceholder("Select the seasons you participated in!"),
 				),
+				SKY_PROFILE_BACK_TO_START_ACTION_ROW,
 			],
 			embeds: [],
 		});
@@ -523,6 +528,7 @@ export default class Profile {
 						)
 						.setPlaceholder("Select the platforms you play on!"),
 				),
+				SKY_PROFILE_BACK_TO_START_ACTION_ROW,
 			],
 			embeds: [],
 		});
@@ -631,8 +637,32 @@ export default class Profile {
 			: null;
 	}
 
+	public static async showEdit(
+		interaction:
+			| ButtonInteraction
+			| ChatInputCommandInteraction
+			| ModalMessageModalSubmitInteraction
+			| StringSelectMenuInteraction,
+	) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+		const embed = await profile?.embed(interaction);
+
+		const baseReplyOptions = {
+			components: [SKY_PROFILE_EDIT_ACTION_ROW],
+			content: embed ? "" : "You do not have a Sky profile yet. Build one!",
+			embeds: embed ? [embed] : [],
+		};
+
+		await (interaction instanceof ChatInputCommandInteraction
+			? interaction.deferred
+				? interaction.editReply(baseReplyOptions)
+				: interaction.reply({ ...baseReplyOptions, flags: MessageFlags.Ephemeral })
+			: interaction.update(baseReplyOptions));
+	}
+
 	public async embed(
 		interaction:
+			| ButtonInteraction
 			| ChatInputCommandInteraction
 			| StringSelectMenuInteraction
 			| ModalSubmitInteraction
