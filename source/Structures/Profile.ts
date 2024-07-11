@@ -2,20 +2,30 @@ import type { Buffer } from "node:buffer";
 import { URL } from "node:url";
 import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
+	ActionRowBuilder,
 	type Attachment,
-	type ChatInputCommandInteraction,
+	ButtonBuilder,
+	type ButtonInteraction,
+	ButtonStyle,
+	ChatInputCommandInteraction,
 	type EmbedAuthorOptions,
 	EmbedBuilder,
+	MessageFlags,
+	ModalBuilder,
+	type ModalMessageModalSubmitInteraction,
 	type ModalSubmitInteraction,
+	PermissionFlagsBits,
 	type Snowflake,
-	StringSelectMenuInteraction,
+	StringSelectMenuBuilder,
+	type StringSelectMenuInteraction,
+	StringSelectMenuOptionBuilder,
+	TextInputBuilder,
+	TextInputStyle,
 	type UserContextMenuCommandInteraction,
-	chatInputApplicationCommandMention,
 } from "discord.js";
 import { hash } from "hasha";
 import { t } from "i18next";
 import sharp from "sharp";
-import { SKY_PROFILE_TEXT_INPUT_DESCRIPTION } from "../Commands/General/sky-profile.js";
 import commands from "../Commands/index.js";
 import S3Client from "../S3Client.js";
 import {
@@ -23,12 +33,23 @@ import {
 	CDN_URL,
 	DEFAULT_EMBED_COLOUR,
 	MAXIMUM_WINGED_LIGHT,
+	MINIMUM_WINGED_LIGHT,
 } from "../Utility/Constants.js";
+import {
+	SEASON_FLAGS_TO_SEASON_NAME_ENTRIES,
+	SeasonNameToSeasonalEmoji,
+} from "../Utility/catalogue.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, formatEmojiURL } from "../Utility/emojis.js";
+import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { resolveBitsToSeasons } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
 import { Catalogue } from "./Catalogue.js";
-import { resolveBitsToPlatform } from "./Platforms.js";
+import {
+	PLATFORM_FLAGS_TO_STRING_ENTRIES,
+	resolveBitsToPlatform,
+	resolvePlatformToEmoji,
+} from "./Platforms.js";
 
 export interface ProfilePacket {
 	user_id: Snowflake;
@@ -60,7 +81,7 @@ interface ProfileData {
 	catalogueProgression: ProfilePacket["catalogue_progression"];
 }
 
-interface ProfileSetData {
+export interface ProfileSetData {
 	name?: string;
 	icon?: string;
 	thumbnail?: string;
@@ -76,12 +97,95 @@ interface ProfileSetData {
 
 type ProfilePatchData = Omit<ProfilePacket, "user_id">;
 
+enum ProfileInteractiveEditType {
+	Name = "Name",
+	Description = "Description",
+	WingedLight = "Winged Light",
+	Country = "Country",
+	Spot = "Spot",
+	Seasons = "Seasons",
+	Platforms = "Platforms",
+	CatalogueProgression = "Catalogue Progression",
+}
+
+const PROFILE_INTERACTIVE_EDIT_TYPE_VALUES = Object.values(ProfileInteractiveEditType);
+
+function isProfileInteractiveEditType(value: unknown): value is ProfileInteractiveEditType {
+	return PROFILE_INTERACTIVE_EDIT_TYPE_VALUES.includes(value as ProfileInteractiveEditType);
+}
+
+export const SKY_PROFILE_EDIT_CUSTOM_ID = "SKY_PROFILE_EDIT_CUSTOM_ID" as const;
+export const SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID = "SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID" as const;
+const SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID =
+	"SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID" as const;
+
+const SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID =
+	"SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID =
+	"SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID" as const;
+
+const SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID =
+	"SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID" as const;
+
+const SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID =
+	"SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID =
+	"SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID =
+	"SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID = "SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID" as const;
+const SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID =
+	"SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_EDIT_ACTION_ROW =
+	new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+		new StringSelectMenuBuilder()
+			.setCustomId(SKY_PROFILE_EDIT_CUSTOM_ID)
+			.setMaxValues(1)
+			.setMinValues(1)
+			.setOptions(
+				PROFILE_INTERACTIVE_EDIT_TYPE_VALUES.map((profileInteractiveEditType) =>
+					new StringSelectMenuOptionBuilder()
+						.setLabel(profileInteractiveEditType)
+						.setValue(profileInteractiveEditType),
+				),
+			)
+			.setPlaceholder("What do you want to edit?"),
+	);
+
+const SKY_PROFILE_BACK_TO_START_ACTION_ROW = new ActionRowBuilder<ButtonBuilder>().setComponents(
+	new ButtonBuilder()
+		.setCustomId(SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID)
+		.setEmoji("⏮️")
+		.setLabel("Back to Sky Profile")
+		.setStyle(ButtonStyle.Primary),
+);
+
+export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
+export const SKY_PROFILE_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
+const SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
+export const SKY_PROFILE_MINIMUM_COUNTRY_LENGTH = 2 as const;
+export const SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH = 60 as const;
+const SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH = 1 as const;
+const SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH = 3 as const;
+export const SKY_PROFILE_MINIMUM_SPOT_LENGTH = 2 as const;
+export const SKY_PROFILE_MAXIMUM_SPOT_LENGTH = 50 as const;
+const ANIMATED_HASH_PREFIX = "a_" as const;
+
 export const enum AssetType {
 	Icon = 0,
 	Thumbnail = 1,
 }
-
-const ANIMATED_HASH_PREFIX = "a_" as const;
 
 function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${string}` {
 	return hash.startsWith(ANIMATED_HASH_PREFIX);
@@ -142,7 +246,10 @@ export default class Profile {
 	}
 
 	public static async set(
-		interaction: ChatInputCommandInteraction | StringSelectMenuInteraction | ModalSubmitInteraction,
+		interaction:
+			| ChatInputCommandInteraction
+			| StringSelectMenuInteraction
+			| ModalMessageModalSubmitInteraction,
 		data: ProfileSetData,
 	) {
 		let profile = await this.fetch(interaction.user.id).catch(() => null);
@@ -166,35 +273,14 @@ export default class Profile {
 			profile = new this(profilePacket!);
 		}
 
-		const { embed, unfilled } = await profile.embed(interaction);
-		const baseReplyOptions = { content: "Your profile has been updated!", embeds: [embed] };
-
-		if (interaction instanceof StringSelectMenuInteraction) {
-			await interaction.update({
-				...baseReplyOptions,
-				components: [],
-			});
-		} else if (interaction.deferred) {
-			await interaction.editReply(baseReplyOptions);
-		} else {
-			await interaction.reply({
-				...baseReplyOptions,
-				ephemeral: true,
-			});
-		}
-
-		if (unfilled) {
-			await interaction.followUp({ content: unfilled, ephemeral: true });
-		}
+		await this.showEdit(interaction);
 	}
 
 	public static async setAsset(
-		interaction: ChatInputCommandInteraction,
+		{ user }: ChatInputCommandInteraction,
 		{ contentType, url }: Attachment,
 		type: AssetType,
 	) {
-		await interaction.deferReply({ ephemeral: true });
-		const { user } = interaction;
 		const profile = await Profile.fetch(user.id).catch(() => null);
 
 		// Delete the old asset if it exists.
@@ -245,17 +331,279 @@ export default class Profile {
 			}),
 		);
 
-		await Profile.set(interaction, {
-			[type === AssetType.Icon ? "icon" : "thumbnail"]: hashedBuffer,
+		return hashedBuffer;
+	}
+
+	public static async edit(interaction: StringSelectMenuInteraction) {
+		const profileInteractiveEditType = interaction.values[0];
+
+		if (!isProfileInteractiveEditType(profileInteractiveEditType)) {
+			pino.warn(interaction, "Received an unknown profile edit type");
+
+			await interaction.update({
+				components: [],
+				content: "Unknown profile edit type. Please try again",
+				embeds: [],
+			});
+
+			return;
+		}
+
+		switch (profileInteractiveEditType) {
+			case ProfileInteractiveEditType.Name: {
+				await this.showNameModal(interaction);
+				return;
+			}
+			case ProfileInteractiveEditType.Description: {
+				await this.showDescriptionModal(interaction);
+				return;
+			}
+			case ProfileInteractiveEditType.WingedLight: {
+				await this.showWingedLightModal(interaction);
+				return;
+			}
+			case ProfileInteractiveEditType.Country: {
+				await this.showCountryModal(interaction);
+				return;
+			}
+			case ProfileInteractiveEditType.Spot: {
+				await this.showSpotModal(interaction);
+				return;
+			}
+			case ProfileInteractiveEditType.Seasons: {
+				await this.showSeasonsSelectMenu(interaction);
+				return;
+			}
+			case ProfileInteractiveEditType.Platforms: {
+				await this.showPlatformsSelectMenu(interaction);
+				return;
+			}
+			case ProfileInteractiveEditType.CatalogueProgression: {
+				await this.setCatalogueProgression(interaction);
+				return;
+			}
+		}
+	}
+
+	public static async showNameModal(interaction: StringSelectMenuInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+
+		const textInput = new TextInputBuilder()
+			.setCustomId(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID)
+			.setLabel("What's your in-game name?")
+			.setMaxLength(SKY_PROFILE_MAXIMUM_NAME_LENGTH)
+			.setMinLength(1)
+			.setRequired()
+			.setStyle(TextInputStyle.Short);
+
+		if (profile?.name) {
+			textInput.setValue(profile.name);
+		}
+
+		await interaction.showModal(
+			new ModalBuilder()
+				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
+				.setCustomId(SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID)
+				.setTitle("Sky Profile"),
+		);
+	}
+
+	public static async showDescriptionModal(interaction: StringSelectMenuInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+
+		const textInput = new TextInputBuilder()
+			.setCustomId(SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID)
+			.setLabel("Type a lovely description about your Skykid!")
+			.setMaxLength(SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH)
+			.setMinLength(1)
+			.setRequired()
+			.setStyle(TextInputStyle.Paragraph);
+
+		if (profile?.description) {
+			textInput.setValue(profile.description);
+		}
+
+		await interaction.showModal(
+			new ModalBuilder()
+				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
+				.setCustomId(SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID)
+				.setTitle("Sky Profile"),
+		);
+	}
+
+	public static async showWingedLightModal(interaction: StringSelectMenuInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+
+		const textInput = new TextInputBuilder()
+			.setCustomId(SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID)
+			.setLabel(
+				`How much winged light do you have? (${MINIMUM_WINGED_LIGHT}-${MAXIMUM_WINGED_LIGHT})`,
+			)
+			.setMaxLength(SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH)
+			.setMinLength(SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH)
+			.setRequired()
+			.setStyle(TextInputStyle.Short);
+
+		if (profile?.wingedLight) {
+			textInput.setValue(String(profile.wingedLight));
+		}
+
+		await interaction.showModal(
+			new ModalBuilder()
+				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
+				.setCustomId(SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID)
+				.setTitle("Sky Profile"),
+		);
+	}
+
+	public static async showCountryModal(interaction: StringSelectMenuInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+
+		const textInput = new TextInputBuilder()
+			.setCustomId(SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID)
+			.setLabel("Feel like specifying your country?")
+			.setMaxLength(SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH)
+			.setMinLength(SKY_PROFILE_MINIMUM_COUNTRY_LENGTH)
+			.setRequired()
+			.setStyle(TextInputStyle.Short);
+
+		if (profile?.country) {
+			textInput.setValue(profile.country);
+		}
+
+		await interaction.showModal(
+			new ModalBuilder()
+				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
+				.setCustomId(SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID)
+				.setTitle("Sky Profile"),
+		);
+	}
+
+	private static async showSpotModal(interaction: StringSelectMenuInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+
+		const textInput = new TextInputBuilder()
+			.setCustomId(SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID)
+			.setLabel("Where's your favourite spot to hang out?")
+			.setMaxLength(SKY_PROFILE_MAXIMUM_SPOT_LENGTH)
+			.setMinLength(SKY_PROFILE_MINIMUM_SPOT_LENGTH)
+			.setRequired()
+			.setStyle(TextInputStyle.Short);
+
+		if (profile?.spot) {
+			textInput.setValue(profile.spot);
+		}
+
+		await interaction.showModal(
+			new ModalBuilder()
+				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
+				.setCustomId(SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID)
+				.setTitle("Sky Profile"),
+		);
+	}
+
+	private static async showSeasonsSelectMenu(interaction: StringSelectMenuInteraction) {
+		const { locale } = interaction;
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+		const currentSeasons = profile?.seasons;
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID)
+						.setMaxValues(SEASON_FLAGS_TO_SEASON_NAME_ENTRIES.length)
+						.setMinValues(0)
+						.setOptions(
+							SEASON_FLAGS_TO_SEASON_NAME_ENTRIES.map(([flag, season]) =>
+								new StringSelectMenuOptionBuilder()
+									.setDefault(Boolean(currentSeasons && currentSeasons & Number(flag)))
+									.setEmoji(SeasonNameToSeasonalEmoji[season])
+									.setLabel(t(`seasons.${season}`, { lng: locale, ns: "general" }))
+									.setValue(flag),
+							),
+						)
+						.setPlaceholder("Select the seasons you participated in!"),
+				),
+				SKY_PROFILE_BACK_TO_START_ACTION_ROW,
+			],
+			content: "",
+			embeds: [],
 		});
 	}
 
-	public static setDescription(interaction: ModalSubmitInteraction) {
+	private static async showPlatformsSelectMenu(interaction: StringSelectMenuInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+		const currentPlatforms = profile?.platform;
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID)
+						.setMaxValues(PLATFORM_FLAGS_TO_STRING_ENTRIES.length)
+						.setMinValues(0)
+						.setOptions(
+							PLATFORM_FLAGS_TO_STRING_ENTRIES.map(([flag, platform]) =>
+								new StringSelectMenuOptionBuilder()
+									.setDefault(Boolean(currentPlatforms && currentPlatforms & Number(flag)))
+									.setEmoji(resolvePlatformToEmoji(platform))
+									.setLabel(platform)
+									.setValue(flag),
+							),
+						)
+						.setPlaceholder("Select the platforms you play on!"),
+				),
+				SKY_PROFILE_BACK_TO_START_ACTION_ROW,
+			],
+			content: "",
+			embeds: [],
+		});
+	}
+
+	public static setName(interaction: ModalMessageModalSubmitInteraction) {
+		const name = interaction.fields.getTextInputValue(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID).trim();
+		return this.set(interaction, { name });
+	}
+
+	public static setDescription(interaction: ModalMessageModalSubmitInteraction) {
 		const description = interaction.fields
-			.getTextInputValue(SKY_PROFILE_TEXT_INPUT_DESCRIPTION)
+			.getTextInputValue(SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID)
 			.trim();
 
 		return this.set(interaction, { description });
+	}
+
+	public static async setWingedLight(interaction: ModalMessageModalSubmitInteraction) {
+		const wingedLight = interaction.fields
+			.getTextInputValue(SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID)
+			.trim();
+
+		const wingedLightNumber = Number(wingedLight);
+
+		if (!Number.isInteger(wingedLightNumber)) {
+			await interaction.reply({
+				content: `Please enter an integer between ${MINIMUM_WINGED_LIGHT} and ${MAXIMUM_WINGED_LIGHT}.`,
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		return this.set(interaction, { winged_light: wingedLightNumber });
+	}
+
+	public static setCountry(interaction: ModalMessageModalSubmitInteraction) {
+		const country = interaction.fields
+			.getTextInputValue(SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID)
+			.trim();
+
+		return this.set(interaction, { country });
+	}
+
+	public static setSpot(interaction: ModalMessageModalSubmitInteraction) {
+		const spot = interaction.fields.getTextInputValue(SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID).trim();
+		return this.set(interaction, { spot });
 	}
 
 	public static async setSeasons(interaction: StringSelectMenuInteraction) {
@@ -268,6 +616,11 @@ export default class Profile {
 		return this.set(interaction, {
 			platform: interaction.values.reduce((bit, value) => bit | Number(value), 0),
 		});
+	}
+
+	private static async setCatalogueProgression(interaction: StringSelectMenuInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+		await Profile.set(interaction, { catalogue_progression: !profile?.catalogueProgression });
 	}
 
 	public static iconRoute(userId: Snowflake, hash: string) {
@@ -288,8 +641,43 @@ export default class Profile {
 			: null;
 	}
 
+	public static async showEdit(
+		interaction:
+			| ButtonInteraction
+			| ChatInputCommandInteraction
+			| ModalMessageModalSubmitInteraction
+			| StringSelectMenuInteraction,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+		const embedData = await profile?.embed(interaction);
+		const embed = embedData?.embed;
+		const missing = embedData?.missing;
+
+		const baseReplyOptions = {
+			components: [SKY_PROFILE_EDIT_ACTION_ROW],
+			content: embed
+				? missing
+					? `${missing}`
+					: ""
+				: "You do not have a Sky profile yet. Build one!",
+			embeds: embed ? [embed] : [],
+		};
+
+		await (interaction instanceof ChatInputCommandInteraction
+			? interaction.deferred
+				? interaction.editReply(baseReplyOptions)
+				: interaction.reply({ ...baseReplyOptions, flags: MessageFlags.Ephemeral })
+			: interaction.update(baseReplyOptions));
+	}
+
+	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 	public async embed(
 		interaction:
+			| ButtonInteraction
 			| ChatInputCommandInteraction
 			| StringSelectMenuInteraction
 			| ModalSubmitInteraction
@@ -297,9 +685,6 @@ export default class Profile {
 	) {
 		const { locale } = interaction;
 		const hearts = await commands.heart.heartCount(this.userId);
-		const skyProfileCommand = commands.skyprofile;
-		const commandId = skyProfileCommand.id;
-		const commandName = skyProfileCommand.data.name;
 
 		const {
 			userId,
@@ -322,32 +707,20 @@ export default class Profile {
 
 		const descriptions = [];
 		const fields = [];
-		const unfilled = [];
+		const missing = [];
 
-		if (seasons) {
-			descriptions.push(resolveBitsToSeasons(seasons).join(" "));
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"seasons",
-					commandId,
-				)} to tell others what seasons you participated in!`,
-			);
+		if (typeof seasons === "number") {
+			if (seasons !== 0) {
+				descriptions.push(resolveBitsToSeasons(seasons).join(" "));
+			}
+		} else {
+			missing.push("- Use the select menu to show what seasons you participated in!");
 		}
 
 		if (description) {
 			descriptions.push(description);
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"description",
-					commandId,
-				)} to set a description!`,
-			);
+		} else {
+			missing.push("- Set a description!");
 		}
 
 		if (descriptions.length > 0) {
@@ -356,15 +729,8 @@ export default class Profile {
 
 		if (thumbnailURL) {
 			embed.setThumbnail(thumbnailURL);
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"thumbnail",
-					commandId,
-				)} to set a thumbnail on the embed!`,
-			);
+		} else {
+			missing.push("- Use the command to upload a thumbnail!");
 		}
 
 		if (name) {
@@ -372,22 +738,13 @@ export default class Profile {
 
 			if (iconURL) {
 				embedAuthorOptions.iconURL = iconURL;
-			} else if (commandId) {
-				unfilled.push(
-					`- Use ${chatInputApplicationCommandMention(
-						commandName,
-						"set",
-						"icon",
-						commandId,
-					)} to set an icon by your name!`,
-				);
+			} else {
+				missing.push("- Use the command to upload an icon!");
 			}
 
 			embed.setAuthor(embedAuthorOptions);
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(commandName, "set", "name", commandId)} to set your name!`,
-			);
+		} else {
+			missing.push("- Set your name!");
 		}
 
 		if (typeof wingedLight === "number") {
@@ -401,15 +758,8 @@ export default class Profile {
 							: String(wingedLight),
 				inline: true,
 			});
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"winged-light",
-					commandId,
-				)} to flex how much winged light you have!`,
-			);
+		} else {
+			missing.push("- Set the winged light you have!");
 		}
 
 		if (spirit) {
@@ -418,73 +768,40 @@ export default class Profile {
 				value: t(`spiritNames.${spirit}`, { lng: locale, ns: "general" }),
 				inline: true,
 			});
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"spirit",
-					commandId,
-				)} to set your favourite spirit!`,
-			);
+		} else {
+			missing.push("- Set your favourite spirit!");
 		}
 
 		if (country) {
 			fields.push({ name: "Country", value: country, inline: true });
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"country",
-					commandId,
-				)} to tell others where you're from!`,
-			);
+		} else {
+			missing.push("- Set your country!");
 		}
 
 		if (spot) {
 			fields.push({ name: "Favourite Spot", value: spot, inline: true });
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"spot",
-					commandId,
-				)} to tell others where your favourite spot to hang out is!`,
-			);
+		} else {
+			missing.push("- Set your favourite spot!");
 		}
 
-		if (platform) {
-			fields.push({
-				name: "Platform",
-				value: resolveBitsToPlatform(platform).join("\n"),
-				inline: true,
-			});
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"platform",
-					commandId,
-				)} to show what platforms you play on!`,
-			);
+		if (typeof platform === "number") {
+			if (platform !== 0) {
+				fields.push({
+					name: "Platform",
+					value: resolveBitsToPlatform(platform).join("\n"),
+					inline: true,
+				});
+			}
+		} else {
+			missing.push("- Use the select menu to show what platforms you play on!");
 		}
 
 		if (typeof catalogueProgression === "boolean") {
 			const catalogue = await Catalogue.fetch(userId).catch(() => null);
 			const allProgress = catalogue?.allProgress(true) ?? 0;
 			fields.push({ name: "Catalogue Progression", value: `${allProgress}%`, inline: true });
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"catalogue-progression",
-					commandId,
-				)} to show your catalogue progression!`,
-			);
+		} else {
+			missing.push("- Set if you want to share your catalogue progression!");
 		}
 
 		if (fields.length > 4 && fields.length % 3 === 2) {
@@ -492,6 +809,6 @@ export default class Profile {
 		}
 
 		embed.setFields(fields);
-		return { embed, unfilled: unfilled.join("\n") || null };
+		return { embed, missing: missing.join("\n") || null };
 	}
 }

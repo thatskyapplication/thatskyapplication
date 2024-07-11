@@ -34,11 +34,6 @@ import {
 	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
 	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
 } from "../Commands/General/shard-eruption.js";
-import {
-	SKY_PROFILE_MODAL,
-	SKY_PROFILE_PLATFORM_CUSTOM_ID,
-	SKY_PROFILE_SEASONS_CUSTOM_ID,
-} from "../Commands/General/sky-profile.js";
 import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../Commands/General/spirit.js";
 import COMMANDS, { resolveCommand } from "../Commands/index.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../Structures/AI.js";
@@ -77,7 +72,17 @@ import {
 	tryAgain,
 } from "../Structures/Guess.js";
 import { NOTIFICATION_SETUP_OFFSET_CUSTOM_ID } from "../Structures/Notification.js";
-import Profile from "../Structures/Profile.js";
+import Profile, {
+	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
+	SKY_PROFILE_EDIT_CUSTOM_ID,
+	SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID,
+	SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
+	SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID,
+	SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID,
+	SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID,
+	SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID,
+	SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID,
+} from "../Structures/Profile.js";
 import { ERROR_RESPONSE } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
 import { isSeasonName } from "../catalogue/spirits/seasons/index.js";
@@ -354,6 +359,11 @@ export default {
 					return;
 				}
 
+				if (customId === SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID) {
+					await Profile.showEdit(interaction);
+					return;
+				}
+
 				const heartHistoryResult = heartHistoryRegExp.exec(customId);
 
 				if (heartHistoryResult) {
@@ -471,12 +481,17 @@ export default {
 					return;
 				}
 
-				if (customId === SKY_PROFILE_SEASONS_CUSTOM_ID) {
+				if (customId === SKY_PROFILE_EDIT_CUSTOM_ID) {
+					await Profile.edit(interaction);
+					return;
+				}
+
+				if (customId === SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID) {
 					await Profile.setSeasons(interaction);
 					return;
 				}
 
-				if (customId === SKY_PROFILE_PLATFORM_CUSTOM_ID) {
+				if (customId === SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID) {
 					await Profile.setPlatform(interaction);
 					return;
 				}
@@ -539,12 +554,32 @@ export default {
 			const { customId } = interaction;
 
 			try {
-				if (customId === SKY_PROFILE_MODAL) {
-					await Profile.setDescription(interaction);
-					return;
-				}
-
 				if (interaction.isFromMessage()) {
+					if (customId === SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID) {
+						await Profile.setName(interaction);
+						return;
+					}
+
+					if (customId === SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID) {
+						await Profile.setDescription(interaction);
+						return;
+					}
+
+					if (customId === SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID) {
+						await Profile.setCountry(interaction);
+						return;
+					}
+
+					if (customId === SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID) {
+						await Profile.setWingedLight(interaction);
+						return;
+					}
+
+					if (customId === SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID) {
+						await Profile.setSpot(interaction);
+						return;
+					}
+
 					if (DAILY_GUIDES_DAILY_MESSAGE_MODAL === customId) {
 						await COMMANDS.admin.setDailyMessage(interaction);
 						return;

@@ -9,7 +9,7 @@ enum PlatformFlags {
 	Steam = 1 << 5,
 }
 
-export const PlatformFlagsToString = {
+const PlatformFlagsToString = {
 	[PlatformFlags.iOS]: "iOS",
 	[PlatformFlags.Android]: "Android",
 	[PlatformFlags.Mac]: "Mac",
@@ -17,6 +17,8 @@ export const PlatformFlagsToString = {
 	[PlatformFlags.PlayStation]: "PlayStation",
 	[PlatformFlags.Steam]: "Steam",
 } as const satisfies Readonly<Record<PlatformFlags, string>>;
+
+export const PLATFORM_FLAGS_TO_STRING_ENTRIES = Object.entries(PlatformFlagsToString);
 
 export function resolveBitsToPlatform(bits: number) {
 	const platforms = [];
