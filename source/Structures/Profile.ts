@@ -337,6 +337,49 @@ export default class Profile {
 		});
 	}
 
+	public static async edit(interaction: StringSelectMenuInteraction) {
+		const profileInteractiveEditType = interaction.values[0];
+
+		if (!isProfileInteractiveEditType(profileInteractiveEditType)) {
+			pino.warn(interaction, "Received an unknown profile edit type");
+
+			await interaction.update({
+				components: [],
+				content: "Unknown profile edit type. Please try again",
+				embeds: [],
+			});
+
+			return;
+		}
+
+		switch (profileInteractiveEditType) {
+			case ProfileInteractiveEditType.Name: {
+				await this.showNameModal(interaction);
+				return;
+			}
+			case ProfileInteractiveEditType.Description: {
+				await this.showDescriptionModal(interaction);
+				return;
+			}
+			case ProfileInteractiveEditType.Country: {
+				await this.showCountryModal(interaction);
+				return;
+			}
+			case ProfileInteractiveEditType.WingedLight: {
+				await this.showWingedLightModal(interaction);
+				return;
+			}
+			case ProfileInteractiveEditType.Seasons: {
+				await this.showSeasonsSelectMenu(interaction);
+				return;
+			}
+			case ProfileInteractiveEditType.Platforms: {
+				await this.showPlatformsSelectMenu(interaction);
+				return;
+			}
+		}
+	}
+
 	public static async showNameModal(interaction: StringSelectMenuInteraction) {
 		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
 
@@ -431,89 +474,6 @@ export default class Profile {
 		);
 	}
 
-	public static setName(interaction: ModalSubmitInteraction) {
-		const name = interaction.fields.getTextInputValue(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID).trim();
-		return this.set(interaction, { name });
-	}
-
-	public static setDescription(interaction: ModalSubmitInteraction) {
-		const description = interaction.fields
-			.getTextInputValue(SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID)
-			.trim();
-
-		return this.set(interaction, { description });
-	}
-
-	public static setCountry(interaction: ModalSubmitInteraction) {
-		const country = interaction.fields
-			.getTextInputValue(SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID)
-			.trim();
-
-		return this.set(interaction, { country });
-	}
-
-	public static async setWingedLight(interaction: ModalSubmitInteraction) {
-		const wingedLight = interaction.fields
-			.getTextInputValue(SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID)
-			.trim();
-
-		const wingedLightNumber = Number(wingedLight);
-
-		if (!Number.isInteger(wingedLightNumber)) {
-			await interaction.reply({
-				content: `Please enter an integer between ${MINIMUM_WINGED_LIGHT} and ${MAXIMUM_WINGED_LIGHT}.`,
-				flags: MessageFlags.Ephemeral,
-			});
-
-			return;
-		}
-
-		return this.set(interaction, { winged_light: wingedLightNumber });
-	}
-
-	public static async edit(interaction: StringSelectMenuInteraction) {
-		const profileInteractiveEditType = interaction.values[0];
-
-		if (!isProfileInteractiveEditType(profileInteractiveEditType)) {
-			pino.warn(interaction, "Received an unknown profile edit type");
-
-			await interaction.update({
-				components: [],
-				content: "Unknown profile edit type. Please try again",
-				embeds: [],
-			});
-
-			return;
-		}
-
-		switch (profileInteractiveEditType) {
-			case ProfileInteractiveEditType.Name: {
-				await this.showNameModal(interaction);
-				return;
-			}
-			case ProfileInteractiveEditType.Description: {
-				await this.showDescriptionModal(interaction);
-				return;
-			}
-			case ProfileInteractiveEditType.Country: {
-				await this.showCountryModal(interaction);
-				return;
-			}
-			case ProfileInteractiveEditType.WingedLight: {
-				await this.showWingedLightModal(interaction);
-				return;
-			}
-			case ProfileInteractiveEditType.Seasons: {
-				await this.showSeasonsSelectMenu(interaction);
-				return;
-			}
-			case ProfileInteractiveEditType.Platforms: {
-				await this.showPlatformsSelectMenu(interaction);
-				return;
-			}
-		}
-	}
-
 	private static async showSeasonsSelectMenu(interaction: StringSelectMenuInteraction) {
 		const { locale } = interaction;
 		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
@@ -567,6 +527,46 @@ export default class Profile {
 			],
 			embeds: [],
 		});
+	}
+
+	public static setName(interaction: ModalSubmitInteraction) {
+		const name = interaction.fields.getTextInputValue(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID).trim();
+		return this.set(interaction, { name });
+	}
+
+	public static setDescription(interaction: ModalSubmitInteraction) {
+		const description = interaction.fields
+			.getTextInputValue(SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID)
+			.trim();
+
+		return this.set(interaction, { description });
+	}
+
+	public static setCountry(interaction: ModalSubmitInteraction) {
+		const country = interaction.fields
+			.getTextInputValue(SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID)
+			.trim();
+
+		return this.set(interaction, { country });
+	}
+
+	public static async setWingedLight(interaction: ModalSubmitInteraction) {
+		const wingedLight = interaction.fields
+			.getTextInputValue(SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID)
+			.trim();
+
+		const wingedLightNumber = Number(wingedLight);
+
+		if (!Number.isInteger(wingedLightNumber)) {
+			await interaction.reply({
+				content: `Please enter an integer between ${MINIMUM_WINGED_LIGHT} and ${MAXIMUM_WINGED_LIGHT}.`,
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		return this.set(interaction, { winged_light: wingedLightNumber });
 	}
 
 	public static async setSeasons(interaction: StringSelectMenuInteraction) {
