@@ -72,7 +72,7 @@ import {
 	tryAgain,
 } from "../Structures/Guess.js";
 import { NOTIFICATION_SETUP_OFFSET_CUSTOM_ID } from "../Structures/Notification.js";
-import Profile, { SKY_PROFILE_EDIT_CUSTOM_ID, SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID, SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID, SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID, SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID, SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID, SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID } from "../Structures/Profile.js";
+import Profile, { SKY_PROFILE_EDIT_CUSTOM_ID, SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID, SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID, SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID, SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID, SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID, SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID, SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID } from "../Structures/Profile.js";
 import { ERROR_RESPONSE } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
 import { isSeasonName } from "../catalogue/spirits/seasons/index.js";
@@ -556,6 +556,11 @@ export default {
 
 				if (customId === SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID) {
 					await Profile.setWingedLight(interaction);
+					return;
+				}
+
+				if (customId === SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID) {
+					await Profile.setSpot(interaction);
 					return;
 				}
 

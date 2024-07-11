@@ -99,6 +99,7 @@ export enum ProfileInteractiveEditType {
 	WingedLight = "Winged Light",
 	Seasons = "Seasons",
 	Platforms = "Platforms",
+	Spot = "Spot",
 }
 
 export const PROFILE_INTERACTIVE_EDIT_TYPE_VALUES = Object.values(ProfileInteractiveEditType);
@@ -135,6 +136,9 @@ export const SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID =
 export const SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID =
 	"SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID" as const;
 
+export const SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID = "SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID" as const;
+export const SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID" as const;
+
 export const SKY_PROFILE_EDIT_ACTION_ROW =
 	new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 		new StringSelectMenuBuilder()
@@ -156,6 +160,8 @@ const SKY_PROFILE_MINIMUM_COUNTRY_LENGTH = 2 as const;
 const SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH = 60 as const;
 const SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH = 1 as const;
 const SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH = 3 as const;
+const SKY_PROFILE_MINIMUM_SPOT_LENGTH = 2 as const;
+const SKY_PROFILE_MAXIMUM_SPOT_LENGTH = 50 as const;
 const ANIMATED_HASH_PREFIX = "a_" as const;
 
 export const enum AssetType {
@@ -377,6 +383,10 @@ export default class Profile {
 				await this.showPlatformsSelectMenu(interaction);
 				return;
 			}
+			case ProfileInteractiveEditType.Spot: {
+				await this.showSpotModal(interaction);
+				return;
+			}
 		}
 	}
 
@@ -529,6 +539,29 @@ export default class Profile {
 		});
 	}
 
+	private static async showSpotModal(interaction: StringSelectMenuInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+
+		const textInput = new TextInputBuilder()
+			.setCustomId(SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID)
+			.setLabel("Where's your favourite spot to hang out?")
+			.setMaxLength(SKY_PROFILE_MAXIMUM_SPOT_LENGTH)
+			.setMinLength(SKY_PROFILE_MINIMUM_SPOT_LENGTH)
+			.setRequired()
+			.setStyle(TextInputStyle.Short);
+
+		if (profile?.spot) {
+			textInput.setValue(profile.spot);
+		}
+
+		await interaction.showModal(
+			new ModalBuilder()
+				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
+				.setCustomId(SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID)
+				.setTitle("Sky Profile"),
+		);
+	}
+
 	public static setName(interaction: ModalSubmitInteraction) {
 		const name = interaction.fields.getTextInputValue(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID).trim();
 		return this.set(interaction, { name });
@@ -579,6 +612,11 @@ export default class Profile {
 		return this.set(interaction, {
 			platform: interaction.values.reduce((bit, value) => bit | Number(value), 0),
 		});
+	}
+
+	public static setSpot(interaction: ModalSubmitInteraction) {
+		const spot = interaction.fields.getTextInputValue(SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID).trim();
+		return this.set(interaction, { spot });
 	}
 
 	public static iconRoute(userId: Snowflake, hash: string) {
