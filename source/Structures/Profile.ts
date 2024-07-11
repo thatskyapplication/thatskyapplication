@@ -92,7 +92,7 @@ interface ProfileSetData {
 
 type ProfilePatchData = Omit<ProfilePacket, "user_id">;
 
-export enum ProfileEditType {
+export enum ProfileInteractiveEditType {
 	Name = "Name",
 	Description = "Description",
 	Country = "Country",
@@ -101,10 +101,10 @@ export enum ProfileEditType {
 	Platforms = "Platforms",
 }
 
-export const PROFILE_EDIT_TYPE_VALUES = Object.values(ProfileEditType);
+export const PROFILE_INTERACTIVE_EDIT_TYPE_VALUES = Object.values(ProfileInteractiveEditType);
 
-function isProfileEditType(value: unknown): value is ProfileEditType {
-	return PROFILE_EDIT_TYPE_VALUES.includes(value as ProfileEditType);
+function isProfileInteractiveEditType(value: unknown): value is ProfileInteractiveEditType {
+	return PROFILE_INTERACTIVE_EDIT_TYPE_VALUES.includes(value as ProfileInteractiveEditType);
 }
 
 export const SKY_PROFILE_EDIT_CUSTOM_ID = "SKY_PROFILE_EDIT_CUSTOM_ID" as const;
@@ -142,8 +142,10 @@ export const SKY_PROFILE_EDIT_ACTION_ROW =
 			.setMaxValues(1)
 			.setMinValues(1)
 			.setOptions(
-				PROFILE_EDIT_TYPE_VALUES.map((profileEditType) =>
-					new StringSelectMenuOptionBuilder().setLabel(profileEditType).setValue(profileEditType),
+				PROFILE_INTERACTIVE_EDIT_TYPE_VALUES.map((profileInteractiveEditType) =>
+					new StringSelectMenuOptionBuilder()
+						.setLabel(profileInteractiveEditType)
+						.setValue(profileInteractiveEditType),
 				),
 			),
 	);
@@ -470,9 +472,9 @@ export default class Profile {
 	}
 
 	public static async edit(interaction: StringSelectMenuInteraction) {
-		const profileEditType = interaction.values[0];
+		const profileInteractiveEditType = interaction.values[0];
 
-		if (!isProfileEditType(profileEditType)) {
+		if (!isProfileInteractiveEditType(profileInteractiveEditType)) {
 			pino.warn(interaction, "Received an unknown profile edit type");
 
 			await interaction.update({
@@ -484,28 +486,28 @@ export default class Profile {
 			return;
 		}
 
-		switch (profileEditType) {
-			case ProfileEditType.Name: {
+		switch (profileInteractiveEditType) {
+			case ProfileInteractiveEditType.Name: {
 				await this.showNameModal(interaction);
 				return;
 			}
-			case ProfileEditType.Description: {
+			case ProfileInteractiveEditType.Description: {
 				await this.showDescriptionModal(interaction);
 				return;
 			}
-			case ProfileEditType.Country: {
+			case ProfileInteractiveEditType.Country: {
 				await this.showCountryModal(interaction);
 				return;
 			}
-			case ProfileEditType.WingedLight: {
+			case ProfileInteractiveEditType.WingedLight: {
 				await this.showWingedLightModal(interaction);
 				return;
 			}
-			case ProfileEditType.Seasons: {
+			case ProfileInteractiveEditType.Seasons: {
 				await this.showSeasonsSelectMenu(interaction);
 				return;
 			}
-			case ProfileEditType.Platforms: {
+			case ProfileInteractiveEditType.Platforms: {
 				await this.showPlatformsSelectMenu(interaction);
 				return;
 			}
