@@ -9,7 +9,7 @@ enum PlatformFlags {
 	Steam = 1 << 5,
 }
 
-export const PlatformFlagsToString = {
+const PlatformFlagsToString = {
 	[PlatformFlags.iOS]: "iOS",
 	[PlatformFlags.Android]: "Android",
 	[PlatformFlags.Mac]: "Mac",

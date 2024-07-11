@@ -1,6 +1,5 @@
 import {
 	ALLOWED_EXTENSIONS,
-	ActionRowBuilder,
 	type ApplicationCommandData,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
@@ -8,11 +7,8 @@ import {
 	type AutocompleteInteraction,
 	type ChatInputCommandInteraction,
 	MessageFlags,
-	ModalBuilder,
 	PermissionFlagsBits,
 	type Snowflake,
-	TextInputBuilder,
-	TextInputStyle,
 	UserContextMenuCommandInteraction,
 } from "discord.js";
 import Profile, { AssetType, SKY_PROFILE_EDIT_ACTION_ROW } from "../../Structures/Profile.js";
@@ -20,8 +16,6 @@ import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { spirits } from "../../catalogue/spirits/index.js";
 import COMMANDS, { type AutocompleteCommand } from "../index.js";
 
-export const SKY_PROFILE_TEXT_INPUT_DESCRIPTION = "SKY_PROFILE_DESCRIPTION" as const;
-const SKY_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
 const SKY_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
 
 export default new (class implements AutocompleteCommand {
@@ -34,144 +28,25 @@ export default new (class implements AutocompleteCommand {
 				type: ApplicationCommandOptionType.Subcommand,
 				name: "edit",
 				description: "Edit your Sky profile.",
-			},
-			/*
-			{
-				type: ApplicationCommandOptionType.SubcommandGroup,
-				name: "set",
-				description: "Set some information for your Sky profile.",
 				options: [
 					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: "country",
-						description: "Set the country of your Sky profile!",
-						options: [
-							{
-								type: ApplicationCommandOptionType.String,
-								name: "country",
-								description: "What country are you from?",
-								required: true,
-								maxLength: SKY_MAXIMUM_COUNTRY_LENGTH,
-								minLength: SKY_MINIMUM_COUNTRY_LENGTH,
-							},
-						],
-					},
-					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: "description",
-						description: "Set the description of your Sky profile!",
-					},
-					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: "name",
-						description: "Set the name of your Skykid in your Sky profile!",
-						options: [
-							{
-								type: ApplicationCommandOptionType.String,
-								name: "name",
-								description: "Provide your in-game name.",
-								required: true,
-								maxLength: SKY_MAXIMUM_NAME_LENGTH,
-							},
-						],
-					},
-					{
-						type: ApplicationCommandOptionType.Subcommand,
+						type: ApplicationCommandOptionType.Attachment,
 						name: "icon",
-						description: "Set the icon of your Skykid in your Sky profile!",
-						options: [
-							{
-								type: ApplicationCommandOptionType.Attachment,
-								name: "icon",
-								description: "Upload your icon.",
-								required: true,
-							},
-						],
+						description: "Upload your icon.",
 					},
 					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: "platform",
-						description: "Set the platform your Skykid plays on in your Sky profile!",
-					},
-					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: "seasons",
-						description: "Set the seasons your Skykid participated in for your Sky profile!",
-					},
-					{
-						type: ApplicationCommandOptionType.Subcommand,
+						type: ApplicationCommandOptionType.String,
 						name: "spirit",
-						description: "Set the favourite spirit of your Skykid in your Sky profile!",
-						options: [
-							{
-								type: ApplicationCommandOptionType.String,
-								name: "spirit",
-								description: "What's your favourite spirit?",
-								required: true,
-								autocomplete: true,
-							},
-						],
+						description: "What's your favourite spirit?",
+						autocomplete: true,
 					},
 					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: "catalogue-progression",
-						description: "Decide if you want to show your catalogue progression!",
-						options: [
-							{
-								type: ApplicationCommandOptionType.Boolean,
-								name: "state",
-								description: "Show your catalogue progression?",
-								required: true,
-							},
-						],
-					},
-					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: "spot",
-						description: "Set the favourite spot of your Skykid in your Sky profile!",
-						options: [
-							{
-								type: ApplicationCommandOptionType.String,
-								name: "spot",
-								description: "Where's your favourite spot to hang out?",
-								required: true,
-								minLength: SKY_MINIMUM_SPOT_LENGTH,
-								maxLength: SKY_MAXIMUM_SPOT_LENGTH,
-							},
-						],
-					},
-					{
-						type: ApplicationCommandOptionType.Subcommand,
+						type: ApplicationCommandOptionType.Attachment,
 						name: "thumbnail",
-						description: "Set the thumbnail of your Skykid in your Sky profile!",
-						options: [
-							{
-								type: ApplicationCommandOptionType.Attachment,
-								name: "thumbnail",
-								description: "Upload your thumbnail.",
-								required: true,
-							},
-						],
-					},
-					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: "winged-light",
-						description:
-							"Set the maximum number of winged light your Skykid could possibly have in your Sky profile!",
-						options: [
-							{
-								type: ApplicationCommandOptionType.Integer,
-								name: "winged-light",
-								description: "Provide the maximum number of winged light you can possibly have.",
-								required: true,
-								maxValue: MAXIMUM_WINGED_LIGHT,
-								minValue: MINIMUM_WINGED_LIGHT,
-							},
-						],
+						description: "Upload your thumbnail.",
 					},
 				],
 			},
-			*/
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: "show",
@@ -206,19 +81,14 @@ export default new (class implements AutocompleteCommand {
 			return;
 		}
 
-		const { options } = interaction;
-
-		switch (options.getSubcommandGroup() ?? options.getSubcommand()) {
+		switch (interaction.options.getSubcommand()) {
 			case "edit": {
 				await this.edit(interaction);
 				return;
 			}
-			case "set": {
-				await this.set(interaction);
-				return;
-			}
 			case "show": {
 				await this.show(interaction);
+				return;
 			}
 		}
 	}
@@ -234,74 +104,6 @@ export default new (class implements AutocompleteCommand {
 			embeds: embed ? [embed] : [],
 			flags: MessageFlags.Ephemeral,
 		});
-	}
-
-	public async set(interaction: ChatInputCommandInteraction) {
-		switch (interaction.options.getSubcommand()) {
-			case "country": {
-				await this.setCountry(interaction);
-				return;
-			}
-			case "description": {
-				await this.setDescription(interaction);
-				return;
-			}
-			case "icon": {
-				await this.setIcon(interaction);
-				return;
-			}
-			case "name": {
-				await this.setName(interaction);
-				return;
-			}
-			case "spirit": {
-				await this.setSpirit(interaction);
-				return;
-			}
-			case "catalogue-progression": {
-				await this.setCatalogueProgression(interaction);
-				return;
-			}
-			case "spot": {
-				await this.setSpot(interaction);
-				return;
-			}
-			case "thumbnail": {
-				await this.setThumbnail(interaction);
-				return;
-			}
-			case "winged-light": {
-				await this.setWingedLight(interaction);
-			}
-		}
-	}
-
-	public async setCountry(interaction: ChatInputCommandInteraction) {
-		const country = interaction.options.getString("country", true);
-		await Profile.set(interaction, { country });
-	}
-
-	public async setDescription(interaction: ChatInputCommandInteraction) {
-		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
-
-		const textInput = new TextInputBuilder()
-			.setCustomId(SKY_PROFILE_TEXT_INPUT_DESCRIPTION)
-			.setLabel("Type a lovely description about your Skykid.")
-			.setMaxLength(SKY_MAXIMUM_DESCRIPTION_LENGTH)
-			.setStyle(TextInputStyle.Paragraph);
-
-		if (profile?.description) {
-			textInput.setValue(profile.description);
-		}
-
-		const actionRow = new ActionRowBuilder<TextInputBuilder>().setComponents(textInput);
-
-		const modal = new ModalBuilder()
-			.setComponents(actionRow)
-			// .setCustomId(SKY_PROFILE_MODAL)
-			.setTitle("Set your Sky profile description!");
-
-		await interaction.showModal(modal);
 	}
 
 	private async validateAttachment(
@@ -335,11 +137,6 @@ export default new (class implements AutocompleteCommand {
 		await Profile.setAsset(interaction, icon, AssetType.Icon);
 	}
 
-	public async setName(interaction: ChatInputCommandInteraction) {
-		const name = interaction.options.getString("name", true);
-		await Profile.set(interaction, { name });
-	}
-
 	public async setSpirit(interaction: ChatInputCommandInteraction) {
 		const { options } = interaction;
 		const query = options.getString("spirit", true);
@@ -357,16 +154,6 @@ export default new (class implements AutocompleteCommand {
 		await Profile.set(interaction, { spirit: spirit.name });
 	}
 
-	public async setCatalogueProgression(interaction: ChatInputCommandInteraction) {
-		const state = interaction.options.getBoolean("state", true);
-		await Profile.set(interaction, { catalogue_progression: state });
-	}
-
-	public async setSpot(interaction: ChatInputCommandInteraction) {
-		const spot = interaction.options.getString("spot", true);
-		await Profile.set(interaction, { spot });
-	}
-
 	public async setThumbnail(interaction: ChatInputCommandInteraction) {
 		const thumbnail = interaction.options.getAttachment("thumbnail", true);
 
@@ -375,11 +162,6 @@ export default new (class implements AutocompleteCommand {
 		}
 
 		await Profile.setAsset(interaction, thumbnail, AssetType.Thumbnail);
-	}
-
-	public async setWingedLight(interaction: ChatInputCommandInteraction) {
-		const wingedLight = interaction.options.getInteger("winged-light", true);
-		await Profile.set(interaction, { winged_light: wingedLight });
 	}
 
 	public async show(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {

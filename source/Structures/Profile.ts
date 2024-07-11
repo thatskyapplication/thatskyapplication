@@ -92,7 +92,7 @@ interface ProfileSetData {
 
 type ProfilePatchData = Omit<ProfilePacket, "user_id">;
 
-export enum ProfileInteractiveEditType {
+enum ProfileInteractiveEditType {
 	Name = "Name",
 	Description = "Description",
 	Country = "Country",
@@ -103,7 +103,7 @@ export enum ProfileInteractiveEditType {
 	CatalogueProgression = "Catalogue Progression",
 }
 
-export const PROFILE_INTERACTIVE_EDIT_TYPE_VALUES = Object.values(ProfileInteractiveEditType);
+const PROFILE_INTERACTIVE_EDIT_TYPE_VALUES = Object.values(ProfileInteractiveEditType);
 
 function isProfileInteractiveEditType(value: unknown): value is ProfileInteractiveEditType {
 	return PROFILE_INTERACTIVE_EDIT_TYPE_VALUES.includes(value as ProfileInteractiveEditType);
@@ -111,24 +111,23 @@ function isProfileInteractiveEditType(value: unknown): value is ProfileInteracti
 
 export const SKY_PROFILE_EDIT_CUSTOM_ID = "SKY_PROFILE_EDIT_CUSTOM_ID" as const;
 export const SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID = "SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID" as const;
-export const SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID" as const;
+const SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID =
 	"SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID" as const;
 
-export const SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID =
+const SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID =
 	"SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID =
 	"SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID" as const;
 
-export const SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID =
-	"SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID" as const;
+const SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID =
 	"SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID" as const;
 
-export const SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID =
+const SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID =
 	"SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID =
@@ -138,7 +137,7 @@ export const SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID =
 	"SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID = "SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID" as const;
-export const SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID" as const;
+const SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_EDIT_ACTION_ROW =
 	new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
