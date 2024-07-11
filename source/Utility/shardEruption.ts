@@ -136,7 +136,7 @@ interface ShardEruptionTimestampsData {
 	end: DateTime;
 }
 
-export interface ShardEruptionData {
+interface ShardEruptionData {
 	realm: RealmName;
 	skyMap: SkyMap;
 	strong: boolean;

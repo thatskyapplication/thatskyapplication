@@ -149,7 +149,7 @@ const NOTIFICATION_OFFSETS = [
 	NotificationEvent.Passage,
 ] as const;
 
-export type NotificationOffset = (typeof NOTIFICATION_OFFSETS)[number];
+type NotificationOffset = (typeof NOTIFICATION_OFFSETS)[number];
 
 export const NotificationOffsetToMaximumValues = {
 	[NotificationEvent.PollutedGeyser]: 10,

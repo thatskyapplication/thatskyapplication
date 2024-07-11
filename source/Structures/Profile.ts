@@ -147,7 +147,7 @@ const SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_
 export const SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID =
 	"SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID" as const;
 
-export const SKY_PROFILE_EDIT_ACTION_ROW =
+const SKY_PROFILE_EDIT_ACTION_ROW =
 	new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 		new StringSelectMenuBuilder()
 			.setCustomId(SKY_PROFILE_EDIT_CUSTOM_ID)
