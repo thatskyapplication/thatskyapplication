@@ -154,14 +154,14 @@ export const SKY_PROFILE_EDIT_ACTION_ROW =
 			),
 	);
 
-const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
+export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
 const SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
-const SKY_PROFILE_MINIMUM_COUNTRY_LENGTH = 2 as const;
-const SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH = 60 as const;
+export const SKY_PROFILE_MINIMUM_COUNTRY_LENGTH = 2 as const;
+export const SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH = 60 as const;
 const SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH = 1 as const;
 const SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH = 3 as const;
-const SKY_PROFILE_MINIMUM_SPOT_LENGTH = 2 as const;
-const SKY_PROFILE_MAXIMUM_SPOT_LENGTH = 50 as const;
+export const SKY_PROFILE_MINIMUM_SPOT_LENGTH = 2 as const;
+export const SKY_PROFILE_MAXIMUM_SPOT_LENGTH = 50 as const;
 const ANIMATED_HASH_PREFIX = "a_" as const;
 
 export const enum AssetType {
@@ -382,7 +382,7 @@ export default class Profile {
 
 		const textInput = new TextInputBuilder()
 			.setCustomId(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID)
-			.setLabel("What's your name?")
+			.setLabel("What's your in-game name?")
 			.setMaxLength(SKY_PROFILE_MAXIMUM_NAME_LENGTH)
 			.setMinLength(1)
 			.setRequired()
@@ -452,7 +452,7 @@ export default class Profile {
 		const textInput = new TextInputBuilder()
 			.setCustomId(SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID)
 			.setLabel(
-				`How much winged light do you have? (${MINIMUM_WINGED_LIGHT}-${MAXIMUM_WINGED_LIGHT}).`,
+				`How much winged light do you have? (${MINIMUM_WINGED_LIGHT}-${MAXIMUM_WINGED_LIGHT})`,
 			)
 			.setMaxLength(SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH)
 			.setMinLength(SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH)

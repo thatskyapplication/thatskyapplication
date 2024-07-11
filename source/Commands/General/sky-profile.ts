@@ -13,8 +13,14 @@ import {
 import Profile, {
 	AssetType,
 	SKY_PROFILE_EDIT_ACTION_ROW,
+	SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
+	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
+	SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
+	SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
+	SKY_PROFILE_MINIMUM_SPOT_LENGTH,
 	type ProfileSetData,
 } from "../../Structures/Profile.js";
+import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { spirits } from "../../catalogue/spirits/index.js";
 import COMMANDS, { type AutocompleteCommand } from "../index.js";
@@ -33,9 +39,34 @@ export default new (class implements AutocompleteCommand {
 				description: "Edit your Sky profile.",
 				options: [
 					{
+						type: ApplicationCommandOptionType.String,
+						name: "name",
+						description: "What's your in-game name?",
+						maxLength: SKY_PROFILE_MAXIMUM_NAME_LENGTH,
+					},
+					{
 						type: ApplicationCommandOptionType.Attachment,
 						name: "icon",
-						description: "Upload your icon.",
+						description: "Upload your icon!",
+					},
+					{
+						type: ApplicationCommandOptionType.Attachment,
+						name: "thumbnail",
+						description: "Upload your thumbnail!",
+					},
+					{
+						type: ApplicationCommandOptionType.String,
+						name: "country",
+						description: "Feel like specifying your country?",
+						maxLength: SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
+						minLength: SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
+					},
+					{
+						type: ApplicationCommandOptionType.Integer,
+						name: "winged-light",
+						description: `How much winged light do you have? (${MINIMUM_WINGED_LIGHT}-${MAXIMUM_WINGED_LIGHT})`,
+						maxValue: MAXIMUM_WINGED_LIGHT,
+						minValue: MINIMUM_WINGED_LIGHT,
 					},
 					{
 						type: ApplicationCommandOptionType.String,
@@ -44,9 +75,16 @@ export default new (class implements AutocompleteCommand {
 						autocomplete: true,
 					},
 					{
-						type: ApplicationCommandOptionType.Attachment,
-						name: "thumbnail",
-						description: "Upload your thumbnail.",
+						type: ApplicationCommandOptionType.String,
+						name: "spot",
+						description: "Where's your favourite spot to hang out?",
+						minLength: SKY_PROFILE_MINIMUM_SPOT_LENGTH,
+						maxLength: SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
+					},
+					{
+						type: ApplicationCommandOptionType.Boolean,
+						name: "catalogue-progression",
+						description: "Show your catalogue progression?",
 					},
 				],
 			},
@@ -94,16 +132,26 @@ export default new (class implements AutocompleteCommand {
 		}
 	}
 
+	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Effort.
 	public async edit(interaction: ChatInputCommandInteraction) {
 		const { options } = interaction;
+		const name = options.getString("name");
 		const icon = options.getAttachment("icon");
-		const spirit = options.getString("spirit");
 		const thumbnail = options.getAttachment("thumbnail");
+		const country = options.getString("country");
+		const wingedLight = options.getInteger("winged-light");
+		const spirit = options.getString("spirit");
+		const spot = options.getString("spot");
+		const catalogueProgression = options.getBoolean("catalogue-progression");
 		const data: ProfileSetData = {};
 		const promises = [];
 
 		if (options.data[0]!.options!.length !== 0) {
 			await interaction.deferReply({ ephemeral: true });
+
+			if (name) {
+				data.name = name;
+			}
 
 			if (icon) {
 				if (!(await this.validateAttachment(interaction, icon))) {
@@ -114,6 +162,25 @@ export default new (class implements AutocompleteCommand {
 					type: AssetType.Icon,
 					promise: Profile.setAsset(interaction, icon, AssetType.Icon),
 				});
+			}
+
+			if (thumbnail) {
+				if (!(await this.validateAttachment(interaction, thumbnail))) {
+					return;
+				}
+
+				promises.push({
+					type: AssetType.Thumbnail,
+					promise: Profile.setAsset(interaction, thumbnail, AssetType.Thumbnail),
+				});
+			}
+
+			if (country) {
+				data.country = country;
+			}
+
+			if (wingedLight) {
+				data.winged_light = wingedLight;
 			}
 
 			if (spirit) {
@@ -131,15 +198,12 @@ export default new (class implements AutocompleteCommand {
 				data.spirit = resolvedSpirit.name;
 			}
 
-			if (thumbnail) {
-				if (!(await this.validateAttachment(interaction, thumbnail))) {
-					return;
-				}
+			if (spot) {
+				data.spot = spot;
+			}
 
-				promises.push({
-					type: AssetType.Thumbnail,
-					promise: Profile.setAsset(interaction, thumbnail, AssetType.Thumbnail),
-				});
+			if (catalogueProgression !== null) {
+				data.catalogue_progression = catalogueProgression;
 			}
 
 			const resolvedPromises = await Promise.all(promises.map(({ promise }) => promise));
