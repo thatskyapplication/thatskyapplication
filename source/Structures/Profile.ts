@@ -14,6 +14,7 @@ import {
 	ModalBuilder,
 	type ModalMessageModalSubmitInteraction,
 	type ModalSubmitInteraction,
+	PermissionFlagsBits,
 	type Snowflake,
 	StringSelectMenuBuilder,
 	type StringSelectMenuInteraction,
@@ -39,6 +40,7 @@ import {
 	SeasonNameToSeasonalEmoji,
 } from "../Utility/catalogue.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, formatEmojiURL } from "../Utility/emojis.js";
+import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { resolveBitsToSeasons } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
@@ -356,12 +358,16 @@ export default class Profile {
 				await this.showDescriptionModal(interaction);
 				return;
 			}
+			case ProfileInteractiveEditType.WingedLight: {
+				await this.showWingedLightModal(interaction);
+				return;
+			}
 			case ProfileInteractiveEditType.Country: {
 				await this.showCountryModal(interaction);
 				return;
 			}
-			case ProfileInteractiveEditType.WingedLight: {
-				await this.showWingedLightModal(interaction);
+			case ProfileInteractiveEditType.Spot: {
+				await this.showSpotModal(interaction);
 				return;
 			}
 			case ProfileInteractiveEditType.Seasons: {
@@ -370,10 +376,6 @@ export default class Profile {
 			}
 			case ProfileInteractiveEditType.Platforms: {
 				await this.showPlatformsSelectMenu(interaction);
-				return;
-			}
-			case ProfileInteractiveEditType.Spot: {
-				await this.showSpotModal(interaction);
 				return;
 			}
 			case ProfileInteractiveEditType.CatalogueProgression: {
@@ -429,6 +431,31 @@ export default class Profile {
 		);
 	}
 
+	public static async showWingedLightModal(interaction: StringSelectMenuInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+
+		const textInput = new TextInputBuilder()
+			.setCustomId(SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID)
+			.setLabel(
+				`How much winged light do you have? (${MINIMUM_WINGED_LIGHT}-${MAXIMUM_WINGED_LIGHT})`,
+			)
+			.setMaxLength(SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH)
+			.setMinLength(SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH)
+			.setRequired()
+			.setStyle(TextInputStyle.Short);
+
+		if (profile?.wingedLight) {
+			textInput.setValue(String(profile.wingedLight));
+		}
+
+		await interaction.showModal(
+			new ModalBuilder()
+				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
+				.setCustomId(SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID)
+				.setTitle("Sky Profile"),
+		);
+	}
+
 	public static async showCountryModal(interaction: StringSelectMenuInteraction) {
 		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
 
@@ -452,27 +479,25 @@ export default class Profile {
 		);
 	}
 
-	public static async showWingedLightModal(interaction: StringSelectMenuInteraction) {
+	private static async showSpotModal(interaction: StringSelectMenuInteraction) {
 		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
 
 		const textInput = new TextInputBuilder()
-			.setCustomId(SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID)
-			.setLabel(
-				`How much winged light do you have? (${MINIMUM_WINGED_LIGHT}-${MAXIMUM_WINGED_LIGHT})`,
-			)
-			.setMaxLength(SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH)
-			.setMinLength(SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH)
+			.setCustomId(SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID)
+			.setLabel("Where's your favourite spot to hang out?")
+			.setMaxLength(SKY_PROFILE_MAXIMUM_SPOT_LENGTH)
+			.setMinLength(SKY_PROFILE_MINIMUM_SPOT_LENGTH)
 			.setRequired()
 			.setStyle(TextInputStyle.Short);
 
-		if (profile?.wingedLight) {
-			textInput.setValue(String(profile.wingedLight));
+		if (profile?.spot) {
+			textInput.setValue(profile.spot);
 		}
 
 		await interaction.showModal(
 			new ModalBuilder()
 				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
-				.setCustomId(SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID)
+				.setCustomId(SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID)
 				.setTitle("Sky Profile"),
 		);
 	}
@@ -536,29 +561,6 @@ export default class Profile {
 		});
 	}
 
-	private static async showSpotModal(interaction: StringSelectMenuInteraction) {
-		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
-
-		const textInput = new TextInputBuilder()
-			.setCustomId(SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID)
-			.setLabel("Where's your favourite spot to hang out?")
-			.setMaxLength(SKY_PROFILE_MAXIMUM_SPOT_LENGTH)
-			.setMinLength(SKY_PROFILE_MINIMUM_SPOT_LENGTH)
-			.setRequired()
-			.setStyle(TextInputStyle.Short);
-
-		if (profile?.spot) {
-			textInput.setValue(profile.spot);
-		}
-
-		await interaction.showModal(
-			new ModalBuilder()
-				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
-				.setCustomId(SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID)
-				.setTitle("Sky Profile"),
-		);
-	}
-
 	public static setName(interaction: ModalMessageModalSubmitInteraction) {
 		const name = interaction.fields.getTextInputValue(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID).trim();
 		return this.set(interaction, { name });
@@ -570,14 +572,6 @@ export default class Profile {
 			.trim();
 
 		return this.set(interaction, { description });
-	}
-
-	public static setCountry(interaction: ModalMessageModalSubmitInteraction) {
-		const country = interaction.fields
-			.getTextInputValue(SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID)
-			.trim();
-
-		return this.set(interaction, { country });
 	}
 
 	public static async setWingedLight(interaction: ModalMessageModalSubmitInteraction) {
@@ -599,6 +593,19 @@ export default class Profile {
 		return this.set(interaction, { winged_light: wingedLightNumber });
 	}
 
+	public static setCountry(interaction: ModalMessageModalSubmitInteraction) {
+		const country = interaction.fields
+			.getTextInputValue(SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID)
+			.trim();
+
+		return this.set(interaction, { country });
+	}
+
+	public static setSpot(interaction: ModalMessageModalSubmitInteraction) {
+		const spot = interaction.fields.getTextInputValue(SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID).trim();
+		return this.set(interaction, { spot });
+	}
+
 	public static async setSeasons(interaction: StringSelectMenuInteraction) {
 		return this.set(interaction, {
 			seasons: interaction.values.reduce((bit, value) => bit | Number(value), 0),
@@ -609,11 +616,6 @@ export default class Profile {
 		return this.set(interaction, {
 			platform: interaction.values.reduce((bit, value) => bit | Number(value), 0),
 		});
-	}
-
-	public static setSpot(interaction: ModalMessageModalSubmitInteraction) {
-		const spot = interaction.fields.getTextInputValue(SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID).trim();
-		return this.set(interaction, { spot });
 	}
 
 	private static async setCatalogueProgression(interaction: StringSelectMenuInteraction) {
@@ -646,6 +648,10 @@ export default class Profile {
 			| ModalMessageModalSubmitInteraction
 			| StringSelectMenuInteraction,
 	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
 		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
 		const embedData = await profile?.embed(interaction);
 		const embed = embedData?.embed;

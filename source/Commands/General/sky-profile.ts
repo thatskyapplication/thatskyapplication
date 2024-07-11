@@ -272,13 +272,6 @@ export default new (class implements AutocompleteCommand {
 			return;
 		}
 
-		if (
-			(profile.seasons || profile.platform) &&
-			(await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis))
-		) {
-			return;
-		}
-
 		await interaction.reply({
 			embeds: [(await profile.embed(interaction)).embed],
 			ephemeral: hide,
