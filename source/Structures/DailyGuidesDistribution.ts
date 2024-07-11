@@ -458,10 +458,10 @@ export default class DailyGuidesDistribution {
 
 			footerText.push(
 				daysUntilStart === 0
-					? "The Sky Anniversary Mega Concert starts at 06:00 and 18:00 today."
+					? "The SkyFest AURORA Mega Concert starts at 06:00 and 18:00 today."
 					: daysUntilStart === 1
-						? "The Sky Anniversary AURORA Mega Concert starts tomorrow."
-						: `The Sky Anniversary AURORA Mega Concert starts in ${daysUntilStart} days.`,
+						? "The SkyFest AURORA Mega Concert starts tomorrow."
+						: `The SkyFest AURORA Mega Concert starts in ${daysUntilStart} days.`,
 			);
 		}
 

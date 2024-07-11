@@ -193,7 +193,7 @@ export default new (class implements ChatInputCommand {
 				TimestampStyles.RelativeTime,
 			);
 
-			auroraText += `\n${hyperlink("Sky Anniversary Mega Concerts", new URL("aurora_event/3.jpg", CDN_URL))}: ${timestampMarkdown1} | ${timestampMarkdown2}`;
+			auroraText += `\n${hyperlink("SkyFest AURORA Mega Concerts", new URL("aurora_event/3.jpg", CDN_URL))}: ${timestampMarkdown1} | ${timestampMarkdown2}`;
 		}
 
 		const embed = new EmbedBuilder()
