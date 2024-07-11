@@ -11,7 +11,11 @@ import {
 	type Snowflake,
 	UserContextMenuCommandInteraction,
 } from "discord.js";
-import Profile, { AssetType, SKY_PROFILE_EDIT_ACTION_ROW } from "../../Structures/Profile.js";
+import Profile, {
+	AssetType,
+	SKY_PROFILE_EDIT_ACTION_ROW,
+	type ProfileSetData,
+} from "../../Structures/Profile.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { spirits } from "../../catalogue/spirits/index.js";
 import COMMANDS, { type AutocompleteCommand } from "../index.js";
@@ -94,13 +98,76 @@ export default new (class implements AutocompleteCommand {
 	}
 
 	public async edit(interaction: ChatInputCommandInteraction) {
+		const { options } = interaction;
+		const icon = options.getAttachment("icon");
+		const spirit = options.getString("spirit");
+		const thumbnail = options.getAttachment("thumbnail");
+		const data: ProfileSetData = {};
+		const promises = [];
+
+		if (options.data[0]!.options!.length !== 0) {
+			await interaction.deferReply({ ephemeral: true });
+
+			if (icon) {
+				if (!(await this.validateAttachment(interaction, icon))) {
+					return;
+				}
+
+				promises.push({
+					type: AssetType.Icon,
+					promise: Profile.setAsset(interaction, icon, AssetType.Icon),
+				});
+			}
+
+			if (spirit) {
+				const resolvedSpirit = spirits().find(({ name }) => name === spirit);
+
+				if (!resolvedSpirit) {
+					await interaction.reply({
+						content: "Woah, it seems we have not encountered that spirit yet. How strange!",
+						flags: MessageFlags.Ephemeral,
+					});
+
+					return;
+				}
+
+				data.spirit = resolvedSpirit.name;
+			}
+
+			if (thumbnail) {
+				if (!(await this.validateAttachment(interaction, thumbnail))) {
+					return;
+				}
+
+				promises.push({
+					type: AssetType.Thumbnail,
+					promise: Profile.setAsset(interaction, thumbnail, AssetType.Thumbnail),
+				});
+			}
+
+			const resolvedPromises = await Promise.all(promises.map(({ promise }) => promise));
+
+			for (let index = 0; index < promises.length; index++) {
+				if (promises[index]!.type === AssetType.Icon) {
+					data.icon = resolvedPromises[index]!;
+				}
+
+				if (promises[index]!.type === AssetType.Thumbnail) {
+					data.thumbnail = resolvedPromises[index]!;
+				}
+			}
+
+			await Profile.set(interaction, data);
+			return;
+		}
+
 		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
 		const embed = (await profile?.embed(interaction))?.embed;
 		const content = embed ? "" : "You do not have a Sky profile yet. Build one!";
 
 		await interaction.reply({
-			content,
 			components: [SKY_PROFILE_EDIT_ACTION_ROW],
+			content,
 			embeds: embed ? [embed] : [],
 			flags: MessageFlags.Ephemeral,
 		});
@@ -114,54 +181,16 @@ export default new (class implements AutocompleteCommand {
 			size > SKY_MAXIMUM_ASSET_SIZE ||
 			!ALLOWED_EXTENSIONS.some((extension) => name.endsWith(`.${extension}`))
 		) {
-			await interaction.reply({
-				content: `Please upload a valid attachment! It must be less than 5 megabytes and in any of the following formats:\n${ALLOWED_EXTENSIONS.map(
+			await interaction.editReply(
+				`Please upload a valid attachment! It must be less than 5 megabytes and in any of the following formats:\n${ALLOWED_EXTENSIONS.map(
 					(extension) => `- .${extension}`,
 				).join("\n")}`,
-				ephemeral: true,
-			});
+			);
 
 			return false;
 		}
 
 		return true;
-	}
-
-	public async setIcon(interaction: ChatInputCommandInteraction) {
-		const icon = interaction.options.getAttachment("icon", true);
-
-		if (!(await this.validateAttachment(interaction, icon))) {
-			return;
-		}
-
-		await Profile.setAsset(interaction, icon, AssetType.Icon);
-	}
-
-	public async setSpirit(interaction: ChatInputCommandInteraction) {
-		const { options } = interaction;
-		const query = options.getString("spirit", true);
-		const spirit = spirits().find(({ name }) => name === query);
-
-		if (!spirit) {
-			await interaction.reply({
-				content: "Woah, it seems we have not encountered that spirit yet. How strange!",
-				ephemeral: true,
-			});
-
-			return;
-		}
-
-		await Profile.set(interaction, { spirit: spirit.name });
-	}
-
-	public async setThumbnail(interaction: ChatInputCommandInteraction) {
-		const thumbnail = interaction.options.getAttachment("thumbnail", true);
-
-		if (!(await this.validateAttachment(interaction, thumbnail))) {
-			return;
-		}
-
-		await Profile.setAsset(interaction, thumbnail, AssetType.Thumbnail);
 	}
 
 	public async show(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {

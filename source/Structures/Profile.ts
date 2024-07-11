@@ -4,11 +4,12 @@ import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	ActionRowBuilder,
 	type Attachment,
-	type ChatInputCommandInteraction,
+	ChatInputCommandInteraction,
 	type EmbedAuthorOptions,
 	EmbedBuilder,
 	MessageFlags,
 	ModalBuilder,
+	type ModalMessageModalSubmitInteraction,
 	type ModalSubmitInteraction,
 	type Snowflake,
 	StringSelectMenuBuilder,
@@ -76,7 +77,7 @@ interface ProfileData {
 	catalogueProgression: ProfilePacket["catalogue_progression"];
 }
 
-interface ProfileSetData {
+export interface ProfileSetData {
 	name?: string;
 	icon?: string;
 	thumbnail?: string;
@@ -228,7 +229,10 @@ export default class Profile {
 	}
 
 	public static async set(
-		interaction: ChatInputCommandInteraction | StringSelectMenuInteraction | ModalSubmitInteraction,
+		interaction:
+			| ChatInputCommandInteraction
+			| StringSelectMenuInteraction
+			| ModalMessageModalSubmitInteraction,
 		data: ProfileSetData,
 	) {
 		let profile = await this.fetch(interaction.user.id).catch(() => null);
@@ -254,27 +258,17 @@ export default class Profile {
 
 		const { embed } = await profile.embed(interaction);
 
-		await interaction.update({
+		const baseReplyOptions = {
 			components: [SKY_PROFILE_EDIT_ACTION_ROW],
 			content: "",
 			embeds: [embed],
-		});
+		};
 
-		// const baseReplyOptions = { content: "Your profile has been updated!", embeds: [embed] };
-
-		// if (interaction instanceof StringSelectMenuInteraction) {
-		// 	await interaction.update({
-		// 		...baseReplyOptions,
-		// 		components: [],
-		// 	});
-		// } else if (interaction.deferred) {
-		// 	await interaction.editReply(baseReplyOptions);
-		// } else {
-		// 	await interaction.reply({
-		// 		...baseReplyOptions,
-		// 		ephemeral: true,
-		// 	});
-		// }
+		if (interaction instanceof ChatInputCommandInteraction) {
+			await interaction.editReply(baseReplyOptions);
+		} else {
+			await interaction.update(baseReplyOptions);
+		}
 
 		// if (unfilled) {
 		// await interaction.followUp({ content: unfilled, ephemeral: true });
@@ -282,12 +276,10 @@ export default class Profile {
 	}
 
 	public static async setAsset(
-		interaction: ChatInputCommandInteraction,
+		{ user }: ChatInputCommandInteraction,
 		{ contentType, url }: Attachment,
 		type: AssetType,
 	) {
-		await interaction.deferReply({ ephemeral: true });
-		const { user } = interaction;
 		const profile = await Profile.fetch(user.id).catch(() => null);
 
 		// Delete the old asset if it exists.
@@ -338,9 +330,7 @@ export default class Profile {
 			}),
 		);
 
-		await Profile.set(interaction, {
-			[type === AssetType.Icon ? "icon" : "thumbnail"]: hashedBuffer,
-		});
+		return hashedBuffer;
 	}
 
 	public static async edit(interaction: StringSelectMenuInteraction) {
@@ -566,12 +556,12 @@ export default class Profile {
 		);
 	}
 
-	public static setName(interaction: ModalSubmitInteraction) {
+	public static setName(interaction: ModalMessageModalSubmitInteraction) {
 		const name = interaction.fields.getTextInputValue(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID).trim();
 		return this.set(interaction, { name });
 	}
 
-	public static setDescription(interaction: ModalSubmitInteraction) {
+	public static setDescription(interaction: ModalMessageModalSubmitInteraction) {
 		const description = interaction.fields
 			.getTextInputValue(SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID)
 			.trim();
@@ -579,7 +569,7 @@ export default class Profile {
 		return this.set(interaction, { description });
 	}
 
-	public static setCountry(interaction: ModalSubmitInteraction) {
+	public static setCountry(interaction: ModalMessageModalSubmitInteraction) {
 		const country = interaction.fields
 			.getTextInputValue(SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID)
 			.trim();
@@ -587,7 +577,7 @@ export default class Profile {
 		return this.set(interaction, { country });
 	}
 
-	public static async setWingedLight(interaction: ModalSubmitInteraction) {
+	public static async setWingedLight(interaction: ModalMessageModalSubmitInteraction) {
 		const wingedLight = interaction.fields
 			.getTextInputValue(SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID)
 			.trim();
@@ -618,7 +608,7 @@ export default class Profile {
 		});
 	}
 
-	public static setSpot(interaction: ModalSubmitInteraction) {
+	public static setSpot(interaction: ModalMessageModalSubmitInteraction) {
 		const spot = interaction.fields.getTextInputValue(SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID).trim();
 		return this.set(interaction, { spot });
 	}
