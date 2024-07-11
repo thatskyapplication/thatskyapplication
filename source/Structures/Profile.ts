@@ -98,11 +98,11 @@ type ProfilePatchData = Omit<ProfilePacket, "user_id">;
 enum ProfileInteractiveEditType {
 	Name = "Name",
 	Description = "Description",
-	Country = "Country",
 	WingedLight = "Winged Light",
+	Country = "Country",
+	Spot = "Spot",
 	Seasons = "Seasons",
 	Platforms = "Platforms",
-	Spot = "Spot",
 	CatalogueProgression = "Catalogue Progression",
 }
 
@@ -502,6 +502,7 @@ export default class Profile {
 				),
 				SKY_PROFILE_BACK_TO_START_ACTION_ROW,
 			],
+			content: "",
 			embeds: [],
 		});
 	}
@@ -530,6 +531,7 @@ export default class Profile {
 				),
 				SKY_PROFILE_BACK_TO_START_ACTION_ROW,
 			],
+			content: "",
 			embeds: [],
 		});
 	}
@@ -645,11 +647,17 @@ export default class Profile {
 			| StringSelectMenuInteraction,
 	) {
 		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
-		const embed = await profile?.embed(interaction);
+		const embedData = await profile?.embed(interaction);
+		const embed = embedData?.embed;
+		const missing = embedData?.missing;
 
 		const baseReplyOptions = {
 			components: [SKY_PROFILE_EDIT_ACTION_ROW],
-			content: embed ? "" : "You do not have a Sky profile yet. Build one!",
+			content: embed
+				? missing
+					? `${missing}`
+					: ""
+				: "You do not have a Sky profile yet. Build one!",
 			embeds: embed ? [embed] : [],
 		};
 
@@ -660,6 +668,7 @@ export default class Profile {
 			: interaction.update(baseReplyOptions));
 	}
 
+	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 	public async embed(
 		interaction:
 			| ButtonInteraction
@@ -692,13 +701,20 @@ export default class Profile {
 
 		const descriptions = [];
 		const fields = [];
+		const missing = [];
 
-		if (seasons) {
-			descriptions.push(resolveBitsToSeasons(seasons).join(" "));
+		if (typeof seasons === "number") {
+			if (seasons !== 0) {
+				descriptions.push(resolveBitsToSeasons(seasons).join(" "));
+			}
+		} else {
+			missing.push("- Use the select menu to show what seasons you participated in!");
 		}
 
 		if (description) {
 			descriptions.push(description);
+		} else {
+			missing.push("- Set a description!");
 		}
 
 		if (descriptions.length > 0) {
@@ -707,6 +723,8 @@ export default class Profile {
 
 		if (thumbnailURL) {
 			embed.setThumbnail(thumbnailURL);
+		} else {
+			missing.push("- Use the command to upload a thumbnail!");
 		}
 
 		if (name) {
@@ -714,9 +732,13 @@ export default class Profile {
 
 			if (iconURL) {
 				embedAuthorOptions.iconURL = iconURL;
+			} else {
+				missing.push("- Use the command to upload an icon!");
 			}
 
 			embed.setAuthor(embedAuthorOptions);
+		} else {
+			missing.push("- Set your name!");
 		}
 
 		if (typeof wingedLight === "number") {
@@ -730,6 +752,8 @@ export default class Profile {
 							: String(wingedLight),
 				inline: true,
 			});
+		} else {
+			missing.push("- Set the winged light you have!");
 		}
 
 		if (spirit) {
@@ -738,28 +762,40 @@ export default class Profile {
 				value: t(`spiritNames.${spirit}`, { lng: locale, ns: "general" }),
 				inline: true,
 			});
+		} else {
+			missing.push("- Set your favourite spirit!");
 		}
 
 		if (country) {
 			fields.push({ name: "Country", value: country, inline: true });
+		} else {
+			missing.push("- Set your country!");
 		}
 
 		if (spot) {
 			fields.push({ name: "Favourite Spot", value: spot, inline: true });
+		} else {
+			missing.push("- Set your favourite spot!");
 		}
 
-		if (platform) {
-			fields.push({
-				name: "Platform",
-				value: resolveBitsToPlatform(platform).join("\n"),
-				inline: true,
-			});
+		if (typeof platform === "number") {
+			if (platform !== 0) {
+				fields.push({
+					name: "Platform",
+					value: resolveBitsToPlatform(platform).join("\n"),
+					inline: true,
+				});
+			}
+		} else {
+			missing.push("- Use the select menu to show what platforms you play on!");
 		}
 
-		if (catalogueProgression) {
+		if (typeof catalogueProgression === "boolean") {
 			const catalogue = await Catalogue.fetch(userId).catch(() => null);
 			const allProgress = catalogue?.allProgress(true) ?? 0;
 			fields.push({ name: "Catalogue Progression", value: `${allProgress}%`, inline: true });
+		} else {
+			missing.push("- Set if you want to share your catalogue progression!");
 		}
 
 		if (fields.length > 4 && fields.length % 3 === 2) {
@@ -767,6 +803,6 @@ export default class Profile {
 		}
 
 		embed.setFields(fields);
-		return embed;
+		return { embed, missing: missing.join("\n") || null };
 	}
 }

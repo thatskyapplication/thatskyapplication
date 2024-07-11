@@ -44,20 +44,13 @@ export default new (class implements AutocompleteCommand {
 					},
 					{
 						type: ApplicationCommandOptionType.Attachment,
-						name: "icon",
-						description: "Upload your icon!",
-					},
-					{
-						type: ApplicationCommandOptionType.Attachment,
 						name: "thumbnail",
 						description: "Upload your thumbnail!",
 					},
 					{
-						type: ApplicationCommandOptionType.String,
-						name: "country",
-						description: "Feel like specifying your country?",
-						maxLength: SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
-						minLength: SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
+						type: ApplicationCommandOptionType.Attachment,
+						name: "icon",
+						description: "Upload your icon!",
 					},
 					{
 						type: ApplicationCommandOptionType.Integer,
@@ -71,6 +64,13 @@ export default new (class implements AutocompleteCommand {
 						name: "spirit",
 						description: "What's your favourite spirit?",
 						autocomplete: true,
+					},
+					{
+						type: ApplicationCommandOptionType.String,
+						name: "country",
+						description: "Feel like specifying your country?",
+						maxLength: SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
+						minLength: SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
 					},
 					{
 						type: ApplicationCommandOptionType.String,
@@ -133,11 +133,11 @@ export default new (class implements AutocompleteCommand {
 	public async edit(interaction: ChatInputCommandInteraction) {
 		const { options } = interaction;
 		const name = options.getString("name");
-		const icon = options.getAttachment("icon");
 		const thumbnail = options.getAttachment("thumbnail");
-		const country = options.getString("country");
+		const icon = options.getAttachment("icon");
 		const wingedLight = options.getInteger("winged-light");
 		const spirit = options.getString("spirit");
+		const country = options.getString("country");
 		const spot = options.getString("spot");
 		const catalogueProgression = options.getBoolean("catalogue-progression");
 		const data: ProfileSetData = {};
@@ -148,17 +148,6 @@ export default new (class implements AutocompleteCommand {
 
 			if (name) {
 				data.name = name;
-			}
-
-			if (icon) {
-				if (!(await this.validateAttachment(interaction, icon))) {
-					return;
-				}
-
-				promises.push({
-					type: AssetType.Icon,
-					promise: Profile.setAsset(interaction, icon, AssetType.Icon),
-				});
 			}
 
 			if (thumbnail) {
@@ -172,8 +161,15 @@ export default new (class implements AutocompleteCommand {
 				});
 			}
 
-			if (country) {
-				data.country = country;
+			if (icon) {
+				if (!(await this.validateAttachment(interaction, icon))) {
+					return;
+				}
+
+				promises.push({
+					type: AssetType.Icon,
+					promise: Profile.setAsset(interaction, icon, AssetType.Icon),
+				});
 			}
 
 			if (wingedLight) {
@@ -193,6 +189,10 @@ export default new (class implements AutocompleteCommand {
 				}
 
 				data.spirit = resolvedSpirit.name;
+			}
+
+			if (country) {
+				data.country = country;
 			}
 
 			if (spot) {
@@ -279,7 +279,9 @@ export default new (class implements AutocompleteCommand {
 			return;
 		}
 
-		const embed = await profile.embed(interaction);
-		await interaction.reply({ embeds: [embed], ephemeral: hide });
+		await interaction.reply({
+			embeds: [(await profile.embed(interaction)).embed],
+			ephemeral: hide,
+		});
 	}
 })();
