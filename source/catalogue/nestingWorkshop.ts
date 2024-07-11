@@ -65,7 +65,7 @@ const items = resolveOffer([
 	{
 		name: "Decor pillow two colour",
 		bit: 1 << 10,
-		cost: { hearts: 48 },
+		cost: { candles: 48 },
 		emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp45,
 	},
 	{
@@ -89,7 +89,7 @@ const items = resolveOffer([
 	{
 		name: "Decor folded cloth",
 		bit: 1 << 14,
-		cost: { hearts: 40 },
+		cost: { candles: 40 },
 		emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp47,
 	},
 	{
@@ -290,6 +290,30 @@ const items = resolveOffer([
 	// 	bit: 1 << 47,
 	// 	cost: { candles: 80 },
 	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp68,
+	// },
+	// {
+	// 	name: "Stone kitchen stove",
+	// 	bit: 1 << 48,
+	// 	cost: { ascendedCandles: 25 },
+	// 	emoji: LARGE_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp68,
+	// },
+	// {
+	// 	name: "Stone wide cube",
+	// 	bit: 1 << 49,
+	// 	cost: { candles: 80 },
+	// 	emoji: LARGE_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp69,
+	// },
+	// {
+	// 	name: "Large bathtub",
+	// 	bit: 1 << 50,
+	// 	cost: { hearts: 45 },
+	// 	emoji: LARGE_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp70,
+	// },
+	// {
+	// 	name: "Large circle rug",
+	// 	bit: 1 << 51,
+	// 	cost: { candles: 90 },
+	// 	emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp69,
 	// },
 ]);
 
