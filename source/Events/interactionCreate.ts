@@ -553,22 +553,22 @@ export default {
 						await Profile.setName(interaction);
 						return;
 					}
-	
+
 					if (customId === SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID) {
 						await Profile.setDescription(interaction);
 						return;
 					}
-	
+
 					if (customId === SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID) {
 						await Profile.setCountry(interaction);
 						return;
 					}
-	
+
 					if (customId === SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID) {
 						await Profile.setWingedLight(interaction);
 						return;
 					}
-	
+
 					if (customId === SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID) {
 						await Profile.setSpot(interaction);
 						return;
