@@ -151,7 +151,8 @@ export const SKY_PROFILE_EDIT_ACTION_ROW =
 						.setLabel(profileInteractiveEditType)
 						.setValue(profileInteractiveEditType),
 				),
-			),
+			)
+			.setPlaceholder("What do you want to edit?"),
 	);
 
 export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
