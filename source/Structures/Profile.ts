@@ -100,6 +100,7 @@ export enum ProfileInteractiveEditType {
 	Seasons = "Seasons",
 	Platforms = "Platforms",
 	Spot = "Spot",
+	CatalogueProgression = "Catalogue Progression",
 }
 
 export const PROFILE_INTERACTIVE_EDIT_TYPE_VALUES = Object.values(ProfileInteractiveEditType);
@@ -387,6 +388,10 @@ export default class Profile {
 				await this.showSpotModal(interaction);
 				return;
 			}
+			case ProfileInteractiveEditType.CatalogueProgression: {
+				await this.setCatalogueProgression(interaction);
+				return;
+			}
 		}
 	}
 
@@ -619,6 +624,11 @@ export default class Profile {
 		return this.set(interaction, { spot });
 	}
 
+	private static async setCatalogueProgression(interaction: StringSelectMenuInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+		await Profile.set(interaction, { catalogue_progression: !profile?.catalogueProgression });
+	}
+
 	public static iconRoute(userId: Snowflake, hash: string) {
 		return `sky_profiles/icons/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
 	}
@@ -821,11 +831,11 @@ export default class Profile {
 			);
 		}
 
-		if (typeof catalogueProgression === "boolean") {
+		if (catalogueProgression) {
 			const catalogue = await Catalogue.fetch(userId).catch(() => null);
 			const allProgress = catalogue?.allProgress(true) ?? 0;
 			fields.push({ name: "Catalogue Progression", value: `${allProgress}%`, inline: true });
-		} else if (commandId) {
+		} else if (commandId && catalogueProgression !== false) {
 			unfilled.push(
 				`- Use ${chatInputApplicationCommandMention(
 					commandName,
