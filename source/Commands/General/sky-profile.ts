@@ -8,7 +8,6 @@ import {
 	type ChatInputCommandInteraction,
 	MessageFlags,
 	PermissionFlagsBits,
-	type Snowflake,
 	UserContextMenuCommandInteraction,
 } from "discord.js";
 import Profile, {
@@ -72,8 +71,6 @@ export default new (class implements AutocompleteCommand {
 		integrationTypes: [0, 1],
 		contexts: [0, 1, 2],
 	} as const satisfies Readonly<ApplicationCommandData>;
-
-	public id: Snowflake | null = null;
 
 	public async autocomplete(interaction: AutocompleteInteraction) {
 		// This is the same as querying a spirit, so use that instead.
@@ -162,7 +159,7 @@ export default new (class implements AutocompleteCommand {
 		}
 
 		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
-		const embed = (await profile?.embed(interaction))?.embed;
+		const embed = await profile?.embed(interaction);
 		const content = embed ? "" : "You do not have a Sky profile yet. Build one!";
 
 		await interaction.reply({
@@ -230,11 +227,7 @@ export default new (class implements AutocompleteCommand {
 			return;
 		}
 
-		const { embed, unfilled } = await profile.embed(interaction);
+		const embed = await profile.embed(interaction);
 		await interaction.reply({ embeds: [embed], ephemeral: hide });
-
-		if (unfilled && userIsInvoker) {
-			await interaction.followUp({ content: unfilled, ephemeral: true });
-		}
 	}
 })();

@@ -18,7 +18,6 @@ import {
 	TextInputBuilder,
 	TextInputStyle,
 	type UserContextMenuCommandInteraction,
-	chatInputApplicationCommandMention,
 } from "discord.js";
 import { hash } from "hasha";
 import { t } from "i18next";
@@ -256,12 +255,10 @@ export default class Profile {
 			profile = new this(profilePacket!);
 		}
 
-		const { embed } = await profile.embed(interaction);
-
 		const baseReplyOptions = {
 			components: [SKY_PROFILE_EDIT_ACTION_ROW],
 			content: "",
-			embeds: [embed],
+			embeds: [await profile.embed(interaction)],
 		};
 
 		if (interaction instanceof ChatInputCommandInteraction) {
@@ -269,10 +266,6 @@ export default class Profile {
 		} else {
 			await interaction.update(baseReplyOptions);
 		}
-
-		// if (unfilled) {
-		// await interaction.followUp({ content: unfilled, ephemeral: true });
-		// }
 	}
 
 	public static async setAsset(
@@ -645,9 +638,6 @@ export default class Profile {
 	) {
 		const { locale } = interaction;
 		const hearts = await commands.heart.heartCount(this.userId);
-		const skyProfileCommand = commands.skyprofile;
-		const commandId = skyProfileCommand.id;
-		const commandName = skyProfileCommand.data.name;
 
 		const {
 			userId,
@@ -670,32 +660,13 @@ export default class Profile {
 
 		const descriptions = [];
 		const fields = [];
-		const unfilled = [];
 
 		if (seasons) {
 			descriptions.push(resolveBitsToSeasons(seasons).join(" "));
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"seasons",
-					commandId,
-				)} to tell others what seasons you participated in!`,
-			);
 		}
 
 		if (description) {
 			descriptions.push(description);
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"description",
-					commandId,
-				)} to set a description!`,
-			);
 		}
 
 		if (descriptions.length > 0) {
@@ -704,15 +675,6 @@ export default class Profile {
 
 		if (thumbnailURL) {
 			embed.setThumbnail(thumbnailURL);
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"thumbnail",
-					commandId,
-				)} to set a thumbnail on the embed!`,
-			);
 		}
 
 		if (name) {
@@ -720,22 +682,9 @@ export default class Profile {
 
 			if (iconURL) {
 				embedAuthorOptions.iconURL = iconURL;
-			} else if (commandId) {
-				unfilled.push(
-					`- Use ${chatInputApplicationCommandMention(
-						commandName,
-						"set",
-						"icon",
-						commandId,
-					)} to set an icon by your name!`,
-				);
 			}
 
 			embed.setAuthor(embedAuthorOptions);
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(commandName, "set", "name", commandId)} to set your name!`,
-			);
 		}
 
 		if (typeof wingedLight === "number") {
@@ -749,15 +698,6 @@ export default class Profile {
 							: String(wingedLight),
 				inline: true,
 			});
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"winged-light",
-					commandId,
-				)} to flex how much winged light you have!`,
-			);
 		}
 
 		if (spirit) {
@@ -766,41 +706,14 @@ export default class Profile {
 				value: t(`spiritNames.${spirit}`, { lng: locale, ns: "general" }),
 				inline: true,
 			});
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"spirit",
-					commandId,
-				)} to set your favourite spirit!`,
-			);
 		}
 
 		if (country) {
 			fields.push({ name: "Country", value: country, inline: true });
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"country",
-					commandId,
-				)} to tell others where you're from!`,
-			);
 		}
 
 		if (spot) {
 			fields.push({ name: "Favourite Spot", value: spot, inline: true });
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"spot",
-					commandId,
-				)} to tell others where your favourite spot to hang out is!`,
-			);
 		}
 
 		if (platform) {
@@ -809,30 +722,12 @@ export default class Profile {
 				value: resolveBitsToPlatform(platform).join("\n"),
 				inline: true,
 			});
-		} else if (commandId) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"platform",
-					commandId,
-				)} to show what platforms you play on!`,
-			);
 		}
 
 		if (catalogueProgression) {
 			const catalogue = await Catalogue.fetch(userId).catch(() => null);
 			const allProgress = catalogue?.allProgress(true) ?? 0;
 			fields.push({ name: "Catalogue Progression", value: `${allProgress}%`, inline: true });
-		} else if (commandId && catalogueProgression !== false) {
-			unfilled.push(
-				`- Use ${chatInputApplicationCommandMention(
-					commandName,
-					"set",
-					"catalogue-progression",
-					commandId,
-				)} to show your catalogue progression!`,
-			);
 		}
 
 		if (fields.length > 4 && fields.length % 3 === 2) {
@@ -840,6 +735,6 @@ export default class Profile {
 		}
 
 		embed.setFields(fields);
-		return { embed, unfilled: unfilled.join("\n") || null };
+		return embed;
 	}
 }

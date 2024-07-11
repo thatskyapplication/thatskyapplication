@@ -231,10 +231,6 @@ class Caelus extends Client {
 				fetchedGlobalCommands.find(({ name }) => name === commands.sharderuption.data.name)?.id ??
 				null;
 
-			commands.skyprofile.id =
-				fetchedGlobalCommands.find(({ name }) => name === commands.skyprofile.data.name)?.id ??
-				null;
-
 			commands.catalogue.id =
 				fetchedGlobalCommands.find(({ name }) => name === commands.catalogue.data.name)?.id ?? null;
 		} catch (error) {
