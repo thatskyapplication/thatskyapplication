@@ -382,7 +382,7 @@ export const EventNameToEventCurrencyEmoji = {
 	[EventName.AviarysFireworkFestival]: EVENT_EMOJIS.AviarysFireworkFestival,
 	[EventName.SpringCamping]: null,
 	[EventName.SkyXCinnamorollPopUpCafe]: EVENT_EMOJIS.SkyXCinnamorollPopUpCafe,
-	[EventName.SkyFest]: null,
+	[EventName.SkyFest]: EVENT_EMOJIS.SkyFest,
 	[EventName.TournamentOfTriumph]: null,
 } as const satisfies Readonly<Record<EventName, EventEmojis | null>>;
 
