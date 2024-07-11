@@ -156,6 +156,7 @@ export const SKY_PROFILE_EDIT_ACTION_ROW =
 	);
 
 export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
+export const SKY_PROFILE_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
 const SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
 export const SKY_PROFILE_MINIMUM_COUNTRY_LENGTH = 2 as const;
 export const SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH = 60 as const;

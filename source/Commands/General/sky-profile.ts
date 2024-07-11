@@ -13,6 +13,7 @@ import {
 import Profile, {
 	AssetType,
 	SKY_PROFILE_EDIT_ACTION_ROW,
+	SKY_PROFILE_MAXIMUM_ASSET_SIZE,
 	SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
@@ -24,8 +25,6 @@ import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Consta
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { spirits } from "../../catalogue/spirits/index.js";
 import COMMANDS, { type AutocompleteCommand } from "../index.js";
-
-const SKY_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
 
 export default new (class implements AutocompleteCommand {
 	public readonly data = {
@@ -239,7 +238,7 @@ export default new (class implements AutocompleteCommand {
 		{ size, name }: Attachment,
 	) {
 		if (
-			size > SKY_MAXIMUM_ASSET_SIZE ||
+			size > SKY_PROFILE_MAXIMUM_ASSET_SIZE ||
 			!ALLOWED_EXTENSIONS.some((extension) => name.endsWith(`.${extension}`))
 		) {
 			await interaction.editReply(
