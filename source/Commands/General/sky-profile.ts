@@ -6,7 +6,6 @@ import {
 	type Attachment,
 	type AutocompleteInteraction,
 	type ChatInputCommandInteraction,
-	MessageFlags,
 	PermissionFlagsBits,
 	UserContextMenuCommandInteraction,
 } from "discord.js";
@@ -180,10 +179,9 @@ export default new (class implements AutocompleteCommand {
 				const resolvedSpirit = spirits().find(({ name }) => name === spirit);
 
 				if (!resolvedSpirit) {
-					await interaction.reply({
-						content: "Woah, it seems we have not encountered that spirit yet. How strange!",
-						flags: MessageFlags.Ephemeral,
-					});
+					await interaction.editReply(
+						"Woah, it seems we have not encountered that spirit yet. How strange!",
+					);
 
 					return;
 				}
