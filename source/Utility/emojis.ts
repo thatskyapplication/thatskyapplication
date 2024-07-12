@@ -541,6 +541,10 @@ export const OUTFIT_EMOJIS = {
 	 * Nesting Guide (ultimate).
 	 */
 	Outfit58: { name: "outfit", id: "1229145924064907334" },
+	/**
+	 * SkyFest 5th Anniversary T-shirt.
+	 */
+	Outfit59: { name: "outfit", id: "1261196162111901757" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -2041,6 +2045,14 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 * Cosy Teacup Headband.
 	 */
 	HairAccessory41: { name: "hair_accessory", id: "1234054082352910386" },
+	/**
+	 * SkyFest 5th Anniversary Headband.
+	 */
+	HairAccessory42: { name: "hair_accessory", id: "1261196626135879781" },
+	/**
+	 * SkyFest Oreo Headband.
+	 */
+	HairAccessory43: { name: "hair_accessory", id: "1261197808694857738" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
@@ -2573,6 +2585,10 @@ export const CAPE_EMOJIS = {
 	 * Nature Wave Pack.
 	 */
 	Cape131: { name: "cape", id: "1244555490848145419" },
+	/**
+	 * SkyFest Wireframe Cape.
+	 */
+	Cape132: { name: "cape", id: "1261198061393412177" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -2749,6 +2765,10 @@ export const HELD_PROPS_EMOJIS = {
 	 * Bloom Lilypad Umbrella.
 	 */
 	HeldProp42: { name: "held_prop", id: "1220814676884197456" },
+	/**
+	 * SkyFest Jenova Fan.
+	 */
+	HeldProp43: { name: "held_prop", id: "1261197469979770950" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HeldPropsEmojis = (typeof HELD_PROPS_EMOJIS)[keyof typeof HELD_PROPS_EMOJIS];
@@ -3319,6 +3339,10 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Large circle rug.
 	 */
 	SmallPlaceableProp69: { name: "small_placeable_prop", id: "1260954826536128672" },
+	/**
+	 * SkyFest Star Jar.
+	 */
+	SmallPlaceableProp70: { name: "small_placeable_prop", id: "1261195211271307284" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =
