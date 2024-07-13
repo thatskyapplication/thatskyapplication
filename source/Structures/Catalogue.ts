@@ -34,7 +34,7 @@ import {
 	addCosts,
 	resolveCostToString,
 } from "../Utility/catalogue.js";
-import { now, todayDate } from "../Utility/dates.js";
+import { skyNow, todayDate } from "../Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { SpiritName } from "../Utility/spirits.js";
@@ -2189,7 +2189,7 @@ export class Catalogue {
 		const harmonyHallProgress = catalogue.harmonyHallProgress(true);
 		const permanentEventStoreProgress = catalogue.permanentEventStoreProgress(true);
 		// const nestingWorkshopProgress = catalogue.nestingWorkshopProgress(true);
-		const today = now();
+		const today = skyNow();
 		const currentSeason = resolveSeason(today);
 		const events = resolveEvents(today);
 		const currentTravellingSpirit = resolveTravellingSpirit(today);

@@ -25,7 +25,7 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	dateString,
 	isDuring,
-	now,
+	skyNow,
 	todayDate,
 } from "../Utility/dates.js";
 import {
@@ -344,7 +344,7 @@ export default class DailyGuidesDistribution {
 	public static embed(locale: Locale) {
 		const { dailyMessage, quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
 		const today = todayDate();
-		const nowTime = now();
+		const nowTime = skyNow();
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)

@@ -1,6 +1,6 @@
 import { setInterval } from "node:timers";
 import type { Client } from "discord.js";
-import { now } from "../Utility/dates.js";
+import { skyNow } from "../Utility/dates.js";
 import DailyGuides from "./DailyGuides.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 
@@ -12,8 +12,8 @@ async function dailyReset(client: Client<true>) {
 
 export default function heartbeat(client: Client<true>): void {
 	setInterval(() => {
-		const date = now();
-		const { hour, minute, second } = date;
+		const now = skyNow();
+		const { hour, minute, second } = now;
 
 		if (hour === 0 && minute === 0 && second === 0) {
 			void dailyReset(client);

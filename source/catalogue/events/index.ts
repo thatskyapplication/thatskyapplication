@@ -1,5 +1,5 @@
 import type { DateTime } from "luxon";
-import { now } from "../../Utility/dates.js";
+import { skyNow } from "../../Utility/dates.js";
 import Year1 from "./2019/index.js";
 import Year2 from "./2020/index.js";
 import Year3 from "./2021/index.js";
@@ -10,7 +10,7 @@ import Year6 from "./2024/index.js";
 const EVENTS = [...Year1, ...Year2, ...Year3, ...Year4, ...Year5, ...Year6] as const;
 
 export function currentEvents() {
-	return EVENTS.filter((event) => now() >= event.start);
+	return EVENTS.filter((event) => skyNow() >= event.start);
 }
 
 export function currentEventsYears() {
