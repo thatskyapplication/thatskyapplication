@@ -51,11 +51,11 @@ import {
 	STANDARD_SPIRITS,
 } from "../catalogue/spirits/realms/index.js";
 import {
-	currentSeasons,
 	isSeasonName,
 	resolveReturningSpirits,
 	resolveSeason,
 	resolveTravellingSpirit,
+	skySeasons,
 } from "../catalogue/spirits/seasons/index.js";
 import { STARTER_PACKS } from "../catalogue/starterPacks.js";
 import pg, { Table } from "../pg.js";
@@ -2128,7 +2128,7 @@ export class Catalogue {
 
 	public allProgress(round?: boolean) {
 		const standardAndElderOwnedProgress = this.spiritOwnedProgress(REALM_SPIRITS);
-		const seasonalOwnedProgress = this.seasonOwnedProgress(currentSeasons());
+		const seasonalOwnedProgress = this.seasonOwnedProgress(skySeasons());
 		const eventOwnedProgress = this.eventOwnedProgress(skyEvents());
 		const starterPackOwnedProgress = this.starterPackOwnedProgress();
 		const secretAreaOwnedProgress = this.secretAreaOwnedProgress();
@@ -2182,7 +2182,7 @@ export class Catalogue {
 
 		const standardProgress = catalogue.spiritProgress(STANDARD_SPIRITS, true);
 		const elderProgress = catalogue.spiritProgress(ELDER_SPIRITS, true);
-		const seasonalProgress = catalogue.seasonProgress(currentSeasons(), true);
+		const seasonalProgress = catalogue.seasonProgress(skySeasons(), true);
 		const eventProgress = catalogue.eventProgress(skyEvents(), true);
 		const starterPackProgress = catalogue.starterPackProgress(true);
 		const secretAreaProgress = catalogue.secretAreaProgress(true);
@@ -2578,7 +2578,7 @@ export class Catalogue {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							currentSeasons().map((season) => {
+							skySeasons().map((season) => {
 								const percentage = catalogue.seasonProgress([season], true);
 
 								return new StringSelectMenuOptionBuilder()
@@ -2615,7 +2615,7 @@ export class Catalogue {
 		}
 
 		const { locale, user } = interaction;
-		const season = currentSeasons().find(({ name }) => name === seasonName);
+		const season = skySeasons().find(({ name }) => name === seasonName);
 
 		if (!season) {
 			pino.error(interaction, "Failed to view a season.");
@@ -2686,7 +2686,7 @@ export class Catalogue {
 			);
 		}
 
-		const seasons = currentSeasons();
+		const seasons = skySeasons();
 		const index = seasons.indexOf(season);
 		const before = seasons[index - 1];
 		const after = seasons[index + 1];
@@ -3073,7 +3073,7 @@ export class Catalogue {
 		} else if (isElderSpirit) {
 			spirits = ELDER_SPIRITS;
 		} else if (isSeasonalSpirit || isGuideSpirit) {
-			const season = currentSeasons().find(({ name }) => name === spirit.season);
+			const season = skySeasons().find(({ name }) => name === spirit.season);
 
 			if (season) {
 				spirits = [season.guide, ...season.spirits];
@@ -3603,7 +3603,7 @@ export class Catalogue {
 
 		const { customId, user } = interaction;
 		const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
-		const season = currentSeasons().find((season) => season.name === parsedCustomId);
+		const season = skySeasons().find((season) => season.name === parsedCustomId);
 
 		if (!season) {
 			pino.error(interaction, "Unknown season.");
@@ -3637,7 +3637,7 @@ export class Catalogue {
 
 		const { customId, user, values } = interaction;
 		const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
-		const season = currentSeasons().find((season) => season.name === parsedCustomId);
+		const season = skySeasons().find((season) => season.name === parsedCustomId);
 
 		if (!season) {
 			pino.error(interaction, "Unknown season.");
@@ -4084,7 +4084,7 @@ export class Catalogue {
 			backButton.setCustomId(`${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${type}`).setEmoji(emoji);
 
 			embed = catalogue
-				.seasonEmbed(currentSeasons().find((season) => season.name === type)!, locale)
+				.seasonEmbed(skySeasons().find((season) => season.name === type)!, locale)
 				.setTitle(
 					`${formatEmoji(emoji)} ${t(`seasons.${type}`, { lng: locale, ns: "general" })} Progress`,
 				);

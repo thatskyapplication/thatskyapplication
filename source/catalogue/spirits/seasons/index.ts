@@ -56,19 +56,19 @@ const SEASONS = [
 	Duets,
 ] as const;
 
-export function currentSeasons(date = todayDate()) {
+export function skySeasons(date = todayDate()) {
 	return SEASONS.filter(({ start }) => date >= start);
 }
 
 export function currentSeasonalSpirits() {
-	return currentSeasons().reduce<(GuideSpirit | SeasonalSpirit)[]>((seasonalSpirits, season) => {
+	return skySeasons().reduce<(GuideSpirit | SeasonalSpirit)[]>((seasonalSpirits, season) => {
 		seasonalSpirits.push(season.guide, ...season.spirits);
 		return seasonalSpirits;
 	}, []);
 }
 
 export function resolveSeason(date: DateTime) {
-	return currentSeasons(date).find(({ start, end }) => date >= start && date <= end) ?? null;
+	return skySeasons(date).find(({ start, end }) => date >= start && date <= end) ?? null;
 }
 
 export function nextSeason(date: DateTime) {
@@ -94,7 +94,7 @@ export function resolveBitsToSeasons(bits: number) {
 }
 
 export function resolveSeasonalSpirit(spiritName: string) {
-	for (const season of currentSeasons()) {
+	for (const season of skySeasons()) {
 		const spirit = season.spirits.find((spirit) => spirit.name === spiritName);
 
 		if (spirit) {
