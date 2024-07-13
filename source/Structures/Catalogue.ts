@@ -34,7 +34,7 @@ import {
 	addCosts,
 	resolveCostToString,
 } from "../Utility/catalogue.js";
-import { skyNow, todayDate } from "../Utility/dates.js";
+import { skyNow } from "../Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { SpiritName } from "../Utility/spirits.js";
@@ -2881,7 +2881,7 @@ export class Catalogue {
 
 		const { locale, user } = interaction;
 		const catalogue = await this.fetch(user.id);
-		const spirits = resolveReturningSpirits(todayDate());
+		const spirits = resolveReturningSpirits(skyNow());
 
 		if (!spirits) {
 			await Catalogue.viewCatalogue(interaction);
