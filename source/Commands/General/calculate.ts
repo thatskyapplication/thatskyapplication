@@ -393,10 +393,10 @@ export default new (class implements ChatInputCommand {
 		}
 
 		// This calculator may only be used during events.
-		const today = skyNow();
+		const now = skyNow();
 
 		// Filter out events that do not have event currency.
-		const events = skyCurrentEvents(today).filter(
+		const events = skyCurrentEvents(now).filter(
 			(event): event is Event & { readonly eventCurrencyPerDay: number } =>
 				event.eventCurrencyPerDay !== null,
 		);
@@ -410,7 +410,7 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		if (events.every(({ eventCurrencyEnd }) => today > eventCurrencyEnd)) {
+		if (events.every(({ eventCurrencyEnd }) => now > eventCurrencyEnd)) {
 			await interaction.reply({ content: "There is no more event currency.", ephemeral: true });
 			return;
 		}
@@ -448,7 +448,7 @@ export default new (class implements ChatInputCommand {
 			.setTitle("Event Currency Calculator");
 
 		const footer: EmbedFooterOptions = {
-			text: events.map((event) => event.daysText(today)).join("\n"),
+			text: events.map((event) => event.daysText(now)).join("\n"),
 		};
 
 		const event0 = events.at(0);
