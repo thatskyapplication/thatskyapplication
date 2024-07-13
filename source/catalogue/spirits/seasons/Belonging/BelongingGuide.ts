@@ -1,5 +1,5 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { LARGE_PLACEABLE_PROPS_EMOJIS, NECKLACE_EMOJIS } from "../../../../Utility/emojis.js";
 import { SpiritName } from "../../../../Utility/spirits.js";
 
@@ -8,10 +8,10 @@ export default new GuideSpirit({
 	season: SeasonName.Belonging,
 	offer: {
 		current: [
-			{ name: "Pendant", bit: 1 << 0, emoji: NECKLACE_EMOJIS.Necklace03 },
+			{ name: "Pendant", cosmetic: Cosmetic.BelongingPendant, emoji: NECKLACE_EMOJIS.Necklace03 },
 			{
 				name: "Bonfire",
-				bit: 1 << 1,
+				cosmetic: Cosmetic.Bonfire,
 				cost: { seasonalHearts: 6 },
 				emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp02,
 			},
