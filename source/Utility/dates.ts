@@ -48,7 +48,7 @@ export function skyDate(
 	return DateTime.fromObject({ year, month, day, hour, minute, second }, { zone: TIME_ZONE });
 }
 
-export function isDuring(start: DateTime, end: DateTime, date = todayDate()) {
+export function isDuring(start: DateTime, end: DateTime, date: DateTime) {
 	return date >= start && date <= end;
 }
 
