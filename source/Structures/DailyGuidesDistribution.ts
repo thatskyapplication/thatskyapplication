@@ -20,7 +20,7 @@ import type { DateTime } from "luxon";
 import { DEFAULT_EMBED_COLOUR, RealmName } from "../Utility/Constants.js";
 import type { RotationNumber } from "../Utility/catalogue.js";
 import {
-	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1,
+	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	dateString,
@@ -344,11 +344,11 @@ export default class DailyGuidesDistribution {
 	public static embed(locale: Locale) {
 		const { dailyMessage, quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
 		const today = todayDate();
-		const nowTime = skyNow();
+		const now = skyNow();
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
-			.setTitle(dateString(nowTime, locale));
+			.setTitle(dateString(now, locale));
 
 		if (dailyMessage) {
 			embed.addFields({ name: dailyMessage.title, value: dailyMessage.description });
@@ -453,9 +453,9 @@ export default class DailyGuidesDistribution {
 		footerText.push(...eventData.eventEndText);
 		iconURL ??= eventData.iconURL;
 
-		if (nowTime < COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1) {
+		if (now < COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2) {
 			const daysUntilStart = Math.floor(
-				COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1.diff(today, "days").days,
+				COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2.diff(today, "days").days,
 			);
 
 			footerText.push(
