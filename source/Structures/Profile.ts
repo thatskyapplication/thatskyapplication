@@ -796,9 +796,11 @@ export default class Profile {
 		}
 
 		if (typeof catalogueProgression === "boolean") {
-			const catalogue = await Catalogue.fetch(userId).catch(() => null);
-			const allProgress = catalogue?.allProgress(true) ?? 0;
-			fields.push({ name: "Catalogue Progression", value: `${allProgress}%`, inline: true });
+			if (catalogueProgression) {
+				const catalogue = await Catalogue.fetch(userId).catch(() => null);
+				const allProgress = catalogue?.allProgress(true) ?? 0;
+				fields.push({ name: "Catalogue Progression", value: `${allProgress}%`, inline: true });
+			}
 		} else {
 			missing.push("- Set if you want to share your catalogue progression!");
 		}
