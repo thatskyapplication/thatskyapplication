@@ -22,8 +22,9 @@ import {
 	LOCALES,
 } from "../../Utility/Constants.js";
 import {
-	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1,
+	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1_RELATIVE_TIME,
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2,
+	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2_RELATIVE_TIME,
 	INITIAL_TRAVELLING_SPIRIT_SEEK,
 	skyNow,
 	todayDate,
@@ -184,18 +185,8 @@ export default new (class implements ChatInputCommand {
 
 		let auroraText = aurora.join(" ");
 
-		if (nowDate < COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1) {
-			const timestampMarkdown1 = time(
-				COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1.toUnixInteger(),
-				TimestampStyles.RelativeTime,
-			);
-
-			const timestampMarkdown2 = time(
-				COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2.toUnixInteger(),
-				TimestampStyles.RelativeTime,
-			);
-
-			auroraText += `\n${hyperlink("SkyFest AURORA Mega Concerts", new URL("aurora_event/3.jpg", CDN_URL))}: ${timestampMarkdown1} | ${timestampMarkdown2}`;
+		if (nowDate <= COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2) {
+			auroraText += `\n${hyperlink("SkyFest AURORA Mega Concerts", new URL("aurora_event/3.jpg", CDN_URL))}: ${COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1_RELATIVE_TIME} | ${COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2_RELATIVE_TIME}`;
 		}
 
 		const embed = new EmbedBuilder()
