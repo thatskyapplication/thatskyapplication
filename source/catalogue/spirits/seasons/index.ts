@@ -6,7 +6,7 @@ import {
 	type SeasonName,
 	SeasonNameToSeasonalEmoji,
 } from "../../../Utility/catalogue.js";
-import { todayDate } from "../../../Utility/dates.js";
+import { skyNow } from "../../../Utility/dates.js";
 import { formatEmoji } from "../../../Utility/emojis.js";
 import AURORA from "./AURORA/index.js";
 import Abyss from "./Abyss/index.js";
@@ -56,7 +56,7 @@ const SEASONS = [
 	Duets,
 ] as const;
 
-export function skySeasons(date = todayDate()) {
+export function skySeasons(date = skyNow()) {
 	return SEASONS.filter(({ start }) => date >= start);
 }
 
