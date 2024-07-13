@@ -2,7 +2,7 @@ import { URL } from "node:url";
 import { type Locale, TimestampStyles, hyperlink, time } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import { resolveEvents } from "../catalogue/events/index.js";
+import { skyCurrentEvents } from "../catalogue/events/index.js";
 import { CDN_URL, type RealmName, SkyMap, VALID_REALM_NAME } from "./Constants.js";
 import { EventName } from "./catalogue.js";
 import { todayDate } from "./dates.js";
@@ -165,7 +165,7 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	// https://x.com/whirthun/status/1758229071216152597
 	if (
 		skyMap === SkyMap.JellyfishCove &&
-		resolveEvents(date).some(
+		skyCurrentEvents(date).some(
 			(event) => event.name === EventName.DaysOfLove && event.start.year === 2_024,
 		)
 	) {

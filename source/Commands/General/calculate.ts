@@ -40,7 +40,7 @@ import {
 } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { shardEruption } from "../../Utility/shardEruption.js";
-import { resolveEvents } from "../../catalogue/events/index.js";
+import { skyCurrentEvents } from "../../catalogue/events/index.js";
 import { resolveSeason } from "../../catalogue/spirits/seasons/index.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -396,7 +396,7 @@ export default new (class implements ChatInputCommand {
 		const today = skyNow();
 
 		// Filter out events that do not have event currency.
-		const events = resolveEvents(today).filter(
+		const events = skyCurrentEvents(today).filter(
 			(event): event is Event & { readonly eventCurrencyPerDay: number } =>
 				event.eventCurrencyPerDay !== null,
 		);

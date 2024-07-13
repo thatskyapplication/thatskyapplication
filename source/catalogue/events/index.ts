@@ -17,7 +17,7 @@ export function skyEventYears() {
 	return [...new Set(skyEvents().map(({ start: { year } }) => year))];
 }
 
-export function resolveEvents(date: DateTime) {
+export function skyCurrentEvents(date: DateTime) {
 	return EVENTS.filter(({ start, end }) => date >= start && date <= end) ?? null;
 }
 

@@ -38,7 +38,7 @@ import { skyNow, todayDate } from "../Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { SpiritName } from "../Utility/spirits.js";
-import { resolveEvents, skyEventYears, skyEvents } from "../catalogue/events/index.js";
+import { skyCurrentEvents, skyEventYears, skyEvents } from "../catalogue/events/index.js";
 import { HARMONY_HALL } from "../catalogue/harmonyHall.js";
 import { NESTING_WORKSHOP } from "../catalogue/nestingWorkshop.js";
 import { PERMANENT_EVENT_STORE } from "../catalogue/permanentEventStore.js";
@@ -2191,7 +2191,7 @@ export class Catalogue {
 		// const nestingWorkshopProgress = catalogue.nestingWorkshopProgress(true);
 		const today = skyNow();
 		const currentSeason = resolveSeason(today);
-		const events = resolveEvents(today);
+		const events = skyCurrentEvents(today);
 		const currentTravellingSpirit = resolveTravellingSpirit(today);
 		const currentReturningSpirits = resolveReturningSpirits(today);
 
