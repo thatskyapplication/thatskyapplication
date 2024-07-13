@@ -26,6 +26,7 @@ import {
 	dateString,
 	isDuring,
 	now,
+	todayDate,
 } from "../Utility/dates.js";
 import {
 	MISCELLANEOUS_EMOJIS,
@@ -342,11 +343,12 @@ export default class DailyGuidesDistribution {
 
 	public static embed(locale: Locale) {
 		const { dailyMessage, quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
-		const today = now();
+		const today = todayDate();
+		const nowTime = now();
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
-			.setTitle(dateString(today, locale));
+			.setTitle(dateString(nowTime, locale));
 
 		if (dailyMessage) {
 			embed.addFields({ name: dailyMessage.title, value: dailyMessage.description });
@@ -451,7 +453,7 @@ export default class DailyGuidesDistribution {
 		footerText.push(...eventData.eventEndText);
 		iconURL ??= eventData.iconURL;
 
-		if (today < COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1) {
+		if (nowTime < COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1) {
 			const daysUntilStart = Math.floor(
 				COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1.diff(today, "days").days,
 			);
