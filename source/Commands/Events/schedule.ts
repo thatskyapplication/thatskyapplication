@@ -26,6 +26,7 @@ import {
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2,
 	INITIAL_TRAVELLING_SPIRIT_SEEK,
 	now,
+	todayDate,
 } from "../../Utility/dates.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { ChatInputCommand } from "../index.js";
@@ -170,7 +171,8 @@ export default new (class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { locale } = interaction;
-		const today = now();
+		const today = todayDate();
+		const nowDate = now();
 		const { pollutedGeyser, grandma, turtle, passage, aurora } = scheduleTimes(today);
 		const passageTimesStart = passage.slice(0, PASSAGE_TRUNCATION_LIMIT);
 		const passageTimesEnd = passage.slice(-PASSAGE_TRUNCATION_LIMIT);
@@ -182,7 +184,7 @@ export default new (class implements ChatInputCommand {
 
 		let auroraText = aurora.join(" ");
 
-		if (today < COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1) {
+		if (nowDate < COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1) {
 			const timestampMarkdown1 = time(
 				COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1.toUnixInteger(),
 				TimestampStyles.RelativeTime,
@@ -280,7 +282,7 @@ export default new (class implements ChatInputCommand {
 			.setFooter({ text: t("schedule.times-are-relative", { lng: locale, ns: "commands" }) })
 			.setTitle(t("schedule.schedule-today", { lng: locale, ns: "commands" }));
 
-		const eventData = DailyGuidesDistribution.eventData(today, locale);
+		const eventData = DailyGuidesDistribution.eventData(nowDate, locale);
 
 		if (eventData.eventCurrency) {
 			embed.addFields(eventData.eventCurrency);
