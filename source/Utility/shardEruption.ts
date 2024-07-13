@@ -5,7 +5,7 @@ import type { DateTime } from "luxon";
 import { skyCurrentEvents } from "../catalogue/events/index.js";
 import { CDN_URL, type RealmName, SkyMap, VALID_REALM_NAME } from "./Constants.js";
 import { EventName } from "./catalogue.js";
-import { todayDate } from "./dates.js";
+import { skyToday } from "./dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "./emojis.js";
 
 function resolveShardEruptionMapURL(skyMap: SkyMap) {
@@ -146,7 +146,7 @@ interface ShardEruptionData {
 }
 
 export function shardEruption(daysOffset = 0): ShardEruptionData | null {
-	const date = todayDate().plus({ day: daysOffset });
+	const date = skyToday().plus({ day: daysOffset });
 	const dayOfMonth = date.day;
 	const dayOfWeek = date.weekday;
 	const strong = dayOfMonth % 2 === 1;

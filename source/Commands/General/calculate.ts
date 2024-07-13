@@ -30,7 +30,7 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	skyNow,
-	todayDate,
+	skyToday,
 } from "../../Utility/dates.js";
 import {
 	MISCELLANEOUS_EMOJIS,
@@ -314,7 +314,7 @@ export default new (class implements ChatInputCommand {
 		}
 
 		const amountRequired = goal - start;
-		let day = todayDate();
+		let day = skyToday();
 		let result = 0;
 
 		for (let index = 0; ; index++) {
@@ -479,7 +479,7 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		const today = todayDate();
+		const today = skyToday();
 		const season = skyCurrentSeason(today);
 		const emoji = season?.candleEmoji ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
 		const amountRequired = goal - start;

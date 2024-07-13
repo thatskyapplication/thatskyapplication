@@ -18,7 +18,7 @@ import {
 import { DateTime } from "luxon";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { chatInputApplicationCommandMention } from "../../Utility/Utility.js";
-import { TIME_ZONE, dateRangeString, dateString, todayDate } from "../../Utility/dates.js";
+import { TIME_ZONE, dateRangeString, dateString, skyToday } from "../../Utility/dates.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import {
 	resolveShardEruptionEmoji,
@@ -122,7 +122,7 @@ export default new (class implements ChatInputCommand {
 	}
 
 	private async hasExpired(interaction: ChatInputCommandInteraction | MessageComponentInteraction) {
-		const today = todayDate();
+		const today = skyToday();
 		const fromMessageComponent = interaction.isMessageComponent();
 
 		if (fromMessageComponent) {
@@ -186,7 +186,7 @@ export default new (class implements ChatInputCommand {
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
-			.setTitle(dateString(todayDate().plus({ days: offset }), locale));
+			.setTitle(dateString(skyToday().plus({ days: offset }), locale));
 
 		const buttonYesterday = new ButtonBuilder()
 			.setCustomId(`${SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID}§${offset - 1}`)
@@ -266,7 +266,7 @@ export default new (class implements ChatInputCommand {
 		}
 
 		const { locale } = interaction;
-		const shardToday = todayDate().plus({ days: offset });
+		const shardToday = skyToday().plus({ days: offset });
 
 		const response = {
 			components: [

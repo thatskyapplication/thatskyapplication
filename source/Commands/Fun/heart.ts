@@ -16,7 +16,7 @@ import {
 } from "discord.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { getRandomElement } from "../../Utility/Utility.js";
-import { todayDate } from "../../Utility/dates.js";
+import { skyToday } from "../../Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import pg, { Table } from "../../pg.js";
@@ -149,7 +149,7 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		const today = todayDate();
+		const today = skyToday();
 
 		const tomorrowTimestamp = time(
 			Math.floor(today.plus({ day: 1 }).toUnixInteger()),

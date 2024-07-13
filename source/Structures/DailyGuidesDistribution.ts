@@ -26,7 +26,7 @@ import {
 	dateString,
 	isDuring,
 	skyNow,
-	todayDate,
+	skyToday,
 } from "../Utility/dates.js";
 import {
 	MISCELLANEOUS_EMOJIS,
@@ -343,7 +343,7 @@ export default class DailyGuidesDistribution {
 
 	public static embed(locale: Locale) {
 		const { dailyMessage, quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
-		const today = todayDate();
+		const today = skyToday();
 		const now = skyNow();
 
 		const embed = new EmbedBuilder()

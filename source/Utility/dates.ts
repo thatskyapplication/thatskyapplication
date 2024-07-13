@@ -33,7 +33,7 @@ export function skyNow() {
 	return DateTime.now().setZone(TIME_ZONE);
 }
 
-export function todayDate() {
+export function skyToday() {
 	return skyNow().startOf("day");
 }
 

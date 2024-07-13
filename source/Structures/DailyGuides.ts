@@ -42,7 +42,7 @@ import {
 	resolveValidRealm,
 } from "../Utility/Utility.js";
 import { SeasonName, snakeCaseName } from "../Utility/catalogue.js";
-import { todayDate } from "../Utility/dates.js";
+import { skyToday } from "../Utility/dates.js";
 import { FriendAction, SpiritEmote } from "../Utility/spirits.js";
 import { spirits } from "../catalogue/spirits/index.js";
 import pg, { Table } from "../pg.js";
@@ -596,7 +596,7 @@ export default new (class DailyGuides {
 				reference?.guildId === INFOGRAPHICS_DATABASE_GUILD_ID &&
 				flags.has(MessageFlags.IsCrosspost) &&
 				reference.messageId &&
-				SnowflakeUtil.timestampFrom(reference.messageId) >= todayDate().toMillis(),
+				SnowflakeUtil.timestampFrom(reference.messageId) >= skyToday().toMillis(),
 		);
 	}
 
