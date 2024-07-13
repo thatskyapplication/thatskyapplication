@@ -9,12 +9,12 @@ import Year6 from "./2024/index.js";
 
 const EVENTS = [...Year1, ...Year2, ...Year3, ...Year4, ...Year5, ...Year6] as const;
 
-export function currentEvents() {
+export function skyEvents() {
 	return EVENTS.filter((event) => skyNow() >= event.start);
 }
 
 export function currentEventsYears() {
-	return [...new Set(currentEvents().map(({ start: { year } }) => year))];
+	return [...new Set(skyEvents().map(({ start: { year } }) => year))];
 }
 
 export function resolveEvents(date: DateTime) {

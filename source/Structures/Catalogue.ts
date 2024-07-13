@@ -38,7 +38,7 @@ import { skyNow, todayDate } from "../Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { SpiritName } from "../Utility/spirits.js";
-import { currentEvents, currentEventsYears, resolveEvents } from "../catalogue/events/index.js";
+import { currentEventsYears, resolveEvents, skyEvents } from "../catalogue/events/index.js";
 import { HARMONY_HALL } from "../catalogue/harmonyHall.js";
 import { NESTING_WORKSHOP } from "../catalogue/nestingWorkshop.js";
 import { PERMANENT_EVENT_STORE } from "../catalogue/permanentEventStore.js";
@@ -2129,7 +2129,7 @@ export class Catalogue {
 	public allProgress(round?: boolean) {
 		const standardAndElderOwnedProgress = this.spiritOwnedProgress(REALM_SPIRITS);
 		const seasonalOwnedProgress = this.seasonOwnedProgress(currentSeasons());
-		const eventOwnedProgress = this.eventOwnedProgress(currentEvents());
+		const eventOwnedProgress = this.eventOwnedProgress(skyEvents());
 		const starterPackOwnedProgress = this.starterPackOwnedProgress();
 		const secretAreaOwnedProgress = this.secretAreaOwnedProgress();
 		const harmonyHallOwnedProgress = this.harmonyHallOwnedProgress();
@@ -2183,7 +2183,7 @@ export class Catalogue {
 		const standardProgress = catalogue.spiritProgress(STANDARD_SPIRITS, true);
 		const elderProgress = catalogue.spiritProgress(ELDER_SPIRITS, true);
 		const seasonalProgress = catalogue.seasonProgress(currentSeasons(), true);
-		const eventProgress = catalogue.eventProgress(currentEvents(), true);
+		const eventProgress = catalogue.eventProgress(skyEvents(), true);
 		const starterPackProgress = catalogue.starterPackProgress(true);
 		const secretAreaProgress = catalogue.secretAreaProgress(true);
 		const harmonyHallProgress = catalogue.harmonyHallProgress(true);
@@ -2753,7 +2753,7 @@ export class Catalogue {
 						.setOptions(
 							currentEventsYears().map((year) => {
 								const percentage = catalogue.eventProgress(
-									currentEvents().filter((event) => event.start.year === year),
+									skyEvents().filter((event) => event.start.year === year),
 									true,
 								);
 
@@ -2793,7 +2793,7 @@ export class Catalogue {
 		const { locale, user } = interaction;
 		const year = Number(yearString);
 		const catalogue = await this.fetch(user.id);
-		const events = currentEvents().filter((event) => event.start.year === year);
+		const events = skyEvents().filter((event) => event.start.year === year);
 
 		const options = events.map((event) => {
 			const { name, nameUnique } = event;
@@ -3118,7 +3118,7 @@ export class Catalogue {
 				? interaction.customId.slice(interaction.customId.indexOf("§") + 1)
 				: interaction.values[0];
 
-		const event = currentEvents().find(({ nameUnique }) => nameUnique === eventName);
+		const event = skyEvents().find(({ nameUnique }) => nameUnique === eventName);
 
 		if (!event) {
 			await interaction.update(ERROR_RESPONSE);
@@ -3219,7 +3219,7 @@ export class Catalogue {
 
 		components.push(buttons);
 
-		const events = currentEvents().filter((event) => event.start.year === start.year);
+		const events = skyEvents().filter((event) => event.start.year === start.year);
 		const index = events.findIndex((event) => event.nameUnique === nameUnique);
 		const before = events[index - 1];
 		const after = events[index + 1];
@@ -3658,7 +3658,7 @@ export class Catalogue {
 		const { customId } = interaction;
 		const resolvedCustomId = customId.slice(customId.indexOf("§") + 1);
 		const spirit = spirits().find(({ name }) => name === resolvedCustomId);
-		const event = currentEvents().find(({ nameUnique }) => nameUnique === resolvedCustomId);
+		const event = skyEvents().find(({ nameUnique }) => nameUnique === resolvedCustomId);
 
 		if (spirit) {
 			await catalogue.setSpiritItems(interaction, spirit);
