@@ -2189,11 +2189,11 @@ export class Catalogue {
 		const harmonyHallProgress = catalogue.harmonyHallProgress(true);
 		const permanentEventStoreProgress = catalogue.permanentEventStoreProgress(true);
 		// const nestingWorkshopProgress = catalogue.nestingWorkshopProgress(true);
-		const today = skyNow();
-		const currentSeason = skyCurrentSeason(today);
-		const events = skyCurrentEvents(today);
-		const currentTravellingSpirit = resolveTravellingSpirit(today);
-		const currentReturningSpirits = resolveReturningSpirits(today);
+		const now = skyNow();
+		const currentSeason = skyCurrentSeason(now);
+		const events = skyCurrentEvents(now);
+		const currentTravellingSpirit = resolveTravellingSpirit(now);
+		const currentReturningSpirits = resolveReturningSpirits(now);
 
 		const currentSeasonButton = new ButtonBuilder()
 			.setCustomId(
