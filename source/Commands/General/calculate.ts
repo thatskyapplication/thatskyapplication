@@ -544,6 +544,7 @@ export default new (class implements ChatInputCommand {
 		if (season) {
 			const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
 				season.remainingSeasonalCandles(today);
+
 			const daysLeft = season.daysText(today, lng);
 
 			embed.addFields({
