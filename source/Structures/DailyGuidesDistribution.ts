@@ -40,7 +40,7 @@ import {
 	shardEruptionTimestampsString,
 } from "../Utility/shardEruption.js";
 import { skyCurrentEvents, skyNotEndedEvents } from "../catalogue/events/index.js";
-import { nextSeason, resolveSeason } from "../catalogue/spirits/seasons/index.js";
+import { nextSeason, skyCurrentSeason } from "../catalogue/spirits/seasons/index.js";
 import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
@@ -398,7 +398,7 @@ export default class DailyGuidesDistribution {
 			}
 		}
 
-		const season = resolveSeason(today);
+		const season = skyCurrentSeason(today);
 		const footerText = [];
 		let iconURL = null;
 

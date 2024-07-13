@@ -53,8 +53,8 @@ import {
 import {
 	isSeasonName,
 	resolveReturningSpirits,
-	resolveSeason,
 	resolveTravellingSpirit,
+	skyCurrentSeason,
 	skySeasons,
 } from "../catalogue/spirits/seasons/index.js";
 import { STARTER_PACKS } from "../catalogue/starterPacks.js";
@@ -2190,7 +2190,7 @@ export class Catalogue {
 		const permanentEventStoreProgress = catalogue.permanentEventStoreProgress(true);
 		// const nestingWorkshopProgress = catalogue.nestingWorkshopProgress(true);
 		const today = skyNow();
-		const currentSeason = resolveSeason(today);
+		const currentSeason = skyCurrentSeason(today);
 		const events = skyCurrentEvents(today);
 		const currentTravellingSpirit = resolveTravellingSpirit(today);
 		const currentReturningSpirits = resolveReturningSpirits(today);

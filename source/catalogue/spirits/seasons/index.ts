@@ -67,7 +67,7 @@ export function currentSeasonalSpirits() {
 	}, []);
 }
 
-export function resolveSeason(date: DateTime) {
+export function skyCurrentSeason(date: DateTime) {
 	return skySeasons(date).find(({ start, end }) => date >= start && date <= end) ?? null;
 }
 

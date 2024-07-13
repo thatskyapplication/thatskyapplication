@@ -41,7 +41,7 @@ import {
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { shardEruption } from "../../Utility/shardEruption.js";
 import { skyCurrentEvents } from "../../catalogue/events/index.js";
-import { resolveSeason } from "../../catalogue/spirits/seasons/index.js";
+import { skyCurrentSeason } from "../../catalogue/spirits/seasons/index.js";
 import type { ChatInputCommand } from "../index.js";
 
 const doubleSeasonalLightEventStart = time(
@@ -480,7 +480,7 @@ export default new (class implements ChatInputCommand {
 		}
 
 		const today = todayDate();
-		const season = resolveSeason(today);
+		const season = skyCurrentSeason(today);
 		const emoji = season?.candleEmoji ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
 		const amountRequired = goal - start;
 		let result = 0;
