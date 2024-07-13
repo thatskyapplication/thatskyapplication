@@ -71,7 +71,7 @@ export function skyCurrentSeason(date: DateTime) {
 	return skySeasons(date).find(({ start, end }) => date >= start && date <= end) ?? null;
 }
 
-export function nextSeason(date: DateTime) {
+export function skyUpcomingSeason(date: DateTime) {
 	return SEASONS.find(({ start }) => start > date) ?? null;
 }
 

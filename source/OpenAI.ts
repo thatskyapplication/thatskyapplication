@@ -6,7 +6,7 @@ import { APIUserAbortError } from "openai/error.mjs";
 import { SEASON_NAME_VALUES } from "./Utility/catalogue.js";
 import { skyNow } from "./Utility/dates.js";
 import { skyCurrentEvents, skyUpcomingEvents } from "./catalogue/events/index.js";
-import { nextSeason } from "./catalogue/spirits/seasons/index.js";
+import { skyUpcomingSeason } from "./catalogue/spirits/seasons/index.js";
 import pino from "./pino.js";
 
 const { OPENAI_API_KEY } = process.env;
@@ -38,7 +38,7 @@ function parseAIName(user: User) {
 function systemPromptContext(message: Message<true>) {
 	const now = skyNow();
 	let seasonText = `- The seasons in Sky are: ${JSON.stringify(SEASON_NAME_VALUES)}.`;
-	const next = nextSeason(now);
+	const next = skyUpcomingSeason(now);
 
 	if (next) {
 		seasonText += `${next.name} has not started yet. It starts on ${next.start.toISO()}.`;

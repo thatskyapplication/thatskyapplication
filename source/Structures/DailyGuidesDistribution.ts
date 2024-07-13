@@ -40,7 +40,7 @@ import {
 	shardEruptionTimestampsString,
 } from "../Utility/shardEruption.js";
 import { skyCurrentEvents, skyNotEndedEvents } from "../catalogue/events/index.js";
-import { nextSeason, skyCurrentSeason } from "../catalogue/spirits/seasons/index.js";
+import { skyCurrentSeason, skyUpcomingSeason } from "../catalogue/spirits/seasons/index.js";
 import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
@@ -442,7 +442,7 @@ export default class DailyGuidesDistribution {
 
 			embed.addFields({ name: "Seasonal Candles", value: values.join("\n") });
 		} else {
-			const next = nextSeason(today);
+			const next = skyUpcomingSeason(today);
 
 			if (next) {
 				footerText.push(next.daysText(today, locale));
