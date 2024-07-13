@@ -27,7 +27,6 @@ import {
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2_RELATIVE_TIME,
 	INITIAL_TRAVELLING_SPIRIT_SEEK,
 	skyNow,
-	todayDate,
 } from "../../Utility/dates.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { ChatInputCommand } from "../index.js";
@@ -172,9 +171,9 @@ export default new (class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { locale } = interaction;
-		const today = todayDate();
 		const now = skyNow();
-		const { pollutedGeyser, grandma, turtle, passage, aurora } = scheduleTimes(today);
+		const startOfDay = now.startOf("day");
+		const { pollutedGeyser, grandma, turtle, passage, aurora } = scheduleTimes(startOfDay);
 		const passageTimesStart = passage.slice(0, PASSAGE_TRUNCATION_LIMIT);
 		const passageTimesEnd = passage.slice(-PASSAGE_TRUNCATION_LIMIT);
 
@@ -197,18 +196,18 @@ export default new (class implements ChatInputCommand {
 						lng: locale,
 						ns: "general",
 					}),
-					value: `${time(dailyResetTime(today), TimestampStyles.ShortTime)} (${time(
-						dailyResetTime(today),
+					value: `${time(dailyResetTime(startOfDay), TimestampStyles.ShortTime)} (${time(
+						dailyResetTime(startOfDay),
 						TimestampStyles.RelativeTime,
 					)})`,
 				},
 				{
 					name: t(`notificationEvent.${NotificationEvent.ISS}`, { lng: locale, ns: "general" }),
 					value: ISS_DATES_ACCESSIBLE.filter(
-						(issDateAccessible) => issDateAccessible <= today.daysInMonth!,
+						(issDateAccessible) => issDateAccessible <= now.daysInMonth!,
 					)
 						.map((issDateAccessible) => {
-							const issDateUnix = today.set({ day: issDateAccessible }).toUnixInteger();
+							const issDateUnix = startOfDay.set({ day: issDateAccessible }).toUnixInteger();
 
 							return `${time(issDateUnix, TimestampStyles.ShortDate)} (${time(
 								issDateUnix,
@@ -222,14 +221,14 @@ export default new (class implements ChatInputCommand {
 						lng: locale,
 						ns: "general",
 					}),
-					value: `${time(eyeOfEdenResetTime(today), TimestampStyles.ShortTime)} (${time(
-						eyeOfEdenResetTime(today),
+					value: `${time(eyeOfEdenResetTime(startOfDay), TimestampStyles.ShortTime)} (${time(
+						eyeOfEdenResetTime(startOfDay),
 						TimestampStyles.RelativeTime,
 					)})`,
 				},
 				{
 					name: t("schedule.travelling-spirit", { lng: locale, ns: "commands" }),
-					value: travellingSpiritTime(today, locale),
+					value: travellingSpiritTime(startOfDay, locale),
 				},
 				{
 					name: t(`notificationEvent.${NotificationEvent.PollutedGeyser}`, {
@@ -260,7 +259,7 @@ export default new (class implements ChatInputCommand {
 						ns: "general",
 					}),
 					value: `${t("schedule.first-of-month", { lng: locale, ns: "commands" })}\n${aviarysFireworkFestivalTime(
-						today,
+						startOfDay,
 					).join(" ")}`,
 				},
 				{
