@@ -26,5 +26,5 @@ export function plannedEvents(date: DateTime) {
 }
 
 export function upcomingEvents(date: DateTime) {
-	return EVENTS.filter(({ start }) => start >= date);
+	return EVENTS.filter(({ start }) => start > date);
 }
