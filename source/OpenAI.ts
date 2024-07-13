@@ -36,17 +36,17 @@ function parseAIName(user: User) {
 }
 
 function systemPromptContext(message: Message<true>) {
-	const today = skyNow();
+	const now = skyNow();
 	let seasonText = `- The seasons in Sky are: ${JSON.stringify(SEASON_NAME_VALUES)}.`;
-	const next = nextSeason(today);
+	const next = nextSeason(now);
 
 	if (next) {
 		seasonText += `${next.name} has not started yet. It starts on ${next.start.toISO()}.`;
 	}
 
 	const eventText = [];
-	const events = resolveEvents(today);
-	const upcoming = upcomingEvents(today);
+	const events = resolveEvents(now);
+	const upcoming = upcomingEvents(now);
 
 	if (events.length > 0) {
 		eventText.push(
