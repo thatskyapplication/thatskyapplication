@@ -13,7 +13,7 @@ export function skyEvents() {
 	return EVENTS.filter((event) => skyNow() >= event.start);
 }
 
-export function currentEventsYears() {
+export function skyEventYears() {
 	return [...new Set(skyEvents().map(({ start: { year } }) => year))];
 }
 

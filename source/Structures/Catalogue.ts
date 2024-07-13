@@ -38,7 +38,7 @@ import { skyNow, todayDate } from "../Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { SpiritName } from "../Utility/spirits.js";
-import { currentEventsYears, resolveEvents, skyEvents } from "../catalogue/events/index.js";
+import { resolveEvents, skyEventYears, skyEvents } from "../catalogue/events/index.js";
 import { HARMONY_HALL } from "../catalogue/harmonyHall.js";
 import { NESTING_WORKSHOP } from "../catalogue/nestingWorkshop.js";
 import { PERMANENT_EVENT_STORE } from "../catalogue/permanentEventStore.js";
@@ -2751,7 +2751,7 @@ export class Catalogue {
 						.setMaxValues(1)
 						.setMinValues(0)
 						.setOptions(
-							currentEventsYears().map((year) => {
+							skyEventYears().map((year) => {
 								const percentage = catalogue.eventProgress(
 									skyEvents().filter((event) => event.start.year === year),
 									true,
@@ -2831,7 +2831,7 @@ export class Catalogue {
 			});
 		}
 
-		const eventsYears = currentEventsYears();
+		const eventsYears = skyEventYears();
 		const index = eventsYears.indexOf(year);
 		const before = eventsYears[index - 1];
 		const after = eventsYears[index + 1];
