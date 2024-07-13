@@ -33,7 +33,7 @@ import {
 	SeasonNameToSeasonalEmoji,
 	resolveCostToString,
 } from "../../Utility/catalogue.js";
-import { todayDate } from "../../Utility/dates.js";
+import { skyNow } from "../../Utility/dates.js";
 import { formatEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import {
@@ -244,7 +244,7 @@ export default new (class implements AutocompleteCommand {
 				embed.addFields({ name: "Returning", value: this.visitField(returning) });
 			}
 
-			if (spirit.visit(todayDate()).visited) {
+			if (spirit.visit(skyNow()).visited) {
 				components.push(
 					new ActionRowBuilder<ButtonBuilder>().setComponents(
 						new ButtonBuilder()
