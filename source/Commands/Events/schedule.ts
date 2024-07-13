@@ -25,7 +25,7 @@ import {
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1,
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2,
 	INITIAL_TRAVELLING_SPIRIT_SEEK,
-	todayDate,
+	now,
 } from "../../Utility/dates.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { ChatInputCommand } from "../index.js";
@@ -170,7 +170,7 @@ export default new (class implements ChatInputCommand {
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { locale } = interaction;
-		const today = todayDate();
+		const today = now();
 		const { pollutedGeyser, grandma, turtle, passage, aurora } = scheduleTimes(today);
 		const passageTimesStart = passage.slice(0, PASSAGE_TRUNCATION_LIMIT);
 		const passageTimesEnd = passage.slice(-PASSAGE_TRUNCATION_LIMIT);

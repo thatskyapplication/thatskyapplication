@@ -29,6 +29,7 @@ import {
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
+	now,
 	todayDate,
 } from "../../Utility/dates.js";
 import {
@@ -392,7 +393,7 @@ export default new (class implements ChatInputCommand {
 		}
 
 		// This calculator may only be used during events.
-		const today = todayDate();
+		const today = now();
 
 		// Filter out events that do not have event currency.
 		const events = resolveEvents(today).filter(

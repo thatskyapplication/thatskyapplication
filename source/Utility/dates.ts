@@ -19,8 +19,12 @@ export const INITIAL_TRAVELLING_SPIRIT_SEEK = skyDate(2_023, 5, 25); // #88 Grat
 export const COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1 = skyDate(2_024, 7, 20, 6);
 export const COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2 = skyDate(2_024, 7, 20, 18);
 
+export function now() {
+	return DateTime.now().setZone(TIME_ZONE);
+}
+
 export function todayDate() {
-	return DateTime.now().setZone(TIME_ZONE).startOf("day");
+	return now().startOf("day");
 }
 
 export function skyDate(

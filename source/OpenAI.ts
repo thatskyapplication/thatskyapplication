@@ -4,7 +4,7 @@ import type { Message, User } from "discord.js";
 import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
 import { SEASON_NAME_VALUES } from "./Utility/catalogue.js";
-import { todayDate } from "./Utility/dates.js";
+import { now } from "./Utility/dates.js";
 import { resolveEvents, upcomingEvents } from "./catalogue/events/index.js";
 import { nextSeason } from "./catalogue/spirits/seasons/index.js";
 import pino from "./pino.js";
@@ -36,7 +36,7 @@ function parseAIName(user: User) {
 }
 
 function systemPromptContext(message: Message<true>) {
-	const today = todayDate();
+	const today = now();
 	let seasonText = `- The seasons in Sky are: ${JSON.stringify(SEASON_NAME_VALUES)}.`;
 	const next = nextSeason(today);
 
