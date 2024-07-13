@@ -36,6 +36,7 @@ export default {
 			[SeasonName.Revival]: "Stagione della Rinascita",
 			[SeasonName.NineColouredDeer]: "Stagione del Cervo dai nove colori",
 			[SeasonName.Nesting]: "Stagione dei Nidi",
+			[SeasonName.Duets]: "Stagione dei Duetti",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Candelaio indicante",

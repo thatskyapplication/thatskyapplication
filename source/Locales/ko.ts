@@ -36,6 +36,7 @@ export default {
 			[SeasonName.Revival]: "재생의 시즌",
 			[SeasonName.NineColouredDeer]: "아홉 빛깔 사슴의 시즌",
 			[SeasonName.Nesting]: "보금자리의 시즌",
+			[SeasonName.Duets]: "듀엣의 시즌",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "가리키는 양초장이",

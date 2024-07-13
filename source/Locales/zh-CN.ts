@@ -36,6 +36,7 @@ export default {
 			[SeasonName.Revival]: "归巢季",
 			[SeasonName.NineColouredDeer]: "九色鹿季",
 			[SeasonName.Nesting]: "筑巢季",
+			[SeasonName.Duets]: "二重奏季",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "指路蜡烛匠",

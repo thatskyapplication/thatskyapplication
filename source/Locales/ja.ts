@@ -36,6 +36,7 @@ export default {
 			[SeasonName.Revival]: "復古の季節",
 			[SeasonName.NineColouredDeer]: "九色の鹿の季節",
 			[SeasonName.Nesting]: "巣づくりの季節",
+			[SeasonName.Duets]: "音色の季節",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "指差すキャンドル職人",
