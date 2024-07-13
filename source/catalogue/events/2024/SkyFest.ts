@@ -18,25 +18,25 @@ export default new Event({
 		{
 			name: "SkyFest Star Jar",
 			bit: 1 << 0,
-			cost: { eventCurrency: 16 },
+			cost: { eventCurrency: 15 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp70,
 		},
 		{
 			name: "SkyFest 5th Anniversary T-shirt",
 			bit: 1 << 1,
-			cost: { eventCurrency: 12 },
+			cost: { eventCurrency: 10 },
 			emoji: OUTFIT_EMOJIS.Outfit59,
 		},
 		{
 			name: "SkyFest 5th Anniversary Headband",
 			bit: 1 << 2,
-			cost: { eventCurrency: 4 },
+			cost: { eventCurrency: 3 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory42,
 		},
 		{
 			name: "SkyFest Jenova Fan",
 			bit: 1 << 3,
-			cost: { eventCurrency: 8 },
+			cost: { eventCurrency: 7 },
 			emoji: HELD_PROPS_EMOJIS.HeldProp43,
 		},
 		{
