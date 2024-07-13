@@ -97,7 +97,6 @@ export const SeasonNameToSeasonalCandleEmoji = {
 	[SeasonName.Revival]: SEASON_EMOJIS.RevivalCandle,
 	[SeasonName.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeerCandle,
 	[SeasonName.Nesting]: SEASON_EMOJIS.NestingCandle,
-	// @ts-expect-error Awaiting asset.
 	[SeasonName.Duets]: SEASON_EMOJIS.DuetsCandle,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
@@ -121,7 +120,6 @@ const SeasonNameToSeasonalHeartEmoji = {
 	[SeasonName.Revival]: SEASON_EMOJIS.RevivalHeart,
 	[SeasonName.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeerHeart,
 	[SeasonName.Nesting]: SEASON_EMOJIS.NestingHeart,
-	// @ts-expect-error Awaiting asset.
 	[SeasonName.Duets]: SEASON_EMOJIS.DuetsHeart,
 } as const satisfies Readonly<
 	Record<Exclude<SeasonName, SeasonName.Gratitude | SeasonName.Lightseekers>, SeasonEmojis>
