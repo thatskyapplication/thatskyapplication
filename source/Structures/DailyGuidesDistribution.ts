@@ -39,7 +39,7 @@ import {
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
 } from "../Utility/shardEruption.js";
-import { plannedEvents, skyCurrentEvents } from "../catalogue/events/index.js";
+import { skyCurrentEvents, skyNotEndedEvents } from "../catalogue/events/index.js";
 import { nextSeason, resolveSeason } from "../catalogue/spirits/seasons/index.js";
 import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";
@@ -279,7 +279,7 @@ export default class DailyGuidesDistribution {
 
 	public static eventData(date: DateTime, locale: Locale) {
 		const events = skyCurrentEvents(date);
-		const eventEndText = plannedEvents(date).map((event) => event.daysText(date));
+		const eventEndText = skyNotEndedEvents(date).map((event) => event.daysText(date));
 		const event0 = events[0];
 
 		const iconURL = event0?.eventCurrencyEmoji

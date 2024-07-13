@@ -21,7 +21,7 @@ export function skyCurrentEvents(date: DateTime) {
 	return EVENTS.filter(({ start, end }) => date >= start && date <= end) ?? null;
 }
 
-export function plannedEvents(date: DateTime) {
+export function skyNotEndedEvents(date: DateTime) {
 	return EVENTS.filter(({ end }) => date <= end);
 }
 
