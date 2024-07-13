@@ -5,7 +5,7 @@ import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
 import { SEASON_NAME_VALUES } from "./Utility/catalogue.js";
 import { skyNow } from "./Utility/dates.js";
-import { skyCurrentEvents, upcomingEvents } from "./catalogue/events/index.js";
+import { skyCurrentEvents, skyUpcomingEvents } from "./catalogue/events/index.js";
 import { nextSeason } from "./catalogue/spirits/seasons/index.js";
 import pino from "./pino.js";
 
@@ -46,7 +46,7 @@ function systemPromptContext(message: Message<true>) {
 
 	const eventText = [];
 	const events = skyCurrentEvents(now);
-	const upcoming = upcomingEvents(now);
+	const upcoming = skyUpcomingEvents(now);
 
 	if (events.length > 0) {
 		eventText.push(
