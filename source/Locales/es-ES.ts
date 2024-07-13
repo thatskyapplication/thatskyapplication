@@ -45,7 +45,7 @@ export default {
 			[SeasonName.Revival]: "Temporada del Renacimiento",
 			[SeasonName.NineColouredDeer]: "Temporada del ciervo de los nueve colores",
 			[SeasonName.Nesting]: "Temporada Acogedora",
-			[SeasonName.Duets]: "Temporada de Duetos"
+			[SeasonName.Duets]: "Temporada de Duetos",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Candelero que apunta",
