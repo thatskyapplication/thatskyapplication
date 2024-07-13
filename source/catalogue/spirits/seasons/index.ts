@@ -72,8 +72,7 @@ export function resolveSeason(date: DateTime) {
 }
 
 export function nextSeason(date: DateTime) {
-	const closestSeasonIndex = SEASONS.findLastIndex(({ start }) => date >= start);
-	return closestSeasonIndex === -1 ? null : SEASONS[closestSeasonIndex + 1] ?? null;
+	return SEASONS.find(({ start }) => start > date) ?? null;
 }
 
 export function isSeasonName(season: string): season is SeasonName {
