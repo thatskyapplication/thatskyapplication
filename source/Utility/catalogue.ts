@@ -579,6 +579,7 @@ export const enum Cosmetic {
 	WiseGrandparentBlessing5,
 	WiseGrandparentCape,
 	WiseGrandparentSeasonalHeart,
+	DaysOfFeastPack,
 	
 
 	/**
