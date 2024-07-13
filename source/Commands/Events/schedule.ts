@@ -173,7 +173,7 @@ export default new (class implements ChatInputCommand {
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { locale } = interaction;
 		const today = todayDate();
-		const nowDate = skyNow();
+		const now = skyNow();
 		const { pollutedGeyser, grandma, turtle, passage, aurora } = scheduleTimes(today);
 		const passageTimesStart = passage.slice(0, PASSAGE_TRUNCATION_LIMIT);
 		const passageTimesEnd = passage.slice(-PASSAGE_TRUNCATION_LIMIT);
@@ -185,7 +185,7 @@ export default new (class implements ChatInputCommand {
 
 		let auroraText = aurora.join(" ");
 
-		if (nowDate <= COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2) {
+		if (now <= COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2) {
 			auroraText += `\n${hyperlink("SkyFest AURORA Mega Concerts", new URL("aurora_event/3.jpg", CDN_URL))}: ${COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1_RELATIVE_TIME} | ${COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2_RELATIVE_TIME}`;
 		}
 
@@ -273,7 +273,7 @@ export default new (class implements ChatInputCommand {
 			.setFooter({ text: t("schedule.times-are-relative", { lng: locale, ns: "commands" }) })
 			.setTitle(t("schedule.schedule-today", { lng: locale, ns: "commands" }));
 
-		const eventData = DailyGuidesDistribution.eventData(nowDate, locale);
+		const eventData = DailyGuidesDistribution.eventData(now, locale);
 
 		if (eventData.eventCurrency) {
 			embed.addFields(eventData.eventCurrency);
