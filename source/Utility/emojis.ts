@@ -560,6 +560,10 @@ export const OUTFIT_EMOJIS = {
 	 * The Cellist's Flourishing.
 	 */
 	Outfit62: { name: "outfit", id: "1262163996081918093" },
+		/**
+	 * The Pianist's Flourishing.
+	 */
+		Outfit63: { name: "outfit", id: "1262166417827041401" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -624,6 +628,10 @@ export const SHOE_EMOJIS = {
 	 * Dark Rainbow Loafers.
 	 */
 	Shoe14: { name: "shoe", id: "1254633063732744274" },
+	/**
+	 * The Pianist's Flourishing.
+	 */
+	Shoe15: { name: "shoe", id: "1262166116499849347" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type ShoeEmojis = (typeof SHOE_EMOJIS)[keyof typeof SHOE_EMOJIS];
@@ -3414,11 +3422,14 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * The Cellist's Flourishing 1.
 	 */
 	SmallPlaceableProp77: { name: "small_placeable_prop", id: "1262162748884652072" },
-
 	/**
 	 * The Cellist's Flourishing 2.
 	 */
 	SmallPlaceableProp78: { name: "small_placeable_prop", id: "1262163228713025596" },
+	/**
+	 * The Pianist's Flourishing.
+	 */
+	SmallPlaceableProp79: { name: "small_placeable_prop", id: "1262165413979099176" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =
