@@ -208,6 +208,7 @@ export const FRIEND_ACTION_EMOJIS = {
 	DuetDance: { name: "duet_dance", id: "1177439576604803072" },
 	SideHug: { name: "side_hug", id: "1177439594870997032" },
 	CradleCarry: { name: "cradle_carry", id: "1195942545063153785" },
+	DuetBow: { name: "duet_bow", id: "1262154398503800873" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type FriendActionsEmojis = (typeof FRIEND_ACTION_EMOJIS)[keyof typeof FRIEND_ACTION_EMOJIS];
@@ -278,6 +279,8 @@ export const SEASON_EMOJIS = {
 	NestingCandle: { name: "nesting_candle", id: "1227500789862498368" },
 	NestingHeart: { name: "nesting_heart", id: "1227500803036545065" },
 	Duets: { name: "duets", id: "1257994089849163816" },
+	DuetsCandle: { name: "duets_candle", id: "1261814603105570887" },
+	DuetsHeart: { name: "duets_heart", id: "1261814612505006120" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type SeasonEmojis = (typeof SEASON_EMOJIS)[keyof typeof SEASON_EMOJIS];
@@ -545,6 +548,22 @@ export const OUTFIT_EMOJIS = {
 	 * SkyFest 5th Anniversary T-shirt.
 	 */
 	Outfit59: { name: "outfit", id: "1261196162111901757" },
+	/**
+	 * The Cellist's Beginnings.
+	 */
+	Outfit60: { name: "outfit", id: "1262144303417917530" },
+	/**
+	 * The Pianist's Beginnings.
+	 */
+	Outfit61: { name: "outfit", id: "1262151606598762617" },
+	/**
+	 * The Cellist's Flourishing.
+	 */
+	Outfit62: { name: "outfit", id: "1262163996081918093" },
+	/**
+	 * The Pianist's Flourishing.
+	 */
+	Outfit63: { name: "outfit", id: "1262166417827041401" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -609,6 +628,10 @@ export const SHOE_EMOJIS = {
 	 * Dark Rainbow Loafers.
 	 */
 	Shoe14: { name: "shoe", id: "1254633063732744274" },
+	/**
+	 * The Pianist's Flourishing.
+	 */
+	Shoe15: { name: "shoe", id: "1262166116499849347" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type ShoeEmojis = (typeof SHOE_EMOJIS)[keyof typeof SHOE_EMOJIS];
@@ -985,6 +1008,10 @@ export const MASK_EMOJIS = {
 	 * Dark Rainbow Mask.
 	 */
 	Mask92: { name: "mask", id: "1254633317089935380" },
+	/**
+	 * Duets Guide (non-ultimate).
+	 */
+	Mask93: { name: "mask", id: "1262141262559969392" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type MaskEmojis = (typeof MASK_EMOJIS)[keyof typeof MASK_EMOJIS];
@@ -1285,6 +1312,10 @@ export const NECKLACE_EMOJIS = {
 	 * Ocean Blue Scarf.
 	 */
 	Necklace36: { name: "necklace", id: "1244556849005592576" },
+	/**
+	 * Duets Pendant.
+	 */
+	Necklace37: { name: "necklace", id: "1262138841599574069" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
@@ -1873,6 +1904,14 @@ export const HAIR_EMOJIS = {
 	 * Colour Glam Cut.
 	 */
 	Hair145: { name: "hair", id: "1254632819360268318" },
+	/**
+	 * The Cellist's Beginnings.
+	 */
+	Hair146: { name: "hair", id: "1262142437011488788" },
+	/**
+	 * The Pianist's Beginnings.
+	 */
+	Hair147: { name: "hair", id: "1262151312351563826" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -2589,6 +2628,14 @@ export const CAPE_EMOJIS = {
 	 * SkyFest Wireframe Cape.
 	 */
 	Cape132: { name: "cape", id: "1261198061393412177" },
+	/**
+	 * Duets Guide (ultimate).
+	 */
+	Cape133: { name: "cape", id: "1262139959758946337" },
+	/**
+	 * The Cellist's Flourishing.
+	 */
+	Cape134: { name: "cape", id: "1262163581961637918" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -2769,6 +2816,10 @@ export const HELD_PROPS_EMOJIS = {
 	 * SkyFest Jenova Fan.
 	 */
 	HeldProp43: { name: "held_prop", id: "1261197469979770950" },
+	/**
+	 * The Musicians' Legacy.
+	 */
+	HeldProp44: { name: "held_prop", id: "1262160682103865485" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HeldPropsEmojis = (typeof HELD_PROPS_EMOJIS)[keyof typeof HELD_PROPS_EMOJIS];
@@ -3343,6 +3394,42 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * SkyFest Star Jar.
 	 */
 	SmallPlaceableProp70: { name: "small_placeable_prop", id: "1261195211271307284" },
+	/**
+	 * Duets Guide (ultimate 1).
+	 */
+	SmallPlaceableProp71: { name: "small_placeable_prop", id: "1262139674458067156" },
+	/**
+	 * Duets Guide (ultimate 2).
+	 */
+	SmallPlaceableProp72: { name: "small_placeable_prop", id: "1262140380774928395" },
+	/**
+	 * The Cellist's Beginnings.
+	 */
+	SmallPlaceableProp73: { name: "small_placeable_prop", id: "1262143727309426850" },
+	/**
+	 * The Pianist's Beginnings 1.
+	 */
+	SmallPlaceableProp74: { name: "small_placeable_prop", id: "1262151001759027210" },
+	/**
+	 * The Pianist's Beginnings 2.
+	 */
+	SmallPlaceableProp75: { name: "small_placeable_prop", id: "1262152163547680899" },
+	/**
+	 * The Musicians' Legacy.
+	 */
+	SmallPlaceableProp76: { name: "small_placeable_prop", id: "1262161159822250108" },
+	/**
+	 * The Cellist's Flourishing 1.
+	 */
+	SmallPlaceableProp77: { name: "small_placeable_prop", id: "1262162748884652072" },
+	/**
+	 * The Cellist's Flourishing 2.
+	 */
+	SmallPlaceableProp78: { name: "small_placeable_prop", id: "1262163228713025596" },
+	/**
+	 * The Pianist's Flourishing.
+	 */
+	SmallPlaceableProp79: { name: "small_placeable_prop", id: "1262165413979099176" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =

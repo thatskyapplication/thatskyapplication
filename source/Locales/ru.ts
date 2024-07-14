@@ -36,6 +36,7 @@ export default {
 			[SeasonName.Revival]: "Сезон возрождения",
 			[SeasonName.NineColouredDeer]: "Сезон Девятицветного оленя",
 			[SeasonName.Nesting]: "Сезон гнездования",
+			[SeasonName.Duets]: "Сезон дуэтов",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Указующий свечной мастер",

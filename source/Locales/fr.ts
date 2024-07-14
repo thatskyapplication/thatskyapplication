@@ -52,6 +52,7 @@ export default {
 			[SeasonName.Revival]: "Saison du Renouveau",
 			[SeasonName.NineColouredDeer]: "Saison du Cerf aux neuf couleurs",
 			[SeasonName.Nesting]: "Saison de la Nidification",
+			[SeasonName.Duets]: "Saison des Duos",
 		},
 		"shard-eruption": "Éruption d'Éclats",
 		"shard-eruption-none": "Aucun",

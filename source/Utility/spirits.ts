@@ -230,6 +230,11 @@ export enum SpiritName {
 
 	// Season of Duets.
 	DuetsGuide = "Duets Guide",
+	TheCellistsBeginnings = "The Cellist's Beginnings",
+	ThePianistsBeginnings = "The Pianist's Beginnings",
+	TheMusiciansLegacy = "The Musicians' Legacy",
+	TheCellistsFlourishing = "The Cellist's Flourishing",
+	ThePianistsFlourishing = "The Pianist's Flourishing",
 }
 
 export const enum SpiritEmote {
@@ -518,6 +523,7 @@ export const enum FriendAction {
 	DuetDance = "Duet dance",
 	SideHug = "Side hug",
 	CradleCarry = "Cradle carry",
+	DuetBow = "Duet bow",
 }
 
 export const FriendActionToEmoji = {
@@ -534,6 +540,7 @@ export const FriendActionToEmoji = {
 	[FriendAction.DuetDance]: FRIEND_ACTION_EMOJIS.DuetDance,
 	[FriendAction.SideHug]: FRIEND_ACTION_EMOJIS.SideHug,
 	[FriendAction.CradleCarry]: FRIEND_ACTION_EMOJIS.CradleCarry,
+	[FriendAction.DuetBow]: FRIEND_ACTION_EMOJIS.DuetBow,
 } as const satisfies Readonly<Record<FriendAction, FriendActionsEmojis>>;
 
 export const SPIRIT_TYPE = {
