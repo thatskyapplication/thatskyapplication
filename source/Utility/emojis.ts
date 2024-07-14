@@ -987,6 +987,10 @@ export const MASK_EMOJIS = {
 	 * Dark Rainbow Mask.
 	 */
 	Mask92: { name: "mask", id: "1254633317089935380" },
+	/**
+	 * Duets Guide (non-ultimate).
+	 */
+	Mask93: { name: "mask", id: "1262141262559969392" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type MaskEmojis = (typeof MASK_EMOJIS)[keyof typeof MASK_EMOJIS];
