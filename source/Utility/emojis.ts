@@ -551,6 +551,10 @@ export const OUTFIT_EMOJIS = {
 	 * The Cellist's Beginnings.
 	 */
 	Outfit60: { name: "outfit", id: "1262144303417917530" },
+	/**
+	 * The Pianist's Beginnings.
+	 */
+	Outfit61: { name: "outfit", id: "1262151606598762617" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -1891,6 +1895,10 @@ export const HAIR_EMOJIS = {
 	 * The Cellist's Beginnings.
 	 */
 	Hair146: { name: "hair", id: "1262142437011488788" },
+	/**
+	 * The Pianist's Beginnings.
+	 */
+	Hair147: { name: "hair", id: "1262151312351563826" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -3377,6 +3385,14 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * The Cellist's Beginnings.
 	 */
 	SmallPlaceableProp73: { name: "small_placeable_prop", id: "1262143727309426850" },
+	/**
+	 * The Pianist's Beginnings 1.
+	 */
+	SmallPlaceableProp74: { name: "small_placeable_prop", id: "1262151001759027210" },
+	/**
+	 * The Pianist's Beginnings 2.
+	 */
+	SmallPlaceableProp75: { name: "small_placeable_prop", id: "1262152163547680899" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =
