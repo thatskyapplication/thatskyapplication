@@ -321,6 +321,11 @@ export interface CataloguePacket {
 	nesting_workshop: CatalogueValue;
 	sky_fest_2024: CatalogueValue;
 	duets_guide: CatalogueValue;
+	the_cellists_beginnings: CatalogueValue;
+	the_pianists_beginnings: CatalogueValue;
+	the_musicians_legacy: CatalogueValue;
+	the_cellists_flourishing: CatalogueValue;
+	the_pianists_flourishing: CatalogueValue;
 	season_of_duets: CatalogueValue;
 	tournament_of_triumph_2024: CatalogueValue;
 }
@@ -579,6 +584,11 @@ interface CatalogueData {
 	nestingWorkshop: CataloguePacket["nesting_workshop"];
 	skyFest2024: CataloguePacket["sky_fest_2024"];
 	duetsGuide: CataloguePacket["duets_guide"];
+	theCellistsBeginnings: CataloguePacket["the_cellists_beginnings"];
+	thePianistsBeginnings: CataloguePacket["the_pianists_beginnings"];
+	theMusiciansLegacy: CataloguePacket["the_musicians_legacy"];
+	theCellistsFlourishing: CataloguePacket["the_cellists_flourishing"];
+	thePianistsFlourishing: CataloguePacket["the_pianists_flourishing"];
 	seasonOfDuets: CataloguePacket["season_of_duets"];
 	tournamentOfTriumph2024: CataloguePacket["tournament_of_triumph_2024"];
 }
@@ -839,6 +849,11 @@ const CatalogueNameToRawName = {
 	[CatalogueType.NestingWorkshop]: "nesting_workshop",
 	[EventNameUnique.SkyFest2024]: "sky_fest_2024",
 	[SpiritName.DuetsGuide]: "duets_guide",
+	[SpiritName.TheCellistsBeginnings]: "the_cellists_beginnings",
+	[SpiritName.ThePianistsBeginnings]: "the_pianists_beginnings",
+	[SpiritName.TheMusiciansLegacy]: "the_musicians_legacy",
+	[SpiritName.TheCellistsFlourishing]: "the_cellists_flourishing",
+	[SpiritName.ThePianistsFlourishing]: "the_pianists_flourishing",
 	[SeasonName.Duets]: "season_of_duets",
 	[EventNameUnique.TournamentOfTriumph2024]: "tournament_of_triumph_2024",
 } as const satisfies Readonly<
@@ -1110,6 +1125,11 @@ const SpiritEventNameToCatalogueName = {
 	[CatalogueType.NestingWorkshop]: "nestingWorkshop",
 	[EventNameUnique.SkyFest2024]: "skyFest2024",
 	[SpiritName.DuetsGuide]: "duetsGuide",
+	[SpiritName.TheCellistsBeginnings]: "theCellistsBeginnings",
+	[SpiritName.ThePianistsBeginnings]: "thePianistsBeginnings",
+	[SpiritName.TheMusiciansLegacy]: "theMusiciansLegacy",
+	[SpiritName.TheCellistsFlourishing]: "theCellistsFlourishing",
+	[SpiritName.ThePianistsFlourishing]: "thePianistsFlourishing",
 	[SeasonName.Duets]: "seasonOfDuets",
 	[EventNameUnique.TournamentOfTriumph2024]: "tournamentOfTriumph2024",
 } as const satisfies Readonly<
@@ -1678,6 +1698,16 @@ export class Catalogue {
 
 	public duetsGuide!: CatalogueData["duetsGuide"];
 
+	public theCellistsBeginnings!: CatalogueData["theCellistsBeginnings"];
+
+	public thePianistsBeginnings!: CatalogueData["thePianistsBeginnings"];
+
+	public theMusiciansLegacy!: CatalogueData["theMusiciansLegacy"];
+
+	public theCellistsFlourishing!: CatalogueData["theCellistsFlourishing"];
+
+	public thePianistsFlourishing!: CatalogueData["thePianistsFlourishing"];
+
 	public seasonOfDuets!: CatalogueData["seasonOfDuets"];
 
 	public tournamentOfTriumph2024!: CatalogueData["tournamentOfTriumph2024"];
@@ -1940,6 +1970,11 @@ export class Catalogue {
 		this.nestingWorkshop = data.nesting_workshop;
 		this.skyFest2024 = data.sky_fest_2024;
 		this.duetsGuide = data.duets_guide;
+		this.theCellistsBeginnings = data.the_cellists_beginnings;
+		this.thePianistsBeginnings = data.the_pianists_beginnings;
+		this.theMusiciansLegacy = data.the_musicians_legacy;
+		this.theCellistsFlourishing = data.the_cellists_flourishing;
+		this.thePianistsFlourishing = data.the_pianists_flourishing;
 		this.seasonOfDuets = data.season_of_duets;
 		this.tournamentOfTriumph2024 = data.tournament_of_triumph_2024;
 	}
