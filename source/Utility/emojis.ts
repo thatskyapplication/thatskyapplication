@@ -556,6 +556,10 @@ export const OUTFIT_EMOJIS = {
 	 * The Pianist's Beginnings.
 	 */
 	Outfit61: { name: "outfit", id: "1262151606598762617" },
+	/**
+	 * The Cellist's Flourishing.
+	 */
+	Outfit62: { name: "outfit", id: "1262163996081918093" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -2620,6 +2624,10 @@ export const CAPE_EMOJIS = {
 	 * Duets Guide (ultimate).
 	 */
 	Cape133: { name: "cape", id: "1262139959758946337" },
+	/**
+	 * The Cellist's Flourishing.
+	 */
+	Cape134: { name: "cape", id: "1262163581961637918" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -3402,6 +3410,15 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * The Musicians' Legacy.
 	 */
 	SmallPlaceableProp76: { name: "small_placeable_prop", id: "1262161159822250108" },
+	/**
+	 * The Cellist's Flourishing 1.
+	 */
+	SmallPlaceableProp77: { name: "small_placeable_prop", id: "1262162748884652072" },
+
+	/**
+	 * The Cellist's Flourishing 2.
+	 */
+	SmallPlaceableProp78: { name: "small_placeable_prop", id: "1262163228713025596" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =
