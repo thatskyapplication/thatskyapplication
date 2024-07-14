@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	HAIR_EMOJIS,
@@ -31,40 +31,104 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, emoji: emoteEmoji },
-			{ name: "Hair", bit: 1 << 3, cost: { seasonalCandles: 14 }, emoji: hairEmoji },
-			{ name: "Blessing 1", bit: 1 << 2, emoji: blessing2 },
-			{ name: `${emote} 3`, bit: 1 << 6, cost: { seasonalCandles: 16 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 7, emoji: emoteEmoji },
-			{ name: "Blessing 2", bit: 1 << 8, cost: { seasonalCandles: 18 }, emoji: blessing2 },
-			{ name: "Winter piano", bit: 1 << 9, emoji: heldProp },
-			{ name: "Duck mask", bit: 1 << 10, cost: { seasonalCandles: 20 }, emoji: maskEmoji },
-			{ name: "Blessing 3", bit: 1 << 11, emoji: blessing2 },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteRespect1, emoji: emoteEmoji },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteRespect2, emoji: emoteEmoji },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.RespectfulPianistHair,
+				cost: { seasonalCandles: 14 },
+				emoji: hairEmoji,
+			},
+			{ name: "Blessing 1", cosmetic: Cosmetic.RespectfulPianistBlessing1, emoji: blessing2 },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteRespect3,
+				cost: { seasonalCandles: 16 },
+				emoji: emoteEmoji,
+			},
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteRespect4, emoji: emoteEmoji },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.RespectfulPianistBlessing2,
+				cost: { seasonalCandles: 18 },
+				emoji: blessing2,
+			},
+			{ name: "Winter piano", cosmetic: Cosmetic.RespectfulPianistWinterPiano, emoji: heldProp },
+			{
+				name: "Duck mask",
+				cosmetic: Cosmetic.RespectfulPianistMask,
+				cost: { seasonalCandles: 20 },
+				emoji: maskEmoji,
+			},
+			{ name: "Blessing 3", cosmetic: Cosmetic.RespectfulPianistBlessing3, emoji: blessing2 },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 4,
+				cosmetic: Cosmetic.RespectfulPianistSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.RhythmHeart,
 			},
 		],
 		current: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, cost: { hearts: 4 }, emoji: emoteEmoji },
-			{ name: "Blessing 1", bit: 1 << 2, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Hair", bit: 1 << 3, cost: { candles: 26 }, emoji: hairEmoji },
-			{ name: "Heart", bit: 1 << 4, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteRespect1, emoji: emoteEmoji },
+			{
+				name: `${emote} 2`,
+				cosmetic: Cosmetic.EmoteRespect2,
+				cost: { hearts: 4 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.RespectfulPianistBlessing1,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.RespectfulPianistHair,
+				cost: { candles: 26 },
+				emoji: hairEmoji,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.RespectfulPianistSeasonalHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
 			{
 				name: "Wing buff",
-				bit: 1 << 5,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
-			{ name: `${emote} 3`, bit: 1 << 6, cost: { hearts: 3 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 7, cost: { hearts: 6 }, emoji: emoteEmoji },
-			{ name: "Blessing 2", bit: 1 << 8, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Winter piano", bit: 1 << 9, cost: { candles: 75 }, emoji: heldProp },
-			{ name: "Duck mask", bit: 1 << 10, cost: { candles: 48 }, emoji: maskEmoji },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteRespect3,
+				cost: { hearts: 3 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: `${emote} 4`,
+				cosmetic: Cosmetic.EmoteRespect4,
+				cost: { hearts: 6 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.RespectfulPianistBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Winter piano",
+				cosmetic: Cosmetic.RespectfulPianistWinterPiano,
+				cost: { candles: 75 },
+				emoji: heldProp,
+			},
+			{
+				name: "Duck mask",
+				cosmetic: Cosmetic.RespectfulPianistMask,
+				cost: { candles: 48 },
+				emoji: maskEmoji,
+			},
 		],
 	},
 	visits: {
