@@ -230,6 +230,11 @@ export enum SpiritName {
 
 	// Season of Duets.
 	DuetsGuide = "Duets Guide",
+	TheCellistsBeginnings = "The Cellist's Beginnings",
+	ThePianistsBeginnings = "The Pianist's Beginnings",
+	TheMusiciansLegacy = "The Musicians' Legacy",
+	TheCellistsFlourishing = "The Cellist's Flourishing",
+	ThePianistsFlourishing = "The Pianist's Flourishing",
 }
 
 export const enum SpiritEmote {
