@@ -2800,6 +2800,10 @@ export const HELD_PROPS_EMOJIS = {
 	 * SkyFest Jenova Fan.
 	 */
 	HeldProp43: { name: "held_prop", id: "1261197469979770950" },
+	/**
+	 * The Musicians' Legacy.
+	 */
+	HeldProp44: { name: "held_prop", id: "1262160682103865485" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HeldPropsEmojis = (typeof HELD_PROPS_EMOJIS)[keyof typeof HELD_PROPS_EMOJIS];
@@ -3394,6 +3398,10 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * The Pianist's Beginnings 2.
 	 */
 	SmallPlaceableProp75: { name: "small_placeable_prop", id: "1262152163547680899" },
+	/**
+	 * The Musicians' Legacy.
+	 */
+	SmallPlaceableProp76: { name: "small_placeable_prop", id: "1262161159822250108" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =
