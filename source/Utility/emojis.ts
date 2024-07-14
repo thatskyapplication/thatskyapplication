@@ -547,6 +547,10 @@ export const OUTFIT_EMOJIS = {
 	 * SkyFest 5th Anniversary T-shirt.
 	 */
 	Outfit59: { name: "outfit", id: "1261196162111901757" },
+	/**
+	 * The Cellist's Beginnings.
+	 */
+	Outfit60: { name: "outfit", id: "1262144303417917530" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -1883,6 +1887,10 @@ export const HAIR_EMOJIS = {
 	 * Colour Glam Cut.
 	 */
 	Hair145: { name: "hair", id: "1254632819360268318" },
+	/**
+	 * The Cellist's Beginnings.
+	 */
+	Hair146: { name: "hair", id: "1262142437011488788" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -3365,6 +3373,10 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Duets Guide (ultimate 2).
 	 */
 	SmallPlaceableProp72: { name: "small_placeable_prop", id: "1262140380774928395" },
+	/**
+	 * The Cellist's Beginnings.
+	 */
+	SmallPlaceableProp73: { name: "small_placeable_prop", id: "1262143727309426850" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =
