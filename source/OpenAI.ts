@@ -74,7 +74,6 @@ function systemPromptContext(message: Message<true>) {
 	}
 
 	systemPrompt.push(
-		"- If you are going to mention users, use the <@user_id> syntax.",
 		`- The author of this message is: ${JSON.stringify(message.author)}`,
 		`- The channel you are in is: ${JSON.stringify({ name: message.channel.name, id: message.channel.id })}`,
 		`- The guild you are in is: ${JSON.stringify({ name: message.guild.name, id: message.guild.id })}`,
