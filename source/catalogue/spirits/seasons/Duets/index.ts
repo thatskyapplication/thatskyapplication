@@ -7,6 +7,7 @@ import TheCellistsBeginnings from "./TheCellistsBeginnings.js";
 import TheCellistsFlourishing from "./TheCellistsFlourishing.js";
 import TheMusiciansLegacy from "./TheMusiciansLegacy.js";
 import ThePianistsBeginnings from "./ThePianistsBeginnings.js";
+import ThePianistsFlourishing from "./ThePianistsFlourishing.js";
 
 export default new Season({
 	name: SeasonName.Duets,
@@ -18,6 +19,7 @@ export default new Season({
 		ThePianistsBeginnings,
 		TheMusiciansLegacy,
 		TheCellistsFlourishing,
+		ThePianistsFlourishing,
 	],
 	seasonalCandlesRotation: [
 		{ rotation: 1, realm: RealmName.GoldenWasteland },
