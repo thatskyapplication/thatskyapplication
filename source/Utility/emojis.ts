@@ -1287,6 +1287,10 @@ export const NECKLACE_EMOJIS = {
 	 * Ocean Blue Scarf.
 	 */
 	Necklace36: { name: "necklace", id: "1244556849005592576" },
+	/**
+	 * Duets Pendant.
+	 */
+	Necklace37: { name: "necklace", id: "1262138841599574069" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
@@ -2591,6 +2595,10 @@ export const CAPE_EMOJIS = {
 	 * SkyFest Wireframe Cape.
 	 */
 	Cape132: { name: "cape", id: "1261198061393412177" },
+	/**
+	 * Duets Guide (ultimate).
+	 */
+	Cape133: { name: "cape", id: "1262139959758946337" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -3345,6 +3353,14 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * SkyFest Star Jar.
 	 */
 	SmallPlaceableProp70: { name: "small_placeable_prop", id: "1261195211271307284" },
+	/**
+	 * Duets Guide (ultimate 1).
+	 */
+	SmallPlaceableProp71: { name: "small_placeable_prop", id: "1262139674458067156" },
+	/**
+	 * Duets Guide (ultimate 2).
+	 */
+	SmallPlaceableProp72: { name: "small_placeable_prop", id: "1262140380774928395" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =
