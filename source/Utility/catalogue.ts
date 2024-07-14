@@ -452,7 +452,8 @@ export function resolveOffer(
 ) {
 	return items.map((item) => ({
 		...item,
-		emoji: item.emoji ?? null,
+		// TypeScript states this is too complex to represent, so this is a workaround.
+		emoji: (item.emoji as Emoji) ?? null,
 		cost: item.cost
 			? {
 					...item.cost,
