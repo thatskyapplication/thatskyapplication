@@ -15,11 +15,7 @@ import {
 	OUTFIT_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import {
-	SpiritEmote,
-	SpiritEmoteToEmoji,
-	SpiritName,
-} from "../../../../Utility/spirits.js";
+import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../Utility/spirits.js";
 
 const emote = SpiritEmote.Juggle;
 const emoteEmoji = SpiritEmoteToEmoji[emote];
