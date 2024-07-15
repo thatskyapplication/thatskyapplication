@@ -203,6 +203,12 @@ export default {
 			[SpiritName.NestingLoft]: "築巢閣樓",
 			[SpiritName.NestingAtrium]: "築巢中庭",
 			[SpiritName.NestingNook]: "築巢角落",
+			[SpiritName.DuetsGuide]: "二重奏嚮導",
+			[SpiritName.TheCellistsBeginnings]: "大提琴家的起步",
+			[SpiritName.ThePianistsBeginnings]: "鋼琴家的起步",
+			[SpiritName.TheMusiciansLegacy]: "音樂家的傳承",
+			[SpiritName.TheCellistsFlourishing]: "大提琴家的巔峰",
+			[SpiritName.ThePianistsFlourishing]: "鋼琴家的巔峰",
 		},
 	},
 } as const;
