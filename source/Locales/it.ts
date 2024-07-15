@@ -203,6 +203,12 @@ export default {
 			[SpiritName.NestingLoft]: "Soffitta del falegname",
 			[SpiritName.NestingAtrium]: "Atrio del muratore",
 			[SpiritName.NestingNook]: "Angolo del tappezziere",
+			[SpiritName.DuetsGuide]: "Guida ai duetti",
+			[SpiritName.TheCellistsBeginnings]: "Violoncellista principiante",
+			[SpiritName.ThePianistsBeginnings]: "Pianista principiante",
+			[SpiritName.TheMusiciansLegacy]: "Eredità dei musicisti",
+			[SpiritName.TheCellistsFlourishing]: " Violoncellista esperta",
+			[SpiritName.ThePianistsFlourishing]: "Pianista esperto",
 		},
 	},
 } as const;
