@@ -203,6 +203,12 @@ export default {
 			[SpiritName.NestingLoft]: "巣づくりのロフト",
 			[SpiritName.NestingAtrium]: "巣づくりの吹き抜け",
 			[SpiritName.NestingNook]: "巣づくりの小部屋",
+			[SpiritName.DuetsGuide]: "音色の案内人",
+			[SpiritName.TheCellistsBeginnings]: "駆けだしのチェリスト",
+			[SpiritName.ThePianistsBeginnings]: "駆けだしのピアニスト",
+			[SpiritName.TheMusiciansLegacy]: "音楽家たちの遺産",
+			[SpiritName.TheCellistsFlourishing]: "栄光のチェリスト",
+			[SpiritName.ThePianistsFlourishing]: "栄光のピアニスト",
 		},
 	},
 } as const;
