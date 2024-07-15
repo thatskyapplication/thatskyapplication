@@ -36,7 +36,7 @@ export default {
 			[SeasonName.Revival]: "Mùa Phục Hưng",
 			[SeasonName.NineColouredDeer]: "Mùa Cửu Sắc Lộc",
 			[SeasonName.Nesting]: "Mùa Xây Tổ",
-			[SeasonName.Duets]: "Mùa Giải Song Ca",
+			[SeasonName.Duets]: "Mùa Song Tấu",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Thợ Nến Dẫn Đường",
