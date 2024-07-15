@@ -203,6 +203,12 @@ export default {
 			[SpiritName.NestingLoft]: "보금자리 가구점",
 			[SpiritName.NestingAtrium]: "보금자리 안마당",
 			[SpiritName.NestingNook]: "보금자리 구석",
+			[SpiritName.DuetsGuide]: "듀엣의 안내자",
+			[SpiritName.TheCellistsBeginnings]: "첼로 연주자의 시작",
+			[SpiritName.ThePianistsBeginnings]: "피아노 연주자의 시작",
+			[SpiritName.TheMusiciansLegacy]: "음악가의 유산",
+			[SpiritName.TheCellistsFlourishing]: "첼로 연주자의 전성기",
+			[SpiritName.ThePianistsFlourishing]: "피아노 연주자의 전성기",
 		},
 	},
 } as const;
