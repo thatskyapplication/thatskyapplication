@@ -387,7 +387,7 @@ export const EventNameToEventCurrencyEmoji = {
 export function snakeCaseName(name: string) {
 	return name
 		.replaceAll("'s", "s")
-		.replace("' ", "")
+		.replace("' ", "'")
 		.replaceAll(/[ '-]/g, "_")
 		.replaceAll(/[()]/g, "")
 		.replaceAll("×", "x")
