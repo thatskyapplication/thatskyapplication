@@ -385,7 +385,13 @@ export const EventNameToEventCurrencyEmoji = {
 } as const satisfies Readonly<Record<EventName, EventEmojis | null>>;
 
 export function snakeCaseName(name: string) {
-	return name.replaceAll(/[ '-]/g, "_").replaceAll(/[()]/g, "").replaceAll("×", "x").toLowerCase();
+	return name
+		.replaceAll("'s", "s")
+		.replace("' ", "")
+		.replaceAll(/[ '-]/g, "_")
+		.replaceAll(/[()]/g, "")
+		.replaceAll("×", "x")
+		.toLowerCase();
 }
 
 export function wikiURL(name: string) {
