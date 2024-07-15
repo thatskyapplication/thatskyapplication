@@ -18,7 +18,6 @@ export default new SeasonalSpirit({
 	season: SeasonName.Duets,
 	offer: {
 		hasInfographic: false,
-		hasInfographicSeasonal: false,
 		seasonal: [
 			{ name: "Music sheet", bit: 1 << 0, cost: { seasonalCandles: 14 }, emoji: musicSheet },
 			{ name: "Blessing 1", bit: 1 << 1, emoji: blessing3 },
