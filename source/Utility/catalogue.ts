@@ -646,6 +646,10 @@ export const enum Cosmetic {
 	ThoughtfulDirectorCape,
 	ThoughtfulDirectorSeasonalHeart,
 
+	// 31/01/2020 | Travelling spirit #1.
+	SassyDrifterHeart,
+	SassyDrifterWingBuff,
+
 	/**
 	 * Unlocked by default.
 	 */
