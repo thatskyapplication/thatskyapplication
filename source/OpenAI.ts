@@ -63,7 +63,7 @@ function systemPromptContext(message: Message<true>) {
 	const systemPrompt = [
 		`- You are named ${message.client.user.username}`,
 		"- Responses should be no longer than a sentence.",
-		`- It is currently ${message.createdAt.toISOString()}.`,
+		`- It is currently ${now.toISO()}.`,
 		"- Be engaging, positive, and happy.",
 		'- Refer to "Sky: Children of the Light" as Sky.',
 		seasonText,
