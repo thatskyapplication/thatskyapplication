@@ -650,6 +650,9 @@ export const enum Cosmetic {
 	SassyDrifterHeart,
 	SassyDrifterWingBuff,
 
+	// 12/02/2020 12:00
+	DaysOfLovePack,
+
 	/**
 	 * Unlocked by default.
 	 */
