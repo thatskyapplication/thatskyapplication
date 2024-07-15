@@ -19,7 +19,6 @@ export default new SeasonalSpirit({
 	season: SeasonName.Duets,
 	offer: {
 		hasInfographic: false,
-		hasInfographicSeasonal: false,
 		seasonal: [
 			{ name: "Blessing 1", bit: 1 << 0, cost: { seasonalCandles: 12 }, emoji: blessing3 },
 			{ name: "Prop", bit: 1 << 1, emoji: smallPlaceablePropEmoji },
