@@ -203,6 +203,12 @@ export default {
 			[SpiritName.NestingLoft]: "Nistboden",
 			[SpiritName.NestingAtrium]: "Nest-Aula",
 			[SpiritName.NestingNook]: "Nistecke",
+			[SpiritName.DuetsGuide]: "Duette-Helfer",
+			[SpiritName.TheCellistsBeginnings]: "Die Anfänge der Cellistin",
+			[SpiritName.ThePianistsBeginnings]: "Die Anfänge des Pianisten",
+			[SpiritName.TheMusiciansLegacy]: "Das Vermächtnis der Musik",
+			[SpiritName.TheCellistsFlourishing]: "Das Aufblühen der Cellistin",
+			[SpiritName.ThePianistsFlourishing]: "Das Aufblühen des Pianisten",
 		},
 	},
 } as const;
