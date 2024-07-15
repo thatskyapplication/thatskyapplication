@@ -203,6 +203,12 @@ export default {
 			[SpiritName.NestingLoft]: "Xây Tổ Gác Xép",
 			[SpiritName.NestingAtrium]: "Xây Tổ Sân Nhỏ",
 			[SpiritName.NestingNook]: "Xây Tổ Góc Nhỏ",
+			[SpiritName.DuetsGuide]: "Chỉ Dẫn Song Tấu",
+			[SpiritName.TheCellistsBeginnings]: "Sự Khởi Đầu của Nghệ Sĩ Cello",
+			[SpiritName.ThePianistsBeginnings]: "Sự Khởi Đầu Của Nghệ Sĩ Piano",
+			[SpiritName.TheMusiciansLegacy]: "Di Sản Của Các Nhạc",
+			[SpiritName.TheCellistsFlourishing]: "Sự Thành Công Của Nghệ Sĩ Cello",
+			[SpiritName.ThePianistsFlourishing]: "Sự Thành Công Của Nghệ Sĩ Piano",
 		},
 	},
 } as const;
