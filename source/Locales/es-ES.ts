@@ -212,6 +212,12 @@ export default {
 			[SpiritName.NestingLoft]: "Ático acogedor",
 			[SpiritName.NestingAtrium]: "Pórtico acogedor",
 			[SpiritName.NestingNook]: "Rincón acogedor",
+			[SpiritName.DuetsGuide]: "Guía de los duetos",
+			[SpiritName.TheCellistsBeginnings]: "Los comienzos del chelista",
+			[SpiritName.ThePianistsBeginnings]: "Los comienzos del pianista",
+			[SpiritName.TheMusiciansLegacy]: "El legado del músico",
+			[SpiritName.TheCellistsFlourishing]: "La prosperidad del chelista",
+			[SpiritName.ThePianistsFlourishing]: "La prosperidad del pianista",
 		},
 	},
 	commands: {
