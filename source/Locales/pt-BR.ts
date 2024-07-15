@@ -203,6 +203,12 @@ export default {
 			[SpiritName.NestingLoft]: "Loft do Ninho",
 			[SpiritName.NestingAtrium]: "Átrio do Ninho",
 			[SpiritName.NestingNook]: "Recanto do Ninho",
+			[SpiritName.DuetsGuide]: "Guia de Duetos",
+			[SpiritName.TheCellistsBeginnings]: "Os Primórdios da Violoncelista",
+			[SpiritName.ThePianistsBeginnings]: "Os Primórdios do Pianista",
+			[SpiritName.TheMusiciansLegacy]: "O Legado dos Músicos",
+			[SpiritName.TheCellistsFlourishing]: "Desabrochar da Violoncelista",
+			[SpiritName.ThePianistsFlourishing]: "O Desabrochar do Pianista",
 		},
 	},
 } as const;
