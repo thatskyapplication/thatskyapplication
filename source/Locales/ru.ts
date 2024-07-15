@@ -203,6 +203,12 @@ export default {
 			[SpiritName.NestingLoft]: "Гнездовой лофт",
 			[SpiritName.NestingAtrium]: "Гнездовой атриум",
 			[SpiritName.NestingNook]: "Уголок гнездования",
+			[SpiritName.DuetsGuide]: "Проводник дуэтов",
+			[SpiritName.TheCellistsBeginnings]: "Становление виолончелиски",
+			[SpiritName.ThePianistsBeginnings]: "Становление пианиста",
+			[SpiritName.TheMusiciansLegacy]: "Наследие музыкантов",
+			[SpiritName.TheCellistsFlourishing]: "Зенит виолончелиски",
+			[SpiritName.ThePianistsFlourishing]: "Зенит пианиста",
 		},
 	},
 } as const;
