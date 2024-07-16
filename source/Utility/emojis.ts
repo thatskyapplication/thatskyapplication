@@ -3413,7 +3413,7 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * The Pianist's Beginnings 2.
 	 */
-	SmallPlaceableProp75: { name: "small_placeable_prop", id: "1262152163547680899" },
+	SmallPlaceableProp75: { name: "small_placeable_prop", id: "1262749987926708235" },
 	/**
 	 * The Musicians' Legacy.
 	 */
@@ -3421,7 +3421,7 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * The Cellist's Flourishing 1.
 	 */
-	SmallPlaceableProp77: { name: "small_placeable_prop", id: "1262162748884652072" },
+	SmallPlaceableProp77: { name: "small_placeable_prop", id: "1262750395604926484" },
 	/**
 	 * The Cellist's Flourishing 2.
 	 */
