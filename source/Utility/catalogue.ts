@@ -435,7 +435,7 @@ export const enum Cosmetic {
 	EmoteKabuki1,
 	EmoteKabuki2,
 	ProvokingPerformerMusicSheet,
-	ProvokingPerformerBlessing,
+	ProvokingPerformerBlessing1,
 	EmoteKabuki3,
 	EmoteKabuki4,
 	ProvokingPerformerHair,
@@ -652,6 +652,30 @@ export const enum Cosmetic {
 
 	// 12/02/2020 12:00
 	DaysOfLovePack,
+
+	// 14/02/2020 | Travelling spirit #2.
+	DoublefiveLightCatcherHeart,
+	DoublefiveLightCatcherWingBuff,
+
+	// 27/02/2020 | Travelling spirit #3.
+	LaidbackPioneerHeart,
+	LaidbackPioneerWingBuff,
+
+	// 12/03/2020 | Travelling spirit #4.
+	ProvokingPerformerHeart,
+	ProvokingPerformerWingBuff,
+	ProvokingPerformerBlessing2,
+
+	// 26/03/2020 | Travelling spirit #5.
+	PleafulParentWingBuff,
+	PleafulParentBlessing2,
+
+	// 09/04/2020 | Travelling spirit #6.
+	CrabWhispererHeart,
+	CrabWhispererWingBuff,
+	
+	// TODO SECTION
+	CrabWhispererPipe, // 02/09/2021
 
 	/**
 	 * Unlocked by default.

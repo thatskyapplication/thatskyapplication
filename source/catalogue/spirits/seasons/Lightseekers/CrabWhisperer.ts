@@ -65,7 +65,12 @@ export default new SeasonalSpirit({
 		],
 		current: [
 			{ name: `${call} call`, cosmetic: Cosmetic.CallCrab, emoji: callEmoji },
-			{ name: "Pipe", cost: { candles: 20 }, emoji: placeablePropEmoji },
+			{
+				name: "Pipe",
+				cosmetic: Cosmetic.CrabWhispererPipe,
+				cost: { candles: 20 },
+				emoji: placeablePropEmoji,
+			},
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.CrabWhispererBlessing1,
@@ -78,8 +83,18 @@ export default new SeasonalSpirit({
 				cost: { candles: 30 },
 				emoji: maskEmoji,
 			},
-			{ name: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Wing buff", cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff },
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.CrabWhispererHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Wing buff",
+				cosmetic: Cosmetic.CrabWhispererWingBuff,
+				cost: { ascendedCandles: 2 },
+				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+			},
 			{
 				name: "Blessing 2",
 				cosmetic: Cosmetic.CrabWhispererBlessing2,

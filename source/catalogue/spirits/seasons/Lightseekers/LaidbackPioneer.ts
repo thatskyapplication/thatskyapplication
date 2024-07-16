@@ -77,11 +77,13 @@ export default new SeasonalSpirit({
 			},
 			{
 				name: "Heart",
+				cosmetic: Cosmetic.LaidbackPioneerHeart,
 				cost: { candles: 3 },
 				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
 			{
 				name: "Wing buff",
+				cosmetic: Cosmetic.LaidbackPioneerWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
