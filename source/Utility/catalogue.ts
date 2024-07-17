@@ -24,6 +24,7 @@ export const NO_EVENT_OFFER_TEXT = "There are no cosmetics for this event." as c
 export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infographic." as const;
 
 // TODO: Organise tier 2 capes.
+// TODO: Check spirit return errors.
 // biome-ignore lint/style/useEnumInitializers: TODO.
 export const enum Cosmetic {
 	/**
@@ -673,7 +674,11 @@ export const enum Cosmetic {
 	// 09/04/2020 | Travelling spirit #6.
 	CrabWhispererHeart,
 	CrabWhispererWingBuff,
-	
+
+	// 16/04/2020 | Travelling spirit #7.
+	PiggybackLightseekerHeart,
+	PiggybackLightseekerWingBuff,
+
 	// TODO SECTION
 	CrabWhispererPipe, // 02/09/2021
 
