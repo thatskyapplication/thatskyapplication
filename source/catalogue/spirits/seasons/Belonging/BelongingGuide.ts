@@ -11,7 +11,7 @@ export default new GuideSpirit({
 			{ name: "Pendant", cosmetic: Cosmetic.BelongingPendant, emoji: NECKLACE_EMOJIS.Necklace03 },
 			{
 				name: "Bonfire",
-				cosmetic: Cosmetic.Bonfire,
+				cosmetic: Cosmetic.BelongingBonfire,
 				cost: { seasonalHearts: 6 },
 				emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp02,
 			},

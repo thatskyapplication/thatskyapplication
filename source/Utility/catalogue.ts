@@ -523,7 +523,7 @@ export const enum Cosmetic {
 	HungryPumpkinHat,
 
 	BelongingPendant,
-	Bonfire,
+	BelongingBonfire,
 	EmoteBoogieDance1,
 	EmoteBoogieDance2,
 	BoogieKidBlessing1,
