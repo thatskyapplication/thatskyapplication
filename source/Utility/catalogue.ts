@@ -679,8 +679,118 @@ export const enum Cosmetic {
 	PiggybackLightseekerHeart,
 	PiggybackLightseekerWingBuff,
 
+	// 20/04/2020 | Season of Enchantment.
+	EnchantmentGuideQuest1,
+	EnchantmentGuideHeart1,
+	EnchantmentPendant,
+	EnchantmentUltimateFaceAccessory,
+	EnchantmentTurban,
+	EmoteNod1,
+	EmoteNod2,
+	NoddingMuralistMask,
+	NoddingMuralistBlessing1,
+	EmoteNod3,
+	EmoteNod4,
+	NoddingMuralistBlessing2,
+	NoddingMuralistHair,
+	NoddingMuralistSeasonalHeart,
+	EmoteShrug1,
+	EmoteShrug2,
+	IndifferentAlchemistBlessing1,
+	IndifferentAlchemistMask,
+	EmoteShrug3,
+	EmoteShrug4,
+	IndifferentAlchemistHair,
+	IndifferentAlchemistBlessing2,
+	IndifferentAlchemistBlessing3,
+	IndifferentAlchemistCape,
+	IndifferentAlchemistSeasonalHeart,
+	EmoteCrabWalk1,
+	EmoteCrabWalk2,
+	CrabWalkerHair,
+	CrabWalkerBlessing1,
+	EmoteCrabWalk3,
+	EmoteCrabWalk4,
+	CrabWalkerBlessing2,
+	CrabWalkerCape,
+	CrabWalkerSeasonalHeart,
+	EmoteBoo1,
+	EmoteBoo2,
+	ScarecrowFarmerBlessing1,
+	ScarecrowFarmerMask,
+	EmoteBoo3,
+	EmoteBoo4,
+	ScarecrowFarmerHair,
+	ScarecrowFarmerBlessing2,
+	ScarecrowFarmerSeasonalHeart,
+	EmoteDoze1,
+	EmoteDoze2,
+	SnoozingCarpenterBlessing1,
+	SnoozingCarpenterHair,
+	EmoteDoze3,
+	EmoteDoze4,
+	SnoozingCarpenterCape,
+	SnoozingCarpenterBlessing2,
+	SnoozingCarpenterSeasonalHeart,
+	FriendActionPlayFight1,
+	PlayfightingHerbalistBlessing1,
+	PlayfightingHerbalistMask,
+	PlayfightingHerbalistBlessing2,
+	PlayfightingHerbalistBlessing3,
+	FriendActionPlayFight2,
+	PlayfightingHerbalistMusicSheet,
+	PlayfightingHerbalistHair,
+	PlayfightingHerbalistCape,
+	PlayfightingHerbalistBlessing4,
+	PlayfightingHerbalistSeasonalHeart,
+
+	// 20/04/2020 | Days of Nature.
+	EarthCape,
+
+	// 27/04/2020 | Season of Enchantment Quest 2.
+	EnchantmentGuideQuest2,
+	EnchantmentGuideHeart2,
+
+	// 30/04/2020 | Travelling spirit #8.
+	StretchingGuruHeart,
+	StretchingGuruWingBuff,
+
+	// 04/05/2020 | Season of Enchantment Quest 3.
+	EnchantmentGuideQuest3,
+	EnchantmentGuideHeart3,
+
+	// 11/05/2020 | Season of Enchantment Quest 4.
+	EnchantmentGuideQuest4,
+	EnchantmentGuideHeart4,
+
+	// 14/05/2020 | Travelling spirit #9.
+	SparklerParentWingBuff,
+
+	// 18/05/2020 | Season of Enchantment Quest 5.
+	EnchantmentGuideQuest5,
+	EnchantmentGuideHeart5,
+
+	// 18/05/2020 12:00 | Days of Healing.
+	HealingPack,
+
+	// 11/06/2020 | Season of Enchantment Quest 6.
+	EnchantmentGuideQuest6,
+	EnchantmentGuideHeart6,
+	EnchantmentGuideHug,
+
+	// 11/06/2020 | Travelling spirit #11.
+	HairtousleTeenWingBuff,
+
+	// 25/06/2020 | Travelling spirit #12.
+	LeapingDancingHeart,
+	LeapingDancingWingBuff,
+
+	// 09/07/2020 | Travelling spirit #13.
+	ConfettiCousinWingBuff,
+
 	// TODO SECTION
 	CrabWhispererPipe, // 02/09/2021
+	PlayfightingHerbalistOrb, // 28/10/2021
 
 	/**
 	 * Unlocked by default.

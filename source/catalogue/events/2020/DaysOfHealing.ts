@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import { HAIR_ACCESSORY_EMOJIS } from "../../../Utility/emojis.js";
 
@@ -10,7 +10,7 @@ export default new Event({
 	offer: [
 		{
 			name: "Healing Pack",
-			bit: 1 << 0,
+			cosmetic: Cosmetic.HealingPack,
 			cost: { money: 19.99 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory01,
 		},
