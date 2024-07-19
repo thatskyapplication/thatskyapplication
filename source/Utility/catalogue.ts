@@ -651,7 +651,7 @@ export const enum Cosmetic {
 	SassyDrifterHeart,
 	SassyDrifterWingBuff,
 
-	// 12/02/2020 12:00
+	// 12/02/2020 12:00 | Days of Love.
 	DaysOfLovePack,
 
 	// 14/02/2020 | Travelling spirit #2.
