@@ -73,8 +73,18 @@ export default new SeasonalSpirit({
 				cost: { candles: 24 },
 				emoji: maskEmoji,
 			},
-			{ name: "Heart", cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Wing buff", cost: { ascendedCandles: 2 }, emoji: MISCELLANEOUS_EMOJIS.WingBuff },
+			{
+				name: "Heart",
+				cost: { candles: 3 },
+				cosmetic: Cosmetic.TwirlingChampionHeart,
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Wing buff",
+				cost: { ascendedCandles: 2 },
+				cosmetic: Cosmetic.TwirlingChampionWingBuff,
+				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+			},
 			{
 				name: `${emote} 3`,
 				cosmetic: Cosmetic.EmoteTripleAxel3,
@@ -87,7 +97,12 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 				emoji: emoteEmoji,
 			},
-			{ name: "Blessing 2", cost: { candles: 5 }, emoji: blessing2 },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.TwirlingChampionBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
 			{
 				name: "Panflute",
 				cosmetic: Cosmetic.TwirlingChampionPanflute,

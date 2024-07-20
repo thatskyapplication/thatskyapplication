@@ -788,6 +788,116 @@ export const enum Cosmetic {
 	// 09/07/2020 | Travelling spirit #13.
 	ConfettiCousinWingBuff,
 
+	// 13/07/2020 | Season of Sanctuary.
+	SanctuaryGuideQuest1,
+	SanctuaryGuideHeart1,
+	SanctuaryPendant,
+	SanctuaryHandpan,
+	SanctuaryGuideMantaCape,
+	CallJellyfish,
+	JellyWhispererMusicSheet,
+	JellyWhispererBlessing1,
+	JellyWhispererHair,
+	JellyWhispererBlessing2,
+	JellyWhispererBlessing3,
+	JellyWhispererOutfit,
+	JellyWhispererSeasonalHeart,
+	StanceTimid,
+	TimidBookwormBlessing1,
+	TimidBookwormMusicSheet,
+	TimidBookwormHair,
+	TimidBookwormBlessing2,
+	TimidBookwormBlessing3,
+	TimidBookwormCape,
+	TimidBookwormSeasonalHeart,
+	EmoteRallyCheer1,
+	EmoteRallyCheer2,
+	RallyingThrillseekerHair,
+	RallyingThrillseekerBlessing1,
+	EmoteRallyCheer3,
+	EmoteRallyCheer4,
+	RallyingThrillseekerOutfit,
+	RallyingThrillseekerBlessing2,
+	RallyingThrillseekerSeasonalHeart,
+	EmoteGrumpy1,
+	EmoteGrumpy2,
+	HikingGrouchBlessing1,
+	HikingGrouchMask,
+	EmoteGrumpy3,
+	EmoteGrumpy4,
+	HikingGrouchHair,
+	HikingGrouchBlessing2,
+	HikingGrouchBlessing3,
+	HikingGrouchBowTie,
+	HikingGrouchSeasonalHeart,
+	EmoteGrateful1,
+	EmoteGrateful2,
+	GratefulShellCollectorBlessing1,
+	GratefulShellCollectorHair,
+	EmoteGrateful3,
+	EmoteGrateful4,
+	GratefulShellCollectorCape,
+	GratefulShellCollectorBlessing2,
+	GratefulShellCollectorSeasonalHeart,
+	EmoteBellyScratch1,
+	EmoteBellyScratch2,
+	ChillSunbatherBlessing1,
+	ChillSunbatherFaceAccessory,
+	EmoteBellyScratch3,
+	EmoteBellyScratch4,
+	ChillSunbatherHairAccessory,
+	ChillSunbatherBlessing2,
+	ChillSunbatherCape,
+	ChillSunbatherBlessing3,
+	ChillSunbatherSeasonalHeart,
+
+	// 13/07/2020 | Sky Anniversary.
+	SkyAnniversaryHairAccessory,
+
+	// 20/07/2020 | Season of Sanctuary Quest 2.
+	SanctuaryGuideQuest2,
+	SanctuaryGuideHeart2,
+
+	// 23/07/2020 | Travelling spirit #14.
+	GreetingShamanHeart,
+	GreetingShamanWingBuff,
+
+	// 27/07/2020 | Season of Sanctuary Quest 3.
+	SanctuaryGuideQuest3,
+	SanctuaryGuideHeart3,
+
+	// 04/08/2020 | Season of Sanctuary Quest 4.
+	SanctuaryGuideQuest4,
+	SanctuaryGuideHeart4,
+
+	// 06/08/2020 | Travelling spirit #15.
+	WiseGrandparentWingBuff,
+
+	// 10/08/2020 | Season of Sanctuary Quest 5.
+	SanctuaryGuideQuest5,
+	SanctuaryGuideHeart5,
+
+	// 20/08/2020 | Travelling spirit #16.
+	ShushingLightScholarHeart,
+	ShushingLightScholarWingBuff,
+
+	// 03/09/2020 | Travelling spirit #17.
+	FestivalSpinDancerWingBuff,
+	FestivalSpinDancerBlessing2,
+
+	// 08/09/2020 | Season of Sanctuary Quest 6.
+	SanctuaryGuideQuest6,
+	SanctuaryGuideHeart6,
+	FriendActionHug,
+
+	// 08/09/2020 | Days of Summer Lights.
+	DaysOfSummerLightsLantern,
+
+	// 17/09/2020 | Travelling spirit #18.
+	TwirlingChampionHeart,
+	TwirlingChampionWingBuff,
+	TwirlingChampionBlessing2,
+
 	// 08/02/2021 12:00 | Days of Fortune.
 	DaysOfFortuneMask,
 	DaysOfFortuneHeaddress,
