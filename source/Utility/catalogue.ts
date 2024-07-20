@@ -788,6 +788,15 @@ export const enum Cosmetic {
 	// 09/07/2020 | Travelling spirit #13.
 	ConfettiCousinWingBuff,
 
+	// 08/02/2021 12:00 | Days of Fortune.
+	DaysOfFortuneMask,
+	DaysOfFortuneHeaddress,
+	DaysOfFortuneOrange,
+	DaysOfFortuneCape,
+	FortuneBlushingMask,
+	FortuneBunHair,
+	DaysOfFortuneWoolHat, // 21/02/2021 12:00.
+
 	// TODO SECTION
 	CrabWhispererPipe, // 02/09/2021
 	PlayfightingHerbalistOrb, // 28/10/2021
