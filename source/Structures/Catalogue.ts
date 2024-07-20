@@ -1871,13 +1871,27 @@ export class Catalogue {
 			const { component } = interaction;
 
 			// Retrieve all cosmetics in this select menu.
-			const selectMenuCosmetics = new Set(component.options.map((option) => Number(option.value)));
+			const selectMenuCosmetics = component.options.reduce<number[]>(
+				(computedCosmetics, { value }) => {
+					const parsedValue = JSON.parse(value) as readonly number[];
+					computedCosmetics.push(...parsedValue);
+					return computedCosmetics;
+				},
+				[],
+			);
 
 			// Remove the cosmetics from the data.
-			const modifiedData = this.data.filter((cosmetic) => !selectMenuCosmetics.has(cosmetic));
+			const modifiedData = this.data.filter((cosmetic) => !selectMenuCosmetics.includes(cosmetic));
 
 			// Calculate the new data.
-			cosmetics = [...modifiedData, ...interaction.values.map(Number)];
+			cosmetics = [
+				...modifiedData,
+				...interaction.values.reduce<number[]>((computedCosmetics, value) => {
+					const parsedValue = JSON.parse(value) as readonly number[];
+					computedCosmetics.push(...parsedValue);
+					return computedCosmetics;
+				}, []),
+			];
 		}
 
 		return cosmetics;
@@ -1958,10 +1972,7 @@ export class Catalogue {
 
 	private static update(userId: Catalogue["userId"], data: CataloguePatchData) {
 		return pg<CataloguePacket>(Table.Catalogue)
-			.update({
-				// @ts-expect-error https://github.com/knex/knex/issues/5465
-				data: JSON.stringify(data.data),
-			})
+			.update({ data: data.data })
 			.where({ user_id: userId })
 			.returning("*");
 	}
