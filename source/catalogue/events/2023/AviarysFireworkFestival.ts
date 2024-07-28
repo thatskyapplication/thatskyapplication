@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { CDN_BUCKET } from "../../../Utility/Constants.js";
+import { CDN_URL } from "../../../Utility/Constants.js";
 import { EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import { FACE_ACCESSORY_EMOJIS, HELD_PROPS_EMOJIS } from "../../../Utility/emojis.js";
@@ -15,7 +15,7 @@ for (
 		date: start,
 		amount: 5,
 		infographicURL: String(
-			new URL("events/2023/aviarys_firework_festival/event_currency.webp", CDN_BUCKET),
+			new URL("events/2023/aviarys_firework_festival/event_currency.webp", CDN_URL),
 		),
 	});
 }

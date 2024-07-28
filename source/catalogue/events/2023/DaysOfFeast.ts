@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { CDN_BUCKET } from "../../../Utility/Constants.js";
+import { CDN_URL } from "../../../Utility/Constants.js";
 import { EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
@@ -19,7 +19,7 @@ for (
 	eventCurrencyAmount.push({
 		date: start,
 		amount: 5,
-		infographicURL: String(new URL("events/2023/days_of_feast/event_currency.webp", CDN_BUCKET)),
+		infographicURL: String(new URL("events/2023/days_of_feast/event_currency.webp", CDN_URL)),
 	});
 }
 
