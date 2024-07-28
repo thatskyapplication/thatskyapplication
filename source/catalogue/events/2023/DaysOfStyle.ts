@@ -9,11 +9,23 @@ import {
 	SHOE_EMOJIS,
 } from "../../../Utility/emojis.js";
 
+const eventCurrencyAmount = [];
+
+for (
+	let start = skyDate(2_023, 10, 2), end = skyDate(2_023, 10, 15);
+	start <= end;
+	start = start.plus({ days: 1 })
+) {
+	eventCurrencyAmount.push({ date: start, amount: 5 });
+}
+
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfStyle2023,
 	start: skyDate(2_023, 10, 2),
 	end: skyDate(2_023, 10, 15),
-	eventCurrencyPerDay: 5,
+	eventCurrency: {
+		amount: eventCurrencyAmount,
+	},
 	offer: [
 		{
 			name: "Style Top Hat",

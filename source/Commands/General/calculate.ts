@@ -5,6 +5,7 @@ import {
 	EmbedBuilder,
 	type EmbedFooterOptions,
 	Locale,
+	MessageFlags,
 	PermissionFlagsBits,
 	TimestampStyles,
 	time,
@@ -29,6 +30,7 @@ import {
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
+	isDuring,
 	skyNow,
 	skyToday,
 } from "../../Utility/dates.js";
@@ -397,20 +399,20 @@ export default new (class implements ChatInputCommand {
 
 		// Filter out events that do not have event currency.
 		const events = skyCurrentEvents(now).filter(
-			(event): event is Event & { readonly eventCurrencyPerDay: number } =>
-				event.eventCurrencyPerDay !== null,
+			(event): event is Event & { readonly eventCurrency: NonNullable<Event["eventCurrency"]> } =>
+				event.eventCurrency !== null,
 		);
 
 		if (events.length === 0) {
 			await interaction.reply({
 				content: "There is no event currently active with event currency.",
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;
 		}
 
-		if (events.every(({ eventCurrencyEnd }) => now > eventCurrencyEnd)) {
+		if (events.every(({ eventCurrency }) => now > eventCurrency.end)) {
 			await interaction.reply({ content: "There is no more event currency.", ephemeral: true });
 			return;
 		}
@@ -423,7 +425,7 @@ export default new (class implements ChatInputCommand {
 
 		const suffix = events
 			.map((event) =>
-				event.eventCurrencyEmoji ? formatEmoji(event.eventCurrencyEmoji) : event.name,
+				event.eventCurrency.emoji ? formatEmoji(event.eventCurrency.emoji) : event.name,
 			)
 			.join("");
 
@@ -432,11 +434,18 @@ export default new (class implements ChatInputCommand {
 		const amountRequiredEmojis = `${amountRequired} ${suffix}`;
 
 		const result = events.map((event) => {
-			const days = Math.ceil(amountRequired / event.eventCurrencyPerDay);
+			const today = now.startOf("day");
 
-			return `${event.eventCurrencyEmoji ? formatEmoji(event.eventCurrencyEmoji) : `${event.name}: `}${days} day${
-				days === 1 ? "" : "s"
-			} (${event.eventCurrencyPerDay}/day)`;
+			// Collect daily event currency.
+			const dailyRemaining = event.eventCurrency.amount.reduce(
+				(remaining, eventCurrency) =>
+					eventCurrency.date >= today ? remaining + eventCurrency.amount : remaining,
+				0,
+			);
+
+			// Collect pools, if any.
+			const pool = event.eventCurrency.pool?.find((pool) => isDuring(pool.start, pool.end, today));
+			return `${event.eventCurrency.emoji ? formatEmoji(event.eventCurrency.emoji) : `${event.name}: `} A total of ${dailyRemaining} remains daily.${pool ? ` There is currently a pool of ${pool.amount}!` : ""}`;
 		});
 
 		const embed = new EmbedBuilder()
@@ -451,10 +460,10 @@ export default new (class implements ChatInputCommand {
 			text: events.map((event) => event.daysText(now)).join("\n"),
 		};
 
-		const event0 = events.at(0);
+		const event0 = events[0];
 
-		if (events.length === 1 && event0?.eventCurrencyEmoji) {
-			footer.iconURL = formatEmojiURL(event0.eventCurrencyEmoji.id);
+		if (events.length === 1 && event0?.eventCurrency.emoji) {
+			footer.iconURL = formatEmojiURL(event0.eventCurrency.emoji.id);
 		}
 
 		embed.setFooter(footer);

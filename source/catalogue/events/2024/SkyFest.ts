@@ -9,11 +9,23 @@ import {
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../Utility/emojis.js";
 
+const eventCurrencyAmount = [];
+
+for (
+	let start = skyDate(2_024, 7, 12, 17), end = skyDate(2_024, 7, 26);
+	start <= end;
+	start = start.plus({ days: 1 })
+) {
+	eventCurrencyAmount.push({ date: start, amount: 4 });
+}
+
 export default new Event({
 	nameUnique: EventNameUnique.SkyFest2024,
 	start: skyDate(2_024, 7, 12, 17),
 	end: skyDate(2_024, 7, 26),
-	eventCurrencyPerDay: 4,
+	eventCurrency: {
+		amount: eventCurrencyAmount,
+	},
 	offer: [
 		{
 			name: "SkyFest Star Jar",

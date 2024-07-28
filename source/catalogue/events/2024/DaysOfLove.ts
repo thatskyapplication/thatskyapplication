@@ -1,4 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
+import { CDN_BUCKET } from "../../../Utility/Constants.js";
 import { EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
@@ -8,12 +9,27 @@ import {
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../Utility/emojis.js";
 
+const eventCurrencyAmount = [];
+
+for (
+	let start = skyDate(2_024, 2, 12), end = skyDate(2_024, 2, 25);
+	start <= end;
+	start = start.plus({ days: 1 })
+) {
+	eventCurrencyAmount.push({
+		date: start,
+		amount: 5,
+		infographicURL: String(new URL("events/2024/days_of_love/event_currency.webp", CDN_BUCKET)),
+	});
+}
+
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfLove2024,
 	start: skyDate(2_024, 2, 12),
 	end: skyDate(2_024, 2, 25),
-	eventCurrencyInfographicURL: true,
-	eventCurrencyPerDay: 5,
+	eventCurrency: {
+		amount: eventCurrencyAmount,
+	},
 	offer: [
 		{
 			name: "Prop",

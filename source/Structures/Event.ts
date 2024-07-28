@@ -35,21 +35,9 @@ interface EventData {
 	 */
 	end: DateTime;
 	/**
-	 * The date at which event currency is no longer available.
-	 *
-	 * @remarks The end date is inclusive.
+	 * Data related to event currency.
 	 */
-	eventCurrencyEnd?: DateTime;
-	/**
-	 * Whether this event has an infographic URL regarding event currency.
-	 *
-	 * @remarks If the infographic needs to change over time, an array may be provided.
-	 */
-	eventCurrencyInfographicURL?: boolean | readonly EventDataURL[];
-	/**
-	 * The amount of event currency available per day.
-	 */
-	eventCurrencyPerDay?: number;
+	eventCurrency?: EventCurrencyData;
 	/**
 	 * What the event offers.
 	 */
@@ -60,9 +48,46 @@ interface EventData {
 	offerInfographicURL?: boolean;
 }
 
-interface EventDataURL {
+interface EventCurrencyData {
+	amount: readonly EventCurrencyAmountData[];
+	pool?: readonly EventCurrencyPoolData[];
+	end?: DateTime;
+}
+
+interface EventCurrencyAmountData {
 	date: DateTime;
-	url: string;
+	amount: number;
+	infographicURL?: string;
+}
+
+interface EventCurrencyPoolData {
+	start: DateTime;
+	end: DateTime;
+	amount: number;
+}
+
+interface EventCurrency {
+	/**
+	 * The emoji representing the event currency.
+	 *
+	 * @remarks This is `null` for events that do not (yet) have an event currency emoji.
+	 */
+	emoji: EventEmojis | null;
+	amount: readonly EventCurrencyAmount[];
+	pool?: readonly EventCurrencyPool[];
+	end: DateTime;
+}
+
+interface EventCurrencyAmount {
+	date: DateTime;
+	amount: number;
+	infographicURL: string | null;
+}
+
+interface EventCurrencyPool {
+	start: DateTime;
+	end: DateTime;
+	amount: number;
 }
 
 export class Event {
@@ -74,18 +99,7 @@ export class Event {
 
 	public readonly end: DateTime;
 
-	public readonly eventCurrencyEnd: DateTime;
-
-	public readonly eventCurrencyInfographicURL: string | readonly EventDataURL[] | null;
-
-	public readonly eventCurrencyPerDay: number | null;
-
-	/**
-	 * The emoji representing the event currency.
-	 *
-	 * @remarks This is `null` for events that do not (yet) have an event currency emoji.
-	 */
-	public readonly eventCurrencyEmoji: EventEmojis | null;
+	public readonly eventCurrency: EventCurrency | null;
 
 	public readonly offer: readonly Item[];
 
@@ -100,21 +114,19 @@ export class Event {
 		this.nameUnique = data.nameUnique;
 		this.start = data.start;
 		this.end = data.end;
-		this.eventCurrencyEnd = data.eventCurrencyEnd ?? data.end;
 
-		this.eventCurrencyInfographicURL = Array.isArray(data.eventCurrencyInfographicURL)
-			? data.eventCurrencyInfographicURL
-			: data.eventCurrencyInfographicURL
-				? String(
-						new URL(
-							`events/${this.start.year}/${snakeCaseName(this.name)}/event_currency.webp`,
-							CDN_URL,
-						),
-					)
-				: null;
+		this.eventCurrency = data.eventCurrency
+			? {
+					...data.eventCurrency,
+					amount: data.eventCurrency.amount.map((amount) => ({
+						...amount,
+						infographicURL: amount.infographicURL ?? null,
+					})),
+					emoji: EventNameToEventCurrencyEmoji[this.name],
+					end: data.eventCurrency.end ?? data.end,
+				}
+			: null;
 
-		this.eventCurrencyPerDay = data.eventCurrencyPerDay ?? null;
-		this.eventCurrencyEmoji = EventNameToEventCurrencyEmoji[this.name];
 		this.offer = data.offer ? resolveOffer(data.offer, { eventName: this.name }) : [];
 		this.maximumItemsBit = data.offer ? this.resolveMaxItemsBit(data.offer) : null;
 
@@ -157,11 +169,11 @@ export class Event {
 	}
 
 	public resolveInfographicURL(date: DateTime): string | null {
-		const { eventCurrencyInfographicURL } = this;
-
-		return Array.isArray(eventCurrencyInfographicURL)
-			? eventCurrencyInfographicURL.findLast((url) => date >= url.date)?.url ?? null
-			: eventCurrencyInfographicURL;
+		return (
+			this.eventCurrency?.amount.find(
+				(amount) => date.startOf("day") === amount.date.startOf("day"),
+			)?.infographicURL ?? null
+		);
 	}
 
 	public rotation(/* date: DateTime */) {

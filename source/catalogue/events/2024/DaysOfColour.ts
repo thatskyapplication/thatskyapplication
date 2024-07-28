@@ -8,11 +8,23 @@ import {
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../Utility/emojis.js";
 
+const eventCurrencyAmount = [];
+
+for (
+	let start = skyDate(2024, 6, 24), end = skyDate(2_024, 7, 7);
+	start <= end;
+	start = start.plus({ days: 1 })
+) {
+	eventCurrencyAmount.push({ date: start, amount: 5 });
+}
+
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfColour2024,
 	start: skyDate(2_024, 6, 24),
 	end: skyDate(2_024, 7, 7),
-	eventCurrencyPerDay: 5,
+	eventCurrency: {
+		amount: eventCurrencyAmount,
+	},
 	offer: [
 		{
 			name: "Dark Rainbow Mask",

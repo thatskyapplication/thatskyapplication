@@ -3,11 +3,23 @@ import { EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import { CAPE_EMOJIS, HAIR_EMOJIS, MASK_EMOJIS, NECKLACE_EMOJIS } from "../../../Utility/emojis.js";
 
+const eventCurrencyAmount = [];
+
+for (
+	let start = skyDate(2024, 5, 27), end = skyDate(2024, 6, 16);
+	start <= end;
+	start = start.plus({ days: 1 })
+) {
+	eventCurrencyAmount.push({ date: start, amount: 4 });
+}
+
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfNature2024,
 	start: skyDate(2_024, 5, 27),
 	end: skyDate(2_024, 6, 16),
-	eventCurrencyPerDay: 4,
+	eventCurrency: {
+		amount: eventCurrencyAmount,
+	},
 	offer: [
 		{ name: "Ocean Mask", bit: 1 << 0, cost: { eventCurrency: 16 }, emoji: MASK_EMOJIS.Mask91 },
 		{

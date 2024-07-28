@@ -304,6 +304,7 @@ export const EVENT_EMOJIS = {
 	SkyXCinnamorollPopUpCafe: { name: "sky_x_cinnamoroll_pop_up_cafe", id: "1233467708515942450" },
 	Nature: { name: "nature", id: "1244554648350883861" },
 	SkyFest: { name: "sky_fest", id: "1260965942834233344" },
+	TournamentOfTriumph: { name: "tournament_of_triumph", id: "1267059740282851372" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type EventEmojis = (typeof EVENT_EMOJIS)[keyof typeof EVENT_EMOJIS];
@@ -1912,6 +1913,10 @@ export const HAIR_EMOJIS = {
 	 * The Pianist's Beginnings.
 	 */
 	Hair147: { name: "hair", id: "1262151312351563826" },
+	/**
+	 * Tournament Curls.
+	 */
+	Hair148: { name: "hair", id: "1267227503529824277" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -2820,6 +2825,10 @@ export const HELD_PROPS_EMOJIS = {
 	 * The Musicians' Legacy.
 	 */
 	HeldProp44: { name: "held_prop", id: "1262160682103865485" },
+	/**
+	 * Tournament Torch.
+	 */
+	HeldProp45: { name: "held_prop", id: "1267228089604378696" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HeldPropsEmojis = (typeof HELD_PROPS_EMOJIS)[keyof typeof HELD_PROPS_EMOJIS];

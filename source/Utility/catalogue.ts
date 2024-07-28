@@ -381,7 +381,7 @@ export const EventNameToEventCurrencyEmoji = {
 	[EventName.SpringCamping]: null,
 	[EventName.SkyXCinnamorollPopUpCafe]: EVENT_EMOJIS.SkyXCinnamorollPopUpCafe,
 	[EventName.SkyFest]: EVENT_EMOJIS.SkyFest,
-	[EventName.TournamentOfTriumph]: null,
+	[EventName.TournamentOfTriumph]: EVENT_EMOJIS.TournamentOfTriumph,
 } as const satisfies Readonly<Record<EventName, EventEmojis | null>>;
 
 export function snakeCaseName(name: string) {

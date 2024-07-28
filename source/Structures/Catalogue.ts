@@ -2259,9 +2259,10 @@ export class Catalogue {
 							.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${event.nameUnique}`)
 							.setStyle(ButtonStyle.Success);
 
-						if (event.eventCurrencyEmoji) {
-							button.setEmoji(event.eventCurrencyEmoji);
+						if (event.eventCurrency?.emoji) {
+							button.setEmoji(event.eventCurrency.emoji);
 						}
+
 						buttons.push(button);
 						return buttons;
 					}, []);
@@ -2840,8 +2841,8 @@ export class Catalogue {
 				)
 				.setValue(nameUnique);
 
-			if (event.eventCurrencyEmoji) {
-				stringSelectMenuOptionBuilder.setEmoji(event.eventCurrencyEmoji);
+			if (event.eventCurrency?.emoji) {
+				stringSelectMenuOptionBuilder.setEmoji(event.eventCurrency.emoji);
 			}
 
 			return stringSelectMenuOptionBuilder;
@@ -3173,16 +3174,13 @@ export class Catalogue {
 		}
 
 		const { locale } = interaction;
-
-		const { name, nameUnique, start, eventCurrencyEmoji, offer, offerInfographicURL, wikiURL } =
-			event;
-
+		const { name, nameUnique, start, eventCurrency, offer, offerInfographicURL, wikiURL } = event;
 		const bit = this[SpiritEventNameToCatalogueName[nameUnique]];
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
 			.setTitle(
-				`${eventCurrencyEmoji ? formatEmoji(eventCurrencyEmoji) : ""}${t(`events.${name}`, {
+				`${eventCurrency?.emoji ? formatEmoji(eventCurrency.emoji) : ""}${t(`events.${name}`, {
 					lng: locale,
 					ns: "general",
 				})}`,

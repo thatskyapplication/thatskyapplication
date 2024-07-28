@@ -282,12 +282,15 @@ export default class DailyGuidesDistribution {
 		const eventEndText = skyNotEndedEvents(date).map((event) => event.daysText(date));
 		const event0 = events[0];
 
-		const iconURL = event0?.eventCurrencyEmoji
-			? formatEmojiURL(event0.eventCurrencyEmoji.id)
+		const iconURL = event0?.eventCurrency?.emoji
+			? formatEmojiURL(event0.eventCurrency?.emoji.id)
 			: null;
 
 		const currentEventsWithEventCurrency = events.filter(
-			(event) => date <= event.eventCurrencyEnd && event.eventCurrencyInfographicURL,
+			(event) =>
+				event.eventCurrency &&
+				date <= event.eventCurrency.end &&
+				event.resolveInfographicURL(date) !== null,
 		);
 
 		const eventCurrency =
@@ -297,7 +300,7 @@ export default class DailyGuidesDistribution {
 						value: currentEventsWithEventCurrency
 							.map((event) =>
 								hyperlink(
-									`${event.eventCurrencyEmoji ? formatEmoji(event.eventCurrencyEmoji) : ""}${t(
+									`${event.eventCurrency?.emoji ? formatEmoji(event.eventCurrency.emoji) : ""}${t(
 										"view",
 										{
 											lng: locale,
