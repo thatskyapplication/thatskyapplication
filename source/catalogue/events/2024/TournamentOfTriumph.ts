@@ -1,7 +1,12 @@
 import { Event } from "../../../Structures/Event.js";
 import { EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
-import { HAIR_ACCESSORY_EMOJIS, HAIR_EMOJIS, HELD_PROPS_EMOJIS } from "../../../Utility/emojis.js";
+import {
+	HAIR_ACCESSORY_EMOJIS,
+	HAIR_EMOJIS,
+	HELD_PROPS_EMOJIS,
+	OUTFIT_EMOJIS,
+} from "../../../Utility/emojis.js";
 
 const eventCurrencyAmount = [];
 
@@ -57,6 +62,7 @@ export default new Event({
 			name: "Tournament Tunic",
 			bit: 1 << 3,
 			cost: { money: 9.99 },
+			emoji: OUTFIT_EMOJIS.Outfit64,
 		},
 	],
 });

@@ -565,6 +565,10 @@ export const OUTFIT_EMOJIS = {
 	 * The Pianist's Flourishing.
 	 */
 	Outfit63: { name: "outfit", id: "1262166417827041401" },
+	/**
+	 * Tournament Tunic.
+	 */
+	Outfit64: { name: "outfit", id: "1267397524365381673" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
