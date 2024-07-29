@@ -2097,6 +2097,10 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 * SkyFest Oreo Headband.
 	 */
 	HairAccessory43: { name: "hair_accessory", id: "1261197808694857738" },
+	/**
+	 * Tournament Golden Garland.
+	 */
+	HairAccessory44: { name: "hair_accessory", id: "1267396930909114439" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];

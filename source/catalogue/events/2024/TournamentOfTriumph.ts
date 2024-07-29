@@ -1,7 +1,7 @@
 import { Event } from "../../../Structures/Event.js";
 import { EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
-import { HAIR_EMOJIS, HELD_PROPS_EMOJIS } from "../../../Utility/emojis.js";
+import { HAIR_ACCESSORY_EMOJIS, HAIR_EMOJIS, HELD_PROPS_EMOJIS } from "../../../Utility/emojis.js";
 
 const eventCurrencyAmount = [];
 
@@ -51,6 +51,7 @@ export default new Event({
 			name: "Tournament Golden Garland",
 			bit: 1 << 2,
 			cost: { money: 4.99 },
+			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory44,
 		},
 		{
 			name: "Tournament Tunic",
