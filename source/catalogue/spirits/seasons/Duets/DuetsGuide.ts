@@ -36,6 +36,8 @@ export default new GuideSpirit({
 				cost: { seasonalHearts: 2 },
 				emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp72,
 			},
+			{ name: "Quest 2", bit: 1 << 6, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart", bit: 1 << 7, emoji: MISCELLANEOUS_EMOJIS.Heart },
 		],
 	},
 });
