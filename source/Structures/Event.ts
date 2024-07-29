@@ -157,7 +157,7 @@ export class Event {
 				: `${name} ended ${Math.abs(daysLeft)} days ago.`;
 		}
 
-		if (daysUntilStart >= 0) {
+		if (daysUntilStart > 0) {
 			return daysUntilStart === 0
 				? `${name} starts today.`
 				: daysUntilStart === 1
