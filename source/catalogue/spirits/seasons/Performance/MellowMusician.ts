@@ -52,6 +52,30 @@ export default new SeasonalSpirit({
 				emoji: SEASON_EMOJIS.PerformanceHeart,
 			},
 		],
+		current: [
+			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
+			{ name: `${emote} 2`, bit: 1 << 1, cost: { hearts: 4 }, emoji: emoteEmoji },
+			{ name: "Blessing 1", bit: 1 << 3, cost: { candles: 5 }, emoji: blessing3 },
+			{ name: "Mask", bit: 1 << 2, cost: { candles: 32 }, emoji: maskEmoji },
+			{
+				name: "Heart",
+				bit: 1 << 12,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Wing buff",
+				bit: 1 << 13,
+				cost: { ascendedCandles: 2 },
+				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+			},
+			{ name: `${emote} 3`, bit: 1 << 6, cost: { hearts: 3 }, emoji: emoteEmoji },
+			{ name: `${emote} 4`, bit: 1 << 7, cost: { hearts: 6 }, emoji: emoteEmoji },
+			{ name: "Cape", bit: 1 << 5, cost: { candles: 70 }, emoji: capeEmoji },
+			{ name: "Blessing 2", bit: 1 << 4, cost: { candles: 5 }, emoji: blessing3 },
+			{ name: "Hair", bit: 1 << 10, cost: { candles: 42 }, emoji: hairEmoji },
+			{ name: "Electric guitar", bit: 1 << 9, cost: { candles: 80 }, emoji: heldProp },
+		],
 	},
 	visits: {
 		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(
