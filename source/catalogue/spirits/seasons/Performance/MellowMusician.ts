@@ -31,7 +31,6 @@ export default new SeasonalSpirit({
 	emote,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
 			{ name: `${emote} 2`, bit: 1 << 1, emoji: emoteEmoji },
