@@ -907,6 +907,10 @@ export const enum Cosmetic {
 	FortuneBunHair,
 	DaysOfFortuneWoolHat, // 21/02/2021 12:00.
 
+	// 12/02/2021 12:00 | Days of Love.
+	DaysOfLoveMask,
+	DaysOfLoveSeesaw, // 12/02/2021 12:00.
+
 	// TODO SECTION
 	CrabWhispererPipe, // 02/09/2021
 	PlayfightingHerbalistOrb, // 28/10/2021
