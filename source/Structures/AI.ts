@@ -80,6 +80,10 @@ The frequency at which I will respond may be configured. The higher the frequenc
 
 You can disable the frequency to turn this feature off and I will no longer sporadically reply.` as const;
 
+const AI_FREQUENCY_DESCRIPTION_WITHOUT_MONETISATION = `I can sporadically respond to a message and spice up your day! I can choose to respond in certain frequencies too!
+
+To use this feature though, it must be purchased.` as const;
+
 export default class AI {
 	public static readonly cache = new Collection<Snowflake, AI>();
 
@@ -224,7 +228,7 @@ export default class AI {
 					embeds: [
 						new EmbedBuilder()
 							.setColor(DEFAULT_EMBED_COLOUR)
-							.setDescription("This feature requires a server upgrade.")
+							.setDescription(AI_FREQUENCY_DESCRIPTION_WITHOUT_MONETISATION)
 							.setTitle(interaction.guild.name),
 					],
 				};
