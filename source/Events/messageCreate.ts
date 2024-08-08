@@ -2,6 +2,7 @@ import { Events, PermissionFlagsBits } from "discord.js";
 import AI from "../Structures/AI.js";
 import Configuration from "../Structures/Configuration.js";
 import DailyGuides from "../Structures/DailyGuides.js";
+import { APPLICATION_ID } from "../Utility/Constants.js";
 import type { Event } from "./index.js";
 
 const name = Events.MessageCreate;
@@ -28,7 +29,6 @@ export default {
 							: PermissionFlagsBits.SendMessages),
 				) ||
 			message.content.length <= 5 ||
-			message.mentions.has(message.client.user.id, { ignoreEveryone: true, ignoreRoles: true }) ||
 			me.isCommunicationDisabled()
 		) {
 			return;
@@ -39,11 +39,10 @@ export default {
 		if (ai) {
 			const { frequency } = ai;
 
-			if (!frequency) {
-				return;
-			}
-
-			if (Math.random() < frequency) {
+			if (
+				(frequency && Math.random() < frequency) ||
+				message.mentions.has(APPLICATION_ID, { ignoreEveryone: true, ignoreRoles: true })
+			) {
 				await ai.respond(message, me);
 			}
 		}
