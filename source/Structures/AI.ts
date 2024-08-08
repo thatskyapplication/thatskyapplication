@@ -183,12 +183,12 @@ export default class AI {
 								.setMaxValues(1)
 								.setMinValues(1)
 								.setOptions(
-									AI_FREQUENCY_VALUES.map((aIFrequencyValue) => {
-										return new StringSelectMenuOptionBuilder()
+									AI_FREQUENCY_VALUES.map((aIFrequencyValue) =>
+										new StringSelectMenuOptionBuilder()
 											.setDefault(aIFrequencyValue === ai?.frequencyType)
 											.setLabel(AIFrequencyTypeToString[aIFrequencyValue])
-											.setValue(String(aIFrequencyValue));
-									}),
+											.setValue(String(aIFrequencyValue)),
+									),
 								)
 								.setPlaceholder("Set the frequency."),
 						),
