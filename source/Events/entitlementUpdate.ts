@@ -1,7 +1,7 @@
 import { Events } from "discord.js";
+import AI from "../Structures/AI.js";
 import { SERVER_UPGRADE_SKU_ID } from "../Utility/Constants.js";
 import type { Event } from "./index.js";
-import AI from "../Structures/AI.js";
 
 const name = Events.EntitlementUpdate;
 
