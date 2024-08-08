@@ -173,9 +173,8 @@ export default class AI {
 		interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
 		ai?: AI,
 	) {
-		const entitlement = await resolveEntitlement(
-			interaction.client.application.entitlements,
-			interaction.guildId,
+		const entitlement = interaction.entitlements.find(
+			(entitlement) => entitlement.skuId === SERVER_UPGRADE_SKU_ID && entitlement.isActive(),
 		);
 
 		if (!entitlement) {
