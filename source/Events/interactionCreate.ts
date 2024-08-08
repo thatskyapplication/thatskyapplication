@@ -121,7 +121,11 @@ async function recoverInteractionError(interaction: Interaction, error: unknown)
 	pino.error(error, errorTypeString);
 
 	// We cannot respond to this.
-	if (error instanceof DiscordAPIError && error.code === RESTJSONErrorCodes.UnknownInteraction) {
+	if (
+		error instanceof DiscordAPIError &&
+		(error.code === RESTJSONErrorCodes.UnknownInteraction ||
+			error.code === RESTJSONErrorCodes.CannotSendAnEmptyMessage)
+	) {
 		return;
 	}
 
