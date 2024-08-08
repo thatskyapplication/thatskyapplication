@@ -1,6 +1,6 @@
 import process from "node:process";
-import { type Collection, Events, type Guild, type Snowflake } from "discord.js";
-import AI, { type AIPacket } from "../Structures/AI.js";
+import { type Client, type Collection, Events, type Guild, type Snowflake } from "discord.js";
+import AI from "../Structures/AI.js";
 import Configuration, { type ConfigurationPacket } from "../Structures/Configuration.js";
 import DailyGuides, { type DailyGuidesPacket } from "../Structures/DailyGuides.js";
 import DailyGuidesDistribution, {
@@ -15,10 +15,10 @@ import type { Event } from "./index.js";
 const name = Events.ClientReady;
 const guildIds = new Set<Snowflake>();
 
-async function collectFromDatabase(cache: Collection<Snowflake, Guild>) {
+async function collectFromDatabase(client: Client<true>, cache: Collection<Snowflake, Guild>) {
 	try {
 		await collectConfigurations();
-		await collectAI(cache);
+		await AI.populateCache(client);
 		await collectNotifications(cache);
 		await collectDailyGuides();
 	} catch (error) {
@@ -30,18 +30,6 @@ async function collectFromDatabase(cache: Collection<Snowflake, Guild>) {
 async function collectConfigurations() {
 	const [configurationPacket] = await pg<ConfigurationPacket>(Table.Configuration);
 	Configuration.patch(configurationPacket!);
-}
-
-async function collectAI(cache: Collection<Snowflake, Guild>) {
-	for (const aIPacket of await pg<AIPacket>(Table.AI)) {
-		const ai = new AI(aIPacket);
-
-		if (cache.has(ai.guildId)) {
-			AI.cache.set(ai.guildId, ai);
-		} else {
-			guildIds.add(ai.guildId);
-		}
-	}
 }
 
 async function collectNotifications(cache: Collection<Snowflake, Guild>) {
@@ -71,7 +59,7 @@ export default {
 	once: true,
 	async fire(client) {
 		const guildCache = client.guilds.cache;
-		await collectFromDatabase(guildCache);
+		await collectFromDatabase(client, guildCache);
 
 		// Collect guild ids from daily guides distribution table for the set.
 		for (const { guild_id } of await pg<DailyGuidesDistributionPacket>(

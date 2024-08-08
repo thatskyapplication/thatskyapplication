@@ -1,6 +1,7 @@
 import {
 	ActionRowBuilder,
 	type ChatInputCommandInteraction,
+	type Client,
 	Collection,
 	ComponentType,
 	EmbedBuilder,
@@ -81,6 +82,32 @@ export default class AI {
 	public constructor(notification: AIPacket) {
 		this.guildId = notification.guild_id;
 		this.patch(notification);
+	}
+
+	public static async populateCache(client: Client<true>) {
+		// Clear the cache. Just in case.
+		this.cache.clear();
+
+		// Fetch the AI packets.
+		const packets = await pg<AIPacket>(Table.AI);
+
+		// Fetch entitlements for the server upgrade SKU.
+		const entitlements = await client.application.entitlements.fetch({
+			excludeEnded: true,
+			limit: 100,
+			skus: [SERVER_UPGRADE_SKU_ID],
+		});
+
+		// Filter the packets to only include guilds with the SKU.
+		const filteredPackets = packets.filter((packet) =>
+			entitlements.some((entitlement) => entitlement.guildId === packet.guild_id),
+		);
+
+		// Populate the cache.
+		for (const packet of filteredPackets) {
+			const ai = new this(packet);
+			this.cache.set(ai.guildId, ai);
+		}
 	}
 
 	private patch(data: AIPatchData) {
