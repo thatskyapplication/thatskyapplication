@@ -165,16 +165,25 @@ export default class AI {
 	) {
 		const entitlementManager = interaction.client.application.entitlements;
 
-		return entitlementManager.cache.find(
+		let hasEntitlement = entitlementManager.cache.some(
 			({ deleted, guildId, skuId }) =>
 				!deleted && guildId === interaction.guildId && skuId === SERVER_UPGRADE_SKU_ID,
-		) ||
-			(
+		);
+
+		if (!hasEntitlement) {
+			const entitlement = (
 				await entitlementManager.fetch({
 					guild: interaction.guildId,
 					skus: [SERVER_UPGRADE_SKU_ID],
 				})
-			).size > 0
+			).first();
+
+			if (entitlement?.deleted === false) {
+				hasEntitlement = true;
+			}
+		}
+
+		return hasEntitlement
 			? {
 					components: [
 						new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
