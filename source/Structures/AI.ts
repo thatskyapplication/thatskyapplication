@@ -12,6 +12,7 @@ import {
 } from "discord.js";
 import { DEFAULT_EMBED_COLOUR, SERVER_UPGRADE_SKU_ID } from "../Utility/Constants.js";
 import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
 
 export interface AIPacket {
 	guild_id: Snowflake;
@@ -165,25 +166,23 @@ export default class AI {
 	) {
 		const entitlementManager = interaction.client.application.entitlements;
 
-		let hasEntitlement = entitlementManager.cache.some(
-			({ deleted, guildId, skuId }) =>
-				!deleted && guildId === interaction.guildId && skuId === SERVER_UPGRADE_SKU_ID,
-		);
-
-		if (!hasEntitlement) {
-			const entitlement = (
+		const entitlement =
+			entitlementManager.cache.find(
+				({ guildId, skuId }) => guildId === interaction.guildId && skuId === SERVER_UPGRADE_SKU_ID,
+			) ??
+			(
 				await entitlementManager.fetch({
 					guild: interaction.guildId,
 					skus: [SERVER_UPGRADE_SKU_ID],
 				})
 			).first();
 
-			if (entitlement?.deleted === false) {
-				hasEntitlement = true;
-			}
+		if (!entitlement) {
+			pino.error(interaction, "Cannot find the Server Upgrade entitlement.");
+			throw new Error("Cannot find the Server Upgrade entitlement.");
 		}
 
-		return hasEntitlement
+		return entitlement.isActive()
 			? {
 					components: [
 						new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
