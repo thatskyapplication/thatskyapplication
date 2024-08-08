@@ -19,6 +19,7 @@ import {
 	messageCreateResponse,
 } from "../OpenAI.js";
 import { DEFAULT_EMBED_COLOUR, SERVER_UPGRADE_SKU_ID } from "../Utility/Constants.js";
+import { resolveEntitlement } from "../Utility/functions.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 
@@ -172,18 +173,10 @@ export default class AI {
 		interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
 		ai?: AI,
 	) {
-		const entitlementManager = interaction.client.application.entitlements;
-
-		const entitlement =
-			entitlementManager.cache.find(
-				({ guildId, skuId }) => guildId === interaction.guildId && skuId === SERVER_UPGRADE_SKU_ID,
-			) ??
-			(
-				await entitlementManager.fetch({
-					guild: interaction.guildId,
-					skus: [SERVER_UPGRADE_SKU_ID],
-				})
-			).first();
+		const entitlement = await resolveEntitlement(
+			interaction.client.application.entitlements,
+			interaction.guildId,
+		);
 
 		if (!entitlement) {
 			pino.error(interaction, "Cannot find the Server Upgrade entitlement.");
@@ -239,13 +232,25 @@ export default class AI {
 	}
 
 	public async respond(message: Message<true>, me: GuildMember) {
-		await (Math.random() < 0.1
-			? Math.random() < 0.5 && me.permissions.has(PermissionFlagsBits.AddReactions)
-				? messageCreateReactionResponse(message)
-				: messageCreateEmojiResponse(message)
-			: message.system
-				? undefined
-				: messageCreateResponse(message));
+		const entitlement = await resolveEntitlement(
+			message.client.application.entitlements,
+			message.guildId,
+		);
+
+		if (!entitlement) {
+			pino.error(message, "Cannot find the Server Upgrade entitlement.");
+			throw new Error("Cannot find the Server Upgrade entitlement.");
+		}
+
+		if (entitlement.isActive()) {
+			await (Math.random() < 0.1
+				? Math.random() < 0.5 && me.permissions.has(PermissionFlagsBits.AddReactions)
+					? messageCreateReactionResponse(message)
+					: messageCreateEmojiResponse(message)
+				: message.system
+					? undefined
+					: messageCreateResponse(message));
+		}
 	}
 
 	public static async delete(guildId: Snowflake) {
