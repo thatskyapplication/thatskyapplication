@@ -249,6 +249,9 @@ export default class AI {
 				: message.system
 					? undefined
 					: messageCreateResponse(message));
+		} else {
+			// The entitlement is not active. Delete it, if it is still around.
+			await AI.delete(message.guildId);
 		}
 	}
 
