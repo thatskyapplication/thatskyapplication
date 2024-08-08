@@ -41,7 +41,7 @@ function systemPromptContext(message: Message<true>) {
 	const next = skyUpcomingSeason(now);
 
 	if (next) {
-		seasonText += `${next.name} has not started yet. It starts on ${next.start.toISO()}.`;
+		seasonText += `${next.name} has not started yet. It starts on ${next.start.toISO()} and ends on ${next.end.toISO()}.`;
 	}
 
 	const eventText = [];
@@ -50,13 +50,13 @@ function systemPromptContext(message: Message<true>) {
 
 	if (events.length > 0) {
 		eventText.push(
-			`- The current events in Sky are: ${JSON.stringify(events.map((event) => event.name))}.`,
+			`- The current events in Sky are: ${JSON.stringify(events.map((event) => ({ name: event.name, start: event.start.toISO(), end: event.end.toISO() })))}.`,
 		);
 	}
 
 	if (upcoming.length > 0) {
 		eventText.push(
-			`- The upcoming events in Sky are: ${JSON.stringify(upcoming.map((event) => ({ name: event.name, start: event.start.toISO() })))}.`,
+			`- The upcoming events in Sky are: ${JSON.stringify(upcoming.map((event) => ({ name: event.name, start: event.start.toISO(), end: event.end.toISO() })))}.`,
 		);
 	}
 
