@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
+  '@discordjs/builders@1.8.2':
+    hash: dsav45dcoxqf5sptrb6hfgutgu
+    path: patches/@discordjs__builders@1.8.2.patch
   discord.js@14.15.3:
     hash: g564ws5fi2jt7wrinwpo5g5dxa
     path: patches/discord.js@14.15.3.patch
@@ -2187,7 +2190,7 @@ snapshots:
   '@biomejs/cli-win32-x64@1.8.2':
     optional: true
 
-  '@discordjs/builders@1.8.2':
+  '@discordjs/builders@1.8.2(patch_hash=dsav45dcoxqf5sptrb6hfgutgu)':
     dependencies:
       '@discordjs/formatters': 0.4.0
       '@discordjs/util': 1.1.0
@@ -2942,7 +2945,7 @@ snapshots:
 
   discord.js@14.15.3(patch_hash=g564ws5fi2jt7wrinwpo5g5dxa):
     dependencies:
-      '@discordjs/builders': 1.8.2
+      '@discordjs/builders': 1.8.2(patch_hash=dsav45dcoxqf5sptrb6hfgutgu)
       '@discordjs/collection': 1.5.3
       '@discordjs/formatters': 0.4.0
       '@discordjs/rest': 2.3.0

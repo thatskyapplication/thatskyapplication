@@ -37,6 +37,9 @@ export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const APPLICATION_INVITE_URL = String(new URL("invite", WEBSITE_URL));
 export const SUPPORT_SERVER_INVITE_URL = String(new URL("support", WEBSITE_URL));
 
+// SKU ids.
+export const SERVER_UPGRADE_SKU_ID = "1270871254316089515" as const;
+
 // Error response.
 export const ERROR_RESPONSE = {
 	content: `Oh no, that wasn't supposed to happen!\n\nFeel free to join our ${hyperlink(

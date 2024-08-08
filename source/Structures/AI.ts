@@ -1,14 +1,15 @@
 import {
 	ActionRowBuilder,
+	type ChatInputCommandInteraction,
 	Collection,
+	ComponentType,
 	EmbedBuilder,
-	type Guild,
 	type Snowflake,
 	StringSelectMenuBuilder,
 	type StringSelectMenuInteraction,
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
-import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR, SERVER_UPGRADE_SKU_ID } from "../Utility/Constants.js";
 import pg, { Table } from "../pg.js";
 
 export interface AIPacket {
@@ -124,39 +125,68 @@ export default class AI {
 
 		const ai = await this.upsert(interaction.guildId, { frequency_type: frequencyType });
 
+		// @ts-expect-error discord.js update required.
 		await interaction.update({
-			...this.response(interaction.guild, ai),
+			...(await this.response(interaction, ai)),
 			content: `Frequency set to \`${AIFrequencyTypeToString[frequencyType]}\`.`,
 		});
 	}
 
-	public static response({ name }: Guild, ai?: AI) {
-		return {
-			components: [
-				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId(AI_FREQUENCY_SELECT_MENU_CUSTOM_ID)
-						.setMaxValues(1)
-						.setMinValues(1)
-						.setOptions(
-							AI_FREQUENCY_VALUES.map((aIFrequencyValue) => {
-								return new StringSelectMenuOptionBuilder()
-									.setDefault(aIFrequencyValue === ai?.frequencyType)
-									.setLabel(AIFrequencyTypeToString[aIFrequencyValue])
-									.setValue(String(aIFrequencyValue));
-							}),
-						)
-						.setPlaceholder("Set the frequency."),
-				),
-			],
-			embeds: [
-				new EmbedBuilder()
-					.setColor(DEFAULT_EMBED_COLOUR)
-					.setDescription(AI_FREQUENCY_DESCRIPTION)
-					.setTitle(name),
-			],
-			ephemeral: true,
-		};
+	public static async response(
+		interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
+		ai?: AI,
+	) {
+		const entitlements = await interaction.client.application.entitlements.fetch({
+			guild: interaction.guildId,
+			skus: [SERVER_UPGRADE_SKU_ID],
+		});
+
+		return entitlements.first()
+			? {
+					components: [
+						new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+							new StringSelectMenuBuilder()
+								.setCustomId(AI_FREQUENCY_SELECT_MENU_CUSTOM_ID)
+								.setMaxValues(1)
+								.setMinValues(1)
+								.setOptions(
+									AI_FREQUENCY_VALUES.map((aIFrequencyValue) => {
+										return new StringSelectMenuOptionBuilder()
+											.setDefault(aIFrequencyValue === ai?.frequencyType)
+											.setLabel(AIFrequencyTypeToString[aIFrequencyValue])
+											.setValue(String(aIFrequencyValue));
+									}),
+								)
+								.setPlaceholder("Set the frequency."),
+						),
+					],
+					embeds: [
+						new EmbedBuilder()
+							.setColor(DEFAULT_EMBED_COLOUR)
+							.setDescription(AI_FREQUENCY_DESCRIPTION)
+							.setTitle(interaction.guild.name),
+					],
+				}
+			: {
+					components: [
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.Button,
+									sku_id: SERVER_UPGRADE_SKU_ID,
+									style: 6,
+								},
+							],
+						},
+					],
+					embeds: [
+						new EmbedBuilder()
+							.setColor(DEFAULT_EMBED_COLOUR)
+							.setDescription("This feature requires a server upgrade.")
+							.setTitle(interaction.guild.name),
+					],
+				};
 	}
 
 	public static async delete(guildId: Snowflake) {

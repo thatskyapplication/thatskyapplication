@@ -38,7 +38,8 @@
 	"packageManager": "pnpm@9.1.4",
 	"pnpm": {
 		"patchedDependencies": {
-			"discord.js@14.15.3": "patches/discord.js@14.15.3.patch"
+			"discord.js@14.15.3": "patches/discord.js@14.15.3.patch",
+			"@discordjs/builders@1.8.2": "patches/@discordjs__builders@1.8.2.patch"
 		}
 	}
 }
