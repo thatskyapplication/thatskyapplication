@@ -5,11 +5,19 @@ import {
 	Collection,
 	ComponentType,
 	EmbedBuilder,
+	type GuildMember,
+	type Message,
+	PermissionFlagsBits,
 	type Snowflake,
 	StringSelectMenuBuilder,
 	type StringSelectMenuInteraction,
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
+import {
+	messageCreateEmojiResponse,
+	messageCreateReactionResponse,
+	messageCreateResponse,
+} from "../OpenAI.js";
 import { DEFAULT_EMBED_COLOUR, SERVER_UPGRADE_SKU_ID } from "../Utility/Constants.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
@@ -228,6 +236,16 @@ export default class AI {
 							.setTitle(interaction.guild.name),
 					],
 				};
+	}
+
+	public async respond(message: Message<true>, me: GuildMember) {
+		await (Math.random() < 0.1
+			? Math.random() < 0.5 && me.permissions.has(PermissionFlagsBits.AddReactions)
+				? messageCreateReactionResponse(message)
+				: messageCreateEmojiResponse(message)
+			: message.system
+				? undefined
+				: messageCreateResponse(message));
 	}
 
 	public static async delete(guildId: Snowflake) {

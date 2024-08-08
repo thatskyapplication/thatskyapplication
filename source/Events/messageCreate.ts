@@ -1,9 +1,4 @@
 import { Events, PermissionFlagsBits } from "discord.js";
-import {
-	messageCreateEmojiResponse,
-	messageCreateReactionResponse,
-	messageCreateResponse,
-} from "../OpenAI.js";
 import AI from "../Structures/AI.js";
 import Configuration from "../Structures/Configuration.js";
 import DailyGuides from "../Structures/DailyGuides.js";
@@ -39,20 +34,18 @@ export default {
 			return;
 		}
 
-		const frequency = AI.cache.get(message.guildId)?.frequency;
+		const ai = AI.cache.get(message.guildId);
 
-		if (!frequency) {
-			return;
-		}
+		if (ai) {
+			const { frequency } = ai;
 
-		if (Math.random() < frequency) {
-			void (Math.random() < 0.1
-				? Math.random() < 0.5 && me.permissions.has(PermissionFlagsBits.AddReactions)
-					? messageCreateReactionResponse(message)
-					: messageCreateEmojiResponse(message)
-				: message.system
-					? undefined
-					: messageCreateResponse(message));
+			if (!frequency) {
+				return;
+			}
+
+			if (Math.random() < frequency) {
+				await ai.respond(message, me);
+			}
 		}
 	},
 } satisfies Event<typeof name>;
