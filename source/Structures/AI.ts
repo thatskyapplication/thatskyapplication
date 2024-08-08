@@ -163,12 +163,18 @@ export default class AI {
 		interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
 		ai?: AI,
 	) {
-		const entitlements = await interaction.client.application.entitlements.fetch({
-			guild: interaction.guildId,
-			skus: [SERVER_UPGRADE_SKU_ID],
-		});
+		const entitlementManager = interaction.client.application.entitlements;
 
-		return entitlements.first()
+		return entitlementManager.cache.find(
+			({ deleted, guildId, skuId }) =>
+				!deleted && guildId === interaction.guildId && skuId === SERVER_UPGRADE_SKU_ID,
+		) ||
+			(
+				await entitlementManager.fetch({
+					guild: interaction.guildId,
+					skus: [SERVER_UPGRADE_SKU_ID],
+				})
+			).size > 0
 			? {
 					components: [
 						new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
