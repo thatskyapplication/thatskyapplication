@@ -1,8 +1,9 @@
 import process from "node:process";
 import { clearTimeout, setTimeout } from "node:timers";
-import type { Message, User } from "discord.js";
+import { type Message, MessageFlags, type User } from "discord.js";
 import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
+import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { SEASON_NAME_VALUES } from "./Utility/catalogue.js";
 import { skyNow } from "./Utility/dates.js";
 import { shardEruption } from "./Utility/shardEruption.js";
@@ -61,12 +62,6 @@ function systemPromptContext(message: Message<true>) {
 		);
 	}
 
-	const shardEruptionNow = shardEruption();
-
-	const shardEruptionText = shardEruptionNow
-		? `- The data of the shard eruption today is: ${JSON.stringify({ ...shardEruptionNow, timestamps: shardEruptionNow.timestamps.map((timestamp) => ({ start: timestamp.start.toISO(), end: timestamp.end.toISO() })) })}. Strong may be referred to as "red". When a shard eruption is strong, the currency of the reward is "ascended candles", else "pieces of light".`
-		: "- There is no shard eruption today.";
-
 	const systemPrompt = [
 		`- You are named ${message.client.user.username}`,
 		"- Responses should be no longer than a sentence.",
@@ -79,8 +74,6 @@ function systemPromptContext(message: Message<true>) {
 	if (eventText.length > 0) {
 		systemPrompt.push(...eventText);
 	}
-
-	systemPrompt.push(shardEruptionText);
 
 	systemPrompt.push(
 		`- The author of this message is: ${JSON.stringify(message.author)}`,
@@ -177,6 +170,18 @@ export async function messageCreateResponse(message: Message<true>) {
 		return;
 	}
 
+	const priorMessages: ChatCompletionMessageParam[] = [
+		{ role: "system", content: systemPromptContext(message) },
+		...messages.map(
+			(message) =>
+				({
+					content: message.content,
+					name: parseAIName(message.author),
+					role: message.author.id === message.client.user.id ? "assistant" : "user",
+				}) as const,
+		),
+	];
+
 	try {
 		const [, completion] = await Promise.all([
 			message.channel.sendTyping(),
@@ -184,29 +189,85 @@ export async function messageCreateResponse(message: Message<true>) {
 				{
 					frequency_penalty: 1,
 					max_tokens: 100,
-					messages: [
-						{ role: "system", content: systemPromptContext(message) },
-						...messages.map(
-							(message) =>
-								({
-									content: message.content,
-									name: parseAIName(message.author),
-									role: message.author.id === message.client.user.id ? "assistant" : "user",
-								}) as const,
-						),
-					],
+					messages: priorMessages,
 					model: "gpt-4o",
 					user: message.author.id,
+					tools: [
+						{
+							type: "function",
+							function: {
+								name: "shardEruption",
+								description: `The shard eruption data for today. Call this whenever the shard eruption is asked for. For example, "What's the shard eruption today?".`,
+								parameters: {
+									type: "object",
+									properties: {
+										daysOffset: {
+											type: "integer",
+											description: "Number of days offset from the current day. Defaults to 0.",
+											default: 0,
+										},
+									},
+									required: [],
+									additionalProperties: false,
+								},
+							},
+						},
+					],
 				},
 				{ signal: abortController.signal },
 			),
 		]);
 
-		await message.reply({
-			allowedMentions: { parse: ["users"], repliedUser: false },
-			content: completion.choices[0]!.message.content ?? AI_DEFAULT_RESPONSE,
-			failIfNotExists: false,
-		});
+		const response = completion.choices[0];
+
+		if (response?.finish_reason === "tool_calls") {
+			const toolCall = response.message.tool_calls![0]!;
+			const functionArguments = toolCall.function.arguments;
+			const data = JSON.parse(functionArguments);
+			const shardEruptionData = shardEruption(data.daysOffset ?? 0);
+
+			priorMessages.push(
+				{
+					role: "assistant",
+					tool_calls: [
+						{
+							type: "function",
+							id: toolCall.id,
+							function: {
+								name: "shardEruption",
+								arguments: functionArguments,
+							},
+						},
+					],
+				},
+				{
+					role: "tool",
+					content: JSON.stringify(shardEruptionData),
+					tool_call_id: toolCall.id,
+				},
+			);
+
+			const finalCompletion = await openAI.chat.completions.create(
+				{
+					model: "gpt-4o",
+					messages: priorMessages,
+				},
+				{ signal: abortController.signal },
+			);
+
+			await message.reply({
+				allowedMentions: { parse: ["users"], repliedUser: false },
+				content: finalCompletion.choices[0]!.message.content ?? AI_DEFAULT_RESPONSE,
+				failIfNotExists: false,
+				flags: MessageFlags.SuppressEmbeds,
+			});
+		} else {
+			await message.reply({
+				allowedMentions: { parse: ["users"], repliedUser: false },
+				content: completion.choices[0]!.message.content ?? AI_DEFAULT_RESPONSE,
+				failIfNotExists: false,
+			});
+		}
 	} catch (error) {
 		if (!(error instanceof APIUserAbortError)) {
 			pino.error(error, "AI error.");
