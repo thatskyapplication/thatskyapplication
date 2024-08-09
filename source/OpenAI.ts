@@ -6,6 +6,7 @@ import { APIUserAbortError } from "openai/error.mjs";
 import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { SEASON_NAME_VALUES } from "./Utility/catalogue.js";
 import { skyNow } from "./Utility/dates.js";
+import { MISCELLANEOUS_EMOJIS, formatEmoji } from "./Utility/emojis.js";
 import { shardEruption } from "./Utility/shardEruption.js";
 import { skyCurrentEvents, skyUpcomingEvents } from "./catalogue/events/index.js";
 import { skyUpcomingSeason } from "./catalogue/spirits/seasons/index.js";
@@ -68,6 +69,8 @@ function systemPromptContext(message: Message<true>) {
 		`- It is currently ${now.toISO()}.`,
 		"- Be engaging, positive, and happy.",
 		'- Refer to "Sky: Children of the Light" as Sky.',
+		`- If you mention ascended candles, use ${formatEmoji(MISCELLANEOUS_EMOJIS.AscendedCandle)}.`,
+		`- If you mention pieces of light, use ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}.`,
 		seasonText,
 	];
 
