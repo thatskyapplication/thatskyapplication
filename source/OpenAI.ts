@@ -5,6 +5,7 @@ import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
 import { SEASON_NAME_VALUES } from "./Utility/catalogue.js";
 import { skyNow } from "./Utility/dates.js";
+import { shardEruption } from "./Utility/shardEruption.js";
 import { skyCurrentEvents, skyUpcomingEvents } from "./catalogue/events/index.js";
 import { skyUpcomingSeason } from "./catalogue/spirits/seasons/index.js";
 import pino from "./pino.js";
@@ -60,6 +61,12 @@ function systemPromptContext(message: Message<true>) {
 		);
 	}
 
+	const shardEruptionNow = shardEruption();
+
+	const shardEruptionText = shardEruptionNow
+		? `- The data of the shard eruption today is: ${JSON.stringify({ ...shardEruptionNow, timestamps: shardEruptionNow.timestamps.map((timestamp) => ({ start: timestamp.start.toISO(), end: timestamp.end.toISO() })) })}. Strong may be referred to as "red". When a shard eruption is strong, the currency of the reward is "ascended candles", else "pieces of light".`
+		: "- There is no shard eruption today.";
+
 	const systemPrompt = [
 		`- You are named ${message.client.user.username}`,
 		"- Responses should be no longer than a sentence.",
@@ -72,6 +79,8 @@ function systemPromptContext(message: Message<true>) {
 	if (eventText.length > 0) {
 		systemPrompt.push(...eventText);
 	}
+
+	systemPrompt.push(shardEruptionText);
 
 	systemPrompt.push(
 		`- The author of this message is: ${JSON.stringify(message.author)}`,
