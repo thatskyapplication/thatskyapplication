@@ -6,7 +6,6 @@ import {
 	ButtonInteraction,
 	ButtonStyle,
 	type ChatInputCommandInteraction,
-	EmbedBuilder,
 	type Locale,
 	type MessageComponentInteraction,
 	PermissionFlagsBits,
@@ -16,46 +15,22 @@ import {
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
 import { DateTime } from "luxon";
-import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
+import {
+	SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS,
+	SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
+	todayEmbed,
+} from "../../Structures/ShardEruption.js";
 import { chatInputApplicationCommandMention } from "../../Utility/Utility.js";
 import { TIME_ZONE, dateRangeString, dateString, skyToday } from "../../Utility/dates.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
-import {
-	resolveShardEruptionEmoji,
-	shardEruption,
-	shardEruptionInformationString,
-	shardEruptionTimestampsString,
-} from "../../Utility/shardEruption.js";
+import { resolveShardEruptionEmoji, shardEruption } from "../../Utility/shardEruption.js";
 import type { ChatInputCommand } from "../index.js";
-
-export const SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID" as const;
-
-export const SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID =
-	"SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID" as const;
-
-export const SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID" as const;
-
-export const SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID =
-	"SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID" as const;
-
-export const SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID =
-	"SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID" as const;
-
-export const SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID =
-	"SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID" as const;
-
-export const SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID =
-	"SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID" as const;
-
-export const SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS = [
-	"SHARD_ERUPTION_BROWSE_1_SELECT_MENU_CUSTOM_ID",
-	"SHARD_ERUPTION_BROWSE_2_SELECT_MENU_CUSTOM_ID",
-	"SHARD_ERUPTION_BROWSE_3_SELECT_MENU_CUSTOM_ID",
-	"SHARD_ERUPTION_BROWSE_4_SELECT_MENU_CUSTOM_ID",
-] as const;
 
 const SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH =
 	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.length;
+
 const MAXIMUM_OPTION_NUMBER = 25 as const;
 
 function generateShardEruptionSelectMenuOptions(
@@ -178,80 +153,7 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		const { locale } = interaction;
-		const shardYesterday = shardEruption(offset - 1);
-		const shardToday = shardEruption(offset);
-		const shard = shardEruption();
-		const shardTomorrow = shardEruption(offset + 1);
-
-		const embed = new EmbedBuilder()
-			.setColor(DEFAULT_EMBED_COLOUR)
-			.setTitle(dateString(skyToday().plus({ days: offset }), locale));
-
-		const buttonYesterday = new ButtonBuilder()
-			.setCustomId(`${SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID}§${offset - 1}`)
-			.setLabel("Back")
-			.setStyle(ButtonStyle.Primary);
-
-		const button = new ButtonBuilder()
-			.setCustomId(SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID)
-			.setDisabled(offset === 0)
-			.setLabel("Today")
-			.setStyle(ButtonStyle.Success);
-
-		const buttonTomorrow = new ButtonBuilder()
-			.setCustomId(`${SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID}§${offset + 1}`)
-			.setLabel("Next")
-			.setStyle(ButtonStyle.Primary);
-
-		if (shardYesterday) {
-			buttonYesterday.setEmoji(resolveShardEruptionEmoji(shardYesterday.strong));
-		}
-
-		if (shardToday) {
-			embed
-				.setFields(
-					{
-						name: "Information",
-						value: shardEruptionInformationString(shardToday, false, locale),
-						inline: true,
-					},
-					{
-						name: "Timestamps",
-						value: shardEruptionTimestampsString(shardToday),
-						inline: true,
-					},
-				)
-				.setImage(String(shardToday.url));
-		} else {
-			embed.setDescription(
-				`There are no shard eruptions ${offset === 0 ? "today" : "on this day"}.`,
-			);
-		}
-
-		if (shard) {
-			button.setEmoji(resolveShardEruptionEmoji(shard.strong));
-		}
-
-		if (shardTomorrow) {
-			buttonTomorrow.setEmoji(resolveShardEruptionEmoji(shardTomorrow.strong));
-		}
-
-		const response = {
-			components: [
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					buttonYesterday,
-					button,
-					buttonTomorrow,
-					new ButtonBuilder()
-						.setCustomId(`${SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID}§${offset}`)
-						.setEmoji("🌐")
-						.setLabel("Browse")
-						.setStyle(ButtonStyle.Secondary),
-				),
-			],
-			embeds: [embed],
-		};
+		const response = todayEmbed(interaction.locale, offset);
 
 		if (interaction.isMessageComponent()) {
 			await interaction.update(response);

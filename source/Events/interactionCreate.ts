@@ -24,16 +24,6 @@ import {
 	HeartHistoryNavigationType,
 } from "../Commands/Fun/heart.js";
 import { DATA_DELETION_CUSTOM_ID } from "../Commands/General/data.js";
-import {
-	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS,
-	SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
-} from "../Commands/General/shard-eruption.js";
 import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../Commands/General/spirit.js";
 import COMMANDS, { resolveCommand } from "../Commands/index.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../Structures/AI.js";
@@ -83,6 +73,16 @@ import Profile, {
 	SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID,
 } from "../Structures/Profile.js";
+import {
+	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS,
+	SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
+} from "../Structures/ShardEruption.js";
 import { ERROR_RESPONSE } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
 import { isSeasonName } from "../catalogue/spirits/seasons/index.js";

@@ -24,7 +24,6 @@ export default {
 				.permissionsFor(me)
 				.has(
 					PermissionFlagsBits.ReadMessageHistory |
-						PermissionFlagsBits.UseExternalEmojis |
 						(message.channel.isThread()
 							? PermissionFlagsBits.SendMessagesInThreads
 							: PermissionFlagsBits.SendMessages),

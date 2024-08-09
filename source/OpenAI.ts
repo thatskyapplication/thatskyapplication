@@ -1,13 +1,13 @@
 import process from "node:process";
 import { clearTimeout, setTimeout } from "node:timers";
-import { type Message, MessageFlags, type User } from "discord.js";
+import type { Message, User } from "discord.js";
 import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
 import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
+import { todayEmbed } from "./Structures/ShardEruption.js";
 import { SEASON_NAME_VALUES } from "./Utility/catalogue.js";
 import { skyNow } from "./Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "./Utility/emojis.js";
-import { shardEruption } from "./Utility/shardEruption.js";
 import { skyCurrentEvents, skyUpcomingEvents } from "./catalogue/events/index.js";
 import { skyUpcomingSeason } from "./catalogue/spirits/seasons/index.js";
 import pino from "./pino.js";
@@ -227,51 +227,10 @@ export async function messageCreateResponse(message: Message<true>) {
 			const toolCall = response.message.tool_calls![0]!;
 			const functionArguments = toolCall.function.arguments;
 			const data = JSON.parse(functionArguments);
-			const shardEruptionData = shardEruption(data.daysOffset ?? 0);
-
-			priorMessages.push(
-				{
-					role: "assistant",
-					tool_calls: [
-						{
-							type: "function",
-							id: toolCall.id,
-							function: {
-								name: "shardEruption",
-								arguments: functionArguments,
-							},
-						},
-					],
-				},
-				{
-					role: "tool",
-					content: JSON.stringify(
-						shardEruptionData
-							? {
-									...shardEruptionData,
-									reward: shardEruptionData.strong
-										? `${shardEruptionData.reward} ascended candles`
-										: `${shardEruptionData.reward} pieces of light`,
-								}
-							: { result: "No shard eruption." },
-					),
-					tool_call_id: toolCall.id,
-				},
-			);
-
-			const finalCompletion = await openAI.chat.completions.create(
-				{
-					model: "gpt-4o",
-					messages: priorMessages,
-				},
-				{ signal: abortController.signal },
-			);
 
 			await message.reply({
-				allowedMentions: { parse: ["users"], repliedUser: false },
-				content: finalCompletion.choices[0]!.message.content ?? AI_DEFAULT_RESPONSE,
+				...todayEmbed(message.guild.preferredLocale, data.daysOffset),
 				failIfNotExists: false,
-				flags: MessageFlags.SuppressEmbeds,
 			});
 		} else {
 			await message.reply({
