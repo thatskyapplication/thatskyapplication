@@ -1,11 +1,12 @@
 import process from "node:process";
 import { clearTimeout, setTimeout } from "node:timers";
-import { type Message, MessageFlags, type User } from "discord.js";
+import { type Message, MessageFlags, type User, formatEmoji } from "discord.js";
 import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
 import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { SEASON_NAME_VALUES } from "./Utility/catalogue.js";
 import { skyNow } from "./Utility/dates.js";
+import { MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "./Utility/emojis.js";
 import { shardEruption } from "./Utility/shardEruption.js";
 import { skyCurrentEvents, skyUpcomingEvents } from "./catalogue/events/index.js";
 import { skyUpcomingSeason } from "./catalogue/spirits/seasons/index.js";
@@ -247,8 +248,11 @@ export async function messageCreateResponse(message: Message<true>) {
 							? {
 									...shardEruptionData,
 									reward: shardEruptionData.strong
-										? `${shardEruptionData.reward} ascended candles`
-										: `${shardEruptionData.reward} pieces of light`,
+										? resolveCurrencyEmoji({
+												emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+												number: shardEruptionData.reward,
+											})
+										: `${shardEruptionData.reward} ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}`,
 								}
 							: { result: "No shard eruption." },
 					),
