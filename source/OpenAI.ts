@@ -213,12 +213,10 @@ export async function messageCreateResponse(message: Message<true>) {
 										whenNextRegular: {
 											type: "boolean",
 											description: `Specified whenever asked about when the next regular (or black) shard eruption is. For example, "When is the next black shard?"`,
-											default: 0,
 										},
 										whenNextDangerous: {
 											type: "boolean",
 											description: `Specified whenever asked about when the next dangerous (or red) shard eruption is. For example, "When is the next black shard?"`,
-											default: 0,
 										},
 									},
 									required: [],
