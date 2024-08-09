@@ -40,8 +40,6 @@ export const SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS = [
 	"SHARD_ERUPTION_BROWSE_4_SELECT_MENU_CUSTOM_ID",
 ] as const;
 
-
-
 export function todayEmbed(locale: Locale, offset = 0) {
 	const shardYesterday = shardEruption(offset - 1);
 	const shardToday = shardEruption(offset);
