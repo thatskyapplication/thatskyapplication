@@ -242,7 +242,16 @@ export async function messageCreateResponse(message: Message<true>) {
 				},
 				{
 					role: "tool",
-					content: JSON.stringify(shardEruptionData),
+					content: JSON.stringify(
+						shardEruptionData
+							? {
+									...shardEruptionData,
+									reward: shardEruptionData.strong
+										? `${shardEruptionData.reward} ascended candles`
+										: `${shardEruptionData.reward} pieces of light`,
+								}
+							: { result: "No shard eruption." },
+					),
 					tool_call_id: toolCall.id,
 				},
 			);
