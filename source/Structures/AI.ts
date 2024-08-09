@@ -181,12 +181,7 @@ export default class AI {
 			(entitlement) => entitlement.skuId === SERVER_UPGRADE_SKU_ID && entitlement.isActive(),
 		);
 
-		if (!entitlement) {
-			pino.error(interaction, "Cannot find the Server Upgrade entitlement.");
-			throw new Error("Cannot find the Server Upgrade entitlement.");
-		}
-
-		return entitlement.isActive()
+		return entitlement?.isActive()
 			? {
 					components: [
 						new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
