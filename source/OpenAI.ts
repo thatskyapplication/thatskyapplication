@@ -8,6 +8,7 @@ import { todayEmbed } from "./Structures/ShardEruption.js";
 import { SEASON_NAME_VALUES } from "./Utility/catalogue.js";
 import { skyNow } from "./Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "./Utility/emojis.js";
+import { shardEruption } from "./Utility/shardEruption.js";
 import { skyCurrentEvents, skyUpcomingEvents } from "./catalogue/events/index.js";
 import { skyUpcomingSeason } from "./catalogue/spirits/seasons/index.js";
 import pino from "./pino.js";
@@ -206,7 +207,17 @@ export async function messageCreateResponse(message: Message<true>) {
 									properties: {
 										daysOffset: {
 											type: "integer",
-											description: "Number of days offset from the current day. Defaults to 0.",
+											description: `Number of days offset from the current day. Defaults to 0. For example, "What's the shard eruption tomorrow?"`,
+											default: 0,
+										},
+										whenNextRegular: {
+											type: "boolean",
+											description: `Specified whenever asked about when the next regular (or black) shard eruption is. For example, "When is the next black shard?"`,
+											default: 0,
+										},
+										whenNextDangerous: {
+											type: "boolean",
+											description: `Specified whenever asked about when the next dangerous (or red) shard eruption is. For example, "When is the next black shard?"`,
 											default: 0,
 										},
 									},
@@ -227,9 +238,28 @@ export async function messageCreateResponse(message: Message<true>) {
 			const toolCall = response.message.tool_calls![0]!;
 			const functionArguments = toolCall.function.arguments;
 			const data = JSON.parse(functionArguments);
+			let offset = data.daysOffset;
+
+			if (data.whenNextRegular) {
+				let index = offset ?? 1;
+
+				while (shardEruption(index)?.strong) {
+					index++;
+				}
+
+				offset = index;
+			} else if (data.whenNextDangerous) {
+				let index = offset ?? 1;
+
+				while (shardEruption(index)?.strong === false) {
+					index++;
+				}
+
+				offset = index;
+			}
 
 			await message.reply({
-				...todayEmbed(message.guild.preferredLocale, data.daysOffset),
+				...todayEmbed(message.guild.preferredLocale, offset),
 				failIfNotExists: false,
 			});
 		} else {
