@@ -201,7 +201,7 @@ export async function messageCreateResponse(message: Message<true>) {
 							type: "function",
 							function: {
 								name: "shardEruption",
-								description: `The shard eruption data for today. Call this whenever the shard eruption is asked for. For example, "What's the shard eruption today?".`,
+								description: `Returns shard eruption data. Call this whenever the shard eruption is asked for. For example, "What's the shard eruption today?".`,
 								parameters: {
 									type: "object",
 									properties: {
