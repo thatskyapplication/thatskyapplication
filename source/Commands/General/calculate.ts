@@ -298,14 +298,18 @@ export default new (class implements ChatInputCommand {
 		const shardEruptions = options.getBoolean("shard-eruptions") ?? true;
 
 		if (start >= goal) {
-			await interaction.reply({ content: "The goal has already been achieved.", ephemeral: true });
+			await interaction.reply({
+				content: "The goal has already been achieved.",
+				flags: MessageFlags.Ephemeral,
+			});
+
 			return;
 		}
 
 		if (eyeOfEden === false && shardEruptions === false) {
 			await interaction.reply({
 				content: "You must have a source for gaining ascended candles!",
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;
@@ -314,6 +318,9 @@ export default new (class implements ChatInputCommand {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
 			return;
 		}
+
+		// Defer in case of long loops.
+		await interaction.deferReply();
 
 		const amountRequired = goal - start;
 		let day = skyToday();
@@ -355,7 +362,7 @@ export default new (class implements ChatInputCommand {
 
 		minimumTimeText += ".";
 
-		await interaction.reply({
+		await interaction.editReply({
 			embeds: [
 				new EmbedBuilder()
 					.setColor(DEFAULT_EMBED_COLOUR)
