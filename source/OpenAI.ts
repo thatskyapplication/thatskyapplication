@@ -5,12 +5,11 @@ import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
 import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { todayEmbed } from "./Structures/ShardEruption.js";
-import { SEASON_NAME_VALUES } from "./Utility/catalogue.js";
 import { skyNow } from "./Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "./Utility/emojis.js";
 import { shardEruption } from "./Utility/shardEruption.js";
 import { skyCurrentEvents, skyUpcomingEvents } from "./catalogue/events/index.js";
-import { skyUpcomingSeason } from "./catalogue/spirits/seasons/index.js";
+import { skySeasons, skyUpcomingSeason } from "./catalogue/spirits/seasons/index.js";
 import pino from "./pino.js";
 
 const { OPENAI_API_KEY } = process.env;
@@ -41,11 +40,20 @@ function parseAIName(user: User) {
 
 function systemPromptContext(message: Message<true>) {
 	const now = skyNow();
-	let seasonText = `- The seasons in Sky are: ${JSON.stringify(SEASON_NAME_VALUES)}.`;
-	const next = skyUpcomingSeason(now);
+	const seasonsText = [];
+	const seasons = skySeasons(now);
+	const upcomingSeason = skyUpcomingSeason(now);
 
-	if (next) {
-		seasonText += `${next.name} has not started yet. It starts on ${next.start.toISO()} and ends on ${next.end.toISO()}.`;
+	if (seasons.length > 0) {
+		seasonsText.push(
+			`- The seasons in Sky are: ${JSON.stringify(seasons.map((season) => ({ name: season.name, start: season.start.toISO(), end: season.end.toISO() })))}.`,
+		);
+	}
+
+	if (upcomingSeason) {
+		seasonsText.push(
+			`- The upcoming season in Sky is: ${JSON.stringify({ name: upcomingSeason.name, start: upcomingSeason.start.toISO(), end: upcomingSeason.end.toISO() })}.`,
+		);
 	}
 
 	const eventText = [];
@@ -72,8 +80,11 @@ function systemPromptContext(message: Message<true>) {
 		'- Refer to "Sky: Children of the Light" as Sky.',
 		`- If you mention ascended candles, use ${formatEmoji(MISCELLANEOUS_EMOJIS.AscendedCandle)}.`,
 		`- If you mention pieces of light, use ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}.`,
-		seasonText,
 	];
+
+	if (seasonsText.length > 0) {
+		systemPrompt.push(...seasonsText);
+	}
 
 	if (eventText.length > 0) {
 		systemPrompt.push(...eventText);
