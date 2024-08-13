@@ -135,15 +135,14 @@ export default class AI {
 	private static async upsert(guildId: AI["guildId"], data: AISetData) {
 		let ai = this.cache.find((cachedAI) => cachedAI.guildId === guildId);
 
-		if (ai) {
-			const [aiPacket] = await pg<AIPacket>(Table.AI)
-				.update(data)
-				.where({ guild_id: guildId })
-				.returning("*");
+		const [aiPacket] = await pg<AIPacket>(Table.AI)
+			.insert({ ...data, guild_id: guildId }, "*")
+			.onConflict("guild_id")
+			.merge();
 
+		if (ai) {
 			ai.patch(aiPacket!);
 		} else {
-			const [aiPacket] = await pg<AIPacket>(Table.AI).insert({ ...data, guild_id: guildId }, "*");
 			ai = new this(aiPacket!);
 			this.cache.set(ai.guildId, ai);
 		}
