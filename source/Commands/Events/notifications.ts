@@ -140,6 +140,18 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
+		const me = await channel.guild.members.fetchMe();
+		const notificationSendable = isNotificationSendable(channel, role, me, true);
+
+		if (notificationSendable.length > 0) {
+			await interaction.reply({
+				content: notificationSendable.join("\n"),
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
 		// Some notifications may allow an offset.
 		let resolvedInteraction:
 			| ChatInputCommandInteraction<"cached">
@@ -214,18 +226,6 @@ export default new (class implements ChatInputCommand {
 				await resolvedInteraction.editReply(ERROR_RESPONSE);
 				return;
 			}
-		}
-
-		const me = await channel.guild.members.fetchMe();
-		const notificationSendable = isNotificationSendable(channel, role, me, true);
-
-		if (notificationSendable.length > 0) {
-			await resolvedInteraction.reply({
-				content: notificationSendable.join("\n"),
-				ephemeral: true,
-			});
-
-			return;
 		}
 
 		const data: NotificationInsertQuery & NotificationUpdateQuery = {
