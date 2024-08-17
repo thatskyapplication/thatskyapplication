@@ -7,6 +7,7 @@ import {
 	ComponentType,
 	DiscordjsError,
 	DiscordjsErrorCodes,
+	EmbedBuilder,
 	MessageFlags,
 	PermissionFlagsBits,
 	StringSelectMenuBuilder,
@@ -25,7 +26,11 @@ import Notification, {
 	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
 	NotificationOffsetToMaximumValues,
 } from "../../Structures/Notification.js";
-import { ERROR_RESPONSE, NOT_IN_CACHED_GUILD_RESPONSE } from "../../Utility/Constants.js";
+import {
+	DEFAULT_EMBED_COLOUR,
+	ERROR_RESPONSE,
+	NOT_IN_CACHED_GUILD_RESPONSE,
+} from "../../Utility/Constants.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import pino from "../../pino.js";
 import type { ChatInputCommand } from "../index.js";
@@ -169,6 +174,14 @@ export default new (class implements ChatInputCommand {
 							.setPlaceholder("Offset notification by how many minutes?"),
 					),
 				],
+				embeds: [
+					new EmbedBuilder()
+						.setColor(DEFAULT_EMBED_COLOUR)
+						.setDescription(
+							"You may choose a custom offset for this notification event. This will decide how many minutes prior notifications will be delivered.",
+						)
+						.setTitle(event),
+				],
 				fetchReply: true,
 				flags: MessageFlags.Ephemeral,
 			});
@@ -191,6 +204,7 @@ export default new (class implements ChatInputCommand {
 						components: [],
 						content:
 							"Couldn't make a choice? We've stopped setting up notifications for now. Feel free to try again!",
+						embeds: [],
 					});
 
 					return;
