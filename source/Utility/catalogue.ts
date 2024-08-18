@@ -888,7 +888,7 @@ export const enum Cosmetic {
 	// 08/09/2020 | Season of Sanctuary Quest 6.
 	SanctuaryGuideQuest6,
 	SanctuaryGuideHeart6,
-	FriendActionHug,
+	SanctuaryGuideFriendActionHug,
 
 	// 08/09/2020 | Days of Summer Lights.
 	DaysOfSummerLightsLantern,
@@ -897,6 +897,89 @@ export const enum Cosmetic {
 	TwirlingChampionHeart,
 	TwirlingChampionWingBuff,
 	TwirlingChampionBlessing2,
+
+	// 05/10/2020 | Season of Prophecy.
+	ProphecyGuideQuest1,
+	ProphecyGuideHeart1,
+	ProphecyPendant,
+	ProphecyGuideDunun,
+	ProphecyGuideAnubisMask,
+	ProphecyGuideQuest2,
+	ProphecyGuideHeart2,
+	ProphecyGuideQuest3,
+	ProphecyGuideHeart3,
+	ProphecyGuideQuest4,
+	ProphecyGuideHeart4,
+	ProphecyGuideFriendActionHug,
+	EmoteDeepBreath1,
+	EmoteDeepBreath2,
+	ProphetOfWaterBlessing1,
+	ProphetOfWaterHair,
+	EmoteDeepBreath3,
+	EmoteDeepBreath4,
+	ProphetOfWaterBlessing2,
+	ProphetOfWaterCape,
+	ProphetOfWaterMask,
+	ProphetOfWaterBlessing3,
+	ProphetOfWaterSeasonalHeart,
+	EmoteDustOff1,
+	EmoteDustOff2,
+	ProphetOfEarthHair,
+	ProphetOfEarthBlessing1,
+	EmoteDustOff3,
+	EmoteDustOff4,
+	ProphetOfEarthMusicSheet,
+	ProphetOfEarthBlessing2,
+	ProphetOfEarthCape,
+	ProphetOfEarthMask,
+	ProphetOfEarthSeasonalHeart,
+	EmoteBalance1,
+	EmoteBalance2,
+	ProphetOfAirHair,
+	ProphetOfAirBlessing1,
+	EmoteBalance3,
+	EmoteBalance4,
+	ProphetOfAirBlessing2,
+	ProphetOfAirMask,
+	ProphetOfAirCape,
+	ProphetOfAirBlessing3,
+	ProphetOfAirSeasonalHeart,
+	EmoteChestPound1,
+	EmoteChestPound2,
+	ProphetOfFireBlessing1,
+	ProphetOfFireHair,
+	EmoteChestPound3,
+	EmoteChestPound4,
+	ProphetOfFireBlessing2,
+	ProphetOfFireMusicSheet,
+	ProphetOfFireMask,
+	ProphetOfFireOutfit,
+	ProphetOfFireSeasonalHeart,
+
+	// 15/10/2020 | Travelling spirit #20.
+	AdmiringActorWingBuff,
+	AdmiringActorBlessing2,
+
+	// 22/10/2020 | Days of Mischief.
+	MischiefWebCape,
+	MischiefWitchHat,
+
+	// 29/10/2020 | Travelling Spirit #21.
+	IndifferentAlchemistWingBuff,
+
+	// 12/11/2020 | Travelling Spirit #22.
+	BoogieKidWingBuff,
+
+	// 21/12/2020 | Days of Feast.
+	FeastNeckTie,
+	DaysOfFeastCape,
+	DaysOfFeastTable,
+	DaysOfFeastHorns,
+	SnowflakeCape,
+
+	// 24/12/2020 | Travelling Spirit #25.
+	TroupeGreeterWingBuff,
+	TroupeGreeterBlessing2,
 
 	// 08/02/2021 12:00 | Days of Fortune.
 	DaysOfFortuneMask,

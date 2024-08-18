@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -34,41 +34,105 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, emoji: emoteEmoji },
-			{ name: "Blessing 1", bit: 1 << 3, cost: { seasonalCandles: 12 }, emoji: blessing2 },
-			{ name: "Hair", bit: 1 << 4, emoji: hairEmoji },
-			{ name: `${emote} 3`, bit: 1 << 7, cost: { seasonalCandles: 16 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 8, emoji: emoteEmoji },
-			{ name: "Blessing 2", bit: 1 << 10, cost: { seasonalCandles: 21 }, emoji: blessing2 },
-			{ name: "Cape", bit: 1 << 11, emoji: capeEmoji },
-			{ name: "Mask", bit: 1 << 9, cost: { seasonalCandles: 27 }, emoji: maskEmoji },
-			{ name: "Blessing 3", bit: 1 << 12, emoji: blessing2 },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteDeepBreath1, emoji: emoteEmoji },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteDeepBreath2, emoji: emoteEmoji },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.ProphetOfWaterBlessing1,
+				cost: { seasonalCandles: 12 },
+				emoji: blessing2,
+			},
+			{ name: "Hair", cosmetic: Cosmetic.ProphetOfWaterHair, emoji: hairEmoji },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteDeepBreath3,
+				cost: { seasonalCandles: 16 },
+				emoji: emoteEmoji,
+			},
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteDeepBreath4, emoji: emoteEmoji },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.ProphetOfWaterBlessing2,
+				cost: { seasonalCandles: 21 },
+				emoji: blessing2,
+			},
+			{ name: "Cape", cosmetic: Cosmetic.ProphetOfWaterCape, emoji: capeEmoji },
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.ProphetOfWaterMask,
+				cost: { seasonalCandles: 27 },
+				emoji: maskEmoji,
+			},
+			{ name: "Blessing 3", cosmetic: Cosmetic.ProphetOfWaterBlessing3, emoji: blessing2 },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 5,
+				cosmetic: Cosmetic.ProphetOfWaterSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.ProphecyHeart,
 			},
 		],
 		current: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, cost: { hearts: 4 }, emoji: emoteEmoji },
-			{ name: "Prop", bit: 1 << 2, cost: { candles: 15 }, emoji: placeablePropEmoji },
-			{ name: "Blessing 1", bit: 1 << 3, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Hair", bit: 1 << 4, cost: { candles: 44 }, emoji: hairEmoji },
-			{ name: "Heart", bit: 1 << 5, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteDeepBreath1, emoji: emoteEmoji },
+			{
+				name: `${emote} 2`,
+				cosmetic: Cosmetic.EmoteDeepBreath2,
+				cost: { hearts: 4 },
+				emoji: emoteEmoji,
+			},
+			{ name: "Prop", cost: { candles: 15 }, emoji: placeablePropEmoji },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.ProphetOfWaterBlessing1,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.ProphetOfWaterHair,
+				cost: { candles: 44 },
+				emoji: hairEmoji,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.ProphetOfWaterSeasonalHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
 			{
 				name: "Wing buff",
-				bit: 1 << 6,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
-			{ name: `${emote} 3`, bit: 1 << 7, cost: { hearts: 3 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 8, cost: { hearts: 6 }, emoji: emoteEmoji },
-			{ name: "Mask", bit: 1 << 9, cost: { candles: 54 }, emoji: maskEmoji },
-			{ name: "Blessing 2", bit: 1 << 10, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Cape", bit: 1 << 11, cost: { candles: 75 }, emoji: capeEmoji },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteDeepBreath3,
+				cost: { hearts: 3 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: `${emote} 4`,
+				cosmetic: Cosmetic.EmoteDeepBreath4,
+				cost: { hearts: 6 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.ProphetOfWaterMask,
+				cost: { candles: 54 },
+				emoji: maskEmoji,
+			},
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.ProphetOfWaterBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Cape",
+				cosmetic: Cosmetic.ProphetOfWaterCape,
+				cost: { candles: 75 },
+				emoji: capeEmoji,
+			},
 		],
 	},
 	visits: {

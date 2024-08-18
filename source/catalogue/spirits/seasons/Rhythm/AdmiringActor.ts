@@ -89,6 +89,7 @@ export default new SeasonalSpirit({
 			},
 			{
 				name: "Wing buff",
+				cosmetic: Cosmetic.AdmiringActorWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
@@ -106,6 +107,7 @@ export default new SeasonalSpirit({
 			},
 			{
 				name: "Blessing 2",
+				cosmetic: Cosmetic.AdmiringActorBlessing2,
 				cost: { candles: 5 },
 				emoji: blessing2,
 			},
