@@ -139,6 +139,15 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
+		if (role.id === interaction.guildId) {
+			await interaction.reply({
+				content: "Woah there! Let's pick another role. Not sure we want to do that!",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
 		const me = await channel.guild.members.fetchMe();
 		const notificationSendable = isNotificationSendable(channel, role, me, true);
 
