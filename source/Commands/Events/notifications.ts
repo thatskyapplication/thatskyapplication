@@ -128,7 +128,6 @@ export default new (class implements ChatInputCommand {
 		const event = options.getString("event", true);
 		const channel = options.getChannel("channel", true, NOTIFICATION_CHANNEL_TYPES);
 		const role = options.getRole("role", true);
-		let offset = null;
 
 		if (!isEvent(event)) {
 			pino.error(
@@ -153,6 +152,8 @@ export default new (class implements ChatInputCommand {
 		}
 
 		// Some notifications may allow an offset.
+		let offset = null;
+
 		let resolvedInteraction:
 			| ChatInputCommandInteraction<"cached">
 			| StringSelectMenuInteraction<"cached"> = interaction;
