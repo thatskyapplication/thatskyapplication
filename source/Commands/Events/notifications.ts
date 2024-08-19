@@ -14,6 +14,7 @@ import {
 	type StringSelectMenuInteraction,
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
+import { t } from "i18next";
 import Notification, {
 	type NotificationInsertQuery,
 	type NotificationUpdateQuery,
@@ -124,7 +125,7 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async setup(interaction: ChatInputCommandInteraction<"cached">) {
-		const { options } = interaction;
+		const { locale, options } = interaction;
 		const event = options.getString("event", true);
 		const channel = options.getChannel("channel", true, NOTIFICATION_CHANNEL_TYPES);
 		const role = options.getRole("role", true);
@@ -141,7 +142,7 @@ export default new (class implements ChatInputCommand {
 
 		if (role.id === interaction.guildId) {
 			await interaction.reply({
-				content: "Woah there! Let's pick another role. Not sure we want to do that!",
+				content: t("notifications.setup.no-everyone", { lng: locale, ns: "commands" }),
 				flags: MessageFlags.Ephemeral,
 			});
 

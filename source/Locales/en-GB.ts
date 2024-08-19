@@ -76,6 +76,11 @@ export default {
 			bot: "{{-user}} is a bot. They're pretty emotionless. Immune to hugs, I'd say.",
 			message: "{{-user}}, {{-invoker}} hugged you!",
 		},
+		notifications: {
+			setup: {
+				"no-everyone": "Woah there! Let's pick another role. Not sure we want to do that!",
+			},
+		},
 		schedule: {
 			"command-name": "schedule",
 			"command-description": "Returns a schedule of events in Sky!",

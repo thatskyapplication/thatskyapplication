@@ -271,5 +271,10 @@ export default {
 			bot: "{{-user}} es un bot. No tiene emociones. Es inmune a los abrazos, diría yo.",
 			message: "{{-user}}, ¡{{-invoker}} te ha abrazado!",
 		},
+		notifications: {
+			setup: {
+				"no-everyone": "Oye espera, eso no es una buena idea. ¡Escoge otro rol!",
+			},
+		},
 	},
 } as const;
