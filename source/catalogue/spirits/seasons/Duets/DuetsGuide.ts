@@ -2,12 +2,13 @@ import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
+	FRIEND_ACTION_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { FriendAction, SpiritName } from "../../../../Utility/spirits.js";
 
 export default new GuideSpirit({
 	name: SpiritName.DuetsGuide,
@@ -38,6 +39,8 @@ export default new GuideSpirit({
 			},
 			{ name: "Quest 2", bit: 1 << 6, emoji: MISCELLANEOUS_EMOJIS.Quest },
 			{ name: "Heart", bit: 1 << 7, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Quest 3", bit: 1 << 8, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: FriendAction.DuetBow, bit: 1 << 9, emoji: FRIEND_ACTION_EMOJIS.DuetBow },
 		],
 	},
 });
