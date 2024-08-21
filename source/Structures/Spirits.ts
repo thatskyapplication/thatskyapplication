@@ -38,7 +38,8 @@ const RETURNING_DATES = new Collection<SeasonalSpiritVisitCollectionKey, Returni
 	.set(2, { start: skyDate(2_023, 5, 15), end: skyDate(2_023, 5, 21) })
 	.set(3, { start: skyDate(2_023, 7, 3), end: skyDate(2_023, 7, 16) })
 	.set(4, { start: skyDate(2_023, 8, 7), end: skyDate(2_023, 8, 13) })
-	.set(5, { start: skyDate(2_024, 3, 4), end: skyDate(2_024, 3, 17) });
+	.set(5, { start: skyDate(2_024, 3, 4), end: skyDate(2_024, 3, 17) })
+	.set(6, { start: skyDate(2_024, 9, 16), end: skyDate(2_024, 9, 29) });
 
 interface BaseFriendshipTreeOfferData {
 	hasInfographic?: boolean;

@@ -49,6 +49,9 @@ export default [
 				},
 			],
 		},
+		visits: {
+			returning: [6],
+		},
 	}),
 	new SeasonalSpirit({
 		name: SpiritName.AncientDarkness2,
@@ -74,6 +77,9 @@ export default [
 					emoji: SEASON_EMOJIS.ShatteringHeart,
 				},
 			],
+		},
+		visits: {
+			returning: [6],
 		},
 	}),
 ] as const;
