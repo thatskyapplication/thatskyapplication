@@ -2,6 +2,7 @@ import DaysOfBloom from "./DaysOfBloom.js";
 import DaysOfColour from "./DaysOfColour.js";
 import DaysOfFortune from "./DaysOfFortune.js";
 import DaysOfLove from "./DaysOfLove.js";
+import DaysOfMoonlight from "./DaysOfMoonlight.js";
 import DaysOfNature from "./DaysOfNature.js";
 import DaysOfSunlight from "./DaysOfSunlight.js";
 import SkyFest from "./SkyFest.js";
@@ -20,4 +21,5 @@ export default [
 	SkyFest,
 	TournamentOfTriumph,
 	DaysOfSunlight,
+	DaysOfMoonlight,
 ] as const;
