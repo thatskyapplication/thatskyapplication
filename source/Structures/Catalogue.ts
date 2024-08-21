@@ -330,6 +330,7 @@ export interface CataloguePacket {
 	tournament_of_triumph_2024: CatalogueValue;
 	days_of_sunlight_2024: CatalogueValue;
 	days_of_moonlight_2024: CatalogueValue;
+	days_of_style_2024: CatalogueValue;
 }
 
 interface CatalogueData {
@@ -595,6 +596,7 @@ interface CatalogueData {
 	tournamentOfTriumph2024: CataloguePacket["tournament_of_triumph_2024"];
 	daysOfSunlight2024: CataloguePacket["days_of_sunlight_2024"];
 	daysOfMoonlight2024: CataloguePacket["days_of_moonlight_2024"];
+	daysOfStyle2024: CataloguePacket["days_of_style_2024"];
 }
 
 type CataloguePatchData = Omit<CataloguePacket, "user_id">;
@@ -862,6 +864,7 @@ const CatalogueNameToRawName = {
 	[EventNameUnique.TournamentOfTriumph2024]: "tournament_of_triumph_2024",
 	[EventNameUnique.DaysOfSunlight2024]: "days_of_sunlight_2024",
 	[EventNameUnique.DaysOfMoonlight2024]: "days_of_moonlight_2024",
+	[EventNameUnique.DaysOfStyle2024]: "days_of_style_2024",
 } as const satisfies Readonly<
 	Record<
 		| SpiritName
@@ -1140,6 +1143,7 @@ const SpiritEventNameToCatalogueName = {
 	[EventNameUnique.TournamentOfTriumph2024]: "tournamentOfTriumph2024",
 	[EventNameUnique.DaysOfSunlight2024]: "daysOfSunlight2024",
 	[EventNameUnique.DaysOfMoonlight2024]: "daysOfMoonlight2024",
+	[EventNameUnique.DaysOfStyle2024]: "daysOfStyle2024",
 } as const satisfies Readonly<
 	Record<
 		| SpiritName
@@ -1724,6 +1728,8 @@ export class Catalogue {
 
 	public daysOfMoonlight2024!: CatalogueData["daysOfMoonlight2024"];
 
+	public daysOfStyle2024!: CatalogueData["daysOfStyle2024"];
+
 	public constructor(catalogue: CataloguePacket) {
 		this.userId = catalogue.user_id;
 		this.patch(catalogue);
@@ -1991,6 +1997,7 @@ export class Catalogue {
 		this.tournamentOfTriumph2024 = data.tournament_of_triumph_2024;
 		this.daysOfSunlight2024 = data.days_of_sunlight_2024;
 		this.daysOfMoonlight2024 = data.days_of_moonlight_2024;
+		this.daysOfStyle2024 = data.days_of_style_2024;
 	}
 
 	public static async fetch(userId: Snowflake) {
