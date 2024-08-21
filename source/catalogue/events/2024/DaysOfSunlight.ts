@@ -22,4 +22,26 @@ export default new Event({
 	eventCurrency: {
 		amount: eventCurrencyAmount,
 	},
+	offer: [
+		{
+			name: "Sunlight Manta Float",
+			bit: 1 << 0,
+			cost: { eventCurrency: 20 },
+		},
+		{
+			name: "Sunlight Beach Shorts outfit",
+			bit: 1 << 1,
+			cost: { eventCurrency: 30 },
+		},
+		{
+			name: "Sunlight Helios Hoops earrings",
+			bit: 1 << 2,
+			cost: { money: 2.99 },
+		},
+		{
+			name: "Sunlight Woven Wrap cape",
+			bit: 1 << 3,
+			cost: { money: 14.99 },
+		},
+	],
 });
