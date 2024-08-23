@@ -981,6 +981,74 @@ export const enum Cosmetic {
 	TroupeGreeterWingBuff,
 	TroupeGreeterBlessing2,
 
+	// 04/01/2021 | Season of Dreams.
+	DreamsPendant,
+	DreamsGuideQuest1,
+	DreamsGuideHeart1,
+	DreamsGuidePhoenixMask,
+	DreamsGuideUltimateCape,
+	DreamsGuideQuest2,
+	DreamsGuideHeart2,
+	DreamsGuideQuest3,
+	DreamsGuideHeart3,
+	DreamsGuideQuest4,
+	DreamsGuideHeart4,
+	DreamsGuideQuest5,
+	DreamsGuideHeart5,
+	DreamsGuideFriendActionHug,
+	EmoteSpinTrick1,
+	EmoteSpinTrick2,
+	SpinningMentorHair,
+	SpinningMentorBlessing1,
+	EmoteSpinTrick3,
+	EmoteSpinTrick4,
+	SpinningMentorMask,
+	SpinningMentorBlessing2,
+	SpinningMentorBlessing3,
+	SpinningMentorCape,
+	SpinningMentorSeasonalHeart,
+	EmoteShowDance1,
+	EmoteShowDance2,
+	DancingPerformerBlessing1,
+	DancingPerformerHair,
+	EmoteShowDance3,
+	EmoteShowDance4,
+	DancingPerformerBlessing2,
+	DancingPerformerMask,
+	DancingPerformerCape,
+	DancingPerformerLute,
+	DancingPerformerSeasonalHeart,
+	EmotePeek1,
+	EmotePeek2,
+	PeekingPostmanMusicSheet,
+	PeekingPostmanBlessing1,
+	EmotePeek3,
+	EmotePeek4,
+	PeekingPostmanOutfit,
+	PeekingPostmanBlessing2,
+	PeekingPostmanCape,
+	PeekingPostmanRabbitMask,
+	PeekingPostmanSeasonalHeart,
+	FriendActionBearhug1,
+	BearhugHermitBlessing1,
+	BearhugHermitRedHorns,
+	BearhugHermitBlessing2,
+	BearhugHermitMusicSheet,
+	BearhugHermitBlessing3,
+	FriendActionBearhug2,
+	BearhugHermitHair,
+	BearhugHermitOutfit,
+	BearhugHermitSeasonalHeart,
+
+	// 07/01/2021 | Travelling Spirit #26.
+	NoddingMuralistWingBuff,
+
+	// 28/02/2021 | Travelling Spirit #28.
+	RespectfulPianistWingBuff,
+
+	// 04/02/2021 | Travelling Spirit Error.
+	CrabWalkerWingBuff,
+
 	// 08/02/2021 12:00 | Days of Fortune.
 	DaysOfFortuneMask,
 	DaysOfFortuneHeaddress,
@@ -993,6 +1061,11 @@ export const enum Cosmetic {
 	// 12/02/2021 12:00 | Days of Love.
 	DaysOfLoveMask,
 	DaysOfLoveSeesaw, // 12/02/2021 12:00.
+
+	// 22/03/2021 | Days of Bloom.
+	BloomHair,
+	BloomCape,
+	PinkBloomTeaset,
 
 	// TODO SECTION
 	CrabWhispererPipe, // 02/09/2021

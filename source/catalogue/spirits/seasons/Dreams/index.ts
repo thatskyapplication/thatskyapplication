@@ -1,5 +1,5 @@
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { NECKLACE_EMOJIS } from "../../../../Utility/emojis.js";
 import BearhugHermit from "./BearhugHermit.js";
@@ -14,6 +14,6 @@ export default new Season({
 	end: skyDate(2_021, 3, 15),
 	guide: DreamsGuide,
 	spirits: [SpinningMentor, DancingPerformer, PeekingPostman, BearhugHermit],
-	items: [{ name: "Pendant", bit: 1 << 0, emoji: NECKLACE_EMOJIS.Necklace10 }],
+	items: [{ name: "Pendant", cosmetic: Cosmetic.DreamsPendant, emoji: NECKLACE_EMOJIS.Necklace10 }],
 	seasonalCandlesRotation: null,
 });
