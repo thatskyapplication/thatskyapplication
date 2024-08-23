@@ -387,10 +387,17 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 export class GuideSpirit extends Mixin(BaseSpirit, GuideFriendshipTree) {
 	public override readonly type = SPIRIT_TYPE.Guide;
 
+	public override readonly current;
+
 	public readonly season: SeasonName;
 
 	public constructor(spirit: GuideSpiritData) {
 		super(spirit);
+
+		this.current = spirit.offer?.current
+			? resolveOffer(spirit.offer.current, { seasonName: spirit.season })
+			: [];
+
 		this.season = spirit.season;
 	}
 }
