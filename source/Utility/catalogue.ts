@@ -905,13 +905,6 @@ export const enum Cosmetic {
 	ProphecyPendant,
 	ProphecyGuideDunun,
 	ProphecyGuideAnubisMask,
-	ProphecyGuideQuest2,
-	ProphecyGuideHeart2,
-	ProphecyGuideQuest3,
-	ProphecyGuideHeart3,
-	ProphecyGuideQuest4,
-	ProphecyGuideHeart4,
-	ProphecyGuideFriendActionHug,
 	EmoteDeepBreath1,
 	EmoteDeepBreath2,
 	ProphetOfWaterBlessing1,
@@ -957,6 +950,10 @@ export const enum Cosmetic {
 	ProphetOfFireOutfit,
 	ProphetOfFireSeasonalHeart,
 
+	// 12/10/2020 | Season of Prophecy Quest 2.
+	ProphecyGuideQuest2,
+	ProphecyGuideHeart2,
+
 	// 15/10/2020 | Travelling spirit #20.
 	AdmiringActorWingBuff,
 	AdmiringActorBlessing2,
@@ -965,8 +962,16 @@ export const enum Cosmetic {
 	MischiefWebCape,
 	MischiefWitchHat,
 
+	// 26/10/2020 | Season of Prophecy Quest 3.
+	ProphecyGuideQuest3,
+	ProphecyGuideHeart3,
+
 	// 29/10/2020 | Travelling Spirit #21.
 	IndifferentAlchemistWingBuff,
+
+	// 09/11/2020 | Season of Prophecy Quest 4.
+	ProphecyGuideQuest4,
+	ProphecyGuideHeart4,
 
 	// 12/11/2020 | Travelling Spirit #22.
 	BoogieKidWingBuff,
@@ -1183,6 +1188,7 @@ export const enum Cosmetic {
 	// TODO SECTION
 	CrabWhispererPipe, // 02/09/2021
 	PlayfightingHerbalistOrb, // 28/10/2021
+	ProphecyGuideFriendActionHug, // 18/11/2021.
 	AssemblyGuideSharedSpaceSpell, // Move this to Season of Remembrance.
 
 	/**
