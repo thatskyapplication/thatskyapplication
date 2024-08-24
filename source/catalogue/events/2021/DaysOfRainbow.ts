@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -15,17 +15,27 @@ export default new Event({
 	offer: [
 		{
 			name: "Rainbow braid",
-			bit: 1 << 0,
+			cosmetic: Cosmetic.RainbowBraid,
 			cost: { hearts: 20 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory13,
 		},
-		{ name: "Rainbow cape", bit: 1 << 1, cost: { candles: 175 }, emoji: CAPE_EMOJIS.Cape56 },
+		{
+			name: "Rainbow cape",
+			cosmetic: Cosmetic.RainbowCape,
+			cost: { candles: 175 },
+			emoji: CAPE_EMOJIS.Cape56,
+		},
+		{
+			name: "Rainbow Hat",
+			cosmetic: Cosmetic.RainbowHat,
+			cost: { money: 9.99 },
+			emoji: HAIR_EMOJIS.Hair83,
+		},
 		{
 			name: "Rainbow Pack",
-			bit: 1 << 2,
+			cosmetic: Cosmetic.RainbowFlower,
 			cost: { money: 19.99 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory05,
 		},
-		{ name: "Rainbow Hat", bit: 1 << 3, cost: { money: 9.99 }, emoji: HAIR_EMOJIS.Hair83 },
 	],
 });

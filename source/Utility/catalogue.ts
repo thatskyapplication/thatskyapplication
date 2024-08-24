@@ -24,6 +24,7 @@ export const NO_EVENT_OFFER_TEXT = "There are no cosmetics for this event." as c
 export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infographic." as const;
 
 // TODO: Organise tier 2 capes.
+// TODO: Organise new base hairs.
 // TODO: Check spirit return errors.
 // biome-ignore lint/style/useEnumInitializers: TODO.
 export const enum Cosmetic {
@@ -1067,9 +1068,122 @@ export const enum Cosmetic {
 	BloomCape,
 	PinkBloomTeaset,
 
+	// 05/04/2021 | Season of Assembly.
+	AssemblyGuideQuest1,
+	AssemblyGuideHeart1,
+	AssemblyGuidePendant,
+	AssemblyGuideUltimateMask,
+	AssemblyGuideUltimateHair,
+	AssemblyGuideBugle,
+	AssemblyGuideUltimateCape,
+	AssemblyGuideHighFive,
+	AssemblyGuideQuest2,
+	AssemblyGuidePillow,
+	AssemblyGuideQuest3,
+	AssemblyGuideHeart2,
+	AssemblyGuideFriendActionHug,
+	AssemblyGuideQuest4,
+	AssemblyGuideJar,
+	AssemblyGuideQuest5,
+	AssemblyGuideBrazier,
+	AssemblyGuideDoubleFive,
+	AssemblyGuideQuest6,
+	AssemblyGuideHeart3,
+	AssemblyGuideBookcase,
+	AssemblyGuideTarpaulin,
+	EmoteFacepalm1,
+	EmoteFacepalm2,
+	BaffledBotanistBlessing1,
+	BaffledBotanistHair,
+	EmoteFacepalm3,
+	EmoteFacepalm4,
+	BaffledBotanistMask,
+	BaffledBotanistBlessing2,
+	BaffledBotanistBlessing3,
+	BaffledBotanistProp,
+	BaffledBotanistSeasonalHeart,
+	EmoteScold1,
+	EmoteScold2,
+	ScoldingStudentMask,
+	ScoldingStudentBlessing1,
+	EmoteScold3,
+	EmoteScold4,
+	ScoldingStudentHair,
+	ScoldingStudentBlessing2,
+	ScoldingStudentBlessing3,
+	ScoldingStudentCape,
+	ScoldingStudentSeasonalHeart,
+	EmoteEww1,
+	EmoteEww2,
+	ScaredyCadetMask,
+	ScaredyCadetBlessing1,
+	EmoteEww3,
+	EmoteEww4,
+	ScaredyCadetMusicSheet,
+	ScaredyCadetHair,
+	ScaredyCadetHammock,
+	ScaredyCadetBlessing2,
+	ScaredyCadetSeasonalHeart,
+	EmoteMarching1,
+	EmoteMarching2,
+	MarchingAdventurerHair,
+	MarchingAdventurerBlessing1,
+	EmoteMarching3,
+	EmoteMarching4,
+	MarchingAdventurerBlessing2,
+	MarchingAdventurerMask,
+	MarchingAdventurerTikiTorch,
+	MarchingAdventurerBlessing3,
+	MarchingAdventurerSeasonalHeart,
+	EmoteChuckle1,
+	EmoteChuckle2,
+	ChucklingScoutMask,
+	ChucklingScoutBlessing1,
+	EmoteChuckle3,
+	EmoteChuckle4,
+	ChucklingScoutBlessing2,
+	ChucklingScoutOutfit,
+	ChucklingScoutProp,
+	ChucklingScoutBlessing3,
+	ChucklingScoutSeasonalHeart,
+	EmoteBubbles1,
+	EmoteBubbles2,
+	DaydreamForesterMask,
+	DaydreamForesterBlessing1,
+	EmoteBubbles3,
+	EmoteBubbles4,
+	DaydreamForesterMusicSheet,
+	DaydreamForesterBlessing2,
+	DaydreamForesterBlessing3,
+	DaydreamForesterHair,
+	DaydreamForesterSeasonalHeart,
+
+	// 19/04/2021 | Days of Nature.
+	OceanNecklace,
+	OceanCape,
+
+	// 29/04/2021 | Travelling Spirit #34.
+	RallyingThrillseekerWingBuff,
+
+	// 13/05/2021 | Travelling Spirit #35.
+	ThoughtfulDirectorWingBuff,
+
+	// 27/05/2021 | Travelling Spirit #36.
+	SnoozingCarpenterWingBuff,
+
+	// 10/06/2021 | Travelling Spirit #37.
+	TimidBookwormWingBuff,
+
+	// 14/06/2021 | Days of Rainbow.
+	RainbowBraid,
+	RainbowCape,
+	RainbowHat,
+	RainbowFlower,
+
 	// TODO SECTION
 	CrabWhispererPipe, // 02/09/2021
 	PlayfightingHerbalistOrb, // 28/10/2021
+	AssemblyGuideSharedSpaceSpell, // Move this to Season of Remembrance.
 
 	/**
 	 * Unlocked by default.
