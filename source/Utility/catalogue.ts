@@ -993,15 +993,6 @@ export const enum Cosmetic {
 	DreamsGuideHeart1,
 	DreamsGuidePhoenixMask,
 	DreamsGuideUltimateCape,
-	DreamsGuideQuest2,
-	DreamsGuideHeart2,
-	DreamsGuideQuest3,
-	DreamsGuideHeart3,
-	DreamsGuideQuest4,
-	DreamsGuideHeart4,
-	DreamsGuideQuest5,
-	DreamsGuideHeart5,
-	DreamsGuideFriendActionHug,
 	EmoteSpinTrick1,
 	EmoteSpinTrick2,
 	SpinningMentorHair,
@@ -1049,11 +1040,23 @@ export const enum Cosmetic {
 	// 07/01/2021 | Travelling Spirit #26.
 	NoddingMuralistWingBuff,
 
-	// 28/02/2021 | Travelling Spirit #28.
-	RespectfulPianistWingBuff,
+	// 11/01/2021 | Season of Dreams Quest 2.
+	DreamsGuideQuest2,
+	DreamsGuideHeart2,
+
+	// 25/01/2021 | Season of Dreams Quest 3.
+	DreamsGuideQuest3,
+	DreamsGuideHeart3,
 
 	// 04/02/2021 | Travelling Spirit Error.
 	CrabWalkerWingBuff,
+
+	// 04/02/2021 | Travelling Spirit #28.
+	RespectfulPianistWingBuff,
+
+	// 08/02/2021 | Season of Dreams Quest 4.
+	DreamsGuideQuest4,
+	DreamsGuideHeart4,
 
 	// 08/02/2021 12:00 | Days of Fortune.
 	DaysOfFortuneMask,
@@ -1067,6 +1070,10 @@ export const enum Cosmetic {
 	// 12/02/2021 12:00 | Days of Love.
 	DaysOfLoveMask,
 	DaysOfLoveSeesaw, // 12/02/2021 12:00.
+
+	// 15/02/2021 | Season of Dreams Quest 5.
+	DreamsGuideQuest5,
+	DreamsGuideHeart5,
 
 	// 22/03/2021 | Days of Bloom.
 	BloomHair,
@@ -1188,6 +1195,7 @@ export const enum Cosmetic {
 	// TODO SECTION
 	CrabWhispererPipe, // 02/09/2021
 	PlayfightingHerbalistOrb, // 28/10/2021
+	DreamsGuideFriendActionHug, // 18/11/2021
 	ProphecyGuideFriendActionHug, // 18/11/2021.
 	AssemblyGuideSharedSpaceSpell, // Move this to Season of Remembrance.
 
