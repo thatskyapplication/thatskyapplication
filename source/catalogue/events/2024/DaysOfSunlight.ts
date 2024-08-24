@@ -1,6 +1,12 @@
 import { Event } from "../../../Structures/Event.js";
 import { EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
+import {
+	CAPE_EMOJIS,
+	FACE_ACCESSORY_EMOJIS,
+	OUTFIT_EMOJIS,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
+} from "../../../Utility/emojis.js";
 
 const eventCurrencyAmount = [];
 
@@ -27,21 +33,25 @@ export default new Event({
 			name: "Sunlight Manta Float",
 			bit: 1 << 0,
 			cost: { eventCurrency: 20 },
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp80,
 		},
 		{
 			name: "Sunlight Beach Shorts outfit",
 			bit: 1 << 1,
 			cost: { eventCurrency: 30 },
+			emoji: OUTFIT_EMOJIS.Outfit65,
 		},
 		{
 			name: "Sunlight Helios Hoops earrings",
 			bit: 1 << 2,
 			cost: { money: 2.99 },
+			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory36,
 		},
 		{
 			name: "Sunlight Woven Wrap cape",
 			bit: 1 << 3,
 			cost: { money: 14.99 },
+			emoji: CAPE_EMOJIS.Cape135,
 		},
 	],
 });

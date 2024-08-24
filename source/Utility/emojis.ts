@@ -569,6 +569,10 @@ export const OUTFIT_EMOJIS = {
 	 * Tournament Tunic.
 	 */
 	Outfit64: { name: "outfit", id: "1267397524365381673" },
+	/**
+	 * Sunlight Beach Shorts outfit.
+	 */
+	Outfit65: { name: "outfit", id: "1276895346827595858" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -1165,6 +1169,11 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 * Days of Fortune Dragn Bangles.
 	 */
 	FaceAccessory35: { name: "face_accessory", id: "1201600819468968027" },
+
+	/**
+	 * Sunlight Helios Hoops earrings.
+	 */
+	FaceAccessory36: { name: "face_accessory", id: "1276896149554335889" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type FaceAccessoryEmojis = (typeof FACE_ACCESSORY_EMOJIS)[keyof typeof FACE_ACCESSORY_EMOJIS];
@@ -2649,6 +2658,10 @@ export const CAPE_EMOJIS = {
 	 * The Cellist's Flourishing.
 	 */
 	Cape134: { name: "cape", id: "1262163581961637918" },
+	/**
+	 * Sunlight Woven Wrap cape.
+	 */
+	Cape135: { name: "cape", id: "1276896382199795712" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -3447,6 +3460,10 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * The Pianist's Flourishing.
 	 */
 	SmallPlaceableProp79: { name: "small_placeable_prop", id: "1262165413979099176" },
+	/**
+	 * Sunlight Manta Float.
+	 */
+	SmallPlaceableProp80: { name: "small_placeable_prop", id: "1276894111433097278" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =
