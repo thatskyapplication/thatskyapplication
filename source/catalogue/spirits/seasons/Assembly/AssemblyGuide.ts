@@ -21,6 +21,7 @@ export default new GuideSpirit({
 	season: SeasonName.Assembly,
 	realm: RealmName.HiddenForest,
 	offer: {
+		hasInfographic: false,
 		current: [
 			{ name: "Shared space spell", bit: 1 << 22, emoji: MISCELLANEOUS_EMOJIS.SpellSharedSpace },
 			{ name: "Quest 1", bit: 1 << 0, emoji: MISCELLANEOUS_EMOJIS.Quest },
