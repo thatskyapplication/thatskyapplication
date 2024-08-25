@@ -1089,20 +1089,6 @@ export const enum Cosmetic {
 	AssemblyGuideBugle,
 	AssemblyGuideUltimateCape,
 	AssemblyGuideHighFive,
-	AssemblyGuideQuest2,
-	AssemblyGuidePillow,
-	AssemblyGuideQuest3,
-	AssemblyGuideHeart2,
-	AssemblyGuideFriendActionHug,
-	AssemblyGuideQuest4,
-	AssemblyGuideJar,
-	AssemblyGuideQuest5,
-	AssemblyGuideBrazier,
-	AssemblyGuideDoubleFive,
-	AssemblyGuideQuest6,
-	AssemblyGuideHeart3,
-	AssemblyGuideBookcase,
-	AssemblyGuideTarpaulin,
 	EmoteFacepalm1,
 	EmoteFacepalm2,
 	BaffledBotanistBlessing1,
@@ -1170,6 +1156,10 @@ export const enum Cosmetic {
 	DaydreamForesterHair,
 	DaydreamForesterSeasonalHeart,
 
+	// 19/04/2021 | Season of Assembly Quest 2.
+	AssemblyGuideQuest2,
+	AssemblyGuidePillow,
+
 	// 19/04/2021 | Days of Nature.
 	OceanNecklace,
 	OceanCape,
@@ -1177,11 +1167,31 @@ export const enum Cosmetic {
 	// 29/04/2021 | Travelling Spirit #34.
 	RallyingThrillseekerWingBuff,
 
+	// 03/05/2021 | Season of Assembly Quest 3.
+	AssemblyGuideQuest3,
+	AssemblyGuideHeart2,
+	AssemblyGuideFriendActionHug,
+
+	// 10/05/2021 | Season of Assembly Quest 4.
+	AssemblyGuideQuest4,
+	AssemblyGuideJar,
+
 	// 13/05/2021 | Travelling Spirit #35.
 	ThoughtfulDirectorWingBuff,
 
+	// 17/05/2021 | Season of Assembly Quest 5.
+	AssemblyGuideQuest5,
+	AssemblyGuideBrazier,
+	AssemblyGuideDoubleFive,
+
 	// 27/05/2021 | Travelling Spirit #36.
 	SnoozingCarpenterWingBuff,
+
+	// 31/05/2021 | Season of Assembly Quest 6.
+	AssemblyGuideQuest6,
+	AssemblyGuideHeart3,
+	AssemblyGuideBookcase,
+	AssemblyGuideTarpaulin,
 
 	// 10/06/2021 | Travelling Spirit #37.
 	TimidBookwormWingBuff,
