@@ -1083,7 +1083,7 @@ export const enum Cosmetic {
 	// 05/04/2021 | Season of Assembly.
 	AssemblyGuideQuest1,
 	AssemblyGuideHeart1,
-	AssemblyGuidePendant,
+	AssemblyPendant,
 	AssemblyGuideUltimateMask,
 	AssemblyGuideUltimateHair,
 	AssemblyGuideBugle,
@@ -1205,7 +1205,7 @@ export const enum Cosmetic {
 	// 06/07/2021 | Season of the Little Prince.
 	TheRoseQuest1,
 	TheRoseHeart1,
-	TheRosePendant,
+	LittlePrincePendant,
 	TheRoseUltimateHair,
 	TheRoseUltimateOutfit,
 	TheRoseRose,

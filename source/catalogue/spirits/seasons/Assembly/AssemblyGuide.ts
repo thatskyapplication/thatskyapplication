@@ -41,7 +41,7 @@ export default new GuideSpirit({
 			},
 			{
 				name: "Pendant",
-				cosmetic: Cosmetic.AssemblyGuidePendant,
+				cosmetic: Cosmetic.AssemblyPendant,
 				emoji: NECKLACE_EMOJIS.Necklace11,
 			},
 			{

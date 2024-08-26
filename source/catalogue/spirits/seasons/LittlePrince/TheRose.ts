@@ -24,7 +24,11 @@ export default new GuideSpirit({
 				cost: { candles: 3 },
 				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
-			{ name: "Pendant", cosmetic: Cosmetic.TheRosePendant, emoji: NECKLACE_EMOJIS.Necklace13 },
+			{
+				name: "Pendant",
+				cosmetic: Cosmetic.LittlePrincePendant,
+				emoji: NECKLACE_EMOJIS.Necklace13,
+			},
 			{
 				name: "Ultimate hair",
 				cosmetic: Cosmetic.TheRoseUltimateHair,
