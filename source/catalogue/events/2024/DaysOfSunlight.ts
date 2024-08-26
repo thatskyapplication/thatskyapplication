@@ -36,19 +36,19 @@ export default new Event({
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp71,
 		},
 		{
-			name: "Sunlight Beach Shorts outfit",
+			name: "Sunlight Beach Shorts",
 			bit: 1 << 1,
 			cost: { eventCurrency: 30 },
 			emoji: OUTFIT_EMOJIS.Outfit65,
 		},
 		{
-			name: "Sunlight Helios Hoops earrings",
+			name: "Sunlight Helios Hoops",
 			bit: 1 << 2,
 			cost: { money: 2.99 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory36,
 		},
 		{
-			name: "Sunlight Woven Wrap cape",
+			name: "Sunlight Woven Wrap",
 			bit: 1 << 3,
 			cost: { money: 14.99 },
 			emoji: CAPE_EMOJIS.Cape135,
