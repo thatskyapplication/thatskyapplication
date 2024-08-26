@@ -853,7 +853,7 @@ export const enum Cosmetic {
 	ChillSunbatherSeasonalHeart,
 
 	// 13/07/2020 | Sky Anniversary.
-	SkyAnniversaryHairAccessory,
+	SkyAnniversaryHairAccessory1,
 
 	// 20/07/2020 | Season of Sanctuary Quest 2.
 	SanctuaryGuideQuest2,
@@ -1201,6 +1201,131 @@ export const enum Cosmetic {
 	RainbowCape,
 	RainbowHat,
 	RainbowFlower,
+
+	// 06/07/2021 | Season of the Little Prince.
+	TheRoseQuest1,
+	TheRoseHeart1,
+	TheRosePendant,
+	TheRoseUltimateHair,
+	TheRoseUltimateOutfit,
+	TheRoseRose,
+	LittlePrinceScarf,
+	LittlePrinceFox,
+	EmoteBeckon1,
+	EmoteBeckon2,
+	BeckoningRulerBlessing1,
+	BeckoningRulerHair,
+	EmoteBeckon3,
+	EmoteBeckon4,
+	BeckoningRulerFrogMask,
+	BeckoningRulerBlessing2,
+	BeckoningRulerSeasonalHeart,
+	EmoteGloat1,
+	EmoteGloat2,
+	GloatingNarcissistBlessing1,
+	GloatingNarcissistMusicSheet,
+	EmoteGloat3,
+	EmoteGloat4,
+	GloatingNarcissistBlessing2,
+	GloatingNarcissistOutfit,
+	GloatingNarcissistHair,
+	GloatingNarcissistBlessing3,
+	GloatingNarcissistSeasonalHeart,
+	EmoteStretch1,
+	EmoteStretch2,
+	StretchingLamplighterBlessing1,
+	StretchingLamplighterHair,
+	EmoteStretch3,
+	EmoteStretch4,
+	StretchingLamplighterCape,
+	StretchingLamplighterBlessing2,
+	StretchingLamplighterSeasonalHeart,
+	EmoteSlouch1,
+	EmoteSlouch2,
+	SlouchingSoldierBlessing1,
+	SlouchingSoldierHair,
+	EmoteSlouch3,
+	EmoteSlouch4,
+	SlouchingSoldierBlessing2,
+	SlouchingSoldierMusicSheet,
+	SlouchingSoldierCape,
+	SlouchingSoldierBlessing3,
+	SlouchingSoldierSeasonalHeart,
+	EmoteSneeze1,
+	EmoteSneeze2,
+	SneezingGeographerHair,
+	SneezingGeographerBlessing1,
+	EmoteSneeze3,
+	EmoteSneeze4,
+	SneezingGeographerBlessing2,
+	SneezingGeographerCape,
+	SneezingGeographerSeasonalHeart,
+	EmoteHandRub1,
+	EmoteHandRub2,
+	StarCollectorNecktie,
+	StarCollectorBlessing1,
+	EmoteHandRub3,
+	EmoteHandRub4,
+	StarCollectorBlessing2,
+	StarCollectorCape,
+	StarCollectorProp,
+	StarCollectorBlessing3,
+	StarCollectorSeasonalHeart,
+
+	// 12/07/2021 | Sky Anniversary.
+	SkyAnniversaryHairAccessory2,
+	SkyAnniversaryProp,
+
+	// 15/07/2021 | Season of the Little Prince Quest 2.
+	TheRoseQuest2,
+	TheRoseHeart2,
+
+	// 23/07/2021 | Season of the Little Prince Quest 3.
+	TheRoseQuest3,
+	TheRoseHeart3,
+
+	// 02/08/2021 | Season of the Little Prince Quest 4.
+	TheRoseQuest4,
+	TheRoseHeart4,
+
+	// 05/08/2021 | Travelling Spirit #41.
+	ProphetOfWaterProp,
+	ProphetOfWaterWingBuff,
+
+	// 11/08/2021 | Season of the Little Prince Quest 5.
+	TheRoseQuest5,
+	TheRoseHeart5,
+
+	// 12/08/2021 | Days of Summer.
+	DoubleDeckChairs,
+	SummerHat,
+	SummerUmbrella,
+	SummerShellHairPin,
+
+	// 19/08/2021 | Travelling Spirit #42.
+	ChillSunbatherSunlounger,
+	ChillSunbatherWingBuff,
+
+	// 20/08/2021 | Season of the Little Prince Quest 6.
+	TheRoseQuest6,
+	TheRoseHeart6,
+
+	// 30/08/2021 | Season of the Little Prince Quest 7.
+	TheRoseQuest7,
+	TheRoseHeart7,
+	SwordOutfit,
+	LittlePrinceAsteroidJacket,
+
+	// 16/09/2021 | Travelling Spirit #44.
+	TroupeJugglerProp,
+	TroupeJugglerWingBuff,
+
+	// 20/09/2021 | Days of Summer Lights.
+	SummerLightsAccessory,
+
+	// 30/09/2021 | Travelling Spirit #45.
+	GratefulShellCollectorChairs,
+	GratefulShellCollectorWingBuff,
 
 	// TODO SECTION
 	CrabWhispererPipe, // 02/09/2021

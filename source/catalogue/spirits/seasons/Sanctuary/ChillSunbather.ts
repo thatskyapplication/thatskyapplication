@@ -81,7 +81,12 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 				emoji: emoteEmoji,
 			},
-			{ name: "Sunlounger", cost: { candles: 20 }, emoji: placeablePropEmoji },
+			{
+				name: "Sunlounger",
+				cosmetic: Cosmetic.ChillSunbatherSunlounger,
+				cost: { candles: 20 },
+				emoji: placeablePropEmoji,
+			},
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.ChillSunbatherBlessing1,
@@ -102,6 +107,7 @@ export default new SeasonalSpirit({
 			},
 			{
 				name: "Wing buff",
+				cosmetic: Cosmetic.ChillSunbatherWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},

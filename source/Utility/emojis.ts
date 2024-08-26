@@ -1979,11 +1979,11 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 */
 	HairAccessory06: { name: "hair_accessory", id: "1186592086414331974" },
 	/**
-	 * Days of Summer 2021.
+	 * Summer Hat.
 	 */
 	HairAccessory07: { name: "hair_accessory", id: "1186592088981246063" },
 	/**
-	 * Days of Summer Shell Hair Pin.
+	 * Summer Shell Hair Pin.
 	 */
 	HairAccessory08: { name: "hair_accessory", id: "1186592138612441149" },
 	/**
@@ -2779,7 +2779,7 @@ export const HELD_PROPS_EMOJIS = {
 	 */
 	HeldProp22: { name: "held_prop", id: "1190678833901338665" },
 	/**
-	 * Days of Summer Umbrella.
+	 * Summer Umbrella.
 	 */
 	HeldProp23: { name: "held_prop", id: "1190678836787019777" },
 	/**
@@ -2931,7 +2931,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp12: { name: "large_placeable_prop", id: "1193625890345730099" },
 	/**
-	 * Days of Summer 2021.
+	 * Double Deck Chairs.
 	 */
 	LargePlaceableProp13: { name: "large_placeable_prop", id: "1193625942501892227" },
 	/**

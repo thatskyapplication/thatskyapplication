@@ -78,8 +78,12 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 				emoji: emoteEmoji,
 			},
-			// This was from an event originally.
-			{ name: "Beach chairs", cost: { hearts: 16 }, emoji: placeablePropEmoji },
+			{
+				name: "Double Deck Chairs",
+				cosmetic: Cosmetic.DoubleDeckChairs,
+				cost: { hearts: 16 },
+				emoji: placeablePropEmoji,
+			},
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.HikingGrouchBlessing1,

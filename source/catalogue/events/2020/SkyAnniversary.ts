@@ -10,7 +10,7 @@ export default new Event({
 	offer: [
 		{
 			name: "Hair accessory",
-			cosmetic: Cosmetic.SkyAnniversaryHairAccessory,
+			cosmetic: Cosmetic.SkyAnniversaryHairAccessory1,
 			cost: { hearts: 3 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory03,
 		},

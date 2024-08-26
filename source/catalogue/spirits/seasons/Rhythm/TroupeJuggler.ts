@@ -101,7 +101,12 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 				emoji: emoteEmoji,
 			},
-			{ name: "Prop", cost: { hearts: 14 }, emoji: placeablePropEmoji },
+			{
+				name: "Prop",
+				cosmetic: Cosmetic.TroupeJugglerProp,
+				cost: { hearts: 14 },
+				emoji: placeablePropEmoji,
+			},
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.TroupeJugglerBlessing1,
@@ -122,6 +127,7 @@ export default new SeasonalSpirit({
 			},
 			{
 				name: "Wing buff",
+				cosmetic: Cosmetic.TroupeJugglerWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},

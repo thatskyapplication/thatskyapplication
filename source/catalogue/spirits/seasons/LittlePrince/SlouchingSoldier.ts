@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -31,40 +31,104 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, emoji: emoteEmoji },
-			{ name: "Blessing 1", bit: 1 << 3, cost: { seasonalCandles: 10 }, emoji: blessing2 },
-			{ name: "Hair", bit: 1 << 5, emoji: hairEmoji },
-			{ name: `${emote} 3`, bit: 1 << 7, cost: { seasonalCandles: 14 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 8, emoji: emoteEmoji },
-			{ name: "Blessing 2", bit: 1 << 9, cost: { seasonalCandles: 18 }, emoji: blessing2 },
-			{ name: "Music sheet", bit: 1 << 4, emoji: musicSheet },
-			{ name: "Cape", bit: 1 << 10, cost: { seasonalCandles: 22 }, emoji: capeEmoji },
-			{ name: "Blessing 3", bit: 1 << 11, emoji: blessing2 },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteSlouch1, emoji: emoteEmoji },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteSlouch2, emoji: emoteEmoji },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.SlouchingSoldierBlessing1,
+				cost: { seasonalCandles: 10 },
+				emoji: blessing2,
+			},
+			{ name: "Hair", cosmetic: Cosmetic.SlouchingSoldierHair, emoji: hairEmoji },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteSlouch3,
+				cost: { seasonalCandles: 14 },
+				emoji: emoteEmoji,
+			},
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteSlouch4, emoji: emoteEmoji },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.SlouchingSoldierBlessing2,
+				cost: { seasonalCandles: 18 },
+				emoji: blessing2,
+			},
+			{ name: "Music sheet", cosmetic: Cosmetic.SlouchingSoldierMusicSheet, emoji: musicSheet },
+			{
+				name: "Cape",
+				cosmetic: Cosmetic.SlouchingSoldierCape,
+				cost: { seasonalCandles: 22 },
+				emoji: capeEmoji,
+			},
+			{ name: "Blessing 3", cosmetic: Cosmetic.SlouchingSoldierBlessing3, emoji: blessing2 },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 2,
+				cosmetic: Cosmetic.SlouchingSoldierSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.LittlePrinceHeart,
 			},
 		],
 		current: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, cost: { hearts: 4 }, emoji: emoteEmoji },
-			{ name: "Heart", bit: 1 << 2, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Blessing 1", bit: 1 << 3, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Music sheet", bit: 1 << 4, cost: { candles: 15 }, emoji: musicSheet },
-			{ name: "Hair", bit: 1 << 5, cost: { candles: 42 }, emoji: hairEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteSlouch1, emoji: emoteEmoji },
+			{
+				name: `${emote} 2`,
+				cosmetic: Cosmetic.EmoteSlouch2,
+				cost: { hearts: 4 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.SlouchingSoldierSeasonalHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.SlouchingSoldierBlessing1,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Music sheet",
+				cosmetic: Cosmetic.SlouchingSoldierMusicSheet,
+				cost: { candles: 15 },
+				emoji: musicSheet,
+			},
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.SlouchingSoldierHair,
+				cost: { candles: 42 },
+				emoji: hairEmoji,
+			},
 			{
 				name: "Wing buff",
-				bit: 1 << 6,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
-			{ name: `${emote} 3`, bit: 1 << 7, cost: { hearts: 3 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 8, cost: { hearts: 6 }, emoji: emoteEmoji },
-			{ name: "Blessing 2", bit: 1 << 9, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Cape", bit: 1 << 10, cost: { candles: 70 }, emoji: capeEmoji },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteSlouch3,
+				cost: { hearts: 3 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: `${emote} 4`,
+				cosmetic: Cosmetic.EmoteSlouch4,
+				cost: { hearts: 6 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.SlouchingSoldierBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Cape",
+				cosmetic: Cosmetic.SlouchingSoldierCape,
+				cost: { candles: 70 },
+				emoji: capeEmoji,
+			},
 		],
 	},
 	visits: {

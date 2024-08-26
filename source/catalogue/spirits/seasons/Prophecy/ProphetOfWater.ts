@@ -79,7 +79,12 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 				emoji: emoteEmoji,
 			},
-			{ name: "Prop", cost: { candles: 15 }, emoji: placeablePropEmoji },
+			{
+				name: "Prop",
+				cosmetic: Cosmetic.ProphetOfWaterProp,
+				cost: { candles: 15 },
+				emoji: placeablePropEmoji,
+			},
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.ProphetOfWaterBlessing1,
@@ -100,6 +105,7 @@ export default new SeasonalSpirit({
 			},
 			{
 				name: "Wing buff",
+				cosmetic: Cosmetic.ProphetOfWaterWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},

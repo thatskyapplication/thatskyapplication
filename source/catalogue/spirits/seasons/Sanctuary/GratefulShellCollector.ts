@@ -70,7 +70,12 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 				emoji: emoteEmoji,
 			},
-			{ name: "Chairs", cost: { candles: 45 }, emoji: placeablePropEmoji },
+			{
+				name: "Chairs",
+				cosmetic: Cosmetic.GratefulShellCollectorChairs,
+				cost: { candles: 45 },
+				emoji: placeablePropEmoji,
+			},
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.GratefulShellCollectorBlessing1,
@@ -91,6 +96,7 @@ export default new SeasonalSpirit({
 			},
 			{
 				name: "Wing buff",
+				cosmetic: Cosmetic.GratefulShellCollectorWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},

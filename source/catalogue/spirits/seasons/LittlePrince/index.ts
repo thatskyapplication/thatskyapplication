@@ -1,5 +1,5 @@
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { CAPE_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../../../Utility/emojis.js";
 import BeckoningRuler from "./BeckoningRuler.js";
@@ -25,22 +25,22 @@ export default new Season({
 	],
 	items: [
 		{
-			name: "Little Prince Scarf Cape",
-			bit: 1 << 0,
+			name: "Little Prince Scarf",
+			cosmetic: Cosmetic.LittlePrinceScarf,
 			cost: { money: 14.99 },
 			emoji: CAPE_EMOJIS.Cape63,
 		},
 		{
-			name: "Little Prince Asteroid Jacket",
-			bit: 1 << 1,
-			cost: { money: 24.99 },
-			emoji: CAPE_EMOJIS.Cape64,
-		},
-		{
 			name: "Little Prince Fox",
-			bit: 1 << 2,
+			cosmetic: Cosmetic.LittlePrinceFox,
 			cost: { money: 9.99 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp06,
+		},
+		{
+			name: "Little Prince Asteroid Jacket",
+			cosmetic: Cosmetic.LittlePrinceAsteroidJacket,
+			cost: { money: 24.99 },
+			emoji: CAPE_EMOJIS.Cape64,
 		},
 	],
 	seasonalCandlesRotation: null,
