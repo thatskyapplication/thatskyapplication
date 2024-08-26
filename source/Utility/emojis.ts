@@ -1169,11 +1169,14 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 * Days of Fortune Dragn Bangles.
 	 */
 	FaceAccessory35: { name: "face_accessory", id: "1201600819468968027" },
-
+	/**
+	 * Compassionate Cellist.
+	 */
+	FaceAccessory36: { name: "face_accessory", id: "1277693267353534505" },
 	/**
 	 * Sunlight Helios Hoops earrings.
 	 */
-	FaceAccessory36: { name: "face_accessory", id: "1276896149554335889" },
+	FaceAccessory37: { name: "face_accessory", id: "1276896149554335889" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type FaceAccessoryEmojis = (typeof FACE_ACCESSORY_EMOJIS)[keyof typeof FACE_ACCESSORY_EMOJIS];
@@ -2850,6 +2853,10 @@ export const HELD_PROPS_EMOJIS = {
 	 * Tournament Torch.
 	 */
 	HeldProp45: { name: "held_prop", id: "1267228089604378696" },
+	/**
+	 * Compassionate Cellist.
+	 */
+	HeldProp46: { name: "held_prop", id: "1277694618523402333" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HeldPropsEmojis = (typeof HELD_PROPS_EMOJIS)[keyof typeof HELD_PROPS_EMOJIS];

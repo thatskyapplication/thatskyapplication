@@ -45,7 +45,7 @@ export default new Event({
 			name: "Sunlight Helios Hoops",
 			bit: 1 << 2,
 			cost: { money: 2.99 },
-			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory36,
+			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory37,
 		},
 		{
 			name: "Sunlight Woven Wrap",

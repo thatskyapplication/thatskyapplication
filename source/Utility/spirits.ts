@@ -235,6 +235,7 @@ export enum SpiritName {
 	TheMusiciansLegacy = "The Musicians' Legacy",
 	TheCellistsFlourishing = "The Cellist's Flourishing",
 	ThePianistsFlourishing = "The Pianist's Flourishing",
+	CompassionateCellist = "Compassionate Cellist",
 }
 
 export const enum SpiritEmote {
