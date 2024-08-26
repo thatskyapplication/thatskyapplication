@@ -4,8 +4,8 @@ import { skyDate } from "../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
 	FACE_ACCESSORY_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
 	OUTFIT_EMOJIS,
-	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../Utility/emojis.js";
 
 const eventCurrencyAmount = [];
@@ -33,7 +33,7 @@ export default new Event({
 			name: "Sunlight Manta Float",
 			bit: 1 << 0,
 			cost: { eventCurrency: 20 },
-			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp80,
+			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp71,
 		},
 		{
 			name: "Sunlight Beach Shorts outfit",

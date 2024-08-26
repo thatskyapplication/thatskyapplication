@@ -3138,6 +3138,10 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Large bathtub.
 	 */
 	LargePlaceableProp70: { name: "large_placeable_prop", id: "1257965976549462086" },
+	/**
+	 * Sunlight Manta Float.
+	 */
+	LargePlaceableProp71: { name: "large_placeable_prop", id: "1277523928067215381" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type LargePlaceablePropsEmojis =
@@ -3460,10 +3464,6 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * The Pianist's Flourishing.
 	 */
 	SmallPlaceableProp79: { name: "small_placeable_prop", id: "1262165413979099176" },
-	/**
-	 * Sunlight Manta Float.
-	 */
-	SmallPlaceableProp80: { name: "small_placeable_prop", id: "1276894111433097278" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =
