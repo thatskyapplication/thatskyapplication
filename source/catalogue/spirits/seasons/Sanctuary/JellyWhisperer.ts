@@ -82,6 +82,7 @@ export default new SeasonalSpirit({
 			},
 			{
 				name: "Wing buff",
+				cosmetic: Cosmetic.JellyWhispererWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
@@ -91,7 +92,12 @@ export default new SeasonalSpirit({
 				cost: { candles: 5 },
 				emoji: blessing2,
 			},
-			{ name: "Umbrella", cost: { hearts: 15 }, emoji: placeablePropEmoji },
+			{
+				name: "Umbrella",
+				cosmetic: Cosmetic.JellyWhispererUmbrella,
+				cost: { hearts: 15 },
+				emoji: placeablePropEmoji,
+			},
 			{
 				name: "Hair",
 				cosmetic: Cosmetic.JellyWhispererHair,

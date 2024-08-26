@@ -1259,7 +1259,7 @@ export const NECKLACE_EMOJIS = {
 	 */
 	Necklace16: { name: "necklace", id: "1182861524772073473" },
 	/**
-	 * Days of Feast 2021.
+	 * Winter Feast Scarf.
 	 */
 	Necklace17: { name: "necklace", id: "1182861526865031250" },
 	/**
@@ -1727,15 +1727,15 @@ export const HAIR_EMOJIS = {
 	 */
 	Hair94: { name: "hair", id: "1183626912589950989" },
 	/**
-	 * Days of Mischief 2021.
+	 * Mischief Witch Hair.
 	 */
 	Hair95: { name: "hair", id: "1183626915857301556" },
 	/**
-	 * Mischief Spider Hair.
+	 * Mischief Spider Quiff.
 	 */
 	Hair96: { name: "hair", id: "1183626920517185547" },
 	/**
-	 * Days of Feast 2021.
+	 * Winter Feast Hat.
 	 */
 	Hair97: { name: "hair", id: "1183626925063807056" },
 	/**
@@ -2407,7 +2407,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape66: { name: "cape", id: "1188422789514932307" },
 	/**
-	 * Days of Mischief 2021.
+	 * Mischief Withered Cape.
 	 */
 	Cape67: { name: "cape", id: "1188422791528206387" },
 	/**
@@ -2955,7 +2955,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp18: { name: "large_placeable_prop", id: "1193625910365138986" },
 	/**
-	 * Days of Mischief 2021 1.
+	 * Mischief Spooky Dining Set.
 	 */
 	LargePlaceableProp19: { name: "large_placeable_prop", id: "1193625912676192346" },
 	/**
@@ -3213,11 +3213,11 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	SmallPlaceableProp09: { name: "small_placeable_prop", id: "1229111178551230536" },
 	/**
-	 * Days of Feast 2021 1.
+	 * Winter Feast Pillow.
 	 */
 	SmallPlaceableProp10: { name: "small_placeable_prop", id: "1229112946001707089" },
 	/**
-	 * Days of Feast 2021 2.
+	 * Winter Feast Snowglobe.
 	 */
 	SmallPlaceableProp11: { name: "small_placeable_prop", id: "1229113621737504860" },
 	/**

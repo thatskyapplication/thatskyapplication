@@ -1316,6 +1316,9 @@ export const enum Cosmetic {
 	SwordOutfit,
 	LittlePrinceAsteroidJacket,
 
+	// 02/09/2021 | Travelling Spirit #43.
+	CrabWhispererPipe,
+
 	// 16/09/2021 | Travelling Spirit #44.
 	TroupeJugglerProp,
 	TroupeJugglerWingBuff,
@@ -1327,11 +1330,118 @@ export const enum Cosmetic {
 	GratefulShellCollectorChairs,
 	GratefulShellCollectorWingBuff,
 
+	// 04/10/2021 | Season of Flight.
+	FlightGuideQuest1,
+	FlightGuideHeart1,
+	FlightPendant,
+	FlightGuideUltimateHairAccessory,
+	FlightGuideUltimateOutfit,
+	EmoteNavigate1,
+	EmoteNavigate2,
+	LivelyNavigatorBlessing1,
+	LivelyNavigatorHair,
+	LivelyNavigatorHairAccessory,
+	LivelyNavigatorBlessing2,
+	EmoteNavigate3,
+	EmoteNavigate4,
+	LivelyNavigatorTrailSpell1,
+	LivelyNavigatorCape,
+	LivelyNavigatorMusicSheet,
+	LivelyNavigatorTrailSpell2,
+	LivelyNavigatorSeasonalHeart,
+	CallBabyManta,
+	LightWhispererBlessing1,
+	LightWhispererHairAccessory,
+	LightWhispererHair,
+	LightWhispererBlessing2,
+	LightWhispererTrailSpell1,
+	LightWhispererCape,
+	LightWhispererOutfit,
+	LightWhispererTrailSpell2,
+	LightWhispererSeasonalHeart,
+	StanceTinker,
+	TinkeringChimesmithBlessing1,
+	TinkeringChimesmithOutfit,
+	TinkeringChimesmithHairAccessory,
+	TinkeringChimesmithBlessing2,
+	TinkeringChimesmithTrailSpell1,
+	TinkeringChimesmithKalimba,
+	TinkeringChimesmithHair,
+	TinkeringChimesmithTrailSpell2,
+	TinkeringChimesmithSeasonalHeart,
+	EmoteVoilà1,
+	EmoteVoilà2,
+	TalentedBuilderBlessing1,
+	TalentedBuilderMusicSheet,
+	TalentedBuilderNeckAccessory,
+	TalentedBuilderBlessing2,
+	EmoteVoilà3,
+	EmoteVoilà4,
+	TalentedBuilderTrailSpell1,
+	TalentedBuilderOutfit,
+	TalentedBuilderHair,
+	TalentedBuilderTrailSpell2,
+	TalentedBuilderSeasonalHeart,
+
+	// 18/10/2021 | Season of Flight Quest 2.
+	FlightGuideQuest2,
+	FlightGuideHeart2,
+	FlightGuideHighFive,
+
+	// 18/10/2021 | Days of Mischief.
+	MischiefWitchHair,
+	MischiefWitheredCape,
+	MischiefSpookyDiningSet,
+	MischiefWitchJumper,
+	MischiefWitheredAntlers,
+	MischiefSpiderQuiff,
+	MischiefPumpkinProp,
+
+	// 28/10/2021 | Travelling Spirit #47.
+	PlayfightingHerbalistWingBuff,
+	PlayfightingHerbalistOrb,
+
+	// 01/11/2021 | Season of Flight Quest 3.
+	FlightGuideQuest3,
+	FlightGuideHeart3,
+
+	// 11/11/2021 | Travelling Spirit #48.
+	WiseGrandparentProp,
+
+	// 15/11/2021 | Season of Flight Quest 4.
+	FlightGuideQuest4,
+	FlightGuideHeart4,
+
+	// 18/11/2021 | Version 0.15.5.
+	DreamsGuideFriendActionHug,
+	ProphecyGuideFriendActionHug,
+
+	// 25/11/2021 | Travelling Spirit #49.
+	JellyWhispererWingBuff,
+	JellyWhispererUmbrella,
+
+	// 29/11/2021 | Season of Flight Quest 5.
+	FlightGuideQuest5,
+	FlightGuideHeart5,
+	FlightGuideFriendActionHug,
+
+	// 09/12/2021 | Travelling Spirit #50.
+	ProphetOfFireWingBuff,
+	ProphetOfFireCauldron,
+
+	// 20/12/2021 | Days of Feast.
+	OdeToJoyMusicSheet,
+	WinterFeastPillow,
+	WinterFeastScarf,
+	WinterFeastHat,
+	SnowflakeHairAccessory,
+	WinterAncestorCape,
+	WinterFeastSnowGlobe,
+
+	// 23/12/2021 | Travelling Spirit #51.
+	SparklerParentPinwheel,
+
 	// TODO SECTION
-	CrabWhispererPipe, // 02/09/2021
-	PlayfightingHerbalistOrb, // 28/10/2021
-	DreamsGuideFriendActionHug, // 18/11/2021
-	ProphecyGuideFriendActionHug, // 18/11/2021.
 	AssemblyGuideSharedSpaceSpell, // Move this to Season of Remembrance.
 
 	/**

@@ -121,7 +121,7 @@ export default new SeasonalSpirit({
 			},
 			{
 				name: "Pinwheel",
-				// 23rd December 2021
+				cosmetic: Cosmetic.SparklerParentPinwheel,
 				cost: { candles: 33 },
 				emoji: placeablePropEmoji,
 			},

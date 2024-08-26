@@ -101,6 +101,7 @@ export default new SeasonalSpirit({
 			},
 			{
 				name: "Wing buff",
+				cosmetic: Cosmetic.ProphetOfFireWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
@@ -134,7 +135,12 @@ export default new SeasonalSpirit({
 				cost: { candles: 54 },
 				emoji: maskEmoji,
 			},
-			{ name: "Cauldron", cost: { hearts: 13 }, emoji: placeablePropEmoji1 },
+			{
+				name: "Cauldron",
+				cosmetic: Cosmetic.ProphetOfFireCauldron,
+				cost: { hearts: 13 },
+				emoji: placeablePropEmoji1,
+			},
 			{
 				name: "Outfit",
 				cosmetic: Cosmetic.ProphetOfFireOutfit,

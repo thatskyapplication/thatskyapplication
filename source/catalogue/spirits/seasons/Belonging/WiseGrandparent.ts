@@ -108,6 +108,7 @@ export default new SeasonalSpirit({
 			},
 			{
 				name: "Prop",
+				cosmetic: Cosmetic.WiseGrandparentProp,
 				cost: { candles: 10 },
 				emoji: placeablePropEmoji,
 			},
