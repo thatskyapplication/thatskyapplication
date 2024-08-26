@@ -3,6 +3,7 @@ import { EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
+	FACE_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 	OUTFIT_EMOJIS,
@@ -27,6 +28,12 @@ export default new Event({
 			bit: 1 << 3,
 			cost: { money: 9.99 },
 			emoji: OUTFIT_EMOJIS.Outfit28,
+		},
+		{
+			name: "Mischief Withered Antlers",
+			bit: 1 << 6,
+			cost: { money: 9.99 },
+			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory14,
 		},
 		{ name: "Mischief Spider Hair", bit: 1 << 4, cost: { money: 4.99 }, emoji: HAIR_EMOJIS.Hair96 },
 		{
