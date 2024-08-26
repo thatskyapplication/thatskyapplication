@@ -17,7 +17,12 @@ export default new GuideSpirit({
 		inProgress: true,
 		current: [
 			{ name: "Quest 1", bit: 1 << 0, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Mask", bit: 1 << 1, cost: { candles: 65 }, emoji: MASK_EMOJIS.Mask93 },
+			{
+				name: "Mask",
+				bit: 1 << 1,
+				cost: { candles: 65 },
+				emoji: MASK_EMOJIS.Mask93,
+			},
 			{ name: "Pendant", bit: 1 << 2, emoji: NECKLACE_EMOJIS.Necklace37 },
 			{
 				name: "Ultimate prop 1",
@@ -40,7 +45,18 @@ export default new GuideSpirit({
 			{ name: "Quest 2", bit: 1 << 6, emoji: MISCELLANEOUS_EMOJIS.Quest },
 			{ name: "Heart", bit: 1 << 7, emoji: MISCELLANEOUS_EMOJIS.Heart },
 			{ name: "Quest 3", bit: 1 << 8, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: FriendAction.DuetBow, bit: 1 << 9, emoji: FRIEND_ACTION_EMOJIS.DuetBow },
+			{
+				name: `${FriendAction.DuetBow} 1`,
+				bit: 1 << 9,
+				emoji: FRIEND_ACTION_EMOJIS.DuetBow,
+			},
+			{ name: "Quest 4", bit: 1 << 10, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{
+				name: `${FriendAction.DuetBow} 2`,
+				bit: 1 << 11,
+				cost: { hearts: 2 },
+				emoji: FRIEND_ACTION_EMOJIS.DuetBow,
+			},
 		],
 	},
 });
