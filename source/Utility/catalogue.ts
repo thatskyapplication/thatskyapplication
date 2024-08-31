@@ -774,6 +774,11 @@ export const enum Cosmetic {
 	// 18/05/2020 12:00 | Days of Healing.
 	HealingPack,
 
+	// 28/05/2020 | Travelling Spirit Error.
+	SalutingProtectorHeart,
+	SalutingProtectorWingBuff,
+	SalutingProtectorBlessing2,
+
 	// 11/06/2020 | Season of Enchantment Quest 6.
 	EnchantmentGuideQuest6,
 	EnchantmentGuideHeart6,
@@ -1440,6 +1445,110 @@ export const enum Cosmetic {
 
 	// 23/12/2021 | Travelling Spirit #51.
 	SparklerParentPinwheel,
+
+	// 06/01/2022 | Travelling Spirit Error.
+	ProphetOfEarthProp,
+	ProphetOfEarthWingBuff,
+
+	// 17/01/2022 | Season of Abyss.
+	AbyssGuideQuest1,
+	AbyssGuideHeart1,
+	AbyssGuidePendant,
+	AbyssGuideUltimateFaceAccessory,
+	AbyssGuideUltimateCape,
+	AbyssGuideUltimateMask,
+	EmoteAnxious1,
+	EmoteAnxious2,
+	AnxiousAnglerBlessing1,
+	AnxiousAnglerMask,
+	AnxiousAnglerHair,
+	AnxiousAnglerBlessing2,
+	EmoteAnxious3,
+	EmoteAnxious4,
+	AnxiousAnglerBlessing3,
+	AnxiousAnglerCape,
+	AnxiousAnglerOutfit,
+	AnxiousAnglerBlessing4,
+	AnxiousAnglerSeasonalHeart,
+	EmoteCalmDown1,
+	EmoteCalmDown2,
+	CeasingCommodoreBlessing1,
+	CeasingCommodoreHair,
+	CeasingCommodoreMask,
+	CeasingCommodoreBlessing2,
+	EmoteCalmDown3,
+	EmoteCalmDown4,
+	CeasingCommodoreCape,
+	CeasingCommodoreBlessing3,
+	CeasingCommodoreSeasonalHeart,
+	EmoteOuch1,
+	EmoteOuch2,
+	BumblingBoatswainBlessing1,
+	BumblingBoatswainMask,
+	BumblingBoatswainMusicSheet,
+	BumblingBoatswainBlessing2,
+	EmoteOuch3,
+	EmoteOuch4,
+	BumblingBoatswainBlessing3,
+	BumblingBoatswainCape,
+	BumblingBoatswainHairAccessory,
+	BumblingBoatswainBlessing4,
+	BumblingBoatswainSeasonalHeart,
+	EmoteEvilLaugh1,
+	EmoteEvilLaugh2,
+	CacklingCannoneerBlessing1,
+	CacklingCannoneerMusicSheet,
+	CacklingCannoneerMask,
+	CacklingCannoneerBlessing2,
+	EmoteEvilLaugh3,
+	EmoteEvilLaugh4,
+	CacklingCannoneerCape,
+	CacklingCannoneerBlessing3,
+	CacklingCannoneerBlessing4,
+	CacklingCannoneerHair,
+	CacklingCannoneerSeasonalHeart,
+
+	// 24/01/2022 | Season of Abyss Quest 2.
+	AbyssGuideQuest2,
+	AbyssGuideHeart2,
+
+	// 24/01/2022 | Days of Fortune.
+	DaysOfFortuneTigerMask,
+	DaysOfFortuneFishCape,
+	DaysOfFortuneFishHood,
+	DaysOfFortuneFishAccessory,
+
+	// 31/01/2022 | Season of Abyss Quest 3.
+	AbyssGuideQuest3,
+	AbyssGuideHeart3,
+
+	// 07/02/2022 | Days of Love.
+	DaysOfLoveFlowerCrown,
+	DaysOfLoveGondolaPack,
+
+	// 14/02/2022 | Season of Abyss Quest 4.
+	AbyssGuideQuest4,
+	AbyssGuideHeart4,
+
+	// 17/02/2022 | Travelling Spirit #55.
+	HikingGrouchWingBuff,
+
+	// 25/02/2022 | Kizuna AI.
+	KizunaAIHair,
+	KizunaAIBow,
+	KizunaAICape,	
+
+	// 07/03/2022 | Season of Abyss Quest 5.
+	AbyssGuideQuest5,
+	AbyssGuideHeart5,
+	AbyssGuideMask,
+
+	// 28/03/2022 | Days of Bloom.
+	PurpleBloomCape,
+	PurpleBloomTeaset,
+
+	// 31/03/2022 | Travelling Spirit #58.
+	ScarecrowFarmerWingBuff,
 
 	// TODO SECTION
 	AssemblyGuideSharedSpaceSpell, // Move this to Season of Remembrance.

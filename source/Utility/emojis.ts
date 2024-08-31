@@ -883,7 +883,7 @@ export const MASK_EMOJIS = {
 	 */
 	Mask57: { name: "mask", id: "1201602650324607056" },
 	/**
-	 * Days of Fortune 2022.
+	 * Days of Fortune Tiger Mask.
 	 */
 	Mask58: { name: "mask", id: "1182639044920885318" },
 	/**
