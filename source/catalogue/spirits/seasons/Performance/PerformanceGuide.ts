@@ -1,6 +1,6 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	FRIEND_ACTION_EMOJIS,
@@ -18,58 +18,127 @@ export default new GuideSpirit({
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
 		current: [
-			{ name: "Quest 1", bit: 1 << 0, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Shared memory spell 1", bit: 1 << 1, emoji: MISCELLANEOUS_EMOJIS.SpellSharedMemory },
-			{ name: "Pendant", bit: 1 << 2, emoji: NECKLACE_EMOJIS.Necklace19 },
+			{
+				name: "Quest 1",
+				cosmetic: Cosmetic.PerformanceGuideQuest1,
+				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
+			{
+				name: "Shared memory spell 1",
+				cosmetic: Cosmetic.PerformanceGuideSharedMemorySpell1,
+				emoji: MISCELLANEOUS_EMOJIS.SpellSharedMemory,
+			},
+			{
+				name: "Pendant",
+				cosmetic: Cosmetic.PerformanceGuidePendant,
+				emoji: NECKLACE_EMOJIS.Necklace19,
+			},
 			{
 				name: "Ultimate mask",
-				bit: 1 << 3,
+				cosmetic: Cosmetic.PerformanceGuideUltimateMask,
 				cost: { seasonalHearts: 1 },
 				emoji: MASK_EMOJIS.Mask59,
 			},
 			{
 				name: "Ultimate cape",
-				bit: 1 << 4,
+				cosmetic: Cosmetic.PerformanceGuideUltimateCape,
 				cost: { seasonalHearts: 2 },
 				emoji: CAPE_EMOJIS.Cape78,
 			},
 			{
 				name: "Ultimate hair",
-				bit: 1 << 5,
+				cosmetic: Cosmetic.PerformanceGuideUltimateHair,
 				cost: { seasonalHearts: 1 },
 				emoji: HAIR_EMOJIS.Hair103,
 			},
-			{ name: FriendAction.HighFive, bit: 1 << 6, emoji: FRIEND_ACTION_EMOJIS.HighFive },
-			{ name: "Heart 1", bit: 1 << 7, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Quest 2", bit: 1 << 8, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Mask", bit: 1 << 9, cost: { candles: 42 }, emoji: MASK_EMOJIS.Mask62 },
-			{ name: "Quest 3", bit: 1 << 10, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{
+				name: FriendAction.HighFive,
+				cosmetic: Cosmetic.PerformanceGuideHighFive,
+				emoji: FRIEND_ACTION_EMOJIS.HighFive,
+			},
+			{
+				name: "Heart 1",
+				cosmetic: Cosmetic.PerformanceGuideHeart1,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Quest 2",
+				cosmetic: Cosmetic.PerformanceGuideQuest2,
+				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.PerformanceGuideMask,
+				cost: { candles: 42 },
+				emoji: MASK_EMOJIS.Mask62,
+			},
+			{
+				name: "Quest 3",
+				cosmetic: Cosmetic.PerformanceGuideQuest3,
+				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
 			{
 				name: "Shared memory spell 2",
-				bit: 1 << 11,
+				cosmetic: Cosmetic.PerformanceGuideSharedMemorySpell2,
 				emoji: MISCELLANEOUS_EMOJIS.SpellSharedMemory,
 			},
-			{ name: FriendAction.DoubleFive, bit: 1 << 12, emoji: FRIEND_ACTION_EMOJIS.DoubleFive },
-			{ name: "Heart 2", bit: 1 << 13, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Quest 4", bit: 1 << 14, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{
+				name: FriendAction.DoubleFive,
+				cosmetic: Cosmetic.PerformanceGuideDoubleFive,
+				emoji: FRIEND_ACTION_EMOJIS.DoubleFive,
+			},
+			{
+				name: "Heart 2",
+				cosmetic: Cosmetic.PerformanceGuideHeart2,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Quest 4",
+				cosmetic: Cosmetic.PerformanceGuideQuest4,
+				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
 			{
 				name: "Shared memory spell 3",
-				bit: 1 << 15,
+				cosmetic: Cosmetic.PerformanceGuideSharedMemorySpell3,
 				emoji: MISCELLANEOUS_EMOJIS.SpellSharedMemory,
 			},
-			{ name: FriendAction.Hug, bit: 1 << 16, emoji: FRIEND_ACTION_EMOJIS.Hug },
-			{ name: "Heart 3", bit: 1 << 17, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Quest 5", bit: 1 << 18, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{
+				name: FriendAction.Hug,
+				cosmetic: Cosmetic.FriendActionHug,
+				emoji: FRIEND_ACTION_EMOJIS.Hug,
+			},
+			{
+				name: "Heart 3",
+				cosmetic: Cosmetic.PerformanceGuideHeart3,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Quest 5",
+				cosmetic: Cosmetic.PerformanceGuideQuest5,
+				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
 			{
 				name: "Shared memory spell 4",
-				bit: 1 << 19,
+				cosmetic: Cosmetic.PerformanceGuideSharedMemorySpell4,
 				emoji: MISCELLANEOUS_EMOJIS.SpellSharedMemory,
 			},
-			{ name: FriendAction.DuetDance, bit: 1 << 20, emoji: FRIEND_ACTION_EMOJIS.DuetDance },
-			{ name: "Heart 4", bit: 1 << 21, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{
+				name: FriendAction.DuetDance,
+				cosmetic: Cosmetic.PerformanceGuideDuetDance,
+				emoji: FRIEND_ACTION_EMOJIS.DuetDance,
+			},
+			{
+				name: "Heart 4",
+				cosmetic: Cosmetic.PerformanceGuideHeart4,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
 			{
 				name: "Flower pot",
-				bit: 1 << 22,
+				cosmetic: Cosmetic.PerformanceGuideFlowerPot,
 				cost: { candles: 52 },
 				emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp24,
 			},

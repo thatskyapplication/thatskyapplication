@@ -25,6 +25,7 @@ export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infogra
 
 // TODO: Organise tier 2 capes.
 // TODO: Organise new base hairs.
+// TODO: Check if any return visit dates precede TS dates.
 // TODO: Check spirit return errors.
 // biome-ignore lint/style/useEnumInitializers: TODO.
 export const enum Cosmetic {
@@ -1536,7 +1537,7 @@ export const enum Cosmetic {
 	// 25/02/2022 | Kizuna AI.
 	KizunaAIHair,
 	KizunaAIBow,
-	KizunaAICape,	
+	KizunaAICape,
 
 	// 07/03/2022 | Season of Abyss Quest 5.
 	AbyssGuideQuest5,
@@ -1549,6 +1550,112 @@ export const enum Cosmetic {
 
 	// 31/03/2022 | Travelling Spirit #58.
 	ScarecrowFarmerWingBuff,
+
+	// 11/04/2022 | Season of Performance.
+	PerformanceGuideQuest1,
+	PerformanceGuideSharedMemorySpell1,
+	PerformanceGuidePendant,
+	PerformanceGuideUltimateMask,
+	PerformanceGuideUltimateCape,
+	PerformanceGuideUltimateHair,
+	PerformanceGuideHighFive,
+	PerformanceGuideHeart1,
+	FriendActionHandshake1,
+	FranticStagehandBlessing1,
+	FranticStagehandHood,
+	FranticStagehandMusicSheet,
+	FranticStagehandBlessing2,
+	FranticStagehandBlessing3,
+	FriendActionHandshake2,
+	FranticStagehandMask,
+	FranticStagehandOutfit,
+	FranticStagehandSeasonalHeart,
+	EmoteAww1,
+	EmoteAww2,
+	ForgetfulStorytellerBlessing1,
+	ForgetfulStorytellerMask,
+	ForgetfulStorytellerHair,
+	ForgetfulStorytellerBlessing2,
+	EmoteAww3,
+	EmoteAww4,
+	ForgetfulStorytellerBlessing3,
+	ForgetfulStorytellerOutfit,
+	ForgetfulStorytellerCape,
+	ForgetfulStorytellerBlessing4,
+	ForgetfulStorytellerSeasonalHeart,
+	EmoteHeadbob1,
+	EmoteHeadbob2,
+	MellowMusicianMask,
+	MellowMusicianBlessing1,
+	MellowMusicianBlessing2,
+	MellowMusicianCape,
+	EmoteHeadbob3,
+	EmoteHeadbob4,
+	MellowMusicianBlessing3,
+	MellowMusicianElectricGuitar,
+	MellowMusicianHair,
+	MellowMusicianBlessing4,
+	MellowMusicianSeasonalHeart,
+	ModestDancerDuetDance1,
+	ModestDancerBlessing1,
+	ModestDancerMusicSheet,
+	ModestDancerMask,
+	ModestDancerBlessing2,
+	ModestDancerBlessing3,
+	ModestDancerDuetDance2,
+	ModestDancerOutfit,
+	ModestDancerHair,
+	ModestDancerSeasonalHeart,
+
+	// 14/04/2022 | Travelling Spirit #59.
+	SpinningMentorWingBuff,
+
+	// 18/04/2022 | Days of Nature.
+	NatureCoralCrown,
+	NatureTurtleCape,
+	NatureShoulderTurtle,
+
+	// 25/04/2022 | Season of Performance Quest 2.
+	PerformanceGuideQuest2,
+	PerformanceGuideMask,
+
+	// 28/04/2022 | Travelling Spirit #60.
+	DaydreamForesterWingBuff,
+
+	// 09/05/2022 | Season of Performance Quest 3.
+	PerformanceGuideQuest3,
+	PerformanceGuideSharedMemorySpell2,
+	PerformanceGuideDoubleFive,
+	PerformanceGuideHeart2,
+
+	// 12/05/2022 | Travelling Spirit #61.
+	ProphetOfAirProp,
+	ProphetOfAirWingBuff,
+
+	// 23/05/2022 | Season of Performance Quest 4.
+	PerformanceGuideQuest4,
+	PerformanceGuideSharedMemorySpell3,
+	FriendActionHug,
+	PerformanceGuideHeart3,
+
+	// 23/05/2022 | Harmony Hall Grand Opening.
+	HarmonyHallGrandOpeningHairAccessory,
+
+	// 06/06/2022 | Season of Performance Quest 5.
+	PerformanceGuideQuest5,
+	PerformanceGuideSharedMemorySpell4,
+	PerformanceGuideDuetDance,
+	PerformanceGuideHeart4,
+	PerformanceGuideFlowerPot,
+
+	// 23/06/2022 | Travelling Spirit #64.
+	PeekingPostmanWingBuff,
+
+	// 30/06/2022 | Days of Rainbow.
+	RainbowTrousers,
+	RainbowEarring,
+	RainbowHeadphones,
+	RainbowDoubleFlower,
 
 	// TODO SECTION
 	AssemblyGuideSharedSpaceSpell, // Move this to Season of Remembrance.

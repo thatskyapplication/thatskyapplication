@@ -2027,7 +2027,7 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 */
 	HairAccessory18: { name: "hair_accessory", id: "1186592118131662940" },
 	/**
-	 * Nature Coral Crown Accessory.
+	 * Nature Coral Crown.
 	 */
 	HairAccessory19: { name: "hair_accessory", id: "1186592120908288031" },
 	/**
