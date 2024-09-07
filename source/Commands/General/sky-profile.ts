@@ -171,7 +171,7 @@ export default new (class implements AutocompleteCommand {
 				});
 			}
 
-			if (wingedLight) {
+			if (wingedLight !== null) {
 				data.winged_light = wingedLight;
 			}
 
