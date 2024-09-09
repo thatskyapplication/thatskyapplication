@@ -14,7 +14,6 @@ export default new GuideSpirit({
 	name: SpiritName.DuetsGuide,
 	season: SeasonName.Duets,
 	offer: {
-		inProgress: true,
 		current: [
 			{ name: "Quest 1", bit: 1 << 0, emoji: MISCELLANEOUS_EMOJIS.Quest },
 			{
@@ -57,6 +56,8 @@ export default new GuideSpirit({
 				cost: { hearts: 2 },
 				emoji: FRIEND_ACTION_EMOJIS.DuetBow,
 			},
+			{ name: "Quest 5", bit: 1 << 12, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart", bit: 1 << 13, emoji: MISCELLANEOUS_EMOJIS.Heart },
 		],
 	},
 });
