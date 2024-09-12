@@ -205,7 +205,7 @@ export async function messageCreateResponse(message: Message<true>) {
 					frequency_penalty: 1,
 					max_tokens: 100,
 					messages: priorMessages,
-					model: "gpt-4o",
+					model: "gpt-4o-2024-08-06",
 					user: message.author.id,
 					tools: [
 						{
