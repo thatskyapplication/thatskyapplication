@@ -1167,7 +1167,7 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 */
 	FaceAccessory34: { name: "face_accessory", id: "1196158435268497529" },
 	/**
-	 * Days of Fortune Dragn Bangles.
+	 * Days of Fortune Dragon Bangles.
 	 */
 	FaceAccessory35: { name: "face_accessory", id: "1201600819468968027" },
 	/**
