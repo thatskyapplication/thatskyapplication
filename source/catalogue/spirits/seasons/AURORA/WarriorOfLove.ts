@@ -1,6 +1,6 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	HAIR_EMOJIS,
@@ -26,21 +26,46 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, emoji: emoteEmoji },
-			{ name: "Mask", bit: 1 << 2, cost: { seasonalCandles: 6 }, emoji: maskEmoji },
-			{ name: "Blessing 1", bit: 1 << 3, emoji: blessing3 },
-			{ name: "Blessing 2", bit: 1 << 4, cost: { seasonalCandles: 12 }, emoji: blessing3 },
-			{ name: "Hair", bit: 1 << 5, emoji: hairEmoji },
-			{ name: `${emote} 3`, bit: 1 << 6, cost: { seasonalCandles: 20 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 7, emoji: emoteEmoji },
-			{ name: "Music sheet", bit: 1 << 8, cost: { seasonalCandles: 24 }, emoji: musicSheet },
-			{ name: "Blessing 3", bit: 1 << 9, emoji: blessing3 },
-			{ name: "Blessing 4", bit: 1 << 10, cost: { seasonalCandles: 30 }, emoji: blessing3 },
-			{ name: "Cape", bit: 1 << 11, emoji: capeEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteTwirl1, emoji: emoteEmoji },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteTwirl2, emoji: emoteEmoji },
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.WarriorOfLoveMask,
+				cost: { seasonalCandles: 6 },
+				emoji: maskEmoji,
+			},
+			{ name: "Blessing 1", cosmetic: Cosmetic.WarriorOfLoveBlessing1, emoji: blessing3 },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.WarriorOfLoveBlessing2,
+				cost: { seasonalCandles: 12 },
+				emoji: blessing3,
+			},
+			{ name: "Hair", cosmetic: Cosmetic.WarriorOfLoveHair, emoji: hairEmoji },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteTwirl3,
+				cost: { seasonalCandles: 20 },
+				emoji: emoteEmoji,
+			},
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteTwirl4, emoji: emoteEmoji },
+			{
+				name: "Music sheet",
+				cosmetic: Cosmetic.WarriorOfLoveMusicSheet,
+				cost: { seasonalCandles: 24 },
+				emoji: musicSheet,
+			},
+			{ name: "Blessing 3", cosmetic: Cosmetic.WarriorOfLoveBlessing3, emoji: blessing3 },
+			{
+				name: "Blessing 4",
+				cosmetic: Cosmetic.WarriorOfLoveBlessing4,
+				cost: { seasonalCandles: 30 },
+				emoji: blessing3,
+			},
+			{ name: "Cape", cosmetic: Cosmetic.WarriorOfLoveCape, emoji: capeEmoji },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 12,
+				cosmetic: Cosmetic.WarriorOfLoveSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.AuroraHeart,
 			},

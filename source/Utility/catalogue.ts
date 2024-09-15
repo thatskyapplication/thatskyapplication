@@ -1734,6 +1734,122 @@ export const enum Cosmetic {
 	// 29/09/2022 | Travelling Spirit #71.
 	BeckoningRulerWingBuff,
 
+	// 17/10/2022 | Season of AURORA.
+	RunawayHairstyle,
+	TiaraWeCanTouch,
+	RunawayOutfit,
+	AURORAQuest1,
+	EmoteSilentClap2,
+	AURORAPendant,
+	AURORAAuroraHair,
+	AURORAUltimateOutfit,
+	AURORAUltimateCape,
+	EmoteSilentClap1,
+	EmoteSilentClap3,
+	EmoteSilentClap4,
+	EmoteWavingLight1,
+	EmoteWavingLight2,
+	RunningWayfarerMask,
+	RunningWayfarerBlessing1,
+	RunningWayfarerBlessing2,
+	RunningWayfarerHair,
+	EmoteWavingLight3,
+	EmoteWavingLight4,
+	RunningWayfarerBlessing3,
+	RunningWayfarerMusicSheet,
+	RunningWayfarerCape,
+	RunningWayfarerBlessing4,
+	RunningWayfarerSeasonalHeart,
+	EmoteRaiseTheRoof1,
+	EmoteRaiseTheRoof2,
+	MindfulMinerBlessing1,
+	MindfulMinerMask,
+	EmoteRaiseTheRoof3,
+	EmoteRaiseTheRoof4,
+	MindfulMinerHair,
+	MindfulMinerBlessing2,
+	MindfulMinerBlessing3,
+	MindfulMinerOutfit,
+	MindfulMinerCape,
+	MindfulMinerBlessing4,
+	MindfulMinerSeasonalHeart,
+	EmoteTwirl1,
+	EmoteTwirl2,
+	WarriorOfLoveMask,
+	WarriorOfLoveBlessing1,
+	WarriorOfLoveBlessing2,
+	WarriorOfLoveHair,
+	EmoteTwirl3,
+	EmoteTwirl4,
+	WarriorOfLoveMusicSheet,
+	WarriorOfLoveBlessing3,
+	WarriorOfLoveBlessing4,
+	WarriorOfLoveCape,
+	WarriorOfLoveSeasonalHeart,
+	EmoteRhythmicClap1,
+	EmoteRhythmicClap2,
+	SeedOfHopeBlessing1,
+	SeedOfHopeMask,
+	SeedOfHopeMusicSheet,
+	SeedOfHopeBlessing2,
+	EmoteRhythmicClap3,
+	EmoteRhythmicClap4,
+	SeedOfHopeHair,
+	SeedOfHopeBlessing3,
+	SeedOfHopeBlessing4,
+	SeedOfHopeCape,
+	SeedOfHopeSeasonalHeart,
+
+	// 24/10/2022 | Days of Mischief.
+	MischiefTuftedHair,
+	FelineFamiliarProp,
+	CatCostumeMask,
+	CatCostumeCape,
+
+	// 31/10/2022 | Season of AURORA Quest 2.
+	AURORAQuest2,
+	EmoteConduct1,
+	EmoteConduct2,
+	EmoteConduct3,
+	EmoteConduct4,
+
+	// 14/11/2022 | Season of AURORA Quest 3.
+	AURORAQuest3,
+	AURORAHeart,
+	EmoteSkipping1,
+	EmoteSkipping2,
+	EmoteSkipping3,
+	EmoteSkipping4,
+
+	// 24/11/2022 | Travelling Spirit #75.
+	BearhugHermitWingBuff,
+
+	// 28/11/2022 | 0.19.5.
+	VoiceOfAURORA,
+
+	// 28/11/2022 | Season of AURORA Quest 4.
+	AURORAQuest4,
+	AURORAMusicSheet1,
+
+	// 06/12/2022 | Season of AURORA Quest 5.
+	// This is the date of the dress rehearsal. It unlocked for players early.
+	GivingInCape,
+	ToTheLoveOutfit,
+	AURORAQuest5,
+	AURORAMusicSheet2,
+	AURORAOutfit,
+	AURORAMask,
+	WingsOfAURORA,
+
+	// 19/12/2022 | Days of Feast.
+	FeastGoggles,
+	SnowkidProp,
+	TournamentSkyballSet,
+	CosyHermitCape,
+
+	// 05/01/2023 | Travelling Spirit #78.
+	BaffledBotanistWingBuff,
+
 	// TODO SECTION
 	AssemblyGuideSharedSpaceSpell, // Move this to Season of Remembrance.
 

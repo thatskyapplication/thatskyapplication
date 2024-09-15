@@ -2987,7 +2987,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp26: { name: "large_placeable_prop", id: "1193625961690845346" },
 	/**
-	 * Days of Feast 2022.
+	 * Snowkid Prop.
 	 */
 	LargePlaceableProp27: { name: "large_placeable_prop", id: "1193625985455771799" },
 	/**

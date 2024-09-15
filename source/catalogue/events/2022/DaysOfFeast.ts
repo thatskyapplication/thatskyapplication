@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -14,23 +14,28 @@ export default new Event({
 	end: skyDate(2_023, 1, 8),
 	offer: [
 		{
-			name: "Prop",
-			bit: 1 << 0,
-			cost: { candles: 120 },
-			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp27,
-		},
-		{
 			name: "Feast Goggles",
-			bit: 1 << 1,
+			cosmetic: Cosmetic.FeastGoggles,
 			cost: { candles: 50 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory22,
 		},
 		{
+			name: "Snowkid Prop",
+			cosmetic: Cosmetic.SnowkidProp,
+			cost: { candles: 120 },
+			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp27,
+		},
+		{
 			name: "Tournament Skyball Set",
-			bit: 1 << 2,
+			cosmetic: Cosmetic.TournamentSkyballSet,
 			cost: { money: 14.99 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp21,
 		},
-		{ name: "Cosy Hermit Cape", bit: 1 << 3, cost: { money: 14.99 }, emoji: CAPE_EMOJIS.Cape97 },
+		{
+			name: "Cosy Hermit Cape",
+			cosmetic: Cosmetic.CosyHermitCape,
+			cost: { money: 14.99 },
+			emoji: CAPE_EMOJIS.Cape97,
+		},
 	],
 });
