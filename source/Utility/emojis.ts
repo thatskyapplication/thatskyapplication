@@ -2983,7 +2983,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp25: { name: "large_placeable_prop", id: "1193625955730735205" },
 	/**
-	 * Third Sky Anniversary 2.
+	 * Light fence.
 	 */
 	LargePlaceableProp26: { name: "large_placeable_prop", id: "1193625961690845346" },
 	/**
@@ -3237,11 +3237,11 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	SmallPlaceableProp15: { name: "small_placeable_prop", id: "1229117006054162573" },
 	/**
-	 * Third Sky Anniversary 1.
+	 * Balloon.
 	 */
 	SmallPlaceableProp16: { name: "small_placeable_prop", id: "1229117830977425520" },
 	/**
-	 * Third Sky Anniversary 3.
+	 * Confetti launcher.
 	 */
 	SmallPlaceableProp17: { name: "small_placeable_prop", id: "1229119915378741369" },
 	/**

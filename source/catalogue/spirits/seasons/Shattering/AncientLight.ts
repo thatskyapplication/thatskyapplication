@@ -1,5 +1,5 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
@@ -25,15 +25,34 @@ export default [
 		season: SeasonName.Shattering,
 		offer: {
 			seasonal: [
-				{ name: "Hair", bit: 1 << 0, cost: { seasonalCandles: 35 }, emoji: hairEmoji2 },
-				{ name: "Blessing 1", bit: 1 << 1, emoji: blessing3 },
-				{ name: "Blessing 2", bit: 1 << 2, cost: { seasonalCandles: 16 }, emoji: blessing3 },
-				{ name: "Hair accessory", bit: 1 << 3, emoji: hairAccessoryEmoji },
-				{ name: "Cape", bit: 1 << 4, cost: { seasonalCandles: 42 }, emoji: capeEmoji1 },
-				{ name: "Blessing 3", bit: 1 << 5, emoji: blessing3 },
+				{
+					name: "Hair",
+					cosmetic: Cosmetic.AncientLightJellyfishHair,
+					cost: { seasonalCandles: 35 },
+					emoji: hairEmoji2,
+				},
+				{ name: "Blessing 1", cosmetic: Cosmetic.AncientLightJellyfishBlessing1, emoji: blessing3 },
+				{
+					name: "Blessing 2",
+					cosmetic: Cosmetic.AncientLightJellyfishBlessing2,
+					cost: { seasonalCandles: 16 },
+					emoji: blessing3,
+				},
+				{
+					name: "Hair accessory",
+					cosmetic: Cosmetic.AncientLightJellyfishHairAccessory,
+					emoji: hairAccessoryEmoji,
+				},
+				{
+					name: "Cape",
+					cosmetic: Cosmetic.AncientLightJellyfishCape,
+					cost: { seasonalCandles: 42 },
+					emoji: capeEmoji1,
+				},
+				{ name: "Blessing 3", cosmetic: Cosmetic.AncientLightJellyfishBlessing3, emoji: blessing3 },
 				{
 					name: "Seasonal heart",
-					bit: 1 << 6,
+					cosmetic: Cosmetic.AncientLightJellyfishSeasonalHeart,
 					cost: { seasonalCandles: 3 },
 					emoji: SEASON_EMOJIS.ShatteringHeart,
 				},
@@ -68,17 +87,37 @@ export default [
 		season: SeasonName.Shattering,
 		offer: {
 			seasonal: [
-				{ name: "Music sheet", bit: 1 << 0, cost: { seasonalCandles: 27 }, emoji: musicSheet },
-				{ name: "Blessing 1", bit: 1 << 1, emoji: blessing3 },
-				{ name: "Blessing 2", bit: 1 << 2, cost: { seasonalCandles: 16 }, emoji: blessing3 },
-				{ name: "Hair", bit: 1 << 3, emoji: hairEmoji1 },
-				{ name: "Cape", bit: 1 << 4, cost: { seasonalCandles: 35 }, emoji: capeEmoji2 },
-				{ name: "Blessing 3", bit: 1 << 5, emoji: blessing3 },
-				{ name: "Blessing 4", bit: 1 << 6, cost: { seasonalCandles: 16 }, emoji: blessing3 },
-				{ name: "Outfit", bit: 1 << 7, emoji: outfitEmoji },
+				{
+					name: "Music sheet",
+					cosmetic: Cosmetic.AncientLightMantaMusicSheet,
+					cost: { seasonalCandles: 27 },
+					emoji: musicSheet,
+				},
+				{ name: "Blessing 1", cosmetic: Cosmetic.AncientLightMantaBlessing1, emoji: blessing3 },
+				{
+					name: "Blessing 2",
+					cosmetic: Cosmetic.AncientLightMantaBlessing2,
+					cost: { seasonalCandles: 16 },
+					emoji: blessing3,
+				},
+				{ name: "Hair", cosmetic: Cosmetic.AncientLightMantaHair, emoji: hairEmoji1 },
+				{
+					name: "Cape",
+					cosmetic: Cosmetic.AncientLightMantaCape,
+					cost: { seasonalCandles: 35 },
+					emoji: capeEmoji2,
+				},
+				{ name: "Blessing 3", cosmetic: Cosmetic.AncientLightMantaBlessing3, emoji: blessing3 },
+				{
+					name: "Blessing 4",
+					cosmetic: Cosmetic.AncientLightMantaBlessing4,
+					cost: { seasonalCandles: 16 },
+					emoji: blessing3,
+				},
+				{ name: "Outfit", cosmetic: Cosmetic.AncientLightMantaOutfit, emoji: outfitEmoji },
 				{
 					name: "Seasonal heart",
-					bit: 1 << 8,
+					cosmetic: Cosmetic.AncientLightMantaSeasonalHeart,
 					cost: { seasonalCandles: 3 },
 					emoji: SEASON_EMOJIS.ShatteringHeart,
 				},

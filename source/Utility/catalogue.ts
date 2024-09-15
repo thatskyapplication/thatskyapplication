@@ -1657,6 +1657,83 @@ export const enum Cosmetic {
 	RainbowHeadphones,
 	RainbowDoubleFlower,
 
+	// 11/07/2022 | Season of Shattering.
+	TheVoidofShatteringQuest1,
+	TheVoidofShatteringHeart1,
+	ShatteringPendant,
+	TheVoidofShatteringMantaCape,
+	TheVoidofShatteringDarkDragonCape,
+	AncientLightJellyfishHair,
+	AncientLightJellyfishBlessing1,
+	AncientLightJellyfishBlessing2,
+	AncientLightJellyfishHairAccessory,
+	AncientLightJellyfishCape,
+	AncientLightJellyfishBlessing3,
+	AncientLightJellyfishSeasonalHeart,
+	AncientLightMantaMusicSheet,
+	AncientLightMantaBlessing1,
+	AncientLightMantaBlessing2,
+	AncientLightMantaHair,
+	AncientLightMantaCape,
+	AncientLightMantaBlessing3,
+	AncientLightMantaBlessing4,
+	AncientLightMantaOutfit,
+	AncientLightMantaSeasonalHeart,
+	AncientDarknessPlantHairAccessory,
+	AncientDarknessPlantBlessing1,
+	AncientDarknessPlantBlessing2,
+	AncientDarknessPlantMask,
+	AncientDarknessPlantMusicSheet,
+	AncientDarknessPlantBlessing3,
+	AncientDarknessPlantBlessing4,
+	AncientDarknessPlantCape,
+	AncientDarknessPlantSeasonalHeart,
+	AncientDarknessDragonNeckAccessory,
+	AncientDarknessDragonBlessing1,
+	AncientDarknessDragonBlessing2,
+	AncientDarknessDragonDarkHorn,
+	AncientDarknessDragonHair,
+	AncientDarknessDragonBlessing3,
+	AncientDarknessDragonSeasonalHeart,
+
+	// 18/07/2022 | Sky Anniversary.
+	SkyAnniversaryHairAccessory3,
+	HappyBirthdayMusicSheet,
+	Balloon,
+	LightFence,
+	ConfettiLauncher,
+
+	// 19/07/2022 | Season of Shattering Quest 2.
+	TheVoidofShatteringQuest2,
+	TheVoidofShatteringHeart2,
+
+	// 05/08/2022 | Season of Shattering Quest 3.
+	TheVoidofShatteringQuest3,
+	TheVoidofShatteringHeart3,
+
+	// 18/08/2022 | Travelling Spirit #68.
+	ScoldingStudentWingBuff,
+
+	// 19/08/2022 | Season of Shattering Quest 4.
+	TheVoidofShatteringQuest4,
+	TheVoidofShatteringHeart4,
+
+	// 22/08/2022 | Days of Sunlight.
+	CampfireTent,
+	JellyShoulderBuddy,
+	CampfireSnackKit,
+
+	// 02/09/2022 | Season of Shattering Quest 5.
+	TheVoidofShatteringQuest5,
+	TheVoidofShatteringHeart5,
+
+	// 16/09/2022 | Season of Shattering Quest 6.
+	TheVoidofShatteringQuest6,
+	TheVoidofShatteringHeart6,
+
+	// 29/09/2022 | Travelling Spirit #71.
+	BeckoningRulerWingBuff,
+
 	// TODO SECTION
 	AssemblyGuideSharedSpaceSpell, // Move this to Season of Remembrance.
 
