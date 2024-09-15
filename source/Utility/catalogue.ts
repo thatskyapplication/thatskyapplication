@@ -1209,14 +1209,14 @@ export const enum Cosmetic {
 	RainbowFlower,
 
 	// 06/07/2021 | Season of the Little Prince.
+	LittlePrinceScarf,
+	LittlePrinceFox,
 	TheRoseQuest1,
 	TheRoseHeart1,
 	LittlePrincePendant,
 	TheRoseUltimateHair,
 	TheRoseUltimateOutfit,
 	TheRoseRose,
-	LittlePrinceScarf,
-	LittlePrinceFox,
 	EmoteBeckon1,
 	EmoteBeckon2,
 	BeckoningRulerBlessing1,
