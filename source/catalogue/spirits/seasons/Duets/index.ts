@@ -16,8 +16,8 @@ export default new Season({
 	end: skyDate(2_024, 9, 29),
 	guide: DuetsGuide,
 	spirits: [
-		TheCellistsBeginnings,
 		ThePianistsBeginnings,
+		TheCellistsBeginnings,
 		TheMusiciansLegacy,
 		TheCellistsFlourishing,
 		ThePianistsFlourishing,
