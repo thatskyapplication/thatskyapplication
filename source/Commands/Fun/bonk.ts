@@ -112,6 +112,10 @@ const BONKS = {
 		{
 			message: "{{bonker}} bonked {{bonkee}}. It was a total headshot.",
 		},
+		{
+			message:
+				"Whilst flying over the Treasure Reef, {{bonker}} bonked {{bonkee}} into the water below them.",
+		},
 	],
 	unsuccessful: [
 		{
