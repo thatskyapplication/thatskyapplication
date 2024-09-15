@@ -3,6 +3,7 @@ import {
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	type ChatInputCommandInteraction,
+	MessageFlags,
 	PermissionFlagsBits,
 } from "discord.js";
 import type { ChatInputCommand } from "../index.js";
@@ -183,14 +184,14 @@ export default new (class implements ChatInputCommand {
 		const member = options.getMember("user");
 
 		if (user.id === interaction.user.id) {
-			await interaction.reply({ content: "No self-bonking! Bad!", ephemeral: true });
+			await interaction.reply({ content: "No self-bonking! Bad!", flags: MessageFlags.Ephemeral });
 			return;
 		}
 
 		if (interaction.inGuild() && !member) {
 			await interaction.reply({
 				content: `${user} is not in this server to be bonked.`,
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;
@@ -203,14 +204,18 @@ export default new (class implements ChatInputCommand {
 			"user" in member &&
 			!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
 		) {
-			await interaction.reply({ content: `${user} is not around for the bonk!`, ephemeral: true });
+			await interaction.reply({
+				content: `${user} is not around for the bonk!`,
+				flags: MessageFlags.Ephemeral,
+			});
+
 			return;
 		}
 
 		if (user.bot) {
 			await interaction.reply({
 				content: `${user} is a bot. They're pretty tough. Immune to bonks, I'd say.`,
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;
