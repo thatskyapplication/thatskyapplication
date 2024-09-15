@@ -4,16 +4,8 @@ import {
 	ApplicationCommandType,
 	type ChatInputCommandInteraction,
 	PermissionFlagsBits,
-	type Snowflake,
 } from "discord.js";
-import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
-
-interface BonkPacket {
-	bonker_id: Snowflake;
-	bonkee_id: Snowflake;
-	timestamp: Date;
-}
 
 const BONKS = {
 	successful: [
@@ -186,7 +178,7 @@ export default new (class implements ChatInputCommand {
 	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { channel, createdAt, options } = interaction;
+		const { channel, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
 
@@ -224,16 +216,7 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		let decidingBonk: typeof BONKS.successful | typeof BONKS.unsuccessful;
-		let successful = false;
-
-		if (Math.random() < 0.1) {
-			decidingBonk = BONKS.unsuccessful;
-		} else {
-			decidingBonk = BONKS.successful;
-			successful = true;
-		}
-
+		const decidingBonk = Math.random() < 0.1 ? BONKS.unsuccessful : BONKS.successful;
 		const bonk = decidingBonk[Math.floor(Math.random() * decidingBonk.length)]!;
 		const { message } = bonk;
 
@@ -249,14 +232,6 @@ export default new (class implements ChatInputCommand {
 				.replace("{{entry1}}", entry1)
 				.replace("{{entry2}}", entry2)
 				.replace("{{entry3}}", entry3);
-		}
-
-		if (successful) {
-			await pg<BonkPacket>(Table.Bonks).insert({
-				bonker_id: interaction.user.id,
-				bonkee_id: user.id,
-				timestamp: createdAt,
-			});
 		}
 
 		await interaction.reply(bonkMessage);
