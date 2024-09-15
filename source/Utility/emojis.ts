@@ -574,6 +574,10 @@ export const OUTFIT_EMOJIS = {
 	 * Sunlight Beach Shorts outfit.
 	 */
 	Outfit65: { name: "outfit", id: "1276895346827595858" },
+	/**
+	 * Moonlight Frock.
+	 */
+	Outfit66: { name: "outfit", id: "1284892320499503196" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -1178,6 +1182,10 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 * Sunlight Helios Hoops earrings.
 	 */
 	FaceAccessory37: { name: "face_accessory", id: "1276896149554335889" },
+	/**
+	 * Moonlight earrings.
+	 */
+	FaceAccessory38: { name: "face_accessory", id: "1284889523100188682" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type FaceAccessoryEmojis = (typeof FACE_ACCESSORY_EMOJIS)[keyof typeof FACE_ACCESSORY_EMOJIS];
@@ -1934,6 +1942,10 @@ export const HAIR_EMOJIS = {
 	 * Tournament Curls.
 	 */
 	Hair148: { name: "hair", id: "1267227503529824277" },
+	/**
+	 * Moonlight Updo.
+	 */
+	Hair149: { name: "hair", id: "1284892991173165160" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -2118,6 +2130,10 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 * Tournament Golden Garland.
 	 */
 	HairAccessory44: { name: "hair_accessory", id: "1267396930909114439" },
+	/**
+	 * Moonlight Blossom Accessory.
+	 */
+	HairAccessory45: { name: "hair_accessory", id: "1284888393884500141" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
@@ -3150,6 +3166,10 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Sunlight Manta Float.
 	 */
 	LargePlaceableProp71: { name: "large_placeable_prop", id: "1277523928067215381" },
+	/**
+	 * Moonlight Lantern Decoration.
+	 */
+	LargePlaceableProp72: { name: "large_placeable_prop", id: "1285135669018099733" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type LargePlaceablePropsEmojis =
