@@ -24,7 +24,6 @@ export default [
 		name: SpiritName.AncientLight1,
 		season: SeasonName.Shattering,
 		offer: {
-			hasInfographic: false,
 			seasonal: [
 				{ name: "Hair", bit: 1 << 0, cost: { seasonalCandles: 35 }, emoji: hairEmoji2 },
 				{ name: "Blessing 1", bit: 1 << 1, emoji: blessing3 },
@@ -39,6 +38,26 @@ export default [
 					emoji: SEASON_EMOJIS.ShatteringHeart,
 				},
 			],
+			current: [
+				{ name: "Blessing 1", bit: 1 << 1, cost: { candles: 5 }, emoji: blessing3 },
+				{ name: "Hair", bit: 1 << 0, cost: { candles: 45 }, emoji: hairEmoji2 },
+				{
+					name: "Heart",
+					bit: 1 << 6,
+					cost: { candles: 3 },
+					emoji: MISCELLANEOUS_EMOJIS.Heart,
+				},
+				{ name: "Blessing 2", bit: 1 << 2, cost: { candles: 5 }, emoji: blessing3 },
+				{
+					name: "Wing buff",
+					bit: 1 << 7,
+					cost: { ascendedCandles: 2 },
+					emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+				},
+				{ name: "Blessing 3", bit: 1 << 5, cost: { candles: 5 }, emoji: blessing3 },
+				{ name: "Hair accessory", bit: 1 << 3, cost: { candles: 50 }, emoji: hairAccessoryEmoji },
+				{ name: "Cape", bit: 1 << 4, cost: { candles: 80 }, emoji: capeEmoji1 },
+			],
 		},
 		visits: {
 			returning: [6],
@@ -48,7 +67,6 @@ export default [
 		name: SpiritName.AncientLight2,
 		season: SeasonName.Shattering,
 		offer: {
-			hasInfographic: false,
 			seasonal: [
 				{ name: "Music sheet", bit: 1 << 0, cost: { seasonalCandles: 27 }, emoji: musicSheet },
 				{ name: "Blessing 1", bit: 1 << 1, emoji: blessing3 },
@@ -64,6 +82,27 @@ export default [
 					cost: { seasonalCandles: 3 },
 					emoji: SEASON_EMOJIS.ShatteringHeart,
 				},
+			],
+			current: [
+				{ name: "Blessing 1", bit: 1 << 1, cost: { candles: 5 }, emoji: blessing3 },
+				{ name: "Music sheet", bit: 1 << 0, cost: { candles: 15 }, emoji: musicSheet },
+				{
+					name: "Heart",
+					bit: 1 << 8,
+					cost: { candles: 3 },
+					emoji: MISCELLANEOUS_EMOJIS.Heart,
+				},
+				{ name: "Blessing 2", bit: 1 << 2, cost: { candles: 5 }, emoji: blessing3 },
+				{ name: "Hair", bit: 1 << 3, cost: { candles: 50 }, emoji: hairEmoji1 },
+				{
+					name: "Wing buff",
+					bit: 1 << 9,
+					cost: { ascendedCandles: 2 },
+					emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+				},
+				{ name: "Blessing 3", bit: 1 << 5, cost: { candles: 5 }, emoji: blessing3 },
+				{ name: "Outfit", bit: 1 << 7, cost: { candles: 75 }, emoji: outfitEmoji },
+				{ name: "Cape", bit: 1 << 4, cost: { candles: 80 }, emoji: capeEmoji2 },
 			],
 		},
 		visits: {
