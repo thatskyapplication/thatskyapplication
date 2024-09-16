@@ -60,7 +60,7 @@ export default [
 				{
 					name: "Hair accessory",
 					bit: 1 << 0,
-					cost: { candles: 47 },
+					cost: { candles: 45 },
 					emoji: hairAccessoryEmoji,
 				},
 				{
