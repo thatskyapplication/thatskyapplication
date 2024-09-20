@@ -1958,7 +1958,7 @@ export const enum Cosmetic {
 	// 13/04/2023 | Travelling Spirit #85.
 	SneezingGeographerWingBuff,
 
-	// TODO SECTION
+	// 09/11/2023 | Version 0.23.4
 	/**
 	 * Unlocked by default.
 	 */
