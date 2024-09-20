@@ -24,9 +24,9 @@ export const NO_EVENT_OFFER_TEXT = "There are no cosmetics for this event." as c
 export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infographic." as const;
 
 // TODO: Organise tier 2 capes.
-// TODO: Organise new base hairs.
 // TODO: Check if any return visit dates precede TS dates.
 // TODO: Check spirit return errors.
+// TODO: Check dates of the rewards from the Nesting Workshop board.
 // biome-ignore lint/style/useEnumInitializers: TODO.
 export const enum Cosmetic {
 	/**
