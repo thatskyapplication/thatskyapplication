@@ -1,6 +1,6 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	MASK_EMOJIS,
@@ -25,16 +25,31 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: `${stance} stance`, bit: 1 << 0, emoji: stanceEmoji },
-			{ name: "Blessing 1", bit: 1 << 1, cost: { seasonalCandles: 14 }, emoji: blessing3 },
-			{ name: "Mask", bit: 1 << 2, emoji: maskEmoji },
-			{ name: "Outfit", bit: 1 << 3, cost: { seasonalCandles: 30 }, emoji: outfitEmoji },
-			{ name: "Blessing 2", bit: 1 << 4, emoji: blessing3 },
-			{ name: "Blessing 3", bit: 1 << 5, cost: { seasonalCandles: 36 }, emoji: blessing3 },
-			{ name: "Cape", bit: 1 << 6, emoji: capeEmoji },
+			{ name: `${stance} stance`, cosmetic: Cosmetic.StanceInjured, emoji: stanceEmoji },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.WoundedWarriorBlessing1,
+				cost: { seasonalCandles: 14 },
+				emoji: blessing3,
+			},
+			{ name: "Mask", cosmetic: Cosmetic.WoundedWarriorMask, emoji: maskEmoji },
+			{
+				name: "Outfit",
+				cosmetic: Cosmetic.WoundedWarriorOutfit,
+				cost: { seasonalCandles: 30 },
+				emoji: outfitEmoji,
+			},
+			{ name: "Blessing 2", cosmetic: Cosmetic.WoundedWarriorBlessing2, emoji: blessing3 },
+			{
+				name: "Blessing 3",
+				cosmetic: Cosmetic.WoundedWarriorBlessing3,
+				cost: { seasonalCandles: 36 },
+				emoji: blessing3,
+			},
+			{ name: "Cape", cosmetic: Cosmetic.WoundedWarriorCape, emoji: capeEmoji },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 7,
+				cosmetic: Cosmetic.WoundedWarriorSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.RemembranceHeart,
 			},

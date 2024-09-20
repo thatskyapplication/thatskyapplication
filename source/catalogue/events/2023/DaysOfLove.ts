@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	HELD_PROPS_EMOJIS,
@@ -14,19 +14,19 @@ export default new Event({
 	offer: [
 		{
 			name: "Day of Love Flowery Archway",
-			bit: 1 << 0,
+			cosmetic: Cosmetic.DaysOfLoveFloweryArchway,
 			cost: { candles: 100 },
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp31,
 		},
 		{
 			name: "Day of Love Classy Cravat",
-			bit: 1 << 1,
+			cosmetic: Cosmetic.DaysOfLoveClassyCravat,
 			cost: { money: 4.99 },
 			emoji: NECKLACE_EMOJIS.Necklace28,
 		},
 		{
-			name: "Day of Love Serendipitous Sceptor",
-			bit: 1 << 2,
+			name: "Day of Love Serendipitous Sceptre",
+			cosmetic: Cosmetic.DaysOfLoveSerendipitousSceptre,
 			cost: { money: 14.99 },
 			emoji: HELD_PROPS_EMOJIS.HeldProp33,
 		},

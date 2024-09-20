@@ -951,7 +951,7 @@ export const MASK_EMOJIS = {
 	 */
 	Mask74: { name: "mask", id: "1182639095449649202" },
 	/**
-	 * Days of Fortune 2023.
+	 * Days of Fortune Rabbit Mask.
 	 */
 	Mask75: { name: "mask", id: "1182639098108858408" },
 	/**
@@ -2819,7 +2819,7 @@ export const HELD_PROPS_EMOJIS = {
 	 */
 	HeldProp32: { name: "held_prop", id: "1190678866063273997" },
 	/**
-	 * Days of Love Serendipitous Sceptor.
+	 * Days of Love Serendipitous Sceptre.
 	 */
 	HeldProp33: { name: "held_prop", id: "1190678868886036541" },
 	/**

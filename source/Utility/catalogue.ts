@@ -1850,9 +1850,115 @@ export const enum Cosmetic {
 	// 05/01/2023 | Travelling Spirit #78.
 	BaffledBotanistWingBuff,
 
-	// TODO SECTION
-	AssemblyGuideSharedSpaceSpell, // Move this to Season of Remembrance.
+	// 16/01/2023 | Season of Remembrance.
+	AssemblyGuideSharedSpaceSpell,
+	RemembranceGuideQuest1,
+	RemembranceGuideHeart1,
+	RemembrancePendant,
+	RemembranceGuideUltimateNeckAccessory,
+	RemembranceGuideUltimateProp,
+	RemembranceGuideQuest2,
+	RemembranceGuideChimes,
+	RemembranceGuideHighFive,
+	RemembranceGuideSharedSpaceSpell1,
+	EmoteGrieving1,
+	EmoteGrieving2,
+	BereftVeteranMask,
+	BereftVeteranBlessing1,
+	BereftVeteranBlessing2,
+	BereftVeteranHair,
+	EmoteGrieving3,
+	EmoteGrieving4,
+	BereftVeteranCape,
+	BereftVeteranBlessing3,
+	BereftVeteranSeasonalHeart,
+	EmotePleading1,
+	EmotePleading2,
+	PleadingChildNeckAccessory,
+	PleadingChildBlessing1,
+	PleadingChildBlessing2,
+	PleadingChildHair,
+	EmotePleading3,
+	EmotePleading4,
+	PleadingChildOutfit,
+	PleadingChildBlessing3,
+	PleadingChildSeasonalHeart,
+	EmoteTiptoeing1,
+	EmoteTiptoeing2,
+	TiptoeingTeaBrewerBlessing1,
+	TiptoeingTeaBrewerHair,
+	EmoteTiptoeing3,
+	EmoteTiptoeing4,
+	TiptoeingTeaBrewerBlessing2,
+	TiptoeingTeaBrewerOutfit,
+	TiptoeingTeaBrewerCape,
+	TiptoeingTeaBrewerBlessing3,
+	TiptoeingTeaBrewerSeasonalHeart,
+	StanceInjured,
+	WoundedWarriorBlessing1,
+	WoundedWarriorMask,
+	WoundedWarriorOutfit,
+	WoundedWarriorBlessing2,
+	WoundedWarriorBlessing3,
+	WoundedWarriorCape,
+	WoundedWarriorSeasonalHeart,
 
+	// 20/01/2023 | Days of Fortune.
+	DaysOfFortuneRabbitMask,
+	DaysOfFortuneMuralistsSmock,
+	DaysOfFortuneEnchantedUmbrella,
+
+	// 30/01/2023 | Season of Remembrance Quest 3 & Quest 4.
+	RemembranceGuideQuest3,
+	RemembranceGuideHeart2,
+	RemembranceGuideQuest4,
+	RemembranceGuideKettle,
+	RemembranceGuideDoubleFive,
+	RemembranceGuideSharedSpaceSpell2,
+
+	// 13/02/2023 | Season of Remembrance Quest 5 & Quest 6.
+	RemembranceGuideQuest5,
+	RemembranceGuideHeart3,
+	RemembranceGuideQuest6,
+	RemembranceGuidePottedPlant,
+
+	// 13/02/2023 | Days of Love.
+	DaysOfLoveFloweryArchway,
+	DaysOfLoveClassyCravat,
+	DaysOfLoveSerendipitousSceptre,
+
+	// 16/02/2023 | Travelling Spirit #81.
+	SlouchingSoldierWingBuff,
+
+	// 27/02/2023 | Season of Remembrance Quest 7 & Quest 8.
+	RemembranceGuideQuest7,
+	RemembranceGuideHeart4,
+	RemembranceGuideQuest8,
+	RemembranceGuideCrabPlushie,
+	RemembranceGuideMantaPlushie,
+	RemembranceGuideFriendActionHug,
+	RemembranceGuideSharedSpaceSpell3,
+
+	// 06/03/2023 | Returning Spirits #1.
+	ScaredyCadetWingBuff,
+	MarchingAdventurerWingBuff,
+	ChucklingScoutWingBuff,
+
+	// 20/03/2023 | Season of Remembrance Quest 9 & Quest 10.
+	RemembranceGuideQuest9,
+	RemembranceGuideSharedSpaceSpell4,
+	RemembranceGuideQuest10,
+
+	// 20/03/2023 | Days of Bloom.
+	RedBloomCape,
+	BloomButterflyFountain,
+	BloomGardeningTunic,
+	BloomPicnicBasket,
+
+	// 13/04/2023 | Travelling Spirit #85.
+	SneezingGeographerWingBuff,
+
+	// TODO SECTION
 	/**
 	 * Unlocked by default.
 	 */
