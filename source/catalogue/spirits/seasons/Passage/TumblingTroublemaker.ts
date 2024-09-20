@@ -1,6 +1,6 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	FACE_ACCESSORY_EMOJIS,
@@ -25,19 +25,43 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, emoji: emoteEmoji },
-			{ name: "Blessing 1", bit: 1 << 2, cost: { seasonalCandles: 8 }, emoji: blessing3 },
-			{ name: "Hair", bit: 1 << 3, emoji: hairEmoji },
-			{ name: `${emote} 3`, bit: 1 << 4, cost: { seasonalCandles: 18 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 5, emoji: emoteEmoji },
-			{ name: "Blessing 2", bit: 1 << 6, cost: { seasonalCandles: 28 }, emoji: blessing3 },
-			{ name: "Cape", bit: 1 << 7, emoji: capeEmoji },
-			{ name: "Blessing 3", bit: 1 << 8, cost: { seasonalCandles: 32 }, emoji: blessing3 },
-			{ name: "Face accessory", bit: 1 << 9, emoji: faceAccessoryEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteSomersault1, emoji: emoteEmoji },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteSomersault2, emoji: emoteEmoji },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.TumblingTroublemakerBlessing1,
+				cost: { seasonalCandles: 8 },
+				emoji: blessing3,
+			},
+			{ name: "Hair", cosmetic: Cosmetic.TumblingTroublemakerHair, emoji: hairEmoji },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteSomersault3,
+				cost: { seasonalCandles: 18 },
+				emoji: emoteEmoji,
+			},
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteSomersault4, emoji: emoteEmoji },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.TumblingTroublemakerBlessing2,
+				cost: { seasonalCandles: 28 },
+				emoji: blessing3,
+			},
+			{ name: "Cape", cosmetic: Cosmetic.TumblingTroublemakerCape, emoji: capeEmoji },
+			{
+				name: "Blessing 3",
+				cosmetic: Cosmetic.TumblingTroublemakerBlessing3,
+				cost: { seasonalCandles: 32 },
+				emoji: blessing3,
+			},
+			{
+				name: "Face accessory",
+				cosmetic: Cosmetic.TumblingTroublemakerFaceAccessory,
+				emoji: faceAccessoryEmoji,
+			},
 			{
 				name: "Seasonal heart",
-				bit: 1 << 10,
+				cosmetic: Cosmetic.TumblingTroublemakerSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.PassageHeart,
 			},

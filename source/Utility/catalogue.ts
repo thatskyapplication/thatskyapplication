@@ -27,6 +27,7 @@ export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infogra
 // TODO: Check if any return visit dates precede TS dates.
 // TODO: Check spirit return errors.
 // TODO: Check dates of the rewards from the Nesting Workshop board.
+// TODO: Check "pack" names.
 // biome-ignore lint/style/useEnumInitializers: TODO.
 export const enum Cosmetic {
 	/**
@@ -1642,6 +1643,13 @@ export const enum Cosmetic {
 
 	// 23/05/2022 | Harmony Hall Grand Opening.
 	HarmonyHallGrandOpeningHairAccessory,
+	HarmonyHallMusicSheet1,
+	HarmonyHallMusicSheet2,
+	HarmonyHallMusicSheet3,
+	HarmonyHallMusicSheet4,
+	FledglingHarp,
+	RhythmGuitar,
+	TriumphHandpan,
 
 	// 06/06/2022 | Season of Performance Quest 5.
 	PerformanceGuideQuest5,
@@ -1959,6 +1967,96 @@ export const enum Cosmetic {
 
 	// 13/04/2023 | Travelling Spirit #85.
 	SneezingGeographerWingBuff,
+
+	// 17/04/2023 | Season of Passage.
+	PassageGuideQuest1,
+	PassageGuideHeart1,
+	PassagePendant,
+	PassageGuideUltimateMask,
+	PassageGuideUltimateCape,
+	EmoteHackySack1,
+	EmoteHackySack2,
+	OddballOutcastHair,
+	OddballOutcastBlessing1,
+	OddballOutcastBlessing2,
+	OddballOutcastNeckAccessory,
+	EmoteHackySack3,
+	EmoteHackySack4,
+	OddballOutcastOutfit,
+	OddballOutcastBlessing3,
+	OddballOutcastSeasonalHeart,
+	EmoteSomersault1,
+	EmoteSomersault2,
+	TumblingTroublemakerBlessing1,
+	TumblingTroublemakerHair,
+	EmoteSomersault3,
+	EmoteSomersault4,
+	TumblingTroublemakerBlessing2,
+	TumblingTroublemakerCape,
+	TumblingTroublemakerBlessing3,
+	TumblingTroublemakerFaceAccessory,
+	TumblingTroublemakerSeasonalHeart,
+	EmoteMoping1,
+	EmoteMoping2,
+	MelancholyMopeFaceAccessory,
+	MelancholyMopeBlessing1,
+	MelancholyMopeBlessing2,
+	MelancholyMopeHair,
+	EmoteMoping3,
+	EmoteMoping4,
+	MelancholyMopeOutfit,
+	MelancholyMopeBlessing3,
+	MelancholyMopeSeasonalHeart,
+	EmotePullUp1,
+	EmotePullUp2,
+	OveractiveOverachieverBlessing1,
+	OveractiveOverachieverMantaOcarina,
+	EmotePullUp3,
+	EmotePullUp4,
+	OveractiveOverachieverCape,
+	OveractiveOverachieverBlessing2,
+	OveractiveOverachieverBlessing3,
+	OveractiveOverachieverHair,
+	OveractiveOverachieverSeasonalHeart,
+
+	// 20/04/2023 | Days of Nature.
+	NatureSchoolCape,
+	NatureGlasses,
+	NatureSonorousSeashell,
+
+	// 01/05/2023 | Season of Passage Quest 2.
+	PassageGuideQuest2,
+	PassageGuideSerowMask,
+
+	// 11/05/2023 | Travelling Spirit #88.
+	TinkeringChimesmithWingBuff,
+
+	// 15/05/2023 | Season of Passage Quest 3.
+	PassageGuideQuest3,
+	PassageGuideHeart2,
+	PassageGuideBoarMask,
+
+	// 01/06/2023 | Season of Passage Quest 4.
+	PassageGuideQuest4,
+	PassageGuideHeart3,
+	PassageGuideMonkeyMask,
+
+	// 01/06/2023 | Days of Colour.
+	DarkRainbowCape,
+	DarkRainbowEarrings,
+	DarkRainbowTunic,
+
+	// 12/06/2023 | Season of Passage Quest 5.
+	PassageGuideQuest5,
+	PassageGuideHeart4,
+	PassageGuideHackySack,
+	PassageGuideRacoonMask,
+
+	// 03/07/2023 | Days of Music.
+	DaysOfMusicMusicSheet,
+	TriumphSaxophone,
+	MarchingBandHat,
+	TriumphViolin,
 
 	// 09/11/2023 | Version 0.23.4
 	/**

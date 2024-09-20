@@ -1,6 +1,6 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
@@ -25,24 +25,39 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, emoji: emoteEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteMoping1, emoji: emoteEmoji },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteMoping2, emoji: emoteEmoji },
 			{
 				name: "Face accessory",
-				bit: 1 << 2,
+				cosmetic: Cosmetic.MelancholyMopeFaceAccessory,
 				cost: { seasonalCandles: 6 },
 				emoji: faceAccessoryEmoji,
 			},
-			{ name: "Blessing 1", bit: 1 << 3, emoji: blessing3 },
-			{ name: "Blessing 2", bit: 1 << 4, cost: { seasonalCandles: 18 }, emoji: blessing3 },
-			{ name: "Hair", bit: 1 << 5, emoji: hairEmoji },
-			{ name: `${emote} 3`, bit: 1 << 6, cost: { seasonalCandles: 26 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 7, emoji: emoteEmoji },
-			{ name: "Outfit", bit: 1 << 8, cost: { seasonalCandles: 28 }, emoji: outfitEmoji },
-			{ name: "Blessing 3", bit: 1 << 9, emoji: blessing3 },
+			{ name: "Blessing 1", cosmetic: Cosmetic.MelancholyMopeBlessing1, emoji: blessing3 },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.MelancholyMopeBlessing2,
+				cost: { seasonalCandles: 18 },
+				emoji: blessing3,
+			},
+			{ name: "Hair", cosmetic: Cosmetic.MelancholyMopeHair, emoji: hairEmoji },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteMoping3,
+				cost: { seasonalCandles: 26 },
+				emoji: emoteEmoji,
+			},
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteMoping4, emoji: emoteEmoji },
+			{
+				name: "Outfit",
+				cosmetic: Cosmetic.MelancholyMopeOutfit,
+				cost: { seasonalCandles: 28 },
+				emoji: outfitEmoji,
+			},
+			{ name: "Blessing 3", cosmetic: Cosmetic.MelancholyMopeBlessing3, emoji: blessing3 },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 10,
+				cosmetic: Cosmetic.MelancholyMopeSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.PassageHeart,
 			},
