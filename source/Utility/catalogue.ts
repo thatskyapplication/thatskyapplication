@@ -1824,7 +1824,7 @@ export const enum Cosmetic {
 	// 24/11/2022 | Travelling Spirit #75.
 	BearhugHermitWingBuff,
 
-	// 28/11/2022 | 0.19.5.
+	// 28/11/2022 | Version 0.19.5.
 	VoiceOfAURORA,
 
 	// 28/11/2022 | Season of AURORA Quest 4.
