@@ -420,6 +420,8 @@ export const enum Cosmetic {
 	ElderOfTheWastelandHair,
 	ElderOfTheVaultHair,
 
+	BetaCape,
+
 	GratitudePendant,
 	GratitudeUltimateMask,
 	StanceSassy,
