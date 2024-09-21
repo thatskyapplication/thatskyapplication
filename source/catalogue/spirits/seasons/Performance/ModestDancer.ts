@@ -26,7 +26,7 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: `${action} 1`, cosmetic: Cosmetic.ModestDancerDuetDance1, emoji: actionEmoji },
+			{ name: `${action} 1`, cosmetic: Cosmetic.FriendActionDuetDance1, emoji: actionEmoji },
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.ModestDancerBlessing1,
@@ -47,7 +47,7 @@ export default new SeasonalSpirit({
 				cost: { seasonalCandles: 26 },
 				emoji: blessing3,
 			},
-			{ name: `${action} 2`, cosmetic: Cosmetic.ModestDancerDuetDance2, emoji: actionEmoji },
+			{ name: `${action} 2`, cosmetic: Cosmetic.FriendActionDuetDance2, emoji: actionEmoji },
 			{
 				name: "Outfit",
 				cosmetic: Cosmetic.ModestDancerOutfit,
