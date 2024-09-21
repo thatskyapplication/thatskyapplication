@@ -86,6 +86,7 @@ export default new SeasonalSpirit({
 			},
 			{
 				name: "Wing buff",
+				cosmetic: Cosmetic.StretchingLamplighterWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},

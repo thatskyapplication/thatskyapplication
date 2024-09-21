@@ -1163,7 +1163,7 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 */
 	FaceAccessory32: { name: "face_accessory", id: "1182821740200607846" },
 	/**
-	 * Aviary's Firework Festival.
+	 * Festival Earrings.
 	 */
 	FaceAccessory33: { name: "face_accessory", id: "1182821742926889041" },
 	/**
@@ -2079,7 +2079,7 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 */
 	HairAccessory31: { name: "hair_accessory", id: "1186592160011784288" },
 	/**
-	 * Days of Mischief 2023.
+	 * Mischief Crabkin Accessory.
 	 */
 	HairAccessory32: { name: "hair_accessory", id: "1186592162981347328" },
 	/**
@@ -2087,7 +2087,7 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 */
 	HairAccessory33: { name: "hair_accessory", id: "1186592165158203455" },
 	/**
-	 * Days of Feast 2023.
+	 * Winter Pine Cone Hair Clip.
 	 */
 	HairAccessory34: { name: "hair_accessory", id: "1201604722994454688" },
 	/**
@@ -2843,11 +2843,11 @@ export const HELD_PROPS_EMOJIS = {
 	 */
 	HeldProp38: { name: "held_prop", id: "1190678883767435304" },
 	/**
-	 * Aviary's Firework Festival.
+	 * Festival Sceptre.
 	 */
 	HeldProp39: { name: "held_prop", id: "1190678885877157941" },
 	/**
-	 * Days of Feast 2023.
+	 * Winter Feast Snowboard.
 	 */
 	HeldProp40: { name: "held_prop", id: "1190678898522980505" },
 	/**

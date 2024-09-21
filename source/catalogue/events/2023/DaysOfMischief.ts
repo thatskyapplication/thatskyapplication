@@ -1,6 +1,6 @@
 import { Event } from "../../../Structures/Event.js";
 import { CDN_URL } from "../../../Utility/Constants.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -33,28 +33,38 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Hair accessory",
-			bit: 1 << 0,
+			name: "Mischief Crabkin Accessory",
+			cosmetic: Cosmetic.MischiefCrabkinAccessory,
 			cost: { eventCurrency: 24 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory32,
 		},
-		{ name: "Shoes", bit: 1 << 1, cost: { eventCurrency: 16 }, emoji: SHOE_EMOJIS.Shoe12 },
-		{ name: "Outfit", bit: 1 << 2, cost: { eventCurrency: 41 }, emoji: OUTFIT_EMOJIS.Outfit52 },
+		{
+			name: "Mischief Goth Boots",
+			cosmetic: Cosmetic.MischiefGothBoots,
+			cost: { eventCurrency: 16 },
+			emoji: SHOE_EMOJIS.Shoe12,
+		},
+		{
+			name: "Mischief Goth Garment",
+			cosmetic: Cosmetic.MischiefGothGarment,
+			cost: { eventCurrency: 41 },
+			emoji: OUTFIT_EMOJIS.Outfit52,
+		},
 		{
 			name: "Mischief Gossamer Cape",
-			bit: 1 << 3,
+			cosmetic: Cosmetic.MischiefGossamerCape,
 			cost: { money: 14.99 },
 			emoji: CAPE_EMOJIS.Cape116,
 		},
 		{
 			name: "Mischief Crabula Cloak",
-			bit: 1 << 4,
+			cosmetic: Cosmetic.MischiefCrabulaCloak,
 			cost: { money: 14.99 },
 			emoji: CAPE_EMOJIS.Cape117,
 		},
 		{
 			name: "Mischief Crabula Mask",
-			bit: 1 << 5,
+			cosmetic: Cosmetic.MischiefCrabulaMask,
 			cost: { money: 2.99 },
 			emoji: MASK_EMOJIS.Mask84,
 		},

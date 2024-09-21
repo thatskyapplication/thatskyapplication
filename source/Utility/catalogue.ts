@@ -1841,6 +1841,11 @@ export const enum Cosmetic {
 	AURORAQuest4,
 	AURORAMusicSheet1,
 
+	// 06/12/2022 | PlayStation release.
+	JourneyCape,
+	JourneyHood,
+	JourneyMask,
+
 	// 06/12/2022 | Season of AURORA Quest 5.
 	// This is the date of the dress rehearsal. It unlocked for players early.
 	GivingInCape,
@@ -2170,6 +2175,59 @@ export const enum Cosmetic {
 	StyleBunnySlippers,
 	StyleWideLegJeans,
 
+	// 16/10/2023 | Season of Revival.
+	HopefulStewardQuest1,
+	HopefulStewardHeart1,
+	RevivalPendant,
+	HopefulStewardUltimateHair,
+	HopefulStewardUltimateCape,
+	VestigeOfADesertedOasisHair,
+	VestigeOfADesertedOasisBlessing1,
+	VestigeOfADesertedOasisBlessing2,
+	VestigeOfADesertedOasisCape,
+	VestigeOfADesertedOasisShoes,
+	VestigeOfADesertedOasisBlessing3,
+	VestigeOfADesertedOasisSeasonalHeart,
+	MemoryOfALostVillageBlessing1,
+	MemoryOfALostVillageCape,
+	MemoryOfALostVillageOutfit,
+	MemoryOfALostVillageBlessing2,
+	MemoryOfALostVillageBlessing3,
+	MemoryOfALostVillageHair,
+	MemoryOfALostVillageSeasonalHeart,
+	EchoOfAnAbandonedRefugeBlessing1,
+	EchoOfAnAbandonedRefugeShoes,
+	EchoOfAnAbandonedRefugeMusicSheet,
+	EchoOfAnAbandonedRefugeBlessing2,
+	EchoOfAnAbandonedRefugeBlessing3,
+	EchoOfAnAbandonedRefugeCape,
+	EchoOfAnAbandonedRefugeHairAccessory,
+	EchoOfAnAbandonedRefugeBlessing4,
+	EchoOfAnAbandonedRefugeSeasonalHeart,
+	RemnantOfAForgottenHavenBlessing1,
+	RemnantOfAForgottenHavenShoes,
+	RemnantOfAForgottenHavenCape,
+	RemnantOfAForgottenHavenBlessing2,
+	RemnantOfAForgottenHavenBlessing3,
+	RemnantOfAForgottenHavenHairAccessory,
+	RemnantOfAForgottenHavenSeasonalHeart,
+
+	// 23/10/2023 | Season of Revival Quest 2.
+	HopefulStewardQuest2,
+	HopefulStewardHeart2,
+
+	// 23/10/2023 | Days of Mischief.
+	MischiefCrabkinAccessory,
+	MischiefGothBoots,
+	MischiefGothGarment,
+	MischiefGossamerCape,
+	MischiefCrabulaCloak,
+	MischiefCrabulaMask,
+
+	// 30/10/2023 | Season of Revival Quest 3.
+	HopefulStewardQuest3,
+	HopefulStewardHeart3,
+
 	// 09/11/2023 | Version 0.23.4
 	/**
 	 * Unlocked by default.
@@ -2179,6 +2237,57 @@ export const enum Cosmetic {
 	 * Unlocked by default.
 	 */
 	BaseHair3,
+
+	// 13/11/2023 | Season of Revival Quest 4.
+	HopefulStewardQuest4,
+	HopefulStewardHeart4,
+	HopefulStewardFriendActionHug,
+
+	// 20/11/2023 | Season of Revival Quest 5.
+	HopefulStewardQuest5,
+	HopefulStewardHeart5,
+
+	// 23/11/2023 | Travelling Spirit #101.
+	TalentedBuilderWingBuff,
+
+	// 27/11/2023 | Season of Revival Quest 6.
+	HopefulStewardQuest6,
+	HopefulStewardHeart6,
+
+	// 27/11/2023 | Aviary's Firework Festival.
+	FestivalEarrings,
+	FestivalSceptre,
+	MothAppreciationCape,
+	MothAppreciationAntennae,
+	SparrowAppreciationCape,
+	SparrowAppreciationMask,
+
+	// 04/12/2023 | Season of Revival Quest 7.
+	HopefulStewardQuest7,
+	HopefulStewardHeart7,
+
+	// 07/12/2023 | Travelling Spirit #102.
+	StretchingLamplighterWingBuff,
+
+	// 12/12/2023 | Season of Revival Quest 8.
+	HopefulStewardQuest8,
+	HopefulStewardHair,
+
+	// 18/12/2023 | Season of Revival Quest 9.
+	HopefulStewardQuest9,
+
+	// 18/12/2023 | Days of Feast.
+	WinterFeastSnowboard,
+	WinterPineConeHairClip,
+	CourseCreationProp,
+	CosyHermitBoots,
+	WinterQuiltedCape,
+
+	// 25/12/2023 | Season of Revival Quest 10.
+	HopefulStewardQuest10,
+
+	// 10/04/2024 | Steam release.
+	CompanionCube,
 }
 
 export enum SeasonName {
