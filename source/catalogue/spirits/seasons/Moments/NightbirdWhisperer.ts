@@ -1,6 +1,6 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
@@ -27,18 +27,42 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: `${call} call`, bit: 1 << 0, emoji: callEmoji },
-			{ name: "Hair", bit: 1 << 1, cost: { seasonalCandles: 12 }, emoji: hairEmoji },
-			{ name: "Blessing 1", bit: 1 << 2, emoji: blessing3 },
-			{ name: "Blessing 2", bit: 1 << 3, cost: { seasonalCandles: 24 }, emoji: blessing3 },
-			{ name: "Hair accessory", bit: 1 << 4, emoji: hairAccessoryEmoji },
-			{ name: "Outfit", bit: 1 << 5, cost: { seasonalCandles: 28 }, emoji: outfitEmoji },
-			{ name: "Blessing 3", bit: 1 << 6, emoji: blessing3 },
-			{ name: "Blessing 4", bit: 1 << 7, cost: { seasonalCandles: 36 }, emoji: blessing3 },
-			{ name: "Shoes", bit: 1 << 8, emoji: shoeEmoji },
+			{ name: `${call} call`, cosmetic: Cosmetic.CallNightbird, emoji: callEmoji },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.NightbirdWhispererHair,
+				cost: { seasonalCandles: 12 },
+				emoji: hairEmoji,
+			},
+			{ name: "Blessing 1", cosmetic: Cosmetic.NightbirdWhispererBlessing1, emoji: blessing3 },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.NightbirdWhispererBlessing2,
+				cost: { seasonalCandles: 24 },
+				emoji: blessing3,
+			},
+			{
+				name: "Hair accessory",
+				cosmetic: Cosmetic.NightbirdWhispererHairAccessory,
+				emoji: hairAccessoryEmoji,
+			},
+			{
+				name: "Outfit",
+				cosmetic: Cosmetic.NightbirdWhispererOutfit,
+				cost: { seasonalCandles: 28 },
+				emoji: outfitEmoji,
+			},
+			{ name: "Blessing 3", cosmetic: Cosmetic.NightbirdWhispererBlessing3, emoji: blessing3 },
+			{
+				name: "Blessing 4",
+				cosmetic: Cosmetic.NightbirdWhispererBlessing4,
+				cost: { seasonalCandles: 36 },
+				emoji: blessing3,
+			},
+			{ name: "Shoes", cosmetic: Cosmetic.NightbirdWhispererShoes, emoji: shoeEmoji },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 9,
+				cosmetic: Cosmetic.NightbirdWhispererSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.MomentsHeart,
 			},

@@ -2058,6 +2058,118 @@ export const enum Cosmetic {
 	MarchingBandHat,
 	TriumphViolin,
 
+	// 17/07/2023 | Season of Moments.
+	MomentsGuideCamera,
+	MomentsPendant,
+	MomentsGuideUltimateFaceAccessory,
+	MomentsGuideUltimateCamera,
+	MomentsGuideUltimateHairAccessory,
+	MomentsGuideQuest1,
+	MomentsGuideHeart1,
+	FriendActionSideHug1,
+	FriendActionSideHug2,
+	ReassuringRangerBlessing1,
+	ReassuringRangerFaceAccessory,
+	ReassuringRangerMask,
+	ReassuringRangerBlessing2,
+	ReassuringRangerBlessing3,
+	ReassuringRangerCape,
+	ReassuringRangerHairAccessory,
+	ReassuringRangerBlessing4,
+	ReassuringRangerSeasonalHeart,
+	CallNightbird,
+	NightbirdWhispererHair,
+	NightbirdWhispererBlessing1,
+	NightbirdWhispererBlessing2,
+	NightbirdWhispererHairAccessory,
+	NightbirdWhispererOutfit,
+	NightbirdWhispererBlessing3,
+	NightbirdWhispererBlessing4,
+	NightbirdWhispererShoes,
+	NightbirdWhispererSeasonalHeart,
+	EmoteJollyDance1,
+	EmoteJollyDance2,
+	JollyGeologistFaceAccessory,
+	JollyGeologistHair,
+	EmoteJollyDance3,
+	EmoteJollyDance4,
+	JollyGeologistBlessing1,
+	JollyGeologistBlessing2,
+	JollyGeologistMusicSheet,
+	JollyGeologistProp,
+	JollyGeologistSeasonalHeart,
+	EmoteBlindfoldBalancePose1,
+	EmoteBlindfoldBalancePose2,
+	AsceticMonkBlessing1,
+	AsceticMonkMask,
+	AsceticMonkHair,
+	AsceticMonkBlessing2,
+	EmoteBlindfoldBalancePose3,
+	EmoteBlindfoldBalancePose4,
+	AsceticMonkOutfit,
+	AsceticMonkBlessing3,
+	AsceticMonkSeasonalHeart,
+
+	// 17/07/2023 | Sky Anniversary.
+	SkyAnniversaryHairAccessory4,
+	AnniversarySonorousSeashell,
+	AnniversaryPartyLights,
+	AnniversaryPlush,
+
+	// 20/07/2023 | Travelling Spirit #92.
+	GloatingNarcissistWingBuff,
+
+	// 31/07/2023 | Season of Moments Quest 2.
+	MomentsGuideQuest2,
+	MomentsGuideHeart2,
+	MomentsGuideDoubleFive,
+
+	// 03/08/2023 | Travelling Spirit #93.
+	ProphetOfFireProp,
+
+	// 07/08/2023 | Returning Spirits #2.
+	CacklingCannoneerWingBuff,
+
+	// 14/08/2023 | Season of Moments Quest 3.
+	MomentsGuideQuest3,
+	MomentsGuideHeart3,
+
+	// 17/08/2023 | Travelling Spirit #94.
+	LivelyNavigatorWingBuff,
+
+	// 23/08/2023 | AURORA Encore Concerts.
+	EmoteCureForMe1,
+	EmoteCureForMe2,
+	MusicalVoyageSneakers,
+
+	// 28/08/2023 | Season of Moments Quest 4.
+	MomentsGuideQuest4,
+	MomentsGuideHeart4,
+
+	// 11/09/2023 | Days of Sunlight.
+	SunlightPinkBeachTowelCape,
+	SunlightYellowBeachTowelCape,
+	SunlightBlueBeachTowelCape,
+	SunlightChunkySandals,
+	SunlightSurfboard,
+
+	// 14/09/2023 | Travelling Spirit #96.
+	StarCollectorWingBuff,
+
+	// 18/09/2023 | Season of Moments Quest 5.
+	MomentsGuideQuest5,
+	MomentsGuideHeart5,
+
+	// 02/10/2023 | Days of Style.
+	StyleTopHat,
+	StyleRunwayMask,
+	StyleStarSunglasses,
+	StyleSilkBalletSlippers,
+	StyleFlameSunglasses,
+	StyleHeartSunglasses,
+	StyleBunnySlippers,
+	StyleWideLegJeans,
+
 	// 09/11/2023 | Version 0.23.4
 	/**
 	 * Unlocked by default.

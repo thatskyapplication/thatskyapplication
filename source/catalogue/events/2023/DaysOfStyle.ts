@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
@@ -29,44 +29,49 @@ export default new Event({
 	offer: [
 		{
 			name: "Style Top Hat",
-			bit: 1 << 0,
+			cosmetic: Cosmetic.StyleTopHat,
 			cost: { eventCurrency: 10 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory29,
 		},
 		{
 			name: "Style Runway Mask",
-			bit: 1 << 1,
+			cosmetic: Cosmetic.StyleRunwayMask,
 			cost: { eventCurrency: 8 },
 			emoji: MASK_EMOJIS.Mask83,
 		},
 		{
 			name: "Style Star Sunglasses",
-			bit: 1 << 2,
+			cosmetic: Cosmetic.StyleStarSunglasses,
 			cost: { eventCurrency: 14 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory30,
 		},
 		{
 			name: "Style Silk Ballet Slippers",
-			bit: 1 << 3,
+			cosmetic: Cosmetic.StyleSilkBalletSlippers,
 			cost: { eventCurrency: 18 },
 			emoji: SHOE_EMOJIS.Shoe07,
 		},
 		{
 			name: "Style Flame Sunglasses",
-			bit: 1 << 4,
+			cosmetic: Cosmetic.StyleFlameSunglasses,
 			cost: { money: 2.99 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory31,
 		},
 		{
 			name: "Style Heart Sunglasses",
-			bit: 1 << 5,
+			cosmetic: Cosmetic.StyleHeartSunglasses,
 			cost: { money: 4.99 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory32,
 		},
-		{ name: "Style Bunny Slippers", bit: 1 << 6, cost: { money: 6.99 }, emoji: SHOE_EMOJIS.Shoe08 },
+		{
+			name: "Style Bunny Slippers",
+			cosmetic: Cosmetic.StyleBunnySlippers,
+			cost: { money: 6.99 },
+			emoji: SHOE_EMOJIS.Shoe08,
+		},
 		{
 			name: "Style Wide-Leg Jeans",
-			bit: 1 << 7,
+			cosmetic: Cosmetic.StyleWideLegJeans,
 			cost: { money: 9.99 },
 			emoji: OUTFIT_EMOJIS.Outfit50,
 		},

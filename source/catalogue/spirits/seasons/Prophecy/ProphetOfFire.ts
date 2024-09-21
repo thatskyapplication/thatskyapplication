@@ -80,7 +80,12 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 				emoji: emoteEmoji,
 			},
-			{ name: "Prop", cost: { candles: 15 }, emoji: placeablePropEmoji2 },
+			{
+				name: "Prop",
+				cosmetic: Cosmetic.ProphetOfFireProp,
+				cost: { candles: 15 },
+				emoji: placeablePropEmoji2,
+			},
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.ProphetOfFireBlessing1,

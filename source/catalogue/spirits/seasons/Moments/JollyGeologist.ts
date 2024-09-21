@@ -1,6 +1,6 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
@@ -26,24 +26,39 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, emoji: emoteEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteJollyDance1, emoji: emoteEmoji },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteJollyDance2, emoji: emoteEmoji },
 			{
 				name: "Face accessory",
-				bit: 1 << 2,
+				cosmetic: Cosmetic.JollyGeologistFaceAccessory,
 				cost: { seasonalCandles: 8 },
 				emoji: faceAccessoryEmoji,
 			},
-			{ name: "Hair", bit: 1 << 3, emoji: hairEmoji },
-			{ name: `${emote} 3`, bit: 1 << 4, cost: { seasonalCandles: 20 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 5, emoji: emoteEmoji },
-			{ name: "Blessing 1", bit: 1 << 6, cost: { seasonalCandles: 28 }, emoji: blessing3 },
-			{ name: "Blessing 2", bit: 1 << 7, emoji: blessing3 },
-			{ name: "Music sheet", bit: 1 << 8, cost: { seasonalCandles: 34 }, emoji: musicSheet },
-			{ name: "Prop", bit: 1 << 9, emoji: placeablePropEmoji },
+			{ name: "Hair", cosmetic: Cosmetic.JollyGeologistHair, emoji: hairEmoji },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteJollyDance3,
+				cost: { seasonalCandles: 20 },
+				emoji: emoteEmoji,
+			},
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteJollyDance4, emoji: emoteEmoji },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.JollyGeologistBlessing1,
+				cost: { seasonalCandles: 28 },
+				emoji: blessing3,
+			},
+			{ name: "Blessing 2", cosmetic: Cosmetic.JollyGeologistBlessing2, emoji: blessing3 },
+			{
+				name: "Music sheet",
+				cosmetic: Cosmetic.JollyGeologistMusicSheet,
+				cost: { seasonalCandles: 34 },
+				emoji: musicSheet,
+			},
+			{ name: "Prop", cosmetic: Cosmetic.JollyGeologistProp, emoji: placeablePropEmoji },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 10,
+				cosmetic: Cosmetic.JollyGeologistSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.MomentsHeart,
 			},
