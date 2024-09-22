@@ -1,6 +1,6 @@
 import { Event } from "../../../Structures/Event.js";
 import { CDN_URL } from "../../../Utility/Constants.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -34,38 +34,41 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Hair accessory",
-			bit: 1 << 0,
+			name: "Cosy Teacup Headband",
+			cosmetic: Cosmetic.CosyTeacupHeadband,
 			cost: { eventCurrency: 22 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory41,
 		},
 		{
-			name: "Prop",
-			bit: 1 << 1,
+			name: "Cosy Cafe Table",
+			cosmetic: Cosmetic.CosyCafeTable,
 			cost: { eventCurrency: 52 },
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp50,
 		},
 		{
 			name: "Cinnamoroll Pop-Up Cafe Combo",
-			bit: 1 << 2,
+			cosmetic: [
+				Cosmetic.CinnamorollPopUpCafeSwirledHair,
+				Cosmetic.CinnamorollPopUpCafeCinnamarollEars,
+			],
 			cost: { money: 14.99 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory40,
 		},
 		{
 			name: "Cinnamoroll Pop-Up Cafe Plushie",
-			bit: 1 << 3,
+			cosmetic: Cosmetic.CinnamorollPopUpCafePlushie,
 			cost: { money: 14.99 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp44,
 		},
 		{
 			name: "Cinnamoroll Pop-Up Cafe Mini Companion",
-			bit: 1 << 4,
+			cosmetic: Cosmetic.CinnamorollPopUpCafeMiniCompanion,
 			cost: { money: 6.99 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory39,
 		},
 		{
 			name: "Cinnamoroll Pop-Up Cafe Bowtie and Cloud Cape",
-			bit: 1 << 5,
+			cosmetic: [Cosmetic.CinnamorollPopUpCafeBowtie, Cosmetic.CinnamorollPopUpCafeCloudCape],
 			cost: { money: 14.99 },
 			emoji: CAPE_EMOJIS.Cape130,
 		},

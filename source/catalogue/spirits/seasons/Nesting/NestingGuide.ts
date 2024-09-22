@@ -1,5 +1,5 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
@@ -13,29 +13,29 @@ export default new GuideSpirit({
 	season: SeasonName.Nesting,
 	offer: {
 		current: [
-			{ name: "Quest 1", bit: 1 << 0, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Heart 1", bit: 1 << 1, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Pendant", bit: 1 << 2, emoji: NECKLACE_EMOJIS.Necklace34 },
+			{ name: "Quest 1", cosmetic: Cosmetic.NestingGuideQuest1, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 1", cosmetic: Cosmetic.NestingGuideHeart1, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Pendant", cosmetic: Cosmetic.NestingPendant, emoji: NECKLACE_EMOJIS.Necklace34 },
 			{
 				name: "Ultimate outfit",
-				bit: 1 << 3,
+				cosmetic: Cosmetic.NestingGuideUltimateOutfit,
 				cost: { seasonalHearts: 2 },
 				emoji: OUTFIT_EMOJIS.Outfit58,
 			},
 			{
 				name: "Ultimate prop",
-				bit: 1 << 4,
+				cosmetic: Cosmetic.NestingGuideUltimateProp,
 				cost: { seasonalHearts: 2 },
 				emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp37,
 			},
-			{ name: "Quest 2", bit: 1 << 5, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Heart 2", bit: 1 << 6, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Quest 3", bit: 1 << 7, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Heart 3", bit: 1 << 8, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Quest 4", bit: 1 << 9, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Heart 4", bit: 1 << 10, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Quest 5", bit: 1 << 11, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Heart 5", bit: 1 << 12, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Quest 2", cosmetic: Cosmetic.NestingGuideQuest2, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 2", cosmetic: Cosmetic.NestingGuideHeart2, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Quest 3", cosmetic: Cosmetic.NestingGuideQuest3, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 3", cosmetic: Cosmetic.NestingGuideHeart3, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Quest 4", cosmetic: Cosmetic.NestingGuideQuest4, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 4", cosmetic: Cosmetic.NestingGuideHeart4, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Quest 5", cosmetic: Cosmetic.NestingGuideQuest5, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 5", cosmetic: Cosmetic.NestingGuideHeart5, emoji: MISCELLANEOUS_EMOJIS.Heart },
 		],
 	},
 });

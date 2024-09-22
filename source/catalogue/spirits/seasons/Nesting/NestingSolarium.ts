@@ -1,5 +1,5 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
@@ -19,17 +19,37 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: "Blessing 1", bit: 1 << 0, cost: { seasonalCandles: 14 }, emoji: blessing3 },
-			{ name: "Prop 1", bit: 1 << 1, emoji: SmallPlaceableProp38 },
-			{ name: "Prop 2", bit: 1 << 2, cost: { seasonalCandles: 22 }, emoji: LargePlaceableProp34 },
-			{ name: "Blessing 2", bit: 1 << 3, emoji: blessing3 },
-			{ name: "Blessing 3", bit: 1 << 4, cost: { seasonalCandles: 30 }, emoji: blessing3 },
-			{ name: "Prop 3", bit: 1 << 5, emoji: LargePlaceableProp35 },
-			{ name: "Prop 4", bit: 1 << 6, cost: { seasonalCandles: 34 }, emoji: LargePlaceableProp36 },
-			{ name: "Blessing 4", bit: 1 << 7, emoji: blessing3 },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.NestingSolariumBlessing1,
+				cost: { seasonalCandles: 14 },
+				emoji: blessing3,
+			},
+			{ name: "Prop 1", cosmetic: Cosmetic.NestingSolariumProp1, emoji: SmallPlaceableProp38 },
+			{
+				name: "Prop 2",
+				cosmetic: Cosmetic.NestingSolariumProp2,
+				cost: { seasonalCandles: 22 },
+				emoji: LargePlaceableProp34,
+			},
+			{ name: "Blessing 2", cosmetic: Cosmetic.NestingSolariumBlessing2, emoji: blessing3 },
+			{
+				name: "Blessing 3",
+				cosmetic: Cosmetic.NestingSolariumBlessing3,
+				cost: { seasonalCandles: 30 },
+				emoji: blessing3,
+			},
+			{ name: "Prop 3", cosmetic: Cosmetic.NestingSolariumProp3, emoji: LargePlaceableProp35 },
+			{
+				name: "Prop 4",
+				cosmetic: Cosmetic.NestingSolariumProp4,
+				cost: { seasonalCandles: 34 },
+				emoji: LargePlaceableProp36,
+			},
+			{ name: "Blessing 4", cosmetic: Cosmetic.NestingSolariumBlessing4, emoji: blessing3 },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 8,
+				cosmetic: Cosmetic.NestingSolariumSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.NestingHeart,
 			},

@@ -2408,6 +2408,92 @@ export const enum Cosmetic {
 
 	// 10/04/2024 | Steam release.
 	CompanionCube,
+
+	// 15/04/2024 | Season of Nesting.
+	NestingGuideQuest1,
+	NestingGuideHeart1,
+	NestingPendant,
+	NestingGuideUltimateOutfit,
+	NestingGuideUltimateProp,
+	NestingSolariumBlessing1,
+	NestingSolariumProp1,
+	NestingSolariumProp2,
+	NestingSolariumBlessing2,
+	NestingSolariumBlessing3,
+	NestingSolariumProp3,
+	NestingSolariumProp4,
+	NestingSolariumBlessing4,
+	NestingSolariumSeasonalHeart,
+	NestingLoftBlessing1,
+	NestingLoftProp1,
+	NestingLoftProp2,
+	NestingLoftBlessing2,
+	NestingLoftBlessing3,
+	NestingLoftCape,
+	NestingLoftProp3,
+	NestingLoftBlessing4,
+	NestingLoftSeasonalHeart,
+	NestingAtriumProp1,
+	NestingAtriumBlessing1,
+	NestingAtriumBlessing2,
+	NestingAtriumProp2,
+	NestingAtriumHair,
+	NestingAtriumBlessing3,
+	NestingAtriumBlessing4,
+	NestingAtriumProp3,
+	NestingAtriumSeasonalHeart,
+	NestingNookProp1,
+	NestingNookBlessing1,
+	NestingNookBlessing2,
+	NestingNookProp2,
+	NestingNookProp3,
+	NestingNookBlessing3,
+	NestingNookBlessing4,
+	NestingNookHairAccessory,
+	NestingNookSeasonalHeart,
+
+	// 22/04/2024 | Season of Nesting Quest 2.
+	NestingGuideQuest2,
+	NestingGuideHeart2,
+
+	// 25/04/2024 | Travelling Spirit #112.
+	DancingPerformerWingBuff,
+
+	// 27/04/2024 | Sky × Cinnamoroll Pop-Up Cafe.
+	CosyTeacupHeadband,
+	CosyCafeTable,
+	CinnamorollPopUpCafeSwirledHair,
+	CinnamorollPopUpCafeCinnamarollEars,
+	CinnamorollPopUpCafePlushie,
+	CinnamorollPopUpCafeMiniCompanion,
+	CinnamorollPopUpCafeBowtie,
+	CinnamorollPopUpCafeCloudCape,
+
+	// 29/04/2024 | Season of Nesting Quest 3.
+	NestingGuideQuest3,
+	NestingGuideHeart3,
+
+	// 27/05/2024 | Season of Nesting Quest 4.
+	NestingGuideQuest4,
+	NestingGuideHeart4,
+
+	// 27/05/2024 | Days of Nature.
+	OceanMask,
+	OceanBlueScarf,
+	NatureWaveCape,
+	NatureWaveTouchedHair,
+
+	// 10/06/2024 | Season of Nesting Quest 5.
+	NestingGuideQuest5,
+	NestingGuideHeart5,
+
+	// 12/07/2024 17:00 | SkyFest.
+	SkyFestStarJar,
+	SkyFest5thAnniversaryTShirt,
+	SkyFest5thAnniversaryHeadband,
+	SkyFestJenovaFan,
+	SkyFestOreoHeadband,
+	SkyFestWireframeCape,
 }
 
 export enum SeasonName {
