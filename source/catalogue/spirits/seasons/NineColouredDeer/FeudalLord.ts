@@ -35,7 +35,7 @@ export default new SeasonalSpirit({
 			{ name: "Blessing 3", bit: 1 << 6, cost: { seasonalCandles: 26 }, emoji: blessing3 },
 			{ name: "Cape", bit: 1 << 7, emoji: capeEmoji },
 			{ name: "Music sheet", bit: 1 << 8, cost: { seasonalCandles: 32 }, emoji: musicSheet },
-			{ name: "Blessing 3", bit: 1 << 9, emoji: blessing3 },
+			{ name: "Blessing 4", bit: 1 << 9, emoji: blessing3 },
 			{
 				name: "Seasonal heart",
 				bit: 1 << 10,
