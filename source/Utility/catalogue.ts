@@ -58,6 +58,7 @@ export const enum Cosmetic {
 	 * Unlocked by default.
 	 */
 	BaseCape,
+	StarterPack,
 	EmotePoint1,
 	EmotePoint2,
 	PointingCandlemakerHair,
@@ -1208,6 +1209,12 @@ export const enum Cosmetic {
 	RainbowCape,
 	RainbowHat,
 	RainbowFlower,
+
+	// 29/06/2021 | Nintendo Switch release.
+	SwitchBlueCape,
+	SwitchRedCape,
+	VesselFlute,
+	ElvishHairstyle,
 
 	// 06/07/2021 | Season of the Little Prince.
 	LittlePrinceScarf,
