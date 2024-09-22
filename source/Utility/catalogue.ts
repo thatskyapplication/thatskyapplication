@@ -23,7 +23,6 @@ export const GUIDE_SPIRIT_IN_PROGRESS_TEXT =
 export const NO_EVENT_OFFER_TEXT = "There are no cosmetics for this event." as const;
 export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infographic." as const;
 
-// TODO: Organise tier 2 capes.
 // TODO: Check if any return visit dates precede TS dates.
 // TODO: Check spirit return errors.
 // TODO: Check dates of the rewards from the Nesting Workshop board.
@@ -98,9 +97,6 @@ export const enum Cosmetic {
 	EmoteButterfly3,
 	EmoteButterfly4,
 	ButterflyCharmerOutfit,
-	ButterflyCharmerBlessing2,
-	ButterflyCharmerWingBuff2,
-	ButterflyCharmerCape2,
 	EmoteClap1,
 	EmoteClap2,
 	ApplaudingBellmakerBlessing1,
@@ -202,8 +198,6 @@ export const enum Cosmetic {
 	EmoteAngry4,
 	PoutyPorterBlessing2,
 	PoutyPorterCape1,
-	PoutyPorterWingBuff2,
-	PoutyPorterCape2,
 	Shocked1,
 	Shocked2,
 	DismayedHunterBlessing1,
@@ -214,8 +208,6 @@ export const enum Cosmetic {
 	Shocked4,
 	DismayedHunterBlessing2,
 	DismayedHunterCape1,
-	DismayedHunterWingBuff2,
-	DismayedHunterCape2,
 	EmoteApologise1,
 	EmoteApologise2,
 	ApologeticLumberjackBlessing1,
@@ -260,8 +252,6 @@ export const enum Cosmetic {
 	EmoteHandstand4,
 	HandstandingThrillseekerBlessing2,
 	HandstandingThrillseekerCape1,
-	HandstandingThrillseekerWingBuff2,
-	HandstandingThrillseekerCape2,
 	CallManta,
 	MantaWhispererBlessing1,
 	MantaWhispererHeart,
@@ -305,8 +295,6 @@ export const enum Cosmetic {
 	ProudVictorWingBuff1,
 	ProudVictorBlessing2,
 	ProudVictorMask,
-	ProudVictorWingBuff2,
-	ProudVictorCape2,
 	EmoteDuck1,
 	EmoteDuck2,
 	FrightenedRefugeeBlessing1,
@@ -334,8 +322,6 @@ export const enum Cosmetic {
 	CourageousSoldierWingBuff1,
 	CourageousSoldierBlessing2,
 	CourageousSoldierCape1,
-	CourageousSoldierWingBuff2,
-	CourageousSoldierCape2,
 	StanceSneaky,
 	StealthySurvivorHair,
 	StealthySurvivorBlessing1,
@@ -373,8 +359,6 @@ export const enum Cosmetic {
 	EmotePray4,
 	PrayingAcolyteBlessing2,
 	PrayingAcolyteCape1,
-	PrayingAcolyteWingBuff2,
-	PrayingAcolyteCape2,
 	EmoteTelekinesis1,
 	EmoteTelekinesis2,
 	LevitatingAdeptBlessing1,
@@ -399,8 +383,6 @@ export const enum Cosmetic {
 	MemoryWhispererWingBuff1,
 	MemoryWhispererBlessing2,
 	MemoryWhispererCape1,
-	MemoryWhispererWingBuff2,
-	MemoryWhispererCape2,
 	EmoteFloat1,
 	EmoteFloat2,
 	MeditatingMonasticBlessing1,
@@ -984,6 +966,15 @@ export const enum Cosmetic {
 	// 12/11/2020 | Travelling Spirit #22.
 	BoogieKidWingBuff,
 
+	// 15/12/2020 | Version 0.12.0.
+	ButterflyCharmerBlessing2,
+	ButterflyCharmerWingBuff2,
+	ButterflyCharmerCape2,
+	ProudVictorWingBuff2,
+	ProudVictorCape2,
+	PoutyPorterWingBuff2,
+	PoutyPorterCape2,
+
 	// 21/12/2020 | Days of Feast.
 	FeastNeckTie,
 	DaysOfFeastCape,
@@ -1062,6 +1053,12 @@ export const enum Cosmetic {
 	// 04/02/2021 | Travelling Spirit #28.
 	RespectfulPianistWingBuff,
 
+	// 06/02/2021 | Version 0.12.3.
+	CourageousSoldierWingBuff2,
+	CourageousSoldierCape2,
+	PrayingAcolyteWingBuff2,
+	PrayingAcolyteCape2,
+
 	// 08/02/2021 | Season of Dreams Quest 4.
 	DreamsGuideQuest4,
 	DreamsGuideHeart4,
@@ -1082,6 +1079,10 @@ export const enum Cosmetic {
 	// 15/02/2021 | Season of Dreams Quest 5.
 	DreamsGuideQuest5,
 	DreamsGuideHeart5,
+
+	// 16/03/2021 | Version 0.13.0.
+	DismayedHunterWingBuff2,
+	DismayedHunterCape2,
 
 	// 22/03/2021 | Days of Bloom.
 	BloomHair,
@@ -1194,6 +1195,10 @@ export const enum Cosmetic {
 
 	// 27/05/2021 | Travelling Spirit #36.
 	SnoozingCarpenterWingBuff,
+
+	// 27/05/2021 | Version 0.13.4.
+	HandstandingThrillseekerWingBuff2,
+	HandstandingThrillseekerCape2,
 
 	// 31/05/2021 | Season of Assembly Quest 6.
 	AssemblyGuideQuest6,
@@ -1558,6 +1563,10 @@ export const enum Cosmetic {
 
 	// 31/03/2022 | Travelling Spirit #58.
 	ScarecrowFarmerWingBuff,
+
+	// 05/04/2022 | Version 0.17.0.
+	MemoryWhispererWingBuff2,
+	MemoryWhispererCape2,
 
 	// 11/04/2022 | Season of Performance.
 	PerformanceGuideQuest1,
