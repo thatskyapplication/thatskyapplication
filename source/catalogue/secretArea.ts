@@ -10,7 +10,7 @@ const items = resolveOffer([
 	},
 	{
 		name: "TGC Guitar Pack",
-		bit: 1 << 1,
+		cosmetic: Cosmetic.TGCGuitar,
 		cost: { money: 29.99 },
 		emoji: HELD_PROPS_EMOJIS.HeldProp30,
 	},

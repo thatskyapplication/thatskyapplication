@@ -342,8 +342,6 @@ export const enum Cosmetic {
 	StealthySurvivorWingBuff1,
 	StealthySurvivorBlessing2,
 	StealthySurvivorCape1,
-	StealthySurvivorWingBuff2,
-	StealthySurvivorCape2,
 	EmoteSalute1,
 	EmoteSalute2,
 	SalutingCaptainBlessing1,
@@ -1661,6 +1659,10 @@ export const enum Cosmetic {
 	// 23/06/2022 | Travelling Spirit #64.
 	PeekingPostmanWingBuff,
 
+	// 28/07/2022 | Version 0.18.0.
+	StealthySurvivorWingBuff2,
+	StealthySurvivorCape2,
+
 	// 30/06/2022 | Days of Rainbow.
 	RainbowTrousers,
 	RainbowEarring,
@@ -1712,6 +1714,7 @@ export const enum Cosmetic {
 	Balloon,
 	LightFence,
 	ConfettiLauncher,
+	TGCGuitar,
 
 	// 19/07/2022 | Season of Shattering Quest 2.
 	TheVoidofShatteringQuest2,
