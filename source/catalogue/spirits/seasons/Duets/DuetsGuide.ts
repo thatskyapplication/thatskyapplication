@@ -42,7 +42,7 @@ export default new GuideSpirit({
 				emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp72,
 			},
 			{ name: "Quest 2", bit: 1 << 6, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Heart", bit: 1 << 7, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Heart 1", bit: 1 << 7, emoji: MISCELLANEOUS_EMOJIS.Heart },
 			{ name: "Quest 3", bit: 1 << 8, emoji: MISCELLANEOUS_EMOJIS.Quest },
 			{
 				name: `${FriendAction.DuetBow} 1`,
@@ -57,7 +57,7 @@ export default new GuideSpirit({
 				emoji: FRIEND_ACTION_EMOJIS.DuetBow,
 			},
 			{ name: "Quest 5", bit: 1 << 12, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Heart", bit: 1 << 13, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Heart 2", bit: 1 << 13, emoji: MISCELLANEOUS_EMOJIS.Heart },
 		],
 	},
 });
