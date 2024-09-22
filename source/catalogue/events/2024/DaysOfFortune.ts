@@ -1,6 +1,6 @@
 import { Event } from "../../../Structures/Event.js";
 import { CDN_URL } from "../../../Utility/Constants.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -32,23 +32,33 @@ export default new Event({
 		amount: eventCurrencyAmount,
 	},
 	offer: [
-		{ name: "Mask", bit: 1 << 0, cost: { eventCurrency: 14 }, emoji: MASK_EMOJIS.Mask90 },
-		{ name: "Prop", bit: 1 << 1, cost: { eventCurrency: 34 }, emoji: HELD_PROPS_EMOJIS.HeldProp41 },
+		{
+			name: "Fortune Dragon Mask",
+			cosmetic: Cosmetic.FortuneDragonMask,
+			cost: { eventCurrency: 14 },
+			emoji: MASK_EMOJIS.Mask90,
+		},
+		{
+			name: "Fortune Drum",
+			cosmetic: Cosmetic.FortuneDrum,
+			cost: { eventCurrency: 34 },
+			emoji: HELD_PROPS_EMOJIS.HeldProp41,
+		},
 		{
 			name: "Days of Fortune Dragon Vestment",
-			bit: 1 << 2,
+			cosmetic: Cosmetic.DaysOfFortuneDragonVestment,
 			cost: { money: 9.99 },
 			emoji: OUTFIT_EMOJIS.Outfit57,
 		},
 		{
 			name: "Days of Fortune Dragon Stole",
-			bit: 1 << 3,
+			cosmetic: Cosmetic.DaysOfFortuneDragonStole,
 			cost: { money: 14.99 },
 			emoji: CAPE_EMOJIS.Cape126,
 		},
 		{
 			name: "Days of Fortune Dragon Bangles",
-			bit: 1 << 4,
+			cosmetic: Cosmetic.DaysOfFortuneDragonBangles,
 			cost: { money: 1.99 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory35,
 		},

@@ -2305,6 +2305,107 @@ export const enum Cosmetic {
 	// 25/12/2023 | Season of Revival Quest 10.
 	HopefulStewardQuest10,
 
+	// 15/01/2024 | Season of the Nine-Coloured Deer.
+	GiftOfTheNineColouredDeer,
+	RadianceOfTheNineColouredDeer,
+	SpiritOfMuralQuest1,
+	SpiritOfMuralHeart1,
+	NineColouredDeerPendant,
+	SpiritOfMuralUltimateHair,
+	SpiritOfMuralUltimateOutfit,
+	SpiritOfMuralUltimateCape,
+	EmoteWhistle1,
+	EmoteWhistle2,
+	HerbGathererBlessing1,
+	HerbGathererOutfit,
+	HerbGathererHair,
+	HerbGathererBlessing2,
+	EmoteWhistle3,
+	EmoteWhistle4,
+	HerbGathererProp,
+	HerbGathererBlessing3,
+	HerbGathererSeasonalHeart,
+	EmoteFlex1,
+	EmoteFlex2,
+	HunterOutfit,
+	HunterBlessing1,
+	EmoteFlex3,
+	EmoteFlex4,
+	HunterBlessing2,
+	HunterHair,
+	HunterCape,
+	HunterBlessing3,
+	HunterSeasonalHeart,
+	FriendActionCradleCarry1,
+	FriendActionCradleCarry2,
+	FeudalLordBlessing1,
+	FeudalLordHairAccessory,
+	FeudalLordMask,
+	FeudalLordBlessing2,
+	FeudalLordBlessing3,
+	FeudalLordCape,
+	FeudalLordMusicSheet,
+	FeudalLordBlessing4,
+	FeudalLordSeasonalHeart,
+	EmoteFloatSpin1,
+	EmoteFloatSpin2,
+	PrincessMask,
+	PrincessBlessing1,
+	PrincessBlessing2,
+	PrincessHair,
+	EmoteFloatSpin3,
+	EmoteFloatSpin4,
+	PrincessOutfit,
+	PrincessBlessing3,
+	PrincessBlessing4,
+	PrincessCape,
+	PrincessSeasonalHeart,
+
+	// 18/01/2024 | Travelling Spirit #105.
+	AnxiousAnglerWingBuff,
+
+	// 29/01/2024 | Season of the Nine-Coloured Deer Quest 2.
+	SpiritOfMuralQuest2,
+	SpiritOfMuralHeart2,
+
+	// 29/01/2024 | Days of Fortune.
+	FortuneDragonMask,
+	FortuneDrum,
+	DaysOfFortuneDragonVestment,
+	DaysOfFortuneDragonStole,
+	DaysOfFortuneDragonBangles,
+
+	// 12/02/2024 | Season of the Nine-Coloured Deer Quest 3.
+	SpiritOfMuralQuest3,
+	SpiritOfMuralHairAccessory,
+
+	// 12/02/2024 | Days of Love.
+	LoveHeartPlushie,
+	LoveHeartBeret,
+	DaysofLoveMusicSheet,
+	DaysofLoveMeteorMantle,
+
+	// 27/02/2024 | Season of the Nine-Coloured Deer Quest 4.
+	SpiritOfMuralQuest4,
+	SpiritOfMuralHeart3,
+
+	// 29/02/2024 | Travelling Spirit #108.
+	LightWhispererWingBuff,
+
+	// 04/03/2024 | Spring Camping.
+	CeasingCommodoreWingBuff,
+	FranticStagehandWingBuff,
+
+	// 11/03/2024 | Season of the Nine-Coloured Deer Quest 5.
+	SpiritOfMuralQuest5,
+	SpiritOfMuralMask,
+
+	// 25/03/2024 | Days of Bloom.
+	BloomArumPetalHair,
+	BloomSpikySprigHair,
+	BloomArumPetalCape,
+	BloomLilypadUmbrella,
+
 	// 10/04/2024 | Steam release.
 	CompanionCube,
 }

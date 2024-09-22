@@ -1011,7 +1011,7 @@ export const MASK_EMOJIS = {
 	 */
 	Mask89: { name: "mask", id: "1196158869840339094" },
 	/**
-	 * Days of Fortune 2024.
+	 * Fortune Dragon Mask.
 	 */
 	Mask90: { name: "mask", id: "1201599955748524113" },
 	/**
@@ -2851,7 +2851,7 @@ export const HELD_PROPS_EMOJIS = {
 	 */
 	HeldProp40: { name: "held_prop", id: "1190678898522980505" },
 	/**
-	 * Days of Fortune 2024.
+	 * Fortune Drum.
 	 */
 	HeldProp41: { name: "held_prop", id: "1201607955754270721" },
 	/**

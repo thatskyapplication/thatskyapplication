@@ -1,6 +1,6 @@
 import { Event } from "../../../Structures/Event.js";
 import { CDN_URL } from "../../../Utility/Constants.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -32,26 +32,26 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Prop",
-			bit: 1 << 0,
+			name: "Love Heart Plushie",
+			cosmetic: Cosmetic.LoveHeartPlushie,
 			cost: { eventCurrency: 14 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp35,
 		},
 		{
-			name: "Hair accessory",
-			bit: 1 << 1,
+			name: "Love Heart Beret",
+			cosmetic: Cosmetic.LoveHeartBeret,
 			cost: { eventCurrency: 27 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory37,
 		},
 		{
-			name: "Music sheet",
-			bit: 1 << 2,
+			name: "Days of Love music sheet",
+			cosmetic: Cosmetic.DaysofLoveMusicSheet,
 			cost: { eventCurrency: 7 },
 			emoji: MISCELLANEOUS_EMOJIS.MusicSheet,
 		},
 		{
 			name: "Days of Love Meteor Mantle",
-			bit: 1 << 3,
+			cosmetic: Cosmetic.DaysofLoveMeteorMantle,
 			cost: { money: 17.99 },
 			emoji: CAPE_EMOJIS.Cape127,
 		},
