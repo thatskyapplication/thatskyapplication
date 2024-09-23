@@ -27,7 +27,6 @@ export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infogra
 // TODO: Check spirit return errors.
 // TODO: Check dates of the rewards from the Nesting Workshop board.
 // TODO: Check "pack" names.
-// TODO: Elder masks.
 // biome-ignore lint/style/useEnumInitializers: TODO.
 export const enum Cosmetic {
 	/**
@@ -1743,6 +1742,11 @@ export const enum Cosmetic {
 	// 05/08/2022 | Season of Shattering Quest 3.
 	TheVoidofShatteringQuest3,
 	TheVoidofShatteringHeart3,
+
+	// 17/08/2022 | Version 0.18.5.
+	ElderOfTheIsleFaceAccessory,
+	ElderOfThePrairieFaceAccessory,
+	ElderOfTheForestFaceAccessory,
 
 	// 18/08/2022 | Travelling Spirit #68.
 	ScoldingStudentWingBuff,

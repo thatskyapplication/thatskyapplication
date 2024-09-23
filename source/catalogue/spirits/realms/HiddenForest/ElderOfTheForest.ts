@@ -17,7 +17,7 @@ export default new ElderSpirit({
 			},
 			{
 				name: "Face accessory",
-				bit: 1 << 1,
+				cosmetic: Cosmetic.ElderOfTheForestFaceAccessory,
 				cost: { ascendedCandles: 250 },
 				emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory20,
 			},
