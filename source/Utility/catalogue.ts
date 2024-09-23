@@ -23,8 +23,6 @@ export const GUIDE_SPIRIT_IN_PROGRESS_TEXT =
 export const NO_EVENT_OFFER_TEXT = "There are no cosmetics for this event." as const;
 export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infographic." as const;
 
-// TODO: Check if any return visit dates precede TS dates.
-// TODO: Check spirit return errors.
 // TODO: Check dates of the rewards from the Nesting Workshop board.
 // TODO: Check "pack" names.
 // biome-ignore lint/style/useEnumInitializers: TODO.
