@@ -1403,6 +1403,9 @@ export const enum Cosmetic {
 	TalentedBuilderTrailSpell2,
 	TalentedBuilderSeasonalHeart,
 
+	// 14/10/2021 | Travelling Spirit #46.
+	FestivalSpinDancerProp,
+
 	// 18/10/2021 | Season of Flight Quest 2.
 	FlightGuideQuest2,
 	FlightGuideHeart2,

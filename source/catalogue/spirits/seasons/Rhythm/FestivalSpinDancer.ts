@@ -117,7 +117,12 @@ export default new SeasonalSpirit({
 				cost: { candles: 34 },
 				emoji: hairEmoji,
 			},
-			{ name: "Prop", cost: { candles: 30 }, emoji: placeablePropEmoji },
+			{
+				name: "Prop",
+				cosmetic: Cosmetic.FestivalSpinDancerProp,
+				cost: { candles: 30 },
+				emoji: placeablePropEmoji,
+			},
 			{
 				name: "Outfit",
 				cosmetic: Cosmetic.FestivalSpinDancerOutfit,
