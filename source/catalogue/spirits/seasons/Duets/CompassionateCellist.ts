@@ -1,5 +1,5 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
 	HELD_PROPS_EMOJIS,
@@ -13,17 +13,25 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: "Shared memory spell", bit: 1 << 0, emoji: MISCELLANEOUS_EMOJIS.SpellSharedMemory },
+			{
+				name: "Shared memory spell",
+				cosmetic: Cosmetic.CompassionateCellistSharedMemorySpell,
+				emoji: MISCELLANEOUS_EMOJIS.SpellSharedMemory,
+			},
 			{
 				name: "Face accessory",
-				bit: 1 << 1,
+				cosmetic: Cosmetic.CompassionateCellistFaceAccessory,
 				cost: { candles: 85 },
 				emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory36,
 			},
-			{ name: "Heart", bit: 1 << 2, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.CompassionateCellistHeart,
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
 			{
 				name: "Prop",
-				bit: 1 << 3,
+				cosmetic: Cosmetic.CompassionateCellistProp,
 				cost: { candles: 200 },
 				emoji: HELD_PROPS_EMOJIS.HeldProp46,
 			},

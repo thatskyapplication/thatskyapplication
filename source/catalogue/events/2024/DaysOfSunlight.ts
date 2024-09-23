@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -31,25 +31,25 @@ export default new Event({
 	offer: [
 		{
 			name: "Sunlight Manta Float",
-			bit: 1 << 0,
+			cosmetic: Cosmetic.SunlightMantaFloat,
 			cost: { eventCurrency: 20 },
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp71,
 		},
 		{
 			name: "Sunlight Beach Shorts",
-			bit: 1 << 1,
+			cosmetic: Cosmetic.SunlightBeachShorts,
 			cost: { eventCurrency: 30 },
 			emoji: OUTFIT_EMOJIS.Outfit65,
 		},
 		{
 			name: "Sunlight Helios Hoops",
-			bit: 1 << 2,
+			cosmetic: Cosmetic.SunlightHeliosHoops,
 			cost: { money: 2.99 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory37,
 		},
 		{
 			name: "Sunlight Woven Wrap",
-			bit: 1 << 3,
+			cosmetic: Cosmetic.SunlightWovenWrap,
 			cost: { money: 14.99 },
 			emoji: CAPE_EMOJIS.Cape135,
 		},

@@ -95,6 +95,7 @@ export default [
 				},
 				{
 					name: "Wing buff",
+					cosmetic: Cosmetic.AncientDarknessPlantWingBuff,
 					cost: { ascendedCandles: 2 },
 					emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 				},
@@ -182,6 +183,7 @@ export default [
 				},
 				{
 					name: "Wing buff",
+					cosmetic: Cosmetic.AncientDarknessDragonWingBuff,
 					cost: { ascendedCandles: 2 },
 					emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 				},

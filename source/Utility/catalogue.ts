@@ -27,6 +27,7 @@ export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infogra
 // TODO: Check spirit return errors.
 // TODO: Check dates of the rewards from the Nesting Workshop board.
 // TODO: Check "pack" names.
+// TODO: Elder masks.
 // biome-ignore lint/style/useEnumInitializers: TODO.
 export const enum Cosmetic {
 	/**
@@ -2151,7 +2152,7 @@ export const enum Cosmetic {
 	// 03/08/2023 | Travelling Spirit #93.
 	ProphetOfFireProp,
 
-	// 07/08/2023 | Returning Spirits #2.
+	// 07/08/2023 | Returning Spirits #4.
 	CacklingCannoneerWingBuff,
 
 	// 14/08/2023 | Season of Moments Quest 3.
@@ -2494,6 +2495,101 @@ export const enum Cosmetic {
 	SkyFestJenovaFan,
 	SkyFestOreoHeadband,
 	SkyFestWireframeCape,
+
+	// 15/07/2024 | Season of Duets.
+	DuetsGuideQuest1,
+	DuetsGuideMask,
+	DuetsPendant,
+	DuetsGuideUltimateProp1,
+	DuetsGuideUltimateCape,
+	DuetsGuideUltimateProp2,
+	ThePianistsBeginningsBlessing1,
+	ThePianistsBeginningsProp1,
+	ThePianistsBeginningsHair,
+	ThePianistsBeginningsBlessing2,
+	ThePianistsBeginningsBlessing3,
+	ThePianistsBeginningsOutfit,
+	ThePianistsBeginningsProp2,
+	ThePianistsBeginningsBlessing4,
+	ThePianistsBeginningsSeasonalHeart,
+	TheCellistsBeginningsHair,
+	TheCellistsBeginningsBlessing1,
+	TheCellistsBeginningsBlessing2,
+	TheCellistsBeginningsProp,
+	TheCellistsBeginningsOutfit,
+	TheCellistsBeginningsBlessing4,
+	TheCellistsBeginningsSeasonalHeart,
+	TheMusiciansLegacyMusicSheet,
+	TheMusiciansLegacyBlessing1,
+	TheMusiciansLegacyBlessing2,
+	TheMusiciansLegacyProp1,
+	TheMusiciansLegacyProp2,
+	TheMusiciansLegacyBlessing3,
+	TheMusiciansLegacySeasonalHeart,
+	TheCellistsFlourishingProp1,
+	TheCellistsFlourishingBlessing1,
+	TheCellistsFlourishingBlessing2,
+	TheCellistsFlourishingProp2,
+	TheCellistsFlourishingCape,
+	TheCellistsFlourishingBlessing3,
+	TheCellistsFlourishingBlessing4,
+	TheCellistsFlourishingOutfit,
+	TheCellistsFlourishingSeasonalHeart,
+	ThePianistsFlourishingBlessing1,
+	ThePianistsFlourishingProp,
+	ThePianistsFlourishingShoes,
+	ThePianistsFlourishingBlessing2,
+	ThePianistsFlourishingBlessing3,
+	ThePianistsFlourishingOutfit,
+	ThePianistsFlourishingSeasonalHeart,
+
+	// 29/07/2024 | Season of Duets Quest 2.
+	DuetsGuideQuest2,
+	DuetsGuideHeart1,
+
+	// 29/07/2024 | Tournament of Triumph.
+	TournamentCurls,
+	TournamentTorch,
+	TournamentGoldenGarland,
+	TournamentTunic,
+
+	// 01/08/2024 | Travelling Spirit #119.
+	MellowMusicianWingBuff,
+
+	// 12/08/2024 | Season of Duets Quest 3.
+	DuetsGuideQuest3,
+	DuetsGuideDuetBow1,
+
+	// 26/08/2024 | Season of Duets Quest 4.
+	DuetsGuideQuest4,
+	DuetsGuideDuetBow2,
+	CompassionateCellistSharedMemorySpell,
+	CompassionateCellistFaceAccessory,
+	CompassionateCellistHeart,
+	CompassionateCellistProp,
+
+	// 26/08/2024 | Days of Sunlight.
+	SunlightMantaFloat,
+	SunlightBeachShorts,
+	SunlightHeliosHoops,
+	SunlightWovenWrap,
+
+	// 09/09/2024 | Season of Duets Quest 5.
+	DuetsGuideQuest5,
+	DuetsGuideHeart2,
+
+	// 16/09/2024 | Days of Moonlight.
+	MoonlightBlossomAccessory,
+	MoonlightLanternDecoration,
+	MoonlightEarrings,
+	MoonlightFrock,
+	MoonlightUpdo,
+
+	// 16/09/2024 | Returning Spirits #6.
+	AncientLightJellyfishWingBuff,
+	AncientLightMantaWingBuff,
+	AncientDarknessPlantWingBuff,
+	AncientDarknessDragonWingBuff,
 }
 
 export enum SeasonName {

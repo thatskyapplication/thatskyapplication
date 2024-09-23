@@ -84,6 +84,7 @@ export default [
 				},
 				{
 					name: "Wing buff",
+					cosmetic: Cosmetic.AncientLightJellyfishWingBuff,
 					cost: { ascendedCandles: 2 },
 					emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 				},
@@ -184,6 +185,7 @@ export default [
 				},
 				{
 					name: "Wing buff",
+					cosmetic: Cosmetic.AncientLightMantaWingBuff,
 					cost: { ascendedCandles: 2 },
 					emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 				},
