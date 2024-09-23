@@ -24,7 +24,6 @@ export const NO_EVENT_OFFER_TEXT = "There are no cosmetics for this event." as c
 export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infographic." as const;
 
 // TODO: Check dates of the rewards from the Nesting Workshop board.
-// TODO: Check "pack" names.
 // biome-ignore lint/style/useEnumInitializers: TODO.
 export const enum Cosmetic {
 	/**
@@ -55,7 +54,7 @@ export const enum Cosmetic {
 	 * Unlocked by default.
 	 */
 	BaseCape,
-	StarterPack,
+	MobileCape,
 	EmotePoint1,
 	EmotePoint2,
 	PointingCandlemakerHair,
@@ -501,7 +500,7 @@ export const enum Cosmetic {
 	ShushingLightScholarBlessing2,
 	ShushingLightScholarCape,
 
-	FoundersPack,
+	FoundersCape,
 
 	SpookyBatCape,
 	HungryPumpkinHat,
@@ -565,7 +564,7 @@ export const enum Cosmetic {
 	WiseGrandparentCape,
 	WiseGrandparentSeasonalHeart,
 
-	DaysOfFeastPack,
+	DaysOfFeastHat,
 
 	RhythmPendant,
 	RhythmUltimateMask,
@@ -636,7 +635,7 @@ export const enum Cosmetic {
 	SassyDrifterWingBuff,
 
 	// 12/02/2020 12:00 | Days of Love.
-	DaysOfLovePack,
+	DaysOfLoveSwing,
 
 	// 14/02/2020 | Travelling spirit #2.
 	DoublefiveLightCatcherHeart,
@@ -755,7 +754,7 @@ export const enum Cosmetic {
 	EnchantmentGuideHeart5,
 
 	// 18/05/2020 12:00 | Days of Healing.
-	HealingPack,
+	HealingHairAccessory,
 
 	// 28/05/2020 | Travelling Spirit Error.
 	SalutingProtectorHeart,
@@ -1539,7 +1538,7 @@ export const enum Cosmetic {
 
 	// 07/02/2022 | Days of Love.
 	DaysOfLoveFlowerCrown,
-	DaysOfLoveGondolaPack,
+	DaysOfLoveGondola,
 
 	// 14/02/2022 | Season of Abyss Quest 4.
 	AbyssGuideQuest4,

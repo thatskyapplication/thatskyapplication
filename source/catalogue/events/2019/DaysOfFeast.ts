@@ -10,7 +10,7 @@ export default new Event({
 	offer: [
 		{
 			name: "Days of Feast Pack",
-			cosmetic: Cosmetic.DaysOfFeastPack,
+			cosmetic: Cosmetic.DaysOfFeastHat,
 			cost: { money: 6.99 },
 			emoji: HAIR_EMOJIS.Hair48,
 		},

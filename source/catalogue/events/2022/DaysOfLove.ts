@@ -16,7 +16,7 @@ export default new Event({
 		},
 		{
 			name: "Days of Love Gondola Pack",
-			cosmetic: Cosmetic.DaysOfLoveGondolaPack,
+			cosmetic: Cosmetic.DaysOfLoveGondola,
 			cost: { money: 19.99 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp14,
 		},

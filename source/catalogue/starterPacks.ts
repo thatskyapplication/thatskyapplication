@@ -4,7 +4,7 @@ import { CAPE_EMOJIS } from "../Utility/emojis.js";
 const items = resolveOffer([
 	{
 		name: "Starter Pack",
-		cosmetic: Cosmetic.StarterPack,
+		cosmetic: Cosmetic.MobileCape,
 		cost: { money: 4.99 },
 		emoji: CAPE_EMOJIS.Cape03,
 	},

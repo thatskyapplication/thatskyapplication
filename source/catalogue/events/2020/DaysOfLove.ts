@@ -10,7 +10,7 @@ export default new Event({
 	offer: [
 		{
 			name: "Days of Love Pack",
-			cosmetic: Cosmetic.DaysOfLovePack,
+			cosmetic: Cosmetic.DaysOfLoveSwing,
 			cost: { money: 19.99 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp01,
 		},

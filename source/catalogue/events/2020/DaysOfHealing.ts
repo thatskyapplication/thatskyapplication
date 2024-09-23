@@ -10,7 +10,7 @@ export default new Event({
 	offer: [
 		{
 			name: "Healing Pack",
-			cosmetic: Cosmetic.HealingPack,
+			cosmetic: Cosmetic.HealingHairAccessory,
 			cost: { money: 19.99 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory01,
 		},
