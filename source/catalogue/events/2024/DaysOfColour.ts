@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	HAIR_EMOJIS,
@@ -28,25 +28,25 @@ export default new Event({
 	offer: [
 		{
 			name: "Dark Rainbow Mask",
-			bit: 1 << 0,
+			cosmetic: Cosmetic.DarkRainbowMask,
 			cost: { eventCurrency: 32 },
 			emoji: MASK_EMOJIS.Mask92,
 		},
 		{
 			name: "Colour Glam Cut",
-			bit: 1 << 1,
+			cosmetic: Cosmetic.ColourGlamCut,
 			cost: { eventCurrency: 18 },
 			emoji: HAIR_EMOJIS.Hair145,
 		},
 		{
 			name: "Dark Rainbow Loafers",
-			bit: 1 << 2,
+			cosmetic: Cosmetic.DarkRainbowLoafers,
 			cost: { money: 19.99 },
 			emoji: SHOE_EMOJIS.Shoe14,
 		},
 		{
 			name: "Colour Bubble Machine",
-			bit: 1 << 3,
+			cosmetic: Cosmetic.ColourBubbleMachine,
 			cost: { money: 14.99 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp63,
 		},

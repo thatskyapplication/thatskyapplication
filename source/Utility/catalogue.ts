@@ -2488,6 +2488,12 @@ export const enum Cosmetic {
 	NestingGuideQuest5,
 	NestingGuideHeart5,
 
+	// 24/06/2024 | Days of Colour.
+	DarkRainbowMask,
+	ColourGlamCut,
+	DarkRainbowLoafers,
+	ColourBubbleMachine,
+
 	// 12/07/2024 17:00 | SkyFest.
 	SkyFestStarJar,
 	SkyFest5thAnniversaryTShirt,
