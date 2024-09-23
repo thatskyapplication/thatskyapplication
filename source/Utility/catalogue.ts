@@ -399,8 +399,7 @@ export const enum Cosmetic {
 	ElderOfTheWastelandHair,
 	ElderOfTheVaultHair,
 
-	BetaCape,
-
+	// 19/07/2019 | Season of Gratitude.
 	GratitudePendant,
 	GratitudeUltimateMask,
 	StanceSassy,
@@ -448,7 +447,12 @@ export const enum Cosmetic {
 	EmoteKungFu4,
 	GreetingShamanBlessing2,
 	GreetingShamanMask,
+	
+	// 12/08/2024 | Beta cape.
+	BetaCape,
 
+	// 23/09/2019 | Season of Lightseekers.
+	FoundersCape,
 	LightseekerPendant,
 	LightseekerUltimateProp,
 	FriendActionCarry1,
@@ -500,11 +504,11 @@ export const enum Cosmetic {
 	ShushingLightScholarBlessing2,
 	ShushingLightScholarCape,
 
-	FoundersCape,
-
+	// 27/10/2019 | Halloween Office Event.
 	SpookyBatCape,
 	HungryPumpkinHat,
 
+	// 18/11/2019 | Season of Belonging.
 	BelongingPendant,
 	BelongingBonfire,
 	EmoteBoogieDance1,
@@ -564,8 +568,10 @@ export const enum Cosmetic {
 	WiseGrandparentCape,
 	WiseGrandparentSeasonalHeart,
 
+	// 22/12/2019 | Days of Feast.
 	DaysOfFeastHat,
 
+	// 24/01/2020 | Season of Rhythm.
 	RhythmPendant,
 	RhythmUltimateMask,
 	RhythmUltimateHair,
