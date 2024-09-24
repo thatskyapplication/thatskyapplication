@@ -96,6 +96,7 @@ export const CATALOGUE_VIEW_SPIRIT_CUSTOM_ID = "CATALOGUE_VIEW_SPIRIT_CUSTOM_ID"
 export const CATALOGUE_VIEW_EVENT_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_OFFER_1_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_1_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_OFFER_2_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_2_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_OFFER_3_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_3_CUSTOM_ID" as const;
 const CATALOGUE_SHARE_REALMS_KEY = "realms" as const;
 const CATALOGUE_SHARE_ELDER_KEY = "elders" as const;
 export const CATALOGUE_SHARE_PROMPT_CUSTOM_ID = "CATALOGUE_SHARE_PROMPT_CUSTOM_ID" as const;
@@ -303,7 +304,7 @@ export class Catalogue {
 		const secretAreaOwnedProgress = this.secretAreaOwnedProgress();
 		const harmonyHallOwnedProgress = this.harmonyHallOwnedProgress();
 		const permanentEventStoreOwnedProgress = this.permanentEventStoreOwnedProgress();
-		// const nestingWorkshopOwnedProgress = this.nestingWorkshopOwnedProgress();
+		const nestingWorkshopOwnedProgress = this.nestingWorkshopOwnedProgress();
 
 		const progresses = [
 			standardAndElderOwnedProgress,
@@ -313,7 +314,7 @@ export class Catalogue {
 			secretAreaOwnedProgress,
 			harmonyHallOwnedProgress,
 			permanentEventStoreOwnedProgress,
-			// nestingWorkshopOwnedProgress,
+			nestingWorkshopOwnedProgress,
 		];
 
 		return this.progressPercentage(
@@ -357,7 +358,7 @@ export class Catalogue {
 		const secretAreaProgress = catalogue.secretAreaProgress(true);
 		const harmonyHallProgress = catalogue.harmonyHallProgress(true);
 		const permanentEventStoreProgress = catalogue.permanentEventStoreProgress(true);
-		// const nestingWorkshopProgress = catalogue.nestingWorkshopProgress(true);
+		const nestingWorkshopProgress = catalogue.nestingWorkshopProgress(true);
 		const now = skyNow();
 		const currentSeason = skyCurrentSeason(now);
 		const events = skyCurrentEvents(now);
@@ -467,9 +468,11 @@ export class Catalogue {
 									}`,
 								)
 								.setValue(String(CatalogueType.PermanentEventStore)),
-							// new StringSelectMenuOptionBuilder()
-							// .setLabel(`Nesting Workshop${nestingWorkshopProgress === null ? "" : ` (${nestingWorkshopProgress}%)`}`)
-							// .setValue(String(CatalogueType.NestingWorkshop)),
+							new StringSelectMenuOptionBuilder()
+								.setLabel(
+									`Nesting Workshop${nestingWorkshopProgress === null ? "" : ` (${nestingWorkshopProgress}%)`}`,
+								)
+								.setValue(String(CatalogueType.NestingWorkshop)),
 						)
 						.setPlaceholder("What do you want to see?"),
 				),
@@ -1668,7 +1671,17 @@ export class Catalogue {
 		});
 
 		const itemSelectionOptions1 = itemSelectionOptions.slice(0, CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
-		const itemSelectionOptions2 = itemSelectionOptions.slice(CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
+
+		const itemSelectionOptions2 = itemSelectionOptions.slice(
+			CATALOGUE_MAXIMUM_OPTIONS_LIMIT,
+			CATALOGUE_MAXIMUM_OPTIONS_LIMIT * 2,
+		);
+
+		const itemSelectionOptions3 = itemSelectionOptions.slice(
+			CATALOGUE_MAXIMUM_OPTIONS_LIMIT * 2,
+			CATALOGUE_MAXIMUM_OPTIONS_LIMIT * 3,
+		);
+
 		const { offerDescription } = catalogue.embedProgress(NESTING_WORKSHOP.items);
 
 		await interaction.update({
@@ -1687,6 +1700,14 @@ export class Catalogue {
 						.setMaxValues(itemSelectionOptions2.length)
 						.setMinValues(0)
 						.setOptions(itemSelectionOptions2)
+						.setPlaceholder("Select what you have!"),
+				),
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_OFFER_3_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`)
+						.setMaxValues(itemSelectionOptions3.length)
+						.setMinValues(0)
+						.setOptions(itemSelectionOptions3)
 						.setPlaceholder("Select what you have!"),
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
