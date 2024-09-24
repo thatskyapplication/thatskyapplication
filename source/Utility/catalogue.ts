@@ -2464,9 +2464,21 @@ export const enum Cosmetic {
 	NestingNookHairAccessory,
 	NestingNookSeasonalHeart,
 
+	// 15/04/2024 | Nesting Workshop week 1.
+	StoneSingleBench,
+	StoneWoodFiredOven,
+	StoneTallCube,
+	StoneSingleBed,
+
 	// 22/04/2024 | Season of Nesting Quest 2.
 	NestingGuideQuest2,
 	NestingGuideHeart2,
+
+	// 22/04/2024 | Nesting Workshop week 2.
+	StoneChair,
+	StoneSmallTable,
+	DecorPillowOneColour,
+	StoneTallShelf,
 
 	// 25/04/2024 | Travelling Spirit #112.
 	DancingPerformerWingBuff,
@@ -2485,6 +2497,30 @@ export const enum Cosmetic {
 	NestingGuideQuest3,
 	NestingGuideHeart3,
 
+	// 29/04/2024 | Nesting Workshop week 3.
+	StoneBench,
+	StoneDesk,
+	DecorPillowTwoColour,
+	SmallSolidRug,
+
+	// 06/05/2024 | Nesting Workshop week 4.
+	StoneArmchair,
+	StoneConsoleTable,
+	DecorFoldedCloth,
+	SmallStripesRug,
+
+	// 13/05/2024 | Nesting Workshop week 5.
+	StoneLoveseat,
+	StoneRoundDiningTable,
+	StonePlantStand,
+	SmallClassicRug,
+
+	// 20/05/2024 | Nesting Workshop week 6.
+	StoneSofaCorner,
+	StoneSquareDiningTable,
+	StoneWallSconce,
+	SmallHalfCircleRug,
+
 	// 27/05/2024 | Season of Nesting Quest 4.
 	NestingGuideQuest4,
 	NestingGuideHeart4,
@@ -2495,15 +2531,63 @@ export const enum Cosmetic {
 	NatureWaveCape,
 	NatureWaveTouchedHair,
 
+	// 27/05/2024 | Nesting Workshop week 7.
+	StoneSofaSide,
+	StoneLongDiningTable,
+	StoneSmallBathtub,
+	MediumSolidRug,
+
+	// 27/05/2024 | Nesting Challenge Board.
+	StoneFigurine,
+
+	// 03/06/2024 | Nesting Workshop week 8.
+	StoneKichenDrawers,
+	StoneCoffeeTable,
+	StoneCandleLight,
+	MediumStripesRug,
+
+	// 03/06/2024 | Nesting Challenge Board.
+	InstrumentStand,
+
 	// 10/06/2024 | Season of Nesting Quest 5.
 	NestingGuideQuest5,
 	NestingGuideHeart5,
+
+	// 10/06/2024 | Nesting Workshop week 9.
+	StoneWallPotRack,
+	StoneClosedBox,
+	StoneWashstand,
+	MediumDiamondsRug,
+
+	// 10/06/2024 | Nesting Challenge Board.
+	MusicPlayer,
+
+	// 17/06/2024 | Nesting Workshop week 10.
+	StoneEmptyBox,
+	StoneWallMirror,
+	MediumArgyleRug,
 
 	// 24/06/2024 | Days of Colour.
 	DarkRainbowMask,
 	ColourGlamCut,
 	DarkRainbowLoafers,
 	ColourBubbleMachine,
+
+	// 24/06/2024 | Nesting Workshop week 11.
+	StoneWallMugRack,
+	StoneWallTowelRack,
+	MediumCircleRug,
+
+	// 01/07/2024 | Nesting Workshop week 12.
+	StoneKitchenCabinet,
+	StoneWallShelf,
+	LargeSolidRug,
+
+	// 08/07/2024 | Nesting Workshop week 13.
+	StoneKitchenStove,
+	StoneWideCube,
+	LargeBathtub,
+	LargeCircleRug,
 
 	// 12/07/2024 17:00 | SkyFest.
 	SkyFestStarJar,
