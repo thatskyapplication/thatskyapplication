@@ -447,7 +447,7 @@ export const enum Cosmetic {
 	EmoteKungFu4,
 	GreetingShamanBlessing2,
 	GreetingShamanMask,
-	
+
 	// 12/08/2024 | Beta cape.
 	BetaCape,
 
@@ -2422,6 +2422,7 @@ export const enum Cosmetic {
 
 	// 15/04/2024 | Season of Nesting.
 	NestingGuideQuest1,
+	StoneStool,
 	NestingGuideHeart1,
 	NestingPendant,
 	NestingGuideUltimateOutfit,

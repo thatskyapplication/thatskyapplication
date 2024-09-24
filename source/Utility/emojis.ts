@@ -3047,7 +3047,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp41: { name: "large_placeable_prop", id: "1229203555047702538" },
 	/**
-	 * Season of Nesting quest 1.
+	 * Stone stool.
 	 */
 	LargePlaceableProp42: { name: "large_placeable_prop", id: "1231718600532955227" },
 	/**

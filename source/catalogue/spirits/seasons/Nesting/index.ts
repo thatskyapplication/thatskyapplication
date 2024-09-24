@@ -1,7 +1,8 @@
 import { Season } from "../../../../Structures/Season.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
+import { LARGE_PLACEABLE_PROPS_EMOJIS } from "../../../../Utility/emojis.js";
 import NestingAtrium from "./NestingAtrium.js";
 import NestingGuide from "./NestingGuide.js";
 import NestingLoft from "./NestingLoft.js";
@@ -14,6 +15,13 @@ export default new Season({
 	end: skyDate(2_024, 6, 30),
 	guide: NestingGuide,
 	spirits: [NestingSolarium, NestingLoft, NestingAtrium, NestingNook],
+	items: [
+		{
+			name: "Stone stool",
+			cosmetic: Cosmetic.StoneStool,
+			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp42,
+		},
+	],
 	seasonalCandlesRotation: [
 		{ rotation: 1, realm: RealmName.ValleyOfTriumph },
 		{ rotation: 1, realm: RealmName.GoldenWasteland },
