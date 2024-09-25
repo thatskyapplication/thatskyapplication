@@ -3134,7 +3134,7 @@ export function resolveOffer(
 	{ seasonName, eventName }: ResolveOfferOptions = {},
 ) {
 	return items.map((item) => ({
-		...item,
+		name: item.name,
 		cosmetics: Array.isArray(item.cosmetic) ? item.cosmetic : [item.cosmetic],
 		// TypeScript states this is too complex to represent, so this is a workaround.
 		emoji: (item.emoji as Emoji) ?? null,
