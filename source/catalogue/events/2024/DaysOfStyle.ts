@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 
 const eventCurrencyAmount = [];
@@ -25,17 +25,17 @@ export default new Event({
 	offer: [
 		{
 			name: "Style Darkness Fascinator",
-			bit: 1 << 0,
+			cosmetic: Cosmetic.StyleDarknessFascinator,
 			cost: { eventCurrency: 15 },
 		},
 		{
 			name: "Style Dazzling Dress",
-			bit: 1 << 1,
+			cosmetic: Cosmetic.StyleDazzlingDress,
 			cost: { eventCurrency: 34 },
 		},
 		{
 			name: "Style Dapper Trio",
-			bit: 1 << 2,
+			cosmetic: Cosmetic.StyleDapperTrio,
 			cost: { money: 14.99 },
 		},
 	],

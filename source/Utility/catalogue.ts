@@ -2690,6 +2690,11 @@ export const enum Cosmetic {
 	AncientLightMantaWingBuff,
 	AncientDarknessPlantWingBuff,
 	AncientDarknessDragonWingBuff,
+
+	// 30/09/2024 || Days of Style.
+	StyleDarknessFascinator,
+	StyleDazzlingDress,
+	StyleDapperTrio,
 }
 
 export enum SeasonName {
