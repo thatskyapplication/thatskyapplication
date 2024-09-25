@@ -1820,7 +1820,7 @@ export class Catalogue {
 			return;
 		}
 
-		const { customId, user, values } = interaction;
+		const { customId, user } = interaction;
 		const catalogue = await this.fetch(user.id);
 		const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
 		const season = skySeasons().find((season) => season.name === parsedCustomId);
@@ -1830,7 +1830,10 @@ export class Catalogue {
 			throw new Error("Unknown season.");
 		}
 
-		await this.update(user.id, { data: [...new Set([...values.map(Number), ...catalogue.data])] });
+		await this.update(user.id, {
+			data: catalogue.calculateSetItems(interaction, season.allCosmetics),
+		});
+
 		await Catalogue.viewSeason(interaction, season.name);
 	}
 
