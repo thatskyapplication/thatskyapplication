@@ -48,7 +48,7 @@ export default new GuideSpirit({
 			},
 			{
 				name: "Heart 2",
-				cosmetic: Cosmetic.SanctuaryGuideQuest2,
+				cosmetic: Cosmetic.SanctuaryGuideHeart2,
 				cost: { candles: 3 },
 				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
@@ -59,7 +59,7 @@ export default new GuideSpirit({
 			},
 			{
 				name: "Heart 3",
-				cosmetic: Cosmetic.SanctuaryGuideQuest3,
+				cosmetic: Cosmetic.SanctuaryGuideHeart3,
 				cost: { candles: 3 },
 				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
@@ -70,7 +70,7 @@ export default new GuideSpirit({
 			},
 			{
 				name: "Heart 4",
-				cosmetic: Cosmetic.SanctuaryGuideQuest4,
+				cosmetic: Cosmetic.SanctuaryGuideHeart4,
 				cost: { candles: 3 },
 				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
@@ -81,7 +81,7 @@ export default new GuideSpirit({
 			},
 			{
 				name: "Heart 5",
-				cosmetic: Cosmetic.SanctuaryGuideQuest5,
+				cosmetic: Cosmetic.SanctuaryGuideHeart5,
 				cost: { candles: 3 },
 				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
@@ -92,7 +92,7 @@ export default new GuideSpirit({
 			},
 			{
 				name: "Heart 6",
-				cosmetic: Cosmetic.SanctuaryGuideQuest6,
+				cosmetic: Cosmetic.SanctuaryGuideHeart6,
 				cost: { candles: 3 },
 				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
