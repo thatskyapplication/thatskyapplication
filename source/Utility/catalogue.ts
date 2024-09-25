@@ -246,7 +246,7 @@ export enum EventNameUnique {
 	// 2022.
 	DaysOfFortune2022 = "Days of Fortune 2022",
 	DaysOfLove2022 = "Days of Love 2022",
-	KizunaAI2022 = "Kizuna AI",
+	KizunaAI2022 = "Kizuna AI 2022",
 	DaysOfBloom2022 = "Days of Bloom 2022",
 	DaysOfNature2022 = "Days of Nature 2022",
 	HarmonyHallGrandOpening2022 = "Harmony Hall Grand Opening 2022",
