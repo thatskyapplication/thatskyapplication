@@ -39,7 +39,6 @@ import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import type { SpiritName } from "../Utility/spirits.js";
 import { skyCurrentEvents, skyEventYears, skyEvents } from "../catalogue/events/index.js";
-import { HARMONY_HALL } from "../catalogue/harmonyHall.js";
 import { NESTING_WORKSHOP } from "../catalogue/nestingWorkshop.js";
 import { PERMANENT_EVENT_STORE } from "../catalogue/permanentEventStore.js";
 import { SECRET_AREA } from "../catalogue/secretArea.js";
@@ -269,15 +268,6 @@ export class Catalogue {
 		return this.progressPercentage(owned, total, round);
 	}
 
-	private harmonyHallOwnedProgress() {
-		return this.ownedProgress(HARMONY_HALL.items);
-	}
-
-	public harmonyHallProgress(round?: boolean) {
-		const { owned, total } = this.harmonyHallOwnedProgress();
-		return this.progressPercentage(owned, total, round);
-	}
-
 	private permanentEventStoreOwnedProgress() {
 		return this.ownedProgress(PERMANENT_EVENT_STORE.items);
 	}
@@ -302,7 +292,6 @@ export class Catalogue {
 		const eventOwnedProgress = this.eventOwnedProgress(skyEvents());
 		const starterPackOwnedProgress = this.starterPackOwnedProgress();
 		const secretAreaOwnedProgress = this.secretAreaOwnedProgress();
-		const harmonyHallOwnedProgress = this.harmonyHallOwnedProgress();
 		const permanentEventStoreOwnedProgress = this.permanentEventStoreOwnedProgress();
 		const nestingWorkshopOwnedProgress = this.nestingWorkshopOwnedProgress();
 
@@ -312,7 +301,6 @@ export class Catalogue {
 			eventOwnedProgress,
 			starterPackOwnedProgress,
 			secretAreaOwnedProgress,
-			harmonyHallOwnedProgress,
 			permanentEventStoreOwnedProgress,
 			nestingWorkshopOwnedProgress,
 		];
@@ -356,7 +344,6 @@ export class Catalogue {
 		const eventProgress = catalogue.eventProgress(skyEvents(), true);
 		const starterPackProgress = catalogue.starterPackProgress(true);
 		const secretAreaProgress = catalogue.secretAreaProgress(true);
-		const harmonyHallProgress = catalogue.harmonyHallProgress(true);
 		const permanentEventStoreProgress = catalogue.permanentEventStoreProgress(true);
 		const nestingWorkshopProgress = catalogue.nestingWorkshopProgress(true);
 		const now = skyNow();
@@ -458,11 +445,6 @@ export class Catalogue {
 								.setValue(String(CatalogueType.SecretArea)),
 							new StringSelectMenuOptionBuilder()
 								.setLabel(
-									`Harmony Hall${harmonyHallProgress === null ? "" : ` (${harmonyHallProgress}%)`}`,
-								)
-								.setValue(String(CatalogueType.HarmonyHall)),
-							new StringSelectMenuOptionBuilder()
-								.setLabel(
 									`Permanent Event Store${
 										permanentEventStoreProgress === null ? "" : ` (${permanentEventStoreProgress}%)`
 									}`,
@@ -535,10 +517,6 @@ export class Catalogue {
 			}
 			case CatalogueType.SecretArea: {
 				await this.viewSecretArea(interaction);
-				return;
-			}
-			case CatalogueType.HarmonyHall: {
-				await this.viewHarmonyHall(interaction);
 				return;
 			}
 			case CatalogueType.PermanentEventStore: {
@@ -1528,65 +1506,6 @@ export class Catalogue {
 		});
 	}
 
-	private static async viewHarmonyHall(
-		interaction: ButtonInteraction | StringSelectMenuInteraction,
-	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
-		const catalogue = await this.fetch(interaction.user.id);
-
-		const itemSelectionOptions = HARMONY_HALL.items.map(({ emoji, name, cosmetics }) => {
-			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
-				.setDefault(cosmetics.every((cosmetic) => catalogue.data.includes(cosmetic)))
-				.setLabel(name)
-				.setValue(JSON.stringify(cosmetics));
-
-			if (emoji) {
-				stringSelectMenuOptionBuilder.setEmoji(emoji);
-			}
-
-			return stringSelectMenuOptionBuilder;
-		});
-
-		const { offerDescription } = catalogue.embedProgress(HARMONY_HALL.items);
-
-		await interaction.update({
-			components: [
-				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.HarmonyHall}`)
-						.setMaxValues(itemSelectionOptions.length)
-						.setMinValues(0)
-						.setOptions(itemSelectionOptions)
-						.setPlaceholder("Select what you have!"),
-				),
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					backToStartButton(),
-					new ButtonBuilder()
-						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
-						.setEmoji("⏪")
-						.setLabel("Back")
-						.setStyle(ButtonStyle.Primary),
-					new ButtonBuilder()
-						.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.HarmonyHall}`)
-						.setDisabled(catalogue.harmonyHallProgress() === 100)
-						.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
-						.setLabel("I have everything!")
-						.setStyle(ButtonStyle.Success),
-				),
-			],
-			content: "",
-			embeds: [
-				new EmbedBuilder()
-					.setColor(DEFAULT_EMBED_COLOUR)
-					.setDescription(offerDescription.join("\n"))
-					.setTitle("Harmony Hall"),
-			],
-		});
-	}
-
 	private static async viewPermanentEventStore(
 		interaction: ButtonInteraction | StringSelectMenuInteraction,
 	) {
@@ -1862,10 +1781,6 @@ export class Catalogue {
 					await catalogue.setSecretAreaItems(interaction);
 					return;
 				}
-				case CatalogueType.HarmonyHall: {
-					await catalogue.setHarmonyHallItems(interaction);
-					return;
-				}
 				case CatalogueType.PermanentEventStore: {
 					await catalogue.setPermanentEventStoreItems(interaction);
 					return;
@@ -1961,15 +1876,6 @@ export class Catalogue {
 
 		this.patch(cataloguePacket!);
 		await Catalogue.viewSecretArea(interaction);
-	}
-
-	private async setHarmonyHallItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		const [cataloguePacket] = await Catalogue.update(interaction.user.id, {
-			data: this.calculateSetItems(interaction, HARMONY_HALL.allCosmetics),
-		});
-
-		this.patch(cataloguePacket!);
-		await Catalogue.viewHarmonyHall(interaction);
 	}
 
 	private async setPermanentEventStoreItems(

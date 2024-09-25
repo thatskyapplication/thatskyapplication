@@ -3321,7 +3321,6 @@ export const enum CatalogueType {
 	Events = 3,
 	StarterPacks = 4,
 	SecretArea = 5,
-	HarmonyHall = 6,
-	PermanentEventStore = 7,
-	NestingWorkshop = 8,
+	PermanentEventStore = 6,
+	NestingWorkshop = 7,
 }
