@@ -9,18 +9,6 @@ const items = resolveOffer([
 		emoji: CAPE_EMOJIS.Cape94,
 	},
 	{
-		name: "Moth Appreciation Pack",
-		cosmetic: [Cosmetic.MothAppreciationCape, Cosmetic.MothAppreciationAntennae],
-		cost: { money: 9.99 },
-		emoji: CAPE_EMOJIS.Cape119,
-	},
-	{
-		name: "Sparrow Appreciation Pack",
-		cosmetic: [Cosmetic.SparrowAppreciationCape, Cosmetic.SparrowAppreciationMask],
-		cost: { money: 9.99 },
-		emoji: CAPE_EMOJIS.Cape118,
-	},
-	{
 		name: "Course Creation Prop",
 		cosmetic: Cosmetic.CourseCreationProp,
 		cost: { candles: 150 },
