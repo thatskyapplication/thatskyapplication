@@ -7,6 +7,7 @@ import {
 	HAIR_ACCESSORY_EMOJIS,
 	HELD_PROPS_EMOJIS,
 	SHOE_EMOJIS,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../Utility/emojis.js";
 
 const eventCurrencyAmount = [];
@@ -42,6 +43,12 @@ export default new Event({
 			cosmetic: Cosmetic.WinterPineConeHairClip,
 			cost: { eventCurrency: 19 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory34,
+		},
+		{
+			name: "Course Creation Prop",
+			cosmetic: Cosmetic.CourseCreationProp,
+			cost: { candles: 150 },
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp33,
 		},
 		{
 			name: "Cosy Hermit Boots",

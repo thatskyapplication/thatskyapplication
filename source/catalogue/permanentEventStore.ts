@@ -9,12 +9,6 @@ const items = resolveOffer([
 		emoji: CAPE_EMOJIS.Cape94,
 	},
 	{
-		name: "Course Creation Prop",
-		cosmetic: Cosmetic.CourseCreationProp,
-		cost: { candles: 150 },
-		emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp33,
-	},
-	{
 		name: "Companion Cube",
 		cosmetic: Cosmetic.CompanionCube,
 		cost: { candles: 50 },
