@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import { CAPE_EMOJIS, NECKLACE_EMOJIS } from "../../../Utility/emojis.js";
 
@@ -10,10 +10,15 @@ export default new Event({
 	offer: [
 		{
 			name: "Ocean Necklace",
-			bit: 1 << 0,
+			cosmetic: Cosmetic.OceanNecklace,
 			cost: { money: 1.99 },
 			emoji: NECKLACE_EMOJIS.Necklace12,
 		},
-		{ name: "Ocean Cape", bit: 1 << 1, cost: { money: 14.99 }, emoji: CAPE_EMOJIS.Cape54 },
+		{
+			name: "Ocean Cape",
+			cosmetic: Cosmetic.OceanCape,
+			cost: { money: 14.99 },
+			emoji: CAPE_EMOJIS.Cape54,
+		},
 	],
 });

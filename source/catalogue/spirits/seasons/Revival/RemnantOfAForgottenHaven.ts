@@ -1,5 +1,5 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
@@ -20,15 +20,38 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: "Blessing 1", bit: 1 << 0, cost: { seasonalCandles: 24 }, emoji: blessing3 },
-			{ name: "Shoes", bit: 1 << 1, emoji: shoeEmoji },
-			{ name: "Cape", bit: 1 << 2, cost: { seasonalCandles: 32 }, emoji: capeEmoji },
-			{ name: "Blessing 2", bit: 1 << 3, emoji: blessing3 },
-			{ name: "Blessing 3", bit: 1 << 4, cost: { seasonalCandles: 40 }, emoji: blessing3 },
-			{ name: "Hair accessory", bit: 1 << 5, emoji: hairAccessoryEmoji },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing1,
+				cost: { seasonalCandles: 24 },
+				emoji: blessing3,
+			},
+			{ name: "Shoes", cosmetic: Cosmetic.RemnantOfAForgottenHavenShoes, emoji: shoeEmoji },
+			{
+				name: "Cape",
+				cosmetic: Cosmetic.RemnantOfAForgottenHavenCape,
+				cost: { seasonalCandles: 32 },
+				emoji: capeEmoji,
+			},
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing2,
+				emoji: blessing3,
+			},
+			{
+				name: "Blessing 3",
+				cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing3,
+				cost: { seasonalCandles: 40 },
+				emoji: blessing3,
+			},
+			{
+				name: "Hair accessory",
+				cosmetic: Cosmetic.RemnantOfAForgottenHavenHairAccessory,
+				emoji: hairAccessoryEmoji,
+			},
 			{
 				name: "Seasonal heart",
-				bit: 1 << 6,
+				cosmetic: Cosmetic.RemnantOfAForgottenHavenSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.RevivalHeart,
 			},

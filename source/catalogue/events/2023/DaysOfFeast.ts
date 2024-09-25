@@ -1,6 +1,6 @@
 import { Event } from "../../../Structures/Event.js";
 import { CDN_URL } from "../../../Utility/Constants.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -31,17 +31,27 @@ export default new Event({
 		amount: eventCurrencyAmount,
 	},
 	offer: [
-		{ name: "Prop", bit: 1 << 0, cost: { eventCurrency: 44 }, emoji: HELD_PROPS_EMOJIS.HeldProp40 },
 		{
-			name: "Hair accessory",
-			bit: 1 << 1,
+			name: "Winter Feast Snowboard",
+			cosmetic: Cosmetic.WinterFeastSnowboard,
+			cost: { eventCurrency: 44 },
+			emoji: HELD_PROPS_EMOJIS.HeldProp40,
+		},
+		{
+			name: "Winter Pine Cone Hair Clip",
+			cosmetic: Cosmetic.WinterPineConeHairClip,
 			cost: { eventCurrency: 19 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory34,
 		},
-		{ name: "Cosy Hermit Boots", bit: 1 << 2, cost: { money: 6.99 }, emoji: SHOE_EMOJIS.Shoe13 },
+		{
+			name: "Cosy Hermit Boots",
+			cosmetic: Cosmetic.CosyHermitBoots,
+			cost: { money: 6.99 },
+			emoji: SHOE_EMOJIS.Shoe13,
+		},
 		{
 			name: "Winter Quilted Cape",
-			bit: 1 << 3,
+			cosmetic: Cosmetic.WinterQuiltedCape,
 			cost: { money: 14.99 },
 			emoji: CAPE_EMOJIS.Cape120,
 		},

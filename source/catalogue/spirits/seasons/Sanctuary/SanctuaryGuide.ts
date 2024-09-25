@@ -1,6 +1,6 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	FRIEND_ACTION_EMOJIS,
@@ -17,27 +17,90 @@ export default new GuideSpirit({
 	offer: {
 		hasInfographic: false,
 		current: [
-			{ name: "Quest 1", bit: 1 << 0, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Heart 1", bit: 1 << 1, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Pendant", bit: 1 << 2, emoji: NECKLACE_EMOJIS.Necklace06 },
+			{
+				name: "Quest 1",
+				cosmetic: Cosmetic.SanctuaryGuideQuest1,
+				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
+			{
+				name: "Heart 1",
+				cosmetic: Cosmetic.SanctuaryGuideHeart1,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{ name: "Pendant", cosmetic: Cosmetic.SanctuaryPendant, emoji: NECKLACE_EMOJIS.Necklace06 },
 			{
 				name: "Handpan",
-				bit: 1 << 3,
+				cosmetic: Cosmetic.SanctuaryHandpan,
 				cost: { seasonalHearts: 3 },
 				emoji: HELD_PROPS_EMOJIS.HeldProp17,
 			},
-			{ name: "Manta cape", bit: 1 << 4, cost: { seasonalHearts: 3 }, emoji: CAPE_EMOJIS.Cape31 },
-			{ name: "Quest 2", bit: 1 << 5, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Heart 2", bit: 1 << 6, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Quest 3", bit: 1 << 7, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Heart 3", bit: 1 << 8, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Quest 4", bit: 1 << 9, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Heart 4", bit: 1 << 10, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Quest 5", bit: 1 << 11, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Heart 5", bit: 1 << 12, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Quest 6", bit: 1 << 13, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Heart 6", bit: 1 << 14, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: FriendAction.Hug, bit: 1 << 15, emoji: FRIEND_ACTION_EMOJIS.Hug },
+			{
+				name: "Manta cape",
+				cosmetic: Cosmetic.SanctuaryGuideMantaCape,
+				cost: { seasonalHearts: 3 },
+				emoji: CAPE_EMOJIS.Cape31,
+			},
+			{
+				name: "Quest 2",
+				cosmetic: Cosmetic.SanctuaryGuideQuest2,
+				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
+			{
+				name: "Heart 2",
+				cosmetic: Cosmetic.SanctuaryGuideQuest2,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Quest 3",
+				cosmetic: Cosmetic.SanctuaryGuideQuest3,
+				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
+			{
+				name: "Heart 3",
+				cosmetic: Cosmetic.SanctuaryGuideQuest3,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Quest 4",
+				cosmetic: Cosmetic.SanctuaryGuideQuest4,
+				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
+			{
+				name: "Heart 4",
+				cosmetic: Cosmetic.SanctuaryGuideQuest4,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Quest 5",
+				cosmetic: Cosmetic.SanctuaryGuideQuest5,
+				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
+			{
+				name: "Heart 5",
+				cosmetic: Cosmetic.SanctuaryGuideQuest5,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Quest 6",
+				cosmetic: Cosmetic.SanctuaryGuideQuest6,
+				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
+			{
+				name: "Heart 6",
+				cosmetic: Cosmetic.SanctuaryGuideQuest6,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: FriendAction.Hug,
+				cosmetic: Cosmetic.SanctuaryGuideFriendActionHug,
+				emoji: FRIEND_ACTION_EMOJIS.Hug,
+			},
 		],
 	},
 });

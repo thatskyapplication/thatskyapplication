@@ -1,5 +1,6 @@
 import { StandardSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
+import { Cosmetic } from "../../../../Utility/catalogue.js";
 import { HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { SpiritCall, SpiritCallToEmoji, SpiritName } from "../../../../Utility/spirits.js";
 
@@ -12,33 +13,43 @@ export default new StandardSpirit({
 	realm: RealmName.DaylightPrairie,
 	offer: {
 		current: [
-			{ name: `${call} call`, bit: 1 << 0, emoji: callEmoji },
+			{ name: `${call} call`, cosmetic: Cosmetic.CallBird, emoji: callEmoji },
 			{
 				name: "Music sheet",
-				bit: 1 << 1,
+				cosmetic: Cosmetic.BirdWhispererMusicSheet,
 				cost: { hearts: 1 },
 				emoji: MISCELLANEOUS_EMOJIS.MusicSheet,
 			},
 			{
 				name: "Blessing 1",
-				bit: 1 << 2,
+				cosmetic: Cosmetic.BirdWhispererBlessing1,
 				cost: { candles: 1 },
 				emoji: MISCELLANEOUS_EMOJIS.Blessing1,
 			},
-			{ name: "Heart", bit: 1 << 3, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.BirdWhispererHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
 			{
 				name: "Wing buff",
-				bit: 1 << 4,
+				cosmetic: Cosmetic.BirdWhispererWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
 			{
 				name: "Blessing 2",
-				bit: 1 << 5,
+				cosmetic: Cosmetic.BirdWhispererBlessing2,
 				cost: { candles: 5 },
 				emoji: MISCELLANEOUS_EMOJIS.Blessing2,
 			},
-			{ name: "Hair", bit: 1 << 6, cost: { hearts: 5 }, emoji: HAIR_EMOJIS.Hair09 },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.BirdWhispererHair,
+				cost: { hearts: 5 },
+				emoji: HAIR_EMOJIS.Hair09,
+			},
 		],
 	},
 });

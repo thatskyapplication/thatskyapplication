@@ -10,6 +10,7 @@ import {
 	type ItemRaw,
 	type SeasonName,
 	addCosts,
+	resolveAllCosmetics,
 	resolveOffer,
 	snakeCaseName,
 	wikiURL,
@@ -119,7 +120,6 @@ export type SeasonalSpiritVisitTravellingData = Collection<
 	SeasonalSpiritVisitCollectionKey,
 	DateTime
 >;
-
 export type SeasonalSpiritVisitReturningData = Collection<
 	SeasonalSpiritVisitCollectionKey,
 	ReturningDatesData
@@ -152,7 +152,7 @@ abstract class BaseFriendshipTree {
 
 	public readonly totalCost: Required<ItemCost> | null;
 
-	public readonly maximumItemsBit: number | null;
+	public readonly allCosmetics: number[];
 
 	public imageURL: string | null;
 
@@ -165,15 +165,11 @@ abstract class BaseFriendshipTree {
 				)
 			: null;
 
-		this.maximumItemsBit = offer?.current ? this.resolveMaxItemsBit(offer.current) : null;
+		this.allCosmetics = offer?.current ? resolveAllCosmetics(this.current) : [];
 
 		this.imageURL = (offer ? offer.hasInfographic ?? true : false)
 			? this.resolveImageURL(name)
 			: null;
-	}
-
-	protected resolveMaxItemsBit(offer: readonly ItemRaw[]) {
-		return offer.reduce((bits, { bit }) => bit | bits, 0);
 	}
 
 	protected resolveImageURL(name: SpiritName, seasonal = false) {
@@ -191,7 +187,7 @@ abstract class StandardFriendshipTree extends BaseFriendshipTree {
 
 	public declare readonly totalCost: Required<ItemCost>;
 
-	public declare readonly maximumItemsBit: number;
+	public declare readonly allCosmetics: number[];
 }
 
 abstract class ElderFriendshipTree extends BaseFriendshipTree {
@@ -199,11 +195,11 @@ abstract class ElderFriendshipTree extends BaseFriendshipTree {
 
 	public declare readonly totalCost: Required<ItemCost>;
 
-	public declare readonly maximumItemsBit: number;
+	public declare readonly allCosmetics: number[];
 }
 
 abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
-	public override readonly maximumItemsBit: number;
+	public override readonly allCosmetics: number[];
 
 	public readonly seasonal: readonly Item[];
 
@@ -221,10 +217,7 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 		});
 
 		this.items = this.current.length > 0 ? this.current : this.seasonal;
-
-		this.maximumItemsBit = this.resolveMaxItemsBit(
-			seasonalFriendshipTreeData.offer.current ?? seasonalFriendshipTreeData.offer.seasonal,
-		);
+		this.allCosmetics = resolveAllCosmetics(this.items);
 
 		this.totalCostSeasonal = addCosts(
 			this.seasonal.map((item) => item.cost).filter((cost): cost is ItemCost => cost !== null),
@@ -352,6 +345,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 						pino.fatal(
 							`${this.name} had a returning index of ${returning}, but there was no date for it.`,
 						);
+
 						process.exit(1);
 					}
 

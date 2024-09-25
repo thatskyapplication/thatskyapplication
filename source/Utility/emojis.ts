@@ -883,7 +883,7 @@ export const MASK_EMOJIS = {
 	 */
 	Mask57: { name: "mask", id: "1201602650324607056" },
 	/**
-	 * Days of Fortune 2022.
+	 * Days of Fortune Tiger Mask.
 	 */
 	Mask58: { name: "mask", id: "1182639044920885318" },
 	/**
@@ -951,7 +951,7 @@ export const MASK_EMOJIS = {
 	 */
 	Mask74: { name: "mask", id: "1182639095449649202" },
 	/**
-	 * Days of Fortune 2023.
+	 * Days of Fortune Rabbit Mask.
 	 */
 	Mask75: { name: "mask", id: "1182639098108858408" },
 	/**
@@ -1011,7 +1011,7 @@ export const MASK_EMOJIS = {
 	 */
 	Mask89: { name: "mask", id: "1196158869840339094" },
 	/**
-	 * Days of Fortune 2024.
+	 * Fortune Dragon Mask.
 	 */
 	Mask90: { name: "mask", id: "1201599955748524113" },
 	/**
@@ -1163,7 +1163,7 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 */
 	FaceAccessory32: { name: "face_accessory", id: "1182821740200607846" },
 	/**
-	 * Aviary's Firework Festival.
+	 * Festival Earrings.
 	 */
 	FaceAccessory33: { name: "face_accessory", id: "1182821742926889041" },
 	/**
@@ -1259,7 +1259,7 @@ export const NECKLACE_EMOJIS = {
 	 */
 	Necklace16: { name: "necklace", id: "1182861524772073473" },
 	/**
-	 * Days of Feast 2021.
+	 * Winter Feast Scarf.
 	 */
 	Necklace17: { name: "necklace", id: "1182861526865031250" },
 	/**
@@ -1727,15 +1727,15 @@ export const HAIR_EMOJIS = {
 	 */
 	Hair94: { name: "hair", id: "1183626912589950989" },
 	/**
-	 * Days of Mischief 2021.
+	 * Mischief Witch Hair.
 	 */
 	Hair95: { name: "hair", id: "1183626915857301556" },
 	/**
-	 * Mischief Spider Hair.
+	 * Mischief Spider Quiff.
 	 */
 	Hair96: { name: "hair", id: "1183626920517185547" },
 	/**
-	 * Days of Feast 2021.
+	 * Winter Feast Hat.
 	 */
 	Hair97: { name: "hair", id: "1183626925063807056" },
 	/**
@@ -1979,11 +1979,11 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 */
 	HairAccessory06: { name: "hair_accessory", id: "1186592086414331974" },
 	/**
-	 * Days of Summer 2021.
+	 * Summer Hat.
 	 */
 	HairAccessory07: { name: "hair_accessory", id: "1186592088981246063" },
 	/**
-	 * Days of Summer Shell Hair Pin.
+	 * Summer Shell Hair Pin.
 	 */
 	HairAccessory08: { name: "hair_accessory", id: "1186592138612441149" },
 	/**
@@ -2027,7 +2027,7 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 */
 	HairAccessory18: { name: "hair_accessory", id: "1186592118131662940" },
 	/**
-	 * Nature Coral Crown Accessory.
+	 * Nature Coral Crown.
 	 */
 	HairAccessory19: { name: "hair_accessory", id: "1186592120908288031" },
 	/**
@@ -2079,7 +2079,7 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 */
 	HairAccessory31: { name: "hair_accessory", id: "1186592160011784288" },
 	/**
-	 * Days of Mischief 2023.
+	 * Mischief Crabkin Accessory.
 	 */
 	HairAccessory32: { name: "hair_accessory", id: "1186592162981347328" },
 	/**
@@ -2087,7 +2087,7 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 */
 	HairAccessory33: { name: "hair_accessory", id: "1186592165158203455" },
 	/**
-	 * Days of Feast 2023.
+	 * Winter Pine Cone Hair Clip.
 	 */
 	HairAccessory34: { name: "hair_accessory", id: "1201604722994454688" },
 	/**
@@ -2407,7 +2407,7 @@ export const CAPE_EMOJIS = {
 	 */
 	Cape66: { name: "cape", id: "1188422789514932307" },
 	/**
-	 * Days of Mischief 2021.
+	 * Mischief Withered Cape.
 	 */
 	Cape67: { name: "cape", id: "1188422791528206387" },
 	/**
@@ -2779,7 +2779,7 @@ export const HELD_PROPS_EMOJIS = {
 	 */
 	HeldProp22: { name: "held_prop", id: "1190678833901338665" },
 	/**
-	 * Days of Summer Umbrella.
+	 * Summer Umbrella.
 	 */
 	HeldProp23: { name: "held_prop", id: "1190678836787019777" },
 	/**
@@ -2819,7 +2819,7 @@ export const HELD_PROPS_EMOJIS = {
 	 */
 	HeldProp32: { name: "held_prop", id: "1190678866063273997" },
 	/**
-	 * Days of Love Serendipitous Sceptor.
+	 * Days of Love Serendipitous Sceptre.
 	 */
 	HeldProp33: { name: "held_prop", id: "1190678868886036541" },
 	/**
@@ -2843,15 +2843,15 @@ export const HELD_PROPS_EMOJIS = {
 	 */
 	HeldProp38: { name: "held_prop", id: "1190678883767435304" },
 	/**
-	 * Aviary's Firework Festival.
+	 * Festival Sceptre.
 	 */
 	HeldProp39: { name: "held_prop", id: "1190678885877157941" },
 	/**
-	 * Days of Feast 2023.
+	 * Winter Feast Snowboard.
 	 */
 	HeldProp40: { name: "held_prop", id: "1190678898522980505" },
 	/**
-	 * Days of Fortune 2024.
+	 * Fortune Drum.
 	 */
 	HeldProp41: { name: "held_prop", id: "1201607955754270721" },
 	/**
@@ -2931,7 +2931,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp12: { name: "large_placeable_prop", id: "1193625890345730099" },
 	/**
-	 * Days of Summer 2021.
+	 * Double Deck Chairs.
 	 */
 	LargePlaceableProp13: { name: "large_placeable_prop", id: "1193625942501892227" },
 	/**
@@ -2955,7 +2955,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp18: { name: "large_placeable_prop", id: "1193625910365138986" },
 	/**
-	 * Days of Mischief 2021 1.
+	 * Mischief Spooky Dining Set.
 	 */
 	LargePlaceableProp19: { name: "large_placeable_prop", id: "1193625912676192346" },
 	/**
@@ -2983,11 +2983,11 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp25: { name: "large_placeable_prop", id: "1193625955730735205" },
 	/**
-	 * Third Sky Anniversary 2.
+	 * Light fence.
 	 */
 	LargePlaceableProp26: { name: "large_placeable_prop", id: "1193625961690845346" },
 	/**
-	 * Days of Feast 2022.
+	 * Snowkid Prop.
 	 */
 	LargePlaceableProp27: { name: "large_placeable_prop", id: "1193625985455771799" },
 	/**
@@ -3047,7 +3047,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp41: { name: "large_placeable_prop", id: "1229203555047702538" },
 	/**
-	 * Season of Nesting quest 1.
+	 * Stone stool.
 	 */
 	LargePlaceableProp42: { name: "large_placeable_prop", id: "1231718600532955227" },
 	/**
@@ -3213,11 +3213,11 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	SmallPlaceableProp09: { name: "small_placeable_prop", id: "1229111178551230536" },
 	/**
-	 * Days of Feast 2021 1.
+	 * Winter Feast Pillow.
 	 */
 	SmallPlaceableProp10: { name: "small_placeable_prop", id: "1229112946001707089" },
 	/**
-	 * Days of Feast 2021 2.
+	 * Winter Feast Snowglobe.
 	 */
 	SmallPlaceableProp11: { name: "small_placeable_prop", id: "1229113621737504860" },
 	/**
@@ -3237,11 +3237,11 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	SmallPlaceableProp15: { name: "small_placeable_prop", id: "1229117006054162573" },
 	/**
-	 * Third Sky Anniversary 1.
+	 * Balloon.
 	 */
 	SmallPlaceableProp16: { name: "small_placeable_prop", id: "1229117830977425520" },
 	/**
-	 * Third Sky Anniversary 3.
+	 * Confetti launcher.
 	 */
 	SmallPlaceableProp17: { name: "small_placeable_prop", id: "1229119915378741369" },
 	/**

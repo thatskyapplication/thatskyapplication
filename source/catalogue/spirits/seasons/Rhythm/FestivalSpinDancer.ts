@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	HAIR_EMOJIS,
@@ -31,39 +31,104 @@ export default new SeasonalSpirit({
 	realm: RealmName.DaylightPrairie,
 	offer: {
 		seasonal: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, emoji: emoteEmoji },
-			{ name: "Blessing", bit: 1 << 2, cost: { seasonalCandles: 10 }, emoji: blessing2 },
-			{ name: "Music sheet", bit: 1 << 3, emoji: musicSheet },
-			{ name: `${emote} 3`, bit: 1 << 6, cost: { seasonalCandles: 12 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 7, emoji: emoteEmoji },
-			{ name: "Hair", bit: 1 << 9, cost: { seasonalCandles: 14 }, emoji: hairEmoji },
-			{ name: "Outfit", bit: 1 << 11, emoji: outfitEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteSpinDance1, emoji: emoteEmoji },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteSpinDance2, emoji: emoteEmoji },
+			{
+				name: "Blessing",
+				cosmetic: Cosmetic.FestivalSpinDancerBlessing1,
+				cost: { seasonalCandles: 10 },
+				emoji: blessing2,
+			},
+			{ name: "Music sheet", cosmetic: Cosmetic.FestivalSpinDancerMusicSheet, emoji: musicSheet },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteSpinDance3,
+				cost: { seasonalCandles: 12 },
+				emoji: emoteEmoji,
+			},
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteSpinDance4, emoji: emoteEmoji },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.FestivalSpinDancerHair,
+				cost: { seasonalCandles: 14 },
+				emoji: hairEmoji,
+			},
+			{ name: "Outfit", cosmetic: Cosmetic.FestivalSpinDancerOutfit, emoji: outfitEmoji },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 4,
+				cosmetic: Cosmetic.FestivalSpinDancerSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.RhythmHeart,
 			},
 		],
 		current: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, cost: { hearts: 4 }, emoji: emoteEmoji },
-			{ name: "Blessing 1", bit: 1 << 2, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Music sheet", bit: 1 << 3, cost: { candles: 15 }, emoji: musicSheet },
-			{ name: "Heart", bit: 1 << 4, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteSpinDance1, emoji: emoteEmoji },
+			{
+				name: `${emote} 2`,
+				cosmetic: Cosmetic.EmoteSpinDance2,
+				cost: { hearts: 4 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.FestivalSpinDancerBlessing1,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Music sheet",
+				cosmetic: Cosmetic.FestivalSpinDancerMusicSheet,
+				cost: { candles: 15 },
+				emoji: musicSheet,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.FestivalSpinDancerSeasonalHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
 			{
 				name: "Wing buff",
-				bit: 1 << 5,
+				cosmetic: Cosmetic.FestivalSpinDancerWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
-			{ name: `${emote} 3`, bit: 1 << 6, cost: { hearts: 5 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 7, cost: { hearts: 10 }, emoji: emoteEmoji },
-			{ name: "Blessing 2", bit: 1 << 8, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Hair", bit: 1 << 9, cost: { candles: 34 }, emoji: hairEmoji },
-			{ name: "Prop", bit: 1 << 10, cost: { candles: 30 }, emoji: placeablePropEmoji },
-			{ name: "Outfit", bit: 1 << 11, cost: { candles: 65 }, emoji: outfitEmoji },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteSpinDance3,
+				cost: { hearts: 5 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: `${emote} 4`,
+				cosmetic: Cosmetic.EmoteSpinDance4,
+				cost: { hearts: 10 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.FestivalSpinDancerBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.FestivalSpinDancerHair,
+				cost: { candles: 34 },
+				emoji: hairEmoji,
+			},
+			{
+				name: "Prop",
+				cosmetic: Cosmetic.FestivalSpinDancerProp,
+				cost: { candles: 30 },
+				emoji: placeablePropEmoji,
+			},
+			{
+				name: "Outfit",
+				cosmetic: Cosmetic.FestivalSpinDancerOutfit,
+				cost: { candles: 65 },
+				emoji: outfitEmoji,
+			},
 		],
 	},
 	visits: {

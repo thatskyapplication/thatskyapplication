@@ -1,6 +1,6 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
@@ -26,18 +26,38 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: `${action} 1`, bit: 1 << 0, emoji: actionEmoji },
-			{ name: "Blessing 1", bit: 1 << 1, cost: { seasonalCandles: 8 }, emoji: blessing3 },
-			{ name: "Music sheet", bit: 1 << 2, emoji: musicSheet },
-			{ name: "Mask", bit: 1 << 3, cost: { seasonalCandles: 14 }, emoji: maskEmoji },
-			{ name: "Blessing 2", bit: 1 << 4, emoji: blessing3 },
-			{ name: "Blessing 3", bit: 1 << 5, cost: { seasonalCandles: 26 }, emoji: blessing3 },
-			{ name: `${action} 2`, bit: 1 << 6, emoji: actionEmoji },
-			{ name: "Outfit", bit: 1 << 7, cost: { seasonalCandles: 30 }, emoji: outfitEmoji },
-			{ name: "Hair", bit: 1 << 8, emoji: hairEmoji },
+			{ name: `${action} 1`, cosmetic: Cosmetic.FriendActionDuetDance1, emoji: actionEmoji },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.ModestDancerBlessing1,
+				cost: { seasonalCandles: 8 },
+				emoji: blessing3,
+			},
+			{ name: "Music sheet", cosmetic: Cosmetic.ModestDancerMusicSheet, emoji: musicSheet },
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.ModestDancerMask,
+				cost: { seasonalCandles: 14 },
+				emoji: maskEmoji,
+			},
+			{ name: "Blessing 2", cosmetic: Cosmetic.ModestDancerBlessing2, emoji: blessing3 },
+			{
+				name: "Blessing 3",
+				cosmetic: Cosmetic.ModestDancerBlessing3,
+				cost: { seasonalCandles: 26 },
+				emoji: blessing3,
+			},
+			{ name: `${action} 2`, cosmetic: Cosmetic.FriendActionDuetDance2, emoji: actionEmoji },
+			{
+				name: "Outfit",
+				cosmetic: Cosmetic.ModestDancerOutfit,
+				cost: { seasonalCandles: 30 },
+				emoji: outfitEmoji,
+			},
+			{ name: "Hair", cosmetic: Cosmetic.ModestDancerHair, emoji: hairEmoji },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 9,
+				cosmetic: Cosmetic.ModestDancerSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.PerformanceHeart,
 			},

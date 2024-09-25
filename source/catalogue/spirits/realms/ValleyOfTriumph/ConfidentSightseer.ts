@@ -1,5 +1,6 @@
 import { StandardSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
+import { Cosmetic } from "../../../../Utility/catalogue.js";
 import { HAIR_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../Utility/emojis.js";
 import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../Utility/spirits.js";
 
@@ -12,28 +13,43 @@ export default new StandardSpirit({
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
 		current: [
-			{ name: `${stance} stance`, bit: 1 << 0, emoji: stanceEmoji },
-			{ name: "Hair", bit: 1 << 1, cost: { hearts: 2 }, emoji: HAIR_EMOJIS.Hair17 },
+			{ name: `${stance} stance`, cosmetic: Cosmetic.StanceConfident, emoji: stanceEmoji },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.ConfidentSightseerHair,
+				cost: { hearts: 2 },
+				emoji: HAIR_EMOJIS.Hair17,
+			},
 			{
 				name: "Blessing 1",
-				bit: 1 << 2,
+				cosmetic: Cosmetic.ConfidentSightseerBlessing1,
 				cost: { candles: 1 },
 				emoji: MISCELLANEOUS_EMOJIS.Blessing1,
 			},
-			{ name: "Heart", bit: 1 << 3, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.ConfidentSightseerHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
 			{
 				name: "Wing buff",
-				bit: 1 << 4,
+				cosmetic: Cosmetic.ConfidentSightseerWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
 			{
 				name: "Blessing 2",
-				bit: 1 << 5,
+				cosmetic: Cosmetic.ConfidentSightseerBlessing2,
 				cost: { candles: 5 },
 				emoji: MISCELLANEOUS_EMOJIS.Blessing2,
 			},
-			{ name: "Outfit", bit: 1 << 6, cost: { hearts: 5 }, emoji: OUTFIT_EMOJIS.Outfit07 },
+			{
+				name: "Outfit",
+				cosmetic: Cosmetic.ConfidentSightseerOutfit,
+				cost: { hearts: 5 },
+				emoji: OUTFIT_EMOJIS.Outfit07,
+			},
 		],
 	},
 });

@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
@@ -42,25 +42,25 @@ export default new Event({
 	offer: [
 		{
 			name: "Tournament Curls",
-			bit: 1 << 0,
+			cosmetic: Cosmetic.TournamentCurls,
 			cost: { eventCurrency: 25 },
 			emoji: HAIR_EMOJIS.Hair148,
 		},
 		{
 			name: "Tournament Torch",
-			bit: 1 << 1,
+			cosmetic: Cosmetic.TournamentTorch,
 			cost: { eventCurrency: 37 },
 			emoji: HELD_PROPS_EMOJIS.HeldProp45,
 		},
 		{
 			name: "Tournament Golden Garland",
-			bit: 1 << 2,
+			cosmetic: Cosmetic.TournamentGoldenGarland,
 			cost: { money: 4.99 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory44,
 		},
 		{
 			name: "Tournament Tunic",
-			bit: 1 << 3,
+			cosmetic: Cosmetic.TournamentTunic,
 			cost: { money: 9.99 },
 			emoji: OUTFIT_EMOJIS.Outfit64,
 		},

@@ -1,6 +1,6 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	HAIR_EMOJIS,
@@ -25,19 +25,39 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, emoji: emoteEmoji },
-			{ name: "Mask", bit: 1 << 2, cost: { seasonalCandles: 6 }, emoji: maskEmoji },
-			{ name: "Blessing 1", bit: 1 << 3, emoji: blessing3 },
-			{ name: "Blessing 2", bit: 1 << 4, cost: { seasonalCandles: 18 }, emoji: blessing3 },
-			{ name: "Hair", bit: 1 << 5, emoji: hairEmoji },
-			{ name: `${emote} 3`, bit: 1 << 6, cost: { seasonalCandles: 30 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 7, emoji: emoteEmoji },
-			{ name: "Cape", bit: 1 << 8, cost: { seasonalCandles: 34 }, emoji: capeEmoji },
-			{ name: "Blessing 3", bit: 1 << 9, emoji: blessing3 },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteGrieving1, emoji: emoteEmoji },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteGrieving2, emoji: emoteEmoji },
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.BereftVeteranMask,
+				cost: { seasonalCandles: 6 },
+				emoji: maskEmoji,
+			},
+			{ name: "Blessing 1", cosmetic: Cosmetic.BereftVeteranBlessing1, emoji: blessing3 },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.BereftVeteranBlessing2,
+				cost: { seasonalCandles: 18 },
+				emoji: blessing3,
+			},
+			{ name: "Hair", cosmetic: Cosmetic.BereftVeteranHair, emoji: hairEmoji },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteGrieving3,
+				cost: { seasonalCandles: 30 },
+				emoji: emoteEmoji,
+			},
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteGrieving4, emoji: emoteEmoji },
+			{
+				name: "Cape",
+				cosmetic: Cosmetic.BereftVeteranCape,
+				cost: { seasonalCandles: 34 },
+				emoji: capeEmoji,
+			},
+			{ name: "Blessing 3", cosmetic: Cosmetic.BereftVeteranBlessing3, emoji: blessing3 },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 10,
+				cosmetic: Cosmetic.BereftVeteranSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.RemembranceHeart,
 			},

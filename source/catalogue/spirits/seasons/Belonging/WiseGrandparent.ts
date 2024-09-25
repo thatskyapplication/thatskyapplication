@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -32,37 +32,92 @@ export default new SeasonalSpirit({
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		seasonal: [
-			{ name: `${stance} stance`, bit: 1 << 0, emoji: stanceEmoji },
-			{ name: "Blessing 1", bit: 1 << 3, cost: { seasonalCandles: 10 }, emoji: blessing1 },
-			{ name: "Music sheet", bit: 1 << 1, emoji: musicSheet },
-			{ name: "Blessing 2", bit: 1 << 5, cost: { seasonalCandles: 12 }, emoji: blessing2 },
-			{ name: "Blessing 3", bit: 1 << 9, emoji: blessing2 },
-			{ name: "Mask", bit: 1 << 8, cost: { seasonalCandles: 14 }, emoji: maskEmoji },
-			{ name: "Blessing 4", bit: 1 << 10, emoji: blessing2 },
-			{ name: "Blessing 5", bit: 1 << 11, cost: { seasonalCandles: 16 }, emoji: blessing2 },
-			{ name: "Cape", bit: 1 << 6, emoji: capeEmoji },
+			{ name: `${stance} stance`, cosmetic: Cosmetic.StanceWise, emoji: stanceEmoji },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.WiseGrandparentBlessing1,
+				cost: { seasonalCandles: 10 },
+				emoji: blessing1,
+			},
+			{ name: "Music sheet", cosmetic: Cosmetic.WiseGrandparentMusicSheet, emoji: musicSheet },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.WiseGrandparentBlessing2,
+				cost: { seasonalCandles: 12 },
+				emoji: blessing2,
+			},
+			{ name: "Blessing 3", cosmetic: Cosmetic.WiseGrandparentBlessing3, emoji: blessing2 },
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.WiseGrandparentMask,
+				cost: { seasonalCandles: 14 },
+				emoji: maskEmoji,
+			},
+			{ name: "Blessing 4", cosmetic: Cosmetic.WiseGrandparentBlessing4, emoji: blessing2 },
+			{
+				name: "Blessing 5",
+				cosmetic: Cosmetic.WiseGrandparentBlessing5,
+				cost: { seasonalCandles: 16 },
+				emoji: blessing2,
+			},
+			{ name: "Cape", cosmetic: Cosmetic.WiseGrandparentCape, emoji: capeEmoji },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 2,
+				cosmetic: Cosmetic.WiseGrandparentSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.BelongingHeart,
 			},
 		],
 		current: [
-			{ name: `${stance} stance`, bit: 1 << 0, emoji: stanceEmoji },
-			{ name: "Music sheet", bit: 1 << 1, cost: { candles: 15 }, emoji: musicSheet },
-			{ name: "Heart", bit: 1 << 2, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Blessing 1", bit: 1 << 3, cost: { candles: 5 }, emoji: blessing2 },
+			{ name: `${stance} stance`, cosmetic: Cosmetic.StanceWise, emoji: stanceEmoji },
+			{
+				name: "Music sheet",
+				cosmetic: Cosmetic.WiseGrandparentMusicSheet,
+				cost: { candles: 15 },
+				emoji: musicSheet,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.WiseGrandparentSeasonalHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.WiseGrandparentBlessing1,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
 			{
 				name: "Wing buff",
-				bit: 1 << 4,
+				cosmetic: Cosmetic.WiseGrandparentWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
-			{ name: "Blessing 2", bit: 1 << 5, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Cape", bit: 1 << 6, cost: { candles: 70 }, emoji: capeEmoji },
-			{ name: "Prop", bit: 1 << 7, cost: { candles: 10 }, emoji: placeablePropEmoji },
-			{ name: "Mask", bit: 1 << 8, cost: { candles: 48 }, emoji: maskEmoji },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.WiseGrandparentBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Cape",
+				cosmetic: Cosmetic.WiseGrandparentCape,
+				cost: { candles: 70 },
+				emoji: capeEmoji,
+			},
+			{
+				name: "Prop",
+				cosmetic: Cosmetic.WiseGrandparentProp,
+				cost: { candles: 10 },
+				emoji: placeablePropEmoji,
+			},
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.WiseGrandparentMask,
+				cost: { candles: 48 },
+				emoji: maskEmoji,
+			},
 		],
 	},
 	visits: {

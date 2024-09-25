@@ -1,5 +1,5 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
@@ -20,17 +20,41 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: "Blessing 1", bit: 1 << 0, cost: { seasonalCandles: 14 }, emoji: blessing3 },
-			{ name: "Prop 1", bit: 1 << 1, emoji: SmallPlaceableProp74 },
-			{ name: "Hair", bit: 1 << 2, cost: { seasonalCandles: 20 }, emoji: hairEmoji },
-			{ name: "Blessing 2", bit: 1 << 3, emoji: blessing3 },
-			{ name: "Blessing 3", bit: 1 << 4, cost: { seasonalCandles: 24 }, emoji: blessing3 },
-			{ name: "Outfit", bit: 1 << 5, emoji: outfitEmoji },
-			{ name: "Prop 2", bit: 1 << 6, cost: { seasonalCandles: 30 }, emoji: SmallPlaceableProp75 },
-			{ name: "Blessing 4", bit: 1 << 7, emoji: blessing3 },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.ThePianistsBeginningsBlessing1,
+				cost: { seasonalCandles: 14 },
+				emoji: blessing3,
+			},
+			{
+				name: "Prop 1",
+				cosmetic: Cosmetic.ThePianistsBeginningsProp1,
+				emoji: SmallPlaceableProp74,
+			},
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.ThePianistsBeginningsHair,
+				cost: { seasonalCandles: 20 },
+				emoji: hairEmoji,
+			},
+			{ name: "Blessing 2", cosmetic: Cosmetic.ThePianistsBeginningsBlessing2, emoji: blessing3 },
+			{
+				name: "Blessing 3",
+				cosmetic: Cosmetic.ThePianistsBeginningsBlessing3,
+				cost: { seasonalCandles: 24 },
+				emoji: blessing3,
+			},
+			{ name: "Outfit", cosmetic: Cosmetic.ThePianistsBeginningsOutfit, emoji: outfitEmoji },
+			{
+				name: "Prop 2",
+				cosmetic: Cosmetic.ThePianistsBeginningsProp2,
+				cost: { seasonalCandles: 30 },
+				emoji: SmallPlaceableProp75,
+			},
+			{ name: "Blessing 4", cosmetic: Cosmetic.ThePianistsBeginningsBlessing4, emoji: blessing3 },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 8,
+				cosmetic: Cosmetic.ThePianistsBeginningsSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.DuetsHeart,
 			},

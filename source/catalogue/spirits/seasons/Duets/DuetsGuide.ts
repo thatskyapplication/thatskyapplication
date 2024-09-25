@@ -1,5 +1,5 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	FRIEND_ACTION_EMOJIS,
@@ -15,49 +15,49 @@ export default new GuideSpirit({
 	season: SeasonName.Duets,
 	offer: {
 		current: [
-			{ name: "Quest 1", bit: 1 << 0, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Quest 1", cosmetic: Cosmetic.DuetsGuideQuest1, emoji: MISCELLANEOUS_EMOJIS.Quest },
 			{
 				name: "Mask",
-				bit: 1 << 1,
+				cosmetic: Cosmetic.DuetsGuideMask,
 				cost: { candles: 65 },
 				emoji: MASK_EMOJIS.Mask93,
 			},
-			{ name: "Pendant", bit: 1 << 2, emoji: NECKLACE_EMOJIS.Necklace37 },
+			{ name: "Pendant", cosmetic: Cosmetic.DuetsPendant, emoji: NECKLACE_EMOJIS.Necklace37 },
 			{
 				name: "Ultimate prop 1",
-				bit: 1 << 3,
+				cosmetic: Cosmetic.DuetsGuideUltimateProp1,
 				cost: { seasonalHearts: 1 },
 				emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp71,
 			},
 			{
 				name: "Ultimate cape",
-				bit: 1 << 4,
+				cosmetic: Cosmetic.DuetsGuideUltimateCape,
 				cost: { seasonalHearts: 2 },
 				emoji: CAPE_EMOJIS.Cape133,
 			},
 			{
 				name: "Ultimate prop 2",
-				bit: 1 << 5,
+				cosmetic: Cosmetic.DuetsGuideUltimateProp2,
 				cost: { seasonalHearts: 2 },
 				emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp72,
 			},
-			{ name: "Quest 2", bit: 1 << 6, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Heart 1", bit: 1 << 7, emoji: MISCELLANEOUS_EMOJIS.Heart },
-			{ name: "Quest 3", bit: 1 << 8, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Quest 2", cosmetic: Cosmetic.DuetsGuideQuest2, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 1", cosmetic: Cosmetic.DuetsGuideHeart1, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Quest 3", cosmetic: Cosmetic.DuetsGuideQuest3, emoji: MISCELLANEOUS_EMOJIS.Quest },
 			{
 				name: `${FriendAction.DuetBow} 1`,
-				bit: 1 << 9,
+				cosmetic: Cosmetic.DuetsGuideDuetBow1,
 				emoji: FRIEND_ACTION_EMOJIS.DuetBow,
 			},
-			{ name: "Quest 4", bit: 1 << 10, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Quest 4", cosmetic: Cosmetic.DuetsGuideQuest4, emoji: MISCELLANEOUS_EMOJIS.Quest },
 			{
 				name: `${FriendAction.DuetBow} 2`,
-				bit: 1 << 11,
+				cosmetic: Cosmetic.DuetsGuideDuetBow2,
 				cost: { hearts: 2 },
 				emoji: FRIEND_ACTION_EMOJIS.DuetBow,
 			},
-			{ name: "Quest 5", bit: 1 << 12, emoji: MISCELLANEOUS_EMOJIS.Quest },
-			{ name: "Heart 2", bit: 1 << 13, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: "Quest 5", cosmetic: Cosmetic.DuetsGuideQuest5, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Heart 2", cosmetic: Cosmetic.DuetsGuideHeart2, emoji: MISCELLANEOUS_EMOJIS.Heart },
 		],
 	},
 });

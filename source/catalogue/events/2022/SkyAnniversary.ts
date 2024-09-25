@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
@@ -15,31 +15,31 @@ export default new Event({
 	offer: [
 		{
 			name: "Hair accessory",
-			bit: 1 << 0,
+			cosmetic: Cosmetic.SkyAnniversaryHairAccessory3,
 			cost: { hearts: 3 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory24,
 		},
 		{
 			name: "Happy Birthday Music Sheet",
-			bit: 1 << 1,
+			cosmetic: Cosmetic.HappyBirthdayMusicSheet,
 			cost: { hearts: 10 },
 			emoji: MISCELLANEOUS_EMOJIS.MusicSheet,
 		},
 		{
-			name: "Prop 1",
-			bit: 1 << 2,
+			name: "Balloon",
+			cosmetic: Cosmetic.Balloon,
 			cost: { candles: 30 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp16,
 		},
 		{
-			name: "Prop 2",
-			bit: 1 << 3,
+			name: "Light fence",
+			cosmetic: Cosmetic.LightFence,
 			cost: { candles: 20 },
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp26,
 		},
 		{
-			name: "Prop 3",
-			bit: 1 << 4,
+			name: "Confetti launcher",
+			cosmetic: Cosmetic.ConfettiLauncher,
 			cost: { hearts: 20 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp17,
 		},

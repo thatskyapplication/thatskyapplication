@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
@@ -35,42 +35,96 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ name: `${stance} stance`, bit: 1 << 0, emoji: stanceEmoji },
-			{ name: "Blessing 1", bit: 1 << 1, cost: { seasonalCandles: 16 }, emoji: blessing2 },
-			{ name: "Outfit", bit: 1 << 7, emoji: outfitEmoji },
+			{ name: `${stance} stance`, cosmetic: Cosmetic.StanceTinker, emoji: stanceEmoji },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.TinkeringChimesmithBlessing1,
+				cost: { seasonalCandles: 16 },
+				emoji: blessing2,
+			},
+			{ name: "Outfit", cosmetic: Cosmetic.TinkeringChimesmithOutfit, emoji: outfitEmoji },
 			{
 				name: "Hair accessory",
-				bit: 1 << 6,
+				cosmetic: Cosmetic.TinkeringChimesmithHairAccessory,
 				cost: { seasonalCandles: 22 },
 				emoji: hairAccessoryEmoji,
 			},
-			{ name: "Blessing 2", bit: 1 << 5, emoji: blessing2 },
-			{ name: "Trail spell 1", bit: 1 << 9, cost: { seasonalCandles: 26 }, emoji: colourTrail },
-			{ name: "Kalimba", bit: 1 << 8, emoji: heldProp },
-			{ name: "Hair", bit: 1 << 2, cost: { seasonalCandles: 28 }, emoji: hairEmoji },
-			{ name: "Trail spell 2", bit: 1 << 10, emoji: colourTrail },
+			{ name: "Blessing 2", cosmetic: Cosmetic.TinkeringChimesmithBlessing2, emoji: blessing2 },
+			{
+				name: "Trail spell 1",
+				cosmetic: Cosmetic.TinkeringChimesmithTrailSpell1,
+				cost: { seasonalCandles: 26 },
+				emoji: colourTrail,
+			},
+			{ name: "Kalimba", cosmetic: Cosmetic.TinkeringChimesmithKalimba, emoji: heldProp },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.TinkeringChimesmithHair,
+				cost: { seasonalCandles: 28 },
+				emoji: hairEmoji,
+			},
+			{
+				name: "Trail spell 2",
+				cosmetic: Cosmetic.TinkeringChimesmithTrailSpell2,
+				emoji: colourTrail,
+			},
 			{
 				name: "Seasonal heart",
-				bit: 1 << 3,
+				cosmetic: Cosmetic.TinkeringChimesmithSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.FlightHeart,
 			},
 		],
 		current: [
-			{ name: `${stance} stance`, bit: 1 << 0, emoji: stanceEmoji },
-			{ name: "Blessing 1", bit: 1 << 1, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Hair", bit: 1 << 2, cost: { candles: 45 }, emoji: hairEmoji },
-			{ name: "Heart", bit: 1 << 3, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: `${stance} stance`, cosmetic: Cosmetic.StanceTinker, emoji: stanceEmoji },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.TinkeringChimesmithBlessing1,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.TinkeringChimesmithHair,
+				cost: { candles: 45 },
+				emoji: hairEmoji,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.TinkeringChimesmithSeasonalHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
 			{
 				name: "Wing buff",
-				bit: 1 << 4,
+				cosmetic: Cosmetic.TinkeringChimesmithWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
-			{ name: "Blessing 2", bit: 1 << 5, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Hair accessory", bit: 1 << 6, cost: { candles: 35 }, emoji: hairAccessoryEmoji },
-			{ name: "Outfit", bit: 1 << 7, cost: { candles: 70 }, emoji: outfitEmoji },
-			{ name: "Kalimba", bit: 1 << 8, cost: { candles: 75 }, emoji: heldProp },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.TinkeringChimesmithBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Hair accessory",
+				cosmetic: Cosmetic.TinkeringChimesmithHairAccessory,
+				cost: { candles: 35 },
+				emoji: hairAccessoryEmoji,
+			},
+			{
+				name: "Outfit",
+				cosmetic: Cosmetic.TinkeringChimesmithOutfit,
+				cost: { candles: 70 },
+				emoji: outfitEmoji,
+			},
+			{
+				name: "Kalimba",
+				cosmetic: Cosmetic.TinkeringChimesmithKalimba,
+				cost: { candles: 75 },
+				emoji: heldProp,
+			},
 		],
 	},
 	visits: {

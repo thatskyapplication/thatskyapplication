@@ -8,6 +8,7 @@ import {
 	EventNameUniqueToEventName,
 	type Item,
 	type ItemRaw,
+	resolveAllCosmetics,
 	resolveOffer,
 	snakeCaseName,
 	wikiURL,
@@ -103,7 +104,7 @@ export class Event {
 
 	public readonly offer: readonly Item[];
 
-	public readonly maximumItemsBit: number | null;
+	public readonly allCosmetics: number[];
 
 	public readonly offerInfographicURL: string | null;
 
@@ -128,17 +129,13 @@ export class Event {
 			: null;
 
 		this.offer = data.offer ? resolveOffer(data.offer, { eventName: this.name }) : [];
-		this.maximumItemsBit = data.offer ? this.resolveMaxItemsBit(data.offer) : null;
+		this.allCosmetics = data.offer ? resolveAllCosmetics(this.offer) : [];
 
 		this.offerInfographicURL = data.offerInfographicURL
 			? String(new URL(`events/${this.start.year}/${snakeCaseName(this.name)}/offer.webp`, CDN_URL))
 			: null;
 
 		this.wikiURL = wikiURL(this.name);
-	}
-
-	private resolveMaxItemsBit(offer: readonly ItemRaw[]) {
-		return offer.reduce((bits, { bit }) => bit | bits, 0) ?? 0;
 	}
 
 	public daysText(date: DateTime) {

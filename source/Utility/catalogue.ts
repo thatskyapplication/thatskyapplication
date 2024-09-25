@@ -23,6 +23,2680 @@ export const GUIDE_SPIRIT_IN_PROGRESS_TEXT =
 export const NO_EVENT_OFFER_TEXT = "There are no cosmetics for this event." as const;
 export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infographic." as const;
 
+// biome-ignore lint/style/useEnumInitializers: TODO.
+export const enum Cosmetic {
+	/**
+	 * Unlocked by default.
+	 */
+	EmoteSit,
+	/**
+	 * Unlocked by default.
+	 */
+	BaseStance,
+	/**
+	 * Unlocked by default.
+	 */
+	BaseCall,
+	/**
+	 * Unlocked by default.
+	 */
+	BaseOutfit,
+	/**
+	 * Unlocked by default.
+	 */
+	BaseMask,
+	/**
+	 * Unlocked by default.
+	 */
+	BaseHair1,
+	/**
+	 * Unlocked by default.
+	 */
+	BaseCape,
+	MobileCape,
+	EmotePoint1,
+	EmotePoint2,
+	PointingCandlemakerHair,
+	PointingCandlemakerBlessing1,
+	PointingCandlemakerHeart,
+	PointingCandlemakerWingBuff,
+	EmotePoint3,
+	EmotePoint4,
+	PointingCandlemakerOutfit,
+	PointingCandlemakerBlessing2,
+	EmoteCome1,
+	EmoteCome2,
+	UsheringStargazerHair,
+	UsheringStargazerBlessing1,
+	UsheringStargazerHeart,
+	UsheringStargazerWingBuff,
+	EmoteCome3,
+	EmoteCome4,
+	UsheringStargazerOutfit,
+	UsheringStargazerBlessing2,
+	EmoteNoThanks1,
+	EmoteNoThanks2,
+	RejectingVoyagerBlessing1,
+	RejectingVoyagerHair,
+	RejectingVoyagerHeart,
+	RejectingVoyagerWingBuff,
+	EmoteNoThanks3,
+	EmoteNoThanks4,
+	RejectingVoyagerFaceAccessory,
+	RejectingVoyagerBlessing2,
+	EmoteButterfly1,
+	EmoteButterfly2,
+	ButterflyCharmerBlessing1,
+	ButterflyCharmerCape1,
+	ButterflyCharmerHeart,
+	ButterflyCharmerWingBuff1,
+	EmoteButterfly3,
+	EmoteButterfly4,
+	ButterflyCharmerOutfit,
+	EmoteClap1,
+	EmoteClap2,
+	ApplaudingBellmakerBlessing1,
+	ApplaudingBellmakerHair,
+	ApplaudingBellmakerHeart,
+	ApplaudingBellmakerWingBuff,
+	EmoteClap3,
+	EmoteClap4,
+	ApplaudingBellmakerBlessing2,
+	EmoteWave1,
+	EmoteWave2,
+	WavingBellmakerBlessing1,
+	WavingBellmakerHair,
+	WavingBellmakerHeart,
+	WavingBellmakerWingBuff1,
+	EmoteWave3,
+	EmoteWave4,
+	WavingBellmakerBlessing2,
+	WavingBellmakerMask,
+	WavingBellmakerWingBuff2,
+	EmoteWave5,
+	EmoteWave6,
+	EmoteYawn1,
+	EmoteYawn2,
+	SlumberingShipwrightBlessing1,
+	SlumberingShipwrightHair,
+	SlumberingShipwrightHeart,
+	SlumberingShipwrightWingBuff,
+	EmoteYawn3,
+	EmoteYawn4,
+	SlumberingShipwrightBlessing2,
+	EmoteLaugh1,
+	EmoteLaugh2,
+	LaughingLightCollectorBlessing1,
+	LaughingLightCollectorHarp,
+	LaughingLightCollectorHeart,
+	LaughingLightCollectorWingBuff,
+	EmoteLaugh3,
+	EmoteLaugh4,
+	LaughingLightCollectorHair,
+	LaughingLightCollectorBlessing2,
+	CallBird,
+	BirdWhispererMusicSheet,
+	BirdWhispererBlessing1,
+	BirdWhispererHeart,
+	BirdWhispererWingBuff,
+	BirdWhispererBlessing2,
+	BirdWhispererHair,
+	EmoteWipeBrow1,
+	EmoteWipeBrow2,
+	ExhaustedDockWorkerBlessing1,
+	ExhaustedDockWorkerHeart,
+	ExhaustedDockWorkerWingBuff,
+	EmoteWipeBrow3,
+	EmoteWipeBrow4,
+	ExhaustedDockWorkerBlessing2,
+	ExhaustedDockWorkerFaceAccessory,
+	EmoteTeamwork,
+	CeremonialWorshipperBlessing1,
+	CeremonialWorshipperHeart,
+	CeremonialWorshipperWingBuff,
+	CeremonialWorshipperBlessing2,
+	EmoteShiver1,
+	EmoteShiver2,
+	ShiveringTrailblazerBlessing1,
+	ShiveringTrailblazerOutfit,
+	ShiveringTrailblazerHeart,
+	ShiveringTrailblazerWingBuff,
+	EmoteShiver3,
+	EmoteShiver4,
+	ShiveringTrailblazerBlessing2,
+	ShiveringTrailblazerHair,
+	EmoteBlush1,
+	EmoteBlush2,
+	BlushingProspectorBlessing1,
+	BlushingProspectorHair,
+	BlushingProspectorHeart,
+	BlushingProspectorWingBuff,
+	EmoteBlush3,
+	EmoteBlush4,
+	BlushingProspectorBlessing2,
+	BlushingProspectorDrum,
+	EmoteHideAndSeek,
+	HideAndSeekPioneerHair,
+	HideAndSeekPioneerBlessing1,
+	HideAndSeekPioneerHeart,
+	HideAndSeekPioneerWingBuff1,
+	HideAndSeekPioneerBlessing2,
+	HideAndSeekPioneerMask,
+	HideAndSeekPioneerWingBuff2,
+	HideAndSeekPioneerOutfit,
+	EmoteAngry1,
+	EmoteAngry2,
+	PoutyPorterBlessing1,
+	PoutyPorterHair,
+	PoutyPorterHeart,
+	PoutyPorterWingBuff1,
+	EmoteAngry3,
+	EmoteAngry4,
+	PoutyPorterBlessing2,
+	PoutyPorterCape1,
+	Shocked1,
+	Shocked2,
+	DismayedHunterBlessing1,
+	DismayedHunterHair,
+	DismayedHunterHeart,
+	DismayedHunterWingBuff1,
+	Shocked3,
+	Shocked4,
+	DismayedHunterBlessing2,
+	DismayedHunterCape1,
+	EmoteApologise1,
+	EmoteApologise2,
+	ApologeticLumberjackBlessing1,
+	ApologeticLumberjackHair,
+	ApologeticLumberjackHeart,
+	ApologeticLumberjackWingBuff,
+	EmoteApologise3,
+	EmoteApologise4,
+	ApologeticLumberjackBlessing2,
+	ApologeticLumberjackFaceAccessory,
+	EmoteCrying1,
+	EmoteCrying2,
+	TearfulLightMinerBlessing1,
+	TearfulLightMinerHair,
+	TearfulLightMinerHeart,
+	TearfulLightMinerWingBuff1,
+	EmoteCrying3,
+	EmoteCrying4,
+	TearfulLightMinerBlessing2,
+	TearfulLightMinerWingBuff2,
+	EmoteCrying5,
+	EmoteCrying6,
+	CallWhale,
+	WhaleWhispererBlessing1,
+	WhaleWhispererHeart,
+	WhaleWhispererWingBuff,
+	WhaleWhispererBlessing2,
+	WhaleWhispererMusicSheet,
+	StanceConfident,
+	ConfidentSightseerHair,
+	ConfidentSightseerBlessing1,
+	ConfidentSightseerHeart,
+	ConfidentSightseerWingBuff,
+	ConfidentSightseerBlessing2,
+	ConfidentSightseerOutfit,
+	EmoteHandstand1,
+	EmoteHandstand2,
+	HandstandingThrillseekerBlessing1,
+	HandstandingThrillseekerHeart,
+	HandstandingThrillseekerWingBuff1,
+	EmoteHandstand3,
+	EmoteHandstand4,
+	HandstandingThrillseekerBlessing2,
+	HandstandingThrillseekerCape1,
+	CallManta,
+	MantaWhispererBlessing1,
+	MantaWhispererHeart,
+	MantaWhispererWingBuff,
+	MantaWhispererBlessing2,
+	MantaWhispererMusicSheet,
+	EmoteBackflip1,
+	EmoteBackflip2,
+	BackflippingChampionBlessing1,
+	BackflippingChampionHair,
+	BackflippingChampionHeart,
+	BackflippingChampionWingBuff,
+	EmoteBackflip3,
+	EmoteBackflip4,
+	BackflippingChampionBlessing2,
+	BackflippingChampionFaceAccessory,
+	EmoteCheer1,
+	EmoteCheer2,
+	CheerfulSpectatorBlessing1,
+	CheerfulSpectatorHair,
+	CheerfulSpectatorHeart,
+	CheerfulSpectatorWingBuff,
+	EmoteCheer3,
+	EmoteCheer4,
+	CheerfulSpectatorBlessing2,
+	CheerfulSpectatorPiano,
+	EmoteBow1,
+	EmoteBow2,
+	BowingMedalistBlessing1,
+	BowingMedalistHair,
+	BowingMedalistHeart,
+	BowingMedalistWingBuff,
+	EmoteBow3,
+	EmoteBow4,
+	BowingMedalistBlessing2,
+	BowingMedalistFaceAccessory,
+	StanceProud,
+	ProudVictorCape1,
+	ProudVictorBlessing1,
+	ProudVictorHeart,
+	ProudVictorWingBuff1,
+	ProudVictorBlessing2,
+	ProudVictorMask,
+	EmoteDuck1,
+	EmoteDuck2,
+	FrightenedRefugeeBlessing1,
+	FrightenedRefugeeHair,
+	FrightenedRefugeeHeart,
+	FrightenedRefugeeWingBuff,
+	EmoteDuck3,
+	EmoteDuck4,
+	FrightenedRefugeeBlessing2,
+	FrightenedRefugeeContrabass,
+	EmoteFaint1,
+	EmoteFaint2,
+	FaintingWarriorBlessing1,
+	FaintingWarriorHair,
+	FaintingWarriorHeart,
+	FaintingWarriorWingBuff,
+	EmoteFaint3,
+	EmoteFaint4,
+	FaintingWarriorBlessing2,
+	FaintingWarriorMask,
+	StanceCourageous,
+	CourageousSoldierHair,
+	CourageousSoldierBlessing1,
+	CourageousSoldierHeart,
+	CourageousSoldierWingBuff1,
+	CourageousSoldierBlessing2,
+	CourageousSoldierCape1,
+	StanceSneaky,
+	StealthySurvivorHair,
+	StealthySurvivorBlessing1,
+	StealthySurvivorHeart,
+	StealthySurvivorWingBuff1,
+	StealthySurvivorBlessing2,
+	StealthySurvivorCape1,
+	EmoteSalute1,
+	EmoteSalute2,
+	SalutingCaptainBlessing1,
+	SalutingCaptainHair,
+	SalutingCaptainHeart,
+	SalutingCaptainWingBuff,
+	EmoteSalute3,
+	EmoteSalute4,
+	SalutingCaptainBlessing2,
+	SalutingCaptainFireworksStaff,
+	EmoteLookAround1,
+	EmoteLookAround2,
+	LookoutScoutBlessing1,
+	LookoutScoutHorn,
+	LookoutScoutHeart,
+	LookoutScoutWingBuff,
+	EmoteLookAround3,
+	EmoteLookAround4,
+	LookoutScoutBlessing2,
+	LookoutScoutFaceAccessory,
+	EmotePray1,
+	EmotePray2,
+	PrayingAcolyteBlessing1,
+	PrayingAcolyteHair,
+	PrayingAcolyteHeart,
+	PrayingAcolyteWingBuff1,
+	EmotePray3,
+	EmotePray4,
+	PrayingAcolyteBlessing2,
+	PrayingAcolyteCape1,
+	EmoteTelekinesis1,
+	EmoteTelekinesis2,
+	LevitatingAdeptBlessing1,
+	LevitatingAdeptHair,
+	LevitatingAdeptHeart,
+	LevitatingAdeptWingBuff,
+	EmoteTelekinesis3,
+	EmoteTelekinesis4,
+	LevitatingAdeptBlessing2,
+	LevitatingAdeptFaceAccessory,
+	StancePolite,
+	PoliteScholarOutfit,
+	PoliteScholarBlessing1,
+	PoliteScholarHeart,
+	PoliteScholarWingBuff1,
+	PoliteScholarBlessing2,
+	PoliteScholarHair,
+	CallCosmicManta,
+	MemoryWhispererOutfit,
+	MemoryWhispererBlessing1,
+	MemoryWhispererHeart,
+	MemoryWhispererWingBuff1,
+	MemoryWhispererBlessing2,
+	MemoryWhispererCape1,
+	EmoteFloat1,
+	EmoteFloat2,
+	MeditatingMonasticBlessing1,
+	MeditatingMonasticHair,
+	MeditatingMonasticHeart,
+	MeditatingMonasticWingBuff,
+	EmoteFloat3,
+	EmoteFloat4,
+	MeditatingMonasticBlessing2,
+	MeditatingMonasticChair,
+
+	ElderOfTheIsleHair,
+	ElderOfThePrairieHair,
+	ElderOfTheForestHair,
+	ElderOfTheValleyHair1,
+	ElderOfTheValleyHair2,
+	ElderOfTheWastelandHair,
+	ElderOfTheVaultHair,
+
+	// 19/07/2019 | Season of Gratitude.
+	GratitudePendant,
+	GratitudeUltimateMask,
+	StanceSassy,
+	SassyDrifterHair,
+	SassyDrifterBlessing1,
+	SassyDrifterBlessing2,
+	SassyDrifterMask,
+	EmoteYoga1,
+	EmoteYoga2,
+	StretchingGuruHair,
+	StretchingGuruBlessing1,
+	EmoteYoga3,
+	EmoteYoga4,
+	StretchingGuruBlessing2,
+	StretchingGuruCape,
+	EmoteKabuki1,
+	EmoteKabuki2,
+	ProvokingPerformerMusicSheet,
+	ProvokingPerformerBlessing1,
+	EmoteKabuki3,
+	EmoteKabuki4,
+	ProvokingPerformerHair,
+	ProvokingPerformerMask,
+	EmoteLeap1,
+	EmoteLeap2,
+	LeapingDancerSmallBell,
+	LeapingDancerBlessing1,
+	EmoteLeap3,
+	EmoteLeap4,
+	LeapingDancerBlessing2,
+	LeapingDancerMask,
+	EmoteAcknowledge1,
+	EmoteAcknowledge2,
+	SalutingProtectorMusicSheet,
+	SalutingProtectorBlessing1,
+	EmoteAcknowledge3,
+	EmoteAcknowledge4,
+	SalutingProtectorCape,
+	SalutingProtectorMask,
+	EmoteKungFu1,
+	EmoteKungFu2,
+	GreetingShamanBlessing1,
+	GreetingShamanLargeBell,
+	EmoteKungFu3,
+	EmoteKungFu4,
+	GreetingShamanBlessing2,
+	GreetingShamanMask,
+
+	// 12/08/2024 | Beta cape.
+	BetaCape,
+
+	// 23/09/2019 | Season of Lightseekers.
+	FoundersCape,
+	LightseekerPendant,
+	LightseekerUltimateProp,
+	FriendActionCarry1,
+	PiggybackLightseekerMask,
+	PiggybackLightseekerBlessing1,
+	PiggybackLightseekerBlessing2,
+	FriendActionCarry2,
+	PiggybackLightseekerHair,
+	PiggybackLightseekerCape,
+	FriendActionDoubleFive1,
+	DoublefiveLightCatcherBlessing1,
+	DoublefiveLightCatcherHair,
+	DoublefiveLightCatcherMask,
+	FriendActionDoubleFive2,
+	DoublefiveLightCatcherBlessing2,
+	DoublefiveLightCatcherFlute,
+	StanceLaidback,
+	LaidbackPioneerMask,
+	LaidbackPioneerBlessing1,
+	LaidbackPioneerBlessing2,
+	LaidbackPioneerMusicSheet,
+	LaidbackPioneerHair,
+	LaidbackPioneerBlessing3,
+	LaidbackPioneerBlessing4,
+	LaidbackPioneerUmbrella,
+	EmoteTripleAxel1,
+	EmoteTripleAxel2,
+	TwirlingChampionBlessing1,
+	TwirlingChampionMask,
+	EmoteTripleAxel3,
+	EmoteTripleAxel4,
+	TwirlingChampionHair,
+	TwirlingChampionPanflute,
+	CallCrab,
+	CrabWhispererMask,
+	CrabWhispererBlessing1,
+	CrabWhispererBlessing2,
+	CrabWhispererMusicSheet,
+	CrabWhispererBlessing3,
+	CrabWhispererBlessing4,
+	CrabWhispererHair,
+	CrabWhispererCape,
+	EmoteShush1,
+	EmoteShush2,
+	ShushingLightScholarBlessing1,
+	ShushingLightScholarMask,
+	EmoteShush3,
+	EmoteShush4,
+	ShushingLightScholarBlessing2,
+	ShushingLightScholarCape,
+
+	// 27/10/2019 | Halloween Office Event.
+	SpookyBatCape,
+	HungryPumpkinHat,
+
+	// 18/11/2019 | Season of Belonging.
+	BelongingPendant,
+	BelongingBonfire,
+	EmoteBoogieDance1,
+	EmoteBoogieDance2,
+	BoogieKidBlessing1,
+	BoogieKidBlessing2,
+	EmoteBoogieDance3,
+	EmoteBoogieDance4,
+	BoogieKidMask,
+	BoogieKidOutfit,
+	BoogieKidSeasonalHeart,
+	EmoteConfetti1,
+	EmoteConfetti2,
+	ConfettiCousinBlessing1,
+	ConfettiCousinBlessing2,
+	EmoteConfetti3,
+	EmoteConfetti4,
+	ConfettiCousinCape,
+	ConfettiCousinHair,
+	ConfettiCousinSeasonalHeart,
+	FriendActionHairTousle1,
+	HairtousleTeenBlessing1,
+	HairtousleTeenBlessing2,
+	HairtousleTeenMusicSheet,
+	FriendActionHairTousle2,
+	HairtousleTeenBlessing3,
+	HairtousleTeenEarmuffs,
+	HairtousleTeenUkulele,
+	HairtousleTeenBlessing4,
+	HairtousleTeenSeasonalHeart,
+	EmoteSparkler1,
+	EmoteSparkler2,
+	SparklerParentBlessing1,
+	SparklerParentMask,
+	EmoteSparkler3,
+	EmoteSparkler4,
+	SparklerParentHair,
+	SparklerParentBlessing2,
+	SparklerParentSeasonalHeart,
+	EmoteDontGo1,
+	EmoteDontGo2,
+	PleafulParentBlessing1,
+	PleafulParentGuitar,
+	EmoteDontGo3,
+	EmoteDontGo4,
+	PleafulParentMask,
+	PleafulParentCape,
+	PleafulParentSeasonalHeart,
+	StanceWise,
+	WiseGrandparentBlessing1,
+	WiseGrandparentMusicSheet,
+	WiseGrandparentBlessing2,
+	WiseGrandparentBlessing3,
+	WiseGrandparentMask,
+	WiseGrandparentBlessing4,
+	WiseGrandparentBlessing5,
+	WiseGrandparentCape,
+	WiseGrandparentSeasonalHeart,
+
+	// 22/12/2019 | Days of Feast.
+	DaysOfFeastHat,
+
+	// 24/01/2020 | Season of Rhythm.
+	RhythmPendant,
+	RhythmUltimateMask,
+	RhythmUltimateHair,
+	EmoteWelcome1,
+	EmoteWelcome2,
+	TroupeGreeterMusicSheet,
+	TroupeGreeterBlessing1,
+	EmoteWelcome3,
+	EmoteWelcome4,
+	TroupeGreeterMask,
+	TroupeGreeterOutfit,
+	TroupeGreeterSeasonalHeart,
+	EmoteSpinDance1,
+	EmoteSpinDance2,
+	FestivalSpinDancerBlessing1,
+	FestivalSpinDancerMusicSheet,
+	EmoteSpinDance3,
+	EmoteSpinDance4,
+	FestivalSpinDancerHair,
+	FestivalSpinDancerOutfit,
+	FestivalSpinDancerSeasonalHeart,
+	EmoteBlowKiss1,
+	EmoteBlowKiss2,
+	AdmiringActorBlessing1,
+	AdmiringActorMusicSheet,
+	EmoteBlowKiss3,
+	EmoteBlowKiss4,
+	AdmiringActorOutfit,
+	AdmiringActorMask,
+	AdmiringActorSeasonalHeart,
+	EmoteJuggle1,
+	EmoteJuggle2,
+	TroupeJugglerHair,
+	TroupeJugglerBlessing1,
+	EmoteJuggle3,
+	EmoteJuggle4,
+	TroupeJugglerBlessing2,
+	TroupeJugglerCape,
+	TroupeJugglerOutfit,
+	TroupeJugglerBlessing3,
+	TroupeJugglerSeasonalHeart,
+	EmoteRespect1,
+	EmoteRespect2,
+	RespectfulPianistHair,
+	RespectfulPianistBlessing1,
+	EmoteRespect3,
+	EmoteRespect4,
+	RespectfulPianistBlessing2,
+	RespectfulPianistWinterPiano,
+	RespectfulPianistMask,
+	RespectfulPianistBlessing3,
+	RespectfulPianistSeasonalHeart,
+	EmoteThinking1,
+	EmoteThinking2,
+	ThoughtfulDirectorBlessing1,
+	ThoughtfulDirectorMask,
+	EmoteThinking3,
+	EmoteThinking4,
+	ThoughtfulDirectorXylophone,
+	ThoughtfulDirectorBlessing2,
+	ThoughtfulDirectorBlessing3,
+	ThoughtfulDirectorCape,
+	ThoughtfulDirectorSeasonalHeart,
+
+	// 31/01/2020 | Travelling spirit #1.
+	SassyDrifterHeart,
+	SassyDrifterWingBuff,
+
+	// 12/02/2020 12:00 | Days of Love.
+	DaysOfLoveSwing,
+
+	// 14/02/2020 | Travelling spirit #2.
+	DoublefiveLightCatcherHeart,
+	DoublefiveLightCatcherWingBuff,
+
+	// 27/02/2020 | Travelling spirit #3.
+	LaidbackPioneerHeart,
+	LaidbackPioneerWingBuff,
+
+	// 12/03/2020 | Travelling spirit #4.
+	ProvokingPerformerHeart,
+	ProvokingPerformerWingBuff,
+	ProvokingPerformerBlessing2,
+
+	// 26/03/2020 | Travelling spirit #5.
+	PleafulParentWingBuff,
+	PleafulParentBlessing2,
+
+	// 09/04/2020 | Travelling spirit #6.
+	CrabWhispererHeart,
+	CrabWhispererWingBuff,
+
+	// 16/04/2020 | Travelling spirit #7.
+	PiggybackLightseekerHeart,
+	PiggybackLightseekerWingBuff,
+
+	// 20/04/2020 | Season of Enchantment.
+	EnchantmentGuideQuest1,
+	EnchantmentGuideHeart1,
+	EnchantmentPendant,
+	EnchantmentUltimateFaceAccessory,
+	EnchantmentTurban,
+	EmoteNod1,
+	EmoteNod2,
+	NoddingMuralistMask,
+	NoddingMuralistBlessing1,
+	EmoteNod3,
+	EmoteNod4,
+	NoddingMuralistBlessing2,
+	NoddingMuralistHair,
+	NoddingMuralistSeasonalHeart,
+	EmoteShrug1,
+	EmoteShrug2,
+	IndifferentAlchemistBlessing1,
+	IndifferentAlchemistMask,
+	EmoteShrug3,
+	EmoteShrug4,
+	IndifferentAlchemistHair,
+	IndifferentAlchemistBlessing2,
+	IndifferentAlchemistBlessing3,
+	IndifferentAlchemistCape,
+	IndifferentAlchemistSeasonalHeart,
+	EmoteCrabWalk1,
+	EmoteCrabWalk2,
+	CrabWalkerHair,
+	CrabWalkerBlessing1,
+	EmoteCrabWalk3,
+	EmoteCrabWalk4,
+	CrabWalkerBlessing2,
+	CrabWalkerCape,
+	CrabWalkerSeasonalHeart,
+	EmoteBoo1,
+	EmoteBoo2,
+	ScarecrowFarmerBlessing1,
+	ScarecrowFarmerMask,
+	EmoteBoo3,
+	EmoteBoo4,
+	ScarecrowFarmerHair,
+	ScarecrowFarmerBlessing2,
+	ScarecrowFarmerSeasonalHeart,
+	EmoteDoze1,
+	EmoteDoze2,
+	SnoozingCarpenterBlessing1,
+	SnoozingCarpenterHair,
+	EmoteDoze3,
+	EmoteDoze4,
+	SnoozingCarpenterCape,
+	SnoozingCarpenterBlessing2,
+	SnoozingCarpenterSeasonalHeart,
+	FriendActionPlayFight1,
+	PlayfightingHerbalistBlessing1,
+	PlayfightingHerbalistMask,
+	PlayfightingHerbalistBlessing2,
+	PlayfightingHerbalistBlessing3,
+	FriendActionPlayFight2,
+	PlayfightingHerbalistMusicSheet,
+	PlayfightingHerbalistHair,
+	PlayfightingHerbalistCape,
+	PlayfightingHerbalistBlessing4,
+	PlayfightingHerbalistSeasonalHeart,
+
+	// 20/04/2020 | Days of Nature.
+	EarthCape,
+
+	// 27/04/2020 | Season of Enchantment Quest 2.
+	EnchantmentGuideQuest2,
+	EnchantmentGuideHeart2,
+
+	// 30/04/2020 | Travelling spirit #8.
+	StretchingGuruHeart,
+	StretchingGuruWingBuff,
+
+	// 04/05/2020 | Season of Enchantment Quest 3.
+	EnchantmentGuideQuest3,
+	EnchantmentGuideHeart3,
+
+	// 11/05/2020 | Season of Enchantment Quest 4.
+	EnchantmentGuideQuest4,
+	EnchantmentGuideHeart4,
+
+	// 14/05/2020 | Travelling spirit #9.
+	SparklerParentWingBuff,
+
+	// 18/05/2020 | Season of Enchantment Quest 5.
+	EnchantmentGuideQuest5,
+	EnchantmentGuideHeart5,
+
+	// 18/05/2020 12:00 | Days of Healing.
+	HealingHairAccessory,
+
+	// 28/05/2020 | Travelling Spirit Error.
+	SalutingProtectorHeart,
+	SalutingProtectorWingBuff,
+	SalutingProtectorBlessing2,
+
+	// 11/06/2020 | Season of Enchantment Quest 6.
+	EnchantmentGuideQuest6,
+	EnchantmentGuideHeart6,
+	EnchantmentGuideHug,
+
+	// 11/06/2020 | Travelling spirit #11.
+	HairtousleTeenWingBuff,
+
+	// 25/06/2020 | Travelling spirit #12.
+	LeapingDancingHeart,
+	LeapingDancingWingBuff,
+
+	// 09/07/2020 | Travelling spirit #13.
+	ConfettiCousinWingBuff,
+
+	// 13/07/2020 | Season of Sanctuary.
+	SanctuaryGuideQuest1,
+	SanctuaryGuideHeart1,
+	SanctuaryPendant,
+	SanctuaryHandpan,
+	SanctuaryGuideMantaCape,
+	CallJellyfish,
+	JellyWhispererMusicSheet,
+	JellyWhispererBlessing1,
+	JellyWhispererHair,
+	JellyWhispererBlessing2,
+	JellyWhispererBlessing3,
+	JellyWhispererOutfit,
+	JellyWhispererSeasonalHeart,
+	StanceTimid,
+	TimidBookwormBlessing1,
+	TimidBookwormMusicSheet,
+	TimidBookwormHair,
+	TimidBookwormBlessing2,
+	TimidBookwormBlessing3,
+	TimidBookwormCape,
+	TimidBookwormSeasonalHeart,
+	EmoteRallyCheer1,
+	EmoteRallyCheer2,
+	RallyingThrillseekerHair,
+	RallyingThrillseekerBlessing1,
+	EmoteRallyCheer3,
+	EmoteRallyCheer4,
+	RallyingThrillseekerOutfit,
+	RallyingThrillseekerBlessing2,
+	RallyingThrillseekerSeasonalHeart,
+	EmoteGrumpy1,
+	EmoteGrumpy2,
+	HikingGrouchBlessing1,
+	HikingGrouchMask,
+	EmoteGrumpy3,
+	EmoteGrumpy4,
+	HikingGrouchHair,
+	HikingGrouchBlessing2,
+	HikingGrouchBlessing3,
+	HikingGrouchBowTie,
+	HikingGrouchSeasonalHeart,
+	EmoteGrateful1,
+	EmoteGrateful2,
+	GratefulShellCollectorBlessing1,
+	GratefulShellCollectorHair,
+	EmoteGrateful3,
+	EmoteGrateful4,
+	GratefulShellCollectorCape,
+	GratefulShellCollectorBlessing2,
+	GratefulShellCollectorSeasonalHeart,
+	EmoteBellyScratch1,
+	EmoteBellyScratch2,
+	ChillSunbatherBlessing1,
+	ChillSunbatherFaceAccessory,
+	EmoteBellyScratch3,
+	EmoteBellyScratch4,
+	ChillSunbatherHairAccessory,
+	ChillSunbatherBlessing2,
+	ChillSunbatherCape,
+	ChillSunbatherBlessing3,
+	ChillSunbatherSeasonalHeart,
+
+	// 13/07/2020 | Sky Anniversary.
+	SkyAnniversaryHairAccessory1,
+
+	// 20/07/2020 | Season of Sanctuary Quest 2.
+	SanctuaryGuideQuest2,
+	SanctuaryGuideHeart2,
+
+	// 23/07/2020 | Travelling spirit #14.
+	GreetingShamanHeart,
+	GreetingShamanWingBuff,
+
+	// 27/07/2020 | Season of Sanctuary Quest 3.
+	SanctuaryGuideQuest3,
+	SanctuaryGuideHeart3,
+
+	// 04/08/2020 | Season of Sanctuary Quest 4.
+	SanctuaryGuideQuest4,
+	SanctuaryGuideHeart4,
+
+	// 06/08/2020 | Travelling spirit #15.
+	WiseGrandparentWingBuff,
+
+	// 10/08/2020 | Season of Sanctuary Quest 5.
+	SanctuaryGuideQuest5,
+	SanctuaryGuideHeart5,
+
+	// 20/08/2020 | Travelling spirit #16.
+	ShushingLightScholarHeart,
+	ShushingLightScholarWingBuff,
+
+	// 03/09/2020 | Travelling spirit #17.
+	FestivalSpinDancerWingBuff,
+	FestivalSpinDancerBlessing2,
+
+	// 08/09/2020 | Season of Sanctuary Quest 6.
+	SanctuaryGuideQuest6,
+	SanctuaryGuideHeart6,
+	SanctuaryGuideFriendActionHug,
+
+	// 08/09/2020 | Days of Summer Lights.
+	DaysOfSummerLightsLantern,
+
+	// 17/09/2020 | Travelling spirit #18.
+	TwirlingChampionHeart,
+	TwirlingChampionWingBuff,
+	TwirlingChampionBlessing2,
+
+	// 05/10/2020 | Season of Prophecy.
+	ProphecyGuideQuest1,
+	ProphecyGuideHeart1,
+	ProphecyPendant,
+	ProphecyGuideDunun,
+	ProphecyGuideAnubisMask,
+	EmoteDeepBreath1,
+	EmoteDeepBreath2,
+	ProphetOfWaterBlessing1,
+	ProphetOfWaterHair,
+	EmoteDeepBreath3,
+	EmoteDeepBreath4,
+	ProphetOfWaterBlessing2,
+	ProphetOfWaterCape,
+	ProphetOfWaterMask,
+	ProphetOfWaterBlessing3,
+	ProphetOfWaterSeasonalHeart,
+	EmoteDustOff1,
+	EmoteDustOff2,
+	ProphetOfEarthHair,
+	ProphetOfEarthBlessing1,
+	EmoteDustOff3,
+	EmoteDustOff4,
+	ProphetOfEarthMusicSheet,
+	ProphetOfEarthBlessing2,
+	ProphetOfEarthCape,
+	ProphetOfEarthMask,
+	ProphetOfEarthSeasonalHeart,
+	EmoteBalance1,
+	EmoteBalance2,
+	ProphetOfAirHair,
+	ProphetOfAirBlessing1,
+	EmoteBalance3,
+	EmoteBalance4,
+	ProphetOfAirBlessing2,
+	ProphetOfAirMask,
+	ProphetOfAirCape,
+	ProphetOfAirBlessing3,
+	ProphetOfAirSeasonalHeart,
+	EmoteChestPound1,
+	EmoteChestPound2,
+	ProphetOfFireBlessing1,
+	ProphetOfFireHair,
+	EmoteChestPound3,
+	EmoteChestPound4,
+	ProphetOfFireBlessing2,
+	ProphetOfFireMusicSheet,
+	ProphetOfFireMask,
+	ProphetOfFireOutfit,
+	ProphetOfFireSeasonalHeart,
+
+	// 12/10/2020 | Season of Prophecy Quest 2.
+	ProphecyGuideQuest2,
+	ProphecyGuideHeart2,
+
+	// 15/10/2020 | Travelling spirit #20.
+	AdmiringActorWingBuff,
+	AdmiringActorBlessing2,
+
+	// 22/10/2020 | Days of Mischief.
+	MischiefWebCape,
+	MischiefWitchHat,
+
+	// 26/10/2020 | Season of Prophecy Quest 3.
+	ProphecyGuideQuest3,
+	ProphecyGuideHeart3,
+
+	// 29/10/2020 | Travelling Spirit #21.
+	IndifferentAlchemistWingBuff,
+
+	// 09/11/2020 | Season of Prophecy Quest 4.
+	ProphecyGuideQuest4,
+	ProphecyGuideHeart4,
+
+	// 12/11/2020 | Travelling Spirit #22.
+	BoogieKidWingBuff,
+
+	// 15/12/2020 | Version 0.12.0.
+	ButterflyCharmerBlessing2,
+	ButterflyCharmerWingBuff2,
+	ButterflyCharmerCape2,
+	ProudVictorWingBuff2,
+	ProudVictorCape2,
+	PoutyPorterWingBuff2,
+	PoutyPorterCape2,
+
+	// 21/12/2020 | Days of Feast.
+	FeastNeckTie,
+	DaysOfFeastCape,
+	DaysOfFeastTable,
+	DaysOfFeastHorns,
+	SnowflakeCape,
+
+	// 24/12/2020 | Travelling Spirit #25.
+	TroupeGreeterWingBuff,
+	TroupeGreeterBlessing2,
+
+	// 04/01/2021 | Season of Dreams.
+	DreamsPendant,
+	DreamsGuideQuest1,
+	DreamsGuideHeart1,
+	DreamsGuidePhoenixMask,
+	DreamsGuideUltimateCape,
+	EmoteSpinTrick1,
+	EmoteSpinTrick2,
+	SpinningMentorHair,
+	SpinningMentorBlessing1,
+	EmoteSpinTrick3,
+	EmoteSpinTrick4,
+	SpinningMentorMask,
+	SpinningMentorBlessing2,
+	SpinningMentorBlessing3,
+	SpinningMentorCape,
+	SpinningMentorSeasonalHeart,
+	EmoteShowDance1,
+	EmoteShowDance2,
+	DancingPerformerBlessing1,
+	DancingPerformerHair,
+	EmoteShowDance3,
+	EmoteShowDance4,
+	DancingPerformerBlessing2,
+	DancingPerformerMask,
+	DancingPerformerCape,
+	DancingPerformerLute,
+	DancingPerformerSeasonalHeart,
+	EmotePeek1,
+	EmotePeek2,
+	PeekingPostmanMusicSheet,
+	PeekingPostmanBlessing1,
+	EmotePeek3,
+	EmotePeek4,
+	PeekingPostmanOutfit,
+	PeekingPostmanBlessing2,
+	PeekingPostmanCape,
+	PeekingPostmanRabbitMask,
+	PeekingPostmanSeasonalHeart,
+	FriendActionBearhug1,
+	BearhugHermitBlessing1,
+	BearhugHermitRedHorns,
+	BearhugHermitBlessing2,
+	BearhugHermitMusicSheet,
+	BearhugHermitBlessing3,
+	FriendActionBearhug2,
+	BearhugHermitHair,
+	BearhugHermitOutfit,
+	BearhugHermitSeasonalHeart,
+
+	// 07/01/2021 | Travelling Spirit #26.
+	NoddingMuralistWingBuff,
+
+	// 11/01/2021 | Season of Dreams Quest 2.
+	DreamsGuideQuest2,
+	DreamsGuideHeart2,
+
+	// 25/01/2021 | Season of Dreams Quest 3.
+	DreamsGuideQuest3,
+	DreamsGuideHeart3,
+
+	// 04/02/2021 | Travelling Spirit Error.
+	CrabWalkerWingBuff,
+
+	// 04/02/2021 | Travelling Spirit #28.
+	RespectfulPianistWingBuff,
+
+	// 06/02/2021 | Version 0.12.3.
+	CourageousSoldierWingBuff2,
+	CourageousSoldierCape2,
+	PrayingAcolyteWingBuff2,
+	PrayingAcolyteCape2,
+
+	// 08/02/2021 | Season of Dreams Quest 4.
+	DreamsGuideQuest4,
+	DreamsGuideHeart4,
+
+	// 08/02/2021 12:00 | Days of Fortune.
+	DaysOfFortuneMask,
+	DaysOfFortuneHeaddress,
+	DaysOfFortuneOrange,
+	DaysOfFortuneCape,
+	FortuneBlushingMask,
+	FortuneBunHair,
+	DaysOfFortuneWoolHat, // 21/02/2021 12:00.
+
+	// 12/02/2021 12:00 | Days of Love.
+	DaysOfLoveMask,
+	DaysOfLoveSeesaw, // 12/02/2021 12:00.
+
+	// 15/02/2021 | Season of Dreams Quest 5.
+	DreamsGuideQuest5,
+	DreamsGuideHeart5,
+
+	// 16/03/2021 | Version 0.13.0.
+	DismayedHunterWingBuff2,
+	DismayedHunterCape2,
+
+	// 22/03/2021 | Days of Bloom.
+	BloomHair,
+	BloomCape,
+	PinkBloomTeaset,
+
+	// 05/04/2021 | Season of Assembly.
+	AssemblyGuideQuest1,
+	AssemblyGuideHeart1,
+	AssemblyPendant,
+	AssemblyGuideUltimateMask,
+	AssemblyGuideUltimateHair,
+	AssemblyGuideBugle,
+	AssemblyGuideUltimateCape,
+	AssemblyGuideHighFive,
+	EmoteFacepalm1,
+	EmoteFacepalm2,
+	BaffledBotanistBlessing1,
+	BaffledBotanistHair,
+	EmoteFacepalm3,
+	EmoteFacepalm4,
+	BaffledBotanistMask,
+	BaffledBotanistBlessing2,
+	BaffledBotanistBlessing3,
+	BaffledBotanistProp,
+	BaffledBotanistSeasonalHeart,
+	EmoteScold1,
+	EmoteScold2,
+	ScoldingStudentMask,
+	ScoldingStudentBlessing1,
+	EmoteScold3,
+	EmoteScold4,
+	ScoldingStudentHair,
+	ScoldingStudentBlessing2,
+	ScoldingStudentBlessing3,
+	ScoldingStudentCape,
+	ScoldingStudentSeasonalHeart,
+	EmoteEww1,
+	EmoteEww2,
+	ScaredyCadetMask,
+	ScaredyCadetBlessing1,
+	EmoteEww3,
+	EmoteEww4,
+	ScaredyCadetMusicSheet,
+	ScaredyCadetHair,
+	ScaredyCadetHammock,
+	ScaredyCadetBlessing2,
+	ScaredyCadetSeasonalHeart,
+	EmoteMarching1,
+	EmoteMarching2,
+	MarchingAdventurerHair,
+	MarchingAdventurerBlessing1,
+	EmoteMarching3,
+	EmoteMarching4,
+	MarchingAdventurerBlessing2,
+	MarchingAdventurerMask,
+	MarchingAdventurerTikiTorch,
+	MarchingAdventurerBlessing3,
+	MarchingAdventurerSeasonalHeart,
+	EmoteChuckle1,
+	EmoteChuckle2,
+	ChucklingScoutMask,
+	ChucklingScoutBlessing1,
+	EmoteChuckle3,
+	EmoteChuckle4,
+	ChucklingScoutBlessing2,
+	ChucklingScoutOutfit,
+	ChucklingScoutProp,
+	ChucklingScoutBlessing3,
+	ChucklingScoutSeasonalHeart,
+	EmoteBubbles1,
+	EmoteBubbles2,
+	DaydreamForesterMask,
+	DaydreamForesterBlessing1,
+	EmoteBubbles3,
+	EmoteBubbles4,
+	DaydreamForesterMusicSheet,
+	DaydreamForesterBlessing2,
+	DaydreamForesterBlessing3,
+	DaydreamForesterHair,
+	DaydreamForesterSeasonalHeart,
+
+	// 19/04/2021 | Season of Assembly Quest 2.
+	AssemblyGuideQuest2,
+	AssemblyGuidePillow,
+
+	// 19/04/2021 | Days of Nature.
+	OceanNecklace,
+	OceanCape,
+
+	// 29/04/2021 | Travelling Spirit #34.
+	RallyingThrillseekerWingBuff,
+
+	// 03/05/2021 | Season of Assembly Quest 3.
+	AssemblyGuideQuest3,
+	AssemblyGuideHeart2,
+	AssemblyGuideFriendActionHug,
+
+	// 10/05/2021 | Season of Assembly Quest 4.
+	AssemblyGuideQuest4,
+	AssemblyGuideJar,
+
+	// 13/05/2021 | Travelling Spirit #35.
+	ThoughtfulDirectorWingBuff,
+
+	// 17/05/2021 | Season of Assembly Quest 5.
+	AssemblyGuideQuest5,
+	AssemblyGuideBrazier,
+	AssemblyGuideDoubleFive,
+
+	// 27/05/2021 | Travelling Spirit #36.
+	SnoozingCarpenterWingBuff,
+
+	// 27/05/2021 | Version 0.13.4.
+	HandstandingThrillseekerWingBuff2,
+	HandstandingThrillseekerCape2,
+
+	// 31/05/2021 | Season of Assembly Quest 6.
+	AssemblyGuideQuest6,
+	AssemblyGuideHeart3,
+	AssemblyGuideBookcase,
+	AssemblyGuideTarpaulin,
+
+	// 10/06/2021 | Travelling Spirit #37.
+	TimidBookwormWingBuff,
+
+	// 14/06/2021 | Days of Rainbow.
+	RainbowBraid,
+	RainbowCape,
+	RainbowHat,
+	RainbowFlower,
+
+	// 29/06/2021 | Nintendo Switch release.
+	SwitchBlueCape,
+	SwitchRedCape,
+	VesselFlute,
+	ElvishHairstyle,
+
+	// 06/07/2021 | Season of the Little Prince.
+	LittlePrinceScarf,
+	LittlePrinceFox,
+	TheRoseQuest1,
+	TheRoseHeart1,
+	LittlePrincePendant,
+	TheRoseUltimateHair,
+	TheRoseUltimateOutfit,
+	TheRoseRose,
+	EmoteBeckon1,
+	EmoteBeckon2,
+	BeckoningRulerBlessing1,
+	BeckoningRulerHair,
+	EmoteBeckon3,
+	EmoteBeckon4,
+	BeckoningRulerFrogMask,
+	BeckoningRulerBlessing2,
+	BeckoningRulerSeasonalHeart,
+	EmoteGloat1,
+	EmoteGloat2,
+	GloatingNarcissistBlessing1,
+	GloatingNarcissistMusicSheet,
+	EmoteGloat3,
+	EmoteGloat4,
+	GloatingNarcissistBlessing2,
+	GloatingNarcissistOutfit,
+	GloatingNarcissistHair,
+	GloatingNarcissistBlessing3,
+	GloatingNarcissistSeasonalHeart,
+	EmoteStretch1,
+	EmoteStretch2,
+	StretchingLamplighterBlessing1,
+	StretchingLamplighterHair,
+	EmoteStretch3,
+	EmoteStretch4,
+	StretchingLamplighterCape,
+	StretchingLamplighterBlessing2,
+	StretchingLamplighterSeasonalHeart,
+	EmoteSlouch1,
+	EmoteSlouch2,
+	SlouchingSoldierBlessing1,
+	SlouchingSoldierHair,
+	EmoteSlouch3,
+	EmoteSlouch4,
+	SlouchingSoldierBlessing2,
+	SlouchingSoldierMusicSheet,
+	SlouchingSoldierCape,
+	SlouchingSoldierBlessing3,
+	SlouchingSoldierSeasonalHeart,
+	EmoteSneeze1,
+	EmoteSneeze2,
+	SneezingGeographerHair,
+	SneezingGeographerBlessing1,
+	EmoteSneeze3,
+	EmoteSneeze4,
+	SneezingGeographerBlessing2,
+	SneezingGeographerCape,
+	SneezingGeographerSeasonalHeart,
+	EmoteHandRub1,
+	EmoteHandRub2,
+	StarCollectorNecktie,
+	StarCollectorBlessing1,
+	EmoteHandRub3,
+	EmoteHandRub4,
+	StarCollectorBlessing2,
+	StarCollectorCape,
+	StarCollectorProp,
+	StarCollectorBlessing3,
+	StarCollectorSeasonalHeart,
+
+	// 12/07/2021 | Sky Anniversary.
+	SkyAnniversaryHairAccessory2,
+	SkyAnniversaryProp,
+
+	// 15/07/2021 | Season of the Little Prince Quest 2.
+	TheRoseQuest2,
+	TheRoseHeart2,
+
+	// 23/07/2021 | Season of the Little Prince Quest 3.
+	TheRoseQuest3,
+	TheRoseHeart3,
+
+	// 02/08/2021 | Season of the Little Prince Quest 4.
+	TheRoseQuest4,
+	TheRoseHeart4,
+
+	// 05/08/2021 | Travelling Spirit #41.
+	ProphetOfWaterProp,
+	ProphetOfWaterWingBuff,
+
+	// 11/08/2021 | Season of the Little Prince Quest 5.
+	TheRoseQuest5,
+	TheRoseHeart5,
+
+	// 12/08/2021 | Days of Summer.
+	DoubleDeckChairs,
+	SummerHat,
+	SummerUmbrella,
+	SummerShellHairPin,
+
+	// 19/08/2021 | Travelling Spirit #42.
+	ChillSunbatherSunlounger,
+	ChillSunbatherWingBuff,
+
+	// 20/08/2021 | Season of the Little Prince Quest 6.
+	TheRoseQuest6,
+	TheRoseHeart6,
+
+	// 30/08/2021 | Season of the Little Prince Quest 7.
+	TheRoseQuest7,
+	TheRoseHeart7,
+	SwordOutfit,
+	LittlePrinceAsteroidJacket,
+
+	// 02/09/2021 | Travelling Spirit #43.
+	CrabWhispererPipe,
+
+	// 16/09/2021 | Travelling Spirit #44.
+	TroupeJugglerProp,
+	TroupeJugglerWingBuff,
+
+	// 20/09/2021 | Days of Summer Lights.
+	SummerLightsAccessory,
+
+	// 30/09/2021 | Travelling Spirit #45.
+	GratefulShellCollectorChairs,
+	GratefulShellCollectorWingBuff,
+
+	// 04/10/2021 | Season of Flight.
+	FlightGuideQuest1,
+	FlightGuideHeart1,
+	FlightPendant,
+	FlightGuideUltimateHairAccessory,
+	FlightGuideUltimateOutfit,
+	EmoteNavigate1,
+	EmoteNavigate2,
+	LivelyNavigatorBlessing1,
+	LivelyNavigatorHair,
+	LivelyNavigatorHairAccessory,
+	LivelyNavigatorBlessing2,
+	EmoteNavigate3,
+	EmoteNavigate4,
+	LivelyNavigatorTrailSpell1,
+	LivelyNavigatorCape,
+	LivelyNavigatorMusicSheet,
+	LivelyNavigatorTrailSpell2,
+	LivelyNavigatorSeasonalHeart,
+	CallBabyManta,
+	LightWhispererBlessing1,
+	LightWhispererHairAccessory,
+	LightWhispererHair,
+	LightWhispererBlessing2,
+	LightWhispererTrailSpell1,
+	LightWhispererCape,
+	LightWhispererOutfit,
+	LightWhispererTrailSpell2,
+	LightWhispererSeasonalHeart,
+	StanceTinker,
+	TinkeringChimesmithBlessing1,
+	TinkeringChimesmithOutfit,
+	TinkeringChimesmithHairAccessory,
+	TinkeringChimesmithBlessing2,
+	TinkeringChimesmithTrailSpell1,
+	TinkeringChimesmithKalimba,
+	TinkeringChimesmithHair,
+	TinkeringChimesmithTrailSpell2,
+	TinkeringChimesmithSeasonalHeart,
+	EmoteVoilà1,
+	EmoteVoilà2,
+	TalentedBuilderBlessing1,
+	TalentedBuilderMusicSheet,
+	TalentedBuilderNeckAccessory,
+	TalentedBuilderBlessing2,
+	EmoteVoilà3,
+	EmoteVoilà4,
+	TalentedBuilderTrailSpell1,
+	TalentedBuilderOutfit,
+	TalentedBuilderHair,
+	TalentedBuilderTrailSpell2,
+	TalentedBuilderSeasonalHeart,
+
+	// 14/10/2021 | Travelling Spirit #46.
+	FestivalSpinDancerProp,
+
+	// 18/10/2021 | Season of Flight Quest 2.
+	FlightGuideQuest2,
+	FlightGuideHeart2,
+	FlightGuideHighFive,
+
+	// 18/10/2021 | Days of Mischief.
+	MischiefWitchHair,
+	MischiefWitheredCape,
+	MischiefSpookyDiningSet,
+	MischiefWitchJumper,
+	MischiefWitheredAntlers,
+	MischiefSpiderQuiff,
+	MischiefPumpkinProp,
+
+	// 28/10/2021 | Travelling Spirit #47.
+	PlayfightingHerbalistWingBuff,
+	PlayfightingHerbalistOrb,
+
+	// 01/11/2021 | Season of Flight Quest 3.
+	FlightGuideQuest3,
+	FlightGuideHeart3,
+
+	// 11/11/2021 | Travelling Spirit #48.
+	WiseGrandparentProp,
+
+	// 15/11/2021 | Season of Flight Quest 4.
+	FlightGuideQuest4,
+	FlightGuideHeart4,
+
+	// 18/11/2021 | Version 0.15.5.
+	DreamsGuideFriendActionHug,
+	ProphecyGuideFriendActionHug,
+
+	// 25/11/2021 | Travelling Spirit #49.
+	JellyWhispererWingBuff,
+	JellyWhispererUmbrella,
+
+	// 29/11/2021 | Season of Flight Quest 5.
+	FlightGuideQuest5,
+	FlightGuideHeart5,
+	FlightGuideFriendActionHug,
+
+	// 09/12/2021 | Travelling Spirit #50.
+	ProphetOfFireWingBuff,
+	ProphetOfFireCauldron,
+
+	// 20/12/2021 | Days of Feast.
+	OdeToJoyMusicSheet,
+	WinterFeastPillow,
+	WinterFeastScarf,
+	WinterFeastHat,
+	SnowflakeHairAccessory,
+	WinterAncestorCape,
+	WinterFeastSnowGlobe,
+
+	// 23/12/2021 | Travelling Spirit #51.
+	SparklerParentPinwheel,
+
+	// 06/01/2022 | Travelling Spirit Error.
+	ProphetOfEarthProp,
+	ProphetOfEarthWingBuff,
+
+	// 17/01/2022 | Season of Abyss.
+	AbyssGuideQuest1,
+	AbyssGuideHeart1,
+	AbyssGuidePendant,
+	AbyssGuideUltimateFaceAccessory,
+	AbyssGuideUltimateCape,
+	AbyssGuideUltimateMask,
+	EmoteAnxious1,
+	EmoteAnxious2,
+	AnxiousAnglerBlessing1,
+	AnxiousAnglerMask,
+	AnxiousAnglerHair,
+	AnxiousAnglerBlessing2,
+	EmoteAnxious3,
+	EmoteAnxious4,
+	AnxiousAnglerBlessing3,
+	AnxiousAnglerCape,
+	AnxiousAnglerOutfit,
+	AnxiousAnglerBlessing4,
+	AnxiousAnglerSeasonalHeart,
+	EmoteCalmDown1,
+	EmoteCalmDown2,
+	CeasingCommodoreBlessing1,
+	CeasingCommodoreHair,
+	CeasingCommodoreMask,
+	CeasingCommodoreBlessing2,
+	EmoteCalmDown3,
+	EmoteCalmDown4,
+	CeasingCommodoreCape,
+	CeasingCommodoreBlessing3,
+	CeasingCommodoreSeasonalHeart,
+	EmoteOuch1,
+	EmoteOuch2,
+	BumblingBoatswainBlessing1,
+	BumblingBoatswainMask,
+	BumblingBoatswainMusicSheet,
+	BumblingBoatswainBlessing2,
+	EmoteOuch3,
+	EmoteOuch4,
+	BumblingBoatswainBlessing3,
+	BumblingBoatswainCape,
+	BumblingBoatswainHairAccessory,
+	BumblingBoatswainBlessing4,
+	BumblingBoatswainSeasonalHeart,
+	EmoteEvilLaugh1,
+	EmoteEvilLaugh2,
+	CacklingCannoneerBlessing1,
+	CacklingCannoneerMusicSheet,
+	CacklingCannoneerMask,
+	CacklingCannoneerBlessing2,
+	EmoteEvilLaugh3,
+	EmoteEvilLaugh4,
+	CacklingCannoneerCape,
+	CacklingCannoneerBlessing3,
+	CacklingCannoneerBlessing4,
+	CacklingCannoneerHair,
+	CacklingCannoneerSeasonalHeart,
+
+	// 24/01/2022 | Season of Abyss Quest 2.
+	AbyssGuideQuest2,
+	AbyssGuideHeart2,
+
+	// 24/01/2022 | Days of Fortune.
+	DaysOfFortuneTigerMask,
+	DaysOfFortuneFishCape,
+	DaysOfFortuneFishHood,
+	DaysOfFortuneFishAccessory,
+
+	// 31/01/2022 | Season of Abyss Quest 3.
+	AbyssGuideQuest3,
+	AbyssGuideHeart3,
+
+	// 07/02/2022 | Days of Love.
+	DaysOfLoveFlowerCrown,
+	DaysOfLoveGondola,
+
+	// 14/02/2022 | Season of Abyss Quest 4.
+	AbyssGuideQuest4,
+	AbyssGuideHeart4,
+
+	// 17/02/2022 | Travelling Spirit #55.
+	HikingGrouchWingBuff,
+
+	// 25/02/2022 | Kizuna AI.
+	KizunaAIHair,
+	KizunaAIBow,
+	KizunaAICape,
+
+	// 07/03/2022 | Season of Abyss Quest 5.
+	AbyssGuideQuest5,
+	AbyssGuideHeart5,
+	AbyssGuideMask,
+
+	// 28/03/2022 | Days of Bloom.
+	PurpleBloomCape,
+	PurpleBloomTeaset,
+
+	// 31/03/2022 | Travelling Spirit #58.
+	ScarecrowFarmerWingBuff,
+
+	// 05/04/2022 | Version 0.17.0.
+	MemoryWhispererWingBuff2,
+	MemoryWhispererCape2,
+
+	// 11/04/2022 | Season of Performance.
+	PerformanceGuideQuest1,
+	PerformanceGuideSharedMemorySpell1,
+	PerformanceGuidePendant,
+	PerformanceGuideUltimateMask,
+	PerformanceGuideUltimateCape,
+	PerformanceGuideUltimateHair,
+	PerformanceGuideHighFive,
+	PerformanceGuideHeart1,
+	FriendActionHandshake1,
+	FranticStagehandBlessing1,
+	FranticStagehandHood,
+	FranticStagehandMusicSheet,
+	FranticStagehandBlessing2,
+	FranticStagehandBlessing3,
+	FriendActionHandshake2,
+	FranticStagehandMask,
+	FranticStagehandOutfit,
+	FranticStagehandSeasonalHeart,
+	EmoteAww1,
+	EmoteAww2,
+	ForgetfulStorytellerBlessing1,
+	ForgetfulStorytellerMask,
+	ForgetfulStorytellerHair,
+	ForgetfulStorytellerBlessing2,
+	EmoteAww3,
+	EmoteAww4,
+	ForgetfulStorytellerBlessing3,
+	ForgetfulStorytellerOutfit,
+	ForgetfulStorytellerCape,
+	ForgetfulStorytellerBlessing4,
+	ForgetfulStorytellerSeasonalHeart,
+	EmoteHeadbob1,
+	EmoteHeadbob2,
+	MellowMusicianMask,
+	MellowMusicianBlessing1,
+	MellowMusicianBlessing2,
+	MellowMusicianCape,
+	EmoteHeadbob3,
+	EmoteHeadbob4,
+	MellowMusicianBlessing3,
+	MellowMusicianElectricGuitar,
+	MellowMusicianHair,
+	MellowMusicianBlessing4,
+	MellowMusicianSeasonalHeart,
+	FriendActionDuetDance1,
+	ModestDancerBlessing1,
+	ModestDancerMusicSheet,
+	ModestDancerMask,
+	ModestDancerBlessing2,
+	ModestDancerBlessing3,
+	FriendActionDuetDance2,
+	ModestDancerOutfit,
+	ModestDancerHair,
+	ModestDancerSeasonalHeart,
+
+	// 14/04/2022 | Travelling Spirit #59.
+	SpinningMentorWingBuff,
+
+	// 18/04/2022 | Days of Nature.
+	NatureCoralCrown,
+	NatureTurtleCape,
+	NatureShoulderTurtle,
+
+	// 25/04/2022 | Season of Performance Quest 2.
+	PerformanceGuideQuest2,
+	PerformanceGuideMask,
+
+	// 28/04/2022 | Travelling Spirit #60.
+	DaydreamForesterWingBuff,
+
+	// 09/05/2022 | Season of Performance Quest 3.
+	PerformanceGuideQuest3,
+	PerformanceGuideSharedMemorySpell2,
+	PerformanceGuideDoubleFive,
+	PerformanceGuideHeart2,
+
+	// 12/05/2022 | Travelling Spirit #61.
+	ProphetOfAirProp,
+	ProphetOfAirWingBuff,
+
+	// 23/05/2022 | Season of Performance Quest 4.
+	PerformanceGuideQuest4,
+	PerformanceGuideSharedMemorySpell3,
+	FriendActionHug,
+	PerformanceGuideHeart3,
+
+	// 23/05/2022 | Harmony Hall Grand Opening.
+	HarmonyHallGrandOpeningHairAccessory,
+	HarmonyHallMusicSheet1,
+	HarmonyHallMusicSheet2,
+	HarmonyHallMusicSheet3,
+	HarmonyHallMusicSheet4,
+	FledglingHarp,
+	RhythmGuitar,
+	TriumphHandpan,
+
+	// 06/06/2022 | Season of Performance Quest 5.
+	PerformanceGuideQuest5,
+	PerformanceGuideSharedMemorySpell4,
+	PerformanceGuideDuetDance,
+	PerformanceGuideHeart4,
+	PerformanceGuideFlowerPot,
+
+	// 23/06/2022 | Travelling Spirit #64.
+	PeekingPostmanWingBuff,
+
+	// 28/07/2022 | Version 0.18.0.
+	StealthySurvivorWingBuff2,
+	StealthySurvivorCape2,
+
+	// 30/06/2022 | Days of Rainbow.
+	RainbowTrousers,
+	RainbowEarring,
+	RainbowHeadphones,
+	RainbowDoubleFlower,
+
+	// 11/07/2022 | Season of Shattering.
+	TheVoidofShatteringQuest1,
+	TheVoidofShatteringHeart1,
+	ShatteringPendant,
+	TheVoidofShatteringMantaCape,
+	TheVoidofShatteringDarkDragonCape,
+	AncientLightJellyfishHair,
+	AncientLightJellyfishBlessing1,
+	AncientLightJellyfishBlessing2,
+	AncientLightJellyfishHairAccessory,
+	AncientLightJellyfishCape,
+	AncientLightJellyfishBlessing3,
+	AncientLightJellyfishSeasonalHeart,
+	AncientLightMantaMusicSheet,
+	AncientLightMantaBlessing1,
+	AncientLightMantaBlessing2,
+	AncientLightMantaHair,
+	AncientLightMantaCape,
+	AncientLightMantaBlessing3,
+	AncientLightMantaBlessing4,
+	AncientLightMantaOutfit,
+	AncientLightMantaSeasonalHeart,
+	AncientDarknessPlantHairAccessory,
+	AncientDarknessPlantBlessing1,
+	AncientDarknessPlantBlessing2,
+	AncientDarknessPlantMask,
+	AncientDarknessPlantMusicSheet,
+	AncientDarknessPlantBlessing3,
+	AncientDarknessPlantBlessing4,
+	AncientDarknessPlantCape,
+	AncientDarknessPlantSeasonalHeart,
+	AncientDarknessDragonNeckAccessory,
+	AncientDarknessDragonBlessing1,
+	AncientDarknessDragonBlessing2,
+	AncientDarknessDragonDarkHorn,
+	AncientDarknessDragonHair,
+	AncientDarknessDragonBlessing3,
+	AncientDarknessDragonSeasonalHeart,
+
+	// 18/07/2022 | Sky Anniversary.
+	SkyAnniversaryHairAccessory3,
+	HappyBirthdayMusicSheet,
+	Balloon,
+	LightFence,
+	ConfettiLauncher,
+	TGCGuitar,
+
+	// 19/07/2022 | Season of Shattering Quest 2.
+	TheVoidofShatteringQuest2,
+	TheVoidofShatteringHeart2,
+
+	// 05/08/2022 | Season of Shattering Quest 3.
+	TheVoidofShatteringQuest3,
+	TheVoidofShatteringHeart3,
+
+	// 17/08/2022 | Version 0.18.5.
+	ElderOfTheIsleFaceAccessory,
+	ElderOfThePrairieFaceAccessory,
+	ElderOfTheForestFaceAccessory,
+
+	// 18/08/2022 | Travelling Spirit #68.
+	ScoldingStudentWingBuff,
+
+	// 19/08/2022 | Season of Shattering Quest 4.
+	TheVoidofShatteringQuest4,
+	TheVoidofShatteringHeart4,
+
+	// 22/08/2022 | Days of Sunlight.
+	CampfireTent,
+	JellyShoulderBuddy,
+	CampfireSnackKit,
+
+	// 02/09/2022 | Season of Shattering Quest 5.
+	TheVoidofShatteringQuest5,
+	TheVoidofShatteringHeart5,
+
+	// 16/09/2022 | Season of Shattering Quest 6.
+	TheVoidofShatteringQuest6,
+	TheVoidofShatteringHeart6,
+
+	// 29/09/2022 | Travelling Spirit #71.
+	BeckoningRulerWingBuff,
+
+	// 17/10/2022 | Season of AURORA.
+	RunawayHairstyle,
+	TiaraWeCanTouch,
+	RunawayOutfit,
+	AURORAQuest1,
+	EmoteSilentClap2,
+	AURORAPendant,
+	AURORAAuroraHair,
+	AURORAUltimateOutfit,
+	AURORAUltimateCape,
+	EmoteSilentClap1,
+	EmoteSilentClap3,
+	EmoteSilentClap4,
+	EmoteWavingLight1,
+	EmoteWavingLight2,
+	RunningWayfarerMask,
+	RunningWayfarerBlessing1,
+	RunningWayfarerBlessing2,
+	RunningWayfarerHair,
+	EmoteWavingLight3,
+	EmoteWavingLight4,
+	RunningWayfarerBlessing3,
+	RunningWayfarerMusicSheet,
+	RunningWayfarerCape,
+	RunningWayfarerBlessing4,
+	RunningWayfarerSeasonalHeart,
+	EmoteRaiseTheRoof1,
+	EmoteRaiseTheRoof2,
+	MindfulMinerBlessing1,
+	MindfulMinerMask,
+	EmoteRaiseTheRoof3,
+	EmoteRaiseTheRoof4,
+	MindfulMinerHair,
+	MindfulMinerBlessing2,
+	MindfulMinerBlessing3,
+	MindfulMinerOutfit,
+	MindfulMinerCape,
+	MindfulMinerBlessing4,
+	MindfulMinerSeasonalHeart,
+	EmoteTwirl1,
+	EmoteTwirl2,
+	WarriorOfLoveMask,
+	WarriorOfLoveBlessing1,
+	WarriorOfLoveBlessing2,
+	WarriorOfLoveHair,
+	EmoteTwirl3,
+	EmoteTwirl4,
+	WarriorOfLoveMusicSheet,
+	WarriorOfLoveBlessing3,
+	WarriorOfLoveBlessing4,
+	WarriorOfLoveCape,
+	WarriorOfLoveSeasonalHeart,
+	EmoteRhythmicClap1,
+	EmoteRhythmicClap2,
+	SeedOfHopeBlessing1,
+	SeedOfHopeMask,
+	SeedOfHopeMusicSheet,
+	SeedOfHopeBlessing2,
+	EmoteRhythmicClap3,
+	EmoteRhythmicClap4,
+	SeedOfHopeHair,
+	SeedOfHopeBlessing3,
+	SeedOfHopeBlessing4,
+	SeedOfHopeCape,
+	SeedOfHopeSeasonalHeart,
+
+	// 24/10/2022 | Days of Mischief.
+	MischiefTuftedHair,
+	FelineFamiliarProp,
+	CatCostumeMask,
+	CatCostumeCape,
+
+	// 31/10/2022 | Season of AURORA Quest 2.
+	AURORAQuest2,
+	EmoteConduct1,
+	EmoteConduct2,
+	EmoteConduct3,
+	EmoteConduct4,
+
+	// 14/11/2022 | Season of AURORA Quest 3.
+	AURORAQuest3,
+	AURORAHeart,
+	EmoteSkipping1,
+	EmoteSkipping2,
+	EmoteSkipping3,
+	EmoteSkipping4,
+
+	// 24/11/2022 | Travelling Spirit #75.
+	BearhugHermitWingBuff,
+
+	// 28/11/2022 | Version 0.19.5.
+	VoiceOfAURORA,
+
+	// 28/11/2022 | Season of AURORA Quest 4.
+	AURORAQuest4,
+	AURORAMusicSheet1,
+
+	// 06/12/2022 | PlayStation release.
+	JourneyCape,
+	JourneyHood,
+	JourneyMask,
+
+	// 06/12/2022 | Season of AURORA Quest 5.
+	// This is the date of the dress rehearsal. It unlocked for players early.
+	GivingInCape,
+	ToTheLoveOutfit,
+	AURORAQuest5,
+	AURORAMusicSheet2,
+	AURORAOutfit,
+	AURORAMask,
+	WingsOfAURORA,
+
+	// 19/12/2022 | Days of Feast.
+	FeastGoggles,
+	SnowkidProp,
+	TournamentSkyballSet,
+	CosyHermitCape,
+
+	// 05/01/2023 | Travelling Spirit #78.
+	BaffledBotanistWingBuff,
+
+	// 16/01/2023 | Season of Remembrance.
+	AssemblyGuideSharedSpaceSpell,
+	RemembranceGuideQuest1,
+	RemembranceGuideHeart1,
+	RemembrancePendant,
+	RemembranceGuideUltimateNeckAccessory,
+	RemembranceGuideUltimateProp,
+	RemembranceGuideQuest2,
+	RemembranceGuideChimes,
+	RemembranceGuideHighFive,
+	RemembranceGuideSharedSpaceSpell1,
+	EmoteGrieving1,
+	EmoteGrieving2,
+	BereftVeteranMask,
+	BereftVeteranBlessing1,
+	BereftVeteranBlessing2,
+	BereftVeteranHair,
+	EmoteGrieving3,
+	EmoteGrieving4,
+	BereftVeteranCape,
+	BereftVeteranBlessing3,
+	BereftVeteranSeasonalHeart,
+	EmotePleading1,
+	EmotePleading2,
+	PleadingChildNeckAccessory,
+	PleadingChildBlessing1,
+	PleadingChildBlessing2,
+	PleadingChildHair,
+	EmotePleading3,
+	EmotePleading4,
+	PleadingChildOutfit,
+	PleadingChildBlessing3,
+	PleadingChildSeasonalHeart,
+	EmoteTiptoeing1,
+	EmoteTiptoeing2,
+	TiptoeingTeaBrewerBlessing1,
+	TiptoeingTeaBrewerHair,
+	EmoteTiptoeing3,
+	EmoteTiptoeing4,
+	TiptoeingTeaBrewerBlessing2,
+	TiptoeingTeaBrewerOutfit,
+	TiptoeingTeaBrewerCape,
+	TiptoeingTeaBrewerBlessing3,
+	TiptoeingTeaBrewerSeasonalHeart,
+	StanceInjured,
+	WoundedWarriorBlessing1,
+	WoundedWarriorMask,
+	WoundedWarriorOutfit,
+	WoundedWarriorBlessing2,
+	WoundedWarriorBlessing3,
+	WoundedWarriorCape,
+	WoundedWarriorSeasonalHeart,
+
+	// 20/01/2023 | Days of Fortune.
+	DaysOfFortuneRabbitMask,
+	DaysOfFortuneMuralistsSmock,
+	DaysOfFortuneEnchantedUmbrella,
+
+	// 30/01/2023 | Season of Remembrance Quest 3 & Quest 4.
+	RemembranceGuideQuest3,
+	RemembranceGuideHeart2,
+	RemembranceGuideQuest4,
+	RemembranceGuideKettle,
+	RemembranceGuideDoubleFive,
+	RemembranceGuideSharedSpaceSpell2,
+
+	// 13/02/2023 | Season of Remembrance Quest 5 & Quest 6.
+	RemembranceGuideQuest5,
+	RemembranceGuideHeart3,
+	RemembranceGuideQuest6,
+	RemembranceGuidePottedPlant,
+
+	// 13/02/2023 | Days of Love.
+	DaysOfLoveFloweryArchway,
+	DaysOfLoveClassyCravat,
+	DaysOfLoveSerendipitousSceptre,
+
+	// 16/02/2023 | Travelling Spirit #81.
+	SlouchingSoldierWingBuff,
+
+	// 27/02/2023 | Season of Remembrance Quest 7 & Quest 8.
+	RemembranceGuideQuest7,
+	RemembranceGuideHeart4,
+	RemembranceGuideQuest8,
+	RemembranceGuideCrabPlushie,
+	RemembranceGuideMantaPlushie,
+	RemembranceGuideFriendActionHug,
+	RemembranceGuideSharedSpaceSpell3,
+
+	// 06/03/2023 | Returning Spirits #1.
+	ScaredyCadetWingBuff,
+	MarchingAdventurerWingBuff,
+	ChucklingScoutWingBuff,
+
+	// 20/03/2023 | Season of Remembrance Quest 9 & Quest 10.
+	RemembranceGuideQuest9,
+	RemembranceGuideSharedSpaceSpell4,
+	RemembranceGuideQuest10,
+
+	// 20/03/2023 | Days of Bloom.
+	RedBloomCape,
+	BloomButterflyFountain,
+	BloomGardeningTunic,
+	BloomPicnicBasket,
+
+	// 13/04/2023 | Travelling Spirit #85.
+	SneezingGeographerWingBuff,
+
+	// 17/04/2023 | Season of Passage.
+	PassageGuideQuest1,
+	PassageGuideHeart1,
+	PassagePendant,
+	PassageGuideUltimateMask,
+	PassageGuideUltimateCape,
+	EmoteHackySack1,
+	EmoteHackySack2,
+	OddballOutcastHair,
+	OddballOutcastBlessing1,
+	OddballOutcastBlessing2,
+	OddballOutcastNeckAccessory,
+	EmoteHackySack3,
+	EmoteHackySack4,
+	OddballOutcastOutfit,
+	OddballOutcastBlessing3,
+	OddballOutcastSeasonalHeart,
+	EmoteSomersault1,
+	EmoteSomersault2,
+	TumblingTroublemakerBlessing1,
+	TumblingTroublemakerHair,
+	EmoteSomersault3,
+	EmoteSomersault4,
+	TumblingTroublemakerBlessing2,
+	TumblingTroublemakerCape,
+	TumblingTroublemakerBlessing3,
+	TumblingTroublemakerFaceAccessory,
+	TumblingTroublemakerSeasonalHeart,
+	EmoteMoping1,
+	EmoteMoping2,
+	MelancholyMopeFaceAccessory,
+	MelancholyMopeBlessing1,
+	MelancholyMopeBlessing2,
+	MelancholyMopeHair,
+	EmoteMoping3,
+	EmoteMoping4,
+	MelancholyMopeOutfit,
+	MelancholyMopeBlessing3,
+	MelancholyMopeSeasonalHeart,
+	EmotePullUp1,
+	EmotePullUp2,
+	OveractiveOverachieverBlessing1,
+	OveractiveOverachieverMantaOcarina,
+	EmotePullUp3,
+	EmotePullUp4,
+	OveractiveOverachieverCape,
+	OveractiveOverachieverBlessing2,
+	OveractiveOverachieverBlessing3,
+	OveractiveOverachieverHair,
+	OveractiveOverachieverSeasonalHeart,
+
+	// 20/04/2023 | Days of Nature.
+	NatureSchoolCape,
+	NatureGlasses,
+	NatureSonorousSeashell,
+
+	// 01/05/2023 | Season of Passage Quest 2.
+	PassageGuideQuest2,
+	PassageGuideSerowMask,
+
+	// 11/05/2023 | Travelling Spirit #88.
+	TinkeringChimesmithWingBuff,
+
+	// 15/05/2023 | Season of Passage Quest 3.
+	PassageGuideQuest3,
+	PassageGuideHeart2,
+	PassageGuideBoarMask,
+
+	// 01/06/2023 | Season of Passage Quest 4.
+	PassageGuideQuest4,
+	PassageGuideHeart3,
+	PassageGuideMonkeyMask,
+
+	// 01/06/2023 | Days of Colour.
+	DarkRainbowCape,
+	DarkRainbowEarrings,
+	DarkRainbowTunic,
+
+	// 12/06/2023 | Season of Passage Quest 5.
+	PassageGuideQuest5,
+	PassageGuideHeart4,
+	PassageGuideHackySack,
+	PassageGuideRacoonMask,
+
+	// 03/07/2023 | Days of Music.
+	DaysOfMusicMusicSheet,
+	TriumphSaxophone,
+	MarchingBandHat,
+	TriumphViolin,
+
+	// 17/07/2023 | Season of Moments.
+	MomentsGuideCamera,
+	MomentsPendant,
+	MomentsGuideUltimateFaceAccessory,
+	MomentsGuideUltimateCamera,
+	MomentsGuideUltimateHairAccessory,
+	MomentsGuideQuest1,
+	MomentsGuideHeart1,
+	FriendActionSideHug1,
+	FriendActionSideHug2,
+	ReassuringRangerBlessing1,
+	ReassuringRangerFaceAccessory,
+	ReassuringRangerMask,
+	ReassuringRangerBlessing2,
+	ReassuringRangerBlessing3,
+	ReassuringRangerCape,
+	ReassuringRangerHairAccessory,
+	ReassuringRangerBlessing4,
+	ReassuringRangerSeasonalHeart,
+	CallNightbird,
+	NightbirdWhispererHair,
+	NightbirdWhispererBlessing1,
+	NightbirdWhispererBlessing2,
+	NightbirdWhispererHairAccessory,
+	NightbirdWhispererOutfit,
+	NightbirdWhispererBlessing3,
+	NightbirdWhispererBlessing4,
+	NightbirdWhispererShoes,
+	NightbirdWhispererSeasonalHeart,
+	EmoteJollyDance1,
+	EmoteJollyDance2,
+	JollyGeologistFaceAccessory,
+	JollyGeologistHair,
+	EmoteJollyDance3,
+	EmoteJollyDance4,
+	JollyGeologistBlessing1,
+	JollyGeologistBlessing2,
+	JollyGeologistMusicSheet,
+	JollyGeologistProp,
+	JollyGeologistSeasonalHeart,
+	EmoteBlindfoldBalancePose1,
+	EmoteBlindfoldBalancePose2,
+	AsceticMonkBlessing1,
+	AsceticMonkMask,
+	AsceticMonkHair,
+	AsceticMonkBlessing2,
+	EmoteBlindfoldBalancePose3,
+	EmoteBlindfoldBalancePose4,
+	AsceticMonkOutfit,
+	AsceticMonkBlessing3,
+	AsceticMonkSeasonalHeart,
+
+	// 17/07/2023 | Sky Anniversary.
+	SkyAnniversaryHairAccessory4,
+	AnniversarySonorousSeashell,
+	AnniversaryPartyLights,
+	AnniversaryPlush,
+
+	// 20/07/2023 | Travelling Spirit #92.
+	GloatingNarcissistWingBuff,
+
+	// 31/07/2023 | Season of Moments Quest 2.
+	MomentsGuideQuest2,
+	MomentsGuideHeart2,
+	MomentsGuideDoubleFive,
+
+	// 03/08/2023 | Travelling Spirit #93.
+	ProphetOfFireProp,
+
+	// 07/08/2023 | Returning Spirits #4.
+	CacklingCannoneerWingBuff,
+
+	// 14/08/2023 | Season of Moments Quest 3.
+	MomentsGuideQuest3,
+	MomentsGuideHeart3,
+
+	// 17/08/2023 | Travelling Spirit #94.
+	LivelyNavigatorWingBuff,
+
+	// 23/08/2023 | AURORA Encore Concerts.
+	EmoteCureForMe1,
+	EmoteCureForMe2,
+	MusicalVoyageSneakers,
+
+	// 28/08/2023 | Season of Moments Quest 4.
+	MomentsGuideQuest4,
+	MomentsGuideHeart4,
+
+	// 11/09/2023 | Days of Sunlight.
+	SunlightPinkBeachTowelCape,
+	SunlightYellowBeachTowelCape,
+	SunlightBlueBeachTowelCape,
+	SunlightChunkySandals,
+	SunlightSurfboard,
+
+	// 14/09/2023 | Travelling Spirit #96.
+	StarCollectorWingBuff,
+
+	// 18/09/2023 | Season of Moments Quest 5.
+	MomentsGuideQuest5,
+	MomentsGuideHeart5,
+
+	// 02/10/2023 | Days of Style.
+	StyleTopHat,
+	StyleRunwayMask,
+	StyleStarSunglasses,
+	StyleSilkBalletSlippers,
+	StyleFlameSunglasses,
+	StyleHeartSunglasses,
+	StyleBunnySlippers,
+	StyleWideLegJeans,
+
+	// 16/10/2023 | Season of Revival.
+	HopefulStewardQuest1,
+	HopefulStewardHeart1,
+	RevivalPendant,
+	HopefulStewardUltimateHair,
+	HopefulStewardUltimateCape,
+	VestigeOfADesertedOasisHair,
+	VestigeOfADesertedOasisBlessing1,
+	VestigeOfADesertedOasisBlessing2,
+	VestigeOfADesertedOasisCape,
+	VestigeOfADesertedOasisShoes,
+	VestigeOfADesertedOasisBlessing3,
+	VestigeOfADesertedOasisSeasonalHeart,
+	MemoryOfALostVillageBlessing1,
+	MemoryOfALostVillageCape,
+	MemoryOfALostVillageOutfit,
+	MemoryOfALostVillageBlessing2,
+	MemoryOfALostVillageBlessing3,
+	MemoryOfALostVillageHair,
+	MemoryOfALostVillageSeasonalHeart,
+	EchoOfAnAbandonedRefugeBlessing1,
+	EchoOfAnAbandonedRefugeShoes,
+	EchoOfAnAbandonedRefugeMusicSheet,
+	EchoOfAnAbandonedRefugeBlessing2,
+	EchoOfAnAbandonedRefugeBlessing3,
+	EchoOfAnAbandonedRefugeCape,
+	EchoOfAnAbandonedRefugeHairAccessory,
+	EchoOfAnAbandonedRefugeBlessing4,
+	EchoOfAnAbandonedRefugeSeasonalHeart,
+	RemnantOfAForgottenHavenBlessing1,
+	RemnantOfAForgottenHavenShoes,
+	RemnantOfAForgottenHavenCape,
+	RemnantOfAForgottenHavenBlessing2,
+	RemnantOfAForgottenHavenBlessing3,
+	RemnantOfAForgottenHavenHairAccessory,
+	RemnantOfAForgottenHavenSeasonalHeart,
+
+	// 23/10/2023 | Season of Revival Quest 2.
+	HopefulStewardQuest2,
+	HopefulStewardHeart2,
+
+	// 23/10/2023 | Days of Mischief.
+	MischiefCrabkinAccessory,
+	MischiefGothBoots,
+	MischiefGothGarment,
+	MischiefGossamerCape,
+	MischiefCrabulaCloak,
+	MischiefCrabulaMask,
+
+	// 30/10/2023 | Season of Revival Quest 3.
+	HopefulStewardQuest3,
+	HopefulStewardHeart3,
+
+	// 09/11/2023 | Version 0.23.4
+	/**
+	 * Unlocked by default.
+	 */
+	BaseHair2,
+	/**
+	 * Unlocked by default.
+	 */
+	BaseHair3,
+
+	// 13/11/2023 | Season of Revival Quest 4.
+	HopefulStewardQuest4,
+	HopefulStewardHeart4,
+	HopefulStewardFriendActionHug,
+
+	// 20/11/2023 | Season of Revival Quest 5.
+	HopefulStewardQuest5,
+	HopefulStewardHeart5,
+
+	// 23/11/2023 | Travelling Spirit #101.
+	TalentedBuilderWingBuff,
+
+	// 27/11/2023 | Season of Revival Quest 6.
+	HopefulStewardQuest6,
+	HopefulStewardHeart6,
+
+	// 27/11/2023 | Aviary's Firework Festival.
+	FestivalEarrings,
+	FestivalSceptre,
+	MothAppreciationCape,
+	MothAppreciationAntennae,
+	SparrowAppreciationCape,
+	SparrowAppreciationMask,
+
+	// 04/12/2023 | Season of Revival Quest 7.
+	HopefulStewardQuest7,
+	HopefulStewardHeart7,
+
+	// 07/12/2023 | Travelling Spirit #102.
+	StretchingLamplighterWingBuff,
+
+	// 12/12/2023 | Season of Revival Quest 8.
+	HopefulStewardQuest8,
+	HopefulStewardHair,
+
+	// 18/12/2023 | Season of Revival Quest 9.
+	HopefulStewardQuest9,
+
+	// 18/12/2023 | Days of Feast.
+	WinterFeastSnowboard,
+	WinterPineConeHairClip,
+	CourseCreationProp,
+	CosyHermitBoots,
+	WinterQuiltedCape,
+
+	// 25/12/2023 | Season of Revival Quest 10.
+	HopefulStewardQuest10,
+
+	// 15/01/2024 | Season of the Nine-Coloured Deer.
+	GiftOfTheNineColouredDeer,
+	RadianceOfTheNineColouredDeer,
+	SpiritOfMuralQuest1,
+	SpiritOfMuralHeart1,
+	NineColouredDeerPendant,
+	SpiritOfMuralUltimateHair,
+	SpiritOfMuralUltimateOutfit,
+	SpiritOfMuralUltimateCape,
+	EmoteWhistle1,
+	EmoteWhistle2,
+	HerbGathererBlessing1,
+	HerbGathererOutfit,
+	HerbGathererHair,
+	HerbGathererBlessing2,
+	EmoteWhistle3,
+	EmoteWhistle4,
+	HerbGathererProp,
+	HerbGathererBlessing3,
+	HerbGathererSeasonalHeart,
+	EmoteFlex1,
+	EmoteFlex2,
+	HunterOutfit,
+	HunterBlessing1,
+	EmoteFlex3,
+	EmoteFlex4,
+	HunterBlessing2,
+	HunterHair,
+	HunterCape,
+	HunterBlessing3,
+	HunterSeasonalHeart,
+	FriendActionCradleCarry1,
+	FriendActionCradleCarry2,
+	FeudalLordBlessing1,
+	FeudalLordHairAccessory,
+	FeudalLordMask,
+	FeudalLordBlessing2,
+	FeudalLordBlessing3,
+	FeudalLordCape,
+	FeudalLordMusicSheet,
+	FeudalLordBlessing4,
+	FeudalLordSeasonalHeart,
+	EmoteFloatSpin1,
+	EmoteFloatSpin2,
+	PrincessMask,
+	PrincessBlessing1,
+	PrincessBlessing2,
+	PrincessHair,
+	EmoteFloatSpin3,
+	EmoteFloatSpin4,
+	PrincessOutfit,
+	PrincessBlessing3,
+	PrincessBlessing4,
+	PrincessCape,
+	PrincessSeasonalHeart,
+
+	// 18/01/2024 | Travelling Spirit #105.
+	AnxiousAnglerWingBuff,
+
+	// 29/01/2024 | Season of the Nine-Coloured Deer Quest 2.
+	SpiritOfMuralQuest2,
+	SpiritOfMuralHeart2,
+
+	// 29/01/2024 | Days of Fortune.
+	FortuneDragonMask,
+	FortuneDrum,
+	DaysOfFortuneDragonVestment,
+	DaysOfFortuneDragonStole,
+	DaysOfFortuneDragonBangles,
+
+	// 12/02/2024 | Season of the Nine-Coloured Deer Quest 3.
+	SpiritOfMuralQuest3,
+	SpiritOfMuralHairAccessory,
+
+	// 12/02/2024 | Days of Love.
+	LoveHeartPlushie,
+	LoveHeartBeret,
+	DaysofLoveMusicSheet,
+	DaysofLoveMeteorMantle,
+
+	// 27/02/2024 | Season of the Nine-Coloured Deer Quest 4.
+	SpiritOfMuralQuest4,
+	SpiritOfMuralHeart3,
+
+	// 29/02/2024 | Travelling Spirit #108.
+	LightWhispererWingBuff,
+
+	// 04/03/2024 | Spring Camping.
+	CeasingCommodoreWingBuff,
+	FranticStagehandWingBuff,
+
+	// 11/03/2024 | Season of the Nine-Coloured Deer Quest 5.
+	SpiritOfMuralQuest5,
+	SpiritOfMuralMask,
+
+	// 25/03/2024 | Days of Bloom.
+	BloomArumPetalHair,
+	BloomSpikySprigHair,
+	BloomArumPetalCape,
+	BloomLilypadUmbrella,
+
+	// 10/04/2024 | Steam release.
+	CompanionCube,
+
+	// 15/04/2024 | Season of Nesting.
+	NestingGuideQuest1,
+	StoneStool,
+	NestingGuideHeart1,
+	NestingPendant,
+	NestingGuideUltimateOutfit,
+	NestingGuideUltimateProp,
+	NestingSolariumBlessing1,
+	NestingSolariumProp1,
+	NestingSolariumProp2,
+	NestingSolariumBlessing2,
+	NestingSolariumBlessing3,
+	NestingSolariumProp3,
+	NestingSolariumProp4,
+	NestingSolariumBlessing4,
+	NestingSolariumSeasonalHeart,
+	NestingLoftBlessing1,
+	NestingLoftProp1,
+	NestingLoftProp2,
+	NestingLoftBlessing2,
+	NestingLoftBlessing3,
+	NestingLoftCape,
+	NestingLoftProp3,
+	NestingLoftBlessing4,
+	NestingLoftSeasonalHeart,
+	NestingAtriumProp1,
+	NestingAtriumBlessing1,
+	NestingAtriumBlessing2,
+	NestingAtriumProp2,
+	NestingAtriumHair,
+	NestingAtriumBlessing3,
+	NestingAtriumBlessing4,
+	NestingAtriumProp3,
+	NestingAtriumSeasonalHeart,
+	NestingNookProp1,
+	NestingNookBlessing1,
+	NestingNookBlessing2,
+	NestingNookProp2,
+	NestingNookProp3,
+	NestingNookBlessing3,
+	NestingNookBlessing4,
+	NestingNookHairAccessory,
+	NestingNookSeasonalHeart,
+
+	// 15/04/2024 | Nesting Workshop week 1.
+	StoneSingleBench,
+	StoneWoodFiredOven,
+	StoneTallCube,
+	StoneSingleBed,
+
+	// 22/04/2024 | Season of Nesting Quest 2.
+	NestingGuideQuest2,
+	NestingGuideHeart2,
+
+	// 22/04/2024 | Nesting Workshop week 2.
+	StoneChair,
+	StoneSmallTable,
+	DecorPillowOneColour,
+	StoneTallShelf,
+
+	// 25/04/2024 | Travelling Spirit #112.
+	DancingPerformerWingBuff,
+
+	// 27/04/2024 | Sky × Cinnamoroll Pop-Up Cafe.
+	CosyTeacupHeadband,
+	CosyCafeTable,
+	CinnamorollPopUpCafeSwirledHair,
+	CinnamorollPopUpCafeCinnamarollEars,
+	CinnamorollPopUpCafePlushie,
+	CinnamorollPopUpCafeMiniCompanion,
+	CinnamorollPopUpCafeBowtie,
+	CinnamorollPopUpCafeCloudCape,
+
+	// 29/04/2024 | Season of Nesting Quest 3.
+	NestingGuideQuest3,
+	NestingGuideHeart3,
+
+	// 29/04/2024 | Nesting Workshop week 3.
+	StoneBench,
+	StoneDesk,
+	DecorPillowTwoColour,
+	SmallSolidRug,
+
+	// 06/05/2024 | Nesting Workshop week 4.
+	StoneArmchair,
+	StoneConsoleTable,
+	DecorFoldedCloth,
+	SmallStripesRug,
+
+	// 13/05/2024 | Nesting Workshop week 5.
+	StoneLoveseat,
+	StoneRoundDiningTable,
+	StonePlantStand,
+	SmallClassicRug,
+
+	// 20/05/2024 | Nesting Workshop week 6.
+	StoneSofaCorner,
+	StoneSquareDiningTable,
+	StoneWallSconce,
+	SmallHalfCircleRug,
+
+	// 27/05/2024 | Season of Nesting Quest 4.
+	NestingGuideQuest4,
+	NestingGuideHeart4,
+
+	// 27/05/2024 | Days of Nature.
+	OceanMask,
+	OceanBlueScarf,
+	NatureWaveCape,
+	NatureWaveTouchedHair,
+
+	// 27/05/2024 | Nesting Workshop week 7.
+	StoneSofaSide,
+	StoneLongDiningTable,
+	StoneSmallBathtub,
+	MediumSolidRug,
+
+	// 27/05/2024 | Nesting Challenge Board.
+	StoneFigurine,
+
+	// 03/06/2024 | Nesting Workshop week 8.
+	StoneKichenDrawers,
+	StoneCoffeeTable,
+	StoneCandleLight,
+	MediumStripesRug,
+
+	// 03/06/2024 | Nesting Challenge Board.
+	InstrumentStand,
+
+	// 10/06/2024 | Season of Nesting Quest 5.
+	NestingGuideQuest5,
+	NestingGuideHeart5,
+
+	// 10/06/2024 | Nesting Workshop week 9.
+	StoneWallPotRack,
+	StoneClosedBox,
+	StoneWashstand,
+	MediumDiamondsRug,
+
+	// 10/06/2024 | Nesting Challenge Board.
+	MusicPlayer,
+
+	// 17/06/2024 | Nesting Workshop week 10.
+	StoneEmptyBox,
+	StoneWallMirror,
+	MediumArgyleRug,
+
+	// 24/06/2024 | Days of Colour.
+	DarkRainbowMask,
+	ColourGlamCut,
+	DarkRainbowLoafers,
+	ColourBubbleMachine,
+
+	// 24/06/2024 | Nesting Workshop week 11.
+	StoneWallMugRack,
+	StoneWallTowelRack,
+	MediumCircleRug,
+
+	// 01/07/2024 | Nesting Workshop week 12.
+	StoneKitchenCabinet,
+	StoneWallShelf,
+	LargeSolidRug,
+
+	// 08/07/2024 | Nesting Workshop week 13.
+	StoneKitchenStove,
+	StoneWideCube,
+	LargeBathtub,
+	LargeCircleRug,
+
+	// 12/07/2024 17:00 | SkyFest.
+	SkyFestStarJar,
+	SkyFest5thAnniversaryTShirt,
+	SkyFest5thAnniversaryHeadband,
+	SkyFestJenovaFan,
+	SkyFestOreoHeadband,
+	SkyFestWireframeCape,
+
+	// 15/07/2024 | Season of Duets.
+	DuetsGuideQuest1,
+	DuetsGuideMask,
+	DuetsPendant,
+	DuetsGuideUltimateProp1,
+	DuetsGuideUltimateCape,
+	DuetsGuideUltimateProp2,
+	ThePianistsBeginningsBlessing1,
+	ThePianistsBeginningsProp1,
+	ThePianistsBeginningsHair,
+	ThePianistsBeginningsBlessing2,
+	ThePianistsBeginningsBlessing3,
+	ThePianistsBeginningsOutfit,
+	ThePianistsBeginningsProp2,
+	ThePianistsBeginningsBlessing4,
+	ThePianistsBeginningsSeasonalHeart,
+	TheCellistsBeginningsHair,
+	TheCellistsBeginningsBlessing1,
+	TheCellistsBeginningsBlessing2,
+	TheCellistsBeginningsProp,
+	TheCellistsBeginningsOutfit,
+	TheCellistsBeginningsBlessing4,
+	TheCellistsBeginningsSeasonalHeart,
+	TheMusiciansLegacyMusicSheet,
+	TheMusiciansLegacyBlessing1,
+	TheMusiciansLegacyBlessing2,
+	TheMusiciansLegacyProp1,
+	TheMusiciansLegacyProp2,
+	TheMusiciansLegacyBlessing3,
+	TheMusiciansLegacySeasonalHeart,
+	TheCellistsFlourishingProp1,
+	TheCellistsFlourishingBlessing1,
+	TheCellistsFlourishingBlessing2,
+	TheCellistsFlourishingProp2,
+	TheCellistsFlourishingCape,
+	TheCellistsFlourishingBlessing3,
+	TheCellistsFlourishingBlessing4,
+	TheCellistsFlourishingOutfit,
+	TheCellistsFlourishingSeasonalHeart,
+	ThePianistsFlourishingBlessing1,
+	ThePianistsFlourishingProp,
+	ThePianistsFlourishingShoes,
+	ThePianistsFlourishingBlessing2,
+	ThePianistsFlourishingBlessing3,
+	ThePianistsFlourishingOutfit,
+	ThePianistsFlourishingSeasonalHeart,
+
+	// 29/07/2024 | Season of Duets Quest 2.
+	DuetsGuideQuest2,
+	DuetsGuideHeart1,
+
+	// 29/07/2024 | Tournament of Triumph.
+	TournamentCurls,
+	TournamentTorch,
+	TournamentGoldenGarland,
+	TournamentTunic,
+
+	// 01/08/2024 | Travelling Spirit #119.
+	MellowMusicianWingBuff,
+
+	// 12/08/2024 | Season of Duets Quest 3.
+	DuetsGuideQuest3,
+	DuetsGuideDuetBow1,
+
+	// 26/08/2024 | Season of Duets Quest 4.
+	DuetsGuideQuest4,
+	DuetsGuideDuetBow2,
+	CompassionateCellistSharedMemorySpell,
+	CompassionateCellistFaceAccessory,
+	CompassionateCellistHeart,
+	CompassionateCellistProp,
+
+	// 26/08/2024 | Days of Sunlight.
+	SunlightMantaFloat,
+	SunlightBeachShorts,
+	SunlightHeliosHoops,
+	SunlightWovenWrap,
+
+	// 09/09/2024 | Season of Duets Quest 5.
+	DuetsGuideQuest5,
+	DuetsGuideHeart2,
+
+	// 16/09/2024 | Days of Moonlight.
+	MoonlightBlossomAccessory,
+	MoonlightLanternDecoration,
+	MoonlightEarrings,
+	MoonlightFrock,
+	MoonlightUpdo,
+
+	// 16/09/2024 | Returning Spirits #6.
+	AncientLightJellyfishWingBuff,
+	AncientLightMantaWingBuff,
+	AncientDarknessPlantWingBuff,
+	AncientDarknessDragonWingBuff,
+
+	// 30/09/2024 || Days of Style.
+	StyleDarknessFascinator,
+	StyleDazzlingDress,
+	StyleDapperTrio,
+}
+
 export enum SeasonName {
 	Gratitude = "Season of Gratitude",
 	Lightseekers = "Season of Lightseekers",
@@ -443,14 +3117,14 @@ interface ItemCostEvent {
 
 export interface ItemRaw {
 	name: string;
-	bit: number;
+	cosmetic: Cosmetic | Cosmetic[];
 	cost?: ItemCostRaw;
 	emoji?: Emoji;
 }
 
 export interface Item {
 	name: string;
-	bit: number;
+	cosmetics: Cosmetic[];
 	cost: ItemCost | null;
 	emoji: Emoji | null;
 }
@@ -465,7 +3139,8 @@ export function resolveOffer(
 	{ seasonName, eventName }: ResolveOfferOptions = {},
 ) {
 	return items.map((item) => ({
-		...item,
+		name: item.name,
+		cosmetics: Array.isArray(item.cosmetic) ? item.cosmetic : [item.cosmetic],
 		// TypeScript states this is too complex to represent, so this is a workaround.
 		emoji: (item.emoji as Emoji) ?? null,
 		cost: item.cost
@@ -486,6 +3161,13 @@ export function resolveOffer(
 				}
 			: null,
 	}));
+}
+
+export function resolveAllCosmetics(items: readonly Item[]) {
+	return items.reduce<number[]>((total, { cosmetics }) => {
+		total.push(...cosmetics);
+		return total;
+	}, []);
 }
 
 export function addCosts(items: ItemCost[]) {

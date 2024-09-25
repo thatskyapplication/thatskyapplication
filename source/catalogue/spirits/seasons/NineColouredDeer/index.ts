@@ -1,6 +1,6 @@
 import { Season } from "../../../../Structures/Season.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { CAPE_EMOJIS, FACE_ACCESSORY_EMOJIS } from "../../../../Utility/emojis.js";
 import FeudalLord from "./FeudalLord.js";
@@ -18,13 +18,13 @@ export default new Season({
 	items: [
 		{
 			name: "Gift of the Nine-Coloured Deer",
-			bit: 1 << 0,
+			cosmetic: Cosmetic.GiftOfTheNineColouredDeer,
 			cost: { money: 14.99 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory34,
 		},
 		{
 			name: "Radiance of the Nine-Coloured Deer",
-			bit: 1 << 1,
+			cosmetic: Cosmetic.RadianceOfTheNineColouredDeer,
 			cost: { money: 19.99 },
 			emoji: CAPE_EMOJIS.Cape125,
 		},

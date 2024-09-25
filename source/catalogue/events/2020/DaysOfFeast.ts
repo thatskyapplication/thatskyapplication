@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -14,24 +14,34 @@ export default new Event({
 	end: skyDate(2_021, 1, 3),
 	offer: [
 		{
-			name: "Neck accessory",
-			bit: 1 << 0,
+			name: "Feast Neck Tie",
+			cosmetic: Cosmetic.FeastNeckTie,
 			cost: { hearts: 15 },
 			emoji: NECKLACE_EMOJIS.Necklace09,
 		},
-		{ name: "Cape", bit: 1 << 1, cost: { candles: 65 }, emoji: CAPE_EMOJIS.Cape41 },
 		{
-			name: "Prop",
-			bit: 1 << 2,
+			name: "Days of Feast Cape",
+			cosmetic: Cosmetic.DaysOfFeastCape,
+			cost: { candles: 65 },
+			emoji: CAPE_EMOJIS.Cape41,
+		},
+		{
+			name: "Days of Feast Table",
+			cosmetic: Cosmetic.DaysOfFeastTable,
 			cost: { candles: 150 },
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp03,
 		},
 		{
 			name: "Days of Feast Horns",
-			bit: 1 << 3,
+			cosmetic: Cosmetic.DaysOfFeastHorns,
 			cost: { money: 14.99 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory11,
 		},
-		{ name: "Snowflake Cape", bit: 1 << 4, cost: { money: 14.99 }, emoji: CAPE_EMOJIS.Cape42 },
+		{
+			name: "Snowflake Cape",
+			cosmetic: Cosmetic.SnowflakeCape,
+			cost: { money: 14.99 },
+			emoji: CAPE_EMOJIS.Cape42,
+		},
 	],
 });

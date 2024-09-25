@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	HAIR_EMOJIS,
@@ -30,29 +30,79 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ name: `${action} 1`, bit: 1 << 0, emoji: actionEmoji },
-			{ name: "Blessing 1", bit: 1 << 1, cost: { seasonalCandles: 4 }, emoji: blessing2 },
-			{ name: "Hair", bit: 1 << 8, emoji: hairEmoji },
-			{ name: "Mask", bit: 1 << 2, cost: { seasonalCandles: 6 }, emoji: maskEmoji },
-			{ name: `${action} 2`, bit: 1 << 6, emoji: actionEmoji },
-			{ name: "Blessing 2", bit: 1 << 5, cost: { seasonalCandles: 8 }, emoji: blessing2 },
-			{ name: "Flute", bit: 1 << 7, emoji: heldProp },
+			{ name: `${action} 1`, cosmetic: Cosmetic.FriendActionDoubleFive1, emoji: actionEmoji },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.DoublefiveLightCatcherBlessing1,
+				cost: { seasonalCandles: 4 },
+				emoji: blessing2,
+			},
+			{ name: "Hair", cosmetic: Cosmetic.DoublefiveLightCatcherHair, emoji: hairEmoji },
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.DoublefiveLightCatcherMask,
+				cost: { seasonalCandles: 6 },
+				emoji: maskEmoji,
+			},
+			{ name: `${action} 2`, cosmetic: Cosmetic.FriendActionDoubleFive2, emoji: actionEmoji },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.DoublefiveLightCatcherBlessing2,
+				cost: { seasonalCandles: 8 },
+				emoji: blessing2,
+			},
+			{ name: "Flute", cosmetic: Cosmetic.DoublefiveLightCatcherFlute, emoji: heldProp },
 		],
 		current: [
-			{ name: `${action} 1`, bit: 1 << 0, emoji: actionEmoji },
-			{ name: "Blessing 1", bit: 1 << 1, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Mask", bit: 1 << 2, cost: { candles: 24 }, emoji: maskEmoji },
-			{ name: "Heart", bit: 1 << 3, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: `${action} 1`, cosmetic: Cosmetic.FriendActionDoubleFive1, emoji: actionEmoji },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.DoublefiveLightCatcherBlessing1,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.DoublefiveLightCatcherMask,
+				cost: { candles: 24 },
+				emoji: maskEmoji,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.DoublefiveLightCatcherHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
 			{
 				name: "Wing buff",
-				bit: 1 << 4,
+				cosmetic: Cosmetic.DoublefiveLightCatcherWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
-			{ name: "Blessing 2", bit: 1 << 5, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: `${action} 2`, bit: 1 << 6, cost: { hearts: 7 }, emoji: actionEmoji },
-			{ name: "Flute", bit: 1 << 7, cost: { candles: 55 }, emoji: heldProp },
-			{ name: "Hair", bit: 1 << 8, cost: { candles: 34 }, emoji: hairEmoji },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.DoublefiveLightCatcherBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: `${action} 2`,
+				cosmetic: Cosmetic.FriendActionDoubleFive2,
+				cost: { hearts: 7 },
+				emoji: actionEmoji,
+			},
+			{
+				name: "Flute",
+				cosmetic: Cosmetic.DoublefiveLightCatcherFlute,
+				cost: { candles: 55 },
+				emoji: heldProp,
+			},
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.DoublefiveLightCatcherHair,
+				cost: { candles: 34 },
+				emoji: hairEmoji,
+			},
 		],
 	},
 	visits: {

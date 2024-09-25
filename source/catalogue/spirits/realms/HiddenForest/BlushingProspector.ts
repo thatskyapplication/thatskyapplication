@@ -1,5 +1,6 @@
 import { StandardSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
+import { Cosmetic } from "../../../../Utility/catalogue.js";
 import {
 	HAIR_EMOJIS,
 	HELD_PROPS_EMOJIS,
@@ -16,31 +17,61 @@ export default new StandardSpirit({
 	realm: RealmName.HiddenForest,
 	offer: {
 		current: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, cost: { candles: 3 }, emoji: emoteEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteBlush1, emoji: emoteEmoji },
+			{
+				name: `${emote} 2`,
+				cosmetic: Cosmetic.EmoteBlush2,
+				cost: { candles: 3 },
+				emoji: emoteEmoji,
+			},
 			{
 				name: "Blessing 1",
-				bit: 1 << 2,
+				cosmetic: Cosmetic.BlushingProspectorBlessing1,
 				cost: { candles: 1 },
 				emoji: MISCELLANEOUS_EMOJIS.Blessing1,
 			},
-			{ name: "Hair", bit: 1 << 3, cost: { hearts: 3 }, emoji: HAIR_EMOJIS.Hair11 },
-			{ name: "Heart", bit: 1 << 4, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.BlushingProspectorHair,
+				cost: { hearts: 3 },
+				emoji: HAIR_EMOJIS.Hair11,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.BlushingProspectorHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
 			{
 				name: "Wing buff",
-				bit: 1 << 5,
+				cosmetic: Cosmetic.BlushingProspectorWingBuff,
 				cost: { ascendedCandles: 1 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
-			{ name: `${emote} 3`, bit: 1 << 6, cost: { candles: 4 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 7, cost: { candles: 4 }, emoji: emoteEmoji },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteBlush3,
+				cost: { candles: 4 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: `${emote} 4`,
+				cosmetic: Cosmetic.EmoteBlush4,
+				cost: { candles: 4 },
+				emoji: emoteEmoji,
+			},
 			{
 				name: "Blessing 2",
-				bit: 1 << 8,
+				cosmetic: Cosmetic.BlushingProspectorBlessing2,
 				cost: { candles: 5 },
 				emoji: MISCELLANEOUS_EMOJIS.Blessing2,
 			},
-			{ name: "Drum", bit: 1 << 9, cost: { hearts: 5 }, emoji: HELD_PROPS_EMOJIS.HeldProp02 },
+			{
+				name: "Drum",
+				cosmetic: Cosmetic.BlushingProspectorDrum,
+				cost: { hearts: 5 },
+				emoji: HELD_PROPS_EMOJIS.HeldProp02,
+			},
 		],
 	},
 });

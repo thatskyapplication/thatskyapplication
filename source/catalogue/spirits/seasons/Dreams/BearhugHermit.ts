@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
@@ -32,38 +32,98 @@ export default new SeasonalSpirit({
 	hasMarketingVideo: true,
 	offer: {
 		seasonal: [
-			{ name: `${action} 1`, bit: 1 << 0, emoji: actionEmoji },
-			{ name: "Blessing 1", bit: 1 << 2, cost: { seasonalCandles: 13 }, emoji: blessing2 },
-			{ name: "Red horns", bit: 1 << 3, emoji: faceAccessoryEmoji },
-			{ name: "Blessing 2", bit: 1 << 6, cost: { seasonalCandles: 18 }, emoji: blessing2 },
-			{ name: "Music sheet", bit: 1 << 1, emoji: musicSheet },
-			{ name: "Blessing 3", bit: 1 << 10, cost: { seasonalCandles: 23 }, emoji: blessing2 },
-			{ name: `${action} 2`, bit: 1 << 7, emoji: actionEmoji },
-			{ name: "Hair", bit: 1 << 8, cost: { seasonalCandles: 29 }, emoji: hairEmoji },
-			{ name: "Outfit", bit: 1 << 9, emoji: outfitEmoji },
+			{ name: `${action} 1`, cosmetic: Cosmetic.FriendActionBearhug1, emoji: actionEmoji },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.BearhugHermitBlessing1,
+				cost: { seasonalCandles: 13 },
+				emoji: blessing2,
+			},
+			{ name: "Red horns", cosmetic: Cosmetic.BearhugHermitRedHorns, emoji: faceAccessoryEmoji },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.BearhugHermitBlessing2,
+				cost: { seasonalCandles: 18 },
+				emoji: blessing2,
+			},
+			{ name: "Music sheet", cosmetic: Cosmetic.BearhugHermitMusicSheet, emoji: musicSheet },
+			{
+				name: "Blessing 3",
+				cosmetic: Cosmetic.BearhugHermitBlessing3,
+				cost: { seasonalCandles: 23 },
+				emoji: blessing2,
+			},
+			{ name: `${action} 2`, cosmetic: Cosmetic.FriendActionBearhug2, emoji: actionEmoji },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.BearhugHermitHair,
+				cost: { seasonalCandles: 29 },
+				emoji: hairEmoji,
+			},
+			{ name: "Outfit", cosmetic: Cosmetic.BearhugHermitOutfit, emoji: outfitEmoji },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 4,
+				cosmetic: Cosmetic.BearhugHermitSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.DreamsHeart,
 			},
 		],
 		current: [
-			{ name: `${action} 1`, bit: 1 << 0, emoji: actionEmoji },
-			{ name: "Music sheet", bit: 1 << 1, cost: { candles: 15 }, emoji: musicSheet },
-			{ name: "Blessing 1", bit: 1 << 2, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Red horns", bit: 1 << 3, cost: { candles: 42 }, emoji: faceAccessoryEmoji },
-			{ name: "Heart", bit: 1 << 4, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{ name: `${action} 1`, cosmetic: Cosmetic.FriendActionBearhug1, emoji: actionEmoji },
+			{
+				name: "Music sheet",
+				cosmetic: Cosmetic.BearhugHermitMusicSheet,
+				cost: { candles: 15 },
+				emoji: musicSheet,
+			},
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.BearhugHermitBlessing1,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Red horns",
+				cosmetic: Cosmetic.BearhugHermitRedHorns,
+				cost: { candles: 42 },
+				emoji: faceAccessoryEmoji,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.BearhugHermitSeasonalHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
 			{
 				name: "Wing buff",
-				bit: 1 << 5,
+				cosmetic: Cosmetic.BearhugHermitWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
-			{ name: "Blessing 2", bit: 1 << 6, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: `${action} 2`, bit: 1 << 7, cost: { hearts: 8 }, emoji: actionEmoji },
-			{ name: "Hair", bit: 1 << 8, cost: { candles: 50 }, emoji: hairEmoji },
-			{ name: "Outfit", bit: 1 << 9, cost: { candles: 70 }, emoji: outfitEmoji },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.BearhugHermitBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: `${action} 2`,
+				cosmetic: Cosmetic.FriendActionBearhug2,
+				cost: { hearts: 8 },
+				emoji: actionEmoji,
+			},
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.BearhugHermitHair,
+				cost: { candles: 50 },
+				emoji: hairEmoji,
+			},
+			{
+				name: "Outfit",
+				cosmetic: Cosmetic.BearhugHermitOutfit,
+				cost: { candles: 70 },
+				emoji: outfitEmoji,
+			},
 		],
 	},
 	keywords: ["yeti"],

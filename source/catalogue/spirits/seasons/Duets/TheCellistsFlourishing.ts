@@ -1,5 +1,5 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
@@ -20,17 +20,41 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: "Prop 1", bit: 1 << 0, cost: { seasonalCandles: 16 }, emoji: SmallPlaceableProp77 },
-			{ name: "Blessing 1", bit: 1 << 1, emoji: blessing3 },
-			{ name: "Blessing 2", bit: 1 << 2, cost: { seasonalCandles: 18 }, emoji: blessing3 },
-			{ name: "Prop 2", bit: 1 << 3, emoji: SmallPlaceableProp78 },
-			{ name: "Cape", bit: 1 << 4, cost: { seasonalCandles: 22 }, emoji: capeEmoji },
-			{ name: "Blessing 3", bit: 1 << 5, emoji: blessing3 },
-			{ name: "Blessing 4", bit: 1 << 6, cost: { seasonalCandles: 24 }, emoji: blessing3 },
-			{ name: "Outfit", bit: 1 << 7, emoji: outfitEmoji },
+			{
+				name: "Prop 1",
+				cosmetic: Cosmetic.TheCellistsFlourishingProp1,
+				cost: { seasonalCandles: 16 },
+				emoji: SmallPlaceableProp77,
+			},
+			{ name: "Blessing 1", cosmetic: Cosmetic.TheCellistsFlourishingBlessing1, emoji: blessing3 },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.TheCellistsFlourishingBlessing2,
+				cost: { seasonalCandles: 18 },
+				emoji: blessing3,
+			},
+			{
+				name: "Prop 2",
+				cosmetic: Cosmetic.TheCellistsFlourishingProp2,
+				emoji: SmallPlaceableProp78,
+			},
+			{
+				name: "Cape",
+				cosmetic: Cosmetic.TheCellistsFlourishingCape,
+				cost: { seasonalCandles: 22 },
+				emoji: capeEmoji,
+			},
+			{ name: "Blessing 3", cosmetic: Cosmetic.TheCellistsFlourishingBlessing3, emoji: blessing3 },
+			{
+				name: "Blessing 4",
+				cosmetic: Cosmetic.TheCellistsFlourishingBlessing4,
+				cost: { seasonalCandles: 24 },
+				emoji: blessing3,
+			},
+			{ name: "Outfit", cosmetic: Cosmetic.TheCellistsFlourishingOutfit, emoji: outfitEmoji },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 8,
+				cosmetic: Cosmetic.TheCellistsFlourishingSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.DuetsHeart,
 			},

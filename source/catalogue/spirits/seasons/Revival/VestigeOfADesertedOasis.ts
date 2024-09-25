@@ -1,5 +1,5 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	HAIR_EMOJIS,
@@ -20,15 +20,30 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: "Hair", bit: 1 << 0, cost: { seasonalCandles: 16 }, emoji: hairEmoji },
-			{ name: "Blessing 1", bit: 1 << 1, emoji: blessing3 },
-			{ name: "Blessing 2", bit: 1 << 2, cost: { seasonalCandles: 28 }, emoji: blessing3 },
-			{ name: "Cape", bit: 1 << 3, emoji: capeEmoji },
-			{ name: "Shoes", bit: 1 << 4, cost: { seasonalCandles: 38 }, emoji: shoeEmoji },
-			{ name: "Blessing 3", bit: 1 << 5, emoji: blessing3 },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.VestigeOfADesertedOasisHair,
+				cost: { seasonalCandles: 16 },
+				emoji: hairEmoji,
+			},
+			{ name: "Blessing 1", cosmetic: Cosmetic.VestigeOfADesertedOasisBlessing1, emoji: blessing3 },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.VestigeOfADesertedOasisBlessing2,
+				cost: { seasonalCandles: 28 },
+				emoji: blessing3,
+			},
+			{ name: "Cape", cosmetic: Cosmetic.VestigeOfADesertedOasisCape, emoji: capeEmoji },
+			{
+				name: "Shoes",
+				cosmetic: Cosmetic.VestigeOfADesertedOasisShoes,
+				cost: { seasonalCandles: 38 },
+				emoji: shoeEmoji,
+			},
+			{ name: "Blessing 3", cosmetic: Cosmetic.VestigeOfADesertedOasisBlessing3, emoji: blessing3 },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 6,
+				cosmetic: Cosmetic.VestigeOfADesertedOasisSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.RevivalHeart,
 			},

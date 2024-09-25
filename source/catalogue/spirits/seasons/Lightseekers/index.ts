@@ -1,5 +1,5 @@
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { HELD_PROPS_EMOJIS, NECKLACE_EMOJIS } from "../../../../Utility/emojis.js";
 import CrabWhisperer from "./CrabWhisperer.js";
@@ -24,8 +24,12 @@ export default new Season({
 		ShushingLightScholar,
 	],
 	items: [
-		{ name: "Pendant", bit: 1 << 0, emoji: NECKLACE_EMOJIS.Necklace02 },
-		{ name: "Ultimate prop", bit: 1 << 1, emoji: HELD_PROPS_EMOJIS.HeldProp12 },
+		{ name: "Pendant", cosmetic: Cosmetic.LightseekerPendant, emoji: NECKLACE_EMOJIS.Necklace02 },
+		{
+			name: "Ultimate prop",
+			cosmetic: Cosmetic.LightseekerUltimateProp,
+			emoji: HELD_PROPS_EMOJIS.HeldProp12,
+		},
 	],
 	seasonalCandlesRotation: null,
 });

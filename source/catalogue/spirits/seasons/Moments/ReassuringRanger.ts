@@ -1,6 +1,6 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	FACE_ACCESSORY_EMOJIS,
@@ -27,24 +27,43 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: `${action} 1`, bit: 1 << 0, emoji: actionEmoji },
-			{ name: `${action} 2`, bit: 1 << 1, emoji: actionEmoji },
-			{ name: "Blessing 1", bit: 1 << 2, cost: { seasonalCandles: 16 }, emoji: blessing3 },
-			{ name: "Face accessory", bit: 1 << 3, emoji: faceAccessoryEmoji },
-			{ name: "Mask", bit: 1 << 4, cost: { seasonalCandles: 26 }, emoji: maskEmoji },
-			{ name: "Blessing 2", bit: 1 << 5, emoji: blessing3 },
-			{ name: "Blessing 3", bit: 1 << 6, cost: { seasonalCandles: 30 }, emoji: blessing3 },
-			{ name: "Cape", bit: 1 << 7, emoji: capeEmoji },
+			{ name: `${action} 1`, cosmetic: Cosmetic.FriendActionSideHug1, emoji: actionEmoji },
+			{ name: `${action} 2`, cosmetic: Cosmetic.FriendActionSideHug2, emoji: actionEmoji },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.ReassuringRangerBlessing1,
+				cost: { seasonalCandles: 16 },
+				emoji: blessing3,
+			},
+			{
+				name: "Face accessory",
+				cosmetic: Cosmetic.ReassuringRangerFaceAccessory,
+				emoji: faceAccessoryEmoji,
+			},
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.ReassuringRangerMask,
+				cost: { seasonalCandles: 26 },
+				emoji: maskEmoji,
+			},
+			{ name: "Blessing 2", cosmetic: Cosmetic.ReassuringRangerBlessing2, emoji: blessing3 },
+			{
+				name: "Blessing 3",
+				cosmetic: Cosmetic.ReassuringRangerBlessing3,
+				cost: { seasonalCandles: 30 },
+				emoji: blessing3,
+			},
+			{ name: "Cape", cosmetic: Cosmetic.ReassuringRangerCape, emoji: capeEmoji },
 			{
 				name: "Hair accessory",
-				bit: 1 << 8,
+				cosmetic: Cosmetic.ReassuringRangerHairAccessory,
 				cost: { seasonalCandles: 36 },
 				emoji: hairAccessoryEmoji,
 			},
-			{ name: "Blessing 4", bit: 1 << 9, emoji: blessing3 },
+			{ name: "Blessing 4", cosmetic: Cosmetic.ReassuringRangerBlessing4, emoji: blessing3 },
 			{
 				name: "Seasonal heart",
-				bit: 1 << 10,
+				cosmetic: Cosmetic.ReassuringRangerSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.MomentsHeart,
 			},

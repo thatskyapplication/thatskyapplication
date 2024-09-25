@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -32,41 +32,135 @@ export default new SeasonalSpirit({
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
 		seasonal: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, emoji: emoteEmoji },
-			{ name: "Hair", bit: 1 << 4, cost: { seasonalCandles: 12 }, emoji: hairEmoji },
-			{ name: "Blessing 1", bit: 1 << 3, emoji: blessing2 },
-			{ name: `${emote} 3`, bit: 1 << 7, cost: { seasonalCandles: 14 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 8, emoji: emoteEmoji },
-			{ name: "Blessing 2", bit: 1 << 9, cost: { seasonalCandles: 16 }, emoji: blessing2 },
-			{ name: "Cape", bit: 1 << 10, emoji: capeEmoji },
-			{ name: "Outfit", bit: 1 << 11, cost: { seasonalCandles: 18 }, emoji: outfitEmoji },
-			{ name: "Blessing 3", bit: 1 << 12, emoji: blessing2 },
+			{
+				name: `${emote} 1`,
+				cosmetic: Cosmetic.EmoteJuggle1,
+				emoji: emoteEmoji,
+			},
+			{
+				name: `${emote} 2`,
+				cosmetic: Cosmetic.EmoteJuggle2,
+				emoji: emoteEmoji,
+			},
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.TroupeJugglerHair,
+				cost: { seasonalCandles: 12 },
+				emoji: hairEmoji,
+			},
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.TroupeJugglerBlessing1,
+				emoji: blessing2,
+			},
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteJuggle3,
+				cost: { seasonalCandles: 14 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: `${emote} 4`,
+				cosmetic: Cosmetic.EmoteJuggle4,
+				emoji: emoteEmoji,
+			},
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.TroupeJugglerBlessing2,
+				cost: { seasonalCandles: 16 },
+				emoji: blessing2,
+			},
+			{ name: "Cape", cosmetic: Cosmetic.TroupeJugglerCape, emoji: capeEmoji },
+			{
+				name: "Outfit",
+				cosmetic: Cosmetic.TroupeJugglerOutfit,
+				cost: { seasonalCandles: 18 },
+				emoji: outfitEmoji,
+			},
+			{
+				name: "Blessing 3",
+				cosmetic: Cosmetic.TroupeJugglerBlessing3,
+				emoji: blessing2,
+			},
 			{
 				name: "Seasonal heart",
-				bit: 1 << 5,
+				cosmetic: Cosmetic.TroupeJugglerSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.RhythmHeart,
 			},
 		],
 		current: [
-			{ name: `${emote} 1`, bit: 1 << 0, emoji: emoteEmoji },
-			{ name: `${emote} 2`, bit: 1 << 1, cost: { hearts: 4 }, emoji: emoteEmoji },
-			{ name: "Prop", bit: 1 << 2, cost: { hearts: 14 }, emoji: placeablePropEmoji },
-			{ name: "Blessing 1", bit: 1 << 3, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Hair", bit: 1 << 4, cost: { candles: 42 }, emoji: hairEmoji },
-			{ name: "Heart", bit: 1 << 5, cost: { candles: 3 }, emoji: MISCELLANEOUS_EMOJIS.Heart },
+			{
+				name: `${emote} 1`,
+				cosmetic: Cosmetic.EmoteJuggle1,
+				emoji: emoteEmoji,
+			},
+			{
+				name: `${emote} 2`,
+				cosmetic: Cosmetic.EmoteJuggle2,
+				cost: { hearts: 4 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: "Prop",
+				cosmetic: Cosmetic.TroupeJugglerProp,
+				cost: { hearts: 14 },
+				emoji: placeablePropEmoji,
+			},
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.TroupeJugglerBlessing1,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.TroupeJugglerHair,
+				cost: { candles: 42 },
+				emoji: hairEmoji,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.TroupeJugglerSeasonalHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
 			{
 				name: "Wing buff",
-				bit: 1 << 6,
+				cosmetic: Cosmetic.TroupeJugglerWingBuff,
 				cost: { ascendedCandles: 2 },
 				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
-			{ name: `${emote} 3`, bit: 1 << 7, cost: { hearts: 3 }, emoji: emoteEmoji },
-			{ name: `${emote} 4`, bit: 1 << 8, cost: { hearts: 6 }, emoji: emoteEmoji },
-			{ name: "Blessing 2", bit: 1 << 9, cost: { candles: 5 }, emoji: blessing2 },
-			{ name: "Cape", bit: 1 << 10, cost: { candles: 75 }, emoji: capeEmoji },
-			{ name: "Outfit", bit: 1 << 11, cost: { candles: 75 }, emoji: outfitEmoji },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteJuggle3,
+				cost: { hearts: 3 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: `${emote} 4`,
+				cosmetic: Cosmetic.EmoteJuggle4,
+				cost: { hearts: 6 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.TroupeJugglerBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Cape",
+				cosmetic: Cosmetic.TroupeJugglerCape,
+				cost: { candles: 75 },
+				emoji: capeEmoji,
+			},
+			{
+				name: "Outfit",
+				cosmetic: Cosmetic.TroupeJugglerOutfit,
+				cost: { candles: 75 },
+				emoji: outfitEmoji,
+			},
 		],
 	},
 	visits: {

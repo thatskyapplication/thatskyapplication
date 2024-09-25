@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -12,16 +12,21 @@ export default new Event({
 	start: skyDate(2_023, 4, 20),
 	end: skyDate(2_023, 5, 7),
 	offer: [
-		{ name: "Nature School Cape", bit: 1 << 0, cost: { candles: 180 }, emoji: CAPE_EMOJIS.Cape105 },
+		{
+			name: "Nature School Cape",
+			cosmetic: Cosmetic.NatureSchoolCape,
+			cost: { candles: 180 },
+			emoji: CAPE_EMOJIS.Cape105,
+		},
 		{
 			name: "Nature Glasses Pack",
-			bit: 1 << 1,
+			cosmetic: Cosmetic.NatureGlasses,
 			cost: { money: 19.99 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory25,
 		},
 		{
 			name: "Nature Sonorous Seashell",
-			bit: 1 << 2,
+			cosmetic: Cosmetic.NatureSonorousSeashell,
 			cost: { money: 4.99 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp27,
 		},

@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
@@ -31,25 +31,25 @@ export default new Event({
 	offer: [
 		{
 			name: "Moonlight Blossom Accessory",
-			bit: 1 << 0,
+			cosmetic: Cosmetic.MoonlightBlossomAccessory,
 			cost: { eventCurrency: 17 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory45,
 		},
 		{
 			name: "Moonlight Lantern Decoration",
-			bit: 1 << 1,
+			cosmetic: Cosmetic.MoonlightLanternDecoration,
 			cost: { eventCurrency: 32 },
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp72,
 		},
 		{
 			name: "Moonlight Earrings",
-			bit: 1 << 2,
+			cosmetic: Cosmetic.MoonlightEarrings,
 			cost: { money: 2.99 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory38,
 		},
 		{
 			name: "Moonlight Frock and Updo",
-			bit: 1 << 3,
+			cosmetic: [Cosmetic.MoonlightFrock, Cosmetic.MoonlightUpdo],
 			cost: { money: 14.99 },
 			emoji: OUTFIT_EMOJIS.Outfit66,
 		},

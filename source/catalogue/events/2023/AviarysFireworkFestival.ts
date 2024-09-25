@@ -1,6 +1,6 @@
 import { Event } from "../../../Structures/Event.js";
 import { CDN_URL } from "../../../Utility/Constants.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import { FACE_ACCESSORY_EMOJIS, HELD_PROPS_EMOJIS } from "../../../Utility/emojis.js";
 
@@ -30,11 +30,16 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Face accessory",
-			bit: 1 << 0,
+			name: "Festival Earrings",
+			cosmetic: Cosmetic.FestivalEarrings,
 			cost: { eventCurrency: 15 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory33,
 		},
-		{ name: "Prop", bit: 1 << 1, cost: { eventCurrency: 36 }, emoji: HELD_PROPS_EMOJIS.HeldProp39 },
+		{
+			name: "Festival Sceptre",
+			cosmetic: Cosmetic.FestivalSceptre,
+			cost: { eventCurrency: 36 },
+			emoji: HELD_PROPS_EMOJIS.HeldProp39,
+		},
 	],
 });
