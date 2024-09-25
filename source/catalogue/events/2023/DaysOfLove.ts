@@ -13,19 +13,19 @@ export default new Event({
 	end: skyDate(2_023, 2, 26),
 	offer: [
 		{
-			name: "Day of Love Flowery Archway",
+			name: "Days of Love Flowery Archway",
 			cosmetic: Cosmetic.DaysOfLoveFloweryArchway,
 			cost: { candles: 100 },
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp31,
 		},
 		{
-			name: "Day of Love Classy Cravat",
+			name: "Days of Love Classy Cravat",
 			cosmetic: Cosmetic.DaysOfLoveClassyCravat,
 			cost: { money: 4.99 },
 			emoji: NECKLACE_EMOJIS.Necklace28,
 		},
 		{
-			name: "Day of Love Serendipitous Sceptre",
+			name: "Days of Love Serendipitous Sceptre",
 			cosmetic: Cosmetic.DaysOfLoveSerendipitousSceptre,
 			cost: { money: 14.99 },
 			emoji: HELD_PROPS_EMOJIS.HeldProp33,

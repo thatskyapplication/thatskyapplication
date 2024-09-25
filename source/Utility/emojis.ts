@@ -3003,7 +3003,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	LargePlaceableProp30: { name: "large_placeable_prop", id: "1229123814936412250" },
 	/**
-	 * Day of Love Flowery Archway.
+	 * Days of Love Flowery Archway.
 	 */
 	LargePlaceableProp31: { name: "large_placeable_prop", id: "1229124760064098484" },
 	/**
