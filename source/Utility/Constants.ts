@@ -149,6 +149,7 @@ export enum SkyMap {
 export const SKY_MAP_VALUES = Object.values(SkyMap);
 
 export const MEDITATION_MAPS = [
+	SkyMap.BirdNest,
 	SkyMap.ButterflyFields,
 	SkyMap.SanctuaryIslands,
 	SkyMap.Cave,

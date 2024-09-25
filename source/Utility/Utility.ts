@@ -48,6 +48,7 @@ export function resolveMeditationMap(map: MeditationMaps) {
 		case SkyMap.ForestBrook:
 		case SkyMap.Citadel:
 			return `above the ${map}`;
+		case SkyMap.BirdNest:
 		case SkyMap.SanctuaryIslands:
 		case SkyMap.Boneyard:
 		case SkyMap.ForestClearing:
