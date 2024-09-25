@@ -66,6 +66,10 @@ interface SeasonData {
 	 * The seasonal candles rotation.
 	 */
 	seasonalCandlesRotation: SeasonalCandlesRotation | null;
+	/**
+	 * The URL of the patch notes that introduce the season.
+	 */
+	patchNotesURL?: string;
 }
 
 export class Season {
@@ -95,6 +99,8 @@ export class Season {
 
 	private readonly seasonalCandlesRotation: SeasonalCandlesRotation | null;
 
+	public readonly patchNotesURL: string | null;
+
 	public constructor(data: SeasonData) {
 		this.name = data.name;
 		this.snakeCaseName = snakeCaseName(data.name);
@@ -109,6 +115,7 @@ export class Season {
 		this.emoji = SeasonNameToSeasonalEmoji[this.name];
 		this.candleEmoji = SeasonNameToSeasonalCandleEmoji[this.name];
 		this.seasonalCandlesRotation = data.seasonalCandlesRotation;
+		this.patchNotesURL = data.patchNotesURL ?? null;
 	}
 
 	public daysText(date: DateTime, locale: Locale) {

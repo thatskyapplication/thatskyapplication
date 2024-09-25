@@ -1960,9 +1960,14 @@ export class Catalogue {
 		return { remainingCurrency, offerDescription };
 	}
 
-	private seasonEmbed(season: Season, locale: Locale) {
+	private seasonEmbed(season: Season, locale: Locale, share = false) {
 		const description = [];
 		const remainingCurrencies = [];
+		const offerDescriptions = [];
+
+		if (!share && season.patchNotesURL) {
+			description.push(`-# [Patch Notes](${season.patchNotesURL})`);
+		}
 
 		const offers: [SpiritName | SeasonName, readonly Item[]][] = [
 			[season.guide.name, season.guide.current],
@@ -1981,7 +1986,7 @@ export class Catalogue {
 			const { remainingCurrency, offerDescription } = this.embedProgress(offer);
 			remainingCurrencies.push(remainingCurrency);
 
-			description.push(
+			offerDescriptions.push(
 				`__${
 					isSeasonName(index) ? "Items" : t(`spiritNames.${index}`, { lng: locale, ns: "general" })
 				}__\n${offerDescription.join("\n")}`,
@@ -1991,8 +1996,10 @@ export class Catalogue {
 		const totalRemainingCurrency = resolveCostToString(addCosts(remainingCurrencies));
 
 		if (totalRemainingCurrency.length > 0) {
-			description.unshift(`__Remaining Currency__\n${totalRemainingCurrency.join("")}`);
+			description.push(`__Remaining Currency__\n${totalRemainingCurrency.join("")}`);
 		}
+
+		description.push(...offerDescriptions);
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
@@ -2132,7 +2139,7 @@ export class Catalogue {
 			backButton.setCustomId(`${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${type}`).setEmoji(emoji);
 
 			embed = catalogue
-				.seasonEmbed(skySeasons().find((season) => season.name === type)!, locale)
+				.seasonEmbed(skySeasons().find((season) => season.name === type)!, locale, true)
 				.setTitle(
 					`${formatEmoji(emoji)} ${t(`seasons.${type}`, { lng: locale, ns: "general" })} Progress`,
 				);
