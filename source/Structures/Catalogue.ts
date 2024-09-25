@@ -154,7 +154,7 @@ export class Catalogue {
 	private ownedProgress(items: readonly Item[]) {
 		return {
 			owned: resolveAllCosmetics(items).filter((cosmetic) => this.data.includes(cosmetic)),
-			total: items.length,
+			total: items.reduce((total, item) => total + item.cosmetics.length, 0),
 		};
 	}
 
