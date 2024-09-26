@@ -157,6 +157,7 @@ export const MEDITATION_MAPS = [
 	SkyMap.ForestClearing,
 	SkyMap.ForestBrook,
 	SkyMap.ElevatedClearing,
+	SkyMap.ForestEnd,
 	SkyMap.Boneyard,
 	SkyMap.IceRink,
 	SkyMap.Citadel,

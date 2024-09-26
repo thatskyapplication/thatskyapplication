@@ -52,6 +52,7 @@ export function resolveMeditationMap(map: MeditationMaps) {
 		case SkyMap.SanctuaryIslands:
 		case SkyMap.Boneyard:
 		case SkyMap.ForestClearing:
+		case SkyMap.ForestEnd:
 		case SkyMap.Coliseum:
 		case SkyMap.VaultEntrance:
 		case SkyMap.VaultSummit:
