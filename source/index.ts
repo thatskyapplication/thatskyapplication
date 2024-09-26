@@ -2,14 +2,10 @@ import { stat, unlink, writeFile } from "node:fs/promises";
 import process from "node:process";
 import { inspect } from "node:util";
 import {
-	type ApplicationCommand,
 	type ApplicationCommandData,
-	type ApplicationCommandManager,
 	Client,
-	type Collection,
 	EmbedBuilder,
 	GatewayIntentBits,
-	type GuildApplicationCommandManager,
 	Locale,
 	Options,
 	Partials,
@@ -36,7 +32,6 @@ import zhTW from "./Locales/zh-TW.js";
 import {
 	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,
-	DEVELOPER_GUILD_ID,
 	MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID,
 	PRODUCTION,
 } from "./Utility/Constants.js";
@@ -163,30 +158,10 @@ class Caelus extends Client {
 		}
 	}
 
-	private async deployCommands(
-		commandManager: ApplicationCommandManager | GuildApplicationCommandManager,
-		fetchedCommands: Collection<Snowflake, ApplicationCommand>,
-		data: ApplicationCommandData[],
-	) {
-		return fetchedCommands.size !== data.length ||
-			fetchedCommands.some((fetchedCommand) => {
-				const localCommand = data.find(({ name }) => name === fetchedCommand.name);
-				return !(localCommand && fetchedCommand.equals(localCommand, true));
-			})
-			? commandManager.set(data)
-			: null;
-	}
-
 	public override async applyCommands() {
 		try {
 			if (!this.isReady()) {
 				throw new Error("Client applying commands when not ready.");
-			}
-
-			const developerGuild = this.guilds.cache.get(DEVELOPER_GUILD_ID);
-
-			if (!developerGuild) {
-				throw new Error("Could not find the developer guild.");
 			}
 
 			const fetchedGlobalCommands = await this.application.commands.fetch({
@@ -194,37 +169,53 @@ class Caelus extends Client {
 				withLocalizations: true,
 			});
 
-			const fetchedDeveloperCommands = await developerGuild.commands.fetch({
-				cache: false,
-				withLocalizations: true,
-			});
-
-			const globalCommandData = [];
-			const developerCommandData = [];
+			const globalCommandData: ApplicationCommandData[] = [];
+			const guildCommandData = new Map<Snowflake, ApplicationCommandData[]>();
 
 			for (const command of Object.values(commands)) {
-				if ("developer" in command && command.developer) {
-					developerCommandData.push(command.data);
+				if ("guilds" in command) {
+					for (const guildId of command.guilds) {
+						const guildCommands = guildCommandData.get(guildId);
+
+						if (guildCommands) {
+							guildCommands.push(command.data);
+						} else {
+							guildCommandData.set(guildId, [command.data]);
+						}
+					}
 				} else {
 					globalCommandData.push(command.data);
 				}
 			}
 
-			const [globalCommands, developerCommands] = await Promise.all([
-				this.deployCommands(this.application.commands, fetchedGlobalCommands, globalCommandData),
-				this.deployCommands(
-					developerGuild.commands,
-					fetchedDeveloperCommands,
-					developerCommandData,
-				),
-			]);
+			const promises = [];
 
-			if (globalCommands) {
-				pino.info("Set global commands.");
+			if (
+				fetchedGlobalCommands.size !== globalCommandData.length ||
+				fetchedGlobalCommands.some((fetchedGlobalCommand) => {
+					const localCommand = globalCommandData.find(
+						({ name }) => name === fetchedGlobalCommand.name,
+					);
+					return !(localCommand && fetchedGlobalCommand.equals(localCommand, true));
+				})
+			) {
+				promises.push(this.application.commands.set(globalCommandData));
 			}
 
-			if (developerCommands) {
-				pino.info("Set developer commands.");
+			for (const [guildId, data] of guildCommandData.entries()) {
+				promises.push(this.application.commands.set(data, guildId));
+			}
+
+			const commandsSettled = await Promise.allSettled(promises);
+
+			const commandsErrors = commandsSettled
+				.filter((result): result is PromiseRejectedResult => result.status === "rejected")
+				.map((result) => result.reason);
+
+			pino.info("Set commands.");
+
+			if (commandsErrors.length > 0) {
+				pino.error(commandsErrors, "Error setting commands.");
 			}
 
 			commands.sharderuption.id =

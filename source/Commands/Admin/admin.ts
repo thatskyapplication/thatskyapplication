@@ -31,6 +31,7 @@ import DailyGuides, {
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import {
 	CDN_BUCKET,
+	DEVELOPER_GUILD_ID,
 	LOCALES,
 	MAXIMUM_EMBED_FIELD_NAME_LENGTH,
 	MAXIMUM_EMBED_FIELD_VALUE_LENGTH,
@@ -157,7 +158,7 @@ export default new (class implements AutocompleteCommand {
 		defaultMemberPermissions: 0n,
 	} as const satisfies Readonly<ApplicationCommandData>;
 
-	public readonly developer = true;
+	public readonly guilds = [DEVELOPER_GUILD_ID];
 
 	public async autocomplete(interaction: AutocompleteInteraction) {
 		switch (interaction.options.getSubcommand()) {
