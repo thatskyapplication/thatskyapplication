@@ -410,6 +410,27 @@ export class Catalogue {
 			);
 		}
 
+		const currentReturningSpiritsButton = new ButtonBuilder()
+			.setCustomId(
+				currentReturningSpirits
+					? CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID
+					: // This would not happen, but it's here to satisfy the API.
+						`${CATALOGUE_VIEW_START_CUSTOM_ID}-returning`,
+			)
+			.setDisabled(!currentReturningSpirits)
+			.setLabel("Returning Spirits")
+			.setStyle(currentReturningSpirits ? ButtonStyle.Success : ButtonStyle.Secondary);
+
+		if (
+			currentReturningSpirits?.every(
+				(returningSpirit) => returningSpirit.season === currentReturningSpirits[0]!.season,
+			)
+		) {
+			currentReturningSpiritsButton.setEmoji(
+				SeasonNameToSeasonalEmoji[currentReturningSpirits[0]!.season],
+			);
+		}
+
 		const response = {
 			content: "",
 			components: [
@@ -466,16 +487,7 @@ export class Catalogue {
 				),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					currentTravellingSpiritButton,
-					new ButtonBuilder()
-						.setCustomId(
-							currentReturningSpirits
-								? CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID
-								: // This would not happen, but it's here to satisfy the API.
-									`${CATALOGUE_VIEW_START_CUSTOM_ID}-returning`,
-						)
-						.setDisabled(!currentReturningSpirits)
-						.setLabel("Returning Spirits")
-						.setStyle(currentReturningSpirits ? ButtonStyle.Success : ButtonStyle.Secondary),
+					currentReturningSpiritsButton,
 				),
 			],
 			embeds: [],
