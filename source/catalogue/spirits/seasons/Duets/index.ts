@@ -35,5 +35,6 @@ export default new Season({
 		{ rotation: 1, realm: RealmName.HiddenForest },
 		{ rotation: 1, realm: RealmName.ValleyOfTriumph },
 	],
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1330",
+	patchNotesURL:
+		"https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1330",
 });
