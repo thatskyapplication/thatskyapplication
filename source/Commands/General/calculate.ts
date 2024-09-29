@@ -419,7 +419,7 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		if (events.every(({ eventCurrency }) => now > eventCurrency.end)) {
+		if (events.every(({ eventCurrency }) => now.startOf("day") > eventCurrency.end)) {
 			await interaction.reply({ content: "There is no more event currency.", ephemeral: true });
 			return;
 		}

@@ -372,7 +372,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 						date >= lastTravelling &&
 						date <= lastTravelling.plus({ days: 3 }).endOf("day"),
 				),
-				returning: returning.some(({ start, end }) => date >= start && date <= end),
+				returning: returning.some(({ start, end }) => date >= start && date.startOf("day") <= end),
 			},
 		};
 	}

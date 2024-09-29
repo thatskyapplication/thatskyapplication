@@ -18,7 +18,7 @@ export function skyEventYears() {
 }
 
 export function skyCurrentEvents(date: DateTime) {
-	return EVENTS.filter(({ start, end }) => date >= start && date <= end) ?? null;
+	return EVENTS.filter(({ start, end }) => date >= start && date.startOf("day") <= end) ?? null;
 }
 
 export function skyNotEndedEvents(date: DateTime) {
