@@ -12,7 +12,7 @@ import WiseGrandparent from "./WiseGrandparent.js";
 export default new Season({
 	name: SeasonName.Belonging,
 	start: skyDate(2_019, 11, 18),
-	end: skyDate(2_020, 1, 12),
+	end: skyDate(2_020, 1, 13),
 	guide: BelongingGuide,
 	spirits: [
 		BoogieKid,

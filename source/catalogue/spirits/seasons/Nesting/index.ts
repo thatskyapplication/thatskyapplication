@@ -12,7 +12,7 @@ import NestingSolarium from "./NestingSolarium.js";
 export default new Season({
 	name: SeasonName.Nesting,
 	start: skyDate(2_024, 4, 15),
-	end: skyDate(2_024, 6, 30),
+	end: skyDate(2_024, 7, 1),
 	guide: NestingGuide,
 	spirits: [NestingSolarium, NestingLoft, NestingAtrium, NestingNook],
 	items: [

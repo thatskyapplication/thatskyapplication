@@ -409,7 +409,7 @@ export default class DailyGuidesDistribution {
 			const { candleEmoji, emoji } = season;
 			const seasonalCandlesRotation = season.resolveSeasonalCandlesRotation(today);
 			const values = [];
-			footerText.push(season.daysText(today, locale));
+			footerText.push(season.daysText(now, locale));
 			iconURL = formatEmojiURL(emoji.id);
 
 			if (seasonalCandlesRotation) {
@@ -448,7 +448,7 @@ export default class DailyGuidesDistribution {
 			const next = skyUpcomingSeason(today);
 
 			if (next) {
-				footerText.push(next.daysText(today, locale));
+				footerText.push(next.daysText(now, locale));
 			}
 		}
 

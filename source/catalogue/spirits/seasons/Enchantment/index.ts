@@ -12,7 +12,7 @@ import SnoozingCarpenter from "./SnoozingCarpenter.js";
 export default new Season({
 	name: SeasonName.Enchantment,
 	start: skyDate(2_020, 4, 20),
-	end: skyDate(2_020, 6, 21),
+	end: skyDate(2_020, 6, 22),
 	guide: EnchantmentGuide,
 	spirits: [
 		NoddingMuralist,

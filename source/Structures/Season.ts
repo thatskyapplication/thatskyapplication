@@ -45,7 +45,7 @@ interface SeasonData {
 	/**
 	 * The end date of the season.
 	 *
-	 * @remarks The end date is inclusive.
+	 * @remarks The end date is exclusive.
 	 */
 	end: DateTime;
 	/**
@@ -83,8 +83,6 @@ export class Season {
 
 	public readonly end: DateTime;
 
-	public readonly duration: number;
-
 	public readonly guide: GuideSpirit;
 
 	public readonly spirits: readonly SeasonalSpirit[];
@@ -107,7 +105,6 @@ export class Season {
 		this.wikiURL = wikiURL(data.name);
 		this.start = data.start;
 		this.end = data.end;
-		this.duration = this.end.diff(this.start, "days").days + 1;
 		this.guide = data.guide;
 		this.spirits = data.spirits;
 		this.items = data.items ? resolveOffer(data.items) : [];
@@ -120,30 +117,32 @@ export class Season {
 
 	public daysText(date: DateTime, locale: Locale) {
 		const { end, start } = this;
-		const daysLeft = Math.floor(end.diff(date, "days").days);
-		const daysUntilStart = Math.floor(start.diff(date, "days").days);
+		const daysLeft = end.diff(date, "days").days;
+		const daysUntilStart = start.diff(date, "days").days;
 
-		if (daysLeft < 0) {
-			return daysLeft === -1
+		if (daysLeft <= 0) {
+			return daysLeft === 0
 				? `The season ended ${Math.abs(daysLeft)} day ago.`
 				: `The season ended ${Math.abs(daysLeft)} days ago.`;
 		}
 
 		if (daysUntilStart > 0) {
-			return daysUntilStart === 1
-				? "The new season starts tomorrow."
-				: `The new season starts in ${daysUntilStart} days.`;
+			return daysUntilStart < 1
+				? "The new season starts today."
+				: daysUntilStart >= 2
+					? `The new season starts in ${Math.floor(daysUntilStart)} days.`
+					: "The new season starts tomorrow.";
 		}
 
-		return t("days-left.season", { lng: locale, ns: "general", count: daysLeft });
+		return t("days-left.season", { lng: locale, ns: "general", count: Math.ceil(daysLeft) - 1 });
 	}
 
 	public remainingSeasonalCandles(date: DateTime) {
-		const { end, duration, start } = this;
+		const { end, start } = this;
+		const duration = Math.ceil(this.end.diff(this.start, "days").days);
 
 		const seasonalDoubleLightEvent =
-			DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE >= start &&
-			DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE <= end;
+			DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE >= start && DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE < end;
 
 		// Calculate the total amount of seasonal candles.
 		let seasonalCandlesTotal = duration * SEASONAL_CANDLES_PER_DAY;

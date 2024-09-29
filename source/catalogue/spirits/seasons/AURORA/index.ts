@@ -17,7 +17,7 @@ import WarriorOfLove from "./WarriorOfLove.js";
 export default new Season({
 	name: SeasonName.AURORA,
 	start: skyDate(2_022, 10, 17),
-	end: skyDate(2_023, 1, 2),
+	end: skyDate(2_023, 1, 2, 2),
 	guide: AURORA,
 	spirits: [RunningWayfarer, MindfulMiner, WarriorOfLove, SeedOfHope],
 	items: [

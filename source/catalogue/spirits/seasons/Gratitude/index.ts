@@ -12,8 +12,8 @@ import StretchingGuru from "./StretchingGuru.js";
 
 export default new Season({
 	name: SeasonName.Gratitude,
-	start: skyDate(2_019, 7, 19),
-	end: skyDate(2_019, 9, 2),
+	start: skyDate(2_019, 7, 19, 12),
+	end: skyDate(2_019, 9, 2, 12),
 	guide: GratitudeGuide,
 	spirits: [
 		SassyDrifter,

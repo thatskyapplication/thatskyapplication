@@ -10,7 +10,7 @@ import CeasingCommodore from "./CeasingCommodore.js";
 export default new Season({
 	name: SeasonName.Abyss,
 	start: skyDate(2_022, 1, 17),
-	end: skyDate(2_022, 3, 27),
+	end: skyDate(2_022, 3, 28),
 	guide: AbyssGuide,
 	spirits: [AnxiousAngler, CeasingCommodore, BumblingBoatswain, CacklingCannoneer],
 	seasonalCandlesRotation: null,

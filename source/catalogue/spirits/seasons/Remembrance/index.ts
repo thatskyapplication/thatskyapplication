@@ -10,7 +10,7 @@ import WoundedWarrior from "./WoundedWarrior.js";
 export default new Season({
 	name: SeasonName.Remembrance,
 	start: skyDate(2_023, 1, 16),
-	end: skyDate(2_023, 4, 2),
+	end: skyDate(2_023, 4, 3),
 	guide: RemembranceGuide,
 	spirits: [BereftVeteran, PleadingChild, TiptoeingTeaBrewer, WoundedWarrior],
 	seasonalCandlesRotation: null,

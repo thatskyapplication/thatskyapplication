@@ -13,7 +13,7 @@ import TheRose from "./TheRose.js";
 export default new Season({
 	name: SeasonName.LittlePrince,
 	start: skyDate(2_021, 7, 6),
-	end: skyDate(2_021, 9, 19),
+	end: skyDate(2_021, 9, 20),
 	guide: TheRose,
 	spirits: [
 		BeckoningRuler,

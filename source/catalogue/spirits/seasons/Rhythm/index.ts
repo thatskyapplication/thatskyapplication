@@ -12,7 +12,7 @@ import TroupeJuggler from "./TroupeJuggler.js";
 export default new Season({
 	name: SeasonName.Rhythm,
 	start: skyDate(2_020, 1, 24),
-	end: skyDate(2_020, 4, 5),
+	end: skyDate(2_020, 4, 6),
 	guide: RhythmGuide,
 	spirits: [
 		TroupeGreeter,

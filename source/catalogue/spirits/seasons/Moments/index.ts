@@ -10,7 +10,7 @@ import ReassuringRanger from "./ReassuringRanger.js";
 export default new Season({
 	name: SeasonName.Moments,
 	start: skyDate(2_023, 7, 17),
-	end: skyDate(2_023, 10, 1),
+	end: skyDate(2_023, 10, 2),
 	guide: MomentsGuide,
 	spirits: [ReassuringRanger, NightbirdWhisperer, JollyGeologist, AsceticMonk],
 	seasonalCandlesRotation: null,

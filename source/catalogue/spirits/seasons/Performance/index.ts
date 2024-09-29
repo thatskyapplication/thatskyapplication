@@ -10,7 +10,7 @@ import PerformanceGuide from "./PerformanceGuide.js";
 export default new Season({
 	name: SeasonName.Performance,
 	start: skyDate(2_022, 4, 11),
-	end: skyDate(2_022, 6, 26),
+	end: skyDate(2_022, 6, 27),
 	guide: PerformanceGuide,
 	spirits: [FranticStagehand, ForgetfulStoryteller, MellowMusician, ModestDancer],
 	seasonalCandlesRotation: null,

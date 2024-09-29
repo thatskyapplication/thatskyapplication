@@ -13,7 +13,7 @@ import ThePianistsFlourishing from "./ThePianistsFlourishing.js";
 export default new Season({
 	name: SeasonName.Duets,
 	start: skyDate(2_024, 7, 15),
-	end: skyDate(2_024, 9, 29),
+	end: skyDate(2_024, 9, 30),
 	guide: DuetsGuide,
 	spirits: [
 		ThePianistsBeginnings,

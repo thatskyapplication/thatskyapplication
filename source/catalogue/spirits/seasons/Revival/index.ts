@@ -11,7 +11,7 @@ import VestigeOfADesertedOasis from "./VestigeOfADesertedOasis.js";
 export default new Season({
 	name: SeasonName.Revival,
 	start: skyDate(2_023, 10, 16),
-	end: skyDate(2_023, 12, 31),
+	end: skyDate(2_024, 1, 1),
 	guide: HopefulSteward,
 	spirits: [
 		VestigeOfADesertedOasis,

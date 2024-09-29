@@ -12,8 +12,8 @@ import TwirlingChampion from "./TwirlingChampion.js";
 
 export default new Season({
 	name: SeasonName.Lightseekers,
-	start: skyDate(2_019, 9, 23),
-	end: skyDate(2_019, 11, 10),
+	start: skyDate(2_019, 9, 23, 12),
+	end: skyDate(2_019, 11, 11, 12),
 	guide: LightseekerGuide,
 	spirits: [
 		PiggybackLightseeker,

@@ -12,7 +12,7 @@ import SpiritOfMural from "./SpiritOfMural.js";
 export default new Season({
 	name: SeasonName.NineColouredDeer,
 	start: skyDate(2_024, 1, 15),
-	end: skyDate(2_024, 3, 31),
+	end: skyDate(2_024, 4, 1),
 	guide: SpiritOfMural,
 	spirits: [HerbGatherer, Hunter, FeudalLord, Princess],
 	items: [

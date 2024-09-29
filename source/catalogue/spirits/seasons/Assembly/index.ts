@@ -12,7 +12,7 @@ import ScoldingStudent from "./ScoldingStudent.js";
 export default new Season({
 	name: SeasonName.Assembly,
 	start: skyDate(2_021, 4, 5),
-	end: skyDate(2_021, 6, 13),
+	end: skyDate(2_021, 6, 14),
 	guide: AssemblyGuide,
 	spirits: [
 		BaffledBotanist,
