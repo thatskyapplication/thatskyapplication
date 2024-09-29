@@ -2693,7 +2693,9 @@ export const enum Cosmetic {
 	// 30/09/2024 || Days of Style.
 	StyleDarknessFascinator = 2126,
 	StyleDazzlingDress = 2127,
-	StyleDapperTrio = 2128,
+	StyleDapperSuit = 2128,
+	StyleDapperMonocle = 2129,
+	StyleDapperNecktie = 2130,
 }
 
 export enum SeasonName {

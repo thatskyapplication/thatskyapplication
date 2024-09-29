@@ -1,6 +1,7 @@
 import { Event } from "../../../Structures/Event.js";
 import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
+import { HAIR_ACCESSORY_EMOJIS, OUTFIT_EMOJIS } from "../../../Utility/emojis.js";
 
 const eventCurrencyAmount = [];
 
@@ -27,16 +28,23 @@ export default new Event({
 			name: "Style Darkness Fascinator",
 			cosmetic: Cosmetic.StyleDarknessFascinator,
 			cost: { eventCurrency: 15 },
+			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory46,
 		},
 		{
 			name: "Style Dazzling Dress",
 			cosmetic: Cosmetic.StyleDazzlingDress,
 			cost: { eventCurrency: 34 },
+			emoji: OUTFIT_EMOJIS.Outfit67,
 		},
 		{
 			name: "Style Dapper Trio",
-			cosmetic: Cosmetic.StyleDapperTrio,
+			cosmetic: [
+				Cosmetic.StyleDapperSuit,
+				Cosmetic.StyleDapperMonocle,
+				Cosmetic.StyleDapperNecktie,
+			],
 			cost: { money: 14.99 },
+			emoji: OUTFIT_EMOJIS.Outfit68,
 		},
 	],
 });

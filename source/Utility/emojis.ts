@@ -578,6 +578,14 @@ export const OUTFIT_EMOJIS = {
 	 * Moonlight Frock.
 	 */
 	Outfit66: { name: "outfit", id: "1284892320499503196" },
+	/**
+	 * Style Dazzling Dress.
+	 */
+	Outfit67: { name: "outfit", id: "1290084795472416832" },
+	/**
+	 * Style Dapper Suit.
+	 */
+	Outfit68: { name: "outfit", id: "1290085603282522162" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -1186,6 +1194,10 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 * Moonlight earrings.
 	 */
 	FaceAccessory38: { name: "face_accessory", id: "1284889523100188682" },
+	/**
+	 * Style Dapper Monocle.
+	 */
+	FaceAccessory39: { name: "face_accessory", id: "1290086047350263868" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type FaceAccessoryEmojis = (typeof FACE_ACCESSORY_EMOJIS)[keyof typeof FACE_ACCESSORY_EMOJIS];
@@ -1342,6 +1354,10 @@ export const NECKLACE_EMOJIS = {
 	 * Duets Pendant.
 	 */
 	Necklace37: { name: "necklace", id: "1262138841599574069" },
+	/**
+	 * Style Dapper Necktie.
+	 */
+	Necklace38: { name: "necklace", id: "1290086442625798186" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
@@ -2134,6 +2150,10 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 * Moonlight Blossom Accessory.
 	 */
 	HairAccessory45: { name: "hair_accessory", id: "1284888393884500141" },
+	/**
+	 * Style Darkness Fascinator.
+	 */
+	HairAccessory46: { name: "hair_accessory", id: "1290085249769803817" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
