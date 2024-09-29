@@ -35,12 +35,12 @@ interface ReturningDatesData {
 }
 
 const RETURNING_DATES = new Collection<SeasonalSpiritVisitCollectionKey, ReturningDatesData>()
-	.set(1, { start: skyDate(2_023, 3, 6), end: skyDate(2_023, 3, 19) })
-	.set(2, { start: skyDate(2_023, 5, 15), end: skyDate(2_023, 5, 21) })
-	.set(3, { start: skyDate(2_023, 7, 3), end: skyDate(2_023, 7, 16) })
-	.set(4, { start: skyDate(2_023, 8, 7), end: skyDate(2_023, 8, 13) })
-	.set(5, { start: skyDate(2_024, 3, 4), end: skyDate(2_024, 3, 17) })
-	.set(6, { start: skyDate(2_024, 9, 16), end: skyDate(2_024, 9, 29) });
+	.set(1, { start: skyDate(2_023, 3, 6), end: skyDate(2_023, 3, 20) })
+	.set(2, { start: skyDate(2_023, 5, 15), end: skyDate(2_023, 5, 22) })
+	.set(3, { start: skyDate(2_023, 7, 3), end: skyDate(2_023, 7, 17) })
+	.set(4, { start: skyDate(2_023, 8, 7), end: skyDate(2_023, 8, 14) })
+	.set(5, { start: skyDate(2_024, 3, 4), end: skyDate(2_024, 3, 18) })
+	.set(6, { start: skyDate(2_024, 9, 16), end: skyDate(2_024, 9, 30) });
 
 interface BaseFriendshipTreeOfferData {
 	hasInfographic?: boolean;
@@ -368,11 +368,9 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 			),
 			current: {
 				travelling: Boolean(
-					lastTravelling &&
-						date >= lastTravelling &&
-						date <= lastTravelling.plus({ days: 3 }).endOf("day"),
+					lastTravelling && date >= lastTravelling && date < lastTravelling.plus({ days: 4 }),
 				),
-				returning: returning.some(({ start, end }) => date >= start && date.startOf("day") <= end),
+				returning: returning.some(({ start, end }) => date >= start && date < end),
 			},
 		};
 	}
