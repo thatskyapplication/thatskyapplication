@@ -34,7 +34,7 @@ interface EventData {
 	/**
 	 * The end date of the event.
 	 *
-	 * @remarks The end date is inclusive.
+	 * @remarks The end date is exclusive.
 	 */
 	end: DateTime;
 	/**
