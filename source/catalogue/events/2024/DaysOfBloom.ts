@@ -8,7 +8,7 @@ import { CAPE_EMOJIS, HAIR_EMOJIS, HELD_PROPS_EMOJIS } from "../../../Utility/em
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfBloom2024,
 	start: skyDate(2_024, 3, 25),
-	end: skyDate(2_024, 4, 14),
+	end: skyDate(2_024, 4, 15),
 	eventCurrency: {
 		amount: [
 			{

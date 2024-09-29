@@ -12,8 +12,8 @@ import {
 const eventCurrencyAmount = [];
 
 for (
-	let start = skyDate(2_024, 2, 12), end = skyDate(2_024, 2, 25);
-	start <= end;
+	let start = skyDate(2_024, 2, 12), end = skyDate(2_024, 2, 26);
+	start < end;
 	start = start.plus({ days: 1 })
 ) {
 	eventCurrencyAmount.push({
@@ -26,7 +26,7 @@ for (
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfLove2024,
 	start: skyDate(2_024, 2, 12),
-	end: skyDate(2_024, 2, 25),
+	end: skyDate(2_024, 2, 26),
 	eventCurrency: {
 		amount: eventCurrencyAmount,
 	},

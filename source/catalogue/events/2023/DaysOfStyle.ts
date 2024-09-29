@@ -12,8 +12,8 @@ import {
 const eventCurrencyAmount = [];
 
 for (
-	let start = skyDate(2_023, 10, 2), end = skyDate(2_023, 10, 15);
-	start <= end;
+	let start = skyDate(2_023, 10, 2), end = skyDate(2_023, 10, 16);
+	start < end;
 	start = start.plus({ days: 1 })
 ) {
 	eventCurrencyAmount.push({ date: start, amount: 5 });
@@ -22,7 +22,7 @@ for (
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfStyle2023,
 	start: skyDate(2_023, 10, 2),
-	end: skyDate(2_023, 10, 15),
+	end: skyDate(2_023, 10, 16),
 	eventCurrency: {
 		amount: eventCurrencyAmount,
 	},

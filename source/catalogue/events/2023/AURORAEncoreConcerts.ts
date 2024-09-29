@@ -10,7 +10,7 @@ const emoteEmoji = SpiritEmoteToEmoji[emote];
 export default new Event({
 	nameUnique: EventNameUnique.AURORAEncoreConcerts2023,
 	start: skyDate(2_023, 8, 23),
-	end: skyDate(2_023, 9, 3),
+	end: skyDate(2_023, 9, 4),
 	offer: [
 		{
 			name: `${emote} 1`,

@@ -10,7 +10,7 @@ import {
 export default new Event({
 	nameUnique: EventNameUnique.HarmonyHallGrandOpening2022,
 	start: skyDate(2_022, 5, 23),
-	end: skyDate(2_022, 6, 5),
+	end: skyDate(2_022, 6, 6),
 	offer: [
 		{
 			name: "Hair accessory",

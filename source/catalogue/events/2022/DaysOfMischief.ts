@@ -6,7 +6,7 @@ import { CAPE_EMOJIS, HAIR_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../..
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfMischief2022,
 	start: skyDate(2_022, 10, 24),
-	end: skyDate(2_022, 11, 13),
+	end: skyDate(2_022, 11, 14),
 	offer: [
 		{
 			name: "Mischief Tufted Hair",

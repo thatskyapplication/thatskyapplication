@@ -5,5 +5,5 @@ import { skyDate } from "../../../Utility/dates.js";
 export default new Event({
 	nameUnique: EventNameUnique.LazyDays2022,
 	start: skyDate(2_022, 9, 26),
-	end: skyDate(2_022, 10, 16),
+	end: skyDate(2_022, 10, 17),
 });

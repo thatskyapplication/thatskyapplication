@@ -6,7 +6,7 @@ import { CAPE_EMOJIS, FACE_ACCESSORY_EMOJIS, OUTFIT_EMOJIS } from "../../../Util
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfColour2023,
 	start: skyDate(2_023, 6, 1),
-	end: skyDate(2_023, 6, 14),
+	end: skyDate(2_023, 6, 15),
 	offer: [
 		{
 			name: "Dark Rainbow Cape",

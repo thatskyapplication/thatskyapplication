@@ -6,7 +6,7 @@ import { HELD_PROPS_EMOJIS, MASK_EMOJIS, OUTFIT_EMOJIS } from "../../../Utility/
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfFortune2023,
 	start: skyDate(2_023, 1, 20),
-	end: skyDate(2_023, 2, 2),
+	end: skyDate(2_023, 2, 3),
 	offer: [
 		{
 			name: "Days of Fortune Rabbit Mask",

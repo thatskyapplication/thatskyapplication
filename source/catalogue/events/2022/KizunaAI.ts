@@ -6,7 +6,7 @@ import { HAIR_EMOJIS } from "../../../Utility/emojis.js";
 export default new Event({
 	nameUnique: EventNameUnique.KizunaAI2022,
 	start: skyDate(2_022, 2, 25),
-	end: skyDate(2_022, 3, 10),
+	end: skyDate(2_022, 3, 11),
 	offer: [
 		{
 			name: "Kizuna AI Pack",

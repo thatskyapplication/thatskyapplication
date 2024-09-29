@@ -6,7 +6,7 @@ import { CAPE_EMOJIS, HAIR_ACCESSORY_EMOJIS, NECKLACE_EMOJIS } from "../../../Ut
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfNature2022,
 	start: skyDate(2_022, 4, 18),
-	end: skyDate(2_022, 5, 1),
+	end: skyDate(2_022, 5, 2),
 	offer: [
 		{
 			name: "Nature Coral Crown",

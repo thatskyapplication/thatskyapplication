@@ -6,7 +6,7 @@ import { CAPE_EMOJIS, NECKLACE_EMOJIS } from "../../../Utility/emojis.js";
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfNature2021,
 	start: skyDate(2_021, 4, 19),
-	end: skyDate(2_021, 5, 2),
+	end: skyDate(2_021, 5, 3),
 	offer: [
 		{
 			name: "Ocean Necklace",

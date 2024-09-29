@@ -23,7 +23,7 @@ eventCurrencyAmount.push({ date: skyDate(2_024, 8, 18), amount: 5 });
 export default new Event({
 	nameUnique: EventNameUnique.TournamentOfTriumph2024,
 	start: skyDate(2_024, 7, 29),
-	end: skyDate(2_024, 8, 18),
+	end: skyDate(2_024, 8, 19),
 	eventCurrency: {
 		amount: eventCurrencyAmount,
 		pool: [

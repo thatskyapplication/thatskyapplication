@@ -6,7 +6,7 @@ import { CAPE_EMOJIS, LARGE_PLACEABLE_PROPS_EMOJIS } from "../../../Utility/emoj
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfBloom2022,
 	start: skyDate(2_022, 3, 28),
-	end: skyDate(2_022, 4, 10),
+	end: skyDate(2_022, 4, 11),
 	offer: [
 		{
 			name: "Purple Bloom Cape",

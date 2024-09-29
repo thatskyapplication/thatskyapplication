@@ -279,7 +279,7 @@ export default class DailyGuidesDistribution {
 
 	public static eventData(date: DateTime, locale: Locale) {
 		const events = skyCurrentEvents(date);
-		const eventEndText = skyNotEndedEvents(date).map((event) => event.daysText(date));
+		const eventEndText = skyNotEndedEvents(date).map((event) => event.daysText(date, locale));
 		const event0 = events[0];
 
 		const iconURL = event0?.eventCurrency?.emoji

@@ -6,7 +6,7 @@ import { HAIR_EMOJIS } from "../../../Utility/emojis.js";
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfFeast2019,
 	start: skyDate(2_019, 12, 22),
-	end: skyDate(2_020, 1, 2),
+	end: skyDate(2_020, 1, 3),
 	offer: [
 		{
 			name: "Days of Feast Pack",

@@ -6,7 +6,7 @@ import { HELD_PROPS_EMOJIS } from "../../../Utility/emojis.js";
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfSummerLights2020,
 	start: skyDate(2_020, 9, 8),
-	end: skyDate(2_020, 9, 20),
+	end: skyDate(2_020, 9, 21),
 	offer: [
 		{
 			name: "Days of Summer Lights Pack",

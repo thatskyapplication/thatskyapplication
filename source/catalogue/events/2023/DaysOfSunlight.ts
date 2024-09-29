@@ -6,8 +6,8 @@ import { CAPE_EMOJIS, SHOE_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../..
 const eventCurrencyAmount = [];
 
 for (
-	let start = skyDate(2_023, 9, 11), end = skyDate(2_023, 9, 24);
-	start <= end;
+	let start = skyDate(2_023, 9, 11), end = skyDate(2_023, 9, 25);
+	start < end;
 	start = start.plus({ days: 1 })
 ) {
 	eventCurrencyAmount.push({ date: start, amount: 6 });
@@ -16,7 +16,7 @@ for (
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfSunlight2023,
 	start: skyDate(2_023, 9, 11),
-	end: skyDate(2_023, 9, 24),
+	end: skyDate(2_023, 9, 25),
 	eventCurrency: {
 		amount: eventCurrencyAmount,
 	},

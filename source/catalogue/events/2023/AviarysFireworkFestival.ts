@@ -7,8 +7,8 @@ import { CAPE_EMOJIS, FACE_ACCESSORY_EMOJIS, HELD_PROPS_EMOJIS } from "../../../
 const eventCurrencyAmount = [];
 
 for (
-	let start = skyDate(2_023, 11, 27), end = skyDate(2_023, 12, 11);
-	start <= end;
+	let start = skyDate(2_023, 11, 27), end = skyDate(2_023, 12, 12);
+	start < end;
 	start = start.plus({ days: 1 })
 ) {
 	eventCurrencyAmount.push({
@@ -23,10 +23,10 @@ for (
 export default new Event({
 	nameUnique: EventNameUnique.AviarysFireworkFestival2023,
 	start: skyDate(2_023, 11, 27),
-	end: skyDate(2_023, 12, 17),
+	end: skyDate(2_023, 12, 18),
 	eventCurrency: {
 		amount: eventCurrencyAmount,
-		end: skyDate(2_023, 12, 11),
+		end: skyDate(2_023, 12, 12),
 	},
 	offer: [
 		{

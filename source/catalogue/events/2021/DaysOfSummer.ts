@@ -10,7 +10,7 @@ import {
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfSummer2021,
 	start: skyDate(2_021, 8, 12),
-	end: skyDate(2_021, 8, 25),
+	end: skyDate(2_021, 8, 26),
 	offer: [
 		{
 			name: "Double Deck Chairs",

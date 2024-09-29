@@ -10,7 +10,7 @@ import {
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfNature2023,
 	start: skyDate(2_023, 4, 20),
-	end: skyDate(2_023, 5, 7),
+	end: skyDate(2_023, 5, 8),
 	offer: [
 		{
 			name: "Nature School Cape",

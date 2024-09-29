@@ -13,8 +13,8 @@ import {
 const eventCurrencyAmount = [];
 
 for (
-	let start = skyDate(2_023, 10, 23), end = skyDate(2_023, 11, 12);
-	start <= end;
+	let start = skyDate(2_023, 10, 23), end = skyDate(2_023, 11, 13);
+	start < end;
 	start = start.plus({ days: 1 })
 ) {
 	eventCurrencyAmount.push({
@@ -27,7 +27,7 @@ for (
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfMischief2023,
 	start: skyDate(2_023, 10, 23),
-	end: skyDate(2_023, 11, 12),
+	end: skyDate(2_023, 11, 13),
 	eventCurrency: {
 		amount: eventCurrencyAmount,
 	},

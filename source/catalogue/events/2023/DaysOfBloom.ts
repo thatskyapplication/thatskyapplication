@@ -11,7 +11,7 @@ import {
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfBloom2023,
 	start: skyDate(2_023, 3, 20),
-	end: skyDate(2_023, 4, 9),
+	end: skyDate(2_023, 4, 10),
 	offer: [
 		{
 			name: "Red Bloom Cape",

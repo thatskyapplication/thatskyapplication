@@ -13,7 +13,7 @@ import {
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfMischief2021,
 	start: skyDate(2_021, 10, 18),
-	end: skyDate(2_021, 11, 7),
+	end: skyDate(2_021, 11, 8),
 	offer: [
 		{
 			name: "Mischief Witch Hair",

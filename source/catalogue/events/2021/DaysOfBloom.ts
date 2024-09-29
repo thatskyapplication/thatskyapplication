@@ -6,7 +6,7 @@ import { CAPE_EMOJIS, HAIR_EMOJIS, LARGE_PLACEABLE_PROPS_EMOJIS } from "../../..
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfBloom2021,
 	start: skyDate(2_021, 3, 22),
-	end: skyDate(2_021, 4, 4),
+	end: skyDate(2_021, 4, 5),
 	offer: [
 		{
 			name: "Bloom Hair",

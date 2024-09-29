@@ -10,7 +10,7 @@ import {
 export default new Event({
 	nameUnique: EventNameUnique.SkyAnniversary2023,
 	start: skyDate(2_023, 7, 17),
-	end: skyDate(2_023, 7, 30),
+	end: skyDate(2_023, 7, 31),
 	offer: [
 		{
 			name: "Hair accessory",

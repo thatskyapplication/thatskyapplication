@@ -392,7 +392,7 @@ export default new (class implements ChatInputCommand {
 	}
 
 	public async eventCurrency(interaction: ChatInputCommandInteraction) {
-		const { options } = interaction;
+		const { locale, options } = interaction;
 		const start = options.getInteger("start", true);
 		const goal = options.getInteger("goal", true);
 
@@ -419,7 +419,7 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		if (events.every(({ eventCurrency }) => now.startOf("day") > eventCurrency.end)) {
+		if (events.every(({ eventCurrency }) => now >= eventCurrency.end)) {
 			await interaction.reply({ content: "There is no more event currency.", ephemeral: true });
 			return;
 		}
@@ -464,7 +464,7 @@ export default new (class implements ChatInputCommand {
 			.setTitle("Event Currency Calculator");
 
 		const footer: EmbedFooterOptions = {
-			text: events.map((event) => event.daysText(now)).join("\n"),
+			text: events.map((event) => event.daysText(now, locale)).join("\n"),
 		};
 
 		const event0 = events[0];

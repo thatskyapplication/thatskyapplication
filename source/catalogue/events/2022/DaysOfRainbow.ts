@@ -10,7 +10,7 @@ import {
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfRainbow2022,
 	start: skyDate(2_022, 6, 30),
-	end: skyDate(2_022, 7, 13),
+	end: skyDate(2_022, 7, 14),
 	offer: [
 		{
 			name: "Rainbow Trousers",

@@ -13,7 +13,7 @@ import {
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfFeast2021,
 	start: skyDate(2_021, 12, 20),
-	end: skyDate(2_022, 1, 9),
+	end: skyDate(2_022, 1, 10),
 	offer: [
 		{
 			name: "Ode to Joy music sheet",

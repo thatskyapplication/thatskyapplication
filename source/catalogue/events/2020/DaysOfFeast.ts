@@ -11,7 +11,7 @@ import {
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfFeast2020,
 	start: skyDate(2_020, 12, 21),
-	end: skyDate(2_021, 1, 3),
+	end: skyDate(2_021, 1, 4),
 	offer: [
 		{
 			name: "Feast Neck Tie",

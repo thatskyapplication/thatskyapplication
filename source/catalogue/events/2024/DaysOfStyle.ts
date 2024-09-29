@@ -5,8 +5,8 @@ import { skyDate } from "../../../Utility/dates.js";
 const eventCurrencyAmount = [];
 
 for (
-	let start = skyDate(2_024, 9, 30), end = skyDate(2_024, 10, 13);
-	start <= end;
+	let start = skyDate(2_024, 9, 30), end = skyDate(2_024, 10, 14);
+	start < end;
 	start = start.plus({ days: 1 })
 ) {
 	eventCurrencyAmount.push({
@@ -18,7 +18,7 @@ for (
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfStyle2024,
 	start: skyDate(2_024, 9, 30),
-	end: skyDate(2_024, 10, 13),
+	end: skyDate(2_024, 10, 14),
 	eventCurrency: {
 		amount: eventCurrencyAmount,
 	},

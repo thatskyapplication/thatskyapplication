@@ -6,7 +6,7 @@ import { HAIR_EMOJIS, HELD_PROPS_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../U
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfMusic2023,
 	start: skyDate(2_023, 7, 3),
-	end: skyDate(2_023, 7, 16),
+	end: skyDate(2_023, 7, 17),
 	offer: [
 		{
 			name: "Music sheet",

@@ -12,8 +12,8 @@ import {
 const eventCurrencyAmount = [];
 
 for (
-	let start = skyDate(2_024, 7, 12, 17), end = skyDate(2_024, 7, 26);
-	start <= end;
+	let start = skyDate(2_024, 7, 12, 17), end = skyDate(2_024, 7, 27);
+	start < end;
 	start = start.plus({ days: 1 })
 ) {
 	eventCurrencyAmount.push({ date: start, amount: 4 });
@@ -22,7 +22,7 @@ for (
 export default new Event({
 	nameUnique: EventNameUnique.SkyFest2024,
 	start: skyDate(2_024, 7, 12, 17),
-	end: skyDate(2_024, 7, 26),
+	end: skyDate(2_024, 7, 27),
 	eventCurrency: {
 		amount: eventCurrencyAmount,
 	},

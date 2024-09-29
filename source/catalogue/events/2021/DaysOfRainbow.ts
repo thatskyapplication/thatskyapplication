@@ -11,7 +11,7 @@ import {
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfRainbow2021,
 	start: skyDate(2_021, 6, 14),
-	end: skyDate(2_021, 6, 27),
+	end: skyDate(2_021, 6, 28),
 	offer: [
 		{
 			name: "Rainbow braid",

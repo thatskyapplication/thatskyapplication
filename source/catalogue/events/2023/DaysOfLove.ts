@@ -10,7 +10,7 @@ import {
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfLove2023,
 	start: skyDate(2_023, 2, 13),
-	end: skyDate(2_023, 2, 26),
+	end: skyDate(2_023, 2, 27),
 	offer: [
 		{
 			name: "Days of Love Flowery Archway",

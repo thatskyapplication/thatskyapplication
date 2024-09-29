@@ -11,8 +11,8 @@ import {
 const eventCurrencyAmount = [];
 
 for (
-	let start = skyDate(2_024, 8, 26), end = skyDate(2_024, 9, 12);
-	start <= end;
+	let start = skyDate(2_024, 8, 26), end = skyDate(2_024, 9, 13);
+	start < end;
 	start = start.plus({ days: 1 })
 ) {
 	eventCurrencyAmount.push({
@@ -24,7 +24,7 @@ for (
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfSunlight2024,
 	start: skyDate(2_024, 8, 26),
-	end: skyDate(2_024, 9, 12),
+	end: skyDate(2_024, 9, 13),
 	eventCurrency: {
 		amount: eventCurrencyAmount,
 	},

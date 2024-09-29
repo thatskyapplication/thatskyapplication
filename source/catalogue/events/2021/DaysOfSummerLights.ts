@@ -6,7 +6,7 @@ import { HAIR_ACCESSORY_EMOJIS } from "../../../Utility/emojis.js";
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfSummerLights2021,
 	start: skyDate(2_021, 9, 20),
-	end: skyDate(2_021, 10, 3),
+	end: skyDate(2_021, 10, 4),
 	offer: [
 		{
 			name: "Days of Summer Lights Accessory",

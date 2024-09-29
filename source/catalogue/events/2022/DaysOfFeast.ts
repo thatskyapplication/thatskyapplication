@@ -11,7 +11,7 @@ import {
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfFeast2022,
 	start: skyDate(2_022, 12, 19),
-	end: skyDate(2_023, 1, 8),
+	end: skyDate(2_023, 1, 9),
 	offer: [
 		{
 			name: "Feast Goggles",

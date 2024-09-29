@@ -6,7 +6,7 @@ import { HAIR_ACCESSORY_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../../Ut
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfLove2022,
 	start: skyDate(2_022, 2, 7),
-	end: skyDate(2_022, 2, 22),
+	end: skyDate(2_022, 2, 23),
 	offer: [
 		{
 			name: "Days of Love Flower Crown",

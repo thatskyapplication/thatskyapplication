@@ -12,8 +12,8 @@ import {
 const eventCurrencyAmount = [];
 
 for (
-	let start = skyDate(2024, 4, 27), end = skyDate(2024, 5, 17);
-	start <= end;
+	let start = skyDate(2024, 4, 27), end = skyDate(2024, 5, 18);
+	start < end;
 	start = start.plus({ days: 1 })
 ) {
 	eventCurrencyAmount.push({
@@ -28,7 +28,7 @@ for (
 export default new Event({
 	nameUnique: EventNameUnique.SkyXCinnamorollPopUpCafe2024,
 	start: skyDate(2_024, 4, 27),
-	end: skyDate(2_024, 5, 17),
+	end: skyDate(2_024, 5, 18),
 	eventCurrency: {
 		amount: eventCurrencyAmount,
 	},

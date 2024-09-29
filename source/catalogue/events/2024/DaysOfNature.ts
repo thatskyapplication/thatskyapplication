@@ -6,8 +6,8 @@ import { CAPE_EMOJIS, HAIR_EMOJIS, MASK_EMOJIS, NECKLACE_EMOJIS } from "../../..
 const eventCurrencyAmount = [];
 
 for (
-	let start = skyDate(2024, 5, 27), end = skyDate(2024, 6, 16);
-	start <= end;
+	let start = skyDate(2024, 5, 27), end = skyDate(2024, 6, 17);
+	start < end;
 	start = start.plus({ days: 1 })
 ) {
 	eventCurrencyAmount.push({ date: start, amount: 4 });
@@ -16,7 +16,7 @@ for (
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfNature2024,
 	start: skyDate(2_024, 5, 27),
-	end: skyDate(2_024, 6, 16),
+	end: skyDate(2_024, 6, 17),
 	eventCurrency: {
 		amount: eventCurrencyAmount,
 	},

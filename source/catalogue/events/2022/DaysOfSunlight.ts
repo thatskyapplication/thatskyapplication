@@ -10,7 +10,7 @@ import {
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfSunlight2022,
 	start: skyDate(2_022, 8, 22),
-	end: skyDate(2_022, 9, 11),
+	end: skyDate(2_022, 9, 12),
 	offer: [
 		{
 			name: "Campfire Tent",

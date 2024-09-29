@@ -1,4 +1,6 @@
 import { URL } from "node:url";
+import type { Locale } from "discord.js";
+import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { CDN_URL } from "../Utility/Constants.js";
 import {
@@ -138,31 +140,32 @@ export class Event {
 		this.wikiURL = wikiURL(this.name);
 	}
 
-	public daysText(date: DateTime) {
+	public daysText(date: DateTime, locale: Locale) {
 		const { end, start, name } = this;
 		const startOfDay = date.startOf("day");
-		const daysLeft = Math.floor(end.diff(startOfDay, "days").days);
-		const daysUntilStart = Math.floor(start.diff(startOfDay, "days").days);
+		const daysLeft = end.diff(startOfDay, "days").days;
+		const daysUntilStart = start.diff(startOfDay, "days").days;
 
 		if (daysLeft <= 0) {
-			if (daysLeft === 0) {
-				return `${name} ends today.`;
-			}
-
-			return daysLeft === -1
+			return daysLeft === 0
 				? `${name} ended ${Math.abs(daysLeft)} day ago.`
 				: `${name} ended ${Math.abs(daysLeft)} days ago.`;
 		}
 
 		if (daysUntilStart > 0) {
-			return daysUntilStart === 0
+			return daysUntilStart < 1
 				? `${name} starts today.`
-				: daysUntilStart === 1
-					? `${name} starts tomorrow.`
-					: `${name} starts in ${daysUntilStart} days.`;
+				: daysUntilStart >= 2
+					? `${name} starts in ${Math.floor(daysUntilStart)} days.`
+					: `${name} starts tomorrow.`;
 		}
 
-		return `${daysLeft === 1 ? `${daysLeft} day` : `${daysLeft} days`} left in ${name}.`;
+		return t("days-left.event", {
+			lng: locale,
+			ns: "general",
+			count: Math.ceil(daysLeft) - 1,
+			name,
+		});
 	}
 
 	public resolveInfographicURL(date: DateTime): string | null {

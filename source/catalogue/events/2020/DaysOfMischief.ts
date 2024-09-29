@@ -6,7 +6,7 @@ import { CAPE_EMOJIS, HAIR_EMOJIS } from "../../../Utility/emojis.js";
 export default new Event({
 	nameUnique: EventNameUnique.DaysOfMischief2020,
 	start: skyDate(2_020, 10, 22),
-	end: skyDate(2_020, 11, 4),
+	end: skyDate(2_020, 11, 5),
 	offer: [
 		{
 			name: "Mischief Web Cape",
