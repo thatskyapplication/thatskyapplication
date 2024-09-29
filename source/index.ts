@@ -221,9 +221,6 @@ class Caelus extends Client {
 			commands.sharderuption.id =
 				fetchedGlobalCommands.find(({ name }) => name === commands.sharderuption.data.name)?.id ??
 				null;
-
-			commands.catalogue.id =
-				fetchedGlobalCommands.find(({ name }) => name === commands.catalogue.data.name)?.id ?? null;
 		} catch (error) {
 			pino.error(error, "Failed to set commands.");
 		}

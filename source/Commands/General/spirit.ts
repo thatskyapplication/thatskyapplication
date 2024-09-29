@@ -8,7 +8,6 @@ import {
 	ButtonStyle,
 	type ChatInputCommandInteraction,
 	EmbedBuilder,
-	MessageFlags,
 	PermissionFlagsBits,
 	TimestampStyles,
 	hyperlink,
@@ -23,8 +22,7 @@ import type {
 	SeasonalSpiritVisitTravellingData,
 	StandardSpirit,
 } from "../../Structures/Spirits.js";
-import { DEFAULT_EMBED_COLOUR, SUPPORT_SERVER_INVITE_URL } from "../../Utility/Constants.js";
-import { chatInputApplicationCommandMention } from "../../Utility/Utility.js";
+import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import {
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
@@ -45,7 +43,6 @@ import {
 import { spirits } from "../../catalogue/spirits/index.js";
 import { resolveSeasonalSpirit } from "../../catalogue/spirits/seasons/index.js";
 import type { AutocompleteCommand } from "../index.js";
-import COMMANDS from "../index.js";
 
 export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID =
 	"SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;
@@ -70,11 +67,6 @@ export default new (class implements AutocompleteCommand {
 					},
 				],
 			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "track",
-				description: "Track your spirit progress!",
-			},
 		],
 		integrationTypes: [0, 1],
 		contexts: [0, 1, 2],
@@ -85,9 +77,6 @@ export default new (class implements AutocompleteCommand {
 			case "search": {
 				await this.search(interaction);
 				return;
-			}
-			case "track": {
-				await this.track(interaction);
 			}
 		}
 	}
@@ -296,17 +285,6 @@ export default new (class implements AutocompleteCommand {
 		} else {
 			await interaction.reply({ components, embeds: [embed] });
 		}
-	}
-
-	public async track(interaction: ChatInputCommandInteraction) {
-		await interaction.reply({
-			content: `The spirit tracker has had an amazing update! Events, permanent IAPs, etc. are available, so the command has been renamed to ${
-				COMMANDS.catalogue.id
-					? chatInputApplicationCommandMention(COMMANDS.catalogue.id, COMMANDS.catalogue.data.name)
-					: `\`/${COMMANDS.catalogue.data.name}\``
-			}. Try it out!\n\nYou can also stay updated in our [support server](${SUPPORT_SERVER_INVITE_URL})!`,
-			flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
-		});
 	}
 
 	public async autocomplete(interaction: AutocompleteInteraction) {
