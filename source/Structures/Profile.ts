@@ -192,6 +192,12 @@ export const SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS = [
 export const SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID = "SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID" as const;
 export const SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID = "SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID" as const;
 
+export const SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID =
+	"SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID =
+	"SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID" as const;
+
 export const SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID =
 	"SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID" as const;
 
@@ -212,6 +218,16 @@ const SKY_PROFILE_UNKNOWN_NAME = "Anonymous" as const;
 export const enum AssetType {
 	Icon = 0,
 	Thumbnail = 1,
+}
+
+export const enum SkyProfileExploreNavigationType {
+	Back = 0,
+	Next = 1,
+}
+
+interface SkyProfileExploreOptions {
+	type: SkyProfileExploreNavigationType;
+	userId: Snowflake;
 }
 
 function generateProfileExplorerSelectMenuOptions(profiles: Profile[], indexStart: number) {
@@ -435,10 +451,30 @@ export default class Profile {
 		}
 	}
 
-	public static async explore(interaction: ButtonInteraction | ChatInputCommandInteraction) {
-		const profiles = (await pg<ProfilePacket>(Table.Profiles).orderBy("user_id", "asc")).map(
-			(profilePacket) => new this(profilePacket),
+	public static async explore(
+		interaction: ButtonInteraction | ChatInputCommandInteraction,
+		options?: SkyProfileExploreOptions,
+	) {
+		let query = pg<ProfilePacket>(Table.Profiles);
+
+		if (options) {
+			query =
+				options.type === SkyProfileExploreNavigationType.Back
+					? query.where("user_id", "<", options.userId).orderBy("user_id", "desc")
+					: query.where("user_id", ">", options.userId).orderBy("user_id", "asc");
+		} else {
+			query = query.orderBy("user_id", "asc");
+		}
+
+		const profilePackets = await query.limit(
+			SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER * SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.length,
 		);
+
+		if (options?.type === SkyProfileExploreNavigationType.Back) {
+			profilePackets.reverse();
+		}
+
+		const profiles = profilePackets.map((profilePacket) => new this(profilePacket));
 
 		if (profiles.length === 0) {
 			await interaction.reply({
@@ -449,7 +485,15 @@ export default class Profile {
 			return;
 		}
 
-		const components = SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.map((customId, index) => {
+		const firstUserId = profiles[0]!.userId;
+
+		const [profilePacket] = await pg<ProfilePacket>(Table.Profiles)
+			.where("user_id", "<", firstUserId)
+			.limit(1);
+
+		const disableBackButton = !profilePacket;
+
+		const selectMenus = SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.map((customId, index) => {
 			return new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
 					.setCustomId(customId)
@@ -463,7 +507,30 @@ export default class Profile {
 					)
 					.setPlaceholder("View a profile!"),
 			);
-		});
+		}).filter((selectMenu) => selectMenu.components[0]!.options.length > 0);
+
+		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = selectMenus;
+
+		components.push(
+			new ActionRowBuilder<ButtonBuilder>().setComponents(
+				new ButtonBuilder()
+					.setCustomId(`${SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID}§${firstUserId!}`)
+					.setDisabled(disableBackButton)
+					.setEmoji("⬅️")
+					.setLabel("Back")
+					.setStyle(ButtonStyle.Secondary),
+				new ButtonBuilder()
+					.setCustomId(
+						`${SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID}§${profiles[profiles.length - 1]!.userId}`,
+					)
+					.setDisabled(
+						profiles.length < SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER * selectMenus.length,
+					)
+					.setEmoji("➡️")
+					.setLabel("Next")
+					.setStyle(ButtonStyle.Secondary),
+			),
+		);
 
 		if (interaction instanceof ButtonInteraction) {
 			await interaction.update({ components, embeds: [] });
@@ -501,12 +568,12 @@ export default class Profile {
 			components: [
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID}§${profile.userId}`)
+						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID}§${profile.userId}`)
 						.setEmoji("⬅️")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Secondary),
 					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID}§${profile.userId}`)
+						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID}§${profile.userId}`)
 						.setEmoji("➡️")
 						.setLabel("Next")
 						.setStyle(ButtonStyle.Secondary),
@@ -556,12 +623,12 @@ export default class Profile {
 			components: [
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID}§${profile.userId}`)
+						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID}§${profile.userId}`)
 						.setEmoji("⬅️")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Secondary),
 					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID}§${profile.userId}`)
+						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID}§${profile.userId}`)
 						.setEmoji("➡️")
 						.setLabel("Next")
 						.setStyle(ButtonStyle.Secondary),
@@ -587,7 +654,7 @@ export default class Profile {
 				pg<ProfilePacket>(Table.Profiles)
 					.select("user_id")
 					.from(Table.Profiles)
-					.where({ user_id: userId })
+					.where({ user_id: userId }),
 			)
 			.orderBy("user_id", "asc")
 			.limit(1);
@@ -611,12 +678,12 @@ export default class Profile {
 			components: [
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID}§${profile.userId}`)
+						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID}§${profile.userId}`)
 						.setEmoji("⬅️")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Secondary),
 					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID}§${profile.userId}`)
+						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID}§${profile.userId}`)
 						.setEmoji("➡️")
 						.setLabel("Next")
 						.setStyle(ButtonStyle.Secondary),
