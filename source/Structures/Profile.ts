@@ -5,7 +5,7 @@ import {
 	ActionRowBuilder,
 	type Attachment,
 	ButtonBuilder,
-	type ButtonInteraction,
+	ButtonInteraction,
 	ButtonStyle,
 	ChatInputCommandInteraction,
 	type EmbedAuthorOptions,
@@ -182,6 +182,19 @@ const SKY_PROFILE_BACK_TO_START_ACTION_ROW = new ActionRowBuilder<ButtonBuilder>
 		.setStyle(ButtonStyle.Primary),
 );
 
+export const SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS = [
+	"SKY_PROFILE_EXPLORE_1_SELECT_MENU_CUSTOM_ID",
+	"SKY_PROFILE_EXPLORE_2_SELECT_MENU_CUSTOM_ID",
+	"SKY_PROFILE_EXPLORE_3_SELECT_MENU_CUSTOM_ID",
+	"SKY_PROFILE_EXPLORE_4_SELECT_MENU_CUSTOM_ID",
+] as const;
+
+export const SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID = "SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID" as const;
+export const SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID = "SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID =
+	"SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID" as const;
+
 export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
 export const SKY_PROFILE_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
 const SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
@@ -192,10 +205,36 @@ const SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH = 3 as const;
 export const SKY_PROFILE_MINIMUM_SPOT_LENGTH = 2 as const;
 export const SKY_PROFILE_MAXIMUM_SPOT_LENGTH = 50 as const;
 const ANIMATED_HASH_PREFIX = "a_" as const;
+const SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER = 25 as const;
+const SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH = 100 as const;
+const SKY_PROFILE_UNKNOWN_NAME = "Anonymous" as const;
 
 export const enum AssetType {
 	Icon = 0,
 	Thumbnail = 1,
+}
+
+function generateProfileExplorerSelectMenuOptions(profiles: Profile[], indexStart: number) {
+	const maximumIndex = SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER + indexStart;
+
+	return profiles.slice(indexStart, maximumIndex).map((profile) => {
+		const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
+			.setLabel(profile.name ?? SKY_PROFILE_UNKNOWN_NAME)
+			.setValue(profile.userId);
+
+		let { description } = profile;
+
+		if (description) {
+			description =
+				description.length >= SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH
+					? `${description.slice(0, SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH - 3)}...`
+					: description;
+
+			stringSelectMenuOptionBuilder.setDescription(description);
+		}
+
+		return stringSelectMenuOptionBuilder;
+	});
 }
 
 function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${string}` {
@@ -394,6 +433,202 @@ export default class Profile {
 				return;
 			}
 		}
+	}
+
+	public static async explore(interaction: ButtonInteraction | ChatInputCommandInteraction) {
+		const profiles = (await pg<ProfilePacket>(Table.Profiles).orderBy("user_id", "asc")).map(
+			(profilePacket) => new this(profilePacket),
+		);
+
+		if (profiles.length === 0) {
+			await interaction.reply({
+				content: "There are no profiles to explore. Why not be the first?",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		const components = SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.map((customId, index) => {
+			return new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+				new StringSelectMenuBuilder()
+					.setCustomId(customId)
+					.setMaxValues(1)
+					.setMinValues(1)
+					.setOptions(
+						generateProfileExplorerSelectMenuOptions(
+							profiles,
+							index * SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
+						),
+					)
+					.setPlaceholder("View a profile!"),
+			);
+		});
+
+		if (interaction instanceof ButtonInteraction) {
+			await interaction.update({ components, embeds: [] });
+		} else {
+			await interaction.reply({ components, flags: MessageFlags.Ephemeral });
+		}
+	}
+
+	public static async exploreShow(interaction: StringSelectMenuInteraction) {
+		const [userId] = interaction.values;
+
+		if (!userId) {
+			pino.warn(interaction, "Missing user id whilst exploring a Sky profile.");
+
+			await interaction.reply({
+				content: "We cannot find that Sky kid. Try again?",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		const profile = await Profile.fetch(userId).catch(() => null);
+
+		if (!profile) {
+			await interaction.reply({
+				content: "This Sky kid does not have a Sky profile. Why not ask them to make one?",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID}§${profile.userId}`)
+						.setEmoji("⬅️")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID}§${profile.userId}`)
+						.setEmoji("➡️")
+						.setLabel("Next")
+						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID)
+						.setEmoji("🌐")
+						.setLabel("Browse")
+						.setStyle(ButtonStyle.Secondary),
+				),
+			],
+			embeds: [(await profile.embed(interaction)).embed],
+		});
+	}
+
+	public static async exploreBack(interaction: ButtonInteraction) {
+		const { customId } = interaction;
+		const userId = customId.slice(customId.indexOf("§") + 1);
+
+		let [profilePacket] = await pg<ProfilePacket>(Table.Profiles)
+			.where(
+				"user_id",
+				"<",
+				pg<ProfilePacket>(Table.Profiles)
+					.select("user_id")
+					.from(Table.Profiles)
+					.where({ user_id: userId }),
+			)
+			.orderBy("user_id", "desc")
+			.limit(1);
+
+		if (!profilePacket) {
+			[profilePacket] = await pg<ProfilePacket>(Table.Profiles).orderBy("user_id", "desc").limit(1);
+		}
+
+		if (!profilePacket) {
+			await interaction.reply({
+				content: "Could not go to that Sky kid's Sky profile. Try browsing?",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		const profile = new this(profilePacket);
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID}§${profile.userId}`)
+						.setEmoji("⬅️")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID}§${profile.userId}`)
+						.setEmoji("➡️")
+						.setLabel("Next")
+						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID)
+						.setEmoji("🌐")
+						.setLabel("Browse")
+						.setStyle(ButtonStyle.Secondary),
+				),
+			],
+			embeds: [(await profile.embed(interaction)).embed],
+		});
+	}
+
+	public static async exploreNext(interaction: ButtonInteraction) {
+		const { customId } = interaction;
+		const userId = customId.slice(customId.indexOf("§") + 1);
+
+		let [profilePacket] = await pg<ProfilePacket>(Table.Profiles)
+			.where(
+				"user_id",
+				">",
+				pg<ProfilePacket>(Table.Profiles)
+					.select("user_id")
+					.from(Table.Profiles)
+					.where({ user_id: userId })
+			)
+			.orderBy("user_id", "asc")
+			.limit(1);
+
+		if (!profilePacket) {
+			[profilePacket] = await pg<ProfilePacket>(Table.Profiles).orderBy("user_id", "asc").limit(1);
+		}
+
+		if (!profilePacket) {
+			await interaction.reply({
+				content: "Could not go to that Sky kid's Sky profile. Try browsing?",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		const profile = new this(profilePacket);
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID}§${profile.userId}`)
+						.setEmoji("⬅️")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID}§${profile.userId}`)
+						.setEmoji("➡️")
+						.setLabel("Next")
+						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID)
+						.setEmoji("🌐")
+						.setLabel("Browse")
+						.setStyle(ButtonStyle.Secondary),
+				),
+			],
+			embeds: [(await profile.embed(interaction)).embed],
+		});
 	}
 
 	public static async showNameModal(interaction: StringSelectMenuInteraction) {

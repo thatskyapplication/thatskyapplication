@@ -87,6 +87,11 @@ export default new (class implements AutocompleteCommand {
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
+				name: "explore",
+				description: "Explore the Sky profiles of others!",
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
 				name: "show",
 				description: "Shows the Sky profile of someone.",
 				options: [
@@ -120,6 +125,10 @@ export default new (class implements AutocompleteCommand {
 		switch (interaction.options.getSubcommand()) {
 			case "edit": {
 				await this.edit(interaction);
+				return;
+			}
+			case "explore": {
+				await this.explore(interaction);
 				return;
 			}
 			case "show": {
@@ -238,6 +247,10 @@ export default new (class implements AutocompleteCommand {
 		}
 
 		return true;
+	}
+
+	private async explore(interaction: ChatInputCommandInteraction) {
+		await Profile.explore(interaction);
 	}
 
 	public async show(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
