@@ -404,7 +404,7 @@ export default {
 					return;
 				}
 
-				if (customId.startsWith(SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID)) {
+				if (customId === SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID) {
 					await Profile.explore(interaction);
 					return;
 				}
