@@ -142,9 +142,8 @@ export class Event {
 
 	public daysText(date: DateTime, locale: Locale) {
 		const { end, start, name } = this;
-		const startOfDay = date.startOf("day");
-		const daysLeft = end.diff(startOfDay, "days").days;
-		const daysUntilStart = start.diff(startOfDay, "days").days;
+		const daysLeft = end.diff(date, "days").days;
+		const daysUntilStart = start.diff(date, "days").days;
 
 		if (daysLeft <= 0) {
 			return daysLeft === 0

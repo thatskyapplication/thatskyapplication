@@ -22,7 +22,7 @@ export function skyCurrentEvents(date: DateTime) {
 }
 
 export function skyNotEndedEvents(date: DateTime) {
-	return EVENTS.filter(({ end }) => date <= end);
+	return EVENTS.filter(({ end }) => date < end);
 }
 
 export function skyUpcomingEvents(date: DateTime) {

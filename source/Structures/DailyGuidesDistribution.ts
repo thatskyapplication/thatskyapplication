@@ -289,7 +289,7 @@ export default class DailyGuidesDistribution {
 		const currentEventsWithEventCurrency = events.filter(
 			(event) =>
 				event.eventCurrency &&
-				date <= event.eventCurrency.end &&
+				date < event.eventCurrency.end &&
 				event.resolveInfographicURL(date) !== null,
 		);
 
