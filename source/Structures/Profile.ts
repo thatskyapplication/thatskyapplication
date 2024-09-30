@@ -580,7 +580,7 @@ export default class Profile {
 					new ButtonBuilder()
 						.setCustomId(SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID)
 						.setEmoji("🌐")
-						.setLabel("Browse")
+						.setLabel("Explore")
 						.setStyle(ButtonStyle.Secondary),
 				),
 			],
