@@ -449,8 +449,10 @@ export const enum Cosmetic {
 	// 12/08/2024 | Beta cape.
 	BetaCape = 397,
 
-	// 23/09/2019 | Season of Lightseekers.
+	// 22/09/2019 | Founder's Pack.
 	FoundersCape = 398,
+
+	// 23/09/2019 | Season of Lightseekers.
 	LightseekerPendant = 399,
 	LightseekerUltimateProp = 400,
 	FriendActionCarry1 = 401,
