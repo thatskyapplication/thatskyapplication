@@ -598,7 +598,7 @@ export default class Profile {
 		if (interaction.isMessageComponent()) {
 			await interaction.update(response);
 		} else {
-			await interaction.reply(response);
+			await interaction.reply({ ...response, flags: MessageFlags.Ephemeral });
 		}
 	}
 
