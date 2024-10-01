@@ -89,6 +89,14 @@ export default new (class implements AutocompleteCommand {
 				type: ApplicationCommandOptionType.Subcommand,
 				name: "explore",
 				description: "Explore the Sky profiles of others!",
+				options: [
+					{
+						type: ApplicationCommandOptionType.String,
+						name: "name",
+						description: "Search a Sky profile via a name!",
+						autocomplete: true,
+					},
+				],
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
@@ -113,8 +121,17 @@ export default new (class implements AutocompleteCommand {
 	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async autocomplete(interaction: AutocompleteInteraction) {
-		// This is the same as querying a spirit, so use that instead.
-		await COMMANDS.spirit.autocomplete(interaction);
+		switch (interaction.options.getSubcommand()) {
+			case "edit": {
+				// This is the same as querying a spirit, so use that instead.
+				await COMMANDS.spirit.autocomplete(interaction);
+				return;
+			}
+			case "explore": {
+				await this.exploreAutocomplete(interaction);
+				return;
+			}
+		}
 	}
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
@@ -250,7 +267,18 @@ export default new (class implements AutocompleteCommand {
 	}
 
 	private async explore(interaction: ChatInputCommandInteraction) {
+		const name = interaction.options.getString("name");
+
+		if (name) {
+			await Profile.exploreShow(interaction, name);
+			return;
+		}
+
 		await Profile.explore(interaction);
+	}
+
+	private async exploreAutocomplete(interaction: AutocompleteInteraction) {
+		await Profile.exploreAutocomplete(interaction);
 	}
 
 	public async show(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {

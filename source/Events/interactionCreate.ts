@@ -547,7 +547,7 @@ export default {
 						customId as (typeof SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS)[number],
 					)
 				) {
-					await Profile.exploreShow(interaction);
+					await Profile.exploreShow(interaction, value0);
 					return;
 				}
 

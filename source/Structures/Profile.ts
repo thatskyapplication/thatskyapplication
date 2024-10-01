@@ -4,6 +4,7 @@ import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	ActionRowBuilder,
 	type Attachment,
+	type AutocompleteInteraction,
 	ButtonBuilder,
 	ButtonInteraction,
 	ButtonStyle,
@@ -213,6 +214,7 @@ export const SKY_PROFILE_MAXIMUM_SPOT_LENGTH = 50 as const;
 const ANIMATED_HASH_PREFIX = "a_" as const;
 const SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER = 25 as const;
 const SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH = 100 as const;
+const SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH = 100 as const;
 const SKY_PROFILE_UNKNOWN_NAME = "Anonymous" as const;
 
 export const enum AssetType {
@@ -539,11 +541,38 @@ export default class Profile {
 		}
 	}
 
+	public static async exploreAutocomplete(interaction: AutocompleteInteraction) {
+		const focused = interaction.options.getFocused().toUpperCase();
+
+		await interaction.respond(
+			focused.length === 0
+				? []
+				: (
+						await pg<ProfilePacket>(Table.Profiles)
+							.select(["user_id", "name", "description"])
+							.where("name", "ilike", `%${focused}%`)
+							.limit(25)
+					).map(({ user_id, name: skyProfileName, description }) => {
+						let name = `${skyProfileName}`;
+
+						if (description) {
+							name += `: ${description}`;
+						}
+
+						if (name.length > SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH) {
+							name = `${name.slice(0, SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH - 3)}...`;
+						}
+
+						return { name, value: user_id };
+					}),
+		);
+	}
+
 	private static async exploreProfileResponse(
-		interaction: ButtonInteraction | StringSelectMenuInteraction,
+		interaction: ButtonInteraction | ChatInputCommandInteraction | StringSelectMenuInteraction,
 		profile: Profile,
 	) {
-		await interaction.update({
+		const response = {
 			components: [
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
@@ -564,23 +593,19 @@ export default class Profile {
 				),
 			],
 			embeds: [(await profile.embed(interaction)).embed],
-		});
+		};
+
+		if (interaction.isMessageComponent()) {
+			await interaction.update(response);
+		} else {
+			await interaction.reply(response);
+		}
 	}
 
-	public static async exploreShow(interaction: StringSelectMenuInteraction) {
-		const [userId] = interaction.values;
-
-		if (!userId) {
-			pino.warn(interaction, "Missing user id whilst exploring a Sky profile.");
-
-			await interaction.reply({
-				content: "We cannot find that Sky kid. Try again?",
-				flags: MessageFlags.Ephemeral,
-			});
-
-			return;
-		}
-
+	public static async exploreShow(
+		interaction: ChatInputCommandInteraction | StringSelectMenuInteraction,
+		userId: Snowflake,
+	) {
 		const profile = await Profile.fetch(userId).catch(() => null);
 
 		if (!profile) {
