@@ -23,6 +23,7 @@ import {
 	TextInputBuilder,
 	TextInputStyle,
 	type UserContextMenuCommandInteraction,
+	userMention,
 } from "discord.js";
 import { hash } from "hasha";
 import { t } from "i18next";
@@ -35,6 +36,7 @@ import {
 	DEFAULT_EMBED_COLOUR,
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
+	SKY_PROFILE_REPORTS_CHANNEL_ID,
 } from "../Utility/Constants.js";
 import {
 	SEASON_FLAGS_TO_SEASON_NAME_ENTRIES,
@@ -201,6 +203,14 @@ export const SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID =
 
 export const SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID =
 	"SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID = "SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID =
+	"SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID =
+	"SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
 export const SKY_PROFILE_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
@@ -572,16 +582,18 @@ export default class Profile {
 		interaction: ButtonInteraction | ChatInputCommandInteraction | StringSelectMenuInteraction,
 		profile: Profile,
 	) {
+		const { userId } = profile;
+
 		const response = {
 			components: [
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID}§${profile.userId}`)
+						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID}§${userId}`)
 						.setEmoji("⬅️")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Secondary),
 					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID}§${profile.userId}`)
+						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID}§${userId}`)
 						.setEmoji("➡️")
 						.setLabel("Next")
 						.setStyle(ButtonStyle.Secondary),
@@ -590,8 +602,14 @@ export default class Profile {
 						.setEmoji("🌐")
 						.setLabel("Explore")
 						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID}§${userId}`)
+						.setEmoji("⚠️")
+						.setLabel("Report")
+						.setStyle(ButtonStyle.Secondary),
 				),
 			],
+			content: "",
 			embeds: [(await profile.embed(interaction)).embed],
 		};
 
@@ -603,7 +621,7 @@ export default class Profile {
 	}
 
 	public static async exploreShow(
-		interaction: ChatInputCommandInteraction | StringSelectMenuInteraction,
+		interaction: ButtonInteraction | ChatInputCommandInteraction | StringSelectMenuInteraction,
 		userId: Snowflake,
 	) {
 		const profile = await Profile.fetch(userId).catch(() => null);
@@ -682,6 +700,73 @@ export default class Profile {
 		}
 
 		await this.exploreProfileResponse(interaction, new this(profilePacket));
+	}
+
+	public static async report(interaction: ButtonInteraction) {
+		const { customId } = interaction;
+		const userId = customId.slice(customId.indexOf("§") + 1);
+		const profile = await this.fetch(userId).catch(() => null);
+
+		if (!profile) {
+			await interaction.reply({
+				content: "This Sky kid does not have a Sky profile. Why not ask them to make one?",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID}§${userId}`)
+						.setEmoji("⚠️")
+						.setLabel("Confirm")
+						.setStyle(ButtonStyle.Danger),
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID}§${userId}`)
+						.setEmoji("⬅️")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Secondary),
+				),
+			],
+			content:
+				"If someone's Sky profile is not in the spirit of Sky (excessive slurs, spam, etc.), feel free to report it so it can be reviewed.\n\nDo you wish to report this Sky profile?",
+			embeds: [(await profile.embed(interaction)).embed],
+		});
+	}
+
+	public static async sendReport(interaction: ButtonInteraction) {
+		const channel = interaction.client.channels.cache.get(SKY_PROFILE_REPORTS_CHANNEL_ID);
+
+		if (!channel?.isTextBased()) {
+			return;
+		}
+
+		const { customId } = interaction;
+		const userId = customId.slice(customId.indexOf("§") + 1);
+		const profile = await this.fetch(userId).catch(() => null);
+
+		if (!profile) {
+			await interaction.reply({
+				content: "This Sky kid does not have a Sky profile. Why not ask them to make one?",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		await channel.send({
+			allowedMentions: { parse: [] },
+			content: `Reporter: ${interaction.user} (${interaction.user.tag})\nSky profile: ${userMention(profile.userId)}`,
+			embeds: [(await profile.embed(interaction)).embed],
+		});
+
+		await interaction.update({
+			components: [],
+			content: "This Sky profile has been reported. Thank you for keeping the community safe!",
+		});
 	}
 
 	public static async showNameModal(interaction: StringSelectMenuInteraction) {

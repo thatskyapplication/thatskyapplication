@@ -70,7 +70,10 @@ import Profile, {
 	SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS,
+	SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID,
 	SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
@@ -406,6 +409,21 @@ export default {
 
 				if (customId === SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID) {
 					await Profile.explore(interaction);
+					return;
+				}
+
+				if (customId.startsWith(SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID)) {
+					await Profile.report(interaction);
+					return;
+				}
+
+				if (customId.startsWith(SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID)) {
+					await Profile.sendReport(interaction);
+					return;
+				}
+
+				if (customId.startsWith(SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID)) {
+					await Profile.exploreShow(interaction, customId.slice(customId.indexOf("§") + 1));
 					return;
 				}
 
