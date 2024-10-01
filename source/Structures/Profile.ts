@@ -539,6 +539,34 @@ export default class Profile {
 		}
 	}
 
+	private static async exploreProfileResponse(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+		profile: Profile,
+	) {
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID}§${profile.userId}`)
+						.setEmoji("⬅️")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID}§${profile.userId}`)
+						.setEmoji("➡️")
+						.setLabel("Next")
+						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID)
+						.setEmoji("🌐")
+						.setLabel("Explore")
+						.setStyle(ButtonStyle.Secondary),
+				),
+			],
+			embeds: [(await profile.embed(interaction)).embed],
+		});
+	}
+
 	public static async exploreShow(interaction: StringSelectMenuInteraction) {
 		const [userId] = interaction.values;
 
@@ -564,28 +592,7 @@ export default class Profile {
 			return;
 		}
 
-		await interaction.update({
-			components: [
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID}§${profile.userId}`)
-						.setEmoji("⬅️")
-						.setLabel("Back")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID}§${profile.userId}`)
-						.setEmoji("➡️")
-						.setLabel("Next")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID)
-						.setEmoji("🌐")
-						.setLabel("Explore")
-						.setStyle(ButtonStyle.Secondary),
-				),
-			],
-			embeds: [(await profile.embed(interaction)).embed],
-		});
+		await this.exploreProfileResponse(interaction, profile);
 	}
 
 	public static async exploreBack(interaction: ButtonInteraction) {
@@ -617,30 +624,7 @@ export default class Profile {
 			return;
 		}
 
-		const profile = new this(profilePacket);
-
-		await interaction.update({
-			components: [
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID}§${profile.userId}`)
-						.setEmoji("⬅️")
-						.setLabel("Back")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID}§${profile.userId}`)
-						.setEmoji("➡️")
-						.setLabel("Next")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID)
-						.setEmoji("🌐")
-						.setLabel("Browse")
-						.setStyle(ButtonStyle.Secondary),
-				),
-			],
-			embeds: [(await profile.embed(interaction)).embed],
-		});
+		await this.exploreProfileResponse(interaction, new this(profilePacket));
 	}
 
 	public static async exploreNext(interaction: ButtonInteraction) {
@@ -672,30 +656,7 @@ export default class Profile {
 			return;
 		}
 
-		const profile = new this(profilePacket);
-
-		await interaction.update({
-			components: [
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID}§${profile.userId}`)
-						.setEmoji("⬅️")
-						.setLabel("Back")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID}§${profile.userId}`)
-						.setEmoji("➡️")
-						.setLabel("Next")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID)
-						.setEmoji("🌐")
-						.setLabel("Browse")
-						.setStyle(ButtonStyle.Secondary),
-				),
-			],
-			embeds: [(await profile.embed(interaction)).embed],
-		});
+		await this.exploreProfileResponse(interaction, new this(profilePacket));
 	}
 
 	public static async showNameModal(interaction: StringSelectMenuInteraction) {
