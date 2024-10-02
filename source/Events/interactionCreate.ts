@@ -69,6 +69,7 @@ import Profile, {
 	SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID,
@@ -405,6 +406,11 @@ export default {
 
 				if (customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID)) {
 					await Profile.exploreNext(interaction);
+					return;
+				}
+
+				if (customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID)) {
+					await Profile.like(interaction);
 					return;
 				}
 

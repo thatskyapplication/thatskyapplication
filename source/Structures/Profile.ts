@@ -69,6 +69,11 @@ export interface ProfilePacket {
 	catalogue_progression: boolean | null;
 }
 
+interface SkyProfileLikesPacket {
+	user_id: Snowflake;
+	target_id: Snowflake;
+}
+
 interface ProfileData {
 	userId: ProfilePacket["user_id"];
 	name: ProfilePacket["name"];
@@ -194,12 +199,16 @@ export const SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS = [
 
 export const SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID = "SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID" as const;
 export const SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID = "SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID" as const;
+export const SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID = "SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID =
 	"SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID =
 	"SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID =
+	"SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID =
 	"SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID" as const;
@@ -214,7 +223,7 @@ export const SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID =
 
 export const SKY_PROFILE_REPORT_MODAL_CUSTOM_ID = "SKY_PROFILE_REPORT_MODAL_CUSTOM_ID" as const;
 
-export const SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID =
+const SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID =
 	"SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
@@ -249,13 +258,25 @@ interface SkyProfileExploreOptions {
 	userId: Snowflake;
 }
 
-function generateProfileExplorerSelectMenuOptions(profiles: Profile[], indexStart: number) {
+function generateProfileExplorerSelectMenuOptions(
+	profiles: Profile[],
+	indexStart: number,
+	skyProfileLikesPackets?: SkyProfileLikesPacket[],
+) {
 	const maximumIndex = SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER + indexStart;
 
 	return profiles.slice(indexStart, maximumIndex).map((profile) => {
 		const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 			.setLabel(profile.name ?? SKY_PROFILE_UNKNOWN_NAME)
 			.setValue(profile.userId);
+
+		if (
+			skyProfileLikesPackets?.some(
+				(skyProfileLikesPacket) => skyProfileLikesPacket.target_id === profile.userId,
+			)
+		) {
+			stringSelectMenuOptionBuilder.setEmoji(MISCELLANEOUS_EMOJIS.Heart);
+		}
 
 		let { description } = profile;
 
@@ -512,6 +533,10 @@ export default class Profile {
 
 		const disableBackButton = !profilePacket;
 
+		const skyProfileLikesPackets = await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes).where({
+			user_id: interaction.user.id,
+		});
+
 		const selectMenus = SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.map((customId, index) => {
 			return new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
@@ -522,6 +547,7 @@ export default class Profile {
 						generateProfileExplorerSelectMenuOptions(
 							profiles,
 							index * SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
+							skyProfileLikesPackets,
 						),
 					)
 					.setPlaceholder("View a profile!"),
@@ -547,6 +573,12 @@ export default class Profile {
 					)
 					.setEmoji("➡️")
 					.setLabel("Next")
+					.setStyle(ButtonStyle.Secondary),
+				new ButtonBuilder()
+					.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID}§${interaction.user.id}`)
+					.setDisabled(skyProfileLikesPackets.length === 0)
+					.setEmoji(MISCELLANEOUS_EMOJIS.Heart)
+					.setLabel("View likes")
 					.setStyle(ButtonStyle.Secondary),
 			),
 		);
@@ -590,6 +622,15 @@ export default class Profile {
 		profile: Profile,
 	) {
 		const { userId } = profile;
+		const ownSkyProfile = interaction.user.id === profile.userId;
+
+		const isLiked =
+			(
+				await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes).where({
+					user_id: interaction.user.id,
+					target_id: userId,
+				})
+			).length === 1;
 
 		const response = {
 			components: [
@@ -605,12 +646,19 @@ export default class Profile {
 						.setLabel("Next")
 						.setStyle(ButtonStyle.Secondary),
 					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID}§${userId}`)
+						.setDisabled(ownSkyProfile)
+						.setEmoji(MISCELLANEOUS_EMOJIS.Heart)
+						.setLabel(isLiked ? "Unlike" : "Like")
+						.setStyle(isLiked ? ButtonStyle.Secondary : ButtonStyle.Success),
+					new ButtonBuilder()
 						.setCustomId(SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID)
 						.setEmoji("🌐")
 						.setLabel("Explore")
 						.setStyle(ButtonStyle.Secondary),
 					new ButtonBuilder()
 						.setCustomId(`${SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID}§${userId}`)
+						.setDisabled(ownSkyProfile)
 						.setEmoji("⚠️")
 						.setLabel("Report")
 						.setStyle(ButtonStyle.Secondary),
@@ -707,6 +755,49 @@ export default class Profile {
 		}
 
 		await this.exploreProfileResponse(interaction, new this(profilePacket));
+	}
+
+	public static async like(interaction: ButtonInteraction) {
+		const { customId } = interaction;
+		const userId = customId.slice(customId.indexOf("§") + 1);
+		const profile = await this.fetch(userId).catch(() => null);
+
+		if (!profile) {
+			await interaction.reply({
+				content: "This Sky kid does not have a Sky profile. Why not ask them to make one?",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		if (interaction.user.id === profile.userId) {
+			await interaction.reply({
+				content: "You can't like your own Sky profile!",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		const [like] = await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes).where({
+			user_id: interaction.user.id,
+			target_id: userId,
+		});
+
+		if (like) {
+			await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes).delete().where({
+				user_id: interaction.user.id,
+				target_id: userId,
+			});
+		} else {
+			await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes).insert({
+				user_id: interaction.user.id,
+				target_id: userId,
+			});
+		}
+
+		await this.exploreProfileResponse(interaction, profile);
 	}
 
 	public static async report(interaction: ButtonInteraction) {
