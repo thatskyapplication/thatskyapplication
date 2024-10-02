@@ -197,9 +197,22 @@ export const SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS = [
 	"SKY_PROFILE_EXPLORE_4_SELECT_MENU_CUSTOM_ID",
 ] as const;
 
+export const SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS = [
+	"SKY_PROFILE_EXPLORE_LIKES_1_SELECT_MENU_CUSTOM_ID",
+	"SKY_PROFILE_EXPLORE_LIKES_2_SELECT_MENU_CUSTOM_ID",
+	"SKY_PROFILE_EXPLORE_LIKES_3_SELECT_MENU_CUSTOM_ID",
+	"SKY_PROFILE_EXPLORE_LIKES_4_SELECT_MENU_CUSTOM_ID",
+] as const;
+
 export const SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID = "SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID" as const;
 export const SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID = "SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID" as const;
 export const SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID = "SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID =
+	"SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID =
+	"SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID =
 	"SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID" as const;
@@ -575,7 +588,7 @@ export default class Profile {
 					.setLabel("Next")
 					.setStyle(ButtonStyle.Secondary),
 				new ButtonBuilder()
-					.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID}§${interaction.user.id}`)
+					.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID}§1`)
 					.setDisabled(skyProfileLikesPackets.length === 0)
 					.setEmoji(MISCELLANEOUS_EMOJIS.Heart)
 					.setLabel("View likes")
@@ -755,6 +768,76 @@ export default class Profile {
 		}
 
 		await this.exploreProfileResponse(interaction, new this(profilePacket));
+	}
+
+	public static async exploreLikes(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		const { customId, user } = interaction;
+		const page = Number(customId.slice(customId.indexOf("§") + 1));
+
+		const limit =
+			SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER *
+			SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS.length;
+
+		const offset = (page - 1) * limit;
+
+		const profilePackets = await pg(Table.SkyProfileLikes)
+			.join(Table.Profiles, `${Table.SkyProfileLikes}.target_id`, `${Table.Profiles}.user_id`)
+			.select(`${Table.Profiles}.*`)
+			.where(`${Table.SkyProfileLikes}.user_id`, user.id)
+			.limit(limit + 1)
+			.offset(offset);
+
+		if (profilePackets.length === 0) {
+			await interaction.reply({
+				content: "You have no Sky profiles that you've liked.",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		const hasPreviousPage = offset > 0;
+		const hasNextPage = profilePackets.length > limit;
+
+		if (hasNextPage) {
+			profilePackets.pop();
+		}
+
+		const profiles = profilePackets.map((profilePacket) => new this(profilePacket));
+
+		await interaction.update({
+			components: [
+				...SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS.map((customId, index) => {
+					return new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+						new StringSelectMenuBuilder()
+							.setCustomId(customId)
+							.setMaxValues(1)
+							.setMinValues(1)
+							.setOptions(
+								generateProfileExplorerSelectMenuOptions(
+									profiles,
+									index * SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
+								),
+							)
+							.setPlaceholder("View a profile!"),
+					);
+				}).filter((selectMenu) => selectMenu.components[0]!.options.length > 0),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID}§${page - 1}`)
+						.setDisabled(!hasPreviousPage)
+						.setEmoji("⬅️")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID}§${page + 1}`)
+						.setDisabled(!hasNextPage)
+						.setEmoji("➡️")
+						.setLabel("Next")
+						.setStyle(ButtonStyle.Secondary),
+				),
+			],
+		});
 	}
 
 	public static async like(interaction: ButtonInteraction) {
