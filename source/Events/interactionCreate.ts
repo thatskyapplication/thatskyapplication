@@ -88,7 +88,6 @@ import Profile, {
 	SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID,
 	SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID,
-	SkyProfileExploreNavigationType,
 } from "../Structures/Profile.js";
 import {
 	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
@@ -385,21 +384,11 @@ export default {
 					return;
 				}
 
-				if (customId.startsWith(SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID)) {
-					await Profile.explore(interaction, {
-						type: SkyProfileExploreNavigationType.Back,
-						userId: customId.slice(customId.indexOf("§") + 1),
-					});
-
-					return;
-				}
-
-				if (customId.startsWith(SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID)) {
-					await Profile.explore(interaction, {
-						type: SkyProfileExploreNavigationType.Next,
-						userId: customId.slice(customId.indexOf("§") + 1),
-					});
-
+				if (
+					customId.startsWith(SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID) ||
+					customId.startsWith(SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID)
+				) {
+					await Profile.explore(interaction);
 					return;
 				}
 
@@ -431,7 +420,7 @@ export default {
 					return;
 				}
 
-				if (customId === SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID) {
+				if (customId.startsWith(SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID)) {
 					await Profile.explore(interaction);
 					return;
 				}
