@@ -400,13 +400,12 @@ export default {
 					return;
 				}
 
-				if (customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID)) {
-					await Profile.exploreBack(interaction);
-					return;
-				}
-
-				if (customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID)) {
-					await Profile.exploreNext(interaction);
+				if (
+					customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID) ||
+					customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID) ||
+					customId.startsWith(SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID)
+				) {
+					await Profile.exploreProfile(interaction);
 					return;
 				}
 
@@ -432,11 +431,6 @@ export default {
 
 				if (customId.startsWith(SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID)) {
 					await Profile.reportModalPrompt(interaction);
-					return;
-				}
-
-				if (customId.startsWith(SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID)) {
-					await Profile.exploreShow(interaction, customId.slice(customId.indexOf("§") + 1));
 					return;
 				}
 
@@ -576,18 +570,12 @@ export default {
 				if (
 					SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.includes(
 						customId as (typeof SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS)[number],
-					)
-				) {
-					await Profile.exploreShow(interaction, value0);
-					return;
-				}
-
-				if (
+					) ||
 					SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS.includes(
 						customId as (typeof SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS)[number],
 					)
 				) {
-					await Profile.exploreShow(interaction, value0);
+					await Profile.exploreProfile(interaction);
 					return;
 				}
 

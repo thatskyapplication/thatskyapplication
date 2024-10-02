@@ -270,7 +270,7 @@ export default new (class implements AutocompleteCommand {
 		const name = interaction.options.getString("name");
 
 		if (name) {
-			await Profile.exploreShow(interaction, name);
+			await Profile.exploreProfile(interaction);
 			return;
 		}
 

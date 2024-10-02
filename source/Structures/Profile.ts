@@ -506,6 +506,7 @@ export default class Profile {
 		const offset = (page - 1) * limit;
 
 		const profilePackets = await pg<ProfilePacket>(Table.Profiles)
+			.whereNotNull("name")
 			.orderBy("name", "asc")
 			.limit(limit + 1)
 			.offset(offset);
@@ -605,12 +606,35 @@ export default class Profile {
 		);
 	}
 
-	private static async exploreProfileResponse(
-		interaction: ButtonInteraction | ChatInputCommandInteraction | StringSelectMenuInteraction,
-		profile: Profile,
+	public static async exploreProfile(
+		interaction: ChatInputCommandInteraction | ButtonInteraction | StringSelectMenuInteraction,
 	) {
-		const { userId } = profile;
-		const ownSkyProfile = interaction.user.id === profile.userId;
+		const { user } = interaction;
+		let userId: Snowflake;
+
+		if (interaction.isChatInputCommand()) {
+			userId = interaction.options.getString("name", true);
+		} else if (interaction.isButton()) {
+			userId = interaction.customId.slice(interaction.customId.lastIndexOf("§") + 1);
+		} else {
+			userId = interaction.values[0]!;
+		}
+
+		const profile = await this.fetch(userId).catch(() => null);
+
+		if (!profile) {
+			await interaction.reply({
+				content: "Could not go to that Sky kid's Sky profile. Try browsing?",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		const name = profile.name!;
+		const previous = await this.exploreProfilePreviousRow(name, userId);
+		const next = await this.exploreProfileNextRow(name, userId);
+		const ownSkyProfile = user.id === profile.userId;
 
 		const isLiked =
 			(
@@ -624,12 +648,14 @@ export default class Profile {
 			components: [
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID}§${userId}`)
+						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID}§${previous?.user_id}`)
+						.setDisabled(!previous)
 						.setEmoji("⬅️")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Secondary),
 					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID}§${userId}`)
+						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID}§${next?.user_id}`)
+						.setDisabled(!next)
 						.setEmoji("➡️")
 						.setLabel("Next")
 						.setStyle(ButtonStyle.Secondary),
@@ -663,86 +689,32 @@ export default class Profile {
 		}
 	}
 
-	public static async exploreShow(
-		interaction: ButtonInteraction | ChatInputCommandInteraction | StringSelectMenuInteraction,
-		userId: Snowflake,
-	) {
-		const profile = await Profile.fetch(userId).catch(() => null);
-
-		if (!profile) {
-			await interaction.reply({
-				content: "This Sky kid does not have a Sky profile. Why not ask them to make one?",
-				flags: MessageFlags.Ephemeral,
-			});
-
-			return;
-		}
-
-		await this.exploreProfileResponse(interaction, profile);
-	}
-
-	public static async exploreBack(interaction: ButtonInteraction) {
-		const { customId } = interaction;
-		const userId = customId.slice(customId.indexOf("§") + 1);
-
-		let [profilePacket] = await pg<ProfilePacket>(Table.Profiles)
-			.where(
-				"user_id",
-				"<",
-				pg<ProfilePacket>(Table.Profiles)
-					.select("user_id")
-					.from(Table.Profiles)
-					.where({ user_id: userId }),
-			)
+	private static async exploreProfilePreviousRow(name: string, userId: Snowflake) {
+		const [previous] = await pg<ProfilePacket>(Table.Profiles)
+			.where(function () {
+				this.where("name", "<", name).orWhere(function () {
+					this.where("name", "=", name).andWhere("user_id", "<", userId);
+				});
+			})
+			.orderBy("name", "desc")
 			.orderBy("user_id", "desc")
 			.limit(1);
 
-		if (!profilePacket) {
-			[profilePacket] = await pg<ProfilePacket>(Table.Profiles).orderBy("user_id", "desc").limit(1);
-		}
-
-		if (!profilePacket) {
-			await interaction.reply({
-				content: "Could not go to that Sky kid's Sky profile. Try browsing?",
-				flags: MessageFlags.Ephemeral,
-			});
-
-			return;
-		}
-
-		await this.exploreProfileResponse(interaction, new this(profilePacket));
+		return previous ? previous : null;
 	}
 
-	public static async exploreNext(interaction: ButtonInteraction) {
-		const { customId } = interaction;
-		const userId = customId.slice(customId.indexOf("§") + 1);
-
-		let [profilePacket] = await pg<ProfilePacket>(Table.Profiles)
-			.where(
-				"user_id",
-				">",
-				pg<ProfilePacket>(Table.Profiles)
-					.select("user_id")
-					.from(Table.Profiles)
-					.where({ user_id: userId }),
-			)
+	private static async exploreProfileNextRow(name: string, userId: Snowflake) {
+		const [next] = await pg<ProfilePacket>(Table.Profiles)
+			.where(function () {
+				this.where("name", ">", name).orWhere(function () {
+					this.where("name", "=", name).andWhere("user_id", ">", userId);
+				});
+			})
+			.orderBy("name", "asc")
 			.orderBy("user_id", "asc")
 			.limit(1);
 
-		if (!profilePacket) {
-			[profilePacket] = await pg<ProfilePacket>(Table.Profiles).orderBy("user_id", "asc").limit(1);
-		}
-
-		if (!profilePacket) {
-			await interaction.reply({
-				content: "Could not go to that Sky kid's Sky profile. Try browsing?",
-				flags: MessageFlags.Ephemeral,
-			});
-
-			return;
-		}
-
-		await this.exploreProfileResponse(interaction, new this(profilePacket));
+		return next ? next : null;
 	}
 
 	public static async exploreLikes(interaction: ButtonInteraction | StringSelectMenuInteraction) {
@@ -855,7 +827,7 @@ export default class Profile {
 			});
 		}
 
-		await this.exploreProfileResponse(interaction, profile);
+		await this.exploreProfile(interaction);
 	}
 
 	public static async report(interaction: ButtonInteraction) {
