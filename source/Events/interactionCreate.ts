@@ -75,6 +75,7 @@ import Profile, {
 	SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS,
 	SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID,
+	SKY_PROFILE_REPORT_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID,
@@ -418,7 +419,7 @@ export default {
 				}
 
 				if (customId.startsWith(SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID)) {
-					await Profile.sendReport(interaction);
+					await Profile.reportModalPrompt(interaction);
 					return;
 				}
 
@@ -650,6 +651,11 @@ export default {
 
 					if (customId === SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID) {
 						await Profile.setSpot(interaction);
+						return;
+					}
+
+					if (customId.startsWith(SKY_PROFILE_REPORT_MODAL_CUSTOM_ID)) {
+						await Profile.sendReport(interaction);
 						return;
 					}
 

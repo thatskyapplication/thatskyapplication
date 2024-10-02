@@ -212,6 +212,11 @@ export const SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID =
 export const SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID =
 	"SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID" as const;
 
+export const SKY_PROFILE_REPORT_MODAL_CUSTOM_ID = "SKY_PROFILE_REPORT_MODAL_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID =
+	"SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID" as const;
+
 export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
 export const SKY_PROFILE_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
 const SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
@@ -225,6 +230,8 @@ const ANIMATED_HASH_PREFIX = "a_" as const;
 const SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER = 25 as const;
 const SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH = 100 as const;
 const SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH = 100 as const;
+const SKY_PROFILE_REPORT_MAXIMUM_LENGTH = 1000 as const;
+const SKY_PROFILE_REPORT_MINIMUM_LENGTH = 10 as const;
 const SKY_PROFILE_UNKNOWN_NAME = "Anonymous" as const;
 
 export const enum AssetType {
@@ -737,13 +744,7 @@ export default class Profile {
 		});
 	}
 
-	public static async sendReport(interaction: ButtonInteraction) {
-		const channel = interaction.client.channels.cache.get(SKY_PROFILE_REPORTS_CHANNEL_ID);
-
-		if (!channel?.isTextBased()) {
-			return;
-		}
-
+	public static async reportModalPrompt(interaction: ButtonInteraction) {
 		const { customId } = interaction;
 		const userId = customId.slice(customId.indexOf("§") + 1);
 		const profile = await this.fetch(userId).catch(() => null);
@@ -757,9 +758,48 @@ export default class Profile {
 			return;
 		}
 
+		await interaction.showModal(
+			new ModalBuilder()
+				.setComponents(
+					new ActionRowBuilder<TextInputBuilder>().setComponents(
+						new TextInputBuilder()
+							.setCustomId(SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID)
+							.setLabel("What's wrong with this Sky profile?")
+							.setMaxLength(SKY_PROFILE_REPORT_MAXIMUM_LENGTH)
+							.setMinLength(SKY_PROFILE_REPORT_MINIMUM_LENGTH)
+							.setStyle(TextInputStyle.Paragraph),
+					),
+				)
+				.setCustomId(`${SKY_PROFILE_REPORT_MODAL_CUSTOM_ID}§${userId}`)
+				.setTitle("Report Sky Profile"),
+		);
+	}
+
+	public static async sendReport(interaction: ModalMessageModalSubmitInteraction) {
+		const channel = interaction.client.channels.cache.get(SKY_PROFILE_REPORTS_CHANNEL_ID);
+
+		if (!channel?.isTextBased()) {
+			return;
+		}
+
+		const { customId, fields } = interaction;
+		const userId = customId.slice(customId.indexOf("§") + 1);
+		const profile = await this.fetch(userId).catch(() => null);
+
+		if (!profile) {
+			await interaction.reply({
+				content: "This Sky kid does not have a Sky profile. Why not ask them to make one?",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		const text = fields.getTextInputValue(SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID);
+
 		await channel.send({
 			allowedMentions: { parse: [] },
-			content: `Reporter: ${interaction.user} (${interaction.user.tag})\nSky profile: ${userMention(profile.userId)}`,
+			content: `Report by ${interaction.user} (${interaction.user.tag}) against ${userMention(profile.userId)}:\n>>> ${text}`,
 			embeds: [(await profile.embed(interaction)).embed],
 		});
 
