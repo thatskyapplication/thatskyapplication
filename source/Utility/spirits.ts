@@ -236,6 +236,9 @@ export enum SpiritName {
 	TheCellistsFlourishing = "The Cellist's Flourishing",
 	ThePianistsFlourishing = "The Pianist's Flourishing",
 	CompassionateCellist = "Compassionate Cellist",
+
+	// Season of Moomin.
+	TheMoominStorybook = "The Moomin Storybook",
 }
 
 export const enum SpiritEmote {

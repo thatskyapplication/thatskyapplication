@@ -20,6 +20,7 @@ import Gratitude from "./Gratitude/index.js";
 import Lightseekers from "./Lightseekers/index.js";
 import LittlePrince from "./LittlePrince/index.js";
 import Moments from "./Moments/index.js";
+import Moomin from "./Moomin/index.js";
 import Nesting from "./Nesting/index.js";
 import NineColouredDeer from "./NineColouredDeer/index.js";
 import Passage from "./Passage/index.js";
@@ -54,6 +55,7 @@ const SEASONS = [
 	NineColouredDeer,
 	Nesting,
 	Duets,
+	Moomin,
 ] as const;
 
 export function skySeasons(date = skyNow()) {

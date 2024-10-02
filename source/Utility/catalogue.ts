@@ -2723,6 +2723,7 @@ export enum SeasonName {
 	NineColouredDeer = "Season of the Nine-Coloured Deer",
 	Nesting = "Season of Nesting",
 	Duets = "Season of Duets",
+	Moomin = "Season of Moomin",
 }
 
 export const SEASON_NAME_VALUES = Object.values(SeasonName);
@@ -2750,6 +2751,8 @@ export const SeasonNameToSeasonalEmoji = {
 	[SeasonName.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeer,
 	[SeasonName.Nesting]: SEASON_EMOJIS.Nesting,
 	[SeasonName.Duets]: SEASON_EMOJIS.Duets,
+	// @ts-expect-error Not yet created.
+	[SeasonName.Moomin]: SEASON_EMOJIS.Moomin,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
 export const SeasonNameToSeasonalCandleEmoji = {
@@ -2775,6 +2778,8 @@ export const SeasonNameToSeasonalCandleEmoji = {
 	[SeasonName.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeerCandle,
 	[SeasonName.Nesting]: SEASON_EMOJIS.NestingCandle,
 	[SeasonName.Duets]: SEASON_EMOJIS.DuetsCandle,
+	// @ts-expect-error Not yet created.
+	[SeasonName.Moomin]: SEASON_EMOJIS.MoominCandle,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
 const SeasonNameToSeasonalHeartEmoji = {
@@ -2798,6 +2803,8 @@ const SeasonNameToSeasonalHeartEmoji = {
 	[SeasonName.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeerHeart,
 	[SeasonName.Nesting]: SEASON_EMOJIS.NestingHeart,
 	[SeasonName.Duets]: SEASON_EMOJIS.DuetsHeart,
+	// @ts-expect-error Not yet created.
+	[SeasonName.Moomin]: SEASON_EMOJIS.MoominHeart,
 } as const satisfies Readonly<
 	Record<Exclude<SeasonName, SeasonName.Gratitude | SeasonName.Lightseekers>, SeasonEmojis>
 >;
@@ -2825,6 +2832,7 @@ enum SeasonFlags {
 	NineColouredDeer = 1 << 19,
 	Nesting = 1 << 20,
 	Duets = 1 << 21,
+	Moomin = 1 << 22,
 }
 
 const SeasonFlagsToSeasonName = {
@@ -2850,6 +2858,7 @@ const SeasonFlagsToSeasonName = {
 	[SeasonFlags.NineColouredDeer]: SeasonName.NineColouredDeer,
 	[SeasonFlags.Nesting]: SeasonName.Nesting,
 	[SeasonFlags.Duets]: SeasonName.Duets,
+	[SeasonFlags.Moomin]: SeasonName.Moomin,
 } as const satisfies Readonly<Record<SeasonFlags, SeasonName>>;
 
 export const SEASON_FLAGS_TO_SEASON_NAME_ENTRIES = Object.entries(SeasonFlagsToSeasonName);
