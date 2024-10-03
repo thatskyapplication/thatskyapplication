@@ -946,7 +946,7 @@ export default class Profile {
 		});
 	}
 
-	public static async like(interaction: ButtonInteraction) {
+	public static async like(interaction: ButtonInteraction, fromLike = false) {
 		const { customId } = interaction;
 		const userId = customId.slice(customId.indexOf("§") + 1);
 		const profile = await this.fetch(userId).catch(() => null);
@@ -986,10 +986,10 @@ export default class Profile {
 			});
 		}
 
-		await this.exploreProfile(interaction);
+		await (fromLike ? this.exploreLikedProfile(interaction) : this.exploreProfile(interaction));
 	}
 
-	public static async report(interaction: ButtonInteraction, like = false) {
+	public static async report(interaction: ButtonInteraction, fromLike = false) {
 		const { customId } = interaction;
 		const userId = customId.slice(customId.indexOf("§") + 1);
 		const profile = await this.fetch(userId).catch(() => null);
@@ -1008,7 +1008,7 @@ export default class Profile {
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
 						.setCustomId(
-							`${like ? SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID : SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID}§${userId}`,
+							`${fromLike ? SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID : SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID}§${userId}`,
 						)
 						.setEmoji("⬅️")
 						.setLabel("Back")
