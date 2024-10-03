@@ -533,49 +533,59 @@ export default class Profile {
 			user_id: interaction.user.id,
 		});
 
-		const components = [
-			...SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.map((customId, index) => {
-				return new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId(customId)
-						.setMaxValues(1)
-						.setMinValues(1)
-						.setOptions(
-							generateProfileExplorerSelectMenuOptions(
-								profiles,
-								index * SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
-								skyProfileLikesPackets,
-							),
-						)
-						.setPlaceholder("View a profile!"),
-				);
-			}).filter((selectMenu) => selectMenu.components[0]!.options.length > 0),
-			new ActionRowBuilder<ButtonBuilder>().setComponents(
-				new ButtonBuilder()
-					.setCustomId(`${SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID}§${page - 1!}`)
-					.setDisabled(!hasPreviousPage)
-					.setEmoji("⬅️")
-					.setLabel("Back")
-					.setStyle(ButtonStyle.Secondary),
-				new ButtonBuilder()
-					.setCustomId(`${SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID}§${page + 1}`)
-					.setDisabled(!hasNextPage)
-					.setEmoji("➡️")
-					.setLabel("Next")
-					.setStyle(ButtonStyle.Secondary),
-				new ButtonBuilder()
-					.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID}§1`)
-					.setDisabled(skyProfileLikesPackets.length === 0)
-					.setEmoji(MISCELLANEOUS_EMOJIS.Heart)
-					.setLabel("View likes")
-					.setStyle(ButtonStyle.Secondary),
-			),
-		];
+		const response = {
+			components: [
+				...SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.map((customId, index) => {
+					return new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+						new StringSelectMenuBuilder()
+							.setCustomId(customId)
+							.setMaxValues(1)
+							.setMinValues(1)
+							.setOptions(
+								generateProfileExplorerSelectMenuOptions(
+									profiles,
+									index * SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
+									skyProfileLikesPackets,
+								),
+							)
+							.setPlaceholder("View a profile!"),
+					);
+				}).filter((selectMenu) => selectMenu.components[0]!.options.length > 0),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID}§${page - 1!}`)
+						.setDisabled(!hasPreviousPage)
+						.setEmoji("⬅️")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID}§${page + 1}`)
+						.setDisabled(!hasNextPage)
+						.setEmoji("➡️")
+						.setLabel("Next")
+						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID}§1`)
+						.setDisabled(skyProfileLikesPackets.length === 0)
+						.setEmoji(MISCELLANEOUS_EMOJIS.Heart)
+						.setLabel("View likes")
+						.setStyle(ButtonStyle.Secondary),
+				),
+			],
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(
+						`You can explore Sky profiles others have created!\n\nYou can ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} a Sky profile to keep track of it, and report any Sky profiles that are not in the spirit of Sky.\n\nHave fun exploring!`,
+					)
+					.setTitle("Sky Profile Explorer"),
+			],
+		};
 
 		if (interaction instanceof ButtonInteraction) {
-			await interaction.update({ components, embeds: [] });
+			await interaction.update(response);
 		} else {
-			await interaction.reply({ components, flags: MessageFlags.Ephemeral });
+			await interaction.reply({ ...response, flags: MessageFlags.Ephemeral });
 		}
 	}
 
@@ -783,6 +793,12 @@ export default class Profile {
 						.setLabel("Next")
 						.setStyle(ButtonStyle.Secondary),
 				),
+			],
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(`You ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} these Sky profiles!`)
+					.setTitle("Sky Profile Explorer"),
 			],
 		});
 	}
