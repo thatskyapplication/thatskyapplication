@@ -64,7 +64,7 @@ importers:
         version: 3.4.2
       knip:
         specifier: ^5.22.2
-        version: 5.22.2(@types/node@22.5.4)(typescript@5.4.5)
+        version: 5.22.2(@types/node@22.7.4)(typescript@5.6.2)
       pino-pretty:
         specifier: ^11.2.1
         version: 11.2.1
@@ -72,8 +72,8 @@ importers:
         specifier: ^4.15.7
         version: 4.15.7
       typescript:
-        specifier: 5.4.5
-        version: 5.4.5
+        specifier: 5.6.2
+        version: 5.6.2
 
 packages:
 
@@ -862,8 +862,8 @@ packages:
   '@types/node@20.14.8':
     resolution: {integrity: sha512-DO+2/jZinXfROG7j7WKFn/3C6nFwxy2lLpgLjEXJz+0XKphZlTLJ14mo8Vfg8X5BWN6XjyESXq+LcYdT7tR3bA==}
 
-  '@types/node@22.5.4':
-    resolution: {integrity: sha512-FDuKUJQm/ju9fT/SeX/6+gBzoPzlVCzfzmGkwKvRHQVxi4BntVbyIwf6a4Xn62mrvndLiml6z/UBXIdEVjQLXg==}
+  '@types/node@22.7.4':
+    resolution: {integrity: sha512-y+NPi1rFzDs1NdQHHToqeiX2TIS79SWEAw9GYhkkx8bD0ChpfqC+n2j5OXOCpzfojBEBt6DnEnnG9MY0zk1XLg==}
 
   '@types/qs@6.9.15':
     resolution: {integrity: sha512-uXHQKES6DQKKCLh441Xv/dwxOq1TVS3JPUMlEqoEglvlhR6Mxnlew/Xq/LRVHpLyk7iK3zODe1qYHIMltO7XGg==}
@@ -1648,8 +1648,8 @@ packages:
     resolution: {integrity: sha512-R6wDsVsoS9xYOpy8vgeBlqpdOyzJ12HNfQhC/aAKWM3YoCV9TtunJzh/QpkMgeDhkoynDcw5f1y+qF9yc/HHyg==}
     engines: {node: '>=16'}
 
-  typescript@5.4.5:
-    resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
+  typescript@5.6.2:
+    resolution: {integrity: sha512-NW8ByodCSNCwZeghjN3o+JX5OFH0Ojg6sadjEKY4huZ52TqbJTJnDo5+Tw98lSy63NZvi4n+ez5m2u5d4PkZyw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -2884,7 +2884,7 @@ snapshots:
     dependencies:
       undici-types: 5.26.5
 
-  '@types/node@22.5.4':
+  '@types/node@22.7.4':
     dependencies:
       undici-types: 6.19.8
 
@@ -3257,12 +3257,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  knip@5.22.2(@types/node@22.5.4)(typescript@5.4.5):
+  knip@5.22.2(@types/node@22.7.4)(typescript@5.6.2):
     dependencies:
       '@ericcornelissen/bash-parser': 0.5.3
       '@nodelib/fs.walk': 2.0.0
       '@snyk/github-codeowners': 1.1.0
-      '@types/node': 22.5.4
+      '@types/node': 22.7.4
       easy-table: 1.2.0
       fast-glob: 3.3.2
       jiti: 1.21.6
@@ -3276,7 +3276,7 @@ snapshots:
       strip-json-comments: 5.0.1
       summary: 2.1.0
       tsconfig-paths: 4.2.0
-      typescript: 5.4.5
+      typescript: 5.6.2
       zod: 3.23.8
       zod-validation-error: 3.3.0(zod@3.23.8)
 
@@ -3649,7 +3649,7 @@ snapshots:
 
   type-fest@4.20.1: {}
 
-  typescript@5.4.5: {}
+  typescript@5.6.2: {}
 
   undici-types@5.26.5: {}
 
