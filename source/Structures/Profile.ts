@@ -558,6 +558,7 @@ export default class Profile {
 		const profilePackets = await pg<ProfilePacket>(Table.Profiles)
 			.whereNotNull("name")
 			.orderBy("name", "asc")
+			.orderBy("user_id", "asc")
 			.limit(limit + 1)
 			.offset(offset);
 
@@ -787,6 +788,7 @@ export default class Profile {
 			.select(`${Table.Profiles}.*`)
 			.where(`${Table.SkyProfileLikes}.user_id`, user.id)
 			.orderBy(`${Table.Profiles}.name`, "asc")
+			.orderBy(`${Table.Profiles}.user_id`, "asc")
 			.limit(limit + 1)
 			.offset(offset);
 
