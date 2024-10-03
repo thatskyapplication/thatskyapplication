@@ -580,7 +580,7 @@ export default class Profile {
 						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID}§1`)
 						.setDisabled(skyProfileLikesPackets.length === 0)
 						.setEmoji(MISCELLANEOUS_EMOJIS.Heart)
-						.setLabel("View likes")
+						.setLabel("Explore Likes")
 						.setStyle(ButtonStyle.Secondary),
 				),
 			],
@@ -899,8 +899,6 @@ export default class Profile {
 				})
 			).length === 1;
 
-		pino.info({ previous, next });
-
 		await interaction.update({
 			components: [
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
@@ -923,9 +921,9 @@ export default class Profile {
 						.setLabel(isLiked ? "Unlike" : "Like")
 						.setStyle(isLiked ? ButtonStyle.Secondary : ButtonStyle.Success),
 					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID}§1`)
+						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID}§1`)
 						.setEmoji("🌐")
-						.setLabel("Explore") // Change this?
+						.setLabel("Explore Likes")
 						.setStyle(ButtonStyle.Secondary),
 					new ButtonBuilder()
 						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID}§${userId}`)
