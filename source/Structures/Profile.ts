@@ -625,7 +625,7 @@ export default class Profile {
 		if (interaction.isChatInputCommand()) {
 			userId = interaction.options.getString("name", true);
 		} else if (interaction.isButton()) {
-			userId = interaction.customId.slice(interaction.customId.lastIndexOf("§") + 1);
+			userId = interaction.customId.slice(interaction.customId.indexOf("§") + 1);
 		} else {
 			userId = interaction.values[0]!;
 		}
