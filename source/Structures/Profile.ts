@@ -780,7 +780,7 @@ export default class Profile {
 				inline: true,
 			});
 		} else {
-			missing.push("- Set your favourite spirit!");
+			missing.push("- Use the command to set your favourite spirit!");
 		}
 
 		if (country) {
