@@ -805,6 +805,11 @@ export default class Profile {
 						.setEmoji("➡️")
 						.setLabel("Next")
 						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID}§1`)
+						.setEmoji("🌐")
+						.setLabel("Explore")
+						.setStyle(ButtonStyle.Secondary),
 				),
 			],
 			embeds: [
