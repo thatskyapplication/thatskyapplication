@@ -864,15 +864,15 @@ export default class Profile {
 			components: [
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID}§${userId}`)
-						.setEmoji("⚠️")
-						.setLabel("Confirm")
-						.setStyle(ButtonStyle.Danger),
-					new ButtonBuilder()
 						.setCustomId(`${SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID}§${userId}`)
 						.setEmoji("⬅️")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID}§${userId}`)
+						.setEmoji("⚠️")
+						.setLabel("Confirm")
+						.setStyle(ButtonStyle.Danger),
 				),
 			],
 			content:
