@@ -110,6 +110,17 @@ enum ProfileInteractiveEditType {
 
 const PROFILE_INTERACTIVE_EDIT_TYPE_VALUES = Object.values(ProfileInteractiveEditType);
 
+const ProfileInteractiveEditTypeToDescription = {
+	[ProfileInteractiveEditType.Name]: "What name do you go by?",
+	[ProfileInteractiveEditType.Description]: "What's your story?",
+	[ProfileInteractiveEditType.WingedLight]: "What's the maximum winged light you can possess?",
+	[ProfileInteractiveEditType.Country]: "What country are you from?",
+	[ProfileInteractiveEditType.Spot]: "Where do you hang out?",
+	[ProfileInteractiveEditType.Seasons]: "What seasons have you played in?",
+	[ProfileInteractiveEditType.Platforms]: "What platforms do you play on?",
+	[ProfileInteractiveEditType.CatalogueProgression]: "Toggle showing your catalogue progression?",
+} as const satisfies Readonly<Record<ProfileInteractiveEditType, string>>;
+
 function isProfileInteractiveEditType(value: unknown): value is ProfileInteractiveEditType {
 	return PROFILE_INTERACTIVE_EDIT_TYPE_VALUES.includes(value as ProfileInteractiveEditType);
 }
@@ -155,6 +166,7 @@ const SKY_PROFILE_EDIT_ACTION_ROW = new ActionRowBuilder<StringSelectMenuBuilder
 		.setOptions(
 			PROFILE_INTERACTIVE_EDIT_TYPE_VALUES.map((profileInteractiveEditType) =>
 				new StringSelectMenuOptionBuilder()
+					.setDescription(ProfileInteractiveEditTypeToDescription[profileInteractiveEditType])
 					.setLabel(profileInteractiveEditType)
 					.setValue(profileInteractiveEditType),
 			),
