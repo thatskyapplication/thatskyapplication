@@ -387,6 +387,7 @@ export default {
 				}
 
 				if (
+					customId.startsWith(SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID) ||
 					customId.startsWith(SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID) ||
 					customId.startsWith(SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID)
 				) {
@@ -395,6 +396,7 @@ export default {
 				}
 
 				if (
+					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID) ||
 					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID) ||
 					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID)
 				) {
@@ -419,18 +421,8 @@ export default {
 					return;
 				}
 
-				if (customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID)) {
-					await Profile.exploreLikes(interaction);
-					return;
-				}
-
 				if (customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID)) {
 					await Profile.like(interaction);
-					return;
-				}
-
-				if (customId.startsWith(SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID)) {
-					await Profile.explore(interaction);
 					return;
 				}
 
