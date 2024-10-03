@@ -579,7 +579,7 @@ export default class Profile {
 					new ButtonBuilder()
 						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID}§1`)
 						.setDisabled(skyProfileLikesPackets.length === 0)
-						.setEmoji(MISCELLANEOUS_EMOJIS.Heart)
+						.setEmoji("🌐")
 						.setLabel("Explore Likes")
 						.setStyle(ButtonStyle.Secondary),
 				),
