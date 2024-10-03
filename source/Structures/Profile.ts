@@ -236,8 +236,20 @@ export const SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID =
 
 export const SKY_PROFILE_REPORT_MODAL_CUSTOM_ID = "SKY_PROFILE_REPORT_MODAL_CUSTOM_ID" as const;
 
-const SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID =
+export const SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID =
 	"SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID =
+	"SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID =
+	"SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID =
+	"SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID =
+	"SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
 export const SKY_PROFILE_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
@@ -741,6 +753,7 @@ export default class Profile {
 			.join(Table.Profiles, `${Table.SkyProfileLikes}.target_id`, `${Table.Profiles}.user_id`)
 			.select(`${Table.Profiles}.*`)
 			.where(`${Table.SkyProfileLikes}.user_id`, user.id)
+			.orderBy(`${Table.Profiles}.name`, "asc")
 			.limit(limit + 1)
 			.offset(offset);
 
@@ -800,6 +813,130 @@ export default class Profile {
 					.setDescription(`You ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} these Sky profiles!`)
 					.setTitle("Sky Profile Explorer"),
 			],
+		});
+	}
+
+	private static async exploreLikedProfilePreviousRow(
+		name: string,
+		userId: Snowflake,
+		targetId: Snowflake,
+	) {
+		const [previous] = await pg<ProfilePacket>(Table.SkyProfileLikes)
+			.join(Table.Profiles, `${Table.SkyProfileLikes}.target_id`, `${Table.Profiles}.user_id`)
+			.select(`${Table.Profiles}.*`)
+			.where(`${Table.SkyProfileLikes}.user_id`, userId)
+			.andWhere(function () {
+				this.where(`${Table.Profiles}.name`, "<", name).orWhere(function () {
+					this.where(`${Table.Profiles}.name`, "=", name).andWhere(
+						`${Table.Profiles}.user_id`,
+						"<",
+						targetId,
+					);
+				});
+			})
+			.orderBy(`${Table.Profiles}.name`, "desc")
+			.orderBy(`${Table.Profiles}.user_id`, "desc")
+			.limit(1);
+
+		return previous ? previous : null;
+	}
+
+	private static async exploreLikedProfileNextRow(
+		name: string,
+		userId: Snowflake,
+		targetId: Snowflake,
+	) {
+		const [next] = await pg<ProfilePacket>(Table.SkyProfileLikes)
+			.join(Table.Profiles, `${Table.SkyProfileLikes}.target_id`, `${Table.Profiles}.user_id`)
+			.select(`${Table.Profiles}.*`)
+			.where(`${Table.SkyProfileLikes}.user_id`, userId)
+			.andWhere(function () {
+				this.where(`${Table.Profiles}.name`, ">", name).orWhere(function () {
+					this.where(`${Table.Profiles}.name`, "=", name).andWhere(
+						`${Table.Profiles}.user_id`,
+						">",
+						targetId,
+					);
+				});
+			})
+			.orderBy(`${Table.Profiles}.name`, "asc")
+			.orderBy(`${Table.Profiles}.user_id`, "asc")
+			.limit(1);
+
+		return next ? next : null;
+	}
+
+	public static async exploreLikedProfile(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+	) {
+		const { user } = interaction;
+
+		const userId = interaction.isButton()
+			? interaction.customId.slice(interaction.customId.indexOf("§") + 1)
+			: interaction.values[0]!;
+
+		const profile = await this.fetch(userId).catch(() => null);
+
+		if (!profile) {
+			await interaction.reply({
+				content: "Could not go to that Sky kid's Sky profile. Try browsing?",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		const name = profile.name!;
+		const previous = await this.exploreLikedProfilePreviousRow(name, user.id, userId);
+		const next = await this.exploreLikedProfileNextRow(name, user.id, userId);
+		const ownSkyProfile = user.id === profile.userId;
+
+		const isLiked =
+			(
+				await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes).where({
+					user_id: interaction.user.id,
+					target_id: userId,
+				})
+			).length === 1;
+
+		pino.info({ previous, next });
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID}§${previous?.user_id}`)
+						.setDisabled(!previous)
+						.setEmoji("⬅️")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID}§${next?.user_id}`)
+						.setDisabled(!next)
+						.setEmoji("➡️")
+						.setLabel("Next")
+						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID}§${userId}`)
+						.setDisabled(ownSkyProfile)
+						.setEmoji(MISCELLANEOUS_EMOJIS.Heart)
+						.setLabel(isLiked ? "Unlike" : "Like")
+						.setStyle(isLiked ? ButtonStyle.Secondary : ButtonStyle.Success),
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID}§1`)
+						.setEmoji("🌐")
+						.setLabel("Explore") // Change this?
+						.setStyle(ButtonStyle.Secondary),
+					new ButtonBuilder()
+						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID}§${userId}`)
+						.setDisabled(ownSkyProfile)
+						.setEmoji("⚠️")
+						.setLabel("Report")
+						.setStyle(ButtonStyle.Secondary),
+				),
+			],
+			content: "",
+			embeds: [(await profile.embed(interaction)).embed],
 		});
 	}
 

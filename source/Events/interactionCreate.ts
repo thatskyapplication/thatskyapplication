@@ -70,6 +70,8 @@ import Profile, {
 	SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS,
 	SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID,
@@ -409,6 +411,14 @@ export default {
 					return;
 				}
 
+				if (
+					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID) ||
+					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID)
+				) {
+					await Profile.exploreLikedProfile(interaction);
+					return;
+				}
+
 				if (customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID)) {
 					await Profile.exploreLikes(interaction);
 					return;
@@ -570,12 +580,18 @@ export default {
 				if (
 					SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.includes(
 						customId as (typeof SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS)[number],
-					) ||
+					)
+				) {
+					await Profile.exploreProfile(interaction);
+					return;
+				}
+
+				if (
 					SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS.includes(
 						customId as (typeof SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS)[number],
 					)
 				) {
-					await Profile.exploreProfile(interaction);
+					await Profile.exploreLikedProfile(interaction);
 					return;
 				}
 
