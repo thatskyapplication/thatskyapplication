@@ -2751,7 +2751,6 @@ export const SeasonNameToSeasonalEmoji = {
 	[SeasonName.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeer,
 	[SeasonName.Nesting]: SEASON_EMOJIS.Nesting,
 	[SeasonName.Duets]: SEASON_EMOJIS.Duets,
-	// @ts-expect-error Not yet created.
 	[SeasonName.Moomin]: SEASON_EMOJIS.Moomin,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
