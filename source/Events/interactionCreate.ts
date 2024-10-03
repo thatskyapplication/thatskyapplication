@@ -412,7 +412,7 @@ export default {
 					customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID) ||
 					customId.startsWith(SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID)
 				) {
-					await Profile.exploreProfile(interaction);
+					await Profile.exploreProfile(interaction, customId.slice(customId.indexOf("§") + 1));
 					return;
 				}
 
@@ -588,7 +588,7 @@ export default {
 						customId as (typeof SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS)[number],
 					)
 				) {
-					await Profile.exploreProfile(interaction);
+					await Profile.exploreProfile(interaction, value0);
 					return;
 				}
 

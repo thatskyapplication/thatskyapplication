@@ -509,6 +509,41 @@ export default class Profile {
 		}
 	}
 
+	public static async show(interaction: ChatInputCommandInteraction) {
+		const user = interaction.options.getUser("user");
+		const hide = interaction.options.getBoolean("hide") ?? false;
+
+		if (user?.bot) {
+			await interaction.reply({
+				content: "Do applications have Sky profiles? Hm. Who knows?",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		if (hide) {
+			Profile.exploreProfile(interaction, user?.id ?? interaction.user.id);
+		} else {
+			const profile = await this.fetch(user?.id ?? interaction.user.id).catch(() => null);
+
+			if (!profile) {
+				const userIsInvoker = !user || user.id === interaction.user.id;
+
+				await interaction.reply({
+					content: `${userIsInvoker ? "You do" : `${user} does`} not have a Sky profile! Why not${
+						userIsInvoker ? "" : " ask them to"
+					} create one?`,
+					flags: MessageFlags.Ephemeral,
+				});
+
+				return;
+			}
+
+			await interaction.reply({ embeds: [(await profile.embed(interaction)).embed] });
+		}
+	}
+
 	public static async explore(interaction: ButtonInteraction | ChatInputCommandInteraction) {
 		const page =
 			interaction instanceof ChatInputCommandInteraction
@@ -632,24 +667,19 @@ export default class Profile {
 	}
 
 	public static async exploreProfile(
-		interaction: ChatInputCommandInteraction | ButtonInteraction | StringSelectMenuInteraction,
+		interaction:
+			| ButtonInteraction
+			| ChatInputCommandInteraction
+			| StringSelectMenuInteraction
+			| UserContextMenuCommandInteraction,
+		userId: Snowflake,
 	) {
 		const { user } = interaction;
-		let userId: Snowflake;
-
-		if (interaction.isChatInputCommand()) {
-			userId = interaction.options.getString("name", true);
-		} else if (interaction.isButton()) {
-			userId = interaction.customId.slice(interaction.customId.indexOf("§") + 1);
-		} else {
-			userId = interaction.values[0]!;
-		}
-
 		const profile = await this.fetch(userId).catch(() => null);
 
 		if (!profile) {
 			await interaction.reply({
-				content: "Could not go to that Sky kid's Sky profile. Try browsing?",
+				content: "This Sky kid does not have a Sky profile. Maybe they should make one!",
 				flags: MessageFlags.Ephemeral,
 			});
 
@@ -986,7 +1016,9 @@ export default class Profile {
 			});
 		}
 
-		await (fromLike ? this.exploreLikedProfile(interaction) : this.exploreProfile(interaction));
+		await (fromLike
+			? this.exploreLikedProfile(interaction)
+			: this.exploreProfile(interaction, userId));
 	}
 
 	public static async report(interaction: ButtonInteraction, fromLike = false) {

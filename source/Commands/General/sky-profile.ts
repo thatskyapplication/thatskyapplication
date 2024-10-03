@@ -7,7 +7,6 @@ import {
 	type AutocompleteInteraction,
 	type ChatInputCommandInteraction,
 	PermissionFlagsBits,
-	UserContextMenuCommandInteraction,
 } from "discord.js";
 import Profile, {
 	AssetType,
@@ -270,7 +269,7 @@ export default new (class implements AutocompleteCommand {
 		const name = interaction.options.getString("name");
 
 		if (name) {
-			await Profile.exploreProfile(interaction);
+			await Profile.exploreProfile(interaction, name);
 			return;
 		}
 
@@ -281,39 +280,7 @@ export default new (class implements AutocompleteCommand {
 		await Profile.exploreAutocomplete(interaction);
 	}
 
-	public async show(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
-		const user = interaction.options.getUser("user");
-
-		const hide =
-			interaction instanceof UserContextMenuCommandInteraction ||
-			(interaction.options.getBoolean("hide") ?? false);
-
-		if (user?.bot) {
-			await interaction.reply({
-				content: "Do bots have Sky profiles? Hm. Who knows?",
-				ephemeral: hide,
-			});
-
-			return;
-		}
-
-		const userIsInvoker = user === null || user.id === interaction.user.id;
-		const profile = await Profile.fetch(user?.id ?? interaction.user.id).catch(() => null);
-
-		if (!profile) {
-			await interaction.reply({
-				content: `${userIsInvoker ? "You do" : `${user} does`} not have a Sky profile! Why not${
-					userIsInvoker ? "" : " ask them to"
-				} create one?`,
-				ephemeral: true,
-			});
-
-			return;
-		}
-
-		await interaction.reply({
-			embeds: [(await profile.embed(interaction)).embed],
-			ephemeral: hide,
-		});
+	public async show(interaction: ChatInputCommandInteraction) {
+		await Profile.show(interaction);
 	}
 })();

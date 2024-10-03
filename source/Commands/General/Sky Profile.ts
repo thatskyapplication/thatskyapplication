@@ -1,9 +1,11 @@
 import {
 	type ApplicationCommandData,
 	ApplicationCommandType,
+	MessageFlags,
 	type UserContextMenuCommandInteraction,
 } from "discord.js";
-import COMMANDS, { type UserContextMenuCommand } from "../index.js";
+import Profile from "../../Structures/Profile.js";
+import type { UserContextMenuCommand } from "../index.js";
 
 export default new (class implements UserContextMenuCommand {
 	public readonly data = {
@@ -14,6 +16,17 @@ export default new (class implements UserContextMenuCommand {
 	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async userContextMenu(interaction: UserContextMenuCommandInteraction) {
-		await COMMANDS.skyprofile.show(interaction);
+		const { targetId, targetUser } = interaction;
+
+		if (targetUser.bot) {
+			await interaction.reply({
+				content: "Do applications have Sky profiles? Hm. Who knows?",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		await Profile.exploreProfile(interaction, targetId);
 	}
 })();
