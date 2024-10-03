@@ -315,6 +315,22 @@ function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${
 	return hash.startsWith(ANIMATED_HASH_PREFIX);
 }
 
+function generateLabelLetter(label: string) {
+	const emojiRegularExpression = /^\p{Emoji}/u.exec(label);
+
+	if (emojiRegularExpression) {
+		return emojiRegularExpression[0];
+	}
+
+	const zeroWidthRegularExpression = /\u200B|\u200C|\u200D\|u00A0]/.test(label);
+
+	if (zeroWidthRegularExpression) {
+		return "??";
+	}
+
+	return label[0]!.toUpperCase();
+}
+
 export default class Profile {
 	public readonly userId: ProfileData["userId"];
 
@@ -587,21 +603,27 @@ export default class Profile {
 		const response = {
 			components: [
 				...SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.map((customId, index) => {
+					const options = generateProfileExplorerSelectMenuOptions(
+						profiles,
+						index * SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
+						skyProfileLikesPackets,
+					);
+
+					if (options.length === 0) {
+						return;
+					}
+
 					return new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 						new StringSelectMenuBuilder()
 							.setCustomId(customId)
 							.setMaxValues(1)
 							.setMinValues(1)
-							.setOptions(
-								generateProfileExplorerSelectMenuOptions(
-									profiles,
-									index * SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
-									skyProfileLikesPackets,
-								),
-							)
-							.setPlaceholder("View a profile!"),
+							.setOptions(options)
+							.setPlaceholder(
+								`${generateLabelLetter(options[0]!.data.label!)} - ${generateLabelLetter(options[options.length - 1]!.data.label!)}`,
+							),
 					);
-				}).filter((selectMenu) => selectMenu.components[0]!.options.length > 0),
+				}).filter((selectMenu) => selectMenu !== undefined),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
 						.setCustomId(`${SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID}§${page - 1!}`)
@@ -813,20 +835,26 @@ export default class Profile {
 		await interaction.update({
 			components: [
 				...SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS.map((customId, index) => {
+					const options = generateProfileExplorerSelectMenuOptions(
+						profiles,
+						index * SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
+					);
+
+					if (options.length === 0) {
+						return;
+					}
+
 					return new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 						new StringSelectMenuBuilder()
 							.setCustomId(customId)
 							.setMaxValues(1)
 							.setMinValues(1)
-							.setOptions(
-								generateProfileExplorerSelectMenuOptions(
-									profiles,
-									index * SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
-								),
-							)
-							.setPlaceholder("View a profile!"),
+							.setOptions(options)
+							.setPlaceholder(
+								`${generateLabelLetter(options[0]!.data.label!)} - ${generateLabelLetter(options[options.length - 1]!.data.label!)}`,
+							),
 					);
-				}).filter((selectMenu) => selectMenu.components[0]!.options.length > 0),
+				}).filter((selectMenu) => selectMenu !== undefined),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
 						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID}§${page - 1}`)
