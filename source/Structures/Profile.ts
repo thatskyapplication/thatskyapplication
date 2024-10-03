@@ -223,6 +223,9 @@ export const SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID =
 export const SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID =
 	"SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID" as const;
 
+export const SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID =
+	"SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID" as const;
+
 export const SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID =
 	"SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID" as const;
 
@@ -986,7 +989,7 @@ export default class Profile {
 		await this.exploreProfile(interaction);
 	}
 
-	public static async report(interaction: ButtonInteraction) {
+	public static async report(interaction: ButtonInteraction, like = false) {
 		const { customId } = interaction;
 		const userId = customId.slice(customId.indexOf("§") + 1);
 		const profile = await this.fetch(userId).catch(() => null);
@@ -1004,7 +1007,9 @@ export default class Profile {
 			components: [
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID}§${userId}`)
+						.setCustomId(
+							`${like ? SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID : SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID}§${userId}`,
+						)
 						.setEmoji("⬅️")
 						.setLabel("Back")
 						.setStyle(ButtonStyle.Secondary),
