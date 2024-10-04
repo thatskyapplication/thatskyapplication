@@ -644,6 +644,7 @@ export default class Profile {
 						.setStyle(ButtonStyle.Secondary),
 				),
 			],
+			content: "",
 			embeds: [
 				new EmbedBuilder()
 					.setColor(DEFAULT_EMBED_COLOUR)
@@ -755,7 +756,7 @@ export default class Profile {
 						.setStyle(ButtonStyle.Secondary),
 				),
 			],
-			content: "",
+			content: userMention(userId),
 			embeds: [(await profile.embed(interaction)).embed],
 		};
 
@@ -874,6 +875,7 @@ export default class Profile {
 						.setStyle(ButtonStyle.Secondary),
 				),
 			],
+			content: "",
 			embeds: [
 				new EmbedBuilder()
 					.setColor(DEFAULT_EMBED_COLOUR)
@@ -1000,7 +1002,7 @@ export default class Profile {
 						.setStyle(ButtonStyle.Secondary),
 				),
 			],
-			content: "",
+			content: userMention(userId),
 			embeds: [(await profile.embed(interaction)).embed],
 		});
 	}
