@@ -22,7 +22,6 @@ export const CDN_URL = PRODUCTION ? CDN_URL_PRODUCTION : CDN_URL_DEVELOPMENT;
 
 // Channel ids.
 export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const;
-export const SKY_PROFILE_REPORTS_CHANNEL_ID = "1290777479941853224" as const;
 
 // Concurrency limit to not hit the global rate limit of 50 requests per second.
 export const MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT = 45 as const;

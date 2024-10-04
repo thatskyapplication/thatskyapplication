@@ -36,7 +36,6 @@ import {
 	DEFAULT_EMBED_COLOUR,
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
-	SKY_PROFILE_REPORTS_CHANNEL_ID,
 } from "../Utility/Constants.js";
 import {
 	SEASON_FLAGS_TO_SEASON_NAME_ENTRIES,
@@ -1120,9 +1119,18 @@ export default class Profile {
 	}
 
 	public static async sendReport(interaction: ModalMessageModalSubmitInteraction) {
-		const channel = interaction.client.channels.cache.get(SKY_PROFILE_REPORTS_CHANNEL_ID);
+		const channel = interaction.client.channels.cache.get(
+			process.env.SKY_PROFILE_REPORTS_CHANNEL_ID!,
+		);
 
 		if (!channel?.isTextBased()) {
+			pino.error(interaction, "Could not find the Sky profile reports channel.");
+
+			await interaction.update({
+				components: [],
+				content: "This Sky profile has been reported. Thank you for keeping the community safe!",
+			});
+
 			return;
 		}
 
