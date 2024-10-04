@@ -3,6 +3,7 @@ import {
 	ChannelType,
 	type ChatInputCommandInteraction,
 	type Client,
+	DiscordAPIError,
 	EmbedBuilder,
 	type EmbedFooterOptions,
 	type Guild,
@@ -11,6 +12,7 @@ import {
 	type Locale,
 	PermissionFlagsBits,
 	type PublicThreadChannel,
+	RESTJSONErrorCodes,
 	type Snowflake,
 	channelMention,
 	hyperlink,
@@ -546,12 +548,31 @@ export default class DailyGuidesDistribution {
 			}),
 		);
 
+		const knownErrors: unknown[] = [];
+
 		const errors = settled
 			.filter((result): result is PromiseRejectedResult => result.status === "rejected")
-			.map((result) => result.reason);
+			.map((result) => result.reason)
+			.filter((error) => {
+				if (
+					error instanceof DiscordAPIError &&
+					error.code === RESTJSONErrorCodes.UnknownMessage &&
+					error.method === "PATCH"
+				) {
+					// It is likely that the message was deleted prior to editing.
+					knownErrors.push(error);
+					return false;
+				}
+
+				return true;
+			});
 
 		if (errors.length > 0) {
 			pino.error(errors, "Error whilst distributing daily guides.");
+		}
+
+		if (knownErrors.length > 0) {
+			pino.info(knownErrors, "Known errors whilst distributing daily guides.");
 		}
 	}
 }
