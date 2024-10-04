@@ -20,7 +20,7 @@ const CDN_URL_DEVELOPMENT = "https://cdn-development.thatskyapplication.com" as 
 const CDN_URL_PRODUCTION = "https://cdn.thatskyapplication.com" as const;
 export const CDN_URL = PRODUCTION ? CDN_URL_PRODUCTION : CDN_URL_DEVELOPMENT;
 
-// Log channels.
+// Channel ids.
 export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const;
 
 // Concurrency limit to not hit the global rate limit of 50 requests per second.

@@ -7,7 +7,6 @@ import {
 	type AutocompleteInteraction,
 	type ChatInputCommandInteraction,
 	PermissionFlagsBits,
-	UserContextMenuCommandInteraction,
 } from "discord.js";
 import Profile, {
 	AssetType,
@@ -87,6 +86,19 @@ export default new (class implements AutocompleteCommand {
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
+				name: "explore",
+				description: "Explore the Sky profiles of others!",
+				options: [
+					{
+						type: ApplicationCommandOptionType.String,
+						name: "name",
+						description: "Search a Sky profile via a name!",
+						autocomplete: true,
+					},
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
 				name: "show",
 				description: "Shows the Sky profile of someone.",
 				options: [
@@ -108,8 +120,17 @@ export default new (class implements AutocompleteCommand {
 	} as const satisfies Readonly<ApplicationCommandData>;
 
 	public async autocomplete(interaction: AutocompleteInteraction) {
-		// This is the same as querying a spirit, so use that instead.
-		await COMMANDS.spirit.autocomplete(interaction);
+		switch (interaction.options.getSubcommand()) {
+			case "edit": {
+				// This is the same as querying a spirit, so use that instead.
+				await COMMANDS.spirit.autocomplete(interaction);
+				return;
+			}
+			case "explore": {
+				await this.exploreAutocomplete(interaction);
+				return;
+			}
+		}
 	}
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
@@ -120,6 +141,10 @@ export default new (class implements AutocompleteCommand {
 		switch (interaction.options.getSubcommand()) {
 			case "edit": {
 				await this.edit(interaction);
+				return;
+			}
+			case "explore": {
+				await this.explore(interaction);
 				return;
 			}
 			case "show": {
@@ -240,39 +265,22 @@ export default new (class implements AutocompleteCommand {
 		return true;
 	}
 
-	public async show(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
-		const user = interaction.options.getUser("user");
+	private async explore(interaction: ChatInputCommandInteraction) {
+		const name = interaction.options.getString("name");
 
-		const hide =
-			interaction instanceof UserContextMenuCommandInteraction ||
-			(interaction.options.getBoolean("hide") ?? false);
-
-		if (user?.bot) {
-			await interaction.reply({
-				content: "Do bots have Sky profiles? Hm. Who knows?",
-				ephemeral: hide,
-			});
-
+		if (name) {
+			await Profile.exploreProfile(interaction, name);
 			return;
 		}
 
-		const userIsInvoker = user === null || user.id === interaction.user.id;
-		const profile = await Profile.fetch(user?.id ?? interaction.user.id).catch(() => null);
+		await Profile.explore(interaction);
+	}
 
-		if (!profile) {
-			await interaction.reply({
-				content: `${userIsInvoker ? "You do" : `${user} does`} not have a Sky profile! Why not${
-					userIsInvoker ? "" : " ask them to"
-				} create one?`,
-				ephemeral: true,
-			});
+	private async exploreAutocomplete(interaction: AutocompleteInteraction) {
+		await Profile.exploreAutocomplete(interaction);
+	}
 
-			return;
-		}
-
-		await interaction.reply({
-			embeds: [(await profile.embed(interaction)).embed],
-			ephemeral: hide,
-		});
+	public async show(interaction: ChatInputCommandInteraction) {
+		await Profile.show(interaction);
 	}
 })();

@@ -12,6 +12,7 @@ export enum Table {
 	Hugs = "hugs",
 	Notifications = "notifications",
 	Profiles = "profiles",
+	SkyProfileLikes = "sky_profile_likes",
 	Catalogue = "catalogue",
 }
 
