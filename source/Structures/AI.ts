@@ -23,7 +23,7 @@ import { resolveEntitlement } from "../Utility/functions.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 
-export interface AIPacket {
+interface AIPacket {
 	guild_id: Snowflake;
 	frequency_type: number;
 }
