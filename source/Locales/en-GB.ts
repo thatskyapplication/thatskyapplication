@@ -63,9 +63,11 @@ export default {
 				"duplicate-areas": "Duplicate areas detected. Make sure to only provide unique areas!",
 				"started-with": "Started with",
 				"reborn-with": "Reborn with",
+				total: "Total",
 				unknown: "Unknown area detected. Please report this issue!",
+				"wedge-next_other": "Next wedge: {{count}}",
+				"wedge-total_other": "{{count}} wedges",
 				"winged-light-calculator": "Winged Light Calculator",
-				"you-should-have": "You should have",
 			},
 		},
 		hug: {

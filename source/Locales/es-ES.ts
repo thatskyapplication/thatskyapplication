@@ -255,9 +255,11 @@ export default {
 				"duplicate-areas": "Áreas duplicadas detectadas. ¡Asegúrate de dar una única área!",
 				"started-with": "Empezaste con",
 				"reborn-with": "Renaciste con",
+				total: "Total",
 				unknown: "Área desconocida detectada. Por favor, ¡reporta este problema!",
+				// "wedge-next_other": "",
+				// "wedge-total_other": "",
 				"winged-light-calculator": "Calculadora de Luz Alada",
-				"you-should-have": "Deberías tener",
 			},
 		},
 		hug: {

@@ -22,6 +22,7 @@ import {
 	RealmName,
 	SkyMap,
 	WINGED_LIGHT_AREAS,
+	WINGED_LIGHT_THRESHOLDS,
 } from "../../Utility/Constants.js";
 import {
 	SEASONAL_CANDLES_PER_DAY,
@@ -601,50 +602,56 @@ export default new (class implements ChatInputCommand {
 		const wingBuffs = options.getInteger("wing-buffs", true);
 		let accumulation = wingBuffs;
 
-		await interaction.reply({
-			embeds: [
-				new EmbedBuilder()
-					.setColor(DEFAULT_EMBED_COLOUR)
-					.setDescription(
-						`${t("calculate.winged-light.started-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji(
-							{
-								emoji: MISCELLANEOUS_EMOJIS.WingedLight,
-								number: wingBuffs,
-								includeSpaceInEmoji: true,
-							},
-						)}.\n${t("calculate.winged-light.reborn-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji(
-							{
-								emoji: MISCELLANEOUS_EMOJIS.WingedLight,
-								// biome-ignore lint/suspicious/noAssignInExpressions: It's fine.
-								number: (accumulation += AreaToWingedLightCount[SkyMap.Orbit]),
-								includeSpaceInEmoji: true,
-							},
-						)} (+${AreaToWingedLightCount[SkyMap.Orbit]}).`,
-					)
-					.setFields(
-						...WINGED_LIGHT_AREAS.map((area) => ({
-							name: t(`${area === SkyMap.AncientMemory ? "maps" : "realms"}.${area}`, {
-								lng,
-								ns: "general",
-							}),
-							value: `${
-								// biome-ignore lint/suspicious/noAssignInExpressions: It's fine.
-								(accumulation += AreaToWingedLightCount[area])
-							} (+${AreaToWingedLightCount[area]})`,
-						})),
-						{
-							name: "Total",
-							value: `${t("calculate.winged-light.you-should-have", { lng, ns: "commands" })} ${resolveCurrencyEmoji(
-								{
-									emoji: MISCELLANEOUS_EMOJIS.WingedLight,
-									number: accumulation,
-									includeSpaceInEmoji: true,
-								},
-							)}.`,
-						},
-					)
-					.setTitle(t("calculate.winged-light.winged-light-calculator", { lng, ns: "commands" })),
-			],
+		const embed = new EmbedBuilder()
+			.setColor(DEFAULT_EMBED_COLOUR)
+			.setDescription(
+				`${t("calculate.winged-light.started-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji(
+					{
+						emoji: MISCELLANEOUS_EMOJIS.WingedLight,
+						number: wingBuffs,
+						includeSpaceInEmoji: true,
+					},
+				)}.\n${t("calculate.winged-light.reborn-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji(
+					{
+						emoji: MISCELLANEOUS_EMOJIS.WingedLight,
+						// biome-ignore lint/suspicious/noAssignInExpressions: It's fine.
+						number: (accumulation += AreaToWingedLightCount[SkyMap.Orbit]),
+						includeSpaceInEmoji: true,
+					},
+				)} (+${AreaToWingedLightCount[SkyMap.Orbit]}).`,
+			)
+			.setTitle(t("calculate.winged-light.winged-light-calculator", { lng, ns: "commands" }));
+
+		const fields = WINGED_LIGHT_AREAS.map((area) => ({
+			name: t(`${area === SkyMap.AncientMemory ? "maps" : "realms"}.${area}`, {
+				lng,
+				ns: "general",
+			}),
+			value: `${
+				// biome-ignore lint/suspicious/noAssignInExpressions: It's fine.
+				(accumulation += AreaToWingedLightCount[area])
+			} (+${AreaToWingedLightCount[area]})`,
+		}));
+
+		const wedge = WINGED_LIGHT_THRESHOLDS.findIndex((threshold) => accumulation < threshold);
+		const nextThreshold = WINGED_LIGHT_THRESHOLDS[wedge];
+
+		const wedgeTotal = t("calculate.winged-light.wedge-total", {
+			lng,
+			ns: "commands",
+			count: wedge,
 		});
+
+		const nextWedge = nextThreshold
+			? `${t("calculate.winged-light.wedge-next", { lng, ns: "commands", count: nextThreshold })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)}`
+			: null;
+
+		fields.push({
+			name: t("calculate.winged-light.total", { lng, ns: "commands" }),
+			value: `${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.WingedLight, number: accumulation, includeSpaceInEmoji: true })} | ${wedgeTotal}${nextThreshold ? `\n${nextWedge}` : ""}`,
+		});
+
+		embed.setFields(fields);
+		await interaction.reply({ embeds: [embed] });
 	}
 })();
