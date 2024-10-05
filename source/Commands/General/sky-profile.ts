@@ -82,6 +82,11 @@ export default new (class implements AutocompleteCommand {
 						name: "catalogue-progression",
 						description: "Show your catalogue progression?",
 					},
+					{
+						type: ApplicationCommandOptionType.Boolean,
+						name: "guess-rank",
+						description: "Show your guessing game rank?",
+					},
 				],
 			},
 			{
@@ -154,6 +159,7 @@ export default new (class implements AutocompleteCommand {
 		}
 	}
 
+	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 	public async edit(interaction: ChatInputCommandInteraction) {
 		const { options } = interaction;
 		const name = options.getString("name");
@@ -164,6 +170,7 @@ export default new (class implements AutocompleteCommand {
 		const country = options.getString("country");
 		const spot = options.getString("spot");
 		const catalogueProgression = options.getBoolean("catalogue-progression");
+		const guessRank = options.getBoolean("guess-rank");
 		const data: ProfileSetData = {};
 		const promises = [];
 
@@ -224,6 +231,10 @@ export default new (class implements AutocompleteCommand {
 
 			if (catalogueProgression !== null) {
 				data.catalogue_progression = catalogueProgression;
+			}
+
+			if (guessRank !== null) {
+				data.guess_rank = guessRank;
 			}
 
 			const resolvedPromises = await Promise.all(promises.map(({ promise }) => promise));

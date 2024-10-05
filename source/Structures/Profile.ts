@@ -47,6 +47,7 @@ import { resolveBitsToSeasons } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { Catalogue } from "./Catalogue.js";
+import { GuessDifficultyLevel, GuessDifficultyLevelToName, findUser } from "./Guess.js";
 import {
 	PLATFORM_FLAGS_TO_STRING_ENTRIES,
 	resolveBitsToPlatform,
@@ -66,6 +67,7 @@ export interface ProfilePacket {
 	spirit: string | null;
 	spot: string | null;
 	catalogue_progression: boolean | null;
+	guess_rank: boolean | null;
 }
 
 interface SkyProfileLikesPacket {
@@ -86,6 +88,7 @@ interface ProfileData {
 	spirit: ProfilePacket["spirit"];
 	spot: ProfilePacket["spot"];
 	catalogueProgression: ProfilePacket["catalogue_progression"];
+	guessRank: ProfilePacket["guess_rank"];
 }
 
 export interface ProfileSetData {
@@ -100,6 +103,7 @@ export interface ProfileSetData {
 	spirit?: string;
 	spot?: string;
 	catalogue_progression?: boolean;
+	guess_rank?: boolean;
 }
 
 type ProfilePatchData = Omit<ProfilePacket, "user_id">;
@@ -113,6 +117,7 @@ enum ProfileInteractiveEditType {
 	Seasons = "Seasons",
 	Platforms = "Platforms",
 	CatalogueProgression = "Catalogue Progression",
+	GuessRank = "Guess Rank",
 }
 
 const PROFILE_INTERACTIVE_EDIT_TYPE_VALUES = Object.values(ProfileInteractiveEditType);
@@ -126,6 +131,7 @@ const ProfileInteractiveEditTypeToDescription = {
 	[ProfileInteractiveEditType.Seasons]: "What seasons have you played in?",
 	[ProfileInteractiveEditType.Platforms]: "What platforms do you play on?",
 	[ProfileInteractiveEditType.CatalogueProgression]: "Toggle showing your catalogue progression?",
+	[ProfileInteractiveEditType.GuessRank]: "Toggle showing your guessing game rank?",
 } as const satisfies Readonly<Record<ProfileInteractiveEditType, string>>;
 
 function isProfileInteractiveEditType(value: unknown): value is ProfileInteractiveEditType {
@@ -355,6 +361,8 @@ export default class Profile {
 
 	public catalogueProgression!: ProfilePacket["catalogue_progression"];
 
+	public guessRank!: ProfilePacket["guess_rank"];
+
 	public constructor(profile: ProfilePacket) {
 		this.userId = profile.user_id;
 		this.patch(profile);
@@ -372,6 +380,7 @@ export default class Profile {
 		this.spirit = data.spirit;
 		this.spot = data.spot;
 		this.catalogueProgression = data.catalogue_progression;
+		this.guessRank = data.guess_rank;
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -519,6 +528,10 @@ export default class Profile {
 			}
 			case ProfileInteractiveEditType.CatalogueProgression: {
 				await this.setCatalogueProgression(interaction);
+				return;
+			}
+			case ProfileInteractiveEditType.GuessRank: {
+				await this.setGuessRank(interaction);
 				return;
 			}
 		}
@@ -1401,6 +1414,11 @@ export default class Profile {
 		await Profile.set(interaction, { catalogue_progression: !profile?.catalogueProgression });
 	}
 
+	private static async setGuessRank(interaction: StringSelectMenuInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+		await Profile.set(interaction, { guess_rank: !profile?.guessRank });
+	}
+
 	public static iconRoute(userId: Snowflake, hash: string) {
 		return `sky_profiles/icons/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
 	}
@@ -1477,6 +1495,7 @@ export default class Profile {
 			spirit,
 			spot,
 			catalogueProgression,
+			guessRank,
 		} = this;
 
 		const embed = new EmbedBuilder()
@@ -1582,6 +1601,26 @@ export default class Profile {
 			}
 		} else {
 			missing.push("- Set if you want to share your catalogue progression!");
+		}
+
+		if (typeof guessRank === "boolean") {
+			if (guessRank) {
+				const [original, hard] = await Promise.all([
+					findUser(userId, GuessDifficultyLevel.Original),
+					findUser(userId, GuessDifficultyLevel.Hard),
+				]);
+
+				const originalText = `${GuessDifficultyLevelToName[GuessDifficultyLevel.Original]}: ${original?.rank ? `#${original.rank}` : "Unranked"}`;
+				const hardText = `${GuessDifficultyLevelToName[GuessDifficultyLevel.Hard]}: ${hard?.rank ? `#${hard.rank}` : "Unranked"}`;
+
+				fields.push({
+					name: "Guess Rank",
+					value: `${originalText}\n${hardText}`,
+					inline: true,
+				});
+			}
+		} else {
+			missing.push("- Set if you want to share your guessing game rank!");
 		}
 
 		if (fields.length > 4 && fields.length % 3 === 2) {

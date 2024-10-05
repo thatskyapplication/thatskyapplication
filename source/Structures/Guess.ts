@@ -394,7 +394,26 @@ export async function handleGuildRemove(guild: Guild) {
 	);
 }
 
-async function topTenWithUser(column: string, userId: Snowflake) {
+export async function findUser(userId: Snowflake, difficulty: GuessDifficultyLevel) {
+	const column = GuessDifficultyToStreakColumn[difficulty];
+
+	const [result] = (await pg
+		.with(
+			"ranked_data",
+			pg(Table.Guess)
+				.select("user_id", column, pg.raw(`row_number() over (order by ${column} desc) as rank`))
+				.whereNotNull(column),
+		)
+		.select("rank")
+		.from("ranked_data")
+		.where({ user_id: userId })) as { rank: number }[];
+
+	return result;
+}
+
+async function topTenWithUser(userId: Snowflake, difficulty: GuessDifficultyLevel) {
+	const column = GuessDifficultyToStreakColumn[difficulty];
+
 	return await pg
 		.with(
 			"ranked_data",
@@ -413,8 +432,8 @@ export async function leaderboard(
 	interaction: ChatInputCommandInteraction,
 	difficulty: GuessDifficultyLevel,
 ) {
+	const results = await topTenWithUser(interaction.user.id, difficulty);
 	const column = GuessDifficultyToStreakColumn[difficulty];
-	const results = await topTenWithUser(column, interaction.user.id);
 	const you = results.find((row) => row.user_id === interaction.user.id);
 
 	const embed = new EmbedBuilder()
