@@ -40,6 +40,7 @@ export interface GuessPacket {
 export const GUESS_ANSWER_1 = "GUESS_ANSWER_1" as const;
 export const GUESS_ANSWER_2 = "GUESS_ANSWER_2" as const;
 export const GUESS_ANSWER_3 = "GUESS_ANSWER_3" as const;
+export const GUESS_END_GAME = "GUESS_END_GAME_CUSTOM_ID" as const;
 export const GUESS_TRY_AGAIN = "GUESS_TRY_AGAIN_CUSTOM_ID" as const;
 
 export enum GuessDifficultyLevel {
@@ -164,6 +165,13 @@ export async function guess(
 			.setStyle(ButtonStyle.Secondary),
 	);
 
+	const endGameButton = new ButtonBuilder()
+		.setCustomId(
+			`${GUESS_END_GAME}§${answer.name}§null§${difficulty}§${streak}§${timeoutTimestamp}`,
+		)
+		.setLabel("End Game")
+		.setStyle(ButtonStyle.Danger);
+
 	// Retrieve the highest streak.
 	const highestStreak = await pg<GuessPacket>(Table.Guess).where({ user_id: interaction.user.id });
 	const difficultyString = GuessDifficultyLevelToName[difficulty];
@@ -171,7 +179,10 @@ export async function guess(
 
 	// Respond.
 	const response = {
-		components: [new ActionRowBuilder<ButtonBuilder>().setComponents(buttons)],
+		components: [
+			new ActionRowBuilder<ButtonBuilder>().setComponents(buttons),
+			new ActionRowBuilder<ButtonBuilder>().setComponents(endGameButton),
+		],
 		content: "",
 		embeds: [
 			new EmbedBuilder()
@@ -204,7 +215,7 @@ function tryAgainComponent(difficulty: GuessDifficultyLevel) {
 }
 
 export async function answer(interaction: ButtonInteraction) {
-	const { customId, locale, message, user } = interaction;
+	const { customId, message, user } = interaction;
 
 	if (message.interaction!.user.id !== user.id) {
 		await interaction.reply({
@@ -238,28 +249,69 @@ export async function answer(interaction: ButtonInteraction) {
 	}
 
 	if (guessedAnswer !== answer) {
-		const embed = EmbedBuilder.from(message.embeds[0]!);
+		await endGame(interaction, answer!, guessedAnswer!, parsedDifficulty, parsedStreak);
+		return;
+	}
 
-		embed
-			.setDescription(
-				`Your guess: ${t(`spiritNames.${guessedAnswer}`, {
-					lng: locale,
-					ns: "general",
-				})} ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`,
-			)
-			.setTitle(t(`spiritNames.${answer}`, { lng: locale, ns: "general" }));
+	await guess(interaction, parsedDifficulty, parsedStreak + 1);
+}
 
-		await update(parsedDifficulty, user.id, parsedStreak, interaction.guildId);
+export async function parseEndGame(interaction: ButtonInteraction) {
+	const { message, user } = interaction;
 
-		await interaction.update({
-			components: [tryAgainComponent(parsedDifficulty)],
-			embeds: [embed],
+	if (message.interaction!.user.id !== user.id) {
+		await interaction.reply({
+			content: "You didn't start this game!",
+			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
 	}
 
-	await guess(interaction, parsedDifficulty, parsedStreak + 1);
+	const [, answer, guess, rawDifficulty, rawStreak] = interaction.customId.split("§");
+	const difficulty = Number(rawDifficulty);
+
+	if (!isGuessDifficultyLevel(difficulty)) {
+		pino.warn(interaction, `Invalid guessing game difficulty level: ${rawDifficulty}`);
+		await interaction.update(ERROR_RESPONSE);
+		return;
+	}
+
+	const streak = Number(rawStreak);
+	await endGame(interaction, answer!, guess!, difficulty, streak);
+}
+
+async function endGame(
+	interaction: ButtonInteraction,
+	answer: string,
+	guess: string,
+	difficulty: GuessDifficultyLevel,
+	streak: number,
+) {
+	const { customId, locale, message, user } = interaction;
+	let description: string;
+
+	if (customId.startsWith(GUESS_END_GAME)) {
+		description = "Game ended.";
+	} else {
+		description = `Your guess: ${t(`spiritNames.${guess}`, {
+			lng: locale,
+			ns: "general",
+		})} ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`;
+	}
+
+	const embed = EmbedBuilder.from(message.embeds[0]!);
+
+	embed
+		.setDescription(description)
+		.setTitle(t(`spiritNames.${answer}`, { lng: locale, ns: "general" }));
+
+	await update(difficulty, user.id, streak, interaction.guildId);
+
+	await interaction.update({
+		components: [tryAgainComponent(difficulty)],
+		embeds: [embed],
+	});
 }
 
 export async function tryAgain(interaction: ButtonInteraction) {

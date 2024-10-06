@@ -58,8 +58,10 @@ import {
 	GUESS_ANSWER_1,
 	GUESS_ANSWER_2,
 	GUESS_ANSWER_3,
+	GUESS_END_GAME,
 	GUESS_TRY_AGAIN,
 	answer,
+	parseEndGame,
 	tryAgain,
 } from "../Structures/Guess.js";
 import { NOTIFICATION_SETUP_OFFSET_CUSTOM_ID } from "../Structures/Notification.js";
@@ -477,6 +479,11 @@ export default {
 					customId.startsWith(GUESS_ANSWER_3)
 				) {
 					await answer(interaction);
+					return;
+				}
+
+				if (customId.startsWith(GUESS_END_GAME)) {
+					await parseEndGame(interaction);
 					return;
 				}
 
