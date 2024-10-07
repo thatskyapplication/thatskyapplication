@@ -1623,7 +1623,7 @@ export default class Profile {
 
 		await interaction.update({
 			content: "",
-			components: [SKY_PROFILE_RESET_OPTIONS_ACTION_ROW],
+			components: [SKY_PROFILE_RESET_OPTIONS_ACTION_ROW, SKY_PROFILE_BACK_TO_START_ACTION_ROW],
 			embeds: [(await profile.embed(interaction)).embed],
 		});
 	}
