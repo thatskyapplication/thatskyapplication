@@ -1,6 +1,6 @@
 import type { Buffer } from "node:buffer";
 import { URL } from "node:url";
-import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand, DeleteObjectsCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	ActionRowBuilder,
 	type Attachment,
@@ -54,7 +54,7 @@ import {
 	resolvePlatformToEmoji,
 } from "./Platforms.js";
 
-export interface ProfilePacket {
+interface ProfilePacket {
 	user_id: Snowflake;
 	name: string | null;
 	icon: string | null;
@@ -535,6 +535,30 @@ export default class Profile {
 				return;
 			}
 		}
+	}
+	
+	public async delete() {
+		const promises = [];
+		const profileDeleteData = [];
+
+		if (this.icon) {
+			profileDeleteData.push({ Key: Profile.iconRoute(this.userId, this.icon) });
+		}
+
+		if (this.thumbnail) {
+			profileDeleteData.push({ Key: Profile.thumbnailRoute(this.userId, this.thumbnail) });
+		}
+
+		promises.push(
+			S3Client.send(
+				new DeleteObjectsCommand({ Bucket: CDN_BUCKET, Delete: { Objects: profileDeleteData } }),
+			),
+		);
+
+		pino.info(profileDeleteData);
+
+		promises.push(pg<ProfilePacket>(Table.Profiles).delete().where({ user_id: this.userId }));
+		await Promise.all(promises);
 	}
 
 	public static async show(interaction: ChatInputCommandInteraction) {
