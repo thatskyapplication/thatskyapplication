@@ -88,6 +88,7 @@ import Profile, {
 	SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID,
 	SKY_PROFILE_REPORT_MODAL_CUSTOM_ID,
+	SKY_PROFILE_RESET_CUSTOM_ID,
 	SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID,
@@ -95,6 +96,7 @@ import Profile, {
 	SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID,
 	SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID,
+	SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
 } from "../Structures/Profile.js";
 import {
 	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
@@ -386,6 +388,11 @@ export default {
 					return;
 				}
 
+				if (customId === SKY_PROFILE_SHOW_RESET_CUSTOM_ID) {
+					await Profile.showReset(interaction);
+					return;
+				}
+
 				if (customId === SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID) {
 					await Profile.showEdit(interaction);
 					return;
@@ -577,6 +584,11 @@ export default {
 
 				if (customId === SKY_PROFILE_EDIT_CUSTOM_ID) {
 					await Profile.edit(interaction);
+					return;
+				}
+
+				if (customId === SKY_PROFILE_RESET_CUSTOM_ID) {
+					await Profile.reset(interaction);
 					return;
 				}
 

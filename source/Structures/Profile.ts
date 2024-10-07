@@ -62,7 +62,7 @@ interface ProfilePacket {
 	description: string | null;
 	country: string | null;
 	winged_light: number | null;
-	seasons: number;
+	seasons: number | null;
 	platform: number | null;
 	spirit: string | null;
 	spot: string | null;
@@ -92,18 +92,18 @@ interface ProfileData {
 }
 
 export interface ProfileSetData {
-	name?: string;
-	icon?: string;
-	thumbnail?: string;
-	description?: string;
-	country?: string;
-	winged_light?: number;
-	seasons?: number;
-	platform?: number;
-	spirit?: string;
-	spot?: string;
-	catalogue_progression?: boolean;
-	guess_rank?: boolean;
+	name?: string | null;
+	icon?: string | null;
+	thumbnail?: string | null;
+	description?: string | null;
+	country?: string | null;
+	winged_light?: number | null;
+	seasons?: number | null;
+	platform?: number | null;
+	spirit?: string | null;
+	spot?: string | null;
+	catalogue_progression?: boolean | null;
+	guess_rank?: boolean | null;
 }
 
 type ProfilePatchData = Omit<ProfilePacket, "user_id">;
@@ -138,7 +138,29 @@ function isProfileInteractiveEditType(value: unknown): value is ProfileInteracti
 	return PROFILE_INTERACTIVE_EDIT_TYPE_VALUES.includes(value as ProfileInteractiveEditType);
 }
 
+enum ProfileInteractiveResetType {
+	Description = "Description",
+	Icon = "Icon",
+	Thumbnail = "Thumbnail",
+	WingedLight = "Winged Light",
+	Country = "Country",
+	Spot = "Spot",
+	Seasons = "Seasons",
+	Platforms = "Platforms",
+	Spirit = "Spirit",
+	CatalogueProgression = "Catalogue Progression",
+	GuessRank = "Guess Rank",
+}
+
+const PROFILE_INTERACTIVE_RESET_TYPE_VALUES = Object.values(ProfileInteractiveResetType);
+
+function isProfileInteractiveResetType(value: unknown): value is ProfileInteractiveResetType {
+	return PROFILE_INTERACTIVE_RESET_TYPE_VALUES.includes(value as ProfileInteractiveResetType);
+}
+
 export const SKY_PROFILE_EDIT_CUSTOM_ID = "SKY_PROFILE_EDIT_CUSTOM_ID" as const;
+export const SKY_PROFILE_SHOW_RESET_CUSTOM_ID = "SKY_PROFILE_SHOW_RESET_CUSTOM_ID" as const;
+export const SKY_PROFILE_RESET_CUSTOM_ID = "SKY_PROFILE_RESET_CUSTOM_ID" as const;
 export const SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID = "SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID" as const;
 const SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID" as const;
 
@@ -486,11 +508,11 @@ export default class Profile {
 		const profileInteractiveEditType = interaction.values[0];
 
 		if (!isProfileInteractiveEditType(profileInteractiveEditType)) {
-			pino.warn(interaction, "Received an unknown profile edit type");
+			pino.warn(interaction, "Received an unknown profile edit type.");
 
 			await interaction.update({
 				components: [],
-				content: "Unknown profile edit type. Please try again",
+				content: "Unknown profile edit type. Please try again!",
 				embeds: [],
 			});
 
@@ -536,7 +558,75 @@ export default class Profile {
 			}
 		}
 	}
-	
+
+	public static async reset(interaction: StringSelectMenuInteraction) {
+		const profileInteractiveResetTypes = interaction.values;
+
+		if (
+			!profileInteractiveResetTypes.every((profileInteractiveResetType) =>
+				isProfileInteractiveResetType(profileInteractiveResetType),
+			)
+		) {
+			pino.warn(interaction, "Received an unknown profile reset type.");
+
+			await interaction.update({
+				components: [],
+				content: "Unknown profile edit type. Please try again!",
+				embeds: [],
+			});
+
+			return;
+		}
+
+		const data: ProfileSetData = {};
+
+		if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.Description)) {
+			data.description = null;
+		}
+
+		if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.Icon)) {
+			data.icon = null;
+		}
+
+		if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.Thumbnail)) {
+			data.thumbnail = null;
+		}
+
+		if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.WingedLight)) {
+			data.winged_light = null;
+		}
+
+		if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.Country)) {
+			data.country = null;
+		}
+
+		if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.Spot)) {
+			data.spot = null;
+		}
+
+		if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.Seasons)) {
+			data.seasons = null;
+		}
+
+		if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.Platforms)) {
+			data.platform = null;
+		}
+
+		if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.Spirit)) {
+			data.spirit = null;
+		}
+
+		if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.CatalogueProgression)) {
+			data.catalogue_progression = null;
+		}
+
+		if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.GuessRank)) {
+			data.guess_rank = null;
+		}
+
+		await this.set(interaction, data);
+	}
+
 	public async delete() {
 		const promises = [];
 		const profileDeleteData = [];
@@ -1478,7 +1568,15 @@ export default class Profile {
 		const missing = embedData?.missing;
 
 		const baseReplyOptions = {
-			components: [SKY_PROFILE_EDIT_ACTION_ROW],
+			components: [
+				SKY_PROFILE_EDIT_ACTION_ROW,
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(SKY_PROFILE_SHOW_RESET_CUSTOM_ID)
+						.setLabel("Reset")
+						.setStyle(ButtonStyle.Secondary),
+				),
+			],
 			content: embed
 				? missing
 					? `${missing}`
@@ -1492,6 +1590,40 @@ export default class Profile {
 				? interaction.editReply(baseReplyOptions)
 				: interaction.reply({ ...baseReplyOptions, flags: MessageFlags.Ephemeral })
 			: interaction.update(baseReplyOptions));
+	}
+
+	public static async showReset(interaction: ButtonInteraction) {
+		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+
+		if (!profile) {
+			await interaction.reply({
+				content: "You do not have a Sky profile to reset.",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		const options = PROFILE_INTERACTIVE_RESET_TYPE_VALUES.map((profileInteractiveResetType) =>
+			new StringSelectMenuOptionBuilder()
+				.setLabel(profileInteractiveResetType)
+				.setValue(profileInteractiveResetType),
+		);
+
+		await interaction.update({
+			content: "",
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(SKY_PROFILE_RESET_CUSTOM_ID)
+						.setMaxValues(options.length)
+						.setMinValues(1)
+						.setOptions(options)
+						.setPlaceholder("What do you wish to reset?"),
+				),
+			],
+			embeds: [(await profile.embed(interaction)).embed],
+		});
 	}
 
 	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
