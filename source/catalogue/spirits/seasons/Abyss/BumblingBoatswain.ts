@@ -1,6 +1,12 @@
-import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
+import { Collection } from "discord.js";
+import type { DateTime } from "luxon";
+import {
+	SeasonalSpirit,
+	type SeasonalSpiritVisitCollectionKey,
+} from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
 import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { skyDate } from "../../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
@@ -72,5 +78,11 @@ export default new SeasonalSpirit({
 				emoji: SEASON_EMOJIS.AbyssHeart,
 			},
 		],
+	},
+	visits: {
+		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>().set(
+			124,
+			skyDate(2_024, 10, 10),
+		),
 	},
 });
