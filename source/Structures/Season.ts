@@ -10,7 +10,9 @@ import {
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
+	type SeasonId,
 	type SeasonName,
+	SeasonNameToSeasonId,
 	SeasonNameToSeasonalCandleEmoji,
 	SeasonNameToSeasonalEmoji,
 	resolveAllCosmetics,
@@ -73,6 +75,8 @@ interface SeasonData {
 }
 
 export class Season {
+	public readonly id: SeasonId;
+
 	public readonly name: SeasonName;
 
 	private readonly snakeCaseName: string;
@@ -100,6 +104,7 @@ export class Season {
 	public readonly patchNotesURL: string | null;
 
 	public constructor(data: SeasonData) {
+		this.id = SeasonNameToSeasonId[data.name];
 		this.name = data.name;
 		this.snakeCaseName = snakeCaseName(data.name);
 		this.wikiURL = wikiURL(data.name);

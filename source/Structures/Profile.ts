@@ -37,13 +37,10 @@ import {
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
 } from "../Utility/Constants.js";
-import {
-	SEASON_FLAGS_TO_SEASON_NAME_ENTRIES,
-	SeasonNameToSeasonalEmoji,
-} from "../Utility/catalogue.js";
+import { type SeasonId, SeasonIdToSeasonalEmoji } from "../Utility/catalogue.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, formatEmojiURL } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
-import { resolveBitsToSeasons } from "../catalogue/spirits/seasons/index.js";
+import { skySeasons } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { Catalogue } from "./Catalogue.js";
@@ -62,7 +59,7 @@ interface ProfilePacket {
 	description: string | null;
 	country: string | null;
 	winged_light: number | null;
-	seasons: number | null;
+	seasons: number[] | null;
 	platform: number | null;
 	spirit: string | null;
 	spot: string | null;
@@ -83,7 +80,7 @@ interface ProfileData {
 	description: ProfilePacket["description"];
 	country: ProfilePacket["country"];
 	wingedLight: ProfilePacket["winged_light"];
-	seasons: ProfilePacket["seasons"];
+	seasons: SeasonId[] | null;
 	platform: ProfilePacket["platform"];
 	spirit: ProfilePacket["spirit"];
 	spot: ProfilePacket["spot"];
@@ -98,7 +95,7 @@ export interface ProfileSetData {
 	description?: string | null;
 	country?: string | null;
 	winged_light?: number | null;
-	seasons?: number | null;
+	seasons?: SeasonId[] | null;
 	platform?: number | null;
 	spirit?: string | null;
 	spot?: string | null;
@@ -1436,21 +1433,22 @@ export default class Profile {
 		const { locale } = interaction;
 		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
 		const currentSeasons = profile?.seasons;
+		const seasons = skySeasons();
 
 		await interaction.update({
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
 						.setCustomId(SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID)
-						.setMaxValues(SEASON_FLAGS_TO_SEASON_NAME_ENTRIES.length)
+						.setMaxValues(seasons.length)
 						.setMinValues(0)
 						.setOptions(
-							SEASON_FLAGS_TO_SEASON_NAME_ENTRIES.map(([flag, season]) =>
+							seasons.map((season) =>
 								new StringSelectMenuOptionBuilder()
-									.setDefault(Boolean(currentSeasons && currentSeasons & Number(flag)))
-									.setEmoji(SeasonNameToSeasonalEmoji[season])
-									.setLabel(t(`seasons.${season}`, { lng: locale, ns: "general" }))
-									.setValue(flag),
+									.setDefault(currentSeasons?.includes(season.id) ?? false)
+									.setEmoji(season.emoji)
+									.setLabel(t(`seasons.${season.name}`, { lng: locale, ns: "general" }))
+									.setValue(String(season.id)),
 							),
 						)
 						.setPlaceholder("Select the seasons you participated in!"),
@@ -1536,9 +1534,9 @@ export default class Profile {
 		return this.set(interaction, { spot });
 	}
 
-	public static async setSeasons(interaction: StringSelectMenuInteraction) {
+	public static setSeasons(interaction: StringSelectMenuInteraction) {
 		return this.set(interaction, {
-			seasons: interaction.values.reduce((bit, value) => bit | Number(value), 0),
+			seasons: interaction.values.map((value) => Number(value)),
 		});
 	}
 
@@ -1664,9 +1662,11 @@ export default class Profile {
 		const fields = [];
 		const missing = [];
 
-		if (typeof seasons === "number") {
-			if (seasons !== 0) {
-				descriptions.push(resolveBitsToSeasons(seasons).join(" "));
+		if (seasons) {
+			if (seasons.length > 0) {
+				descriptions.push(
+					seasons.map((season) => formatEmoji(SeasonIdToSeasonalEmoji[season])).join(" "),
+				);
 			}
 		} else {
 			missing.push("- Use the select menu to show what seasons you participated in!");

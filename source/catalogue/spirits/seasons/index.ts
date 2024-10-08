@@ -1,13 +1,7 @@
 import type { DateTime } from "luxon";
 import type { GuideSpirit, SeasonalSpirit } from "../../../Structures/Spirits.js";
-import {
-	SEASON_FLAGS_TO_SEASON_NAME_ENTRIES,
-	SEASON_NAME_VALUES,
-	type SeasonName,
-	SeasonNameToSeasonalEmoji,
-} from "../../../Utility/catalogue.js";
+import { SEASON_NAME_VALUES, type SeasonName } from "../../../Utility/catalogue.js";
 import { skyNow } from "../../../Utility/dates.js";
-import { formatEmoji } from "../../../Utility/emojis.js";
 import AURORA from "./AURORA/index.js";
 import Abyss from "./Abyss/index.js";
 import Assembly from "./Assembly/index.js";
@@ -79,20 +73,6 @@ export function skyUpcomingSeason(date: DateTime) {
 
 export function isSeasonName(season: string): season is SeasonName {
 	return SEASON_NAME_VALUES.includes(season as SeasonName);
-}
-
-export function resolveBitsToSeasons(bits: number) {
-	const platforms = [];
-
-	for (const [bit, season] of SEASON_FLAGS_TO_SEASON_NAME_ENTRIES) {
-		const bit_ = Number(bit);
-
-		if ((bits & bit_) === bit_) {
-			platforms.push(formatEmoji(SeasonNameToSeasonalEmoji[season]));
-		}
-	}
-
-	return platforms;
 }
 
 export function resolveSeasonalSpirit(spiritName: string) {
