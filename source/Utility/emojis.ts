@@ -42,7 +42,7 @@ export const MISCELLANEOUS_EMOJIS = {
 	ConstellationFlag: { name: "constellation_flag", id: "1249417812582334586" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
-type MiscellaneousEmojis = (typeof MISCELLANEOUS_EMOJIS)[keyof typeof MISCELLANEOUS_EMOJIS];
+export type MiscellaneousEmojis = (typeof MISCELLANEOUS_EMOJIS)[keyof typeof MISCELLANEOUS_EMOJIS];
 
 /**
  * Emojis from the emotes servers.

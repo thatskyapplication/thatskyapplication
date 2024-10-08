@@ -38,18 +38,18 @@ import {
 	MINIMUM_WINGED_LIGHT,
 } from "../Utility/Constants.js";
 import { type SeasonId, SeasonIdToSeasonalEmoji } from "../Utility/catalogue.js";
-import { MISCELLANEOUS_EMOJIS, formatEmoji, formatEmojiURL } from "../Utility/emojis.js";
+import {
+	MISCELLANEOUS_EMOJIS,
+	type MiscellaneousEmojis,
+	formatEmoji,
+	formatEmojiURL,
+} from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { skySeasons } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { Catalogue } from "./Catalogue.js";
 import { GuessDifficultyLevel, GuessDifficultyLevelToName, findUser } from "./Guess.js";
-import {
-	PLATFORM_FLAGS_TO_STRING_ENTRIES,
-	resolveBitsToPlatform,
-	resolvePlatformToEmoji,
-} from "./Platforms.js";
 
 interface ProfilePacket {
 	user_id: Snowflake;
@@ -60,7 +60,7 @@ interface ProfilePacket {
 	country: string | null;
 	winged_light: number | null;
 	seasons: number[] | null;
-	platform: number | null;
+	platform: number[] | null;
 	spirit: string | null;
 	spot: string | null;
 	catalogue_progression: boolean | null;
@@ -81,7 +81,7 @@ interface ProfileData {
 	country: ProfilePacket["country"];
 	wingedLight: ProfilePacket["winged_light"];
 	seasons: SeasonId[] | null;
-	platform: ProfilePacket["platform"];
+	platform: PlatformIds[] | null;
 	spirit: ProfilePacket["spirit"];
 	spot: ProfilePacket["spot"];
 	catalogueProgression: ProfilePacket["catalogue_progression"];
@@ -96,7 +96,7 @@ export interface ProfileSetData {
 	country?: string | null;
 	winged_light?: number | null;
 	seasons?: SeasonId[] | null;
-	platform?: number | null;
+	platform?: PlatformIds[] | null;
 	spirit?: string | null;
 	spot?: string | null;
 	catalogue_progression?: boolean | null;
@@ -153,6 +153,40 @@ const PROFILE_INTERACTIVE_RESET_TYPE_VALUES = Object.values(ProfileInteractiveRe
 
 function isProfileInteractiveResetType(value: unknown): value is ProfileInteractiveResetType {
 	return PROFILE_INTERACTIVE_RESET_TYPE_VALUES.includes(value as ProfileInteractiveResetType);
+}
+
+const PlatformId = {
+	iOS: 0,
+	Android: 1,
+	Mac: 2,
+	NintendoSwitch: 3,
+	PlayStation: 4,
+	Steam: 5,
+} as const satisfies Readonly<Record<string, number>>;
+
+const PLATFORM_ID_VALUES = Object.values(PlatformId);
+type PlatformIds = (typeof PLATFORM_ID_VALUES)[number];
+
+const PlatformIdToString = {
+	[PlatformId.iOS]: "iOS",
+	[PlatformId.Android]: "Android",
+	[PlatformId.Mac]: "Mac",
+	[PlatformId.NintendoSwitch]: "Nintendo Switch",
+	[PlatformId.PlayStation]: "PlayStation",
+	[PlatformId.Steam]: "Steam",
+} as const satisfies Readonly<Record<PlatformIds, string>>;
+
+const PlatformIdToEmoji = {
+	[PlatformId.iOS]: MISCELLANEOUS_EMOJIS.PlatformIOS,
+	[PlatformId.Android]: MISCELLANEOUS_EMOJIS.PlatformAndroid,
+	[PlatformId.Mac]: MISCELLANEOUS_EMOJIS.PlatformMac,
+	[PlatformId.NintendoSwitch]: MISCELLANEOUS_EMOJIS.PlatformSwitch,
+	[PlatformId.PlayStation]: MISCELLANEOUS_EMOJIS.PlatformPlayStation,
+	[PlatformId.Steam]: MISCELLANEOUS_EMOJIS.PlatformSteam,
+} as const satisfies Readonly<Record<PlatformIds, MiscellaneousEmojis>>;
+
+function isPlatformId(platformId: unknown): platformId is PlatformIds {
+	return PLATFORM_ID_VALUES.includes(platformId as PlatformIds);
 }
 
 export const SKY_PROFILE_EDIT_CUSTOM_ID = "SKY_PROFILE_EDIT_CUSTOM_ID" as const;
@@ -420,7 +454,7 @@ export default class Profile {
 		this.country = data.country;
 		this.wingedLight = data.winged_light;
 		this.seasons = data.seasons;
-		this.platform = data.platform;
+		this.platform = data.platform?.filter((platformId) => isPlatformId(platformId)) ?? null;
 		this.spirit = data.spirit;
 		this.spot = data.spot;
 		this.catalogueProgression = data.catalogue_progression;
@@ -1469,15 +1503,15 @@ export default class Profile {
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
 						.setCustomId(SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID)
-						.setMaxValues(PLATFORM_FLAGS_TO_STRING_ENTRIES.length)
+						.setMaxValues(PLATFORM_ID_VALUES.length)
 						.setMinValues(0)
 						.setOptions(
-							PLATFORM_FLAGS_TO_STRING_ENTRIES.map(([flag, platform]) =>
+							PLATFORM_ID_VALUES.map((platformId) =>
 								new StringSelectMenuOptionBuilder()
-									.setDefault(Boolean(currentPlatforms && currentPlatforms & Number(flag)))
-									.setEmoji(resolvePlatformToEmoji(platform))
-									.setLabel(platform)
-									.setValue(flag),
+									.setDefault(currentPlatforms?.includes(platformId) ?? false)
+									.setEmoji(formatEmoji(PlatformIdToEmoji[platformId]))
+									.setLabel(PlatformIdToString[platformId])
+									.setValue(String(platformId)),
 							),
 						)
 						.setPlaceholder("Select the platforms you play on!"),
@@ -1541,9 +1575,19 @@ export default class Profile {
 	}
 
 	public static async setPlatform(interaction: StringSelectMenuInteraction) {
-		return this.set(interaction, {
-			platform: interaction.values.reduce((bit, value) => bit | Number(value), 0),
-		});
+		const platformIds = interaction.values.map((value) => Number(value));
+
+		if (!platformIds.every((platformId) => isPlatformId(platformId))) {
+			await interaction.reply({
+				components: [],
+				content: "Invalid platform selected. Please try again.",
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		return this.set(interaction, { platform: platformIds });
 	}
 
 	private static async setCatalogueProgression(interaction: StringSelectMenuInteraction) {
@@ -1739,11 +1783,11 @@ export default class Profile {
 			missing.push("- Set your favourite spot!");
 		}
 
-		if (typeof platform === "number") {
-			if (platform !== 0) {
+		if (platform) {
+			if (platform.length > 0) {
 				fields.push({
 					name: "Platform",
-					value: resolveBitsToPlatform(platform).join("\n"),
+					value: platform.map((platformId) => formatEmoji(PlatformIdToEmoji[platformId])).join(" "),
 					inline: true,
 				});
 			}
