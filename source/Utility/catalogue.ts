@@ -2728,6 +2728,32 @@ export enum SeasonName {
 
 export const SEASON_NAME_VALUES = Object.values(SeasonName);
 
+export enum SeasonId {
+	Gratitude = 0,
+	Lightseekers = 1,
+	Belonging = 2,
+	Rhythm = 3,
+	Enchantment = 4,
+	Sanctuary = 5,
+	Prophecy = 6,
+	Dreams = 7,
+	Assembly = 8,
+	LittlePrince = 9,
+	Flight = 10,
+	Abyss = 11,
+	Performance = 12,
+	Shattering = 13,
+	AURORA = 14,
+	Remembrance = 15,
+	Passage = 16,
+	Moments = 17,
+	Revival = 18,
+	NineColouredDeer = 19,
+	Nesting = 20,
+	Duets = 21,
+	Moomin = 22,
+}
+
 export const SeasonNameToSeasonalEmoji = {
 	[SeasonName.Gratitude]: SEASON_EMOJIS.Gratitude,
 	[SeasonName.Lightseekers]: SEASON_EMOJIS.Lightseekers,
@@ -2753,6 +2779,32 @@ export const SeasonNameToSeasonalEmoji = {
 	[SeasonName.Duets]: SEASON_EMOJIS.Duets,
 	[SeasonName.Moomin]: SEASON_EMOJIS.Moomin,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
+
+export const SeasonIdToSeasonalEmoji = {
+	[SeasonId.Gratitude]: SEASON_EMOJIS.Gratitude,
+	[SeasonId.Lightseekers]: SEASON_EMOJIS.Lightseekers,
+	[SeasonId.Belonging]: SEASON_EMOJIS.Belonging,
+	[SeasonId.Rhythm]: SEASON_EMOJIS.Rhythm,
+	[SeasonId.Enchantment]: SEASON_EMOJIS.Enchantment,
+	[SeasonId.Sanctuary]: SEASON_EMOJIS.Sanctuary,
+	[SeasonId.Prophecy]: SEASON_EMOJIS.Prophecy,
+	[SeasonId.Dreams]: SEASON_EMOJIS.Dreams,
+	[SeasonId.Assembly]: SEASON_EMOJIS.Assembly,
+	[SeasonId.LittlePrince]: SEASON_EMOJIS.LittlePrince,
+	[SeasonId.Flight]: SEASON_EMOJIS.Flight,
+	[SeasonId.Abyss]: SEASON_EMOJIS.Abyss,
+	[SeasonId.Performance]: SEASON_EMOJIS.Performance,
+	[SeasonId.Shattering]: SEASON_EMOJIS.Shattering,
+	[SeasonId.AURORA]: SEASON_EMOJIS.Aurora,
+	[SeasonId.Remembrance]: SEASON_EMOJIS.Remembrance,
+	[SeasonId.Passage]: SEASON_EMOJIS.Passage,
+	[SeasonId.Moments]: SEASON_EMOJIS.Moments,
+	[SeasonId.Revival]: SEASON_EMOJIS.Revival,
+	[SeasonId.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeer,
+	[SeasonId.Nesting]: SEASON_EMOJIS.Nesting,
+	[SeasonId.Duets]: SEASON_EMOJIS.Duets,
+	[SeasonId.Moomin]: SEASON_EMOJIS.Moomin,
+} as const satisfies Readonly<Record<SeasonId, SeasonEmojis>>;
 
 export const SeasonNameToSeasonalCandleEmoji = {
 	[SeasonName.Gratitude]: SEASON_EMOJIS.GratitudeCandle,
@@ -2808,59 +2860,31 @@ const SeasonNameToSeasonalHeartEmoji = {
 	Record<Exclude<SeasonName, SeasonName.Gratitude | SeasonName.Lightseekers>, SeasonEmojis>
 >;
 
-enum SeasonFlags {
-	Gratitude = 1 << 0,
-	Lightseekers = 1 << 1,
-	Belonging = 1 << 2,
-	Rhythm = 1 << 3,
-	Enchantment = 1 << 4,
-	Sanctuary = 1 << 5,
-	Prophecy = 1 << 6,
-	Dreams = 1 << 7,
-	Assembly = 1 << 8,
-	LittlePrince = 1 << 9,
-	Flight = 1 << 10,
-	Abyss = 1 << 11,
-	Performance = 1 << 12,
-	Shattering = 1 << 13,
-	AURORA = 1 << 14,
-	Remembrance = 1 << 15,
-	Passage = 1 << 16,
-	Moments = 1 << 17,
-	Revival = 1 << 18,
-	NineColouredDeer = 1 << 19,
-	Nesting = 1 << 20,
-	Duets = 1 << 21,
-	Moomin = 1 << 22,
-}
-
-const SeasonFlagsToSeasonName = {
-	[SeasonFlags.Gratitude]: SeasonName.Gratitude,
-	[SeasonFlags.Lightseekers]: SeasonName.Lightseekers,
-	[SeasonFlags.Belonging]: SeasonName.Belonging,
-	[SeasonFlags.Rhythm]: SeasonName.Rhythm,
-	[SeasonFlags.Enchantment]: SeasonName.Enchantment,
-	[SeasonFlags.Sanctuary]: SeasonName.Sanctuary,
-	[SeasonFlags.Prophecy]: SeasonName.Prophecy,
-	[SeasonFlags.Dreams]: SeasonName.Dreams,
-	[SeasonFlags.Assembly]: SeasonName.Assembly,
-	[SeasonFlags.LittlePrince]: SeasonName.LittlePrince,
-	[SeasonFlags.Flight]: SeasonName.Flight,
-	[SeasonFlags.Abyss]: SeasonName.Abyss,
-	[SeasonFlags.Performance]: SeasonName.Performance,
-	[SeasonFlags.Shattering]: SeasonName.Shattering,
-	[SeasonFlags.AURORA]: SeasonName.AURORA,
-	[SeasonFlags.Remembrance]: SeasonName.Remembrance,
-	[SeasonFlags.Passage]: SeasonName.Passage,
-	[SeasonFlags.Moments]: SeasonName.Moments,
-	[SeasonFlags.Revival]: SeasonName.Revival,
-	[SeasonFlags.NineColouredDeer]: SeasonName.NineColouredDeer,
-	[SeasonFlags.Nesting]: SeasonName.Nesting,
-	[SeasonFlags.Duets]: SeasonName.Duets,
-	[SeasonFlags.Moomin]: SeasonName.Moomin,
-} as const satisfies Readonly<Record<SeasonFlags, SeasonName>>;
-
-export const SEASON_FLAGS_TO_SEASON_NAME_ENTRIES = Object.entries(SeasonFlagsToSeasonName);
+export const SeasonNameToSeasonId = {
+	[SeasonName.Gratitude]: SeasonId.Gratitude,
+	[SeasonName.Lightseekers]: SeasonId.Lightseekers,
+	[SeasonName.Belonging]: SeasonId.Belonging,
+	[SeasonName.Rhythm]: SeasonId.Rhythm,
+	[SeasonName.Enchantment]: SeasonId.Enchantment,
+	[SeasonName.Sanctuary]: SeasonId.Sanctuary,
+	[SeasonName.Prophecy]: SeasonId.Prophecy,
+	[SeasonName.Dreams]: SeasonId.Dreams,
+	[SeasonName.Assembly]: SeasonId.Assembly,
+	[SeasonName.LittlePrince]: SeasonId.LittlePrince,
+	[SeasonName.Flight]: SeasonId.Flight,
+	[SeasonName.Abyss]: SeasonId.Abyss,
+	[SeasonName.Performance]: SeasonId.Performance,
+	[SeasonName.Shattering]: SeasonId.Shattering,
+	[SeasonName.AURORA]: SeasonId.AURORA,
+	[SeasonName.Remembrance]: SeasonId.Remembrance,
+	[SeasonName.Passage]: SeasonId.Passage,
+	[SeasonName.Moments]: SeasonId.Moments,
+	[SeasonName.Revival]: SeasonId.Revival,
+	[SeasonName.NineColouredDeer]: SeasonId.NineColouredDeer,
+	[SeasonName.Nesting]: SeasonId.Nesting,
+	[SeasonName.Duets]: SeasonId.Duets,
+	[SeasonName.Moomin]: SeasonId.Moomin,
+} as const satisfies Readonly<Record<SeasonName, SeasonId>>;
 
 export enum EventName {
 	HalloweenOfficeEvent = "Halloween Office Event",
