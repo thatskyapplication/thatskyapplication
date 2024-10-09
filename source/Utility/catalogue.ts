@@ -2692,7 +2692,7 @@ export const enum Cosmetic {
 	AncientDarknessPlantWingBuff = 2124,
 	AncientDarknessDragonWingBuff = 2125,
 
-	// 30/09/2024 || Days of Style.
+	// 30/09/2024 | Days of Style.
 	StyleDarknessFascinator = 2126,
 	StyleDazzlingDress = 2127,
 	StyleDapperSuit = 2128,
