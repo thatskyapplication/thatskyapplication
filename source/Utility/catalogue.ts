@@ -2699,12 +2699,15 @@ export const enum Cosmetic {
 	StyleDapperMonocle = 2129,
 	StyleDapperNecktie = 2130,
 
+	// 10/10/2024 | Travelling Spirit #124.
+	BumblingBoatswainWingBuff = 2131,
+
 	// 21/10/2024 | Days of Mischief.
-	MischiefStarSticker = 2131,
-	MischiefCauldron = 2132,
-	MischiefSpiderBun = 2133,
-	MischiefRavenFeatheredCloak = 2134,
-	MischiefWitheredBroom = 2135,
+	MischiefStarSticker = 2132,
+	MischiefCauldron = 2133,
+	MischiefSpiderBun = 2134,
+	MischiefRavenFeatheredCloak = 2135,
+	MischiefWitheredBroom = 2136,
 }
 
 export enum SeasonName {
