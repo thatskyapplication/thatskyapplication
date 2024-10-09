@@ -2698,6 +2698,13 @@ export const enum Cosmetic {
 	StyleDapperSuit = 2128,
 	StyleDapperMonocle = 2129,
 	StyleDapperNecktie = 2130,
+
+	// 21/10/2024 | Days of Mischief.
+	MischiefStarSticker = 2131,
+	MischiefCauldron = 2132,
+	MischiefSpiderBun = 2133,
+	MischiefRavenFeatheredCloak = 2134,
+	MischiefWitheredBroom = 2135,
 }
 
 export enum SeasonName {
@@ -2996,6 +3003,7 @@ export enum EventNameUnique {
 	DaysOfSunlight2024 = "Days of Sunlight 2024",
 	DaysOfMoonlight2024 = "Days of Moonlight 2024",
 	DaysOfStyle2024 = "Days of Style 2024",
+	DaysOfMischief2024 = "Days of Mischief 2024",
 }
 
 export const EventNameUniqueToEventName = {
@@ -3064,6 +3072,7 @@ export const EventNameUniqueToEventName = {
 	[EventNameUnique.DaysOfSunlight2024]: EventName.DaysOfSunlight,
 	[EventNameUnique.DaysOfMoonlight2024]: EventName.DaysOfMoonlight,
 	[EventNameUnique.DaysOfStyle2024]: EventName.DaysOfStyle,
+	[EventNameUnique.DaysOfMischief2024]: EventName.DaysOfMischief,
 } as const satisfies Readonly<Record<EventNameUnique, EventName>>;
 
 export const EVENT_NAME_VALUES = Object.values(EventName);
