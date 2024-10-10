@@ -5,7 +5,12 @@ import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
 import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { todayEmbed } from "./Structures/ShardEruption.js";
-import { MAXIMUM_WING_BUFFS, MAXIMUM_WINGED_LIGHT, WINGED_LIGHT_THRESHOLDS } from "./Utility/Constants.js";
+import {
+	MAXIMUM_WINGED_LIGHT,
+	MAXIMUM_WING_BUFFS,
+	WINGED_LIGHT_IN_AREAS,
+	WINGED_LIGHT_THRESHOLDS,
+} from "./Utility/Constants.js";
 import { skyNow } from "./Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "./Utility/emojis.js";
 import { shardEruption } from "./Utility/shardEruption.js";
@@ -82,6 +87,7 @@ function systemPromptContext(message: Message<true>) {
 		`- If you mention ascended candles, use ${formatEmoji(MISCELLANEOUS_EMOJIS.AscendedCandle)}.`,
 		`- If you mention pieces of light, use ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}.`,
 		`- The maximum amount of winged light is ${MAXIMUM_WINGED_LIGHT}.`,
+		`- The maximum amount of winged light that can be found in the realms is ${WINGED_LIGHT_IN_AREAS}.`,
 		`- The maximum amount of wing buffs is ${MAXIMUM_WING_BUFFS}.`,
 		`- Upon achieving an amount of winged light, you acheve a wedge. Refer to: ${JSON.stringify(Object.entries(WINGED_LIGHT_THRESHOLDS).map(([index, wingedLight]) => ({ wedge: Number(index) + 1, wingedLight })))}.`,
 	];
