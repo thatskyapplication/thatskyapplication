@@ -16,10 +16,7 @@ jobs:
       PGHOST: localhost
       S3_BUCKET: thatskyapplication-backups
     steps:
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.x" 
-      - uses: s3-actions/s3cmd@v1.8.0
+      - uses: s3-actions/s3cmd@v1.8.1
         with:
           provider: cloudflare
           secret_key: ${{ secrets.S3_SECRET_ACCESS_KEY }}
