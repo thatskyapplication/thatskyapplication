@@ -13,12 +13,11 @@ import {
 import { t } from "i18next";
 import type { Event } from "../../Structures/Event.js";
 import {
-	AREA_TO_WINGED_LIGHT_COUNT_VALUES,
 	ASCENDED_CANDLES_PER_WEEK,
 	AreaToWingedLightCount,
 	DEFAULT_EMBED_COLOUR,
 	LOCALES,
-	MAXIMUM_WINGED_LIGHT,
+	MAXIMUM_WING_BUFFS,
 	RealmName,
 	SkyMap,
 	WINGED_LIGHT_AREAS,
@@ -62,11 +61,6 @@ const ASCENDED_CANDLE_MINIMUM_TIME_EYE_OF_EDEN_TEXT =
 
 const ASCENDED_CANDLE_MINIMUM_TIME_SHARD_ERUPTIONS_TEXT =
 	"all shard eruptions were cleansed" as const;
-
-const wingedLightInAreas = AREA_TO_WINGED_LIGHT_COUNT_VALUES.reduce(
-	(wingedLightCount, wingedLight) => wingedLightCount + wingedLight,
-	0,
-);
 
 export default new (class implements ChatInputCommand {
 	public get data() {
@@ -259,7 +253,7 @@ export default new (class implements ChatInputCommand {
 							name: "wing-buffs",
 							description:
 								"The number of wing buffs (total amount collected from ascended spirits).",
-							maxValue: MAXIMUM_WINGED_LIGHT - wingedLightInAreas,
+							maxValue: MAXIMUM_WING_BUFFS,
 							minValue: 0,
 							required: true,
 						},

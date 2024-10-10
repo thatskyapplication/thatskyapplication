@@ -243,7 +243,12 @@ export const AreaToWingedLightCount = {
 	[SkyMap.Orbit]: 1,
 } as const satisfies Readonly<Record<WingedLightAreas | SkyMap.Orbit, number>>;
 
-export const AREA_TO_WINGED_LIGHT_COUNT_VALUES = Object.values(AreaToWingedLightCount);
+const WINGED_LIGHT_IN_AREAS = Object.values(AreaToWingedLightCount).reduce(
+	(wingedLightCount, wingedLight) => wingedLightCount + wingedLight,
+	0,
+);
+
+export const MAXIMUM_WING_BUFFS = MAXIMUM_WINGED_LIGHT - WINGED_LIGHT_IN_AREAS;
 
 export const LOCALES = [
 	Locale.German,
