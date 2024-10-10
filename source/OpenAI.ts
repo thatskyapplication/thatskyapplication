@@ -5,7 +5,7 @@ import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
 import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { todayEmbed } from "./Structures/ShardEruption.js";
-import { MAXIMUM_WINGED_LIGHT } from "./Utility/Constants.js";
+import { MAXIMUM_WINGED_LIGHT, WINGED_LIGHT_THRESHOLDS } from "./Utility/Constants.js";
 import { skyNow } from "./Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "./Utility/emojis.js";
 import { shardEruption } from "./Utility/shardEruption.js";
@@ -82,6 +82,7 @@ function systemPromptContext(message: Message<true>) {
 		`- If you mention ascended candles, use ${formatEmoji(MISCELLANEOUS_EMOJIS.AscendedCandle)}.`,
 		`- If you mention pieces of light, use ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}.`,
 		`- The maximum amount of winged light is ${MAXIMUM_WINGED_LIGHT}.`,
+		`- Upon achieving an amount of winged light, you acheve a wedge. Refer to: ${JSON.stringify(Object.entries(WINGED_LIGHT_THRESHOLDS).map(([index, wingedLight]) => ({ wedge: Number(index) + 1, wingedLight })))}.`,
 	];
 
 	if (seasonsText.length > 0) {
