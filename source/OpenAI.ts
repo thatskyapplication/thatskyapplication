@@ -5,6 +5,7 @@ import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
 import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { todayEmbed } from "./Structures/ShardEruption.js";
+import { MAXIMUM_WINGED_LIGHT } from "./Utility/Constants.js";
 import { skyNow } from "./Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "./Utility/emojis.js";
 import { shardEruption } from "./Utility/shardEruption.js";
@@ -80,6 +81,7 @@ function systemPromptContext(message: Message<true>) {
 		'- Refer to "Sky: Children of the Light" as Sky.',
 		`- If you mention ascended candles, use ${formatEmoji(MISCELLANEOUS_EMOJIS.AscendedCandle)}.`,
 		`- If you mention pieces of light, use ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}.`,
+		`- The maximum amount of winged light is ${MAXIMUM_WINGED_LIGHT}.`,
 	];
 
 	if (seasonsText.length > 0) {
