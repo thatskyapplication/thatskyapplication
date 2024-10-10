@@ -9,6 +9,7 @@ import {
 	AreaToWingedLightCount,
 	MAXIMUM_WINGED_LIGHT,
 	MAXIMUM_WING_BUFFS,
+	SKY_CREATOR_TROUPE,
 	WINGED_LIGHT_IN_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
 } from "./Utility/Constants.js";
@@ -94,6 +95,7 @@ function systemPromptContext(message: Message<true>) {
 		`- If you mention wing buffs, use ${formatEmoji(MISCELLANEOUS_EMOJIS.WingBuff)}.`,
 		`- If you mention ascended candles, use ${formatEmoji(MISCELLANEOUS_EMOJIS.AscendedCandle)}.`,
 		`- If you mention pieces of light (may be referred to as "wax"), use ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}.`,
+		`- These are content creators on Sky: ${JSON.stringify(SKY_CREATOR_TROUPE)}.`,
 	];
 
 	if (seasonsText.length > 0) {
