@@ -32,7 +32,6 @@ export default new SeasonalSpirit({
 	realm: RealmName.GoldenWasteland,
 	hasMarketingVideo: true,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteOuch1, emoji: emoteEmoji },
 			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteOuch2, emoji: emoteEmoji },
@@ -76,6 +75,65 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.BumblingBoatswainSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.AbyssHeart,
+			},
+		],
+		current: [
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteOuch1, emoji: emoteEmoji },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteOuch2, cost: { hearts: 4 }, emoji: emoteEmoji },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.BumblingBoatswainBlessing1,
+				cost: { candles: 5 },
+				emoji: blessing3,
+			},
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.BumblingBoatswainMask,
+				cost: { candles: 40 },
+				emoji: maskEmoji,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.BumblingBoatswainSeasonalHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Wing buff",
+				cosmetic: Cosmetic.BumblingBoatswainWingBuff,
+				cost: { ascendedCandles: 2 },
+				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+			},
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteOuch3,
+				cost: { hearts: 3 },
+				emoji: emoteEmoji,
+			},
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteOuch4, cost: { hearts: 6 }, emoji: emoteEmoji },
+			{
+				name: "Music sheet",
+				cosmetic: Cosmetic.BumblingBoatswainMusicSheet,
+				cost: { candles: 15 },
+				emoji: musicSheet,
+			},
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.BumblingBoatswainBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing2,
+			},
+			{
+				name: "Hair accessory",
+				cosmetic: Cosmetic.BumblingBoatswainHairAccessory,
+				cost: { candles: 35 },
+				emoji: hairAccessoryEmoji,
+			},
+			{
+				name: "Cape",
+				cosmetic: Cosmetic.BumblingBoatswainCape,
+				cost: { candles: 70 },
+				emoji: capeEmoji,
 			},
 		],
 	},
