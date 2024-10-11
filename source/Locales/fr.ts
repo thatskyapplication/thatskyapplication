@@ -5,6 +5,8 @@ import { SpiritName } from "../Utility/spirits.js";
 
 export default {
 	general: {
+		back: "Retour",
+		next: "Suivant",
 		"event-currency": "Devise d'Événement",
 		realms: {
 			[RealmName.IslesOfDawn]: "Île de l'aube",

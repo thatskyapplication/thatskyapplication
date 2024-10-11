@@ -5,6 +5,8 @@ import { SpiritName } from "../Utility/spirits.js";
 
 export default {
 	general: {
+		back: "Back",
+		next: "Next",
 		"days-left": {
 			season_zero: "The season ends today.",
 			season_one: "{{count}} day left in the season.",

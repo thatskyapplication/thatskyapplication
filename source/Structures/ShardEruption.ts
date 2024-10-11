@@ -13,6 +13,7 @@ import {
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
 } from "../Utility/shardEruption.js";
+import { t } from "i18next";
 
 export const SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID" as const;
 
@@ -52,7 +53,7 @@ export function todayEmbed(locale: Locale, offset = 0) {
 
 	const buttonYesterday = new ButtonBuilder()
 		.setCustomId(`${SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID}§${offset - 1}`)
-		.setLabel("Back")
+		.setLabel(t("back", { lng: locale, ns: "general" }))
 		.setStyle(ButtonStyle.Primary);
 
 	const button = new ButtonBuilder()
@@ -63,7 +64,7 @@ export function todayEmbed(locale: Locale, offset = 0) {
 
 	const buttonTomorrow = new ButtonBuilder()
 		.setCustomId(`${SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID}§${offset + 1}`)
-		.setLabel("Next")
+		.setLabel(t("next", { lng: locale, ns: "general" }))
 		.setStyle(ButtonStyle.Primary);
 
 	if (shardYesterday) {

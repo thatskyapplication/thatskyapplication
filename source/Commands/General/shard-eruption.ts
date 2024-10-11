@@ -14,6 +14,7 @@ import {
 	type StringSelectMenuInteraction,
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
+import { t } from "i18next";
 import { DateTime } from "luxon";
 import {
 	SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID,
@@ -199,7 +200,7 @@ export default new (class implements ChatInputCommand {
 								offset - MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH
 							}`,
 						)
-						.setLabel("Back")
+						.setLabel(t("back", { lng: locale, ns: "general" }))
 						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
 						.setCustomId(SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID)
@@ -212,7 +213,7 @@ export default new (class implements ChatInputCommand {
 								offset + MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH
 							}`,
 						)
-						.setLabel("Next")
+						.setLabel(t("next", { lng: locale, ns: "general" }))
 						.setStyle(ButtonStyle.Primary),
 				),
 			],
