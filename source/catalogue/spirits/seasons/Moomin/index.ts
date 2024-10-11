@@ -1,4 +1,5 @@
 import { Season } from "../../../../Structures/Season.js";
+import { RealmName } from "../../../../Utility/Constants.js";
 import { SeasonName } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import TheMoominStorybook from "./TheMoominStorybook.js";
@@ -9,5 +10,16 @@ export default new Season({
 	end: skyDate(2_024, 12, 30),
 	guide: TheMoominStorybook,
 	spirits: [],
-	seasonalCandlesRotation: null,
+	seasonalCandlesRotation: [
+		{ rotation: 1, realm: RealmName.VaultOfKnowledge },
+		{ rotation: 1, realm: RealmName.DaylightPrairie },
+		{ rotation: 1, realm: RealmName.HiddenForest },
+		{ rotation: 1, realm: RealmName.ValleyOfTriumph },
+		{ rotation: 1, realm: RealmName.GoldenWasteland },
+		{ rotation: 2, realm: RealmName.VaultOfKnowledge },
+		{ rotation: 2, realm: RealmName.DaylightPrairie },
+		{ rotation: 2, realm: RealmName.HiddenForest },
+		{ rotation: 2, realm: RealmName.ValleyOfTriumph },
+		{ rotation: 2, realm: RealmName.GoldenWasteland },
+	],
 });
