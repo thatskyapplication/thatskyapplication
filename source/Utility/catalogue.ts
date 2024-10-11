@@ -2702,6 +2702,12 @@ export const enum Cosmetic {
 	// 10/10/2024 | Travelling Spirit #124.
 	BumblingBoatswainWingBuff = 2131,
 
+	// 14/10/2024 | Season of Moomin.
+	HattifattenerShoulderBuddy,
+	TheMoominStorybookQuest1,
+	EmoteRead1,
+	EmoteRead2,
+
 	// 21/10/2024 | Days of Mischief.
 	MischiefStarSticker = 2132,
 	MischiefCauldron = 2133,

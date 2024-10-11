@@ -150,6 +150,7 @@ export const EMOTE_EMOJIS = {
 	Whistle: { name: "whistle", id: "1194237041525932033" },
 	Flex: { name: "flex", id: "1195935196688678953" },
 	FloatSpin: { name: "float_spin", id: "1195956496987594842" },
+	Read: { name: "read", id: "1294236514770751488" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 export type EmotesEmojis = (typeof EMOTE_EMOJIS)[keyof typeof EMOTE_EMOJIS];

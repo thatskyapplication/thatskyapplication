@@ -344,6 +344,7 @@ export const enum SpiritEmote {
 	Whistle = "Whistle",
 	Flex = "Flex",
 	FloatSpin = "Float spin",
+	Read = "Read",
 }
 
 export const SpiritEmoteToEmoji = {
@@ -449,6 +450,7 @@ export const SpiritEmoteToEmoji = {
 	[SpiritEmote.Whistle]: EMOTE_EMOJIS.Whistle,
 	[SpiritEmote.Flex]: EMOTE_EMOJIS.Flex,
 	[SpiritEmote.FloatSpin]: EMOTE_EMOJIS.FloatSpin,
+	[SpiritEmote.Read]: EMOTE_EMOJIS.Read,
 } as const satisfies Readonly<Record<SpiritEmote, EmotesEmojis>>;
 
 export const enum SpiritStance {
