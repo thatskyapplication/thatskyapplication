@@ -2839,7 +2839,6 @@ export const SeasonNameToSeasonalCandleEmoji = {
 	[SeasonName.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeerCandle,
 	[SeasonName.Nesting]: SEASON_EMOJIS.NestingCandle,
 	[SeasonName.Duets]: SEASON_EMOJIS.DuetsCandle,
-	// @ts-expect-error Not yet created.
 	[SeasonName.Moomin]: SEASON_EMOJIS.MoominCandle,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
@@ -2864,7 +2863,6 @@ const SeasonNameToSeasonalHeartEmoji = {
 	[SeasonName.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeerHeart,
 	[SeasonName.Nesting]: SEASON_EMOJIS.NestingHeart,
 	[SeasonName.Duets]: SEASON_EMOJIS.DuetsHeart,
-	// @ts-expect-error Not yet created.
 	[SeasonName.Moomin]: SEASON_EMOJIS.MoominHeart,
 } as const satisfies Readonly<
 	Record<Exclude<SeasonName, SeasonName.Gratitude | SeasonName.Lightseekers>, SeasonEmojis>
