@@ -1308,7 +1308,7 @@ export default class Profile {
 			process.env.SKY_PROFILE_REPORTS_CHANNEL_ID!,
 		);
 
-		if (!channel?.isTextBased()) {
+		if (!channel?.isSendable()) {
 			pino.error(interaction, "Could not find the Sky profile reports channel.");
 
 			await interaction.update({

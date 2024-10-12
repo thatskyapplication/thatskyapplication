@@ -217,7 +217,7 @@ function tryAgainComponent(difficulty: GuessDifficultyLevel) {
 export async function answer(interaction: ButtonInteraction) {
 	const { customId, message, user } = interaction;
 
-	if (message.interaction!.user.id !== user.id) {
+	if (message.interactionMetadata!.user.id !== user.id) {
 		await interaction.reply({
 			content: "You didn't start this game!",
 			flags: MessageFlags.Ephemeral,
@@ -259,7 +259,7 @@ export async function answer(interaction: ButtonInteraction) {
 export async function parseEndGame(interaction: ButtonInteraction) {
 	const { message, user } = interaction;
 
-	if (message.interaction!.user.id !== user.id) {
+	if (message.interactionMetadata!.user.id !== user.id) {
 		await interaction.reply({
 			content: "You didn't start this game!",
 			flags: MessageFlags.Ephemeral,
@@ -317,7 +317,7 @@ async function endGame(
 export async function tryAgain(interaction: ButtonInteraction) {
 	const { customId, message, user } = interaction;
 
-	if (message.interaction!.user.id !== user.id) {
+	if (message.interactionMetadata!.user.id !== user.id) {
 		await interaction.reply({
 			content: "You didn't start this game!",
 			flags: MessageFlags.Ephemeral,
