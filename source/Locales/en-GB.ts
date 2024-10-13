@@ -43,6 +43,12 @@ export default {
 			"command-name": "ai",
 			"command-description": "Configure the AI.",
 		},
+		bonk: {
+			"command-name": "bonk",
+			"command-description": "Bonk someone!",
+			"command-option-user-name": "user",
+			"command-option-user-description": "The individual to be bonked.",
+		},
 		calculate: {
 			"command-name": "calculate",
 			"command-description": "The command containing various calculators.",

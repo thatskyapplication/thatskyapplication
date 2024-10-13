@@ -86,14 +86,38 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		contexts: [InteractionContextType.Guild],
 	},
 	{
-		name: "bonk",
-		description: "Bonk someone!",
+		name: t("bonk.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [locale, t("bonk.command-name", { lng: locale, ns: "commands" })]),
+		),
+		description: t("bonk.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("bonk.command-description", { lng: locale, ns: "commands" }),
+			]),
+		),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.User,
-				name: "user",
-				description: "The individual to be bonked.",
+				name: t("bonk.command-option-user-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("bonk.command-option-user-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("bonk.command-option-user-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("bonk.command-option-user-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 				required: true,
 			},
 		],

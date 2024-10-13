@@ -1,4 +1,10 @@
-import { type ChatInputCommandInteraction, MessageFlags, PermissionFlagsBits } from "discord.js";
+import {
+	type ChatInputCommandInteraction,
+	Locale,
+	MessageFlags,
+	PermissionFlagsBits,
+} from "discord.js";
+import { t } from "i18next";
 import type { ChatInputCommand } from "../index.js";
 
 const BONKS = {
@@ -159,7 +165,7 @@ const BONKS = {
 } as const;
 
 export default new (class implements ChatInputCommand {
-	public readonly name = "bonk";
+	public readonly name = t("bonk.command-name", { lng: Locale.EnglishGB, ns: "commands" });
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { channel, options } = interaction;
