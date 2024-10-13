@@ -1,4 +1,5 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
+import { RealmName } from "../../../../Utility/Constants.js";
 import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
 import {
 	HELD_PROPS_EMOJIS,
@@ -15,6 +16,7 @@ const emoteEmoji = SpiritEmoteToEmoji[emote];
 export default new GuideSpirit({
 	name: SpiritName.TheMoominStorybook,
 	season: SeasonName.Moomin,
+	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		inProgress: true,
 		hasInfographic: false,
