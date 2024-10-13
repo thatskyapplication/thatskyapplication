@@ -2,9 +2,6 @@ import { PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	ActionRowBuilder,
 	ActivityType,
-	type ApplicationCommandData,
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
 	type AutocompleteInteraction,
 	ButtonBuilder,
 	type ButtonInteraction,
@@ -23,18 +20,14 @@ import { hash } from "hasha";
 import sharp from "sharp";
 import S3Client from "../../S3Client.js";
 import Configuration from "../../Structures/Configuration.js";
-import DailyGuides, {
-	type QuestNumber,
-	QUEST_NUMBER,
-	QUESTS,
-} from "../../Structures/DailyGuides.js";
+import DailyGuides, { type QuestNumber, QUESTS } from "../../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
 import {
 	CDN_BUCKET,
-	DEVELOPER_GUILD_ID,
 	LOCALES,
 	MAXIMUM_EMBED_FIELD_NAME_LENGTH,
 	MAXIMUM_EMBED_FIELD_VALUE_LENGTH,
+	QUEST_NUMBER,
 	VALID_REALM_NAME,
 } from "../../Utility/Constants.js";
 import { resolveValidRealm, userLogFormat } from "../../Utility/Utility.js";
@@ -93,72 +86,7 @@ function isQuestNumber(questNumber: number): questNumber is QuestNumber {
 }
 
 export default new (class implements AutocompleteCommand {
-	public readonly data = {
-		name: "admin",
-		description: "Developer-specific commands.",
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "ai",
-				description: "Toggles the AI feature.",
-				options: [
-					{
-						type: ApplicationCommandOptionType.Boolean,
-						name: "enable",
-						description: "Whether the AI feature should be enabled.",
-						required: true,
-					},
-				],
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "custom-status",
-				description: "Sets the custom status.",
-				options: [
-					{
-						type: ApplicationCommandOptionType.String,
-						name: "text",
-						description: "The text to use.",
-						required: true,
-					},
-				],
-			},
-			{
-				type: ApplicationCommandOptionType.SubcommandGroup,
-				name: "daily-guides",
-				description: "Edits the daily guides embed.",
-				options: [
-					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: "interactive",
-						description: "Interactively edits the daily guides.",
-					},
-					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: "set-quest",
-						description: "Sets a quest for the daily guides.",
-						options: [
-							...QUEST_NUMBER.map((questNumber) => ({
-								type: ApplicationCommandOptionType.String as const,
-								name: `quest-${questNumber}`,
-								description: "The daily quest.",
-								autocomplete: true,
-							})),
-							...QUEST_NUMBER.map((questNumber) => ({
-								type: ApplicationCommandOptionType.String as const,
-								name: `url-${questNumber}`,
-								description: "Override the respective daily quest's infographic.",
-							})),
-						],
-					},
-				],
-			},
-		],
-		defaultMemberPermissions: 0n,
-	} as const satisfies Readonly<ApplicationCommandData>;
-
-	public readonly guilds = [DEVELOPER_GUILD_ID];
+	public readonly name = "admin";
 
 	public async autocomplete(interaction: AutocompleteInteraction) {
 		switch (interaction.options.getSubcommand()) {

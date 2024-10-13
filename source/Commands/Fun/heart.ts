@@ -1,7 +1,5 @@
 import {
 	ActionRowBuilder,
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
 	ButtonBuilder,
 	ButtonInteraction,
 	ButtonStyle,
@@ -56,33 +54,7 @@ export const HEART_HISTORY_BACK = "HEART_HISTORY_BACK" as const;
 export const HEART_HISTORY_FORWARD = "HEART_HISTORY_FORWARD" as const;
 
 export default new (class implements ChatInputCommand {
-	public readonly data = {
-		name: "heart",
-		description: "Feeling generous? You have up to 3 hearts to gift per day!",
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "gift",
-				description: "Choose someone to gift your heart to!",
-				options: [
-					{
-						type: ApplicationCommandOptionType.User,
-						name: "user",
-						description: "The user to gift a heart to.",
-						required: true,
-					},
-				],
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "history",
-				description: "Display a history of your hearts!",
-			},
-		],
-		integrationTypes: [0, 1],
-		contexts: [0, 2],
-	} as const;
+	public readonly name = "heart";
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {

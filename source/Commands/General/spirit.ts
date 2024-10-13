@@ -1,7 +1,5 @@
 import {
 	ActionRowBuilder,
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
 	type AutocompleteInteraction,
 	ButtonBuilder,
 	ButtonInteraction,
@@ -48,29 +46,7 @@ export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID =
 	"SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;
 
 export default new (class implements AutocompleteCommand {
-	public readonly data = {
-		name: "spirit",
-		description: "Returns the friendship tree of a spirit.",
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "search",
-				description: "Reveal information about a spirit.",
-				options: [
-					{
-						type: ApplicationCommandOptionType.String,
-						name: "query",
-						description: "The name, season, expression, stance, or call of the spirit.",
-						required: true,
-						autocomplete: true,
-					},
-				],
-			},
-		],
-		integrationTypes: [0, 1],
-		contexts: [0, 1, 2],
-	} as const;
+	public readonly name = "spirit";
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {

@@ -1,6 +1,6 @@
 import process from "node:process";
 import { URL } from "node:url";
-import { Locale, MessageFlags, hyperlink } from "discord.js";
+import { ChannelType, Locale, MessageFlags, hyperlink } from "discord.js";
 
 // Production detection.
 export const PRODUCTION = process.env.NODE_ENV === "production";
@@ -9,6 +9,10 @@ export const PRODUCTION = process.env.NODE_ENV === "production";
 const APPLICATION_ID_DEVELOPMENT = "1071822091814441000" as const;
 const APPLICATION_ID_PRODUCTION = "982740693070012506" as const;
 export const APPLICATION_ID = PRODUCTION ? APPLICATION_ID_PRODUCTION : APPLICATION_ID_DEVELOPMENT;
+
+const TOKEN_DEVELOPMENT = process.env.DEVELOPMENT_DISCORD_TOKEN;
+const TOKEN_PRODUCTION = process.env.DISCORD_TOKEN;
+export const TOKEN = PRODUCTION ? TOKEN_PRODUCTION : TOKEN_DEVELOPMENT;
 
 // Content delivery network buckets.
 const CDN_BUCKET_DEVELOPMENT = "thatskyapplication-dev" as const;
@@ -62,6 +66,71 @@ export const NOT_IN_CACHED_GUILD_RESPONSE = {
 	)}!`,
 	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
 } as const;
+
+// Daily guides.
+export const QUEST_NUMBER = [1, 2, 3, 4] as const;
+
+// Daily guides distribution.
+export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
+	ChannelType.GuildText,
+	ChannelType.GuildAnnouncement,
+	ChannelType.PublicThread,
+] as const;
+
+// Guess.
+export enum GuessDifficultyLevel {
+	Original = 0,
+	Hard = 1,
+}
+
+export const GUESS_DIFFICULTY_LEVEL_VALUES = Object.values(GuessDifficultyLevel).filter(
+	(guessDifficultyLevel) => typeof guessDifficultyLevel === "number",
+);
+
+export const GuessDifficultyLevelToName = {
+	[GuessDifficultyLevel.Original]: "Original",
+	[GuessDifficultyLevel.Hard]: "Hard",
+} as const satisfies Readonly<Record<GuessDifficultyLevel, string>>;
+
+// Notifications.
+export const NOTIFICATION_CHANNEL_TYPES = [
+	ChannelType.GuildText,
+	ChannelType.GuildAnnouncement,
+] as const satisfies Readonly<ChannelType[]>;
+
+export enum NotificationEvent {
+	PollutedGeyser = "Polluted Geyser",
+	Grandma = "Grandma",
+	Turtle = "Turtle",
+	DailyReset = "Daily Reset",
+	EyeOfEden = "Eye of Eden",
+	ISS = "ISS",
+	RegularShardEruption = "Shard Eruption (Regular)",
+	StrongShardEruption = "Shard Eruption (Strong)",
+	AURORA = "AURORA",
+	Passage = "Passage",
+	AviarysFireworkFestival = "Aviary's Firework Festival",
+	Dragon = "Dragon",
+}
+
+export const NOTIFICATION_EVENT_VALUES = Object.values(NotificationEvent);
+
+// Sky profiles.
+export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
+export const SKY_PROFILE_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
+export const SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
+export const SKY_PROFILE_MINIMUM_COUNTRY_LENGTH = 2 as const;
+export const SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH = 60 as const;
+export const SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH = 1 as const;
+export const SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH = 3 as const;
+export const SKY_PROFILE_MINIMUM_SPOT_LENGTH = 2 as const;
+export const SKY_PROFILE_MAXIMUM_SPOT_LENGTH = 50 as const;
+export const SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER = 25 as const;
+export const SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH = 100 as const;
+export const SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH = 100 as const;
+export const SKY_PROFILE_REPORT_MAXIMUM_LENGTH = 1000 as const;
+export const SKY_PROFILE_REPORT_MINIMUM_LENGTH = 10 as const;
+export const SKY_PROFILE_UNKNOWN_NAME = "Anonymous" as const;
 
 // Miscellaneous constants.
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;

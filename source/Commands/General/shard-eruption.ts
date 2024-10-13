@@ -1,7 +1,5 @@
 import {
 	ActionRowBuilder,
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
 	ButtonBuilder,
 	ButtonInteraction,
 	ButtonStyle,
@@ -9,7 +7,6 @@ import {
 	type Locale,
 	type MessageComponentInteraction,
 	PermissionFlagsBits,
-	type Snowflake,
 	StringSelectMenuBuilder,
 	type StringSelectMenuInteraction,
 	StringSelectMenuOptionBuilder,
@@ -23,7 +20,6 @@ import {
 	SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
 	todayEmbed,
 } from "../../Structures/ShardEruption.js";
-import { chatInputApplicationCommandMention } from "../../Utility/Utility.js";
 import { TIME_ZONE, dateRangeString, dateString, skyToday } from "../../Utility/dates.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { resolveShardEruptionEmoji, shardEruption } from "../../Utility/shardEruption.js";
@@ -63,27 +59,7 @@ function generateShardEruptionSelectMenuOptions(
 }
 
 export default new (class implements ChatInputCommand {
-	public readonly data = {
-		name: "shard-eruption",
-		description: "View the shard eruption schedule.",
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "browse",
-				description: "Browse the shard eruptions.",
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "today",
-				description: "View the shard eruption today.",
-			},
-		],
-		integrationTypes: [0, 1],
-		contexts: [0, 1, 2],
-	} as const;
-
-	public id: Snowflake | null = null;
+	public readonly name = "shard-eruption";
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
@@ -110,16 +86,7 @@ export default new (class implements ChatInputCommand {
 
 			if (today > expiresAt) {
 				const hasEmbeds = message.embeds.length > 0;
-
-				const expiryMessage = `This command has expired. Run ${
-					this.id
-						? chatInputApplicationCommandMention(
-								this.id,
-								this.data.name,
-								this.data.options[hasEmbeds ? 1 : 0].name,
-							)
-						: "it"
-				} again!`;
+				const expiryMessage = "This command has expired. Run it again!";
 
 				if (hasEmbeds) {
 					await interaction.update({ components: [] });

@@ -1,6 +1,5 @@
 import {
 	type Channel,
-	ChannelType,
 	ChatInputCommandInteraction,
 	type Client,
 	Collection,
@@ -17,7 +16,12 @@ import {
 	channelMention,
 	roleMention,
 } from "discord.js";
-import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
+import {
+	DEFAULT_EMBED_COLOUR,
+	NOTIFICATION_CHANNEL_TYPES,
+	NOTIFICATION_EVENT_VALUES,
+	NotificationEvent,
+} from "../Utility/Constants.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
 import pg, { Table } from "../pg.js";
 
@@ -122,23 +126,6 @@ export type NotificationInsertQuery = Partial<NotificationPatchData> &
 
 export type NotificationUpdateQuery = Omit<NotificationInsertQuery, "guild_id">;
 
-export enum NotificationEvent {
-	PollutedGeyser = "Polluted Geyser",
-	Grandma = "Grandma",
-	Turtle = "Turtle",
-	DailyReset = "Daily Reset",
-	EyeOfEden = "Eye of Eden",
-	ISS = "ISS",
-	RegularShardEruption = "Shard Eruption (Regular)",
-	StrongShardEruption = "Shard Eruption (Strong)",
-	AURORA = "AURORA",
-	Passage = "Passage",
-	AviarysFireworkFestival = "Aviary's Firework Festival",
-	Dragon = "Dragon",
-}
-
-export const NOTIFICATION_EVENT_VALUES = Object.values(NotificationEvent);
-
 const NOTIFICATION_OFFSETS = [
 	NotificationEvent.PollutedGeyser,
 	NotificationEvent.Grandma,
@@ -160,11 +147,6 @@ export const NotificationOffsetToMaximumValues = {
 	[NotificationEvent.AURORA]: 15,
 	[NotificationEvent.Passage]: 5,
 } as const satisfies Readonly<Record<NotificationOffset, number>>;
-
-export const NOTIFICATION_CHANNEL_TYPES = [
-	ChannelType.GuildText,
-	ChannelType.GuildAnnouncement,
-] as const satisfies Readonly<ChannelType[]>;
 
 type NotificationAllowedChannel = Extract<
 	GuildBasedChannel,

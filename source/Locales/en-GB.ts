@@ -1,5 +1,8 @@
-import { NOTIFICATION_EVENT_VALUES } from "../Structures/Notification.js";
-import { REALM_NAME_VALUES, SKY_MAP_VALUES } from "../Utility/Constants.js";
+import {
+	NOTIFICATION_EVENT_VALUES,
+	REALM_NAME_VALUES,
+	SKY_MAP_VALUES,
+} from "../Utility/Constants.js";
 import { EVENT_NAME_VALUES, SEASON_NAME_VALUES } from "../Utility/catalogue.js";
 import { SpiritName } from "../Utility/spirits.js";
 

@@ -34,8 +34,24 @@ import {
 	CDN_BUCKET,
 	CDN_URL,
 	DEFAULT_EMBED_COLOUR,
+	GuessDifficultyLevel,
+	GuessDifficultyLevelToName,
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
+	SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH,
+	SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH,
+	SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
+	SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
+	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
+	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
+	SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
+	SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH,
+	SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
+	SKY_PROFILE_MINIMUM_SPOT_LENGTH,
+	SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH,
+	SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
+	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
+	SKY_PROFILE_UNKNOWN_NAME,
 } from "../Utility/Constants.js";
 import { type SeasonId, SeasonIdToSeasonalEmoji } from "../Utility/catalogue.js";
 import {
@@ -49,7 +65,7 @@ import { skySeasons } from "../catalogue/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { Catalogue } from "./Catalogue.js";
-import { GuessDifficultyLevel, GuessDifficultyLevelToName, findUser } from "./Guess.js";
+import { findUser } from "./Guess.js";
 
 interface ProfilePacket {
 	user_id: Snowflake;
@@ -337,22 +353,7 @@ export const SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID =
 export const SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID =
 	"SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID" as const;
 
-export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
-export const SKY_PROFILE_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
-const SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
-export const SKY_PROFILE_MINIMUM_COUNTRY_LENGTH = 2 as const;
-export const SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH = 60 as const;
-const SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH = 1 as const;
-const SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH = 3 as const;
-export const SKY_PROFILE_MINIMUM_SPOT_LENGTH = 2 as const;
-export const SKY_PROFILE_MAXIMUM_SPOT_LENGTH = 50 as const;
 const ANIMATED_HASH_PREFIX = "a_" as const;
-const SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER = 25 as const;
-const SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH = 100 as const;
-const SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH = 100 as const;
-const SKY_PROFILE_REPORT_MAXIMUM_LENGTH = 1000 as const;
-const SKY_PROFILE_REPORT_MINIMUM_LENGTH = 10 as const;
-const SKY_PROFILE_UNKNOWN_NAME = "Anonymous" as const;
 
 export const enum AssetType {
 	Icon = 0,

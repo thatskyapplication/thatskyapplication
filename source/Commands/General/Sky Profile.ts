@@ -1,19 +1,9 @@
-import {
-	type ApplicationCommandData,
-	ApplicationCommandType,
-	MessageFlags,
-	type UserContextMenuCommandInteraction,
-} from "discord.js";
+import { MessageFlags, type UserContextMenuCommandInteraction } from "discord.js";
 import Profile from "../../Structures/Profile.js";
 import type { UserContextMenuCommand } from "../index.js";
 
 export default new (class implements UserContextMenuCommand {
-	public readonly data = {
-		name: "Sky Profile",
-		type: ApplicationCommandType.User,
-		integrationTypes: [0, 1],
-		contexts: [0, 1, 2],
-	} as const satisfies Readonly<ApplicationCommandData>;
+	public readonly name = "Sky Profile";
 
 	public async userContextMenu(interaction: UserContextMenuCommandInteraction) {
 		const { targetId, targetUser } = interaction;

@@ -1,10 +1,4 @@
-import {
-	type ApplicationCommandData,
-	ApplicationCommandType,
-	type ChatInputCommandInteraction,
-	EmbedBuilder,
-	hyperlink,
-} from "discord.js";
+import { type ChatInputCommandInteraction, EmbedBuilder, hyperlink } from "discord.js";
 import {
 	APPLICATION_INVITE_URL,
 	DEFAULT_EMBED_COLOUR,
@@ -37,13 +31,7 @@ ${hyperlink("Patreon", PATREON_URL)} | ${hyperlink("Ko-fi", KO_FI_URL)} | ${hype
 )}` as const;
 
 export default new (class implements ChatInputCommand {
-	public readonly data = {
-		name: "about",
-		description: "About me, the wondrous little Sky helper!",
-		type: ApplicationCommandType.ChatInput,
-		integrationTypes: [0, 1],
-		contexts: [0, 1, 2],
-	} as const satisfies Readonly<ApplicationCommandData>;
+	public readonly name = "about";
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { client } = interaction;

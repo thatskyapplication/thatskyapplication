@@ -1,128 +1,18 @@
 import {
 	ALLOWED_EXTENSIONS,
-	type ApplicationCommandData,
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
 	type Attachment,
 	type AutocompleteInteraction,
 	type ChatInputCommandInteraction,
 	PermissionFlagsBits,
 } from "discord.js";
-import Profile, {
-	AssetType,
-	SKY_PROFILE_MAXIMUM_ASSET_SIZE,
-	SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
-	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
-	SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
-	SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
-	SKY_PROFILE_MINIMUM_SPOT_LENGTH,
-	type ProfileSetData,
-} from "../../Structures/Profile.js";
-import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
+import Profile, { AssetType, type ProfileSetData } from "../../Structures/Profile.js";
+import { SKY_PROFILE_MAXIMUM_ASSET_SIZE } from "../../Utility/Constants.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { spirits } from "../../catalogue/spirits/index.js";
 import COMMANDS, { type AutocompleteCommand } from "../index.js";
 
 export default new (class implements AutocompleteCommand {
-	public readonly data = {
-		name: "sky-profile",
-		description: "Build a Sky profile for you and others to see!",
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "edit",
-				description: "Edit your Sky profile.",
-				options: [
-					{
-						type: ApplicationCommandOptionType.String,
-						name: "name",
-						description: "What's your in-game name?",
-						maxLength: SKY_PROFILE_MAXIMUM_NAME_LENGTH,
-					},
-					{
-						type: ApplicationCommandOptionType.Attachment,
-						name: "thumbnail",
-						description: "Upload your thumbnail!",
-					},
-					{
-						type: ApplicationCommandOptionType.Attachment,
-						name: "icon",
-						description: "Upload your icon!",
-					},
-					{
-						type: ApplicationCommandOptionType.Integer,
-						name: "winged-light",
-						description: `How much winged light do you have? (${MINIMUM_WINGED_LIGHT}-${MAXIMUM_WINGED_LIGHT})`,
-						maxValue: MAXIMUM_WINGED_LIGHT,
-						minValue: MINIMUM_WINGED_LIGHT,
-					},
-					{
-						type: ApplicationCommandOptionType.String,
-						name: "spirit",
-						description: "What's your favourite spirit?",
-						autocomplete: true,
-					},
-					{
-						type: ApplicationCommandOptionType.String,
-						name: "country",
-						description: "Feel like specifying your country?",
-						maxLength: SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
-						minLength: SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
-					},
-					{
-						type: ApplicationCommandOptionType.String,
-						name: "spot",
-						description: "Where's your favourite spot to hang out?",
-						minLength: SKY_PROFILE_MINIMUM_SPOT_LENGTH,
-						maxLength: SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
-					},
-					{
-						type: ApplicationCommandOptionType.Boolean,
-						name: "catalogue-progression",
-						description: "Show your catalogue progression?",
-					},
-					{
-						type: ApplicationCommandOptionType.Boolean,
-						name: "guess-rank",
-						description: "Show your guessing game rank?",
-					},
-				],
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "explore",
-				description: "Explore the Sky profiles of others!",
-				options: [
-					{
-						type: ApplicationCommandOptionType.String,
-						name: "name",
-						description: "Search a Sky profile via a name!",
-						autocomplete: true,
-					},
-				],
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "show",
-				description: "Shows the Sky profile of someone.",
-				options: [
-					{
-						type: ApplicationCommandOptionType.User,
-						name: "user",
-						description: "The user whose Sky profile you wish to see.",
-					},
-					{
-						type: ApplicationCommandOptionType.Boolean,
-						name: "hide",
-						description: "Ensure only you can see the response. By default, the response is shown.",
-					},
-				],
-			},
-		],
-		integrationTypes: [0, 1],
-		contexts: [0, 1, 2],
-	} as const satisfies Readonly<ApplicationCommandData>;
+	public readonly name = "sky-profile";
 
 	public async autocomplete(interaction: AutocompleteInteraction) {
 		switch (interaction.options.getSubcommand()) {

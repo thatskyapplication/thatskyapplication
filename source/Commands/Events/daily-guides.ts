@@ -1,53 +1,16 @@
-import {
-	type ApplicationCommandData,
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
-	type ChatInputCommandInteraction,
-	PermissionFlagsBits,
-} from "discord.js";
+import { type ChatInputCommandInteraction, PermissionFlagsBits } from "discord.js";
 import DailyGuidesDistribution, {
-	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	isDailyGuidesDistributable,
 } from "../../Structures/DailyGuidesDistribution.js";
-import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../Utility/Constants.js";
+import {
+	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
+	NOT_IN_CACHED_GUILD_RESPONSE,
+} from "../../Utility/Constants.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default new (class implements ChatInputCommand {
-	public readonly data = {
-		name: "daily-guides",
-		description: "The command to set up daily guides in the server.",
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "setup",
-				description: "Sets up the daily guides in the server.",
-				options: [
-					{
-						type: ApplicationCommandOptionType.Channel,
-						name: "channel",
-						description: "The channel to send daily guides in.",
-						required: true,
-						channelTypes: DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
-					},
-				],
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "status",
-				description: "Shows the status of daily guides in this server.",
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "unset",
-				description: "Unsets daily guides in the server.",
-			},
-		],
-		defaultMemberPermissions: PermissionFlagsBits.ManageGuild,
-		integrationTypes: [0],
-		contexts: [0],
-	} as const satisfies Readonly<ApplicationCommandData>;
+	public readonly name = "daily-guides";
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		if (!interaction.inCachedGuild()) {

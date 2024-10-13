@@ -1,7 +1,5 @@
 import {
 	ActionRowBuilder,
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
 	ButtonBuilder,
 	ButtonStyle,
 	type ChatInputCommandInteraction,
@@ -18,20 +16,7 @@ const DATA_DELETION_MESSAGE = `Are you sure you want to delete your data? This w
 export const DATA_DELETION_CUSTOM_ID = "DATA_DELETION_CUSTOM_ID" as const;
 
 export default new (class implements ChatInputCommand {
-	public readonly data = {
-		name: "data",
-		description: "Commands regarding your data.",
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "delete",
-				description: "Deletes your data.",
-			},
-		],
-		integrationTypes: [0, 1],
-		contexts: [0, 1, 2],
-	} as const;
+	public readonly name = "data";
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {

@@ -12,7 +12,13 @@ import {
 	time,
 } from "discord.js";
 import { t } from "i18next";
-import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../Utility/Constants.js";
+import {
+	DEFAULT_EMBED_COLOUR,
+	ERROR_RESPONSE,
+	GUESS_DIFFICULTY_LEVEL_VALUES,
+	GuessDifficultyLevel,
+	GuessDifficultyLevelToName,
+} from "../Utility/Constants.js";
 import { getRandomElement } from "../Utility/Utility.js";
 import {
 	COSMETIC_EMOJIS,
@@ -43,24 +49,9 @@ export const GUESS_ANSWER_3 = "GUESS_ANSWER_3" as const;
 export const GUESS_END_GAME = "GUESS_END_GAME_CUSTOM_ID" as const;
 export const GUESS_TRY_AGAIN = "GUESS_TRY_AGAIN_CUSTOM_ID" as const;
 
-export enum GuessDifficultyLevel {
-	Original = 0,
-	Hard = 1,
-}
-
-export const GUESS_DIFFICULTY_LEVEL_VALUES = Object.values(GuessDifficultyLevel).filter(
-	(guessDifficultyLevel): guessDifficultyLevel is GuessDifficultyLevel =>
-		typeof guessDifficultyLevel === "number",
-);
-
 function isGuessDifficultyLevel(level: unknown): level is GuessDifficultyLevel {
 	return GUESS_DIFFICULTY_LEVEL_VALUES.includes(level as GuessDifficultyLevel);
 }
-
-export const GuessDifficultyLevelToName = {
-	[GuessDifficultyLevel.Original]: "Original",
-	[GuessDifficultyLevel.Hard]: "Hard",
-} as const satisfies Readonly<Record<GuessDifficultyLevel, string>>;
 
 const GuessDifficultyToStreakColumn = {
 	[GuessDifficultyLevel.Original]: "streak",

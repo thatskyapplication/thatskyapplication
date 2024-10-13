@@ -1,5 +1,4 @@
-import { NotificationEvent } from "../Structures/Notification.js";
-import { RealmName, SkyMap } from "../Utility/Constants.js";
+import { NotificationEvent, RealmName, SkyMap } from "../Utility/Constants.js";
 import { SeasonName } from "../Utility/catalogue.js";
 import { SpiritName } from "../Utility/spirits.js";
 

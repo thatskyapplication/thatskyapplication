@@ -1,8 +1,5 @@
 import { URL } from "node:url";
 import {
-	type ApplicationCommandData,
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
 	type ChatInputCommandInteraction,
 	EmbedBuilder,
 	Locale,
@@ -10,7 +7,7 @@ import {
 	type Snowflake,
 } from "discord.js";
 import { t } from "i18next";
-import { CDN_URL, DEFAULT_EMBED_COLOUR, LOCALES, MAX_HUG_NO } from "../../Utility/Constants.js";
+import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_HUG_NO } from "../../Utility/Constants.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
 
@@ -21,41 +18,7 @@ interface HugPacket {
 }
 
 export default new (class implements ChatInputCommand {
-	public get data() {
-		return {
-			name: t("hug.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-			nameLocalizations: Object.fromEntries(
-				LOCALES.map((locale) => [locale, t("hug.command-name", { lng: locale, ns: "commands" })]),
-			),
-			description: t("hug.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-			descriptionLocalizations: Object.fromEntries(
-				LOCALES.map((locale) => [
-					locale,
-					t("hug.command-description", { lng: locale, ns: "commands" }),
-				]),
-			),
-			type: ApplicationCommandType.ChatInput,
-			options: [
-				{
-					type: ApplicationCommandOptionType.User,
-					name: t("hug.user", { lng: Locale.EnglishGB, ns: "commands" }),
-					nameLocalizations: Object.fromEntries(
-						LOCALES.map((locale) => [locale, t("hug.user", { lng: locale, ns: "commands" })]),
-					),
-					description: "The individual to be hugged.",
-					descriptionLocalizations: Object.fromEntries(
-						LOCALES.map((locale) => [
-							locale,
-							t("hug.user-description", { lng: locale, ns: "commands" }),
-						]),
-					),
-					required: true,
-				},
-			],
-			integrationTypes: [0, 1],
-			contexts: [0, 2],
-		} as const satisfies Readonly<ApplicationCommandData>;
-	}
+	public readonly name = t("hug.command-name", { lng: Locale.EnglishGB, ns: "commands" });
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { channel, createdAt, guildLocale, options } = interaction;
