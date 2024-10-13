@@ -7,6 +7,7 @@ import {
 	NECKLACE_EMOJIS,
 	OUTFIT_EMOJIS,
 } from "../../../../Utility/emojis.js";
+import ComfortOfKindness from "./ComfortOfKindness.js";
 import TheMoominStorybook from "./TheMoominStorybook.js";
 
 export default new Season({
@@ -14,7 +15,7 @@ export default new Season({
 	start: skyDate(2_024, 10, 14),
 	end: skyDate(2_024, 12, 30),
 	guide: TheMoominStorybook,
-	spirits: [],
+	spirits: [ComfortOfKindness],
 	items: [
 		{
 			name: "Hattifattener Shoulder Buddy",

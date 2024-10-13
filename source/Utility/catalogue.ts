@@ -2716,13 +2716,24 @@ export const enum Cosmetic {
 	TheMoominStorybookUltimateUmbrella,
 	TheMoominStorybookUltimatePlush,
 	TheMoominStorybookUltimateOutfit,
+	ComfortOfKindnessBlessing1,
+	ComfortOfKindnessProp1,
+	ComfortOfKindnessHair,
+	ComfortOfKindnessBlessing2,
+	ComfortOfKindnessBlessing3,
+	ComfortOfKindnessProp2,
+	ComfortOfKindnessNeckAccessory,
+	ComfortOfKindnessBlessing4,
+	ComfortOfKindnessBlessing5,
+	ComfortOfKindnessCape,
+	ComfortOfKindnessSeasonalHeart,
 
 	// 21/10/2024 | Days of Mischief.
-	MischiefStarSticker = 2132,
-	MischiefCauldron = 2133,
-	MischiefSpiderBun = 2134,
-	MischiefRavenFeatheredCloak = 2135,
-	MischiefWitheredBroom = 2136,
+	MischiefStarSticker,
+	MischiefCauldron,
+	MischiefSpiderBun,
+	MischiefRavenFeatheredCloak,
+	MischiefWitheredBroom,
 }
 
 export enum SeasonName {

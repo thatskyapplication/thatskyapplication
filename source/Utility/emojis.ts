@@ -1386,6 +1386,10 @@ export const NECKLACE_EMOJIS = {
 	 * Moomin Pendant.
 	 */
 	Necklace42: { name: "necklace", id: "1294938217891500042" },
+	/**
+	 * Comfort of Kindness.
+	 */
+	Necklace43: { name: "necklace", id: "1294970783801544745" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
@@ -1990,6 +1994,10 @@ export const HAIR_EMOJIS = {
 	 * Moonlight Updo.
 	 */
 	Hair149: { name: "hair", id: "1284892991173165160" },
+	/**
+	 * Comfort of Kindness.
+	 */
+	Hair150: { name: "hair", id: "1294965583292534794" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -2738,6 +2746,10 @@ export const CAPE_EMOJIS = {
 	 * Sunlight Woven Wrap cape.
 	 */
 	Cape135: { name: "cape", id: "1276896382199795712" },
+	/**
+	 * Comfort of Kindness.
+	 */
+	Cape136: { name: "cape", id: "1294971697962684500" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -3230,6 +3242,10 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Moonlight Lantern Decoration.
 	 */
 	LargePlaceableProp72: { name: "large_placeable_prop", id: "1285135669018099733" },
+	/**
+	 * Comfort of Kindness.
+	 */
+	LargePlaceableProp73: { name: "large_placeable_prop", id: "1294969788145340477" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type LargePlaceablePropsEmojis =
@@ -3556,6 +3572,10 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * The Moomin Storybook (ultimate).
 	 */
 	SmallPlaceableProp80: { name: "small_placeable_prop", id: "1294941675088515104" },
+	/**
+	 * Comfort of Kindness.
+	 */
+	SmallPlaceableProp81: { name: "small_placeable_prop", id: "1294962736081666170" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =
