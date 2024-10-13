@@ -23,6 +23,7 @@ import {
 	MINIMUM_WINGED_LIGHT,
 	NOTIFICATION_CHANNEL_TYPES,
 	NOTIFICATION_EVENT_VALUES,
+	PRODUCTION,
 	QUEST_NUMBER,
 	SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
@@ -869,13 +870,17 @@ const DEVELOPER_COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 
 const rest = new REST({ version: "10" }).setToken(TOKEN);
 pino.info("Setting application commands...");
+const promises = [rest.put(Routes.applicationCommands(APPLICATION_ID), { body: COMMANDS })];
 
-const settled = await Promise.allSettled([
-	rest.put(Routes.applicationCommands(APPLICATION_ID), { body: COMMANDS }),
-	rest.put(Routes.applicationGuildCommands(APPLICATION_ID, DEVELOPER_GUILD_ID), {
-		body: DEVELOPER_COMMANDS,
-	}),
-]);
+if (PRODUCTION) {
+	promises.push(
+		rest.put(Routes.applicationGuildCommands(APPLICATION_ID, DEVELOPER_GUILD_ID), {
+			body: DEVELOPER_COMMANDS,
+		}),
+	);
+}
+
+const settled = await Promise.allSettled(promises);
 
 const errors = settled
 	.filter((result): result is PromiseRejectedResult => result.status === "rejected")
