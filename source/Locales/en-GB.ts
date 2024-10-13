@@ -1,4 +1,6 @@
 import {
+	GUESS_DIFFICULTY_LEVEL_VALUES,
+	GuessDifficultyLevelToName,
 	NOTIFICATION_EVENT_VALUES,
 	REALM_NAME_VALUES,
 	SKY_MAP_VALUES,
@@ -148,6 +150,36 @@ export default {
 		},
 		"Gift-Heart": {
 			"command-name": "Gift Heart",
+		},
+		guess: {
+			"command-name": "guess",
+			"command-description": "Begin a Sky guessing game! How many can you get right in a row?",
+			game: {
+				"command-name": "game",
+				"command-description": "Begin the guessing game!",
+				"command-option-difficulty-name": "difficulty",
+				"command-option-difficulty-description": "Adjust the difficulty level!",
+				"command-option-difficulty-choice-name": Object.fromEntries(
+					GUESS_DIFFICULTY_LEVEL_VALUES.map((guessDifficultyLevel) => [
+						guessDifficultyLevel,
+						GuessDifficultyLevelToName[guessDifficultyLevel],
+					]),
+				),
+			},
+			leaderboard: {
+				"command-name": "leaderboard",
+				"command-description": "View the leaderboard!",
+				"command-option-difficulty-name": "difficulty",
+				"command-option-difficulty-description": "What difficulty would you like to view?",
+				"command-option-difficulty-choice-name": Object.fromEntries(
+					GUESS_DIFFICULTY_LEVEL_VALUES.map((guessDifficultyLevel) => [
+						guessDifficultyLevel,
+						GuessDifficultyLevelToName[guessDifficultyLevel],
+					]),
+				),
+				"command-option-server-name": "server",
+				"command-option-server-description": "Scope the leaderboard to your server?",
+			},
 		},
 		hug: {
 			"command-name": "hug",

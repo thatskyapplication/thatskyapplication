@@ -730,21 +730,72 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
 	},
 	{
-		name: "guess",
-		description: "Begin a Sky guessing game! How many can you get right in a row?",
+		name: t("guess.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [locale, t("guess.command-name", { lng: locale, ns: "commands" })]),
+		),
+		description: t("guess.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("guess.command-description", { lng: locale, ns: "commands" }),
+			]),
+		),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "game",
-				description: "Begin the guessing game!",
+				name: t("guess.game.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("guess.game.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("guess.game.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("guess.game.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: "difficulty",
-						description: "Adjust the difficulty level!",
+						name: t("guess.game.command-option-difficulty-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("guess.game.command-option-difficulty-name", { lng: locale, ns: "commands" }),
+							]),
+						),
+						description: t("guess.game.command-option-difficulty-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("guess.game.command-option-difficulty-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						choices: GUESS_DIFFICULTY_LEVEL_VALUES.map((guessDifficultyLevel) => ({
 							name: GuessDifficultyLevelToName[guessDifficultyLevel],
+							name_localizations: Object.fromEntries(
+								LOCALES.map((locale) => [
+									locale,
+									t(`guess.game.command-option-difficulty-choice-name.${guessDifficultyLevel}`, {
+										lng: locale,
+										ns: "commands",
+									}),
+								]),
+							),
 							value: guessDifficultyLevel,
 						})),
 					},
@@ -752,23 +803,92 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "leaderboard",
-				description: "View the leaderboard!",
+				name: t("guess.leaderboard.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("guess.leaderboard.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("guess.leaderboard.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("guess.leaderboard.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: "difficulty",
-						description: "What difficulty would you like to view?",
+						name: t("guess.leaderboard.command-option-difficulty-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("guess.leaderboard.command-option-difficulty-name", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
+						description: t("guess.leaderboard.command-option-difficulty-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("guess.leaderboard.command-option-difficulty-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						choices: GUESS_DIFFICULTY_LEVEL_VALUES.map((guessDifficultyLevel) => ({
 							name: GuessDifficultyLevelToName[guessDifficultyLevel],
+							name_localizations: Object.fromEntries(
+								LOCALES.map((locale) => [
+									locale,
+									t(`guess.leaderboard.command-option-difficulty-choice-name.${guessDifficultyLevel}`, {
+										lng: locale,
+										ns: "commands",
+									}),
+								]),
+							),
 							value: guessDifficultyLevel,
 						})),
 						required: true,
 					},
 					{
 						type: ApplicationCommandOptionType.Boolean,
-						name: "server",
-						description: "Scope the leaderboard to your server?",
+						name: t("guess.leaderboard.command-option-server-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("guess.leaderboard.command-option-server-name", { lng: locale, ns: "commands" }),
+							]),
+						),
+						description: t("guess.leaderboard.command-option-server-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("guess.leaderboard.command-option-server-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 					},
 				],
 			},
