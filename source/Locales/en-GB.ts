@@ -136,7 +136,7 @@ export default {
 			unset: {
 				"command-name": "unset",
 				"command-description": "Unsets daily guides in the server.",
-			}
+			},
 		},
 		data: {
 			"command-name": "data",
@@ -144,7 +144,10 @@ export default {
 			delete: {
 				"command-name": "delete",
 				"command-description": "Delete your data.",
-			}
+			},
+		},
+		"Gift-Heart": {
+			"command-name": "Gift Heart",
 		},
 		hug: {
 			"command-name": "hug",

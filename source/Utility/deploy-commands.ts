@@ -721,7 +721,7 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		],
 	},
 	{
-		name: "Gift Heart",
+		name: t("Gift-Heart.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 		type: ApplicationCommandType.User,
 		integration_types: [
 			ApplicationIntegrationType.GuildInstall,
