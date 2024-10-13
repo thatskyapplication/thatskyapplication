@@ -590,6 +590,10 @@ export const OUTFIT_EMOJIS = {
 	 * Style Dapper Suit.
 	 */
 	Outfit68: { name: "outfit", id: "1290085603282522162" },
+	/**
+	 * Roving Snufkin Robe.
+	 */
+	Outfit69: { name: "outfit", id: "1294934798871298078" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -1362,6 +1366,18 @@ export const NECKLACE_EMOJIS = {
 	 * Style Dapper Necktie.
 	 */
 	Necklace38: { name: "necklace", id: "1290086442625798186" },
+	/**
+	 * Hattifattener Shoulder Buddy.
+	 */
+	Necklace39: { name: "necklace", id: "1294933189252354089" },
+	/**
+	 * Roving Snufkin Scarf.
+	 */
+	Necklace40: { name: "necklace", id: "1294935382533738570" },
+	/**
+	 * Moomintroll Tail.
+	 */
+	Necklace41: { name: "necklace", id: "1294936630829776936" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
@@ -2158,6 +2174,14 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 * Style Darkness Fascinator.
 	 */
 	HairAccessory46: { name: "hair_accessory", id: "1290085249769803817" },
+	/**
+	 * Pointed Snufkin Hat.
+	 */
+	HairAccessory47: { name: "hair_accessory", id: "1294934069632696400" },
+	/**
+	 * Moomintroll Ears.
+	 */
+	HairAccessory48: { name: "hair_accessory", id: "1294936167694991380" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];

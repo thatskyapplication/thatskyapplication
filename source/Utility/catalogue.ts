@@ -2704,6 +2704,11 @@ export const enum Cosmetic {
 
 	// 14/10/2024 | Season of Moomin.
 	HattifattenerShoulderBuddy,
+	PointedSnufkinHat,
+	RovingSnufkinRobe,
+	RovingSnufkinScarf,
+	MoomintrollEars,
+	MoomintrollTail,
 	TheMoominStorybookQuest1,
 	EmoteRead1,
 	EmoteRead2,
