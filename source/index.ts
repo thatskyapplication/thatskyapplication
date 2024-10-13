@@ -18,7 +18,7 @@ import {
 	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,
 	MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID,
-	PRODUCTION,
+	TOKEN,
 } from "./Utility/Constants.js";
 import pino from "./pino.js";
 import "./i18next.js";
@@ -34,6 +34,11 @@ declare module "discord.js" {
 		log(options: LogOptions): Promise<void>;
 		applyCommands(): Promise<void>;
 	}
+}
+
+if (!TOKEN) {
+	pino.fatal("Missing Discord token.");
+	process.exit(1);
 }
 
 class Caelus extends Client {
@@ -232,6 +237,4 @@ for (const event of events) {
 	client[once ? "once" : "on"](name, fire);
 }
 
-const { DISCORD_TOKEN, DEVELOPMENT_DISCORD_TOKEN } = process.env;
-const token = PRODUCTION ? DISCORD_TOKEN : DEVELOPMENT_DISCORD_TOKEN;
-void client.login(token);
+void client.login(TOKEN);
