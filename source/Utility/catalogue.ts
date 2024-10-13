@@ -2745,6 +2745,17 @@ export const enum Cosmetic {
 	SpiritOfAdventureCape,
 	SpiritOfAdventureBlessing3,
 	SpiritOfAdventureSeasonalHeart,
+	InspirationOfInclusionProp1,
+	InspirationOfInclusionBlessing1,
+	InspirationOfInclusionBlessing2,
+	InspirationOfInclusionHairAccessory,
+	InspirationOfInclusionProp2,
+	InspirationOfInclusionBlessing3,
+	InspirationOfInclusionBlessing4,
+	InspirationOfInclusionNeckAccessory,
+	InspirationOfInclusionOutfit,
+	InspirationOfInclusionBlessing5,
+	InspirationOfInclusionSeasonalHeart,
 
 	// 21/10/2024 | Days of Mischief.
 	MischiefStarSticker,

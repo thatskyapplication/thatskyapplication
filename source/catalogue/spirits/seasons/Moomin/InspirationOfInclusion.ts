@@ -1,0 +1,91 @@
+import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
+import { RealmName } from "../../../../Utility/Constants.js";
+import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import {
+	HAIR_ACCESSORY_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	NECKLACE_EMOJIS,
+	OUTFIT_EMOJIS,
+	SEASON_EMOJIS,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
+} from "../../../../Utility/emojis.js";
+import { SpiritName } from "../../../../Utility/spirits.js";
+
+const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
+const outfitEmoji = OUTFIT_EMOJIS.Outfit71;
+const necklaceEmoji = NECKLACE_EMOJIS.Necklace45;
+const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory50;
+const { SmallPlaceableProp82, SmallPlaceableProp83 } = SMALL_PLACEABLE_PROPS_EMOJIS;
+
+export default new SeasonalSpirit({
+	name: SpiritName.InspirationOfInclusion,
+	season: SeasonName.Moomin,
+	realm: RealmName.VaultOfKnowledge,
+	offer: {
+		hasInfographic: false,
+		hasInfographicSeasonal: false,
+		seasonal: [
+			{
+				name: "Prop 1",
+				cosmetic: Cosmetic.InspirationOfInclusionProp1,
+				cost: { seasonalCandles: 12 },
+				emoji: SmallPlaceableProp82,
+			},
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.InspirationOfInclusionBlessing1,
+				emoji: blessing3,
+			},
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.InspirationOfInclusionBlessing2,
+				cost: { seasonalCandles: 16 },
+				emoji: blessing3,
+			},
+			{
+				name: "Hair accessory",
+				cosmetic: Cosmetic.InspirationOfInclusionHairAccessory,
+				emoji: hairAccessoryEmoji,
+			},
+			{
+				name: "Prop 2",
+				cosmetic: Cosmetic.InspirationOfInclusionProp2,
+				cost: { seasonalCandles: 20 },
+				emoji: SmallPlaceableProp83,
+			},
+			{
+				name: "Blessing 3",
+				cosmetic: Cosmetic.InspirationOfInclusionBlessing3,
+				emoji: blessing3,
+			},
+			{
+				name: "Blessing 4",
+				cosmetic: Cosmetic.InspirationOfInclusionBlessing4,
+				cost: { seasonalCandles: 26 },
+				emoji: blessing3,
+			},
+			{
+				name: "Neck accessory",
+				cosmetic: Cosmetic.InspirationOfInclusionNeckAccessory,
+				emoji: necklaceEmoji,
+			},
+			{
+				name: "Outfit",
+				cosmetic: Cosmetic.InspirationOfInclusionOutfit,
+				cost: { seasonalCandles: 36 },
+				emoji: outfitEmoji,
+			},
+			{
+				name: "Blessing 5",
+				cosmetic: Cosmetic.InspirationOfInclusionBlessing5,
+				emoji: blessing3,
+			},
+			{
+				name: "Seasonal heart",
+				cosmetic: Cosmetic.InspirationOfInclusionSeasonalHeart,
+				cost: { seasonalCandles: 3 },
+				emoji: SEASON_EMOJIS.MoominHeart,
+			},
+		],
+	},
+});

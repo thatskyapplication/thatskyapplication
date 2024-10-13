@@ -598,6 +598,10 @@ export const OUTFIT_EMOJIS = {
 	 * The Moomin Storybook (ultimate).
 	 */
 	Outfit70: { name: "outfit", id: "1294942162781470732" },
+	/**
+	 * Inspiration of Inclusion.
+	 */
+	Outfit71: { name: "outfit", id: "1295007112388153385" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -1398,6 +1402,10 @@ export const NECKLACE_EMOJIS = {
 	 * Sense of Self.
 	 */
 	Necklace44: { name: "necklace", id: "1294984608286248970" },
+	/**
+	 * Inspiration of Inclusion.
+	 */
+	Necklace45: { name: "necklace", id: "1295006830413480007" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
@@ -2214,6 +2222,10 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 * Sense of Self.
 	 */
 	HairAccessory49: { name: "hair_accessory", id: "1294985275780501535" },
+	/**
+	 * Inspiration of Inclusion.
+	 */
+	HairAccessory50: { name: "hair_accessory", id: "1295005922946711562" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
@@ -3604,6 +3616,14 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Comfort of Kindness.
 	 */
 	SmallPlaceableProp81: { name: "small_placeable_prop", id: "1294962736081666170" },
+	/**
+	 * Inspiration of Inclusion 1.
+	 */
+	SmallPlaceableProp82: { name: "small_placeable_prop", id: "1295005493445660754" },
+	/**
+	 * Inspiration of Inclusion 2.
+	 */
+	SmallPlaceableProp83: { name: "small_placeable_prop", id: "1295006306796568648" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =
