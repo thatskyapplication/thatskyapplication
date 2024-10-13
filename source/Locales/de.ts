@@ -215,7 +215,7 @@ export default {
 	commands: {
 		about: {
 			"command-name": "über-mich",
-			"command-description": "Infos über mich, dem kleinen wunderbaren Helfer für Sky!",
+			"command-description": "Infos über mich, den kleinen wunderbaren Helfer für Sky!",
 		},
 		ai: {
 			"command-name": "ai",
