@@ -2727,6 +2727,15 @@ export const enum Cosmetic {
 	ComfortOfKindnessBlessing5,
 	ComfortOfKindnessCape,
 	ComfortOfKindnessSeasonalHeart,
+	SenseOfSelfMusicSheet,
+	SenseOfSelfBlessing1,
+	SenseOfSelfBlessing2,
+	SenseOfSelfShoes,
+	SenseOfSelfNeckAccessory,
+	SenseOfSelfBlessing3,
+	SenseOfSelfBlessing4,
+	SenseOfSelfHairAccessory,
+	SenseOfSelfSeasonalHeart,
 
 	// 21/10/2024 | Days of Mischief.
 	MischiefStarSticker,

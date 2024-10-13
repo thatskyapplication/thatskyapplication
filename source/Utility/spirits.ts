@@ -240,6 +240,7 @@ export enum SpiritName {
 	// Season of Moomin.
 	TheMoominStorybook = "The Moomin Storybook",
 	ComfortOfKindness = "Comfort of Kindness",
+	SenseOfSelf = "Sense of Self",
 }
 
 export const enum SpiritEmote {

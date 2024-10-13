@@ -666,6 +666,10 @@ export const SHOE_EMOJIS = {
 	 * The Pianist's Flourishing.
 	 */
 	Shoe15: { name: "shoe", id: "1262166116499849347" },
+	/**
+	 * Sense of Self.
+	 */
+	Shoe16: { name: "shoe", id: "1294983366525063260" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type ShoeEmojis = (typeof SHOE_EMOJIS)[keyof typeof SHOE_EMOJIS];
@@ -1390,6 +1394,10 @@ export const NECKLACE_EMOJIS = {
 	 * Comfort of Kindness.
 	 */
 	Necklace43: { name: "necklace", id: "1294970783801544745" },
+	/**
+	 * Sense of Self.
+	 */
+	Necklace44: { name: "necklace", id: "1294984608286248970" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
@@ -2198,6 +2206,10 @@ export const HAIR_ACCESSORY_EMOJIS = {
 	 * Moomintroll Ears.
 	 */
 	HairAccessory48: { name: "hair_accessory", id: "1294936167694991380" },
+	/**
+	 * Sense of Self.
+	 */
+	HairAccessory49: { name: "hair_accessory", id: "1294985275780501535" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
