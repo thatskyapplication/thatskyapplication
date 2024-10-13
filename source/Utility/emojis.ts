@@ -2006,6 +2006,10 @@ export const HAIR_EMOJIS = {
 	 * Comfort of Kindness.
 	 */
 	Hair150: { name: "hair", id: "1294965583292534794" },
+	/**
+	 * Spirit of Adventure.
+	 */
+	Hair151: { name: "hair", id: "1294999810176319529" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -2762,6 +2766,10 @@ export const CAPE_EMOJIS = {
 	 * Comfort of Kindness.
 	 */
 	Cape136: { name: "cape", id: "1294971697962684500" },
+	/**
+	 * Spirit of Adventure.
+	 */
+	Cape137: { name: "cape", id: "1295002414885109771" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -2958,6 +2966,10 @@ export const HELD_PROPS_EMOJIS = {
 	 * The Moomin Storybook (ultimate).
 	 */
 	HeldProp47: { name: "held_prop", id: "1294940423348944927" },
+	/**
+	 * Spirit of Adventure.
+	 */
+	HeldProp48: { name: "held_prop", id: "1295000496003878925" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HeldPropsEmojis = (typeof HELD_PROPS_EMOJIS)[keyof typeof HELD_PROPS_EMOJIS];
@@ -3258,6 +3270,10 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Comfort of Kindness.
 	 */
 	LargePlaceableProp73: { name: "large_placeable_prop", id: "1294969788145340477" },
+	/**
+	 * Spirit of Adventure.
+	 */
+	LargePlaceableProp74: { name: "large_placeable_prop", id: "1295001410542370877" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type LargePlaceablePropsEmojis =

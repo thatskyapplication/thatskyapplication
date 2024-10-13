@@ -2736,6 +2736,15 @@ export const enum Cosmetic {
 	SenseOfSelfBlessing4,
 	SenseOfSelfHairAccessory,
 	SenseOfSelfSeasonalHeart,
+	SpiritOfAdventureMusicSheet,
+	SpiritOfAdventureHair,
+	SpiritOfAdventureHarmonica,
+	SpiritOfAdventureBlessing1,
+	SpiritOfAdventureBlessing2,
+	SpiritOfAdventureProp,
+	SpiritOfAdventureCape,
+	SpiritOfAdventureBlessing3,
+	SpiritOfAdventureSeasonalHeart,
 
 	// 21/10/2024 | Days of Mischief.
 	MischiefStarSticker,
