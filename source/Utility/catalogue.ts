@@ -2702,12 +2702,67 @@ export const enum Cosmetic {
 	// 10/10/2024 | Travelling Spirit #124.
 	BumblingBoatswainWingBuff = 2131,
 
+	// 14/10/2024 | Season of Moomin.
+	HattifattenerShoulderBuddy = 2132,
+	PointedSnufkinHat = 2133,
+	RovingSnufkinRobe = 2134,
+	RovingSnufkinScarf = 2135,
+	MoomintrollEars = 2136,
+	MoomintrollTail = 2137,
+	TheMoominStorybookQuest1 = 2138,
+	EmoteRead1 = 2139,
+	EmoteRead2 = 2140,
+	MoominPendant = 2141,
+	TheMoominStorybookUltimateUmbrella = 2142,
+	TheMoominStorybookUltimatePlush = 2143,
+	TheMoominStorybookUltimateOutfit = 2144,
+	ComfortOfKindnessBlessing1 = 2145,
+	ComfortOfKindnessProp1 = 2146,
+	ComfortOfKindnessHair = 2147,
+	ComfortOfKindnessBlessing2 = 2148,
+	ComfortOfKindnessBlessing3 = 2149,
+	ComfortOfKindnessProp2 = 2150,
+	ComfortOfKindnessNeckAccessory = 2151,
+	ComfortOfKindnessBlessing4 = 2152,
+	ComfortOfKindnessBlessing5 = 2153,
+	ComfortOfKindnessCape = 2154,
+	ComfortOfKindnessSeasonalHeart = 2155,
+	SenseOfSelfMusicSheet = 2156,
+	SenseOfSelfBlessing1 = 2157,
+	SenseOfSelfBlessing2 = 2158,
+	SenseOfSelfShoes = 2159,
+	SenseOfSelfNeckAccessory = 2160,
+	SenseOfSelfBlessing3 = 2161,
+	SenseOfSelfBlessing4 = 2162,
+	SenseOfSelfHairAccessory = 2163,
+	SenseOfSelfSeasonalHeart = 2164,
+	SpiritOfAdventureMusicSheet = 2165,
+	SpiritOfAdventureHair = 2166,
+	SpiritOfAdventureHarmonica = 2167,
+	SpiritOfAdventureBlessing1 = 2168,
+	SpiritOfAdventureBlessing2 = 2169,
+	SpiritOfAdventureProp = 2170,
+	SpiritOfAdventureCape = 2171,
+	SpiritOfAdventureBlessing3 = 2172,
+	SpiritOfAdventureSeasonalHeart = 2173,
+	InspirationOfInclusionProp1 = 2174,
+	InspirationOfInclusionBlessing1 = 2175,
+	InspirationOfInclusionBlessing2 = 2176,
+	InspirationOfInclusionHairAccessory = 2177,
+	InspirationOfInclusionProp2 = 2178,
+	InspirationOfInclusionBlessing3 = 2179,
+	InspirationOfInclusionBlessing4 = 2180,
+	InspirationOfInclusionNeckAccessory = 2181,
+	InspirationOfInclusionOutfit = 2182,
+	InspirationOfInclusionBlessing5 = 2183,
+	InspirationOfInclusionSeasonalHeart = 2184,
+
 	// 21/10/2024 | Days of Mischief.
-	MischiefStarSticker = 2132,
-	MischiefCauldron = 2133,
-	MischiefSpiderBun = 2134,
-	MischiefRavenFeatheredCloak = 2135,
-	MischiefWitheredBroom = 2136,
+	MischiefStarSticker = 2185,
+	MischiefCauldron = 2186,
+	MischiefSpiderBun = 2187,
+	MischiefRavenFeatheredCloak = 2188,
+	MischiefWitheredBroom = 2189,
 }
 
 export enum SeasonName {
@@ -2839,7 +2894,6 @@ export const SeasonNameToSeasonalCandleEmoji = {
 	[SeasonName.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeerCandle,
 	[SeasonName.Nesting]: SEASON_EMOJIS.NestingCandle,
 	[SeasonName.Duets]: SEASON_EMOJIS.DuetsCandle,
-	// @ts-expect-error Not yet created.
 	[SeasonName.Moomin]: SEASON_EMOJIS.MoominCandle,
 } as const satisfies Readonly<Record<SeasonName, SeasonEmojis>>;
 
@@ -2864,7 +2918,6 @@ const SeasonNameToSeasonalHeartEmoji = {
 	[SeasonName.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeerHeart,
 	[SeasonName.Nesting]: SEASON_EMOJIS.NestingHeart,
 	[SeasonName.Duets]: SEASON_EMOJIS.DuetsHeart,
-	// @ts-expect-error Not yet created.
 	[SeasonName.Moomin]: SEASON_EMOJIS.MoominHeart,
 } as const satisfies Readonly<
 	Record<Exclude<SeasonName, SeasonName.Gratitude | SeasonName.Lightseekers>, SeasonEmojis>
