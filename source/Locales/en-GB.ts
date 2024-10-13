@@ -39,6 +39,10 @@ export default {
 			"command-name": "about",
 			"command-description": "About me, the wondrous little Sky helper!",
 		},
+		ai: {
+			"command-name": "ai",
+			"command-description": "Configure the AI.",
+		},
 		calculate: {
 			"command-name": "calculate",
 			"command-description": "The command containing various calculators.",

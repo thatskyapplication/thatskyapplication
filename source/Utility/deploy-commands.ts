@@ -69,8 +69,17 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		],
 	},
 	{
-		name: "ai",
-		description: "Configure the AI.",
+		name: t("ai.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [locale, t("ai.command-name", { lng: locale, ns: "commands" })]),
+		),
+		description: t("ai.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("ai.command-description", { lng: locale, ns: "commands" }),
+			]),
+		),
 		type: ApplicationCommandType.ChatInput,
 		default_member_permissions: String(PermissionFlagsBits.ManageGuild),
 		integration_types: [ApplicationIntegrationType.GuildInstall],
