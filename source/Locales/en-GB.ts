@@ -116,6 +116,10 @@ export default {
 				"winged-light-calculator": "Winged Light Calculator",
 			},
 		},
+		catalogue: {
+			"command-name": "catalogue",
+			"command-description": "Your very own Sky catalogue.",
+		},
 		hug: {
 			"command-name": "hug",
 			"command-description": "Hug someone!",

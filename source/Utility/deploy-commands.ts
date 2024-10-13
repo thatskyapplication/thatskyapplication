@@ -535,8 +535,20 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		],
 	},
 	{
-		name: "catalogue",
-		description: "Your very own Sky catalogue.",
+		name: t("catalogue.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("catalogue.command-name", { lng: locale, ns: "commands" }),
+			]),
+		),
+		description: t("catalogue.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("catalogue.command-description", { lng: locale, ns: "commands" }),
+			]),
+		),
 		type: ApplicationCommandType.ChatInput,
 		integration_types: [
 			ApplicationIntegrationType.GuildInstall,
