@@ -591,7 +591,10 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 				required: true,
 			},
 		],
-		integration_types: [ApplicationIntegrationType.GuildInstall],
+		integration_types: [
+			ApplicationIntegrationType.GuildInstall,
+			ApplicationIntegrationType.UserInstall,
+		],
 		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
 	},
 	{
