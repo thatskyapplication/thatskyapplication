@@ -1,7 +1,5 @@
 import { URL } from "node:url";
 import {
-	type ApplicationCommandData,
-	ApplicationCommandType,
 	type ChatInputCommandInteraction,
 	EmbedBuilder,
 	Locale,
@@ -18,7 +16,6 @@ import {
 	CDN_URL,
 	DEFAULT_EMBED_COLOUR,
 	ISS_DATES_ACCESSIBLE,
-	LOCALES,
 	NotificationEvent,
 } from "../../Utility/Constants.js";
 import {
@@ -147,27 +144,7 @@ function deer(locale: Locale) {
 }
 
 export default new (class implements ChatInputCommand {
-	public get data() {
-		return {
-			name: t("schedule.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-			nameLocalizations: Object.fromEntries(
-				LOCALES.map((locale) => [
-					locale,
-					t("schedule.command-name", { lng: locale, ns: "commands" }),
-				]),
-			),
-			description: t("schedule.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-			descriptionLocalizations: Object.fromEntries(
-				LOCALES.map((locale) => [
-					locale,
-					t("schedule.command-description", { lng: locale, ns: "commands" }),
-				]),
-			),
-			type: ApplicationCommandType.ChatInput,
-			integrationTypes: [0, 1],
-			contexts: [0, 1, 2],
-		} as const satisfies Readonly<ApplicationCommandData>;
-	}
+	public readonly name = t("schedule.command-name", { lng: Locale.EnglishGB, ns: "commands" });
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { locale } = interaction;

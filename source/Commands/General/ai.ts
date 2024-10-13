@@ -1,23 +1,10 @@
-import {
-	type ApplicationCommandData,
-	ApplicationCommandType,
-	type ChatInputCommandInteraction,
-	MessageFlags,
-	PermissionFlagsBits,
-} from "discord.js";
+import { type ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import AI from "../../Structures/AI.js";
 import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../Utility/Constants.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default new (class implements ChatInputCommand {
-	public readonly data = {
-		name: "ai",
-		description: "Configure the AI.",
-		type: ApplicationCommandType.ChatInput,
-		defaultMemberPermissions: PermissionFlagsBits.ManageGuild,
-		integrationTypes: [0],
-		contexts: [0],
-	} as const satisfies Readonly<ApplicationCommandData>;
+	public readonly name = "ai";
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		if (!interaction.inCachedGuild()) {

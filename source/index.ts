@@ -2,17 +2,15 @@ import { stat, unlink, writeFile } from "node:fs/promises";
 import process from "node:process";
 import { inspect } from "node:util";
 import {
-	type ApplicationCommandData,
 	Client,
 	EmbedBuilder,
 	GatewayIntentBits,
 	Options,
 	Partials,
 	PermissionFlagsBits,
-	type Snowflake,
 	TextChannel,
 } from "discord.js";
-import commands from "./Commands/index.js";
+import "./i18next.js"; // Must be first.
 import events, { type Event } from "./Events/index.js";
 import {
 	APPLICATION_ID,
@@ -21,7 +19,6 @@ import {
 	TOKEN,
 } from "./Utility/Constants.js";
 import pino from "./pino.js";
-import "./i18next.js";
 
 interface LogOptions {
 	content?: string;
@@ -32,7 +29,6 @@ interface LogOptions {
 declare module "discord.js" {
 	interface Client {
 		log(options: LogOptions): Promise<void>;
-		applyCommands(): Promise<void>;
 	}
 }
 
@@ -122,74 +118,6 @@ class Caelus extends Client {
 				});
 
 			pino.error(error, "Failed to log to Discord.");
-		}
-	}
-
-	public override async applyCommands() {
-		try {
-			if (!this.isReady()) {
-				throw new Error("Client applying commands when not ready.");
-			}
-
-			const fetchedGlobalCommands = await this.application.commands.fetch({
-				cache: false,
-				withLocalizations: true,
-			});
-
-			const globalCommandData: ApplicationCommandData[] = [];
-			const guildCommandData = new Map<Snowflake, ApplicationCommandData[]>();
-
-			for (const command of Object.values(commands)) {
-				if ("guilds" in command) {
-					for (const guildId of command.guilds) {
-						const guildCommands = guildCommandData.get(guildId);
-
-						if (guildCommands) {
-							guildCommands.push(command.data);
-						} else {
-							guildCommandData.set(guildId, [command.data]);
-						}
-					}
-				} else {
-					globalCommandData.push(command.data);
-				}
-			}
-
-			const promises = [];
-
-			if (
-				fetchedGlobalCommands.size !== globalCommandData.length ||
-				fetchedGlobalCommands.some((fetchedGlobalCommand) => {
-					const localCommand = globalCommandData.find(
-						({ name }) => name === fetchedGlobalCommand.name,
-					);
-					return !(localCommand && fetchedGlobalCommand.equals(localCommand, true));
-				})
-			) {
-				promises.push(this.application.commands.set(globalCommandData));
-			}
-
-			for (const [guildId, data] of guildCommandData.entries()) {
-				promises.push(this.application.commands.set(data, guildId));
-			}
-
-			const commandsSettled = await Promise.allSettled(promises);
-
-			const commandsErrors = commandsSettled
-				.filter((result): result is PromiseRejectedResult => result.status === "rejected")
-				.map((result) => result.reason);
-
-			pino.info("Set commands.");
-
-			if (commandsErrors.length > 0) {
-				pino.error(commandsErrors, "Error setting commands.");
-			}
-
-			commands.sharderuption.id =
-				fetchedGlobalCommands.find(({ name }) => name === commands.sharderuption.data.name)?.id ??
-				null;
-		} catch (error) {
-			pino.error(error, "Failed to set commands.");
 		}
 	}
 }

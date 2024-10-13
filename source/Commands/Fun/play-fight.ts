@@ -1,31 +1,10 @@
 import { URL } from "node:url";
-import {
-	type ApplicationCommandData,
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
-	type ChatInputCommandInteraction,
-	EmbedBuilder,
-	PermissionFlagsBits,
-} from "discord.js";
+import { type ChatInputCommandInteraction, EmbedBuilder, PermissionFlagsBits } from "discord.js";
 import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_PLAY_FIGHT_NO } from "../../Utility/Constants.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default new (class implements ChatInputCommand {
-	public readonly data = {
-		name: "play-fight",
-		description: "Fight someone!",
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.User,
-				name: "user",
-				description: "The individual to play fight.",
-				required: true,
-			},
-		],
-		integrationTypes: [0, 1],
-		contexts: [0, 2],
-	} as const satisfies Readonly<ApplicationCommandData>;
+	public readonly name = "play-fight";
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { channel, options } = interaction;

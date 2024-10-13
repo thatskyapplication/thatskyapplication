@@ -103,6 +103,5 @@ export default {
 		}
 
 		heartbeat(client);
-		await client.applyCommands();
 	},
 } satisfies Event<typeof name>;

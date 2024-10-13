@@ -1,8 +1,5 @@
 import {
 	ActionRowBuilder,
-	type ApplicationCommandData,
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
 	type ChatInputCommandInteraction,
 	ComponentType,
 	DiscordjsError,
@@ -28,7 +25,6 @@ import {
 	DEFAULT_EMBED_COLOUR,
 	ERROR_RESPONSE,
 	NOTIFICATION_CHANNEL_TYPES,
-	NOTIFICATION_EVENT_VALUES,
 	NOT_IN_CACHED_GUILD_RESPONSE,
 	NotificationEvent,
 } from "../../Utility/Constants.js";
@@ -36,68 +32,8 @@ import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import pino from "../../pino.js";
 import type { ChatInputCommand } from "../index.js";
 
-const notificationEventChoices = NOTIFICATION_EVENT_VALUES.map((notificationEvent) => ({
-	name: notificationEvent,
-	value: notificationEvent,
-}));
-
 export default new (class implements ChatInputCommand {
-	public readonly data = {
-		name: "notifications",
-		description: "The command to set up notifications for events.",
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "setup",
-				description: "Sets up notifications in the server.",
-				options: [
-					{
-						type: ApplicationCommandOptionType.String,
-						name: "event",
-						description: "The event to set.",
-						required: true,
-						choices: notificationEventChoices,
-					},
-					{
-						type: ApplicationCommandOptionType.Channel,
-						name: "channel",
-						description: "The channel to send notifications in.",
-						required: true,
-						channelTypes: NOTIFICATION_CHANNEL_TYPES,
-					},
-					{
-						type: ApplicationCommandOptionType.Role,
-						name: "role",
-						description: "The role to mention.",
-						required: true,
-					},
-				],
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "status",
-				description: "Shows the status of notifications in this server.",
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "unset",
-				description: "Unsets a notification in the server.",
-				options: [
-					{
-						type: ApplicationCommandOptionType.String,
-						name: "event",
-						description: "The event to unset.",
-						required: true,
-						choices: notificationEventChoices,
-					},
-				],
-			},
-		],
-		defaultMemberPermissions: PermissionFlagsBits.ManageGuild,
-		integrationTypes: [0],
-		contexts: [0],
-	} as const satisfies Readonly<ApplicationCommandData>;
+	public readonly name = "notifications";
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		if (!interaction.inCachedGuild()) {

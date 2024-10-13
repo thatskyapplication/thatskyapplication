@@ -1,11 +1,4 @@
-import {
-	type ApplicationCommandData,
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
-	type ChatInputCommandInteraction,
-	MessageFlags,
-	PermissionFlagsBits,
-} from "discord.js";
+import { type ChatInputCommandInteraction, MessageFlags, PermissionFlagsBits } from "discord.js";
 import type { ChatInputCommand } from "../index.js";
 
 const BONKS = {
@@ -166,21 +159,7 @@ const BONKS = {
 } as const;
 
 export default new (class implements ChatInputCommand {
-	public readonly data = {
-		name: "bonk",
-		description: "Bonk someone!",
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.User,
-				name: "user",
-				description: "The individual to be bonked.",
-				required: true,
-			},
-		],
-		integrationTypes: [0, 1],
-		contexts: [0, 2],
-	} as const satisfies Readonly<ApplicationCommandData>;
+	public readonly name = "bonk";
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { channel, options } = interaction;

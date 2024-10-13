@@ -1,9 +1,7 @@
 import type {
-	ApplicationCommandData,
 	AutocompleteInteraction,
 	ChatInputCommandInteraction,
 	MessageContextMenuCommandInteraction,
-	Snowflake,
 	UserContextMenuCommandInteraction,
 } from "discord.js";
 import admin from "./Admin/admin.js";
@@ -78,12 +76,11 @@ export function resolveCommand({
 	| ChatInputCommandInteraction
 	| UserContextMenuCommandInteraction
 	| MessageContextMenuCommandInteraction) {
-	return commands.find(({ data }) => data.name === commandName) ?? null;
+	return commands.find(({ name }) => name === commandName) ?? null;
 }
 
 interface BaseCommandData {
-	readonly data: ApplicationCommandData;
-	readonly guilds?: Snowflake[];
+	readonly name: string;
 }
 
 export interface ChatInputCommand extends BaseCommandData {

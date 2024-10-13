@@ -1,66 +1,10 @@
-import {
-	type ApplicationCommandData,
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
-	type ChatInputCommandInteraction,
-} from "discord.js";
+import type { ChatInputCommandInteraction } from "discord.js";
 import { guess, guildLeaderboard, leaderboard } from "../../Structures/Guess.js";
-import {
-	GUESS_DIFFICULTY_LEVEL_VALUES,
-	GuessDifficultyLevel,
-	GuessDifficultyLevelToName,
-	NOT_IN_CACHED_GUILD_RESPONSE,
-} from "../../Utility/Constants.js";
+import { GuessDifficultyLevel, NOT_IN_CACHED_GUILD_RESPONSE } from "../../Utility/Constants.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default new (class implements ChatInputCommand {
-	public readonly data = {
-		name: "guess",
-		description: "Begin a Sky guessing game! How many can you get right in a row?",
-		type: ApplicationCommandType.ChatInput,
-		integrationTypes: [0, 1],
-		contexts: [0, 1, 2],
-		options: [
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "game",
-				description: "Begin the guessing game!",
-				options: [
-					{
-						type: ApplicationCommandOptionType.Integer,
-						name: "difficulty",
-						description: "Adjust the difficulty level!",
-						choices: GUESS_DIFFICULTY_LEVEL_VALUES.map((guessDifficultyLevel) => ({
-							name: GuessDifficultyLevelToName[guessDifficultyLevel],
-							value: guessDifficultyLevel,
-						})),
-					},
-				],
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "leaderboard",
-				description: "View the leaderboard!",
-				options: [
-					{
-						type: ApplicationCommandOptionType.Integer,
-						name: "difficulty",
-						description: "What difficulty would you like to view?",
-						choices: GUESS_DIFFICULTY_LEVEL_VALUES.map((guessDifficultyLevel) => ({
-							name: GuessDifficultyLevelToName[guessDifficultyLevel],
-							value: guessDifficultyLevel,
-						})),
-						required: true,
-					},
-					{
-						type: ApplicationCommandOptionType.Boolean,
-						name: "server",
-						description: "Scope the leaderboard to your server?",
-					},
-				],
-			},
-		],
-	} as const satisfies Readonly<ApplicationCommandData>;
+	public readonly name = "guess";
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
