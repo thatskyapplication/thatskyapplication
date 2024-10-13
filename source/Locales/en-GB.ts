@@ -52,6 +52,30 @@ export default {
 		calculate: {
 			"command-name": "calculate",
 			"command-description": "The command containing various calculators.",
+			"ascended-candles": {
+				"command-name": "ascended-candles",
+				"command-description":
+					"Calculates the number of days it would take to achieve a number of ascended candles.",
+				"command-option-start-name": "start",
+				"command-option-start-description": "The starting number of ascended candles.",
+				"command-option-goal-name": "goal",
+				"command-option-goal-description": "The desired number of ascended candles.",
+				"command-option-eye-of-eden-name": "eye-of-eden",
+				"command-option-eye-of-eden-description":
+					"Whether to include the Eye of Eden in the calculation.",
+				"command-option-shard-eruptions-name": "shard-eruptions",
+				"command-option-shard-eruptions-description":
+					"Whether to include shard eruptions in the calculation.",
+			},
+			"event-currency": {
+				"command-name": "event-currency",
+				"command-description":
+					"Calculates the number of days it would take to achieve a number of event currency.",
+				"command-option-start-name": "start",
+				"command-option-start-description": "The starting number of event currency.",
+				"command-option-goal-name": "goal",
+				"command-option-goal-description": "The desired number of event currency.",
+			},
 			"seasonal-candles": {
 				"command-name": "seasonal-candles",
 				"command-description":
@@ -79,6 +103,9 @@ export default {
 			"winged-light": {
 				"command-name": "winged-light",
 				"command-description": "Calculates how much winged light one should possess.",
+				"command-option-wing-buffs-name": "wing-buffs",
+				"command-option-wing-buffs-description":
+					"The number of wing buffs (total amount collected from ascended spirits).",
 				"duplicate-areas": "Duplicate areas detected. Make sure to only provide unique areas!",
 				"started-with": "Started with",
 				"reborn-with": "Reborn with",

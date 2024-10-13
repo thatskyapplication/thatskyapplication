@@ -146,56 +146,234 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "ascended-candles",
-				description:
-					"Calculates the number of days it would take to achieve a number of ascended candles.",
+				name: t("calculate.ascended-candles.command-name", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("calculate.ascended-candles.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("calculate.ascended-candles.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("calculate.ascended-candles.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: "start",
-						description: "The starting number of ascended candles.",
+						name: t("calculate.ascended-candles.command-option-start-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("calculate.ascended-candles.command-option-start-name", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
+						description: t("calculate.ascended-candles.command-option-start-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("calculate.ascended-candles.command-option-start-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						min_value: 0,
 						required: true,
 					},
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: "goal",
-						description: "The desired number of ascended candles.",
+						name: t("calculate.ascended-candles.command-option-goal-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("calculate.ascended-candles.command-option-goal-name", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
+						description: t("calculate.ascended-candles.command-option-goal-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("calculate.ascended-candles.command-option-goal-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						max_value: 10_000,
 						min_value: 1,
 						required: true,
 					},
 					{
 						type: ApplicationCommandOptionType.Boolean,
-						name: "eye-of-eden",
-						description: "Whether to include the Eye of Eden in the calculation.",
+						name: t("calculate.ascended-candles.command-option-eye-of-eden-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("calculate.ascended-candles.command-option-eye-of-eden-name", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
+						description: t("calculate.ascended-candles.command-option-eye-of-eden-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("calculate.ascended-candles.command-option-eye-of-eden-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						required: false,
 					},
 					{
 						type: ApplicationCommandOptionType.Boolean,
-						name: "shard-eruptions",
-						description: "Whether to include shard eruptions in the calculation.",
+						name: t("calculate.ascended-candles.command-option-shard-eruptions-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("calculate.ascended-candles.command-option-shard-eruptions-name", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
+						description: t(
+							"calculate.ascended-candles.command-option-shard-eruptions-description",
+							{
+								lng: Locale.EnglishGB,
+								ns: "commands",
+							},
+						),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("calculate.ascended-candles.command-option-shard-eruptions-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						required: false,
 					},
 				],
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "event-currency",
-				description:
-					"Calculates the number of days it would take to achieve a number of event currency.",
+				name: t("calculate.event-currency.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("calculate.event-currency.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("calculate.event-currency.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("calculate.event-currency.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: "start",
-						description: "The starting number of event currency.",
+						name: t("calculate.event-currency.command-option-start-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("calculate.event-currency.command-option-start-name", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
+						description: t("calculate.event-currency.command-option-start-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("calculate.event-currency.command-option-start-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						min_value: 0,
 						required: true,
 					},
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: "goal",
-						description: "The desired number of event currency.",
+						name: t("calculate.event-currency.command-option-goal-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("calculate.event-currency.command-option-goal-name", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
+						description: t("calculate.event-currency.command-option-goal-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("calculate.event-currency.command-option-goal-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						max_value: 250,
 						min_value: 1,
 						required: true,
@@ -313,8 +491,32 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: "wing-buffs",
-						description: "The number of wing buffs (total amount collected from ascended spirits).",
+						name: t("calculate.winged-light.command-option-wing-buffs-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("calculate.winged-light.command-option-wing-buffs-name", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
+						description: t("calculate.winged-light.command-option-wing-buffs-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("calculate.winged-light.command-option-wing-buffs-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						max_value: MAXIMUM_WING_BUFFS,
 						min_value: 0,
 						required: true,
