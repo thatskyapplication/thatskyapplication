@@ -17,6 +17,7 @@ export default new GuideSpirit({
 	season: SeasonName.Moomin,
 	offer: {
 		inProgress: true,
+		hasInfographic: false,
 		current: [
 			{
 				name: "Quest 1",
