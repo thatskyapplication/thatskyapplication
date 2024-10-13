@@ -2712,6 +2712,10 @@ export const enum Cosmetic {
 	TheMoominStorybookQuest1,
 	EmoteRead1,
 	EmoteRead2,
+	MoominPendant,
+	TheMoominStorybookUltimateUmbrella,
+	TheMoominStorybookUltimatePlush,
+	TheMoominStorybookUltimateOutfit,
 
 	// 21/10/2024 | Days of Mischief.
 	MischiefStarSticker = 2132,

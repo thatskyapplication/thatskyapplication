@@ -1,6 +1,12 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
-import { MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
+import {
+	HELD_PROPS_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	NECKLACE_EMOJIS,
+	OUTFIT_EMOJIS,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
+} from "../../../../Utility/emojis.js";
 import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../Utility/spirits.js";
 
 const emote = SpiritEmote.Read;
@@ -20,19 +26,37 @@ export default new GuideSpirit({
 			{
 				name: `${emote} 1`,
 				cosmetic: Cosmetic.EmoteRead1,
-				emoji: emoteEmoji
+				emoji: emoteEmoji,
 			},
 			{
 				name: `${emote} 2`,
 				cosmetic: Cosmetic.EmoteRead2,
 				cost: { hearts: 3 },
-				emoji: emoteEmoji
+				emoji: emoteEmoji,
 			},
 			{
 				name: "Pendant",
 				cosmetic: Cosmetic.MoominPendant,
-				emoji: 
-			}
-		]
-	}
+				emoji: NECKLACE_EMOJIS.Necklace42,
+			},
+			{
+				name: "Ultimate umbrella",
+				cosmetic: Cosmetic.TheMoominStorybookUltimateUmbrella,
+				cost: { seasonalHearts: 1 },
+				emoji: HELD_PROPS_EMOJIS.HeldProp47,
+			},
+			{
+				name: "Ultimate plush",
+				cosmetic: Cosmetic.TheMoominStorybookUltimatePlush,
+				cost: { seasonalHearts: 1 },
+				emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp80,
+			},
+			{
+				name: "Ultimate outfit",
+				cosmetic: Cosmetic.TheMoominStorybookUltimateOutfit,
+				cost: { seasonalHearts: 2 },
+				emoji: OUTFIT_EMOJIS.Outfit70,
+			},
+		],
+	},
 });

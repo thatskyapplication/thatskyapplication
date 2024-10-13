@@ -594,6 +594,10 @@ export const OUTFIT_EMOJIS = {
 	 * Roving Snufkin Robe.
 	 */
 	Outfit69: { name: "outfit", id: "1294934798871298078" },
+	/**
+	 * The Moomin Storybook (ultimate).
+	 */
+	Outfit70: { name: "outfit", id: "1294942162781470732" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -1378,6 +1382,10 @@ export const NECKLACE_EMOJIS = {
 	 * Moomintroll Tail.
 	 */
 	Necklace41: { name: "necklace", id: "1294936630829776936" },
+	/**
+	 * Moomin Pendant.
+	 */
+	Necklace42: { name: "necklace", id: "1294938217891500042" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
@@ -2922,6 +2930,10 @@ export const HELD_PROPS_EMOJIS = {
 	 * Compassionate Cellist.
 	 */
 	HeldProp46: { name: "held_prop", id: "1277694618523402333" },
+	/**
+	 * The Moomin Storybook (ultimate).
+	 */
+	HeldProp47: { name: "held_prop", id: "1294940423348944927" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HeldPropsEmojis = (typeof HELD_PROPS_EMOJIS)[keyof typeof HELD_PROPS_EMOJIS];
@@ -3540,6 +3552,10 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * The Pianist's Flourishing.
 	 */
 	SmallPlaceableProp79: { name: "small_placeable_prop", id: "1262165413979099176" },
+	/**
+	 * The Moomin Storybook (ultimate).
+	 */
+	SmallPlaceableProp80: { name: "small_placeable_prop", id: "1294941675088515104" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =
