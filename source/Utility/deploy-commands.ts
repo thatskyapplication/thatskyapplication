@@ -676,14 +676,38 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		contexts: [InteractionContextType.Guild],
 	},
 	{
-		name: "data",
-		description: "Commands regarding your data.",
+		name: t("data.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [locale, t("data.command-name", { lng: locale, ns: "commands" })]),
+		),
+		description: t("data.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("data.command-description", { lng: locale, ns: "commands" }),
+			]),
+		),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "delete",
-				description: "Deletes your data.",
+				name: t("data.delete.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("data.delete.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("data.delete.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("data.delete.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 			},
 		],
 		integration_types: [

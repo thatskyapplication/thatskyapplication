@@ -138,6 +138,14 @@ export default {
 				"command-description": "Unsets daily guides in the server.",
 			}
 		},
+		data: {
+			"command-name": "data",
+			"command-description": "A command regarding your data.",
+			delete: {
+				"command-name": "delete",
+				"command-description": "Delete your data.",
+			}
+		},
 		hug: {
 			"command-name": "hug",
 			"command-description": "Hug someone!",
