@@ -561,19 +561,70 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		],
 	},
 	{
-		name: "daily-guides",
-		description: "The command to set up daily guides in the server.",
+		name: t("daily-guides.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("daily-guides.command-name", { lng: locale, ns: "commands" }),
+			]),
+		),
+		description: t("daily-guides.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("daily-guides.command-description", { lng: locale, ns: "commands" }),
+			]),
+		),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "setup",
-				description: "Sets up the daily guides in the server.",
+				name: t("daily-guides.setup.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("daily-guides.setup.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("daily-guides.setup.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("daily-guides.setup.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Channel,
-						name: "channel",
-						description: "The channel to send daily guides in.",
+						name: t("daily-guides.setup.command-option-channel-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("daily-guides.setup.command-option-channel-name", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
+						description: t("daily-guides.setup.command-option-channel-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("daily-guides.setup.command-option-channel-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						required: true,
 						channel_types: [...DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES],
 					},
@@ -581,13 +632,43 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "status",
-				description: "Shows the status of daily guides in this server.",
+				name: t("daily-guides.status.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("daily-guides.status.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("daily-guides.status.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("daily-guides.status.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "unset",
-				description: "Unsets daily guides in the server.",
+				name: t("daily-guides.unset.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("daily-guides.unset.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("daily-guides.unset.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("daily-guides.unset.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 			},
 		],
 		default_member_permissions: String(PermissionFlagsBits.ManageGuild),

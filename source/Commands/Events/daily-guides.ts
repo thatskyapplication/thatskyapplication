@@ -1,4 +1,5 @@
-import { type ChatInputCommandInteraction, PermissionFlagsBits } from "discord.js";
+import { type ChatInputCommandInteraction, Locale, PermissionFlagsBits } from "discord.js";
+import { t } from "i18next";
 import DailyGuidesDistribution, {
 	isDailyGuidesDistributable,
 } from "../../Structures/DailyGuidesDistribution.js";
@@ -10,7 +11,7 @@ import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default new (class implements ChatInputCommand {
-	public readonly name = "daily-guides";
+	public readonly name = t("daily-guides.command-name", { lng: Locale.EnglishGB, ns: "commands" });
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		if (!interaction.inCachedGuild()) {
