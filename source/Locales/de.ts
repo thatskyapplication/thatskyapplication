@@ -212,4 +212,10 @@ export default {
 			[SpiritName.ThePianistsFlourishing]: "Das Aufblühen des Pianisten",
 		},
 	},
+	commands: {
+		about: {
+			"command-name": "über-mich",
+			"command-description": "Infos über mich, dem kleinen wunderbaren Helfer für Sky!",
+		},
+	},
 } as const;

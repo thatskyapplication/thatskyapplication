@@ -46,8 +46,17 @@ const notificationEventChoices = NOTIFICATION_EVENT_VALUES.map((notificationEven
 
 const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 	{
-		name: "about",
-		description: "About me, the wondrous little Sky helper!",
+		name: t("about.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [locale, t("about.command-name", { lng: locale, ns: "commands" })]),
+		),
+		description: t("about.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("about.command-description", { lng: locale, ns: "commands" }),
+			]),
+		),
 		type: ApplicationCommandType.ChatInput,
 		integration_types: [
 			ApplicationIntegrationType.GuildInstall,

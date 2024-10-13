@@ -35,6 +35,10 @@ export default {
 		view: "View",
 	},
 	commands: {
+		about: {
+			"command-name": "about",
+			"command-description": "About me, the wondrous little Sky helper!",
+		},
 		calculate: {
 			"command-name": "calculate",
 			"command-description": "The command containing various calculators.",

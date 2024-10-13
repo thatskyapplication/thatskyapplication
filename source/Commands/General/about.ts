@@ -1,4 +1,5 @@
-import { type ChatInputCommandInteraction, EmbedBuilder, hyperlink } from "discord.js";
+import { type ChatInputCommandInteraction, EmbedBuilder, Locale, hyperlink } from "discord.js";
+import { t } from "i18next";
 import {
 	APPLICATION_INVITE_URL,
 	DEFAULT_EMBED_COLOUR,
@@ -31,7 +32,7 @@ ${hyperlink("Patreon", PATREON_URL)} | ${hyperlink("Ko-fi", KO_FI_URL)} | ${hype
 )}` as const;
 
 export default new (class implements ChatInputCommand {
-	public readonly name = "about";
+	public readonly name = t("about.command-name", { lng: Locale.EnglishGB, ns: "commands" });
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { client } = interaction;
