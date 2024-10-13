@@ -37,6 +37,7 @@ export default {
 			[SeasonName.NineColouredDeer]: "Saison des Neunfarbigen Hirsches",
 			[SeasonName.Nesting]: "Saison des Nistens",
 			[SeasonName.Duets]: "Saison der Duette",
+			[SeasonName.Moomin]: "Saison des Mumins",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Deutender Kerzenmacher",
