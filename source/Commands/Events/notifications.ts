@@ -20,9 +20,6 @@ import Notification, {
 	type NotificationUpdateQuery,
 	isEvent,
 	isNotificationSendable,
-	NotificationEvent,
-	NOTIFICATION_CHANNEL_TYPES,
-	NOTIFICATION_EVENT_VALUES,
 	isNotificationOffset,
 	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
 	NotificationOffsetToMaximumValues,
@@ -30,7 +27,10 @@ import Notification, {
 import {
 	DEFAULT_EMBED_COLOUR,
 	ERROR_RESPONSE,
+	NOTIFICATION_CHANNEL_TYPES,
+	NOTIFICATION_EVENT_VALUES,
 	NOT_IN_CACHED_GUILD_RESPONSE,
+	NotificationEvent,
 } from "../../Utility/Constants.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import pino from "../../pino.js";

@@ -19,7 +19,11 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import { DEFAULT_EMBED_COLOUR, RealmName } from "../Utility/Constants.js";
+import {
+	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
+	DEFAULT_EMBED_COLOUR,
+	RealmName,
+} from "../Utility/Constants.js";
 import type { RotationNumber } from "../Utility/catalogue.js";
 import {
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2,
@@ -63,12 +67,6 @@ interface DailyGuidesDistributionData {
 type DailyGuidesDistributionPatchData = Omit<DailyGuidesDistributionPacket, "guild_id">;
 type DailyGuidesDistributionInsertQuery = Omit<DailyGuidesDistributionPacket, "message_id">;
 type DailyGuidesDistributionUpdateQuery = Omit<DailyGuidesDistributionInsertQuery, "guild_id">;
-
-export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
-	ChannelType.GuildText,
-	ChannelType.GuildAnnouncement,
-	ChannelType.PublicThread,
-] as const;
 
 type DailyGuidesDistributionAllowedChannel =
 	| Extract<GuildBasedChannel, { type: (typeof DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES)[number] }>

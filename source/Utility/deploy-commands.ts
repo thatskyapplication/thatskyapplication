@@ -10,28 +10,25 @@ import {
 	Routes,
 } from "discord.js";
 import { t } from "i18next";
-import { QUEST_NUMBER } from "../Structures/DailyGuides.js";
-import { DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES } from "../Structures/DailyGuidesDistribution.js";
-import { GUESS_DIFFICULTY_LEVEL_VALUES, GuessDifficultyLevelToName } from "../Structures/Guess.js";
+import pino from "../pino.js";
 import {
+	APPLICATION_ID,
+	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
+	DEVELOPER_GUILD_ID,
+	GUESS_DIFFICULTY_LEVEL_VALUES,
+	GuessDifficultyLevelToName,
+	LOCALES,
+	MAXIMUM_WINGED_LIGHT,
+	MAXIMUM_WING_BUFFS,
+	MINIMUM_WINGED_LIGHT,
 	NOTIFICATION_CHANNEL_TYPES,
 	NOTIFICATION_EVENT_VALUES,
-} from "../Structures/Notification.js";
-import {
+	QUEST_NUMBER,
 	SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
 	SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
 	SKY_PROFILE_MINIMUM_SPOT_LENGTH,
-} from "../Structures/Profile.js";
-import pino from "../pino.js";
-import {
-	APPLICATION_ID,
-	DEVELOPER_GUILD_ID,
-	LOCALES,
-	MAXIMUM_WINGED_LIGHT,
-	MAXIMUM_WING_BUFFS,
-	MINIMUM_WINGED_LIGHT,
 	TOKEN,
 } from "./Constants.js";
 import "../i18next.js";

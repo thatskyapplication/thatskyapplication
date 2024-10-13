@@ -6,10 +6,12 @@ import {
 	PermissionFlagsBits,
 } from "discord.js";
 import DailyGuidesDistribution, {
-	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	isDailyGuidesDistributable,
 } from "../../Structures/DailyGuidesDistribution.js";
-import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../Utility/Constants.js";
+import {
+	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
+	NOT_IN_CACHED_GUILD_RESPONSE,
+} from "../../Utility/Constants.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import type { ChatInputCommand } from "../index.js";
 

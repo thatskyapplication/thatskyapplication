@@ -8,17 +8,17 @@ import {
 	type ChatInputCommandInteraction,
 	PermissionFlagsBits,
 } from "discord.js";
-import Profile, {
-	AssetType,
+import Profile, { AssetType, type ProfileSetData } from "../../Structures/Profile.js";
+import {
+	MAXIMUM_WINGED_LIGHT,
+	MINIMUM_WINGED_LIGHT,
 	SKY_PROFILE_MAXIMUM_ASSET_SIZE,
 	SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
 	SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
 	SKY_PROFILE_MINIMUM_SPOT_LENGTH,
-	type ProfileSetData,
-} from "../../Structures/Profile.js";
-import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../../Utility/Constants.js";
+} from "../../Utility/Constants.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import { spirits } from "../../catalogue/spirits/index.js";
 import COMMANDS, { type AutocompleteCommand } from "../index.js";

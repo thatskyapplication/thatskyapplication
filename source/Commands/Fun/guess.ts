@@ -4,15 +4,13 @@ import {
 	ApplicationCommandType,
 	type ChatInputCommandInteraction,
 } from "discord.js";
+import { guess, guildLeaderboard, leaderboard } from "../../Structures/Guess.js";
 import {
 	GUESS_DIFFICULTY_LEVEL_VALUES,
 	GuessDifficultyLevel,
 	GuessDifficultyLevelToName,
-	guess,
-	guildLeaderboard,
-	leaderboard,
-} from "../../Structures/Guess.js";
-import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../Utility/Constants.js";
+	NOT_IN_CACHED_GUILD_RESPONSE,
+} from "../../Utility/Constants.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default new (class implements ChatInputCommand {

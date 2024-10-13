@@ -14,12 +14,12 @@ import {
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
-import { NotificationEvent } from "../../Structures/Notification.js";
 import {
 	CDN_URL,
 	DEFAULT_EMBED_COLOUR,
 	ISS_DATES_ACCESSIBLE,
 	LOCALES,
+	NotificationEvent,
 } from "../../Utility/Constants.js";
 import {
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1_RELATIVE_TIME,

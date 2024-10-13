@@ -20,6 +20,7 @@ import {
 	INFOGRAPHICS_DATABASE_GUILD_ID,
 	MEDITATION_MAPS,
 	type MeditationMaps,
+	type QUEST_NUMBER,
 	RAINBOW_ADMIRE_MAPS,
 	REALM_NAME_VALUES,
 	type RainbowAdmireMaps,
@@ -99,7 +100,6 @@ interface DailyGuideMessage {
 	description: string;
 }
 
-export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
 const QUEST_SPIRITS_SEASONS = [
