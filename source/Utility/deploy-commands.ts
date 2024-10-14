@@ -854,10 +854,13 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 							name_localizations: Object.fromEntries(
 								LOCALES.map((locale) => [
 									locale,
-									t(`guess.leaderboard.command-option-difficulty-choice-name.${guessDifficultyLevel}`, {
-										lng: locale,
-										ns: "commands",
-									}),
+									t(
+										`guess.leaderboard.command-option-difficulty-choice-name.${guessDifficultyLevel}`,
+										{
+											lng: locale,
+											ns: "commands",
+										},
+									),
 								]),
 							),
 							value: guessDifficultyLevel,
