@@ -19,7 +19,6 @@ export default new GuideSpirit({
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		inProgress: true,
-		hasInfographic: false,
 		current: [
 			{
 				name: "Quest 1",

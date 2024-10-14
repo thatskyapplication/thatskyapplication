@@ -25,7 +25,6 @@ export default new SeasonalSpirit({
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		hasInfographic: false,
-		hasInfographicSeasonal: false,
 		seasonal: [
 			{
 				name: "Blessing 1",
