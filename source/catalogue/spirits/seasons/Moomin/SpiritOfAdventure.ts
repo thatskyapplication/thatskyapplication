@@ -28,7 +28,7 @@ export default new SeasonalSpirit({
 			{
 				name: "Music sheet",
 				cosmetic: Cosmetic.SpiritOfAdventureMusicSheet,
-				cost: { seasonalCandles: 12 },
+				cost: { seasonalCandles: 8 },
 				emoji: musicSheet,
 			},
 			{
