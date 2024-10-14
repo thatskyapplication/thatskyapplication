@@ -210,6 +210,11 @@ export default {
 			[SpiritName.TheMusiciansLegacy]: "音樂家的傳承",
 			[SpiritName.TheCellistsFlourishing]: "大提琴家的巔峰",
 			[SpiritName.ThePianistsFlourishing]: "鋼琴家的巔峰",
+			[SpiritName.TheMoominStorybook]: "姆明故事書",
+			[SpiritName.ComfortOfKindness]: "善良的慰藉",
+			[SpiritName.SenseOfSelf]: "自我的意識",
+			[SpiritName.SpiritOfAdventure]: "冒險的精神",
+			[SpiritName.InspirationOfInclusion]: "包容的啟示發",
 		},
 	},
 } as const;

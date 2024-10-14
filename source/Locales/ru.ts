@@ -37,6 +37,7 @@ export default {
 			[SeasonName.NineColouredDeer]: "Сезон Девятицветного оленя",
 			[SeasonName.Nesting]: "Сезон гнездования",
 			[SeasonName.Duets]: "Сезон дуэтов",
+			[SeasonName.Moomin]: "Сезон Муми-троллей",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Указующий свечной мастер",
@@ -209,6 +210,11 @@ export default {
 			[SpiritName.TheMusiciansLegacy]: "Наследие музыкантов",
 			[SpiritName.TheCellistsFlourishing]: "Зенит виолончелиски",
 			[SpiritName.ThePianistsFlourishing]: "Зенит пианиста",
+			[SpiritName.TheMoominStorybook]: "Книга Муми-троллей",
+			[SpiritName.ComfortOfKindness]: "Комфорт доброты",
+			[SpiritName.SenseOfSelf]: "Самосознание",
+			[SpiritName.SpiritOfAdventure]: "Дух приключений",
+			[SpiritName.InspirationOfInclusion]: "Вдохновение инклюзивности",
 		},
 	},
 } as const;

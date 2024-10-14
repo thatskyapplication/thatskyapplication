@@ -210,6 +210,11 @@ export default {
 			[SpiritName.TheMusiciansLegacy]: "음악가의 유산",
 			[SpiritName.TheCellistsFlourishing]: "첼로 연주자의 전성기",
 			[SpiritName.ThePianistsFlourishing]: "피아노 연주자의 전성기",
+			[SpiritName.TheMoominStorybook]: "무민 이야기책",
+			[SpiritName.ComfortOfKindness]: "친절의 위로",
+			[SpiritName.SenseOfSelf]: "자아의 인식",
+			[SpiritName.SpiritOfAdventure]: "모험의 정신",
+			[SpiritName.InspirationOfInclusion]: "포용의 원천",
 		},
 	},
 } as const;

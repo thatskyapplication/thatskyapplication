@@ -37,6 +37,7 @@ export default {
 			[SeasonName.NineColouredDeer]: "九色鹿季",
 			[SeasonName.Nesting]: "筑巢季",
 			[SeasonName.Duets]: "二重奏季",
+			[SeasonName.Moomin]: "姆明季",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "指路蜡烛匠",
@@ -209,6 +210,11 @@ export default {
 			[SpiritName.TheMusiciansLegacy]: "音乐家的传承",
 			[SpiritName.TheCellistsFlourishing]: "大提琴家的巅峰",
 			[SpiritName.ThePianistsFlourishing]: "钢琴家的巅峰",
+			[SpiritName.TheMoominStorybook]: "姆明故事书",
+[SpiritName.ComfortOfKindness]: "善意的慰藉",
+[SpiritName.SenseOfSelf]: "自我的意识",
+[SpiritName.SpiritOfAdventure]: "冒险的精神",
+[SpiritName.InspirationOfInclusion]: "包容的启示",
 		},
 	},
 } as const;

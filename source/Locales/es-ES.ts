@@ -46,6 +46,7 @@ export default {
 			[SeasonName.NineColouredDeer]: "Temporada del ciervo de los nueve colores",
 			[SeasonName.Nesting]: "Temporada Acogedora",
 			[SeasonName.Duets]: "Temporada de Duetos",
+			[SeasonName.Moomin]: "Temporada de los Mumins",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Candelero que apunta",
@@ -218,6 +219,11 @@ export default {
 			[SpiritName.TheMusiciansLegacy]: "El legado del músico",
 			[SpiritName.TheCellistsFlourishing]: "La prosperidad del chelista",
 			[SpiritName.ThePianistsFlourishing]: "La prosperidad del pianista",
+			[SpiritName.TheMoominStorybook]: "Libro de cuentos de los Mumin",
+			[SpiritName.ComfortOfKindness]: "Consuelo de bondad",
+			[SpiritName.SenseOfSelf]: "Sentido de identidad",
+			[SpiritName.SpiritOfAdventure]: "Espíritu aventurero",
+			[SpiritName.InspirationOfInclusion]: "Inspiración inclusiva",
 		},
 	},
 	commands: {

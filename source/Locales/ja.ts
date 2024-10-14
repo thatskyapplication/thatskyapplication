@@ -210,6 +210,11 @@ export default {
 			[SpiritName.TheMusiciansLegacy]: "音楽家たちの遺産",
 			[SpiritName.TheCellistsFlourishing]: "栄光のチェリスト",
 			[SpiritName.ThePianistsFlourishing]: "栄光のピアニスト",
+			[SpiritName.TheMoominStorybook]: "ムーミンの本",
+			[SpiritName.ComfortOfKindness]: "慈愛の安らぎ",
+			[SpiritName.SenseOfSelf]: "自乙の確立",
+			[SpiritName.SpiritOfAdventure]: "冒険の心",
+			[SpiritName.InspirationOfInclusion]: "包容力の源",
 		},
 	},
 } as const;

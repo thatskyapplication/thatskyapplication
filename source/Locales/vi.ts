@@ -37,6 +37,7 @@ export default {
 			[SeasonName.NineColouredDeer]: "Mùa Cửu Sắc Lộc",
 			[SeasonName.Nesting]: "Mùa Xây Tổ",
 			[SeasonName.Duets]: "Mùa Song Tấu",
+			[SeasonName.Moomin]: "Mùa Moomin",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Thợ Nến Dẫn Đường",
@@ -209,6 +210,11 @@ export default {
 			[SpiritName.TheMusiciansLegacy]: "Di Sản Của Các Nhạc",
 			[SpiritName.TheCellistsFlourishing]: "Sự Thành Công Của Nghệ Sĩ Cello",
 			[SpiritName.ThePianistsFlourishing]: "Sự Thành Công Của Nghệ Sĩ Piano",
+			[SpiritName.TheMoominStorybook]: "Truyện Moomin",
+			[SpiritName.ComfortOfKindness]: "Sự An Ủi Của Lòng Tốt",
+			[SpiritName.SenseOfSelf]: "Tự Nhận Thức",
+			[SpiritName.SpiritOfAdventure]: "Tinh Thần Phiêu Lưu",
+			[SpiritName.InspirationOfInclusion]: "Cảm Hứng Về Lòng Bao Dung",
 		},
 	},
 } as const;

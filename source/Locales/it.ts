@@ -37,6 +37,7 @@ export default {
 			[SeasonName.NineColouredDeer]: "Stagione del Cervo dai nove colori",
 			[SeasonName.Nesting]: "Stagione dei Nidi",
 			[SeasonName.Duets]: "Stagione dei Duetti",
+			[SeasonName.Moomin]: "Stagione dei Mumin",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Candelaio indicante",
@@ -209,6 +210,11 @@ export default {
 			[SpiritName.TheMusiciansLegacy]: "Eredità dei musicisti",
 			[SpiritName.TheCellistsFlourishing]: " Violoncellista esperta",
 			[SpiritName.ThePianistsFlourishing]: "Pianista esperto",
+			[SpiritName.TheMoominStorybook]: "Libro di fiabe dei Mumin",
+			[SpiritName.ComfortOfKindness]: "Conforto della gentilezza",
+			[SpiritName.SenseOfSelf]: "Autopercezione",
+			[SpiritName.SpiritOfAdventure]: "Spirito di avventura",
+			[SpiritName.InspirationOfInclusion]: "Senso di inclusione",
 		},
 	},
 } as const;

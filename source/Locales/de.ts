@@ -210,6 +210,11 @@ export default {
 			[SpiritName.TheMusiciansLegacy]: "Das Vermächtnis der Musik",
 			[SpiritName.TheCellistsFlourishing]: "Das Aufblühen der Cellistin",
 			[SpiritName.ThePianistsFlourishing]: "Das Aufblühen des Pianisten",
+			[SpiritName.TheMoominStorybook]: "Das Mumin-Geschichtsbuch",
+			[SpiritName.ComfortOfKindness]: "Komfort der Güte",
+			[SpiritName.SenseOfSelf]: "Selbstbewusstsein",
+			[SpiritName.SpiritOfAdventure]: "Geist des Abenteuers",
+			[SpiritName.InspirationOfInclusion]: "Inspiration der Inklusion",
 		},
 	},
 	commands: {

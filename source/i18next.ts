@@ -10,6 +10,7 @@ import ja from "./Locales/ja.js";
 import ko from "./Locales/ko.js";
 import ptBR from "./Locales/pt-BR.js";
 import ru from "./Locales/ru.js";
+import th from "./Locales/th.js";
 import vi from "./Locales/vi.js";
 import zhCN from "./Locales/zh-CN.js";
 import zhTW from "./Locales/zh-TW.js";
@@ -31,6 +32,7 @@ void init({
 		[Locale.Korean]: ko,
 		[Locale.PortugueseBR]: ptBR,
 		[Locale.Russian]: ru,
+		[Locale.Thai]: th,
 		[Locale.Vietnamese]: vi,
 		[Locale.ChineseCN]: zhCN,
 		[Locale.ChineseTW]: zhTW,
