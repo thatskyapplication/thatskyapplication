@@ -1,8 +1,18 @@
+import { RealmName } from "../Utility/Constants.js";
 import { SeasonName } from "../Utility/catalogue.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {
 	general: {
+		realms: {
+			[RealmName.IslesOfDawn]: "เกาะรุ่งอรุณ",
+			[RealmName.DaylightPrairie]: "ทุ่งหญ้าแสงตะวัน",
+			[RealmName.HiddenForest]: "ป่าลับ",
+			[RealmName.ValleyOfTriumph]: "หุบเขาแห่งชัยชนะ",
+			[RealmName.GoldenWasteland]: "แดนร้างทองอร่าม",
+			[RealmName.VaultOfKnowledge]: "กรุสมบัติแห่งปัญญา",
+			[RealmName.EyeOfEden]: "ดวงตาแห่งเอเดน",
+		},
 		seasons: {
 			[SeasonName.Moomin]: "ฤดูกาลแห่งมูมิน",
 		},
