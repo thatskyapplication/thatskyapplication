@@ -243,6 +243,12 @@ export default {
 				"command-option-event-description": "The event to unset.",
 			},
 		},
+		"play-fight": {
+			"command-name": "play-fight",
+			"command-description": "Fight someone!",
+			"command-option-user-name": "user",
+			"command-option-user-description": "The individual to play fight.",
+		},
 		schedule: {
 			"command-name": "schedule",
 			"command-description": "Returns a schedule of events in Sky!",

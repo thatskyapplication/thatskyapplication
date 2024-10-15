@@ -1,10 +1,16 @@
 import { URL } from "node:url";
-import { type ChatInputCommandInteraction, EmbedBuilder, PermissionFlagsBits } from "discord.js";
+import {
+	type ChatInputCommandInteraction,
+	EmbedBuilder,
+	Locale,
+	PermissionFlagsBits,
+} from "discord.js";
+import { t } from "i18next";
 import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_PLAY_FIGHT_NO } from "../../Utility/Constants.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default new (class implements ChatInputCommand {
-	public readonly name = "play-fight";
+	public readonly name = t("play-fight.command-name", { lng: Locale.EnglishGB, ns: "commands" });
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { channel, options } = interaction;

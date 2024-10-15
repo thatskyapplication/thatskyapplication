@@ -1320,14 +1320,41 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		contexts: [InteractionContextType.Guild],
 	},
 	{
-		name: "play-fight",
-		description: "Fight someone!",
+		name: t("play-fight.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("play-fight.command-name", { lng: locale, ns: "commands" }),
+			]),
+		),
+		description: t("play-fight.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("play-fight.command-description", { lng: locale, ns: "commands" }),
+			]),
+		),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.User,
-				name: "user",
-				description: "The individual to play fight.",
+				name: t("play-fight.command-option-user-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("play-fight.command-option-user-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("play-fight.command-option-user-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("play-fight.command-option-user-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 				required: true,
 			},
 		],
