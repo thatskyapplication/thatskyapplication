@@ -1465,97 +1465,418 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		],
 	},
 	{
-		name: "sky-profile",
-		description: "Build a Sky profile for you and others to see!",
+		name: t("sky-profile.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("sky-profile.command-name", { lng: locale, ns: "commands" }),
+			]),
+		),
+		description: t("sky-profile.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("sky-profile.command-description", { lng: locale, ns: "commands" }),
+			]),
+		),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "edit",
-				description: "Edit your Sky profile.",
+				name: t("sky-profile.edit.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("sky-profile.edit.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("sky-profile.edit.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("sky-profile.edit.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 				options: [
 					{
 						type: ApplicationCommandOptionType.String,
-						name: "name",
-						description: "What's your in-game name?",
+						name: t("sky-profile.edit.command-option-name-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-name-name", { lng: locale, ns: "commands" }),
+							]),
+						),
+						description: t("sky-profile.edit.command-option-name-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-name-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						max_length: SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 					},
 					{
 						type: ApplicationCommandOptionType.Attachment,
-						name: "thumbnail",
-						description: "Upload your thumbnail!",
+						name: t("sky-profile.edit.command-option-thumbnail-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-thumbnail-name", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
+						description: t("sky-profile.edit.command-option-thumbnail-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-thumbnail-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 					},
 					{
 						type: ApplicationCommandOptionType.Attachment,
-						name: "icon",
-						description: "Upload your icon!",
+						name: t("sky-profile.edit.command-option-icon-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-icon-name", { lng: locale, ns: "commands" }),
+							]),
+						),
+						description: t("sky-profile.edit.command-option-icon-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-icon-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 					},
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: "winged-light",
-						description: `How much winged light do you have? (${MINIMUM_WINGED_LIGHT}-${MAXIMUM_WINGED_LIGHT})`,
+						name: t("sky-profile.edit.command-option-winged-light-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-winged-light-name", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
+						description: t("sky-profile.edit.command-option-winged-light-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-winged-light-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						max_value: MAXIMUM_WINGED_LIGHT,
 						min_value: MINIMUM_WINGED_LIGHT,
 					},
 					{
 						type: ApplicationCommandOptionType.String,
-						name: "spirit",
-						description: "What's your favourite spirit?",
+						name: t("sky-profile.edit.command-option-spirit-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-spirit-name", { lng: locale, ns: "commands" }),
+							]),
+						),
+						description: t("sky-profile.edit.command-option-spirit-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-spirit-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						autocomplete: true,
 					},
 					{
 						type: ApplicationCommandOptionType.String,
-						name: "country",
-						description: "Feel like specifying your country?",
+						name: t("sky-profile.edit.command-option-country-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-country-name", { lng: locale, ns: "commands" }),
+							]),
+						),
+						description: t("sky-profile.edit.command-option-country-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-country-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						max_length: SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
 						min_length: SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
 					},
 					{
 						type: ApplicationCommandOptionType.String,
-						name: "spot",
-						description: "Where's your favourite spot to hang out?",
+						name: t("sky-profile.edit.command-option-spot-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-spot-name", { lng: locale, ns: "commands" }),
+							]),
+						),
+						description: t("sky-profile.edit.command-option-spot-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-spot-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						max_length: SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
 						min_length: SKY_PROFILE_MINIMUM_SPOT_LENGTH,
 					},
 					{
 						type: ApplicationCommandOptionType.Boolean,
-						name: "catalogue-progression",
-						description: "Show your catalogue progression?",
+						name: t("sky-profile.edit.command-option-catalogue-progression-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-catalogue-progression-name", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
+						description: t("sky-profile.edit.command-option-catalogue-progression-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-catalogue-progression-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 					},
 					{
 						type: ApplicationCommandOptionType.Boolean,
-						name: "guess-rank",
-						description: "Show your guessing game rank?",
+						name: t("sky-profile.edit.command-option-guess-rank-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-guess-rank-name", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
+						description: t("sky-profile.edit.command-option-guess-rank-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.edit.command-option-guess-rank-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 					},
 				],
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "explore",
-				description: "Explore the Sky profiles of others!",
+				name: t("sky-profile.explore.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("sky-profile.explore.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("sky-profile.explore.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("sky-profile.explore.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 				options: [
 					{
 						type: ApplicationCommandOptionType.String,
-						name: "name",
-						description: "Search a Sky profile via a name!",
+						name: t("sky-profile.explore.command-option-name-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.explore.command-option-name-name", { lng: locale, ns: "commands" }),
+							]),
+						),
+						description: t("sky-profile.explore.command-option-name-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.explore.command-option-name-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						autocomplete: true,
 					},
 				],
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "show",
-				description: "Shows the Sky profile of someone.",
+				name: t("sky-profile.show.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("sky-profile.show.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("sky-profile.show.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("sky-profile.show.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 				options: [
 					{
 						type: ApplicationCommandOptionType.User,
-						name: "user",
-						description: "The user whose Sky profile you wish to see.",
+						name: t("sky-profile.show.command-option-user-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.show.command-option-user-name", { lng: locale, ns: "commands" }),
+							]),
+						),
+						description: t("sky-profile.show.command-option-user-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.show.command-option-user-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 					},
 					{
 						type: ApplicationCommandOptionType.Boolean,
-						name: "hide",
-						description: "Ensure only you can see the response. By default, the response is shown.",
+						name: t("sky-profile.show.command-option-hide-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.show.command-option-hide-name", { lng: locale, ns: "commands" }),
+							]),
+						),
+						description: t("sky-profile.show.command-option-hide-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("sky-profile.show.command-option-hide-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 					},
 				],
 			},
