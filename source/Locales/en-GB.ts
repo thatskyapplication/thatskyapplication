@@ -195,6 +195,12 @@ export default {
 				"command-description": "Display a history of your hearts!",
 			},
 		},
+		"high-five": {
+			"command-name": "high-five",
+			"command-description": "High-five someone!",
+			"command-option-user-name": "user",
+			"command-option-user-description": "The individual to high-five.",
+		},
 		hug: {
 			"command-name": "hug",
 			"command-description": "Hug someone!",

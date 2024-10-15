@@ -991,14 +991,41 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
 	},
 	{
-		name: "high-five",
-		description: "High-five someone!",
+		name: t("high-five.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("high-five.command-name", { lng: locale, ns: "commands" }),
+			]),
+		),
+		description: t("high-five.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("high-five.command-description", { lng: locale, ns: "commands" }),
+			]),
+		),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.User,
-				name: "user",
-				description: "The individual to high-five.",
+				name: t("high-five.command-option-user-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("high-five.command-option-user-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("high-five.command-option-user-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("high-five.command-option-user-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 				required: true,
 			},
 		],
