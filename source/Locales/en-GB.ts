@@ -267,5 +267,13 @@ export default {
 			"times-are-relative": "Times are relative to your time zone.",
 			"schedule-today": "Schedule Today",
 		},
+		"shard-eruption": {
+			"command-name": "shard-eruption",
+			"command-description": "View the shard eruption schedule.",
+			"command-option-browse-name": "browse",
+			"command-option-browse-description": "Browse the shard eruptions.",
+			"command-option-today-name": "today",
+			"command-option-today-description": "View the shard eruption today.",
+		}
 	},
 } as const;

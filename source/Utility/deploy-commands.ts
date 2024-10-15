@@ -1391,19 +1391,67 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		],
 	},
 	{
-		name: "shard-eruption",
-		description: "View the shard eruption schedule.",
+		name: t("shard-eruption.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("shard-eruption.command-name", { lng: locale, ns: "commands" }),
+			]),
+		),
+		description: t("shard-eruption.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("shard-eruption.command-description", { lng: locale, ns: "commands" }),
+			]),
+		),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "browse",
-				description: "Browse the shard eruptions.",
+				name: t("shard-eruption.command-option-browse-name", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("shard-eruption.command-option-browse-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("shard-eruption.command-option-browse-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("shard-eruption.command-option-browse-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "today",
-				description: "View the shard eruption today.",
+				name: t("shard-eruption.command-option-today-name", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("shard-eruption.command-option-today-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("shard-eruption.command-option-today-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("shard-eruption.command-option-today-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 			},
 		],
 		integration_types: [

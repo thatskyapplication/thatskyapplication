@@ -4,7 +4,7 @@ import {
 	ButtonInteraction,
 	ButtonStyle,
 	type ChatInputCommandInteraction,
-	type Locale,
+	Locale,
 	type MessageComponentInteraction,
 	PermissionFlagsBits,
 	StringSelectMenuBuilder,
@@ -59,7 +59,10 @@ function generateShardEruptionSelectMenuOptions(
 }
 
 export default new (class implements ChatInputCommand {
-	public readonly name = "shard-eruption";
+	public readonly name = t("shard-eruption.command-name", {
+		lng: Locale.EnglishGB,
+		ns: "commands",
+	});
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
