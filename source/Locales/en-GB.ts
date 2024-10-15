@@ -319,6 +319,17 @@ export default {
 		},
 		"Sky-Profile": {
 			"command-name": "Sky Profile",
-		}
+		},
+		spirit: {
+			"command-name": "spirit",
+			"command-description": "Returns the friendship tree of a spirit.",
+			search: {
+				"command-name": "search",
+				"command-description": "Reveal information about a spirit.",
+				"command-option-query-name": "query",
+				"command-option-query-description":
+					"The name, season, expression, stance, or call of the spirit.",
+			},
+		},
 	},
 } as const;

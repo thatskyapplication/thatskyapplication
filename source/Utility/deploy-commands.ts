@@ -1917,19 +1917,64 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		],
 	},
 	{
-		name: "spirit",
-		description: "Returns the friendship tree of a spirit.",
+		name: t("spirit.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [locale, t("spirit.command-name", { lng: locale, ns: "commands" })]),
+		),
+		description: t("spirit.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("spirit.command-description", { lng: locale, ns: "commands" }),
+			]),
+		),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "search",
-				description: "Reveal information about a spirit.",
+				name: t("spirit.search.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("spirit.search.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("spirit.search.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("spirit.search.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 				options: [
 					{
 						type: ApplicationCommandOptionType.String,
-						name: "query",
-						description: "The name, season, expression, stance, or call of the spirit.",
+						name: t("spirit.search.command-option-query-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("spirit.search.command-option-query-name", { lng: locale, ns: "commands" }),
+							]),
+						),
+						description: t("spirit.search.command-option-query-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("spirit.search.command-option-query-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						required: true,
 						autocomplete: true,
 					},
