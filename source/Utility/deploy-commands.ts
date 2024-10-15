@@ -907,27 +907,81 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		],
 	},
 	{
-		name: "heart",
-		description: "Feeling generous? You have up to 3 hearts to gift per day!",
+		name: t("heart.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [locale, t("heart.command-name", { lng: locale, ns: "commands" })]),
+		),
+		description: t("heart.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("heart.command-description", { lng: locale, ns: "commands" }),
+			]),
+		),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "gift",
-				description: "Choose someone to gift your heart to!",
+				name: t("heart.gift.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("heart.gift.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("heart.gift.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("heart.gift.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 				options: [
 					{
 						type: ApplicationCommandOptionType.User,
-						name: "user",
-						description: "The user to gift a heart to.",
+						name: t("heart.gift.command-option-user-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("heart.gift.command-option-user-name", { lng: locale, ns: "commands" }),
+							]),
+						),
+						description: t("heart.gift.command-option-user-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("heart.gift.command-option-user-description", { lng: locale, ns: "commands" }),
+							]),
+						),
 						required: true,
 					},
 				],
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "history",
-				description: "Display a history of your hearts!",
+				name: t("heart.history.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("heart.history.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("heart.history.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("heart.history.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 			},
 		],
 		integration_types: [

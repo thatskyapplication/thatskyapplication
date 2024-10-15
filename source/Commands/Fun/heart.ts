@@ -5,6 +5,7 @@ import {
 	ButtonStyle,
 	type ChatInputCommandInteraction,
 	EmbedBuilder,
+	Locale,
 	PermissionFlagsBits,
 	type Snowflake,
 	TimestampStyles,
@@ -12,6 +13,7 @@ import {
 	time,
 	userMention,
 } from "discord.js";
+import { t } from "i18next";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { getRandomElement } from "../../Utility/Utility.js";
 import { skyToday } from "../../Utility/dates.js";
@@ -54,7 +56,7 @@ export const HEART_HISTORY_BACK = "HEART_HISTORY_BACK" as const;
 export const HEART_HISTORY_FORWARD = "HEART_HISTORY_FORWARD" as const;
 
 export default new (class implements ChatInputCommand {
-	public readonly name = "heart";
+	public readonly name = t("heart.command-name", { lng: Locale.EnglishGB, ns: "commands" });
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {

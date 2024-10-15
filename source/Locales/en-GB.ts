@@ -181,6 +181,20 @@ export default {
 				"command-option-server-description": "Scope the leaderboard to your server?",
 			},
 		},
+		heart: {
+			"command-name": "heart",
+			"command-description": "Feeling generous? You have up to 3 hearts to gift per day!",
+			gift: {
+				"command-name": "gift",
+				"command-description": "Choose someone to gift a heart to!",
+				"command-option-user-name": "user",
+				"command-option-user-description": "The user to gift a heart to.",
+			},
+			history: {
+				"command-name": "history",
+				"command-description": "Display a history of your hearts!",
+			},
+		},
 		hug: {
 			"command-name": "hug",
 			"command-description": "Hug someone!",
