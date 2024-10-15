@@ -1892,7 +1892,13 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		],
 	},
 	{
-		name: "Sky Profile",
+		name: t("Sky-Profile.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("Sky-Profile.command-name", { lng: locale, ns: "commands" }),
+			]),
+		),
 		type: ApplicationCommandType.User,
 		integration_types: [
 			ApplicationIntegrationType.GuildInstall,

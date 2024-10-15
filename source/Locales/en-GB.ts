@@ -317,5 +317,8 @@ export default {
 				"command-option-hide-description": "Ensure only you can see the response.",
 			},
 		},
+		"Sky-Profile": {
+			"command-name": "Sky Profile",
+		}
 	},
 } as const;
