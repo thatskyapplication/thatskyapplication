@@ -41,6 +41,12 @@ if (!TOKEN) {
 
 const notificationEventChoices = NOTIFICATION_EVENT_VALUES.map((notificationEvent) => ({
 	name: notificationEvent,
+	name_localizations: Object.fromEntries(
+		LOCALES.map((locale) => [
+			locale,
+			t(`notificationEvent.${notificationEvent}`, { lng: locale, ns: "general" }),
+		]),
+	),
 	value: notificationEvent,
 }));
 
@@ -1114,51 +1120,195 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
 	},
 	{
-		name: "notifications",
-		description: "The command to set up notifications for events.",
+		name: t("notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("notifications.command-name", { lng: locale, ns: "commands" }),
+			]),
+		),
+		description: t("notifications.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("notifications.command-description", { lng: locale, ns: "commands" }),
+			]),
+		),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "setup",
-				description: "Sets up notifications in the server.",
+				name: t("notifications.setup.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("notifications.setup.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("notifications.setup.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("notifications.setup.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 				options: [
 					{
 						type: ApplicationCommandOptionType.String,
-						name: "event",
-						description: "The event to set.",
+						name: t("notifications.setup.command-option-event-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("notifications.setup.command-option-event-name", { lng: locale, ns: "commands" }),
+							]),
+						),
+						description: t("notifications.setup.command-option-event-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("notifications.setup.command-option-event-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						required: true,
 						choices: notificationEventChoices,
 					},
 					{
 						type: ApplicationCommandOptionType.Channel,
-						name: "channel",
-						description: "The channel to send notifications in.",
+						name: t("notifications.setup.command-option-channel-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("notifications.setup.command-option-channel-name", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
+						description: t("notifications.setup.command-option-channel-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("notifications.setup.command-option-channel-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						required: true,
 						channel_types: [...NOTIFICATION_CHANNEL_TYPES],
 					},
 					{
 						type: ApplicationCommandOptionType.Role,
-						name: "role",
-						description: "The role to mention.",
+						name: t("notifications.setup.command-option-role-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("notifications.setup.command-option-role-name", { lng: locale, ns: "commands" }),
+							]),
+						),
+						description: t("notifications.setup.command-option-role-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("notifications.setup.command-option-role-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						required: true,
 					},
 				],
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "status",
-				description: "Shows the status of notifications in this server.",
+				name: t("notifications.status.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("notifications.status.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("notifications.status.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("notifications.status.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "unset",
-				description: "Unsets a notification in the server.",
+				name: t("notifications.unset.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("notifications.unset.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("notifications.unset.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("notifications.unset.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 				options: [
 					{
 						type: ApplicationCommandOptionType.String,
-						name: "event",
-						description: "The event to unset.",
+						name: t("notifications.unset.command-option-event-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("notifications.unset.command-option-event-name", { lng: locale, ns: "commands" }),
+							]),
+						),
+						description: t("notifications.unset.command-option-event-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: Object.fromEntries(
+							LOCALES.map((locale) => [
+								locale,
+								t("notifications.unset.command-option-event-description", {
+									lng: locale,
+									ns: "commands",
+								}),
+							]),
+						),
 						required: true,
 						choices: notificationEventChoices,
 					},

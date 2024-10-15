@@ -219,8 +219,28 @@ export default {
 			"command-option-user-description": "The individual to be krilled.",
 		},
 		notifications: {
+			"command-name": "notifications",
+			"command-description": "The command to set up notifications for events.",
 			setup: {
+				"command-name": "setup",
+				"command-description": "Sets up notifications in the server.",
+				"command-option-event-name": "event",
+				"command-option-event-description": "The event to set.",
+				"command-option-channel-name": "channel",
+				"command-option-channel-description": "The channel to send notifications in.",
+				"command-option-role-name": "role",
+				"command-option-role-description": "The role to mention.",
 				"no-everyone": "Woah there! Let's pick another role. Not sure we want to do that!",
+			},
+			status: {
+				"command-name": "status",
+				"command-description": "Displays the status of notifications in this server.",
+			},
+			unset: {
+				"command-name": "unset",
+				"command-description": "Unsets notifications in the server.",
+				"command-option-event-name": "event",
+				"command-option-event-description": "The event to unset.",
 			},
 		},
 		schedule: {

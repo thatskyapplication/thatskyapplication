@@ -5,6 +5,7 @@ import {
 	DiscordjsError,
 	DiscordjsErrorCodes,
 	EmbedBuilder,
+	Locale,
 	MessageFlags,
 	PermissionFlagsBits,
 	StringSelectMenuBuilder,
@@ -33,7 +34,7 @@ import pino from "../../pino.js";
 import type { ChatInputCommand } from "../index.js";
 
 export default new (class implements ChatInputCommand {
-	public readonly name = "notifications";
+	public readonly name = t("notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" });
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		if (!interaction.inCachedGuild()) {
