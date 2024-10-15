@@ -212,6 +212,12 @@ export default {
 			bot: "{{-user}} is a bot. They're pretty emotionless. Immune to hugs, I'd say.",
 			message: "{{-user}}, {{-invoker}} hugged you!",
 		},
+		krill: {
+			"command-name": "krill",
+			"command-description": "Krill someone!",
+			"command-option-user-name": "user",
+			"command-option-user-description": "The individual to be krilled.",
+		},
 		notifications: {
 			setup: {
 				"no-everyone": "Woah there! Let's pick another role. Not sure we want to do that!",

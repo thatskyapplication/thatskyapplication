@@ -1072,14 +1072,38 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
 	},
 	{
-		name: "krill",
-		description: "Krill someone!",
+		name: t("krill.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [locale, t("krill.command-name", { lng: locale, ns: "commands" })]),
+		),
+		description: t("krill.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("krill.command-description", { lng: locale, ns: "commands" }),
+			]),
+		),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.User,
-				name: "user",
-				description: "The individual to be krilled.",
+				name: t("krill.command-option-user-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("krill.command-option-user-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("krill.command-option-user-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("krill.command-option-user-description", { lng: locale, ns: "commands" }),
+					]),
+				),
 				required: true,
 			},
 		],
