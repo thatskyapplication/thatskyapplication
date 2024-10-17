@@ -101,7 +101,7 @@ export const NOTIFICATION_CHANNEL_TYPES = [
 export const NotificationType = {
 	DailyReset: 0,
 	EyeOfEden: 1,
-	ISS: 2,
+	InternationalSpaceStation: 2,
 	Dragon: 3,
 	PollutedGeyser: 4,
 	Grandma: 5,

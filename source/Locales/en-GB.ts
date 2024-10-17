@@ -29,7 +29,7 @@ export default {
 		"notification-types": {
 			[NotificationType.DailyReset]: "Daily Reset",
 			[NotificationType.EyeOfEden]: "Eye of Eden",
-			[NotificationType.ISS]: "International Space Station",
+			[NotificationType.InternationalSpaceStation]: "International Space Station",
 			[NotificationType.Dragon]: "Dragon",
 			[NotificationType.PollutedGeyser]: "Polluted Geyser",
 			[NotificationType.Grandma]: "Grandma",

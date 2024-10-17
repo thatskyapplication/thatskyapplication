@@ -179,7 +179,10 @@ export default new (class implements ChatInputCommand {
 					)})`,
 				},
 				{
-					name: t(`notification-types.${NotificationType.ISS}`, { lng: locale, ns: "general" }),
+					name: t(`notification-types.${NotificationType.InternationalSpaceStation}`, {
+						lng: locale,
+						ns: "general",
+					}),
 					value: ISS_DATES_ACCESSIBLE.filter(
 						(issDateAccessible) => issDateAccessible <= now.daysInMonth!,
 					)

@@ -23,7 +23,7 @@ export default {
 			[NotificationType.Turtle]: "Tortue",
 			[NotificationType.DailyReset]: "Reset Quotidien",
 			[NotificationType.EyeOfEden]: "Œil d'Éden",
-			[NotificationType.ISS]: "Station spatiale internationale",
+			[NotificationType.InternationalSpaceStation]: "Station spatiale internationale",
 			[NotificationType.RegularShardEruption]: "Faible Éruption d'Éclats",
 			[NotificationType.StrongShardEruption]: "Forte Éruption d'Éclats",
 			[NotificationType.AURORA]: "AURORA",
