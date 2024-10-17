@@ -47,7 +47,7 @@ export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID =
 	"SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;
 
 export default new (class implements AutocompleteCommand {
-	public readonly name = t("sky-profile.command-name", { lng: Locale.EnglishGB, ns: "commands" });
+	public readonly name = t("spirit.command-name", { lng: Locale.EnglishGB, ns: "commands" });
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		switch (interaction.options.getSubcommand()) {
