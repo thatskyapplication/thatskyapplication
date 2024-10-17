@@ -1,5 +1,5 @@
 import process from "node:process";
-import { type Client, type Collection, Events, type Guild, type Snowflake } from "discord.js";
+import { type Client, Events, type Snowflake } from "discord.js";
 import AI from "../Structures/AI.js";
 import Configuration, { type ConfigurationPacket } from "../Structures/Configuration.js";
 import DailyGuides, { type DailyGuidesPacket } from "../Structures/DailyGuides.js";
@@ -15,11 +15,10 @@ import type { Event } from "./index.js";
 const name = Events.ClientReady;
 const guildIds = new Set<Snowflake>();
 
-async function collectFromDatabase(client: Client<true>, cache: Collection<Snowflake, Guild>) {
+async function collectFromDatabase(client: Client<true>) {
 	try {
 		await collectConfigurations();
 		await AI.populateCache(client);
-		await collectNotifications(cache);
 		await collectDailyGuides();
 	} catch (error) {
 		pino.fatal(error, "Error collecting configurations from the database.");
@@ -30,18 +29,6 @@ async function collectFromDatabase(client: Client<true>, cache: Collection<Snowf
 async function collectConfigurations() {
 	const [configurationPacket] = await pg<ConfigurationPacket>(Table.Configuration);
 	Configuration.patch(configurationPacket!);
-}
-
-async function collectNotifications(cache: Collection<Snowflake, Guild>) {
-	for (const notificationPacket of await pg<NotificationPacket>(Table.Notifications)) {
-		const notification = new Notification(notificationPacket);
-
-		if (cache.has(notification.guildId)) {
-			Notification.cache.set(notification.guildId, notification);
-		} else {
-			guildIds.add(notification.guildId);
-		}
-	}
 }
 
 async function collectDailyGuides() {
@@ -58,14 +45,13 @@ export default {
 	name,
 	once: true,
 	async fire(client) {
-		const guildCache = client.guilds.cache;
-		await collectFromDatabase(client, guildCache);
+		await collectFromDatabase(client);
 
 		// Collect guild ids from daily guides distribution table for the set.
 		for (const { guild_id } of await pg<DailyGuidesDistributionPacket>(
 			Table.DailyGuidesDistribution,
 		).select("guild_id")) {
-			if (!guildCache.has(guild_id)) {
+			if (!client.guilds.cache.has(guild_id)) {
 				guildIds.add(guild_id);
 			}
 		}
@@ -89,8 +75,8 @@ export default {
 
 		// Perform a health check for our notification subscribers.
 		const notificationsSettled = await Promise.allSettled(
-			Notification.cache.map((notification) =>
-				Notification.checkSendable(client, notification.guildId),
+			(await pg<NotificationPacket>(Table.Notifications).distinct("guild_id")).map(
+				(notificationPacket) => Notification.checkSendable(client, notificationPacket.guild_id),
 			),
 		);
 

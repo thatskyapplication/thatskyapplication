@@ -22,7 +22,7 @@ import {
 	MAXIMUM_WING_BUFFS,
 	MINIMUM_WINGED_LIGHT,
 	NOTIFICATION_CHANNEL_TYPES,
-	NOTIFICATION_EVENT_VALUES,
+	NOTIFICATION_TYPE_VALUES,
 	PRODUCTION,
 	QUEST_NUMBER,
 	SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
@@ -39,15 +39,15 @@ if (!TOKEN) {
 	process.exit(1);
 }
 
-const notificationEventChoices = NOTIFICATION_EVENT_VALUES.map((notificationEvent) => ({
-	name: notificationEvent,
+const notificationEventChoices = NOTIFICATION_TYPE_VALUES.map((notificationType) => ({
+	name: t(`notification-types.${notificationType}`, { lng: Locale.EnglishGB, ns: "general" }),
 	name_localizations: Object.fromEntries(
 		LOCALES.map((locale) => [
 			locale,
-			t(`notificationEvent.${notificationEvent}`, { lng: locale, ns: "general" }),
+			t(`notification-types.${notificationType}`, { lng: locale, ns: "general" }),
 		]),
 	),
-	value: notificationEvent,
+	value: notificationType,
 }));
 
 const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
@@ -1163,25 +1163,28 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 				),
 				options: [
 					{
-						type: ApplicationCommandOptionType.String,
-						name: t("notifications.setup.command-option-event-name", {
+						type: ApplicationCommandOptionType.Integer,
+						name: t("notifications.setup.command-option-notification-name", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
 						name_localizations: Object.fromEntries(
 							LOCALES.map((locale) => [
 								locale,
-								t("notifications.setup.command-option-event-name", { lng: locale, ns: "commands" }),
+								t("notifications.setup.command-option-notification-name", {
+									lng: locale,
+									ns: "commands",
+								}),
 							]),
 						),
-						description: t("notifications.setup.command-option-event-description", {
+						description: t("notifications.setup.command-option-notification-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
 						description_localizations: Object.fromEntries(
 							LOCALES.map((locale) => [
 								locale,
-								t("notifications.setup.command-option-event-description", {
+								t("notifications.setup.command-option-notification-description", {
 									lng: locale,
 									ns: "commands",
 								}),
@@ -1291,25 +1294,28 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 				),
 				options: [
 					{
-						type: ApplicationCommandOptionType.String,
-						name: t("notifications.unset.command-option-event-name", {
+						type: ApplicationCommandOptionType.Integer,
+						name: t("notifications.unset.command-option-notification-name", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
 						name_localizations: Object.fromEntries(
 							LOCALES.map((locale) => [
 								locale,
-								t("notifications.unset.command-option-event-name", { lng: locale, ns: "commands" }),
+								t("notifications.unset.command-option-notification-name", {
+									lng: locale,
+									ns: "commands",
+								}),
 							]),
 						),
-						description: t("notifications.unset.command-option-event-description", {
+						description: t("notifications.unset.command-option-notification-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
 						description_localizations: Object.fromEntries(
 							LOCALES.map((locale) => [
 								locale,
-								t("notifications.unset.command-option-event-description", {
+								t("notifications.unset.command-option-notification-description", {
 									lng: locale,
 									ns: "commands",
 								}),

@@ -16,7 +16,7 @@ import {
 	CDN_URL,
 	DEFAULT_EMBED_COLOUR,
 	ISS_DATES_ACCESSIBLE,
-	NotificationEvent,
+	NotificationType,
 } from "../../Utility/Constants.js";
 import {
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1_RELATIVE_TIME,
@@ -169,7 +169,7 @@ export default new (class implements ChatInputCommand {
 			.setColor(DEFAULT_EMBED_COLOUR)
 			.setFields(
 				{
-					name: t(`notificationEvent.${NotificationEvent.DailyReset}`, {
+					name: t(`notification-types.${NotificationType.DailyReset}`, {
 						lng: locale,
 						ns: "general",
 					}),
@@ -179,7 +179,7 @@ export default new (class implements ChatInputCommand {
 					)})`,
 				},
 				{
-					name: t(`notificationEvent.${NotificationEvent.ISS}`, { lng: locale, ns: "general" }),
+					name: t(`notification-types.${NotificationType.ISS}`, { lng: locale, ns: "general" }),
 					value: ISS_DATES_ACCESSIBLE.filter(
 						(issDateAccessible) => issDateAccessible <= now.daysInMonth!,
 					)
@@ -194,7 +194,7 @@ export default new (class implements ChatInputCommand {
 						.join("\n"),
 				},
 				{
-					name: t(`notificationEvent.${NotificationEvent.EyeOfEden}`, {
+					name: t(`notification-types.${NotificationType.EyeOfEden}`, {
 						lng: locale,
 						ns: "general",
 					}),
@@ -208,30 +208,30 @@ export default new (class implements ChatInputCommand {
 					value: travellingSpiritTime(startOfDay, locale),
 				},
 				{
-					name: t(`notificationEvent.${NotificationEvent.PollutedGeyser}`, {
+					name: t(`notification-types.${NotificationType.PollutedGeyser}`, {
 						lng: locale,
 						ns: "general",
 					}),
 					value: pollutedGeyser.join(" "),
 				},
 				{
-					name: t(`notificationEvent.${NotificationEvent.Grandma}`, { lng: locale, ns: "general" }),
+					name: t(`notification-types.${NotificationType.Grandma}`, { lng: locale, ns: "general" }),
 					value: grandma.join(" "),
 				},
 				{
-					name: t(`notificationEvent.${NotificationEvent.Turtle}`, { lng: locale, ns: "general" }),
+					name: t(`notification-types.${NotificationType.Turtle}`, { lng: locale, ns: "general" }),
 					value: turtle.join(" "),
 				},
 				{
-					name: t(`notificationEvent.${NotificationEvent.AURORA}`, { lng: locale, ns: "general" }),
+					name: t(`notification-types.${NotificationType.AURORA}`, { lng: locale, ns: "general" }),
 					value: auroraText,
 				},
 				{
-					name: t(`notificationEvent.${NotificationEvent.Passage}`, { lng: locale, ns: "general" }),
+					name: t(`notification-types.${NotificationType.Passage}`, { lng: locale, ns: "general" }),
 					value: passageTimesString,
 				},
 				{
-					name: t(`notificationEvent.${NotificationEvent.AviarysFireworkFestival}`, {
+					name: t(`notification-types.${NotificationType.AviarysFireworkFestival}`, {
 						lng: locale,
 						ns: "general",
 					}),

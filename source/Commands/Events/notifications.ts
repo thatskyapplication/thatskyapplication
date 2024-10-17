@@ -14,20 +14,17 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import Notification, {
-	type NotificationInsertQuery,
-	type NotificationUpdateQuery,
-	isEvent,
 	isNotificationSendable,
 	isNotificationOffset,
 	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
 	NotificationOffsetToMaximumValues,
+	isNotificationType,
 } from "../../Structures/Notification.js";
 import {
 	DEFAULT_EMBED_COLOUR,
 	ERROR_RESPONSE,
 	NOTIFICATION_CHANNEL_TYPES,
 	NOT_IN_CACHED_GUILD_RESPONSE,
-	NotificationEvent,
 } from "../../Utility/Constants.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import pino from "../../pino.js";
@@ -63,14 +60,14 @@ export default new (class implements ChatInputCommand {
 
 	public async setup(interaction: ChatInputCommandInteraction<"cached">) {
 		const { locale, options } = interaction;
-		const event = options.getString("event", true);
+		const notificationType = options.getInteger("notification", true);
 		const channel = options.getChannel("channel", true, NOTIFICATION_CHANNEL_TYPES);
 		const role = options.getRole("role", true);
 
-		if (!isEvent(event)) {
+		if (!isNotificationType(notificationType)) {
 			pino.error(
 				interaction,
-				"Received an unknown notification event whilst setting up notifications.",
+				"Received an unknown notification type whilst setting up notifications.",
 			);
 
 			await interaction.reply(ERROR_RESPONSE);
@@ -105,9 +102,9 @@ export default new (class implements ChatInputCommand {
 			| ChatInputCommandInteraction<"cached">
 			| StringSelectMenuInteraction<"cached"> = interaction;
 
-		if (isNotificationOffset(event)) {
+		if (isNotificationOffset(notificationType)) {
 			const options = [];
-			const maximumOffset = NotificationOffsetToMaximumValues[event];
+			const maximumOffset = NotificationOffsetToMaximumValues[notificationType];
 
 			for (let index = 0; index <= maximumOffset; index++) {
 				const indexString = String(index);
@@ -140,7 +137,7 @@ export default new (class implements ChatInputCommand {
 						.setDescription(
 							"You may choose a custom offset for this notification event. This will decide how many minutes prior notifications will be delivered.",
 						)
-						.setTitle(event),
+						.setTitle(t(`notification-types.${notificationType}`, { lng: locale, ns: "general" })),
 				],
 				fetchReply: true,
 				flags: MessageFlags.Ephemeral,
@@ -176,207 +173,38 @@ export default new (class implements ChatInputCommand {
 			}
 		}
 
-		const data: NotificationInsertQuery & NotificationUpdateQuery = {
-			guild_id: resolvedInteraction.guildId,
-		};
-
-		switch (event) {
-			case NotificationEvent.PollutedGeyser: {
-				data.polluted_geyser_channel_id = channel.id;
-				data.polluted_geyser_role_id = role.id;
-				data.polluted_geyser_sendable = true;
-				data.polluted_geyser_offset = offset as number;
-				break;
-			}
-			case NotificationEvent.Grandma: {
-				data.grandma_channel_id = channel.id;
-				data.grandma_role_id = role.id;
-				data.grandma_sendable = true;
-				data.grandma_offset = offset as number;
-				break;
-			}
-			case NotificationEvent.Turtle: {
-				data.turtle_channel_id = channel.id;
-				data.turtle_role_id = role.id;
-				data.turtle_sendable = true;
-				data.turtle_offset = offset as number;
-				break;
-			}
-			case NotificationEvent.EyeOfEden: {
-				data.eye_of_eden_channel_id = channel.id;
-				data.eye_of_eden_role_id = role.id;
-				data.eye_of_eden_sendable = true;
-				break;
-			}
-			case NotificationEvent.DailyReset: {
-				data.daily_reset_channel_id = channel.id;
-				data.daily_reset_role_id = role.id;
-				data.daily_reset_sendable = true;
-				break;
-			}
-			case NotificationEvent.ISS: {
-				data.iss_channel_id = channel.id;
-				data.iss_role_id = role.id;
-				data.iss_sendable = true;
-				break;
-			}
-			case NotificationEvent.RegularShardEruption: {
-				data.regular_shard_eruption_channel_id = channel.id;
-				data.regular_shard_eruption_role_id = role.id;
-				data.regular_shard_eruption_sendable = true;
-				data.regular_shard_eruption_offset = offset as number;
-				break;
-			}
-			case NotificationEvent.StrongShardEruption: {
-				data.strong_shard_eruption_channel_id = channel.id;
-				data.strong_shard_eruption_role_id = role.id;
-				data.strong_shard_eruption_sendable = true;
-				data.strong_shard_eruption_offset = offset as number;
-				break;
-			}
-			case NotificationEvent.AURORA: {
-				data.aurora_channel_id = channel.id;
-				data.aurora_role_id = role.id;
-				data.aurora_sendable = true;
-				data.aurora_offset = offset as number;
-				break;
-			}
-			case NotificationEvent.Passage: {
-				data.passage_channel_id = channel.id;
-				data.passage_role_id = role.id;
-				data.passage_sendable = true;
-				data.passage_offset = offset as number;
-				break;
-			}
-			case NotificationEvent.AviarysFireworkFestival: {
-				data.aviarys_firework_festival_channel_id = channel.id;
-				data.aviarys_firework_festival_role_id = role.id;
-				data.aviarys_firework_festival_sendable = true;
-				break;
-			}
-			case NotificationEvent.Dragon: {
-				data.dragon_channel_id = channel.id;
-				data.dragon_role_id = role.id;
-				data.dragon_sendable = true;
-				break;
-			}
-		}
-
-		await Notification.setup(resolvedInteraction, data);
+		await Notification.setup(resolvedInteraction, {
+			guildId: resolvedInteraction.guildId,
+			type: notificationType,
+			channelId: channel.id,
+			roleId: role.id,
+			// In case of no offset, default to 0.
+			// In the future, this will always be present as everything will have an offset.
+			offset: offset ?? 0,
+			sendable: true,
+		});
 	}
 
 	public async status(interaction: ChatInputCommandInteraction<"cached">) {
-		const notification = Notification.cache.get(interaction.guildId);
-
-		if (!notification) {
-			await interaction.reply({ content: "This server has nothing set up.", ephemeral: true });
-			return;
-		}
-
 		await interaction.reply({
-			embeds: [await notification.embed(interaction)],
-			ephemeral: true,
+			embeds: [await Notification.embed(interaction)],
+			flags: MessageFlags.Ephemeral,
 		});
 	}
 
 	public async unset(interaction: ChatInputCommandInteraction<"cached">) {
-		const { guildId, options } = interaction;
-		const notification = Notification.cache.get(guildId);
+		const notificationType = interaction.options.getInteger("notification", true);
 
-		if (!notification) {
-			await interaction.reply({ content: "This server has nothing set up.", ephemeral: true });
-			return;
-		}
-
-		const event = options.getString("event", true);
-
-		if (!isEvent(event)) {
+		if (!isNotificationType(notificationType)) {
 			pino.error(
 				interaction,
-				"Received an unknown notification event whilst setting up notifications.",
+				"Received an unknown notification type whilst setting up notifications.",
 			);
 
 			await interaction.reply(ERROR_RESPONSE);
 			return;
 		}
 
-		const data: NotificationUpdateQuery = {};
-
-		switch (event) {
-			case NotificationEvent.PollutedGeyser: {
-				data.polluted_geyser_channel_id = null;
-				data.polluted_geyser_role_id = null;
-				data.polluted_geyser_sendable = false;
-				break;
-			}
-			case NotificationEvent.Grandma: {
-				data.grandma_channel_id = null;
-				data.grandma_role_id = null;
-				data.grandma_sendable = false;
-				break;
-			}
-			case NotificationEvent.Turtle: {
-				data.turtle_channel_id = null;
-				data.turtle_role_id = null;
-				data.turtle_sendable = false;
-				break;
-			}
-			case NotificationEvent.EyeOfEden: {
-				data.eye_of_eden_channel_id = null;
-				data.eye_of_eden_role_id = null;
-				data.eye_of_eden_sendable = false;
-				break;
-			}
-			case NotificationEvent.DailyReset: {
-				data.daily_reset_channel_id = null;
-				data.daily_reset_role_id = null;
-				data.daily_reset_sendable = false;
-				break;
-			}
-			case NotificationEvent.ISS: {
-				data.iss_channel_id = null;
-				data.iss_role_id = null;
-				data.iss_sendable = false;
-				break;
-			}
-			case NotificationEvent.RegularShardEruption: {
-				data.regular_shard_eruption_channel_id = null;
-				data.regular_shard_eruption_role_id = null;
-				data.regular_shard_eruption_sendable = false;
-				break;
-			}
-			case NotificationEvent.StrongShardEruption: {
-				data.strong_shard_eruption_channel_id = null;
-				data.strong_shard_eruption_role_id = null;
-				data.strong_shard_eruption_sendable = false;
-				break;
-			}
-			case NotificationEvent.AURORA: {
-				data.aurora_channel_id = null;
-				data.aurora_role_id = null;
-				data.aurora_sendable = false;
-				break;
-			}
-			case NotificationEvent.Passage: {
-				data.passage_channel_id = null;
-				data.passage_role_id = null;
-				data.passage_sendable = false;
-				break;
-			}
-			case NotificationEvent.AviarysFireworkFestival: {
-				data.aviarys_firework_festival_channel_id = null;
-				data.aviarys_firework_festival_role_id = null;
-				data.aviarys_firework_festival_sendable = false;
-				break;
-			}
-			case NotificationEvent.Dragon: {
-				data.dragon_channel_id = null;
-				data.dragon_role_id = null;
-				data.dragon_sendable = false;
-				break;
-			}
-		}
-
-		await notification.unset(interaction, data);
+		await Notification.unset(interaction, notificationType);
 	}
 })();
