@@ -34,6 +34,7 @@ export interface NotificationPacket {
 }
 
 const NOTIFICATION_OFFSETS = [
+	NotificationType.DailyReset,
 	NotificationType.PollutedGeyser,
 	NotificationType.Grandma,
 	NotificationType.Turtle,
@@ -46,6 +47,7 @@ const NOTIFICATION_OFFSETS = [
 type NotificationOffset = (typeof NOTIFICATION_OFFSETS)[number];
 
 export const NotificationOffsetToMaximumValues = {
+	[NotificationType.DailyReset]: 15,
 	[NotificationType.PollutedGeyser]: 10,
 	[NotificationType.Grandma]: 10,
 	[NotificationType.Turtle]: 10,
