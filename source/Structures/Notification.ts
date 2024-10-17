@@ -64,7 +64,7 @@ export const NotificationOffsetToMaximumValues = {
 	[NotificationType.StrongShardEruption]: 10,
 	[NotificationType.AURORA]: 15,
 	[NotificationType.Passage]: 5,
-} as const;
+} as const satisfies Readonly<Record<NotificationOffset, number>>;
 
 type NotificationAllowedChannel = Extract<
 	GuildBasedChannel,
