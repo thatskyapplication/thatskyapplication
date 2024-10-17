@@ -33,15 +33,6 @@ export interface NotificationPacket {
 	sendable: boolean;
 }
 
-interface NotificationData {
-	guildId: NotificationPacket["guild_id"];
-	type: NotificationPacket["type"];
-	channelId: NotificationPacket["channel_id"];
-	roleId: NotificationPacket["role_id"];
-	offset: NotificationPacket["offset"];
-	sendable: NotificationPacket["sendable"];
-}
-
 const NOTIFICATION_OFFSETS = [
 	NotificationType.PollutedGeyser,
 	NotificationType.Grandma,
@@ -138,20 +129,10 @@ export function isNotificationOffset(
 
 export async function setup(
 	interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
-	data: NotificationData,
+	data: NotificationPacket,
 ) {
 	await pg<NotificationPacket>(Table.Notifications)
-		.insert(
-			{
-				guild_id: data.guildId,
-				type: data.type,
-				channel_id: data.channelId,
-				role_id: data.roleId,
-				offset: data.offset,
-				sendable: data.sendable,
-			},
-			"*",
-		)
+		.insert(data, "*")
 		.onConflict(["guild_id", "type"])
 		.merge();
 

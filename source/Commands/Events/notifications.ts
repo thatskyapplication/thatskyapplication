@@ -177,10 +177,10 @@ export default new (class implements ChatInputCommand {
 		}
 
 		await setup(resolvedInteraction, {
-			guildId: resolvedInteraction.guildId,
+			guild_id: resolvedInteraction.guildId,
 			type: notificationType,
-			channelId: channel.id,
-			roleId: role.id,
+			channel_id: channel.id,
+			role_id: role.id,
 			// In case of no offset, default to 0.
 			// In the future, this will always be present as everything will have an offset.
 			offset: offset ?? 0,
