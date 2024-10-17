@@ -1,5 +1,5 @@
 import { Events } from "discord.js";
-import Notification from "../Structures/Notification.js";
+import { checkSendable } from "../Structures/Notification.js";
 import type { Event } from "./index.js";
 
 const name = Events.GuildRoleUpdate;
@@ -11,6 +11,6 @@ export default {
 			return;
 		}
 
-		await Notification.checkSendable(newRole.client, newRole.guild.id);
+		await checkSendable(newRole.client, newRole.guild.id);
 	},
 } satisfies Event<typeof name>;

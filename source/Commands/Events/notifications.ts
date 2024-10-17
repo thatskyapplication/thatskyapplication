@@ -13,12 +13,15 @@ import {
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
 import { t } from "i18next";
-import Notification, {
-	isNotificationSendable,
-	isNotificationOffset,
+import {
 	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
 	NotificationOffsetToMaximumValues,
+	embed,
+	isNotificationOffset,
+	isNotificationSendable,
 	isNotificationType,
+	setup,
+	unset,
 } from "../../Structures/Notification.js";
 import {
 	DEFAULT_EMBED_COLOUR,
@@ -173,7 +176,7 @@ export default new (class implements ChatInputCommand {
 			}
 		}
 
-		await Notification.setup(resolvedInteraction, {
+		await setup(resolvedInteraction, {
 			guildId: resolvedInteraction.guildId,
 			type: notificationType,
 			channelId: channel.id,
@@ -187,7 +190,7 @@ export default new (class implements ChatInputCommand {
 
 	public async status(interaction: ChatInputCommandInteraction<"cached">) {
 		await interaction.reply({
-			embeds: [await Notification.embed(interaction)],
+			embeds: [await embed(interaction)],
 			flags: MessageFlags.Ephemeral,
 		});
 	}
@@ -205,6 +208,6 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		await Notification.unset(interaction, notificationType);
+		await unset(interaction, notificationType);
 	}
 })();

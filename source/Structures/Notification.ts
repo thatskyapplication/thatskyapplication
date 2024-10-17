@@ -42,8 +42,6 @@ interface NotificationData {
 	sendable: NotificationPacket["sendable"];
 }
 
-type NotificationPatchData = Omit<NotificationPacket, "guild_id" | "type">;
-
 const NOTIFICATION_OFFSETS = [
 	NotificationType.PollutedGeyser,
 	NotificationType.Grandma,
@@ -138,184 +136,150 @@ export function isNotificationOffset(
 	return NOTIFICATION_OFFSETS.includes(notificationType as NotificationOffset);
 }
 
-export default class Notification {
-	public readonly guildId: NotificationData["guildId"];
+export async function setup(
+	interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
+	data: NotificationData,
+) {
+	await pg<NotificationPacket>(Table.Notifications)
+		.insert(
+			{
+				guild_id: data.guildId,
+				type: data.type,
+				channel_id: data.channelId,
+				role_id: data.roleId,
+				offset: data.offset,
+				sendable: data.sendable,
+			},
+			"*",
+		)
+		.onConflict(["guild_id", "type"])
+		.merge();
 
-	public readonly type: NotificationData["type"];
+	const responseObject = {
+		components: [],
+		content: "Notifications have been modified.",
+		embeds: [await embed(interaction)],
+	};
 
-	public channelId!: NotificationData["channelId"];
+	await (interaction instanceof ChatInputCommandInteraction
+		? interaction.reply({ ...responseObject, flags: MessageFlags.Ephemeral })
+		: interaction.update(responseObject));
+}
 
-	public roleId!: NotificationData["roleId"];
+export async function unset(
+	interaction: ChatInputCommandInteraction<"cached">,
+	notificationType: NotificationTypes,
+) {
+	const { guildId } = interaction;
 
-	public offset!: NotificationData["offset"];
+	await pg<NotificationPacket>(Table.Notifications)
+		.delete()
+		.where({ guild_id: guildId, type: notificationType });
 
-	public sendable!: NotificationData["sendable"];
+	await interaction.reply({
+		content: "Notifications have been modified.",
+		embeds: [await embed(interaction)],
+		flags: MessageFlags.Ephemeral,
+	});
+}
 
-	public constructor(notification: NotificationPacket) {
-		this.guildId = notification.guild_id;
-		this.type = notification.type;
-		this.patch(notification);
+export async function deleteNotifications(guildId: Snowflake) {
+	await pg<NotificationPacket>(Table.Notifications).delete().where({ guild_id: guildId });
+}
+
+export async function checkSendable(client: Client<true>, guildId: Snowflake) {
+	// Can the guild be accessed?
+	const guild = client.guilds.cache.get(guildId);
+
+	if (!guild) {
+		// Just nuke everything.
+		await deleteNotifications(guildId);
+		return;
 	}
 
-	private patch(data: NotificationPatchData) {
-		this.channelId = data.channel_id;
-		this.roleId = data.role_id;
-		this.offset = data.offset;
-		this.sendable = data.sendable;
+	const notificationPackets = await pg<NotificationPacket>(Table.Notifications)
+		.select(["guild_id", "type", "channel_id", "role_id"])
+		.where({ guild_id: guildId });
+
+	const me = await guild.members.fetchMe();
+
+	// Check if we can still send to all the guild's notification channels.
+	const promises = notificationPackets.map((notificationPacket) =>
+		pg<NotificationPacket>(Table.Notifications)
+			.update({
+				sendable: isSendable(me, notificationPacket.channel_id, notificationPacket.role_id),
+			})
+			.where({ guild_id: notificationPacket.guild_id, type: notificationPacket.type })
+			.returning("*"),
+	);
+
+	await Promise.all(promises);
+}
+
+function isSendable(me: GuildMember, channelId: Snowflake | null, roleId: Snowflake | null) {
+	if (!(channelId && roleId)) {
+		return false;
 	}
 
-	public static async setup(
-		interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
-		data: NotificationData,
-	) {
-		await pg<NotificationPacket>(Table.Notifications)
-			.insert(
-				{
-					guild_id: data.guildId,
-					type: data.type,
-					channel_id: data.channelId,
-					role_id: data.roleId,
-					offset: data.offset,
-					sendable: data.sendable,
-				},
-				"*",
-			)
-			.onConflict(["guild_id", "type"])
-			.merge();
+	const channel = me.guild.channels.cache.get(channelId);
+	const role = me.guild.roles.cache.get(roleId);
 
-		const responseObject = {
-			components: [],
-			content: "Notifications have been modified.",
-			embeds: [await this.embed(interaction)],
-		};
+	return Boolean(
+		channel && isNotificationChannel(channel) && role && isNotificationSendable(channel, role, me),
+	);
+}
 
-		await (interaction instanceof ChatInputCommandInteraction
-			? interaction.reply({ ...responseObject, flags: MessageFlags.Ephemeral })
-			: interaction.update(responseObject));
-	}
+export async function embed(
+	interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
+) {
+	const { locale } = interaction;
 
-	public static async unset(
-		interaction: ChatInputCommandInteraction<"cached">,
-		notificationType: NotificationTypes,
-	) {
-		const { guildId } = interaction;
+	const notificationPackets = await pg<NotificationPacket>(Table.Notifications)
+		.select(["type", "channel_id", "role_id", "offset", "sendable"])
+		.where({ guild_id: interaction.guildId });
 
-		await pg<NotificationPacket>(Table.Notifications)
-			.delete()
-			.where({ guild_id: guildId, type: notificationType });
+	return new EmbedBuilder()
+		.setColor(DEFAULT_EMBED_COLOUR)
+		.setFields(
+			NOTIFICATION_TYPE_VALUES.map((notificationType) => ({
+				name: t(`notification-types.${notificationType}`, {
+					lng: locale,
+					ns: "general",
+				}),
+				value: overviewValue(getOverviewPacket(notificationPackets, notificationType)),
+				inline: true,
+			})),
+		)
+		.setTitle(interaction.guild.name);
+}
 
-		await interaction.reply({
-			content: "Notifications have been modified.",
-			embeds: [await Notification.embed(interaction)],
-			flags: MessageFlags.Ephemeral,
-		});
-	}
+function getOverviewPacket(
+	notificationPackets: Pick<
+		NotificationPacket,
+		"type" | "channel_id" | "role_id" | "offset" | "sendable"
+	>[],
+	notificationType: NotificationTypes,
+) {
+	return notificationPackets.find((packet) => packet.type === notificationType);
+}
 
-	public static async delete(guildId: Snowflake) {
-		await pg<NotificationPacket>(Table.Notifications).delete().where({ guild_id: guildId });
-	}
+function overviewValue(
+	notificationPacket?: Pick<
+		NotificationPacket,
+		"type" | "channel_id" | "role_id" | "offset" | "sendable"
+	>,
+) {
+	const channelId = notificationPacket?.channel_id;
+	const roleId = notificationPacket?.role_id;
+	const offset = notificationPacket?.offset;
+	const sendable = notificationPacket?.sendable;
 
-	public static async checkSendable(client: Client<true>, guildId: Snowflake) {
-		// Can the guild be accessed?
-		const guild = client.guilds.cache.get(guildId);
-
-		if (!guild) {
-			// Just nuke everything.
-			await this.delete(guildId);
-			return;
-		}
-
-		const notificationPackets = await pg<NotificationPacket>(Table.Notifications)
-			.select(["guild_id", "type", "channel_id", "role_id"])
-			.where({ guild_id: guildId });
-
-		const me = await guild.members.fetchMe();
-
-		// Check if we can still send to all the guild's notification channels.
-		const promises = notificationPackets.map((notificationPacket) =>
-			pg<NotificationPacket>(Table.Notifications)
-				.update({
-					sendable: this.isSendable(me, notificationPacket.channel_id, notificationPacket.role_id),
-				})
-				.where({ guild_id: notificationPacket.guild_id, type: notificationPacket.type })
-				.returning("*"),
-		);
-
-		await Promise.all(promises);
-	}
-
-	private static isSendable(
-		me: GuildMember,
-		channelId: Snowflake | null,
-		roleId: Snowflake | null,
-	) {
-		if (!(channelId && roleId)) {
-			return false;
-		}
-
-		const channel = me.guild.channels.cache.get(channelId);
-		const role = me.guild.roles.cache.get(roleId);
-
-		return Boolean(
-			channel &&
-				isNotificationChannel(channel) &&
-				role &&
-				isNotificationSendable(channel, role, me),
-		);
-	}
-
-	public static async embed(
-		interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
-	) {
-		const { locale } = interaction;
-
-		const notificationPackets = await pg<NotificationPacket>(Table.Notifications)
-			.select(["type", "channel_id", "role_id", "offset", "sendable"])
-			.where({ guild_id: interaction.guildId });
-
-		return new EmbedBuilder()
-			.setColor(DEFAULT_EMBED_COLOUR)
-			.setFields(
-				NOTIFICATION_TYPE_VALUES.map((notificationType) => ({
-					name: t(`notification-types.${notificationType}`, {
-						lng: locale,
-						ns: "general",
-					}),
-					value: this.overviewValue(this.getOverviewPacket(notificationPackets, notificationType)),
-					inline: true,
-				})),
-			)
-			.setTitle(interaction.guild.name);
-	}
-
-	private static getOverviewPacket(
-		notificationPackets: Pick<
-			NotificationPacket,
-			"type" | "channel_id" | "role_id" | "offset" | "sendable"
-		>[],
-		notificationType: NotificationTypes,
-	) {
-		return notificationPackets.find((packet) => packet.type === notificationType);
-	}
-
-	private static overviewValue(
-		notificationPacket?: Pick<
-			NotificationPacket,
-			"type" | "channel_id" | "role_id" | "offset" | "sendable"
-		>,
-	) {
-		const channelId = notificationPacket?.channel_id;
-		const roleId = notificationPacket?.role_id;
-		const offset = notificationPacket?.offset;
-		const sendable = notificationPacket?.sendable;
-
-		return [
-			channelId ? channelMention(channelId) : "No channel",
-			roleId ? roleMention(roleId) : "No role",
-			sendable
-				? `Sending! ${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`
-				: `Stopped! ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`,
-			`Offset: ${offset ?? "N/A"}`,
-		].join("\n");
-	}
+	return [
+		channelId ? channelMention(channelId) : "No channel",
+		roleId ? roleMention(roleId) : "No role",
+		sendable
+			? `Sending! ${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`
+			: `Stopped! ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`,
+		`Offset: ${offset ?? "N/A"}`,
+	].join("\n");
 }

@@ -7,7 +7,11 @@ import DailyGuidesDistribution, {
 	type DailyGuidesDistributionPacket,
 } from "../Structures/DailyGuidesDistribution.js";
 import heartbeat from "../Structures/Heartbeat.js";
-import Notification, { type NotificationPacket } from "../Structures/Notification.js";
+import {
+	type NotificationPacket,
+	checkSendable,
+	deleteNotifications,
+} from "../Structures/Notification.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import type { Event } from "./index.js";
@@ -61,7 +65,7 @@ export default {
 			[...guildIds].map(async (guildId) => [
 				AI.delete(guildId),
 				DailyGuidesDistribution.delete(guildId),
-				Notification.delete(guildId),
+				deleteNotifications(guildId),
 			]),
 		);
 
@@ -76,7 +80,7 @@ export default {
 		// Perform a health check for our notification subscribers.
 		const notificationsSettled = await Promise.allSettled(
 			(await pg<NotificationPacket>(Table.Notifications).distinct("guild_id")).map(
-				(notificationPacket) => Notification.checkSendable(client, notificationPacket.guild_id),
+				(notificationPacket) => checkSendable(client, notificationPacket.guild_id),
 			),
 		);
 
