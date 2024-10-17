@@ -141,7 +141,7 @@ export function isNotificationOffset(
 export default class Notification {
 	public readonly guildId: NotificationData["guildId"];
 
-	public readonly type!: NotificationData["type"];
+	public readonly type: NotificationData["type"];
 
 	public channelId!: NotificationData["channelId"];
 
@@ -153,6 +153,7 @@ export default class Notification {
 
 	public constructor(notification: NotificationPacket) {
 		this.guildId = notification.guild_id;
+		this.type = notification.type;
 		this.patch(notification);
 	}
 
