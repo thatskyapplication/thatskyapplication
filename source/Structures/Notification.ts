@@ -236,7 +236,7 @@ export default class Notification {
 				.update({
 					sendable: this.isSendable(me, notificationPacket.channel_id, notificationPacket.role_id),
 				})
-				.where({ guild_id: notificationPacket.guild_id })
+				.where({ guild_id: notificationPacket.guild_id, type: notificationPacket.type })
 				.returning("*"),
 		);
 
