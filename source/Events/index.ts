@@ -1,5 +1,6 @@
 import type { ClientEvents, Guild } from "discord.js";
 import pino from "../pino.js";
+import channelDelete from "./channelDelete.js";
 import channelUpdate from "./channelUpdate.js";
 import entitlementDelete from "./entitlementDelete.js";
 import entitlementUpdate from "./entitlementUpdate.js";
@@ -34,6 +35,7 @@ export function logGuild(guild: Guild, join = true) {
 }
 
 export default [
+	channelDelete,
 	channelUpdate,
 	entitlementDelete,
 	entitlementUpdate,

@@ -2,15 +2,15 @@ import { Events } from "discord.js";
 import { checkSendable } from "../Structures/Notification.js";
 import type { Event } from "./index.js";
 
-const name = Events.GuildRoleUpdate;
+const name = Events.ChannelDelete;
 
 export default {
 	name,
-	async fire(oldRole, newRole) {
-		if (oldRole.permissions.equals(newRole.permissions)) {
+	async fire(channel) {
+		if (channel.isDMBased()) {
 			return;
 		}
 
-		await checkSendable(newRole.client, newRole.guild.id);
+		await checkSendable(channel.client, channel.guild.id);
 	},
 } satisfies Event<typeof name>;

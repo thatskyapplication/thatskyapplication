@@ -1,5 +1,5 @@
 import { Events } from "discord.js";
-import Notification from "../Structures/Notification.js";
+import { checkSendable } from "../Structures/Notification.js";
 import type { Event } from "./index.js";
 
 const name = Events.ChannelUpdate;
@@ -15,6 +15,6 @@ export default {
 			return;
 		}
 
-		await Notification.checkSendable(newChannel.client, newChannel.guild.id);
+		await checkSendable(newChannel.client, newChannel.guild.id);
 	},
 } satisfies Event<typeof name>;

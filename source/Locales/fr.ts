@@ -1,4 +1,4 @@
-import { NotificationEvent, RealmName, SkyMap } from "../Utility/Constants.js";
+import { NotificationType, RealmName, SkyMap } from "../Utility/Constants.js";
 import { SeasonName } from "../Utility/catalogue.js";
 import { SpiritName } from "../Utility/spirits.js";
 
@@ -17,19 +17,19 @@ export default {
 			[RealmName.EyeOfEden]: "Œil d'Éden",
 		},
 		maps: { [SkyMap.JellyfishCove]: "Crique aux Méduses" },
-		notificationEvent: {
-			[NotificationEvent.PollutedGeyser]: "Geyser Pollué",
-			[NotificationEvent.Grandma]: "Mamie",
-			[NotificationEvent.Turtle]: "Tortue",
-			[NotificationEvent.DailyReset]: "Reset Quotidien",
-			[NotificationEvent.EyeOfEden]: "Œil d'Éden",
-			[NotificationEvent.ISS]: "SSI",
-			[NotificationEvent.RegularShardEruption]: "Faible Éruption d'Éclats",
-			[NotificationEvent.StrongShardEruption]: "Forte Éruption d'Éclats",
-			[NotificationEvent.AURORA]: "AURORA",
-			[NotificationEvent.Passage]: "Initiation",
-			[NotificationEvent.AviarysFireworkFestival]: "Feux d'artifices du Village Volière",
-			[NotificationEvent.Dragon]: "Dragon",
+		"notification-types": {
+			[NotificationType.PollutedGeyser]: "Geyser Pollué",
+			[NotificationType.Grandma]: "Mamie",
+			[NotificationType.Turtle]: "Tortue",
+			[NotificationType.DailyReset]: "Reset Quotidien",
+			[NotificationType.EyeOfEden]: "Œil d'Éden",
+			[NotificationType.InternationalSpaceStation]: "Station spatiale internationale",
+			[NotificationType.RegularShardEruption]: "Faible Éruption d'Éclats",
+			[NotificationType.StrongShardEruption]: "Forte Éruption d'Éclats",
+			[NotificationType.AURORA]: "AURORA",
+			[NotificationType.Passage]: "Initiation",
+			[NotificationType.AviarysFireworkFestival]: "Feux d'artifices du Village Volière",
+			[NotificationType.Dragon]: "Dragon",
 		},
 		seasons: {
 			[SeasonName.Gratitude]: "Saison de la gratitude",

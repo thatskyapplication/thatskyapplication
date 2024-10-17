@@ -2,12 +2,9 @@ import {
 	type Channel,
 	ChatInputCommandInteraction,
 	type Client,
-	Collection,
 	EmbedBuilder,
 	type GuildBasedChannel,
 	type GuildMember,
-	type InteractionReplyOptions,
-	type InteractionUpdateOptions,
 	MessageFlags,
 	PermissionFlagsBits,
 	type Role,
@@ -16,136 +13,46 @@ import {
 	channelMention,
 	roleMention,
 } from "discord.js";
+import { t } from "i18next";
 import {
 	DEFAULT_EMBED_COLOUR,
 	NOTIFICATION_CHANNEL_TYPES,
-	NOTIFICATION_EVENT_VALUES,
-	NotificationEvent,
+	NOTIFICATION_TYPE_VALUES,
+	NotificationType,
+	type NotificationTypes,
 } from "../Utility/Constants.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
 import pg, { Table } from "../pg.js";
 
 export interface NotificationPacket {
 	guild_id: Snowflake;
-	polluted_geyser_channel_id: Snowflake | null;
-	polluted_geyser_role_id: Snowflake | null;
-	polluted_geyser_sendable: boolean;
-	polluted_geyser_offset: number;
-	grandma_channel_id: Snowflake | null;
-	grandma_role_id: Snowflake | null;
-	grandma_sendable: boolean;
-	grandma_offset: number;
-	turtle_channel_id: Snowflake | null;
-	turtle_role_id: Snowflake | null;
-	turtle_sendable: boolean;
-	turtle_offset: number;
-	eye_of_eden_channel_id: Snowflake | null;
-	eye_of_eden_role_id: Snowflake | null;
-	eye_of_eden_sendable: boolean;
-	daily_reset_channel_id: Snowflake | null;
-	daily_reset_role_id: Snowflake | null;
-	daily_reset_sendable: boolean;
-	passage_channel_id: Snowflake | null;
-	passage_role_id: Snowflake | null;
-	passage_sendable: boolean;
-	passage_offset: number;
-	aurora_channel_id: Snowflake | null;
-	aurora_role_id: Snowflake | null;
-	aurora_sendable: boolean;
-	aurora_offset: number;
-	regular_shard_eruption_channel_id: Snowflake | null;
-	regular_shard_eruption_role_id: Snowflake | null;
-	regular_shard_eruption_sendable: boolean;
-	regular_shard_eruption_offset: number;
-	iss_channel_id: Snowflake | null;
-	iss_role_id: Snowflake | null;
-	iss_sendable: boolean;
-	strong_shard_eruption_channel_id: Snowflake | null;
-	strong_shard_eruption_role_id: Snowflake | null;
-	strong_shard_eruption_sendable: boolean;
-	strong_shard_eruption_offset: number;
-	aviarys_firework_festival_channel_id: Snowflake | null;
-	aviarys_firework_festival_role_id: Snowflake | null;
-	aviarys_firework_festival_sendable: boolean;
-	dragon_channel_id: Snowflake | null;
-	dragon_role_id: Snowflake | null;
-	dragon_sendable: boolean;
+	type: number;
+	channel_id: Snowflake;
+	role_id: Snowflake;
+	offset: number;
+	sendable: boolean;
 }
-
-interface NotificationData {
-	guildId: NotificationPacket["guild_id"];
-	pollutedGeyserChannelId: NotificationPacket["polluted_geyser_channel_id"];
-	pollutedGeyserRoleId: NotificationPacket["polluted_geyser_role_id"];
-	pollutedGeyserSendable: NotificationPacket["polluted_geyser_sendable"];
-	pollutedGeyserOffset: NotificationPacket["polluted_geyser_offset"];
-	grandmaChannelId: NotificationPacket["grandma_channel_id"];
-	grandmaRoleId: NotificationPacket["grandma_role_id"];
-	grandmaSendable: NotificationPacket["grandma_sendable"];
-	grandmaOffset: NotificationPacket["grandma_offset"];
-	turtleChannelId: NotificationPacket["turtle_channel_id"];
-	turtleRoleId: NotificationPacket["turtle_role_id"];
-	turtleSendable: NotificationPacket["turtle_sendable"];
-	turtleOffset: NotificationPacket["turtle_offset"];
-	eyeOfEdenChannelId: NotificationPacket["eye_of_eden_channel_id"];
-	eyeOfEdenRoleId: NotificationPacket["eye_of_eden_role_id"];
-	eyeOfEdenSendable: NotificationPacket["eye_of_eden_sendable"];
-	dailyResetChannelId: NotificationPacket["daily_reset_channel_id"];
-	dailyResetRoleId: NotificationPacket["daily_reset_role_id"];
-	dailyResetSendable: NotificationPacket["daily_reset_sendable"];
-	passageChannelId: NotificationPacket["passage_channel_id"];
-	passageRoleId: NotificationPacket["passage_role_id"];
-	passageSendable: NotificationPacket["passage_sendable"];
-	passageOffset: NotificationPacket["passage_offset"];
-	auroraChannelId: NotificationPacket["aurora_channel_id"];
-	auroraRoleId: NotificationPacket["aurora_role_id"];
-	auroraSendable: NotificationPacket["aurora_sendable"];
-	auroraOffset: NotificationPacket["aurora_offset"];
-	regularShardEruptionChannelId: NotificationPacket["regular_shard_eruption_channel_id"];
-	regularShardEruptionRoleId: NotificationPacket["regular_shard_eruption_role_id"];
-	regularShardEruptionSendable: NotificationPacket["regular_shard_eruption_sendable"];
-	regularShardEruptionOffset: NotificationPacket["regular_shard_eruption_offset"];
-	issChannelId: NotificationPacket["iss_channel_id"];
-	issRoleId: NotificationPacket["iss_role_id"];
-	issSendable: NotificationPacket["iss_sendable"];
-	strongShardEruptionChannelId: NotificationPacket["strong_shard_eruption_channel_id"];
-	strongShardEruptionRoleId: NotificationPacket["strong_shard_eruption_role_id"];
-	strongShardEruptionSendable: NotificationPacket["strong_shard_eruption_sendable"];
-	strongShardEruptionOffset: NotificationPacket["strong_shard_eruption_offset"];
-	aviarysFireworkFestivalChannelId: NotificationPacket["aviarys_firework_festival_channel_id"];
-	aviarysFireworkFestivalRoleId: NotificationPacket["aviarys_firework_festival_role_id"];
-	aviarysFireworkFestivalSendable: NotificationPacket["aviarys_firework_festival_sendable"];
-	dragonChannelId: NotificationPacket["dragon_channel_id"];
-	dragonRoleId: NotificationPacket["dragon_role_id"];
-	dragonSendable: NotificationPacket["dragon_sendable"];
-}
-
-type NotificationPatchData = Omit<NotificationPacket, "guild_id">;
-
-export type NotificationInsertQuery = Partial<NotificationPatchData> &
-	Pick<NotificationPacket, "guild_id">;
-
-export type NotificationUpdateQuery = Omit<NotificationInsertQuery, "guild_id">;
 
 const NOTIFICATION_OFFSETS = [
-	NotificationEvent.PollutedGeyser,
-	NotificationEvent.Grandma,
-	NotificationEvent.Turtle,
-	NotificationEvent.RegularShardEruption,
-	NotificationEvent.StrongShardEruption,
-	NotificationEvent.AURORA,
-	NotificationEvent.Passage,
-] as const;
+	NotificationType.PollutedGeyser,
+	NotificationType.Grandma,
+	NotificationType.Turtle,
+	NotificationType.RegularShardEruption,
+	NotificationType.StrongShardEruption,
+	NotificationType.AURORA,
+	NotificationType.Passage,
+] as const satisfies Readonly<NotificationTypes[]>;
 
 type NotificationOffset = (typeof NOTIFICATION_OFFSETS)[number];
 
 export const NotificationOffsetToMaximumValues = {
-	[NotificationEvent.PollutedGeyser]: 10,
-	[NotificationEvent.Grandma]: 10,
-	[NotificationEvent.Turtle]: 10,
-	[NotificationEvent.RegularShardEruption]: 10,
-	[NotificationEvent.StrongShardEruption]: 10,
-	[NotificationEvent.AURORA]: 15,
-	[NotificationEvent.Passage]: 5,
+	[NotificationType.PollutedGeyser]: 10,
+	[NotificationType.Grandma]: 10,
+	[NotificationType.Turtle]: 10,
+	[NotificationType.RegularShardEruption]: 10,
+	[NotificationType.StrongShardEruption]: 10,
+	[NotificationType.AURORA]: 15,
+	[NotificationType.Passage]: 5,
 } as const satisfies Readonly<Record<NotificationOffset, number>>;
 
 type NotificationAllowedChannel = Extract<
@@ -208,454 +115,152 @@ export function isNotificationSendable(
 		: errors.length === 0;
 }
 
-export function isEvent(event: string): event is NotificationEvent {
-	return NOTIFICATION_EVENT_VALUES.includes(event as NotificationEvent);
+export function isNotificationType(
+	notificationType: unknown,
+): notificationType is NotificationTypes {
+	return NOTIFICATION_TYPE_VALUES.includes(notificationType as NotificationTypes);
 }
 
-export function isNotificationOffset(event: string): event is NotificationOffset {
-	return NOTIFICATION_OFFSETS.includes(event as NotificationOffset);
+export function isNotificationOffset(
+	notificationType: unknown,
+): notificationType is NotificationOffset {
+	return NOTIFICATION_OFFSETS.includes(notificationType as NotificationOffset);
 }
 
-export default class Notification {
-	public static readonly cache = new Collection<Snowflake, Notification>();
+export async function setup(
+	interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
+	data: NotificationPacket,
+) {
+	await pg<NotificationPacket>(Table.Notifications)
+		.insert(data, "*")
+		.onConflict(["guild_id", "type"])
+		.merge();
 
-	public readonly guildId: NotificationData["guildId"];
+	const responseObject = {
+		components: [],
+		content: "Notifications have been modified.",
+		embeds: [await embed(interaction)],
+	};
 
-	public pollutedGeyserChannelId!: NotificationData["pollutedGeyserChannelId"];
+	await (interaction instanceof ChatInputCommandInteraction
+		? interaction.reply({ ...responseObject, flags: MessageFlags.Ephemeral })
+		: interaction.update(responseObject));
+}
 
-	public pollutedGeyserRoleId!: NotificationData["pollutedGeyserRoleId"];
+export async function unset(
+	interaction: ChatInputCommandInteraction<"cached">,
+	notificationType: NotificationTypes,
+) {
+	const { guildId } = interaction;
 
-	public pollutedGeyserSendable!: NotificationData["pollutedGeyserSendable"];
+	await pg<NotificationPacket>(Table.Notifications)
+		.delete()
+		.where({ guild_id: guildId, type: notificationType });
 
-	public pollutedGeyserOffset!: NotificationData["pollutedGeyserOffset"];
+	await interaction.reply({
+		content: "Notifications have been modified.",
+		embeds: [await embed(interaction)],
+		flags: MessageFlags.Ephemeral,
+	});
+}
 
-	public grandmaChannelId!: NotificationData["grandmaChannelId"];
+export async function deleteNotifications(guildId: Snowflake) {
+	await pg<NotificationPacket>(Table.Notifications).delete().where({ guild_id: guildId });
+}
 
-	public grandmaRoleId!: NotificationData["grandmaRoleId"];
+export async function checkSendable(client: Client<true>, guildId: Snowflake) {
+	// Can the guild be accessed?
+	const guild = client.guilds.cache.get(guildId);
 
-	public grandmaSendable!: NotificationData["grandmaSendable"];
-
-	public grandmaOffset!: NotificationData["grandmaOffset"];
-
-	public turtleChannelId!: NotificationData["turtleChannelId"];
-
-	public turtleRoleId!: NotificationData["turtleRoleId"];
-
-	public turtleSendable!: NotificationData["turtleSendable"];
-
-	public turtleOffset!: NotificationData["turtleOffset"];
-
-	public eyeOfEdenChannelId!: NotificationData["eyeOfEdenChannelId"];
-
-	public eyeOfEdenRoleId!: NotificationData["eyeOfEdenRoleId"];
-
-	public eyeOfEdenSendable!: NotificationData["eyeOfEdenSendable"];
-
-	public dailyResetChannelId!: NotificationData["dailyResetChannelId"];
-
-	public dailyResetRoleId!: NotificationData["dailyResetRoleId"];
-
-	public dailyResetSendable!: NotificationData["dailyResetSendable"];
-
-	public issChannelId!: NotificationData["issChannelId"];
-
-	public issRoleId!: NotificationData["issRoleId"];
-
-	public issSendable!: NotificationData["issSendable"];
-
-	public regularShardEruptionChannelId!: NotificationData["regularShardEruptionChannelId"];
-
-	public regularShardEruptionRoleId!: NotificationData["regularShardEruptionRoleId"];
-
-	public regularShardEruptionSendable!: NotificationData["regularShardEruptionSendable"];
-
-	public regularShardEruptionOffset!: NotificationData["regularShardEruptionOffset"];
-
-	public strongShardEruptionChannelId!: NotificationData["strongShardEruptionChannelId"];
-
-	public strongShardEruptionRoleId!: NotificationData["strongShardEruptionRoleId"];
-
-	public strongShardEruptionSendable!: NotificationData["strongShardEruptionSendable"];
-
-	public strongShardEruptionOffset!: NotificationData["strongShardEruptionOffset"];
-
-	public auroraChannelId!: NotificationData["auroraChannelId"];
-
-	public auroraRoleId!: NotificationData["auroraRoleId"];
-
-	public auroraSendable!: NotificationData["auroraSendable"];
-
-	public auroraOffset!: NotificationData["auroraOffset"];
-
-	public passageChannelId!: NotificationData["passageChannelId"];
-
-	public passageRoleId!: NotificationData["passageRoleId"];
-
-	public passageSendable!: NotificationData["passageSendable"];
-
-	public passageOffset!: NotificationData["passageOffset"];
-
-	public aviarysFireworkFestivalChannelId!: NotificationData["aviarysFireworkFestivalChannelId"];
-
-	public aviarysFireworkFestivalRoleId!: NotificationData["aviarysFireworkFestivalRoleId"];
-
-	public aviarysFireworkFestivalSendable!: NotificationData["aviarysFireworkFestivalSendable"];
-
-	public dragonChannelId!: NotificationData["dragonChannelId"];
-
-	public dragonRoleId!: NotificationData["dragonRoleId"];
-
-	public dragonSendable!: NotificationData["dragonSendable"];
-
-	public constructor(notification: NotificationPacket) {
-		this.guildId = notification.guild_id;
-		this.patch(notification);
+	if (!guild) {
+		// Just nuke everything.
+		await deleteNotifications(guildId);
+		return;
 	}
 
-	private patch(data: NotificationPatchData) {
-		this.pollutedGeyserChannelId = data.polluted_geyser_channel_id;
-		this.pollutedGeyserRoleId = data.polluted_geyser_role_id;
-		this.pollutedGeyserSendable = data.polluted_geyser_sendable;
-		this.pollutedGeyserOffset = data.polluted_geyser_offset;
-		this.grandmaChannelId = data.grandma_channel_id;
-		this.grandmaRoleId = data.grandma_role_id;
-		this.grandmaSendable = data.grandma_sendable;
-		this.grandmaOffset = data.grandma_offset;
-		this.turtleChannelId = data.turtle_channel_id;
-		this.turtleRoleId = data.turtle_role_id;
-		this.turtleSendable = data.turtle_sendable;
-		this.turtleOffset = data.turtle_offset;
-		this.eyeOfEdenChannelId = data.eye_of_eden_channel_id;
-		this.eyeOfEdenRoleId = data.eye_of_eden_role_id;
-		this.eyeOfEdenSendable = data.eye_of_eden_sendable;
-		this.dailyResetChannelId = data.daily_reset_channel_id;
-		this.dailyResetRoleId = data.daily_reset_role_id;
-		this.dailyResetSendable = data.daily_reset_sendable;
-		this.issChannelId = data.iss_channel_id;
-		this.issRoleId = data.iss_role_id;
-		this.issSendable = data.iss_sendable;
-		this.regularShardEruptionChannelId = data.regular_shard_eruption_channel_id;
-		this.regularShardEruptionRoleId = data.regular_shard_eruption_role_id;
-		this.regularShardEruptionSendable = data.regular_shard_eruption_sendable;
-		this.regularShardEruptionOffset = data.regular_shard_eruption_offset;
-		this.strongShardEruptionChannelId = data.strong_shard_eruption_channel_id;
-		this.strongShardEruptionRoleId = data.strong_shard_eruption_role_id;
-		this.strongShardEruptionSendable = data.strong_shard_eruption_sendable;
-		this.strongShardEruptionOffset = data.strong_shard_eruption_offset;
-		this.auroraChannelId = data.aurora_channel_id;
-		this.auroraRoleId = data.aurora_role_id;
-		this.auroraSendable = data.aurora_sendable;
-		this.auroraOffset = data.aurora_offset;
-		this.passageChannelId = data.passage_channel_id;
-		this.passageRoleId = data.passage_role_id;
-		this.passageSendable = data.passage_sendable;
-		this.passageOffset = data.passage_offset;
-		this.aviarysFireworkFestivalChannelId = data.aviarys_firework_festival_channel_id;
-		this.aviarysFireworkFestivalRoleId = data.aviarys_firework_festival_role_id;
-		this.aviarysFireworkFestivalSendable = data.aviarys_firework_festival_sendable;
-		this.dragonChannelId = data.dragon_channel_id;
-		this.dragonRoleId = data.dragon_role_id;
-		this.dragonSendable = data.dragon_sendable;
-	}
+	const notificationPackets = await pg<NotificationPacket>(Table.Notifications)
+		.select(["guild_id", "type", "channel_id", "role_id"])
+		.where({ guild_id: guildId });
 
-	public static async setup(
-		interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
-		data: NotificationInsertQuery | NotificationUpdateQuery,
-	) {
-		const { guildId } = interaction;
-		let notification = this.cache.get(guildId);
+	const me = await guild.members.fetchMe();
 
-		if (notification) {
-			const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications)
-				.update(data)
-				.where({ guild_id: notification.guildId })
-				.returning("*");
-
-			notification.patch(notificationPacket!);
-		} else {
-			const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications).insert(
-				data,
-				"*",
-			);
-
-			notification = new this(notificationPacket!);
-			this.cache.set(notification.guildId, notification);
-		}
-
-		const responseObject = {
-			components: [],
-			content: "Notifications have been modified.",
-			embeds: [await notification.embed(interaction)],
-		} satisfies InteractionReplyOptions | InteractionUpdateOptions;
-
-		await (interaction instanceof ChatInputCommandInteraction
-			? interaction.reply({ ...responseObject, flags: MessageFlags.Ephemeral })
-			: interaction.update(responseObject));
-	}
-
-	public async unset(
-		interaction: ChatInputCommandInteraction<"cached">,
-		data: NotificationUpdateQuery,
-	) {
-		const { guildId } = interaction;
-
-		const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications)
-			.update(data)
-			.where({ guild_id: guildId })
-			.returning("*");
-
-		this.patch(notificationPacket!);
-
-		await interaction.reply({
-			content: "Notifications have been modified.",
-			embeds: [await this.embed(interaction)],
-			ephemeral: true,
-		});
-	}
-
-	public static async delete(guildId: Snowflake) {
-		await pg<NotificationPacket>(Table.Notifications).delete().where({ guild_id: guildId });
-		this.cache.delete(guildId);
-	}
-
-	private static isSendable(
-		me: GuildMember,
-		channelId: Snowflake | null,
-		roleId: Snowflake | null,
-	) {
-		if (!(channelId && roleId)) {
-			return false;
-		}
-
-		const channel = me.guild.channels.cache.get(channelId);
-		const role = me.guild.roles.cache.get(roleId);
-
-		return Boolean(
-			channel &&
-				isNotificationChannel(channel) &&
-				role &&
-				isNotificationSendable(channel, role, me),
-		);
-	}
-
-	public static async checkSendable(client: Client<true>, id: Snowflake) {
-		const notification = this.cache.get(id);
-
-		if (!notification) {
-			return;
-		}
-
-		// Can the guild be accessed?
-		const guild = client.guilds.cache.get(id);
-
-		if (!guild) {
-			// Just nuke everything.
-			await this.delete(id);
-			return;
-		}
-
-		const me = await guild.members.fetchMe();
-
-		// Check if we can still send to all the guild's notification channels.
-		const {
-			pollutedGeyserChannelId,
-			pollutedGeyserRoleId,
-			grandmaChannelId,
-			grandmaRoleId,
-			turtleChannelId,
-			turtleRoleId,
-			eyeOfEdenChannelId,
-			eyeOfEdenRoleId,
-			dailyResetChannelId,
-			dailyResetRoleId,
-			passageChannelId,
-			passageRoleId,
-			auroraChannelId,
-			auroraRoleId,
-			regularShardEruptionChannelId,
-			regularShardEruptionRoleId,
-			strongShardEruptionChannelId,
-			strongShardEruptionRoleId,
-			issChannelId,
-			issRoleId,
-			aviarysFireworkFestivalChannelId,
-			aviarysFireworkFestivalRoleId,
-			dragonChannelId,
-			dragonRoleId,
-		} = notification;
-
-		const [notificationPacket] = await pg<NotificationPacket>(Table.Notifications)
+	// Check if we can still send to all the guild's notification channels.
+	const promises = notificationPackets.map((notificationPacket) =>
+		pg<NotificationPacket>(Table.Notifications)
 			.update({
-				polluted_geyser_sendable: this.isSendable(
-					me,
-					pollutedGeyserChannelId,
-					pollutedGeyserRoleId,
-				),
-				grandma_sendable: this.isSendable(me, grandmaChannelId, grandmaRoleId),
-				turtle_sendable: this.isSendable(me, turtleChannelId, turtleRoleId),
-				eye_of_eden_sendable: this.isSendable(me, eyeOfEdenChannelId, eyeOfEdenRoleId),
-				daily_reset_sendable: this.isSendable(me, dailyResetChannelId, dailyResetRoleId),
-				passage_sendable: this.isSendable(me, passageChannelId, passageRoleId),
-				aurora_sendable: this.isSendable(me, auroraChannelId, auroraRoleId),
-				regular_shard_eruption_sendable: this.isSendable(
-					me,
-					regularShardEruptionChannelId,
-					regularShardEruptionRoleId,
-				),
-				strong_shard_eruption_sendable: this.isSendable(
-					me,
-					strongShardEruptionChannelId,
-					strongShardEruptionRoleId,
-				),
-				iss_sendable: this.isSendable(me, issChannelId, issRoleId),
-				aviarys_firework_festival_sendable: this.isSendable(
-					me,
-					aviarysFireworkFestivalChannelId,
-					aviarysFireworkFestivalRoleId,
-				),
-				dragon_sendable: this.isSendable(me, dragonChannelId, dragonRoleId),
+				sendable: isSendable(me, notificationPacket.channel_id, notificationPacket.role_id),
 			})
-			.where({ guild_id: id })
-			.returning("*");
+			.where({ guild_id: notificationPacket.guild_id, type: notificationPacket.type })
+			.returning("*"),
+	);
 
-		notification.patch(notificationPacket!);
+	await Promise.all(promises);
+}
+
+function isSendable(me: GuildMember, channelId: Snowflake | null, roleId: Snowflake | null) {
+	if (!(channelId && roleId)) {
+		return false;
 	}
 
-	public async embed(
-		interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
-	) {
-		const me = await interaction.guild.members.fetchMe();
+	const channel = me.guild.channels.cache.get(channelId);
+	const role = me.guild.roles.cache.get(roleId);
 
-		const {
-			pollutedGeyserChannelId,
-			pollutedGeyserRoleId,
-			pollutedGeyserOffset,
-			grandmaChannelId,
-			grandmaRoleId,
-			grandmaOffset,
-			turtleChannelId,
-			turtleRoleId,
-			turtleOffset,
-			eyeOfEdenChannelId,
-			eyeOfEdenRoleId,
-			dailyResetChannelId,
-			dailyResetRoleId,
-			issChannelId,
-			issRoleId,
-			regularShardEruptionChannelId,
-			regularShardEruptionRoleId,
-			regularShardEruptionOffset,
-			strongShardEruptionChannelId,
-			strongShardEruptionRoleId,
-			strongShardEruptionOffset,
-			auroraChannelId,
-			auroraRoleId,
-			auroraOffset,
-			passageChannelId,
-			passageRoleId,
-			passageOffset,
-			aviarysFireworkFestivalChannelId,
-			aviarysFireworkFestivalRoleId,
-			dragonChannelId,
-			dragonRoleId,
-		} = this;
+	return Boolean(
+		channel && isNotificationChannel(channel) && role && isNotificationSendable(channel, role, me),
+	);
+}
 
-		return new EmbedBuilder()
-			.setColor(DEFAULT_EMBED_COLOUR)
-			.setFields(
-				{
-					name: NotificationEvent.PollutedGeyser,
-					value: this.overviewValue(
-						me,
-						pollutedGeyserChannelId,
-						pollutedGeyserRoleId,
-						pollutedGeyserOffset,
-					),
-					inline: true,
-				},
-				{
-					name: NotificationEvent.Grandma,
-					value: this.overviewValue(me, grandmaChannelId, grandmaRoleId, grandmaOffset),
-					inline: true,
-				},
-				{
-					name: NotificationEvent.Turtle,
-					value: this.overviewValue(me, turtleChannelId, turtleRoleId, turtleOffset),
-					inline: true,
-				},
-				{
-					name: NotificationEvent.DailyReset,
-					value: this.overviewValue(me, dailyResetChannelId, dailyResetRoleId),
-					inline: true,
-				},
-				{
-					name: NotificationEvent.ISS,
-					value: this.overviewValue(me, issChannelId, issRoleId),
-					inline: true,
-				},
-				{
-					name: NotificationEvent.EyeOfEden,
-					value: this.overviewValue(me, eyeOfEdenChannelId, eyeOfEdenRoleId),
-					inline: true,
-				},
-				{
-					name: NotificationEvent.RegularShardEruption,
-					value: this.overviewValue(
-						me,
-						regularShardEruptionChannelId,
-						regularShardEruptionRoleId,
-						regularShardEruptionOffset,
-					),
-					inline: true,
-				},
-				{
-					name: NotificationEvent.StrongShardEruption,
-					value: this.overviewValue(
-						me,
-						strongShardEruptionChannelId,
-						strongShardEruptionRoleId,
-						strongShardEruptionOffset,
-					),
-					inline: true,
-				},
-				{
-					name: NotificationEvent.AURORA,
-					value: this.overviewValue(me, auroraChannelId, auroraRoleId, auroraOffset),
-					inline: true,
-				},
-				{
-					name: NotificationEvent.Passage,
-					value: this.overviewValue(me, passageChannelId, passageRoleId, passageOffset),
-					inline: true,
-				},
-				{
-					name: NotificationEvent.AviarysFireworkFestival,
-					value: this.overviewValue(
-						me,
-						aviarysFireworkFestivalChannelId,
-						aviarysFireworkFestivalRoleId,
-					),
-					inline: true,
-				},
-				{
-					name: NotificationEvent.Dragon,
-					value: this.overviewValue(me, dragonChannelId, dragonRoleId),
-					inline: true,
-				},
-			)
-			.setTitle(interaction.guild.name);
-	}
+export async function embed(
+	interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
+) {
+	const { locale } = interaction;
 
-	private overviewValue(
-		member: GuildMember,
-		channelId: Snowflake | null,
-		roleId: Snowflake | null,
-		offset?: number,
-	) {
-		const sending = Notification.isSendable(member, channelId, roleId);
+	const notificationPackets = await pg<NotificationPacket>(Table.Notifications)
+		.select(["type", "channel_id", "role_id", "offset", "sendable"])
+		.where({ guild_id: interaction.guildId });
 
-		return `${channelId ? channelMention(channelId) : "No channel"}\n${roleId ? roleMention(roleId) : "No role"}\n${
-			sending ? "Sending!" : "Stopped!"
-		} ${formatEmoji(sending ? MISCELLANEOUS_EMOJIS.Yes : MISCELLANEOUS_EMOJIS.No)}${typeof offset === "number" ? `\nOffset: ${offset}` : ""}`;
-	}
+	return new EmbedBuilder()
+		.setColor(DEFAULT_EMBED_COLOUR)
+		.setFields(
+			NOTIFICATION_TYPE_VALUES.map((notificationType) => ({
+				name: t(`notification-types.${notificationType}`, {
+					lng: locale,
+					ns: "general",
+				}),
+				value: overviewValue(getOverviewPacket(notificationPackets, notificationType)),
+				inline: true,
+			})),
+		)
+		.setTitle(interaction.guild.name);
+}
+
+function getOverviewPacket(
+	notificationPackets: Pick<
+		NotificationPacket,
+		"type" | "channel_id" | "role_id" | "offset" | "sendable"
+	>[],
+	notificationType: NotificationTypes,
+) {
+	return notificationPackets.find((packet) => packet.type === notificationType);
+}
+
+function overviewValue(
+	notificationPacket?: Pick<
+		NotificationPacket,
+		"type" | "channel_id" | "role_id" | "offset" | "sendable"
+	>,
+) {
+	const channelId = notificationPacket?.channel_id;
+	const roleId = notificationPacket?.role_id;
+	const offset = notificationPacket?.offset;
+	const sendable = notificationPacket?.sendable;
+
+	return [
+		channelId ? channelMention(channelId) : "No channel",
+		roleId ? roleMention(roleId) : "No role",
+		sendable
+			? `Sending! ${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`
+			: `Stopped! ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`,
+		`Offset: ${offset ?? "N/A"}`,
+	].join("\n");
 }

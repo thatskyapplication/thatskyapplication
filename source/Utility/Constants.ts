@@ -98,22 +98,23 @@ export const NOTIFICATION_CHANNEL_TYPES = [
 	ChannelType.GuildAnnouncement,
 ] as const satisfies Readonly<ChannelType[]>;
 
-export enum NotificationEvent {
-	PollutedGeyser = "Polluted Geyser",
-	Grandma = "Grandma",
-	Turtle = "Turtle",
-	DailyReset = "Daily Reset",
-	EyeOfEden = "Eye of Eden",
-	ISS = "ISS",
-	RegularShardEruption = "Shard Eruption (Regular)",
-	StrongShardEruption = "Shard Eruption (Strong)",
-	AURORA = "AURORA",
-	Passage = "Passage",
-	AviarysFireworkFestival = "Aviary's Firework Festival",
-	Dragon = "Dragon",
-}
+export const NotificationType = {
+	DailyReset: 0,
+	EyeOfEden: 1,
+	InternationalSpaceStation: 2,
+	Dragon: 3,
+	PollutedGeyser: 4,
+	Grandma: 5,
+	Turtle: 6,
+	RegularShardEruption: 7,
+	StrongShardEruption: 8,
+	AURORA: 9,
+	Passage: 10,
+	AviarysFireworkFestival: 11,
+} as const satisfies Readonly<Record<string, number>>;
 
-export const NOTIFICATION_EVENT_VALUES = Object.values(NotificationEvent);
+export type NotificationTypes = (typeof NotificationType)[keyof typeof NotificationType];
+export const NOTIFICATION_TYPE_VALUES = Object.values(NotificationType);
 
 // Sky profiles.
 export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
