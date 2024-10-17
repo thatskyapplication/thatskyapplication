@@ -454,7 +454,7 @@ export async function findUser(userId: Snowflake, difficulty: GuessDifficultyLev
 	return result;
 }
 
-async function topTenWithUser(userId: Snowflake, difficulty: GuessDifficultyLevel) {
+async function topTen(userId: Snowflake, difficulty: GuessDifficultyLevel) {
 	const column = GuessDifficultyToStreakColumn[difficulty];
 
 	return await pg
@@ -467,7 +467,15 @@ async function topTenWithUser(userId: Snowflake, difficulty: GuessDifficultyLeve
 		.select("user_id", column, "rank")
 		.from("ranked_data")
 		.where("rank", "<=", 10)
-		.unionAll(pg.select("user_id", column, "rank").from("ranked_data").where("user_id", userId))
+		.unionAll(
+			pg
+				.select("user_id", column, "rank")
+				.from("ranked_data")
+				.where("user_id", userId)
+				.whereNotExists(
+					pg.select("*").from("ranked_data").where("rank", "<=", 10).where("user_id", userId),
+				),
+		)
 		.orderBy("rank");
 }
 
@@ -475,22 +483,22 @@ export async function leaderboard(
 	interaction: ChatInputCommandInteraction,
 	difficulty: GuessDifficultyLevel,
 ) {
-	const results = await topTenWithUser(interaction.user.id, difficulty);
+	const topTenResults = await topTen(interaction.user.id, difficulty);
+	const invoker = topTenResults.find((row) => row.user_id === interaction.user.id);
 	const column = GuessDifficultyToStreakColumn[difficulty];
-	const you = results.find((row) => row.user_id === interaction.user.id);
 
 	const embed = new EmbedBuilder()
 		.setColor(DEFAULT_EMBED_COLOUR)
 		.setDescription(
-			results
+			topTenResults
 				.slice(0, 10)
 				.map((row) => `${row.rank}. <@${row.user_id}>: ${row[column]}`)
 				.join("\n"),
 		)
 		.setTitle(`${GuessDifficultyLevelToName[difficulty]} Leaderboard`);
 
-	if (you) {
-		embed.setFooter({ text: `You: #${you.rank} (${you[column]})` });
+	if (invoker) {
+		embed.setFooter({ text: `You: #${invoker.rank} (${invoker[column]})` });
 	}
 
 	await interaction.reply({ embeds: [embed] });
