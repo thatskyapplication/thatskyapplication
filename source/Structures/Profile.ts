@@ -53,7 +53,7 @@ import {
 	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	SKY_PROFILE_UNKNOWN_NAME,
 } from "../Utility/Constants.js";
-import { type SeasonId, SeasonIdToSeasonalEmoji } from "../Utility/catalogue.js";
+import { SeasonIdToSeasonalEmoji, type SeasonIds, isSeasonId } from "../Utility/catalogue.js";
 import {
 	MISCELLANEOUS_EMOJIS,
 	type MiscellaneousEmojis,
@@ -96,7 +96,7 @@ interface ProfileData {
 	description: ProfilePacket["description"];
 	country: ProfilePacket["country"];
 	wingedLight: ProfilePacket["winged_light"];
-	seasons: SeasonId[] | null;
+	seasons: SeasonIds[] | null;
 	platform: PlatformIds[] | null;
 	spirit: ProfilePacket["spirit"];
 	spot: ProfilePacket["spot"];
@@ -111,7 +111,7 @@ export interface ProfileSetData {
 	description?: string | null;
 	country?: string | null;
 	winged_light?: number | null;
-	seasons?: SeasonId[] | null;
+	seasons?: SeasonIds[] | null;
 	platform?: PlatformIds[] | null;
 	spirit?: string | null;
 	spot?: string | null;
@@ -454,7 +454,7 @@ export default class Profile {
 		this.description = data.description;
 		this.country = data.country;
 		this.wingedLight = data.winged_light;
-		this.seasons = data.seasons;
+		this.seasons = data.seasons?.filter((seasonId) => isSeasonId(seasonId)) ?? null;
 		this.platform = data.platform?.filter((platformId) => isPlatformId(platformId)) ?? null;
 		this.spirit = data.spirit;
 		this.spot = data.spot;
@@ -1482,7 +1482,7 @@ export default class Profile {
 								new StringSelectMenuOptionBuilder()
 									.setDefault(currentSeasons?.includes(season.id) ?? false)
 									.setEmoji(season.emoji)
-									.setLabel(t(`seasons.${season.name}`, { lng: locale, ns: "general" }))
+									.setLabel(t(`seasons.${season.id}`, { lng: locale, ns: "general" }))
 									.setValue(String(season.id)),
 							),
 						)
@@ -1571,7 +1571,7 @@ export default class Profile {
 
 	public static setSeasons(interaction: StringSelectMenuInteraction) {
 		return this.set(interaction, {
-			seasons: interaction.values.map((value) => Number(value)),
+			seasons: interaction.values.map((value) => Number(value) as SeasonIds),
 		});
 	}
 

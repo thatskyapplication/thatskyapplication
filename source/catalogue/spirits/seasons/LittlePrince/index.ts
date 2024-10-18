@@ -1,5 +1,5 @@
 import { Season } from "../../../../Structures/Season.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { CAPE_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../../../Utility/emojis.js";
 import BeckoningRuler from "./BeckoningRuler.js";
@@ -11,7 +11,7 @@ import StretchingLamplighter from "./StretchingLamplighter.js";
 import TheRose from "./TheRose.js";
 
 export default new Season({
-	name: SeasonName.LittlePrince,
+	id: SeasonId.LittlePrince,
 	start: skyDate(2_021, 7, 6),
 	end: skyDate(2_021, 9, 20),
 	guide: TheRose,

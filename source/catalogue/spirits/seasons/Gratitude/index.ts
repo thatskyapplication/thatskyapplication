@@ -1,5 +1,5 @@
 import { Season } from "../../../../Structures/Season.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { MASK_EMOJIS, NECKLACE_EMOJIS } from "../../../../Utility/emojis.js";
 import GratitudeGuide from "./GratitudeGuide.js";
@@ -11,7 +11,7 @@ import SassyDrifter from "./SassyDrifter.js";
 import StretchingGuru from "./StretchingGuru.js";
 
 export default new Season({
-	name: SeasonName.Gratitude,
+	id: SeasonId.Gratitude,
 	start: skyDate(2_019, 7, 19, 12),
 	end: skyDate(2_019, 9, 2, 12),
 	guide: GratitudeGuide,

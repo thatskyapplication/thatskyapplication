@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	HAIR_EMOJIS,
@@ -26,7 +26,7 @@ const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp18;
 
 export default new SeasonalSpirit({
 	name: SpiritName.FestivalSpinDancer,
-	season: SeasonName.Rhythm,
+	seasonId: SeasonId.Rhythm,
 	emote,
 	realm: RealmName.DaylightPrairie,
 	offer: {

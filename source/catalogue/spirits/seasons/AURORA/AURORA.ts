@@ -1,6 +1,6 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	HAIR_EMOJIS,
@@ -20,7 +20,7 @@ const emote3Emoji = SpiritEmoteToEmoji[emote3];
 
 export default new GuideSpirit({
 	name: SpiritName.AURORA,
-	season: SeasonName.AURORA,
+	seasonId: SeasonId.AURORA,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
 		current: [

@@ -1,5 +1,5 @@
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import AdmiringActor from "./AdmiringActor.js";
 import FestivalSpinDancer from "./FestivalSpinDancer.js";
@@ -10,7 +10,7 @@ import TroupeGreeter from "./TroupeGreeter.js";
 import TroupeJuggler from "./TroupeJuggler.js";
 
 export default new Season({
-	name: SeasonName.Rhythm,
+	id: SeasonId.Rhythm,
 	start: skyDate(2_020, 1, 24),
 	end: skyDate(2_020, 4, 6),
 	guide: RhythmGuide,

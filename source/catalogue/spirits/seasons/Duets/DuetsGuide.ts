@@ -1,5 +1,5 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	FRIEND_ACTION_EMOJIS,
@@ -12,7 +12,7 @@ import { FriendAction, SpiritName } from "../../../../Utility/spirits.js";
 
 export default new GuideSpirit({
 	name: SpiritName.DuetsGuide,
-	season: SeasonName.Duets,
+	seasonId: SeasonId.Duets,
 	offer: {
 		current: [
 			{ name: "Quest 1", cosmetic: Cosmetic.DuetsGuideQuest1, emoji: MISCELLANEOUS_EMOJIS.Quest },

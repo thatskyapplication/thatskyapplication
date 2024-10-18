@@ -1,5 +1,5 @@
 import { URL } from "node:url";
-import type { Locale } from "discord.js";
+import { Locale } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { CDN_URL, type RealmName } from "../Utility/Constants.js";
@@ -10,11 +10,9 @@ import {
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
-	type SeasonId,
-	type SeasonName,
-	SeasonNameToSeasonId,
-	SeasonNameToSeasonalCandleEmoji,
-	SeasonNameToSeasonalEmoji,
+	SeasonIdToSeasonalCandleEmoji,
+	SeasonIdToSeasonalEmoji,
+	type SeasonIds,
 	resolveAllCosmetics,
 	resolveOffer,
 	snakeCaseName,
@@ -37,9 +35,9 @@ type SeasonalCandlesRotation = Readonly<
  */
 interface SeasonData {
 	/**
-	 * The name of the season.
+	 * The id of the season.
 	 */
-	name: SeasonName;
+	id: SeasonIds;
 	/**
 	 * The start date of the season.
 	 */
@@ -75,9 +73,7 @@ interface SeasonData {
 }
 
 export class Season {
-	public readonly id: SeasonId;
-
-	public readonly name: SeasonName;
+	public readonly id: SeasonIds;
 
 	private readonly snakeCaseName: string;
 
@@ -104,18 +100,18 @@ export class Season {
 	public readonly patchNotesURL: string | null;
 
 	public constructor(data: SeasonData) {
-		this.id = SeasonNameToSeasonId[data.name];
-		this.name = data.name;
-		this.snakeCaseName = snakeCaseName(data.name);
-		this.wikiURL = wikiURL(data.name);
+		this.id = data.id;
+		const seasonName = t(`seasons.${data.id}`, { lng: Locale.EnglishGB, ns: "general" });
+		this.snakeCaseName = snakeCaseName(seasonName);
+		this.wikiURL = wikiURL(seasonName);
 		this.start = data.start;
 		this.end = data.end;
 		this.guide = data.guide;
 		this.spirits = data.spirits;
 		this.items = data.items ? resolveOffer(data.items) : [];
 		this.allCosmetics = data.items ? resolveAllCosmetics(this.items) : [];
-		this.emoji = SeasonNameToSeasonalEmoji[this.name];
-		this.candleEmoji = SeasonNameToSeasonalCandleEmoji[this.name];
+		this.emoji = SeasonIdToSeasonalEmoji[data.id];
+		this.candleEmoji = SeasonIdToSeasonalCandleEmoji[data.id];
 		this.seasonalCandlesRotation = data.seasonalCandlesRotation;
 		this.patchNotesURL = data.patchNotesURL ?? null;
 	}

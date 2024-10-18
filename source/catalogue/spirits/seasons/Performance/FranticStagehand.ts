@@ -1,6 +1,6 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	HAIR_EMOJIS,
 	MASK_EMOJIS,
@@ -20,7 +20,7 @@ const hairEmoji = HAIR_EMOJIS.Hair105;
 
 export default new SeasonalSpirit({
 	name: SpiritName.FranticStagehand,
-	season: SeasonName.Performance,
+	seasonId: SeasonId.Performance,
 	action,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {

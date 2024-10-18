@@ -1,6 +1,6 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	MASK_EMOJIS,
@@ -12,7 +12,7 @@ import { SpiritName } from "../../../../Utility/spirits.js";
 
 export default new GuideSpirit({
 	name: SpiritName.PassageGuide,
-	season: SeasonName.Passage,
+	seasonId: SeasonId.Passage,
 	realm: RealmName.IslesOfDawn,
 	offer: {
 		hasInfographic: false,

@@ -1,6 +1,6 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
@@ -12,7 +12,7 @@ import { SpiritName } from "../../../../Utility/spirits.js";
 
 export default new GuideSpirit({
 	name: SpiritName.TheRose,
-	season: SeasonName.LittlePrince,
+	seasonId: SeasonId.LittlePrince,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		hasInfographic: false,

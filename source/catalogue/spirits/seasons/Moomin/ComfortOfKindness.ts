@@ -1,6 +1,6 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	HAIR_EMOJIS,
@@ -21,7 +21,7 @@ const smallPlaceablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp8
 
 export default new SeasonalSpirit({
 	name: SpiritName.ComfortOfKindness,
-	season: SeasonName.Moomin,
+	seasonId: SeasonId.Moomin,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		hasInfographic: false,

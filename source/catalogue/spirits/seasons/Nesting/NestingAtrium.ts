@@ -1,5 +1,5 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	HAIR_EMOJIS,
 	LARGE_PLACEABLE_PROPS_EMOJIS,
@@ -16,7 +16,7 @@ const { SmallPlaceableProp40 } = SMALL_PLACEABLE_PROPS_EMOJIS;
 
 export default new SeasonalSpirit({
 	name: SpiritName.NestingAtrium,
-	season: SeasonName.Nesting,
+	seasonId: SeasonId.Nesting,
 	offer: {
 		hasInfographic: false,
 		seasonal: [

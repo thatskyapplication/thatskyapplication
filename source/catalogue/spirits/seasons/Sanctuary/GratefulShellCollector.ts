@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -25,7 +25,7 @@ const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp17;
 
 export default new SeasonalSpirit({
 	name: SpiritName.GratefulShellCollector,
-	season: SeasonName.Sanctuary,
+	seasonId: SeasonId.Sanctuary,
 	emote,
 	realm: RealmName.DaylightPrairie,
 	hasMarketingVideo: true,

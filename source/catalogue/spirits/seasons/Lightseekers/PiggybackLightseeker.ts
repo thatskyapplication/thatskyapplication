@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -24,7 +24,7 @@ const capeEmoji = CAPE_EMOJIS.Cape17;
 
 export default new SeasonalSpirit({
 	name: SpiritName.PiggybackLightseeker,
-	season: SeasonName.Lightseekers,
+	seasonId: SeasonId.Lightseekers,
 	action,
 	realm: RealmName.IslesOfDawn,
 	hasMarketingVideo: true,

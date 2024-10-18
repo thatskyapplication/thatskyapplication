@@ -26,8 +26,8 @@ import {
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
-	SeasonName,
-	SeasonNameToSeasonalEmoji,
+	SeasonId,
+	SeasonIdToSeasonalEmoji,
 	resolveCostToString,
 } from "../../Utility/catalogue.js";
 import { skyNow } from "../../Utility/dates.js";
@@ -130,7 +130,7 @@ export default new (class implements AutocompleteCommand {
 		const isSeasonalSpirit = spirit.isSeasonalSpirit();
 		const isGuideSpirit = spirit.isGuideSpirit();
 		const seasonalParsing = isSeasonalSpirit && seasonalOffer;
-		const spiritSeason = isSeasonalSpirit || isGuideSpirit ? spirit.season : null;
+		const spiritSeason = isSeasonalSpirit || isGuideSpirit ? spirit.seasonId : null;
 		const totalCost = seasonalParsing ? spirit.totalCostSeasonal : spirit.totalCost;
 		const totalOffer = totalCost ? resolveCostToString(totalCost).join("") : null;
 
@@ -147,10 +147,10 @@ export default new (class implements AutocompleteCommand {
 			});
 		}
 
-		if (spiritSeason) {
+		if (spiritSeason !== null) {
 			embed.addFields({
 				name: "Season",
-				value: `${formatEmoji(SeasonNameToSeasonalEmoji[spiritSeason])}${t(
+				value: `${formatEmoji(SeasonIdToSeasonalEmoji[spiritSeason])}${t(
 					`seasons.${spiritSeason}`,
 					{
 						lng: locale,
@@ -224,9 +224,9 @@ export default new (class implements AutocompleteCommand {
 			} else {
 				description.push(
 					`⚠️ This ${
-						spiritSeason === SeasonName.Shattering || spiritSeason === SeasonName.Nesting
+						spiritSeason === SeasonId.Shattering || spiritSeason === SeasonId.Nesting
 							? "entity"
-							: spiritSeason === SeasonName.Revival
+							: spiritSeason === SeasonId.Revival
 								? "shop"
 								: "spirit"
 					} has not yet returned.`,
@@ -289,7 +289,9 @@ export default new (class implements AutocompleteCommand {
 							}
 
 							const seasonName =
-								isSeasonalSpirit || spirit.isGuideSpirit() ? spirit.season.toUpperCase() : null;
+								isSeasonalSpirit || spirit.isGuideSpirit()
+									? t(`seasons.${spirit.seasonId}`, { lng: locale, ns: "general" }).toUpperCase()
+									: null;
 
 							return (
 								localisedName.toUpperCase().includes(focused) ||

@@ -1,5 +1,5 @@
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import BelongingGuide from "./BelongingGuide.js";
 import BoogieKid from "./BoogieKid.js";
@@ -10,7 +10,7 @@ import SparklerParent from "./SparklerParent.js";
 import WiseGrandparent from "./WiseGrandparent.js";
 
 export default new Season({
-	name: SeasonName.Belonging,
+	id: SeasonId.Belonging,
 	start: skyDate(2_019, 11, 18),
 	end: skyDate(2_020, 1, 13),
 	guide: BelongingGuide,

@@ -1,5 +1,5 @@
 import { Season } from "../../../../Structures/Season.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -15,7 +15,7 @@ import SeedOfHope from "./SeedOfHope.js";
 import WarriorOfLove from "./WarriorOfLove.js";
 
 export default new Season({
-	name: SeasonName.AURORA,
+	id: SeasonId.AURORA,
 	start: skyDate(2_022, 10, 17),
 	end: skyDate(2_023, 1, 2, 2),
 	guide: AURORA,

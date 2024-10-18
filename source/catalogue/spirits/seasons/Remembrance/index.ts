@@ -1,5 +1,5 @@
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import BereftVeteran from "./BereftVeteran.js";
 import PleadingChild from "./PleadingChild.js";
@@ -8,7 +8,7 @@ import TiptoeingTeaBrewer from "./TiptoeingTeaBrewer.js";
 import WoundedWarrior from "./WoundedWarrior.js";
 
 export default new Season({
-	name: SeasonName.Remembrance,
+	id: SeasonId.Remembrance,
 	start: skyDate(2_023, 1, 16),
 	end: skyDate(2_023, 4, 3),
 	guide: RemembranceGuide,

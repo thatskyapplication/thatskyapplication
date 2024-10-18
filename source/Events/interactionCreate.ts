@@ -110,7 +110,7 @@ import {
 } from "../Structures/ShardEruption.js";
 import { ERROR_RESPONSE } from "../Utility/Constants.js";
 import { isRealm } from "../Utility/Utility.js";
-import { isSeasonName } from "../catalogue/spirits/seasons/index.js";
+import { isSeasonId } from "../Utility/catalogue.js";
 import pino from "../pino.js";
 import type { Event } from "./index.js";
 
@@ -289,9 +289,9 @@ export default {
 				}
 
 				if (customId.startsWith(CATALOGUE_VIEW_SEASON_CUSTOM_ID)) {
-					const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
+					const parsedCustomId = Number(customId.slice(customId.indexOf("§") + 1));
 
-					if (isSeasonName(parsedCustomId)) {
+					if (isSeasonId(parsedCustomId)) {
 						await Catalogue.viewSeason(interaction, parsedCustomId);
 						return;
 					}
@@ -539,9 +539,13 @@ export default {
 					return;
 				}
 
-				if (customId === CATALOGUE_VIEW_SEASON_CUSTOM_ID && isSeasonName(value0)) {
-					await Catalogue.viewSeason(interaction, value0);
-					return;
+				if (customId === CATALOGUE_VIEW_SEASON_CUSTOM_ID) {
+					const seasonId = Number(value0);
+
+					if (isSeasonId(seasonId)) {
+						await Catalogue.viewSeason(interaction, seasonId);
+						return;
+					}
 				}
 
 				if (customId === CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID) {

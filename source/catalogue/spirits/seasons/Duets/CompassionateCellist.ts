@@ -1,5 +1,5 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
 	HELD_PROPS_EMOJIS,
@@ -9,7 +9,7 @@ import { SpiritName } from "../../../../Utility/spirits.js";
 
 export default new SeasonalSpirit({
 	name: SpiritName.CompassionateCellist,
-	season: SeasonName.Duets,
+	seasonId: SeasonId.Duets,
 	offer: {
 		hasInfographic: false,
 		seasonal: [

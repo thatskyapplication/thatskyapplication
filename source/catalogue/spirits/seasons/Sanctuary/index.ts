@@ -1,5 +1,5 @@
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import ChillSunbather from "./ChillSunbather.js";
 import GratefulShellCollector from "./GratefulShellCollector.js";
@@ -10,7 +10,7 @@ import SanctuaryGuide from "./SanctuaryGuide.js";
 import TimidBookworm from "./TimidBookworm.js";
 
 export default new Season({
-	name: SeasonName.Sanctuary,
+	id: SeasonId.Sanctuary,
 	start: skyDate(2_020, 7, 13),
 	end: skyDate(2_020, 9, 21),
 	guide: SanctuaryGuide,

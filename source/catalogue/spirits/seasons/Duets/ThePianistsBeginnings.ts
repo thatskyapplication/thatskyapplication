@@ -1,5 +1,5 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
@@ -16,7 +16,7 @@ const { SmallPlaceableProp74, SmallPlaceableProp75 } = SMALL_PLACEABLE_PROPS_EMO
 
 export default new SeasonalSpirit({
 	name: SpiritName.ThePianistsBeginnings,
-	season: SeasonName.Duets,
+	seasonId: SeasonId.Duets,
 	offer: {
 		hasInfographic: false,
 		seasonal: [

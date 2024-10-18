@@ -1,6 +1,6 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	FACE_ACCESSORY_EMOJIS,
@@ -15,7 +15,7 @@ const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory15;
 
 export default new GuideSpirit({
 	name: SpiritName.AbyssGuide,
-	season: SeasonName.Abyss,
+	seasonId: SeasonId.Abyss,
 	realm: RealmName.GoldenWasteland,
 	offer: {
 		current: [

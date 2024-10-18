@@ -42,7 +42,7 @@ import {
 	resolveSocialLightAreaMap,
 	resolveValidRealm,
 } from "../Utility/Utility.js";
-import { SeasonName, snakeCaseName } from "../Utility/catalogue.js";
+import { SeasonId, type SeasonIds, snakeCaseName } from "../Utility/catalogue.js";
 import { skyToday } from "../Utility/dates.js";
 import { FriendAction, SpiritEmote } from "../Utility/spirits.js";
 import { spirits } from "../catalogue/spirits/index.js";
@@ -103,15 +103,15 @@ interface DailyGuideMessage {
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
 const QUEST_SPIRITS_SEASONS = [
-	SeasonName.Gratitude,
-	SeasonName.Lightseekers,
-	SeasonName.Belonging,
-	SeasonName.Rhythm,
-	SeasonName.Enchantment,
-	SeasonName.Sanctuary,
-	SeasonName.Dreams,
-	SeasonName.Assembly,
-] as const;
+	SeasonId.Gratitude,
+	SeasonId.Lightseekers,
+	SeasonId.Belonging,
+	SeasonId.Rhythm,
+	SeasonId.Enchantment,
+	SeasonId.Sanctuary,
+	SeasonId.Dreams,
+	SeasonId.Assembly,
+] as const satisfies Readonly<SeasonIds[]>;
 
 interface ResolveDailyGuideOptions {
 	pureContent: string;
@@ -136,8 +136,8 @@ type QuestSpirit = (StandardSpirit | (SeasonalSpirit & { season: QuestSpiritSeas
 	realm: ValidRealmName;
 };
 
-function isQuestSpiritsSeason(season: SeasonName): season is QuestSpiritSeasons {
-	return QUEST_SPIRITS_SEASONS.includes(season as QuestSpiritSeasons);
+function isQuestSpiritsSeason(seasonId: SeasonIds): seasonId is QuestSpiritSeasons {
+	return QUEST_SPIRITS_SEASONS.includes(seasonId as QuestSpiritSeasons);
 }
 
 function isQuestSpirit(spirit: ReturnType<typeof spirits>[number]): spirit is QuestSpirit {
@@ -149,8 +149,8 @@ function isQuestSpirit(spirit: ReturnType<typeof spirits>[number]): spirit is Qu
 		return true;
 	}
 
-	if (spirit.isSeasonalSpirit() && isQuestSpiritsSeason(spirit.season)) {
-		return QUEST_SPIRITS_SEASONS.includes(spirit.season);
+	if (spirit.isSeasonalSpirit() && isQuestSpiritsSeason(spirit.seasonId)) {
+		return QUEST_SPIRITS_SEASONS.includes(spirit.seasonId);
 	}
 
 	return false;

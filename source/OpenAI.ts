@@ -1,6 +1,7 @@
 import process from "node:process";
 import { clearTimeout, setTimeout } from "node:timers";
-import type { Message, User } from "discord.js";
+import { Locale, type Message, type User } from "discord.js";
+import { t } from "i18next";
 import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
 import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
@@ -54,13 +55,13 @@ function systemPromptContext(message: Message<true>) {
 
 	if (seasons.length > 0) {
 		seasonsText.push(
-			`- The seasons in Sky are: ${JSON.stringify(seasons.map((season) => ({ name: season.name, start: season.start.toISO(), end: season.end.toISO() })))}.`,
+			`- The seasons in Sky are: ${JSON.stringify(seasons.map((season) => ({ name: t(`seasons.${season.id}`, { lng: Locale.EnglishGB, ns: "general" }), start: season.start.toISO(), end: season.end.toISO() })))}.`,
 		);
 	}
 
 	if (upcomingSeason) {
 		seasonsText.push(
-			`- The upcoming season in Sky is: ${JSON.stringify({ name: upcomingSeason.name, start: upcomingSeason.start.toISO(), end: upcomingSeason.end.toISO() })}.`,
+			`- The upcoming season in Sky is: ${JSON.stringify({ name: t(`seasons.${upcomingSeason.id}`, { lng: Locale.EnglishGB, ns: "general" }), start: upcomingSeason.start.toISO(), end: upcomingSeason.end.toISO() })}.`,
 		);
 	}
 

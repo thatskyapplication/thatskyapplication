@@ -1,6 +1,6 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	FRIEND_ACTION_EMOJIS,
@@ -12,7 +12,7 @@ import { FriendAction, SpiritName } from "../../../../Utility/spirits.js";
 
 export default new GuideSpirit({
 	name: SpiritName.SanctuaryGuide,
-	season: SeasonName.Sanctuary,
+	seasonId: SeasonId.Sanctuary,
 	realm: RealmName.DaylightPrairie,
 	offer: {
 		hasInfographic: false,

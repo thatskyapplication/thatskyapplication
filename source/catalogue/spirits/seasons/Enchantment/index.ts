@@ -1,5 +1,5 @@
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import CrabWalker from "./CrabWalker.js";
 import EnchantmentGuide from "./EnchantmentGuide.js";
@@ -10,7 +10,7 @@ import ScarecrowFarmer from "./ScarecrowFarmer.js";
 import SnoozingCarpenter from "./SnoozingCarpenter.js";
 
 export default new Season({
-	name: SeasonName.Enchantment,
+	id: SeasonId.Enchantment,
 	start: skyDate(2_020, 4, 20),
 	end: skyDate(2_020, 6, 22),
 	guide: EnchantmentGuide,

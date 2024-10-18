@@ -8,7 +8,7 @@ import {
 	REALM_NAME_VALUES,
 	SKY_MAP_VALUES,
 } from "../Utility/Constants.js";
-import { EVENT_NAME_VALUES, SEASON_NAME_VALUES } from "../Utility/catalogue.js";
+import { EVENT_NAME_VALUES, SeasonId, type SeasonIds } from "../Utility/catalogue.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {
@@ -40,7 +40,31 @@ export default {
 			[NotificationType.Passage]: "Passage",
 			[NotificationType.AviarysFireworkFestival]: "Aviary's Firework Festival",
 		} satisfies Record<NotificationTypes, string>,
-		seasons: Object.fromEntries(SEASON_NAME_VALUES.map((season) => [season, season])),
+		seasons: {
+			[SeasonId.Gratitude]: "Season of Gratitude",
+			[SeasonId.Lightseekers]: "Season of Lightseekers",
+			[SeasonId.Belonging]: "Season of Belonging",
+			[SeasonId.Rhythm]: "Season of Rhythm",
+			[SeasonId.Enchantment]: "Season of Enchantment",
+			[SeasonId.Sanctuary]: "Season of Sanctuary",
+			[SeasonId.Prophecy]: "Season of Prophecy",
+			[SeasonId.Dreams]: "Season of Dreams",
+			[SeasonId.Assembly]: "Season of Assembly",
+			[SeasonId.LittlePrince]: "Season of the Little Prince",
+			[SeasonId.Flight]: "Season of Flight",
+			[SeasonId.Abyss]: "Season of Abyss",
+			[SeasonId.Performance]: "Season of Performance",
+			[SeasonId.Shattering]: "Season of Shattering",
+			[SeasonId.AURORA]: "Season of AURORA",
+			[SeasonId.Remembrance]: "Season of Remembrance",
+			[SeasonId.Passage]: "The Season of Passage",
+			[SeasonId.Moments]: "The Season of Moments",
+			[SeasonId.Revival]: "Season of Revival",
+			[SeasonId.NineColouredDeer]: "Season of the Nine-Coloured Deer",
+			[SeasonId.Nesting]: "Season of Nesting",
+			[SeasonId.Duets]: "Season of Duets",
+			[SeasonId.Moomin]: "Season of Moomin",
+		} satisfies Record<SeasonIds, string>,
 		events: Object.fromEntries(EVENT_NAME_VALUES.map((eventName) => [eventName, eventName])),
 		"shard-eruption": "Shard Eruption",
 		"shard-eruption-none": "None",

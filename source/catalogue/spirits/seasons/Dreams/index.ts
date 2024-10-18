@@ -1,5 +1,5 @@
 import { Season } from "../../../../Structures/Season.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { NECKLACE_EMOJIS } from "../../../../Utility/emojis.js";
 import BearhugHermit from "./BearhugHermit.js";
@@ -9,7 +9,7 @@ import PeekingPostman from "./PeekingPostman.js";
 import SpinningMentor from "./SpinningMentor.js";
 
 export default new Season({
-	name: SeasonName.Dreams,
+	id: SeasonId.Dreams,
 	start: skyDate(2_021, 1, 4),
 	end: skyDate(2_021, 3, 15),
 	guide: DreamsGuide,

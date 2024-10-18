@@ -1,6 +1,6 @@
 import { Season } from "../../../../Structures/Season.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
@@ -14,7 +14,7 @@ import SpiritOfAdventure from "./SpiritOfAdventure.js";
 import TheMoominStorybook from "./TheMoominStorybook.js";
 
 export default new Season({
-	name: SeasonName.Moomin,
+	id: SeasonId.Moomin,
 	start: skyDate(2_024, 10, 14),
 	end: skyDate(2_024, 12, 30),
 	guide: TheMoominStorybook,

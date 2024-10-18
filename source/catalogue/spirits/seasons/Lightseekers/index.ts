@@ -1,5 +1,5 @@
 import { Season } from "../../../../Structures/Season.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { HELD_PROPS_EMOJIS, NECKLACE_EMOJIS } from "../../../../Utility/emojis.js";
 import CrabWhisperer from "./CrabWhisperer.js";
@@ -11,7 +11,7 @@ import ShushingLightScholar from "./ShushingLightScholar.js";
 import TwirlingChampion from "./TwirlingChampion.js";
 
 export default new Season({
-	name: SeasonName.Lightseekers,
+	id: SeasonId.Lightseekers,
 	start: skyDate(2_019, 9, 23, 12),
 	end: skyDate(2_019, 11, 11, 12),
 	guide: LightseekerGuide,

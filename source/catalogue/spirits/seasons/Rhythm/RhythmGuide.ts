@@ -1,11 +1,11 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import { HAIR_EMOJIS, MASK_EMOJIS, NECKLACE_EMOJIS } from "../../../../Utility/emojis.js";
 import { SpiritName } from "../../../../Utility/spirits.js";
 
 export default new GuideSpirit({
 	name: SpiritName.RhythmGuide,
-	season: SeasonName.Rhythm,
+	seasonId: SeasonId.Rhythm,
 	offer: {
 		current: [
 			{ name: "Pendant", cosmetic: Cosmetic.RhythmPendant, emoji: NECKLACE_EMOJIS.Necklace04 },

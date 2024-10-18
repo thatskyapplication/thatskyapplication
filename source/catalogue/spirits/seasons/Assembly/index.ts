@@ -1,5 +1,5 @@
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonName } from "../../../../Utility/catalogue.js";
+import { SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import AssemblyGuide from "./AssemblyGuide.js";
 import BaffledBotanist from "./BaffledBotanist.js";
@@ -10,7 +10,7 @@ import ScaredyCadet from "./ScaredyCadet.js";
 import ScoldingStudent from "./ScoldingStudent.js";
 
 export default new Season({
-	name: SeasonName.Assembly,
+	id: SeasonId.Assembly,
 	start: skyDate(2_021, 4, 5),
 	end: skyDate(2_021, 6, 14),
 	guide: AssemblyGuide,

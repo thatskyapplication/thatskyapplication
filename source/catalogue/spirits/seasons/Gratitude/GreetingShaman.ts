@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	HELD_PROPS_EMOJIS,
@@ -22,7 +22,7 @@ const heldProp = HELD_PROPS_EMOJIS.HeldProp08;
 
 export default new SeasonalSpirit({
 	name: SpiritName.GreetingShaman,
-	season: SeasonName.Gratitude,
+	seasonId: SeasonId.Gratitude,
 	emote,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {

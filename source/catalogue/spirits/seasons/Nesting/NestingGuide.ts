@@ -1,5 +1,5 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
@@ -10,7 +10,7 @@ import { SpiritName } from "../../../../Utility/spirits.js";
 
 export default new GuideSpirit({
 	name: SpiritName.NestingGuide,
-	season: SeasonName.Nesting,
+	seasonId: SeasonId.Nesting,
 	offer: {
 		current: [
 			{ name: "Quest 1", cosmetic: Cosmetic.NestingGuideQuest1, emoji: MISCELLANEOUS_EMOJIS.Quest },

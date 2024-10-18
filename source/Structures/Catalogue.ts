@@ -28,9 +28,11 @@ import {
 	NO_EVENT_OFFER_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
-	SeasonName,
-	SeasonNameToSeasonalEmoji,
+	SeasonId,
+	SeasonIdToSeasonalEmoji,
+	type SeasonIds,
 	addCosts,
+	isSeasonId,
 	resolveAllCosmetics,
 	resolveCostToString,
 } from "../Utility/catalogue.js";
@@ -50,7 +52,6 @@ import {
 	STANDARD_SPIRITS,
 } from "../catalogue/spirits/realms/index.js";
 import {
-	isSeasonName,
 	resolveReturningSpirits,
 	resolveTravellingSpirit,
 	skyCurrentSeason,
@@ -355,7 +356,7 @@ export class Catalogue {
 		const currentSeasonButton = new ButtonBuilder()
 			.setCustomId(
 				currentSeason
-					? `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${currentSeason.name}`
+					? `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${currentSeason.id}`
 					: // This would not happen, but it's here to satisfy the API.
 						CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
 			)
@@ -406,7 +407,7 @@ export class Catalogue {
 
 		if (currentTravellingSpirit) {
 			currentTravellingSpiritButton.setEmoji(
-				SeasonNameToSeasonalEmoji[currentTravellingSpirit.season],
+				SeasonIdToSeasonalEmoji[currentTravellingSpirit.seasonId],
 			);
 		}
 
@@ -423,11 +424,11 @@ export class Catalogue {
 
 		if (
 			currentReturningSpirits?.every(
-				(returningSpirit) => returningSpirit.season === currentReturningSpirits[0]!.season,
+				(returningSpirit) => returningSpirit.seasonId === currentReturningSpirits[0]!.seasonId,
 			)
 		) {
 			currentReturningSpiritsButton.setEmoji(
-				SeasonNameToSeasonalEmoji[currentReturningSpirits[0]!.season],
+				SeasonIdToSeasonalEmoji[currentReturningSpirits[0]!.seasonId],
 			);
 		}
 
@@ -746,13 +747,13 @@ export class Catalogue {
 								const percentage = catalogue.seasonProgress([season], true);
 
 								return new StringSelectMenuOptionBuilder()
-									.setEmoji(SeasonNameToSeasonalEmoji[season.name])
+									.setEmoji(SeasonIdToSeasonalEmoji[season.id])
 									.setLabel(
-										`${t(`seasons.${season.name}`, { lng: locale, ns: "general" })}${
+										`${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}${
 											percentage === null ? "" : ` (${percentage}%)`
 										}`,
 									)
-									.setValue(season.name);
+									.setValue(String(season.id));
 							}),
 						)
 						.setPlaceholder("Select a season!"),
@@ -772,7 +773,7 @@ export class Catalogue {
 
 	public static async viewSeason(
 		interaction: ButtonInteraction | StringSelectMenuInteraction,
-		seasonName: SeasonName,
+		seasonId: SeasonIds,
 	) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
 			return;
@@ -780,7 +781,7 @@ export class Catalogue {
 
 		const { locale, user } = interaction;
 		const seasons = skySeasons();
-		const season = seasons.find(({ name }) => name === seasonName);
+		const season = seasons.find(({ id }) => id === seasonId);
 
 		if (!season) {
 			pino.error(interaction, "Failed to view a season.");
@@ -812,11 +813,11 @@ export class Catalogue {
 					.setMinValues(0)
 					.setOptions(options)
 					.setPlaceholder(
-						seasonName === SeasonName.Shattering
+						seasonId === SeasonId.Shattering
 							? "Select an entity!"
-							: seasonName === SeasonName.Revival
+							: seasonId === SeasonId.Revival
 								? "Select a spirit or a shop!"
-								: seasonName === SeasonName.Nesting
+								: seasonId === SeasonId.Nesting
 									? "Select a spirit or an entity!"
 									: "Select a spirit!",
 					),
@@ -840,7 +841,7 @@ export class Catalogue {
 			components.push(
 				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId(`${CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID}§${seasonName}`)
+						.setCustomId(`${CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID}§${seasonId}`)
 						.setMaxValues(itemsOptions.length)
 						.setMinValues(0)
 						.setOptions(itemsOptions)
@@ -862,12 +863,12 @@ export class Catalogue {
 					.setLabel("Back")
 					.setStyle(ButtonStyle.Primary),
 				new ButtonBuilder()
-					.setCustomId(`${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${seasonName}`)
+					.setCustomId(`${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${seasonId}`)
 					.setEmoji("🔗")
 					.setLabel("Share")
 					.setStyle(ButtonStyle.Primary),
 				new ButtonBuilder()
-					.setCustomId(`${CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID}§${seasonName}`)
+					.setCustomId(`${CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID}§${seasonId}`)
 					.setDisabled(catalogue.seasonProgress([season]) === 100)
 					.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
 					.setLabel("I have everything!")
@@ -875,13 +876,13 @@ export class Catalogue {
 			),
 			new ActionRowBuilder<ButtonBuilder>().setComponents(
 				new ButtonBuilder()
-					.setCustomId(`${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${before?.name}`)
+					.setCustomId(`${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${before?.id}`)
 					.setDisabled(!before)
 					.setEmoji("⬅️")
 					.setLabel("Previous season")
 					.setStyle(ButtonStyle.Primary),
 				new ButtonBuilder()
-					.setCustomId(`${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${after?.name}`)
+					.setCustomId(`${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${after?.id}`)
 					.setDisabled(!after)
 					.setEmoji("➡️")
 					.setLabel("Next season")
@@ -1052,7 +1053,7 @@ export class Catalogue {
 			const percentage = catalogue.spiritProgress([spirit], true);
 
 			return new StringSelectMenuOptionBuilder()
-				.setEmoji(SeasonNameToSeasonalEmoji[spirit.season])
+				.setEmoji(SeasonIdToSeasonalEmoji[spirit.seasonId])
 				.setLabel(
 					`${t(`spiritNames.${name}`, { lng: locale, ns: "general" })}${
 						percentage === null ? "" : ` (${percentage}%)`
@@ -1154,10 +1155,10 @@ export class Catalogue {
 						? CATALOGUE_VIEW_ELDERS_CUSTOM_ID
 						: isStandardSpirit
 							? `${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${spirit.realm}`
-							: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${spirit.season}`,
+							: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${spirit.seasonId}`,
 				)
 				.setEmoji(
-					isSeasonalSpirit || isGuideSpirit ? SeasonNameToSeasonalEmoji[spirit.season] : "⏪",
+					isSeasonalSpirit || isGuideSpirit ? SeasonIdToSeasonalEmoji[spirit.seasonId] : "⏪",
 				)
 				.setLabel("Back")
 				.setStyle(ButtonStyle.Primary),
@@ -1231,7 +1232,7 @@ export class Catalogue {
 		} else if (isElderSpirit) {
 			spirits = ELDER_SPIRITS;
 		} else if (isSeasonalSpirit || isGuideSpirit) {
-			const season = skySeasons().find(({ name }) => name === spirit.season);
+			const season = skySeasons().find(({ id }) => id === spirit.seasonId);
 
 			if (season) {
 				spirits = [season.guide, ...season.spirits];
@@ -1722,8 +1723,8 @@ export class Catalogue {
 
 		const { customId, user } = interaction;
 		const catalogue = await this.fetch(user.id);
-		const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
-		const season = skySeasons().find((season) => season.name === parsedCustomId);
+		const parsedCustomId = Number(customId.slice(customId.indexOf("§") + 1));
+		const season = skySeasons().find((season) => season.id === parsedCustomId);
 
 		if (!season) {
 			pino.error(interaction, "Unknown season.");
@@ -1743,7 +1744,7 @@ export class Catalogue {
 				]),
 			],
 		});
-		await Catalogue.viewSeason(interaction, season.name);
+		await Catalogue.viewSeason(interaction, season.id);
 	}
 
 	public static async setSeasonItems(interaction: StringSelectMenuInteraction) {
@@ -1753,8 +1754,8 @@ export class Catalogue {
 
 		const { customId, user } = interaction;
 		const catalogue = await this.fetch(user.id);
-		const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
-		const season = skySeasons().find((season) => season.name === parsedCustomId);
+		const parsedCustomId = Number(customId.slice(customId.indexOf("§") + 1));
+		const season = skySeasons().find((season) => season.id === parsedCustomId);
 
 		if (!season) {
 			pino.error(interaction, "Unknown season.");
@@ -1765,7 +1766,7 @@ export class Catalogue {
 			data: catalogue.calculateSetItems(interaction, season.allCosmetics),
 		});
 
-		await Catalogue.viewSeason(interaction, season.name);
+		await Catalogue.viewSeason(interaction, season.id);
 	}
 
 	public static async parseSetItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
@@ -1981,13 +1982,13 @@ export class Catalogue {
 			description.push(`-# [Patch Notes](${season.patchNotesURL})`);
 		}
 
-		const offers: [SpiritName | SeasonName, readonly Item[]][] = [
+		const offers: [SpiritName | SeasonIds, readonly Item[]][] = [
 			[season.guide.name, season.guide.current],
-			...season.spirits.map<[SpiritName | SeasonName, readonly Item[]]>((spirit) => [
+			...season.spirits.map<[SpiritName | SeasonIds, readonly Item[]]>((spirit) => [
 				spirit.name,
 				spirit.items,
 			]),
-			[season.name, season.items],
+			[season.id, season.items],
 		];
 
 		for (const [index, offer] of offers) {
@@ -2000,7 +2001,7 @@ export class Catalogue {
 
 			offerDescriptions.push(
 				`__${
-					isSeasonName(index) ? "Items" : t(`spiritNames.${index}`, { lng: locale, ns: "general" })
+					isSeasonId(index) ? "Items" : t(`spiritNames.${index}`, { lng: locale, ns: "general" })
 				}__\n${offerDescription.join("\n")}`,
 			);
 		}
@@ -2016,7 +2017,7 @@ export class Catalogue {
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
 			.setTitle(
-				`${formatEmoji(SeasonNameToSeasonalEmoji[season.name])} ${t(`seasons.${season.name}`, {
+				`${formatEmoji(SeasonIdToSeasonalEmoji[season.id])} ${t(`seasons.${season.id}`, {
 					lng: locale,
 					ns: "general",
 				})}`,
@@ -2146,12 +2147,13 @@ export class Catalogue {
 					locale,
 				)
 				.setTitle(`${type} Progress`);
-		} else if (isSeasonName(type)) {
-			const emoji = SeasonNameToSeasonalEmoji[type];
+		} else if (isSeasonId(Number(type))) {
+			const seasonId = Number(type) as SeasonIds;
+			const emoji = SeasonIdToSeasonalEmoji[seasonId];
 			backButton.setCustomId(`${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${type}`).setEmoji(emoji);
 
 			embed = catalogue
-				.seasonEmbed(skySeasons().find((season) => season.name === type)!, locale, true)
+				.seasonEmbed(skySeasons().find((season) => season.id === seasonId)!, locale, true)
 				.setTitle(
 					`${formatEmoji(emoji)} ${t(`seasons.${type}`, { lng: locale, ns: "general" })} Progress`,
 				);

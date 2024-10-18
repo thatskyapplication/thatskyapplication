@@ -8,7 +8,7 @@ import {
 	type Item,
 	type ItemCost,
 	type ItemRaw,
-	type SeasonName,
+	type SeasonIds,
 	addCosts,
 	resolveAllCosmetics,
 	resolveOffer,
@@ -83,7 +83,7 @@ interface ElderFriendshipTreeData extends BaseFriendshipTreeData {
 
 interface SeasonalFriendshipTreeData extends BaseFriendshipTreeData {
 	offer: SeasonalFriendshipTreeOfferData;
-	season: SeasonName;
+	seasonId: SeasonIds;
 }
 
 interface GuideFriendshipTreeData extends BaseFriendshipTreeData {
@@ -144,7 +144,7 @@ interface SeasonalSpiritData
 }
 
 interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
-	season: SeasonName;
+	seasonId: SeasonIds;
 }
 
 abstract class BaseFriendshipTree {
@@ -213,7 +213,7 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 		super(seasonalFriendshipTreeData);
 
 		this.seasonal = resolveOffer(seasonalFriendshipTreeData.offer.seasonal, {
-			seasonName: seasonalFriendshipTreeData.season,
+			seasonId: seasonalFriendshipTreeData.seasonId,
 		});
 
 		this.items = this.current.length > 0 ? this.current : this.seasonal;
@@ -320,7 +320,7 @@ export class ElderSpirit extends Mixin(BaseSpirit, ElderFriendshipTree) {
 export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, ExpressiveSpirit) {
 	public override readonly type = SPIRIT_TYPE.Seasonal;
 
-	public readonly season: SeasonName;
+	public readonly seasonId: SeasonIds;
 
 	public readonly marketingVideoURL: string | null;
 
@@ -328,7 +328,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 
 	public constructor(spirit: SeasonalSpiritData) {
 		super(spirit);
-		this.season = spirit.season;
+		this.seasonId = spirit.seasonId;
 
 		this.marketingVideoURL = spirit.hasMarketingVideo
 			? String(new URL(`spirits/${this.snakeCaseName}/marketing_video.mp4`, CDN_URL))
@@ -381,15 +381,15 @@ export class GuideSpirit extends Mixin(BaseSpirit, GuideFriendshipTree) {
 
 	public override readonly current;
 
-	public readonly season: SeasonName;
+	public readonly seasonId: SeasonIds;
 
 	public constructor(spirit: GuideSpiritData) {
 		super(spirit);
 
 		this.current = spirit.offer?.current
-			? resolveOffer(spirit.offer.current, { seasonName: spirit.season })
+			? resolveOffer(spirit.offer.current, { seasonId: spirit.seasonId })
 			: [];
 
-		this.season = spirit.season;
+		this.seasonId = spirit.seasonId;
 	}
 }

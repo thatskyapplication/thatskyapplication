@@ -121,7 +121,7 @@ function getOptions(difficulty: GuessDifficultyLevel) {
 
 		if (spirit.isSeasonalSpirit() || spirit.isGuideSpirit()) {
 			let filtered = currentSeasonalSpirits().filter(
-				(original) => original.name !== spirit.name && original.season === spirit.season,
+				(original) => original.name !== spirit.name && original.seasonId === spirit.seasonId,
 			);
 
 			const answer2 = getRandomElement(filtered)!;

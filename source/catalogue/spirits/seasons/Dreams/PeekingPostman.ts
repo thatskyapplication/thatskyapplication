@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -26,7 +26,7 @@ const capeEmoji = CAPE_EMOJIS.Cape43;
 
 export default new SeasonalSpirit({
 	name: SpiritName.PeekingPostman,
-	season: SeasonName.Dreams,
+	seasonId: SeasonId.Dreams,
 	emote,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {

@@ -1,6 +1,6 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
@@ -21,7 +21,7 @@ const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory26;
 
 export default new SeasonalSpirit({
 	name: SpiritName.NightbirdWhisperer,
-	season: SeasonName.Moments,
+	seasonId: SeasonId.Moments,
 	call,
 	realm: RealmName.DaylightPrairie,
 	offer: {

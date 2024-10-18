@@ -1,5 +1,5 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
@@ -16,7 +16,7 @@ const smallPlaceablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp7
 
 export default new SeasonalSpirit({
 	name: SpiritName.TheCellistsBeginnings,
-	season: SeasonName.Duets,
+	seasonId: SeasonId.Duets,
 	offer: {
 		hasInfographic: false,
 		seasonal: [

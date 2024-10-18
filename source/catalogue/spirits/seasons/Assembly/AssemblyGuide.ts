@@ -1,6 +1,6 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	FRIEND_ACTION_EMOJIS,
@@ -18,7 +18,7 @@ const heartEmoji = MISCELLANEOUS_EMOJIS.Heart;
 
 export default new GuideSpirit({
 	name: SpiritName.AssemblyGuide,
-	season: SeasonName.Assembly,
+	seasonId: SeasonId.Assembly,
 	realm: RealmName.HiddenForest,
 	offer: {
 		hasInfographic: false,

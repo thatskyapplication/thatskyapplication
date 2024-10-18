@@ -5,7 +5,7 @@ import {
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import { skyDate } from "../../../../Utility/dates.js";
 import { CAPE_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
 import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../Utility/spirits.js";
@@ -18,7 +18,7 @@ const capeEmoji = CAPE_EMOJIS.Cape18;
 
 export default new SeasonalSpirit({
 	name: SpiritName.ShushingLightScholar,
-	season: SeasonName.Lightseekers,
+	seasonId: SeasonId.Lightseekers,
 	emote,
 	realm: RealmName.VaultOfKnowledge,
 	hasMarketingVideo: true,

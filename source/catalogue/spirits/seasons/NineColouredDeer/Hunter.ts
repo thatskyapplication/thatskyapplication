@@ -1,6 +1,6 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
 import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonName } from "../../../../Utility/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	HAIR_EMOJIS,
@@ -19,7 +19,7 @@ const capeEmoji = CAPE_EMOJIS.Cape122;
 
 export default new SeasonalSpirit({
 	name: SpiritName.Hunter,
-	season: SeasonName.NineColouredDeer,
+	seasonId: SeasonId.NineColouredDeer,
 	emote,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {

@@ -1,5 +1,5 @@
 import { RealmName } from "../Utility/Constants.js";
-import { SeasonName } from "../Utility/catalogue.js";
+import { SeasonId } from "../Utility/catalogue.js";
 import { SpiritName } from "../Utility/spirits.js";
 
 export default {
@@ -14,7 +14,7 @@ export default {
 			[RealmName.EyeOfEden]: "ดวงตาแห่งเอเดน",
 		},
 		seasons: {
-			[SeasonName.Moomin]: "ฤดูกาลแห่งมูมิน",
+			[SeasonId.Moomin]: "ฤดูกาลแห่งมูมิน",
 		},
 		spiritNames: {
 			[SpiritName.TheMoominStorybook]: "หนังสือนิทานมูมิน",

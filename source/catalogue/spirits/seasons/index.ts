@@ -1,6 +1,5 @@
 import type { DateTime } from "luxon";
 import type { GuideSpirit, SeasonalSpirit } from "../../../Structures/Spirits.js";
-import { SEASON_NAME_VALUES, type SeasonName } from "../../../Utility/catalogue.js";
 import { skyNow } from "../../../Utility/dates.js";
 import AURORA from "./AURORA/index.js";
 import Abyss from "./Abyss/index.js";
@@ -69,10 +68,6 @@ export function skyCurrentSeason(date: DateTime) {
 
 export function skyUpcomingSeason(date: DateTime) {
 	return SEASONS.find(({ start }) => start > date) ?? null;
-}
-
-export function isSeasonName(season: string): season is SeasonName {
-	return SEASON_NAME_VALUES.includes(season as SeasonName);
 }
 
 export function resolveSeasonalSpirit(spiritName: string) {
