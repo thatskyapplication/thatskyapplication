@@ -126,7 +126,7 @@ export async function messageCreateEmojiResponse(message: Message<true>) {
 			openAI.chat.completions.create(
 				{
 					frequency_penalty: 1,
-					max_tokens: 35,
+					max_completion_tokens: 35,
 					messages: [
 						{ role: "system", content: AI_DESCRIPTION_EMOJIS },
 						{ content: message.content, name: parseAIName(message.author), role: "user" },
@@ -160,7 +160,7 @@ export async function messageCreateReactionResponse(message: Message<true>) {
 		const completion = await openAI.chat.completions.create(
 			{
 				frequency_penalty: 1,
-				max_tokens: 35,
+				max_completion_tokens: 35,
 				messages: [
 					{ role: "system", content: AI_DESCRIPTION_REACTION },
 					{ content: message.content, name: parseAIName(message.author), role: "user" },
