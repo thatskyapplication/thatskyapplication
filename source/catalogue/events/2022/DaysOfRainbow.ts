@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
@@ -8,7 +8,7 @@ import {
 } from "../../../Utility/emojis.js";
 
 export default new Event({
-	nameUnique: EventNameUnique.DaysOfRainbow2022,
+	id: EventId.DaysOfRainbow2022,
 	start: skyDate(2_022, 6, 30),
 	end: skyDate(2_022, 7, 14),
 	offer: [

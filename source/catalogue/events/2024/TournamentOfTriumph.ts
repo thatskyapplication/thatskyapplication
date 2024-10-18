@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
@@ -21,7 +21,7 @@ for (
 eventCurrencyAmount.push({ date: skyDate(2_024, 8, 18), amount: 5 });
 
 export default new Event({
-	nameUnique: EventNameUnique.TournamentOfTriumph2024,
+	id: EventId.TournamentOfTriumph2024,
 	start: skyDate(2_024, 7, 29),
 	end: skyDate(2_024, 8, 19),
 	eventCurrency: {

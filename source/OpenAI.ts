@@ -71,13 +71,13 @@ function systemPromptContext(message: Message<true>) {
 
 	if (events.length > 0) {
 		eventText.push(
-			`- The current events in Sky are: ${JSON.stringify(events.map((event) => ({ name: event.name, start: event.start.toISO(), end: event.end.toISO() })))}.`,
+			`- The current events in Sky are: ${JSON.stringify(events.map((event) => ({ name: t(`events.${event.id}`, { lng: Locale.EnglishGB, ns: "general" }), start: event.start.toISO(), end: event.end.toISO() })))}.`,
 		);
 	}
 
 	if (upcoming.length > 0) {
 		eventText.push(
-			`- The upcoming events in Sky are: ${JSON.stringify(upcoming.map((event) => ({ name: event.name, start: event.start.toISO(), end: event.end.toISO() })))}.`,
+			`- The upcoming events in Sky are: ${JSON.stringify(upcoming.map((event) => ({ name: t(`events.${event.id}`, { lng: Locale.EnglishGB, ns: "general" }), start: event.start.toISO(), end: event.end.toISO() })))}.`,
 		);
 	}
 

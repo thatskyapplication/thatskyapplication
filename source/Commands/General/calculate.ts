@@ -223,7 +223,9 @@ export default new (class implements ChatInputCommand {
 
 		const suffix = events
 			.map((event) =>
-				event.eventCurrency.emoji ? formatEmoji(event.eventCurrency.emoji) : event.name,
+				event.eventCurrency.emoji
+					? formatEmoji(event.eventCurrency.emoji)
+					: t(`events.${event.id}`, { lng: locale, ns: "general" }),
 			)
 			.join("");
 
@@ -243,7 +245,7 @@ export default new (class implements ChatInputCommand {
 
 			// Collect pools, if any.
 			const pool = event.eventCurrency.pool?.find((pool) => isDuring(pool.start, pool.end, today));
-			return `${event.eventCurrency.emoji ? formatEmoji(event.eventCurrency.emoji) : `${event.name}: `} A total of ${dailyRemaining} remains daily.${pool ? ` There is currently a pool of ${pool.amount}!` : ""}`;
+			return `${event.eventCurrency.emoji ? formatEmoji(event.eventCurrency.emoji) : `${t(`events.${event.id}`, { lng: locale, ns: "general" })}: `} A total of ${dailyRemaining} remains daily.${pool ? ` There is currently a pool of ${pool.amount}!` : ""}`;
 		});
 
 		const embed = new EmbedBuilder()

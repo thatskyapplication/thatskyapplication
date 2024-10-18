@@ -1,6 +1,6 @@
 import { Event } from "../../../Structures/Event.js";
 import { CDN_URL } from "../../../Utility/Constants.js";
-import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -26,7 +26,7 @@ for (
 }
 
 export default new Event({
-	nameUnique: EventNameUnique.SkyXCinnamorollPopUpCafe2024,
+	id: EventId.SkyXCinnamorollPopUpCafe2024,
 	start: skyDate(2_024, 4, 27),
 	end: skyDate(2_024, 5, 18),
 	eventCurrency: {

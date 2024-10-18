@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
@@ -8,7 +8,7 @@ import {
 } from "../../../Utility/emojis.js";
 
 export default new Event({
-	nameUnique: EventNameUnique.DaysOfSummer2021,
+	id: EventId.DaysOfSummer2021,
 	start: skyDate(2_021, 8, 12),
 	end: skyDate(2_021, 8, 26),
 	offer: [

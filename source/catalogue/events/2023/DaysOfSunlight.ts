@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import { CAPE_EMOJIS, SHOE_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../../Utility/emojis.js";
 
@@ -14,7 +14,7 @@ for (
 }
 
 export default new Event({
-	nameUnique: EventNameUnique.DaysOfSunlight2023,
+	id: EventId.DaysOfSunlight2023,
 	start: skyDate(2_023, 9, 11),
 	end: skyDate(2_023, 9, 25),
 	eventCurrency: {

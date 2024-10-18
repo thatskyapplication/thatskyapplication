@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -11,7 +11,7 @@ import {
 } from "../../../Utility/emojis.js";
 
 export default new Event({
-	nameUnique: EventNameUnique.DaysOfFeast2021,
+	id: EventId.DaysOfFeast2021,
 	start: skyDate(2_021, 12, 20),
 	end: skyDate(2_022, 1, 10),
 	offer: [

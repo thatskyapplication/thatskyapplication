@@ -1,10 +1,10 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import { CAPE_EMOJIS, LARGE_PLACEABLE_PROPS_EMOJIS } from "../../../Utility/emojis.js";
 
 export default new Event({
-	nameUnique: EventNameUnique.DaysOfBloom2022,
+	id: EventId.DaysOfBloom2022,
 	start: skyDate(2_022, 3, 28),
 	end: skyDate(2_022, 4, 11),
 	offer: [

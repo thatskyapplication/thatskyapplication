@@ -379,7 +379,7 @@ export class Catalogue {
 					]
 				: events.reduce<ButtonBuilder[]>((buttons, event) => {
 						const button = new ButtonBuilder()
-							.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${event.nameUnique}`)
+							.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${event.id}`)
 							.setStyle(ButtonStyle.Success);
 
 						if (event.eventCurrency?.emoji) {
@@ -959,14 +959,14 @@ export class Catalogue {
 		const events = skyEvents().filter((event) => event.start.year === year);
 
 		const options = events.map((event) => {
-			const { name, nameUnique } = event;
+			const { id } = event;
 			const percentage = catalogue.eventProgress([event], true);
 
 			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
 				.setLabel(
-					`${t(`events.${name}`, { lng: locale, ns: "general" })}${percentage === null ? "" : ` (${percentage}%)`}`,
+					`${t(`events.${id}`, { lng: locale, ns: "general" })}${percentage === null ? "" : ` (${percentage}%)`}`,
 				)
-				.setValue(nameUnique);
+				.setValue(String(id));
 
 			if (event.eventCurrency?.emoji) {
 				stringSelectMenuOptionBuilder.setEmoji(event.eventCurrency.emoji);
@@ -985,7 +985,7 @@ export class Catalogue {
 			const { offerDescription } = catalogue.embedProgress(event.offer);
 
 			embed.addFields({
-				name: t(`events.${event.name}`, { lng: locale, ns: "general" }),
+				name: t(`events.${event.id}`, { lng: locale, ns: "general" }),
 				value: offerDescription.join("\n"),
 				inline: true,
 			});
@@ -1272,12 +1272,13 @@ export class Catalogue {
 
 		const catalogue = await this.fetch(interaction.user.id);
 
-		const eventName =
+		const eventId = Number(
 			interaction instanceof ButtonInteraction
 				? interaction.customId.slice(interaction.customId.indexOf("§") + 1)
-				: interaction.values[0];
+				: interaction.values[0],
+		);
 
-		const event = skyEvents().find(({ nameUnique }) => nameUnique === eventName);
+		const event = skyEvents().find(({ id }) => id === eventId);
 
 		if (!event) {
 			await interaction.update(ERROR_RESPONSE);
@@ -1297,12 +1298,12 @@ export class Catalogue {
 		}
 
 		const { locale } = interaction;
-		const { name, nameUnique, start, eventCurrency, offer, offerInfographicURL, wikiURL } = event;
+		const { id, start, eventCurrency, offer, offerInfographicURL, wikiURL } = event;
 
 		const embed = new EmbedBuilder()
 			.setColor(DEFAULT_EMBED_COLOUR)
 			.setTitle(
-				`${eventCurrency?.emoji ? formatEmoji(eventCurrency.emoji) : ""}${t(`events.${name}`, {
+				`${eventCurrency?.emoji ? formatEmoji(eventCurrency.emoji) : ""}${t(`events.${id}`, {
 					lng: locale,
 					ns: "general",
 				})}`,
@@ -1340,7 +1341,7 @@ export class Catalogue {
 		if (offer.length > 0) {
 			buttons.addComponents(
 				new ButtonBuilder()
-					.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${nameUnique}`)
+					.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${id}`)
 					.setDisabled(this.eventProgress([event]) === 100)
 					.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
 					.setLabel("I have everything!")
@@ -1362,7 +1363,7 @@ export class Catalogue {
 
 			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
-					.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${nameUnique}`)
+					.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${id}`)
 					.setMaxValues(itemSelectionOptions.length)
 					.setMinValues(0)
 					.setOptions(itemSelectionOptions)
@@ -1375,7 +1376,7 @@ export class Catalogue {
 		components.push(buttons);
 
 		const events = skyEvents().filter((event) => event.start.year === start.year);
-		const index = events.findIndex((event) => event.nameUnique === nameUnique);
+		const index = events.findIndex((event) => event.id === id);
 		const before = events[index - 1];
 		const after = events[index + 1];
 
@@ -1384,13 +1385,13 @@ export class Catalogue {
 		components.push(
 			new ActionRowBuilder<ButtonBuilder>().setComponents(
 				new ButtonBuilder()
-					.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${before?.nameUnique ?? "before"}`)
+					.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${before?.id ?? "before"}`)
 					.setDisabled(!before)
 					.setEmoji("⬅️")
 					.setLabel("Previous event")
 					.setStyle(ButtonStyle.Primary),
 				new ButtonBuilder()
-					.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${after?.nameUnique ?? "after"}`)
+					.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${after?.id ?? "after"}`)
 					.setDisabled(!after)
 					.setEmoji("➡️")
 					.setLabel("Next event")
@@ -1777,8 +1778,9 @@ export class Catalogue {
 		const catalogue = await this.fetch(interaction.user.id);
 		const { customId } = interaction;
 		const resolvedCustomId = customId.slice(customId.indexOf("§") + 1);
+		const resolvedCustomIdNumber = Number(resolvedCustomId);
 		const spirit = spirits().find(({ name }) => name === resolvedCustomId);
-		const event = skyEvents().find(({ nameUnique }) => nameUnique === resolvedCustomId);
+		const event = skyEvents().find(({ id }) => id === resolvedCustomIdNumber);
 
 		if (spirit) {
 			await catalogue.setSpiritItems(interaction, spirit);

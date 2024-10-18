@@ -1,9 +1,9 @@
 import { Event } from "../../../Structures/Event.js";
-import { EventNameUnique } from "../../../Utility/catalogue.js";
+import { EventId } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 
 export default new Event({
-	nameUnique: EventNameUnique.SpringCamping2024,
+	id: EventId.SpringCamping2024,
 	start: skyDate(2_024, 3, 4),
 	end: skyDate(2_024, 3, 11),
 });

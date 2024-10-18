@@ -308,7 +308,7 @@ export default class DailyGuidesDistribution {
 										},
 									)}`,
 									event.resolveInfographicURL(date)!,
-									event.name,
+									t(`events.${event.id}`, { lng: locale, ns: "general" }),
 								),
 							)
 							.join(" | "),

@@ -1,10 +1,10 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import { CAPE_EMOJIS, HAIR_EMOJIS } from "../../../Utility/emojis.js";
 
 export default new Event({
-	nameUnique: EventNameUnique.HalloweenOfficeEvent2019,
+	id: EventId.HalloweenOfficeEvent2019,
 	start: skyDate(2_019, 10, 27),
 	end: skyDate(2_019, 11, 1),
 	offer: [

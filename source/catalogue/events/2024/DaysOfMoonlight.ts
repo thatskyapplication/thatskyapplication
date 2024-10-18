@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
@@ -22,7 +22,7 @@ for (
 }
 
 export default new Event({
-	nameUnique: EventNameUnique.DaysOfMoonlight2024,
+	id: EventId.DaysOfMoonlight2024,
 	start: skyDate(2_024, 9, 16),
 	end: skyDate(2_024, 9, 30),
 	eventCurrency: {

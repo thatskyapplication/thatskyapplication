@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
@@ -20,7 +20,7 @@ for (
 }
 
 export default new Event({
-	nameUnique: EventNameUnique.DaysOfStyle2023,
+	id: EventId.DaysOfStyle2023,
 	start: skyDate(2_023, 10, 2),
 	end: skyDate(2_023, 10, 16),
 	eventCurrency: {

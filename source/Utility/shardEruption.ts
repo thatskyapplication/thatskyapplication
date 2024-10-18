@@ -4,7 +4,7 @@ import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { skyCurrentEvents } from "../catalogue/events/index.js";
 import { CDN_URL, type RealmName, SkyMap, VALID_REALM_NAME } from "./Constants.js";
-import { EventName } from "./catalogue.js";
+import { EventId } from "./catalogue.js";
 import { skyToday } from "./dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "./emojis.js";
 
@@ -165,9 +165,7 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	// https://x.com/whirthun/status/1758229071216152597
 	if (
 		skyMap === SkyMap.JellyfishCove &&
-		skyCurrentEvents(date).some(
-			(event) => event.name === EventName.DaysOfLove && event.start.year === 2_024,
-		)
+		skyCurrentEvents(date).some((event) => event.id === EventId.DaysOfLove2024)
 	) {
 		return null;
 	}

@@ -1,13 +1,11 @@
 import { URL } from "node:url";
-import type { Locale } from "discord.js";
+import { Locale } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { CDN_URL } from "../Utility/Constants.js";
 import {
-	type EventName,
-	EventNameToEventCurrencyEmoji,
-	type EventNameUnique,
-	EventNameUniqueToEventName,
+	EventIdToEventCurrencyEmoji,
+	type EventIds,
 	type Item,
 	type ItemRaw,
 	resolveAllCosmetics,
@@ -24,9 +22,9 @@ import type { EventEmojis } from "../Utility/emojis.js";
  */
 interface EventData {
 	/**
-	 * The unique name of the event.
+	 * The id of the event.
 	 */
-	nameUnique: EventNameUnique;
+	id: EventIds;
 	/**
 	 * The start date of the event.
 	 */
@@ -94,9 +92,9 @@ interface EventCurrencyPool {
 }
 
 export class Event {
-	public readonly name: EventName;
+	public readonly id: EventIds;
 
-	public readonly nameUnique: EventNameUnique;
+	private readonly name: string;
 
 	public readonly start: DateTime;
 
@@ -113,8 +111,8 @@ export class Event {
 	public readonly wikiURL: string;
 
 	public constructor(data: EventData) {
-		this.name = EventNameUniqueToEventName[data.nameUnique];
-		this.nameUnique = data.nameUnique;
+		this.id = data.id;
+		this.name = t(`events.${data.id}`, { lng: Locale.EnglishGB, ns: "general" });
 		this.start = data.start;
 		this.end = data.end;
 
@@ -125,12 +123,12 @@ export class Event {
 						...amount,
 						infographicURL: amount.infographicURL ?? null,
 					})),
-					emoji: EventNameToEventCurrencyEmoji[this.name],
+					emoji: EventIdToEventCurrencyEmoji[data.id],
 					end: data.eventCurrency.end ?? data.end,
 				}
 			: null;
 
-		this.offer = data.offer ? resolveOffer(data.offer, { eventName: this.name }) : [];
+		this.offer = data.offer ? resolveOffer(data.offer, { eventId: data.id }) : [];
 		this.allCosmetics = data.offer ? resolveAllCosmetics(this.offer) : [];
 
 		this.offerInfographicURL = data.offerInfographicURL

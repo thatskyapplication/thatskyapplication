@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import { SHOE_EMOJIS } from "../../../Utility/emojis.js";
 import { SpiritEmote, SpiritEmoteToEmoji } from "../../../Utility/spirits.js";
@@ -8,7 +8,7 @@ const emote = SpiritEmote.CureForMeDance;
 const emoteEmoji = SpiritEmoteToEmoji[emote];
 
 export default new Event({
-	nameUnique: EventNameUnique.AURORAEncoreConcerts2023,
+	id: EventId.AURORAEncoreConcerts2023,
 	start: skyDate(2_023, 8, 23),
 	end: skyDate(2_023, 9, 4),
 	offer: [

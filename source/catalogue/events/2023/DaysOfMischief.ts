@@ -1,6 +1,6 @@
 import { Event } from "../../../Structures/Event.js";
 import { CDN_URL } from "../../../Utility/Constants.js";
-import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	CAPE_EMOJIS,
@@ -25,7 +25,7 @@ for (
 }
 
 export default new Event({
-	nameUnique: EventNameUnique.DaysOfMischief2023,
+	id: EventId.DaysOfMischief2023,
 	start: skyDate(2_023, 10, 23),
 	end: skyDate(2_023, 11, 13),
 	eventCurrency: {

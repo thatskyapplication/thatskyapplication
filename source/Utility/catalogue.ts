@@ -2875,222 +2875,167 @@ const SeasonIdToSeasonalHeartEmoji = {
 	Record<Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>, SeasonEmojis>
 >;
 
-export enum EventName {
-	HalloweenOfficeEvent = "Halloween Office Event",
-	DaysOfGiving = "Days of Giving",
-	DaysOfFeast = "Days of Feast",
-	LunarNewYear = "Lunar New Year",
-	DaysOfLove = "Days of Love",
-	DaysOfSpring = "Days of Spring",
-	DaysOfNature = "Days of Nature",
-	DaysOfHealing = "Days of Healing",
-	DaysOfRainbow = "Days of Rainbow",
-	SkyAnniversary = "Sky Anniversary",
-	DaysOfSummerLights = "Days of Summer Lights",
-	DaysOfMischief = "Days of Mischief",
-	DaysOfFortune = "Days of Fortune",
-	DaysOfBloom = "Days of Bloom",
-	ChildrensDay = "Children's Day",
-	DaysOfSummer = "Days of Summer",
-	KizunaAI = "Kizuna AI",
-	HarmonyHallGrandOpening = "Harmony Hall Grand Opening",
-	DaysOfSunlight = "Days of Sunlight",
-	LazyDays = "Lazy Days",
-	DaysOfColour = "Days of Colour",
-	DaysOfMusic = "Days of Music",
-	AURORAEncoreConcerts = "AURORA Encore Concerts",
-	DaysOfStyle = "Days of Style",
-	AviarysFireworkFestival = "Aviary's Firework Festival",
-	SpringCamping = "Spring Camping",
-	SkyXCinnamorollPopUpCafe = "Sky × Cinnamoroll Pop-Up Cafe",
-	SkyFest = "SkyFest",
-	TournamentOfTriumph = "Tournament of Triumph",
-	DaysOfMoonlight = "Days of Moonlight",
-}
-
-export enum EventNameUnique {
+export const EventId = {
 	// 2019.
-	HalloweenOfficeEvent2019 = "Halloween Office Event 2019",
-	DaysOfGiving2019 = "Days of Giving 2019",
-	DaysOfFeast2019 = "Days of Feast 2019",
+	HalloweenOfficeEvent2019: 0,
+	DaysOfGiving2019: 1,
+	DaysOfFeast2019: 2,
 
 	// 2020.
-	LunarNewYear2020 = "Lunar New Year 2020",
-	DaysOfLove2020 = "Days of Love 2020",
-	DaysOfSpring2020 = "Days of Spring 2020",
-	DaysOfNature2020 = "Days of Nature 2020",
-	DaysOfHealing2020 = "Days of Healing 2020",
-	DaysOfRainbow2020 = "Days of Rainbow 2020",
-	SkyAnniversary2020 = "Sky Anniversary 2020",
-	DaysOfSummerLights2020 = "Days of Summer Lights 2020",
-	DaysOfMischief2020 = "Days of Mischief 2020",
-	DaysOfGiving2020 = "Days of Giving 2020",
-	DaysOfFeast2020 = "Days of Feast 2020",
+	LunarNewYear2020: 3,
+	DaysOfLove2020: 4,
+	DaysOfSpring2020: 5,
+	DaysOfNature2020: 6,
+	DaysOfHealing2020: 7,
+	DaysOfRainbow2020: 8,
+	SkyAnniversary2020: 9,
+	DaysOfSummerLights2020: 10,
+	DaysOfMischief2020: 11,
+	DaysOfGiving2020: 12,
+	DaysOfFeast2020: 13,
 
 	// 2021.
-	DaysOfFortune2021 = "Days of Fortune 2021",
-	DaysOfLove2021 = "Days of Love 2021",
-	DaysOfBloom2021 = "Days of Bloom 2021",
-	DaysOfNature2021 = "Days of Nature 2021",
-	ChildrensDay2021 = "Children's Day 2021",
-	DaysOfRainbow2021 = "Days of Rainbow 2021",
-	SkyAnniversary2021 = "Sky Anniversary 2021",
-	DaysOfSummer2021 = "Days of Summer 2021",
-	DaysOfSummerLights2021 = "Days of Summer Lights 2021",
-	DaysOfGiving2021 = "Days of Giving 2021",
-	DaysOfMischief2021 = "Days of Mischief 2021",
-	DaysOfFeast2021 = "Days of Feast 2021",
+	DaysOfFortune2021: 14,
+	DaysOfLove2021: 15,
+	DaysOfBloom2021: 16,
+	DaysOfNature2021: 17,
+	ChildrensDay2021: 18,
+	DaysOfRainbow2021: 19,
+	SkyAnniversary2021: 20,
+	DaysOfSummer2021: 21,
+	DaysOfSummerLights2021: 22,
+	DaysOfGiving2021: 23,
+	DaysOfMischief2021: 24,
+	DaysOfFeast2021: 25,
 
 	// 2022.
-	DaysOfFortune2022 = "Days of Fortune 2022",
-	DaysOfLove2022 = "Days of Love 2022",
-	KizunaAI2022 = "Kizuna AI 2022",
-	DaysOfBloom2022 = "Days of Bloom 2022",
-	DaysOfNature2022 = "Days of Nature 2022",
-	HarmonyHallGrandOpening2022 = "Harmony Hall Grand Opening 2022",
-	DaysOfRainbow2022 = "Days of Rainbow 2022",
-	SkyAnniversary2022 = "Sky Anniversary 2022",
-	DaysOfSunlight2022 = "Days of Sunlight 2022",
-	LazyDays2022 = "Lazy Days 2022",
-	DaysOfMischief2022 = "Days of Mischief 2022",
-	DaysOfGiving2022 = "Days of Giving 2022",
-	DaysOfFeast2022 = "Days of Feast 2022",
+	DaysOfFortune2022: 26,
+	DaysOfLove2022: 27,
+	KizunaAI2022: 28,
+	DaysOfBloom2022: 29,
+	DaysOfNature2022: 30,
+	HarmonyHallGrandOpening2022: 31,
+	DaysOfRainbow2022: 32,
+	SkyAnniversary2022: 33,
+	DaysOfSunlight2022: 34,
+	LazyDays2022: 35,
+	DaysOfMischief2022: 36,
+	DaysOfGiving2022: 37,
+	DaysOfFeast2022: 38,
 
 	// 2023.
-	DaysOfFortune2023 = "Days of Fortune 2023",
-	DaysOfLove2023 = "Days of Love 2023",
-	DaysOfBloom2023 = "Days of Bloom 2023",
-	DaysOfNature2023 = "Days of Nature 2023",
-	DaysOfColour2023 = "Days of Colour 2023",
-	DaysOfMusic2023 = "Days of Music 2023",
-	SkyAnniversary2023 = "Sky Anniversary 2023",
-	AURORAEncoreConcerts2023 = "AURORA Encore Concerts 2023",
-	DaysOfSunlight2023 = "Days of Sunlight 2023",
-	DaysOfStyle2023 = "Days of Style 2023",
-	DaysOfMischief2023 = "Days of Mischief 2023",
-	DaysOfGiving2023 = "Days of Giving 2023",
-	AviarysFireworkFestival2023 = "Aviary's Firework Festival 2023",
-	DaysOfFeast2023 = "Days of Feast 2023",
+	DaysOfFortune2023: 39,
+	DaysOfLove2023: 40,
+	DaysOfBloom2023: 41,
+	DaysOfNature2023: 42,
+	DaysOfColour2023: 43,
+	DaysOfMusic2023: 44,
+	SkyAnniversary2023: 45,
+	AURORAEncoreConcerts2023: 46,
+	DaysOfSunlight2023: 47,
+	DaysOfStyle2023: 48,
+	DaysOfMischief2023: 49,
+	DaysOfGiving2023: 50,
+	AviarysFireworkFestival2023: 51,
+	DaysOfFeast2023: 52,
 
 	// 2024.
-	DaysOfFortune2024 = "Days of Fortune 2024",
-	DaysOfLove2024 = "Days of Love 2024",
-	SpringCamping2024 = "Spring Camping 2024",
-	DaysOfBloom2024 = "Days of Bloom 2024",
-	SkyXCinnamorollPopUpCafe2024 = "Sky × Cinnamoroll Pop-Up Cafe 2024",
-	DaysOfNature2024 = "Days of Nature 2024",
-	DaysOfColour2024 = "Days of Colour 2024",
-	SkyFest2024 = "Sky Fest 2024",
-	TournamentOfTriumph2024 = "Tournament of Triumph 2024",
-	DaysOfSunlight2024 = "Days of Sunlight 2024",
-	DaysOfMoonlight2024 = "Days of Moonlight 2024",
-	DaysOfStyle2024 = "Days of Style 2024",
-	DaysOfMischief2024 = "Days of Mischief 2024",
-}
+	DaysOfFortune2024: 53,
+	DaysOfLove2024: 54,
+	SpringCamping2024: 55,
+	DaysOfBloom2024: 56,
+	SkyXCinnamorollPopUpCafe2024: 57,
+	DaysOfNature2024: 58,
+	DaysOfColour2024: 59,
+	SkyFest2024: 60,
+	TournamentOfTriumph2024: 61,
+	DaysOfSunlight2024: 62,
+	DaysOfMoonlight2024: 63,
+	DaysOfStyle2024: 64,
+	DaysOfMischief2024: 65,
+} as const satisfies Readonly<Record<string, number>>;
 
-export const EventNameUniqueToEventName = {
-	[EventNameUnique.HalloweenOfficeEvent2019]: EventName.HalloweenOfficeEvent,
-	[EventNameUnique.DaysOfGiving2019]: EventName.DaysOfGiving,
-	[EventNameUnique.DaysOfFeast2019]: EventName.DaysOfFeast,
-	[EventNameUnique.LunarNewYear2020]: EventName.LunarNewYear,
-	[EventNameUnique.DaysOfLove2020]: EventName.DaysOfLove,
-	[EventNameUnique.DaysOfSpring2020]: EventName.DaysOfSpring,
-	[EventNameUnique.DaysOfNature2020]: EventName.DaysOfNature,
-	[EventNameUnique.DaysOfHealing2020]: EventName.DaysOfHealing,
-	[EventNameUnique.DaysOfRainbow2020]: EventName.DaysOfRainbow,
-	[EventNameUnique.SkyAnniversary2020]: EventName.SkyAnniversary,
-	[EventNameUnique.DaysOfSummerLights2020]: EventName.DaysOfSummerLights,
-	[EventNameUnique.DaysOfMischief2020]: EventName.DaysOfMischief,
-	[EventNameUnique.DaysOfGiving2020]: EventName.DaysOfGiving,
-	[EventNameUnique.DaysOfFeast2020]: EventName.DaysOfFeast,
-	[EventNameUnique.DaysOfFortune2021]: EventName.DaysOfFortune,
-	[EventNameUnique.DaysOfLove2021]: EventName.DaysOfLove,
-	[EventNameUnique.DaysOfBloom2021]: EventName.DaysOfBloom,
-	[EventNameUnique.DaysOfNature2021]: EventName.DaysOfNature,
-	[EventNameUnique.ChildrensDay2021]: EventName.ChildrensDay,
-	[EventNameUnique.DaysOfRainbow2021]: EventName.DaysOfRainbow,
-	[EventNameUnique.SkyAnniversary2021]: EventName.SkyAnniversary,
-	[EventNameUnique.DaysOfSummer2021]: EventName.DaysOfSummer,
-	[EventNameUnique.DaysOfSummerLights2021]: EventName.DaysOfSummerLights,
-	[EventNameUnique.DaysOfMischief2021]: EventName.DaysOfMischief,
-	[EventNameUnique.DaysOfGiving2021]: EventName.DaysOfGiving,
-	[EventNameUnique.DaysOfFeast2021]: EventName.DaysOfFeast,
-	[EventNameUnique.DaysOfFortune2022]: EventName.DaysOfFortune,
-	[EventNameUnique.DaysOfLove2022]: EventName.DaysOfLove,
-	[EventNameUnique.KizunaAI2022]: EventName.KizunaAI,
-	[EventNameUnique.DaysOfBloom2022]: EventName.DaysOfBloom,
-	[EventNameUnique.DaysOfNature2022]: EventName.DaysOfNature,
-	[EventNameUnique.HarmonyHallGrandOpening2022]: EventName.HarmonyHallGrandOpening,
-	[EventNameUnique.DaysOfRainbow2022]: EventName.DaysOfRainbow,
-	[EventNameUnique.SkyAnniversary2022]: EventName.SkyAnniversary,
-	[EventNameUnique.DaysOfSunlight2022]: EventName.DaysOfSunlight,
-	[EventNameUnique.LazyDays2022]: EventName.LazyDays,
-	[EventNameUnique.DaysOfMischief2022]: EventName.DaysOfMischief,
-	[EventNameUnique.DaysOfGiving2022]: EventName.DaysOfGiving,
-	[EventNameUnique.DaysOfFeast2022]: EventName.DaysOfFeast,
-	[EventNameUnique.DaysOfFortune2023]: EventName.DaysOfFortune,
-	[EventNameUnique.DaysOfLove2023]: EventName.DaysOfLove,
-	[EventNameUnique.DaysOfBloom2023]: EventName.DaysOfBloom,
-	[EventNameUnique.DaysOfNature2023]: EventName.DaysOfNature,
-	[EventNameUnique.DaysOfColour2023]: EventName.DaysOfColour,
-	[EventNameUnique.DaysOfMusic2023]: EventName.DaysOfMusic,
-	[EventNameUnique.SkyAnniversary2023]: EventName.SkyAnniversary,
-	[EventNameUnique.AURORAEncoreConcerts2023]: EventName.AURORAEncoreConcerts,
-	[EventNameUnique.DaysOfSunlight2023]: EventName.DaysOfSunlight,
-	[EventNameUnique.DaysOfStyle2023]: EventName.DaysOfStyle,
-	[EventNameUnique.DaysOfMischief2023]: EventName.DaysOfMischief,
-	[EventNameUnique.DaysOfGiving2023]: EventName.DaysOfGiving,
-	[EventNameUnique.AviarysFireworkFestival2023]: EventName.AviarysFireworkFestival,
-	[EventNameUnique.DaysOfFeast2023]: EventName.DaysOfFeast,
-	[EventNameUnique.DaysOfFortune2024]: EventName.DaysOfFortune,
-	[EventNameUnique.DaysOfLove2024]: EventName.DaysOfLove,
-	[EventNameUnique.SpringCamping2024]: EventName.SpringCamping,
-	[EventNameUnique.DaysOfBloom2024]: EventName.DaysOfBloom,
-	[EventNameUnique.SkyXCinnamorollPopUpCafe2024]: EventName.SkyXCinnamorollPopUpCafe,
-	[EventNameUnique.DaysOfNature2024]: EventName.DaysOfNature,
-	[EventNameUnique.DaysOfColour2024]: EventName.DaysOfColour,
-	[EventNameUnique.SkyFest2024]: EventName.SkyFest,
-	[EventNameUnique.TournamentOfTriumph2024]: EventName.TournamentOfTriumph,
-	[EventNameUnique.DaysOfSunlight2024]: EventName.DaysOfSunlight,
-	[EventNameUnique.DaysOfMoonlight2024]: EventName.DaysOfMoonlight,
-	[EventNameUnique.DaysOfStyle2024]: EventName.DaysOfStyle,
-	[EventNameUnique.DaysOfMischief2024]: EventName.DaysOfMischief,
-} as const satisfies Readonly<Record<EventNameUnique, EventName>>;
+export type EventIds = (typeof EventId)[keyof typeof EventId];
 
-export const EVENT_NAME_VALUES = Object.values(EventName);
+export const EventIdToEventCurrencyEmoji = {
+	// 2019.
+	[EventId.HalloweenOfficeEvent2019]: null,
+	[EventId.DaysOfGiving2019]: null,
+	[EventId.DaysOfFeast2019]: null,
 
-export const EventNameToEventCurrencyEmoji = {
-	[EventName.HalloweenOfficeEvent]: EVENT_EMOJIS.Mischief,
-	[EventName.DaysOfGiving]: null,
-	[EventName.DaysOfFeast]: EVENT_EMOJIS.Feast,
-	[EventName.LunarNewYear]: EVENT_EMOJIS.Fortune,
-	[EventName.DaysOfLove]: EVENT_EMOJIS.Love,
-	[EventName.DaysOfSpring]: null,
-	[EventName.DaysOfNature]: EVENT_EMOJIS.Nature,
-	[EventName.DaysOfHealing]: null,
-	[EventName.DaysOfRainbow]: EVENT_EMOJIS.Colour,
-	[EventName.SkyAnniversary]: EVENT_EMOJIS.SkyAnniversary,
-	[EventName.DaysOfSummerLights]: null,
-	[EventName.DaysOfMischief]: EVENT_EMOJIS.Mischief,
-	[EventName.DaysOfFortune]: EVENT_EMOJIS.Fortune,
-	[EventName.DaysOfBloom]: EVENT_EMOJIS.Bloom,
-	[EventName.ChildrensDay]: null,
-	[EventName.DaysOfSummer]: EVENT_EMOJIS.Sunlight,
-	[EventName.KizunaAI]: null,
-	[EventName.HarmonyHallGrandOpening]: EVENT_EMOJIS.Music,
-	[EventName.DaysOfSunlight]: EVENT_EMOJIS.Sunlight,
-	[EventName.LazyDays]: EVENT_EMOJIS.Sunlight,
-	[EventName.DaysOfColour]: EVENT_EMOJIS.Colour,
-	[EventName.DaysOfMusic]: EVENT_EMOJIS.Music,
-	[EventName.AURORAEncoreConcerts]: EVENT_EMOJIS.AURORAEncore,
-	[EventName.DaysOfStyle]: EVENT_EMOJIS.Style,
-	[EventName.AviarysFireworkFestival]: EVENT_EMOJIS.AviarysFireworkFestival,
-	[EventName.SpringCamping]: null,
-	[EventName.SkyXCinnamorollPopUpCafe]: EVENT_EMOJIS.SkyXCinnamorollPopUpCafe,
-	[EventName.SkyFest]: EVENT_EMOJIS.SkyFest,
-	[EventName.TournamentOfTriumph]: EVENT_EMOJIS.TournamentOfTriumph,
-	[EventName.DaysOfMoonlight]: EVENT_EMOJIS.Moonlight,
-} as const satisfies Readonly<Record<EventName, EventEmojis | null>>;
+	// 2020.
+	[EventId.LunarNewYear2020]: null,
+	[EventId.DaysOfLove2020]: null,
+	[EventId.DaysOfSpring2020]: null,
+	[EventId.DaysOfNature2020]: null,
+	[EventId.DaysOfHealing2020]: null,
+	[EventId.DaysOfRainbow2020]: null,
+	[EventId.SkyAnniversary2020]: null,
+	[EventId.DaysOfSummerLights2020]: null,
+	[EventId.DaysOfMischief2020]: null,
+	[EventId.DaysOfGiving2020]: null,
+	[EventId.DaysOfFeast2020]: null,
+
+	// 2021.
+	[EventId.DaysOfFortune2021]: null,
+	[EventId.DaysOfLove2021]: null,
+	[EventId.DaysOfBloom2021]: null,
+	[EventId.DaysOfNature2021]: null,
+	[EventId.ChildrensDay2021]: null,
+	[EventId.DaysOfRainbow2021]: null,
+	[EventId.SkyAnniversary2021]: null,
+	[EventId.DaysOfSummer2021]: null,
+	[EventId.DaysOfSummerLights2021]: null,
+	[EventId.DaysOfGiving2021]: null,
+	[EventId.DaysOfMischief2021]: null,
+	[EventId.DaysOfFeast2021]: null,
+
+	// 2022.
+	[EventId.DaysOfFortune2022]: null,
+	[EventId.DaysOfLove2022]: null,
+	[EventId.KizunaAI2022]: null,
+	[EventId.DaysOfBloom2022]: null,
+	[EventId.DaysOfNature2022]: null,
+	[EventId.HarmonyHallGrandOpening2022]: null,
+	[EventId.DaysOfRainbow2022]: null,
+	[EventId.SkyAnniversary2022]: null,
+	[EventId.DaysOfSunlight2022]: null,
+	[EventId.LazyDays2022]: null,
+	[EventId.DaysOfMischief2022]: null,
+	[EventId.DaysOfGiving2022]: null,
+	[EventId.DaysOfFeast2022]: null,
+
+	// 2023.
+	[EventId.DaysOfFortune2023]: null,
+	[EventId.DaysOfLove2023]: null,
+	[EventId.DaysOfBloom2023]: null,
+	[EventId.DaysOfNature2023]: null,
+	[EventId.DaysOfColour2023]: EVENT_EMOJIS.Colour,
+	[EventId.DaysOfMusic2023]: EVENT_EMOJIS.Music,
+	[EventId.SkyAnniversary2023]: EVENT_EMOJIS.SkyAnniversary,
+	[EventId.AURORAEncoreConcerts2023]: EVENT_EMOJIS.AURORAEncore,
+	[EventId.DaysOfSunlight2023]: EVENT_EMOJIS.Sunlight,
+	[EventId.DaysOfStyle2023]: EVENT_EMOJIS.Style,
+	[EventId.DaysOfMischief2023]: EVENT_EMOJIS.Mischief,
+	[EventId.DaysOfGiving2023]: null,
+	[EventId.AviarysFireworkFestival2023]: EVENT_EMOJIS.AviarysFireworkFestival,
+	[EventId.DaysOfFeast2023]: EVENT_EMOJIS.Feast,
+
+	// 2024.
+	[EventId.DaysOfFortune2024]: EVENT_EMOJIS.Fortune,
+	[EventId.DaysOfLove2024]: EVENT_EMOJIS.Love,
+	[EventId.SpringCamping2024]: null,
+	[EventId.DaysOfBloom2024]: EVENT_EMOJIS.Bloom,
+	[EventId.SkyXCinnamorollPopUpCafe2024]: EVENT_EMOJIS.SkyXCinnamorollPopUpCafe,
+	[EventId.DaysOfNature2024]: EVENT_EMOJIS.Nature,
+	[EventId.DaysOfColour2024]: EVENT_EMOJIS.Colour,
+	[EventId.SkyFest2024]: EVENT_EMOJIS.SkyFest,
+	[EventId.TournamentOfTriumph2024]: EVENT_EMOJIS.TournamentOfTriumph,
+	[EventId.DaysOfSunlight2024]: EVENT_EMOJIS.Sunlight,
+	[EventId.DaysOfMoonlight2024]: EVENT_EMOJIS.Moonlight,
+	[EventId.DaysOfStyle2024]: EVENT_EMOJIS.Style,
+	[EventId.DaysOfMischief2024]: EVENT_EMOJIS.Mischief,
+} as const satisfies Readonly<Record<EventIds, EventEmojis | null>>;
 
 export function snakeCaseName(name: string) {
 	return name
@@ -3138,7 +3083,7 @@ interface ItemCostSeasonal {
 
 interface ItemCostEvent {
 	cost: number;
-	eventName: EventName;
+	eventId: EventIds;
 }
 
 export interface ItemRaw {
@@ -3157,12 +3102,12 @@ export interface Item {
 
 interface ResolveOfferOptions {
 	seasonId?: SeasonIds;
-	eventName?: EventName;
+	eventId?: EventIds;
 }
 
 export function resolveOffer(
 	items: readonly ItemRaw[],
-	{ seasonId, eventName }: ResolveOfferOptions = {},
+	{ seasonId, eventId }: ResolveOfferOptions = {},
 ) {
 	return items.map((item) => ({
 		name: item.name,
@@ -3181,8 +3126,8 @@ export function resolveOffer(
 							? [{ cost: item.cost.seasonalHearts, seasonId }]
 							: [],
 					eventCurrency:
-						eventName && item.cost.eventCurrency
-							? [{ cost: item.cost.eventCurrency, eventName }]
+						typeof eventId === "number" && item.cost.eventCurrency
+							? [{ cost: item.cost.eventCurrency, eventId }]
 							: [],
 				}
 			: null,
@@ -3242,9 +3187,7 @@ export function addCosts(items: ItemCost[]) {
 			}
 
 			for (const event of eventCurrency) {
-				const sameEvent = total.eventCurrency.findIndex(
-					({ eventName }) => eventName === event.eventName,
-				);
+				const sameEvent = total.eventCurrency.findIndex(({ eventId }) => eventId === event.eventId);
 
 				if (sameEvent === -1) {
 					// Prevents mutation.
@@ -3330,8 +3273,7 @@ export function resolveCostToString(cost: ItemCost) {
 		for (const event of cost.eventCurrency) {
 			totalCost.push(
 				resolveCurrencyEmoji({
-					emoji:
-						EventNameToEventCurrencyEmoji[event.eventName] ?? MISCELLANEOUS_EMOJIS.EventCurrency,
+					emoji: EventIdToEventCurrencyEmoji[event.eventId] ?? MISCELLANEOUS_EMOJIS.EventCurrency,
 					number: event.cost,
 				}),
 			);

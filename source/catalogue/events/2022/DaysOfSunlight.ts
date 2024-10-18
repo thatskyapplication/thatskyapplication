@@ -1,5 +1,5 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventNameUnique } from "../../../Utility/catalogue.js";
+import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
 import { skyDate } from "../../../Utility/dates.js";
 import {
 	LARGE_PLACEABLE_PROPS_EMOJIS,
@@ -8,7 +8,7 @@ import {
 } from "../../../Utility/emojis.js";
 
 export default new Event({
-	nameUnique: EventNameUnique.DaysOfSunlight2022,
+	id: EventId.DaysOfSunlight2022,
 	start: skyDate(2_022, 8, 22),
 	end: skyDate(2_022, 9, 12),
 	offer: [
