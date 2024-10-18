@@ -1710,7 +1710,10 @@ export default class Profile {
 		if (seasons) {
 			if (seasons.length > 0) {
 				descriptions.push(
-					seasons.map((season) => formatEmoji(SeasonIdToSeasonalEmoji[season])).join(" "),
+					seasons
+						.sort((a, b) => a - b)
+						.map((season) => formatEmoji(SeasonIdToSeasonalEmoji[season]))
+						.join(" "),
 				);
 			}
 		} else {
