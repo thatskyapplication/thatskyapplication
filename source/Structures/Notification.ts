@@ -45,6 +45,7 @@ const NOTIFICATION_OFFSETS = [
 	NotificationType.StrongShardEruption,
 	NotificationType.AURORA,
 	NotificationType.Passage,
+	NotificationType.AviarysFireworkFestival,
 ] as const satisfies Readonly<NotificationTypes[]>;
 
 type NotificationOffset = (typeof NOTIFICATION_OFFSETS)[number];
@@ -62,6 +63,7 @@ export const NotificationOffsetToMaximumValues = {
 	[NotificationType.StrongShardEruption]: 10,
 	[NotificationType.AURORA]: 15,
 	[NotificationType.Passage]: 5,
+	[NotificationType.AviarysFireworkFestival]: 15,
 } as const satisfies Readonly<Record<NotificationOffset, number>>;
 
 type NotificationAllowedChannel = Extract<
