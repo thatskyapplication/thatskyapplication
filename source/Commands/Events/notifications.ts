@@ -17,7 +17,6 @@ import {
 	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
 	NotificationOffsetToMaximumValues,
 	embed,
-	isNotificationOffset,
 	isNotificationSendable,
 	isNotificationType,
 	setup,
@@ -98,92 +97,84 @@ export default new (class implements ChatInputCommand {
 			return;
 		}
 
-		// Some notifications may allow an offset.
-		let offset = null;
+		const stringSelectMenuOptions = [];
+		const maximumOffset = NotificationOffsetToMaximumValues[notificationType];
 
-		let resolvedInteraction:
-			| ChatInputCommandInteraction<"cached">
-			| StringSelectMenuInteraction<"cached"> = interaction;
+		for (let index = 0; index <= maximumOffset; index++) {
+			const indexString = String(index);
 
-		if (isNotificationOffset(notificationType)) {
-			const options = [];
-			const maximumOffset = NotificationOffsetToMaximumValues[notificationType];
+			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
+				.setLabel(indexString)
+				.setValue(indexString);
 
-			for (let index = 0; index <= maximumOffset; index++) {
-				const indexString = String(index);
-
-				const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
-					.setLabel(indexString)
-					.setValue(indexString);
-
-				if (index === 0) {
-					stringSelectMenuOptionBuilder.setDescription("Notify as soon as the event occurs.");
-				}
-
-				options.push(stringSelectMenuOptionBuilder);
+			if (index === 0) {
+				stringSelectMenuOptionBuilder.setDescription("Notify as soon as the event occurs.");
 			}
 
-			const message = await resolvedInteraction.reply({
-				components: [
-					new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-						new StringSelectMenuBuilder()
-							.setCustomId(NOTIFICATION_SETUP_OFFSET_CUSTOM_ID)
-							.setMaxValues(1)
-							.setMinValues(1)
-							.setOptions(options)
-							.setPlaceholder("Offset notification by how many minutes?"),
-					),
-				],
-				embeds: [
-					new EmbedBuilder()
-						.setColor(DEFAULT_EMBED_COLOUR)
-						.setDescription(
-							"You may choose a custom offset for this notification event. This will decide how many minutes prior notifications will be delivered.",
-						)
-						.setTitle(t(`notification-types.${notificationType}`, { lng: locale, ns: "general" })),
-				],
-				fetchReply: true,
-				flags: MessageFlags.Ephemeral,
-			});
-
-			try {
-				resolvedInteraction = await message.awaitMessageComponent({
-					componentType: ComponentType.StringSelect,
-					filter: (responseInteraction) =>
-						responseInteraction.customId === NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
-					time: 60000,
-				});
-
-				offset = Number(resolvedInteraction.values[0]);
-			} catch (error) {
-				if (
-					error instanceof DiscordjsError &&
-					error.code === DiscordjsErrorCodes.InteractionCollectorError
-				) {
-					await resolvedInteraction.editReply({
-						components: [],
-						content:
-							"Couldn't make a choice? We've stopped setting up notifications for now. Feel free to try again!",
-						embeds: [],
-					});
-
-					return;
-				}
-
-				pino.error(error, "Error whilst awaiting a response regarding a notification offset.");
-				await resolvedInteraction.editReply(ERROR_RESPONSE);
-				return;
-			}
+			stringSelectMenuOptions.push(stringSelectMenuOptionBuilder);
 		}
 
-		await setup(resolvedInteraction, {
-			guild_id: resolvedInteraction.guildId,
+		const message = await interaction.reply({
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(NOTIFICATION_SETUP_OFFSET_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(1)
+						.setOptions(stringSelectMenuOptions)
+						.setPlaceholder("Offset notification by how many minutes?"),
+				),
+			],
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(
+						"You may choose a custom offset. This will decide how many minutes prior notifications will be delivered.",
+					)
+					.setTitle(t(`notification-types.${notificationType}`, { lng: locale, ns: "general" })),
+			],
+			fetchReply: true,
+			flags: MessageFlags.Ephemeral,
+		});
+
+		let stringSelectMenuInteraction: StringSelectMenuInteraction<"cached">;
+		let offset: number;
+
+		try {
+			stringSelectMenuInteraction = await message.awaitMessageComponent({
+				componentType: ComponentType.StringSelect,
+				filter: (responseInteraction) =>
+					responseInteraction.customId === NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
+				time: 60000,
+			});
+
+			offset = Number(stringSelectMenuInteraction.values[0]);
+		} catch (error) {
+			if (
+				error instanceof DiscordjsError &&
+				error.code === DiscordjsErrorCodes.InteractionCollectorError
+			) {
+				await interaction.editReply({
+					components: [],
+					content:
+						"Couldn't make a choice? We've stopped setting up notifications for now. Feel free to try again!",
+					embeds: [],
+				});
+
+				return;
+			}
+
+			pino.error(error, "Error whilst awaiting a response regarding a notification offset.");
+			await interaction.editReply(ERROR_RESPONSE);
+			return;
+		}
+
+		await setup(stringSelectMenuInteraction, {
+			guild_id: stringSelectMenuInteraction.guildId,
 			type: notificationType,
 			channel_id: channel.id,
 			role_id: role.id,
-			// In case of no offset, default to 0.
-			// In the future, this will always be present as everything will have an offset.
-			offset: offset ?? 0,
+			offset,
 			sendable: true,
 		});
 	}

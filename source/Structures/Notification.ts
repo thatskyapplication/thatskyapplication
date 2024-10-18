@@ -1,6 +1,6 @@
 import {
 	type Channel,
-	ChatInputCommandInteraction,
+	type ChatInputCommandInteraction,
 	type Client,
 	EmbedBuilder,
 	type GuildBasedChannel,
@@ -33,23 +33,6 @@ export interface NotificationPacket {
 	sendable: boolean;
 }
 
-const NOTIFICATION_OFFSETS = [
-	NotificationType.DailyReset,
-	NotificationType.EyeOfEden,
-	NotificationType.InternationalSpaceStation,
-	NotificationType.Dragon,
-	NotificationType.PollutedGeyser,
-	NotificationType.Grandma,
-	NotificationType.Turtle,
-	NotificationType.RegularShardEruption,
-	NotificationType.StrongShardEruption,
-	NotificationType.AURORA,
-	NotificationType.Passage,
-	NotificationType.AviarysFireworkFestival,
-] as const satisfies Readonly<NotificationTypes[]>;
-
-type NotificationOffset = (typeof NOTIFICATION_OFFSETS)[number];
-
 // Cannot exceed 24.
 export const NotificationOffsetToMaximumValues = {
 	[NotificationType.DailyReset]: 15,
@@ -64,7 +47,7 @@ export const NotificationOffsetToMaximumValues = {
 	[NotificationType.AURORA]: 15,
 	[NotificationType.Passage]: 5,
 	[NotificationType.AviarysFireworkFestival]: 15,
-} as const satisfies Readonly<Record<NotificationOffset, number>>;
+} as const satisfies Readonly<Record<NotificationTypes, number>>;
 
 type NotificationAllowedChannel = Extract<
 	GuildBasedChannel,
@@ -132,14 +115,8 @@ export function isNotificationType(
 	return NOTIFICATION_TYPE_VALUES.includes(notificationType as NotificationTypes);
 }
 
-export function isNotificationOffset(
-	notificationType: unknown,
-): notificationType is NotificationOffset {
-	return NOTIFICATION_OFFSETS.includes(notificationType as NotificationOffset);
-}
-
 export async function setup(
-	interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
+	interaction: StringSelectMenuInteraction<"cached">,
 	data: NotificationPacket,
 ) {
 	await pg<NotificationPacket>(Table.Notifications)
@@ -147,15 +124,11 @@ export async function setup(
 		.onConflict(["guild_id", "type"])
 		.merge();
 
-	const responseObject = {
+	await interaction.update({
 		components: [],
 		content: "Notifications have been modified.",
 		embeds: [await embed(interaction)],
-	};
-
-	await (interaction instanceof ChatInputCommandInteraction
-		? interaction.reply({ ...responseObject, flags: MessageFlags.Ephemeral })
-		: interaction.update(responseObject));
+	});
 }
 
 export async function unset(
