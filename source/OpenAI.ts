@@ -220,7 +220,7 @@ export async function messageCreateResponse(message: Message<true>) {
 			openAI.chat.completions.create(
 				{
 					frequency_penalty: 1,
-					max_tokens: 100,
+					max_completion_tokens: 200,
 					messages: priorMessages,
 					model: "gpt-4o-2024-08-06",
 					user: message.author.id,
