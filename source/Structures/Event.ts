@@ -48,7 +48,7 @@ interface EventData {
 	 */
 	offerInfographicURL?: boolean;
 	/**
-	 * The URL of the patch notes that introduce the event.
+	 * The URL of the patch notes that detail the event.
 	 */
 	patchNotesURL?: string;
 }
