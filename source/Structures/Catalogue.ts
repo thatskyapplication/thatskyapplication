@@ -1312,6 +1312,10 @@ export class Catalogue {
 
 		const description = [];
 
+		if (event.patchNotesURL) {
+			description.push(`-# [Patch Notes](${event.patchNotesURL})`);
+		}
+
 		if (offer.length > 0) {
 			const { offerDescription } = this.embedProgress(offer);
 			description.push(offerDescription.join("\n"));
