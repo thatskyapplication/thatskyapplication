@@ -15,4 +15,5 @@ export default new Event({
 			emoji: HAIR_EMOJIS.Hair48,
 		},
 	],
+	patchNotesURL: "https://sky-children-of-the-light.fandom.com/wiki/Update:Live_0.7.5_(144142)"
 });
