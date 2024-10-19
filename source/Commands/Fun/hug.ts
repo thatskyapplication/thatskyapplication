@@ -4,24 +4,16 @@ import {
 	EmbedBuilder,
 	Locale,
 	PermissionFlagsBits,
-	type Snowflake,
 } from "discord.js";
 import { t } from "i18next";
 import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_HUG_NO } from "../../Utility/Constants.js";
-import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
-
-interface HugPacket {
-	hugger_id: Snowflake;
-	huggee_id: Snowflake;
-	timestamp: Date;
-}
 
 export default new (class implements ChatInputCommand {
 	public readonly name = t("hug.command-name", { lng: Locale.EnglishGB, ns: "commands" });
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { channel, createdAt, guildLocale, options } = interaction;
+		const { channel, guildLocale, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
 		const resolvedLocale = guildLocale ?? Locale.EnglishGB;
@@ -71,12 +63,6 @@ export default new (class implements ChatInputCommand {
 
 			return;
 		}
-
-		await pg<HugPacket>(Table.Hugs).insert({
-			hugger_id: interaction.user.id,
-			huggee_id: user.id,
-			timestamp: createdAt,
-		});
 
 		await interaction.reply({
 			content: t("hug.message", {

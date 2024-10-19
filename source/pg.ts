@@ -9,7 +9,6 @@ export enum Table {
 	DailyGuidesDistribution = "daily_guides_distribution",
 	Guess = "guess",
 	Hearts = "hearts",
-	Hugs = "hugs",
 	Notifications = "notifications",
 	Profiles = "profiles",
 	SkyProfileLikes = "sky_profile_likes",
