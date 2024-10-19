@@ -21,4 +21,5 @@ export default new Event({
 			emoji: CAPE_EMOJIS.Cape54,
 		},
 	],
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/784",
 });

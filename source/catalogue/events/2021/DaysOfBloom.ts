@@ -27,4 +27,5 @@ export default new Event({
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp04,
 		},
 	],
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/771",
 });
