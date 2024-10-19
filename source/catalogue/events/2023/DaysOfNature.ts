@@ -31,4 +31,5 @@ export default new Event({
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp27,
 		},
 	],
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1111",
 });

@@ -31,4 +31,5 @@ export default new Event({
 			emoji: SHOE_EMOJIS.Shoe05,
 		},
 	],
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1135",
 });

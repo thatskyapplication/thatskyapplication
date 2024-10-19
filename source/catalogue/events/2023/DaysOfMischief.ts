@@ -69,4 +69,5 @@ export default new Event({
 			emoji: MASK_EMOJIS.Mask84,
 		},
 	],
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1239",
 });
