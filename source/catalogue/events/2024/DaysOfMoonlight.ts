@@ -54,4 +54,5 @@ export default new Event({
 			emoji: OUTFIT_EMOJIS.Outfit66,
 		},
 	],
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1343",
 });
