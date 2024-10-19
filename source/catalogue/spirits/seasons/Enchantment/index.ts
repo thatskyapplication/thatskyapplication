@@ -23,4 +23,5 @@ export default new Season({
 		PlayfightingHerbalist,
 	],
 	seasonalCandlesRotation: null,
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/647",
 });

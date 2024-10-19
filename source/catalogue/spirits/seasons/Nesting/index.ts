@@ -34,4 +34,5 @@ export default new Season({
 		{ rotation: 2, realm: RealmName.DaylightPrairie },
 		{ rotation: 2, realm: RealmName.HiddenForest },
 	],
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1308",
 });

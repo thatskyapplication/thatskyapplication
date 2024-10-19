@@ -57,6 +57,5 @@ export default new Season({
 		{ rotation: 2, realm: RealmName.ValleyOfTriumph },
 		{ rotation: 2, realm: RealmName.GoldenWasteland },
 	],
-	patchNotesURL:
-		"https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1356",
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1356",
 });

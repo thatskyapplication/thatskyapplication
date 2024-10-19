@@ -14,4 +14,5 @@ export default new Season({
 	guide: FlightGuide,
 	spirits: [LivelyNavigator, LightWhisperer, TinkeringChimesmith, TalentedBuilder],
 	seasonalCandlesRotation: null,
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/841",
 });

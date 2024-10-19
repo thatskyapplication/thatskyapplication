@@ -32,4 +32,5 @@ export default new Season({
 		},
 	],
 	seasonalCandlesRotation: null,
+	patchNotesURL: "https://sky-children-of-the-light.fandom.com/wiki/Update:Live_0.6.0",
 });

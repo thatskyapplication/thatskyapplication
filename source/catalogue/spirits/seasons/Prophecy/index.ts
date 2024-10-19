@@ -14,4 +14,5 @@ export default new Season({
 	guide: ProphecyGuide,
 	spirits: [ProphetOfWater, ProphetOfEarth, ProphetOfAir, ProphetOfFire],
 	seasonalCandlesRotation: null,
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/718",
 });
