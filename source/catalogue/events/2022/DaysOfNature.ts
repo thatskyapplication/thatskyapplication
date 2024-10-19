@@ -27,4 +27,5 @@ export default new Event({
 			emoji: NECKLACE_EMOJIS.Necklace20,
 		},
 	],
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/890",
 });

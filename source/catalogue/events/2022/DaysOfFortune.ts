@@ -27,4 +27,5 @@ export default new Event({
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory16,
 		},
 	],
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/866",
 });

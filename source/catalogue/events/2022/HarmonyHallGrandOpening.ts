@@ -61,4 +61,5 @@ export default new Event({
 			emoji: HELD_PROPS_EMOJIS.HeldProp28,
 		},
 	],
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/904",
 });
