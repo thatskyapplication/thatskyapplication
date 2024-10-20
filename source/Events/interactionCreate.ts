@@ -59,12 +59,7 @@ import {
 	parseEndGame,
 	tryAgain,
 } from "../Structures/Guess.js";
-import {
-	HEART_HISTORY_BACK,
-	HEART_HISTORY_FORWARD,
-	HeartHistoryNavigationType,
-	history,
-} from "../Structures/Heart.js";
+import { HEART_HISTORY_BACK, HEART_HISTORY_NEXT, history } from "../Structures/Heart.js";
 import { NOTIFICATION_SETUP_OFFSET_CUSTOM_ID } from "../Structures/Notification.js";
 import Profile, {
 	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
@@ -116,7 +111,6 @@ import pino from "../pino.js";
 import type { Event } from "./index.js";
 
 const name = Events.InteractionCreate;
-const heartHistoryRegExp = new RegExp(`(${HEART_HISTORY_BACK}|${HEART_HISTORY_FORWARD})-(\\d+)`);
 
 async function recoverInteractionError(interaction: Interaction, error: unknown) {
 	let errorTypeString = `Error from ${interaction.user.tag} in ${interaction.channelId} from `;
@@ -460,19 +454,8 @@ export default {
 					return;
 				}
 
-				const heartHistoryResult = heartHistoryRegExp.exec(customId);
-
-				if (heartHistoryResult) {
-					const [, type, timestamp] = heartHistoryResult;
-
-					await history(interaction, {
-						type:
-							type === HEART_HISTORY_BACK
-								? HeartHistoryNavigationType.Back
-								: HeartHistoryNavigationType.Forward,
-						timestamp: Number(timestamp!),
-					});
-
+				if (customId.startsWith(HEART_HISTORY_BACK) || customId.startsWith(HEART_HISTORY_NEXT)) {
+					await history(interaction);
 					return;
 				}
 

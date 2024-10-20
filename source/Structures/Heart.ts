@@ -1,7 +1,7 @@
 import {
 	ActionRowBuilder,
 	ButtonBuilder,
-	ButtonInteraction,
+	type ButtonInteraction,
 	ButtonStyle,
 	type ChatInputCommandInteraction,
 	EmbedBuilder,
@@ -34,8 +34,9 @@ const HEARTS = [
 
 const DELETED_USER_TEXT = "<deleted>" as const;
 const MAXIMUM_HEARTS_PER_DAY = 3 as const;
+const HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER = 24 as const;
 export const HEART_HISTORY_BACK = "HEART_HISTORY_BACK" as const;
-export const HEART_HISTORY_FORWARD = "HEART_HISTORY_FORWARD" as const;
+export const HEART_HISTORY_NEXT = "HEART_HISTORY_NEXT" as const;
 
 export interface HeartPacket {
 	gifter_id: Snowflake | null;
@@ -43,19 +44,15 @@ export interface HeartPacket {
 	timestamp: Date;
 }
 
-export const enum HeartHistoryNavigationType {
-	Back = 0,
-	Forward = 1,
-}
-
-interface HeartHistoryOptions {
-	type: HeartHistoryNavigationType;
-	timestamp: number;
-}
-
-export async function total(gifteeId: Snowflake) {
+async function totalGifted(userId: Snowflake) {
 	return Number(
-		(await pg<HeartPacket>(Table.Hearts).count().where({ giftee_id: gifteeId }))[0]!.count,
+		(await pg<HeartPacket>(Table.Hearts).count().where({ gifter_id: userId }))[0]!.count,
+	);
+}
+
+export async function totalReceived(userId: Snowflake) {
+	return Number(
+		(await pg<HeartPacket>(Table.Hearts).count().where({ giftee_id: userId }))[0]!.count,
 	);
 }
 
@@ -155,7 +152,7 @@ export async function gift(
 		timestamp: createdAt,
 	});
 
-	const hearts = await total(user.id);
+	const hearts = await totalReceived(user.id);
 
 	const heartMessage = getRandomElement(HEARTS)!
 		.replaceAll("heart", formatEmoji(MISCELLANEOUS_EMOJIS.Heart))
@@ -181,102 +178,105 @@ export async function gift(
 	});
 }
 
-export async function history(
-	interaction: ButtonInteraction | ChatInputCommandInteraction,
-	options: HeartHistoryOptions | null = null,
-) {
+export async function history(interaction: ButtonInteraction | ChatInputCommandInteraction) {
 	if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
 		return;
 	}
 
-	const buttonInteraction = interaction instanceof ButtonInteraction;
+	const isChatInputCommand = interaction.isChatInputCommand();
 
-	const hearts = await pg<HeartPacket>(Table.Hearts)
-		.select()
+	const page = isChatInputCommand
+		? 1
+		: Number(interaction.customId.slice(interaction.customId.indexOf("§") + 1));
+
+	const offset = (page - 1) * HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER;
+
+	const heartPackets = await pg<HeartPacket>(Table.Hearts)
 		.where({ gifter_id: interaction.user.id })
 		.orWhere({ giftee_id: interaction.user.id })
-		.orderBy("timestamp", "desc");
+		.orderBy("timestamp", "desc")
+		.limit(HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER + 1)
+		.offset(offset);
 
-	if (hearts.length === 0) {
+	if (heartPackets.length === 0) {
 		const response = {
 			components: [],
 			content: `You have ${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: 0 })}.`,
 			embeds: [],
 		};
 
-		if (buttonInteraction) {
-			await interaction.update(response);
-		} else {
+		if (isChatInputCommand) {
 			await interaction.reply({ ...response, flags: MessageFlags.Ephemeral });
+		} else {
+			await interaction.update(response);
 		}
 
 		return;
 	}
 
-	const heartsFiltered = options
-		? options.type === HeartHistoryNavigationType.Back
-			? hearts.filter((heart) => heart.timestamp.getTime() > options.timestamp).slice(-24)
-			: hearts.filter((heart) => heart.timestamp.getTime() < options.timestamp).slice(0, 24)
-		: hearts.slice(0, 24);
+	const hasPreviousPage = offset > 0;
+	const hasNextPage = heartPackets.length > HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER;
+
+	if (hasNextPage) {
+		heartPackets.pop();
+	}
+
+	const [gifted, received] = await Promise.all([
+		totalGifted(interaction.user.id),
+		totalReceived(interaction.user.id),
+	]);
 
 	const embed = new EmbedBuilder()
 		.setColor(DEFAULT_EMBED_COLOUR)
 		.setDescription(
 			`Gifted: ${resolveCurrencyEmoji({
 				emoji: MISCELLANEOUS_EMOJIS.Heart,
-				number: hearts.filter((heart) => heart.gifter_id === interaction.user.id).length,
+				number: gifted,
 			})}\nReceived: ${resolveCurrencyEmoji({
 				emoji: MISCELLANEOUS_EMOJIS.Heart,
-				number: hearts.filter((heart) => heart.giftee_id === interaction.user.id).length,
+				number: received,
 			})}`,
 		)
 		.setFields(
-			heartsFiltered.map((heart) => {
-				const gifted = heart.gifter_id === interaction.user.id;
-				const user = gifted ? heart.giftee_id : heart.gifter_id;
+			heartPackets.map((heartPacket) => {
+				const gifted = heartPacket.gifter_id === interaction.user.id;
+				const user = gifted ? heartPacket.giftee_id : heartPacket.gifter_id;
 
 				return {
 					name: gifted ? "Gifted" : "Received",
 					value: `${user ? userMention(user) : DELETED_USER_TEXT}\n${time(
-						Math.floor(heart.timestamp.getTime() / 1_000),
+						Math.floor(heartPacket.timestamp.getTime() / 1_000),
 						TimestampStyles.ShortDate,
-					)}\n(${time(Math.floor(heart.timestamp.getTime() / 1_000), TimestampStyles.RelativeTime)})`,
+					)}\n(${time(Math.floor(heartPacket.timestamp.getTime() / 1_000), TimestampStyles.RelativeTime)})`,
 					inline: true,
 				};
 			}),
 		)
 		.setTitle("Heart History");
 
-	const actionRow = new ActionRowBuilder<ButtonBuilder>();
-	const firstTimestamp = heartsFiltered.at(0)?.timestamp.getTime();
-	const lastTimestamp = heartsFiltered.at(-1)?.timestamp.getTime();
-
-	if (firstTimestamp && firstTimestamp < hearts.at(0)!.timestamp.getTime()) {
-		const button = new ButtonBuilder()
-			.setCustomId(`${HEART_HISTORY_BACK}-${firstTimestamp}`)
-			.setEmoji("◀️")
-			.setStyle(ButtonStyle.Primary);
-
-		actionRow.addComponents(button);
-	}
-
-	if (lastTimestamp && lastTimestamp > hearts.at(-1)!.timestamp.getTime()) {
-		const button2 = new ButtonBuilder()
-			.setCustomId(`${HEART_HISTORY_FORWARD}-${lastTimestamp}`)
-			.setEmoji("▶️")
-			.setStyle(ButtonStyle.Primary);
-
-		actionRow.addComponents(button2);
-	}
-
 	const response = {
-		components: actionRow.components.length > 0 ? [actionRow] : [],
+		components: [
+			new ActionRowBuilder<ButtonBuilder>().setComponents(
+				new ButtonBuilder()
+					.setCustomId(`${HEART_HISTORY_BACK}§${page - 1}`)
+					.setDisabled(!hasPreviousPage)
+					.setEmoji("⬅️")
+					.setLabel("Back")
+					.setStyle(ButtonStyle.Secondary),
+				new ButtonBuilder()
+					.setCustomId(`${HEART_HISTORY_NEXT}§${page + 1}`)
+					.setDisabled(!hasNextPage)
+					.setEmoji("➡️")
+					.setLabel("Next")
+					.setStyle(ButtonStyle.Secondary),
+			),
+		],
 		embeds: [embed],
 	};
 
-	if (buttonInteraction) {
-		await interaction.update(response);
-	} else {
+	if (isChatInputCommand) {
 		await interaction.reply({ ...response, flags: MessageFlags.Ephemeral });
+	} else {
+		await interaction.update(response);
 	}
 }

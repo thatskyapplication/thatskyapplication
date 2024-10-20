@@ -65,7 +65,7 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { Catalogue } from "./Catalogue.js";
 import { findUser } from "./Guess.js";
-import { total } from "./Heart.js";
+import { totalReceived } from "./Heart.js";
 
 interface ProfilePacket {
 	user_id: Snowflake;
@@ -1681,7 +1681,7 @@ export default class Profile {
 			| UserContextMenuCommandInteraction,
 	) {
 		const { locale } = interaction;
-		const hearts = await total(this.userId);
+		const hearts = await totalReceived(this.userId);
 
 		const {
 			userId,
