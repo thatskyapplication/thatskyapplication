@@ -809,7 +809,7 @@ export default class Profile {
 				}).filter((selectMenu) => selectMenu !== undefined),
 				new ActionRowBuilder<ButtonBuilder>().setComponents(
 					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID}§${page - 1!}`)
+						.setCustomId(`${SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID}§${page - 1}`)
 						.setDisabled(!hasPreviousPage)
 						.setEmoji("⬅️")
 						.setLabel("Back")
