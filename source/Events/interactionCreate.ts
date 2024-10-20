@@ -6,6 +6,7 @@ import {
 	type Interaction,
 	InteractionType,
 	type Locale,
+	type MessageComponentInteraction,
 	RESTJSONErrorCodes,
 } from "discord.js";
 import {
@@ -163,8 +164,17 @@ async function recoverInteractionError(interaction: Interaction, error: unknown)
 }
 
 function logCommand(interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) {
-	const { appPermissions, channelId, commandName, guildId, guildLocale, locale, user } =
-		interaction;
+	const {
+		appPermissions,
+		authorizingIntegrationOwners,
+		channelId,
+		commandName,
+		context,
+		guildId,
+		guildLocale,
+		locale,
+		user,
+	} = interaction;
 
 	const command = interaction.isChatInputCommand() ? String(interaction) : commandName;
 
@@ -174,10 +184,41 @@ function logCommand(interaction: ChatInputCommandInteraction | ContextMenuComman
 			command,
 			guildId,
 			channelId,
-			permissions: appPermissions ? String(appPermissions.bitfield) : null,
+			permissions: appPermissions,
+			authorizingIntegrationOwners,
+			context,
 			locale: { user: locale, guild: guildLocale },
 		},
 		`Command: ${command}`,
+	);
+}
+
+function logMessageComponent(interaction: MessageComponentInteraction) {
+	const {
+		appPermissions,
+		authorizingIntegrationOwners,
+		channelId,
+		context,
+		customId,
+		guildId,
+		guildLocale,
+		locale,
+		user,
+	} = interaction;
+
+	pino.info(
+		{
+			user: { id: user.id, username: user.username },
+			customId,
+			values: interaction.isStringSelectMenu() ? interaction.values : null,
+			guildId,
+			channelId,
+			permissions: appPermissions.bitfield,
+			authorizingIntegrationOwners,
+			context,
+			locale: { user: locale, guild: guildLocale },
+		},
+		`Custom id: ${customId}`,
 	);
 }
 
@@ -243,6 +284,7 @@ export default {
 		}
 
 		if (interaction.isButton()) {
+			logMessageComponent(interaction);
 			const { customId } = interaction;
 
 			try {
@@ -508,6 +550,7 @@ export default {
 		}
 
 		if (interaction.isStringSelectMenu()) {
+			logMessageComponent(interaction);
 			const { customId, values } = interaction;
 
 			try {
