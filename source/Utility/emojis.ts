@@ -3286,6 +3286,10 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Spirit of Adventure.
 	 */
 	LargePlaceableProp74: { name: "large_placeable_prop", id: "1295001410542370877" },
+	/**
+	 * Inspiration of Inclusion.
+	 */
+	LargePlaceableProp75: { name: "large_placeable_prop", id: "1297612344725340274" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type LargePlaceablePropsEmojis =
@@ -3617,11 +3621,7 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 */
 	SmallPlaceableProp81: { name: "small_placeable_prop", id: "1294962736081666170" },
 	/**
-	 * Inspiration of Inclusion 1.
-	 */
-	SmallPlaceableProp82: { name: "small_placeable_prop", id: "1295005493445660754" },
-	/**
-	 * Inspiration of Inclusion 2.
+	 * Inspiration of Inclusion.
 	 */
 	SmallPlaceableProp83: { name: "small_placeable_prop", id: "1295006306796568648" },
 } as const satisfies Readonly<Record<string, EmojiData>>;

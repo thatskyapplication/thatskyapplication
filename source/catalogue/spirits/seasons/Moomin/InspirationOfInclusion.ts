@@ -3,6 +3,7 @@ import { RealmName } from "../../../../Utility/Constants.js";
 import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
 	OUTFIT_EMOJIS,
@@ -15,7 +16,8 @@ const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit71;
 const necklaceEmoji = NECKLACE_EMOJIS.Necklace45;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory50;
-const { SmallPlaceableProp82, SmallPlaceableProp83 } = SMALL_PLACEABLE_PROPS_EMOJIS;
+const largePlaceablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp75;
+const smallPlaceablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp83;
 
 export default new SeasonalSpirit({
 	name: SpiritName.InspirationOfInclusion,
@@ -28,7 +30,7 @@ export default new SeasonalSpirit({
 				name: "Prop 1",
 				cosmetic: Cosmetic.InspirationOfInclusionProp1,
 				cost: { seasonalCandles: 12 },
-				emoji: SmallPlaceableProp82,
+				emoji: largePlaceablePropEmoji,
 			},
 			{
 				name: "Blessing 1",
@@ -50,7 +52,7 @@ export default new SeasonalSpirit({
 				name: "Prop 2",
 				cosmetic: Cosmetic.InspirationOfInclusionProp2,
 				cost: { seasonalCandles: 20 },
-				emoji: SmallPlaceableProp83,
+				emoji: smallPlaceablePropEmoji,
 			},
 			{
 				name: "Blessing 3",
