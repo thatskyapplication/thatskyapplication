@@ -1811,13 +1811,9 @@ export default class Profile {
 
 		if (typeof guessRank === "boolean") {
 			if (guessRank) {
-				const [original, hard] = await Promise.all([
-					findUser(userId, GuessDifficultyLevel.Original),
-					findUser(userId, GuessDifficultyLevel.Hard),
-				]);
-
-				const originalText = `${GuessDifficultyLevelToName[GuessDifficultyLevel.Original]}: ${original?.rank ? `#${original.rank}` : "Unranked"}`;
-				const hardText = `${GuessDifficultyLevelToName[GuessDifficultyLevel.Hard]}: ${hard?.rank ? `#${hard.rank}` : "Unranked"}`;
+				const guessPacketRanking = await findUser(userId);
+				const originalText = `${GuessDifficultyLevelToName[GuessDifficultyLevel.Original]}: ${guessPacketRanking?.streak_rank ? `#${guessPacketRanking.streak_rank}` : "Unranked"}`;
+				const hardText = `${GuessDifficultyLevelToName[GuessDifficultyLevel.Hard]}: ${guessPacketRanking?.streak_hard_rank ? `#${guessPacketRanking.streak_hard_rank}` : "Unranked"}`;
 
 				fields.push({
 					name: "Guess Rank",

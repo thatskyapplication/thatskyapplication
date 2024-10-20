@@ -48,9 +48,12 @@ export const GUESS_ANSWER_2 = "GUESS_ANSWER_2" as const;
 export const GUESS_ANSWER_3 = "GUESS_ANSWER_3" as const;
 export const GUESS_END_GAME = "GUESS_END_GAME_CUSTOM_ID" as const;
 export const GUESS_TRY_AGAIN = "GUESS_TRY_AGAIN_CUSTOM_ID" as const;
+const GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER = 10 as const;
+export const GUESS_LEADERBOARD_BACK_CUSTOM_ID = "GUESS_LEADERBOARD_BACK_CUSTOM_ID" as const;
+export const GUESS_LEADERBOARD_NEXT_CUSTOM_ID = "GUESS_LEADERBOARD_NEXT_CUSTOM_ID" as const;
 
-function isGuessDifficultyLevel(level: unknown): level is GuessDifficultyLevel {
-	return GUESS_DIFFICULTY_LEVEL_VALUES.includes(level as GuessDifficultyLevel);
+export function isGuessDifficultyLevel(level: number): level is GuessDifficultyLevel {
+	return GUESS_DIFFICULTY_LEVEL_VALUES.includes(level);
 }
 
 const GuessDifficultyToStreakColumn = {
@@ -437,27 +440,63 @@ export async function handleGuildRemove(guild: Guild) {
 	);
 }
 
-export async function findUser(userId: Snowflake, difficulty: GuessDifficultyLevel) {
-	const column = GuessDifficultyToStreakColumn[difficulty];
+export async function findUser(userId: Snowflake) {
+	const originalColumn = GuessDifficultyToStreakColumn[GuessDifficultyLevel.Original];
+	const hardColumn = GuessDifficultyToStreakColumn[GuessDifficultyLevel.Hard];
 
 	const [result] = (await pg
 		.with(
-			"ranked_data",
+			"streak_ranking",
 			pg(Table.Guess)
-				.select("user_id", column, pg.raw(`row_number() over (order by ${column} desc) as rank`))
-				.whereNotNull(column),
+				.select(
+					"user_id",
+					originalColumn,
+					pg.raw(`row_number() over (order by ${originalColumn} desc) ::int as streak_rank`),
+				)
+				.whereNotNull(originalColumn),
 		)
-		.select("rank")
-		.from("ranked_data")
-		.where({ user_id: userId })) as { rank: number }[];
+		.with(
+			"streak_hard_ranking",
+			pg(Table.Guess)
+				.select(
+					"user_id",
+					hardColumn,
+					pg.raw(`row_number() over (order by ${hardColumn} desc) ::int as streak_hard_rank`),
+				)
+				.whereNotNull(hardColumn),
+		)
+		.select(
+			"streak_ranking.streak",
+			"streak_ranking.streak_rank",
+			"streak_hard_ranking.streak_hard",
+			"streak_hard_ranking.streak_hard_rank",
+		)
+		.from("streak_ranking")
+		.join("streak_hard_ranking", "streak_ranking.user_id", "=", "streak_hard_ranking.user_id")
+		.where("streak_ranking.user_id", userId)) as {
+		streak: number;
+		streak_rank: number;
+		streak_hard: number;
+		streak_hard_rank: number;
+	}[];
 
 	return result;
 }
 
-async function topTen(userId: Snowflake, difficulty: GuessDifficultyLevel) {
+export async function leaderboard(
+	interaction: ChatInputCommandInteraction | ButtonInteraction,
+	difficulty: GuessDifficultyLevel,
+) {
+	const isChatInputCommand = interaction.isChatInputCommand();
+
+	const page = isChatInputCommand
+		? 1
+		: Number(interaction.customId.slice(interaction.customId.lastIndexOf("§") + 1));
+
+	const offset = (page - 1) * GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER;
 	const column = GuessDifficultyToStreakColumn[difficulty];
 
-	return await pg
+	const guessPacketsLeaderboard = await pg
 		.with(
 			"ranked_data",
 			pg(Table.Guess)
@@ -466,42 +505,68 @@ async function topTen(userId: Snowflake, difficulty: GuessDifficultyLevel) {
 		)
 		.select("user_id", column, "rank")
 		.from("ranked_data")
-		.where("rank", "<=", 10)
-		.unionAll(
-			pg
-				.select("user_id", column, "rank")
-				.from("ranked_data")
-				.where("user_id", userId)
-				.whereNotExists(
-					pg.select("*").from("ranked_data").where("rank", "<=", 10).where("user_id", userId),
-				),
-		)
-		.orderBy("rank");
-}
+		.orderBy("rank")
+		.limit(GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER + 1)
+		.offset(offset);
 
-export async function leaderboard(
-	interaction: ChatInputCommandInteraction,
-	difficulty: GuessDifficultyLevel,
-) {
-	const topTenResults = await topTen(interaction.user.id, difficulty);
-	const invoker = topTenResults.find((row) => row.user_id === interaction.user.id);
-	const column = GuessDifficultyToStreakColumn[difficulty];
+	const guessPacketInvoker = await findUser(interaction.user.id);
+
+	if (guessPacketsLeaderboard.length === 0) {
+		await interaction.reply({
+			content: "There is nothing on the leaderboard. Why not be the first?",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	const hasPreviousPage = offset > 0;
+	const hasNextPage = guessPacketsLeaderboard.length > GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER;
+
+	if (hasNextPage) {
+		guessPacketsLeaderboard.pop();
+	}
 
 	const embed = new EmbedBuilder()
 		.setColor(DEFAULT_EMBED_COLOUR)
 		.setDescription(
-			topTenResults
-				.slice(0, 10)
+			guessPacketsLeaderboard
 				.map((row) => `${row.rank}. <@${row.user_id}>: ${row[column]}`)
 				.join("\n"),
 		)
 		.setTitle(`${GuessDifficultyLevelToName[difficulty]} Leaderboard`);
 
-	if (invoker) {
-		embed.setFooter({ text: `You: #${invoker.rank} (${invoker[column]})` });
+	if (guessPacketInvoker) {
+		embed.setFooter({
+			text: `You: #${guessPacketInvoker[`${column}_rank`]} (${guessPacketInvoker[column]})`,
+		});
 	}
 
-	await interaction.reply({ embeds: [embed] });
+	const response = {
+		components: [
+			new ActionRowBuilder<ButtonBuilder>().setComponents(
+				new ButtonBuilder()
+					.setCustomId(`${GUESS_LEADERBOARD_BACK_CUSTOM_ID}§${difficulty}§${page - 1}`)
+					.setDisabled(!hasPreviousPage)
+					.setEmoji("⬅️")
+					.setLabel("Back")
+					.setStyle(ButtonStyle.Secondary),
+				new ButtonBuilder()
+					.setCustomId(`${GUESS_LEADERBOARD_NEXT_CUSTOM_ID}§${difficulty}§${page + 1}`)
+					.setDisabled(!hasNextPage)
+					.setEmoji("➡️")
+					.setLabel("Next")
+					.setStyle(ButtonStyle.Secondary),
+			),
+		],
+		embeds: [embed],
+	};
+
+	if (isChatInputCommand) {
+		await interaction.reply(response);
+	} else {
+		await interaction.update(response);
+	}
 }
 
 export async function guildLeaderboard(

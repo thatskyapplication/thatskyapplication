@@ -55,8 +55,12 @@ import {
 	GUESS_ANSWER_2,
 	GUESS_ANSWER_3,
 	GUESS_END_GAME,
+	GUESS_LEADERBOARD_BACK_CUSTOM_ID,
+	GUESS_LEADERBOARD_NEXT_CUSTOM_ID,
 	GUESS_TRY_AGAIN,
 	answer,
+	isGuessDifficultyLevel,
+	leaderboard,
 	parseEndGame,
 	tryAgain,
 } from "../Structures/Guess.js";
@@ -523,6 +527,20 @@ export default {
 				if (customId.startsWith(GUESS_TRY_AGAIN)) {
 					await tryAgain(interaction);
 					return;
+				}
+
+				if (
+					customId.startsWith(GUESS_LEADERBOARD_BACK_CUSTOM_ID) ||
+					customId.startsWith(GUESS_LEADERBOARD_NEXT_CUSTOM_ID)
+				) {
+					const guessDifficultyLevel = Number(
+						customId.slice(customId.indexOf("§") + 1, customId.lastIndexOf("§")),
+					);
+
+					if (isGuessDifficultyLevel(guessDifficultyLevel)) {
+						await leaderboard(interaction, guessDifficultyLevel);
+						return;
+					}
 				}
 
 				if (customId === DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID) {
