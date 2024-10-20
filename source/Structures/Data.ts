@@ -1,10 +1,10 @@
 import { type ButtonInteraction, MessageFlags, hyperlink } from "discord.js";
-import type { HeartPacket } from "../Commands/Fun/heart.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../Utility/Constants.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import type { CataloguePacket } from "./Catalogue.js";
 import type { GuessPacket } from "./Guess.js";
+import type { HeartPacket } from "./Heart.js";
 import Profile from "./Profile.js";
 
 const DELETE_ERROR_MESSAGE = `There was an issue deleting your user data. Don't worry, this incident is being tracked and has been converted into a manual data deletion request (as opposed to an automatic one). Your data will be deleted within 30 days.

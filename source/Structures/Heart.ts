@@ -11,18 +11,38 @@ import {
 	time,
 	userMention,
 } from "discord.js";
-import {
-	HEART_HISTORY_BACK,
-	HEART_HISTORY_FORWARD,
-	HeartHistoryNavigationType,
-	type HeartPacket,
-} from "../Commands/Fun/heart.js";
 import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
 import { MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import pg, { Table } from "../pg.js";
 
+export const HEARTS = [
+	"{{gifter}} sent a heart to {{giftee}}. How lucky!",
+	"A heart from {{gifter}} to {{giftee}}. That was nice of them!",
+	"Incoming heart from {{gifter}} to {{giftee}}!",
+	"{{gifter}} sent {{giftee}} a heart! What a good friend!",
+	"{{gifter}} sent {{giftee}} a heart. How nice of {{gifter}}!",
+	"{{gifter}} sent a heart to {{giftee}}. They're pretty lucky!",
+	"{{gifter}} sent {{giftee}} a heart. {{giftee}} is lucky to have a friend like you!",
+	"{{gifter}}, sending a heart each day keeps the dark dragon away from {{giftee}}!",
+	"A wholesome heart delivered to {{giftee}} from {{gifter}}!",
+] as const satisfies Readonly<string[]>;
+
 const DELETED_USER_TEXT = "<deleted>" as const;
+export const MAXIMUM_HEARTS_PER_DAY = 3 as const;
+export const HEART_HISTORY_BACK = "HEART_HISTORY_BACK" as const;
+export const HEART_HISTORY_FORWARD = "HEART_HISTORY_FORWARD" as const;
+
+export interface HeartPacket {
+	gifter_id: Snowflake | null;
+	giftee_id: Snowflake | null;
+	timestamp: Date;
+}
+
+export const enum HeartHistoryNavigationType {
+	Back = 0,
+	Forward = 1,
+}
 
 interface HeartHistoryOptions {
 	type: HeartHistoryNavigationType;

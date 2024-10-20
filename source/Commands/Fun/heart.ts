@@ -2,46 +2,24 @@ import {
 	type ChatInputCommandInteraction,
 	Locale,
 	PermissionFlagsBits,
-	type Snowflake,
 	TimestampStyles,
 	type UserContextMenuCommandInteraction,
 	time,
 } from "discord.js";
 import { t } from "i18next";
-import { history, total } from "../../Structures/Heart.js";
+import {
+	HEARTS,
+	type HeartPacket,
+	MAXIMUM_HEARTS_PER_DAY,
+	history,
+	total,
+} from "../../Structures/Heart.js";
 import { getRandomElement } from "../../Utility/Utility.js";
 import { skyToday } from "../../Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "../../Utility/emojis.js";
 import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
 import pg, { Table } from "../../pg.js";
 import type { ChatInputCommand } from "../index.js";
-
-export interface HeartPacket {
-	gifter_id: Snowflake | null;
-	giftee_id: Snowflake | null;
-	timestamp: Date;
-}
-
-export const enum HeartHistoryNavigationType {
-	Back = 0,
-	Forward = 1,
-}
-
-const HEARTS = [
-	"{{gifter}} sent a heart to {{giftee}}. How lucky!",
-	"A heart from {{gifter}} to {{giftee}}. That was nice of them!",
-	"Incoming heart from {{gifter}} to {{giftee}}!",
-	"{{gifter}} sent {{giftee}} a heart! What a good friend!",
-	"{{gifter}} sent {{giftee}} a heart. How nice of {{gifter}}!",
-	"{{gifter}} sent a heart to {{giftee}}. They're pretty lucky!",
-	"{{gifter}} sent {{giftee}} a heart. {{giftee}} is lucky to have a friend like you!",
-	"{{gifter}}, sending a heart each day keeps the dark dragon away from {{giftee}}!",
-	"A wholesome heart delivered to {{giftee}} from {{gifter}}!",
-] as const satisfies Readonly<string[]>;
-
-const MAXIMUM_HEARTS_PER_DAY = 3 as const;
-export const HEART_HISTORY_BACK = "HEART_HISTORY_BACK" as const;
-export const HEART_HISTORY_FORWARD = "HEART_HISTORY_FORWARD" as const;
 
 export default new (class implements ChatInputCommand {
 	public readonly name = t("heart.command-name", { lng: Locale.EnglishGB, ns: "commands" });

@@ -18,11 +18,6 @@ import {
 	DAILY_GUIDES_TREASURE_CANDLES_MODAL,
 	DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID,
 } from "../Commands/Admin/admin.js";
-import {
-	HEART_HISTORY_BACK,
-	HEART_HISTORY_FORWARD,
-	HeartHistoryNavigationType,
-} from "../Commands/Fun/heart.js";
 import { DATA_DELETION_CUSTOM_ID } from "../Commands/General/data.js";
 import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../Commands/General/spirit.js";
 import COMMANDS, { resolveCommand } from "../Commands/index.js";
@@ -64,7 +59,12 @@ import {
 	parseEndGame,
 	tryAgain,
 } from "../Structures/Guess.js";
-import { history } from "../Structures/Heart.js";
+import {
+	HEART_HISTORY_BACK,
+	HEART_HISTORY_FORWARD,
+	HeartHistoryNavigationType,
+	history,
+} from "../Structures/Heart.js";
 import { NOTIFICATION_SETUP_OFFSET_CUSTOM_ID } from "../Structures/Notification.js";
 import Profile, {
 	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
