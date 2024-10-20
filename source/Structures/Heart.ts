@@ -5,6 +5,7 @@ import {
 	ButtonStyle,
 	type ChatInputCommandInteraction,
 	EmbedBuilder,
+	MessageFlags,
 	PermissionFlagsBits,
 	type Snowflake,
 	TimestampStyles,
@@ -72,7 +73,7 @@ export async function gift(
 	if (user.id === interaction.user.id) {
 		await interaction.reply({
 			content: `You cannot gift a ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} to yourself!`,
-			ephemeral: true,
+			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
@@ -81,7 +82,7 @@ export async function gift(
 	if (interaction.inGuild() && !member) {
 		await interaction.reply({
 			content: `${user} is not in this server to gift a ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} to.`,
-			ephemeral: true,
+			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
@@ -96,7 +97,7 @@ export async function gift(
 	) {
 		await interaction.reply({
 			content: `${user} is not around to receive a ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)}!`,
-			ephemeral: true,
+			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
@@ -105,7 +106,7 @@ export async function gift(
 	if (user.bot) {
 		await interaction.reply({
 			content: `${user} is a bot. They're pretty emotionless. Immune to love, I'd say.`,
-			ephemeral: true,
+			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
@@ -133,7 +134,7 @@ export async function gift(
 			content: `You've already sent ${user} a ${formatEmoji(
 				MISCELLANEOUS_EMOJIS.Heart,
 			)} today!\nYou can gift another one to them ${tomorrowTimestamp}.`,
-			ephemeral: true,
+			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
@@ -144,7 +145,7 @@ export async function gift(
 	)} left to gift today.\nYou can gift more ${tomorrowTimestamp}.`;
 
 	if (filteredHeartPackets.length >= MAXIMUM_HEARTS_PER_DAY) {
-		await interaction.reply({ content: noMoreHeartsLeft, ephemeral: true });
+		await interaction.reply({ content: noMoreHeartsLeft, flags: MessageFlags.Ephemeral });
 		return;
 	}
 
@@ -176,7 +177,7 @@ export async function gift(
 			heartsLeftToGift === 0
 				? noMoreHeartsLeft
 				: `You can gift ${heartsLeftToGift} more ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} today.`,
-		ephemeral: true,
+		flags: MessageFlags.Ephemeral,
 	});
 }
 
@@ -201,13 +202,12 @@ export async function history(
 			components: [],
 			content: `You have ${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: 0 })}.`,
 			embeds: [],
-			ephemeral: true,
 		};
 
 		if (buttonInteraction) {
 			await interaction.update(response);
 		} else {
-			await interaction.reply(response);
+			await interaction.reply({ ...response, flags: MessageFlags.Ephemeral });
 		}
 
 		return;
@@ -272,12 +272,11 @@ export async function history(
 	const response = {
 		components: actionRow.components.length > 0 ? [actionRow] : [],
 		embeds: [embed],
-		ephemeral: true,
 	};
 
 	if (buttonInteraction) {
 		await interaction.update(response);
 	} else {
-		await interaction.reply(response);
+		await interaction.reply({ ...response, flags: MessageFlags.Ephemeral });
 	}
 }
