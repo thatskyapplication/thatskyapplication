@@ -8,6 +8,7 @@ import {
 	ButtonStyle,
 	ChatInputCommandInteraction,
 	type Locale,
+	MessageFlags,
 	ModalBuilder,
 	type ModalMessageModalSubmitInteraction,
 	StringSelectMenuBuilder,
@@ -119,7 +120,7 @@ export default new (class implements AutocompleteCommand {
 
 		await interaction.reply({
 			content: `AI feature set to \`${Configuration.ai}\`.`,
-			ephemeral: true,
+			flags: MessageFlags.Ephemeral,
 		});
 	}
 
@@ -192,11 +193,10 @@ export default new (class implements AutocompleteCommand {
 				),
 			],
 			embeds: [DailyGuidesDistribution.embed(resolvedLocale)],
-			ephemeral: true,
 		};
 
 		if (interaction instanceof ChatInputCommandInteraction) {
-			await interaction.reply(response);
+			await interaction.reply({ ...response, flags: MessageFlags.Ephemeral });
 		} else if (interaction.deferred) {
 			await interaction.editReply(response);
 		} else {
@@ -236,7 +236,7 @@ export default new (class implements AutocompleteCommand {
 		if (options.data[0]!.options![0]!.options!.length === 0) {
 			await interaction.reply({
 				content: "At least one option must be specified.",
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;

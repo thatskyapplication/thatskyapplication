@@ -3,6 +3,7 @@ import {
 	type ChatInputCommandInteraction,
 	EmbedBuilder,
 	Locale,
+	MessageFlags,
 	PermissionFlagsBits,
 } from "discord.js";
 import { t } from "i18next";
@@ -25,7 +26,7 @@ export default new (class implements ChatInputCommand {
 		if (interaction.inGuild() && !member) {
 			await interaction.reply({
 				content: `${user} is not in this server to fight.`,
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;
@@ -45,7 +46,7 @@ export default new (class implements ChatInputCommand {
 		if (user.bot) {
 			await interaction.reply({
 				content: `${user} is a bot. They're pretty durable. Immune to fights, I'd say.`,
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;

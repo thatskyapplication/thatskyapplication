@@ -3,6 +3,7 @@ import {
 	type ChatInputCommandInteraction,
 	EmbedBuilder,
 	Locale,
+	MessageFlags,
 	PermissionFlagsBits,
 } from "discord.js";
 import { t } from "i18next";
@@ -20,7 +21,7 @@ export default new (class implements ChatInputCommand {
 		if (user.id === interaction.user.id) {
 			await interaction.reply({
 				content: "You may have two hands, but... try someone else!.",
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;
@@ -29,7 +30,7 @@ export default new (class implements ChatInputCommand {
 		if (interaction.inGuild() && !member) {
 			await interaction.reply({
 				content: `${user} is not in this server to high-five.`,
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;
@@ -49,7 +50,7 @@ export default new (class implements ChatInputCommand {
 		if (user.bot) {
 			await interaction.reply({
 				content: `${user} is a bot. They're pretty cold. Immune to high-fives, I'd say.`,
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;

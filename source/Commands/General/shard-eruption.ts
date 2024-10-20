@@ -6,6 +6,7 @@ import {
 	type ChatInputCommandInteraction,
 	Locale,
 	type MessageComponentInteraction,
+	MessageFlags,
 	PermissionFlagsBits,
 	StringSelectMenuBuilder,
 	type StringSelectMenuInteraction,
@@ -96,7 +97,7 @@ export default new (class implements ChatInputCommand {
 
 					await interaction.followUp({
 						content: expiryMessage,
-						ephemeral: true,
+						flags: MessageFlags.Ephemeral,
 					});
 				} else {
 					await interaction.update({

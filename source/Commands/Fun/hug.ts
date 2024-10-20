@@ -3,6 +3,7 @@ import {
 	type ChatInputCommandInteraction,
 	EmbedBuilder,
 	Locale,
+	MessageFlags,
 	PermissionFlagsBits,
 } from "discord.js";
 import { t } from "i18next";
@@ -21,7 +22,7 @@ export default new (class implements ChatInputCommand {
 		if (user.id === interaction.user.id) {
 			await interaction.reply({
 				content: t("hug.hug-self", { lng: resolvedLocale, ns: "commands" }),
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;
@@ -34,7 +35,7 @@ export default new (class implements ChatInputCommand {
 					ns: "commands",
 					user: String(user),
 				}),
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;
@@ -49,7 +50,7 @@ export default new (class implements ChatInputCommand {
 		) {
 			await interaction.reply({
 				content: t("hug.not-around", { lng: resolvedLocale, ns: "commands", user: String(user) }),
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;
@@ -58,7 +59,7 @@ export default new (class implements ChatInputCommand {
 		if (user.bot) {
 			await interaction.reply({
 				content: t("hug.bot", { lng: resolvedLocale, ns: "commands", user: String(user) }),
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;

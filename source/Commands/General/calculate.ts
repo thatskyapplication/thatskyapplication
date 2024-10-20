@@ -278,7 +278,7 @@ export default new (class implements ChatInputCommand {
 		if (start >= goal) {
 			await interaction.reply({
 				content: t("calculate.seasonal-candles.goal-achieved", { lng, ns: "commands" }),
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;

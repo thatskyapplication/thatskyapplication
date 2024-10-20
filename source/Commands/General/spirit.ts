@@ -7,6 +7,7 @@ import {
 	type ChatInputCommandInteraction,
 	EmbedBuilder,
 	Locale,
+	MessageFlags,
 	PermissionFlagsBits,
 	TimestampStyles,
 	hyperlink,
@@ -84,7 +85,7 @@ export default new (class implements AutocompleteCommand {
 		if (!spirit) {
 			await interaction.reply({
 				content: "Woah, it seems we have not encountered that spirit yet. How strange!",
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;
@@ -107,7 +108,7 @@ export default new (class implements AutocompleteCommand {
 		if (!spirit) {
 			await interaction.reply({
 				content: "Woah, it seems we have not encountered that spirit yet. How strange!",
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;

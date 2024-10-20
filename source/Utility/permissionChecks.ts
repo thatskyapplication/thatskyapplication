@@ -1,6 +1,7 @@
 import {
 	type ButtonInteraction,
 	type ChatInputCommandInteraction,
+	MessageFlags,
 	type ModalSubmitInteraction,
 	PermissionFlagsBits,
 	type StringSelectMenuInteraction,
@@ -94,13 +95,12 @@ export async function cannotUsePermissions(
 				: `Missing the \`${missingPermissions[0]}\` permission. `
 		}Someone needs to adjust the permissions!`,
 		embeds: [],
-		ephemeral: true,
 	};
 
 	if (interaction.isMessageComponent()) {
 		await interaction.update(response);
 	} else {
-		await interaction.reply(response);
+		await interaction.reply({ ...response, flags: MessageFlags.Ephemeral });
 	}
 
 	return true;

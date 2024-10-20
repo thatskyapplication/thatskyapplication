@@ -10,6 +10,7 @@ import {
 	type GuildBasedChannel,
 	type GuildMember,
 	type Locale,
+	MessageFlags,
 	PermissionFlagsBits,
 	type PublicThreadChannel,
 	RESTJSONErrorCodes,
@@ -231,7 +232,7 @@ export default class DailyGuidesDistribution {
 		await interaction.reply({
 			content: "Daily guides have been modified.",
 			embeds: [await dailyGuidesDistribution.embed(guild)],
-			ephemeral: true,
+			flags: MessageFlags.Ephemeral,
 		});
 	}
 
@@ -252,7 +253,7 @@ export default class DailyGuidesDistribution {
 			embeds: dailyGuidesDistributionPacket
 				? [await new this(dailyGuidesDistributionPacket).embed(guild)]
 				: [],
-			ephemeral: true,
+			flags: MessageFlags.Ephemeral,
 		});
 	}
 

@@ -1,4 +1,9 @@
-import { type ChatInputCommandInteraction, Locale, PermissionFlagsBits } from "discord.js";
+import {
+	type ChatInputCommandInteraction,
+	Locale,
+	MessageFlags,
+	PermissionFlagsBits,
+} from "discord.js";
 import { t } from "i18next";
 import DailyGuidesDistribution, {
 	isDailyGuidesDistributable,
@@ -47,7 +52,7 @@ export default new (class implements ChatInputCommand {
 		if (dailyGuidesDistributable.length > 0) {
 			await interaction.reply({
 				content: dailyGuidesDistributable.join("\n"),
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;
@@ -63,7 +68,7 @@ export default new (class implements ChatInputCommand {
 		if (!dailyGuidesDistribution) {
 			await interaction.reply({
 				content: "This server does not have this feature set up.",
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;
@@ -71,7 +76,7 @@ export default new (class implements ChatInputCommand {
 
 		await interaction.reply({
 			embeds: [await dailyGuidesDistribution.embed(guild)],
-			ephemeral: true,
+			flags: MessageFlags.Ephemeral,
 		});
 	}
 

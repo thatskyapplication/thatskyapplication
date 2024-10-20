@@ -1,4 +1,10 @@
-import { type ChatInputCommandInteraction, EmbedBuilder, Locale, hyperlink } from "discord.js";
+import {
+	type ChatInputCommandInteraction,
+	EmbedBuilder,
+	Locale,
+	MessageFlags,
+	hyperlink,
+} from "discord.js";
 import { t } from "i18next";
 import {
 	APPLICATION_INVITE_URL,
@@ -67,7 +73,7 @@ export default new (class implements ChatInputCommand {
 					.setTitle(client.user.username)
 					.setURL(WEBSITE_URL),
 			],
-			ephemeral: true,
+			flags: MessageFlags.Ephemeral,
 		});
 	}
 })();

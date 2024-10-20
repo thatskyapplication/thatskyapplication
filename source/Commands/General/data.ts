@@ -4,6 +4,7 @@ import {
 	ButtonStyle,
 	type ChatInputCommandInteraction,
 	Locale,
+	MessageFlags,
 } from "discord.js";
 import { t } from "i18next";
 import type { ChatInputCommand } from "../index.js";
@@ -38,7 +39,7 @@ export default new (class implements ChatInputCommand {
 				),
 			],
 			content: DATA_DELETION_MESSAGE,
-			ephemeral: true,
+			flags: MessageFlags.Ephemeral,
 		});
 	}
 })();

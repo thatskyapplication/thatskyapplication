@@ -500,13 +500,12 @@ export class Catalogue {
 					.setFields({ name: "Total Progress", value: `${catalogue.allProgress(true)}%` })
 					.setTitle("Catalogue"),
 			],
-			ephemeral: true,
 		};
 
 		if (interaction instanceof ButtonInteraction) {
 			await interaction.update(response);
 		} else {
-			await interaction.reply(response);
+			await interaction.reply({ ...response, flags: MessageFlags.Ephemeral });
 		}
 	}
 
