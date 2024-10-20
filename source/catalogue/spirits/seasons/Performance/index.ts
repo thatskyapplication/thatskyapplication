@@ -14,4 +14,5 @@ export default new Season({
 	guide: PerformanceGuide,
 	spirits: [FranticStagehand, ForgetfulStoryteller, MellowMusician, ModestDancer],
 	seasonalCandlesRotation: null,
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/16/faq/890",
 });

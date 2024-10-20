@@ -12,4 +12,5 @@ export default new Season({
 	guide: TheVoidOfShattering,
 	spirits: [...AncientLight, ...AncientDarkness],
 	seasonalCandlesRotation: null,
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/909",
 });

@@ -47,6 +47,10 @@ interface EventData {
 	 * Whether this event has an infographic URL regarding the items it offers.
 	 */
 	offerInfographicURL?: boolean;
+	/**
+	 * The URL of the patch notes that detail the event.
+	 */
+	patchNotesURL?: string;
 }
 
 interface EventCurrencyData {
@@ -110,6 +114,8 @@ export class Event {
 
 	public readonly wikiURL: string;
 
+	public readonly patchNotesURL: string | null;
+
 	public constructor(data: EventData) {
 		this.id = data.id;
 		this.name = t(`events.${data.id}`, { lng: Locale.EnglishGB, ns: "general" });
@@ -136,6 +142,7 @@ export class Event {
 			: null;
 
 		this.wikiURL = wikiURL(this.name);
+		this.patchNotesURL = data.patchNotesURL ?? null;
 	}
 
 	public daysText(date: DateTime, locale: Locale) {

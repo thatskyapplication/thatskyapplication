@@ -67,7 +67,7 @@ interface SeasonData {
 	 */
 	seasonalCandlesRotation: SeasonalCandlesRotation | null;
 	/**
-	 * The URL of the patch notes that introduce the season.
+	 * The URL of the patch notes that detail the season.
 	 */
 	patchNotesURL?: string;
 }

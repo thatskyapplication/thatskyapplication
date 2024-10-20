@@ -31,4 +31,5 @@ export default new Season({
 		{ rotation: 2, realm: RealmName.GoldenWasteland },
 		{ rotation: 2, realm: RealmName.VaultOfKnowledge },
 	],
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1239",
 });

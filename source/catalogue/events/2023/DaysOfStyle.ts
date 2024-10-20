@@ -76,4 +76,5 @@ export default new Event({
 			emoji: OUTFIT_EMOJIS.Outfit50,
 		},
 	],
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1135",
 });

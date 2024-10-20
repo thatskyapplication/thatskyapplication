@@ -14,4 +14,5 @@ export default new Season({
 	guide: MomentsGuide,
 	spirits: [ReassuringRanger, NightbirdWhisperer, JollyGeologist, AsceticMonk],
 	seasonalCandlesRotation: null,
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1124",
 });

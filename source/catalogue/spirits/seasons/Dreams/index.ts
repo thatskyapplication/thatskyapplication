@@ -16,4 +16,5 @@ export default new Season({
 	spirits: [SpinningMentor, DancingPerformer, PeekingPostman, BearhugHermit],
 	items: [{ name: "Pendant", cosmetic: Cosmetic.DreamsPendant, emoji: NECKLACE_EMOJIS.Necklace10 }],
 	seasonalCandlesRotation: null,
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/745",
 });

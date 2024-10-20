@@ -63,4 +63,5 @@ export default new Event({
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory35,
 		},
 	],
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1264",
 });

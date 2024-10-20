@@ -14,4 +14,5 @@ export default new Season({
 	guide: AbyssGuide,
 	spirits: [AnxiousAngler, CeasingCommodore, BumblingBoatswain, CacklingCannoneer],
 	seasonalCandlesRotation: null,
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/866",
 });
