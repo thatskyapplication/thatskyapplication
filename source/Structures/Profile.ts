@@ -28,7 +28,6 @@ import {
 import { hash } from "hasha";
 import { t } from "i18next";
 import sharp from "sharp";
-import commands from "../Commands/index.js";
 import S3Client from "../S3Client.js";
 import {
 	CDN_BUCKET,
@@ -66,6 +65,7 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { Catalogue } from "./Catalogue.js";
 import { findUser } from "./Guess.js";
+import { total } from "./Heart.js";
 
 interface ProfilePacket {
 	user_id: Snowflake;
@@ -1681,7 +1681,7 @@ export default class Profile {
 			| UserContextMenuCommandInteraction,
 	) {
 		const { locale } = interaction;
-		const hearts = await commands.heart.heartCount(this.userId);
+		const hearts = await total(this.userId);
 
 		const {
 			userId,

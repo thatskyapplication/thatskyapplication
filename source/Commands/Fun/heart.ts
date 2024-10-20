@@ -14,6 +14,7 @@ import {
 	userMention,
 } from "discord.js";
 import { t } from "i18next";
+import { total } from "../../Structures/Heart.js";
 import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
 import { getRandomElement } from "../../Utility/Utility.js";
 import { skyToday } from "../../Utility/dates.js";
@@ -66,10 +67,6 @@ export default new (class implements ChatInputCommand {
 			case "history":
 				await this.history(interaction);
 		}
-	}
-
-	public async heartCount(gifteeId: Snowflake) {
-		return (await pg<HeartPacket>(Table.Hearts).select().where({ giftee_id: gifteeId })).length;
 	}
 
 	public async gift(interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction) {
@@ -166,7 +163,7 @@ export default new (class implements ChatInputCommand {
 			timestamp: createdAt,
 		});
 
-		const hearts = await this.heartCount(user.id);
+		const hearts = await total(user.id);
 
 		const heartMessage = getRandomElement(HEARTS)!
 			.replaceAll("heart", formatEmoji(MISCELLANEOUS_EMOJIS.Heart))
