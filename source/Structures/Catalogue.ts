@@ -491,7 +491,15 @@ export class Catalogue {
 					currentReturningSpiritsButton,
 				),
 			],
-			embeds: [],
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(
+						"Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.",
+					)
+					.setFields({ name: "Total Progress", value: `${catalogue.allProgress(true)}%` })
+					.setTitle("Catalogue"),
+			],
 			ephemeral: true,
 		};
 
