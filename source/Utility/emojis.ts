@@ -1218,6 +1218,10 @@ export const FACE_ACCESSORY_EMOJIS = {
 	 * Style Dapper Monocle.
 	 */
 	FaceAccessory39: { name: "face_accessory", id: "1290086047350263868" },
+	/**
+	 * Mischief Star Sticker.
+	 */
+	FaceAccessory40: { name: "face_accessory", id: "1297623184149057729" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type FaceAccessoryEmojis = (typeof FACE_ACCESSORY_EMOJIS)[keyof typeof FACE_ACCESSORY_EMOJIS];
@@ -2018,6 +2022,10 @@ export const HAIR_EMOJIS = {
 	 * Spirit of Adventure.
 	 */
 	Hair151: { name: "hair", id: "1294999810176319529" },
+	/**
+	 * Mischief Spider Bun.
+	 */
+	Hair152: { name: "hair", id: "1297623831724163122" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -2782,6 +2790,10 @@ export const CAPE_EMOJIS = {
 	 * Spirit of Adventure.
 	 */
 	Cape137: { name: "cape", id: "1295002414885109771" },
+	/**
+	 * Mischief Raven-Feathered Cloak.
+	 */
+	Cape138: { name: "cape", id: "1297624319379374131" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -2982,6 +2994,10 @@ export const HELD_PROPS_EMOJIS = {
 	 * Spirit of Adventure.
 	 */
 	HeldProp48: { name: "held_prop", id: "1295000496003878925" },
+	/**
+	 * Mischief Withered Broom.
+	 */
+	HeldProp49: { name: "held_prop", id: "1297624535121657947" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type HeldPropsEmojis = (typeof HELD_PROPS_EMOJIS)[keyof typeof HELD_PROPS_EMOJIS];
@@ -3290,6 +3306,10 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Inspiration of Inclusion.
 	 */
 	LargePlaceableProp75: { name: "large_placeable_prop", id: "1297612344725340274" },
+	/**
+	 * Mischief Cauldron.
+	 */
+	LargePlaceableProp76: { name: "large_placeable_prop", id: "1297623567193739294" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type LargePlaceablePropsEmojis =
