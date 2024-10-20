@@ -64,6 +64,7 @@ import {
 	parseEndGame,
 	tryAgain,
 } from "../Structures/Guess.js";
+import { history } from "../Structures/Heart.js";
 import { NOTIFICATION_SETUP_OFFSET_CUSTOM_ID } from "../Structures/Notification.js";
 import Profile, {
 	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
@@ -464,7 +465,7 @@ export default {
 				if (heartHistoryResult) {
 					const [, type, timestamp] = heartHistoryResult;
 
-					await COMMANDS.heart.heartHistory(interaction, {
+					await history(interaction, {
 						type:
 							type === HEART_HISTORY_BACK
 								? HeartHistoryNavigationType.Back
