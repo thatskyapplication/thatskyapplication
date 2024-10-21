@@ -22,8 +22,8 @@ import {
 	todayEmbed,
 } from "../Structures/ShardEruption.js";
 import { TIME_ZONE, dateRangeString, dateString, skyToday } from "../utility/dates.js";
-import { cannotUsePermissions } from "../utility/permissionChecks.js";
-import { resolveShardEruptionEmoji, shardEruption } from "../utility/shardEruption.js";
+import { cannotUsePermissions } from "../utility/permission-checks.js";
+import { resolveShardEruptionEmoji, shardEruption } from "../utility/shard-eruption.js";
 import type { ChatInputCommand } from "./index.js";
 
 const SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH =

@@ -62,7 +62,7 @@ import {
 	formatEmoji,
 	formatEmojiURL,
 } from "../utility/emojis.js";
-import { cannotUsePermissions } from "../utility/permissionChecks.js";
+import { cannotUsePermissions } from "../utility/permission-checks.js";
 import { Catalogue } from "./Catalogue.js";
 import { findUser } from "./Guess.js";
 import { totalReceived } from "./Heart.js";

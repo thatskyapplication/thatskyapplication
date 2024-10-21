@@ -10,7 +10,7 @@ import { t } from "i18next";
 import Profile, { AssetType, type ProfileSetData } from "../Structures/Profile.js";
 import { spirits } from "../data/spirits/index.js";
 import { SKY_PROFILE_MAXIMUM_ASSET_SIZE } from "../utility/Constants.js";
-import { cannotUsePermissions } from "../utility/permissionChecks.js";
+import { cannotUsePermissions } from "../utility/permission-checks.js";
 import COMMANDS, { type AutocompleteCommand } from "./index.js";
 
 export default new (class implements AutocompleteCommand {

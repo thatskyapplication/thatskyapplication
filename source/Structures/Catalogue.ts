@@ -66,7 +66,7 @@ import {
 import { skyNow } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../utility/emojis.js";
 import { isRealm } from "../utility/functions.js";
-import { cannotUsePermissions } from "../utility/permissionChecks.js";
+import { cannotUsePermissions } from "../utility/permission-checks.js";
 import type { SpiritName } from "../utility/spirits.js";
 import Profile from "./Profile.js";
 

@@ -50,7 +50,7 @@ import {
 	shardEruption,
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
-} from "../utility/shardEruption.js";
+} from "../utility/shard-eruption.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
 
 export interface DailyGuidesDistributionPacket {

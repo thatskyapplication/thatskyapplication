@@ -38,8 +38,8 @@ import {
 	formatEmojiURL,
 	resolveCurrencyEmoji,
 } from "../utility/emojis.js";
-import { cannotUsePermissions } from "../utility/permissionChecks.js";
-import { shardEruption } from "../utility/shardEruption.js";
+import { cannotUsePermissions } from "../utility/permission-checks.js";
+import { shardEruption } from "../utility/shard-eruption.js";
 import type { ChatInputCommand } from "./index.js";
 
 const doubleSeasonalLightEventStart = time(

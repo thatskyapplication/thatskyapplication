@@ -13,7 +13,7 @@ import {
 	shardEruption,
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
-} from "../utility/shardEruption.js";
+} from "../utility/shard-eruption.js";
 
 export const SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID" as const;
 

@@ -35,7 +35,7 @@ import {
 } from "../utility/catalogue.js";
 import { skyNow } from "../utility/dates.js";
 import { formatEmoji } from "../utility/emojis.js";
-import { cannotUsePermissions } from "../utility/permissionChecks.js";
+import { cannotUsePermissions } from "../utility/permission-checks.js";
 import {
 	FriendActionToEmoji,
 	SpiritCallToEmoji,

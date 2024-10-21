@@ -19,7 +19,7 @@ import {
 } from "./utility/Constants.js";
 import { skyNow } from "./utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "./utility/emojis.js";
-import { shardEruption } from "./utility/shardEruption.js";
+import { shardEruption } from "./utility/shard-eruption.js";
 
 const { OPENAI_API_KEY } = process.env;
 

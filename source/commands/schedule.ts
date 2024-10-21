@@ -25,7 +25,7 @@ import {
 	INITIAL_TRAVELLING_SPIRIT_SEEK,
 	skyNow,
 } from "../utility/dates.js";
-import { cannotUsePermissions } from "../utility/permissionChecks.js";
+import { cannotUsePermissions } from "../utility/permission-checks.js";
 import type { ChatInputCommand } from "./index.js";
 
 const PASSAGE_TRUNCATION_LIMIT = 9 as const;
