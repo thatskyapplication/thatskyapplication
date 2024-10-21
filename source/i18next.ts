@@ -1,19 +1,19 @@
 import { Locale } from "discord.js";
 import { init } from "i18next";
-import de from "./locales2/de.js";
-import enGB from "./locales2/en-GB.js";
-import es419 from "./locales2/es-419.js";
-import esES from "./locales2/es-ES.js";
-import fr from "./locales2/fr.js";
-import it from "./locales2/it.js";
-import ja from "./locales2/ja.js";
-import ko from "./locales2/ko.js";
-import ptBR from "./locales2/pt-BR.js";
-import ru from "./locales2/ru.js";
-import th from "./locales2/th.js";
-import vi from "./locales2/vi.js";
-import zhCN from "./locales2/zh-CN.js";
-import zhTW from "./locales2/zh-TW.js";
+import de from "./locales/de.js";
+import enGB from "./locales/en-GB.js";
+import es419 from "./locales/es-419.js";
+import esES from "./locales/es-ES.js";
+import fr from "./locales/fr.js";
+import it from "./locales/it.js";
+import ja from "./locales/ja.js";
+import ko from "./locales/ko.js";
+import ptBR from "./locales/pt-BR.js";
+import ru from "./locales/ru.js";
+import th from "./locales/th.js";
+import vi from "./locales/vi.js";
+import zhCN from "./locales/zh-CN.js";
+import zhTW from "./locales/zh-TW.js";
 import pino from "./pino.js";
 
 void init({
