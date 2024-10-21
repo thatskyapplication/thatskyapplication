@@ -8,7 +8,7 @@ import {
 	HELD_PROPS_EMOJIS,
 	OUTFIT_EMOJIS,
 } from "../../../../utility/emojis.js";
-import AURORA from "./aurora.js";
+import AURORA from "./aurora2.js";
 import MindfulMiner from "./mindful-miner.js";
 import RunningWayfarer from "./running-wayfarer.js";
 import SeedOfHope from "./seed-of-hope.js";
