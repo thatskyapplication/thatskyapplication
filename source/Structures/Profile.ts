@@ -60,7 +60,7 @@ import {
 	formatEmojiURL,
 } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
-import { skySeasons } from "../catalogue/spirits/seasons/index.js";
+import { skySeasons } from "../data/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { Catalogue } from "./Catalogue.js";

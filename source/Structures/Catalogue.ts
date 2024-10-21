@@ -40,24 +40,24 @@ import { skyNow } from "../Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import type { SpiritName } from "../Utility/spirits.js";
-import { skyCurrentEvents, skyEventYears, skyEvents } from "../catalogue/events/index.js";
-import { NESTING_WORKSHOP } from "../catalogue/nestingWorkshop.js";
-import { PERMANENT_EVENT_STORE } from "../catalogue/permanentEventStore.js";
-import { SECRET_AREA } from "../catalogue/secretArea.js";
-import { spirits } from "../catalogue/spirits/index.js";
+import { NESTING_WORKSHOP } from "../data/nestingWorkshop.js";
+import { PERMANENT_EVENT_STORE } from "../data/permanentEventStore.js";
+import { SECRET_AREA } from "../data/secretArea.js";
+import { STARTER_PACKS } from "../data/starterPacks.js";
+import { skyCurrentEvents, skyEventYears, skyEvents } from "../data/events/index.js";
+import { spirits } from "../data/spirits/index.js";
 import {
 	ELDER_SPIRITS,
 	REALMS,
 	REALM_SPIRITS,
 	STANDARD_SPIRITS,
-} from "../catalogue/spirits/realms/index.js";
+} from "../data/spirits/realms/index.js";
 import {
 	resolveReturningSpirits,
 	resolveTravellingSpirit,
 	skyCurrentSeason,
 	skySeasons,
-} from "../catalogue/spirits/seasons/index.js";
-import { STARTER_PACKS } from "../catalogue/starterPacks.js";
+} from "../data/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import type { Event } from "./Event.js";

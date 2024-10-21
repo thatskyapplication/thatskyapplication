@@ -38,8 +38,8 @@ import {
 } from "../Utility/emojis.js";
 import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import { shardEruption } from "../Utility/shardEruption.js";
-import { skyCurrentEvents } from "../catalogue/events/index.js";
-import { skyCurrentSeason } from "../catalogue/spirits/seasons/index.js";
+import { skyCurrentEvents } from "../data/events/index.js";
+import { skyCurrentSeason } from "../data/spirits/seasons/index.js";
 import type { ChatInputCommand } from "./index.js";
 
 const doubleSeasonalLightEventStart = time(

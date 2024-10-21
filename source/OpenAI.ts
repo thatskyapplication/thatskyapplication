@@ -17,8 +17,8 @@ import {
 import { skyNow } from "./Utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "./Utility/emojis.js";
 import { shardEruption } from "./Utility/shardEruption.js";
-import { skyCurrentEvents, skyUpcomingEvents } from "./catalogue/events/index.js";
-import { skySeasons, skyUpcomingSeason } from "./catalogue/spirits/seasons/index.js";
+import { skyCurrentEvents, skyUpcomingEvents } from "./data/events/index.js";
+import { skySeasons, skyUpcomingSeason } from "./data/spirits/seasons/index.js";
 import pino from "./pino.js";
 
 const { OPENAI_API_KEY } = process.env;

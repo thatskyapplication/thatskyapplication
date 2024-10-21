@@ -46,8 +46,8 @@ import {
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
 } from "../Utility/shardEruption.js";
-import { skyCurrentEvents, skyNotEndedEvents } from "../catalogue/events/index.js";
-import { skyCurrentSeason, skyUpcomingSeason } from "../catalogue/spirits/seasons/index.js";
+import { skyCurrentEvents, skyNotEndedEvents } from "../data/events/index.js";
+import { skyCurrentSeason, skyUpcomingSeason } from "../data/spirits/seasons/index.js";
 import pQueue from "../pQueue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";

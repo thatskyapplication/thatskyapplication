@@ -2,7 +2,7 @@ import { URL } from "node:url";
 import { type Locale, TimestampStyles, hyperlink, time } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import { skyCurrentEvents } from "../catalogue/events/index.js";
+import { skyCurrentEvents } from "../data/events/index.js";
 import { CDN_URL, type RealmName, SkyMap, VALID_REALM_NAME } from "./Constants.js";
 import { EventId } from "./catalogue.js";
 import { skyToday } from "./dates.js";

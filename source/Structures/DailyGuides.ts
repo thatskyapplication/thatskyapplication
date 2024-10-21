@@ -45,7 +45,7 @@ import {
 import { SeasonId, type SeasonIds, snakeCaseName } from "../Utility/catalogue.js";
 import { skyToday } from "../Utility/dates.js";
 import { FriendAction, SpiritEmote } from "../Utility/spirits.js";
-import { spirits } from "../catalogue/spirits/index.js";
+import { spirits } from "../data/spirits/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";

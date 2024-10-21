@@ -40,8 +40,8 @@ import {
 	SpiritEmoteToEmoji,
 	SpiritStanceToEmoji,
 } from "../Utility/spirits.js";
-import { spirits } from "../catalogue/spirits/index.js";
-import { resolveSeasonalSpirit } from "../catalogue/spirits/seasons/index.js";
+import { spirits } from "../data/spirits/index.js";
+import { resolveSeasonalSpirit } from "../data/spirits/seasons/index.js";
 import type { AutocompleteCommand } from "./index.js";
 
 export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID =

@@ -28,10 +28,10 @@ import {
 	formatEmoji,
 	formatEmojiURL,
 } from "../Utility/emojis.js";
-import { spirits } from "../catalogue/spirits/index.js";
-import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../catalogue/spirits/realms/index.js";
-import ModestDancer from "../catalogue/spirits/seasons/Performance/ModestDancer.js";
-import { currentSeasonalSpirits } from "../catalogue/spirits/seasons/index.js";
+import { spirits } from "../data/spirits/index.js";
+import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../data/spirits/realms/index.js";
+import ModestDancer from "../data/spirits/seasons/Performance/ModestDancer.js";
+import { currentSeasonalSpirits } from "../data/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import type { ElderSpirit, GuideSpirit, SeasonalSpirit, StandardSpirit } from "./Spirits.js";
