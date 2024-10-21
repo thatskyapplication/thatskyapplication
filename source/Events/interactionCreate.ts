@@ -18,10 +18,10 @@ import {
 	DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_TREASURE_CANDLES_MODAL,
 	DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID,
-} from "../Commands/Admin/admin.js";
-import { DATA_DELETION_CUSTOM_ID } from "../Commands/General/data.js";
-import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../Commands/General/spirit.js";
-import COMMANDS, { resolveCommand } from "../Commands/index.js";
+} from "../commands/admin.js";
+import { DATA_DELETION_CUSTOM_ID } from "../commands/data.js";
+import COMMANDS, { resolveCommand } from "../commands/index.js";
+import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../commands/spirit.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../Structures/AI.js";
 import {
 	CATALOGUE_BACK_TO_START_CUSTOM_ID,

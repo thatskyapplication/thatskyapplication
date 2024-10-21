@@ -21,8 +21,8 @@ import type {
 	SeasonalSpiritVisitReturningData,
 	SeasonalSpiritVisitTravellingData,
 	StandardSpirit,
-} from "../../Structures/Spirits.js";
-import { DEFAULT_EMBED_COLOUR } from "../../Utility/Constants.js";
+} from "../Structures/Spirits.js";
+import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
 import {
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
@@ -30,19 +30,19 @@ import {
 	SeasonId,
 	SeasonIdToSeasonalEmoji,
 	resolveCostToString,
-} from "../../Utility/catalogue.js";
-import { skyNow } from "../../Utility/dates.js";
-import { formatEmoji } from "../../Utility/emojis.js";
-import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
+} from "../Utility/catalogue.js";
+import { skyNow } from "../Utility/dates.js";
+import { formatEmoji } from "../Utility/emojis.js";
+import { cannotUsePermissions } from "../Utility/permissionChecks.js";
 import {
 	FriendActionToEmoji,
 	SpiritCallToEmoji,
 	SpiritEmoteToEmoji,
 	SpiritStanceToEmoji,
-} from "../../Utility/spirits.js";
-import { spirits } from "../../catalogue/spirits/index.js";
-import { resolveSeasonalSpirit } from "../../catalogue/spirits/seasons/index.js";
-import type { AutocompleteCommand } from "../index.js";
+} from "../Utility/spirits.js";
+import { spirits } from "../catalogue/spirits/index.js";
+import { resolveSeasonalSpirit } from "../catalogue/spirits/seasons/index.js";
+import type { AutocompleteCommand } from "./index.js";
 
 export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID =
 	"SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;

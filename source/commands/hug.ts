@@ -7,20 +7,21 @@ import {
 	PermissionFlagsBits,
 } from "discord.js";
 import { t } from "i18next";
-import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_HIGH_FIVE_NO } from "../../Utility/Constants.js";
-import type { ChatInputCommand } from "../index.js";
+import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_HUG_NO } from "../Utility/Constants.js";
+import type { ChatInputCommand } from "./index.js";
 
 export default new (class implements ChatInputCommand {
-	public readonly name = t("high-five.command-name", { lng: Locale.EnglishGB, ns: "commands" });
+	public readonly name = t("hug.command-name", { lng: Locale.EnglishGB, ns: "commands" });
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
-		const { channel, options } = interaction;
+		const { channel, guildLocale, options } = interaction;
 		const user = options.getUser("user", true);
 		const member = options.getMember("user");
+		const resolvedLocale = guildLocale ?? Locale.EnglishGB;
 
 		if (user.id === interaction.user.id) {
 			await interaction.reply({
-				content: "You may have two hands, but... try someone else!.",
+				content: t("hug.hug-self", { lng: resolvedLocale, ns: "commands" }),
 				flags: MessageFlags.Ephemeral,
 			});
 
@@ -29,7 +30,11 @@ export default new (class implements ChatInputCommand {
 
 		if (interaction.inGuild() && !member) {
 			await interaction.reply({
-				content: `${user} is not in this server to high-five.`,
+				content: t("hug.not-in-server", {
+					lng: resolvedLocale,
+					ns: "commands",
+					user: String(user),
+				}),
 				flags: MessageFlags.Ephemeral,
 			});
 
@@ -43,13 +48,17 @@ export default new (class implements ChatInputCommand {
 			"user" in member &&
 			!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
 		) {
-			await interaction.reply({ content: `${user} is not around to high-five!`, ephemeral: true });
+			await interaction.reply({
+				content: t("hug.not-around", { lng: resolvedLocale, ns: "commands", user: String(user) }),
+				flags: MessageFlags.Ephemeral,
+			});
+
 			return;
 		}
 
 		if (user.bot) {
 			await interaction.reply({
-				content: `${user} is a bot. They're pretty cold. Immune to high-fives, I'd say.`,
+				content: t("hug.bot", { lng: resolvedLocale, ns: "commands", user: String(user) }),
 				flags: MessageFlags.Ephemeral,
 			});
 
@@ -57,17 +66,17 @@ export default new (class implements ChatInputCommand {
 		}
 
 		await interaction.reply({
-			content: `${user}, ${interaction.user} high-fived you!`,
+			content: t("hug.message", {
+				lng: resolvedLocale,
+				ns: "commands",
+				user: String(user),
+				invoker: String(interaction.user),
+			}),
 			embeds: [
 				new EmbedBuilder()
 					.setColor(DEFAULT_EMBED_COLOUR)
 					.setImage(
-						String(
-							new URL(
-								`high_fives/${Math.floor(Math.random() * MAX_HIGH_FIVE_NO + 1)}.gif`,
-								CDN_URL,
-							),
-						),
+						String(new URL(`hugs/${Math.floor(Math.random() * MAX_HUG_NO + 1)}.gif`, CDN_URL)),
 					),
 			],
 		});

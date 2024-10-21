@@ -19,10 +19,10 @@ import {
 } from "discord.js";
 import { hash } from "hasha";
 import sharp from "sharp";
-import S3Client from "../../S3Client.js";
-import Configuration from "../../Structures/Configuration.js";
-import DailyGuides, { type QuestNumber, QUESTS } from "../../Structures/DailyGuides.js";
-import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
+import S3Client from "../S3Client.js";
+import Configuration from "../Structures/Configuration.js";
+import DailyGuides, { type QuestNumber, QUESTS } from "../Structures/DailyGuides.js";
+import DailyGuidesDistribution from "../Structures/DailyGuidesDistribution.js";
 import {
 	CDN_BUCKET,
 	LOCALES,
@@ -30,9 +30,9 @@ import {
 	MAXIMUM_EMBED_FIELD_VALUE_LENGTH,
 	QUEST_NUMBER,
 	VALID_REALM_NAME,
-} from "../../Utility/Constants.js";
-import { resolveValidRealm, userLogFormat } from "../../Utility/Utility.js";
-import type { AutocompleteCommand } from "../index.js";
+} from "../Utility/Constants.js";
+import { resolveValidRealm, userLogFormat } from "../Utility/Utility.js";
+import type { AutocompleteCommand } from "./index.js";
 
 interface InteractiveOptions {
 	content?: string;

@@ -7,13 +7,13 @@ import {
 import { t } from "i18next";
 import DailyGuidesDistribution, {
 	isDailyGuidesDistributable,
-} from "../../Structures/DailyGuidesDistribution.js";
+} from "../Structures/DailyGuidesDistribution.js";
 import {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	NOT_IN_CACHED_GUILD_RESPONSE,
-} from "../../Utility/Constants.js";
-import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
-import type { ChatInputCommand } from "../index.js";
+} from "../Utility/Constants.js";
+import { cannotUsePermissions } from "../Utility/permissionChecks.js";
+import type { ChatInputCommand } from "./index.js";
 
 export default new (class implements ChatInputCommand {
 	public readonly name = t("daily-guides.command-name", { lng: Locale.EnglishGB, ns: "commands" });

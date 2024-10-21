@@ -20,11 +20,11 @@ import {
 	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS,
 	SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
 	todayEmbed,
-} from "../../Structures/ShardEruption.js";
-import { TIME_ZONE, dateRangeString, dateString, skyToday } from "../../Utility/dates.js";
-import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
-import { resolveShardEruptionEmoji, shardEruption } from "../../Utility/shardEruption.js";
-import type { ChatInputCommand } from "../index.js";
+} from "../Structures/ShardEruption.js";
+import { TIME_ZONE, dateRangeString, dateString, skyToday } from "../Utility/dates.js";
+import { cannotUsePermissions } from "../Utility/permissionChecks.js";
+import { resolveShardEruptionEmoji, shardEruption } from "../Utility/shardEruption.js";
+import type { ChatInputCommand } from "./index.js";
 
 const SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH =
 	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.length;

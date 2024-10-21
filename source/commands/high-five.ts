@@ -7,11 +7,11 @@ import {
 	PermissionFlagsBits,
 } from "discord.js";
 import { t } from "i18next";
-import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_PLAY_FIGHT_NO } from "../../Utility/Constants.js";
-import type { ChatInputCommand } from "../index.js";
+import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_HIGH_FIVE_NO } from "../Utility/Constants.js";
+import type { ChatInputCommand } from "./index.js";
 
 export default new (class implements ChatInputCommand {
-	public readonly name = t("play-fight.command-name", { lng: Locale.EnglishGB, ns: "commands" });
+	public readonly name = t("high-five.command-name", { lng: Locale.EnglishGB, ns: "commands" });
 
 	public async chatInput(interaction: ChatInputCommandInteraction) {
 		const { channel, options } = interaction;
@@ -19,13 +19,17 @@ export default new (class implements ChatInputCommand {
 		const member = options.getMember("user");
 
 		if (user.id === interaction.user.id) {
-			await interaction.reply({ content: "Play with others!", ephemeral: true });
+			await interaction.reply({
+				content: "You may have two hands, but... try someone else!.",
+				flags: MessageFlags.Ephemeral,
+			});
+
 			return;
 		}
 
 		if (interaction.inGuild() && !member) {
 			await interaction.reply({
-				content: `${user} is not in this server to fight.`,
+				content: `${user} is not in this server to high-five.`,
 				flags: MessageFlags.Ephemeral,
 			});
 
@@ -39,13 +43,13 @@ export default new (class implements ChatInputCommand {
 			"user" in member &&
 			!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
 		) {
-			await interaction.reply({ content: `${user} is not around to be fought!`, ephemeral: true });
+			await interaction.reply({ content: `${user} is not around to high-five!`, ephemeral: true });
 			return;
 		}
 
 		if (user.bot) {
 			await interaction.reply({
-				content: `${user} is a bot. They're pretty durable. Immune to fights, I'd say.`,
+				content: `${user} is a bot. They're pretty cold. Immune to high-fives, I'd say.`,
 				flags: MessageFlags.Ephemeral,
 			});
 
@@ -53,14 +57,14 @@ export default new (class implements ChatInputCommand {
 		}
 
 		await interaction.reply({
-			content: `${interaction.user} is fighting ${user}!`,
+			content: `${user}, ${interaction.user} high-fived you!`,
 			embeds: [
 				new EmbedBuilder()
 					.setColor(DEFAULT_EMBED_COLOUR)
 					.setImage(
 						String(
 							new URL(
-								`play_fights/${Math.floor(Math.random() * MAX_PLAY_FIGHT_NO + 1)}.gif`,
+								`high_fives/${Math.floor(Math.random() * MAX_HIGH_FIVE_NO + 1)}.gif`,
 								CDN_URL,
 							),
 						),

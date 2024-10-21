@@ -1,7 +1,7 @@
 import { Locale, MessageFlags, type UserContextMenuCommandInteraction } from "discord.js";
 import { t } from "i18next";
-import Profile from "../../Structures/Profile.js";
-import type { UserContextMenuCommand } from "../index.js";
+import Profile from "../Structures/Profile.js";
+import type { UserContextMenuCommand } from "./index.js";
 
 export default new (class implements UserContextMenuCommand {
 	public readonly name = t("Sky-Profile.command-name", { lng: Locale.EnglishGB, ns: "commands" });

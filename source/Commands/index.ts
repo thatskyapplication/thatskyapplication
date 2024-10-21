@@ -4,27 +4,27 @@ import type {
 	MessageContextMenuCommandInteraction,
 	UserContextMenuCommandInteraction,
 } from "discord.js";
-import admin from "./Admin/admin.js";
-import dailyguides from "./Events/daily-guides.js";
-import notifications from "./Events/notifications.js";
-import schedule from "./Events/schedule.js";
-import GiftHeart from "./Fun/Gift Heart.js";
-import bonk from "./Fun/bonk.js";
-import guess from "./Fun/guess.js";
-import heart from "./Fun/heart.js";
-import highfive from "./Fun/high-five.js";
-import hug from "./Fun/hug.js";
-import krill from "./Fun/krill.js";
-import playfight from "./Fun/play-fight.js";
-import SkyProfile from "./General/Sky Profile.js";
-import about from "./General/about.js";
-import ai from "./General/ai.js";
-import calculate from "./General/calculate.js";
-import catalogue from "./General/catalogue.js";
-import data from "./General/data.js";
-import sharderuption from "./General/shard-eruption.js";
-import skyprofile from "./General/sky-profile.js";
-import spirit from "./General/spirit.js";
+import admin from "./admin.js";
+import notifications from "./notifications.js";
+import schedule from "./schedule.js";
+import GiftHeart from "./Gift Heart.js";
+import SkyProfile from "./Sky Profile.js";
+import about from "./about.js";
+import ai from "./ai.js";
+import bonk from "./bonk.js";
+import calculate from "./calculate.js";
+import catalogue from "./catalogue.js";
+import dailyguides from "./daily-guides.js";
+import data from "./data.js";
+import guess from "./guess.js";
+import heart from "./heart.js";
+import highfive from "./high-five.js";
+import hug from "./hug.js";
+import krill from "./krill.js";
+import playfight from "./play-fight.js";
+import sharderuption from "./shard-eruption.js";
+import skyprofile from "./sky-profile.js";
+import spirit from "./spirit.js";
 
 const COMMANDS = {
 	about,

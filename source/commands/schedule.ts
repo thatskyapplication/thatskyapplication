@@ -11,22 +11,22 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import DailyGuidesDistribution from "../../Structures/DailyGuidesDistribution.js";
+import DailyGuidesDistribution from "../Structures/DailyGuidesDistribution.js";
 import {
 	CDN_URL,
 	DEFAULT_EMBED_COLOUR,
 	ISS_DATES_ACCESSIBLE,
 	NotificationType,
-} from "../../Utility/Constants.js";
+} from "../Utility/Constants.js";
 import {
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1_RELATIVE_TIME,
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2,
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2_RELATIVE_TIME,
 	INITIAL_TRAVELLING_SPIRIT_SEEK,
 	skyNow,
-} from "../../Utility/dates.js";
-import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
-import type { ChatInputCommand } from "../index.js";
+} from "../Utility/dates.js";
+import { cannotUsePermissions } from "../Utility/permissionChecks.js";
+import type { ChatInputCommand } from "./index.js";
 
 const PASSAGE_TRUNCATION_LIMIT = 9 as const;
 

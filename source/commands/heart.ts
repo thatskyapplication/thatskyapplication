@@ -4,8 +4,8 @@ import {
 	type UserContextMenuCommandInteraction,
 } from "discord.js";
 import { t } from "i18next";
-import { gift, history } from "../../Structures/Heart.js";
-import type { ChatInputCommand } from "../index.js";
+import { gift, history } from "../Structures/Heart.js";
+import type { ChatInputCommand } from "./index.js";
 
 export default new (class implements ChatInputCommand {
 	public readonly name = t("heart.command-name", { lng: Locale.EnglishGB, ns: "commands" });

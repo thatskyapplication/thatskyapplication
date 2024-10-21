@@ -5,7 +5,7 @@ import {
 	PermissionFlagsBits,
 } from "discord.js";
 import { t } from "i18next";
-import type { ChatInputCommand } from "../index.js";
+import type { ChatInputCommand } from "./index.js";
 
 const BONKS = {
 	successful: [

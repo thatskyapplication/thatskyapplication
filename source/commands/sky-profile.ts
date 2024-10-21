@@ -7,11 +7,11 @@ import {
 	PermissionFlagsBits,
 } from "discord.js";
 import { t } from "i18next";
-import Profile, { AssetType, type ProfileSetData } from "../../Structures/Profile.js";
-import { SKY_PROFILE_MAXIMUM_ASSET_SIZE } from "../../Utility/Constants.js";
-import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
-import { spirits } from "../../catalogue/spirits/index.js";
-import COMMANDS, { type AutocompleteCommand } from "../index.js";
+import Profile, { AssetType, type ProfileSetData } from "../Structures/Profile.js";
+import { SKY_PROFILE_MAXIMUM_ASSET_SIZE } from "../Utility/Constants.js";
+import { cannotUsePermissions } from "../Utility/permissionChecks.js";
+import { spirits } from "../catalogue/spirits/index.js";
+import COMMANDS, { type AutocompleteCommand } from "./index.js";
 
 export default new (class implements AutocompleteCommand {
 	public readonly name = t("sky-profile.command-name", { lng: Locale.EnglishGB, ns: "commands" });

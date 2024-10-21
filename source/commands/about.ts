@@ -16,8 +16,8 @@ import {
 	SkyMap,
 	THATSKYGAME_URL,
 	WEBSITE_URL,
-} from "../../Utility/Constants.js";
-import type { ChatInputCommand } from "../index.js";
+} from "../Utility/Constants.js";
+import type { ChatInputCommand } from "./index.js";
 
 const DESCRIPTION_TEXT = `Welcome to the lovely Discord bot for ${hyperlink(
 	"Sky: Children of the Light",

@@ -21,16 +21,16 @@ import {
 	isNotificationType,
 	setup,
 	unset,
-} from "../../Structures/Notification.js";
+} from "../Structures/Notification.js";
 import {
 	DEFAULT_EMBED_COLOUR,
 	ERROR_RESPONSE,
 	NOTIFICATION_CHANNEL_TYPES,
 	NOT_IN_CACHED_GUILD_RESPONSE,
-} from "../../Utility/Constants.js";
-import { cannotUsePermissions } from "../../Utility/permissionChecks.js";
-import pino from "../../pino.js";
-import type { ChatInputCommand } from "../index.js";
+} from "../Utility/Constants.js";
+import { cannotUsePermissions } from "../Utility/permissionChecks.js";
+import pino from "../pino.js";
+import type { ChatInputCommand } from "./index.js";
 
 export default new (class implements ChatInputCommand {
 	public readonly name = t("notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" });

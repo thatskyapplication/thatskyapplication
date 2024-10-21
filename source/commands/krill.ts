@@ -7,8 +7,8 @@ import {
 	PermissionFlagsBits,
 } from "discord.js";
 import { t } from "i18next";
-import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_KRILL_NO } from "../../Utility/Constants.js";
-import type { ChatInputCommand } from "../index.js";
+import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_KRILL_NO } from "../Utility/Constants.js";
+import type { ChatInputCommand } from "./index.js";
 
 export default new (class implements ChatInputCommand {
 	public readonly name = t("krill.command-name", { lng: Locale.EnglishGB, ns: "commands" });
