@@ -30,7 +30,7 @@ import {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DEFAULT_EMBED_COLOUR,
 	RealmName,
-} from "../utility/constants-2.js";
+} from "../utility/constants.js";
 import {
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,

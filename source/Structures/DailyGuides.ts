@@ -37,7 +37,7 @@ import {
 	VALID_REALM_NAME,
 	type ValidRealmName,
 	inconsistentMapKeys,
-} from "../utility/constants-2.js";
+} from "../utility/constants.js";
 import { skyToday } from "../utility/dates.js";
 import {
 	isMeditationMap,

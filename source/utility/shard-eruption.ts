@@ -4,7 +4,7 @@ import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { skyCurrentEvents } from "../data/events/index.js";
 import { EventId } from "./catalogue.js";
-import { CDN_URL, type RealmName, SkyMap, VALID_REALM_NAME } from "./constants-2.js";
+import { CDN_URL, type RealmName, SkyMap, VALID_REALM_NAME } from "./constants.js";
 import { skyToday } from "./dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "./emojis.js";
 

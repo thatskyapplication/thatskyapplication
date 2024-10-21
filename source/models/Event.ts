@@ -12,7 +12,7 @@ import {
 	snakeCaseName,
 	wikiURL,
 } from "../utility/catalogue.js";
-import { CDN_URL } from "../utility/constants-2.js";
+import { CDN_URL } from "../utility/constants.js";
 import type { EventEmojis } from "../utility/emojis.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;

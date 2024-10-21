@@ -15,7 +15,7 @@ import {
 	snakeCaseName,
 	wikiURL,
 } from "../utility/catalogue.js";
-import { CDN_URL, type RealmName } from "../utility/constants-2.js";
+import { CDN_URL, type RealmName } from "../utility/constants.js";
 import { skyDate } from "../utility/dates.js";
 import {
 	type FriendAction,

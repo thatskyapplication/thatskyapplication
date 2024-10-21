@@ -55,7 +55,7 @@ import {
 	SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
 	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	SKY_PROFILE_UNKNOWN_NAME,
-} from "../utility/constants-2.js";
+} from "../utility/constants.js";
 import {
 	MISCELLANEOUS_EMOJIS,
 	type MiscellaneousEmojis,

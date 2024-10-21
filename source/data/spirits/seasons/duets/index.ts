@@ -1,6 +1,6 @@
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
-import { RealmName } from "../../../../utility/constants-2.js";
+import { RealmName } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import CompassionateCellist from "./compassionate-cellist.js";
 import DuetsGuide from "./duets-guide.js";

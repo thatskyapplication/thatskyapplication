@@ -1,7 +1,7 @@
 import { type ChatInputCommandInteraction, Locale, MessageFlags } from "discord.js";
 import { t } from "i18next";
 import AI from "../Structures/AI.js";
-import { NOT_IN_CACHED_GUILD_RESPONSE } from "../utility/constants-2.js";
+import { NOT_IN_CACHED_GUILD_RESPONSE } from "../utility/constants.js";
 import type { ChatInputCommand } from "./index.js";
 
 export default new (class implements ChatInputCommand {

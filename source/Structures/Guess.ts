@@ -30,7 +30,7 @@ import {
 	GUESS_DIFFICULTY_LEVEL_VALUES,
 	GuessDifficultyLevel,
 	GuessDifficultyLevelToName,
-} from "../utility/constants-2.js";
+} from "../utility/constants.js";
 import {
 	COSMETIC_EMOJIS,
 	type CosmeticEmojis,

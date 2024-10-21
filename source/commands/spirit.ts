@@ -32,7 +32,7 @@ import {
 	SeasonIdToSeasonalEmoji,
 	resolveCostToString,
 } from "../utility/catalogue.js";
-import { DEFAULT_EMBED_COLOUR } from "../utility/constants-2.js";
+import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { skyNow } from "../utility/dates.js";
 import { formatEmoji } from "../utility/emojis.js";
 import { cannotUsePermissions } from "../utility/permission-checks.js";

@@ -8,7 +8,7 @@ import {
 	type NotificationTypes,
 	REALM_NAME_VALUES,
 	SKY_MAP_VALUES,
-} from "../utility/constants-2.js";
+} from "../utility/constants.js";
 import { SpiritName } from "../utility/spirits.js";
 
 export default {

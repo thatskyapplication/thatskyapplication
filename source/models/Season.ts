@@ -18,7 +18,7 @@ import {
 	snakeCaseName,
 	wikiURL,
 } from "../utility/catalogue.js";
-import { CDN_URL, type RealmName } from "../utility/constants-2.js";
+import { CDN_URL, type RealmName } from "../utility/constants.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,

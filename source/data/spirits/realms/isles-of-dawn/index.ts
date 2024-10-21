@@ -1,5 +1,5 @@
 import { Realm } from "../../../../models/Realm.js";
-import { RealmName } from "../../../../utility/constants-2.js";
+import { RealmName } from "../../../../utility/constants.js";
 import ElderOfTheIsles from "./elder-of-the-isles.js";
 import PointingCandlemaker from "./pointing-candlemaker.js";
 import RejectingVoyager from "./rejecting-voyager.js";

@@ -1,5 +1,5 @@
 import { SeasonId } from "../utility/catalogue.js";
-import { NotificationType, RealmName, SkyMap } from "../utility/constants-2.js";
+import { NotificationType, RealmName, SkyMap } from "../utility/constants.js";
 import { SpiritName } from "../utility/spirits.js";
 
 export default {

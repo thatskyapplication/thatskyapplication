@@ -1,6 +1,6 @@
 import { Event } from "../../../models/Event.js";
 import { Cosmetic, EventId } from "../../../utility/catalogue.js";
-import { CDN_URL } from "../../../utility/constants-2.js";
+import { CDN_URL } from "../../../utility/constants.js";
 import { skyDate } from "../../../utility/dates.js";
 import { CAPE_EMOJIS, FACE_ACCESSORY_EMOJIS, HELD_PROPS_EMOJIS } from "../../../utility/emojis.js";
 

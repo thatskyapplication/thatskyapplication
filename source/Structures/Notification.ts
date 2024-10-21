@@ -21,7 +21,7 @@ import {
 	NOTIFICATION_TYPE_VALUES,
 	NotificationType,
 	type NotificationTypes,
-} from "../utility/constants-2.js";
+} from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../utility/emojis.js";
 
 export interface NotificationPacket {

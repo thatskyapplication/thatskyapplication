@@ -1,6 +1,6 @@
 import { Season } from "../../../../models/Season.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
-import { RealmName } from "../../../../utility/constants-2.js";
+import { RealmName } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import { LARGE_PLACEABLE_PROPS_EMOJIS } from "../../../../utility/emojis.js";
 import NestingAtrium from "./nesting-atrium.js";

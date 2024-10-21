@@ -1,6 +1,6 @@
 import { Season } from "../../../../models/Season.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
-import { RealmName } from "../../../../utility/constants-2.js";
+import { RealmName } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import { CAPE_EMOJIS, FACE_ACCESSORY_EMOJIS } from "../../../../utility/emojis.js";
 import FeudalLord from "./feudal-lord.js";

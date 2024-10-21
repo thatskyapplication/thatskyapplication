@@ -17,7 +17,7 @@ import {
 	DEFAULT_EMBED_COLOUR,
 	ISS_DATES_ACCESSIBLE,
 	NotificationType,
-} from "../utility/constants-2.js";
+} from "../utility/constants.js";
 import {
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1_RELATIVE_TIME,
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2,

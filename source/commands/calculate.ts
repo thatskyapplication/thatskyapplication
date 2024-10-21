@@ -24,7 +24,7 @@ import {
 	SkyMap,
 	WINGED_LIGHT_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
-} from "../utility/constants-2.js";
+} from "../utility/constants.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
