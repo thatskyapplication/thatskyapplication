@@ -6,14 +6,14 @@ import {
 	type Locale,
 } from "discord.js";
 import { t } from "i18next";
-import { DEFAULT_EMBED_COLOUR } from "../Utility2/Constants.js";
-import { dateString, skyToday } from "../Utility2/dates.js";
+import { DEFAULT_EMBED_COLOUR } from "../utility/Constants.js";
+import { dateString, skyToday } from "../utility/dates.js";
 import {
 	resolveShardEruptionEmoji,
 	shardEruption,
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
-} from "../Utility2/shardEruption.js";
+} from "../utility/shardEruption.js";
 
 export const SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID" as const;
 

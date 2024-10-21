@@ -14,15 +14,15 @@ import {
 	roleMention,
 } from "discord.js";
 import { t } from "i18next";
+import pg, { Table } from "../pg.js";
 import {
 	DEFAULT_EMBED_COLOUR,
 	NOTIFICATION_CHANNEL_TYPES,
 	NOTIFICATION_TYPE_VALUES,
 	NotificationType,
 	type NotificationTypes,
-} from "../Utility2/Constants.js";
-import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility2/emojis.js";
-import pg, { Table } from "../pg.js";
+} from "../utility/Constants.js";
+import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../utility/emojis.js";
 
 export interface NotificationPacket {
 	guild_id: Snowflake;

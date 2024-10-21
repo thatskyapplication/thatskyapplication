@@ -1,8 +1,8 @@
 import { ElderSpirit } from "../../../../Structures/Spirits.js";
-import { RealmName } from "../../../../Utility2/Constants.js";
-import { Cosmetic } from "../../../../Utility2/catalogue.js";
-import { FACE_ACCESSORY_EMOJIS, HAIR_EMOJIS } from "../../../../Utility2/emojis.js";
-import { SpiritName } from "../../../../Utility2/spirits.js";
+import { RealmName } from "../../../../utility/Constants.js";
+import { Cosmetic } from "../../../../utility/catalogue.js";
+import { FACE_ACCESSORY_EMOJIS, HAIR_EMOJIS } from "../../../../utility/emojis.js";
+import { SpiritName } from "../../../../utility/spirits.js";
 
 export default new ElderSpirit({
 	name: SpiritName.ElderOfTheForest,

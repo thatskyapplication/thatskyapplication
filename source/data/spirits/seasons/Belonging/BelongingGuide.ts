@@ -1,7 +1,7 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
-import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
-import { LARGE_PLACEABLE_PROPS_EMOJIS, NECKLACE_EMOJIS } from "../../../../Utility2/emojis.js";
-import { SpiritName } from "../../../../Utility2/spirits.js";
+import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
+import { LARGE_PLACEABLE_PROPS_EMOJIS, NECKLACE_EMOJIS } from "../../../../utility/emojis.js";
+import { SpiritName } from "../../../../utility/spirits.js";
 
 export default new GuideSpirit({
 	name: SpiritName.BelongingGuide,

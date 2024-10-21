@@ -2,7 +2,7 @@ import { Events, PermissionFlagsBits } from "discord.js";
 import AI from "../Structures/AI.js";
 import Configuration from "../Structures/Configuration.js";
 import DailyGuides from "../Structures/DailyGuides.js";
-import { APPLICATION_ID } from "../Utility2/Constants.js";
+import { APPLICATION_ID } from "../utility/Constants.js";
 import type { Event } from "./index.js";
 
 const name = Events.MessageCreate;

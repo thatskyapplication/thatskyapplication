@@ -1,14 +1,14 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import { RealmName } from "../../../../Utility2/Constants.js";
-import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
+import { RealmName } from "../../../../utility/Constants.js";
+import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
 	SEASON_EMOJIS,
 	SHOE_EMOJIS,
-} from "../../../../Utility2/emojis.js";
-import { SpiritName } from "../../../../Utility2/spirits.js";
+} from "../../../../utility/emojis.js";
+import { SpiritName } from "../../../../utility/spirits.js";
 
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;

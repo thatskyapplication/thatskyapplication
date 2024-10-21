@@ -1,7 +1,7 @@
 import { Season } from "../../../../Structures/Season.js";
-import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
-import { skyDate } from "../../../../Utility2/dates.js";
-import { MASK_EMOJIS, NECKLACE_EMOJIS } from "../../../../Utility2/emojis.js";
+import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
+import { skyDate } from "../../../../utility/dates.js";
+import { MASK_EMOJIS, NECKLACE_EMOJIS } from "../../../../utility/emojis.js";
 import GratitudeGuide from "./GratitudeGuide.js";
 import GreetingShaman from "./GreetingShaman.js";
 import LeapingDancer from "./LeapingDancer.js";

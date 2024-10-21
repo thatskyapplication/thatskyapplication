@@ -1,12 +1,12 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
-import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import {
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
 	OUTFIT_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
-} from "../../../../Utility2/emojis.js";
-import { SpiritName } from "../../../../Utility2/spirits.js";
+} from "../../../../utility/emojis.js";
+import { SpiritName } from "../../../../utility/spirits.js";
 
 export default new GuideSpirit({
 	name: SpiritName.NestingGuide,

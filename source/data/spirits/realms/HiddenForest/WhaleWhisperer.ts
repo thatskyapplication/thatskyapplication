@@ -1,8 +1,8 @@
 import { StandardSpirit } from "../../../../Structures/Spirits.js";
-import { RealmName } from "../../../../Utility2/Constants.js";
-import { Cosmetic } from "../../../../Utility2/catalogue.js";
-import { MISCELLANEOUS_EMOJIS } from "../../../../Utility2/emojis.js";
-import { SpiritCall, SpiritCallToEmoji, SpiritName } from "../../../../Utility2/spirits.js";
+import { RealmName } from "../../../../utility/Constants.js";
+import { Cosmetic } from "../../../../utility/catalogue.js";
+import { MISCELLANEOUS_EMOJIS } from "../../../../utility/emojis.js";
+import { SpiritCall, SpiritCallToEmoji, SpiritName } from "../../../../utility/spirits.js";
 
 const call = SpiritCall.Whale;
 const callEmoji = SpiritCallToEmoji[call];

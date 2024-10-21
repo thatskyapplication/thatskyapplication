@@ -20,12 +20,17 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
+import { skyCurrentEvents, skyNotEndedEvents } from "../data/events/index.js";
+import { skyCurrentSeason, skyUpcomingSeason } from "../data/spirits/seasons/index.js";
+import pQueue from "../pQueue.js";
+import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
 import {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DEFAULT_EMBED_COLOUR,
 	RealmName,
-} from "../Utility2/Constants.js";
-import type { RotationNumber } from "../Utility2/catalogue.js";
+} from "../utility/Constants.js";
+import type { RotationNumber } from "../utility/catalogue.js";
 import {
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
@@ -34,23 +39,18 @@ import {
 	isDuring,
 	skyNow,
 	skyToday,
-} from "../Utility2/dates.js";
+} from "../utility/dates.js";
 import {
 	MISCELLANEOUS_EMOJIS,
 	formatEmoji,
 	formatEmojiURL,
 	resolveCurrencyEmoji,
-} from "../Utility2/emojis.js";
+} from "../utility/emojis.js";
 import {
 	shardEruption,
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
-} from "../Utility2/shardEruption.js";
-import { skyCurrentEvents, skyNotEndedEvents } from "../data/events/index.js";
-import { skyCurrentSeason, skyUpcomingSeason } from "../data/spirits/seasons/index.js";
-import pQueue from "../pQueue.js";
-import pg, { Table } from "../pg.js";
-import pino from "../pino.js";
+} from "../utility/shardEruption.js";
 import DailyGuides, { type DailyGuideQuest } from "./DailyGuides.js";
 
 export interface DailyGuidesDistributionPacket {

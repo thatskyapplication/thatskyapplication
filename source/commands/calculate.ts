@@ -10,6 +10,8 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import type { Event } from "../Structures/Event.js";
+import { skyCurrentEvents } from "../data/events/index.js";
+import { skyCurrentSeason } from "../data/spirits/seasons/index.js";
 import {
 	ASCENDED_CANDLES_PER_WEEK,
 	AreaToWingedLightCount,
@@ -18,28 +20,26 @@ import {
 	SkyMap,
 	WINGED_LIGHT_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
-} from "../Utility2/Constants.js";
+} from "../utility/Constants.js";
 import {
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
-} from "../Utility2/catalogue.js";
+} from "../utility/catalogue.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	isDuring,
 	skyNow,
 	skyToday,
-} from "../Utility2/dates.js";
+} from "../utility/dates.js";
 import {
 	MISCELLANEOUS_EMOJIS,
 	formatEmoji,
 	formatEmojiURL,
 	resolveCurrencyEmoji,
-} from "../Utility2/emojis.js";
-import { cannotUsePermissions } from "../Utility2/permissionChecks.js";
-import { shardEruption } from "../Utility2/shardEruption.js";
-import { skyCurrentEvents } from "../data/events/index.js";
-import { skyCurrentSeason } from "../data/spirits/seasons/index.js";
+} from "../utility/emojis.js";
+import { cannotUsePermissions } from "../utility/permissionChecks.js";
+import { shardEruption } from "../utility/shardEruption.js";
 import type { ChatInputCommand } from "./index.js";
 
 const doubleSeasonalLightEventStart = time(

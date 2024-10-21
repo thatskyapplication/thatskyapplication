@@ -1,7 +1,7 @@
 import { Season } from "../../../../Structures/Season.js";
-import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
-import { skyDate } from "../../../../Utility2/dates.js";
-import { CAPE_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../../../Utility2/emojis.js";
+import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
+import { skyDate } from "../../../../utility/dates.js";
+import { CAPE_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../../../utility/emojis.js";
 import BeckoningRuler from "./BeckoningRuler.js";
 import GloatingNarcissist from "./GloatingNarcissist.js";
 import SlouchingSoldier from "./SlouchingSoldier.js";

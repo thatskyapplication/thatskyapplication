@@ -12,14 +12,20 @@ import {
 	time,
 } from "discord.js";
 import { t } from "i18next";
+import { spirits } from "../data/spirits/index.js";
+import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../data/spirits/realms/index.js";
+import ModestDancer from "../data/spirits/seasons/Performance/ModestDancer.js";
+import { currentSeasonalSpirits } from "../data/spirits/seasons/index.js";
+import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
 import {
 	DEFAULT_EMBED_COLOUR,
 	ERROR_RESPONSE,
 	GUESS_DIFFICULTY_LEVEL_VALUES,
 	GuessDifficultyLevel,
 	GuessDifficultyLevelToName,
-} from "../Utility2/Constants.js";
-import { getRandomElement } from "../Utility2/Utility.js";
+} from "../utility/Constants.js";
+import { getRandomElement } from "../utility/Utility.js";
 import {
 	COSMETIC_EMOJIS,
 	type CosmeticEmojis,
@@ -27,13 +33,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	formatEmoji,
 	formatEmojiURL,
-} from "../Utility2/emojis.js";
-import { spirits } from "../data/spirits/index.js";
-import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../data/spirits/realms/index.js";
-import ModestDancer from "../data/spirits/seasons/Performance/ModestDancer.js";
-import { currentSeasonalSpirits } from "../data/spirits/seasons/index.js";
-import pg, { Table } from "../pg.js";
-import pino from "../pino.js";
+} from "../utility/emojis.js";
 import type { ElderSpirit, GuideSpirit, SeasonalSpirit, StandardSpirit } from "./Spirits.js";
 
 export interface GuessPacket {

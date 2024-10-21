@@ -13,6 +13,9 @@ import { hash } from "hasha";
 import pQueue from "p-queue";
 import sharp from "sharp";
 import S3Client from "../S3Client.js";
+import { spirits } from "../data/spirits/index.js";
+import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
 import {
 	CDN_BUCKET,
 	CDN_URL,
@@ -32,7 +35,7 @@ import {
 	VALID_REALM_NAME,
 	type ValidRealmName,
 	inconsistentMapKeys,
-} from "../Utility2/Constants.js";
+} from "../utility/Constants.js";
 import {
 	isMeditationMap,
 	isRainbowAdmireMap,
@@ -41,13 +44,10 @@ import {
 	resolveMeditationMap,
 	resolveSocialLightAreaMap,
 	resolveValidRealm,
-} from "../Utility2/Utility.js";
-import { SeasonId, type SeasonIds, snakeCaseName } from "../Utility2/catalogue.js";
-import { skyToday } from "../Utility2/dates.js";
-import { FriendAction, SpiritEmote } from "../Utility2/spirits.js";
-import { spirits } from "../data/spirits/index.js";
-import pg, { Table } from "../pg.js";
-import pino from "../pino.js";
+} from "../utility/Utility.js";
+import { SeasonId, type SeasonIds, snakeCaseName } from "../utility/catalogue.js";
+import { skyToday } from "../utility/dates.js";
+import { FriendAction, SpiritEmote } from "../utility/spirits.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 import type { SeasonalSpirit, StandardSpirit } from "./Spirits.js";
 

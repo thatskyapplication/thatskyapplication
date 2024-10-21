@@ -1,5 +1,5 @@
-import { Cosmetic, resolveAllCosmetics, resolveOffer } from "../Utility2/catalogue.js";
-import { CAPE_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../Utility2/emojis.js";
+import { Cosmetic, resolveAllCosmetics, resolveOffer } from "../utility/catalogue.js";
+import { CAPE_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../utility/emojis.js";
 
 const items = resolveOffer([
 	{

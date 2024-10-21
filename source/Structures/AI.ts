@@ -18,10 +18,10 @@ import {
 	messageCreateReactionResponse,
 	messageCreateResponse,
 } from "../OpenAI.js";
-import { DEFAULT_EMBED_COLOUR, SERVER_UPGRADE_SKU_ID } from "../Utility2/Constants.js";
-import { resolveEntitlement } from "../Utility2/functions.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
+import { DEFAULT_EMBED_COLOUR, SERVER_UPGRADE_SKU_ID } from "../utility/Constants.js";
+import { resolveEntitlement } from "../utility/functions.js";
 
 interface AIPacket {
 	guild_id: Snowflake;

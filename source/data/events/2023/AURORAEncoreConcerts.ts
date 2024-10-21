@@ -1,8 +1,8 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventId } from "../../../Utility2/catalogue.js";
-import { skyDate } from "../../../Utility2/dates.js";
-import { SHOE_EMOJIS } from "../../../Utility2/emojis.js";
-import { SpiritEmote, SpiritEmoteToEmoji } from "../../../Utility2/spirits.js";
+import { Cosmetic, EventId } from "../../../utility/catalogue.js";
+import { skyDate } from "../../../utility/dates.js";
+import { SHOE_EMOJIS } from "../../../utility/emojis.js";
+import { SpiritEmote, SpiritEmoteToEmoji } from "../../../utility/spirits.js";
 
 const emote = SpiritEmote.CureForMeDance;
 const emoteEmoji = SpiritEmoteToEmoji[emote];

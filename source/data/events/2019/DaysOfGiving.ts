@@ -1,6 +1,6 @@
 import { Event } from "../../../Structures/Event.js";
-import { EventId } from "../../../Utility2/catalogue.js";
-import { skyDate } from "../../../Utility2/dates.js";
+import { EventId } from "../../../utility/catalogue.js";
+import { skyDate } from "../../../utility/dates.js";
 
 export default new Event({
 	id: EventId.DaysOfGiving2019,

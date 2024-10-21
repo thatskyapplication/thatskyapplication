@@ -17,29 +17,6 @@ import {
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
 import { t } from "i18next";
-import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE, type RealmName } from "../Utility2/Constants.js";
-import { isRealm } from "../Utility2/Utility.js";
-import {
-	CatalogueType,
-	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
-	type Item,
-	type ItemCost,
-	NO_EVENT_INFOGRAPHIC_YET,
-	NO_EVENT_OFFER_TEXT,
-	NO_FRIENDSHIP_TREE_TEXT,
-	NO_FRIENDSHIP_TREE_YET_TEXT,
-	SeasonId,
-	SeasonIdToSeasonalEmoji,
-	type SeasonIds,
-	addCosts,
-	isSeasonId,
-	resolveAllCosmetics,
-	resolveCostToString,
-} from "../Utility2/catalogue.js";
-import { skyNow } from "../Utility2/dates.js";
-import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility2/emojis.js";
-import { cannotUsePermissions } from "../Utility2/permissionChecks.js";
-import type { SpiritName } from "../Utility2/spirits.js";
 import { skyCurrentEvents, skyEventYears, skyEvents } from "../data/events/index.js";
 import { NESTING_WORKSHOP } from "../data/nestingWorkshop.js";
 import { PERMANENT_EVENT_STORE } from "../data/permanentEventStore.js";
@@ -60,6 +37,29 @@ import {
 import { STARTER_PACKS } from "../data/starterPacks.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
+import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE, type RealmName } from "../utility/Constants.js";
+import { isRealm } from "../utility/Utility.js";
+import {
+	CatalogueType,
+	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
+	type Item,
+	type ItemCost,
+	NO_EVENT_INFOGRAPHIC_YET,
+	NO_EVENT_OFFER_TEXT,
+	NO_FRIENDSHIP_TREE_TEXT,
+	NO_FRIENDSHIP_TREE_YET_TEXT,
+	SeasonId,
+	SeasonIdToSeasonalEmoji,
+	type SeasonIds,
+	addCosts,
+	isSeasonId,
+	resolveAllCosmetics,
+	resolveCostToString,
+} from "../utility/catalogue.js";
+import { skyNow } from "../utility/dates.js";
+import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../utility/emojis.js";
+import { cannotUsePermissions } from "../utility/permissionChecks.js";
+import type { SpiritName } from "../utility/spirits.js";
 import type { Event } from "./Event.js";
 import Profile from "./Profile.js";
 import type { Season } from "./Season.js";

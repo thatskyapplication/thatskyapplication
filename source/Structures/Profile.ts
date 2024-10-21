@@ -29,6 +29,9 @@ import { hash } from "hasha";
 import { t } from "i18next";
 import sharp from "sharp";
 import S3Client from "../S3Client.js";
+import { skySeasons } from "../data/spirits/seasons/index.js";
+import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
 import {
 	CDN_BUCKET,
 	CDN_URL,
@@ -51,18 +54,15 @@ import {
 	SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
 	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	SKY_PROFILE_UNKNOWN_NAME,
-} from "../Utility2/Constants.js";
-import { SeasonIdToSeasonalEmoji, type SeasonIds, isSeasonId } from "../Utility2/catalogue.js";
+} from "../utility/Constants.js";
+import { SeasonIdToSeasonalEmoji, type SeasonIds, isSeasonId } from "../utility/catalogue.js";
 import {
 	MISCELLANEOUS_EMOJIS,
 	type MiscellaneousEmojis,
 	formatEmoji,
 	formatEmojiURL,
-} from "../Utility2/emojis.js";
-import { cannotUsePermissions } from "../Utility2/permissionChecks.js";
-import { skySeasons } from "../data/spirits/seasons/index.js";
-import pg, { Table } from "../pg.js";
-import pino from "../pino.js";
+} from "../utility/emojis.js";
+import { cannotUsePermissions } from "../utility/permissionChecks.js";
 import { Catalogue } from "./Catalogue.js";
 import { findUser } from "./Guess.js";
 import { totalReceived } from "./Heart.js";

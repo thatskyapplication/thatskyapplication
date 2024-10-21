@@ -96,9 +96,6 @@ import {
 	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
 	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
 } from "../Structures/ShardEruption.js";
-import { ERROR_RESPONSE } from "../Utility2/Constants.js";
-import { isRealm } from "../Utility2/Utility.js";
-import { isSeasonId } from "../Utility2/catalogue.js";
 import {
 	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_DAILY_MESSAGE_MODAL,
@@ -113,6 +110,9 @@ import { DATA_DELETION_CUSTOM_ID } from "../commands/data.js";
 import COMMANDS, { resolveCommand } from "../commands/index.js";
 import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../commands/spirit.js";
 import pino from "../pino.js";
+import { ERROR_RESPONSE } from "../utility/Constants.js";
+import { isRealm } from "../utility/Utility.js";
+import { isSeasonId } from "../utility/catalogue.js";
 import type { Event } from "./index.js";
 
 const name = Events.InteractionCreate;

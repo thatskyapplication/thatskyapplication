@@ -1,8 +1,8 @@
 import { Season } from "../../../../Structures/Season.js";
-import { RealmName } from "../../../../Utility2/Constants.js";
-import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
-import { skyDate } from "../../../../Utility2/dates.js";
-import { LARGE_PLACEABLE_PROPS_EMOJIS } from "../../../../Utility2/emojis.js";
+import { RealmName } from "../../../../utility/Constants.js";
+import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
+import { skyDate } from "../../../../utility/dates.js";
+import { LARGE_PLACEABLE_PROPS_EMOJIS } from "../../../../utility/emojis.js";
 import NestingAtrium from "./NestingAtrium.js";
 import NestingGuide from "./NestingGuide.js";
 import NestingLoft from "./NestingLoft.js";

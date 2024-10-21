@@ -1,14 +1,14 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import { RealmName } from "../../../../Utility2/Constants.js";
-import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
+import { RealmName } from "../../../../utility/Constants.js";
+import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
 	SEASON_EMOJIS,
-} from "../../../../Utility2/emojis.js";
-import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../Utility2/spirits.js";
+} from "../../../../utility/emojis.js";
+import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../utility/spirits.js";
 
 const stance = SpiritStance.Injured;
 const stanceEmoji = SpiritStanceToEmoji[stance];

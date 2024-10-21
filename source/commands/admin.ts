@@ -30,8 +30,8 @@ import {
 	MAXIMUM_EMBED_FIELD_VALUE_LENGTH,
 	QUEST_NUMBER,
 	VALID_REALM_NAME,
-} from "../Utility2/Constants.js";
-import { resolveValidRealm, userLogFormat } from "../Utility2/Utility.js";
+} from "../utility/Constants.js";
+import { resolveValidRealm, userLogFormat } from "../utility/Utility.js";
 import type { AutocompleteCommand } from "./index.js";
 
 interface InteractiveOptions {

@@ -1,6 +1,6 @@
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonId } from "../../../../Utility2/catalogue.js";
-import { skyDate } from "../../../../Utility2/dates.js";
+import { SeasonId } from "../../../../utility/catalogue.js";
+import { skyDate } from "../../../../utility/dates.js";
 import ProphecyGuide from "./ProphecyGuide.js";
 import ProphetOfAir from "./ProphetOfAir.js";
 import ProphetOfEarth from "./ProphetOfEarth.js";

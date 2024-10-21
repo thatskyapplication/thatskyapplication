@@ -22,14 +22,14 @@ import {
 	setup,
 	unset,
 } from "../Structures/Notification.js";
+import pino from "../pino.js";
 import {
 	DEFAULT_EMBED_COLOUR,
 	ERROR_RESPONSE,
 	NOTIFICATION_CHANNEL_TYPES,
 	NOT_IN_CACHED_GUILD_RESPONSE,
-} from "../Utility2/Constants.js";
-import { cannotUsePermissions } from "../Utility2/permissionChecks.js";
-import pino from "../pino.js";
+} from "../utility/Constants.js";
+import { cannotUsePermissions } from "../utility/permissionChecks.js";
 import type { ChatInputCommand } from "./index.js";
 
 export default new (class implements ChatInputCommand {

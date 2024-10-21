@@ -1,12 +1,12 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventId } from "../../../Utility2/catalogue.js";
-import { skyDate } from "../../../Utility2/dates.js";
+import { Cosmetic, EventId } from "../../../utility/catalogue.js";
+import { skyDate } from "../../../utility/dates.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
-} from "../../../Utility2/emojis.js";
+} from "../../../utility/emojis.js";
 
 export default new Event({
 	id: EventId.SkyAnniversary2022,

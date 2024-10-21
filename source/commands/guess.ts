@@ -1,7 +1,7 @@
 import { type ChatInputCommandInteraction, Locale } from "discord.js";
 import { t } from "i18next";
 import { guess, guildLeaderboard, leaderboard } from "../Structures/Guess.js";
-import { GuessDifficultyLevel, NOT_IN_CACHED_GUILD_RESPONSE } from "../Utility2/Constants.js";
+import { GuessDifficultyLevel, NOT_IN_CACHED_GUILD_RESPONSE } from "../utility/Constants.js";
 import type { ChatInputCommand } from "./index.js";
 
 export default new (class implements ChatInputCommand {

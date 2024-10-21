@@ -1,6 +1,6 @@
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonId } from "../../../../Utility2/catalogue.js";
-import { skyDate } from "../../../../Utility2/dates.js";
+import { SeasonId } from "../../../../utility/catalogue.js";
+import { skyDate } from "../../../../utility/dates.js";
 import AncientDarkness from "./AncientDarkness.js";
 import AncientLight from "./AncientLight.js";
 import TheVoidOfShattering from "./TheVoidOfShattering.js";

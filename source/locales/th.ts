@@ -1,6 +1,6 @@
-import { RealmName } from "../Utility2/Constants.js";
-import { SeasonId } from "../Utility2/catalogue.js";
-import { SpiritName } from "../Utility2/spirits.js";
+import { RealmName } from "../utility/Constants.js";
+import { SeasonId } from "../utility/catalogue.js";
+import { SpiritName } from "../utility/spirits.js";
 
 export default {
 	general: {

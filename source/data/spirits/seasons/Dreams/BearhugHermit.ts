@@ -4,17 +4,17 @@ import {
 	SeasonalSpirit,
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
-import { RealmName } from "../../../../Utility2/Constants.js";
-import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
-import { skyDate } from "../../../../Utility2/dates.js";
+import { RealmName } from "../../../../utility/Constants.js";
+import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
+import { skyDate } from "../../../../utility/dates.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
 	SEASON_EMOJIS,
-} from "../../../../Utility2/emojis.js";
-import { FriendAction, FriendActionToEmoji, SpiritName } from "../../../../Utility2/spirits.js";
+} from "../../../../utility/emojis.js";
+import { FriendAction, FriendActionToEmoji, SpiritName } from "../../../../utility/spirits.js";
 
 const action = FriendAction.Bearhug;
 const actionEmoji = FriendActionToEmoji[action];

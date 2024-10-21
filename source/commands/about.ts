@@ -16,7 +16,7 @@ import {
 	SkyMap,
 	THATSKYGAME_URL,
 	WEBSITE_URL,
-} from "../Utility2/Constants.js";
+} from "../utility/Constants.js";
 import type { ChatInputCommand } from "./index.js";
 
 const DESCRIPTION_TEXT = `Welcome to the lovely Discord bot for ${hyperlink(

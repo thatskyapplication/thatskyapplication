@@ -1,13 +1,13 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import {
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
 	SEASON_EMOJIS,
 	SHOE_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
-} from "../../../../Utility2/emojis.js";
-import { SpiritName } from "../../../../Utility2/spirits.js";
+} from "../../../../utility/emojis.js";
+import { SpiritName } from "../../../../utility/spirits.js";
 
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const outfitEmoji = OUTFIT_EMOJIS.Outfit63;

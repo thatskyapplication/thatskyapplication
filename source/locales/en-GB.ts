@@ -7,9 +7,9 @@ import {
 	type NotificationTypes,
 	REALM_NAME_VALUES,
 	SKY_MAP_VALUES,
-} from "../Utility2/Constants.js";
-import { EventId, type EventIds, SeasonId, type SeasonIds } from "../Utility2/catalogue.js";
-import { SpiritName } from "../Utility2/spirits.js";
+} from "../utility/Constants.js";
+import { EventId, type EventIds, SeasonId, type SeasonIds } from "../utility/catalogue.js";
+import { SpiritName } from "../utility/spirits.js";
 
 export default {
 	general: {

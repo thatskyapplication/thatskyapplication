@@ -2,7 +2,7 @@ import { URL } from "node:url";
 import { Locale } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import { CDN_URL, type RealmName } from "../Utility2/Constants.js";
+import { CDN_URL, type RealmName } from "../utility/Constants.js";
 import {
 	type Item,
 	type ItemRaw,
@@ -17,13 +17,13 @@ import {
 	resolveOffer,
 	snakeCaseName,
 	wikiURL,
-} from "../Utility2/catalogue.js";
+} from "../utility/catalogue.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
-} from "../Utility2/dates.js";
-import type { SeasonEmojis } from "../Utility2/emojis.js";
+} from "../utility/dates.js";
+import type { SeasonEmojis } from "../utility/emojis.js";
 import type { GuideSpirit, SeasonalSpirit } from "./Spirits.js";
 
 type SeasonalCandlesRotation = Readonly<

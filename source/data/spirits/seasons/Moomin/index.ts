@@ -1,12 +1,12 @@
 import { Season } from "../../../../Structures/Season.js";
-import { RealmName } from "../../../../Utility2/Constants.js";
-import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
-import { skyDate } from "../../../../Utility2/dates.js";
+import { RealmName } from "../../../../utility/Constants.js";
+import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
+import { skyDate } from "../../../../utility/dates.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
 	NECKLACE_EMOJIS,
 	OUTFIT_EMOJIS,
-} from "../../../../Utility2/emojis.js";
+} from "../../../../utility/emojis.js";
 import ComfortOfKindness from "./ComfortOfKindness.js";
 import InspirationOfInclusion from "./InspirationOfInclusion.js";
 import SenseOfSelf from "./SenseOfSelf.js";

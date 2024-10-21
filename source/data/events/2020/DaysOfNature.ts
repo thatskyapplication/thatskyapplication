@@ -1,7 +1,7 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventId } from "../../../Utility2/catalogue.js";
-import { skyDate } from "../../../Utility2/dates.js";
-import { CAPE_EMOJIS } from "../../../Utility2/emojis.js";
+import { Cosmetic, EventId } from "../../../utility/catalogue.js";
+import { skyDate } from "../../../utility/dates.js";
+import { CAPE_EMOJIS } from "../../../utility/emojis.js";
 
 export default new Event({
 	id: EventId.DaysOfNature2020,

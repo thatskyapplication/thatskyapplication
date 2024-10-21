@@ -1,8 +1,8 @@
 import { StandardSpirit } from "../../../../Structures/Spirits.js";
-import { RealmName } from "../../../../Utility2/Constants.js";
-import { Cosmetic } from "../../../../Utility2/catalogue.js";
-import { HAIR_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../Utility2/emojis.js";
-import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../Utility2/spirits.js";
+import { RealmName } from "../../../../utility/Constants.js";
+import { Cosmetic } from "../../../../utility/catalogue.js";
+import { HAIR_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../utility/emojis.js";
+import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../utility/spirits.js";
 
 const stance = SpiritStance.Confident;
 const stanceEmoji = SpiritStanceToEmoji[stance];

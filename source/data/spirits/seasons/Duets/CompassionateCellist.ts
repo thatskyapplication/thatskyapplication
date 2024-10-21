@@ -1,11 +1,11 @@
 import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
-import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
+import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
 	HELD_PROPS_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
-} from "../../../../Utility2/emojis.js";
-import { SpiritName } from "../../../../Utility2/spirits.js";
+} from "../../../../utility/emojis.js";
+import { SpiritName } from "../../../../utility/spirits.js";
 
 export default new SeasonalSpirit({
 	name: SpiritName.CompassionateCellist,

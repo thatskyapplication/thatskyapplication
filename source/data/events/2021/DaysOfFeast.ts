@@ -1,6 +1,6 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventId } from "../../../Utility2/catalogue.js";
-import { skyDate } from "../../../Utility2/dates.js";
+import { Cosmetic, EventId } from "../../../utility/catalogue.js";
+import { skyDate } from "../../../utility/dates.js";
 import {
 	CAPE_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
@@ -8,7 +8,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
-} from "../../../Utility2/emojis.js";
+} from "../../../utility/emojis.js";
 
 export default new Event({
 	id: EventId.DaysOfFeast2021,
