@@ -1,17 +1,17 @@
 import type { ClientEvents, Guild } from "discord.js";
 import pino from "../pino.js";
-import channelDelete from "./channelDelete.js";
-import channelUpdate from "./channelUpdate.js";
-import entitlementDelete from "./entitlementDelete.js";
-import entitlementUpdate from "./entitlementUpdate.js";
-import guildCreate from "./guildCreate.js";
-import guildDelete from "./guildDelete.js";
-import guildMemberAdd from "./guildMemberAdd.js";
-import guildMemberRemove from "./guildMemberRemove.js";
-import interactionCreate from "./interactionCreate.js";
-import messageCreate from "./messageCreate.js";
+import channelDelete from "./channel-delete.js";
+import channelUpdate from "./channel-update.js";
+import entitlementDelete from "./entitlement-delete.js";
+import entitlementUpdate from "./entitlement-update.js";
+import guildCreate from "./guild-create.js";
+import guildDelete from "./guild-delete.js";
+import guildMemberAdd from "./guild-member-add.js";
+import guildMemberRemove from "./guild-member-remove.js";
+import interactionCreate from "./interaction-create.js";
+import messageCreate from "./message-create.js";
 import ready from "./ready.js";
-import roleUpdate from "./roleUpdate.js";
+import roleUpdate from "./role-update.js";
 
 export interface Event<T extends keyof ClientEvents = keyof ClientEvents> {
 	name: T;
