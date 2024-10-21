@@ -1,11 +1,11 @@
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
-import AbyssGuide from "./AbyssGuide.js";
-import AnxiousAngler from "./AnxiousAngler.js";
-import BumblingBoatswain from "./BumblingBoatswain.js";
-import CacklingCannoneer from "./CacklingCannoneer.js";
-import CeasingCommodore from "./CeasingCommodore.js";
+import AbyssGuide from "./abyss-guide.js";
+import AnxiousAngler from "./anxious-angler.js";
+import BumblingBoatswain from "./bumbling-boatswain.js";
+import CacklingCannoneer from "./cackling-cannoneer.js";
+import CeasingCommodore from "./ceasing-commodore.js";
 
 export default new Season({
 	id: SeasonId.Abyss,

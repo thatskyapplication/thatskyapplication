@@ -1,9 +1,9 @@
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
-import AncientDarkness from "./AncientDarkness.js";
-import AncientLight from "./AncientLight.js";
-import TheVoidOfShattering from "./TheVoidOfShattering.js";
+import AncientDarkness from "./ancient-darkness.js";
+import AncientLight from "./ancient-light.js";
+import TheVoidOfShattering from "./the-void-of-shattering.js";
 
 export default new Season({
 	id: SeasonId.Shattering,

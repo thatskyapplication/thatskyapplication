@@ -1,13 +1,13 @@
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
-import CrabWalker from "./CrabWalker.js";
-import EnchantmentGuide from "./EnchantmentGuide.js";
-import IndifferentAlchemist from "./IndifferentAlchemist.js";
-import NoddingMuralist from "./NoddingMuralist.js";
-import PlayfightingHerbalist from "./PlayfightingHerbalist.js";
-import ScarecrowFarmer from "./ScarecrowFarmer.js";
-import SnoozingCarpenter from "./SnoozingCarpenter.js";
+import CrabWalker from "./crab-walker.js";
+import EnchantmentGuide from "./enchantment-guide.js";
+import IndifferentAlchemist from "./indifferent-alchemist.js";
+import NoddingMuralist from "./nodding-muralist.js";
+import PlayfightingHerbalist from "./playfighting-herbalist.js";
+import ScarecrowFarmer from "./scarecrow-farmer.js";
+import SnoozingCarpenter from "./snoozing-carpenter.js";
 
 export default new Season({
 	id: SeasonId.Enchantment,

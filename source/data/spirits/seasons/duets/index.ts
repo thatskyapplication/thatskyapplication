@@ -2,13 +2,13 @@ import { Season } from "../../../../models/Season.js";
 import { RealmName } from "../../../../utility/Constants.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
-import CompassionateCellist from "./CompassionateCellist.js";
-import DuetsGuide from "./DuetsGuide.js";
-import TheCellistsBeginnings from "./TheCellistsBeginnings.js";
-import TheCellistsFlourishing from "./TheCellistsFlourishing.js";
-import TheMusiciansLegacy from "./TheMusiciansLegacy.js";
-import ThePianistsBeginnings from "./ThePianistsBeginnings.js";
-import ThePianistsFlourishing from "./ThePianistsFlourishing.js";
+import CompassionateCellist from "./compassionate-cellist.js";
+import DuetsGuide from "./duets-guide.js";
+import TheCellistsBeginnings from "./the-cellists-beginnings.js";
+import TheCellistsFlourishing from "./the-cellists-flourishing.js";
+import TheMusiciansLegacy from "./the-musicians-legacy.js";
+import ThePianistsBeginnings from "./the-pianists-beginnings.js";
+import ThePianistsFlourishing from "./the-pianists-flourishing.js";
 
 export default new Season({
 	id: SeasonId.Duets,

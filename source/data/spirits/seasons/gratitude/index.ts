@@ -2,13 +2,13 @@ import { Season } from "../../../../models/Season.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
 import { MASK_EMOJIS, NECKLACE_EMOJIS } from "../../../../utility/emojis.js";
-import GratitudeGuide from "./GratitudeGuide.js";
-import GreetingShaman from "./GreetingShaman.js";
-import LeapingDancer from "./LeapingDancer.js";
-import ProvokingPerformer from "./ProvokingPerformer.js";
-import SalutingProtector from "./SalutingProtector.js";
-import SassyDrifter from "./SassyDrifter.js";
-import StretchingGuru from "./StretchingGuru.js";
+import GratitudeGuide from "./gratitude-guide.js";
+import GreetingShaman from "./greeting-shaman.js";
+import LeapingDancer from "./leaping-dancer.js";
+import ProvokingPerformer from "./provoking-performer.js";
+import SalutingProtector from "./saluting-protector.js";
+import SassyDrifter from "./sassy-drifter.js";
+import StretchingGuru from "./stretching-guru.js";
 
 export default new Season({
 	id: SeasonId.Gratitude,

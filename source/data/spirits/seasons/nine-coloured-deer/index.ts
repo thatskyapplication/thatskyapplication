@@ -3,11 +3,11 @@ import { RealmName } from "../../../../utility/Constants.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
 import { CAPE_EMOJIS, FACE_ACCESSORY_EMOJIS } from "../../../../utility/emojis.js";
-import FeudalLord from "./FeudalLord.js";
-import HerbGatherer from "./HerbGatherer.js";
-import Hunter from "./Hunter.js";
-import Princess from "./Princess.js";
-import SpiritOfMural from "./SpiritOfMural.js";
+import FeudalLord from "./feudal-lord.js";
+import HerbGatherer from "./herb-gatherer.js";
+import Hunter from "./hunter.js";
+import Princess from "./princess.js";
+import SpiritOfMural from "./spirit-of-mural.js";
 
 export default new Season({
 	id: SeasonId.NineColouredDeer,

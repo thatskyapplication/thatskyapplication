@@ -1,11 +1,11 @@
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
-import ForgetfulStoryteller from "./ForgetfulStoryteller.js";
-import FranticStagehand from "./FranticStagehand.js";
-import MellowMusician from "./MellowMusician.js";
-import ModestDancer from "./ModestDancer.js";
-import PerformanceGuide from "./PerformanceGuide.js";
+import ForgetfulStoryteller from "./forgetful-storyteller.js";
+import FranticStagehand from "./frantic-stagehand.js";
+import MellowMusician from "./mellow-musician.js";
+import ModestDancer from "./modest-dancer.js";
+import PerformanceGuide from "./performance-guide.js";
 
 export default new Season({
 	id: SeasonId.Performance,

@@ -1,13 +1,13 @@
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
-import ChillSunbather from "./ChillSunbather.js";
-import GratefulShellCollector from "./GratefulShellCollector.js";
-import HikingGrouch from "./HikingGrouch.js";
-import JellyWhisperer from "./JellyWhisperer.js";
-import RallyingThrillseeker from "./RallyingThrillseeker.js";
-import SanctuaryGuide from "./SanctuaryGuide.js";
-import TimidBookworm from "./TimidBookworm.js";
+import ChillSunbather from "./chill-sunbather.js";
+import GratefulShellCollector from "./grateful-shell-collector.js";
+import HikingGrouch from "./hiking-grouch.js";
+import JellyWhisperer from "./jelly-whisperer.js";
+import RallyingThrillseeker from "./rallying-thrillseeker.js";
+import SanctuaryGuide from "./sanctuary-guide.js";
+import TimidBookworm from "./timid-bookworm.js";
 
 export default new Season({
 	id: SeasonId.Sanctuary,

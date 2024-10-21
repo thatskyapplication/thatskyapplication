@@ -1,13 +1,13 @@
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
-import AdmiringActor from "./AdmiringActor.js";
-import FestivalSpinDancer from "./FestivalSpinDancer.js";
-import RespectfulPianist from "./RespectfulPianist.js";
-import RhythmGuide from "./RhythmGuide.js";
-import ThoughtfulDirector from "./ThoughtfulDirector.js";
-import TroupeGreeter from "./TroupeGreeter.js";
-import TroupeJuggler from "./TroupeJuggler.js";
+import AdmiringActor from "./admiring-actor.js";
+import FestivalSpinDancer from "./festival-spin-dancer.js";
+import RespectfulPianist from "./respectful-pianist.js";
+import RhythmGuide from "./rhythm-guide.js";
+import ThoughtfulDirector from "./thoughtful-director.js";
+import TroupeGreeter from "./troupe-greeter.js";
+import TroupeJuggler from "./troupe-juggler.js";
 
 export default new Season({
 	id: SeasonId.Rhythm,

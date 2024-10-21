@@ -2,11 +2,11 @@ import { Season } from "../../../../models/Season.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
 import { NECKLACE_EMOJIS } from "../../../../utility/emojis.js";
-import BearhugHermit from "./BearhugHermit.js";
-import DancingPerformer from "./DancingPerformer.js";
-import DreamsGuide from "./DreamsGuide.js";
-import PeekingPostman from "./PeekingPostman.js";
-import SpinningMentor from "./SpinningMentor.js";
+import BearhugHermit from "./bearhug-hermit.js";
+import DancingPerformer from "./dancing-performer.js";
+import DreamsGuide from "./dreams-guide.js";
+import PeekingPostman from "./peeking-postman.js";
+import SpinningMentor from "./spinning-mentor.js";
 
 export default new Season({
 	id: SeasonId.Dreams,

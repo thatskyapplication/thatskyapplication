@@ -1,13 +1,13 @@
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
-import BelongingGuide from "./BelongingGuide.js";
-import BoogieKid from "./BoogieKid.js";
-import ConfettiCousin from "./ConfettiCousin.js";
-import HairtousleTeen from "./HairtousleTeen.js";
-import PleafulParent from "./PleafulParent.js";
-import SparklerParent from "./SparklerParent.js";
-import WiseGrandparent from "./WiseGrandparent.js";
+import BelongingGuide from "./belonging-guide.js";
+import BoogieKid from "./boogie-kid.js";
+import ConfettiCousin from "./confetti-cousin.js";
+import HairtousleTeen from "./hairtousle-teen.js";
+import PleafulParent from "./pleaful-parent.js";
+import SparklerParent from "./sparkler-parent.js";
+import WiseGrandparent from "./wise-grandparent.js";
 
 export default new Season({
 	id: SeasonId.Belonging,

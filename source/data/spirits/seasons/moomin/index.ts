@@ -7,11 +7,11 @@ import {
 	NECKLACE_EMOJIS,
 	OUTFIT_EMOJIS,
 } from "../../../../utility/emojis.js";
-import ComfortOfKindness from "./ComfortOfKindness.js";
-import InspirationOfInclusion from "./InspirationOfInclusion.js";
-import SenseOfSelf from "./SenseOfSelf.js";
-import SpiritOfAdventure from "./SpiritOfAdventure.js";
-import TheMoominStorybook from "./TheMoominStorybook.js";
+import ComfortOfKindness from "./comfort-of-kindness.js";
+import InspirationOfInclusion from "./inspiration-of-inclusion.js";
+import SenseOfSelf from "./sense-of-self.js";
+import SpiritOfAdventure from "./spirit-of-adventure.js";
+import TheMoominStorybook from "./the-moomin-storybook.js";
 
 export default new Season({
 	id: SeasonId.Moomin,

@@ -1,11 +1,11 @@
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
-import MelancholyMope from "./MelancholyMope.js";
-import OddballOutcast from "./OddballOutcast.js";
-import OveractiveOverachiever from "./OveractiveOverachiever.js";
-import PassageGuide from "./PassageGuide.js";
-import TumblingTroublemaker from "./TumblingTroublemaker.js";
+import MelancholyMope from "./melancholy-mope.js";
+import OddballOutcast from "./oddball-outcast.js";
+import OveractiveOverachiever from "./overactive-overachiever.js";
+import PassageGuide from "./passage-guide.js";
+import TumblingTroublemaker from "./tumbling-troublemaker.js";
 
 export default new Season({
 	id: SeasonId.Passage,

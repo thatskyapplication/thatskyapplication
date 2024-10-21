@@ -8,11 +8,11 @@ import {
 	HELD_PROPS_EMOJIS,
 	OUTFIT_EMOJIS,
 } from "../../../../utility/emojis.js";
-import AURORA from "./AURORA.js";
-import MindfulMiner from "./MindfulMiner.js";
-import RunningWayfarer from "./RunningWayfarer.js";
-import SeedOfHope from "./SeedOfHope.js";
-import WarriorOfLove from "./WarriorOfLove.js";
+import AURORA from "./aurora.js";
+import MindfulMiner from "./mindful-miner.js";
+import RunningWayfarer from "./running-wayfarer.js";
+import SeedOfHope from "./seed-of-hope.js";
+import WarriorOfLove from "./warrior-of-love.js";
 
 export default new Season({
 	id: SeasonId.AURORA,

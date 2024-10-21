@@ -1,11 +1,11 @@
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
-import ProphecyGuide from "./ProphecyGuide.js";
-import ProphetOfAir from "./ProphetOfAir.js";
-import ProphetOfEarth from "./ProphetOfEarth.js";
-import ProphetOfFire from "./ProphetOfFire.js";
-import ProphetOfWater from "./ProphetOfWater.js";
+import ProphecyGuide from "./prophecy-guide.js";
+import ProphetOfAir from "./prophet-of-air.js";
+import ProphetOfEarth from "./prophet-of-earth.js";
+import ProphetOfFire from "./prophet-of-fire.js";
+import ProphetOfWater from "./prophet-of-water.js";
 
 export default new Season({
 	id: SeasonId.Prophecy,

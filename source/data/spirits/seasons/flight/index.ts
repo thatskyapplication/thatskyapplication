@@ -1,11 +1,11 @@
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
-import FlightGuide from "./FlightGuide.js";
-import LightWhisperer from "./LightWhisperer.js";
-import LivelyNavigator from "./LivelyNavigator.js";
-import TalentedBuilder from "./TalentedBuilder.js";
-import TinkeringChimesmith from "./TinkeringChimesmith.js";
+import FlightGuide from "./flight-guide.js";
+import LightWhisperer from "./light-whisperer.js";
+import LivelyNavigator from "./lively-navigator.js";
+import TalentedBuilder from "./talented-builder.js";
+import TinkeringChimesmith from "./tinkering-chimesmith.js";
 
 export default new Season({
 	id: SeasonId.Flight,

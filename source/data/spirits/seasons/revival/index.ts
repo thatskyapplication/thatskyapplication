@@ -2,11 +2,11 @@ import { Season } from "../../../../models/Season.js";
 import { RealmName } from "../../../../utility/Constants.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
-import EchoOfAnAbandonedRefuge from "./EchoOfAnAbandonedRefuge.js";
-import HopefulSteward from "./HopefulSteward.js";
-import MemoryOfALostVillage from "./MemoryOfALostVillage.js";
-import RemnantOfAForgottenHaven from "./RemnantOfAForgottenHaven.js";
-import VestigeOfADesertedOasis from "./VestigeOfADesertedOasis.js";
+import EchoOfAnAbandonedRefuge from "./echo-of-an-abandoned-refuge.js";
+import HopefulSteward from "./hopeful-steward.js";
+import MemoryOfALostVillage from "./memory-of-a-lost-village.js";
+import RemnantOfAForgottenHaven from "./remnant-of-a-forgotten-haven.js";
+import VestigeOfADesertedOasis from "./vestige-of-a-deserted-oasis.js";
 
 export default new Season({
 	id: SeasonId.Revival,

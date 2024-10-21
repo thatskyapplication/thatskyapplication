@@ -1,13 +1,13 @@
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
-import AssemblyGuide from "./AssemblyGuide.js";
-import BaffledBotanist from "./BaffledBotanist.js";
-import ChucklingScout from "./ChucklingScout.js";
-import DaydreamForester from "./DaydreamForester.js";
-import MarchingAdventurer from "./MarchingAdventurer.js";
-import ScaredyCadet from "./ScaredyCadet.js";
-import ScoldingStudent from "./ScoldingStudent.js";
+import AssemblyGuide from "./assembly-guide.js";
+import BaffledBotanist from "./baffled-botanist.js";
+import ChucklingScout from "./chuckling-scout.js";
+import DaydreamForester from "./daydream-forester.js";
+import MarchingAdventurer from "./marching-adventurer.js";
+import ScaredyCadet from "./scaredy-cadet.js";
+import ScoldingStudent from "./scolding-student.js";
 
 export default new Season({
 	id: SeasonId.Assembly,

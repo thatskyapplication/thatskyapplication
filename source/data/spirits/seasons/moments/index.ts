@@ -1,11 +1,11 @@
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
-import AsceticMonk from "./AsceticMonk.js";
-import JollyGeologist from "./JollyGeologist.js";
-import MomentsGuide from "./MomentsGuide.js";
-import NightbirdWhisperer from "./NightbirdWhisperer.js";
-import ReassuringRanger from "./ReassuringRanger.js";
+import AsceticMonk from "./ascetic-monk.js";
+import JollyGeologist from "./jolly-geologist.js";
+import MomentsGuide from "./moments-guide.js";
+import NightbirdWhisperer from "./nightbird-whisperer.js";
+import ReassuringRanger from "./reassuring-ranger.js";
 
 export default new Season({
 	id: SeasonId.Moments,

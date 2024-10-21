@@ -3,11 +3,11 @@ import { RealmName } from "../../../../utility/Constants.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
 import { LARGE_PLACEABLE_PROPS_EMOJIS } from "../../../../utility/emojis.js";
-import NestingAtrium from "./NestingAtrium.js";
-import NestingGuide from "./NestingGuide.js";
-import NestingLoft from "./NestingLoft.js";
-import NestingNook from "./NestingNook.js";
-import NestingSolarium from "./NestingSolarium.js";
+import NestingAtrium from "./nesting-atrium.js";
+import NestingGuide from "./nesting-guide.js";
+import NestingLoft from "./nesting-loft.js";
+import NestingNook from "./nesting-nook.js";
+import NestingSolarium from "./nesting-solarium.js";
 
 export default new Season({
 	id: SeasonId.Nesting,

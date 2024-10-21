@@ -2,13 +2,13 @@ import { Season } from "../../../../models/Season.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
 import { CAPE_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../../../utility/emojis.js";
-import BeckoningRuler from "./BeckoningRuler.js";
-import GloatingNarcissist from "./GloatingNarcissist.js";
-import SlouchingSoldier from "./SlouchingSoldier.js";
-import SneezingGeographer from "./SneezingGeographer.js";
-import StarCollector from "./StarCollector.js";
-import StretchingLamplighter from "./StretchingLamplighter.js";
-import TheRose from "./TheRose.js";
+import BeckoningRuler from "./beckoning-ruler.js";
+import GloatingNarcissist from "./gloating-narcissist.js";
+import SlouchingSoldier from "./slouching-soldier.js";
+import SneezingGeographer from "./sneezing-geographer.js";
+import StarCollector from "./star-collector.js";
+import StretchingLamplighter from "./stretching-lamplighter.js";
+import TheRose from "./the-rose.js";
 
 export default new Season({
 	id: SeasonId.LittlePrince,

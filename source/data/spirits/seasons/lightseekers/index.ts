@@ -2,13 +2,13 @@ import { Season } from "../../../../models/Season.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
 import { HELD_PROPS_EMOJIS, NECKLACE_EMOJIS } from "../../../../utility/emojis.js";
-import CrabWhisperer from "./CrabWhisperer.js";
-import DoublefiveLightCatcher from "./DoublefiveLightCatcher.js";
-import LaidbackPioneer from "./LaidbackPioneer.js";
-import LightseekerGuide from "./LightseekerGuide.js";
-import PiggybackLightseeker from "./PiggybackLightseeker.js";
-import ShushingLightScholar from "./ShushingLightScholar.js";
-import TwirlingChampion from "./TwirlingChampion.js";
+import CrabWhisperer from "./crab-whisperer.js";
+import DoublefiveLightCatcher from "./doublefive-light-catcher.js";
+import LaidbackPioneer from "./laidback-pioneer.js";
+import LightseekerGuide from "./lightseeker-guide.js";
+import PiggybackLightseeker from "./piggyback-lightseeker.js";
+import ShushingLightScholar from "./shushing-light-scholar.js";
+import TwirlingChampion from "./twirling-champion.js";
 
 export default new Season({
 	id: SeasonId.Lightseekers,
