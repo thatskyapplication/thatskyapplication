@@ -17,7 +17,7 @@ import {
 	messageCreateEmojiResponse,
 	messageCreateReactionResponse,
 	messageCreateResponse,
-} from "../OpenAI.js";
+} from "../open-ai.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { DEFAULT_EMBED_COLOUR, SERVER_UPGRADE_SKU_ID } from "../utility/Constants.js";

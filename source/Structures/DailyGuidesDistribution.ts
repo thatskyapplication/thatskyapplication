@@ -22,7 +22,7 @@ import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { skyCurrentEvents, skyNotEndedEvents } from "../data/events/index.js";
 import { skyCurrentSeason, skyUpcomingSeason } from "../data/spirits/seasons/index.js";
-import pQueue from "../pQueue.js";
+import pQueue from "../p-queue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {

@@ -28,10 +28,10 @@ import {
 import { hash } from "hasha";
 import { t } from "i18next";
 import sharp from "sharp";
-import S3Client from "../S3Client.js";
 import { skySeasons } from "../data/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
+import S3Client from "../s3-client.js";
 import {
 	CDN_BUCKET,
 	CDN_URL,

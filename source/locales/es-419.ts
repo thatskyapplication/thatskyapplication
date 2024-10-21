@@ -1,4 +1,4 @@
-import esES from "./es-ES.js";
+import esES from "./es-es.js";
 
 export default {
 	...esES,

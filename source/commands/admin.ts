@@ -19,10 +19,10 @@ import {
 } from "discord.js";
 import { hash } from "hasha";
 import sharp from "sharp";
-import S3Client from "../S3Client.js";
 import Configuration from "../Structures/Configuration.js";
 import DailyGuides, { type QuestNumber, QUESTS } from "../Structures/DailyGuides.js";
 import DailyGuidesDistribution from "../Structures/DailyGuidesDistribution.js";
+import S3Client from "../s3-client.js";
 import {
 	CDN_BUCKET,
 	LOCALES,
