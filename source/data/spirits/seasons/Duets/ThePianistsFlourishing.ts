@@ -1,4 +1,4 @@
-import { SeasonalSpirit } from "../../../../Structures/Spirits.js";
+import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import {
 	MISCELLANEOUS_EMOJIS,

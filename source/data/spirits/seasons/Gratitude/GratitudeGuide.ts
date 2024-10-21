@@ -1,4 +1,4 @@
-import { GuideSpirit } from "../../../../Structures/Spirits.js";
+import { GuideSpirit } from "../../../../models/Spirits.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { SpiritName } from "../../../../utility/spirits.js";
 

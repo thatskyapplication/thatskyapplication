@@ -1,4 +1,4 @@
-import { ElderSpirit } from "../../../../Structures/Spirits.js";
+import { ElderSpirit } from "../../../../models/Spirits.js";
 import { RealmName } from "../../../../utility/Constants.js";
 import { Cosmetic } from "../../../../utility/catalogue.js";
 import { HAIR_EMOJIS } from "../../../../utility/emojis.js";

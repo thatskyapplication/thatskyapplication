@@ -1,4 +1,4 @@
-import { Season } from "../../../../Structures/Season.js";
+import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
 import AssemblyGuide from "./AssemblyGuide.js";

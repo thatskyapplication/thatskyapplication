@@ -9,9 +9,9 @@ import {
 	time,
 } from "discord.js";
 import { t } from "i18next";
-import type { Event } from "../Structures/Event.js";
 import { skyCurrentEvents } from "../data/events/index.js";
 import { skyCurrentSeason } from "../data/spirits/seasons/index.js";
+import type { Event } from "../models/Event.js";
 import {
 	ASCENDED_CANDLES_PER_WEEK,
 	AreaToWingedLightCount,

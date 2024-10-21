@@ -1,5 +1,5 @@
 import { URL } from "node:url";
-import { Event } from "../../../Structures/Event.js";
+import { Event } from "../../../models/Event.js";
 import { CDN_URL } from "../../../utility/Constants.js";
 import { Cosmetic, EventId } from "../../../utility/catalogue.js";
 import { skyDate } from "../../../utility/dates.js";

@@ -1,4 +1,4 @@
-import { Realm } from "../../../../Structures/Realm.js";
+import { Realm } from "../../../../models/Realm.js";
 import { RealmName } from "../../../../utility/Constants.js";
 import CourageousSoldier from "./CourageousSoldier.js";
 import ElderOfTheWasteland from "./ElderOfTheWasteland.js";

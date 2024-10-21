@@ -14,6 +14,8 @@ import {
 	time,
 } from "discord.js";
 import { t } from "i18next";
+import { spirits } from "../data/spirits/index.js";
+import { resolveSeasonalSpirit } from "../data/spirits/seasons/index.js";
 import type {
 	ElderSpirit,
 	GuideSpirit,
@@ -21,9 +23,7 @@ import type {
 	SeasonalSpiritVisitReturningData,
 	SeasonalSpiritVisitTravellingData,
 	StandardSpirit,
-} from "../Structures/Spirits.js";
-import { spirits } from "../data/spirits/index.js";
-import { resolveSeasonalSpirit } from "../data/spirits/seasons/index.js";
+} from "../models/Spirits.js";
 import { DEFAULT_EMBED_COLOUR } from "../utility/Constants.js";
 import {
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,

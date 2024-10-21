@@ -1,4 +1,4 @@
-import { Event } from "../../../Structures/Event.js";
+import { Event } from "../../../models/Event.js";
 import { Cosmetic, EventId } from "../../../utility/catalogue.js";
 import { skyDate } from "../../../utility/dates.js";
 import { CAPE_EMOJIS, HAIR_ACCESSORY_EMOJIS, NECKLACE_EMOJIS } from "../../../utility/emojis.js";

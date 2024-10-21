@@ -3,7 +3,7 @@ import type { DateTime } from "luxon";
 import {
 	SeasonalSpirit,
 	type SeasonalSpiritVisitCollectionKey,
-} from "../../../../Structures/Spirits.js";
+} from "../../../../models/Spirits.js";
 import { RealmName } from "../../../../utility/Constants.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";

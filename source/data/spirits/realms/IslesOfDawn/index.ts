@@ -1,4 +1,4 @@
-import { Realm } from "../../../../Structures/Realm.js";
+import { Realm } from "../../../../models/Realm.js";
 import { RealmName } from "../../../../utility/Constants.js";
 import ElderOfTheIsles from "./ElderOfTheIsles.js";
 import PointingCandlemaker from "./PointingCandlemaker.js";

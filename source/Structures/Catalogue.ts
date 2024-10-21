@@ -35,6 +35,14 @@ import {
 	skySeasons,
 } from "../data/spirits/seasons/index.js";
 import { STARTER_PACKS } from "../data/starterPacks.js";
+import type { Event } from "../models/Event.js";
+import type { Season } from "../models/Season.js";
+import type {
+	ElderSpirit,
+	GuideSpirit,
+	SeasonalSpirit,
+	StandardSpirit,
+} from "../models/Spirits.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE, type RealmName } from "../utility/Constants.js";
@@ -60,10 +68,7 @@ import { skyNow } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../utility/emojis.js";
 import { cannotUsePermissions } from "../utility/permissionChecks.js";
 import type { SpiritName } from "../utility/spirits.js";
-import type { Event } from "./Event.js";
 import Profile from "./Profile.js";
-import type { Season } from "./Season.js";
-import type { ElderSpirit, GuideSpirit, SeasonalSpirit, StandardSpirit } from "./Spirits.js";
 
 export interface CataloguePacket {
 	user_id: Snowflake;

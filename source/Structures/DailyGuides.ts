@@ -14,6 +14,7 @@ import pQueue from "p-queue";
 import sharp from "sharp";
 import S3Client from "../S3Client.js";
 import { spirits } from "../data/spirits/index.js";
+import type { SeasonalSpirit, StandardSpirit } from "../models/Spirits.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
@@ -49,7 +50,6 @@ import { SeasonId, type SeasonIds, snakeCaseName } from "../utility/catalogue.js
 import { skyToday } from "../utility/dates.js";
 import { FriendAction, SpiritEmote } from "../utility/spirits.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
-import type { SeasonalSpirit, StandardSpirit } from "./Spirits.js";
 
 export interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;

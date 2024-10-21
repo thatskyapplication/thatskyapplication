@@ -1,4 +1,4 @@
-import { StandardSpirit } from "../../../../Structures/Spirits.js";
+import { StandardSpirit } from "../../../../models/Spirits.js";
 import { RealmName } from "../../../../utility/Constants.js";
 import { Cosmetic } from "../../../../utility/catalogue.js";
 import { CAPE_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../utility/emojis.js";

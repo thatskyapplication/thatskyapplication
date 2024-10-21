@@ -1,4 +1,4 @@
-import { GuideSpirit } from "../../../../Structures/Spirits.js";
+import { GuideSpirit } from "../../../../models/Spirits.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import {
 	CAPE_EMOJIS,

@@ -2,6 +2,7 @@ import { URL } from "node:url";
 import { Locale } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
+import type { GuideSpirit, SeasonalSpirit } from "../models/Spirits.js";
 import { CDN_URL, type RealmName } from "../utility/Constants.js";
 import {
 	type Item,
@@ -24,7 +25,6 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 } from "../utility/dates.js";
 import type { SeasonEmojis } from "../utility/emojis.js";
-import type { GuideSpirit, SeasonalSpirit } from "./Spirits.js";
 
 type SeasonalCandlesRotation = Readonly<
 	{ rotation: Exclude<RotationNumber, 3>; realm: RealmName }[]

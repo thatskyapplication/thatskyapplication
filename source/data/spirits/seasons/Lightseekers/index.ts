@@ -1,4 +1,4 @@
-import { Season } from "../../../../Structures/Season.js";
+import { Season } from "../../../../models/Season.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
 import { HELD_PROPS_EMOJIS, NECKLACE_EMOJIS } from "../../../../utility/emojis.js";
