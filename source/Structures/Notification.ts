@@ -20,8 +20,8 @@ import {
 	NOTIFICATION_TYPE_VALUES,
 	NotificationType,
 	type NotificationTypes,
-} from "../Utility/Constants.js";
-import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
+} from "../Utility2/Constants.js";
+import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility2/emojis.js";
 import pg, { Table } from "../pg.js";
 
 export interface NotificationPacket {

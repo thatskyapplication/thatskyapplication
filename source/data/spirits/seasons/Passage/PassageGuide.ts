@@ -1,14 +1,14 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
-import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
+import { RealmName } from "../../../../Utility2/Constants.js";
+import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
-} from "../../../../Utility/emojis.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+} from "../../../../Utility2/emojis.js";
+import { SpiritName } from "../../../../Utility2/spirits.js";
 
 export default new GuideSpirit({
 	name: SpiritName.PassageGuide,

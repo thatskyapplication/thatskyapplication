@@ -1,6 +1,6 @@
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonId } from "../../../../Utility/catalogue.js";
-import { skyDate } from "../../../../Utility/dates.js";
+import { SeasonId } from "../../../../Utility2/catalogue.js";
+import { skyDate } from "../../../../Utility2/dates.js";
 import ChillSunbather from "./ChillSunbather.js";
 import GratefulShellCollector from "./GratefulShellCollector.js";
 import HikingGrouch from "./HikingGrouch.js";

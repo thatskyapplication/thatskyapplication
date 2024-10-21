@@ -96,9 +96,9 @@ import {
 	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
 	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
 } from "../Structures/ShardEruption.js";
-import { ERROR_RESPONSE } from "../Utility/Constants.js";
-import { isRealm } from "../Utility/Utility.js";
-import { isSeasonId } from "../Utility/catalogue.js";
+import { ERROR_RESPONSE } from "../Utility2/Constants.js";
+import { isRealm } from "../Utility2/Utility.js";
+import { isSeasonId } from "../Utility2/catalogue.js";
 import {
 	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_DAILY_MESSAGE_MODAL,

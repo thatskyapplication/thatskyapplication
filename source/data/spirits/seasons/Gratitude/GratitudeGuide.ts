@@ -1,6 +1,6 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
-import { SeasonId } from "../../../../Utility/catalogue.js";
-import { SpiritName } from "../../../../Utility/spirits.js";
+import { SeasonId } from "../../../../Utility2/catalogue.js";
+import { SpiritName } from "../../../../Utility2/spirits.js";
 
 export default new GuideSpirit({
 	name: SpiritName.GratitudeGuide,

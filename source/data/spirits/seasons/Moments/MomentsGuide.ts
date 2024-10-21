@@ -1,6 +1,6 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
-import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
+import { RealmName } from "../../../../Utility2/Constants.js";
+import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
 	FRIEND_ACTION_EMOJIS,
@@ -8,8 +8,8 @@ import {
 	HELD_PROPS_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
-} from "../../../../Utility/emojis.js";
-import { FriendAction, SpiritName } from "../../../../Utility/spirits.js";
+} from "../../../../Utility2/emojis.js";
+import { FriendAction, SpiritName } from "../../../../Utility2/spirits.js";
 
 export default new GuideSpirit({
 	name: SpiritName.MomentsGuide,

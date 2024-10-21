@@ -1,6 +1,6 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
-import { skyDate } from "../../../Utility/dates.js";
+import { Cosmetic, EventId } from "../../../Utility2/catalogue.js";
+import { skyDate } from "../../../Utility2/dates.js";
 import {
 	CAPE_EMOJIS,
 	FACE_ACCESSORY_EMOJIS,
@@ -8,7 +8,7 @@ import {
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 	OUTFIT_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
-} from "../../../Utility/emojis.js";
+} from "../../../Utility2/emojis.js";
 
 export default new Event({
 	id: EventId.DaysOfMischief2021,

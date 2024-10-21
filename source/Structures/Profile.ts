@@ -51,15 +51,15 @@ import {
 	SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
 	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	SKY_PROFILE_UNKNOWN_NAME,
-} from "../Utility/Constants.js";
-import { SeasonIdToSeasonalEmoji, type SeasonIds, isSeasonId } from "../Utility/catalogue.js";
+} from "../Utility2/Constants.js";
+import { SeasonIdToSeasonalEmoji, type SeasonIds, isSeasonId } from "../Utility2/catalogue.js";
 import {
 	MISCELLANEOUS_EMOJIS,
 	type MiscellaneousEmojis,
 	formatEmoji,
 	formatEmojiURL,
-} from "../Utility/emojis.js";
-import { cannotUsePermissions } from "../Utility/permissionChecks.js";
+} from "../Utility2/emojis.js";
+import { cannotUsePermissions } from "../Utility2/permissionChecks.js";
 import { skySeasons } from "../data/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";

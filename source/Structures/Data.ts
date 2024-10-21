@@ -1,5 +1,5 @@
 import { type ButtonInteraction, MessageFlags, hyperlink } from "discord.js";
-import { SUPPORT_SERVER_INVITE_URL } from "../Utility/Constants.js";
+import { SUPPORT_SERVER_INVITE_URL } from "../Utility2/Constants.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import type { CataloguePacket } from "./Catalogue.js";

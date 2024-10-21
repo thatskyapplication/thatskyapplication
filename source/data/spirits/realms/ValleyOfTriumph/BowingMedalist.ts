@@ -1,12 +1,12 @@
 import { StandardSpirit } from "../../../../Structures/Spirits.js";
-import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic } from "../../../../Utility/catalogue.js";
+import { RealmName } from "../../../../Utility2/Constants.js";
+import { Cosmetic } from "../../../../Utility2/catalogue.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
-} from "../../../../Utility/emojis.js";
-import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../Utility/spirits.js";
+} from "../../../../Utility2/emojis.js";
+import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../Utility2/spirits.js";
 
 const emote = SpiritEmote.Bow;
 const emoteEmoji = SpiritEmoteToEmoji[emote];

@@ -1,6 +1,6 @@
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonId } from "../../../../Utility/catalogue.js";
-import { skyDate } from "../../../../Utility/dates.js";
+import { SeasonId } from "../../../../Utility2/catalogue.js";
+import { skyDate } from "../../../../Utility2/dates.js";
 import AdmiringActor from "./AdmiringActor.js";
 import FestivalSpinDancer from "./FestivalSpinDancer.js";
 import RespectfulPianist from "./RespectfulPianist.js";

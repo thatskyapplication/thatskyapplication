@@ -32,7 +32,7 @@ import {
 	VALID_REALM_NAME,
 	type ValidRealmName,
 	inconsistentMapKeys,
-} from "../Utility/Constants.js";
+} from "../Utility2/Constants.js";
 import {
 	isMeditationMap,
 	isRainbowAdmireMap,
@@ -41,10 +41,10 @@ import {
 	resolveMeditationMap,
 	resolveSocialLightAreaMap,
 	resolveValidRealm,
-} from "../Utility/Utility.js";
-import { SeasonId, type SeasonIds, snakeCaseName } from "../Utility/catalogue.js";
-import { skyToday } from "../Utility/dates.js";
-import { FriendAction, SpiritEmote } from "../Utility/spirits.js";
+} from "../Utility2/Utility.js";
+import { SeasonId, type SeasonIds, snakeCaseName } from "../Utility2/catalogue.js";
+import { skyToday } from "../Utility2/dates.js";
+import { FriendAction, SpiritEmote } from "../Utility2/spirits.js";
 import { spirits } from "../data/spirits/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";

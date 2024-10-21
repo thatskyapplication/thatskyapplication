@@ -13,11 +13,11 @@ import {
 	time,
 	userMention,
 } from "discord.js";
-import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
-import { getRandomElement } from "../Utility/Utility.js";
-import { skyToday } from "../Utility/dates.js";
-import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "../Utility/emojis.js";
-import { cannotUsePermissions } from "../Utility/permissionChecks.js";
+import { DEFAULT_EMBED_COLOUR } from "../Utility2/Constants.js";
+import { getRandomElement } from "../Utility2/Utility.js";
+import { skyToday } from "../Utility2/dates.js";
+import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "../Utility2/emojis.js";
+import { cannotUsePermissions } from "../Utility2/permissionChecks.js";
 import pg, { Table } from "../pg.js";
 
 const HEARTS = [

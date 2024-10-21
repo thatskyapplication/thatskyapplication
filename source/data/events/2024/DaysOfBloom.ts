@@ -1,9 +1,9 @@
 import { URL } from "node:url";
 import { Event } from "../../../Structures/Event.js";
-import { CDN_URL } from "../../../Utility/Constants.js";
-import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
-import { skyDate } from "../../../Utility/dates.js";
-import { CAPE_EMOJIS, HAIR_EMOJIS, HELD_PROPS_EMOJIS } from "../../../Utility/emojis.js";
+import { CDN_URL } from "../../../Utility2/Constants.js";
+import { Cosmetic, EventId } from "../../../Utility2/catalogue.js";
+import { skyDate } from "../../../Utility2/dates.js";
+import { CAPE_EMOJIS, HAIR_EMOJIS, HELD_PROPS_EMOJIS } from "../../../Utility2/emojis.js";
 
 export default new Event({
 	id: EventId.DaysOfBloom2024,

@@ -13,10 +13,10 @@ import {
 	SKY_CREATOR_TROUPE,
 	WINGED_LIGHT_IN_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
-} from "./Utility/Constants.js";
-import { skyNow } from "./Utility/dates.js";
-import { MISCELLANEOUS_EMOJIS, formatEmoji } from "./Utility/emojis.js";
-import { shardEruption } from "./Utility/shardEruption.js";
+} from "./Utility2/Constants.js";
+import { skyNow } from "./Utility2/dates.js";
+import { MISCELLANEOUS_EMOJIS, formatEmoji } from "./Utility2/emojis.js";
+import { shardEruption } from "./Utility2/shardEruption.js";
 import { skyCurrentEvents, skyUpcomingEvents } from "./data/events/index.js";
 import { skySeasons, skyUpcomingSeason } from "./data/spirits/seasons/index.js";
 import pino from "./pino.js";

@@ -1,7 +1,7 @@
 import { Season } from "../../../../Structures/Season.js";
-import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
-import { skyDate } from "../../../../Utility/dates.js";
-import { HELD_PROPS_EMOJIS, NECKLACE_EMOJIS } from "../../../../Utility/emojis.js";
+import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
+import { skyDate } from "../../../../Utility2/dates.js";
+import { HELD_PROPS_EMOJIS, NECKLACE_EMOJIS } from "../../../../Utility2/emojis.js";
 import CrabWhisperer from "./CrabWhisperer.js";
 import DoublefiveLightCatcher from "./DoublefiveLightCatcher.js";
 import LaidbackPioneer from "./LaidbackPioneer.js";

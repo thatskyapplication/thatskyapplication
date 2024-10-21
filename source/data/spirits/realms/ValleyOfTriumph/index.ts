@@ -1,5 +1,5 @@
 import { Realm } from "../../../../Structures/Realm.js";
-import { RealmName } from "../../../../Utility/Constants.js";
+import { RealmName } from "../../../../Utility2/Constants.js";
 import BackflippingChampion from "./BackflippingChampion.js";
 import BowingMedalist from "./BowingMedalist.js";
 import CheerfulSpectator from "./CheerfulSpectator.js";

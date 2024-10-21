@@ -27,8 +27,8 @@ import {
 	ERROR_RESPONSE,
 	NOTIFICATION_CHANNEL_TYPES,
 	NOT_IN_CACHED_GUILD_RESPONSE,
-} from "../Utility/Constants.js";
-import { cannotUsePermissions } from "../Utility/permissionChecks.js";
+} from "../Utility2/Constants.js";
+import { cannotUsePermissions } from "../Utility2/permissionChecks.js";
 import pino from "../pino.js";
 import type { ChatInputCommand } from "./index.js";
 

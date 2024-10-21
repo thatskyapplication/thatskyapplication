@@ -18,8 +18,8 @@ import {
 	GUESS_DIFFICULTY_LEVEL_VALUES,
 	GuessDifficultyLevel,
 	GuessDifficultyLevelToName,
-} from "../Utility/Constants.js";
-import { getRandomElement } from "../Utility/Utility.js";
+} from "../Utility2/Constants.js";
+import { getRandomElement } from "../Utility2/Utility.js";
 import {
 	COSMETIC_EMOJIS,
 	type CosmeticEmojis,
@@ -27,7 +27,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	formatEmoji,
 	formatEmojiURL,
-} from "../Utility/emojis.js";
+} from "../Utility2/emojis.js";
 import { spirits } from "../data/spirits/index.js";
 import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../data/spirits/realms/index.js";
 import ModestDancer from "../data/spirits/seasons/Performance/ModestDancer.js";

@@ -2,7 +2,7 @@ import { URL } from "node:url";
 import { Locale } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import { CDN_URL } from "../Utility/Constants.js";
+import { CDN_URL } from "../Utility2/Constants.js";
 import {
 	EventIdToEventCurrencyEmoji,
 	type EventIds,
@@ -12,8 +12,8 @@ import {
 	resolveOffer,
 	snakeCaseName,
 	wikiURL,
-} from "../Utility/catalogue.js";
-import type { EventEmojis } from "../Utility/emojis.js";
+} from "../Utility2/catalogue.js";
+import type { EventEmojis } from "../Utility2/emojis.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
 

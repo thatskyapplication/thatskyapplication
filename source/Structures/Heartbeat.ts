@@ -1,6 +1,6 @@
 import { setInterval } from "node:timers";
 import type { Client } from "discord.js";
-import { skyNow } from "../Utility/dates.js";
+import { skyNow } from "../Utility2/dates.js";
 import DailyGuides from "./DailyGuides.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 

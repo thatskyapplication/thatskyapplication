@@ -24,8 +24,8 @@ import {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DEFAULT_EMBED_COLOUR,
 	RealmName,
-} from "../Utility/Constants.js";
-import type { RotationNumber } from "../Utility/catalogue.js";
+} from "../Utility2/Constants.js";
+import type { RotationNumber } from "../Utility2/catalogue.js";
 import {
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
@@ -34,18 +34,18 @@ import {
 	isDuring,
 	skyNow,
 	skyToday,
-} from "../Utility/dates.js";
+} from "../Utility2/dates.js";
 import {
 	MISCELLANEOUS_EMOJIS,
 	formatEmoji,
 	formatEmojiURL,
 	resolveCurrencyEmoji,
-} from "../Utility/emojis.js";
+} from "../Utility2/emojis.js";
 import {
 	shardEruption,
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
-} from "../Utility/shardEruption.js";
+} from "../Utility2/shardEruption.js";
 import { skyCurrentEvents, skyNotEndedEvents } from "../data/events/index.js";
 import { skyCurrentSeason, skyUpcomingSeason } from "../data/spirits/seasons/index.js";
 import pQueue from "../pQueue.js";

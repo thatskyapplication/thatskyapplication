@@ -4,11 +4,11 @@ import {
 	SeasonalSpirit,
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../Structures/Spirits.js";
-import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
-import { skyDate } from "../../../../Utility/dates.js";
-import { HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility/emojis.js";
-import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../Utility/spirits.js";
+import { RealmName } from "../../../../Utility2/Constants.js";
+import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
+import { skyDate } from "../../../../Utility2/dates.js";
+import { HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../Utility2/emojis.js";
+import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../Utility2/spirits.js";
 
 const stance = SpiritStance.Sassy;
 const stanceEmoji = SpiritStanceToEmoji[stance];

@@ -1,5 +1,5 @@
 import { Realm } from "../../../../Structures/Realm.js";
-import { RealmName } from "../../../../Utility/Constants.js";
+import { RealmName } from "../../../../Utility2/Constants.js";
 import ElderOfTheVault from "./ElderOfTheVault.js";
 import LevitatingAdept from "./LevitatingAdept.js";
 import MeditatingMonastic from "./MeditatingMonastic.js";

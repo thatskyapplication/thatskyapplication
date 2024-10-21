@@ -1,6 +1,6 @@
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonId } from "../../../../Utility/catalogue.js";
-import { skyDate } from "../../../../Utility/dates.js";
+import { SeasonId } from "../../../../Utility2/catalogue.js";
+import { skyDate } from "../../../../Utility2/dates.js";
 import AbyssGuide from "./AbyssGuide.js";
 import AnxiousAngler from "./AnxiousAngler.js";
 import BumblingBoatswain from "./BumblingBoatswain.js";

@@ -1,11 +1,11 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
-import { skyDate } from "../../../Utility/dates.js";
+import { Cosmetic, EventId } from "../../../Utility2/catalogue.js";
+import { skyDate } from "../../../Utility2/dates.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
 	OUTFIT_EMOJIS,
-} from "../../../Utility/emojis.js";
+} from "../../../Utility2/emojis.js";
 
 export default new Event({
 	id: EventId.DaysOfRainbow2022,

@@ -3,7 +3,7 @@ import { URL } from "node:url";
 import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
-import { CDN_URL, type RealmName } from "../Utility/Constants.js";
+import { CDN_URL, type RealmName } from "../Utility2/Constants.js";
 import {
 	type Item,
 	type ItemCost,
@@ -14,8 +14,8 @@ import {
 	resolveOffer,
 	snakeCaseName,
 	wikiURL,
-} from "../Utility/catalogue.js";
-import { skyDate } from "../Utility/dates.js";
+} from "../Utility2/catalogue.js";
+import { skyDate } from "../Utility2/dates.js";
 import {
 	type FriendAction,
 	SPIRIT_TYPE,
@@ -24,7 +24,7 @@ import {
 	type SpiritName,
 	type SpiritStance,
 	type SpiritType,
-} from "../Utility/spirits.js";
+} from "../Utility2/spirits.js";
 import pino from "../pino.js";
 
 export type SeasonalSpiritVisitCollectionKey = number | "Error";

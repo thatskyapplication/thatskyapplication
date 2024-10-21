@@ -8,8 +8,8 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import Profile, { AssetType, type ProfileSetData } from "../Structures/Profile.js";
-import { SKY_PROFILE_MAXIMUM_ASSET_SIZE } from "../Utility/Constants.js";
-import { cannotUsePermissions } from "../Utility/permissionChecks.js";
+import { SKY_PROFILE_MAXIMUM_ASSET_SIZE } from "../Utility2/Constants.js";
+import { cannotUsePermissions } from "../Utility2/permissionChecks.js";
 import { spirits } from "../data/spirits/index.js";
 import COMMANDS, { type AutocompleteCommand } from "./index.js";
 

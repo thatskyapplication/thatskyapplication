@@ -16,7 +16,7 @@ import {
 	DEFAULT_EMBED_COLOUR,
 	MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID,
 	TOKEN,
-} from "./Utility/Constants.js";
+} from "./Utility2/Constants.js";
 import events, { type Event } from "./events/index.js";
 import pino from "./pino.js";
 

@@ -1,8 +1,8 @@
 import { StandardSpirit } from "../../../../Structures/Spirits.js";
-import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic } from "../../../../Utility/catalogue.js";
-import { HAIR_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../Utility/emojis.js";
-import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../Utility/spirits.js";
+import { RealmName } from "../../../../Utility2/Constants.js";
+import { Cosmetic } from "../../../../Utility2/catalogue.js";
+import { HAIR_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../Utility2/emojis.js";
+import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../Utility2/spirits.js";
 
 const emote = SpiritEmote.Come;
 const emoteEmoji = SpiritEmoteToEmoji[emote];

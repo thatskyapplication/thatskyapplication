@@ -22,7 +22,7 @@ import type {
 	SeasonalSpiritVisitTravellingData,
 	StandardSpirit,
 } from "../Structures/Spirits.js";
-import { DEFAULT_EMBED_COLOUR } from "../Utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR } from "../Utility2/Constants.js";
 import {
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
@@ -30,16 +30,16 @@ import {
 	SeasonId,
 	SeasonIdToSeasonalEmoji,
 	resolveCostToString,
-} from "../Utility/catalogue.js";
-import { skyNow } from "../Utility/dates.js";
-import { formatEmoji } from "../Utility/emojis.js";
-import { cannotUsePermissions } from "../Utility/permissionChecks.js";
+} from "../Utility2/catalogue.js";
+import { skyNow } from "../Utility2/dates.js";
+import { formatEmoji } from "../Utility2/emojis.js";
+import { cannotUsePermissions } from "../Utility2/permissionChecks.js";
 import {
 	FriendActionToEmoji,
 	SpiritCallToEmoji,
 	SpiritEmoteToEmoji,
 	SpiritStanceToEmoji,
-} from "../Utility/spirits.js";
+} from "../Utility2/spirits.js";
 import { spirits } from "../data/spirits/index.js";
 import { resolveSeasonalSpirit } from "../data/spirits/seasons/index.js";
 import type { AutocompleteCommand } from "./index.js";

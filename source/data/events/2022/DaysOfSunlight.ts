@@ -1,11 +1,11 @@
 import { Event } from "../../../Structures/Event.js";
-import { Cosmetic, EventId } from "../../../Utility/catalogue.js";
-import { skyDate } from "../../../Utility/dates.js";
+import { Cosmetic, EventId } from "../../../Utility2/catalogue.js";
+import { skyDate } from "../../../Utility2/dates.js";
 import {
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 	NECKLACE_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
-} from "../../../Utility/emojis.js";
+} from "../../../Utility2/emojis.js";
 
 export default new Event({
 	id: EventId.DaysOfSunlight2022,

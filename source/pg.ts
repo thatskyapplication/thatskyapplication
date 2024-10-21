@@ -1,6 +1,6 @@
 import process from "node:process";
 import knex from "knex";
-import { PRODUCTION } from "./Utility/Constants.js";
+import { PRODUCTION } from "./Utility2/Constants.js";
 
 export enum Table {
 	AI = "ai",

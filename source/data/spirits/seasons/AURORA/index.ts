@@ -1,13 +1,13 @@
 import { Season } from "../../../../Structures/Season.js";
-import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
-import { skyDate } from "../../../../Utility/dates.js";
+import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
+import { skyDate } from "../../../../Utility2/dates.js";
 import {
 	CAPE_EMOJIS,
 	FACE_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
 	HELD_PROPS_EMOJIS,
 	OUTFIT_EMOJIS,
-} from "../../../../Utility/emojis.js";
+} from "../../../../Utility2/emojis.js";
 import AURORA from "./AURORA.js";
 import MindfulMiner from "./MindfulMiner.js";
 import RunningWayfarer from "./RunningWayfarer.js";

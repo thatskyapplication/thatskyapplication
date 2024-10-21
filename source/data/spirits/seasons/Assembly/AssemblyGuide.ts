@@ -1,6 +1,6 @@
 import { GuideSpirit } from "../../../../Structures/Spirits.js";
-import { RealmName } from "../../../../Utility/Constants.js";
-import { Cosmetic, SeasonId } from "../../../../Utility/catalogue.js";
+import { RealmName } from "../../../../Utility2/Constants.js";
+import { Cosmetic, SeasonId } from "../../../../Utility2/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	FRIEND_ACTION_EMOJIS,
@@ -11,8 +11,8 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
-} from "../../../../Utility/emojis.js";
-import { FriendAction, SpiritName } from "../../../../Utility/spirits.js";
+} from "../../../../Utility2/emojis.js";
+import { FriendAction, SpiritName } from "../../../../Utility2/spirits.js";
 
 const heartEmoji = MISCELLANEOUS_EMOJIS.Heart;
 

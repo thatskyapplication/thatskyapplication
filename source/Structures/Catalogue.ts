@@ -17,8 +17,8 @@ import {
 	StringSelectMenuOptionBuilder,
 } from "discord.js";
 import { t } from "i18next";
-import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE, type RealmName } from "../Utility/Constants.js";
-import { isRealm } from "../Utility/Utility.js";
+import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE, type RealmName } from "../Utility2/Constants.js";
+import { isRealm } from "../Utility2/Utility.js";
 import {
 	CatalogueType,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
@@ -35,11 +35,11 @@ import {
 	isSeasonId,
 	resolveAllCosmetics,
 	resolveCostToString,
-} from "../Utility/catalogue.js";
-import { skyNow } from "../Utility/dates.js";
-import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility/emojis.js";
-import { cannotUsePermissions } from "../Utility/permissionChecks.js";
-import type { SpiritName } from "../Utility/spirits.js";
+} from "../Utility2/catalogue.js";
+import { skyNow } from "../Utility2/dates.js";
+import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../Utility2/emojis.js";
+import { cannotUsePermissions } from "../Utility2/permissionChecks.js";
+import type { SpiritName } from "../Utility2/spirits.js";
 import { skyCurrentEvents, skyEventYears, skyEvents } from "../data/events/index.js";
 import { NESTING_WORKSHOP } from "../data/nestingWorkshop.js";
 import { PERMANENT_EVENT_STORE } from "../data/permanentEventStore.js";

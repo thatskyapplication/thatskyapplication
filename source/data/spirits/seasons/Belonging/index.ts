@@ -1,6 +1,6 @@
 import { Season } from "../../../../Structures/Season.js";
-import { SeasonId } from "../../../../Utility/catalogue.js";
-import { skyDate } from "../../../../Utility/dates.js";
+import { SeasonId } from "../../../../Utility2/catalogue.js";
+import { skyDate } from "../../../../Utility2/dates.js";
 import BelongingGuide from "./BelongingGuide.js";
 import BoogieKid from "./BoogieKid.js";
 import ConfettiCousin from "./ConfettiCousin.js";
