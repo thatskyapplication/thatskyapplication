@@ -5,8 +5,8 @@ import { skyDate } from "../../../../utility/dates.js";
 import { CAPE_EMOJIS, FACE_ACCESSORY_EMOJIS } from "../../../../utility/emojis.js";
 import FeudalLord from "./feudal-lord.js";
 import HerbGatherer from "./herb-gatherer.js";
-import Hunter from "./hunter2.js";
-import Princess from "./princess2.js";
+import Hunter from "./hunter.js";
+import Princess from "./princess.js";
 import SpiritOfMural from "./spirit-of-mural.js";
 
 export default new Season({
