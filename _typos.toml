@@ -2,4 +2,4 @@
 Ba = "Ba"
 
 [files]
-extend-exclude = ["source/locales/de.ts", "source/locales/es-419.ts", "source/locales/es-ES.ts", "source/locales/fr.ts", "source/locales/it.ts", "source/locales/ja.ts", "source/locales/pt-BR.ts", "source/locales/ru.ts", "source/locales/vi.ts", "source/locales/zh-CN.ts", "source/locales/zh-TW.ts"]
+extend-exclude = ["source/locales/de.ts", "source/locales/es-419.ts", "source/locales/es-ES.ts", "source/locales/fr.ts", "source/locales/it.ts", "source/locales/ja.ts", "source/locales/ko.ts", "source/locales/pt-BR.ts", "source/locales/ru.ts", "source/locales/th.ts", "source/locales/vi.ts", "source/locales/zh-CN.ts", "source/locales/zh-TW.ts"]
