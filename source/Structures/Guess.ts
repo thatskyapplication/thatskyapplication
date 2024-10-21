@@ -14,8 +14,8 @@ import {
 import { t } from "i18next";
 import { spirits } from "../data/spirits/index.js";
 import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../data/spirits/realms/index.js";
-import ModestDancer from "../data/spirits/seasons/Performance2/ModestDancer.js";
 import { currentSeasonalSpirits } from "../data/spirits/seasons/index.js";
+import ModestDancer from "../data/spirits/seasons/performance/ModestDancer.js";
 import type {
 	ElderSpirit,
 	GuideSpirit,
