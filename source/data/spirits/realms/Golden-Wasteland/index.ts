@@ -1,12 +1,12 @@
 import { Realm } from "../../../../models/Realm.js";
 import { RealmName } from "../../../../utility/Constants.js";
-import CourageousSoldier from "./CourageousSoldier.js";
-import ElderOfTheWasteland from "./ElderOfTheWasteland.js";
-import FaintingWarrior from "./FaintingWarrior.js";
-import FrightenedRefugee from "./FrightenedRefugee.js";
-import LookoutScout from "./LookoutScout.js";
-import SalutingCaptain from "./SalutingCaptain.js";
-import StealthySurvivor from "./StealthySurvivor.js";
+import CourageousSoldier from "./courageous-soldier.js";
+import ElderOfTheWasteland from "./elder-of-the-wasteland.js";
+import FaintingWarrior from "./fainting-warrior.js";
+import FrightenedRefugee from "./frightened-refugee.js";
+import LookoutScout from "./lookout-scout.js";
+import SalutingCaptain from "./saluting-captain.js";
+import StealthySurvivor from "./stealthy-survivor.js";
 
 export default new Realm({
 	name: RealmName.GoldenWasteland,

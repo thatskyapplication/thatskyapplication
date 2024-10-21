@@ -1,11 +1,11 @@
 import { Realm } from "../../../../models/Realm.js";
 import { RealmName } from "../../../../utility/Constants.js";
-import ElderOfTheVault from "./ElderOfTheVault.js";
-import LevitatingAdept from "./LevitatingAdept.js";
-import MeditatingMonastic from "./MeditatingMonastic.js";
-import MemoryWhisperer from "./MemoryWhisperer.js";
-import PoliteScholar from "./PoliteScholar.js";
-import PrayingAcolyte from "./PrayingAcolyte.js";
+import ElderOfTheVault from "./elder-of-the-vault.js";
+import LevitatingAdept from "./levitating-adept.js";
+import MeditatingMonastic from "./meditating-monastic.js";
+import MemoryWhisperer from "./memory-whisperer.js";
+import PoliteScholar from "./polite-scholar.js";
+import PrayingAcolyte from "./praying-acolyte.js";
 
 export default new Realm({
 	name: RealmName.VaultOfKnowledge,

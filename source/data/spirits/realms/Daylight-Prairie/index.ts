@@ -1,14 +1,14 @@
 import { Realm } from "../../../../models/Realm.js";
 import { RealmName } from "../../../../utility/Constants.js";
-import ApplaudingBellmaker from "./ApplaudingBellmaker.js";
-import BirdWhisperer from "./BirdWhisperer.js";
-import ButterflyCharmer from "./ButterflyCharmer.js";
-import CeremonialWorshipper from "./CeremonialWorshiper.js";
-import ElderOfThePrairie from "./ElderOfThePrairie.js";
-import ExhaustedDockWorker from "./ExhaustedDockWorker.js";
-import LaughingLightCatcher from "./LaughingLightCatcher.js";
-import SlumberingShipwright from "./SlumberingShipwright.js";
-import WavingBellmaker from "./WavingBellmaker.js";
+import ApplaudingBellmaker from "./applauding-bellmaker.js";
+import BirdWhisperer from "./bird-whisperer.js";
+import ButterflyCharmer from "./butterfly-charmer.js";
+import CeremonialWorshipper from "./ceremonial-worshiper.js";
+import ElderOfThePrairie from "./elder-of-the-prairie.js";
+import ExhaustedDockWorker from "./exhausted-dock-worker.js";
+import LaughingLightCatcher from "./laughing-light-catcher.js";
+import SlumberingShipwright from "./slumbering-shipwright.js";
+import WavingBellmaker from "./waving-bellmaker.js";
 
 export default new Realm({
 	name: RealmName.DaylightPrairie,

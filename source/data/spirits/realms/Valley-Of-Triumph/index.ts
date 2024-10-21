@@ -1,13 +1,13 @@
 import { Realm } from "../../../../models/Realm.js";
 import { RealmName } from "../../../../utility/Constants.js";
-import BackflippingChampion from "./BackflippingChampion.js";
-import BowingMedalist from "./BowingMedalist.js";
-import CheerfulSpectator from "./CheerfulSpectator.js";
-import ConfidentSightseer from "./ConfidentSightseer.js";
-import ElderOfTheValley from "./ElderOfTheValley.js";
-import HandstandingThrillseeker from "./HandstandingThrillseeker.js";
-import MantaWhisperer from "./MantaWhisperer.js";
-import ProudVictor from "./ProudVictor.js";
+import BackflippingChampion from "./backflipping-champion.js";
+import BowingMedalist from "./bowing-medalist.js";
+import CheerfulSpectator from "./cheerful-spectator.js";
+import ConfidentSightseer from "./confident-sightseer.js";
+import ElderOfTheValley from "./elder-of-the-valley.js";
+import HandstandingThrillseeker from "./handstanding-thrillseeker.js";
+import MantaWhisperer from "./manta-whisperer.js";
+import ProudVictor from "./proud-victor.js";
 
 export default new Realm({
 	name: RealmName.ValleyOfTriumph,

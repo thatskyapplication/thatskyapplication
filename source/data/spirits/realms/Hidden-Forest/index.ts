@@ -1,14 +1,14 @@
 import { Realm } from "../../../../models/Realm.js";
 import { RealmName } from "../../../../utility/Constants.js";
-import ApologeticLumberjack from "./ApologeticLumberjack.js";
-import BlushingProspector from "./BlushingProspector.js";
-import DismayedHunter from "./DismayedHunter.js";
-import ElderOfTheForest from "./ElderOfTheForest.js";
-import HideNSeekPioneer from "./HideNSeekPioneer.js";
-import PoutyPorter from "./PoutyPorter.js";
-import ShiveringTrailblazer from "./ShiveringTrailblazer.js";
-import TearfulLightMiner from "./TearfulLightMiner.js";
-import WhaleWhisperer from "./WhaleWhisperer.js";
+import ApologeticLumberjack from "./apologetic-lumberjack.js";
+import BlushingProspector from "./blushing-prospector.js";
+import DismayedHunter from "./dismayed-hunter.js";
+import ElderOfTheForest from "./elder-of-the-forest.js";
+import HideNSeekPioneer from "./hide-n-seek-pioneer.js";
+import PoutyPorter from "./pouty-porter.js";
+import ShiveringTrailblazer from "./shivering-trailblazer.js";
+import TearfulLightMiner from "./tearful-light-miner.js";
+import WhaleWhisperer from "./whale-whisperer.js";
 
 export default new Realm({
 	name: RealmName.HiddenForest,
