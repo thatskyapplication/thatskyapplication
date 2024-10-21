@@ -1,9 +1,9 @@
-import DaylightPrairie from "./DaylightPrairie/index.js";
-import GoldenWasteland from "./GoldenWasteland/index.js";
-import HiddenForest from "./HiddenForest/index.js";
-import IslesOfDawn from "./IslesOfDawn/index.js";
-import ValleyOfTriumph from "./ValleyOfTriumph/index.js";
-import VaultOfKnowledge from "./VaultOfKnowledge/index.js";
+import DaylightPrairie from "./Daylight-Prairie/index.js";
+import GoldenWasteland from "./Golden-Wasteland/index.js";
+import HiddenForest from "./Hidden-Forest/index.js";
+import IslesOfDawn from "./Isles-Of-Dawn/index.js";
+import ValleyOfTriumph from "./Valley-Of-Triumph/index.js";
+import VaultOfKnowledge from "./Vault-Of-Knowledge/index.js";
 
 export const REALMS = [
 	IslesOfDawn,
