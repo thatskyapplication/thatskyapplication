@@ -16,7 +16,7 @@ import {
 	SKY_CREATOR_TROUPE,
 	WINGED_LIGHT_IN_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
-} from "./utility/Constants.js";
+} from "./utility/constants-2.js";
 import { skyNow } from "./utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "./utility/emojis.js";
 import { shardEruption } from "./utility/shard-eruption.js";

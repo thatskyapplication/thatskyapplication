@@ -20,7 +20,7 @@ import {
 } from "../open-ai.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
-import { DEFAULT_EMBED_COLOUR, SERVER_UPGRADE_SKU_ID } from "../utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR, SERVER_UPGRADE_SKU_ID } from "../utility/constants-2.js";
 import { resolveEntitlement } from "../utility/functions.js";
 
 interface AIPacket {

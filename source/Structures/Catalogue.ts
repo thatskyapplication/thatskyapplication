@@ -45,7 +45,6 @@ import type {
 } from "../models/Spirits.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
-import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE, type RealmName } from "../utility/Constants.js";
 import {
 	CatalogueType,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
@@ -63,6 +62,7 @@ import {
 	resolveAllCosmetics,
 	resolveCostToString,
 } from "../utility/catalogue.js";
+import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE, type RealmName } from "../utility/constants-2.js";
 import { skyNow } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../utility/emojis.js";
 import { isRealm } from "../utility/functions.js";

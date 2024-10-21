@@ -4,7 +4,6 @@ import { Collection } from "discord.js";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import pino from "../pino.js";
-import { CDN_URL, type RealmName } from "../utility/Constants.js";
 import {
 	type Item,
 	type ItemCost,
@@ -16,6 +15,7 @@ import {
 	snakeCaseName,
 	wikiURL,
 } from "../utility/catalogue.js";
+import { CDN_URL, type RealmName } from "../utility/constants-2.js";
 import { skyDate } from "../utility/dates.js";
 import {
 	type FriendAction,

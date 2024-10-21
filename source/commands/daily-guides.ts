@@ -11,7 +11,7 @@ import DailyGuidesDistribution, {
 import {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	NOT_IN_CACHED_GUILD_RESPONSE,
-} from "../utility/Constants.js";
+} from "../utility/constants-2.js";
 import { cannotUsePermissions } from "../utility/permission-checks.js";
 import type { ChatInputCommand } from "./index.js";
 

@@ -1,6 +1,6 @@
 import { GuideSpirit } from "../../../../models/Spirits.js";
-import { RealmName } from "../../../../utility/Constants.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
+import { RealmName } from "../../../../utility/constants-2.js";
 import {
 	FRIEND_ACTION_EMOJIS,
 	HELD_PROPS_EMOJIS,

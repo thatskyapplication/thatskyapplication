@@ -1,5 +1,5 @@
 import { Realm } from "../../../../models/Realm.js";
-import { RealmName } from "../../../../utility/Constants.js";
+import { RealmName } from "../../../../utility/constants-2.js";
 import ApologeticLumberjack from "./apologetic-lumberjack.js";
 import BlushingProspector from "./blushing-prospector.js";
 import DismayedHunter from "./dismayed-hunter.js";

@@ -3,7 +3,6 @@ import { Locale } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import type { GuideSpirit, SeasonalSpirit } from "../models/Spirits.js";
-import { CDN_URL, type RealmName } from "../utility/Constants.js";
 import {
 	type Item,
 	type ItemRaw,
@@ -19,6 +18,7 @@ import {
 	snakeCaseName,
 	wikiURL,
 } from "../utility/catalogue.js";
+import { CDN_URL, type RealmName } from "../utility/constants-2.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,

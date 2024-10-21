@@ -13,6 +13,10 @@ import { skyCurrentEvents } from "../data/events/index.js";
 import { skyCurrentSeason } from "../data/spirits/seasons/index.js";
 import type { Event } from "../models/Event.js";
 import {
+	SEASONAL_CANDLES_PER_DAY,
+	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
+} from "../utility/catalogue.js";
+import {
 	ASCENDED_CANDLES_PER_WEEK,
 	AreaToWingedLightCount,
 	DEFAULT_EMBED_COLOUR,
@@ -20,11 +24,7 @@ import {
 	SkyMap,
 	WINGED_LIGHT_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
-} from "../utility/Constants.js";
-import {
-	SEASONAL_CANDLES_PER_DAY,
-	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
-} from "../utility/catalogue.js";
+} from "../utility/constants-2.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,

@@ -4,8 +4,8 @@ import {
 	SeasonalSpirit,
 	type SeasonalSpiritVisitCollectionKey,
 } from "../../../../models/Spirits.js";
-import { RealmName } from "../../../../utility/Constants.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
+import { RealmName } from "../../../../utility/constants-2.js";
 import { skyDate } from "../../../../utility/dates.js";
 import { CAPE_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../utility/emojis.js";
 import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../utility/spirits.js";

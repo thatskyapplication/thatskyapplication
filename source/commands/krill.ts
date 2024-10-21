@@ -7,7 +7,7 @@ import {
 	PermissionFlagsBits,
 } from "discord.js";
 import { t } from "i18next";
-import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_KRILL_NO } from "../utility/Constants.js";
+import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_KRILL_NO } from "../utility/constants-2.js";
 import type { ChatInputCommand } from "./index.js";
 
 export default new (class implements ChatInputCommand {

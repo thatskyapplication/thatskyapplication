@@ -110,8 +110,8 @@ import { DATA_DELETION_CUSTOM_ID } from "../commands/data.js";
 import COMMANDS, { resolveCommand } from "../commands/index.js";
 import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../commands/spirit.js";
 import pino from "../pino.js";
-import { ERROR_RESPONSE } from "../utility/Constants.js";
 import { isSeasonId } from "../utility/catalogue.js";
+import { ERROR_RESPONSE } from "../utility/constants-2.js";
 import { isRealm } from "../utility/functions.js";
 import type { Event } from "./index.js";
 

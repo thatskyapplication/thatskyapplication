@@ -1,5 +1,5 @@
-import { RealmName, SkyMap } from "../utility/Constants.js";
 import { SeasonId } from "../utility/catalogue.js";
+import { RealmName, SkyMap } from "../utility/constants-2.js";
 import { SpiritName } from "../utility/spirits.js";
 
 export default {

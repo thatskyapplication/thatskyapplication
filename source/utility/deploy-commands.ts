@@ -31,7 +31,7 @@ import {
 	SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
 	SKY_PROFILE_MINIMUM_SPOT_LENGTH,
 	TOKEN,
-} from "./Constants.js";
+} from "./constants-2.js";
 import "../i18next.js";
 
 if (!TOKEN) {

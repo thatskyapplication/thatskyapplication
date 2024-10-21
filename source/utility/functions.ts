@@ -1,5 +1,5 @@
 import type { EntitlementManager, Snowflake, User } from "discord.js";
-import { SERVER_UPGRADE_SKU_ID } from "./Constants.js";
+import { SERVER_UPGRADE_SKU_ID } from "./constants-2.js";
 import {
 	INCONSISTENT_MAP,
 	MEDITATION_MAPS,
@@ -13,7 +13,7 @@ import {
 	type SocialLightAreaMaps,
 	VALID_REALM_NAME,
 	inconsistentMapKeys,
-} from "./Constants.js";
+} from "./constants-2.js";
 
 export async function resolveEntitlement(
 	entitlementManager: EntitlementManager,

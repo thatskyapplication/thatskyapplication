@@ -1,3 +1,4 @@
+import { EventId, type EventIds, SeasonId, type SeasonIds } from "../utility/catalogue.js";
 import {
 	GUESS_DIFFICULTY_LEVEL_VALUES,
 	GuessDifficultyLevelToName,
@@ -7,8 +8,7 @@ import {
 	type NotificationTypes,
 	REALM_NAME_VALUES,
 	SKY_MAP_VALUES,
-} from "../utility/Constants.js";
-import { EventId, type EventIds, SeasonId, type SeasonIds } from "../utility/catalogue.js";
+} from "../utility/constants-2.js";
 import { SpiritName } from "../utility/spirits.js";
 
 export default {

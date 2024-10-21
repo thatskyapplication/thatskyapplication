@@ -1,5 +1,5 @@
 import { URL } from "node:url";
-import { WIKI_URL } from "./Constants.js";
+import { WIKI_URL } from "./constants-2.js";
 import {
 	EVENT_EMOJIS,
 	type Emoji,

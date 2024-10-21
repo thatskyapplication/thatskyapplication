@@ -17,6 +17,7 @@ import type { SeasonalSpirit, StandardSpirit } from "../models/Spirits.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
+import { SeasonId, type SeasonIds, snakeCaseName } from "../utility/catalogue.js";
 import {
 	CDN_BUCKET,
 	CDN_URL,
@@ -36,8 +37,7 @@ import {
 	VALID_REALM_NAME,
 	type ValidRealmName,
 	inconsistentMapKeys,
-} from "../utility/Constants.js";
-import { SeasonId, type SeasonIds, snakeCaseName } from "../utility/catalogue.js";
+} from "../utility/constants-2.js";
 import { skyToday } from "../utility/dates.js";
 import {
 	isMeditationMap,

@@ -25,12 +25,12 @@ import { skyCurrentSeason, skyUpcomingSeason } from "../data/spirits/seasons/ind
 import pQueue from "../p-queue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
+import type { RotationNumber } from "../utility/catalogue.js";
 import {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DEFAULT_EMBED_COLOUR,
 	RealmName,
-} from "../utility/Constants.js";
-import type { RotationNumber } from "../utility/catalogue.js";
+} from "../utility/constants-2.js";
 import {
 	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,

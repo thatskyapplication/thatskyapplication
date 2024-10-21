@@ -6,7 +6,7 @@ import {
 	type Locale,
 } from "discord.js";
 import { t } from "i18next";
-import { DEFAULT_EMBED_COLOUR } from "../utility/Constants.js";
+import { DEFAULT_EMBED_COLOUR } from "../utility/constants-2.js";
 import { dateString, skyToday } from "../utility/dates.js";
 import {
 	resolveShardEruptionEmoji,

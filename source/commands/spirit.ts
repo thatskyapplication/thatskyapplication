@@ -24,7 +24,6 @@ import type {
 	SeasonalSpiritVisitTravellingData,
 	StandardSpirit,
 } from "../models/Spirits.js";
-import { DEFAULT_EMBED_COLOUR } from "../utility/Constants.js";
 import {
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
@@ -33,6 +32,7 @@ import {
 	SeasonIdToSeasonalEmoji,
 	resolveCostToString,
 } from "../utility/catalogue.js";
+import { DEFAULT_EMBED_COLOUR } from "../utility/constants-2.js";
 import { skyNow } from "../utility/dates.js";
 import { formatEmoji } from "../utility/emojis.js";
 import { cannotUsePermissions } from "../utility/permission-checks.js";

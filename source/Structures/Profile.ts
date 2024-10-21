@@ -32,6 +32,7 @@ import { skySeasons } from "../data/spirits/seasons/index.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
+import { SeasonIdToSeasonalEmoji, type SeasonIds, isSeasonId } from "../utility/catalogue.js";
 import {
 	CDN_BUCKET,
 	CDN_URL,
@@ -54,8 +55,7 @@ import {
 	SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
 	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	SKY_PROFILE_UNKNOWN_NAME,
-} from "../utility/Constants.js";
-import { SeasonIdToSeasonalEmoji, type SeasonIds, isSeasonId } from "../utility/catalogue.js";
+} from "../utility/constants-2.js";
 import {
 	MISCELLANEOUS_EMOJIS,
 	type MiscellaneousEmojis,

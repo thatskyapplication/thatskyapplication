@@ -18,7 +18,7 @@ import {
 	DEFAULT_EMBED_COLOUR,
 	MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID,
 	TOKEN,
-} from "./utility/Constants.js";
+} from "./utility/constants-2.js";
 
 interface LogOptions {
 	content?: string;
