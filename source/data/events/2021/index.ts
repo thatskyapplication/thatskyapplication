@@ -1,15 +1,15 @@
-import ChildrensDay from "./ChildrensDay.js";
-import DaysOfBloom from "./DaysOfBloom.js";
-import DaysOfFeast from "./DaysOfFeast.js";
-import DaysOfFortune from "./DaysOfFortune.js";
-import DaysOfGiving from "./DaysOfGiving.js";
-import DaysOfLove from "./DaysOfLove.js";
-import DaysOfMischief from "./DaysOfMischief.js";
-import DaysOfNature from "./DaysOfNature.js";
-import DaysOfRainbow from "./DaysOfRainbow.js";
-import DaysOfSummer from "./DaysOfSummer.js";
-import DaysOfSummerLights from "./DaysOfSummerLights.js";
-import SkyAnniversary from "./SkyAnniversary.js";
+import ChildrensDay from "./childrens-day.js";
+import DaysOfBloom from "./days-of-bloom.js";
+import DaysOfFeast from "./days-of-feast.js";
+import DaysOfFortune from "./days-of-fortune.js";
+import DaysOfGiving from "./days-of-giving.js";
+import DaysOfLove from "./days-of-love.js";
+import DaysOfMischief from "./days-of-mischief.js";
+import DaysOfNature from "./days-of-nature.js";
+import DaysOfRainbow from "./days-of-rainbow.js";
+import DaysOfSummerLights from "./days-of-summer-lights.js";
+import DaysOfSummer from "./days-of-summer.js";
+import SkyAnniversary from "./sky-anniversary.js";
 
 export default [
 	DaysOfFortune,

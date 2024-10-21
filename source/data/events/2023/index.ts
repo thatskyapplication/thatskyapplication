@@ -1,17 +1,17 @@
-import AURORAEncoreConcerts from "./AURORAEncoreConcerts.js";
-import AviarysFireworkFestival from "./AviarysFireworkFestival.js";
-import DaysOfBloom from "./DaysOfBloom.js";
-import DaysOfColour from "./DaysOfColour.js";
-import DaysOfFeast from "./DaysOfFeast.js";
-import DaysOfFortune from "./DaysOfFortune.js";
-import DaysOfGiving from "./DaysOfGiving.js";
-import DaysOfLove from "./DaysOfLove.js";
-import DaysOfMischief from "./DaysOfMischief.js";
-import DaysOfMusic from "./DaysOfMusic.js";
-import DaysOfNature from "./DaysOfNature.js";
-import DaysOfStyle from "./DaysOfStyle.js";
-import DaysOfSunlight from "./DaysOfSunlight.js";
-import SkyAnniversary from "./SkyAnniversary.js";
+import AURORAEncoreConcerts from "./aurora-encore-concerts.js";
+import AviarysFireworkFestival from "./aviarys-firework-festival.js";
+import DaysOfBloom from "./days-of-bloom.js";
+import DaysOfColour from "./days-of-colour.js";
+import DaysOfFeast from "./days-of-feast.js";
+import DaysOfFortune from "./days-of-fortune.js";
+import DaysOfGiving from "./days-of-giving.js";
+import DaysOfLove from "./days-of-love.js";
+import DaysOfMischief from "./days-of-mischief.js";
+import DaysOfMusic from "./days-of-music.js";
+import DaysOfNature from "./days-of-nature.js";
+import DaysOfStyle from "./days-of-style.js";
+import DaysOfSunlight from "./days-of-sunlight.js";
+import SkyAnniversary from "./sky-anniversary.js";
 
 export default [
 	DaysOfFortune,

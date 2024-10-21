@@ -1,16 +1,16 @@
-import DaysOfBloom from "./DaysOfBloom.js";
-import DaysOfColour from "./DaysOfColour.js";
-import DaysOfFortune from "./DaysOfFortune.js";
-import DaysOfLove from "./DaysOfLove.js";
-import DaysOfMischief from "./DaysOfMischief.js";
-import DaysOfMoonlight from "./DaysOfMoonlight.js";
-import DaysOfNature from "./DaysOfNature.js";
-import DaysOfStyle from "./DaysOfStyle.js";
-import DaysOfSunlight from "./DaysOfSunlight.js";
-import SkyFest from "./SkyFest.js";
-import SkyXCinnamorollPopUpCafe from "./SkyXCinnamorollPopUpCafe.js";
-import SpringCamping from "./SpringCamping.js";
-import TournamentOfTriumph from "./TournamentOfTriumph.js";
+import DaysOfBloom from "./days-of-bloom.js";
+import DaysOfColour from "./days-of-colour.js";
+import DaysOfFortune from "./days-of-fortune.js";
+import DaysOfLove from "./days-of-love.js";
+import DaysOfMischief from "./days-of-mischief.js";
+import DaysOfMoonlight from "./days-of-moonlight.js";
+import DaysOfNature from "./days-of-nature.js";
+import DaysOfStyle from "./days-of-style.js";
+import DaysOfSunlight from "./days-of-sunlight.js";
+import SkyFest from "./sky-fest.js";
+import SkyXCinnamorollPopUpCafe from "./sky-x-cinnamoroll-pop-up-cafe.js";
+import SpringCamping from "./spring-camping.js";
+import TournamentOfTriumph from "./tournament-of-triumph.js";
 
 export default [
 	DaysOfFortune,
