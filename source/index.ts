@@ -11,7 +11,7 @@ import {
 	TextChannel,
 } from "discord.js";
 import "./i18next.js"; // Must be first.
-import events, { type Event } from "./Events/index.js";
+import events, { type Event } from "./events2/index.js";
 import {
 	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,
