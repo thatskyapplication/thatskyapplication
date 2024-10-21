@@ -31,7 +31,7 @@ import {
 	QUEST_NUMBER,
 	VALID_REALM_NAME,
 } from "../utility/Constants.js";
-import { resolveValidRealm, userLogFormat } from "../utility/Utility.js";
+import { resolveValidRealm, userLogFormat } from "../utility/functions.js";
 import type { AutocompleteCommand } from "./index.js";
 
 interface InteractiveOptions {

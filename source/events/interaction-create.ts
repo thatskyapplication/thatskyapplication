@@ -111,8 +111,8 @@ import COMMANDS, { resolveCommand } from "../commands/index.js";
 import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../commands/spirit.js";
 import pino from "../pino.js";
 import { ERROR_RESPONSE } from "../utility/Constants.js";
-import { isRealm } from "../utility/Utility.js";
 import { isSeasonId } from "../utility/catalogue.js";
+import { isRealm } from "../utility/functions.js";
 import type { Event } from "./index.js";
 
 const name = Events.InteractionCreate;

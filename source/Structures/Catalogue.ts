@@ -46,7 +46,6 @@ import type {
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE, type RealmName } from "../utility/Constants.js";
-import { isRealm } from "../utility/Utility.js";
 import {
 	CatalogueType,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
@@ -66,6 +65,7 @@ import {
 } from "../utility/catalogue.js";
 import { skyNow } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../utility/emojis.js";
+import { isRealm } from "../utility/functions.js";
 import { cannotUsePermissions } from "../utility/permissionChecks.js";
 import type { SpiritName } from "../utility/spirits.js";
 import Profile from "./Profile.js";

@@ -15,9 +15,9 @@ import {
 } from "discord.js";
 import pg, { Table } from "../pg.js";
 import { DEFAULT_EMBED_COLOUR } from "../utility/Constants.js";
-import { getRandomElement } from "../utility/Utility.js";
 import { skyToday } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "../utility/emojis.js";
+import { getRandomElement } from "../utility/functions.js";
 import { cannotUsePermissions } from "../utility/permissionChecks.js";
 
 const HEARTS = [

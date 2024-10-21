@@ -37,6 +37,8 @@ import {
 	type ValidRealmName,
 	inconsistentMapKeys,
 } from "../utility/Constants.js";
+import { SeasonId, type SeasonIds, snakeCaseName } from "../utility/catalogue.js";
+import { skyToday } from "../utility/dates.js";
 import {
 	isMeditationMap,
 	isRainbowAdmireMap,
@@ -45,9 +47,7 @@ import {
 	resolveMeditationMap,
 	resolveSocialLightAreaMap,
 	resolveValidRealm,
-} from "../utility/Utility.js";
-import { SeasonId, type SeasonIds, snakeCaseName } from "../utility/catalogue.js";
-import { skyToday } from "../utility/dates.js";
+} from "../utility/functions.js";
 import { FriendAction, SpiritEmote } from "../utility/spirits.js";
 import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 

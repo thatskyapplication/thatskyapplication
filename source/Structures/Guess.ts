@@ -31,7 +31,6 @@ import {
 	GuessDifficultyLevel,
 	GuessDifficultyLevelToName,
 } from "../utility/Constants.js";
-import { getRandomElement } from "../utility/Utility.js";
 import {
 	COSMETIC_EMOJIS,
 	type CosmeticEmojis,
@@ -40,6 +39,7 @@ import {
 	formatEmoji,
 	formatEmojiURL,
 } from "../utility/emojis.js";
+import { getRandomElement } from "../utility/functions.js";
 
 export interface GuessPacket {
 	user_id: string;
