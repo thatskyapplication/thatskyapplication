@@ -18,9 +18,9 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import { skyCurrentEvents, skyEventYears, skyEvents } from "../data/events/index.js";
-import { NESTING_WORKSHOP } from "../data/nestingWorkshop.js";
-import { PERMANENT_EVENT_STORE } from "../data/permanentEventStore.js";
-import { SECRET_AREA } from "../data/secretArea.js";
+import { NESTING_WORKSHOP } from "../data/nesting-workshop.js";
+import { PERMANENT_EVENT_STORE } from "../data/permanent-event-store.js";
+import { SECRET_AREA } from "../data/secret-area.js";
 import { spirits } from "../data/spirits/index.js";
 import {
 	ELDER_SPIRITS,
@@ -34,7 +34,7 @@ import {
 	skyCurrentSeason,
 	skySeasons,
 } from "../data/spirits/seasons/index.js";
-import { STARTER_PACKS } from "../data/starterPacks.js";
+import { STARTER_PACKS } from "../data/starter-packs.js";
 import type { Event } from "../models/Event.js";
 import type { Season } from "../models/Season.js";
 import type {
