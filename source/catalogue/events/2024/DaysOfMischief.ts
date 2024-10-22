@@ -36,13 +36,13 @@ export default new Event({
 		{
 			name: "Mischief Cauldron",
 			cosmetic: Cosmetic.MischiefCauldron,
-			cost: { eventCurrency: 22 },
+			cost: { eventCurrency: 36 },
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp76,
 		},
 		{
 			name: "Mischief Spider Bun",
 			cosmetic: Cosmetic.MischiefSpiderBun,
-			cost: { eventCurrency: 36 },
+			cost: { eventCurrency: 22 },
 			emoji: HAIR_EMOJIS.Hair152,
 		},
 		{
