@@ -9,6 +9,9 @@ import {
 	type StancesEmojis,
 } from "./emojis.js";
 
+export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID =
+	"SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;
+
 export enum SpiritName {
 	// Isles of Dawn.
 	PointingCandlemaker = "Pointing Candlemaker",

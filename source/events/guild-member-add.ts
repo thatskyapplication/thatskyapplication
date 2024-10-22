@@ -1,5 +1,5 @@
 import { Events } from "discord.js";
-import { updateGuildIds } from "../Structures/Guess.js";
+import { updateGuildIds } from "../services/guess.js";
 import type { Event } from "./index.js";
 
 const name = Events.GuildMemberAdd;

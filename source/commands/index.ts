@@ -1,102 +1,49 @@
-import type {
-	AutocompleteInteraction,
-	ChatInputCommandInteraction,
-	MessageContextMenuCommandInteraction,
-	UserContextMenuCommandInteraction,
-} from "discord.js";
-import GiftHeart from "./Gift Heart.js";
-import SkyProfile from "./Sky Profile.js";
-import about from "./about.js";
-import admin from "./admin.js";
-import ai from "./ai.js";
-import bonk from "./bonk.js";
-import calculate from "./calculate.js";
-import catalogue from "./catalogue.js";
-import dailyguides from "./daily-guides.js";
-import data from "./data.js";
-import guess from "./guess.js";
-import heart from "./heart.js";
-import highfive from "./high-five.js";
-import hug from "./hug.js";
-import krill from "./krill.js";
-import notifications from "./notifications.js";
-import playfight from "./play-fight.js";
-import schedule from "./schedule.js";
-import sharderuption from "./shard-eruption.js";
-import skyprofile from "./sky-profile.js";
-import spirit from "./spirit.js";
+import about from "./chat-inputs/about.js";
+import admin from "./chat-inputs/admin.js";
+import ai from "./chat-inputs/ai.js";
+import bonk from "./chat-inputs/bonk.js";
+import calculate from "./chat-inputs/calculate.js";
+import catalogue from "./chat-inputs/catalogue.js";
+import daily_guides from "./chat-inputs/daily-guides.js";
+import data from "./chat-inputs/data.js";
+import guess from "./chat-inputs/guess.js";
+import heart from "./chat-inputs/heart.js";
+import high_five from "./chat-inputs/high-five.js";
+import hug from "./chat-inputs/hug.js";
+import krill from "./chat-inputs/krill.js";
+import notifications from "./chat-inputs/notifications.js";
+import play_fight from "./chat-inputs/play-fight.js";
+import schedule from "./chat-inputs/schedule.js";
+import shard_eruption from "./chat-inputs/shard-eruption.js";
+import sky_profile_chat_input from "./chat-inputs/sky-profile.js";
+import spirit from "./chat-inputs/spirit.js";
+import gift_heart from "./user-context-menus/gift-heart.js";
+import sky_profile_context_menu from "./user-context-menus/sky-profile.js";
 
-const COMMANDS = {
+export const CHAT_INPUT_COMMANDS = [
 	about,
 	admin,
 	ai,
 	bonk,
 	calculate,
 	catalogue,
-	dailyguides,
+	daily_guides,
 	data,
-	GiftHeart,
 	guess,
 	heart,
-	highfive,
+	high_five,
 	hug,
 	krill,
 	notifications,
-	playfight,
+	play_fight,
 	schedule,
-	sharderuption,
-	SkyProfile,
-	skyprofile,
+	shard_eruption,
+	sky_profile_chat_input,
 	spirit,
-} as const;
+] as const;
 
-type Command = (typeof COMMANDS)[keyof typeof COMMANDS];
-const commands = Object.values(COMMANDS);
+export const USER_CONTEXT_MENU_COMMANDS = [gift_heart, sky_profile_context_menu] as const;
 
-export function resolveCommand(
-	interaction: AutocompleteInteraction,
-): (Command & AutocompleteCommand) | null;
-
-export function resolveCommand(
-	interaction: ChatInputCommandInteraction,
-): (Command & ChatInputCommand) | null;
-
-export function resolveCommand(
-	interaction: UserContextMenuCommandInteraction,
-): (Command & UserContextMenuCommand) | null;
-
-export function resolveCommand(
-	interaction: MessageContextMenuCommandInteraction,
-): (Command & MessageContextMenuCommand) | null;
-
-export function resolveCommand({
-	commandName,
-}:
-	| AutocompleteInteraction
-	| ChatInputCommandInteraction
-	| UserContextMenuCommandInteraction
-	| MessageContextMenuCommandInteraction) {
-	return commands.find(({ name }) => name === commandName) ?? null;
-}
-
-interface BaseCommandData {
-	readonly name: string;
-}
-
-export interface ChatInputCommand extends BaseCommandData {
-	chatInput(interaction: ChatInputCommandInteraction): Promise<void>;
-}
-
-export interface AutocompleteCommand extends ChatInputCommand {
-	autocomplete(interaction: AutocompleteInteraction): Promise<void>;
-}
-
-export interface UserContextMenuCommand extends BaseCommandData {
-	userContextMenu(interaction: UserContextMenuCommandInteraction): Promise<void>;
-}
-
-interface MessageContextMenuCommand extends BaseCommandData {
-	messageContextMenu(interaction: MessageContextMenuCommandInteraction): Promise<void>;
-}
-
-export default COMMANDS;
+export const AUTOCOMPLETE_COMMANDS = CHAT_INPUT_COMMANDS.filter(
+	(command) => "autocomplete" in command,
+);

@@ -1,5 +1,5 @@
 import { Events } from "discord.js";
-import { handleGuildCreate } from "../Structures/Guess.js";
+import { handleGuildCreate } from "../services/guess.js";
 import { type Event, logGuild } from "./index.js";
 
 const name = Events.GuildCreate;

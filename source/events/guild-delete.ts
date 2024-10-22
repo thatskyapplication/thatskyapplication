@@ -1,6 +1,6 @@
 import { Events } from "discord.js";
-import { handleGuildRemove } from "../Structures/Guess.js";
-import { checkSendable } from "../Structures/Notification.js";
+import { checkSendable } from "../models/Notification.js";
+import { handleGuildRemove } from "../services/guess.js";
 import { type Event, logGuild } from "./index.js";
 
 const name = Events.GuildDelete;

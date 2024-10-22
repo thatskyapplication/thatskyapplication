@@ -173,6 +173,12 @@ export default {
 				"command-option-shard-eruptions-name": "shard-eruptions",
 				"command-option-shard-eruptions-description":
 					"Whether to include shard eruptions in the calculation.",
+				"minimum-time-eye-of-eden-and-shard-eruptions":
+					"Minimum time derived by assuming all statues in the Eye of Eden were gifted winged light and all shard eruptions were cleansed.",
+				"minimum-time-eye-of-eden":
+					"Minimum time derived by assuming all statues in the Eye of Eden were gifted winged light.",
+				"minimum-time-shard-eruptions":
+					"Minimum time derived by assuming all shard eruptions were cleansed.",
 			},
 			"event-currency": {
 				"command-name": "event-currency",
@@ -251,6 +257,10 @@ export default {
 			delete: {
 				"command-name": "delete",
 				"command-description": "Delete your data.",
+				"prompt-message":
+					"Are you sure you want to delete your data? This will:\n- Delete your Sky profile\n- Delete your catalogue\n- Delete your hearts\n  - Your user id in heart histories for others will be anonymised\n- Delete your maximum streak in the guessing game",
+				"error-message":
+					"There was an issue deleting your user data. Don't worry, this incident is being tracked and has been converted into a manual data deletion request (as opposed to an automatic one). Your data will be deleted within 30 days.\n\nIf you want, you may join the [support server]({{url}}) and request to see the status of your data deletion request.",
 			},
 		},
 		"Gift-Heart": {

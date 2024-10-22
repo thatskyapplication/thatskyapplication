@@ -9,7 +9,12 @@ import {
 	type MessageComponentInteraction,
 	RESTJSONErrorCodes,
 } from "discord.js";
-import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../Structures/AI.js";
+import {
+	AUTOCOMPLETE_COMMANDS,
+	CHAT_INPUT_COMMANDS,
+	USER_CONTEXT_MENU_COMMANDS,
+} from "../commands/index.js";
+import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import {
 	CATALOGUE_BACK_TO_START_CUSTOM_ID,
 	CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
@@ -35,24 +40,8 @@ import {
 	CATALOGUE_VIEW_START_CUSTOM_ID,
 	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
 	Catalogue,
-} from "../Structures/Catalogue.js";
-import { deleteUserData } from "../Structures/Data.js";
-import {
-	GUESS_ANSWER_1,
-	GUESS_ANSWER_2,
-	GUESS_ANSWER_3,
-	GUESS_END_GAME,
-	GUESS_LEADERBOARD_BACK_CUSTOM_ID,
-	GUESS_LEADERBOARD_NEXT_CUSTOM_ID,
-	GUESS_TRY_AGAIN,
-	answer,
-	isGuessDifficultyLevel,
-	leaderboard,
-	parseEndGame,
-	tryAgain,
-} from "../Structures/Guess.js";
-import { HEART_HISTORY_BACK, HEART_HISTORY_NEXT, history } from "../Structures/Heart.js";
-import { NOTIFICATION_SETUP_OFFSET_CUSTOM_ID } from "../Structures/Notification.js";
+} from "../models/Catalogue.js";
+import { NOTIFICATION_SETUP_OFFSET_CUSTOM_ID } from "../models/Notification.js";
 import Profile, {
 	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
 	SKY_PROFILE_EDIT_CUSTOM_ID,
@@ -85,17 +74,30 @@ import Profile, {
 	SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
-} from "../Structures/Profile.js";
+} from "../models/Profile.js";
+import pino from "../pino.js";
 import {
-	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS,
-	SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
-} from "../Structures/ShardEruption.js";
+	dailyMessageModalResponse,
+	distribute,
+	interactive,
+	questSwap,
+	setDailyMessage,
+	setTreasureCandles,
+	treasureCandlesModalResponse,
+	treasureCandlesSelectMenuResponse,
+} from "../services/admin.js";
+import { deleteUserData } from "../services/data.js";
+import {
+	answer,
+	isGuessDifficultyLevel,
+	leaderboard,
+	parseEndGame,
+	tryAgain,
+} from "../services/guess.js";
+import { history } from "../services/heart.js";
+import { browse, today } from "../services/shard-eruption.js";
+import { parseSpiritSwitch } from "../services/spirit.js";
+import { isSeasonId } from "../utility/catalogue.js";
 import {
 	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_DAILY_MESSAGE_MODAL,
@@ -105,14 +107,30 @@ import {
 	DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_TREASURE_CANDLES_MODAL,
 	DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID,
-} from "../commands/admin.js";
-import { DATA_DELETION_CUSTOM_ID } from "../commands/data.js";
-import COMMANDS, { resolveCommand } from "../commands/index.js";
-import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../commands/spirit.js";
-import pino from "../pino.js";
-import { isSeasonId } from "../utility/catalogue.js";
-import { ERROR_RESPONSE } from "../utility/constants.js";
+	DATA_DELETION_CUSTOM_ID,
+	ERROR_RESPONSE,
+	GUESS_ANSWER_1,
+	GUESS_ANSWER_2,
+	GUESS_ANSWER_3,
+	GUESS_END_GAME,
+	GUESS_LEADERBOARD_BACK_CUSTOM_ID,
+	GUESS_LEADERBOARD_NEXT_CUSTOM_ID,
+	GUESS_TRY_AGAIN,
+	HEART_HISTORY_BACK,
+	HEART_HISTORY_NEXT,
+} from "../utility/constants.js";
 import { isRealm } from "../utility/functions.js";
+import {
+	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS,
+	SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
+} from "../utility/shard-eruption.js";
+import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../utility/spirits.js";
 import type { Event } from "./index.js";
 
 const name = Events.InteractionCreate;
@@ -232,7 +250,7 @@ export default {
 	async fire(interaction) {
 		if (interaction.isChatInputCommand()) {
 			logCommand(interaction);
-			const command = resolveCommand(interaction);
+			const command = CHAT_INPUT_COMMANDS.find(({ name }) => name === interaction.commandName);
 
 			if (!command) {
 				pino.warn(interaction, "Received an unknown chat input command interaction.");
@@ -251,7 +269,9 @@ export default {
 
 		if (interaction.isUserContextMenuCommand()) {
 			logCommand(interaction);
-			const command = resolveCommand(interaction);
+			const command = USER_CONTEXT_MENU_COMMANDS.find(
+				({ name }) => name === interaction.commandName,
+			);
 
 			if (!command) {
 				pino.warn(interaction, "Received an unknown user context menu command interaction.");
@@ -261,25 +281,6 @@ export default {
 
 			try {
 				await command.userContextMenu(interaction);
-			} catch (error) {
-				void recoverInteractionError(interaction, error);
-			}
-
-			return;
-		}
-
-		if (interaction.isMessageContextMenuCommand()) {
-			logCommand(interaction);
-			const command = resolveCommand(interaction);
-
-			if (!command) {
-				pino.warn(interaction, "Received an unknown message context menu command interaction.");
-				await interaction.reply(ERROR_RESPONSE);
-				return;
-			}
-
-			try {
-				await command.messageContextMenu(interaction);
 			} catch (error) {
 				void recoverInteractionError(interaction, error);
 			}
@@ -395,7 +396,7 @@ export default {
 				}
 
 				if (customId === SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID) {
-					await COMMANDS.sharderuption.today(interaction);
+					await today(interaction);
 					return;
 				}
 
@@ -403,16 +404,13 @@ export default {
 					customId.startsWith(SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID) ||
 					customId.startsWith(SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID)
 				) {
-					await COMMANDS.sharderuption.today(
-						interaction,
-						Number(customId.slice(customId.indexOf("§") + 1)),
-					);
+					await today(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
 
 					return;
 				}
 
 				if (customId === SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID) {
-					await COMMANDS.sharderuption.browse(interaction);
+					await browse(interaction);
 					return;
 				}
 
@@ -421,10 +419,7 @@ export default {
 					customId.startsWith(SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID) ||
 					customId.startsWith(SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID)
 				) {
-					await COMMANDS.sharderuption.browse(
-						interaction,
-						Number(customId.slice(customId.indexOf("§") + 1)),
-					);
+					await browse(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
 
 					return;
 				}
@@ -506,7 +501,7 @@ export default {
 				}
 
 				if (customId.startsWith(SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID)) {
-					await COMMANDS.spirit.parseSpiritSwitch(interaction);
+					await parseSpiritSwitch(interaction);
 					return;
 				}
 
@@ -544,17 +539,17 @@ export default {
 				}
 
 				if (customId === DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID) {
-					await COMMANDS.admin.dailyMessageModalResponse(interaction);
+					await dailyMessageModalResponse(interaction);
 					return;
 				}
 
 				if (customId === DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID) {
-					await COMMANDS.admin.treasureCandlesModalResponse(interaction);
+					await treasureCandlesModalResponse(interaction);
 					return;
 				}
 
 				if (customId === DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID) {
-					await COMMANDS.admin.distribute(interaction);
+					await distribute(interaction);
 					return;
 				}
 			} catch (error) {
@@ -627,7 +622,7 @@ export default {
 						customId as (typeof SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS)[number],
 					)
 				) {
-					await COMMANDS.sharderuption.today(interaction, Number(value0));
+					await today(interaction, Number(value0));
 					return;
 				}
 
@@ -676,17 +671,17 @@ export default {
 					}
 
 					if (customId === DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID) {
-						await COMMANDS.admin.questSwap(interaction);
+						await questSwap(interaction);
 						return;
 					}
 
 					if (customId === DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID) {
-						await COMMANDS.admin.treasureCandlesSelectMenuResponse(interaction);
+						await treasureCandlesSelectMenuResponse(interaction);
 						return;
 					}
 
 					if (customId === DAILY_GUIDES_LOCALE_CUSTOM_ID) {
-						await COMMANDS.admin.interactive(interaction, { locale: value0 as Locale });
+						await interactive(interaction, { locale: value0 as Locale });
 						return;
 					}
 
@@ -706,7 +701,7 @@ export default {
 		}
 
 		if (interaction.isAutocomplete()) {
-			const command = resolveCommand(interaction);
+			const command = AUTOCOMPLETE_COMMANDS.find(({ name }) => name === interaction.commandName);
 
 			if (!command) {
 				pino.warn(interaction, "Received an unknown command autocomplete interaction.");
@@ -759,12 +754,12 @@ export default {
 					}
 
 					if (DAILY_GUIDES_DAILY_MESSAGE_MODAL === customId) {
-						await COMMANDS.admin.setDailyMessage(interaction);
+						await setDailyMessage(interaction);
 						return;
 					}
 
 					if (customId.startsWith(DAILY_GUIDES_TREASURE_CANDLES_MODAL)) {
-						await COMMANDS.admin.setTreasureCandles(interaction);
+						await setTreasureCandles(interaction);
 						return;
 					}
 				}

@@ -5,10 +5,10 @@ import { t } from "i18next";
 import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
 import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
-import { todayEmbed } from "./Structures/ShardEruption.js";
 import { skyCurrentEvents, skyUpcomingEvents } from "./data/events/index.js";
 import { skySeasons, skyUpcomingSeason } from "./data/spirits/seasons/index.js";
 import pino from "./pino.js";
+import { todayEmbed } from "./services/shard-eruption.js";
 import {
 	AreaToWingedLightCount,
 	MAXIMUM_WINGED_LIGHT,

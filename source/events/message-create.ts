@@ -1,7 +1,7 @@
 import { Events, PermissionFlagsBits } from "discord.js";
-import AI from "../Structures/AI.js";
-import Configuration from "../Structures/Configuration.js";
-import DailyGuides from "../Structures/DailyGuides.js";
+import AI from "../models/AI.js";
+import Configuration from "../models/Configuration.js";
+import DailyGuides from "../models/DailyGuides.js";
 import { APPLICATION_ID } from "../utility/constants.js";
 import type { Event } from "./index.js";
 

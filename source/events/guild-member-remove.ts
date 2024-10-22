@@ -1,5 +1,5 @@
 import { Events } from "discord.js";
-import { removeGuildId } from "../Structures/Guess.js";
+import { removeGuildId } from "../services/guess.js";
 import type { Event } from "./index.js";
 
 const name = Events.GuildMemberRemove;

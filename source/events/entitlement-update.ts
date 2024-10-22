@@ -1,5 +1,5 @@
 import { Events } from "discord.js";
-import AI from "../Structures/AI.js";
+import AI from "../models/AI.js";
 import { SERVER_UPGRADE_SKU_ID } from "../utility/constants.js";
 import type { Event } from "./index.js";
 

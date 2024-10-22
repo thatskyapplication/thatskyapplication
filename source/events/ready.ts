@@ -1,17 +1,17 @@
 import process from "node:process";
 import { type Client, Events, type Snowflake } from "discord.js";
-import AI from "../Structures/AI.js";
-import Configuration, { type ConfigurationPacket } from "../Structures/Configuration.js";
-import DailyGuides, { type DailyGuidesPacket } from "../Structures/DailyGuides.js";
+import AI from "../models/AI.js";
+import Configuration, { type ConfigurationPacket } from "../models/Configuration.js";
+import DailyGuides, { type DailyGuidesPacket } from "../models/DailyGuides.js";
 import DailyGuidesDistribution, {
 	type DailyGuidesDistributionPacket,
-} from "../Structures/DailyGuidesDistribution.js";
-import heartbeat from "../Structures/Heartbeat.js";
+} from "../models/DailyGuidesDistribution.js";
+import heartbeat from "../models/Heartbeat.js";
 import {
 	type NotificationPacket,
 	checkSendable,
 	deleteNotifications,
-} from "../Structures/Notification.js";
+} from "../models/Notification.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import type { Event } from "./index.js";
