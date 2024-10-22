@@ -64,19 +64,19 @@ function isDailyGuidesDistributionChannel(
 	);
 }
 
-export function isDailyGuidesDistributable(
+function isDailyGuidesDistributable(
 	channel: DailyGuidesDistributionAllowedChannel,
 	me: GuildMember,
 	returnErrors: true,
 ): string[];
 
-export function isDailyGuidesDistributable(
+function isDailyGuidesDistributable(
 	channel: DailyGuidesDistributionAllowedChannel,
 	me: GuildMember,
 	returnErrors?: false,
 ): boolean;
 
-export function isDailyGuidesDistributable(
+function isDailyGuidesDistributable(
 	channel: DailyGuidesDistributionAllowedChannel,
 	me: GuildMember,
 	returnErrors = false,

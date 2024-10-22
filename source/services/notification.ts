@@ -40,21 +40,21 @@ function isNotificationChannel(channel: Channel): channel is NotificationAllowed
 	);
 }
 
-export function isNotificationSendable(
+function isNotificationSendable(
 	channel: NotificationAllowedChannel,
 	role: Role,
 	me: GuildMember,
 	returnErrors: true,
 ): string[];
 
-export function isNotificationSendable(
+function isNotificationSendable(
 	channel: NotificationAllowedChannel,
 	role: Role,
 	me: GuildMember,
 	returnErrors?: false,
 ): boolean;
 
-export function isNotificationSendable(
+function isNotificationSendable(
 	channel: NotificationAllowedChannel,
 	role: Role,
 	me: GuildMember,
@@ -87,9 +87,7 @@ export function isNotificationSendable(
 		: errors.length === 0;
 }
 
-export function isNotificationType(
-	notificationType: unknown,
-): notificationType is NotificationTypes {
+function isNotificationType(notificationType: unknown): notificationType is NotificationTypes {
 	return NOTIFICATION_TYPE_VALUES.includes(notificationType as NotificationTypes);
 }
 
@@ -298,7 +296,7 @@ function isSendable(me: GuildMember, channelId: Snowflake | null, roleId: Snowfl
 	);
 }
 
-export async function embed(
+async function embed(
 	interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
 ) {
 	const { locale } = interaction;

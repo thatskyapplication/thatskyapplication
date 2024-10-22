@@ -149,7 +149,7 @@ function visitField(
 }
 
 // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
-export async function searchResponse(
+async function searchResponse(
 	interaction: ButtonInteraction | ChatInputCommandInteraction,
 	spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 	seasonalOffer = false,

@@ -78,10 +78,10 @@ export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 
 // Miscellaneous constants.
 export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
-export const THATSKYGAME_URL = "https://thatskygame.com" as const;
-export const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
-export const PATREON_URL = "https://patreon.com/Jiralite" as const;
-export const KO_FI_URL = "https://ko-fi.com/jiralite" as const;
+const THATSKYGAME_URL = "https://thatskygame.com" as const;
+const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
+const PATREON_URL = "https://patreon.com/Jiralite" as const;
+const KO_FI_URL = "https://ko-fi.com/jiralite" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki" as const;
 export const MINIMUM_WINGED_LIGHT = 0 as const;
 export const MAXIMUM_WINGED_LIGHT = 238 as const;
