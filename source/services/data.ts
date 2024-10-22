@@ -1,0 +1,72 @@
+import {
+	ActionRowBuilder,
+	ButtonBuilder,
+	type ButtonInteraction,
+	ButtonStyle,
+	type ChatInputCommandInteraction,
+	MessageFlags,
+} from "discord.js";
+import { t } from "i18next";
+import type { CataloguePacket } from "../models/Catalogue.js";
+import type { GuessPacket } from "../models/Guess.js";
+import type { HeartPacket } from "../models/Heart.js";
+import Profile from "../models/Profile.js";
+import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
+import { DATA_DELETION_CUSTOM_ID, SUPPORT_SERVER_INVITE_URL } from "../utility/constants.js";
+
+export async function deletePrompt(interaction: ChatInputCommandInteraction) {
+	await interaction.reply({
+		components: [
+			new ActionRowBuilder<ButtonBuilder>().setComponents(
+				new ButtonBuilder()
+					.setCustomId(DATA_DELETION_CUSTOM_ID)
+					.setLabel("Delete my data")
+					.setStyle(ButtonStyle.Danger),
+			),
+		],
+		content: t("data.delete.prompt-message", { lng: interaction.locale, ns: "commands" }),
+		flags: MessageFlags.Ephemeral,
+	});
+}
+
+export async function deleteUserData(interaction: ButtonInteraction) {
+	const { locale, user } = interaction;
+	const userId = user.id;
+	const profile = await Profile.fetch(userId).catch(() => null);
+	const promises = [];
+
+	if (profile) {
+		promises.push(profile.delete());
+	}
+
+	promises.push(
+		pg<CataloguePacket>(Table.Catalogue).delete().where({ user_id: userId }),
+		pg<HeartPacket>(Table.Hearts).update({ gifter_id: null }).where({ gifter_id: userId }),
+		pg<HeartPacket>(Table.Hearts).update({ giftee_id: null }).where({ giftee_id: userId }),
+		pg<GuessPacket>(Table.Guess).delete().where({ user_id: userId }),
+	);
+
+	try {
+		await Promise.all(promises);
+	} catch (error) {
+		pino.error(error, `Error deleting user data for ${userId}.`);
+
+		await interaction.update({
+			components: [],
+			content: t("data.delete.error-message", {
+				lng: locale,
+				ns: "commands",
+				url: SUPPORT_SERVER_INVITE_URL,
+			}),
+			flags: MessageFlags.SuppressEmbeds,
+		});
+
+		return;
+	}
+
+	await interaction.update({
+		components: [],
+		content: "Your data has been deleted. You are a moth now.",
+	});
+}

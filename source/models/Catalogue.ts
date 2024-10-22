@@ -1,0 +1,2278 @@
+import {
+	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonInteraction,
+	ButtonStyle,
+	ChannelType,
+	type ChatInputCommandInteraction,
+	type EmbedAuthorOptions,
+	EmbedBuilder,
+	type Locale,
+	type MessageActionRowComponentBuilder,
+	MessageFlags,
+	PermissionFlagsBits,
+	type Snowflake,
+	StringSelectMenuBuilder,
+	type StringSelectMenuInteraction,
+	StringSelectMenuOptionBuilder,
+} from "discord.js";
+import { t } from "i18next";
+import { skyCurrentEvents, skyEventYears, skyEvents } from "../data/events/index.js";
+import { NESTING_WORKSHOP } from "../data/nesting-workshop.js";
+import { PERMANENT_EVENT_STORE } from "../data/permanent-event-store.js";
+import { SECRET_AREA } from "../data/secret-area.js";
+import { spirits } from "../data/spirits/index.js";
+import {
+	ELDER_SPIRITS,
+	REALMS,
+	REALM_SPIRITS,
+	STANDARD_SPIRITS,
+} from "../data/spirits/realms/index.js";
+import {
+	resolveReturningSpirits,
+	resolveTravellingSpirit,
+	skyCurrentSeason,
+	skySeasons,
+} from "../data/spirits/seasons/index.js";
+import { STARTER_PACKS } from "../data/starter-packs.js";
+import type { Event } from "../models/Event.js";
+import type { Season } from "../models/Season.js";
+import type {
+	ElderSpirit,
+	GuideSpirit,
+	SeasonalSpirit,
+	StandardSpirit,
+} from "../models/Spirits.js";
+import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
+import {
+	CatalogueType,
+	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
+	type Item,
+	type ItemCost,
+	NO_EVENT_INFOGRAPHIC_YET,
+	NO_EVENT_OFFER_TEXT,
+	NO_FRIENDSHIP_TREE_TEXT,
+	NO_FRIENDSHIP_TREE_YET_TEXT,
+	SeasonId,
+	SeasonIdToSeasonalEmoji,
+	type SeasonIds,
+	addCosts,
+	isSeasonId,
+	resolveAllCosmetics,
+	resolveCostToString,
+} from "../utility/catalogue.js";
+import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE, type RealmName } from "../utility/constants.js";
+import { skyNow } from "../utility/dates.js";
+import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../utility/emojis.js";
+import { isRealm } from "../utility/functions.js";
+import { cannotUsePermissions } from "../utility/permission-checks.js";
+import type { SpiritName } from "../utility/spirits.js";
+import Profile from "./Profile.js";
+
+export interface CataloguePacket {
+	user_id: Snowflake;
+	data: number[];
+}
+
+interface CatalogueData {
+	userId: CataloguePacket["user_id"];
+	data: CataloguePacket["data"];
+}
+
+type CataloguePatchData = Omit<CataloguePacket, "user_id">;
+
+export const CATALOGUE_VIEW_START_CUSTOM_ID = "CATALOGUE_VIEW_START_CUSTOM_ID" as const;
+export const CATALOGUE_BACK_TO_START_CUSTOM_ID = "CATALOGUE_BACK_TO_START_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_TYPE_CUSTOM_ID = "CATALOGUE_VIEW_TYPE_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_REALMS_CUSTOM_ID = "CATALOGUE_VIEW_REALMS_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_ELDERS_CUSTOM_ID = "CATALOGUE_VIEW_ELDERS_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_SEASONS_CUSTOM_ID = "CATALOGUE_VIEW_SEASONS_CUSTOM_ID" as const;
+export const CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID = "CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_REALM_CUSTOM_ID = "CATALOGUE_VIEW_REALM_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_SEASON_CUSTOM_ID = "CATALOGUE_VIEW_SEASON_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID" as const;
+
+export const CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID =
+	"CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID" as const;
+
+export const CATALOGUE_VIEW_SPIRIT_CUSTOM_ID = "CATALOGUE_VIEW_SPIRIT_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_EVENT_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_OFFER_1_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_1_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_OFFER_2_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_2_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_OFFER_3_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_3_CUSTOM_ID" as const;
+const CATALOGUE_SHARE_REALMS_KEY = "realms" as const;
+const CATALOGUE_SHARE_ELDER_KEY = "elders" as const;
+export const CATALOGUE_SHARE_PROMPT_CUSTOM_ID = "CATALOGUE_SHARE_PROMPT_CUSTOM_ID" as const;
+export const CATALOGUE_SHARE_SEND_CUSTOM_ID = "CATALOGUE_SHARE_SEND_CUSTOM_ID" as const;
+export const CATALOGUE_REALM_EVERYTHING_CUSTOM_ID = "CATALOGUE_REALM_EVERYTHING_CUSTOM_ID" as const;
+
+export const CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID =
+	"CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID" as const;
+
+export const CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID =
+	"CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID" as const;
+
+export const CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID = "CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID" as const;
+const CATALOGUE_MAXIMUM_OPTIONS_LIMIT = 25 as const;
+
+const CATALOGUE_STANDARD_PERCENTAGE_NOTE =
+	"Averages are calculated even beyond the second wing buff." as const;
+
+function backToStartButton(disabled = false) {
+	return (
+		new ButtonBuilder()
+			// This custom id must differ to avoid duplicate custom ids.
+			.setCustomId(CATALOGUE_BACK_TO_START_CUSTOM_ID)
+			.setDisabled(disabled)
+			.setEmoji("⏮️")
+			.setLabel("Start")
+			.setStyle(ButtonStyle.Primary)
+	);
+}
+
+export class Catalogue {
+	public readonly userId: CatalogueData["userId"];
+
+	public data!: CatalogueData["data"];
+
+	public constructor(catalogue: CataloguePacket) {
+		this.userId = catalogue.user_id;
+		this.patch(catalogue);
+	}
+
+	private patch(data: CataloguePatchData) {
+		this.data = data.data;
+	}
+
+	public static async fetch(userId: Snowflake) {
+		const [cataloguePacket] = await pg<CataloguePacket>(Table.Catalogue).where("user_id", userId);
+
+		if (!cataloguePacket) {
+			throw new Error("No catalogue data found.");
+		}
+
+		return new this(cataloguePacket);
+	}
+
+	private ownedProgress(items: readonly Item[]) {
+		return {
+			owned: resolveAllCosmetics(items).filter((cosmetic) => this.data.includes(cosmetic)),
+			total: items.reduce((total, item) => total + item.cosmetics.length, 0),
+		};
+	}
+
+	private progressPercentage(owned: number[], total: number, round?: boolean) {
+		if (total === 0) {
+			return null;
+		}
+
+		const percentage = (owned.length / total) * 100;
+
+		if (!round) {
+			return percentage;
+		}
+
+		const integer = Math.trunc(percentage);
+
+		return integer === 0
+			? Math.ceil(percentage)
+			: integer === 99
+				? Math.floor(percentage)
+				: Math.round(percentage);
+	}
+
+	private spiritOwnedProgress(
+		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
+	) {
+		const totalOwned = [];
+		let total = 0;
+
+		for (const spirit of spirits) {
+			const offer =
+				spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
+					? spirit.current
+					: spirit.items;
+
+			const { owned, total: offerTotal } = this.ownedProgress(offer);
+			totalOwned.push(...owned);
+			total += offerTotal;
+		}
+
+		return { owned: totalOwned, total };
+	}
+
+	public spiritProgress(
+		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
+		round?: boolean,
+	) {
+		const { owned, total } = this.spiritOwnedProgress(spirits);
+		return this.progressPercentage(owned, total, round);
+	}
+
+	private seasonOwnedProgress(seasons: Season[]) {
+		const totalOwned = [];
+		let total = 0;
+
+		for (const season of seasons) {
+			const offers = [
+				season.guide.current,
+				...season.spirits.map((spirit) => spirit.items),
+				season.items,
+			];
+
+			for (const offer of offers) {
+				const { owned, total: offerTotal } = this.ownedProgress(offer);
+				totalOwned.push(...owned);
+				total += offerTotal;
+			}
+		}
+
+		return { owned: totalOwned, total };
+	}
+
+	public seasonProgress(seasons: Season[], round?: boolean) {
+		const { owned, total } = this.seasonOwnedProgress(seasons);
+		return this.progressPercentage(owned, total, round);
+	}
+
+	private eventOwnedProgress(events: Event[]) {
+		const totalOwned = [];
+		let total = 0;
+
+		for (const event of events) {
+			const { owned, total: offerTotal } = this.ownedProgress(event.offer);
+
+			totalOwned.push(...owned);
+			total += offerTotal;
+		}
+
+		return { owned: totalOwned, total };
+	}
+
+	public eventProgress(events: Event[], round?: boolean) {
+		const { owned, total } = this.eventOwnedProgress(events);
+		return this.progressPercentage(owned, total, round);
+	}
+
+	private starterPackOwnedProgress() {
+		return this.ownedProgress(STARTER_PACKS.items);
+	}
+
+	public starterPackProgress(round?: boolean) {
+		const { owned, total } = this.starterPackOwnedProgress();
+		return this.progressPercentage(owned, total, round);
+	}
+
+	private secretAreaOwnedProgress() {
+		return this.ownedProgress(SECRET_AREA.items);
+	}
+
+	public secretAreaProgress(round?: boolean) {
+		const { owned, total } = this.secretAreaOwnedProgress();
+		return this.progressPercentage(owned, total, round);
+	}
+
+	private permanentEventStoreOwnedProgress() {
+		return this.ownedProgress(PERMANENT_EVENT_STORE.items);
+	}
+
+	public permanentEventStoreProgress(round?: boolean) {
+		const { owned, total } = this.permanentEventStoreOwnedProgress();
+		return this.progressPercentage(owned, total, round);
+	}
+
+	private nestingWorkshopOwnedProgress() {
+		return this.ownedProgress(NESTING_WORKSHOP.items);
+	}
+
+	public nestingWorkshopProgress(round?: boolean) {
+		const { owned, total } = this.nestingWorkshopOwnedProgress();
+		return this.progressPercentage(owned, total, round);
+	}
+
+	public allProgress(round?: boolean) {
+		const standardAndElderOwnedProgress = this.spiritOwnedProgress(REALM_SPIRITS);
+		const seasonalOwnedProgress = this.seasonOwnedProgress(skySeasons());
+		const eventOwnedProgress = this.eventOwnedProgress(skyEvents());
+		const starterPackOwnedProgress = this.starterPackOwnedProgress();
+		const secretAreaOwnedProgress = this.secretAreaOwnedProgress();
+		const permanentEventStoreOwnedProgress = this.permanentEventStoreOwnedProgress();
+		const nestingWorkshopOwnedProgress = this.nestingWorkshopOwnedProgress();
+
+		const progresses = [
+			standardAndElderOwnedProgress,
+			seasonalOwnedProgress,
+			eventOwnedProgress,
+			starterPackOwnedProgress,
+			secretAreaOwnedProgress,
+			permanentEventStoreOwnedProgress,
+			nestingWorkshopOwnedProgress,
+		];
+
+		return this.progressPercentage(
+			progresses.reduce<number[]>((totalOwned, { owned }) => {
+				if (Array.isArray(owned)) {
+					totalOwned.push(...owned);
+				} else {
+					totalOwned.push(owned);
+				}
+
+				return totalOwned;
+			}, []),
+			progresses.reduce((totalTotal, { total }) => totalTotal + total, 0),
+			round,
+		);
+	}
+
+	public static async viewCatalogue(interaction: ButtonInteraction | ChatInputCommandInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const existingCatalogue = await this.fetch(interaction.user.id).catch(() => null);
+		let catalogue: Catalogue;
+
+		if (existingCatalogue) {
+			catalogue = existingCatalogue;
+		} else {
+			catalogue = new this(
+				(
+					await pg<CataloguePacket>(Table.Catalogue).insert({ user_id: interaction.user.id }, "*")
+				)[0]!,
+			);
+		}
+
+		const standardProgress = catalogue.spiritProgress(STANDARD_SPIRITS, true);
+		const elderProgress = catalogue.spiritProgress(ELDER_SPIRITS, true);
+		const seasonalProgress = catalogue.seasonProgress(skySeasons(), true);
+		const eventProgress = catalogue.eventProgress(skyEvents(), true);
+		const starterPackProgress = catalogue.starterPackProgress(true);
+		const secretAreaProgress = catalogue.secretAreaProgress(true);
+		const permanentEventStoreProgress = catalogue.permanentEventStoreProgress(true);
+		const nestingWorkshopProgress = catalogue.nestingWorkshopProgress(true);
+		const now = skyNow();
+		const currentSeason = skyCurrentSeason(now);
+		const events = skyCurrentEvents(now);
+		const currentTravellingSpirit = resolveTravellingSpirit(now);
+		const currentReturningSpirits = resolveReturningSpirits(now);
+
+		const currentSeasonButton = new ButtonBuilder()
+			.setCustomId(
+				currentSeason
+					? `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${currentSeason.id}`
+					: // This would not happen, but it's here to satisfy the API.
+						CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
+			)
+			.setDisabled(!currentSeason)
+			.setLabel("Current Season")
+			.setStyle(currentSeason ? ButtonStyle.Success : ButtonStyle.Secondary);
+
+		if (currentSeason) {
+			currentSeasonButton.setEmoji(currentSeason.emoji);
+		}
+
+		const currentEventButtons =
+			events.length === 0
+				? [
+						new ButtonBuilder()
+							// This would not happen, but it's here to satisfy the API.
+							.setCustomId(CATALOGUE_VIEW_EVENT_CUSTOM_ID)
+							.setDisabled()
+							.setStyle(ButtonStyle.Secondary),
+					]
+				: events.reduce<ButtonBuilder[]>((buttons, event) => {
+						const button = new ButtonBuilder()
+							.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${event.id}`)
+							.setStyle(ButtonStyle.Success);
+
+						if (event.eventCurrency?.emoji) {
+							button.setEmoji(event.eventCurrency.emoji);
+						}
+
+						buttons.push(button);
+						return buttons;
+					}, []);
+
+		if (currentEventButtons.length === 1) {
+			currentEventButtons[0]!.setLabel("Current Event");
+		}
+
+		const currentTravellingSpiritButton = new ButtonBuilder()
+			.setCustomId(
+				currentTravellingSpirit
+					? `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${currentTravellingSpirit.name}`
+					: // This would not happen, but it's here to satisfy the API.
+						`${CATALOGUE_VIEW_START_CUSTOM_ID}-travelling`,
+			)
+			.setDisabled(!currentTravellingSpirit)
+			.setLabel("Travelling Spirit")
+			.setStyle(currentTravellingSpirit ? ButtonStyle.Success : ButtonStyle.Secondary);
+
+		if (currentTravellingSpirit) {
+			currentTravellingSpiritButton.setEmoji(
+				SeasonIdToSeasonalEmoji[currentTravellingSpirit.seasonId],
+			);
+		}
+
+		const currentReturningSpiritsButton = new ButtonBuilder()
+			.setCustomId(
+				currentReturningSpirits
+					? CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID
+					: // This would not happen, but it's here to satisfy the API.
+						`${CATALOGUE_VIEW_START_CUSTOM_ID}-returning`,
+			)
+			.setDisabled(!currentReturningSpirits)
+			.setLabel("Returning Spirits")
+			.setStyle(currentReturningSpirits ? ButtonStyle.Success : ButtonStyle.Secondary);
+
+		if (
+			currentReturningSpirits?.every(
+				(returningSpirit) => returningSpirit.seasonId === currentReturningSpirits[0]!.seasonId,
+			)
+		) {
+			currentReturningSpiritsButton.setEmoji(
+				SeasonIdToSeasonalEmoji[currentReturningSpirits[0]!.seasonId],
+			);
+		}
+
+		const response = {
+			content: "",
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(CATALOGUE_VIEW_TYPE_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(0)
+						.setOptions(
+							new StringSelectMenuOptionBuilder()
+								.setLabel(
+									`Standard Spirits${standardProgress === null ? "" : ` (${standardProgress}%)`}`,
+								)
+								.setValue(String(CatalogueType.StandardSpirits)),
+							new StringSelectMenuOptionBuilder()
+								.setLabel(`Elders${elderProgress === null ? "" : ` (${elderProgress}%)`}`)
+								.setValue(String(CatalogueType.Elders)),
+							new StringSelectMenuOptionBuilder()
+								.setLabel(`Seasons${seasonalProgress === null ? "" : ` (${seasonalProgress}%)`}`)
+								.setValue(String(CatalogueType.SeasonalSpirits)),
+							new StringSelectMenuOptionBuilder()
+								.setLabel(`Events${eventProgress === null ? "" : ` (${eventProgress}%)`}`)
+								.setValue(String(CatalogueType.Events)),
+							new StringSelectMenuOptionBuilder()
+								.setLabel(
+									`Starter Packs${starterPackProgress === null ? "" : ` (${starterPackProgress}%)`}`,
+								)
+								.setValue(String(CatalogueType.StarterPacks)),
+							new StringSelectMenuOptionBuilder()
+								.setLabel(
+									`Secret Area${secretAreaProgress === null ? "" : ` (${secretAreaProgress}%)`}`,
+								)
+								.setValue(String(CatalogueType.SecretArea)),
+							new StringSelectMenuOptionBuilder()
+								.setLabel(
+									`Permanent Event Store${
+										permanentEventStoreProgress === null ? "" : ` (${permanentEventStoreProgress}%)`
+									}`,
+								)
+								.setValue(String(CatalogueType.PermanentEventStore)),
+							new StringSelectMenuOptionBuilder()
+								.setLabel(
+									`Nesting Workshop${nestingWorkshopProgress === null ? "" : ` (${nestingWorkshopProgress}%)`}`,
+								)
+								.setValue(String(CatalogueType.NestingWorkshop)),
+						)
+						.setPlaceholder("What do you want to see?"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(backToStartButton(true)),
+				// Limit the potential current event buttons to 4 to not exceed the limit.
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					currentSeasonButton,
+					...currentEventButtons.slice(0, 4),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					currentTravellingSpiritButton,
+					currentReturningSpiritsButton,
+				),
+			],
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(
+						"Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.",
+					)
+					.setFields({ name: "Total Progress", value: `${catalogue.allProgress(true)}%` })
+					.setTitle("Catalogue"),
+			],
+		};
+
+		if (interaction instanceof ButtonInteraction) {
+			await interaction.update(response);
+		} else {
+			await interaction.reply({ ...response, flags: MessageFlags.Ephemeral });
+		}
+	}
+
+	public static async parseCatalogueType(interaction: StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		switch (Number(interaction.values[0]) as CatalogueType) {
+			case CatalogueType.StandardSpirits: {
+				await this.viewRealms(interaction);
+				return;
+			}
+			case CatalogueType.Elders: {
+				await this.viewElders(interaction);
+				return;
+			}
+			case CatalogueType.SeasonalSpirits: {
+				await this.viewSeasons(interaction);
+				return;
+			}
+			case CatalogueType.Events: {
+				await this.viewEventYears(interaction);
+				return;
+			}
+			case CatalogueType.StarterPacks: {
+				await this.viewStarterPacks(interaction);
+				return;
+			}
+			case CatalogueType.SecretArea: {
+				await this.viewSecretArea(interaction);
+				return;
+			}
+			case CatalogueType.PermanentEventStore: {
+				await this.viewPermanentEventStore(interaction);
+				return;
+			}
+			case CatalogueType.NestingWorkshop: {
+				await this.viewNestingWorkshop(interaction);
+			}
+		}
+	}
+
+	public static async viewRealms(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const { locale, user } = interaction;
+		const catalogue = await this.fetch(user.id);
+
+		await interaction.update({
+			content: "",
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(CATALOGUE_VIEW_REALM_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(0)
+						.setOptions(
+							REALMS.map((realm) => {
+								const { name } = realm;
+								const percentage = catalogue.spiritProgress(realm.spirits, true);
+
+								return new StringSelectMenuOptionBuilder()
+									.setLabel(
+										`${t(`realms.${name}`, { lng: locale, ns: "general" })}${
+											percentage === null ? "" : ` (${percentage}%)`
+										}`,
+									)
+									.setValue(name);
+							}),
+						)
+						.setPlaceholder("Select a realm!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
+					new ButtonBuilder()
+						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${CATALOGUE_SHARE_REALMS_KEY}`)
+						.setEmoji("🔗")
+						.setLabel("Share")
+						.setStyle(ButtonStyle.Primary),
+				),
+			],
+			embeds: [
+				catalogue
+					.realmsEmbed(locale)
+					.setFooter({ text: CATALOGUE_STANDARD_PERCENTAGE_NOTE })
+					.setTitle("Realms"),
+			],
+		});
+	}
+
+	public static async viewRealm(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+		realm: RealmName,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const { locale, user } = interaction;
+		const catalogue = await this.fetch(user.id);
+		const spirits = STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm);
+		let hasEverything = true;
+
+		const options = spirits.map((spirit) => {
+			const percentage = catalogue.spiritProgress([spirit], true);
+
+			if (percentage !== null && percentage !== 100) {
+				hasEverything = false;
+			}
+
+			return new StringSelectMenuOptionBuilder()
+				.setLabel(
+					`${t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" })}${
+						percentage === null ? "" : ` (${percentage}%)`
+					}`,
+				)
+				.setValue(spirit.name);
+		});
+
+		await interaction.update({
+			content: "",
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(0)
+						.setOptions(options)
+						.setPlaceholder("Select a spirit!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
+					new ButtonBuilder()
+						.setCustomId(CATALOGUE_VIEW_REALMS_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${realm}`)
+						.setEmoji("🔗")
+						.setLabel("Share")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_REALM_EVERYTHING_CUSTOM_ID}§${realm}`)
+						.setDisabled(hasEverything)
+						.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
+						.setLabel("I have everything!")
+						.setStyle(ButtonStyle.Success),
+				),
+			],
+			embeds: [
+				catalogue
+					.spiritEmbed(spirits, locale)
+					.setFooter({ text: CATALOGUE_STANDARD_PERCENTAGE_NOTE })
+					.setTitle(t(`realms.${realm}`, { lng: locale, ns: "general" })),
+			],
+		});
+	}
+
+	public static async viewElders(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const { locale, user } = interaction;
+		const catalogue = await this.fetch(user.id);
+		let hasEverything = true;
+
+		const options = ELDER_SPIRITS.map((spirit) => {
+			const percentage = catalogue.spiritProgress([spirit], true);
+
+			if (percentage !== null && percentage !== 100) {
+				hasEverything = false;
+			}
+
+			return new StringSelectMenuOptionBuilder()
+				.setLabel(
+					`${t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" })}${
+						percentage === null ? "" : ` (${percentage}%)`
+					}`,
+				)
+				.setValue(spirit.name);
+		});
+
+		await interaction.update({
+			content: "",
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(0)
+						.setOptions(options)
+						.setPlaceholder("Select an elder!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
+					new ButtonBuilder()
+						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${CATALOGUE_SHARE_ELDER_KEY}`)
+						.setEmoji("🔗")
+						.setLabel("Share")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID)
+						.setDisabled(hasEverything)
+						.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
+						.setLabel("I have everything!")
+						.setStyle(ButtonStyle.Success),
+				),
+			],
+			embeds: [catalogue.spiritEmbed(ELDER_SPIRITS, locale).setTitle("Elders")],
+		});
+	}
+
+	public static async viewSeasons(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const { locale, user } = interaction;
+		const catalogue = await this.fetch(user.id);
+
+		await interaction.update({
+			content: "",
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(CATALOGUE_VIEW_SEASON_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(0)
+						.setOptions(
+							skySeasons().map((season) => {
+								const percentage = catalogue.seasonProgress([season], true);
+
+								return new StringSelectMenuOptionBuilder()
+									.setEmoji(SeasonIdToSeasonalEmoji[season.id])
+									.setLabel(
+										`${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}${
+											percentage === null ? "" : ` (${percentage}%)`
+										}`,
+									)
+									.setValue(String(season.id));
+							}),
+						)
+						.setPlaceholder("Select a season!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
+					new ButtonBuilder()
+						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+				),
+			],
+			embeds: [],
+		});
+	}
+
+	public static async viewSeason(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+		seasonId: SeasonIds,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const { locale, user } = interaction;
+		const seasons = skySeasons();
+		const season = seasons.find(({ id }) => id === seasonId);
+
+		if (!season) {
+			pino.error(interaction, "Failed to view a season.");
+			await interaction.update(ERROR_RESPONSE);
+			return;
+		}
+
+		const catalogue = await this.fetch(user.id);
+		const spirits = [season.guide, ...season.spirits];
+
+		const options = spirits.map((spirit) => {
+			const { name } = spirit;
+			const percentage = catalogue.spiritProgress([spirit], true);
+
+			return new StringSelectMenuOptionBuilder()
+				.setLabel(
+					`${t(`spiritNames.${name}`, { lng: locale, ns: "general" })}${
+						percentage === null ? "" : ` (${percentage}%)`
+					}`,
+				)
+				.setValue(name);
+		});
+
+		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [
+			new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+				new StringSelectMenuBuilder()
+					.setCustomId(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)
+					.setMaxValues(1)
+					.setMinValues(0)
+					.setOptions(options)
+					.setPlaceholder(
+						seasonId === SeasonId.Shattering
+							? "Select an entity!"
+							: seasonId === SeasonId.Revival
+								? "Select a spirit or a shop!"
+								: seasonId === SeasonId.Nesting
+									? "Select a spirit or an entity!"
+									: "Select a spirit!",
+					),
+			),
+		];
+
+		if (season.items.length > 0) {
+			const itemsOptions = season.items.map(({ emoji, name, cosmetics }) => {
+				const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
+					.setDefault(cosmetics.every((cosmetic) => catalogue.data.includes(cosmetic)))
+					.setLabel(name)
+					.setValue(JSON.stringify(cosmetics));
+
+				if (emoji) {
+					stringSelectMenuOptionBuilder.setEmoji(emoji);
+				}
+
+				return stringSelectMenuOptionBuilder;
+			});
+
+			components.push(
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(`${CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID}§${seasonId}`)
+						.setMaxValues(itemsOptions.length)
+						.setMinValues(0)
+						.setOptions(itemsOptions)
+						.setPlaceholder("What items do you have?"),
+				),
+			);
+		}
+
+		const index = seasons.indexOf(season);
+		const before = seasons[index - 1];
+		const after = seasons[index + 1];
+
+		components.push(
+			new ActionRowBuilder<ButtonBuilder>().setComponents(
+				backToStartButton(),
+				new ButtonBuilder()
+					.setCustomId(CATALOGUE_VIEW_SEASONS_CUSTOM_ID)
+					.setEmoji("⏪")
+					.setLabel("Back")
+					.setStyle(ButtonStyle.Primary),
+				new ButtonBuilder()
+					.setCustomId(`${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${seasonId}`)
+					.setEmoji("🔗")
+					.setLabel("Share")
+					.setStyle(ButtonStyle.Primary),
+				new ButtonBuilder()
+					.setCustomId(`${CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID}§${seasonId}`)
+					.setDisabled(catalogue.seasonProgress([season]) === 100)
+					.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
+					.setLabel("I have everything!")
+					.setStyle(ButtonStyle.Success),
+			),
+			new ActionRowBuilder<ButtonBuilder>().setComponents(
+				new ButtonBuilder()
+					.setCustomId(`${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${before?.id}`)
+					.setDisabled(!before)
+					.setEmoji("⬅️")
+					.setLabel("Previous season")
+					.setStyle(ButtonStyle.Primary),
+				new ButtonBuilder()
+					.setCustomId(`${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${after?.id}`)
+					.setDisabled(!after)
+					.setEmoji("➡️")
+					.setLabel("Next season")
+					.setStyle(ButtonStyle.Primary),
+			),
+		);
+
+		await interaction.update({
+			content: "",
+			components,
+			embeds: [catalogue.seasonEmbed(season, locale)],
+		});
+	}
+
+	public static async viewEventYears(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const { user } = interaction;
+		const catalogue = await this.fetch(user.id);
+
+		await interaction.update({
+			content: "",
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(0)
+						.setOptions(
+							skyEventYears().map((year) => {
+								const percentage = catalogue.eventProgress(
+									skyEvents().filter((event) => event.start.year === year),
+									true,
+								);
+
+								return new StringSelectMenuOptionBuilder()
+									.setLabel(`${year}${percentage === null ? "" : ` (${percentage}%)`}`)
+									.setValue(String(year));
+							}),
+						)
+						.setPlaceholder("Select a year!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
+					new ButtonBuilder()
+						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+				),
+			],
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription("Events are grouped by year.")
+					.setTitle("Events By Year"),
+			],
+		});
+	}
+
+	public static async viewEvents(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+		yearString: string,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const { locale, user } = interaction;
+		const year = Number(yearString);
+		const catalogue = await this.fetch(user.id);
+		const events = skyEvents().filter((event) => event.start.year === year);
+
+		const options = events.map((event) => {
+			const { id } = event;
+			const percentage = catalogue.eventProgress([event], true);
+
+			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
+				.setLabel(
+					`${t(`events.${id}`, { lng: locale, ns: "general" })}${percentage === null ? "" : ` (${percentage}%)`}`,
+				)
+				.setValue(String(id));
+
+			if (event.eventCurrency?.emoji) {
+				stringSelectMenuOptionBuilder.setEmoji(event.eventCurrency.emoji);
+			}
+
+			return stringSelectMenuOptionBuilder;
+		});
+
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(`Events ${year}`);
+
+		for (const event of events) {
+			if (event.offer.length === 0) {
+				continue;
+			}
+
+			const { offerDescription } = catalogue.embedProgress(event.offer);
+
+			embed.addFields({
+				name: t(`events.${event.id}`, { lng: locale, ns: "general" }),
+				value: offerDescription.join("\n"),
+				inline: true,
+			});
+		}
+
+		const eventsYears = skyEventYears();
+		const index = eventsYears.indexOf(year);
+		const before = eventsYears[index - 1];
+		const after = eventsYears[index + 1];
+
+		await interaction.update({
+			content: "",
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(CATALOGUE_VIEW_EVENT_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(0)
+						.setOptions(options)
+						.setPlaceholder("Select an event!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
+					new ButtonBuilder()
+						.setCustomId(CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${before}`)
+						.setDisabled(!before)
+						.setEmoji("⬅️")
+						.setLabel("Previous year")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${after}`)
+						.setDisabled(!after)
+						.setEmoji("➡️")
+						.setLabel("Next year")
+						.setStyle(ButtonStyle.Primary),
+				),
+			],
+			embeds: [embed],
+		});
+	}
+
+	public static async viewReturningSpirits(interaction: ButtonInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const { locale, user } = interaction;
+		const catalogue = await this.fetch(user.id);
+		const spirits = resolveReturningSpirits(skyNow());
+
+		if (!spirits) {
+			await Catalogue.viewCatalogue(interaction);
+			return;
+		}
+
+		const options = spirits.map((spirit) => {
+			const { name } = spirit;
+			const percentage = catalogue.spiritProgress([spirit], true);
+
+			return new StringSelectMenuOptionBuilder()
+				.setEmoji(SeasonIdToSeasonalEmoji[spirit.seasonId])
+				.setLabel(
+					`${t(`spiritNames.${name}`, { lng: locale, ns: "general" })}${
+						percentage === null ? "" : ` (${percentage}%)`
+					}`,
+				)
+				.setValue(name);
+		});
+
+		const response = {
+			content: "",
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)
+						.setMaxValues(1)
+						.setMinValues(0)
+						.setOptions(options)
+						.setPlaceholder("Select a spirit!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(backToStartButton()),
+			],
+			embeds: [catalogue.spiritEmbed(spirits, locale).setTitle("Returning Spirits")],
+		};
+
+		await interaction.update(response);
+	}
+
+	public static async parseViewSpirit(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const catalogue = await this.fetch(interaction.user.id);
+
+		const parsedCustomId =
+			interaction instanceof ButtonInteraction
+				? interaction.customId.slice(interaction.customId.indexOf("§") + 1)
+				: interaction.values[0];
+
+		const spirit = spirits().find(({ name }) => name === parsedCustomId);
+
+		if (!spirit) {
+			await interaction.update({
+				content: "Woah, it seems we have not encountered that spirit yet. How strange!",
+				components: [],
+				embeds: [],
+			});
+
+			return;
+		}
+
+		await catalogue.viewSpirit(interaction, spirit);
+	}
+
+	private async viewSpirit(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const { locale } = interaction;
+		const isStandardSpirit = spirit.isStandardSpirit();
+		const isElderSpirit = spirit.isElderSpirit();
+		const isSeasonalSpirit = spirit.isSeasonalSpirit();
+		const isGuideSpirit = spirit.isGuideSpirit();
+		const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
+		const offer = seasonalParsing ? spirit.seasonal : spirit.current;
+		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
+
+		const embed = this.spiritEmbed([spirit], locale)
+			.setTitle(t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" }))
+			.setURL(spirit.wikiURL);
+
+		const description = embed.data.description ? [embed.data.description] : [];
+
+		if (imageURL) {
+			embed.setImage(imageURL);
+		} else {
+			description.push(offer.length > 0 ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
+		}
+
+		embed.setDescription(description.join("\n"));
+
+		if (isGuideSpirit && spirit.inProgress) {
+			embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
+		}
+
+		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
+
+		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(
+			backToStartButton(),
+			new ButtonBuilder()
+				.setCustomId(
+					isElderSpirit
+						? CATALOGUE_VIEW_ELDERS_CUSTOM_ID
+						: isStandardSpirit
+							? `${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${spirit.realm}`
+							: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${spirit.seasonId}`,
+				)
+				.setEmoji(
+					isSeasonalSpirit || isGuideSpirit ? SeasonIdToSeasonalEmoji[spirit.seasonId] : "⏪",
+				)
+				.setLabel("Back")
+				.setStyle(ButtonStyle.Primary),
+		);
+
+		if (offer.length > 0) {
+			buttons.addComponents(
+				new ButtonBuilder()
+					.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${spirit.name}`)
+					.setDisabled(this.spiritProgress([spirit]) === 100)
+					.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
+					.setLabel("I have everything!")
+					.setStyle(ButtonStyle.Success),
+			);
+
+			const itemSelectionOptions = offer.map(({ emoji, name, cosmetics }) => {
+				const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
+					.setDefault(cosmetics.every((cosmetic) => this.data.includes(cosmetic)))
+					.setLabel(name)
+					.setValue(JSON.stringify(cosmetics));
+
+				if (emoji) {
+					stringSelectMenuOptionBuilder.setEmoji(emoji);
+				}
+
+				return stringSelectMenuOptionBuilder;
+			});
+
+			const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(
+				0,
+				CATALOGUE_MAXIMUM_OPTIONS_LIMIT,
+			);
+
+			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+				new StringSelectMenuBuilder()
+					.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${spirit.name}`)
+					.setMaxValues(itemSelectionOptionsMaximumLimit.length)
+					.setMinValues(0)
+					.setOptions(itemSelectionOptionsMaximumLimit)
+					.setPlaceholder("Select what you have!"),
+			);
+
+			components.push(itemSelection);
+
+			if (itemSelectionOptions.length > CATALOGUE_MAXIMUM_OPTIONS_LIMIT) {
+				const itemSelectionOverflowOptionsMaximumLimit = itemSelectionOptions.slice(
+					CATALOGUE_MAXIMUM_OPTIONS_LIMIT,
+				);
+
+				components.push(
+					new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+						new StringSelectMenuBuilder()
+							.setCustomId(`${CATALOGUE_VIEW_OFFER_2_CUSTOM_ID}§${spirit.name}`)
+							.setMaxValues(itemSelectionOverflowOptionsMaximumLimit.length)
+							.setMinValues(0)
+							.setOptions(itemSelectionOverflowOptionsMaximumLimit)
+							.setPlaceholder("Select what you have!"),
+					),
+				);
+			}
+		}
+
+		components.push(buttons);
+
+		let spirits:
+			| readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[]
+			| undefined;
+
+		if (isStandardSpirit) {
+			spirits = REALMS.find(({ name }) => name === spirit.realm)?.spirits;
+		} else if (isElderSpirit) {
+			spirits = ELDER_SPIRITS;
+		} else if (isSeasonalSpirit || isGuideSpirit) {
+			const season = skySeasons().find(({ id }) => id === spirit.seasonId);
+
+			if (season) {
+				spirits = [season.guide, ...season.spirits];
+			}
+		}
+
+		if (spirits) {
+			const index = spirits.findIndex(({ name }) => name === spirit.name);
+			const before = spirits[index - 1];
+			const after = spirits[index + 1];
+
+			components.push(
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${before?.name}`)
+						.setDisabled(!before)
+						.setEmoji("⬅️")
+						.setLabel("Previous spirit")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${after?.name}`)
+						.setDisabled(!after)
+						.setEmoji("➡️")
+						.setLabel("Next spirit")
+						.setStyle(ButtonStyle.Primary),
+				),
+			);
+		}
+
+		await interaction.update({ components, content: "", embeds: [embed] });
+	}
+
+	public static async parseViewEvent(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const catalogue = await this.fetch(interaction.user.id);
+
+		const eventId = Number(
+			interaction instanceof ButtonInteraction
+				? interaction.customId.slice(interaction.customId.indexOf("§") + 1)
+				: interaction.values[0],
+		);
+
+		const event = skyEvents().find(({ id }) => id === eventId);
+
+		if (!event) {
+			await interaction.update(ERROR_RESPONSE);
+			pino.error(interaction, "Could not parse an event for the catalogue.");
+			return;
+		}
+
+		await catalogue.viewEvent(interaction, event);
+	}
+
+	private async viewEvent(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+		event: Event,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const { locale } = interaction;
+		const { id, start, eventCurrency, offer, offerInfographicURL, wikiURL } = event;
+
+		const embed = new EmbedBuilder()
+			.setColor(DEFAULT_EMBED_COLOUR)
+			.setTitle(
+				`${eventCurrency?.emoji ? formatEmoji(eventCurrency.emoji) : ""}${t(`events.${id}`, {
+					lng: locale,
+					ns: "general",
+				})}`,
+			)
+			.setURL(wikiURL);
+
+		const description = [];
+
+		if (event.patchNotesURL) {
+			description.push(`-# [Patch Notes](${event.patchNotesURL})`);
+		}
+
+		if (offer.length > 0) {
+			const { offerDescription } = this.embedProgress(offer);
+			description.push(offerDescription.join("\n"));
+		}
+
+		if (offerInfographicURL) {
+			embed.setImage(offerInfographicURL);
+		} else {
+			description.push(offer.length > 0 ? NO_EVENT_INFOGRAPHIC_YET : NO_EVENT_OFFER_TEXT);
+		}
+
+		if (description.length > 0) {
+			embed.setDescription(description.join("\n"));
+		}
+
+		const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [];
+
+		const buttons = new ActionRowBuilder<ButtonBuilder>().setComponents(
+			backToStartButton(),
+			new ButtonBuilder()
+				.setCustomId(`${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${start.year}`)
+				.setEmoji("⏪")
+				.setLabel("Back")
+				.setStyle(ButtonStyle.Primary),
+		);
+
+		if (offer.length > 0) {
+			buttons.addComponents(
+				new ButtonBuilder()
+					.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${id}`)
+					.setDisabled(this.eventProgress([event]) === 100)
+					.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
+					.setLabel("I have everything!")
+					.setStyle(ButtonStyle.Success),
+			);
+
+			const itemSelectionOptions = offer.map(({ emoji, name, cosmetics }) => {
+				const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
+					.setDefault(cosmetics.every((cosmetic) => this.data.includes(cosmetic)))
+					.setLabel(name)
+					.setValue(JSON.stringify(cosmetics));
+
+				if (emoji) {
+					stringSelectMenuOptionBuilder.setEmoji(emoji);
+				}
+
+				return stringSelectMenuOptionBuilder;
+			});
+
+			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+				new StringSelectMenuBuilder()
+					.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${id}`)
+					.setMaxValues(itemSelectionOptions.length)
+					.setMinValues(0)
+					.setOptions(itemSelectionOptions)
+					.setPlaceholder("Select what you have!"),
+			);
+
+			components.push(itemSelection);
+		}
+
+		components.push(buttons);
+
+		const events = skyEvents().filter((event) => event.start.year === start.year);
+		const index = events.findIndex((event) => event.id === id);
+		const before = events[index - 1];
+		const after = events[index + 1];
+
+		// It is possible that for the first event of a year, the custom ids will be the same, leading to an error.
+		// We use the nullish coalescing operator to fallback to some default values to mitigate this.
+		components.push(
+			new ActionRowBuilder<ButtonBuilder>().setComponents(
+				new ButtonBuilder()
+					.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${before?.id ?? "before"}`)
+					.setDisabled(!before)
+					.setEmoji("⬅️")
+					.setLabel("Previous event")
+					.setStyle(ButtonStyle.Primary),
+				new ButtonBuilder()
+					.setCustomId(`${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${after?.id ?? "after"}`)
+					.setDisabled(!after)
+					.setEmoji("➡️")
+					.setLabel("Next event")
+					.setStyle(ButtonStyle.Primary),
+			),
+		);
+
+		await interaction.update({ components, content: "", embeds: [embed] });
+	}
+
+	private static async viewStarterPacks(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const catalogue = await this.fetch(interaction.user.id);
+
+		const itemSelectionOptions = STARTER_PACKS.items.map(({ emoji, name, cosmetics }) => {
+			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
+				.setDefault(cosmetics.every((cosmetic) => catalogue.data.includes(cosmetic)))
+				.setLabel(name)
+				.setValue(JSON.stringify(cosmetics));
+
+			if (emoji) {
+				stringSelectMenuOptionBuilder.setEmoji(emoji);
+			}
+
+			return stringSelectMenuOptionBuilder;
+		});
+
+		const { offerDescription } = catalogue.embedProgress(STARTER_PACKS.items);
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.StarterPacks}`)
+						.setMaxValues(itemSelectionOptions.length)
+						.setMinValues(0)
+						.setOptions(itemSelectionOptions)
+						.setPlaceholder("Select what you have!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
+					new ButtonBuilder()
+						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.StarterPacks}`)
+						.setDisabled(catalogue.starterPackProgress() === 100)
+						.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
+						.setLabel("I have everything!")
+						.setStyle(ButtonStyle.Success),
+				),
+			],
+			content: "",
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(offerDescription.join("\n"))
+					.setTitle("Starter Packs"),
+			],
+		});
+	}
+
+	private static async viewSecretArea(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const catalogue = await this.fetch(interaction.user.id);
+
+		const itemSelectionOptions = SECRET_AREA.items.map(({ emoji, name, cosmetics }) => {
+			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
+				.setDefault(cosmetics.every((cosmetic) => catalogue.data.includes(cosmetic)))
+				.setLabel(name)
+				.setValue(JSON.stringify(cosmetics));
+
+			if (emoji) {
+				stringSelectMenuOptionBuilder.setEmoji(emoji);
+			}
+
+			return stringSelectMenuOptionBuilder;
+		});
+
+		const { offerDescription } = catalogue.embedProgress(SECRET_AREA.items);
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.SecretArea}`)
+						.setMaxValues(itemSelectionOptions.length)
+						.setMinValues(0)
+						.setOptions(itemSelectionOptions)
+						.setPlaceholder("Select what you have!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
+					new ButtonBuilder()
+						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.SecretArea}`)
+						.setDisabled(catalogue.secretAreaProgress() === 100)
+						.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
+						.setLabel("I have everything!")
+						.setStyle(ButtonStyle.Success),
+				),
+			],
+			content: "",
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(offerDescription.join("\n"))
+					.setTitle("Secret Area"),
+			],
+		});
+	}
+
+	private static async viewPermanentEventStore(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const catalogue = await this.fetch(interaction.user.id);
+
+		const itemSelectionOptions = PERMANENT_EVENT_STORE.items.map(({ emoji, name, cosmetics }) => {
+			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
+				.setDefault(cosmetics.every((cosmetic) => catalogue.data.includes(cosmetic)))
+				.setLabel(name)
+				.setValue(JSON.stringify(cosmetics));
+
+			if (emoji) {
+				stringSelectMenuOptionBuilder.setEmoji(emoji);
+			}
+
+			return stringSelectMenuOptionBuilder;
+		});
+
+		const { offerDescription } = catalogue.embedProgress(PERMANENT_EVENT_STORE.items);
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.PermanentEventStore}`)
+						.setMaxValues(itemSelectionOptions.length)
+						.setMinValues(0)
+						.setOptions(itemSelectionOptions)
+						.setPlaceholder("Select what you have!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
+					new ButtonBuilder()
+						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(
+							`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.PermanentEventStore}`,
+						)
+						.setDisabled(catalogue.permanentEventStoreProgress() === 100)
+						.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
+						.setLabel("I have everything!")
+						.setStyle(ButtonStyle.Success),
+				),
+			],
+			content: "",
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(offerDescription.join("\n"))
+					.setTitle("Permanent Event Store"),
+			],
+		});
+	}
+
+	private static async viewNestingWorkshop(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+	) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const catalogue = await this.fetch(interaction.user.id);
+
+		const itemSelectionOptions = NESTING_WORKSHOP.items.map(({ emoji, name, cosmetics }) => {
+			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
+				.setDefault(cosmetics.every((cosmetic) => catalogue.data.includes(cosmetic)))
+				.setLabel(name)
+				.setValue(JSON.stringify(cosmetics));
+
+			if (emoji) {
+				stringSelectMenuOptionBuilder.setEmoji(emoji);
+			}
+
+			return stringSelectMenuOptionBuilder;
+		});
+
+		const itemSelectionOptions1 = itemSelectionOptions.slice(0, CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
+
+		const itemSelectionOptions2 = itemSelectionOptions.slice(
+			CATALOGUE_MAXIMUM_OPTIONS_LIMIT,
+			CATALOGUE_MAXIMUM_OPTIONS_LIMIT * 2,
+		);
+
+		const itemSelectionOptions3 = itemSelectionOptions.slice(
+			CATALOGUE_MAXIMUM_OPTIONS_LIMIT * 2,
+			CATALOGUE_MAXIMUM_OPTIONS_LIMIT * 3,
+		);
+
+		const { offerDescription } = catalogue.embedProgress(NESTING_WORKSHOP.items);
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`)
+						.setMaxValues(itemSelectionOptions1.length)
+						.setMinValues(0)
+						.setOptions(itemSelectionOptions1)
+						.setPlaceholder("Select what you have!"),
+				),
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_OFFER_2_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`)
+						.setMaxValues(itemSelectionOptions2.length)
+						.setMinValues(0)
+						.setOptions(itemSelectionOptions2)
+						.setPlaceholder("Select what you have!"),
+				),
+				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
+					new StringSelectMenuBuilder()
+						.setCustomId(`${CATALOGUE_VIEW_OFFER_3_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`)
+						.setMaxValues(itemSelectionOptions3.length)
+						.setMinValues(0)
+						.setOptions(itemSelectionOptions3)
+						.setPlaceholder("Select what you have!"),
+				),
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backToStartButton(),
+					new ButtonBuilder()
+						.setCustomId(CATALOGUE_VIEW_START_CUSTOM_ID)
+						.setEmoji("⏪")
+						.setLabel("Back")
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`)
+						.setDisabled(catalogue.nestingWorkshopProgress() === 100)
+						.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
+						.setLabel("I have everything!")
+						.setStyle(ButtonStyle.Success),
+				),
+			],
+			content: "",
+			embeds: [
+				new EmbedBuilder()
+					.setColor(DEFAULT_EMBED_COLOUR)
+					.setDescription(offerDescription.join("\n"))
+					.setTitle("Nesting Workshop"),
+			],
+		});
+	}
+
+	public static async setRealm(interaction: ButtonInteraction) {
+		const { customId, user } = interaction;
+		const catalogue = await this.fetch(user.id);
+		const realm = customId.slice(customId.indexOf("§") + 1);
+
+		if (!isRealm(realm)) {
+			throw new Error("Unknown realm.");
+		}
+
+		await this.update(user.id, {
+			data: [
+				...new Set([
+					...STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm).reduce<number[]>(
+						(data, spirit) => {
+							data.push(...spirit.allCosmetics);
+							return data;
+						},
+						[],
+					),
+					...catalogue.data,
+				]),
+			],
+		});
+
+		await Catalogue.viewRealm(interaction, realm);
+	}
+
+	public static async setElders(interaction: ButtonInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const catalogue = await this.fetch(interaction.user.id);
+
+		await this.update(interaction.user.id, {
+			data: [
+				...new Set([
+					...ELDER_SPIRITS.reduce<number[]>((data, spirit) => {
+						data.push(...spirit.allCosmetics);
+						return data;
+					}, []),
+					...catalogue.data,
+				]),
+			],
+		});
+
+		await Catalogue.viewElders(interaction);
+	}
+
+	public static async setSeason(interaction: ButtonInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const { customId, user } = interaction;
+		const catalogue = await this.fetch(user.id);
+		const parsedCustomId = Number(customId.slice(customId.indexOf("§") + 1));
+		const season = skySeasons().find((season) => season.id === parsedCustomId);
+
+		if (!season) {
+			pino.error(interaction, "Unknown season.");
+			throw new Error("Unknown season.");
+		}
+
+		await this.update(user.id, {
+			data: [
+				...new Set([
+					...season.guide.allCosmetics,
+					...season.spirits.reduce<number[]>((totalCosmetics, spirit) => {
+						totalCosmetics.push(...spirit.allCosmetics);
+						return totalCosmetics;
+					}, []),
+					...season.allCosmetics,
+					...catalogue.data,
+				]),
+			],
+		});
+		await Catalogue.viewSeason(interaction, season.id);
+	}
+
+	public static async setSeasonItems(interaction: StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const { customId, user } = interaction;
+		const catalogue = await this.fetch(user.id);
+		const parsedCustomId = Number(customId.slice(customId.indexOf("§") + 1));
+		const season = skySeasons().find((season) => season.id === parsedCustomId);
+
+		if (!season) {
+			pino.error(interaction, "Unknown season.");
+			throw new Error("Unknown season.");
+		}
+
+		await this.update(user.id, {
+			data: catalogue.calculateSetItems(interaction, season.allCosmetics),
+		});
+
+		await Catalogue.viewSeason(interaction, season.id);
+	}
+
+	public static async parseSetItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+			return;
+		}
+
+		const catalogue = await this.fetch(interaction.user.id);
+		const { customId } = interaction;
+		const resolvedCustomId = customId.slice(customId.indexOf("§") + 1);
+		const resolvedCustomIdNumber = Number(resolvedCustomId);
+		const spirit = spirits().find(({ name }) => name === resolvedCustomId);
+		const event = skyEvents().find(({ id }) => id === resolvedCustomIdNumber);
+
+		if (spirit) {
+			await catalogue.setSpiritItems(interaction, spirit);
+		} else if (event) {
+			await catalogue.setEventItems(interaction, event);
+		} else {
+			switch (Number(resolvedCustomId)) {
+				case CatalogueType.StarterPacks: {
+					await catalogue.setStarterPacksItems(interaction);
+					return;
+				}
+				case CatalogueType.SecretArea: {
+					await catalogue.setSecretAreaItems(interaction);
+					return;
+				}
+				case CatalogueType.PermanentEventStore: {
+					await catalogue.setPermanentEventStoreItems(interaction);
+					return;
+				}
+				case CatalogueType.NestingWorkshop: {
+					await catalogue.setNestingWorkshopItems(interaction);
+					return;
+				}
+				default: {
+					pino.error(interaction, "Could not parse items to set.");
+					await interaction.update(ERROR_RESPONSE);
+				}
+			}
+		}
+	}
+
+	private calculateSetItems(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+		allCosmetics: readonly number[],
+	) {
+		let cosmetics: number[];
+
+		if (interaction instanceof ButtonInteraction) {
+			cosmetics = [...new Set([...this.data, ...allCosmetics])];
+		} else {
+			// Get the select menu where this interaction came from.
+			const { component } = interaction;
+
+			// Retrieve all cosmetics in this select menu.
+			const selectMenuCosmetics = component.options.reduce<number[]>(
+				(computedCosmetics, { value }) => {
+					const parsedValue = JSON.parse(value) as readonly number[];
+					computedCosmetics.push(...parsedValue);
+					return computedCosmetics;
+				},
+				[],
+			);
+
+			// Remove the cosmetics from the data.
+			const modifiedData = this.data.filter((cosmetic) => !selectMenuCosmetics.includes(cosmetic));
+
+			// Calculate the new data.
+			cosmetics = [
+				...modifiedData,
+				...interaction.values.reduce<number[]>((computedCosmetics, value) => {
+					const parsedValue = JSON.parse(value) as readonly number[];
+					computedCosmetics.push(...parsedValue);
+					return computedCosmetics;
+				}, []),
+			];
+		}
+
+		return cosmetics;
+	}
+
+	private async setSpiritItems(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
+	) {
+		const [cataloguePacket] = await Catalogue.update(interaction.user.id, {
+			data: this.calculateSetItems(interaction, spirit.allCosmetics),
+		});
+
+		this.patch(cataloguePacket!);
+		await this.viewSpirit(interaction, spirit);
+	}
+
+	private async setEventItems(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+		event: Event,
+	) {
+		const [cataloguePacket] = await Catalogue.update(interaction.user.id, {
+			data: this.calculateSetItems(interaction, event.allCosmetics),
+		});
+
+		this.patch(cataloguePacket!);
+		await this.viewEvent(interaction, event);
+	}
+
+	private async setStarterPacksItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		const [cataloguePacket] = await Catalogue.update(interaction.user.id, {
+			data: this.calculateSetItems(interaction, PERMANENT_EVENT_STORE.allCosmetics),
+		});
+
+		this.patch(cataloguePacket!);
+		await Catalogue.viewStarterPacks(interaction);
+	}
+
+	private async setSecretAreaItems(interaction: ButtonInteraction | StringSelectMenuInteraction) {
+		const [cataloguePacket] = await Catalogue.update(interaction.user.id, {
+			data: this.calculateSetItems(interaction, SECRET_AREA.allCosmetics),
+		});
+
+		this.patch(cataloguePacket!);
+		await Catalogue.viewSecretArea(interaction);
+	}
+
+	private async setPermanentEventStoreItems(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+	) {
+		const [cataloguePacket] = await Catalogue.update(interaction.user.id, {
+			data: this.calculateSetItems(interaction, PERMANENT_EVENT_STORE.allCosmetics),
+		});
+
+		this.patch(cataloguePacket!);
+		await Catalogue.viewPermanentEventStore(interaction);
+	}
+
+	private async setNestingWorkshopItems(
+		interaction: ButtonInteraction | StringSelectMenuInteraction,
+	) {
+		const [cataloguePacket] = await Catalogue.update(interaction.user.id, {
+			data: this.calculateSetItems(interaction, NESTING_WORKSHOP.allCosmetics),
+		});
+
+		this.patch(cataloguePacket!);
+		await Catalogue.viewNestingWorkshop(interaction);
+	}
+
+	private static update(userId: Catalogue["userId"], data: CataloguePatchData) {
+		return pg<CataloguePacket>(Table.Catalogue)
+			.update({ data: data.data })
+			.where({ user_id: userId })
+			.returning("*");
+	}
+
+	private realmsEmbed(locale: Locale) {
+		return new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setDescription(
+			REALMS.map((realm) => {
+				const remainingCurrency = resolveCostToString(
+					realm.spirits.reduce(
+						(remainingCurrency, spirit) =>
+							addCosts([remainingCurrency, this.remainingCurrency(spirit.current)]),
+						{},
+					),
+				);
+
+				return `__${t(`realms.${realm.name}`, { lng: locale, ns: "general" })}__\n${
+					remainingCurrency.length > 0
+						? remainingCurrency.join("")
+						: formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
+				}`;
+			}).join("\n\n"),
+		);
+	}
+
+	private embedProgress(offer: readonly Item[]) {
+		const offerDescription = [];
+		const owned = [];
+		const unowned = [];
+
+		for (const { name, cosmetics, emoji } of offer) {
+			const toPush = emoji ? formatEmoji(emoji) : name;
+
+			if (cosmetics.every((cosmetic) => this.data.includes(cosmetic))) {
+				owned.push(toPush);
+			} else {
+				unowned.push(toPush);
+			}
+		}
+
+		if (owned.length > 0) {
+			offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
+		}
+
+		if (unowned.length > 0) {
+			offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
+		}
+
+		const remainingCurrency = this.remainingCurrency(offer, true);
+		const resolvedRemainingCurrency = resolveCostToString(remainingCurrency);
+
+		if (resolvedRemainingCurrency.length > 0) {
+			offerDescription.push(`${resolvedRemainingCurrency.join("")}`);
+		}
+
+		return { remainingCurrency, offerDescription };
+	}
+
+	private seasonEmbed(season: Season, locale: Locale, share = false) {
+		const description = [];
+		const remainingCurrencies = [];
+		const offerDescriptions = [];
+
+		if (!share && season.patchNotesURL) {
+			description.push(`-# [Patch Notes](${season.patchNotesURL})`);
+		}
+
+		const offers: [SpiritName | SeasonIds, readonly Item[]][] = [
+			[season.guide.name, season.guide.current],
+			...season.spirits.map<[SpiritName | SeasonIds, readonly Item[]]>((spirit) => [
+				spirit.name,
+				spirit.items,
+			]),
+			[season.id, season.items],
+		];
+
+		for (const [index, offer] of offers) {
+			if (offer.length === 0) {
+				continue;
+			}
+
+			const { remainingCurrency, offerDescription } = this.embedProgress(offer);
+			remainingCurrencies.push(remainingCurrency);
+
+			offerDescriptions.push(
+				`__${
+					isSeasonId(index) ? "Items" : t(`spiritNames.${index}`, { lng: locale, ns: "general" })
+				}__\n${offerDescription.join("\n")}`,
+			);
+		}
+
+		const totalRemainingCurrency = resolveCostToString(addCosts(remainingCurrencies));
+
+		if (totalRemainingCurrency.length > 0) {
+			description.push(`__Remaining Currency__\n${totalRemainingCurrency.join("")}`);
+		}
+
+		description.push(...offerDescriptions);
+
+		const embed = new EmbedBuilder()
+			.setColor(DEFAULT_EMBED_COLOUR)
+			.setTitle(
+				`${formatEmoji(SeasonIdToSeasonalEmoji[season.id])} ${t(`seasons.${season.id}`, {
+					lng: locale,
+					ns: "general",
+				})}`,
+			)
+			.setURL(season.wikiURL);
+
+		if (description.length > 0) {
+			let descriptionString = description.join("\n\n");
+
+			// If the resulting description exceeds 4,096 characters, replace the yes and no emojis with Unicode variants.
+			if (descriptionString.length > 4_096) {
+				descriptionString = descriptionString
+					.replaceAll(formatEmoji(MISCELLANEOUS_EMOJIS.Yes), "✅")
+					.replaceAll(formatEmoji(MISCELLANEOUS_EMOJIS.No), "❌");
+			}
+
+			embed.setDescription(descriptionString);
+		}
+
+		return embed;
+	}
+
+	private spiritEmbed(
+		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
+		locale: Locale,
+	) {
+		const multiple = spirits.length > 1;
+		const description = [];
+		const remainingCurrencies = [];
+
+		for (const spirit of spirits) {
+			const isSeasonalSpirit = spirit.isSeasonalSpirit();
+			const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
+			const offer = seasonalParsing ? spirit.seasonal : spirit.current;
+
+			if (offer.length === 0) {
+				continue;
+			}
+
+			const { remainingCurrency, offerDescription } = this.embedProgress(offer);
+			remainingCurrencies.push(remainingCurrency);
+
+			description.push(
+				`${
+					multiple ? `__${t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" })}__\n` : ""
+				}${offerDescription.join("\n")}`,
+			);
+		}
+
+		if (multiple) {
+			const totalRemainingCurrency = resolveCostToString(addCosts(remainingCurrencies));
+
+			if (totalRemainingCurrency.length > 0) {
+				description.unshift(`__Remaining Currency__\n${totalRemainingCurrency.join("")}`);
+			}
+		}
+
+		const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR);
+
+		if (description.length > 0) {
+			let descriptionString = description.join("\n\n");
+
+			// If the resulting description exceeds 4,096 characters, replace the yes and no emojis with Unicode variants.
+			if (descriptionString.length > 4_096) {
+				descriptionString = descriptionString
+					.replaceAll(formatEmoji(MISCELLANEOUS_EMOJIS.Yes), "✅")
+					.replaceAll(formatEmoji(MISCELLANEOUS_EMOJIS.No), "❌");
+			}
+
+			embed.setDescription(descriptionString);
+		}
+
+		return embed;
+	}
+
+	public static async sharePrompt(interaction: ButtonInteraction) {
+		const { channel, customId, locale, user } = interaction;
+
+		if (!interaction.inGuild()) {
+			await interaction.reply({
+				content:
+					"[You & I](https://youtu.be/_kqQDCxRCzM) are the only ones around here. Try sharing in a server!",
+				flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+
+		if (!channel || (channel.type === ChannelType.PrivateThread && !channel.members.me)) {
+			await interaction.update({
+				components: [],
+				content: "I cannot see this channel.",
+				embeds: [],
+			});
+
+			return;
+		}
+
+		if (
+			await cannotUsePermissions(
+				interaction,
+				PermissionFlagsBits.ViewChannel |
+					(channel.isThread()
+						? PermissionFlagsBits.SendMessagesInThreads
+						: PermissionFlagsBits.SendMessages) |
+					PermissionFlagsBits.EmbedLinks |
+					PermissionFlagsBits.UseExternalEmojis,
+			)
+		) {
+			return;
+		}
+
+		const catalogue = await this.fetch(user.id);
+		const type = customId.slice(customId.indexOf("§") + 1);
+		const backButton = new ButtonBuilder().setLabel("Back").setStyle(ButtonStyle.Primary);
+		let embed: EmbedBuilder | undefined;
+
+		if (type === CATALOGUE_SHARE_REALMS_KEY) {
+			backButton.setCustomId(CATALOGUE_VIEW_REALMS_CUSTOM_ID);
+			embed = catalogue.realmsEmbed(locale).setTitle("Realms Progress");
+		} else if (isRealm(type)) {
+			backButton.setCustomId(`${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${type}`);
+
+			embed = catalogue
+				.spiritEmbed(
+					STANDARD_SPIRITS.filter((spirit) => spirit.realm === type),
+					locale,
+				)
+				.setTitle(`${type} Progress`);
+		} else if (isSeasonId(Number(type))) {
+			const seasonId = Number(type) as SeasonIds;
+			const emoji = SeasonIdToSeasonalEmoji[seasonId];
+			backButton.setCustomId(`${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${type}`).setEmoji(emoji);
+
+			embed = catalogue
+				.seasonEmbed(skySeasons().find((season) => season.id === seasonId)!, locale, true)
+				.setTitle(
+					`${formatEmoji(emoji)} ${t(`seasons.${type}`, { lng: locale, ns: "general" })} Progress`,
+				);
+		} else if (type === CATALOGUE_SHARE_ELDER_KEY) {
+			backButton.setCustomId(CATALOGUE_VIEW_ELDERS_CUSTOM_ID);
+			embed = catalogue.spiritEmbed(ELDER_SPIRITS, locale).setTitle("Elders Progress");
+		}
+
+		if (!embed) {
+			pino.error(interaction, "Failed to parse spirits from a catalogue share prompt.");
+			await interaction.update(ERROR_RESPONSE);
+			return;
+		}
+
+		const profile = await Profile.fetch(user.id).catch(() => null);
+		const embedAuthorOptions: EmbedAuthorOptions = { name: profile?.name ?? user.tag };
+
+		if (profile?.iconURL) {
+			embedAuthorOptions.iconURL = profile.iconURL;
+		}
+
+		await interaction.update({
+			components: [
+				new ActionRowBuilder<ButtonBuilder>().setComponents(
+					backButton,
+					new ButtonBuilder()
+						.setCustomId(CATALOGUE_SHARE_SEND_CUSTOM_ID)
+						.setEmoji("🔗")
+						.setLabel("Send")
+						.setStyle(ButtonStyle.Success),
+				),
+			],
+			content: "This will share your progress in this channel. Is this okay?",
+			embeds: [embed.setAuthor(embedAuthorOptions)],
+		});
+	}
+
+	public static async shareSend(interaction: ButtonInteraction<"cached">) {
+		const { channel, message } = interaction;
+
+		if (!channel || (channel.type === ChannelType.PrivateThread && !channel.members.me)) {
+			await interaction.update({
+				components: [],
+				content: "I cannot see this channel.",
+				embeds: [],
+			});
+
+			return;
+		}
+
+		if (
+			await cannotUsePermissions(
+				interaction,
+				PermissionFlagsBits.ViewChannel |
+					(channel.isThread()
+						? PermissionFlagsBits.SendMessagesInThreads
+						: PermissionFlagsBits.SendMessages) |
+					PermissionFlagsBits.EmbedLinks |
+					PermissionFlagsBits.UseExternalEmojis,
+			)
+		) {
+			return;
+		}
+
+		await channel.send({ embeds: interaction.message.embeds });
+
+		const components = message.components.map((component) =>
+			ActionRowBuilder.from<MessageActionRowComponentBuilder>(component),
+		);
+
+		for (const actionRow of components) {
+			actionRow.components
+				.find(
+					(component) =>
+						"custom_id" in component.data &&
+						component.data.custom_id === CATALOGUE_SHARE_SEND_CUSTOM_ID,
+				)
+				?.setDisabled();
+		}
+
+		await interaction.update({ components, content: "Progress shared!", embeds: [] });
+	}
+
+	private remainingCurrency(items: readonly Item[], includeSeasonalCurrency?: boolean) {
+		const result = addCosts(
+			items
+				.filter(({ cosmetics }) => cosmetics.some((cosmetic) => !this.data.includes(cosmetic)))
+				.map((item) => item.cost)
+				.filter((cost): cost is ItemCost => cost !== null),
+		);
+
+		if (!includeSeasonalCurrency) {
+			for (const seasonalCandle of result.seasonalCandles) {
+				seasonalCandle.cost = 0;
+			}
+
+			for (const seasonalHeart of result.seasonalHearts) {
+				seasonalHeart.cost = 0;
+			}
+		}
+
+		return result;
+	}
+}

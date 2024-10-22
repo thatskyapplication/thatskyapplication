@@ -11,14 +11,14 @@ import {
 	TextChannel,
 } from "discord.js";
 import "./i18next.js"; // Must be first.
-import events, { type Event } from "./Events/index.js";
+import events, { type Event } from "./events/index.js";
+import pino from "./pino.js";
 import {
 	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,
 	MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID,
 	TOKEN,
-} from "./Utility/Constants.js";
-import pino from "./pino.js";
+} from "./utility/constants.js";
 
 interface LogOptions {
 	content?: string;

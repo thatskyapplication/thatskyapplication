@@ -1,5 +1,2 @@
-[default.extend-words]
-Ba = "Ba"
-
 [files]
-extend-exclude = ["source/Locales/de.ts", "source/Locales/es-419.ts", "source/Locales/es-ES.ts", "source/Locales/fr.ts", "source/Locales/it.ts", "source/Locales/ja.ts", "source/Locales/pt-BR.ts", "source/Locales/ru.ts", "source/Locales/vi.ts", "source/Locales/zh-CN.ts", "source/Locales/zh-TW.ts"]
+extend-exclude = ["source/locales/de.ts", "source/locales/es-419.ts", "source/locales/es-es.ts", "source/locales/fr.ts", "source/locales/it.ts", "source/locales/ja.ts", "source/locales/ko.ts", "source/locales/pt-br.ts", "source/locales/ru.ts", "source/locales/th.ts", "source/locales/vi.ts", "source/locales/zh-cn.ts", "source/locales/zh-tw.ts"]

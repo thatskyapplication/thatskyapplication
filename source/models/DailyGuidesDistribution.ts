@@ -1,0 +1,19 @@
+import type { GuildBasedChannel, PublicThreadChannel, Snowflake } from "discord.js";
+import type { DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES } from "../utility/constants.js";
+
+export interface DailyGuidesDistributionPacket {
+	guild_id: Snowflake;
+	channel_id: Snowflake | null;
+	message_id: Snowflake | null;
+}
+
+export interface DailyGuidesDistributionData {
+	guildId: DailyGuidesDistributionPacket["guild_id"];
+	channelId: DailyGuidesDistributionPacket["channel_id"];
+	messageId: DailyGuidesDistributionPacket["message_id"];
+}
+
+export type DailyGuidesDistributionAllowedChannel =
+	| Extract<GuildBasedChannel, { type: (typeof DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES)[number] }>
+	// Public thread channels do not dynamically narrow down because of the union within the channel's class.
+	| PublicThreadChannel;

@@ -1,0 +1,24 @@
+import { Event } from "../../../models/Event.js";
+import { Cosmetic, EventId } from "../../../utility/catalogue.js";
+import { skyDate } from "../../../utility/dates.js";
+import { HAIR_ACCESSORY_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../../utility/emojis.js";
+
+export default new Event({
+	id: EventId.SkyAnniversary2021,
+	start: skyDate(2_021, 7, 12),
+	end: skyDate(2_021, 7, 26),
+	offer: [
+		{
+			name: "Hair accessory",
+			cosmetic: Cosmetic.SkyAnniversaryHairAccessory2,
+			cost: { hearts: 3 },
+			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory06,
+		},
+		{
+			name: "Prop",
+			cosmetic: Cosmetic.SkyAnniversaryProp,
+			cost: { candles: 20 },
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp07,
+		},
+	],
+});

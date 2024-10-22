@@ -1,0 +1,18 @@
+import { Season } from "../../../../models/Season.js";
+import { SeasonId } from "../../../../utility/catalogue.js";
+import { skyDate } from "../../../../utility/dates.js";
+import ForgetfulStoryteller from "./forgetful-storyteller.js";
+import FranticStagehand from "./frantic-stagehand.js";
+import MellowMusician from "./mellow-musician.js";
+import ModestDancer from "./modest-dancer.js";
+import PerformanceGuide from "./performance-guide.js";
+
+export default new Season({
+	id: SeasonId.Performance,
+	start: skyDate(2_022, 4, 11),
+	end: skyDate(2_022, 6, 27),
+	guide: PerformanceGuide,
+	spirits: [FranticStagehand, ForgetfulStoryteller, MellowMusician, ModestDancer],
+	seasonalCandlesRotation: null,
+	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/16/faq/890",
+});
