@@ -3,9 +3,7 @@ import { type Client, Events, type Snowflake } from "discord.js";
 import AI from "../models/AI.js";
 import Configuration, { type ConfigurationPacket } from "../models/Configuration.js";
 import DailyGuides, { type DailyGuidesPacket } from "../models/DailyGuides.js";
-import DailyGuidesDistribution, {
-	type DailyGuidesDistributionPacket,
-} from "../models/DailyGuidesDistribution.js";
+import type { DailyGuidesDistributionPacket } from "../models/DailyGuidesDistribution.js";
 import heartbeat from "../models/Heartbeat.js";
 import {
 	type NotificationPacket,
@@ -14,6 +12,7 @@ import {
 } from "../models/Notification.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
+import { deleteDailyGuidesDistribution } from "../services/daily-guides.js";
 import type { Event } from "./index.js";
 
 const name = Events.ClientReady;
@@ -64,7 +63,7 @@ export default {
 		const settled = await Promise.allSettled(
 			[...guildIds].map(async (guildId) => [
 				AI.delete(guildId),
-				DailyGuidesDistribution.delete(guildId),
+				deleteDailyGuidesDistribution(guildId),
 				deleteNotifications(guildId),
 			]),
 		);

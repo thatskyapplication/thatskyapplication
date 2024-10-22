@@ -22,8 +22,11 @@ import type { InteractiveOptions } from "../models/Admin.js";
 import Configuration from "../models/Configuration.js";
 import type { QuestNumber } from "../models/DailyGuides.js";
 import DailyGuides, { QUESTS } from "../models/DailyGuides.js";
-import DailyGuidesDistribution from "../models/DailyGuidesDistribution.js";
 import S3Client from "../s3-client.js";
+import {
+	distribute as distributeDailyGuides,
+	distributionEmbed,
+} from "../services/daily-guides.js";
 import {
 	CDN_BUCKET,
 	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
@@ -114,7 +117,7 @@ export async function interactive(
 					.setStyle(ButtonStyle.Success),
 			),
 		],
-		embeds: [DailyGuidesDistribution.embed(resolvedLocale)],
+		embeds: [distributionEmbed(resolvedLocale)],
 	};
 
 	if (interaction.isChatInputCommand()) {
@@ -129,11 +132,11 @@ export async function interactive(
 export async function distribute(interaction: ButtonInteraction) {
 	const { client, locale, user } = interaction;
 	await interaction.deferUpdate();
-	await DailyGuidesDistribution.distribute(client);
+	await distributeDailyGuides(client);
 
 	void client.log({
 		content: `${userLogFormat(user)} manually distributed the daily guides.`,
-		embeds: [DailyGuidesDistribution.embed(locale)],
+		embeds: [distributionEmbed(locale)],
 	});
 
 	await interactive(interaction, { content: "Distributed daily guides.", locale });
@@ -181,7 +184,7 @@ export async function setQuest(interaction: ChatInputCommandInteraction) {
 	const url4 =
 		options.getString("url-4") ?? QUESTS.find((quest) => quest.content === quest4)?.url ?? null;
 
-	const previousEmbed = DailyGuidesDistribution.embed(locale);
+	const previousEmbed = distributionEmbed(locale);
 
 	await DailyGuides.updateQuests({
 		quest1: quest1 ? { content: quest1, url: url1 } : null,
@@ -192,7 +195,7 @@ export async function setQuest(interaction: ChatInputCommandInteraction) {
 
 	void client.log({
 		content: `${userLogFormat(user)} manually updated the daily quests.`,
-		embeds: [previousEmbed, DailyGuidesDistribution.embed(locale)],
+		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 
 	await interactive(interaction, {
@@ -216,7 +219,7 @@ export async function questSwap(interaction: StringSelectMenuInteraction) {
 		return;
 	}
 
-	const previousEmbed = DailyGuidesDistribution.embed(locale);
+	const previousEmbed = distributionEmbed(locale);
 
 	await DailyGuides.updateQuests({
 		[`quest${quest1}`]: DailyGuides[`quest${quest2}`],
@@ -225,7 +228,7 @@ export async function questSwap(interaction: StringSelectMenuInteraction) {
 
 	void client.log({
 		content: `${userLogFormat(user)} manually swapped quests ${quest1} & ${quest2}.`,
-		embeds: [previousEmbed, DailyGuidesDistribution.embed(locale)],
+		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 
 	await interactive(interaction, {
@@ -268,12 +271,12 @@ export async function setDailyMessage(interaction: ModalMessageModalSubmitIntera
 	const { client, locale, fields, user } = interaction;
 	const title = fields.getTextInputValue(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE);
 	const description = fields.getTextInputValue(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION);
-	const previousEmbed = DailyGuidesDistribution.embed(locale);
+	const previousEmbed = distributionEmbed(locale);
 	await DailyGuides.updateDailyMessage({ title, description });
 
 	void client.log({
 		content: `${userLogFormat(user)} manually updated the daily message.`,
-		embeds: [previousEmbed, DailyGuidesDistribution.embed(locale)],
+		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 
 	await interactive(interaction, {
@@ -371,7 +374,7 @@ export async function setTreasureCandles(interaction: ModalMessageModalSubmitInt
 		treasureCandles.push(batch2);
 	}
 
-	const previousEmbed = DailyGuidesDistribution.embed(locale);
+	const previousEmbed = distributionEmbed(locale);
 
 	const hashes = await Promise.all(
 		treasureCandles.map(async (url) => {
@@ -401,7 +404,7 @@ export async function setTreasureCandles(interaction: ModalMessageModalSubmitInt
 
 	void client.log({
 		content: `${userLogFormat(user)} manually updated the treasure candles.`,
-		embeds: [previousEmbed, DailyGuidesDistribution.embed(locale)],
+		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 
 	await interactive(interaction, {

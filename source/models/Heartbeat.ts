@@ -1,13 +1,13 @@
 import { setInterval } from "node:timers";
 import type { Client } from "discord.js";
+import { distribute, reset } from "../services/daily-guides.js";
 import { skyNow } from "../utility/dates.js";
 import DailyGuides from "./DailyGuides.js";
-import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 
 async function dailyReset(client: Client<true>) {
 	await DailyGuides.reset();
-	await DailyGuidesDistribution.reset();
-	await DailyGuidesDistribution.distribute(client);
+	await reset();
+	await distribute(client);
 }
 
 export default function heartbeat(client: Client<true>): void {

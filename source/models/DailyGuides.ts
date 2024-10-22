@@ -17,6 +17,7 @@ import type { SeasonalSpirit, StandardSpirit } from "../models/Spirits.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
+import { distribute } from "../services/daily-guides.js";
 import { SeasonId, type SeasonIds, snakeCaseName } from "../utility/catalogue.js";
 import {
 	CDN_BUCKET,
@@ -49,7 +50,6 @@ import {
 	resolveValidRealm,
 } from "../utility/functions.js";
 import { FriendAction, SpiritEmote } from "../utility/spirits.js";
-import DailyGuidesDistribution from "./DailyGuidesDistribution.js";
 
 export interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;
@@ -653,7 +653,7 @@ export default new (class DailyGuides {
 
 		if (parsed && this.queue.pending === 0 && this.queue.size === 0) {
 			this.queue.pause();
-			await DailyGuidesDistribution.distribute(client);
+			await distribute(client);
 			this.queue.start();
 		}
 	}

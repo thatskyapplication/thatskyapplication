@@ -10,7 +10,6 @@ import {
 } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import DailyGuidesDistribution from "../models/DailyGuidesDistribution.js";
 import {
 	CDN_URL,
 	DEFAULT_EMBED_COLOUR,
@@ -26,6 +25,7 @@ import {
 	skyNow,
 } from "../utility/dates.js";
 import { cannotUsePermissions } from "../utility/permission-checks.js";
+import { dailyGuidesEventData, dailyGuidesShardEruptionData } from "./daily-guides.js";
 
 function dailyResetTime(date: DateTime) {
 	return date.plus({ day: 1 }).toUnixInteger();
@@ -246,21 +246,21 @@ export async function schedule(interaction: ChatInputCommandInteraction) {
 		.setFooter({ text: t("schedule.times-are-relative", { lng: locale, ns: "commands" }) })
 		.setTitle(t("schedule.schedule-today", { lng: locale, ns: "commands" }));
 
-	const eventData = DailyGuidesDistribution.eventData(now, locale);
+	const eventData = dailyGuidesEventData(now, locale);
 
 	if (eventData.eventCurrency) {
 		embed.addFields(eventData.eventCurrency);
 	}
 
-	const shardEruptionFieldData = DailyGuidesDistribution.shardEruptionFieldData(locale);
+	const shardEruptionData = dailyGuidesShardEruptionData(locale);
 
 	if (
-		shardEruptionFieldData.length === 2 &&
+		shardEruptionData.length === 2 &&
 		(await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis))
 	) {
 		return;
 	}
 
-	embed.addFields(shardEruptionFieldData);
+	embed.addFields(shardEruptionData);
 	await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
 }
