@@ -41,7 +41,6 @@ import {
 	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
 	Catalogue,
 } from "../models/Catalogue.js";
-import { NOTIFICATION_SETUP_OFFSET_CUSTOM_ID } from "../models/Notification.js";
 import Profile, {
 	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
 	SKY_PROFILE_EDIT_CUSTOM_ID,
@@ -118,6 +117,7 @@ import {
 	GUESS_TRY_AGAIN,
 	HEART_HISTORY_BACK,
 	HEART_HISTORY_NEXT,
+	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
 } from "../utility/constants.js";
 import { isRealm } from "../utility/functions.js";
 import {

@@ -5,14 +5,11 @@ import Configuration, { type ConfigurationPacket } from "../models/Configuration
 import DailyGuides, { type DailyGuidesPacket } from "../models/DailyGuides.js";
 import type { DailyGuidesDistributionPacket } from "../models/DailyGuidesDistribution.js";
 import heartbeat from "../models/Heartbeat.js";
-import {
-	type NotificationPacket,
-	checkSendable,
-	deleteNotifications,
-} from "../models/Notification.js";
+import type { NotificationPacket } from "../models/Notification.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { deleteDailyGuidesDistribution } from "../services/daily-guides.js";
+import { checkSendable, deleteNotifications } from "../services/notification.js";
 import type { Event } from "./index.js";
 
 const name = Events.ClientReady;

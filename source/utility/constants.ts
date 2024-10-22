@@ -592,6 +592,24 @@ export const NotificationType = {
 export type NotificationTypes = (typeof NotificationType)[keyof typeof NotificationType];
 export const NOTIFICATION_TYPE_VALUES = Object.values(NotificationType);
 
+// Cannot exceed 24.
+export const NotificationOffsetToMaximumValues = {
+	[NotificationType.DailyReset]: 15,
+	[NotificationType.EyeOfEden]: 24,
+	[NotificationType.InternationalSpaceStation]: 10,
+	[NotificationType.Dragon]: 10,
+	[NotificationType.PollutedGeyser]: 10,
+	[NotificationType.Grandma]: 10,
+	[NotificationType.Turtle]: 10,
+	[NotificationType.RegularShardEruption]: 10,
+	[NotificationType.StrongShardEruption]: 10,
+	[NotificationType.AURORA]: 15,
+	[NotificationType.Passage]: 5,
+	[NotificationType.AviarysFireworkFestival]: 15,
+} as const satisfies Readonly<Record<NotificationTypes, number>>;
+
+export const NOTIFICATION_SETUP_OFFSET_CUSTOM_ID = "NOTIFICATION_SETUP_OFFSET_CUSTOM_ID" as const;
+
 // Schedule.
 export const PASSAGE_TRUNCATION_LIMIT = 9 as const;
 

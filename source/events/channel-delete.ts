@@ -1,5 +1,5 @@
 import { Events } from "discord.js";
-import { checkSendable } from "../models/Notification.js";
+import { checkSendable } from "../services/notification.js";
 import type { Event } from "./index.js";
 
 const name = Events.ChannelDelete;
