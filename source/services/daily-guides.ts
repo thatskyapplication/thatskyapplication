@@ -169,7 +169,7 @@ export async function setup(interaction: ChatInputCommandInteraction<"cached">) 
 		shouldSend = true;
 
 		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).insert(
-			{ channel_id: channel.id, message_id: null },
+			{ guild_id: guildId, channel_id: channel.id, message_id: null },
 			"*",
 		);
 	}
