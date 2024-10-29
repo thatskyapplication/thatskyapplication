@@ -3285,7 +3285,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Large bathtub.
 	 */
-	LargePlaceableProp70: { name: "large_placeable_prop", id: "1257965976549462086" },
+	LargePlaceableProp70: { name: "large_placeable_prop", id: "1260954374117789796" },
 	/**
 	 * Sunlight Manta Float.
 	 */
