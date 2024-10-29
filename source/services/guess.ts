@@ -43,91 +43,79 @@ import {
 	GuessDifficultyToStreakColumn,
 } from "../utility/constants.js";
 import {
-	COSMETIC_EMOJIS,
-	type CosmeticEmojis,
 	FRIEND_ACTION_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	formatEmoji,
 	formatEmojiURL,
 } from "../utility/emojis.js";
 import { getRandomElement } from "../utility/functions.js";
+import { SPIRIT_COSMETIC_EMOJIS_ARRAY } from "../utility/guess.js";
 
 export function isGuessDifficultyLevel(level: number): level is GuessDifficultyLevel {
 	return GUESS_DIFFICULTY_LEVEL_VALUES.includes(level);
 }
 
-function getAnswer(): [
-	CosmeticEmojis,
-	StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
-] {
+function getAnswer(): [Snowflake, StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit] {
 	// Get a random emoji as the answer.
-	const emoji = getRandomElement(COSMETIC_EMOJIS)!;
+	const emoji = getRandomElement(SPIRIT_COSMETIC_EMOJIS_ARRAY)!;
 
 	// Find what spirit uses this emoji.
-	let spirit: StandardSpirit | SeasonalSpirit | ElderSpirit | GuideSpirit | undefined;
+	let spirit: StandardSpirit | SeasonalSpirit | ElderSpirit | GuideSpirit;
 
-	if (emoji === FRIEND_ACTION_EMOJIS.DuetDance) {
+	if (emoji === FRIEND_ACTION_EMOJIS.DuetDance.id) {
 		// Early exit due to multiple sources.
 		spirit = ModestDancer;
 	} else {
 		spirit = spirits().find((spirit) =>
 			(spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
 				? spirit.current
-				: spirit.current ?? spirit.seasonal
-			)?.some((item) => item.emoji?.id === emoji.id),
-		);
+				: spirit.items)!.some((item) => item.emoji?.id === emoji),
+		)!;
 	}
 
-	// The emoji still may not be found. Run this again, if so.
-	return spirit ? [emoji, spirit] : getAnswer();
+	return [emoji, spirit];
 }
 
 function getOptions(difficulty: GuessDifficultyLevel) {
 	// Get the answer.
 	const [emoji, spirit] = getAnswer();
-	const answers = [spirit];
+	const foundAnswers = new Set<StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit>();
 
 	// Generate other answers.
 	if (difficulty === GuessDifficultyLevel.Original) {
-		let filtered = spirits().filter((original) => original.name !== spirit.name);
-		const answer2 = getRandomElement(filtered)!;
-		filtered = filtered.filter((original) => original.name !== answer2.name);
-		const answer3 = getRandomElement(filtered)!;
-		answers.push(answer2, answer3);
+		const filtered = spirits().filter((original) => original.name !== spirit.name);
+
+		while (foundAnswers.size < 2) {
+			const randomSpirit = getRandomElement(filtered)!;
+			foundAnswers.add(randomSpirit);
+		}
 	} else {
+		let filtered: (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[];
+
 		// Collect spirits from the same realm or season.
 		if (spirit.isStandardSpirit()) {
-			let filtered = STANDARD_SPIRITS.filter(
+			filtered = STANDARD_SPIRITS.filter(
 				(original) => original.name !== spirit.name && original.realm === spirit.realm,
 			);
-
-			const answer2 = getRandomElement(filtered)!;
-			filtered = filtered.filter((original) => original.name !== answer2.name);
-			const answer3 = getRandomElement(filtered)!;
-			answers.push(answer2, answer3);
-		}
-
-		if (spirit.isElderSpirit()) {
-			let filtered = ELDER_SPIRITS.filter((original) => original.name !== spirit.name);
-			const answer2 = getRandomElement(filtered)!;
-			filtered = filtered.filter((original) => original.name !== answer2.name);
-			const answer3 = getRandomElement(filtered)!;
-			answers.push(answer2, answer3);
-		}
-
-		if (spirit.isSeasonalSpirit() || spirit.isGuideSpirit()) {
-			let filtered = currentSeasonalSpirits().filter(
+		} else if (spirit.isElderSpirit()) {
+			filtered = ELDER_SPIRITS.filter((original) => original.name !== spirit.name);
+		} else {
+			filtered = currentSeasonalSpirits().filter(
 				(original) => original.name !== spirit.name && original.seasonId === spirit.seasonId,
 			);
+		}
 
-			const answer2 = getRandomElement(filtered)!;
-			filtered = filtered.filter((original) => original.name !== answer2.name);
-			const answer3 = getRandomElement(filtered)!;
-			answers.push(answer2, answer3);
+		while (foundAnswers.size < 2) {
+			const randomSpirit = getRandomElement(filtered)!;
+			foundAnswers.add(randomSpirit);
 		}
 	}
 
-	return { answer: spirit, emoji, options: answers.sort(() => Math.random() - 0.5) };
+	return {
+		answer: spirit,
+		emoji,
+		options: [spirit, ...foundAnswers].sort(() => Math.random() - 0.5),
+	};
 }
 
 export async function guess(
@@ -180,7 +168,7 @@ export async function guess(
 				.setFooter({
 					text: `Difficulty: ${difficultyString} | Streak: ${streak} | Highest: ${streakString}`,
 				})
-				.setImage(formatEmojiURL(emoji.id))
+				.setImage(formatEmojiURL(emoji))
 				.setTitle("Where does this come from?"),
 		],
 	};
