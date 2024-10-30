@@ -9,8 +9,8 @@
 		"lint": "biome check",
 		"dev": "tsx --env-file=.env source/index.ts | pino-pretty",
 		"start": "node --enable-source-maps distribution/index.js",
-		"deploy-commands-dev": "tsx --env-file=.env source/Utility/deploy-commands.ts | pino-pretty",
-		"deploy-commands": "NODE_ENV=production tsx --env-file=.env source/Utility/deploy-commands.ts | pino-pretty",
+		"deploy-commands-dev": "tsx --env-file=.env source/utility/deploy-commands.ts | pino-pretty",
+		"deploy-commands": "NODE_ENV=production tsx --env-file=.env source/utility/deploy-commands.ts | pino-pretty",
 		"update": "pnpm update --interactive --latest && pre-commit autoupdate",
 		"knip": "knip"
 	},
