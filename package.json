@@ -17,6 +17,7 @@
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.600.0",
 		"@logtail/pino": "^0.4.22",
+		"croner": "^9.0.0",
 		"discord.js": "14.16.3",
 		"hasha": "^6.0.0",
 		"i18next": "^23.11.5",

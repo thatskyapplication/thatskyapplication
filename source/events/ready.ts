@@ -1,10 +1,10 @@
 import process from "node:process";
 import { type Client, Events, type Snowflake } from "discord.js";
+import croner from "../croner.js";
 import AI from "../models/AI.js";
 import Configuration, { type ConfigurationPacket } from "../models/Configuration.js";
 import DailyGuides, { type DailyGuidesPacket } from "../models/DailyGuides.js";
 import type { DailyGuidesDistributionPacket } from "../models/DailyGuidesDistribution.js";
-import heartbeat from "../models/Heartbeat.js";
 import type { NotificationPacket } from "../models/Notification.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
@@ -88,6 +88,6 @@ export default {
 			pino.error(notificationsErrors, "Error whilst performing the notification health check.");
 		}
 
-		heartbeat(client);
+		croner(client);
 	},
 } satisfies Event<typeof name>;
