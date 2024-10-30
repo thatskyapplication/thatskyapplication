@@ -103,16 +103,12 @@ export async function gift(
 	);
 
 	const heartPackets = await pg<HeartPacket>(Table.Hearts)
-		.select()
 		.where({ gifter_id: interaction.user.id })
+		.andWhere("timestamp", ">=", today.toISO())
 		.orderBy("timestamp", "desc")
 		.limit(MAXIMUM_HEARTS_PER_DAY);
 
-	const filteredHeartPackets = heartPackets.filter(
-		(heart) => heart.timestamp.getTime() >= today.toMillis(),
-	);
-
-	if (filteredHeartPackets.some((heart) => heart.giftee_id === user.id)) {
+	if (heartPackets.some((heartPacket) => heartPacket.giftee_id === user.id)) {
 		await interaction.reply({
 			content: `You've already sent ${user} a ${formatEmoji(
 				MISCELLANEOUS_EMOJIS.Heart,
@@ -127,7 +123,7 @@ export async function gift(
 		MISCELLANEOUS_EMOJIS.Heart,
 	)} left to gift today.\nYou can gift more ${tomorrowTimestamp}.`;
 
-	if (filteredHeartPackets.length >= MAXIMUM_HEARTS_PER_DAY) {
+	if (heartPackets.length >= MAXIMUM_HEARTS_PER_DAY) {
 		await interaction.reply({ content: noMoreHeartsLeft, flags: MessageFlags.Ephemeral });
 		return;
 	}
@@ -153,7 +149,7 @@ export async function gift(
 		})}.`,
 	});
 
-	const heartsLeftToGift = MAXIMUM_HEARTS_PER_DAY - filteredHeartPackets.length - 1;
+	const heartsLeftToGift = MAXIMUM_HEARTS_PER_DAY - heartPackets.length - 1;
 
 	await interaction.followUp({
 		content:
