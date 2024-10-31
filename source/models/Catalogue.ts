@@ -77,7 +77,7 @@ export interface CataloguePacket {
 
 interface CatalogueData {
 	userId: CataloguePacket["user_id"];
-	data: CataloguePacket["data"];
+	data: Set<number>;
 }
 
 type CataloguePatchData = Omit<CataloguePacket, "user_id">;
@@ -143,7 +143,7 @@ export class Catalogue {
 	}
 
 	private patch(data: CataloguePatchData) {
-		this.data = data.data;
+		this.data = new Set(data.data);
 	}
 
 	public static async fetch(userId: Snowflake) {
@@ -158,7 +158,7 @@ export class Catalogue {
 
 	private ownedProgress(items: readonly Item[]) {
 		return {
-			owned: resolveAllCosmetics(items).filter((cosmetic) => this.data.includes(cosmetic)),
+			owned: resolveAllCosmetics(items).filter((cosmetic) => this.data.has(cosmetic)),
 			total: items.reduce((total, item) => total + item.cosmetics.length, 0),
 		};
 	}
@@ -839,7 +839,7 @@ export class Catalogue {
 		if (season.items.length > 0) {
 			const itemsOptions = season.items.map(({ emoji, name, cosmetics }) => {
 				const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
-					.setDefault(cosmetics.every((cosmetic) => catalogue.data.includes(cosmetic)))
+					.setDefault(cosmetics.every((cosmetic) => catalogue.data.has(cosmetic)))
 					.setLabel(name)
 					.setValue(JSON.stringify(cosmetics));
 
@@ -1188,7 +1188,7 @@ export class Catalogue {
 
 			const itemSelectionOptions = offer.map(({ emoji, name, cosmetics }) => {
 				const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
-					.setDefault(cosmetics.every((cosmetic) => this.data.includes(cosmetic)))
+					.setDefault(cosmetics.every((cosmetic) => this.data.has(cosmetic)))
 					.setLabel(name)
 					.setValue(JSON.stringify(cosmetics));
 
@@ -1366,7 +1366,7 @@ export class Catalogue {
 
 			const itemSelectionOptions = offer.map(({ emoji, name, cosmetics }) => {
 				const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
-					.setDefault(cosmetics.every((cosmetic) => this.data.includes(cosmetic)))
+					.setDefault(cosmetics.every((cosmetic) => this.data.has(cosmetic)))
 					.setLabel(name)
 					.setValue(JSON.stringify(cosmetics));
 
@@ -1429,7 +1429,7 @@ export class Catalogue {
 
 		const itemSelectionOptions = STARTER_PACKS.items.map(({ emoji, name, cosmetics }) => {
 			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
-				.setDefault(cosmetics.every((cosmetic) => catalogue.data.includes(cosmetic)))
+				.setDefault(cosmetics.every((cosmetic) => catalogue.data.has(cosmetic)))
 				.setLabel(name)
 				.setValue(JSON.stringify(cosmetics));
 
@@ -1488,7 +1488,7 @@ export class Catalogue {
 
 		const itemSelectionOptions = SECRET_AREA.items.map(({ emoji, name, cosmetics }) => {
 			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
-				.setDefault(cosmetics.every((cosmetic) => catalogue.data.includes(cosmetic)))
+				.setDefault(cosmetics.every((cosmetic) => catalogue.data.has(cosmetic)))
 				.setLabel(name)
 				.setValue(JSON.stringify(cosmetics));
 
@@ -1547,7 +1547,7 @@ export class Catalogue {
 
 		const itemSelectionOptions = PERMANENT_EVENT_STORE.items.map(({ emoji, name, cosmetics }) => {
 			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
-				.setDefault(cosmetics.every((cosmetic) => catalogue.data.includes(cosmetic)))
+				.setDefault(cosmetics.every((cosmetic) => catalogue.data.has(cosmetic)))
 				.setLabel(name)
 				.setValue(JSON.stringify(cosmetics));
 
@@ -1608,7 +1608,7 @@ export class Catalogue {
 
 		const itemSelectionOptions = NESTING_WORKSHOP.items.map(({ emoji, name, cosmetics }) => {
 			const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
-				.setDefault(cosmetics.every((cosmetic) => catalogue.data.includes(cosmetic)))
+				.setDefault(cosmetics.every((cosmetic) => catalogue.data.has(cosmetic)))
 				.setLabel(name)
 				.setValue(JSON.stringify(cosmetics));
 
@@ -1841,17 +1841,16 @@ export class Catalogue {
 			const { component } = interaction;
 
 			// Retrieve all cosmetics in this select menu.
-			const selectMenuCosmetics = component.options.reduce<number[]>(
-				(computedCosmetics, { value }) => {
-					const parsedValue = JSON.parse(value) as readonly number[];
-					computedCosmetics.push(...parsedValue);
-					return computedCosmetics;
-				},
-				[],
-			);
+			const selectMenuCosmetics = component.options.reduce((computedCosmetics, { value }) => {
+				for (const parsedValue of JSON.parse(value) as readonly number[]) {
+					computedCosmetics.add(parsedValue);
+				}
+
+				return computedCosmetics;
+			}, new Set<number>());
 
 			// Remove the cosmetics from the data.
-			const modifiedData = this.data.filter((cosmetic) => !selectMenuCosmetics.includes(cosmetic));
+			const modifiedData = this.data.difference(selectMenuCosmetics);
 
 			// Calculate the new data.
 			cosmetics = [
@@ -1966,7 +1965,7 @@ export class Catalogue {
 		for (const { name, cosmetics, emoji } of offer) {
 			const toPush = emoji ? formatEmoji(emoji) : name;
 
-			if (cosmetics.every((cosmetic) => this.data.includes(cosmetic))) {
+			if (cosmetics.every((cosmetic) => this.data.has(cosmetic))) {
 				owned.push(toPush);
 			} else {
 				unowned.push(toPush);
@@ -2258,7 +2257,7 @@ export class Catalogue {
 	private remainingCurrency(items: readonly Item[], includeSeasonalCurrency?: boolean) {
 		const result = addCosts(
 			items
-				.filter(({ cosmetics }) => cosmetics.some((cosmetic) => !this.data.includes(cosmetic)))
+				.filter(({ cosmetics }) => cosmetics.some((cosmetic) => !this.data.has(cosmetic)))
 				.map((item) => item.cost)
 				.filter((cost): cost is ItemCost => cost !== null),
 		);
