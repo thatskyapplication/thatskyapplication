@@ -131,13 +131,15 @@ export async function parseSpiritSwitch(interaction: ButtonInteraction) {
 
 function visitField(
 	seasonalSpiritVisit: SeasonalSpiritVisitTravellingData | SeasonalSpiritVisitReturningData,
+	error: boolean,
 ) {
 	return seasonalSpiritVisit
 		.reduce<string[]>((visits, date, visit) => {
 			const resolvedDate = "start" in date ? date.start : date;
+			const prefix = error ? "Error" : `#${visit}`;
 
 			visits.push(
-				`${visit === "Error" ? "" : "#"}${visit}: ${time(
+				`${prefix}: ${time(
 					resolvedDate.toUnixInteger(),
 					TimestampStyles.LongDate,
 				)} (${time(resolvedDate.toUnixInteger(), TimestampStyles.RelativeTime)})`,
@@ -229,14 +231,23 @@ async function searchResponse(
 	const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 
 	if (isSeasonalSpirit) {
-		const { travelling, returning } = spirit.visits;
+		const { travelling, travellingErrors, returning } = spirit.visits;
+		const travellingFieldValue = [];
 
 		if (travelling.size > 0) {
-			embed.addFields({ name: "Travelling", value: visitField(travelling) });
+			travellingFieldValue.push(visitField(travelling, false));
+		}
+
+		if (travellingErrors.size > 0) {
+			travellingFieldValue.push(visitField(travellingErrors, true));
+		}
+
+		if (travellingFieldValue.length > 0) {
+			embed.addFields({ name: "Travelling", value: travellingFieldValue.join("\n") });
 		}
 
 		if (returning.size > 0) {
-			embed.addFields({ name: "Returning", value: visitField(returning) });
+			embed.addFields({ name: "Returning", value: visitField(returning, false) });
 		}
 
 		if (spirit.visit(skyNow()).visited) {

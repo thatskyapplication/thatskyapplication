@@ -1,12 +1,6 @@
-import { Collection } from "discord.js";
-import type { DateTime } from "luxon";
-import {
-	SeasonalSpirit,
-	type SeasonalSpiritVisitCollectionKey,
-} from "../../../../models/Spirits.js";
+import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import { RealmName } from "../../../../utility/constants.js";
-import { skyDate } from "../../../../utility/dates.js";
 import { CAPE_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../utility/emojis.js";
 import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../utility/spirits.js";
 
@@ -97,8 +91,6 @@ export default new SeasonalSpirit({
 		],
 	},
 	visits: {
-		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>()
-			.set(8, skyDate(2_020, 4, 30))
-			.set(57, skyDate(2_022, 3, 17)),
+		travelling: [8, 57],
 	},
 });

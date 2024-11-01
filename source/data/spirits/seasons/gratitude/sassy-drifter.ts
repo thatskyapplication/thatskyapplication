@@ -1,12 +1,6 @@
-import { Collection } from "discord.js";
-import type { DateTime } from "luxon";
-import {
-	SeasonalSpirit,
-	type SeasonalSpiritVisitCollectionKey,
-} from "../../../../models/Spirits.js";
+import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import { RealmName } from "../../../../utility/constants.js";
-import { skyDate } from "../../../../utility/dates.js";
 import { HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../utility/emojis.js";
 import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../utility/spirits.js";
 
@@ -81,12 +75,7 @@ export default new SeasonalSpirit({
 		],
 	},
 	visits: {
-		travelling: new Collection<SeasonalSpiritVisitCollectionKey, DateTime>()
-			.set(1, skyDate(2_020, 1, 31))
-			.set(10, skyDate(2_020, 5, 28))
-			.set(39, skyDate(2_021, 7, 8))
-			.set(76, skyDate(2_022, 12, 8))
-			.set(111, skyDate(2_024, 4, 11)),
+		travelling: [1, 10, 39, 76, 111],
 	},
 	keywords: ["weasel", "weasel mask"],
 });
