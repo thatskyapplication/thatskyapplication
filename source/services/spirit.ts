@@ -139,10 +139,7 @@ function visitField(
 			const prefix = error ? "Error" : `#${visit}`;
 
 			visits.push(
-				`${prefix}: ${time(
-					resolvedDate.toUnixInteger(),
-					TimestampStyles.LongDate,
-				)} (${time(resolvedDate.toUnixInteger(), TimestampStyles.RelativeTime)})`,
+				`${prefix}: ${resolvedDate.toFormat("dd/LL/yyyy")} (${time(resolvedDate.toUnixInteger(), TimestampStyles.RelativeTime)})`,
 			);
 
 			return visits;
