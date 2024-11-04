@@ -49,6 +49,7 @@ import {
 	VALID_REALM_NAME,
 } from "../utility/constants.js";
 import { resolveValidRealm, userLogFormat } from "../utility/functions.js";
+import { log } from "./log.js";
 
 function isQuestNumber(questNumber: number): questNumber is QuestNumber {
 	return QUEST_NUMBER.includes(questNumber as QuestNumber);
@@ -134,7 +135,7 @@ export async function distribute(interaction: ButtonInteraction) {
 	await interaction.deferUpdate();
 	await distributeDailyGuides(client);
 
-	void client.log({
+	void log(client, {
 		content: `${userLogFormat(user)} manually distributed the daily guides.`,
 		embeds: [distributionEmbed(locale)],
 	});
@@ -193,7 +194,7 @@ export async function setQuest(interaction: ChatInputCommandInteraction) {
 		quest4: quest4 ? { content: quest4, url: url4 } : null,
 	});
 
-	void client.log({
+	void log(client, {
 		content: `${userLogFormat(user)} manually updated the daily quests.`,
 		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
@@ -226,7 +227,7 @@ export async function questSwap(interaction: StringSelectMenuInteraction) {
 		[`quest${quest2}`]: DailyGuides[`quest${quest1}`],
 	});
 
-	void client.log({
+	void log(client, {
 		content: `${userLogFormat(user)} manually swapped quests ${quest1} & ${quest2}.`,
 		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
@@ -274,7 +275,7 @@ export async function setDailyMessage(interaction: ModalMessageModalSubmitIntera
 	const previousEmbed = distributionEmbed(locale);
 	await DailyGuides.updateDailyMessage({ title, description });
 
-	void client.log({
+	void log(client, {
 		content: `${userLogFormat(user)} manually updated the daily message.`,
 		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
@@ -402,7 +403,7 @@ export async function setTreasureCandles(interaction: ModalMessageModalSubmitInt
 
 	await DailyGuides.updateTreasureCandles({ [realm]: hashes });
 
-	void client.log({
+	void log(client, {
 		content: `${userLogFormat(user)} manually updated the treasure candles.`,
 		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
