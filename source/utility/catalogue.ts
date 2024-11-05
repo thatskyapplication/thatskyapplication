@@ -2763,6 +2763,9 @@ export const enum Cosmetic {
 	MischiefSpiderBun = 2187,
 	MischiefRavenFeatheredCloak = 2188,
 	MischiefWitheredBroom = 2189,
+
+	// 28/10/2024 | Season of Moomin Quest 2.
+	TheMoominStorybookQuest2 = 2190,
 }
 
 export const SeasonId = {

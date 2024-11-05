@@ -59,6 +59,11 @@ export default new GuideSpirit({
 				cost: { seasonalHearts: 2 },
 				emoji: OUTFIT_EMOJIS.Outfit70,
 			},
+			{
+				name: "Quest 2",
+				cosmetic: Cosmetic.TheMoominStorybookQuest2,
+				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
 		],
 	},
 });
