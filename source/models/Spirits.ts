@@ -157,7 +157,8 @@ const TRAVELLING_DATES = new Collection<number, DateTime>()
 	.set(122, skyDate(2_024, 9, 12))
 	.set(123, skyDate(2_024, 9, 26))
 	.set(124, skyDate(2_024, 10, 10))
-	.set(125, skyDate(2_024, 10, 24));
+	.set(125, skyDate(2_024, 10, 24))
+	.set(126, skyDate(2024, 11, 7));
 
 const TRAVELLING_ERROR_DATES = new Collection<number, DateTime>()
 	.set(1, skyDate(2_020, 5, 28))
