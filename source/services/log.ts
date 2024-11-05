@@ -1,12 +1,7 @@
 import { stat, unlink, writeFile } from "node:fs/promises";
 import { inspect } from "node:util";
-import {
-	ChannelType,
-	type Client,
-	EmbedBuilder,
-	PermissionFlagsBits,
-	type TextChannel,
-} from "discord.js";
+import { ChannelType, PermissionFlagsBits, type APIUnavailableGuild, type GatewayGuildCreateDispatchData } from "@discordjs/core";
+import { DiscordSnowflake } from "@sapphire/snowflake";
 import pino from "../pino.js";
 import { DEFAULT_EMBED_COLOUR, MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID } from "../utility/constants.js";
 
@@ -97,4 +92,23 @@ export async function log(client: Client<true>, { content, embeds = [], error }:
 
 		pino.error(error, "Failed to log to Discord.");
 	}
+}
+
+export function logGuildCreate(guild: GatewayGuildCreateDispatchData) {
+	pino.info(
+		{
+			id: guild.id,
+			name: guild.name,
+			created: DiscordSnowflake.timestampFrom(guild.id),
+			joined: guild.joined_at,
+			owner: guild.owner_id,
+			members: guild.member_count,
+			locale: guild.preferred_locale,
+		},
+		"Guild joined",
+	);
+}
+
+export function logGuildDelete(guild: APIUnavailableGuild) {
+	pino.info({ id: guild.id }, "Guild left");
 }

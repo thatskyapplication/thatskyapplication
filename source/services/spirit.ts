@@ -1,18 +1,3 @@
-import {
-	ActionRowBuilder,
-	type AutocompleteInteraction,
-	ButtonBuilder,
-	ButtonInteraction,
-	ButtonStyle,
-	type ChatInputCommandInteraction,
-	EmbedBuilder,
-	MessageFlags,
-	PermissionFlagsBits,
-	TimestampStyles,
-	formatEmoji,
-	hyperlink,
-	time,
-} from "discord.js";
 import { t } from "i18next";
 import { spirits } from "../data/spirits/index.js";
 import { resolveSeasonalSpirit } from "../data/spirits/seasons/index.js";

@@ -1,9 +1,3 @@
-import {
-	type ChatInputCommandInteraction,
-	EmbedBuilder,
-	MessageFlags,
-	PermissionFlagsBits,
-} from "discord.js";
 import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_KRILL_NO } from "../utility/constants.js";
 
 export async function krill(interaction: ChatInputCommandInteraction) {

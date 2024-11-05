@@ -1,29 +1,10 @@
-import {
-	ActionRowBuilder,
-	type Channel,
-	type ChatInputCommandInteraction,
-	type Client,
-	ComponentType,
-	DiscordjsError,
-	DiscordjsErrorCodes,
-	EmbedBuilder,
-	type GuildMember,
-	MessageFlags,
-	PermissionFlagsBits,
-	type Role,
-	type Snowflake,
-	StringSelectMenuBuilder,
-	type StringSelectMenuInteraction,
-	StringSelectMenuOptionBuilder,
-	channelMention,
-	formatEmoji,
-	roleMention,
-} from "discord.js";
+import type { API, APIChannel, Snowflake } from "@discordjs/core";
 import { t } from "i18next";
 import type { NotificationAllowedChannel, NotificationPacket } from "../models/Notification.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
+	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,
 	ERROR_RESPONSE,
 	NOTIFICATION_CHANNEL_TYPES,
@@ -33,8 +14,9 @@ import {
 	type NotificationTypes,
 } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import { GUILD_CACHE } from "../caches/guilds.js";
 
-function isNotificationChannel(channel: Channel): channel is NotificationAllowedChannel {
+function isNotificationChannel(channel: APIChannel): channel is NotificationAllowedChannel {
 	return NOTIFICATION_CHANNEL_TYPES.includes(
 		channel.type as (typeof NOTIFICATION_CHANNEL_TYPES)[number],
 	);
@@ -254,9 +236,9 @@ export async function deleteNotifications(guildId: Snowflake) {
 	await pg<NotificationPacket>(Table.Notifications).delete().where({ guild_id: guildId });
 }
 
-export async function checkSendable(client: Client<true>, guildId: Snowflake) {
+export async function checkSendable(api: API, guildId: Snowflake) {
 	// Can the guild be accessed?
-	const guild = client.guilds.cache.get(guildId);
+	const guild = GUILD_CACHE.get(guildId);
 
 	if (!guild) {
 		// Just nuke everything.
@@ -268,7 +250,7 @@ export async function checkSendable(client: Client<true>, guildId: Snowflake) {
 		.select(["guild_id", "type", "channel_id", "role_id"])
 		.where({ guild_id: guildId });
 
-	const me = await guild.members.fetchMe();
+	const me = api.guilds.getMember(guildId, APPLICATION_ID);
 
 	// Check if we can still send to all the guild's notification channels.
 	const promises = notificationPackets.map((notificationPacket) =>

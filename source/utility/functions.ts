@@ -1,4 +1,16 @@
-import type { EntitlementManager, Snowflake, User } from "discord.js";
+import {
+	type APIApplicationCommandAutocompleteInteraction,
+	type APIChatInputApplicationCommandInteraction,
+	type APIInteraction,
+	type APIMessageComponentButtonInteraction,
+	type APIMessageComponentSelectMenuInteraction,
+	type APIModalSubmitInteraction,
+	type APIUserApplicationCommandInteraction,
+	ApplicationCommandType,
+	ComponentType,
+	InteractionType,
+	type Snowflake,
+} from "@discordjs/core";
 import { SERVER_UPGRADE_SKU_ID } from "./constants.js";
 import {
 	INCONSISTENT_MAP,
@@ -125,4 +137,52 @@ export function isSocialLightAreaMap(skyMap: SkyMap): skyMap is SocialLightAreaM
 
 export function isRainbowAdmireMap(skyMap: SkyMap): skyMap is RainbowAdmireMaps {
 	return RAINBOW_ADMIRE_MAPS.includes(skyMap as RainbowAdmireMaps);
+}
+
+export function isChatInputCommand(
+	interaction: APIInteraction,
+): interaction is APIChatInputApplicationCommandInteraction {
+	return (
+		interaction.type === InteractionType.ApplicationCommand &&
+		interaction.data.type === ApplicationCommandType.ChatInput
+	);
+}
+
+export function isUserContextMenuCommand(
+	interaction: APIInteraction,
+): interaction is APIUserApplicationCommandInteraction {
+	return (
+		interaction.type === InteractionType.ApplicationCommand &&
+		interaction.data.type === ApplicationCommandType.User
+	);
+}
+
+export function isButton(
+	interaction: APIInteraction,
+): interaction is APIMessageComponentButtonInteraction {
+	return (
+		interaction.type === InteractionType.MessageComponent &&
+		interaction.data.component_type === ComponentType.Button
+	);
+}
+
+export function isSelectMenu(
+	interaction: APIInteraction,
+): interaction is APIMessageComponentSelectMenuInteraction {
+	return (
+		interaction.type === InteractionType.MessageComponent &&
+		interaction.data.component_type === ComponentType.StringSelect
+	);
+}
+
+export function isAutocomplete(
+	interaction: APIInteraction,
+): interaction is APIApplicationCommandAutocompleteInteraction {
+	return interaction.type === InteractionType.ApplicationCommandAutocomplete;
+}
+
+export function isModalSubmit(
+	interaction: APIInteraction,
+): interaction is APIModalSubmitInteraction {
+	return interaction.type === InteractionType.ModalSubmit;
 }

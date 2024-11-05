@@ -1,16 +1,3 @@
-import {
-	ActionRowBuilder,
-	ButtonBuilder,
-	ButtonInteraction,
-	ButtonStyle,
-	type ChatInputCommandInteraction,
-	EmbedBuilder,
-	type Guild,
-	MessageFlags,
-	type Snowflake,
-	TimestampStyles,
-	time,
-} from "discord.js";
 import { t } from "i18next";
 import { spirits } from "../data/spirits/index.js";
 import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../data/spirits/realms/index.js";
@@ -50,6 +37,7 @@ import {
 } from "../utility/emojis.js";
 import { getRandomElement } from "../utility/functions.js";
 import { SPIRIT_COSMETIC_EMOJIS_ARRAY } from "../utility/guess.js";
+import type { API, Client, GatewayGuildCreateDispatchData, Snowflake } from "@discordjs/core";
 
 export function isGuessDifficultyLevel(level: number): level is GuessDifficultyLevel {
 	return GUESS_DIFFICULTY_LEVEL_VALUES.includes(level);
@@ -368,11 +356,11 @@ export async function removeGuildId(userId: Snowflake, guildId: Snowflake) {
 		.where({ user_id: userId });
 }
 
-export async function handleGuildCreate(guild: Guild) {
+export async function handleGuildCreate(client: Client, guild: GatewayGuildCreateDispatchData) {
 	const userIds = (await pg<GuessPacket>(Table.Guess).select("user_id")).map((row) => row.user_id);
-	const members = await guild.members.fetch({ user: userIds });
+	const requestedGuildMembers = await client.requestGuildMembers({ guild_id: guild.id, user_ids: userIds });
 
-	const data = members.reduce<Record<Snowflake, Snowflake>>((data, member) => {
+	const data = requestedGuildMembers.members.reduce<Record<Snowflake, Snowflake>>((data, member) => {
 		data[member.user.id] = guild.id;
 		return data;
 	}, {});

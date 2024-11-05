@@ -1,14 +1,17 @@
-import { Events } from "discord.js";
+import { GatewayDispatchEvents } from "@discordjs/core";
 import { handleGuildRemove } from "../services/guess.js";
+import { logGuildDelete } from "../services/log.js";
 import { checkSendable } from "../services/notification.js";
-import { type Event, logGuild } from "./index.js";
+import type { Event } from "./index.js";
+import { GUILD_CACHE } from "../caches/guilds.js";
 
-const name = Events.GuildDelete;
+const name = GatewayDispatchEvents.GuildDelete;
 
 export default {
 	name,
-	async fire(guild) {
-		logGuild(guild, false);
+	async fire({ data }) {
+		GUILD_CACHE.delete(data.id);
+		logGuildDelete(data);
 		await Promise.all([handleGuildRemove(guild), checkSendable(guild.client, guild.id)]);
 	},
 } satisfies Event<typeof name>;

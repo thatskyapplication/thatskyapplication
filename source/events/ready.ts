@@ -1,5 +1,4 @@
 import process from "node:process";
-import { type Client, Events, type Snowflake } from "discord.js";
 import croner from "../croner.js";
 import AI from "../models/AI.js";
 import Configuration, { type ConfigurationPacket } from "../models/Configuration.js";
@@ -10,9 +9,11 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { deleteDailyGuidesDistribution } from "../services/daily-guides.js";
 import { checkSendable, deleteNotifications } from "../services/notification.js";
+import { GUILD_IDS_FROM_READY } from "../caches/guilds.js";
 import type { Event } from "./index.js";
+import { GatewayDispatchEvents } from "@discordjs/core";
 
-const name = Events.ClientReady;
+const name = GatewayDispatchEvents.Ready;
 const guildIds = new Set<Snowflake>();
 
 async function collectFromDatabase(client: Client<true>) {
@@ -44,7 +45,11 @@ async function collectDailyGuides() {
 export default {
 	name,
 	once: true,
-	async fire(client) {
+	async fire({ data }) {
+		for (const guild of data.guilds) {
+			GUILD_IDS_FROM_READY.add(guild.id);
+		}
+
 		await collectFromDatabase(client);
 
 		// Collect guild ids from daily guides distribution table for the set.

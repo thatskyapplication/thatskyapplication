@@ -1,10 +1,3 @@
-import {
-	type ChatInputCommandInteraction,
-	EmbedBuilder,
-	Locale,
-	MessageFlags,
-	PermissionFlagsBits,
-} from "discord.js";
 import { t } from "i18next";
 import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_HUG_NO } from "../utility/constants.js";
 

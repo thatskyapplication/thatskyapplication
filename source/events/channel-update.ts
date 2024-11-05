@@ -1,13 +1,13 @@
-import { Events } from "discord.js";
+import { GatewayDispatchEvents } from "@discordjs/core";
 import { checkSendable } from "../services/notification.js";
 import type { Event } from "./index.js";
 
-const name = Events.ChannelUpdate;
+const name = GatewayDispatchEvents.ChannelUpdate;
 
 export default {
 	name,
-	async fire(oldChannel, newChannel) {
-		if (oldChannel.isDMBased() || newChannel.isDMBased()) {
+	async fire({ data }) {
+		if (!("guild_id" in data)) {
 			return;
 		}
 

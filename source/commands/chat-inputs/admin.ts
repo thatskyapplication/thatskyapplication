@@ -1,10 +1,4 @@
-import type {
-	AutocompleteInteraction,
-	ButtonInteraction,
-	ChatInputCommandInteraction,
-	ModalMessageModalSubmitInteraction,
-	StringSelectMenuInteraction,
-} from "discord.js";
+import type { APIApplicationCommandAutocompleteInteraction } from "@discordjs/core";
 import type { InteractiveOptions } from "../../models/Admin.js";
 import {
 	ai,
@@ -21,7 +15,7 @@ import {
 
 export default {
 	name: "admin",
-	async autocomplete(interaction: AutocompleteInteraction) {
+	async autocomplete(interaction: APIApplicationCommandAutocompleteInteraction) {
 		switch (interaction.options.getSubcommand()) {
 			case "set-quest":
 				await this.setQuestAutocomplete(interaction);

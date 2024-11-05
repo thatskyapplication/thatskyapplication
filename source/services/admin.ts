@@ -1,21 +1,4 @@
 import { PutObjectCommand } from "@aws-sdk/client-s3";
-import {
-	ActionRowBuilder,
-	ActivityType,
-	type AutocompleteInteraction,
-	ButtonBuilder,
-	type ButtonInteraction,
-	ButtonStyle,
-	type ChatInputCommandInteraction,
-	MessageFlags,
-	ModalBuilder,
-	type ModalMessageModalSubmitInteraction,
-	StringSelectMenuBuilder,
-	type StringSelectMenuInteraction,
-	StringSelectMenuOptionBuilder,
-	TextInputBuilder,
-	TextInputStyle,
-} from "discord.js";
 import { hash } from "hasha";
 import sharp from "sharp";
 import type { InteractiveOptions } from "../models/Admin.js";

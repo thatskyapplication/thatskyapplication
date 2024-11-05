@@ -1,21 +1,3 @@
-import {
-	type Channel,
-	ChannelType,
-	type ChatInputCommandInteraction,
-	type Client,
-	DiscordAPIError,
-	EmbedBuilder,
-	type EmbedFooterOptions,
-	type Guild,
-	type GuildMember,
-	type Locale,
-	MessageFlags,
-	PermissionFlagsBits,
-	RESTJSONErrorCodes,
-	type Snowflake,
-	channelMention,
-	hyperlink,
-} from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { skyCurrentEvents, skyNotEndedEvents } from "../data/events/index.js";

@@ -1,18 +1,4 @@
-import {
-	ActionRowBuilder,
-	type ChatInputCommandInteraction,
-	type Client,
-	Collection,
-	ComponentType,
-	EmbedBuilder,
-	type GuildMember,
-	type Message,
-	PermissionFlagsBits,
-	type Snowflake,
-	StringSelectMenuBuilder,
-	type StringSelectMenuInteraction,
-	StringSelectMenuOptionBuilder,
-} from "discord.js";
+import { ComponentType, type Snowflake } from "@discordjs/core";
 import {
 	messageCreateEmojiResponse,
 	messageCreateReactionResponse,
@@ -22,6 +8,7 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { DEFAULT_EMBED_COLOUR, SERVER_UPGRADE_SKU_ID } from "../utility/constants.js";
 import { resolveEntitlement } from "../utility/functions.js";
+import { Collection } from "@discordjs/collection";
 
 interface AIPacket {
 	guild_id: Snowflake;

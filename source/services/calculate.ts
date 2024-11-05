@@ -1,14 +1,3 @@
-import {
-	type ChatInputCommandInteraction,
-	EmbedBuilder,
-	type EmbedFooterOptions,
-	Locale,
-	MessageFlags,
-	PermissionFlagsBits,
-	TimestampStyles,
-	formatEmoji,
-	time,
-} from "discord.js";
 import { t } from "i18next";
 import { skyCurrentEvents } from "../data/events/index.js";
 import { skyCurrentSeason } from "../data/spirits/seasons/index.js";

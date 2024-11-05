@@ -1,11 +1,3 @@
-import {
-	ActionRowBuilder,
-	ButtonBuilder,
-	type ButtonInteraction,
-	ButtonStyle,
-	type ChatInputCommandInteraction,
-	MessageFlags,
-} from "discord.js";
 import { t } from "i18next";
 import type { CataloguePacket } from "../models/Catalogue.js";
 import type { GuessPacket } from "../models/Guess.js";

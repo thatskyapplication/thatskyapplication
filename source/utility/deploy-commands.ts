@@ -1,14 +1,3 @@
-import {
-	ApplicationCommandOptionType,
-	ApplicationCommandType,
-	ApplicationIntegrationType,
-	InteractionContextType,
-	Locale,
-	PermissionFlagsBits,
-	REST,
-	type RESTPostAPIApplicationCommandsJSONBody,
-	Routes,
-} from "discord.js";
 import { t } from "i18next";
 import pino from "../pino.js";
 import {
@@ -33,6 +22,17 @@ import {
 	TOKEN,
 } from "./constants.js";
 import "../i18next.js";
+import {
+	API,
+	ApplicationCommandOptionType,
+	ApplicationCommandType,
+	ApplicationIntegrationType,
+	InteractionContextType,
+	Locale,
+	PermissionFlagsBits,
+	type RESTPostAPIApplicationCommandsJSONBody,
+} from "@discordjs/core";
+import { REST } from "@discordjs/rest";
 
 if (!TOKEN) {
 	pino.fatal("Missing Discord token to deploy commands.");
@@ -2067,14 +2067,17 @@ const DEVELOPER_COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 ] as const;
 
 const rest = new REST({ version: "10" }).setToken(TOKEN);
+const api = new API(rest);
 pino.info("Setting application commands...");
-const promises = [rest.put(Routes.applicationCommands(APPLICATION_ID), { body: COMMANDS })];
+const promises = [api.applicationCommands.bulkOverwriteGlobalCommands(APPLICATION_ID, COMMANDS)];
 
 if (PRODUCTION) {
 	promises.push(
-		rest.put(Routes.applicationGuildCommands(APPLICATION_ID, DEVELOPER_GUILD_ID), {
-			body: DEVELOPER_COMMANDS,
-		}),
+		api.applicationCommands.bulkOverwriteGuildCommands(
+			APPLICATION_ID,
+			DEVELOPER_GUILD_ID,
+			DEVELOPER_COMMANDS,
+		),
 	);
 }
 

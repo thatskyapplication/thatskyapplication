@@ -1,5 +1,5 @@
 import { URL } from "node:url";
-import { type Locale, TimestampStyles, hyperlink, time } from "discord.js";
+import type { Locale } from "@discordjs/core";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { skyCurrentEvents } from "../data/events/index.js";
@@ -229,7 +229,7 @@ export function shardEruptionInformationString(
 	})})`;
 
 	if (useHyperlink) {
-		realmMap = hyperlink(realmMap, url);
+		realmMap = `[${realmMap}](${url})`;
 	}
 
 	return `${formatEmoji(resolveShardEruptionEmoji(strong))} ${realmMap}\n${
@@ -241,12 +241,6 @@ export function shardEruptionInformationString(
 
 export function shardEruptionTimestampsString({ timestamps }: ShardEruptionData) {
 	return timestamps
-		.map(
-			({ start, end }) =>
-				`${time(start.toUnixInteger(), TimestampStyles.LongTime)} - ${time(
-					end.toUnixInteger(),
-					TimestampStyles.LongTime,
-				)}`,
-		)
+		.map(({ start, end }) => `<t:${start.toUnixInteger()}:T> - <t:${end.toUnixInteger()}:T>`)
 		.join("\n");
 }

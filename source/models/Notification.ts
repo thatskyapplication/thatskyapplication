@@ -1,4 +1,4 @@
-import type { GuildBasedChannel, Snowflake } from "discord.js";
+import type { APIChannel, Snowflake } from "@discordjs/core";
 import type { NOTIFICATION_CHANNEL_TYPES } from "../utility/constants.js";
 
 export interface NotificationPacket {
@@ -11,6 +11,6 @@ export interface NotificationPacket {
 }
 
 export type NotificationAllowedChannel = Extract<
-	GuildBasedChannel,
+	APIChannel,
 	{ type: (typeof NOTIFICATION_CHANNEL_TYPES)[number] }
 >;

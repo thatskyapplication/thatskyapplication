@@ -1,5 +1,4 @@
 import { Cron } from "croner";
-import type { Client } from "discord.js";
 import DailyGuides from "./models/DailyGuides.js";
 import { distribute, reset } from "./services/daily-guides.js";
 import { TIME_ZONE } from "./utility/dates.js";

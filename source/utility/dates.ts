@@ -1,4 +1,4 @@
-import { Locale, TimestampStyles, time } from "discord.js";
+import { Locale } from "@discordjs/core";
 import { DateTime } from "luxon";
 
 // Time zone.
@@ -11,15 +11,11 @@ export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE = skyDate(2_024, 12, 9);
  */
 export const DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE = skyDate(2_024, 12, 23);
 
-export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE_MARKDOWN = time(
-	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE.toUnixInteger(),
-	TimestampStyles.ShortDate,
-);
+export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE_MARKDOWN =
+	`<t:${DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE.toUnixInteger()}:d>` as const;
 
-export const DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE_MARKDOWN = time(
-	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.toUnixInteger(),
-	TimestampStyles.ShortDate,
-);
+export const DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE_MARKDOWN =
+	`<t:${DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.toUnixInteger()}:d>` as const;
 
 export const DOUBLE_SEASONAL_LIGHT_EVENT_DURATION =
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days").days +
@@ -32,15 +28,11 @@ export const INITIAL_TRAVELLING_SPIRIT_SEEK = skyDate(2_023, 5, 25); // #88 Grat
 const COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1 = skyDate(2_024, 7, 20, 6);
 export const COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2 = skyDate(2_024, 7, 20, 18);
 
-export const COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1_RELATIVE_TIME = time(
-	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1.toUnixInteger(),
-	TimestampStyles.RelativeTime,
-);
+export const COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1_RELATIVE_TIME =
+	`<t:${COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1.toUnixInteger()}:R>` as const;
 
-export const COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2_RELATIVE_TIME = time(
-	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2.toUnixInteger(),
-	TimestampStyles.RelativeTime,
-);
+export const COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2_RELATIVE_TIME =
+	`<t:${COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2.toUnixInteger()}:R>` as const;
 
 export function skyNow() {
 	return DateTime.now().setZone(TIME_ZONE);

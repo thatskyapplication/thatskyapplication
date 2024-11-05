@@ -1,4 +1,4 @@
-import type { Snowflake } from "discord.js";
+import type { Snowflake } from "@discordjs/core";
 import { spirits } from "../data/spirits/index.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "./emojis.js";
 

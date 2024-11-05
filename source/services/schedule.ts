@@ -1,13 +1,3 @@
-import {
-	type ChatInputCommandInteraction,
-	EmbedBuilder,
-	type Locale,
-	MessageFlags,
-	PermissionFlagsBits,
-	TimestampStyles,
-	hyperlink,
-	time,
-} from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import {

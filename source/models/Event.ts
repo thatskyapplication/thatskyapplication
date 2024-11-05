@@ -1,5 +1,4 @@
 import { URL } from "node:url";
-import { Locale } from "discord.js";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import {
@@ -14,6 +13,7 @@ import {
 } from "../utility/catalogue.js";
 import { CDN_URL } from "../utility/constants.js";
 import type { EventEmojis } from "../utility/emojis.js";
+import { Locale } from "@discordjs/core";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
 

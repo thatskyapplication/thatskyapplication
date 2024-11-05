@@ -1,9 +1,9 @@
 import {
-	type ChatInputCommandInteraction,
-	EmbedBuilder,
+	type APIChatInputApplicationCommandInteraction,
+	type Client,
 	MessageFlags,
-	hyperlink,
-} from "discord.js";
+} from "@discordjs/core";
+import { calculateUserDefaultAvatarIndex } from "@discordjs/rest";
 import {
 	ABOUT_DESCRIPTION,
 	ABOUT_SPONSOR,
@@ -13,38 +13,51 @@ import {
 	WEBSITE_URL,
 } from "../utility/constants.js";
 
-export async function about(interaction: ChatInputCommandInteraction) {
-	const { client } = interaction;
+export async function about(
+	client: Client,
+	interaction: APIChatInputApplicationCommandInteraction,
+) {
+	const currentUser = await client.api.users.getCurrent();
 
-	await interaction.reply({
+	const index =
+		currentUser.discriminator === "0"
+			? calculateUserDefaultAvatarIndex(currentUser.id)
+			: Number(currentUser.discriminator) % 5;
+
+	const iconURL = currentUser.avatar
+		? client.rest.cdn.avatar(currentUser.id, currentUser.avatar)
+		: client.rest.cdn.defaultAvatar(index);
+
+	await client.api.interactions.reply(interaction.id, interaction.token, {
 		embeds: [
-			new EmbedBuilder()
-				.setColor(DEFAULT_EMBED_COLOUR)
-				.setDescription(ABOUT_DESCRIPTION)
-				.setFields(
+			{
+				color: DEFAULT_EMBED_COLOUR,
+				description: ABOUT_DESCRIPTION,
+				fields: [
 					{
 						name: "Website",
-						value: hyperlink("Link", WEBSITE_URL),
+						value: `[Link](${WEBSITE_URL})`,
 						inline: true,
 					},
 					{
 						name: "Invite",
-						value: hyperlink("Link", APPLICATION_INVITE_URL),
+						value: `[Link](${APPLICATION_INVITE_URL})`,
 						inline: true,
 					},
 					{
 						name: "Support Server",
-						value: hyperlink("Link", SUPPORT_SERVER_INVITE_URL),
+						value: `[Link](${SUPPORT_SERVER_INVITE_URL})`,
 						inline: true,
 					},
 					{
 						name: "Sponsor",
 						value: ABOUT_SPONSOR,
 					},
-				)
-				.setFooter({ text: "thatskyapplication", iconURL: client.user.displayAvatarURL() })
-				.setTitle(client.user.username)
-				.setURL(WEBSITE_URL),
+				],
+				footer: { text: "thatskyapplication", icon_url: iconURL },
+				title: currentUser.username,
+				url: WEBSITE_URL,
+			},
 		],
 		flags: MessageFlags.Ephemeral,
 	});
