@@ -1,0 +1,236 @@
+import {
+	type API,
+	type APIChannel,
+	type APIChatInputApplicationCommandInteraction,
+	type APIGuild,
+	type APIGuildMember,
+	ChannelType,
+	InteractionType,
+	MessageFlags,
+	PermissionFlagsBits,
+} from "@discordjs/core";
+import pino from "../pino.js";
+
+const ALL_PERMISSIONS = Object.values(PermissionFlagsBits).reduce(
+	(bitField, permission) => bitField | permission,
+	0n,
+);
+
+const computeBasePermissions = ({
+	guild,
+	member,
+}: {
+	guild: APIGuild;
+	member: APIGuildMember;
+}): bigint => {
+	if (guild.owner_id === member.user.id) {
+		return ALL_PERMISSIONS;
+	}
+
+	const rolesMap = new Map(guild.roles.map((role) => [role.id, role]));
+	const everyoneRole = rolesMap.get(guild.id);
+
+	if (!everyoneRole) {
+		throw new Error("No @everyone role found.");
+	}
+
+	let permissions = BigInt(everyoneRole.permissions);
+
+	for (const roleId of member.roles) {
+		const role = rolesMap.get(roleId);
+
+		if (!role) {
+			throw new Error(`Could not find role id ${roleId}.`);
+		}
+
+		permissions |= BigInt(role.permissions);
+	}
+
+	if (permissions & PermissionFlagsBits.Administrator) {
+		return ALL_PERMISSIONS;
+	}
+
+	return permissions;
+};
+
+const computeOverwrites = ({
+	basePermissions,
+	guild,
+	member,
+	channel,
+}: {
+	basePermissions: bigint;
+	guild: APIGuild;
+	member: APIGuildMember;
+	channel: APIChannel;
+}): bigint => {
+	if (basePermissions & PermissionFlagsBits.Administrator) {
+		return ALL_PERMISSIONS;
+	}
+
+	let permissions = basePermissions;
+
+	if (channel.type === ChannelType.DM || channel.type === ChannelType.GroupDM) {
+		throw new Error("Lacking permission overwrites.");
+	}
+
+	const overwritesMap = new Map(
+		(channel.permission_overwrites ?? []).map((overwrite) => [overwrite.id, overwrite]),
+	);
+	const everyoneOverwrite = overwritesMap.get(guild.id);
+
+	if (everyoneOverwrite) {
+		permissions &= BigInt(~everyoneOverwrite.deny);
+		permissions |= BigInt(everyoneOverwrite.allow);
+	}
+
+	let allow = 0n;
+	let deny = 0n;
+
+	for (const roleId of member.roles) {
+		const roleOverwrite = overwritesMap.get(roleId);
+
+		if (roleOverwrite) {
+			allow |= BigInt(roleOverwrite.allow);
+			deny |= BigInt(roleOverwrite.deny);
+		}
+	}
+
+	permissions &= ~deny;
+	permissions |= allow;
+	const memberOverwrite = overwritesMap.get(member.user.id);
+
+	if (memberOverwrite) {
+		permissions &= BigInt(~memberOverwrite.deny);
+		permissions |= BigInt(memberOverwrite.allow);
+	}
+
+	return permissions;
+};
+
+const computePermissions = ({
+	guild,
+	member,
+	channel,
+}: {
+	guild: APIGuild;
+	member: APIGuildMember;
+	channel?: APIChannel | undefined;
+}): bigint => {
+	const basePermissions = computeBasePermissions({ guild, member });
+
+	if (!channel) {
+		return basePermissions;
+	}
+
+	return computeOverwrites({ basePermissions, guild, member, channel });
+};
+
+export const can = ({
+	permission,
+	guild,
+	member,
+	channel,
+}: {
+	permission: bigint;
+	guild: APIGuild;
+	member: APIGuildMember;
+	channel?: APIChannel;
+}): boolean => {
+	const permissions = computePermissions({ guild, member, channel });
+	return (permissions & permission) === permission;
+};
+
+const PermissionFlagBitsToString = new Map<bigint, string>()
+	.set(PermissionFlagsBits.ViewChannel, "View Channel")
+	.set(PermissionFlagsBits.SendMessages, "Send Messages")
+	.set(PermissionFlagsBits.EmbedLinks, "Embed Links")
+	.set(PermissionFlagsBits.UseExternalEmojis, "Use External Emojis")
+	.set(PermissionFlagsBits.SendMessagesInThreads, "Send Messages in Threads");
+
+function getPermissionString(bit: bigint) {
+	const string = PermissionFlagBitsToString.get(bit);
+
+	if (string === undefined) {
+		pino.warn(`No permission string exists for ${bit}.`);
+		return "Unknown";
+	}
+
+	return string;
+}
+
+export async function cannotUsePermissions(
+	api: API,
+	interaction: APIChatInputApplicationCommandInteraction,
+	permissions: bigint,
+) {
+	// Direct messages are fine.
+	if (!interaction.guild_id) {
+		return false;
+	}
+
+	const appPermissions = BigInt(interaction.app_permissions);
+	const missingPermissions = [];
+
+	if (
+		(permissions & PermissionFlagsBits.ViewChannel) === PermissionFlagsBits.ViewChannel &&
+		(appPermissions & PermissionFlagsBits.ViewChannel) === 0n
+	) {
+		missingPermissions.push(getPermissionString(PermissionFlagsBits.ViewChannel));
+	}
+
+	if (
+		(permissions & PermissionFlagsBits.SendMessages) === PermissionFlagsBits.SendMessages &&
+		(appPermissions & PermissionFlagsBits.SendMessages) === 0n
+	) {
+		missingPermissions.push(getPermissionString(PermissionFlagsBits.SendMessages));
+	}
+
+	if (
+		(permissions & PermissionFlagsBits.EmbedLinks) === PermissionFlagsBits.EmbedLinks &&
+		(appPermissions & PermissionFlagsBits.EmbedLinks) === 0n
+	) {
+		missingPermissions.push(getPermissionString(PermissionFlagsBits.EmbedLinks));
+	}
+
+	if (
+		(permissions & PermissionFlagsBits.UseExternalEmojis) ===
+			PermissionFlagsBits.UseExternalEmojis &&
+		(appPermissions & PermissionFlagsBits.UseExternalEmojis) === 0n
+	) {
+		missingPermissions.push(getPermissionString(PermissionFlagsBits.UseExternalEmojis));
+	}
+
+	if (
+		(permissions & PermissionFlagsBits.SendMessagesInThreads) ===
+			PermissionFlagsBits.SendMessagesInThreads &&
+		(appPermissions & PermissionFlagsBits.SendMessagesInThreads) === 0n
+	) {
+		missingPermissions.push(getPermissionString(PermissionFlagsBits.SendMessagesInThreads));
+	}
+
+	if (missingPermissions.length === 0) {
+		return false;
+	}
+
+	const response = {
+		components: [],
+		content: `${
+			missingPermissions.length > 1
+				? `Missing the following permissions:\n${missingPermissions
+						.map((missingPermission) => `- \`${missingPermission}\``)
+						.join("\n")}\n`
+				: `Missing the \`${missingPermissions[0]}\` permission. `
+		}Someone needs to adjust the permissions!`,
+		embeds: [],
+		flags: MessageFlags.Ephemeral,
+	};
+
+	if (interaction.type === InteractionType.MessageComponent) {
+		await api.interactions.updateMessage(interaction.id, interaction.token, response);
+	} else {
+		await api.interactions.reply(interaction.id, interaction.token, response);
+	}
+
+	return true;
+}

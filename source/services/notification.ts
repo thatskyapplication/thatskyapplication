@@ -1,5 +1,16 @@
-import type { API, APIChannel, Snowflake } from "@discordjs/core";
+import {
+	type API,
+	type APIChannel,
+	type APIGuild,
+	type APIGuildMember,
+	type APIRole,
+	MessageFlags,
+	PermissionFlagsBits,
+	type Snowflake,
+} from "@discordjs/core";
 import { t } from "i18next";
+import { CHANNEL_CACHE } from "../caches/channels.js";
+import { GUILD_CACHE } from "../caches/guilds.js";
 import type { NotificationAllowedChannel, NotificationPacket } from "../models/Notification.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
@@ -14,7 +25,7 @@ import {
 	type NotificationTypes,
 } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import { GUILD_CACHE } from "../caches/guilds.js";
+import { can } from "../utility/permissions.js";
 
 function isNotificationChannel(channel: APIChannel): channel is NotificationAllowedChannel {
 	return NOTIFICATION_CHANNEL_TYPES.includes(
@@ -23,40 +34,51 @@ function isNotificationChannel(channel: APIChannel): channel is NotificationAllo
 }
 
 function isNotificationSendable(
+	guild: APIGuild,
 	channel: NotificationAllowedChannel,
-	role: Role,
-	me: GuildMember,
+	role: APIRole,
+	me: APIGuildMember,
 	returnErrors: true,
 ): string[];
 
 function isNotificationSendable(
+	guild: APIGuild,
 	channel: NotificationAllowedChannel,
-	role: Role,
-	me: GuildMember,
+	role: APIRole,
+	me: APIGuildMember,
 	returnErrors?: false,
 ): boolean;
 
 function isNotificationSendable(
+	guild: APIGuild,
 	channel: NotificationAllowedChannel,
-	role: Role,
-	me: GuildMember,
+	role: APIRole,
+	me: APIGuildMember,
 	returnErrors = false,
 ) {
 	const errors = [];
 
-	if (me.isCommunicationDisabled()) {
+	if (me.communication_disabled_until && Date.parse(me.communication_disabled_until) > Date.now()) {
 		errors.push("I am timed out.");
 	}
 
 	if (
-		!channel
-			.permissionsFor(me)
-			.has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages)
+		!can({
+			permission: PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages,
+			guild,
+			member: me,
+			channel,
+		})
 	) {
 		errors.push(`\`View Channel\` & \`Send Messages\` are required for ${channel}.`);
 	}
 
-	if (!(channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone) || role.mentionable)) {
+	if (
+		!(
+			can({ permission: PermissionFlagsBits.MentionEveryone, guild, member: me, channel }) ||
+			role.mentionable
+		)
+	) {
 		errors.push(
 			`Cannot mention the ${role} role. Ensure \`Mention @everyone, @here and All Roles\` permission is enabled for ${me} in the channel or make the role mentionable.`,
 		);
@@ -250,13 +272,18 @@ export async function checkSendable(api: API, guildId: Snowflake) {
 		.select(["guild_id", "type", "channel_id", "role_id"])
 		.where({ guild_id: guildId });
 
-	const me = api.guilds.getMember(guildId, APPLICATION_ID);
+	const me = await api.guilds.getMember(guildId, APPLICATION_ID);
 
 	// Check if we can still send to all the guild's notification channels.
 	const promises = notificationPackets.map((notificationPacket) =>
 		pg<NotificationPacket>(Table.Notifications)
 			.update({
-				sendable: isSendable(me, notificationPacket.channel_id, notificationPacket.role_id),
+				sendable: isSendable(
+					me,
+					guildId,
+					notificationPacket.channel_id,
+					notificationPacket.role_id,
+				),
 			})
 			.where({ guild_id: notificationPacket.guild_id, type: notificationPacket.type })
 			.returning("*"),
@@ -265,16 +292,30 @@ export async function checkSendable(api: API, guildId: Snowflake) {
 	await Promise.all(promises);
 }
 
-function isSendable(me: GuildMember, channelId: Snowflake | null, roleId: Snowflake | null) {
+function isSendable(
+	me: APIGuildMember,
+	guildId: Snowflake,
+	channelId: Snowflake | null,
+	roleId: Snowflake | null,
+) {
 	if (!(channelId && roleId)) {
 		return false;
 	}
 
-	const channel = me.guild.channels.cache.get(channelId);
-	const role = me.guild.roles.cache.get(roleId);
+	const guild = GUILD_CACHE.get(guildId);
+
+	if (!guild) {
+		return false;
+	}
+
+	const channel = CHANNEL_CACHE.get(channelId);
+	const role = guild.roles.find((role) => role.id === roleId);
 
 	return Boolean(
-		channel && isNotificationChannel(channel) && role && isNotificationSendable(channel, role, me),
+		channel &&
+			isNotificationChannel(channel) &&
+			role &&
+			isNotificationSendable(guild, channel, role, me),
 	);
 }
 

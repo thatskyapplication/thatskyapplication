@@ -1,18 +1,29 @@
-import { type ChatInputCommandInteraction, Locale, PermissionFlagsBits } from "discord.js";
+import {
+	type APIChatInputApplicationCommandInteraction,
+	Locale,
+	PermissionFlagsBits,
+} from "@discordjs/core";
 import { t } from "i18next";
+import type { InteractionPayload } from "../../models/InteractionPayload.js";
 import { setup, status, unset } from "../../services/notification.js";
 import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../utility/constants.js";
-import { cannotUsePermissions } from "../../utility/permission-checks.js";
+import { cannotUsePermissions } from "../../utility/permissions.js";
 
 export default {
 	name: t("notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-	async chatInput(interaction: ChatInputCommandInteraction) {
-		if (!interaction.inCachedGuild()) {
-			await interaction.reply(NOT_IN_CACHED_GUILD_RESPONSE);
+	async chatInput({ client, interaction }: InteractionPayload) {
+		if (!interaction.guild_id) {
+			await client.api.interactions.reply(
+				interaction.id,
+				interaction.token,
+				NOT_IN_CACHED_GUILD_RESPONSE,
+			);
 			return;
 		}
 
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
+		if (
+			await cannotUsePermissions(client.api, interaction, PermissionFlagsBits.UseExternalEmojis)
+		) {
 			return;
 		}
 
@@ -30,13 +41,13 @@ export default {
 			}
 		}
 	},
-	async setup(interaction: ChatInputCommandInteraction<"cached">) {
+	async setup(interaction: APIChatInputApplicationCommandInteraction) {
 		await setup(interaction);
 	},
-	async status(interaction: ChatInputCommandInteraction<"cached">) {
+	async status(interaction: APIChatInputApplicationCommandInteraction) {
 		await status(interaction);
 	},
-	async unset(interaction: ChatInputCommandInteraction<"cached">) {
+	async unset(interaction: APIChatInputApplicationCommandInteraction) {
 		await unset(interaction);
 	},
 } as const;
