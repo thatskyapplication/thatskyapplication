@@ -2001,7 +2001,7 @@ export const HAIR_EMOJIS = {
 	/**
 	 * The Cellist's Beginnings.
 	 */
-	Hair146: { name: "hair", id: "1262142437011488788" },
+	Hair146: { name: "hair", id: "1303731437505089654" },
 	/**
 	 * The Pianist's Beginnings.
 	 */
