@@ -2766,6 +2766,9 @@ export const enum Cosmetic {
 
 	// 28/10/2024 | Season of Moomin Quest 2.
 	TheMoominStorybookQuest2 = 2190,
+
+	// 07/11/2024 | Travelling Spirit #126.
+	WarriorOfLoveWingBuff = 2191,
 }
 
 export const SeasonId = {

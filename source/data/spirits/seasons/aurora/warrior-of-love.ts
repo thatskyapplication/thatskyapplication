@@ -24,7 +24,6 @@ export default new SeasonalSpirit({
 	emote,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteTwirl1, emoji: emoteEmoji },
 			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteTwirl2, emoji: emoteEmoji },
@@ -68,6 +67,75 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.WarriorOfLoveSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.AuroraHeart,
+			},
+		],
+		current: [
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteTwirl1, emoji: emoteEmoji },
+			{
+				name: `${emote} 2`,
+				cosmetic: Cosmetic.EmoteTwirl2,
+				cost: { hearts: 4 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.WarriorOfLoveBlessing1,
+				cost: { candles: 5 },
+				emoji: blessing3,
+			},
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.WarriorOfLoveMask,
+				cost: { candles: 35 },
+				emoji: maskEmoji,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.WarriorOfLoveSeasonalHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Wing buff",
+				cosmetic: Cosmetic.WarriorOfLoveWingBuff,
+				cost: { ascendedCandles: 2 },
+				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+			},
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteTwirl3,
+				cost: { hearts: 3 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: `${emote} 4`,
+				cosmetic: Cosmetic.EmoteTwirl4,
+				cost: { hearts: 6 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.WarriorOfLoveHair,
+				cost: { candles: 40 },
+				emoji: hairEmoji,
+			},
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.WarriorOfLoveBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing3,
+			},
+			{
+				name: "Music sheet",
+				cosmetic: Cosmetic.WarriorOfLoveMusicSheet,
+				cost: { candles: 15 },
+				emoji: musicSheet,
+			},
+			{
+				name: "Cape",
+				cosmetic: Cosmetic.WarriorOfLoveCape,
+				cost: { candles: 75 },
+				emoji: capeEmoji,
 			},
 		],
 	},
