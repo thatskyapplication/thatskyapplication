@@ -1,6 +1,18 @@
 import { PutObjectCommand } from "@aws-sdk/client-s3";
+import {
+	type API,
+	type APIChatInputApplicationCommandInteraction,
+	type APIInteractionResponseCallbackData,
+	type APIMessageComponentSelectMenuInteraction,
+	ActivityType,
+	ButtonStyle,
+	ComponentType,
+	MessageFlags,
+	PresenceUpdateStatus,
+} from "@discordjs/core";
 import { hash } from "hasha";
 import sharp from "sharp";
+import { client } from "../discord.js";
 import type { InteractiveOptions } from "../models/Admin.js";
 import Configuration from "../models/Configuration.js";
 import type { QuestNumber } from "../models/DailyGuides.js";
@@ -31,85 +43,127 @@ import {
 	QUEST_OPTIONS,
 	VALID_REALM_NAME,
 } from "../utility/constants.js";
-import { resolveValidRealm, userLogFormat } from "../utility/functions.js";
+import {
+	interactionInvoker,
+	isChatInputCommand,
+	resolveValidRealm,
+	userLogFormat,
+} from "../utility/functions.js";
+import type { OptionResolver } from "../utility/option-resolver.js";
 import { log } from "./log.js";
 
 function isQuestNumber(questNumber: number): questNumber is QuestNumber {
 	return QUEST_NUMBER.includes(questNumber as QuestNumber);
 }
 
-export async function ai(interaction: ChatInputCommandInteraction) {
-	const enable = interaction.options.getBoolean("enable", true);
+export async function ai(
+	api: API,
+	interaction: APIChatInputApplicationCommandInteraction,
+	options: OptionResolver,
+) {
+	const enable = options.getBoolean("enable", true);
 	await Configuration.edit({ ai: enable });
 
-	await interaction.reply({
+	await api.interactions.reply(interaction.id, interaction.token, {
 		content: `AI feature set to \`${Configuration.ai}\`.`,
 		flags: MessageFlags.Ephemeral,
 	});
 }
 
-export async function customStatus(interaction: ChatInputCommandInteraction) {
-	const text = interaction.options.getString("text", true);
-	interaction.client.user.setPresence({ activities: [{ name: text, type: ActivityType.Custom }] });
-	await interaction.reply({ content: "Custom status set.", ephemeral: true });
+export async function customStatus(
+	interaction: APIChatInputApplicationCommandInteraction,
+	options: OptionResolver,
+) {
+	const text = options.getString("text", true);
+
+	await client.updatePresence(0, {
+		activities: [{ name: text, type: ActivityType.Custom }],
+		afk: false,
+		since: null,
+		status: PresenceUpdateStatus.Online,
+	});
+
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		content: "Custom status set.",
+		flags: MessageFlags.Ephemeral,
+	});
 }
 
 export async function interactive(
-	interaction:
-		| ButtonInteraction
-		| ChatInputCommandInteraction
-		| ModalMessageModalSubmitInteraction
-		| StringSelectMenuInteraction,
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentSelectMenuInteraction,
 	options?: InteractiveOptions,
 ) {
 	const resolvedContent = options?.content ?? "";
 	const resolvedLocale = options?.locale ?? interaction.locale;
 
-	const response = {
+	const response: APIInteractionResponseCallbackData = {
 		content: resolvedContent,
 		components: [
-			new ActionRowBuilder<ButtonBuilder>().setComponents(
-				new ButtonBuilder()
-					.setCustomId(DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID)
-					.setLabel("Daily Message")
-					.setStyle(ButtonStyle.Primary),
-				new ButtonBuilder()
-					.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID)
-					.setLabel("Treasure Candles")
-					.setStyle(ButtonStyle.Primary),
-			),
-			new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-				new StringSelectMenuBuilder()
-					.setCustomId(DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID)
-					.setMaxValues(2)
-					.setMinValues(2)
-					.setOptions(QUEST_OPTIONS)
-					.setPlaceholder("Swap 2 quests."),
-			),
-			new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-				new StringSelectMenuBuilder()
-					.setCustomId(DAILY_GUIDES_LOCALE_CUSTOM_ID)
-					.setMaxValues(1)
-					.setMinValues(1)
-					.setOptions(LOCALE_OPTIONS)
-					.setPlaceholder("View in a locale."),
-			),
-			new ActionRowBuilder<ButtonBuilder>().setComponents(
-				new ButtonBuilder()
-					.setCustomId(DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID)
-					.setLabel("Distribute")
-					.setStyle(ButtonStyle.Success),
-			),
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
+						label: "Daily Message",
+						style: ButtonStyle.Primary,
+					},
+					{
+						type: ComponentType.Button,
+						custom_id: DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID,
+						label: "Treasure Candles",
+						style: ButtonStyle.Primary,
+					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.StringSelect,
+						custom_id: DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
+						max_values: 2,
+						min_values: 2,
+						options: QUEST_OPTIONS,
+						placeholder: "Swap 2 quests.",
+					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.StringSelect,
+						custom_id: DAILY_GUIDES_LOCALE_CUSTOM_ID,
+						max_values: 1,
+						min_values: 1,
+						options: LOCALE_OPTIONS,
+						placeholder: "View in a locale.",
+					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
+						label: "Distribute",
+						style: ButtonStyle.Success,
+					},
+				],
+			},
 		],
 		embeds: [distributionEmbed(resolvedLocale)],
+		flags: MessageFlags.Ephemeral,
 	};
 
-	if (interaction.isChatInputCommand()) {
-		await interaction.reply({ ...response, flags: MessageFlags.Ephemeral });
+	if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
 	} else if (interaction.deferred) {
-		await interaction.editReply(response);
+		await client.api.interactions.editReply(interaction.application_id, interaction.token, response);
 	} else {
-		await interaction.update(response);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 	}
 }
 
@@ -118,7 +172,7 @@ export async function distribute(interaction: ButtonInteraction) {
 	await interaction.deferUpdate();
 	await distributeDailyGuides(client);
 
-	void log(client, {
+	void log({
 		content: `${userLogFormat(user)} manually distributed the daily guides.`,
 		embeds: [distributionEmbed(locale)],
 	});
@@ -139,11 +193,14 @@ export async function setQuestAutocomplete(interaction: AutocompleteInteraction)
 	);
 }
 
-export async function setQuest(interaction: ChatInputCommandInteraction) {
-	const { client, locale, options, user } = interaction;
+export async function setQuest(
+	interaction: APIChatInputApplicationCommandInteraction,
+	options: OptionResolver,
+) {
+	const { locale } = interaction;
 
-	if (options.data[0]!.options![0]!.options!.length === 0) {
-		await interaction.reply({
+	if (options.hoistedOptions!.length === 0) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "At least one option must be specified.",
 			flags: MessageFlags.Ephemeral,
 		});
@@ -177,8 +234,8 @@ export async function setQuest(interaction: ChatInputCommandInteraction) {
 		quest4: quest4 ? { content: quest4, url: url4 } : null,
 	});
 
-	void log(client, {
-		content: `${userLogFormat(user)} manually updated the daily quests.`,
+	void log({
+		content: `${userLogFormat(interactionInvoker(interaction))} manually updated the daily quests.`,
 		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 
@@ -188,18 +245,27 @@ export async function setQuest(interaction: ChatInputCommandInteraction) {
 	});
 }
 
-export async function questSwap(interaction: StringSelectMenuInteraction) {
-	const { client, locale, user, values } = interaction;
+export async function questSwap(interaction: APIMessageComponentSelectMenuInteraction) {
+	const {
+		locale,
+		data: { values },
+	} = interaction;
 	const quest1 = Number(values[0]);
 	const quest2 = Number(values[1]);
 
 	if (!isQuestNumber(quest1)) {
-		await interaction.reply(`Detected an unknown quest number: ${quest1}.`);
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `Detected an unknown quest number: ${quest1}.`,
+		});
+
 		return;
 	}
 
 	if (!isQuestNumber(quest2)) {
-		await interaction.reply(`Detected an unknown quest number: ${quest2}.`);
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `Detected an unknown quest number: ${quest2}.`,
+		});
+
 		return;
 	}
 
@@ -210,8 +276,8 @@ export async function questSwap(interaction: StringSelectMenuInteraction) {
 		[`quest${quest2}`]: DailyGuides[`quest${quest1}`],
 	});
 
-	void log(client, {
-		content: `${userLogFormat(user)} manually swapped quests ${quest1} & ${quest2}.`,
+	void log({
+		content: `${userLogFormat(interactionInvoker(interaction))} manually swapped quests ${quest1} & ${quest2}.`,
 		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 

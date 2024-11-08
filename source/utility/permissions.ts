@@ -1,5 +1,4 @@
 import {
-	type API,
 	type APIChannel,
 	type APIChatInputApplicationCommandInteraction,
 	type APIGuild,
@@ -9,6 +8,7 @@ import {
 	MessageFlags,
 	PermissionFlagsBits,
 } from "@discordjs/core";
+import { client } from "../discord.js";
 import pino from "../pino.js";
 
 const ALL_PERMISSIONS = Object.values(PermissionFlagsBits).reduce(
@@ -160,7 +160,6 @@ function getPermissionString(bit: bigint) {
 }
 
 export async function cannotUsePermissions(
-	api: API,
 	interaction: APIChatInputApplicationCommandInteraction,
 	permissions: bigint,
 ) {
@@ -227,9 +226,9 @@ export async function cannotUsePermissions(
 	};
 
 	if (interaction.type === InteractionType.MessageComponent) {
-		await api.interactions.updateMessage(interaction.id, interaction.token, response);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 	} else {
-		await api.interactions.reply(interaction.id, interaction.token, response);
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
 	}
 
 	return true;

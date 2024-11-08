@@ -10,14 +10,14 @@ import guildUpdate from "./guild-update.js";
 // import guildDelete from "./guild-delete.js";
 // import guildMemberAdd from "./guild-member-add.js";
 // import guildMemberRemove from "./guild-member-remove.js";
-// import interactionCreate from "./interaction-create.js";
+import interactionCreate from "./interaction-create.js";
 // import messageCreate from "./message-create.js";
 import ready from "./ready.js";
 
 export interface Event<T extends keyof MappedEvents = keyof MappedEvents> {
 	name: T;
 	once?: boolean;
-	fire(this: Client, ...parameters: MappedEvents[T]): Promise<void> | void;
+	fire(this: void, ...parameters: MappedEvents[T]): Promise<void> | void;
 }
 
 export default [
@@ -31,7 +31,7 @@ export default [
 	guildUpdate,
 	// guildMemberAdd,
 	// guildMemberRemove,
-	// interactionCreate,
+	interactionCreate,
 	// messageCreate,
 	ready,
 	// roleUpdate,

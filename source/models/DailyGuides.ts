@@ -1,14 +1,5 @@
 import { URL } from "node:url";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
-import {
-	type Attachment,
-	type Collection,
-	FormattingPatterns,
-	type Message,
-	MessageFlags,
-	type Snowflake,
-	SnowflakeUtil,
-} from "discord.js";
 import { hash } from "hasha";
 import pQueue from "p-queue";
 import sharp from "sharp";

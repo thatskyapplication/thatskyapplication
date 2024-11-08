@@ -15,66 +15,66 @@ import {
 	CHAT_INPUT_COMMANDS,
 	USER_CONTEXT_MENU_COMMANDS,
 } from "../commands/index.js";
-import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
-import {
-	CATALOGUE_BACK_TO_START_CUSTOM_ID,
-	CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
-	CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID,
-	CATALOGUE_REALM_EVERYTHING_CUSTOM_ID,
-	CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID,
-	CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID,
-	CATALOGUE_SHARE_PROMPT_CUSTOM_ID,
-	CATALOGUE_SHARE_SEND_CUSTOM_ID,
-	CATALOGUE_VIEW_ELDERS_CUSTOM_ID,
-	CATALOGUE_VIEW_EVENT_CUSTOM_ID,
-	CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
-	CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID,
-	CATALOGUE_VIEW_OFFER_1_CUSTOM_ID,
-	CATALOGUE_VIEW_OFFER_2_CUSTOM_ID,
-	CATALOGUE_VIEW_OFFER_3_CUSTOM_ID,
-	CATALOGUE_VIEW_REALMS_CUSTOM_ID,
-	CATALOGUE_VIEW_REALM_CUSTOM_ID,
-	CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID,
-	CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
-	CATALOGUE_VIEW_SEASON_CUSTOM_ID,
-	CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
-	CATALOGUE_VIEW_START_CUSTOM_ID,
-	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
-	Catalogue,
-} from "../models/Catalogue.js";
-import Profile, {
-	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
-	SKY_PROFILE_EDIT_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS,
-	SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS,
-	SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID,
-	SKY_PROFILE_REPORT_MODAL_CUSTOM_ID,
-	SKY_PROFILE_RESET_CUSTOM_ID,
-	SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID,
-	SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
-	SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID,
-	SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID,
-	SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID,
-	SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID,
-	SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID,
-	SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
-} from "../models/Profile.js";
+// import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
+// import {
+// 	CATALOGUE_BACK_TO_START_CUSTOM_ID,
+// 	CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
+// 	CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID,
+// 	CATALOGUE_REALM_EVERYTHING_CUSTOM_ID,
+// 	CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID,
+// 	CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID,
+// 	CATALOGUE_SHARE_PROMPT_CUSTOM_ID,
+// 	CATALOGUE_SHARE_SEND_CUSTOM_ID,
+// 	CATALOGUE_VIEW_ELDERS_CUSTOM_ID,
+// 	CATALOGUE_VIEW_EVENT_CUSTOM_ID,
+// 	CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
+// 	CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID,
+// 	CATALOGUE_VIEW_OFFER_1_CUSTOM_ID,
+// 	CATALOGUE_VIEW_OFFER_2_CUSTOM_ID,
+// 	CATALOGUE_VIEW_OFFER_3_CUSTOM_ID,
+// 	CATALOGUE_VIEW_REALMS_CUSTOM_ID,
+// 	CATALOGUE_VIEW_REALM_CUSTOM_ID,
+// 	CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID,
+// 	CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
+// 	CATALOGUE_VIEW_SEASON_CUSTOM_ID,
+// 	CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
+// 	CATALOGUE_VIEW_START_CUSTOM_ID,
+// 	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
+// 	Catalogue,
+// } from "../models/Catalogue.js";
+// import Profile, {
+// 	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
+// 	SKY_PROFILE_EDIT_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS,
+// 	SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS,
+// 	SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID,
+// 	SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID,
+// 	SKY_PROFILE_REPORT_MODAL_CUSTOM_ID,
+// 	SKY_PROFILE_RESET_CUSTOM_ID,
+// 	SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID,
+// 	SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
+// 	SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID,
+// 	SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID,
+// 	SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID,
+// 	SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID,
+// 	SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID,
+// 	SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
+// } from "../models/Profile.js";
 import pino from "../pino.js";
 import {
 	dailyMessageModalResponse,
@@ -86,18 +86,18 @@ import {
 	treasureCandlesModalResponse,
 	treasureCandlesSelectMenuResponse,
 } from "../services/admin.js";
-import { deleteUserData } from "../services/data.js";
-import {
-	answer,
-	isGuessDifficultyLevel,
-	leaderboard,
-	parseEndGame,
-	tryAgain,
-} from "../services/guess.js";
-import { history } from "../services/heart.js";
-import { browse, today } from "../services/shard-eruption.js";
-import { parseSpiritSwitch } from "../services/spirit.js";
-import { isSeasonId } from "../utility/catalogue.js";
+// import { deleteUserData } from "../services/data.js";
+// import {
+// 	answer,
+// 	isGuessDifficultyLevel,
+// 	leaderboard,
+// 	parseEndGame,
+// 	tryAgain,
+// } from "../services/guess.js";
+// import { history } from "../services/heart.js";
+// import { browse, today } from "../services/shard-eruption.js";
+// import { parseSpiritSwitch } from "../services/spirit.js";
+// import { isSeasonId } from "../utility/catalogue.js";
 import {
 	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_DAILY_MESSAGE_MODAL,
@@ -142,11 +142,13 @@ import {
 import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../utility/spirits.js";
 import type { Event } from "./index.js";
 import { DiscordAPIError } from "@discordjs/rest";
+import { finaliseSetup } from "../services/notification.js";
 
 const name = GatewayDispatchEvents.InteractionCreate;
 
 async function recoverInteractionError(interaction: APIInteraction, error: unknown) {
-	let errorTypeString = `Error from ${interaction.user!.tag} in ${interaction.channel!.id} from `;
+	const user = interaction.user ?? interaction.member?.user!;
+	let errorTypeString = `Error from ${user.username} in ${interaction.channel!.id} from `;
 
 	switch (interaction.type) {
 		case InteractionType.ApplicationCommand: {
@@ -203,10 +205,11 @@ function logCommand(
 	// TODO: Do this
 	const command = "";
 	// const command = interaction.isChatInputCommand() ? String(interaction) : commandName;
+	const user = interaction.user ?? interaction.member?.user!;
 
 	pino.info(
 		{
-			user: { id: interaction.user!.id, username: interaction.user!.username },
+			user: { id: user.id, username: user.username },
 			command,
 			guildId: interaction.guild_id,
 			channelId: interaction.channel.id,
@@ -223,10 +226,11 @@ function logMessageComponent(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
 	const customId = interaction.data.custom_id;
+	const user = interaction.user ?? interaction.member?.user!;
 
 	pino.info(
 		{
-			user: { id: interaction.user!.id, username: interaction.user!.username },
+			user: { id: user.id, username: user.username },
 			customId: customId,
 			values: "values" in interaction.data ? interaction.data.values : null,
 			guildId: interaction.guild_id,
@@ -255,7 +259,7 @@ export default {
 			}
 
 			try {
-				await command.chatInput({ client: this, interaction });
+				await command.chatInput(interaction);
 			} catch (error) {
 				void recoverInteractionError(interaction, error);
 			}
@@ -566,111 +570,111 @@ export default {
 			const values = interaction.data.values;
 
 			try {
-				if (customId === CATALOGUE_VIEW_TYPE_CUSTOM_ID) {
-					await Catalogue.parseCatalogueType(interaction);
-					return;
-				}
+				// if (customId === CATALOGUE_VIEW_TYPE_CUSTOM_ID) {
+				// 	await Catalogue.parseCatalogueType(interaction);
+				// 	return;
+				// }
 
 				const value0 = values[0]!;
 
-				if (customId === CATALOGUE_VIEW_REALM_CUSTOM_ID && isRealm(value0)) {
-					await Catalogue.viewRealm(interaction, value0);
-					return;
-				}
+				// if (customId === CATALOGUE_VIEW_REALM_CUSTOM_ID && isRealm(value0)) {
+				// 	await Catalogue.viewRealm(interaction, value0);
+				// 	return;
+				// }
 
-				if (customId === CATALOGUE_VIEW_SEASON_CUSTOM_ID) {
-					const seasonId = Number(value0);
+				// if (customId === CATALOGUE_VIEW_SEASON_CUSTOM_ID) {
+				// 	const seasonId = Number(value0);
 
-					if (isSeasonId(seasonId)) {
-						await Catalogue.viewSeason(interaction, seasonId);
-						return;
-					}
-				}
+				// 	if (isSeasonId(seasonId)) {
+				// 		await Catalogue.viewSeason(interaction, seasonId);
+				// 		return;
+				// 	}
+				// }
 
-				if (customId === CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID) {
-					await Catalogue.viewEvents(interaction, value0);
-					return;
-				}
+				// if (customId === CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID) {
+				// 	await Catalogue.viewEvents(interaction, value0);
+				// 	return;
+				// }
 
-				if (customId === CATALOGUE_VIEW_SPIRIT_CUSTOM_ID) {
-					await Catalogue.parseViewSpirit(interaction);
-					return;
-				}
+				// if (customId === CATALOGUE_VIEW_SPIRIT_CUSTOM_ID) {
+				// 	await Catalogue.parseViewSpirit(interaction);
+				// 	return;
+				// }
 
-				if (customId === CATALOGUE_VIEW_EVENT_CUSTOM_ID) {
-					await Catalogue.parseViewEvent(interaction);
-					return;
-				}
+				// if (customId === CATALOGUE_VIEW_EVENT_CUSTOM_ID) {
+				// 	await Catalogue.parseViewEvent(interaction);
+				// 	return;
+				// }
 
-				if (
-					customId.startsWith(CATALOGUE_VIEW_OFFER_1_CUSTOM_ID) ||
-					customId.startsWith(CATALOGUE_VIEW_OFFER_2_CUSTOM_ID) ||
-					customId.startsWith(CATALOGUE_VIEW_OFFER_3_CUSTOM_ID)
-				) {
-					await Catalogue.parseSetItems(interaction);
-					return;
-				}
+				// if (
+				// 	customId.startsWith(CATALOGUE_VIEW_OFFER_1_CUSTOM_ID) ||
+				// 	customId.startsWith(CATALOGUE_VIEW_OFFER_2_CUSTOM_ID) ||
+				// 	customId.startsWith(CATALOGUE_VIEW_OFFER_3_CUSTOM_ID)
+				// ) {
+				// 	await Catalogue.parseSetItems(interaction);
+				// 	return;
+				// }
 
-				if (customId.startsWith(CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID)) {
-					await Catalogue.setSeasonItems(interaction);
-					return;
-				}
+				// if (customId.startsWith(CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID)) {
+				// 	await Catalogue.setSeasonItems(interaction);
+				// 	return;
+				// }
 
-				if (
-					SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.includes(
-						customId as (typeof SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS)[number],
-					)
-				) {
-					await today(interaction, Number(value0));
-					return;
-				}
+				// if (
+				// 	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.includes(
+				// 		customId as (typeof SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS)[number],
+				// 	)
+				// ) {
+				// 	await today(interaction, Number(value0));
+				// 	return;
+				// }
 
-				if (customId === SKY_PROFILE_EDIT_CUSTOM_ID) {
-					await Profile.edit(interaction);
-					return;
-				}
+				// if (customId === SKY_PROFILE_EDIT_CUSTOM_ID) {
+				// 	await Profile.edit(interaction);
+				// 	return;
+				// }
 
-				if (customId === SKY_PROFILE_RESET_CUSTOM_ID) {
-					await Profile.reset(interaction);
-					return;
-				}
+				// if (customId === SKY_PROFILE_RESET_CUSTOM_ID) {
+				// 	await Profile.reset(interaction);
+				// 	return;
+				// }
 
-				if (customId === SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID) {
-					await Profile.setSeasons(interaction);
-					return;
-				}
+				// if (customId === SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID) {
+				// 	await Profile.setSeasons(interaction);
+				// 	return;
+				// }
 
-				if (customId === SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID) {
-					await Profile.setPlatform(interaction);
-					return;
-				}
+				// if (customId === SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID) {
+				// 	await Profile.setPlatform(interaction);
+				// 	return;
+				// }
 
-				if (
-					SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.includes(
-						customId as (typeof SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS)[number],
-					)
-				) {
-					await Profile.exploreProfile(interaction, value0);
-					return;
-				}
+				// if (
+				// 	SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.includes(
+				// 		customId as (typeof SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS)[number],
+				// 	)
+				// ) {
+				// 	await Profile.exploreProfile(interaction, value0);
+				// 	return;
+				// }
 
-				if (
-					SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS.includes(
-						customId as (typeof SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS)[number],
-					)
-				) {
-					await Profile.exploreLikedProfile(interaction);
-					return;
-				}
+				// if (
+				// 	SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS.includes(
+				// 		customId as (typeof SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS)[number],
+				// 	)
+				// ) {
+				// 	await Profile.exploreLikedProfile(interaction);
+				// 	return;
+				// }
 
 				if (interaction.guild_id && GUILD_CACHE.has(interaction.guild_id)) {
-					if (customId === NOTIFICATION_SETUP_OFFSET_CUSTOM_ID) {
-						// This is handled in the command itself.
+					if (customId.startsWith(NOTIFICATION_SETUP_OFFSET_CUSTOM_ID)) {
+						await finaliseSetup(api, interaction);
 						return;
 					}
 
 					if (customId === DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID) {
-						await questSwap(interaction);
+						await questSwap(this.api, interaction);
 						return;
 					}
 
@@ -684,10 +688,10 @@ export default {
 						return;
 					}
 
-					if (customId === AI_FREQUENCY_SELECT_MENU_CUSTOM_ID) {
-						await AI.set(interaction);
-						return;
-					}
+					// if (customId === AI_FREQUENCY_SELECT_MENU_CUSTOM_ID) {
+					// 	await AI.set(interaction);
+					// 	return;
+					// }
 				}
 			} catch (error) {
 				void recoverInteractionError(interaction, error);
@@ -725,35 +729,35 @@ export default {
 			const customId = interaction.data.custom_id;
 
 			try {
-				if (customId === SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID) {
-					await Profile.setName(interaction);
-					return;
-				}
+				// if (customId === SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID) {
+				// 	await Profile.setName(interaction);
+				// 	return;
+				// }
 
-				if (customId === SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID) {
-					await Profile.setDescription(interaction);
-					return;
-				}
+				// if (customId === SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID) {
+				// 	await Profile.setDescription(interaction);
+				// 	return;
+				// }
 
-				if (customId === SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID) {
-					await Profile.setCountry(interaction);
-					return;
-				}
+				// if (customId === SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID) {
+				// 	await Profile.setCountry(interaction);
+				// 	return;
+				// }
 
-				if (customId === SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID) {
-					await Profile.setWingedLight(interaction);
-					return;
-				}
+				// if (customId === SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID) {
+				// 	await Profile.setWingedLight(interaction);
+				// 	return;
+				// }
 
-				if (customId === SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID) {
-					await Profile.setSpot(interaction);
-					return;
-				}
+				// if (customId === SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID) {
+				// 	await Profile.setSpot(interaction);
+				// 	return;
+				// }
 
-				if (customId.startsWith(SKY_PROFILE_REPORT_MODAL_CUSTOM_ID)) {
-					await Profile.sendReport(interaction);
-					return;
-				}
+				// if (customId.startsWith(SKY_PROFILE_REPORT_MODAL_CUSTOM_ID)) {
+				// 	await Profile.sendReport(interaction);
+				// 	return;
+				// }
 
 				if (DAILY_GUIDES_DAILY_MESSAGE_MODAL === customId) {
 					await setDailyMessage(interaction);

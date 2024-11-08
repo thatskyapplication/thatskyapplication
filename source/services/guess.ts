@@ -37,7 +37,8 @@ import {
 } from "../utility/emojis.js";
 import { getRandomElement } from "../utility/functions.js";
 import { SPIRIT_COSMETIC_EMOJIS_ARRAY } from "../utility/guess.js";
-import type { API, Client, GatewayGuildCreateDispatchData, Snowflake } from "@discordjs/core";
+import type { GatewayGuildCreateDispatchData, Snowflake } from "@discordjs/core";
+import { client } from "../discord.js";
 
 export function isGuessDifficultyLevel(level: number): level is GuessDifficultyLevel {
 	return GUESS_DIFFICULTY_LEVEL_VALUES.includes(level);
@@ -356,7 +357,7 @@ export async function removeGuildId(userId: Snowflake, guildId: Snowflake) {
 		.where({ user_id: userId });
 }
 
-export async function handleGuildCreate(client: Client, guild: GatewayGuildCreateDispatchData) {
+export async function handleGuildCreate(guild: GatewayGuildCreateDispatchData) {
 	const userIds = (await pg<GuessPacket>(Table.Guess).select("user_id")).map((row) => row.user_id);
 	const requestedGuildMembers = await client.requestGuildMembers({ guild_id: guild.id, user_ids: userIds });
 

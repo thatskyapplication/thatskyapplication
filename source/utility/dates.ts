@@ -1,4 +1,4 @@
-import { Locale } from "@discordjs/core";
+import { Locale, type LocaleString } from "@discordjs/core";
 import { DateTime } from "luxon";
 
 // Time zone.
@@ -57,7 +57,7 @@ export function isDuring(start: DateTime, end: DateTime, date: DateTime) {
 	return date >= start && date <= end;
 }
 
-export function dateString(date: DateTime, locale: Locale) {
+export function dateString(date: DateTime, locale: LocaleString) {
 	let resolvedLocale = locale;
 	let format: string;
 

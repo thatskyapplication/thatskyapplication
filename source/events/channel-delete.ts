@@ -7,13 +7,13 @@ const name = GatewayDispatchEvents.ChannelDelete;
 
 export default {
 	name,
-	async fire({ api, data }) {
+	async fire({ data }) {
 		CHANNEL_CACHE.delete(data.id);
 
 		if (!("guild_id" in data)) {
 			return;
 		}
 
-		await checkSendable(api, data.guild_id);
+		await checkSendable(data.guild_id);
 	},
 } satisfies Event<typeof name>;

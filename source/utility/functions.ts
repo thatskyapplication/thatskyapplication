@@ -5,6 +5,7 @@ import {
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIModalSubmitInteraction,
+	type APIUser,
 	type APIUserApplicationCommandInteraction,
 	ApplicationCommandType,
 	ComponentType,
@@ -54,8 +55,12 @@ export function chatInputApplicationCommandMention(
 	}:${id}>`;
 }
 
-export function userLogFormat(user: User) {
-	return `${user} (${user.tag})`;
+export function interactionInvoker(interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentSelectMenuInteraction) {
+	return interaction.member?.user ?? interaction.user!;
+}
+
+export function userLogFormat(user: APIUser) {
+	return `${user} (${user.username}${user.discriminator === "0" ? "" : `#${user.discriminator}`})`;
 }
 
 export function isRealm(realm: string): realm is RealmName {

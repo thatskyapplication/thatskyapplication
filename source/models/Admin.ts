@@ -1,6 +1,6 @@
-import type { Locale } from "@discordjs/core";
+import type { LocaleString } from "@discordjs/core";
 
 export interface InteractiveOptions {
 	content?: string;
-	locale: Locale;
+	locale: LocaleString;
 }

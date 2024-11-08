@@ -1,43 +1,63 @@
-import { stat, unlink, writeFile } from "node:fs/promises";
 import { inspect } from "node:util";
-import { ChannelType, PermissionFlagsBits, type APIUnavailableGuild, type GatewayGuildCreateDispatchData } from "@discordjs/core";
+import {
+	type APIEmbed,
+	type APIUnavailableGuild,
+	ChannelType,
+	type ChannelsAPI,
+	type GatewayGuildCreateDispatchData,
+	PermissionFlagsBits,
+} from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
+import { CHANNEL_CACHE } from "../caches/channels.js";
+import { GUILD_CACHE } from "../caches/guilds.js";
+import { client } from "../discord.js";
 import pino from "../pino.js";
-import { DEFAULT_EMBED_COLOUR, MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID } from "../utility/constants.js";
+import {
+	APPLICATION_ID,
+	DEFAULT_EMBED_COLOUR,
+	MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID,
+} from "../utility/constants.js";
+import { can } from "../utility/permissions.js";
 
 interface LogOptions {
 	content?: string;
-	embeds?: EmbedBuilder[];
+	embeds?: APIEmbed[];
 	error?: unknown;
 }
 
-export async function log(client: Client<true>, { content, embeds = [], error }: LogOptions) {
+export async function log({ content, embeds = [], error }: LogOptions) {
 	const output = error ?? content;
 
 	if (output) {
 		pino.info(output);
 	}
 
-	const channel = client.channels.cache.get(MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID);
+	const channel = CHANNEL_CACHE.get(MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID);
 
-	if (channel?.type !== ChannelType.GuildText) {
+	if (channel?.type !== ChannelType.GuildText || !channel.guild_id) {
 		return;
 	}
 
-	const potentialFileName = `../error-${Date.now()}.xl`;
+	const guild = GUILD_CACHE.get(channel.guild_id);
+
+	if (!guild) {
+		return;
+	}
 
 	try {
-		const me = await channel.guild.members.fetchMe();
+		const me = await client.api.guilds.getMember(guild.id, APPLICATION_ID);
 
 		if (
-			!channel
-				.permissionsFor(me)
-				.has(
+			!can({
+				permission:
 					PermissionFlagsBits.AttachFiles |
-						PermissionFlagsBits.EmbedLinks |
-						PermissionFlagsBits.SendMessages |
-						PermissionFlagsBits.ViewChannel,
-				)
+					PermissionFlagsBits.EmbedLinks |
+					PermissionFlagsBits.SendMessages |
+					PermissionFlagsBits.ViewChannel,
+				guild,
+				member: me,
+				channel,
+			})
 		) {
 			return;
 		}
@@ -49,25 +69,26 @@ export async function log(client: Client<true>, { content, embeds = [], error }:
 			const inspectedError = inspect(error, false, Number.POSITIVE_INFINITY);
 
 			if (inspectedError.length > 4_096) {
-				await writeFile(potentialFileName, inspectedError);
-				files.push(potentialFileName);
+				files.push({
+					name: `error-${Date.now()}.xl`,
+					data: inspectedError,
+				});
 			} else {
-				const embed = new EmbedBuilder()
-					.setDescription(`\`\`\`xl\n${inspectedError}\n\`\`\``)
-					.setTitle("Error");
-
-				embeds.push(embed);
+				embeds.push({
+					description: `\`\`\`xl\n${inspectedError}\n\`\`\``,
+					title: "Error",
+				});
 			}
 		}
 
 		for (const embed of embeds) {
-			if (embed.data.color === undefined) {
-				embed.setColor(DEFAULT_EMBED_COLOUR);
+			if (embed.color === undefined) {
+				embed.color = DEFAULT_EMBED_COLOUR;
 			}
 		}
 
-		const payload: Parameters<TextChannel["send"]>[0] = {
-			allowedMentions: { parse: [] },
+		const payload: Parameters<ChannelsAPI["createMessage"]>[1] = {
+			allowed_mentions: { parse: [] },
 			embeds,
 			files,
 		};
@@ -76,20 +97,8 @@ export async function log(client: Client<true>, { content, embeds = [], error }:
 			payload.content = `${stamp} ${content}`;
 		}
 
-		await channel.send(payload);
-
-		if (files.length > 0) {
-			await unlink(potentialFileName);
-		}
+		await client.api.channels.createMessage(channel.id, payload);
 	} catch (error) {
-		await stat(potentialFileName)
-			.then(async () => unlink(potentialFileName))
-			.catch((unlinkError) => {
-				if (unlinkError.code !== "ENOENT") {
-					pino.error(unlinkError, "Failed to unlink file.");
-				}
-			});
-
 		pino.error(error, "Failed to log to Discord.");
 	}
 }

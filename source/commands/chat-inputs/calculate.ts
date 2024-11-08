@@ -1,4 +1,3 @@
-import { type ChatInputCommandInteraction, Locale } from "discord.js";
 import { t } from "i18next";
 import {
 	ascendedCandles,
@@ -6,6 +5,7 @@ import {
 	seasonalCandles,
 	wingedLight,
 } from "../../services/calculate.js";
+import { Locale } from "@discordjs/core";
 
 export default {
 	name: t("calculate.command-name", { lng: Locale.EnglishGB, ns: "commands" }),

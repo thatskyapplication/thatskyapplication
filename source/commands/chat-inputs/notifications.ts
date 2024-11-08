@@ -4,15 +4,19 @@ import {
 	PermissionFlagsBits,
 } from "@discordjs/core";
 import { t } from "i18next";
-import type { InteractionPayload } from "../../models/InteractionPayload.js";
+import { GUILD_CACHE } from "../../caches/guilds.js";
+import { client } from "../../discord.js";
 import { setup, status, unset } from "../../services/notification.js";
 import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../utility/constants.js";
+import { OptionResolver } from "../../utility/option-resolver.js";
 import { cannotUsePermissions } from "../../utility/permissions.js";
 
 export default {
 	name: t("notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-	async chatInput({ client, interaction }: InteractionPayload) {
-		if (!interaction.guild_id) {
+	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
+		const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
+
+		if (!guild) {
 			await client.api.interactions.reply(
 				interaction.id,
 				interaction.token,
@@ -21,33 +25,24 @@ export default {
 			return;
 		}
 
-		if (
-			await cannotUsePermissions(client.api, interaction, PermissionFlagsBits.UseExternalEmojis)
-		) {
+		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
 			return;
 		}
 
-		switch (interaction.options.getSubcommand()) {
+		const options = new OptionResolver(interaction);
+
+		switch (options.getSubcommand()) {
 			case "setup": {
-				await this.setup(interaction);
+				await setup(interaction, options);
 				return;
 			}
 			case "status": {
-				await this.status(interaction);
+				await status(interaction);
 				return;
 			}
 			case "unset": {
-				await this.unset(interaction);
+				await unset(interaction, options);
 			}
 		}
-	},
-	async setup(interaction: APIChatInputApplicationCommandInteraction) {
-		await setup(interaction);
-	},
-	async status(interaction: APIChatInputApplicationCommandInteraction) {
-		await status(interaction);
-	},
-	async unset(interaction: APIChatInputApplicationCommandInteraction) {
-		await unset(interaction);
 	},
 } as const;

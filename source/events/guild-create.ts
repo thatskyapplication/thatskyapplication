@@ -1,4 +1,4 @@
-import { GatewayDispatchEvents } from "@discordjs/core";
+import { ChannelType, GatewayDispatchEvents } from "@discordjs/core";
 import { CHANNEL_CACHE } from "../caches/channels.js";
 import { GUILD_CACHE, GUILD_IDS_FROM_READY } from "../caches/guilds.js";
 import { handleGuildCreate } from "../services/guess.js";
@@ -15,6 +15,10 @@ export default {
 			GUILD_CACHE.set(data.id, otherData);
 
 			for (const channel of channels) {
+				if (channel.type !== ChannelType.DM && channel.type !== ChannelType.GroupDM) {
+					channel.guild_id = data.id;
+				}
+
 				CHANNEL_CACHE.set(channel.id, channel);
 			}
 
@@ -24,6 +28,6 @@ export default {
 
 		GUILD_CACHE.set(data.id, data);
 		logGuildCreate(data);
-		await handleGuildCreate(this, data);
+		await handleGuildCreate(data);
 	},
 } satisfies Event<typeof name>;

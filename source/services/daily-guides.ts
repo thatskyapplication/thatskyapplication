@@ -1,3 +1,4 @@
+import type { APIEmbed, APIEmbedFooter, LocaleString } from "@discordjs/core";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { skyCurrentEvents, skyNotEndedEvents } from "../data/events/index.js";
@@ -354,15 +355,20 @@ export function dailyGuidesShardEruptionData(locale: Locale) {
 	];
 }
 
-export function distributionEmbed(locale: Locale) {
+export function distributionEmbed(locale: LocaleString) {
 	const { dailyMessage, quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
 	const today = skyToday();
 	const now = skyNow();
 
-	const embed = new EmbedBuilder().setColor(DEFAULT_EMBED_COLOUR).setTitle(dateString(now, locale));
+	const embed: APIEmbed = {
+		color: DEFAULT_EMBED_COLOUR,
+		title: dateString(now, locale),
+	};
+
+	const fields = [];
 
 	if (dailyMessage) {
-		embed.addFields({ name: dailyMessage.title, value: dailyMessage.description });
+		fields.push({ name: dailyMessage.title, value: dailyMessage.description });
 	}
 
 	const quests = [quest1, quest2, quest3, quest4].filter(
@@ -370,7 +376,7 @@ export function distributionEmbed(locale: Locale) {
 	);
 
 	if (quests.length > 0) {
-		embed.addFields({
+		fields.push({
 			name: "Quests",
 			value: quests
 				.map(
@@ -402,7 +408,7 @@ export function distributionEmbed(locale: Locale) {
 		}
 
 		if (values.length > 0) {
-			embed.addFields({
+			fields.push({
 				name: "Treasure Candles",
 				value: values.join(" | "),
 			});
@@ -451,7 +457,7 @@ export function distributionEmbed(locale: Locale) {
 			})} remain in the season with a Season Pass.`,
 		);
 
-		embed.addFields({ name: "Seasonal Candles", value: values.join("\n") });
+		fields.push({ name: "Seasonal Candles", value: values.join("\n") });
 	} else {
 		const next = skyUpcomingSeason(today);
 
@@ -479,22 +485,23 @@ export function distributionEmbed(locale: Locale) {
 	}
 
 	if (footerText.length > 0) {
-		const footer: EmbedFooterOptions = {
+		const footer: APIEmbedFooter = {
 			text: footerText.join("\n"),
 		};
 
 		if (iconURL) {
-			footer.iconURL = iconURL;
+			footer.icon_url = iconURL;
 		}
 
-		embed.setFooter(footer);
+		embed.footer = footer;
 	}
 
 	if (eventData.eventCurrency) {
-		embed.addFields(eventData.eventCurrency);
+		fields.push(eventData.eventCurrency);
 	}
 
-	embed.addFields(dailyGuidesShardEruptionData(locale));
+	fields.push(...dailyGuidesShardEruptionData(locale));
+	embed.fields = fields;
 	return embed;
 }
 

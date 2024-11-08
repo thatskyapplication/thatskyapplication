@@ -1,9 +1,6 @@
-import {
-	type APIChatInputApplicationCommandInteraction,
-	type Client,
-	MessageFlags,
-} from "@discordjs/core";
+import { type APIChatInputApplicationCommandInteraction, MessageFlags } from "@discordjs/core";
 import { calculateUserDefaultAvatarIndex } from "@discordjs/rest";
+import { client } from "../discord.js";
 import {
 	ABOUT_DESCRIPTION,
 	ABOUT_SPONSOR,
@@ -13,10 +10,7 @@ import {
 	WEBSITE_URL,
 } from "../utility/constants.js";
 
-export async function about(
-	client: Client,
-	interaction: APIChatInputApplicationCommandInteraction,
-) {
+export async function about(interaction: APIChatInputApplicationCommandInteraction) {
 	const currentUser = await client.api.users.getCurrent();
 
 	const index =
