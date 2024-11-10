@@ -13,7 +13,7 @@ import {
 } from "../utility/catalogue.js";
 import { CDN_URL } from "../utility/constants.js";
 import type { EventEmojis } from "../utility/emojis.js";
-import { Locale } from "@discordjs/core";
+import { Locale, type LocaleString } from "@discordjs/core";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
 
@@ -145,7 +145,7 @@ export class Event {
 		this.patchNotesURL = data.patchNotesURL ?? null;
 	}
 
-	public daysText(date: DateTime, locale: Locale) {
+	public daysText(date: DateTime, locale: LocaleString) {
 		const { end, start, name } = this;
 		const daysLeft = end.diff(date, "days").days;
 		const daysUntilStart = start.diff(date, "days").days;

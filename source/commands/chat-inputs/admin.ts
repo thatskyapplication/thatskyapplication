@@ -2,15 +2,23 @@ import type {
 	APIApplicationCommandAutocompleteInteraction,
 	APIChatInputApplicationCommandInteraction,
 } from "@discordjs/core";
-import { ai, customStatus, interactive, setQuest } from "../../services/admin.js";
+import {
+	ai,
+	customStatus,
+	interactive,
+	setQuest,
+	setQuestAutocomplete,
+} from "../../services/admin.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
 	name: "admin",
 	async autocomplete(interaction: APIApplicationCommandAutocompleteInteraction) {
-		switch (interaction.options.getSubcommand()) {
+		const options = new OptionResolver(interaction);
+
+		switch (options.getSubcommand()) {
 			case "set-quest":
-				await this.setQuestAutocomplete(interaction);
+				await setQuestAutocomplete(interaction, options);
 		}
 	},
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {

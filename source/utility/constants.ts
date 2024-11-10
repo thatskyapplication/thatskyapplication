@@ -224,6 +224,7 @@ export const VALID_REALM_NAME = [
 ] as const;
 
 export type ValidRealmName = (typeof VALID_REALM_NAME)[number];
+export const VALID_REALM_NAME_VALUES = Object.values(VALID_REALM_NAME);
 
 export const WINGED_LIGHT_THRESHOLDS = [
 	1, 2, 5, 10, 20, 35, 55, 75, 100, 120, 150, 200, 250,

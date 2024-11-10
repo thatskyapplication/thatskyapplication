@@ -380,27 +380,31 @@ export class OptionResolver {
 	/**
 	 * Gets the focused option for an autocomplete interaction
 	 */
-	public getFocusedOption() {
+	public getFocusedOption<
+		Type extends
+			| ApplicationCommandOptionType.String
+			| ApplicationCommandOptionType.Integer
+			| ApplicationCommandOptionType.Number,
+	>(type: Type): Extract<APIApplicationCommandInteractionDataOption, { type: Type }> {
 		if (this.interaction.type !== InteractionType.ApplicationCommandAutocomplete) {
 			throw new Error("This method can only be used on autocomplete interactions");
 		}
 
 		const focusedOption = this.hoistedOptions?.find(
-			(option) => "focused" in option && option.focused,
-		) as
-			| APIApplicationCommandInteractionDataStringOption
-			| APIApplicationCommandInteractionDataIntegerOption
-			| APIApplicationCommandInteractionDataNumberOption
-			| undefined;
+			(
+				option,
+			): option is
+				| APIApplicationCommandInteractionDataStringOption
+				| APIApplicationCommandInteractionDataIntegerOption
+				| APIApplicationCommandInteractionDataNumberOption => "focused" in option && option.focused,
+		);
 
 		// Considering the earlier check, this should be impossible, but it's here for good measure
-		if (!focusedOption) {
-			throw new Error("No focused option for autocomplete interaction");
+		if (focusedOption?.type !== type) {
+			throw new Error("No focused option found for autocomplete interaction.");
 		}
 
-		const { focused, ...option } = focusedOption;
-
-		return option;
+		return focusedOption as Extract<APIApplicationCommandInteractionDataOption, { type: Type }>;
 	}
 
 	private getTypedOption<

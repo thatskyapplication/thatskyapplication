@@ -1,14 +1,18 @@
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import {
-	type API,
+	type APIApplicationCommandAutocompleteInteraction,
 	type APIChatInputApplicationCommandInteraction,
 	type APIInteractionResponseCallbackData,
+	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
+	type APIModalSubmitInteraction,
 	ActivityType,
+	ApplicationCommandOptionType,
 	ButtonStyle,
 	ComponentType,
 	MessageFlags,
 	PresenceUpdateStatus,
+	TextInputStyle,
 } from "@discordjs/core";
 import { hash } from "hasha";
 import sharp from "sharp";
@@ -49,6 +53,7 @@ import {
 	resolveValidRealm,
 	userLogFormat,
 } from "../utility/functions.js";
+import { ModalResolver } from "../utility/modal-resolver.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { log } from "./log.js";
 
@@ -57,14 +62,13 @@ function isQuestNumber(questNumber: number): questNumber is QuestNumber {
 }
 
 export async function ai(
-	api: API,
 	interaction: APIChatInputApplicationCommandInteraction,
 	options: OptionResolver,
 ) {
 	const enable = options.getBoolean("enable", true);
 	await Configuration.edit({ ai: enable });
 
-	await api.interactions.reply(interaction.id, interaction.token, {
+	await client.api.interactions.reply(interaction.id, interaction.token, {
 		content: `AI feature set to \`${Configuration.ai}\`.`,
 		flags: MessageFlags.Ephemeral,
 	});
@@ -90,7 +94,11 @@ export async function customStatus(
 }
 
 export async function interactive(
-	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentSelectMenuInteraction,
+	interaction:
+		| APIChatInputApplicationCommandInteraction
+		| APIMessageComponentButtonInteraction
+		| APIMessageComponentSelectMenuInteraction
+		| APIModalSubmitInteraction,
 	options?: InteractiveOptions,
 ) {
 	const resolvedContent = options?.content ?? "";
@@ -160,37 +168,45 @@ export async function interactive(
 
 	if (isChatInputCommand(interaction)) {
 		await client.api.interactions.reply(interaction.id, interaction.token, response);
-	} else if (interaction.deferred) {
-		await client.api.interactions.editReply(interaction.application_id, interaction.token, response);
+	} else if (options?.deferred) {
+		await client.api.interactions.editReply(
+			interaction.application_id,
+			interaction.token,
+			response,
+		);
 	} else {
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 	}
 }
 
-export async function distribute(interaction: ButtonInteraction) {
-	const { client, locale, user } = interaction;
-	await interaction.deferUpdate();
-	await distributeDailyGuides(client);
+export async function distribute(interaction: APIMessageComponentButtonInteraction) {
+	const { locale } = interaction;
+	await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
+	await distributeDailyGuides();
 
 	void log({
-		content: `${userLogFormat(user)} manually distributed the daily guides.`,
+		content: `${userLogFormat(interactionInvoker(interaction))} manually distributed the daily guides.`,
 		embeds: [distributionEmbed(locale)],
 	});
 
-	await interactive(interaction, { content: "Distributed daily guides.", locale });
+	await interactive(interaction, { content: "Distributed daily guides.", deferred: true, locale });
 }
 
-export async function setQuestAutocomplete(interaction: AutocompleteInteraction) {
-	const focused = interaction.options.getFocused().toUpperCase();
+export async function setQuestAutocomplete(
+	interaction: APIApplicationCommandAutocompleteInteraction,
+	options: OptionResolver,
+) {
+	const focused = options.getFocusedOption(ApplicationCommandOptionType.String).value;
 
-	return interaction.respond(
-		focused === ""
-			? []
-			: QUESTS.map(({ content }) => content)
-					.filter((quest) => quest.toUpperCase().includes(focused))
-					.map((quest) => ({ name: quest, value: quest }))
-					.slice(0, 25),
-	);
+	await client.api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
+		choices:
+			focused === ""
+				? []
+				: QUESTS.map(({ content }) => content)
+						.filter((quest) => quest.toUpperCase().includes(focused))
+						.map((quest) => ({ name: quest, value: quest }))
+						.slice(0, 25),
+	});
 }
 
 export async function setQuest(
@@ -287,45 +303,59 @@ export async function questSwap(interaction: APIMessageComponentSelectMenuIntera
 	});
 }
 
-export async function dailyMessageModalResponse(interaction: ButtonInteraction) {
+export async function dailyMessageModalResponse(interaction: APIMessageComponentButtonInteraction) {
 	const { dailyMessage } = DailyGuides;
 
-	await interaction.showModal(
-		new ModalBuilder()
-			.setComponents(
-				new ActionRowBuilder<TextInputBuilder>().setComponents(
-					new TextInputBuilder()
-						.setCustomId(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE)
-						.setLabel("The title of the daily message.")
-						.setMaxLength(MAXIMUM_EMBED_FIELD_NAME_LENGTH)
-						.setRequired()
-						.setStyle(TextInputStyle.Short)
-						.setValue(dailyMessage?.title ?? ""),
-				),
-				new ActionRowBuilder<TextInputBuilder>().setComponents(
-					new TextInputBuilder()
-						.setCustomId(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION)
-						.setLabel("The description of the daily message.")
-						.setMaxLength(MAXIMUM_EMBED_FIELD_VALUE_LENGTH)
-						.setRequired()
-						.setStyle(TextInputStyle.Paragraph)
-						.setValue(dailyMessage?.description ?? ""),
-				),
-			)
-			.setCustomId(DAILY_GUIDES_DAILY_MESSAGE_MODAL)
-			.setTitle("Daily Message"),
-	);
+	await client.api.interactions.createModal(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.TextInput,
+						custom_id: DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE,
+						label: "The title of the daily message.",
+						max_length: MAXIMUM_EMBED_FIELD_NAME_LENGTH,
+						required: true,
+						style: TextInputStyle.Short,
+						value: dailyMessage?.title ?? "",
+					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.TextInput,
+						custom_id: DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION,
+						label: "The description of the daily message.",
+						max_length: MAXIMUM_EMBED_FIELD_VALUE_LENGTH,
+						required: true,
+						style: TextInputStyle.Paragraph,
+						value: dailyMessage?.description ?? "",
+					},
+				],
+			},
+		],
+		custom_id: DAILY_GUIDES_DAILY_MESSAGE_MODAL,
+		title: "Daily Message",
+	});
 }
 
-export async function setDailyMessage(interaction: ModalMessageModalSubmitInteraction) {
-	const { client, locale, fields, user } = interaction;
-	const title = fields.getTextInputValue(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE);
-	const description = fields.getTextInputValue(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION);
+export async function setDailyMessage(interaction: APIModalSubmitInteraction) {
+	const { data, locale } = interaction;
+	const components = new ModalResolver(data.components);
+	const title = components.getTextInputValue(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE);
+
+	const description = components.getTextInputValue(
+		DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION,
+	);
+
 	const previousEmbed = distributionEmbed(locale);
 	await DailyGuides.updateDailyMessage({ title, description });
 
-	void log(client, {
-		content: `${userLogFormat(user)} manually updated the daily message.`,
+	void log({
+		content: `${userLogFormat(interactionInvoker(interaction))} manually updated the daily message.`,
 		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 
@@ -335,33 +365,41 @@ export async function setDailyMessage(interaction: ModalMessageModalSubmitIntera
 	});
 }
 
-export async function treasureCandlesModalResponse(interaction: ButtonInteraction) {
-	await interaction.update({
+export async function treasureCandlesModalResponse(
+	interaction: APIMessageComponentButtonInteraction,
+) {
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		content: "",
 		embeds: [],
 		components: [
-			new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-				new StringSelectMenuBuilder()
-					.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID)
-					.setMaxValues(1)
-					.setMinValues(1)
-					.setOptions(
-						VALID_REALM_NAME.map((realm) =>
-							new StringSelectMenuOptionBuilder().setLabel(realm).setValue(realm),
-						),
-					)
-					.setPlaceholder("Select a realm."),
-			),
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.StringSelect,
+						custom_id: DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID,
+						max_values: 1,
+						min_values: 1,
+						options: VALID_REALM_NAME.map((realm) => ({ label: realm, value: realm })),
+						placeholder: "Select a realm.",
+					},
+				],
+			},
 		],
 	});
 }
 
-export async function treasureCandlesSelectMenuResponse(interaction: StringSelectMenuInteraction) {
+export async function treasureCandlesSelectMenuResponse(
+	interaction: APIMessageComponentSelectMenuInteraction,
+) {
 	const { treasureCandles } = DailyGuides;
-	const realm = resolveValidRealm(interaction.values[0]!);
+	const realm = resolveValidRealm(interaction.data.values[0]!);
 
 	if (!realm) {
-		await interaction.reply(`Detected an unknown realm: ${realm}.`);
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `Detected an unknown realm: ${realm}.`,
+		});
+
 		return;
 	}
 
@@ -378,42 +416,56 @@ export async function treasureCandlesSelectMenuResponse(interaction: StringSelec
 		batch2URL = DailyGuides.treasureCandlesURL(batch2);
 	}
 
-	await interaction.showModal(
-		new ModalBuilder()
-			.setComponents(
-				new ActionRowBuilder<TextInputBuilder>().setComponents(
-					new TextInputBuilder()
-						.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1)
-						.setLabel("The URL of the first batch.")
-						.setRequired(false)
-						.setStyle(TextInputStyle.Short)
-						.setValue(batch1URL),
-				),
-				new ActionRowBuilder<TextInputBuilder>().setComponents(
-					new TextInputBuilder()
-						.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2)
-						.setLabel("The URL of the second batch.")
-						.setRequired(false)
-						.setStyle(TextInputStyle.Short)
-						.setValue(batch2URL),
-				),
-			)
-			.setCustomId(`${DAILY_GUIDES_TREASURE_CANDLES_MODAL}§${realm}`)
-			.setTitle("Treasure Candles"),
-	);
+	await client.api.interactions.createModal(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.TextInput,
+						custom_id: DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1,
+						label: "The URL of the first batch.",
+						required: false,
+						style: TextInputStyle.Short,
+						value: batch1URL,
+					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.TextInput,
+						custom_id: DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2,
+						label: "The URL of the second batch.",
+						required: false,
+						style: TextInputStyle.Short,
+						value: batch2URL,
+					},
+				],
+			},
+		],
+		custom_id: `${DAILY_GUIDES_TREASURE_CANDLES_MODAL}§${realm}`,
+		title: "Treasure Candles",
+	});
 }
 
-export async function setTreasureCandles(interaction: ModalMessageModalSubmitInteraction) {
-	const { client, customId, locale, fields, user } = interaction;
+export async function setTreasureCandles(interaction: APIModalSubmitInteraction) {
+	const { data, locale } = interaction;
+	const customId = data.custom_id;
 	const realm = resolveValidRealm(customId.slice(customId.indexOf("§") + 1));
 
 	if (!realm) {
-		await interaction.reply(`Detected an unknown realm: ${realm}.`);
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `Detected an unknown realm: ${realm}.`,
+		});
+
 		return;
 	}
 
-	const batch1 = fields.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1);
-	const batch2 = fields.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2);
+	const components = new ModalResolver(data.components);
+	const batch1 = components.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1);
+	const batch2 = components.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2);
 	const treasureCandles = [];
 
 	if (batch1) {
@@ -452,8 +504,8 @@ export async function setTreasureCandles(interaction: ModalMessageModalSubmitInt
 
 	await DailyGuides.updateTreasureCandles({ [realm]: hashes });
 
-	void log(client, {
-		content: `${userLogFormat(user)} manually updated the treasure candles.`,
+	void log({
+		content: `${userLogFormat(interactionInvoker(interaction))} manually updated the treasure candles.`,
 		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 

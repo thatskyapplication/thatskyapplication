@@ -1,8 +1,19 @@
-import type { APIEmbed, APIEmbedFooter, LocaleString } from "@discordjs/core";
+import {
+	type APIEmbed,
+	type APIEmbedFooter,
+	type LocaleString,
+	MessageFlags,
+	RESTJSONErrorCodes,
+	type Snowflake,
+} from "@discordjs/core";
+import { DiscordAPIError } from "@discordjs/rest";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
+import { CHANNEL_CACHE } from "../caches/channels.js";
+import { GUILD_CACHE } from "../caches/guilds.js";
 import { skyCurrentEvents, skyNotEndedEvents } from "../data/events/index.js";
 import { skyCurrentSeason, skyUpcomingSeason } from "../data/spirits/seasons/index.js";
+import { client } from "../discord.js";
 import DailyGuides, { type DailyGuideQuest } from "../models/DailyGuides.js";
 import type {
 	DailyGuidesDistributionAllowedChannel,
@@ -14,6 +25,7 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import type { RotationNumber } from "../utility/catalogue.js";
 import {
+	APPLICATION_ID,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DEFAULT_EMBED_COLOUR,
 	RealmName,
@@ -224,11 +236,20 @@ export async function deleteDailyGuidesDistribution(guildId: Snowflake) {
 }
 
 async function send(
-	client: Client<true>,
 	enforceNonce: boolean,
 	{ guildId, channelId, messageId }: DailyGuidesDistributionData,
 ) {
-	const channel = client.channels.cache.get(channelId!);
+	const guild = GUILD_CACHE.get(guildId);
+
+	if (!guild) {
+		pino.info(
+			`Did not distribute daily guides to guild id ${guildId} as the guild was not cached.`,
+		);
+
+		return;
+	}
+
+	const channel = CHANNEL_CACHE.get(channelId!);
 
 	if (!(channel && isDailyGuidesDistributionChannel(channel))) {
 		pino.info(
@@ -238,7 +259,7 @@ async function send(
 		return;
 	}
 
-	const me = await channel.guild.members.fetchMe();
+	const me = await client.api.guilds.getMember(guildId, APPLICATION_ID);
 
 	if (!isDailyGuidesDistributable(channel, me)) {
 		pino.info(
@@ -249,15 +270,20 @@ async function send(
 	}
 
 	// Retrieve our embed.
-	const embed = distributionEmbed(channel.guild.preferredLocale);
+	// @ts-expect-error https://github.com/discordjs/discord-api-types/pull/1138
+	const embed = distributionEmbed(guild.preferred_locale);
 
 	// Update the embed if a message exists.
 	if (messageId) {
-		return channel.messages.edit(messageId, { embeds: [embed] });
+		return client.api.channels.editMessage(channelId!, messageId, { embeds: [embed] });
 	}
 
 	// There is no existing message. Send one.
-	const { id } = await channel.send({ embeds: [embed], enforceNonce, nonce: guildId });
+	const { id } = await client.api.channels.createMessage(channelId!, {
+		embeds: [embed],
+		enforce_nonce: enforceNonce,
+		nonce: guildId,
+	});
 
 	const [newDailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(
 		Table.DailyGuidesDistribution,
@@ -280,7 +306,7 @@ async function statusEmbed(guild: Guild, channelId: Snowflake | null) {
 		.setColor(DEFAULT_EMBED_COLOUR)
 		.setFields({
 			name: "Daily Guides",
-			value: `${channelId ? channelMention(channelId) : "No channel"}\n${
+			value: `${channelId ? `<#${channelId}>` : "No channel"}\n${
 				sending ? "Sending!" : "Stopped!"
 			} ${formatEmoji(sending ? MISCELLANEOUS_EMOJIS.Yes : MISCELLANEOUS_EMOJIS.No)}`,
 			inline: true,
@@ -288,7 +314,7 @@ async function statusEmbed(guild: Guild, channelId: Snowflake | null) {
 		.setTitle(guild.name);
 }
 
-export function dailyGuidesEventData(date: DateTime, locale: Locale) {
+export function dailyGuidesEventData(date: DateTime, locale: LocaleString) {
 	const events = skyCurrentEvents(date);
 	const eventEndText = skyNotEndedEvents(date).map((event) => event.daysText(date, locale));
 	const event0 = events[0];
@@ -309,18 +335,15 @@ export function dailyGuidesEventData(date: DateTime, locale: Locale) {
 			? {
 					name: t("event-currency", { lng: locale, ns: "general" }),
 					value: currentEventsWithEventCurrency
-						.map((event) =>
-							hyperlink(
-								`${event.eventCurrency?.emoji ? formatEmoji(event.eventCurrency.emoji) : ""}${t(
+						.map(
+							(event) =>
+								`[${event.eventCurrency?.emoji ? formatEmoji(event.eventCurrency.emoji) : ""}${t(
 									"view",
 									{
 										lng: locale,
 										ns: "general",
 									},
-								)}`,
-								event.resolveInfographicURL(date)!,
-								t(`events.${event.id}`, { lng: locale, ns: "general" }),
-							),
+								)}](${event.resolveInfographicURL(date)!} "${t(`events.${event.id}`, { lng: locale, ns: "general" })}")`,
 						)
 						.join(" | "),
 				}
@@ -329,7 +352,7 @@ export function dailyGuidesEventData(date: DateTime, locale: Locale) {
 	return { eventEndText, iconURL, eventCurrency };
 }
 
-export function dailyGuidesShardEruptionData(locale: Locale) {
+export function dailyGuidesShardEruptionData(locale: LocaleString) {
 	const shard = shardEruption();
 
 	if (shard) {
@@ -379,9 +402,7 @@ export function distributionEmbed(locale: LocaleString) {
 		fields.push({
 			name: "Quests",
 			value: quests
-				.map(
-					({ content, url }, index) => `${index + 1}. ${url ? hyperlink(content, url) : content}`,
-				)
+				.map(({ content, url }, index) => `${index + 1}. ${url ? `[${content}](${url})` : content}`)
 				.join("\n"),
 		});
 	}
@@ -402,7 +423,7 @@ export function distributionEmbed(locale: LocaleString) {
 			}
 
 			for (const hash of hashes) {
-				values.push(hyperlink(`${number} - ${number + 3}`, DailyGuides.treasureCandlesURL(hash)));
+				values.push(`[${number} - ${number + 3}](${DailyGuides.treasureCandlesURL(hash)})`);
 				number += 4;
 			}
 		}
@@ -441,7 +462,7 @@ export function distributionEmbed(locale: LocaleString) {
 			}
 
 			const url = season.seasonalCandlesRotationURL(realm, rotationNumber);
-			values.push(hyperlink(`Rotation ${rotationNumber}`, url));
+			values.push(`[Rotation ${rotationNumber}](${url})`);
 		}
 
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
@@ -505,7 +526,7 @@ export function distributionEmbed(locale: LocaleString) {
 	return embed;
 }
 
-export async function distribute(client: Client<true>) {
+export async function distribute() {
 	const dailyGuidesDistributionPackets = await pg<DailyGuidesDistributionPacket>(
 		Table.DailyGuidesDistribution,
 	).whereNotNull("channel_id");
@@ -513,7 +534,7 @@ export async function distribute(client: Client<true>) {
 	const settled = await Promise.allSettled(
 		dailyGuidesDistributionPackets.map((dailyGuidesDistributionPacket) =>
 			pQueue.add(async () =>
-				send(client, true, {
+				send(true, {
 					guildId: dailyGuidesDistributionPacket.guild_id,
 					channelId: dailyGuidesDistributionPacket.channel_id,
 					messageId: dailyGuidesDistributionPacket.message_id,

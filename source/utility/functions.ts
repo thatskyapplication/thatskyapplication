@@ -12,7 +12,7 @@ import {
 	InteractionType,
 	type Snowflake,
 } from "@discordjs/core";
-import { SERVER_UPGRADE_SKU_ID } from "./constants.js";
+import { SERVER_UPGRADE_SKU_ID, VALID_REALM_NAME_VALUES } from "./constants.js";
 import {
 	INCONSISTENT_MAP,
 	MEDITATION_MAPS,
@@ -24,7 +24,6 @@ import {
 	SOCIAL_LIGHT_AREA_MAPS,
 	SkyMap,
 	type SocialLightAreaMaps,
-	VALID_REALM_NAME,
 	inconsistentMapKeys,
 } from "./constants.js";
 
@@ -55,7 +54,13 @@ export function chatInputApplicationCommandMention(
 	}:${id}>`;
 }
 
-export function interactionInvoker(interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentSelectMenuInteraction) {
+export function interactionInvoker(
+	interaction:
+		| APIChatInputApplicationCommandInteraction
+		| APIMessageComponentButtonInteraction
+		| APIMessageComponentSelectMenuInteraction
+		| APIModalSubmitInteraction,
+) {
 	return interaction.member?.user ?? interaction.user!;
 }
 
@@ -69,9 +74,9 @@ export function isRealm(realm: string): realm is RealmName {
 
 export function resolveValidRealm(realm: string) {
 	const upperRealm = realm.toUpperCase();
+
 	return (
-		Object.values(VALID_REALM_NAME).find((validRealm) => validRealm.toUpperCase() === upperRealm) ??
-		null
+		VALID_REALM_NAME_VALUES.find((validRealm) => validRealm.toUpperCase() === upperRealm) ?? null
 	);
 }
 
