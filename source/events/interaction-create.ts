@@ -9,6 +9,7 @@ import {
 	type Locale,
 	RESTJSONErrorCodes,
 } from "@discordjs/core";
+import { DiscordAPIError } from "@discordjs/rest";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import {
 	AUTOCOMPLETE_COMMANDS,
@@ -86,6 +87,7 @@ import {
 	treasureCandlesModalResponse,
 	treasureCandlesSelectMenuResponse,
 } from "../services/admin.js";
+import { finaliseSetup } from "../services/notification.js";
 // import { deleteUserData } from "../services/data.js";
 // import {
 // 	answer,
@@ -141,8 +143,6 @@ import {
 // } from "../utility/shard-eruption.js";
 // import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../utility/spirits.js";
 import type { Event } from "./index.js";
-import { DiscordAPIError } from "@discordjs/rest";
-import { finaliseSetup } from "../services/notification.js";
 
 const name = GatewayDispatchEvents.InteractionCreate;
 
