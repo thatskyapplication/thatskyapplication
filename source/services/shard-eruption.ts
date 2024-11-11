@@ -1,8 +1,15 @@
+import {
+	type APIButtonComponentWithCustomId,
+	type APIEmbed,
+	ButtonStyle,
+	type ChannelsAPI,
+	ComponentType,
+	type Locale,
+} from "@discordjs/core";
 import { t } from "i18next";
 import { DateTime } from "luxon";
 import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { TIME_ZONE, dateRangeString, dateString, skyToday } from "../utility/dates.js";
-import { cannotUsePermissions } from "../utility/permission-checks.js";
 import {
 	MAXIMUM_OPTION_NUMBER,
 	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
@@ -105,75 +112,90 @@ export async function today(
 	}
 }
 
-export function todayEmbed(locale: Locale, offset = 0) {
+export function todayEmbed(
+	locale: Locale,
+	offset = 0,
+): Parameters<ChannelsAPI["createMessage"]>[1] {
 	const shardYesterday = shardEruption(offset - 1);
 	const shardToday = shardEruption(offset);
 	const shard = shardEruption();
 	const shardTomorrow = shardEruption(offset + 1);
 
-	const embed = new EmbedBuilder()
-		.setColor(DEFAULT_EMBED_COLOUR)
-		.setTitle(dateString(skyToday().plus({ days: offset }), locale));
+	const embed: APIEmbed = {
+		color: DEFAULT_EMBED_COLOUR,
+		title: dateString(skyToday().plus({ days: offset }), locale),
+	};
 
-	const buttonYesterday = new ButtonBuilder()
-		.setCustomId(`${SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID}§${offset - 1}`)
-		.setLabel(t("back", { lng: locale, ns: "general" }))
-		.setStyle(ButtonStyle.Primary);
+	const buttonYesterday: APIButtonComponentWithCustomId = {
+		type: ComponentType.Button,
+		custom_id: `${SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID}§${offset - 1}`,
+		label: t("back", { lng: locale, ns: "general" }),
+		style: ButtonStyle.Primary,
+	};
 
-	const button = new ButtonBuilder()
-		.setCustomId(SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID)
-		.setDisabled(offset === 0)
-		.setLabel("Today")
-		.setStyle(ButtonStyle.Success);
+	const button: APIButtonComponentWithCustomId = {
+		type: ComponentType.Button,
+		custom_id: SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
+		disabled: offset === 0,
+		label: "Today",
+		style: ButtonStyle.Success,
+	};
 
-	const buttonTomorrow = new ButtonBuilder()
-		.setCustomId(`${SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID}§${offset + 1}`)
-		.setLabel(t("next", { lng: locale, ns: "general" }))
-		.setStyle(ButtonStyle.Primary);
+	const buttonTomorrow: APIButtonComponentWithCustomId = {
+		type: ComponentType.Button,
+		custom_id: `${SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID}§${offset + 1}`,
+		label: t("next", { lng: locale, ns: "general" }),
+		style: ButtonStyle.Primary,
+	};
 
 	if (shardYesterday) {
-		buttonYesterday.setEmoji(resolveShardEruptionEmoji(shardYesterday.strong));
+		buttonYesterday.emoji = resolveShardEruptionEmoji(shardYesterday.strong);
 	}
 
 	if (shardToday) {
-		embed
-			.setFields(
-				{
-					name: "Information",
-					value: shardEruptionInformationString(shardToday, false, locale),
-					inline: true,
-				},
-				{
-					name: "Timestamps",
-					value: shardEruptionTimestampsString(shardToday),
-					inline: true,
-				},
-			)
-			.setImage(String(shardToday.url));
+		embed.fields = [
+			{
+				name: "Information",
+				value: shardEruptionInformationString(shardToday, false, locale),
+				inline: true,
+			},
+			{
+				name: "Timestamps",
+				value: shardEruptionTimestampsString(shardToday),
+				inline: true,
+			},
+		];
+
+		embed.image = { url: String(shardToday.url) };
 	} else {
-		embed.setDescription(`There are no shard eruptions ${offset === 0 ? "today" : "on this day"}.`);
+		embed.description = `There are no shard eruptions ${offset === 0 ? "today" : "on this day"}.`;
 	}
 
 	if (shard) {
-		button.setEmoji(resolveShardEruptionEmoji(shard.strong));
+		button.emoji = resolveShardEruptionEmoji(shard.strong);
 	}
 
 	if (shardTomorrow) {
-		buttonTomorrow.setEmoji(resolveShardEruptionEmoji(shardTomorrow.strong));
+		buttonTomorrow.emoji = resolveShardEruptionEmoji(shardTomorrow.strong);
 	}
 
 	return {
 		components: [
-			new ActionRowBuilder<ButtonBuilder>().setComponents(
-				buttonYesterday,
-				button,
-				buttonTomorrow,
-				new ButtonBuilder()
-					.setCustomId(`${SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID}§${offset}`)
-					.setEmoji("🌐")
-					.setLabel("Browse")
-					.setStyle(ButtonStyle.Secondary),
-			),
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					buttonYesterday,
+					button,
+					buttonTomorrow,
+					{
+						type: ComponentType.Button,
+						custom_id: `${SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID}§${offset}`,
+						emoji: { name: "🌐" },
+						label: "Browse",
+						style: ButtonStyle.Secondary,
+					},
+				],
+			},
 		],
 		embeds: [embed],
 	};

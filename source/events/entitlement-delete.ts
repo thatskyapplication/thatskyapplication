@@ -7,8 +7,9 @@ const name = GatewayDispatchEvents.EntitlementDelete;
 
 export default {
 	name,
-	async fire({data}) {
+	async fire({ data }) {
 		if (data.sku_id === SERVER_UPGRADE_SKU_ID) {
+			// A guild id is always present for this (guild subscription).
 			await AI.delete(data.guild_id!);
 		}
 	},

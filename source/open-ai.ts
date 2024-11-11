@@ -1,15 +1,27 @@
 import process from "node:process";
 import { clearTimeout, setTimeout } from "node:timers";
-import { Locale, type Message, type User } from "discord.js";
+import {
+	type APIGuild,
+	type APIUser,
+	AllowedMentionsTypes,
+	type GatewayMessageCreateDispatchData,
+	Locale,
+	MessageReferenceType,
+} from "@discordjs/core";
 import { t } from "i18next";
 import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
 import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
+import { CHANNEL_CACHE } from "./caches/channels.js";
+import { GUILD_CACHE } from "./caches/guilds.js";
+import { MESSAGE_CACHE } from "./caches/messages.js";
 import { skyCurrentEvents, skyUpcomingEvents } from "./data/events/index.js";
 import { skySeasons, skyUpcomingSeason } from "./data/spirits/seasons/index.js";
+import { client } from "./discord.js";
 import pino from "./pino.js";
 import { todayEmbed } from "./services/shard-eruption.js";
 import {
+	APPLICATION_ID,
 	AreaToWingedLightCount,
 	MAXIMUM_WINGED_LIGHT,
 	MAXIMUM_WING_BUFFS,
@@ -32,7 +44,7 @@ const AI_DEFAULT_RESPONSE = "Oh my gosh! Could you be the... the legendary Sky k
 const AI_DESCRIPTION_EMOJIS = "Respond with up to 3 emojis that represent this message." as const;
 const AI_DESCRIPTION_REACTION = `${AI_DESCRIPTION_EMOJIS} Put each emoji on a new line.` as const;
 
-function parseAIName(user: User) {
+function parseAIName(user: APIUser) {
 	const { username } = user;
 
 	// It's not possible for a Discord username to be longer than 64 characters.
@@ -47,7 +59,13 @@ function parseAIName(user: User) {
 	return name;
 }
 
-function systemPromptContext(message: Message<true>) {
+function systemPromptContext(guild: APIGuild, message: GatewayMessageCreateDispatchData) {
+	const channel = CHANNEL_CACHE.get(message.channel_id);
+
+	if (!channel) {
+		throw new Error("Channel not found.");
+	}
+
 	const now = skyNow();
 	const seasonsText = [];
 	const seasons = skySeasons(now);
@@ -82,7 +100,7 @@ function systemPromptContext(message: Message<true>) {
 	}
 
 	const systemPrompt = [
-		`- You are named ${message.client.user.username}`,
+		"- You are named Caelus",
 		"- Responses should be no longer than a sentence.",
 		`- It is currently ${now.toISO()}.`,
 		"- Be engaging, positive, and happy.",
@@ -109,20 +127,20 @@ function systemPromptContext(message: Message<true>) {
 
 	systemPrompt.push(
 		`- The author of this message is: ${JSON.stringify(message.author)}`,
-		`- The channel you are in is: ${JSON.stringify({ name: message.channel.name, id: message.channel.id })}`,
-		`- The guild you are in is: ${JSON.stringify({ name: message.guild.name, id: message.guild.id })}`,
+		`- The channel you are in is: ${JSON.stringify({ name: channel.name, id: channel.id })}`,
+		`- The guild you are in is: ${JSON.stringify({ name: guild.name, id: guild.id })}`,
 	);
 
 	return systemPrompt.join("\n");
 }
 
-export async function messageCreateEmojiResponse(message: Message<true>) {
+export async function messageCreateEmojiResponse(message: GatewayMessageCreateDispatchData) {
 	const abortController = new AbortController();
 	const timeout = setTimeout(() => abortController.abort(), 10_000);
 
 	try {
 		const [, completion] = await Promise.all([
-			message.channel.sendTyping(),
+			client.api.channels.showTyping(message.channel_id),
 			openAI.chat.completions.create(
 				{
 					frequency_penalty: 1,
@@ -138,10 +156,14 @@ export async function messageCreateEmojiResponse(message: Message<true>) {
 			),
 		]);
 
-		await message.reply({
-			allowedMentions: { parse: ["users"], repliedUser: false },
+		await client.api.channels.createMessage(message.channel_id, {
+			allowed_mentions: { parse: [AllowedMentionsTypes.User], replied_user: false },
 			content: completion.choices[0]!.message.content ?? AI_DEFAULT_RESPONSE,
-			failIfNotExists: false,
+			message_reference: {
+				type: MessageReferenceType.Default,
+				message_id: message.id,
+				fail_if_not_exists: false,
+			},
 		});
 	} catch (error) {
 		if (!(error instanceof APIUserAbortError)) {
@@ -152,7 +174,7 @@ export async function messageCreateEmojiResponse(message: Message<true>) {
 	}
 }
 
-export async function messageCreateReactionResponse(message: Message<true>) {
+export async function messageCreateReactionResponse(message: GatewayMessageCreateDispatchData) {
 	const abortController = new AbortController();
 	const timeout = setTimeout(() => abortController.abort(), 10_000);
 
@@ -178,10 +200,14 @@ export async function messageCreateReactionResponse(message: Message<true>) {
 		}
 
 		await Promise.all(
-			emojis
-				.split("\n")
-				// Responses uncommonly have a trailing space.
-				.map(async (emoji) => message.react(emoji.trim())),
+			emojis.split("\n").map(async (emoji) =>
+				client.api.channels.addMessageReaction(
+					message.channel_id,
+					message.id,
+					// Responses uncommonly have a trailing space.
+					emoji.trim(),
+				),
+			),
 		);
 	} catch (error) {
 		if (!(error instanceof APIUserAbortError)) {
@@ -192,31 +218,37 @@ export async function messageCreateReactionResponse(message: Message<true>) {
 	}
 }
 
-export async function messageCreateResponse(message: Message<true>) {
+export async function messageCreateResponse(message: GatewayMessageCreateDispatchData) {
+	const guild = message.guild_id && GUILD_CACHE.get(message.guild_id);
+
+	if (!guild) {
+		return;
+	}
+
 	const abortController = new AbortController();
 	const timeout = setTimeout(() => abortController.abort(), 20_000);
-	const messages = message.channel.messages.cache.last(5);
-	const lastMessageId = messages.at(-1)?.id;
+	const messages = MESSAGE_CACHE.get(message.channel_id);
+	const lastMessageId = messages?.at(-1)?.id;
 
 	if (!lastMessageId) {
 		return;
 	}
 
 	const priorMessages: ChatCompletionMessageParam[] = [
-		{ role: "system", content: systemPromptContext(message) },
+		{ role: "system", content: systemPromptContext(guild, message) },
 		...messages.map(
 			(message) =>
 				({
 					content: message.content,
 					name: parseAIName(message.author),
-					role: message.author.id === message.client.user.id ? "assistant" : "user",
+					role: message.author.id === APPLICATION_ID ? "assistant" : "user",
 				}) as const,
 		),
 	];
 
 	try {
 		const [, completion] = await Promise.all([
-			message.channel.sendTyping(),
+			client.api.channels.showTyping(message.channel_id),
 			openAI.chat.completions.create(
 				{
 					frequency_penalty: 1,
@@ -284,15 +316,27 @@ export async function messageCreateResponse(message: Message<true>) {
 				offset = index;
 			}
 
-			await message.reply({
-				...todayEmbed(message.guild.preferredLocale, offset),
-				failIfNotExists: false,
+			await client.api.channels.createMessage(message.channel_id, {
+				...todayEmbed(
+					// @ts-expect-error https://github.com/discordjs/discord-api-types/pull/1138
+					guild.preferred_locale,
+					offset,
+				),
+				message_reference: {
+					type: MessageReferenceType.Default,
+					message_id: message.id,
+					fail_if_not_exists: false,
+				},
 			});
 		} else {
-			await message.reply({
-				allowedMentions: { parse: ["users"], repliedUser: false },
+			await client.api.channels.createMessage(message.channel_id, {
+				allowed_mentions: { parse: [AllowedMentionsTypes.User], replied_user: false },
 				content: completion.choices[0]!.message.content ?? AI_DEFAULT_RESPONSE,
-				failIfNotExists: false,
+				message_reference: {
+					type: MessageReferenceType.Default,
+					message_id: message.id,
+					fail_if_not_exists: false,
+				},
 			});
 		}
 	} catch (error) {

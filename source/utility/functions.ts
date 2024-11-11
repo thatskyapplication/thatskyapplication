@@ -1,6 +1,7 @@
 import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIChatInputApplicationCommandInteraction,
+	type APIGuildMember,
 	type APIInteraction,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
@@ -12,7 +13,7 @@ import {
 	InteractionType,
 	type Snowflake,
 } from "@discordjs/core";
-import { SERVER_UPGRADE_SKU_ID, VALID_REALM_NAME_VALUES } from "./constants.js";
+import { VALID_REALM_NAME_VALUES } from "./constants.js";
 import {
 	INCONSISTENT_MAP,
 	MEDITATION_MAPS,
@@ -27,20 +28,15 @@ import {
 	inconsistentMapKeys,
 } from "./constants.js";
 
-export async function resolveEntitlement(
-	entitlementManager: EntitlementManager,
-	guildId: Snowflake,
-) {
-	return (
-		entitlementManager.cache.find(
-			(entitlement) =>
-				entitlement.guildId === guildId && entitlement.skuId === SERVER_UPGRADE_SKU_ID,
-		) ?? (await entitlementManager.fetch({ guild: guildId, skus: [SERVER_UPGRADE_SKU_ID] })).first()
-	);
-}
-
 export function getRandomElement<const T>(array: readonly T[]) {
 	return array[Math.floor(Math.random() * array.length)];
+}
+
+export function isCommunicationDisabled(member: APIGuildMember) {
+	return (
+		member.communication_disabled_until &&
+		Date.parse(member.communication_disabled_until) > Date.now()
+	);
 }
 
 export function chatInputApplicationCommandMention(

@@ -1,6 +1,6 @@
 import process from "node:process";
 // import croner from "../croner.js";
-// import AI from "../models/AI.js";
+import AI from "../models/AI.js";
 import Configuration, { type ConfigurationPacket } from "../models/Configuration.js";
 // import DailyGuides, { type DailyGuidesPacket } from "../models/DailyGuides.js";
 // import type { DailyGuidesDistributionPacket } from "../models/DailyGuidesDistribution.js";
@@ -17,10 +17,10 @@ import { CHANNEL_CACHE } from "../caches/channels.js";
 const name = GatewayDispatchEvents.Ready;
 const guildIds = new Set<Snowflake>();
 
-async function collectFromDatabase(client: Client<true>) {
+async function collectFromDatabase() {
 	try {
 		await collectConfigurations();
-		await AI.populateCache(client);
+		await AI.populateCache();
 		await collectDailyGuides();
 	} catch (error) {
 		pino.fatal(error, "Error collecting configurations from the database.");
@@ -51,7 +51,7 @@ export default {
 			GUILD_IDS_FROM_READY.add(guild.id);
 		}
 
-		// await collectFromDatabase(client);
+		// await collectFromDatabase();
 
 		// // Collect guild ids from daily guides distribution table for the set.
 		// for (const { guild_id } of await pg<DailyGuidesDistributionPacket>(

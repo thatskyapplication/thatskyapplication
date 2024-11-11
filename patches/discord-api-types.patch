@@ -1,0 +1,22 @@
+diff --git a/gateway/v10.d.ts b/gateway/v10.d.ts
+index 2d4ec8e4df17d7e86f595879e30e4256affec2df..7381ad47c9a45f47a960e0e5a71ab1b3dde29fea 100644
+--- a/gateway/v10.d.ts
++++ b/gateway/v10.d.ts
+@@ -1074,16 +1074,7 @@ export type GatewayMessageUpdateDispatch = DataPayload<GatewayDispatchEvents.Mes
+ /**
+  * https://discord.com/developers/docs/topics/gateway-events#message-update
+  */
+-export type GatewayMessageUpdateDispatchData = GatewayMessageEventExtraFields & Omit<Partial<APIMessage>, 'mentions'> & {
+-    /**
+-     * ID of the message
+-     */
+-    id: Snowflake;
+-    /**
+-     * ID of the channel the message was sent in
+-     */
+-    channel_id: Snowflake;
+-};
++export type GatewayMessageUpdateDispatchData = GatewayMessageEventExtraFields & Omit<APIMessage, 'mentions'>;
+ export interface GatewayMessageEventExtraFields {
+     /**
+      * ID of the guild the message was sent in

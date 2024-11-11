@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  discord-api-types:
+    hash: au3bjitec4uqjz4jdkhol2zide
+    path: patches/discord-api-types.patch
+
 importers:
 
   .:
@@ -2100,7 +2105,7 @@ snapshots:
       '@discordjs/ws': 2.0.0
       '@sapphire/snowflake': 3.5.4
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.37.97
+      discord-api-types: 0.37.97(patch_hash=au3bjitec4uqjz4jdkhol2zide)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -2112,7 +2117,7 @@ snapshots:
       '@sapphire/async-queue': 1.5.4
       '@sapphire/snowflake': 3.5.4
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.37.97
+      discord-api-types: 0.37.97(patch_hash=au3bjitec4uqjz4jdkhol2zide)
       magic-bytes.js: 1.10.0
       tslib: 2.7.0
       undici: 6.19.8
@@ -2127,7 +2132,7 @@ snapshots:
       '@sapphire/async-queue': 1.5.4
       '@types/ws': 8.5.13
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.37.97
+      discord-api-types: 0.37.97(patch_hash=au3bjitec4uqjz4jdkhol2zide)
       tslib: 2.7.0
       ws: 8.18.0
     transitivePeerDependencies:
@@ -2797,7 +2802,7 @@ snapshots:
 
   detect-libc@2.0.3: {}
 
-  discord-api-types@0.37.97: {}
+  discord-api-types@0.37.97(patch_hash=au3bjitec4uqjz4jdkhol2zide): {}
 
   easy-table@1.2.0:
     dependencies:

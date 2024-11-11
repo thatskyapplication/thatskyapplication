@@ -16,7 +16,7 @@ import {
 	CHAT_INPUT_COMMANDS,
 	USER_CONTEXT_MENU_COMMANDS,
 } from "../commands/index.js";
-// import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
+import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 // import {
 // 	CATALOGUE_BACK_TO_START_CUSTOM_ID,
 // 	CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
@@ -688,10 +688,10 @@ export default {
 						return;
 					}
 
-					// if (customId === AI_FREQUENCY_SELECT_MENU_CUSTOM_ID) {
-					// 	await AI.set(interaction);
-					// 	return;
-					// }
+					if (customId === AI_FREQUENCY_SELECT_MENU_CUSTOM_ID) {
+						await AI.set(interaction);
+						return;
+					}
 				}
 			} catch (error) {
 				void recoverInteractionError(interaction, error);

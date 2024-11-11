@@ -270,8 +270,10 @@ async function send(
 	}
 
 	// Retrieve our embed.
-	// @ts-expect-error https://github.com/discordjs/discord-api-types/pull/1138
-	const embed = distributionEmbed(guild.preferred_locale);
+	const embed = distributionEmbed(
+		// @ts-expect-error https://github.com/discordjs/discord-api-types/pull/1138
+		guild.preferred_locale,
+	);
 
 	// Update the embed if a message exists.
 	if (messageId) {

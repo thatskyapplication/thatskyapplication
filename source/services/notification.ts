@@ -30,6 +30,7 @@ import {
 	type NotificationTypes,
 } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../utility/emojis.js";
+import { isCommunicationDisabled } from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 
@@ -64,7 +65,7 @@ function isNotificationSendable(
 ) {
 	const errors = [];
 
-	if (me.communication_disabled_until && Date.parse(me.communication_disabled_until) > Date.now()) {
+	if (isCommunicationDisabled(me)) {
 		errors.push("I am timed out.");
 	}
 
@@ -113,6 +114,7 @@ export async function setup(
 			interaction.token,
 			NOT_IN_CACHED_GUILD_RESPONSE,
 		);
+
 		return;
 	}
 

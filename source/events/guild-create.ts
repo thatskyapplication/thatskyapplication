@@ -10,23 +10,22 @@ const name = GatewayDispatchEvents.GuildCreate;
 export default {
 	name,
 	async fire({ data }) {
-		if (GUILD_IDS_FROM_READY.has(data.id)) {
-			const { channels, ...otherData } = data;
-			GUILD_CACHE.set(data.id, otherData);
+		const { channels, ...otherData } = data;
+		GUILD_CACHE.set(data.id, otherData);
 
-			for (const channel of channels) {
-				if (channel.type !== ChannelType.DM && channel.type !== ChannelType.GroupDM) {
-					channel.guild_id = data.id;
-				}
-
-				CHANNEL_CACHE.set(channel.id, channel);
+		for (const channel of channels) {
+			if (channel.type !== ChannelType.DM && channel.type !== ChannelType.GroupDM) {
+				channel.guild_id = data.id;
 			}
 
+			CHANNEL_CACHE.set(channel.id, channel);
+		}
+
+		if (GUILD_IDS_FROM_READY.has(data.id)) {
 			GUILD_IDS_FROM_READY.delete(data.id);
 			return;
 		}
 
-		GUILD_CACHE.set(data.id, data);
 		logGuildCreate(data);
 		await handleGuildCreate(data);
 	},
