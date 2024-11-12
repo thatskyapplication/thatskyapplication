@@ -64,6 +64,16 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.TheMoominStorybookQuest2,
 				emoji: MISCELLANEOUS_EMOJIS.Quest,
 			},
+			{
+				name: "Quest 3",
+				cosmetic: Cosmetic.TheMoominStorybookQuest3,
+				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.TheMoominStorybookHeart,
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
 		],
 	},
 });
