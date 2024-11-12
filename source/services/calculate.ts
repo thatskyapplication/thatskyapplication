@@ -1,12 +1,22 @@
+import {
+	type APIChatInputApplicationCommandInteraction,
+	type APIEmbed,
+	type APIEmbedFooter,
+	Locale,
+	MessageFlags,
+	PermissionFlagsBits,
+} from "@discordjs/core";
 import { t } from "i18next";
 import { skyCurrentEvents } from "../data/events/index.js";
 import { skyCurrentSeason } from "../data/spirits/seasons/index.js";
+import { client } from "../discord.js";
 import type { Event } from "../models/Event.js";
 import {
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 } from "../utility/catalogue.js";
 import {
+	APPLICATION_ID,
 	ASCENDED_CANDLES_PER_WEEK,
 	AreaToWingedLightCount,
 	DEFAULT_EMBED_COLOUR,
@@ -23,19 +33,27 @@ import {
 	skyNow,
 	skyToday,
 } from "../utility/dates.js";
-import { MISCELLANEOUS_EMOJIS, formatEmojiURL, resolveCurrencyEmoji } from "../utility/emojis.js";
-import { cannotUsePermissions } from "../utility/permission-checks.js";
+import {
+	MISCELLANEOUS_EMOJIS,
+	formatEmoji,
+	formatEmojiURL,
+	resolveCurrencyEmoji,
+} from "../utility/emojis.js";
+import type { OptionResolver } from "../utility/option-resolver.js";
+import { cannotUsePermissions } from "../utility/permissions.js";
 import { shardEruption } from "../utility/shard-eruption.js";
 
-export async function ascendedCandles(interaction: ChatInputCommandInteraction) {
-	const { options } = interaction;
+export async function ascendedCandles(
+	interaction: APIChatInputApplicationCommandInteraction,
+	options: OptionResolver,
+) {
 	const start = options.getInteger("start", true);
 	const goal = options.getInteger("goal", true);
 	const eyeOfEden = options.getBoolean("eye-of-eden") ?? true;
 	const shardEruptions = options.getBoolean("shard-eruptions") ?? true;
 
 	if (start >= goal) {
-		await interaction.reply({
+		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "The goal has already been achieved.",
 			flags: MessageFlags.Ephemeral,
 		});
@@ -44,7 +62,7 @@ export async function ascendedCandles(interaction: ChatInputCommandInteraction) 
 	}
 
 	if (eyeOfEden === false && shardEruptions === false) {
-		await interaction.reply({
+		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "You must have a source for gaining ascended candles!",
 			flags: MessageFlags.Ephemeral,
 		});
@@ -57,7 +75,7 @@ export async function ascendedCandles(interaction: ChatInputCommandInteraction) 
 	}
 
 	// Defer in case of long loops.
-	await interaction.deferReply();
+	await client.api.interactions.defer(interaction.id, interaction.token);
 
 	const amountRequired = goal - start;
 	let day = skyToday();
@@ -106,42 +124,47 @@ export async function ascendedCandles(interaction: ChatInputCommandInteraction) 
 		});
 	}
 
-	await interaction.editReply({
+	await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
 		embeds: [
-			new EmbedBuilder()
-				.setColor(DEFAULT_EMBED_COLOUR)
-				.setDescription(
-					`Start: ${resolveCurrencyEmoji({
-						emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-						number: start,
-					})}\nGoal: ${resolveCurrencyEmoji({
-						emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-						number: goal,
-					})}\nRequired: ${resolveCurrencyEmoji({
-						emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-						number: amountRequired,
-					})}`,
-				)
-				.setFields({
-					name: "Result",
-					value: `This goal is first achievable at ${time(timestamp, TimestampStyles.LongDate)} (${time(
-						timestamp,
-						TimestampStyles.RelativeTime,
-					)}).`,
-				})
-				.setFooter({ text: minimumTimeText })
-				.setTitle("Ascended Candle Calculator"),
+			{
+				color: DEFAULT_EMBED_COLOUR,
+				description: `Start: ${resolveCurrencyEmoji({
+					emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+					number: start,
+				})}\nGoal: ${resolveCurrencyEmoji({
+					emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+					number: goal,
+				})}\nRequired: ${resolveCurrencyEmoji({
+					emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+					number: amountRequired,
+				})}`,
+				fields: [
+					{
+						name: "Result",
+						value: `This goal is first achievable at <t:${timestamp}:D> (<t:${timestamp}:R>).`,
+					},
+				],
+				footer: { text: minimumTimeText },
+				title: "Ascended Candle Calculator",
+			},
 		],
 	});
 }
 
-export async function eventCurrency(interaction: ChatInputCommandInteraction) {
-	const { locale, options } = interaction;
+export async function eventCurrency(
+	interaction: APIChatInputApplicationCommandInteraction,
+	options: OptionResolver,
+) {
+	const { locale } = interaction;
 	const start = options.getInteger("start", true);
 	const goal = options.getInteger("goal", true);
 
 	if (start >= goal) {
-		await interaction.reply({ content: "The goal has already been achieved.", ephemeral: true });
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "The goal has already been achieved.",
+			flags: MessageFlags.Ephemeral,
+		});
+
 		return;
 	}
 
@@ -155,7 +178,7 @@ export async function eventCurrency(interaction: ChatInputCommandInteraction) {
 	);
 
 	if (events.length === 0) {
-		await interaction.reply({
+		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "There is no event currently active with event currency.",
 			flags: MessageFlags.Ephemeral,
 		});
@@ -164,7 +187,11 @@ export async function eventCurrency(interaction: ChatInputCommandInteraction) {
 	}
 
 	if (events.every(({ eventCurrency }) => now >= eventCurrency.end)) {
-		await interaction.reply({ content: "There is no more event currency.", ephemeral: true });
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "There is no more event currency.",
+			flags: MessageFlags.Ephemeral,
+		});
+
 		return;
 	}
 
@@ -201,34 +228,38 @@ export async function eventCurrency(interaction: ChatInputCommandInteraction) {
 		return `${event.eventCurrency.emoji ? formatEmoji(event.eventCurrency.emoji) : `${t(`events.${event.id}`, { lng: locale, ns: "general" })}: `} A total of ${dailyRemaining} remains daily.${pool ? ` There is currently a pool of ${pool.amount}!` : ""}`;
 	});
 
-	const embed = new EmbedBuilder()
-		.setColor(DEFAULT_EMBED_COLOUR)
-		.setDescription(`Start: ${startEmojis}\nGoal: ${goalEmojis}\nRequired: ${amountRequiredEmojis}`)
-		.setFields({ name: "Result", value: result.join("\n") })
-		.setTitle("Event Currency Calculator");
+	const embed: APIEmbed = {
+		color: DEFAULT_EMBED_COLOUR,
+		description: `Start: ${startEmojis}\nGoal: ${goalEmojis}\nRequired: ${amountRequiredEmojis}`,
+		fields: [{ name: "Result", value: result.join("\n") }],
+		title: "Event Currency Calculator",
+	};
 
-	const footer: EmbedFooterOptions = {
+	const footer: APIEmbedFooter = {
 		text: events.map((event) => event.daysText(now, locale)).join("\n"),
 	};
 
 	const event0 = events[0];
 
 	if (events.length === 1 && event0?.eventCurrency.emoji) {
-		footer.iconURL = formatEmojiURL(event0.eventCurrency.emoji.id);
+		footer.icon_url = formatEmojiURL(event0.eventCurrency.emoji.id);
 	}
 
-	embed.setFooter(footer);
-	await interaction.reply({ embeds: [embed] });
+	embed.footer = footer;
+	await client.api.interactions.reply(interaction.id, interaction.token, { embeds: [embed] });
 }
 
-export async function seasonalCandles(interaction: ChatInputCommandInteraction) {
-	const { locale: lng, options } = interaction;
+export async function seasonalCandles(
+	interaction: APIChatInputApplicationCommandInteraction,
+	options: OptionResolver,
+) {
+	const { locale } = interaction;
 	const start = options.getInteger("start", true);
 	const goal = options.getInteger("goal", true);
 
 	if (start >= goal) {
-		await interaction.reply({
-			content: t("calculate.seasonal-candles.goal-achieved", { lng, ns: "commands" }),
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: t("calculate.seasonal-candles.goal-achieved", { lng: locale, ns: "commands" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -267,107 +298,119 @@ export async function seasonalCandles(interaction: ChatInputCommandInteraction) 
 		}
 	}
 
-	const embed = new EmbedBuilder()
-		.setColor(DEFAULT_EMBED_COLOUR)
-		.setDescription(
-			`${t("calculate.seasonal-candles.start", { lng, ns: "commands" })}: ${resolveCurrencyEmoji({
+	const embed: APIEmbed = {
+		color: DEFAULT_EMBED_COLOUR,
+		description: `${t("calculate.seasonal-candles.start", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji(
+			{
 				emoji,
 				number: start,
-			})}\n${t("calculate.seasonal-candles.goal", { lng, ns: "commands" })}: ${resolveCurrencyEmoji(
-				{
-					emoji,
-					number: goal,
-				},
-			)}\n${t("calculate.seasonal-candles.required", { lng, ns: "commands" })}: ${resolveCurrencyEmoji(
-				{
-					emoji,
-					number: amountRequired,
-				},
-			)}`,
-		)
-		.setFields({
-			name: t("calculate.seasonal-candles.result", { lng, ns: "commands" }),
-			value: `${t("calculate.seasonal-candles.day", { lng, ns: "commands", count: days })}${
+			},
+		)}\n${t("calculate.seasonal-candles.goal", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji(
+			{
+				emoji,
+				number: goal,
+			},
+		)}\n${t("calculate.seasonal-candles.required", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji(
+			{
+				emoji,
+				number: amountRequired,
+			},
+		)}`,
+		title: t("calculate.seasonal-candles.seasonal-candle-calculator", {
+			lng: locale,
+			ns: "commands",
+		}),
+	};
+
+	const fields = [
+		{
+			name: t("calculate.seasonal-candles.result", { lng: locale, ns: "commands" }),
+			value: `${t("calculate.seasonal-candles.day", { lng: locale, ns: "commands", count: days })}${
 				days === daysWithSeasonPass
 					? ""
 					: ` ${t("calculate.seasonal-candles.day-season-pass", {
-							lng,
+							lng: locale,
 							ns: "commands",
 							count: daysWithSeasonPass,
 						})}`
 			}`,
-		})
-		.setTitle(t("calculate.seasonal-candles.seasonal-candle-calculator", { lng, ns: "commands" }));
+		},
+	];
 
 	if (season) {
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
 			season.remainingSeasonalCandles(today);
 
-		const daysLeft = season.daysText(today, lng);
+		const daysLeft = season.daysText(today, locale);
 
-		embed.addFields({
-			name: t("calculate.seasonal-candles.season-calculations", { lng, ns: "commands" }),
+		fields.push({
+			name: t("calculate.seasonal-candles.season-calculations", { lng: locale, ns: "commands" }),
 			value: `${resolveCurrencyEmoji({
 				emoji,
 				number: seasonalCandlesLeft,
-			})} ${t("calculate.seasonal-candles.remain-in-the-season", { lng, ns: "commands" })}\n${resolveCurrencyEmoji(
+			})} ${t("calculate.seasonal-candles.remain-in-the-season", { lng: locale, ns: "commands" })}\n${resolveCurrencyEmoji(
 				{
 					emoji,
 					number: seasonalCandlesLeftWithSeasonPass,
 				},
-			)} ${t("calculate.seasonal-candles.remain-in-the-season-with-a-season-pass", { lng, ns: "commands" })}`,
+			)} ${t("calculate.seasonal-candles.remain-in-the-season-with-a-season-pass", { lng: locale, ns: "commands" })}`,
 		});
 
-		embed.setFooter({ iconURL: formatEmojiURL(season.emoji.id), text: daysLeft });
+		embed.footer = { icon_url: formatEmojiURL(season.emoji.id), text: daysLeft };
 	}
 
 	if (includedDoubleLight) {
-		embed.addFields({
-			name: t("calculate.seasonal-candles.notes", { lng, ns: "commands" }),
+		fields.push({
+			name: t("calculate.seasonal-candles.notes", { lng: locale, ns: "commands" }),
 			value: `${t("calculate.seasonal-candles.double-seasonal-light-calculation", {
-				lng,
+				lng: locale,
 				ns: "commands",
 			})}\n${DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE_MARKDOWN} - ${DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE_MARKDOWN}`,
 		});
 	}
 
-	await interaction.reply({ embeds: [embed] });
+	embed.fields = fields;
+	await client.api.interactions.reply(interaction.id, interaction.token, { embeds: [embed] });
 }
 
-export async function wingedLight(interaction: ChatInputCommandInteraction) {
+export async function wingedLight(
+	interaction: APIChatInputApplicationCommandInteraction,
+	options: OptionResolver,
+) {
 	if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
 		return;
 	}
 
-	const { locale: lng, options } = interaction;
+	const { locale } = interaction;
 	const wingBuffs = options.getInteger("wing-buffs", true);
 	let accumulation = wingBuffs;
 
-	const embed = new EmbedBuilder()
-		.setColor(DEFAULT_EMBED_COLOUR)
-		.setDescription(
-			`${t("calculate.winged-light.started-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji({
+	const embed: APIEmbed = {
+		color: DEFAULT_EMBED_COLOUR,
+		description: `${t("calculate.winged-light.started-with", { lng: locale, ns: "commands" })} ${resolveCurrencyEmoji(
+			{
 				emoji: MISCELLANEOUS_EMOJIS.WingedLight,
 				number: wingBuffs,
 				includeSpaceInEmoji: true,
-			})}.\n${t("calculate.winged-light.reborn-with", { lng, ns: "commands" })} ${resolveCurrencyEmoji(
-				{
-					emoji: MISCELLANEOUS_EMOJIS.WingedLight,
-					// biome-ignore lint/suspicious/noAssignInExpressions: It's fine.
-					number: (accumulation += AreaToWingedLightCount[SkyMap.Orbit]),
-					includeSpaceInEmoji: true,
-				},
-			)} (+${AreaToWingedLightCount[SkyMap.Orbit]}).`,
-		)
-		.setTitle(t("calculate.winged-light.winged-light-calculator", { lng, ns: "commands" }));
+			},
+		)}.\n${t("calculate.winged-light.reborn-with", { lng: locale, ns: "commands" })} ${resolveCurrencyEmoji(
+			{
+				emoji: MISCELLANEOUS_EMOJIS.WingedLight,
+				// biome-ignore lint/suspicious/noAssignInExpressions: This is fine.
+				number: (accumulation += AreaToWingedLightCount[SkyMap.Orbit]),
+				includeSpaceInEmoji: true,
+			},
+		)} (+${AreaToWingedLightCount[SkyMap.Orbit]}).`,
+		title: t("calculate.winged-light.winged-light-calculator", { lng: locale, ns: "commands" }),
+	};
 
 	const fields = WINGED_LIGHT_AREAS.map((area) => ({
 		name: t(`${area === SkyMap.AncientMemory ? "maps" : "realms"}.${area}`, {
-			lng,
+			lng: locale,
 			ns: "general",
 		}),
 		value: `${
-			// biome-ignore lint/suspicious/noAssignInExpressions: It's fine.
+			// biome-ignore lint/suspicious/noAssignInExpressions: This is fine.
 			(accumulation += AreaToWingedLightCount[area])
 		} (+${AreaToWingedLightCount[area]})`,
 	}));
@@ -376,20 +419,20 @@ export async function wingedLight(interaction: ChatInputCommandInteraction) {
 	const nextThreshold = WINGED_LIGHT_THRESHOLDS[wedge];
 
 	const wedgeTotal = t("calculate.winged-light.wedge-total", {
-		lng,
+		lng: locale,
 		ns: "commands",
 		count: wedge,
 	});
 
 	const nextWedge = nextThreshold
-		? `${t("calculate.winged-light.wedge-next", { lng, ns: "commands", count: nextThreshold })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)}`
+		? `${t("calculate.winged-light.wedge-next", { lng: locale, ns: "commands", count: nextThreshold })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)}`
 		: null;
 
 	fields.push({
-		name: t("calculate.winged-light.total", { lng, ns: "commands" }),
+		name: t("calculate.winged-light.total", { lng: locale, ns: "commands" }),
 		value: `${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.WingedLight, number: accumulation, includeSpaceInEmoji: true })} | ${wedgeTotal}${nextThreshold ? `\n${nextWedge}` : ""}`,
 	});
 
-	embed.setFields(fields);
-	await interaction.reply({ embeds: [embed] });
+	embed.fields = fields;
+	await client.api.interactions.reply(interaction.id, interaction.token, { embeds: [embed] });
 }

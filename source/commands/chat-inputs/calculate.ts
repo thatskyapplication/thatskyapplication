@@ -1,3 +1,4 @@
+import { type APIChatInputApplicationCommandInteraction, Locale } from "@discordjs/core";
 import { t } from "i18next";
 import {
 	ascendedCandles,
@@ -5,39 +6,30 @@ import {
 	seasonalCandles,
 	wingedLight,
 } from "../../services/calculate.js";
-import { Locale } from "@discordjs/core";
+import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
 	name: t("calculate.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-	async chatInput(interaction: ChatInputCommandInteraction) {
-		switch (interaction.options.getSubcommand()) {
+	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
+		const options = new OptionResolver(interaction);
+
+		switch (options.getSubcommand()) {
 			case "ascended-candles": {
-				await this.ascendedCandles(interaction);
+				await ascendedCandles(interaction, options);
 				return;
 			}
 			case "event-currency": {
-				await this.eventCurrency(interaction);
+				await eventCurrency(interaction, options);
 				return;
 			}
 			case "seasonal-candles": {
-				await this.seasonalCandles(interaction);
+				await seasonalCandles(interaction, options);
 				return;
 			}
 			case "winged-light": {
-				await this.wingedLight(interaction);
+				await wingedLight(interaction, options);
+				return;
 			}
 		}
-	},
-	async ascendedCandles(interaction: ChatInputCommandInteraction) {
-		await ascendedCandles(interaction);
-	},
-	async eventCurrency(interaction: ChatInputCommandInteraction) {
-		await eventCurrency(interaction);
-	},
-	async seasonalCandles(interaction: ChatInputCommandInteraction) {
-		await seasonalCandles(interaction);
-	},
-	async wingedLight(interaction: ChatInputCommandInteraction) {
-		await wingedLight(interaction);
 	},
 } as const;
