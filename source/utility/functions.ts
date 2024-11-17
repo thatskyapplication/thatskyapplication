@@ -1,11 +1,13 @@
 import {
 	type APIApplicationCommandAutocompleteInteraction,
+	type APIButtonComponent,
 	type APIChatInputApplicationCommandInteraction,
 	type APIGuildMember,
 	type APIInteraction,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIModalSubmitInteraction,
+	type APISelectMenuComponent,
 	type APIUser,
 	type APIUserApplicationCommandInteraction,
 	ApplicationCommandType,
@@ -58,6 +60,24 @@ export function interactionInvoker(
 		| APIModalSubmitInteraction,
 ) {
 	return interaction.member?.user ?? interaction.user!;
+}
+
+export function interactedComponent(
+	interaction: APIMessageComponentButtonInteraction,
+): APIButtonComponent & { custom_id: string };
+
+export function interactedComponent(
+	interaction: APIMessageComponentSelectMenuInteraction,
+): APISelectMenuComponent;
+
+export function interactedComponent(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+) {
+	return interaction.message
+		.components!.flatMap((actionRow) => actionRow.components)
+		.find(
+			(component) => "custom_id" in component && component.custom_id === interaction.data.custom_id,
+		)!;
 }
 
 export function userLogFormat(user: APIUser) {

@@ -17,32 +17,32 @@ import {
 	USER_CONTEXT_MENU_COMMANDS,
 } from "../commands/index.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
-// import {
-// 	CATALOGUE_BACK_TO_START_CUSTOM_ID,
-// 	CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
-// 	CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID,
-// 	CATALOGUE_REALM_EVERYTHING_CUSTOM_ID,
-// 	CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID,
-// 	CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID,
-// 	CATALOGUE_SHARE_PROMPT_CUSTOM_ID,
-// 	CATALOGUE_SHARE_SEND_CUSTOM_ID,
-// 	CATALOGUE_VIEW_ELDERS_CUSTOM_ID,
-// 	CATALOGUE_VIEW_EVENT_CUSTOM_ID,
-// 	CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
-// 	CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID,
-// 	CATALOGUE_VIEW_OFFER_1_CUSTOM_ID,
-// 	CATALOGUE_VIEW_OFFER_2_CUSTOM_ID,
-// 	CATALOGUE_VIEW_OFFER_3_CUSTOM_ID,
-// 	CATALOGUE_VIEW_REALMS_CUSTOM_ID,
-// 	CATALOGUE_VIEW_REALM_CUSTOM_ID,
-// 	CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID,
-// 	CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
-// 	CATALOGUE_VIEW_SEASON_CUSTOM_ID,
-// 	CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
-// 	CATALOGUE_VIEW_START_CUSTOM_ID,
-// 	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
-// 	Catalogue,
-// } from "../models/Catalogue.js";
+import {
+	CATALOGUE_BACK_TO_START_CUSTOM_ID,
+	CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
+	CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID,
+	CATALOGUE_REALM_EVERYTHING_CUSTOM_ID,
+	CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID,
+	CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID,
+	CATALOGUE_SHARE_PROMPT_CUSTOM_ID,
+	CATALOGUE_SHARE_SEND_CUSTOM_ID,
+	CATALOGUE_VIEW_ELDERS_CUSTOM_ID,
+	CATALOGUE_VIEW_EVENT_CUSTOM_ID,
+	CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
+	CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID,
+	CATALOGUE_VIEW_OFFER_1_CUSTOM_ID,
+	CATALOGUE_VIEW_OFFER_2_CUSTOM_ID,
+	CATALOGUE_VIEW_OFFER_3_CUSTOM_ID,
+	CATALOGUE_VIEW_REALMS_CUSTOM_ID,
+	CATALOGUE_VIEW_REALM_CUSTOM_ID,
+	CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID,
+	CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
+	CATALOGUE_VIEW_SEASON_CUSTOM_ID,
+	CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
+	CATALOGUE_VIEW_START_CUSTOM_ID,
+	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
+	Catalogue,
+} from "../models/Catalogue.js";
 // import Profile, {
 // 	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
 // 	SKY_PROFILE_EDIT_CUSTOM_ID,
@@ -99,7 +99,7 @@ import { finaliseSetup } from "../services/notification.js";
 // import { history } from "../services/heart.js";
 // import { browse, today } from "../services/shard-eruption.js";
 // import { parseSpiritSwitch } from "../services/spirit.js";
-// import { isSeasonId } from "../utility/catalogue.js";
+import { isSeasonId } from "../utility/catalogue.js";
 import {
 	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_DAILY_MESSAGE_MODAL,
@@ -127,7 +127,7 @@ import {
 	isButton,
 	isChatInputCommand,
 	isModalSubmit,
-	// isRealm,
+	isRealm,
 	isSelectMenu,
 	isUserContextMenuCommand,
 } from "../utility/functions.js";
@@ -296,106 +296,106 @@ export default {
 				// 	return;
 				// }
 
-				// if (
-				// 	customId === CATALOGUE_VIEW_START_CUSTOM_ID ||
-				// 	customId === CATALOGUE_BACK_TO_START_CUSTOM_ID
-				// ) {
-				// 	await Catalogue.viewCatalogue(interaction);
-				// 	return;
-				// }
+				if (
+					customId === CATALOGUE_VIEW_START_CUSTOM_ID ||
+					customId === CATALOGUE_BACK_TO_START_CUSTOM_ID
+				) {
+					await Catalogue.viewCatalogue(interaction);
+					return;
+				}
 
-				// if (customId === CATALOGUE_VIEW_REALMS_CUSTOM_ID) {
-				// 	await Catalogue.viewRealms(interaction);
-				// 	return;
-				// }
+				if (customId === CATALOGUE_VIEW_REALMS_CUSTOM_ID) {
+					await Catalogue.viewRealms(interaction);
+					return;
+				}
 
-				// if (customId.startsWith(CATALOGUE_VIEW_REALM_CUSTOM_ID)) {
-				// 	const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
+				if (customId.startsWith(CATALOGUE_VIEW_REALM_CUSTOM_ID)) {
+					const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
 
-				// 	if (isRealm(parsedCustomId)) {
-				// 		await Catalogue.viewRealm(interaction, parsedCustomId);
-				// 		return;
-				// 	}
-				// }
+					if (isRealm(parsedCustomId)) {
+						await Catalogue.viewRealm(interaction, parsedCustomId);
+						return;
+					}
+				}
 
-				// if (customId === CATALOGUE_VIEW_ELDERS_CUSTOM_ID) {
-				// 	await Catalogue.viewElders(interaction);
-				// 	return;
-				// }
+				if (customId === CATALOGUE_VIEW_ELDERS_CUSTOM_ID) {
+					await Catalogue.viewElders(interaction);
+					return;
+				}
 
-				// if (customId === CATALOGUE_VIEW_SEASONS_CUSTOM_ID) {
-				// 	await Catalogue.viewSeasons(interaction);
-				// 	return;
-				// }
+				if (customId === CATALOGUE_VIEW_SEASONS_CUSTOM_ID) {
+					await Catalogue.viewSeasons(interaction);
+					return;
+				}
 
-				// if (customId.startsWith(CATALOGUE_VIEW_SEASON_CUSTOM_ID)) {
-				// 	const parsedCustomId = Number(customId.slice(customId.indexOf("§") + 1));
+				if (customId.startsWith(CATALOGUE_VIEW_SEASON_CUSTOM_ID)) {
+					const parsedCustomId = Number(customId.slice(customId.indexOf("§") + 1));
 
-				// 	if (isSeasonId(parsedCustomId)) {
-				// 		await Catalogue.viewSeason(interaction, parsedCustomId);
-				// 		return;
-				// 	}
-				// }
+					if (isSeasonId(parsedCustomId)) {
+						await Catalogue.viewSeason(interaction, parsedCustomId);
+						return;
+					}
+				}
 
-				// if (customId === CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID) {
-				// 	await Catalogue.viewEventYears(interaction);
-				// 	return;
-				// }
+				if (customId === CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID) {
+					await Catalogue.viewEventYears(interaction);
+					return;
+				}
 
-				// if (customId.startsWith(CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID)) {
-				// 	const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
-				// 	await Catalogue.viewEvents(interaction, parsedCustomId);
-				// 	return;
-				// }
+				if (customId.startsWith(CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID)) {
+					const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
+					await Catalogue.viewEvents(interaction, parsedCustomId);
+					return;
+				}
 
-				// if (customId.startsWith(CATALOGUE_VIEW_EVENT_CUSTOM_ID)) {
-				// 	await Catalogue.parseViewEvent(interaction);
-				// 	return;
-				// }
+				if (customId.startsWith(CATALOGUE_VIEW_EVENT_CUSTOM_ID)) {
+					await Catalogue.parseViewEvent(interaction);
+					return;
+				}
 
-				// if (customId === CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID) {
-				// 	await Catalogue.viewReturningSpirits(interaction);
-				// 	return;
-				// }
+				if (customId === CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID) {
+					await Catalogue.viewReturningSpirits(interaction);
+					return;
+				}
 
-				// if (customId.startsWith(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)) {
-				// 	await Catalogue.parseViewSpirit(interaction);
-				// 	return;
-				// }
+				if (customId.startsWith(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)) {
+					await Catalogue.parseViewSpirit(interaction);
+					return;
+				}
 
-				// if (customId.startsWith(CATALOGUE_REALM_EVERYTHING_CUSTOM_ID)) {
-				// 	await Catalogue.setRealm(interaction);
-				// 	return;
-				// }
+				if (customId.startsWith(CATALOGUE_REALM_EVERYTHING_CUSTOM_ID)) {
+					await Catalogue.setRealm(interaction);
+					return;
+				}
 
-				// if (customId === CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID) {
-				// 	await Catalogue.setElders(interaction);
-				// 	return;
-				// }
+				if (customId === CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID) {
+					await Catalogue.setElders(interaction);
+					return;
+				}
 
-				// if (customId.startsWith(CATALOGUE_SHARE_PROMPT_CUSTOM_ID)) {
-				// 	await Catalogue.sharePrompt(interaction);
-				// 	return;
-				// }
+				if (customId.startsWith(CATALOGUE_SHARE_PROMPT_CUSTOM_ID)) {
+					await Catalogue.sharePrompt(interaction);
+					return;
+				}
 
-				// if (
-				// 	customId === CATALOGUE_SHARE_SEND_CUSTOM_ID &&
-				// 	interaction.guild_id &&
-				// 	GUILD_CACHE.has(interaction.guild_id)
-				// ) {
-				// 	await Catalogue.shareSend(interaction);
-				// 	return;
-				// }
+				if (
+					customId === CATALOGUE_SHARE_SEND_CUSTOM_ID &&
+					interaction.guild_id &&
+					GUILD_CACHE.has(interaction.guild_id)
+				) {
+					await Catalogue.shareSend(interaction);
+					return;
+				}
 
-				// if (customId.startsWith(CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID)) {
-				// 	await Catalogue.setSeason(interaction);
-				// 	return;
-				// }
+				if (customId.startsWith(CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID)) {
+					await Catalogue.setSeason(interaction);
+					return;
+				}
 
-				// if (customId.startsWith(CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID)) {
-				// 	await Catalogue.parseSetItems(interaction);
-				// 	return;
-				// }
+				if (customId.startsWith(CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID)) {
+					await Catalogue.parseSetItems(interaction);
+					return;
+				}
 
 				// if (customId === SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID) {
 				// 	await today(interaction);
@@ -570,55 +570,55 @@ export default {
 			const values = interaction.data.values;
 
 			try {
-				// if (customId === CATALOGUE_VIEW_TYPE_CUSTOM_ID) {
-				// 	await Catalogue.parseCatalogueType(interaction);
-				// 	return;
-				// }
+				if (customId === CATALOGUE_VIEW_TYPE_CUSTOM_ID) {
+					await Catalogue.parseCatalogueType(interaction);
+					return;
+				}
 
 				const value0 = values[0]!;
 
-				// if (customId === CATALOGUE_VIEW_REALM_CUSTOM_ID && isRealm(value0)) {
-				// 	await Catalogue.viewRealm(interaction, value0);
-				// 	return;
-				// }
+				if (customId === CATALOGUE_VIEW_REALM_CUSTOM_ID && isRealm(value0)) {
+					await Catalogue.viewRealm(interaction, value0);
+					return;
+				}
 
-				// if (customId === CATALOGUE_VIEW_SEASON_CUSTOM_ID) {
-				// 	const seasonId = Number(value0);
+				if (customId === CATALOGUE_VIEW_SEASON_CUSTOM_ID) {
+					const seasonId = Number(value0);
 
-				// 	if (isSeasonId(seasonId)) {
-				// 		await Catalogue.viewSeason(interaction, seasonId);
-				// 		return;
-				// 	}
-				// }
+					if (isSeasonId(seasonId)) {
+						await Catalogue.viewSeason(interaction, seasonId);
+						return;
+					}
+				}
 
-				// if (customId === CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID) {
-				// 	await Catalogue.viewEvents(interaction, value0);
-				// 	return;
-				// }
+				if (customId === CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID) {
+					await Catalogue.viewEvents(interaction, value0);
+					return;
+				}
 
-				// if (customId === CATALOGUE_VIEW_SPIRIT_CUSTOM_ID) {
-				// 	await Catalogue.parseViewSpirit(interaction);
-				// 	return;
-				// }
+				if (customId === CATALOGUE_VIEW_SPIRIT_CUSTOM_ID) {
+					await Catalogue.parseViewSpirit(interaction);
+					return;
+				}
 
-				// if (customId === CATALOGUE_VIEW_EVENT_CUSTOM_ID) {
-				// 	await Catalogue.parseViewEvent(interaction);
-				// 	return;
-				// }
+				if (customId === CATALOGUE_VIEW_EVENT_CUSTOM_ID) {
+					await Catalogue.parseViewEvent(interaction);
+					return;
+				}
 
-				// if (
-				// 	customId.startsWith(CATALOGUE_VIEW_OFFER_1_CUSTOM_ID) ||
-				// 	customId.startsWith(CATALOGUE_VIEW_OFFER_2_CUSTOM_ID) ||
-				// 	customId.startsWith(CATALOGUE_VIEW_OFFER_3_CUSTOM_ID)
-				// ) {
-				// 	await Catalogue.parseSetItems(interaction);
-				// 	return;
-				// }
+				if (
+					customId.startsWith(CATALOGUE_VIEW_OFFER_1_CUSTOM_ID) ||
+					customId.startsWith(CATALOGUE_VIEW_OFFER_2_CUSTOM_ID) ||
+					customId.startsWith(CATALOGUE_VIEW_OFFER_3_CUSTOM_ID)
+				) {
+					await Catalogue.parseSetItems(interaction);
+					return;
+				}
 
-				// if (customId.startsWith(CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID)) {
-				// 	await Catalogue.setSeasonItems(interaction);
-				// 	return;
-				// }
+				if (customId.startsWith(CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID)) {
+					await Catalogue.setSeasonItems(interaction);
+					return;
+				}
 
 				// if (
 				// 	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.includes(

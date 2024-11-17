@@ -3,6 +3,8 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIGuild,
 	type APIGuildMember,
+	type APIMessageComponentButtonInteraction,
+	type APIMessageComponentSelectMenuInteraction,
 	ChannelType,
 	InteractionType,
 	MessageFlags,
@@ -160,7 +162,10 @@ function getPermissionString(bit: bigint) {
 }
 
 export async function cannotUsePermissions(
-	interaction: APIChatInputApplicationCommandInteraction,
+	interaction:
+		| APIChatInputApplicationCommandInteraction
+		| APIMessageComponentButtonInteraction
+		| APIMessageComponentSelectMenuInteraction,
 	permissions: bigint,
 ) {
 	// Direct messages are fine.
