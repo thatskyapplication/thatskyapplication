@@ -1,4 +1,12 @@
+import {
+	type APIChatInputApplicationCommandInteraction,
+	type APIMessageComponentButtonInteraction,
+	ButtonStyle,
+	ComponentType,
+	MessageFlags,
+} from "@discordjs/core";
 import { t } from "i18next";
+import { client } from "../discord.js";
 import type { CataloguePacket } from "../models/Catalogue.js";
 import type { GuessPacket } from "../models/Guess.js";
 import type { HeartPacket } from "../models/Heart.js";
@@ -6,25 +14,32 @@ import Profile from "../models/Profile.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { DATA_DELETION_CUSTOM_ID, SUPPORT_SERVER_INVITE_URL } from "../utility/constants.js";
+import { interactionInvoker } from "../utility/functions.js";
 
-export async function deletePrompt(interaction: ChatInputCommandInteraction) {
-	await interaction.reply({
+export async function deletePrompt(interaction: APIChatInputApplicationCommandInteraction) {
+	await client.api.interactions.reply(interaction.id, interaction.token, {
 		components: [
-			new ActionRowBuilder<ButtonBuilder>().setComponents(
-				new ButtonBuilder()
-					.setCustomId(DATA_DELETION_CUSTOM_ID)
-					.setLabel("Delete my data")
-					.setStyle(ButtonStyle.Danger),
-			),
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: DATA_DELETION_CUSTOM_ID,
+						label: "Delete my data",
+						style: ButtonStyle.Danger,
+					},
+				],
+			},
 		],
 		content: t("data.delete.prompt-message", { lng: interaction.locale, ns: "commands" }),
 		flags: MessageFlags.Ephemeral,
 	});
 }
 
-export async function deleteUserData(interaction: ButtonInteraction) {
-	const { locale, user } = interaction;
-	const userId = user.id;
+export async function deleteUserData(interaction: APIMessageComponentButtonInteraction) {
+	const { locale } = interaction;
+	const invoker = interactionInvoker(interaction);
+	const userId = invoker.id;
 	const profile = await Profile.fetch(userId).catch(() => null);
 	const promises = [];
 
@@ -44,7 +59,7 @@ export async function deleteUserData(interaction: ButtonInteraction) {
 	} catch (error) {
 		pino.error(error, `Error deleting user data for ${userId}.`);
 
-		await interaction.update({
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [],
 			content: t("data.delete.error-message", {
 				lng: locale,
@@ -57,7 +72,7 @@ export async function deleteUserData(interaction: ButtonInteraction) {
 		return;
 	}
 
-	await interaction.update({
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [],
 		content: "Your data has been deleted. You are a moth now.",
 	});

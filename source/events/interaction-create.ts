@@ -88,7 +88,7 @@ import {
 	treasureCandlesSelectMenuResponse,
 } from "../services/admin.js";
 import { finaliseSetup } from "../services/notification.js";
-// import { deleteUserData } from "../services/data.js";
+import { deleteUserData } from "../services/data.js";
 // import {
 // 	answer,
 // 	isGuessDifficultyLevel,
@@ -109,7 +109,7 @@ import {
 	DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_TREASURE_CANDLES_MODAL,
 	DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID,
-	// DATA_DELETION_CUSTOM_ID,
+	DATA_DELETION_CUSTOM_ID,
 	ERROR_RESPONSE,
 	// GUESS_ANSWER_1,
 	// GUESS_ANSWER_2,
@@ -291,10 +291,10 @@ export default {
 			const customId = interaction.data.custom_id;
 
 			try {
-				// if (customId === DATA_DELETION_CUSTOM_ID) {
-				// 	await deleteUserData(interaction);
-				// 	return;
-				// }
+				if (customId === DATA_DELETION_CUSTOM_ID) {
+					await deleteUserData(interaction);
+					return;
+				}
 
 				if (
 					customId === CATALOGUE_VIEW_START_CUSTOM_ID ||
