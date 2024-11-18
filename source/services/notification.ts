@@ -319,12 +319,7 @@ export async function checkSendable(guildId: Snowflake) {
 	const promises = notificationPackets.map((notificationPacket) =>
 		pg<NotificationPacket>(Table.Notifications)
 			.update({
-				sendable: isSendable(
-					me,
-					guildId,
-					notificationPacket.channel_id,
-					notificationPacket.role_id,
-				),
+				sendable: isSendable(me, guild, notificationPacket.channel_id, notificationPacket.role_id),
 			})
 			.where({ guild_id: notificationPacket.guild_id, type: notificationPacket.type })
 			.returning("*"),
@@ -335,17 +330,11 @@ export async function checkSendable(guildId: Snowflake) {
 
 function isSendable(
 	me: APIGuildMember,
-	guildId: Snowflake,
+	guild: APIGuild,
 	channelId: Snowflake | null,
 	roleId: Snowflake | null,
 ) {
 	if (!(channelId && roleId)) {
-		return false;
-	}
-
-	const guild = GUILD_CACHE.get(guildId);
-
-	if (!guild) {
 		return false;
 	}
 

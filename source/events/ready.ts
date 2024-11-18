@@ -1,21 +1,20 @@
 import process from "node:process";
-// import croner from "../croner.js";
+import { GatewayDispatchEvents, type Snowflake } from "@discordjs/core";
+import { GUILD_IDS_FROM_READY } from "../caches/guilds.js";
+import croner from "../croner.js";
 import AI from "../models/AI.js";
 import Configuration, { type ConfigurationPacket } from "../models/Configuration.js";
-// import DailyGuides, { type DailyGuidesPacket } from "../models/DailyGuides.js";
-// import type { DailyGuidesDistributionPacket } from "../models/DailyGuidesDistribution.js";
-// import type { NotificationPacket } from "../models/Notification.js";
+import DailyGuides, { type DailyGuidesPacket } from "../models/DailyGuides.js";
+import type { DailyGuidesDistributionPacket } from "../models/DailyGuidesDistribution.js";
+import type { NotificationPacket } from "../models/Notification.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
-// import { deleteDailyGuidesDistribution } from "../services/daily-guides.js";
-// import { checkSendable, deleteNotifications } from "../services/notification.js";
-import { GUILD_IDS_FROM_READY } from "../caches/guilds.js";
+import { deleteDailyGuidesDistribution } from "../services/daily-guides.js";
+import { checkSendable, deleteNotifications } from "../services/notification.js";
 import type { Event } from "./index.js";
-import { GatewayDispatchEvents } from "@discordjs/core";
-import { CHANNEL_CACHE } from "../caches/channels.js";
 
 const name = GatewayDispatchEvents.Ready;
-const guildIds = new Set<Snowflake>();
+const lostGuildIds = new Set<Snowflake>();
 
 async function collectFromDatabase() {
 	try {
@@ -51,49 +50,49 @@ export default {
 			GUILD_IDS_FROM_READY.add(guild.id);
 		}
 
-		// await collectFromDatabase();
+		await collectFromDatabase();
 
-		// // Collect guild ids from daily guides distribution table for the set.
-		// for (const { guild_id } of await pg<DailyGuidesDistributionPacket>(
-		// 	Table.DailyGuidesDistribution,
-		// ).select("guild_id")) {
-		// 	if (!client.guilds.cache.has(guild_id)) {
-		// 		guildIds.add(guild_id);
-		// 	}
-		// }
+		// Collect guild ids from daily guides distribution table for the set.
+		for (const { guild_id } of await pg<DailyGuidesDistributionPacket>(
+			Table.DailyGuidesDistribution,
+		).select("guild_id")) {
+			if (!GUILD_IDS_FROM_READY.has(guild_id)) {
+				lostGuildIds.add(guild_id);
+			}
+		}
 
-		// // Remove guild configurations we no longer have access to.
-		// const settled = await Promise.allSettled(
-		// 	[...guildIds].map(async (guildId) => [
-		// 		AI.delete(guildId),
-		// 		deleteDailyGuidesDistribution(guildId),
-		// 		deleteNotifications(guildId),
-		// 	]),
-		// );
+		// Remove guild configurations we no longer have access to.
+		const settled = await Promise.allSettled(
+			[...lostGuildIds].map(async (guildId) => [
+				AI.delete(guildId),
+				deleteDailyGuidesDistribution(guildId),
+				deleteNotifications(guildId),
+			]),
+		);
 
-		// const errors = settled
-		// 	.filter((result): result is PromiseRejectedResult => result.status === "rejected")
-		// 	.map((result) => result.reason);
+		const errors = settled
+			.filter((result): result is PromiseRejectedResult => result.status === "rejected")
+			.map((result) => result.reason);
 
-		// if (errors.length > 0) {
-		// 	pino.error(errors, "Error whilst removing guild configurations.");
-		// }
+		if (errors.length > 0) {
+			pino.error(errors, "Error whilst removing guild configurations.");
+		}
 
-		// // Perform a health check for our notification subscribers.
-		// const notificationsSettled = await Promise.allSettled(
-		// 	(await pg<NotificationPacket>(Table.Notifications).distinct("guild_id")).map(
-		// 		(notificationPacket) => checkSendable(client, notificationPacket.guild_id),
-		// 	),
-		// );
+		// Perform a health check for our notification subscribers.
+		const notificationsSettled = await Promise.allSettled(
+			(await pg<NotificationPacket>(Table.Notifications).distinct("guild_id")).map(
+				(notificationPacket) => checkSendable(notificationPacket.guild_id),
+			),
+		);
 
-		// const notificationsErrors = notificationsSettled
-		// 	.filter((result): result is PromiseRejectedResult => result.status === "rejected")
-		// 	.map((result) => result.reason);
+		const notificationsErrors = notificationsSettled
+			.filter((result): result is PromiseRejectedResult => result.status === "rejected")
+			.map((result) => result.reason);
 
-		// if (notificationsErrors.length > 0) {
-		// 	pino.error(notificationsErrors, "Error whilst performing the notification health check.");
-		// }
+		if (notificationsErrors.length > 0) {
+			pino.error(notificationsErrors, "Error whilst performing the notification health check.");
+		}
 
-		// croner(client);
+		croner();
 	},
 } satisfies Event<typeof name>;
