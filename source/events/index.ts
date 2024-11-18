@@ -8,8 +8,8 @@ import entitlementUpdate from "./entitlement-update.js";
 import guildCreate from "./guild-create.js";
 import guildUpdate from "./guild-update.js";
 // import guildDelete from "./guild-delete.js";
-// import guildMemberAdd from "./guild-member-add.js";
-// import guildMemberRemove from "./guild-member-remove.js";
+import guildMemberAdd from "./guild-member-add.js";
+import guildMemberRemove from "./guild-member-remove.js";
 import interactionCreate from "./interaction-create.js";
 import messageCreate from "./message-create.js";
 import messageDelete from "./message-delete.js";
@@ -30,8 +30,8 @@ export default [
 	entitlementUpdate,
 	guildCreate,
 	// guildDelete,
-	// guildMemberAdd,
-	// guildMemberRemove,
+	guildMemberAdd,
+	guildMemberRemove,
 	guildUpdate,
 	interactionCreate,
 	messageCreate,

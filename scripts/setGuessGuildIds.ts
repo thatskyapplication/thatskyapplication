@@ -1,12 +1,14 @@
 import process from "node:process";
+import { Collection } from "@discordjs/collection";
 import {
 	Client,
-	type Collection,
-	Events,
+	GatewayDispatchEvents,
+	type GatewayGuildCreateDispatchData,
 	GatewayIntentBits,
-	type Guild,
 	type Snowflake,
-} from "discord.js";
+} from "@discordjs/core";
+import { REST } from "@discordjs/rest";
+import { WebSocketManager } from "@discordjs/ws";
 import knex from "knex";
 
 interface GuessPacket {
@@ -16,34 +18,57 @@ interface GuessPacket {
 	guild_ids: string[];
 }
 
-const { DATABASE_URL } = process.env;
+const { DATABASE_URL, DISCORD_TOKEN, DEVELOPMENT_DISCORD_TOKEN } = process.env;
+export const TOKEN =
+	process.env.NODE_ENV === "production" ? DISCORD_TOKEN : DEVELOPMENT_DISCORD_TOKEN;
 
-if (!DATABASE_URL) {
-	throw new Error("Database URL missing.");
+if (!(DATABASE_URL && TOKEN)) {
+	throw new Error("Credentials missing.");
 }
 
 const TABLE = "guess" as const;
-const client = new Client({ intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMembers });
+const rest = new REST({ version: "10" }).setToken(TOKEN);
+
+export const gateway = new WebSocketManager({
+	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMembers,
+	rest,
+	token: TOKEN,
+});
+
+const client = new Client({ rest, gateway });
+const GUILD_IDS_FROM_READY = new Set<Snowflake>();
+const GUILD_CACHE = new Collection<Snowflake, GatewayGuildCreateDispatchData>();
 const pg = knex({ client: "pg", connection: DATABASE_URL, pool: { min: 0 } });
 const userIds = (await pg<GuessPacket>(TABLE).select("user_id")).map((row) => row.user_id);
 const data: Record<Snowflake, GuessPacket["guild_ids"]> = {};
 
-client.on(Events.ClientReady, async () => {
-	await setGuildIds(client.guilds.cache);
-});
+client.on(GatewayDispatchEvents.GuildCreate, async ({ data }) => {
+	if (GUILD_IDS_FROM_READY.has(data.id)) {
+		GUILD_CACHE.set(data.id, data);
+		GUILD_IDS_FROM_READY.delete(data.id);
+	}
 
-client.on(Events.GuildMembersChunk, (members, guild) => {
-	for (const member of members.values()) {
-		if (userIds.includes(member.user.id)) {
-			data[member.user.id] ??= [];
-			data[member.user.id].push(guild.id);
-		}
+	if (GUILD_IDS_FROM_READY.size === 0) {
+		await setGuildIds();
 	}
 });
 
-async function setGuildIds(guilds: Collection<Snowflake, Guild>) {
-	for (const guild of guilds.values()) {
-		await guild.members.fetch({ user: userIds });
+client.on(GatewayDispatchEvents.Ready, ({ data }) => {
+	for (const guild of data.guilds) {
+		GUILD_IDS_FROM_READY.add(guild.id);
+	}
+});
+
+async function setGuildIds() {
+	for (const guild of GUILD_CACHE.values()) {
+		const { members } = await client.requestGuildMembers({ user_ids: userIds, guild_id: guild.id });
+
+		for (const member of members) {
+			if (userIds.includes(member.user.id)) {
+				data[member.user.id] ??= [];
+				data[member.user.id].push(guild.id);
+			}
+		}
 	}
 
 	const formattedData = Object.keys(data).map((user_id) => ({
@@ -64,4 +89,4 @@ async function setGuildIds(guilds: Collection<Snowflake, Guild>) {
 	process.exit();
 }
 
-void client.login();
+void gateway.connect();

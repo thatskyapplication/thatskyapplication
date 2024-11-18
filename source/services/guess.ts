@@ -1,8 +1,23 @@
+import {
+	type APIButtonComponentWithCustomId,
+	type APIChatInputApplicationCommandInteraction,
+	type APIEmbed,
+	type APIMessageComponentButtonInteraction,
+	ButtonStyle,
+	ComponentType,
+	type GatewayGuildCreateDispatchData,
+	type InteractionsAPI,
+	MessageFlags,
+	type Snowflake,
+} from "@discordjs/core";
+import { DiscordSnowflake } from "@sapphire/snowflake";
 import { t } from "i18next";
+import { GUILD_CACHE } from "../caches/guilds.js";
 import { spirits } from "../data/spirits/index.js";
 import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../data/spirits/realms/index.js";
 import { currentSeasonalSpirits } from "../data/spirits/seasons/index.js";
 import ModestDancer from "../data/spirits/seasons/performance/modest-dancer.js";
+import { client } from "../discord.js";
 import type { GuessPacket } from "../models/Guess.js";
 import type {
 	ElderSpirit,
@@ -28,6 +43,7 @@ import {
 	GuessDifficultyLevel,
 	GuessDifficultyLevelToName,
 	GuessDifficultyToStreakColumn,
+	NOT_IN_CACHED_GUILD_RESPONSE,
 } from "../utility/constants.js";
 import {
 	FRIEND_ACTION_EMOJIS,
@@ -35,10 +51,8 @@ import {
 	formatEmoji,
 	formatEmojiURL,
 } from "../utility/emojis.js";
-import { getRandomElement } from "../utility/functions.js";
+import { getRandomElement, interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 import { SPIRIT_COSMETIC_EMOJIS_ARRAY } from "../utility/guess.js";
-import type { GatewayGuildCreateDispatchData, Snowflake } from "@discordjs/core";
-import { client } from "../discord.js";
 
 export function isGuessDifficultyLevel(level: number): level is GuessDifficultyLevel {
 	return GUESS_DIFFICULTY_LEVEL_VALUES.includes(level);
@@ -108,81 +122,86 @@ function getOptions(difficulty: GuessDifficultyLevel) {
 }
 
 export async function guess(
-	interaction: ButtonInteraction | ChatInputCommandInteraction,
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 	difficulty: GuessDifficultyLevel,
 	streak: number,
 ) {
 	const { answer, emoji, options } = getOptions(difficulty);
 
 	// Set the timeout timestamp.
-	const timeoutTimestamp = interaction.createdTimestamp + GUESS_TIMEOUT;
+	const timeoutTimestamp = DiscordSnowflake.timestampFrom(interaction.id) + GUESS_TIMEOUT;
 
 	// Create buttons from the answers.
-	const buttons = options.map((option, index) =>
-		new ButtonBuilder()
-			.setCustomId(
-				`${index === 0 ? GUESS_ANSWER_1 : index === 1 ? GUESS_ANSWER_2 : GUESS_ANSWER_3}§${answer.name}§${
-					option.name
-				}§${difficulty}§${streak}§${timeoutTimestamp}`,
-			)
-			.setLabel(t(`spiritNames.${option.name}`, { lng: interaction.locale, ns: "general" }))
-			.setStyle(ButtonStyle.Secondary),
-	);
+	const buttons: APIButtonComponentWithCustomId[] = options.map((option, index) => ({
+		type: ComponentType.Button,
+		custom_id: `${index === 0 ? GUESS_ANSWER_1 : index === 1 ? GUESS_ANSWER_2 : GUESS_ANSWER_3}§${answer.name}§${option.name}§${difficulty}§${streak}§${timeoutTimestamp}`,
+		label: t(`spiritNames.${option.name}`, { lng: interaction.locale, ns: "general" }),
+		style: ButtonStyle.Secondary,
+	}));
 
-	const endGameButton = new ButtonBuilder()
-		.setCustomId(
-			`${GUESS_END_GAME}§${answer.name}§null§${difficulty}§${streak}§${timeoutTimestamp}`,
-		)
-		.setLabel("End Game")
-		.setStyle(ButtonStyle.Danger);
+	const endGameButton: APIButtonComponentWithCustomId = {
+		type: ComponentType.Button,
+		custom_id: `${GUESS_END_GAME}§${answer.name}§null§${difficulty}§${streak}§${timeoutTimestamp}`,
+		label: "End Game",
+		style: ButtonStyle.Danger,
+	};
 
 	// Retrieve the highest streak.
-	const highestStreak = await pg<GuessPacket>(Table.Guess).where({ user_id: interaction.user.id });
+	const invoker = interactionInvoker(interaction);
+	const highestStreak = await pg<GuessPacket>(Table.Guess).where({ user_id: invoker.id });
 	const difficultyString = GuessDifficultyLevelToName[difficulty];
 	const streakString = highestStreak[0]?.[GuessDifficultyToStreakColumn[difficulty]] ?? 0;
 
 	// Respond.
-	const response = {
+	const response:
+		| Parameters<InteractionsAPI["reply"]>[2]
+		| Parameters<InteractionsAPI["updateMessage"]>[2] = {
 		components: [
-			new ActionRowBuilder<ButtonBuilder>().setComponents(buttons),
-			new ActionRowBuilder<ButtonBuilder>().setComponents(endGameButton),
+			{
+				type: ComponentType.ActionRow,
+				components: buttons,
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [endGameButton],
+			},
 		],
 		content: "",
 		embeds: [
-			new EmbedBuilder()
-				.setColor(DEFAULT_EMBED_COLOUR)
-				.setDescription(
-					`Guess ${time(Math.floor(timeoutTimestamp / 1_000), TimestampStyles.RelativeTime)}!`,
-				)
-				.setFooter({
+			{
+				color: DEFAULT_EMBED_COLOUR,
+				description: `Guess <t:${Math.floor(timeoutTimestamp / 1_000)}:R>!`,
+				footer: {
 					text: `Difficulty: ${difficultyString} | Streak: ${streak} | Highest: ${streakString}`,
-				})
-				.setImage(formatEmojiURL(emoji))
-				.setTitle("Where does this come from?"),
+				},
+				image: { url: formatEmojiURL(emoji) },
+				title: "Where does this come from?",
+			},
 		],
 	};
 
-	if (interaction instanceof ButtonInteraction) {
-		await interaction.update(response);
+	if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
 	} else {
-		await interaction.reply(response);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 	}
 }
 
-function tryAgainComponent(difficulty: GuessDifficultyLevel) {
-	return new ActionRowBuilder<ButtonBuilder>().addComponents(
-		new ButtonBuilder()
-			.setCustomId(`${GUESS_TRY_AGAIN}§${difficulty}`)
-			.setLabel("Try Again?")
-			.setStyle(ButtonStyle.Primary),
-	);
+function tryAgainComponent(difficulty: GuessDifficultyLevel): APIButtonComponentWithCustomId {
+	return {
+		type: ComponentType.Button,
+		custom_id: `${GUESS_TRY_AGAIN}§${difficulty}`,
+		label: "Try Again?",
+		style: ButtonStyle.Primary,
+	};
 }
 
-export async function answer(interaction: ButtonInteraction) {
-	const { customId, message, user } = interaction;
+export async function answer(interaction: APIMessageComponentButtonInteraction) {
+	const { message } = interaction;
+	const invoker = interactionInvoker(interaction);
 
-	if (message.interactionMetadata!.user.id !== user.id) {
-		await interaction.reply({
+	if (message.interaction_metadata!.user.id !== invoker.id) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "You didn't start this game!",
 			flags: MessageFlags.Ephemeral,
 		});
@@ -190,22 +209,29 @@ export async function answer(interaction: ButtonInteraction) {
 		return;
 	}
 
-	const [, answer, guessedAnswer, difficulty, streak, timeoutTimestamp] = customId.split("§");
+	const [, answer, guessedAnswer, difficulty, streak, timeoutTimestamp] =
+		interaction.data.custom_id.split("§");
+
 	const parsedDifficulty = Number(difficulty);
 	const parsedStreak = Number(streak);
 	const parsedTimeoutTimestamp = Number(timeoutTimestamp);
 
 	if (!isGuessDifficultyLevel(parsedDifficulty)) {
 		pino.warn(interaction, `Invalid guessing game difficulty level: ${difficulty}`);
-		await interaction.update(ERROR_RESPONSE);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
 		return;
 	}
 
 	if (Date.now() > parsedTimeoutTimestamp) {
-		await update(parsedDifficulty, user.id, parsedStreak, interaction.guildId);
+		await update(parsedDifficulty, invoker.id, parsedStreak, interaction.guild_id);
 
-		await interaction.update({
-			components: [tryAgainComponent(parsedDifficulty)],
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+			components: [
+				{
+					type: ComponentType.ActionRow,
+					components: [tryAgainComponent(parsedDifficulty)],
+				},
+			],
 			content: "Too late!",
 		});
 
@@ -220,11 +246,12 @@ export async function answer(interaction: ButtonInteraction) {
 	await guess(interaction, parsedDifficulty, parsedStreak + 1);
 }
 
-export async function parseEndGame(interaction: ButtonInteraction) {
-	const { message, user } = interaction;
+export async function parseEndGame(interaction: APIMessageComponentButtonInteraction) {
+	const { message } = interaction;
+	const invoker = interactionInvoker(interaction);
 
-	if (message.interactionMetadata!.user.id !== user.id) {
-		await interaction.reply({
+	if (message.interaction_metadata!.user.id !== invoker.id) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "You didn't start this game!",
 			flags: MessageFlags.Ephemeral,
 		});
@@ -232,12 +259,12 @@ export async function parseEndGame(interaction: ButtonInteraction) {
 		return;
 	}
 
-	const [, answer, guess, rawDifficulty, rawStreak] = interaction.customId.split("§");
+	const [, answer, guess, rawDifficulty, rawStreak] = interaction.data.custom_id.split("§");
 	const difficulty = Number(rawDifficulty);
 
 	if (!isGuessDifficultyLevel(difficulty)) {
 		pino.warn(interaction, `Invalid guessing game difficulty level: ${rawDifficulty}`);
-		await interaction.update(ERROR_RESPONSE);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
 		return;
 	}
 
@@ -246,16 +273,16 @@ export async function parseEndGame(interaction: ButtonInteraction) {
 }
 
 async function endGame(
-	interaction: ButtonInteraction,
+	interaction: APIMessageComponentButtonInteraction,
 	answer: string,
 	guess: string,
 	difficulty: GuessDifficultyLevel,
 	streak: number,
 ) {
-	const { customId, locale, message, user } = interaction;
+	const { locale, message } = interaction;
 	let description: string;
 
-	if (customId.startsWith(GUESS_END_GAME)) {
+	if (interaction.data.custom_id.startsWith(GUESS_END_GAME)) {
 		description = "Game ended.";
 	} else {
 		description = `Your guess: ${t(`spiritNames.${guess}`, {
@@ -264,25 +291,32 @@ async function endGame(
 		})} ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`;
 	}
 
-	const embed = EmbedBuilder.from(message.embeds[0]!);
+	const embed = {
+		...message.embeds[0]!,
+		description,
+		title: t(`spiritNames.${answer}`, { lng: locale, ns: "general" }),
+	};
 
-	embed
-		.setDescription(description)
-		.setTitle(t(`spiritNames.${answer}`, { lng: locale, ns: "general" }));
+	const invoker = interactionInvoker(interaction);
+	await update(difficulty, invoker.id, streak, interaction.guild_id);
 
-	await update(difficulty, user.id, streak, interaction.guildId);
-
-	await interaction.update({
-		components: [tryAgainComponent(difficulty)],
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.ActionRow,
+				components: [tryAgainComponent(difficulty)],
+			},
+		],
 		embeds: [embed],
 	});
 }
 
-export async function tryAgain(interaction: ButtonInteraction) {
-	const { customId, message, user } = interaction;
+export async function tryAgain(interaction: APIMessageComponentButtonInteraction) {
+	const { message } = interaction;
+	const invoker = interactionInvoker(interaction);
 
-	if (message.interactionMetadata!.user.id !== user.id) {
-		await interaction.reply({
+	if (message.interaction_metadata!.user.id !== invoker.id) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "You didn't start this game!",
 			flags: MessageFlags.Ephemeral,
 		});
@@ -290,11 +324,12 @@ export async function tryAgain(interaction: ButtonInteraction) {
 		return;
 	}
 
+	const customId = interaction.data.custom_id;
 	const difficulty = Number(customId.slice(customId.indexOf("§") + 1));
 
 	if (!isGuessDifficultyLevel(difficulty)) {
 		pino.warn(interaction, `Invalid guessing game difficulty level: ${difficulty}`);
-		await interaction.update(ERROR_RESPONSE);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
 		return;
 	}
 
@@ -305,7 +340,7 @@ async function update(
 	difficulty: GuessDifficultyLevel,
 	userId: Snowflake,
 	streak: number,
-	guildId: Snowflake | null,
+	guildId: Snowflake | undefined,
 ) {
 	const column = GuessDifficultyToStreakColumn[difficulty];
 
@@ -359,12 +394,19 @@ export async function removeGuildId(userId: Snowflake, guildId: Snowflake) {
 
 export async function handleGuildCreate(guild: GatewayGuildCreateDispatchData) {
 	const userIds = (await pg<GuessPacket>(Table.Guess).select("user_id")).map((row) => row.user_id);
-	const requestedGuildMembers = await client.requestGuildMembers({ guild_id: guild.id, user_ids: userIds });
 
-	const data = requestedGuildMembers.members.reduce<Record<Snowflake, Snowflake>>((data, member) => {
-		data[member.user.id] = guild.id;
-		return data;
-	}, {});
+	const requestedGuildMembers = await client.requestGuildMembers({
+		guild_id: guild.id,
+		user_ids: userIds,
+	});
+
+	const data = requestedGuildMembers.members.reduce<Record<Snowflake, Snowflake>>(
+		(data, member) => {
+			data[member.user.id] = guild.id;
+			return data;
+		},
+		{},
+	);
 
 	const userGuildData = Object.entries(data).map(([user_id, guild_id]) => ({
 		user_id,
@@ -386,7 +428,7 @@ export async function handleGuildCreate(guild: GatewayGuildCreateDispatchData) {
 	`);
 }
 
-export async function handleGuildRemove(guild: Guild) {
+export async function handleGuildRemove(guildId: Snowflake) {
 	await pg.raw(
 		`
 		WITH affected_rows AS (
@@ -406,7 +448,7 @@ export async function handleGuildRemove(guild: Guild) {
 		FROM affected_rows
 		WHERE ${Table.Guess}.user_id = affected_rows.user_id
 		`,
-		[guild.id, guild.id],
+		[guildId, guildId],
 	);
 }
 
@@ -454,14 +496,14 @@ export async function findUser(userId: Snowflake) {
 }
 
 export async function leaderboard(
-	interaction: ChatInputCommandInteraction | ButtonInteraction,
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 	difficulty: GuessDifficultyLevel,
 ) {
-	const isChatInputCommand = interaction.isChatInputCommand();
+	const isChatInput = isChatInputCommand(interaction);
 
-	const page = isChatInputCommand
+	const page = isChatInput
 		? 1
-		: Number(interaction.customId.slice(interaction.customId.lastIndexOf("§") + 1));
+		: Number(interaction.data.custom_id.slice(interaction.data.custom_id.lastIndexOf("§") + 1));
 
 	const offset = (page - 1) * GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER;
 	const column = GuessDifficultyToStreakColumn[difficulty];
@@ -479,10 +521,10 @@ export async function leaderboard(
 		.limit(GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER + 1)
 		.offset(offset);
 
-	const guessPacketInvoker = await findUser(interaction.user.id);
+	const guessPacketInvoker = await findUser(interactionInvoker(interaction).id);
 
 	if (guessPacketsLeaderboard.length === 0) {
-		await interaction.reply({
+		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "There is nothing on the leaderboard. Why not be the first?",
 			flags: MessageFlags.Ephemeral,
 		});
@@ -497,82 +539,102 @@ export async function leaderboard(
 		guessPacketsLeaderboard.pop();
 	}
 
-	const embed = new EmbedBuilder()
-		.setColor(DEFAULT_EMBED_COLOUR)
-		.setDescription(
-			guessPacketsLeaderboard
-				.map((row) => `${row.rank}. <@${row.user_id}>: ${row[column]}`)
-				.join("\n"),
-		)
-		.setTitle(`${GuessDifficultyLevelToName[difficulty]} Leaderboard`);
+	const embed: APIEmbed = {
+		color: DEFAULT_EMBED_COLOUR,
+		description: guessPacketsLeaderboard
+			.map((row) => `${row.rank}. <@${row.user_id}>: ${row[column]}`)
+			.join("\n"),
+		title: `${GuessDifficultyLevelToName[difficulty]} Leaderboard`,
+	};
 
 	if (guessPacketInvoker) {
-		embed.setFooter({
+		embed.footer = {
 			text: `You: #${guessPacketInvoker[`${column}_rank`]} (${guessPacketInvoker[column]})`,
-		});
+		};
 	}
 
-	const response = {
+	const response:
+		| Parameters<InteractionsAPI["reply"]>[2]
+		| Parameters<InteractionsAPI["updateMessage"]>[2] = {
 		components: [
-			new ActionRowBuilder<ButtonBuilder>().setComponents(
-				new ButtonBuilder()
-					.setCustomId(`${GUESS_LEADERBOARD_BACK_CUSTOM_ID}§${difficulty}§${page - 1}`)
-					.setDisabled(!hasPreviousPage)
-					.setEmoji("⬅️")
-					.setLabel("Back")
-					.setStyle(ButtonStyle.Secondary),
-				new ButtonBuilder()
-					.setCustomId(`${GUESS_LEADERBOARD_NEXT_CUSTOM_ID}§${difficulty}§${page + 1}`)
-					.setDisabled(!hasNextPage)
-					.setEmoji("➡️")
-					.setLabel("Next")
-					.setStyle(ButtonStyle.Secondary),
-			),
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: `${GUESS_LEADERBOARD_BACK_CUSTOM_ID}§${difficulty}§${page - 1}`,
+						disabled: !hasPreviousPage,
+						emoji: { name: "⬅️" },
+						label: "Back",
+						style: ButtonStyle.Secondary,
+					},
+					{
+						type: ComponentType.Button,
+						custom_id: `${GUESS_LEADERBOARD_NEXT_CUSTOM_ID}§${difficulty}§${page + 1}`,
+						disabled: !hasNextPage,
+						emoji: { name: "➡️" },
+						label: "Next",
+						style: ButtonStyle.Secondary,
+					},
+				],
+			},
 		],
 		embeds: [embed],
 	};
 
-	if (isChatInputCommand) {
-		await interaction.reply(response);
+	if (isChatInput) {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
 	} else {
-		await interaction.update(response);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 	}
 }
 
 export async function guildLeaderboard(
-	interaction: ChatInputCommandInteraction<"cached">,
+	interaction: APIChatInputApplicationCommandInteraction,
 	difficulty: GuessDifficultyLevel,
 ) {
+	const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
+
+	if (!guild) {
+		await client.api.interactions.reply(
+			interaction.id,
+			interaction.token,
+			NOT_IN_CACHED_GUILD_RESPONSE,
+		);
+
+		return;
+	}
+
 	const column = GuessDifficultyToStreakColumn[difficulty];
 
 	const results = await pg(Table.Guess)
-		.where(pg.raw("guild_ids @> ?", [JSON.stringify([interaction.guildId])]))
+		.where(pg.raw("guild_ids @> ?", [JSON.stringify([guild.id])]))
 		.and.whereNotNull(column)
 		.orderBy(column, "desc");
 
 	if (results.length === 0) {
-		await interaction.reply("No one in this server has played this game yet!");
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "No one in this server has played this game yet!",
+		});
 		return;
 	}
 
-	const you = results.findIndex((row) => row.user_id === interaction.user.id);
+	const invoker = interactionInvoker(interaction);
+	const you = results.findIndex((row) => row.user_id === invoker.id);
 
-	const embed = new EmbedBuilder()
-		.setColor(DEFAULT_EMBED_COLOUR)
-		.setDescription(
-			results
-				.slice(0, 10)
-				.map((row, index) => `${index + 1}. <@${row.user_id}>: ${row[column]}`)
-				.join("\n"),
-		)
-		.setTitle(`${GuessDifficultyLevelToName[difficulty]} Leaderboard`);
-
-	let footerText = interaction.guild!.name;
-
-	if (you !== -1) {
-		footerText += ` | You: #${you + 1} (${results[you]![column]})`;
-	}
-
-	embed.setFooter({ text: footerText });
-	await interaction.reply({ embeds: [embed] });
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		embeds: [
+			{
+				description: results
+					.slice(0, 10)
+					.map((row, index) => `${index + 1}. <@${row.user_id}>: ${row[column]}`)
+					.join("\n"),
+				color: DEFAULT_EMBED_COLOUR,
+				footer: {
+					text: `${guild.name}${you === -1 ? "" : ` | You: #${you + 1} (${results[you]![column]})`}`,
+				},
+				title: `${GuessDifficultyLevelToName[difficulty]} Leaderboard`,
+			},
+		],
+	});
 }

@@ -12,7 +12,6 @@ import {
 import { skyToday } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../utility/emojis.js";
 import { getRandomElement } from "../utility/functions.js";
-import { cannotUsePermissions } from "../utility/permission-checks.js";
 
 async function totalGifted(userId: Snowflake) {
 	return Number(

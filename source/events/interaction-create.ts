@@ -89,13 +89,13 @@ import {
 } from "../services/admin.js";
 import { finaliseSetup } from "../services/notification.js";
 import { deleteUserData } from "../services/data.js";
-// import {
-// 	answer,
-// 	isGuessDifficultyLevel,
-// 	leaderboard,
-// 	parseEndGame,
-// 	tryAgain,
-// } from "../services/guess.js";
+import {
+	answer,
+	isGuessDifficultyLevel,
+	leaderboard,
+	parseEndGame,
+	tryAgain,
+} from "../services/guess.js";
 // import { history } from "../services/heart.js";
 // import { browse, today } from "../services/shard-eruption.js";
 // import { parseSpiritSwitch } from "../services/spirit.js";
@@ -111,13 +111,13 @@ import {
 	DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID,
 	DATA_DELETION_CUSTOM_ID,
 	ERROR_RESPONSE,
-	// GUESS_ANSWER_1,
-	// GUESS_ANSWER_2,
-	// GUESS_ANSWER_3,
-	// GUESS_END_GAME,
-	// GUESS_LEADERBOARD_BACK_CUSTOM_ID,
-	// GUESS_LEADERBOARD_NEXT_CUSTOM_ID,
-	// GUESS_TRY_AGAIN,
+	GUESS_ANSWER_1,
+	GUESS_ANSWER_2,
+	GUESS_ANSWER_3,
+	GUESS_END_GAME,
+	GUESS_LEADERBOARD_BACK_CUSTOM_ID,
+	GUESS_LEADERBOARD_NEXT_CUSTOM_ID,
+	GUESS_TRY_AGAIN,
 	// HEART_HISTORY_BACK,
 	// HEART_HISTORY_NEXT,
 	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
@@ -507,38 +507,38 @@ export default {
 				// 	return;
 				// }
 
-				// if (
-				// 	customId.startsWith(GUESS_ANSWER_1) ||
-				// 	customId.startsWith(GUESS_ANSWER_2) ||
-				// 	customId.startsWith(GUESS_ANSWER_3)
-				// ) {
-				// 	await answer(interaction);
-				// 	return;
-				// }
+				if (
+					customId.startsWith(GUESS_ANSWER_1) ||
+					customId.startsWith(GUESS_ANSWER_2) ||
+					customId.startsWith(GUESS_ANSWER_3)
+				) {
+					await answer(interaction);
+					return;
+				}
 
-				// if (customId.startsWith(GUESS_END_GAME)) {
-				// 	await parseEndGame(interaction);
-				// 	return;
-				// }
+				if (customId.startsWith(GUESS_END_GAME)) {
+					await parseEndGame(interaction);
+					return;
+				}
 
-				// if (customId.startsWith(GUESS_TRY_AGAIN)) {
-				// 	await tryAgain(interaction);
-				// 	return;
-				// }
+				if (customId.startsWith(GUESS_TRY_AGAIN)) {
+					await tryAgain(interaction);
+					return;
+				}
 
-				// if (
-				// 	customId.startsWith(GUESS_LEADERBOARD_BACK_CUSTOM_ID) ||
-				// 	customId.startsWith(GUESS_LEADERBOARD_NEXT_CUSTOM_ID)
-				// ) {
-				// 	const guessDifficultyLevel = Number(
-				// 		customId.slice(customId.indexOf("§") + 1, customId.lastIndexOf("§")),
-				// 	);
+				if (
+					customId.startsWith(GUESS_LEADERBOARD_BACK_CUSTOM_ID) ||
+					customId.startsWith(GUESS_LEADERBOARD_NEXT_CUSTOM_ID)
+				) {
+					const guessDifficultyLevel = Number(
+						customId.slice(customId.indexOf("§") + 1, customId.lastIndexOf("§")),
+					);
 
-				// 	if (isGuessDifficultyLevel(guessDifficultyLevel)) {
-				// 		await leaderboard(interaction, guessDifficultyLevel);
-				// 		return;
-				// 	}
-				// }
+					if (isGuessDifficultyLevel(guessDifficultyLevel)) {
+						await leaderboard(interaction, guessDifficultyLevel);
+						return;
+					}
+				}
 
 				if (customId === DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID) {
 					await dailyMessageModalResponse(interaction);

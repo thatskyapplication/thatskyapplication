@@ -1,30 +1,6 @@
 import type { Buffer } from "node:buffer";
 import { URL } from "node:url";
 import { DeleteObjectCommand, DeleteObjectsCommand, PutObjectCommand } from "@aws-sdk/client-s3";
-import {
-	ActionRowBuilder,
-	type Attachment,
-	type AutocompleteInteraction,
-	ButtonBuilder,
-	ButtonInteraction,
-	ButtonStyle,
-	ChatInputCommandInteraction,
-	type EmbedAuthorOptions,
-	EmbedBuilder,
-	MessageFlags,
-	ModalBuilder,
-	type ModalMessageModalSubmitInteraction,
-	type ModalSubmitInteraction,
-	PermissionFlagsBits,
-	type Snowflake,
-	StringSelectMenuBuilder,
-	type StringSelectMenuInteraction,
-	StringSelectMenuOptionBuilder,
-	TextInputBuilder,
-	TextInputStyle,
-	type UserContextMenuCommandInteraction,
-	userMention,
-} from "discord.js";
 import { hash } from "hasha";
 import { t } from "i18next";
 import sharp from "sharp";
@@ -64,8 +40,8 @@ import {
 	formatEmoji,
 	formatEmojiURL,
 } from "../utility/emojis.js";
-import { cannotUsePermissions } from "../utility/permission-checks.js";
 import { Catalogue } from "./Catalogue.js";
+import { ButtonStyle, ComponentType, type Snowflake } from "@discordjs/core";
 
 interface ProfilePacket {
 	user_id: Snowflake;
@@ -240,54 +216,67 @@ const SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_
 export const SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID =
 	"SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID" as const;
 
-const SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW =
-	new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-		new StringSelectMenuBuilder()
-			.setCustomId(SKY_PROFILE_EDIT_CUSTOM_ID)
-			.setMaxValues(1)
-			.setMinValues(1)
-			.setOptions(
-				PROFILE_INTERACTIVE_EDIT_TYPE_VALUES.map((profileInteractiveEditType) =>
-					new StringSelectMenuOptionBuilder()
-						.setDescription(ProfileInteractiveEditTypeToDescription[profileInteractiveEditType])
-						.setLabel(profileInteractiveEditType)
-						.setValue(profileInteractiveEditType),
-				),
-			)
-			.setPlaceholder("What do you want to edit?"),
-	);
+const SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW = {
+	type: ComponentType.ActionRow,
+	components: [
+		{
+			type: ComponentType.StringSelect,
+			custom_id: SKY_PROFILE_EDIT_CUSTOM_ID,
+			max_values: 1,
+			min_values: 1,
+			options: PROFILE_INTERACTIVE_EDIT_TYPE_VALUES.map((profileInteractiveEditType) => ({
+				description: ProfileInteractiveEditTypeToDescription[profileInteractiveEditType],
+				label: profileInteractiveEditType,
+				value: profileInteractiveEditType,
+			})),
+			placeholder: "What do you want to edit?",
+		},
+	],
+} as const;
 
-const SKY_PROFILE_EDIT_RESET_ACTION_ROW = new ActionRowBuilder<ButtonBuilder>().setComponents(
-	new ButtonBuilder()
-		.setCustomId(SKY_PROFILE_SHOW_RESET_CUSTOM_ID)
-		.setLabel("Reset")
-		.setStyle(ButtonStyle.Secondary),
-);
+const SKY_PROFILE_EDIT_RESET_ACTION_ROW = {
+	type: ComponentType.ActionRow,
+	components: [
+		{
+			type: ComponentType.Button,
+			custom_id: SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
+			label: "Reset",
+			style: ButtonStyle.Secondary,
+		},
+	],
+} as const;
 
-const SKY_PROFILE_RESET_OPTIONS = PROFILE_INTERACTIVE_RESET_TYPE_VALUES.map(
-	(profileInteractiveResetType) =>
-		new StringSelectMenuOptionBuilder()
-			.setLabel(profileInteractiveResetType)
-			.setValue(profileInteractiveResetType),
-);
+const SKY_PROFILE_RESET_OPTIONS = PROFILE_INTERACTIVE_RESET_TYPE_VALUES.map((profileInteractiveResetType) => ({
+	label: profileInteractiveResetType,
+	value: profileInteractiveResetType
+}));
 
-const SKY_PROFILE_RESET_OPTIONS_ACTION_ROW =
-	new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-		new StringSelectMenuBuilder()
-			.setCustomId(SKY_PROFILE_RESET_CUSTOM_ID)
-			.setMaxValues(SKY_PROFILE_RESET_OPTIONS.length)
-			.setMinValues(1)
-			.setOptions(SKY_PROFILE_RESET_OPTIONS)
-			.setPlaceholder("What do you wish to reset?"),
-	);
+const SKY_PROFILE_RESET_OPTIONS_ACTION_ROW = {
+	type: ComponentType.ActionRow,
+	components: [
+		{
+			type: ComponentType.StringSelect,
+			custom_id: SKY_PROFILE_RESET_CUSTOM_ID,
+			max_values: SKY_PROFILE_RESET_OPTIONS.length,
+			min_values: 1,
+			options: SKY_PROFILE_RESET_OPTIONS,
+			placeholder: "What do you wish to reset?",
+		},
+	],
+} as const;
 
-const SKY_PROFILE_BACK_TO_START_ACTION_ROW = new ActionRowBuilder<ButtonBuilder>().setComponents(
-	new ButtonBuilder()
-		.setCustomId(SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID)
-		.setEmoji("⏮️")
-		.setLabel("Back to Sky Profile")
-		.setStyle(ButtonStyle.Primary),
-);
+const SKY_PROFILE_BACK_TO_START_ACTION_ROW = {
+	type: ComponentType.ActionRow,
+	components: [
+		{
+			type: ComponentType.Button,
+			custom_id: SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
+			emoji: { name: "⏮️" },
+			label: "Back to Sky Profile",
+			style: ButtonStyle.Primary,
+		},
+	],
+} as const;
 
 export const SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS = [
 	"SKY_PROFILE_EXPLORE_1_SELECT_MENU_CUSTOM_ID",
