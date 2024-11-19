@@ -1,6 +1,8 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
 import { CHANNEL_CACHE } from "../caches/channels.js";
 import { GUILD_CACHE, GUILD_IDS_FROM_READY } from "../caches/guilds.js";
+import { Guild } from "../models/discord/guild.js";
+import pino from "../pino.js";
 import { handleGuildCreate } from "../services/guess.js";
 import { logGuildCreate } from "../services/log.js";
 import type { Event } from "./index.js";
@@ -10,10 +12,22 @@ const name = GatewayDispatchEvents.GuildCreate;
 export default {
 	name,
 	async fire({ data }) {
-		const { channels, ...otherData } = data;
-		GUILD_CACHE.set(data.id, otherData);
+		const cachedGuild = GUILD_CACHE.get(data.id);
 
-		for (const channel of channels) {
+		if (cachedGuild) {
+			if (cachedGuild.unavailable && !data.unavailable) {
+				// This is when a guild becomes available from being unavailable.
+				pino.info({ guild_id: data.id }, "Guild is available.");
+				cachedGuild.unavailable = false;
+			}
+
+			return;
+		}
+
+		const guild = new Guild(data);
+		GUILD_CACHE.set(guild.id, guild);
+
+		for (const channel of data.channels) {
 			CHANNEL_CACHE.set(channel.id, { ...channel, guild_id: data.id });
 		}
 

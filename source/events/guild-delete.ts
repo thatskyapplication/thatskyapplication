@@ -2,6 +2,7 @@ import { GatewayDispatchEvents } from "@discordjs/core";
 import { CHANNEL_CACHE } from "../caches/channels.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { MESSAGE_CACHE } from "../caches/messages.js";
+import pino from "../pino.js";
 import { handleGuildRemove } from "../services/guess.js";
 import { logGuildDelete } from "../services/log.js";
 import { checkSendable } from "../services/notification.js";
@@ -14,12 +15,25 @@ export default {
 	async fire({ data }) {
 		const guild = GUILD_CACHE.get(data.id);
 
-		if (guild) {
-			for (const channel of CHANNEL_CACHE.values()) {
-				if (channel.guild_id === guild.id) {
-					CHANNEL_CACHE.delete(channel.id);
-					MESSAGE_CACHE.delete(channel.id);
-				}
+		if (!guild) {
+			pino.warn({ data }, "Received a guild delete packet on an uncached guild.");
+		}
+
+		if (data.unavailable) {
+			// This is when a guild becomes (or is already) unavailable.
+
+			if (guild) {
+				pino.info({ guild_id: data.id }, "Guild is unavailable.");
+				guild.unavailable = true;
+			}
+
+			return;
+		}
+
+		for (const channel of CHANNEL_CACHE.values()) {
+			if (channel.guild_id === data.id) {
+				CHANNEL_CACHE.delete(channel.id);
+				MESSAGE_CACHE.delete(channel.id);
 			}
 		}
 
