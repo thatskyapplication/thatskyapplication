@@ -222,6 +222,7 @@ export async function messageCreateResponse(message: GatewayMessageCreateDispatc
 	const guild = message.guild_id && GUILD_CACHE.get(message.guild_id);
 
 	if (!guild) {
+		pino.error(message, "Failed to find a guild to start an AI message create response in.");
 		return;
 	}
 

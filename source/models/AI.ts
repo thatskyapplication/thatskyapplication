@@ -170,6 +170,7 @@ export default class AI {
 		const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
 
 		if (!guild) {
+			pino.error(interaction, "Failed to find a guild to set an AI frequency in.");
 			throw new Error("Guild not found.");
 		}
 
@@ -202,6 +203,7 @@ export default class AI {
 		const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
 
 		if (!guild) {
+			pino.error(interaction, "Failed to find a guild to create a JSON body response in.");
 			throw new Error("Guild not found.");
 		}
 
@@ -261,6 +263,7 @@ export default class AI {
 		const guild = message.guild_id && GUILD_CACHE.get(message.guild_id);
 
 		if (!guild) {
+			pino.error(message, "Failed to find a guild to respond in.");
 			return;
 		}
 
