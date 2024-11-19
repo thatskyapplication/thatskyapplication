@@ -318,11 +318,7 @@ export async function messageCreateResponse(message: GatewayMessageCreateDispatc
 			}
 
 			await client.api.channels.createMessage(message.channel_id, {
-				...todayEmbed(
-					// @ts-expect-error https://github.com/discordjs/discord-api-types/pull/1138
-					guild.preferred_locale,
-					offset,
-				),
+				...todayEmbed(guild.preferred_locale, offset),
 				message_reference: {
 					type: MessageReferenceType.Default,
 					message_id: message.id,

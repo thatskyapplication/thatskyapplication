@@ -6,7 +6,7 @@ import {
 	type APIGuild,
 	type APIGuildMember,
 	ChannelType,
-	type LocaleString,
+	type Locale,
 	MessageFlags,
 	PermissionFlagsBits,
 	RESTJSONErrorCodes,
@@ -328,10 +328,7 @@ async function send(
 	}
 
 	// Retrieve our embed.
-	const embed = distributionEmbed(
-		// @ts-expect-error https://github.com/discordjs/discord-api-types/pull/1138
-		guild.preferred_locale,
-	);
+	const embed = distributionEmbed(guild.preferred_locale);
 
 	// Update the embed if a message exists.
 	if (messageId) {
@@ -379,7 +376,7 @@ async function statusEmbed(guild: APIGuild, channelId: Snowflake | null, me?: AP
 	};
 }
 
-export function dailyGuidesEventData(date: DateTime, locale: LocaleString) {
+export function dailyGuidesEventData(date: DateTime, locale: Locale) {
 	const events = skyCurrentEvents(date);
 	const eventEndText = skyNotEndedEvents(date).map((event) => event.daysText(date, locale));
 	const event0 = events[0];
@@ -417,7 +414,7 @@ export function dailyGuidesEventData(date: DateTime, locale: LocaleString) {
 	return { eventEndText, iconURL, eventCurrency };
 }
 
-export function dailyGuidesShardEruptionData(locale: LocaleString) {
+export function dailyGuidesShardEruptionData(locale: Locale) {
 	const shard = shardEruption();
 
 	if (shard) {
@@ -443,7 +440,7 @@ export function dailyGuidesShardEruptionData(locale: LocaleString) {
 	];
 }
 
-export function distributionEmbed(locale: LocaleString) {
+export function distributionEmbed(locale: Locale) {
 	const { dailyMessage, quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
 	const today = skyToday();
 	const now = skyNow();

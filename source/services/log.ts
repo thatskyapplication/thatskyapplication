@@ -1,10 +1,10 @@
 import { inspect } from "node:util";
 import {
 	type APIEmbed,
-	type APIUnavailableGuild,
 	ChannelType,
 	type ChannelsAPI,
 	type GatewayGuildCreateDispatchData,
+	type GatewayGuildDeleteDispatchData,
 	PermissionFlagsBits,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
@@ -118,6 +118,6 @@ export function logGuildCreate(guild: GatewayGuildCreateDispatchData) {
 	);
 }
 
-export function logGuildDelete(guild: APIUnavailableGuild) {
+export function logGuildDelete(guild: GatewayGuildDeleteDispatchData) {
 	pino.info({ id: guild.id }, "Guild left");
 }

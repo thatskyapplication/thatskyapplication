@@ -1,5 +1,5 @@
 import { URL } from "node:url";
-import type { LocaleString } from "@discordjs/core";
+import type { Locale } from "@discordjs/core";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { skyCurrentEvents } from "../data/events/index.js";
@@ -221,7 +221,7 @@ export function resolveShardEruptionEmoji(strong: boolean) {
 export function shardEruptionInformationString(
 	{ realm, skyMap, strong, reward, url }: ShardEruptionData,
 	useHyperlink: boolean,
-	locale: LocaleString,
+	locale: Locale,
 ) {
 	let realmMap = `${t(`realms.${realm}`, { lng: locale, ns: "general" })} (${t(`maps.${skyMap}`, {
 		lng: locale,

@@ -1,5 +1,5 @@
 import { URL } from "node:url";
-import { Locale, type LocaleString } from "@discordjs/core";
+import { Locale } from "@discordjs/core";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import type { GuideSpirit, SeasonalSpirit } from "../models/Spirits.js";
@@ -116,7 +116,7 @@ export class Season {
 		this.patchNotesURL = data.patchNotesURL ?? null;
 	}
 
-	public daysText(date: DateTime, locale: LocaleString) {
+	public daysText(date: DateTime, locale: Locale) {
 		const { end, start } = this;
 		const daysLeft = end.diff(date, "days").days;
 		const daysUntilStart = start.diff(date, "days").days;

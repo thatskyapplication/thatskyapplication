@@ -13,7 +13,7 @@ import {
 	ChannelType,
 	ComponentType,
 	type InteractionsAPI,
-	type LocaleString,
+	type Locale,
 	MessageFlags,
 	PermissionFlagsBits,
 	type Snowflake,
@@ -2237,7 +2237,7 @@ export class Catalogue {
 			.returning("*");
 	}
 
-	private realmsEmbed(locale: LocaleString): APIEmbed {
+	private realmsEmbed(locale: Locale): APIEmbed {
 		return {
 			color: DEFAULT_EMBED_COLOUR,
 			description: REALMS.map((realm) => {
@@ -2291,7 +2291,7 @@ export class Catalogue {
 		return { remainingCurrency, offerDescription };
 	}
 
-	private seasonEmbed(season: Season, locale: LocaleString, share = false) {
+	private seasonEmbed(season: Season, locale: Locale, share = false) {
 		const description = [];
 		const remainingCurrencies = [];
 		const offerDescriptions = [];
@@ -2359,7 +2359,7 @@ export class Catalogue {
 
 	private spiritEmbed(
 		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
-		locale: LocaleString,
+		locale: Locale,
 	) {
 		const multiple = spirits.length > 1;
 		const description = [];
