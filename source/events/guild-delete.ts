@@ -25,6 +25,6 @@ export default {
 
 		GUILD_CACHE.delete(data.id);
 		logGuildDelete(data);
-		await Promise.all([handleGuildRemove(data.id), checkSendable(guild.client, guild.id)]);
+		await Promise.all([handleGuildRemove(data.id), checkSendable(data.id)]);
 	},
 } satisfies Event<typeof name>;
