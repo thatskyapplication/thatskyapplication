@@ -12,13 +12,23 @@ export default {
 		const guild = GUILD_CACHE.get(data.guild_id);
 
 		if (!guild) {
-			pino.error(data, "Failed to find a guild where a role lives.");
+			pino.warn({ data }, `Received a ${name} packet for an uncached guild.`);
 			return;
 		}
 
-		const oldRole = guild.roles.find((role) => role.id === data.role.id);
+		const oldRole = guild.roles.get(data.role.id);
 
-		if (oldRole && BigInt(oldRole.permissions) === BigInt(data.role.permissions)) {
+		if (!oldRole) {
+			pino.warn({ data }, `Received a ${name} packet for an uncached role.`);
+			return;
+		}
+
+		oldRole.patch(data.role);
+
+		if (
+			oldRole.mentionable === data.role.mentionable &&
+			oldRole.permissions === BigInt(data.role.permissions)
+		) {
 			return;
 		}
 

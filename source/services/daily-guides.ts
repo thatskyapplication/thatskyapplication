@@ -3,7 +3,6 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIEmbed,
 	type APIEmbedFooter,
-	type APIGuild,
 	type APIGuildMember,
 	ChannelType,
 	type Locale,
@@ -26,6 +25,7 @@ import type {
 	DailyGuidesDistributionData,
 	DailyGuidesDistributionPacket,
 } from "../models/DailyGuidesDistribution.js";
+import type { Guild } from "../models/discord/guild.js";
 import pQueue from "../p-queue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
@@ -70,21 +70,21 @@ function isDailyGuidesDistributionChannel(
 }
 
 function isDailyGuidesDistributable(
-	guild: APIGuild,
+	guild: Guild,
 	channel: DailyGuidesDistributionAllowedChannel,
 	me: APIGuildMember,
 	returnErrors: true,
 ): string[];
 
 function isDailyGuidesDistributable(
-	guild: APIGuild,
+	guild: Guild,
 	channel: DailyGuidesDistributionAllowedChannel,
 	me: APIGuildMember,
 	returnErrors?: false,
 ): boolean;
 
 function isDailyGuidesDistributable(
-	guild: APIGuild,
+	guild: Guild,
 	channel: DailyGuidesDistributionAllowedChannel,
 	me: APIGuildMember,
 	returnErrors = false,
@@ -120,7 +120,7 @@ function isDailyGuidesDistributable(
 		errors.push(
 			`\`View Channel\` & \`${
 				isThread ? "Send Messages in Threads" : "Send Messages"
-			}\` & \`Embed Links\` & \`Use External Emojis\` are required for ${channel}.`,
+			}\` & \`Embed Links\` & \`Use External Emojis\` are required for <#${channel.id}>.`,
 		);
 	}
 
@@ -328,7 +328,7 @@ async function send(
 	}
 
 	// Retrieve our embed.
-	const embed = distributionEmbed(guild.preferred_locale);
+	const embed = distributionEmbed(guild.preferredLocale);
 
 	// Update the embed if a message exists.
 	if (messageId) {
@@ -352,7 +352,7 @@ async function send(
 	return newDailyGuidesDistributionPacket;
 }
 
-async function statusEmbed(guild: APIGuild, channelId: Snowflake | null, me?: APIGuildMember) {
+async function statusEmbed(guild: Guild, channelId: Snowflake | null, me?: APIGuildMember) {
 	const resolvedMe = me ?? (await client.api.guilds.getMember(guild.id, APPLICATION_ID));
 	const channel = channelId ? CHANNEL_CACHE.get(channelId) : null;
 

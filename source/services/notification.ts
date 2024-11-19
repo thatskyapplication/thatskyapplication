@@ -1,10 +1,8 @@
 import {
 	type APIChannel,
 	type APIChatInputApplicationCommandInteraction,
-	type APIGuild,
 	type APIGuildMember,
 	type APIMessageComponentSelectMenuInteraction,
-	type APIRole,
 	type APISelectMenuOption,
 	ComponentType,
 	MessageFlags,
@@ -16,6 +14,8 @@ import { CHANNEL_CACHE } from "../caches/channels.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import type { NotificationAllowedChannel, NotificationPacket } from "../models/Notification.js";
+import type { Guild } from "../models/discord/guild.js";
+import type { Role } from "../models/discord/role.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
@@ -41,25 +41,25 @@ function isNotificationChannel(channel: APIChannel): channel is NotificationAllo
 }
 
 function isNotificationSendable(
-	guild: APIGuild,
+	guild: Guild,
 	channel: NotificationAllowedChannel,
-	role: APIRole,
+	role: Role,
 	me: APIGuildMember,
 	returnErrors: true,
 ): string[];
 
 function isNotificationSendable(
-	guild: APIGuild,
+	guild: Guild,
 	channel: NotificationAllowedChannel,
-	role: APIRole,
+	role: Role,
 	me: APIGuildMember,
 	returnErrors?: false,
 ): boolean;
 
 function isNotificationSendable(
-	guild: APIGuild,
+	guild: Guild,
 	channel: NotificationAllowedChannel,
-	role: APIRole,
+	role: Role,
 	me: APIGuildMember,
 	returnErrors = false,
 ) {
@@ -77,7 +77,7 @@ function isNotificationSendable(
 			channel,
 		})
 	) {
-		errors.push(`\`View Channel\` & \`Send Messages\` are required for ${channel}.`);
+		errors.push(`\`View Channel\` & \`Send Messages\` are required for <#${channel.id}>.`);
 	}
 
 	if (
@@ -87,7 +87,7 @@ function isNotificationSendable(
 		)
 	) {
 		errors.push(
-			`Cannot mention the ${role} role. Ensure \`Mention @everyone, @here and All Roles\` permission is enabled for ${me} in the channel or make the role mentionable.`,
+			`Cannot mention the <@${role.id}> role. Ensure \`Mention @everyone, @here and All Roles\` permission is enabled for <@${me.user.id}> in the channel or make the role mentionable.`,
 		);
 	}
 
@@ -330,7 +330,7 @@ export async function checkSendable(guildId: Snowflake) {
 
 function isSendable(
 	me: APIGuildMember,
-	guild: APIGuild,
+	guild: Guild,
 	channelId: Snowflake | null,
 	roleId: Snowflake | null,
 ) {

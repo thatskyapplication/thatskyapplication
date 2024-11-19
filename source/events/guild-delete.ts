@@ -16,7 +16,7 @@ export default {
 		const guild = GUILD_CACHE.get(data.id);
 
 		if (!guild) {
-			pino.warn({ data }, "Received a guild delete packet on an uncached guild.");
+			pino.warn({ data }, `Received a ${name} packet on an uncached guild.`);
 		}
 
 		if (data.unavailable) {

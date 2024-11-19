@@ -13,13 +13,14 @@ import {
 	type APIMessage,
 	type APIMessageApplicationCommandInteractionDataResolved,
 	type APIModalSubmitInteraction,
-	type APIRole,
 	type APIUser,
 	type APIUserInteractionDataResolved,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	InteractionType,
+	type Snowflake,
 } from "@discordjs/core";
+import { Role } from "../models/discord/role.js";
 
 /**
  * Utility class for resolving command interaction options while working with the raw API.
@@ -40,10 +41,9 @@ export class OptionResolver {
 	 * The interaction resolved data
 	 */
 	private readonly resolved:
-		| APIInteractionDataResolved
+		| (Omit<APIInteractionDataResolved, "roles"> & { roles: Record<Snowflake, Role> })
 		| APIUserInteractionDataResolved
-		| APIMessageApplicationCommandInteractionDataResolved
-		| null = null;
+		| APIMessageApplicationCommandInteractionDataResolved;
 
 	/**
 	 * Bottom-level options for the interaction
@@ -71,7 +71,42 @@ export class OptionResolver {
 
 		this.data = "options" in interaction.data ? interaction.data.options ?? null : null;
 
-		this.resolved = "resolved" in interaction.data ? interaction.data.resolved ?? null : null;
+		let messages = {};
+		let roles = {};
+		let attachments = {};
+		let channels = {};
+		let members = {};
+		let users = {};
+
+		if ("resolved" in interaction.data) {
+			if ("messages" in interaction.data.resolved) {
+				messages = interaction.data.resolved.messages;
+			}
+
+			if ("roles" in interaction.data.resolved) {
+				roles = Object.fromEntries(
+					Object.entries(interaction.data.resolved.roles).map(([id, role]) => [id, new Role(role)]),
+				);
+			}
+
+			if ("attachments" in interaction.data.resolved) {
+				attachments = interaction.data.resolved.attachments;
+			}
+
+			if ("channels" in interaction.data.resolved) {
+				channels = interaction.data.resolved.channels;
+			}
+
+			if ("members" in interaction.data.resolved) {
+				members = interaction.data.resolved.members;
+			}
+
+			if ("users" in interaction.data.resolved) {
+				users = interaction.data.resolved.users;
+			}
+		}
+
+		this.resolved = { messages, roles, attachments, channels, members, users };
 
 		this.hoistedOptions = this.data;
 
@@ -167,7 +202,7 @@ export class OptionResolver {
 
 	public getChannel(name: string, required = false): APIInteractionDataResolvedChannel | null {
 		const option = this.getTypedOption(name, ApplicationCommandOptionType.Channel, required);
-		return option && this.resolved && "channels" in this.resolved
+		return option && "channels" in this.resolved
 			? this.resolved.channels?.[option.value] ?? null
 			: null;
 	}
@@ -225,7 +260,7 @@ export class OptionResolver {
 	): RequiredIf<Required, APIUser>;
 	public getUser(name: string, required = false): APIUser | null {
 		const option = this.getTypedOption(name, ApplicationCommandOptionType.User, required);
-		return option && this.resolved && "users" in this.resolved
+		return option && "users" in this.resolved
 			? this.resolved.users?.[option.value] ?? null
 			: null;
 	}
@@ -242,7 +277,7 @@ export class OptionResolver {
 
 	public getMember(name: string, required = false): APIInteractionDataResolvedGuildMember | null {
 		const option = this.getTypedOption(name, ApplicationCommandOptionType.User, required);
-		return option && this.resolved && "members" in this.resolved
+		return option && "members" in this.resolved
 			? this.resolved.members?.[option.value] ?? null
 			: null;
 	}
@@ -255,10 +290,10 @@ export class OptionResolver {
 	public getRole<Required extends boolean = false>(
 		name: string,
 		required?: Required,
-	): RequiredIf<Required, APIRole>;
-	public getRole(name: string, required = false): APIRole | null {
+	): RequiredIf<Required, Role>;
+	public getRole(name: string, required = false): Role | null {
 		const option = this.getTypedOption(name, ApplicationCommandOptionType.Role, required);
-		return option && this.resolved && "roles" in this.resolved
+		return option && "roles" in this.resolved
 			? this.resolved.roles?.[option.value] ?? null
 			: null;
 	}
@@ -274,7 +309,7 @@ export class OptionResolver {
 	): RequiredIf<Required, APIAttachment>;
 	public getAttachment(name: string, required = false): APIAttachment | null {
 		const option = this.getTypedOption(name, ApplicationCommandOptionType.Attachment, required);
-		return option && this.resolved && "attachments" in this.resolved
+		return option && "attachments" in this.resolved
 			? this.resolved.attachments?.[option.value] ?? null
 			: null;
 	}
@@ -287,15 +322,15 @@ export class OptionResolver {
 	public getMentionable<Required extends boolean = false>(
 		name: string,
 		required?: Required,
-	): RequiredIf<Required, APIUser | APIInteractionDataResolvedGuildMember | APIRole>;
+	): RequiredIf<Required, APIUser | APIInteractionDataResolvedGuildMember | Role>;
 
 	public getMentionable(
 		name: string,
 		required = false,
-	): APIUser | APIInteractionDataResolvedGuildMember | APIRole | null {
+	): APIUser | APIInteractionDataResolvedGuildMember | Role | null {
 		const option = this.getTypedOption(name, ApplicationCommandOptionType.Mentionable, required);
 
-		if (!(option && this.resolved)) {
+		if (!option) {
 			return null;
 		}
 

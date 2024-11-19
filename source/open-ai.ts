@@ -1,7 +1,6 @@
 import process from "node:process";
 import { clearTimeout, setTimeout } from "node:timers";
 import {
-	type APIGuild,
 	type APIUser,
 	AllowedMentionsTypes,
 	type GatewayMessageCreateDispatchData,
@@ -18,6 +17,7 @@ import { MESSAGE_CACHE } from "./caches/messages.js";
 import { skyCurrentEvents, skyUpcomingEvents } from "./data/events/index.js";
 import { skySeasons, skyUpcomingSeason } from "./data/spirits/seasons/index.js";
 import { client } from "./discord.js";
+import type { Guild } from "./models/discord/guild.js";
 import pino from "./pino.js";
 import { todayEmbed } from "./services/shard-eruption.js";
 import {
@@ -59,7 +59,7 @@ function parseAIName(user: APIUser) {
 	return name;
 }
 
-function systemPromptContext(guild: APIGuild, message: GatewayMessageCreateDispatchData) {
+function systemPromptContext(guild: Guild, message: GatewayMessageCreateDispatchData) {
 	const channel = CHANNEL_CACHE.get(message.channel_id);
 
 	if (!channel) {
@@ -318,7 +318,7 @@ export async function messageCreateResponse(message: GatewayMessageCreateDispatc
 			}
 
 			await client.api.channels.createMessage(message.channel_id, {
-				...todayEmbed(guild.preferred_locale, offset),
+				...todayEmbed(guild.preferredLocale, offset),
 				message_reference: {
 					type: MessageReferenceType.Default,
 					message_id: message.id,

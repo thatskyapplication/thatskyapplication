@@ -1,14 +1,22 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import pino from "../pino.js";
+import { checkSendable } from "../services/notification.js";
 import type { Event } from "./index.js";
 
-const name = GatewayDispatchEvents.GuildUpdate;
+const name = GatewayDispatchEvents.GuildRoleDelete;
 
 export default {
 	name,
-	fire({ data }) {
-		GUILD_CACHE.get(data.id)?.patch(data) ??
+	async fire({ data }) {
+		const guild = GUILD_CACHE.get(data.guild_id);
+
+		if (!guild) {
 			pino.warn({ data }, `Received a ${name} packet for an uncached guild.`);
+			return;
+		}
+
+		guild.roles.delete(data.role_id);
+		await checkSendable(guild.id);
 	},
 } satisfies Event<typeof name>;

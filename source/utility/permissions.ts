@@ -1,7 +1,6 @@
 import {
 	type APIChannel,
 	type APIChatInputApplicationCommandInteraction,
-	type APIGuild,
 	type APIGuildMember,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
@@ -11,6 +10,7 @@ import {
 	PermissionFlagsBits,
 } from "@discordjs/core";
 import { client } from "../discord.js";
+import type { Guild } from "../models/discord/guild.js";
 import pino from "../pino.js";
 
 const ALL_PERMISSIONS = Object.values(PermissionFlagsBits).reduce(
@@ -22,30 +22,29 @@ const computeBasePermissions = ({
 	guild,
 	member,
 }: {
-	guild: APIGuild;
+	guild: Guild;
 	member: APIGuildMember;
 }): bigint => {
-	if (guild.owner_id === member.user.id) {
+	if (guild.ownerId === member.user.id) {
 		return ALL_PERMISSIONS;
 	}
 
-	const rolesMap = new Map(guild.roles.map((role) => [role.id, role]));
-	const everyoneRole = rolesMap.get(guild.id);
+	const everyoneRole = guild.roles.get(guild.id);
 
 	if (!everyoneRole) {
 		throw new Error("No @everyone role found.");
 	}
 
-	let permissions = BigInt(everyoneRole.permissions);
+	let permissions = everyoneRole.permissions;
 
 	for (const roleId of member.roles) {
-		const role = rolesMap.get(roleId);
+		const role = guild.roles.get(roleId);
 
 		if (!role) {
 			throw new Error(`Could not find role id ${roleId}.`);
 		}
 
-		permissions |= BigInt(role.permissions);
+		permissions |= role.permissions;
 	}
 
 	if (permissions & PermissionFlagsBits.Administrator) {
@@ -62,7 +61,7 @@ const computeOverwrites = ({
 	channel,
 }: {
 	basePermissions: bigint;
-	guild: APIGuild;
+	guild: Guild;
 	member: APIGuildMember;
 	channel: APIChannel;
 }): bigint => {
@@ -79,6 +78,7 @@ const computeOverwrites = ({
 	const overwritesMap = new Map(
 		(channel.permission_overwrites ?? []).map((overwrite) => [overwrite.id, overwrite]),
 	);
+
 	const everyoneOverwrite = overwritesMap.get(guild.id);
 
 	if (everyoneOverwrite) {
@@ -115,7 +115,7 @@ const computePermissions = ({
 	member,
 	channel,
 }: {
-	guild: APIGuild;
+	guild: Guild;
 	member: APIGuildMember;
 	channel?: APIChannel | undefined;
 }): bigint => {
@@ -135,7 +135,7 @@ export const can = ({
 	channel,
 }: {
 	permission: bigint;
-	guild: APIGuild;
+	guild: Guild;
 	member: APIGuildMember;
 	channel?: APIChannel;
 }): boolean => {

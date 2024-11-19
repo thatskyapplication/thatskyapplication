@@ -1,10 +1,6 @@
-import type {
-	APIGuild,
-	APIRole,
-	GatewayGuildCreateDispatchData,
-	Locale,
-	Snowflake,
-} from "@discordjs/core";
+import { Collection } from "@discordjs/collection";
+import type { APIGuild, GatewayGuildCreateDispatchData, Locale, Snowflake } from "@discordjs/core";
+import { Role } from "./role.js";
 
 export class Guild {
 	public readonly id: Snowflake;
@@ -13,7 +9,7 @@ export class Guild {
 
 	public ownerId!: Snowflake;
 
-	public readonly roles: readonly APIRole[];
+	public readonly roles: Collection<Snowflake, Role>;
 
 	public preferredLocale!: Locale;
 
@@ -37,7 +33,12 @@ export class Guild {
 		>,
 	) {
 		this.id = data.id;
-		this.roles = data.roles;
+
+		this.roles = data.roles.reduce(
+			(roles, role) => roles.set(role.id, new Role(role)),
+			new Collection<Snowflake, Role>(),
+		);
+
 		this.joinedAt = new Date(data.joined_at);
 		this.unavailable = data.unavailable ?? false;
 		this.memberCount = data.member_count;
