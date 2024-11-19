@@ -1,4 +1,4 @@
-import { ChannelType, GatewayDispatchEvents } from "@discordjs/core";
+import { GatewayDispatchEvents } from "@discordjs/core";
 import { CHANNEL_CACHE } from "../caches/channels.js";
 import { checkSendable } from "../services/notification.js";
 import type { Event } from "./index.js";
@@ -10,15 +10,6 @@ export default {
 	async fire({ data }) {
 		const oldChannel = CHANNEL_CACHE.get(data.id);
 		CHANNEL_CACHE.set(data.id, data);
-
-		if (
-			data.type === ChannelType.DM ||
-			data.type === ChannelType.GroupDM ||
-			oldChannel?.type === ChannelType.DM ||
-			oldChannel?.type === ChannelType.GroupDM
-		) {
-			return;
-		}
 
 		if (
 			oldChannel &&
@@ -47,8 +38,6 @@ export default {
 			return;
 		}
 
-		if (data.guild_id) {
-			await checkSendable(data.guild_id);
-		}
+		await checkSendable(data.guild_id);
 	},
 } satisfies Event<typeof name>;

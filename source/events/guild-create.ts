@@ -14,8 +14,7 @@ export default {
 		GUILD_CACHE.set(data.id, otherData);
 
 		for (const channel of channels) {
-			channel.guild_id = data.id;
-			CHANNEL_CACHE.set(channel.id, channel);
+			CHANNEL_CACHE.set(channel.id, { ...channel, guild_id: data.id });
 		}
 
 		if (GUILD_IDS_FROM_READY.has(data.id)) {

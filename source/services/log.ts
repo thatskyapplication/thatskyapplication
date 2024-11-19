@@ -34,7 +34,7 @@ export async function log({ content, embeds = [], error }: LogOptions) {
 
 	const channel = CHANNEL_CACHE.get(MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID);
 
-	if (channel?.type !== ChannelType.GuildText || !channel.guild_id) {
+	if (channel?.type !== ChannelType.GuildText) {
 		return;
 	}
 

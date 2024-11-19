@@ -11,11 +11,6 @@ export default {
 	async fire({ data }) {
 		CHANNEL_CACHE.delete(data.id);
 		MESSAGE_CACHE.delete(data.id);
-
-		if (!("guild_id" in data)) {
-			return;
-		}
-
 		await checkSendable(data.guild_id);
 	},
 } satisfies Event<typeof name>;

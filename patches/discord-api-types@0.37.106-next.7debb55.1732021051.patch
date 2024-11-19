@@ -1,0 +1,25 @@
+diff --git a/gateway/v10.d.ts b/gateway/v10.d.ts
+index 8b1ed7e93b6edac3330010ed737d1846426c5d1e..0b674f48a18c8a67672c4c70a332e0a8a058c6a0 100644
+--- a/gateway/v10.d.ts
++++ b/gateway/v10.d.ts
+@@ -529,7 +529,10 @@ export type GatewayChannelModifyDispatch = DataPayload<GatewayDispatchEvents.Cha
+  * https://discord.com/developers/docs/topics/gateway-events#channel-update
+  * https://discord.com/developers/docs/topics/gateway-events#channel-delete
+  */
+-export type GatewayChannelModifyDispatchData = APIChannel;
++export type GatewayChannelModifyDispatchData = APIChannel & {
++	type: Exclude<GuildChannelType, ThreadChannelType>;
++	guild_id: Snowflake;
++};
+ /**
+  * https://discord.com/developers/docs/topics/gateway-events#channel-create
+  */
+@@ -1422,7 +1425,7 @@ export type GatewayThreadMemberUpdateDispatchData = APIThreadMember & {
+  * https://discord.com/developers/docs/topics/gateway-events#thread-update
+  * https://discord.com/developers/docs/topics/gateway-events#thread-delete
+  */
+-export type GatewayThreadModifyDispatch = DataPayload<GatewayDispatchEvents.ThreadCreate | GatewayDispatchEvents.ThreadDelete | GatewayDispatchEvents.ThreadUpdate, GatewayChannelModifyDispatchData>;
++export type GatewayThreadModifyDispatch = DataPayload<GatewayDispatchEvents.ThreadCreate | GatewayDispatchEvents.ThreadDelete | GatewayDispatchEvents.ThreadUpdate, APIThreadChannel>;
+ /**
+  * https://discord.com/developers/docs/topics/gateway-events#thread-create
+  */

@@ -16,7 +16,7 @@ export default {
 
 		if (guild) {
 			for (const channel of CHANNEL_CACHE.values()) {
-				if ("guild_id" in channel && channel.guild_id === guild.id) {
+				if (channel.guild_id === guild.id) {
 					CHANNEL_CACHE.delete(channel.id);
 					MESSAGE_CACHE.delete(channel.id);
 				}

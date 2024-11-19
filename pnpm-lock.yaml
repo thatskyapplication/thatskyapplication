@@ -7,6 +7,11 @@ settings:
 overrides:
   discord-api-types: 0.37.106-next.7debb55.1732021051
 
+patchedDependencies:
+  discord-api-types@0.37.106-next.7debb55.1732021051:
+    hash: jltedj3gm4ajcnkoc5ylwtffaq
+    path: patches/discord-api-types@0.37.106-next.7debb55.1732021051.patch
+
 importers:
 
   .:
@@ -2103,7 +2108,7 @@ snapshots:
       '@discordjs/ws': 2.0.0
       '@sapphire/snowflake': 3.5.4
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.37.106-next.7debb55.1732021051
+      discord-api-types: 0.37.106-next.7debb55.1732021051(patch_hash=jltedj3gm4ajcnkoc5ylwtffaq)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -2115,7 +2120,7 @@ snapshots:
       '@sapphire/async-queue': 1.5.4
       '@sapphire/snowflake': 3.5.4
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.37.106-next.7debb55.1732021051
+      discord-api-types: 0.37.106-next.7debb55.1732021051(patch_hash=jltedj3gm4ajcnkoc5ylwtffaq)
       magic-bytes.js: 1.10.0
       tslib: 2.7.0
       undici: 6.19.8
@@ -2130,7 +2135,7 @@ snapshots:
       '@sapphire/async-queue': 1.5.4
       '@types/ws': 8.5.13
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.37.106-next.7debb55.1732021051
+      discord-api-types: 0.37.106-next.7debb55.1732021051(patch_hash=jltedj3gm4ajcnkoc5ylwtffaq)
       tslib: 2.7.0
       ws: 8.18.0
     transitivePeerDependencies:
@@ -2800,7 +2805,7 @@ snapshots:
 
   detect-libc@2.0.3: {}
 
-  discord-api-types@0.37.106-next.7debb55.1732021051: {}
+  discord-api-types@0.37.106-next.7debb55.1732021051(patch_hash=jltedj3gm4ajcnkoc5ylwtffaq): {}
 
   easy-table@1.2.0:
     dependencies:
