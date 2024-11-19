@@ -2963,6 +2963,7 @@ export const EventId = {
 	DaysOfMoonlight2024: 63,
 	DaysOfStyle2024: 64,
 	DaysOfMischief2024: 65,
+	DaysOfMusic2024: 66,
 } as const satisfies Readonly<Record<string, number>>;
 
 export type EventIds = (typeof EventId)[keyof typeof EventId];
@@ -3045,6 +3046,7 @@ export const EventIdToEventCurrencyEmoji = {
 	[EventId.DaysOfMoonlight2024]: EVENT_EMOJIS.Moonlight,
 	[EventId.DaysOfStyle2024]: EVENT_EMOJIS.Style,
 	[EventId.DaysOfMischief2024]: EVENT_EMOJIS.Mischief,
+	[EventId.DaysOfMusic2024]: EVENT_EMOJIS.Music,
 } as const satisfies Readonly<Record<EventIds, EventEmojis | null>>;
 
 export function snakeCaseName(name: string) {

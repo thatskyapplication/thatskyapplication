@@ -1,4 +1,4 @@
-import { SeasonId } from "../utility/catalogue.js";
+import { EventId, SeasonId } from "../utility/catalogue.js";
 import { RealmName, SkyMap } from "../utility/constants.js";
 import { SpiritName } from "../utility/spirits.js";
 
@@ -38,6 +38,9 @@ export default {
 			[SeasonId.Nesting]: "보금자리의 시즌",
 			[SeasonId.Duets]: "듀엣의 시즌",
 			[SeasonId.Moomin]: "무민의 시즌",
+		},
+		events: {
+			[EventId.DaysOfMusic2024]: "음악의 날",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "가리키는 양초장이",

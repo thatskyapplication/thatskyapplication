@@ -132,6 +132,7 @@ export default {
 			[EventId.DaysOfMoonlight2024]: "Days of Moonlight",
 			[EventId.DaysOfStyle2024]: "Days of Style",
 			[EventId.DaysOfMischief2024]: "Days of Mischief",
+			[EventId.DaysOfMusic2024]: "Days of Music",
 		} satisfies Record<EventIds, string>,
 		"shard-eruption": "Shard Eruption",
 		"shard-eruption-none": "None",
