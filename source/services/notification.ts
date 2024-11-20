@@ -10,7 +10,6 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { t } from "i18next";
-import { CHANNEL_CACHE } from "../caches/channels.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import type { NotificationAllowedChannel, NotificationPacket } from "../models/Notification.js";
@@ -120,7 +119,7 @@ export async function setup(
 
 	const { locale } = interaction;
 	const notificationType = options.getInteger("notification", true);
-	const channel = CHANNEL_CACHE.get(options.getChannel("channel", true).id);
+	const channel = guild.channels.get(options.getChannel("channel", true).id);
 
 	if (!(channel && isNotificationChannel(channel))) {
 		pino.error(interaction, "Received an unknown channel type whilst setting up notifications.");
@@ -338,7 +337,7 @@ function isSendable(
 		return false;
 	}
 
-	const channel = CHANNEL_CACHE.get(channelId);
+	const channel = guild.channels.get(channelId);
 	const role = guild.roles.find((role) => role.id === roleId);
 
 	return Boolean(

@@ -1,5 +1,6 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
-import { CHANNEL_CACHE } from "../caches/channels.js";
+import { GUILD_CACHE } from "../caches/guilds.js";
+import pino from "../pino.js";
 import { checkSendable } from "../services/notification.js";
 import type { Event } from "./index.js";
 
@@ -8,8 +9,15 @@ const name = GatewayDispatchEvents.ChannelUpdate;
 export default {
 	name,
 	async fire({ data }) {
-		const oldChannel = CHANNEL_CACHE.get(data.id);
-		CHANNEL_CACHE.set(data.id, data);
+		const guild = GUILD_CACHE.get(data.guild_id);
+
+		if (!guild) {
+			pino.warn({ data }, `Received a ${name} packet for an uncached guild.`);
+			return;
+		}
+
+		const oldChannel = guild.channels.get(data.id);
+		guild.channels.set(data.id, data);
 
 		if (
 			oldChannel &&

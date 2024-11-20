@@ -8,13 +8,13 @@ import {
 	PermissionFlagsBits,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
-import { CHANNEL_CACHE } from "../caches/channels.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import pino from "../pino.js";
 import {
 	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,
+	DEVELOPER_GUILD_ID,
 	MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID,
 } from "../utility/constants.js";
 import { can } from "../utility/permissions.js";
@@ -32,15 +32,15 @@ export async function log({ content, embeds = [], error }: LogOptions) {
 		pino.info(output);
 	}
 
-	const channel = CHANNEL_CACHE.get(MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID);
+	const guild = GUILD_CACHE.get(DEVELOPER_GUILD_ID);
 
-	if (channel?.type !== ChannelType.GuildText) {
+	if (!guild) {
 		return;
 	}
 
-	const guild = GUILD_CACHE.get(channel.guild_id);
+	const channel = guild.channels.get(MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID);
 
-	if (!guild) {
+	if (channel?.type !== ChannelType.GuildText) {
 		return;
 	}
 

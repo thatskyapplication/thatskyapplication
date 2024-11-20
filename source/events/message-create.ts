@@ -1,5 +1,4 @@
 import { ChannelType, GatewayDispatchEvents, PermissionFlagsBits } from "@discordjs/core";
-import { CHANNEL_CACHE } from "../caches/channels.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { addMessageToCache } from "../caches/messages.js";
 import AI from "../models/AI.js";
@@ -21,7 +20,7 @@ export default {
 			return;
 		}
 
-		const channel = CHANNEL_CACHE.get(data.channel_id);
+		const channel = guild.channels.get(data.channel_id);
 
 		if (!channel) {
 			return;

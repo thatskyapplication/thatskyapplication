@@ -11,7 +11,6 @@ import { t } from "i18next";
 import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
 import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
-import { CHANNEL_CACHE } from "./caches/channels.js";
 import { GUILD_CACHE } from "./caches/guilds.js";
 import { MESSAGE_CACHE } from "./caches/messages.js";
 import { skyCurrentEvents, skyUpcomingEvents } from "./data/events/index.js";
@@ -60,7 +59,7 @@ function parseAIName(user: APIUser) {
 }
 
 function systemPromptContext(guild: Guild, message: GatewayMessageCreateDispatchData) {
-	const channel = CHANNEL_CACHE.get(message.channel_id);
+	const channel = guild.channels.get(message.channel_id);
 
 	if (!channel) {
 		throw new Error("Channel not found.");

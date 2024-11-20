@@ -1,5 +1,13 @@
 import { Collection } from "@discordjs/collection";
-import type { APIGuild, GatewayGuildCreateDispatchData, Locale, Snowflake } from "@discordjs/core";
+import type {
+	APIChannel,
+	APIGuild,
+	GatewayGuildCreateDispatchData,
+	GuildChannelType,
+	Locale,
+	Snowflake,
+	ThreadChannelType,
+} from "@discordjs/core";
 import { Role } from "./role.js";
 
 export class Guild {
@@ -19,6 +27,11 @@ export class Guild {
 
 	public readonly memberCount: number;
 
+	public readonly channels: Collection<
+		Snowflake,
+		APIChannel & { type: Exclude<GuildChannelType, ThreadChannelType>; guild_id: Snowflake }
+	>;
+
 	public constructor(
 		data: Pick<
 			GatewayGuildCreateDispatchData,
@@ -30,6 +43,7 @@ export class Guild {
 			| "joined_at"
 			| "unavailable"
 			| "member_count"
+			| "channels"
 		>,
 	) {
 		this.id = data.id;
@@ -42,6 +56,15 @@ export class Guild {
 		this.joinedAt = new Date(data.joined_at);
 		this.unavailable = data.unavailable ?? false;
 		this.memberCount = data.member_count;
+
+		this.channels = data.channels.reduce(
+			(channels, channel) => channels.set(channel.id, { ...channel, guild_id: data.id }),
+			new Collection<
+				Snowflake,
+				APIChannel & { type: Exclude<GuildChannelType, ThreadChannelType>; guild_id: Snowflake }
+			>(),
+		);
+
 		this.patch(data);
 	}
 

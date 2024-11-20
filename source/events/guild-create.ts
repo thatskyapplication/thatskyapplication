@@ -1,5 +1,4 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
-import { CHANNEL_CACHE } from "../caches/channels.js";
 import { GUILD_CACHE, GUILD_IDS_FROM_READY } from "../caches/guilds.js";
 import { Guild } from "../models/discord/guild.js";
 import pino from "../pino.js";
@@ -26,10 +25,6 @@ export default {
 
 		const guild = new Guild(data);
 		GUILD_CACHE.set(guild.id, guild);
-
-		for (const channel of data.channels) {
-			CHANNEL_CACHE.set(channel.id, { ...channel, guild_id: data.id });
-		}
 
 		if (GUILD_IDS_FROM_READY.has(data.id)) {
 			GUILD_IDS_FROM_READY.delete(data.id);

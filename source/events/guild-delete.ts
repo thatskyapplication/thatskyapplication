@@ -1,5 +1,4 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
-import { CHANNEL_CACHE } from "../caches/channels.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { MESSAGE_CACHE } from "../caches/messages.js";
 import pino from "../pino.js";
@@ -30,10 +29,11 @@ export default {
 			return;
 		}
 
-		for (const channel of CHANNEL_CACHE.values()) {
-			if (channel.guild_id === data.id) {
-				CHANNEL_CACHE.delete(channel.id);
-				MESSAGE_CACHE.delete(channel.id);
+		if (guild) {
+			for (const channel of guild.channels.values()) {
+				if (channel.guild_id === data.id) {
+					MESSAGE_CACHE.delete(channel.id);
+				}
 			}
 		}
 

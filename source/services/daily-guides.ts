@@ -14,7 +14,6 @@ import {
 import { DiscordAPIError } from "@discordjs/rest";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import { CHANNEL_CACHE } from "../caches/channels.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { skyCurrentEvents, skyNotEndedEvents } from "../data/events/index.js";
 import { skyCurrentSeason, skyUpcomingSeason } from "../data/spirits/seasons/index.js";
@@ -147,7 +146,7 @@ export async function setup(
 		return;
 	}
 
-	const channel = CHANNEL_CACHE.get(options.getChannel("channel", true).id);
+	const channel = guild.channels.get(options.getChannel("channel", true).id);
 
 	if (!(channel && isDailyGuidesDistributionChannel(channel))) {
 		pino.error(interaction, "Received an unknown channel type whilst setting up daily guides.");
@@ -181,7 +180,7 @@ export async function setup(
 		} else {
 			// Delete the existing message, if present.
 			if (dailyGuidesDistributionPacket.channel_id && dailyGuidesDistributionPacket.message_id) {
-				const channel = CHANNEL_CACHE.get(dailyGuidesDistributionPacket.channel_id);
+				const channel = guild.channels.get(dailyGuidesDistributionPacket.channel_id);
 
 				if (channel) {
 					await client.api.channels
@@ -307,7 +306,7 @@ async function send(
 		return;
 	}
 
-	const channel = CHANNEL_CACHE.get(channelId!);
+	const channel = guild.channels.get(channelId!);
 
 	if (!(channel && isDailyGuidesDistributionChannel(channel))) {
 		pino.info(
@@ -354,7 +353,7 @@ async function send(
 
 async function statusEmbed(guild: Guild, channelId: Snowflake | null, me?: APIGuildMember) {
 	const resolvedMe = me ?? (await client.api.guilds.getMember(guild.id, APPLICATION_ID));
-	const channel = channelId ? CHANNEL_CACHE.get(channelId) : null;
+	const channel = channelId ? guild.channels.get(channelId) : null;
 
 	const sending =
 		channel &&

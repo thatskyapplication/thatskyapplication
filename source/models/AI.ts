@@ -11,7 +11,6 @@ import {
 	PermissionFlagsBits,
 	type Snowflake,
 } from "@discordjs/core";
-import { CHANNEL_CACHE } from "../caches/channels.js";
 import {
 	ENTITLEMENT_CACHE,
 	clearEntitlementCache,
@@ -267,9 +266,10 @@ export default class AI {
 			return;
 		}
 
-		const channel = CHANNEL_CACHE.get(message.channel_id);
+		const channel = guild.channels.get(message.channel_id);
 
 		if (!channel) {
+			pino.error(message, "Failed to find a channel to respond in.");
 			return;
 		}
 
