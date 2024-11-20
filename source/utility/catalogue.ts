@@ -23,6 +23,7 @@ export const GUIDE_SPIRIT_IN_PROGRESS_TEXT =
 export const NO_EVENT_OFFER_TEXT = "There are no cosmetics for this event." as const;
 export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infographic." as const;
 
+// biome-ignore lint/style/useEnumInitializers: Prevent initialising cosmetics that are not yet available.
 export const enum Cosmetic {
 	/**
 	 * Unlocked by default.
@@ -2773,6 +2774,12 @@ export const enum Cosmetic {
 	// 11/11/2024 | Season of Moomin Quest 3.
 	TheMoominStorybookQuest3 = 2192,
 	TheMoominStorybookHeart = 2193,
+
+	// 25/11/2024 | Days of Music.
+	MarchingBandCape,
+	MusicMarchingUniform,
+	JamStation,
+	FledglingUprightPiano,
 }
 
 export const SeasonId = {
