@@ -1,6 +1,7 @@
 import DaysOfBloom from "./days-of-bloom.js";
 import DaysOfColour from "./days-of-colour.js";
 import DaysOfFortune from "./days-of-fortune.js";
+import daysOfGiving from "./days-of-giving.js";
 import DaysOfLove from "./days-of-love.js";
 import DaysOfMischief from "./days-of-mischief.js";
 import DaysOfMoonlight from "./days-of-moonlight.js";
@@ -28,4 +29,5 @@ export default [
 	DaysOfStyle,
 	DaysOfMischief,
 	DaysOfMusic,
+	daysOfGiving,
 ] as const;
