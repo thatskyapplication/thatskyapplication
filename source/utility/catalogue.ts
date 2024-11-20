@@ -3058,6 +3058,7 @@ export const EventIdToEventCurrencyEmoji = {
 	[EventId.DaysOfStyle2024]: EVENT_EMOJIS.Style,
 	[EventId.DaysOfMischief2024]: EVENT_EMOJIS.Mischief,
 	[EventId.DaysOfMusic2024]: EVENT_EMOJIS.Music,
+	[EventId.DaysOfGiving2024]: null,
 } as const satisfies Readonly<Record<EventIds, EventEmojis | null>>;
 
 export function snakeCaseName(name: string) {
