@@ -2780,6 +2780,9 @@ export const enum Cosmetic {
 	MusicMarchingUniform,
 	JamStation,
 	FledglingUprightPiano,
+
+	// 09/12/2024 | Season of Moomin Final Quest
+	// This will include Moominmamma's Masterpiece cape for $24.99.
 }
 
 export const SeasonId = {
