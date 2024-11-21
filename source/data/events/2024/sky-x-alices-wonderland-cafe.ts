@@ -1,7 +1,6 @@
 import { Event } from "../../../models/Event.js";
 import { Cosmetic, EventId } from "../../../utility/catalogue.js";
 import { skyDate } from "../../../utility/dates.js";
-import {} from "../../../utility/emojis.js";
 
 const eventCurrencyAmount = [];
 
