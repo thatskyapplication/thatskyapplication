@@ -3643,7 +3643,11 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	/**
 	 * Inspiration of Inclusion.
 	 */
-	SmallPlaceableProp83: { name: "small_placeable_prop", id: "1295006306796568648" },
+	SmallPlaceableProp82: { name: "small_placeable_prop", id: "1295006306796568648" },
+	/**
+	 * Hanging mask.
+	 */
+	SmallPlaceableProp83: { name: "small_placeable_prop", id: "1309259499252486215" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =

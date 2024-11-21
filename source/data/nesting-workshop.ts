@@ -318,6 +318,7 @@ const items = resolveOffer([
 		name: "Hanging mask",
 		cosmetic: Cosmetic.HangingMask,
 		cost: { ascendedCandles: 33 },
+		emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp83,
 	},
 ]);
 
