@@ -314,6 +314,11 @@ const items = resolveOffer([
 		cost: { candles: 90 },
 		emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp69,
 	},
+	{
+		name: "Hanging mask",
+		cosmetic: Cosmetic.HangingMask,
+		cost: { ascendedCandles: 33 },
+	},
 ]);
 
 export const NESTING_WORKSHOP = { items, allCosmetics: resolveAllCosmetics(items) } as const;

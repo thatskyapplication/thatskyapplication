@@ -2775,6 +2775,9 @@ export const enum Cosmetic {
 	TheMoominStorybookQuest3 = 2192,
 	TheMoominStorybookHeart = 2193,
 
+	// 21/11/2024 | Version 0.27.5.
+	HangingMask = 2194,
+
 	// 25/11/2024 | Days of Music.
 	MarchingBandCape,
 	MusicMarchingUniform,
