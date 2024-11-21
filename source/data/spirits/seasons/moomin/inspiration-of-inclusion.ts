@@ -17,7 +17,7 @@ const outfitEmoji = OUTFIT_EMOJIS.Outfit71;
 const necklaceEmoji = NECKLACE_EMOJIS.Necklace45;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory50;
 const largePlaceablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp75;
-const smallPlaceablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp83;
+const smallPlaceablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp82;
 
 export default new SeasonalSpirit({
 	name: SpiritName.InspirationOfInclusion,
