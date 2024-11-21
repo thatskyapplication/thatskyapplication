@@ -1379,7 +1379,7 @@ export class Catalogue {
 
 			const itemSelection = new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
 				new StringSelectMenuBuilder()
-					.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${id}`)
+					.setCustomId(`${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§event:${id}`)
 					.setMaxValues(itemSelectionOptions.length)
 					.setMinValues(0)
 					.setOptions(itemSelectionOptions)
@@ -1794,9 +1794,16 @@ export class Catalogue {
 		const catalogue = await this.fetch(interaction.user.id);
 		const { customId } = interaction;
 		const resolvedCustomId = customId.slice(customId.indexOf("§") + 1);
-		const resolvedCustomIdNumber = Number(resolvedCustomId);
+
+		const resolvedCustomIdNumberForEvents = resolvedCustomId.startsWith("event:")
+			? Number(resolvedCustomId.slice(6))
+			: null;
+
 		const spirit = spirits().find(({ name }) => name === resolvedCustomId);
-		const event = skyEvents().find(({ id }) => id === resolvedCustomIdNumber);
+
+		const event = resolvedCustomIdNumberForEvents
+			? skyEvents().find(({ id }) => id === resolvedCustomIdNumberForEvents)
+			: null;
 
 		if (spirit) {
 			await catalogue.setSpiritItems(interaction, spirit);
