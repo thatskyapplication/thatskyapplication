@@ -133,6 +133,8 @@ export default {
 			[EventId.DaysOfStyle2024]: "Days of Style",
 			[EventId.DaysOfMischief2024]: "Days of Mischief",
 			[EventId.DaysOfMusic2024]: "Days of Music",
+			[EventId.DaysOfGiving2024]: "Days of Giving",
+			[EventId.SkyXAlicesWonderlandCafe2024]: "Sky x Alice's Wonderland Cafe",
 		} satisfies Record<EventIds, string>,
 		"shard-eruption": "Shard Eruption",
 		"shard-eruption-none": "None",

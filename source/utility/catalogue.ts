@@ -2783,6 +2783,15 @@ export const enum Cosmetic {
 
 	// 09/12/2024 | Season of Moomin Final Quest
 	// This will include Moominmamma's Masterpiece cape for $24.99.
+
+	// 23/12/2024 | Sky x Alice's Wonderland Cafe.
+	WonderlandStackedHat,
+	WonderlandFranticHair,
+	WonderlandTeacupBath,
+	WonderlandHareHairstyle,
+	WonderlandPrimrosePinaforeHairAccessory,
+	WonderlandPrimrosePinaforeDress,
+	WonderlandCafeCorridor,
 }
 
 export const SeasonId = {
@@ -2975,6 +2984,7 @@ export const EventId = {
 	DaysOfMischief2024: 65,
 	DaysOfMusic2024: 66,
 	DaysOfGiving2024: 67,
+	SkyXAlicesWonderlandCafe2024: 68,
 } as const satisfies Readonly<Record<string, number>>;
 
 export type EventIds = (typeof EventId)[keyof typeof EventId];
@@ -3059,6 +3069,7 @@ export const EventIdToEventCurrencyEmoji = {
 	[EventId.DaysOfMischief2024]: EVENT_EMOJIS.Mischief,
 	[EventId.DaysOfMusic2024]: EVENT_EMOJIS.Music,
 	[EventId.DaysOfGiving2024]: null,
+	[EventId.SkyXAlicesWonderlandCafe2024]: null,
 } as const satisfies Readonly<Record<EventIds, EventEmojis | null>>;
 
 export function snakeCaseName(name: string) {
