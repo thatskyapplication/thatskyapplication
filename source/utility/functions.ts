@@ -11,6 +11,7 @@ import {
 	type APIUser,
 	type APIUserApplicationCommandInteraction,
 	ApplicationCommandType,
+	ChannelType,
 	ComponentType,
 	InteractionType,
 	type Snowflake,
@@ -78,6 +79,14 @@ export function interactedComponent(
 		.find(
 			(component) => "custom_id" in component && component.custom_id === interaction.data.custom_id,
 		)!;
+}
+
+export function isThreadChannelType(type: ChannelType) {
+	return (
+		type === ChannelType.AnnouncementThread ||
+		type === ChannelType.PrivateThread ||
+		type === ChannelType.PublicThread
+	);
 }
 
 export function userLogFormat(user: APIUser) {

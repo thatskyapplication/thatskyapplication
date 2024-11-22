@@ -17,6 +17,10 @@ import messageCreate from "./message-create.js";
 import messageDelete from "./message-delete.js";
 import messageUpdate from "./message-update.js";
 import ready from "./ready.js";
+import threadCreate from "./thread-create.js";
+import threadDelete from "./thread-delete.js";
+import threadListSync from "./thread-list-sync.js";
+import threadUpdate from "./thread-update.js";
 
 export interface Event<T extends keyof MappedEvents = keyof MappedEvents> {
 	name: T;
@@ -43,4 +47,8 @@ export default [
 	messageDelete,
 	messageUpdate,
 	ready,
+	threadCreate,
+	threadDelete,
+	threadListSync,
+	threadUpdate,
 ] as const;

@@ -1,14 +1,21 @@
 import { Collection } from "@discordjs/collection";
-import type {
-	APIChannel,
-	APIGuild,
-	GatewayGuildCreateDispatchData,
-	GuildChannelType,
-	Locale,
-	Snowflake,
-	ThreadChannelType,
+import {
+	type APIChannel,
+	type APIGuild,
+	ChannelType,
+	type GatewayGuildCreateDispatchData,
+	type GuildChannelType,
+	type Locale,
+	type Snowflake,
+	type ThreadChannelType,
 } from "@discordjs/core";
 import { Role } from "./role.js";
+import { AnnouncementThread, PrivateThread, PublicThread } from "./thread.js";
+
+export type GuildChannel = APIChannel & {
+	type: Exclude<GuildChannelType, ThreadChannelType>;
+	guild_id: Snowflake;
+};
 
 export class Guild {
 	public readonly id: Snowflake;
@@ -27,10 +34,9 @@ export class Guild {
 
 	public readonly memberCount: number;
 
-	public readonly channels: Collection<
-		Snowflake,
-		APIChannel & { type: Exclude<GuildChannelType, ThreadChannelType>; guild_id: Snowflake }
-	>;
+	public readonly channels: Collection<Snowflake, GuildChannel>;
+
+	public readonly threads: Collection<Snowflake, AnnouncementThread | PublicThread | PrivateThread>;
 
 	public constructor(
 		data: Pick<
@@ -44,6 +50,7 @@ export class Guild {
 			| "unavailable"
 			| "member_count"
 			| "channels"
+			| "threads"
 		>,
 	) {
 		this.id = data.id;
@@ -59,11 +66,19 @@ export class Guild {
 
 		this.channels = data.channels.reduce(
 			(channels, channel) => channels.set(channel.id, { ...channel, guild_id: data.id }),
-			new Collection<
-				Snowflake,
-				APIChannel & { type: Exclude<GuildChannelType, ThreadChannelType>; guild_id: Snowflake }
-			>(),
+			new Collection<Snowflake, GuildChannel>(),
 		);
+
+		this.threads = data.threads.reduce((threads, thread) => {
+			switch (thread.type) {
+				case ChannelType.AnnouncementThread:
+					return threads.set(thread.id, new AnnouncementThread({ ...thread, guild_id: data.id }));
+				case ChannelType.PublicThread:
+					return threads.set(thread.id, new PublicThread({ ...thread, guild_id: data.id }));
+				case ChannelType.PrivateThread:
+					return threads.set(thread.id, new PrivateThread({ ...thread, guild_id: data.id }));
+			}
+		}, new Collection<Snowflake, AnnouncementThread | PublicThread | PrivateThread>());
 
 		this.patch(data);
 	}

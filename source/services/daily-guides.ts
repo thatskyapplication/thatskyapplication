@@ -4,6 +4,8 @@ import {
 	type APIEmbed,
 	type APIEmbedFooter,
 	type APIGuildMember,
+	type APINewsChannel,
+	type APITextChannel,
 	ChannelType,
 	type Locale,
 	MessageFlags,
@@ -24,7 +26,8 @@ import type {
 	DailyGuidesDistributionData,
 	DailyGuidesDistributionPacket,
 } from "../models/DailyGuidesDistribution.js";
-import type { Guild } from "../models/discord/guild.js";
+import type { Guild, GuildChannel } from "../models/discord/guild.js";
+import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
 import pQueue from "../p-queue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
@@ -61,7 +64,7 @@ import {
 } from "../utility/shard-eruption.js";
 
 function isDailyGuidesDistributionChannel(
-	channel: APIChannel,
+	channel: APIChannel | AnnouncementThread | PublicThread | PrivateThread,
 ): channel is DailyGuidesDistributionAllowedChannel {
 	return DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES.includes(
 		channel.type as (typeof DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES)[number],
@@ -95,18 +98,42 @@ function isDailyGuidesDistributable(
 	}
 
 	const isThread = channel.type === ChannelType.PublicThread;
+	let resolvedChannelForPermission: APITextChannel | APINewsChannel | GuildChannel;
 
 	if (isThread) {
-		if (channel.thread_metadata?.archived) {
+		if (channel.threadMetadata?.archived) {
 			errors.push("The thread is archived.");
 		}
 
+		const parentChannel = guild.channels.get(channel.parentId);
+
+		if (!parentChannel) {
+			pino.warn(channel, `Could not resolve a daily guides thread's parent channel.`);
+
+			// Early exit.
+			return returnErrors
+				? errors.length > 1
+					? errors.map((error) => `- ${error}`)
+					: errors
+				: errors.length === 0;
+		}
+
+		resolvedChannelForPermission = parentChannel;
+
 		if (
-			!can({ permission: PermissionFlagsBits.ManageThreads, guild, member: me, channel }) &&
-			channel.thread_metadata?.locked
+			resolvedChannelForPermission &&
+			!can({
+				permission: PermissionFlagsBits.ManageThreads,
+				guild,
+				member: me,
+				channel: resolvedChannelForPermission,
+			}) &&
+			channel.threadMetadata?.locked
 		) {
 			errors.push("The thread is locked.");
 		}
+	} else {
+		resolvedChannelForPermission = channel;
 	}
 
 	const permissions =
@@ -115,7 +142,7 @@ function isDailyGuidesDistributable(
 		PermissionFlagsBits.EmbedLinks |
 		PermissionFlagsBits.UseExternalEmojis;
 
-	if (!can({ permission: permissions, guild, member: me, channel })) {
+	if (!can({ permission: permissions, guild, member: me, channel: resolvedChannelForPermission })) {
 		errors.push(
 			`\`View Channel\` & \`${
 				isThread ? "Send Messages in Threads" : "Send Messages"
@@ -306,11 +333,19 @@ async function send(
 		return;
 	}
 
-	const channel = guild.channels.get(channelId!);
+	const channel = guild.channels.get(channelId!) ?? guild.threads.get(channelId!);
 
-	if (!(channel && isDailyGuidesDistributionChannel(channel))) {
+	if (!channel) {
 		pino.info(
-			`Did not distribute daily guides to guild id ${guildId} as it had no detectable channel id ${channelId}, or did not satisfy the allowed channel types.`,
+			`Did not distribute daily guides to guild id ${guildId} as it had no detectable channel id ${channelId}.`,
+		);
+
+		return;
+	}
+
+	if (!isDailyGuidesDistributionChannel(channel)) {
+		pino.info(
+			`Did not distribute daily guides to guild id ${guildId} as it did not satisfy the allowed channel types.`,
 		);
 
 		return;

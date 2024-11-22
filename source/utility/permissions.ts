@@ -1,10 +1,10 @@
 import {
-	type APIChannel,
 	type APIChatInputApplicationCommandInteraction,
+	type APIGuildChannel,
 	type APIGuildMember,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
-	ChannelType,
+	type GuildChannelType,
 	InteractionType,
 	MessageFlags,
 	PermissionFlagsBits,
@@ -63,17 +63,13 @@ const computeOverwrites = ({
 	basePermissions: bigint;
 	guild: Guild;
 	member: APIGuildMember;
-	channel: APIChannel;
+	channel: APIGuildChannel<GuildChannelType>;
 }): bigint => {
 	if (basePermissions & PermissionFlagsBits.Administrator) {
 		return ALL_PERMISSIONS;
 	}
 
 	let permissions = basePermissions;
-
-	if (channel.type === ChannelType.DM || channel.type === ChannelType.GroupDM) {
-		throw new Error("Lacking permission overwrites.");
-	}
 
 	const overwritesMap = new Map(
 		(channel.permission_overwrites ?? []).map((overwrite) => [overwrite.id, overwrite]),
@@ -117,7 +113,7 @@ const computePermissions = ({
 }: {
 	guild: Guild;
 	member: APIGuildMember;
-	channel?: APIChannel | undefined;
+	channel?: APIGuildChannel<GuildChannelType> | undefined;
 }): bigint => {
 	const basePermissions = computeBasePermissions({ guild, member });
 
@@ -137,7 +133,7 @@ export const can = ({
 	permission: bigint;
 	guild: Guild;
 	member: APIGuildMember;
-	channel?: APIChannel;
+	channel?: APIGuildChannel<GuildChannelType>;
 }): boolean => {
 	const permissions = computePermissions({ guild, member, channel });
 	return (permissions & permission) === permission;

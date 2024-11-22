@@ -23,3 +23,25 @@ index 8b1ed7e93b6edac3330010ed737d1846426c5d1e..0b674f48a18c8a67672c4c70a332e0a8
  /**
   * https://discord.com/developers/docs/topics/gateway-events#thread-create
   */
+diff --git a/payloads/v10/gateway.d.ts b/payloads/v10/gateway.d.ts
+index 8eafed9c4abca7da8e07b269d6a540ed2f799f8c..7fe4a40a4e638aab4c2e2f7dce0615a04f41b67b 100644
+--- a/payloads/v10/gateway.d.ts
++++ b/payloads/v10/gateway.d.ts
+@@ -4,7 +4,7 @@
+  *  - https://discord.com/developers/docs/topics/gateway-events
+  */
+ import type { Snowflake } from '../../globals';
+-import type { APIChannel, APIThreadMember } from './channel';
++import type { APIThreadChannel, APIThreadMember } from './channel';
+ import type { APIEmoji } from './emoji';
+ import type { APIUser } from './user';
+ /**
+@@ -340,7 +340,7 @@ export interface GatewayThreadListSync {
+     /**
+      * Array of the synced threads
+      */
+-    threads: APIChannel[];
++    threads: APIThreadChannel[];
+     /**
+      * The member objects for the client user in each joined thread that was synced
+      */

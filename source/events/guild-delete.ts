@@ -35,6 +35,10 @@ export default {
 					MESSAGE_CACHE.delete(channel.id);
 				}
 			}
+
+			for (const thread of guild.threads.values()) {
+				MESSAGE_CACHE.delete(thread.id);
+			}
 		}
 
 		GUILD_CACHE.delete(data.id);
