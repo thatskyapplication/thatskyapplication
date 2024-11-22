@@ -1357,7 +1357,7 @@ export class Catalogue {
 		if (offer.length > 0) {
 			buttons.addComponents(
 				new ButtonBuilder()
-					.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${id}`)
+					.setCustomId(`${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§event:${id}`)
 					.setDisabled(this.eventProgress([event]) === 100)
 					.setEmoji(MISCELLANEOUS_EMOJIS.ConstellationFlag)
 					.setLabel("I have everything!")
