@@ -3,7 +3,7 @@ import { GUILD_CACHE } from "../caches/guilds.js";
 import { MESSAGE_CACHE } from "../caches/messages.js";
 import pino from "../pino.js";
 import { handleGuildRemove } from "../services/guess.js";
-import { logGuildDelete } from "../services/log.js";
+import { logGuild } from "../services/log.js";
 import { checkSendable } from "../services/notification.js";
 import type { Event } from "./index.js";
 
@@ -42,7 +42,7 @@ export default {
 		}
 
 		GUILD_CACHE.delete(data.id);
-		logGuildDelete(data);
+		logGuild(guild ?? data, false);
 		await Promise.all([handleGuildRemove(data.id), checkSendable(data.id)]);
 	},
 } satisfies Event<typeof name>;

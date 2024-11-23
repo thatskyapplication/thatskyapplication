@@ -3,13 +3,12 @@ import {
 	type APIEmbed,
 	ChannelType,
 	type ChannelsAPI,
-	type GatewayGuildCreateDispatchData,
 	type GatewayGuildDeleteDispatchData,
 	PermissionFlagsBits,
 } from "@discordjs/core";
-import { DiscordSnowflake } from "@sapphire/snowflake";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
+import type { Guild } from "../models/discord/guild.js";
 import pino from "../pino.js";
 import {
 	APPLICATION_ID,
@@ -103,21 +102,21 @@ export async function log({ content, embeds = [], error }: LogOptions) {
 	}
 }
 
-export function logGuildCreate(guild: GatewayGuildCreateDispatchData) {
+export function logGuild(guild: GatewayGuildDeleteDispatchData | Guild, joined: boolean) {
 	pino.info(
-		{
-			id: guild.id,
-			name: guild.name,
-			created: DiscordSnowflake.timestampFrom(guild.id),
-			joined: guild.joined_at,
-			owner: guild.owner_id,
-			members: guild.member_count,
-			locale: guild.preferred_locale,
-		},
-		"Guild joined",
+		"name" in guild
+			? {
+					id: guild.id,
+					name: guild.name,
+					created: guild.createdAt,
+					joined: guild.joinedAt,
+					owner: guild.ownerId,
+					members: guild.memberCount,
+					locale: guild.preferredLocale,
+				}
+			: {
+					id: guild.id,
+				},
+		joined ? "Guild joined" : "Guild left",
 	);
-}
-
-export function logGuildDelete(guild: GatewayGuildDeleteDispatchData) {
-	pino.info({ id: guild.id }, "Guild left");
 }

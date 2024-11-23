@@ -9,6 +9,7 @@ import {
 	type Snowflake,
 	type ThreadChannelType,
 } from "@discordjs/core";
+import { DiscordSnowflake } from "@sapphire/snowflake";
 import { Role } from "./role.js";
 import { AnnouncementThread, PrivateThread, PublicThread } from "./thread.js";
 
@@ -19,6 +20,8 @@ export type GuildChannel = APIChannel & {
 
 export class Guild {
 	public readonly id: Snowflake;
+
+	public readonly createdAt: Date;
 
 	public name!: string;
 
@@ -54,6 +57,7 @@ export class Guild {
 		>,
 	) {
 		this.id = data.id;
+		this.createdAt = new Date(DiscordSnowflake.timestampFrom(data.id));
 
 		this.roles = data.roles.reduce(
 			(roles, role) => roles.set(role.id, new Role(role)),

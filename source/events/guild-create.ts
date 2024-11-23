@@ -3,7 +3,7 @@ import { GUILD_CACHE, GUILD_IDS_FROM_READY } from "../caches/guilds.js";
 import { Guild } from "../models/discord/guild.js";
 import pino from "../pino.js";
 import { handleGuildCreate } from "../services/guess.js";
-import { logGuildCreate } from "../services/log.js";
+import { logGuild } from "../services/log.js";
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.GuildCreate;
@@ -31,7 +31,7 @@ export default {
 			return;
 		}
 
-		logGuildCreate(data);
+		logGuild(guild, true);
 		await handleGuildCreate(data);
 	},
 } satisfies Event<typeof name>;
