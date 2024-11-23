@@ -1539,7 +1539,7 @@ export class Catalogue {
 		if (offer.length > 0) {
 			row1Components.push({
 				type: ComponentType.Button,
-				custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}event:§${id}`,
+				custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§event:${id}`,
 				disabled: this.eventProgress([event]) === 100,
 				emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 				label: "I have everything!",
