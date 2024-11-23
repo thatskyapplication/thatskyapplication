@@ -173,7 +173,8 @@ export async function setup(
 		return;
 	}
 
-	const channel = guild.channels.get(options.getChannel("channel", true).id);
+	const channelId = options.getChannel("channel", true).id;
+	const channel = guild.channels.get(channelId) ?? guild.threads.get(channelId);
 
 	if (!(channel && isDailyGuidesDistributionChannel(channel))) {
 		pino.error(interaction, "Received an unknown channel type whilst setting up daily guides.");
