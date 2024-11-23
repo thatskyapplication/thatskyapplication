@@ -32,7 +32,7 @@ import {
 } from "../utility/constants.js";
 import { can } from "../utility/permissions.js";
 
-interface AIPacket {
+export interface AIPacket {
 	guild_id: Snowflake;
 	frequency_type: number;
 }

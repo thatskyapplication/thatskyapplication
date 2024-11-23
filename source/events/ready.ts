@@ -2,7 +2,7 @@ import process from "node:process";
 import { GatewayDispatchEvents, type Snowflake } from "@discordjs/core";
 import { GUILD_IDS_FROM_READY } from "../caches/guilds.js";
 import croner from "../croner.js";
-import AI from "../models/AI.js";
+import AI, { type AIPacket } from "../models/AI.js";
 import Configuration, { type ConfigurationPacket } from "../models/Configuration.js";
 import DailyGuides, { type DailyGuidesPacket } from "../models/DailyGuides.js";
 import type { DailyGuidesDistributionPacket } from "../models/DailyGuidesDistribution.js";
@@ -14,7 +14,8 @@ import { checkSendable, deleteNotifications } from "../services/notification.js"
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.Ready;
-const lostGuildIds = new Set<Snowflake>();
+const READY_GUILD_IDS = new Set<Snowflake>();
+const LOST_GUILD_IDS = new Set<Snowflake>();
 
 async function collectFromDatabase() {
 	try {
@@ -48,22 +49,37 @@ export default {
 	async fire({ data }) {
 		for (const guild of data.guilds) {
 			GUILD_IDS_FROM_READY.add(guild.id);
+			READY_GUILD_IDS.add(guild.id);
 		}
 
 		await collectFromDatabase();
 
-		// Collect guild ids from daily guides distribution table for the set.
+		// Find guild ids we are no longer in.
+		for (const { guild_id } of await pg<AIPacket>(Table.AI).select("guild_id")) {
+			if (!READY_GUILD_IDS.has(guild_id)) {
+				LOST_GUILD_IDS.add(guild_id);
+			}
+		}
+
 		for (const { guild_id } of await pg<DailyGuidesDistributionPacket>(
 			Table.DailyGuidesDistribution,
 		).select("guild_id")) {
-			if (!GUILD_IDS_FROM_READY.has(guild_id)) {
-				lostGuildIds.add(guild_id);
+			if (!READY_GUILD_IDS.has(guild_id)) {
+				LOST_GUILD_IDS.add(guild_id);
+			}
+		}
+
+		for (const { guild_id } of await pg<NotificationPacket>(Table.Notifications).select(
+			"guild_id",
+		)) {
+			if (!READY_GUILD_IDS.has(guild_id)) {
+				LOST_GUILD_IDS.add(guild_id);
 			}
 		}
 
 		// Remove guild configurations we no longer have access to.
 		const settled = await Promise.allSettled(
-			[...lostGuildIds].map(async (guildId) => [
+			[...LOST_GUILD_IDS].map(async (guildId) => [
 				AI.delete(guildId),
 				deleteDailyGuidesDistribution(guildId),
 				deleteNotifications(guildId),
