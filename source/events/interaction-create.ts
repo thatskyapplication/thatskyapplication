@@ -4,6 +4,7 @@ import {
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIUserApplicationCommandInteraction,
+	ApplicationCommandType,
 	GatewayDispatchEvents,
 	InteractionType,
 	type Locale,
@@ -16,6 +17,7 @@ import {
 	CHAT_INPUT_COMMANDS,
 	USER_CONTEXT_MENU_COMMANDS,
 } from "../commands/index.js";
+import { client } from "../discord.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import {
 	CATALOGUE_BACK_TO_START_CUSTOM_ID,
@@ -87,7 +89,6 @@ import {
 	treasureCandlesModalResponse,
 	treasureCandlesSelectMenuResponse,
 } from "../services/admin.js";
-import { finaliseSetup } from "../services/notification.js";
 import { deleteUserData } from "../services/data.js";
 import {
 	answer,
@@ -96,6 +97,7 @@ import {
 	parseEndGame,
 	tryAgain,
 } from "../services/guess.js";
+import { finaliseSetup } from "../services/notification.js";
 // import { history } from "../services/heart.js";
 // import { browse, today } from "../services/shard-eruption.js";
 // import { parseSpiritSwitch } from "../services/spirit.js";
@@ -131,6 +133,7 @@ import {
 	isSelectMenu,
 	isUserContextMenuCommand,
 } from "../utility/functions.js";
+import { OptionResolver } from "../utility/option-resolver.js";
 // import {
 // 	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
 // 	SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID,
@@ -152,11 +155,8 @@ async function recoverInteractionError(interaction: APIInteraction, error: unkno
 
 	switch (interaction.type) {
 		case InteractionType.ApplicationCommand: {
-			errorTypeString += `running command ${
-				// TODO: Do this
-				interaction.isChatInputCommand() ? String(interaction) : interaction.data.name
-			}.`;
-
+			const options = new OptionResolver(interaction);
+			errorTypeString += `running command ${interaction.data.type === ApplicationCommandType.ChatInput ? options.chatInputCommandText() : interaction.data.name}.`;
 			break;
 		}
 		case InteractionType.MessageComponent: {
@@ -164,8 +164,8 @@ async function recoverInteractionError(interaction: APIInteraction, error: unkno
 			break;
 		}
 		case InteractionType.ApplicationCommandAutocomplete: {
-			// TODO: Do this
-			const focused = interaction.options.getFocused(true);
+			const options = new OptionResolver(interaction);
+			const focused = options.getFocusedOption();
 			errorTypeString += `autocompleting \`/${interaction.data.name}\` (\`${focused.name}\`, \`${focused.value}\`).`;
 			break;
 		}
@@ -187,15 +187,15 @@ async function recoverInteractionError(interaction: APIInteraction, error: unkno
 	}
 
 	try {
-		if (interaction.isAutocomplete()) {
-			await interaction.respond([]);
-		} else if (interaction.deferred || interaction.replied) {
-			await interaction.followUp(ERROR_RESPONSE);
-		} else {
-			await interaction.reply(ERROR_RESPONSE);
+		if (isAutocomplete(interaction)) {
+			await client.api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
+				choices: [],
+			});
+
+			return;
 		}
 	} catch (error) {
-		pino.error(error, "Failed to follow up or reply from recovering an interaction error.");
+		pino.error(error, "Failed to respond from recovering an interaction error.");
 	}
 }
 

@@ -12,7 +12,6 @@ import {
 	type APIInteractionDataResolvedGuildMember,
 	type APIMessage,
 	type APIMessageApplicationCommandInteractionDataResolved,
-	type APIModalSubmitInteraction,
 	type APIUser,
 	type APIUserInteractionDataResolved,
 	ApplicationCommandOptionType,
@@ -22,6 +21,15 @@ import {
 } from "@discordjs/core";
 import { Role } from "../models/discord/role.js";
 
+function isBasicOptions(
+	options: APIApplicationCommandInteractionDataOption[],
+): options is APIApplicationCommandInteractionDataBasicOption[] {
+	return (
+		options?.[0]?.type !== ApplicationCommandOptionType.SubcommandGroup &&
+		options?.[0]?.type !== ApplicationCommandOptionType.Subcommand
+	);
+}
+
 /**
  * Utility class for resolving command interaction options while working with the raw API.
  * Based on {@linkplain https://github.com/discordjs/discord.js/blob/main/packages/discord.js/src/structures/CommandInteractionOptionResolver.js}
@@ -29,13 +37,7 @@ import { Role } from "../models/discord/role.js";
 export class OptionResolver {
 	private readonly interaction:
 		| APIApplicationCommandInteraction
-		| APIApplicationCommandAutocompleteInteraction
-		| APIModalSubmitInteraction;
-
-	/**
-	 * The interaction options array
-	 */
-	private readonly data: APIApplicationCommandInteractionDataOption[] | null = null;
+		| APIApplicationCommandAutocompleteInteraction;
 
 	/**
 	 * The interaction resolved data
@@ -49,7 +51,7 @@ export class OptionResolver {
 	 * Bottom-level options for the interaction
 	 * If there is a subcommand (or subcommand and group), this represents the options for the subcommand.
 	 */
-	public readonly hoistedOptions: APIApplicationCommandInteractionDataOption[] | null = null;
+	private readonly hoistedOptions: APIApplicationCommandInteractionDataBasicOption[] = [];
 
 	/**
 	 * The name of the subcommand group
@@ -62,15 +64,9 @@ export class OptionResolver {
 	private readonly subcommand: string | null = null;
 
 	public constructor(
-		interaction:
-			| APIApplicationCommandInteraction
-			| APIApplicationCommandAutocompleteInteraction
-			| APIModalSubmitInteraction,
+		interaction: APIApplicationCommandInteraction | APIApplicationCommandAutocompleteInteraction,
 	) {
 		this.interaction = interaction;
-
-		this.data = "options" in interaction.data ? interaction.data.options ?? null : null;
-
 		let messages = {};
 		let roles = {};
 		let attachments = {};
@@ -78,7 +74,7 @@ export class OptionResolver {
 		let members = {};
 		let users = {};
 
-		if ("resolved" in interaction.data) {
+		if (interaction.data.resolved) {
 			if ("messages" in interaction.data.resolved) {
 				messages = interaction.data.resolved.messages;
 			}
@@ -107,19 +103,22 @@ export class OptionResolver {
 		}
 
 		this.resolved = { messages, roles, attachments, channels, members, users };
+		const data = "options" in interaction.data ? interaction.data.options ?? null : null;
 
-		this.hoistedOptions = this.data;
+		if (data && isBasicOptions(data)) {
+			this.hoistedOptions = data;
+		} else {
+			let resolvedData = data;
 
-		// Hoist subcommand group if present
-		if (this.hoistedOptions?.[0]?.type === ApplicationCommandOptionType.SubcommandGroup) {
-			this.group = this.hoistedOptions[0].name;
-			this.hoistedOptions = this.hoistedOptions[0].options ?? [];
-		}
+			if (resolvedData?.[0]?.type === ApplicationCommandOptionType.SubcommandGroup) {
+				this.group = resolvedData[0].name;
+				resolvedData = resolvedData[0].options;
+			}
 
-		// Hoist subcommand if present
-		if (this.hoistedOptions?.[0]?.type === ApplicationCommandOptionType.Subcommand) {
-			this.subcommand = this.hoistedOptions[0].name;
-			this.hoistedOptions = this.hoistedOptions[0].options ?? [];
+			if (resolvedData?.[0]?.type === ApplicationCommandOptionType.Subcommand) {
+				this.subcommand = resolvedData[0].name;
+				this.hoistedOptions = resolvedData[0].options ?? [];
+			}
 		}
 	}
 
@@ -134,7 +133,7 @@ export class OptionResolver {
 	): RequiredIf<Required, APIApplicationCommandInteractionDataOption>;
 
 	public get(name: string, required = false): APIApplicationCommandInteractionDataOption | null {
-		const option = this.hoistedOptions?.find((opt) => opt.name === name);
+		const option = this.hoistedOptions.find((opt) => opt.name === name);
 		if (!option) {
 			if (required) {
 				throw new Error(`Missing required option "${name}"`);
@@ -260,9 +259,7 @@ export class OptionResolver {
 	): RequiredIf<Required, APIUser>;
 	public getUser(name: string, required = false): APIUser | null {
 		const option = this.getTypedOption(name, ApplicationCommandOptionType.User, required);
-		return option && "users" in this.resolved
-			? this.resolved.users?.[option.value] ?? null
-			: null;
+		return option && "users" in this.resolved ? this.resolved.users?.[option.value] ?? null : null;
 	}
 
 	/**
@@ -293,9 +290,7 @@ export class OptionResolver {
 	): RequiredIf<Required, Role>;
 	public getRole(name: string, required = false): Role | null {
 		const option = this.getTypedOption(name, ApplicationCommandOptionType.Role, required);
-		return option && "roles" in this.resolved
-			? this.resolved.roles?.[option.value] ?? null
-			: null;
+		return option && "roles" in this.resolved ? this.resolved.roles?.[option.value] ?? null : null;
 	}
 
 	/**
@@ -420,23 +415,22 @@ export class OptionResolver {
 			| ApplicationCommandOptionType.String
 			| ApplicationCommandOptionType.Integer
 			| ApplicationCommandOptionType.Number,
-	>(type: Type): Extract<APIApplicationCommandInteractionDataOption, { type: Type }> {
+	>(type?: Type): Extract<APIApplicationCommandInteractionDataOption, { type: Type }> {
 		if (this.interaction.type !== InteractionType.ApplicationCommandAutocomplete) {
-			throw new Error("This method can only be used on autocomplete interactions");
+			throw new Error("This method can only be used on autocomplete interactions.");
 		}
 
-		const focusedOption = this.hoistedOptions?.find(
+		const focusedOption = this.hoistedOptions.find(
 			(
 				option,
 			): option is
 				| APIApplicationCommandInteractionDataStringOption
 				| APIApplicationCommandInteractionDataIntegerOption
 				| APIApplicationCommandInteractionDataNumberOption => "focused" in option && option.focused,
-		);
+		)!;
 
-		// Considering the earlier check, this should be impossible, but it's here for good measure
-		if (focusedOption?.type !== type) {
-			throw new Error("No focused option found for autocomplete interaction.");
+		if (type && focusedOption.type !== type) {
+			throw new Error("No focused option type found for autocomplete interaction.");
 		}
 
 		return focusedOption as Extract<APIApplicationCommandInteractionDataOption, { type: Type }>;
@@ -463,6 +457,17 @@ export class OptionResolver {
 		}
 
 		return option as TypeToOptionMap[Option];
+	}
+
+	chatInputCommandText() {
+		const properties = [
+			this.interaction.data.name,
+			this.group,
+			this.subcommand,
+			...this.hoistedOptions.map((option) => `${option.name}:${option.value}`),
+		];
+
+		return `/${properties.filter(Boolean).join(" ")}`;
 	}
 }
 
