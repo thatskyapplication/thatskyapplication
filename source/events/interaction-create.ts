@@ -125,6 +125,7 @@ import {
 	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
 } from "../utility/constants.js";
 import {
+	interactionInvoker,
 	isAutocomplete,
 	isButton,
 	isChatInputCommand,
@@ -202,10 +203,16 @@ async function recoverInteractionError(interaction: APIInteraction, error: unkno
 function logCommand(
 	interaction: APIChatInputApplicationCommandInteraction | APIUserApplicationCommandInteraction,
 ) {
-	// TODO: Do this
-	const command = "";
-	// const command = interaction.isChatInputCommand() ? String(interaction) : commandName;
-	const user = interaction.user ?? interaction.member?.user!;
+	let command: string;
+
+	if (isChatInputCommand(interaction)) {
+		const options = new OptionResolver(interaction);
+		command = options.chatInputCommandText();
+	} else {
+		command = interaction.data.name;
+	}
+
+	const user = interactionInvoker(interaction);
 
 	pino.info(
 		{

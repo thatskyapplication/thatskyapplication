@@ -58,7 +58,8 @@ export function interactionInvoker(
 		| APIChatInputApplicationCommandInteraction
 		| APIMessageComponentButtonInteraction
 		| APIMessageComponentSelectMenuInteraction
-		| APIModalSubmitInteraction,
+		| APIModalSubmitInteraction
+		| APIUserApplicationCommandInteraction,
 ) {
 	return interaction.member?.user ?? interaction.user!;
 }
