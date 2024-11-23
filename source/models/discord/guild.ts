@@ -35,7 +35,7 @@ export class Guild {
 
 	public unavailable: boolean;
 
-	public readonly memberCount: number;
+	public memberCount: number;
 
 	public readonly channels: Collection<Snowflake, GuildChannel>;
 
