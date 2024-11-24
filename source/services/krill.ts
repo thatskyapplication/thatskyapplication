@@ -1,52 +1,71 @@
+import {
+	type APIChatInputApplicationCommandInteraction,
+	type APIInteractionDataResolvedGuildMember,
+	type APIUser,
+	MessageFlags,
+	PermissionFlagsBits,
+} from "@discordjs/core";
+import { client } from "../discord.js";
 import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_KRILL_NO } from "../utility/constants.js";
+import { interactionInvoker } from "../utility/functions.js";
 
-export async function krill(interaction: ChatInputCommandInteraction) {
-	const { channel, options } = interaction;
-	const user = options.getUser("user", true);
-	const member = options.getMember("user");
+export async function krill(
+	interaction: APIChatInputApplicationCommandInteraction,
+	user: APIUser,
+	member: APIInteractionDataResolvedGuildMember | null,
+) {
+	const invoker = interactionInvoker(interaction);
 
-	if (user.id === interaction.user.id) {
-		await interaction.reply({ content: "Self-krilling is no joke.", ephemeral: true });
+	if (user.id === invoker.id) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "Self-krilling is no joke.",
+			flags: MessageFlags.Ephemeral,
+		});
 		return;
 	}
 
-	if (interaction.inGuild() && !member) {
-		await interaction.reply({
-			content: `${user} is not in this server to be krilled.`,
+	if (interaction.guild_id && !member) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `<@${user.id}> is not in this server to be krilled.`,
 			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
 	}
 
-	if (
-		channel &&
-		!channel.isDMBased() &&
-		member &&
-		"user" in member &&
-		!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
-	) {
-		await interaction.reply({ content: `${user} is not around to be krilled!`, ephemeral: true });
-		return;
+	if (member) {
+		const permissions = BigInt(member.permissions);
+
+		if ((permissions & PermissionFlagsBits.ViewChannel) === 0n) {
+			await client.api.interactions.reply(interaction.id, interaction.token, {
+				content: `<@${user.id}> is not around to be krilled!`,
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
 	}
 
 	if (user.bot) {
-		await interaction.reply({
-			content: `${user} is a bot. They're pretty strong. Immune to krills, I'd say.`,
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `<@${user.id}> is a bot. They're pretty strong. Immune to krills, I'd say.`,
 			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
 	}
 
-	await interaction.reply({
-		content: `${user} has been krilled by ${interaction.user}!`,
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		content: `<@${user.id}> has been krilled by <@${invoker.id}>!`,
 		embeds: [
-			new EmbedBuilder()
-				.setColor(DEFAULT_EMBED_COLOUR)
-				.setImage(
-					String(new URL(`krills/${Math.floor(Math.random() * MAX_KRILL_NO + 1)}.gif`, CDN_URL)),
-				),
+			{
+				color: DEFAULT_EMBED_COLOUR,
+				image: {
+					url: String(
+						new URL(`krills/${Math.floor(Math.random() * MAX_KRILL_NO + 1)}.gif`, CDN_URL),
+					),
+				},
+			},
 		],
 	});
 }

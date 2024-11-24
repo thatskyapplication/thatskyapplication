@@ -1,10 +1,12 @@
-import { type ChatInputCommandInteraction, Locale } from "discord.js";
+import { type APIChatInputApplicationCommandInteraction, Locale } from "@discordjs/core";
 import { t } from "i18next";
 import { krill } from "../../services/krill.js";
+import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
 	name: t("krill.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-	async chatInput(interaction: ChatInputCommandInteraction) {
-		await krill(interaction);
+	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
+		const options = new OptionResolver(interaction);
+		await krill(interaction, options.getUser("user", true), options.getMember("user"));
 	},
 } as const;
