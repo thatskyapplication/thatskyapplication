@@ -13,7 +13,7 @@ export async function highFive(interaction: ChatInputCommandInteraction) {
 
 	if (user.id === interaction.user.id) {
 		await interaction.reply({
-			content: "You may have two hands, but... try someone else!.",
+			content: "You may have two hands, but... try someone else!",
 			flags: MessageFlags.Ephemeral,
 		});
 
