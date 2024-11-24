@@ -1,7 +1,6 @@
 import {
 	type APIChannel,
 	type APIChatInputApplicationCommandInteraction,
-	type APIGuildMember,
 	type APIMessageComponentSelectMenuInteraction,
 	type APISelectMenuOption,
 	ComponentType,
@@ -13,12 +12,12 @@ import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import type { NotificationAllowedChannel, NotificationPacket } from "../models/Notification.js";
+import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Guild } from "../models/discord/guild.js";
 import type { Role } from "../models/discord/role.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
-	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,
 	ERROR_RESPONSE,
 	NOTIFICATION_CHANNEL_TYPES,
@@ -29,7 +28,6 @@ import {
 	type NotificationTypes,
 } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../utility/emojis.js";
-import { isCommunicationDisabled } from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 
@@ -43,7 +41,7 @@ function isNotificationSendable(
 	guild: Guild,
 	channel: NotificationAllowedChannel,
 	role: Role,
-	me: APIGuildMember,
+	me: GuildMember,
 	returnErrors: true,
 ): string[];
 
@@ -51,7 +49,7 @@ function isNotificationSendable(
 	guild: Guild,
 	channel: NotificationAllowedChannel,
 	role: Role,
-	me: APIGuildMember,
+	me: GuildMember,
 	returnErrors?: false,
 ): boolean;
 
@@ -59,12 +57,12 @@ function isNotificationSendable(
 	guild: Guild,
 	channel: NotificationAllowedChannel,
 	role: Role,
-	me: APIGuildMember,
+	me: GuildMember,
 	returnErrors = false,
 ) {
 	const errors = [];
 
-	if (isCommunicationDisabled(me)) {
+	if (me.isCommunicationDisabled()) {
 		errors.push("I am timed out.");
 	}
 
@@ -147,7 +145,7 @@ export async function setup(
 		return;
 	}
 
-	const me = await client.api.guilds.getMember(guild.id, APPLICATION_ID);
+	const me = await guild.fetchMe();
 	const notificationSendable = isNotificationSendable(guild, channel, role, me, true);
 
 	if (notificationSendable.length > 0) {
@@ -312,7 +310,7 @@ export async function checkSendable(guildId: Snowflake) {
 		.select(["guild_id", "type", "channel_id", "role_id"])
 		.where({ guild_id: guildId });
 
-	const me = await client.api.guilds.getMember(guildId, APPLICATION_ID);
+	const me = await guild.fetchMe();
 
 	// Check if we can still send to all the guild's notification channels.
 	const promises = notificationPackets.map((notificationPacket) =>
@@ -328,7 +326,7 @@ export async function checkSendable(guildId: Snowflake) {
 }
 
 function isSendable(
-	me: APIGuildMember,
+	me: GuildMember,
 	guild: Guild,
 	channelId: Snowflake | null,
 	roleId: Snowflake | null,

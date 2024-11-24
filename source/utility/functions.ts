@@ -2,7 +2,6 @@ import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIButtonComponent,
 	type APIChatInputApplicationCommandInteraction,
-	type APIGuildMember,
 	type APIInteraction,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
@@ -33,13 +32,6 @@ import {
 
 export function getRandomElement<const T>(array: readonly T[]) {
 	return array[Math.floor(Math.random() * array.length)];
-}
-
-export function isCommunicationDisabled(member: APIGuildMember) {
-	return (
-		member.communication_disabled_until &&
-		Date.parse(member.communication_disabled_until) > Date.now()
-	);
 }
 
 export function chatInputApplicationCommandMention(

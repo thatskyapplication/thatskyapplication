@@ -10,6 +10,9 @@ import {
 	type ThreadChannelType,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
+import { client } from "../../discord.js";
+import { APPLICATION_ID } from "../../utility/constants.js";
+import { GuildMember } from "./guild-member.js";
 import { Role } from "./role.js";
 import { AnnouncementThread, PrivateThread, PublicThread } from "./thread.js";
 
@@ -37,25 +40,13 @@ export class Guild {
 
 	public memberCount: number;
 
+	public me?: GuildMember;
+
 	public readonly channels: Collection<Snowflake, GuildChannel>;
 
 	public readonly threads: Collection<Snowflake, AnnouncementThread | PublicThread | PrivateThread>;
 
-	public constructor(
-		data: Pick<
-			GatewayGuildCreateDispatchData,
-			| "id"
-			| "name"
-			| "owner_id"
-			| "roles"
-			| "preferred_locale"
-			| "joined_at"
-			| "unavailable"
-			| "member_count"
-			| "channels"
-			| "threads"
-		>,
-	) {
+	public constructor(data: GatewayGuildCreateDispatchData) {
 		this.id = data.id;
 		this.createdAt = new Date(DiscordSnowflake.timestampFrom(data.id));
 
@@ -65,6 +56,12 @@ export class Guild {
 		);
 
 		this.joinedAt = new Date(data.joined_at);
+		const me = data.members.find((member) => member.user.id === APPLICATION_ID);
+
+		if (me) {
+			this.me = new GuildMember(me);
+		}
+
 		this.unavailable = data.unavailable ?? false;
 		this.memberCount = data.member_count;
 
@@ -87,9 +84,18 @@ export class Guild {
 		this.patch(data);
 	}
 
-	public patch(data: Pick<APIGuild, "name" | "owner_id" | "preferred_locale">) {
+	public patch(data: APIGuild) {
 		this.name = data.name;
 		this.ownerId = data.owner_id;
 		this.preferredLocale = data.preferred_locale;
+	}
+
+	public async fetchMe() {
+		if (this.me) {
+			return this.me;
+		}
+
+		this.me = new GuildMember(await client.api.guilds.getMember(this.id, APPLICATION_ID));
+		return this.me;
 	}
 }

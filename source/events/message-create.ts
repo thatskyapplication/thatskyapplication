@@ -5,17 +5,16 @@ import AI from "../models/AI.js";
 import Configuration from "../models/Configuration.js";
 import DailyGuides from "../models/DailyGuides.js";
 import type { GuildChannel } from "../models/discord/guild.js";
+import pino from "../pino.js";
 import { APPLICATION_ID } from "../utility/constants.js";
-import { isCommunicationDisabled } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";
 import type { Event } from "./index.js";
-import pino from "../pino.js";
 
 const name = GatewayDispatchEvents.MessageCreate;
 
 export default {
 	name,
-	async fire({ api, data }) {
+	async fire({ data }) {
 		const guild = data.guild_id && GUILD_CACHE.get(data.guild_id);
 
 		if (!guild) {
@@ -29,7 +28,7 @@ export default {
 		}
 
 		void DailyGuides.parse(data);
-		const me = await api.guilds.getMember(guild.id, APPLICATION_ID);
+		const me = await guild.fetchMe();
 
 		const isThreadChannelType =
 			channel.type === ChannelType.AnnouncementThread ||
@@ -65,7 +64,7 @@ export default {
 				channel: resolvedChannelForPermission,
 			}) ||
 			data.content.length <= 5 ||
-			isCommunicationDisabled(me)
+			me.isCommunicationDisabled()
 		) {
 			return;
 		}

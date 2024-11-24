@@ -8,6 +8,7 @@ import guildCreate from "./guild-create.js";
 import guildDelete from "./guild-delete.js";
 import guildMemberAdd from "./guild-member-add.js";
 import guildMemberRemove from "./guild-member-remove.js";
+import guildMemberUpdate from "./guild-member-update.js";
 import guildRoleCreate from "./guild-role-create.js";
 import guildRoleDelete from "./guild-role-delete.js";
 import guildRoleUpdate from "./guild-role-update.js";
@@ -38,6 +39,7 @@ export default [
 	guildDelete,
 	guildMemberAdd,
 	guildMemberRemove,
+	guildMemberUpdate,
 	guildRoleCreate,
 	guildRoleDelete,
 	guildRoleUpdate,

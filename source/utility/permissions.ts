@@ -1,7 +1,6 @@
 import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIGuildChannel,
-	type APIGuildMember,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIUserApplicationCommandInteraction,
@@ -11,6 +10,7 @@ import {
 	PermissionFlagsBits,
 } from "@discordjs/core";
 import { client } from "../discord.js";
+import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Guild } from "../models/discord/guild.js";
 import pino from "../pino.js";
 
@@ -24,7 +24,7 @@ const computeBasePermissions = ({
 	member,
 }: {
 	guild: Guild;
-	member: APIGuildMember;
+	member: GuildMember;
 }): bigint => {
 	if (guild.ownerId === member.user.id) {
 		return ALL_PERMISSIONS;
@@ -63,7 +63,7 @@ const computeOverwrites = ({
 }: {
 	basePermissions: bigint;
 	guild: Guild;
-	member: APIGuildMember;
+	member: GuildMember;
 	channel: APIGuildChannel<GuildChannelType>;
 }): bigint => {
 	if (basePermissions & PermissionFlagsBits.Administrator) {
@@ -113,7 +113,7 @@ const computePermissions = ({
 	channel,
 }: {
 	guild: Guild;
-	member: APIGuildMember;
+	member: GuildMember;
 	channel?: APIGuildChannel<GuildChannelType> | undefined;
 }): bigint => {
 	const basePermissions = computeBasePermissions({ guild, member });
@@ -133,7 +133,7 @@ export const can = ({
 }: {
 	permission: bigint;
 	guild: Guild;
-	member: APIGuildMember;
+	member: GuildMember;
 	channel?: APIGuildChannel<GuildChannelType>;
 }): boolean => {
 	const permissions = computePermissions({ guild, member, channel });

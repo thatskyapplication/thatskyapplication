@@ -3,7 +3,6 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIEmbed,
 	type APIEmbedFooter,
-	type APIGuildMember,
 	type APINewsChannel,
 	type APITextChannel,
 	ChannelType,
@@ -26,6 +25,7 @@ import type {
 	DailyGuidesDistributionData,
 	DailyGuidesDistributionPacket,
 } from "../models/DailyGuidesDistribution.js";
+import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Guild, GuildChannel } from "../models/discord/guild.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
 import pQueue from "../p-queue.js";
@@ -33,7 +33,6 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import type { RotationNumber } from "../utility/catalogue.js";
 import {
-	APPLICATION_ID,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DEFAULT_EMBED_COLOUR,
 	NOT_IN_CACHED_GUILD_RESPONSE,
@@ -54,7 +53,6 @@ import {
 	formatEmojiURL,
 	resolveCurrencyEmoji,
 } from "../utility/emojis.js";
-import { isCommunicationDisabled } from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import {
@@ -74,26 +72,26 @@ function isDailyGuidesDistributionChannel(
 function isDailyGuidesDistributable(
 	guild: Guild,
 	channel: DailyGuidesDistributionAllowedChannel,
-	me: APIGuildMember,
+	me: GuildMember,
 	returnErrors: true,
 ): string[];
 
 function isDailyGuidesDistributable(
 	guild: Guild,
 	channel: DailyGuidesDistributionAllowedChannel,
-	me: APIGuildMember,
+	me: GuildMember,
 	returnErrors?: false,
 ): boolean;
 
 function isDailyGuidesDistributable(
 	guild: Guild,
 	channel: DailyGuidesDistributionAllowedChannel,
-	me: APIGuildMember,
+	me: GuildMember,
 	returnErrors = false,
 ) {
 	const errors = [];
 
-	if (isCommunicationDisabled(me)) {
+	if (me.isCommunicationDisabled()) {
 		errors.push("I am timed out.");
 	}
 
@@ -181,7 +179,7 @@ export async function setup(
 		throw new Error("Received an unknown channel type whilst setting up daily guides.");
 	}
 
-	const me = await client.api.guilds.getMember(guild.id, APPLICATION_ID);
+	const me = await guild.fetchMe();
 	const dailyGuidesDistributable = isDailyGuidesDistributable(guild, channel, me, true);
 
 	if (dailyGuidesDistributable.length > 0) {
@@ -240,7 +238,7 @@ export async function setup(
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
 		content: "Daily guides have been modified.",
-		embeds: [await statusEmbed(guild, channel.id, me)],
+		embeds: [await statusEmbed(guild, channel.id)],
 		flags: MessageFlags.Ephemeral,
 	});
 }
@@ -352,7 +350,7 @@ async function send(
 		return;
 	}
 
-	const me = await client.api.guilds.getMember(guildId, APPLICATION_ID);
+	const me = await guild.fetchMe();
 
 	if (!isDailyGuidesDistributable(guild, channel, me)) {
 		pino.info(
@@ -387,14 +385,13 @@ async function send(
 	return newDailyGuidesDistributionPacket;
 }
 
-async function statusEmbed(guild: Guild, channelId: Snowflake | null, me?: APIGuildMember) {
-	const resolvedMe = me ?? (await client.api.guilds.getMember(guild.id, APPLICATION_ID));
+async function statusEmbed(guild: Guild, channelId: Snowflake | null) {
 	const channel = channelId ? guild.channels.get(channelId) : null;
 
 	const sending =
 		channel &&
 		isDailyGuidesDistributionChannel(channel) &&
-		isDailyGuidesDistributable(guild, channel, resolvedMe);
+		isDailyGuidesDistributable(guild, channel, await guild.fetchMe());
 
 	return {
 		color: DEFAULT_EMBED_COLOUR,

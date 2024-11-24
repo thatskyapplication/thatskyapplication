@@ -11,7 +11,6 @@ import { client } from "../discord.js";
 import type { Guild } from "../models/discord/guild.js";
 import pino from "../pino.js";
 import {
-	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
 	MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID,
@@ -44,7 +43,7 @@ export async function log({ content, embeds = [], error }: LogOptions) {
 	}
 
 	try {
-		const me = await client.api.guilds.getMember(guild.id, APPLICATION_ID);
+		const me = await guild.fetchMe();
 
 		if (
 			!can({

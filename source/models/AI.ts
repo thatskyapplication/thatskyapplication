@@ -1,7 +1,6 @@
 import { Collection } from "@discordjs/collection";
 import {
 	type APIChatInputApplicationCommandInteraction,
-	type APIGuildMember,
 	type APIMessageComponentSelectMenuInteraction,
 	ComponentType,
 	type GatewayMessageCreateDispatchData,
@@ -31,6 +30,7 @@ import {
 	SERVER_UPGRADE_SKU_ID,
 } from "../utility/constants.js";
 import { can } from "../utility/permissions.js";
+import type { GuildMember } from "./discord/guild-member.js";
 
 export interface AIPacket {
 	guild_id: Snowflake;
@@ -258,7 +258,7 @@ export default class AI {
 				};
 	}
 
-	public async respond(message: GatewayMessageCreateDispatchData, me: APIGuildMember) {
+	public async respond(message: GatewayMessageCreateDispatchData, me: GuildMember) {
 		const guild = message.guild_id && GUILD_CACHE.get(message.guild_id);
 
 		if (!guild) {
