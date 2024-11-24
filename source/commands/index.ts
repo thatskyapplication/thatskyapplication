@@ -9,7 +9,7 @@ import data from "./chat-inputs/data.js";
 import guess from "./chat-inputs/guess.js";
 import heart from "./chat-inputs/heart.js";
 import high_five from "./chat-inputs/high-five.js";
-// import hug from "./chat-inputs/hug.js";
+import hug from "./chat-inputs/hug.js";
 // import krill from "./chat-inputs/krill.js";
 import notifications from "./chat-inputs/notifications.js";
 // import play_fight from "./chat-inputs/play-fight.js";
@@ -32,7 +32,7 @@ export const CHAT_INPUT_COMMANDS = [
 	guess,
 	heart,
 	high_five,
-	// hug,
+	hug,
 	// krill,
 	notifications,
 	// play_fight,
