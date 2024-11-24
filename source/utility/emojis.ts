@@ -602,6 +602,10 @@ export const OUTFIT_EMOJIS = {
 	 * Inspiration of Inclusion.
 	 */
 	Outfit71: { name: "outfit", id: "1295007112388153385" },
+	/**
+	 * Music Marching Uniform.
+	 */
+	Outfit72: { name: "outfit", id: "1310332853267071069" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -2794,6 +2798,10 @@ export const CAPE_EMOJIS = {
 	 * Mischief Raven-Feathered Cloak.
 	 */
 	Cape138: { name: "cape", id: "1297624319379374131" },
+	/**
+	 * Marching Band Cape.
+	 */
+	Cape139: { name: "cape", id: "1310332608244224155" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -3310,6 +3318,10 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = {
 	 * Mischief Cauldron.
 	 */
 	LargePlaceableProp76: { name: "large_placeable_prop", id: "1297623567193739294" },
+	/**
+	 * Jam Station.
+	 */
+	LargePlaceableProp77: { name: "large_placeable_prop", id: "1310333431221194813" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type LargePlaceablePropsEmojis =
@@ -3648,6 +3660,10 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = {
 	 * Hanging mask.
 	 */
 	SmallPlaceableProp83: { name: "small_placeable_prop", id: "1309259499252486215" },
+	/**
+	 * Hanging mask.
+	 */
+	SmallPlaceableProp84: { name: "small_placeable_prop", id: "1310333687044243616" },
 } as const satisfies Readonly<Record<string, EmojiData>>;
 
 type SmallPlaceablePropsEmojis =

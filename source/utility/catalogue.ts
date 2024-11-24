@@ -2778,11 +2778,16 @@ export const enum Cosmetic {
 	// 21/11/2024 | Version 0.27.5.
 	HangingMask = 2194,
 
+	// 25/11/2024 | Season of Moomin Quest 4.
+	TheMoominStorybookQuest4 = 2195,
+	EmoteRead3 = 2196,
+	EmoteRead4 = 2197,
+
 	// 25/11/2024 | Days of Music.
-	MarchingBandCape,
-	MusicMarchingUniform,
-	JamStation,
-	FledglingUprightPiano,
+	MarchingBandCape = 2198,
+	MusicMarchingUniform = 2199,
+	JamStation = 2200,
+	FledglingUprightPiano = 2201,
 
 	// 09/12/2024 | Season of Moomin Final Quest
 	// This will include Moominmamma's Masterpiece cape for $24.99.
