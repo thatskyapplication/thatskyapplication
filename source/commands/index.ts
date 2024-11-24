@@ -7,7 +7,7 @@ import catalogue from "./chat-inputs/catalogue.js";
 import daily_guides from "./chat-inputs/daily-guides.js";
 import data from "./chat-inputs/data.js";
 import guess from "./chat-inputs/guess.js";
-// import heart from "./chat-inputs/heart.js";
+import heart from "./chat-inputs/heart.js";
 // import high_five from "./chat-inputs/high-five.js";
 // import hug from "./chat-inputs/hug.js";
 // import krill from "./chat-inputs/krill.js";
@@ -17,7 +17,7 @@ import notifications from "./chat-inputs/notifications.js";
 // import shard_eruption from "./chat-inputs/shard-eruption.js";
 // import sky_profile_chat_input from "./chat-inputs/sky-profile.js";
 // import spirit from "./chat-inputs/spirit.js";
-// import gift_heart from "./user-context-menus/gift-heart.js";
+import gift_heart from "./user-context-menus/gift-heart.js";
 // import sky_profile_context_menu from "./user-context-menus/sky-profile.js";
 
 export const CHAT_INPUT_COMMANDS = [
@@ -30,7 +30,7 @@ export const CHAT_INPUT_COMMANDS = [
 	daily_guides,
 	data,
 	guess,
-	// heart,
+	heart,
 	// high_five,
 	// hug,
 	// krill,
@@ -43,7 +43,7 @@ export const CHAT_INPUT_COMMANDS = [
 ] as const;
 
 export const USER_CONTEXT_MENU_COMMANDS = [
-	// gift_heart,
+	gift_heart,
 	// sky_profile_context_menu
 ] as const;
 

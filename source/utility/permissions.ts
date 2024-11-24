@@ -4,6 +4,7 @@ import {
 	type APIGuildMember,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
+	type APIUserApplicationCommandInteraction,
 	type GuildChannelType,
 	InteractionType,
 	MessageFlags,
@@ -161,7 +162,8 @@ export async function cannotUsePermissions(
 	interaction:
 		| APIChatInputApplicationCommandInteraction
 		| APIMessageComponentButtonInteraction
-		| APIMessageComponentSelectMenuInteraction,
+		| APIMessageComponentSelectMenuInteraction
+		| APIUserApplicationCommandInteraction,
 	permissions: bigint,
 ) {
 	// Direct messages are fine.
