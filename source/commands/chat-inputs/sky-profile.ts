@@ -23,7 +23,7 @@ export default {
 
 		switch (options.getSubcommand()) {
 			case "edit": {
-				await searchAutocomplete(interaction);
+				await searchAutocomplete(interaction, options);
 				return;
 			}
 			case "explore": {

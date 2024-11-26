@@ -100,7 +100,7 @@ import {
 import { history } from "../services/heart.js";
 import { finaliseSetup } from "../services/notification.js";
 import { browse, today } from "../services/shard-eruption.js";
-// import { parseSpiritSwitch } from "../services/spirit.js";
+import { parseSpiritSwitch } from "../services/spirit.js";
 import { isSeasonId } from "../utility/catalogue.js";
 import {
 	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
@@ -145,7 +145,7 @@ import {
 	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
 	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
 } from "../utility/shard-eruption.js";
-// import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../utility/spirits.js";
+import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../utility/spirits.js";
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.InteractionCreate;
@@ -509,10 +509,10 @@ export default {
 					return;
 				}
 
-				// if (customId.startsWith(SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID)) {
-				// 	await parseSpiritSwitch(interaction);
-				// 	return;
-				// }
+				if (customId.startsWith(SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID)) {
+					await parseSpiritSwitch(interaction);
+					return;
+				}
 
 				if (
 					customId.startsWith(GUESS_ANSWER_1) ||
