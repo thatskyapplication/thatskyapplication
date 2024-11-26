@@ -23,7 +23,7 @@ export class GuildMember {
 
 	isCommunicationDisabled() {
 		return Boolean(
-			this.communicationDisabledUntil && this.communicationDisabledUntil.getTime() > Date.now()
+			this.communicationDisabledUntil && this.communicationDisabledUntil.getTime() > Date.now(),
 		);
 	}
 }

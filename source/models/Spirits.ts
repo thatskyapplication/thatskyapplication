@@ -1,5 +1,6 @@
 import process from "node:process";
 import { URL } from "node:url";
+import { Collection } from "@discordjs/collection";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import pino from "../pino.js";
@@ -25,7 +26,6 @@ import {
 	type SpiritStance,
 	type SpiritType,
 } from "../utility/spirits.js";
-import { Collection } from "@discordjs/collection";
 
 interface ReturningDatesData {
 	start: DateTime;

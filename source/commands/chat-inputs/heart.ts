@@ -10,7 +10,7 @@ export default {
 
 		switch (options.getSubcommand()) {
 			case "gift":
-				await gift(interaction, options.getUser("user", true),  options.getMember("user"));
+				await gift(interaction, options.getUser("user", true), options.getMember("user"));
 				break;
 			case "history":
 				await history(interaction);

@@ -1,6 +1,10 @@
+import {
+	type APIApplicationCommandAutocompleteInteraction,
+	type APIChatInputApplicationCommandInteraction,
+	Locale,
+} from "@discordjs/core";
 import { t } from "i18next";
 import { search, searchAutocomplete } from "../../services/spirit.js";
-import { Locale, type APIApplicationCommandAutocompleteInteraction, type APIChatInputApplicationCommandInteraction } from "@discordjs/core";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
