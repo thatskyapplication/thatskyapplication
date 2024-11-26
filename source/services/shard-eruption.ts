@@ -1,15 +1,28 @@
 import {
+	type APIActionRowComponent,
 	type APIButtonComponentWithCustomId,
+	type APIChatInputApplicationCommandInteraction,
 	type APIEmbed,
+	type APIMessageComponentButtonInteraction,
+	type APIMessageComponentInteraction,
+	type APIMessageComponentSelectMenuInteraction,
+	type APISelectMenuComponent,
+	type APISelectMenuOption,
 	ButtonStyle,
-	type ChannelsAPI,
 	ComponentType,
+	type InteractionsAPI,
 	type Locale,
+	MessageFlags,
+	PermissionFlagsBits,
 } from "@discordjs/core";
+import { DiscordSnowflake } from "@sapphire/snowflake";
 import { t } from "i18next";
 import { DateTime } from "luxon";
-import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
+import { client } from "../discord.js";
+import { APPLICATION_ID, DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { TIME_ZONE, dateRangeString, dateString, skyToday } from "../utility/dates.js";
+import { isChatInputCommand } from "../utility/functions.js";
+import { cannotUsePermissions } from "../utility/permissions.js";
 import {
 	MAXIMUM_OPTION_NUMBER,
 	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
@@ -39,14 +52,15 @@ function generateShardEruptionSelectMenuOptions(
 	for (let index = indexStart; index < maximumIndex; index++) {
 		const shardNow = shardEruption(index + offset);
 
-		const stringSelectMenuOption = new StringSelectMenuOptionBuilder()
-			.setLabel(dateString(date.plus({ days: index }), locale))
-			.setValue(String(index + offset));
+		const stringSelectMenuOption: APISelectMenuOption = {
+			label: dateString(date.plus({ days: index }), locale),
+			value: String(index + offset),
+		};
 
 		if (shardNow) {
-			stringSelectMenuOption.setEmoji(resolveShardEruptionEmoji(shardNow.strong));
+			stringSelectMenuOption.emoji = resolveShardEruptionEmoji(shardNow.strong);
 		} else {
-			stringSelectMenuOption.setDescription("No shard eruption.");
+			stringSelectMenuOption.description = "No shard eruption.";
 		}
 
 		options.push(stringSelectMenuOption);
@@ -55,44 +69,51 @@ function generateShardEruptionSelectMenuOptions(
 	return options;
 }
 
-async function hasExpired(interaction: ChatInputCommandInteraction | MessageComponentInteraction) {
+async function hasExpired(
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentInteraction,
+) {
 	const today = skyToday();
-	const fromMessageComponent = interaction.isMessageComponent();
 
-	if (fromMessageComponent) {
-		const { message } = interaction;
+	if (isChatInputCommand(interaction)) {
+		return false;
+	}
 
-		const expiresAt = DateTime.fromMillis(message.createdTimestamp, { zone: TIME_ZONE }).endOf(
-			"day",
-		);
+	const { message } = interaction;
+	const expiresAt = DateTime.fromMillis(DiscordSnowflake.timestampFrom(message.id), {
+		zone: TIME_ZONE,
+	}).endOf("day");
 
-		if (today > expiresAt) {
-			const hasEmbeds = message.embeds.length > 0;
-			const expiryMessage = "This command has expired. Run it again!";
+	if (today > expiresAt) {
+		const hasEmbeds = message.embeds.length > 0;
+		const expiryMessage = "This command has expired. Run it again!";
 
-			if (hasEmbeds) {
-				await interaction.update({ components: [] });
+		if (hasEmbeds) {
+			await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+				components: [],
+			});
 
-				await interaction.followUp({
-					content: expiryMessage,
-					flags: MessageFlags.Ephemeral,
-				});
-			} else {
-				await interaction.update({
-					components: [],
-					content: expiryMessage,
-				});
-			}
-
-			return true;
+			await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
+				content: expiryMessage,
+				flags: MessageFlags.Ephemeral,
+			});
+		} else {
+			await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+				components: [],
+				content: expiryMessage,
+			});
 		}
+
+		return true;
 	}
 
 	return false;
 }
 
 export async function today(
-	interaction: ButtonInteraction | ChatInputCommandInteraction | StringSelectMenuInteraction,
+	interaction:
+		| APIChatInputApplicationCommandInteraction
+		| APIMessageComponentButtonInteraction
+		| APIMessageComponentSelectMenuInteraction,
 	offset = 0,
 ) {
 	if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
@@ -105,17 +126,14 @@ export async function today(
 
 	const response = todayEmbed(interaction.locale, offset);
 
-	if (interaction.isMessageComponent()) {
-		await interaction.update(response);
+	if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
 	} else {
-		await interaction.reply(response);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 	}
 }
 
-export function todayEmbed(
-	locale: Locale,
-	offset = 0,
-): Parameters<ChannelsAPI["createMessage"]>[1] {
+export function todayEmbed(locale: Locale, offset = 0) {
 	const shardYesterday = shardEruption(offset - 1);
 	const shardToday = shardEruption(offset);
 	const shard = shardEruption();
@@ -182,17 +200,17 @@ export function todayEmbed(
 	return {
 		components: [
 			{
-				type: ComponentType.ActionRow,
+				type: ComponentType.ActionRow as const,
 				components: [
 					buttonYesterday,
 					button,
 					buttonTomorrow,
 					{
-						type: ComponentType.Button,
+						type: ComponentType.Button as const,
 						custom_id: `${SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID}§${offset}`,
 						emoji: { name: "🌐" },
 						label: "Browse",
-						style: ButtonStyle.Secondary,
+						style: ButtonStyle.Secondary as const,
 					},
 				],
 			},
@@ -202,7 +220,7 @@ export function todayEmbed(
 }
 
 export async function browse(
-	interaction: ButtonInteraction | ChatInputCommandInteraction,
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 	offset = 0,
 ) {
 	if (await hasExpired(interaction)) {
@@ -212,58 +230,73 @@ export async function browse(
 	const { locale } = interaction;
 	const shardToday = skyToday().plus({ days: offset });
 
-	const response = {
+	const response:
+		| Parameters<InteractionsAPI["reply"]>[2]
+		| Parameters<InteractionsAPI["updateMessage"]>[2] = {
 		components: [
-			...SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.map((customId, index) => {
-				const currentIndex = MAXIMUM_OPTION_NUMBER * index;
+			...SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.map(
+				(customId, index): APIActionRowComponent<APISelectMenuComponent> => {
+					const currentIndex = MAXIMUM_OPTION_NUMBER * index;
 
-				return new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId(customId)
-						.setMaxValues(1)
-						.setMinValues(1)
-						.setPlaceholder(
-							dateRangeString(
-								shardToday.plus({ days: currentIndex }),
-								shardToday.plus({ days: MAXIMUM_OPTION_NUMBER * (index + 1) - 1 }),
-								locale,
-							),
-						)
-						.setOptions(
-							generateShardEruptionSelectMenuOptions(shardToday, currentIndex, offset, locale),
-						),
-				);
-			}),
-			new ActionRowBuilder<ButtonBuilder>().setComponents(
-				new ButtonBuilder()
-					.setCustomId(
-						`${SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID}§${
+					return {
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.StringSelect,
+								custom_id: customId,
+								max_values: 1,
+								min_values: 1,
+								options: generateShardEruptionSelectMenuOptions(
+									shardToday,
+									currentIndex,
+									offset,
+									locale,
+								),
+								placeholder: dateRangeString(
+									shardToday.plus({ days: currentIndex }),
+									shardToday.plus({ days: MAXIMUM_OPTION_NUMBER * (index + 1) - 1 }),
+									locale,
+								),
+							},
+						],
+					};
+				},
+			),
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: `${SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID}§${
 							offset - MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH
 						}`,
-					)
-					.setLabel(t("back", { lng: locale, ns: "general" }))
-					.setStyle(ButtonStyle.Primary),
-				new ButtonBuilder()
-					.setCustomId(SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID)
-					.setDisabled(offset === 0)
-					.setLabel("Today")
-					.setStyle(ButtonStyle.Success),
-				new ButtonBuilder()
-					.setCustomId(
-						`${SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID}§${
+						label: t("back", { lng: locale, ns: "general" }),
+						style: ButtonStyle.Primary,
+					},
+					{
+						type: ComponentType.Button,
+						custom_id: SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
+						disabled: offset === 0,
+						label: "Today",
+						style: ButtonStyle.Success,
+					},
+					{
+						type: ComponentType.Button,
+						custom_id: `${SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID}§${
 							offset + MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH
 						}`,
-					)
-					.setLabel(t("next", { lng: locale, ns: "general" }))
-					.setStyle(ButtonStyle.Primary),
-			),
+						label: t("next", { lng: locale, ns: "general" }),
+						style: ButtonStyle.Primary,
+					},
+				],
+			},
 		],
 		embeds: [],
 	};
 
-	if (interaction instanceof ButtonInteraction) {
-		await interaction.update(response);
+	if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
 	} else {
-		await interaction.reply(response);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 	}
 }

@@ -99,7 +99,7 @@ import {
 } from "../services/guess.js";
 import { finaliseSetup } from "../services/notification.js";
 // import { history } from "../services/heart.js";
-// import { browse, today } from "../services/shard-eruption.js";
+import { browse, today } from "../services/shard-eruption.js";
 // import { parseSpiritSwitch } from "../services/spirit.js";
 import { isSeasonId } from "../utility/catalogue.js";
 import {
@@ -135,16 +135,16 @@ import {
 	isUserContextMenuCommand,
 } from "../utility/functions.js";
 import { OptionResolver } from "../utility/option-resolver.js";
-// import {
-// 	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
-// 	SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID,
-// 	SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID,
-// 	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS,
-// 	SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
-// 	SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID,
-// 	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
-// 	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
-// } from "../utility/shard-eruption.js";
+import {
+	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS,
+	SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
+	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
+} from "../utility/shard-eruption.js";
 // import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../utility/spirits.js";
 import type { Event } from "./index.js";
 
@@ -404,34 +404,34 @@ export default {
 					return;
 				}
 
-				// if (customId === SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID) {
-				// 	await today(interaction);
-				// 	return;
-				// }
+				if (customId === SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID) {
+					await today(interaction);
+					return;
+				}
 
-				// if (
-				// 	customId.startsWith(SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID) ||
-				// 	customId.startsWith(SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID)
-				// ) {
-				// 	await today(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
+				if (
+					customId.startsWith(SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID) ||
+					customId.startsWith(SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID)
+				) {
+					await today(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
 
-				// 	return;
-				// }
+					return;
+				}
 
-				// if (customId === SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID) {
-				// 	await browse(interaction);
-				// 	return;
-				// }
+				if (customId === SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID) {
+					await browse(interaction);
+					return;
+				}
 
-				// if (
-				// 	customId.startsWith(SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID) ||
-				// 	customId.startsWith(SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID) ||
-				// 	customId.startsWith(SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID)
-				// ) {
-				// 	await browse(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
+				if (
+					customId.startsWith(SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID) ||
+					customId.startsWith(SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID) ||
+					customId.startsWith(SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID)
+				) {
+					await browse(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
 
-				// 	return;
-				// }
+					return;
+				}
 
 				// if (customId === SKY_PROFILE_SHOW_RESET_CUSTOM_ID) {
 				// 	await Profile.showReset(interaction);
@@ -627,14 +627,14 @@ export default {
 					return;
 				}
 
-				// if (
-				// 	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.includes(
-				// 		customId as (typeof SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS)[number],
-				// 	)
-				// ) {
-				// 	await today(interaction, Number(value0));
-				// 	return;
-				// }
+				if (
+					SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.includes(
+						customId as (typeof SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS)[number],
+					)
+				) {
+					await today(interaction, Number(value0));
+					return;
+				}
 
 				// if (customId === SKY_PROFILE_EDIT_CUSTOM_ID) {
 				// 	await Profile.edit(interaction);
