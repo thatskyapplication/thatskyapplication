@@ -1,5 +1,14 @@
+import {
+	type APIChatInputApplicationCommandInteraction,
+	type APIEmbed,
+	type APIEmbedField,
+	type Locale,
+	MessageFlags,
+	PermissionFlagsBits,
+} from "@discordjs/core";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
+import { client } from "../discord.js";
 import {
 	CDN_URL,
 	DEFAULT_EMBED_COLOUR,
@@ -14,7 +23,7 @@ import {
 	INITIAL_TRAVELLING_SPIRIT_SEEK,
 	skyNow,
 } from "../utility/dates.js";
-import { cannotUsePermissions } from "../utility/permission-checks.js";
+import { cannotUsePermissions } from "../utility/permissions.js";
 import { dailyGuidesEventData, dailyGuidesShardEruptionData } from "./daily-guides.js";
 
 function dailyResetTime(date: DateTime) {
@@ -40,7 +49,7 @@ function travellingSpiritTime(date: DateTime, locale: Locale) {
 		return `${t("schedule.travelling-spirit-none", { lng: locale, ns: "commands" })}\n_${t(
 			"schedule.travelling-spirit-next-visit",
 			{ lng: locale, ns: "commands" },
-		)} ${time(startUnix, TimestampStyles.ShortDate)} (${time(startUnix, TimestampStyles.RelativeTime)})_`;
+		)} <t:${startUnix}:d> (<t:${startUnix}:R>)_`;
 	}
 }
 
@@ -54,7 +63,7 @@ function scheduleTimes(date: DateTime) {
 
 	// 5 minutes is the least common denominator.
 	for (let start = date; start < tomorrow; start = start.plus({ minutes: 5 })) {
-		const timeString = time(start.toUnixInteger(), TimestampStyles.ShortTime);
+		const timeString = `<t:${start.toUnixInteger()}:t>`;
 		const { minute, hour } = start;
 
 		if (minute % 15 === 0) {
@@ -89,7 +98,7 @@ function aviarysFireworkFestivalTime(date: DateTime) {
 	const times = [];
 
 	for (let start = startOfMonth; start < dayAfterStartOfMonth; start = start.plus({ hours: 4 })) {
-		times.push(time(start.toUnixInteger(), TimestampStyles.ShortTime));
+		times.push(`<t:${start.toUnixInteger()}:t>`);
 	}
 
 	return times;
@@ -105,32 +114,32 @@ function deer(locale: Locale) {
 	return [
 		{
 			text: t("schedule.deer-0", { lng: locale, ns: "commands" }),
-			time: time(unix, TimestampStyles.ShortTime),
+			time: `<t:${unix}:t>`,
 		},
 		{
 			text: t("schedule.deer-120", { lng: locale, ns: "commands" }),
-			time: time(unix + 120, TimestampStyles.ShortTime),
+			time: `<t:${unix + 120}:t>`,
 		},
 		{
 			text: t("schedule.deer-600", { lng: locale, ns: "commands" }),
-			time: time(unix + 600, TimestampStyles.ShortTime),
+			time: `<t:${unix + 600}:t>`,
 		},
 		{
 			text: t("schedule.deer-720", { lng: locale, ns: "commands" }),
-			time: time(unix + 720, TimestampStyles.ShortTime),
+			time: `<t:${unix + 720}:t>`,
 		},
 		{
 			text: t("schedule.deer-1200", { lng: locale, ns: "commands" }),
-			time: time(unix + 1_200, TimestampStyles.ShortTime),
+			time: `<t:${unix + 1_200}:t>`,
 		},
 		{
 			text: t("schedule.deer-1800", { lng: locale, ns: "commands" }),
-			time: time(unix + 1_800, TimestampStyles.ShortTime),
+			time: `<t:${unix + 1_800}:t>`,
 		},
 	];
 }
 
-export async function schedule(interaction: ChatInputCommandInteraction) {
+export async function schedule(interaction: APIChatInputApplicationCommandInteraction) {
 	const { locale } = interaction;
 	const now = skyNow();
 	const startOfDay = now.startOf("day");
@@ -146,100 +155,92 @@ export async function schedule(interaction: ChatInputCommandInteraction) {
 	let auroraText = aurora.join(" ");
 
 	if (now <= COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2) {
-		auroraText += `\n${hyperlink("SkyFest AURORA Mega Concerts", new URL("aurora_event/3.jpg", CDN_URL))}: ${COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1_RELATIVE_TIME} | ${COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2_RELATIVE_TIME}`;
+		auroraText += `\n[SkyFest AURORA Mega Concerts](${new URL("aurora_event/3.jpg", CDN_URL)}: ${COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1_RELATIVE_TIME} | ${COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2_RELATIVE_TIME}`;
 	}
 
-	const embed = new EmbedBuilder()
-		.setColor(DEFAULT_EMBED_COLOUR)
-		.setFields(
-			{
-				name: t(`notification-types.${NotificationType.DailyReset}`, {
-					lng: locale,
-					ns: "general",
-				}),
-				value: `${time(dailyResetTime(startOfDay), TimestampStyles.ShortTime)} (${time(
-					dailyResetTime(startOfDay),
-					TimestampStyles.RelativeTime,
-				)})`,
-			},
-			{
-				name: t(`notification-types.${NotificationType.InternationalSpaceStation}`, {
-					lng: locale,
-					ns: "general",
-				}),
-				value: ISS_DATES_ACCESSIBLE.filter(
-					(issDateAccessible) => issDateAccessible <= now.daysInMonth!,
-				)
-					.map((issDateAccessible) => {
-						const issDateUnix = startOfDay.set({ day: issDateAccessible }).toUnixInteger();
+	const embed: APIEmbed = {
+		color: DEFAULT_EMBED_COLOUR,
+		footer: { text: t("schedule.times-are-relative", { lng: locale, ns: "commands" }) },
+		title: t("schedule.schedule-today", { lng: locale, ns: "commands" }),
+	};
 
-						return `${time(issDateUnix, TimestampStyles.ShortDate)} (${time(
-							issDateUnix,
-							TimestampStyles.RelativeTime,
-						)})`;
-					})
-					.join("\n"),
-			},
-			{
-				name: t(`notification-types.${NotificationType.EyeOfEden}`, {
-					lng: locale,
-					ns: "general",
-				}),
-				value: `${time(eyeOfEdenResetTime(startOfDay), TimestampStyles.ShortTime)} (${time(
-					eyeOfEdenResetTime(startOfDay),
-					TimestampStyles.RelativeTime,
-				)})`,
-			},
-			{
-				name: t("schedule.travelling-spirit", { lng: locale, ns: "commands" }),
-				value: travellingSpiritTime(startOfDay, locale),
-			},
-			{
-				name: t(`notification-types.${NotificationType.PollutedGeyser}`, {
-					lng: locale,
-					ns: "general",
-				}),
-				value: pollutedGeyser.join(" "),
-			},
-			{
-				name: t(`notification-types.${NotificationType.Grandma}`, { lng: locale, ns: "general" }),
-				value: grandma.join(" "),
-			},
-			{
-				name: t(`notification-types.${NotificationType.Turtle}`, { lng: locale, ns: "general" }),
-				value: turtle.join(" "),
-			},
-			{
-				name: t(`notification-types.${NotificationType.AURORA}`, { lng: locale, ns: "general" }),
-				value: auroraText,
-			},
-			{
-				name: t(`notification-types.${NotificationType.Passage}`, { lng: locale, ns: "general" }),
-				value: passageTimesString,
-			},
-			{
-				name: t(`notification-types.${NotificationType.AviarysFireworkFestival}`, {
-					lng: locale,
-					ns: "general",
-				}),
-				value: `${t("schedule.first-of-month", { lng: locale, ns: "commands" })}\n${aviarysFireworkFestivalTime(
-					startOfDay,
-				).join(" ")}`,
-			},
-			{
-				name: "Deer",
-				value: `${deer(locale)
-					.map(({ text, time }, index) => `${index + 1}. ${time} _(${text})_`)
-					.join("\n")}`,
-			},
-		)
-		.setFooter({ text: t("schedule.times-are-relative", { lng: locale, ns: "commands" }) })
-		.setTitle(t("schedule.schedule-today", { lng: locale, ns: "commands" }));
+	const fields: APIEmbedField[] = [
+		{
+			name: t(`notification-types.${NotificationType.DailyReset}`, {
+				lng: locale,
+				ns: "general",
+			}),
+			value: `<t:${dailyResetTime(startOfDay)}:t> (<t:${dailyResetTime(startOfDay)}:R>)`,
+		},
+		{
+			name: t(`notification-types.${NotificationType.InternationalSpaceStation}`, {
+				lng: locale,
+				ns: "general",
+			}),
+			value: ISS_DATES_ACCESSIBLE.filter(
+				(issDateAccessible) => issDateAccessible <= now.daysInMonth!,
+			)
+				.map((issDateAccessible) => {
+					const issDateUnix = startOfDay.set({ day: issDateAccessible }).toUnixInteger();
+					return `<t:${issDateUnix}:d> (<t:${issDateUnix}:R>)`;
+				})
+				.join("\n"),
+		},
+		{
+			name: t(`notification-types.${NotificationType.EyeOfEden}`, {
+				lng: locale,
+				ns: "general",
+			}),
+			value: `<t:${eyeOfEdenResetTime(startOfDay)}:t> (<t:${eyeOfEdenResetTime(startOfDay)}:R>)`,
+		},
+		{
+			name: t("schedule.travelling-spirit", { lng: locale, ns: "commands" }),
+			value: travellingSpiritTime(startOfDay, locale),
+		},
+		{
+			name: t(`notification-types.${NotificationType.PollutedGeyser}`, {
+				lng: locale,
+				ns: "general",
+			}),
+			value: pollutedGeyser.join(" "),
+		},
+		{
+			name: t(`notification-types.${NotificationType.Grandma}`, { lng: locale, ns: "general" }),
+			value: grandma.join(" "),
+		},
+		{
+			name: t(`notification-types.${NotificationType.Turtle}`, { lng: locale, ns: "general" }),
+			value: turtle.join(" "),
+		},
+		{
+			name: t(`notification-types.${NotificationType.AURORA}`, { lng: locale, ns: "general" }),
+			value: auroraText,
+		},
+		{
+			name: t(`notification-types.${NotificationType.Passage}`, { lng: locale, ns: "general" }),
+			value: passageTimesString,
+		},
+		{
+			name: t(`notification-types.${NotificationType.AviarysFireworkFestival}`, {
+				lng: locale,
+				ns: "general",
+			}),
+			value: `${t("schedule.first-of-month", { lng: locale, ns: "commands" })}\n${aviarysFireworkFestivalTime(
+				startOfDay,
+			).join(" ")}`,
+		},
+		{
+			name: "Deer",
+			value: `${deer(locale)
+				.map(({ text, time }, index) => `${index + 1}. ${time} _(${text})_`)
+				.join("\n")}`,
+		},
+	];
 
 	const eventData = dailyGuidesEventData(now, locale);
 
 	if (eventData.eventCurrency) {
-		embed.addFields(eventData.eventCurrency);
+		fields.push(eventData.eventCurrency);
 	}
 
 	const shardEruptionData = dailyGuidesShardEruptionData(locale);
@@ -251,6 +252,11 @@ export async function schedule(interaction: ChatInputCommandInteraction) {
 		return;
 	}
 
-	embed.addFields(shardEruptionData);
-	await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
+	fields.push(...shardEruptionData);
+	embed.fields = fields;
+
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		embeds: [embed],
+		flags: MessageFlags.Ephemeral,
+	});
 }
