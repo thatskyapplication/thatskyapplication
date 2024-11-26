@@ -98,7 +98,7 @@ import {
 	tryAgain,
 } from "../services/guess.js";
 import { finaliseSetup } from "../services/notification.js";
-// import { history } from "../services/heart.js";
+import { history } from "../services/heart.js";
 import { browse, today } from "../services/shard-eruption.js";
 // import { parseSpiritSwitch } from "../services/spirit.js";
 import { isSeasonId } from "../utility/catalogue.js";
@@ -120,8 +120,8 @@ import {
 	GUESS_LEADERBOARD_BACK_CUSTOM_ID,
 	GUESS_LEADERBOARD_NEXT_CUSTOM_ID,
 	GUESS_TRY_AGAIN,
-	// HEART_HISTORY_BACK,
-	// HEART_HISTORY_NEXT,
+	HEART_HISTORY_BACK,
+	HEART_HISTORY_NEXT,
 	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
 } from "../utility/constants.js";
 import {
@@ -504,10 +504,10 @@ export default {
 				// 	return;
 				// }
 
-				// if (customId.startsWith(HEART_HISTORY_BACK) || customId.startsWith(HEART_HISTORY_NEXT)) {
-				// 	await history(interaction);
-				// 	return;
-				// }
+				if (customId.startsWith(HEART_HISTORY_BACK) || customId.startsWith(HEART_HISTORY_NEXT)) {
+					await history(interaction);
+					return;
+				}
 
 				// if (customId.startsWith(SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID)) {
 				// 	await parseSpiritSwitch(interaction);
