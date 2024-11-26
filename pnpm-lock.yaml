@@ -5,12 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  discord-api-types: 0.37.106-next.7debb55.1732021051
-
-patchedDependencies:
-  discord-api-types@0.37.106-next.7debb55.1732021051:
-    hash: chdfjwmdqfj6umepw4b6kf663q
-    path: patches/discord-api-types@0.37.106-next.7debb55.1732021051.patch
+  discord-api-types: 0.37.109
 
 importers:
 
@@ -973,8 +968,8 @@ packages:
     resolution: {integrity: sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw==}
     engines: {node: '>=8'}
 
-  discord-api-types@0.37.106-next.7debb55.1732021051:
-    resolution: {integrity: sha512-iR3Lt7kU5sJyXtbCfpms301nvzLMAGFfPS9QV/mdW8RihbFKFCW++Xtt+OTCzz8wedwTKeCBGTtyoRNqkEaAMg==}
+  discord-api-types@0.37.109:
+    resolution: {integrity: sha512-B4W/ao8vempNVCS4/K4CeeCGhiabTcU7ekgqJy4/RytEsgkJP9hWS0MWZMcRP3wWzU/FXi6QqqvArZTJUfc6Iw==}
 
   easy-table@1.2.0:
     resolution: {integrity: sha512-OFzVOv03YpvtcWGe5AayU5G2hgybsg3iqA6drU8UaoZyB9jLGMTrz9+asnLp/E+6qPh88yEI1gvyZFZ41dmgww==}
@@ -2108,7 +2103,7 @@ snapshots:
       '@discordjs/ws': 2.0.0
       '@sapphire/snowflake': 3.5.4
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.37.106-next.7debb55.1732021051(patch_hash=chdfjwmdqfj6umepw4b6kf663q)
+      discord-api-types: 0.37.109
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -2120,7 +2115,7 @@ snapshots:
       '@sapphire/async-queue': 1.5.4
       '@sapphire/snowflake': 3.5.4
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.37.106-next.7debb55.1732021051(patch_hash=chdfjwmdqfj6umepw4b6kf663q)
+      discord-api-types: 0.37.109
       magic-bytes.js: 1.10.0
       tslib: 2.7.0
       undici: 6.19.8
@@ -2135,7 +2130,7 @@ snapshots:
       '@sapphire/async-queue': 1.5.4
       '@types/ws': 8.5.13
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.37.106-next.7debb55.1732021051(patch_hash=chdfjwmdqfj6umepw4b6kf663q)
+      discord-api-types: 0.37.109
       tslib: 2.7.0
       ws: 8.18.0
     transitivePeerDependencies:
@@ -2805,7 +2800,7 @@ snapshots:
 
   detect-libc@2.0.3: {}
 
-  discord-api-types@0.37.106-next.7debb55.1732021051(patch_hash=chdfjwmdqfj6umepw4b6kf663q): {}
+  discord-api-types@0.37.109: {}
 
   easy-table@1.2.0:
     dependencies:

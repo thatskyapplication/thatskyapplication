@@ -45,10 +45,7 @@
 	"packageManager": "pnpm@9.12.1",
 	"pnpm": {
 		"overrides": {
-			"discord-api-types": "0.37.106-next.7debb55.1732021051"
-		},
-		"patchedDependencies": {
-			"discord-api-types@0.37.106-next.7debb55.1732021051": "patches/discord-api-types@0.37.106-next.7debb55.1732021051.patch"
+			"discord-api-types": "0.37.109"
 		}
 	}
 }

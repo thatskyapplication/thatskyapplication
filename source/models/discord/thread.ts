@@ -42,7 +42,6 @@ abstract class BaseThread {
 		if (data.thread_metadata) {
 			this.threadMetadata = {
 				archived: data.thread_metadata.archived,
-				// @ts-expect-error https://github.com/discordjs/discord-api-types/pull/1154
 				locked: data.thread_metadata.locked,
 			};
 		}
