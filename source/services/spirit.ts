@@ -19,7 +19,6 @@ import {
 } from "../utility/catalogue.js";
 import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { skyNow } from "../utility/dates.js";
-import { cannotUsePermissions } from "../utility/permission-checks.js";
 import {
 	FriendActionToEmoji,
 	SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID,

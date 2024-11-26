@@ -3,6 +3,7 @@ import {
 	type APIGuildChannel,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
+	type APIModalSubmitInteraction,
 	type APIUserApplicationCommandInteraction,
 	type GuildChannelType,
 	InteractionType,
@@ -163,6 +164,7 @@ export async function cannotUsePermissions(
 		| APIChatInputApplicationCommandInteraction
 		| APIMessageComponentButtonInteraction
 		| APIMessageComponentSelectMenuInteraction
+		| APIModalSubmitInteraction
 		| APIUserApplicationCommandInteraction,
 	permissions: bigint,
 ) {

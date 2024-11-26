@@ -3,6 +3,7 @@ import {
 	type APIButtonComponentWithCustomId,
 	type APIChatInputApplicationCommandInteraction,
 	type APIEmbed,
+	type APIEmbedAuthor,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentEmoji,
 	type APIMessageComponentSelectMenuInteraction,
@@ -78,7 +79,7 @@ import {
 } from "../utility/functions.js";
 import { cannotUsePermissions } from "../utility/permissions.js";
 import type { SpiritName } from "../utility/spirits.js";
-// import Profile from "./Profile.js";
+import Profile from "./Profile.js";
 
 export interface CataloguePacket {
 	user_id: Snowflake;
@@ -2429,7 +2430,7 @@ export class Catalogue {
 			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content:
 					"I cannot share in group direct messages as I am not here. Try sharing in a server!",
-				flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;
@@ -2440,7 +2441,7 @@ export class Catalogue {
 		if (!guild) {
 			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: "I must be added to this server to share. Try sharing in a server!",
-				flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;
@@ -2529,10 +2530,10 @@ export class Catalogue {
 		}
 
 		const profile = await Profile.fetch(invoker.id).catch(() => null);
-		const embedAuthorOptions: EmbedAuthorOptions = { name: profile?.name ?? user.tag };
+		const embedAuthorOptions: APIEmbedAuthor = { name: profile?.name ?? invoker.username };
 
 		if (profile?.iconURL) {
-			embedAuthorOptions.iconURL = profile.iconURL;
+			embedAuthorOptions.icon_url = profile.iconURL;
 		}
 
 		embed.author = embedAuthorOptions;

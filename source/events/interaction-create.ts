@@ -45,39 +45,39 @@ import {
 	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
 	Catalogue,
 } from "../models/Catalogue.js";
-// import Profile, {
-// 	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
-// 	SKY_PROFILE_EDIT_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS,
-// 	SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS,
-// 	SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID,
-// 	SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID,
-// 	SKY_PROFILE_REPORT_MODAL_CUSTOM_ID,
-// 	SKY_PROFILE_RESET_CUSTOM_ID,
-// 	SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID,
-// 	SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
-// 	SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID,
-// 	SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID,
-// 	SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID,
-// 	SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID,
-// 	SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID,
-// 	SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
-// } from "../models/Profile.js";
+import Profile, {
+	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
+	SKY_PROFILE_EDIT_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS,
+	SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS,
+	SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID,
+	SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID,
+	SKY_PROFILE_REPORT_MODAL_CUSTOM_ID,
+	SKY_PROFILE_RESET_CUSTOM_ID,
+	SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID,
+	SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
+	SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID,
+	SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID,
+	SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID,
+	SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID,
+	SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID,
+	SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
+} from "../models/Profile.js";
 import pino from "../pino.js";
 import {
 	dailyMessageModalResponse,
@@ -97,8 +97,8 @@ import {
 	parseEndGame,
 	tryAgain,
 } from "../services/guess.js";
-import { finaliseSetup } from "../services/notification.js";
 import { history } from "../services/heart.js";
+import { finaliseSetup } from "../services/notification.js";
 import { browse, today } from "../services/shard-eruption.js";
 // import { parseSpiritSwitch } from "../services/spirit.js";
 import { isSeasonId } from "../utility/catalogue.js";
@@ -433,76 +433,76 @@ export default {
 					return;
 				}
 
-				// if (customId === SKY_PROFILE_SHOW_RESET_CUSTOM_ID) {
-				// 	await Profile.showReset(interaction);
-				// 	return;
-				// }
+				if (customId === SKY_PROFILE_SHOW_RESET_CUSTOM_ID) {
+					await Profile.showReset(interaction);
+					return;
+				}
 
-				// if (customId === SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID) {
-				// 	await Profile.showEdit(interaction);
-				// 	return;
-				// }
+				if (customId === SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID) {
+					await Profile.showEdit(interaction);
+					return;
+				}
 
-				// if (
-				// 	customId.startsWith(SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID) ||
-				// 	customId.startsWith(SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID) ||
-				// 	customId.startsWith(SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID)
-				// ) {
-				// 	await Profile.explore(interaction);
-				// 	return;
-				// }
+				if (
+					customId.startsWith(SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID) ||
+					customId.startsWith(SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID) ||
+					customId.startsWith(SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID)
+				) {
+					await Profile.explore(interaction);
+					return;
+				}
 
-				// if (
-				// 	customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID) ||
-				// 	customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID) ||
-				// 	customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID)
-				// ) {
-				// 	await Profile.exploreLikes(interaction);
-				// 	return;
-				// }
+				if (
+					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID) ||
+					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID) ||
+					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID)
+				) {
+					await Profile.exploreLikes(interaction);
+					return;
+				}
 
-				// if (
-				// 	customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID) ||
-				// 	customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID) ||
-				// 	customId.startsWith(SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID)
-				// ) {
-				// 	await Profile.exploreProfile(interaction, customId.slice(customId.indexOf("§") + 1));
-				// 	return;
-				// }
+				if (
+					customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID) ||
+					customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID) ||
+					customId.startsWith(SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID)
+				) {
+					await Profile.exploreProfile(interaction, customId.slice(customId.indexOf("§") + 1));
+					return;
+				}
 
-				// if (
-				// 	customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID) ||
-				// 	customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID) ||
-				// 	customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID)
-				// ) {
-				// 	await Profile.exploreLikedProfile(interaction);
-				// 	return;
-				// }
+				if (
+					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID) ||
+					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID) ||
+					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID)
+				) {
+					await Profile.exploreLikedProfile(interaction);
+					return;
+				}
 
-				// if (customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID)) {
-				// 	await Profile.like(interaction);
-				// 	return;
-				// }
+				if (customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID)) {
+					await Profile.like(interaction);
+					return;
+				}
 
-				// if (customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID)) {
-				// 	await Profile.like(interaction, true);
-				// 	return;
-				// }
+				if (customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID)) {
+					await Profile.like(interaction, true);
+					return;
+				}
 
-				// if (customId.startsWith(SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID)) {
-				// 	await Profile.report(interaction);
-				// 	return;
-				// }
+				if (customId.startsWith(SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID)) {
+					await Profile.report(interaction);
+					return;
+				}
 
-				// if (customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID)) {
-				// 	await Profile.report(interaction, true);
-				// 	return;
-				// }
+				if (customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID)) {
+					await Profile.report(interaction, true);
+					return;
+				}
 
-				// if (customId.startsWith(SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID)) {
-				// 	await Profile.reportModalPrompt(interaction);
-				// 	return;
-				// }
+				if (customId.startsWith(SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID)) {
+					await Profile.reportModalPrompt(interaction);
+					return;
+				}
 
 				if (customId.startsWith(HEART_HISTORY_BACK) || customId.startsWith(HEART_HISTORY_NEXT)) {
 					await history(interaction);
@@ -636,43 +636,43 @@ export default {
 					return;
 				}
 
-				// if (customId === SKY_PROFILE_EDIT_CUSTOM_ID) {
-				// 	await Profile.edit(interaction);
-				// 	return;
-				// }
+				if (customId === SKY_PROFILE_EDIT_CUSTOM_ID) {
+					await Profile.edit(interaction);
+					return;
+				}
 
-				// if (customId === SKY_PROFILE_RESET_CUSTOM_ID) {
-				// 	await Profile.reset(interaction);
-				// 	return;
-				// }
+				if (customId === SKY_PROFILE_RESET_CUSTOM_ID) {
+					await Profile.reset(interaction);
+					return;
+				}
 
-				// if (customId === SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID) {
-				// 	await Profile.setSeasons(interaction);
-				// 	return;
-				// }
+				if (customId === SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID) {
+					await Profile.setSeasons(interaction);
+					return;
+				}
 
-				// if (customId === SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID) {
-				// 	await Profile.setPlatform(interaction);
-				// 	return;
-				// }
+				if (customId === SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID) {
+					await Profile.setPlatform(interaction);
+					return;
+				}
 
-				// if (
-				// 	SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.includes(
-				// 		customId as (typeof SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS)[number],
-				// 	)
-				// ) {
-				// 	await Profile.exploreProfile(interaction, value0);
-				// 	return;
-				// }
+				if (
+					SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.includes(
+						customId as (typeof SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS)[number],
+					)
+				) {
+					await Profile.exploreProfile(interaction, value0);
+					return;
+				}
 
-				// if (
-				// 	SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS.includes(
-				// 		customId as (typeof SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS)[number],
-				// 	)
-				// ) {
-				// 	await Profile.exploreLikedProfile(interaction);
-				// 	return;
-				// }
+				if (
+					SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS.includes(
+						customId as (typeof SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS)[number],
+					)
+				) {
+					await Profile.exploreLikedProfile(interaction);
+					return;
+				}
 
 				if (interaction.guild_id && GUILD_CACHE.has(interaction.guild_id)) {
 					if (customId.startsWith(NOTIFICATION_SETUP_OFFSET_CUSTOM_ID)) {
@@ -736,35 +736,35 @@ export default {
 			const customId = interaction.data.custom_id;
 
 			try {
-				// if (customId === SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID) {
-				// 	await Profile.setName(interaction);
-				// 	return;
-				// }
+				if (customId === SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID) {
+					await Profile.setName(interaction);
+					return;
+				}
 
-				// if (customId === SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID) {
-				// 	await Profile.setDescription(interaction);
-				// 	return;
-				// }
+				if (customId === SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID) {
+					await Profile.setDescription(interaction);
+					return;
+				}
 
-				// if (customId === SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID) {
-				// 	await Profile.setCountry(interaction);
-				// 	return;
-				// }
+				if (customId === SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID) {
+					await Profile.setCountry(interaction);
+					return;
+				}
 
-				// if (customId === SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID) {
-				// 	await Profile.setWingedLight(interaction);
-				// 	return;
-				// }
+				if (customId === SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID) {
+					await Profile.setWingedLight(interaction);
+					return;
+				}
 
-				// if (customId === SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID) {
-				// 	await Profile.setSpot(interaction);
-				// 	return;
-				// }
+				if (customId === SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID) {
+					await Profile.setSpot(interaction);
+					return;
+				}
 
-				// if (customId.startsWith(SKY_PROFILE_REPORT_MODAL_CUSTOM_ID)) {
-				// 	await Profile.sendReport(interaction);
-				// 	return;
-				// }
+				if (customId.startsWith(SKY_PROFILE_REPORT_MODAL_CUSTOM_ID)) {
+					await Profile.sendReport(interaction);
+					return;
+				}
 
 				if (DAILY_GUIDES_DAILY_MESSAGE_MODAL === customId) {
 					await setDailyMessage(interaction);

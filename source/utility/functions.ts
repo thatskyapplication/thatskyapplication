@@ -83,7 +83,7 @@ export function isThreadChannelType(type: ChannelType) {
 }
 
 export function userLogFormat(user: APIUser) {
-	return `${user} (${user.username}${user.discriminator === "0" ? "" : `#${user.discriminator}`})`;
+	return `<@${user.id}> (${user.username}${user.discriminator === "0" ? "" : `#${user.discriminator}`})`;
 }
 
 export function isRealm(realm: string): realm is RealmName {

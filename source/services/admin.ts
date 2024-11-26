@@ -215,7 +215,7 @@ export async function setQuest(
 ) {
 	const { locale } = interaction;
 
-	if (options.hoistedOptions!.length === 0) {
+	if (options.hoistedOptions.length === 0) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "At least one option must be specified.",
 			flags: MessageFlags.Ephemeral,

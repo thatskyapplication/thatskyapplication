@@ -51,7 +51,7 @@ export class OptionResolver {
 	 * Bottom-level options for the interaction
 	 * If there is a subcommand (or subcommand and group), this represents the options for the subcommand.
 	 */
-	private readonly hoistedOptions: APIApplicationCommandInteractionDataBasicOption[] = [];
+	public readonly hoistedOptions: APIApplicationCommandInteractionDataBasicOption[] = [];
 
 	/**
 	 * The name of the subcommand group

@@ -1,10 +1,39 @@
 import type { Buffer } from "node:buffer";
 import { URL } from "node:url";
 import { DeleteObjectCommand, DeleteObjectsCommand, PutObjectCommand } from "@aws-sdk/client-s3";
+import {
+	type APIActionRowComponent,
+	type APIApplicationCommandAutocompleteInteraction,
+	type APIAttachment,
+	type APIButtonComponent,
+	type APIChatInputApplicationCommandInteraction,
+	type APIEmbed,
+	type APIEmbedAuthor,
+	type APIMessageComponentButtonInteraction,
+	type APIMessageComponentSelectMenuInteraction,
+	type APIModalSubmitInteraction,
+	type APISelectMenuComponent,
+	type APISelectMenuOption,
+	type APITextInputComponent,
+	type APIUser,
+	type APIUserApplicationCommandInteraction,
+	ApplicationCommandOptionType,
+	ButtonStyle,
+	ChannelType,
+	ComponentType,
+	InteractionType,
+	type InteractionsAPI,
+	MessageFlags,
+	PermissionFlagsBits,
+	type Snowflake,
+	TextInputStyle,
+} from "@discordjs/core";
 import { hash } from "hasha";
 import { t } from "i18next";
 import sharp from "sharp";
+import { GUILD_CACHE } from "../caches/guilds.js";
 import { skySeasons } from "../data/spirits/seasons/index.js";
+import { client } from "../discord.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
@@ -15,6 +44,7 @@ import {
 	CDN_BUCKET,
 	CDN_URL,
 	DEFAULT_EMBED_COLOUR,
+	DEVELOPER_GUILD_ID,
 	GuessDifficultyLevel,
 	GuessDifficultyLevelToName,
 	MAXIMUM_WINGED_LIGHT,
@@ -40,8 +70,16 @@ import {
 	formatEmoji,
 	formatEmojiURL,
 } from "../utility/emojis.js";
+import {
+	interactionInvoker,
+	isButton,
+	isChatInputCommand,
+	userLogFormat,
+} from "../utility/functions.js";
+import { ModalResolver } from "../utility/modal-resolver.js";
+import type { OptionResolver } from "../utility/option-resolver.js";
+import { can, cannotUsePermissions } from "../utility/permissions.js";
 import { Catalogue } from "./Catalogue.js";
-import { ButtonStyle, ComponentType, type Snowflake } from "@discordjs/core";
 
 interface ProfilePacket {
 	user_id: Snowflake;
@@ -216,7 +254,7 @@ const SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_
 export const SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID =
 	"SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID" as const;
 
-const SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW = {
+const SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW: APIActionRowComponent<APISelectMenuComponent> = {
 	type: ComponentType.ActionRow,
 	components: [
 		{
@@ -234,7 +272,7 @@ const SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW = {
 	],
 } as const;
 
-const SKY_PROFILE_EDIT_RESET_ACTION_ROW = {
+const SKY_PROFILE_EDIT_RESET_ACTION_ROW: APIActionRowComponent<APIButtonComponent> = {
 	type: ComponentType.ActionRow,
 	components: [
 		{
@@ -246,12 +284,14 @@ const SKY_PROFILE_EDIT_RESET_ACTION_ROW = {
 	],
 } as const;
 
-const SKY_PROFILE_RESET_OPTIONS = PROFILE_INTERACTIVE_RESET_TYPE_VALUES.map((profileInteractiveResetType) => ({
-	label: profileInteractiveResetType,
-	value: profileInteractiveResetType
-}));
+const SKY_PROFILE_RESET_OPTIONS = PROFILE_INTERACTIVE_RESET_TYPE_VALUES.map(
+	(profileInteractiveResetType) => ({
+		label: profileInteractiveResetType,
+		value: profileInteractiveResetType,
+	}),
+);
 
-const SKY_PROFILE_RESET_OPTIONS_ACTION_ROW = {
+const SKY_PROFILE_RESET_OPTIONS_ACTION_ROW: APIActionRowComponent<APISelectMenuComponent> = {
 	type: ComponentType.ActionRow,
 	components: [
 		{
@@ -265,7 +305,7 @@ const SKY_PROFILE_RESET_OPTIONS_ACTION_ROW = {
 	],
 } as const;
 
-const SKY_PROFILE_BACK_TO_START_ACTION_ROW = {
+const SKY_PROFILE_BACK_TO_START_ACTION_ROW: APIActionRowComponent<APIButtonComponent> = {
 	type: ComponentType.ActionRow,
 	components: [
 		{
@@ -357,16 +397,17 @@ function generateProfileExplorerSelectMenuOptions(
 	const maximumIndex = SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER + indexStart;
 
 	return profiles.slice(indexStart, maximumIndex).map((profile) => {
-		const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
-			.setLabel(profile.name ?? SKY_PROFILE_UNKNOWN_NAME)
-			.setValue(profile.userId);
+		const stringSelectMenuOption: APISelectMenuOption = {
+			label: profile.name ?? SKY_PROFILE_UNKNOWN_NAME,
+			value: profile.userId,
+		};
 
 		if (
 			skyProfileLikesPackets?.some(
 				(skyProfileLikesPacket) => skyProfileLikesPacket.target_id === profile.userId,
 			)
 		) {
-			stringSelectMenuOptionBuilder.setEmoji(MISCELLANEOUS_EMOJIS.Heart);
+			stringSelectMenuOption.emoji = MISCELLANEOUS_EMOJIS.Heart;
 		}
 
 		let { description } = profile;
@@ -377,10 +418,10 @@ function generateProfileExplorerSelectMenuOptions(
 					? `${description.slice(0, SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH - 3)}...`
 					: description;
 
-			stringSelectMenuOptionBuilder.setDescription(description);
+			stringSelectMenuOption.description = description;
 		}
 
-		return stringSelectMenuOptionBuilder;
+		return stringSelectMenuOption;
 	});
 }
 
@@ -463,12 +504,14 @@ export default class Profile {
 
 	public static async set(
 		interaction:
-			| ChatInputCommandInteraction
-			| StringSelectMenuInteraction
-			| ModalMessageModalSubmitInteraction,
+			| APIChatInputApplicationCommandInteraction
+			| APIMessageComponentSelectMenuInteraction
+			| APIModalSubmitInteraction,
 		data: ProfileSetData,
+		deferred = false,
 	) {
-		let profile = await this.fetch(interaction.user.id).catch(() => null);
+		const invoker = interactionInvoker(interaction);
+		let profile = await this.fetch(invoker.id).catch(() => null);
 
 		if (profile) {
 			const [profilePacket] = await pg<ProfilePacket>(Table.Profiles)
@@ -481,7 +524,7 @@ export default class Profile {
 			const [profilePacket] = await pg<ProfilePacket>(Table.Profiles).insert(
 				{
 					...data,
-					user_id: interaction.user.id,
+					user_id: invoker.id,
 				},
 				"*",
 			);
@@ -489,15 +532,16 @@ export default class Profile {
 			profile = new this(profilePacket!);
 		}
 
-		await this.showEdit(interaction);
+		await this.showEdit(interaction, deferred);
 	}
 
 	public static async setAsset(
-		{ user }: ChatInputCommandInteraction,
-		{ contentType, url }: Attachment,
+		interaction: APIChatInputApplicationCommandInteraction,
+		attachment: APIAttachment,
 		type: AssetType,
 	) {
-		const profile = await Profile.fetch(user.id).catch(() => null);
+		const invoker = interactionInvoker(interaction);
+		const profile = await Profile.fetch(invoker.id).catch(() => null);
 
 		// Delete the old asset if it exists.
 		if (profile) {
@@ -505,7 +549,7 @@ export default class Profile {
 				await S3Client.send(
 					new DeleteObjectCommand({
 						Bucket: CDN_BUCKET,
-						Key: Profile.iconRoute(user.id, profile.icon),
+						Key: Profile.iconRoute(invoker.id, profile.icon),
 					}),
 				);
 			}
@@ -514,14 +558,16 @@ export default class Profile {
 				await S3Client.send(
 					new DeleteObjectCommand({
 						Bucket: CDN_BUCKET,
-						Key: Profile.thumbnailRoute(user.id, profile.thumbnail),
+						Key: Profile.thumbnailRoute(invoker.id, profile.thumbnail),
 					}),
 				);
 			}
 		}
 
-		const gif = contentType === "image/gif";
-		const assetBuffer = sharp(await (await fetch(url)).arrayBuffer(), { animated: true });
+		const gif = attachment.content_type === "image/gif";
+		const assetBuffer = sharp(await (await fetch(attachment.url)).arrayBuffer(), {
+			animated: true,
+		});
 		let buffer: Buffer;
 
 		if (gif) {
@@ -541,8 +587,8 @@ export default class Profile {
 				Bucket: CDN_BUCKET,
 				Key:
 					type === AssetType.Icon
-						? Profile.iconRoute(user.id, hashedBuffer)
-						: Profile.thumbnailRoute(user.id, hashedBuffer),
+						? Profile.iconRoute(invoker.id, hashedBuffer)
+						: Profile.thumbnailRoute(invoker.id, hashedBuffer),
 				Body: buffer,
 			}),
 		);
@@ -550,13 +596,13 @@ export default class Profile {
 		return hashedBuffer;
 	}
 
-	public static async edit(interaction: StringSelectMenuInteraction) {
-		const profileInteractiveEditType = interaction.values[0];
+	public static async edit(interaction: APIMessageComponentSelectMenuInteraction) {
+		const profileInteractiveEditType = interaction.data.values[0];
 
 		if (!isProfileInteractiveEditType(profileInteractiveEditType)) {
 			pino.warn(interaction, "Received an unknown profile edit type.");
 
-			await interaction.update({
+			await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 				components: [],
 				content: "Unknown profile edit type. Please try again!",
 				embeds: [],
@@ -605,8 +651,8 @@ export default class Profile {
 		}
 	}
 
-	public static async reset(interaction: StringSelectMenuInteraction) {
-		const profileInteractiveResetTypes = interaction.values;
+	public static async reset(interaction: APIMessageComponentSelectMenuInteraction) {
+		const profileInteractiveResetTypes = interaction.data.values;
 
 		if (
 			!profileInteractiveResetTypes.every((profileInteractiveResetType) =>
@@ -615,7 +661,7 @@ export default class Profile {
 		) {
 			pino.warn(interaction, "Received an unknown profile reset type.");
 
-			await interaction.update({
+			await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 				components: [],
 				content: "Unknown profile edit type. Please try again!",
 				embeds: [],
@@ -697,12 +743,13 @@ export default class Profile {
 		await Promise.all(promises);
 	}
 
-	public static async show(interaction: ChatInputCommandInteraction) {
-		const user = interaction.options.getUser("user");
-		const hide = interaction.options.getBoolean("hide") ?? false;
-
+	public static async show(
+		interaction: APIChatInputApplicationCommandInteraction,
+		user: APIUser | null,
+		hide: boolean,
+	) {
 		if (user?.bot) {
-			await interaction.reply({
+			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: "Do applications have Sky profiles? Hm. Who knows?",
 				flags: MessageFlags.Ephemeral,
 			});
@@ -710,15 +757,17 @@ export default class Profile {
 			return;
 		}
 
+		const invoker = interactionInvoker(interaction);
+
 		if (hide) {
-			Profile.exploreProfile(interaction, user?.id ?? interaction.user.id);
+			await Profile.exploreProfile(interaction, user?.id ?? invoker.id);
 		} else {
-			const profile = await this.fetch(user?.id ?? interaction.user.id).catch(() => null);
+			const profile = await this.fetch(user?.id ?? invoker.id).catch(() => null);
 
 			if (!profile) {
-				const userIsInvoker = !user || user.id === interaction.user.id;
+				const userIsInvoker = !user || user.id === invoker.id;
 
-				await interaction.reply({
+				await client.api.interactions.reply(interaction.id, interaction.token, {
 					content: `${userIsInvoker ? "You do" : `${user} does`} not have a Sky profile! Why not${
 						userIsInvoker ? "" : " ask them to"
 					} create one?`,
@@ -728,15 +777,20 @@ export default class Profile {
 				return;
 			}
 
-			await interaction.reply({ embeds: [(await profile.embed(interaction)).embed] });
+			await client.api.interactions.reply(interaction.id, interaction.token, {
+				embeds: [(await profile.embed(interaction)).embed],
+			});
 		}
 	}
 
-	public static async explore(interaction: ButtonInteraction | ChatInputCommandInteraction) {
-		const page =
-			interaction instanceof ChatInputCommandInteraction
-				? 1
-				: Number(interaction.customId.slice(interaction.customId.indexOf("§") + 1));
+	public static async explore(
+		interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
+	) {
+		const isChatInput = isChatInputCommand(interaction);
+
+		const page = isChatInput
+			? 1
+			: Number(interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1));
 
 		const limit =
 			SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER * SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.length;
@@ -751,7 +805,7 @@ export default class Profile {
 			.offset(offset);
 
 		if (profilePackets.length === 0) {
-			await interaction.reply({
+			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: "There are no profiles to explore. Why not be the first?",
 				flags: MessageFlags.Ephemeral,
 			});
@@ -767,114 +821,141 @@ export default class Profile {
 		}
 
 		const profiles = profilePackets.map((profilePacket) => new this(profilePacket));
+		const invoker = interactionInvoker(interaction);
 
 		const skyProfileLikesPackets = await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes).where({
-			user_id: interaction.user.id,
+			user_id: invoker.id,
 		});
 
-		const response = {
+		const response:
+			| Parameters<InteractionsAPI["reply"]>[2]
+			| Parameters<InteractionsAPI["updateMessage"]>[2] = {
 			components: [
-				...SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.map((customId, index) => {
-					const options = generateProfileExplorerSelectMenuOptions(
-						profiles,
-						index * SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
-						skyProfileLikesPackets,
-					);
+				...SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.map(
+					(customId, index): APIActionRowComponent<APISelectMenuComponent> | undefined => {
+						const options = generateProfileExplorerSelectMenuOptions(
+							profiles,
+							index * SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
+							skyProfileLikesPackets,
+						);
 
-					if (options.length === 0) {
-						return;
-					}
+						if (options.length === 0) {
+							return;
+						}
 
-					return new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-						new StringSelectMenuBuilder()
-							.setCustomId(customId)
-							.setMaxValues(1)
-							.setMinValues(1)
-							.setOptions(options)
-							.setPlaceholder(
-								`${generateLabelLetter(options[0]!.data.label!)} - ${generateLabelLetter(options[options.length - 1]!.data.label!)}`,
-							),
-					);
-				}).filter((selectMenu) => selectMenu !== undefined),
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID}§${page - 1}`)
-						.setDisabled(!hasPreviousPage)
-						.setEmoji("⬅️")
-						.setLabel("Back")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID}§${page + 1}`)
-						.setDisabled(!hasNextPage)
-						.setEmoji("➡️")
-						.setLabel("Next")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID}§1`)
-						.setDisabled(skyProfileLikesPackets.length === 0)
-						.setEmoji("🌐")
-						.setLabel("Explore Likes")
-						.setStyle(ButtonStyle.Secondary),
-				),
+						return {
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.StringSelect,
+									custom_id: customId,
+									max_values: 1,
+									min_values: 1,
+									options,
+									placeholder: `${generateLabelLetter(options[0]!.label)} - ${generateLabelLetter(
+										options[options.length - 1]!.label,
+									)}`,
+								},
+							],
+						};
+					},
+				).filter((selectMenu) => selectMenu !== undefined),
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID}§${page - 1}`,
+							disabled: !hasPreviousPage,
+							emoji: { name: "⬅️" },
+							label: "Back",
+							style: ButtonStyle.Secondary,
+						},
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID}§${page + 1}`,
+							disabled: !hasNextPage,
+							emoji: { name: "➡️" },
+							label: "Next",
+							style: ButtonStyle.Secondary,
+						},
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID}§1`,
+							disabled: skyProfileLikesPackets.length === 0,
+							emoji: { name: "🌐" },
+							label: "Explore Likes",
+							style: ButtonStyle.Secondary,
+						},
+					],
+				},
 			],
 			content: "",
 			embeds: [
-				new EmbedBuilder()
-					.setColor(DEFAULT_EMBED_COLOUR)
-					.setDescription(
-						`You can explore Sky profiles others have created!\n\nYou can ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} a Sky profile to keep track of it, and report any Sky profiles that are not in the spirit of Sky.\n\nHave fun exploring!`,
-					)
-					.setTitle("Sky Profile Explorer"),
+				{
+					color: DEFAULT_EMBED_COLOUR,
+					description: `You can explore Sky profiles others have created!\n\nYou can ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} a Sky profile to keep track of it, and report any Sky profiles that are not in the spirit of Sky.\n\nHave fun exploring!`,
+					title: "Sky Profile Explorer",
+				},
 			],
 		};
 
-		if (interaction instanceof ButtonInteraction) {
-			await interaction.update(response);
+		if (isChatInput) {
+			await client.api.interactions.reply(interaction.id, interaction.token, {
+				...response,
+				flags: MessageFlags.Ephemeral,
+			});
 		} else {
-			await interaction.reply({ ...response, flags: MessageFlags.Ephemeral });
+			await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 		}
 	}
 
-	public static async exploreAutocomplete(interaction: AutocompleteInteraction) {
-		const focused = interaction.options.getFocused().toUpperCase();
+	public static async exploreAutocomplete(
+		interaction: APIApplicationCommandAutocompleteInteraction,
+		options: OptionResolver,
+	) {
+		const focused = options
+			.getFocusedOption(ApplicationCommandOptionType.String)
+			.value.toUpperCase();
 
-		await interaction.respond(
-			focused.length === 0
-				? []
-				: (
-						await pg<ProfilePacket>(Table.Profiles)
-							.select(["user_id", "name", "description"])
-							.where("name", "ilike", `%${focused}%`)
-							.limit(25)
-					).map(({ user_id, name: skyProfileName, description }) => {
-						let name = `${skyProfileName}`;
+		await client.api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
+			choices:
+				focused.length === 0
+					? []
+					: (
+							await pg<ProfilePacket>(Table.Profiles)
+								.select(["user_id", "name", "description"])
+								.where("name", "ilike", `%${focused}%`)
+								.limit(25)
+						).map(({ user_id, name: skyProfileName, description }) => {
+							let name = `${skyProfileName}`;
 
-						if (description) {
-							name += `: ${description}`;
-						}
+							if (description) {
+								name += `: ${description}`;
+							}
 
-						if (name.length > SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH) {
-							name = `${name.slice(0, SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH - 3)}...`;
-						}
+							if (name.length > SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH) {
+								name = `${name.slice(0, SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH - 3)}...`;
+							}
 
-						return { name, value: user_id };
-					}),
-		);
+							return { name, value: user_id };
+						}),
+		});
 	}
 
 	public static async exploreProfile(
 		interaction:
-			| ButtonInteraction
-			| ChatInputCommandInteraction
-			| StringSelectMenuInteraction
-			| UserContextMenuCommandInteraction,
+			| APIChatInputApplicationCommandInteraction
+			| APIMessageComponentButtonInteraction
+			| APIMessageComponentSelectMenuInteraction
+			| APIUserApplicationCommandInteraction,
 		userId: Snowflake,
 	) {
-		const { user } = interaction;
+		const invoker = interactionInvoker(interaction);
 		const profile = await this.fetch(userId).catch(() => null);
 
 		if (!profile) {
-			await interaction.reply({
+			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: "This Sky kid does not have a Sky profile. Maybe they should make one!",
 				flags: MessageFlags.Ephemeral,
 			});
@@ -885,58 +966,74 @@ export default class Profile {
 		const name = profile.name!;
 		const previous = await this.exploreProfilePreviousRow(name, userId);
 		const next = await this.exploreProfileNextRow(name, userId);
-		const ownSkyProfile = user.id === profile.userId;
+		const ownSkyProfile = invoker.id === profile.userId;
 
 		const isLiked =
 			(
 				await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes).where({
-					user_id: interaction.user.id,
+					user_id: invoker.id,
 					target_id: userId,
 				})
 			).length === 1;
 
-		const response = {
+		const response:
+			| Parameters<InteractionsAPI["reply"]>[2]
+			| Parameters<InteractionsAPI["updateMessage"]>[2] = {
 			components: [
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID}§${previous?.user_id}`)
-						.setDisabled(!previous)
-						.setEmoji("⬅️")
-						.setLabel("Back")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID}§${next?.user_id}`)
-						.setDisabled(!next)
-						.setEmoji("➡️")
-						.setLabel("Next")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID}§${userId}`)
-						.setDisabled(ownSkyProfile)
-						.setEmoji(MISCELLANEOUS_EMOJIS.Heart)
-						.setLabel(isLiked ? "Unlike" : "Like")
-						.setStyle(isLiked ? ButtonStyle.Secondary : ButtonStyle.Success),
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID}§1`)
-						.setEmoji("🌐")
-						.setLabel("Explore")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID}§${userId}`)
-						.setDisabled(ownSkyProfile)
-						.setEmoji("⚠️")
-						.setLabel("Report")
-						.setStyle(ButtonStyle.Secondary),
-				),
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID}§${previous?.user_id}`,
+							disabled: !previous,
+							emoji: { name: "⬅️" },
+							label: "Back",
+							style: ButtonStyle.Secondary,
+						},
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID}§${next?.user_id}`,
+							disabled: !next,
+							emoji: { name: "➡️" },
+							label: "Next",
+							style: ButtonStyle.Secondary,
+						},
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID}§${userId}`,
+							disabled: ownSkyProfile,
+							emoji: MISCELLANEOUS_EMOJIS.Heart,
+							label: isLiked ? "Unlike" : "Like",
+							style: isLiked ? ButtonStyle.Secondary : ButtonStyle.Success,
+						},
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID}§1`,
+							emoji: { name: "🌐" },
+							label: "Explore",
+							style: ButtonStyle.Secondary,
+						},
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID}§${userId}`,
+							disabled: ownSkyProfile,
+							emoji: { name: "⚠️" },
+							label: "Report",
+							style: ButtonStyle.Secondary,
+						},
+					],
+				},
 			],
-			content: userMention(userId),
+			content: `<@${userId}>`,
 			embeds: [(await profile.embed(interaction)).embed],
+			flags: MessageFlags.Ephemeral,
 		};
 
-		if (interaction.isMessageComponent()) {
-			await interaction.update(response);
+		if (interaction.type === InteractionType.MessageComponent) {
+			await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 		} else {
-			await interaction.reply({ ...response, flags: MessageFlags.Ephemeral });
+			await client.api.interactions.reply(interaction.id, interaction.token, response);
 		}
 	}
 
@@ -968,9 +1065,13 @@ export default class Profile {
 		return next ? next : null;
 	}
 
-	public static async exploreLikes(interaction: ButtonInteraction | StringSelectMenuInteraction) {
-		const { customId, user } = interaction;
-		const page = Number(customId.slice(customId.indexOf("§") + 1));
+	public static async exploreLikes(
+		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+	) {
+		const invoker = interactionInvoker(interaction);
+		const page = Number(
+			interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1),
+		);
 
 		const limit =
 			SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER *
@@ -981,14 +1082,14 @@ export default class Profile {
 		const profilePackets = await pg(Table.SkyProfileLikes)
 			.join(Table.Profiles, `${Table.SkyProfileLikes}.target_id`, `${Table.Profiles}.user_id`)
 			.select(`${Table.Profiles}.*`)
-			.where(`${Table.SkyProfileLikes}.user_id`, user.id)
+			.where(`${Table.SkyProfileLikes}.user_id`, invoker.id)
 			.orderBy(`${Table.Profiles}.name`, "asc")
 			.orderBy(`${Table.Profiles}.user_id`, "asc")
 			.limit(limit + 1)
 			.offset(offset);
 
 		if (profilePackets.length === 0) {
-			await interaction.reply({
+			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: "You have no Sky profiles that you've liked.",
 				flags: MessageFlags.Ephemeral,
 			});
@@ -1005,55 +1106,72 @@ export default class Profile {
 
 		const profiles = profilePackets.map((profilePacket) => new this(profilePacket));
 
-		await interaction.update({
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
-				...SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS.map((customId, index) => {
-					const options = generateProfileExplorerSelectMenuOptions(
-						profiles,
-						index * SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
-					);
+				...SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS.map(
+					(customId, index): APIActionRowComponent<APISelectMenuComponent> | undefined => {
+						const options = generateProfileExplorerSelectMenuOptions(
+							profiles,
+							index * SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
+						);
 
-					if (options.length === 0) {
-						return;
-					}
+						if (options.length === 0) {
+							return;
+						}
 
-					return new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-						new StringSelectMenuBuilder()
-							.setCustomId(customId)
-							.setMaxValues(1)
-							.setMinValues(1)
-							.setOptions(options)
-							.setPlaceholder(
-								`${generateLabelLetter(options[0]!.data.label!)} - ${generateLabelLetter(options[options.length - 1]!.data.label!)}`,
-							),
-					);
-				}).filter((selectMenu) => selectMenu !== undefined),
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID}§${page - 1}`)
-						.setDisabled(!hasPreviousPage)
-						.setEmoji("⬅️")
-						.setLabel("Back")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID}§${page + 1}`)
-						.setDisabled(!hasNextPage)
-						.setEmoji("➡️")
-						.setLabel("Next")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID}§1`)
-						.setEmoji("🌐")
-						.setLabel("Explore")
-						.setStyle(ButtonStyle.Secondary),
-				),
+						return {
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.StringSelect,
+									custom_id: customId,
+									max_values: 1,
+									min_values: 1,
+									options,
+									placeholder: `${generateLabelLetter(options[0]!.label)} - ${generateLabelLetter(
+										options[options.length - 1]!.label,
+									)}`,
+								},
+							],
+						};
+					},
+				).filter((selectMenu) => selectMenu !== undefined),
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID}§${page - 1}`,
+							disabled: !hasPreviousPage,
+							emoji: { name: "⬅️" },
+							label: "Back",
+							style: ButtonStyle.Secondary,
+						},
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID}§${page + 1}`,
+							disabled: !hasNextPage,
+							emoji: { name: "➡️" },
+							label: "Next",
+							style: ButtonStyle.Secondary,
+						},
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID}§1`,
+							emoji: { name: "🌐" },
+							label: "Explore",
+							style: ButtonStyle.Secondary,
+						},
+					],
+				},
 			],
 			content: "",
 			embeds: [
-				new EmbedBuilder()
-					.setColor(DEFAULT_EMBED_COLOUR)
-					.setDescription(`You ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} these Sky profiles!`)
-					.setTitle("Sky Profile Explorer"),
+				{
+					color: DEFAULT_EMBED_COLOUR,
+					description: `You ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} these Sky profiles!`,
+					title: "Sky Profile Explorer",
+				},
 			],
 		});
 	}
@@ -1109,18 +1227,18 @@ export default class Profile {
 	}
 
 	public static async exploreLikedProfile(
-		interaction: ButtonInteraction | StringSelectMenuInteraction,
+		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	) {
-		const { user } = interaction;
+		const invoker = interactionInvoker(interaction);
 
-		const userId = interaction.isButton()
-			? interaction.customId.slice(interaction.customId.indexOf("§") + 1)
-			: interaction.values[0]!;
+		const userId = isButton(interaction)
+			? interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1)
+			: interaction.data.values[0]!;
 
 		const profile = await this.fetch(userId).catch(() => null);
 
 		if (!profile) {
-			await interaction.reply({
+			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: "Could not go to that Sky kid's Sky profile. Try browsing?",
 				flags: MessageFlags.Ephemeral,
 			});
@@ -1129,64 +1247,76 @@ export default class Profile {
 		}
 
 		const name = profile.name!;
-		const previous = await this.exploreLikedProfilePreviousRow(name, user.id, userId);
-		const next = await this.exploreLikedProfileNextRow(name, user.id, userId);
-		const ownSkyProfile = user.id === profile.userId;
+		const previous = await this.exploreLikedProfilePreviousRow(name, invoker.id, userId);
+		const next = await this.exploreLikedProfileNextRow(name, invoker.id, userId);
+		const ownSkyProfile = invoker.id === profile.userId;
 
 		const isLiked =
 			(
 				await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes).where({
-					user_id: interaction.user.id,
+					user_id: invoker.id,
 					target_id: userId,
 				})
 			).length === 1;
 
-		await interaction.update({
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID}§${previous?.user_id}`)
-						.setDisabled(!previous)
-						.setEmoji("⬅️")
-						.setLabel("Back")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID}§${next?.user_id}`)
-						.setDisabled(!next)
-						.setEmoji("➡️")
-						.setLabel("Next")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID}§${userId}`)
-						.setDisabled(ownSkyProfile)
-						.setEmoji(MISCELLANEOUS_EMOJIS.Heart)
-						.setLabel(isLiked ? "Unlike" : "Like")
-						.setStyle(isLiked ? ButtonStyle.Secondary : ButtonStyle.Success),
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID}§1`)
-						.setEmoji("🌐")
-						.setLabel("Explore Likes")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID}§${userId}`)
-						.setDisabled(ownSkyProfile)
-						.setEmoji("⚠️")
-						.setLabel("Report")
-						.setStyle(ButtonStyle.Secondary),
-				),
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID}§${previous?.user_id}`,
+							disabled: !previous,
+							emoji: { name: "⬅️" },
+							label: "Back",
+							style: ButtonStyle.Secondary,
+						},
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID}§${next?.user_id}`,
+							disabled: !next,
+							emoji: { name: "➡️" },
+							label: "Next",
+							style: ButtonStyle.Secondary,
+						},
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID}§${userId}`,
+							disabled: ownSkyProfile,
+							emoji: MISCELLANEOUS_EMOJIS.Heart,
+							label: isLiked ? "Unlike" : "Like",
+							style: isLiked ? ButtonStyle.Secondary : ButtonStyle.Success,
+						},
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID}§1`,
+							emoji: { name: "🌐" },
+							label: "Explore Likes",
+							style: ButtonStyle.Secondary,
+						},
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID}§${userId}`,
+							disabled: ownSkyProfile,
+							emoji: { name: "⚠️" },
+							label: "Report",
+							style: ButtonStyle.Secondary,
+						},
+					],
+				},
 			],
-			content: userMention(userId),
+			content: `<@${userId}>`,
 			embeds: [(await profile.embed(interaction)).embed],
 		});
 	}
 
-	public static async like(interaction: ButtonInteraction, fromLike = false) {
-		const { customId } = interaction;
-		const userId = customId.slice(customId.indexOf("§") + 1);
+	public static async like(interaction: APIMessageComponentButtonInteraction, fromLike = false) {
+		const userId = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
 		const profile = await this.fetch(userId).catch(() => null);
 
 		if (!profile) {
-			await interaction.reply({
+			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: "This Sky kid does not have a Sky profile. Why not ask them to make one?",
 				flags: MessageFlags.Ephemeral,
 			});
@@ -1194,8 +1324,10 @@ export default class Profile {
 			return;
 		}
 
-		if (interaction.user.id === profile.userId) {
-			await interaction.reply({
+		const invoker = interactionInvoker(interaction);
+
+		if (invoker.id === profile.userId) {
+			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: "You can't like your own Sky profile!",
 				flags: MessageFlags.Ephemeral,
 			});
@@ -1204,18 +1336,18 @@ export default class Profile {
 		}
 
 		const [like] = await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes).where({
-			user_id: interaction.user.id,
+			user_id: invoker.id,
 			target_id: userId,
 		});
 
 		if (like) {
 			await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes).delete().where({
-				user_id: interaction.user.id,
+				user_id: invoker.id,
 				target_id: userId,
 			});
 		} else {
 			await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes).insert({
-				user_id: interaction.user.id,
+				user_id: invoker.id,
 				target_id: userId,
 			});
 		}
@@ -1225,13 +1357,12 @@ export default class Profile {
 			: this.exploreProfile(interaction, userId));
 	}
 
-	public static async report(interaction: ButtonInteraction, fromLike = false) {
-		const { customId } = interaction;
-		const userId = customId.slice(customId.indexOf("§") + 1);
+	public static async report(interaction: APIMessageComponentButtonInteraction, fromLike = false) {
+		const userId = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
 		const profile = await this.fetch(userId).catch(() => null);
 
 		if (!profile) {
-			await interaction.reply({
+			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: "This Sky kid does not have a Sky profile. Why not ask them to make one?",
 				flags: MessageFlags.Ephemeral,
 			});
@@ -1239,22 +1370,27 @@ export default class Profile {
 			return;
 		}
 
-		await interaction.update({
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					new ButtonBuilder()
-						.setCustomId(
-							`${fromLike ? SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID : SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID}§${userId}`,
-						)
-						.setEmoji("⬅️")
-						.setLabel("Back")
-						.setStyle(ButtonStyle.Secondary),
-					new ButtonBuilder()
-						.setCustomId(`${SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID}§${userId}`)
-						.setEmoji("⚠️")
-						.setLabel("Confirm")
-						.setStyle(ButtonStyle.Danger),
-				),
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.Button,
+							custom_id: `${fromLike ? SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID : SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID}§${userId}`,
+							emoji: { name: "⬅️" },
+							label: "Back",
+							style: ButtonStyle.Secondary,
+						},
+						{
+							type: ComponentType.Button,
+							custom_id: `${SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID}§${userId}`,
+							emoji: { name: "⚠️" },
+							label: "Confirm",
+							style: ButtonStyle.Danger,
+						},
+					],
+				},
 			],
 			content:
 				"If someone's Sky profile is not in the spirit of Sky (excessive slurs, spam, etc.), feel free to report it so it can be reviewed.\n\nDo you wish to report this Sky profile?",
@@ -1262,13 +1398,12 @@ export default class Profile {
 		});
 	}
 
-	public static async reportModalPrompt(interaction: ButtonInteraction) {
-		const { customId } = interaction;
-		const userId = customId.slice(customId.indexOf("§") + 1);
+	public static async reportModalPrompt(interaction: APIMessageComponentButtonInteraction) {
+		const userId = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
 		const profile = await this.fetch(userId).catch(() => null);
 
 		if (!profile) {
-			await interaction.reply({
+			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: "This Sky kid does not have a Sky profile. Why not ask them to make one?",
 				flags: MessageFlags.Ephemeral,
 			});
@@ -1276,32 +1411,34 @@ export default class Profile {
 			return;
 		}
 
-		await interaction.showModal(
-			new ModalBuilder()
-				.setComponents(
-					new ActionRowBuilder<TextInputBuilder>().setComponents(
-						new TextInputBuilder()
-							.setCustomId(SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID)
-							.setLabel("What's wrong with this Sky profile?")
-							.setMaxLength(SKY_PROFILE_REPORT_MAXIMUM_LENGTH)
-							.setMinLength(SKY_PROFILE_REPORT_MINIMUM_LENGTH)
-							.setStyle(TextInputStyle.Paragraph),
-					),
-				)
-				.setCustomId(`${SKY_PROFILE_REPORT_MODAL_CUSTOM_ID}§${userId}`)
-				.setTitle("Report Sky Profile"),
-		);
+		await client.api.interactions.createModal(interaction.id, interaction.token, {
+			components: [
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.TextInput,
+							custom_id: SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID,
+							label: "What's wrong with this Sky profile?",
+							max_length: SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
+							min_length: SKY_PROFILE_REPORT_MINIMUM_LENGTH,
+							style: TextInputStyle.Paragraph,
+						},
+					],
+				},
+			],
+			custom_id: `${SKY_PROFILE_REPORT_MODAL_CUSTOM_ID}§${userId}`,
+			title: "Report Sky Profile",
+		});
 	}
 
-	public static async sendReport(interaction: ModalMessageModalSubmitInteraction) {
-		const channel = interaction.client.channels.cache.get(
-			process.env.SKY_PROFILE_REPORTS_CHANNEL_ID!,
-		);
+	public static async sendReport(interaction: APIModalSubmitInteraction) {
+		const guild = GUILD_CACHE.get(DEVELOPER_GUILD_ID);
 
-		if (!channel?.isSendable()) {
-			pino.error(interaction, "Could not find the Sky profile reports channel.");
+		if (!guild) {
+			pino.error(interaction, "Could not find the guild of the Sky profile reports channel.");
 
-			await interaction.update({
+			await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 				components: [],
 				content: "This Sky profile has been reported. Thank you for keeping the community safe!",
 			});
@@ -1309,12 +1446,47 @@ export default class Profile {
 			return;
 		}
 
-		const { customId, fields } = interaction;
-		const userId = customId.slice(customId.indexOf("§") + 1);
+		const channel = guild.channels.get(process.env.SKY_PROFILE_REPORTS_CHANNEL_ID!);
+
+		if (channel?.type !== ChannelType.GuildText) {
+			pino.error(interaction, "Could not find the Sky profile reports channel.");
+
+			await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+				components: [],
+				content: "This Sky profile has been reported. Thank you for keeping the community safe!",
+			});
+
+			return;
+		}
+
+		const me = await guild.fetchMe();
+
+		if (
+			!can({
+				permission:
+					PermissionFlagsBits.EmbedLinks |
+					PermissionFlagsBits.SendMessages |
+					PermissionFlagsBits.ViewChannel,
+				guild,
+				member: me,
+				channel,
+			})
+		) {
+			pino.error(interaction, "Missing permissions to post in the Sky profile reports channel.");
+
+			await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+				components: [],
+				content: "This Sky profile has been reported. Thank you for keeping the community safe!",
+			});
+
+			return;
+		}
+
+		const userId = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
 		const profile = await this.fetch(userId).catch(() => null);
 
 		if (!profile) {
-			await interaction.reply({
+			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: "This Sky kid does not have a Sky profile. Why not ask them to make one?",
 				flags: MessageFlags.Ephemeral,
 			});
@@ -1322,161 +1494,176 @@ export default class Profile {
 			return;
 		}
 
-		const text = fields.getTextInputValue(SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID);
+		const components = new ModalResolver(interaction.data.components);
+		const text = components.getTextInputValue(SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID);
+		const invoker = interactionInvoker(interaction);
 
-		await channel.send({
-			allowedMentions: { parse: [] },
-			content: `Report by ${interaction.user} (${interaction.user.tag}) against ${userMention(profile.userId)}:\n>>> ${text}`,
+		await client.api.channels.createMessage(channel.id, {
+			allowed_mentions: { parse: [] },
+			content: `Report by ${userLogFormat(invoker)} against <@${profile.userId}>:\n>>> ${text}`,
 			embeds: [(await profile.embed(interaction)).embed],
 		});
 
-		await interaction.update({
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [],
 			content: "This Sky profile has been reported. Thank you for keeping the community safe!",
 		});
 	}
 
-	public static async showNameModal(interaction: StringSelectMenuInteraction) {
-		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+	public static async showNameModal(interaction: APIMessageComponentSelectMenuInteraction) {
+		const invoker = interactionInvoker(interaction);
+		const profile = await Profile.fetch(invoker.id).catch(() => null);
 
-		const textInput = new TextInputBuilder()
-			.setCustomId(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID)
-			.setLabel("What's your in-game name?")
-			.setMaxLength(SKY_PROFILE_MAXIMUM_NAME_LENGTH)
-			.setMinLength(1)
-			.setRequired()
-			.setStyle(TextInputStyle.Short);
+		const textInput: APITextInputComponent = {
+			type: ComponentType.TextInput,
+			custom_id: SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID,
+			label: "What's your in-game name?",
+			max_length: SKY_PROFILE_MAXIMUM_NAME_LENGTH,
+			min_length: 1,
+			required: true,
+			style: TextInputStyle.Short,
+		};
 
 		if (profile?.name) {
-			textInput.setValue(profile.name);
+			textInput.value = profile.name;
 		}
 
-		await interaction.showModal(
-			new ModalBuilder()
-				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
-				.setCustomId(SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID)
-				.setTitle("Sky Profile"),
-		);
+		await client.api.interactions.createModal(interaction.id, interaction.token, {
+			components: [{ type: ComponentType.ActionRow, components: [textInput] }],
+			custom_id: SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID,
+			title: "Sky Profile",
+		});
 	}
 
-	public static async showDescriptionModal(interaction: StringSelectMenuInteraction) {
-		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+	public static async showDescriptionModal(interaction: APIMessageComponentSelectMenuInteraction) {
+		const invoker = interactionInvoker(interaction);
+		const profile = await Profile.fetch(invoker.id).catch(() => null);
 
-		const textInput = new TextInputBuilder()
-			.setCustomId(SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID)
-			.setLabel("Type a lovely description about your Skykid!")
-			.setMaxLength(SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH)
-			.setMinLength(1)
-			.setRequired()
-			.setStyle(TextInputStyle.Paragraph);
+		const textInput: APITextInputComponent = {
+			type: ComponentType.TextInput,
+			custom_id: SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID,
+			label: "Type a lovely description about your Skykid!",
+			max_length: SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
+			min_length: 1,
+			required: true,
+			style: TextInputStyle.Paragraph,
+		};
 
 		if (profile?.description) {
-			textInput.setValue(profile.description);
+			textInput.value = profile.description;
 		}
 
-		await interaction.showModal(
-			new ModalBuilder()
-				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
-				.setCustomId(SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID)
-				.setTitle("Sky Profile"),
-		);
+		await client.api.interactions.createModal(interaction.id, interaction.token, {
+			components: [{ type: ComponentType.ActionRow, components: [textInput] }],
+			custom_id: SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
+			title: "Sky Profile",
+		});
 	}
 
-	public static async showWingedLightModal(interaction: StringSelectMenuInteraction) {
-		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+	public static async showWingedLightModal(interaction: APIMessageComponentSelectMenuInteraction) {
+		const invoker = interactionInvoker(interaction);
+		const profile = await Profile.fetch(invoker.id).catch(() => null);
 
-		const textInput = new TextInputBuilder()
-			.setCustomId(SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID)
-			.setLabel(
-				`How much winged light do you have? (${MINIMUM_WINGED_LIGHT}-${MAXIMUM_WINGED_LIGHT})`,
-			)
-			.setMaxLength(SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH)
-			.setMinLength(SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH)
-			.setRequired()
-			.setStyle(TextInputStyle.Short);
+		const textInput: APITextInputComponent = {
+			type: ComponentType.TextInput,
+			custom_id: SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID,
+			label: `How much winged light do you have? (${MINIMUM_WINGED_LIGHT}-${MAXIMUM_WINGED_LIGHT})`,
+			max_length: SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH,
+			min_length: SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH,
+			required: true,
+			style: TextInputStyle.Short,
+		};
 
 		if (profile?.wingedLight) {
-			textInput.setValue(String(profile.wingedLight));
+			textInput.value = String(profile.wingedLight);
 		}
 
-		await interaction.showModal(
-			new ModalBuilder()
-				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
-				.setCustomId(SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID)
-				.setTitle("Sky Profile"),
-		);
+		await client.api.interactions.createModal(interaction.id, interaction.token, {
+			components: [{ type: ComponentType.ActionRow, components: [textInput] }],
+			custom_id: SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID,
+			title: "Sky Profile",
+		});
 	}
 
-	public static async showCountryModal(interaction: StringSelectMenuInteraction) {
-		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+	public static async showCountryModal(interaction: APIMessageComponentSelectMenuInteraction) {
+		const invoker = interactionInvoker(interaction);
+		const profile = await Profile.fetch(invoker.id).catch(() => null);
 
-		const textInput = new TextInputBuilder()
-			.setCustomId(SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID)
-			.setLabel("Feel like specifying your country?")
-			.setMaxLength(SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH)
-			.setMinLength(SKY_PROFILE_MINIMUM_COUNTRY_LENGTH)
-			.setRequired()
-			.setStyle(TextInputStyle.Short);
+		const textInput: APITextInputComponent = {
+			type: ComponentType.TextInput,
+			custom_id: SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID,
+			label: "Feel like specifying your country?",
+			max_length: SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
+			min_length: SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
+			required: true,
+			style: TextInputStyle.Short,
+		};
 
 		if (profile?.country) {
-			textInput.setValue(profile.country);
+			textInput.value = profile.country;
 		}
 
-		await interaction.showModal(
-			new ModalBuilder()
-				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
-				.setCustomId(SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID)
-				.setTitle("Sky Profile"),
-		);
+		await client.api.interactions.createModal(interaction.id, interaction.token, {
+			components: [{ type: ComponentType.ActionRow, components: [textInput] }],
+			custom_id: SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID,
+			title: "Sky Profile",
+		});
 	}
 
-	private static async showSpotModal(interaction: StringSelectMenuInteraction) {
-		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+	private static async showSpotModal(interaction: APIMessageComponentSelectMenuInteraction) {
+		const invoker = interactionInvoker(interaction);
+		const profile = await Profile.fetch(invoker.id).catch(() => null);
 
-		const textInput = new TextInputBuilder()
-			.setCustomId(SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID)
-			.setLabel("Where's your favourite spot to hang out?")
-			.setMaxLength(SKY_PROFILE_MAXIMUM_SPOT_LENGTH)
-			.setMinLength(SKY_PROFILE_MINIMUM_SPOT_LENGTH)
-			.setRequired()
-			.setStyle(TextInputStyle.Short);
+		const textInput: APITextInputComponent = {
+			type: ComponentType.TextInput,
+			custom_id: SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID,
+			label: "Where's your favourite spot to hang out?",
+			max_length: SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
+			min_length: SKY_PROFILE_MINIMUM_SPOT_LENGTH,
+			required: true,
+			style: TextInputStyle.Short,
+		};
 
 		if (profile?.spot) {
-			textInput.setValue(profile.spot);
+			textInput.value = profile.spot;
 		}
 
-		await interaction.showModal(
-			new ModalBuilder()
-				.setComponents(new ActionRowBuilder<TextInputBuilder>().setComponents(textInput))
-				.setCustomId(SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID)
-				.setTitle("Sky Profile"),
-		);
+		await client.api.interactions.createModal(interaction.id, interaction.token, {
+			components: [{ type: ComponentType.ActionRow, components: [textInput] }],
+			custom_id: SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID,
+			title: "Sky Profile",
+		});
 	}
 
-	private static async showSeasonsSelectMenu(interaction: StringSelectMenuInteraction) {
+	private static async showSeasonsSelectMenu(
+		interaction: APIMessageComponentSelectMenuInteraction,
+	) {
 		const { locale } = interaction;
-		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+		const invoker = interactionInvoker(interaction);
+		const profile = await Profile.fetch(invoker.id).catch(() => null);
 		const currentSeasons = profile?.seasons;
 		const seasons = skySeasons();
 
-		await interaction.update({
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
-				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId(SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID)
-						.setMaxValues(seasons.length)
-						.setMinValues(0)
-						.setOptions(
-							seasons.map((season) =>
-								new StringSelectMenuOptionBuilder()
-									.setDefault(currentSeasons?.includes(season.id) ?? false)
-									.setEmoji(season.emoji)
-									.setLabel(t(`seasons.${season.id}`, { lng: locale, ns: "general" }))
-									.setValue(String(season.id)),
-							),
-						)
-						.setPlaceholder("Select the seasons you participated in!"),
-				),
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.StringSelect,
+							custom_id: SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID,
+							max_values: seasons.length,
+							min_values: 0,
+							options: seasons.map((season) => ({
+								default: currentSeasons?.includes(season.id) ?? false,
+								emoji: season.emoji,
+								label: t(`seasons.${season.id}`, { lng: locale, ns: "general" }),
+								value: String(season.id),
+							})),
+							placeholder: "Select the seasons you participated in!",
+						},
+					],
+				},
 				SKY_PROFILE_BACK_TO_START_ACTION_ROW,
 			],
 			content: "",
@@ -1484,28 +1671,33 @@ export default class Profile {
 		});
 	}
 
-	private static async showPlatformsSelectMenu(interaction: StringSelectMenuInteraction) {
-		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+	private static async showPlatformsSelectMenu(
+		interaction: APIMessageComponentSelectMenuInteraction,
+	) {
+		const invoker = interactionInvoker(interaction);
+		const profile = await Profile.fetch(invoker.id).catch(() => null);
 		const currentPlatforms = profile?.platform;
 
-		await interaction.update({
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
-				new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-					new StringSelectMenuBuilder()
-						.setCustomId(SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID)
-						.setMaxValues(PLATFORM_ID_VALUES.length)
-						.setMinValues(0)
-						.setOptions(
-							PLATFORM_ID_VALUES.map((platformId) =>
-								new StringSelectMenuOptionBuilder()
-									.setDefault(currentPlatforms?.includes(platformId) ?? false)
-									.setEmoji(formatEmoji(PlatformIdToEmoji[platformId]))
-									.setLabel(PlatformIdToString[platformId])
-									.setValue(String(platformId)),
-							),
-						)
-						.setPlaceholder("Select the platforms you play on!"),
-				),
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.StringSelect,
+							custom_id: SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID,
+							max_values: PLATFORM_ID_VALUES.length,
+							min_values: 0,
+							options: PLATFORM_ID_VALUES.map((platformId) => ({
+								default: currentPlatforms?.includes(platformId) ?? false,
+								emoji: PlatformIdToEmoji[platformId],
+								label: PlatformIdToString[platformId],
+								value: String(platformId),
+							})),
+							placeholder: "Select the platforms you play on!",
+						},
+					],
+				},
 				SKY_PROFILE_BACK_TO_START_ACTION_ROW,
 			],
 			content: "",
@@ -1513,28 +1705,33 @@ export default class Profile {
 		});
 	}
 
-	public static setName(interaction: ModalMessageModalSubmitInteraction) {
-		const name = interaction.fields.getTextInputValue(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID).trim();
+	public static setName(interaction: APIModalSubmitInteraction) {
+		const components = new ModalResolver(interaction.data.components);
+		const name = components.getTextInputValue(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID).trim();
 		return this.set(interaction, { name });
 	}
 
-	public static setDescription(interaction: ModalMessageModalSubmitInteraction) {
-		const description = interaction.fields
+	public static setDescription(interaction: APIModalSubmitInteraction) {
+		const components = new ModalResolver(interaction.data.components);
+
+		const description = components
 			.getTextInputValue(SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID)
 			.trim();
 
 		return this.set(interaction, { description });
 	}
 
-	public static async setWingedLight(interaction: ModalMessageModalSubmitInteraction) {
-		const wingedLight = interaction.fields
+	public static async setWingedLight(interaction: APIModalSubmitInteraction) {
+		const components = new ModalResolver(interaction.data.components);
+
+		const wingedLight = components
 			.getTextInputValue(SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID)
 			.trim();
 
 		const wingedLightNumber = Number(wingedLight);
 
 		if (!Number.isInteger(wingedLightNumber)) {
-			await interaction.reply({
+			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: `Please enter an integer between ${MINIMUM_WINGED_LIGHT} and ${MAXIMUM_WINGED_LIGHT}.`,
 				flags: MessageFlags.Ephemeral,
 			});
@@ -1545,30 +1742,31 @@ export default class Profile {
 		return this.set(interaction, { winged_light: wingedLightNumber });
 	}
 
-	public static setCountry(interaction: ModalMessageModalSubmitInteraction) {
-		const country = interaction.fields
-			.getTextInputValue(SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID)
-			.trim();
+	public static setCountry(interaction: APIModalSubmitInteraction) {
+		const components = new ModalResolver(interaction.data.components);
+
+		const country = components.getTextInputValue(SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID).trim();
 
 		return this.set(interaction, { country });
 	}
 
-	public static setSpot(interaction: ModalMessageModalSubmitInteraction) {
-		const spot = interaction.fields.getTextInputValue(SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID).trim();
+	public static setSpot(interaction: APIModalSubmitInteraction) {
+		const components = new ModalResolver(interaction.data.components);
+		const spot = components.getTextInputValue(SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID).trim();
 		return this.set(interaction, { spot });
 	}
 
-	public static setSeasons(interaction: StringSelectMenuInteraction) {
+	public static setSeasons(interaction: APIMessageComponentSelectMenuInteraction) {
 		return this.set(interaction, {
-			seasons: interaction.values.map((value) => Number(value) as SeasonIds),
+			seasons: interaction.data.values.map((value) => Number(value) as SeasonIds),
 		});
 	}
 
-	public static async setPlatform(interaction: StringSelectMenuInteraction) {
-		const platformIds = interaction.values.map((value) => Number(value));
+	public static async setPlatform(interaction: APIMessageComponentSelectMenuInteraction) {
+		const platformIds = interaction.data.values.map((value) => Number(value));
 
 		if (!platformIds.every((platformId) => isPlatformId(platformId))) {
-			await interaction.reply({
+			await client.api.interactions.reply(interaction.id, interaction.token, {
 				components: [],
 				content: "Invalid platform selected. Please try again.",
 				flags: MessageFlags.Ephemeral,
@@ -1580,13 +1778,15 @@ export default class Profile {
 		return this.set(interaction, { platform: platformIds });
 	}
 
-	private static async setCatalogueProgression(interaction: StringSelectMenuInteraction) {
-		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+	private static async setCatalogueProgression(
+		interaction: APIMessageComponentSelectMenuInteraction,
+	) {
+		const profile = await Profile.fetch(interactionInvoker(interaction).id).catch(() => null);
 		await Profile.set(interaction, { catalogue_progression: !profile?.catalogueProgression });
 	}
 
-	private static async setGuessRank(interaction: StringSelectMenuInteraction) {
-		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+	private static async setGuessRank(interaction: APIMessageComponentSelectMenuInteraction) {
+		const profile = await Profile.fetch(interactionInvoker(interaction).id).catch(() => null);
 		await Profile.set(interaction, { guess_rank: !profile?.guessRank });
 	}
 
@@ -1610,21 +1810,26 @@ export default class Profile {
 
 	public static async showEdit(
 		interaction:
-			| ButtonInteraction
-			| ChatInputCommandInteraction
-			| ModalMessageModalSubmitInteraction
-			| StringSelectMenuInteraction,
+			| APIChatInputApplicationCommandInteraction
+			| APIMessageComponentButtonInteraction
+			| APIMessageComponentSelectMenuInteraction
+			| APIModalSubmitInteraction,
+		defer?: boolean,
 	) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
 			return;
 		}
 
-		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+		const invoker = interactionInvoker(interaction);
+		const profile = await Profile.fetch(invoker.id).catch(() => null);
 		const embedData = await profile?.embed(interaction);
 		const embed = embedData?.embed;
 		const missing = embedData?.missing;
 
-		const baseReplyOptions = {
+		const baseReplyOptions:
+			| Parameters<InteractionsAPI["editReply"]>[2]
+			| Parameters<InteractionsAPI["reply"]>[2]
+			| Parameters<InteractionsAPI["updateMessage"]>[2] = {
 			components: [SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW, SKY_PROFILE_EDIT_RESET_ACTION_ROW],
 			content: embed
 				? missing
@@ -1632,20 +1837,22 @@ export default class Profile {
 					: ""
 				: "You do not have a Sky profile yet. Build one!",
 			embeds: embed ? [embed] : [],
+			flags: MessageFlags.Ephemeral,
 		};
 
-		await (interaction instanceof ChatInputCommandInteraction
-			? interaction.deferred
-				? interaction.editReply(baseReplyOptions)
-				: interaction.reply({ ...baseReplyOptions, flags: MessageFlags.Ephemeral })
-			: interaction.update(baseReplyOptions));
+		await (isChatInputCommand(interaction)
+			? defer
+				? client.api.interactions.editReply(interaction.id, interaction.token, baseReplyOptions)
+				: client.api.interactions.reply(interaction.id, interaction.token, baseReplyOptions)
+			: client.api.interactions.updateMessage(interaction.id, interaction.token, baseReplyOptions));
 	}
 
-	public static async showReset(interaction: ButtonInteraction) {
-		const profile = await Profile.fetch(interaction.user.id).catch(() => null);
+	public static async showReset(interaction: APIMessageComponentButtonInteraction) {
+		const invoker = interactionInvoker(interaction);
+		const profile = await Profile.fetch(invoker.id).catch(() => null);
 
 		if (!profile) {
-			await interaction.reply({
+			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: "You do not have a Sky profile to reset.",
 				flags: MessageFlags.Ephemeral,
 			});
@@ -1653,7 +1860,7 @@ export default class Profile {
 			return;
 		}
 
-		await interaction.update({
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			content: "",
 			components: [SKY_PROFILE_RESET_OPTIONS_ACTION_ROW, SKY_PROFILE_BACK_TO_START_ACTION_ROW],
 			embeds: [(await profile.embed(interaction)).embed],
@@ -1663,11 +1870,11 @@ export default class Profile {
 	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 	public async embed(
 		interaction:
-			| ButtonInteraction
-			| ChatInputCommandInteraction
-			| StringSelectMenuInteraction
-			| ModalSubmitInteraction
-			| UserContextMenuCommandInteraction,
+			| APIChatInputApplicationCommandInteraction
+			| APIMessageComponentButtonInteraction
+			| APIMessageComponentSelectMenuInteraction
+			| APIModalSubmitInteraction
+			| APIUserApplicationCommandInteraction,
 	) {
 		const { locale } = interaction;
 		const hearts = await totalReceived(this.userId);
@@ -1688,9 +1895,10 @@ export default class Profile {
 			guessRank,
 		} = this;
 
-		const embed = new EmbedBuilder()
-			.setColor(DEFAULT_EMBED_COLOUR)
-			.setFooter({ iconURL: formatEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id), text: String(hearts) });
+		const embed: APIEmbed = {
+			color: DEFAULT_EMBED_COLOUR,
+			footer: { icon_url: formatEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id), text: String(hearts) },
+		};
 
 		const descriptions = [];
 		const fields = [];
@@ -1716,25 +1924,25 @@ export default class Profile {
 		}
 
 		if (descriptions.length > 0) {
-			embed.setDescription(descriptions.join("\n"));
+			embed.description = descriptions.join("\n");
 		}
 
 		if (thumbnailURL) {
-			embed.setThumbnail(thumbnailURL);
+			embed.thumbnail = { url: thumbnailURL };
 		} else {
 			missing.push("- Use the command to upload a thumbnail!");
 		}
 
 		if (name) {
-			const embedAuthorOptions: EmbedAuthorOptions = { name };
+			const embedAuthorOptions: APIEmbedAuthor = { name };
 
 			if (iconURL) {
-				embedAuthorOptions.iconURL = iconURL;
+				embedAuthorOptions.icon_url = iconURL;
 			} else {
 				missing.push("- Use the command to upload an icon!");
 			}
 
-			embed.setAuthor(embedAuthorOptions);
+			embed.author = embedAuthorOptions;
 		} else {
 			missing.push("- Set your name!");
 		}
@@ -1818,7 +2026,7 @@ export default class Profile {
 			fields.push({ name: "\u200B", value: "\u200B", inline: true });
 		}
 
-		embed.setFields(fields);
+		embed.fields = fields;
 		return { embed, missing: missing.join("\n") || null };
 	}
 }
