@@ -59,7 +59,7 @@ function parseAIName(user: APIUser) {
 }
 
 function systemPromptContext(guild: Guild, message: GatewayMessageCreateDispatchData) {
-	const channel = guild.channels.get(message.channel_id);
+	const channel = guild.channels.get(message.channel_id) ?? guild.threads.get(message.channel_id);
 
 	if (!channel) {
 		throw new Error("Channel not found.");

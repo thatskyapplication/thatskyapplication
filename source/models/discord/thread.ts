@@ -22,6 +22,8 @@ abstract class BaseThread {
 
 	public readonly guildId: Snowflake;
 
+	public name!: string;
+
 	public readonly parentId: Snowflake;
 
 	public threadMetadata?: ThreadMetadata;
@@ -40,6 +42,8 @@ abstract class BaseThread {
 	}
 
 	public patch(data: APIThreadChannel) {
+		this.name = data.name;
+
 		if (data.thread_metadata) {
 			this.threadMetadata = {
 				archived: data.thread_metadata.archived,
