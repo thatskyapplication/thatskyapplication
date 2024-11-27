@@ -1,5 +1,6 @@
 import type {
 	APIApplicationCommandAutocompleteInteraction,
+	APIChatInputApplicationCommandGuildInteraction,
 	APIChatInputApplicationCommandInteraction,
 } from "@discordjs/core";
 import {
@@ -10,6 +11,7 @@ import {
 	setQuestAutocomplete,
 } from "../../services/admin.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
+import { isGuildChatInputCommand } from "../../utility/functions.js";
 
 export default {
 	name: "admin",
@@ -22,6 +24,10 @@ export default {
 		}
 	},
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
+		if (!isGuildChatInputCommand(interaction)) {
+			return;
+		}
+
 		const options = new OptionResolver(interaction);
 
 		switch (options.getSubcommandGroup() ?? options.getSubcommand()) {
@@ -39,7 +45,7 @@ export default {
 		}
 	},
 	async dailyGuides(
-		interaction: APIChatInputApplicationCommandInteraction,
+		interaction: APIChatInputApplicationCommandGuildInteraction,
 		options: OptionResolver,
 	) {
 		switch (options.getSubcommand()) {

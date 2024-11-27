@@ -1,6 +1,7 @@
 import {
 	type APIChannel,
-	type APIChatInputApplicationCommandInteraction,
+	type APIChatInputApplicationCommandGuildInteraction,
+	type APIGuildInteractionWrapper,
 	type APIMessageComponentSelectMenuInteraction,
 	type APISelectMenuOption,
 	ComponentType,
@@ -100,10 +101,10 @@ function isNotificationType(notificationType: unknown): notificationType is Noti
 }
 
 export async function setup(
-	interaction: APIChatInputApplicationCommandInteraction,
+	interaction: APIChatInputApplicationCommandGuildInteraction,
 	options: OptionResolver,
 ) {
-	const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
+	const guild = GUILD_CACHE.get(interaction.guild_id);
 
 	if (!guild) {
 		await client.api.interactions.reply(
@@ -203,8 +204,10 @@ export async function setup(
 	});
 }
 
-export async function finaliseSetup(interaction: APIMessageComponentSelectMenuInteraction) {
-	const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
+export async function finaliseSetup(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+) {
+	const guild = GUILD_CACHE.get(interaction.guild_id);
 
 	if (!guild) {
 		await client.api.interactions.updateMessage(
@@ -212,6 +215,7 @@ export async function finaliseSetup(interaction: APIMessageComponentSelectMenuIn
 			interaction.token,
 			NOT_IN_CACHED_GUILD_RESPONSE,
 		);
+
 		return;
 	}
 
@@ -247,7 +251,7 @@ export async function finaliseSetup(interaction: APIMessageComponentSelectMenuIn
 	});
 }
 
-export async function status(interaction: APIChatInputApplicationCommandInteraction) {
+export async function status(interaction: APIChatInputApplicationCommandGuildInteraction) {
 	await client.api.interactions.reply(interaction.id, interaction.token, {
 		embeds: [await embed(interaction)],
 		flags: MessageFlags.Ephemeral,
@@ -255,7 +259,7 @@ export async function status(interaction: APIChatInputApplicationCommandInteract
 }
 
 export async function unset(
-	interaction: APIChatInputApplicationCommandInteraction,
+	interaction: APIChatInputApplicationCommandGuildInteraction,
 	options: OptionResolver,
 ) {
 	const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
@@ -347,9 +351,11 @@ function isSendable(
 }
 
 async function embed(
-	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentSelectMenuInteraction,
+	interaction:
+		| APIChatInputApplicationCommandGuildInteraction
+		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
 ) {
-	const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
+	const guild = GUILD_CACHE.get(interaction.guild_id);
 
 	if (!guild) {
 		pino.error(interaction, "Guild not found for notification embed.");

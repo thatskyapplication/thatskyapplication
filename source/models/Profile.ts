@@ -769,7 +769,7 @@ export default class Profile {
 				const userIsInvoker = !user || user.id === invoker.id;
 
 				await client.api.interactions.reply(interaction.id, interaction.token, {
-					content: `${userIsInvoker ? "You do" : `${user} does`} not have a Sky profile! Why not${
+					content: `${userIsInvoker ? "You do" : `<@${user.id}> does`} not have a Sky profile! Why not${
 						userIsInvoker ? "" : " ask them to"
 					} create one?`,
 					flags: MessageFlags.Ephemeral,

@@ -1,11 +1,12 @@
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	type APIApplicationCommandAutocompleteInteraction,
-	type APIChatInputApplicationCommandInteraction,
+	type APIChatInputApplicationCommandGuildInteraction,
+	type APIGuildInteractionWrapper,
 	type APIInteractionResponseCallbackData,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
-	type APIModalSubmitInteraction,
+	type APIModalSubmitGuildInteraction,
 	ActivityType,
 	ApplicationCommandOptionType,
 	ButtonStyle,
@@ -48,12 +49,7 @@ import {
 	QUEST_OPTIONS,
 	VALID_REALM_NAME,
 } from "../utility/constants.js";
-import {
-	interactionInvoker,
-	isChatInputCommand,
-	resolveValidRealm,
-	userLogFormat,
-} from "../utility/functions.js";
+import { isChatInputCommand, resolveValidRealm, userLogFormat } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { log } from "./log.js";
@@ -63,7 +59,7 @@ function isQuestNumber(questNumber: number): questNumber is QuestNumber {
 }
 
 export async function ai(
-	interaction: APIChatInputApplicationCommandInteraction,
+	interaction: APIChatInputApplicationCommandGuildInteraction,
 	options: OptionResolver,
 ) {
 	const enable = options.getBoolean("enable", true);
@@ -76,7 +72,7 @@ export async function ai(
 }
 
 export async function customStatus(
-	interaction: APIChatInputApplicationCommandInteraction,
+	interaction: APIChatInputApplicationCommandGuildInteraction,
 	options: OptionResolver,
 ) {
 	const text = options.getString("text", true);
@@ -96,10 +92,10 @@ export async function customStatus(
 
 export async function interactive(
 	interaction:
-		| APIChatInputApplicationCommandInteraction
-		| APIMessageComponentButtonInteraction
-		| APIMessageComponentSelectMenuInteraction
-		| APIModalSubmitInteraction,
+		| APIChatInputApplicationCommandGuildInteraction
+		| APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>
+		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>
+		| APIModalSubmitGuildInteraction,
 	options?: InteractiveOptions,
 ) {
 	const resolvedContent = options?.content ?? "";
@@ -176,13 +172,15 @@ export async function interactive(
 	}
 }
 
-export async function distribute(interaction: APIMessageComponentButtonInteraction) {
+export async function distribute(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+) {
 	const { locale } = interaction;
 	await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
 	await distributeDailyGuides();
 
 	void log({
-		content: `${userLogFormat(interactionInvoker(interaction))} manually distributed the daily guides.`,
+		content: `${userLogFormat(interaction.member.user)} manually distributed the daily guides.`,
 		embeds: [distributionEmbed(locale)],
 	});
 
@@ -207,7 +205,7 @@ export async function setQuestAutocomplete(
 }
 
 export async function setQuest(
-	interaction: APIChatInputApplicationCommandInteraction,
+	interaction: APIChatInputApplicationCommandGuildInteraction,
 	options: OptionResolver,
 ) {
 	const { locale } = interaction;
@@ -248,7 +246,7 @@ export async function setQuest(
 	});
 
 	void log({
-		content: `${userLogFormat(interactionInvoker(interaction))} manually updated the daily quests.`,
+		content: `${userLogFormat(interaction.member.user)} manually updated the daily quests.`,
 		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 
@@ -258,7 +256,9 @@ export async function setQuest(
 	});
 }
 
-export async function questSwap(interaction: APIMessageComponentSelectMenuInteraction) {
+export async function questSwap(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+) {
 	const {
 		locale,
 		data: { values },
@@ -290,7 +290,7 @@ export async function questSwap(interaction: APIMessageComponentSelectMenuIntera
 	});
 
 	void log({
-		content: `${userLogFormat(interactionInvoker(interaction))} manually swapped quests ${quest1} & ${quest2}.`,
+		content: `${userLogFormat(interaction.member.user)} manually swapped quests ${quest1} & ${quest2}.`,
 		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 
@@ -300,7 +300,9 @@ export async function questSwap(interaction: APIMessageComponentSelectMenuIntera
 	});
 }
 
-export async function dailyMessageModalResponse(interaction: APIMessageComponentButtonInteraction) {
+export async function dailyMessageModalResponse(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+) {
 	const { dailyMessage } = DailyGuides;
 
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
@@ -339,7 +341,7 @@ export async function dailyMessageModalResponse(interaction: APIMessageComponent
 	});
 }
 
-export async function setDailyMessage(interaction: APIModalSubmitInteraction) {
+export async function setDailyMessage(interaction: APIModalSubmitGuildInteraction) {
 	const { data, locale } = interaction;
 	const components = new ModalResolver(data.components);
 	const title = components.getTextInputValue(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE);
@@ -352,7 +354,7 @@ export async function setDailyMessage(interaction: APIModalSubmitInteraction) {
 	await DailyGuides.updateDailyMessage({ title, description });
 
 	void log({
-		content: `${userLogFormat(interactionInvoker(interaction))} manually updated the daily message.`,
+		content: `${userLogFormat(interaction.member.user)} manually updated the daily message.`,
 		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 
@@ -363,7 +365,7 @@ export async function setDailyMessage(interaction: APIModalSubmitInteraction) {
 }
 
 export async function treasureCandlesModalResponse(
-	interaction: APIMessageComponentButtonInteraction,
+	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
 ) {
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		content: "",
@@ -387,7 +389,7 @@ export async function treasureCandlesModalResponse(
 }
 
 export async function treasureCandlesSelectMenuResponse(
-	interaction: APIMessageComponentSelectMenuInteraction,
+	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
 ) {
 	const { treasureCandles } = DailyGuides;
 	const realm = resolveValidRealm(interaction.data.values[0]!);
@@ -447,7 +449,7 @@ export async function treasureCandlesSelectMenuResponse(
 	});
 }
 
-export async function setTreasureCandles(interaction: APIModalSubmitInteraction) {
+export async function setTreasureCandles(interaction: APIModalSubmitGuildInteraction) {
 	const { data, locale } = interaction;
 	const customId = data.custom_id;
 	const realm = resolveValidRealm(customId.slice(customId.indexOf("§") + 1));
@@ -502,7 +504,7 @@ export async function setTreasureCandles(interaction: APIModalSubmitInteraction)
 	await DailyGuides.updateTreasureCandles({ [realm]: hashes });
 
 	void log({
-		content: `${userLogFormat(interactionInvoker(interaction))} manually updated the treasure candles.`,
+		content: `${userLogFormat(interaction.member.user)} manually updated the treasure candles.`,
 		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 

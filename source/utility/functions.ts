@@ -1,10 +1,13 @@
 import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIButtonComponent,
+	type APIChatInputApplicationCommandGuildInteraction,
 	type APIChatInputApplicationCommandInteraction,
+	type APIGuildInteractionWrapper,
 	type APIInteraction,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
+	type APIModalSubmitGuildInteraction,
 	type APIModalSubmitInteraction,
 	type APISelectMenuComponent,
 	type APIUser,
@@ -176,6 +179,12 @@ export function isChatInputCommand(
 	);
 }
 
+export function isGuildChatInputCommand(
+	interaction: APIInteraction,
+): interaction is APIChatInputApplicationCommandGuildInteraction {
+	return isChatInputCommand(interaction) && "guild_id" in interaction;
+}
+
 export function isUserContextMenuCommand(
 	interaction: APIInteraction,
 ): interaction is APIUserApplicationCommandInteraction {
@@ -194,6 +203,12 @@ export function isButton(
 	);
 }
 
+export function isGuildButton(
+	interaction: APIInteraction,
+): interaction is APIGuildInteractionWrapper<APIMessageComponentButtonInteraction> {
+	return isButton(interaction) && "guild_id" in interaction;
+}
+
 export function isSelectMenu(
 	interaction: APIInteraction,
 ): interaction is APIMessageComponentSelectMenuInteraction {
@@ -201,6 +216,12 @@ export function isSelectMenu(
 		interaction.type === InteractionType.MessageComponent &&
 		interaction.data.component_type === ComponentType.StringSelect
 	);
+}
+
+export function isGuildSelectMenu(
+	interaction: APIInteraction,
+): interaction is APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction> {
+	return isSelectMenu(interaction) && "guild_id" in interaction;
 }
 
 export function isAutocomplete(
@@ -213,4 +234,10 @@ export function isModalSubmit(
 	interaction: APIInteraction,
 ): interaction is APIModalSubmitInteraction {
 	return interaction.type === InteractionType.ModalSubmit;
+}
+
+export function isGuildModalSubmit(
+	interaction: APIInteraction,
+): interaction is APIModalSubmitGuildInteraction {
+	return isModalSubmit(interaction) && "guild_id" in interaction;
 }

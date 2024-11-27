@@ -8,15 +8,14 @@ import { GUILD_CACHE } from "../../caches/guilds.js";
 import { client } from "../../discord.js";
 import { setup, status, unset } from "../../services/daily-guides.js";
 import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../utility/constants.js";
+import { isGuildChatInputCommand } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 import { cannotUsePermissions } from "../../utility/permissions.js";
 
 export default {
 	name: t("daily-guides.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
-		const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
-
-		if (!guild) {
+		if (!(isGuildChatInputCommand(interaction) && GUILD_CACHE.get(interaction.guild_id))) {
 			await client.api.interactions.reply(
 				interaction.id,
 				interaction.token,

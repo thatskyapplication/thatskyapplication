@@ -1,5 +1,6 @@
 import {
 	type APIButtonComponentWithCustomId,
+	type APIChatInputApplicationCommandGuildInteraction,
 	type APIChatInputApplicationCommandInteraction,
 	type APIEmbed,
 	type APIMessageComponentButtonInteraction,
@@ -122,7 +123,9 @@ function getOptions(difficulty: GuessDifficultyLevel) {
 }
 
 export async function guess(
-	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
+	interaction:
+		| APIChatInputApplicationCommandGuildInteraction
+		| APIMessageComponentButtonInteraction,
 	difficulty: GuessDifficultyLevel,
 	streak: number,
 ) {
@@ -590,10 +593,10 @@ export async function leaderboard(
 }
 
 export async function guildLeaderboard(
-	interaction: APIChatInputApplicationCommandInteraction,
+	interaction: APIChatInputApplicationCommandGuildInteraction,
 	difficulty: GuessDifficultyLevel,
 ) {
-	const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
+	const guild = GUILD_CACHE.get(interaction.guild_id);
 
 	if (!guild) {
 		await client.api.interactions.reply(
@@ -619,8 +622,8 @@ export async function guildLeaderboard(
 		return;
 	}
 
-	const invoker = interactionInvoker(interaction);
-	const you = results.findIndex((row) => row.user_id === invoker.id);
+	const invokerId = interaction.member.user.id;
+	const you = results.findIndex((row) => row.user_id === invokerId);
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
 		embeds: [

@@ -1,6 +1,6 @@
 import {
 	type APIChannel,
-	type APIChatInputApplicationCommandInteraction,
+	type APIChatInputApplicationCommandGuildInteraction,
 	type APIEmbed,
 	type APIEmbedFooter,
 	type APINewsChannel,
@@ -156,10 +156,10 @@ function isDailyGuidesDistributable(
 }
 
 export async function setup(
-	interaction: APIChatInputApplicationCommandInteraction,
+	interaction: APIChatInputApplicationCommandGuildInteraction,
 	options: OptionResolver,
 ) {
-	const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
+	const guild = GUILD_CACHE.get(interaction.guild_id);
 
 	if (!guild) {
 		await client.api.interactions.reply(
@@ -243,8 +243,8 @@ export async function setup(
 	});
 }
 
-export async function status(interaction: APIChatInputApplicationCommandInteraction) {
-	const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
+export async function status(interaction: APIChatInputApplicationCommandGuildInteraction) {
+	const guild = GUILD_CACHE.get(interaction.guild_id);
 
 	if (!guild) {
 		await client.api.interactions.reply(
@@ -275,8 +275,8 @@ export async function status(interaction: APIChatInputApplicationCommandInteract
 	});
 }
 
-export async function unset(interaction: APIChatInputApplicationCommandInteraction) {
-	const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
+export async function unset(interaction: APIChatInputApplicationCommandGuildInteraction) {
+	const guild = GUILD_CACHE.get(interaction.guild_id);
 
 	if (!guild) {
 		await client.api.interactions.reply(

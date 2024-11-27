@@ -11,7 +11,6 @@ import {
 	RESTJSONErrorCodes,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
-import { GUILD_CACHE } from "../caches/guilds.js";
 import {
 	AUTOCOMPLETE_COMMANDS,
 	CHAT_INPUT_COMMANDS,
@@ -129,6 +128,9 @@ import {
 	isAutocomplete,
 	isButton,
 	isChatInputCommand,
+	isGuildButton,
+	isGuildModalSubmit,
+	isGuildSelectMenu,
 	isModalSubmit,
 	isRealm,
 	isSelectMenu,
@@ -385,15 +387,6 @@ export default {
 					return;
 				}
 
-				if (
-					customId === CATALOGUE_SHARE_SEND_CUSTOM_ID &&
-					interaction.guild_id &&
-					GUILD_CACHE.has(interaction.guild_id)
-				) {
-					await Catalogue.shareSend(interaction);
-					return;
-				}
-
 				if (customId.startsWith(CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID)) {
 					await Catalogue.setSeason(interaction);
 					return;
@@ -547,19 +540,26 @@ export default {
 					}
 				}
 
-				if (customId === DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID) {
-					await dailyMessageModalResponse(interaction);
-					return;
-				}
+				if (isGuildButton(interaction)) {
+					if (customId === CATALOGUE_SHARE_SEND_CUSTOM_ID) {
+						await Catalogue.shareSend(interaction);
+						return;
+					}
 
-				if (customId === DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID) {
-					await treasureCandlesModalResponse(interaction);
-					return;
-				}
+					if (customId === DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID) {
+						await dailyMessageModalResponse(interaction);
+						return;
+					}
 
-				if (customId === DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID) {
-					await distribute(interaction);
-					return;
+					if (customId === DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID) {
+						await treasureCandlesModalResponse(interaction);
+						return;
+					}
+
+					if (customId === DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID) {
+						await distribute(interaction);
+						return;
+					}
 				}
 			} catch (error) {
 				void recoverInteractionError(interaction, error);
@@ -674,7 +674,7 @@ export default {
 					return;
 				}
 
-				if (interaction.guild_id && GUILD_CACHE.has(interaction.guild_id)) {
+				if (isGuildSelectMenu(interaction)) {
 					if (customId.startsWith(NOTIFICATION_SETUP_OFFSET_CUSTOM_ID)) {
 						await finaliseSetup(interaction);
 						return;
@@ -766,14 +766,16 @@ export default {
 					return;
 				}
 
-				if (DAILY_GUIDES_DAILY_MESSAGE_MODAL === customId) {
-					await setDailyMessage(interaction);
-					return;
-				}
+				if (isGuildModalSubmit(interaction)) {
+					if (DAILY_GUIDES_DAILY_MESSAGE_MODAL === customId) {
+						await setDailyMessage(interaction);
+						return;
+					}
 
-				if (customId.startsWith(DAILY_GUIDES_TREASURE_CANDLES_MODAL)) {
-					await setTreasureCandles(interaction);
-					return;
+					if (customId.startsWith(DAILY_GUIDES_TREASURE_CANDLES_MODAL)) {
+						await setTreasureCandles(interaction);
+						return;
+					}
 				}
 			} catch (error) {
 				void recoverInteractionError(interaction, error);

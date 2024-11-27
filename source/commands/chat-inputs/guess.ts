@@ -4,6 +4,7 @@ import { GUILD_CACHE } from "../../caches/guilds.js";
 import { client } from "../../discord.js";
 import { guess, guildLeaderboard, leaderboard } from "../../services/guess.js";
 import { GuessDifficultyLevel, NOT_IN_CACHED_GUILD_RESPONSE } from "../../utility/constants.js";
+import { isGuildChatInputCommand } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
@@ -22,7 +23,7 @@ export default {
 		}
 	},
 	async game(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
-		if (interaction.guild_id && !GUILD_CACHE.has(interaction.guild_id)) {
+		if (!(isGuildChatInputCommand(interaction) && GUILD_CACHE.get(interaction.guild_id))) {
 			await client.api.interactions.reply(
 				interaction.id,
 				interaction.token,
@@ -43,9 +44,7 @@ export default {
 		const server = options.getBoolean("server") ?? false;
 
 		if (server) {
-			const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
-
-			if (guild) {
+			if (isGuildChatInputCommand(interaction) && GUILD_CACHE.get(interaction.guild_id)) {
 				await guildLeaderboard(interaction, difficulty);
 			} else {
 				await client.api.interactions.reply(

@@ -4,6 +4,7 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIEmbed,
 	type APIEmbedAuthor,
+	type APIGuildInteractionWrapper,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentEmoji,
 	type APIMessageComponentSelectMenuInteraction,
@@ -2559,7 +2560,9 @@ export class Catalogue {
 		});
 	}
 
-	public static async shareSend(interaction: APIMessageComponentButtonInteraction) {
+	public static async shareSend(
+		interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+	) {
 		const { channel, message } = interaction;
 
 		if (

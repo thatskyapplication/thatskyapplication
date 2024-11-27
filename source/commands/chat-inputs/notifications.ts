@@ -10,13 +10,12 @@ import { setup, status, unset } from "../../services/notification.js";
 import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../utility/constants.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 import { cannotUsePermissions } from "../../utility/permissions.js";
+import { isGuildChatInputCommand } from "../../utility/functions.js";
 
 export default {
 	name: t("notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
-		const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
-
-		if (!guild) {
+		if (!(isGuildChatInputCommand(interaction) && GUILD_CACHE.get(interaction.guild_id))) {
 			await client.api.interactions.reply(
 				interaction.id,
 				interaction.token,

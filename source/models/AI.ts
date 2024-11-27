@@ -1,6 +1,7 @@
 import { Collection } from "@discordjs/collection";
 import {
-	type APIChatInputApplicationCommandInteraction,
+	type APIChatInputApplicationCommandGuildInteraction,
+	type APIGuildInteractionWrapper,
 	type APIMessageComponentSelectMenuInteraction,
 	ComponentType,
 	type GatewayMessageCreateDispatchData,
@@ -165,8 +166,10 @@ export default class AI {
 		return ai;
 	}
 
-	public static async set(interaction: APIMessageComponentSelectMenuInteraction) {
-		const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
+	public static async set(
+		interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+	) {
+		const guild = GUILD_CACHE.get(interaction.guild_id);
 
 		if (!guild) {
 			pino.error(interaction, "Failed to find a guild to set an AI frequency in.");
@@ -195,11 +198,11 @@ export default class AI {
 
 	public static response(
 		interaction:
-			| APIChatInputApplicationCommandInteraction
-			| APIMessageComponentSelectMenuInteraction,
+			| APIChatInputApplicationCommandGuildInteraction
+			| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
 		ai?: AI,
 	): Parameters<InteractionsAPI["reply"]>[2] {
-		const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
+		const guild = GUILD_CACHE.get(interaction.guild_id);
 
 		if (!guild) {
 			pino.error(interaction, "Failed to find a guild to create a JSON body response in.");
