@@ -79,10 +79,11 @@ export default {
 
 		if (LOST_GUILD_IDS.size > 0) {
 			// Remove guild configurations we no longer have access to.
-			pino.info({ LOST_GUILD_IDS }, "Removing lost guild ids.");
+			const lostGuildIds = [...LOST_GUILD_IDS];
+			pino.info({ lostGuildIds }, "Removing lost guild ids.");
 
 			const settled = await Promise.allSettled(
-				[...LOST_GUILD_IDS].map(async (guildId) => [
+				lostGuildIds.map(async (guildId) => [
 					AI.delete(guildId),
 					deleteDailyGuidesDistribution(guildId),
 					deleteNotifications(guildId),
