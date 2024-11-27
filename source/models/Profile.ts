@@ -41,6 +41,7 @@ import { findUser } from "../services/guess.js";
 import { totalReceived } from "../services/heart.js";
 import { SeasonIdToSeasonalEmoji, type SeasonIds, isSeasonId } from "../utility/catalogue.js";
 import {
+	APPLICATION_ID,
 	CDN_BUCKET,
 	CDN_URL,
 	DEFAULT_EMBED_COLOUR,
@@ -1842,7 +1843,7 @@ export default class Profile {
 
 		await (isChatInputCommand(interaction)
 			? defer
-				? client.api.interactions.editReply(interaction.id, interaction.token, baseReplyOptions)
+				? client.api.interactions.editReply(APPLICATION_ID, interaction.token, baseReplyOptions)
 				: client.api.interactions.reply(interaction.id, interaction.token, baseReplyOptions)
 			: client.api.interactions.updateMessage(interaction.id, interaction.token, baseReplyOptions));
 	}
