@@ -27,6 +27,7 @@ import {
 	distributionEmbed,
 } from "../services/daily-guides.js";
 import {
+	APPLICATION_ID,
 	CDN_BUCKET,
 	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_DAILY_MESSAGE_MODAL,
@@ -169,11 +170,7 @@ export async function interactive(
 	if (isChatInputCommand(interaction)) {
 		await client.api.interactions.reply(interaction.id, interaction.token, response);
 	} else if (options?.deferred) {
-		await client.api.interactions.editReply(
-			interaction.application_id,
-			interaction.token,
-			response,
-		);
+		await client.api.interactions.editReply(APPLICATION_ID, interaction.token, response);
 	} else {
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 	}
