@@ -153,8 +153,8 @@ import type { Event } from "./index.js";
 const name = GatewayDispatchEvents.InteractionCreate;
 
 async function recoverInteractionError(interaction: APIInteraction, error: unknown) {
-	const user = interaction.user ?? interaction.member?.user!;
-	let errorTypeString = `Error from ${user.username} in ${interaction.channel!.id} from `;
+	const invoker = interactionInvoker(interaction);
+	let errorTypeString = `Error from ${invoker.username} in ${interaction.channel!.id} from `;
 
 	switch (interaction.type) {
 		case InteractionType.ApplicationCommand: {
@@ -214,11 +214,11 @@ function logCommand(
 		command = interaction.data.name;
 	}
 
-	const user = interactionInvoker(interaction);
+	const invoker = interactionInvoker(interaction);
 
 	pino.info(
 		{
-			user: { id: user.id, username: user.username },
+			user: { id: invoker.id, username: invoker.username },
 			command,
 			guildId: interaction.guild_id,
 			channelId: interaction.channel.id,
@@ -235,11 +235,11 @@ function logMessageComponent(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
 	const customId = interaction.data.custom_id;
-	const user = interaction.user ?? interaction.member?.user!;
+	const invoker = interactionInvoker(interaction);
 
 	pino.info(
 		{
-			user: { id: user.id, username: user.username },
+			user: { id: invoker.id, invokername: invoker.username },
 			customId: customId,
 			values: "values" in interaction.data ? interaction.data.values : null,
 			guildId: interaction.guild_id,

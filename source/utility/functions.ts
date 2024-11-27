@@ -48,14 +48,7 @@ export function chatInputApplicationCommandMention(
 	}:${id}>`;
 }
 
-export function interactionInvoker(
-	interaction:
-		| APIChatInputApplicationCommandInteraction
-		| APIMessageComponentButtonInteraction
-		| APIMessageComponentSelectMenuInteraction
-		| APIModalSubmitInteraction
-		| APIUserApplicationCommandInteraction,
-) {
+export function interactionInvoker(interaction: APIInteraction) {
 	return interaction.member?.user ?? interaction.user!;
 }
 
