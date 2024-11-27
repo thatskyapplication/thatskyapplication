@@ -23,16 +23,6 @@ export default {
 		}
 	},
 	async game(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
-		if (!(isGuildChatInputCommand(interaction) && GUILD_CACHE.get(interaction.guild_id))) {
-			await client.api.interactions.reply(
-				interaction.id,
-				interaction.token,
-				NOT_IN_CACHED_GUILD_RESPONSE,
-			);
-
-			return;
-		}
-
 		const difficulty = options.getInteger("difficulty") ?? GuessDifficultyLevel.Original;
 		await guess(interaction, difficulty, 0);
 	},

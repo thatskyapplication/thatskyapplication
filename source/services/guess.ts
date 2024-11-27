@@ -123,9 +123,7 @@ function getOptions(difficulty: GuessDifficultyLevel) {
 }
 
 export async function guess(
-	interaction:
-		| APIChatInputApplicationCommandGuildInteraction
-		| APIMessageComponentButtonInteraction,
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 	difficulty: GuessDifficultyLevel,
 	streak: number,
 ) {
