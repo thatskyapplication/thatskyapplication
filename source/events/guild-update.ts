@@ -8,7 +8,13 @@ const name = GatewayDispatchEvents.GuildUpdate;
 export default {
 	name,
 	fire({ data }) {
-		GUILD_CACHE.get(data.id)?.patch(data) ??
+		const guild = GUILD_CACHE.get(data.id);
+
+		if (!guild) {
 			pino.warn({ data }, `Received a ${name} packet for an uncached guild.`);
+			return;
+		}
+
+		guild.patch(data);
 	},
 } satisfies Event<typeof name>;
