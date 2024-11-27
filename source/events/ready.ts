@@ -77,21 +77,25 @@ export default {
 			}
 		}
 
-		// Remove guild configurations we no longer have access to.
-		const settled = await Promise.allSettled(
-			[...LOST_GUILD_IDS].map(async (guildId) => [
-				AI.delete(guildId),
-				deleteDailyGuidesDistribution(guildId),
-				deleteNotifications(guildId),
-			]),
-		);
+		if (LOST_GUILD_IDS.size > 0) {
+			// Remove guild configurations we no longer have access to.
+			pino.info({ LOST_GUILD_IDS }, "Removing lost guild ids.");
 
-		const errors = settled
-			.filter((result): result is PromiseRejectedResult => result.status === "rejected")
-			.map((result) => result.reason);
+			const settled = await Promise.allSettled(
+				[...LOST_GUILD_IDS].map(async (guildId) => [
+					AI.delete(guildId),
+					deleteDailyGuidesDistribution(guildId),
+					deleteNotifications(guildId),
+				]),
+			);
 
-		if (errors.length > 0) {
-			pino.error(errors, "Error whilst removing guild configurations.");
+			const errors = settled
+				.filter((result): result is PromiseRejectedResult => result.status === "rejected")
+				.map((result) => result.reason);
+
+			if (errors.length > 0) {
+				pino.error(errors, "Error whilst removing guild configurations.");
+			}
 		}
 
 		// Perform a health check for our notification subscribers.
