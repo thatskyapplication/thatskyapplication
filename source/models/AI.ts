@@ -3,6 +3,7 @@ import {
 	type APIChatInputApplicationCommandGuildInteraction,
 	type APIGuildInteractionWrapper,
 	type APIMessageComponentSelectMenuInteraction,
+	ChannelType,
 	ComponentType,
 	type GatewayMessageCreateDispatchData,
 	type InteractionsAPI,
@@ -32,6 +33,7 @@ import {
 } from "../utility/constants.js";
 import { can } from "../utility/permissions.js";
 import type { GuildMember } from "./discord/guild-member.js";
+import type { GuildChannel } from "./discord/guild.js";
 
 export interface AIPacket {
 	guild_id: Snowflake;
@@ -269,7 +271,7 @@ export default class AI {
 			return;
 		}
 
-		const channel = guild.channels.get(message.channel_id);
+		const channel = guild.channels.get(message.channel_id) ?? guild.threads.get(message.channel_id);
 
 		if (!channel) {
 			pino.error(message, "Failed to find a channel to respond in.");
@@ -277,11 +279,35 @@ export default class AI {
 		}
 
 		const entitlement = await fetchEntitlement(guild.id);
+		let resolvedChannelForPermission: GuildChannel;
+
+		const isThreadChannelType =
+			channel.type === ChannelType.AnnouncementThread ||
+			channel.type === ChannelType.PublicThread ||
+			channel.type === ChannelType.PrivateThread;
+
+		if (isThreadChannelType) {
+			const parentChannel = guild.channels.get(channel.parentId);
+
+			if (!parentChannel) {
+				pino.warn(message, "Failed to resolve the parent channel for an AI response.");
+				return;
+			}
+
+			resolvedChannelForPermission = parentChannel;
+		} else {
+			resolvedChannelForPermission = channel;
+		}
 
 		if (entitlement) {
 			await (Math.random() < 0.1
 				? Math.random() < 0.5 &&
-					can({ permission: PermissionFlagsBits.AddReactions, guild, member: me, channel })
+					can({
+						permission: PermissionFlagsBits.AddReactions,
+						guild,
+						member: me,
+						channel: resolvedChannelForPermission,
+					})
 					? messageCreateReactionResponse(message)
 					: messageCreateEmojiResponse(message)
 				: message.type === MessageType.Default ||
