@@ -28,6 +28,8 @@ export default {
 				interaction.token,
 				NOT_IN_CACHED_GUILD_RESPONSE,
 			);
+
+			return;
 		}
 
 		const difficulty = options.getInteger("difficulty") ?? GuessDifficultyLevel.Original;
