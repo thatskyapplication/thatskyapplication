@@ -56,6 +56,7 @@ export async function playFight(
 	}
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
+		allowed_mentions: { users: [user.id] },
 		content: `<@${invoker.id}> is fighting <@${user.id}>!`,
 		embeds: [
 			{

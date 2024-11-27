@@ -68,6 +68,7 @@ export async function hug(
 	}
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
+		allowed_mentions: { users: [user.id] },
 		content: t("hug.message", {
 			lng: resolvedLocale,
 			ns: "commands",

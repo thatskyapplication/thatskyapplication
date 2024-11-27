@@ -56,6 +56,7 @@ export async function krill(
 	}
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
+		allowed_mentions: { users: [user.id] },
 		content: `<@${user.id}> has been krilled by <@${invoker.id}>!`,
 		embeds: [
 			{

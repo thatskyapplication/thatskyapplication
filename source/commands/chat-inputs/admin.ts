@@ -10,8 +10,8 @@ import {
 	setQuest,
 	setQuestAutocomplete,
 } from "../../services/admin.js";
-import { OptionResolver } from "../../utility/option-resolver.js";
 import { isGuildChatInputCommand } from "../../utility/functions.js";
+import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
 	name: "admin",

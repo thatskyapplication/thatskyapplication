@@ -57,6 +57,7 @@ export async function highFive(
 	}
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
+		allowed_mentions: { users: [user.id] },
 		content: `<@${user.id}>, <@${invoker.id}> high-fived you!`,
 		embeds: [
 			{

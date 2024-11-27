@@ -8,9 +8,9 @@ import { GUILD_CACHE } from "../../caches/guilds.js";
 import { client } from "../../discord.js";
 import { setup, status, unset } from "../../services/notification.js";
 import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../utility/constants.js";
+import { isGuildChatInputCommand } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 import { cannotUsePermissions } from "../../utility/permissions.js";
-import { isGuildChatInputCommand } from "../../utility/functions.js";
 
 export default {
 	name: t("notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" }),

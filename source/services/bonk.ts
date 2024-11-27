@@ -71,5 +71,8 @@ export async function bonk(interaction: APIChatInputApplicationCommandInteractio
 			.replace("{{entry3}}", entry3);
 	}
 
-	await client.api.interactions.reply(interaction.id, interaction.token, { content: bonkMessage });
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		allowed_mentions: { users: [user.id] },
+		content: bonkMessage,
+	});
 }
