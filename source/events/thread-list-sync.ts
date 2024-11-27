@@ -1,7 +1,7 @@
-import { ChannelType, GatewayDispatchEvents } from "@discordjs/core";
+import { GatewayDispatchEvents } from "@discordjs/core";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { MESSAGE_CACHE } from "../caches/messages.js";
-import { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
+import { createThread } from "../models/discord/thread.js";
 import pino from "../pino.js";
 import type { Event } from "./index.js";
 
@@ -32,20 +32,7 @@ export default {
 			if (existing) {
 				existing.patch(thread);
 			} else {
-				switch (thread.type) {
-					case ChannelType.AnnouncementThread: {
-						guild.threads.set(thread.id, new AnnouncementThread({ ...thread, guild_id: guild.id }));
-						return;
-					}
-					case ChannelType.PublicThread: {
-						guild.threads.set(thread.id, new PublicThread({ ...thread, guild_id: guild.id }));
-						return;
-					}
-					case ChannelType.PrivateThread: {
-						guild.threads.set(thread.id, new PrivateThread({ ...thread, guild_id: guild.id }));
-						return;
-					}
-				}
+				createThread(thread, guild);
 			}
 		}
 	},

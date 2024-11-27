@@ -5,6 +5,7 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import pino from "../../pino.js";
+import type { Guild } from "./guild.js";
 
 interface ThreadMetadata {
 	archived: boolean;
@@ -58,4 +59,21 @@ export class PublicThread extends BaseThread {
 
 export class PrivateThread extends BaseThread {
 	public override readonly type = ChannelType.PrivateThread;
+}
+
+export function createThread(data: GatewayThreadCreateDispatchData, guild: Guild) {
+	switch (data.type) {
+		case ChannelType.AnnouncementThread: {
+			guild.threads.set(data.id, new AnnouncementThread({ ...data, guild_id: guild.id }));
+			return;
+		}
+		case ChannelType.PublicThread: {
+			guild.threads.set(data.id, new PublicThread({ ...data, guild_id: guild.id }));
+			return;
+		}
+		case ChannelType.PrivateThread: {
+			guild.threads.set(data.id, new PrivateThread({ ...data, guild_id: guild.id }));
+			return;
+		}
+	}
 }
