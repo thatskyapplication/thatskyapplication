@@ -78,7 +78,7 @@ export async function customStatus(
 	const text = options.getString("text", true);
 
 	await client.updatePresence(0, {
-		activities: [{ name: text, type: ActivityType.Custom }],
+		activities: [{ type: ActivityType.Custom, name: text, state: text }],
 		afk: false,
 		since: null,
 		status: PresenceUpdateStatus.Online,
