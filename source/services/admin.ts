@@ -191,15 +191,14 @@ export async function setQuestAutocomplete(
 	interaction: APIApplicationCommandAutocompleteInteraction,
 	options: OptionResolver,
 ) {
-	const focused = options.getFocusedOption(ApplicationCommandOptionType.String).value;
+	const focused = options.getFocusedOption(ApplicationCommandOptionType.String).value.toUpperCase();
 
 	await client.api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
 		choices:
 			focused === ""
 				? []
-				: QUESTS.map(({ content }) => content)
-						.filter((quest) => quest.toUpperCase().includes(focused))
-						.map((quest) => ({ name: quest, value: quest }))
+				: QUESTS.filter(({ content }) => content.toUpperCase().includes(focused))
+						.map(({ content }) => ({ name: content, value: content }))
 						.slice(0, 25),
 	});
 }
