@@ -33,6 +33,7 @@ export const DEVELOPER_GUILD_ID = PRODUCTION
 	: DEVELOPER_GUILD_ID_DEVELOPMENT;
 
 // Channel ids.
+export const DAILY_INFOGRAPHICS_CHANNEL_ID = "1041420071614042152" as const;
 export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const;
 
 // Concurrency limit to not hit the global rate limit of 50 requests per second.
@@ -88,10 +89,6 @@ export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
 export const DEFAULT_EMBED_COLOUR = 0x6f68c9 as const;
 export const MAXIMUM_EMBED_FIELD_NAME_LENGTH = 256 as const;
 export const MAXIMUM_EMBED_FIELD_VALUE_LENGTH = 1_024 as const;
-
-export const enum Channel {
-	dailyGuides = "1041420071614042152",
-}
 
 export enum RealmName {
 	IslesOfDawn = "Isles of Dawn",

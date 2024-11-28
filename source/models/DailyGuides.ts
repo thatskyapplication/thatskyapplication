@@ -20,7 +20,7 @@ import { SeasonId, type SeasonIds, snakeCaseName } from "../utility/catalogue.js
 import {
 	CDN_BUCKET,
 	CDN_URL,
-	Channel,
+	DAILY_INFOGRAPHICS_CHANNEL_ID,
 	INFOGRAPHICS_DATABASE_GUILD_ID,
 	MEDITATION_MAPS,
 	type MeditationMaps,
@@ -590,7 +590,7 @@ export default new (class DailyGuides {
 
 	public validToParse(message: GatewayMessageCreateDispatchData) {
 		return Boolean(
-			message.channel_id === Channel.dailyGuides &&
+			message.channel_id === DAILY_INFOGRAPHICS_CHANNEL_ID &&
 				message.message_reference?.guild_id === INFOGRAPHICS_DATABASE_GUILD_ID &&
 				message.flags &&
 				(message.flags & MessageFlags.IsCrosspost) === MessageFlags.IsCrosspost &&
