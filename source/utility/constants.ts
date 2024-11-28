@@ -24,6 +24,11 @@ const CDN_URL_DEVELOPMENT = "https://cdn-development.thatskyapplication.com" as 
 const CDN_URL_PRODUCTION = "https://cdn.thatskyapplication.com" as const;
 export const CDN_URL = PRODUCTION ? CDN_URL_PRODUCTION : CDN_URL_DEVELOPMENT;
 
+// Developer guild id.
+const DEVELOPER_GUILD_ID_PRODUCTION = "1017993798170726411" as const;
+const DEVELOPER_GUILD_ID_DEVELOPMENT = "1260971646584619109" as const;
+export const DEVELOPER_GUILD_ID = PRODUCTION ? DEVELOPER_GUILD_ID_PRODUCTION : DEVELOPER_GUILD_ID_DEVELOPMENT;
+
 // Channel ids.
 export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const;
 
@@ -67,7 +72,6 @@ export const NOT_IN_CACHED_GUILD_RESPONSE = {
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 
 // Miscellaneous constants.
-export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 const THATSKYGAME_URL = "https://thatskygame.com" as const;
 const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
 const PATREON_URL = "https://patreon.com/Jiralite" as const;
