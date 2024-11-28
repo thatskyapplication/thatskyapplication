@@ -30,7 +30,7 @@ export default {
 
 		const options = new OptionResolver(interaction);
 
-		switch (options.getSubcommandGroup() ?? options.getSubcommand()) {
+		switch (options.getSubcommandGroup(false) ?? options.getSubcommand()) {
 			case "ai": {
 				await ai(interaction, options);
 				return;
