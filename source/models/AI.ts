@@ -1,18 +1,24 @@
+import { Collection } from "@discordjs/collection";
 import {
-	ActionRowBuilder,
-	type ChatInputCommandInteraction,
-	type Client,
-	Collection,
+	type APIChatInputApplicationCommandGuildInteraction,
+	type APIGuildInteractionWrapper,
+	type APIMessageComponentSelectMenuInteraction,
+	ChannelType,
 	ComponentType,
-	EmbedBuilder,
-	type GuildMember,
-	type Message,
+	type GatewayMessageCreateDispatchData,
+	type InteractionsAPI,
+	MessageFlags,
+	MessageType,
 	PermissionFlagsBits,
 	type Snowflake,
-	StringSelectMenuBuilder,
-	type StringSelectMenuInteraction,
-	StringSelectMenuOptionBuilder,
-} from "discord.js";
+} from "@discordjs/core";
+import {
+	ENTITLEMENT_CACHE,
+	clearEntitlementCache,
+	fetchEntitlement,
+} from "../caches/entitlements.js";
+import { GUILD_CACHE } from "../caches/guilds.js";
+import { client } from "../discord.js";
 import {
 	messageCreateEmojiResponse,
 	messageCreateReactionResponse,
@@ -20,10 +26,16 @@ import {
 } from "../open-ai.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
-import { DEFAULT_EMBED_COLOUR, SERVER_UPGRADE_SKU_ID } from "../utility/constants.js";
-import { resolveEntitlement } from "../utility/functions.js";
+import {
+	APPLICATION_ID,
+	DEFAULT_EMBED_COLOUR,
+	SERVER_UPGRADE_SKU_ID,
+} from "../utility/constants.js";
+import { can } from "../utility/permissions.js";
+import type { GuildMember } from "./discord/guild-member.js";
+import type { GuildChannel } from "./discord/guild.js";
 
-interface AIPacket {
+export interface AIPacket {
 	guild_id: Snowflake;
 	frequency_type: number;
 }
@@ -98,26 +110,32 @@ export default class AI {
 		this.patch(notification);
 	}
 
-	public static async populateCache(client: Client<true>) {
+	public static async populateCache() {
 		// Clear the cache. Just in case.
 		this.cache.clear();
+		clearEntitlementCache();
 
 		// Fetch the AI packets.
 		const packets = await pg<AIPacket>(Table.AI);
 
 		// Fetch entitlements for the server upgrade SKU.
-		const entitlements = await client.application.entitlements.fetch({
-			excludeEnded: true,
+		const entitlements = await client.api.monetization.getEntitlements(APPLICATION_ID, {
+			exclude_ended: true,
 			limit: 100,
-			skus: [SERVER_UPGRADE_SKU_ID],
+			sku_ids: SERVER_UPGRADE_SKU_ID,
 		});
+
+		// Populate the entitlement cache.
+		for (const entitlement of entitlements) {
+			ENTITLEMENT_CACHE.set(entitlement.id, entitlement);
+		}
 
 		// Filter the packets to only include guilds with the SKU.
 		const filteredPackets = packets.filter((packet) =>
-			entitlements.some((entitlement) => entitlement.guildId === packet.guild_id),
+			entitlements.some((entitlement) => entitlement.guild_id === packet.guild_id),
 		);
 
-		// Populate the cache.
+		// Populate the AI cache.
 		for (const packet of filteredPackets) {
 			const ai = new this(packet);
 			this.cache.set(ai.guildId, ai);
@@ -150,11 +168,20 @@ export default class AI {
 		return ai;
 	}
 
-	public static async set(interaction: StringSelectMenuInteraction<"cached">) {
-		const frequencyType = Number(interaction.values[0]);
+	public static async set(
+		interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+	) {
+		const guild = GUILD_CACHE.get(interaction.guild_id);
+
+		if (!guild) {
+			pino.error(interaction, "Failed to find a guild to set an AI frequency in.");
+			throw new Error("Guild not found.");
+		}
+
+		const frequencyType = Number(interaction.data.values[0]);
 
 		if (!isAIFrequency(frequencyType)) {
-			await interaction.update({
+			await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 				components: [],
 				content: "Unknown frequency. Please try again.",
 				embeds: [],
@@ -163,93 +190,135 @@ export default class AI {
 			return;
 		}
 
-		const ai = await this.upsert(interaction.guildId, { frequency_type: frequencyType });
+		const ai = await this.upsert(guild.id, { frequency_type: frequencyType });
 
-		// @ts-expect-error discord.js update required.
-		await interaction.update({
-			...(await this.response(interaction, ai)),
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+			...this.response(interaction, ai),
 			content: `Frequency set to \`${AIFrequencyTypeToString[frequencyType]}\`.`,
 		});
 	}
 
-	public static async response(
-		interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
+	public static response(
+		interaction:
+			| APIChatInputApplicationCommandGuildInteraction
+			| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
 		ai?: AI,
-	) {
+	): Parameters<InteractionsAPI["reply"]>[2] {
+		const guild = GUILD_CACHE.get(interaction.guild_id);
+
+		if (!guild) {
+			pino.error(interaction, "Failed to find a guild to create a JSON body response in.");
+			throw new Error("Guild not found.");
+		}
+
 		const entitlement = interaction.entitlements.find(
-			(entitlement) => entitlement.skuId === SERVER_UPGRADE_SKU_ID && entitlement.isActive(),
+			(entitlement) => entitlement.sku_id === SERVER_UPGRADE_SKU_ID,
 		);
 
-		return entitlement?.isActive()
+		return entitlement
 			? {
-					components: [
-						new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-							new StringSelectMenuBuilder()
-								.setCustomId(AI_FREQUENCY_SELECT_MENU_CUSTOM_ID)
-								.setMaxValues(1)
-								.setMinValues(1)
-								.setOptions(
-									AI_FREQUENCY_VALUES.map((aIFrequencyValue) =>
-										new StringSelectMenuOptionBuilder()
-											.setDefault(aIFrequencyValue === ai?.frequencyType)
-											.setLabel(AIFrequencyTypeToString[aIFrequencyValue])
-											.setValue(String(aIFrequencyValue)),
-									),
-								)
-								.setPlaceholder("Set the frequency."),
-						),
-					],
-					embeds: [
-						new EmbedBuilder()
-							.setColor(DEFAULT_EMBED_COLOUR)
-							.setDescription(AI_FREQUENCY_DESCRIPTION)
-							.setTitle(interaction.guild.name),
-					],
-				}
-			: {
 					components: [
 						{
 							type: ComponentType.ActionRow,
 							components: [
 								{
-									type: ComponentType.Button,
-									sku_id: SERVER_UPGRADE_SKU_ID,
-									style: 6,
+									type: ComponentType.StringSelect,
+									custom_id: AI_FREQUENCY_SELECT_MENU_CUSTOM_ID,
+									max_values: 1,
+									min_values: 1,
+									options: AI_FREQUENCY_VALUES.map((aIFrequencyValue) => ({
+										default: aIFrequencyValue === ai?.frequencyType,
+										label: AIFrequencyTypeToString[aIFrequencyValue],
+										value: String(aIFrequencyValue),
+									})),
+									placeholder: "Set the frequency.",
 								},
 							],
 						},
 					],
 					embeds: [
-						new EmbedBuilder()
-							.setColor(DEFAULT_EMBED_COLOUR)
-							.setDescription(AI_FREQUENCY_DESCRIPTION_WITHOUT_MONETISATION)
-							.setTitle(interaction.guild.name),
+						{
+							color: DEFAULT_EMBED_COLOUR,
+							description: AI_FREQUENCY_DESCRIPTION,
+							title: guild.name,
+						},
 					],
+					flags: MessageFlags.Ephemeral,
+				}
+			: {
+					components: [
+						{
+							type: ComponentType.ActionRow,
+							components: [{ type: ComponentType.Button, sku_id: SERVER_UPGRADE_SKU_ID, style: 6 }],
+						},
+					],
+					embeds: [
+						{
+							color: DEFAULT_EMBED_COLOUR,
+							description: AI_FREQUENCY_DESCRIPTION_WITHOUT_MONETISATION,
+							title: guild.name,
+						},
+					],
+					flags: MessageFlags.Ephemeral,
 				};
 	}
 
-	public async respond(message: Message<true>, me: GuildMember) {
-		const entitlement = await resolveEntitlement(
-			message.client.application.entitlements,
-			message.guildId,
-		);
+	public async respond(message: GatewayMessageCreateDispatchData, me: GuildMember) {
+		const guild = message.guild_id && GUILD_CACHE.get(message.guild_id);
 
-		if (!entitlement) {
-			pino.error(message, "Cannot find the Server Upgrade entitlement.");
-			throw new Error("Cannot find the Server Upgrade entitlement.");
+		if (!guild) {
+			pino.error(message, "Failed to find a guild to respond in.");
+			return;
 		}
 
-		if (entitlement.isActive()) {
+		const channel = guild.channels.get(message.channel_id) ?? guild.threads.get(message.channel_id);
+
+		if (!channel) {
+			pino.error(message, "Failed to find a channel to respond in.");
+			return;
+		}
+
+		const entitlement = await fetchEntitlement(guild.id);
+		let resolvedChannelForPermission: GuildChannel;
+
+		const isThreadChannelType =
+			channel.type === ChannelType.AnnouncementThread ||
+			channel.type === ChannelType.PublicThread ||
+			channel.type === ChannelType.PrivateThread;
+
+		if (isThreadChannelType) {
+			const parentChannel = guild.channels.get(channel.parentId);
+
+			if (!parentChannel) {
+				pino.warn(message, "Failed to resolve the parent channel for an AI response.");
+				return;
+			}
+
+			resolvedChannelForPermission = parentChannel;
+		} else {
+			resolvedChannelForPermission = channel;
+		}
+
+		if (entitlement) {
 			await (Math.random() < 0.1
-				? Math.random() < 0.5 && me.permissions.has(PermissionFlagsBits.AddReactions)
+				? Math.random() < 0.5 &&
+					can({
+						permission: PermissionFlagsBits.AddReactions,
+						guild,
+						member: me,
+						channel: resolvedChannelForPermission,
+					})
 					? messageCreateReactionResponse(message)
 					: messageCreateEmojiResponse(message)
-				: message.system
-					? undefined
-					: messageCreateResponse(message));
+				: message.type === MessageType.Default ||
+						message.type === MessageType.Reply ||
+						message.type === MessageType.ChatInputCommand ||
+						message.type === MessageType.ContextMenuCommand
+					? messageCreateResponse(message)
+					: undefined);
 		} else {
-			// The entitlement is not active. Delete it, if it is still around.
-			await AI.delete(message.guildId);
+			pino.info(message, "No entitlement found, so deleting from AI cache.");
+			await AI.delete(guild.id);
 		}
 	}
 

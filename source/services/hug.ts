@@ -1,21 +1,26 @@
 import {
-	type ChatInputCommandInteraction,
-	EmbedBuilder,
+	type APIChatInputApplicationCommandInteraction,
+	type APIInteractionDataResolvedGuildMember,
+	type APIUser,
 	Locale,
 	MessageFlags,
 	PermissionFlagsBits,
-} from "discord.js";
+} from "@discordjs/core";
 import { t } from "i18next";
+import { client } from "../discord.js";
 import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_HUG_NO } from "../utility/constants.js";
+import { interactionInvoker } from "../utility/functions.js";
 
-export async function hug(interaction: ChatInputCommandInteraction) {
-	const { channel, guildLocale, options } = interaction;
-	const user = options.getUser("user", true);
-	const member = options.getMember("user");
-	const resolvedLocale = guildLocale ?? Locale.EnglishGB;
+export async function hug(
+	interaction: APIChatInputApplicationCommandInteraction,
+	user: APIUser,
+	member: APIInteractionDataResolvedGuildMember | null,
+) {
+	const invoker = interactionInvoker(interaction);
+	const resolvedLocale = interaction.guild_locale ?? Locale.EnglishGB;
 
-	if (user.id === interaction.user.id) {
-		await interaction.reply({
+	if (user.id === invoker.id) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("hug.hug-self", { lng: resolvedLocale, ns: "commands" }),
 			flags: MessageFlags.Ephemeral,
 		});
@@ -23,12 +28,12 @@ export async function hug(interaction: ChatInputCommandInteraction) {
 		return;
 	}
 
-	if (interaction.inGuild() && !member) {
-		await interaction.reply({
+	if (interaction.guild_id && !member) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("hug.not-in-server", {
 				lng: resolvedLocale,
 				ns: "commands",
-				user: String(user),
+				user: `<@${user.id}>`,
 			}),
 			flags: MessageFlags.Ephemeral,
 		});
@@ -36,43 +41,47 @@ export async function hug(interaction: ChatInputCommandInteraction) {
 		return;
 	}
 
-	if (
-		channel &&
-		!channel.isDMBased() &&
-		member &&
-		"user" in member &&
-		!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
-	) {
-		await interaction.reply({
-			content: t("hug.not-around", { lng: resolvedLocale, ns: "commands", user: String(user) }),
-			flags: MessageFlags.Ephemeral,
-		});
+	if (member) {
+		const permissions = BigInt(member.permissions);
 
-		return;
+		if ((permissions & PermissionFlagsBits.ViewChannel) === 0n) {
+			await client.api.interactions.reply(interaction.id, interaction.token, {
+				content: t("hug.not-around", {
+					lng: resolvedLocale,
+					ns: "commands",
+					user: `<@${user.id}>`,
+				}),
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
 	}
 
 	if (user.bot) {
-		await interaction.reply({
-			content: t("hug.bot", { lng: resolvedLocale, ns: "commands", user: String(user) }),
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: t("hug.bot", { lng: resolvedLocale, ns: "commands", user: `<@${user.id}>` }),
 			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
 	}
 
-	await interaction.reply({
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		allowed_mentions: { users: [user.id] },
 		content: t("hug.message", {
 			lng: resolvedLocale,
 			ns: "commands",
-			user: String(user),
-			invoker: String(interaction.user),
+			user: `<@${user.id}>`,
+			invoker: `<@${invoker.id}>`,
 		}),
 		embeds: [
-			new EmbedBuilder()
-				.setColor(DEFAULT_EMBED_COLOUR)
-				.setImage(
-					String(new URL(`hugs/${Math.floor(Math.random() * MAX_HUG_NO + 1)}.gif`, CDN_URL)),
-				),
+			{
+				color: DEFAULT_EMBED_COLOUR,
+				image: {
+					url: String(new URL(`hugs/${Math.floor(Math.random() * MAX_HUG_NO + 1)}.gif`, CDN_URL)),
+				},
+			},
 		],
 	});
 }

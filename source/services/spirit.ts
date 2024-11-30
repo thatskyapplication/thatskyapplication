@@ -1,21 +1,20 @@
 import {
-	ActionRowBuilder,
-	type AutocompleteInteraction,
-	ButtonBuilder,
-	ButtonInteraction,
+	type APIActionRowComponent,
+	type APIApplicationCommandAutocompleteInteraction,
+	type APIButtonComponent,
+	type APIChatInputApplicationCommandInteraction,
+	type APIEmbed,
+	type APIMessageComponentButtonInteraction,
+	ApplicationCommandOptionType,
 	ButtonStyle,
-	type ChatInputCommandInteraction,
-	EmbedBuilder,
+	ComponentType,
 	MessageFlags,
 	PermissionFlagsBits,
-	TimestampStyles,
-	formatEmoji,
-	hyperlink,
-	time,
-} from "discord.js";
+} from "@discordjs/core";
 import { t } from "i18next";
 import { spirits } from "../data/spirits/index.js";
 import { resolveSeasonalSpirit } from "../data/spirits/seasons/index.js";
+import { client } from "../discord.js";
 import type {
 	ElderSpirit,
 	GuideSpirit,
@@ -34,7 +33,10 @@ import {
 } from "../utility/catalogue.js";
 import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { skyNow } from "../utility/dates.js";
-import { cannotUsePermissions } from "../utility/permission-checks.js";
+import { formatEmoji } from "../utility/emojis.js";
+import { isChatInputCommand } from "../utility/functions.js";
+import type { OptionResolver } from "../utility/option-resolver.js";
+import { cannotUsePermissions } from "../utility/permissions.js";
 import {
 	FriendActionToEmoji,
 	SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID,
@@ -43,59 +45,66 @@ import {
 	SpiritStanceToEmoji,
 } from "../utility/spirits.js";
 
-export async function searchAutocomplete(interaction: AutocompleteInteraction) {
-	const { locale, options } = interaction;
-	const focused = options.getFocused().toUpperCase();
+export async function searchAutocomplete(
+	interaction: APIApplicationCommandAutocompleteInteraction,
+	options: OptionResolver,
+) {
+	const { locale } = interaction;
+	const focused = options.getFocusedOption(ApplicationCommandOptionType.String).value.toUpperCase();
 
-	await interaction.respond(
-		focused === ""
-			? []
-			: spirits()
-					.filter((spirit) => {
-						const { name, keywords } = spirit;
-						const localisedName = t(`spiritNames.${name}`, { lng: locale, ns: "general" });
-						let emote = null;
-						let stance = null;
-						let call = null;
-						let action = null;
-						const isSeasonalSpirit = spirit.isSeasonalSpirit();
+	await client.api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
+		choices:
+			focused === ""
+				? []
+				: spirits()
+						.filter((spirit) => {
+							const { name, keywords } = spirit;
+							const localisedName = t(`spiritNames.${name}`, { lng: locale, ns: "general" });
+							let emote = null;
+							let stance = null;
+							let call = null;
+							let action = null;
+							const isSeasonalSpirit = spirit.isSeasonalSpirit();
 
-						if (spirit.isStandardSpirit() || isSeasonalSpirit) {
-							emote = spirit.emote?.toUpperCase() ?? null;
-							stance = spirit.stance?.toUpperCase() ?? null;
-							call = spirit.call?.toUpperCase() ?? null;
-							action = spirit.action?.toUpperCase() ?? null;
-						}
+							if (spirit.isStandardSpirit() || isSeasonalSpirit) {
+								emote = spirit.emote?.toUpperCase() ?? null;
+								stance = spirit.stance?.toUpperCase() ?? null;
+								call = spirit.call?.toUpperCase() ?? null;
+								action = spirit.action?.toUpperCase() ?? null;
+							}
 
-						const seasonName =
-							isSeasonalSpirit || spirit.isGuideSpirit()
-								? t(`seasons.${spirit.seasonId}`, { lng: locale, ns: "general" }).toUpperCase()
-								: null;
+							const seasonName =
+								isSeasonalSpirit || spirit.isGuideSpirit()
+									? t(`seasons.${spirit.seasonId}`, { lng: locale, ns: "general" }).toUpperCase()
+									: null;
 
-						return (
-							localisedName.toUpperCase().includes(focused) ||
-							keywords.some((keyword) => keyword.toUpperCase().includes(focused)) ||
-							emote?.toUpperCase().includes(focused) ||
-							stance?.toUpperCase().includes(focused) ||
-							call?.toUpperCase().includes(focused) ||
-							action?.toUpperCase().includes(focused) ||
-							seasonName?.includes(focused)
-						);
-					})
-					.map(({ name }) => ({
-						name: t(`spiritNames.${name}`, { lng: locale, ns: "general" }),
-						value: name,
-					}))
-					.slice(0, 25),
-	);
+							return (
+								localisedName.toUpperCase().includes(focused) ||
+								keywords.some((keyword) => keyword.toUpperCase().includes(focused)) ||
+								emote?.toUpperCase().includes(focused) ||
+								stance?.toUpperCase().includes(focused) ||
+								call?.toUpperCase().includes(focused) ||
+								action?.toUpperCase().includes(focused) ||
+								seasonName?.includes(focused)
+							);
+						})
+						.map(({ name }) => ({
+							name: t(`spiritNames.${name}`, { lng: locale, ns: "general" }),
+							value: name,
+						}))
+						.slice(0, 25),
+	});
 }
 
-export async function search(interaction: ChatInputCommandInteraction) {
-	const query = interaction.options.getString("query", true);
+export async function search(
+	interaction: APIChatInputApplicationCommandInteraction,
+	options: OptionResolver,
+) {
+	const query = options.getString("query", true);
 	const spirit = spirits().find(({ name }) => name === query);
 
 	if (!spirit) {
-		await interaction.reply({
+		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "Woah, it seems we have not encountered that spirit yet. How strange!",
 			flags: MessageFlags.Ephemeral,
 		});
@@ -110,15 +119,14 @@ export async function search(interaction: ChatInputCommandInteraction) {
 	);
 }
 
-export async function parseSpiritSwitch(interaction: ButtonInteraction) {
-	const { customId } = interaction;
-	const data = customId.split("§");
+export async function parseSpiritSwitch(interaction: APIMessageComponentButtonInteraction) {
+	const data = interaction.data.custom_id.split("§");
 	const name = data[1]!;
 	const seasonalOffer = data[2] === "true";
 	const spirit = resolveSeasonalSpirit(name);
 
 	if (!spirit) {
-		await interaction.reply({
+		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "Woah, it seems we have not encountered that spirit yet. How strange!",
 			flags: MessageFlags.Ephemeral,
 		});
@@ -129,17 +137,29 @@ export async function parseSpiritSwitch(interaction: ButtonInteraction) {
 	await searchResponse(interaction, spirit, !seasonalOffer);
 }
 
-function visitField(
-	seasonalSpiritVisit: SeasonalSpiritVisitTravellingData | SeasonalSpiritVisitReturningData,
+function visitTravellingField(
+	seasonalSpiritVisit: SeasonalSpiritVisitTravellingData,
 	error: boolean,
 ) {
 	return seasonalSpiritVisit
 		.reduce<string[]>((visits, date, visit) => {
-			const resolvedDate = "start" in date ? date.start : date;
+			const prefix = error ? "Error" : `#${visit}`;
+			visits.push(`${prefix}: ${date.toFormat("dd/LL/yyyy")} (<t:${date.toUnixInteger()}:R>)`);
+			return visits;
+		}, [])
+		.join("\n");
+}
+
+function visitReturningField(
+	seasonalSpiritVisit: SeasonalSpiritVisitReturningData,
+	error: boolean,
+) {
+	return seasonalSpiritVisit
+		.reduce<string[]>((visits, date, visit) => {
 			const prefix = error ? "Error" : `#${visit}`;
 
 			visits.push(
-				`${prefix}: ${resolvedDate.toFormat("dd/LL/yyyy")} (${time(resolvedDate.toUnixInteger(), TimestampStyles.RelativeTime)})`,
+				`${prefix}: ${date.start.toFormat("dd/LL/yyyy")} (<t:${date.start.toUnixInteger()}:R>)`,
 			);
 
 			return visits;
@@ -149,7 +169,7 @@ function visitField(
 
 // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 async function searchResponse(
-	interaction: ButtonInteraction | ChatInputCommandInteraction,
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 	spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 	seasonalOffer = false,
 ) {
@@ -165,13 +185,16 @@ async function searchResponse(
 	const totalCost = seasonalParsing ? spirit.totalCostSeasonal : spirit.totalCost;
 	const totalOffer = totalCost ? resolveCostToString(totalCost).join("") : null;
 
-	const embed = new EmbedBuilder()
-		.setColor(DEFAULT_EMBED_COLOUR)
-		.setTitle(t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" }))
-		.setURL(spirit.wikiURL);
+	const embed: APIEmbed = {
+		color: DEFAULT_EMBED_COLOUR,
+		title: t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" }),
+		url: spirit.wikiURL,
+	};
+
+	const fields = [];
 
 	if (spirit.realm) {
-		embed.addFields({
+		fields.push({
 			name: "Realm",
 			value: t(`realms.${spirit.realm}`, { lng: locale, ns: "general" }),
 			inline: true,
@@ -179,7 +202,7 @@ async function searchResponse(
 	}
 
 	if (spiritSeason !== null) {
-		embed.addFields({
+		fields.push({
 			name: "Season",
 			value: `${formatEmoji(SeasonIdToSeasonalEmoji[spiritSeason])}${t(`seasons.${spiritSeason}`, {
 				lng: locale,
@@ -191,7 +214,7 @@ async function searchResponse(
 
 	if (spirit.isStandardSpirit() || isSeasonalSpirit) {
 		if (spirit.emote) {
-			embed.addFields({
+			fields.push({
 				name: "Emote",
 				value: formatEmoji(SpiritEmoteToEmoji[spirit.emote]),
 				inline: true,
@@ -199,7 +222,7 @@ async function searchResponse(
 		}
 
 		if (spirit.stance) {
-			embed.addFields({
+			fields.push({
 				name: "Stance",
 				value: formatEmoji(SpiritStanceToEmoji[spirit.stance]),
 				inline: true,
@@ -207,7 +230,7 @@ async function searchResponse(
 		}
 
 		if (spirit.call) {
-			embed.addFields({
+			fields.push({
 				name: "Call",
 				value: formatEmoji(SpiritCallToEmoji[spirit.call]),
 				inline: true,
@@ -215,7 +238,7 @@ async function searchResponse(
 		}
 
 		if (spirit.action) {
-			embed.addFields({
+			fields.push({
 				name: "Action",
 				value: formatEmoji(FriendActionToEmoji[spirit.action]),
 				inline: true,
@@ -223,7 +246,7 @@ async function searchResponse(
 		}
 	}
 
-	const components = [];
+	const components: APIActionRowComponent<APIButtonComponent>[] = [];
 	const description = [];
 	const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 
@@ -232,32 +255,33 @@ async function searchResponse(
 		const travellingFieldValue = [];
 
 		if (travelling.size > 0) {
-			travellingFieldValue.push(visitField(travelling, false));
+			travellingFieldValue.push(visitTravellingField(travelling, false));
 		}
 
 		if (travellingErrors.size > 0) {
-			travellingFieldValue.push(visitField(travellingErrors, true));
+			travellingFieldValue.push(visitTravellingField(travellingErrors, true));
 		}
 
 		if (travellingFieldValue.length > 0) {
-			embed.addFields({ name: "Travelling", value: travellingFieldValue.join("\n") });
+			fields.push({ name: "Travelling", value: travellingFieldValue.join("\n") });
 		}
 
 		if (returning.size > 0) {
-			embed.addFields({ name: "Returning", value: visitField(returning, false) });
+			fields.push({ name: "Returning", value: visitReturningField(returning, false) });
 		}
 
 		if (spirit.visit(skyNow()).visited) {
-			components.push(
-				new ActionRowBuilder<ButtonBuilder>().setComponents(
-					new ButtonBuilder()
-						.setCustomId(
-							`${SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID}§${spirit.name}§${seasonalOffer}`,
-						)
-						.setLabel(`${seasonalOffer ? "Current" : "Seasonal"} Friendship Tree`)
-						.setStyle(ButtonStyle.Primary),
-				),
-			);
+			components.push({
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: `${SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID}§${spirit.name}§${seasonalOffer}`,
+						label: `${seasonalOffer ? "Current" : "Seasonal"} Friendship Tree`,
+						style: ButtonStyle.Primary,
+					},
+				],
+			});
 		} else {
 			description.push(
 				`⚠️ This ${
@@ -276,27 +300,35 @@ async function searchResponse(
 	}
 
 	if (imageURL) {
-		embed.setImage(imageURL);
+		embed.image = { url: imageURL };
 	} else {
 		const offer = seasonalParsing ? spirit.seasonal : spirit.current;
 		description.push(offer.length > 0 ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
 	}
 
 	if (isGuideSpirit && spirit.inProgress) {
-		embed.setFooter({ text: GUIDE_SPIRIT_IN_PROGRESS_TEXT });
+		embed.footer = { text: GUIDE_SPIRIT_IN_PROGRESS_TEXT };
 	}
 
 	if (isSeasonalSpirit && spirit.marketingVideoURL) {
-		description.push(hyperlink("Promotional Video", spirit.marketingVideoURL));
+		description.push(`[Promotional Video](${spirit.marketingVideoURL})`);
 	}
 
 	if (description.length > 0) {
-		embed.setDescription(description.join("\n"));
+		embed.description = description.join("\n");
 	}
 
-	if (interaction instanceof ButtonInteraction) {
-		await interaction.update({ components, embeds: [embed] });
+	embed.fields = fields;
+
+	if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			components,
+			embeds: [embed],
+		});
 	} else {
-		await interaction.reply({ components, embeds: [embed] });
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+			components,
+			embeds: [embed],
+		});
 	}
 }

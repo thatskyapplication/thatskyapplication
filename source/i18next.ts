@@ -1,4 +1,4 @@
-import { Locale } from "discord.js";
+import { Locale } from "@discordjs/core";
 import { init } from "i18next";
 import de from "./locales/de.js";
 import enGB from "./locales/en-gb.js";

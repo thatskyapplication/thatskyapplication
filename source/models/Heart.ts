@@ -1,4 +1,4 @@
-import type { Snowflake } from "discord.js";
+import type { Snowflake } from "@discordjs/core";
 
 export interface HeartPacket {
 	gifter_id: Snowflake | null;

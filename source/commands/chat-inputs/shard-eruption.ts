@@ -1,24 +1,21 @@
-import { type ChatInputCommandInteraction, Locale } from "discord.js";
+import { type APIChatInputApplicationCommandInteraction, Locale } from "@discordjs/core";
 import { t } from "i18next";
 import { browse, today } from "../../services/shard-eruption.js";
+import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
 	name: t("shard-eruption.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-	async chatInput(interaction: ChatInputCommandInteraction) {
-		switch (interaction.options.getSubcommand()) {
+	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
+		const options = new OptionResolver(interaction);
+
+		switch (options.getSubcommand()) {
 			case "browse": {
-				await this.browse(interaction);
+				await browse(interaction, 0);
 				return;
 			}
 			case "today": {
-				await this.today(interaction);
+				await today(interaction, 0);
 			}
 		}
-	},
-	async today(interaction: ChatInputCommandInteraction) {
-		await today(interaction, 0);
-	},
-	async browse(interaction: ChatInputCommandInteraction) {
-		await browse(interaction, 0);
 	},
 } as const;

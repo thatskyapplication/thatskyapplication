@@ -1,58 +1,61 @@
 import {
-	ALLOWED_EXTENSIONS,
-	type Attachment,
-	type AutocompleteInteraction,
-	type ChatInputCommandInteraction,
+	type APIApplicationCommandAutocompleteInteraction,
+	type APIAttachment,
+	type APIChatInputApplicationCommandInteraction,
 	Locale,
+	MessageFlags,
 	PermissionFlagsBits,
-} from "discord.js";
+} from "@discordjs/core";
+import { ALLOWED_EXTENSIONS } from "@discordjs/rest";
 import { t } from "i18next";
 import { spirits } from "../../data/spirits/index.js";
+import { client } from "../../discord.js";
 import Profile, { AssetType, type ProfileSetData } from "../../models/Profile.js";
 import { searchAutocomplete } from "../../services/spirit.js";
-import { SKY_PROFILE_MAXIMUM_ASSET_SIZE } from "../../utility/constants.js";
-import { cannotUsePermissions } from "../../utility/permission-checks.js";
+import { APPLICATION_ID, SKY_PROFILE_MAXIMUM_ASSET_SIZE } from "../../utility/constants.js";
+import { OptionResolver } from "../../utility/option-resolver.js";
+import { cannotUsePermissions } from "../../utility/permissions.js";
 
 export default {
 	name: t("sky-profile.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-	async autocomplete(interaction: AutocompleteInteraction) {
-		switch (interaction.options.getSubcommand()) {
+	async autocomplete(interaction: APIApplicationCommandAutocompleteInteraction) {
+		const options = new OptionResolver(interaction);
+
+		switch (options.getSubcommand()) {
 			case "edit": {
-				await this.editAutocomplete(interaction);
+				await searchAutocomplete(interaction, options);
 				return;
 			}
 			case "explore": {
-				await this.exploreAutocomplete(interaction);
+				await Profile.exploreAutocomplete(interaction, options);
 				return;
 			}
 		}
 	},
-	async chatInput(interaction: ChatInputCommandInteraction) {
+	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
 		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
 			return;
 		}
 
-		switch (interaction.options.getSubcommand()) {
+		const options = new OptionResolver(interaction);
+
+		switch (options.getSubcommand()) {
 			case "edit": {
-				await this.edit(interaction);
+				await this.edit(interaction, options);
 				return;
 			}
 			case "explore": {
-				await this.explore(interaction);
+				await this.explore(interaction, options);
 				return;
 			}
 			case "show": {
-				await this.show(interaction);
+				await this.show(interaction, options);
 				return;
 			}
 		}
 	},
-	async editAutocomplete(interaction: AutocompleteInteraction) {
-		await searchAutocomplete(interaction);
-	},
 	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
-	async edit(interaction: ChatInputCommandInteraction) {
-		const { options } = interaction;
+	async edit(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
 		const name = options.getString("name");
 		const thumbnail = options.getAttachment("thumbnail");
 		const icon = options.getAttachment("icon");
@@ -65,8 +68,10 @@ export default {
 		const data: ProfileSetData = {};
 		const promises = [];
 
-		if (options.data[0]!.options!.length !== 0) {
-			await interaction.deferReply({ ephemeral: true });
+		if (options.hoistedOptions.length !== 0) {
+			await client.api.interactions.defer(interaction.id, interaction.token, {
+				flags: MessageFlags.Ephemeral,
+			});
 
 			if (name) {
 				data.name = name;
@@ -102,9 +107,9 @@ export default {
 				const resolvedSpirit = spirits().find(({ name }) => name === spirit);
 
 				if (!resolvedSpirit) {
-					await interaction.editReply(
-						"Woah, it seems we have not encountered that spirit yet. How strange!",
-					);
+					await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
+						content: "Woah, it seems we have not encountered that spirit yet. How strange!",
+					});
 
 					return;
 				}
@@ -140,30 +145,33 @@ export default {
 				}
 			}
 
-			await Profile.set(interaction, data);
+			await Profile.set(interaction, data, true);
 			return;
 		}
 
-		await Profile.showEdit(interaction);
+		await Profile.showEdit(interaction, false);
 	},
-	async validateAttachment(interaction: ChatInputCommandInteraction, { size, name }: Attachment) {
+	async validateAttachment(
+		interaction: APIChatInputApplicationCommandInteraction,
+		{ size, filename }: APIAttachment,
+	) {
 		if (
 			size > SKY_PROFILE_MAXIMUM_ASSET_SIZE ||
-			!ALLOWED_EXTENSIONS.some((extension) => name.endsWith(`.${extension}`))
+			!ALLOWED_EXTENSIONS.some((extension) => filename.endsWith(`.${extension}`))
 		) {
-			await interaction.editReply(
-				`Please upload a valid attachment! It must be less than 5 megabytes and in any of the following formats:\n${ALLOWED_EXTENSIONS.map(
+			await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
+				content: `Please upload a valid attachment! It must be less than 5 megabytes and in any of the following formats:\n${ALLOWED_EXTENSIONS.map(
 					(extension) => `- .${extension}`,
 				).join("\n")}`,
-			);
+			});
 
 			return false;
 		}
 
 		return true;
 	},
-	async explore(interaction: ChatInputCommandInteraction) {
-		const name = interaction.options.getString("name");
+	async explore(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
+		const name = options.getString("name");
 
 		if (name) {
 			await Profile.exploreProfile(interaction, name);
@@ -172,10 +180,9 @@ export default {
 
 		await Profile.explore(interaction);
 	},
-	async exploreAutocomplete(interaction: AutocompleteInteraction) {
-		await Profile.exploreAutocomplete(interaction);
-	},
-	async show(interaction: ChatInputCommandInteraction) {
-		await Profile.show(interaction);
+	async show(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
+		const user = options.getUser("user");
+		const hide = options.getBoolean("hide") ?? false;
+		await Profile.show(interaction, user, hide);
 	},
 } as const;

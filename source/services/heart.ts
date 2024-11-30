@@ -1,22 +1,22 @@
 import {
-	ActionRowBuilder,
-	ButtonBuilder,
-	type ButtonInteraction,
+	type APIChatInputApplicationCommandInteraction,
+	type APIInteractionDataResolvedGuildMember,
+	type APIMessageComponentButtonInteraction,
+	type APIUser,
+	type APIUserApplicationCommandInteraction,
 	ButtonStyle,
-	type ChatInputCommandInteraction,
-	EmbedBuilder,
+	ComponentType,
+	type InteractionsAPI,
 	MessageFlags,
 	PermissionFlagsBits,
 	type Snowflake,
-	TimestampStyles,
-	type UserContextMenuCommandInteraction,
-	formatEmoji,
-	time,
-	userMention,
-} from "discord.js";
+} from "@discordjs/core";
+import { DiscordSnowflake } from "@sapphire/snowflake";
+import { client } from "../discord.js";
 import type { HeartPacket } from "../models/Heart.js";
 import pg, { Table } from "../pg.js";
 import {
+	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,
 	DELETED_USER_TEXT,
 	HEARTS,
@@ -26,9 +26,9 @@ import {
 	MAXIMUM_HEARTS_PER_DAY,
 } from "../utility/constants.js";
 import { skyToday } from "../utility/dates.js";
-import { MISCELLANEOUS_EMOJIS, resolveCurrencyEmoji } from "../utility/emojis.js";
-import { getRandomElement } from "../utility/functions.js";
-import { cannotUsePermissions } from "../utility/permission-checks.js";
+import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "../utility/emojis.js";
+import { getRandomElement, interactionInvoker, isChatInputCommand } from "../utility/functions.js";
+import { cannotUsePermissions } from "../utility/permissions.js";
 
 async function totalGifted(userId: Snowflake) {
 	return Number(
@@ -43,18 +43,18 @@ export async function totalReceived(userId: Snowflake) {
 }
 
 export async function gift(
-	interaction: ChatInputCommandInteraction | UserContextMenuCommandInteraction,
+	interaction: APIChatInputApplicationCommandInteraction | APIUserApplicationCommandInteraction,
+	user: APIUser,
+	member: APIInteractionDataResolvedGuildMember | null,
 ) {
 	if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
 		return;
 	}
 
-	const { channel, createdAt, options } = interaction;
-	const user = options.getUser("user", true);
-	const member = options.getMember("user");
+	const invoker = interactionInvoker(interaction);
 
-	if (user.id === interaction.user.id) {
-		await interaction.reply({
+	if (user.id === invoker.id) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: `You cannot gift a ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} to yourself!`,
 			flags: MessageFlags.Ephemeral,
 		});
@@ -62,33 +62,31 @@ export async function gift(
 		return;
 	}
 
-	if (interaction.inGuild() && !member) {
-		await interaction.reply({
-			content: `${user} is not in this server to gift a ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} to.`,
+	if (interaction.guild_id && !member) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `<@${user.id}> is not in this server to gift a ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} to.`,
 			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
 	}
 
-	if (
-		channel &&
-		!channel.isDMBased() &&
-		member &&
-		"user" in member &&
-		!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
-	) {
-		await interaction.reply({
-			content: `${user} is not around to receive a ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)}!`,
-			flags: MessageFlags.Ephemeral,
-		});
+	if (member) {
+		const permissions = BigInt(member.permissions);
 
-		return;
+		if ((permissions & PermissionFlagsBits.ViewChannel) === 0n) {
+			await client.api.interactions.reply(interaction.id, interaction.token, {
+				content: `<@${user.id}> is not around to receive a ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)}!`,
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
 	}
 
 	if (user.bot) {
-		await interaction.reply({
-			content: `${user} is a bot. They're pretty emotionless. Immune to love, I'd say.`,
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `<@${user.id}> is a bot. They're pretty emotionless. Immune to love, I'd say.`,
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -96,21 +94,17 @@ export async function gift(
 	}
 
 	const today = skyToday();
-
-	const tomorrowTimestamp = time(
-		Math.floor(today.plus({ day: 1 }).toUnixInteger()),
-		TimestampStyles.RelativeTime,
-	);
+	const tomorrowTimestamp = `<t:${Math.floor(today.plus({ day: 1 }).toUnixInteger())}:R>`;
 
 	const heartPackets = await pg<HeartPacket>(Table.Hearts)
-		.where({ gifter_id: interaction.user.id })
+		.where({ gifter_id: invoker.id })
 		.andWhere("timestamp", ">=", today.toISO())
 		.orderBy("timestamp", "desc")
 		.limit(MAXIMUM_HEARTS_PER_DAY);
 
 	if (heartPackets.some((heartPacket) => heartPacket.giftee_id === user.id)) {
-		await interaction.reply({
-			content: `You've already sent ${user} a ${formatEmoji(
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `You've already sent <@${user.id}> a ${formatEmoji(
 				MISCELLANEOUS_EMOJIS.Heart,
 			)} today!\nYou can gift another one to them ${tomorrowTimestamp}.`,
 			flags: MessageFlags.Ephemeral,
@@ -124,26 +118,30 @@ export async function gift(
 	)} left to gift today.\nYou can gift more ${tomorrowTimestamp}.`;
 
 	if (heartPackets.length >= MAXIMUM_HEARTS_PER_DAY) {
-		await interaction.reply({ content: noMoreHeartsLeft, flags: MessageFlags.Ephemeral });
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: noMoreHeartsLeft,
+			flags: MessageFlags.Ephemeral,
+		});
+
 		return;
 	}
 
 	await pg<HeartPacket>(Table.Hearts).insert({
-		gifter_id: interaction.user.id,
+		gifter_id: invoker.id,
 		giftee_id: user.id,
-		timestamp: createdAt,
+		timestamp: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
 	});
 
 	const hearts = await totalReceived(user.id);
 
 	const heartMessage = getRandomElement(HEARTS)!
 		.replaceAll("heart", formatEmoji(MISCELLANEOUS_EMOJIS.Heart))
-		.replaceAll("{{gifter}}", String(interaction.user))
-		.replaceAll("{{giftee}}", String(user));
+		.replaceAll("{{gifter}}", `<@${invoker.id}>`)
+		.replaceAll("{{giftee}}", `<@${user.id}>`);
 
-	await interaction.reply({
-		allowedMentions: { users: [user.id] },
-		content: `${heartMessage}\n${user} now has ${resolveCurrencyEmoji({
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		allowed_mentions: { users: [user.id] },
+		content: `${heartMessage}\n<@${user.id}> now has ${resolveCurrencyEmoji({
 			emoji: MISCELLANEOUS_EMOJIS.Heart,
 			number: hearts,
 		})}.`,
@@ -151,7 +149,7 @@ export async function gift(
 
 	const heartsLeftToGift = MAXIMUM_HEARTS_PER_DAY - heartPackets.length - 1;
 
-	await interaction.followUp({
+	await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
 		content:
 			heartsLeftToGift === 0
 				? noMoreHeartsLeft
@@ -160,22 +158,25 @@ export async function gift(
 	});
 }
 
-export async function history(interaction: ButtonInteraction | ChatInputCommandInteraction) {
+export async function history(
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
+) {
 	if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
 		return;
 	}
 
-	const isChatInputCommand = interaction.isChatInputCommand();
+	const invoker = interactionInvoker(interaction);
+	const isChatInput = isChatInputCommand(interaction);
 
-	const page = isChatInputCommand
+	const page = isChatInput
 		? 1
-		: Number(interaction.customId.slice(interaction.customId.indexOf("§") + 1));
+		: Number(interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1));
 
 	const offset = (page - 1) * HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER;
 
 	const heartPackets = await pg<HeartPacket>(Table.Hearts)
-		.where({ gifter_id: interaction.user.id })
-		.orWhere({ giftee_id: interaction.user.id })
+		.where({ gifter_id: invoker.id })
+		.orWhere({ giftee_id: invoker.id })
 		.orderBy("timestamp", "desc")
 		.limit(HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER + 1)
 		.offset(offset);
@@ -185,12 +186,13 @@ export async function history(interaction: ButtonInteraction | ChatInputCommandI
 			components: [],
 			content: `You have ${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: 0 })}.`,
 			embeds: [],
+			flags: MessageFlags.Ephemeral,
 		};
 
-		if (isChatInputCommand) {
-			await interaction.reply({ ...response, flags: MessageFlags.Ephemeral });
+		if (isChatInput) {
+			await client.api.interactions.reply(interaction.id, interaction.token, response);
 		} else {
-			await interaction.update(response);
+			await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 		}
 
 		return;
@@ -204,61 +206,65 @@ export async function history(interaction: ButtonInteraction | ChatInputCommandI
 	}
 
 	const [gifted, received] = await Promise.all([
-		totalGifted(interaction.user.id),
-		totalReceived(interaction.user.id),
+		totalGifted(invoker.id),
+		totalReceived(invoker.id),
 	]);
 
-	const embed = new EmbedBuilder()
-		.setColor(DEFAULT_EMBED_COLOUR)
-		.setDescription(
-			`Gifted: ${resolveCurrencyEmoji({
-				emoji: MISCELLANEOUS_EMOJIS.Heart,
-				number: gifted,
-			})}\nReceived: ${resolveCurrencyEmoji({
-				emoji: MISCELLANEOUS_EMOJIS.Heart,
-				number: received,
-			})}`,
-		)
-		.setFields(
-			heartPackets.map((heartPacket) => {
-				const gifted = heartPacket.gifter_id === interaction.user.id;
-				const user = gifted ? heartPacket.giftee_id : heartPacket.gifter_id;
-
-				return {
-					name: gifted ? "Gifted" : "Received",
-					value: `${user ? userMention(user) : DELETED_USER_TEXT}\n${time(
-						Math.floor(heartPacket.timestamp.getTime() / 1_000),
-						TimestampStyles.ShortDate,
-					)}\n(${time(Math.floor(heartPacket.timestamp.getTime() / 1_000), TimestampStyles.RelativeTime)})`,
-					inline: true,
-				};
-			}),
-		)
-		.setTitle("Heart History");
-
-	const response = {
+	const response:
+		| Parameters<InteractionsAPI["reply"]>[2]
+		| Parameters<InteractionsAPI["updateMessage"]>[2] = {
 		components: [
-			new ActionRowBuilder<ButtonBuilder>().setComponents(
-				new ButtonBuilder()
-					.setCustomId(`${HEART_HISTORY_BACK}§${page - 1}`)
-					.setDisabled(!hasPreviousPage)
-					.setEmoji("⬅️")
-					.setLabel("Back")
-					.setStyle(ButtonStyle.Secondary),
-				new ButtonBuilder()
-					.setCustomId(`${HEART_HISTORY_NEXT}§${page + 1}`)
-					.setDisabled(!hasNextPage)
-					.setEmoji("➡️")
-					.setLabel("Next")
-					.setStyle(ButtonStyle.Secondary),
-			),
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: `${HEART_HISTORY_BACK}§${page - 1}`,
+						disabled: !hasPreviousPage,
+						emoji: { name: "⬅️" },
+						label: "Back",
+						style: ButtonStyle.Secondary,
+					},
+					{
+						type: ComponentType.Button,
+						custom_id: `${HEART_HISTORY_NEXT}§${page + 1}`,
+						disabled: !hasNextPage,
+						emoji: { name: "➡️" },
+						label: "Next",
+						style: ButtonStyle.Secondary,
+					},
+				],
+			},
 		],
-		embeds: [embed],
+		embeds: [
+			{
+				color: DEFAULT_EMBED_COLOUR,
+				description: `Gifted: ${resolveCurrencyEmoji({
+					emoji: MISCELLANEOUS_EMOJIS.Heart,
+					number: gifted,
+				})}\nReceived: ${resolveCurrencyEmoji({
+					emoji: MISCELLANEOUS_EMOJIS.Heart,
+					number: received,
+				})}`,
+				fields: heartPackets.map((heartPacket) => {
+					const gifted = heartPacket.gifter_id === invoker.id;
+					const user = gifted ? heartPacket.giftee_id : heartPacket.gifter_id;
+
+					return {
+						name: gifted ? "Gifted" : "Received",
+						value: `${user ? `<@${user}>` : DELETED_USER_TEXT}\n<t:${Math.floor(heartPacket.timestamp.getTime() / 1_000)}:d>\n(<t:${Math.floor(heartPacket.timestamp.getTime() / 1_000)}:R>)`,
+						inline: true,
+					};
+				}),
+				title: "Heart History",
+			},
+		],
+		flags: MessageFlags.Ephemeral,
 	};
 
-	if (isChatInputCommand) {
-		await interaction.reply({ ...response, flags: MessageFlags.Ephemeral });
+	if (isChatInput) {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
 	} else {
-		await interaction.update(response);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 	}
 }

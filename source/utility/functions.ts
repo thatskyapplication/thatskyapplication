@@ -1,5 +1,24 @@
-import type { EntitlementManager, Snowflake, User } from "discord.js";
-import { SERVER_UPGRADE_SKU_ID } from "./constants.js";
+import {
+	type APIApplicationCommandAutocompleteInteraction,
+	type APIButtonComponent,
+	type APIChatInputApplicationCommandGuildInteraction,
+	type APIChatInputApplicationCommandInteraction,
+	type APIGuildInteractionWrapper,
+	type APIInteraction,
+	type APIMessageComponentButtonInteraction,
+	type APIMessageComponentSelectMenuInteraction,
+	type APIModalSubmitGuildInteraction,
+	type APIModalSubmitInteraction,
+	type APISelectMenuComponent,
+	type APIUser,
+	type APIUserApplicationCommandInteraction,
+	ApplicationCommandType,
+	ChannelType,
+	ComponentType,
+	InteractionType,
+	type Snowflake,
+} from "@discordjs/core";
+import { VALID_REALM_NAME_VALUES } from "./constants.js";
 import {
 	INCONSISTENT_MAP,
 	MEDITATION_MAPS,
@@ -11,21 +30,8 @@ import {
 	SOCIAL_LIGHT_AREA_MAPS,
 	SkyMap,
 	type SocialLightAreaMaps,
-	VALID_REALM_NAME,
 	inconsistentMapKeys,
 } from "./constants.js";
-
-export async function resolveEntitlement(
-	entitlementManager: EntitlementManager,
-	guildId: Snowflake,
-) {
-	return (
-		entitlementManager.cache.find(
-			(entitlement) =>
-				entitlement.guildId === guildId && entitlement.skuId === SERVER_UPGRADE_SKU_ID,
-		) ?? (await entitlementManager.fetch({ guild: guildId, skus: [SERVER_UPGRADE_SKU_ID] })).first()
-	);
-}
 
 export function getRandomElement<const T>(array: readonly T[]) {
 	return array[Math.floor(Math.random() * array.length)];
@@ -42,8 +48,38 @@ export function chatInputApplicationCommandMention(
 	}:${id}>`;
 }
 
-export function userLogFormat(user: User) {
-	return `${user} (${user.tag})`;
+export function interactionInvoker(interaction: APIInteraction) {
+	return interaction.member?.user ?? interaction.user!;
+}
+
+export function interactedComponent(
+	interaction: APIMessageComponentButtonInteraction,
+): APIButtonComponent & { custom_id: string };
+
+export function interactedComponent(
+	interaction: APIMessageComponentSelectMenuInteraction,
+): APISelectMenuComponent;
+
+export function interactedComponent(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+) {
+	return interaction.message
+		.components!.flatMap((actionRow) => actionRow.components)
+		.find(
+			(component) => "custom_id" in component && component.custom_id === interaction.data.custom_id,
+		)!;
+}
+
+export function isThreadChannelType(type: ChannelType) {
+	return (
+		type === ChannelType.AnnouncementThread ||
+		type === ChannelType.PrivateThread ||
+		type === ChannelType.PublicThread
+	);
+}
+
+export function userLogFormat(user: APIUser) {
+	return `<@${user.id}> (${user.username}${user.discriminator === "0" ? "" : `#${user.discriminator}`})`;
 }
 
 export function isRealm(realm: string): realm is RealmName {
@@ -52,9 +88,9 @@ export function isRealm(realm: string): realm is RealmName {
 
 export function resolveValidRealm(realm: string) {
 	const upperRealm = realm.toUpperCase();
+
 	return (
-		Object.values(VALID_REALM_NAME).find((validRealm) => validRealm.toUpperCase() === upperRealm) ??
-		null
+		VALID_REALM_NAME_VALUES.find((validRealm) => validRealm.toUpperCase() === upperRealm) ?? null
 	);
 }
 
@@ -125,4 +161,76 @@ export function isSocialLightAreaMap(skyMap: SkyMap): skyMap is SocialLightAreaM
 
 export function isRainbowAdmireMap(skyMap: SkyMap): skyMap is RainbowAdmireMaps {
 	return RAINBOW_ADMIRE_MAPS.includes(skyMap as RainbowAdmireMaps);
+}
+
+export function isChatInputCommand(
+	interaction: APIInteraction,
+): interaction is APIChatInputApplicationCommandInteraction {
+	return (
+		interaction.type === InteractionType.ApplicationCommand &&
+		interaction.data.type === ApplicationCommandType.ChatInput
+	);
+}
+
+export function isGuildChatInputCommand(
+	interaction: APIInteraction,
+): interaction is APIChatInputApplicationCommandGuildInteraction {
+	return isChatInputCommand(interaction) && "guild_id" in interaction;
+}
+
+export function isUserContextMenuCommand(
+	interaction: APIInteraction,
+): interaction is APIUserApplicationCommandInteraction {
+	return (
+		interaction.type === InteractionType.ApplicationCommand &&
+		interaction.data.type === ApplicationCommandType.User
+	);
+}
+
+export function isButton(
+	interaction: APIInteraction,
+): interaction is APIMessageComponentButtonInteraction {
+	return (
+		interaction.type === InteractionType.MessageComponent &&
+		interaction.data.component_type === ComponentType.Button
+	);
+}
+
+export function isGuildButton(
+	interaction: APIInteraction,
+): interaction is APIGuildInteractionWrapper<APIMessageComponentButtonInteraction> {
+	return isButton(interaction) && "guild_id" in interaction;
+}
+
+export function isSelectMenu(
+	interaction: APIInteraction,
+): interaction is APIMessageComponentSelectMenuInteraction {
+	return (
+		interaction.type === InteractionType.MessageComponent &&
+		interaction.data.component_type === ComponentType.StringSelect
+	);
+}
+
+export function isGuildSelectMenu(
+	interaction: APIInteraction,
+): interaction is APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction> {
+	return isSelectMenu(interaction) && "guild_id" in interaction;
+}
+
+export function isAutocomplete(
+	interaction: APIInteraction,
+): interaction is APIApplicationCommandAutocompleteInteraction {
+	return interaction.type === InteractionType.ApplicationCommandAutocomplete;
+}
+
+export function isModalSubmit(
+	interaction: APIInteraction,
+): interaction is APIModalSubmitInteraction {
+	return interaction.type === InteractionType.ModalSubmit;
+}
+
+export function isGuildModalSubmit(
+	interaction: APIInteraction,
+): interaction is APIModalSubmitGuildInteraction {
+	return isModalSubmit(interaction) && "guild_id" in interaction;
 }

@@ -1,5 +1,5 @@
-import type { ClientEvents, Guild } from "discord.js";
-import pino from "../pino.js";
+import type { MappedEvents } from "@discordjs/core";
+import channelCreate from "./channel-create.js";
 import channelDelete from "./channel-delete.js";
 import channelUpdate from "./channel-update.js";
 import entitlementDelete from "./entitlement-delete.js";
@@ -8,33 +8,29 @@ import guildCreate from "./guild-create.js";
 import guildDelete from "./guild-delete.js";
 import guildMemberAdd from "./guild-member-add.js";
 import guildMemberRemove from "./guild-member-remove.js";
+import guildMemberUpdate from "./guild-member-update.js";
+import guildRoleCreate from "./guild-role-create.js";
+import guildRoleDelete from "./guild-role-delete.js";
+import guildRoleUpdate from "./guild-role-update.js";
+import guildUpdate from "./guild-update.js";
 import interactionCreate from "./interaction-create.js";
 import messageCreate from "./message-create.js";
+import messageDelete from "./message-delete.js";
+import messageUpdate from "./message-update.js";
 import ready from "./ready.js";
-import roleUpdate from "./role-update.js";
+import threadCreate from "./thread-create.js";
+import threadDelete from "./thread-delete.js";
+import threadListSync from "./thread-list-sync.js";
+import threadUpdate from "./thread-update.js";
 
-export interface Event<T extends keyof ClientEvents = keyof ClientEvents> {
+export interface Event<T extends keyof MappedEvents = keyof MappedEvents> {
 	name: T;
 	once?: boolean;
-	fire(this: void, ...parameters: ClientEvents[T]): Promise<void> | void;
-}
-
-export function logGuild(guild: Guild, join = true) {
-	pino.info(
-		{
-			id: guild.id,
-			name: guild.name,
-			created: guild.createdTimestamp,
-			joined: guild.joinedTimestamp,
-			owner: guild.ownerId,
-			members: guild.memberCount,
-			locale: guild.preferredLocale,
-		},
-		`Guild ${join ? "joined" : "left"}`,
-	);
+	fire(this: void, ...parameters: MappedEvents[T]): Promise<void> | void;
 }
 
 export default [
+	channelCreate,
 	channelDelete,
 	channelUpdate,
 	entitlementDelete,
@@ -43,8 +39,18 @@ export default [
 	guildDelete,
 	guildMemberAdd,
 	guildMemberRemove,
+	guildMemberUpdate,
+	guildRoleCreate,
+	guildRoleDelete,
+	guildRoleUpdate,
+	guildUpdate,
 	interactionCreate,
 	messageCreate,
+	messageDelete,
+	messageUpdate,
 	ready,
-	roleUpdate,
+	threadCreate,
+	threadDelete,
+	threadListSync,
+	threadUpdate,
 ] as const;

@@ -1,5 +1,5 @@
 import { URL } from "node:url";
-import { Locale } from "discord.js";
+import { Locale } from "@discordjs/core";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import type { GuideSpirit, SeasonalSpirit } from "../models/Spirits.js";

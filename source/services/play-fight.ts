@@ -1,63 +1,75 @@
 import {
-	type ChatInputCommandInteraction,
-	EmbedBuilder,
+	type APIChatInputApplicationCommandInteraction,
+	type APIInteractionDataResolvedGuildMember,
+	type APIUser,
 	MessageFlags,
 	PermissionFlagsBits,
-} from "discord.js";
+} from "@discordjs/core";
+import { client } from "../discord.js";
 import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_PLAY_FIGHT_NO } from "../utility/constants.js";
+import { interactionInvoker } from "../utility/functions.js";
 
-export async function playFight(interaction: ChatInputCommandInteraction) {
-	const { channel, options } = interaction;
-	const user = options.getUser("user", true);
-	const member = options.getMember("user");
+export async function playFight(
+	interaction: APIChatInputApplicationCommandInteraction,
+	user: APIUser,
+	member: APIInteractionDataResolvedGuildMember | null,
+) {
+	const invoker = interactionInvoker(interaction);
 
-	if (user.id === interaction.user.id) {
-		await interaction.reply({ content: "Play with others!", ephemeral: true });
+	if (user.id === invoker.id) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "Play with others!",
+			flags: MessageFlags.Ephemeral,
+		});
 		return;
 	}
 
-	if (interaction.inGuild() && !member) {
-		await interaction.reply({
-			content: `${user} is not in this server to fight.`,
+	if (interaction.guild_id && !member) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `<@${user.id}> is not in this server to fight.`,
 			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
 	}
 
-	if (
-		channel &&
-		!channel.isDMBased() &&
-		member &&
-		"user" in member &&
-		!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
-	) {
-		await interaction.reply({ content: `${user} is not around to be fought!`, ephemeral: true });
-		return;
+	if (member) {
+		const permissions = BigInt(member.permissions);
+
+		if ((permissions & PermissionFlagsBits.ViewChannel) === 0n) {
+			await client.api.interactions.reply(interaction.id, interaction.token, {
+				content: `<@${user.id}> is not around to be fought!`,
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
 	}
 
 	if (user.bot) {
-		await interaction.reply({
-			content: `${user} is a bot. They're pretty durable. Immune to fights, I'd say.`,
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `<@${user.id}> is a bot. They're pretty durable. Immune to fights, I'd say.`,
 			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
 	}
 
-	await interaction.reply({
-		content: `${interaction.user} is fighting ${user}!`,
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		allowed_mentions: { users: [user.id] },
+		content: `<@${invoker.id}> is fighting <@${user.id}>!`,
 		embeds: [
-			new EmbedBuilder()
-				.setColor(DEFAULT_EMBED_COLOUR)
-				.setImage(
-					String(
+			{
+				color: DEFAULT_EMBED_COLOUR,
+				image: {
+					url: String(
 						new URL(
 							`play_fights/${Math.floor(Math.random() * MAX_PLAY_FIGHT_NO + 1)}.gif`,
 							CDN_URL,
 						),
 					),
-				),
+				},
+			},
 		],
 	});
 }

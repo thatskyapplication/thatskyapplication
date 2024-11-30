@@ -1,14 +1,12 @@
 import { URL } from "node:url";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import {
-	type Attachment,
-	type Collection,
+	type APIAttachment,
 	FormattingPatterns,
-	type Message,
+	type GatewayMessageCreateDispatchData,
 	MessageFlags,
-	type Snowflake,
-	SnowflakeUtil,
-} from "discord.js";
+} from "@discordjs/core";
+import { DiscordSnowflake } from "@sapphire/snowflake";
 import { hash } from "hasha";
 import pQueue from "p-queue";
 import sharp from "sharp";
@@ -22,7 +20,7 @@ import { SeasonId, type SeasonIds, snakeCaseName } from "../utility/catalogue.js
 import {
 	CDN_BUCKET,
 	CDN_URL,
-	Channel,
+	DAILY_INFOGRAPHICS_CHANNEL_ID,
 	INFOGRAPHICS_DATABASE_GUILD_ID,
 	MEDITATION_MAPS,
 	type MeditationMaps,
@@ -590,27 +588,24 @@ export default new (class DailyGuides {
 		}
 	}
 
-	public validToParse({ channelId, flags, reference }: Message) {
+	public validToParse(message: GatewayMessageCreateDispatchData) {
 		return Boolean(
-			channelId === Channel.dailyGuides &&
-				reference?.guildId === INFOGRAPHICS_DATABASE_GUILD_ID &&
-				flags.has(MessageFlags.IsCrosspost) &&
-				reference.messageId &&
-				SnowflakeUtil.timestampFrom(reference.messageId) >= skyToday().toMillis(),
+			message.channel_id === DAILY_INFOGRAPHICS_CHANNEL_ID &&
+				message.message_reference?.guild_id === INFOGRAPHICS_DATABASE_GUILD_ID &&
+				message.flags &&
+				(message.flags & MessageFlags.IsCrosspost) === MessageFlags.IsCrosspost &&
+				message.message_reference.message_id &&
+				DiscordSnowflake.timestampFrom(message.message_reference.message_id) >=
+					skyToday().toMillis(),
 		);
 	}
 
-	public async parse(message: Message<true>) {
+	public async parse(message: GatewayMessageCreateDispatchData) {
 		if (!this.validToParse(message)) {
 			return;
 		}
 
-		const { attachments, client, content, flags } = message;
-
-		if (flags.has(MessageFlags.SourceMessageDeleted)) {
-			return;
-		}
-
+		const { attachments, content } = message;
 		const transformedContent = content.toUpperCase();
 
 		if (
@@ -653,7 +648,7 @@ export default new (class DailyGuides {
 
 		if (parsed && this.queue.pending === 0 && this.queue.size === 0) {
 			this.queue.pause();
-			await distribute(client);
+			await distribute();
 			this.queue.start();
 		}
 	}
@@ -867,7 +862,7 @@ export default new (class DailyGuides {
 		return null;
 	}
 
-	public async parseQuests(content: string, attachments: Collection<Snowflake, Attachment>) {
+	public async parseQuests(content: string, attachments: APIAttachment[]) {
 		const { quest1, quest2, quest3, quest4 } = this;
 
 		if (quest1 && quest2 && quest3 && quest4) {
@@ -875,7 +870,7 @@ export default new (class DailyGuides {
 			return false;
 		}
 
-		const url = attachments.first()?.url ?? null;
+		const url = attachments[0]?.url ?? null;
 
 		// Remove the message link, if any.
 		const pureContent = (
@@ -900,7 +895,7 @@ export default new (class DailyGuides {
 		// Log that we will be falling back to the original string in case of no output.
 		if (!dailyGuide) {
 			pino.error(
-				{ content, attachments: attachments.toJSON() },
+				{ content, attachments: JSON.stringify(attachments) },
 				"Failed to match a daily quest. Falling back to original string.",
 			);
 		}
@@ -950,16 +945,13 @@ export default new (class DailyGuides {
 		this.patch(dailyGuidesPacket!);
 	}
 
-	public async parseTreasureCandles(
-		content: string,
-		attachments: Collection<Snowflake, Attachment>,
-	) {
+	public async parseTreasureCandles(content: string, attachments: APIAttachment[]) {
 		const potentialRealmRegExp =
 			new RegExp(`(${regularExpressionRealms})`, "i").exec(content)?.[1] ?? null;
 		const realm = potentialRealmRegExp ? resolveValidRealm(potentialRealmRegExp) : null;
 
 		if (!realm) {
-			pino.error(attachments.toJSON(), "Failed to fetch the treasure candles realm.");
+			pino.error(JSON.stringify(attachments), "Failed to fetch the treasure candles realm.");
 			return false;
 		}
 
@@ -971,7 +963,7 @@ export default new (class DailyGuides {
 		const urls = attachments.map(({ url }) => url);
 
 		if (urls.length === 0) {
-			pino.error(attachments.toJSON(), "Failed to fetch the treasure candles locations.");
+			pino.error(JSON.stringify(attachments), "Failed to fetch the treasure candles locations.");
 			return false;
 		}
 

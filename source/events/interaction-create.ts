@@ -1,19 +1,22 @@
 import {
-	type ChatInputCommandInteraction,
-	type ContextMenuCommandInteraction,
-	DiscordAPIError,
-	Events,
-	type Interaction,
+	type APIChatInputApplicationCommandInteraction,
+	type APIInteraction,
+	type APIMessageComponentButtonInteraction,
+	type APIMessageComponentSelectMenuInteraction,
+	type APIUserApplicationCommandInteraction,
+	ApplicationCommandType,
+	GatewayDispatchEvents,
 	InteractionType,
 	type Locale,
-	type MessageComponentInteraction,
 	RESTJSONErrorCodes,
-} from "discord.js";
+} from "@discordjs/core";
+import { DiscordAPIError } from "@discordjs/rest";
 import {
 	AUTOCOMPLETE_COMMANDS,
 	CHAT_INPUT_COMMANDS,
 	USER_CONTEXT_MENU_COMMANDS,
 } from "../commands/index.js";
+import { client } from "../discord.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import {
 	CATALOGUE_BACK_TO_START_CUSTOM_ID,
@@ -94,6 +97,7 @@ import {
 	tryAgain,
 } from "../services/guess.js";
 import { history } from "../services/heart.js";
+import { finaliseSetup } from "../services/notification.js";
 import { browse, today } from "../services/shard-eruption.js";
 import { parseSpiritSwitch } from "../services/spirit.js";
 import { isSeasonId } from "../utility/catalogue.js";
@@ -119,7 +123,20 @@ import {
 	HEART_HISTORY_NEXT,
 	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
 } from "../utility/constants.js";
-import { isRealm } from "../utility/functions.js";
+import {
+	interactionInvoker,
+	isAutocomplete,
+	isButton,
+	isChatInputCommand,
+	isGuildButton,
+	isGuildModalSubmit,
+	isGuildSelectMenu,
+	isModalSubmit,
+	isRealm,
+	isSelectMenu,
+	isUserContextMenuCommand,
+} from "../utility/functions.js";
+import { OptionResolver } from "../utility/option-resolver.js";
 import {
 	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
 	SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID,
@@ -133,30 +150,30 @@ import {
 import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../utility/spirits.js";
 import type { Event } from "./index.js";
 
-const name = Events.InteractionCreate;
+const name = GatewayDispatchEvents.InteractionCreate;
 
-async function recoverInteractionError(interaction: Interaction, error: unknown) {
-	let errorTypeString = `Error from ${interaction.user.tag} in ${interaction.channelId} from `;
+async function recoverInteractionError(interaction: APIInteraction, error: unknown) {
+	const invoker = interactionInvoker(interaction);
+	let errorTypeString = `Error from ${invoker.username} in ${interaction.channel!.id} from `;
 
 	switch (interaction.type) {
 		case InteractionType.ApplicationCommand: {
-			errorTypeString += `running command ${
-				interaction.isChatInputCommand() ? String(interaction) : interaction.commandName
-			}.`;
-
+			const options = new OptionResolver(interaction);
+			errorTypeString += `running command ${interaction.data.type === ApplicationCommandType.ChatInput ? options.chatInputCommandText() : interaction.data.name}.`;
 			break;
 		}
 		case InteractionType.MessageComponent: {
-			errorTypeString += `interacting with a \`${interaction.customId}\` component.`;
+			errorTypeString += `interacting with a \`${interaction.data.custom_id}\` component.`;
 			break;
 		}
 		case InteractionType.ApplicationCommandAutocomplete: {
-			const focused = interaction.options.getFocused(true);
-			errorTypeString += `autocompleting \`/${interaction.commandName}\` (\`${focused.name}\`, \`${focused.value}\`).`;
+			const options = new OptionResolver(interaction);
+			const focused = options.getFocusedOption();
+			errorTypeString += `autocompleting \`/${interaction.data.name}\` (\`${focused.name}\`, \`${focused.value}\`).`;
 			break;
 		}
 		case InteractionType.ModalSubmit: {
-			errorTypeString += `submitting \`${interaction.customId}\`.`;
+			errorTypeString += `submitting \`${interaction.data.custom_id}\`.`;
 			break;
 		}
 	}
@@ -173,72 +190,64 @@ async function recoverInteractionError(interaction: Interaction, error: unknown)
 	}
 
 	try {
-		if (interaction.isAutocomplete()) {
-			await interaction.respond([]);
-		} else if (interaction.deferred || interaction.replied) {
-			await interaction.followUp(ERROR_RESPONSE);
-		} else {
-			await interaction.reply(ERROR_RESPONSE);
+		if (isAutocomplete(interaction)) {
+			await client.api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
+				choices: [],
+			});
+
+			return;
 		}
 	} catch (error) {
-		pino.error(error, "Failed to follow up or reply from recovering an interaction error.");
+		pino.error(error, "Failed to respond from recovering an interaction error.");
 	}
 }
 
-function logCommand(interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) {
-	const {
-		appPermissions,
-		authorizingIntegrationOwners,
-		channelId,
-		commandName,
-		context,
-		guildId,
-		guildLocale,
-		locale,
-		user,
-	} = interaction;
+function logCommand(
+	interaction: APIChatInputApplicationCommandInteraction | APIUserApplicationCommandInteraction,
+) {
+	let command: string;
 
-	const command = interaction.isChatInputCommand() ? String(interaction) : commandName;
+	if (isChatInputCommand(interaction)) {
+		const options = new OptionResolver(interaction);
+		command = options.chatInputCommandText();
+	} else {
+		command = interaction.data.name;
+	}
+
+	const invoker = interactionInvoker(interaction);
 
 	pino.info(
 		{
-			user: { id: user.id, username: user.username },
+			user: { id: invoker.id, username: invoker.username },
 			command,
-			guildId,
-			channelId,
-			permissions: appPermissions,
-			authorizingIntegrationOwners,
-			context,
-			locale: { user: locale, guild: guildLocale },
+			guildId: interaction.guild_id,
+			channelId: interaction.channel.id,
+			permissions: interaction.app_permissions,
+			authorizingIntegrationOwners: interaction.authorizing_integration_owners,
+			context: interaction.context,
+			locale: { user: interaction.locale, guild: interaction.guild_locale },
 		},
 		`Command: ${command}`,
 	);
 }
 
-function logMessageComponent(interaction: MessageComponentInteraction) {
-	const {
-		appPermissions,
-		authorizingIntegrationOwners,
-		channelId,
-		context,
-		customId,
-		guildId,
-		guildLocale,
-		locale,
-		user,
-	} = interaction;
+function logMessageComponent(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+) {
+	const customId = interaction.data.custom_id;
+	const invoker = interactionInvoker(interaction);
 
 	pino.info(
 		{
-			user: { id: user.id, username: user.username },
-			customId,
-			values: interaction.isStringSelectMenu() ? interaction.values : null,
-			guildId,
-			channelId,
-			permissions: appPermissions.bitfield,
-			authorizingIntegrationOwners,
-			context,
-			locale: { user: locale, guild: guildLocale },
+			user: { id: invoker.id, invokername: invoker.username },
+			customId: customId,
+			values: "values" in interaction.data ? interaction.data.values : null,
+			guildId: interaction.guild_id,
+			channelId: interaction.channel.id,
+			permissions: interaction.app_permissions,
+			authorizingIntegrationOwners: interaction.authorizing_integration_owners,
+			context: interaction.context,
+			locale: { user: interaction.locale, guild: interaction.guild_locale },
 		},
 		`Custom id: ${customId}`,
 	);
@@ -247,14 +256,14 @@ function logMessageComponent(interaction: MessageComponentInteraction) {
 export default {
 	name,
 	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: It's fine.
-	async fire(interaction) {
-		if (interaction.isChatInputCommand()) {
+	async fire({ api, data: interaction }) {
+		if (isChatInputCommand(interaction)) {
 			logCommand(interaction);
-			const command = CHAT_INPUT_COMMANDS.find(({ name }) => name === interaction.commandName);
+			const command = CHAT_INPUT_COMMANDS.find(({ name }) => name === interaction.data.name);
 
 			if (!command) {
 				pino.warn(interaction, "Received an unknown chat input command interaction.");
-				await interaction.reply(ERROR_RESPONSE);
+				await api.interactions.reply(interaction.id, interaction.token, ERROR_RESPONSE);
 				return;
 			}
 
@@ -267,15 +276,13 @@ export default {
 			return;
 		}
 
-		if (interaction.isUserContextMenuCommand()) {
+		if (isUserContextMenuCommand(interaction)) {
 			logCommand(interaction);
-			const command = USER_CONTEXT_MENU_COMMANDS.find(
-				({ name }) => name === interaction.commandName,
-			);
+			const command = USER_CONTEXT_MENU_COMMANDS.find(({ name }) => name === interaction.data.name);
 
 			if (!command) {
 				pino.warn(interaction, "Received an unknown user context menu command interaction.");
-				await interaction.reply(ERROR_RESPONSE);
+				await api.interactions.reply(interaction.id, interaction.token, ERROR_RESPONSE);
 				return;
 			}
 
@@ -288,9 +295,9 @@ export default {
 			return;
 		}
 
-		if (interaction.isButton()) {
+		if (isButton(interaction)) {
 			logMessageComponent(interaction);
-			const { customId } = interaction;
+			const customId = interaction.data.custom_id;
 
 			try {
 				if (customId === DATA_DELETION_CUSTOM_ID) {
@@ -377,11 +384,6 @@ export default {
 
 				if (customId.startsWith(CATALOGUE_SHARE_PROMPT_CUSTOM_ID)) {
 					await Catalogue.sharePrompt(interaction);
-					return;
-				}
-
-				if (customId === CATALOGUE_SHARE_SEND_CUSTOM_ID && interaction.inCachedGuild()) {
-					await Catalogue.shareSend(interaction);
 					return;
 				}
 
@@ -538,19 +540,26 @@ export default {
 					}
 				}
 
-				if (customId === DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID) {
-					await dailyMessageModalResponse(interaction);
-					return;
-				}
+				if (isGuildButton(interaction)) {
+					if (customId === CATALOGUE_SHARE_SEND_CUSTOM_ID) {
+						await Catalogue.shareSend(interaction);
+						return;
+					}
 
-				if (customId === DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID) {
-					await treasureCandlesModalResponse(interaction);
-					return;
-				}
+					if (customId === DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID) {
+						await dailyMessageModalResponse(interaction);
+						return;
+					}
 
-				if (customId === DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID) {
-					await distribute(interaction);
-					return;
+					if (customId === DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID) {
+						await treasureCandlesModalResponse(interaction);
+						return;
+					}
+
+					if (customId === DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID) {
+						await distribute(interaction);
+						return;
+					}
 				}
 			} catch (error) {
 				void recoverInteractionError(interaction, error);
@@ -558,13 +567,14 @@ export default {
 			}
 
 			pino.warn(interaction, "Received an unknown button interaction.");
-			await interaction.update(ERROR_RESPONSE);
+			await api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
 			return;
 		}
 
-		if (interaction.isStringSelectMenu()) {
+		if (isSelectMenu(interaction)) {
 			logMessageComponent(interaction);
-			const { customId, values } = interaction;
+			const customId = interaction.data.custom_id;
+			const values = interaction.data.values;
 
 			try {
 				if (customId === CATALOGUE_VIEW_TYPE_CUSTOM_ID) {
@@ -664,9 +674,9 @@ export default {
 					return;
 				}
 
-				if (interaction.inCachedGuild()) {
-					if (customId === NOTIFICATION_SETUP_OFFSET_CUSTOM_ID) {
-						// This is handled in the command itself.
+				if (isGuildSelectMenu(interaction)) {
+					if (customId.startsWith(NOTIFICATION_SETUP_OFFSET_CUSTOM_ID)) {
+						await finaliseSetup(interaction);
 						return;
 					}
 
@@ -696,16 +706,20 @@ export default {
 			}
 
 			pino.warn(interaction, "Received an unknown select menu interaction.");
-			await interaction.update(ERROR_RESPONSE);
+			await api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
 			return;
 		}
 
-		if (interaction.isAutocomplete()) {
-			const command = AUTOCOMPLETE_COMMANDS.find(({ name }) => name === interaction.commandName);
+		if (isAutocomplete(interaction)) {
+			const command = AUTOCOMPLETE_COMMANDS.find(({ name }) => name === interaction.data.name);
 
 			if (!command) {
 				pino.warn(interaction, "Received an unknown command autocomplete interaction.");
-				await interaction.respond([]);
+
+				await api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
+					choices: [],
+				});
+
 				return;
 			}
 
@@ -718,41 +732,41 @@ export default {
 			return;
 		}
 
-		if (interaction.isModalSubmit()) {
-			const { customId } = interaction;
+		if (isModalSubmit(interaction)) {
+			const customId = interaction.data.custom_id;
 
 			try {
-				if (interaction.isFromMessage()) {
-					if (customId === SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID) {
-						await Profile.setName(interaction);
-						return;
-					}
+				if (customId === SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID) {
+					await Profile.setName(interaction);
+					return;
+				}
 
-					if (customId === SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID) {
-						await Profile.setDescription(interaction);
-						return;
-					}
+				if (customId === SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID) {
+					await Profile.setDescription(interaction);
+					return;
+				}
 
-					if (customId === SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID) {
-						await Profile.setCountry(interaction);
-						return;
-					}
+				if (customId === SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID) {
+					await Profile.setCountry(interaction);
+					return;
+				}
 
-					if (customId === SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID) {
-						await Profile.setWingedLight(interaction);
-						return;
-					}
+				if (customId === SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID) {
+					await Profile.setWingedLight(interaction);
+					return;
+				}
 
-					if (customId === SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID) {
-						await Profile.setSpot(interaction);
-						return;
-					}
+				if (customId === SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID) {
+					await Profile.setSpot(interaction);
+					return;
+				}
 
-					if (customId.startsWith(SKY_PROFILE_REPORT_MODAL_CUSTOM_ID)) {
-						await Profile.sendReport(interaction);
-						return;
-					}
+				if (customId.startsWith(SKY_PROFILE_REPORT_MODAL_CUSTOM_ID)) {
+					await Profile.sendReport(interaction);
+					return;
+				}
 
+				if (isGuildModalSubmit(interaction)) {
 					if (DAILY_GUIDES_DAILY_MESSAGE_MODAL === customId) {
 						await setDailyMessage(interaction);
 						return;
@@ -769,7 +783,7 @@ export default {
 			}
 
 			pino.warn(interaction, "Received an unknown modal interaction.");
-			await interaction.reply(ERROR_RESPONSE);
+			await api.interactions.reply(interaction.id, interaction.token, ERROR_RESPONSE);
 		}
 	},
 } satisfies Event<typeof name>;

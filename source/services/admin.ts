@@ -1,23 +1,23 @@
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import {
-	ActionRowBuilder,
+	type APIApplicationCommandAutocompleteInteraction,
+	type APIChatInputApplicationCommandGuildInteraction,
+	type APIGuildInteractionWrapper,
+	type APIInteractionResponseCallbackData,
+	type APIMessageComponentButtonInteraction,
+	type APIMessageComponentSelectMenuInteraction,
+	type APIModalSubmitGuildInteraction,
 	ActivityType,
-	type AutocompleteInteraction,
-	ButtonBuilder,
-	type ButtonInteraction,
+	ApplicationCommandOptionType,
 	ButtonStyle,
-	type ChatInputCommandInteraction,
+	ComponentType,
 	MessageFlags,
-	ModalBuilder,
-	type ModalMessageModalSubmitInteraction,
-	StringSelectMenuBuilder,
-	type StringSelectMenuInteraction,
-	StringSelectMenuOptionBuilder,
-	TextInputBuilder,
+	PresenceUpdateStatus,
 	TextInputStyle,
-} from "discord.js";
+} from "@discordjs/core";
 import { hash } from "hasha";
 import sharp from "sharp";
+import { client } from "../discord.js";
 import type { InteractiveOptions } from "../models/Admin.js";
 import Configuration from "../models/Configuration.js";
 import type { QuestNumber } from "../models/DailyGuides.js";
@@ -28,6 +28,7 @@ import {
 	distributionEmbed,
 } from "../services/daily-guides.js";
 import {
+	APPLICATION_ID,
 	CDN_BUCKET,
 	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_DAILY_MESSAGE_MODAL,
@@ -48,119 +49,168 @@ import {
 	QUEST_OPTIONS,
 	VALID_REALM_NAME,
 } from "../utility/constants.js";
-import { resolveValidRealm, userLogFormat } from "../utility/functions.js";
+import { isChatInputCommand, resolveValidRealm, userLogFormat } from "../utility/functions.js";
+import { ModalResolver } from "../utility/modal-resolver.js";
+import type { OptionResolver } from "../utility/option-resolver.js";
 import { log } from "./log.js";
 
 function isQuestNumber(questNumber: number): questNumber is QuestNumber {
 	return QUEST_NUMBER.includes(questNumber as QuestNumber);
 }
 
-export async function ai(interaction: ChatInputCommandInteraction) {
-	const enable = interaction.options.getBoolean("enable", true);
+export async function ai(
+	interaction: APIChatInputApplicationCommandGuildInteraction,
+	options: OptionResolver,
+) {
+	const enable = options.getBoolean("enable", true);
 	await Configuration.edit({ ai: enable });
 
-	await interaction.reply({
+	await client.api.interactions.reply(interaction.id, interaction.token, {
 		content: `AI feature set to \`${Configuration.ai}\`.`,
 		flags: MessageFlags.Ephemeral,
 	});
 }
 
-export async function customStatus(interaction: ChatInputCommandInteraction) {
-	const text = interaction.options.getString("text", true);
-	interaction.client.user.setPresence({ activities: [{ name: text, type: ActivityType.Custom }] });
-	await interaction.reply({ content: "Custom status set.", ephemeral: true });
+export async function customStatus(
+	interaction: APIChatInputApplicationCommandGuildInteraction,
+	options: OptionResolver,
+) {
+	const text = options.getString("text", true);
+
+	await client.updatePresence(0, {
+		activities: [{ type: ActivityType.Custom, name: text, state: text }],
+		afk: false,
+		since: null,
+		status: PresenceUpdateStatus.Online,
+	});
+
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		content: "Custom status set.",
+		flags: MessageFlags.Ephemeral,
+	});
 }
 
 export async function interactive(
 	interaction:
-		| ButtonInteraction
-		| ChatInputCommandInteraction
-		| ModalMessageModalSubmitInteraction
-		| StringSelectMenuInteraction,
+		| APIChatInputApplicationCommandGuildInteraction
+		| APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>
+		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>
+		| APIModalSubmitGuildInteraction,
 	options?: InteractiveOptions,
 ) {
 	const resolvedContent = options?.content ?? "";
 	const resolvedLocale = options?.locale ?? interaction.locale;
 
-	const response = {
+	const response: APIInteractionResponseCallbackData = {
 		content: resolvedContent,
 		components: [
-			new ActionRowBuilder<ButtonBuilder>().setComponents(
-				new ButtonBuilder()
-					.setCustomId(DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID)
-					.setLabel("Daily Message")
-					.setStyle(ButtonStyle.Primary),
-				new ButtonBuilder()
-					.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID)
-					.setLabel("Treasure Candles")
-					.setStyle(ButtonStyle.Primary),
-			),
-			new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-				new StringSelectMenuBuilder()
-					.setCustomId(DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID)
-					.setMaxValues(2)
-					.setMinValues(2)
-					.setOptions(QUEST_OPTIONS)
-					.setPlaceholder("Swap 2 quests."),
-			),
-			new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-				new StringSelectMenuBuilder()
-					.setCustomId(DAILY_GUIDES_LOCALE_CUSTOM_ID)
-					.setMaxValues(1)
-					.setMinValues(1)
-					.setOptions(LOCALE_OPTIONS)
-					.setPlaceholder("View in a locale."),
-			),
-			new ActionRowBuilder<ButtonBuilder>().setComponents(
-				new ButtonBuilder()
-					.setCustomId(DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID)
-					.setLabel("Distribute")
-					.setStyle(ButtonStyle.Success),
-			),
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
+						label: "Daily Message",
+						style: ButtonStyle.Primary,
+					},
+					{
+						type: ComponentType.Button,
+						custom_id: DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID,
+						label: "Treasure Candles",
+						style: ButtonStyle.Primary,
+					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.StringSelect,
+						custom_id: DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
+						max_values: 2,
+						min_values: 2,
+						options: QUEST_OPTIONS,
+						placeholder: "Swap 2 quests.",
+					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.StringSelect,
+						custom_id: DAILY_GUIDES_LOCALE_CUSTOM_ID,
+						max_values: 1,
+						min_values: 1,
+						options: LOCALE_OPTIONS,
+						placeholder: "View in a locale.",
+					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
+						label: "Distribute",
+						style: ButtonStyle.Success,
+					},
+				],
+			},
 		],
 		embeds: [distributionEmbed(resolvedLocale)],
+		flags: MessageFlags.Ephemeral,
 	};
 
-	if (interaction.isChatInputCommand()) {
-		await interaction.reply({ ...response, flags: MessageFlags.Ephemeral });
-	} else if (interaction.deferred) {
-		await interaction.editReply(response);
+	if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
+	} else if (options?.deferred) {
+		await client.api.interactions.editReply(APPLICATION_ID, interaction.token, response);
 	} else {
-		await interaction.update(response);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 	}
 }
 
-export async function distribute(interaction: ButtonInteraction) {
-	const { client, locale, user } = interaction;
-	await interaction.deferUpdate();
-	await distributeDailyGuides(client);
+export async function distribute(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+) {
+	const { locale } = interaction;
+	await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
+	await distributeDailyGuides();
 
-	void log(client, {
-		content: `${userLogFormat(user)} manually distributed the daily guides.`,
+	void log({
+		content: `${userLogFormat(interaction.member.user)} manually distributed the daily guides.`,
 		embeds: [distributionEmbed(locale)],
 	});
 
-	await interactive(interaction, { content: "Distributed daily guides.", locale });
+	await interactive(interaction, { content: "Distributed daily guides.", deferred: true, locale });
 }
 
-export async function setQuestAutocomplete(interaction: AutocompleteInteraction) {
-	const focused = interaction.options.getFocused().toUpperCase();
+export async function setQuestAutocomplete(
+	interaction: APIApplicationCommandAutocompleteInteraction,
+	options: OptionResolver,
+) {
+	const focused = options.getFocusedOption(ApplicationCommandOptionType.String).value.toUpperCase();
 
-	return interaction.respond(
-		focused === ""
-			? []
-			: QUESTS.map(({ content }) => content)
-					.filter((quest) => quest.toUpperCase().includes(focused))
-					.map((quest) => ({ name: quest, value: quest }))
-					.slice(0, 25),
-	);
+	await client.api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
+		choices:
+			focused === ""
+				? []
+				: QUESTS.filter(({ content }) => content.toUpperCase().includes(focused))
+						.map(({ content }) => ({ name: content, value: content }))
+						.slice(0, 25),
+	});
 }
 
-export async function setQuest(interaction: ChatInputCommandInteraction) {
-	const { client, locale, options, user } = interaction;
+export async function setQuest(
+	interaction: APIChatInputApplicationCommandGuildInteraction,
+	options: OptionResolver,
+) {
+	const { locale } = interaction;
 
-	if (options.data[0]!.options![0]!.options!.length === 0) {
-		await interaction.reply({
+	if (options.hoistedOptions.length === 0) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "At least one option must be specified.",
 			flags: MessageFlags.Ephemeral,
 		});
@@ -194,8 +244,8 @@ export async function setQuest(interaction: ChatInputCommandInteraction) {
 		quest4: quest4 ? { content: quest4, url: url4 } : null,
 	});
 
-	void log(client, {
-		content: `${userLogFormat(user)} manually updated the daily quests.`,
+	void log({
+		content: `${userLogFormat(interaction.member.user)} manually updated the daily quests.`,
 		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 
@@ -205,18 +255,29 @@ export async function setQuest(interaction: ChatInputCommandInteraction) {
 	});
 }
 
-export async function questSwap(interaction: StringSelectMenuInteraction) {
-	const { client, locale, user, values } = interaction;
+export async function questSwap(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+) {
+	const {
+		locale,
+		data: { values },
+	} = interaction;
 	const quest1 = Number(values[0]);
 	const quest2 = Number(values[1]);
 
 	if (!isQuestNumber(quest1)) {
-		await interaction.reply(`Detected an unknown quest number: ${quest1}.`);
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `Detected an unknown quest number: ${quest1}.`,
+		});
+
 		return;
 	}
 
 	if (!isQuestNumber(quest2)) {
-		await interaction.reply(`Detected an unknown quest number: ${quest2}.`);
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `Detected an unknown quest number: ${quest2}.`,
+		});
+
 		return;
 	}
 
@@ -227,8 +288,8 @@ export async function questSwap(interaction: StringSelectMenuInteraction) {
 		[`quest${quest2}`]: DailyGuides[`quest${quest1}`],
 	});
 
-	void log(client, {
-		content: `${userLogFormat(user)} manually swapped quests ${quest1} & ${quest2}.`,
+	void log({
+		content: `${userLogFormat(interaction.member.user)} manually swapped quests ${quest1} & ${quest2}.`,
 		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 
@@ -238,45 +299,61 @@ export async function questSwap(interaction: StringSelectMenuInteraction) {
 	});
 }
 
-export async function dailyMessageModalResponse(interaction: ButtonInteraction) {
+export async function dailyMessageModalResponse(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+) {
 	const { dailyMessage } = DailyGuides;
 
-	await interaction.showModal(
-		new ModalBuilder()
-			.setComponents(
-				new ActionRowBuilder<TextInputBuilder>().setComponents(
-					new TextInputBuilder()
-						.setCustomId(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE)
-						.setLabel("The title of the daily message.")
-						.setMaxLength(MAXIMUM_EMBED_FIELD_NAME_LENGTH)
-						.setRequired()
-						.setStyle(TextInputStyle.Short)
-						.setValue(dailyMessage?.title ?? ""),
-				),
-				new ActionRowBuilder<TextInputBuilder>().setComponents(
-					new TextInputBuilder()
-						.setCustomId(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION)
-						.setLabel("The description of the daily message.")
-						.setMaxLength(MAXIMUM_EMBED_FIELD_VALUE_LENGTH)
-						.setRequired()
-						.setStyle(TextInputStyle.Paragraph)
-						.setValue(dailyMessage?.description ?? ""),
-				),
-			)
-			.setCustomId(DAILY_GUIDES_DAILY_MESSAGE_MODAL)
-			.setTitle("Daily Message"),
-	);
+	await client.api.interactions.createModal(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.TextInput,
+						custom_id: DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE,
+						label: "The title of the daily message.",
+						max_length: MAXIMUM_EMBED_FIELD_NAME_LENGTH,
+						required: true,
+						style: TextInputStyle.Short,
+						value: dailyMessage?.title ?? "",
+					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.TextInput,
+						custom_id: DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION,
+						label: "The description of the daily message.",
+						max_length: MAXIMUM_EMBED_FIELD_VALUE_LENGTH,
+						required: true,
+						style: TextInputStyle.Paragraph,
+						value: dailyMessage?.description ?? "",
+					},
+				],
+			},
+		],
+		custom_id: DAILY_GUIDES_DAILY_MESSAGE_MODAL,
+		title: "Daily Message",
+	});
 }
 
-export async function setDailyMessage(interaction: ModalMessageModalSubmitInteraction) {
-	const { client, locale, fields, user } = interaction;
-	const title = fields.getTextInputValue(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE);
-	const description = fields.getTextInputValue(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION);
+export async function setDailyMessage(interaction: APIModalSubmitGuildInteraction) {
+	const { data, locale } = interaction;
+	const components = new ModalResolver(data.components);
+	const title = components.getTextInputValue(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE);
+
+	const description = components.getTextInputValue(
+		DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION,
+	);
+
 	const previousEmbed = distributionEmbed(locale);
 	await DailyGuides.updateDailyMessage({ title, description });
 
-	void log(client, {
-		content: `${userLogFormat(user)} manually updated the daily message.`,
+	void log({
+		content: `${userLogFormat(interaction.member.user)} manually updated the daily message.`,
 		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 
@@ -286,33 +363,41 @@ export async function setDailyMessage(interaction: ModalMessageModalSubmitIntera
 	});
 }
 
-export async function treasureCandlesModalResponse(interaction: ButtonInteraction) {
-	await interaction.update({
+export async function treasureCandlesModalResponse(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+) {
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		content: "",
 		embeds: [],
 		components: [
-			new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-				new StringSelectMenuBuilder()
-					.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID)
-					.setMaxValues(1)
-					.setMinValues(1)
-					.setOptions(
-						VALID_REALM_NAME.map((realm) =>
-							new StringSelectMenuOptionBuilder().setLabel(realm).setValue(realm),
-						),
-					)
-					.setPlaceholder("Select a realm."),
-			),
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.StringSelect,
+						custom_id: DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID,
+						max_values: 1,
+						min_values: 1,
+						options: VALID_REALM_NAME.map((realm) => ({ label: realm, value: realm })),
+						placeholder: "Select a realm.",
+					},
+				],
+			},
 		],
 	});
 }
 
-export async function treasureCandlesSelectMenuResponse(interaction: StringSelectMenuInteraction) {
+export async function treasureCandlesSelectMenuResponse(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+) {
 	const { treasureCandles } = DailyGuides;
-	const realm = resolveValidRealm(interaction.values[0]!);
+	const realm = resolveValidRealm(interaction.data.values[0]!);
 
 	if (!realm) {
-		await interaction.reply(`Detected an unknown realm: ${realm}.`);
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `Detected an unknown realm: ${realm}.`,
+		});
+
 		return;
 	}
 
@@ -329,42 +414,56 @@ export async function treasureCandlesSelectMenuResponse(interaction: StringSelec
 		batch2URL = DailyGuides.treasureCandlesURL(batch2);
 	}
 
-	await interaction.showModal(
-		new ModalBuilder()
-			.setComponents(
-				new ActionRowBuilder<TextInputBuilder>().setComponents(
-					new TextInputBuilder()
-						.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1)
-						.setLabel("The URL of the first batch.")
-						.setRequired(false)
-						.setStyle(TextInputStyle.Short)
-						.setValue(batch1URL),
-				),
-				new ActionRowBuilder<TextInputBuilder>().setComponents(
-					new TextInputBuilder()
-						.setCustomId(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2)
-						.setLabel("The URL of the second batch.")
-						.setRequired(false)
-						.setStyle(TextInputStyle.Short)
-						.setValue(batch2URL),
-				),
-			)
-			.setCustomId(`${DAILY_GUIDES_TREASURE_CANDLES_MODAL}§${realm}`)
-			.setTitle("Treasure Candles"),
-	);
+	await client.api.interactions.createModal(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.TextInput,
+						custom_id: DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1,
+						label: "The URL of the first batch.",
+						required: false,
+						style: TextInputStyle.Short,
+						value: batch1URL,
+					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.TextInput,
+						custom_id: DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2,
+						label: "The URL of the second batch.",
+						required: false,
+						style: TextInputStyle.Short,
+						value: batch2URL,
+					},
+				],
+			},
+		],
+		custom_id: `${DAILY_GUIDES_TREASURE_CANDLES_MODAL}§${realm}`,
+		title: "Treasure Candles",
+	});
 }
 
-export async function setTreasureCandles(interaction: ModalMessageModalSubmitInteraction) {
-	const { client, customId, locale, fields, user } = interaction;
+export async function setTreasureCandles(interaction: APIModalSubmitGuildInteraction) {
+	const { data, locale } = interaction;
+	const customId = data.custom_id;
 	const realm = resolveValidRealm(customId.slice(customId.indexOf("§") + 1));
 
 	if (!realm) {
-		await interaction.reply(`Detected an unknown realm: ${realm}.`);
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `Detected an unknown realm: ${realm}.`,
+		});
+
 		return;
 	}
 
-	const batch1 = fields.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1);
-	const batch2 = fields.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2);
+	const components = new ModalResolver(data.components);
+	const batch1 = components.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1);
+	const batch2 = components.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2);
 	const treasureCandles = [];
 
 	if (batch1) {
@@ -403,8 +502,8 @@ export async function setTreasureCandles(interaction: ModalMessageModalSubmitInt
 
 	await DailyGuides.updateTreasureCandles({ [realm]: hashes });
 
-	void log(client, {
-		content: `${userLogFormat(user)} manually updated the treasure candles.`,
+	void log({
+		content: `${userLogFormat(interaction.member.user)} manually updated the treasure candles.`,
 		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 

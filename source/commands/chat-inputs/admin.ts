@@ -1,100 +1,60 @@
 import type {
-	AutocompleteInteraction,
-	ButtonInteraction,
-	ChatInputCommandInteraction,
-	ModalMessageModalSubmitInteraction,
-	StringSelectMenuInteraction,
-} from "discord.js";
-import type { InteractiveOptions } from "../../models/Admin.js";
+	APIApplicationCommandAutocompleteInteraction,
+	APIChatInputApplicationCommandGuildInteraction,
+	APIChatInputApplicationCommandInteraction,
+} from "@discordjs/core";
 import {
 	ai,
 	customStatus,
-	distribute,
 	interactive,
-	setDailyMessage,
 	setQuest,
 	setQuestAutocomplete,
-	setTreasureCandles,
-	treasureCandlesModalResponse,
-	treasureCandlesSelectMenuResponse,
 } from "../../services/admin.js";
+import { isGuildChatInputCommand } from "../../utility/functions.js";
+import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
 	name: "admin",
-	async autocomplete(interaction: AutocompleteInteraction) {
-		switch (interaction.options.getSubcommand()) {
+	async autocomplete(interaction: APIApplicationCommandAutocompleteInteraction) {
+		const options = new OptionResolver(interaction);
+
+		switch (options.getSubcommand()) {
 			case "set-quest":
-				await this.setQuestAutocomplete(interaction);
+				await setQuestAutocomplete(interaction, options);
 		}
 	},
-	async chatInput(interaction: ChatInputCommandInteraction) {
-		const { options } = interaction;
+	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
+		if (!isGuildChatInputCommand(interaction)) {
+			return;
+		}
 
-		switch (options.getSubcommandGroup() ?? options.getSubcommand()) {
+		const options = new OptionResolver(interaction);
+
+		switch (options.getSubcommandGroup(false) ?? options.getSubcommand()) {
 			case "ai": {
-				await this.ai(interaction);
+				await ai(interaction, options);
 				return;
 			}
 			case "custom-status": {
-				await this.customStatus(interaction);
+				await customStatus(interaction, options);
 				return;
 			}
 			case "daily-guides": {
-				await this.dailyGuides(interaction);
+				await this.dailyGuides(interaction, options);
 			}
 		}
 	},
-	async ai(interaction: ChatInputCommandInteraction) {
-		await ai(interaction);
-	},
-	async customStatus(interaction: ChatInputCommandInteraction) {
-		await customStatus(interaction);
-	},
-	async dailyGuides(interaction: ChatInputCommandInteraction) {
-		switch (interaction.options.getSubcommand()) {
+	async dailyGuides(
+		interaction: APIChatInputApplicationCommandGuildInteraction,
+		options: OptionResolver,
+	) {
+		switch (options.getSubcommand()) {
 			case "interactive": {
-				await this.interactive(interaction);
+				await interactive(interaction);
 				return;
 			}
 			case "set-quest":
-				await this.setQuest(interaction);
+				await setQuest(interaction, options);
 		}
-	},
-	async interactive(
-		interaction:
-			| ButtonInteraction
-			| ChatInputCommandInteraction
-			| ModalMessageModalSubmitInteraction
-			| StringSelectMenuInteraction,
-		options?: InteractiveOptions,
-	) {
-		await interactive(interaction, options);
-	},
-	async distribute(interaction: ButtonInteraction) {
-		await distribute(interaction);
-	},
-	async setQuestAutocomplete(interaction: AutocompleteInteraction) {
-		await setQuestAutocomplete(interaction);
-	},
-	async setQuest(interaction: ChatInputCommandInteraction) {
-		await setQuest(interaction);
-	},
-	async questSwap(interaction: StringSelectMenuInteraction) {
-		await this.questSwap(interaction);
-	},
-	async dailyMessageModalResponse(interaction: ButtonInteraction) {
-		await this.dailyMessageModalResponse(interaction);
-	},
-	async setDailyMessage(interaction: ModalMessageModalSubmitInteraction) {
-		await setDailyMessage(interaction);
-	},
-	async treasureCandlesModalResponse(interaction: ButtonInteraction) {
-		await treasureCandlesModalResponse(interaction);
-	},
-	async treasureCandlesSelectMenuResponse(interaction: StringSelectMenuInteraction) {
-		await treasureCandlesSelectMenuResponse(interaction);
-	},
-	async setTreasureCandles(interaction: ModalMessageModalSubmitInteraction) {
-		await setTreasureCandles(interaction);
 	},
 } as const;

@@ -1,6 +1,6 @@
 import process from "node:process";
 import { URL } from "node:url";
-import { Collection } from "discord.js";
+import { Collection } from "@discordjs/collection";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import pino from "../pino.js";

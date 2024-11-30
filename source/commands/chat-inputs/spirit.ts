@@ -1,30 +1,27 @@
 import {
-	type AutocompleteInteraction,
-	type ButtonInteraction,
-	type ChatInputCommandInteraction,
+	type APIApplicationCommandAutocompleteInteraction,
+	type APIChatInputApplicationCommandInteraction,
 	Locale,
-} from "discord.js";
+} from "@discordjs/core";
 import { t } from "i18next";
-import { parseSpiritSwitch, search, searchAutocomplete } from "../../services/spirit.js";
+import { search, searchAutocomplete } from "../../services/spirit.js";
+import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
 	name: t("spirit.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 
-	async chatInput(interaction: ChatInputCommandInteraction) {
-		switch (interaction.options.getSubcommand()) {
+	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
+		const options = new OptionResolver(interaction);
+
+		switch (options.getSubcommand()) {
 			case "search": {
-				await this.search(interaction);
+				await search(interaction, options);
 				return;
 			}
 		}
 	},
-	async autocomplete(interaction: AutocompleteInteraction) {
-		await searchAutocomplete(interaction);
-	},
-	async search(interaction: ChatInputCommandInteraction) {
-		await search(interaction);
-	},
-	async parseSpiritSwitch(interaction: ButtonInteraction) {
-		await parseSpiritSwitch(interaction);
+	async autocomplete(interaction: APIApplicationCommandAutocompleteInteraction) {
+		const options = new OptionResolver(interaction);
+		await searchAutocomplete(interaction, options);
 	},
 } as const;

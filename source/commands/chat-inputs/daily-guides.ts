@@ -1,14 +1,27 @@
-import { type ChatInputCommandInteraction, Locale, PermissionFlagsBits } from "discord.js";
+import {
+	type APIChatInputApplicationCommandInteraction,
+	Locale,
+	PermissionFlagsBits,
+} from "@discordjs/core";
 import { t } from "i18next";
+import { GUILD_CACHE } from "../../caches/guilds.js";
+import { client } from "../../discord.js";
 import { setup, status, unset } from "../../services/daily-guides.js";
 import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../utility/constants.js";
-import { cannotUsePermissions } from "../../utility/permission-checks.js";
+import { isGuildChatInputCommand } from "../../utility/functions.js";
+import { OptionResolver } from "../../utility/option-resolver.js";
+import { cannotUsePermissions } from "../../utility/permissions.js";
 
 export default {
 	name: t("daily-guides.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-	async chatInput(interaction: ChatInputCommandInteraction) {
-		if (!interaction.inCachedGuild()) {
-			await interaction.reply(NOT_IN_CACHED_GUILD_RESPONSE);
+	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
+		if (!(isGuildChatInputCommand(interaction) && GUILD_CACHE.get(interaction.guild_id))) {
+			await client.api.interactions.reply(
+				interaction.id,
+				interaction.token,
+				NOT_IN_CACHED_GUILD_RESPONSE,
+			);
+
 			return;
 		}
 
@@ -16,27 +29,20 @@ export default {
 			return;
 		}
 
-		switch (interaction.options.getSubcommand()) {
+		const options = new OptionResolver(interaction);
+
+		switch (options.getSubcommand()) {
 			case "setup": {
-				await this.setup(interaction);
+				await setup(interaction, options);
 				return;
 			}
 			case "status": {
-				await this.status(interaction);
+				await status(interaction);
 				return;
 			}
 			case "unset": {
-				await this.unset(interaction);
+				await unset(interaction);
 			}
 		}
-	},
-	async setup(interaction: ChatInputCommandInteraction<"cached">) {
-		await setup(interaction);
-	},
-	async status(interaction: ChatInputCommandInteraction<"cached">) {
-		await status(interaction);
-	},
-	async unset(interaction: ChatInputCommandInteraction<"cached">) {
-		await unset(interaction);
 	},
 } as const;

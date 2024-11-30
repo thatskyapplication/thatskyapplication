@@ -1,4 +1,5 @@
-import { CDN, type Snowflake } from "discord.js";
+import type { Snowflake } from "@discordjs/core";
+import { CDN } from "@discordjs/rest";
 
 const cdn = new CDN();
 

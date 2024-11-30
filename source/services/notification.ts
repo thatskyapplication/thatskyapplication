@@ -1,26 +1,21 @@
 import {
-	ActionRowBuilder,
-	type Channel,
-	type ChatInputCommandInteraction,
-	type Client,
+	type APIChannel,
+	type APIChatInputApplicationCommandGuildInteraction,
+	type APIGuildInteractionWrapper,
+	type APIMessageComponentSelectMenuInteraction,
+	type APISelectMenuOption,
 	ComponentType,
-	DiscordjsError,
-	DiscordjsErrorCodes,
-	EmbedBuilder,
-	type GuildMember,
 	MessageFlags,
 	PermissionFlagsBits,
-	type Role,
 	type Snowflake,
-	StringSelectMenuBuilder,
-	type StringSelectMenuInteraction,
-	StringSelectMenuOptionBuilder,
-	channelMention,
-	formatEmoji,
-	roleMention,
-} from "discord.js";
+} from "@discordjs/core";
 import { t } from "i18next";
+import { GUILD_CACHE } from "../caches/guilds.js";
+import { client } from "../discord.js";
 import type { NotificationAllowedChannel, NotificationPacket } from "../models/Notification.js";
+import type { GuildMember } from "../models/discord/guild-member.js";
+import type { Guild } from "../models/discord/guild.js";
+import type { Role } from "../models/discord/role.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
@@ -29,18 +24,22 @@ import {
 	NOTIFICATION_CHANNEL_TYPES,
 	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
 	NOTIFICATION_TYPE_VALUES,
+	NOT_IN_CACHED_GUILD_RESPONSE,
 	NotificationOffsetToMaximumValues,
 	type NotificationTypes,
 } from "../utility/constants.js";
-import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../utility/emojis.js";
+import type { OptionResolver } from "../utility/option-resolver.js";
+import { can } from "../utility/permissions.js";
 
-function isNotificationChannel(channel: Channel): channel is NotificationAllowedChannel {
+function isNotificationChannel(channel: APIChannel): channel is NotificationAllowedChannel {
 	return NOTIFICATION_CHANNEL_TYPES.includes(
 		channel.type as (typeof NOTIFICATION_CHANNEL_TYPES)[number],
 	);
 }
 
 function isNotificationSendable(
+	guild: Guild,
 	channel: NotificationAllowedChannel,
 	role: Role,
 	me: GuildMember,
@@ -48,6 +47,7 @@ function isNotificationSendable(
 ): string[];
 
 function isNotificationSendable(
+	guild: Guild,
 	channel: NotificationAllowedChannel,
 	role: Role,
 	me: GuildMember,
@@ -55,6 +55,7 @@ function isNotificationSendable(
 ): boolean;
 
 function isNotificationSendable(
+	guild: Guild,
 	channel: NotificationAllowedChannel,
 	role: Role,
 	me: GuildMember,
@@ -67,16 +68,24 @@ function isNotificationSendable(
 	}
 
 	if (
-		!channel
-			.permissionsFor(me)
-			.has(PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages)
+		!can({
+			permission: PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages,
+			guild,
+			member: me,
+			channel,
+		})
 	) {
-		errors.push(`\`View Channel\` & \`Send Messages\` are required for ${channel}.`);
+		errors.push(`\`View Channel\` & \`Send Messages\` are required for <#${channel.id}>.`);
 	}
 
-	if (!(channel.permissionsFor(me).has(PermissionFlagsBits.MentionEveryone) || role.mentionable)) {
+	if (
+		!(
+			can({ permission: PermissionFlagsBits.MentionEveryone, guild, member: me, channel }) ||
+			role.mentionable
+		)
+	) {
 		errors.push(
-			`Cannot mention the ${role} role. Ensure \`Mention @everyone, @here and All Roles\` permission is enabled for ${me} in the channel or make the role mentionable.`,
+			`Cannot mention the <@${role.id}> role. Ensure \`Mention @everyone, @here and All Roles\` permission is enabled for <@${me.user.id}> in the channel or make the role mentionable.`,
 		);
 	}
 
@@ -91,10 +100,31 @@ function isNotificationType(notificationType: unknown): notificationType is Noti
 	return NOTIFICATION_TYPE_VALUES.includes(notificationType as NotificationTypes);
 }
 
-export async function setup(interaction: ChatInputCommandInteraction<"cached">) {
-	const { locale, options } = interaction;
+export async function setup(
+	interaction: APIChatInputApplicationCommandGuildInteraction,
+	options: OptionResolver,
+) {
+	const guild = GUILD_CACHE.get(interaction.guild_id);
+
+	if (!guild) {
+		await client.api.interactions.reply(
+			interaction.id,
+			interaction.token,
+			NOT_IN_CACHED_GUILD_RESPONSE,
+		);
+
+		return;
+	}
+
+	const { locale } = interaction;
 	const notificationType = options.getInteger("notification", true);
-	const channel = options.getChannel("channel", true, NOTIFICATION_CHANNEL_TYPES);
+	const channel = guild.channels.get(options.getChannel("channel", true).id);
+
+	if (!(channel && isNotificationChannel(channel))) {
+		pino.error(interaction, "Received an unknown channel type whilst setting up notifications.");
+		throw new Error("Received an unknown channel type whilst setting up notifications.");
+	}
+
 	const role = options.getRole("role", true);
 
 	if (!isNotificationType(notificationType)) {
@@ -103,12 +133,12 @@ export async function setup(interaction: ChatInputCommandInteraction<"cached">) 
 			"Received an unknown notification type whilst setting up notifications.",
 		);
 
-		await interaction.reply(ERROR_RESPONSE);
+		await client.api.interactions.reply(interaction.id, interaction.token, ERROR_RESPONSE);
 		return;
 	}
 
-	if (role.id === interaction.guildId) {
-		await interaction.reply({
+	if (role.id === interaction.guild_id) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("notifications.setup.no-everyone", { lng: locale, ns: "commands" }),
 			flags: MessageFlags.Ephemeral,
 		});
@@ -116,11 +146,11 @@ export async function setup(interaction: ChatInputCommandInteraction<"cached">) 
 		return;
 	}
 
-	const me = await channel.guild.members.fetchMe();
-	const notificationSendable = isNotificationSendable(channel, role, me, true);
+	const me = await guild.fetchMe();
+	const notificationSendable = isNotificationSendable(guild, channel, role, me, true);
 
 	if (notificationSendable.length > 0) {
-		await interaction.reply({
+		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: notificationSendable.join("\n"),
 			flags: MessageFlags.Ephemeral,
 		});
@@ -134,100 +164,63 @@ export async function setup(interaction: ChatInputCommandInteraction<"cached">) 
 	for (let index = 0; index <= maximumOffset; index++) {
 		const indexString = String(index);
 
-		const stringSelectMenuOptionBuilder = new StringSelectMenuOptionBuilder()
-			.setLabel(indexString)
-			.setValue(indexString);
+		const stringSelectMenuOption: APISelectMenuOption = {
+			label: indexString,
+			value: indexString,
+		};
 
 		if (index === 0) {
-			stringSelectMenuOptionBuilder.setDescription("Notify as soon as the event occurs.");
+			stringSelectMenuOption.description = "Notify as soon as the event occurs.";
 		}
 
-		stringSelectMenuOptions.push(stringSelectMenuOptionBuilder);
+		stringSelectMenuOptions.push(stringSelectMenuOption);
 	}
 
-	const message = await interaction.reply({
+	await client.api.interactions.reply(interaction.id, interaction.token, {
 		components: [
-			new ActionRowBuilder<StringSelectMenuBuilder>().setComponents(
-				new StringSelectMenuBuilder()
-					.setCustomId(NOTIFICATION_SETUP_OFFSET_CUSTOM_ID)
-					.setMaxValues(1)
-					.setMinValues(1)
-					.setOptions(stringSelectMenuOptions)
-					.setPlaceholder("Offset notification by how many minutes?"),
-			),
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.StringSelect,
+						custom_id: `${NOTIFICATION_SETUP_OFFSET_CUSTOM_ID}§${notificationType}§${channel.id}§${role.id}`,
+						max_values: 1,
+						min_values: 1,
+						options: stringSelectMenuOptions,
+						placeholder: "Offset notification by how many minutes?",
+					},
+				],
+			},
 		],
 		embeds: [
-			new EmbedBuilder()
-				.setColor(DEFAULT_EMBED_COLOUR)
-				.setDescription(
+			{
+				color: DEFAULT_EMBED_COLOUR,
+				description:
 					"You may choose a custom offset. This will decide how many minutes prior notifications will be delivered.",
-				)
-				.setTitle(t(`notification-types.${notificationType}`, { lng: locale, ns: "general" })),
+				title: t(`notification-types.${notificationType}`, { lng: locale, ns: "general" }),
+			},
 		],
-		fetchReply: true,
 		flags: MessageFlags.Ephemeral,
 	});
+}
 
-	let stringSelectMenuInteraction: StringSelectMenuInteraction<"cached">;
-	let offset: number;
+export async function finaliseSetup(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+) {
+	const guild = GUILD_CACHE.get(interaction.guild_id);
 
-	try {
-		stringSelectMenuInteraction = await message.awaitMessageComponent({
-			componentType: ComponentType.StringSelect,
-			filter: (responseInteraction) =>
-				responseInteraction.customId === NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
-			time: 60000,
-		});
+	if (!guild) {
+		await client.api.interactions.updateMessage(
+			interaction.id,
+			interaction.token,
+			NOT_IN_CACHED_GUILD_RESPONSE,
+		);
 
-		offset = Number(stringSelectMenuInteraction.values[0]);
-	} catch (error) {
-		if (
-			error instanceof DiscordjsError &&
-			error.code === DiscordjsErrorCodes.InteractionCollectorError
-		) {
-			await interaction.editReply({
-				components: [],
-				content:
-					"Couldn't make a choice? We've stopped setting up notifications for now. Feel free to try again!",
-				embeds: [],
-			});
-
-			return;
-		}
-
-		pino.error(error, "Error whilst awaiting a response regarding a notification offset.");
-		await interaction.editReply(ERROR_RESPONSE);
 		return;
 	}
 
-	await pg<NotificationPacket>(Table.Notifications)
-		.insert({
-			guild_id: stringSelectMenuInteraction.guildId,
-			type: notificationType,
-			channel_id: channel.id,
-			role_id: role.id,
-			offset,
-			sendable: true,
-		})
-		.onConflict(["guild_id", "type"])
-		.merge();
-
-	await stringSelectMenuInteraction.update({
-		components: [],
-		content: "Notifications have been modified.",
-		embeds: [await embed(interaction)],
-	});
-}
-
-export async function status(interaction: ChatInputCommandInteraction<"cached">) {
-	await interaction.reply({
-		embeds: [await embed(interaction)],
-		flags: MessageFlags.Ephemeral,
-	});
-}
-
-export async function unset(interaction: ChatInputCommandInteraction<"cached">) {
-	const notificationType = interaction.options.getInteger("notification", true);
+	const [, rawNotificationType, channelId, roleId] = interaction.data.custom_id.split("§");
+	const notificationType = Number(rawNotificationType);
 
 	if (!isNotificationType(notificationType)) {
 		pino.error(
@@ -235,15 +228,68 @@ export async function unset(interaction: ChatInputCommandInteraction<"cached">) 
 			"Received an unknown notification type whilst setting up notifications.",
 		);
 
-		await interaction.reply(ERROR_RESPONSE);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
+		return;
+	}
+
+	await pg<NotificationPacket>(Table.Notifications)
+		.insert({
+			guild_id: guild.id,
+			type: notificationType,
+			channel_id: channelId!,
+			role_id: roleId!,
+			offset: Number(interaction.data.values[0]),
+			sendable: true,
+		})
+		.onConflict(["guild_id", "type"])
+		.merge();
+
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: [],
+		content: "Notifications have been modified.",
+		embeds: [await embed(interaction)],
+	});
+}
+
+export async function status(interaction: APIChatInputApplicationCommandGuildInteraction) {
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		embeds: [await embed(interaction)],
+		flags: MessageFlags.Ephemeral,
+	});
+}
+
+export async function unset(
+	interaction: APIChatInputApplicationCommandGuildInteraction,
+	options: OptionResolver,
+) {
+	const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
+
+	if (!guild) {
+		await client.api.interactions.reply(
+			interaction.id,
+			interaction.token,
+			NOT_IN_CACHED_GUILD_RESPONSE,
+		);
+		return;
+	}
+
+	const notificationType = options.getInteger("notification", true);
+
+	if (!isNotificationType(notificationType)) {
+		pino.error(
+			interaction,
+			"Received an unknown notification type whilst setting up notifications.",
+		);
+
+		await client.api.interactions.reply(interaction.id, interaction.token, ERROR_RESPONSE);
 		return;
 	}
 
 	await pg<NotificationPacket>(Table.Notifications)
 		.delete()
-		.where({ guild_id: interaction.guildId, type: notificationType });
+		.where({ guild_id: guild.id, type: notificationType });
 
-	await interaction.reply({
+	await client.api.interactions.reply(interaction.id, interaction.token, {
 		content: "Notifications have been modified.",
 		embeds: [await embed(interaction)],
 		flags: MessageFlags.Ephemeral,
@@ -254,9 +300,9 @@ export async function deleteNotifications(guildId: Snowflake) {
 	await pg<NotificationPacket>(Table.Notifications).delete().where({ guild_id: guildId });
 }
 
-export async function checkSendable(client: Client<true>, guildId: Snowflake) {
+export async function checkSendable(guildId: Snowflake) {
 	// Can the guild be accessed?
-	const guild = client.guilds.cache.get(guildId);
+	const guild = GUILD_CACHE.get(guildId);
 
 	if (!guild) {
 		// Just nuke everything.
@@ -268,13 +314,13 @@ export async function checkSendable(client: Client<true>, guildId: Snowflake) {
 		.select(["guild_id", "type", "channel_id", "role_id"])
 		.where({ guild_id: guildId });
 
-	const me = await guild.members.fetchMe();
+	const me = await guild.fetchMe();
 
 	// Check if we can still send to all the guild's notification channels.
 	const promises = notificationPackets.map((notificationPacket) =>
 		pg<NotificationPacket>(Table.Notifications)
 			.update({
-				sendable: isSendable(me, notificationPacket.channel_id, notificationPacket.role_id),
+				sendable: isSendable(me, guild, notificationPacket.channel_id, notificationPacket.role_id),
 			})
 			.where({ guild_id: notificationPacket.guild_id, type: notificationPacket.type })
 			.returning("*"),
@@ -283,41 +329,58 @@ export async function checkSendable(client: Client<true>, guildId: Snowflake) {
 	await Promise.all(promises);
 }
 
-function isSendable(me: GuildMember, channelId: Snowflake | null, roleId: Snowflake | null) {
+function isSendable(
+	me: GuildMember,
+	guild: Guild,
+	channelId: Snowflake | null,
+	roleId: Snowflake | null,
+) {
 	if (!(channelId && roleId)) {
 		return false;
 	}
 
-	const channel = me.guild.channels.cache.get(channelId);
-	const role = me.guild.roles.cache.get(roleId);
+	const channel = guild.channels.get(channelId);
+	const role = guild.roles.find((role) => role.id === roleId);
 
 	return Boolean(
-		channel && isNotificationChannel(channel) && role && isNotificationSendable(channel, role, me),
+		channel &&
+			isNotificationChannel(channel) &&
+			role &&
+			isNotificationSendable(guild, channel, role, me),
 	);
 }
 
 async function embed(
-	interaction: ChatInputCommandInteraction<"cached"> | StringSelectMenuInteraction<"cached">,
+	interaction:
+		| APIChatInputApplicationCommandGuildInteraction
+		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
 ) {
+	const guild = GUILD_CACHE.get(interaction.guild_id);
+
+	if (!guild) {
+		pino.error(interaction, "Guild not found for notification embed.");
+		throw new Error("Guild not found for notification embed.");
+	}
+
 	const { locale } = interaction;
 
 	const notificationPackets = await pg<NotificationPacket>(Table.Notifications)
 		.select(["type", "channel_id", "role_id", "offset", "sendable"])
-		.where({ guild_id: interaction.guildId });
+		.where({ guild_id: guild.id });
 
-	return new EmbedBuilder()
-		.setColor(DEFAULT_EMBED_COLOUR)
-		.setFields(
-			NOTIFICATION_TYPE_VALUES.map((notificationType) => ({
-				name: t(`notification-types.${notificationType}`, {
-					lng: locale,
-					ns: "general",
-				}),
-				value: overviewValue(getOverviewPacket(notificationPackets, notificationType)),
-				inline: true,
-			})),
-		)
-		.setTitle(interaction.guild.name);
+	return {
+		color: DEFAULT_EMBED_COLOUR,
+		fields: NOTIFICATION_TYPE_VALUES.map((notificationType) => ({
+			name: t(`notification-types.${notificationType}`, {
+				lng: locale,
+				ns: "general",
+			}),
+			value: overviewValue(getOverviewPacket(notificationPackets, notificationType)),
+			inline: true,
+		})),
+
+		title: guild.name,
+	};
 }
 
 function getOverviewPacket(
@@ -342,8 +405,8 @@ function overviewValue(
 	const sendable = notificationPacket?.sendable;
 
 	return [
-		channelId ? channelMention(channelId) : "No channel",
-		roleId ? roleMention(roleId) : "No role",
+		channelId ? `<#${channelId}>` : "No channel",
+		roleId ? `<@&${roleId}>` : "No role",
 		sendable
 			? `Sending! ${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`
 			: `Stopped! ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`,

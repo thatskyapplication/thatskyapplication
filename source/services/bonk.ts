@@ -1,43 +1,52 @@
-import { type ChatInputCommandInteraction, MessageFlags, PermissionFlagsBits } from "discord.js";
+import {
+	type APIChatInputApplicationCommandInteraction,
+	MessageFlags,
+	PermissionFlagsBits,
+} from "@discordjs/core";
+import { client } from "../discord.js";
 import { BONKS } from "../utility/constants.js";
+import { interactionInvoker } from "../utility/functions.js";
+import { OptionResolver } from "../utility/option-resolver.js";
 
-export async function bonk(interaction: ChatInputCommandInteraction) {
-	const { channel, options } = interaction;
+export async function bonk(interaction: APIChatInputApplicationCommandInteraction) {
+	const options = new OptionResolver(interaction);
 	const user = options.getUser("user", true);
 	const member = options.getMember("user");
+	const invoker = interactionInvoker(interaction);
 
-	if (user.id === interaction.user.id) {
-		await interaction.reply({ content: "No self-bonking! Bad!", flags: MessageFlags.Ephemeral });
+	if (user.id === invoker.id) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "No self-bonking! Bad!",
+			flags: MessageFlags.Ephemeral,
+		});
 		return;
 	}
 
-	if (interaction.inGuild() && !member) {
-		await interaction.reply({
-			content: `${user} is not in this server to be bonked.`,
+	if (interaction.guild_id && !member) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `<@${user.id}> is not in this server to be bonked.`,
 			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
 	}
 
-	if (
-		channel &&
-		!channel.isDMBased() &&
-		member &&
-		"user" in member &&
-		!channel.permissionsFor(member).has(PermissionFlagsBits.ViewChannel)
-	) {
-		await interaction.reply({
-			content: `${user} is not around for the bonk!`,
-			flags: MessageFlags.Ephemeral,
-		});
+	if (member) {
+		const permissions = BigInt(member.permissions);
 
-		return;
+		if ((permissions & PermissionFlagsBits.ViewChannel) === 0n) {
+			await client.api.interactions.reply(interaction.id, interaction.token, {
+				content: `<@${user.id}> is not around for the bonk!`,
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
 	}
 
 	if (user.bot) {
-		await interaction.reply({
-			content: `${user} is a bot. They're pretty tough. Immune to bonks, I'd say.`,
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `<@${user.id}> is a bot. They're pretty tough. Immune to bonks, I'd say.`,
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -49,8 +58,8 @@ export async function bonk(interaction: ChatInputCommandInteraction) {
 	const { message } = bonk;
 
 	let bonkMessage = message
-		.replaceAll("{{bonker}}", String(interaction.user))
-		.replaceAll("{{bonkee}}", String(user));
+		.replaceAll("{{bonker}}", `<@${invoker.id}>`)
+		.replaceAll("{{bonkee}}", `<@${user.id}>`);
 
 	if ("entries" in bonk) {
 		const { entries } = bonk;
@@ -62,5 +71,8 @@ export async function bonk(interaction: ChatInputCommandInteraction) {
 			.replace("{{entry3}}", entry3);
 	}
 
-	await interaction.reply(bonkMessage);
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		allowed_mentions: { users: [user.id] },
+		content: bonkMessage,
+	});
 }

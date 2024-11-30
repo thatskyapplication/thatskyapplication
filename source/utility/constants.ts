@@ -1,12 +1,6 @@
 import process from "node:process";
 import { URL } from "node:url";
-import {
-	ChannelType,
-	Locale,
-	MessageFlags,
-	StringSelectMenuOptionBuilder,
-	hyperlink,
-} from "discord.js";
+import { ChannelType, Locale, MessageFlags } from "@discordjs/core";
 
 // Production detection.
 export const PRODUCTION = process.env.NODE_ENV === "production";
@@ -30,7 +24,16 @@ const CDN_URL_DEVELOPMENT = "https://cdn-development.thatskyapplication.com" as 
 const CDN_URL_PRODUCTION = "https://cdn.thatskyapplication.com" as const;
 export const CDN_URL = PRODUCTION ? CDN_URL_PRODUCTION : CDN_URL_DEVELOPMENT;
 
+// Developer guild id.
+const DEVELOPER_GUILD_ID_PRODUCTION = "1017993798170726411" as const;
+const DEVELOPER_GUILD_ID_DEVELOPMENT = "1260971646584619109" as const;
+
+export const DEVELOPER_GUILD_ID = PRODUCTION
+	? DEVELOPER_GUILD_ID_PRODUCTION
+	: DEVELOPER_GUILD_ID_DEVELOPMENT;
+
 // Channel ids.
+export const DAILY_INFOGRAPHICS_CHANNEL_ID = "1041420071614042152" as const;
 export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const;
 
 // Concurrency limit to not hit the global rate limit of 50 requests per second.
@@ -48,14 +51,16 @@ export const APPLICATION_INVITE_URL = String(new URL("invite", WEBSITE_URL));
 export const SUPPORT_SERVER_INVITE_URL = String(new URL("support", WEBSITE_URL));
 
 // SKU ids.
-export const SERVER_UPGRADE_SKU_ID = "1270871254316089515" as const;
+const SERVER_UPGRADE_SKU_ID_DEVELOPMENT = "1270975828481806428" as const;
+const SERVER_UPGRADE_SKU_ID_PRODUCTION = "1270871254316089515" as const;
+
+export const SERVER_UPGRADE_SKU_ID = PRODUCTION
+	? SERVER_UPGRADE_SKU_ID_PRODUCTION
+	: SERVER_UPGRADE_SKU_ID_DEVELOPMENT;
 
 // Error response.
 export const ERROR_RESPONSE = {
-	content: `Oh no, that wasn't supposed to happen!\n\nFeel free to join our ${hyperlink(
-		"support server",
-		SUPPORT_SERVER_INVITE_URL,
-	)} and report this issue! 🩵`,
+	content: `Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server](${SUPPORT_SERVER_INVITE_URL}) and report this issue! 🩵`,
 	components: [],
 	embeds: [],
 	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
@@ -63,13 +68,7 @@ export const ERROR_RESPONSE = {
 
 // Not in cached guild response.
 export const NOT_IN_CACHED_GUILD_RESPONSE = {
-	content: `This command requires me to be present in the server. ${hyperlink(
-		"Invite me",
-		APPLICATION_INVITE_URL,
-	)} with the bot scope and try again!\nIf you need help, join the ${hyperlink(
-		"support server",
-		SUPPORT_SERVER_INVITE_URL,
-	)}!`,
+	content: `This command requires me to be present in the server. [Invite me](${APPLICATION_INVITE_URL}) with the bot scope and try again!\nIf you need help, join the [support server](${SUPPORT_SERVER_INVITE_URL})!`,
 	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
 } as const;
 
@@ -77,7 +76,6 @@ export const NOT_IN_CACHED_GUILD_RESPONSE = {
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 
 // Miscellaneous constants.
-export const DEVELOPER_GUILD_ID = "1017993798170726411" as const;
 const THATSKYGAME_URL = "https://thatskygame.com" as const;
 const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
 const PATREON_URL = "https://patreon.com/Jiralite" as const;
@@ -91,10 +89,6 @@ export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
 export const DEFAULT_EMBED_COLOUR = 0x6f68c9 as const;
 export const MAXIMUM_EMBED_FIELD_NAME_LENGTH = 256 as const;
 export const MAXIMUM_EMBED_FIELD_VALUE_LENGTH = 1_024 as const;
-
-export const enum Channel {
-	dailyGuides = "1041420071614042152",
-}
 
 export enum RealmName {
 	IslesOfDawn = "Isles of Dawn",
@@ -239,6 +233,7 @@ export const VALID_REALM_NAME = [
 ] as const;
 
 export type ValidRealmName = (typeof VALID_REALM_NAME)[number];
+export const VALID_REALM_NAME_VALUES = Object.values(VALID_REALM_NAME);
 
 export const WINGED_LIGHT_THRESHOLDS = [
 	1, 2, 5, 10, 20, 35, 55, 75, 100, 120, 150, 200, 250,
@@ -289,23 +284,17 @@ export const SKY_CREATOR_TROUPE = {
 } as const satisfies Readonly<Record<string, Record<string, string>>>;
 
 // About.
-export const ABOUT_DESCRIPTION = `Welcome to the lovely Discord bot for ${hyperlink(
-	"Sky: Children of the Light",
-	THATSKYGAME_URL,
-	"thatskygame",
-)}!
+export const ABOUT_DESCRIPTION =
+	`Welcome to the lovely Discord application for [Sky: Children of the Light](${THATSKYGAME_URL} "thatskygame")!
 
 So you'd like to know about me, huh? Well, I like long walks across the ${
-	SkyMap.SanctuaryIslands
-}. Oh, and don't forget about gliding all over the ${SkyMap.StarlightDesert}. Also... JELLYFISH!
+		SkyMap.SanctuaryIslands
+	}. Oh, and don't forget about gliding all over the ${SkyMap.StarlightDesert}. Also... JELLYFISH!
 
 In any case, you can invite me by opening up my profile or using the invite link below! If you need help, head on to the support server linked also below and we'll figure it out together!` as const;
 
 export const ABOUT_SPONSOR = `Want to give support? There are ways you can do that! Thank you in advance!
-${hyperlink("Patreon", PATREON_URL)} | ${hyperlink("Ko-fi", KO_FI_URL)} | ${hyperlink(
-	"GitHub",
-	GITHUB_SPONSORS_URL,
-)}` as const;
+[Patreon](${PATREON_URL}) | [Ko-fi](${KO_FI_URL}) | [GitHub](${GITHUB_SPONSORS_URL})` as const;
 
 // Admin.
 export const DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID =
@@ -341,15 +330,15 @@ export const DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1 =
 export const DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2 =
 	"DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2" as const;
 
-export const QUEST_OPTIONS = QUEST_NUMBER.map((questNumber) =>
-	new StringSelectMenuOptionBuilder()
-		.setLabel(`Quest ${questNumber}`)
-		.setValue(String(questNumber)),
-);
+export const QUEST_OPTIONS = QUEST_NUMBER.map((questNumber) => ({
+	label: `Quest ${questNumber}`,
+	value: String(questNumber),
+}));
 
-export const LOCALE_OPTIONS = LOCALES.map((locale) =>
-	new StringSelectMenuOptionBuilder().setLabel(locale).setValue(locale),
-);
+export const LOCALE_OPTIONS = LOCALES.map((locale) => ({
+	label: locale,
+	value: locale,
+}));
 
 // Bonk.
 export const BONKS = {
