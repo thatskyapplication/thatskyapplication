@@ -1,7 +1,5 @@
 import type { Snowflake } from "@discordjs/core";
-import { CDN } from "@discordjs/rest";
-
-const cdn = new CDN();
+import { client } from "../discord.js";
 
 interface EmojiData {
 	name: string;
@@ -3695,7 +3693,7 @@ export function formatEmoji(emoji: Emoji) {
 }
 
 export function formatEmojiURL(id: Snowflake) {
-	return cdn.emoji(id);
+	return client.rest.cdn.emoji(id);
 }
 
 interface CurrencyEmojiOptions {
