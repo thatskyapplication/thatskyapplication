@@ -91,6 +91,11 @@ export default new GuideSpirit({
 				cost: { hearts: 5 },
 				emoji: emoteEmoji,
 			},
+			{
+				name: "Quest 5",
+				cosmetic: Cosmetic.TheMoominStorybookQuest5,
+				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
 		],
 	},
 });
