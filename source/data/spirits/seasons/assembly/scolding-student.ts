@@ -128,6 +128,6 @@ export default new SeasonalSpirit({
 	},
 	keywords: ["clover", "clover cape"],
 	visits: {
-		travelling: [68],
+		travelling: [68, 128],
 	},
 });
