@@ -2790,7 +2790,7 @@ export const enum Cosmetic {
 	FledglingUprightPiano = 2201,
 
 	// 02/12/2024 | Season of Moomin Quest 5.
-	TheMoominStorybookQuest5 = 2202,	
+	TheMoominStorybookQuest5 = 2202,
 
 	// 09/12/2024 | Season of Moomin Final Quest
 	// This will include Moominmamma's Masterpiece cape for $24.99.
