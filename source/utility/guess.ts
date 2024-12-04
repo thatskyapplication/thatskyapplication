@@ -1,6 +1,17 @@
 import type { Snowflake } from "@discordjs/core";
 import { spirits } from "../data/spirits/index.js";
-import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "./emojis.js";
+import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS, SEASON_EMOJIS } from "./emojis.js";
+
+const HEART_EMOJIS = [
+	...Object.entries(MISCELLANEOUS_EMOJIS),
+	...Object.entries(SEASON_EMOJIS),
+].reduce((emojis, [key, { id }]) => {
+	if (key.includes("Heart")) {
+		emojis.add(id);
+	}
+
+	return emojis;
+}, new Set<Snowflake>());
 
 const SPIRIT_COSMETIC_EMOJIS = spirits()
 	.map((spirit) =>
@@ -26,7 +37,7 @@ const SPIRIT_COSMETIC_EMOJIS = spirits()
 				item.emoji.id !== FRIEND_ACTION_EMOJIS.HighFive.id &&
 				item.emoji.id !== FRIEND_ACTION_EMOJIS.Hug.id &&
 				item.emoji.id !== FRIEND_ACTION_EMOJIS.FistBump.id &&
-				!item.emoji.name.endsWith("_heart")
+				!HEART_EMOJIS.has(item.emoji.id)
 			) {
 				emojis.add(item.emoji.id);
 			}
