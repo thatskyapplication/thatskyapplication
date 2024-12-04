@@ -13,7 +13,6 @@ import {
 	type InteractionsAPI,
 	type Locale,
 	MessageFlags,
-	PermissionFlagsBits,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { t } from "i18next";
@@ -22,7 +21,6 @@ import { client } from "../discord.js";
 import { APPLICATION_ID, DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { TIME_ZONE, dateRangeString, dateString, skyToday } from "../utility/dates.js";
 import { isChatInputCommand } from "../utility/functions.js";
-import { cannotUsePermissions } from "../utility/permissions.js";
 import {
 	MAXIMUM_OPTION_NUMBER,
 	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
@@ -116,10 +114,6 @@ export async function today(
 		| APIMessageComponentSelectMenuInteraction,
 	offset = 0,
 ) {
-	if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-		return;
-	}
-
 	if (await hasExpired(interaction)) {
 		return;
 	}

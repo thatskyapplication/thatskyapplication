@@ -145,7 +145,6 @@ const PermissionFlagBitsToString = new Map<bigint, string>()
 	.set(PermissionFlagsBits.ViewChannel, "View Channel")
 	.set(PermissionFlagsBits.SendMessages, "Send Messages")
 	.set(PermissionFlagsBits.EmbedLinks, "Embed Links")
-	.set(PermissionFlagsBits.UseExternalEmojis, "Use External Emojis")
 	.set(PermissionFlagsBits.SendMessagesInThreads, "Send Messages in Threads");
 
 function getPermissionString(bit: bigint) {
@@ -195,14 +194,6 @@ export async function cannotUsePermissions(
 		(appPermissions & PermissionFlagsBits.EmbedLinks) === 0n
 	) {
 		missingPermissions.push(getPermissionString(PermissionFlagsBits.EmbedLinks));
-	}
-
-	if (
-		(permissions & PermissionFlagsBits.UseExternalEmojis) ===
-			PermissionFlagsBits.UseExternalEmojis &&
-		(appPermissions & PermissionFlagsBits.UseExternalEmojis) === 0n
-	) {
-		missingPermissions.push(getPermissionString(PermissionFlagsBits.UseExternalEmojis));
 	}
 
 	if (

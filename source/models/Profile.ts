@@ -79,7 +79,7 @@ import {
 } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
-import { can, cannotUsePermissions } from "../utility/permissions.js";
+import { can } from "../utility/permissions.js";
 import { Catalogue } from "./Catalogue.js";
 
 interface ProfilePacket {
@@ -1817,10 +1817,6 @@ export default class Profile {
 			| APIModalSubmitInteraction,
 		defer?: boolean,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const invoker = interactionInvoker(interaction);
 		const profile = await Profile.fetch(invoker.id).catch(() => null);
 		const embedData = await profile?.embed(interaction);

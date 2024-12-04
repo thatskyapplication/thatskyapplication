@@ -9,7 +9,6 @@ import {
 	ButtonStyle,
 	ComponentType,
 	MessageFlags,
-	PermissionFlagsBits,
 } from "@discordjs/core";
 import { t } from "i18next";
 import { spirits } from "../data/spirits/index.js";
@@ -36,7 +35,6 @@ import { skyNow } from "../utility/dates.js";
 import { formatEmoji } from "../utility/emojis.js";
 import { isChatInputCommand } from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
-import { cannotUsePermissions } from "../utility/permissions.js";
 import {
 	FriendActionToEmoji,
 	SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID,
@@ -173,10 +171,6 @@ async function searchResponse(
 	spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 	seasonalOffer = false,
 ) {
-	if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-		return;
-	}
-
 	const { locale } = interaction;
 	const isSeasonalSpirit = spirit.isSeasonalSpirit();
 	const isGuideSpirit = spirit.isGuideSpirit();

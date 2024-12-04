@@ -4,7 +4,6 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	Locale,
 	MessageFlags,
-	PermissionFlagsBits,
 } from "@discordjs/core";
 import { ALLOWED_EXTENSIONS } from "@discordjs/rest";
 import { t } from "i18next";
@@ -14,7 +13,6 @@ import Profile, { AssetType, type ProfileSetData } from "../../models/Profile.js
 import { searchAutocomplete } from "../../services/spirit.js";
 import { APPLICATION_ID, SKY_PROFILE_MAXIMUM_ASSET_SIZE } from "../../utility/constants.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
-import { cannotUsePermissions } from "../../utility/permissions.js";
 
 export default {
 	name: t("sky-profile.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
@@ -33,10 +31,6 @@ export default {
 		}
 	},
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const options = new OptionResolver(interaction);
 
 		switch (options.getSubcommand()) {

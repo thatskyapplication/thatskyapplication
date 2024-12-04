@@ -1,8 +1,4 @@
-import {
-	type APIChatInputApplicationCommandInteraction,
-	Locale,
-	PermissionFlagsBits,
-} from "@discordjs/core";
+import { type APIChatInputApplicationCommandInteraction, Locale } from "@discordjs/core";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../../caches/guilds.js";
 import { client } from "../../discord.js";
@@ -10,7 +6,6 @@ import { setup, status, unset } from "../../services/notification.js";
 import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../utility/constants.js";
 import { isGuildChatInputCommand } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
-import { cannotUsePermissions } from "../../utility/permissions.js";
 
 export default {
 	name: t("notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
@@ -22,10 +17,6 @@ export default {
 				NOT_IN_CACHED_GUILD_RESPONSE,
 			);
 
-			return;
-		}
-
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
 			return;
 		}
 

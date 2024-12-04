@@ -137,14 +137,13 @@ function isDailyGuidesDistributable(
 	const permissions =
 		PermissionFlagsBits.ViewChannel |
 		(isThread ? PermissionFlagsBits.SendMessagesInThreads : PermissionFlagsBits.SendMessages) |
-		PermissionFlagsBits.EmbedLinks |
-		PermissionFlagsBits.UseExternalEmojis;
+		PermissionFlagsBits.EmbedLinks;
 
 	if (!can({ permission: permissions, guild, member: me, channel: resolvedChannelForPermission })) {
 		errors.push(
 			`\`View Channel\` & \`${
 				isThread ? "Send Messages in Threads" : "Send Messages"
-			}\` & \`Embed Links\` & \`Use External Emojis\` are required for <#${channel.id}>.`,
+			}\` & \`Embed Links\` are required for <#${channel.id}>.`,
 		);
 	}
 

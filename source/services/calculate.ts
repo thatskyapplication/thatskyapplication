@@ -4,7 +4,6 @@ import {
 	type APIEmbedFooter,
 	Locale,
 	MessageFlags,
-	PermissionFlagsBits,
 } from "@discordjs/core";
 import { t } from "i18next";
 import { skyCurrentEvents } from "../data/events/index.js";
@@ -40,7 +39,6 @@ import {
 	resolveCurrencyEmoji,
 } from "../utility/emojis.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
-import { cannotUsePermissions } from "../utility/permissions.js";
 import { shardEruption } from "../utility/shard-eruption.js";
 
 export async function ascendedCandles(
@@ -67,10 +65,6 @@ export async function ascendedCandles(
 			flags: MessageFlags.Ephemeral,
 		});
 
-		return;
-	}
-
-	if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
 		return;
 	}
 
@@ -195,10 +189,6 @@ export async function eventCurrency(
 		return;
 	}
 
-	if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-		return;
-	}
-
 	const amountRequired = goal - start;
 
 	const suffix = events
@@ -263,10 +253,6 @@ export async function seasonalCandles(
 			flags: MessageFlags.Ephemeral,
 		});
 
-		return;
-	}
-
-	if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
 		return;
 	}
 
@@ -377,10 +363,6 @@ export async function wingedLight(
 	interaction: APIChatInputApplicationCommandInteraction,
 	options: OptionResolver,
 ) {
-	if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-		return;
-	}
-
 	const { locale } = interaction;
 	const wingBuffs = options.getInteger("wing-buffs", true);
 	let accumulation = wingBuffs;

@@ -4,7 +4,6 @@ import {
 	type APIEmbedField,
 	type Locale,
 	MessageFlags,
-	PermissionFlagsBits,
 } from "@discordjs/core";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
@@ -23,7 +22,6 @@ import {
 	INITIAL_TRAVELLING_SPIRIT_SEEK,
 	skyNow,
 } from "../utility/dates.js";
-import { cannotUsePermissions } from "../utility/permissions.js";
 import { dailyGuidesEventData, dailyGuidesShardEruptionData } from "./daily-guides.js";
 
 function dailyResetTime(date: DateTime) {
@@ -244,14 +242,6 @@ export async function schedule(interaction: APIChatInputApplicationCommandIntera
 	}
 
 	const shardEruptionData = dailyGuidesShardEruptionData(locale);
-
-	if (
-		shardEruptionData.length === 2 &&
-		(await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis))
-	) {
-		return;
-	}
-
 	fields.push(...shardEruptionData);
 	embed.fields = fields;
 

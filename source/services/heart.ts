@@ -28,7 +28,6 @@ import {
 import { skyToday } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "../utility/emojis.js";
 import { getRandomElement, interactionInvoker, isChatInputCommand } from "../utility/functions.js";
-import { cannotUsePermissions } from "../utility/permissions.js";
 
 async function totalGifted(userId: Snowflake) {
 	return Number(
@@ -47,10 +46,6 @@ export async function gift(
 	user: APIUser,
 	member: APIInteractionDataResolvedGuildMember | null,
 ) {
-	if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-		return;
-	}
-
 	const invoker = interactionInvoker(interaction);
 
 	if (user.id === invoker.id) {
@@ -161,10 +156,6 @@ export async function gift(
 export async function history(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 ) {
-	if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-		return;
-	}
-
 	const invoker = interactionInvoker(interaction);
 	const isChatInput = isChatInputCommand(interaction);
 

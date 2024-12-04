@@ -341,10 +341,6 @@ export class Catalogue {
 	public static async viewCatalogue(
 		interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const invoker = interactionInvoker(interaction);
 		const existingCatalogue = await this.fetch(invoker.id).catch(() => null);
 		let catalogue: Catalogue;
@@ -545,10 +541,6 @@ export class Catalogue {
 	}
 
 	public static async parseCatalogueType(interaction: APIMessageComponentSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		switch (Number(interaction.data.values[0]) as CatalogueType) {
 			case CatalogueType.StandardSpirits: {
 				await this.viewRealms(interaction);
@@ -587,10 +579,6 @@ export class Catalogue {
 	public static async viewRealms(
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const { locale } = interaction;
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
@@ -653,10 +641,6 @@ export class Catalogue {
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 		realm: RealmName,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const { locale } = interaction;
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
@@ -732,10 +716,6 @@ export class Catalogue {
 	public static async viewElders(
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const { locale } = interaction;
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
@@ -811,10 +791,6 @@ export class Catalogue {
 	public static async viewSeasons(
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const { locale } = interaction;
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
@@ -867,10 +843,6 @@ export class Catalogue {
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 		seasonId: SeasonIds,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const { locale } = interaction;
 		const invoker = interactionInvoker(interaction);
 		const seasons = skySeasons();
@@ -1024,10 +996,6 @@ export class Catalogue {
 	public static async viewEventYears(
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 
@@ -1085,10 +1053,6 @@ export class Catalogue {
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 		yearString: string,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const { locale } = interaction;
 		const invoker = interactionInvoker(interaction);
 		const year = Number(yearString);
@@ -1190,10 +1154,6 @@ export class Catalogue {
 	}
 
 	public static async viewReturningSpirits(interaction: APIMessageComponentButtonInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const { locale } = interaction;
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
@@ -1248,10 +1208,6 @@ export class Catalogue {
 	public static async parseViewSpirit(
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 
@@ -1278,10 +1234,6 @@ export class Catalogue {
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 		spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const { locale } = interaction;
 		const isStandardSpirit = spirit.isStandardSpirit();
 		const isElderSpirit = spirit.isElderSpirit();
@@ -1453,10 +1405,6 @@ export class Catalogue {
 	public static async parseViewEvent(
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 
@@ -1486,10 +1434,6 @@ export class Catalogue {
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 		event: Event,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const { locale } = interaction;
 		const { id, start, eventCurrency, offer, offerInfographicURL, wikiURL } = event;
 
@@ -1617,10 +1561,6 @@ export class Catalogue {
 	private static async viewStarterPacks(
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 
@@ -1691,10 +1631,6 @@ export class Catalogue {
 	private static async viewSecretArea(
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 
@@ -1765,10 +1701,6 @@ export class Catalogue {
 	private static async viewPermanentEventStore(
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 
@@ -1839,10 +1771,6 @@ export class Catalogue {
 	private static async viewNestingWorkshop(
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 
@@ -1976,10 +1904,6 @@ export class Catalogue {
 	}
 
 	public static async setElders(interaction: APIMessageComponentButtonInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 
@@ -1999,10 +1923,6 @@ export class Catalogue {
 	}
 
 	public static async setSeason(interaction: APIMessageComponentButtonInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 		const parsedCustomId = Number(
@@ -2033,10 +1953,6 @@ export class Catalogue {
 	}
 
 	public static async setSeasonItems(interaction: APIMessageComponentSelectMenuInteraction) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 		const parsedCustomId = Number(
@@ -2059,10 +1975,6 @@ export class Catalogue {
 	public static async parseSetItems(
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	) {
-		if (await cannotUsePermissions(interaction, PermissionFlagsBits.UseExternalEmojis)) {
-			return;
-		}
-
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 
@@ -2466,8 +2378,7 @@ export class Catalogue {
 					channel.type === ChannelType.AnnouncementThread
 						? PermissionFlagsBits.SendMessagesInThreads
 						: PermissionFlagsBits.SendMessages) |
-					PermissionFlagsBits.EmbedLinks |
-					PermissionFlagsBits.UseExternalEmojis,
+					PermissionFlagsBits.EmbedLinks,
 			)
 		) {
 			return;
@@ -2574,8 +2485,7 @@ export class Catalogue {
 					channel.type === ChannelType.AnnouncementThread
 						? PermissionFlagsBits.SendMessagesInThreads
 						: PermissionFlagsBits.SendMessages) |
-					PermissionFlagsBits.EmbedLinks |
-					PermissionFlagsBits.UseExternalEmojis,
+					PermissionFlagsBits.EmbedLinks,
 			)
 		) {
 			return;
