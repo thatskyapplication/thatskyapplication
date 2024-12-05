@@ -38,7 +38,7 @@ jobs:
         run: |
           flyctl proxy 5432 --app $FLY_DB_APP &
           for i in {1..10}; do
-            nc -z localhost 5432 && echo "Proxy is up" && break
+            nc -z localhost 5432 && echo "Proxy is up!" && break
             echo "Waiting for the proxy to be available..."
             sleep 3
           done
