@@ -1,9 +1,4 @@
-# fly.toml app configuration file generated for caelus-backup on 2024-12-01T08:43:53Z
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
-app = 'caelus-backup'
+app = 'caelus'
 primary_region = 'iad'
 kill_signal = 'SIGINT'
 kill_timeout = '5s'
