@@ -25,20 +25,40 @@ import {
 	HEART_HISTORY_NEXT,
 	MAXIMUM_HEARTS_PER_DAY,
 } from "../utility/constants.js";
-import { skyToday } from "../utility/dates.js";
+import { HEART_EXTRA_DATES, isDuring, skyNow } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "../utility/emojis.js";
 import { getRandomElement, interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 
 async function totalGifted(userId: Snowflake) {
-	return Number(
-		(await pg<HeartPacket>(Table.Hearts).count().where({ gifter_id: userId }))[0]!.count,
-	);
+	const result = await pg<HeartPacket>(Table.Hearts)
+		.where({ gifter_id: userId })
+		.sum({ heartsExtra: "hearts_extra" })
+		.count({ totalRows: "*" })
+		.first();
+
+	if (!result) {
+		return 0;
+	}
+
+	const totalRows = Number(result.totalRows);
+	const heartsExtra = Number(result.heartsExtra ?? 0);
+	return totalRows + heartsExtra;
 }
 
 export async function totalReceived(userId: Snowflake) {
-	return Number(
-		(await pg<HeartPacket>(Table.Hearts).count().where({ giftee_id: userId }))[0]!.count,
-	);
+	const result = await pg<HeartPacket>(Table.Hearts)
+		.where({ giftee_id: userId })
+		.sum({ heartsExtra: "hearts_extra" })
+		.count({ totalRows: "*" })
+		.first();
+
+	if (!result) {
+		return 0;
+	}
+
+	const totalRows = Number(result.totalRows);
+	const heartsExtra = Number(result.heartsExtra ?? 0);
+	return totalRows + heartsExtra;
 }
 
 export async function gift(
@@ -88,7 +108,13 @@ export async function gift(
 		return;
 	}
 
-	const today = skyToday();
+	const now = skyNow();
+	const today = now.startOf("day");
+
+	const extraHearts = HEART_EXTRA_DATES.find((heartsExtra) =>
+		isDuring(heartsExtra.start, heartsExtra.end, now),
+	);
+
 	const tomorrowTimestamp = `<t:${Math.floor(today.plus({ day: 1 }).toUnixInteger())}:R>`;
 
 	const heartPackets = await pg<HeartPacket>(Table.Hearts)
@@ -125,6 +151,7 @@ export async function gift(
 		gifter_id: invoker.id,
 		giftee_id: user.id,
 		timestamp: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
+		hearts_extra: extraHearts?.count ?? 0,
 	});
 
 	const hearts = await totalReceived(user.id);
@@ -143,12 +170,16 @@ export async function gift(
 	});
 
 	const heartsLeftToGift = MAXIMUM_HEARTS_PER_DAY - heartPackets.length - 1;
+	let heartsLeftToGiftText = `You can gift ${heartsLeftToGift} more ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} today.`;
+
+	if (extraHearts) {
+		const startDate = extraHearts.start.toFormat("dd/LL/yyyy");
+		const endDate = extraHearts.end.toFormat("dd/LL/yyyy");
+		heartsLeftToGiftText += `\nThere is currently a double heart event from ${startDate} to ${endDate}!`;
+	}
 
 	await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
-		content:
-			heartsLeftToGift === 0
-				? noMoreHeartsLeft
-				: `You can gift ${heartsLeftToGift} more ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} today.`,
+		content: heartsLeftToGift === 0 ? noMoreHeartsLeft : heartsLeftToGiftText,
 		flags: MessageFlags.Ephemeral,
 	});
 }
@@ -239,11 +270,21 @@ export async function history(
 				})}`,
 				fields: heartPackets.map((heartPacket) => {
 					const gifted = heartPacket.gifter_id === invoker.id;
+					let name = gifted ? "Gifted" : "Received";
+
+					if (heartPacket.hearts_extra > 0) {
+						name += ` ${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: heartPacket.hearts_extra + 1 })}`;
+					}
+
 					const user = gifted ? heartPacket.giftee_id : heartPacket.gifter_id;
 
 					return {
-						name: gifted ? "Gifted" : "Received",
-						value: `${user ? `<@${user}>` : DELETED_USER_TEXT}\n<t:${Math.floor(heartPacket.timestamp.getTime() / 1_000)}:d>\n(<t:${Math.floor(heartPacket.timestamp.getTime() / 1_000)}:R>)`,
+						name,
+						value: [
+							`${user ? `<@${user}>` : DELETED_USER_TEXT}`,
+							`<t:${Math.floor(heartPacket.timestamp.getTime() / 1_000)}:d>`,
+							`(<t:${Math.floor(heartPacket.timestamp.getTime() / 1_000)}:R>)`,
+						].join("\n"),
 						inline: true,
 					};
 				}),

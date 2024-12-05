@@ -1,5 +1,7 @@
+import { Collection } from "@discordjs/collection";
 import { Locale } from "@discordjs/core";
 import { DateTime } from "luxon";
+import type { HeartsExtra } from "../models/Heart.js";
 
 // Time zone.
 export const TIME_ZONE = "America/Los_Angeles" as const;
@@ -20,6 +22,13 @@ export const DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE_MARKDOWN =
 export const DOUBLE_SEASONAL_LIGHT_EVENT_DURATION =
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days").days +
 	1;
+
+// Extra hearts.
+export const HEART_EXTRA_DATES = new Collection<number, HeartsExtra>().set(1, {
+	start: skyDate(2_024, 12, 9),
+	end: skyDate(2_024, 12, 23),
+	count: 1,
+});
 
 // Miscellaneous.
 export const INITIAL_TRAVELLING_SPIRIT_SEEK = skyDate(2_023, 5, 25); // #88 Grateful Shell Collector.
