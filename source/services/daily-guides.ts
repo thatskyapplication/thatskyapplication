@@ -39,7 +39,6 @@ import {
 	RealmName,
 } from "../utility/constants.js";
 import {
-	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	dateString,
@@ -583,20 +582,6 @@ export function distributionEmbed(locale: Locale) {
 	const eventData = dailyGuidesEventData(today, locale);
 	footerText.push(...eventData.eventEndText);
 	iconURL ??= eventData.iconURL;
-
-	if (now < COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2) {
-		const daysUntilStart = Math.floor(
-			COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2.diff(today, "days").days,
-		);
-
-		footerText.push(
-			daysUntilStart === 0
-				? "The SkyFest AURORA Mega Concert starts at 06:00 and 18:00 today."
-				: daysUntilStart === 1
-					? "The SkyFest AURORA Mega Concert starts tomorrow."
-					: `The SkyFest AURORA Mega Concert starts in ${daysUntilStart} days.`,
-		);
-	}
 
 	if (footerText.length > 0) {
 		const footer: APIEmbedFooter = {

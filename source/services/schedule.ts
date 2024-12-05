@@ -9,19 +9,12 @@ import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import {
-	CDN_URL,
 	DEFAULT_EMBED_COLOUR,
 	ISS_DATES_ACCESSIBLE,
 	NotificationType,
 	PASSAGE_TRUNCATION_LIMIT,
 } from "../utility/constants.js";
-import {
-	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1_RELATIVE_TIME,
-	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2,
-	COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2_RELATIVE_TIME,
-	INITIAL_TRAVELLING_SPIRIT_SEEK,
-	skyNow,
-} from "../utility/dates.js";
+import { INITIAL_TRAVELLING_SPIRIT_SEEK, skyNow } from "../utility/dates.js";
 import { dailyGuidesEventData, dailyGuidesShardEruptionData } from "./daily-guides.js";
 
 function dailyResetTime(date: DateTime) {
@@ -150,12 +143,6 @@ export async function schedule(interaction: APIChatInputApplicationCommandIntera
 		ns: "commands",
 	})} ${passageTimesEnd.join(" ")}`;
 
-	let auroraText = aurora.join(" ");
-
-	if (now <= COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2) {
-		auroraText += `\n[SkyFest AURORA Mega Concerts](${new URL("aurora_event/3.jpg", CDN_URL)}: ${COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_1_RELATIVE_TIME} | ${COMMUNITY_ORGANISED_AURORA_CONCERT_START_DATE_2_RELATIVE_TIME}`;
-	}
-
 	const embed: APIEmbed = {
 		color: DEFAULT_EMBED_COLOUR,
 		footer: { text: t("schedule.times-are-relative", { lng: locale, ns: "commands" }) },
@@ -212,7 +199,7 @@ export async function schedule(interaction: APIChatInputApplicationCommandIntera
 		},
 		{
 			name: t(`notification-types.${NotificationType.AURORA}`, { lng: locale, ns: "general" }),
-			value: auroraText,
+			value: aurora.join(" "),
 		},
 		{
 			name: t(`notification-types.${NotificationType.Passage}`, { lng: locale, ns: "general" }),
