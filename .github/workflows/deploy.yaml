@@ -3,8 +3,6 @@ on:
   push:
     branches: main
   workflow_dispatch:
-env:
-  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 jobs:
   deploy:
     name: Deploy Caelus
@@ -14,4 +12,6 @@ jobs:
 
       - uses: superfly/flyctl-actions/setup-flyctl@master
 
-      - run: flyctl deploy --remote-only
+      - run: flyctl deploy --remote-only --access-token $FLY_DEPLOY_TOKEN
+        env:
+          FLY_DEPLOY_TOKEN: ${{ secrets.FLY_DEPLOY_TOKEN }}
