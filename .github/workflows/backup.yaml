@@ -8,7 +8,6 @@ jobs:
     name: Backup database
     runs-on: ubuntu-latest
     env:
-      FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
       FLY_DB_APP: thatskyapplication-database
       PGUSER: postgres
       PGPASSWORD: ${{ secrets.PGPASSWORD }}
@@ -36,7 +35,7 @@ jobs:
           pg_dump --version
       - name: Dump database, gzip, and upload to R2
         run: |
-          flyctl proxy 5432 --app $FLY_DB_APP &
+          flyctl proxy 5432 --app $FLY_DB_APP --access-token $FLY_DATABASE_TOKEN &
           for i in {1..10}; do
             nc -z localhost 5432 && echo "Proxy is up!" && break
             echo "Waiting for the proxy to be available..."
@@ -51,3 +50,6 @@ jobs:
           gzip ${{ steps.set-filename.outputs.FILENAME }}
           ls
           s3cmd put --acl-private ${{ steps.set-filename.outputs.FILENAME }}.gz s3://$S3_BUCKET/${{ steps.set-filename.outputs.FILENAME }}.gz
+        env:
+          FLY_DATABASE_TOKEN: ${{ secrets.FLY_DATABASE_TOKEN }}
+
