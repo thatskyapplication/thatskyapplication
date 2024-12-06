@@ -75,7 +75,7 @@ function scheduleTimes(date: DateTime) {
 			}
 		}
 
-		if (minute === 0 && (hour + 2) % 4 === 0) {
+		if (minute === 0 && hour % 2 === 0) {
 			aurora.push(timeString);
 		}
 	}
