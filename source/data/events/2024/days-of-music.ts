@@ -11,7 +11,7 @@ import {
 const eventCurrencyAmount = [];
 
 for (
-	let start = skyDate(2_024, 11, 25), end = skyDate(2_024, 12, 11);
+	let start = skyDate(2_024, 11, 25), end = skyDate(2_024, 12, 12);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
@@ -24,14 +24,14 @@ for (
 export default new Event({
 	id: EventId.DaysOfMusic2024,
 	start: skyDate(2_024, 11, 25),
-	end: skyDate(2_024, 12, 11),
+	end: skyDate(2_024, 12, 12),
 	eventCurrency: {
 		amount: eventCurrencyAmount,
 		pool: [
 			{
 				amount: 15,
 				start: skyDate(2_024, 11, 25),
-				end: skyDate(2_024, 12, 10),
+				end: skyDate(2_024, 12, 11),
 			},
 		],
 	},
