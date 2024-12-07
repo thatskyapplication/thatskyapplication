@@ -46,6 +46,7 @@ import {
 } from "../models/Catalogue.js";
 import Profile, {
 	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
+	SKY_PROFILE_CONTENT_CREATOR_EDIT_CUSTOM_ID,
 	SKY_PROFILE_EDIT_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID,
@@ -88,6 +89,11 @@ import {
 	treasureCandlesModalResponse,
 	treasureCandlesSelectMenuResponse,
 } from "../services/admin.js";
+import {
+	contentCreatorsDisplayEdit,
+	contentCreatorsDisplayEditOptions,
+	contentCreatorsEdit,
+} from "../services/content-creators.js";
 import { deleteUserData } from "../services/data.js";
 import {
 	answer,
@@ -102,6 +108,8 @@ import { browse, today } from "../services/shard-eruption.js";
 import { parseSpiritSwitch } from "../services/spirit.js";
 import { isSeasonId } from "../utility/catalogue.js";
 import {
+	CONTENT_CREATORS_DISPLAY_EDIT_CUSTOM_ID,
+	CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID,
 	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_DAILY_MESSAGE_MODAL,
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
@@ -431,6 +439,11 @@ export default {
 					return;
 				}
 
+				if (customId === SKY_PROFILE_CONTENT_CREATOR_EDIT_CUSTOM_ID) {
+					await contentCreatorsDisplayEditOptions(interaction);
+					return;
+				}
+
 				if (customId === SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID) {
 					await Profile.showEdit(interaction);
 					return;
@@ -656,6 +669,11 @@ export default {
 					return;
 				}
 
+				if (customId === CONTENT_CREATORS_DISPLAY_EDIT_CUSTOM_ID) {
+					await contentCreatorsDisplayEdit(interaction);
+					return;
+				}
+
 				if (
 					SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.includes(
 						customId as (typeof SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS)[number],
@@ -758,6 +776,11 @@ export default {
 
 				if (customId === SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID) {
 					await Profile.setSpot(interaction);
+					return;
+				}
+
+				if (customId.startsWith(CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID)) {
+					await contentCreatorsEdit(interaction);
 					return;
 				}
 

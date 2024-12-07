@@ -49,6 +49,7 @@ export const MAX_KRILL_NO = 11 as const;
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const APPLICATION_INVITE_URL = String(new URL("invite", WEBSITE_URL));
 export const SUPPORT_SERVER_INVITE_URL = String(new URL("support", WEBSITE_URL));
+export const CONTENT_CREATORS_URL = String(new URL("content-creators", WEBSITE_URL));
 
 // SKU ids.
 const SERVER_UPGRADE_SKU_ID_DEVELOPMENT = "1270975828481806428" as const;
@@ -497,6 +498,11 @@ export const BONKS = {
 		},
 	],
 } as const;
+
+// Content creators.
+export const CONTENT_CREATORS_DISPLAY_EDIT_CUSTOM_ID = "CONTENT_CREATORS_DISPLAY_EDIT_CUSTOM_ID" as const;
+export const CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID = "CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID" as const;
+export const CONTENT_CREATORS_EDIT_TEXT_INPUT_CUSTOM_ID = "CONTENT_CREATORS_EDIT_TEXT_INPUT_CUSTOM_ID" as const;
 
 // Daily guides distribution.
 export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [

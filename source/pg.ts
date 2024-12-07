@@ -5,6 +5,7 @@ import { PRODUCTION } from "./utility/constants.js";
 export enum Table {
 	AI = "ai",
 	Configuration = "configuration",
+	ContentCreators = "content_creators",
 	DailyGuides = "daily_guides",
 	DailyGuidesDistribution = "daily_guides_distribution",
 	Guess = "guess",

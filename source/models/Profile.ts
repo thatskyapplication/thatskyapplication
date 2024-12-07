@@ -222,6 +222,10 @@ function isPlatformId(platformId: unknown): platformId is PlatformIds {
 
 export const SKY_PROFILE_EDIT_CUSTOM_ID = "SKY_PROFILE_EDIT_CUSTOM_ID" as const;
 export const SKY_PROFILE_SHOW_RESET_CUSTOM_ID = "SKY_PROFILE_SHOW_RESET_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_CONTENT_CREATOR_EDIT_CUSTOM_ID =
+	"SKY_PROFILE_CONTENT_CREATOR_EDIT_CUSTOM_ID" as const;
+
 export const SKY_PROFILE_RESET_CUSTOM_ID = "SKY_PROFILE_RESET_CUSTOM_ID" as const;
 export const SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID = "SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID" as const;
 const SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID" as const;
@@ -273,16 +277,11 @@ const SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW: APIActionRowComponent<APISelectMenuCo
 	],
 } as const;
 
-const SKY_PROFILE_EDIT_RESET_ACTION_ROW: APIActionRowComponent<APIButtonComponent> = {
-	type: ComponentType.ActionRow,
-	components: [
-		{
-			type: ComponentType.Button,
-			custom_id: SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
-			label: "Reset",
-			style: ButtonStyle.Secondary,
-		},
-	],
+const SKY_PROFILE_EDIT_RESET_BUTTON = {
+	type: ComponentType.Button,
+	custom_id: SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
+	label: "Reset",
+	style: ButtonStyle.Secondary,
 } as const;
 
 const SKY_PROFILE_RESET_OPTIONS = PROFILE_INTERACTIVE_RESET_TYPE_VALUES.map(
@@ -1827,7 +1826,22 @@ export default class Profile {
 			| Parameters<InteractionsAPI["editReply"]>[2]
 			| Parameters<InteractionsAPI["reply"]>[2]
 			| Parameters<InteractionsAPI["updateMessage"]>[2] = {
-			components: [SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW, SKY_PROFILE_EDIT_RESET_ACTION_ROW],
+			components: [
+				SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW,
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						SKY_PROFILE_EDIT_RESET_BUTTON,
+						{
+							type: ComponentType.Button,
+							custom_id: SKY_PROFILE_CONTENT_CREATOR_EDIT_CUSTOM_ID,
+							emoji: MISCELLANEOUS_EMOJIS.CreatorTroupe,
+							label: "Creator Troupe",
+							style: ButtonStyle.Secondary,
+						},
+					],
+				},
+			],
 			content: embed
 				? missing
 					? `${missing}`
