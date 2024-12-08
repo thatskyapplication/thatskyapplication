@@ -12,3 +12,7 @@ export interface ContentCreatorsPacket {
 	bluesky: string | null;
 	name: string | null;
 }
+
+export type ContentCreatorsEditOptions = {
+	[K in keyof Omit<ContentCreatorsPacket, "user_id">]?: NonNullable<ContentCreatorsPacket[K]>;
+};

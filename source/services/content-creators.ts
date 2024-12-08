@@ -9,7 +9,10 @@ import {
 	TextInputStyle,
 } from "@discordjs/core";
 import { client } from "../discord.js";
-import type { ContentCreatorsPacket } from "../models/ContentCreators.js";
+import type {
+	ContentCreatorsEditOptions,
+	ContentCreatorsPacket,
+} from "../models/ContentCreators.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
@@ -88,7 +91,7 @@ const CONTENT_CREATORS_EDIT_TYPE_TO_PLACEHOLDER = {
 	[ContentCreatorsEditType.Bluesky]: "",
 } as const satisfies Readonly<Record<ContentCreatorsEditTypes, string>>;
 
-const CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH = {
+export const CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH = {
 	[ContentCreatorsEditType.Name]: 20,
 	[ContentCreatorsEditType.Description]: 200,
 	[ContentCreatorsEditType.YouTube]: 100,
@@ -135,16 +138,6 @@ function editResponse():
 		embeds: [],
 		flags: MessageFlags.Ephemeral,
 	};
-}
-
-export async function contentCreatorsDisplayEditOptions(
-	interaction:
-		| APIChatInputApplicationCommandGuildInteraction
-		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
-) {
-	await (isChatInputCommand(interaction)
-		? client.api.interactions.reply(interaction.id, interaction.token, editResponse())
-		: client.api.interactions.updateMessage(interaction.id, interaction.token, editResponse()));
 }
 
 export async function contentCreatorsDisplayEdit(
@@ -199,7 +192,40 @@ export async function contentCreatorsDisplayEdit(
 	});
 }
 
-export async function contentCreatorsEdit(interaction: APIModalSubmitGuildInteraction) {
+export async function contentCreatorsEdit(
+	interaction: APIChatInputApplicationCommandGuildInteraction | APIModalSubmitGuildInteraction,
+	data: ContentCreatorsEditOptions = {},
+) {
+	if (
+		(data.youtube && !data.youtube.startsWith("@")) ||
+		(data.tiktok && !data.tiktok.startsWith("@")) ||
+		(data.x && !data.x.startsWith("@"))
+	) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "YouTube, TikTok, and X handles must start with `@`.",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	await pg<ContentCreatorsPacket>(Table.ContentCreators)
+		.insert(
+			{
+				user_id: interaction.member.user.id,
+				...data,
+			},
+			"*",
+		)
+		.onConflict("user_id")
+		.merge();
+
+	await (isChatInputCommand(interaction)
+		? client.api.interactions.reply(interaction.id, interaction.token, editResponse())
+		: client.api.interactions.updateMessage(interaction.id, interaction.token, editResponse()));
+}
+
+export async function contentCreatorsModalResponse(interaction: APIModalSubmitGuildInteraction) {
 	const customId = interaction.data.custom_id;
 	const editType = Number(customId.slice(customId.indexOf("§") + 1));
 
@@ -217,31 +243,7 @@ export async function contentCreatorsEdit(interaction: APIModalSubmitGuildIntera
 
 	const components = new ModalResolver(interaction.data.components);
 	const social = components.getTextInputValue(CONTENT_CREATORS_EDIT_TEXT_INPUT_CUSTOM_ID);
-
-	if (
-		(editType === ContentCreatorsEditType.YouTube ||
-			editType === ContentCreatorsEditType.TikTok ||
-			editType === ContentCreatorsEditType.X) &&
-		!social.startsWith("@")
-	) {
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "The handle must start with `@`.",
-			flags: MessageFlags.Ephemeral,
-		});
-
-		return;
-	}
-
-	await pg<ContentCreatorsPacket>(Table.ContentCreators)
-		.insert(
-			{
-				user_id: interaction.member.user.id,
-				[CONTENT_CREATORS_EDIT_TYPE_TO_COLUMN_NAME[editType]]: social,
-			},
-			"*",
-		)
-		.onConflict("user_id")
-		.merge();
-
-	await client.api.interactions.updateMessage(interaction.id, interaction.token, editResponse());
+	await contentCreatorsEdit(interaction, {
+		[CONTENT_CREATORS_EDIT_TYPE_TO_COLUMN_NAME[editType]]: social,
+	});
 }

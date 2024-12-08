@@ -88,7 +88,10 @@ import {
 	treasureCandlesModalResponse,
 	treasureCandlesSelectMenuResponse,
 } from "../services/admin.js";
-import { contentCreatorsDisplayEdit, contentCreatorsEdit } from "../services/content-creators.js";
+import {
+	contentCreatorsDisplayEdit,
+	contentCreatorsModalResponse,
+} from "../services/content-creators.js";
 import { deleteUserData } from "../services/data.js";
 import {
 	answer,
@@ -776,7 +779,7 @@ export default {
 
 				if (isGuildModalSubmit(interaction)) {
 					if (customId.startsWith(CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID)) {
-						await contentCreatorsEdit(interaction);
+						await contentCreatorsModalResponse(interaction);
 						return;
 					}
 
