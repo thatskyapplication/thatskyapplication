@@ -4,6 +4,7 @@ import {
 	type APIModalSubmitInteraction,
 	ComponentType,
 	type InteractionsAPI,
+	MessageFlags,
 	TextInputStyle,
 } from "@discordjs/core";
 import { client } from "../discord.js";
@@ -21,20 +22,22 @@ import { interactionInvoker } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 
 export const ContentCreatorsEditType = {
-	Description: 0,
-	YouTube: 1,
-	Twitch: 2,
-	TikTok: 3,
-	X: 4,
-	Instagram: 5,
-	Facebook: 6,
-	Bluesky: 7,
+	Name: 0,
+	Description: 1,
+	YouTube: 2,
+	Twitch: 3,
+	TikTok: 4,
+	X: 5,
+	Instagram: 6,
+	Facebook: 7,
+	Bluesky: 8,
 } as const satisfies Readonly<Record<string, number>>;
 
 const CONTENT_CREATORS_EDIT_TYPES = Object.values(ContentCreatorsEditType);
 type ContentCreatorsEditTypes = (typeof CONTENT_CREATORS_EDIT_TYPES)[number];
 
 const CONTENT_CREATORS_EDIT_TYPE_TO_COLUMN_NAME = {
+	[ContentCreatorsEditType.Name]: "name",
 	[ContentCreatorsEditType.Description]: "description",
 	[ContentCreatorsEditType.YouTube]: "youtube",
 	[ContentCreatorsEditType.Twitch]: "twitch",
@@ -46,6 +49,7 @@ const CONTENT_CREATORS_EDIT_TYPE_TO_COLUMN_NAME = {
 } as const satisfies Readonly<Record<ContentCreatorsEditTypes, string>>;
 
 const CONTENT_CREATORS_EDIT_TYPE_TO_TEXT = {
+	[ContentCreatorsEditType.Name]: "Name",
 	[ContentCreatorsEditType.Description]: "Description",
 	[ContentCreatorsEditType.YouTube]: "YouTube",
 	[ContentCreatorsEditType.Twitch]: "Twitch",
@@ -57,6 +61,7 @@ const CONTENT_CREATORS_EDIT_TYPE_TO_TEXT = {
 } as const satisfies Readonly<Record<ContentCreatorsEditTypes, string>>;
 
 const CONTENT_CREATORS_EDIT_TYPE_TO_EMOJI = {
+	[ContentCreatorsEditType.Name]: { name: "📝" },
 	[ContentCreatorsEditType.Description]: { name: "📝" },
 	[ContentCreatorsEditType.YouTube]: MISCELLANEOUS_EMOJIS.YouTube,
 	[ContentCreatorsEditType.Twitch]: MISCELLANEOUS_EMOJIS.Twitch,
@@ -70,6 +75,7 @@ const CONTENT_CREATORS_EDIT_TYPE_TO_EMOJI = {
 >;
 
 const CONTENT_CREATORS_EDIT_TYPE_TO_PLACEHOLDER = {
+	[ContentCreatorsEditType.Name]: "thatskygame",
 	[ContentCreatorsEditType.Description]:
 		"I'm a content creator. I make content. Some of it is good. Promise.",
 	[ContentCreatorsEditType.YouTube]: "@thatgamecompany",
@@ -82,6 +88,7 @@ const CONTENT_CREATORS_EDIT_TYPE_TO_PLACEHOLDER = {
 } as const satisfies Readonly<Record<ContentCreatorsEditTypes, string>>;
 
 const CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH = {
+	[ContentCreatorsEditType.Name]: 20,
 	[ContentCreatorsEditType.Description]: 200,
 	[ContentCreatorsEditType.YouTube]: 100,
 	[ContentCreatorsEditType.Twitch]: 50,
@@ -214,6 +221,7 @@ export async function contentCreatorsEdit(interaction: APIModalSubmitInteraction
 	) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "The handle must start with `@`.",
+			flags: MessageFlags.Ephemeral,
 		});
 
 		return;

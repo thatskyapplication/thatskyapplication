@@ -10,4 +10,5 @@ export interface ContentCreatorsPacket {
 	instagram: string | null;
 	facebook: string | null;
 	bluesky: string | null;
+	name: string | null;
 }
