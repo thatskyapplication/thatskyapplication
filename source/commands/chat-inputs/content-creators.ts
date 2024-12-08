@@ -2,6 +2,7 @@ import { type APIChatInputApplicationCommandInteraction, MessageFlags } from "@d
 import { client } from "../../discord.js";
 import type { ContentCreatorsEditOptions } from "../../models/ContentCreators.js";
 import { contentCreatorsEdit, contentCreatorsSetAvatar } from "../../services/content-creators.js";
+import { SKY_CREATOR_TROUPE_USER_IDS } from "../../utility/constants.js";
 import { isGuildChatInputCommand, validateAttachment } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
@@ -9,6 +10,15 @@ export default {
 	name: "content-creators",
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
 		if (!isGuildChatInputCommand(interaction)) {
+			return;
+		}
+
+		if (!SKY_CREATOR_TROUPE_USER_IDS.has(interaction.member.user.id)) {
+			await client.api.interactions.reply(interaction.id, interaction.token, {
+				flags: MessageFlags.Ephemeral,
+				content: "Unknown Sky Creator Troupe member.",
+			});
+
 			return;
 		}
 

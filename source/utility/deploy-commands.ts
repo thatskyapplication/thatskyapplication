@@ -12,7 +12,9 @@ import {
 	MINIMUM_WINGED_LIGHT,
 	NOTIFICATION_CHANNEL_TYPES,
 	NOTIFICATION_TYPE_VALUES,
+	PRODUCTION,
 	QUEST_NUMBER,
+	SKY_CREATOR_TROUPE_GUILD_IDS,
 	SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
@@ -30,6 +32,7 @@ import {
 	Locale,
 	PermissionFlagsBits,
 	type RESTPostAPIApplicationCommandsJSONBody,
+	type RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from "@discordjs/core";
 import { REST } from "@discordjs/rest";
 import {
@@ -2002,6 +2005,74 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 	},
 ] as const;
 
+const CONTENT_CREATORS_COMMAND: RESTPostAPIChatInputApplicationCommandsJSONBody = {
+	name: "content-creators",
+	description: "Edit your information to display on the website. We know who you are.",
+	type: ApplicationCommandType.ChatInput,
+	options: [
+		{
+			type: ApplicationCommandOptionType.String,
+			name: "name",
+			description: "What are you known as?",
+			max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Name],
+		},
+		{
+			type: ApplicationCommandOptionType.Attachment,
+			name: "avatar",
+			description: "Upload an avatar.",
+		},
+		{
+			type: ApplicationCommandOptionType.String,
+			name: "description",
+			description: "Use a concise description to introduce yourself.",
+			max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Description],
+		},
+		{
+			type: ApplicationCommandOptionType.String,
+			name: "youtube",
+			description: "What is your YouTube handle?",
+			max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.YouTube],
+		},
+		{
+			type: ApplicationCommandOptionType.String,
+			name: "twitch",
+			description: "What is your Twitch handle?",
+			max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Twitch],
+		},
+		{
+			type: ApplicationCommandOptionType.String,
+			name: "tiktok",
+			description: "What is your TikTok handle?",
+			max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.TikTok],
+		},
+		{
+			type: ApplicationCommandOptionType.String,
+			name: "x",
+			description: "What is your X handle?",
+			max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.X],
+		},
+		{
+			type: ApplicationCommandOptionType.String,
+			name: "instagram",
+			description: "What is your Instagram handle?",
+			max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Instagram],
+		},
+		{
+			type: ApplicationCommandOptionType.String,
+			name: "facebook",
+			description: "What is your Facebook handle?",
+			max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Facebook],
+		},
+		{
+			type: ApplicationCommandOptionType.String,
+			name: "bluesky",
+			description: "What is your Bluesky handle?",
+			max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Bluesky],
+		},
+	],
+	default_member_permissions: "0",
+} as const;
+
 const DEVELOPER_COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 	{
 		name: "admin",
@@ -2067,87 +2138,33 @@ const DEVELOPER_COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		],
 		default_member_permissions: "0",
 	},
-	{
-		name: "content-creators",
-		description: "Edit your information to display on the website. We know who you are.",
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.String,
-				name: "name",
-				description: "What are you known as?",
-				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Name],
-			},
-			{
-				type: ApplicationCommandOptionType.Attachment,
-				name: "avatar",
-				description: "Upload an avatar.",
-			},
-			{
-				type: ApplicationCommandOptionType.String,
-				name: "description",
-				description: "Use a concise description to introduce yourself.",
-				max_length:
-					CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Description],
-			},
-			{
-				type: ApplicationCommandOptionType.String,
-				name: "youtube",
-				description: "What is your YouTube handle?",
-				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.YouTube],
-			},
-			{
-				type: ApplicationCommandOptionType.String,
-				name: "twitch",
-				description: "What is your Twitch handle?",
-				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Twitch],
-			},
-			{
-				type: ApplicationCommandOptionType.String,
-				name: "tiktok",
-				description: "What is your TikTok handle?",
-				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.TikTok],
-			},
-			{
-				type: ApplicationCommandOptionType.String,
-				name: "x",
-				description: "What is your X handle?",
-				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.X],
-			},
-			{
-				type: ApplicationCommandOptionType.String,
-				name: "instagram",
-				description: "What is your Instagram handle?",
-				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Instagram],
-			},
-			{
-				type: ApplicationCommandOptionType.String,
-				name: "facebook",
-				description: "What is your Facebook handle?",
-				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Facebook],
-			},
-			{
-				type: ApplicationCommandOptionType.String,
-				name: "bluesky",
-				description: "What is your Bluesky handle?",
-				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Bluesky],
-			},
-		],
-	},
+	CONTENT_CREATORS_COMMAND,
 ] as const;
 
 const rest = new REST({ version: "10" }).setToken(TOKEN);
 const api = new API(rest);
 pino.info("Setting application commands...");
 
-const settled = await Promise.allSettled([
+const commands = [
 	api.applicationCommands.bulkOverwriteGlobalCommands(APPLICATION_ID, COMMANDS),
 	api.applicationCommands.bulkOverwriteGuildCommands(
 		APPLICATION_ID,
 		DEVELOPER_GUILD_ID,
 		DEVELOPER_COMMANDS,
 	),
-]);
+];
+
+if (PRODUCTION) {
+	for (const skyCreatorTroupeGuildId of SKY_CREATOR_TROUPE_GUILD_IDS) {
+		commands.push(
+			api.applicationCommands.bulkOverwriteGuildCommands(APPLICATION_ID, skyCreatorTroupeGuildId, [
+				CONTENT_CREATORS_COMMAND,
+			]),
+		);
+	}
+}
+
+const settled = await Promise.allSettled(commands);
 
 const errors = settled
 	.filter((result): result is PromiseRejectedResult => result.status === "rejected")

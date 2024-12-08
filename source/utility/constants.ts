@@ -1,6 +1,6 @@
 import process from "node:process";
 import { URL } from "node:url";
-import { ChannelType, Locale, MessageFlags } from "@discordjs/core";
+import { ChannelType, Locale, MessageFlags, type Snowflake } from "@discordjs/core";
 
 // Production detection.
 export const PRODUCTION = process.env.NODE_ENV === "production";
@@ -24,13 +24,18 @@ const CDN_URL_DEVELOPMENT = "https://cdn-development.thatskyapplication.com" as 
 const CDN_URL_PRODUCTION = "https://cdn.thatskyapplication.com" as const;
 export const CDN_URL = PRODUCTION ? CDN_URL_PRODUCTION : CDN_URL_DEVELOPMENT;
 
-// Developer guild id.
+// Guild ids.
 const DEVELOPER_GUILD_ID_PRODUCTION = "1017993798170726411" as const;
 const DEVELOPER_GUILD_ID_DEVELOPMENT = "1260971646584619109" as const;
 
 export const DEVELOPER_GUILD_ID = PRODUCTION
 	? DEVELOPER_GUILD_ID_PRODUCTION
 	: DEVELOPER_GUILD_ID_DEVELOPMENT;
+
+export const SKY_CREATOR_TROUPE_GUILD_IDS = [
+	"796292367212609556", // Evinsky.
+	"1161438354244640838", // Moon.
+] as const;
 
 // Channel ids.
 export const DAILY_INFOGRAPHICS_CHANNEL_ID = "1041420071614042152" as const;
@@ -75,6 +80,13 @@ export const NOT_IN_CACHED_GUILD_RESPONSE = {
 
 // Quest numbers.
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
+
+// Sky Creator Troupe user ids.
+export const SKY_CREATOR_TROUPE_USER_IDS = new Set<Snowflake>([
+	"290337478898876417", // Nastymold.
+	"713002852909449236", // Evinsky.
+	"833943628502138940", // Moon.
+]);
 
 // Miscellaneous constants.
 const THATSKYGAME_URL = "https://thatskygame.com" as const;
