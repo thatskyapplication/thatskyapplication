@@ -83,6 +83,7 @@ export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 
 // Sky Creator Troupe user ids.
 export const SKY_CREATOR_TROUPE_USER_IDS = new Set<Snowflake>([
+	"128298536726036480", // Maelstrom.
 	"290337478898876417", // Nastymold.
 	"713002852909449236", // Evinsky.
 	"833943628502138940", // Moon.
