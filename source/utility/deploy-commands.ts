@@ -2079,6 +2079,11 @@ const DEVELOPER_COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Name],
 			},
 			{
+				type: ApplicationCommandOptionType.Attachment,
+				name: "avatar",
+				description: "Upload an avatar.",
+			},
+			{
 				type: ApplicationCommandOptionType.String,
 				name: "description",
 				description: "Use a concise description to introduce yourself.",

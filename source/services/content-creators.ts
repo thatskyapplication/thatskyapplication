@@ -1,4 +1,6 @@
+import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
+	type APIAttachment,
 	type APIChatInputApplicationCommandGuildInteraction,
 	type APIGuildInteractionWrapper,
 	type APIMessageComponentSelectMenuInteraction,
@@ -6,8 +8,11 @@ import {
 	ComponentType,
 	type InteractionsAPI,
 	MessageFlags,
+	type Snowflake,
 	TextInputStyle,
 } from "@discordjs/core";
+import { hash } from "hasha";
+import sharp from "sharp";
 import { client } from "../discord.js";
 import type {
 	ContentCreatorsEditOptions,
@@ -15,14 +20,18 @@ import type {
 } from "../models/ContentCreators.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
+import S3Client from "../s3-client.js";
 import {
+	ANIMATED_HASH_PREFIX,
+	APPLICATION_ID,
+	CDN_BUCKET,
 	CONTENT_CREATORS_DISPLAY_EDIT_CUSTOM_ID,
 	CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID,
 	CONTENT_CREATORS_EDIT_TEXT_INPUT_CUSTOM_ID,
 	CONTENT_CREATORS_URL,
 } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS, type MiscellaneousEmojis } from "../utility/emojis.js";
-import { isChatInputCommand } from "../utility/functions.js";
+import { isAnimatedHash, isChatInputCommand } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 
 export const ContentCreatorsEditType = {
@@ -192,9 +201,67 @@ export async function contentCreatorsDisplayEdit(
 	});
 }
 
+function avatarRoute(userId: Snowflake, hash: string) {
+	return `content_creators/avatars/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
+}
+
+export async function contentCreatorsSetAvatar(
+	interaction: APIChatInputApplicationCommandGuildInteraction,
+	attachment: APIAttachment,
+) {
+	const invokerId = interaction.member.user.id;
+
+	const [contentCreatorsPacket] = await pg<ContentCreatorsPacket>(Table.ContentCreators).where({
+		user_id: invokerId,
+	});
+
+	// Delete the old asset if it exists.
+	if (contentCreatorsPacket?.avatar) {
+		const hash = contentCreatorsPacket.avatar;
+
+		await S3Client.send(
+			new DeleteObjectCommand({
+				Bucket: CDN_BUCKET,
+				Key: avatarRoute(invokerId, hash),
+			}),
+		);
+	}
+
+	const gif = attachment.content_type === "image/gif";
+
+	const assetBuffer = sharp(await (await fetch(attachment.url)).arrayBuffer(), {
+		animated: true,
+	});
+
+	let buffer: Buffer;
+
+	if (gif) {
+		buffer = await assetBuffer.gif().toBuffer();
+	} else {
+		buffer = await assetBuffer.webp().toBuffer();
+	}
+
+	let hashedBuffer = await hash(buffer, { algorithm: "md5" });
+
+	if (gif) {
+		hashedBuffer = `${ANIMATED_HASH_PREFIX}${hashedBuffer}`;
+	}
+
+	await S3Client.send(
+		new PutObjectCommand({
+			Bucket: CDN_BUCKET,
+			Key: avatarRoute(invokerId, hashedBuffer),
+			Body: buffer,
+		}),
+	);
+
+	return hashedBuffer;
+}
+
 export async function contentCreatorsEdit(
 	interaction: APIChatInputApplicationCommandGuildInteraction | APIModalSubmitGuildInteraction,
 	data: ContentCreatorsEditOptions = {},
+	deferred = false,
 ) {
 	if (
 		(data.youtube && !data.youtube.startsWith("@")) ||
@@ -221,7 +288,9 @@ export async function contentCreatorsEdit(
 		.merge();
 
 	await (isChatInputCommand(interaction)
-		? client.api.interactions.reply(interaction.id, interaction.token, editResponse())
+		? deferred
+			? client.api.interactions.editReply(APPLICATION_ID, interaction.token, editResponse())
+			: client.api.interactions.reply(interaction.id, interaction.token, editResponse())
 		: client.api.interactions.updateMessage(interaction.id, interaction.token, editResponse()));
 }
 

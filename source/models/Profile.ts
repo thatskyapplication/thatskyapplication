@@ -41,6 +41,7 @@ import { findUser } from "../services/guess.js";
 import { totalReceived } from "../services/heart.js";
 import { SeasonIdToSeasonalEmoji, type SeasonIds, isSeasonId } from "../utility/catalogue.js";
 import {
+	ANIMATED_HASH_PREFIX,
 	APPLICATION_ID,
 	CDN_BUCKET,
 	CDN_URL,
@@ -73,6 +74,7 @@ import {
 } from "../utility/emojis.js";
 import {
 	interactionInvoker,
+	isAnimatedHash,
 	isButton,
 	isChatInputCommand,
 	userLogFormat,
@@ -378,8 +380,6 @@ export const SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID =
 export const SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID =
 	"SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID" as const;
 
-const ANIMATED_HASH_PREFIX = "a_" as const;
-
 export const enum AssetType {
 	Icon = 0,
 	Thumbnail = 1,
@@ -419,10 +419,6 @@ function generateProfileExplorerSelectMenuOptions(
 
 		return stringSelectMenuOption;
 	});
-}
-
-function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${string}` {
-	return hash.startsWith(ANIMATED_HASH_PREFIX);
 }
 
 function generateLabelLetter(label: string) {
@@ -561,9 +557,11 @@ export default class Profile {
 		}
 
 		const gif = attachment.content_type === "image/gif";
+
 		const assetBuffer = sharp(await (await fetch(attachment.url)).arrayBuffer(), {
 			animated: true,
 		});
+
 		let buffer: Buffer;
 
 		if (gif) {
@@ -575,7 +573,7 @@ export default class Profile {
 		let hashedBuffer = await hash(buffer, { algorithm: "md5" });
 
 		if (gif) {
-			hashedBuffer = `${ANIMATED_HASH_PREFIX}${hash}`;
+			hashedBuffer = `${ANIMATED_HASH_PREFIX}${hashedBuffer}`;
 		}
 
 		await S3Client.send(

@@ -11,6 +11,7 @@ export interface ContentCreatorsPacket {
 	facebook: string | null;
 	bluesky: string | null;
 	name: string | null;
+	avatar: string | null;
 }
 
 export type ContentCreatorsEditOptions = {
