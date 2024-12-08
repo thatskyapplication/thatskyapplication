@@ -263,13 +263,9 @@ export async function contentCreatorsEdit(
 	data: ContentCreatorsEditOptions = {},
 	deferred = false,
 ) {
-	if (
-		(data.youtube && !data.youtube.startsWith("@")) ||
-		(data.tiktok && !data.tiktok.startsWith("@")) ||
-		(data.x && !data.x.startsWith("@"))
-	) {
+	if (data.tiktok && !data.tiktok.startsWith("@")) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "YouTube, TikTok, and X handles must start with `@`.",
+			content: "TikTok handles must start with `@`.",
 			flags: MessageFlags.Ephemeral,
 		});
 
