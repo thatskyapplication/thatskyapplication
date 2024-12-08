@@ -160,7 +160,8 @@ const TRAVELLING_DATES = new Collection<number, DateTime>()
 	.set(125, skyDate(2_024, 10, 24))
 	.set(126, skyDate(2024, 11, 7))
 	.set(127, skyDate(2024, 11, 21))
-	.set(128, skyDate(2024, 12, 5));
+	.set(128, skyDate(2024, 12, 5))
+	.set(129, skyDate(2024, 12, 9));
 
 const TRAVELLING_ERROR_DATES = new Collection<number, DateTime>()
 	.set(1, skyDate(2_020, 5, 28))
