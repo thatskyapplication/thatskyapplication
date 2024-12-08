@@ -580,7 +580,7 @@ export default class Profile {
 		let hashedBuffer = await hash(buffer, { algorithm: "md5" });
 
 		if (gif) {
-			hashedBuffer = `${ANIMATED_HASH_PREFIX}${hash}`;
+			hashedBuffer = `${ANIMATED_HASH_PREFIX}${hashedBuffer}`;
 		}
 
 		await S3Client.send(
