@@ -2063,6 +2063,11 @@ const DEVELOPER_COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 		],
 		default_member_permissions: "0",
 	},
+	{
+		name: "content-creators",
+		description: "Edit your information to display on the website. We know who you are.",
+		type: ApplicationCommandType.ChatInput,
+	}
 ] as const;
 
 const rest = new REST({ version: "10" }).setToken(TOKEN);

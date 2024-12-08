@@ -1,7 +1,8 @@
 import {
-	type APIMessageComponentButtonInteraction,
+	type APIChatInputApplicationCommandGuildInteraction,
+	type APIGuildInteractionWrapper,
 	type APIMessageComponentSelectMenuInteraction,
-	type APIModalSubmitInteraction,
+	type APIModalSubmitGuildInteraction,
 	ComponentType,
 	type InteractionsAPI,
 	MessageFlags,
@@ -18,7 +19,7 @@ import {
 	CONTENT_CREATORS_URL,
 } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS, type MiscellaneousEmojis } from "../utility/emojis.js";
-import { interactionInvoker } from "../utility/functions.js";
+import { isChatInputCommand } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 
 export const ContentCreatorsEditType = {
@@ -111,7 +112,9 @@ function isContentCreatorsEditType(editType: number): editType is ContentCreator
 	return CONTENT_CREATORS_EDIT_TYPES.includes(editType as ContentCreatorsEditTypes);
 }
 
-function editResponse(): Parameters<InteractionsAPI["updateMessage"]>[2] {
+function editResponse():
+	| Parameters<InteractionsAPI["reply"]>[2]
+	| Parameters<InteractionsAPI["updateMessage"]>[2] {
 	return {
 		components: [
 			{
@@ -128,19 +131,24 @@ function editResponse(): Parameters<InteractionsAPI["updateMessage"]>[2] {
 				],
 			},
 		],
-		embeds: [],
 		content: `Content creator profiles are displayed over at <${CONTENT_CREATORS_URL}>.`,
+		embeds: [],
+		flags: MessageFlags.Ephemeral,
 	};
 }
 
 export async function contentCreatorsDisplayEditOptions(
-	interaction: APIMessageComponentButtonInteraction,
+	interaction:
+		| APIChatInputApplicationCommandGuildInteraction
+		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
 ) {
-	await client.api.interactions.updateMessage(interaction.id, interaction.token, editResponse());
+	await (isChatInputCommand(interaction)
+		? client.api.interactions.reply(interaction.id, interaction.token, editResponse())
+		: client.api.interactions.updateMessage(interaction.id, interaction.token, editResponse()));
 }
 
 export async function contentCreatorsDisplayEdit(
-	interaction: APIMessageComponentSelectMenuInteraction,
+	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
 ) {
 	const editType = Number(interaction.data.values[0]);
 
@@ -156,10 +164,8 @@ export async function contentCreatorsDisplayEdit(
 		return;
 	}
 
-	const invoker = interactionInvoker(interaction);
-
 	const [contentCreatorsPacket] = await pg<ContentCreatorsPacket>(Table.ContentCreators).where({
-		user_id: invoker.id,
+		user_id: interaction.member.user.id,
 	});
 
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
@@ -193,8 +199,7 @@ export async function contentCreatorsDisplayEdit(
 	});
 }
 
-export async function contentCreatorsEdit(interaction: APIModalSubmitInteraction) {
-	const invoker = interactionInvoker(interaction);
+export async function contentCreatorsEdit(interaction: APIModalSubmitGuildInteraction) {
 	const customId = interaction.data.custom_id;
 	const editType = Number(customId.slice(customId.indexOf("§") + 1));
 
@@ -230,7 +235,7 @@ export async function contentCreatorsEdit(interaction: APIModalSubmitInteraction
 	await pg<ContentCreatorsPacket>(Table.ContentCreators)
 		.insert(
 			{
-				user_id: invoker.id,
+				user_id: interaction.member.user.id,
 				[CONTENT_CREATORS_EDIT_TYPE_TO_COLUMN_NAME[editType]]: social,
 			},
 			"*",

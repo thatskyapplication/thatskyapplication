@@ -222,10 +222,6 @@ function isPlatformId(platformId: unknown): platformId is PlatformIds {
 
 export const SKY_PROFILE_EDIT_CUSTOM_ID = "SKY_PROFILE_EDIT_CUSTOM_ID" as const;
 export const SKY_PROFILE_SHOW_RESET_CUSTOM_ID = "SKY_PROFILE_SHOW_RESET_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_CONTENT_CREATOR_EDIT_CUSTOM_ID =
-	"SKY_PROFILE_CONTENT_CREATOR_EDIT_CUSTOM_ID" as const;
-
 export const SKY_PROFILE_RESET_CUSTOM_ID = "SKY_PROFILE_RESET_CUSTOM_ID" as const;
 export const SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID = "SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID" as const;
 const SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID" as const;
@@ -1830,16 +1826,7 @@ export default class Profile {
 				SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW,
 				{
 					type: ComponentType.ActionRow,
-					components: [
-						SKY_PROFILE_EDIT_RESET_BUTTON,
-						{
-							type: ComponentType.Button,
-							custom_id: SKY_PROFILE_CONTENT_CREATOR_EDIT_CUSTOM_ID,
-							emoji: MISCELLANEOUS_EMOJIS.CreatorTroupe,
-							label: "Creator Troupe",
-							style: ButtonStyle.Secondary,
-						},
-					],
+					components: [SKY_PROFILE_EDIT_RESET_BUTTON],
 				},
 			],
 			content: embed
