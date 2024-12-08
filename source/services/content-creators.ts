@@ -1,5 +1,4 @@
 import {
-	type APIEmbed,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIModalSubmitInteraction,
@@ -16,7 +15,6 @@ import {
 	CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID,
 	CONTENT_CREATORS_EDIT_TEXT_INPUT_CUSTOM_ID,
 	CONTENT_CREATORS_URL,
-	DEFAULT_EMBED_COLOUR,
 } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS, type MiscellaneousEmojis } from "../utility/emojis.js";
 import { interactionInvoker } from "../utility/functions.js";
@@ -71,6 +69,18 @@ const CONTENT_CREATORS_EDIT_TYPE_TO_EMOJI = {
 	Record<ContentCreatorsEditTypes, MiscellaneousEmojis | { name: string }>
 >;
 
+const CONTENT_CREATORS_EDIT_TYPE_TO_PLACEHOLDER = {
+	[ContentCreatorsEditType.Description]:
+		"I'm a content creator. I make content. Some of it is good. Promise.",
+	[ContentCreatorsEditType.YouTube]: "@thatgamecompany",
+	[ContentCreatorsEditType.Twitch]: "thatgamecompany",
+	[ContentCreatorsEditType.TikTok]: "@thatskygame",
+	[ContentCreatorsEditType.X]: "@thatskygame",
+	[ContentCreatorsEditType.Instagram]: "thatskygame",
+	[ContentCreatorsEditType.Facebook]: "thatskygame",
+	[ContentCreatorsEditType.Bluesky]: "",
+} as const satisfies Readonly<Record<ContentCreatorsEditTypes, string>>;
+
 const CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH = {
 	[ContentCreatorsEditType.Description]: 200,
 	[ContentCreatorsEditType.YouTube]: 100,
@@ -94,7 +104,7 @@ function isContentCreatorsEditType(editType: number): editType is ContentCreator
 	return CONTENT_CREATORS_EDIT_TYPES.includes(editType as ContentCreatorsEditTypes);
 }
 
-function editResponse(embed: APIEmbed | null): Parameters<InteractionsAPI["updateMessage"]>[2] {
+function editResponse(): Parameters<InteractionsAPI["updateMessage"]>[2] {
 	return {
 		components: [
 			{
@@ -111,29 +121,15 @@ function editResponse(embed: APIEmbed | null): Parameters<InteractionsAPI["updat
 				],
 			},
 		],
-		content: embed
-			? `Content creator profiles are displayed over at <${CONTENT_CREATORS_URL}>.`
-			: `Content creator profiles are displayed over at <${CONTENT_CREATORS_URL}>. Create one, and then you can share this link around.`,
-		embeds: embed ? [embed] : [],
+		embeds: [],
+		content: `Content creator profiles are displayed over at <${CONTENT_CREATORS_URL}>.`,
 	};
 }
 
 export async function contentCreatorsDisplayEditOptions(
 	interaction: APIMessageComponentButtonInteraction,
 ) {
-	const invoker = interactionInvoker(interaction);
-
-	const [contentCreatorsPacket] = await pg<ContentCreatorsPacket>(Table.ContentCreators).where({
-		user_id: invoker.id,
-	});
-
-	const embed = contentCreatorsPacket ? contentCreatorEmbed(contentCreatorsPacket) : null;
-
-	await client.api.interactions.updateMessage(
-		interaction.id,
-		interaction.token,
-		editResponse(embed),
-	);
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, editResponse());
 }
 
 export async function contentCreatorsDisplayEdit(
@@ -177,7 +173,9 @@ export async function contentCreatorsDisplayEdit(
 								: TextInputStyle.Short,
 						max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[editType],
 						min_length: 0,
-						value: contentCreatorsPacket?.[CONTENT_CREATORS_EDIT_TYPE_TO_COLUMN_NAME[editType]] ?? "",
+						placeholder: CONTENT_CREATORS_EDIT_TYPE_TO_PLACEHOLDER[editType],
+						value:
+							contentCreatorsPacket?.[CONTENT_CREATORS_EDIT_TYPE_TO_COLUMN_NAME[editType]] ?? "",
 						required: true,
 					},
 				],
@@ -208,7 +206,20 @@ export async function contentCreatorsEdit(interaction: APIModalSubmitInteraction
 	const components = new ModalResolver(interaction.data.components);
 	const social = components.getTextInputValue(CONTENT_CREATORS_EDIT_TEXT_INPUT_CUSTOM_ID);
 
-	const [contentCreatorPacket] = await pg<ContentCreatorsPacket>(Table.ContentCreators)
+	if (
+		(editType === ContentCreatorsEditType.YouTube ||
+			editType === ContentCreatorsEditType.TikTok ||
+			editType === ContentCreatorsEditType.X) &&
+		!social.startsWith("@")
+	) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "The handle must start with `@`.",
+		});
+
+		return;
+	}
+
+	await pg<ContentCreatorsPacket>(Table.ContentCreators)
 		.insert(
 			{
 				user_id: invoker.id,
@@ -219,80 +230,5 @@ export async function contentCreatorsEdit(interaction: APIModalSubmitInteraction
 		.onConflict("user_id")
 		.merge();
 
-	await client.api.interactions.updateMessage(
-		interaction.id,
-		interaction.token,
-		editResponse(contentCreatorEmbed(contentCreatorPacket!)),
-	);
-}
-
-function contentCreatorEmbed(contentCreatorsPacket: ContentCreatorsPacket) {
-	const embed: APIEmbed = {
-		color: DEFAULT_EMBED_COLOUR,
-	};
-
-	const fields = [];
-
-	if (contentCreatorsPacket.description) {
-		embed.description = contentCreatorsPacket.description;
-	}
-
-	if (contentCreatorsPacket.youtube) {
-		fields.push({
-			name: CONTENT_CREATORS_EDIT_TYPE_TO_TEXT[ContentCreatorsEditType.YouTube],
-			value: contentCreatorsPacket.youtube,
-			inline: true,
-		});
-	}
-
-	if (contentCreatorsPacket.twitch) {
-		fields.push({
-			name: CONTENT_CREATORS_EDIT_TYPE_TO_TEXT[ContentCreatorsEditType.Twitch],
-			value: contentCreatorsPacket.twitch,
-			inline: true,
-		});
-	}
-
-	if (contentCreatorsPacket.tiktok) {
-		fields.push({
-			name: CONTENT_CREATORS_EDIT_TYPE_TO_TEXT[ContentCreatorsEditType.TikTok],
-			value: contentCreatorsPacket.tiktok,
-			inline: true,
-		});
-	}
-
-	if (contentCreatorsPacket.x) {
-		fields.push({
-			name: CONTENT_CREATORS_EDIT_TYPE_TO_TEXT[ContentCreatorsEditType.X],
-			value: contentCreatorsPacket.x,
-			inline: true,
-		});
-	}
-
-	if (contentCreatorsPacket.instagram) {
-		fields.push({
-			name: CONTENT_CREATORS_EDIT_TYPE_TO_TEXT[ContentCreatorsEditType.Instagram],
-			value: contentCreatorsPacket.instagram,
-			inline: true,
-		});
-	}
-
-	if (contentCreatorsPacket.facebook) {
-		fields.push({
-			name: CONTENT_CREATORS_EDIT_TYPE_TO_TEXT[ContentCreatorsEditType.Facebook],
-			value: contentCreatorsPacket.facebook,
-			inline: true,
-		});
-	}
-
-	if (contentCreatorsPacket.bluesky) {
-		fields.push({
-			name: CONTENT_CREATORS_EDIT_TYPE_TO_TEXT[ContentCreatorsEditType.Bluesky],
-			value: contentCreatorsPacket.bluesky,
-			inline: true,
-		});
-	}
-
-	embed.fields = fields;
-	return embed;
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, editResponse());
 }
