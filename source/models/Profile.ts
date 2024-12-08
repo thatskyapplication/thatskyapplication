@@ -41,6 +41,7 @@ import { findUser } from "../services/guess.js";
 import { totalReceived } from "../services/heart.js";
 import { SeasonIdToSeasonalEmoji, type SeasonIds, isSeasonId } from "../utility/catalogue.js";
 import {
+	ANIMATED_HASH_PREFIX,
 	APPLICATION_ID,
 	CDN_BUCKET,
 	CDN_URL,
@@ -73,6 +74,7 @@ import {
 } from "../utility/emojis.js";
 import {
 	interactionInvoker,
+	isAnimatedHash,
 	isButton,
 	isChatInputCommand,
 	userLogFormat,
@@ -273,16 +275,11 @@ const SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW: APIActionRowComponent<APISelectMenuCo
 	],
 } as const;
 
-const SKY_PROFILE_EDIT_RESET_ACTION_ROW: APIActionRowComponent<APIButtonComponent> = {
-	type: ComponentType.ActionRow,
-	components: [
-		{
-			type: ComponentType.Button,
-			custom_id: SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
-			label: "Reset",
-			style: ButtonStyle.Secondary,
-		},
-	],
+const SKY_PROFILE_EDIT_RESET_BUTTON = {
+	type: ComponentType.Button,
+	custom_id: SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
+	label: "Reset",
+	style: ButtonStyle.Secondary,
 } as const;
 
 const SKY_PROFILE_RESET_OPTIONS = PROFILE_INTERACTIVE_RESET_TYPE_VALUES.map(
@@ -383,8 +380,6 @@ export const SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID =
 export const SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID =
 	"SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID" as const;
 
-const ANIMATED_HASH_PREFIX = "a_" as const;
-
 export const enum AssetType {
 	Icon = 0,
 	Thumbnail = 1,
@@ -424,10 +419,6 @@ function generateProfileExplorerSelectMenuOptions(
 
 		return stringSelectMenuOption;
 	});
-}
-
-function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${string}` {
-	return hash.startsWith(ANIMATED_HASH_PREFIX);
 }
 
 function generateLabelLetter(label: string) {
@@ -566,9 +557,11 @@ export default class Profile {
 		}
 
 		const gif = attachment.content_type === "image/gif";
+
 		const assetBuffer = sharp(await (await fetch(attachment.url)).arrayBuffer(), {
 			animated: true,
 		});
+
 		let buffer: Buffer;
 
 		if (gif) {
@@ -1827,7 +1820,13 @@ export default class Profile {
 			| Parameters<InteractionsAPI["editReply"]>[2]
 			| Parameters<InteractionsAPI["reply"]>[2]
 			| Parameters<InteractionsAPI["updateMessage"]>[2] = {
-			components: [SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW, SKY_PROFILE_EDIT_RESET_ACTION_ROW],
+			components: [
+				SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW,
+				{
+					type: ComponentType.ActionRow,
+					components: [SKY_PROFILE_EDIT_RESET_BUTTON],
+				},
+			],
 			content: embed
 				? missing
 					? `${missing}`

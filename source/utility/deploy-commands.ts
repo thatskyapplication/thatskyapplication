@@ -32,6 +32,10 @@ import {
 	type RESTPostAPIApplicationCommandsJSONBody,
 } from "@discordjs/core";
 import { REST } from "@discordjs/rest";
+import {
+	CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH,
+	ContentCreatorsEditType,
+} from "../services/content-creators.js";
 
 if (!TOKEN) {
 	pino.fatal("Missing Discord token to deploy commands.");
@@ -2062,6 +2066,73 @@ const DEVELOPER_COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 			},
 		],
 		default_member_permissions: "0",
+	},
+	{
+		name: "content-creators",
+		description: "Edit your information to display on the website. We know who you are.",
+		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.String,
+				name: "name",
+				description: "What are you known as?",
+				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Name],
+			},
+			{
+				type: ApplicationCommandOptionType.Attachment,
+				name: "avatar",
+				description: "Upload an avatar.",
+			},
+			{
+				type: ApplicationCommandOptionType.String,
+				name: "description",
+				description: "Use a concise description to introduce yourself.",
+				max_length:
+					CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Description],
+			},
+			{
+				type: ApplicationCommandOptionType.String,
+				name: "youtube",
+				description: "What is your YouTube handle?",
+				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.YouTube],
+			},
+			{
+				type: ApplicationCommandOptionType.String,
+				name: "twitch",
+				description: "What is your Twitch handle?",
+				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Twitch],
+			},
+			{
+				type: ApplicationCommandOptionType.String,
+				name: "tiktok",
+				description: "What is your TikTok handle?",
+				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.TikTok],
+			},
+			{
+				type: ApplicationCommandOptionType.String,
+				name: "x",
+				description: "What is your X handle?",
+				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.X],
+			},
+			{
+				type: ApplicationCommandOptionType.String,
+				name: "instagram",
+				description: "What is your Instagram handle?",
+				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Instagram],
+			},
+			{
+				type: ApplicationCommandOptionType.String,
+				name: "facebook",
+				description: "What is your Facebook handle?",
+				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Facebook],
+			},
+			{
+				type: ApplicationCommandOptionType.String,
+				name: "bluesky",
+				description: "What is your Bluesky handle?",
+				max_length: CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH[ContentCreatorsEditType.Bluesky],
+			},
+		],
 	},
 ] as const;
 

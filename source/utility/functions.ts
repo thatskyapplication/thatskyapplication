@@ -1,5 +1,6 @@
 import {
 	type APIApplicationCommandAutocompleteInteraction,
+	type APIAttachment,
 	type APIButtonComponent,
 	type APIChatInputApplicationCommandGuildInteraction,
 	type APIChatInputApplicationCommandInteraction,
@@ -17,7 +18,14 @@ import {
 	InteractionType,
 	type Snowflake,
 } from "@discordjs/core";
-import { VALID_REALM_NAME_VALUES } from "./constants.js";
+import { ALLOWED_EXTENSIONS } from "@discordjs/rest";
+import { client } from "../discord.js";
+import {
+	ANIMATED_HASH_PREFIX,
+	APPLICATION_ID,
+	MAXIMUM_ASSET_SIZE,
+	VALID_REALM_NAME_VALUES,
+} from "./constants.js";
 import {
 	INCONSISTENT_MAP,
 	MEDITATION_MAPS,
@@ -224,4 +232,28 @@ export function isGuildModalSubmit(
 	interaction: APIInteraction,
 ): interaction is APIModalSubmitGuildInteraction {
 	return isModalSubmit(interaction) && "guild_id" in interaction;
+}
+
+export async function validateAttachment(
+	interaction: APIChatInputApplicationCommandInteraction,
+	{ size, filename }: APIAttachment,
+) {
+	if (
+		size > MAXIMUM_ASSET_SIZE ||
+		!ALLOWED_EXTENSIONS.some((extension) => filename.endsWith(`.${extension}`))
+	) {
+		await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
+			content: `Please upload a valid attachment! It must be less than 5 megabytes and in any of the following formats:\n${ALLOWED_EXTENSIONS.map(
+				(extension) => `- .${extension}`,
+			).join("\n")}`,
+		});
+
+		return false;
+	}
+
+	return true;
+}
+
+export function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${string}` {
+	return hash.startsWith(ANIMATED_HASH_PREFIX);
 }

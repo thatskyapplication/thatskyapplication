@@ -49,6 +49,7 @@ export const MAX_KRILL_NO = 11 as const;
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const APPLICATION_INVITE_URL = String(new URL("invite", WEBSITE_URL));
 export const SUPPORT_SERVER_INVITE_URL = String(new URL("support", WEBSITE_URL));
+export const CONTENT_CREATORS_URL = String(new URL("content-creators", WEBSITE_URL));
 
 // SKU ids.
 const SERVER_UPGRADE_SKU_ID_DEVELOPMENT = "1270975828481806428" as const;
@@ -89,6 +90,8 @@ export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
 export const DEFAULT_EMBED_COLOUR = 0x6f68c9 as const;
 export const MAXIMUM_EMBED_FIELD_NAME_LENGTH = 256 as const;
 export const MAXIMUM_EMBED_FIELD_VALUE_LENGTH = 1_024 as const;
+export const ANIMATED_HASH_PREFIX = "a_" as const;
+export const MAXIMUM_ASSET_SIZE = 5_000_000 as const;
 
 export enum RealmName {
 	IslesOfDawn = "Isles of Dawn",
@@ -498,6 +501,16 @@ export const BONKS = {
 	],
 } as const;
 
+// Content creators.
+export const CONTENT_CREATORS_DISPLAY_EDIT_CUSTOM_ID =
+	"CONTENT_CREATORS_DISPLAY_EDIT_CUSTOM_ID" as const;
+
+export const CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID =
+	"CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID" as const;
+
+export const CONTENT_CREATORS_EDIT_TEXT_INPUT_CUSTOM_ID =
+	"CONTENT_CREATORS_EDIT_TEXT_INPUT_CUSTOM_ID" as const;
+
 // Daily guides distribution.
 export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
 	ChannelType.GuildText,
@@ -604,7 +617,6 @@ export const PASSAGE_TRUNCATION_LIMIT = 9 as const;
 
 // Sky profiles.
 export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
-export const SKY_PROFILE_MAXIMUM_ASSET_SIZE = 5_000_000 as const;
 export const SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
 export const SKY_PROFILE_MINIMUM_COUNTRY_LENGTH = 2 as const;
 export const SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH = 60 as const;

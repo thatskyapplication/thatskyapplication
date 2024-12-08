@@ -88,6 +88,10 @@ import {
 	treasureCandlesModalResponse,
 	treasureCandlesSelectMenuResponse,
 } from "../services/admin.js";
+import {
+	contentCreatorsDisplayEdit,
+	contentCreatorsModalResponse,
+} from "../services/content-creators.js";
 import { deleteUserData } from "../services/data.js";
 import {
 	answer,
@@ -102,6 +106,8 @@ import { browse, today } from "../services/shard-eruption.js";
 import { parseSpiritSwitch } from "../services/spirit.js";
 import { isSeasonId } from "../utility/catalogue.js";
 import {
+	CONTENT_CREATORS_DISPLAY_EDIT_CUSTOM_ID,
+	CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID,
 	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_DAILY_MESSAGE_MODAL,
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
@@ -680,6 +686,11 @@ export default {
 						return;
 					}
 
+					if (customId === CONTENT_CREATORS_DISPLAY_EDIT_CUSTOM_ID) {
+						await contentCreatorsDisplayEdit(interaction);
+						return;
+					}
+
 					if (customId === DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID) {
 						await questSwap(interaction);
 						return;
@@ -767,6 +778,11 @@ export default {
 				}
 
 				if (isGuildModalSubmit(interaction)) {
+					if (customId.startsWith(CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID)) {
+						await contentCreatorsModalResponse(interaction);
+						return;
+					}
+
 					if (DAILY_GUIDES_DAILY_MESSAGE_MODAL === customId) {
 						await setDailyMessage(interaction);
 						return;

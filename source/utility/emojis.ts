@@ -40,6 +40,14 @@ export const MISCELLANEOUS_EMOJIS = PRODUCTION
 			MusicSheet: { id: "1313930724721557605" },
 			EventCurrency: { id: "1313930718723969105" },
 			ConstellationFlag: { id: "1313930715473117305" },
+			CreatorTroupe: { id: "1314781360409546825" },
+			YouTube: { id: "1314804438724120647" },
+			Twitch: { id: "1314807290934722580" },
+			TikTok: { id: "1314809519934799923" },
+			X: { id: "1314810631689601064" },
+			Instagram: { id: "1314811293214965760" },
+			Facebook: { id: "1314812062681268294" },
+			Bluesky: { id: "1314813140210286632" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			AscendedCandle: { id: "1313864872198541445" },
@@ -70,6 +78,14 @@ export const MISCELLANEOUS_EMOJIS = PRODUCTION
 			MusicSheet: { id: "1313864892943564851" },
 			EventCurrency: { id: "1313864891311980584" },
 			ConstellationFlag: { id: "1313864899235151883" },
+			CreatorTroupe: { id: "1314781247842549790" },
+			YouTube: { id: "1314803833397973032" },
+			Twitch: { id: "1314807448854335548" },
+			TikTok: { id: "1314809650750951465" },
+			X: { id: "1314810363983695892" },
+			Instagram: { id: "1314811456763596811" },
+			Facebook: { id: "1314811939821715527" },
+			Bluesky: { id: "1314813267444633610" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 export type MiscellaneousEmojis = (typeof MISCELLANEOUS_EMOJIS)[keyof typeof MISCELLANEOUS_EMOJIS];

@@ -1,17 +1,16 @@
 import {
 	type APIApplicationCommandAutocompleteInteraction,
-	type APIAttachment,
 	type APIChatInputApplicationCommandInteraction,
 	Locale,
 	MessageFlags,
 } from "@discordjs/core";
-import { ALLOWED_EXTENSIONS } from "@discordjs/rest";
 import { t } from "i18next";
 import { spirits } from "../../data/spirits/index.js";
 import { client } from "../../discord.js";
 import Profile, { AssetType, type ProfileSetData } from "../../models/Profile.js";
 import { searchAutocomplete } from "../../services/spirit.js";
-import { APPLICATION_ID, SKY_PROFILE_MAXIMUM_ASSET_SIZE } from "../../utility/constants.js";
+import { APPLICATION_ID } from "../../utility/constants.js";
+import { validateAttachment } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
@@ -72,7 +71,7 @@ export default {
 			}
 
 			if (thumbnail) {
-				if (!(await this.validateAttachment(interaction, thumbnail))) {
+				if (!(await validateAttachment(interaction, thumbnail))) {
 					return;
 				}
 
@@ -83,7 +82,7 @@ export default {
 			}
 
 			if (icon) {
-				if (!(await this.validateAttachment(interaction, icon))) {
+				if (!(await validateAttachment(interaction, icon))) {
 					return;
 				}
 
@@ -144,25 +143,6 @@ export default {
 		}
 
 		await Profile.showEdit(interaction, false);
-	},
-	async validateAttachment(
-		interaction: APIChatInputApplicationCommandInteraction,
-		{ size, filename }: APIAttachment,
-	) {
-		if (
-			size > SKY_PROFILE_MAXIMUM_ASSET_SIZE ||
-			!ALLOWED_EXTENSIONS.some((extension) => filename.endsWith(`.${extension}`))
-		) {
-			await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
-				content: `Please upload a valid attachment! It must be less than 5 megabytes and in any of the following formats:\n${ALLOWED_EXTENSIONS.map(
-					(extension) => `- .${extension}`,
-				).join("\n")}`,
-			});
-
-			return false;
-		}
-
-		return true;
 	},
 	async explore(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
 		const name = options.getString("name");
