@@ -228,7 +228,7 @@ interface GuideFriendshipTreeData extends BaseFriendshipTreeData {
 interface ExpressiveSpiritData {
 	emote?: SpiritEmote;
 	stance?: SpiritStance;
-	call?: Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey>;
+	call?: Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey | SpiritCall.Ninny>;
 	action?: FriendAction;
 }
 
@@ -376,7 +376,10 @@ abstract class ExpressiveSpirit {
 
 	public readonly stance: SpiritStance | null;
 
-	public readonly call: Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey> | null;
+	public readonly call: Exclude<
+		SpiritCall,
+		SpiritCall.KizunaAI | SpiritCall.Journey | SpiritCall.Ninny
+	> | null;
 
 	public readonly action: FriendAction | null;
 

@@ -501,11 +501,14 @@ export const enum SpiritCall {
 	BabyManta = "Baby manta",
 	Nightbird = "Nightbird",
 
-	// From the Kizuna-AI pin.
+	// Kizuna-AI pin.
 	KizunaAI = "Kizuna-AI",
 
-	// From the PlayStation starter pack.
+	// PlayStation starter pack.
 	Journey = "Journey",
+
+	// Season of Moomin.
+	Ninny = "Ninny",
 }
 
 export const SpiritCallToEmoji = {
@@ -519,7 +522,7 @@ export const SpiritCallToEmoji = {
 	[SpiritCall.BabyManta]: CALL_EMOJIS.BabyManta,
 	[SpiritCall.Nightbird]: CALL_EMOJIS.Nightbird,
 } as const satisfies Readonly<
-	Record<Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey>, CallsEmojis>
+	Record<Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey | SpiritCall.Ninny>, CallsEmojis>
 >;
 
 export const enum FriendAction {
