@@ -522,7 +522,10 @@ export const SpiritCallToEmoji = {
 	[SpiritCall.BabyManta]: CALL_EMOJIS.BabyManta,
 	[SpiritCall.Nightbird]: CALL_EMOJIS.Nightbird,
 } as const satisfies Readonly<
-	Record<Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey | SpiritCall.Ninny>, CallsEmojis>
+	Record<
+		Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey | SpiritCall.Ninny>,
+		CallsEmojis
+	>
 >;
 
 export const enum FriendAction {
