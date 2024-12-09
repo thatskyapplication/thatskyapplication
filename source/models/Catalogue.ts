@@ -402,6 +402,8 @@ export class Catalogue {
 
 						if (event.eventCurrency?.emoji) {
 							button.emoji = event.eventCurrency.emoji;
+						} else {
+							button.label = event.name;
 						}
 
 						buttons.push(button);

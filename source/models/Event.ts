@@ -98,7 +98,7 @@ interface EventCurrencyPool {
 export class Event {
 	public readonly id: EventIds;
 
-	private readonly name: string;
+	public readonly name: string;
 
 	public readonly start: DateTime;
 
