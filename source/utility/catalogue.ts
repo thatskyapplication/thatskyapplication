@@ -2773,7 +2773,7 @@ export const enum Cosmetic {
 
 	// 11/11/2024 | Season of Moomin Quest 3.
 	TheMoominStorybookQuest3 = 2192,
-	TheMoominStorybookHeart = 2193,
+	TheMoominStorybookHeart1 = 2193,
 
 	// 21/11/2024 | Version 0.27.5.
 	HangingMask = 2194,
@@ -2792,8 +2792,12 @@ export const enum Cosmetic {
 	// 02/12/2024 | Season of Moomin Quest 5.
 	TheMoominStorybookQuest5 = 2202,
 
-	// 09/12/2024 | Season of Moomin Final Quest
-	// This will include Moominmamma's Masterpiece cape for $24.99.
+	// 09/12/2024 | Season of Moomin Quest 6.
+	TheMoominStorybookQuest6 = 2203,
+	TheMoominStorybookHeart2 = 2204,
+	TheMoominStorybookProp = 2205,
+	TheMoominStorybookOutfit = 2206,
+	MoominmammasMasterpiece = 2207,
 
 	// 23/12/2024 | Sky x Alice's Wonderland Cafe.
 	WonderlandStackedHat,

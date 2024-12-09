@@ -3,6 +3,7 @@ import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import { RealmName } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import {
+	CAPE_EMOJIS,
 	HAIR_ACCESSORY_EMOJIS,
 	NECKLACE_EMOJIS,
 	OUTFIT_EMOJIS,
@@ -43,6 +44,12 @@ export default new Season({
 			cosmetic: [Cosmetic.MoomintrollEars, Cosmetic.MoomintrollTail],
 			cost: { money: 11.99 },
 			emoji: NECKLACE_EMOJIS.Necklace41,
+		},
+		{
+			name: "Moominmamma's Masterpiece",
+			cosmetic: Cosmetic.MoominmammasMasterpiece,
+			cost: { money: 24.99 },
+			emoji: CAPE_EMOJIS.Cape140,
 		},
 	],
 	seasonalCandlesRotation: [

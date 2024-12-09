@@ -893,6 +893,10 @@ export const OUTFIT_EMOJIS = PRODUCTION
 			 * Music Marching Uniform.
 			 */
 			Outfit72: { id: "1313934025106264124" },
+			/**
+			 * The Moomin Storybook (non-ultimate).
+			 */
+			Outfit73: { id: "1315724161330577490" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Outfit01: { id: "1313869809905172600" },
@@ -967,6 +971,7 @@ export const OUTFIT_EMOJIS = PRODUCTION
 			Outfit70: { id: "1313919402793635862" },
 			Outfit71: { id: "1313919414181302322" },
 			Outfit72: { id: "1313919411211604051" },
+			Outfit73: { id: "1315724340121178122" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -3578,6 +3583,10 @@ export const CAPE_EMOJIS = PRODUCTION
 			 * Marching Band Cape.
 			 */
 			Cape139: { id: "1313937650234691614" },
+			/**
+			 * Moominmamma's Masterpiece.
+			 */
+			Cape140: { id: "1315726083160543323" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Cape01: { id: "1313922301863133276" },
@@ -3719,6 +3728,7 @@ export const CAPE_EMOJIS = PRODUCTION
 			Cape137: { id: "1313922694856835244" },
 			Cape138: { id: "1313922658458669096" },
 			Cape139: { id: "1313922699667574824" },
+			Cape140: { id: "1315725838733545545" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -4714,6 +4724,10 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			 * Hanging mask.
 			 */
 			SmallPlaceableProp84: { id: "1313938897440477215" },
+			/**
+			 * The Moomin Storybook (non-ultimate).
+			 */
+			SmallPlaceableProp85: { id: "1315723498727145513" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			SmallPlaceableProp01: { id: "1313924407802069145" },
@@ -4800,6 +4814,7 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			SmallPlaceableProp82: { id: "1313924676178939944" },
 			SmallPlaceableProp83: { id: "1313924687415214080" },
 			SmallPlaceableProp84: { id: "1313924679798362252" },
+			SmallPlaceableProp85: { id: "1315723148133531738" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type SmallPlaceablePropsEmojis =

@@ -70,8 +70,8 @@ export default new GuideSpirit({
 				emoji: MISCELLANEOUS_EMOJIS.Quest,
 			},
 			{
-				name: "Heart",
-				cosmetic: Cosmetic.TheMoominStorybookHeart,
+				name: "Heart 1",
+				cosmetic: Cosmetic.TheMoominStorybookHeart1,
 				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
 			{
@@ -95,6 +95,28 @@ export default new GuideSpirit({
 				name: "Quest 5",
 				cosmetic: Cosmetic.TheMoominStorybookQuest5,
 				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
+			{
+				name: "Quest 6",
+				cosmetic: Cosmetic.TheMoominStorybookQuest6,
+				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
+			{
+				name: "Heart 2",
+				cosmetic: Cosmetic.TheMoominStorybookHeart2,
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Prop",
+				cosmetic: Cosmetic.TheMoominStorybookProp,
+				cost: { candles: 35 },
+				emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp85,
+			},
+			{
+				name: "Outfit",
+				cosmetic: Cosmetic.TheMoominStorybookOutfit,
+				cost: { candles: 190 },
+				emoji: OUTFIT_EMOJIS.Outfit73,
 			},
 		],
 	},
