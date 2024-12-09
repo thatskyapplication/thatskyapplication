@@ -55,6 +55,7 @@ export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const APPLICATION_INVITE_URL = String(new URL("invite", WEBSITE_URL));
 export const SUPPORT_SERVER_INVITE_URL = String(new URL("support", WEBSITE_URL));
 export const CONTENT_CREATORS_URL = String(new URL("content-creators", WEBSITE_URL));
+export const LINK_REDIRECTOR_URL = "https://thatsky.link" as const;
 
 // SKU ids.
 const SERVER_UPGRADE_SKU_ID_DEVELOPMENT = "1270975828481806428" as const;

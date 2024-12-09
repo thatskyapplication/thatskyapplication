@@ -1,6 +1,8 @@
+import { URL } from "node:url";
 import { Season } from "../../../../models/Season.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import { RealmName } from "../../../../utility/constants.js";
+import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import { LARGE_PLACEABLE_PROPS_EMOJIS } from "../../../../utility/emojis.js";
 import NestingAtrium from "./nesting-atrium.js";
@@ -34,5 +36,5 @@ export default new Season({
 		{ rotation: 2, realm: RealmName.DaylightPrairie },
 		{ rotation: 2, realm: RealmName.HiddenForest },
 	],
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1308",
+	patchNotesURL: String(new URL("p0250", LINK_REDIRECTOR_URL)),
 });

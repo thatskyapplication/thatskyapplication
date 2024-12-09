@@ -1,5 +1,7 @@
+import { URL } from "node:url";
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
+import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import MelancholyMope from "./melancholy-mope.js";
 import OddballOutcast from "./oddball-outcast.js";
@@ -14,5 +16,5 @@ export default new Season({
 	guide: PassageGuide,
 	spirits: [OddballOutcast, TumblingTroublemaker, MelancholyMope, OveractiveOverachiever],
 	seasonalCandlesRotation: null,
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1111",
+	patchNotesURL: String(new URL("p0210", LINK_REDIRECTOR_URL)),
 });

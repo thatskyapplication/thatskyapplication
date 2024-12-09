@@ -1,6 +1,8 @@
+import { URL } from "node:url";
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { RealmName } from "../../../../utility/constants.js";
+import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import EchoOfAnAbandonedRefuge from "./echo-of-an-abandoned-refuge.js";
 import HopefulSteward from "./hopeful-steward.js";
@@ -31,5 +33,5 @@ export default new Season({
 		{ rotation: 2, realm: RealmName.GoldenWasteland },
 		{ rotation: 2, realm: RealmName.VaultOfKnowledge },
 	],
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1239",
+	patchNotesURL: String(new URL("p0230", LINK_REDIRECTOR_URL)),
 });

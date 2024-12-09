@@ -1,5 +1,7 @@
+import { URL } from "node:url";
 import { Event } from "../../../models/Event.js";
 import { Cosmetic, EventId } from "../../../utility/catalogue.js";
+import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import { skyDate } from "../../../utility/dates.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
@@ -65,5 +67,5 @@ export default new Event({
 			emoji: OUTFIT_EMOJIS.Outfit64,
 		},
 	],
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1330",
+	patchNotesURL: String(new URL("p0260", LINK_REDIRECTOR_URL)),
 });

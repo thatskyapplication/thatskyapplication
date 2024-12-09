@@ -1,5 +1,7 @@
+import { URL } from "node:url";
 import { Season } from "../../../../models/Season.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
+import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import { NECKLACE_EMOJIS } from "../../../../utility/emojis.js";
 import BearhugHermit from "./bearhug-hermit.js";
@@ -16,5 +18,5 @@ export default new Season({
 	spirits: [SpinningMentor, DancingPerformer, PeekingPostman, BearhugHermit],
 	items: [{ name: "Pendant", cosmetic: Cosmetic.DreamsPendant, emoji: NECKLACE_EMOJIS.Necklace10 }],
 	seasonalCandlesRotation: null,
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/745",
+	patchNotesURL: String(new URL("p0120", LINK_REDIRECTOR_URL)),
 });

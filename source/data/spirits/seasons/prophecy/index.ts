@@ -1,5 +1,7 @@
+import { URL } from "node:url";
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
+import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import ProphecyGuide from "./prophecy-guide.js";
 import ProphetOfAir from "./prophet-of-air.js";
@@ -14,5 +16,5 @@ export default new Season({
 	guide: ProphecyGuide,
 	spirits: [ProphetOfWater, ProphetOfEarth, ProphetOfAir, ProphetOfFire],
 	seasonalCandlesRotation: null,
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/718",
+	patchNotesURL: String(new URL("p0110", LINK_REDIRECTOR_URL)),
 });

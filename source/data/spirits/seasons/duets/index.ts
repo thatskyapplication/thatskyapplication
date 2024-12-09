@@ -1,6 +1,8 @@
+import { URL } from "node:url";
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { RealmName } from "../../../../utility/constants.js";
+import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import CompassionateCellist from "./compassionate-cellist.js";
 import DuetsGuide from "./duets-guide.js";
@@ -35,5 +37,5 @@ export default new Season({
 		{ rotation: 1, realm: RealmName.HiddenForest },
 		{ rotation: 1, realm: RealmName.ValleyOfTriumph },
 	],
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1330",
+	patchNotesURL: String(new URL("p0260", LINK_REDIRECTOR_URL)),
 });

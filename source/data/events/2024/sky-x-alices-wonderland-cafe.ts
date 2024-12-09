@@ -1,5 +1,7 @@
+import { URL } from "node:url";
 import { Event } from "../../../models/Event.js";
 import { Cosmetic, EventId } from "../../../utility/catalogue.js";
+import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import { skyDate } from "../../../utility/dates.js";
 
 const eventCurrencyAmount = [];
@@ -64,5 +66,6 @@ export default new Event({
 			cost: { money: 11.99 },
 		},
 	],
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1308",
+
+	patchNotesURL: String(new URL("p0250", LINK_REDIRECTOR_URL)),
 });

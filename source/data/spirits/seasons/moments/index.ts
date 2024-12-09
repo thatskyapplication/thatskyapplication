@@ -1,5 +1,7 @@
+import { URL } from "node:url";
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
+import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import AsceticMonk from "./ascetic-monk.js";
 import JollyGeologist from "./jolly-geologist.js";
@@ -14,5 +16,5 @@ export default new Season({
 	guide: MomentsGuide,
 	spirits: [ReassuringRanger, NightbirdWhisperer, JollyGeologist, AsceticMonk],
 	seasonalCandlesRotation: null,
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1124",
+	patchNotesURL: String(new URL("p0220", LINK_REDIRECTOR_URL)),
 });

@@ -1,5 +1,7 @@
+import { URL } from "node:url";
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
+import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import AdmiringActor from "./admiring-actor.js";
 import FestivalSpinDancer from "./festival-spin-dancer.js";
@@ -23,5 +25,5 @@ export default new Season({
 		ThoughtfulDirector,
 	],
 	seasonalCandlesRotation: null,
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/601",
+	patchNotesURL: String(new URL("p080", LINK_REDIRECTOR_URL)),
 });

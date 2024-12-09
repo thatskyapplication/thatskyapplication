@@ -1,5 +1,7 @@
+import { URL } from "node:url";
 import { Season } from "../../../../models/Season.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
+import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import { CAPE_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../../../utility/emojis.js";
 import BeckoningRuler from "./beckoning-ruler.js";
@@ -44,5 +46,5 @@ export default new Season({
 		},
 	],
 	seasonalCandlesRotation: null,
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/809",
+	patchNotesURL: String(new URL("p0140", LINK_REDIRECTOR_URL)),
 });

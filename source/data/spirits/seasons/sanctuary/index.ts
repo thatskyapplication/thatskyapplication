@@ -1,5 +1,7 @@
+import { URL } from "node:url";
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
+import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import ChillSunbather from "./chill-sunbather.js";
 import GratefulShellCollector from "./grateful-shell-collector.js";
@@ -23,5 +25,5 @@ export default new Season({
 		ChillSunbather,
 	],
 	seasonalCandlesRotation: null,
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/692",
+	patchNotesURL: String(new URL("p0100", LINK_REDIRECTOR_URL)),
 });

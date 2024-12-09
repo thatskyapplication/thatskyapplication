@@ -1,6 +1,8 @@
+import { URL } from "node:url";
 import { Season } from "../../../../models/Season.js";
 import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
 import { RealmName } from "../../../../utility/constants.js";
+import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import { CAPE_EMOJIS, FACE_ACCESSORY_EMOJIS } from "../../../../utility/emojis.js";
 import FeudalLord from "./feudal-lord.js";
@@ -41,5 +43,5 @@ export default new Season({
 		{ rotation: 2, realm: RealmName.VaultOfKnowledge },
 		{ rotation: 2, realm: RealmName.DaylightPrairie },
 	],
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1264",
+	patchNotesURL: String(new URL("p0240", LINK_REDIRECTOR_URL)),
 });

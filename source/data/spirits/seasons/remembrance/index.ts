@@ -1,5 +1,7 @@
+import { URL } from "node:url";
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
+import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import BereftVeteran from "./bereft-veteran.js";
 import PleadingChild from "./pleading-child.js";
@@ -14,5 +16,5 @@ export default new Season({
 	guide: RemembranceGuide,
 	spirits: [BereftVeteran, PleadingChild, TiptoeingTeaBrewer, WoundedWarrior],
 	seasonalCandlesRotation: null,
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1096",
+	patchNotesURL: String(new URL("p0200", LINK_REDIRECTOR_URL)),
 });

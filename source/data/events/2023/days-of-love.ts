@@ -1,5 +1,7 @@
+import { URL } from "node:url";
 import { Event } from "../../../models/Event.js";
 import { Cosmetic, EventId } from "../../../utility/catalogue.js";
+import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import { skyDate } from "../../../utility/dates.js";
 import {
 	HELD_PROPS_EMOJIS,
@@ -31,5 +33,5 @@ export default new Event({
 			emoji: HELD_PROPS_EMOJIS.HeldProp33,
 		},
 	],
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/17/faq/1096",
+	patchNotesURL: String(new URL("p0200", LINK_REDIRECTOR_URL)),
 });
