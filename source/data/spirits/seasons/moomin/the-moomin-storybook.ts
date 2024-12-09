@@ -18,7 +18,6 @@ export default new GuideSpirit({
 	seasonId: SeasonId.Moomin,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
-		inProgress: true,
 		current: [
 			{
 				name: "Quest 1",
