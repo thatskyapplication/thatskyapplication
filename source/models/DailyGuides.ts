@@ -611,6 +611,7 @@ export default new (class DailyGuides {
 		if (
 			(transformedContent.includes("DAILY QUEST") && transformedContent.length <= 20) ||
 			transformedContent.includes("SEASONAL CANDLE") ||
+			transformedContent.includes("TREASURE CANDLE") ||
 			transformedContent.includes("SHATTERING SHARD SUMMARY") ||
 			transformedContent.includes("DAYS OF COLOUR 2023") ||
 			transformedContent.includes("2024 DAYS OF LOVE")
@@ -619,6 +620,7 @@ export default new (class DailyGuides {
 			 * Parsing for the following are redundant:
 			 * - The general photo of quests (not needed)
 			 * - The seasonal candles infographic (automated)
+			 * - The treasure candles infographic (automated)
 			 * - The shard eruption infographic (automated)
 			 * - Days of Colour event currency rotation
 			 * - Days of Love event currency
@@ -637,8 +639,6 @@ export default new (class DailyGuides {
 				transformedContent.includes("NATURE")
 			) {
 				parsed = await this.parseQuests(content, attachments);
-			} else if (transformedContent.includes("TREASURE CANDLE")) {
-				parsed = await this.parseTreasureCandles(content, attachments);
 			} else {
 				pino.warn(message, "Intercepted an unparsed message.");
 			}

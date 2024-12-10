@@ -6,6 +6,15 @@ import type { HeartsExtra } from "../models/Heart.js";
 // Time zone.
 export const TIME_ZONE = "America/Los_Angeles" as const;
 
+// Double treasure candles.
+export const DOUBLE_TREASURE_CANDLES_DATES = new Collection<
+	number,
+	{ start: DateTime; end: DateTime }
+>().set(1, {
+	start: skyDate(2_024, 12, 9),
+	end: skyDate(2_024, 12, 23),
+});
+
 // Double Seasonal Light.
 export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE = skyDate(2_024, 12, 9);
 /**
@@ -32,6 +41,7 @@ export const HEART_EXTRA_DATES = new Collection<number, HeartsExtra>().set(1, {
 
 // Miscellaneous.
 export const INITIAL_TRAVELLING_SPIRIT_SEEK = skyDate(2_023, 5, 25); // #88 Grateful Shell Collector.
+export const INITIAL_TREASURE_CANDLES_SEEK = skyDate(2024, 11, 1); // 31/10/2024 failed. 01/11/2024 is the first day of the cycle.
 
 export function skyNow() {
 	return DateTime.now().setZone(TIME_ZONE);

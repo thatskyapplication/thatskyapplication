@@ -19,11 +19,14 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { ALLOWED_EXTENSIONS } from "@discordjs/rest";
+import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import {
 	ANIMATED_HASH_PREFIX,
 	APPLICATION_ID,
 	MAXIMUM_ASSET_SIZE,
+	TREASURE_CANDLES_ROTATION,
+	VALID_REALM_NAME,
 	VALID_REALM_NAME_VALUES,
 } from "./constants.js";
 import {
@@ -39,6 +42,7 @@ import {
 	type SocialLightAreaMaps,
 	inconsistentMapKeys,
 } from "./constants.js";
+import { INITIAL_TREASURE_CANDLES_SEEK } from "./dates.js";
 
 export function getRandomElement<const T>(array: readonly T[]) {
 	return array[Math.floor(Math.random() * array.length)];
@@ -160,6 +164,23 @@ export function isSocialLightAreaMap(skyMap: SkyMap): skyMap is SocialLightAreaM
 
 export function isRainbowAdmireMap(skyMap: SkyMap): skyMap is RainbowAdmireMaps {
 	return RAINBOW_ADMIRE_MAPS.includes(skyMap as RainbowAdmireMaps);
+}
+
+export function treasureCandles(today: DateTime, double = false) {
+	const realm =
+		TREASURE_CANDLES_ROTATION[
+			VALID_REALM_NAME.at((today.diff(INITIAL_TREASURE_CANDLES_SEEK, "days").days + 3) % 5)!
+		];
+
+	const realmIndex = today.day % realm.length;
+	const result = [realm[realmIndex]!];
+
+	if (double) {
+		const realmIndex2 = (realmIndex + 1) % realm.length;
+		result.push(realm[realmIndex2]!);
+	}
+
+	return result;
 }
 
 export function isChatInputCommand(

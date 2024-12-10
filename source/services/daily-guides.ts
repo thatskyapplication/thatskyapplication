@@ -36,11 +36,11 @@ import {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DEFAULT_EMBED_COLOUR,
 	NOT_IN_CACHED_GUILD_RESPONSE,
-	RealmName,
 } from "../utility/constants.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
+	DOUBLE_TREASURE_CANDLES_DATES,
 	dateString,
 	isDuring,
 	skyNow,
@@ -52,6 +52,7 @@ import {
 	formatEmojiURL,
 	resolveCurrencyEmoji,
 } from "../utility/emojis.js";
+import { treasureCandles } from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import {
@@ -471,7 +472,7 @@ export function dailyGuidesShardEruptionData(locale: Locale) {
 }
 
 export function distributionEmbed(locale: Locale) {
-	const { dailyMessage, quest1, quest2, quest3, quest4, treasureCandles } = DailyGuides;
+	const { dailyMessage, quest1, quest2, quest3, quest4 } = DailyGuides;
 	const today = skyToday();
 	const now = skyNow();
 
@@ -499,34 +500,49 @@ export function distributionEmbed(locale: Locale) {
 		});
 	}
 
-	if (treasureCandles) {
-		const values = [];
-		let number = 1;
+	// if (treasureCandles) {
+	// 	const values = [];
+	// 	let number = 1;
 
-		for (const hashes of [
-			treasureCandles[RealmName.DaylightPrairie],
-			treasureCandles[RealmName.HiddenForest],
-			treasureCandles[RealmName.ValleyOfTriumph],
-			treasureCandles[RealmName.GoldenWasteland],
-			treasureCandles[RealmName.VaultOfKnowledge],
-		]) {
-			if (hashes.length === 0) {
-				continue;
-			}
+	// 	for (const hashes of [
+	// 		treasureCandles[RealmName.DaylightPrairie],
+	// 		treasureCandles[RealmName.HiddenForest],
+	// 		treasureCandles[RealmName.ValleyOfTriumph],
+	// 		treasureCandles[RealmName.GoldenWasteland],
+	// 		treasureCandles[RealmName.VaultOfKnowledge],
+	// 	]) {
+	// 		if (hashes.length === 0) {
+	// 			continue;
+	// 		}
 
-			for (const hash of hashes) {
-				values.push(`[${number} - ${number + 3}](${DailyGuides.treasureCandlesURL(hash)})`);
-				number += 4;
-			}
-		}
+	// 		for (const hash of hashes) {
+	// 			values.push(`[${number} - ${number + 3}](${DailyGuides.treasureCandlesURL(hash)})`);
+	// 			number += 4;
+	// 		}
+	// 	}
 
-		if (values.length > 0) {
-			fields.push({
-				name: "Treasure Candles",
-				value: values.join(" | "),
-			});
-		}
-	}
+	// 	if (values.length > 0) {
+	// 		fields.push({
+	// 			name: "Treasure Candles",
+	// 			value: values.join(" | "),
+	// 		});
+	// 	}
+	// }
+
+	const doubleTreasureCandles = DOUBLE_TREASURE_CANDLES_DATES.some((doubleTreasureCandles) =>
+		isDuring(doubleTreasureCandles.start, doubleTreasureCandles.end, now),
+	);
+
+	const treasureCandleURLs = treasureCandles(today, doubleTreasureCandles);
+
+	fields.push({
+		name: "Treasure Candles",
+		value: treasureCandleURLs
+			.map(
+				(treasureCandleURL, index) => `[${index * 4 + 1} - ${index * 4 + 4}](${treasureCandleURL})`,
+			)
+			.join(" | "),
+	});
 
 	const season = skyCurrentSeason(today);
 	const footerText = [];
