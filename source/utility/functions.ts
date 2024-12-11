@@ -24,6 +24,7 @@ import { client } from "../discord.js";
 import {
 	ANIMATED_HASH_PREFIX,
 	APPLICATION_ID,
+	DOUBLE_TREASURE_CANDLES_ROTATION,
 	MAXIMUM_ASSET_SIZE,
 	TREASURE_CANDLES_ROTATION,
 	VALID_REALM_NAME,
@@ -167,17 +168,16 @@ export function isRainbowAdmireMap(skyMap: SkyMap): skyMap is RainbowAdmireMaps 
 }
 
 export function treasureCandles(today: DateTime, double = false) {
-	const realm =
-		TREASURE_CANDLES_ROTATION[
-			VALID_REALM_NAME.at((today.diff(INITIAL_TREASURE_CANDLES_SEEK, "days").days + 3) % 5)!
-		];
+	const realmIndex = VALID_REALM_NAME.at(
+		(today.diff(INITIAL_TREASURE_CANDLES_SEEK, "days").days + 3) % 5,
+	)!;
 
-	const realmIndex = today.day % realm.length;
-	const result = [realm[realmIndex]!];
+	const realmRotation = TREASURE_CANDLES_ROTATION[realmIndex];
+	const realmRotationIndex = today.day % realmRotation.length;
+	const result = [realmRotation[realmRotationIndex]!];
 
 	if (double) {
-		const realmIndex2 = (realmIndex + 1) % realm.length;
-		result.push(realm[realmIndex2]!);
+		result.push(DOUBLE_TREASURE_CANDLES_ROTATION[realmIndex][realmRotationIndex]!);
 	}
 
 	return result;
