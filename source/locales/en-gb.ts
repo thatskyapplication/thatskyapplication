@@ -39,6 +39,7 @@ export default {
 			[NotificationType.AURORA]: "AURORA",
 			[NotificationType.Passage]: "Passage",
 			[NotificationType.AviarysFireworkFestival]: "Aviary's Firework Festival",
+			[NotificationType.TravellingSpirit]: "Travelling Spirit",
 		} satisfies Record<NotificationTypes, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",

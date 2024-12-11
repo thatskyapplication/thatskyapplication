@@ -30,6 +30,7 @@ export default {
 			[NotificationType.Passage]: "Initiation",
 			[NotificationType.AviarysFireworkFestival]: "Feux d'artifices du Village Volière",
 			[NotificationType.Dragon]: "Dragon",
+			[NotificationType.TravellingSpirit]: "Esprit voyageur",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison de la gratitude",

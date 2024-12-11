@@ -96,7 +96,7 @@ function isNotificationSendable(
 		: errors.length === 0;
 }
 
-function isNotificationType(notificationType: unknown): notificationType is NotificationTypes {
+function isNotificationType(notificationType: number): notificationType is NotificationTypes {
 	return NOTIFICATION_TYPE_VALUES.includes(notificationType as NotificationTypes);
 }
 

@@ -630,6 +630,7 @@ export const NotificationType = {
 	AURORA: 9,
 	Passage: 10,
 	AviarysFireworkFestival: 11,
+	TravellingSpirit: 12,
 } as const satisfies Readonly<Record<string, number>>;
 
 export type NotificationTypes = (typeof NotificationType)[keyof typeof NotificationType];
@@ -649,6 +650,7 @@ export const NotificationOffsetToMaximumValues = {
 	[NotificationType.AURORA]: 15,
 	[NotificationType.Passage]: 5,
 	[NotificationType.AviarysFireworkFestival]: 15,
+	[NotificationType.TravellingSpirit]: 15,
 } as const satisfies Readonly<Record<NotificationTypes, number>>;
 
 export const NOTIFICATION_SETUP_OFFSET_CUSTOM_ID = "NOTIFICATION_SETUP_OFFSET_CUSTOM_ID" as const;
