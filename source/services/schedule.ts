@@ -229,7 +229,7 @@ export async function schedule(interaction: APIChatInputApplicationCommandIntera
 	}
 
 	const shardEruptionData = dailyGuidesShardEruptionData(locale);
-	fields.push(...shardEruptionData);
+	fields.push(...(await shardEruptionData));
 	embed.fields = fields;
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {

@@ -39,7 +39,7 @@ import {
 	resolveCurrencyEmoji,
 } from "../utility/emojis.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
-import { shardEruption } from "../utility/shard-eruption.js";
+import { shardEruption } from "../utility/wind-paths.js";
 
 export async function ascendedCandles(
 	interaction: APIChatInputApplicationCommandInteraction,
@@ -77,7 +77,7 @@ export async function ascendedCandles(
 
 	for (let index = 0; ; index++) {
 		if (shardEruptions) {
-			const shardEruptionToday = shardEruption(index);
+			const shardEruptionToday = await shardEruption(index);
 
 			if (shardEruptionToday) {
 				const { strong, reward } = shardEruptionToday;

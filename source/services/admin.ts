@@ -159,7 +159,7 @@ export async function interactive(
 				],
 			},
 		],
-		embeds: [distributionEmbed(resolvedLocale)],
+		embeds: [await distributionEmbed(resolvedLocale)],
 		flags: MessageFlags.Ephemeral,
 	};
 
@@ -181,7 +181,7 @@ export async function distribute(
 
 	void log({
 		content: `${userLogFormat(interaction.member.user)} manually distributed the daily guides.`,
-		embeds: [distributionEmbed(locale)],
+		embeds: [await distributionEmbed(locale)],
 	});
 
 	await interactive(interaction, { content: "Distributed daily guides.", deferred: true, locale });
@@ -235,7 +235,7 @@ export async function setQuest(
 	const url4 =
 		options.getString("url-4") ?? QUESTS.find((quest) => quest.content === quest4)?.url ?? null;
 
-	const previousEmbed = distributionEmbed(locale);
+	const previousEmbed = await distributionEmbed(locale);
 
 	await DailyGuides.updateQuests({
 		quest1: quest1 ? { content: quest1, url: url1 } : null,
@@ -246,7 +246,7 @@ export async function setQuest(
 
 	void log({
 		content: `${userLogFormat(interaction.member.user)} manually updated the daily quests.`,
-		embeds: [previousEmbed, distributionEmbed(locale)],
+		embeds: [previousEmbed, await distributionEmbed(locale)],
 	});
 
 	await interactive(interaction, {
@@ -281,7 +281,7 @@ export async function questSwap(
 		return;
 	}
 
-	const previousEmbed = distributionEmbed(locale);
+	const previousEmbed = await distributionEmbed(locale);
 
 	await DailyGuides.updateQuests({
 		[`quest${quest1}`]: DailyGuides[`quest${quest2}`],
@@ -290,7 +290,7 @@ export async function questSwap(
 
 	void log({
 		content: `${userLogFormat(interaction.member.user)} manually swapped quests ${quest1} & ${quest2}.`,
-		embeds: [previousEmbed, distributionEmbed(locale)],
+		embeds: [previousEmbed, await distributionEmbed(locale)],
 	});
 
 	await interactive(interaction, {
@@ -349,12 +349,12 @@ export async function setDailyMessage(interaction: APIModalSubmitGuildInteractio
 		DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION,
 	);
 
-	const previousEmbed = distributionEmbed(locale);
+	const previousEmbed = await distributionEmbed(locale);
 	await DailyGuides.updateDailyMessage({ title, description });
 
 	void log({
 		content: `${userLogFormat(interaction.member.user)} manually updated the daily message.`,
-		embeds: [previousEmbed, distributionEmbed(locale)],
+		embeds: [previousEmbed, await distributionEmbed(locale)],
 	});
 
 	await interactive(interaction, {
@@ -474,7 +474,7 @@ export async function setTreasureCandles(interaction: APIModalSubmitGuildInterac
 		treasureCandles.push(batch2);
 	}
 
-	const previousEmbed = distributionEmbed(locale);
+	const previousEmbed = await distributionEmbed(locale);
 
 	const hashes = await Promise.all(
 		treasureCandles.map(async (url) => {
@@ -504,7 +504,7 @@ export async function setTreasureCandles(interaction: APIModalSubmitGuildInterac
 
 	void log({
 		content: `${userLogFormat(interaction.member.user)} manually updated the treasure candles.`,
-		embeds: [previousEmbed, distributionEmbed(locale)],
+		embeds: [previousEmbed, await distributionEmbed(locale)],
 	});
 
 	await interactive(interaction, {

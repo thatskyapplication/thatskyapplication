@@ -30,7 +30,7 @@ import {
 } from "./utility/constants.js";
 import { skyNow } from "./utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "./utility/emojis.js";
-import { shardEruption } from "./utility/shard-eruption.js";
+import { shardEruption } from "./utility/wind-paths.js";
 
 const { OPENAI_API_KEY } = process.env;
 
@@ -301,7 +301,7 @@ export async function messageCreateResponse(message: GatewayMessageCreateDispatc
 			if (data.whenNextRegular) {
 				let index = offset ?? 1;
 
-				while (shardEruption(index)?.strong) {
+				while ((await shardEruption(index))?.strong) {
 					index++;
 				}
 
@@ -309,7 +309,7 @@ export async function messageCreateResponse(message: GatewayMessageCreateDispatc
 			} else if (data.whenNextDangerous) {
 				let index = offset ?? 1;
 
-				while (shardEruption(index)?.strong === false) {
+				while ((await shardEruption(index))?.strong === false) {
 					index++;
 				}
 

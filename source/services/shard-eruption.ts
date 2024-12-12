@@ -33,12 +33,12 @@ import {
 	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
 	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
 	resolveShardEruptionEmoji,
-	shardEruption,
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
 } from "../utility/shard-eruption.js";
+import { shardEruption } from "../utility/wind-paths.js";
 
-function generateShardEruptionSelectMenuOptions(
+async function generateShardEruptionSelectMenuOptions(
 	date: DateTime,
 	indexStart: number,
 	offset: number,
@@ -48,7 +48,7 @@ function generateShardEruptionSelectMenuOptions(
 	const maximumIndex = MAXIMUM_OPTION_NUMBER + indexStart;
 
 	for (let index = indexStart; index < maximumIndex; index++) {
-		const shardNow = shardEruption(index + offset);
+		const shardNow = await shardEruption(index + offset);
 
 		const stringSelectMenuOption: APISelectMenuOption = {
 			label: dateString(date.plus({ days: index }), locale),
@@ -118,7 +118,7 @@ export async function today(
 		return;
 	}
 
-	const response = todayEmbed(interaction.locale, offset);
+	const response = await todayEmbed(interaction.locale, offset);
 
 	if (isChatInputCommand(interaction)) {
 		await client.api.interactions.reply(interaction.id, interaction.token, response);
@@ -127,11 +127,13 @@ export async function today(
 	}
 }
 
-export function todayEmbed(locale: Locale, offset = 0) {
-	const shardYesterday = shardEruption(offset - 1);
-	const shardToday = shardEruption(offset);
-	const shard = shardEruption();
-	const shardTomorrow = shardEruption(offset + 1);
+export async function todayEmbed(locale: Locale, offset = 0) {
+	const [shardYesterday, shardToday, shard, shardTomorrow] = await Promise.all([
+		shardEruption(offset - 1),
+		shardEruption(offset),
+		shardEruption(),
+		shardEruption(offset + 1),
+	]);
 
 	const embed: APIEmbed = {
 		color: DEFAULT_EMBED_COLOUR,
@@ -228,34 +230,36 @@ export async function browse(
 		| Parameters<InteractionsAPI["reply"]>[2]
 		| Parameters<InteractionsAPI["updateMessage"]>[2] = {
 		components: [
-			...SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.map(
-				(customId, index): APIActionRowComponent<APISelectMenuComponent> => {
-					const currentIndex = MAXIMUM_OPTION_NUMBER * index;
+			...(await Promise.all(
+				SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.map(
+					async (customId, index): Promise<APIActionRowComponent<APISelectMenuComponent>> => {
+						const currentIndex = MAXIMUM_OPTION_NUMBER * index;
 
-					return {
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.StringSelect,
-								custom_id: customId,
-								max_values: 1,
-								min_values: 1,
-								options: generateShardEruptionSelectMenuOptions(
-									shardToday,
-									currentIndex,
-									offset,
-									locale,
-								),
-								placeholder: dateRangeString(
-									shardToday.plus({ days: currentIndex }),
-									shardToday.plus({ days: MAXIMUM_OPTION_NUMBER * (index + 1) - 1 }),
-									locale,
-								),
-							},
-						],
-					};
-				},
-			),
+						return {
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.StringSelect,
+									custom_id: customId,
+									max_values: 1,
+									min_values: 1,
+									options: await generateShardEruptionSelectMenuOptions(
+										shardToday,
+										currentIndex,
+										offset,
+										locale,
+									),
+									placeholder: dateRangeString(
+										shardToday.plus({ days: currentIndex }),
+										shardToday.plus({ days: MAXIMUM_OPTION_NUMBER * (index + 1) - 1 }),
+										locale,
+									),
+								},
+							],
+						};
+					},
+				),
+			)),
 			{
 				type: ComponentType.ActionRow,
 				components: [

@@ -56,10 +56,10 @@ import { treasureCandles } from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import {
-	shardEruption,
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
 } from "../utility/shard-eruption.js";
+import { shardEruption } from "../utility/wind-paths.js";
 
 function isDailyGuidesDistributionChannel(
 	channel: APIChannel | AnnouncementThread | PublicThread | PrivateThread,
@@ -360,7 +360,7 @@ async function send(
 	}
 
 	// Retrieve our embed.
-	const embed = distributionEmbed(guild.preferredLocale);
+	const embed = await distributionEmbed(guild.preferredLocale);
 
 	// Update the embed if a message exists.
 	if (messageId) {
@@ -445,8 +445,8 @@ export function dailyGuidesEventData(date: DateTime, locale: Locale) {
 	return { eventEndText, iconURL, eventCurrency };
 }
 
-export function dailyGuidesShardEruptionData(locale: Locale) {
-	const shard = shardEruption();
+export async function dailyGuidesShardEruptionData(locale: Locale) {
+	const shard = await shardEruption();
 
 	if (shard) {
 		return [
@@ -471,7 +471,7 @@ export function dailyGuidesShardEruptionData(locale: Locale) {
 	];
 }
 
-export function distributionEmbed(locale: Locale) {
+export async function distributionEmbed(locale: Locale) {
 	const { dailyMessage, quest1, quest2, quest3, quest4 } = DailyGuides;
 	const today = skyToday();
 	const now = skyNow();
@@ -615,7 +615,7 @@ export function distributionEmbed(locale: Locale) {
 		fields.push(eventData.eventCurrency);
 	}
 
-	fields.push(...dailyGuidesShardEruptionData(locale));
+	fields.push(...(await dailyGuidesShardEruptionData(locale)));
 	embed.fields = fields;
 	return embed;
 }
