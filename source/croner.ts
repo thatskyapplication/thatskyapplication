@@ -1,6 +1,11 @@
+import process from "node:process";
 import { Cron } from "croner";
+import { request } from "undici";
 import DailyGuides from "./models/DailyGuides.js";
+import pg from "./pg.js";
+import pino from "./pino.js";
 import { distribute, reset } from "./services/daily-guides.js";
+import { PRODUCTION } from "./utility/constants.js";
 import { TIME_ZONE } from "./utility/dates.js";
 
 export default function croner() {
@@ -8,4 +13,27 @@ export default function croner() {
 		await Promise.all([DailyGuides.reset(), reset()]);
 		await distribute();
 	});
+
+	if (PRODUCTION) {
+		const FLIGHT_CHECK = process.env.FLIGHT_CHECK;
+
+		if (!FLIGHT_CHECK) {
+			pino.fatal("Missing Flight Check authorisation.");
+			process.exit(1);
+		}
+
+		new Cron("* * * * *", async () => {
+			try {
+				await pg.select(1);
+			} catch (error) {
+				pino.error(error, "[Flight Check] Database failed.");
+				return;
+			}
+
+			await request("https://flight-check.jiralite.workers.dev", {
+				method: "GET",
+				headers: { Authorization: `Bearer ${FLIGHT_CHECK}` },
+			});
+		});
+	}
 }
