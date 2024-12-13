@@ -2797,71 +2797,71 @@ export const HAIR_ACCESSORY_EMOJIS = PRODUCTION
 			/**
 			 * Summer Shell Hair Pin.
 			 */
-			HairAccessory08: { id: "1313937002487349298" },
+			HairAccessory08: { id: "1313936946892116028" },
 			/**
 			 * Bunny Accessory.
 			 */
-			HairAccessory09: { id: "1313937000411168839" },
+			HairAccessory09: { id: "1313937002487349298" },
 			/**
 			 * Light Whisperer.
 			 */
-			HairAccessory10: { id: "1313936991460786196" },
+			HairAccessory10: { id: "1313937000411168839" },
 			/**
 			 * Tinkering Chimesmith.
 			 */
-			HairAccessory11: { id: "1313936956626833462" },
+			HairAccessory11: { id: "1313936991460786196" },
 			/**
 			 * Lively Navigator.
 			 */
-			HairAccessory12: { id: "1313936980454674504" },
+			HairAccessory12: { id: "1313936956626833462" },
 			/**
 			 * Flight Guide (ultimate).
 			 */
-			HairAccessory13: { id: "1313936965804097588" },
+			HairAccessory13: { id: "1313936980454674504" },
 			/**
 			 * Snowflake Hair Accessory.
 			 */
-			HairAccessory14: { id: "1313936979079073792" },
+			HairAccessory14: { id: "1313936965804097588" },
 			/**
 			 * Bumbling Boatswain.
 			 */
-			HairAccessory15: { id: "1313936935558844469" },
+			HairAccessory15: { id: "1313936979079073792" },
 			/**
 			 * Days of Fortune Fish Accessory.
 			 */
-			HairAccessory16: { id: "1313936945163796550" },
+			HairAccessory16: { id: "1313936935558844469" },
 			/**
 			 * Days of Love Flower Crown.
 			 */
-			HairAccessory17: { id: "1313936957956685854" },
+			HairAccessory17: { id: "1313936945163796550" },
 			/**
 			 * Kizuna AI.
 			 */
-			HairAccessory18: { id: "1313936933885313104" },
+			HairAccessory18: { id: "1313936957956685854" },
 			/**
 			 * Nature Coral Crown.
 			 */
-			HairAccessory19: { id: "1313936984263098439" },
+			HairAccessory19: { id: "1313936933885313104" },
 			/**
 			 * Harmony Hall Grand Opening.
 			 */
-			HairAccessory20: { id: "1313936976122216458" },
+			HairAccessory20: { id: "1313936984263098439" },
 			/**
 			 * Days of Rainbow 2022.
 			 */
-			HairAccessory21: { id: "1313936968031404032" },
+			HairAccessory21: { id: "1313936976122216458" },
 			/**
 			 * Ancient Darkness (plant).
 			 */
-			HairAccessory22: { id: "1313936953099419688" },
+			HairAccessory22: { id: "1313936968031404032" },
 			/**
 			 * Ancient Light (jellyfish).
 			 */
-			HairAccessory23: { id: "1313936954664026142" },
+			HairAccessory23: { id: "1313936953099419688" },
 			/**
 			 * Third Sky Anniversary.
 			 */
-			HairAccessory24: { id: "1313936946892116028" },
+			HairAccessory24: { id: "1313936954664026142" },
 			/**
 			 * Reassuring Ranger.
 			 */
