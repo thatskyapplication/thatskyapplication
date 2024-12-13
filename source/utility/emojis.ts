@@ -1691,11 +1691,11 @@ export const FACE_ACCESSORY_EMOJIS = PRODUCTION
 			/**
 			 * Compassionate Cellist.
 			 */
-			FaceAccessory36: { id: "1313935574088028160" },
+			FaceAccessory36: { id: "1313935581046116412" },
 			/**
 			 * Sunlight Helios Hoops earrings.
 			 */
-			FaceAccessory37: { id: "1313935581046116412" },
+			FaceAccessory37: { id: "1313935574088028160" },
 			/**
 			 * Moonlight earrings.
 			 */
