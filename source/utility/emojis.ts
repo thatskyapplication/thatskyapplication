@@ -352,10 +352,10 @@ export const CALL_EMOJIS = PRODUCTION
 			Whale: { id: "1313932587127017473" },
 			Manta: { id: "1313932582424940584" },
 			CosmicManta: { id: "1313932585419804843" },
-			Crab: { id: "1313932581007392828" },
-			Jellyfish: { id: "1313932591950200952" },
-			BabyManta: { id: "1313932588917854239" },
-			Nightbird: { id: "1313932593158291456" },
+			Crab: { id: "1313932593158291456" },
+			Jellyfish: { id: "1313932581007392828" },
+			BabyManta: { id: "1313932591950200952" },
+			Nightbird: { id: "1313932588917854239" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Base: { id: "1313867161948917871" },
@@ -363,10 +363,10 @@ export const CALL_EMOJIS = PRODUCTION
 			Whale: { id: "1313867164926873600" },
 			Manta: { id: "1313867170140262573" },
 			CosmicManta: { id: "1313867166621110323" },
-			Crab: { id: "1313867163966374048" },
-			Jellyfish: { id: "1313867160228986891" },
-			BabyManta: { id: "1313867168001298557" },
-			Nightbird: { id: "1313867163005751296" },
+			Crab: { id: "1313867163005751296" },
+			Jellyfish: { id: "1313867163966374048" },
+			BabyManta: { id: "1313867160228986891" },
+			Nightbird: { id: "1313867168001298557" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 export type CallsEmojis = (typeof CALL_EMOJIS)[keyof typeof CALL_EMOJIS];
