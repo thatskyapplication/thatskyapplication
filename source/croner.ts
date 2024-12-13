@@ -22,7 +22,7 @@ export default function croner() {
 			process.exit(1);
 		}
 
-		new Cron("* * * * *", async () => {
+		new Cron("*/5 * * * *", async () => {
 			try {
 				await pg.select(1);
 			} catch (error) {
