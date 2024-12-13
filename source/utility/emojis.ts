@@ -3458,95 +3458,95 @@ export const CAPE_EMOJIS = PRODUCTION
 			/**
 			 * Sunlight Pink Beach Towel Cape.
 			 */
-			Cape108: { id: "1313937675614687313" },
+			Cape108: { id: "1313937660947202079" },
 			/**
 			 * Sunlight Yellow Beach Towel Cape.
 			 */
-			Cape109: { id: "1313937623881875466" },
+			Cape109: { id: "1313937636985016451" },
 			/**
 			 * Sunlight Blue Beach Towel Cape.
 			 */
-			Cape110: { id: "1313937639791136882" },
+			Cape110: { id: "1313937638583177247" },
 			/**
 			 * Vestige of a Deserted Oasis.
 			 */
-			Cape111: { id: "1313937627703148544" },
+			Cape111: { id: "1313937675614687313" },
 			/**
 			 * Echo of an Abandoned Refuge.
 			 */
-			Cape112: { id: "1313937658514509834" },
+			Cape112: { id: "1313937623881875466" },
 			/**
 			 * Remnant of a Forgotten Haven.
 			 */
-			Cape113: { id: "1313937659848032366" },
+			Cape113: { id: "1313937639791136882" },
 			/**
 			 * Memory of a Lost Village.
 			 */
-			Cape114: { id: "1313937619490439169" },
+			Cape114: { id: "1313937627703148544" },
 			/**
 			 * Hopeful Steward (ultimate).
 			 */
-			Cape115: { id: "1313937672187936818" },
+			Cape115: { id: "1313937658514509834" },
 			/**
 			 * Mischief Gossamer Cape.
 			 */
-			Cape116: { id: "1313937632530530375" },
+			Cape116: { id: "1313937659848032366" },
 			/**
 			 * Mischief Crabula Cloak.
 			 */
-			Cape117: { id: "1313937634212712538" },
+			Cape117: { id: "1313937619490439169" },
 			/**
 			 * Sparrow Appreciation.
 			 */
-			Cape118: { id: "1313937665443496046" },
+			Cape118: { id: "1313937672187936818" },
 			/**
 			 * Moth Appreciation.
 			 */
-			Cape119: { id: "1313937629074423848" },
+			Cape119: { id: "1313937632530530375" },
 			/**
 			 * Winter Quilted Cape.
 			 */
-			Cape120: { id: "1313937646036451378" },
+			Cape120: { id: "1313937634212712538" },
 			/**
 			 * Spirit of Mural (ultimate).
 			 */
-			Cape121: { id: "1313937625907855391" },
+			Cape121: { id: "1313937665443496046" },
 			/**
 			 * Hunter.
 			 */
-			Cape122: { id: "1313937670430392320" },
+			Cape122: { id: "1313937629074423848" },
 			/**
 			 * Feudal Lord.
 			 */
-			Cape123: { id: "1313937668991619093" },
+			Cape123: { id: "1313937646036451378" },
 			/**
 			 * Princess.
 			 */
-			Cape124: { id: "1313937673806680134" },
+			Cape124: { id: "1313937625907855391" },
 			/**
 			 * Radiance of the Nine-Coloured Deer.
 			 */
-			Cape125: { id: "1313937664143130688" },
+			Cape125: { id: "1313937670430392320" },
 			/**
 			 * Days of Fortune Dragon Stole.
 			 */
-			Cape126: { id: "1313937662264217641" },
+			Cape126: { id: "1313937668991619093" },
 			/**
 			 * Days of Love Meteor Mantle.
 			 */
-			Cape127: { id: "1313937678126940210" },
+			Cape127: { id: "1313937673806680134" },
 			/**
 			 * Bloom Arum Petal Cape.
 			 */
-			Cape128: { id: "1313937660947202079" },
+			Cape128: { id: "1313937664143130688" },
 			/**
 			 * Nesting Loft.
 			 */
-			Cape129: { id: "1313937636985016451" },
+			Cape129: { id: "1313937662264217641" },
 			/**
 			 * Cinnamoroll Pop-Up Cafe Cloud Cape.
 			 */
-			Cape130: { id: "1313937638583177247" },
+			Cape130: { id: "1313937678126940210" },
 			/**
 			 * Nature Wave Pack.
 			 */
