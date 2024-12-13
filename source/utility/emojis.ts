@@ -760,83 +760,83 @@ export const OUTFIT_EMOJIS = PRODUCTION
 			/**
 			 * Runaway Outfit.
 			 */
-			Outfit39: { id: "1313933898148741233" },
+			Outfit39: { id: "1313933890221772860" },
 			/**
 			 * Pleading Child.
 			 */
-			Outfit40: { id: "1313933904104656938" },
+			Outfit40: { id: "1313933898148741233" },
 			/**
 			 * Wounded Warrior.
 			 */
-			Outfit41: { id: "1313933887566778409" },
+			Outfit41: { id: "1313933904104656938" },
 			/**
 			 * Tiptoeing Tea-Brewer.
 			 */
-			Outfit42: { id: "1313933895032504360" },
+			Outfit42: { id: "1313933887566778409" },
 			/**
 			 * Days of Fortune Muralist's Smock.
 			 */
-			Outfit43: { id: "1313933905581310083" },
+			Outfit43: { id: "1313933895032504360" },
 			/**
 			 * Bloom Gardening Tunic.
 			 */
-			Outfit44: { id: "1313933880776069193" },
+			Outfit44: { id: "1313933905581310083" },
 			/**
 			 * Melancholy Mope.
 			 */
-			Outfit45: { id: "1313933899851632680" },
+			Outfit45: { id: "1313933880776069193" },
 			/**
 			 * Oddball Outcast.
 			 */
-			Outfit46: { id: "1313933914456326154" },
+			Outfit46: { id: "1313933899851632680" },
 			/**
 			 * Dark Rainbow Tunic.
 			 */
-			Outfit47: { id: "1313933874987929712" },
+			Outfit47: { id: "1313933914456326154" },
 			/**
 			 * Ascetic Monk.
 			 */
-			Outfit48: { id: "1313933877571751967" },
+			Outfit48: { id: "1313933874987929712" },
 			/**
 			 * Nightbird Whisperer.
 			 */
-			Outfit49: { id: "1313933893434474606" },
+			Outfit49: { id: "1313933877571751967" },
 			/**
 			 * Style Wide-Leg Jeans.
 			 */
-			Outfit50: { id: "1313933890221772860" },
+			Outfit50: { id: "1313933893434474606" },
 			/**
 			 * Memory of a Lost Village.
 			 */
-			Outfit51: { id: "1313934008681234523" },
+			Outfit51: { id: "1313934002150834256" },
 			/**
 			 * Mischief Goth Garment.
 			 */
-			Outfit52: { id: "1313934014817501198" },
+			Outfit52: { id: "1313934008681234523" },
 			/**
 			 * Spirit of Mural (ultimate).
 			 */
-			Outfit53: { id: "1313934005502087189" },
+			Outfit53: { id: "1313934014817501198" },
 			/**
 			 * Herb Gatherer.
 			 */
-			Outfit54: { id: "1313934006932476009" },
+			Outfit54: { id: "1313934005502087189" },
 			/**
 			 * Hunter.
 			 */
-			Outfit55: { id: "1313934013228122235" },
+			Outfit55: { id: "1313934006932476009" },
 			/**
 			 * Princess.
 			 */
-			Outfit56: { id: "1313934019036975145" },
+			Outfit56: { id: "1313934013228122235" },
 			/**
 			 * Days of Fortune Dragon Vestment.
 			 */
-			Outfit57: { id: "1313934017166315612" },
+			Outfit57: { id: "1313934019036975145" },
 			/**
 			 * Nesting Guide (ultimate).
 			 */
-			Outfit58: { id: "1313934002150834256" },
+			Outfit58: { id: "1313934017166315612" },
 			/**
 			 * SkyFest 5th Anniversary T-shirt.
 			 */
