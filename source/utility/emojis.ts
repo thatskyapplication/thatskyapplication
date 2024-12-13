@@ -4391,143 +4391,143 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			/**
 			 * Days of Love 2020.
 			 */
-			SmallPlaceableProp01: { id: "1313938681203130408" },
+			SmallPlaceableProp01: { id: "1313938750883233884" },
 			/**
 			 * Days of Love Seesaw.
 			 */
-			SmallPlaceableProp02: { id: "1313938665478553630" },
+			SmallPlaceableProp02: { id: "1313938691462533174" },
 			/**
 			 * Assembly Guide (non-ultimate 3).
 			 */
-			SmallPlaceableProp03: { id: "1313938682926989362" },
+			SmallPlaceableProp03: { id: "1313938676207587328" },
 			/**
 			 * Assembly Guide (non-ultimate 4).
 			 */
-			SmallPlaceableProp04: { id: "1313938677432320031" },
+			SmallPlaceableProp04: { id: "1313938740204277770" },
 			/**
 			 * The Rose.
 			 */
-			SmallPlaceableProp05: { id: "1313938760521613373" },
+			SmallPlaceableProp05: { id: "1313938692800385135" },
 			/**
 			 * Little Prince Fox.
 			 */
-			SmallPlaceableProp06: { id: "1313938672567189605" },
+			SmallPlaceableProp06: { id: "1313938745208344666" },
 			/**
 			 * Second Sky Anniversary.
 			 */
-			SmallPlaceableProp07: { id: "1313938679206645821" },
+			SmallPlaceableProp07: { id: "1313938674169413645" },
 			/**
 			 * Mischief Pumpkin Prop.
 			 */
-			SmallPlaceableProp08: { id: "1313938737452945479" },
+			SmallPlaceableProp08: { id: "1313938696096976987" },
 			/**
 			 * Wise Grandparent.
 			 */
-			SmallPlaceableProp09: { id: "1313938670545408023" },
+			SmallPlaceableProp09: { id: "1313938752552439888" },
 			/**
 			 * Winter Feast Pillow.
 			 */
-			SmallPlaceableProp10: { id: "1313938669287243838" },
+			SmallPlaceableProp10: { id: "1313938729295155304" },
 			/**
 			 * Winter Feast Snowglobe.
 			 */
-			SmallPlaceableProp11: { id: "1313938684562899084" },
+			SmallPlaceableProp11: { id: "1313938733124288532" },
 			/**
 			 * Sparkler Parent.
 			 */
-			SmallPlaceableProp12: { id: "1313938667059937381" },
+			SmallPlaceableProp12: { id: "1313938743832346714" },
 			/**
 			 * Prophet of Earth.
 			 */
-			SmallPlaceableProp13: { id: "1313938694880886815" },
+			SmallPlaceableProp13: { id: "1313938731438313563" },
 			/**
 			 * Days of Love Gondola.
 			 */
-			SmallPlaceableProp14: { id: "1313938750883233884" },
+			SmallPlaceableProp14: { id: "1313938727873019914" },
 			/**
 			 * Prophet of Air.
 			 */
-			SmallPlaceableProp15: { id: "1313938691462533174" },
+			SmallPlaceableProp15: { id: "1313938724882747473" },
 			/**
 			 * Balloon.
 			 */
-			SmallPlaceableProp16: { id: "1313938676207587328" },
+			SmallPlaceableProp16: { id: "1313938749385867334" },
 			/**
 			 * Confetti launcher.
 			 */
-			SmallPlaceableProp17: { id: "1313938740204277770" },
+			SmallPlaceableProp17: { id: "1313938747477463092" },
 			/**
 			 * Campfire Snack Kit.
 			 */
-			SmallPlaceableProp18: { id: "1313938692800385135" },
+			SmallPlaceableProp18: { id: "1313938710672179342" },
 			/**
 			 * Feline Familiar Prop.
 			 */
-			SmallPlaceableProp19: { id: "1313938745208344666" },
+			SmallPlaceableProp19: { id: "1313938735859241060" },
 			/**
 			 * Prophet of Water.
 			 */
-			SmallPlaceableProp20: { id: "1313938674169413645" },
+			SmallPlaceableProp20: { id: "1313938721233440828" },
 			/**
 			 * Tournament Skyball Set.
 			 */
-			SmallPlaceableProp21: { id: "1313938696096976987" },
+			SmallPlaceableProp21: { id: "1313938767324909579" },
 			/**
 			 * Remembrance Guide (non-ultimate 1).
 			 */
-			SmallPlaceableProp22: { id: "1313938752552439888" },
+			SmallPlaceableProp22: { id: "1313938758755946577" },
 			/**
 			 * Remembrance Guide (non-ultimate 4).
 			 */
-			SmallPlaceableProp23: { id: "1313938729295155304" },
+			SmallPlaceableProp23: { id: "1313938681203130408" },
 			/**
 			 * Remembrance Guide (non-ultimate 5).
 			 */
-			SmallPlaceableProp24: { id: "1313938733124288532" },
+			SmallPlaceableProp24: { id: "1313938665478553630" },
 			/**
 			 * Bloom Butterfly Fountain.
 			 */
-			SmallPlaceableProp25: { id: "1313938743832346714" },
+			SmallPlaceableProp25: { id: "1313938682926989362" },
 			/**
 			 * Passage Guide (non-ultimate).
 			 */
-			SmallPlaceableProp26: { id: "1313938731438313563" },
+			SmallPlaceableProp26: { id: "1313938677432320031" },
 			/**
 			 * Nature Sonorous Seashell.
 			 */
-			SmallPlaceableProp27: { id: "1313938727873019914" },
+			SmallPlaceableProp27: { id: "1313938760521613373" },
 			/**
 			 * Jolly Geologist.
 			 */
-			SmallPlaceableProp28: { id: "1313938724882747473" },
+			SmallPlaceableProp28: { id: "1313938672567189605" },
 			/**
 			 * Anniversary Sonorous Seashell.
 			 */
-			SmallPlaceableProp29: { id: "1313938749385867334" },
+			SmallPlaceableProp29: { id: "1313938679206645821" },
 			/**
 			 * Anniversary Plush.
 			 */
-			SmallPlaceableProp30: { id: "1313938747477463092" },
+			SmallPlaceableProp30: { id: "1313938737452945479" },
 			/**
 			 * Prophet of Fire 2.
 			 */
-			SmallPlaceableProp31: { id: "1313938710672179342" },
+			SmallPlaceableProp31: { id: "1313938670545408023" },
 			/**
 			 * Sunlight Surfboard.
 			 */
-			SmallPlaceableProp32: { id: "1313938735859241060" },
+			SmallPlaceableProp32: { id: "1313938669287243838" },
 			/**
 			 * Days of Feast 2023.
 			 */
-			SmallPlaceableProp33: { id: "1313938721233440828" },
+			SmallPlaceableProp33: { id: "1313938684562899084" },
 			/**
 			 * Herb Gatherer.
 			 */
-			SmallPlaceableProp34: { id: "1313938767324909579" },
+			SmallPlaceableProp34: { id: "1313938667059937381" },
 			/**
 			 * Love Heart Plushie.
 			 */
-			SmallPlaceableProp35: { id: "1313938758755946577" },
+			SmallPlaceableProp35: { id: "1313938694880886815" },
 			/**
 			 * Companion Cube.
 			 */
@@ -4575,11 +4575,11 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			/**
 			 * Decor folded cloth.
 			 */
-			SmallPlaceableProp47: { id: "1313938763969331272" },
+			SmallPlaceableProp47: { id: "1313938770680352799" },
 			/**
 			 * Small stripes rug.
 			 */
-			SmallPlaceableProp48: { id: "1313938770680352799" },
+			SmallPlaceableProp48: { id: "1313938763969331272" },
 			/**
 			 * Small classic rug.
 			 */
@@ -4687,23 +4687,23 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			/**
 			 * The Pianist's Beginnings 2.
 			 */
-			SmallPlaceableProp75: { id: "1313938894571442327" },
+			SmallPlaceableProp75: { id: "1313938878578823268" },
 			/**
 			 * The Musicians' Legacy.
 			 */
-			SmallPlaceableProp76: { id: "1313938873021235241" },
+			SmallPlaceableProp76: { id: "1313938894571442327" },
 			/**
 			 * The Cellist's Flourishing 1.
 			 */
-			SmallPlaceableProp77: { id: "1313938881854308443" },
+			SmallPlaceableProp77: { id: "1313938879857823855" },
 			/**
 			 * The Cellist's Flourishing 2.
 			 */
-			SmallPlaceableProp78: { id: "1313938878578823268" },
+			SmallPlaceableProp78: { id: "1313938873021235241" },
 			/**
 			 * The Pianist's Flourishing.
 			 */
-			SmallPlaceableProp79: { id: "1313938879857823855" },
+			SmallPlaceableProp79: { id: "1313938881854308443" },
 			/**
 			 * The Moomin Storybook (ultimate).
 			 */
