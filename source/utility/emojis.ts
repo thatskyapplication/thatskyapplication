@@ -2578,23 +2578,23 @@ export const HAIR_EMOJIS = PRODUCTION
 			/**
 			 * The Cellist's Beginnings.
 			 */
-			Hair146: { id: "1313936526983434330" },
+			Hair146: { id: "1313936519681146920" },
 			/**
 			 * The Pianist's Beginnings.
 			 */
-			Hair147: { id: "1313936518313672766" },
+			Hair147: { id: "1313936526983434330" },
 			/**
 			 * Tournament Curls.
 			 */
-			Hair148: { id: "1313936509530935387" },
+			Hair148: { id: "1313936518313672766" },
 			/**
 			 * Moonlight Updo.
 			 */
-			Hair149: { id: "1313936510550147145" },
+			Hair149: { id: "1313936509530935387" },
 			/**
 			 * Comfort of Kindness.
 			 */
-			Hair150: { id: "1313936519681146920" },
+			Hair150: { id: "1313936510550147145" },
 			/**
 			 * Spirit of Adventure.
 			 */
