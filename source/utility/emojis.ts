@@ -1299,139 +1299,139 @@ export const MASK_EMOJIS = PRODUCTION
 			/**
 			 * Anxious Angler.
 			 */
-			Mask57: { id: "1313935264284151840" },
+			Mask57: { id: "1313935276380524584" },
 			/**
 			 * Days of Fortune Tiger Mask.
 			 */
-			Mask58: { id: "1313935257673793646" },
+			Mask58: { id: "1313935264284151840" },
 			/**
 			 * Performance Guide (ultimate).
 			 */
-			Mask59: { id: "1313935269589684234" },
+			Mask59: { id: "1313935257673793646" },
 			/**
 			 * Modest Dancer.
 			 */
-			Mask60: { id: "1313935267387670590" },
+			Mask60: { id: "1313935269589684234" },
 			/**
 			 * Frantic Stagehand.
 			 */
-			Mask61: { id: "1313935265936576614" },
+			Mask61: { id: "1313935267387670590" },
 			/**
 			 * Performance Guide (non-ultimate).
 			 */
-			Mask62: { id: "1313935261448802345" },
+			Mask62: { id: "1313935265936576614" },
 			/**
 			 * Forgetful Storyteller.
 			 */
-			Mask63: { id: "1313935273435856946" },
+			Mask63: { id: "1313935261448802345" },
 			/**
 			 * Mellow Musician.
 			 */
-			Mask64: { id: "1313935314774917182" },
+			Mask64: { id: "1313935273435856946" },
 			/**
 			 * Ancient Darkness (plant).
 			 */
-			Mask65: { id: "1313935293426171995" },
+			Mask65: { id: "1313935314774917182" },
 			/**
 			 * Seed of Hope.
 			 */
-			Mask66: { id: "1313935270764347533" },
+			Mask66: { id: "1313935293426171995" },
 			/**
 			 * Running Wayfarer.
 			 */
-			Mask67: { id: "1313935308626071622" },
+			Mask67: { id: "1313935270764347533" },
 			/**
 			 * Warrior of Love.
 			 */
-			Mask68: { id: "1313935279169474570" },
+			Mask68: { id: "1313935308626071622" },
 			/**
 			 * Mindful Miner.
 			 */
-			Mask69: { id: "1313935283854774455" },
+			Mask69: { id: "1313935279169474570" },
 			/**
 			 * AURORA (non-ultimate).
 			 */
-			Mask70: { id: "1313935295124607068" },
+			Mask70: { id: "1313935283854774455" },
 			/**
 			 * Days of Mischief 2022.
 			 */
-			Mask71: { id: "1313935277676302396" },
+			Mask71: { id: "1313935295124607068" },
 			/**
 			 * Journey Mask.
 			 */
-			Mask72: { id: "1313935280960569395" },
+			Mask72: { id: "1313935277676302396" },
 			/**
 			 * Bereft Veteran.
 			 */
-			Mask73: { id: "1313935311872720928" },
+			Mask73: { id: "1313935280960569395" },
 			/**
 			 * Wounded Warrior.
 			 */
-			Mask74: { id: "1313935301474914445" },
+			Mask74: { id: "1313935311872720928" },
 			/**
 			 * Days of Fortune Rabbit Mask.
 			 */
-			Mask75: { id: "1313935268499292251" },
+			Mask75: { id: "1313935301474914445" },
 			/**
 			 * Passage Guide (ultimate).
 			 */
-			Mask76: { id: "1313935298425655306" },
+			Mask76: { id: "1313935268499292251" },
 			/**
 			 * Passage Guide (non-ultimate 1).
 			 */
-			Mask77: { id: "1313935288845996214" },
+			Mask77: { id: "1313935298425655306" },
 			/**
 			 * Passage Guide (non-ultimate 2).
 			 */
-			Mask78: { id: "1313935302913425409" },
+			Mask78: { id: "1313935288845996214" },
 			/**
 			 * Passage Guide (non-ultimate 3).
 			 */
-			Mask79: { id: "1313935288065589248" },
+			Mask79: { id: "1313935302913425409" },
 			/**
 			 * Passage Guide (non-ultimate 4).
 			 */
-			Mask80: { id: "1313935286438334467" },
+			Mask80: { id: "1313935288065589248" },
 			/**
 			 * Reassuring Ranger.
 			 */
-			Mask81: { id: "1313935282709729353" },
+			Mask81: { id: "1313935286438334467" },
 			/**
 			 * Ascetic Monk.
 			 */
-			Mask82: { id: "1313935274815914096" },
+			Mask82: { id: "1313935282709729353" },
 			/**
 			 * Style Runway Mask.
 			 */
-			Mask83: { id: "1313935305954295919" },
+			Mask83: { id: "1313935274815914096" },
 			/**
 			 * Mischief Crabula Mask.
 			 */
-			Mask84: { id: "1313935271934427206" },
+			Mask84: { id: "1313935305954295919" },
 			/**
 			 * Sparrow Appreciation.
 			 */
-			Mask85: { id: "1313935285444149258" },
+			Mask85: { id: "1313935271934427206" },
 			/**
 			 * Spirit of Mural (non-ultimate).
 			 */
-			Mask86: { id: "1313935304566247434" },
+			Mask86: { id: "1313935285444149258" },
 			/**
 			 * Feudal Lord.
 			 */
-			Mask87: { id: "1313935307376164874" },
+			Mask87: { id: "1313935304566247434" },
 			/**
 			 * Princess.
 			 */
-			Mask88: { id: "1313935291609780384" },
+			Mask88: { id: "1313935307376164874" },
 			/**
 			 * Gift of the Nine-Coloured Deer.
 			 */
-			Mask89: { id: "1313935310329221232" },
+			Mask89: { id: "1313935291609780384" },
 			/**
 			 * Fortune Dragon Mask.
 			 */
-			Mask90: { id: "1313935276380524584" },
+			Mask90: { id: "1313935310329221232" },
 			/**
 			 * Ocean Mask.
 			 */
