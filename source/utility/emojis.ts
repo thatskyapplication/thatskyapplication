@@ -4045,43 +4045,43 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			/**
 			 * Double Deck Chairs.
 			 */
-			LargePlaceableProp13: { id: "1313938245213491331" },
+			LargePlaceableProp13: { id: "1313938263131684875" },
 			/**
 			 * Chill Sunbather.
 			 */
-			LargePlaceableProp14: { id: "1313938250603429898" },
+			LargePlaceableProp14: { id: "1313938245213491331" },
 			/**
 			 * Crab Whisperer.
 			 */
-			LargePlaceableProp15: { id: "1313938298934268005" },
+			LargePlaceableProp15: { id: "1313938250603429898" },
 			/**
 			 * Troupe Juggler.
 			 */
-			LargePlaceableProp16: { id: "1313938276385554442" },
+			LargePlaceableProp16: { id: "1313938298934268005" },
 			/**
 			 * Grateful Shell Collector.
 			 */
-			LargePlaceableProp17: { id: "1313938265262264411" },
+			LargePlaceableProp17: { id: "1313938276385554442" },
 			/**
 			 * Festival Spin Dancer.
 			 */
-			LargePlaceableProp18: { id: "1313938274124959806" },
+			LargePlaceableProp18: { id: "1313938265262264411" },
 			/**
 			 * Mischief Spooky Dining Set.
 			 */
-			LargePlaceableProp19: { id: "1313938261621739601" },
+			LargePlaceableProp19: { id: "1313938274124959806" },
 			/**
 			 * Playfighting Herbalist.
 			 */
-			LargePlaceableProp20: { id: "1313938253799489607" },
+			LargePlaceableProp20: { id: "1313938261621739601" },
 			/**
 			 * Jelly Whisperer.
 			 */
-			LargePlaceableProp21: { id: "1313938305431375998" },
+			LargePlaceableProp21: { id: "1313938253799489607" },
 			/**
 			 * Prophet of Fire 1.
 			 */
-			LargePlaceableProp22: { id: "1313938263131684875" },
+			LargePlaceableProp22: { id: "1313938305431375998" },
 			/**
 			 * Purple Bloom Teaset.
 			 */
@@ -4173,11 +4173,11 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			/**
 			 * Stone single bed.
 			 */
-			LargePlaceableProp45: { id: "1313938308329504861" },
+			LargePlaceableProp45: { id: "1313938287898923018" },
 			/**
 			 * Stone tall cube.
 			 */
-			LargePlaceableProp46: { id: "1313938287898923018" },
+			LargePlaceableProp46: { id: "1313938308329504861" },
 			/**
 			 * Stone chair.
 			 */
