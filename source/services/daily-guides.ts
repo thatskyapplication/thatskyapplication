@@ -34,6 +34,7 @@ import pino from "../pino.js";
 import type { RotationNumber } from "../utility/catalogue.js";
 import {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
+	DAILY_GUIDES_URL,
 	DEFAULT_EMBED_COLOUR,
 	NOT_IN_CACHED_GUILD_RESPONSE,
 } from "../utility/constants.js";
@@ -479,6 +480,7 @@ export async function distributionEmbed(locale: Locale) {
 	const embed: APIEmbed = {
 		color: DEFAULT_EMBED_COLOUR,
 		title: dateString(now, locale),
+		url: DAILY_GUIDES_URL,
 	};
 
 	const fields = [];
