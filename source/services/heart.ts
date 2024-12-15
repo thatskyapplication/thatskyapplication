@@ -25,7 +25,7 @@ import {
 	HEART_HISTORY_NEXT,
 	MAXIMUM_HEARTS_PER_DAY,
 } from "../utility/constants.js";
-import { HEART_EXTRA_DATES, isDuring, skyNow } from "../utility/dates.js";
+import { HEART_EXTRA_DATES, TIME_ZONE, isDuring, skyNow } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "../utility/emojis.js";
 import { getRandomElement, interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 
@@ -173,8 +173,16 @@ export async function gift(
 	let heartsLeftToGiftText = `You can gift ${heartsLeftToGift} more ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} today.`;
 
 	if (extraHearts) {
-		const startDate = extraHearts.start.toFormat("dd/LL/yyyy");
-		const endDate = extraHearts.end.toFormat("dd/LL/yyyy");
+		const startDate = Intl.DateTimeFormat(interaction.locale, {
+			timeZone: TIME_ZONE,
+			dateStyle: "short",
+		}).format(extraHearts.start.toMillis());
+
+		const endDate = Intl.DateTimeFormat(interaction.locale, {
+			timeZone: TIME_ZONE,
+			dateStyle: "short",
+		}).format(extraHearts.end.toMillis());
+
 		heartsLeftToGiftText += `\nThere is currently a double heart event from ${startDate} to ${endDate}!`;
 	}
 

@@ -11,7 +11,7 @@ import {
 	ButtonStyle,
 	ComponentType,
 	type InteractionsAPI,
-	type Locale,
+	Locale,
 	MessageFlags,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
@@ -19,7 +19,7 @@ import { t } from "i18next";
 import { DateTime } from "luxon";
 import { client } from "../discord.js";
 import { APPLICATION_ID, DEFAULT_EMBED_COLOUR, SHARD_ERUPTION_URL } from "../utility/constants.js";
-import { TIME_ZONE, dateRangeString, dateString, skyToday } from "../utility/dates.js";
+import { TIME_ZONE, skyNow, skyToday } from "../utility/dates.js";
 import { isChatInputCommand } from "../utility/functions.js";
 import {
 	MAXIMUM_OPTION_NUMBER,
@@ -47,11 +47,19 @@ async function generateShardEruptionSelectMenuOptions(
 	const options = [];
 	const maximumIndex = MAXIMUM_OPTION_NUMBER + indexStart;
 
+	// https://github.com/discord/discord-api-docs/issues/7310
+	const dateStyle = locale === Locale.Thai ? "long" : "full";
+
 	for (let index = indexStart; index < maximumIndex; index++) {
 		const shardNow = await shardEruption(index + offset);
 
+		const dateString = Intl.DateTimeFormat(locale, {
+			timeZone: TIME_ZONE,
+			dateStyle,
+		}).format(date.plus({ days: index }).toMillis());
+
 		const stringSelectMenuOption: APISelectMenuOption = {
-			label: dateString(date.plus({ days: index }), locale),
+			label: dateString,
 			value: String(index + offset),
 		};
 
@@ -137,7 +145,9 @@ export async function todayEmbed(locale: Locale, offset = 0) {
 
 	const embed: APIEmbed = {
 		color: DEFAULT_EMBED_COLOUR,
-		title: dateString(skyToday().plus({ days: offset }), locale),
+		title: Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(
+			skyNow().plus({ days: offset }).toMillis(),
+		),
 		url: SHARD_ERUPTION_URL,
 	};
 
@@ -236,6 +246,18 @@ export async function browse(
 					async (customId, index): Promise<APIActionRowComponent<APISelectMenuComponent>> => {
 						const currentIndex = MAXIMUM_OPTION_NUMBER * index;
 
+						const placeholderStartDate = Intl.DateTimeFormat(locale, {
+							timeZone: TIME_ZONE,
+							dateStyle: "short",
+						}).format(shardToday.plus({ days: currentIndex }).toMillis());
+
+						const placeholderEndDate = Intl.DateTimeFormat(locale, {
+							timeZone: TIME_ZONE,
+							dateStyle: "short",
+						}).format(
+							shardToday.plus({ days: MAXIMUM_OPTION_NUMBER * (index + 1) - 1 }).toMillis(),
+						);
+
 						return {
 							type: ComponentType.ActionRow,
 							components: [
@@ -250,11 +272,7 @@ export async function browse(
 										offset,
 										locale,
 									),
-									placeholder: dateRangeString(
-										shardToday.plus({ days: currentIndex }),
-										shardToday.plus({ days: MAXIMUM_OPTION_NUMBER * (index + 1) - 1 }),
-										locale,
-									),
+									placeholder: `${placeholderStartDate} - ${placeholderEndDate}`,
 								},
 							],
 						};

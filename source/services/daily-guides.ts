@@ -42,7 +42,7 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	DOUBLE_TREASURE_CANDLES_DATES,
-	dateString,
+	TIME_ZONE,
 	isDuring,
 	skyNow,
 	skyToday,
@@ -479,7 +479,9 @@ export async function distributionEmbed(locale: Locale) {
 
 	const embed: APIEmbed = {
 		color: DEFAULT_EMBED_COLOUR,
-		title: dateString(now, locale),
+		title: Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(
+			now.toMillis(),
+		),
 		url: DAILY_GUIDES_URL,
 	};
 

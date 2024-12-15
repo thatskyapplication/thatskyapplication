@@ -8,6 +8,7 @@ import {
 	ApplicationCommandOptionType,
 	ButtonStyle,
 	ComponentType,
+	type Locale,
 	MessageFlags,
 } from "@discordjs/core";
 import { t } from "i18next";
@@ -31,7 +32,7 @@ import {
 	resolveCostToString,
 } from "../utility/catalogue.js";
 import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
-import { skyNow } from "../utility/dates.js";
+import { TIME_ZONE, skyNow } from "../utility/dates.js";
 import { formatEmoji } from "../utility/emojis.js";
 import { isChatInputCommand } from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
@@ -138,11 +139,18 @@ export async function parseSpiritSwitch(interaction: APIMessageComponentButtonIn
 function visitTravellingField(
 	seasonalSpiritVisit: SeasonalSpiritVisitTravellingData,
 	error: boolean,
+	locale: Locale,
 ) {
 	return seasonalSpiritVisit
 		.reduce<string[]>((visits, date, visit) => {
 			const prefix = error ? "Error" : `#${visit}`;
-			visits.push(`${prefix}: ${date.toFormat("dd/LL/yyyy")} (<t:${date.toUnixInteger()}:R>)`);
+
+			const dateString = Intl.DateTimeFormat(locale, {
+				timeZone: TIME_ZONE,
+				dateStyle: "short",
+			}).format(date.toMillis());
+
+			visits.push(`${prefix}: ${dateString} (<t:${date.toUnixInteger()}:R>)`);
 			return visits;
 		}, [])
 		.join("\n");
@@ -151,15 +159,18 @@ function visitTravellingField(
 function visitReturningField(
 	seasonalSpiritVisit: SeasonalSpiritVisitReturningData,
 	error: boolean,
+	locale: Locale,
 ) {
 	return seasonalSpiritVisit
 		.reduce<string[]>((visits, date, visit) => {
 			const prefix = error ? "Error" : `#${visit}`;
 
-			visits.push(
-				`${prefix}: ${date.start.toFormat("dd/LL/yyyy")} (<t:${date.start.toUnixInteger()}:R>)`,
-			);
+			const dateString = Intl.DateTimeFormat(locale, {
+				timeZone: TIME_ZONE,
+				dateStyle: "short",
+			}).format(date.start.toMillis());
 
+			visits.push(`${prefix}: ${dateString} (<t:${date.start.toUnixInteger()}:R>)`);
 			return visits;
 		}, [])
 		.join("\n");
@@ -249,11 +260,11 @@ async function searchResponse(
 		const travellingFieldValue = [];
 
 		if (travelling.size > 0) {
-			travellingFieldValue.push(visitTravellingField(travelling, false));
+			travellingFieldValue.push(visitTravellingField(travelling, false, locale));
 		}
 
 		if (travellingErrors.size > 0) {
-			travellingFieldValue.push(visitTravellingField(travellingErrors, true));
+			travellingFieldValue.push(visitTravellingField(travellingErrors, true, locale));
 		}
 
 		if (travellingFieldValue.length > 0) {
@@ -261,7 +272,7 @@ async function searchResponse(
 		}
 
 		if (returning.size > 0) {
-			fields.push({ name: "Returning", value: visitReturningField(returning, false) });
+			fields.push({ name: "Returning", value: visitReturningField(returning, false, locale) });
 		}
 
 		if (spirit.visit(skyNow()).visited) {
