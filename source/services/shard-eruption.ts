@@ -18,7 +18,7 @@ import { DiscordSnowflake } from "@sapphire/snowflake";
 import { t } from "i18next";
 import { DateTime } from "luxon";
 import { client } from "../discord.js";
-import { APPLICATION_ID, DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
+import { APPLICATION_ID, DEFAULT_EMBED_COLOUR, SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { TIME_ZONE, dateRangeString, dateString, skyToday } from "../utility/dates.js";
 import { isChatInputCommand } from "../utility/functions.js";
 import {
@@ -138,6 +138,7 @@ export async function todayEmbed(locale: Locale, offset = 0) {
 	const embed: APIEmbed = {
 		color: DEFAULT_EMBED_COLOUR,
 		title: dateString(skyToday().plus({ days: offset }), locale),
+		url: SHARD_ERUPTION_URL,
 	};
 
 	const buttonYesterday: APIButtonComponentWithCustomId = {
