@@ -42,7 +42,7 @@ export default {
 		}
 
 		GUILD_CACHE.delete(data.id);
-		logGuild(guild ?? data, false);
+		logGuild(guild ?? data);
 		await Promise.all([handleGuildRemove(data.id), checkSendable(data.id)]);
 	},
 } satisfies Event<typeof name>;

@@ -101,7 +101,7 @@ export async function log({ content, embeds = [], error }: LogOptions) {
 	}
 }
 
-export function logGuild(guild: GatewayGuildDeleteDispatchData | Guild, joined: boolean) {
+export function logGuild(guild: GatewayGuildDeleteDispatchData | Guild) {
 	pino.info(
 		"name" in guild
 			? {
@@ -116,6 +116,6 @@ export function logGuild(guild: GatewayGuildDeleteDispatchData | Guild, joined: 
 			: {
 					id: guild.id,
 				},
-		joined ? "Guild joined" : "Guild left",
+		"Guild left",
 	);
 }
