@@ -112,13 +112,11 @@ export const CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH = {
 	[ContentCreatorsEditType.Bluesky]: 50,
 } as const satisfies Readonly<Record<ContentCreatorsEditTypes, number>>;
 
-export const CONTENT_CREATORS_DISPLAY_EDIT_OPTIONS = CONTENT_CREATORS_EDIT_TYPES.map(
-	(editType) => ({
-		label: CONTENT_CREATORS_EDIT_TYPE_TO_TEXT[editType],
-		emoji: CONTENT_CREATORS_EDIT_TYPE_TO_EMOJI[editType],
-		value: String(editType),
-	}),
-);
+const CONTENT_CREATORS_DISPLAY_EDIT_OPTIONS = CONTENT_CREATORS_EDIT_TYPES.map((editType) => ({
+	label: CONTENT_CREATORS_EDIT_TYPE_TO_TEXT[editType],
+	emoji: CONTENT_CREATORS_EDIT_TYPE_TO_EMOJI[editType],
+	value: String(editType),
+}));
 
 function isContentCreatorsEditType(editType: number): editType is ContentCreatorsEditTypes {
 	return CONTENT_CREATORS_EDIT_TYPES.includes(editType as ContentCreatorsEditTypes);
