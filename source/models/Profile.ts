@@ -23,6 +23,7 @@ import {
 	ComponentType,
 	InteractionType,
 	type InteractionsAPI,
+	Locale,
 	MessageFlags,
 	PermissionFlagsBits,
 	type Snowflake,
@@ -31,6 +32,7 @@ import {
 import { hash } from "hasha";
 import { t } from "i18next";
 import sharp from "sharp";
+import { COMMAND_CACHE } from "../caches/commands.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { skySeasons } from "../data/spirits/seasons/index.js";
 import { client } from "../discord.js";
@@ -73,6 +75,7 @@ import {
 	formatEmojiURL,
 } from "../utility/emojis.js";
 import {
+	chatInputApplicationCommandMention,
 	interactionInvoker,
 	isAnimatedHash,
 	isButton,
@@ -1900,6 +1903,18 @@ export default class Profile {
 		const fields = [];
 		const missing = [];
 
+		const skyProfileCommandId = COMMAND_CACHE.get(
+			t("sky-profile.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		);
+
+		const useCommandPrefix = skyProfileCommandId
+			? `Use ${chatInputApplicationCommandMention(
+					skyProfileCommandId,
+					t("sky-profile.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+					t("sky-profile.edit.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				)}`
+			: "- Use the command";
+
 		if (seasons) {
 			if (seasons.length > 0) {
 				descriptions.push(
@@ -1926,7 +1941,7 @@ export default class Profile {
 		if (thumbnailURL) {
 			embed.thumbnail = { url: thumbnailURL };
 		} else {
-			missing.push("- Use the command to upload a thumbnail!");
+			missing.push(`- ${useCommandPrefix} to upload a thumbnail!`);
 		}
 
 		if (name) {
@@ -1935,7 +1950,7 @@ export default class Profile {
 			if (iconURL) {
 				embedAuthorOptions.icon_url = iconURL;
 			} else {
-				missing.push("- Use the command to upload an icon!");
+				missing.push(`- ${useCommandPrefix} to upload an icon!`);
 			}
 
 			embed.author = embedAuthorOptions;
@@ -1965,7 +1980,7 @@ export default class Profile {
 				inline: true,
 			});
 		} else {
-			missing.push("- Use the command to set your favourite spirit!");
+			missing.push(`- ${useCommandPrefix} to set your favourite spirit!`);
 		}
 
 		if (country) {
