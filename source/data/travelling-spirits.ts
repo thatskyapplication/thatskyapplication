@@ -9,8 +9,8 @@ export const TRAVELLING_DATES = (
 ).reduce(
 	(travellingSpirits, { visit, start, end }) =>
 		travellingSpirits.set(visit, {
-			start: DateTime.fromJSDate(start, {zone: TIME_ZONE }),
-			end: DateTime.fromJSDate(end, {zone: TIME_ZONE }),
+			start: DateTime.fromJSDate(start, { zone: TIME_ZONE }),
+			end: DateTime.fromJSDate(end, { zone: TIME_ZONE }),
 		}),
 	new Collection<number, TravellingSpiritsDates>(),
 );
