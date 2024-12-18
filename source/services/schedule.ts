@@ -7,6 +7,7 @@ import {
 } from "@discordjs/core";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
+import { resolveTravellingSpirit } from "../data/spirits/seasons/index.js";
 import { client } from "../discord.js";
 import {
 	DEFAULT_EMBED_COLOUR,
@@ -25,23 +26,28 @@ function eyeOfEdenResetTime(date: DateTime) {
 	return date.set({ weekday: 7 }).toUnixInteger();
 }
 
-function travellingSpiritTime(date: DateTime, locale: Locale) {
-	for (let start = INITIAL_TRAVELLING_SPIRIT_SEEK; ; start = start.plus({ week: 2 })) {
-		if (start < date && start.plus({ day: 3 }) < date) {
+function travellingSpiritTime(now: DateTime, locale: Locale) {
+	const currentTravellingSpirit = resolveTravellingSpirit(now);
+
+	if (currentTravellingSpirit) {
+		return t("schedule.travelling-spirit-today", { lng: locale, ns: "commands" });
+	}
+
+	let nextArrival: number;
+
+	for (let start = INITIAL_TRAVELLING_SPIRIT_SEEK; ; start = start.plus({ weeks: 2 })) {
+		if (start < now) {
 			continue;
 		}
 
-		if (start.equals(date) || start < date || start.plus({ day: 3 }) < date) {
-			return t("schedule.travelling-spirit-today", { lng: locale, ns: "commands" });
-		}
-
-		const startUnix = start.toUnixInteger();
-
-		return `${t("schedule.travelling-spirit-none", { lng: locale, ns: "commands" })}\n_${t(
-			"schedule.travelling-spirit-next-visit",
-			{ lng: locale, ns: "commands" },
-		)} <t:${startUnix}:d> (<t:${startUnix}:R>)_`;
+		nextArrival = start.toUnixInteger();
+		break;
 	}
+
+	return `${t("schedule.travelling-spirit-none", { lng: locale, ns: "commands" })}\n_${t(
+		"schedule.travelling-spirit-next-visit",
+		{ lng: locale, ns: "commands" },
+	)} <t:${nextArrival}:d> (<t:${nextArrival}:R>)_`;
 }
 
 function scheduleTimes(date: DateTime) {
@@ -180,7 +186,7 @@ export async function schedule(interaction: APIChatInputApplicationCommandIntera
 		},
 		{
 			name: t("schedule.travelling-spirit", { lng: locale, ns: "commands" }),
-			value: travellingSpiritTime(startOfDay, locale),
+			value: travellingSpiritTime(now, locale),
 		},
 		{
 			name: t(`notification-types.${NotificationType.PollutedGeyser}`, {

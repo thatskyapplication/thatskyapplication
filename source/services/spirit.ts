@@ -21,6 +21,7 @@ import type {
 	SeasonalSpirit,
 	SeasonalSpiritVisitReturningData,
 	SeasonalSpiritVisitTravellingData,
+	SeasonalSpiritVisitTravellingErrorData,
 	StandardSpirit,
 } from "../models/Spirits.js";
 import {
@@ -136,41 +137,45 @@ export async function parseSpiritSwitch(interaction: APIMessageComponentButtonIn
 	await searchResponse(interaction, spirit, !seasonalOffer);
 }
 
-function visitTravellingField(
-	seasonalSpiritVisit: SeasonalSpiritVisitTravellingData,
-	error: boolean,
+function visitField(
+	seasonalSpiritVisit: SeasonalSpiritVisitTravellingData | SeasonalSpiritVisitReturningData,
 	locale: Locale,
 ) {
-	return seasonalSpiritVisit
-		.reduce<string[]>((visits, date, visit) => {
-			const prefix = error ? "Error" : `#${visit}`;
+	const maxLength = seasonalSpiritVisit.lastKey()!.toString().length;
 
-			const dateString = Intl.DateTimeFormat(locale, {
+	return seasonalSpiritVisit
+		.reduce<string[]>((visits, { start }, visit) => {
+			const startFormatOptions: Intl.DateTimeFormatOptions = {
 				timeZone: TIME_ZONE,
 				dateStyle: "short",
-			}).format(date.toMillis());
+			};
 
-			visits.push(`${prefix}: ${dateString} (<t:${date.toUnixInteger()}:R>)`);
+			if (start.hour !== 0 || start.minute !== 0) {
+				startFormatOptions.timeStyle = "short";
+			}
+
+			const dateString = Intl.DateTimeFormat(locale, startFormatOptions).format(start.toMillis());
+
+			visits.push(
+				`\`#${String(visit).padStart(maxLength, "0")}\` \`${dateString}\` (<t:${start.toUnixInteger()}:R>)`,
+			);
 			return visits;
 		}, [])
 		.join("\n");
 }
 
-function visitReturningField(
-	seasonalSpiritVisit: SeasonalSpiritVisitReturningData,
-	error: boolean,
+function visitErrorField(
+	seasonalSpiritVisit: SeasonalSpiritVisitTravellingErrorData,
 	locale: Locale,
 ) {
 	return seasonalSpiritVisit
-		.reduce<string[]>((visits, date, visit) => {
-			const prefix = error ? "Error" : `#${visit}`;
-
+		.reduce<string[]>((visits, start) => {
 			const dateString = Intl.DateTimeFormat(locale, {
 				timeZone: TIME_ZONE,
 				dateStyle: "short",
-			}).format(date.start.toMillis());
+			}).format(start.toMillis());
 
-			visits.push(`${prefix}: ${dateString} (<t:${date.start.toUnixInteger()}:R>)`);
+			visits.push(`\`Error\` \`${dateString}\` (<t:${start.toUnixInteger()}:R>)`);
 			return visits;
 		}, [])
 		.join("\n");
@@ -260,11 +265,11 @@ async function searchResponse(
 		const travellingFieldValue = [];
 
 		if (travelling.size > 0) {
-			travellingFieldValue.push(visitTravellingField(travelling, false, locale));
+			travellingFieldValue.push(visitField(travelling, locale));
 		}
 
 		if (travellingErrors.size > 0) {
-			travellingFieldValue.push(visitTravellingField(travellingErrors, true, locale));
+			travellingFieldValue.push(visitErrorField(travellingErrors, locale));
 		}
 
 		if (travellingFieldValue.length > 0) {
@@ -272,7 +277,7 @@ async function searchResponse(
 		}
 
 		if (returning.size > 0) {
-			fields.push({ name: "Returning", value: visitReturningField(returning, false, locale) });
+			fields.push({ name: "Returning", value: visitField(returning, locale) });
 		}
 
 		if (spirit.visit(skyNow()).visited) {

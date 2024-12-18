@@ -32,6 +32,12 @@ export interface TravellingSpiritsPacket {
 	visit: number;
 	entity: SpiritName;
 	start: Date;
+	end: Date;
+}
+
+export interface TravellingSpiritsDates {
+	start: DateTime;
+	end: DateTime;
 }
 
 interface ReturningDatesData {
@@ -127,8 +133,8 @@ interface ElderSpiritData extends BaseSpiritData, ElderFriendshipTreeData {
 	realm: RealmName;
 }
 
-export type SeasonalSpiritVisitTravellingData = Collection<number, DateTime>;
-
+export type SeasonalSpiritVisitTravellingData = Collection<number, TravellingSpiritsDates>;
+export type SeasonalSpiritVisitTravellingErrorData = Collection<number, DateTime>;
 export type SeasonalSpiritVisitReturningData = Collection<number, ReturningDatesData>;
 
 interface SeasonalSpiritVisitData {
@@ -139,7 +145,7 @@ interface SeasonalSpiritVisitData {
 
 interface SeasonalSpiritVisit {
 	travelling: SeasonalSpiritVisitTravellingData;
-	travellingErrors: SeasonalSpiritVisitTravellingData;
+	travellingErrors: SeasonalSpiritVisitTravellingErrorData;
 	returning: SeasonalSpiritVisitReturningData;
 }
 
@@ -359,7 +365,8 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 					}
 
 					return collection.set(travelling, period);
-				}, new Collection<number, DateTime>()) ?? new Collection<number, DateTime>(),
+				}, new Collection<number, TravellingSpiritsDates>()) ??
+				new Collection<number, TravellingSpiritsDates>(),
 			travellingErrors:
 				spirit.visits?.travellingErrors?.reduce((collection, travellingError) => {
 					const period = TRAVELLING_ERROR_DATES.get(travellingError);
@@ -395,18 +402,15 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 	public visit(date: DateTime) {
 		const { travelling, returning } = this.visits;
 		const firstTravelling = travelling.first();
-		const lastTravelling = travelling.last();
 		const firstReturning = returning.first();
 
 		return {
 			visited: Boolean(
-				(firstTravelling && firstTravelling <= date) ||
+				(firstTravelling && firstTravelling.start <= date) ||
 					(firstReturning && firstReturning.start <= date),
 			),
 			current: {
-				travelling: Boolean(
-					lastTravelling && date >= lastTravelling && date < lastTravelling.plus({ days: 4 }),
-				),
+				travelling: travelling.some(({ start, end }) => date >= start && date < end),
 				returning: returning.some(({ start, end }) => date >= start && date < end),
 			},
 		};

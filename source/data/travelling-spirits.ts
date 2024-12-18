@@ -1,11 +1,16 @@
 import { Collection } from "@discordjs/collection";
 import { DateTime } from "luxon";
-import type { TravellingSpiritsPacket } from "../models/Spirits.js";
-import pg from "../pg.js";
+import type { TravellingSpiritsDates, TravellingSpiritsPacket } from "../models/Spirits.js";
+import pg, { Table } from "../pg.js";
+import { TIME_ZONE } from "../utility/dates.js";
 
 export const TRAVELLING_DATES = (
-	await pg<TravellingSpiritsPacket>("travelling_spirits").select("visit", "start")
+	await pg<TravellingSpiritsPacket>(Table.TravellingSpirits).select("visit", "start", "end")
 ).reduce(
-	(travellingSpirits, { visit, start }) => travellingSpirits.set(visit, DateTime.fromJSDate(start)),
-	new Collection<number, DateTime>(),
+	(travellingSpirits, { visit, start, end }) =>
+		travellingSpirits.set(visit, {
+			start: DateTime.fromJSDate(start, {zone: TIME_ZONE }),
+			end: DateTime.fromJSDate(end, {zone: TIME_ZONE }),
+		}),
+	new Collection<number, TravellingSpiritsDates>(),
 );
