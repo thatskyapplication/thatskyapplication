@@ -1,5 +1,5 @@
 import { SeasonId } from "../utility/catalogue.js";
-import { RealmName, SkyMap } from "../utility/constants.js";
+import { DailyQuest, RealmName, SkyMap } from "../utility/constants.js";
 import { SpiritName } from "../utility/spirits.js";
 
 export default {
@@ -14,6 +14,12 @@ export default {
 			[RealmName.EyeOfEden]: "暴風眼",
 		},
 		maps: { [SkyMap.JellyfishCove]: "水母灣區" },
+		quests: {
+			[DailyQuest.RideWithAManta]: "乘坐光鰩",
+			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]: "前往雲野山洞找到舒適的藏身處",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]: "找到雲野的彩虹蠟燭",
+			[DailyQuest.ReliveTheStretchingGuru]: "重溫舒展大師在雲野的記憶",
+		},
 		seasons: {
 			[SeasonId.Gratitude]: "感恩季",
 			[SeasonId.Lightseekers]: "追光季",
