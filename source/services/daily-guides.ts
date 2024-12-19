@@ -499,7 +499,10 @@ export async function distributionEmbed(locale: Locale) {
 		fields.push({
 			name: "Quests",
 			value: quests
-				.map(({ content, url }, index) => `${index + 1}. ${url ? `[${content}](${url})` : content}`)
+				.map(
+					({ id, url }, index) =>
+						`${index + 1}. ${url ? `[${t(`quests.${id}`, { lng: locale, ns: "general" })}](${url})` : t(`quests.${id}`, { lng: locale, ns: "general" })}`,
+				)
 				.join("\n"),
 		});
 	}

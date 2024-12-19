@@ -2121,7 +2121,7 @@ const DEVELOPER_COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 						description: "Sets a quest for the daily guides.",
 						options: [
 							...QUEST_NUMBER.map((questNumber) => ({
-								type: ApplicationCommandOptionType.String as const,
+								type: ApplicationCommandOptionType.Integer as const,
 								name: `quest-${questNumber}`,
 								description: "The daily quest.",
 								autocomplete: true,

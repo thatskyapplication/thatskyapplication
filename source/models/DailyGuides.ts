@@ -10,30 +10,26 @@ import { DiscordSnowflake } from "@sapphire/snowflake";
 import { hash } from "hasha";
 import pQueue from "p-queue";
 import sharp from "sharp";
-import { spirits } from "../data/spirits/index.js";
-import type { SeasonalSpirit, StandardSpirit } from "../models/Spirits.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import { distribute } from "../services/daily-guides.js";
-import { SeasonId, type SeasonIds, snakeCaseName } from "../utility/catalogue.js";
 import {
 	CDN_BUCKET,
 	CDN_URL,
 	DAILY_INFOGRAPHICS_CHANNEL_ID,
+	DAILY_QUEST_VALUES,
+	DailyQuest,
+	DailyQuestToInfographicURL,
+	type DailyQuests,
 	INFOGRAPHICS_DATABASE_GUILD_ID,
-	MEDITATION_MAPS,
 	type MeditationMaps,
 	type QUEST_NUMBER,
-	RAINBOW_ADMIRE_MAPS,
 	REALM_NAME_VALUES,
 	type RainbowAdmireMaps,
 	RealmName,
-	SOCIAL_LIGHT_AREA_MAPS,
 	SkyMap,
-	SocialLightAreaMapToCDNString,
 	type SocialLightAreaMaps,
-	VALID_REALM_NAME,
 	type ValidRealmName,
 	inconsistentMapKeys,
 } from "../utility/constants.js";
@@ -43,11 +39,9 @@ import {
 	isRainbowAdmireMap,
 	isSocialLightAreaMap,
 	resolveMap,
-	resolveMeditationMap,
-	resolveSocialLightAreaMap,
 	resolveValidRealm,
 } from "../utility/functions.js";
-import { FriendAction, SpiritEmote } from "../utility/spirits.js";
+import { QUEST_SPIRITS, type QuestSpirits, SpiritName } from "../utility/spirits.js";
 
 export interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;
@@ -78,7 +72,7 @@ type DailyGuidesSetQuestsData = Partial<
 type DailyGuidesSetTreasureCandlesData = Partial<TreasureCandlesData>;
 
 export interface DailyGuideQuest {
-	content: string;
+	id: number;
 	url: string | null;
 }
 
@@ -100,439 +94,160 @@ interface DailyGuideMessage {
 
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
-const QUEST_SPIRITS_SEASONS = [
-	SeasonId.Gratitude,
-	SeasonId.Lightseekers,
-	SeasonId.Belonging,
-	SeasonId.Rhythm,
-	SeasonId.Enchantment,
-	SeasonId.Sanctuary,
-	SeasonId.Dreams,
-	SeasonId.Assembly,
-] as const satisfies Readonly<SeasonIds[]>;
+export function isDailyQuest(dailyQuest: number): dailyQuest is DailyQuests {
+	return DAILY_QUEST_VALUES.includes(dailyQuest as DailyQuests);
+}
 
 interface ResolveDailyGuideOptions {
 	pureContent: string;
 	realm: ValidRealmName | null;
 	skyMap: SkyMap | null;
-	url: string | null;
 }
 
-type QuestSpiritSeasons = (typeof QUEST_SPIRITS_SEASONS)[number];
-
-/**
- * @privateRemarks Defines a spirit that may be encountered in a daily quest. So far, that includes:
- *
- * - Standard spirits.
- * - Seasonal spirits from ({@link QuestSpiritSeasons}).
- *
- * Spirits must not be in the {@link RealmName.IslesOfDawn | Isles of Dawn}.
- *
- * These spirits must have an associated infographic.
- */
-type QuestSpirit = (StandardSpirit | (SeasonalSpirit & { season: QuestSpiritSeasons })) & {
-	realm: ValidRealmName;
-};
-
-function isQuestSpiritsSeason(seasonId: SeasonIds): seasonId is QuestSpiritSeasons {
-	return QUEST_SPIRITS_SEASONS.includes(seasonId as QuestSpiritSeasons);
+function isQuestSpirit(spiritName: SpiritName): spiritName is QuestSpirits {
+	return QUEST_SPIRITS.includes(spiritName as QuestSpirits);
 }
 
-function isQuestSpirit(spirit: ReturnType<typeof spirits>[number]): spirit is QuestSpirit {
-	if (spirit.realm === RealmName.IslesOfDawn) {
-		return false;
-	}
+const CatchTheLightRealmToDailyQuest = {
+	[RealmName.DaylightPrairie]: DailyQuest.CatchTheLightInTheDaylightPrairie,
+	[RealmName.HiddenForest]: DailyQuest.CatchTheLightInTheHiddenForest,
+	[RealmName.ValleyOfTriumph]: DailyQuest.CatchTheLightInTheValleyOfTriumph,
+	[RealmName.GoldenWasteland]: DailyQuest.CatchTheLightInTheGoldenWasteland,
+	[RealmName.VaultOfKnowledge]: DailyQuest.CatchTheLightInTheVaultOfKnowledge,
+} as const satisfies Readonly<Record<ValidRealmName, DailyQuests>>;
 
-	if (spirit.isStandardSpirit()) {
-		return true;
-	}
+const SocialLightAreaSkyMapToDailyQuest = {
+	[SkyMap.Cave]: DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie,
+	[SkyMap.ElevatedClearing]: DailyQuest.VisitTheAncestorsTableOfBelongingInTheHiddenForest,
+	[SkyMap.VillageOfDreams]: DailyQuest.VisitTheHotSpringInTheValleyOfTriumph,
+	[SkyMap.Graveyard]: DailyQuest.VisitTheBonfireAtTheGoldenWasteland,
+} as const satisfies Readonly<Record<SocialLightAreaMaps, DailyQuests>>;
 
-	if (spirit.isSeasonalSpirit() && isQuestSpiritsSeason(spirit.seasonId)) {
-		return QUEST_SPIRITS_SEASONS.includes(spirit.seasonId);
-	}
+const AdmireTheSaplingRealmToDailyQuest = {
+	[RealmName.DaylightPrairie]: DailyQuest.AdmireTheSaplingInTheDaylightPrairie,
+	[RealmName.HiddenForest]: DailyQuest.AdmireTheSaplingInTheHiddenForest,
+	[RealmName.ValleyOfTriumph]: DailyQuest.AdmireTheSaplingInTheValleyOfTriumph,
+	[RealmName.GoldenWasteland]: DailyQuest.AdmireTheSaplingInTheGoldenWasteland,
+	[RealmName.VaultOfKnowledge]: DailyQuest.AdmireTheSaplingInTheVaultOfKnowledge,
+} as const satisfies Readonly<Record<ValidRealmName, DailyQuests>>;
 
-	return false;
-}
+const FindTheCandlesAtTheEndOfTheRainbowRealmToDailyQuest = {
+	[RealmName.DaylightPrairie]: DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie,
+	[RealmName.HiddenForest]: DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest,
+	[RealmName.ValleyOfTriumph]: DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheValleyOfTriumph,
+	[RealmName.GoldenWasteland]: DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheGoldenWasteland,
+	[RealmName.VaultOfKnowledge]: DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheVaultOfKnowledge,
+} as const satisfies Readonly<Record<ValidRealmName, DailyQuests>>;
 
-const COLLECT_30_PIECES_OF_LIGHT = { content: "Collect 30 pieces of light", url: null } as const;
-const LIGHT_20_CANDLES = { content: "Light 20 candles", url: null } as const;
-const FORGE_A_CANDLE = { content: "Forge a candle", url: null } as const;
-const MELT_10_DARKNESS = { content: "Melt 10 darkness", url: null } as const;
+const AdmireTheRainbowSkyMapToDailyQuest = {
+	[SkyMap.SanctuaryIslands]: DailyQuest.AdmireTheRainbowInTheSanctuaryIslands,
+	[SkyMap.WindPaths]: DailyQuest.AdmireTheRainbowInTheWindPaths,
+	[SkyMap.HermitValley]: DailyQuest.AdmireTheRainbowInTheHermitValley,
+	[SkyMap.TreasureReef]: DailyQuest.AdmireTheRainbowInTheTreasureReef,
+	[SkyMap.StarlightDesert]: DailyQuest.AdmireTheRainbowInTheStarlightDesert,
+} as const satisfies Readonly<Record<RainbowAdmireMaps, DailyQuests>>;
 
-const BOW_AT_A_PLAYER = {
-	content: `${SpiritEmote.Bow} at a player`,
-	url: String(new URL("daily_guides/quests/social/bow_at_a_player.webp", CDN_URL)),
-} as const;
+const MeditateSkyMapToDailyQuest = {
+	[SkyMap.BirdNest]: DailyQuest.MeditateAtTheBirdNest,
+	[SkyMap.ButterflyFields]: DailyQuest.MeditateInTheButterflyFields,
+	[SkyMap.SanctuaryIslands]: DailyQuest.MeditateAtTheSanctuaryIslands,
+	[SkyMap.Cave]: DailyQuest.MeditateInTheCave,
+	[SkyMap.KoiPond]: DailyQuest.MeditateByTheKoiPond,
+	[SkyMap.ForestClearing]: DailyQuest.MeditateAtTheForestClearing,
+	[SkyMap.ForestBrook]: DailyQuest.MeditateAtTheForestBrook,
+	[SkyMap.ElevatedClearing]: DailyQuest.MeditateAtTheElevatedClearing,
+	[SkyMap.ForestEnd]: DailyQuest.MeditateAtTheForestEnd,
+	[SkyMap.Boneyard]: DailyQuest.MeditateAtTheBoneyard,
+	[SkyMap.IceRink]: DailyQuest.MeditateByTheIceRink,
+	[SkyMap.Coliseum]: DailyQuest.MeditateAtTheColiseum,
+	[SkyMap.BrokenTemple]: DailyQuest.MeditateInTheBrokenTemple,
+	[SkyMap.ForgottenArk]: DailyQuest.MeditateInTheForgottenArk,
+	[SkyMap.Graveyard]: DailyQuest.MeditateInTheGraveyard,
+	[SkyMap.Boat]: DailyQuest.MeditateOnTheBoat,
+	[SkyMap.Battlefield]: DailyQuest.MeditateOnTheBattlefield,
+	[SkyMap.VaultEntrance]: DailyQuest.MeditateAtTheVaultEntrance,
+	[SkyMap.VaultSecondFloor]: DailyQuest.MeditateInTheVaultSecondFloor,
+	[SkyMap.VaultSummit]: DailyQuest.MeditateAtTheVaultSummit,
+} as const satisfies Readonly<Record<Exclude<MeditationMaps, SkyMap.Citadel>, DailyQuests>>;
 
-const FOLLOW_A_FRIEND = {
-	content: "Follow a friend",
-	url: String(new URL("daily_guides/quests/social/follow_a_friend.webp", CDN_URL)),
-} as const;
-
-const HUG_A_FRIEND = {
-	content: `${FriendAction.Hug} a friend`,
-	url: String(new URL("daily_guides/quests/social/hug_a_friend.webp", CDN_URL)),
-} as const;
-
-const WAVE_TO_A_FRIEND = {
-	content: `${SpiritEmote.Wave} to a friend`,
-	url: String(new URL("daily_guides/quests/social/wave_to_a_friend.webp", CDN_URL)),
-} as const;
-
-const HOLD_A_FRIENDS_HAND = {
-	content: "Hold a friend's hand",
-	url: String(new URL("daily_guides/quests/social/hold_a_friends_hand.webp", CDN_URL)),
-} as const;
-
-const SEND_A_GIFT_TO_A_FRIEND = {
-	content: "Send a gift to a friend",
-	url: String(new URL("daily_guides/quests/social/send_a_gift_to_a_friend.webp", CDN_URL)),
-} as const;
-
-const MAKE_A_NEW_ACQUAINTANCE = {
-	content: "Make a new acquaintance",
-	url: String(new URL("daily_guides/quests/social/make_a_new_acquaintance.webp", CDN_URL)),
-} as const;
-
-const HIGH_FIVE_A_FRIEND = {
-	content: `${FriendAction.HighFive} a friend`,
-	url: String(new URL("daily_guides/quests/social/high_five_a_friend.webp", CDN_URL)),
-} as const;
-
-const USE_AN_EXPRESSION_NEAR_A_FRIEND = {
-	content: "Use an expression near a friend",
-	url: String(new URL("daily_guides/quests/social/use_an_expression_near_a_friend.webp", CDN_URL)),
-} as const;
-
-const SIT_ON_A_BENCH_WITH_A_STRANGER = {
-	content: "Sit on a bench with a stranger",
-	url: String(new URL("daily_guides/quests/social/sit_on_a_bench_with_a_stranger.webp", CDN_URL)),
-} as const;
-
-const RECHARGE_FROM_A_JELLYFISH = {
-	content: "Recharge from a jellyfish",
-	url: String(new URL("daily_guides/quests/miscellaneous/recharge_from_a_jellyfish.webp", CDN_URL)),
-} as const;
-
-const RECHARGE_FROM_A_LIGHT_BLOOM = {
-	content: "Recharge from a light bloom",
-	url: String(
-		new URL("daily_guides/quests/miscellaneous/recharge_from_a_light_bloom.webp", CDN_URL),
-	),
-} as const;
-
-const RIDE_A_MANTA = {
-	content: "Ride with a manta",
-	url: String(new URL("daily_guides/quests/miscellaneous/ride_a_manta.webp", CDN_URL)),
-} as const;
-
-const RELIVE_A_SPIRITS_MEMORIES = {
-	content: "Relive a spirit's memories",
-	url: String(new URL("daily_guides/quests/miscellaneous/relive_a_spirits_memories.webp", CDN_URL)),
-} as const;
-
-const FACE_THE_DARK_DRAGON = {
-	content: "Face the dark dragon",
-	url: String(new URL("daily_guides/quests/miscellaneous/face_the_dark_dragon.gif", CDN_URL)),
-} as const;
-
-const KNOCK_OVER_5_DARK_CRABS = {
-	content: "Knock over 5 dark crabs",
-	url: String(new URL("daily_guides/quests/miscellaneous/knock_over_5_dark_crabs.webp", CDN_URL)),
-} as const;
-
-const CATCH_THE_LIGHT = (realm: ValidRealmName) =>
-	({
-		content: `Catch the light in the ${realm}`,
-		url: String(
-			new URL(`daily_guides/quests/catch_the_light/${snakeCaseName(realm)}.webp`, CDN_URL),
-		),
-	}) as const;
-
-const SOCIAL_LIGHT_AREA = (map: SocialLightAreaMaps) =>
-	({
-		content: `Visit the ${resolveSocialLightAreaMap(map)}`,
-		url: String(
-			new URL(
-				`daily_guides/quests/miscellaneous/visit_the_${SocialLightAreaMapToCDNString[map]}.webp`,
-				CDN_URL,
-			),
-		),
-	}) as const;
-
-const ADMIRE_THE_SAPLING = (realm: ValidRealmName) =>
-	({
-		content: `Admire the sapling in the ${realm}`,
-		url: String(new URL(`daily_guides/quests/days_of_bloom/${snakeCaseName(realm)}.webp`, CDN_URL)),
-	}) as const;
-
-const VISIT_THE_POLLUTED_GEYSER = {
-	content: "Visit the polluted geyser",
-	url: String(
-		new URL("daily_guides/quests/days_of_nature/visit_the_polluted_geyser.webp", CDN_URL),
-	),
-} as const;
-
-const RID_THE_SANCTUARY_VORTEX_OF_DARKNESS = {
-	content: "Rid the sanctuary vortex of darkness",
-	url: String(
-		new URL(
-			"daily_guides/quests/days_of_nature/rid_the_sanctuary_vortex_of_darkness.webp",
-			CDN_URL,
-		),
-	),
-} as const;
-
-const RAINBOW_FIND = (realm: ValidRealmName) =>
-	({
-		content: `Find the candles at the end of the rainbow in the ${realm}`,
-		url: String(
-			new URL(`daily_guides/quests/days_of_colour/find/${snakeCaseName(realm)}.webp`, CDN_URL),
-		),
-	}) as const;
-
-const RAINBOW_ADMIRE = (map: RainbowAdmireMaps) =>
-	({
-		content: `Admire the rainbow in the ${map}`,
-		url: String(
-			new URL(`daily_guides/quests/days_of_colour/admire/${snakeCaseName(map)}.webp`, CDN_URL),
-		),
-	}) as const;
-
-const MEDITATE_CITADEL_ARCH = {
-	content: `Meditate above the ${SkyMap.Citadel}'s arch`,
-	url: String(
-		new URL(
-			`daily_guides/quests/season_of_gratitude/${SkyMap.Citadel.toLowerCase()}/arch.webp`,
-			CDN_URL,
-		),
-	),
-} as const;
-
-const MEDITATE_CITADEL_HIGH_ABOVE = {
-	content: `Meditate high above the ${SkyMap.Citadel}`,
-	url: String(
-		new URL(
-			`daily_guides/quests/season_of_gratitude/${SkyMap.Citadel.toLowerCase()}/high_above.webp`,
-			CDN_URL,
-		),
-	),
-} as const;
-
-function meditate(
-	skyMap: SkyMap.Citadel,
-): [typeof MEDITATE_CITADEL_ARCH, typeof MEDITATE_CITADEL_HIGH_ABOVE];
-function meditate(map: Exclude<MeditationMaps, SkyMap.Citadel>): DailyGuideQuest;
-
-function meditate(
-	skyMap: MeditationMaps,
-): [typeof MEDITATE_CITADEL_ARCH, typeof MEDITATE_CITADEL_HIGH_ABOVE] | DailyGuideQuest;
-
-function meditate(
-	skyMap: MeditationMaps,
-): [typeof MEDITATE_CITADEL_ARCH, typeof MEDITATE_CITADEL_HIGH_ABOVE] | DailyGuideQuest {
-	if (skyMap === SkyMap.Citadel) {
-		return [MEDITATE_CITADEL_ARCH, MEDITATE_CITADEL_HIGH_ABOVE];
-	}
-
-	return {
-		content: `Meditate ${resolveMeditationMap(skyMap)}`,
-		url: String(
-			new URL(`daily_guides/quests/season_of_gratitude/${snakeCaseName(skyMap)}.webp`, CDN_URL),
-		),
-	};
-}
-
-const COLLECT_GREEN_LIGHT = {
-	content: "Collect green light",
-	url: String(
-		new URL("daily_guides/quests/season_of_enchantment/collect_green_light.webp", CDN_URL),
-	),
-} as const;
-
-const COLLECT_ORANGE_LIGHT = {
-	content: "Collect orange light",
-	url: String(
-		new URL("daily_guides/quests/season_of_enchantment/collect_orange_light.webp", CDN_URL),
-	),
-} as const;
-
-const COLLECT_BLUE_LIGHT = {
-	content: "Collect blue light",
-	url: String(
-		new URL("daily_guides/quests/season_of_enchantment/collect_blue_light.webp", CDN_URL),
-	),
-} as const;
-
-const COLLECT_RED_LIGHT = {
-	content: "Collect red light",
-	url: String(new URL("daily_guides/quests/season_of_enchantment/collect_red_light.webp", CDN_URL)),
-} as const;
-
-const COLLECT_PURPLE_LIGHT = {
-	content: "Collect purple light",
-	url: String(
-		new URL("daily_guides/quests/season_of_enchantment/collect_purple_light.webp", CDN_URL),
-	),
-} as const;
-
-const PRACTICE_WITH_THE_SKATER = {
-	content: "Practice with the skater",
-	url: String(
-		new URL("daily_guides/quests/season_of_dreams/practice_with_the_skater.webp", CDN_URL),
-	),
-} as const;
-
-const RACE_DOWN_THE_SLOPES_WITH_THE_SKATER = {
-	content: "Race down the slopes with the skater",
-	url: String(
-		new URL(
-			"daily_guides/quests/season_of_dreams/race_down_the_slopes_with_the_skater.webp",
-			CDN_URL,
-		),
-	),
-} as const;
-
-const RACE_DOWN_THE_MOUNTAIN_WITH_THE_SKATER = {
-	content: "Race down the mountain with the skater",
-	url: String(
-		new URL(
-			"daily_guides/quests/season_of_dreams/race_down_the_mountain_with_the_skater.webp",
-			CDN_URL,
-		),
-	),
-} as const;
-
-const REHEARSE_FOR_A_PERFORMANCE_WITH_THE_SKATER = {
-	content: "Rehearse for a performance with the skater",
-	url: String(
-		new URL(
-			"daily_guides/quests/season_of_dreams/rehearse_for_a_performance_with_the_skater.webp",
-			CDN_URL,
-		),
-	),
-} as const;
-
-const COMPLETE_THE_HOOP_SCAVENGER_HUNT = {
-	content: "Complete the hoop scavenger hunt",
-	url: String(new URL("daily_guides/quests/season_of_assembly/hoop.webp", CDN_URL)),
-} as const;
-
-const MEET_CINNAMOROLL_ON_A_HILL_IN_AVIARY_VILLAGE = {
-	content: "Meet Cinnamoroll on a hill in Aviary Village",
-	url: String(
-		new URL(
-			"daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/meet_cinnamoroll_on_a_hill_in_aviary_village.webp",
-			CDN_URL,
-		),
-	),
-} as const;
-
-const SMELL_FLOWERS_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE = {
-	content: "Smell flowers with Cinnamoroll in Aviary Village",
-	url: String(
-		new URL(
-			"daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/smell_flowers_with_cinnamoroll_in_aviary_village.webp",
-			CDN_URL,
-		),
-	),
-} as const;
-
-const FIND_CINNAMOROLL_PEEKING_AROUND_AVIARY_VILLAGE = {
-	content: "Find Cinnamoroll peeking around Aviary Village",
-	url: String(
-		new URL(
-			"daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/find_cinnamoroll_peeking_around_aviary_village.webp",
-			CDN_URL,
-		),
-	),
-} as const;
-
-const WAKE_UP_CINNAMOROLL_IN_AVIARY_VILLAGE = {
-	content: "Wake up Cinnamoroll in Aviary Village",
-	url: String(
-		new URL(
-			"daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/wake_up_cinnamoroll_in_aviary_village.webp",
-			CDN_URL,
-		),
-	),
-} as const;
-
-const FLY_UP_TO_THE_TOWER_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE = {
-	content: "Fly up to the tower with Cinnamoroll in Aviary Village",
-	url: String(
-		new URL(
-			"daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/fly_up_to_the_tower_with_cinnamoroll_in_aviary_village.webp",
-			CDN_URL,
-		),
-	),
-} as const;
-
-const SPLASH_IN_THE_WATER_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE = {
-	content: "Splash in the water with Cinnamoroll in Aviary Village",
-	url: String(
-		new URL(
-			"daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/splash_in_the_water_with_cinnamoroll_in_aviary_village.webp",
-			CDN_URL,
-		),
-	),
-} as const;
-
-const SPIRIT_QUEST = (spirit: QuestSpirit) =>
-	({
-		content: `Relive the ${spirit.name}`,
-		url: String(new URL(`daily_guides/quests/spirits/${spirit.snakeCaseName}.webp`, CDN_URL)),
-	}) as const;
-
-export const QUESTS = [
-	COLLECT_30_PIECES_OF_LIGHT,
-	LIGHT_20_CANDLES,
-	FORGE_A_CANDLE,
-	MELT_10_DARKNESS,
-	BOW_AT_A_PLAYER,
-	FOLLOW_A_FRIEND,
-	HUG_A_FRIEND,
-	WAVE_TO_A_FRIEND,
-	HOLD_A_FRIENDS_HAND,
-	SEND_A_GIFT_TO_A_FRIEND,
-	MAKE_A_NEW_ACQUAINTANCE,
-	HIGH_FIVE_A_FRIEND,
-	USE_AN_EXPRESSION_NEAR_A_FRIEND,
-	SIT_ON_A_BENCH_WITH_A_STRANGER,
-	RECHARGE_FROM_A_JELLYFISH,
-	RECHARGE_FROM_A_LIGHT_BLOOM,
-	RIDE_A_MANTA,
-	RELIVE_A_SPIRITS_MEMORIES,
-	FACE_THE_DARK_DRAGON,
-	KNOCK_OVER_5_DARK_CRABS,
-	...VALID_REALM_NAME.map((realm) => CATCH_THE_LIGHT(realm)),
-	...SOCIAL_LIGHT_AREA_MAPS.map((map) => SOCIAL_LIGHT_AREA(map)),
-	...VALID_REALM_NAME.map((realm) => ADMIRE_THE_SAPLING(realm)),
-	VISIT_THE_POLLUTED_GEYSER,
-	RID_THE_SANCTUARY_VORTEX_OF_DARKNESS,
-	...VALID_REALM_NAME.map((realm) => RAINBOW_FIND(realm)),
-	...RAINBOW_ADMIRE_MAPS.map((map) => RAINBOW_ADMIRE(map)),
-	...MEDITATION_MAPS.flatMap((map) => meditate(map)),
-	COLLECT_GREEN_LIGHT,
-	COLLECT_ORANGE_LIGHT,
-	COLLECT_BLUE_LIGHT,
-	COLLECT_RED_LIGHT,
-	COLLECT_PURPLE_LIGHT,
-	PRACTICE_WITH_THE_SKATER,
-	RACE_DOWN_THE_SLOPES_WITH_THE_SKATER,
-	RACE_DOWN_THE_MOUNTAIN_WITH_THE_SKATER,
-	REHEARSE_FOR_A_PERFORMANCE_WITH_THE_SKATER,
-	COMPLETE_THE_HOOP_SCAVENGER_HUNT,
-	MEET_CINNAMOROLL_ON_A_HILL_IN_AVIARY_VILLAGE,
-	SMELL_FLOWERS_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE,
-	FIND_CINNAMOROLL_PEEKING_AROUND_AVIARY_VILLAGE,
-	WAKE_UP_CINNAMOROLL_IN_AVIARY_VILLAGE,
-	FLY_UP_TO_THE_TOWER_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE,
-	SPLASH_IN_THE_WATER_WITH_CINNAMOROLL_IN_AVIARY_VILLAGE,
-	...spirits()
-		.filter(isQuestSpirit)
-		.map((spirit) => SPIRIT_QUEST(spirit)),
-] as const satisfies Readonly<DailyGuideQuest[]>;
+const SpiritNameToDailyQuest = {
+	[SpiritName.ButterflyCharmer]: DailyQuest.ReliveTheButterflyCharmer,
+	[SpiritName.ApplaudingBellmaker]: DailyQuest.ReliveTheApplaudingBellmaker,
+	[SpiritName.WavingBellmaker]: DailyQuest.ReliveTheWavingBellmaker,
+	[SpiritName.SlumberingShipwright]: DailyQuest.ReliveTheSlumberingShipwright,
+	[SpiritName.LaughingLightCatcher]: DailyQuest.ReliveTheLaughingLightCatcher,
+	[SpiritName.BirdWhisperer]: DailyQuest.ReliveTheBirdWhisperer,
+	[SpiritName.ExhaustedDockWorker]: DailyQuest.ReliveTheExhaustedDockWorker,
+	[SpiritName.CeremonialWorshiper]: DailyQuest.ReliveTheCeremonialWorshiper,
+	[SpiritName.ShiveringTrailblazer]: DailyQuest.ReliveTheShiveringTrailblazer,
+	[SpiritName.BlushingProspector]: DailyQuest.ReliveTheBlushingProspector,
+	[SpiritName.HideNSeekPioneer]: DailyQuest.ReliveTheHideNSeekPioneer,
+	[SpiritName.PoutyPorter]: DailyQuest.ReliveThePoutyPorter,
+	[SpiritName.DismayedHunter]: DailyQuest.ReliveTheDismayedHunter,
+	[SpiritName.ApologeticLumberjack]: DailyQuest.ReliveTheApologeticLumberjack,
+	[SpiritName.TearfulLightMiner]: DailyQuest.ReliveTheTearfulLightMiner,
+	[SpiritName.WhaleWhisperer]: DailyQuest.ReliveTheWhaleWhisperer,
+	[SpiritName.ConfidentSightseer]: DailyQuest.ReliveTheConfidentSightseer,
+	[SpiritName.HandstandingThrillseeker]: DailyQuest.ReliveTheHandstandingThrillseeker,
+	[SpiritName.MantaWhisperer]: DailyQuest.ReliveTheMantaWhisperer,
+	[SpiritName.BackflippingChampion]: DailyQuest.ReliveTheBackflippingChampion,
+	[SpiritName.CheerfulSpectator]: DailyQuest.ReliveTheCheerfulSpectator,
+	[SpiritName.BowingMedalist]: DailyQuest.ReliveTheBowingMedalist,
+	[SpiritName.ProudVictor]: DailyQuest.ReliveTheProudVictor,
+	[SpiritName.FrightenedRefugee]: DailyQuest.ReliveTheFrightenedRefugee,
+	[SpiritName.FaintingWarrior]: DailyQuest.ReliveTheFaintingWarrior,
+	[SpiritName.CourageousSoldier]: DailyQuest.ReliveTheCourageousSoldier,
+	[SpiritName.StealthySurvivor]: DailyQuest.ReliveTheStealthySurvivor,
+	[SpiritName.SalutingCaptain]: DailyQuest.ReliveTheSalutingCaptain,
+	[SpiritName.LookoutScout]: DailyQuest.ReliveTheLookoutScout,
+	[SpiritName.PrayingAcolyte]: DailyQuest.ReliveThePrayingAcolyte,
+	[SpiritName.LevitatingAdept]: DailyQuest.ReliveTheLevitatingAdept,
+	[SpiritName.PoliteScholar]: DailyQuest.ReliveThePoliteScholar,
+	[SpiritName.MemoryWhisperer]: DailyQuest.ReliveTheMemoryWhisperer,
+	[SpiritName.MeditatingMonastic]: DailyQuest.ReliveTheMeditatingMonastic,
+	[SpiritName.StretchingGuru]: DailyQuest.ReliveTheStretchingGuru,
+	[SpiritName.ProvokingPerformer]: DailyQuest.ReliveTheProvokingPerformer,
+	[SpiritName.LeapingDancer]: DailyQuest.ReliveTheLeapingDancer,
+	[SpiritName.SalutingProtector]: DailyQuest.ReliveTheSalutingProtector,
+	[SpiritName.GreetingShaman]: DailyQuest.ReliveTheGreetingShaman,
+	[SpiritName.DoublefiveLightCatcher]: DailyQuest.ReliveTheDoublefiveLightCatcher,
+	[SpiritName.LaidbackPioneer]: DailyQuest.ReliveTheLaidbackPioneer,
+	[SpiritName.TwirlingChampion]: DailyQuest.ReliveTheTwirlingChampion,
+	[SpiritName.CrabWhisperer]: DailyQuest.ReliveTheCrabWhisperer,
+	[SpiritName.ShushingLightScholar]: DailyQuest.ReliveTheShushingLightScholar,
+	[SpiritName.ConfettiCousin]: DailyQuest.ReliveTheConfettiCousin,
+	[SpiritName.HairtousleTeen]: DailyQuest.ReliveTheHairtousleTeen,
+	[SpiritName.SparklerParent]: DailyQuest.ReliveTheSparklerParent,
+	[SpiritName.PleafulParent]: DailyQuest.ReliveThePleafulParent,
+	[SpiritName.WiseGrandparent]: DailyQuest.ReliveTheWiseGrandparent,
+	[SpiritName.FestivalSpinDancer]: DailyQuest.ReliveTheFestivalSpinDancer,
+	[SpiritName.AdmiringActor]: DailyQuest.ReliveTheAdmiringActor,
+	[SpiritName.TroupeJuggler]: DailyQuest.ReliveTheTroupeJuggler,
+	[SpiritName.RespectfulPianist]: DailyQuest.ReliveTheRespectfulPianist,
+	[SpiritName.ThoughtfulDirector]: DailyQuest.ReliveTheThoughtfulDirector,
+	[SpiritName.NoddingMuralist]: DailyQuest.ReliveTheNoddingMuralist,
+	[SpiritName.IndifferentAlchemist]: DailyQuest.ReliveTheIndifferentAlchemist,
+	[SpiritName.CrabWalker]: DailyQuest.ReliveTheCrabWalker,
+	[SpiritName.ScarecrowFarmer]: DailyQuest.ReliveTheScarecrowFarmer,
+	[SpiritName.SnoozingCarpenter]: DailyQuest.ReliveTheSnoozingCarpenter,
+	[SpiritName.PlayfightingHerbalist]: DailyQuest.ReliveThePlayfightingHerbalist,
+	[SpiritName.JellyWhisperer]: DailyQuest.ReliveTheJellyWhisperer,
+	[SpiritName.TimidBookworm]: DailyQuest.ReliveTheTimidBookworm,
+	[SpiritName.RallyingThrillseeker]: DailyQuest.ReliveTheRallyingThrillseeker,
+	[SpiritName.HikingGrouch]: DailyQuest.ReliveTheHikingGrouch,
+	[SpiritName.GratefulShellCollector]: DailyQuest.ReliveTheGratefulShellCollector,
+	[SpiritName.ChillSunbather]: DailyQuest.ReliveTheChillSunbather,
+	[SpiritName.SpinningMentor]: DailyQuest.ReliveTheSpinningMentor,
+	[SpiritName.DancingPerformer]: DailyQuest.ReliveTheDancingPerformer,
+	[SpiritName.PeekingPostman]: DailyQuest.ReliveThePeekingPostman,
+	[SpiritName.BearhugHermit]: DailyQuest.ReliveTheBearhugHermit,
+	[SpiritName.BaffledBotanist]: DailyQuest.ReliveTheBaffledBotanist,
+	[SpiritName.ScoldingStudent]: DailyQuest.ReliveTheScoldingStudent,
+	[SpiritName.ScaredyCadet]: DailyQuest.ReliveTheScaredyCadet,
+	[SpiritName.MarchingAdventurer]: DailyQuest.ReliveTheMarchingAdventurer,
+	[SpiritName.ChucklingScout]: DailyQuest.ReliveTheChucklingScout,
+	[SpiritName.DaydreamForester]: DailyQuest.ReliveTheDaydreamForester,
+} as const satisfies Readonly<Record<QuestSpirits, DailyQuests>>;
 
 const regularExpressionRealms = REALM_NAME_VALUES.join("|").replaceAll(" ", "\\s+");
 
@@ -661,88 +376,88 @@ export default new (class DailyGuides {
 		this.patch(dailyGuidesPacket!);
 	}
 
-	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Effort.
+	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 	private resolveDailyGuide(options: ResolveDailyGuideOptions) {
-		const { pureContent, realm, skyMap, url } = options;
+		const { pureContent, realm, skyMap } = options;
 		const upperPureContent = pureContent.toUpperCase();
 
 		if (
 			upperPureContent.includes("BOW AT A PLAYER") ||
 			upperPureContent.includes("BOW TO A PLAYER")
 		) {
-			return BOW_AT_A_PLAYER;
+			return DailyQuest.BowAtAPlayer;
 		}
 
 		if (upperPureContent.includes("FOLLOW A FRIEND")) {
-			return FOLLOW_A_FRIEND;
+			return DailyQuest.FollowAFriend;
 		}
 
 		if (upperPureContent.includes("HUG A FRIEND")) {
-			return HUG_A_FRIEND;
+			return DailyQuest.HugAFriend;
 		}
 
 		if (upperPureContent.includes("WAVE TO A FRIEND")) {
-			return WAVE_TO_A_FRIEND;
+			return DailyQuest.WaveToAFriend;
 		}
 
 		if (upperPureContent.includes("HOLD THE HAND")) {
-			return HOLD_A_FRIENDS_HAND;
+			return DailyQuest.HoldAFriendsHand;
 		}
 
 		if (upperPureContent.includes("SEND A GIFT")) {
-			return SEND_A_GIFT_TO_A_FRIEND;
+			return DailyQuest.SendAGiftToAFriend;
 		}
 
 		if (upperPureContent.includes("ACQUAINTANCE")) {
-			return MAKE_A_NEW_ACQUAINTANCE;
+			return DailyQuest.MakeANewAcquaintance;
 		}
 
 		if (upperPureContent.includes("HIGH-FIVE")) {
-			return HIGH_FIVE_A_FRIEND;
+			return DailyQuest.HighFiveAFriend;
 		}
 
 		if (upperPureContent.includes("EXPRESSION NEAR A FRIEND")) {
-			return USE_AN_EXPRESSION_NEAR_A_FRIEND;
+			return DailyQuest.UseAnExpressionNearAFriend;
 		}
 
 		if (upperPureContent.includes("BENCH")) {
-			return SIT_ON_A_BENCH_WITH_A_STRANGER;
+			return DailyQuest.SitOnABenchWithAStranger;
 		}
 
 		if (upperPureContent.includes("RECHARGE FROM A JELLYFISH")) {
-			return RECHARGE_FROM_A_JELLYFISH;
+			return DailyQuest.RechargeFromAJellyfish;
 		}
 
 		if (upperPureContent.includes("RECHARGE FROM A LIGHT BLOOM")) {
-			return RECHARGE_FROM_A_LIGHT_BLOOM;
+			return DailyQuest.RechargeFromALightBloom;
 		}
 
 		if (
 			upperPureContent.includes("RIDE A MANTA") ||
 			upperPureContent.includes("RIDE WITH A MANTA")
 		) {
-			return RIDE_A_MANTA;
+			return DailyQuest.RideWithAManta;
 		}
 
 		if (upperPureContent.includes("RELIVE A SPIRIT'S MEMORY")) {
-			return RELIVE_A_SPIRITS_MEMORIES;
+			return DailyQuest.ReliveASpiritsMemories;
 		}
 
 		if (upperPureContent.includes("DARK DRAGON")) {
-			return FACE_THE_DARK_DRAGON;
+			return DailyQuest.FaceTheDarkDragon;
 		}
 
 		if (upperPureContent.includes("KNOCK OVER 5 DARK CREATURE")) {
-			return KNOCK_OVER_5_DARK_CRABS;
+			return DailyQuest.KnockOver5DarkCrabs;
 		}
 
 		if (upperPureContent.includes("CATCH THE LIGHT")) {
 			if (realm) {
-				return CATCH_THE_LIGHT(realm);
+				return CatchTheLightRealmToDailyQuest[realm];
 			}
 
 			pino.error(options, "Failed to match a catch the light realm.");
-			return { content: "Catch the light", url };
+			return null;
 		}
 
 		if (
@@ -750,115 +465,116 @@ export default new (class DailyGuides {
 			upperPureContent.includes("VISIT THE ANCESTOR")
 		) {
 			if (skyMap && isSocialLightAreaMap(skyMap)) {
-				return SOCIAL_LIGHT_AREA(skyMap);
+				return SocialLightAreaSkyMapToDailyQuest[skyMap];
 			}
 
 			pino.error(options, "Failed to match a social light area map.");
-			return { content: "Visit the social light area", url };
+			return null;
 		}
 
 		if (upperPureContent.includes("SAPLING")) {
 			if (realm) {
-				return ADMIRE_THE_SAPLING(realm);
+				return AdmireTheSaplingRealmToDailyQuest[realm];
 			}
 
 			pino.error(options, "Failed to match an admire the sapling realm.");
-			return { content: "Admire the sapling", url };
+			return null;
 		}
 
 		if (upperPureContent.includes("POLLUTED GEYSER")) {
-			return VISIT_THE_POLLUTED_GEYSER;
+			return DailyQuest.VisitThePollutedGeyser;
 		}
 
 		if (upperPureContent.includes("GREAT VORTEX")) {
-			return RID_THE_SANCTUARY_VORTEX_OF_DARKNESS;
+			return DailyQuest.RidTheSanctuaryVortexOfDarkness;
 		}
 
 		if (upperPureContent.includes("DAYS OF RAINBOW 2021")) {
 			if (realm) {
-				return RAINBOW_FIND(realm);
+				return FindTheCandlesAtTheEndOfTheRainbowRealmToDailyQuest[realm];
 			}
 
 			pino.error(options, "Failed to match a rainbow find realm.");
-			return { content: "Find the candles at the end of the rainbow", url };
+			return null;
 		}
 
 		if (upperPureContent.includes("ADMIRE THE RAINBOW")) {
 			if (skyMap && isRainbowAdmireMap(skyMap)) {
-				return RAINBOW_ADMIRE(skyMap);
+				return AdmireTheRainbowSkyMapToDailyQuest[skyMap];
 			}
 
 			pino.error(options, "Failed to match a rainbow admire map.");
-			return { content: `Admire the rainbow${skyMap ? ` in the ${skyMap}` : ""}`, url };
+			return null;
 		}
 
 		if (upperPureContent.includes("MEDITATION")) {
 			if (skyMap === SkyMap.Citadel) {
 				if (upperPureContent.includes("ARCH")) {
-					return MEDITATE_CITADEL_ARCH;
+					return DailyQuest.MeditateAboveTheCitadelsArch;
 				}
 
 				if (upperPureContent.includes("HIGH ABOVE")) {
-					return MEDITATE_CITADEL_HIGH_ABOVE;
+					return DailyQuest.MeditateHighAboveTheCitadel;
 				}
 			} else if (skyMap && isMeditationMap(skyMap)) {
-				return meditate(skyMap);
+				return MeditateSkyMapToDailyQuest[skyMap];
 			}
 
 			pino.error(options, "Failed to match a meditation map.");
-			return { content: `Meditate${skyMap ? ` at the ${skyMap}` : ""}`, url };
+			return null;
 		}
 
 		if (upperPureContent.includes("GREEN LIGHT")) {
-			return COLLECT_GREEN_LIGHT;
+			return DailyQuest.CollectGreenLight;
 		}
 
 		if (upperPureContent.includes("ORANGE LIGHT")) {
-			return COLLECT_ORANGE_LIGHT;
+			return DailyQuest.CollectOrangeLight;
 		}
 
 		if (upperPureContent.includes("BLUE LIGHT")) {
-			return COLLECT_BLUE_LIGHT;
+			return DailyQuest.CollectBlueLight;
 		}
 
+		// Prefix a space because "coloured light" contains red light.
 		if (upperPureContent.includes(" RED LIGHT")) {
-			return COLLECT_RED_LIGHT; // Prefix a space because "coloured light" contains red light.
+			return DailyQuest.CollectRedLight;
 		}
 
 		if (upperPureContent.includes("PURPLE LIGHT")) {
-			return COLLECT_PURPLE_LIGHT;
+			return DailyQuest.CollectPurpleLight;
 		}
 
 		if (upperPureContent.includes("PRACTICE WITH THE SKATER")) {
-			return PRACTICE_WITH_THE_SKATER;
+			return DailyQuest.PracticeWithTheSkater;
 		}
 
 		if (upperPureContent.includes("RACE DOWN THE SLOPES")) {
-			return RACE_DOWN_THE_SLOPES_WITH_THE_SKATER;
+			return DailyQuest.RaceDownTheSlopesWithTheSkater;
 		}
 
 		if (upperPureContent.includes("RACE DOWN THE MOUNTAIN")) {
-			return RACE_DOWN_THE_MOUNTAIN_WITH_THE_SKATER;
+			return DailyQuest.RaceDownTheMountainWithTheSkater;
 		}
 
 		if (upperPureContent.includes("REHEARSE FOR A PERFORMANCE")) {
-			return REHEARSE_FOR_A_PERFORMANCE_WITH_THE_SKATER;
+			return DailyQuest.RehearseForAPerformanceWithTheSkater;
 		}
 
 		if (upperPureContent.includes("SCAVENGER HUNT")) {
-			return COMPLETE_THE_HOOP_SCAVENGER_HUNT;
+			return DailyQuest.CompleteTheHoopScavengerHunt;
 		}
 
 		const sanitisedUpperPureContent = upperPureContent.replaceAll("’", "'");
 
-		for (const spirit of spirits()) {
-			if (sanitisedUpperPureContent.includes(spirit.name.toUpperCase())) {
-				if (isQuestSpirit(spirit)) {
-					return SPIRIT_QUEST(spirit);
+		for (const spiritName of QUEST_SPIRITS) {
+			if (sanitisedUpperPureContent.includes(spiritName.toUpperCase())) {
+				if (isQuestSpirit(spiritName)) {
+					return SpiritNameToDailyQuest[spiritName];
 				}
 
-				pino.error(options, `Failed to match a spirit for ${spirit.name}.`);
-				return { content: `Relive the ${spirit.name}`, url };
+				pino.error(options, `Failed to match a spirit for ${spiritName}.`);
+				return null;
 			}
 		}
 
@@ -872,8 +588,6 @@ export default new (class DailyGuides {
 			pino.info("Attempted to parse daily quests despite all quest variables exhausted.");
 			return false;
 		}
-
-		const url = attachments[0]?.url ?? null;
 
 		// Remove the message link, if any.
 		const pureContent = (
@@ -893,25 +607,26 @@ export default new (class DailyGuides {
 		const skyMap = potentialMapRegExp ? resolveMap(potentialMapRegExp) : null;
 
 		// Resolve the daily guide.
-		const dailyGuide = this.resolveDailyGuide({ pureContent, realm, skyMap, url });
+		const dailyQuest = this.resolveDailyGuide({ pureContent, realm, skyMap });
 
-		// Log that we will be falling back to the original string in case of no output.
-		if (!dailyGuide) {
+		// Log if no match.
+		if (!dailyQuest) {
 			pino.error(
 				{ content, attachments: JSON.stringify(attachments) },
-				"Failed to match a daily quest. Falling back to original string.",
+				"Failed to match a daily quest.",
 			);
 		}
 
 		// Initialise the output.
-		const data = {
-			content:
-				dailyGuide?.content ?? pureContent.replaceAll("**", "").replaceAll(/ {2,}/g, " ").trim(),
-			url: dailyGuide?.url ?? url,
-		};
+		const data = dailyQuest
+			? {
+					id: dailyQuest,
+					url: DailyQuestToInfographicURL[dailyQuest],
+				}
+			: null;
 
 		// Duplicate check in case of manually updating.
-		if ([quest1, quest2, quest3, quest4].some((quest) => quest?.content === data.content)) {
+		if ([quest1, quest2, quest3, quest4].some((quest) => data && quest?.id === data.id)) {
 			return false;
 		}
 

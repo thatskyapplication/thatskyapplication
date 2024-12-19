@@ -1,5 +1,5 @@
 import { SeasonId } from "../utility/catalogue.js";
-import { NotificationType, RealmName, SkyMap } from "../utility/constants.js";
+import { DailyQuest, NotificationType, RealmName, SkyMap } from "../utility/constants.js";
 import { SpiritName } from "../utility/spirits.js";
 
 export default {
@@ -56,6 +56,15 @@ export default {
 			[SeasonId.Nesting]: "Saison de la Nidification",
 			[SeasonId.Duets]: "Saison des Duos",
 			[SeasonId.Moomin]: "Saison des Moomins",
+		},
+		quests: {
+			[DailyQuest.RideWithAManta]: "Montez sur une raie manta",
+			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
+				"Visitez le cachette confortable dans les grottes de la Prairie",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
+				"Trouvez les bougies au bout de l'arc-en-ciel dans la Prairie illuminée",
+			[DailyQuest.ReliveTheStretchingGuru]:
+				"Revivez le souvenir du gourou en étirement dans la Prairie illuminée",
 		},
 		"shard-eruption": "Éruption d'Éclats",
 		"shard-eruption-none": "Aucun",
