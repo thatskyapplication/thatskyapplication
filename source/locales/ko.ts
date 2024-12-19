@@ -1,5 +1,5 @@
 import { EventId, SeasonId } from "../utility/catalogue.js";
-import { RealmName, SkyMap } from "../utility/constants.js";
+import { DailyQuest, RealmName, SkyMap } from "../utility/constants.js";
 import { SpiritName } from "../utility/spirits.js";
 
 export default {
@@ -14,6 +14,14 @@ export default {
 			[RealmName.EyeOfEden]: "에덴의 눈",
 		},
 		maps: { [SkyMap.JellyfishCove]: "해파리 만" },
+		quests: {
+			[DailyQuest.RideWithAManta]: "만타가오리 위에 올라타기",
+			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
+				"초원의 동굴 속 안락한 아지트를 찾아가기",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
+				"햇빛 초원의 무지개 끝에서 양초를 찾기",
+			[DailyQuest.ReliveTheStretchingGuru]: "햇빛 초원에서 체조하는 선생의 기억을 다시 체험하기",
+		},
 		seasons: {
 			[SeasonId.Gratitude]: "감사의 시즌",
 			[SeasonId.Lightseekers]: "빛 추적자의 시즌",
