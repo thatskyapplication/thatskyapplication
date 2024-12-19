@@ -1,5 +1,5 @@
 import { SeasonId } from "../utility/catalogue.js";
-import { RealmName, SkyMap } from "../utility/constants.js";
+import { DailyQuest, RealmName, SkyMap } from "../utility/constants.js";
 import { SpiritName } from "../utility/spirits.js";
 
 export default {
@@ -14,6 +14,15 @@ export default {
 			[RealmName.EyeOfEden]: "Olho de Éden",
 		},
 		maps: { [SkyMap.JellyfishCove]: "Enseada das Águas-vivas" },
+		quests: {
+			[DailyQuest.RideWithAManta]: "Passeie com uma arraia",
+			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
+				" Visite o esconderijo aconchegante nas Cavernas da Campina",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
+				"Econtre as velas no fim do arco-íris na Campina da Aurora",
+			[DailyQuest.ReliveTheStretchingGuru]:
+				"Reviva as lembranças do Guru Alongando na Campina da Aurora",
+		},
 		seasons: {
 			[SeasonId.Gratitude]: "Temporada da Gratidão",
 			[SeasonId.Lightseekers]: "Temporada dos Caçadores de Luz",
