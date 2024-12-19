@@ -1,5 +1,5 @@
 import { SeasonId } from "../utility/catalogue.js";
-import { RealmName } from "../utility/constants.js";
+import { DailyQuest, RealmName } from "../utility/constants.js";
 import { SpiritName } from "../utility/spirits.js";
 
 export default {
@@ -12,6 +12,13 @@ export default {
 			[RealmName.GoldenWasteland]: "แดนร้างทองอร่าม",
 			[RealmName.VaultOfKnowledge]: "กรุสมบัติแห่งปัญญา",
 			[RealmName.EyeOfEden]: "ดวงตาแห่งเอเดน",
+		},
+		quests: {
+			[DailyQuest.RideWithAManta]: "ขี่กระเบน",
+			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]: "ไปยังที่ช่อนแสนสบายในถ้ำแห่งทุ่งหญ้า",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
+				"ค้นหาเทียนที่สุดปลายสายรุ้งในทุ่งหญ้าแสงตะวัน",
+			[DailyQuest.ReliveTheStretchingGuru]: "หวนระลึกความทรงจำของกูรูนักยึดเหยียดจากทุ่งหญ้าแสงตะวัน",
 		},
 		seasons: {
 			[SeasonId.Moomin]: "ฤดูกาลแห่งมูมิน",
