@@ -1,5 +1,5 @@
 import { SeasonId } from "../utility/catalogue.js";
-import { RealmName, SkyMap } from "../utility/constants.js";
+import { DailyQuest, RealmName, SkyMap } from "../utility/constants.js";
 import { SpiritName } from "../utility/spirits.js";
 
 export default {
@@ -14,6 +14,15 @@ export default {
 			[RealmName.EyeOfEden]: "Occhio di Eden",
 		},
 		maps: { [SkyMap.JellyfishCove]: "Baia delle Meduse" },
+		quests: {
+			[DailyQuest.RideWithAManta]: "Cavalca una manta",
+			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
+				"Visita il nascondiglio accogliente nella grotte della Prateria",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
+				"Trova le candele alla fine dell'arcobaleno nella Prateria Diurna",
+			[DailyQuest.ReliveTheStretchingGuru]:
+				"Revivi il ricordo del Guru stiracchiante nella Prateria Diurna",
+		},
 		seasons: {
 			[SeasonId.Gratitude]: "Stagione della Gratitudine",
 			[SeasonId.Lightseekers]: "Stagione dei Cercatori della Luce",
