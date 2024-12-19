@@ -222,7 +222,7 @@ const RECHARGE_FROM_A_LIGHT_BLOOM = {
 } as const;
 
 const RIDE_A_MANTA = {
-	content: "Ride a manta",
+	content: "Ride with a manta",
 	url: String(new URL("daily_guides/quests/miscellaneous/ride_a_manta.webp", CDN_URL)),
 } as const;
 
@@ -717,7 +717,10 @@ export default new (class DailyGuides {
 			return RECHARGE_FROM_A_LIGHT_BLOOM;
 		}
 
-		if (upperPureContent.includes("RIDE A MANTA")) {
+		if (
+			upperPureContent.includes("RIDE A MANTA") ||
+			upperPureContent.includes("RIDE WITH A MANTA")
+		) {
 			return RIDE_A_MANTA;
 		}
 
