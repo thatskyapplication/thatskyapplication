@@ -1,5 +1,5 @@
 import { SeasonId } from "../utility/catalogue.js";
-import { RealmName, SkyMap } from "../utility/constants.js";
+import { DailyQuest, RealmName, SkyMap } from "../utility/constants.js";
 import { SpiritName } from "../utility/spirits.js";
 
 export default {
@@ -22,6 +22,15 @@ export default {
 			[SkyMap.AncientMemory]: "Recuerdo Ancestral",
 			[SkyMap.JellyfishCove]: "Ensenada de la Medusa",
 			[SkyMap.CrescentOasis]: "Oasis creciente",
+		},
+		quests: {
+			[DailyQuest.RideWithAManta]: "Vuela con una mantarraya",
+			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
+				"Visita el cómodo escondite en las cuevas de las planicies",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
+				"Encuentra las velas al final del arcoíris en la Planicie Luz de Día",
+			[DailyQuest.ReliveTheStretchingGuru]:
+				"Revive el recuerdo del Gurú estirando de la Planicie Luz de Día",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Temporada de la gratitud",
