@@ -1,5 +1,5 @@
 import { SeasonId } from "../utility/catalogue.js";
-import { RealmName, SkyMap } from "../utility/constants.js";
+import { DailyQuest, RealmName, SkyMap } from "../utility/constants.js";
 import { SpiritName } from "../utility/spirits.js";
 
 export default {
@@ -14,6 +14,15 @@ export default {
 			[RealmName.EyeOfEden]: "Сердце Эдема",
 		},
 		maps: { [SkyMap.JellyfishCove]: "Бухту медуз" },
+		quests: {
+			[DailyQuest.RideWithAManta]: "Поездки с мантой",
+			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
+				"Найдите уютное укрытие в пещерах в прерии",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
+				"Найдите свечи в конце радуги в Полуденной прерии",
+			[DailyQuest.ReliveTheStretchingGuru]:
+				"Переживите воспоминания Растягивающегося гуру из Полуденной прерии",
+		},
 		seasons: {
 			[SeasonId.Gratitude]: "Сезон благодарности",
 			[SeasonId.Lightseekers]: "Сезон искателей света",
