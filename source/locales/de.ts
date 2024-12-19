@@ -1,5 +1,5 @@
 import { SeasonId } from "../utility/catalogue.js";
-import { RealmName, SkyMap } from "../utility/constants.js";
+import { DailyQuest, RealmName, SkyMap } from "../utility/constants.js";
 import { SpiritName } from "../utility/spirits.js";
 
 export default {
@@ -14,6 +14,15 @@ export default {
 			[RealmName.EyeOfEden]: "Auge von Eden",
 		},
 		maps: { [SkyMap.JellyfishCove]: "Quallenbucht" },
+		quests: {
+			[DailyQuest.RideWithAManta]: "Schwimme mit einem Riesenrochen",
+			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
+				"Besuche das gemütliche Versteck in den Präriehöhlen",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
+				"Suche die Kerzen am Ende des Regenbogens in der Tageslichtprärie",
+			[DailyQuest.ReliveTheStretchingGuru]:
+				"Erlebe erneut die Erinnerung des Stretchenden Gurus von der Tageslicht-Prärie",
+		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison der Dankbarkeit",
 			[SeasonId.Lightseekers]: "Saison der Lichtsucher",
