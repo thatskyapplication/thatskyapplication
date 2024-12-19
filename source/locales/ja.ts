@@ -1,5 +1,5 @@
 import { SeasonId } from "../utility/catalogue.js";
-import { RealmName, SkyMap } from "../utility/constants.js";
+import { DailyQuest, RealmName, SkyMap } from "../utility/constants.js";
 import { SpiritName } from "../utility/spirits.js";
 
 export default {
@@ -14,6 +14,14 @@ export default {
 			[RealmName.EyeOfEden]: "暴風域",
 		},
 		maps: { [SkyMap.JellyfishCove]: "海月の入り江" },
+		quests: {
+			[DailyQuest.RideWithAManta]: "マンタに乗る",
+			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
+				"草原の洞窟にあるくつろげる横穴を訪れる",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
+				"草原で虹のキャンドルを見つける",
+			[DailyQuest.ReliveTheStretchingGuru]: "草原で屈伸する導師の記憶を呼び起こす",
+		},
 		seasons: {
 			[SeasonId.Gratitude]: "感謝の季節",
 			[SeasonId.Lightseekers]: "光の探求者の季節",
