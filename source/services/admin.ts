@@ -8,7 +8,6 @@ import {
 	type APIMessageComponentSelectMenuInteraction,
 	type APIModalSubmitGuildInteraction,
 	ActivityType,
-	ApplicationCommandOptionType,
 	ButtonStyle,
 	ComponentType,
 	MessageFlags,
@@ -16,12 +15,13 @@ import {
 	TextInputStyle,
 } from "@discordjs/core";
 import { hash } from "hasha";
+import { t } from "i18next";
 import sharp from "sharp";
 import { client } from "../discord.js";
 import type { InteractiveOptions } from "../models/Admin.js";
 import Configuration from "../models/Configuration.js";
 import type { QuestNumber } from "../models/DailyGuides.js";
-import DailyGuides, { QUESTS } from "../models/DailyGuides.js";
+import DailyGuides, { isDailyQuest } from "../models/DailyGuides.js";
 import S3Client from "../s3-client.js";
 import {
 	distribute as distributeDailyGuides,
@@ -42,6 +42,8 @@ import {
 	DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID,
 	DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1,
 	DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2,
+	DAILY_QUEST_VALUES,
+	DailyQuestToInfographicURL,
 	LOCALE_OPTIONS,
 	MAXIMUM_EMBED_FIELD_NAME_LENGTH,
 	MAXIMUM_EMBED_FIELD_VALUE_LENGTH,
@@ -191,14 +193,22 @@ export async function setQuestAutocomplete(
 	interaction: APIApplicationCommandAutocompleteInteraction,
 	options: OptionResolver,
 ) {
-	const focused = options.getFocusedOption(ApplicationCommandOptionType.String).value.toUpperCase();
+	const { locale } = interaction;
+	const focused = options.getFocusedOption().value.toUpperCase();
 
 	await client.api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
 		choices:
 			focused === ""
 				? []
-				: QUESTS.filter(({ content }) => content.toUpperCase().includes(focused))
-						.map(({ content }) => ({ name: content, value: content }))
+				: DAILY_QUEST_VALUES.filter((dailyQuest) =>
+						t(`quests.${dailyQuest}`, { lng: locale, ns: "general" })
+							.toUpperCase()
+							.includes(focused),
+					)
+						.map((dailyQuest) => ({
+							name: t(`quests.${dailyQuest}`, { lng: locale, ns: "general" }),
+							value: dailyQuest,
+						}))
 						.slice(0, 25),
 	});
 }
@@ -218,30 +228,34 @@ export async function setQuest(
 		return;
 	}
 
-	const quest1 = options.getString("quest-1") ?? DailyGuides.quest1?.content;
-	const quest2 = options.getString("quest-2") ?? DailyGuides.quest2?.content;
-	const quest3 = options.getString("quest-3") ?? DailyGuides.quest3?.content;
-	const quest4 = options.getString("quest-4") ?? DailyGuides.quest4?.content;
+	const quest1 = options.getInteger("quest-1") ?? DailyGuides.quest1?.id;
+	const quest2 = options.getInteger("quest-2") ?? DailyGuides.quest2?.id;
+	const quest3 = options.getInteger("quest-3") ?? DailyGuides.quest3?.id;
+	const quest4 = options.getInteger("quest-4") ?? DailyGuides.quest4?.id;
 
 	const url1 =
-		options.getString("url-1") ?? QUESTS.find((quest) => quest.content === quest1)?.url ?? null;
+		options.getString("url-1") ??
+		(quest1 !== undefined && isDailyQuest(quest1) ? DailyQuestToInfographicURL[quest1] : null);
 
 	const url2 =
-		options.getString("url-2") ?? QUESTS.find((quest) => quest.content === quest2)?.url ?? null;
+		options.getString("url-2") ??
+		(quest2 !== undefined && isDailyQuest(quest2) ? DailyQuestToInfographicURL[quest2] : null);
 
 	const url3 =
-		options.getString("url-3") ?? QUESTS.find((quest) => quest.content === quest3)?.url ?? null;
+		options.getString("url-3") ??
+		(quest3 !== undefined && isDailyQuest(quest3) ? DailyQuestToInfographicURL[quest3] : null);
 
 	const url4 =
-		options.getString("url-4") ?? QUESTS.find((quest) => quest.content === quest4)?.url ?? null;
+		options.getString("url-4") ??
+		(quest4 !== undefined && isDailyQuest(quest4) ? DailyQuestToInfographicURL[quest4] : null);
 
 	const previousEmbed = await distributionEmbed(locale);
 
 	await DailyGuides.updateQuests({
-		quest1: quest1 ? { content: quest1, url: url1 } : null,
-		quest2: quest2 ? { content: quest2, url: url2 } : null,
-		quest3: quest3 ? { content: quest3, url: url3 } : null,
-		quest4: quest4 ? { content: quest4, url: url4 } : null,
+		quest1: quest1 !== undefined ? { id: quest1, url: url1 } : null,
+		quest2: quest2 !== undefined ? { id: quest2, url: url2 } : null,
+		quest3: quest3 !== undefined ? { id: quest3, url: url3 } : null,
+		quest4: quest4 !== undefined ? { id: quest4, url: url4 } : null,
 	});
 
 	void log({

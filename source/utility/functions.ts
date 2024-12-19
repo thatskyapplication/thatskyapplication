@@ -111,52 +111,8 @@ export function resolveMap(rawMap: string) {
 		: Object.values(SkyMap).find((skyMap) => skyMap.toUpperCase() === upperRawMap) ?? null;
 }
 
-export function resolveMeditationMap(map: MeditationMaps) {
-	switch (map) {
-		case SkyMap.ForestBrook:
-		case SkyMap.Citadel:
-			return `above the ${map}`;
-		case SkyMap.BirdNest:
-		case SkyMap.SanctuaryIslands:
-		case SkyMap.Boneyard:
-		case SkyMap.ForestClearing:
-		case SkyMap.ForestEnd:
-		case SkyMap.Coliseum:
-		case SkyMap.VaultEntrance:
-		case SkyMap.VaultSummit:
-			return `at the ${map}`;
-		case SkyMap.KoiPond:
-		case SkyMap.IceRink:
-			return `by the ${map}`;
-		case SkyMap.ButterflyFields:
-		case SkyMap.Cave:
-		case SkyMap.ElevatedClearing:
-		case SkyMap.BrokenTemple:
-		case SkyMap.ForgottenArk:
-		case SkyMap.Graveyard:
-		case SkyMap.VaultSecondFloor:
-			return `in the ${map}`;
-		case SkyMap.Battlefield:
-		case SkyMap.Boat:
-			return `on the ${map}`;
-	}
-}
-
 export function isMeditationMap(skyMap: SkyMap): skyMap is MeditationMaps {
 	return MEDITATION_MAPS.includes(skyMap as MeditationMaps);
-}
-
-export function resolveSocialLightAreaMap(skyMap: SocialLightAreaMaps) {
-	switch (skyMap) {
-		case SkyMap.Cave:
-			return `cosy hideout in the ${skyMap}`;
-		case SkyMap.ElevatedClearing:
-			return `ancestor's table of belonging in the ${skyMap}`;
-		case SkyMap.VillageOfDreams:
-			return `hot spring in the ${skyMap}`;
-		case SkyMap.Graveyard:
-			return `bonfire at the ${skyMap}`;
-	}
 }
 
 export function isSocialLightAreaMap(skyMap: SkyMap): skyMap is SocialLightAreaMaps {

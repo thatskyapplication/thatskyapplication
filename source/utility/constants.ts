@@ -215,13 +215,6 @@ export const SOCIAL_LIGHT_AREA_MAPS = [
 
 export type SocialLightAreaMaps = (typeof SOCIAL_LIGHT_AREA_MAPS)[number];
 
-export const SocialLightAreaMapToCDNString = {
-	[SkyMap.Cave]: "cosy_hideout",
-	[SkyMap.ElevatedClearing]: "ancestors_table_of_belonging",
-	[SkyMap.VillageOfDreams]: "hot_spring",
-	[SkyMap.Graveyard]: "bonfire",
-} as const satisfies Readonly<Record<SocialLightAreaMaps, string>>;
-
 export const RAINBOW_ADMIRE_MAPS = [
 	SkyMap.SanctuaryIslands,
 	SkyMap.WindPaths,
@@ -534,6 +527,803 @@ export const CONTENT_CREATORS_EDIT_TEXT_INPUT_CUSTOM_ID =
 	"CONTENT_CREATORS_EDIT_TEXT_INPUT_CUSTOM_ID" as const;
 
 // Daily guides.
+export const DailyQuest = {
+	Collect30PiecesOfLight: 0,
+	Light20Candles: 1,
+	ForgeACandle: 2,
+	Melt10Darkness: 3,
+	BowAtAPlayer: 4,
+	FollowAFriend: 5,
+	HugAFriend: 6,
+	WaveToAFriend: 7,
+	HoldAFriendsHand: 8,
+	SendAGiftToAFriend: 9,
+	MakeANewAcquaintance: 10,
+	HighFiveAFriend: 11,
+	UseAnExpressionNearAFriend: 12,
+	SitOnABenchWithAStranger: 13,
+	RechargeFromAJellyfish: 14,
+	RechargeFromALightBloom: 15,
+	RideWithAManta: 16,
+	ReliveASpiritsMemories: 17,
+	FaceTheDarkDragon: 18,
+	KnockOver5DarkCrabs: 19,
+	CatchTheLightInTheDaylightPrairie: 20,
+	CatchTheLightInTheHiddenForest: 21,
+	CatchTheLightInTheValleyOfTriumph: 22,
+	CatchTheLightInTheGoldenWasteland: 23,
+	CatchTheLightInTheVaultOfKnowledge: 24,
+	VisitTheCosyHideoutInTheDaylightPrairie: 25,
+	VisitTheAncestorsTableOfBelongingInTheHiddenForest: 26,
+	VisitTheHotSpringInTheValleyOfTriumph: 27,
+	VisitTheBonfireAtTheGoldenWasteland: 28,
+	AdmireTheSaplingInTheDaylightPrairie: 29,
+	AdmireTheSaplingInTheHiddenForest: 30,
+	AdmireTheSaplingInTheValleyOfTriumph: 31,
+	AdmireTheSaplingInTheGoldenWasteland: 32,
+	AdmireTheSaplingInTheVaultOfKnowledge: 33,
+	VisitThePollutedGeyser: 34,
+	RidTheSanctuaryVortexOfDarkness: 35,
+	FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie: 36,
+	FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest: 37,
+	FindTheCandlesAtTheEndOfTheRainbowInTheValleyOfTriumph: 38,
+	FindTheCandlesAtTheEndOfTheRainbowInTheGoldenWasteland: 39,
+	FindTheCandlesAtTheEndOfTheRainbowInTheVaultOfKnowledge: 40,
+	AdmireTheRainbowInTheSanctuaryIslands: 41,
+	AdmireTheRainbowInTheWindPaths: 42,
+	AdmireTheRainbowInTheHermitValley: 43,
+	AdmireTheRainbowInTheTreasureReef: 44,
+	AdmireTheRainbowInTheStarlightDesert: 45,
+	MeditateAtTheBirdNest: 46,
+	MeditateInTheButterflyFields: 47,
+	MeditateAtTheSanctuaryIslands: 48,
+	MeditateInTheCave: 49,
+	MeditateByTheKoiPond: 50,
+	MeditateAtTheForestClearing: 51,
+	MeditateAtTheForestBrook: 52,
+	MeditateAtTheElevatedClearing: 53,
+	MeditateAtTheForestEnd: 54,
+	MeditateAtTheBoneyard: 55,
+	MeditateByTheIceRink: 56,
+	MeditateAboveTheCitadelsArch: 57,
+	MeditateHighAboveTheCitadel: 58,
+	MeditateAtTheColiseum: 59,
+	MeditateInTheBrokenTemple: 60,
+	MeditateInTheForgottenArk: 61,
+	MeditateInTheGraveyard: 62,
+	MeditateOnTheBoat: 63,
+	MeditateOnTheBattlefield: 64,
+	MeditateAtTheVaultEntrance: 65,
+	MeditateInTheVaultSecondFloor: 66,
+	MeditateAtTheVaultSummit: 67,
+	CollectGreenLight: 68,
+	CollectOrangeLight: 69,
+	CollectBlueLight: 70,
+	CollectRedLight: 71,
+	CollectPurpleLight: 72,
+	PracticeWithTheSkater: 73,
+	RaceDownTheSlopesWithTheSkater: 74,
+	RaceDownTheMountainWithTheSkater: 75,
+	RehearseForAPerformanceWithTheSkater: 76,
+	CompleteTheHoopScavengerHunt: 77,
+	MeetCinnamorollOnAHillInAviaryVillage: 78,
+	SmellFlowersWithCinnamorollInAviaryVillage: 79,
+	FindCinnamorollPeekingAroundAviaryVillage: 80,
+	WakeUpCinnamorollInAviaryVillage: 81,
+	FlyUpToTheTowerWithCinnamorollInAviaryVillage: 82,
+	SplashInTheWaterWithCinnamorollInAviaryVillage: 83,
+	ReliveTheButterflyCharmer: 84,
+	ReliveTheApplaudingBellmaker: 85,
+	ReliveTheWavingBellmaker: 86,
+	ReliveTheSlumberingShipwright: 87,
+	ReliveTheLaughingLightCatcher: 88,
+	ReliveTheBirdWhisperer: 89,
+	ReliveTheExhaustedDockWorker: 90,
+	ReliveTheCeremonialWorshiper: 91,
+	ReliveTheShiveringTrailblazer: 92,
+	ReliveTheBlushingProspector: 93,
+	ReliveTheHideNSeekPioneer: 94,
+	ReliveThePoutyPorter: 95,
+	ReliveTheDismayedHunter: 96,
+	ReliveTheApologeticLumberjack: 97,
+	ReliveTheTearfulLightMiner: 98,
+	ReliveTheWhaleWhisperer: 99,
+	ReliveTheConfidentSightseer: 100,
+	ReliveTheHandstandingThrillseeker: 101,
+	ReliveTheMantaWhisperer: 102,
+	ReliveTheBackflippingChampion: 103,
+	ReliveTheCheerfulSpectator: 104,
+	ReliveTheBowingMedalist: 105,
+	ReliveTheProudVictor: 106,
+	ReliveTheFrightenedRefugee: 107,
+	ReliveTheFaintingWarrior: 108,
+	ReliveTheCourageousSoldier: 109,
+	ReliveTheStealthySurvivor: 110,
+	ReliveTheSalutingCaptain: 111,
+	ReliveTheLookoutScout: 112,
+	ReliveThePrayingAcolyte: 113,
+	ReliveTheLevitatingAdept: 114,
+	ReliveThePoliteScholar: 115,
+	ReliveTheMemoryWhisperer: 116,
+	ReliveTheMeditatingMonastic: 117,
+	ReliveTheStretchingGuru: 118,
+	ReliveTheProvokingPerformer: 119,
+	ReliveTheLeapingDancer: 120,
+	ReliveTheSalutingProtector: 121,
+	ReliveTheGreetingShaman: 122,
+	ReliveTheDoublefiveLightCatcher: 123,
+	ReliveTheLaidbackPioneer: 124,
+	ReliveTheTwirlingChampion: 125,
+	ReliveTheCrabWhisperer: 126,
+	ReliveTheShushingLightScholar: 127,
+	ReliveTheConfettiCousin: 128,
+	ReliveTheHairtousleTeen: 129,
+	ReliveTheSparklerParent: 130,
+	ReliveThePleafulParent: 131,
+	ReliveTheWiseGrandparent: 132,
+	ReliveTheFestivalSpinDancer: 133,
+	ReliveTheAdmiringActor: 134,
+	ReliveTheTroupeJuggler: 135,
+	ReliveTheRespectfulPianist: 136,
+	ReliveTheThoughtfulDirector: 137,
+	ReliveTheNoddingMuralist: 138,
+	ReliveTheIndifferentAlchemist: 139,
+	ReliveTheCrabWalker: 140,
+	ReliveTheScarecrowFarmer: 141,
+	ReliveTheSnoozingCarpenter: 142,
+	ReliveThePlayfightingHerbalist: 143,
+	ReliveTheJellyWhisperer: 144,
+	ReliveTheTimidBookworm: 145,
+	ReliveTheRallyingThrillseeker: 146,
+	ReliveTheHikingGrouch: 147,
+	ReliveTheGratefulShellCollector: 148,
+	ReliveTheChillSunbather: 149,
+	ReliveTheSpinningMentor: 150,
+	ReliveTheDancingPerformer: 151,
+	ReliveThePeekingPostman: 152,
+	ReliveTheBearhugHermit: 153,
+	ReliveTheBaffledBotanist: 154,
+	ReliveTheScoldingStudent: 155,
+	ReliveTheScaredyCadet: 156,
+	ReliveTheMarchingAdventurer: 157,
+	ReliveTheChucklingScout: 158,
+	ReliveTheDaydreamForester: 159,
+} as const satisfies Readonly<Record<string, number>>;
+
+export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
+export type DailyQuests = (typeof DAILY_QUEST_VALUES)[number];
+
+export const DailyQuestToInfographicURL = {
+	[DailyQuest.Collect30PiecesOfLight]: null,
+	[DailyQuest.Light20Candles]: null,
+	[DailyQuest.ForgeACandle]: null,
+	[DailyQuest.Melt10Darkness]: null,
+	[DailyQuest.BowAtAPlayer]: new URL(
+		"daily_guides/quests/social/bow_at_a_player.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.FollowAFriend]: new URL(
+		"daily_guides/quests/social/follow_a_friend.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.HugAFriend]: new URL(
+		"daily_guides/quests/social/hug_a_friend.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.WaveToAFriend]: new URL(
+		"daily_guides/quests/social/wave_to_a_friend.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.HoldAFriendsHand]: new URL(
+		"daily_guides/quests/social/hold_a_friends_hand.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.SendAGiftToAFriend]: new URL(
+		"daily_guides/quests/social/send_a_gift_to_a_friend.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MakeANewAcquaintance]: new URL(
+		"daily_guides/quests/social/make_a_new_acquaintance.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.HighFiveAFriend]: new URL(
+		"daily_guides/quests/social/high_five_a_friend.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.UseAnExpressionNearAFriend]: new URL(
+		"daily_guides/quests/social/use_an_expression_near_a_friend.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.SitOnABenchWithAStranger]: new URL(
+		"daily_guides/quests/social/sit_on_a_bench_with_a_stranger.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.RechargeFromAJellyfish]: new URL(
+		"daily_guides/quests/miscellaneous/recharge_from_a_jellyfish.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.RechargeFromALightBloom]: new URL(
+		"daily_guides/quests/miscellaneous/recharge_from_a_light_bloom.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.RideWithAManta]: new URL(
+		"daily_guides/quests/miscellaneous/ride_a_manta.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveASpiritsMemories]: new URL(
+		"daily_guides/quests/miscellaneous/relive_a_spirits_memories.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.FaceTheDarkDragon]: new URL(
+		"daily_guides/quests/miscellaneous/face_the_dark_dragon.gif",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.KnockOver5DarkCrabs]: new URL(
+		"daily_guides/quests/miscellaneous/knock_over_5_dark_crabs.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.CatchTheLightInTheDaylightPrairie]: new URL(
+		"daily_guides/quests/catch_the_light/daylight_prairie.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.CatchTheLightInTheHiddenForest]: new URL(
+		"daily_guides/quests/catch_the_light/hidden_forest.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.CatchTheLightInTheValleyOfTriumph]: new URL(
+		"daily_guides/quests/catch_the_light/valley_of_triumph.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.CatchTheLightInTheGoldenWasteland]: new URL(
+		"daily_guides/quests/catch_the_light/golden_wasteland.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.CatchTheLightInTheVaultOfKnowledge]: new URL(
+		"daily_guides/quests/catch_the_light/vault_of_knowledge.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]: new URL(
+		"daily_guides/quests/miscellaneous/visit_the_cosy_hideout.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.VisitTheAncestorsTableOfBelongingInTheHiddenForest]: new URL(
+		"daily_guides/quests/miscellaneous/visit_the_ancestors_table_of_belonging.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.VisitTheHotSpringInTheValleyOfTriumph]: new URL(
+		"daily_guides/quests/miscellaneous/visit_the_hot_spring.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.VisitTheBonfireAtTheGoldenWasteland]: new URL(
+		"daily_guides/quests/miscellaneous/visit_the_bonfire.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.AdmireTheSaplingInTheDaylightPrairie]: new URL(
+		"daily_guides/quests/days_of_bloom/daylight_prairie.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.AdmireTheSaplingInTheHiddenForest]: new URL(
+		"daily_guides/quests/days_of_bloom/hidden_forest.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.AdmireTheSaplingInTheValleyOfTriumph]: new URL(
+		"daily_guides/quests/days_of_bloom/valley_of_triumph.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.AdmireTheSaplingInTheGoldenWasteland]: new URL(
+		"daily_guides/quests/days_of_bloom/golden_wasteland.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.AdmireTheSaplingInTheVaultOfKnowledge]: new URL(
+		"daily_guides/quests/days_of_bloom/vault_of_knowledge.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.VisitThePollutedGeyser]: new URL(
+		"daily_guides/quests/days_of_nature/visit_the_polluted_geyser.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.RidTheSanctuaryVortexOfDarkness]: new URL(
+		"daily_guides/quests/days_of_nature/rid_the_sanctuary_vortex_of_darkness.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]: new URL(
+		"daily_guides/quests/days_of_colour/find/daylight_prairie.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]: new URL(
+		"daily_guides/quests/days_of_colour/find/hidden_forest.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheValleyOfTriumph]: new URL(
+		"daily_guides/quests/days_of_colour/find/valley_of_triumph.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheGoldenWasteland]: new URL(
+		"daily_guides/quests/days_of_colour/find/golden_wasteland.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheVaultOfKnowledge]: new URL(
+		"daily_guides/quests/days_of_colour/find/vault_of_knowledge.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.AdmireTheRainbowInTheSanctuaryIslands]: new URL(
+		"daily_guides/quests/days_of_colour/admire/sanctuary_islands.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.AdmireTheRainbowInTheWindPaths]: new URL(
+		"daily_guides/quests/days_of_colour/admire/wind_paths.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.AdmireTheRainbowInTheHermitValley]: new URL(
+		"daily_guides/quests/days_of_colour/admire/hermit_valley.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.AdmireTheRainbowInTheTreasureReef]: new URL(
+		"daily_guides/quests/days_of_colour/admire/treasure_reef.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.AdmireTheRainbowInTheStarlightDesert]: new URL(
+		"daily_guides/quests/days_of_colour/admire/starlight_desert.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateAtTheBirdNest]: new URL(
+		"daily_guides/quests/season_of_gratitude/bird_nest.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateInTheButterflyFields]: new URL(
+		"daily_guides/quests/season_of_gratitude/butterfly_fields.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateAtTheSanctuaryIslands]: new URL(
+		"daily_guides/quests/season_of_gratitude/sanctuary_islands.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateInTheCave]: new URL(
+		"daily_guides/quests/season_of_gratitude/cave.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateByTheKoiPond]: new URL(
+		"daily_guides/quests/season_of_gratitude/koi_pond.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateAtTheForestClearing]: new URL(
+		"daily_guides/quests/season_of_gratitude/forest_clearing.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateAtTheForestBrook]: new URL(
+		"daily_guides/quests/season_of_gratitude/forest_brook.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateAtTheElevatedClearing]: new URL(
+		"daily_guides/quests/season_of_gratitude/elevated_clearing.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateAtTheForestEnd]: new URL(
+		"daily_guides/quests/season_of_gratitude/forest_end.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateAtTheBoneyard]: new URL(
+		"daily_guides/quests/season_of_gratitude/boneyard.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateByTheIceRink]: new URL(
+		"daily_guides/quests/season_of_gratitude/ice_rink.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateAboveTheCitadelsArch]: new URL(
+		"daily_guides/quests/season_of_gratitude/citadel/arch.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateHighAboveTheCitadel]: new URL(
+		"daily_guides/quests/season_of_gratitude/citadel/high_above.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateAtTheColiseum]: new URL(
+		"daily_guides/quests/season_of_gratitude/coliseum.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateInTheBrokenTemple]: new URL(
+		"daily_guides/quests/season_of_gratitude/broken_temple.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateInTheForgottenArk]: new URL(
+		"daily_guides/quests/season_of_gratitude/forgotten_ark.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateInTheGraveyard]: new URL(
+		"daily_guides/quests/season_of_gratitude/graveyard.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateOnTheBoat]: new URL(
+		"daily_guides/quests/season_of_gratitude/boat.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateOnTheBattlefield]: new URL(
+		"daily_guides/quests/season_of_gratitude/battlefield.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateAtTheVaultEntrance]: new URL(
+		"daily_guides/quests/season_of_gratitude/vault_entrance.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateInTheVaultSecondFloor]: new URL(
+		"daily_guides/quests/season_of_gratitude/vault_second_floor.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeditateAtTheVaultSummit]: new URL(
+		"daily_guides/quests/season_of_gratitude/vault_summit.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.CollectGreenLight]: new URL(
+		"daily_guides/quests/season_of_enchantment/collect_green_light.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.CollectOrangeLight]: new URL(
+		"daily_guides/quests/season_of_enchantment/collect_orange_light.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.CollectBlueLight]: new URL(
+		"daily_guides/quests/season_of_enchantment/collect_blue_light.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.CollectRedLight]: new URL(
+		"daily_guides/quests/season_of_enchantment/collect_red_light.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.CollectPurpleLight]: new URL(
+		"daily_guides/quests/season_of_enchantment/collect_purple_light.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.PracticeWithTheSkater]: new URL(
+		"daily_guides/quests/season_of_dreams/practice_with_the_skater.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.RaceDownTheSlopesWithTheSkater]: new URL(
+		"daily_guides/quests/season_of_dreams/race_down_the_slopes_with_the_skater.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.RaceDownTheMountainWithTheSkater]: new URL(
+		"daily_guides/quests/season_of_dreams/race_down_the_mountain_with_the_skater.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.RehearseForAPerformanceWithTheSkater]: new URL(
+		"daily_guides/quests/season_of_dreams/rehearse_for_a_performance_with_the_skater.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.CompleteTheHoopScavengerHunt]: new URL(
+		"daily_guides/quests/season_of_assembly/hoop.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]: new URL(
+		"daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/meet_cinnamoroll_on_a_hill_in_aviary_village.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]: new URL(
+		"daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/smell_flowers_with_cinnamoroll_in_aviary_village.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]: new URL(
+		"daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/find_cinnamoroll_peeking_around_aviary_village.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.WakeUpCinnamorollInAviaryVillage]: new URL(
+		"daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/wake_up_cinnamoroll_in_aviary_village.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]: new URL(
+		"daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/fly_up_to_the_tower_with_cinnamoroll_in_aviary_village.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]: new URL(
+		"daily_guides/quests/sky_x_cinnamoroll_pop_up_cafe/splash_in_the_water_with_cinnamoroll_in_aviary_village.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheButterflyCharmer]: new URL(
+		"daily_guides/quests/spirits/butterfly_charmer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheApplaudingBellmaker]: new URL(
+		"daily_guides/quests/spirits/applauding_bellmaker.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheWavingBellmaker]: new URL(
+		"daily_guides/quests/spirits/waving_bellmaker.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheSlumberingShipwright]: new URL(
+		"daily_guides/quests/spirits/slumbering_shipwright.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheLaughingLightCatcher]: new URL(
+		"daily_guides/quests/spirits/laughing_light_catcher.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheBirdWhisperer]: new URL(
+		"daily_guides/quests/spirits/bird_whisperer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheExhaustedDockWorker]: new URL(
+		"daily_guides/quests/spirits/exhausted_dock_worker.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheCeremonialWorshiper]: new URL(
+		"daily_guides/quests/spirits/ceremonial_worshiper.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheShiveringTrailblazer]: new URL(
+		"daily_guides/quests/spirits/shivering_trailblazer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheBlushingProspector]: new URL(
+		"daily_guides/quests/spirits/blushing_prospector.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheHideNSeekPioneer]: new URL(
+		"daily_guides/quests/spirits/hide_n_seek_pioneer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveThePoutyPorter]: new URL(
+		"daily_guides/quests/spirits/pouty_porter.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheDismayedHunter]: new URL(
+		"daily_guides/quests/spirits/dismayed_hunter.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheApologeticLumberjack]: new URL(
+		"daily_guides/quests/spirits/apologetic_lumberjack.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheTearfulLightMiner]: new URL(
+		"daily_guides/quests/spirits/tearful_light_miner.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheWhaleWhisperer]: new URL(
+		"daily_guides/quests/spirits/whale_whisperer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheConfidentSightseer]: new URL(
+		"daily_guides/quests/spirits/confident_sightseer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheHandstandingThrillseeker]: new URL(
+		"daily_guides/quests/spirits/handstanding_thrillseeker.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheMantaWhisperer]: new URL(
+		"daily_guides/quests/spirits/manta_whisperer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheBackflippingChampion]: new URL(
+		"daily_guides/quests/spirits/backflipping_champion.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheCheerfulSpectator]: new URL(
+		"daily_guides/quests/spirits/cheerful_spectator.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheBowingMedalist]: new URL(
+		"daily_guides/quests/spirits/bowing_medalist.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheProudVictor]: new URL(
+		"daily_guides/quests/spirits/proud_victor.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheFrightenedRefugee]: new URL(
+		"daily_guides/quests/spirits/frightened_refugee.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheFaintingWarrior]: new URL(
+		"daily_guides/quests/spirits/fainting_warrior.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheCourageousSoldier]: new URL(
+		"daily_guides/quests/spirits/courageous_soldier.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheStealthySurvivor]: new URL(
+		"daily_guides/quests/spirits/stealthy_survivor.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheSalutingCaptain]: new URL(
+		"daily_guides/quests/spirits/saluting_captain.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheLookoutScout]: new URL(
+		"daily_guides/quests/spirits/lookout_scout.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveThePrayingAcolyte]: new URL(
+		"daily_guides/quests/spirits/praying_acolyte.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheLevitatingAdept]: new URL(
+		"daily_guides/quests/spirits/levitating_adept.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveThePoliteScholar]: new URL(
+		"daily_guides/quests/spirits/polite_scholar.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheMemoryWhisperer]: new URL(
+		"daily_guides/quests/spirits/memory_whisperer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheMeditatingMonastic]: new URL(
+		"daily_guides/quests/spirits/meditating_monastic.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheStretchingGuru]: new URL(
+		"daily_guides/quests/spirits/stretching_guru.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheProvokingPerformer]: new URL(
+		"daily_guides/quests/spirits/provoking_performer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheLeapingDancer]: new URL(
+		"daily_guides/quests/spirits/leaping_dancer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheSalutingProtector]: new URL(
+		"daily_guides/quests/spirits/saluting_protector.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheGreetingShaman]: new URL(
+		"daily_guides/quests/spirits/greeting_shaman.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheDoublefiveLightCatcher]: new URL(
+		"daily_guides/quests/spirits/doublefive_light_catcher.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheLaidbackPioneer]: new URL(
+		"daily_guides/quests/spirits/laidback_pioneer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheTwirlingChampion]: new URL(
+		"daily_guides/quests/spirits/twirling_champion.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheCrabWhisperer]: new URL(
+		"daily_guides/quests/spirits/crab_whisperer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheShushingLightScholar]: new URL(
+		"daily_guides/quests/spirits/shushing_light_scholar.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheConfettiCousin]: new URL(
+		"daily_guides/quests/spirits/confetti_cousin.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheHairtousleTeen]: new URL(
+		"daily_guides/quests/spirits/hairtousle_teen.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheSparklerParent]: new URL(
+		"daily_guides/quests/spirits/sparkler_parent.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveThePleafulParent]: new URL(
+		"daily_guides/quests/spirits/pleaful_parent.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheWiseGrandparent]: new URL(
+		"daily_guides/quests/spirits/wise_grandparent.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheFestivalSpinDancer]: new URL(
+		"daily_guides/quests/spirits/festival_spin_dancer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheAdmiringActor]: new URL(
+		"daily_guides/quests/spirits/admiring_actor.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheTroupeJuggler]: new URL(
+		"daily_guides/quests/spirits/troupe_juggler.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheRespectfulPianist]: new URL(
+		"daily_guides/quests/spirits/respectful_pianist.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheThoughtfulDirector]: new URL(
+		"daily_guides/quests/spirits/thoughtful_director.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheNoddingMuralist]: new URL(
+		"daily_guides/quests/spirits/nodding_muralist.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheIndifferentAlchemist]: new URL(
+		"daily_guides/quests/spirits/indifferent_alchemist.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheCrabWalker]: new URL(
+		"daily_guides/quests/spirits/crab_walker.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheScarecrowFarmer]: new URL(
+		"daily_guides/quests/spirits/scarecrow_farmer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheSnoozingCarpenter]: new URL(
+		"daily_guides/quests/spirits/snoozing_carpenter.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveThePlayfightingHerbalist]: new URL(
+		"daily_guides/quests/spirits/playfighting_herbalist.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheJellyWhisperer]: new URL(
+		"daily_guides/quests/spirits/jelly_whisperer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheTimidBookworm]: new URL(
+		"daily_guides/quests/spirits/timid_bookworm.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheRallyingThrillseeker]: new URL(
+		"daily_guides/quests/spirits/rallying_thrillseeker.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheHikingGrouch]: new URL(
+		"daily_guides/quests/spirits/hiking_grouch.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheGratefulShellCollector]: new URL(
+		"daily_guides/quests/spirits/grateful_shell_collector.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheChillSunbather]: new URL(
+		"daily_guides/quests/spirits/chill_sunbather.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheSpinningMentor]: new URL(
+		"daily_guides/quests/spirits/spinning_mentor.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheDancingPerformer]: new URL(
+		"daily_guides/quests/spirits/dancing_performer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveThePeekingPostman]: new URL(
+		"daily_guides/quests/spirits/peeking_postman.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheBearhugHermit]: new URL(
+		"daily_guides/quests/spirits/bearhug_hermit.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheBaffledBotanist]: new URL(
+		"daily_guides/quests/spirits/baffled_botanist.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheScoldingStudent]: new URL(
+		"daily_guides/quests/spirits/scolding_student.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheScaredyCadet]: new URL(
+		"daily_guides/quests/spirits/scaredy_cadet.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheMarchingAdventurer]: new URL(
+		"daily_guides/quests/spirits/marching_adventurer.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheChucklingScout]: new URL(
+		"daily_guides/quests/spirits/chuckling_scout.webp",
+		CDN_URL,
+	).toString(),
+	[DailyQuest.ReliveTheDaydreamForester]: new URL(
+		"daily_guides/quests/spirits/daydream_forester.webp",
+		CDN_URL,
+	).toString(),
+} as const satisfies Readonly<Record<DailyQuests, string | null>>;
+
 export const TREASURE_CANDLES_ROTATION = {
 	[RealmName.DaylightPrairie]: [
 		String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),

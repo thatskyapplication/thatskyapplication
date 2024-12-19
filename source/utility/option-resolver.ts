@@ -21,6 +21,22 @@ import {
 } from "@discordjs/core";
 import { Role } from "../models/discord/role.js";
 
+// https://github.com/discordjs/discord-api-types/issues/1175
+interface AutocompleteFocusedOption<
+	Type extends
+		| ApplicationCommandOptionType.String
+		| ApplicationCommandOptionType.Integer
+		| ApplicationCommandOptionType.Number =
+		| ApplicationCommandOptionType.String
+		| ApplicationCommandOptionType.Integer
+		| ApplicationCommandOptionType.Number,
+> {
+	type: Type;
+	name: string;
+	value: string;
+	focused: boolean;
+}
+
 function isBasicOptions(
 	options: APIApplicationCommandInteractionDataOption[],
 ): options is APIApplicationCommandInteractionDataBasicOption[] {
@@ -415,7 +431,7 @@ export class OptionResolver {
 			| ApplicationCommandOptionType.String
 			| ApplicationCommandOptionType.Integer
 			| ApplicationCommandOptionType.Number,
-	>(type?: Type): Extract<APIApplicationCommandInteractionDataOption, { type: Type }> {
+	>(type?: Type): AutocompleteFocusedOption<Type> {
 		if (this.interaction.type !== InteractionType.ApplicationCommandAutocomplete) {
 			throw new Error("This method can only be used on autocomplete interactions.");
 		}
@@ -433,7 +449,7 @@ export class OptionResolver {
 			throw new Error("No focused option type found for autocomplete interaction.");
 		}
 
-		return focusedOption as Extract<APIApplicationCommandInteractionDataOption, { type: Type }>;
+		return focusedOption as AutocompleteFocusedOption<Type>;
 	}
 
 	private getTypedOption<
