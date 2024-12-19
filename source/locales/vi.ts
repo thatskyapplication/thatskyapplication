@@ -1,5 +1,5 @@
 import { SeasonId } from "../utility/catalogue.js";
-import { RealmName, SkyMap } from "../utility/constants.js";
+import { DailyQuest, RealmName, SkyMap } from "../utility/constants.js";
 import { SpiritName } from "../utility/spirits.js";
 
 export default {
@@ -14,6 +14,15 @@ export default {
 			[RealmName.EyeOfEden]: "Mắt Địa Đàng",
 		},
 		maps: { [SkyMap.JellyfishCove]: "Vịnh Sứa" },
+		quests: {
+			[DailyQuest.RideWithAManta]: "Cưỡi cùng Cá Đuối",
+			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
+				"Ghé thăm nơi ẩn náu ấm cúng ở Thảo Nguyên Ánh Sáng",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
+				"Tìm những ngọn nến ở cuối cầu vồng ở Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheStretchingGuru]:
+				"Hồi tưởng lại ký ức của Sư Phụ Giãn Cơ đến từ Thảo Nguyên Ánh Sáng",
+		},
 		seasons: {
 			[SeasonId.Gratitude]: "Mùa Tri Ân",
 			[SeasonId.Lightseekers]: "Mùa Ánh Sáng",
