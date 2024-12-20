@@ -14,11 +14,15 @@ export default {
 			[RealmName.EyeOfEden]: "ดวงตาแห่งเอเดน",
 		},
 		quests: {
+			[DailyQuest.RechargeFromAJellyfish]: "เติมแสงของคุณจากแมงกะพรุน",
 			[DailyQuest.RideWithAManta]: "ขี่กระเบน",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]: "ไปยังที่ช่อนแสนสบายในถ้ำแห่งทุ่งหญ้า",
+			[DailyQuest.AdmireTheSaplingInTheHiddenForest]: "ชื่นชมต้นอ่อนในป่าลับเป็นระยะเวลาสั้นๆ",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"ค้นหาเทียนที่สุดปลายสายรุ้งในทุ่งหญ้าแสงตะวัน",
+			[DailyQuest.CollectOrangeLight]: "เก็บแสงสีส้ม",
 			[DailyQuest.ReliveTheStretchingGuru]: "หวนระลึกความทรงจำของกูรูนักยึดเหยียดจากทุ่งหญ้าแสงตะวัน",
+			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: "พบกับ ผู้บุกเบิกเกมซ่อนหา ใน ทุ่งกระดูก",
 		},
 		seasons: {
 			[SeasonId.Moomin]: "ฤดูกาลแห่งมูมิน",

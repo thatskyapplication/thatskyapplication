@@ -58,13 +58,19 @@ export default {
 			[SeasonId.Moomin]: "Saison des Moomins",
 		},
 		quests: {
+			[DailyQuest.RechargeFromAJellyfish]: "Rechargez votre lumière auprès d'une méduse",
 			[DailyQuest.RideWithAManta]: "Montez sur une raie manta",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Visitez le cachette confortable dans les grottes de la Prairie",
+			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
+				"Appréciez le jeune arbre dans la Forêt cachée pendant un petit moment",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Trouvez les bougies au bout de l'arc-en-ciel dans la Prairie illuminée",
+			[DailyQuest.CollectOrangeLight]: "Récupérez la lumière orange",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Revivez le souvenir du gourou en étirement dans la Prairie illuminée",
+			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
+				"Retrouvez Pionnier du cache-cache à Cimetière de la Forêt",
 		},
 		"shard-eruption": "Éruption d'Éclats",
 		"shard-eruption-none": "Aucun",

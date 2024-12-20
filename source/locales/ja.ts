@@ -15,12 +15,17 @@ export default {
 		},
 		maps: { [SkyMap.JellyfishCove]: "海月の入り江" },
 		quests: {
+			[DailyQuest.RechargeFromAJellyfish]: "光のクラゲにエナジーを回復してもらう",
 			[DailyQuest.RideWithAManta]: "マンタに乗る",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"草原の洞窟にあるくつろげる横穴を訪れる",
+			[DailyQuest.AdmireTheSaplingInTheHiddenForest]: "雨林を訪れ、しばしの間、若木を愛でる",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"草原で虹のキャンドルを見つける",
+			[DailyQuest.CollectOrangeLight]: "だいだい色の灯りを集める",
 			[DailyQuest.ReliveTheStretchingGuru]: "草原で屈伸する導師の記憶を呼び起こす",
+			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
+				"かくれんぼ提唱者に雨林の墓場で会いましょう",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "感謝の季節",

@@ -15,13 +15,19 @@ export default {
 		},
 		maps: { [SkyMap.JellyfishCove]: "Baia delle Meduse" },
 		quests: {
+			[DailyQuest.RechargeFromAJellyfish]: "Ricarica la tua luce da una medusa",
 			[DailyQuest.RideWithAManta]: "Cavalca una manta",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Visita il nascondiglio accogliente nella grotte della Prateria",
+			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
+				"Apprezza l'alberello nella Foresta Nascosta per un breve periodo",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Trova le candele alla fine dell'arcobaleno nella Prateria Diurna",
+			[DailyQuest.CollectOrangeLight]: "Raccogli Luce Arancione",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Revivi il ricordo del Guru stiracchiante nella Prateria Diurna",
+			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
+				"Incontra Pioniere nascosto presso Cimitero",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Stagione della Gratitudine",

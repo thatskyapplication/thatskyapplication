@@ -15,13 +15,19 @@ export default {
 		},
 		maps: { [SkyMap.JellyfishCove]: "Enseada das Águas-vivas" },
 		quests: {
+			[DailyQuest.RechargeFromAJellyfish]: "Recarregar sua luz com uma água-viva",
 			[DailyQuest.RideWithAManta]: "Passeie com uma arraia",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
-				" Visite o esconderijo aconchegante nas Cavernas da Campina",
+				"Visite o esconderijo aconchegante nas Cavernas da Campina",
+			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
+				"Admire o broto na Floresta Escondida por um curto período de tempo",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Econtre as velas no fim do arco-íris na Campina da Aurora",
+			[DailyQuest.CollectOrangeLight]: "Colete Luz Laranja",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Reviva as lembranças do Guru Alongando na Campina da Aurora",
+			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
+				"Encontre-se com Pioneiro de esconde-esconde em Cemitério",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Temporada da Gratidão",

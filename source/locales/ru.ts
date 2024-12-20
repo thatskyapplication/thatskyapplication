@@ -15,13 +15,18 @@ export default {
 		},
 		maps: { [SkyMap.JellyfishCove]: "Бухту медуз" },
 		quests: {
+			[DailyQuest.RechargeFromAJellyfish]: "Зарядите свой свет от медузы",
 			[DailyQuest.RideWithAManta]: "Поездки с мантой",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Найдите уютное укрытие в пещерах в прерии",
+			[DailyQuest.AdmireTheSaplingInTheHiddenForest]: "Полюбуйтесь деревцем в Тайном лесу",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Найдите свечи в конце радуги в Полуденной прерии",
+			[DailyQuest.CollectOrangeLight]: "Соберите оранжевый свет",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Переживите воспоминания Растягивающегося гуру из Полуденной прерии",
+			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
+				"Соберите команду из игроков (Первопроходец (прятки)) в месте Могильник",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Сезон благодарности",

@@ -15,10 +15,14 @@ export default {
 		},
 		maps: { [SkyMap.JellyfishCove]: "水母灣區" },
 		quests: {
+			[DailyQuest.RechargeFromAJellyfish]: "透過水母重新恢復能量",
 			[DailyQuest.RideWithAManta]: "乘坐光鰩",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]: "前往雲野山洞找到舒適的藏身處",
+			[DailyQuest.AdmireTheSaplingInTheHiddenForest]: "坐賞雨林小樹苗",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]: "找到雲野的彩虹蠟燭",
+			[DailyQuest.CollectOrangeLight]: "收集橙色光芒",
 			[DailyQuest.ReliveTheStretchingGuru]: "重溫舒展大師在雲野的記憶",
+			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: "與躲貓貓拓荒者在埋骨之地見面",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "感恩季",

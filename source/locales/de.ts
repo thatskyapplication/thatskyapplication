@@ -15,13 +15,19 @@ export default {
 		},
 		maps: { [SkyMap.JellyfishCove]: "Quallenbucht" },
 		quests: {
+			[DailyQuest.RechargeFromAJellyfish]: "Lade dein Licht durch eine Qualle auf",
 			[DailyQuest.RideWithAManta]: "Schwimme mit einem Riesenrochen",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Besuche das gemütliche Versteck in den Präriehöhlen",
+			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
+				"Geh und bewundere das Bäumchen im verborgenen Wald für eine kurze Weile",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Suche die Kerzen am Ende des Regenbogens in der Tageslichtprärie",
+			[DailyQuest.CollectOrangeLight]: "Sammle Oranges Licht",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Erlebe erneut die Erinnerung des Stretchenden Gurus von der Tageslicht-Prärie",
+			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
+				"Triff dich mit Versteckspiel-Pionier in Friedhof im Wald",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison der Dankbarkeit",

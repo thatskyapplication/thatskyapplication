@@ -15,13 +15,19 @@ export default {
 		},
 		maps: { [SkyMap.JellyfishCove]: "Vịnh Sứa" },
 		quests: {
+			[DailyQuest.RechargeFromAJellyfish]: "Nạp Ánh Sáng từ sứa",
 			[DailyQuest.RideWithAManta]: "Cưỡi cùng Cá Đuối",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Ghé thăm nơi ẩn náu ấm cúng ở Thảo Nguyên Ánh Sáng",
+			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
+				"Ngắm cây non ở Rừng Mưa trong thời gian ngắn",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Tìm những ngọn nến ở cuối cầu vồng ở Thảo Nguyên Ánh Sáng",
+			[DailyQuest.CollectOrangeLight]: "Thu thập Ánh Sáng Cam",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Hồi tưởng lại ký ức của Sư Phụ Giãn Cơ đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
+				"Gặp gỡ Người Khai Hoang Trốn Tìm trong Nghĩa Địa",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Mùa Tri Ân",

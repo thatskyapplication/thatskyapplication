@@ -24,13 +24,19 @@ export default {
 			[SkyMap.CrescentOasis]: "Oasis creciente",
 		},
 		quests: {
+			[DailyQuest.RechargeFromAJellyfish]: "Recarga tu luz a partir de una medusa",
 			[DailyQuest.RideWithAManta]: "Vuela con una mantarraya",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Visita el cómodo escondite en las cuevas de las planicies",
+			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
+				"Admira el árbol joven en el Bosque Escondido por un rato",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Encuentra las velas al final del arcoíris en la Planicie Luz de Día",
+			[DailyQuest.CollectOrangeLight]: "Recoge Luz Naranja",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Revive el recuerdo del Gurú estirando de la Planicie Luz de Día",
+			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
+				"Reúnete con Pionero de las escondidas en Deshuesadero",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Temporada de la gratitud",
