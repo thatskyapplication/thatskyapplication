@@ -137,17 +137,6 @@ export default {
 			[DailyQuest.RehearseForAPerformanceWithTheSkater]:
 				"Rehearse for a performance with the skater",
 			[DailyQuest.CompleteTheHoopScavengerHunt]: "Complete the hoop scavenger hunt",
-			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
-				"Meet Cinnamoroll on a hill in Aviary Village",
-			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
-				"Smell flowers with Cinnamoroll in Aviary Village",
-			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
-				"Find Cinnamoroll peeking around Aviary Village",
-			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Wake up Cinnamoroll in Aviary Village",
-			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
-				"Fly up to the tower with Cinnamoroll in Aviary Village",
-			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
-				"Splash in the water with Cinnamoroll in Aviary Village",
 			[DailyQuest.ReliveTheButterflyCharmer]: "Relive the Butterfly Charmer",
 			[DailyQuest.ReliveTheApplaudingBellmaker]: "Relive the Applauding Bellmaker",
 			[DailyQuest.ReliveTheWavingBellmaker]: "Relive the Waving Bellmaker",
@@ -224,6 +213,64 @@ export default {
 			[DailyQuest.ReliveTheMarchingAdventurer]: "Relive the Marching Adventurer",
 			[DailyQuest.ReliveTheChucklingScout]: "Relive the Chuckling Scout",
 			[DailyQuest.ReliveTheDaydreamForester]: "Relive the Daydream Forester",
+			[DailyQuest.VisitAShardOfDarknessFallenToTheKingdomOfSky]:
+				"Visit a shard of darkness fallen to the Kingdom of Sky",
+			[DailyQuest.TakeASelfieWithHikingGrouchInPrairiePeaks]:
+				"Take a selfie with Hiking Grouch in Prairie Peaks",
+			[DailyQuest.TakeASelfieWithCrabWhispererInPrairiePeaks]:
+				"Take a selfie with Crab Whisperer in Prairie Peaks",
+			[DailyQuest.TakeASelfieWithCacklingCannoneerInPrairiePeaks]:
+				"Take a selfie with Cackling Cannoneer in Prairie Peaks",
+			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]:
+				"Take a selfie with Troupe Greeter in Prairie Peaks",
+			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
+				"Meet Cinnamoroll on a hill in Aviary Village",
+			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
+				"Smell flowers with Cinnamoroll in Aviary Village",
+			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
+				"Find Cinnamoroll peeking around Aviary Village",
+			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Wake up Cinnamoroll in Aviary Village",
+			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
+				"Fly up to the tower with Cinnamoroll in Aviary Village",
+			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
+				"Splash in the water with Cinnamoroll in Aviary Village",
+			[DailyQuest.PlayAnyTournamentSport]: "Play any Tournament sport",
+			[DailyQuest.ModestDancerNeedsHelpWithSomethingInVillageOfDreams]:
+				"Modest Dancer needs help with something in Village of Dreams",
+			[DailyQuest.ForgetfulStorytellerNeedsHelpWithSomethingInVillageOfDreams]:
+				"Forgetful Storyteller needs help with something in Village of Dreams",
+			[DailyQuest.MeetUpWithFranticStagehandInVillageTheatre]:
+				"Meet up with Frantic Stagehand in Village Theatre",
+			[DailyQuest.MellowMusicianNeedsHelpWithSomethingInVillageTheatre]:
+				"Mellow Musician needs help with something in Village Theatre",
+			[DailyQuest.ChangeYourHairstyle]: "Change your hairstyle",
+			[DailyQuest.ChangeYourNecklace]: "Change your necklace",
+			[DailyQuest.ChangeYourProp]: "Change your prop",
+			[DailyQuest.ChangeYourMask]: "Change your mask",
+			[DailyQuest.ChangeYourCape]: "Change your cape",
+			[DailyQuest.ChangeYourOutfit]: "Change your outfit",
+			[DailyQuest.ViewASharedMemoryAtAStyleRunwayShrine]:
+				"View a shared memory at a Style Runway Shrine",
+			[DailyQuest.RecordASharedMemoryAtAStyleRunwayShrine]:
+				"Record a shared memory at a Style Runway Shrine",
+			[DailyQuest.CacklingCannoneerNeedsHelpWithSomethingInTreasureReef]:
+				"Cackling Cannoneer needs help with something in Treasure Reef",
+			[DailyQuest.AnxiousAnglerNeedsHelpWithSomethingInTreasureReef]:
+				"Anxious Angler needs help with something in Treasure Reef",
+			[DailyQuest.MellowMusicianNeedsHelpWithSomethingInVillageOfDreams]:
+				"Melow Musician needs help with something in Village of Dreams",
+			[DailyQuest.AnxiousAnglerNeedsHelpWithSomethingInGoldenWasteland]:
+				"Anxious Angler needs help with something in Golden Wasteland",
+			[DailyQuest.MeetUpWithAnxiousAnglerInCrabFields]:
+				"Meet up with Anxious Angler in Crab Fields",
+			[DailyQuest.MeetUpWithCeasingCommodoreInTreasureReef]:
+				"Meet up with Ceasing Commodore in Treasure Reef",
+			[DailyQuest.MeetUpWithBlushingProspectorInForestBrook]:
+				"Meet up with Blushing Prospector in Forest Brook",
+			[DailyQuest.MeetUpWithShiveringTrailblazerInForestBrook]:
+				"Meet up with Shivering Trailblazer in Forest Brook",
+			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
+				"Meet up with Cackling Cannoneer in Graveyard",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Meet up with Hide'n'Seek Pioneer in Boneyard",
 		} satisfies Record<DailyQuests, string>,
