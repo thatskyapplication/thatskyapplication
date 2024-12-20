@@ -716,7 +716,7 @@ export const DailyQuest = {
 	MeetUpWithShiveringTrailblazerInForestBrook: 185,
 	MeetUpWithCacklingCannoneerInGraveyard: 186,
 	MeetUpWithHideNSeekPioneerInBoneyard: 187,
-} as const satisfies Readonly<Record<string, number>>; 
+} as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
 export type DailyQuests = (typeof DAILY_QUEST_VALUES)[number];
