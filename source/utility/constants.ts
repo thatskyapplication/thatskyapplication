@@ -688,6 +688,7 @@ export const DailyQuest = {
 	ReliveTheMarchingAdventurer: 157,
 	ReliveTheChucklingScout: 158,
 	ReliveTheDaydreamForester: 159,
+	MeetUpWithHideNSeekPioneerInBoneyard: 160,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -1322,6 +1323,7 @@ export const DailyQuestToInfographicURL = {
 		"daily_guides/quests/spirits/daydream_forester.webp",
 		CDN_URL,
 	).toString(),
+	[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
 export const TREASURE_CANDLES_ROTATION = {

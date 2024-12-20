@@ -224,6 +224,8 @@ export default {
 			[DailyQuest.ReliveTheMarchingAdventurer]: "Relive the Marching Adventurer",
 			[DailyQuest.ReliveTheChucklingScout]: "Relive the Chuckling Scout",
 			[DailyQuest.ReliveTheDaydreamForester]: "Relive the Daydream Forester",
+			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
+				"Meet up with Hide'n'Seek Pioneer in Boneyard",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
