@@ -19,7 +19,7 @@ export default {
 			[DailyQuest.SendAGiftToAFriend]: "ส่งของขวัญให้เพื่อน",
 			[DailyQuest.RechargeFromAJellyfish]: "เติมแสงของคุณจากแมงกะพรุน",
 			[DailyQuest.RideWithAManta]: "ขี่กระเบน",
-			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]: "ไปยังที่ช่อนแสนสบายในถ้ำแห่งทุ่งหญ้า",
+			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]: "ไปยังที่ซ่อนแสนสบายในถ้ำแห่งทุ่งหญ้า",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]: "ชื่นชมต้นอ่อนในป่าลับเป็นระยะเวลาสั้นๆ",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"ค้นหาเทียนที่สุดปลายสายรุ้งในทุ่งหญ้าแสงตะวัน",
