@@ -15,6 +15,9 @@ export default {
 		},
 		maps: { [SkyMap.JellyfishCove]: "Baia delle Meduse" },
 		quests: {
+			[DailyQuest.Collect30PiecesOfLight]: "Raccogli 30 unità di luce",
+			[DailyQuest.WaveToAFriend]: "Saluta un amico",
+			[DailyQuest.SendAGiftToAFriend]: "Invia un regalo a un amico",
 			[DailyQuest.RechargeFromAJellyfish]: "Ricarica la tua luce da una medusa",
 			[DailyQuest.RideWithAManta]: "Cavalca una manta",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
@@ -24,6 +27,8 @@ export default {
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Trova le candele alla fine dell'arcobaleno nella Prateria Diurna",
 			[DailyQuest.CollectOrangeLight]: "Raccogli Luce Arancione",
+			[DailyQuest.ReliveTheMantaWhisperer]:
+				"Rivivi il ricordo del Portavoce della manta nella Valle del Trionfo",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Revivi il ricordo del Guru stiracchiante nella Prateria Diurna",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:

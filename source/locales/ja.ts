@@ -15,6 +15,9 @@ export default {
 		},
 		maps: { [SkyMap.JellyfishCove]: "海月の入り江" },
 		quests: {
+			[DailyQuest.Collect30PiecesOfLight]: "光のかけらを30個集める",
+			[DailyQuest.WaveToAFriend]: "フレンドに手を振る",
+			[DailyQuest.SendAGiftToAFriend]: "フレンドにギフトを贈る",
 			[DailyQuest.RechargeFromAJellyfish]: "光のクラゲにエナジーを回復してもらう",
 			[DailyQuest.RideWithAManta]: "マンタに乗る",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
@@ -23,6 +26,7 @@ export default {
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"草原で虹のキャンドルを見つける",
 			[DailyQuest.CollectOrangeLight]: "だいだい色の灯りを集める",
+			[DailyQuest.ReliveTheMantaWhisperer]: "峡谷でマンタの語り部の記憶を呼び起こす",
 			[DailyQuest.ReliveTheStretchingGuru]: "草原で屈伸する導師の記憶を呼び起こす",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"かくれんぼ提唱者に雨林の墓場で会いましょう",

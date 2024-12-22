@@ -24,6 +24,9 @@ export default {
 			[SkyMap.CrescentOasis]: "Oasis creciente",
 		},
 		quests: {
+			[DailyQuest.Collect30PiecesOfLight]: "Recoge 30 piezas de luz",
+			[DailyQuest.WaveToAFriend]: "Saluda a un amigo",
+			[DailyQuest.SendAGiftToAFriend]: "Envía un regalo a un amigo",
 			[DailyQuest.RechargeFromAJellyfish]: "Recarga tu luz a partir de una medusa",
 			[DailyQuest.RideWithAManta]: "Vuela con una mantarraya",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
@@ -33,6 +36,8 @@ export default {
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Encuentra las velas al final del arcoíris en la Planicie Luz de Día",
 			[DailyQuest.CollectOrangeLight]: "Recoge Luz Naranja",
+			[DailyQuest.ReliveTheMantaWhisperer]:
+				"Revive el recuerdo del Susurrador de mantas del Valle del Triunfo",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Revive el recuerdo del Gurú estirando de la Planicie Luz de Día",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:

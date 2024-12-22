@@ -14,6 +14,9 @@ export default {
 			[RealmName.EyeOfEden]: "ดวงตาแห่งเอเดน",
 		},
 		quests: {
+			[DailyQuest.Collect30PiecesOfLight]: "เก็บแสง 30 ชิ้น",
+			[DailyQuest.WaveToAFriend]: "โบกมือให้เพื่อน",
+			[DailyQuest.SendAGiftToAFriend]: "ส่งของขวัญให้เพื่อน",
 			[DailyQuest.RechargeFromAJellyfish]: "เติมแสงของคุณจากแมงกะพรุน",
 			[DailyQuest.RideWithAManta]: "ขี่กระเบน",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]: "ไปยังที่ช่อนแสนสบายในถ้ำแห่งทุ่งหญ้า",
@@ -21,6 +24,7 @@ export default {
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"ค้นหาเทียนที่สุดปลายสายรุ้งในทุ่งหญ้าแสงตะวัน",
 			[DailyQuest.CollectOrangeLight]: "เก็บแสงสีส้ม",
+			[DailyQuest.ReliveTheMantaWhisperer]: "หวนระลึกความทรงจำของผู้รู้ใจกระเบนจากหุบเขาแห่งชัยชนะ",
 			[DailyQuest.ReliveTheStretchingGuru]: "หวนระลึกความทรงจำของกูรูนักยึดเหยียดจากทุ่งหญ้าแสงตะวัน",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: "พบกับ ผู้บุกเบิกเกมซ่อนหา ใน ทุ่งกระดูก",
 		},

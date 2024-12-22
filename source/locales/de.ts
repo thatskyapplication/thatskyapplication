@@ -15,6 +15,9 @@ export default {
 		},
 		maps: { [SkyMap.JellyfishCove]: "Quallenbucht" },
 		quests: {
+			[DailyQuest.Collect30PiecesOfLight]: "Sammle 30 Lichtstücke",
+			[DailyQuest.WaveToAFriend]: "Winke einem Freund zu",
+			[DailyQuest.SendAGiftToAFriend]: "Schicke einem Freund ein Geschenk",
 			[DailyQuest.RechargeFromAJellyfish]: "Lade dein Licht durch eine Qualle auf",
 			[DailyQuest.RideWithAManta]: "Schwimme mit einem Riesenrochen",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
@@ -24,6 +27,8 @@ export default {
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Suche die Kerzen am Ende des Regenbogens in der Tageslichtprärie",
 			[DailyQuest.CollectOrangeLight]: "Sammle Oranges Licht",
+			[DailyQuest.ReliveTheMantaWhisperer]:
+				"Erlebe erneut die Erinnerung des Riesenrochensprechers vom Tal des Triumphs",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Erlebe erneut die Erinnerung des Stretchenden Gurus von der Tageslicht-Prärie",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:

@@ -15,6 +15,9 @@ export default {
 		},
 		maps: { [SkyMap.JellyfishCove]: "Бухту медуз" },
 		quests: {
+			[DailyQuest.Collect30PiecesOfLight]: "Соберите 30 ед. света",
+			[DailyQuest.WaveToAFriend]: "Помашите другу",
+			[DailyQuest.SendAGiftToAFriend]: "Отправьте подарок другу",
 			[DailyQuest.RechargeFromAJellyfish]: "Зарядите свой свет от медузы",
 			[DailyQuest.RideWithAManta]: "Поездки с мантой",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
@@ -23,6 +26,8 @@ export default {
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Найдите свечи в конце радуги в Полуденной прерии",
 			[DailyQuest.CollectOrangeLight]: "Соберите оранжевый свет",
+			[DailyQuest.ReliveTheMantaWhisperer]:
+				"Переживите воспоминания Голоса манты из Долины триумфа",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Переживите воспоминания Растягивающегося гуру из Полуденной прерии",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:

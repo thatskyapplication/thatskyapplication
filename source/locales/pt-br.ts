@@ -15,6 +15,9 @@ export default {
 		},
 		maps: { [SkyMap.JellyfishCove]: "Enseada das Águas-vivas" },
 		quests: {
+			[DailyQuest.Collect30PiecesOfLight]: "Obter 30 fragmentos de luz",
+			[DailyQuest.WaveToAFriend]: "Dar tchau para um amigo",
+			[DailyQuest.SendAGiftToAFriend]: "Enviar um presente para um amigo",
 			[DailyQuest.RechargeFromAJellyfish]: "Recarregar sua luz com uma água-viva",
 			[DailyQuest.RideWithAManta]: "Passeie com uma arraia",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
@@ -24,6 +27,8 @@ export default {
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Econtre as velas no fim do arco-íris na Campina da Aurora",
 			[DailyQuest.CollectOrangeLight]: "Colete Luz Laranja",
+			[DailyQuest.ReliveTheMantaWhisperer]:
+				"Reviva as lembranças do Encantador de Arraias no Vale do Triunfo",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Reviva as lembranças do Guru Alongando na Campina da Aurora",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:

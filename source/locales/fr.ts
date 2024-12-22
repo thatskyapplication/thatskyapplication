@@ -58,6 +58,9 @@ export default {
 			[SeasonId.Moomin]: "Saison des Moomins",
 		},
 		quests: {
+			[DailyQuest.Collect30PiecesOfLight]: "Récupérez 30 morceaux de lumière",
+			[DailyQuest.WaveToAFriend]: "Faites signe à un ami",
+			[DailyQuest.SendAGiftToAFriend]: "Envoyez un cadeau a un ami",
 			[DailyQuest.RechargeFromAJellyfish]: "Rechargez votre lumière auprès d'une méduse",
 			[DailyQuest.RideWithAManta]: "Montez sur une raie manta",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
@@ -67,6 +70,8 @@ export default {
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Trouvez les bougies au bout de l'arc-en-ciel dans la Prairie illuminée",
 			[DailyQuest.CollectOrangeLight]: "Récupérez la lumière orange",
+			[DailyQuest.ReliveTheMantaWhisperer]:
+				"Revivez le souvenir de l'orateur Manta dans la Vallée du triomphe",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Revivez le souvenir du gourou en étirement dans la Prairie illuminée",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
