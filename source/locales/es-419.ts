@@ -6,7 +6,7 @@ export default {
 		...esES.commands,
 		hug: {
 			...esES.commands.hug,
-			message: "{{-user}}, ¡{{-invoker}} te abrazó!",
+			message: "{{user}}, ¡{{invoker}} te abrazó!",
 		},
 	},
 };

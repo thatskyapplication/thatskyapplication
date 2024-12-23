@@ -299,10 +299,10 @@ export default {
 			user: "usuario",
 			"user-description": "El individuo para ser abrazado.",
 			"hug-self": "¡Comparte el amor! ¡Abraza a alguien que no seas tú!",
-			"not-in-server": "{{-user}} no está en el servidor para recibir tu abrazo.",
-			"not-around": "{{-user}} no está aquí para recibir el abrazo!",
-			bot: "{{-user}} es un bot. No tiene emociones. Es inmune a los abrazos, diría yo.",
-			message: "{{-user}}, ¡{{-invoker}} te ha abrazado!",
+			"not-in-server": "{{user}} no está en el servidor para recibir tu abrazo.",
+			"not-around": "{{user}} no está aquí para recibir el abrazo!",
+			bot: "{{user}} es un bot. No tiene emociones. Es inmune a los abrazos, diría yo.",
+			message: "{{user}}, ¡{{invoker}} te ha abrazado!",
 		},
 		notifications: {
 			setup: {

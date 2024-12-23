@@ -39,4 +39,7 @@ void init({
 	},
 	returnEmptyString: false,
 	saveMissing: true,
+	interpolation: {
+		escapeValue: false,
+	},
 });
