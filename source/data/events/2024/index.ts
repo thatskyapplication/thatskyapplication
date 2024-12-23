@@ -10,8 +10,8 @@ import DaysOfNature from "./days-of-nature.js";
 import DaysOfStyle from "./days-of-style.js";
 import DaysOfSunlight from "./days-of-sunlight.js";
 import SkyFest from "./sky-fest.js";
-import SkyXCinnamorollPopUpCafe from "./sky-x-cinnamoroll-pop-up-cafe.js";
 import SkyXAlicesWonderlandCafe from "./sky-×-alices-wonderland-cafe.js";
+import SkyXCinnamorollPopUpCafe from "./sky-×-cinnamoroll-pop-up-cafe.js";
 import SpringCamping from "./spring-camping.js";
 import TournamentOfTriumph from "./tournament-of-triumph.js";
 
