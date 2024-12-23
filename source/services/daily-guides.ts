@@ -43,7 +43,6 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	DOUBLE_TREASURE_CANDLES_DATES,
 	TIME_ZONE,
-	isDuring,
 	skyNow,
 	skyToday,
 } from "../utility/dates.js";
@@ -536,8 +535,8 @@ export async function distributionEmbed(locale: Locale) {
 	// 	}
 	// }
 
-	const doubleTreasureCandles = DOUBLE_TREASURE_CANDLES_DATES.some((doubleTreasureCandles) =>
-		isDuring(doubleTreasureCandles.start, doubleTreasureCandles.end, now),
+	const doubleTreasureCandles = DOUBLE_TREASURE_CANDLES_DATES.some(
+		({ start, end }) => now >= start && now < end,
 	);
 
 	const treasureCandleURLs = treasureCandles(today, doubleTreasureCandles);
@@ -567,11 +566,8 @@ export async function distributionEmbed(locale: Locale) {
 			let rotationNumber: RotationNumber = rotation;
 
 			if (
-				isDuring(
-					DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
-					DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
-					today,
-				)
+				now >= DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE &&
+				now < DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE
 			) {
 				rotationNumber = 3;
 			}
