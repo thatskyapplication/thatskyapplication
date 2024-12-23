@@ -8,6 +8,7 @@ import {
 	HAIR_EMOJIS,
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 	OUTFIT_EMOJIS,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../utility/emojis.js";
 
 const eventCurrencyAmount = [];
@@ -75,7 +76,7 @@ export default new Event({
 			name: "Wonderland Cafe Corridor",
 			cosmetic: Cosmetic.WonderlandCafeCorridor,
 			cost: { money: 11.99 },
-			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp79,
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp86,
 		},
 	],
 	patchNotesURL: String(new URL("p0275", LINK_REDIRECTOR_URL)),

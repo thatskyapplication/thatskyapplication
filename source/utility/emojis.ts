@@ -4331,10 +4331,6 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			 * Wonderland Teacup Bath.
 			 */
 			LargePlaceableProp78: { id: "1320564773204791337" },
-			/**
-			 * Wonderland Cafe Corridor.
-			 */
-			LargePlaceableProp79: { id: "1320566969392435303" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			LargePlaceableProp01: { id: "1313923096218177678" },
@@ -4415,7 +4411,6 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			LargePlaceableProp76: { id: "1313923278502494208" },
 			LargePlaceableProp77: { id: "1313923270583652404" },
 			LargePlaceableProp78: { id: "1320564604060962826" },
-			LargePlaceableProp79: { id: "1320566442755756102" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type LargePlaceablePropsEmojis =
@@ -4763,6 +4758,10 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			 * The Moomin Storybook (non-ultimate).
 			 */
 			SmallPlaceableProp85: { id: "1315723498727145513" },
+			/**
+			 * Wonderland Cafe Corridor.
+			 */
+			SmallPlaceableProp86: { id: "1320566969392435303" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			SmallPlaceableProp01: { id: "1313924407802069145" },
@@ -4850,6 +4849,7 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			SmallPlaceableProp83: { id: "1313924687415214080" },
 			SmallPlaceableProp84: { id: "1313924679798362252" },
 			SmallPlaceableProp85: { id: "1315723148133531738" },
+			SmallPlaceableProp86: { id: "1320566442755756102" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type SmallPlaceablePropsEmojis =
