@@ -20,16 +20,20 @@ export default {
 			[DailyQuest.SendAGiftToAFriend]: "Отправьте подарок другу",
 			[DailyQuest.RechargeFromAJellyfish]: "Зарядите свой свет от медузы",
 			[DailyQuest.RideWithAManta]: "Поездки с мантой",
+			[DailyQuest.ReliveASpiritsMemories]: "Проживите воспоминания этого Духа",
+			[DailyQuest.KnockOver5DarkCrabs]: "Сбейте 5 темных крабов",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Найдите уютное укрытие в пещерах в прерии",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]: "Полюбуйтесь деревцем в Тайном лесу",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Найдите свечи в конце радуги в Полуденной прерии",
 			[DailyQuest.CollectOrangeLight]: "Соберите оранжевый свет",
+			[DailyQuest.CollectRedLight]: "Соберите красный свет",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Переживите воспоминания Голоса манты из Долины триумфа",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Переживите воспоминания Растягивающегося гуру из Полуденной прерии",
+			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: "Разыграйте Командора-начальника",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Соберите команду из игроков (Первопроходец (прятки)) в месте Могильник",
 		},

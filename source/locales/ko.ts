@@ -20,15 +20,19 @@ export default {
 			[DailyQuest.SendAGiftToAFriend]: "친구에게 선물 보내기",
 			[DailyQuest.RechargeFromAJellyfish]: "해파리 위에서 빛 충전하기",
 			[DailyQuest.RideWithAManta]: "만타가오리 위에 올라타기",
+			[DailyQuest.ReliveASpiritsMemories]: "영혼의 기억을 체험하기",
+			[DailyQuest.KnockOver5DarkCrabs]: "어둠의 게 5마리를 쓰러뜨리기",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"초원의 동굴 속 안락한 아지트를 찾아가기",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]: "비밀의 숲에서 어린 나무를 잠시 감상하기",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"햇빛 초원의 무지개 끝에서 양초를 찾기",
 			[DailyQuest.CollectOrangeLight]: "주황색 빛 모으기",
+			[DailyQuest.CollectRedLight]: "빨간색 빛 모으기",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"승리의 계곡에서 만타가오리 소리꾼의 기억을 다시 체험하기",
 			[DailyQuest.ReliveTheStretchingGuru]: "햇빛 초원에서 체조하는 선생의 기억을 다시 체험하기",
+			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: "위풍당당 선장에게 장난을 치기",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: "뼈 무덤에서 숨바꼭질 개척자와(과) 만나기",
 		},
 		seasons: {

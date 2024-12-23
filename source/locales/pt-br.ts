@@ -20,6 +20,8 @@ export default {
 			[DailyQuest.SendAGiftToAFriend]: "Enviar um presente para um amigo",
 			[DailyQuest.RechargeFromAJellyfish]: "Recarregar sua luz com uma água-viva",
 			[DailyQuest.RideWithAManta]: "Passeie com uma arraia",
+			[DailyQuest.ReliveASpiritsMemories]: "Reviver as memórias de um espírito",
+			[DailyQuest.KnockOver5DarkCrabs]: "Derrubar 5 caranguejos de criaturas da escuridão",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Visite o esconderijo aconchegante nas Cavernas da Campina",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
@@ -27,10 +29,13 @@ export default {
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Econtre as velas no fim do arco-íris na Campina da Aurora",
 			[DailyQuest.CollectOrangeLight]: "Colete Luz Laranja",
+			[DailyQuest.CollectRedLight]: "Colete Luz Vermelha",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Reviva as lembranças do Encantador de Arraias no Vale do Triunfo",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Reviva as lembranças do Guru Alongando na Campina da Aurora",
+			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
+				"Faça uma pegadinha com o Comodoro Abandonado",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Encontre-se com Pioneiro de esconde-esconde em Cemitério",
 		},

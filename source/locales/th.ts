@@ -19,13 +19,17 @@ export default {
 			[DailyQuest.SendAGiftToAFriend]: "ส่งของขวัญให้เพื่อน",
 			[DailyQuest.RechargeFromAJellyfish]: "เติมแสงของคุณจากแมงกะพรุน",
 			[DailyQuest.RideWithAManta]: "ขี่กระเบน",
+			[DailyQuest.ReliveASpiritsMemories]: "หวนระลึกความทรงจำของสปิริต",
+			[DailyQuest.KnockOver5DarkCrabs]: "คว่าปูทมิฬ 5 ตัวขึ้นไป",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]: "ไปยังที่ซ่อนแสนสบายในถ้ำแห่งทุ่งหญ้า",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]: "ชื่นชมต้นอ่อนในป่าลับเป็นระยะเวลาสั้นๆ",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"ค้นหาเทียนที่สุดปลายสายรุ้งในทุ่งหญ้าแสงตะวัน",
 			[DailyQuest.CollectOrangeLight]: "เก็บแสงสีส้ม",
+			[DailyQuest.CollectRedLight]: "เก็บแสงสีแดง",
 			[DailyQuest.ReliveTheMantaWhisperer]: "หวนระลึกความทรงจำของผู้รู้ใจกระเบนจากหุบเขาแห่งชัยชนะ",
 			[DailyQuest.ReliveTheStretchingGuru]: "หวนระลึกความทรงจำของกูรูนักยึดเหยียดจากทุ่งหญ้าแสงตะวัน",
+			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: "เล่นหยอกล้อกับพลเรือผู้ผ่อนปรน",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: "พบกับ ผู้บุกเบิกเกมซ่อนหา ใน ทุ่งกระดูก",
 		},
 		seasons: {

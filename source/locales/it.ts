@@ -20,6 +20,8 @@ export default {
 			[DailyQuest.SendAGiftToAFriend]: "Invia un regalo a un amico",
 			[DailyQuest.RechargeFromAJellyfish]: "Ricarica la tua luce da una medusa",
 			[DailyQuest.RideWithAManta]: "Cavalca una manta",
+			[DailyQuest.ReliveASpiritsMemories]: "Rivivi i ricordi di uno spirito",
+			[DailyQuest.KnockOver5DarkCrabs]: "Abbatti più di 5 granchi oscuri",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Visita il nascondiglio accogliente nella grotte della Prateria",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
@@ -27,10 +29,13 @@ export default {
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Trova le candele alla fine dell'arcobaleno nella Prateria Diurna",
 			[DailyQuest.CollectOrangeLight]: "Raccogli Luce Arancione",
+			[DailyQuest.CollectRedLight]: "Raccogli Luce Rossa",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Rivivi il ricordo del Portavoce della manta nella Valle del Trionfo",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Revivi il ricordo del Guru stiracchiante nella Prateria Diurna",
+			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
+				"Fai uno scherzo al Commodoro autorevole",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Incontra Pioniere nascosto presso Cimitero",
 		},

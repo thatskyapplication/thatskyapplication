@@ -63,6 +63,8 @@ export default {
 			[DailyQuest.SendAGiftToAFriend]: "Envoyez un cadeau a un ami",
 			[DailyQuest.RechargeFromAJellyfish]: "Rechargez votre lumière auprès d'une méduse",
 			[DailyQuest.RideWithAManta]: "Montez sur une raie manta",
+			[DailyQuest.ReliveASpiritsMemories]: "Revivez les souvenirs d'un esprit",
+			[DailyQuest.KnockOver5DarkCrabs]: "Renversez 5 crabes sombres",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Visitez le cachette confortable dans les grottes de la Prairie",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
@@ -70,10 +72,13 @@ export default {
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Trouvez les bougies au bout de l'arc-en-ciel dans la Prairie illuminée",
 			[DailyQuest.CollectOrangeLight]: "Récupérez la lumière orange",
+			[DailyQuest.CollectRedLight]: "Récupérez la lumière rouge",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Revivez le souvenir de l'orateur Manta dans la Vallée du triomphe",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Revivez le souvenir du gourou en étirement dans la Prairie illuminée",
+			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
+				"Faites une farce au commodore commandant",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Retrouvez Pionnier du cache-cache à Cimetière de la Forêt",
 		},

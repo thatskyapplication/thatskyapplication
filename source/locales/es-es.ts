@@ -29,6 +29,8 @@ export default {
 			[DailyQuest.SendAGiftToAFriend]: "Envía un regalo a un amigo",
 			[DailyQuest.RechargeFromAJellyfish]: "Recarga tu luz a partir de una medusa",
 			[DailyQuest.RideWithAManta]: "Vuela con una mantarraya",
+			[DailyQuest.ReliveASpiritsMemories]: "Revive las memorias de un espíritu",
+			[DailyQuest.KnockOver5DarkCrabs]: "Derriba 5 cangrejos oscuros",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Visita el cómodo escondite en las cuevas de las planicies",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
@@ -36,10 +38,13 @@ export default {
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Encuentra las velas al final del arcoíris en la Planicie Luz de Día",
 			[DailyQuest.CollectOrangeLight]: "Recoge Luz Naranja",
+			[DailyQuest.CollectRedLight]: "Recoge Luz Roja",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Revive el recuerdo del Susurrador de mantas del Valle del Triunfo",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Revive el recuerdo del Gurú estirando de la Planicie Luz de Día",
+			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
+				"Hazle una broma al Capitán de navío cesante",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Reúnete con Pionero de las escondidas en Deshuesadero",
 		},

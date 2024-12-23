@@ -20,6 +20,8 @@ export default {
 			[DailyQuest.SendAGiftToAFriend]: "Schicke einem Freund ein Geschenk",
 			[DailyQuest.RechargeFromAJellyfish]: "Lade dein Licht durch eine Qualle auf",
 			[DailyQuest.RideWithAManta]: "Schwimme mit einem Riesenrochen",
+			[DailyQuest.ReliveASpiritsMemories]: "Erlebe die Erinnerungen eines Geistes",
+			[DailyQuest.KnockOver5DarkCrabs]: "Wirf 5 Dunkelkreaturen-Krebse um",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Besuche das gemütliche Versteck in den Präriehöhlen",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
@@ -27,10 +29,13 @@ export default {
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Suche die Kerzen am Ende des Regenbogens in der Tageslichtprärie",
 			[DailyQuest.CollectOrangeLight]: "Sammle Oranges Licht",
+			[DailyQuest.CollectRedLight]: "Sammle Rotes Licht",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Erlebe erneut die Erinnerung des Riesenrochensprechers vom Tal des Triumphs",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Erlebe erneut die Erinnerung des Stretchenden Gurus von der Tageslicht-Prärie",
+			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
+				"Spiele dem Kommando-Kapitän einen Streich",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Triff dich mit Versteckspiel-Pionier in Friedhof im Wald",
 		},

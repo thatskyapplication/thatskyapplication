@@ -20,6 +20,8 @@ export default {
 			[DailyQuest.SendAGiftToAFriend]: "Tặng quà cho một người bạn",
 			[DailyQuest.RechargeFromAJellyfish]: "Nạp Ánh Sáng từ sứa",
 			[DailyQuest.RideWithAManta]: "Cưỡi cùng Cá Đuối",
+			[DailyQuest.ReliveASpiritsMemories]: "Hồi tưởng lại ký ức của một Tinh Linh",
+			[DailyQuest.KnockOver5DarkCrabs]: "Lật ngửa 5 con Cua Bóng Đêm",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Ghé thăm nơi ẩn náu ấm cúng ở Thảo Nguyên Ánh Sáng",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
@@ -27,10 +29,13 @@ export default {
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Tìm những ngọn nến ở cuối cầu vồng ở Thảo Nguyên Ánh Sáng",
 			[DailyQuest.CollectOrangeLight]: "Thu thập Ánh Sáng Cam",
+			[DailyQuest.CollectRedLight]: "Thu thập Ánh Sáng Đỏ",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Hồi tưởng lại ký ức của Người Luyện Cá Đuối đến từ Thung Lũng Vinh Quang",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Hồi tưởng lại ký ức của Sư Phụ Giãn Cơ đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
+				"Chơi một trò đùa với Thuyền Trưởng Uy Nghiêm",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Gặp gỡ Người Khai Hoang Trốn Tìm trong Nghĩa Địa",
 		},
