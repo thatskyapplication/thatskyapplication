@@ -897,6 +897,10 @@ export const OUTFIT_EMOJIS = PRODUCTION
 			 * The Moomin Storybook (non-ultimate).
 			 */
 			Outfit73: { id: "1315724161330577490" },
+			/**
+			 * Wonderland Primrose Pinafore Set.
+			 */
+			Outfit74: { id: "1320563769931468810" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Outfit01: { id: "1313869809905172600" },
@@ -972,6 +976,7 @@ export const OUTFIT_EMOJIS = PRODUCTION
 			Outfit71: { id: "1313919414181302322" },
 			Outfit72: { id: "1313919411211604051" },
 			Outfit73: { id: "1315724340121178122" },
+			Outfit74: { id: "1320563623567032350" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -2603,6 +2608,14 @@ export const HAIR_EMOJIS = PRODUCTION
 			 * Mischief Spider Bun.
 			 */
 			Hair152: { id: "1313936667773505647" },
+			/**
+			 * Wonderland Frantic Hair.
+			 */
+			Hair153: { id: "1320564267895754772" },
+			/**
+			 * Wonderland Hare Hairstyle.
+			 */
+			Hair154: { id: "1320565117187784807" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Hair01: { id: "1313921255413383228" },
@@ -2757,6 +2770,8 @@ export const HAIR_EMOJIS = PRODUCTION
 			Hair150: { id: "1313921723661291622" },
 			Hair151: { id: "1313921883309342780" },
 			Hair152: { id: "1313921884773023744" },
+			Hair153: { id: "1320564196324147272" },
+			Hair154: { id: "1320565008454909983" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -2966,6 +2981,14 @@ export const HAIR_ACCESSORY_EMOJIS = PRODUCTION
 			 * Inspiration of Inclusion.
 			 */
 			HairAccessory50: { id: "1313936974675181639" },
+			/**
+			 * Wonderland Stacked Hat.
+			 */
+			HairAccessory51: { id: "1320563290316734494" },
+			/**
+			 * Wonderland Primrose Pinafore Set.
+			 */
+			HairAccessory52: { id: "1320565947206995998" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			HairAccessory01: { id: "1313922070463385641" },
@@ -3018,6 +3041,8 @@ export const HAIR_ACCESSORY_EMOJIS = PRODUCTION
 			HairAccessory48: { id: "1313922147399241879" },
 			HairAccessory49: { id: "1313922153497759754" },
 			HairAccessory50: { id: "1313922149366632479" },
+			HairAccessory51: { id: "1320563050180378715" },
+			HairAccessory52: { id: "1320566011736490115" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
@@ -4302,6 +4327,14 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			 * Jam Station.
 			 */
 			LargePlaceableProp77: { id: "1313938428546514945" },
+			/**
+			 * Wonderland Teacup Bath.
+			 */
+			LargePlaceableProp78: { id: "1320564773204791337" },
+			/**
+			 * Wonderland Cafe Corridor.
+			 */
+			LargePlaceableProp79: { id: "1320566969392435303" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			LargePlaceableProp01: { id: "1313923096218177678" },
@@ -4381,6 +4414,8 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			LargePlaceableProp75: { id: "1313923302355636234" },
 			LargePlaceableProp76: { id: "1313923278502494208" },
 			LargePlaceableProp77: { id: "1313923270583652404" },
+			LargePlaceableProp78: { id: "1320564604060962826" },
+			LargePlaceableProp79: { id: "1320566442755756102" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type LargePlaceablePropsEmojis =

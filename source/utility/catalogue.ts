@@ -2800,13 +2800,13 @@ export const enum Cosmetic {
 	MoominmammasMasterpiece = 2207,
 
 	// 23/12/2024 | Sky x Alice's Wonderland Cafe.
-	WonderlandStackedHat,
-	WonderlandFranticHair,
-	WonderlandTeacupBath,
-	WonderlandHareHairstyle,
-	WonderlandPrimrosePinaforeHairAccessory,
-	WonderlandPrimrosePinaforeDress,
-	WonderlandCafeCorridor,
+	WonderlandStackedHat = 2208,
+	WonderlandFranticHair = 2209,
+	WonderlandTeacupBath = 2210,
+	WonderlandHareHairstyle = 2211,
+	WonderlandPrimrosePinaforeDress = 2212,
+	WonderlandPrimrosePinaforeHairAccessory = 2213,
+	WonderlandCafeCorridor = 2214,
 }
 
 export const SeasonId = {
@@ -3084,7 +3084,7 @@ export const EventIdToEventCurrencyEmoji = {
 	[EventId.DaysOfMischief2024]: EVENT_EMOJIS.Mischief,
 	[EventId.DaysOfMusic2024]: EVENT_EMOJIS.Music,
 	[EventId.DaysOfGiving2024]: null,
-	[EventId.SkyXAlicesWonderlandCafe2024]: null,
+	[EventId.SkyXAlicesWonderlandCafe2024]: EVENT_EMOJIS.Feast,
 } as const satisfies Readonly<Record<EventIds, EventEmojis | null>>;
 
 export function snakeCaseName(name: string) {
