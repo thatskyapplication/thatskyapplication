@@ -25,11 +25,15 @@ export default {
 		},
 		quests: {
 			[DailyQuest.Collect30PiecesOfLight]: "Recoge 30 piezas de luz",
+			[DailyQuest.Light20Candles]: "Enciende 20 velas",
+			[DailyQuest.BowAtAPlayer]: "Inclínate ante un jugador",
 			[DailyQuest.WaveToAFriend]: "Saluda a un amigo",
 			[DailyQuest.SendAGiftToAFriend]: "Envía un regalo a un amigo",
 			[DailyQuest.RechargeFromAJellyfish]: "Recarga tu luz a partir de una medusa",
 			[DailyQuest.RideWithAManta]: "Vuela con una mantarraya",
 			[DailyQuest.ReliveASpiritsMemories]: "Revive las memorias de un espíritu",
+			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
+				"Revive los recuerdos de un espíritu en la Bóveda de Conocimiento",
 			[DailyQuest.KnockOver5DarkCrabs]: "Derriba 5 cangrejos oscuros",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Visita el cómodo escondite en las cuevas de las planicies",
@@ -43,6 +47,8 @@ export default {
 				"Revive el recuerdo del Susurrador de mantas del Valle del Triunfo",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Revive el recuerdo del Gurú estirando de la Planicie Luz de Día",
+			[DailyQuest.ReliveTheWiseGrandparent]:
+				"Revive el recuerdo del Director atento de la Bóveda de Conocimiento",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Hazle una broma al Capitán de navío cesante",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:

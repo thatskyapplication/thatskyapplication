@@ -15,11 +15,15 @@ export default {
 		},
 		quests: {
 			[DailyQuest.Collect30PiecesOfLight]: "เก็บแสง 30 ชิ้น",
+			[DailyQuest.Light20Candles]: "จุดเทียน 20 เล่ม",
+			[DailyQuest.BowAtAPlayer]: "คำนับผู้เล่น",
 			[DailyQuest.WaveToAFriend]: "โบกมือให้เพื่อน",
 			[DailyQuest.SendAGiftToAFriend]: "ส่งของขวัญให้เพื่อน",
 			[DailyQuest.RechargeFromAJellyfish]: "เติมแสงของคุณจากแมงกะพรุน",
 			[DailyQuest.RideWithAManta]: "ขี่กระเบน",
 			[DailyQuest.ReliveASpiritsMemories]: "หวนระลึกความทรงจำของสปิริต",
+			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
+				"หวนระลึกความทรงจำของสปิริตในกรุสมบัติแห่งปัญญา",
 			[DailyQuest.KnockOver5DarkCrabs]: "คว่าปูทมิฬ 5 ตัวขึ้นไป",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]: "ไปยังที่ซ่อนแสนสบายในถ้ำแห่งทุ่งหญ้า",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]: "ชื่นชมต้นอ่อนในป่าลับเป็นระยะเวลาสั้นๆ",
@@ -29,6 +33,7 @@ export default {
 			[DailyQuest.CollectRedLight]: "เก็บแสงสีแดง",
 			[DailyQuest.ReliveTheMantaWhisperer]: "หวนระลึกความทรงจำของผู้รู้ใจกระเบนจากหุบเขาแห่งชัยชนะ",
 			[DailyQuest.ReliveTheStretchingGuru]: "หวนระลึกความทรงจำของกูรูนักยึดเหยียดจากทุ่งหญ้าแสงตะวัน",
+			[DailyQuest.ReliveTheWiseGrandparent]: "หวนระลึกความทรงจำของผู้กำกับครุ่นคิดจากกรุสมบัติแห่งปัญญา",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: "เล่นหยอกล้อกับพลเรือผู้ผ่อนปรน",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: "พบกับ ผู้บุกเบิกเกมซ่อนหา ใน ทุ่งกระดูก",
 		},

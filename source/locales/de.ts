@@ -16,11 +16,15 @@ export default {
 		maps: { [SkyMap.JellyfishCove]: "Quallenbucht" },
 		quests: {
 			[DailyQuest.Collect30PiecesOfLight]: "Sammle 30 Lichtstücke",
+			[DailyQuest.Light20Candles]: "Zünde 20 Kerzen an",
+			[DailyQuest.BowAtAPlayer]: "Verbeuge dich vor einem Spieler",
 			[DailyQuest.WaveToAFriend]: "Winke einem Freund zu",
 			[DailyQuest.SendAGiftToAFriend]: "Schicke einem Freund ein Geschenk",
 			[DailyQuest.RechargeFromAJellyfish]: "Lade dein Licht durch eine Qualle auf",
 			[DailyQuest.RideWithAManta]: "Schwimme mit einem Riesenrochen",
 			[DailyQuest.ReliveASpiritsMemories]: "Erlebe die Erinnerungen eines Geistes",
+			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
+				"Erlebe die Erinnerungen eines Geistes im Tresor des Wissens",
 			[DailyQuest.KnockOver5DarkCrabs]: "Wirf 5 Dunkelkreaturen-Krebse um",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Besuche das gemütliche Versteck in den Präriehöhlen",
@@ -34,6 +38,8 @@ export default {
 				"Erlebe erneut die Erinnerung des Riesenrochensprechers vom Tal des Triumphs",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Erlebe erneut die Erinnerung des Stretchenden Gurus von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheWiseGrandparent]:
+				"Erlebe erneut die Erinnerung des Nachdenklichen Direktors vom Tresor des Wissens",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Spiele dem Kommando-Kapitän einen Streich",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:

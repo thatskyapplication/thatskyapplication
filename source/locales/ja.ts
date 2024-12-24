@@ -16,11 +16,14 @@ export default {
 		maps: { [SkyMap.JellyfishCove]: "海月の入り江" },
 		quests: {
 			[DailyQuest.Collect30PiecesOfLight]: "光のかけらを30個集める",
+			[DailyQuest.Light20Candles]: "20本のキャンドルに灯を点す",
+			[DailyQuest.BowAtAPlayer]: "プレイヤーにお辞儀をする",
 			[DailyQuest.WaveToAFriend]: "フレンドに手を振る",
 			[DailyQuest.SendAGiftToAFriend]: "フレンドにギフトを贈る",
 			[DailyQuest.RechargeFromAJellyfish]: "光のクラゲにエナジーを回復してもらう",
 			[DailyQuest.RideWithAManta]: "マンタに乗る",
 			[DailyQuest.ReliveASpiritsMemories]: "精霊の記憶を呼び起こす",
+			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]: "書庫で精霊の記憶を呼び起こす",
 			[DailyQuest.KnockOver5DarkCrabs]: "闇の蟹を5匹気絶させる",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"草原の洞窟にあるくつろげる横穴を訪れる",
@@ -31,6 +34,7 @@ export default {
 			[DailyQuest.CollectRedLight]: "赤色の灯りを集める",
 			[DailyQuest.ReliveTheMantaWhisperer]: "峡谷でマンタの語り部の記憶を呼び起こす",
 			[DailyQuest.ReliveTheStretchingGuru]: "草原で屈伸する導師の記憶を呼び起こす",
+			[DailyQuest.ReliveTheWiseGrandparent]: "書庫で思慮深き座長の記憶を呼び起こす",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: "動じない提にいたずらを仕掛けましょう",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"かくれんぼ提唱者に雨林の墓場で会いましょう",

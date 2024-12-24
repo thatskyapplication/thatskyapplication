@@ -16,11 +16,15 @@ export default {
 		maps: { [SkyMap.JellyfishCove]: "Baia delle Meduse" },
 		quests: {
 			[DailyQuest.Collect30PiecesOfLight]: "Raccogli 30 unità di luce",
+			[DailyQuest.Light20Candles]: "Accendi 20 candele",
+			[DailyQuest.BowAtAPlayer]: "Inchinati ad un giocatore",
 			[DailyQuest.WaveToAFriend]: "Saluta un amico",
 			[DailyQuest.SendAGiftToAFriend]: "Invia un regalo a un amico",
 			[DailyQuest.RechargeFromAJellyfish]: "Ricarica la tua luce da una medusa",
 			[DailyQuest.RideWithAManta]: "Cavalca una manta",
 			[DailyQuest.ReliveASpiritsMemories]: "Rivivi i ricordi di uno spirito",
+			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
+				"Rivivi i ricordi di uno spirito nella Cupola della Conoscenza",
 			[DailyQuest.KnockOver5DarkCrabs]: "Abbatti più di 5 granchi oscuri",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Visita il nascondiglio accogliente nella grotte della Prateria",
@@ -34,6 +38,8 @@ export default {
 				"Rivivi il ricordo del Portavoce della manta nella Valle del Trionfo",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Revivi il ricordo del Guru stiracchiante nella Prateria Diurna",
+			[DailyQuest.ReliveTheWiseGrandparent]:
+				"Rivivi il ricordo del Direttore pensieroso nella Cupola della Conoscenza",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Fai uno scherzo al Commodoro autorevole",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:

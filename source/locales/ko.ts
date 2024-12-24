@@ -16,11 +16,15 @@ export default {
 		maps: { [SkyMap.JellyfishCove]: "해파리 만" },
 		quests: {
 			[DailyQuest.Collect30PiecesOfLight]: "빛 조각 30개 모으기",
+			[DailyQuest.Light20Candles]: "양초 20개에 불을 붙이기",
+			[DailyQuest.BowAtAPlayer]: "플레이어에게 고개 숙여 인사하기",
 			[DailyQuest.WaveToAFriend]: "친구에게 손 흔들기",
 			[DailyQuest.SendAGiftToAFriend]: "친구에게 선물 보내기",
 			[DailyQuest.RechargeFromAJellyfish]: "해파리 위에서 빛 충전하기",
 			[DailyQuest.RideWithAManta]: "만타가오리 위에 올라타기",
 			[DailyQuest.ReliveASpiritsMemories]: "영혼의 기억을 체험하기",
+			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
+				"지식의 도서관에서 영혼의 기억을 다시 체험하기",
 			[DailyQuest.KnockOver5DarkCrabs]: "어둠의 게 5마리를 쓰러뜨리기",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"초원의 동굴 속 안락한 아지트를 찾아가기",
@@ -32,6 +36,8 @@ export default {
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"승리의 계곡에서 만타가오리 소리꾼의 기억을 다시 체험하기",
 			[DailyQuest.ReliveTheStretchingGuru]: "햇빛 초원에서 체조하는 선생의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheWiseGrandparent]:
+				"지식의 도서관에서 고민하는 감독의 기억을 다시 체험하기",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: "위풍당당 선장에게 장난을 치기",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: "뼈 무덤에서 숨바꼭질 개척자와(과) 만나기",
 		},

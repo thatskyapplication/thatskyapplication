@@ -16,11 +16,15 @@ export default {
 		maps: { [SkyMap.JellyfishCove]: "Бухту медуз" },
 		quests: {
 			[DailyQuest.Collect30PiecesOfLight]: "Соберите 30 ед. света",
+			[DailyQuest.Light20Candles]: "Зажгите 20 свечей",
+			[DailyQuest.BowAtAPlayer]: "Поклонитесь игроку",
 			[DailyQuest.WaveToAFriend]: "Помашите другу",
 			[DailyQuest.SendAGiftToAFriend]: "Отправьте подарок другу",
 			[DailyQuest.RechargeFromAJellyfish]: "Зарядите свой свет от медузы",
 			[DailyQuest.RideWithAManta]: "Поездки с мантой",
 			[DailyQuest.ReliveASpiritsMemories]: "Проживите воспоминания этого Духа",
+			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
+				"Проживите воспоминания духа в Хранилище знаний",
 			[DailyQuest.KnockOver5DarkCrabs]: "Сбейте 5 темных крабов",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Найдите уютное укрытие в пещерах в прерии",
@@ -33,6 +37,8 @@ export default {
 				"Переживите воспоминания Голоса манты из Долины триумфа",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Переживите воспоминания Растягивающегося гуру из Полуденной прерии",
+			[DailyQuest.ReliveTheWiseGrandparent]:
+				"Переживите воспоминания Задумчивого творца из Хранилища знаний",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: "Разыграйте Командора-начальника",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Соберите команду из игроков (Первопроходец (прятки)) в месте Могильник",

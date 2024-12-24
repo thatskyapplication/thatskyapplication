@@ -16,11 +16,15 @@ export default {
 		maps: { [SkyMap.JellyfishCove]: "Vịnh Sứa" },
 		quests: {
 			[DailyQuest.Collect30PiecesOfLight]: "Thu thập 30 Mảnh Ánh Sáng",
+			[DailyQuest.Light20Candles]: "Thắp 20 ngọn nến",
+			[DailyQuest.BowAtAPlayer]: "Cúi chào mt người chơi",
 			[DailyQuest.WaveToAFriend]: "Vẫy tay với một người bạn",
 			[DailyQuest.SendAGiftToAFriend]: "Tặng quà cho một người bạn",
 			[DailyQuest.RechargeFromAJellyfish]: "Nạp Ánh Sáng từ sứa",
 			[DailyQuest.RideWithAManta]: "Cưỡi cùng Cá Đuối",
 			[DailyQuest.ReliveASpiritsMemories]: "Hồi tưởng lại ký ức của một Tinh Linh",
+			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
+				"Hồi tưởng lại ký ức của một Tinh Linh ở Kho Tri Thức",
 			[DailyQuest.KnockOver5DarkCrabs]: "Lật ngửa 5 con Cua Bóng Đêm",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Ghé thăm nơi ẩn náu ấm cúng ở Thảo Nguyên Ánh Sáng",
@@ -34,6 +38,8 @@ export default {
 				"Hồi tưởng lại ký ức của Người Luyện Cá Đuối đến từ Thung Lũng Vinh Quang",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Hồi tưởng lại ký ức của Sư Phụ Giãn Cơ đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheWiseGrandparent]:
+				"Hồi tưởng lại ký ức của Biên Đạo Trầm Tư đến từ Kho Tri Thức",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Chơi một trò đùa với Thuyền Trưởng Uy Nghiêm",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:

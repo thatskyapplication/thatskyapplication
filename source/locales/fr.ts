@@ -59,11 +59,15 @@ export default {
 		},
 		quests: {
 			[DailyQuest.Collect30PiecesOfLight]: "Récupérez 30 morceaux de lumière",
+			[DailyQuest.Light20Candles]: "Allumez 20 bougies",
+			[DailyQuest.BowAtAPlayer]: "Inclinez-vous face à un joueur",
 			[DailyQuest.WaveToAFriend]: "Faites signe à un ami",
 			[DailyQuest.SendAGiftToAFriend]: "Envoyez un cadeau a un ami",
 			[DailyQuest.RechargeFromAJellyfish]: "Rechargez votre lumière auprès d'une méduse",
 			[DailyQuest.RideWithAManta]: "Montez sur une raie manta",
 			[DailyQuest.ReliveASpiritsMemories]: "Revivez les souvenirs d'un esprit",
+			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
+				"Revivez les souvenirs d'un esprit dans la Chambre forte de connaissance",
 			[DailyQuest.KnockOver5DarkCrabs]: "Renversez 5 crabes sombres",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Visitez le cachette confortable dans les grottes de la Prairie",
@@ -77,6 +81,8 @@ export default {
 				"Revivez le souvenir de l'orateur Manta dans la Vallée du triomphe",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Revivez le souvenir du gourou en étirement dans la Prairie illuminée",
+			[DailyQuest.ReliveTheWiseGrandparent]:
+				"Revivez le souvenir du réalisateur réfléchi dans la Chambre forte de connaissance",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Faites une farce au commodore commandant",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:

@@ -16,11 +16,15 @@ export default {
 		maps: { [SkyMap.JellyfishCove]: "Enseada das Águas-vivas" },
 		quests: {
 			[DailyQuest.Collect30PiecesOfLight]: "Obter 30 fragmentos de luz",
+			[DailyQuest.Light20Candles]: "Acender 20 velas",
+			[DailyQuest.BowAtAPlayer]: "Curvar-se perante um jogador",
 			[DailyQuest.WaveToAFriend]: "Dar tchau para um amigo",
 			[DailyQuest.SendAGiftToAFriend]: "Enviar um presente para um amigo",
 			[DailyQuest.RechargeFromAJellyfish]: "Recarregar sua luz com uma água-viva",
 			[DailyQuest.RideWithAManta]: "Passeie com uma arraia",
 			[DailyQuest.ReliveASpiritsMemories]: "Reviver as memórias de um espírito",
+			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
+				"Reviva as memórias de um espírito no Relicário do Conhecimento",
 			[DailyQuest.KnockOver5DarkCrabs]: "Derrubar 5 caranguejos de criaturas da escuridão",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Visite o esconderijo aconchegante nas Cavernas da Campina",
@@ -34,6 +38,8 @@ export default {
 				"Reviva as lembranças do Encantador de Arraias no Vale do Triunfo",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Reviva as lembranças do Guru Alongando na Campina da Aurora",
+			[DailyQuest.ReliveTheWiseGrandparent]:
+				"Reviva as lembranças do Diretor Pensativo no Relicário do Conhecimento",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Faça uma pegadinha com o Comodoro Abandonado",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
