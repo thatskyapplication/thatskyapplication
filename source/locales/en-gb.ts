@@ -62,6 +62,16 @@ export default {
 			[DailyQuest.RechargeFromALightBloom]: "Recharge from a light bloom",
 			[DailyQuest.RideWithAManta]: "Ride with a manta",
 			[DailyQuest.ReliveASpiritsMemories]: "Relive a spirit's memories",
+			[DailyQuest.ReliveASpiritsMemoriesInDaylightPrairie]:
+				"Relive a spirit's memories in the Daylight Prairie",
+			[DailyQuest.ReliveASpiritsMemoriesInHiddenForest]:
+				"Relive a spirit's memories in the Hidden Forest",
+			[DailyQuest.ReliveASpiritsMemoriesInValleyOfTriumph]:
+				"Relive a spirit's memories in the Valley of Triumph",
+			[DailyQuest.ReliveASpiritsMemoriesInGoldenWasteland]:
+				"Relive a spirit's memories in the Golden Wasteland",
+			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
+				"Relive a spirit's memories in the Vault of Knowledge",
 			[DailyQuest.FaceTheDarkDragon]: "Face the dark dragon",
 			[DailyQuest.KnockOver5DarkCrabs]: "Knock over 5 dark crabs",
 			[DailyQuest.CatchTheLightInTheDaylightPrairie]: "Catch the light in the Daylight Prairie",
