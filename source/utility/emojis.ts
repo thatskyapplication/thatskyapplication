@@ -48,6 +48,7 @@ export const MISCELLANEOUS_EMOJIS = PRODUCTION
 			Instagram: { id: "1314811293214965760" },
 			Facebook: { id: "1314812062681268294" },
 			Bluesky: { id: "1314813140210286632" },
+			Report: { id: "1321535527924666409" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			AscendedCandle: { id: "1313864872198541445" },
@@ -86,6 +87,7 @@ export const MISCELLANEOUS_EMOJIS = PRODUCTION
 			Instagram: { id: "1314811456763596811" },
 			Facebook: { id: "1314811939821715527" },
 			Bluesky: { id: "1314813267444633610" },
+			Report: { id: "1321535771731300494" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 export type MiscellaneousEmojis = (typeof MISCELLANEOUS_EMOJIS)[keyof typeof MISCELLANEOUS_EMOJIS];
