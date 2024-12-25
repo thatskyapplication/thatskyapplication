@@ -79,11 +79,9 @@ import Profile, {
 } from "../models/Profile.js";
 import pino from "../pino.js";
 import {
-	dailyMessageModalResponse,
 	distribute,
 	interactive,
 	questSwap,
-	setDailyMessage,
 	setTreasureCandles,
 	treasureCandlesModalResponse,
 	treasureCandlesSelectMenuResponse,
@@ -108,8 +106,6 @@ import { isSeasonId } from "../utility/catalogue.js";
 import {
 	CONTENT_CREATORS_DISPLAY_EDIT_CUSTOM_ID,
 	CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID,
-	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
-	DAILY_GUIDES_DAILY_MESSAGE_MODAL,
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
@@ -552,11 +548,6 @@ export default {
 						return;
 					}
 
-					if (customId === DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID) {
-						await dailyMessageModalResponse(interaction);
-						return;
-					}
-
 					if (customId === DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID) {
 						await treasureCandlesModalResponse(interaction);
 						return;
@@ -780,11 +771,6 @@ export default {
 				if (isGuildModalSubmit(interaction)) {
 					if (customId.startsWith(CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID)) {
 						await contentCreatorsModalResponse(interaction);
-						return;
-					}
-
-					if (DAILY_GUIDES_DAILY_MESSAGE_MODAL === customId) {
-						await setDailyMessage(interaction);
 						return;
 					}
 

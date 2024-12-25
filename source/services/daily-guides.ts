@@ -472,7 +472,7 @@ export async function dailyGuidesShardEruptionData(locale: Locale) {
 }
 
 export async function distributionEmbed(locale: Locale) {
-	const { dailyMessage, quest1, quest2, quest3, quest4 } = DailyGuides;
+	const { quest1, quest2, quest3, quest4 } = DailyGuides;
 	const today = skyToday();
 	const now = skyNow();
 
@@ -485,10 +485,6 @@ export async function distributionEmbed(locale: Locale) {
 	};
 
 	const fields = [];
-
-	if (dailyMessage) {
-		fields.push({ name: dailyMessage.title, value: dailyMessage.description });
-	}
 
 	const quests = [quest1, quest2, quest3, quest4].filter(
 		(quest): quest is DailyGuideQuest => quest !== null,

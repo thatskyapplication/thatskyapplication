@@ -49,7 +49,6 @@ export interface DailyGuidesPacket {
 	quest3: DailyGuideQuest | null;
 	quest4: DailyGuideQuest | null;
 	treasure_candles: TreasureCandlesData | null;
-	daily_message: DailyGuideMessage | null;
 }
 
 type TreasureCandlesData = {
@@ -62,7 +61,6 @@ interface DailyGuidesData {
 	quest3: DailyGuidesPacket["quest3"];
 	quest4: DailyGuidesPacket["quest4"];
 	treasureCandles: DailyGuidesPacket["treasure_candles"];
-	dailyMessage: DailyGuidesPacket["daily_message"];
 }
 
 type DailyGuidesSetQuestsData = Partial<
@@ -82,15 +80,9 @@ const DAILY_GUIDES_RESET_DATA = {
 	quest3: null,
 	quest4: null,
 	treasure_candles: null,
-	daily_message: null,
 } as const satisfies Readonly<{
 	[DailyGuide in keyof DailyGuidesPacket]: null;
 }>;
-
-interface DailyGuideMessage {
-	title: string;
-	description: string;
-}
 
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
@@ -266,8 +258,6 @@ export default new (class DailyGuides {
 
 	public treasureCandles: DailyGuidesData["treasureCandles"] = null;
 
-	public dailyMessage: DailyGuidesData["dailyMessage"] = null;
-
 	public readonly queue = new pQueue({ concurrency: 1 });
 
 	public async reset(insert = false) {
@@ -296,10 +286,6 @@ export default new (class DailyGuides {
 
 		if ("treasure_candles" in data) {
 			this.treasureCandles = data.treasure_candles;
-		}
-
-		if ("daily_message" in data) {
-			this.dailyMessage = data.daily_message;
 		}
 	}
 
@@ -366,14 +352,6 @@ export default new (class DailyGuides {
 			await distribute();
 			this.queue.start();
 		}
-	}
-
-	public async updateDailyMessage(data: DailyGuideMessage) {
-		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-			.update({ daily_message: data })
-			.returning("*");
-
-		this.patch(dailyGuidesPacket!);
 	}
 
 	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.

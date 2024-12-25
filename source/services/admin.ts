@@ -30,10 +30,6 @@ import {
 import {
 	APPLICATION_ID,
 	CDN_BUCKET,
-	DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
-	DAILY_GUIDES_DAILY_MESSAGE_MODAL,
-	DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION,
-	DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE,
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
@@ -45,8 +41,6 @@ import {
 	DAILY_QUEST_VALUES,
 	DailyQuestToInfographicURL,
 	LOCALE_OPTIONS,
-	MAXIMUM_EMBED_FIELD_NAME_LENGTH,
-	MAXIMUM_EMBED_FIELD_VALUE_LENGTH,
 	QUEST_NUMBER,
 	QUEST_OPTIONS,
 	VALID_REALM_NAME,
@@ -109,12 +103,6 @@ export async function interactive(
 			{
 				type: ComponentType.ActionRow,
 				components: [
-					{
-						type: ComponentType.Button,
-						custom_id: DAILY_GUIDES_DAILY_MESSAGE_BUTTON_CUSTOM_ID,
-						label: "Daily Message",
-						style: ButtonStyle.Primary,
-					},
 					{
 						type: ComponentType.Button,
 						custom_id: DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID,
@@ -309,70 +297,6 @@ export async function questSwap(
 
 	await interactive(interaction, {
 		content: `Successfully swapped quests ${quest1} & ${quest2}.`,
-		locale,
-	});
-}
-
-export async function dailyMessageModalResponse(
-	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
-) {
-	const { dailyMessage } = DailyGuides;
-
-	await client.api.interactions.createModal(interaction.id, interaction.token, {
-		components: [
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.TextInput,
-						custom_id: DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE,
-						label: "The title of the daily message.",
-						max_length: MAXIMUM_EMBED_FIELD_NAME_LENGTH,
-						required: true,
-						style: TextInputStyle.Short,
-						value: dailyMessage?.title ?? "",
-					},
-				],
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.TextInput,
-						custom_id: DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION,
-						label: "The description of the daily message.",
-						max_length: MAXIMUM_EMBED_FIELD_VALUE_LENGTH,
-						required: true,
-						style: TextInputStyle.Paragraph,
-						value: dailyMessage?.description ?? "",
-					},
-				],
-			},
-		],
-		custom_id: DAILY_GUIDES_DAILY_MESSAGE_MODAL,
-		title: "Daily Message",
-	});
-}
-
-export async function setDailyMessage(interaction: APIModalSubmitGuildInteraction) {
-	const { data, locale } = interaction;
-	const components = new ModalResolver(data.components);
-	const title = components.getTextInputValue(DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_TITLE);
-
-	const description = components.getTextInputValue(
-		DAILY_GUIDES_DAILY_MESSAGE_TEXT_INPUT_DESCRIPTION,
-	);
-
-	const previousEmbed = await distributionEmbed(locale);
-	await DailyGuides.updateDailyMessage({ title, description });
-
-	void log({
-		content: `${userLogFormat(interaction.member.user)} manually updated the daily message.`,
-		embeds: [previousEmbed, await distributionEmbed(locale)],
-	});
-
-	await interactive(interaction, {
-		content: "Successfully updated the daily message.",
 		locale,
 	});
 }
