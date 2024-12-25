@@ -502,35 +502,6 @@ export async function distributionEmbed(locale: Locale) {
 		});
 	}
 
-	// if (treasureCandles) {
-	// 	const values = [];
-	// 	let number = 1;
-
-	// 	for (const hashes of [
-	// 		treasureCandles[RealmName.DaylightPrairie],
-	// 		treasureCandles[RealmName.HiddenForest],
-	// 		treasureCandles[RealmName.ValleyOfTriumph],
-	// 		treasureCandles[RealmName.GoldenWasteland],
-	// 		treasureCandles[RealmName.VaultOfKnowledge],
-	// 	]) {
-	// 		if (hashes.length === 0) {
-	// 			continue;
-	// 		}
-
-	// 		for (const hash of hashes) {
-	// 			values.push(`[${number} - ${number + 3}](${DailyGuides.treasureCandlesURL(hash)})`);
-	// 			number += 4;
-	// 		}
-	// 	}
-
-	// 	if (values.length > 0) {
-	// 		fields.push({
-	// 			name: "Treasure Candles",
-	// 			value: values.join(" | "),
-	// 		});
-	// 	}
-	// }
-
 	const doubleTreasureCandles = DOUBLE_TREASURE_CANDLES_DATES.some(
 		({ start, end }) => now >= start && now < end,
 	);

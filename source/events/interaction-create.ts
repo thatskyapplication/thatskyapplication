@@ -78,14 +78,7 @@ import Profile, {
 	SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
 } from "../models/Profile.js";
 import pino from "../pino.js";
-import {
-	distribute,
-	interactive,
-	questSwap,
-	setTreasureCandles,
-	treasureCandlesModalResponse,
-	treasureCandlesSelectMenuResponse,
-} from "../services/admin.js";
+import { distribute, interactive, questSwap } from "../services/admin.js";
 import {
 	contentCreatorsDisplayEdit,
 	contentCreatorsModalResponse,
@@ -109,9 +102,6 @@ import {
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
-	DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID,
-	DAILY_GUIDES_TREASURE_CANDLES_MODAL,
-	DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID,
 	DATA_DELETION_CUSTOM_ID,
 	ERROR_RESPONSE,
 	GUESS_ANSWER_1,
@@ -548,11 +538,6 @@ export default {
 						return;
 					}
 
-					if (customId === DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID) {
-						await treasureCandlesModalResponse(interaction);
-						return;
-					}
-
 					if (customId === DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID) {
 						await distribute(interaction);
 						return;
@@ -687,11 +672,6 @@ export default {
 						return;
 					}
 
-					if (customId === DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID) {
-						await treasureCandlesSelectMenuResponse(interaction);
-						return;
-					}
-
 					if (customId === DAILY_GUIDES_LOCALE_CUSTOM_ID) {
 						await interactive(interaction, { locale: value0 as Locale });
 						return;
@@ -771,11 +751,6 @@ export default {
 				if (isGuildModalSubmit(interaction)) {
 					if (customId.startsWith(CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID)) {
 						await contentCreatorsModalResponse(interaction);
-						return;
-					}
-
-					if (customId.startsWith(DAILY_GUIDES_TREASURE_CANDLES_MODAL)) {
-						await setTreasureCandles(interaction);
 						return;
 					}
 				}

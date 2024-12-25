@@ -1,5 +1,4 @@
 import { URL } from "node:url";
-import { PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	type APIAttachment,
 	FormattingPatterns,
@@ -7,15 +6,11 @@ import {
 	MessageFlags,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
-import { hash } from "hasha";
 import pQueue from "p-queue";
-import sharp from "sharp";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
-import S3Client from "../s3-client.js";
 import { distribute } from "../services/daily-guides.js";
 import {
-	CDN_BUCKET,
 	CDN_URL,
 	DAILY_INFOGRAPHICS_CHANNEL_ID,
 	DAILY_QUEST_VALUES,
@@ -48,26 +43,18 @@ export interface DailyGuidesPacket {
 	quest2: DailyGuideQuest | null;
 	quest3: DailyGuideQuest | null;
 	quest4: DailyGuideQuest | null;
-	treasure_candles: TreasureCandlesData | null;
 }
-
-type TreasureCandlesData = {
-	[Realm in ValidRealmName]: string[];
-};
 
 interface DailyGuidesData {
 	quest1: DailyGuidesPacket["quest1"];
 	quest2: DailyGuidesPacket["quest2"];
 	quest3: DailyGuidesPacket["quest3"];
 	quest4: DailyGuidesPacket["quest4"];
-	treasureCandles: DailyGuidesPacket["treasure_candles"];
 }
 
 type DailyGuidesSetQuestsData = Partial<
 	Pick<DailyGuidesData, "quest1" | "quest2" | "quest3" | "quest4">
 >;
-
-type DailyGuidesSetTreasureCandlesData = Partial<TreasureCandlesData>;
 
 export interface DailyGuideQuest {
 	id: number;
@@ -79,7 +66,6 @@ const DAILY_GUIDES_RESET_DATA = {
 	quest2: null,
 	quest3: null,
 	quest4: null,
-	treasure_candles: null,
 } as const satisfies Readonly<{
 	[DailyGuide in keyof DailyGuidesPacket]: null;
 }>;
@@ -256,8 +242,6 @@ export default new (class DailyGuides {
 
 	public quest4: DailyGuidesData["quest4"] = null;
 
-	public treasureCandles: DailyGuidesData["treasureCandles"] = null;
-
 	public readonly queue = new pQueue({ concurrency: 1 });
 
 	public async reset(insert = false) {
@@ -282,10 +266,6 @@ export default new (class DailyGuides {
 
 		if ("quest4" in data) {
 			this.quest4 = data.quest4;
-		}
-
-		if ("treasure_candles" in data) {
-			this.treasureCandles = data.treasure_candles;
 		}
 	}
 
@@ -636,87 +616,6 @@ export default new (class DailyGuides {
 	public async updateQuests(data: DailyGuidesSetQuestsData) {
 		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
 			.update(data)
-			.returning("*");
-
-		this.patch(dailyGuidesPacket!);
-	}
-
-	public async parseTreasureCandles(content: string, attachments: APIAttachment[]) {
-		const potentialRealmRegExp =
-			new RegExp(`(${regularExpressionRealms})`, "i").exec(content)?.[1] ?? null;
-		const realm = potentialRealmRegExp ? resolveValidRealm(potentialRealmRegExp) : null;
-
-		if (!realm) {
-			pino.error(JSON.stringify(attachments), "Failed to fetch the treasure candles realm.");
-			return false;
-		}
-
-		if (this.treasureCandles && this.treasureCandles[realm].length > 0) {
-			pino.info("Attempted to update the treasure candles which were already updated.");
-			return false;
-		}
-
-		const urls = attachments.map(({ url }) => url);
-
-		if (urls.length === 0) {
-			pino.error(JSON.stringify(attachments), "Failed to fetch the treasure candles locations.");
-			return false;
-		}
-
-		const hashes = await Promise.all(
-			urls.map(async (url) => {
-				const fetchedURL = await fetch(url);
-
-				const buffer = await sharp(await fetchedURL.arrayBuffer())
-					.webp()
-					.toBuffer();
-
-				const hashedBuffer = await hash(buffer, { algorithm: "md5" });
-
-				await S3Client.send(
-					new PutObjectCommand({
-						Bucket: CDN_BUCKET,
-						Key: this.treasureCandlesRoute(hashedBuffer),
-						Body: buffer,
-						ContentDisposition: "inline",
-						ContentType: fetchedURL.headers.get("content-type")!,
-					}),
-				);
-
-				return hashedBuffer;
-			}),
-		);
-
-		await this.updateTreasureCandles({ [realm]: hashes });
-		return true;
-	}
-
-	public async updateTreasureCandles(data: DailyGuidesSetTreasureCandlesData) {
-		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-			.update({
-				treasure_candles: {
-					[RealmName.DaylightPrairie]:
-						RealmName.DaylightPrairie in data
-							? data[RealmName.DaylightPrairie]
-							: this.treasureCandles?.[RealmName.DaylightPrairie] ?? [],
-					[RealmName.HiddenForest]:
-						RealmName.HiddenForest in data
-							? data[RealmName.HiddenForest]
-							: this.treasureCandles?.[RealmName.HiddenForest] ?? [],
-					[RealmName.ValleyOfTriumph]:
-						RealmName.ValleyOfTriumph in data
-							? data[RealmName.ValleyOfTriumph]
-							: this.treasureCandles?.[RealmName.ValleyOfTriumph] ?? [],
-					[RealmName.GoldenWasteland]:
-						RealmName.GoldenWasteland in data
-							? data[RealmName.GoldenWasteland]
-							: this.treasureCandles?.[RealmName.GoldenWasteland] ?? [],
-					[RealmName.VaultOfKnowledge]:
-						RealmName.VaultOfKnowledge in data
-							? data[RealmName.VaultOfKnowledge]
-							: this.treasureCandles?.[RealmName.VaultOfKnowledge] ?? [],
-				},
-			})
 			.returning("*");
 
 		this.patch(dailyGuidesPacket!);

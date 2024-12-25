@@ -1,4 +1,3 @@
-import { PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIChatInputApplicationCommandGuildInteraction,
@@ -12,41 +11,29 @@ import {
 	ComponentType,
 	MessageFlags,
 	PresenceUpdateStatus,
-	TextInputStyle,
 } from "@discordjs/core";
-import { hash } from "hasha";
 import { t } from "i18next";
-import sharp from "sharp";
 import { client } from "../discord.js";
 import type { InteractiveOptions } from "../models/Admin.js";
 import Configuration from "../models/Configuration.js";
 import type { QuestNumber } from "../models/DailyGuides.js";
 import DailyGuides, { isDailyQuest } from "../models/DailyGuides.js";
-import S3Client from "../s3-client.js";
 import {
 	distribute as distributeDailyGuides,
 	distributionEmbed,
 } from "../services/daily-guides.js";
 import {
 	APPLICATION_ID,
-	CDN_BUCKET,
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
-	DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID,
-	DAILY_GUIDES_TREASURE_CANDLES_MODAL,
-	DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID,
-	DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1,
-	DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2,
 	DAILY_QUEST_VALUES,
 	DailyQuestToInfographicURL,
 	LOCALE_OPTIONS,
 	QUEST_NUMBER,
 	QUEST_OPTIONS,
-	VALID_REALM_NAME,
 } from "../utility/constants.js";
-import { isChatInputCommand, resolveValidRealm, userLogFormat } from "../utility/functions.js";
-import { ModalResolver } from "../utility/modal-resolver.js";
+import { isChatInputCommand, userLogFormat } from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { log } from "./log.js";
 
@@ -100,17 +87,6 @@ export async function interactive(
 	const response: APIInteractionResponseCallbackData = {
 		content: resolvedContent,
 		components: [
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.Button,
-						custom_id: DAILY_GUIDES_TREASURE_CANDLES_BUTTON_CUSTOM_ID,
-						label: "Treasure Candles",
-						style: ButtonStyle.Primary,
-					},
-				],
-			},
 			{
 				type: ComponentType.ActionRow,
 				components: [
@@ -297,156 +273,6 @@ export async function questSwap(
 
 	await interactive(interaction, {
 		content: `Successfully swapped quests ${quest1} & ${quest2}.`,
-		locale,
-	});
-}
-
-export async function treasureCandlesModalResponse(
-	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
-) {
-	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-		content: "",
-		embeds: [],
-		components: [
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.StringSelect,
-						custom_id: DAILY_GUIDES_TREASURE_CANDLES_SELECT_MENU_CUSTOM_ID,
-						max_values: 1,
-						min_values: 1,
-						options: VALID_REALM_NAME.map((realm) => ({ label: realm, value: realm })),
-						placeholder: "Select a realm.",
-					},
-				],
-			},
-		],
-	});
-}
-
-export async function treasureCandlesSelectMenuResponse(
-	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
-) {
-	const { treasureCandles } = DailyGuides;
-	const realm = resolveValidRealm(interaction.data.values[0]!);
-
-	if (!realm) {
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: `Detected an unknown realm: ${realm}.`,
-		});
-
-		return;
-	}
-
-	const batch1 = treasureCandles?.[realm][0];
-	const batch2 = treasureCandles?.[realm][1];
-	let batch1URL = "";
-	let batch2URL = "";
-
-	if (batch1) {
-		batch1URL = DailyGuides.treasureCandlesURL(batch1);
-	}
-
-	if (batch2) {
-		batch2URL = DailyGuides.treasureCandlesURL(batch2);
-	}
-
-	await client.api.interactions.createModal(interaction.id, interaction.token, {
-		components: [
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.TextInput,
-						custom_id: DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1,
-						label: "The URL of the first batch.",
-						required: false,
-						style: TextInputStyle.Short,
-						value: batch1URL,
-					},
-				],
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.TextInput,
-						custom_id: DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2,
-						label: "The URL of the second batch.",
-						required: false,
-						style: TextInputStyle.Short,
-						value: batch2URL,
-					},
-				],
-			},
-		],
-		custom_id: `${DAILY_GUIDES_TREASURE_CANDLES_MODAL}§${realm}`,
-		title: "Treasure Candles",
-	});
-}
-
-export async function setTreasureCandles(interaction: APIModalSubmitGuildInteraction) {
-	const { data, locale } = interaction;
-	const customId = data.custom_id;
-	const realm = resolveValidRealm(customId.slice(customId.indexOf("§") + 1));
-
-	if (!realm) {
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: `Detected an unknown realm: ${realm}.`,
-		});
-
-		return;
-	}
-
-	const components = new ModalResolver(data.components);
-	const batch1 = components.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_1);
-	const batch2 = components.getTextInputValue(DAILY_GUIDES_TREASURE_CANDLES_TEXT_INPUT_2);
-	const treasureCandles = [];
-
-	if (batch1) {
-		treasureCandles.push(batch1);
-	}
-
-	if (batch2) {
-		treasureCandles.push(batch2);
-	}
-
-	const previousEmbed = await distributionEmbed(locale);
-
-	const hashes = await Promise.all(
-		treasureCandles.map(async (url) => {
-			const fetchedURL = await fetch(url);
-
-			const buffer = await sharp(await fetchedURL.arrayBuffer())
-				.webp()
-				.toBuffer();
-
-			const hashedBuffer = await hash(buffer, { algorithm: "md5" });
-
-			await S3Client.send(
-				new PutObjectCommand({
-					Bucket: CDN_BUCKET,
-					Key: DailyGuides.treasureCandlesRoute(hashedBuffer),
-					Body: buffer,
-					ContentDisposition: "inline",
-					ContentType: fetchedURL.headers.get("content-type")!,
-				}),
-			);
-
-			return hashedBuffer;
-		}),
-	);
-
-	await DailyGuides.updateTreasureCandles({ [realm]: hashes });
-
-	void log({
-		content: `${userLogFormat(interaction.member.user)} manually updated the treasure candles.`,
-		embeds: [previousEmbed, await distributionEmbed(locale)],
-	});
-
-	await interactive(interaction, {
-		content: "Successfully updated the treasure candles.",
 		locale,
 	});
 }
