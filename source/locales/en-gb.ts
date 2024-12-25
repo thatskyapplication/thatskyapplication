@@ -283,6 +283,8 @@ export default {
 				"Meet up with Cackling Cannoneer in Graveyard",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Meet up with Hide'n'Seek Pioneer in Boneyard",
+				[DailyQuest.MeetUpWithHideNSeekPioneerInElevatedClearing]:
+				"Meet up with Hide'n'Seek Pioneer in Elevated Clearing",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
