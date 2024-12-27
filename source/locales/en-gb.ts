@@ -285,6 +285,8 @@ export default {
 				"Meet up with Hide'n'Seek Pioneer in Boneyard",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInElevatedClearing]:
 				"Meet up with Hide'n'Seek Pioneer in Elevated Clearing",
+			[DailyQuest.MeetUpWithBumblingBoatswainInForgottenArk]:
+				"Meet up with Bumbling Boatswain in Forgotten Ark",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
