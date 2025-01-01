@@ -125,7 +125,7 @@ export function isRainbowAdmireMap(skyMap: SkyMap): skyMap is RainbowAdmireMaps 
 
 export function treasureCandles(today: DateTime, double = false) {
 	const realmIndex = VALID_REALM_NAME.at(
-		(today.diff(INITIAL_TREASURE_CANDLES_SEEK, "days").days + 3) % 5,
+		(today.diff(INITIAL_TREASURE_CANDLES_SEEK, "days").days + 4) % 5,
 	)!;
 
 	const realmRotation = TREASURE_CANDLES_ROTATION[realmIndex];

@@ -40,7 +40,7 @@ export const HEART_EXTRA_DATES = new Collection<number, HeartsExtra>().set(1, {
 
 // Miscellaneous.
 export const INITIAL_TRAVELLING_SPIRIT_SEEK = skyDate(2_023, 5, 25); // #88 Grateful Shell Collector.
-export const INITIAL_TREASURE_CANDLES_SEEK = skyDate(2024, 11, 1); // 31/10/2024 failed. 01/11/2024 is the first day of the cycle.
+export const INITIAL_TREASURE_CANDLES_SEEK = skyDate(2025, 1, 1); // 01/01/2025 failed and is thus the first day of the cycle.
 
 export function skyNow() {
 	return DateTime.now().setZone(TIME_ZONE);
