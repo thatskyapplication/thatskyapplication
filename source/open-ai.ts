@@ -156,7 +156,10 @@ export async function messageCreateEmojiResponse(message: GatewayMessageCreateDi
 					model: "gpt-3.5-turbo",
 					user: message.author.id,
 				},
-				{ signal: abortController.signal },
+				{
+					signal: abortController.signal,
+					headers: { "cf-aig-metadata": JSON.stringify({ user: message.author.id }) },
+				},
 			),
 		]);
 
@@ -194,7 +197,10 @@ export async function messageCreateReactionResponse(message: GatewayMessageCreat
 				model: "gpt-3.5-turbo",
 				user: message.author.id,
 			},
-			{ signal: abortController.signal },
+			{
+				signal: abortController.signal,
+				headers: { "cf-aig-metadata": JSON.stringify({ user: message.author.id }) },
+			},
 		);
 
 		const emojis = completion.choices[0]!.message.content;
@@ -291,7 +297,10 @@ export async function messageCreateResponse(message: GatewayMessageCreateDispatc
 						},
 					],
 				},
-				{ signal: abortController.signal },
+				{
+					signal: abortController.signal,
+					headers: { "cf-aig-metadata": JSON.stringify({ user: message.author.id }) },
+				},
 			),
 		]);
 
