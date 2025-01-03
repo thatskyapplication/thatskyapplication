@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  discord-api-types: 0.37.109
+  discord-api-types: 0.37.115
 
 importers:
 
@@ -971,8 +971,8 @@ packages:
     resolution: {integrity: sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw==}
     engines: {node: '>=8'}
 
-  discord-api-types@0.37.109:
-    resolution: {integrity: sha512-B4W/ao8vempNVCS4/K4CeeCGhiabTcU7ekgqJy4/RytEsgkJP9hWS0MWZMcRP3wWzU/FXi6QqqvArZTJUfc6Iw==}
+  discord-api-types@0.37.115:
+    resolution: {integrity: sha512-ivPnJotSMrXW8HLjFu+0iCVs8zP6KSliMelhr7HgcB2ki1QzpORkb26m71l1pzSnnGfm7gb5n/VtRTtpw8kXFA==}
 
   easy-table@1.2.0:
     resolution: {integrity: sha512-OFzVOv03YpvtcWGe5AayU5G2hgybsg3iqA6drU8UaoZyB9jLGMTrz9+asnLp/E+6qPh88yEI1gvyZFZ41dmgww==}
@@ -2110,7 +2110,7 @@ snapshots:
       '@discordjs/ws': 2.0.0
       '@sapphire/snowflake': 3.5.4
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.37.109
+      discord-api-types: 0.37.115
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -2122,7 +2122,7 @@ snapshots:
       '@sapphire/async-queue': 1.5.4
       '@sapphire/snowflake': 3.5.4
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.37.109
+      discord-api-types: 0.37.115
       magic-bytes.js: 1.10.0
       tslib: 2.7.0
       undici: 6.19.8
@@ -2137,7 +2137,7 @@ snapshots:
       '@sapphire/async-queue': 1.5.4
       '@types/ws': 8.5.13
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.37.109
+      discord-api-types: 0.37.115
       tslib: 2.7.0
       ws: 8.18.0
     transitivePeerDependencies:
@@ -2807,7 +2807,7 @@ snapshots:
 
   detect-libc@2.0.3: {}
 
-  discord-api-types@0.37.109: {}
+  discord-api-types@0.37.115: {}
 
   easy-table@1.2.0:
     dependencies:

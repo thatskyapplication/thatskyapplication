@@ -31,8 +31,8 @@ import {
 	InteractionContextType,
 	Locale,
 	PermissionFlagsBits,
-	type RESTPostAPIApplicationCommandsJSONBody,
-	type RESTPostAPIChatInputApplicationCommandsJSONBody,
+	type RESTPutAPIApplicationCommandsJSONBody,
+	type RESTPutAPIApplicationGuildCommandsJSONBody,
 } from "@discordjs/core";
 import { REST } from "@discordjs/rest";
 import {
@@ -56,7 +56,7 @@ const notificationEventChoices = NOTIFICATION_TYPE_VALUES.map((notificationType)
 	value: notificationType,
 }));
 
-const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
+const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	{
 		name: t("about.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 		name_localizations: Object.fromEntries(
@@ -2005,7 +2005,7 @@ const COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
 	},
 ] as const;
 
-const CONTENT_CREATORS_COMMAND: RESTPostAPIChatInputApplicationCommandsJSONBody = {
+const CONTENT_CREATORS_COMMAND: RESTPutAPIApplicationGuildCommandsJSONBody[number] = {
 	name: "content-creators",
 	description: "Edit your information to display on the website. We know who you are.",
 	type: ApplicationCommandType.ChatInput,
@@ -2073,7 +2073,7 @@ const CONTENT_CREATORS_COMMAND: RESTPostAPIChatInputApplicationCommandsJSONBody 
 	default_member_permissions: "0",
 } as const;
 
-const DEVELOPER_COMMANDS: RESTPostAPIApplicationCommandsJSONBody[] = [
+const DEVELOPER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 	{
 		name: "admin",
 		description: "Developer-specific commands.",

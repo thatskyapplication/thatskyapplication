@@ -90,7 +90,7 @@ export class OptionResolver {
 		let members = {};
 		let users = {};
 
-		if (interaction.data.resolved) {
+		if ("resolved" in interaction.data) {
 			if ("messages" in interaction.data.resolved) {
 				messages = interaction.data.resolved.messages;
 			}
