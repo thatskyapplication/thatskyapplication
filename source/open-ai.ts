@@ -32,13 +32,18 @@ import { skyNow } from "./utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "./utility/emojis.js";
 import { shardEruption } from "./utility/wind-paths.js";
 
-const { OPENAI_API_KEY } = process.env;
+const { OPENAI_API_KEY, OPENAI_BASE_URL, AI_GATEWAY_TOKEN } = process.env;
 
-if (!OPENAI_API_KEY) {
-	throw new Error("No OpenAI API key.");
+if (!(OPENAI_API_KEY && OPENAI_BASE_URL && AI_GATEWAY_TOKEN)) {
+	throw new Error("Missing OpenAI credentials.");
 }
 
-const openAI = new OpenAI({ apiKey: OPENAI_API_KEY });
+const openAI = new OpenAI({
+	apiKey: OPENAI_API_KEY,
+	baseURL: OPENAI_BASE_URL,
+	defaultHeaders: { "cf-aig-authorization": `Bearer ${AI_GATEWAY_TOKEN}` },
+});
+
 const AI_DEFAULT_RESPONSE = "Oh my gosh! Could you be the... the legendary Sky kid?" as const;
 const AI_DESCRIPTION_EMOJIS = "Respond with up to 3 emojis that represent this message." as const;
 const AI_DESCRIPTION_REACTION = `${AI_DESCRIPTION_EMOJIS} Put each emoji on a new line.` as const;
