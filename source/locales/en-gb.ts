@@ -291,6 +291,8 @@ export default {
 				"Meet up with Hide'n'Seek Pioneer in Hidden Forest",
 			[DailyQuest.MeetUpWithCacklingCannoneerInForgottenArk]:
 				"Meet up with Cackling Cannoneer in Forgotten Ark",
+			[DailyQuest.MeetUpWithApologeticLumberjackInBoneyard]:
+				"Meet up with Apologetic Lumberjack in Boneyard",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
