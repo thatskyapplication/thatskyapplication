@@ -47,6 +47,7 @@ const openAI = new OpenAI({
 const AI_DEFAULT_RESPONSE = "Oh my gosh! Could you be the... the legendary Sky kid?" as const;
 const AI_DESCRIPTION_EMOJIS = "Respond with up to 3 emojis that represent this message." as const;
 const AI_DESCRIPTION_REACTION = `${AI_DESCRIPTION_EMOJIS} Put each emoji on a new line.` as const;
+const OPEN_AI_ALLOWED_MEDIA_TYPES = ["image/png", "image/jpeg", "image/gif", "image/webp"] as const;
 
 function parseAIName(user: APIUser) {
 	const { username } = user;
@@ -247,14 +248,40 @@ export async function messageCreateResponse(message: GatewayMessageCreateDispatc
 
 	const priorMessages: ChatCompletionMessageParam[] = [
 		{ role: "system", content: systemPromptContext(guild, message) },
-		...messages.map(
-			(message) =>
-				({
-					content: message.content,
-					name: parseAIName(message.author),
-					role: message.author.id === APPLICATION_ID ? "assistant" : "user",
-				}) as const,
-		),
+		...messages.map((message) => {
+			const attachments = message.attachments.filter((attachment) =>
+				OPEN_AI_ALLOWED_MEDIA_TYPES.includes(
+					attachment.content_type as (typeof OPEN_AI_ALLOWED_MEDIA_TYPES)[number],
+				),
+			);
+
+			return message.author.id === APPLICATION_ID
+				? ({
+						content: message.content,
+						name: message.author.username,
+						role: "assistant",
+					} as const)
+				: ({
+						content:
+							attachments.length > 0
+								? [
+										...message.attachments.map(
+											(attachment) =>
+												({
+													type: "image_url",
+													image_url: { url: attachment.url },
+												}) as const,
+										),
+										{
+											type: "text",
+											text: message.content,
+										} as const,
+									]
+								: message.content,
+						name: parseAIName(message.author),
+						role: "user",
+					} as const);
+		}),
 	];
 
 	try {
@@ -263,7 +290,7 @@ export async function messageCreateResponse(message: GatewayMessageCreateDispatc
 			openAI.chat.completions.create(
 				{
 					frequency_penalty: 1,
-					max_completion_tokens: 200,
+					max_completion_tokens: 300,
 					messages: priorMessages,
 					model: "gpt-4o-2024-08-06",
 					user: message.author.id,
