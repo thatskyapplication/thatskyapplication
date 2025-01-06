@@ -293,6 +293,8 @@ export default {
 				"Meet up with Cackling Cannoneer in Forgotten Ark",
 			[DailyQuest.MeetUpWithApologeticLumberjackInBoneyard]:
 				"Meet up with Apologetic Lumberjack in Boneyard",
+			[DailyQuest.MeetUpWithCeasingCommodoreInForgottenArk]:
+				"Meet up with Ceasing Commodore in Forgotten Ark",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
