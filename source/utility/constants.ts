@@ -701,6 +701,7 @@ export const DailyQuest = {
 	MeetUpWithApologeticLumberjackInBoneyard: 197,
 	MeetUpWithCeasingCommodoreInForgottenArk: 198,
 	MeetUpWithJollyGeologistInPrairiePeaks: 199,
+	MeetUpWithDismayedHunterInBoneyard: 200,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -1390,6 +1391,7 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.MeetUpWithApologeticLumberjackInBoneyard]: null,
 	[DailyQuest.MeetUpWithCeasingCommodoreInForgottenArk]: null,
 	[DailyQuest.MeetUpWithJollyGeologistInPrairiePeaks]: null,
+	[DailyQuest.MeetUpWithDismayedHunterInBoneyard]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
 export const TREASURE_CANDLES_ROTATION = {

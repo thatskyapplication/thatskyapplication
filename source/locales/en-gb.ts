@@ -297,6 +297,7 @@ export default {
 				"Meet up with Ceasing Commodore in Forgotten Ark",
 			[DailyQuest.MeetUpWithJollyGeologistInPrairiePeaks]:
 				"Meet up with Jolly Geologist in Prairie Peaks",
+			[DailyQuest.MeetUpWithDismayedHunterInBoneyard]: "Meet up with Dismayed Hunter in Boneyard",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
