@@ -57,7 +57,8 @@ const RETURNING_DATES = new Collection<number, ReturningDatesData>()
 	.set(3, { start: skyDate(2_023, 7, 3), end: skyDate(2_023, 7, 17) })
 	.set(4, { start: skyDate(2_023, 8, 7), end: skyDate(2_023, 8, 14) })
 	.set(5, { start: skyDate(2_024, 3, 4), end: skyDate(2_024, 3, 18) })
-	.set(6, { start: skyDate(2_024, 9, 16), end: skyDate(2_024, 9, 30) });
+	.set(6, { start: skyDate(2_024, 9, 16), end: skyDate(2_024, 9, 30) })
+	.set(7, { start: skyDate(2_025, 1, 13), end: skyDate(2_025, 1, 27) });
 
 interface BaseFriendshipTreeOfferData {
 	hasInfographic?: boolean;
