@@ -1,8 +1,10 @@
-Dockerfile
+.cache
 .dockerignore
-node_modules/
 .git
+build/
+node_modules/
 distribution/
+Dockerfile
 test.js
 test.ts
 .env

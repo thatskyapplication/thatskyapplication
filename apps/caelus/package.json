@@ -1,0 +1,47 @@
+{
+	"name": "@thatskyapplication/caelus",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "tsc",
+		"test": "tsc --noEmit",
+		"format": "biome check --write",
+		"lint": "biome check",
+		"lint:ci": "biome ci --reporter github",
+		"dev": "tsx --env-file=.env source/index.ts | pino-pretty",
+		"start": "node --enable-source-maps distribution/index.js",
+		"deploy-commands-dev": "tsx --env-file=.env source/utility/deploy-commands.ts | pino-pretty",
+		"deploy-commands": "NODE_ENV=production tsx --env-file=.env source/utility/deploy-commands.ts | pino-pretty",
+		"update": "pnpm update --interactive --latest && pre-commit autoupdate",
+		"knip": "knip"
+	},
+	"dependencies": {
+		"@aws-sdk/client-s3": "^3.600.0",
+		"@discordjs/collection": "^2.1.1",
+		"@discordjs/core": "^2.0.0",
+		"@discordjs/rest": "^2.4.0",
+		"@discordjs/ws": "^2.0.0",
+		"@logtail/pino": "^0.4.22",
+		"@sapphire/snowflake": "^3.5.4",
+		"croner": "^9.0.0",
+		"hasha": "^6.0.0",
+		"i18next": "^23.11.5",
+		"knex": "^3.1.0",
+		"luxon": "^3.4.4",
+		"openai": "^4.59.0",
+		"p-queue": "^8.0.1",
+		"pg": "^8.12.0",
+		"pino": "^9.2.0",
+		"sharp": "^0.33.4",
+		"ts-mixer": "^6.0.4",
+		"undici": "^7.1.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.8.2",
+		"@types/luxon": "^3.4.2",
+		"knip": "^5.22.2",
+		"pino-pretty": "^11.2.1",
+		"tsx": "^4.15.7",
+		"typescript": "5.6.2"
+	}
+}
