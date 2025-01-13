@@ -144,16 +144,16 @@ export default new SeasonalSpirit({
 				emoji: blessing2,
 			},
 			{
-				name: "Outfit",
-				cosmetic: Cosmetic.TroupeJugglerOutfit,
-				cost: { candles: 75 },
-				emoji: outfitEmoji,
-			},
-			{
 				name: "Cape",
 				cosmetic: Cosmetic.TroupeJugglerCape,
 				cost: { candles: 75 },
 				emoji: capeEmoji,
+			},
+			{
+				name: "Outfit",
+				cosmetic: Cosmetic.TroupeJugglerOutfit,
+				cost: { candles: 75 },
+				emoji: outfitEmoji,
 			},
 		],
 	},
