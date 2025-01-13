@@ -24,7 +24,6 @@ export default new SeasonalSpirit({
 	action,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			{ name: `${action} 1`, cosmetic: Cosmetic.FriendActionDuetDance1, emoji: actionEmoji },
 			{

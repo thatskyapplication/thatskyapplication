@@ -23,7 +23,6 @@ export default new SeasonalSpirit({
 	emote,
 	realm: RealmName.IslesOfDawn,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteHackySack1, emoji: emoteEmoji },
 			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteHackySack2, emoji: emoteEmoji },

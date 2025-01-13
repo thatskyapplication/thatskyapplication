@@ -25,7 +25,6 @@ export default new SeasonalSpirit({
 	emote,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			{ name: `${emote} 1`, cosmetic: Cosmetic.EmotePleading1, emoji: emoteEmoji },
 			{ name: `${emote} 2`, cosmetic: Cosmetic.EmotePleading2, emoji: emoteEmoji },
