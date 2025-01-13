@@ -9,5 +9,7 @@ node_modules
 .env
 
 # Miscellaneous
+.cache
 .DS_Store
+build
 distribution/

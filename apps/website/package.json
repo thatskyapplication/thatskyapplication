@@ -1,0 +1,49 @@
+{
+	"name": "website",
+	"private": true,
+	"type": "module",
+	"sideEffects": false,
+	"scripts": {
+		"build": "remix vite:build",
+		"test": "tsc",
+		"dev": "remix vite:dev",
+		"start": "remix-serve ./build/server/index.js",
+		"lint": "biome check",
+		"lint:ci": "biome ci --reporter github",
+		"format": "biome check --write"
+	},
+	"dependencies": {
+		"@discordjs/core": "^2.0.0",
+		"@discordjs/rest": "^2.4.0",
+		"@heroicons/react": "^2.2.0",
+		"@icons-pack/react-simple-icons": "^10.2.0",
+		"@remix-run/node": "^2.15.0",
+		"@remix-run/react": "^2.15.0",
+		"@remix-run/serve": "^2.15.0",
+		"@types/luxon": "^3.4.2",
+		"isbot": "^4.1.0",
+		"knex": "^3.1.0",
+		"lucide-react": "^0.464.0",
+		"luxon": "^3.5.0",
+		"media-chrome": "^4.2.3",
+		"pg": "^8.13.1",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@remix-run/dev": "^2.15.0",
+		"@types/node": "^22.10.1",
+		"@types/react": "^18.2.20",
+		"@types/react-dom": "^18.2.7",
+		"autoprefixer": "^10.4.19",
+		"postcss": "^8.4.38",
+		"tailwindcss": "^3.4.4",
+		"typescript": "^5.1.6",
+		"vite": "^5.1.0",
+		"vite-tsconfig-paths": "^4.2.1"
+	},
+	"engines": {
+		"node": ">=20.0.0"
+	}
+}

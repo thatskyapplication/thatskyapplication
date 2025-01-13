@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+	@apply bg-sky-100 dark:bg-gray-800;
+
+	@media (prefers-color-scheme: dark) {
+		color-scheme: dark;
+	}
+}
+
+@layer base {
+	h1 {
+		@apply text-4xl font-bold text-black dark:text-white mb-6;
+	}
+
+	h2 {
+		@apply text-2xl font-semibold text-black dark:text-white mt-4 mb-4;
+	}
+
+	code {
+		@apply font-mono text-sm bg-gray-200 dark:bg-gray-700 text-black dark:text-white px-1 py-0.5 rounded;
+	}
+
+	.regular-link {
+		@apply text-blue-600 dark:text-blue-500 hover:text-blue-700 dark:hover:text-blue-600 hover:underline;
+	}
+
+	.regular-link:focus {
+		@apply outline-none;
+	}
+
+	.regular-link:focus-visible {
+		@apply outline-dashed outline-2 outline-yellow-400;
+	}
+
+	p {
+		@apply my-4;
+	}
+
+	hr {
+		@apply h-px bg-gray-300 border-0 dark:bg-gray-500;
+	}
+}

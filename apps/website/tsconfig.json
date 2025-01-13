@@ -1,0 +1,43 @@
+{
+	"compilerOptions": {
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"exactOptionalPropertyTypes": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"strict": true,
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"verbatimModuleSyntax": true,
+		"newLine": "lf",
+		"outDir": "distribution",
+		"esModuleInterop": true,
+		"jsx": "react-jsx",
+		"forceConsistentCasingInFileNames": true,
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"target": "ESNext",
+		"skipLibCheck": true,
+		"types": ["@remix-run/node", "vite/client"],
+		"isolatedModules": true,
+		"baseUrl": ".",
+		"paths": {
+			"~/*": ["./app/*"]
+		},
+		"noEmit": true
+	},
+	"include": [
+		"**/*.ts",
+		"**/*.tsx",
+		"**/.server/**/*.ts",
+		"**/.server/**/*.tsx",
+		"**/.client/**/*.ts",
+		"**/.client/**/*.tsx",
+		"postcss.config.js",
+		"vite.config.ts"
+	]
+}
