@@ -2807,6 +2807,12 @@ export const enum Cosmetic {
 	WonderlandPrimrosePinaforeDress = 2212,
 	WonderlandPrimrosePinaforeHairAccessory = 2213,
 	WonderlandCafeCorridor = 2214,
+
+	// 13/01/2025 | Returning spirits #7.
+	ModestDancerWingBuff = 2215,
+	PleadingChildWingBuff = 2216,
+	PleadingChildShoes = 2217,
+	OddballOutcastWingBuff = 2218,
 }
 
 export const SeasonId = {
