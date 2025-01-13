@@ -90,7 +90,7 @@ export default new SeasonalSpirit({
 				name: "Heart",
 				cosmetic: Cosmetic.OddballOutcastSeasonalHeart,
 				cost: { candles: 3 },
-				emoji: SEASON_EMOJIS.PassageHeart,
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
 			{
 				name: "Wing buff",
