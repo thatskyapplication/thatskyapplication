@@ -62,6 +62,63 @@ export default new SeasonalSpirit({
 				emoji: SEASON_EMOJIS.PerformanceHeart,
 			},
 		],
+		current: [
+			{ name: `${action} 1`, cosmetic: Cosmetic.FriendActionDuetDance1, emoji: actionEmoji },
+			{
+				name: "Music sheet",
+				cosmetic: Cosmetic.ModestDancerMusicSheet,
+				cost: { candles: 15 },
+				emoji: musicSheet,
+			},
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.ModestDancerBlessing1,
+				cost: { candles: 5 },
+				emoji: blessing3,
+			},
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.ModestDancerMask,
+				cost: { candles: 30 },
+				emoji: maskEmoji,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.ModestDancerSeasonalHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Wing buff",
+				cosmetic: Cosmetic.ModestDancerWingBuff,
+				cost: { ascendedCandles: 2 },
+				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+			},
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.ModestDancerBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing3,
+			},
+			{
+				name: `${action} 2`,
+				cosmetic: Cosmetic.FriendActionDuetDance2,
+				cost: { hearts: 8 },
+				emoji: actionEmoji,
+			},
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.ModestDancerHair,
+				cost: { candles: 40 },
+				emoji: hairEmoji,
+			},
+			{
+				name: "Outfit",
+				cosmetic: Cosmetic.ModestDancerOutfit,
+				cost: { candles: 70 },
+				emoji: outfitEmoji,
+			},
+		],
 	},
 	visits: {
 		returning: [7],
