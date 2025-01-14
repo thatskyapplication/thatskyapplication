@@ -1,4 +1,4 @@
-import type { RealmName, SkyMap } from "~/utility/constants";
+import type { RealmName, SkyMap } from "@thatskyapplication/utility";
 import { WIND_PATHS_URL } from "./config.server";
 
 interface ShardEruptionTimestampsData {

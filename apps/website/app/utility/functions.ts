@@ -1,13 +1,11 @@
+import { DAILY_QUEST_VALUES, type DailyQuests, type RealmName } from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
 import {
 	CDN_URL,
-	DAILY_QUEST_VALUES,
 	DEFAULT_LOCALE,
-	type DailyQuests,
 	HUGGING_GIFS,
 	MAXIMUM_KRILL_NO,
 	REALM_NAME_TO_REALM_CDN_NAME,
-	type RealmName,
 	type RotationNumber,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,

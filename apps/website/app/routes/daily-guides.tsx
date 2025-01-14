@@ -1,5 +1,6 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import type { DailyQuests } from "@thatskyapplication/utility";
 import { PanelRightClose, X } from "lucide-react";
 import { DateTime } from "luxon";
 import { useState } from "react";
@@ -8,7 +9,6 @@ import pg from "~/pg.server";
 import {
 	DOUBLE_TREASURE_CANDLES_ROTATION,
 	DailyQuestToString,
-	type DailyQuests,
 	type RotationNumber,
 	SEASONAL_CANDLE_ICON,
 	TREASURE_CANDLES_ROTATION,

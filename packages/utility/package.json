@@ -1,0 +1,24 @@
+{
+	"name": "@thatskyapplication/utility",
+	"private": true,
+	"type": "module",
+	"exports": "./distribution/index.js",
+	"types": "./distribution/index.d.ts",
+	"files": ["distribution"],
+	"scripts": {
+		"build": "tsup",
+		"test": "tsc --noEmit",
+		"format": "biome check --write",
+		"lint": "biome check",
+		"lint:ci": "biome ci --reporter github",
+		"update": "pnpm update --interactive --latest && pre-commit autoupdate",
+		"knip": "knip"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.8.2",
+		"@types/node": "^22.10.1",
+		"knip": "^5.22.2",
+		"tsup": "^8.3.5",
+		"typescript": "5.6.2"
+	}
+}

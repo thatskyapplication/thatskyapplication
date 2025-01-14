@@ -21,12 +21,14 @@ RUN apt-get update -qq && \
 # Copy monorepo files required for dependency resolution.
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY ./apps/website ./apps/website
+COPY ./packages/utility ./packages/utility
 
 # Install only dependencies for the current app.
 RUN pnpm install --frozen-lockfile --prod=false
 
 # Build the application.
 COPY . .
+RUN pnpm run --filter ./packages/utility build
 RUN pnpm run --filter ./apps/website build
 
 # Prune unnecessary dependencies.
