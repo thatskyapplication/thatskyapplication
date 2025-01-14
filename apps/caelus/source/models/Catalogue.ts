@@ -1990,9 +1990,10 @@ export class Catalogue {
 
 		const spirit = spirits().find(({ name }) => name === resolvedCustomId);
 
-		const event = resolvedCustomIdNumberForEvents
-			? skyEvents().find(({ id }) => id === resolvedCustomIdNumberForEvents)
-			: null;
+		const event =
+			resolvedCustomIdNumberForEvents === null
+				? null
+				: skyEvents().find(({ id }) => id === resolvedCustomIdNumberForEvents);
 
 		if (spirit) {
 			await catalogue.setSpiritItems(interaction, spirit);
