@@ -2,7 +2,6 @@ import process from "node:process";
 import { URL } from "node:url";
 import { ChannelType, Locale, MessageFlags, type Snowflake } from "@discordjs/core";
 import { DailyQuest, type DailyQuests, RealmName, SkyMap } from "@thatskyapplication/utility";
-import pino from "../pino.js";
 
 // Production detection.
 export const PRODUCTION = process.env.NODE_ENV === "production";
@@ -23,8 +22,7 @@ if (
 	) ||
 	(PRODUCTION && !(process.env.BETTER_STACK_TOKEN && process.env.FLIGHT_CHECK))
 ) {
-	pino.fatal("Missing environment variables.");
-	process.exit(1);
+	throw new Error("Missing environment variables.");
 }
 
 export const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
