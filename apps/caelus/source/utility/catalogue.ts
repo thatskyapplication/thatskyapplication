@@ -2839,7 +2839,7 @@ export const SeasonId = {
 	Nesting: 20,
 	Duets: 21,
 	Moomin: 22,
-	Radiance: 33,
+	Radiance: 23,
 } as const satisfies Readonly<Record<string, number>>;
 
 export type SeasonIds = (typeof SeasonId)[keyof typeof SeasonId];
