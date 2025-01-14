@@ -18,6 +18,9 @@ jobs:
           run_install: |
             - args: [--frozen-lockfile]
 
+      - name: Build dependencies
+        run: pnpm run build
+
       - name: Validate TypeScript
         run: pnpm run test
 
