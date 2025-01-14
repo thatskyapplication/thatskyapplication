@@ -64,6 +64,7 @@ import {
 	SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
 	SKY_PROFILE_MINIMUM_SPOT_LENGTH,
 	SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH,
+	SKY_PROFILE_REPORTS_CHANNEL_ID,
 	SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
 	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	SKY_PROFILE_UNKNOWN_NAME,
@@ -1443,7 +1444,7 @@ export default class Profile {
 			return;
 		}
 
-		const channel = guild.channels.get(process.env.SKY_PROFILE_REPORTS_CHANNEL_ID!);
+		const channel = guild.channels.get(SKY_PROFILE_REPORTS_CHANNEL_ID);
 
 		if (channel?.type !== ChannelType.GuildText) {
 			pino.error(interaction, "Could not find the Sky profile reports channel.");

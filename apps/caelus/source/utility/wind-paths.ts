@@ -1,6 +1,5 @@
 import type { RealmName, SkyMap } from "@thatskyapplication/utility";
 import { DateTime } from "luxon";
-import pino from "../pino.js";
 import { WIND_PATHS_URL } from "./constants.js";
 
 interface ShardEruptionTimestampsRawData {
@@ -29,11 +28,6 @@ export interface ShardEruptionData {
 	reward: number;
 	timestamps: ShardEruptionTimestampsData[];
 	url: URL;
-}
-
-if (!WIND_PATHS_URL) {
-	pino.fatal("Missing Discord token.");
-	process.exit(1);
 }
 
 export async function shardEruption(offset = 0): Promise<ShardEruptionData | null> {

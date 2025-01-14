@@ -7,6 +7,8 @@ node_modules
 
 # Environment files
 .env
+.env.production
+.env.development
 
 # Miscellaneous
 .cache

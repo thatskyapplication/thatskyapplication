@@ -1,13 +1,12 @@
-import process from "node:process";
 import pino from "pino";
-import { PRODUCTION } from "./utility/constants.js";
+import { BETTER_STACK_TOKEN, PRODUCTION } from "./utility/constants.js";
 
 const options: Parameters<(typeof pino)["default"]>[0] = {};
 
 if (PRODUCTION) {
 	options.transport = {
 		target: "@logtail/pino",
-		options: { sourceToken: process.env.BETTER_STACK_TOKEN },
+		options: { sourceToken: BETTER_STACK_TOKEN },
 	};
 }
 

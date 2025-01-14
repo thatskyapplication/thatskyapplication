@@ -1,6 +1,5 @@
-import process from "node:process";
 import knex from "knex";
-import { PRODUCTION } from "./utility/constants.js";
+import { DATABASE_URL } from "./utility/constants.js";
 
 export enum Table {
 	AI = "ai",
@@ -17,15 +16,8 @@ export enum Table {
 	Catalogue = "catalogue",
 }
 
-const { DATABASE_URL, DEVELOPMENT_DATABASE_URL } = process.env;
-const databaseURL = PRODUCTION ? DATABASE_URL : DEVELOPMENT_DATABASE_URL;
-
-if (!databaseURL) {
-	throw new Error("Database URL missing.");
-}
-
 export default knex({
 	client: "pg",
-	connection: databaseURL,
+	connection: DATABASE_URL,
 	pool: { min: 0 },
 });

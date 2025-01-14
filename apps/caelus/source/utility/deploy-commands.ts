@@ -4,6 +4,7 @@ import {
 	APPLICATION_ID,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DEVELOPER_GUILD_ID,
+	DISCORD_TOKEN,
 	GUESS_DIFFICULTY_LEVEL_VALUES,
 	GuessDifficultyLevelToName,
 	LOCALES,
@@ -20,7 +21,6 @@ import {
 	SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
 	SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
 	SKY_PROFILE_MINIMUM_SPOT_LENGTH,
-	TOKEN,
 } from "./constants.js";
 import "../i18next.js";
 import {
@@ -39,11 +39,6 @@ import {
 	CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH,
 	ContentCreatorsEditType,
 } from "../services/content-creators.js";
-
-if (!TOKEN) {
-	pino.fatal("Missing Discord token to deploy commands.");
-	process.exit(1);
-}
 
 const notificationEventChoices = NOTIFICATION_TYPE_VALUES.map((notificationType) => ({
 	name: t(`notification-types.${notificationType}`, { lng: Locale.EnglishGB, ns: "general" }),
@@ -2141,7 +2136,7 @@ const DEVELOPER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 	CONTENT_CREATORS_COMMAND,
 ] as const;
 
-const rest = new REST({ version: "10" }).setToken(TOKEN);
+const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
 const api = new API(rest);
 pino.info("Setting application commands...");
 

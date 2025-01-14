@@ -2,19 +2,48 @@ import process from "node:process";
 import { URL } from "node:url";
 import { ChannelType, Locale, MessageFlags, type Snowflake } from "@discordjs/core";
 import { DailyQuest, type DailyQuests, RealmName, SkyMap } from "@thatskyapplication/utility";
+import pino from "../pino.js";
 
 // Production detection.
 export const PRODUCTION = process.env.NODE_ENV === "production";
+
+// Environment variables.
+if (
+	!(
+		process.env.DISCORD_TOKEN &&
+		process.env.DATABASE_URL &&
+		process.env.OPENAI_API_KEY &&
+		process.env.OPENAI_BASE_URL &&
+		process.env.AI_GATEWAY_TOKEN &&
+		process.env.S3_ACCESS_KEY_ID &&
+		process.env.S3_ACCOUNT_ID &&
+		process.env.S3_SECRET_ACCESS_KEY &&
+		process.env.SKY_PROFILE_REPORTS_CHANNEL_ID &&
+		process.env.WIND_PATHS_URL
+	) ||
+	(PRODUCTION && !(process.env.BETTER_STACK_TOKEN && process.env.FLIGHT_CHECK))
+) {
+	pino.fatal("Missing environment variables.");
+	process.exit(1);
+}
+
+export const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
+export const DATABASE_URL = process.env.DATABASE_URL;
+export const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+export const OPENAI_BASE_URL = process.env.OPENAI_BASE_URL;
+export const AI_GATEWAY_TOKEN = process.env.AI_GATEWAY_TOKEN;
+export const S3_ACCESS_KEY_ID = process.env.S3_ACCESS_KEY_ID;
+export const S3_ACCOUNT_ID = process.env.S3_ACCOUNT_ID;
+export const S3_SECRET_ACCESS_KEY = process.env.S3_SECRET_ACCESS_KEY;
+export const SKY_PROFILE_REPORTS_CHANNEL_ID = process.env.SKY_PROFILE_REPORTS_CHANNEL_ID;
+export const WIND_PATHS_URL = process.env.WIND_PATHS_URL;
+export const BETTER_STACK_TOKEN = process.env.BETTER_STACK_TOKEN;
+export const FLIGHT_CHECK = process.env.FLIGHT_CHECK;
 
 // Application ids.
 const APPLICATION_ID_DEVELOPMENT = "1071822091814441000" as const;
 const APPLICATION_ID_PRODUCTION = "982740693070012506" as const;
 export const APPLICATION_ID = PRODUCTION ? APPLICATION_ID_PRODUCTION : APPLICATION_ID_DEVELOPMENT;
-
-// Application token.
-const TOKEN_DEVELOPMENT = process.env.DEVELOPMENT_DISCORD_TOKEN;
-const TOKEN_PRODUCTION = process.env.DISCORD_TOKEN;
-export const TOKEN = PRODUCTION ? TOKEN_PRODUCTION : TOKEN_DEVELOPMENT;
 
 // Content delivery network buckets.
 const CDN_BUCKET_DEVELOPMENT = "thatskyapplication-dev" as const;
@@ -60,11 +89,6 @@ export const CONTENT_CREATORS_URL = String(new URL("content-creators", WEBSITE_U
 export const DAILY_GUIDES_URL = String(new URL("daily-guides", WEBSITE_URL));
 export const SHARD_ERUPTION_URL = String(new URL("shard-eruption", WEBSITE_URL));
 export const LINK_REDIRECTOR_URL = "https://thatsky.link" as const;
-
-// Wind paths.
-const WIND_PATHS_URL_DEVELOPMENT = process.env.DEVELOPMENT_WIND_PATHS_URL;
-const WIND_PATHS_URL_PRODUCTION = process.env.WIND_PATHS_URL;
-export const WIND_PATHS_URL = PRODUCTION ? WIND_PATHS_URL_PRODUCTION : WIND_PATHS_URL_DEVELOPMENT;
 
 // SKU ids.
 const SERVER_UPGRADE_SKU_ID_DEVELOPMENT = "1270975828481806428" as const;

@@ -1,4 +1,3 @@
-import process from "node:process";
 import { clearTimeout, setTimeout } from "node:timers";
 import {
 	type APIUser,
@@ -20,10 +19,13 @@ import type { Guild } from "./models/discord/guild.js";
 import pino from "./pino.js";
 import { todayEmbed } from "./services/shard-eruption.js";
 import {
+	AI_GATEWAY_TOKEN,
 	APPLICATION_ID,
 	AreaToWingedLightCount,
 	MAXIMUM_WINGED_LIGHT,
 	MAXIMUM_WING_BUFFS,
+	OPENAI_API_KEY,
+	OPENAI_BASE_URL,
 	SKY_CREATOR_TROUPE,
 	WINGED_LIGHT_IN_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
@@ -31,12 +33,6 @@ import {
 import { skyNow } from "./utility/dates.js";
 import { MISCELLANEOUS_EMOJIS, formatEmoji } from "./utility/emojis.js";
 import { shardEruption } from "./utility/wind-paths.js";
-
-const { OPENAI_API_KEY, OPENAI_BASE_URL, AI_GATEWAY_TOKEN } = process.env;
-
-if (!(OPENAI_API_KEY && OPENAI_BASE_URL && AI_GATEWAY_TOKEN)) {
-	throw new Error("Missing OpenAI credentials.");
-}
 
 const openAI = new OpenAI({
 	apiKey: OPENAI_API_KEY,

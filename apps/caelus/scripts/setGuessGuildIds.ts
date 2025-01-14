@@ -18,21 +18,19 @@ interface GuessPacket {
 	guild_ids: string[];
 }
 
-const { DATABASE_URL, DISCORD_TOKEN, DEVELOPMENT_DISCORD_TOKEN } = process.env;
-export const TOKEN =
-	process.env.NODE_ENV === "production" ? DISCORD_TOKEN : DEVELOPMENT_DISCORD_TOKEN;
+const { DATABASE_URL, DISCORD_TOKEN } = process.env;
 
-if (!(DATABASE_URL && TOKEN)) {
+if (!(DATABASE_URL && DISCORD_TOKEN)) {
 	throw new Error("Credentials missing.");
 }
 
 const TABLE = "guess" as const;
-const rest = new REST({ version: "10" }).setToken(TOKEN);
+const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
 
 export const gateway = new WebSocketManager({
 	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMembers,
 	rest,
-	token: TOKEN,
+	token: DISCORD_TOKEN,
 });
 
 const client = new Client({ rest, gateway });

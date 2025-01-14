@@ -1,15 +1,9 @@
 import { Client, GatewayIntentBits } from "@discordjs/core";
 import { REST } from "@discordjs/rest";
 import { WebSocketManager } from "@discordjs/ws";
-import pino from "./pino.js";
-import { TOKEN } from "./utility/constants.js";
+import { DISCORD_TOKEN } from "./utility/constants.js";
 
-if (!TOKEN) {
-	pino.fatal("Missing Discord token.");
-	process.exit(1);
-}
-
-const rest = new REST({ version: "10" }).setToken(TOKEN);
+const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
 
 export const gateway = new WebSocketManager({
 	intents:
@@ -18,7 +12,7 @@ export const gateway = new WebSocketManager({
 		GatewayIntentBits.GuildMessages |
 		GatewayIntentBits.MessageContent,
 	rest,
-	token: TOKEN,
+	token: DISCORD_TOKEN,
 });
 
 export const client = new Client({ rest, gateway });
