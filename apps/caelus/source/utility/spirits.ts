@@ -246,6 +246,9 @@ export enum SpiritName {
 	SenseOfSelf = "Sense of Self",
 	SpiritOfAdventure = "Spirit of Adventure",
 	InspirationOfInclusion = "Inspiration of Inclusion",
+
+	// Season of Radiance.
+	RadianceGuide = "Radiance Guide",
 }
 
 export const enum SpiritEmote {

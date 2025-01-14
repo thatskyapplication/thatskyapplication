@@ -3,8 +3,8 @@ import { DateTime } from "luxon";
 export const TIME_ZONE = "America/Los_Angeles" as const;
 export const SEASON_START = skyDate(2_024, 10, 14);
 export const SEASON_END = skyDate(2_024, 12, 30);
-export const NEXT_SEASON_START: DateTime | null = null;
-export const NEXT_SEASON_END: DateTime | null = null;
+export const NEXT_SEASON_START: DateTime | null = skyDate(2_025, 1, 20);
+export const NEXT_SEASON_END: DateTime | null = skyDate(2_025, 4, 7);
 export const INITIAL_TREASURE_CANDLES_SEEK = skyDate(2025, 1, 1); // 01/01/2025 failed and is thus the first day of the cycle.
 export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE = skyDate(2_024, 12, 9);
 /**

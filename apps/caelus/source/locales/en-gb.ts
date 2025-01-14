@@ -323,6 +323,7 @@ export default {
 			[SeasonId.Nesting]: "Season of Nesting",
 			[SeasonId.Duets]: "Season of Duets",
 			[SeasonId.Moomin]: "Season of Moomin",
+			[SeasonId.Radiance]: "Season of Radiance",
 		} satisfies Record<SeasonIds, string>,
 		events: {
 			[EventId.HalloweenOfficeEvent2019]: "Halloween Office Event",

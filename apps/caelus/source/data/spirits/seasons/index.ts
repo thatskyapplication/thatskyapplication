@@ -19,6 +19,7 @@ import NineColouredDeer from "./nine-coloured-deer/index.js";
 import Passage from "./passage/index.js";
 import Performance from "./performance/index.js";
 import Prophecy from "./prophecy/index.js";
+import Radiance from "./radiance/index.js";
 import Remembrance from "./remembrance/index.js";
 import Revival from "./revival/index.js";
 import Rhythm from "./rhythm/index.js";
@@ -49,6 +50,7 @@ const SEASONS = [
 	Nesting,
 	Duets,
 	Moomin,
+	Radiance,
 ] as const;
 
 export function skySeasons(date = skyNow()) {

@@ -2839,6 +2839,7 @@ export const SeasonId = {
 	Nesting: 20,
 	Duets: 21,
 	Moomin: 22,
+	Radiance: 33,
 } as const satisfies Readonly<Record<string, number>>;
 
 export type SeasonIds = (typeof SeasonId)[keyof typeof SeasonId];
@@ -2871,6 +2872,8 @@ export const SeasonIdToSeasonalEmoji = {
 	[SeasonId.Nesting]: SEASON_EMOJIS.Nesting,
 	[SeasonId.Duets]: SEASON_EMOJIS.Duets,
 	[SeasonId.Moomin]: SEASON_EMOJIS.Moomin,
+	// @ts-expect-error Not yet released.
+	[SeasonId.Radiance]: SEASON_EMOJIS.Radiance,
 } as const satisfies Readonly<Record<SeasonIds, SeasonEmojis>>;
 
 export const SeasonIdToSeasonalCandleEmoji = {
@@ -2897,6 +2900,8 @@ export const SeasonIdToSeasonalCandleEmoji = {
 	[SeasonId.Nesting]: SEASON_EMOJIS.NestingCandle,
 	[SeasonId.Duets]: SEASON_EMOJIS.DuetsCandle,
 	[SeasonId.Moomin]: SEASON_EMOJIS.MoominCandle,
+	// @ts-expect-error Not yet released.
+	[SeasonId.Radiance]: SEASON_EMOJIS.RadianceCandle,
 } as const satisfies Readonly<Record<SeasonIds, SeasonEmojis>>;
 
 const SeasonIdToSeasonalHeartEmoji = {
@@ -2921,6 +2926,8 @@ const SeasonIdToSeasonalHeartEmoji = {
 	[SeasonId.Nesting]: SEASON_EMOJIS.NestingHeart,
 	[SeasonId.Duets]: SEASON_EMOJIS.DuetsHeart,
 	[SeasonId.Moomin]: SEASON_EMOJIS.MoominHeart,
+	// @ts-expect-error Not yet released.
+	[SeasonId.Radiance]: SEASON_EMOJIS.RadianceHeart,
 } as const satisfies Readonly<
 	Record<Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>, SeasonEmojis>
 >;
