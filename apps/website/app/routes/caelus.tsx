@@ -71,6 +71,7 @@ export default function GuidesLayout() {
 					<div
 						className="fixed inset-0 bg-black bg-opacity-50 z-30"
 						onClick={() => setIsSidebarOpen(false)}
+						onKeyDown={(event) => event.key === "Escape" && setIsSidebarOpen(false)}
 						aria-hidden="true"
 					/>
 				)}
