@@ -324,6 +324,7 @@ export const DailyQuest = {
 	MeetUpWithCeasingCommodoreInForgottenArk: 198,
 	MeetUpWithJollyGeologistInPrairiePeaks: 199,
 	MeetUpWithDismayedHunterInBoneyard: 200,
+	MeetUpWithWhaleWhispererInBoneyard: 201,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -576,6 +577,7 @@ export const DailyQuestToString = {
 	[DailyQuest.MeetUpWithJollyGeologistInPrairiePeaks]:
 		"Meet up with Jolly Geologist in Prairie Peaks",
 	[DailyQuest.MeetUpWithDismayedHunterInBoneyard]: "Meet up with Dismayed Hunter in Boneyard",
+	[DailyQuest.MeetUpWithWhaleWhispererInBoneyard]: "Meet up with Whale Whisperer in Boneyard",
 } as const satisfies Readonly<Record<DailyQuests, string>>;
 
 export type RotationNumber = 1 | 2 | 3;
