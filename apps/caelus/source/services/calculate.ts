@@ -5,6 +5,7 @@ import {
 	Locale,
 	MessageFlags,
 } from "@discordjs/core";
+import { SkyMap } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { skyCurrentEvents } from "../data/events/index.js";
 import { skyCurrentSeason } from "../data/spirits/seasons/index.js";
@@ -19,7 +20,6 @@ import {
 	ASCENDED_CANDLES_PER_WEEK,
 	AreaToWingedLightCount,
 	DEFAULT_EMBED_COLOUR,
-	SkyMap,
 	WINGED_LIGHT_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
 } from "../utility/constants.js";

@@ -12,6 +12,7 @@ import {
 	MessageFlags,
 	PresenceUpdateStatus,
 } from "@discordjs/core";
+import { DAILY_QUEST_VALUES } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import type { InteractiveOptions } from "../models/Admin.js";
@@ -27,7 +28,6 @@ import {
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
-	DAILY_QUEST_VALUES,
 	DailyQuestToInfographicURL,
 	LOCALE_OPTIONS,
 	QUEST_NUMBER,

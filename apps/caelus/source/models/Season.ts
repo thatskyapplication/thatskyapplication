@@ -1,5 +1,6 @@
 import { URL } from "node:url";
 import { Locale } from "@discordjs/core";
+import type { RealmName } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import type { GuideSpirit, SeasonalSpirit } from "../models/Spirits.js";
@@ -18,7 +19,7 @@ import {
 	snakeCaseName,
 	wikiURL,
 } from "../utility/catalogue.js";
-import { CDN_URL, type RealmName } from "../utility/constants.js";
+import { CDN_URL } from "../utility/constants.js";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,

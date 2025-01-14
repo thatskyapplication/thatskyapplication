@@ -1,6 +1,6 @@
+import { RealmName } from "@thatskyapplication/utility";
 import { StandardSpirit } from "../../../../models/Spirits.js";
 import { Cosmetic } from "../../../../utility/catalogue.js";
-import { RealmName } from "../../../../utility/constants.js";
 import { CAPE_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../utility/emojis.js";
 import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../utility/spirits.js";
 

@@ -1,6 +1,7 @@
+import type { RealmName, SkyMap } from "@thatskyapplication/utility";
 import { DateTime } from "luxon";
 import pino from "../pino.js";
-import { type RealmName, type SkyMap, WIND_PATHS_URL } from "./constants.js";
+import { WIND_PATHS_URL } from "./constants.js";
 
 interface ShardEruptionTimestampsRawData {
 	start: string;

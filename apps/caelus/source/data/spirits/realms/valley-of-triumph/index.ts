@@ -1,5 +1,5 @@
+import { RealmName } from "@thatskyapplication/utility";
 import { Realm } from "../../../../models/Realm.js";
-import { RealmName } from "../../../../utility/constants.js";
 import BackflippingChampion from "./backflipping-champion.js";
 import BowingMedalist from "./bowing-medalist.js";
 import CheerfulSpectator from "./cheerful-spectator.js";

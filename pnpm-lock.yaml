@@ -41,6 +41,9 @@ importers:
       '@sapphire/snowflake':
         specifier: ^3.5.4
         version: 3.5.5
+      '@thatskyapplication/utility':
+        specifier: workspace:^
+        version: link:../../packages/utility
       croner:
         specifier: ^9.0.0
         version: 9.0.0

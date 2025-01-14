@@ -1,6 +1,7 @@
 import process from "node:process";
 import { URL } from "node:url";
 import { Collection } from "@discordjs/collection";
+import type { RealmName } from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import { TRAVELLING_DATES } from "../data/travelling-spirits.js";
@@ -16,7 +17,7 @@ import {
 	snakeCaseName,
 	wikiURL,
 } from "../utility/catalogue.js";
-import { CDN_URL, type RealmName } from "../utility/constants.js";
+import { CDN_URL } from "../utility/constants.js";
 import { skyDate } from "../utility/dates.js";
 import {
 	type FriendAction,

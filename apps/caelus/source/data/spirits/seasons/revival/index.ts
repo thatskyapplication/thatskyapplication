@@ -1,7 +1,7 @@
 import { URL } from "node:url";
+import { RealmName } from "@thatskyapplication/utility";
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
-import { RealmName } from "../../../../utility/constants.js";
 import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import EchoOfAnAbandonedRefuge from "./echo-of-an-abandoned-refuge.js";

@@ -23,6 +23,7 @@
 		"@discordjs/ws": "^2.0.0",
 		"@logtail/pino": "^0.4.22",
 		"@sapphire/snowflake": "^3.5.4",
+		"@thatskyapplication/utility": "workspace:^",
 		"croner": "^9.0.0",
 		"hasha": "^6.0.0",
 		"i18next": "^23.11.5",
