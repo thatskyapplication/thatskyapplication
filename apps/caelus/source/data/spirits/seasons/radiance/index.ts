@@ -4,7 +4,7 @@ import { skyDate } from "../../../../utility/dates.js";
 import RadianceGuide from "./radiance-guide.js";
 
 export default new Season({
-	id: SeasonId.Remembrance,
+	id: SeasonId.Radiance,
 	start: skyDate(2_025, 1, 20),
 	end: skyDate(2_025, 4, 7),
 	guide: RadianceGuide,
