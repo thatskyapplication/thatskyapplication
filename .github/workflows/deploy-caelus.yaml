@@ -1,0 +1,18 @@
+name: Deploy Caelus
+on:
+  push:
+    branches: main
+    paths: apps/caelus/**/*
+  workflow_dispatch:
+jobs:
+  deploy:
+    name: Deploy app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - run: flyctl deploy --config apps/caelus/fly.toml --dockerfile apps/caelus/Dockerfile --remote-only --access-token $FLY_DEPLOY_TOKEN
+        env:
+          FLY_DEPLOY_TOKEN: ${{ secrets.FLY_DEPLOY_CAELUS_TOKEN }}
