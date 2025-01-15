@@ -2813,6 +2813,24 @@ export const enum Cosmetic {
 	PleadingChildWingBuff = 2216,
 	PleadingChildShoes = 2217,
 	OddballOutcastWingBuff = 2218,
+
+	// 27/01/2025 | Days of Fortune.
+	DragonDanceMusicSheet,
+	RedDyeBlessing,
+	FortuneSnakeMask,
+	FortuneSnakeOutfit,
+	FortuneVerticalPoster,
+	FortuneCandleFlags,
+	FortunePlant,
+	FortuneHandFan,
+	FortuneSnakeCoif,
+	FortuneSnakeCloak,
+
+	// 10/02/2025 | Days of Love.
+	DaysOfLoveVioletCrystal,
+	DaysOfLoveBraids,
+	DaysOfLoveAmethystAccessory,
+	DaysOfLoveAmethystTippedTails,
 }
 
 export const SeasonId = {
@@ -3013,6 +3031,10 @@ export const EventId = {
 	DaysOfMusic2024: 66,
 	DaysOfGiving2024: 67,
 	SkyXAlicesWonderlandCafe2024: 68,
+
+	// 2025.
+	DaysOfFortune2025: 69,
+	DaysOfLove2025: 70,
 } as const satisfies Readonly<Record<string, number>>;
 
 export type EventIds = (typeof EventId)[keyof typeof EventId];
@@ -3098,6 +3120,10 @@ export const EventIdToEventCurrencyEmoji = {
 	[EventId.DaysOfMusic2024]: EVENT_EMOJIS.Music,
 	[EventId.DaysOfGiving2024]: null,
 	[EventId.SkyXAlicesWonderlandCafe2024]: EVENT_EMOJIS.Feast,
+
+	// 2025.
+	[EventId.DaysOfFortune2025]: EVENT_EMOJIS.Fortune,
+	[EventId.DaysOfLove2025]: EVENT_EMOJIS.Love,
 } as const satisfies Readonly<Record<EventIds, EventEmojis | null>>;
 
 export function snakeCaseName(name: string) {

@@ -1,5 +1,6 @@
 import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
+import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import RadianceGuide from "./radiance-guide.js";
 
@@ -10,4 +11,5 @@ export default new Season({
 	guide: RadianceGuide,
 	spirits: [],
 	seasonalCandlesRotation: null,
+	patchNotesURL: String(new URL("p0280", LINK_REDIRECTOR_URL)),
 });
