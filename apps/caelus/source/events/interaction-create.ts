@@ -106,6 +106,7 @@ import {
 	shopSuggestionModal,
 	shopSuggestionSubmission,
 } from "../features/shop.js";
+import { handleChannelSelectMenu as handleWelcomeChannelSelectMenu } from "../features/welcome.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import Profile, {
 	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
@@ -170,6 +171,7 @@ import {
 	HEART_HISTORY_BACK,
 	HEART_HISTORY_NEXT,
 	NOT_IN_CACHED_GUILD_RESPONSE,
+	WELCOME_WELCOME_CHANNEL_CUSTOM_ID,
 } from "../utility/constants.js";
 import {
 	interactionInvoker,
@@ -946,6 +948,12 @@ export default {
 
 				if (customId.startsWith(NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID)) {
 					await handleNotificationsChannelSelectMenu(interaction);
+				}
+
+				if (customId === WELCOME_WELCOME_CHANNEL_CUSTOM_ID) {
+					await handleWelcomeChannelSelectMenu(interaction, {
+						welcomeChannelId: interaction.data.values[0] ?? null,
+					});
 					return;
 				}
 			} catch (error) {

@@ -14,6 +14,7 @@ export enum Table {
 	Profiles = "profiles",
 	SkyProfileLikes = "sky_profile_likes",
 	Catalogue = "catalogue",
+	Welcome = "welcome",
 }
 
 export default knex({
