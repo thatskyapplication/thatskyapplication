@@ -53,6 +53,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 	session.unset("state");
 	let member;
+	let accessToken;
 
 	try {
 		const tokenResponse = await discord.oauth2.tokenExchange({
@@ -63,10 +64,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			redirect_uri: REDIRECT_URI_SECRET_AREA,
 		});
 
+		accessToken = tokenResponse.access_token;
+
 		const guildResponse = await fetch(
 			`https://discord.com/api/v10/users/@me/guilds/${DEVELOPER_GUILD_ID}/member`,
 			{
-				headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
+				headers: { Authorization: `Bearer ${accessToken}` },
 			},
 		);
 
@@ -81,6 +84,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 	if (member) {
 		session.set("member", member);
+		session.set("accessToken", accessToken);
 
 		return redirect("/secret-area", {
 			headers: {
