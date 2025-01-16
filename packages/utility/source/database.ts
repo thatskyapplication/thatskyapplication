@@ -15,6 +15,7 @@ export enum Table {
 	RedditWebhooks = "reddit_webhooks",
 	SkyProfileLikes = "sky_profile_likes",
 	Users = "users",
+	Welcome = "welcome",
 }
 
 export interface BlueskyWebhooksPacket {

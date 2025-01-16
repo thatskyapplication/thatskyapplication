@@ -2783,6 +2783,11 @@ export default {
 				"command-name": "notifications",
 				"command-description": "The command to set up notifications for events.",
 			},
+			welcome: {
+				"command-name": "welcome",
+				"command-description":
+					"The command to set up welcome messages for new members of the server.",
+			},
 		},
 		"daily-guides": {
 			"command-name": "daily-guides",
