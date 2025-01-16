@@ -11,12 +11,12 @@ import {
 } from "@remix-run/react";
 import type React from "react";
 import "./tailwind.css";
+import { WEBSITE_URL } from "@thatskyapplication/utility";
 import { LocaleProvider } from "~/contexts/LocaleContext";
 import {
 	APPLICATION_DESCRIPTION,
 	APPLICATION_ICON_URL,
 	APPLICATION_NAME,
-	WEBSITE_URL,
 } from "~/utility/constants";
 import { getLocaleFromRequest } from "~/utility/functions";
 

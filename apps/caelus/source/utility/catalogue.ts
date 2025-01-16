@@ -1,5 +1,5 @@
 import { URL } from "node:url";
-import { WIKI_URL } from "./constants.js";
+import { WIKI_URL } from "@thatskyapplication/utility";
 import {
 	EVENT_EMOJIS,
 	type Emoji,

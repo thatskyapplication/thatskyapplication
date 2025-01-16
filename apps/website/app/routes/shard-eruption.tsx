@@ -1,13 +1,13 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { type MetaFunction, useLoaderData } from "@remix-run/react";
+import { WEBSITE_URL } from "@thatskyapplication/utility";
 import { DateTime } from "luxon";
 import TopBar from "~/components/TopBar";
 import {
 	APPLICATION_NAME,
 	SHARD_ERUPTION_DESCRIPTION,
 	SHARD_ERUPTION_ICON_URL,
-	WEBSITE_URL,
 } from "~/utility/constants";
 import { TIME_ZONE, skyNow, skyToday } from "~/utility/dates";
 import { getLocaleFromRequest } from "~/utility/functions";

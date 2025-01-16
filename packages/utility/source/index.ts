@@ -1,3 +1,6 @@
+export const WEBSITE_URL = "https://thatskyapplication.com" as const;
+export const WIKI_URL = "https://sky-children-of-the-light.fandom.com" as const;
+
 export const DailyQuest = {
 	Collect30PiecesOfLight: 0,
 	Light20Candles: 1,

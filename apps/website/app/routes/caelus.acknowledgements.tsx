@@ -1,5 +1,6 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
-import { APPLICATION_NAME, WIKI_URL } from "~/utility/constants";
+import { WIKI_URL } from "@thatskyapplication/utility";
+import { APPLICATION_NAME } from "~/utility/constants";
 
 export default function Acknowledgements() {
 	return (

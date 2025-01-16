@@ -16,6 +16,7 @@ import {
 	SiYoutubeHex,
 } from "@icons-pack/react-simple-icons";
 import { type MetaFunction, useLoaderData } from "@remix-run/react";
+import { WEBSITE_URL } from "@thatskyapplication/utility";
 import TopBar from "~/components/TopBar";
 import pg from "~/pg.server";
 import {
@@ -23,7 +24,6 @@ import {
 	CONTENT_CREATORS_DESCRIPTION,
 	CONTENT_CREATORS_ICON_URL,
 	Table,
-	WEBSITE_URL,
 } from "~/utility/constants";
 
 export interface ContentCreatorsPacket {

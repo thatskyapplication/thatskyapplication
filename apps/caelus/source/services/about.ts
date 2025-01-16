@@ -1,5 +1,6 @@
 import { type APIChatInputApplicationCommandInteraction, MessageFlags } from "@discordjs/core";
 import { calculateUserDefaultAvatarIndex } from "@discordjs/rest";
+import { WEBSITE_URL } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import {
 	ABOUT_DESCRIPTION,
@@ -7,7 +8,6 @@ import {
 	APPLICATION_INVITE_URL,
 	DEFAULT_EMBED_COLOUR,
 	SUPPORT_SERVER_INVITE_URL,
-	WEBSITE_URL,
 } from "../utility/constants.js";
 
 export async function about(interaction: APIChatInputApplicationCommandInteraction) {

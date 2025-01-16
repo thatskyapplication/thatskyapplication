@@ -1,7 +1,13 @@
 import process from "node:process";
 import { URL } from "node:url";
 import { ChannelType, Locale, MessageFlags, type Snowflake } from "@discordjs/core";
-import { DailyQuest, type DailyQuests, RealmName, SkyMap } from "@thatskyapplication/utility";
+import {
+	DailyQuest,
+	type DailyQuests,
+	RealmName,
+	SkyMap,
+	WEBSITE_URL,
+} from "@thatskyapplication/utility";
 
 // Production detection.
 export const PRODUCTION = process.env.NODE_ENV === "production";
@@ -80,7 +86,6 @@ export const MAX_PLAY_FIGHT_NO = 6 as const;
 export const MAX_KRILL_NO = 11 as const;
 
 // Website URLs.
-export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const APPLICATION_INVITE_URL = String(new URL("invite", WEBSITE_URL));
 export const SUPPORT_SERVER_INVITE_URL = String(new URL("support", WEBSITE_URL));
 export const CONTENT_CREATORS_URL = String(new URL("content-creators", WEBSITE_URL));
@@ -127,7 +132,6 @@ const THATSKYGAME_URL = "https://thatskygame.com" as const;
 const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
 const PATREON_URL = "https://patreon.com/Jiralite" as const;
 const KO_FI_URL = "https://ko-fi.com/jiralite" as const;
-export const WIKI_URL = "https://sky-children-of-the-light.fandom.com/wiki" as const;
 export const MINIMUM_WINGED_LIGHT = 0 as const;
 export const MAXIMUM_WINGED_LIGHT = 243 as const;
 export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;

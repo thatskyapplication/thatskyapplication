@@ -1,9 +1,7 @@
 import { DailyQuest, type DailyQuests, RealmName } from "@thatskyapplication/utility";
 
 export const DEFAULT_LOCALE = "en-GB" as const;
-export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const CDN_URL = "https://cdn.thatskyapplication.com" as const;
-export const WIKI_URL = "https://sky-children-of-the-light.fandom.com" as const;
 export const APPLICATION_NAME = "Caelus" as const;
 
 export const APPLICATION_DESCRIPTION =
