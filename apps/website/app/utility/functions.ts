@@ -102,7 +102,9 @@ export function daysText(
 			? `${text} starts today.`
 			: daysUntilStart >= 2
 				? `${text} starts in ${Math.floor(daysUntilStart)} days.`
-				: `${text} starts tomorrow.`;
+				: daysUntilStart <= 1
+					? `${text} starts tomorrow.`
+					: `${text} starts in 1 day.`;
 	}
 
 	const number = Math.ceil(daysLeft) - 1;

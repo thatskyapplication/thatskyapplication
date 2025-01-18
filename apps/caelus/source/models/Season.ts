@@ -133,7 +133,9 @@ export class Season {
 				? "The new season starts today."
 				: daysUntilStart >= 2
 					? `The new season starts in ${Math.floor(daysUntilStart)} days.`
-					: "The new season starts tomorrow.";
+					: daysUntilStart <= 1
+						? "The new season starts tomorrow."
+						: "The new season starts in 1 day.";
 		}
 
 		return t("days-left.season", { lng: locale, ns: "general", count: Math.ceil(daysLeft) - 1 });
