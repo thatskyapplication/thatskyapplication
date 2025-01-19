@@ -99,7 +99,7 @@ export function daysText(
 		const text = event ? `${event.name}` : "The new season";
 
 		return daysUntilStart < 1
-			? `${text} starts today.`
+			? `${text} starts tomorrow.`
 			: daysUntilStart >= 2
 				? `${text} starts in ${Math.floor(daysUntilStart)} days.`
 				: daysUntilStart <= 1

@@ -130,7 +130,7 @@ export class Season {
 
 		if (daysUntilStart > 0) {
 			return daysUntilStart < 1
-				? "The new season starts today."
+				? "The new season starts tomorrow."
 				: daysUntilStart >= 2
 					? `The new season starts in ${Math.floor(daysUntilStart)} days.`
 					: daysUntilStart <= 1
