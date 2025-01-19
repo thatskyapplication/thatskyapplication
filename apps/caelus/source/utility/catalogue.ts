@@ -2814,6 +2814,15 @@ export const enum Cosmetic {
 	PleadingChildShoes = 2217,
 	OddballOutcastWingBuff = 2218,
 
+	// 20/01/2025 | Season of Radiance.
+	RadianceGuideQuest1 = 2219,
+	RadianceGuideHeart1 = 2220,
+	RadiancePendant = 2221,
+	RadianceGuideUltimateCape = 2222,
+	RadianceGuideUltimateMask = 2223,
+	RadianceGuideRedDye = 2224,
+	RadianceGuideYellowDye = 2225,
+
 	// 27/01/2025 | Days of Fortune.
 	DragonDanceMusicSheet,
 	RedDyeBlessing,

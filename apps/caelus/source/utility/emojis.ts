@@ -1480,6 +1480,10 @@ export const MASK_EMOJIS = PRODUCTION
 			 * Duets Guide (non-ultimate).
 			 */
 			Mask93: { id: "1313935299767963799", name: "93_mask" },
+			/**
+			 * Radiance Guide (ultimate).
+			 */
+			Mask94: { id: "1330484202856120361", name: "94_mask" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Mask01: { id: "1313919848769781872", name: "01_mask" },
@@ -1575,6 +1579,7 @@ export const MASK_EMOJIS = PRODUCTION
 			Mask91: { id: "1313920393953939500", name: "91_mask" },
 			Mask92: { id: "1313920398295040020", name: "92_mask" },
 			Mask93: { id: "1313920383770169407", name: "93_mask" },
+			Mask94: { id: "1330484210611392535", name: "94_mask" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type MaskEmojis = (typeof MASK_EMOJIS)[keyof typeof MASK_EMOJIS];
@@ -1975,6 +1980,10 @@ export const NECKLACE_EMOJIS = PRODUCTION
 			 * Inspiration of Inclusion.
 			 */
 			Necklace45: { id: "1313935812668424214", name: "necklace_45" },
+			/**
+			 * Radiance Pendant.
+			 */
+			Necklace46: { id: "1313935812668424214", name: "necklace_46" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Necklace01: { id: "1313920866920435712", name: "necklace_01" },
@@ -2022,6 +2031,7 @@ export const NECKLACE_EMOJIS = PRODUCTION
 			Necklace43: { id: "1313920795763802113", name: "necklace_43" },
 			Necklace44: { id: "1313920815838007378", name: "necklace_44" },
 			Necklace45: { id: "1313920862830989324", name: "necklace_45" },
+			Necklace46: { id: "1330482752545362080", name: "necklace_46" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type NecklaceEmojis = (typeof NECKLACE_EMOJIS)[keyof typeof NECKLACE_EMOJIS];
@@ -3643,6 +3653,10 @@ export const CAPE_EMOJIS = PRODUCTION
 			 * Moominmamma's Masterpiece.
 			 */
 			Cape140: { id: "1315726083160543323", name: "140_cape" },
+			/**
+			 * Radiance Guide (ultimate).
+			 */
+			Cape141: { id: "1330483570732437514", name: "141_cape" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Cape01: { id: "1313922301863133276", name: "01_cape" },
@@ -3785,6 +3799,7 @@ export const CAPE_EMOJIS = PRODUCTION
 			Cape138: { id: "1313922658458669096", name: "138_cape" },
 			Cape139: { id: "1313922699667574824", name: "139_cape" },
 			Cape140: { id: "1315725838733545545", name: "140_cape" },
+			Cape141: { id: "1330483751511265353", name: "141_cape" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
