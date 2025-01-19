@@ -184,7 +184,7 @@ export function seasonalCandlesRotationURL(
 ) {
 	return String(
 		new URL(
-			`daily_guides/seasonal_candles/season_of_moomin/${REALM_NAME_TO_REALM_CDN_NAME[realm]}/rotation_${rotation}.webp`,
+			`daily_guides/seasonal_candles/season_of_radiance/${REALM_NAME_TO_REALM_CDN_NAME[realm]}/rotation_${rotation}.webp`,
 			CDN_URL,
 		),
 	);

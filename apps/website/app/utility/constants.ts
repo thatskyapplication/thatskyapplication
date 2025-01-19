@@ -314,6 +314,8 @@ export const DailyQuestToString = {
 export type RotationNumber = 1 | 2 | 3;
 
 export const SEASONAL_CANDLES_ROTATION = [
+	{ rotation: 1, realm: RealmName.ValleyOfTriumph },
+	{ rotation: 1, realm: RealmName.GoldenWasteland },
 	{ rotation: 1, realm: RealmName.VaultOfKnowledge },
 	{ rotation: 1, realm: RealmName.DaylightPrairie },
 	{ rotation: 1, realm: RealmName.HiddenForest },
@@ -322,8 +324,6 @@ export const SEASONAL_CANDLES_ROTATION = [
 	{ rotation: 2, realm: RealmName.VaultOfKnowledge },
 	{ rotation: 2, realm: RealmName.DaylightPrairie },
 	{ rotation: 2, realm: RealmName.HiddenForest },
-	{ rotation: 1, realm: RealmName.ValleyOfTriumph },
-	{ rotation: 1, realm: RealmName.GoldenWasteland },
 ] as const;
 
 export const SEASONAL_CANDLE_ICON = String(new URL("icons/seasonal_candle.webp", CDN_URL));
