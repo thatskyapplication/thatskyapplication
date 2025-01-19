@@ -3,6 +3,7 @@ import { Season } from "../../../../models/Season.js";
 import { SeasonId } from "../../../../utility/catalogue.js";
 import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
+import RadianceGreetingShaman from "./radiance-greeting-shaman.js";
 import RadianceGuide from "./radiance-guide.js";
 import RadianceLeapingDancer from "./radiance-leaping-dancer.js";
 import RadianceProvokingPerformer from "./radiance-provoking-performer.js";
@@ -12,7 +13,7 @@ export default new Season({
 	start: skyDate(2_025, 1, 20),
 	end: skyDate(2_025, 4, 7),
 	guide: RadianceGuide,
-	spirits: [RadianceLeapingDancer, RadianceProvokingPerformer],
+	spirits: [RadianceLeapingDancer, RadianceProvokingPerformer, RadianceGreetingShaman],
 	seasonalCandlesRotation: [
 		{ rotation: 1, realm: RealmName.ValleyOfTriumph },
 		{ rotation: 1, realm: RealmName.GoldenWasteland },

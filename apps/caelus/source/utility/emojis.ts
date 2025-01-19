@@ -219,6 +219,7 @@ export const EMOTE_EMOJIS = PRODUCTION
 			Read: { id: "1313931944420966410", name: "read" },
 			Cartwheel: { id: "1330496618889482411", name: "cartwheel" },
 			HypeDance: { id: "1330568867986014218", name: "hype_dance" },
+			HeartGesture: { id: "1330656137174978560", name: "heart_gesture" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Sit: { id: "1313865085504192573", name: "sit" },
@@ -326,6 +327,7 @@ export const EMOTE_EMOJIS = PRODUCTION
 			Read: { id: "1313865495480504453", name: "read" },
 			Cartwheel: { id: "1330496633737318460", name: "cartwheel" },
 			HypeDance: { id: "1330568876974542949", name: "hype_dance" },
+			HeartGesture: { id: "1330656144921985115", name: "heart_gesture" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 export type EmotesEmojis = (typeof EMOTE_EMOJIS)[keyof typeof EMOTE_EMOJIS];
@@ -944,6 +946,10 @@ export const OUTFIT_EMOJIS = PRODUCTION
 			 * Radiance Provoking Performer.
 			 */
 			Outfit76: { id: "1330644916203815054", name: "76_outfit" },
+			/**
+			 * Radiance Greeting Shaman.
+			 */
+			Outfit77: { id: "1330666163813879828", name: "77_outfit" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Outfit01: { id: "1313869809905172600", name: "01_outfit" },
@@ -1022,6 +1028,7 @@ export const OUTFIT_EMOJIS = PRODUCTION
 			Outfit74: { id: "1320563623567032350", name: "74_outfit" },
 			Outfit75: { id: "1330514830603587584", name: "75_outfit" },
 			Outfit76: { id: "1330644931693248584", name: "76_outfit" },
+			Outfit77: { id: "1330666170403000430", name: "77_outfit" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -2685,6 +2692,10 @@ export const HAIR_EMOJIS = PRODUCTION
 			 * Radiance Leaping Dancer.
 			 */
 			Hair155: { id: "1330513805192466467", name: "155_hair" },
+			/**
+			 * Radiance Greeting Shaman.
+			 */
+			Hair156: { id: "1330664948711424104", name: "156_hair" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Hair01: { id: "1313921255413383228", name: "01_hair" },
@@ -2842,6 +2853,7 @@ export const HAIR_EMOJIS = PRODUCTION
 			Hair153: { id: "1320564196324147272", name: "153_hair" },
 			Hair154: { id: "1320565008454909983", name: "154_hair" },
 			Hair155: { id: "1330513818933002292", name: "155_hair" },
+			Hair156: { id: "1330664954428260363", name: "156_hair" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -3063,6 +3075,10 @@ export const HAIR_ACCESSORY_EMOJIS = PRODUCTION
 			 * Radiance Provoking Performer.
 			 */
 			HairAccessory53: { id: "1330643945394278400", name: "53_hair_accessory" },
+			/**
+			 * Radiance Greeting Shaman.
+			 */
+			HairAccessory54: { id: "1330662827316477952", name: "54_hair_accessory" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			HairAccessory01: { id: "1313922070463385641", name: "01_hair_accessory" },
@@ -3118,6 +3134,7 @@ export const HAIR_ACCESSORY_EMOJIS = PRODUCTION
 			HairAccessory51: { id: "1320563050180378715", name: "51_hair_accessory" },
 			HairAccessory52: { id: "1320566011736490115", name: "52_hair_accessory" },
 			HairAccessory53: { id: "1330643964210057416", name: "53_hair_accessory" },
+			HairAccessory54: { id: "1330662833142239272", name: "54_hair_accessory" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type HairAccessoryEmojis = (typeof HAIR_ACCESSORY_EMOJIS)[keyof typeof HAIR_ACCESSORY_EMOJIS];
