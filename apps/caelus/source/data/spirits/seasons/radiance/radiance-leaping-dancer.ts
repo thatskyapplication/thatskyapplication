@@ -83,6 +83,7 @@ export default new SeasonalSpirit({
 			{
 				name: "Seasonal heart",
 				cosmetic: Cosmetic.RadianceLeapingDancerSeasonalHeart,
+				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.RadianceHeart,
 			},
 		],
