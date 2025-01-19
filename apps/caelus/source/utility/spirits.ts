@@ -249,6 +249,7 @@ export enum SpiritName {
 
 	// Season of Radiance.
 	RadianceGuide = "Radiance Guide",
+	RadianceLeapingDancer = "Radiance Leaping Dancer",
 }
 
 export const enum SpiritEmote {
@@ -355,6 +356,7 @@ export const enum SpiritEmote {
 	Flex = "Flex",
 	FloatSpin = "Float spin",
 	Read = "Read",
+	Cartwheel = "Cartwheel",
 }
 
 export const SpiritEmoteToEmoji = {
@@ -461,6 +463,7 @@ export const SpiritEmoteToEmoji = {
 	[SpiritEmote.Flex]: EMOTE_EMOJIS.Flex,
 	[SpiritEmote.FloatSpin]: EMOTE_EMOJIS.FloatSpin,
 	[SpiritEmote.Read]: EMOTE_EMOJIS.Read,
+	[SpiritEmote.Cartwheel]: EMOTE_EMOJIS.Cartwheel,
 } as const satisfies Readonly<Record<SpiritEmote, EmotesEmojis>>;
 
 export const enum SpiritStance {

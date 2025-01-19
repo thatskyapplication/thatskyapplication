@@ -217,6 +217,7 @@ export const EMOTE_EMOJIS = PRODUCTION
 			Flex: { id: "1313931946170253343", name: "flex" },
 			FloatSpin: { id: "1313931947612962887", name: "float_spin" },
 			Read: { id: "1313931944420966410", name: "read" },
+			Cartwheel: { id: "1330496618889482411", name: "cartwheel" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Sit: { id: "1313865085504192573", name: "sit" },
@@ -322,6 +323,7 @@ export const EMOTE_EMOJIS = PRODUCTION
 			Flex: { id: "1313865496944312380", name: "flex" },
 			FloatSpin: { id: "1313865497980436510", name: "float_spin" },
 			Read: { id: "1313865495480504453", name: "read" },
+			Cartwheel: { id: "1330496633737318460", name: "cartwheel" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 export type EmotesEmojis = (typeof EMOTE_EMOJIS)[keyof typeof EMOTE_EMOJIS];
@@ -932,6 +934,10 @@ export const OUTFIT_EMOJIS = PRODUCTION
 			 * Wonderland Primrose Pinafore Set.
 			 */
 			Outfit74: { id: "1320563769931468810", name: "74_outfit" },
+			/**
+			 * Radiance Leaping Dancer.
+			 */
+			Outfit75: { id: "1330514815864672299", name: "75_outfit" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Outfit01: { id: "1313869809905172600", name: "01_outfit" },
@@ -1008,6 +1014,7 @@ export const OUTFIT_EMOJIS = PRODUCTION
 			Outfit72: { id: "1313919411211604051", name: "72_outfit" },
 			Outfit73: { id: "1315724340121178122", name: "73_outfit" },
 			Outfit74: { id: "1320563623567032350", name: "74_outfit" },
+			Outfit75: { id: "1330514830603587584", name: "75_outfit" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type OutfitEmojis = (typeof OUTFIT_EMOJIS)[keyof typeof OUTFIT_EMOJIS];
@@ -1081,6 +1088,10 @@ export const SHOE_EMOJIS = PRODUCTION
 			 * Sense of Self.
 			 */
 			Shoe16: { id: "1313934738477813800", name: "16_shoe" },
+			/**
+			 * Radiance Leaping Dancer.
+			 */
+			Shoe17: { id: "1330515567882276934", name: "17_shoe" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Shoe01: { id: "1313919703458119770", name: "01_shoe" },
@@ -1099,6 +1110,7 @@ export const SHOE_EMOJIS = PRODUCTION
 			Shoe14: { id: "1313919700844937296", name: "14_shoe" },
 			Shoe15: { id: "1313919706809241681", name: "15_shoe" },
 			Shoe16: { id: "1313919693664288770", name: "16_shoe" },
+			Shoe17: { id: "1330515583351001182", name: "17_shoe" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type ShoeEmojis = (typeof SHOE_EMOJIS)[keyof typeof SHOE_EMOJIS];
@@ -2657,6 +2669,10 @@ export const HAIR_EMOJIS = PRODUCTION
 			 * Wonderland Hare Hairstyle.
 			 */
 			Hair154: { id: "1320565117187784807", name: "154_hair" },
+			/**
+			 * Radiance Leaping Dancer.
+			 */
+			Hair155: { id: "1330513805192466467", name: "155_hair" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Hair01: { id: "1313921255413383228", name: "01_hair" },
@@ -2813,6 +2829,7 @@ export const HAIR_EMOJIS = PRODUCTION
 			Hair152: { id: "1313921884773023744", name: "152_hair" },
 			Hair153: { id: "1320564196324147272", name: "153_hair" },
 			Hair154: { id: "1320565008454909983", name: "154_hair" },
+			Hair155: { id: "1330513818933002292", name: "155_hair" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type HairEmojis = (typeof HAIR_EMOJIS)[keyof typeof HAIR_EMOJIS];
@@ -3657,6 +3674,10 @@ export const CAPE_EMOJIS = PRODUCTION
 			 * Radiance Guide (ultimate).
 			 */
 			Cape141: { id: "1330483570732437514", name: "141_cape" },
+			/**
+			 * Radiance Leaping Dancer.
+			 */
+			Cape142: { id: "1330515297572229140", name: "142_cape" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Cape01: { id: "1313922301863133276", name: "01_cape" },
@@ -3800,6 +3821,7 @@ export const CAPE_EMOJIS = PRODUCTION
 			Cape139: { id: "1313922699667574824", name: "139_cape" },
 			Cape140: { id: "1315725838733545545", name: "140_cape" },
 			Cape141: { id: "1330483751511265353", name: "141_cape" },
+			Cape142: { id: "1330515305260253196", name: "142_cape" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type CapeEmojis = (typeof CAPE_EMOJIS)[keyof typeof CAPE_EMOJIS];
@@ -4377,6 +4399,10 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			 * Wonderland Teacup Bath.
 			 */
 			LargePlaceableProp78: { id: "1320564773204791337", name: "78_large_placeable_prop" },
+			/**
+			 * Radiance Leaping Dancer.
+			 */
+			LargePlaceableProp79: { id: "1330514299126419539", name: "79_large_placeable_prop" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			LargePlaceableProp01: { id: "1313923096218177678", name: "01_large_placeable_prop" },
@@ -4457,6 +4483,7 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			LargePlaceableProp76: { id: "1313923278502494208", name: "76_large_placeable_prop" },
 			LargePlaceableProp77: { id: "1313923270583652404", name: "77_large_placeable_prop" },
 			LargePlaceableProp78: { id: "1320564604060962826", name: "78_large_placeable_prop" },
+			LargePlaceableProp79: { id: "1330514306290290789", name: "79_large_placeable_prop" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type LargePlaceablePropsEmojis =

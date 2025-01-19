@@ -4,13 +4,14 @@ import { SeasonId } from "../../../../utility/catalogue.js";
 import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import RadianceGuide from "./radiance-guide.js";
+import RadianceLeapingDancer from "./radiance-leaping-dancer.js";
 
 export default new Season({
 	id: SeasonId.Radiance,
 	start: skyDate(2_025, 1, 20),
 	end: skyDate(2_025, 4, 7),
 	guide: RadianceGuide,
-	spirits: [],
+	spirits: [RadianceLeapingDancer],
 	seasonalCandlesRotation: [
 		{ rotation: 1, realm: RealmName.ValleyOfTriumph },
 		{ rotation: 1, realm: RealmName.GoldenWasteland },
