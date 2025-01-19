@@ -24,5 +24,5 @@ export default new Season({
 		{ rotation: 2, realm: RealmName.DaylightPrairie },
 		{ rotation: 2, realm: RealmName.HiddenForest },
 	],
-	patchNotesURL: String(new URL("p0180", LINK_REDIRECTOR_URL)),
+	patchNotesURL: String(new URL("p0280", LINK_REDIRECTOR_URL)),
 });
