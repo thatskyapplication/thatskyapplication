@@ -33,6 +33,14 @@ const SPIRIT_COSMETIC_EMOJIS = spirits()
 				item.emoji.id !== MISCELLANEOUS_EMOJIS.SpellSharedMemory.id &&
 				item.emoji.id !== MISCELLANEOUS_EMOJIS.SpellSharedSpace.id &&
 				item.emoji.id !== MISCELLANEOUS_EMOJIS.WingBuff.id &&
+				item.emoji.id !== MISCELLANEOUS_EMOJIS.DyeRed.id &&
+				item.emoji.id !== MISCELLANEOUS_EMOJIS.DyeYellow.id &&
+				item.emoji.id !== MISCELLANEOUS_EMOJIS.DyeGreen.id &&
+				item.emoji.id !== MISCELLANEOUS_EMOJIS.DyeCyan.id &&
+				item.emoji.id !== MISCELLANEOUS_EMOJIS.DyeBlue.id &&
+				item.emoji.id !== MISCELLANEOUS_EMOJIS.DyePurple.id &&
+				item.emoji.id !== MISCELLANEOUS_EMOJIS.DyeBlack.id &&
+				item.emoji.id !== MISCELLANEOUS_EMOJIS.DyeWhite.id &&
 				item.emoji.id !== FRIEND_ACTION_EMOJIS.HoldHand.id &&
 				item.emoji.id !== FRIEND_ACTION_EMOJIS.HighFive.id &&
 				item.emoji.id !== FRIEND_ACTION_EMOJIS.Hug.id &&

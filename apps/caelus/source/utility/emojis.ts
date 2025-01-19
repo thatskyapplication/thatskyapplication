@@ -50,6 +50,14 @@ export const MISCELLANEOUS_EMOJIS = PRODUCTION
 			Facebook: { id: "1314812062681268294", name: "facebook" },
 			Bluesky: { id: "1314813140210286632", name: "bluesky" },
 			Report: { id: "1321535527924666409", name: "report" },
+			DyeRed: { id: "1330476581336125460", name: "dye_red" },
+			DyeYellow: { id: "1330476605038002198", name: "dye_yellow" },
+			DyeGreen: { id: "1330476631327772672", name: "dye_green" },
+			DyeCyan: { id: "1330476678996168724", name: "dye_cyan" },
+			DyeBlue: { id: "1330476698310803486", name: "dye_blue" },
+			DyePurple: { id: "1330476718288277618", name: "dye_purple" },
+			DyeBlack: { id: "1330476749988827166", name: "dye_black" },
+			DyeWhite: { id: "1330476771614916769", name: "dye_red" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			AscendedCandle: { id: "1313864872198541445", name: "ascended_candle" },
@@ -89,6 +97,14 @@ export const MISCELLANEOUS_EMOJIS = PRODUCTION
 			Facebook: { id: "1314811939821715527", name: "facebook" },
 			Bluesky: { id: "1314813267444633610", name: "bluesky" },
 			Report: { id: "1321535771731300494", name: "report" },
+			DyeRed: { id: "1330476591905640484", name: "dye_red" },
+			DyeYellow: { id: "1330476617511997470", name: "dye_yellow" },
+			DyeGreen: { id: "1330476643629924433", name: "dye_green" },
+			DyeCyan: { id: "1330476687695282196", name: "dye_cyan" },
+			DyeBlue: { id: "1330476707244933190", name: "dye_blue" },
+			DyePurple: { id: "1330476726274359316", name: "dye_purple" },
+			DyeBlack: { id: "1330476758964899861", name: "dye_black" },
+			DyeWhite: { id: "1330476779365859328", name: "dye_red" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 export type MiscellaneousEmojis = (typeof MISCELLANEOUS_EMOJIS)[keyof typeof MISCELLANEOUS_EMOJIS];
