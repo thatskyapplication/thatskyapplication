@@ -485,6 +485,9 @@ export const SEASON_EMOJIS = PRODUCTION
 			Moomin: { id: "1313933190699679753", name: "moomin" },
 			MoominCandle: { id: "1313933197456969731", name: "moomin_candle" },
 			MoominHeart: { id: "1313933199667367936", name: "moomin_heart" },
+			Radiance: { id: "1330471315458621490", name: "radiance" },
+			RadianceCandle: { id: "1330471900178153482", name: "radiance_candle" },
+			RadianceHeart: { id: "1330471918305939537", name: "radiance_heart" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			Gratitude: { id: "1313868667473367135", name: "gratitude" },
@@ -554,6 +557,9 @@ export const SEASON_EMOJIS = PRODUCTION
 			Moomin: { id: "1313868845038960712", name: "moomin" },
 			MoominCandle: { id: "1313868838659555389", name: "moomin_candle" },
 			MoominHeart: { id: "1313868848763764736", name: "moomin_heart" },
+			Radiance: { id: "1330471300128571402", name: "radiance" },
+			RadianceCandle: { id: "1330471914988113940", name: "radiance_candle" },
+			RadianceHeart: { id: "1330471926933487686", name: "radiance_heart" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 export type SeasonEmojis = (typeof SEASON_EMOJIS)[keyof typeof SEASON_EMOJIS];
