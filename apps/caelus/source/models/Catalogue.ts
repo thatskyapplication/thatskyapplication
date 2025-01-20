@@ -2102,7 +2102,7 @@ export class Catalogue {
 		const invoker = interactionInvoker(interaction);
 
 		const [cataloguePacket] = await Catalogue.update(invoker.id, {
-			data: this.calculateSetItems(interaction, PERMANENT_EVENT_STORE.allCosmetics),
+			data: this.calculateSetItems(interaction, STARTER_PACKS.allCosmetics),
 		});
 
 		this.patch(cataloguePacket!);
