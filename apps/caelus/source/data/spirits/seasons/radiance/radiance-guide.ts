@@ -13,7 +13,6 @@ export default new GuideSpirit({
 	seasonId: SeasonId.Radiance,
 	offer: {
 		inProgress: true,
-		hasInfographic: false,
 		current: [
 			{
 				name: "Quest 1",

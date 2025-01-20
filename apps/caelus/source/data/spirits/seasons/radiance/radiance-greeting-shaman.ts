@@ -22,7 +22,6 @@ export default new SeasonalSpirit({
 	emote,
 	offer: {
 		hasInfographic: false,
-		hasInfographicSeasonal: false,
 		seasonal: [
 			{ name: `${emote} 1`, cosmetic: Cosmetic.HeartGesture1, emoji: emoteEmoji },
 			{ name: `${emote} 2`, cosmetic: Cosmetic.HeartGesture2, emoji: emoteEmoji },
