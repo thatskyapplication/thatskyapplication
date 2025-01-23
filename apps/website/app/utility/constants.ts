@@ -309,6 +309,8 @@ export const DailyQuestToString = {
 		"Meet up with Jolly Geologist in Prairie Peaks",
 	[DailyQuest.MeetUpWithDismayedHunterInBoneyard]: "Meet up with Dismayed Hunter in Boneyard",
 	[DailyQuest.MeetUpWithWhaleWhispererInBoneyard]: "Meet up with Whale Whisperer in Boneyard",
+	[DailyQuest.MeetUpWithAsceticMonkInSanctuaryIslands]:
+		"Meet up with Ascetic Monk in Sanctuary Islands",
 } as const satisfies Readonly<Record<DailyQuests, string>>;
 
 export type RotationNumber = 1 | 2 | 3;

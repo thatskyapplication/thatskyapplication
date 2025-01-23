@@ -298,6 +298,8 @@ export default {
 				"Meet up with Jolly Geologist in Prairie Peaks",
 			[DailyQuest.MeetUpWithDismayedHunterInBoneyard]: "Meet up with Dismayed Hunter in Boneyard",
 			[DailyQuest.MeetUpWithWhaleWhispererInBoneyard]: "Meet up with Whale Whisperer in Boneyard",
+			[DailyQuest.MeetUpWithAsceticMonkInSanctuaryIslands]:
+				"Meet up with Ascetic Monk in Sanctuary Islands",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
