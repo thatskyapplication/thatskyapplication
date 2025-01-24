@@ -8,6 +8,7 @@ import content_creators from "./chat-inputs/content-creators.js";
 import daily_guides from "./chat-inputs/daily-guides.js";
 import data from "./chat-inputs/data.js";
 import guess from "./chat-inputs/guess.js";
+import hair_tousle from "./chat-inputs/hair-tousle.js";
 import heart from "./chat-inputs/heart.js";
 import high_five from "./chat-inputs/high-five.js";
 import hug from "./chat-inputs/hug.js";
@@ -31,6 +32,7 @@ export const CHAT_INPUT_COMMANDS = [
 	content_creators,
 	daily_guides,
 	data,
+	hair_tousle,
 	guess,
 	heart,
 	high_five,

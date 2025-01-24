@@ -920,6 +920,51 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		],
 	},
 	{
+		name: t("hair-tousle.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("hair-tousle.command-name", { lng: locale, ns: "commands" }),
+			]),
+		),
+		description: t("hair-tousle.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: Object.fromEntries(
+			LOCALES.map((locale) => [
+				locale,
+				t("hair-tousle.command-description", { lng: locale, ns: "commands" }),
+			]),
+		),
+		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.User,
+				name: t("hair-tousle.command-option-user-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("hair-tousle.command-option-user-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("hair-tousle.command-option-user-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("hair-tousle.command-option-user-description", { lng: locale, ns: "commands" }),
+					]),
+				),
+				required: true,
+			},
+		],
+		integration_types: [
+			ApplicationIntegrationType.GuildInstall,
+			ApplicationIntegrationType.UserInstall,
+		],
+		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
+	},
+	{
 		name: t("heart.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 		name_localizations: Object.fromEntries(
 			LOCALES.map((locale) => [locale, t("heart.command-name", { lng: locale, ns: "commands" })]),

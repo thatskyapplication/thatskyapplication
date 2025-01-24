@@ -563,6 +563,12 @@ export default {
 				"command-option-server-description": "Scope the leaderboard to your server?",
 			},
 		},
+		"hair-tousle": {
+			"command-name": "hair-tousle",
+			"command-description": "Give someone a hair tousle!",
+			"command-option-user-name": "user",
+			"command-option-user-description": "The individual whose hair will be tousled.",
+		},
 		heart: {
 			"command-name": "heart",
 			"command-description": "Feeling generous? You have up to 3 hearts to gift per day!",
