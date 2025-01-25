@@ -80,7 +80,7 @@ export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const
 export const MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT = 45 as const;
 
 // Maximum GIF numbers.
-export const MAX_HAIR_TOUSLE_NO = 2 as const;
+export const MAX_HAIR_TOUSLE_NO = 3 as const;
 export const MAX_HIGH_FIVE_NO = 8 as const;
 export const MAX_HUG_NO = 36 as const;
 export const MAX_PLAY_FIGHT_NO = 6 as const;
