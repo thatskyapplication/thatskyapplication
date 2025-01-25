@@ -40,31 +40,22 @@ import {
 	ContentCreatorsEditType,
 } from "../services/content-creators.js";
 
+function localisations(name: string, ns = "commands") {
+	return Object.fromEntries(LOCALES.map((locale) => [locale, t(name, { lng: locale, ns })]));
+}
+
 const notificationEventChoices = NOTIFICATION_TYPE_VALUES.map((notificationType) => ({
 	name: t(`notification-types.${notificationType}`, { lng: Locale.EnglishGB, ns: "general" }),
-	name_localizations: Object.fromEntries(
-		LOCALES.map((locale) => [
-			locale,
-			t(`notification-types.${notificationType}`, { lng: locale, ns: "general" }),
-		]),
-	),
+	name_localizations: localisations(`notification-types.${notificationType}`, "general"),
 	value: notificationType,
 }));
 
 const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	{
 		name: t("about.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [locale, t("about.command-name", { lng: locale, ns: "commands" })]),
-		),
+		name_localizations: localisations("about.command-name"),
 		description: t("about.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("about.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
-		type: ApplicationCommandType.ChatInput,
+		description_localizations: localisations("about.command-description"),
 		integration_types: [
 			ApplicationIntegrationType.GuildInstall,
 			ApplicationIntegrationType.UserInstall,
@@ -77,16 +68,9 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("ai.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [locale, t("ai.command-name", { lng: locale, ns: "commands" })]),
-		),
+		name_localizations: localisations("ai.command-name"),
 		description: t("ai.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("ai.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("ai.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		default_member_permissions: String(PermissionFlagsBits.ManageGuild),
 		integration_types: [ApplicationIntegrationType.GuildInstall],
@@ -94,37 +78,20 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("bonk.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [locale, t("bonk.command-name", { lng: locale, ns: "commands" })]),
-		),
+		name_localizations: localisations("bonk.command-name"),
 		description: t("bonk.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("bonk.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("bonk.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.User,
 				name: t("bonk.command-option-user-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("bonk.command-option-user-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("bonk.command-option-user-name"),
 				description: t("bonk.command-option-user-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("bonk.command-option-user-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("bonk.command-option-user-description"),
 				required: true,
 			},
 		],
@@ -136,19 +103,9 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("calculate.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("calculate.command-name", { lng: locale, ns: "commands" }),
-			]),
-		),
+		name_localizations: localisations("calculate.command-name"),
 		description: t("calculate.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("calculate.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("calculate.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
@@ -157,22 +114,12 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("calculate.ascended-candles.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("calculate.ascended-candles.command-name"),
 				description: t("calculate.ascended-candles.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("calculate.ascended-candles.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("calculate.ascended-candles.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
@@ -180,27 +127,15 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.ascended-candles.command-option-start-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						name_localizations: localisations(
+							"calculate.ascended-candles.command-option-start-name",
 						),
 						description: t("calculate.ascended-candles.command-option-start-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.ascended-candles.command-option-start-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"calculate.ascended-candles.command-option-start-description",
 						),
 						min_value: 0,
 						required: true,
@@ -211,27 +146,15 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.ascended-candles.command-option-goal-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						name_localizations: localisations(
+							"calculate.ascended-candles.command-option-goal-name",
 						),
 						description: t("calculate.ascended-candles.command-option-goal-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.ascended-candles.command-option-goal-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"calculate.ascended-candles.command-option-goal-description",
 						),
 						max_value: 10_000,
 						min_value: 1,
@@ -243,27 +166,15 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.ascended-candles.command-option-eye-of-eden-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						name_localizations: localisations(
+							"calculate.ascended-candles.command-option-eye-of-eden-name",
 						),
 						description: t("calculate.ascended-candles.command-option-eye-of-eden-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.ascended-candles.command-option-eye-of-eden-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"calculate.ascended-candles.command-option-eye-of-eden-description",
 						),
 						required: false,
 					},
@@ -273,14 +184,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.ascended-candles.command-option-shard-eruptions-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						name_localizations: localisations(
+							"calculate.ascended-candles.command-option-shard-eruptions-name",
 						),
 						description: t(
 							"calculate.ascended-candles.command-option-shard-eruptions-description",
@@ -289,14 +194,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 								ns: "commands",
 							},
 						),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.ascended-candles.command-option-shard-eruptions-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"calculate.ascended-candles.command-option-shard-eruptions-description",
 						),
 						required: false,
 					},
@@ -305,22 +204,12 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("calculate.event-currency.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("calculate.event-currency.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("calculate.event-currency.command-name"),
 				description: t("calculate.event-currency.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("calculate.event-currency.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("calculate.event-currency.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
@@ -328,27 +217,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.event-currency.command-option-start-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
-						),
+						name_localizations: localisations("calculate.event-currency.command-option-start-name"),
 						description: t("calculate.event-currency.command-option-start-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.event-currency.command-option-start-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"calculate.event-currency.command-option-start-description",
 						),
 						min_value: 0,
 						required: true,
@@ -359,27 +234,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.event-currency.command-option-goal-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
-						),
+						name_localizations: localisations("calculate.event-currency.command-option-goal-name"),
 						description: t("calculate.event-currency.command-option-goal-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.event-currency.command-option-goal-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"calculate.event-currency.command-option-goal-description",
 						),
 						max_value: 250,
 						min_value: 1,
@@ -393,22 +254,12 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("calculate.seasonal-candles.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("calculate.seasonal-candles.command-name"),
 				description: t("calculate.seasonal-candles.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("calculate.seasonal-candles.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("calculate.seasonal-candles.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
@@ -416,27 +267,15 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.seasonal-candles.command-option-start-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						name_localizations: localisations(
+							"calculate.seasonal-candles.command-option-start-name",
 						),
 						description: t("calculate.seasonal-candles.command-option-start-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.seasonal-candles.command-option-start-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"calculate.seasonal-candles.command-option-start-description",
 						),
 						min_value: 0,
 						max_value: 1_000,
@@ -448,27 +287,15 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.seasonal-candles.command-option-goal-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						name_localizations: localisations(
+							"calculate.seasonal-candles.command-option-goal-name",
 						),
 						description: t("calculate.seasonal-candles.command-option-goal-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.seasonal-candles.command-option-goal-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"calculate.seasonal-candles.command-option-goal-description",
 						),
 						min_value: 1,
 						max_value: 1_000,
@@ -479,22 +306,12 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("calculate.winged-light.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("calculate.winged-light.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("calculate.winged-light.command-name"),
 				description: t("calculate.winged-light.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("calculate.winged-light.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("calculate.winged-light.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
@@ -502,27 +319,15 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.winged-light.command-option-wing-buffs-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						name_localizations: localisations(
+							"calculate.winged-light.command-option-wing-buffs-name",
 						),
 						description: t("calculate.winged-light.command-option-wing-buffs-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("calculate.winged-light.command-option-wing-buffs-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"calculate.winged-light.command-option-wing-buffs-description",
 						),
 						max_value: MAXIMUM_WING_BUFFS,
 						min_value: 0,
@@ -543,19 +348,9 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("catalogue.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("catalogue.command-name", { lng: locale, ns: "commands" }),
-			]),
-		),
+		name_localizations: localisations("catalogue.command-name"),
 		description: t("catalogue.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("catalogue.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("catalogue.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		integration_types: [
 			ApplicationIntegrationType.GuildInstall,
@@ -569,40 +364,20 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("daily-guides.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("daily-guides.command-name", { lng: locale, ns: "commands" }),
-			]),
-		),
+		name_localizations: localisations("daily-guides.command-name"),
 		description: t("daily-guides.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("daily-guides.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("daily-guides.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("daily-guides.setup.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("daily-guides.setup.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("daily-guides.setup.command-name"),
 				description: t("daily-guides.setup.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("daily-guides.setup.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("daily-guides.setup.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Channel,
@@ -610,27 +385,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("daily-guides.setup.command-option-channel-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
-						),
+						name_localizations: localisations("daily-guides.setup.command-option-channel-name"),
 						description: t("daily-guides.setup.command-option-channel-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("daily-guides.setup.command-option-channel-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"daily-guides.setup.command-option-channel-description",
 						),
 						required: true,
 						channel_types: [...DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES],
@@ -640,42 +401,22 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("daily-guides.status.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("daily-guides.status.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("daily-guides.status.command-name"),
 				description: t("daily-guides.status.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("daily-guides.status.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("daily-guides.status.command-description"),
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("daily-guides.unset.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("daily-guides.unset.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("daily-guides.unset.command-name"),
 				description: t("daily-guides.unset.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("daily-guides.unset.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("daily-guides.unset.command-description"),
 			},
 		],
 		default_member_permissions: String(PermissionFlagsBits.ManageGuild),
@@ -684,37 +425,20 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("data.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [locale, t("data.command-name", { lng: locale, ns: "commands" })]),
-		),
+		name_localizations: localisations("data.command-name"),
 		description: t("data.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("data.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("data.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("data.delete.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("data.delete.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("data.delete.command-name"),
 				description: t("data.delete.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("data.delete.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("data.delete.command-description"),
 			},
 		],
 		integration_types: [
@@ -729,12 +453,7 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("Gift-Heart.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("Gift-Heart.command-name", { lng: locale, ns: "commands" }),
-			]),
-		),
+		name_localizations: localisations("Gift-Heart.command-name"),
 		type: ApplicationCommandType.User,
 		integration_types: [
 			ApplicationIntegrationType.GuildInstall,
@@ -744,34 +463,17 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("guess.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [locale, t("guess.command-name", { lng: locale, ns: "commands" })]),
-		),
+		name_localizations: localisations("guess.command-name"),
 		description: t("guess.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("guess.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("guess.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("guess.game.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("guess.game.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("guess.game.command-name"),
 				description: t("guess.game.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("guess.game.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("guess.game.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
@@ -779,35 +481,18 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("guess.game.command-option-difficulty-name", { lng: locale, ns: "commands" }),
-							]),
-						),
+						name_localizations: localisations("guess.game.command-option-difficulty-name"),
 						description: t("guess.game.command-option-difficulty-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("guess.game.command-option-difficulty-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"guess.game.command-option-difficulty-description",
 						),
 						choices: GUESS_DIFFICULTY_LEVEL_VALUES.map((guessDifficultyLevel) => ({
 							name: GuessDifficultyLevelToName[guessDifficultyLevel],
-							name_localizations: Object.fromEntries(
-								LOCALES.map((locale) => [
-									locale,
-									t(`guess.game.command-option-difficulty-choice-name.${guessDifficultyLevel}`, {
-										lng: locale,
-										ns: "commands",
-									}),
-								]),
+							name_localizations: localisations(
+								`guess.game.command-option-difficulty-choice-name.${guessDifficultyLevel}`,
 							),
 							value: guessDifficultyLevel,
 						})),
@@ -817,22 +502,12 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("guess.leaderboard.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("guess.leaderboard.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("guess.leaderboard.command-name"),
 				description: t("guess.leaderboard.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("guess.leaderboard.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("guess.leaderboard.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
@@ -840,41 +515,18 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("guess.leaderboard.command-option-difficulty-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
-						),
+						name_localizations: localisations("guess.leaderboard.command-option-difficulty-name"),
 						description: t("guess.leaderboard.command-option-difficulty-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("guess.leaderboard.command-option-difficulty-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"guess.leaderboard.command-option-difficulty-description",
 						),
 						choices: GUESS_DIFFICULTY_LEVEL_VALUES.map((guessDifficultyLevel) => ({
 							name: GuessDifficultyLevelToName[guessDifficultyLevel],
-							name_localizations: Object.fromEntries(
-								LOCALES.map((locale) => [
-									locale,
-									t(
-										`guess.leaderboard.command-option-difficulty-choice-name.${guessDifficultyLevel}`,
-										{
-											lng: locale,
-											ns: "commands",
-										},
-									),
-								]),
+							name_localizations: localisations(
+								`guess.leaderboard.command-option-difficulty-choice-name.${guessDifficultyLevel}`,
 							),
 							value: guessDifficultyLevel,
 						})),
@@ -886,24 +538,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("guess.leaderboard.command-option-server-name", { lng: locale, ns: "commands" }),
-							]),
-						),
+						name_localizations: localisations("guess.leaderboard.command-option-server-name"),
 						description: t("guess.leaderboard.command-option-server-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("guess.leaderboard.command-option-server-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"guess.leaderboard.command-option-server-description",
 						),
 					},
 				],
@@ -921,40 +562,20 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("hair-tousle.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("hair-tousle.command-name", { lng: locale, ns: "commands" }),
-			]),
-		),
+		name_localizations: localisations("hair-tousle.command-name"),
 		description: t("hair-tousle.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("hair-tousle.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("hair-tousle.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.User,
 				name: t("hair-tousle.command-option-user-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("hair-tousle.command-option-user-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("hair-tousle.command-option-user-name"),
 				description: t("hair-tousle.command-option-user-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("hair-tousle.command-option-user-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("hair-tousle.command-option-user-description"),
 				required: true,
 			},
 		],
@@ -966,34 +587,17 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("heart.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [locale, t("heart.command-name", { lng: locale, ns: "commands" })]),
-		),
+		name_localizations: localisations("heart.command-name"),
 		description: t("heart.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("heart.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("heart.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("heart.gift.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("heart.gift.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("heart.gift.command-name"),
 				description: t("heart.gift.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("heart.gift.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("heart.gift.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.User,
@@ -1001,22 +605,12 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("heart.gift.command-option-user-name", { lng: locale, ns: "commands" }),
-							]),
-						),
+						name_localizations: localisations("heart.gift.command-option-user-name"),
 						description: t("heart.gift.command-option-user-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("heart.gift.command-option-user-description", { lng: locale, ns: "commands" }),
-							]),
-						),
+						description_localizations: localisations("heart.gift.command-option-user-description"),
 						required: true,
 					},
 				],
@@ -1024,22 +618,12 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("heart.history.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("heart.history.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("heart.history.command-name"),
 				description: t("heart.history.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("heart.history.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("heart.history.command-description"),
 			},
 		],
 		integration_types: [
@@ -1050,40 +634,20 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("high-five.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("high-five.command-name", { lng: locale, ns: "commands" }),
-			]),
-		),
+		name_localizations: localisations("high-five.command-name"),
 		description: t("high-five.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("high-five.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("high-five.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.User,
 				name: t("high-five.command-option-user-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("high-five.command-option-user-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("high-five.command-option-user-name"),
 				description: t("high-five.command-option-user-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("high-five.command-option-user-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("high-five.command-option-user-description"),
 				required: true,
 			},
 		],
@@ -1095,31 +659,17 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("hug.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [locale, t("hug.command-name", { lng: locale, ns: "commands" })]),
-		),
+		name_localizations: localisations("hug.command-name"),
 		description: t("hug.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("hug.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("hug.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.User,
 				name: t("hug.user", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [locale, t("hug.user", { lng: locale, ns: "commands" })]),
-				),
+				name_localizations: localisations("hug.user"),
 				description: "The individual to be hugged.",
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("hug.user-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("hug.user-description"),
 				required: true,
 			},
 		],
@@ -1131,37 +681,20 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("krill.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [locale, t("krill.command-name", { lng: locale, ns: "commands" })]),
-		),
+		name_localizations: localisations("krill.command-name"),
 		description: t("krill.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("krill.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("krill.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.User,
 				name: t("krill.command-option-user-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("krill.command-option-user-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("krill.command-option-user-name"),
 				description: t("krill.command-option-user-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("krill.command-option-user-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("krill.command-option-user-description"),
 				required: true,
 			},
 		],
@@ -1173,40 +706,20 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("notifications.command-name", { lng: locale, ns: "commands" }),
-			]),
-		),
+		name_localizations: localisations("notifications.command-name"),
 		description: t("notifications.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("notifications.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("notifications.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("notifications.setup.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("notifications.setup.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("notifications.setup.command-name"),
 				description: t("notifications.setup.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("notifications.setup.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("notifications.setup.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
@@ -1214,27 +727,15 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("notifications.setup.command-option-notification-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						name_localizations: localisations(
+							"notifications.setup.command-option-notification-name",
 						),
 						description: t("notifications.setup.command-option-notification-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("notifications.setup.command-option-notification-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"notifications.setup.command-option-notification-description",
 						),
 						required: true,
 						choices: notificationEventChoices,
@@ -1245,27 +746,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("notifications.setup.command-option-channel-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
-						),
+						name_localizations: localisations("notifications.setup.command-option-channel-name"),
 						description: t("notifications.setup.command-option-channel-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("notifications.setup.command-option-channel-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"notifications.setup.command-option-channel-description",
 						),
 						required: true,
 						channel_types: [...NOTIFICATION_CHANNEL_TYPES],
@@ -1276,24 +763,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("notifications.setup.command-option-role-name", { lng: locale, ns: "commands" }),
-							]),
-						),
+						name_localizations: localisations("notifications.setup.command-option-role-name"),
 						description: t("notifications.setup.command-option-role-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("notifications.setup.command-option-role-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"notifications.setup.command-option-role-description",
 						),
 						required: true,
 					},
@@ -1302,42 +778,22 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("notifications.status.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("notifications.status.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("notifications.status.command-name"),
 				description: t("notifications.status.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("notifications.status.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("notifications.status.command-description"),
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("notifications.unset.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("notifications.unset.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("notifications.unset.command-name"),
 				description: t("notifications.unset.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("notifications.unset.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("notifications.unset.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
@@ -1345,27 +801,15 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("notifications.unset.command-option-notification-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						name_localizations: localisations(
+							"notifications.unset.command-option-notification-name",
 						),
 						description: t("notifications.unset.command-option-notification-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("notifications.unset.command-option-notification-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"notifications.unset.command-option-notification-description",
 						),
 						required: true,
 						choices: notificationEventChoices,
@@ -1379,40 +823,20 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("play-fight.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("play-fight.command-name", { lng: locale, ns: "commands" }),
-			]),
-		),
+		name_localizations: localisations("play-fight.command-name"),
 		description: t("play-fight.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("play-fight.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("play-fight.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.User,
 				name: t("play-fight.command-option-user-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("play-fight.command-option-user-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("play-fight.command-option-user-name"),
 				description: t("play-fight.command-option-user-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("play-fight.command-option-user-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("play-fight.command-option-user-description"),
 				required: true,
 			},
 		],
@@ -1424,19 +848,9 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("schedule.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("schedule.command-name", { lng: locale, ns: "commands" }),
-			]),
-		),
+		name_localizations: localisations("schedule.command-name"),
 		description: t("schedule.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("schedule.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("schedule.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		integration_types: [
 			ApplicationIntegrationType.GuildInstall,
@@ -1450,19 +864,9 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("shard-eruption.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("shard-eruption.command-name", { lng: locale, ns: "commands" }),
-			]),
-		),
+		name_localizations: localisations("shard-eruption.command-name"),
 		description: t("shard-eruption.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("shard-eruption.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("shard-eruption.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
@@ -1471,21 +875,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("shard-eruption.command-option-browse-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("shard-eruption.command-option-browse-name"),
 				description: t("shard-eruption.command-option-browse-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("shard-eruption.command-option-browse-description", { lng: locale, ns: "commands" }),
-					]),
+				description_localizations: localisations(
+					"shard-eruption.command-option-browse-description",
 				),
 			},
 			{
@@ -1494,22 +890,12 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("shard-eruption.command-option-today-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("shard-eruption.command-option-today-name"),
 				description: t("shard-eruption.command-option-today-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("shard-eruption.command-option-today-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("shard-eruption.command-option-today-description"),
 			},
 		],
 		integration_types: [
@@ -1524,40 +910,20 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("sky-profile.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("sky-profile.command-name", { lng: locale, ns: "commands" }),
-			]),
-		),
+		name_localizations: localisations("sky-profile.command-name"),
 		description: t("sky-profile.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("sky-profile.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("sky-profile.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("sky-profile.edit.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("sky-profile.edit.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("sky-profile.edit.command-name"),
 				description: t("sky-profile.edit.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("sky-profile.edit.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("sky-profile.edit.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.String,
@@ -1565,24 +931,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-name-name", { lng: locale, ns: "commands" }),
-							]),
-						),
+						name_localizations: localisations("sky-profile.edit.command-option-name-name"),
 						description: t("sky-profile.edit.command-option-name-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-name-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"sky-profile.edit.command-option-name-description",
 						),
 						max_length: SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 					},
@@ -1592,27 +947,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-thumbnail-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
-						),
+						name_localizations: localisations("sky-profile.edit.command-option-thumbnail-name"),
 						description: t("sky-profile.edit.command-option-thumbnail-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-thumbnail-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"sky-profile.edit.command-option-thumbnail-description",
 						),
 					},
 					{
@@ -1621,24 +962,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-icon-name", { lng: locale, ns: "commands" }),
-							]),
-						),
+						name_localizations: localisations("sky-profile.edit.command-option-icon-name"),
 						description: t("sky-profile.edit.command-option-icon-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-icon-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"sky-profile.edit.command-option-icon-description",
 						),
 					},
 					{
@@ -1647,27 +977,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-winged-light-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
-						),
+						name_localizations: localisations("sky-profile.edit.command-option-winged-light-name"),
 						description: t("sky-profile.edit.command-option-winged-light-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-winged-light-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"sky-profile.edit.command-option-winged-light-description",
 						),
 						max_value: MAXIMUM_WINGED_LIGHT,
 						min_value: MINIMUM_WINGED_LIGHT,
@@ -1678,24 +994,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-spirit-name", { lng: locale, ns: "commands" }),
-							]),
-						),
+						name_localizations: localisations("sky-profile.edit.command-option-spirit-name"),
 						description: t("sky-profile.edit.command-option-spirit-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-spirit-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"sky-profile.edit.command-option-spirit-description",
 						),
 						autocomplete: true,
 					},
@@ -1705,24 +1010,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-country-name", { lng: locale, ns: "commands" }),
-							]),
-						),
+						name_localizations: localisations("sky-profile.edit.command-option-country-name"),
 						description: t("sky-profile.edit.command-option-country-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-country-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"sky-profile.edit.command-option-country-description",
 						),
 						max_length: SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
 						min_length: SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
@@ -1733,24 +1027,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-spot-name", { lng: locale, ns: "commands" }),
-							]),
-						),
+						name_localizations: localisations("sky-profile.edit.command-option-spot-name"),
 						description: t("sky-profile.edit.command-option-spot-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-spot-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"sky-profile.edit.command-option-spot-description",
 						),
 						max_length: SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
 						min_length: SKY_PROFILE_MINIMUM_SPOT_LENGTH,
@@ -1761,27 +1044,15 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-catalogue-progression-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						name_localizations: localisations(
+							"sky-profile.edit.command-option-catalogue-progression-name",
 						),
 						description: t("sky-profile.edit.command-option-catalogue-progression-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-catalogue-progression-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"sky-profile.edit.command-option-catalogue-progression-description",
 						),
 					},
 					{
@@ -1790,27 +1061,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-guess-rank-name", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
-						),
+						name_localizations: localisations("sky-profile.edit.command-option-guess-rank-name"),
 						description: t("sky-profile.edit.command-option-guess-rank-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.edit.command-option-guess-rank-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"sky-profile.edit.command-option-guess-rank-description",
 						),
 					},
 				],
@@ -1818,22 +1075,12 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("sky-profile.explore.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("sky-profile.explore.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("sky-profile.explore.command-name"),
 				description: t("sky-profile.explore.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("sky-profile.explore.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("sky-profile.explore.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.String,
@@ -1841,24 +1088,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.explore.command-option-name-name", { lng: locale, ns: "commands" }),
-							]),
-						),
+						name_localizations: localisations("sky-profile.explore.command-option-name-name"),
 						description: t("sky-profile.explore.command-option-name-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.explore.command-option-name-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"sky-profile.explore.command-option-name-description",
 						),
 						autocomplete: true,
 					},
@@ -1867,22 +1103,12 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("sky-profile.show.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("sky-profile.show.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("sky-profile.show.command-name"),
 				description: t("sky-profile.show.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("sky-profile.show.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("sky-profile.show.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.User,
@@ -1890,24 +1116,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.show.command-option-user-name", { lng: locale, ns: "commands" }),
-							]),
-						),
+						name_localizations: localisations("sky-profile.show.command-option-user-name"),
 						description: t("sky-profile.show.command-option-user-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.show.command-option-user-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"sky-profile.show.command-option-user-description",
 						),
 					},
 					{
@@ -1916,24 +1131,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.show.command-option-hide-name", { lng: locale, ns: "commands" }),
-							]),
-						),
+						name_localizations: localisations("sky-profile.show.command-option-hide-name"),
 						description: t("sky-profile.show.command-option-hide-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("sky-profile.show.command-option-hide-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"sky-profile.show.command-option-hide-description",
 						),
 					},
 				],
@@ -1951,12 +1155,7 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("Sky-Profile.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("Sky-Profile.command-name", { lng: locale, ns: "commands" }),
-			]),
-		),
+		name_localizations: localisations("Sky-Profile.command-name"),
 		type: ApplicationCommandType.User,
 		integration_types: [
 			ApplicationIntegrationType.GuildInstall,
@@ -1970,37 +1169,20 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 	{
 		name: t("spirit.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [locale, t("spirit.command-name", { lng: locale, ns: "commands" })]),
-		),
+		name_localizations: localisations("spirit.command-name"),
 		description: t("spirit.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: Object.fromEntries(
-			LOCALES.map((locale) => [
-				locale,
-				t("spirit.command-description", { lng: locale, ns: "commands" }),
-			]),
-		),
+		description_localizations: localisations("spirit.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: t("spirit.search.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("spirit.search.command-name", { lng: locale, ns: "commands" }),
-					]),
-				),
+				name_localizations: localisations("spirit.search.command-name"),
 				description: t("spirit.search.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: Object.fromEntries(
-					LOCALES.map((locale) => [
-						locale,
-						t("spirit.search.command-description", { lng: locale, ns: "commands" }),
-					]),
-				),
+				description_localizations: localisations("spirit.search.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.String,
@@ -2008,24 +1190,13 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("spirit.search.command-option-query-name", { lng: locale, ns: "commands" }),
-							]),
-						),
+						name_localizations: localisations("spirit.search.command-option-query-name"),
 						description: t("spirit.search.command-option-query-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: Object.fromEntries(
-							LOCALES.map((locale) => [
-								locale,
-								t("spirit.search.command-option-query-description", {
-									lng: locale,
-									ns: "commands",
-								}),
-							]),
+						description_localizations: localisations(
+							"spirit.search.command-option-query-description",
 						),
 						required: true,
 						autocomplete: true,
