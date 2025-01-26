@@ -6,7 +6,7 @@ import { APPLICATION_NAME, CONTENT_CREATORS_ICON_URL } from "~/utility/constants
 
 export default function Index() {
 	return (
-		<div className="min-h-screen flex flex-col items-center justify-center pt-20 lg:pt-0 pb-4 lg:pb-0 px-4">
+		<div className="min-h-screen flex flex-col items-center justify-center pt-20 pb-4 px-4">
 			<TopBar hideBack={true} />
 			<header className="flex flex-col items-center text-center mb-8 max-w-lg w-full">
 				<h1 className="mt-4">thatskyapplication</h1>
