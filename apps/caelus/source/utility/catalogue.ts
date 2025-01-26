@@ -2869,16 +2869,16 @@ export const enum Cosmetic {
 	RadianceGreetingShamanSeasonalHeart = 2270,
 
 	// 27/01/2025 | Days of Fortune.
-	DragonDanceMusicSheet,
-	RedDyeBlessing,
-	FortuneSnakeMask,
-	FortuneSnakeOutfit,
-	FortuneVerticalPoster,
-	FortuneCandleFlags,
-	FortunePlant,
-	FortuneHandFan,
-	FortuneSnakeCoif,
-	FortuneSnakeCloak,
+	DragonDanceMusicSheet = 2271,
+	FortuneRedDye = 2272,
+	FortuneSnakeMask = 2273,
+	FortuneSnakeOutfit = 2274,
+	FortuneVerticalPoster = 2275,
+	FortuneCandleFlags = 2276,
+	FortunePlant = 2277,
+	FortuneHandFan = 2278,
+	FortuneSnakeCoif = 2279,
+	FortuneSnakeCloak = 2280,
 
 	// 10/02/2025 | Days of Love.
 	DaysOfLoveVioletCrystal,

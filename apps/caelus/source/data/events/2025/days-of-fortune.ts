@@ -3,6 +3,14 @@ import { Event } from "../../../models/Event.js";
 import { Cosmetic, EventId } from "../../../utility/catalogue.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import { skyDate } from "../../../utility/dates.js";
+import {
+	CAPE_EMOJIS,
+	HELD_PROPS_EMOJIS,
+	MASK_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	OUTFIT_EMOJIS,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
+} from "../../../utility/emojis.js";
 
 const eventCurrencyAmount = [];
 
@@ -36,46 +44,55 @@ export default new Event({
 			name: "Dragon Dance music sheet",
 			cosmetic: Cosmetic.DragonDanceMusicSheet,
 			cost: { eventCurrency: 8 },
+			emoji: MISCELLANEOUS_EMOJIS.MusicSheet,
 		},
 		{
-			name: "Red Dye Blessing",
-			cosmetic: Cosmetic.RedDyeBlessing,
+			name: "Red dye",
+			cosmetic: Cosmetic.FortuneRedDye,
 			cost: { eventCurrency: 10 },
+			emoji: MISCELLANEOUS_EMOJIS.DyeRed,
 		},
 		{
 			name: "Fortune Snake Mask",
 			cosmetic: Cosmetic.FortuneSnakeMask,
 			cost: { eventCurrency: 14 },
+			emoji: MASK_EMOJIS.Mask95,
 		},
 		{
 			name: "Fortune Snake Outfit",
 			cosmetic: Cosmetic.FortuneSnakeOutfit,
 			cost: { eventCurrency: 36 },
+			emoji: OUTFIT_EMOJIS.Outfit78,
 		},
 		{
 			name: "Fortune Vertical Poster",
 			cosmetic: Cosmetic.FortuneVerticalPoster,
 			cost: { candles: 5 },
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp87,
 		},
 		{
-			name: "Fortune Vertical Poster",
+			name: "Fortune Candle Flags",
 			cosmetic: Cosmetic.FortuneCandleFlags,
 			cost: { candles: 10 },
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp88,
 		},
 		{
 			name: "Fortune Plant",
 			cosmetic: Cosmetic.FortunePlant,
 			cost: { candles: 20 },
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
 		},
 		{
 			name: "Fortune Hand Fan",
 			cosmetic: Cosmetic.FortuneHandFan,
 			cost: { money: 4.99 },
+			emoji: HELD_PROPS_EMOJIS.HeldProp51,
 		},
 		{
 			name: "Fortune Snake Coif and Cloak",
 			cosmetic: [Cosmetic.FortuneSnakeCoif, Cosmetic.FortuneSnakeCloak],
 			cost: { money: 19.99 },
+			emoji: CAPE_EMOJIS.Cape144,
 		},
 	],
 	patchNotesURL: String(new URL("p0280", LINK_REDIRECTOR_URL)),
