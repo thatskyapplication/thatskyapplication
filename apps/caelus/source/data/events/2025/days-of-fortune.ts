@@ -6,10 +6,10 @@ import { skyDate } from "../../../utility/dates.js";
 import {
 	CAPE_EMOJIS,
 	HELD_PROPS_EMOJIS,
+	LARGE_PLACEABLE_PROPS_EMOJIS,
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	OUTFIT_EMOJIS,
-	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../utility/emojis.js";
 
 const eventCurrencyAmount = [];
@@ -68,19 +68,19 @@ export default new Event({
 			name: "Fortune Vertical Poster",
 			cosmetic: Cosmetic.FortuneVerticalPoster,
 			cost: { candles: 5 },
-			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp87,
+			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp80,
 		},
 		{
 			name: "Fortune Candle Flags",
 			cosmetic: Cosmetic.FortuneCandleFlags,
 			cost: { candles: 10 },
-			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp88,
+			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp81,
 		},
 		{
 			name: "Fortune Plant",
 			cosmetic: Cosmetic.FortunePlant,
 			cost: { candles: 20 },
-			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp82,
 		},
 		{
 			name: "Fortune Hand Fan",

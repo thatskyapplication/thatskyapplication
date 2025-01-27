@@ -4472,6 +4472,18 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			 * Radiance Leaping Dancer.
 			 */
 			LargePlaceableProp79: { id: "1330514299126419539", name: "79_large_placeable_prop" },
+			/**
+			 * Fortune Vertical Poster.
+			 */
+			LargePlaceableProp80: { id: "1333205583003652096", name: "80_large_placeable_prop" },
+			/**
+			 * Fortune Candle Flags.
+			 */
+			LargePlaceableProp81: { id: "1333206106943656057", name: "81_large_placeable_prop" },
+			/**
+			 * Fortune Plant.
+			 */
+			LargePlaceableProp82: { id: "1333206450998214696", name: "82_large_placeable_prop" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			LargePlaceableProp01: { id: "1313923096218177678", name: "01_large_placeable_prop" },
@@ -4553,6 +4565,9 @@ export const LARGE_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			LargePlaceableProp77: { id: "1313923270583652404", name: "77_large_placeable_prop" },
 			LargePlaceableProp78: { id: "1320564604060962826", name: "78_large_placeable_prop" },
 			LargePlaceableProp79: { id: "1330514306290290789", name: "79_large_placeable_prop" },
+			LargePlaceableProp80: { id: "1333205584824238080", name: "80_large_placeable_prop" },
+			LargePlaceableProp81: { id: "1333206114203865088", name: "81_large_placeable_prop" },
+			LargePlaceableProp82: { id: "1333206456794873928", name: "82_large_placeable_prop" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type LargePlaceablePropsEmojis =
@@ -4904,19 +4919,6 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			 * Wonderland Cafe Corridor.
 			 */
 			SmallPlaceableProp86: { id: "1320566969392435303", name: "86_small_placeable_prop" },
-			/**
-			 * Fortune Vertical Poster.
-			 */
-			SmallPlaceableProp87: { id: "1333205583003652096", name: "87_small_placeable_prop" },
-			/**
-			 * Fortune Candle Flags.
-			 */
-			SmallPlaceableProp88: { id: "1333206106943656057", name: "88_small_placeable_prop" },
-
-			/**
-			 * Fortune Plant.
-			 */
-			SmallPlaceableProp89: { id: "1333206450998214696", name: "89_small_placeable_prop" },
 		} as const satisfies Readonly<Record<string, EmojiData>>)
 	: ({
 			SmallPlaceableProp01: { id: "1313924407802069145", name: "01_small_placeable_prop" },
@@ -5005,9 +5007,6 @@ export const SMALL_PLACEABLE_PROPS_EMOJIS = PRODUCTION
 			SmallPlaceableProp84: { id: "1313924679798362252", name: "84_small_placeable_prop" },
 			SmallPlaceableProp85: { id: "1315723148133531738", name: "85_small_placeable_prop" },
 			SmallPlaceableProp86: { id: "1320566442755756102", name: "86_small_placeable_prop" },
-			SmallPlaceableProp87: { id: "1333205584824238080", name: "87_small_placeable_prop" },
-			SmallPlaceableProp88: { id: "1333206114203865088", name: "88_small_placeable_prop" },
-			SmallPlaceableProp89: { id: "1333206456794873928", name: "89_small_placeable_prop" },
 		} as const satisfies Readonly<Record<string, EmojiData>>);
 
 type SmallPlaceablePropsEmojis =
