@@ -273,6 +273,7 @@ export enum SkyMap {
 }
 
 // biome-ignore lint/performance/noBarrelFile: This is fine.
+export { Cosmetic } from "./cosmetics.js";
 export { type Emoji, emojis, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "./emojis.js";
 export { SeasonId, type SeasonIds, isSeasonId } from "./season.js";
 export {

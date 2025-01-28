@@ -1,4 +1,5 @@
-import { Cosmetic, resolveAllCosmetics, resolveOffer } from "../utility/catalogue.js";
+import { Cosmetic } from "@thatskyapplication/utility";
+import { resolveAllCosmetics, resolveOffer } from "../utility/catalogue.js";
 import { CAPE_EMOJIS, HELD_PROPS_EMOJIS } from "../utility/emojis.js";
 
 const items = resolveOffer([

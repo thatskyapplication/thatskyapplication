@@ -1,6 +1,11 @@
-import { RealmName, SeasonId, SpiritEmote, SpiritName } from "@thatskyapplication/utility";
+import {
+	Cosmetic,
+	RealmName,
+	SeasonId,
+	SpiritEmote,
+	SpiritName,
+} from "@thatskyapplication/utility";
 import { GuideSpirit } from "../../../../models/Spirits.js";
-import { Cosmetic } from "../../../../utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	HAIR_EMOJIS,

@@ -1,5 +1,4 @@
-import { RealmName } from "@thatskyapplication/utility";
-import { SeasonId } from "@thatskyapplication/utility";
+import { RealmName, SeasonId } from "@thatskyapplication/utility";
 import { Season } from "../../../../models/Season.js";
 import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";

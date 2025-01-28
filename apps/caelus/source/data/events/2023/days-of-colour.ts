@@ -1,6 +1,7 @@
 import { URL } from "node:url";
+import { Cosmetic } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
-import { Cosmetic, EventId } from "../../../utility/catalogue.js";
+import { EventId } from "../../../utility/catalogue.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import { skyDate } from "../../../utility/dates.js";
 import { CAPE_EMOJIS, FACE_ACCESSORY_EMOJIS, OUTFIT_EMOJIS } from "../../../utility/emojis.js";

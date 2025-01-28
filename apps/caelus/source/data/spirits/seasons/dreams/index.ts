@@ -1,7 +1,6 @@
 import { URL } from "node:url";
-import { SeasonId } from "@thatskyapplication/utility";
+import { Cosmetic, SeasonId } from "@thatskyapplication/utility";
 import { Season } from "../../../../models/Season.js";
-import { Cosmetic } from "../../../../utility/catalogue.js";
 import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import { NECKLACE_EMOJIS } from "../../../../utility/emojis.js";

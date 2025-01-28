@@ -1,6 +1,11 @@
-import { FriendAction, RealmName, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import {
+	Cosmetic,
+	FriendAction,
+	RealmName,
+	SeasonId,
+	SpiritName,
+} from "@thatskyapplication/utility";
 import { GuideSpirit } from "../../../../models/Spirits.js";
-import { Cosmetic } from "../../../../utility/catalogue.js";
 import {
 	FRIEND_ACTION_EMOJIS,
 	HELD_PROPS_EMOJIS,
