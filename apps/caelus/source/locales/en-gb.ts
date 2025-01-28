@@ -1,5 +1,10 @@
-import { DailyQuest, type DailyQuests } from "@thatskyapplication/utility";
-import { EventId, type EventIds, SeasonId, type SeasonIds } from "../utility/catalogue.js";
+import {
+	DailyQuest,
+	type DailyQuests,
+	SeasonId,
+	type SeasonIds,
+} from "@thatskyapplication/utility";
+import { EventId, type EventIds } from "../utility/catalogue.js";
 import {
 	GUESS_DIFFICULTY_LEVEL_VALUES,
 	GuessDifficultyLevelToName,

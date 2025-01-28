@@ -29,6 +29,7 @@ import {
 	type Snowflake,
 	TextInputStyle,
 } from "@discordjs/core";
+import { type SeasonIds, isSeasonId } from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import { t } from "i18next";
 import sharp from "sharp";
@@ -41,7 +42,7 @@ import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import { findUser } from "../services/guess.js";
 import { totalReceived } from "../services/heart.js";
-import { SeasonIdToSeasonalEmoji, type SeasonIds, isSeasonId } from "../utility/catalogue.js";
+import { SeasonIdToSeasonalEmoji } from "../utility/catalogue.js";
 import {
 	ANIMATED_HASH_PREFIX,
 	APPLICATION_ID,

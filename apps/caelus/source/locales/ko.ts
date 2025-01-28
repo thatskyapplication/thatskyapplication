@@ -1,6 +1,5 @@
-import { RealmName, SkyMap } from "@thatskyapplication/utility";
-import { DailyQuest } from "@thatskyapplication/utility";
-import { EventId, SeasonId } from "../utility/catalogue.js";
+import { DailyQuest, RealmName, SeasonId, SkyMap } from "@thatskyapplication/utility";
+import { EventId } from "../utility/catalogue.js";
 import { SpiritName } from "../utility/spirits.js";
 
 export default {

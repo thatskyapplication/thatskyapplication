@@ -20,7 +20,7 @@ import {
 	PermissionFlagsBits,
 	type Snowflake,
 } from "@discordjs/core";
-import type { RealmName } from "@thatskyapplication/utility";
+import { type RealmName, SeasonId, type SeasonIds, isSeasonId } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { skyCurrentEvents, skyEventYears, skyEvents } from "../data/events/index.js";
@@ -61,11 +61,8 @@ import {
 	NO_EVENT_OFFER_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
-	SeasonId,
 	SeasonIdToSeasonalEmoji,
-	type SeasonIds,
 	addCosts,
-	isSeasonId,
 	resolveAllCosmetics,
 	resolveCostToString,
 } from "../utility/catalogue.js";
@@ -2237,7 +2234,9 @@ export class Catalogue {
 
 			offerDescriptions.push(
 				`__${
-					isSeasonId(index) ? "Items" : t(`spiritNames.${index}`, { lng: locale, ns: "general" })
+					typeof index === "number" && isSeasonId(index)
+						? "Items"
+						: t(`spiritNames.${index}`, { lng: locale, ns: "general" })
 				}__\n${offerDescription.join("\n")}`,
 			);
 		}

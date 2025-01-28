@@ -1,7 +1,7 @@
 import process from "node:process";
 import { URL } from "node:url";
 import { Collection } from "@discordjs/collection";
-import type { RealmName } from "@thatskyapplication/utility";
+import type { RealmName, SeasonIds } from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import { TRAVELLING_DATES } from "../data/travelling-spirits.js";
@@ -10,7 +10,6 @@ import {
 	type Item,
 	type ItemCost,
 	type ItemRaw,
-	type SeasonIds,
 	addCosts,
 	resolveAllCosmetics,
 	resolveOffer,

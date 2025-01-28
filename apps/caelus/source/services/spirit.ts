@@ -11,6 +11,7 @@ import {
 	type Locale,
 	MessageFlags,
 } from "@discordjs/core";
+import { SeasonId } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { spirits } from "../data/spirits/index.js";
 import { resolveSeasonalSpirit } from "../data/spirits/seasons/index.js";
@@ -28,7 +29,6 @@ import {
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
-	SeasonId,
 	SeasonIdToSeasonalEmoji,
 	resolveCostToString,
 } from "../utility/catalogue.js";

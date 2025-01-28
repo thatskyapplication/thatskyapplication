@@ -271,3 +271,6 @@ export enum SkyMap {
 	// Season of the Nine-Coloured Deer.
 	CrescentOasis = "Crescent Oasis",
 }
+
+// biome-ignore lint/performance/noBarrelFile: This is fine.
+export { SeasonId, type SeasonIds, isSeasonId } from "./season.js";

@@ -1,5 +1,5 @@
+import { SeasonId } from "@thatskyapplication/utility";
 import { Season } from "../../../../models/Season.js";
-import { SeasonId } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
 import CrabWalker from "./crab-walker.js";
 import EnchantmentGuide from "./enchantment-guide.js";

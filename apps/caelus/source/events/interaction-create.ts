@@ -11,6 +11,7 @@ import {
 	RESTJSONErrorCodes,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
+import { isSeasonId } from "@thatskyapplication/utility";
 import {
 	AUTOCOMPLETE_COMMANDS,
 	CHAT_INPUT_COMMANDS,
@@ -95,7 +96,6 @@ import { history } from "../services/heart.js";
 import { finaliseSetup } from "../services/notification.js";
 import { browse, today } from "../services/shard-eruption.js";
 import { parseSpiritSwitch } from "../services/spirit.js";
-import { isSeasonId } from "../utility/catalogue.js";
 import {
 	CONTENT_CREATORS_DISPLAY_EDIT_CUSTOM_ID,
 	CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID,

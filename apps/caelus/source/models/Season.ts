@@ -1,6 +1,6 @@
 import { URL } from "node:url";
 import { Locale } from "@discordjs/core";
-import type { RealmName } from "@thatskyapplication/utility";
+import type { RealmName, SeasonIds } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import type { GuideSpirit, SeasonalSpirit } from "../models/Spirits.js";
@@ -13,7 +13,6 @@ import {
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
-	type SeasonIds,
 	resolveAllCosmetics,
 	resolveOffer,
 	snakeCaseName,

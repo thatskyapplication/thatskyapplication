@@ -1,5 +1,6 @@
+import { SeasonId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
-import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
+import { Cosmetic } from "../../../../utility/catalogue.js";
 import {
 	CAPE_EMOJIS,
 	LARGE_PLACEABLE_PROPS_EMOJIS,

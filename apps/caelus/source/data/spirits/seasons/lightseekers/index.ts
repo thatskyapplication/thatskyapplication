@@ -1,5 +1,6 @@
+import { SeasonId } from "@thatskyapplication/utility";
 import { Season } from "../../../../models/Season.js";
-import { Cosmetic, SeasonId } from "../../../../utility/catalogue.js";
+import { Cosmetic } from "../../../../utility/catalogue.js";
 import { skyDate } from "../../../../utility/dates.js";
 import { HELD_PROPS_EMOJIS, NECKLACE_EMOJIS } from "../../../../utility/emojis.js";
 import CrabWhisperer from "./crab-whisperer.js";

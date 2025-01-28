@@ -1,6 +1,6 @@
 import { RealmName } from "@thatskyapplication/utility";
+import { SeasonId } from "@thatskyapplication/utility";
 import { Season } from "../../../../models/Season.js";
-import { SeasonId } from "../../../../utility/catalogue.js";
 import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import { skyDate } from "../../../../utility/dates.js";
 import RadianceGreetingShaman from "./radiance-greeting-shaman.js";
