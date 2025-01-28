@@ -1,4 +1,4 @@
-import { RealmName, SeasonId } from "@thatskyapplication/utility";
+import { FriendAction, RealmName, SeasonId, SpiritName } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import { Cosmetic } from "../../../../utility/catalogue.js";
 import {
@@ -8,7 +8,7 @@ import {
 	OUTFIT_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../utility/emojis.js";
-import { FriendAction, FriendActionToEmoji, SpiritName } from "../../../../utility/spirits.js";
+import { FriendActionToEmoji } from "../../../../utility/spirits.js";
 
 const action = FriendAction.Bearhug;
 const actionEmoji = FriendActionToEmoji[action];

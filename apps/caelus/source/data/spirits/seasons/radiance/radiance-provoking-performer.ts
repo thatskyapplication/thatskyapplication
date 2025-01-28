@@ -1,4 +1,4 @@
-import { SeasonId } from "@thatskyapplication/utility";
+import { SeasonId, SpiritEmote, SpiritName } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import { Cosmetic } from "../../../../utility/catalogue.js";
 import {
@@ -10,7 +10,7 @@ import {
 	SEASON_EMOJIS,
 	SHOE_EMOJIS,
 } from "../../../../utility/emojis.js";
-import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../utility/spirits.js";
+import { SpiritEmoteToEmoji } from "../../../../utility/spirits.js";
 
 const { DyeGreen, DyeYellow, DyeWhite } = MISCELLANEOUS_EMOJIS;
 const emote = SpiritEmote.HypeDance;

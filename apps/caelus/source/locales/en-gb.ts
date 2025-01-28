@@ -3,6 +3,7 @@ import {
 	type DailyQuests,
 	SeasonId,
 	type SeasonIds,
+	SpiritName,
 } from "@thatskyapplication/utility";
 import { EventId, type EventIds } from "../utility/catalogue.js";
 import {
@@ -15,7 +16,6 @@ import {
 	REALM_NAME_VALUES,
 	SKY_MAP_VALUES,
 } from "../utility/constants.js";
-import { SpiritName } from "../utility/spirits.js";
 
 export default {
 	general: {

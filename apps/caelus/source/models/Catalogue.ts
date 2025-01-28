@@ -24,6 +24,7 @@ import {
 	type RealmName,
 	SeasonId,
 	type SeasonIds,
+	type SpiritName,
 	formatEmoji,
 	isSeasonId,
 } from "@thatskyapplication/utility";
@@ -83,7 +84,6 @@ import {
 	isRealm,
 } from "../utility/functions.js";
 import { cannotUsePermissions } from "../utility/permissions.js";
-import type { SpiritName } from "../utility/spirits.js";
 import Profile from "./Profile.js";
 
 export interface CataloguePacket {

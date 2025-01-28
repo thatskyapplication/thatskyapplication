@@ -1,4 +1,4 @@
-import { RealmName, SeasonId } from "@thatskyapplication/utility";
+import { RealmName, SeasonId, SpiritCall, SpiritName } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import { Cosmetic } from "../../../../utility/catalogue.js";
 import {
@@ -9,7 +9,7 @@ import {
 	SEASON_EMOJIS,
 	SHOE_EMOJIS,
 } from "../../../../utility/emojis.js";
-import { SpiritCall, SpiritCallToEmoji, SpiritName } from "../../../../utility/spirits.js";
+import { SpiritCallToEmoji } from "../../../../utility/spirits.js";
 
 const call = SpiritCall.Nightbird;
 const callEmoji = SpiritCallToEmoji[call];

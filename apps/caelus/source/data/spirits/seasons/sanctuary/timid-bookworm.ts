@@ -1,4 +1,4 @@
-import { RealmName, SeasonId } from "@thatskyapplication/utility";
+import { RealmName, SeasonId, SpiritName, SpiritStance } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import { Cosmetic } from "../../../../utility/catalogue.js";
 import {
@@ -7,7 +7,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../utility/emojis.js";
-import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../utility/spirits.js";
+import { SpiritStanceToEmoji } from "../../../../utility/spirits.js";
 
 const stance = SpiritStance.Timid;
 const stanceEmoji = SpiritStanceToEmoji[stance];

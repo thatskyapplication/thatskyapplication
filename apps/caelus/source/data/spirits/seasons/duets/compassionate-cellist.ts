@@ -1,4 +1,4 @@
-import { SeasonId } from "@thatskyapplication/utility";
+import { SeasonId, SpiritName } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import { Cosmetic } from "../../../../utility/catalogue.js";
 import {
@@ -6,7 +6,6 @@ import {
 	HELD_PROPS_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 } from "../../../../utility/emojis.js";
-import { SpiritName } from "../../../../utility/spirits.js";
 
 export default new SeasonalSpirit({
 	name: SpiritName.CompassionateCellist,

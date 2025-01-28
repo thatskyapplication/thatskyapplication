@@ -12,6 +12,7 @@ import {
 	type DailyQuests,
 	RealmName,
 	SkyMap,
+	SpiritName,
 } from "@thatskyapplication/utility";
 import pQueue from "p-queue";
 import pg, { Table } from "../pg.js";
@@ -38,7 +39,7 @@ import {
 	resolveMap,
 	resolveValidRealm,
 } from "../utility/functions.js";
-import { QUEST_SPIRITS, type QuestSpirits, SpiritName } from "../utility/spirits.js";
+import { QUEST_SPIRITS, type QuestSpirits } from "../utility/spirits.js";
 
 export interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;

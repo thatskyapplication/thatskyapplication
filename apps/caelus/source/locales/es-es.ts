@@ -1,5 +1,4 @@
-import { DailyQuest, RealmName, SeasonId, SkyMap } from "@thatskyapplication/utility";
-import { SpiritName } from "../utility/spirits.js";
+import { DailyQuest, RealmName, SeasonId, SkyMap, SpiritName } from "@thatskyapplication/utility";
 
 export default {
 	general: {

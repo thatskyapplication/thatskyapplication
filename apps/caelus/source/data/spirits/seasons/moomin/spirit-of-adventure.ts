@@ -1,4 +1,5 @@
-import { RealmName, SeasonId } from "@thatskyapplication/utility";
+import { RealmName } from "@thatskyapplication/utility";
+import { SeasonId, SpiritName } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import { Cosmetic } from "../../../../utility/catalogue.js";
 import {
@@ -9,7 +10,6 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
 } from "../../../../utility/emojis.js";
-import { SpiritName } from "../../../../utility/spirits.js";
 
 const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
 const musicSheet = MISCELLANEOUS_EMOJIS.MusicSheet;

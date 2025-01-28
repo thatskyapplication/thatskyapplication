@@ -275,3 +275,12 @@ export enum SkyMap {
 // biome-ignore lint/performance/noBarrelFile: This is fine.
 export { type Emoji, emojis, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "./emojis.js";
 export { SeasonId, type SeasonIds, isSeasonId } from "./season.js";
+export {
+	FriendAction,
+	SPIRIT_TYPE,
+	SpiritCall,
+	SpiritEmote,
+	SpiritName,
+	SpiritStance,
+	type SpiritType,
+} from "./spirits.js";

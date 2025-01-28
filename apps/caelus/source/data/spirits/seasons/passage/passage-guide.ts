@@ -1,4 +1,5 @@
-import { RealmName, SeasonId } from "@thatskyapplication/utility";
+import { RealmName } from "@thatskyapplication/utility";
+import { SeasonId, SpiritName } from "@thatskyapplication/utility";
 import { GuideSpirit } from "../../../../models/Spirits.js";
 import { Cosmetic } from "../../../../utility/catalogue.js";
 import {
@@ -8,7 +9,6 @@ import {
 	NECKLACE_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../../utility/emojis.js";
-import { SpiritName } from "../../../../utility/spirits.js";
 
 export default new GuideSpirit({
 	name: SpiritName.PassageGuide,

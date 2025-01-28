@@ -1,7 +1,17 @@
 import process from "node:process";
 import { URL } from "node:url";
 import { Collection } from "@discordjs/collection";
-import type { RealmName, SeasonIds } from "@thatskyapplication/utility";
+import {
+	type FriendAction,
+	type RealmName,
+	SPIRIT_TYPE,
+	type SeasonIds,
+	type SpiritCall,
+	type SpiritEmote,
+	type SpiritName,
+	type SpiritStance,
+	type SpiritType,
+} from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import { TRAVELLING_DATES } from "../data/travelling-spirits.js";
@@ -18,15 +28,6 @@ import {
 } from "../utility/catalogue.js";
 import { CDN_URL } from "../utility/constants.js";
 import { skyDate } from "../utility/dates.js";
-import {
-	type FriendAction,
-	SPIRIT_TYPE,
-	type SpiritCall,
-	type SpiritEmote,
-	type SpiritName,
-	type SpiritStance,
-	type SpiritType,
-} from "../utility/spirits.js";
 
 export interface TravellingSpiritsPacket {
 	visit: number;

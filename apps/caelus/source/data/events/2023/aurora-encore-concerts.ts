@@ -1,10 +1,11 @@
 import { URL } from "node:url";
+import { SpiritEmote } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { Cosmetic, EventId } from "../../../utility/catalogue.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import { skyDate } from "../../../utility/dates.js";
 import { SHOE_EMOJIS } from "../../../utility/emojis.js";
-import { SpiritEmote, SpiritEmoteToEmoji } from "../../../utility/spirits.js";
+import { SpiritEmoteToEmoji } from "../../../utility/spirits.js";
 
 const emote = SpiritEmote.CureForMeDance;
 const emoteEmoji = SpiritEmoteToEmoji[emote];

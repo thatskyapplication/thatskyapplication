@@ -1,4 +1,4 @@
-import { RealmName } from "@thatskyapplication/utility";
+import { RealmName, SpiritEmote, SpiritName } from "@thatskyapplication/utility";
 import { StandardSpirit } from "../../../../models/Spirits.js";
 import { Cosmetic } from "../../../../utility/catalogue.js";
 import {
@@ -6,7 +6,7 @@ import {
 	HELD_PROPS_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 } from "../../../../utility/emojis.js";
-import { SpiritEmote, SpiritEmoteToEmoji, SpiritName } from "../../../../utility/spirits.js";
+import { SpiritEmoteToEmoji } from "../../../../utility/spirits.js";
 
 const emote = SpiritEmote.LookAround;
 const emoteEmoji = SpiritEmoteToEmoji[emote];

@@ -1,8 +1,8 @@
-import { RealmName } from "@thatskyapplication/utility";
+import { RealmName, SpiritName, SpiritStance } from "@thatskyapplication/utility";
 import { StandardSpirit } from "../../../../models/Spirits.js";
 import { Cosmetic } from "../../../../utility/catalogue.js";
 import { CAPE_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../utility/emojis.js";
-import { SpiritName, SpiritStance, SpiritStanceToEmoji } from "../../../../utility/spirits.js";
+import { SpiritStanceToEmoji } from "../../../../utility/spirits.js";
 
 const stance = SpiritStance.Courageous;
 const stanceEmoji = SpiritStanceToEmoji[stance];

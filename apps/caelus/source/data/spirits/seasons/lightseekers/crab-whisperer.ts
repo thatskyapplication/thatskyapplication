@@ -1,4 +1,4 @@
-import { RealmName, SeasonId } from "@thatskyapplication/utility";
+import { RealmName, SeasonId, SpiritCall, SpiritName } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import { Cosmetic } from "../../../../utility/catalogue.js";
 import {
@@ -8,7 +8,7 @@ import {
 	MASK_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 } from "../../../../utility/emojis.js";
-import { SpiritCall, SpiritCallToEmoji, SpiritName } from "../../../../utility/spirits.js";
+import { SpiritCallToEmoji } from "../../../../utility/spirits.js";
 
 const call = SpiritCall.Crab;
 const callEmoji = SpiritCallToEmoji[call];
