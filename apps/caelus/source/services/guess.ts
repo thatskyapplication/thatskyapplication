@@ -12,6 +12,7 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
+import { formatEmoji, formatEmojiURL } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { spirits } from "../data/spirits/index.js";
@@ -46,12 +47,7 @@ import {
 	GuessDifficultyToStreakColumn,
 	NOT_IN_CACHED_GUILD_RESPONSE,
 } from "../utility/constants.js";
-import {
-	FRIEND_ACTION_EMOJIS,
-	MISCELLANEOUS_EMOJIS,
-	formatEmoji,
-	formatEmojiURL,
-} from "../utility/emojis.js";
+import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { getRandomElement, interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 import { SPIRIT_COSMETIC_EMOJIS_ARRAY } from "../utility/guess.js";
 
@@ -175,7 +171,7 @@ export async function guess(
 				footer: {
 					text: `Difficulty: ${difficultyString} | Streak: ${streak} | Highest: ${streakString}`,
 				},
-				image: { url: formatEmojiURL(emoji) },
+				image: { url: formatEmojiURL(emoji as `${bigint}`) },
 				title: "Where does this come from?",
 			},
 		],

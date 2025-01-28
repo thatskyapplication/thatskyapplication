@@ -11,7 +11,7 @@ import {
 	type Locale,
 	MessageFlags,
 } from "@discordjs/core";
-import { SeasonId } from "@thatskyapplication/utility";
+import { SeasonId, formatEmoji } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { spirits } from "../data/spirits/index.js";
 import { resolveSeasonalSpirit } from "../data/spirits/seasons/index.js";
@@ -34,7 +34,6 @@ import {
 } from "../utility/catalogue.js";
 import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { TIME_ZONE, skyNow } from "../utility/dates.js";
-import { formatEmoji } from "../utility/emojis.js";
 import { isChatInputCommand } from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import {

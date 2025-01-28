@@ -1,6 +1,7 @@
 import type { Locale } from "@discordjs/core";
+import { formatEmoji, resolveCurrencyEmoji } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "./emojis.js";
+import { MISCELLANEOUS_EMOJIS } from "./emojis.js";
 import type { ShardEruptionData } from "./wind-paths.js";
 
 export const SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID" as const;

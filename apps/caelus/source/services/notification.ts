@@ -9,6 +9,7 @@ import {
 	PermissionFlagsBits,
 	type Snowflake,
 } from "@discordjs/core";
+import { formatEmoji } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
@@ -28,7 +29,7 @@ import {
 	NotificationOffsetToMaximumValues,
 	type NotificationTypes,
 } from "../utility/constants.js";
-import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 

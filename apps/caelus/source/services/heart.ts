@@ -12,6 +12,7 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
+import { formatEmoji, resolveCurrencyEmoji } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import type { HeartPacket } from "../models/Heart.js";
 import pg, { Table } from "../pg.js";
@@ -26,7 +27,7 @@ import {
 	MAXIMUM_HEARTS_PER_DAY,
 } from "../utility/constants.js";
 import { HEART_EXTRA_DATES, TIME_ZONE, isDuring, skyNow } from "../utility/dates.js";
-import { MISCELLANEOUS_EMOJIS, formatEmoji, resolveCurrencyEmoji } from "../utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { getRandomElement, interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 
 async function totalGifted(userId: Snowflake) {

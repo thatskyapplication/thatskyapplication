@@ -6,6 +6,7 @@ import {
 	Locale,
 	MessageReferenceType,
 } from "@discordjs/core";
+import { formatEmoji } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
@@ -31,7 +32,7 @@ import {
 	WINGED_LIGHT_THRESHOLDS,
 } from "./utility/constants.js";
 import { skyNow } from "./utility/dates.js";
-import { MISCELLANEOUS_EMOJIS, formatEmoji } from "./utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS } from "./utility/emojis.js";
 import { shardEruption } from "./utility/wind-paths.js";
 
 const openAI = new OpenAI({

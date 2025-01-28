@@ -20,7 +20,13 @@ import {
 	PermissionFlagsBits,
 	type Snowflake,
 } from "@discordjs/core";
-import { type RealmName, SeasonId, type SeasonIds, isSeasonId } from "@thatskyapplication/utility";
+import {
+	type RealmName,
+	SeasonId,
+	type SeasonIds,
+	formatEmoji,
+	isSeasonId,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { skyCurrentEvents, skyEventYears, skyEvents } from "../data/events/index.js";
@@ -68,7 +74,7 @@ import {
 } from "../utility/catalogue.js";
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../utility/constants.js";
 import { skyNow } from "../utility/dates.js";
-import { MISCELLANEOUS_EMOJIS, formatEmoji } from "../utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import {
 	interactedComponent,
 	interactionInvoker,

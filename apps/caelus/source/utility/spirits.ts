@@ -1,13 +1,5 @@
-import {
-	CALL_EMOJIS,
-	type CallsEmojis,
-	EMOTE_EMOJIS,
-	type EmotesEmojis,
-	FRIEND_ACTION_EMOJIS,
-	type FriendActionsEmojis,
-	STANCE_EMOJIS,
-	type StancesEmojis,
-} from "./emojis.js";
+import type { Emoji } from "@thatskyapplication/utility";
+import { CALL_EMOJIS, EMOTE_EMOJIS, FRIEND_ACTION_EMOJIS, STANCE_EMOJIS } from "./emojis.js";
 
 export const SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID =
 	"SPIRIT_VIEW_SEASONAL_BUTTON_CUSTOM_ID" as const;
@@ -470,7 +462,7 @@ export const SpiritEmoteToEmoji = {
 	[SpiritEmote.Cartwheel]: EMOTE_EMOJIS.Cartwheel,
 	[SpiritEmote.HypeDance]: EMOTE_EMOJIS.HypeDance,
 	[SpiritEmote.HeartGesture]: EMOTE_EMOJIS.HeartGesture,
-} as const satisfies Readonly<Record<SpiritEmote, EmotesEmojis>>;
+} as const satisfies Readonly<Record<SpiritEmote, Emoji>>;
 
 export const enum SpiritStance {
 	Base = "Base",
@@ -500,7 +492,7 @@ export const SpiritStanceToEmoji = {
 	[SpiritStance.Timid]: STANCE_EMOJIS.Timid,
 	[SpiritStance.Tinker]: STANCE_EMOJIS.Tinker,
 	[SpiritStance.Injured]: STANCE_EMOJIS.Injured,
-} as const satisfies Readonly<Record<SpiritStance, StancesEmojis>>;
+} as const satisfies Readonly<Record<SpiritStance, Emoji>>;
 
 export const enum SpiritCall {
 	Base = "Base",
@@ -534,10 +526,7 @@ export const SpiritCallToEmoji = {
 	[SpiritCall.BabyManta]: CALL_EMOJIS.BabyManta,
 	[SpiritCall.Nightbird]: CALL_EMOJIS.Nightbird,
 } as const satisfies Readonly<
-	Record<
-		Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey | SpiritCall.Ninny>,
-		CallsEmojis
-	>
+	Record<Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey | SpiritCall.Ninny>, Emoji>
 >;
 
 export const enum FriendAction {
@@ -572,7 +561,7 @@ export const FriendActionToEmoji = {
 	[FriendAction.SideHug]: FRIEND_ACTION_EMOJIS.SideHug,
 	[FriendAction.CradleCarry]: FRIEND_ACTION_EMOJIS.CradleCarry,
 	[FriendAction.DuetBow]: FRIEND_ACTION_EMOJIS.DuetBow,
-} as const satisfies Readonly<Record<FriendAction, FriendActionsEmojis>>;
+} as const satisfies Readonly<Record<FriendAction, Emoji>>;
 
 export const SPIRIT_TYPE = {
 	Standard: 0,

@@ -5,7 +5,12 @@ import {
 	Locale,
 	MessageFlags,
 } from "@discordjs/core";
-import { SkyMap } from "@thatskyapplication/utility";
+import {
+	SkyMap,
+	formatEmoji,
+	formatEmojiURL,
+	resolveCurrencyEmoji,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { skyCurrentEvents } from "../data/events/index.js";
 import { skyCurrentSeason } from "../data/spirits/seasons/index.js";
@@ -32,12 +37,7 @@ import {
 	skyNow,
 	skyToday,
 } from "../utility/dates.js";
-import {
-	MISCELLANEOUS_EMOJIS,
-	formatEmoji,
-	formatEmojiURL,
-	resolveCurrencyEmoji,
-} from "../utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { shardEruption } from "../utility/wind-paths.js";
 

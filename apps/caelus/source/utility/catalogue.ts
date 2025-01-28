@@ -1,14 +1,12 @@
 import { URL } from "node:url";
-import { SeasonId, type SeasonIds, WIKI_URL } from "@thatskyapplication/utility";
 import {
-	EVENT_EMOJIS,
 	type Emoji,
-	type EventEmojis,
-	MISCELLANEOUS_EMOJIS,
-	SEASON_EMOJIS,
-	type SeasonEmojis,
+	SeasonId,
+	type SeasonIds,
+	WIKI_URL,
 	resolveCurrencyEmoji,
-} from "./emojis.js";
+} from "@thatskyapplication/utility";
+import { EVENT_EMOJIS, MISCELLANEOUS_EMOJIS, SEASON_EMOJIS } from "./emojis.js";
 
 export type RotationNumber = 1 | 2 | 3;
 export const SEASONAL_CANDLES_PER_DAY = 5 as const;
@@ -2912,7 +2910,7 @@ export const SeasonIdToSeasonalEmoji = {
 	[SeasonId.Duets]: SEASON_EMOJIS.Duets,
 	[SeasonId.Moomin]: SEASON_EMOJIS.Moomin,
 	[SeasonId.Radiance]: SEASON_EMOJIS.Radiance,
-} as const satisfies Readonly<Record<SeasonIds, SeasonEmojis>>;
+} as const satisfies Readonly<Record<SeasonIds, Emoji>>;
 
 export const SeasonIdToSeasonalCandleEmoji = {
 	[SeasonId.Gratitude]: SEASON_EMOJIS.GratitudeCandle,
@@ -2939,7 +2937,7 @@ export const SeasonIdToSeasonalCandleEmoji = {
 	[SeasonId.Duets]: SEASON_EMOJIS.DuetsCandle,
 	[SeasonId.Moomin]: SEASON_EMOJIS.MoominCandle,
 	[SeasonId.Radiance]: SEASON_EMOJIS.RadianceCandle,
-} as const satisfies Readonly<Record<SeasonIds, SeasonEmojis>>;
+} as const satisfies Readonly<Record<SeasonIds, Emoji>>;
 
 const SeasonIdToSeasonalHeartEmoji = {
 	[SeasonId.Belonging]: SEASON_EMOJIS.BelongingHeart,
@@ -2965,7 +2963,7 @@ const SeasonIdToSeasonalHeartEmoji = {
 	[SeasonId.Moomin]: SEASON_EMOJIS.MoominHeart,
 	[SeasonId.Radiance]: SEASON_EMOJIS.RadianceHeart,
 } as const satisfies Readonly<
-	Record<Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>, SeasonEmojis>
+	Record<Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>, Emoji>
 >;
 
 export const EventId = {
@@ -3142,7 +3140,7 @@ export const EventIdToEventCurrencyEmoji = {
 	// 2025.
 	[EventId.DaysOfFortune2025]: EVENT_EMOJIS.Fortune,
 	[EventId.DaysOfLove2025]: EVENT_EMOJIS.Love,
-} as const satisfies Readonly<Record<EventIds, EventEmojis | null>>;
+} as const satisfies Readonly<Record<EventIds, Emoji | null>>;
 
 export function snakeCaseName(name: string) {
 	return name
@@ -3219,8 +3217,7 @@ export function resolveOffer(
 	return items.map((item) => ({
 		name: item.name,
 		cosmetics: Array.isArray(item.cosmetic) ? item.cosmetic : [item.cosmetic],
-		// TypeScript states this is too complex to represent, so this is a workaround.
-		emoji: (item.emoji as Emoji) ?? null,
+		emoji: item.emoji ?? null,
 		cost: item.cost
 			? {
 					...item.cost,

@@ -1,5 +1,6 @@
 import { URL } from "node:url";
 import { Locale } from "@discordjs/core";
+import type { Emoji } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import {
@@ -13,7 +14,6 @@ import {
 	wikiURL,
 } from "../utility/catalogue.js";
 import { CDN_URL } from "../utility/constants.js";
-import type { EventEmojis } from "../utility/emojis.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
 
@@ -77,7 +77,7 @@ interface EventCurrency {
 	 *
 	 * @remarks This is `null` for events that do not (yet) have an event currency emoji.
 	 */
-	emoji: EventEmojis | null;
+	emoji: Emoji | null;
 	amount: readonly EventCurrencyAmount[];
 	pool?: readonly EventCurrencyPool[];
 	end: DateTime;

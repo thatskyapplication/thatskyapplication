@@ -29,7 +29,13 @@ import {
 	type Snowflake,
 	TextInputStyle,
 } from "@discordjs/core";
-import { type SeasonIds, isSeasonId } from "@thatskyapplication/utility";
+import {
+	type Emoji,
+	type SeasonIds,
+	formatEmoji,
+	formatEmojiURL,
+	isSeasonId,
+} from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import { t } from "i18next";
 import sharp from "sharp";
@@ -70,12 +76,7 @@ import {
 	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	SKY_PROFILE_UNKNOWN_NAME,
 } from "../utility/constants.js";
-import {
-	MISCELLANEOUS_EMOJIS,
-	type MiscellaneousEmojis,
-	formatEmoji,
-	formatEmojiURL,
-} from "../utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import {
 	chatInputApplicationCommandMention,
 	interactionInvoker,
@@ -221,7 +222,7 @@ const PlatformIdToEmoji = {
 	[PlatformId.NintendoSwitch]: MISCELLANEOUS_EMOJIS.PlatformSwitch,
 	[PlatformId.PlayStation]: MISCELLANEOUS_EMOJIS.PlatformPlayStation,
 	[PlatformId.Steam]: MISCELLANEOUS_EMOJIS.PlatformSteam,
-} as const satisfies Readonly<Record<PlatformIds, MiscellaneousEmojis>>;
+} as const satisfies Readonly<Record<PlatformIds, Emoji>>;
 
 function isPlatformId(platformId: unknown): platformId is PlatformIds {
 	return PLATFORM_ID_VALUES.includes(platformId as PlatformIds);

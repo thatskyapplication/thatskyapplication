@@ -1,6 +1,6 @@
 import { URL } from "node:url";
 import { Locale } from "@discordjs/core";
-import type { RealmName, SeasonIds } from "@thatskyapplication/utility";
+import type { Emoji, RealmName, SeasonIds } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import type { GuideSpirit, SeasonalSpirit } from "../models/Spirits.js";
@@ -24,7 +24,6 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 } from "../utility/dates.js";
-import type { SeasonEmojis } from "../utility/emojis.js";
 
 type SeasonalCandlesRotation = Readonly<
 	{ rotation: Exclude<RotationNumber, 3>; realm: RealmName }[]
@@ -91,9 +90,9 @@ export class Season {
 
 	public readonly allCosmetics: number[];
 
-	public readonly emoji: SeasonEmojis;
+	public readonly emoji: Emoji;
 
-	public readonly candleEmoji: SeasonEmojis;
+	public readonly candleEmoji: Emoji;
 
 	private readonly seasonalCandlesRotation: SeasonalCandlesRotation | null;
 

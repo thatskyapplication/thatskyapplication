@@ -13,6 +13,7 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
+import { formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { GUILD_CACHE } from "../caches/guilds.js";
@@ -46,12 +47,7 @@ import {
 	skyNow,
 	skyToday,
 } from "../utility/dates.js";
-import {
-	MISCELLANEOUS_EMOJIS,
-	formatEmoji,
-	formatEmojiURL,
-	resolveCurrencyEmoji,
-} from "../utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { treasureCandles } from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";

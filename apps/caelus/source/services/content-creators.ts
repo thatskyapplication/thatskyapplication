@@ -11,6 +11,7 @@ import {
 	type Snowflake,
 	TextInputStyle,
 } from "@discordjs/core";
+import type { Emoji } from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import sharp from "sharp";
 import { client } from "../discord.js";
@@ -30,7 +31,7 @@ import {
 	CONTENT_CREATORS_EDIT_TEXT_INPUT_CUSTOM_ID,
 	CONTENT_CREATORS_URL,
 } from "../utility/constants.js";
-import { MISCELLANEOUS_EMOJIS, type MiscellaneousEmojis } from "../utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { isAnimatedHash, isChatInputCommand } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 
@@ -83,9 +84,7 @@ const CONTENT_CREATORS_EDIT_TYPE_TO_EMOJI = {
 	[ContentCreatorsEditType.Instagram]: MISCELLANEOUS_EMOJIS.Instagram,
 	[ContentCreatorsEditType.Facebook]: MISCELLANEOUS_EMOJIS.Facebook,
 	[ContentCreatorsEditType.Bluesky]: MISCELLANEOUS_EMOJIS.Bluesky,
-} as const satisfies Readonly<
-	Record<ContentCreatorsEditTypes, MiscellaneousEmojis | { name: string }>
->;
+} as const satisfies Readonly<Record<ContentCreatorsEditTypes, Emoji | { name: string }>>;
 
 const CONTENT_CREATORS_EDIT_TYPE_TO_PLACEHOLDER = {
 	[ContentCreatorsEditType.Name]: "thatskygame",
