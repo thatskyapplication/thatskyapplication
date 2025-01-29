@@ -355,7 +355,7 @@ export async function messageCreateResponse(message: GatewayMessageCreateDispatc
 			}
 
 			await client.api.channels.createMessage(message.channel_id, {
-				...todayEmbed(guild.preferredLocale, offset),
+				...(await todayEmbed(guild.preferredLocale, offset)),
 				message_reference: {
 					type: MessageReferenceType.Default,
 					message_id: message.id,
