@@ -2855,6 +2855,9 @@ export enum Cosmetic {
 	FortuneSnakeCoif = 2279,
 	FortuneSnakeCloak = 2280,
 
+	// 30/01/2025 | Travelling spirit #133.
+	ForgetfulStorytellerWingBuff = 2281,
+
 	// 10/02/2025 | Days of Love.
 	DaysOfLoveVioletCrystal,
 	DaysOfLoveBraids,
