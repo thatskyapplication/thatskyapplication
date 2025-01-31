@@ -5,7 +5,9 @@ import {
 	type APIMessageComponentSelectMenuInteraction,
 	type APIModalSubmitInteraction,
 	type APIUserApplicationCommandInteraction,
+	ApplicationIntegrationType,
 	type GuildChannelType,
+	InteractionContextType,
 	InteractionType,
 	MessageFlags,
 	PermissionFlagsBits,
@@ -228,4 +230,25 @@ export async function cannotUsePermissions(
 	}
 
 	return true;
+}
+
+export async function cannotUseUserInstallable(
+	interaction: APIChatInputApplicationCommandInteraction | APIUserApplicationCommandInteraction,
+	message: string,
+) {
+	if (
+		interaction.context === InteractionContextType.Guild &&
+		interaction.authorizing_integration_owners[ApplicationIntegrationType.UserInstall] &&
+		interaction.member &&
+		(BigInt(interaction.member.permissions) & PermissionFlagsBits.UseExternalApps) === 0n
+	) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: message,
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return true;
+	}
+
+	return false;
 }

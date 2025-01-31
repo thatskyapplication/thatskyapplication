@@ -2,18 +2,22 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIInteractionDataResolvedGuildMember,
 	type APIUser,
+	Locale,
 	MessageFlags,
 	PermissionFlagsBits,
 } from "@discordjs/core";
+import { t } from "i18next";
 import { client } from "../discord.js";
 import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_HAIR_TOUSLE_NO } from "../utility/constants.js";
 import { interactionInvoker } from "../utility/functions.js";
+import { cannotUseUserInstallable } from "../utility/permissions.js";
 
 export async function hairTousle(
 	interaction: APIChatInputApplicationCommandInteraction,
 	user: APIUser,
 	member: APIInteractionDataResolvedGuildMember | null,
 ) {
+	const resolvedLocale = interaction.guild_locale ?? Locale.EnglishGB;
 	const invoker = interactionInvoker(interaction);
 
 	if (user.id === invoker.id) {
@@ -22,6 +26,19 @@ export async function hairTousle(
 			flags: MessageFlags.Ephemeral,
 		});
 
+		return;
+	}
+
+	if (
+		await cannotUseUserInstallable(
+			interaction,
+			t("hair-tousle.missing-external-apps-permission", {
+				lng: resolvedLocale,
+				ns: "commands",
+				user: `<@${user.id}>`,
+			}),
+		)
+	) {
 		return;
 	}
 

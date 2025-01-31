@@ -575,6 +575,8 @@ export default {
 			"command-description": "Give someone a hair tousle!",
 			"command-option-user-name": "user",
 			"command-option-user-description": "The individual whose hair will be tousled.",
+			"missing-external-apps-permission":
+				"You are missing the `Use External Apps` permission, so {{user}} would not receive your hair tousle. Someone needs to adjust the permissions!",
 		},
 		heart: {
 			"command-name": "heart",
@@ -595,12 +597,16 @@ export default {
 			"command-description": "High-five someone!",
 			"command-option-user-name": "user",
 			"command-option-user-description": "The individual to high-five.",
+			"missing-external-apps-permission":
+				"You are missing the `Use External Apps` permission, so {{user}} would not receive your high-five. Someone needs to adjust the permissions!",
 		},
 		hug: {
 			"command-name": "hug",
 			"command-description": "Hug someone!",
 			user: "user",
 			"user-description": "The individual to be hugged.",
+			"missing-external-apps-permission":
+				"You are missing the `Use External Apps` permission, so {{user}} would not receive your hug. Someone needs to adjust the permissions!",
 			"hug-self": "Share the love! Hug someone other than yourself!",
 			"not-in-server": "{{user}} is not in this server to be hugged.",
 			"not-around": "{{user}} is not around for the hug!",
@@ -612,6 +618,8 @@ export default {
 			"command-description": "Krill someone!",
 			"command-option-user-name": "user",
 			"command-option-user-description": "The individual to be krilled.",
+			"missing-external-apps-permission":
+				"You are missing the `Use External Apps` permission, so {{user}} would not be krilled. Someone needs to adjust the permissions!",
 		},
 		notifications: {
 			"command-name": "notifications",
@@ -643,6 +651,8 @@ export default {
 			"command-description": "Fight someone!",
 			"command-option-user-name": "user",
 			"command-option-user-description": "The individual to play fight.",
+			"missing-external-apps-permission":
+				"You are missing the `Use External Apps` permission, so {{user}} would not be fought. Someone needs to adjust the permissions!",
 		},
 		schedule: {
 			"command-name": "schedule",
@@ -723,6 +733,16 @@ export default {
 				"command-option-query-description":
 					"The name, season, expression, stance, or call of the spirit.",
 			},
+		},
+	},
+	features: {
+		bonk: {
+			"missing-external-apps-permission":
+				"You are missing the `Use External Apps` permission, so {{user}} would not be bonked. Someone needs to adjust the permissions!",
+		},
+		heart: {
+			"missing-external-apps-permission":
+				"You are missing the `Use External Apps` permission, so {{user}} would not receive your heart. Someone needs to adjust the permissions!",
 		},
 	},
 } as const;

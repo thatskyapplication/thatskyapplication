@@ -10,14 +10,15 @@ import { t } from "i18next";
 import { client } from "../discord.js";
 import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_HUG_NO } from "../utility/constants.js";
 import { interactionInvoker } from "../utility/functions.js";
+import { cannotUseUserInstallable } from "../utility/permissions.js";
 
 export async function hug(
 	interaction: APIChatInputApplicationCommandInteraction,
 	user: APIUser,
 	member: APIInteractionDataResolvedGuildMember | null,
 ) {
-	const invoker = interactionInvoker(interaction);
 	const resolvedLocale = interaction.guild_locale ?? Locale.EnglishGB;
+	const invoker = interactionInvoker(interaction);
 
 	if (user.id === invoker.id) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -25,6 +26,19 @@ export async function hug(
 			flags: MessageFlags.Ephemeral,
 		});
 
+		return;
+	}
+
+	if (
+		await cannotUseUserInstallable(
+			interaction,
+			t("hug.missing-external-apps-permission", {
+				lng: resolvedLocale,
+				ns: "commands",
+				user: `<@${user.id}>`,
+			}),
+		)
+	) {
 		return;
 	}
 

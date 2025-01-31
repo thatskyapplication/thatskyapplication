@@ -1,4 +1,9 @@
-import { type APIChatInputApplicationCommandInteraction, Locale } from "@discordjs/core";
+import {
+	type APIChatInputApplicationCommandInteraction,
+	InteractionContextType,
+	Locale,
+	MessageFlags,
+} from "@discordjs/core";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../../caches/guilds.js";
 import { client } from "../../discord.js";
@@ -34,15 +39,28 @@ export default {
 		const server = options.getBoolean("server") ?? false;
 
 		if (server) {
-			if (isGuildChatInputCommand(interaction) && GUILD_CACHE.get(interaction.guild_id)) {
-				await guildLeaderboard(interaction, difficulty);
-			} else {
+			if (interaction.context !== InteractionContextType.Guild) {
+				await client.api.interactions.reply(interaction.id, interaction.token, {
+					content: "Use this command in a server to see their narrowed leaderboard!",
+					flags: MessageFlags.Ephemeral,
+				});
+
+				return;
+			}
+
+			const guild = isGuildChatInputCommand(interaction) && GUILD_CACHE.get(interaction.guild_id);
+
+			if (!guild) {
 				await client.api.interactions.reply(
 					interaction.id,
 					interaction.token,
 					NOT_IN_CACHED_GUILD_RESPONSE,
 				);
+
+				return;
 			}
+
+			await guildLeaderboard(interaction, guild, difficulty);
 		} else {
 			await leaderboard(interaction, difficulty);
 		}

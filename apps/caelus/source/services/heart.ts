@@ -13,6 +13,7 @@ import {
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { formatEmoji, resolveCurrencyEmoji } from "@thatskyapplication/utility";
+import { t } from "i18next";
 import { client } from "../discord.js";
 import type { HeartPacket } from "../models/Heart.js";
 import pg, { Table } from "../pg.js";
@@ -29,6 +30,7 @@ import {
 import { HEART_EXTRA_DATES, TIME_ZONE, isDuring, skyNow } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { getRandomElement, interactionInvoker, isChatInputCommand } from "../utility/functions.js";
+import { cannotUseUserInstallable } from "../utility/permissions.js";
 
 async function totalGifted(userId: Snowflake) {
 	const result = await pg<HeartPacket>(Table.Hearts)
@@ -75,6 +77,19 @@ export async function gift(
 			flags: MessageFlags.Ephemeral,
 		});
 
+		return;
+	}
+
+	if (
+		await cannotUseUserInstallable(
+			interaction,
+			t("heart.missing-external-apps-permission", {
+				lng: interaction.locale,
+				ns: "features",
+				user: `<@${user.id}>`,
+			}),
+		)
+	) {
 		return;
 	}
 

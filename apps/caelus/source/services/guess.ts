@@ -14,7 +14,6 @@ import {
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { formatEmoji, formatEmojiURL } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import { GUILD_CACHE } from "../caches/guilds.js";
 import { spirits } from "../data/spirits/index.js";
 import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../data/spirits/realms/index.js";
 import { currentSeasonalSpirits } from "../data/spirits/seasons/index.js";
@@ -27,6 +26,7 @@ import type {
 	SeasonalSpirit,
 	StandardSpirit,
 } from "../models/Spirits.js";
+import type { Guild } from "../models/discord/guild.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
@@ -45,7 +45,6 @@ import {
 	GuessDifficultyLevel,
 	GuessDifficultyLevelToName,
 	GuessDifficultyToStreakColumn,
-	NOT_IN_CACHED_GUILD_RESPONSE,
 } from "../utility/constants.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { getRandomElement, interactionInvoker, isChatInputCommand } from "../utility/functions.js";
@@ -588,20 +587,9 @@ export async function leaderboard(
 
 export async function guildLeaderboard(
 	interaction: APIChatInputApplicationCommandGuildInteraction,
+	guild: Guild,
 	difficulty: GuessDifficultyLevel,
 ) {
-	const guild = GUILD_CACHE.get(interaction.guild_id);
-
-	if (!guild) {
-		await client.api.interactions.reply(
-			interaction.id,
-			interaction.token,
-			NOT_IN_CACHED_GUILD_RESPONSE,
-		);
-
-		return;
-	}
-
 	const column = GuessDifficultyToStreakColumn[difficulty];
 
 	const results = await pg(Table.Guess)
@@ -613,6 +601,7 @@ export async function guildLeaderboard(
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "No one in this server has played this game yet!",
 		});
+
 		return;
 	}
 

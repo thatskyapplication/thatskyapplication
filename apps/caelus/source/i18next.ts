@@ -20,7 +20,7 @@ void init({
 	fallbackLng: Locale.EnglishGB,
 	missingKeyHandler: (locale, namespace, key) =>
 		pino.warn(`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`),
-	ns: ["general", "commands"],
+	ns: ["general", "commands", "features"],
 	resources: {
 		[Locale.German]: de,
 		[Locale.EnglishGB]: enGB,

@@ -3,10 +3,12 @@ import {
 	MessageFlags,
 	PermissionFlagsBits,
 } from "@discordjs/core";
+import { t } from "i18next";
 import { client } from "../discord.js";
 import { BONKS } from "../utility/constants.js";
 import { interactionInvoker } from "../utility/functions.js";
 import { OptionResolver } from "../utility/option-resolver.js";
+import { cannotUseUserInstallable } from "../utility/permissions.js";
 
 export async function bonk(interaction: APIChatInputApplicationCommandInteraction) {
 	const options = new OptionResolver(interaction);
@@ -19,6 +21,19 @@ export async function bonk(interaction: APIChatInputApplicationCommandInteractio
 			content: "No self-bonking! Bad!",
 			flags: MessageFlags.Ephemeral,
 		});
+		return;
+	}
+
+	if (
+		await cannotUseUserInstallable(
+			interaction,
+			t("heart.missing-external-apps-permission", {
+				lng: interaction.locale,
+				ns: "features",
+				user: `<@${user.id}>`,
+			}),
+		)
+	) {
 		return;
 	}
 
