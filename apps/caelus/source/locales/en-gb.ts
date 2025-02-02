@@ -307,6 +307,8 @@ export default {
 				"Meet up with Ascetic Monk in Sanctuary Islands",
 			[DailyQuest.MeetUpWithNightbirdWhispererInSanctuaryIslands]:
 				"Meet up with Nightbird Whisperer in Sanctuary Islands",
+			[DailyQuest.MeetUpWithJollyGeologistInSanctuaryIslands]:
+				"Meet up with Jolly Geologist in Sanctuary Islands",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",

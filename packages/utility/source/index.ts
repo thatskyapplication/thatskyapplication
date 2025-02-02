@@ -206,6 +206,7 @@ export const DailyQuest = {
 	MeetUpWithWhaleWhispererInBoneyard: 201,
 	MeetUpWithAsceticMonkInSanctuaryIslands: 202,
 	MeetUpWithNightbirdWhispererInSanctuaryIslands: 203,
+	MeetUpWithJollyGeologistInSanctuaryIslands: 204,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
