@@ -2858,6 +2858,12 @@ export enum Cosmetic {
 	// 30/01/2025 | Travelling spirit #133.
 	ForgetfulStorytellerWingBuff = 2281,
 
+	// 03/02/2025 | Season of Radiance Quest 2.
+	RadianceGuideQuest2 = 2282,
+	RadianceGuideHeart2 = 2283,
+	RadianceGuideGreenDye = 2284,
+	RadianceGuideCyanDye = 2285,
+
 	// 10/02/2025 | Days of Love.
 	DaysOfLoveVioletCrystal,
 	DaysOfLoveBraids,
