@@ -1963,7 +1963,7 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	/**
 	 * Radiance Pendant.
 	 */
-	Necklace46: { id: "1313935812668424214", name: "necklace_46" },
+	Necklace46: { id: "1330482500056911944", name: "necklace_46" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_DEVELOPMENT = {
