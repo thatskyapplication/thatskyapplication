@@ -13,17 +13,31 @@ export default new Season({
 	end: skyDate(2_025, 4, 7),
 	guide: RadianceGuide,
 	spirits: [RadianceLeapingDancer, RadianceProvokingPerformer, RadianceGreetingShaman],
-	seasonalCandlesRotation: [
-		{ rotation: 1, realm: RealmName.ValleyOfTriumph },
-		{ rotation: 1, realm: RealmName.GoldenWasteland },
-		{ rotation: 1, realm: RealmName.VaultOfKnowledge },
-		{ rotation: 1, realm: RealmName.DaylightPrairie },
-		{ rotation: 1, realm: RealmName.HiddenForest },
-		{ rotation: 2, realm: RealmName.ValleyOfTriumph },
-		{ rotation: 2, realm: RealmName.GoldenWasteland },
-		{ rotation: 2, realm: RealmName.VaultOfKnowledge },
-		{ rotation: 2, realm: RealmName.DaylightPrairie },
-		{ rotation: 2, realm: RealmName.HiddenForest },
-	],
+	seasonalCandlesRotation: (now) =>
+		now >= skyDate(2_025, 2, 4)
+			? [
+					{ rotation: 2, realm: RealmName.ValleyOfTriumph },
+					{ rotation: 1, realm: RealmName.GoldenWasteland },
+					{ rotation: 1, realm: RealmName.VaultOfKnowledge },
+					{ rotation: 1, realm: RealmName.DaylightPrairie },
+					{ rotation: 1, realm: RealmName.HiddenForest },
+					{ rotation: 1, realm: RealmName.ValleyOfTriumph },
+					{ rotation: 2, realm: RealmName.GoldenWasteland },
+					{ rotation: 2, realm: RealmName.VaultOfKnowledge },
+					{ rotation: 2, realm: RealmName.DaylightPrairie },
+					{ rotation: 2, realm: RealmName.HiddenForest },
+				]
+			: [
+					{ rotation: 1, realm: RealmName.ValleyOfTriumph },
+					{ rotation: 1, realm: RealmName.GoldenWasteland },
+					{ rotation: 1, realm: RealmName.VaultOfKnowledge },
+					{ rotation: 1, realm: RealmName.DaylightPrairie },
+					{ rotation: 1, realm: RealmName.HiddenForest },
+					{ rotation: 2, realm: RealmName.ValleyOfTriumph },
+					{ rotation: 2, realm: RealmName.GoldenWasteland },
+					{ rotation: 2, realm: RealmName.VaultOfKnowledge },
+					{ rotation: 2, realm: RealmName.DaylightPrairie },
+					{ rotation: 2, realm: RealmName.HiddenForest },
+				],
 	patchNotesURL: String(new URL("p0280", LINK_REDIRECTOR_URL)),
 });

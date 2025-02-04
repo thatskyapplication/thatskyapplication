@@ -64,7 +64,10 @@ interface SeasonData {
 	/**
 	 * The seasonal candles rotation.
 	 */
-	seasonalCandlesRotation: SeasonalCandlesRotation | null;
+	seasonalCandlesRotation:
+		| SeasonalCandlesRotation
+		| ((now: DateTime) => SeasonalCandlesRotation)
+		| null;
 	/**
 	 * The URL of the patch notes that detail the season.
 	 */
@@ -94,7 +97,7 @@ export class Season {
 
 	public readonly candleEmoji: Emoji;
 
-	private readonly seasonalCandlesRotation: SeasonalCandlesRotation | null;
+	private readonly seasonalCandlesRotation: ((now: DateTime) => SeasonalCandlesRotation) | null;
 
 	public readonly patchNotesURL: string | null;
 
@@ -111,7 +114,14 @@ export class Season {
 		this.allCosmetics = data.items ? resolveAllCosmetics(this.items) : [];
 		this.emoji = SeasonIdToSeasonalEmoji[data.id];
 		this.candleEmoji = SeasonIdToSeasonalCandleEmoji[data.id];
-		this.seasonalCandlesRotation = data.seasonalCandlesRotation;
+
+		this.seasonalCandlesRotation =
+			typeof data.seasonalCandlesRotation === "function"
+				? data.seasonalCandlesRotation
+				: data.seasonalCandlesRotation
+					? () => data.seasonalCandlesRotation as SeasonalCandlesRotation
+					: null;
+
 		this.patchNotesURL = data.patchNotesURL ?? null;
 	}
 
@@ -189,7 +199,7 @@ export class Season {
 	}
 
 	public resolveSeasonalCandlesRotation(date: DateTime) {
-		return this.seasonalCandlesRotation?.[date.diff(this.start, "days").days % 10] ?? null;
+		return this.seasonalCandlesRotation?.(date)[date.diff(this.start, "days").days % 10] ?? null;
 	}
 
 	public seasonalCandlesRotationURL(realm: RealmName, rotation: RotationNumber) {
