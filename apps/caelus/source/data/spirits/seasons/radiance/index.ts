@@ -17,12 +17,12 @@ export default new Season({
 		now >= skyDate(2_025, 2, 4)
 			? [
 					{ rotation: 2, realm: RealmName.ValleyOfTriumph },
-					{ rotation: 1, realm: RealmName.GoldenWasteland },
+					{ rotation: 2, realm: RealmName.GoldenWasteland },
 					{ rotation: 1, realm: RealmName.VaultOfKnowledge },
 					{ rotation: 1, realm: RealmName.DaylightPrairie },
 					{ rotation: 1, realm: RealmName.HiddenForest },
 					{ rotation: 1, realm: RealmName.ValleyOfTriumph },
-					{ rotation: 2, realm: RealmName.GoldenWasteland },
+					{ rotation: 1, realm: RealmName.GoldenWasteland },
 					{ rotation: 2, realm: RealmName.VaultOfKnowledge },
 					{ rotation: 2, realm: RealmName.DaylightPrairie },
 					{ rotation: 2, realm: RealmName.HiddenForest },
