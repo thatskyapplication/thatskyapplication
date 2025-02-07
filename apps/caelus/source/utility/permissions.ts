@@ -238,6 +238,7 @@ export async function cannotUseUserInstallable(
 ) {
 	if (
 		interaction.context === InteractionContextType.Guild &&
+		!interaction.authorizing_integration_owners[ApplicationIntegrationType.GuildInstall] &&
 		interaction.authorizing_integration_owners[ApplicationIntegrationType.UserInstall] &&
 		interaction.member &&
 		(BigInt(interaction.member.permissions) & PermissionFlagsBits.UseExternalApps) === 0n
