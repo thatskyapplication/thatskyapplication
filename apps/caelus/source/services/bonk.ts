@@ -27,7 +27,7 @@ export async function bonk(interaction: APIChatInputApplicationCommandInteractio
 	if (
 		await cannotUseUserInstallable(
 			interaction,
-			t("heart.missing-external-apps-permission", {
+			t("bonk.missing-external-apps-permission", {
 				lng: interaction.locale,
 				ns: "features",
 				user: `<@${user.id}>`,
