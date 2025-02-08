@@ -27,6 +27,7 @@ export default {
 			[DailyQuest.BowAtAPlayer]: "Inclínate ante un jugador",
 			[DailyQuest.WaveToAFriend]: "Saluda a un amigo",
 			[DailyQuest.SendAGiftToAFriend]: "Envía un regalo a un amigo",
+			[DailyQuest.MakeANewAcquaintance]: "Haz un conocido",
 			[DailyQuest.RechargeFromAJellyfish]: "Recarga tu luz a partir de una medusa",
 			[DailyQuest.RideWithAManta]: "Vuela con una mantarraya",
 			[DailyQuest.ReliveASpiritsMemories]: "Revive las memorias de un espíritu",
@@ -39,6 +40,8 @@ export default {
 				"Admira el árbol joven en el Bosque Escondido por un rato",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Encuentra las velas al final del arcoíris en la Planicie Luz de Día",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
+				"Encuentra las velas al final del arcoiris en el Bosque Escondido",
 			[DailyQuest.CollectOrangeLight]: "Recoge Luz Naranja",
 			[DailyQuest.CollectRedLight]: "Recoge Luz Roja",
 			[DailyQuest.ReliveTheMantaWhisperer]:
@@ -47,6 +50,8 @@ export default {
 				"Revive el recuerdo del Gurú estirando de la Planicie Luz de Día",
 			[DailyQuest.ReliveTheWiseGrandparent]:
 				"Revive el recuerdo del Director atento de la Bóveda de Conocimiento",
+			[DailyQuest.ReliveTheDaydreamForester]:
+				"Revive el recuerdo del Guardabosques soñador del Bosque Escondido",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Hazle una broma al Capitán de navío cesante",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
@@ -76,6 +81,7 @@ export default {
 			[SeasonId.Nesting]: "Temporada Acogedora",
 			[SeasonId.Duets]: "Temporada de Duetos",
 			[SeasonId.Moomin]: "Temporada de los Mumins",
+			[SeasonId.Radiance]: "Temporada de resplandor",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Candelero que apunta",
@@ -253,6 +259,10 @@ export default {
 			[SpiritName.SenseOfSelf]: "Sentido de identidad",
 			[SpiritName.SpiritOfAdventure]: "Espíritu aventurero",
 			[SpiritName.InspirationOfInclusion]: "Inspiración inclusiva",
+			[SpiritName.RadianceGuide]: "Guía de resplandor",
+			[SpiritName.RadianceLeapingDancer]: "Bailarín saltarín de resplandor",
+			[SpiritName.RadianceProvokingPerformer]: "Artista provocador de resplandor",
+			[SpiritName.RadianceGreetingShaman]: "Chamán amable de resplandor",
 		},
 	},
 	commands: {

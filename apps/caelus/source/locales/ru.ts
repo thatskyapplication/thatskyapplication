@@ -18,6 +18,7 @@ export default {
 			[DailyQuest.BowAtAPlayer]: "Поклонитесь игроку",
 			[DailyQuest.WaveToAFriend]: "Помашите другу",
 			[DailyQuest.SendAGiftToAFriend]: "Отправьте подарок другу",
+			[DailyQuest.MakeANewAcquaintance]: "Заведите новое знакомство",
 			[DailyQuest.RechargeFromAJellyfish]: "Зарядите свой свет от медузы",
 			[DailyQuest.RideWithAManta]: "Поездки с мантой",
 			[DailyQuest.ReliveASpiritsMemories]: "Проживите воспоминания этого Духа",
@@ -29,6 +30,8 @@ export default {
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]: "Полюбуйтесь деревцем в Тайном лесу",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Найдите свечи в конце радуги в Полуденной прерии",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
+				"Найдите свечи в конце радуги в Тайном лесу",
 			[DailyQuest.CollectOrangeLight]: "Соберите оранжевый свет",
 			[DailyQuest.CollectRedLight]: "Соберите красный свет",
 			[DailyQuest.ReliveTheMantaWhisperer]:
@@ -37,6 +40,8 @@ export default {
 				"Переживите воспоминания Растягивающегося гуру из Полуденной прерии",
 			[DailyQuest.ReliveTheWiseGrandparent]:
 				"Переживите воспоминания Задумчивого творца из Хранилища знаний",
+			[DailyQuest.ReliveTheDaydreamForester]:
+				"Переживите воспоминания Мечтательного лесовичка из Тайного леса",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: "Разыграйте Командора-начальника",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Соберите команду из игроков (Первопроходец (прятки)) в месте Могильник",
@@ -65,6 +70,7 @@ export default {
 			[SeasonId.Nesting]: "Сезон гнездования",
 			[SeasonId.Duets]: "Сезон дуэтов",
 			[SeasonId.Moomin]: "Сезон Муми-троллей",
+			[SeasonId.Radiance]: "Сезон сияния",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Указующий свечной мастер",
@@ -242,6 +248,10 @@ export default {
 			[SpiritName.SenseOfSelf]: "Самосознание",
 			[SpiritName.SpiritOfAdventure]: "Дух приключений",
 			[SpiritName.InspirationOfInclusion]: "Вдохновение инклюзивности",
+			[SpiritName.RadianceGuide]: "Проводник сияния",
+			[SpiritName.RadianceLeapingDancer]: "Скачущий танцор сияния",
+			[SpiritName.RadianceProvokingPerformer]: "Исполнитель-провокатор сияния",
+			[SpiritName.RadianceGreetingShaman]: "Приветствующий шаман сияния",
 		},
 	},
 } as const;

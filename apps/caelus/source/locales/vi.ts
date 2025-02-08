@@ -18,6 +18,7 @@ export default {
 			[DailyQuest.BowAtAPlayer]: "Cúi chào mt người chơi",
 			[DailyQuest.WaveToAFriend]: "Vẫy tay với một người bạn",
 			[DailyQuest.SendAGiftToAFriend]: "Tặng quà cho một người bạn",
+			[DailyQuest.MakeANewAcquaintance]: "Thêm bạn mới",
 			[DailyQuest.RechargeFromAJellyfish]: "Nạp Ánh Sáng từ sứa",
 			[DailyQuest.RideWithAManta]: "Cưỡi cùng Cá Đuối",
 			[DailyQuest.ReliveASpiritsMemories]: "Hồi tưởng lại ký ức của một Tinh Linh",
@@ -30,6 +31,8 @@ export default {
 				"Ngắm cây non ở Rừng Mưa trong thời gian ngắn",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Tìm những ngọn nến ở cuối cầu vồng ở Thảo Nguyên Ánh Sáng",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
+				"Tìm những ngọn nến ở cuối câu vồng ở Rừng Mưa",
 			[DailyQuest.CollectOrangeLight]: "Thu thập Ánh Sáng Cam",
 			[DailyQuest.CollectRedLight]: "Thu thập Ánh Sáng Đỏ",
 			[DailyQuest.ReliveTheMantaWhisperer]:
@@ -38,6 +41,8 @@ export default {
 				"Hồi tưởng lại ký ức của Sư Phụ Giãn Cơ đến từ Thảo Nguyên Ánh Sáng",
 			[DailyQuest.ReliveTheWiseGrandparent]:
 				"Hồi tưởng lại ký ức của Biên Đạo Trầm Tư đến từ Kho Tri Thức",
+			[DailyQuest.ReliveTheDaydreamForester]:
+				"Hồi tưởng lại ký ức của Người Đi Rừng Mộng Du đến từ Rừng Mưa",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Chơi một trò đùa với Thuyền Trưởng Uy Nghiêm",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
@@ -67,6 +72,7 @@ export default {
 			[SeasonId.Nesting]: "Mùa Xây Tổ",
 			[SeasonId.Duets]: "Mùa Song Tấu",
 			[SeasonId.Moomin]: "Mùa Moomin",
+			[SeasonId.Radiance]: "Mùa Rạng Rỡ",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Thợ Nến Dẫn Đường",
@@ -244,6 +250,10 @@ export default {
 			[SpiritName.SenseOfSelf]: "Tự Nhận Thức",
 			[SpiritName.SpiritOfAdventure]: "Tinh Thần Phiêu Lưu",
 			[SpiritName.InspirationOfInclusion]: "Cảm Hứng Về Lòng Bao Dung",
+			[SpiritName.RadianceGuide]: "Chỉ Dẫn Rạng Rỡ",
+			[SpiritName.RadianceLeapingDancer]: "Vũ Công Nhảy Nhót Rạng Rỡ",
+			[SpiritName.RadianceProvokingPerformer]: "Người Biểu Diễn Khiêu Khích Rạng Rỡ",
+			[SpiritName.RadianceGreetingShaman]: "Pháp Sư Chào Hỏi Rạng Rỡ",
 		},
 	},
 } as const;

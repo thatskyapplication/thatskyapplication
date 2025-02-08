@@ -18,6 +18,7 @@ export default {
 			[DailyQuest.BowAtAPlayer]: "Verbeuge dich vor einem Spieler",
 			[DailyQuest.WaveToAFriend]: "Winke einem Freund zu",
 			[DailyQuest.SendAGiftToAFriend]: "Schicke einem Freund ein Geschenk",
+			[DailyQuest.MakeANewAcquaintance]: "Lerne eine neue Person kennen",
 			[DailyQuest.RechargeFromAJellyfish]: "Lade dein Licht durch eine Qualle auf",
 			[DailyQuest.RideWithAManta]: "Schwimme mit einem Riesenrochen",
 			[DailyQuest.ReliveASpiritsMemories]: "Erlebe die Erinnerungen eines Geistes",
@@ -30,6 +31,8 @@ export default {
 				"Geh und bewundere das Bäumchen im verborgenen Wald für eine kurze Weile",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Suche die Kerzen am Ende des Regenbogens in der Tageslichtprärie",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
+				"Suche die Kerzen am Ende des Regenbogens im verborgenen Wald",
 			[DailyQuest.CollectOrangeLight]: "Sammle Oranges Licht",
 			[DailyQuest.CollectRedLight]: "Sammle Rotes Licht",
 			[DailyQuest.ReliveTheMantaWhisperer]:
@@ -38,6 +41,8 @@ export default {
 				"Erlebe erneut die Erinnerung des Stretchenden Gurus von der Tageslicht-Prärie",
 			[DailyQuest.ReliveTheWiseGrandparent]:
 				"Erlebe erneut die Erinnerung des Nachdenklichen Direktors vom Tresor des Wissens",
+			[DailyQuest.ReliveTheDaydreamForester]:
+				"Erlebe erneut die Erinnerung des Tagträumenden Försters vom Verborgenen Wald",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Spiele dem Kommando-Kapitän einen Streich",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
@@ -67,6 +72,7 @@ export default {
 			[SeasonId.Nesting]: "Saison des Nistens",
 			[SeasonId.Duets]: "Saison der Duette",
 			[SeasonId.Moomin]: "Saison des Mumins",
+			[SeasonId.Radiance]: "Saison des Leuchtens",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Deutender Kerzenmacher",
@@ -244,6 +250,10 @@ export default {
 			[SpiritName.SenseOfSelf]: "Selbstbewusstsein",
 			[SpiritName.SpiritOfAdventure]: "Geist des Abenteuers",
 			[SpiritName.InspirationOfInclusion]: "Inspiration der Inklusion",
+			[SpiritName.RadianceGuide]: "Leuchten-Helferin",
+			[SpiritName.RadianceLeapingDancer]: "Leuchtender Springender Tänzer",
+			[SpiritName.RadianceProvokingPerformer]: "Leuchtender Provozierender Künstler",
+			[SpiritName.RadianceGreetingShaman]: "Leuchtender Grüßender Schamane",
 		},
 	},
 	commands: {

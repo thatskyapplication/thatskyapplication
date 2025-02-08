@@ -31,6 +31,42 @@ export default {
 			[NotificationType.Dragon]: "Dragon",
 			[NotificationType.TravellingSpirit]: "Esprit voyageur",
 		},
+		quests: {
+			[DailyQuest.Collect30PiecesOfLight]: "Récupérez 30 morceaux de lumière",
+			[DailyQuest.Light20Candles]: "Allumez 20 bougies",
+			[DailyQuest.BowAtAPlayer]: "Inclinez-vous face à un joueur",
+			[DailyQuest.WaveToAFriend]: "Faites signe à un ami",
+			[DailyQuest.SendAGiftToAFriend]: "Envoyez un cadeau a un ami",
+			[DailyQuest.MakeANewAcquaintance]: "Faites une nouvelle connaissance",
+			[DailyQuest.RechargeFromAJellyfish]: "Rechargez votre lumière auprès d'une méduse",
+			[DailyQuest.RideWithAManta]: "Montez sur une raie manta",
+			[DailyQuest.ReliveASpiritsMemories]: "Revivez les souvenirs d'un esprit",
+			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
+				"Revivez les souvenirs d'un esprit dans la Chambre forte de connaissance",
+			[DailyQuest.KnockOver5DarkCrabs]: "Renversez 5 crabes sombres",
+			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
+				"Visitez le cachette confortable dans les grottes de la Prairie",
+			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
+				"Appréciez le jeune arbre dans la Forêt cachée pendant un petit moment",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
+				"Trouvez les bougies au bout de l'arc-en-ciel dans la Prairie illuminée",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
+				"Trouvez les bougies au bout de l'arc-en-ciel dans la Forêt cachée",
+			[DailyQuest.CollectOrangeLight]: "Récupérez la lumière orange",
+			[DailyQuest.CollectRedLight]: "Récupérez la lumière rouge",
+			[DailyQuest.ReliveTheMantaWhisperer]:
+				"Revivez le souvenir de l'orateur Manta dans la Vallée du triomphe",
+			[DailyQuest.ReliveTheStretchingGuru]:
+				"Revivez le souvenir du gourou en étirement dans la Prairie illuminée",
+			[DailyQuest.ReliveTheWiseGrandparent]:
+				"Revivez le souvenir du réalisateur réfléchi dans la Chambre forte de connaissance",
+			[DailyQuest.ReliveTheDaydreamForester]:
+				"Revivez le souvenir du forestier rêveur dans la Forêt cachée.",
+			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
+				"Faites une farce au commodore commandant",
+			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
+				"Retrouvez Pionnier du cache-cache à Cimetière de la Forêt",
+		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison de la gratitude",
 			[SeasonId.Lightseekers]: "Saison des Chercheurs de lumière",
@@ -55,37 +91,7 @@ export default {
 			[SeasonId.Nesting]: "Saison de la Nidification",
 			[SeasonId.Duets]: "Saison des Duos",
 			[SeasonId.Moomin]: "Saison des Moomins",
-		},
-		quests: {
-			[DailyQuest.Collect30PiecesOfLight]: "Récupérez 30 morceaux de lumière",
-			[DailyQuest.Light20Candles]: "Allumez 20 bougies",
-			[DailyQuest.BowAtAPlayer]: "Inclinez-vous face à un joueur",
-			[DailyQuest.WaveToAFriend]: "Faites signe à un ami",
-			[DailyQuest.SendAGiftToAFriend]: "Envoyez un cadeau a un ami",
-			[DailyQuest.RechargeFromAJellyfish]: "Rechargez votre lumière auprès d'une méduse",
-			[DailyQuest.RideWithAManta]: "Montez sur une raie manta",
-			[DailyQuest.ReliveASpiritsMemories]: "Revivez les souvenirs d'un esprit",
-			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
-				"Revivez les souvenirs d'un esprit dans la Chambre forte de connaissance",
-			[DailyQuest.KnockOver5DarkCrabs]: "Renversez 5 crabes sombres",
-			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
-				"Visitez le cachette confortable dans les grottes de la Prairie",
-			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
-				"Appréciez le jeune arbre dans la Forêt cachée pendant un petit moment",
-			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
-				"Trouvez les bougies au bout de l'arc-en-ciel dans la Prairie illuminée",
-			[DailyQuest.CollectOrangeLight]: "Récupérez la lumière orange",
-			[DailyQuest.CollectRedLight]: "Récupérez la lumière rouge",
-			[DailyQuest.ReliveTheMantaWhisperer]:
-				"Revivez le souvenir de l'orateur Manta dans la Vallée du triomphe",
-			[DailyQuest.ReliveTheStretchingGuru]:
-				"Revivez le souvenir du gourou en étirement dans la Prairie illuminée",
-			[DailyQuest.ReliveTheWiseGrandparent]:
-				"Revivez le souvenir du réalisateur réfléchi dans la Chambre forte de connaissance",
-			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
-				"Faites une farce au commodore commandant",
-			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
-				"Retrouvez Pionnier du cache-cache à Cimetière de la Forêt",
+			[SeasonId.Radiance]: "Saison de l'Éclat",
 		},
 		"shard-eruption": "Éruption d'Éclats",
 		"shard-eruption-none": "Aucun",
@@ -265,6 +271,10 @@ export default {
 			[SpiritName.SenseOfSelf]: "Sens de soi",
 			[SpiritName.SpiritOfAdventure]: "Esprit d'aventure",
 			[SpiritName.InspirationOfInclusion]: "L'inspiration de l'inclusion",
+			[SpiritName.RadianceGuide]: "Guide de l'Éclat",
+			[SpiritName.RadianceLeapingDancer]: "Danseur bondissant de l'Éclat",
+			[SpiritName.RadianceProvokingPerformer]: "Interprète provocateur de l'Éclat",
+			[SpiritName.RadianceGreetingShaman]: "Shaman saluant de l'Éclat",
 		},
 		timestamps: "Heures",
 		view: "Voir",

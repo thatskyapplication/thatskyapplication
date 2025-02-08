@@ -18,6 +18,7 @@ export default {
 			[DailyQuest.BowAtAPlayer]: "プレイヤーにお辞儀をする",
 			[DailyQuest.WaveToAFriend]: "フレンドに手を振る",
 			[DailyQuest.SendAGiftToAFriend]: "フレンドにギフトを贈る",
+			[DailyQuest.MakeANewAcquaintance]: "新たな知り合いを作る",
 			[DailyQuest.RechargeFromAJellyfish]: "光のクラゲにエナジーを回復してもらう",
 			[DailyQuest.RideWithAManta]: "マンタに乗る",
 			[DailyQuest.ReliveASpiritsMemories]: "精霊の記憶を呼び起こす",
@@ -28,11 +29,14 @@ export default {
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]: "雨林を訪れ、しばしの間、若木を愛でる",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"草原で虹のキャンドルを見つける",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
+				"雨林で虹のキャンドルを見つける",
 			[DailyQuest.CollectOrangeLight]: "だいだい色の灯りを集める",
 			[DailyQuest.CollectRedLight]: "赤色の灯りを集める",
 			[DailyQuest.ReliveTheMantaWhisperer]: "峡谷でマンタの語り部の記憶を呼び起こす",
 			[DailyQuest.ReliveTheStretchingGuru]: "草原で屈伸する導師の記憶を呼び起こす",
 			[DailyQuest.ReliveTheWiseGrandparent]: "書庫で思慮深き座長の記憶を呼び起こす",
+			[DailyQuest.ReliveTheDaydreamForester]: "雨林で夢見がちな森の民の記憶を呼び起こす",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: "動じない提にいたずらを仕掛けましょう",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"かくれんぼ提唱者に雨林の墓場で会いましょう",
@@ -61,6 +65,7 @@ export default {
 			[SeasonId.Nesting]: "巣づくりの季節",
 			[SeasonId.Duets]: "音色の季節",
 			[SeasonId.Moomin]: "ムーミンの季節",
+			[SeasonId.Radiance]: "光に染まる季節",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "指差すキャンドル職人",
@@ -238,6 +243,10 @@ export default {
 			[SpiritName.SenseOfSelf]: "自乙の確立",
 			[SpiritName.SpiritOfAdventure]: "冒険の心",
 			[SpiritName.InspirationOfInclusion]: "包容力の源",
+			[SpiritName.RadianceGuide]: "光染めの内人",
+			[SpiritName.RadianceLeapingDancer]: "光に染まる飛び跳ねる舞踏家",
+			[SpiritName.RadianceProvokingPerformer]: "光に染まる挑戦的な表現者",
+			[SpiritName.RadianceGreetingShaman]: "光に染まる礼を尽くす祈祷師",
 		},
 	},
 } as const;

@@ -18,6 +18,7 @@ export default {
 			[DailyQuest.BowAtAPlayer]: "Curvar-se perante um jogador",
 			[DailyQuest.WaveToAFriend]: "Dar tchau para um amigo",
 			[DailyQuest.SendAGiftToAFriend]: "Enviar um presente para um amigo",
+			[DailyQuest.MakeANewAcquaintance]: "Conhecer alguém novo",
 			[DailyQuest.RechargeFromAJellyfish]: "Recarregar sua luz com uma água-viva",
 			[DailyQuest.RideWithAManta]: "Passeie com uma arraia",
 			[DailyQuest.ReliveASpiritsMemories]: "Reviver as memórias de um espírito",
@@ -30,6 +31,8 @@ export default {
 				"Admire o broto na Floresta Escondida por um curto período de tempo",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Econtre as velas no fim do arco-íris na Campina da Aurora",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
+				"Encontre as velas no fim do arco-íris na Floresta Oculta",
 			[DailyQuest.CollectOrangeLight]: "Colete Luz Laranja",
 			[DailyQuest.CollectRedLight]: "Colete Luz Vermelha",
 			[DailyQuest.ReliveTheMantaWhisperer]:
@@ -38,6 +41,8 @@ export default {
 				"Reviva as lembranças do Guru Alongando na Campina da Aurora",
 			[DailyQuest.ReliveTheWiseGrandparent]:
 				"Reviva as lembranças do Diretor Pensativo no Relicário do Conhecimento",
+			[DailyQuest.ReliveTheDaydreamForester]:
+				"Reviva as lembranças do Silvicultor Sonhador na Floresta Oculta",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Faça uma pegadinha com o Comodoro Abandonado",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
@@ -67,6 +72,7 @@ export default {
 			[SeasonId.Nesting]: "Temporada do Ninho",
 			[SeasonId.Duets]: "Temporada de Duetos",
 			[SeasonId.Moomin]: "Temporada dos Mumins",
+			[SeasonId.Radiance]: "Temporada do Resplendor",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Candeeiro Denotante",
@@ -244,6 +250,10 @@ export default {
 			[SpiritName.SenseOfSelf]: "Senso de Identidade",
 			[SpiritName.SpiritOfAdventure]: "Espírito de Aventura",
 			[SpiritName.InspirationOfInclusion]: "Inspiração de Inclusão",
+			[SpiritName.RadianceGuide]: "Guia do Resplendor",
+			[SpiritName.RadianceLeapingDancer]: "Dançarino Saltitante do Resplendor",
+			[SpiritName.RadianceProvokingPerformer]: "Artista Provocante do Resplendor",
+			[SpiritName.RadianceGreetingShaman]: "Xamã Acolhedor do Resplendor",
 		},
 	},
 } as const;

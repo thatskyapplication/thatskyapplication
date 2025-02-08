@@ -18,6 +18,7 @@ export default {
 			[DailyQuest.BowAtAPlayer]: "Inchinati ad un giocatore",
 			[DailyQuest.WaveToAFriend]: "Saluta un amico",
 			[DailyQuest.SendAGiftToAFriend]: "Invia un regalo a un amico",
+			[DailyQuest.MakeANewAcquaintance]: "Fai una nuova conoscenza",
 			[DailyQuest.RechargeFromAJellyfish]: "Ricarica la tua luce da una medusa",
 			[DailyQuest.RideWithAManta]: "Cavalca una manta",
 			[DailyQuest.ReliveASpiritsMemories]: "Rivivi i ricordi di uno spirito",
@@ -30,6 +31,8 @@ export default {
 				"Apprezza l'alberello nella Foresta Nascosta per un breve periodo",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Trova le candele alla fine dell'arcobaleno nella Prateria Diurna",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
+				"Trova le candele alla fine dell'arcobaleno nella Foresta Nascosta",
 			[DailyQuest.CollectOrangeLight]: "Raccogli Luce Arancione",
 			[DailyQuest.CollectRedLight]: "Raccogli Luce Rossa",
 			[DailyQuest.ReliveTheMantaWhisperer]:
@@ -38,6 +41,8 @@ export default {
 				"Revivi il ricordo del Guru stiracchiante nella Prateria Diurna",
 			[DailyQuest.ReliveTheWiseGrandparent]:
 				"Rivivi il ricordo del Direttore pensieroso nella Cupola della Conoscenza",
+			[DailyQuest.ReliveTheDaydreamForester]:
+				"Rivivi il ricordo del Guardaboschi sognante nella Foresta Nascosta",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Fai uno scherzo al Commodoro autorevole",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
@@ -67,6 +72,7 @@ export default {
 			[SeasonId.Nesting]: "Stagione dei Nidi",
 			[SeasonId.Duets]: "Stagione dei Duetti",
 			[SeasonId.Moomin]: "Stagione dei Mumin",
+			[SeasonId.Radiance]: "Stagione dello Splendore",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "Candelaio indicante",
@@ -244,6 +250,10 @@ export default {
 			[SpiritName.SenseOfSelf]: "Autopercezione",
 			[SpiritName.SpiritOfAdventure]: "Spirito di avventura",
 			[SpiritName.InspirationOfInclusion]: "Senso di inclusione",
+			[SpiritName.RadianceGuide]: "Guida allo spendore",
+			[SpiritName.RadianceLeapingDancer]: "Ballerino guizzante dello Splendore",
+			[SpiritName.RadianceProvokingPerformer]: "Artista provocatorio dello Splendore",
+			[SpiritName.RadianceGreetingShaman]: "Sciamano accogliente dello Splendore",
 		},
 	},
 } as const;

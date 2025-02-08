@@ -19,6 +19,7 @@ export default {
 			[DailyQuest.BowAtAPlayer]: "플레이어에게 고개 숙여 인사하기",
 			[DailyQuest.WaveToAFriend]: "친구에게 손 흔들기",
 			[DailyQuest.SendAGiftToAFriend]: "친구에게 선물 보내기",
+			[DailyQuest.MakeANewAcquaintance]: "낯선 플레이어와 촛불을 맞대기",
 			[DailyQuest.RechargeFromAJellyfish]: "해파리 위에서 빛 충전하기",
 			[DailyQuest.RideWithAManta]: "만타가오리 위에 올라타기",
 			[DailyQuest.ReliveASpiritsMemories]: "영혼의 기억을 체험하기",
@@ -30,6 +31,8 @@ export default {
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]: "비밀의 숲에서 어린 나무를 잠시 감상하기",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"햇빛 초원의 무지개 끝에서 양초를 찾기",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
+				"비밀의 숲의 무지개 끝에서 양초를 찾기",
 			[DailyQuest.CollectOrangeLight]: "주황색 빛 모으기",
 			[DailyQuest.CollectRedLight]: "빨간색 빛 모으기",
 			[DailyQuest.ReliveTheMantaWhisperer]:
@@ -37,6 +40,8 @@ export default {
 			[DailyQuest.ReliveTheStretchingGuru]: "햇빛 초원에서 체조하는 선생의 기억을 다시 체험하기",
 			[DailyQuest.ReliveTheWiseGrandparent]:
 				"지식의 도서관에서 고민하는 감독의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheDaydreamForester]:
+				"비밀의 숲에서 몽상하는 숲지기의 기억을 다시 체험하기",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: "위풍당당 선장에게 장난을 치기",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: "뼈 무덤에서 숨바꼭질 개척자와(과) 만나기",
 		},
@@ -64,6 +69,7 @@ export default {
 			[SeasonId.Nesting]: "보금자리의 시즌",
 			[SeasonId.Duets]: "듀엣의 시즌",
 			[SeasonId.Moomin]: "무민의 시즌",
+			[SeasonId.Radiance]: "비밀의 숲",
 		},
 		events: {
 			[EventId.DaysOfMusic2024]: "음악의 날",
@@ -244,6 +250,10 @@ export default {
 			[SpiritName.SenseOfSelf]: "자아의 인식",
 			[SpiritName.SpiritOfAdventure]: "모험의 정신",
 			[SpiritName.InspirationOfInclusion]: "포용의 원천",
+			[SpiritName.RadianceGuide]: "광채의 안내자",
+			[SpiritName.RadianceLeapingDancer]: "광채의 팔짝 뛰는 무용수",
+			[SpiritName.RadianceProvokingPerformer]: "광채의 도발하는 곡예사",
+			[SpiritName.RadianceGreetingShaman]: "광채의 인사하는 주술사",
 		},
 	},
 } as const;
