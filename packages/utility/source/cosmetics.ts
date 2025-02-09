@@ -2865,8 +2865,8 @@ export enum Cosmetic {
 	RadianceGuideCyanDye = 2285,
 
 	// 10/02/2025 | Days of Love.
-	DaysOfLoveVioletCrystal,
-	DaysOfLoveBraids,
-	DaysOfLoveAmethystAccessory,
-	DaysOfLoveAmethystTippedTails,
+	DaysOfLoveVioletCrystal = 2286,
+	DaysOfLoveBraids = 2287,
+	DaysOfLoveAmethystAccessory = 2288,
+	DaysOfLoveAmethystTippedTails = 2289,
 }

@@ -2644,6 +2644,14 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 * Fortune Snake Coif.
 	 */
 	Hair157: { id: "1333207592440303657", name: "157_hair" },
+	/**
+	 * Days of Love Braids.
+	 */
+	Hair158: { id: "1338231103885934796", name: "158_hair" },
+	/**
+	 * Amethyst-Tipped Tails.
+	 */
+	Hair159: { id: "1338232780793839736", name: "159_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_DEVELOPMENT = {
@@ -2804,6 +2812,8 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair155: { id: "1330513818933002292", name: "155_hair" },
 	Hair156: { id: "1330664954428260363", name: "156_hair" },
 	Hair157: { id: "1333207599063240724", name: "157_hair" },
+	Hair158: { id: "1338231111171571794", name: "158_hair" },
+	Hair159: { id: "1338232789127921704", name: "159_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -3023,6 +3033,10 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Radiance Greeting Shaman.
 	 */
 	HairAccessory54: { id: "1330662827316477952", name: "54_hair_accessory" },
+	/**
+	 * Amethyst Accessory.
+	 */
+	HairAccessory55: { id: "1338232440082272316", name: "55_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3080,6 +3094,7 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory52: { id: "1320566011736490115", name: "52_hair_accessory" },
 	HairAccessory53: { id: "1330643964210057416", name: "53_hair_accessory" },
 	HairAccessory54: { id: "1330662833142239272", name: "54_hair_accessory" },
+	HairAccessory55: { id: "1338232448043057152", name: "55_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_PRODUCTION = {
@@ -4830,6 +4845,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Wonderland Cafe Corridor.
 	 */
 	SmallPlaceableProp86: { id: "1320566969392435303", name: "86_small_placeable_prop" },
+	/**
+	 * Days of Love Violet Crystal.
+	 */
+	SmallPlaceableProp87: { id: "1338230430813520012", name: "87_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4919,6 +4938,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp84: { id: "1313924679798362252", name: "84_small_placeable_prop" },
 	SmallPlaceableProp85: { id: "1315723148133531738", name: "85_small_placeable_prop" },
 	SmallPlaceableProp86: { id: "1320566442755756102", name: "86_small_placeable_prop" },
+	SmallPlaceableProp87: { id: "1338230482931814540", name: "87_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojis(production: boolean) {
