@@ -2,6 +2,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, Outlet, useLocation } from "@remix-run/react";
 import { useState } from "react";
 import TopBar from "~/components/TopBar";
+import { SKY_KID_ICON_URL } from "~/utility/constants.js";
 
 interface SidebarData {
 	title: string;
@@ -11,7 +12,7 @@ interface SidebarData {
 const HOME = [
 	{ title: "Home", path: "/caelus/home" },
 	{ title: "Acknowledgements", path: "/caelus/acknowledgements" },
-	{ title: "Terms of Service & Privacy Policy", path: "/caelus/terms-privacy" },
+	{ title: "Terms & Privacy", path: "/caelus/terms-privacy" },
 ] as const;
 
 const GUIDES = [
@@ -30,18 +31,27 @@ const renderCategory = (
 ) => (
 	<>
 		<h2 className="text-lg mt-0 mb-0 uppercase tracking-wide">{title}</h2>
-		<ul className="space-y-2">
+		<ul className="space-y-1">
 			{sidebarData.map((data) => (
 				<li key={data.path}>
 					<Link
 						to={data.path}
 						className={`block px-2 py-1 rounded-md transition duration-200 ${
 							location.pathname === data.path
-								? "bg-discord-button text-white shadow-md"
+								? "text-white shadow-md"
 								: "text-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
 						}`}
 					>
-						{data.title}
+						<div className="flex items-center justify-between">
+							<span className="flex-1 truncate">{data.title}</span>
+							{location.pathname === data.path && (
+								<img
+									src={SKY_KID_ICON_URL}
+									alt="Creator Troupe icon."
+									className="w-6 h-6 flex-shrink-0 ml-2"
+								/>
+							)}
+						</div>
 					</Link>
 				</li>
 			))}
@@ -98,12 +108,21 @@ export default function GuidesLayout() {
 										to={home.path}
 										className={`block px-2 py-1 rounded-md hover:outline-none transition duration-200 ${
 											location.pathname === home.path
-												? "bg-discord-button text-white shadow-md"
+												? "text-white shadow-md"
 												: "text-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
 										}`}
 										onClick={() => setIsSidebarOpen(false)}
 									>
-										{home.title}
+										<div className="flex items-center justify-between">
+											<span className="flex-1 truncate">{home.title}</span>
+											{location.pathname === home.path && (
+												<img
+													src={SKY_KID_ICON_URL}
+													alt="Creator Troupe icon."
+													className="w-6 h-6 flex-shrink-0 ml-2"
+												/>
+											)}
+										</div>
 									</Link>
 								</li>
 							))}
@@ -116,12 +135,21 @@ export default function GuidesLayout() {
 										to={guide.path}
 										className={`block px-2 py-1 rounded-md hover:outline-none transition duration-200 ${
 											location.pathname === guide.path
-												? "bg-discord-button text-white shadow-md"
+												? "text-white shadow-md"
 												: "text-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
 										}`}
 										onClick={() => setIsSidebarOpen(false)}
 									>
-										{guide.title}
+										<div className="flex items-center justify-between">
+											<span className="flex-1 truncate">{guide.title}</span>
+											{location.pathname === guide.path && (
+												<img
+													src={SKY_KID_ICON_URL}
+													alt="Creator Troupe icon."
+													className="w-6 h-6 flex-shrink-0 ml-2"
+												/>
+											)}
+										</div>
 									</Link>
 								</li>
 							))}

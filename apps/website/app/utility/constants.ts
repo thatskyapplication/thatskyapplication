@@ -20,6 +20,7 @@ export const SHARD_ERUPTION_DESCRIPTION =
 	"See today's shard eruption, and view a schedule of future shard eruptions." as const;
 
 export const SHARD_ERUPTION_ICON_URL = String(new URL("assets/shard_strong.webp", CDN_URL));
+export const SKY_KID_ICON_URL = String(new URL("assets/sky_kid.webp", CDN_URL));
 
 export const INVITE_APPLICATION_URL =
 	"https://discord.com/oauth2/authorize?client_id=982740693070012506" as const;
