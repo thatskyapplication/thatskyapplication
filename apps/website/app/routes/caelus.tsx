@@ -38,8 +38,8 @@ const renderCategory = (
 						to={data.path}
 						className={`block px-2 py-1 rounded-md transition duration-200 ${
 							location.pathname === data.path
-								? "text-white shadow-md"
-								: "text-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
+								? "bg-gray-300 dark:bg-gray-700 dark:text-white text-black shadow"
+								: "text-gray-600 dark:text-gray-400 hover:bg-sky-100 dark:hover:bg-gray-800"
 						}`}
 					>
 						<div className="flex items-center justify-between">
@@ -71,7 +71,7 @@ export default function GuidesLayout() {
 		<div className="min-h-screen flex pt-14">
 			<TopBar />
 			<nav className="hidden lg:block fixed left-0 top-0 pt-24 h-full w-64 bg-gray-100 dark:bg-gray-900 lg:border-r lg:border-gray-300 dark:lg:border-gray-700 p-4 overflow-y-auto">
-				<div className="space-y-2">
+				<div className="space-y-1">
 					{renderCategory("Home", HOME, location)}
 					{renderCategory("Guides", GUIDES, location)}
 				</div>
@@ -90,7 +90,7 @@ export default function GuidesLayout() {
 						isSidebarOpen ? "translate-x-0" : "translate-x-[110%]"
 					} overflow-y-auto max-h-[50vh]`}
 				>
-					<div className="relative space-y-2">
+					<div className="relative space-y-1">
 						<div className="flex justify-between items-center">
 							<h2 className="text-lg my-0 uppercase tracking-wide">Home</h2>
 							<button
@@ -101,15 +101,15 @@ export default function GuidesLayout() {
 								<XMarkIcon className="h-6 w-6" />
 							</button>
 						</div>
-						<ul className="space-y-2">
+						<ul className="space-y-1">
 							{HOME.map((home) => (
 								<li key={home.path}>
 									<Link
 										to={home.path}
 										className={`block px-2 py-1 rounded-md hover:outline-none transition duration-200 ${
 											location.pathname === home.path
-												? "text-white shadow-md"
-												: "text-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
+												? "bg-gray-300 dark:bg-gray-700 dark:text-white text-black shadow"
+												: "text-gray-600 dark:text-gray-400 hover:bg-sky-100 dark:hover:bg-gray-800"
 										}`}
 										onClick={() => setIsSidebarOpen(false)}
 									>
@@ -128,15 +128,15 @@ export default function GuidesLayout() {
 							))}
 						</ul>
 						<h2 className="text-lg mt-0 mb-0 uppercase tracking-wide">Guides</h2>
-						<ul className="space-y-2">
+						<ul className="space-y-1">
 							{GUIDES.map((guide) => (
 								<li key={guide.path}>
 									<Link
 										to={guide.path}
 										className={`block px-2 py-1 rounded-md hover:outline-none transition duration-200 ${
 											location.pathname === guide.path
-												? "text-white shadow-md"
-												: "text-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
+												? "bg-gray-300 dark:bg-gray-700 dark:text-white text-black shadow"
+												: "text-gray-600 dark:text-gray-400 hover:bg-sky-100 dark:hover:bg-gray-800"
 										}`}
 										onClick={() => setIsSidebarOpen(false)}
 									>
