@@ -35,7 +35,7 @@ const renderCategory = (
 				<li key={data.path}>
 					<Link
 						to={data.path}
-						className={`block px-4 py-2 rounded-md transition duration-200 ${
+						className={`block px-2 py-1 rounded-md transition duration-200 ${
 							location.pathname === data.path
 								? "bg-discord-button text-white shadow-md"
 								: "text-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
@@ -96,7 +96,7 @@ export default function GuidesLayout() {
 								<li key={home.path}>
 									<Link
 										to={home.path}
-										className={`block px-4 py-2 rounded-md hover:outline-none transition duration-200 ${
+										className={`block px-2 py-1 rounded-md hover:outline-none transition duration-200 ${
 											location.pathname === home.path
 												? "bg-discord-button text-white shadow-md"
 												: "text-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
@@ -114,7 +114,7 @@ export default function GuidesLayout() {
 								<li key={guide.path}>
 									<Link
 										to={guide.path}
-										className={`block px-4 py-2 rounded-md hover:outline-none transition duration-200 ${
+										className={`block px-2 py-1 rounded-md hover:outline-none transition duration-200 ${
 											location.pathname === guide.path
 												? "bg-discord-button text-white shadow-md"
 												: "text-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800"
