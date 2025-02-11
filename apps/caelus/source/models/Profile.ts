@@ -2037,7 +2037,7 @@ export default class Profile {
 		}
 
 		if (fields.length > 4 && fields.length % 3 === 2) {
-			fields.push({ name: "\u200B", value: "\u200B", inline: true });
+			fields.push({ name: "", value: "", inline: true });
 		}
 
 		embed.fields = fields;
