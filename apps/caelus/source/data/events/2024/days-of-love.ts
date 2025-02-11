@@ -22,7 +22,7 @@ for (
 	eventTicketAmount.push({
 		date: start,
 		amount: 5,
-		infographicURL: String(new URL("events/2024/days_of_love/event_currency.webp", CDN_URL)),
+		infographicURL: String(new URL("events/2024/days_of_love/event_tickets.webp", CDN_URL)),
 	});
 }
 
