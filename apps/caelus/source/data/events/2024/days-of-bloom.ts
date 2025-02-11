@@ -11,7 +11,7 @@ export default new Event({
 	id: EventId.DaysOfBloom2024,
 	start: skyDate(2_024, 3, 25),
 	end: skyDate(2_024, 4, 15),
-	eventCurrency: {
+	eventTickets: {
 		amount: [
 			{
 				amount: 5,
@@ -172,13 +172,13 @@ export default new Event({
 		{
 			name: "Bloom Spiky Sprig Hair",
 			cosmetic: Cosmetic.BloomSpikySprigHair,
-			cost: { eventCurrency: 24 },
+			cost: { eventTickets: 24 },
 			emoji: HAIR_EMOJIS.Hair140,
 		},
 		{
 			name: "Bloom Arum Petal Cape",
 			cosmetic: Cosmetic.BloomArumPetalCape,
-			cost: { eventCurrency: 48 },
+			cost: { eventTickets: 48 },
 			emoji: CAPE_EMOJIS.Cape128,
 		},
 		{

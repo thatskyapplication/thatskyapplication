@@ -13,14 +13,14 @@ import {
 	SHOE_EMOJIS,
 } from "../../../utility/emojis.js";
 
-const eventCurrencyAmount = [];
+const eventTicketAmount = [];
 
 for (
 	let start = skyDate(2_023, 10, 23), end = skyDate(2_023, 11, 13);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
-	eventCurrencyAmount.push({
+	eventTicketAmount.push({
 		date: start,
 		amount: 6,
 		infographicURL: String(new URL("events/2023/days_of_mischief/event_currency.webp", CDN_URL)),
@@ -31,26 +31,26 @@ export default new Event({
 	id: EventId.DaysOfMischief2023,
 	start: skyDate(2_023, 10, 23),
 	end: skyDate(2_023, 11, 13),
-	eventCurrency: {
-		amount: eventCurrencyAmount,
+	eventTickets: {
+		amount: eventTicketAmount,
 	},
 	offer: [
 		{
 			name: "Mischief Crabkin Accessory",
 			cosmetic: Cosmetic.MischiefCrabkinAccessory,
-			cost: { eventCurrency: 24 },
+			cost: { eventTickets: 24 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory32,
 		},
 		{
 			name: "Mischief Goth Boots",
 			cosmetic: Cosmetic.MischiefGothBoots,
-			cost: { eventCurrency: 16 },
+			cost: { eventTickets: 16 },
 			emoji: SHOE_EMOJIS.Shoe12,
 		},
 		{
 			name: "Mischief Goth Garment",
 			cosmetic: Cosmetic.MischiefGothGarment,
-			cost: { eventCurrency: 41 },
+			cost: { eventTickets: 41 },
 			emoji: OUTFIT_EMOJIS.Outfit52,
 		},
 		{

@@ -2,7 +2,7 @@ import { type APIChatInputApplicationCommandInteraction, Locale } from "@discord
 import { t } from "i18next";
 import {
 	ascendedCandles,
-	eventCurrency,
+	eventTickets,
 	seasonalCandles,
 	wingedLight,
 } from "../../services/calculate.js";
@@ -18,8 +18,8 @@ export default {
 				await ascendedCandles(interaction, options);
 				return;
 			}
-			case "event-currency": {
-				await eventCurrency(interaction, options);
+			case "event-tickets": {
+				await eventTickets(interaction, options);
 				return;
 			}
 			case "seasonal-candles": {

@@ -6,40 +6,40 @@ import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import { skyDate } from "../../../utility/dates.js";
 import { CAPE_EMOJIS, SHOE_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../../utility/emojis.js";
 
-const eventCurrencyAmount = [];
+const eventTicketAmount = [];
 
 for (
 	let start = skyDate(2_023, 9, 11), end = skyDate(2_023, 9, 25);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
-	eventCurrencyAmount.push({ date: start, amount: 6 });
+	eventTicketAmount.push({ date: start, amount: 6 });
 }
 
 export default new Event({
 	id: EventId.DaysOfSunlight2023,
 	start: skyDate(2_023, 9, 11),
 	end: skyDate(2_023, 9, 25),
-	eventCurrency: {
-		amount: eventCurrencyAmount,
+	eventTickets: {
+		amount: eventTicketAmount,
 	},
 	offer: [
 		{
 			name: "Sunlight Pink Beach Towel Cape",
 			cosmetic: Cosmetic.SunlightPinkBeachTowelCape,
-			cost: { eventCurrency: 16 },
+			cost: { eventTickets: 16 },
 			emoji: CAPE_EMOJIS.Cape108,
 		},
 		{
 			name: "Sunlight Yellow Beach Towel Cape",
 			cosmetic: Cosmetic.SunlightYellowBeachTowelCape,
-			cost: { eventCurrency: 18 },
+			cost: { eventTickets: 18 },
 			emoji: CAPE_EMOJIS.Cape109,
 		},
 		{
 			name: "Sunlight Blue Beach Towel Cape",
 			cosmetic: Cosmetic.SunlightBlueBeachTowelCape,
-			cost: { eventCurrency: 23 },
+			cost: { eventTickets: 23 },
 			emoji: CAPE_EMOJIS.Cape110,
 		},
 		{

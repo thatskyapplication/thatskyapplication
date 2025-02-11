@@ -145,7 +145,7 @@ export async function ascendedCandles(
 	});
 }
 
-export async function eventCurrency(
+export async function eventTickets(
 	interaction: APIChatInputApplicationCommandInteraction,
 	options: OptionResolver,
 ) {
@@ -165,24 +165,24 @@ export async function eventCurrency(
 	// This calculator may only be used during events.
 	const now = skyNow();
 
-	// Filter out events that do not have event currency.
+	// Filter out events that do not have event tickets.
 	const events = skyCurrentEvents(now).filter(
-		(event): event is Event & { readonly eventCurrency: NonNullable<Event["eventCurrency"]> } =>
-			event.eventCurrency !== null,
+		(event): event is Event & { readonly eventTickets: NonNullable<Event["eventTickets"]> } =>
+			event.eventTickets !== null,
 	);
 
 	if (events.length === 0) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "There is no event currently active with event currency.",
+			content: "There is no event currently active with event tickets.",
 			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
 	}
 
-	if (events.every(({ eventCurrency }) => now >= eventCurrency.end)) {
+	if (events.every(({ eventTickets }) => now >= eventTickets.end)) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "There is no more event currency.",
+			content: "There are no more event tickets.",
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -193,8 +193,8 @@ export async function eventCurrency(
 
 	const suffix = events
 		.map((event) =>
-			event.eventCurrency.emoji
-				? formatEmoji(event.eventCurrency.emoji)
+			event.eventTickets.emoji
+				? formatEmoji(event.eventTickets.emoji)
 				: t(`events.${event.id}`, { lng: locale, ns: "general" }),
 		)
 		.join("");
@@ -206,23 +206,23 @@ export async function eventCurrency(
 	const result = events.map((event) => {
 		const today = now.startOf("day");
 
-		// Collect daily event currency.
-		const dailyRemaining = event.eventCurrency.amount.reduce(
-			(remaining, eventCurrency) =>
-				eventCurrency.date >= today ? remaining + eventCurrency.amount : remaining,
+		// Collect daily event tickets.
+		const dailyRemaining = event.eventTickets.amount.reduce(
+			(remaining, eventTickets) =>
+				eventTickets.date >= today ? remaining + eventTickets.amount : remaining,
 			0,
 		);
 
 		// Collect pools, if any.
-		const pool = event.eventCurrency.pool?.find((pool) => isDuring(pool.start, pool.end, today));
-		return `${event.eventCurrency.emoji ? formatEmoji(event.eventCurrency.emoji) : `${t(`events.${event.id}`, { lng: locale, ns: "general" })}: `} A total of ${dailyRemaining} remains daily.${pool ? ` There is currently a pool of ${pool.amount}!` : ""}`;
+		const pool = event.eventTickets.pool?.find((pool) => isDuring(pool.start, pool.end, today));
+		return `${event.eventTickets.emoji ? formatEmoji(event.eventTickets.emoji) : `${t(`events.${event.id}`, { lng: locale, ns: "general" })}: `} A total of ${dailyRemaining} remains daily.${pool ? ` There is currently a pool of ${pool.amount}!` : ""}`;
 	});
 
 	const embed: APIEmbed = {
 		color: DEFAULT_EMBED_COLOUR,
 		description: `Start: ${startEmojis}\nGoal: ${goalEmojis}\nRequired: ${amountRequiredEmojis}`,
 		fields: [{ name: "Result", value: result.join("\n") }],
-		title: "Event Currency Calculator",
+		title: "Event Ticket Calculator",
 	};
 
 	const footer: APIEmbedFooter = {
@@ -231,8 +231,8 @@ export async function eventCurrency(
 
 	const event0 = events[0];
 
-	if (events.length === 1 && event0?.eventCurrency.emoji) {
-		footer.icon_url = formatEmojiURL(event0.eventCurrency.emoji.id);
+	if (events.length === 1 && event0?.eventTickets.emoji) {
+		footer.icon_url = formatEmojiURL(event0.eventTickets.emoji.id);
 	}
 
 	embed.footer = footer;

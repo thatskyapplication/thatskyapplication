@@ -12,46 +12,46 @@ import {
 	SHOE_EMOJIS,
 } from "../../../utility/emojis.js";
 
-const eventCurrencyAmount = [];
+const eventTicketAmount = [];
 
 for (
 	let start = skyDate(2_023, 10, 2), end = skyDate(2_023, 10, 16);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
-	eventCurrencyAmount.push({ date: start, amount: 5 });
+	eventTicketAmount.push({ date: start, amount: 5 });
 }
 
 export default new Event({
 	id: EventId.DaysOfStyle2023,
 	start: skyDate(2_023, 10, 2),
 	end: skyDate(2_023, 10, 16),
-	eventCurrency: {
-		amount: eventCurrencyAmount,
+	eventTickets: {
+		amount: eventTicketAmount,
 	},
 	offer: [
 		{
 			name: "Style Top Hat",
 			cosmetic: Cosmetic.StyleTopHat,
-			cost: { eventCurrency: 10 },
+			cost: { eventTickets: 10 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory29,
 		},
 		{
 			name: "Style Runway Mask",
 			cosmetic: Cosmetic.StyleRunwayMask,
-			cost: { eventCurrency: 8 },
+			cost: { eventTickets: 8 },
 			emoji: MASK_EMOJIS.Mask83,
 		},
 		{
 			name: "Style Star Sunglasses",
 			cosmetic: Cosmetic.StyleStarSunglasses,
-			cost: { eventCurrency: 14 },
+			cost: { eventTickets: 14 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory30,
 		},
 		{
 			name: "Style Silk Ballet Slippers",
 			cosmetic: Cosmetic.StyleSilkBalletSlippers,
-			cost: { eventCurrency: 18 },
+			cost: { eventTickets: 18 },
 			emoji: SHOE_EMOJIS.Shoe07,
 		},
 		{

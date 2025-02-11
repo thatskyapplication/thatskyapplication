@@ -12,40 +12,40 @@ import {
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 } from "../../../utility/emojis.js";
 
-const eventCurrencyAmount = [];
+const eventTicketAmount = [];
 
 for (
 	let start = skyDate(2_024, 10, 21), end = skyDate(2_024, 11, 10);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
-	eventCurrencyAmount.push({ date: start, amount: 5 });
+	eventTicketAmount.push({ date: start, amount: 5 });
 }
 
 export default new Event({
 	id: EventId.DaysOfMischief2024,
 	start: skyDate(2_024, 10, 21),
 	end: skyDate(2_024, 11, 11),
-	eventCurrency: {
-		amount: eventCurrencyAmount,
+	eventTickets: {
+		amount: eventTicketAmount,
 	},
 	offer: [
 		{
 			name: "Mischief Star Sticker",
 			cosmetic: Cosmetic.MischiefStarSticker,
-			cost: { eventCurrency: 16 },
+			cost: { eventTickets: 16 },
 			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory40,
 		},
 		{
 			name: "Mischief Cauldron",
 			cosmetic: Cosmetic.MischiefCauldron,
-			cost: { eventCurrency: 36 },
+			cost: { eventTickets: 36 },
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp76,
 		},
 		{
 			name: "Mischief Spider Bun",
 			cosmetic: Cosmetic.MischiefSpiderBun,
-			cost: { eventCurrency: 22 },
+			cost: { eventTickets: 22 },
 			emoji: HAIR_EMOJIS.Hair152,
 		},
 		{

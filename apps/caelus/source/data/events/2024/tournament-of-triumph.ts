@@ -11,24 +11,24 @@ import {
 	OUTFIT_EMOJIS,
 } from "../../../utility/emojis.js";
 
-const eventCurrencyAmount = [];
+const eventTicketAmount = [];
 
 for (
 	let start = skyDate(2_024, 7, 29), end = skyDate(2_024, 8, 17);
 	start <= end;
 	start = start.plus({ days: 1 })
 ) {
-	eventCurrencyAmount.push({ date: start, amount: 2 });
+	eventTicketAmount.push({ date: start, amount: 2 });
 }
 
-eventCurrencyAmount.push({ date: skyDate(2_024, 8, 18), amount: 5 });
+eventTicketAmount.push({ date: skyDate(2_024, 8, 18), amount: 5 });
 
 export default new Event({
 	id: EventId.TournamentOfTriumph2024,
 	start: skyDate(2_024, 7, 29),
 	end: skyDate(2_024, 8, 19),
-	eventCurrency: {
-		amount: eventCurrencyAmount,
+	eventTickets: {
+		amount: eventTicketAmount,
 		pool: [
 			{
 				start: skyDate(2_024, 7, 29),
@@ -46,13 +46,13 @@ export default new Event({
 		{
 			name: "Tournament Curls",
 			cosmetic: Cosmetic.TournamentCurls,
-			cost: { eventCurrency: 25 },
+			cost: { eventTickets: 25 },
 			emoji: HAIR_EMOJIS.Hair148,
 		},
 		{
 			name: "Tournament Torch",
 			cosmetic: Cosmetic.TournamentTorch,
-			cost: { eventCurrency: 37 },
+			cost: { eventTickets: 37 },
 			emoji: HELD_PROPS_EMOJIS.HeldProp45,
 		},
 		{

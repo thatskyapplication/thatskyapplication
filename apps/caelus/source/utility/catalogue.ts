@@ -192,7 +192,7 @@ export const EventId = {
 
 export type EventIds = (typeof EventId)[keyof typeof EventId];
 
-export const EventIdToEventCurrencyEmoji = {
+export const EventIdToEventTicketEmoji = {
 	// 2019.
 	[EventId.HalloweenOfficeEvent2019]: null,
 	[EventId.DaysOfGiving2019]: null,
@@ -305,7 +305,7 @@ interface ItemCostRaw {
 	ascendedCandles?: number;
 	seasonalCandles?: number;
 	seasonalHearts?: number;
-	eventCurrency?: number;
+	eventTickets?: number;
 }
 
 export interface ItemCost {
@@ -315,7 +315,7 @@ export interface ItemCost {
 	ascendedCandles?: number;
 	seasonalCandles?: ItemCostSeasonal[];
 	seasonalHearts?: ItemCostSeasonal[];
-	eventCurrency?: ItemCostEvent[];
+	eventTickets?: ItemCostEvent[];
 }
 
 interface ItemCostSeasonal {
@@ -366,9 +366,9 @@ export function resolveOffer(
 						typeof seasonId === "number" && item.cost.seasonalHearts
 							? [{ cost: item.cost.seasonalHearts, seasonId }]
 							: [],
-					eventCurrency:
-						typeof eventId === "number" && item.cost.eventCurrency
-							? [{ cost: item.cost.eventCurrency, eventId }]
+					eventTickets:
+						typeof eventId === "number" && item.cost.eventTickets
+							? [{ cost: item.cost.eventTickets, eventId }]
 							: [],
 				}
 			: null,
@@ -393,7 +393,7 @@ export function addCosts(items: ItemCost[]) {
 				ascendedCandles = 0,
 				seasonalCandles = [],
 				seasonalHearts = [],
-				eventCurrency = [],
+				eventTickets = [],
 			},
 		) => {
 			total.money += Math.round(money * 100);
@@ -427,14 +427,14 @@ export function addCosts(items: ItemCost[]) {
 				}
 			}
 
-			for (const event of eventCurrency) {
-				const sameEvent = total.eventCurrency.findIndex(({ eventId }) => eventId === event.eventId);
+			for (const event of eventTickets) {
+				const sameEvent = total.eventTickets.findIndex(({ eventId }) => eventId === event.eventId);
 
 				if (sameEvent === -1) {
 					// Prevents mutation.
-					total.eventCurrency.push({ ...event });
+					total.eventTickets.push({ ...event });
 				} else {
-					total.eventCurrency.at(sameEvent)!.cost += event.cost;
+					total.eventTickets.at(sameEvent)!.cost += event.cost;
 				}
 			}
 
@@ -447,7 +447,7 @@ export function addCosts(items: ItemCost[]) {
 			ascendedCandles: 0,
 			seasonalCandles: [],
 			seasonalHearts: [],
-			eventCurrency: [],
+			eventTickets: [],
 		},
 	);
 
@@ -510,11 +510,11 @@ export function resolveCostToString(cost: ItemCost) {
 		}
 	}
 
-	if (cost.eventCurrency) {
-		for (const event of cost.eventCurrency) {
+	if (cost.eventTickets) {
+		for (const event of cost.eventTickets) {
 			totalCost.push(
 				resolveCurrencyEmoji({
-					emoji: EventIdToEventCurrencyEmoji[event.eventId] ?? MISCELLANEOUS_EMOJIS.EventCurrency,
+					emoji: EventIdToEventTicketEmoji[event.eventId] ?? MISCELLANEOUS_EMOJIS.EventTicket,
 					number: event.cost,
 				}),
 			);

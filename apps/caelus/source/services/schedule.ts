@@ -230,8 +230,8 @@ export async function schedule(interaction: APIChatInputApplicationCommandIntera
 
 	const eventData = dailyGuidesEventData(now, locale);
 
-	if (eventData.eventCurrency) {
-		fields.push(eventData.eventCurrency);
+	if (eventData.eventTickets) {
+		fields.push(eventData.eventTickets);
 	}
 
 	const shardEruptionData = dailyGuidesShardEruptionData(locale);

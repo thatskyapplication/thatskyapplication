@@ -11,34 +11,34 @@ import {
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../utility/emojis.js";
 
-const eventCurrencyAmount = [];
+const eventTicketAmount = [];
 
 for (
 	let start = skyDate(2024, 6, 24), end = skyDate(2_024, 7, 8);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
-	eventCurrencyAmount.push({ date: start, amount: 5 });
+	eventTicketAmount.push({ date: start, amount: 5 });
 }
 
 export default new Event({
 	id: EventId.DaysOfColour2024,
 	start: skyDate(2_024, 6, 24),
 	end: skyDate(2_024, 7, 8),
-	eventCurrency: {
-		amount: eventCurrencyAmount,
+	eventTickets: {
+		amount: eventTicketAmount,
 	},
 	offer: [
 		{
 			name: "Dark Rainbow Mask",
 			cosmetic: Cosmetic.DarkRainbowMask,
-			cost: { eventCurrency: 32 },
+			cost: { eventTickets: 32 },
 			emoji: MASK_EMOJIS.Mask92,
 		},
 		{
 			name: "Colour Glam Cut",
 			cosmetic: Cosmetic.ColourGlamCut,
-			cost: { eventCurrency: 18 },
+			cost: { eventTickets: 18 },
 			emoji: HAIR_EMOJIS.Hair145,
 		},
 		{

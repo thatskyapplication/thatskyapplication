@@ -19,13 +19,13 @@ export default new Event({
 		{
 			name: `${emote} 1`,
 			cosmetic: Cosmetic.EmoteCureForMe1,
-			cost: { eventCurrency: 12 },
+			cost: { eventTickets: 12 },
 			emoji: emoteEmoji,
 		},
 		{
 			name: `${emote} 2`,
 			cosmetic: Cosmetic.EmoteCureForMe2,
-			cost: { eventCurrency: 33 },
+			cost: { eventTickets: 33 },
 			emoji: emoteEmoji,
 		},
 		{

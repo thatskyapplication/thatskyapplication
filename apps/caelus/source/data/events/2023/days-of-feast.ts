@@ -13,14 +13,14 @@ import {
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../utility/emojis.js";
 
-const eventCurrencyAmount = [];
+const eventTicketAmount = [];
 
 for (
 	let start = skyDate(2_023, 12, 18), end = skyDate(2_024, 1, 8);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
-	eventCurrencyAmount.push({
+	eventTicketAmount.push({
 		date: start,
 		amount: 5,
 		infographicURL: String(new URL("events/2023/days_of_feast/event_currency.webp", CDN_URL)),
@@ -31,20 +31,20 @@ export default new Event({
 	id: EventId.DaysOfFeast2023,
 	start: skyDate(2_023, 12, 18),
 	end: skyDate(2_024, 1, 8),
-	eventCurrency: {
-		amount: eventCurrencyAmount,
+	eventTickets: {
+		amount: eventTicketAmount,
 	},
 	offer: [
 		{
 			name: "Winter Feast Snowboard",
 			cosmetic: Cosmetic.WinterFeastSnowboard,
-			cost: { eventCurrency: 44 },
+			cost: { eventTickets: 44 },
 			emoji: HELD_PROPS_EMOJIS.HeldProp40,
 		},
 		{
 			name: "Winter Pine Cone Hair Clip",
 			cosmetic: Cosmetic.WinterPineConeHairClip,
-			cost: { eventCurrency: 19 },
+			cost: { eventTickets: 19 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory34,
 		},
 		{

@@ -203,44 +203,44 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: t("calculate.event-currency.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: localisations("calculate.event-currency.command-name"),
-				description: t("calculate.event-currency.command-description", {
+				name: t("calculate.event-tickets.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: localisations("calculate.event-tickets.command-name"),
+				description: t("calculate.event-tickets.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: localisations("calculate.event-currency.command-description"),
+				description_localizations: localisations("calculate.event-tickets.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: t("calculate.event-currency.command-option-start-name", {
+						name: t("calculate.event-tickets.command-option-start-name", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: localisations("calculate.event-currency.command-option-start-name"),
-						description: t("calculate.event-currency.command-option-start-description", {
+						name_localizations: localisations("calculate.event-tickets.command-option-start-name"),
+						description: t("calculate.event-tickets.command-option-start-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
 						description_localizations: localisations(
-							"calculate.event-currency.command-option-start-description",
+							"calculate.event-tickets.command-option-start-description",
 						),
 						min_value: 0,
 						required: true,
 					},
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: t("calculate.event-currency.command-option-goal-name", {
+						name: t("calculate.event-tickets.command-option-goal-name", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: localisations("calculate.event-currency.command-option-goal-name"),
-						description: t("calculate.event-currency.command-option-goal-description", {
+						name_localizations: localisations("calculate.event-tickets.command-option-goal-name"),
+						description: t("calculate.event-tickets.command-option-goal-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
 						description_localizations: localisations(
-							"calculate.event-currency.command-option-goal-description",
+							"calculate.event-tickets.command-option-goal-description",
 						),
 						max_value: 250,
 						min_value: 1,

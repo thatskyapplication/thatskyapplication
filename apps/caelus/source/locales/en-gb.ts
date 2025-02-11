@@ -29,7 +29,7 @@ export default {
 			event_one: "{{count}} day left in {{name}}.",
 			event_other: "{{count}} days left in {{name}}.",
 		},
-		"event-currency": "Event Currency",
+		"event-tickets": "Event Tickets",
 		realms: Object.fromEntries(REALM_NAME_VALUES.map((realmName) => [realmName, realmName])),
 		maps: Object.fromEntries(SKY_MAP_VALUES.map((skyMap) => [skyMap, skyMap])),
 		"notification-types": {
@@ -456,14 +456,14 @@ export default {
 				"minimum-time-shard-eruptions":
 					"Minimum time derived by assuming all shard eruptions were cleansed.",
 			},
-			"event-currency": {
-				"command-name": "event-currency",
+			"event-tickets": {
+				"command-name": "event-tickets",
 				"command-description":
-					"Calculates the number of days it would take to achieve a number of event currency.",
+					"Calculates the number of days it would take to achieve a number of event tickets.",
 				"command-option-start-name": "start",
-				"command-option-start-description": "The starting number of event currency.",
+				"command-option-start-description": "The starting number of event tickets.",
 				"command-option-goal-name": "goal",
-				"command-option-goal-description": "The desired number of event currency.",
+				"command-option-goal-description": "The desired number of event tickets.",
 			},
 			"seasonal-candles": {
 				"command-name": "seasonal-candles",

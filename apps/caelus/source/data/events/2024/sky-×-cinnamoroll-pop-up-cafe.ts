@@ -12,14 +12,14 @@ import {
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../utility/emojis.js";
 
-const eventCurrencyAmount = [];
+const eventTicketAmount = [];
 
 for (
 	let start = skyDate(2024, 4, 27), end = skyDate(2024, 5, 18);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
-	eventCurrencyAmount.push({
+	eventTicketAmount.push({
 		date: start,
 		amount: 5,
 		infographicURL: String(
@@ -32,20 +32,20 @@ export default new Event({
 	id: EventId.SkyXCinnamorollPopUpCafe2024,
 	start: skyDate(2_024, 4, 27),
 	end: skyDate(2_024, 5, 18),
-	eventCurrency: {
-		amount: eventCurrencyAmount,
+	eventTickets: {
+		amount: eventTicketAmount,
 	},
 	offer: [
 		{
 			name: "Cosy Teacup Headband",
 			cosmetic: Cosmetic.CosyTeacupHeadband,
-			cost: { eventCurrency: 22 },
+			cost: { eventTickets: 22 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory41,
 		},
 		{
 			name: "Cosy Cafe Table",
 			cosmetic: Cosmetic.CosyCafeTable,
-			cost: { eventCurrency: 52 },
+			cost: { eventTickets: 52 },
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp50,
 		},
 		{

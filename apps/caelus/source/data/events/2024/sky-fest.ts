@@ -12,46 +12,46 @@ import {
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../utility/emojis.js";
 
-const eventCurrencyAmount = [];
+const eventTicketAmount = [];
 
 for (
 	let start = skyDate(2_024, 7, 12, 17), end = skyDate(2_024, 7, 27);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
-	eventCurrencyAmount.push({ date: start, amount: 4 });
+	eventTicketAmount.push({ date: start, amount: 4 });
 }
 
 export default new Event({
 	id: EventId.SkyFest2024,
 	start: skyDate(2_024, 7, 12, 17),
 	end: skyDate(2_024, 7, 27),
-	eventCurrency: {
-		amount: eventCurrencyAmount,
+	eventTickets: {
+		amount: eventTicketAmount,
 	},
 	offer: [
 		{
 			name: "SkyFest Star Jar",
 			cosmetic: Cosmetic.SkyFestStarJar,
-			cost: { eventCurrency: 15 },
+			cost: { eventTickets: 15 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp70,
 		},
 		{
 			name: "SkyFest 5th Anniversary T-shirt",
 			cosmetic: Cosmetic.SkyFest5thAnniversaryTShirt,
-			cost: { eventCurrency: 10 },
+			cost: { eventTickets: 10 },
 			emoji: OUTFIT_EMOJIS.Outfit59,
 		},
 		{
 			name: "SkyFest 5th Anniversary Headband",
 			cosmetic: Cosmetic.SkyFest5thAnniversaryHeadband,
-			cost: { eventCurrency: 3 },
+			cost: { eventTickets: 3 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory42,
 		},
 		{
 			name: "SkyFest Jenova Fan",
 			cosmetic: Cosmetic.SkyFestJenovaFan,
-			cost: { eventCurrency: 7 },
+			cost: { eventTickets: 7 },
 			emoji: HELD_PROPS_EMOJIS.HeldProp43,
 		},
 		{

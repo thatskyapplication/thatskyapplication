@@ -20,13 +20,13 @@ export default new Event({
 		{
 			name: "Triumph Saxophone",
 			cosmetic: Cosmetic.TriumphSaxophone,
-			cost: { eventCurrency: 102 },
+			cost: { eventTickets: 102 },
 			emoji: HELD_PROPS_EMOJIS.HeldProp36,
 		},
 		{
 			name: "Marching Band Hat",
 			cosmetic: Cosmetic.MarchingBandHat,
-			cost: { eventCurrency: 43 },
+			cost: { eventTickets: 43 },
 			emoji: HAIR_EMOJIS.Hair126,
 		},
 		{

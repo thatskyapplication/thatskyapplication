@@ -5,7 +5,7 @@ export default {
 	general: {
 		back: "Retour",
 		next: "Suivant",
-		"event-currency": "Devise d'Événement",
+		"event-tickets": "Devise d'Événement",
 		realms: {
 			[RealmName.IslesOfDawn]: "Île de l'aube",
 			[RealmName.DaylightPrairie]: "Prairie illuminée",

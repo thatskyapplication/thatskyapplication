@@ -306,8 +306,8 @@ export default new (class DailyGuides {
 			 * - The seasonal candles infographic (automated)
 			 * - The treasure candles infographic (automated)
 			 * - The shard eruption infographic (automated)
-			 * - Days of Colour event currency rotation
-			 * - Days of Love event currency
+			 * - Days of Colour event ticket rotation
+			 * - Days of Love event ticket rotation
 			 */
 			return;
 		}

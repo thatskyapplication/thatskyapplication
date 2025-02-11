@@ -11,14 +11,14 @@ import {
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../utility/emojis.js";
 
-const eventCurrencyAmount = [];
+const eventTicketAmount = [];
 
 for (
 	let start = skyDate(2_024, 11, 25), end = skyDate(2_024, 12, 12);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
-	eventCurrencyAmount.push({
+	eventTicketAmount.push({
 		date: start,
 		amount: 4,
 	});
@@ -28,8 +28,8 @@ export default new Event({
 	id: EventId.DaysOfMusic2024,
 	start: skyDate(2_024, 11, 25),
 	end: skyDate(2_024, 12, 12),
-	eventCurrency: {
-		amount: eventCurrencyAmount,
+	eventTickets: {
+		amount: eventTicketAmount,
 		pool: [
 			{
 				amount: 15,
@@ -42,7 +42,7 @@ export default new Event({
 		{
 			name: "Marching Band Cape",
 			cosmetic: Cosmetic.MarchingBandCape,
-			cost: { eventCurrency: 50 },
+			cost: { eventTickets: 50 },
 			emoji: CAPE_EMOJIS.Cape139,
 		},
 		{

@@ -18,19 +18,19 @@ export default new Event({
 		{
 			name: "Hair accessory",
 			cosmetic: Cosmetic.SkyAnniversaryHairAccessory4,
-			cost: { eventCurrency: 8 },
+			cost: { eventTickets: 8 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory28,
 		},
 		{
 			name: "Anniversary Sonorous Seashell",
 			cosmetic: Cosmetic.AnniversarySonorousSeashell,
-			cost: { eventCurrency: 46 },
+			cost: { eventTickets: 46 },
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp29,
 		},
 		{
 			name: "Anniversary Party Lights",
 			cosmetic: Cosmetic.AnniversaryPartyLights,
-			cost: { eventCurrency: 46 },
+			cost: { eventTickets: 46 },
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp33,
 		},
 		{

@@ -14,7 +14,7 @@ export default new Event({
 		{
 			name: "Dark Rainbow Cape",
 			cosmetic: Cosmetic.DarkRainbowCape,
-			cost: { eventCurrency: 104 },
+			cost: { eventTickets: 104 },
 			emoji: CAPE_EMOJIS.Cape106,
 		},
 		{

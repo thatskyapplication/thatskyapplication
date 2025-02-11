@@ -12,14 +12,14 @@ import {
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../utility/emojis.js";
 
-const eventCurrencyAmount = [];
+const eventTicketAmount = [];
 
 for (
 	let start = skyDate(2024, 12, 23), end = skyDate(2025, 1, 13);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
-	eventCurrencyAmount.push({
+	eventTicketAmount.push({
 		date: start,
 		amount: 5,
 	});
@@ -29,8 +29,8 @@ export default new Event({
 	id: EventId.SkyXAlicesWonderlandCafe2024,
 	start: skyDate(2_024, 12, 23),
 	end: skyDate(2_025, 1, 13),
-	eventCurrency: {
-		amount: eventCurrencyAmount,
+	eventTickets: {
+		amount: eventTicketAmount,
 		pool: [
 			{
 				amount: 15,
@@ -43,19 +43,19 @@ export default new Event({
 		{
 			name: "Wonderland Stacked Hat",
 			cosmetic: Cosmetic.WonderlandStackedHat,
-			cost: { eventCurrency: 18 },
+			cost: { eventTickets: 18 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory51,
 		},
 		{
 			name: "Wonderland Frantic Hair",
 			cosmetic: Cosmetic.WonderlandFranticHair,
-			cost: { eventCurrency: 30 },
+			cost: { eventTickets: 30 },
 			emoji: HAIR_EMOJIS.Hair153,
 		},
 		{
 			name: "Wonderland Teacup Bath",
 			cosmetic: Cosmetic.WonderlandTeacupBath,
-			cost: { eventCurrency: 36 },
+			cost: { eventTickets: 36 },
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp78,
 		},
 		{

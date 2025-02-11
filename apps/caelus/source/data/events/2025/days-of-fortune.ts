@@ -13,14 +13,14 @@ import {
 	OUTFIT_EMOJIS,
 } from "../../../utility/emojis.js";
 
-const eventCurrencyAmount = [];
+const eventTicketAmount = [];
 
 for (
 	let start = skyDate(2_025, 1, 27), end = skyDate(2_025, 2, 10);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
-	eventCurrencyAmount.push({
+	eventTicketAmount.push({
 		date: start,
 		amount: 5,
 	});
@@ -30,8 +30,8 @@ export default new Event({
 	id: EventId.DaysOfFortune2025,
 	start: skyDate(2_025, 1, 27),
 	end: skyDate(2_025, 2, 10),
-	eventCurrency: {
-		amount: eventCurrencyAmount,
+	eventTickets: {
+		amount: eventTicketAmount,
 		pool: [
 			{
 				amount: 15,
@@ -44,25 +44,25 @@ export default new Event({
 		{
 			name: "Dragon Dance music sheet",
 			cosmetic: Cosmetic.DragonDanceMusicSheet,
-			cost: { eventCurrency: 8 },
+			cost: { eventTickets: 8 },
 			emoji: MISCELLANEOUS_EMOJIS.MusicSheet,
 		},
 		{
 			name: "Red dye",
 			cosmetic: Cosmetic.FortuneRedDye,
-			cost: { eventCurrency: 10 },
+			cost: { eventTickets: 10 },
 			emoji: MISCELLANEOUS_EMOJIS.DyeRed,
 		},
 		{
 			name: "Fortune Snake Mask",
 			cosmetic: Cosmetic.FortuneSnakeMask,
-			cost: { eventCurrency: 14 },
+			cost: { eventTickets: 14 },
 			emoji: MASK_EMOJIS.Mask95,
 		},
 		{
 			name: "Fortune Snake Outfit",
 			cosmetic: Cosmetic.FortuneSnakeOutfit,
-			cost: { eventCurrency: 36 },
+			cost: { eventTickets: 36 },
 			emoji: OUTFIT_EMOJIS.Outfit78,
 		},
 		{

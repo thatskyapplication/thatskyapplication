@@ -11,14 +11,14 @@ import {
 	OUTFIT_EMOJIS,
 } from "../../../utility/emojis.js";
 
-const eventCurrencyAmount = [];
+const eventTicketAmount = [];
 
 for (
 	let start = skyDate(2_024, 9, 16), end = skyDate(2_024, 9, 30);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
-	eventCurrencyAmount.push({
+	eventTicketAmount.push({
 		date: start,
 		amount: 5,
 	});
@@ -28,20 +28,20 @@ export default new Event({
 	id: EventId.DaysOfMoonlight2024,
 	start: skyDate(2_024, 9, 16),
 	end: skyDate(2_024, 9, 30),
-	eventCurrency: {
-		amount: eventCurrencyAmount,
+	eventTickets: {
+		amount: eventTicketAmount,
 	},
 	offer: [
 		{
 			name: "Moonlight Blossom Accessory",
 			cosmetic: Cosmetic.MoonlightBlossomAccessory,
-			cost: { eventCurrency: 17 },
+			cost: { eventTickets: 17 },
 			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory45,
 		},
 		{
 			name: "Moonlight Lantern Decoration",
 			cosmetic: Cosmetic.MoonlightLanternDecoration,
-			cost: { eventCurrency: 32 },
+			cost: { eventTickets: 32 },
 			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp72,
 		},
 		{

@@ -4,7 +4,7 @@ import type { Emoji } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import {
-	EventIdToEventCurrencyEmoji,
+	EventIdToEventTicketEmoji,
 	type EventIds,
 	type Item,
 	type ItemRaw,
@@ -36,9 +36,9 @@ interface EventData {
 	 */
 	end: DateTime;
 	/**
-	 * Data related to event currency.
+	 * Data related to event tickets.
 	 */
-	eventCurrency?: EventCurrencyData;
+	eventTickets?: EventTicketsData;
 	/**
 	 * What the event offers.
 	 */
@@ -53,43 +53,43 @@ interface EventData {
 	patchNotesURL?: string;
 }
 
-interface EventCurrencyData {
-	amount: readonly EventCurrencyAmountData[];
-	pool?: readonly EventCurrencyPoolData[];
+interface EventTicketsData {
+	amount: readonly EventTicketsAmountData[];
+	pool?: readonly EventTicketsPoolData[];
 	end?: DateTime;
 }
 
-interface EventCurrencyAmountData {
+interface EventTicketsAmountData {
 	date: DateTime;
 	amount: number;
 	infographicURL?: string;
 }
 
-interface EventCurrencyPoolData {
+interface EventTicketsPoolData {
 	start: DateTime;
 	end: DateTime;
 	amount: number;
 }
 
-interface EventCurrency {
+interface EventTickets {
 	/**
-	 * The emoji representing the event currency.
+	 * The emoji representing the event tickets.
 	 *
-	 * @remarks This is `null` for events that do not (yet) have an event currency emoji.
+	 * @remarks This is `null` for events that do not (yet) have an event ticket emoji.
 	 */
 	emoji: Emoji | null;
-	amount: readonly EventCurrencyAmount[];
-	pool?: readonly EventCurrencyPool[];
+	amount: readonly EventTicketsAmount[];
+	pool?: readonly EventTicketsPool[];
 	end: DateTime;
 }
 
-interface EventCurrencyAmount {
+interface EventTicketsAmount {
 	date: DateTime;
 	amount: number;
 	infographicURL: string | null;
 }
 
-interface EventCurrencyPool {
+interface EventTicketsPool {
 	start: DateTime;
 	end: DateTime;
 	amount: number;
@@ -104,7 +104,7 @@ export class Event {
 
 	public readonly end: DateTime;
 
-	public readonly eventCurrency: EventCurrency | null;
+	public readonly eventTickets: EventTickets | null;
 
 	public readonly offer: readonly Item[];
 
@@ -122,15 +122,15 @@ export class Event {
 		this.start = data.start;
 		this.end = data.end;
 
-		this.eventCurrency = data.eventCurrency
+		this.eventTickets = data.eventTickets
 			? {
-					...data.eventCurrency,
-					amount: data.eventCurrency.amount.map((amount) => ({
+					...data.eventTickets,
+					amount: data.eventTickets.amount.map((amount) => ({
 						...amount,
 						infographicURL: amount.infographicURL ?? null,
 					})),
-					emoji: EventIdToEventCurrencyEmoji[data.id],
-					end: data.eventCurrency.end ?? data.end,
+					emoji: EventIdToEventTicketEmoji[data.id],
+					end: data.eventTickets.end ?? data.end,
 				}
 			: null;
 
@@ -174,9 +174,8 @@ export class Event {
 
 	public resolveInfographicURL(date: DateTime): string | null {
 		return (
-			this.eventCurrency?.amount.find(
-				(amount) => date.startOf("day") === amount.date.startOf("day"),
-			)?.infographicURL ?? null
+			this.eventTickets?.amount.find((amount) => date.startOf("day") === amount.date.startOf("day"))
+				?.infographicURL ?? null
 		);
 	}
 

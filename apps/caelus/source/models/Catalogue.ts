@@ -404,8 +404,8 @@ export class Catalogue {
 							style: ButtonStyle.Success,
 						};
 
-						if (event.eventCurrency?.emoji) {
-							button.emoji = event.eventCurrency.emoji;
+						if (event.eventTickets?.emoji) {
+							button.emoji = event.eventTickets.emoji;
 						} else {
 							button.label = event.name;
 						}
@@ -1074,8 +1074,8 @@ export class Catalogue {
 				value: String(id),
 			};
 
-			if (event.eventCurrency?.emoji) {
-				stringSelectMenuOption.emoji = event.eventCurrency.emoji;
+			if (event.eventTickets?.emoji) {
+				stringSelectMenuOption.emoji = event.eventTickets.emoji;
 			}
 
 			return stringSelectMenuOption;
@@ -1441,11 +1441,11 @@ export class Catalogue {
 		event: Event,
 	) {
 		const { locale } = interaction;
-		const { id, start, eventCurrency, offer, offerInfographicURL, wikiURL } = event;
+		const { id, start, eventTickets, offer, offerInfographicURL, wikiURL } = event;
 
 		const embed: APIEmbed = {
 			color: DEFAULT_EMBED_COLOUR,
-			title: `${eventCurrency?.emoji ? formatEmoji(eventCurrency.emoji) : ""}${t(`events.${id}`, {
+			title: `${eventTickets?.emoji ? formatEmoji(eventTickets.emoji) : ""}${t(`events.${id}`, {
 				lng: locale,
 				ns: "general",
 			})}`,

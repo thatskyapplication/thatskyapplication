@@ -408,25 +408,25 @@ export function dailyGuidesEventData(date: DateTime, locale: Locale) {
 	const eventEndText = skyNotEndedEvents(date).map((event) => event.daysText(date, locale));
 	const event0 = events[0];
 
-	const iconURL = event0?.eventCurrency?.emoji
-		? formatEmojiURL(event0.eventCurrency?.emoji.id)
+	const iconURL = event0?.eventTickets?.emoji
+		? formatEmojiURL(event0.eventTickets?.emoji.id)
 		: null;
 
-	const currentEventsWithEventCurrency = events.filter(
+	const currentEventsWithEventTickets = events.filter(
 		(event) =>
-			event.eventCurrency &&
-			date < event.eventCurrency.end &&
+			event.eventTickets &&
+			date < event.eventTickets.end &&
 			event.resolveInfographicURL(date) !== null,
 	);
 
-	const eventCurrency =
-		currentEventsWithEventCurrency.length > 0
+	const eventTickets =
+		currentEventsWithEventTickets.length > 0
 			? {
-					name: t("event-currency", { lng: locale, ns: "general" }),
-					value: currentEventsWithEventCurrency
+					name: t("event-tickets", { lng: locale, ns: "general" }),
+					value: currentEventsWithEventTickets
 						.map(
 							(event) =>
-								`[${event.eventCurrency?.emoji ? formatEmoji(event.eventCurrency.emoji) : ""}${t(
+								`[${event.eventTickets?.emoji ? formatEmoji(event.eventTickets.emoji) : ""}${t(
 									"view",
 									{
 										lng: locale,
@@ -438,7 +438,7 @@ export function dailyGuidesEventData(date: DateTime, locale: Locale) {
 				}
 			: null;
 
-	return { eventEndText, iconURL, eventCurrency };
+	return { eventEndText, iconURL, eventTickets };
 }
 
 export async function dailyGuidesShardEruptionData(locale: Locale) {
@@ -577,8 +577,8 @@ export async function distributionEmbed(locale: Locale) {
 		embed.footer = footer;
 	}
 
-	if (eventData.eventCurrency) {
-		fields.push(eventData.eventCurrency);
+	if (eventData.eventTickets) {
+		fields.push(eventData.eventTickets);
 	}
 
 	fields.push(...(await dailyGuidesShardEruptionData(locale)));
