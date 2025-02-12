@@ -6,9 +6,10 @@ import {
 	MessageFlags,
 	PermissionFlagsBits,
 } from "@discordjs/core";
+import { MAXIMUM_HAIR_TOUSLE_GIF } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_HAIR_TOUSLE_NO } from "../utility/constants.js";
+import { CDN_URL, DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { interactionInvoker } from "../utility/functions.js";
 import { cannotUseUserInstallable } from "../utility/permissions.js";
 
@@ -82,7 +83,7 @@ export async function hairTousle(
 				image: {
 					url: String(
 						new URL(
-							`hair_tousles/${Math.floor(Math.random() * MAX_HAIR_TOUSLE_NO + 1)}.gif`,
+							`hair_tousles/${Math.floor(Math.random() * MAXIMUM_HAIR_TOUSLE_GIF + 1)}.gif`,
 							CDN_URL,
 						),
 					),

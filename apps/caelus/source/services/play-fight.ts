@@ -6,9 +6,10 @@ import {
 	MessageFlags,
 	PermissionFlagsBits,
 } from "@discordjs/core";
+import { MAXIMUM_PLAY_FIGHT_GIF } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_PLAY_FIGHT_NO } from "../utility/constants.js";
+import { CDN_URL, DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { interactionInvoker } from "../utility/functions.js";
 import { cannotUseUserInstallable } from "../utility/permissions.js";
 
@@ -81,7 +82,7 @@ export async function playFight(
 				image: {
 					url: String(
 						new URL(
-							`play_fights/${Math.floor(Math.random() * MAX_PLAY_FIGHT_NO + 1)}.gif`,
+							`play_fights/${Math.floor(Math.random() * MAXIMUM_PLAY_FIGHT_GIF + 1)}.gif`,
 							CDN_URL,
 						),
 					),

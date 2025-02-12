@@ -1,33 +1,47 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { useLoaderData } from "@remix-run/react";
-import Video from "~/components/Video";
 import { INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
-import { krillingGIFs3Unique } from "~/utility/functions";
+import { friendshipActionGIFs } from "~/utility/functions.js";
 
-export const loader = () => ({ gifs: krillingGIFs3Unique() });
+export const loader = () => ({ gifs: friendshipActionGIFs() });
 
-export default function Krill() {
+export default function FriendshipActions() {
 	const { gifs } = useLoaderData<typeof loader>();
 
 	return (
 		<div>
-			<h1 className="mt-4">Krill</h1>
+			<h1 className="mt-4">Friendship Actions</h1>
 			<hr />
+			<p>Just like Sky, you can do all sorts of friendship actions! Try the following out:</p>
+			<ul className="list-disc pl-5">
+				<li>
+					<code>/hair-tousle</code>
+				</li>
+				<li>
+					<code>/high-five</code>
+				</li>
+				<li>
+					<code>/hug</code>
+				</li>
+				<li>
+					<code>/play-fight</code>
+				</li>
+			</ul>
 			<p>
-				Want to scare someone? Just want to krill them for no reason? Use <code>/krill</code>!
+				There is also a <code>/krill</code> command!
 			</p>
-			<Video src="https://cdn.thatskyapplication.com/examples/krill.mp4" />
-			<h2>Submit your GIF!</h2>
+			<h2>Example GIFs</h2>
 			<div className="flex flex-wrap justify-center gap-4">
 				{gifs.map((gif) => (
 					<img
 						key={gif}
 						src={gif}
-						alt="krilling GIF."
+						alt="Hugging GIF."
 						className="w-[calc(33.33%-16px)] max-w-[400px] aspect-square rounded-md shadow-md"
 					/>
 				))}
 			</div>
+			<h2>Submit your GIF!</h2>
 			<p>Like what you see? These were all created by the community!</p>
 			<p>You can submit one too. GIFs must meet the following criteria:</p>
 			<ul className="list-disc pl-5">
@@ -52,7 +66,8 @@ export default function Krill() {
 					support server
 					<ArrowTopRightOnSquareIcon className="ml-1 w-4 h-4" />
 				</a>{" "}
-				and mention a developer that you want to submit a GIF!
+				and mention a developer that you want to submit a GIF! You may also submit a raw video and
+				the work will be done for you.
 			</p>
 		</div>
 	);

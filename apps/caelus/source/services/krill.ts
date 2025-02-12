@@ -6,9 +6,10 @@ import {
 	MessageFlags,
 	PermissionFlagsBits,
 } from "@discordjs/core";
+import { MAXIMUM_KRILL_GIF } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import { CDN_URL, DEFAULT_EMBED_COLOUR, MAX_KRILL_NO } from "../utility/constants.js";
+import { CDN_URL, DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { interactionInvoker } from "../utility/functions.js";
 import { cannotUseUserInstallable } from "../utility/permissions.js";
 
@@ -80,7 +81,7 @@ export async function krill(
 				color: DEFAULT_EMBED_COLOUR,
 				image: {
 					url: String(
-						new URL(`krills/${Math.floor(Math.random() * MAX_KRILL_NO + 1)}.gif`, CDN_URL),
+						new URL(`krills/${Math.floor(Math.random() * MAXIMUM_KRILL_GIF + 1)}.gif`, CDN_URL),
 					),
 				},
 			},

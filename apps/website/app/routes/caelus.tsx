@@ -18,8 +18,7 @@ const HOME = [
 const GUIDES = [
 	{ title: "Daily Guides", path: "/caelus/daily-guides" },
 	{ title: "Hearts", path: "/caelus/hearts" },
-	{ title: "Hug", path: "/caelus/hug" },
-	{ title: "Krill", path: "/caelus/krill" },
+	{ title: "Friendship Actions", path: "/caelus/friendship-actions" },
 	{ title: "Notifications", path: "/caelus/notifications" },
 	{ title: "Spirits", path: "/caelus/spirits" },
 ] as const;

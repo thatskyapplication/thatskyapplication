@@ -1,10 +1,17 @@
-import { DAILY_QUEST_VALUES, type DailyQuests, type RealmName } from "@thatskyapplication/utility";
+import {
+	DAILY_QUEST_VALUES,
+	type DailyQuests,
+	MAXIMUM_HAIR_TOUSLE_GIF,
+	MAXIMUM_HIGH_FIVE_GIF,
+	MAXIMUM_KRILL_GIF,
+	MAXIMUM_PLAY_FIGHT_GIF,
+	type RealmName,
+} from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
 import {
 	CDN_URL,
 	DEFAULT_LOCALE,
 	HUGGING_GIFS,
-	MAXIMUM_KRILL_NO,
 	REALM_NAME_TO_REALM_CDN_NAME,
 	type RotationNumber,
 	SEASONAL_CANDLES_PER_DAY,
@@ -190,34 +197,36 @@ export function seasonalCandlesRotationURL(
 	);
 }
 
-function formatHuggingGIF(index: number) {
-	return String(new URL(`hugs/${index}.gif`, CDN_URL));
+function hairTousleGIF() {
+	return String(
+		new URL(`hair_tousles/${Math.floor(Math.random() * MAXIMUM_HAIR_TOUSLE_GIF + 1)}.gif`, CDN_URL),
+	);
 }
 
-export function huggingGIF() {
-	return formatHuggingGIF(getRandomElement(HUGGING_GIFS)!);
+function highFiveGIF() {
+	return String(
+		new URL(`high_fives/${Math.floor(Math.random() * MAXIMUM_HIGH_FIVE_GIF + 1)}.gif`, CDN_URL),
+	);
 }
 
-export function huggingGIFs3Unique() {
-	const huggingGIFs = new Set<string>();
-
-	while (huggingGIFs.size < 3) {
-		huggingGIFs.add(formatHuggingGIF(getRandomElement(HUGGING_GIFS)!));
-	}
-
-	return [...huggingGIFs];
+function huggingGIF() {
+	return String(new URL(`hugs/${getRandomElement(HUGGING_GIFS)!}.gif`, CDN_URL));
 }
 
-export function krillingGIF() {
-	return String(new URL(`krills/${Math.floor(Math.random() * MAXIMUM_KRILL_NO + 1)}.gif`, CDN_URL));
+function playFightGIF() {
+	return String(
+		new URL(`play_fights/${Math.floor(Math.random() * MAXIMUM_PLAY_FIGHT_GIF + 1)}.gif`, CDN_URL),
+	);
 }
 
-export function krillingGIFs3Unique() {
-	const krillingGIFs = new Set<string>();
+function krillingGIF() {
+	return String(
+		new URL(`krills/${Math.floor(Math.random() * MAXIMUM_KRILL_GIF + 1)}.gif`, CDN_URL),
+	);
+}
 
-	while (krillingGIFs.size < 3) {
-		krillingGIFs.add(krillingGIF());
-	}
-
-	return [...krillingGIFs];
+export function friendshipActionGIFs() {
+	return [hairTousleGIF(), highFiveGIF(), huggingGIF(), playFightGIF(), krillingGIF()].sort(
+		() => Math.random() - 0.5,
+	);
 }

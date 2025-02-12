@@ -274,6 +274,12 @@ export enum SkyMap {
 	CrescentOasis = "Crescent Oasis",
 }
 
+export const MAXIMUM_HAIR_TOUSLE_GIF = 3 as const;
+export const MAXIMUM_HIGH_FIVE_GIF = 8 as const;
+export const MAXIMUM_HUG_GIF = 36 as const;
+export const MAXIMUM_PLAY_FIGHT_GIF = 6 as const;
+export const MAXIMUM_KRILL_GIF = 11 as const;
+
 // biome-ignore lint/performance/noBarrelFile: This is fine.
 export { Cosmetic } from "./cosmetics.js";
 export { type Emoji, emojis, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "./emojis.js";
