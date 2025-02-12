@@ -32,11 +32,17 @@ export const DOUBLE_SEASONAL_LIGHT_EVENT_DURATION =
 	1;
 
 // Extra hearts.
-export const HEART_EXTRA_DATES = new Collection<number, HeartsExtra>().set(1, {
-	start: skyDate(2_024, 12, 9),
-	end: skyDate(2_024, 12, 23),
-	count: 1,
-});
+export const HEART_EXTRA_DATES = new Collection<number, HeartsExtra>()
+	.set(1, {
+		start: skyDate(2_024, 12, 9),
+		end: skyDate(2_024, 12, 23),
+		count: 1,
+	})
+	.set(2, {
+		start: skyDate(2_025, 2, 10),
+		end: skyDate(2_025, 2, 24),
+		count: 1,
+	});
 
 // Miscellaneous.
 export const INITIAL_TRAVELLING_SPIRIT_SEEK = skyDate(2_023, 5, 25); // #88 Grateful Shell Collector.
