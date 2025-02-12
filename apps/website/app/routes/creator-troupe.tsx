@@ -162,7 +162,7 @@ const renderPlatforms = ({
 	</div>
 );
 
-export default function Home() {
+export default function CreatorTroupe() {
 	const contentCreatorsPacket = useLoaderData<typeof loader>();
 
 	const creatorTroupe = contentCreatorsPacket
