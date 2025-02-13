@@ -7,10 +7,11 @@ import { INVITE_APPLICATION_URL, INVITE_SUPPORT_SERVER_URL } from "~/utility/con
 import { timeString } from "~/utility/functions";
 
 interface TopBarOptions {
+	back?: string;
 	hideBack?: boolean;
 }
 
-export default function TopBar({ hideBack }: TopBarOptions) {
+export default function TopBar({ back, hideBack }: TopBarOptions) {
 	const locale = useLocale();
 	const [currentTime, setCurrentTime] = useState(timeString(locale));
 
@@ -32,7 +33,7 @@ export default function TopBar({ hideBack }: TopBarOptions) {
 					<div>
 						{!hideBack && (
 							<Link
-								to="/"
+								to={back ?? "/"}
 								className="flex hover:text-gray-400 text-sm hover:outline-none items-center"
 								aria-label="Back"
 							>

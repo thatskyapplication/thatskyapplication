@@ -1,21 +1,6 @@
-import type { Snowflake } from "@discordjs/core/http-only";
-import {
-	SiAndroid,
-	SiAndroidHex,
-	SiIos,
-	SiIosHex,
-	SiMacos,
-	SiMacosHex,
-	SiNintendoswitch,
-	SiNintendoswitchHex,
-	SiPlaystation,
-	SiPlaystationHex,
-	SiSteam,
-	SiSteamHex,
-} from "@icons-pack/react-simple-icons";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, type MetaFunction, useLoaderData } from "@remix-run/react";
-import { PlatformId, WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
+import { WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
 import TopBar from "~/components/TopBar";
 import pg from "~/pg.server";
 import {
@@ -25,31 +10,8 @@ import {
 	SKY_PROFILES_PAGE_LIMIT,
 	Table,
 } from "~/utility/constants";
-
-interface ProfilePacket {
-	user_id: Snowflake;
-	name: string | null;
-	icon: string | null;
-	thumbnail: string | null;
-	description: string | null;
-	country: string | null;
-	winged_light: number | null;
-	seasons: number[] | null;
-	platform: number[] | null;
-	spirit: string | null;
-	spot: string | null;
-	catalogue_progression: boolean | null;
-	guess_rank: boolean | null;
-}
-
-const PlatformToIcon = {
-	[PlatformId.iOS]: <SiIos color={SiIosHex} className="h-6 w-6" />,
-	[PlatformId.Android]: <SiAndroid color={SiAndroidHex} className="h-6 w-6" />,
-	[PlatformId.Mac]: <SiMacos color={SiMacosHex} className="h-6 w-6" />,
-	[PlatformId.NintendoSwitch]: <SiNintendoswitch color={SiNintendoswitchHex} className="h-6 w-6" />,
-	[PlatformId.PlayStation]: <SiPlaystation color={SiPlaystationHex} className="h-6 w-6" />,
-	[PlatformId.Steam]: <SiSteam color={SiSteamHex} className="h-6 w-6" />,
-} as const;
+import { PlatformToIcon } from "~/utility/platform-icons.js";
+import type { ProfilePacket } from "~/utility/types.js";
 
 export const meta: MetaFunction = ({ location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
@@ -117,9 +79,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 function SkyProfileCard(profile: ProfilePacket) {
 	return (
-		<div
+		<Link
 			key={profile.user_id}
-			className="bg-gray-100 dark:bg-gray-700 shadow-lg hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200 rounded-lg overflow-hidden flex flex-col h-[550px]"
+			className="bg-gray-100 dark:bg-gray-700 shadow-lg hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 border border-gray-200 dark:border-gray-600 transition-transform duration-200 rounded-lg overflow-hidden flex flex-col h-[550px]"
+			to={`/sky-profiles/${profile.user_id}`}
 		>
 			<div className="relative">
 				{profile.thumbnail ? (
@@ -182,7 +145,7 @@ function SkyProfileCard(profile: ProfilePacket) {
 					</div>
 				)}
 			</div>
-		</div>
+		</Link>
 	);
 }
 
