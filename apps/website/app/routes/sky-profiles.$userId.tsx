@@ -1,11 +1,46 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
-import { isPlatformId } from "@thatskyapplication/utility";
+import { Link, type MetaFunction, useLoaderData } from "@remix-run/react";
+import { WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
 import TopBar from "~/components/TopBar.js";
 import pg from "~/pg.server";
-import { Table } from "~/utility/constants.js";
+import { APPLICATION_NAME, Table } from "~/utility/constants.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 import type { ProfilePacket } from "~/utility/types.js";
+
+export const meta: MetaFunction = ({ data, location }) => {
+	const profilePacket = data as ProfilePacket;
+	const url = String(new URL(location.pathname, WEBSITE_URL));
+
+	return [
+		{ charSet: "utf-8" },
+		{ name: "viewport", content: "width=device-width, initial-scale=1" },
+		{ name: "robots", content: "index, follow" },
+		{
+			name: "keywords",
+			content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord Bot, Discord Application, Sky Profiles, Sky Profile`,
+		},
+		{ title: profilePacket.name ?? "Sky Profile" },
+		{ name: "description", content: profilePacket.description },
+		{ name: "theme-color", content: "#A5B5F1" },
+		{ property: "og:title", content: profilePacket.name ?? "Sky Profile" },
+		{ property: "og:description", content: profilePacket.description },
+		{ property: "og:type", content: "website" },
+		{ property: "og:site_name", content: "thatskyapplication" },
+		{
+			property: "og:image",
+			content: profilePacket.thumbnail
+				? `https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${profilePacket.user_id}/${profilePacket.thumbnail.startsWith("a_") ? `${profilePacket.thumbnail}.gif` : `${profilePacket.thumbnail}.webp`}`
+				: profilePacket.icon
+					? `https://cdn.thatskyapplication.com/sky_profiles/icons/${profilePacket.user_id}/${profilePacket.icon.startsWith("a_") ? `${profilePacket.icon}.gif` : `${profilePacket.icon}.webp`}`
+					: null,
+		},
+		{ property: "og:url", content: url },
+		{ name: "twitter:card", content: "summary" },
+		{ name: "twitter:title", content: profilePacket.name ?? "Sky Profile" },
+		{ name: "twitter:description", content: profilePacket.description },
+		{ rel: "canonical", href: url },
+	];
+};
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
 	const { userId } = params;
