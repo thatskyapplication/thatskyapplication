@@ -100,19 +100,23 @@ function SkyProfileCard(profile: ProfilePacket) {
 		>
 			<div className="relative">
 				{profile.thumbnail ? (
-					<img
-						className="w-full h-48 object-cover"
-						src={`https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${profile.user_id}/${profile.thumbnail.startsWith("a_") ? `${profile.thumbnail}.gif` : `${profile.thumbnail}.webp`}`}
-						alt={`Thumbnail of ${profile.name}.`}
+					<div
+						className="w-full h-48 bg-cover bg-center"
+						style={{
+							backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${profile.user_id}/${profile.thumbnail.startsWith("a_") ? `${profile.thumbnail}.gif` : `${profile.thumbnail}.webp`})`,
+						}}
+						aria-label={`Thumbnail of ${profile.name}.`}
 					/>
 				) : (
-					<div className="w-full h-48 bg-gray-200 dark:bg-gray-600" />
+					<div className="w-full h-48 bg-gray-200 dark:bg-gray-600" aria-label="No thumbnail." />
 				)}
 				{profile.icon && (
-					<img
-						className="w-16 h-16 rounded-full border-4 border-white absolute -bottom-8 left-4"
-						src={`https://cdn.thatskyapplication.com/sky_profiles/icons/${profile.user_id}/${profile.icon.startsWith("a_") ? `${profile.icon}.gif` : `${profile.icon}.webp`}`}
-						alt={`Icon of ${profile.name}.`}
+					<div
+						className="w-16 h-16 rounded-full border-4 border-white absolute -bottom-8 left-4 bg-cover bg-center"
+						style={{
+							backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/icons/${profile.user_id}/${profile.icon.startsWith("a_") ? `${profile.icon}.gif` : `${profile.icon}.webp`})`,
+						}}
+						aria-label={`Icon of ${profile.name}.`}
 					/>
 				)}
 			</div>
