@@ -172,9 +172,9 @@ export default function SkyProfiles() {
 	const { profiles, currentPage, totalPages } = useLoaderData<typeof loader>();
 
 	return (
-		<div className="min-h-screen flex flex-col items-center justify-center pt-20 pb-4">
+		<div className="min-h-screen flex flex-col items-center justify-center pt-20">
 			<TopBar />
-			<div className="container mx-auto px-4 py-8">
+			<div className="container mx-auto px-4 py-4">
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 					{profiles.length > 0 ? (
 						profiles.map((profile) => SkyProfileCard(profile))
