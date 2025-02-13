@@ -1,6 +1,7 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, type MetaFunction, useLoaderData } from "@remix-run/react";
 import { WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
+import { LucideArrowLeft, LucideArrowRight } from "lucide-react";
 import TopBar from "~/components/TopBar";
 import pg from "~/pg.server";
 import {
@@ -178,26 +179,39 @@ interface PaginationProps {
 
 function Pagination({ currentPage, totalPages }: PaginationProps) {
 	return (
-		<div className="mt-8 flex justify-center space-x-4">
-			{currentPage > 1 && (
-				<Link
-					to={`?page=${currentPage - 1}`}
-					className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-				>
-					Previous
-				</Link>
-			)}
-			<span className="px-3 py-1">
+		<div className="mt-8 flex justify-center items-center space-x-4">
+			<Link
+				to={`?page=${currentPage - 1}`}
+				onClick={(event) => {
+					if (currentPage <= 1) {
+						event.preventDefault();
+					}
+				}}
+				className={`bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg flex items-center p-4 ${
+					currentPage <= 1 ? "cursor-not-allowed opacity-50" : ""
+				}`}
+			>
+				<LucideArrowLeft className="w-6 h-6 mr-2" />
+				<span>Back</span>
+			</Link>
+
+			<span className="flex items-center">
 				Page {currentPage} of {totalPages}
 			</span>
-			{currentPage < totalPages && (
-				<Link
-					to={`?page=${currentPage + 1}`}
-					className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-				>
-					Next
-				</Link>
-			)}
+			<Link
+				to={`?page=${currentPage + 1}`}
+				onClick={(event) => {
+					if (currentPage >= totalPages) {
+						event.preventDefault();
+					}
+				}}
+				className={`bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg flex items-center p-4 ${
+					currentPage >= totalPages ? "cursor-not-allowed opacity-50" : ""
+				}`}
+			>
+				<span className="mr-2">Next</span>
+				<LucideArrowRight className="w-6 h-6" />
+			</Link>
 		</div>
 	);
 }
