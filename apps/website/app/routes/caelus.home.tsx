@@ -1,6 +1,5 @@
 import { BellIcon, ClockIcon } from "@heroicons/react/24/solid";
 import { Link } from "@remix-run/react";
-import { SwordIcon } from "lucide-react";
 import { APPLICATION_NAME } from "~/utility/constants";
 
 export default function Home() {
@@ -39,7 +38,7 @@ export default function Home() {
 					Notifications
 				</Link>
 				<Link
-					to="/caelus/hug"
+					to="/caelus/friendship-actions"
 					className="flex items-center justify-center text-center px-6 py-3 bg-discord-button text-white font-medium rounded-md shadow-md hover:bg-blue-700 transition duration-200"
 				>
 					<img
@@ -47,7 +46,7 @@ export default function Home() {
 						alt="Hug icon."
 						className="h-5 w-5 mr-2"
 					/>
-					Hugs
+					Friendship Actions
 				</Link>
 				<Link
 					to="/caelus/spirits"
@@ -59,13 +58,6 @@ export default function Home() {
 						className="h-5 w-5 mr-2"
 					/>
 					Spirits
-				</Link>
-				<Link
-					to="/caelus/krill"
-					className="flex items-center justify-center text-center px-6 py-3 bg-discord-button text-white font-medium rounded-md shadow-md hover:bg-blue-700 transition duration-200"
-				>
-					<SwordIcon className="flex-shrink-0 h-6 w-6 mr-2 stroke-[#724150] stroke-[0.5] fill-white" />
-					Krill
 				</Link>
 			</div>
 			<div className="mt-8 space-y-4 text-center text-lg">
