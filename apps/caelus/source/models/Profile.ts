@@ -31,9 +31,13 @@ import {
 } from "@discordjs/core";
 import {
 	type Emoji,
+	PLATFORM_ID_VALUES,
+	PlatformId,
+	type PlatformIds,
 	type SeasonIds,
 	formatEmoji,
 	formatEmojiURL,
+	isPlatformId,
 	isSeasonId,
 } from "@thatskyapplication/utility";
 import { hash } from "hasha";
@@ -194,18 +198,6 @@ function isProfileInteractiveResetType(value: unknown): value is ProfileInteract
 	return PROFILE_INTERACTIVE_RESET_TYPE_VALUES.includes(value as ProfileInteractiveResetType);
 }
 
-const PlatformId = {
-	iOS: 0,
-	Android: 1,
-	Mac: 2,
-	NintendoSwitch: 3,
-	PlayStation: 4,
-	Steam: 5,
-} as const satisfies Readonly<Record<string, number>>;
-
-const PLATFORM_ID_VALUES = Object.values(PlatformId);
-type PlatformIds = (typeof PLATFORM_ID_VALUES)[number];
-
 const PlatformIdToString = {
 	[PlatformId.iOS]: "iOS",
 	[PlatformId.Android]: "Android",
@@ -223,10 +215,6 @@ const PlatformIdToEmoji = {
 	[PlatformId.PlayStation]: MISCELLANEOUS_EMOJIS.PlatformPlayStation,
 	[PlatformId.Steam]: MISCELLANEOUS_EMOJIS.PlatformSteam,
 } as const satisfies Readonly<Record<PlatformIds, Emoji>>;
-
-function isPlatformId(platformId: unknown): platformId is PlatformIds {
-	return PLATFORM_ID_VALUES.includes(platformId as PlatformIds);
-}
 
 export const SKY_PROFILE_EDIT_CUSTOM_ID = "SKY_PROFILE_EDIT_CUSTOM_ID" as const;
 export const SKY_PROFILE_SHOW_RESET_CUSTOM_ID = "SKY_PROFILE_SHOW_RESET_CUSTOM_ID" as const;

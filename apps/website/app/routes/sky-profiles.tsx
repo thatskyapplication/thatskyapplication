@@ -1,7 +1,21 @@
 import type { Snowflake } from "@discordjs/core/http-only";
+import {
+	SiAndroid,
+	SiAndroidHex,
+	SiIos,
+	SiIosHex,
+	SiMacos,
+	SiMacosHex,
+	SiNintendoswitch,
+	SiNintendoswitchHex,
+	SiPlaystation,
+	SiPlaystationHex,
+	SiSteam,
+	SiSteamHex,
+} from "@icons-pack/react-simple-icons";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, type MetaFunction, useLoaderData } from "@remix-run/react";
-import { WEBSITE_URL } from "@thatskyapplication/utility";
+import { PlatformId, WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
 import TopBar from "~/components/TopBar";
 import pg from "~/pg.server";
 import {
@@ -27,6 +41,15 @@ interface ProfilePacket {
 	catalogue_progression: boolean | null;
 	guess_rank: boolean | null;
 }
+
+const PlatformToIcon = {
+	[PlatformId.iOS]: <SiIos color={SiIosHex} className="h-6 w-6" />,
+	[PlatformId.Android]: <SiAndroid color={SiAndroidHex} className="h-6 w-6" />,
+	[PlatformId.Mac]: <SiMacos color={SiMacosHex} className="h-6 w-6" />,
+	[PlatformId.NintendoSwitch]: <SiNintendoswitch color={SiNintendoswitchHex} className="h-6 w-6" />,
+	[PlatformId.PlayStation]: <SiPlaystation color={SiPlaystationHex} className="h-6 w-6" />,
+	[PlatformId.Steam]: <SiSteam color={SiSteamHex} className="h-6 w-6" />,
+} as const;
 
 export const meta: MetaFunction = ({ location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
@@ -96,7 +119,7 @@ function SkyProfileCard(profile: ProfilePacket) {
 	return (
 		<div
 			key={profile.user_id}
-			className="bg-gray-100 dark:bg-gray-700 shadow-lg hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200 rounded-lg overflow-hidden"
+			className="bg-gray-100 dark:bg-gray-700 shadow-lg hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200 rounded-lg overflow-hidden flex flex-col"
 		>
 			<div className="relative">
 				{profile.thumbnail ? (
@@ -120,7 +143,7 @@ function SkyProfileCard(profile: ProfilePacket) {
 					/>
 				)}
 			</div>
-			<div className="px-4 pt-10 pb-4">
+			<div className="px-4 pt-10 pb-4 flex-1">
 				<h2 className="my-0">{profile.name!}</h2>
 				{profile.seasons && profile.seasons.length > 0 && (
 					<div className="flex flex-wrap">
@@ -149,12 +172,6 @@ function SkyProfileCard(profile: ProfilePacket) {
 						{profile.winged_light}
 					</p>
 				)}
-				{profile.platform && profile.platform.length > 0 && (
-					<p className="mt-2">
-						<span className="font-medium">Platforms: </span>
-						{profile.platform.join(", ")}
-					</p>
-				)}
 				{profile.spirit && (
 					<p className="mt-2 text-sm">
 						<span className="font-medium">Favourite Spirit: </span>
@@ -166,6 +183,23 @@ function SkyProfileCard(profile: ProfilePacket) {
 						<span className="font-medium">Favourite Hangout: </span>
 						{profile.spot}
 					</p>
+				)}
+			</div>
+			<div className="px-4 py-4 flex items-center gap-2">
+				{profile.platform && profile.platform.length > 0 && (
+					<div className="flex flex-wrap space-x-1">
+						{profile.platform
+							.filter((platform) => isPlatformId(platform))
+							.sort((a, b) => a - b)
+							.map((platform) => (
+								<div
+									key={platform}
+									className="bg-gray-200 dark:bg-gray-100 p-2 rounded-full shadow items-center justify-center"
+								>
+									{PlatformToIcon[platform]}
+								</div>
+							))}
+					</div>
 				)}
 			</div>
 		</div>
