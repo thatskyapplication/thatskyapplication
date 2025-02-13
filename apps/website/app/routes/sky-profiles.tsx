@@ -119,7 +119,7 @@ function SkyProfileCard(profile: ProfilePacket) {
 	return (
 		<div
 			key={profile.user_id}
-			className="bg-gray-100 dark:bg-gray-700 shadow-lg hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200 rounded-lg overflow-hidden flex flex-col"
+			className="bg-gray-100 dark:bg-gray-700 shadow-lg hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200 rounded-lg overflow-hidden flex flex-col h-[550px]"
 		>
 			<div className="relative">
 				{profile.thumbnail ? (
@@ -143,7 +143,7 @@ function SkyProfileCard(profile: ProfilePacket) {
 					/>
 				)}
 			</div>
-			<div className="px-4 pt-10 pb-4 flex-1">
+			<div className="px-4 pt-10 pb-4 flex-1 overflow-hidden">
 				<h2 className="my-0">{profile.name!}</h2>
 				{profile.seasons && profile.seasons.length > 0 && (
 					<div className="flex flex-wrap">
@@ -159,30 +159,10 @@ function SkyProfileCard(profile: ProfilePacket) {
 							))}
 					</div>
 				)}
-				{profile.description && <p className="mt-2 whitespace-pre-wrap">{profile.description}</p>}
-				{profile.country && (
-					<p className="mt-2">
-						<span className="font-medium">Country: </span>
-						{profile.country}
-					</p>
-				)}
-				{profile.winged_light !== null && (
-					<p className="mt-2">
-						<span className="font-medium">Winged Light: </span>
-						{profile.winged_light}
-					</p>
-				)}
-				{profile.spirit && (
-					<p className="mt-2 text-sm">
-						<span className="font-medium">Favourite Spirit: </span>
-						{profile.spirit}
-					</p>
-				)}
-				{profile.spot && (
-					<p className="mt-2 text-sm">
-						<span className="font-medium">Favourite Hangout: </span>
-						{profile.spot}
-					</p>
+				{profile.description ? (
+					<p className="mt-2 whitespace-pre-wrap line-clamp-6">{profile.description}</p>
+				) : (
+					<p className="mt-2 italic">No description.</p>
 				)}
 			</div>
 			<div className="px-4 py-4 flex items-center gap-2">
