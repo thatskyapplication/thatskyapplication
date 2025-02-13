@@ -1990,7 +1990,10 @@ export default class Profile {
 			if (platform.length > 0) {
 				fields.push({
 					name: "Platform",
-					value: platform.map((platformId) => formatEmoji(PlatformIdToEmoji[platformId])).join(" "),
+					value: platform
+						.sort((a, b) => a - b)
+						.map((platformId) => formatEmoji(PlatformIdToEmoji[platformId]))
+						.join(" "),
 					inline: true,
 				});
 			}
