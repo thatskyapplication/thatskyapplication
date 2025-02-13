@@ -1,6 +1,7 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, type MetaFunction, useLoaderData } from "@remix-run/react";
 import { WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
+import { LucideArrowLeft } from "lucide-react";
 import TopBar from "~/components/TopBar.js";
 import pg from "~/pg.server";
 import { APPLICATION_NAME, Table } from "~/utility/constants.js";
@@ -62,9 +63,9 @@ export default function SkyProfile() {
 	const profile = useLoaderData<typeof loader>();
 
 	return (
-		<div className="mx-auto max-w-3xl">
+		<div className="mx-auto px-4 max-w-3xl mt-20 mb-4">
 			<TopBar back="/sky-profiles" />
-			<div className="bg-gray-100 dark:bg-gray-700 rounded-lg shadow-lg mt-20 mb-4">
+			<div className="bg-gray-100 dark:bg-gray-700 rounded-lg shadow-lg">
 				<div className=" relative h-48 w-full">
 					<div className="w-full h-full rounded-md overflow-hidden">
 						{profile.thumbnail ? (
@@ -155,12 +156,16 @@ export default function SkyProfile() {
 							<p className="whitespace-pre-wrap">{profile.description}</p>
 						</div>
 					)}
-					<div className="mt-8">
-						<Link to="/sky-profiles" className="text-blue-600 hover:underline">
-							Back to Profiles
-						</Link>
-					</div>
 				</div>
+			</div>
+			<div className="flex justify-start mt-6">
+				<Link
+					to="/sky-profiles"
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg flex items-center p-4"
+				>
+					<LucideArrowLeft className="w-6 h-6 mr-2" />
+					<span>Back</span>
+				</Link>
 			</div>
 		</div>
 	);
