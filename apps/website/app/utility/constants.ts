@@ -22,6 +22,8 @@ export const SHARD_ERUPTION_DESCRIPTION =
 export const SHARD_ERUPTION_ICON_URL = String(new URL("assets/shard_strong.webp", CDN_URL));
 export const SKY_KID_ICON_URL = String(new URL("assets/sky_kid.webp", CDN_URL));
 
+export const SKY_PROFILES_DESCRIPTION = "See the Sky profiles of the community!" as const;
+
 export const INVITE_APPLICATION_URL =
 	"https://discord.com/oauth2/authorize?client_id=982740693070012506" as const;
 
@@ -38,6 +40,7 @@ export const HUGGING_GIFS = [
 export enum Table {
 	ContentCreators = "content_creators",
 	DailyGuides = "daily_guides",
+	Profiles = "profiles",
 }
 
 export const REALM_NAME_TO_REALM_CDN_NAME = {
@@ -386,3 +389,5 @@ export const DOUBLE_TREASURE_CANDLES_ROTATION = {
 		String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
 	],
 } as const;
+
+export const SKY_PROFILES_PAGE_LIMIT = 24 as const;
