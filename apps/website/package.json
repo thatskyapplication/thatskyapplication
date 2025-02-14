@@ -15,7 +15,6 @@
 	"dependencies": {
 		"@discordjs/core": "^2.0.0",
 		"@discordjs/rest": "^2.4.0",
-		"@heroicons/react": "^2.2.0",
 		"@icons-pack/react-simple-icons": "^10.2.0",
 		"@remix-run/node": "^2.15.0",
 		"@remix-run/react": "^2.15.0",

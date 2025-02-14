@@ -1,5 +1,5 @@
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { useLoaderData } from "@remix-run/react";
+import { ExternalLinkIcon } from "lucide-react";
 import { INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 import { friendshipActionGIFs } from "~/utility/functions.js";
 
@@ -64,7 +64,7 @@ export default function FriendshipActions() {
 					className="regular-link inline-flex items-center transition duration-200"
 				>
 					support server
-					<ArrowTopRightOnSquareIcon className="ml-1 w-4 h-4" />
+					<ExternalLinkIcon className="ml-1 w-4 h-4" />
 				</a>{" "}
 				and mention a developer that you want to submit a GIF! You may also submit a raw video and
 				the work will be done for you.

@@ -1,5 +1,5 @@
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { WIKI_URL } from "@thatskyapplication/utility";
+import { ExternalLinkIcon } from "lucide-react";
 import { APPLICATION_NAME } from "~/utility/constants";
 
 export default function Acknowledgements() {
@@ -16,7 +16,7 @@ export default function Acknowledgements() {
 					className="regular-link inline-flex items-center transition duration-200"
 				>
 					Sky: Children of the Light
-					<ArrowTopRightOnSquareIcon className="ml-1 w-4 h-4" />
+					<ExternalLinkIcon className="ml-1 w-4 h-4" />
 				</a>{" "}
 				wiki. We are thankful for them!
 			</p>

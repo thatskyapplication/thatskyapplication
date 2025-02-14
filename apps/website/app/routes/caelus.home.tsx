@@ -1,5 +1,5 @@
-import { BellIcon, ClockIcon } from "@heroicons/react/24/solid";
 import { Link } from "@remix-run/react";
+import { BellIcon, Clock3Icon } from "lucide-react";
 import { APPLICATION_NAME } from "~/utility/constants";
 
 export default function Home() {
@@ -16,7 +16,12 @@ export default function Home() {
 					to="/caelus/daily-guides"
 					className="flex items-center justify-center text-center px-6 py-3 bg-discord-button text-white font-medium rounded-md shadow-md hover:bg-blue-700 transition duration-200"
 				>
-					<ClockIcon className="flex-shrink-0 h-5 w-5 mr-2 stroke-[#724150] stroke-[0.5]" />
+					<Clock3Icon
+						fill="#FFFFFF"
+						stroke="#724150"
+						strokeWidth="0.5"
+						className="flex-shrink-0 h-5 w-5 mr-2"
+					/>
 					Daily Guides
 				</Link>
 				<Link
@@ -34,7 +39,12 @@ export default function Home() {
 					to="/caelus/notifications"
 					className="flex items-center justify-center text-center px-6 py-3 bg-discord-button text-white font-medium rounded-md shadow-md hover:bg-blue-700 transition duration-200"
 				>
-					<BellIcon className="flex-shrink-0 h-5 w-5 mr-2 stroke-[#724150] stroke-[0.5]" />
+					<BellIcon
+						fill="#FFFFFF"
+						stroke="#724150"
+						strokeWidth="0.5"
+						className="flex-shrink-0 h-5 w-5 mr-2"
+					/>
 					Notifications
 				</Link>
 				<Link

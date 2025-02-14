@@ -1,5 +1,5 @@
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, Outlet, useLocation } from "@remix-run/react";
+import { MenuIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 import TopBar from "~/components/TopBar";
 import { SKY_KID_ICON_URL } from "~/utility/constants.js";
@@ -97,7 +97,7 @@ export default function GuidesLayout() {
 								onClick={() => setIsSidebarOpen(false)}
 								aria-label="Close menu."
 							>
-								<XMarkIcon className="h-6 w-6" />
+								<XIcon className="h-6 w-6" />
 							</button>
 						</div>
 						<ul className="space-y-1">
@@ -161,7 +161,7 @@ export default function GuidesLayout() {
 								aria-label="Close sidebar"
 							>
 								<span className="font-semibold uppercase">Close</span>
-								<XMarkIcon className="h-6 w-6" />
+								<XIcon className="h-6 w-6" />
 							</button>
 						</div>
 					</div>
@@ -174,7 +174,7 @@ export default function GuidesLayout() {
 					onClick={toggleSidebar}
 					aria-label="Open sidebar"
 				>
-					<Bars3Icon className="h-7 w-7" />
+					<MenuIcon className="h-7 w-7" />
 				</button>
 			)}
 			<div className="flex-1 lg:ml-64 p-4">

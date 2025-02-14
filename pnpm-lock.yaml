@@ -108,9 +108,6 @@ importers:
       '@discordjs/rest':
         specifier: ^2.4.0
         version: 2.4.0
-      '@heroicons/react':
-        specifier: ^2.2.0
-        version: 2.2.0(react@18.3.1)
       '@icons-pack/react-simple-icons':
         specifier: ^10.2.0
         version: 10.2.0(react@18.3.1)
@@ -1216,11 +1213,6 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
-
-  '@heroicons/react@2.2.0':
-    resolution: {integrity: sha512-LMcepvRaS9LYHJGsF0zzmgKCUim/X3N/DQKc4jepAXJ7l8QxJ1PmxJzqplF2Z3FE4PqBAIGyJAQ/w4B5dsqbtQ==}
-    peerDependencies:
-      react: '>= 16 || ^19.0.0-rc'
 
   '@icons-pack/react-simple-icons@10.2.0':
     resolution: {integrity: sha512-QDUxup8D3GdIIzwGpxQs6bjeFV5mJes25qqf4aqP/PaBYQNCar7AiyD8C14636TosCG0A/QqAUwm/Hviep4d4g==}
@@ -5526,10 +5518,6 @@ snapshots:
 
   '@esbuild/win32-x64@0.24.2':
     optional: true
-
-  '@heroicons/react@2.2.0(react@18.3.1)':
-    dependencies:
-      react: 18.3.1
 
   '@icons-pack/react-simple-icons@10.2.0(react@18.3.1)':
     dependencies:

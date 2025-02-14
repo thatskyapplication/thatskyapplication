@@ -1,4 +1,4 @@
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import { ExternalLinkIcon } from "lucide-react";
 import TopBar from "~/components/TopBar";
 import Video from "~/components/Video";
 import { APPLICATION_NAME } from "~/utility/constants";
@@ -20,7 +20,7 @@ export default function ThatSkyLink() {
 							className="regular-link inline-flex items-center transition duration-200"
 						>
 							https://thatsky.link
-							<ArrowTopRightOnSquareIcon className="ml-1 w-4 h-4" />
+							<ExternalLinkIcon className="ml-1 w-4 h-4" />
 						</a>{" "}
 						is a link redirector. Simply put? It makes long links short and memorable. A good
 						coincidence of this is that the complete list of redirects serves as a hub for useful
@@ -41,7 +41,7 @@ export default function ThatSkyLink() {
 							className="regular-link inline-flex items-center transition duration-200"
 						>
 							https://thatsky.link
-							<ArrowTopRightOnSquareIcon className="ml-1 w-4 h-4" />
+							<ExternalLinkIcon className="ml-1 w-4 h-4" />
 						</a>{" "}
 						to be taken to the GitHub where the code lives. You'll see a list of redirects! In the
 						video, "dailies", "merch", and "p0276" were showcased.
@@ -55,7 +55,7 @@ export default function ThatSkyLink() {
 							className="regular-link inline-flex items-center transition duration-200"
 						>
 							https://thatsky.link/p0276
-							<ArrowTopRightOnSquareIcon className="ml-1 w-4 h-4" />
+							<ExternalLinkIcon className="ml-1 w-4 h-4" />
 						</a>
 						, we would have to search it up or, for some reason, memorise a link over 170
 						characters. What would you rather type out? If you haven't figured it out already, "p"
@@ -77,7 +77,7 @@ export default function ThatSkyLink() {
 							className="regular-link inline-flex items-center transition duration-200"
 						>
 							wiki
-							<ArrowTopRightOnSquareIcon className="ml-1 w-4 h-4" />
+							<ExternalLinkIcon className="ml-1 w-4 h-4" />
 						</a>
 						. Personal blogs, personal social media accounts, etc. may not be supported. Reach out
 						to us if you have an idea of something to add!

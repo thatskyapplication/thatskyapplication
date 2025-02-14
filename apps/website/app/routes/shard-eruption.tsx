@@ -1,7 +1,7 @@
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { type MetaFunction, useLoaderData } from "@remix-run/react";
 import { WEBSITE_URL } from "@thatskyapplication/utility";
+import { ExternalLinkIcon } from "lucide-react";
 import { DateTime } from "luxon";
 import TopBar from "~/components/TopBar";
 import {
@@ -127,7 +127,7 @@ function shardEruptionCard(shard: ShardEruptionCardData, now: number) {
 						className="regular-link inline-flex items-center text-sm"
 					>
 						{shard.realm} ({shard.sky_map})
-						<ArrowTopRightOnSquareIcon className="ml-1 w-4 h-4" />
+						<ExternalLinkIcon className="ml-1 w-4 h-4" />
 					</a>
 					<div className="inline-flex items-center">
 						<span className="text-sm">{shard.reward}</span>
