@@ -1,11 +1,5 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import {
-	Form,
-	Link,
-	type MetaFunction,
-	useLoaderData,
-	useViewTransitionState,
-} from "@remix-run/react";
+import { Form, Link, type MetaFunction, useLoaderData } from "@remix-run/react";
 import { WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
 import {
 	ChevronLeftIcon,
@@ -177,7 +171,6 @@ function SkyProfileCard(profile: ProfilePacket) {
 
 export default function SkyProfiles() {
 	const { profiles, query, currentPage, totalPages } = useLoaderData<typeof loader>();
-	const transition = useViewTransitionState("./");
 
 	return (
 		<div className="min-h-screen pt-20">
@@ -212,7 +205,6 @@ export default function SkyProfiles() {
 						<span>Random</span>
 					</Link>
 				</div>
-				{transition && <p>Loading...</p>}
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 					{profiles.length > 0 ? (
 						profiles.map((profile) => SkyProfileCard(profile))
