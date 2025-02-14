@@ -7,7 +7,7 @@ import {
 	useViewTransitionState,
 } from "@remix-run/react";
 import { WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
-import { LucideArrowLeft, LucideArrowRight } from "lucide-react";
+import { ChevronsLeftIcon, ChevronsRightIcon } from "lucide-react";
 import TopBar from "~/components/TopBar";
 import pg from "~/pg.server";
 import {
@@ -228,7 +228,7 @@ function Pagination({ currentPage, totalPages }: PaginationProps) {
 	return (
 		<div className="mt-8 flex justify-center items-center space-x-4">
 			<Link
-				to={`?page=${back1}`}
+				to={"?page=1"}
 				onClick={(event) => {
 					if (currentPage <= 1) {
 						event.preventDefault();
@@ -238,8 +238,8 @@ function Pagination({ currentPage, totalPages }: PaginationProps) {
 					currentPage <= 1 ? "cursor-not-allowed opacity-50" : ""
 				}`}
 			>
-				<LucideArrowLeft className="w-6 h-6 mr-2" />
-				<span>Back</span>
+				<ChevronsLeftIcon className="w-6 h-6 mr-1" />
+				<span>Start</span>
 			</Link>
 			<div className="flex items-center space-x-2">
 				{back2 > 0 && (
@@ -300,7 +300,7 @@ function Pagination({ currentPage, totalPages }: PaginationProps) {
 				)}
 			</div>
 			<Link
-				to={`?page=${next1}`}
+				to={`?page=${totalPages}`}
 				onClick={(event) => {
 					if (currentPage >= totalPages) {
 						event.preventDefault();
@@ -310,8 +310,8 @@ function Pagination({ currentPage, totalPages }: PaginationProps) {
 					currentPage >= totalPages ? "cursor-not-allowed opacity-50" : ""
 				}`}
 			>
-				<span className="mr-2">Next</span>
-				<LucideArrowRight className="w-6 h-6" />
+				<span className="mr-1">End</span>
+				<ChevronsRightIcon className="w-6 h-6" />
 			</Link>
 		</div>
 	);
