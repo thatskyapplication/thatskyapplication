@@ -287,10 +287,13 @@ export async function messageCreateResponse(message: GatewayMessageCreateDispatc
 			openAI.chat.completions.create(
 				{
 					frequency_penalty: 1,
-					max_completion_tokens: 300,
+					max_completion_tokens: 200,
 					messages: priorMessages,
+					modalities: ["text"],
 					model: "gpt-4o-2024-08-06",
+					n: 1,
 					user: message.author.id,
+					temperature: 0.5,
 					tools: [
 						{
 							type: "function",
