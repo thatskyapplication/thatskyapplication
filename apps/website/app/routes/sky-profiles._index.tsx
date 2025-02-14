@@ -209,7 +209,7 @@ export default function SkyProfiles() {
 							alt="Question mark icon."
 							className="w-5 h-5 mr-2"
 						/>
-						<span>Random Sky Profile</span>
+						<span>Random</span>
 					</Link>
 				</div>
 				{transition && <p>Loading...</p>}
