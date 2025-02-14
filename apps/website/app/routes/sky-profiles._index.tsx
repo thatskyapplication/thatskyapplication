@@ -176,7 +176,7 @@ export default function SkyProfiles() {
 	return (
 		<div className="min-h-screen pt-20">
 			<TopBar />
-			<div className="container mx-auto px-4 mt-4">
+			<div className="container mx-auto px-4 m-4">
 				<div className="mb-4">
 					<Form method="get" className="inline-block">
 						<input
