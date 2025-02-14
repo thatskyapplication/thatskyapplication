@@ -66,7 +66,7 @@ export default function SkyProfile() {
 		<div className="mx-auto px-4 max-w-3xl mt-20 mb-4">
 			<TopBar back="/sky-profiles" />
 			<div className="bg-gray-100 dark:bg-gray-700 rounded-lg shadow-lg">
-				<div className=" relative h-48 w-full">
+				<div className="relative h-60 w-full">
 					<div className="w-full h-full rounded-md overflow-hidden">
 						{profile.thumbnail ? (
 							<div
