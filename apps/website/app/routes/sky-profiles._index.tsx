@@ -181,7 +181,15 @@ export default function SkyProfiles() {
 							name="query"
 							placeholder="Search..."
 							defaultValue={query}
-							onChange={(event) => event.currentTarget.form?.requestSubmit()}
+							onChange={(event) => {
+								const value = event.currentTarget.value;
+
+								if (value !== value.trim()) {
+									return;
+								}
+
+								return event.currentTarget.form?.requestSubmit();
+							}}
 							className="p-2 border border-gray-200 dark:border-gray-600 rounded"
 						/>
 					</Form>
