@@ -190,7 +190,7 @@ export default function SkyProfiles() {
 								}
 								return event.currentTarget.form!.requestSubmit();
 							}}
-							className="p-2 border border-gray-200 dark:border-gray-600 rounded h-10"
+							className="p-2 border border-gray-200 dark:border-gray-600 rounded h-10 w-48"
 						/>
 					</Form>
 					<Link
