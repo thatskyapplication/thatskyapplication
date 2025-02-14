@@ -1,7 +1,7 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, type MetaFunction, useLoaderData } from "@remix-run/react";
 import { WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
-import { LucideArrowLeft } from "lucide-react";
+import { ChevronLeftIcon } from "lucide-react";
 import TopBar from "~/components/TopBar.js";
 import pg from "~/pg.server";
 import { APPLICATION_NAME, Table } from "~/utility/constants.js";
@@ -161,13 +161,24 @@ export default function SkyProfile() {
 					)}
 				</div>
 			</div>
-			<div className="flex justify-start mt-6">
+			<div className="flex items-center justify-start mt-6 space-x-2">
 				<Link
 					to="/sky-profiles"
-					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg flex items-center p-4"
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded px-4 h-10"
 				>
-					<LucideArrowLeft className="w-6 h-6 mr-2" />
-					<span>Back</span>
+					<ChevronLeftIcon className="w-6 h-6" />
+					<span className="ml-1">Back</span>
+				</Link>
+				<Link
+					to={"/sky-profiles/random"}
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded px-4 h-10"
+				>
+					<img
+						src="https://cdn.thatskyapplication.com/assets/question_mark.webp"
+						alt="Question mark icon."
+						className="w-5 h-5 mr-2"
+					/>
+					<span>Random Sky Profile</span>
 				</Link>
 			</div>
 		</div>

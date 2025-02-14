@@ -7,7 +7,12 @@ import {
 	useViewTransitionState,
 } from "@remix-run/react";
 import { WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
-import { ChevronLeftIcon, ChevronRight, ChevronsLeftIcon, ChevronsRightIcon } from "lucide-react";
+import {
+	ChevronLeftIcon,
+	ChevronRightIcon,
+	ChevronsLeftIcon,
+	ChevronsRightIcon,
+} from "lucide-react";
 import TopBar from "~/components/TopBar";
 import pg from "~/pg.server";
 import {
@@ -178,24 +183,35 @@ export default function SkyProfiles() {
 		<div className="min-h-screen pt-20">
 			<TopBar />
 			<div className="container mx-auto px-4 m-4">
-				<Form method="get" className="inline-block mb-4">
-					<input
-						type="search"
-						name="query"
-						placeholder="Search..."
-						defaultValue={query}
-						onChange={(event) => {
-							const value = event.currentTarget.value;
-
-							if (value !== value.trim()) {
-								return;
-							}
-
-							return event.currentTarget.form!.requestSubmit();
-						}}
-						className="p-2 border border-gray-200 dark:border-gray-600 rounded"
-					/>
-				</Form>
+				<div className="flex items-center mb-4">
+					<Form method="get" className="mr-4">
+						<input
+							type="search"
+							name="query"
+							placeholder="Search..."
+							defaultValue={query}
+							onChange={(event) => {
+								const value = event.currentTarget.value;
+								if (value !== value.trim()) {
+									return;
+								}
+								return event.currentTarget.form!.requestSubmit();
+							}}
+							className="p-2 border border-gray-200 dark:border-gray-600 rounded h-10"
+						/>
+					</Form>
+					<Link
+						to={"/sky-profiles/random"}
+						className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded px-4 h-10"
+					>
+						<img
+							src="https://cdn.thatskyapplication.com/assets/question_mark.webp"
+							alt="Question mark icon."
+							className="w-5 h-5 mr-2"
+						/>
+						<span>Random Sky Profile</span>
+					</Link>
+				</div>
 				{transition && <p>Loading...</p>}
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 					{profiles.length > 0 ? (
@@ -323,7 +339,7 @@ function Pagination({ currentPage, totalPages }: PaginationProps) {
 					currentPage >= totalPages ? "cursor-not-allowed opacity-50" : ""
 				}`}
 			>
-				<ChevronRight className="w-6 h-6" />
+				<ChevronRightIcon className="w-6 h-6" />
 			</Link>
 			<Link
 				to={`?page=${totalPages}`}
