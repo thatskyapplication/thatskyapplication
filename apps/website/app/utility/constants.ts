@@ -22,7 +22,7 @@ export const SHARD_ERUPTION_DESCRIPTION =
 export const SHARD_ERUPTION_ICON_URL = String(new URL("assets/shard_strong.webp", CDN_URL));
 export const SKY_KID_ICON_URL = String(new URL("assets/sky_kid.webp", CDN_URL));
 
-export const SKY_PROFILES_DESCRIPTION = "See the Sky profiles of the community!" as const;
+export const SKY_PROFILES_DESCRIPTION = "See the Sky Profiles of the community!" as const;
 
 export const INVITE_APPLICATION_URL =
 	"https://discord.com/oauth2/authorize?client_id=982740693070012506" as const;
