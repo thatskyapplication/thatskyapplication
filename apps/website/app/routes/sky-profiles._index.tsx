@@ -291,6 +291,12 @@ function Pagination({ currentPage, totalPages }: PaginationProps) {
 							pageInput.value = totalPages.toString();
 							setTimeout(() => form.submit(), 0);
 						}
+
+						if (pageValue < 1) {
+							event.preventDefault();
+							pageInput.value = "1";
+							setTimeout(() => form.submit(), 0);
+						}
 					}}
 				>
 					<input
