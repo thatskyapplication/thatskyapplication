@@ -302,7 +302,7 @@ function Pagination({ currentPage, totalPages }: PaginationProps) {
 					}}
 				>
 					<input
-						className="p-2 border border-gray-200 dark:border-gray-600 w-12 text-center rounded"
+						className="p-2 border border-gray-200 dark:border-gray-600 w-10 h-10 text-center rounded-full"
 						type="text"
 						inputMode="numeric"
 						pattern="\d*"
