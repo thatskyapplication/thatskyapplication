@@ -266,7 +266,7 @@ function Pagination({ currentPage, totalPages }: PaginationProps) {
 				{back2 > 0 && (
 					<Link
 						to={`?page=${back2}`}
-						className="shadow-md hover:shadow-lg flex items-center justify-center hover:bg-gray-100/50 dark:hover:bg-gray-900/50 hover:opacity-50 rounded-full h-6 w-6"
+						className="hover:shadow-lg flex items-center justify-center hover:bg-gray-100/75 dark:hover:bg-gray-900/50 rounded-full h-6 w-6"
 					>
 						<span>{back2}</span>
 					</Link>
@@ -274,7 +274,7 @@ function Pagination({ currentPage, totalPages }: PaginationProps) {
 				{back1 > 0 && (
 					<Link
 						to={`?page=${back1}`}
-						className="shadow-md hover:shadow-lg flex items-center justify-center hover:bg-gray-100/50 dark:hover:bg-gray-900/50 hover:opacity-50 rounded-full h-6 w-6"
+						className="hover:shadow-lg flex items-center justify-center hover:bg-gray-100/75 dark:hover:bg-gray-900/50 rounded-full h-6 w-6"
 					>
 						<span>{back1}</span>
 					</Link>
@@ -307,7 +307,7 @@ function Pagination({ currentPage, totalPages }: PaginationProps) {
 				{next1 <= totalPages && (
 					<Link
 						to={`?page=${next1}`}
-						className="shadow-md hover:shadow-lg flex items-center justify-center hover:bg-gray-100/50 dark:hover:bg-gray-900/50 hover:opacity-50 rounded-full h-6 w-6"
+						className="hover:shadow-lg flex items-center justify-center hover:bg-gray-100/75 dark:hover:bg-gray-900/50 rounded-full h-6 w-6"
 					>
 						<span>{next1}</span>
 					</Link>
@@ -315,7 +315,7 @@ function Pagination({ currentPage, totalPages }: PaginationProps) {
 				{next2 < totalPages && (
 					<Link
 						to={`?page=${next2}`}
-						className="shadow-md hover:shadow-lg flex items-center justify-center hover:bg-gray-100/50 dark:hover:bg-gray-900/50 hover:opacity-50 rounded-full h-6 w-6"
+						className="hover:shadow-lg flex items-center justify-center hover:bg-gray-100/75 dark:hover:bg-gray-900/50 rounded-full h-6 w-6"
 					>
 						<span>{next2}</span>
 					</Link>
