@@ -117,7 +117,10 @@ export default function SkyProfile() {
 									.filter((platform) => isPlatformId(platform))
 									.sort((a, b) => a - b)
 									.map((platform) => (
-										<div key={platform} className="bg-gray-300 dark:bg-gray-600 p-2 rounded-md">
+										<div
+											key={platform}
+											className="bg-gray-200 dark:bg-gray-100 p-2 rounded-full shadow items-center justify-center"
+										>
 											{PlatformToIcon[platform]}
 										</div>
 									))}
