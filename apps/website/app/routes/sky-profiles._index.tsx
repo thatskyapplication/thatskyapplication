@@ -52,8 +52,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const query = url.searchParams.get("query");
 
 	if (query) {
+		const queryLowerCase = query.toLowerCase();
+
 		const profiles = await pg<ProfilePacket>(Table.Profiles)
-			.where("name", "ilike", `%${query}%`)
+			.whereRaw("lower(name) % ?", [queryLowerCase])
+			.orderByRaw("similarity(lower(name), ?) DESC", [queryLowerCase])
 			.limit(SKY_PROFILES_PAGE_LIMIT);
 
 		return { profiles, query };
