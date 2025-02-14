@@ -1,6 +1,6 @@
-import { ChevronLeftIcon, LinkIcon } from "@heroicons/react/24/outline";
 import { SiDiscord } from "@icons-pack/react-simple-icons";
 import { Link } from "@remix-run/react";
+import { ChevronLeftIcon, LinkIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocale } from "~/contexts/LocaleContext";
 import { INVITE_APPLICATION_URL, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
