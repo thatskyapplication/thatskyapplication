@@ -12,6 +12,7 @@ export const loader: LoaderFunction = async () => {
 	const randomProfile = Math.floor(Math.random() * Number(countResult!.total!) + 1);
 
 	const profilePacket = await pg<ProfilePacket>(Table.Profiles)
+		.whereNotNull("name")
 		.limit(1)
 		.offset(randomProfile)
 		.first();
