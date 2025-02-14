@@ -29,10 +29,10 @@ export const meta: MetaFunction = ({ data, location }) => {
 		{ property: "og:site_name", content: "thatskyapplication" },
 		{
 			property: "og:image",
-			content: profilePacket.thumbnail
-				? `https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${profilePacket.user_id}/${profilePacket.thumbnail.startsWith("a_") ? `${profilePacket.thumbnail}.gif` : `${profilePacket.thumbnail}.webp`}`
-				: profilePacket.icon
-					? `https://cdn.thatskyapplication.com/sky_profiles/icons/${profilePacket.user_id}/${profilePacket.icon.startsWith("a_") ? `${profilePacket.icon}.gif` : `${profilePacket.icon}.webp`}`
+			content: profilePacket.icon
+				? `https://cdn.thatskyapplication.com/sky_profiles/icons/${profilePacket.user_id}/${profilePacket.icon.startsWith("a_") ? `${profilePacket.icon}.gif` : `${profilePacket.icon}.webp`}`
+				: profilePacket.thumbnail
+					? `https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${profilePacket.user_id}/${profilePacket.thumbnail.startsWith("a_") ? `${profilePacket.thumbnail}.gif` : `${profilePacket.thumbnail}.webp`}`
 					: null,
 		},
 		{ property: "og:url", content: url },
