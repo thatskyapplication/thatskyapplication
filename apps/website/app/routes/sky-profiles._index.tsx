@@ -238,8 +238,8 @@ function Pagination({ currentPage, totalPages }: PaginationProps) {
 					currentPage <= 1 ? "cursor-not-allowed opacity-50" : ""
 				}`}
 			>
-				<ChevronsLeftIcon className="w-6 h-6 mr-1" />
-				<span>Start</span>
+				<ChevronsLeftIcon className="w-6 h-6" />
+				<span className="hidden md:block ml-1">Start</span>
 			</Link>
 			<Link
 				to={`?page=${back1}`}
@@ -336,7 +336,7 @@ function Pagination({ currentPage, totalPages }: PaginationProps) {
 					currentPage >= totalPages ? "cursor-not-allowed opacity-50" : ""
 				}`}
 			>
-				<span className="mr-1">End</span>
+				<span className="hidden md:block mr-1">End</span>
 				<ChevronsRightIcon className="w-6 h-6" />
 			</Link>
 		</div>
