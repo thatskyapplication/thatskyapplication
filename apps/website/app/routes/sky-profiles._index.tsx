@@ -178,26 +178,24 @@ export default function SkyProfiles() {
 		<div className="min-h-screen pt-20">
 			<TopBar />
 			<div className="container mx-auto px-4 m-4">
-				<div className="mb-4">
-					<Form method="get" className="inline-block">
-						<input
-							type="search"
-							name="query"
-							placeholder="Search..."
-							defaultValue={query}
-							onChange={(event) => {
-								const value = event.currentTarget.value;
+				<Form method="get" className="inline-block mb-4">
+					<input
+						type="search"
+						name="query"
+						placeholder="Search..."
+						defaultValue={query}
+						onChange={(event) => {
+							const value = event.currentTarget.value;
 
-								if (value !== value.trim()) {
-									return;
-								}
+							if (value !== value.trim()) {
+								return;
+							}
 
-								return event.currentTarget.form?.requestSubmit();
-							}}
-							className="p-2 border border-gray-200 dark:border-gray-600 rounded"
-						/>
-					</Form>
-				</div>
+							return event.currentTarget.form!.requestSubmit();
+						}}
+						className="p-2 border border-gray-200 dark:border-gray-600 rounded"
+					/>
+				</Form>
 				{transition && <p>Loading...</p>}
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 					{profiles.length > 0 ? (
@@ -222,34 +220,93 @@ interface PaginationProps {
 }
 
 function Pagination({ currentPage, totalPages }: PaginationProps) {
+	const back2 = currentPage - 2;
+	const back1 = currentPage - 1;
+	const next1 = currentPage + 1;
+	const next2 = currentPage + 2;
+
 	return (
 		<div className="mt-8 flex justify-center items-center space-x-4">
 			<Link
-				to={`?page=${currentPage - 1}`}
+				to={`?page=${back1}`}
 				onClick={(event) => {
 					if (currentPage <= 1) {
 						event.preventDefault();
 					}
 				}}
-				className={`bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg flex items-center p-4 ${
+				className={`bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border border-gray-200 dark:border-gray-600 rounded-lg shadow-md hover:shadow-lg flex items-center p-2 ${
 					currentPage <= 1 ? "cursor-not-allowed opacity-50" : ""
 				}`}
 			>
 				<LucideArrowLeft className="w-6 h-6 mr-2" />
 				<span>Back</span>
 			</Link>
+			<div className="flex items-center space-x-2">
+				{back2 > 0 && (
+					<Link
+						to={`?page=${back2}`}
+						className="shadow-md hover:shadow-lg flex items-center justify-center hover:bg-gray-100/50 dark:hover:bg-gray-900/50 hover:opacity-50 rounded-full h-6 w-6"
+					>
+						<span>{back2}</span>
+					</Link>
+				)}
+				{back1 > 0 && (
+					<Link
+						to={`?page=${back1}`}
+						className="shadow-md hover:shadow-lg flex items-center justify-center hover:bg-gray-100/50 dark:hover:bg-gray-900/50 hover:opacity-50 rounded-full h-6 w-6"
+					>
+						<span>{back1}</span>
+					</Link>
+				)}
+				<Form
+					method="get"
+					onSubmit={(event) => {
+						const form = event.currentTarget;
+						const pageInput = form.elements.namedItem("page") as HTMLInputElement;
+						const pageValue = Number(pageInput.value);
 
-			<span className="flex items-center">
-				Page {currentPage} of {totalPages}
-			</span>
+						if (pageValue > totalPages) {
+							event.preventDefault();
+							pageInput.value = totalPages.toString();
+							setTimeout(() => form.submit(), 0);
+						}
+					}}
+				>
+					<input
+						className="p-2 border border-gray-200 dark:border-gray-600 w-12 text-center rounded"
+						type="text"
+						inputMode="numeric"
+						pattern="\d*"
+						name="page"
+						defaultValue={currentPage}
+						maxLength={String(totalPages).length}
+					/>
+				</Form>
+				{next1 <= totalPages && (
+					<Link
+						to={`?page=${next1}`}
+						className="shadow-md hover:shadow-lg flex items-center justify-center hover:bg-gray-100/50 dark:hover:bg-gray-900/50 hover:opacity-50 rounded-full h-6 w-6"
+					>
+						<span>{next1}</span>
+					</Link>
+				)}
+				{next2 < totalPages && (
+					<Link
+						to={`?page=${next2}`}
+						className="shadow-md hover:shadow-lg flex items-center justify-center hover:bg-gray-100/50 dark:hover:bg-gray-900/50 hover:opacity-50 rounded-full h-6 w-6"
+					>
+						<span>{next2}</span>
+					</Link>
+				)}
+			</div>
 			<Link
-				to={`?page=${currentPage + 1}`}
+				to={`?page=${next1}`}
 				onClick={(event) => {
 					if (currentPage >= totalPages) {
 						event.preventDefault();
 					}
 				}}
-				className={`bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg flex items-center p-4 ${
+				className={`bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border border-gray-200 dark:border-gray-600 rounded-lg shadow-md hover:shadow-lg flex items-center p-2 ${
 					currentPage >= totalPages ? "cursor-not-allowed opacity-50" : ""
 				}`}
 			>
