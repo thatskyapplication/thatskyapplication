@@ -86,6 +86,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		}
 
 		const profiles = await pg<ProfilePacket>(Table.Profiles)
+			.whereNotNull("name")
 			.orderBy("name", "asc")
 			.orderBy("user_id", "asc")
 			.limit(SKY_PROFILES_PAGE_LIMIT)
