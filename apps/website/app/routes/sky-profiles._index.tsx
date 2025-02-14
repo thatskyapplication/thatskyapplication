@@ -1,5 +1,11 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { Link, type MetaFunction, useLoaderData } from "@remix-run/react";
+import {
+	Form,
+	Link,
+	type MetaFunction,
+	useLoaderData,
+	useViewTransitionState,
+} from "@remix-run/react";
 import { WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
 import { LucideArrowLeft, LucideArrowRight } from "lucide-react";
 import TopBar from "~/components/TopBar";
@@ -43,6 +49,16 @@ export const meta: MetaFunction = ({ location }) => {
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const url = new URL(request.url);
+	const query = url.searchParams.get("query");
+
+	if (query) {
+		const profiles = await pg<ProfilePacket>(Table.Profiles)
+			.where("name", "ilike", `%${query}%`)
+			.limit(SKY_PROFILES_PAGE_LIMIT);
+
+		return { profiles, query };
+	}
+
 	const pageParameter = url.searchParams.get("page") ?? "1";
 	let page = Number(pageParameter);
 
@@ -151,22 +167,38 @@ function SkyProfileCard(profile: ProfilePacket) {
 }
 
 export default function SkyProfiles() {
-	const { profiles, currentPage, totalPages } = useLoaderData<typeof loader>();
+	const { profiles, query, currentPage, totalPages } = useLoaderData<typeof loader>();
+	const transition = useViewTransitionState("./");
 
 	return (
-		<div className="min-h-screen flex flex-col items-center justify-center pt-20">
+		<div className="min-h-screen pt-20">
 			<TopBar />
-			<div className="container mx-auto px-4 py-4">
+			<div className="container mx-auto px-4 mt-4">
+				<div className="mb-4">
+					<Form method="get" className="inline-block">
+						<input
+							type="search"
+							name="query"
+							placeholder="Search..."
+							defaultValue={query}
+							onChange={(event) => event.currentTarget.form?.requestSubmit()}
+							className="p-2 border border-gray-200 dark:border-gray-600 rounded"
+						/>
+					</Form>
+				</div>
+				{transition && <p>Loading...</p>}
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 					{profiles.length > 0 ? (
 						profiles.map((profile) => SkyProfileCard(profile))
+					) : currentPage !== undefined && totalPages !== undefined ? (
+						<p>Oh. No Sky profiles? Why not be the first time make one?</p>
 					) : (
-						<p className="text-sm text-center">
-							Oh. No Sky profiles? Why not be the first time make one?
-						</p>
+						<p>No results.</p>
 					)}
 				</div>
-				<Pagination currentPage={currentPage} totalPages={totalPages} />
+				{currentPage !== undefined && totalPages !== undefined && (
+					<Pagination currentPage={currentPage ?? 0} totalPages={totalPages ?? 0} />
+				)}
 			</div>
 		</div>
 	);
