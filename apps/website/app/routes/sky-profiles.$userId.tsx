@@ -139,7 +139,7 @@ export default function SkyProfile() {
 					)}
 				</div>
 			</div>
-			<div className="bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg items-center p-4 mt-4 grid grid-cols-3 gap-2">
+			<div className="bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg items-center p-4 mt-4 grid grid-cols-2 md:grid-cols-3 gap-2">
 				{profile.winged_light !== null && (
 					<Tooltip.Provider delayDuration={300}>
 						<Tooltip.Root>
