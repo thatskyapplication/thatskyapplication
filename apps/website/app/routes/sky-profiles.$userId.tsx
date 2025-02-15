@@ -1,3 +1,5 @@
+// biome-ignore lint/style/noNamespaceImport: This is fine.
+import * as Tooltip from "@radix-ui/react-tooltip";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, type MetaFunction, useLoaderData } from "@remix-run/react";
 import { WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
@@ -65,7 +67,7 @@ export default function SkyProfile() {
 	return (
 		<div className="mx-auto px-4 max-w-3xl mt-20 mb-4">
 			<TopBar back="/sky-profiles" />
-			<div className="bg-gray-100 dark:bg-gray-700 rounded-lg shadow-lg">
+			<div className="bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg">
 				<div className="relative h-60 w-full">
 					<div className="w-full h-full rounded-md overflow-hidden">
 						{profile.thumbnail ? (
@@ -129,32 +131,6 @@ export default function SkyProfile() {
 							</div>
 						</div>
 					)}
-					<div className="space-y-1">
-						{profile.country && (
-							<p>
-								<span className="font-semibold">Country:</span> {profile.country}
-							</p>
-						)}
-						{profile.winged_light !== null && (
-							<p>
-								<span className="font-semibold">Winged Light:</span> {profile.winged_light}
-							</p>
-						)}
-					</div>
-					{(profile.spirit || profile.spot) && (
-						<div className="mt-4 space-y-2">
-							{profile.spirit && (
-								<p>
-									<span className="font-semibold">Favourite Spirit:</span> {profile.spirit}
-								</p>
-							)}
-							{profile.spot && (
-								<p>
-									<span className="font-semibold">Favourite Hangout:</span> {profile.spot}
-								</p>
-							)}
-						</div>
-					)}
 					{profile.description && (
 						<div className="mt-4">
 							<h2 className="font-semibold mb-2">About Me</h2>
@@ -162,6 +138,59 @@ export default function SkyProfile() {
 						</div>
 					)}
 				</div>
+			</div>
+			<div className="bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg items-center p-4 mt-4 grid grid-cols-3 gap-2">
+				{profile.winged_light !== null && (
+					<Tooltip.Provider delayDuration={300}>
+						<Tooltip.Root>
+							<Tooltip.Trigger asChild={true}>
+								<div className="flex border border-gray-200 dark:border-gray-600 rounded-md p-2">
+									<div
+										className="w-6 h-6 mr-2 bg-cover bg-center"
+										style={{
+											backgroundImage:
+												"url(https://cdn.thatskyapplication.com/assets/winged_light.webp)",
+										}}
+										aria-label="Total number of winged light."
+									/>
+									<span>{profile.winged_light}</span>
+								</div>
+							</Tooltip.Trigger>
+							<Tooltip.Content className="bg-gray-100 dark:bg-gray-800 text-sm rounded shadow-xl p-2">
+								Total Winged Light
+								<Tooltip.Arrow className="fill-gray-100 dark:fill-gray-800 shadow-xl" />
+							</Tooltip.Content>
+						</Tooltip.Root>
+					</Tooltip.Provider>
+				)}
+				{profile.spirit && (
+					<Tooltip.Provider delayDuration={300}>
+						<Tooltip.Root>
+							<Tooltip.Trigger asChild={true}>
+								<div className="flex border border-gray-200 dark:border-gray-600 rounded-md p-2">
+									<div
+										className="w-6 h-6 mr-2 bg-cover bg-center"
+										style={{
+											backgroundImage: "url(https://cdn.thatskyapplication.com/assets/heart.webp)",
+										}}
+										aria-label="Favourite spirit."
+									/>
+									<span>{profile.spirit}</span>
+								</div>
+							</Tooltip.Trigger>
+							<Tooltip.Content className="bg-gray-100 dark:bg-gray-800 text-sm rounded shadow-xl p-2">
+								Favourite spirit
+								<Tooltip.Arrow className="fill-gray-100 dark:fill-gray-800 shadow-xl" />
+							</Tooltip.Content>
+						</Tooltip.Root>
+					</Tooltip.Provider>
+				)}
+				{profile.country && (
+					<div className="flex border border-gray-200 dark:border-gray-600 rounded-md p-2">
+						<span className="font-semibold mr-1">Country:</span>
+						<span>{profile.country}</span>
+					</div>
+				)}
 			</div>
 			<div className="flex items-center justify-start mt-6 space-x-2">
 				<Link

@@ -16,6 +16,7 @@
 		"@discordjs/core": "^2.0.0",
 		"@discordjs/rest": "^2.4.0",
 		"@icons-pack/react-simple-icons": "^10.2.0",
+		"@radix-ui/react-tooltip": "^1.1.8",
 		"@remix-run/node": "^2.15.0",
 		"@remix-run/react": "^2.15.0",
 		"@remix-run/serve": "^2.15.0",
