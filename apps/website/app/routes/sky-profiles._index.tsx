@@ -150,9 +150,9 @@ function SkyProfileCard(profile: ProfilePacket) {
 					<p className="mt-2 italic">No description.</p>
 				)}
 			</div>
-			<div className="px-4 py-4 flex items-center gap-2">
+			<div className="flex p-4 items-center">
 				{profile.platform && profile.platform.length > 0 && (
-					<div className="flex flex-wrap space-x-1">
+					<div className="flex flex-wrap gap-2">
 						{profile.platform
 							.filter((platform) => isPlatformId(platform))
 							.sort((a, b) => a - b)
