@@ -1,4 +1,3 @@
-import LineClamp from "@tailwindcss/line-clamp";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -24,5 +23,5 @@ export default {
 			},
 		},
 	},
-	plugins: [LineClamp],
+	plugins: [],
 } satisfies Config;

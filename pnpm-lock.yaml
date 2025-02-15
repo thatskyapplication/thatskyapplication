@@ -157,9 +157,6 @@ importers:
       '@remix-run/dev':
         specifier: ^2.15.0
         version: 2.15.0(@remix-run/react@2.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@remix-run/serve@2.15.0(typescript@5.6.2))(@types/node@22.10.1)(typescript@5.6.2)(vite@5.4.11(@types/node@22.10.1))
-      '@tailwindcss/line-clamp':
-        specifier: ^0.4.4
-        version: 0.4.4(tailwindcss@3.4.15)
       '@types/node':
         specifier: ^22.10.1
         version: 22.10.1
@@ -1815,11 +1812,6 @@ packages:
     resolution: {integrity: sha512-lGFf08pbkEac0NYgVf4hdANpAgApRjNByLXB+WBip3qj1iendOIyAwP2GKkKbQMNVy2r1xxDf0ssfWscoiC+Vw==}
     engines: {node: '>=8.10'}
     hasBin: true
-
-  '@tailwindcss/line-clamp@0.4.4':
-    resolution: {integrity: sha512-5U6SY5z8N42VtrCrKlsTAA35gy2VSyYtHWCsg1H87NU1SXnEfekTVlrga9fzUDrrHcGi2Lb5KenUWb4lRQT5/g==}
-    peerDependencies:
-      tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
 
   '@types/acorn@4.0.6':
     resolution: {integrity: sha512-veQTnWP+1D/xbxVrPC3zHnCZRjSrKfhbMUlEA43iMZLu7EsnTtkJklIuwrCPbOi8YkvDQAiW05VQQFvvz9oieQ==}
@@ -6303,10 +6295,6 @@ snapshots:
       commander: 4.1.1
       ignore: 5.3.2
       p-map: 4.0.0
-
-  '@tailwindcss/line-clamp@0.4.4(tailwindcss@3.4.15)':
-    dependencies:
-      tailwindcss: 3.4.15
 
   '@types/acorn@4.0.6':
     dependencies:
