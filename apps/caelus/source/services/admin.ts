@@ -1,3 +1,4 @@
+import { PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIChatInputApplicationCommandGuildInteraction,
@@ -13,18 +14,22 @@ import {
 	PresenceUpdateStatus,
 } from "@discordjs/core";
 import { DAILY_QUEST_VALUES } from "@thatskyapplication/utility";
+import { hash } from "hasha";
 import { t } from "i18next";
+import sharp from "sharp";
 import { client } from "../discord.js";
 import type { InteractiveOptions } from "../models/Admin.js";
 import Configuration from "../models/Configuration.js";
 import type { QuestNumber } from "../models/DailyGuides.js";
 import DailyGuides, { isDailyQuest } from "../models/DailyGuides.js";
+import S3Client from "../s3-client.js";
 import {
 	distribute as distributeDailyGuides,
 	distributionEmbed,
 } from "../services/daily-guides.js";
 import {
 	APPLICATION_ID,
+	CDN_BUCKET,
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
@@ -129,10 +134,10 @@ export async function interactive(
 		flags: MessageFlags.Ephemeral,
 	};
 
-	if (isChatInputCommand(interaction)) {
-		await client.api.interactions.reply(interaction.id, interaction.token, response);
-	} else if (options?.deferred) {
+	if (options?.deferred) {
 		await client.api.interactions.editReply(APPLICATION_ID, interaction.token, response);
+	} else if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
 	} else {
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 	}
@@ -273,6 +278,49 @@ export async function questSwap(
 
 	await interactive(interaction, {
 		content: `Successfully swapped quests ${quest1} & ${quest2}.`,
+		locale,
+	});
+}
+
+export async function setTravellingRock(
+	interaction: APIChatInputApplicationCommandGuildInteraction,
+	options: OptionResolver,
+) {
+	await client.api.interactions.defer(interaction.id, interaction.token, {
+		flags: MessageFlags.Ephemeral,
+	});
+
+	const { locale } = interaction;
+	const attachment = options.getAttachment("attachment", true);
+	const fetchedURL = await fetch(attachment.url);
+
+	const buffer = await sharp(await fetchedURL.arrayBuffer())
+		.webp()
+		.toBuffer();
+
+	const hashedBuffer = await hash(buffer, { algorithm: "md5" });
+
+	await S3Client.send(
+		new PutObjectCommand({
+			Bucket: CDN_BUCKET,
+			Key: `daily_guides/travelling_rocks/${hashedBuffer}.webp`,
+			Body: buffer,
+			ContentDisposition: "inline",
+			ContentType: fetchedURL.headers.get("content-type")!,
+		}),
+	);
+
+	const previousEmbed = await distributionEmbed(locale);
+	await DailyGuides.updateTravellingRock(hashedBuffer);
+
+	void log({
+		content: `${userLogFormat(interaction.member.user)} manually updated the travelling rock.`,
+		embeds: [previousEmbed, await distributionEmbed(locale)],
+	});
+
+	await interactive(interaction, {
+		content: "Successfully updated the travelling rock.",
+		deferred: true,
 		locale,
 	});
 }

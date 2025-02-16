@@ -43,6 +43,7 @@ interface DailyGuidesPacket {
 	quest2: DailyGuideQuest | null;
 	quest3: DailyGuideQuest | null;
 	quest4: DailyGuideQuest | null;
+	travelling_rock: string | null;
 }
 
 interface DailyGuideQuest {
@@ -120,6 +121,7 @@ export default function DailyGuides() {
 	const quest2 = dailyGuides.quest2;
 	const quest3 = dailyGuides.quest3;
 	const quest4 = dailyGuides.quest4;
+	const travellingRock = dailyGuides.travelling_rock;
 
 	const quests = [quest1, quest2, quest3, quest4].filter(
 		(quest): quest is DailyGuideQuest & { id: DailyQuests } =>
@@ -297,6 +299,22 @@ export default function DailyGuides() {
 					</div>
 				) : (
 					<p className="text-sm my-0">None</p>
+				)}
+				{travellingRock && (
+					<>
+						<h2 className="text-lg mt-1 mb-0">Travelling Rock</h2>
+						<button
+							type="button"
+							onClick={() =>
+								setSelectedImage(
+									`https://cdn.thatskyapplication.com/daily_guides/travelling_rocks/${travellingRock}.webp`,
+								)
+							}
+							className="regular-link text-sm"
+						>
+							View
+						</button>
+					</>
 				)}
 				{daysCount.length > 0 && (
 					<>

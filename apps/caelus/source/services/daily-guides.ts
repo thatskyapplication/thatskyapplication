@@ -34,6 +34,7 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import type { RotationNumber } from "../utility/catalogue.js";
 import {
+	CDN_URL,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DAILY_GUIDES_URL,
 	DEFAULT_EMBED_COLOUR,
@@ -468,7 +469,7 @@ export async function dailyGuidesShardEruptionData(locale: Locale) {
 }
 
 export async function distributionEmbed(locale: Locale) {
-	const { quest1, quest2, quest3, quest4 } = DailyGuides;
+	const { quest1, quest2, quest3, quest4, travellingRock } = DailyGuides;
 	const today = skyToday();
 	const now = skyNow();
 
@@ -582,6 +583,14 @@ export async function distributionEmbed(locale: Locale) {
 	}
 
 	fields.push(...(await dailyGuidesShardEruptionData(locale)));
+
+	if (travellingRock) {
+		fields.push({
+			name: "Travelling Rock",
+			value: `[View](${String(new URL(`daily_guides/travelling_rocks/${travellingRock}.webp`, CDN_URL))})`,
+		});
+	}
+
 	embed.fields = fields;
 	return embed;
 }

@@ -9,6 +9,7 @@ import {
 	interactive,
 	setQuest,
 	setQuestAutocomplete,
+	setTravellingRock,
 } from "../../services/admin.js";
 import { isGuildChatInputCommand } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
@@ -53,8 +54,14 @@ export default {
 				await interactive(interaction);
 				return;
 			}
-			case "set-quest":
+			case "set-quest": {
 				await setQuest(interaction, options);
+				return;
+			}
+			case "set-travelling-rock": {
+				await setTravellingRock(interaction, options);
+				return;
+			}
 		}
 	},
 } as const;

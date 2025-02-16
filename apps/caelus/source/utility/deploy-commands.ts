@@ -1341,6 +1341,19 @@ const DEVELOPER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 							})),
 						],
 					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: "set-travelling-rock",
+						description: "Sets the travelling rock's location for the daily guides.",
+						options: [
+							{
+								type: ApplicationCommandOptionType.Attachment,
+								name: "attachment",
+								description: "The location of the travelling rock.",
+								required: true,
+							},
+						],
+					},
 				],
 			},
 		],

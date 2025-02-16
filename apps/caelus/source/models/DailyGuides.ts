@@ -1,4 +1,3 @@
-import { URL } from "node:url";
 import {
 	type APIAttachment,
 	FormattingPatterns,
@@ -19,7 +18,6 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { distribute } from "../services/daily-guides.js";
 import {
-	CDN_URL,
 	DAILY_INFOGRAPHICS_CHANNEL_ID,
 	DailyQuestToInfographicURL,
 	INFOGRAPHICS_DATABASE_GUILD_ID,
@@ -46,6 +44,7 @@ export interface DailyGuidesPacket {
 	quest2: DailyGuideQuest | null;
 	quest3: DailyGuideQuest | null;
 	quest4: DailyGuideQuest | null;
+	travelling_rock: string | null;
 }
 
 interface DailyGuidesData {
@@ -53,6 +52,7 @@ interface DailyGuidesData {
 	quest2: DailyGuidesPacket["quest2"];
 	quest3: DailyGuidesPacket["quest3"];
 	quest4: DailyGuidesPacket["quest4"];
+	travellingRock: DailyGuidesPacket["travelling_rock"];
 }
 
 type DailyGuidesSetQuestsData = Partial<
@@ -69,6 +69,7 @@ const DAILY_GUIDES_RESET_DATA = {
 	quest2: null,
 	quest3: null,
 	quest4: null,
+	travelling_rock: null,
 } as const satisfies Readonly<{
 	[DailyGuide in keyof DailyGuidesPacket]: null;
 }>;
@@ -245,6 +246,8 @@ export default new (class DailyGuides {
 
 	public quest4: DailyGuidesData["quest4"] = null;
 
+	public travellingRock: DailyGuidesData["travellingRock"] = null;
+
 	public readonly queue = new pQueue({ concurrency: 1 });
 
 	public async reset(insert = false) {
@@ -269,6 +272,10 @@ export default new (class DailyGuides {
 
 		if ("quest4" in data) {
 			this.quest4 = data.quest4;
+		}
+
+		if ("travelling_rock" in data) {
+			this.travellingRock = data.travelling_rock;
 		}
 	}
 
@@ -624,11 +631,11 @@ export default new (class DailyGuides {
 		this.patch(dailyGuidesPacket!);
 	}
 
-	public treasureCandlesRoute(hash: string) {
-		return `daily_guides/tc/${hash}.webp`;
-	}
+	public async updateTravellingRock(data: DailyGuidesPacket["travelling_rock"]) {
+		const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides)
+			.update({ travelling_rock: data })
+			.returning("*");
 
-	public treasureCandlesURL(hash: string) {
-		return String(new URL(this.treasureCandlesRoute(hash), CDN_URL));
+		this.patch(dailyGuidesPacket!);
 	}
 })();
