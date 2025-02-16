@@ -282,6 +282,7 @@ export const MAXIMUM_KRILL_GIF = 11 as const;
 
 // biome-ignore lint/performance/noBarrelFile: This is fine.
 export { Cosmetic } from "./cosmetics.js";
+export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
 export { type Emoji, emojis, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "./emojis.js";
 export { PlatformId, PLATFORM_ID_VALUES, type PlatformIds, isPlatformId } from "./platforms.js";
 export { SeasonId, type SeasonIds, isSeasonId } from "./season.js";

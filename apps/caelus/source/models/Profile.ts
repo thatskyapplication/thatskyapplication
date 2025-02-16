@@ -30,6 +30,9 @@ import {
 	TextInputStyle,
 } from "@discordjs/core";
 import {
+	COUNTRY_VALUES,
+	type Country,
+	CountryToEmoji,
 	type Emoji,
 	PLATFORM_ID_VALUES,
 	PlatformId,
@@ -37,6 +40,7 @@ import {
 	type SeasonIds,
 	formatEmoji,
 	formatEmojiURL,
+	isCountry,
 	isPlatformId,
 	isSeasonId,
 } from "@thatskyapplication/utility";
@@ -58,9 +62,6 @@ import {
 	APPLICATION_ID,
 	CDN_BUCKET,
 	CDN_URL,
-	COUNTRY_VALUES,
-	type Country,
-	CountryToEmoji,
 	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
 	GuessDifficultyLevel,
@@ -88,7 +89,6 @@ import {
 	isAnimatedHash,
 	isButton,
 	isChatInputCommand,
-	isCountry,
 	userLogFormat,
 } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";

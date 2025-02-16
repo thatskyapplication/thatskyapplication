@@ -5,13 +5,14 @@ import {
 	Locale,
 	MessageFlags,
 } from "@discordjs/core";
+import { isCountry } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { spirits } from "../../data/spirits/index.js";
 import { client } from "../../discord.js";
 import Profile, { AssetType, type ProfileSetData } from "../../models/Profile.js";
 import { searchAutocomplete } from "../../services/spirit.js";
 import { APPLICATION_ID } from "../../utility/constants.js";
-import { isCountry, validateAttachment } from "../../utility/functions.js";
+import { validateAttachment } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {

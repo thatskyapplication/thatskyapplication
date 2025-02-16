@@ -2,7 +2,7 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, type MetaFunction, useLoaderData } from "@remix-run/react";
-import { WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
+import { CountryToEmoji, WEBSITE_URL, isCountry, isPlatformId } from "@thatskyapplication/utility";
 import { ChevronLeftIcon } from "lucide-react";
 import TopBar from "~/components/TopBar.js";
 import pg from "~/pg.server";
@@ -93,7 +93,7 @@ export default function SkyProfile() {
 					)}
 				</div>
 				<div className="px-4 pt-10 pb-2">
-					{profile.name ? <h1>{profile.name}</h1> : <h1 className="italic">No name</h1>}
+					{profile.name ? <h1>{profile.name} </h1> : <h1 className="italic">No name</h1>}
 					{profile.seasons && profile.seasons.length > 0 && (
 						<div className="mt-4">
 							<h2 className="font-semibold mb-2">Seasons</h2>
@@ -131,15 +131,16 @@ export default function SkyProfile() {
 							</div>
 						</div>
 					)}
-					{profile.description && (
-						<div className="mt-4">
-							<h2 className="font-semibold mb-2">About Me</h2>
-							<p className="whitespace-pre-wrap">{profile.description}</p>
-						</div>
-					)}
+					<h2 className="font-semibold mb-2">
+						About Me{" "}
+						{profile.country && isCountry(profile.country) && CountryToEmoji[profile.country]}
+					</h2>
+					<div className="mt-4">
+						<p className="whitespace-pre-wrap">{profile.description}</p>
+					</div>
 				</div>
 			</div>
-			{(profile.winged_light !== null || profile.spirit !== null || profile.country !== null) && (
+			{(profile.winged_light !== null || profile.spirit !== null) && (
 				<div className="bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg items-center p-4 mt-4 grid grid-cols-2 md:grid-cols-3 gap-2">
 					{profile.winged_light !== null && (
 						<Tooltip.Provider delayDuration={300}>
@@ -186,12 +187,6 @@ export default function SkyProfile() {
 								</Tooltip.Content>
 							</Tooltip.Root>
 						</Tooltip.Provider>
-					)}
-					{profile.country && (
-						<div className="flex border border-gray-200 dark:border-gray-600 rounded-md p-2">
-							<span className="font-semibold mr-1">Country:</span>
-							<span>{profile.country}</span>
-						</div>
 					)}
 				</div>
 			)}

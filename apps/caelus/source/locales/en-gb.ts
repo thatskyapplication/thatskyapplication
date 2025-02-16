@@ -1,4 +1,5 @@
 import {
+	Country,
 	DailyQuest,
 	type DailyQuests,
 	SeasonId,
@@ -7,7 +8,6 @@ import {
 } from "@thatskyapplication/utility";
 import { EventId, type EventIds } from "../utility/catalogue.js";
 import {
-	Country,
 	GUESS_DIFFICULTY_LEVEL_VALUES,
 	GuessDifficultyLevelToName,
 	MAXIMUM_WINGED_LIGHT,
