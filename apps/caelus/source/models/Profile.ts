@@ -1964,12 +1964,7 @@ export default class Profile {
 					inline: true,
 				});
 			} else {
-				pino.warn(interaction, `Invalid country code in Sky Profile: ${country}`);
-				fields.push({
-					name: "Country",
-					value: country,
-					inline: true,
-				});
+				pino.error(interaction, `Invalid country code in Sky Profile: ${country}`);
 			}
 		} else {
 			missing.push(`- ${useCommandPrefix} to set the country you are from!`);
