@@ -1,2 +1,7 @@
+[default.extend-words]
+BA = "BA"
+FO = "FO"
+PN = "PN"
+
 [files]
 extend-exclude = ["apps/caelus/source/locales/de.ts", "apps/caelus/source/locales/es-419.ts", "apps/caelus/source/locales/es-es.ts", "apps/caelus/source/locales/fr.ts", "apps/caelus/source/locales/it.ts", "apps/caelus/source/locales/ja.ts", "apps/caelus/source/locales/ko.ts", "apps/caelus/source/locales/pt-br.ts", "apps/caelus/source/locales/ru.ts", "apps/caelus/source/locales/th.ts", "apps/caelus/source/locales/vi.ts", "apps/caelus/source/locales/zh-cn.ts", "apps/caelus/source/locales/zh-tw.ts"]
