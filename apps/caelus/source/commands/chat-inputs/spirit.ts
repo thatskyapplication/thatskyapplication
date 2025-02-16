@@ -1,6 +1,7 @@
 import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIChatInputApplicationCommandInteraction,
+	ApplicationCommandOptionType,
 	Locale,
 } from "@discordjs/core";
 import { t } from "i18next";
@@ -21,7 +22,9 @@ export default {
 		}
 	},
 	async autocomplete(interaction: APIApplicationCommandAutocompleteInteraction) {
-		const options = new OptionResolver(interaction);
-		await searchAutocomplete(interaction, options);
+		await searchAutocomplete(
+			interaction,
+			new OptionResolver(interaction).getFocusedOption(ApplicationCommandOptionType.String),
+		);
 	},
 } as const;

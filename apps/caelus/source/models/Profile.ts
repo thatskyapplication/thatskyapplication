@@ -58,6 +58,9 @@ import {
 	APPLICATION_ID,
 	CDN_BUCKET,
 	CDN_URL,
+	COUNTRY_VALUES,
+	type Country,
+	CountryToEmoji,
 	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
 	GuessDifficultyLevel,
@@ -67,12 +70,10 @@ import {
 	SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH,
 	SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH,
 	SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
-	SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
 	SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH,
-	SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
 	SKY_PROFILE_MINIMUM_SPOT_LENGTH,
 	SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH,
 	SKY_PROFILE_REPORTS_CHANNEL_ID,
@@ -87,10 +88,11 @@ import {
 	isAnimatedHash,
 	isButton,
 	isChatInputCommand,
+	isCountry,
 	userLogFormat,
 } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
-import type { OptionResolver } from "../utility/option-resolver.js";
+import type { AutocompleteFocusedOption, OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import { Catalogue } from "./Catalogue.js";
 
@@ -136,7 +138,7 @@ export interface ProfileSetData {
 	icon?: string | null;
 	thumbnail?: string | null;
 	description?: string | null;
-	country?: string | null;
+	country?: Country | null;
 	winged_light?: number | null;
 	seasons?: SeasonIds[] | null;
 	platform?: PlatformIds[] | null;
@@ -152,7 +154,6 @@ enum ProfileInteractiveEditType {
 	Name = "Name",
 	Description = "Description",
 	WingedLight = "Winged Light",
-	Country = "Country",
 	Spot = "Spot",
 	Seasons = "Seasons",
 	Platforms = "Platforms",
@@ -166,7 +167,6 @@ const ProfileInteractiveEditTypeToDescription = {
 	[ProfileInteractiveEditType.Name]: "What name do you go by?",
 	[ProfileInteractiveEditType.Description]: "What's your story?",
 	[ProfileInteractiveEditType.WingedLight]: "What's the maximum winged light you can possess?",
-	[ProfileInteractiveEditType.Country]: "What country are you from?",
 	[ProfileInteractiveEditType.Spot]: "Where do you hang out?",
 	[ProfileInteractiveEditType.Seasons]: "What seasons have you played in?",
 	[ProfileInteractiveEditType.Platforms]: "What platforms do you play on?",
@@ -227,11 +227,6 @@ export const SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID =
 
 const SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID =
 	"SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID =
-	"SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID" as const;
-
-const SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID =
 	"SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID" as const;
@@ -612,10 +607,6 @@ export default class Profile {
 				await this.showWingedLightModal(interaction);
 				return;
 			}
-			case ProfileInteractiveEditType.Country: {
-				await this.showCountryModal(interaction);
-				return;
-			}
 			case ProfileInteractiveEditType.Spot: {
 				await this.showSpotModal(interaction);
 				return;
@@ -896,6 +887,30 @@ export default class Profile {
 		} else {
 			await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 		}
+	}
+
+	public static async editCountryAutocomplete(
+		interaction: APIApplicationCommandAutocompleteInteraction,
+		option: AutocompleteFocusedOption<ApplicationCommandOptionType.String>,
+	) {
+		const { locale } = interaction;
+		const value = option.value.toUpperCase();
+
+		await client.api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
+			choices:
+				value.length === 0
+					? []
+					: COUNTRY_VALUES.filter((country) =>
+							t(`countries.${country}`, { lng: locale, ns: "general" })
+								.toUpperCase()
+								.includes(value),
+						)
+							.map((country) => ({
+								name: t(`countries.${country}`, { lng: locale, ns: "general" }),
+								value: country,
+							}))
+							.slice(0, 25),
+		});
 	}
 
 	public static async exploreAutocomplete(
@@ -1573,31 +1588,6 @@ export default class Profile {
 		});
 	}
 
-	public static async showCountryModal(interaction: APIMessageComponentSelectMenuInteraction) {
-		const invoker = interactionInvoker(interaction);
-		const profile = await Profile.fetch(invoker.id).catch(() => null);
-
-		const textInput: APITextInputComponent = {
-			type: ComponentType.TextInput,
-			custom_id: SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID,
-			label: "Feel like specifying your country?",
-			max_length: SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
-			min_length: SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
-			required: true,
-			style: TextInputStyle.Short,
-		};
-
-		if (profile?.country) {
-			textInput.value = profile.country;
-		}
-
-		await client.api.interactions.createModal(interaction.id, interaction.token, {
-			components: [{ type: ComponentType.ActionRow, components: [textInput] }],
-			custom_id: SKY_PROFILE_SET_COUNTRY_MODAL_CUSTOM_ID,
-			title: "Sky Profile",
-		});
-	}
-
 	private static async showSpotModal(interaction: APIMessageComponentSelectMenuInteraction) {
 		const invoker = interactionInvoker(interaction);
 		const profile = await Profile.fetch(invoker.id).catch(() => null);
@@ -1728,14 +1718,6 @@ export default class Profile {
 		}
 
 		return this.set(interaction, { winged_light: wingedLightNumber });
-	}
-
-	public static setCountry(interaction: APIModalSubmitInteraction) {
-		const components = new ModalResolver(interaction.data.components);
-
-		const country = components.getTextInputValue(SKY_PROFILE_SET_COUNTRY_INPUT_CUSTOM_ID).trim();
-
-		return this.set(interaction, { country });
 	}
 
 	public static setSpot(interaction: APIModalSubmitInteraction) {
@@ -1975,9 +1957,22 @@ export default class Profile {
 		}
 
 		if (country) {
-			fields.push({ name: "Country", value: country, inline: true });
+			if (isCountry(country)) {
+				fields.push({
+					name: "Country",
+					value: `${CountryToEmoji[country]} ${t(`countries.${country}`, { lng: locale, ns: "general" })}`,
+					inline: true,
+				});
+			} else {
+				pino.warn(interaction, `Invalid country code in Sky Profile: ${country}`);
+				fields.push({
+					name: "Country",
+					value: country,
+					inline: true,
+				});
+			}
 		} else {
-			missing.push("- Set your country!");
+			missing.push(`- ${useCommandPrefix} to set the country you are from!`);
 		}
 
 		if (spot) {

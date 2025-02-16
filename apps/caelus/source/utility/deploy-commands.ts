@@ -16,10 +16,8 @@ import {
 	PRODUCTION,
 	QUEST_NUMBER,
 	SKY_CREATOR_TROUPE_GUILD_IDS,
-	SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
-	SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
 	SKY_PROFILE_MINIMUM_SPOT_LENGTH,
 } from "./constants.js";
 import "../i18next.js";
@@ -1018,8 +1016,7 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						description_localizations: localisations(
 							"sky-profile.edit.command-option-country-description",
 						),
-						max_length: SKY_PROFILE_MAXIMUM_COUNTRY_LENGTH,
-						min_length: SKY_PROFILE_MINIMUM_COUNTRY_LENGTH,
+						autocomplete: true,
 					},
 					{
 						type: ApplicationCommandOptionType.String,

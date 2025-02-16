@@ -25,6 +25,8 @@ import { client } from "../discord.js";
 import {
 	ANIMATED_HASH_PREFIX,
 	APPLICATION_ID,
+	COUNTRY_VALUES,
+	type Country,
 	DOUBLE_TREASURE_CANDLES_ROTATION,
 	MAXIMUM_ASSET_SIZE,
 	TREASURE_CANDLES_ROTATION,
@@ -232,4 +234,8 @@ export async function validateAttachment(
 
 export function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${string}` {
 	return hash.startsWith(ANIMATED_HASH_PREFIX);
+}
+
+export function isCountry(country: string): country is Country {
+	return COUNTRY_VALUES.includes(country as Country);
 }

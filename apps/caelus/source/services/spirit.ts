@@ -5,7 +5,7 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIEmbed,
 	type APIMessageComponentButtonInteraction,
-	ApplicationCommandOptionType,
+	type ApplicationCommandOptionType,
 	ButtonStyle,
 	ComponentType,
 	type Locale,
@@ -35,7 +35,7 @@ import {
 import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { TIME_ZONE, skyNow } from "../utility/dates.js";
 import { isChatInputCommand } from "../utility/functions.js";
-import type { OptionResolver } from "../utility/option-resolver.js";
+import type { AutocompleteFocusedOption, OptionResolver } from "../utility/option-resolver.js";
 import {
 	FriendActionToEmoji,
 	SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID,
@@ -46,14 +46,14 @@ import {
 
 export async function searchAutocomplete(
 	interaction: APIApplicationCommandAutocompleteInteraction,
-	options: OptionResolver,
+	option: AutocompleteFocusedOption<ApplicationCommandOptionType.String>,
 ) {
 	const { locale } = interaction;
-	const focused = options.getFocusedOption(ApplicationCommandOptionType.String).value.toUpperCase();
+	const value = option.value.toUpperCase();
 
 	await client.api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
 		choices:
-			focused === ""
+			value === ""
 				? []
 				: spirits()
 						.filter((spirit) => {
@@ -78,13 +78,13 @@ export async function searchAutocomplete(
 									: null;
 
 							return (
-								localisedName.toUpperCase().includes(focused) ||
-								keywords.some((keyword) => keyword.toUpperCase().includes(focused)) ||
-								emote?.toUpperCase().includes(focused) ||
-								stance?.toUpperCase().includes(focused) ||
-								call?.toUpperCase().includes(focused) ||
-								action?.toUpperCase().includes(focused) ||
-								seasonName?.includes(focused)
+								localisedName.toUpperCase().includes(value) ||
+								keywords.some((keyword) => keyword.toUpperCase().includes(value)) ||
+								emote?.toUpperCase().includes(value) ||
+								stance?.toUpperCase().includes(value) ||
+								call?.toUpperCase().includes(value) ||
+								action?.toUpperCase().includes(value) ||
+								seasonName?.includes(value)
 							);
 						})
 						.map(({ name }) => ({

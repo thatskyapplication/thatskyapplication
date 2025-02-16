@@ -22,7 +22,7 @@ import {
 import { Role } from "../models/discord/role.js";
 
 // https://github.com/discordjs/discord-api-types/issues/1175
-interface AutocompleteFocusedOption<
+export interface AutocompleteFocusedOption<
 	Type extends
 		| ApplicationCommandOptionType.String
 		| ApplicationCommandOptionType.Integer

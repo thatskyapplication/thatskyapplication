@@ -1,6 +1,7 @@
 import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIChatInputApplicationCommandInteraction,
+	ApplicationCommandOptionType,
 	Locale,
 	MessageFlags,
 } from "@discordjs/core";
@@ -10,7 +11,7 @@ import { client } from "../../discord.js";
 import Profile, { AssetType, type ProfileSetData } from "../../models/Profile.js";
 import { searchAutocomplete } from "../../services/spirit.js";
 import { APPLICATION_ID } from "../../utility/constants.js";
-import { validateAttachment } from "../../utility/functions.js";
+import { isCountry, validateAttachment } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
@@ -20,7 +21,7 @@ export default {
 
 		switch (options.getSubcommand()) {
 			case "edit": {
-				await searchAutocomplete(interaction, options);
+				await this.editAutocomplete(interaction, options);
 				return;
 			}
 			case "explore": {
@@ -43,6 +44,29 @@ export default {
 			}
 			case "show": {
 				await this.show(interaction, options);
+				return;
+			}
+		}
+	},
+	async editAutocomplete(
+		interaction: APIApplicationCommandAutocompleteInteraction,
+		options: OptionResolver,
+	) {
+		const option = options.getFocusedOption(ApplicationCommandOptionType.String);
+
+		switch (option.name) {
+			case t("sky-profile.edit.command-option-country-name", {
+				lng: Locale.EnglishGB,
+				ns: "commands",
+			}): {
+				await Profile.editCountryAutocomplete(interaction, option);
+				return;
+			}
+			case t("sky-profile.edit.command-option-spirit-name", {
+				lng: Locale.EnglishGB,
+				ns: "commands",
+			}): {
+				await searchAutocomplete(interaction, option);
 				return;
 			}
 		}
@@ -111,6 +135,14 @@ export default {
 			}
 
 			if (country) {
+				if (!isCountry(country)) {
+					await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
+						content: "Please select a country!",
+					});
+
+					return;
+				}
+
 				data.country = country;
 			}
 
