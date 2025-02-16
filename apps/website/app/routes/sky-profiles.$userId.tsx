@@ -139,59 +139,62 @@ export default function SkyProfile() {
 					)}
 				</div>
 			</div>
-			<div className="bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg items-center p-4 mt-4 grid grid-cols-2 md:grid-cols-3 gap-2">
-				{profile.winged_light !== null && (
-					<Tooltip.Provider delayDuration={300}>
-						<Tooltip.Root>
-							<Tooltip.Trigger asChild={true}>
-								<div className="flex border border-gray-200 dark:border-gray-600 rounded-md p-2">
-									<div
-										className="w-6 h-6 mr-2 bg-cover bg-center"
-										style={{
-											backgroundImage:
-												"url(https://cdn.thatskyapplication.com/assets/winged_light.webp)",
-										}}
-										aria-label="Total number of winged light."
-									/>
-									<span>{profile.winged_light}</span>
-								</div>
-							</Tooltip.Trigger>
-							<Tooltip.Content className="bg-gray-100 dark:bg-gray-800 text-sm rounded shadow-xl p-2">
-								Total Winged Light
-								<Tooltip.Arrow className="fill-gray-100 dark:fill-gray-800 shadow-xl" />
-							</Tooltip.Content>
-						</Tooltip.Root>
-					</Tooltip.Provider>
-				)}
-				{profile.spirit && (
-					<Tooltip.Provider delayDuration={300}>
-						<Tooltip.Root>
-							<Tooltip.Trigger asChild={true}>
-								<div className="flex border border-gray-200 dark:border-gray-600 rounded-md p-2">
-									<div
-										className="w-6 h-6 mr-2 bg-cover bg-center"
-										style={{
-											backgroundImage: "url(https://cdn.thatskyapplication.com/assets/heart.webp)",
-										}}
-										aria-label="Favourite spirit."
-									/>
-									<span>{profile.spirit}</span>
-								</div>
-							</Tooltip.Trigger>
-							<Tooltip.Content className="bg-gray-100 dark:bg-gray-800 text-sm rounded shadow-xl p-2">
-								Favourite spirit
-								<Tooltip.Arrow className="fill-gray-100 dark:fill-gray-800 shadow-xl" />
-							</Tooltip.Content>
-						</Tooltip.Root>
-					</Tooltip.Provider>
-				)}
-				{profile.country && (
-					<div className="flex border border-gray-200 dark:border-gray-600 rounded-md p-2">
-						<span className="font-semibold mr-1">Country:</span>
-						<span>{profile.country}</span>
-					</div>
-				)}
-			</div>
+			{(profile.winged_light !== null || profile.spirit !== null || profile.country !== null) && (
+				<div className="bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg items-center p-4 mt-4 grid grid-cols-2 md:grid-cols-3 gap-2">
+					{profile.winged_light !== null && (
+						<Tooltip.Provider delayDuration={300}>
+							<Tooltip.Root>
+								<Tooltip.Trigger asChild={true}>
+									<div className="flex border border-gray-200 dark:border-gray-600 rounded-md p-2">
+										<div
+											className="w-6 h-6 mr-2 bg-cover bg-center"
+											style={{
+												backgroundImage:
+													"url(https://cdn.thatskyapplication.com/assets/winged_light.webp)",
+											}}
+											aria-label="Total number of winged light."
+										/>
+										<span>{profile.winged_light}</span>
+									</div>
+								</Tooltip.Trigger>
+								<Tooltip.Content className="bg-gray-100 dark:bg-gray-800 text-sm rounded shadow-xl p-2">
+									Total Winged Light
+									<Tooltip.Arrow className="fill-gray-100 dark:fill-gray-800 shadow-xl" />
+								</Tooltip.Content>
+							</Tooltip.Root>
+						</Tooltip.Provider>
+					)}
+					{profile.spirit && (
+						<Tooltip.Provider delayDuration={300}>
+							<Tooltip.Root>
+								<Tooltip.Trigger asChild={true}>
+									<div className="flex border border-gray-200 dark:border-gray-600 rounded-md p-2">
+										<div
+											className="w-6 h-6 mr-2 bg-cover bg-center"
+											style={{
+												backgroundImage:
+													"url(https://cdn.thatskyapplication.com/assets/heart.webp)",
+											}}
+											aria-label="Favourite spirit."
+										/>
+										<span>{profile.spirit}</span>
+									</div>
+								</Tooltip.Trigger>
+								<Tooltip.Content className="bg-gray-100 dark:bg-gray-800 text-sm rounded shadow-xl p-2">
+									Favourite spirit
+									<Tooltip.Arrow className="fill-gray-100 dark:fill-gray-800 shadow-xl" />
+								</Tooltip.Content>
+							</Tooltip.Root>
+						</Tooltip.Provider>
+					)}
+					{profile.country && (
+						<div className="flex border border-gray-200 dark:border-gray-600 rounded-md p-2">
+							<span className="font-semibold mr-1">Country:</span>
+							<span>{profile.country}</span>
+						</div>
+					)}
+				</div>
+			)}
 			<div className="flex items-center justify-start mt-6 space-x-2">
 				<Link
 					to="/sky-profiles"
