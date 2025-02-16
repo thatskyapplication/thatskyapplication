@@ -136,7 +136,11 @@ export default function SkyProfile() {
 						{profile.country && isCountry(profile.country) && CountryToEmoji[profile.country]}
 					</h2>
 					<div className="mt-4">
-						<p className="whitespace-pre-wrap">{profile.description}</p>
+						{profile.description ? (
+							<p className="whitespace-pre-wrap">{profile.description}</p>
+						) : (
+							<p className="italic">No description.</p>
+						)}
 					</div>
 				</div>
 			</div>
