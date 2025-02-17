@@ -1148,6 +1148,7 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.MeetUpWithNightbirdWhispererInSanctuaryIslands]: null,
 	[DailyQuest.MeetUpWithJollyGeologistInSanctuaryIslands]: null,
 	[DailyQuest.MeetUpWithAsceticMonkInPrairieVillage]: null,
+	[DailyQuest.MeetUpWithNightbirdWhispererInPrairieVillage]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
 export const TREASURE_CANDLES_ROTATION = {
