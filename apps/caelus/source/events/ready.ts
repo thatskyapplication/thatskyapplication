@@ -1,12 +1,12 @@
 import process from "node:process";
 import { GatewayDispatchEvents, type Snowflake } from "@discordjs/core";
+import type { NotificationPacket } from "@thatskyapplication/utility";
 import { GUILD_IDS_FROM_READY } from "../caches/guilds.js";
 import croner from "../croner.js";
 import AI, { type AIPacket } from "../models/AI.js";
 import Configuration, { type ConfigurationPacket } from "../models/Configuration.js";
 import DailyGuides, { type DailyGuidesPacket } from "../models/DailyGuides.js";
 import type { DailyGuidesDistributionPacket } from "../models/DailyGuidesDistribution.js";
-import type { NotificationPacket } from "../models/Notification.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { deleteDailyGuidesDistribution } from "../services/daily-guides.js";

@@ -283,11 +283,19 @@ export const MAXIMUM_HIGH_FIVE_GIF = 8 as const;
 export const MAXIMUM_HUG_GIF = 36 as const;
 export const MAXIMUM_PLAY_FIGHT_GIF = 6 as const;
 export const MAXIMUM_KRILL_GIF = 11 as const;
+export const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
+export const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [5, 13, 21, 29] as const;
 
 // biome-ignore lint/performance/noBarrelFile: This is fine.
 export { Cosmetic } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
 export { type Emoji, emojis, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "./emojis.js";
+export {
+	NOTIFICATION_TYPE_VALUES,
+	type NotificationPacket,
+	NotificationType,
+	type NotificationTypes,
+} from "./notifications.js";
 export { PlatformId, PLATFORM_ID_VALUES, type PlatformIds, isPlatformId } from "./platforms.js";
 export { SeasonId, type SeasonIds, isSeasonId } from "./season.js";
 export {

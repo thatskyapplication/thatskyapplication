@@ -4,6 +4,8 @@ import { ChannelType, Locale, MessageFlags, type Snowflake } from "@discordjs/co
 import {
 	DailyQuest,
 	type DailyQuests,
+	NotificationType,
+	type NotificationTypes,
 	REALM_NAME_VALUES,
 	RealmName,
 	SkyMap,
@@ -131,7 +133,6 @@ export const MINIMUM_WINGED_LIGHT = 0 as const;
 export const MAXIMUM_WINGED_LIGHT = 244 as const;
 export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
 export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
-export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
 export const DEFAULT_EMBED_COLOUR = 0x6f68c9 as const;
 export const ANIMATED_HASH_PREFIX = "a_" as const;
 export const MAXIMUM_ASSET_SIZE = 5_000_000 as const;
@@ -1266,25 +1267,6 @@ export const NOTIFICATION_CHANNEL_TYPES = [
 	ChannelType.GuildText,
 	ChannelType.GuildAnnouncement,
 ] as const satisfies Readonly<ChannelType[]>;
-
-export const NotificationType = {
-	DailyReset: 0,
-	EyeOfEden: 1,
-	InternationalSpaceStation: 2,
-	Dragon: 3,
-	PollutedGeyser: 4,
-	Grandma: 5,
-	Turtle: 6,
-	RegularShardEruption: 7,
-	StrongShardEruption: 8,
-	AURORA: 9,
-	Passage: 10,
-	AviarysFireworkFestival: 11,
-	TravellingSpirit: 12,
-} as const satisfies Readonly<Record<string, number>>;
-
-export type NotificationTypes = (typeof NotificationType)[keyof typeof NotificationType];
-export const NOTIFICATION_TYPE_VALUES = Object.values(NotificationType);
 
 // Cannot exceed 24.
 export const NotificationOffsetToMaximumValues = {

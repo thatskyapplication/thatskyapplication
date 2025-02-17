@@ -1,5 +1,11 @@
-import { DailyQuest, RealmName, SeasonId, SkyMap, SpiritName } from "@thatskyapplication/utility";
-import { NotificationType } from "../utility/constants.js";
+import {
+	DailyQuest,
+	NotificationType,
+	RealmName,
+	SeasonId,
+	SkyMap,
+	SpiritName,
+} from "@thatskyapplication/utility";
 
 export default {
 	general: {

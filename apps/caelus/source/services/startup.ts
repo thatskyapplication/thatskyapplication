@@ -1,4 +1,4 @@
-import type { NotificationPacket } from "../models/Notification.js";
+import type { NotificationPacket } from "@thatskyapplication/utility";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import { checkSendable } from "./notification.js";

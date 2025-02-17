@@ -12,7 +12,6 @@ import {
 	MAXIMUM_WING_BUFFS,
 	MINIMUM_WINGED_LIGHT,
 	NOTIFICATION_CHANNEL_TYPES,
-	NOTIFICATION_TYPE_VALUES,
 	PRODUCTION,
 	QUEST_NUMBER,
 	SKY_CREATOR_TROUPE_GUILD_IDS,
@@ -33,6 +32,7 @@ import {
 	type RESTPutAPIApplicationGuildCommandsJSONBody,
 } from "@discordjs/core";
 import { REST } from "@discordjs/rest";
+import { NOTIFICATION_TYPE_VALUES } from "@thatskyapplication/utility";
 import {
 	CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH,
 	ContentCreatorsEditType,

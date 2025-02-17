@@ -1,0 +1,55 @@
+import type { RealmName, SkyMap } from "@thatskyapplication/utility";
+import { DateTime } from "luxon";
+import { WIND_PATHS_URL } from "./configuration.js";
+
+interface ShardEruptionTimestampsRawData {
+	start: string;
+	end: string;
+}
+
+interface ShardEruptionRawData {
+	realm: RealmName;
+	sky_map: SkyMap;
+	strong: boolean;
+	reward: number;
+	timestamps: ShardEruptionTimestampsRawData[];
+	url: string;
+}
+
+interface ShardEruptionTimestampsData {
+	start: DateTime;
+	end: DateTime;
+}
+
+export interface ShardEruptionData {
+	realm: RealmName;
+	skyMap: SkyMap;
+	strong: boolean;
+	reward: number;
+	timestamps: ShardEruptionTimestampsData[];
+	url: string;
+}
+
+export async function shardEruption(offset = 0): Promise<ShardEruptionData | null> {
+	const queryParameters = new URLSearchParams({ offset: offset.toString() });
+
+	const response = await fetch(new URL(`shard-eruption?${queryParameters}`, WIND_PATHS_URL), {
+		method: "GET",
+	});
+
+	const json = (await response.json()) as ShardEruptionRawData | null;
+
+	return json
+		? {
+				realm: json.realm,
+				skyMap: json.sky_map,
+				strong: json.strong,
+				reward: json.reward,
+				timestamps: json.timestamps.map(({ start, end }) => ({
+					start: DateTime.fromISO(start),
+					end: DateTime.fromISO(end),
+				})),
+				url: json.url,
+			}
+		: null;
+}
