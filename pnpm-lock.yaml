@@ -100,6 +100,55 @@ importers:
         specifier: 5.6.2
         version: 5.6.2
 
+  apps/notifications:
+    dependencies:
+      '@discordjs/core':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@discordjs/rest':
+        specifier: ^2.4.0
+        version: 2.4.0
+      '@logtail/pino':
+        specifier: ^0.4.22
+        version: 0.4.22(pino@9.6.0)
+      '@thatskyapplication/utility':
+        specifier: workspace:^
+        version: link:../../packages/utility
+      croner:
+        specifier: ^9.0.0
+        version: 9.0.0
+      knex:
+        specifier: ^3.1.0
+        version: 3.1.0(pg@8.13.1)
+      luxon:
+        specifier: ^3.5.0
+        version: 3.5.0
+      pg:
+        specifier: ^8.12.0
+        version: 8.13.1
+      pino:
+        specifier: ^9.2.0
+        version: 9.6.0
+    devDependencies:
+      '@biomejs/biome':
+        specifier: 1.8.2
+        version: 1.8.2
+      '@types/luxon':
+        specifier: ^3.4.2
+        version: 3.4.2
+      knip:
+        specifier: ^5.22.2
+        version: 5.42.0(@types/node@22.10.1)(typescript@5.6.2)
+      pino-pretty:
+        specifier: ^11.2.1
+        version: 11.3.0
+      tsx:
+        specifier: ^4.15.7
+        version: 4.19.2
+      typescript:
+        specifier: 5.6.2
+        version: 5.6.2
+
   apps/website:
     dependencies:
       '@discordjs/core':

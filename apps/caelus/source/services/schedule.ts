@@ -5,16 +5,12 @@ import {
 	type Locale,
 	MessageFlags,
 } from "@discordjs/core";
+import { INTERNATIONAL_SPACE_STATION_DATES, NotificationType } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { resolveTravellingSpirit } from "../data/spirits/seasons/index.js";
 import { client } from "../discord.js";
-import {
-	DEFAULT_EMBED_COLOUR,
-	ISS_DATES_ACCESSIBLE,
-	NotificationType,
-	PASSAGE_TRUNCATION_LIMIT,
-} from "../utility/constants.js";
+import { DEFAULT_EMBED_COLOUR, PASSAGE_TRUNCATION_LIMIT } from "../utility/constants.js";
 import { INITIAL_TRAVELLING_SPIRIT_SEEK, skyNow } from "../utility/dates.js";
 import { dailyGuidesEventData, dailyGuidesShardEruptionData } from "./daily-guides.js";
 
@@ -168,7 +164,7 @@ export async function schedule(interaction: APIChatInputApplicationCommandIntera
 				lng: locale,
 				ns: "general",
 			}),
-			value: ISS_DATES_ACCESSIBLE.filter(
+			value: INTERNATIONAL_SPACE_STATION_DATES.filter(
 				(issDateAccessible) => issDateAccessible <= now.daysInMonth!,
 			)
 				.map((issDateAccessible) => {

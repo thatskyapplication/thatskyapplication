@@ -2,6 +2,8 @@ import {
 	Country,
 	DailyQuest,
 	type DailyQuests,
+	NotificationType,
+	type NotificationTypes,
 	REALM_NAME_VALUES,
 	SKY_MAP_VALUES,
 	SeasonId,
@@ -14,8 +16,6 @@ import {
 	GuessDifficultyLevelToName,
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
-	NotificationType,
-	type NotificationTypes,
 } from "../utility/constants.js";
 
 export default {

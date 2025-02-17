@@ -9,11 +9,16 @@ import {
 	PermissionFlagsBits,
 	type Snowflake,
 } from "@discordjs/core";
-import { formatEmoji } from "@thatskyapplication/utility";
+import {
+	NOTIFICATION_TYPE_VALUES,
+	type NotificationPacket,
+	type NotificationTypes,
+	formatEmoji,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
-import type { NotificationAllowedChannel, NotificationPacket } from "../models/Notification.js";
+import type { NotificationAllowedChannel } from "../models/Notification.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Guild } from "../models/discord/guild.js";
 import type { Role } from "../models/discord/role.js";
@@ -24,10 +29,8 @@ import {
 	ERROR_RESPONSE,
 	NOTIFICATION_CHANNEL_TYPES,
 	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
-	NOTIFICATION_TYPE_VALUES,
 	NOT_IN_CACHED_GUILD_RESPONSE,
 	NotificationOffsetToMaximumValues,
-	type NotificationTypes,
 } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
