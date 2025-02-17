@@ -19,7 +19,7 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { ALLOWED_EXTENSIONS } from "@discordjs/rest";
-import { type RealmName, SkyMap } from "@thatskyapplication/utility";
+import { REALM_NAME_VALUES, type RealmName, SkyMap } from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import {
@@ -36,7 +36,6 @@ import {
 	MEDITATION_MAPS,
 	type MeditationMaps,
 	RAINBOW_ADMIRE_MAPS,
-	REALM_NAME_VALUES,
 	type RainbowAdmireMaps,
 	SOCIAL_LIGHT_AREA_MAPS,
 	type SocialLightAreaMaps,

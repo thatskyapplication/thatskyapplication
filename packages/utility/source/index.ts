@@ -224,6 +224,8 @@ export enum RealmName {
 	EyeOfEden = "Eye of Eden",
 }
 
+export const REALM_NAME_VALUES = Object.values(RealmName);
+
 export enum SkyMap {
 	// Daylight Prairie.
 	BirdNest = "Bird Nest",
@@ -275,6 +277,7 @@ export enum SkyMap {
 	CrescentOasis = "Crescent Oasis",
 }
 
+export const SKY_MAP_VALUES = Object.values(SkyMap);
 export const MAXIMUM_HAIR_TOUSLE_GIF = 3 as const;
 export const MAXIMUM_HIGH_FIVE_GIF = 8 as const;
 export const MAXIMUM_HUG_GIF = 36 as const;

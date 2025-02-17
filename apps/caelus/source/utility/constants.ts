@@ -4,6 +4,7 @@ import { ChannelType, Locale, MessageFlags, type Snowflake } from "@discordjs/co
 import {
 	DailyQuest,
 	type DailyQuests,
+	REALM_NAME_VALUES,
 	RealmName,
 	SkyMap,
 	WEBSITE_URL,
@@ -134,8 +135,6 @@ export const ISS_DATES_ACCESSIBLE = [6, 14, 22, 30] as const;
 export const DEFAULT_EMBED_COLOUR = 0x6f68c9 as const;
 export const ANIMATED_HASH_PREFIX = "a_" as const;
 export const MAXIMUM_ASSET_SIZE = 5_000_000 as const;
-export const REALM_NAME_VALUES = Object.values(RealmName);
-export const SKY_MAP_VALUES = Object.values(SkyMap);
 
 export const MEDITATION_MAPS = [
 	SkyMap.BirdNest,

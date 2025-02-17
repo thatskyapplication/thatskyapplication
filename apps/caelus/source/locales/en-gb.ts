@@ -2,6 +2,8 @@ import {
 	Country,
 	DailyQuest,
 	type DailyQuests,
+	REALM_NAME_VALUES,
+	SKY_MAP_VALUES,
 	SeasonId,
 	type SeasonIds,
 	SpiritName,
@@ -14,8 +16,6 @@ import {
 	MINIMUM_WINGED_LIGHT,
 	NotificationType,
 	type NotificationTypes,
-	REALM_NAME_VALUES,
-	SKY_MAP_VALUES,
 } from "../utility/constants.js";
 
 export default {
