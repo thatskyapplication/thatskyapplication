@@ -63,20 +63,6 @@ export default function Notifications() {
 			</p>
 			<Video src="https://cdn.thatskyapplication.com/examples/notifications_unset.mp4" />
 			<p>That's all there is to it.</p>
-			<h2>Technical stuff</h2>
-			<p>
-				In case any technical-minded people were wondering about how notifications are delivered,
-				the code for this is open-source over at{" "}
-				<a
-					href="https://github.com/thatskyapplication/notifications"
-					className="regular-link"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					GitHub
-				</a>
-				.
-			</p>
 		</div>
 	);
 }
