@@ -1,11 +1,10 @@
 import { URL } from "node:url";
 import { Locale } from "@discordjs/core";
-import type { Emoji } from "@thatskyapplication/utility";
+import type { Emoji, EventIds } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import {
 	EventIdToEventTicketEmoji,
-	type EventIds,
 	type Item,
 	type ItemRaw,
 	resolveAllCosmetics,

@@ -6,7 +6,12 @@ import {
 	Locale,
 	MessageReferenceType,
 } from "@discordjs/core";
-import { formatEmoji, shardEruption, skyNow } from "@thatskyapplication/utility";
+import {
+	MAXIMUM_WINGED_LIGHT,
+	formatEmoji,
+	shardEruption,
+	skyNow,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
@@ -23,7 +28,6 @@ import {
 	AI_GATEWAY_TOKEN,
 	APPLICATION_ID,
 	AreaToWingedLightCount,
-	MAXIMUM_WINGED_LIGHT,
 	MAXIMUM_WING_BUFFS,
 	OPENAI_API_KEY,
 	OPENAI_BASE_URL,

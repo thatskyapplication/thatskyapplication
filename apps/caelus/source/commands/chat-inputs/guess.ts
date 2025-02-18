@@ -4,11 +4,12 @@ import {
 	Locale,
 	MessageFlags,
 } from "@discordjs/core";
+import { GuessDifficultyLevel } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../../caches/guilds.js";
 import { client } from "../../discord.js";
 import { guess, guildLeaderboard, leaderboard } from "../../services/guess.js";
-import { GuessDifficultyLevel, NOT_IN_CACHED_GUILD_RESPONSE } from "../../utility/constants.js";
+import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../utility/constants.js";
 import { isGuildChatInputCommand } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 

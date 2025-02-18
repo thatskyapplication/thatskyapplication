@@ -1,7 +1,6 @@
 import { URL } from "node:url";
-import { Cosmetic, skyDate } from "@thatskyapplication/utility";
+import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
-import { EventId } from "../../../utility/catalogue.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import {
 	LARGE_PLACEABLE_PROPS_EMOJIS,

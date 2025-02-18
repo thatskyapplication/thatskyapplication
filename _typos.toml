@@ -4,4 +4,4 @@ FO = "FO"
 PN = "PN"
 
 [files]
-extend-exclude = ["apps/caelus/source/locales/de.ts", "apps/caelus/source/locales/es-419.ts", "apps/caelus/source/locales/es-es.ts", "apps/caelus/source/locales/fr.ts", "apps/caelus/source/locales/it.ts", "apps/caelus/source/locales/ja.ts", "apps/caelus/source/locales/ko.ts", "apps/caelus/source/locales/pt-br.ts", "apps/caelus/source/locales/ru.ts", "apps/caelus/source/locales/th.ts", "apps/caelus/source/locales/vi.ts", "apps/caelus/source/locales/zh-cn.ts", "apps/caelus/source/locales/zh-tw.ts"]
+extend-exclude = ["packages/utility/source/locales/de.ts", "packages/utility/source/locales/es-419.ts", "packages/utility/source/locales/es-es.ts", "packages/utility/source/locales/fr.ts", "packages/utility/source/locales/it.ts", "packages/utility/source/locales/ja.ts", "packages/utility/source/locales/ko.ts", "packages/utility/source/locales/pt-br.ts", "packages/utility/source/locales/ru.ts", "packages/utility/source/locales/th.ts", "packages/utility/source/locales/vi.ts", "packages/utility/source/locales/zh-cn.ts", "packages/utility/source/locales/zh-tw.ts"]

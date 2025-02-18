@@ -1,4 +1,7 @@
-import { DailyQuest, RealmName, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { RealmName } from "../kingdom.js";
+import { DailyQuest } from "../quests.js";
+import { SeasonId } from "../season.js";
+import { SpiritName } from "../spirits.js";
 
 export default {
 	general: {

@@ -1,19 +1,21 @@
 import { Locale } from "@discordjs/core";
+import {
+	de,
+	enGB,
+	es419,
+	esES,
+	fr,
+	it,
+	ja,
+	ko,
+	ptBR,
+	ru,
+	th,
+	vi,
+	zhCN,
+	zhTW,
+} from "@thatskyapplication/utility";
 import { init } from "i18next";
-import de from "./locales/de.js";
-import enGB from "./locales/en-gb.js";
-import es419 from "./locales/es-419.js";
-import esES from "./locales/es-es.js";
-import fr from "./locales/fr.js";
-import it from "./locales/it.js";
-import ja from "./locales/ja.js";
-import ko from "./locales/ko.js";
-import ptBR from "./locales/pt-br.js";
-import ru from "./locales/ru.js";
-import th from "./locales/th.js";
-import vi from "./locales/vi.js";
-import zhCN from "./locales/zh-cn.js";
-import zhTW from "./locales/zh-tw.js";
 import pino from "./pino.js";
 
 void init({

@@ -1,6 +1,5 @@
-import { Cosmetic, skyDate } from "@thatskyapplication/utility";
+import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
-import { EventId } from "../../../utility/catalogue.js";
 import { HAIR_ACCESSORY_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../../utility/emojis.js";
 
 export default new Event({

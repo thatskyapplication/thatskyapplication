@@ -5,12 +5,8 @@ import {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DEVELOPER_GUILD_ID,
 	DISCORD_TOKEN,
-	GUESS_DIFFICULTY_LEVEL_VALUES,
-	GuessDifficultyLevelToName,
 	LOCALES,
-	MAXIMUM_WINGED_LIGHT,
 	MAXIMUM_WING_BUFFS,
-	MINIMUM_WINGED_LIGHT,
 	NOTIFICATION_CHANNEL_TYPES,
 	PRODUCTION,
 	QUEST_NUMBER,
@@ -32,7 +28,13 @@ import {
 	type RESTPutAPIApplicationGuildCommandsJSONBody,
 } from "@discordjs/core";
 import { REST } from "@discordjs/rest";
-import { NOTIFICATION_TYPE_VALUES } from "@thatskyapplication/utility";
+import {
+	GUESS_DIFFICULTY_LEVEL_VALUES,
+	GuessDifficultyLevelToName,
+	MAXIMUM_WINGED_LIGHT,
+	MINIMUM_WINGED_LIGHT,
+	NOTIFICATION_TYPE_VALUES,
+} from "@thatskyapplication/utility";
 import {
 	CONTENT_CREATORS_EDIT_TYPE_TO_MAXIMUM_LENGTH,
 	ContentCreatorsEditType,

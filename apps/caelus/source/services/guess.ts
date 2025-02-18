@@ -12,7 +12,13 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
-import { formatEmoji, formatEmojiURL } from "@thatskyapplication/utility";
+import {
+	GUESS_DIFFICULTY_LEVEL_VALUES,
+	GuessDifficultyLevel,
+	GuessDifficultyLevelToName,
+	formatEmoji,
+	formatEmojiURL,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { spirits } from "../data/spirits/index.js";
 import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../data/spirits/realms/index.js";
@@ -35,15 +41,12 @@ import {
 	GUESS_ANSWER_1,
 	GUESS_ANSWER_2,
 	GUESS_ANSWER_3,
-	GUESS_DIFFICULTY_LEVEL_VALUES,
 	GUESS_END_GAME,
 	GUESS_LEADERBOARD_BACK_CUSTOM_ID,
 	GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER,
 	GUESS_LEADERBOARD_NEXT_CUSTOM_ID,
 	GUESS_TIMEOUT,
 	GUESS_TRY_AGAIN,
-	GuessDifficultyLevel,
-	GuessDifficultyLevelToName,
 	GuessDifficultyToStreakColumn,
 } from "../utility/constants.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";

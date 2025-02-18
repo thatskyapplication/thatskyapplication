@@ -5,6 +5,8 @@ import {
 	CDN_URL as CDN_URL_PRODUCTION,
 	DailyQuest,
 	type DailyQuests,
+	GuessDifficultyLevel,
+	MAXIMUM_WINGED_LIGHT,
 	NotificationType,
 	type NotificationTypes,
 	REALM_NAME_VALUES,
@@ -127,8 +129,6 @@ const THATSKYGAME_URL = "https://thatskygame.com" as const;
 const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
 const PATREON_URL = "https://patreon.com/Jiralite" as const;
 const KO_FI_URL = "https://ko-fi.com/jiralite" as const;
-export const MINIMUM_WINGED_LIGHT = 0 as const;
-export const MAXIMUM_WINGED_LIGHT = 244 as const;
 export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
 export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
 export const DEFAULT_EMBED_COLOUR = 0x6f68c9 as const;
@@ -1201,20 +1201,6 @@ export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
 export const DATA_DELETION_CUSTOM_ID = "DATA_DELETION_CUSTOM_ID" as const;
 
 // Guess.
-export enum GuessDifficultyLevel {
-	Original = 0,
-	Hard = 1,
-}
-
-export const GUESS_DIFFICULTY_LEVEL_VALUES = Object.values(GuessDifficultyLevel).filter(
-	(guessDifficultyLevel) => typeof guessDifficultyLevel === "number",
-);
-
-export const GuessDifficultyLevelToName = {
-	[GuessDifficultyLevel.Original]: "Original",
-	[GuessDifficultyLevel.Hard]: "Hard",
-} as const satisfies Readonly<Record<GuessDifficultyLevel, string>>;
-
 export const GuessDifficultyToStreakColumn = {
 	[GuessDifficultyLevel.Original]: "streak",
 	[GuessDifficultyLevel.Hard]: "streak_hard",
