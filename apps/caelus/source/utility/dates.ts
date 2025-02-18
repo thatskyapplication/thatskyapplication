@@ -1,9 +1,7 @@
 import { Collection } from "@discordjs/collection";
-import { DateTime } from "luxon";
+import { skyDate } from "@thatskyapplication/utility";
+import type { DateTime } from "luxon";
 import type { HeartsExtra } from "../models/Heart.js";
-
-// Time zone.
-export const TIME_ZONE = "America/Los_Angeles" as const;
 
 // Double treasure candles.
 export const DOUBLE_TREASURE_CANDLES_DATES = new Collection<
@@ -47,26 +45,3 @@ export const HEART_EXTRA_DATES = new Collection<number, HeartsExtra>()
 // Miscellaneous.
 export const INITIAL_TRAVELLING_SPIRIT_SEEK = skyDate(2_023, 5, 25); // #88 Grateful Shell Collector.
 export const INITIAL_TREASURE_CANDLES_SEEK = skyDate(2025, 1, 1); // 01/01/2025 failed and is thus the first day of the cycle.
-
-export function skyNow() {
-	return DateTime.now().setZone(TIME_ZONE);
-}
-
-export function skyToday() {
-	return skyNow().startOf("day");
-}
-
-export function skyDate(
-	year: number,
-	month: number,
-	day: number,
-	hour?: number,
-	minute?: number,
-	second?: number,
-) {
-	return DateTime.fromObject({ year, month, day, hour, minute, second }, { zone: TIME_ZONE });
-}
-
-export function isDuring(start: DateTime, end: DateTime, date: DateTime) {
-	return date >= start && date <= end;
-}

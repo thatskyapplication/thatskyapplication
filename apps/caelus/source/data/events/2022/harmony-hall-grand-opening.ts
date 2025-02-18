@@ -1,9 +1,8 @@
 import { URL } from "node:url";
-import { Cosmetic } from "@thatskyapplication/utility";
+import { Cosmetic, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { EventId } from "../../../utility/catalogue.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import { skyDate } from "../../../utility/dates.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
 	HELD_PROPS_EMOJIS,

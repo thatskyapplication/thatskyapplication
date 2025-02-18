@@ -213,71 +213,6 @@ export const DailyQuest = {
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
 export type DailyQuests = (typeof DAILY_QUEST_VALUES)[number];
-
-export enum RealmName {
-	IslesOfDawn = "Isles of Dawn",
-	DaylightPrairie = "Daylight Prairie",
-	HiddenForest = "Hidden Forest",
-	ValleyOfTriumph = "Valley of Triumph",
-	GoldenWasteland = "Golden Wasteland",
-	VaultOfKnowledge = "Vault of Knowledge",
-	EyeOfEden = "Eye of Eden",
-}
-
-export const REALM_NAME_VALUES = Object.values(RealmName);
-
-export enum SkyMap {
-	// Daylight Prairie.
-	BirdNest = "Bird Nest",
-	ButterflyFields = "Butterfly Fields",
-	Cave = "Cave",
-	KoiPond = "Koi Pond",
-	VillageIslands = "Village Islands",
-	SanctuaryIslands = "Sanctuary Islands",
-
-	// Hidden Forest.
-	Boneyard = "Boneyard",
-	ElevatedClearing = "Elevated Clearing",
-	ForestBrook = "Forest Brook",
-	ForestClearing = "Forest Clearing",
-	ForestEnd = "Forest End",
-	Treehouse = "Treehouse",
-	WindPaths = "Wind Paths",
-
-	// Valley of Triumph.
-	IceRink = "Ice Rink",
-	Citadel = "Citadel",
-	Coliseum = "Coliseum",
-	HermitValley = "Hermit Valley",
-	VillageOfDreams = "Village of Dreams",
-
-	// Golden Wasteland.
-	Battlefield = "Battlefield",
-	Boat = "Boat",
-	BrokenTemple = "Broken Temple",
-	CrabFields = "Crab Fields",
-	ForgottenArk = "Forgotten Ark",
-	Graveyard = "Graveyard",
-	TreasureReef = "Treasure Reef",
-
-	// Vault of Knowledge.
-	VaultEntrance = "Vault Entrance",
-	JellyfishCove = "Jellyfish Cove",
-	StarlightDesert = "Starlight Desert",
-	VaultSecondFloor = "Vault Second Floor",
-	VaultSummit = "Vault Summit",
-
-	// Orbit.
-	Orbit = "Orbit",
-
-	// Season of Shattering.
-	AncientMemory = "Ancient Memory",
-
-	// Season of the Nine-Coloured Deer.
-	CrescentOasis = "Crescent Oasis",
-}
-
-export const SKY_MAP_VALUES = Object.values(SkyMap);
 export const MAXIMUM_HAIR_TOUSLE_GIF = 3 as const;
 export const MAXIMUM_HIGH_FIVE_GIF = 8 as const;
 export const MAXIMUM_HUG_GIF = 36 as const;
@@ -287,9 +222,20 @@ export const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
 export const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [5, 13, 21, 29] as const;
 
 // biome-ignore lint/performance/noBarrelFile: This is fine.
+export { CDN_URL } from "./cdn.js";
 export { Cosmetic } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
+export { TIME_ZONE, isDuring, skyDate, skyNow, skyToday } from "./dates.js";
 export { type Emoji, emojis, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "./emojis.js";
+export {
+	REALM_NAME_VALUES,
+	RealmName,
+	SKY_MAP_VALUES,
+	SkyMap,
+	VALID_REALM_NAME,
+	VALID_REALM_NAME_VALUES,
+	type ValidRealmName,
+} from "./kingdom.js";
 export {
 	NOTIFICATION_TYPE_VALUES,
 	type NotificationPacket,
@@ -298,6 +244,7 @@ export {
 } from "./notifications.js";
 export { PlatformId, PLATFORM_ID_VALUES, type PlatformIds, isPlatformId } from "./platforms.js";
 export { SeasonId, type SeasonIds, isSeasonId } from "./season.js";
+export { type ShardEruptionData, shardEruption } from "./shard-eruption.js";
 export {
 	FriendAction,
 	SPIRIT_TYPE,

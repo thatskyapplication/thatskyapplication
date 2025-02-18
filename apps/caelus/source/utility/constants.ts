@@ -2,6 +2,7 @@ import process from "node:process";
 import { URL } from "node:url";
 import { ChannelType, Locale, MessageFlags, type Snowflake } from "@discordjs/core";
 import {
+	CDN_URL as CDN_URL_PRODUCTION,
 	DailyQuest,
 	type DailyQuests,
 	NotificationType,
@@ -26,8 +27,7 @@ if (
 		process.env.S3_ACCESS_KEY_ID &&
 		process.env.S3_ACCOUNT_ID &&
 		process.env.S3_SECRET_ACCESS_KEY &&
-		process.env.SKY_PROFILE_REPORTS_CHANNEL_ID &&
-		process.env.WIND_PATHS_URL
+		process.env.SKY_PROFILE_REPORTS_CHANNEL_ID
 	) ||
 	(PRODUCTION && !(process.env.BETTER_STACK_TOKEN && process.env.FLIGHT_CHECK))
 ) {
@@ -43,7 +43,6 @@ export const S3_ACCESS_KEY_ID = process.env.S3_ACCESS_KEY_ID;
 export const S3_ACCOUNT_ID = process.env.S3_ACCOUNT_ID;
 export const S3_SECRET_ACCESS_KEY = process.env.S3_SECRET_ACCESS_KEY;
 export const SKY_PROFILE_REPORTS_CHANNEL_ID = process.env.SKY_PROFILE_REPORTS_CHANNEL_ID;
-export const WIND_PATHS_URL = process.env.WIND_PATHS_URL;
 export const BETTER_STACK_TOKEN = process.env.BETTER_STACK_TOKEN;
 export const FLIGHT_CHECK = process.env.FLIGHT_CHECK;
 
@@ -59,7 +58,6 @@ export const CDN_BUCKET = PRODUCTION ? CDN_BUCKET_PRODUCTION : CDN_BUCKET_DEVELO
 
 // Content delivery network links.
 const CDN_URL_DEVELOPMENT = "https://cdn-development.thatskyapplication.com" as const;
-const CDN_URL_PRODUCTION = "https://cdn.thatskyapplication.com" as const;
 export const CDN_URL = PRODUCTION ? CDN_URL_PRODUCTION : CDN_URL_DEVELOPMENT;
 
 // Guild ids.
@@ -198,17 +196,6 @@ export const INCONSISTENT_MAP = {
 } as const;
 
 export const inconsistentMapKeys = Object.keys(INCONSISTENT_MAP);
-
-export const VALID_REALM_NAME = [
-	RealmName.DaylightPrairie,
-	RealmName.HiddenForest,
-	RealmName.ValleyOfTriumph,
-	RealmName.GoldenWasteland,
-	RealmName.VaultOfKnowledge,
-] as const;
-
-export type ValidRealmName = (typeof VALID_REALM_NAME)[number];
-export const VALID_REALM_NAME_VALUES = Object.values(VALID_REALM_NAME);
 
 export const WINGED_LIGHT_THRESHOLDS = [
 	1, 2, 5, 10, 20, 35, 55, 75, 100, 120, 150, 200, 250,

@@ -1,5 +1,5 @@
+import { skyNow } from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
-import { skyNow } from "../../utility/dates.js";
 import Year1 from "./2019/index.js";
 import Year2 from "./2020/index.js";
 import Year3 from "./2021/index.js";

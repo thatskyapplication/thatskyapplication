@@ -6,18 +6,19 @@ import {
 	type NotificationPacket,
 	NotificationType,
 	type NotificationTypes,
+	TIME_ZONE,
+	shardEruption,
 } from "@thatskyapplication/utility";
 import { Cron } from "croner";
 import { DateTime } from "luxon";
 import { pg } from "./pg.js";
 import pino from "./pino.js";
 import { DISCORD_TOKEN } from "./utility/configuration.js";
-import { NOTIFICATIONS_TABLE, TIME_ZONE } from "./utility/constants.js";
+import { NOTIFICATIONS_TABLE } from "./utility/constants.js";
 import { getLastTravellingSpirit } from "./utility/functions.js";
-import { shardEruption } from "./utility/wind-paths.js";
 
 const client = new API(new REST({ version: "10" }).setToken(DISCORD_TOKEN));
-let shardData = await shardEruption();
+let shardData = shardEruption();
 let travellingSpirit = await getLastTravellingSpirit();
 let travellingSpiritStart = travellingSpirit.start;
 let travellingSpiritEarliestNotificationTime = travellingSpiritStart.minus(900000);
@@ -36,7 +37,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 
 	if (hour === 0 && minute === 0) {
 		// Update the shard eruption.
-		shardData = await shardEruption();
+		shardData = shardEruption();
 
 		// Update the travelling spirit.
 		// It may seem unusual to do this every day, but it is not future-proof to check every 2 weeks only.

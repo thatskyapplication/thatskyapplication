@@ -130,7 +130,7 @@ export async function interactive(
 				],
 			},
 		],
-		embeds: [await distributionEmbed(resolvedLocale)],
+		embeds: [distributionEmbed(resolvedLocale)],
 		flags: MessageFlags.Ephemeral,
 	};
 
@@ -152,7 +152,7 @@ export async function distribute(
 
 	void log({
 		content: `${userLogFormat(interaction.member.user)} manually distributed the daily guides.`,
-		embeds: [await distributionEmbed(locale)],
+		embeds: [distributionEmbed(locale)],
 	});
 
 	await interactive(interaction, { content: "Distributed daily guides.", deferred: true, locale });
@@ -218,7 +218,7 @@ export async function setQuest(
 		options.getString("url-4") ??
 		(quest4 !== undefined && isDailyQuest(quest4) ? DailyQuestToInfographicURL[quest4] : null);
 
-	const previousEmbed = await distributionEmbed(locale);
+	const previousEmbed = distributionEmbed(locale);
 
 	await DailyGuides.updateQuests({
 		quest1: quest1 !== undefined ? { id: quest1, url: url1 } : null,
@@ -229,7 +229,7 @@ export async function setQuest(
 
 	void log({
 		content: `${userLogFormat(interaction.member.user)} manually updated the daily quests.`,
-		embeds: [previousEmbed, await distributionEmbed(locale)],
+		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 
 	await interactive(interaction, {
@@ -264,7 +264,7 @@ export async function questSwap(
 		return;
 	}
 
-	const previousEmbed = await distributionEmbed(locale);
+	const previousEmbed = distributionEmbed(locale);
 
 	await DailyGuides.updateQuests({
 		[`quest${quest1}`]: DailyGuides[`quest${quest2}`],
@@ -273,7 +273,7 @@ export async function questSwap(
 
 	void log({
 		content: `${userLogFormat(interaction.member.user)} manually swapped quests ${quest1} & ${quest2}.`,
-		embeds: [previousEmbed, await distributionEmbed(locale)],
+		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 
 	await interactive(interaction, {
@@ -310,12 +310,12 @@ export async function setTravellingRock(
 		}),
 	);
 
-	const previousEmbed = await distributionEmbed(locale);
+	const previousEmbed = distributionEmbed(locale);
 	await DailyGuides.updateTravellingRock(hashedBuffer);
 
 	void log({
 		content: `${userLogFormat(interaction.member.user)} manually updated the travelling rock.`,
-		embeds: [previousEmbed, await distributionEmbed(locale)],
+		embeds: [previousEmbed, distributionEmbed(locale)],
 	});
 
 	await interactive(interaction, {

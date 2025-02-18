@@ -1,9 +1,8 @@
 import { URL } from "node:url";
-import { Cosmetic } from "@thatskyapplication/utility";
+import { Cosmetic, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { EventId } from "../../../utility/catalogue.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import { skyDate } from "../../../utility/dates.js";
 import { CAPE_EMOJIS, HAIR_EMOJIS, LARGE_PLACEABLE_PROPS_EMOJIS } from "../../../utility/emojis.js";
 
 export default new Event({

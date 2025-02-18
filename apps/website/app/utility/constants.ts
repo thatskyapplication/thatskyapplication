@@ -1,7 +1,6 @@
-import { DailyQuest, type DailyQuests, RealmName } from "@thatskyapplication/utility";
+import { CDN_URL, DailyQuest, type DailyQuests, RealmName } from "@thatskyapplication/utility";
 
 export const DEFAULT_LOCALE = "en-GB" as const;
-export const CDN_URL = "https://cdn.thatskyapplication.com" as const;
 export const APPLICATION_NAME = "Caelus" as const;
 
 export const APPLICATION_DESCRIPTION =
@@ -52,16 +51,6 @@ export const REALM_NAME_TO_REALM_CDN_NAME = {
 } as const satisfies Readonly<
 	Record<Exclude<RealmName, RealmName.IslesOfDawn | RealmName.EyeOfEden>, string>
 >;
-
-export const VALID_REALM_NAME = [
-	RealmName.DaylightPrairie,
-	RealmName.HiddenForest,
-	RealmName.ValleyOfTriumph,
-	RealmName.GoldenWasteland,
-	RealmName.VaultOfKnowledge,
-] as const;
-
-export type ValidRealmName = (typeof VALID_REALM_NAME)[number];
 
 export const DailyQuestToString = {
 	[DailyQuest.Collect30PiecesOfLight]: "Collect 30 pieces of light",

@@ -15,11 +15,11 @@ import {
 	MessageFlags,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
+import { TIME_ZONE, shardEruption, skyNow, skyToday } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { DateTime } from "luxon";
 import { client } from "../discord.js";
 import { APPLICATION_ID, DEFAULT_EMBED_COLOUR, SHARD_ERUPTION_URL } from "../utility/constants.js";
-import { TIME_ZONE, skyNow, skyToday } from "../utility/dates.js";
 import { isChatInputCommand } from "../utility/functions.js";
 import {
 	MAXIMUM_OPTION_NUMBER,
@@ -36,7 +36,6 @@ import {
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
 } from "../utility/shard-eruption.js";
-import { shardEruption } from "../utility/wind-paths.js";
 
 async function generateShardEruptionSelectMenuOptions(
 	date: DateTime,
@@ -126,7 +125,7 @@ export async function today(
 		return;
 	}
 
-	const response = await todayEmbed(interaction.locale, offset);
+	const response = todayEmbed(interaction.locale, offset);
 
 	if (isChatInputCommand(interaction)) {
 		await client.api.interactions.reply(interaction.id, interaction.token, response);
@@ -135,13 +134,11 @@ export async function today(
 	}
 }
 
-export async function todayEmbed(locale: Locale, offset = 0) {
-	const [shardYesterday, shardToday, shard, shardTomorrow] = await Promise.all([
-		shardEruption(offset - 1),
-		shardEruption(offset),
-		shardEruption(),
-		shardEruption(offset + 1),
-	]);
+export function todayEmbed(locale: Locale, offset = 0) {
+	const shardYesterday = shardEruption(offset - 1);
+	const shardToday = shardEruption(offset);
+	const shard = shardEruption();
+	const shardTomorrow = shardEruption(offset + 1);
 
 	const embed: APIEmbed = {
 		color: DEFAULT_EMBED_COLOUR,

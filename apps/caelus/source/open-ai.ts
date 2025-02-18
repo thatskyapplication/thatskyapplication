@@ -6,7 +6,7 @@ import {
 	Locale,
 	MessageReferenceType,
 } from "@discordjs/core";
-import { formatEmoji } from "@thatskyapplication/utility";
+import { formatEmoji, shardEruption, skyNow } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import OpenAI from "openai";
 import { APIUserAbortError } from "openai/error.mjs";
@@ -31,9 +31,7 @@ import {
 	WINGED_LIGHT_IN_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
 } from "./utility/constants.js";
-import { skyNow } from "./utility/dates.js";
 import { MISCELLANEOUS_EMOJIS } from "./utility/emojis.js";
-import { shardEruption } from "./utility/wind-paths.js";
 
 const openAI = new OpenAI({
 	apiKey: OPENAI_API_KEY,
@@ -342,7 +340,7 @@ export async function messageCreateResponse(message: GatewayMessageCreateDispatc
 			if (data.whenNextRegular) {
 				let index = offset ?? 1;
 
-				while ((await shardEruption(index))?.strong) {
+				while (shardEruption(index)?.strong) {
 					index++;
 				}
 
@@ -350,7 +348,7 @@ export async function messageCreateResponse(message: GatewayMessageCreateDispatc
 			} else if (data.whenNextDangerous) {
 				let index = offset ?? 1;
 
-				while ((await shardEruption(index))?.strong === false) {
+				while (shardEruption(index)?.strong === false) {
 					index++;
 				}
 
@@ -358,7 +356,7 @@ export async function messageCreateResponse(message: GatewayMessageCreateDispatc
 			}
 
 			await client.api.channels.createMessage(message.channel_id, {
-				...(await todayEmbed(guild.preferredLocale, offset)),
+				...todayEmbed(guild.preferredLocale, offset),
 				message_reference: {
 					type: MessageReferenceType.Default,
 					message_id: message.id,

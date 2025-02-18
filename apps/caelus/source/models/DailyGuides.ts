@@ -13,6 +13,8 @@ import {
 	RealmName,
 	SkyMap,
 	SpiritName,
+	type ValidRealmName,
+	skyToday,
 } from "@thatskyapplication/utility";
 import pQueue from "p-queue";
 import pg, { Table } from "../pg.js";
@@ -26,10 +28,8 @@ import {
 	type QUEST_NUMBER,
 	type RainbowAdmireMaps,
 	type SocialLightAreaMaps,
-	type ValidRealmName,
 	inconsistentMapKeys,
 } from "../utility/constants.js";
-import { skyToday } from "../utility/dates.js";
 import {
 	isMeditationMap,
 	isRainbowAdmireMap,

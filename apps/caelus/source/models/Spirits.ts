@@ -11,6 +11,7 @@ import {
 	type SpiritName,
 	type SpiritStance,
 	type SpiritType,
+	skyDate,
 } from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
@@ -27,7 +28,6 @@ import {
 	wikiURL,
 } from "../utility/catalogue.js";
 import { CDN_URL } from "../utility/constants.js";
-import { skyDate } from "../utility/dates.js";
 
 export interface TravellingSpiritsPacket {
 	visit: number;

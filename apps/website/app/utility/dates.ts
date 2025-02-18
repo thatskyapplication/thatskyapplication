@@ -1,6 +1,6 @@
-import { DateTime } from "luxon";
+import { skyDate } from "@thatskyapplication/utility";
+import type { DateTime } from "luxon";
 
-export const TIME_ZONE = "America/Los_Angeles" as const;
 export const SEASON_START = skyDate(2_025, 1, 20);
 export const SEASON_END = skyDate(2_025, 4, 7);
 export const NEXT_SEASON_START: DateTime | null = null;
@@ -40,26 +40,3 @@ export const EVENT_DATES = [
 export const DOUBLE_TREASURE_CANDLES_DATES = [
 	{ start: skyDate(2_024, 12, 9), end: skyDate(2_024, 12, 23) },
 ];
-
-export function skyNow() {
-	return DateTime.now().setZone(TIME_ZONE);
-}
-
-export function skyToday() {
-	return skyNow().startOf("day");
-}
-
-export function skyDate(
-	year: number,
-	month: number,
-	day: number,
-	hour?: number,
-	minute?: number,
-	second?: number,
-) {
-	return DateTime.fromObject({ year, month, day, hour, minute, second }, { zone: TIME_ZONE });
-}
-
-export function isDuring(start: DateTime, end: DateTime, date: DateTime) {
-	return date >= start && date <= end;
-}

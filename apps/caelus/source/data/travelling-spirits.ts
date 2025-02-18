@@ -1,8 +1,8 @@
 import { Collection } from "@discordjs/collection";
+import { TIME_ZONE } from "@thatskyapplication/utility";
 import { DateTime } from "luxon";
 import type { TravellingSpiritsDates, TravellingSpiritsPacket } from "../models/Spirits.js";
 import pg, { Table } from "../pg.js";
-import { TIME_ZONE } from "../utility/dates.js";
 
 export const TRAVELLING_DATES = (
 	await pg<TravellingSpiritsPacket>(Table.TravellingSpirits).select("visit", "start", "end")

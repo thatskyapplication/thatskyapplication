@@ -27,6 +27,7 @@ import {
 	type SpiritName,
 	formatEmoji,
 	isSeasonId,
+	skyNow,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
@@ -74,7 +75,6 @@ import {
 	resolveCostToString,
 } from "../utility/catalogue.js";
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../utility/constants.js";
-import { skyNow } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import {
 	interactedComponent,

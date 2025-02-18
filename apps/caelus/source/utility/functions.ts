@@ -19,7 +19,13 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { ALLOWED_EXTENSIONS } from "@discordjs/rest";
-import { REALM_NAME_VALUES, type RealmName, SkyMap } from "@thatskyapplication/utility";
+import {
+	REALM_NAME_VALUES,
+	type RealmName,
+	SkyMap,
+	VALID_REALM_NAME,
+	VALID_REALM_NAME_VALUES,
+} from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import {
@@ -28,8 +34,6 @@ import {
 	DOUBLE_TREASURE_CANDLES_ROTATION,
 	MAXIMUM_ASSET_SIZE,
 	TREASURE_CANDLES_ROTATION,
-	VALID_REALM_NAME,
-	VALID_REALM_NAME_VALUES,
 } from "./constants.js";
 import {
 	INCONSISTENT_MAP,

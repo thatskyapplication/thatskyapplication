@@ -1,6 +1,5 @@
-import { Cosmetic, SeasonId } from "@thatskyapplication/utility";
+import { Cosmetic, SeasonId, skyDate } from "@thatskyapplication/utility";
 import { Season } from "../../../../models/Season.js";
-import { skyDate } from "../../../../utility/dates.js";
 import { MASK_EMOJIS, NECKLACE_EMOJIS } from "../../../../utility/emojis.js";
 import GratitudeGuide from "./gratitude-guide.js";
 import GreetingShaman from "./greeting-shaman.js";

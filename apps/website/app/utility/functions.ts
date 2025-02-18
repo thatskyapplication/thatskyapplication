@@ -1,4 +1,5 @@
 import {
+	CDN_URL,
 	DAILY_QUEST_VALUES,
 	type DailyQuests,
 	MAXIMUM_HAIR_TOUSLE_GIF,
@@ -6,10 +7,10 @@ import {
 	MAXIMUM_KRILL_GIF,
 	MAXIMUM_PLAY_FIGHT_GIF,
 	type RealmName,
+	TIME_ZONE,
 } from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
 import {
-	CDN_URL,
 	DEFAULT_LOCALE,
 	HUGGING_GIFS,
 	REALM_NAME_TO_REALM_CDN_NAME,
@@ -28,7 +29,6 @@ import {
 	NEXT_SEASON_START,
 	SEASON_END,
 	SEASON_START,
-	TIME_ZONE,
 } from "~/utility/dates";
 
 export function getBrowserTimeZone() {

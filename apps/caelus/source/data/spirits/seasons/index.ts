@@ -1,6 +1,6 @@
+import { skyNow } from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
 import type { GuideSpirit, SeasonalSpirit } from "../../../models/Spirits.js";
-import { skyNow } from "../../../utility/dates.js";
 import Abyss from "./abyss/index.js";
 import Assembly from "./assembly/index.js";
 import AURORA from "./aurora/index.js";

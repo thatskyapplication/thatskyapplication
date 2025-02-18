@@ -9,7 +9,11 @@ import {
 	SkyMap,
 	formatEmoji,
 	formatEmojiURL,
+	isDuring,
 	resolveCurrencyEmoji,
+	shardEruption,
+	skyNow,
+	skyToday,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { skyCurrentEvents } from "../data/events/index.js";
@@ -33,13 +37,9 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE_MARKDOWN,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE_MARKDOWN,
-	isDuring,
-	skyNow,
-	skyToday,
 } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
-import { shardEruption } from "../utility/wind-paths.js";
 
 export async function ascendedCandles(
 	interaction: APIChatInputApplicationCommandInteraction,
@@ -77,10 +77,11 @@ export async function ascendedCandles(
 
 	for (let index = 0; ; index++) {
 		if (shardEruptions) {
-			const shardEruptionToday = await shardEruption(index);
+			const shardEruptionToday = shardEruption(index);
 
 			if (shardEruptionToday) {
 				const { strong, reward } = shardEruptionToday;
+
 				if (strong) {
 					result += reward;
 				}

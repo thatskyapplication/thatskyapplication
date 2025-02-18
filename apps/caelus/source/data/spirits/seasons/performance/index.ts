@@ -1,6 +1,5 @@
-import { SeasonId } from "@thatskyapplication/utility";
+import { SeasonId, skyDate } from "@thatskyapplication/utility";
 import { Season } from "../../../../models/Season.js";
-import { skyDate } from "../../../../utility/dates.js";
 import ForgetfulStoryteller from "./forgetful-storyteller.js";
 import FranticStagehand from "./frantic-stagehand.js";
 import MellowMusician from "./mellow-musician.js";

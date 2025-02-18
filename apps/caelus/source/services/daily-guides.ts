@@ -13,7 +13,15 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
-import { formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "@thatskyapplication/utility";
+import {
+	TIME_ZONE,
+	formatEmoji,
+	formatEmojiURL,
+	resolveCurrencyEmoji,
+	shardEruption,
+	skyNow,
+	skyToday,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { GUILD_CACHE } from "../caches/guilds.js";
@@ -44,9 +52,6 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	DOUBLE_TREASURE_CANDLES_DATES,
-	TIME_ZONE,
-	skyNow,
-	skyToday,
 } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { treasureCandles } from "../utility/functions.js";
@@ -56,7 +61,6 @@ import {
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
 } from "../utility/shard-eruption.js";
-import { shardEruption } from "../utility/wind-paths.js";
 
 function isDailyGuidesDistributionChannel(
 	channel: APIChannel | AnnouncementThread | PublicThread | PrivateThread,
@@ -357,7 +361,7 @@ async function send(
 	}
 
 	// Retrieve our embed.
-	const embed = await distributionEmbed(guild.preferredLocale);
+	const embed = distributionEmbed(guild.preferredLocale);
 
 	// Update the embed if a message exists.
 	if (messageId) {
@@ -442,8 +446,8 @@ export function dailyGuidesEventData(date: DateTime, locale: Locale) {
 	return { eventEndText, iconURL, eventTickets };
 }
 
-export async function dailyGuidesShardEruptionData(locale: Locale) {
-	const shard = await shardEruption();
+export function dailyGuidesShardEruptionData(locale: Locale) {
+	const shard = shardEruption();
 
 	if (shard) {
 		return [
@@ -468,7 +472,7 @@ export async function dailyGuidesShardEruptionData(locale: Locale) {
 	];
 }
 
-export async function distributionEmbed(locale: Locale) {
+export function distributionEmbed(locale: Locale) {
 	const { quest1, quest2, quest3, quest4, travellingRock } = DailyGuides;
 	const today = skyToday();
 	const now = skyNow();
@@ -582,7 +586,7 @@ export async function distributionEmbed(locale: Locale) {
 		fields.push(eventData.eventTickets);
 	}
 
-	fields.push(...(await dailyGuidesShardEruptionData(locale)));
+	fields.push(...dailyGuidesShardEruptionData(locale));
 
 	if (travellingRock) {
 		fields.push({

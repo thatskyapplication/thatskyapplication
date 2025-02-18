@@ -1,8 +1,15 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import type { DailyQuests } from "@thatskyapplication/utility";
+import {
+	type DailyQuests,
+	TIME_ZONE,
+	VALID_REALM_NAME,
+	isDuring,
+	shardEruption,
+	skyNow,
+} from "@thatskyapplication/utility";
 import { PanelRightClose, X } from "lucide-react";
-import { DateTime } from "luxon";
+import type { DateTime } from "luxon";
 import { useState } from "react";
 import TopBar from "~/components/TopBar";
 import pg from "~/pg.server";
@@ -13,7 +20,6 @@ import {
 	SEASONAL_CANDLE_ICON,
 	TREASURE_CANDLES_ROTATION,
 	Table,
-	VALID_REALM_NAME,
 } from "~/utility/constants";
 import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
@@ -24,9 +30,6 @@ import {
 	NEXT_SEASON_START,
 	SEASON_END,
 	SEASON_START,
-	TIME_ZONE,
-	isDuring,
-	skyNow,
 } from "~/utility/dates";
 import {
 	daysText,
@@ -36,7 +39,6 @@ import {
 	resolveSeasonalCandlesRotation,
 	seasonalCandlesRotationURL,
 } from "~/utility/functions";
-import { shardEruption } from "~/wind-paths";
 
 interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;
@@ -72,7 +74,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		const locale = getLocaleFromRequest(request);
 		const dailyGuides = await pg<DailyGuidesPacket>(Table.DailyGuides);
 		const timeZone = request.headers.get("cf-timezone") ?? TIME_ZONE;
-		const shard = await shardEruption();
+		const shard = shardEruption();
 
 		return {
 			dailyGuides: dailyGuides[0]!,
@@ -80,32 +82,31 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 				timeZone: TIME_ZONE,
 				dateStyle: "full",
 			}).format(new Date()),
-			shard:
-				"timestamps" in shard
-					? {
-							...shard,
-							timestamps: shard.timestamps.map(({ start, end }) => ({
-								start: {
-									unix: DateTime.fromISO(start).toSeconds(),
-									format: new Intl.DateTimeFormat(locale, {
-										timeZone,
-										hour: "2-digit",
-										minute: "2-digit",
-										second: "2-digit",
-									}).format(new Date(start)),
-								},
-								end: {
-									unix: DateTime.fromISO(end).toSeconds(),
-									format: new Intl.DateTimeFormat(locale, {
-										timeZone,
-										hour: "2-digit",
-										minute: "2-digit",
-										second: "2-digit",
-									}).format(new Date(end)),
-								},
-							})),
-						}
-					: shard,
+			shard: shard
+				? {
+						...shard,
+						timestamps: shard.timestamps.map(({ start, end }) => ({
+							start: {
+								unix: start.toMillis(),
+								format: new Intl.DateTimeFormat(locale, {
+									timeZone,
+									hour: "2-digit",
+									minute: "2-digit",
+									second: "2-digit",
+								}).format(start.toMillis()),
+							},
+							end: {
+								unix: end.toMillis(),
+								format: new Intl.DateTimeFormat(locale, {
+									timeZone,
+									hour: "2-digit",
+									minute: "2-digit",
+									second: "2-digit",
+								}).format(end.toMillis()),
+							},
+						})),
+					}
+				: shard,
 		};
 	} catch {
 		throw new Response("Unable to fetch daily guides.", { status: 500 });
@@ -258,7 +259,7 @@ export default function DailyGuides() {
 					</>
 				)}
 				<h2 className="text-lg my-1">Shard Eruption</h2>
-				{"url" in shard ? (
+				{shard ? (
 					<div className="text-sm">
 						<div className="flex w-full">
 							<div className="flex flex-col items-start space-y-1">
@@ -267,7 +268,7 @@ export default function DailyGuides() {
 									onClick={() => setSelectedImage(shard.url)}
 									className="regular-link text-sm text-left"
 								>
-									{shard.realm} ({shard.sky_map})
+									{shard.realm} ({shard.skyMap})
 								</button>
 								<div className="inline-flex items-center">
 									<span>{shard.reward}</span>

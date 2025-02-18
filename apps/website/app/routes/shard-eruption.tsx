@@ -1,28 +1,33 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { type MetaFunction, useLoaderData } from "@remix-run/react";
-import { WEBSITE_URL } from "@thatskyapplication/utility";
+import {
+	type ShardEruptionData,
+	TIME_ZONE,
+	WEBSITE_URL,
+	shardEruption,
+	skyNow,
+	skyToday,
+} from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
-import { DateTime } from "luxon";
 import TopBar from "~/components/TopBar";
 import {
 	APPLICATION_NAME,
 	SHARD_ERUPTION_DESCRIPTION,
 	SHARD_ERUPTION_ICON_URL,
 } from "~/utility/constants";
-import { TIME_ZONE, skyNow, skyToday } from "~/utility/dates";
 import { getLocaleFromRequest } from "~/utility/functions";
-import { type ShardEruptionRaw, shardEruption } from "~/wind-paths";
 
-type ShardEruptionCardData = (
-	| (Omit<ShardEruptionRaw, "timestamps"> & {
-			offset: number;
-			timestamps: {
-				start: { unix: number; format: string };
-				end: { unix: number; format: string };
-			}[];
-	  })
-	| { offset: number }
-) & { format: string };
+type ShardEruptionCardData = {
+	shard:
+		| (Omit<ShardEruptionData, "timestamps"> & {
+				timestamps: {
+					start: { unix: number; format: string };
+					end: { unix: number; format: string };
+				}[];
+		  })
+		| null;
+	todayFormat: string;
+};
 
 export const meta: MetaFunction = ({ location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
@@ -58,67 +63,64 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		const timeZone = request.headers.get("cf-timezone") ?? TIME_ZONE;
 
 		for (let index = 0; index < 31; index++) {
-			shards.push(shardEruption(index));
-		}
+			const shard = shardEruption(index);
 
-		const resolvedShards = await Promise.all(shards);
-
-		return resolvedShards.map((shard) => {
-			const format = new Intl.DateTimeFormat(locale, {
+			const todayFormat = new Intl.DateTimeFormat(locale, {
 				timeZone,
 				dateStyle: "full",
-			}).format(skyToday().plus({ days: shard.offset }).toMillis());
+			}).format(skyToday().plus({ days: index }).toMillis());
 
-			if (!("timestamps" in shard)) {
-				return { ...shard, format };
-			}
-
-			return {
-				...shard,
-				format,
-				timestamps: shard.timestamps.map(({ start, end }) => {
-					return {
+			shards.push({
+				shard: shard && {
+					...shard,
+					timestamps: shard.timestamps.map(({ start, end }) => ({
 						start: {
-							unix: DateTime.fromISO(start).toSeconds(),
+							unix: start.toUnixInteger(),
 							format: new Intl.DateTimeFormat(locale, {
 								timeZone,
 								hour: "2-digit",
 								minute: "2-digit",
 								second: "2-digit",
-							}).format(new Date(start)),
+							}).format(start.toMillis()),
 						},
 						end: {
-							unix: DateTime.fromISO(end).toSeconds(),
+							unix: end.toUnixInteger(),
 							format: new Intl.DateTimeFormat(locale, {
 								timeZone,
 								hour: "2-digit",
 								minute: "2-digit",
 								second: "2-digit",
-							}).format(new Date(end)),
+							}).format(end.toMillis()),
 						},
-					};
-				}),
-			};
-		});
+					})),
+				},
+				todayFormat,
+			});
+		}
+
+		return shards;
 	} catch {
 		throw new Response("Unable to fetch the shard eruption.", { status: 500 });
 	}
 };
 
-function shardEruptionCard(shard: ShardEruptionCardData, now: number) {
+function shardEruptionCard({ shard, todayFormat }: ShardEruptionCardData, now: number) {
 	return (
-		<div className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-700 border rounded-lg shadow flex flex-col items-center text-center w-full max-w-sm p-6">
+		<div
+			key={todayFormat}
+			className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-700 border rounded-lg shadow flex flex-col items-center text-center w-full max-w-sm p-6"
+		>
 			<div className="flex flex-row items-center justify-center">
-				{"strong" in shard && (
+				{shard && (
 					<img
 						src={`https://cdn.thatskyapplication.com/assets/${shard.strong ? "shard_strong" : "shard_regular"}.webp`}
 						alt={`${shard.strong ? "Strong" : "Regular"} shard eruption icon.`}
 						className="w-5 h-5 mr-1"
 					/>
 				)}
-				<h2 className="text-lg my-0">{shard.format}</h2>
+				<h2 className="text-lg my-0">{todayFormat}</h2>
 			</div>
-			{"url" in shard ? (
+			{shard ? (
 				<>
 					<a
 						href={shard.url}
@@ -126,7 +128,7 @@ function shardEruptionCard(shard: ShardEruptionCardData, now: number) {
 						rel="noopener noreferrer"
 						className="regular-link inline-flex items-center text-sm"
 					>
-						{shard.realm} ({shard.sky_map})
+						{shard.realm} ({shard.skyMap})
 						<ExternalLinkIcon className="ml-1 w-4 h-4" />
 					</a>
 					<div className="inline-flex items-center">

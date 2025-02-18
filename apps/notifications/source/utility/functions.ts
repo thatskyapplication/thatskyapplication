@@ -1,6 +1,7 @@
+import { TIME_ZONE } from "@thatskyapplication/utility";
 import { DateTime } from "luxon";
 import { type TravellingSpiritsPacket, pg } from "../pg.js";
-import { TIME_ZONE, TRAVELLING_SPIRITS_TABLE } from "./constants.js";
+import { TRAVELLING_SPIRITS_TABLE } from "./constants.js";
 
 export async function getLastTravellingSpirit() {
 	const travellingSpirit = await pg<TravellingSpiritsPacket>(TRAVELLING_SPIRITS_TABLE)

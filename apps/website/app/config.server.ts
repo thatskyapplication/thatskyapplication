@@ -1,8 +1,3 @@
-const DYNAMIC_WIND_PATHS_URL =
-	process.env.NODE_ENV === "production"
-		? process.env.WIND_PATHS_URL
-		: process.env.DEVELOPMENT_WIND_PATHS_URL;
-
 if (
 	!(
 		process.env.SESSION_SECRET &&
@@ -18,8 +13,7 @@ if (
 		process.env.REDIRECT_URI_SECRET_AREA &&
 		process.env.CLIENT_SECRET &&
 		process.env.DEVELOPMENT_CLIENT_SECRET &&
-		process.env.DATABASE_URL &&
-		DYNAMIC_WIND_PATHS_URL
+		process.env.DATABASE_URL
 	)
 ) {
 	throw new Error("Missing required environment variables.");
@@ -39,4 +33,3 @@ export const REDIRECT_URI_SECRET_AREA = process.env.REDIRECT_URI_SECRET_AREA;
 export const CLIENT_SECRET = process.env.CLIENT_SECRET;
 export const DEVELOPMENT_CLIENT_SECRET = process.env.DEVELOPMENT_CLIENT_SECRET;
 export const DATABASE_URL = process.env.DATABASE_URL;
-export const WIND_PATHS_URL = DYNAMIC_WIND_PATHS_URL;

@@ -1,8 +1,7 @@
 import { URL } from "node:url";
-import { SeasonId } from "@thatskyapplication/utility";
+import { SeasonId, skyDate } from "@thatskyapplication/utility";
 import { Season } from "../../../../models/Season.js";
 import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
-import { skyDate } from "../../../../utility/dates.js";
 import ProphecyGuide from "./prophecy-guide.js";
 import ProphetOfAir from "./prophet-of-air.js";
 import ProphetOfEarth from "./prophet-of-earth.js";

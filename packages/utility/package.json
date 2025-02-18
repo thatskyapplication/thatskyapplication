@@ -14,8 +14,12 @@
 		"update": "pnpm update --interactive --latest && pre-commit autoupdate",
 		"knip": "knip"
 	},
+	"dependencies": {
+		"luxon": "^3.5.0"
+	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.2",
+		"@types/luxon": "^3.4.2",
 		"@types/node": "^22.10.1",
 		"knip": "^5.22.2",
 		"tsup": "^8.3.5",

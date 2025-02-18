@@ -1,6 +1,5 @@
-import { SeasonId } from "@thatskyapplication/utility";
+import { SeasonId, skyDate } from "@thatskyapplication/utility";
 import { Season } from "../../../../models/Season.js";
-import { skyDate } from "../../../../utility/dates.js";
 import BelongingGuide from "./belonging-guide.js";
 import BoogieKid from "./boogie-kid.js";
 import ConfettiCousin from "./confetti-cousin.js";
