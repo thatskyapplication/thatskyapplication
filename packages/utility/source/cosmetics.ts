@@ -2869,4 +2869,5 @@ export enum Cosmetic {
 	DaysOfLoveBraids = 2287,
 	DaysOfLoveAmethystAccessory = 2288,
 	DaysOfLoveAmethystTippedTails = 2289,
+	DaysOfLovePurpleDye = 2290,
 }

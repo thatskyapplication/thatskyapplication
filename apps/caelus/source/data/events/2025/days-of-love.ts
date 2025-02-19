@@ -5,6 +5,7 @@ import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
 	HAIR_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../../../utility/emojis.js";
 
@@ -47,6 +48,12 @@ export default new Event({
 			cosmetic: Cosmetic.DaysOfLoveBraids,
 			cost: { eventTickets: 35 },
 			emoji: HAIR_EMOJIS.Hair158,
+		},
+		{
+			name: "Purple dye",
+			cosmetic: Cosmetic.DaysOfLovePurpleDye,
+			cost: { eventTickets: 10 },
+			emoji: MISCELLANEOUS_EMOJIS.DyePurple,
 		},
 		{
 			name: "Amethyst Accessory",
