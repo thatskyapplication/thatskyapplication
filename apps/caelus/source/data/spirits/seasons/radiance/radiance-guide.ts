@@ -70,6 +70,26 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.RadianceGuideCyanDye,
 				emoji: MISCELLANEOUS_EMOJIS.DyeCyan,
 			},
+			{
+				name: "Quest 3",
+				cosmetic: Cosmetic.RadianceGuideQuest3,
+				emoji: MISCELLANEOUS_EMOJIS.Quest,
+			},
+			{
+				name: "Heart 3",
+				cosmetic: Cosmetic.RadianceGuideHeart3,
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Blue dye",
+				cosmetic: Cosmetic.RadianceGuideBlueDye,
+				emoji: MISCELLANEOUS_EMOJIS.DyeBlue,
+			},
+			{
+				name: "Purple dye",
+				cosmetic: Cosmetic.RadianceGuidePurpleDye,
+				emoji: MISCELLANEOUS_EMOJIS.DyePurple,
+			},
 		],
 	},
 });

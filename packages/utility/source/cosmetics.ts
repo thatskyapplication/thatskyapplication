@@ -2870,4 +2870,10 @@ export enum Cosmetic {
 	DaysOfLoveAmethystAccessory = 2288,
 	DaysOfLoveAmethystTippedTails = 2289,
 	DaysOfLovePurpleDye = 2290,
+
+	// 17/02/2025 | Season of Radiance Quest 3.
+	RadianceGuideQuest3 = 2291,
+	RadianceGuideHeart3 = 2292,
+	RadianceGuideBlueDye = 2293,
+	RadianceGuidePurpleDye = 2294,
 }
