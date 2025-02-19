@@ -1,0 +1,85 @@
+import {
+	DYE_BLUE,
+	DYE_CYAN,
+	DYE_GREEN,
+	DYE_PURPLE,
+	DYE_RED,
+	DYE_YELLOW,
+	QUEST_URL,
+	Season,
+} from "../../constants.js";
+import type { FriendshipTreeData } from "../../nodes.js";
+
+const SEASON = Season.Radiance as const;
+
+export const CURRENT = [
+	[
+		{
+			icon: QUEST_URL,
+		},
+		{
+			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d9/Heart.png/revision/latest",
+		},
+		{
+			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b0/Season-of-Radiance-icon.png/revision/latest",
+			seasonIcon: SEASON,
+			nodes: [
+				{
+					icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/7c/Radiance-Ultimate-Cape-icon.png/revision/latest",
+					seasonIcon: SEASON,
+					cost: { seasonalHearts: { cost: 1, season: SEASON } },
+				},
+				{
+					icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/c4/Radiance-Ultimate-Mask-icon.png/revision/latest",
+					seasonIcon: SEASON,
+					cost: { seasonalHearts: { cost: 2, season: SEASON } },
+				},
+			],
+		},
+	],
+	[
+		{
+			icon: DYE_RED,
+		},
+		{
+			icon: DYE_YELLOW,
+		},
+	],
+	[
+		{
+			icon: QUEST_URL,
+		},
+		{
+			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d9/Heart.png/revision/latest",
+		},
+	],
+	[
+		{
+			icon: DYE_GREEN,
+		},
+		{
+			icon: DYE_CYAN,
+		},
+	],
+	[
+		{
+			icon: QUEST_URL,
+		},
+		{
+			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d9/Heart.png/revision/latest",
+		},
+	],
+	[
+		{
+			icon: DYE_BLUE,
+		},
+		{
+			icon: DYE_PURPLE,
+		},
+	],
+	[
+		{
+			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/60/Question-mark-Ray.png/revision/latest",
+		},
+	],
+] as const satisfies FriendshipTreeData;
