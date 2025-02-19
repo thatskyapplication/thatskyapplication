@@ -86,7 +86,7 @@ export default {
 		const data: ProfileSetData = {};
 		const promises = [];
 
-		if (options.hoistedOptions.length !== 0) {
+		if (options.hoistedOptions.length > 0) {
 			await client.api.interactions.defer(interaction.id, interaction.token, {
 				flags: MessageFlags.Ephemeral,
 			});

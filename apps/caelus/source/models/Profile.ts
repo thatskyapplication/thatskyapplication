@@ -411,12 +411,14 @@ function generateProfileExplorerSelectMenuOptions(
 }
 
 function generateLabelLetter(label: string) {
+	// biome-ignore lint/performance/useTopLevelRegex: This is fine.
 	const emojiRegularExpression = /^\p{Emoji}/u.exec(label);
 
 	if (emojiRegularExpression) {
 		return emojiRegularExpression[0];
 	}
 
+	// biome-ignore lint/performance/useTopLevelRegex: This is fine.
 	const zeroWidthRegularExpression = /\u200B|\u200C|\u200D\|u00A0]/.test(label);
 
 	if (zeroWidthRegularExpression) {

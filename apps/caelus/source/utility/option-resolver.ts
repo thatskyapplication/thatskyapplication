@@ -119,7 +119,7 @@ export class OptionResolver {
 		}
 
 		this.resolved = { messages, roles, attachments, channels, members, users };
-		const data = "options" in interaction.data ? interaction.data.options ?? null : null;
+		const data = "options" in interaction.data ? (interaction.data.options ?? null) : null;
 
 		if (data && isBasicOptions(data)) {
 			this.hoistedOptions = data;
@@ -218,7 +218,7 @@ export class OptionResolver {
 	public getChannel(name: string, required = false): APIInteractionDataResolvedChannel | null {
 		const option = this.getTypedOption(name, ApplicationCommandOptionType.Channel, required);
 		return option && "channels" in this.resolved
-			? this.resolved.channels?.[option.value] ?? null
+			? (this.resolved.channels?.[option.value] ?? null)
 			: null;
 	}
 
@@ -275,7 +275,9 @@ export class OptionResolver {
 	): RequiredIf<Required, APIUser>;
 	public getUser(name: string, required = false): APIUser | null {
 		const option = this.getTypedOption(name, ApplicationCommandOptionType.User, required);
-		return option && "users" in this.resolved ? this.resolved.users?.[option.value] ?? null : null;
+		return option && "users" in this.resolved
+			? (this.resolved.users?.[option.value] ?? null)
+			: null;
 	}
 
 	/**
@@ -291,7 +293,7 @@ export class OptionResolver {
 	public getMember(name: string, required = false): APIInteractionDataResolvedGuildMember | null {
 		const option = this.getTypedOption(name, ApplicationCommandOptionType.User, required);
 		return option && "members" in this.resolved
-			? this.resolved.members?.[option.value] ?? null
+			? (this.resolved.members?.[option.value] ?? null)
 			: null;
 	}
 
@@ -306,7 +308,9 @@ export class OptionResolver {
 	): RequiredIf<Required, Role>;
 	public getRole(name: string, required = false): Role | null {
 		const option = this.getTypedOption(name, ApplicationCommandOptionType.Role, required);
-		return option && "roles" in this.resolved ? this.resolved.roles?.[option.value] ?? null : null;
+		return option && "roles" in this.resolved
+			? (this.resolved.roles?.[option.value] ?? null)
+			: null;
 	}
 
 	/**
@@ -321,7 +325,7 @@ export class OptionResolver {
 	public getAttachment(name: string, required = false): APIAttachment | null {
 		const option = this.getTypedOption(name, ApplicationCommandOptionType.Attachment, required);
 		return option && "attachments" in this.resolved
-			? this.resolved.attachments?.[option.value] ?? null
+			? (this.resolved.attachments?.[option.value] ?? null)
 			: null;
 	}
 

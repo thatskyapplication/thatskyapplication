@@ -110,7 +110,7 @@ export function resolveMap(rawMap: string) {
 
 	return inconsistentResult
 		? INCONSISTENT_MAP[inconsistentResult]
-		: Object.values(SkyMap).find((skyMap) => skyMap.toUpperCase() === upperRawMap) ?? null;
+		: (Object.values(SkyMap).find((skyMap) => skyMap.toUpperCase() === upperRawMap) ?? null);
 }
 
 export function isMeditationMap(skyMap: SkyMap): skyMap is MeditationMaps {

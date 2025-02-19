@@ -558,9 +558,12 @@ export default new (class DailyGuides {
 		}
 
 		// Remove the message link, if any.
-		const pureContent = (
-			/\n<?https?/.test(content) ? content.slice(0, content.indexOf("\n")) : content
-		).replaceAll(new RegExp(FormattingPatterns.Emoji, "gi"), "");
+		const pureContent =
+			// biome-ignore lint/performance/useTopLevelRegex: This is fine.
+			(/\n<?https?/.test(content) ? content.slice(0, content.indexOf("\n")) : content).replaceAll(
+				new RegExp(FormattingPatterns.Emoji, "gi"),
+				"",
+			);
 
 		// Attempt to find a realm.
 		const potentialRealmRegExp =

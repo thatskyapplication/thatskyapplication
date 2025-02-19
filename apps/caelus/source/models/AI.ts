@@ -86,13 +86,15 @@ function isAIFrequency(number: number): number is AIFrequencyTypes {
 
 export const AI_FREQUENCY_SELECT_MENU_CUSTOM_ID = "AI_FREQUENCY_SELECT_MENU_CUSTOM_ID" as const;
 
-const AI_FREQUENCY_DESCRIPTION = `I have the ability to engage in conversation, be it sporadically or when you mention me!
+const AI_FREQUENCY_DESCRIPTION =
+	`I have the ability to engage in conversation, be it sporadically or when you mention me!
 
 The frequency at which I will sporadically respond may be configured. The higher the frequency, the more likely I will respond.
 
 You can disable the frequency to turn this feature off and I will no longer sporadically reply.` as const;
 
-const AI_FREQUENCY_DESCRIPTION_WITHOUT_MONETISATION = `I have the ability to engage in conversation, be it sporadically or when you mention me! I can choose to respond in certain frequencies too!
+const AI_FREQUENCY_DESCRIPTION_WITHOUT_MONETISATION =
+	`I have the ability to engage in conversation, be it sporadically or when you mention me! I can choose to respond in certain frequencies too!
 
 To use this feature though, it must be purchased.` as const;
 

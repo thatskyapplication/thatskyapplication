@@ -183,7 +183,7 @@ abstract class BaseFriendshipTree {
 
 		this.allCosmetics = offer?.current ? resolveAllCosmetics(this.current) : [];
 
-		this.imageURL = (offer ? offer.hasInfographic ?? true : false)
+		this.imageURL = (offer ? (offer.hasInfographic ?? true) : false)
 			? this.resolveImageURL(name)
 			: null;
 	}
@@ -240,7 +240,7 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 		);
 
 		this.imageURLSeasonal =
-			seasonalFriendshipTreeData.offer.hasInfographicSeasonal ?? true
+			(seasonalFriendshipTreeData.offer.hasInfographicSeasonal ?? true)
 				? this.resolveImageURL(seasonalFriendshipTreeData.name, true)
 				: null;
 	}

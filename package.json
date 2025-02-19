@@ -7,11 +7,12 @@
 		"test": "pnpm --recursive test",
 		"lint": "pnpm --recursive lint",
 		"format": "pnpm --recursive format",
-		"lint:ci": "pnpm --recursive lint:ci"
+		"lint:ci": "pnpm --recursive lint:ci",
+		"update": "pnpm update --interactive --latest --recursive && pre-commit autoupdate"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
-		"typescript": "^5.6.2"
+		"typescript": "^5.7.3"
 	},
 	"packageManager": "pnpm@9.12.1",
 	"pnpm": {

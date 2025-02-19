@@ -255,7 +255,8 @@ So you'd like to know about me, huh? Well, I like long walks across the ${
 
 In any case, you can invite me by opening up my profile or using the invite link below! If you need help, head on to the support server linked also below and we'll figure it out together!` as const;
 
-export const ABOUT_SPONSOR = `Want to give support? There are ways you can do that! Thank you in advance!
+export const ABOUT_SPONSOR =
+	`Want to give support? There are ways you can do that! Thank you in advance!
 [Patreon](${PATREON_URL}) | [Ko-fi](${KO_FI_URL}) | [GitHub](${GITHUB_SPONSORS_URL})` as const;
 
 // Admin.

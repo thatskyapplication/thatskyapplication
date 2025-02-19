@@ -164,7 +164,7 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		return null;
 	}
 
-	const timestamps = [];
+	const timestamps: ShardEruptionTimestampsData[] = [];
 
 	for (
 		let startTime = date.plus({ milliseconds: offset });

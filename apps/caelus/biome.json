@@ -1,4 +1,14 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-	"extends": ["../../biome.json"]
+	"extends": ["../../biome.json"],
+	"linter": {
+		"rules": {
+			"style": {
+				"useDefaultSwitchClause": "off"
+			},
+			"suspicious": {
+				"noEvolvingTypes": "off"
+			}
+		}
+	}
 }
