@@ -83,7 +83,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 			suffix:
 				timeUntilStart === 0
 					? "It's a new day. Time to forge candles again!"
-					: `A new day will begin in <t:${startTime.toUnixInteger()}:R>!`,
+					: `A new day will begin <t:${startTime.toUnixInteger()}:R>!`,
 		});
 	}
 
