@@ -91,42 +91,40 @@ export default function SkyProfile() {
 					)}
 				</div>
 				<div className="px-4 pt-10 pb-2">
-					{profile.name ? <h1>{profile.name} </h1> : <h1 className="italic">No name</h1>}
+					{profile.name ? (
+						<h1 className="mb-2">{profile.name}</h1>
+					) : (
+						<h1 className="mb-2 italic">No name</h1>
+					)}
 					{profile.seasons && profile.seasons.length > 0 && (
-						<div className="mt-4">
-							<h2 className="font-semibold mb-2">Seasons</h2>
-							<div className="flex flex-wrap gap-2">
-								{profile.seasons
-									.sort((a, b) => a - b)
-									.map((season) => (
-										<div
-											key={season}
-											className="w-8 h-8 bg-cover bg-center"
-											style={{
-												backgroundImage: `url(https://cdn.thatskyapplication.com/assets/season_${season + 1}.webp)`,
-											}}
-											aria-label={`Season ${season} icon.`}
-										/>
-									))}
-							</div>
+						<div className="flex flex-wrap gap-2">
+							{profile.seasons
+								.sort((a, b) => a - b)
+								.map((season) => (
+									<div
+										key={season}
+										className="w-10 h-10 bg-cover bg-center"
+										style={{
+											backgroundImage: `url(https://cdn.thatskyapplication.com/assets/season_${season + 1}.webp)`,
+										}}
+										aria-label={`Season ${season} icon.`}
+									/>
+								))}
 						</div>
 					)}
 					{profile.platform && profile.platform.length > 0 && (
-						<div className="mt-4">
-							<h2 className="font-semibold mb-2">Platforms</h2>
-							<div className="flex flex-wrap gap-2">
-								{profile.platform
-									.filter((platform) => isPlatformId(platform))
-									.sort((a, b) => a - b)
-									.map((platform) => (
-										<div
-											key={platform}
-											className="bg-gray-200 dark:bg-gray-100 p-2 rounded-full shadow items-center justify-center"
-										>
-											{PlatformToIcon[platform]}
-										</div>
-									))}
-							</div>
+						<div className="mt-4 flex flex-wrap gap-2">
+							{profile.platform
+								.filter((platform) => isPlatformId(platform))
+								.sort((a, b) => a - b)
+								.map((platform) => (
+									<div
+										key={platform}
+										className="bg-gray-200 dark:bg-gray-100 p-2 rounded-full shadow items-center justify-center"
+									>
+										{PlatformToIcon[platform]}
+									</div>
+								))}
 						</div>
 					)}
 					<h2 className="font-semibold mb-2">

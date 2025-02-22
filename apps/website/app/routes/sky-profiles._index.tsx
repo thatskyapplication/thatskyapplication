@@ -129,13 +129,13 @@ function SkyProfileCard(profile: ProfilePacket) {
 			<div className="px-4 pt-10 pb-4 flex-1 overflow-hidden">
 				<h2 className="my-0">{profile.name!}</h2>
 				{profile.seasons && profile.seasons.length > 0 && (
-					<div className="flex flex-wrap">
+					<div className="flex flex-wrap gap-1">
 						{profile.seasons
 							.sort((a, b) => a - b)
 							.map((season) => (
 								<div
 									key={season}
-									className="w-5 h-5 bg-cover bg-center"
+									className="w-6 h-6 bg-cover bg-center"
 									style={{
 										backgroundImage: `url(https://cdn.thatskyapplication.com/assets/season_${season + 1}.webp)`,
 									}}
