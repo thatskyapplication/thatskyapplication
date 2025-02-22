@@ -154,7 +154,7 @@ export default function SkyProfile() {
 						/>
 						<div className="flex-1">
 							<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Maximum Winged Light</p>
-							<p className="my-0 text-lg font-semibold">{profile.winged_light}</p>
+							<p className="my-0">{profile.winged_light}</p>
 						</div>
 					</div>
 				)}
@@ -169,7 +169,7 @@ export default function SkyProfile() {
 						/>
 						<div className="flex-1">
 							<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Spirit</p>
-							<p className="my-0 text-lg font-semibold">{profile.spirit}</p>
+							<p className="my-0">{profile.spirit}</p>
 						</div>
 					</div>
 				)}
@@ -180,7 +180,7 @@ export default function SkyProfile() {
 						<MapPinIcon className="w-6 h-6 mr-2" />
 						<div className="flex-1">
 							<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Hangout</p>
-							<p className="my-0 text-lg font-semibold">{profile.spot}</p>
+							<p className="my-0">{profile.spot}</p>
 						</div>
 					</div>
 				)}
