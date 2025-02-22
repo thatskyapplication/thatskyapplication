@@ -1,7 +1,8 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, type MetaFunction, useLoaderData } from "@remix-run/react";
 import { CountryToEmoji, WEBSITE_URL, isCountry, isPlatformId } from "@thatskyapplication/utility";
-import { ChevronLeftIcon, MapPinIcon } from "lucide-react";
+import { ChevronLeftIcon, LinkIcon, MapPinIcon } from "lucide-react";
+import { useState } from "react";
 import TopBar from "~/components/TopBar.js";
 import pg from "~/pg.server";
 import { APPLICATION_NAME, Table } from "~/utility/constants.js";
@@ -61,6 +62,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
 export default function SkyProfile() {
 	const profile = useLoaderData<typeof loader>();
+	const [copied, setCopied] = useState(false);
 
 	return (
 		<div className="mx-auto px-4 max-w-3xl mt-20 mb-4">
@@ -186,17 +188,17 @@ export default function SkyProfile() {
 			<div className="flex items-center justify-start mt-6 space-x-2">
 				<Link
 					to="/sky-profiles"
-					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded px-4 h-10"
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded px-4 py-2"
 				>
-					<ChevronLeftIcon className="w-6 h-6" />
-					<span className="ml-1">Back</span>
+					<ChevronLeftIcon className="w-6 h-6 mr-2" />
+					<span>Back</span>
 				</Link>
 				<Link
 					to={"/sky-profiles/random"}
-					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded px-4 h-10"
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded px-4 py-2"
 				>
 					<div
-						className="w-5 h-5 mr-2 bg-cover bg-center"
+						className="w-6 h-6 mr-2 bg-cover bg-center"
 						style={{
 							backgroundImage: "url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
 						}}
@@ -204,6 +206,18 @@ export default function SkyProfile() {
 					/>
 					<span>Random</span>
 				</Link>
+				<button
+					type="button"
+					onClick={async () => {
+						await navigator.clipboard.writeText(window.location.href);
+						setCopied(true);
+						setTimeout(() => setCopied(false), 2000);
+					}}
+					className={`${copied ? "bg-green-500 hover:bg-green-600 border-green-600" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-600"} flex items-center px-4 py-2 border rounded transition-colors duration-300 overflow-auto`}
+				>
+					<LinkIcon className="w-6 h-6 mr-2" />
+					{copied ? "Link copied!" : "Share"}
+				</button>
 			</div>
 		</div>
 	);
