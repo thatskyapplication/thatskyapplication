@@ -213,7 +213,7 @@ export default function SkyProfile() {
 						setCopied(true);
 						setTimeout(() => setCopied(false), 2000);
 					}}
-					className={`${copied ? "bg-green-500 hover:bg-green-600 border-green-600" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-600"} flex items-center px-4 py-2 border rounded transition-colors duration-300 overflow-auto`}
+					className={`${copied ? "bg-green-500 hover:bg-green-600 border-green-600" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-600"} shadow-md hover:shadow-lg flex items-center px-4 py-2 border rounded transition-colors duration-300 overflow-auto`}
 				>
 					<LinkIcon className="w-6 h-6 mr-2" />
 					{copied ? "Link copied!" : "Share"}
