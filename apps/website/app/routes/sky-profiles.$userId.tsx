@@ -1,9 +1,7 @@
-// biome-ignore lint/style/noNamespaceImport: This is fine.
-import * as Tooltip from "@radix-ui/react-tooltip";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, type MetaFunction, useLoaderData } from "@remix-run/react";
 import { CountryToEmoji, WEBSITE_URL, isCountry, isPlatformId } from "@thatskyapplication/utility";
-import { ChevronLeftIcon } from "lucide-react";
+import { ChevronLeftIcon, MapPinIcon } from "lucide-react";
 import TopBar from "~/components/TopBar.js";
 import pg from "~/pg.server";
 import { APPLICATION_NAME, Table } from "~/utility/constants.js";
@@ -144,56 +142,49 @@ export default function SkyProfile() {
 					</div>
 				</div>
 			</div>
-			{(profile.winged_light !== null || profile.spirit !== null) && (
-				<div className="bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg items-center p-4 mt-4 grid grid-cols-2 md:grid-cols-3 gap-2">
-					{profile.winged_light !== null && (
-						<Tooltip.Provider delayDuration={300}>
-							<Tooltip.Root>
-								<Tooltip.Trigger asChild={true}>
-									<div className="flex border border-gray-200 dark:border-gray-600 rounded-md p-2">
-										<div
-											className="w-6 h-6 mr-2 bg-cover bg-center"
-											style={{
-												backgroundImage:
-													"url(https://cdn.thatskyapplication.com/assets/winged_light.webp)",
-											}}
-											aria-label="Total number of winged light."
-										/>
-										<span>{profile.winged_light}</span>
-									</div>
-								</Tooltip.Trigger>
-								<Tooltip.Content className="bg-gray-100 dark:bg-gray-800 text-sm rounded shadow-xl p-2">
-									Total Winged Light
-									<Tooltip.Arrow className="fill-gray-100 dark:fill-gray-800 shadow-xl" />
-								</Tooltip.Content>
-							</Tooltip.Root>
-						</Tooltip.Provider>
-					)}
-					{profile.spirit && (
-						<Tooltip.Provider delayDuration={300}>
-							<Tooltip.Root>
-								<Tooltip.Trigger asChild={true}>
-									<div className="flex border border-gray-200 dark:border-gray-600 rounded-md p-2">
-										<div
-											className="w-6 h-6 mr-2 bg-cover bg-center"
-											style={{
-												backgroundImage:
-													"url(https://cdn.thatskyapplication.com/assets/heart.webp)",
-											}}
-											aria-label="Favourite spirit."
-										/>
-										<span>{profile.spirit}</span>
-									</div>
-								</Tooltip.Trigger>
-								<Tooltip.Content className="bg-gray-100 dark:bg-gray-800 text-sm rounded shadow-xl p-2">
-									Favourite spirit
-									<Tooltip.Arrow className="fill-gray-100 dark:fill-gray-800 shadow-xl" />
-								</Tooltip.Content>
-							</Tooltip.Root>
-						</Tooltip.Provider>
-					)}
-				</div>
-			)}
+			<div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+				{profile.winged_light !== null && (
+					<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2">
+						<div
+							className="w-6 h-6 mr-2 bg-cover bg-center"
+							style={{
+								backgroundImage: "url(https://cdn.thatskyapplication.com/assets/winged_light.webp)",
+							}}
+							aria-label="Winged light icon."
+						/>
+						<div className="flex-1">
+							<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Maximum Winged Light</p>
+							<p className="my-0 text-lg font-semibold">{profile.winged_light}</p>
+						</div>
+					</div>
+				)}
+				{profile.spirit && (
+					<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2">
+						<div
+							className="w-6 h-6 mr-2 bg-cover bg-center"
+							style={{
+								backgroundImage: "url(https://cdn.thatskyapplication.com/assets/heart.webp)",
+							}}
+							aria-label="Favourite spirit icon."
+						/>
+						<div className="flex-1">
+							<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Spirit</p>
+							<p className="my-0 text-lg font-semibold">{profile.spirit}</p>
+						</div>
+					</div>
+				)}
+				{profile.spot && (
+					<div
+						className={`group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 ${(profile.winged_light === null && profile.spirit === null) || (profile.winged_light !== null && profile.spirit) ? "md:col-span-2" : ""}`}
+					>
+						<MapPinIcon className="w-6 h-6 mr-2" />
+						<div className="flex-1">
+							<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Hangout</p>
+							<p className="my-0 text-lg font-semibold">{profile.spot}</p>
+						</div>
+					</div>
+				)}
+			</div>
 			<div className="flex items-center justify-start mt-6 space-x-2">
 				<Link
 					to="/sky-profiles"
