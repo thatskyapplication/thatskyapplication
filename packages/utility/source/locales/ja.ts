@@ -1,3 +1,4 @@
+import { EventId } from "../event.js";
 import { RealmName, SkyMap } from "../kingdom.js";
 import { DailyQuest } from "../quests.js";
 import { SeasonId } from "../season.js";
@@ -69,6 +70,9 @@ export default {
 			[SeasonId.Duets]: "音色の季節",
 			[SeasonId.Moomin]: "ムーミンの季節",
 			[SeasonId.Radiance]: "光に染まる季節",
+		},
+		events: {
+			[EventId.DaysOfTreasure2025]: "宝探しの日々",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "指差すキャンドル職人",

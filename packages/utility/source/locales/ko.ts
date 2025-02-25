@@ -76,6 +76,7 @@ export default {
 		},
 		events: {
 			[EventId.DaysOfMusic2024]: "음악의 날",
+			[EventId.DaysOfTreasure2025]: "보물의 날",
 		},
 		spiritNames: {
 			[SpiritName.PointingCandlemaker]: "가리키는 양초장이",

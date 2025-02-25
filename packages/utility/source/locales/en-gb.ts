@@ -403,6 +403,7 @@ export default {
 			[EventId.SkyXAlicesWonderlandCafe2024]: "Sky × Alice's Wonderland Cafe",
 			[EventId.DaysOfFortune2025]: "Days of Fortune",
 			[EventId.DaysOfLove2025]: "Days of Love",
+			[EventId.DaysOfTreasure2025]: "Days of Treasure",
 		} satisfies Record<EventIds, string>,
 		"shard-eruption": "Shard Eruption",
 		"shard-eruption-none": "None",
