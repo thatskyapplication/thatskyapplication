@@ -1,7 +1,7 @@
-import { Season } from "../../constants.js";
+import { SeasonId } from "@thatskyapplication/utility";
 import type { FriendshipTreeData } from "../../nodes.js";
 
-const SEASON = Season.Belonging as const;
+const seasonId = SeasonId.Belonging;
 
 export const CURRENT = [
 	[
@@ -60,48 +60,48 @@ export const SEASONAL = [
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/3c/1CandleSpell.png/revision/latest",
-			cost: { seasonalCandles: { cost: 10, season: SEASON } },
+			cost: { seasonalCandles: { cost: 10, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/4/4e/MusicSheet.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			cost: { seasonalCandles: { cost: 12, season: SEASON } },
+			cost: { seasonalCandles: { cost: 12, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/39/Mimi-4117_04_wise_grandparent_mask.png/revision/latest",
-			cost: { seasonalCandles: { cost: 14, season: SEASON } },
+			cost: { seasonalCandles: { cost: 14, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			cost: { seasonalCandles: { cost: 16, season: SEASON } },
+			cost: { seasonalCandles: { cost: 16, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/9e/Icon_cape_belonging_white-Morybel-0146.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/6a/Belonging-heart-Ray.png/revision/latest",
-			cost: { seasonalCandles: { cost: 3, season: SEASON } },
-			seasonIcon: SEASON,
+			cost: { seasonalCandles: { cost: 3, season: seasonId } },
+			seasonIcon: seasonId,
 		},
 	],
 ] as const satisfies FriendshipTreeData;

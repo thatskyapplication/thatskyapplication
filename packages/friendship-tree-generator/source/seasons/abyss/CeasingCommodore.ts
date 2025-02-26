@@ -1,7 +1,7 @@
-import { Season } from "../../constants.js";
+import { SeasonId } from "@thatskyapplication/utility";
 import type { FriendshipTreeData } from "../../nodes.js";
 
-const SEASON = Season.Abyss as const;
+const seasonId = SeasonId.Abyss;
 
 export const CURRENT = [
 	[
@@ -72,56 +72,56 @@ export const SEASONAL = [
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e8/SOA-Ceasing-Commodore-emote.png/revision/latest",
 			level: 2,
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png/revision/latest",
-			cost: { seasonalCandles: { cost: 6, season: SEASON } },
+			cost: { seasonalCandles: { cost: 6, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/ee/SOAbyss-Ceasing-Commodore-hairstyle.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/27/SOAbyss-Ceasing-Commodore-mask.png/revision/latest",
-			cost: { seasonalCandles: { cost: 8, season: SEASON } },
+			cost: { seasonalCandles: { cost: 8, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e8/SOA-Ceasing-Commodore-emote.png/revision/latest",
 			level: 3,
-			cost: { seasonalCandles: { cost: 16, season: SEASON } },
+			cost: { seasonalCandles: { cost: 16, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e8/SOA-Ceasing-Commodore-emote.png/revision/latest",
 			level: 4,
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/75/SOAbyss-Ceasing-Commodore-cape-Morybel-0146.png/revision/latest",
-			cost: { seasonalCandles: { cost: 20, season: SEASON } },
+			cost: { seasonalCandles: { cost: 20, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b5/SOAbyss-seasonal-heart.png/revision/latest",
-			seasonIcon: SEASON,
-			cost: { seasonalCandles: { cost: 3, season: SEASON } },
+			seasonIcon: seasonId,
+			cost: { seasonalCandles: { cost: 3, season: seasonId } },
 		},
 	],
 ] as const satisfies FriendshipTreeData;

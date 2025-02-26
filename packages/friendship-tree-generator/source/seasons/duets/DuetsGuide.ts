@@ -1,7 +1,8 @@
-import { QUEST_URL, Season } from "../../constants.js";
+import { SeasonId } from "@thatskyapplication/utility";
+import { QUEST_URL } from "../../constants.js";
 import type { FriendshipTreeData } from "../../nodes.js";
 
-const SEASON = Season.Duets as const;
+const seasonId = SeasonId.Duets;
 
 export const CURRENT = [
 	[
@@ -14,22 +15,22 @@ export const CURRENT = [
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/3f/Season-of-Duets-icon.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 			nodes: [
 				{
 					icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/bf/Duets-Ultimate-Poster-Prop-icon.png/revision/latest",
-					seasonIcon: SEASON,
-					cost: { seasonalHearts: { cost: 1, season: SEASON } },
+					seasonIcon: seasonId,
+					cost: { seasonalHearts: { cost: 1, season: seasonId } },
 				},
 				{
 					icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/bc/Duets-Ultimate-Cape-icon.png/revision/latest",
-					seasonIcon: SEASON,
-					cost: { seasonalHearts: { cost: 2, season: SEASON } },
+					seasonIcon: seasonId,
+					cost: { seasonalHearts: { cost: 2, season: seasonId } },
 				},
 				{
 					icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/57/Duets-Ultimate-Grand-Piano-Prop-icon.png/revision/latest",
-					seasonIcon: SEASON,
-					cost: { seasonalHearts: { cost: 2, season: SEASON } },
+					seasonIcon: seasonId,
+					cost: { seasonalHearts: { cost: 2, season: seasonId } },
 				},
 			],
 		},

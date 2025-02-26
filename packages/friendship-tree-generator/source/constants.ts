@@ -19,33 +19,6 @@ export const CURRENCY_TEXT_OFFSET = 10 as const;
 export const NEXT_HEIGHT_LEVEL = 240 as const;
 export const NEXT_HEIGHT_LEVEL_SIDES_OFFSET = 60 as const;
 
-export const enum Season {
-	Gratitude = "Gratitude",
-	Lightseekers = "Lightseekers",
-	Belonging = "Belonging",
-	Rhythm = "Rhythm",
-	Enchantment = "Enchantment",
-	Sanctuary = "Sanctuary",
-	Prophecy = "Prophecy",
-	Dreams = "Dreams",
-	Assembly = "Assembly",
-	LittlePrince = "Little Prince",
-	Flight = "Flight",
-	Abyss = "Abyss",
-	Performance = "Performance",
-	Shattering = "Shattering",
-	AURORA = "AURORA",
-	Remembrance = "Remembrance",
-	Passage = "Passage",
-	Moments = "Moments",
-	Revival = "Revival",
-	NineColouredDeer = "Nine-Coloured Deer",
-	Nesting = "Nesting",
-	Duets = "Duets",
-	Moomin = "Moomin",
-	Radiance = "Radiance",
-}
-
 export const QUEST_URL =
 	"https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8b/Exclamation-mark-Ray.png/revision/latest" as const;
 

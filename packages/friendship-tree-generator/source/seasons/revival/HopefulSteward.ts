@@ -1,7 +1,8 @@
-import { QUEST_URL, Season } from "../../constants.js";
+import { SeasonId } from "@thatskyapplication/utility";
+import { QUEST_URL } from "../../constants.js";
 import type { FriendshipTreeData } from "../../nodes.js";
 
-const SEASON = Season.Revival as const;
+const seasonId = SeasonId.Revival;
 
 export const CURRENT = [
 	[
@@ -14,18 +15,18 @@ export const CURRENT = [
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/60/Season-of-Revival-icon.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 			flatLine: true,
 			nodes: [
 				{
 					icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/ff/Revival-Ultimate-Hair-icon.png/revision/latest",
-					seasonIcon: SEASON,
-					cost: { seasonalHearts: { cost: 2, season: SEASON } },
+					seasonIcon: seasonId,
+					cost: { seasonalHearts: { cost: 2, season: seasonId } },
 				},
 				{
 					icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/ef/Revival-Ultimate-Cape-icon.png/revision/latest",
-					seasonIcon: SEASON,
-					cost: { seasonalHearts: { cost: 2, season: SEASON } },
+					seasonIcon: seasonId,
+					cost: { seasonalHearts: { cost: 2, season: seasonId } },
 				},
 			],
 		},

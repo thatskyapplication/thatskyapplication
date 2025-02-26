@@ -1,9 +1,9 @@
-import type { Season } from "./constants.js";
+import type { SeasonIds } from "@thatskyapplication/utility";
 import { CURRENT } from "./seasons/radiance/RadianceGuide.js";
 
 interface NodeSeasonalCost {
 	cost: number;
-	season: Season;
+	season: SeasonIds;
 }
 
 interface NodeCost {
@@ -18,7 +18,7 @@ export interface Node {
 	icon: `https://${string}`;
 	cost?: NodeCost;
 	level?: 2 | 3 | 4 | 5 | 6;
-	seasonIcon?: Season;
+	seasonIcon?: SeasonIds;
 	flatLine?: boolean;
 	nodes?: readonly Node[];
 }

@@ -1,7 +1,7 @@
-import { Season } from "../../constants.js";
+import { SeasonId } from "@thatskyapplication/utility";
 import type { FriendshipTreeData } from "../../nodes.js";
 
-const SEASON = Season.Dreams as const;
+const seasonId = SeasonId.Dreams;
 
 export const CURRENT = [
 	[
@@ -65,49 +65,49 @@ export const SEASONAL = [
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			cost: { seasonalCandles: { cost: 13, season: SEASON } },
+			cost: { seasonalCandles: { cost: 13, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b6/Icon_hair_dreams_hermit_horns.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			cost: { seasonalCandles: { cost: 18, season: SEASON } },
+			cost: { seasonalCandles: { cost: 18, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/4/4e/MusicSheet.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			cost: { seasonalCandles: { cost: 23, season: SEASON } },
+			cost: { seasonalCandles: { cost: 23, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/9e/Season_of_Dreams_-_Bearhug_hermit.png/revision/latest",
 			level: 2,
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/7b/Icon_hair_dreams_hermit.png/revision/latest",
-			cost: { seasonalCandles: { cost: 29, season: SEASON } },
+			cost: { seasonalCandles: { cost: 29, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/0/08/Icon_pants_dreams_bearhug.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/4/40/Dreams-heart-Ray.png/revision/latest",
-			cost: { seasonalCandles: { cost: 3, season: SEASON } },
-			seasonIcon: SEASON,
+			cost: { seasonalCandles: { cost: 3, season: seasonId } },
+			seasonIcon: seasonId,
 		},
 	],
 ] as const satisfies FriendshipTreeData;

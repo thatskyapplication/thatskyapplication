@@ -1,7 +1,7 @@
-import { Season } from "../../constants.js";
+import { SeasonId } from "@thatskyapplication/utility";
 import type { FriendshipTreeData } from "../../nodes.js";
 
-const SEASON = Season.Belonging as const;
+const seasonId = SeasonId.Belonging;
 
 export const CURRENT = [
 	[
@@ -68,46 +68,46 @@ export const SEASONAL = [
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b3/Belonging_confetti.png/revision/latest",
 			level: 2,
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/3c/1CandleSpell.png/revision/latest",
-			cost: { seasonalCandles: { cost: 8, season: SEASON } },
+			cost: { seasonalCandles: { cost: 8, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b3/Belonging_confetti.png/revision/latest",
 			level: 3,
-			cost: { seasonalCandles: { cost: 10, season: SEASON } },
+			cost: { seasonalCandles: { cost: 10, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b3/Belonging_confetti.png/revision/latest",
 			level: 4,
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b2/Icon_cape_belonging_red-Morybel-0146.png/revision/latest",
-			cost: { seasonalCandles: { cost: 12, season: SEASON } },
+			cost: { seasonalCandles: { cost: 12, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/5b/Mimi-4117_04_confetti_cousin_hair.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/6a/Belonging-heart-Ray.png/revision/latest",
-			seasonIcon: SEASON,
-			cost: { seasonalCandles: { cost: 3, season: SEASON } },
+			seasonIcon: seasonId,
+			cost: { seasonalCandles: { cost: 3, season: seasonId } },
 		},
 	],
 ] as const satisfies FriendshipTreeData;

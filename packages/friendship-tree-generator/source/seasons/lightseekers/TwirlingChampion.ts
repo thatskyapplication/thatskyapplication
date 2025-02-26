@@ -1,7 +1,7 @@
-import { Season } from "../../constants.js";
+import { SeasonId } from "@thatskyapplication/utility";
 import type { FriendshipTreeData } from "../../nodes.js";
 
-const SEASON = Season.Lightseekers as const;
+const seasonId = SeasonId.Lightseekers;
 
 export const CURRENT = [
 	[
@@ -72,41 +72,41 @@ export const SEASONAL = [
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d0/Mimi-4117_03_twirling_champion_emote.png/revision/latest",
 			level: 2,
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			cost: { seasonalCandles: { cost: 12, season: SEASON } },
+			cost: { seasonalCandles: { cost: 12, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/4/43/Mimi-4117_03_twirling_champion_mask.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d0/Mimi-4117_03_twirling_champion_emote.png/revision/latest",
 			level: 3,
-			cost: { seasonalCandles: { cost: 14, season: SEASON } },
+			cost: { seasonalCandles: { cost: 14, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d0/Mimi-4117_03_twirling_champion_emote.png/revision/latest",
 			level: 4,
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/0/04/Mimi-4117_03_twirling_champion_hair.png/revision/latest",
-			cost: { seasonalCandles: { cost: 16, season: SEASON } },
+			cost: { seasonalCandles: { cost: 16, season: seasonId } },
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/ea/Mimi-4117_03_twirling_champion_instrument.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 ] as const satisfies FriendshipTreeData;

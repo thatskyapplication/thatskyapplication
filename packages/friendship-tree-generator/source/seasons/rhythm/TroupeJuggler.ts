@@ -1,7 +1,7 @@
-import { Season } from "../../constants.js";
+import { SeasonId } from "@thatskyapplication/utility";
 import type { FriendshipTreeData } from "../../nodes.js";
 
-const SEASON = Season.Rhythm as const;
+const seasonId = SeasonId.Rhythm;
 
 export const CURRENT = [
 	[
@@ -76,56 +76,56 @@ export const SEASONAL = [
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/af/Emote-juggle.png/revision/latest",
 			level: 2,
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/59/Mimi-4117_05_troupe_juggler_hair.png/revision/latest",
-			cost: { seasonalCandles: { cost: 12, season: SEASON } },
+			cost: { seasonalCandles: { cost: 12, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/af/Emote-juggle.png/revision/latest",
 			level: 3,
-			cost: { seasonalCandles: { cost: 14, season: SEASON } },
+			cost: { seasonalCandles: { cost: 14, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/af/Emote-juggle.png/revision/latest",
 			level: 4,
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			cost: { seasonalCandles: { cost: 16, season: SEASON } },
+			cost: { seasonalCandles: { cost: 16, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/a8/Icon_cape_rhythm_purple-Morybel-0146.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/1b/Mimi-4117_05_troupe_juggler_pants.png/revision/latest",
-			cost: { seasonalCandles: { cost: 18, season: SEASON } },
+			cost: { seasonalCandles: { cost: 18, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/ea/Rhythm-heart-Ray.png/revision/latest",
-			seasonIcon: SEASON,
-			cost: { seasonalCandles: { cost: 3, season: SEASON } },
+			seasonIcon: seasonId,
+			cost: { seasonalCandles: { cost: 3, season: seasonId } },
 		},
 	],
 ] as const satisfies FriendshipTreeData;

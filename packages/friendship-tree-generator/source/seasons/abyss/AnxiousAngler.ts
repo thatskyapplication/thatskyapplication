@@ -1,7 +1,7 @@
-import { Season } from "../../constants.js";
+import { SeasonId } from "@thatskyapplication/utility";
 import type { FriendshipTreeData } from "../../nodes.js";
 
-const SEASON = Season.Abyss as const;
+const seasonId = SeasonId.Abyss;
 
 export const CURRENT = [
 	[
@@ -76,66 +76,66 @@ export const SEASONAL = [
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/1a/SOA-Anxious-Angler-emote.png/revision/latest",
 			level: 2,
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			cost: { seasonalCandles: { cost: 8, season: SEASON } },
+			cost: { seasonalCandles: { cost: 8, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/4/46/SOAbyss-Anxious-Angler-mask.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e7/SOAbyss-Anxious-Angler-hat.png/revision/latest",
-			cost: { seasonalCandles: { cost: 14, season: SEASON } },
+			cost: { seasonalCandles: { cost: 14, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/1a/SOA-Anxious-Angler-emote.png/revision/latest",
 			level: 3,
-			cost: { seasonalCandles: { cost: 18, season: SEASON } },
+			cost: { seasonalCandles: { cost: 18, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/1a/SOA-Anxious-Angler-emote.png/revision/latest",
 			level: 4,
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png/revision/latest",
-			cost: { seasonalCandles: { cost: 22, season: SEASON } },
+			cost: { seasonalCandles: { cost: 22, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/bf/SOAbyss-Anxious-Angler-cape-Morybel-0146.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/ed/SOAbyss-Anxious-Angler-outfit.png/revision/latest",
-			cost: { seasonalCandles: { cost: 38, season: SEASON } },
+			cost: { seasonalCandles: { cost: 38, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b5/SOAbyss-seasonal-heart.png/revision/latest",
-			seasonIcon: SEASON,
-			cost: { seasonalCandles: { cost: 3, season: SEASON } },
+			seasonIcon: seasonId,
+			cost: { seasonalCandles: { cost: 3, season: seasonId } },
 		},
 	],
 ] as const satisfies FriendshipTreeData;

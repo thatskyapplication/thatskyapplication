@@ -1,7 +1,7 @@
-import { Season } from "../../constants.js";
+import { SeasonId } from "@thatskyapplication/utility";
 import type { FriendshipTreeData } from "../../nodes.js";
 
-const SEASON = Season.Performance as const;
+const seasonId = SeasonId.Performance;
 
 export const SEASONAL = [
 	[
@@ -10,67 +10,67 @@ export const SEASONAL = [
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/3e/SoPerformance_-_Forgetful_Storyteller-emote-icon-Morybel-0146.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 			level: 2,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png/revision/latest",
-			cost: { seasonalCandles: { cost: 12, season: SEASON } },
+			cost: { seasonalCandles: { cost: 12, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/ad/SoPerformance_-_Forgetful_Storyteller-mask-icon-Morybel-0146.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/af/SoPerformance_-_Forgetful_Storyteller-hairstyle-icon-Morybel-0146.png/revision/latest",
-			cost: { seasonalCandles: { cost: 16, season: SEASON } },
+			cost: { seasonalCandles: { cost: 16, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/3e/SoPerformance_-_Forgetful_Storyteller-emote-icon-Morybel-0146.png/revision/latest",
-			cost: { seasonalCandles: { cost: 20, season: SEASON } },
+			cost: { seasonalCandles: { cost: 20, season: seasonId } },
 			level: 3,
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/3e/SoPerformance_-_Forgetful_Storyteller-emote-icon-Morybel-0146.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 			level: 4,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png/revision/latest",
-			cost: { seasonalCandles: { cost: 26, season: SEASON } },
+			cost: { seasonalCandles: { cost: 26, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/10/SOPerformance_-Forgetful_Storyteller_-_Outfit-icon-Morybel-0146.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/94/SOPerformance_-Forgetful_Storyteller_-_Cape_-icon-Morybel-0146.png/revision/latest",
-			cost: { seasonalCandles: { cost: 34, season: SEASON } },
+			cost: { seasonalCandles: { cost: 34, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d5/SOPerformance-seasonal-heart-icon-Morybel-0146.png/revision/latest",
-			seasonIcon: SEASON,
-			cost: { seasonalCandles: { cost: 3, season: SEASON } },
+			seasonIcon: seasonId,
+			cost: { seasonalCandles: { cost: 3, season: seasonId } },
 		},
 	],
 ] as const satisfies FriendshipTreeData;

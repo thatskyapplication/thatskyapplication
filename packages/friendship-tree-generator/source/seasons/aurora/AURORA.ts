@@ -1,7 +1,8 @@
-import { QUEST_URL, Season } from "../../constants.js";
+import { SeasonId } from "@thatskyapplication/utility";
+import { QUEST_URL } from "../../constants.js";
 import type { FriendshipTreeData } from "../../nodes.js";
 
-const SEASON = Season.AURORA as const;
+const seasonId = SeasonId.AURORA;
 
 export const CURRENT = [
 	[
@@ -15,23 +16,23 @@ export const CURRENT = [
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/3a/15-Aurora.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 			flatLine: true,
 			nodes: [
 				{
 					icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e2/SoAurora-Ultimate-Hair-icon-Morybel-0146.png/revision/latest",
-					seasonIcon: SEASON,
-					cost: { seasonalHearts: { cost: 1, season: SEASON } },
+					seasonIcon: seasonId,
+					cost: { seasonalHearts: { cost: 1, season: seasonId } },
 				},
 				{
 					icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/5e/SoAurora-Ultimate-Outfit-icon-Morybel-0146.png/revision/latest",
-					seasonIcon: SEASON,
-					cost: { seasonalHearts: { cost: 2, season: SEASON } },
+					seasonIcon: seasonId,
+					cost: { seasonalHearts: { cost: 2, season: seasonId } },
 				},
 				{
 					icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/74/SoAurora-Ultimate-Cape-icon-Morybel-0146.png/revision/latest",
-					seasonIcon: SEASON,
-					cost: { seasonalHearts: { cost: 1, season: SEASON } },
+					seasonIcon: seasonId,
+					cost: { seasonalHearts: { cost: 1, season: seasonId } },
 				},
 			],
 		},

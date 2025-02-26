@@ -12,6 +12,7 @@
 	},
 	"dependencies": {
 		"@napi-rs/canvas": "^0.1.56",
+		"@thatskyapplication/utility": "workspace:^",
 		"undici": "^7.3.0"
 	},
 	"devDependencies": {

@@ -1,7 +1,8 @@
-import { QUEST_URL, Season } from "../../constants.js";
+import { SeasonId } from "@thatskyapplication/utility";
+import { QUEST_URL } from "../../constants.js";
 import type { FriendshipTreeData } from "../../nodes.js";
 
-const SEASON = Season.Shattering as const;
+const seasonId = SeasonId.Shattering;
 
 export const CURRENT = [
 	[
@@ -14,17 +15,17 @@ export const CURRENT = [
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d0/14_SOShattering.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 			nodes: [
 				{
 					icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/63/SOShattering-ultimate-Cape-manta-Icon-Morybel-0146.png/revision/latest",
-					seasonIcon: SEASON,
-					cost: { seasonalHearts: { cost: 2, season: SEASON } },
+					seasonIcon: seasonId,
+					cost: { seasonalHearts: { cost: 2, season: seasonId } },
 				},
 				{
 					icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/98/SOShattering-ultimate-Cape-krill-Icon-Morybel-0146.png/revision/latest",
-					seasonIcon: SEASON,
-					cost: { seasonalHearts: { cost: 2, season: SEASON } },
+					seasonIcon: seasonId,
+					cost: { seasonalHearts: { cost: 2, season: seasonId } },
 				},
 			],
 		},

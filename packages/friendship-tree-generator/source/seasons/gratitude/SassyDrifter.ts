@@ -1,7 +1,7 @@
-import { Season } from "../../constants.js";
+import { SeasonId } from "@thatskyapplication/utility";
 import type { FriendshipTreeData } from "../../nodes.js";
 
-const SEASON = Season.Gratitude as const;
+const seasonId = SeasonId.Gratitude;
 
 export const CURRENT = [
 	[
@@ -52,23 +52,23 @@ export const SEASONAL = [
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/4/47/Mimi-4117_02_sassy_drifter_hat.png/revision/latest",
-			cost: { seasonalCandles: { cost: 6, season: SEASON } },
+			cost: { seasonalCandles: { cost: 6, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			cost: { seasonalCandles: { cost: 8, season: SEASON } },
+			cost: { seasonalCandles: { cost: 8, season: seasonId } },
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/62/Mimi-4117_02_sassy_drifter_mask.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 ] as const satisfies FriendshipTreeData;

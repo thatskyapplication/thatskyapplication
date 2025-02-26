@@ -1,7 +1,7 @@
-import { Season } from "../../constants.js";
+import { SeasonId } from "@thatskyapplication/utility";
 import type { FriendshipTreeData } from "../../nodes.js";
 
-const SEASON = Season.Performance as const;
+const seasonId = SeasonId.Performance;
 
 export const CURRENT = [
 	[
@@ -75,67 +75,67 @@ export const SEASONAL = [
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/0/0d/Morybel-0146-SoPerformance_-_Mellow_Musician-icon.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 			level: 2,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/9f/Morybel-0146-SoPerformance_-_Mellow_Musician-mask-icon.png/revision/latest",
-			cost: { seasonalCandles: { cost: 12, season: SEASON } },
+			cost: { seasonalCandles: { cost: 12, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png/revision/latest",
-			cost: { seasonalCandles: { cost: 14, season: SEASON } },
+			cost: { seasonalCandles: { cost: 14, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/16/Morybel-0146-SoPerformance_-_Mellow_Musician-cape-icon.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/0/0d/Morybel-0146-SoPerformance_-_Mellow_Musician-icon.png/revision/latest",
-			cost: { seasonalCandles: { cost: 18, season: SEASON } },
+			cost: { seasonalCandles: { cost: 18, season: seasonId } },
 			level: 3,
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/0/0d/Morybel-0146-SoPerformance_-_Mellow_Musician-icon.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 			level: 4,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png/revision/latest",
-			cost: { seasonalCandles: { cost: 22, season: SEASON } },
+			cost: { seasonalCandles: { cost: 22, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/9b/Morybel-0146-SoPerformance_-_Mellow_Musician-electrice-guitar-icon.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/72/Morybel-0146-SoPerformance_-_Mellow_Musician-hairstyle-icon.png/revision/latest",
-			cost: { seasonalCandles: { cost: 36, season: SEASON } },
+			cost: { seasonalCandles: { cost: 36, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d5/SOPerformance-seasonal-heart-icon-Morybel-0146.png/revision/latest",
-			seasonIcon: SEASON,
-			cost: { seasonalCandles: { cost: 3, season: SEASON } },
+			seasonIcon: seasonId,
+			cost: { seasonalCandles: { cost: 3, season: seasonId } },
 		},
 	],
 ] as const satisfies FriendshipTreeData;

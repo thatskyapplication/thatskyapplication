@@ -1,7 +1,7 @@
-import { Season } from "../../constants.js";
+import { SeasonId } from "@thatskyapplication/utility";
 import type { FriendshipTreeData } from "../../nodes.js";
 
-const SEASON = Season.LittlePrince as const;
+const seasonId = SeasonId.LittlePrince;
 
 export const CURRENT = [
 	[
@@ -67,47 +67,47 @@ export const SEASONAL = [
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d8/SOTLP-Stretching-Lamplighter.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 			level: 2,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			cost: { seasonalCandles: { cost: 10, season: SEASON } },
+			cost: { seasonalCandles: { cost: 10, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/81/Icon_hair_prince_lightkeeper.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d8/SOTLP-Stretching-Lamplighter.png/revision/latest",
 			level: 3,
-			cost: { seasonalCandles: { cost: 16, season: SEASON } },
+			cost: { seasonalCandles: { cost: 16, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d8/SOTLP-Stretching-Lamplighter.png/revision/latest",
 			level: 4,
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/61/Icon_cape_littleprince_3-Morybel-0146.png/revision/latest",
-			cost: { seasonalCandles: { cost: 22, season: SEASON } },
+			cost: { seasonalCandles: { cost: 22, season: seasonId } },
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8e/5CandlesSpell.png/revision/latest",
-			seasonIcon: SEASON,
+			seasonIcon: seasonId,
 		},
 	],
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/5b/Little_Prince_Heart.png/revision/latest",
-			cost: { seasonalCandles: { cost: 3, season: SEASON } },
-			seasonIcon: SEASON,
+			cost: { seasonalCandles: { cost: 3, season: seasonId } },
+			seasonIcon: seasonId,
 		},
 	],
 ] as const satisfies FriendshipTreeData;

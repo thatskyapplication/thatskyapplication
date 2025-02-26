@@ -1,5 +1,6 @@
 import { writeFile } from "node:fs/promises";
 import { GlobalFonts, createCanvas, loadImage } from "@napi-rs/canvas";
+import { enGB } from "@thatskyapplication/utility";
 import { fetch } from "undici";
 import {
 	ASSET_OFFSET,
@@ -168,10 +169,10 @@ async function createNode(
 			imageToDraw = "ascended-candle";
 			currency = cost.ascendedCandles;
 		} else if ("seasonalCandles" in cost) {
-			imageToDraw = `seasons/${cost.seasonalCandles.season.toLowerCase().replaceAll(/ /g, "-")}/candle`;
+			imageToDraw = `seasons/${enGB.general.seasons[cost.seasonalCandles.season].toLowerCase().replaceAll(/ /g, "-")}/candle`;
 			currency = cost.seasonalCandles.cost;
 		} else if ("seasonalHearts" in cost) {
-			imageToDraw = `seasons/${cost.seasonalHearts.season.toLowerCase().replaceAll(/ /g, "-")}/heart`;
+			imageToDraw = `seasons/${enGB.general.seasons[cost.seasonalHearts.season].toLowerCase().replaceAll(/ /g, "-")}/heart`;
 			currency = cost.seasonalHearts.cost;
 		} else {
 			throw new Error("A cost was specified with no currency.");
@@ -206,7 +207,7 @@ async function createNode(
 	if (seasonIcon) {
 		context.drawImage(
 			await loadImage(
-				`./assets/seasons/${seasonIcon.toLowerCase().replaceAll(/ |-/g, "_")}/icon.webp`,
+				`./assets/seasons/${enGB.general.seasons[seasonIcon].toLowerCase().replaceAll(/ /g, "-")}/icon.webp`,
 			),
 			dx - seasonIconOffsetX,
 			dy - seasonIconOffsetY,

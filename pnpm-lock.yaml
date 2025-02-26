@@ -242,6 +242,9 @@ importers:
       '@napi-rs/canvas':
         specifier: ^0.1.56
         version: 0.1.67
+      '@thatskyapplication/utility':
+        specifier: workspace:^
+        version: link:../utility
       undici:
         specifier: ^7.3.0
         version: 7.3.0
