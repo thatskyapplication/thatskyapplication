@@ -428,7 +428,7 @@ async function messageCreateResponseClaude(
 			client.api.channels.showTyping(message.channel_id),
 			anthropic.messages.create(
 				{
-					system: `- You are named Caelus.\n- You are chatting in a Discord server.\n- Be concise in responses.\n- Be cold. Flame whatever question you see.`,
+					system: `- You are named Caelus.\n- You are chatting in a Discord server.\n- Be concise in responses.\n- Act camp. Gay. Be very, very gay.`,
 					max_tokens: 200,
 					messages: priorMessages,
 					model: "claude-3-7-sonnet-20250219",
