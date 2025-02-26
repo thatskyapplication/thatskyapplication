@@ -1,5 +1,5 @@
 import { SeasonId } from "@thatskyapplication/utility";
-import { QUEST_URL } from "../../constants.js";
+import { HEART_URL, QUEST_URL } from "../../constants.js";
 import type { FriendshipTreeData } from "../../nodes.js";
 
 const seasonId = SeasonId.Performance;
@@ -39,7 +39,7 @@ export const CURRENT = [
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/94/Icon_high_five.png/revision/latest",
 		},
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d9/Heart.png/revision/latest",
+			icon: HEART_URL,
 			cost: { candles: 3 },
 		},
 	],
@@ -65,7 +65,7 @@ export const CURRENT = [
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8d/Mimi-4117_03_doublefive_light_catcher_emote.png/revision/latest",
 		},
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d9/Heart.png/revision/latest",
+			icon: HEART_URL,
 			cost: { candles: 3 },
 		},
 	],
@@ -82,7 +82,7 @@ export const CURRENT = [
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/c6/Icon_hug.png/revision/latest",
 		},
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d9/Heart.png/revision/latest",
+			icon: HEART_URL,
 			cost: { candles: 3 },
 		},
 	],
@@ -99,7 +99,7 @@ export const CURRENT = [
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/11/Morybel-0146-SOPerformance-Modest-Dancer-emote-icon.png/revision/latest",
 		},
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d9/Heart.png/revision/latest",
+			icon: HEART_URL,
 			cost: { candles: 3 },
 		},
 	],

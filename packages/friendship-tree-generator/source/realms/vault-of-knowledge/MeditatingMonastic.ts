@@ -1,3 +1,4 @@
+import { HEART_URL } from "../../constants.js";
 import type { FriendshipTreeData } from "../../nodes.js";
 
 export const CURRENT = [
@@ -21,7 +22,7 @@ export const CURRENT = [
 			cost: { hearts: 10 },
 		},
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d9/Heart.png/revision/latest",
+			icon: HEART_URL,
 			cost: { candles: 3 },
 		},
 	],

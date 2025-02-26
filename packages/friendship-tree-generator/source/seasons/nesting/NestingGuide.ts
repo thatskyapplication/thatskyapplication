@@ -1,5 +1,5 @@
 import { SeasonId } from "@thatskyapplication/utility";
-import { QUEST_URL } from "../../constants.js";
+import { HEART_URL, QUEST_URL } from "../../constants.js";
 import type { FriendshipTreeData } from "../../nodes.js";
 
 const seasonId = SeasonId.Nesting;
@@ -10,7 +10,7 @@ export const CURRENT = [
 			icon: QUEST_URL,
 		},
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d9/Heart.png/revision/latest",
+			icon: HEART_URL,
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/87/Season-of-Nesting-icon.png/revision/latest",
@@ -34,7 +34,7 @@ export const CURRENT = [
 			icon: QUEST_URL,
 		},
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d9/Heart.png/revision/latest",
+			icon: HEART_URL,
 		},
 	],
 	[
@@ -42,7 +42,7 @@ export const CURRENT = [
 			icon: QUEST_URL,
 		},
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d9/Heart.png/revision/latest",
+			icon: HEART_URL,
 		},
 	],
 	[
@@ -50,7 +50,7 @@ export const CURRENT = [
 			icon: QUEST_URL,
 		},
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d9/Heart.png/revision/latest",
+			icon: HEART_URL,
 		},
 	],
 	[
@@ -60,7 +60,7 @@ export const CURRENT = [
 	],
 	[
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d9/Heart.png/revision/latest",
+			icon: HEART_URL,
 		},
 	],
 ] as const satisfies FriendshipTreeData;

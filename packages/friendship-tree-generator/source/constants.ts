@@ -19,6 +19,9 @@ export const CURRENCY_TEXT_OFFSET = 10 as const;
 export const NEXT_HEIGHT_LEVEL = 240 as const;
 export const NEXT_HEIGHT_LEVEL_SIDES_OFFSET = 60 as const;
 
+export const HEART_URL =
+	"https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d9/Heart.png/revision/latest" as const;
+
 export const QUEST_URL =
 	"https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/8b/Exclamation-mark-Ray.png/revision/latest" as const;
 

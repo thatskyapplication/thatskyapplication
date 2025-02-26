@@ -1,5 +1,5 @@
 import { SeasonId } from "@thatskyapplication/utility";
-import { QUEST_URL } from "../../constants.js";
+import { HEART_URL, QUEST_URL } from "../../constants.js";
 import type { FriendshipTreeData } from "../../nodes.js";
 
 const seasonId = SeasonId.AURORA;
@@ -86,7 +86,7 @@ export const CURRENT = [
 			icon: QUEST_URL,
 		},
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/d9/Heart.png/revision/latest",
+			icon: HEART_URL,
 			cost: { candles: 3 },
 		},
 	],
