@@ -2885,4 +2885,11 @@ export enum Cosmetic {
 	TreasureSeekersBlackDye,
 	TreasureSeekersWhiteDye,
 	TreasureDye,
+
+	// 24/03/2025 | Days of Bloom.
+	BloomRoseJar,
+	BloomRoseBraidedHair,
+	BloomRosePetalMask,
+	BloomRoseEmbroideredCape,
+	BloomDye,
 }

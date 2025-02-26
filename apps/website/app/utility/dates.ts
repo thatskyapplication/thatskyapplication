@@ -39,6 +39,11 @@ export const EVENT_DATES = [
 		start: skyDate(2_025, 3, 3),
 		end: skyDate(2_025, 3, 17),
 	},
+	{
+		name: "Days of Bloom",
+		start: skyDate(2_025, 3, 24),
+		end: skyDate(2_025, 4, 14),
+	},
 ] as const;
 
 // Double treasure candles.

@@ -1,5 +1,6 @@
+import DaysOfBloom from "./days-of-bloom.js";
 import DaysOfFortune from "./days-of-fortune.js";
 import DaysOfLove from "./days-of-love.js";
 import DaysOfTreasure from "./days-of-treasure.js";
 
-export default [DaysOfFortune, DaysOfLove, DaysOfTreasure] as const;
+export default [DaysOfFortune, DaysOfLove, DaysOfTreasure, DaysOfBloom] as const;

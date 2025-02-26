@@ -189,6 +189,7 @@ export const EventIdToEventTicketEmoji = {
 	[EventId.DaysOfFortune2025]: EVENT_EMOJIS.Fortune,
 	[EventId.DaysOfLove2025]: EVENT_EMOJIS.Love,
 	[EventId.DaysOfTreasure2025]: null,
+	[EventId.DaysOfBloom2025]: EVENT_EMOJIS.Bloom,
 } as const satisfies Readonly<Record<EventIds, Emoji | null>>;
 
 interface ItemCostRaw {

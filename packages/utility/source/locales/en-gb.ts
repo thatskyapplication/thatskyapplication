@@ -404,6 +404,7 @@ export default {
 			[EventId.DaysOfFortune2025]: "Days of Fortune",
 			[EventId.DaysOfLove2025]: "Days of Love",
 			[EventId.DaysOfTreasure2025]: "Days of Treasure",
+			[EventId.DaysOfBloom2025]: "Days of Bloom",
 		} satisfies Record<EventIds, string>,
 		"shard-eruption": "Shard Eruption",
 		"shard-eruption-none": "None",
