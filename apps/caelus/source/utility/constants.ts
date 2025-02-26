@@ -25,6 +25,7 @@ if (
 		process.env.DATABASE_URL &&
 		process.env.OPENAI_API_KEY &&
 		process.env.OPENAI_BASE_URL &&
+		process.env.ANTHROPIC_API_KEY &&
 		process.env.AI_GATEWAY_TOKEN &&
 		process.env.S3_ACCESS_KEY_ID &&
 		process.env.S3_ACCOUNT_ID &&
@@ -40,6 +41,7 @@ export const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 export const DATABASE_URL = process.env.DATABASE_URL;
 export const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 export const OPENAI_BASE_URL = process.env.OPENAI_BASE_URL;
+export const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 export const AI_GATEWAY_TOKEN = process.env.AI_GATEWAY_TOKEN;
 export const S3_ACCESS_KEY_ID = process.env.S3_ACCESS_KEY_ID;
 export const S3_ACCOUNT_ID = process.env.S3_ACCOUNT_ID;
