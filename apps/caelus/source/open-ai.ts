@@ -1,9 +1,5 @@
 import { clearTimeout, setTimeout } from "node:timers";
-import Anthropic from "@anthropic-ai/sdk";
-import type { MessageParam } from "@anthropic-ai/sdk/resources/index.mjs";
-import type { Collection } from "@discordjs/collection";
 import {
-	type APIMessage,
 	type APIUser,
 	AllowedMentionsTypes,
 	type GatewayMessageCreateDispatchData,
@@ -30,7 +26,6 @@ import pino from "./pino.js";
 import { todayEmbed } from "./services/shard-eruption.js";
 import {
 	AI_GATEWAY_TOKEN,
-	ANTHROPIC_API_KEY,
 	APPLICATION_ID,
 	AreaToWingedLightCount,
 	MAXIMUM_WING_BUFFS,
@@ -41,11 +36,6 @@ import {
 	WINGED_LIGHT_THRESHOLDS,
 } from "./utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "./utility/emojis.js";
-
-const anthropic = new Anthropic({
-	apiKey: ANTHROPIC_API_KEY,
-	defaultHeaders: { "cf-aig-authorization": `Bearer ${AI_GATEWAY_TOKEN}` },
-});
 
 const openAI = new OpenAI({
 	apiKey: OPENAI_API_KEY,
@@ -255,11 +245,6 @@ export async function messageCreateResponse(message: GatewayMessageCreateDispatc
 		return;
 	}
 
-	if (guild.id === "1165344159171883029") {
-		await messageCreateResponseClaude(message, messages, guild, abortController, timeout);
-		return;
-	}
-
 	const priorMessages: ChatCompletionMessageParam[] = [
 		{ role: "system", content: systemPromptContext(guild, message) },
 		...messages.map((message) => {
@@ -397,78 +382,6 @@ export async function messageCreateResponse(message: GatewayMessageCreateDispatc
 		if (!(error instanceof APIUserAbortError)) {
 			pino.error(error, "AI error.");
 		}
-	} finally {
-		clearTimeout(timeout);
-	}
-}
-
-async function messageCreateResponseClaude(
-	message: GatewayMessageCreateDispatchData,
-	messages: Collection<string, APIMessage>,
-	_guild: Guild,
-	abortController: AbortController,
-	timeout: NodeJS.Timeout,
-) {
-	const priorMessages: MessageParam[] = [
-		...messages.map((message) => {
-			return message.author.id === APPLICATION_ID
-				? ({
-						content: `${message.author.global_name ?? message.author.username}: ${message.content}`,
-						role: "assistant",
-					} as const)
-				: ({
-						content: `${message.author.global_name ?? message.author.username}: ${message.content}`,
-						role: "user",
-					} as const);
-		}),
-	];
-
-	try {
-		const prompts = [
-			"Act camp. Gay. Be very, very gay.",
-			"Talk normally, then halfway through your response, just speak gibberish and die.",
-			"Flame them. Flame them all.",
-			"Be pessimistic and depressing.",
-		];
-
-		const [, completion] = await Promise.all([
-			client.api.channels.showTyping(message.channel_id),
-			anthropic.messages.create(
-				{
-					system: `- You are named Caelus.\n- You are chatting in a Discord server.\n- Be concise and short in responses.\n- ${prompts[Math.floor(Math.random() * prompts.length)]}.`,
-					max_tokens: 200,
-					messages: priorMessages,
-					model: "claude-3-7-sonnet-20250219",
-					metadata: { user_id: message.author.id },
-				},
-				{
-					signal: abortController.signal,
-					headers: { "cf-aig-metadata": JSON.stringify({ user: message.author.id }) },
-				},
-			),
-		]);
-
-		let content = completion.content[0]?.type === "text" && completion.content[0].text;
-
-		if (content) {
-			if (content.startsWith("Caelus: ")) {
-				content = content.slice(8);
-			}
-		} else {
-			content = AI_DEFAULT_RESPONSE;
-		}
-
-		await client.api.channels.createMessage(message.channel_id, {
-			allowed_mentions: { parse: [AllowedMentionsTypes.User], replied_user: false },
-			content,
-			message_reference: {
-				type: MessageReferenceType.Default,
-				message_id: message.id,
-				fail_if_not_exists: false,
-			},
-		});
-	} catch (error) {
-		pino.error(error, "AI error.");
 	} finally {
 		clearTimeout(timeout);
 	}
