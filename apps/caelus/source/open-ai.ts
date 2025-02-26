@@ -63,7 +63,11 @@ function parseAIName(user: APIUser) {
 	return name;
 }
 
-function systemPromptContext(guild: Guild, message: GatewayMessageCreateDispatchData) {
+function systemPromptContext(
+	guild: Guild,
+	message: GatewayMessageCreateDispatchData,
+	mentioned: boolean,
+) {
 	const channel = guild.channels.get(message.channel_id) ?? guild.threads.get(message.channel_id);
 
 	if (!channel) {
@@ -134,6 +138,12 @@ function systemPromptContext(guild: Guild, message: GatewayMessageCreateDispatch
 		`- The channel you are in is: ${JSON.stringify({ name: channel.name, id: channel.id })}`,
 		`- The guild you are in is: ${JSON.stringify({ name: guild.name, id: guild.id })}`,
 	);
+
+	if (mentioned) {
+		systemPrompt.push(
+			`- The last message by ${parseAIName(message.author)} mentioned you directly. Respond to this message.`,
+		);
+	}
 
 	return systemPrompt.join("\n");
 }
@@ -228,7 +238,10 @@ export async function messageCreateReactionResponse(message: GatewayMessageCreat
 	}
 }
 
-export async function messageCreateResponse(message: GatewayMessageCreateDispatchData) {
+export async function messageCreateResponse(
+	message: GatewayMessageCreateDispatchData,
+	mentioned: boolean,
+) {
 	const guild = message.guild_id && GUILD_CACHE.get(message.guild_id);
 
 	if (!guild) {
@@ -246,7 +259,7 @@ export async function messageCreateResponse(message: GatewayMessageCreateDispatc
 	}
 
 	const priorMessages: ChatCompletionMessageParam[] = [
-		{ role: "system", content: systemPromptContext(guild, message) },
+		{ role: "system", content: systemPromptContext(guild, message, mentioned) },
 		...messages.map((message) => {
 			const attachments = message.attachments.filter((attachment) =>
 				OPEN_AI_ALLOWED_MEDIA_TYPES.includes(

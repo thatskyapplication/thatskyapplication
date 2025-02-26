@@ -265,7 +265,11 @@ export default class AI {
 				};
 	}
 
-	public async respond(message: GatewayMessageCreateDispatchData, me: GuildMember) {
+	public async respond(
+		message: GatewayMessageCreateDispatchData,
+		me: GuildMember,
+		mentioned: boolean,
+	) {
 		const guild = message.guild_id && GUILD_CACHE.get(message.guild_id);
 
 		if (!guild) {
@@ -316,7 +320,7 @@ export default class AI {
 						message.type === MessageType.Reply ||
 						message.type === MessageType.ChatInputCommand ||
 						message.type === MessageType.ContextMenuCommand
-					? messageCreateResponse(message)
+					? messageCreateResponse(message, mentioned)
 					: undefined);
 		} else {
 			pino.info(message, "No entitlement found, so deleting from AI cache.");

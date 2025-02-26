@@ -76,11 +76,14 @@ export default {
 		if (ai) {
 			const { frequency } = ai;
 
-			if (
-				(frequency && Math.random() < frequency) ||
-				data.mentions.find((user) => user.id === APPLICATION_ID)
-			) {
-				await ai.respond(data, me);
+			if (data.mentions.find((user) => user.id === APPLICATION_ID)) {
+				await ai.respond(data, me, true);
+				return;
+			}
+
+			if (frequency && Math.random() < frequency) {
+				await ai.respond(data, me, false);
+				return;
 			}
 		}
 	},
