@@ -413,11 +413,11 @@ async function messageCreateResponseClaude(
 		...messages.map((message) => {
 			return message.author.id === APPLICATION_ID
 				? ({
-						content: message.content,
+						content: `${message.author.global_name ?? message.author.username}: ${message.content}`,
 						role: "assistant",
 					} as const)
 				: ({
-						content: message.content,
+						content: `${message.author.global_name ?? message.author.username}: ${message.content}`,
 						role: "user",
 					} as const);
 		}),
