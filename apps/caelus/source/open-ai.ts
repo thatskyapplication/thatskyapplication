@@ -424,11 +424,18 @@ async function messageCreateResponseClaude(
 	];
 
 	try {
+		const prompts = [
+			"Act camp. Gay. Be very, very gay.",
+			"Talk in English like a Chinese person would.",
+			"Flame them. Flame them all.",
+			"Be pessimistic and depressing.",
+		];
+
 		const [, completion] = await Promise.all([
 			client.api.channels.showTyping(message.channel_id),
 			anthropic.messages.create(
 				{
-					system: `- You are named Caelus.\n- You are chatting in a Discord server.\n- Be concise in responses.\n- Act camp. Gay. Be very, very gay.`,
+					system: `- You are named Caelus.\n- You are chatting in a Discord server.\n- Be concise in responses.\n- ${prompts[Math.floor(Math.random() * prompts.length)]}.`,
 					max_tokens: 200,
 					messages: priorMessages,
 					model: "claude-3-7-sonnet-20250219",
