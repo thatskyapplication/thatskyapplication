@@ -50,6 +50,8 @@ export default {
 			resolvedChannelForPermission = channel;
 		}
 
+		addMessageToCache(data);
+
 		if (
 			!Configuration.ai ||
 			data.author.bot ||
@@ -72,7 +74,6 @@ export default {
 		const ai = AI.cache.get(guild.id);
 
 		if (ai) {
-			addMessageToCache(data);
 			const { frequency } = ai;
 
 			if (
