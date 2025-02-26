@@ -1,7 +1,7 @@
+import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../constants.js";
 import { Country } from "../country.js";
 import { EventId, type EventIds } from "../event.js";
 import { GUESS_DIFFICULTY_LEVEL_VALUES, GuessDifficultyLevelToName } from "../guess.js";
-import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../index.js";
 import { REALM_NAME_VALUES, SKY_MAP_VALUES } from "../kingdom.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { DailyQuest, type DailyQuests } from "../quests.js";

@@ -4,8 +4,6 @@ export const MAXIMUM_HIGH_FIVE_GIF = 8 as const;
 export const MAXIMUM_HUG_GIF = 36 as const;
 export const MAXIMUM_PLAY_FIGHT_GIF = 6 as const;
 export const MAXIMUM_KRILL_GIF = 11 as const;
-export const MINIMUM_WINGED_LIGHT = 0 as const;
-export const MAXIMUM_WINGED_LIGHT = 244 as const;
 export const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
 export const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [5, 13, 21, 29] as const;
 
@@ -25,7 +23,7 @@ export { default as vi } from "./locales/vi.js";
 export { default as zhCN } from "./locales/zh-cn.js";
 export { default as zhTW } from "./locales/zh-tw.js";
 export { CDN_URL } from "./cdn.js";
-export { WIKI_URL } from "./constants.js";
+export { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT, WIKI_URL } from "./constants.js";
 export { Cosmetic } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
 export { TIME_ZONE, isDuring, skyDate, skyNow, skyToday } from "./dates.js";
