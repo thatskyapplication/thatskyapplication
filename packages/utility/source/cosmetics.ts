@@ -2876,4 +2876,13 @@ export enum Cosmetic {
 	RadianceGuideHeart3 = 2292,
 	RadianceGuideBlueDye = 2293,
 	RadianceGuidePurpleDye = 2294,
+
+	// 03/03/2025 | Days of Treasure.
+	TreasureCavalierBoots,
+	TreasureShovel,
+	TreasureSeekersEyePatch,
+	TreasureSeekersOutfit,
+	TreasureSeekersBlackDye,
+	TreasureSeekersWhiteDye,
+	TreasureDye,
 }
