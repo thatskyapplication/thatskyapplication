@@ -7,17 +7,22 @@ import type { HeartsExtra } from "../models/Heart.js";
 export const DOUBLE_TREASURE_CANDLES_DATES = new Collection<
 	number,
 	{ start: DateTime; end: DateTime }
->().set(1, {
-	start: skyDate(2_024, 12, 9),
-	end: skyDate(2_024, 12, 23),
-});
+>()
+	.set(1, {
+		start: skyDate(2_024, 12, 9),
+		end: skyDate(2_024, 12, 23),
+	})
+	.set(2, {
+		start: skyDate(2_025, 3, 17),
+		end: skyDate(2_025, 3, 24),
+	});
 
 // Double Seasonal Light.
-export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE = skyDate(2_024, 12, 9);
+export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE = skyDate(2_025, 3, 17);
 /**
  * @remarks The end date is exclusive.
  */
-export const DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE = skyDate(2_024, 12, 23);
+export const DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE = skyDate(2_025, 3, 24);
 
 export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE_MARKDOWN =
 	`<t:${DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE.toUnixInteger()}:d>` as const;
