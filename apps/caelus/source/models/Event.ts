@@ -1,6 +1,6 @@
 import { URL } from "node:url";
 import { Locale } from "@discordjs/core";
-import type { Emoji, EventIds } from "@thatskyapplication/utility";
+import { type Emoji, type EventIds, snakeCaseName, wikiURL } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import {
@@ -9,8 +9,6 @@ import {
 	type ItemRaw,
 	resolveAllCosmetics,
 	resolveOffer,
-	snakeCaseName,
-	wikiURL,
 } from "../utility/catalogue.js";
 import { CDN_URL } from "../utility/constants.js";
 

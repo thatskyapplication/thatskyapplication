@@ -1,4 +1,3 @@
-import { URL } from "node:url";
 import {
 	type Cosmetic,
 	type Emoji,
@@ -6,7 +5,6 @@ import {
 	type EventIds,
 	SeasonId,
 	type SeasonIds,
-	WIKI_URL,
 	resolveCurrencyEmoji,
 } from "@thatskyapplication/utility";
 import { EVENT_EMOJIS, MISCELLANEOUS_EMOJIS, SEASON_EMOJIS } from "./emojis.js";
@@ -192,25 +190,6 @@ export const EventIdToEventTicketEmoji = {
 	[EventId.DaysOfLove2025]: EVENT_EMOJIS.Love,
 	[EventId.DaysOfTreasure2025]: null,
 } as const satisfies Readonly<Record<EventIds, Emoji | null>>;
-
-export function snakeCaseName(name: string) {
-	return name
-		.replaceAll("'s", "s")
-		.replace("' ", "'")
-		.replaceAll(/[ '-]/g, "_")
-		.replaceAll(/[()]/g, "")
-		.replaceAll("×", "x")
-		.toLowerCase();
-}
-
-export function wikiURL(name: string) {
-	return String(
-		new URL(
-			(name.includes("(") ? name.slice(0, name.indexOf("(") - 1) : name).replaceAll(" ", "_"),
-			WIKI_URL,
-		),
-	);
-}
 
 interface ItemCostRaw {
 	money?: number;

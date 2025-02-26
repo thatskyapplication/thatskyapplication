@@ -1,5 +1,4 @@
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
-export const WIKI_URL = "https://sky-children-of-the-light.fandom.com" as const;
 export const MAXIMUM_HAIR_TOUSLE_GIF = 3 as const;
 export const MAXIMUM_HIGH_FIVE_GIF = 8 as const;
 export const MAXIMUM_HUG_GIF = 36 as const;
@@ -26,11 +25,13 @@ export { default as vi } from "./locales/vi.js";
 export { default as zhCN } from "./locales/zh-cn.js";
 export { default as zhTW } from "./locales/zh-tw.js";
 export { CDN_URL } from "./cdn.js";
+export { WIKI_URL } from "./constants.js";
 export { Cosmetic } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
 export { TIME_ZONE, isDuring, skyDate, skyNow, skyToday } from "./dates.js";
 export { type Emoji, emojis, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "./emojis.js";
 export { EventId, type EventIds } from "./event.js";
+export { snakeCaseName, wikiURL } from "./functions.js";
 export {
 	GUESS_DIFFICULTY_LEVEL_VALUES,
 	GuessDifficultyLevel,

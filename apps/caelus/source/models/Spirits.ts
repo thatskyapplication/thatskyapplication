@@ -12,6 +12,8 @@ import {
 	type SpiritStance,
 	type SpiritType,
 	skyDate,
+	snakeCaseName,
+	wikiURL,
 } from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
@@ -24,8 +26,6 @@ import {
 	addCosts,
 	resolveAllCosmetics,
 	resolveOffer,
-	snakeCaseName,
-	wikiURL,
 } from "../utility/catalogue.js";
 import { CDN_URL } from "../utility/constants.js";
 

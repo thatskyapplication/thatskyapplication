@@ -1,6 +1,12 @@
 import { URL } from "node:url";
 import { Locale } from "@discordjs/core";
-import type { Emoji, RealmName, SeasonIds } from "@thatskyapplication/utility";
+import {
+	type Emoji,
+	type RealmName,
+	type SeasonIds,
+	snakeCaseName,
+	wikiURL,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import type { GuideSpirit, SeasonalSpirit } from "../models/Spirits.js";
@@ -15,8 +21,6 @@ import {
 	SeasonIdToSeasonalEmoji,
 	resolveAllCosmetics,
 	resolveOffer,
-	snakeCaseName,
-	wikiURL,
 } from "../utility/catalogue.js";
 import { CDN_URL } from "../utility/constants.js";
 import {
