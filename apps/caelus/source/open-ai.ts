@@ -428,7 +428,7 @@ async function messageCreateResponseClaude(
 			client.api.channels.showTyping(message.channel_id),
 			anthropic.messages.create(
 				{
-					system: systemPromptContext(guild, message),
+					system: `- To help you understand the flow of conversation, users' names will be first with a colon then their message.\n${systemPromptContext(guild, message)}`,
 					max_tokens: 200,
 					messages: priorMessages,
 					model: "claude-3-7-sonnet-20250219",
@@ -441,10 +441,19 @@ async function messageCreateResponseClaude(
 			),
 		]);
 
+		let content = completion.content[0]?.type === "text" && completion.content[0].text;
+
+		if (content) {
+			if (content.startsWith("Caelus: ")) {
+				content = content.slice(8);
+			}
+		} else {
+			content = AI_DEFAULT_RESPONSE;
+		}
+
 		await client.api.channels.createMessage(message.channel_id, {
 			allowed_mentions: { parse: [AllowedMentionsTypes.User], replied_user: false },
-			content:
-				completion.content[0]?.type === "text" ? completion.content[0].text : AI_DEFAULT_RESPONSE,
+			content,
 			message_reference: {
 				type: MessageReferenceType.Default,
 				message_id: message.id,
