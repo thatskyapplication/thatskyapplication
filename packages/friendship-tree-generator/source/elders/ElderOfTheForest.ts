@@ -1,4 +1,4 @@
-import type { FriendshipTreeData } from "../../nodes.js";
+import type { FriendshipTreeData } from "../nodes.js";
 
 export const CURRENT = [
 	[
