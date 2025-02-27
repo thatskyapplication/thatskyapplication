@@ -1,3 +1,8 @@
+import type { Cosmetic } from "./cosmetics.js";
+import type { Emoji } from "./emojis.js";
+import type { EventIds } from "./event.js";
+import type { SeasonIds } from "./season.js";
+
 export enum SpiritName {
 	// Isles of Dawn.
 	PointingCandlemaker = "Pointing Candlemaker",
@@ -410,3 +415,46 @@ export const SPIRIT_TYPE = {
 } as const satisfies Readonly<Record<string, number>>;
 
 export type SpiritType = (typeof SPIRIT_TYPE)[keyof typeof SPIRIT_TYPE];
+
+interface ItemCostRaw {
+	money?: number;
+	candles?: number;
+	hearts?: number;
+	ascendedCandles?: number;
+	seasonalCandles?: number;
+	seasonalHearts?: number;
+	eventTickets?: number;
+}
+
+export interface ItemRaw {
+	name: string;
+	cosmetic: Cosmetic | Cosmetic[];
+	cost?: ItemCostRaw;
+	emoji?: Emoji;
+}
+
+interface ItemCostSeasonal {
+	cost: number;
+	seasonId: SeasonIds;
+}
+
+interface ItemCostEvent {
+	cost: number;
+	eventId: EventIds;
+}
+export interface ItemCost {
+	money?: number;
+	candles?: number;
+	hearts?: number;
+	ascendedCandles?: number;
+	seasonalCandles?: ItemCostSeasonal[];
+	seasonalHearts?: ItemCostSeasonal[];
+	eventTickets?: ItemCostEvent[];
+}
+
+export interface Item {
+	name: string;
+	cosmetics: Cosmetic[];
+	cost: ItemCost | null;
+	emoji: Emoji | null;
+}

@@ -1,15 +1,18 @@
 import { URL } from "node:url";
 import { Locale } from "@discordjs/core";
-import { type Emoji, type EventIds, snakeCaseName, wikiURL } from "@thatskyapplication/utility";
-import { t } from "i18next";
-import type { DateTime } from "luxon";
 import {
-	EventIdToEventTicketEmoji,
+	type Emoji,
+	type EventIds,
 	type Item,
 	type ItemRaw,
 	resolveAllCosmetics,
 	resolveOffer,
-} from "../utility/catalogue.js";
+	snakeCaseName,
+	wikiURL,
+} from "@thatskyapplication/utility";
+import { t } from "i18next";
+import type { DateTime } from "luxon";
+import { EventIdToEventTicketEmoji } from "../utility/catalogue.js";
 import { CDN_URL } from "../utility/constants.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;

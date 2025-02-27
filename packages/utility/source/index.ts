@@ -29,7 +29,7 @@ export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js
 export { TIME_ZONE, isDuring, skyDate, skyNow, skyToday } from "./dates.js";
 export { type Emoji, emojis, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "./emojis.js";
 export { EventId, type EventIds } from "./event.js";
-export { snakeCaseName, wikiURL } from "./functions.js";
+export { resolveAllCosmetics, resolveOffer, snakeCaseName, wikiURL } from "./functions.js";
 export {
 	GUESS_DIFFICULTY_LEVEL_VALUES,
 	GuessDifficultyLevel,
@@ -56,6 +56,9 @@ export { SeasonId, type SeasonIds, isSeasonId } from "./season.js";
 export { type ShardEruptionData, shardEruption } from "./shard-eruption.js";
 export {
 	FriendAction,
+	type Item,
+	type ItemCost,
+	type ItemRaw,
 	SPIRIT_TYPE,
 	SpiritCall,
 	SpiritEmote,

@@ -1,8 +1,8 @@
 import {
-	type Cosmetic,
 	type Emoji,
 	EventId,
 	type EventIds,
+	type ItemCost,
 	SeasonId,
 	type SeasonIds,
 	resolveCurrencyEmoji,
@@ -191,90 +191,6 @@ export const EventIdToEventTicketEmoji = {
 	[EventId.DaysOfTreasure2025]: null,
 	[EventId.DaysOfBloom2025]: EVENT_EMOJIS.Bloom,
 } as const satisfies Readonly<Record<EventIds, Emoji | null>>;
-
-interface ItemCostRaw {
-	money?: number;
-	candles?: number;
-	hearts?: number;
-	ascendedCandles?: number;
-	seasonalCandles?: number;
-	seasonalHearts?: number;
-	eventTickets?: number;
-}
-
-export interface ItemCost {
-	money?: number;
-	candles?: number;
-	hearts?: number;
-	ascendedCandles?: number;
-	seasonalCandles?: ItemCostSeasonal[];
-	seasonalHearts?: ItemCostSeasonal[];
-	eventTickets?: ItemCostEvent[];
-}
-
-interface ItemCostSeasonal {
-	cost: number;
-	seasonId: SeasonIds;
-}
-
-interface ItemCostEvent {
-	cost: number;
-	eventId: EventIds;
-}
-
-export interface ItemRaw {
-	name: string;
-	cosmetic: Cosmetic | Cosmetic[];
-	cost?: ItemCostRaw;
-	emoji?: Emoji;
-}
-
-export interface Item {
-	name: string;
-	cosmetics: Cosmetic[];
-	cost: ItemCost | null;
-	emoji: Emoji | null;
-}
-
-interface ResolveOfferOptions {
-	seasonId?: SeasonIds;
-	eventId?: EventIds;
-}
-
-export function resolveOffer(
-	items: readonly ItemRaw[],
-	{ seasonId, eventId }: ResolveOfferOptions = {},
-) {
-	return items.map((item) => ({
-		name: item.name,
-		cosmetics: Array.isArray(item.cosmetic) ? item.cosmetic : [item.cosmetic],
-		emoji: item.emoji ?? null,
-		cost: item.cost
-			? {
-					...item.cost,
-					seasonalCandles:
-						typeof seasonId === "number" && item.cost.seasonalCandles
-							? [{ cost: item.cost.seasonalCandles, seasonId }]
-							: [],
-					seasonalHearts:
-						typeof seasonId === "number" && item.cost.seasonalHearts
-							? [{ cost: item.cost.seasonalHearts, seasonId }]
-							: [],
-					eventTickets:
-						typeof eventId === "number" && item.cost.eventTickets
-							? [{ cost: item.cost.eventTickets, eventId }]
-							: [],
-				}
-			: null,
-	}));
-}
-
-export function resolveAllCosmetics(items: readonly Item[]) {
-	return items.reduce<number[]>((total, { cosmetics }) => {
-		total.push(...cosmetics);
-		return total;
-	}, []);
-}
 
 export function addCosts(items: ItemCost[]) {
 	const result = items.reduce<Required<ItemCost>>(

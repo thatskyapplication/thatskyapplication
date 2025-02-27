@@ -21,12 +21,15 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import {
+	type Item,
+	type ItemCost,
 	type RealmName,
 	SeasonId,
 	type SeasonIds,
 	type SpiritName,
 	formatEmoji,
 	isSeasonId,
+	resolveAllCosmetics,
 	skyNow,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
@@ -63,15 +66,12 @@ import pino from "../pino.js";
 import {
 	CatalogueType,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
-	type Item,
-	type ItemCost,
 	NO_EVENT_INFOGRAPHIC_YET,
 	NO_EVENT_OFFER_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	SeasonIdToSeasonalEmoji,
 	addCosts,
-	resolveAllCosmetics,
 	resolveCostToString,
 } from "../utility/catalogue.js";
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../utility/constants.js";
