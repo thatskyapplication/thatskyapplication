@@ -30,7 +30,6 @@ export default new SeasonalSpirit({
 	emote,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteRaiseTheRoof1, emoji: emoteEmoji },
 			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteRaiseTheRoof2, emoji: emoteEmoji },
@@ -74,6 +73,75 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.MindfulMinerSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 				emoji: SEASON_EMOJIS.AuroraHeart,
+			},
+		],
+		current: [
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteRaiseTheRoof1, emoji: emoteEmoji },
+			{
+				name: `${emote} 2`,
+				cosmetic: Cosmetic.EmoteRaiseTheRoof2,
+				cost: { hearts: 4 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.MindfulMinerBlessing1,
+				cost: { candles: 5 },
+				emoji: blessing3,
+			},
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.MindfulMinerMask,
+				cost: { candles: 35 },
+				emoji: maskEmoji,
+			},
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.MindfulMinerSeasonalHeart,
+				cost: { candles: 3 },
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+			},
+			{
+				name: "Wing buff",
+				cosmetic: Cosmetic.MindfulMinerWingBuff,
+				cost: { ascendedCandles: 2 },
+				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
+			},
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteRaiseTheRoof3,
+				cost: { hearts: 3 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: `${emote} 4`,
+				cosmetic: Cosmetic.EmoteRaiseTheRoof4,
+				cost: { hearts: 6 },
+				emoji: emoteEmoji,
+			},
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.MindfulMinerHair,
+				cost: { candles: 40 },
+				emoji: hairEmoji,
+			},
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.MindfulMinerBlessing2,
+				cost: { candles: 5 },
+				emoji: blessing3,
+			},
+			{
+				name: "Outfit",
+				cosmetic: Cosmetic.MindfulMinerOutfit,
+				cost: { hearts: 55 },
+				emoji: outfitEmoji,
+			},
+			{
+				name: "Cape",
+				cosmetic: Cosmetic.MindfulMinerCape,
+				cost: { candles: 75 },
+				emoji: capeEmoji,
 			},
 		],
 	},

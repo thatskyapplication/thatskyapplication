@@ -2877,6 +2877,9 @@ export enum Cosmetic {
 	RadianceGuideBlueDye = 2293,
 	RadianceGuidePurpleDye = 2294,
 
+	// 27/02/2025 | Travelling Spirit #135.
+	MindfulMinerWingBuff = 2295,
+
 	// 03/03/2025 | Days of Treasure.
 	TreasureCavalierBoots,
 	TreasureShovel,
