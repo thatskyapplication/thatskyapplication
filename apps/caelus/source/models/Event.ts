@@ -98,7 +98,7 @@ interface EventTicketsPool {
 export class Event {
 	public readonly id: EventIds;
 
-	public readonly name: string;
+	private readonly name: string;
 
 	public readonly start: DateTime;
 

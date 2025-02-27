@@ -407,7 +407,7 @@ export class Catalogue {
 						if (event.eventTickets?.emoji) {
 							button.emoji = event.eventTickets.emoji;
 						} else {
-							button.label = event.name;
+							button.label = t(`events.${event.id}`, { lng: interaction.locale, ns: "general" });
 						}
 
 						buttons.push(button);
