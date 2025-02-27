@@ -17,23 +17,6 @@ export const DOUBLE_TREASURE_CANDLES_DATES = new Collection<
 		end: skyDate(2_025, 3, 24),
 	});
 
-// Double Seasonal Light.
-export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE = skyDate(2_025, 3, 17);
-/**
- * @remarks The end date is exclusive.
- */
-export const DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE = skyDate(2_025, 3, 24);
-
-export const DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE_MARKDOWN =
-	`<t:${DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE.toUnixInteger()}:d>` as const;
-
-export const DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE_MARKDOWN =
-	`<t:${DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.toUnixInteger()}:d>` as const;
-
-export const DOUBLE_SEASONAL_LIGHT_EVENT_DURATION =
-	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days").days +
-	1;
-
 // Extra hearts.
 export const HEART_EXTRA_DATES = new Collection<number, HeartsExtra>()
 	.set(1, {

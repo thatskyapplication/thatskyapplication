@@ -32,12 +32,6 @@ import {
 	WINGED_LIGHT_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
 } from "../utility/constants.js";
-import {
-	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
-	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE_MARKDOWN,
-	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
-	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE_MARKDOWN,
-} from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 
@@ -271,10 +265,7 @@ export async function seasonalCandles(
 		result += SEASONAL_CANDLES_PER_DAY;
 		resultWithSeasonPass += SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS;
 
-		if (
-			day >= DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE &&
-			day <= DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE
-		) {
+		if (season?.isDuringDoubleSeasonalLightEvent(day)) {
 			includedDoubleLight = true;
 			result += 1;
 			resultWithSeasonPass += 1;
@@ -352,7 +343,7 @@ export async function seasonalCandles(
 			value: `${t("calculate.seasonal-candles.double-seasonal-light-calculation", {
 				lng: locale,
 				ns: "commands",
-			})}\n${DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE_MARKDOWN} - ${DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE_MARKDOWN}`,
+			})}\n<t:${season!.doubleSeasonalLightEventStartDate!.toUnixInteger()}:d> - <t:${season!.doubleSeasonalLightEventEndDate!.toUnixInteger()}:d>`,
 		});
 	}
 

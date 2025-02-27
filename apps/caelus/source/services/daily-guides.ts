@@ -48,11 +48,7 @@ import {
 	DEFAULT_EMBED_COLOUR,
 	NOT_IN_CACHED_GUILD_RESPONSE,
 } from "../utility/constants.js";
-import {
-	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
-	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
-	DOUBLE_TREASURE_CANDLES_DATES,
-} from "../utility/dates.js";
+import { DOUBLE_TREASURE_CANDLES_DATES } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { treasureCandles } from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
@@ -533,10 +529,7 @@ export function distributionEmbed(locale: Locale) {
 			const { rotation, realm } = seasonalCandlesRotation;
 			let rotationNumber: RotationNumber = rotation;
 
-			if (
-				now >= DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE &&
-				now < DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE
-			) {
+			if (season.isDuringDoubleSeasonalLightEvent(today)) {
 				rotationNumber = 3;
 			}
 

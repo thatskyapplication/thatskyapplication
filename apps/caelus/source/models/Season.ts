@@ -23,11 +23,6 @@ import {
 	resolveOffer,
 } from "../utility/catalogue.js";
 import { CDN_URL } from "../utility/constants.js";
-import {
-	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
-	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
-	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
-} from "../utility/dates.js";
 
 type SeasonalCandlesRotation = Readonly<
 	{ rotation: Exclude<RotationNumber, 3>; realm: RealmName }[]
@@ -73,6 +68,16 @@ interface SeasonData {
 		| ((now: DateTime) => SeasonalCandlesRotation)
 		| null;
 	/**
+	 * The start date of double seasonal light event.
+	 */
+	doubleSeasonalLightEventStartDate?: DateTime;
+	/**
+	 * The end date of double seasonal light event.
+	 *
+	 * @remarks The end date is exclusive.
+	 */
+	doubleSeasonalLightEventEndDate?: DateTime;
+	/**
 	 * The URL of the patch notes that detail the season.
 	 */
 	patchNotesURL?: string;
@@ -103,6 +108,12 @@ export class Season {
 
 	private readonly seasonalCandlesRotation: ((now: DateTime) => SeasonalCandlesRotation) | null;
 
+	public readonly doubleSeasonalLightEventStartDate: DateTime | null;
+
+	public readonly doubleSeasonalLightEventEndDate: DateTime | null;
+
+	public readonly doubleSeasonalLightEventDaysDuration: number | null;
+
 	public readonly patchNotesURL: string | null;
 
 	public constructor(data: SeasonData) {
@@ -125,6 +136,15 @@ export class Season {
 				: data.seasonalCandlesRotation
 					? () => data.seasonalCandlesRotation as SeasonalCandlesRotation
 					: null;
+
+		this.doubleSeasonalLightEventStartDate = data.doubleSeasonalLightEventStartDate ?? null;
+		this.doubleSeasonalLightEventEndDate = data.doubleSeasonalLightEventEndDate ?? null;
+
+		this.doubleSeasonalLightEventDaysDuration =
+			this.doubleSeasonalLightEventStartDate && this.doubleSeasonalLightEventEndDate
+				? this.doubleSeasonalLightEventEndDate.diff(this.doubleSeasonalLightEventStartDate, "days")
+						.days + 1
+				: null;
 
 		this.patchNotesURL = data.patchNotesURL ?? null;
 	}
@@ -154,11 +174,9 @@ export class Season {
 	}
 
 	public remainingSeasonalCandles(date: DateTime) {
-		const { end, start } = this;
-		const duration = Math.ceil(this.end.diff(this.start, "days").days);
-
-		const seasonalDoubleLightEvent =
-			DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE >= start && DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE < end;
+		const { start, end } = this;
+		const duration = Math.ceil(end.diff(this.start, "days").days);
+		const isDuringDoubleSeasonalLightEvent = this.isDuringDoubleSeasonalLightEvent(date);
 
 		// Calculate the total amount of seasonal candles.
 		let seasonalCandlesTotal = duration * SEASONAL_CANDLES_PER_DAY;
@@ -166,9 +184,9 @@ export class Season {
 		let seasonalCandlesTotalWithSeasonPass =
 			duration * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
 
-		if (seasonalDoubleLightEvent) {
-			seasonalCandlesTotal += DOUBLE_SEASONAL_LIGHT_EVENT_DURATION;
-			seasonalCandlesTotalWithSeasonPass += DOUBLE_SEASONAL_LIGHT_EVENT_DURATION;
+		if (isDuringDoubleSeasonalLightEvent) {
+			seasonalCandlesTotal += this.doubleSeasonalLightEventDaysDuration;
+			seasonalCandlesTotalWithSeasonPass += this.doubleSeasonalLightEventDaysDuration;
 		}
 
 		// Calculate the amount of seasonal candles so far.
@@ -179,16 +197,16 @@ export class Season {
 			daysSoFar * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
 
 		if (
-			seasonalDoubleLightEvent &&
-			date.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days").days >= 0
+			isDuringDoubleSeasonalLightEvent &&
+			date.diff(this.doubleSeasonalLightEventStartDate, "days").days >= 0
 		) {
-			const difference = date.diff(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, "days").days;
+			const difference = date.diff(this.doubleSeasonalLightEventEndDate, "days").days;
 
 			const extraSeasonalCandles =
 				// The difference will be a negative number if the event is still ongoing.
 				difference > 0
-					? DOUBLE_SEASONAL_LIGHT_EVENT_DURATION
-					: DOUBLE_SEASONAL_LIGHT_EVENT_DURATION + difference;
+					? this.doubleSeasonalLightEventDaysDuration
+					: this.doubleSeasonalLightEventDaysDuration + difference;
 
 			seasonalCandlesSoFar += extraSeasonalCandles;
 			seasonalCandlesSoFarWithSeasonPass += extraSeasonalCandles;
@@ -200,6 +218,23 @@ export class Season {
 			seasonalCandlesLeftWithSeasonPass:
 				seasonalCandlesTotalWithSeasonPass - seasonalCandlesSoFarWithSeasonPass,
 		};
+	}
+
+	public isDuringDoubleSeasonalLightEvent(date: DateTime): this is Season & {
+		doubleSeasonalLightEventStartDate: NonNullable<Season["doubleSeasonalLightEventStartDate"]>;
+		doubleSeasonalLightEventEndDate: NonNullable<Season["doubleSeasonalLightEventEndDate"]>;
+		doubleSeasonalLightEventDaysDuration: NonNullable<
+			Season["doubleSeasonalLightEventDaysDuration"]
+		>;
+	} {
+		const { doubleSeasonalLightEventStartDate, doubleSeasonalLightEventEndDate } = this;
+
+		return Boolean(
+			doubleSeasonalLightEventStartDate &&
+				doubleSeasonalLightEventEndDate &&
+				date >= doubleSeasonalLightEventStartDate &&
+				date < doubleSeasonalLightEventEndDate,
+		);
 	}
 
 	public resolveSeasonalCandlesRotation(date: DateTime) {

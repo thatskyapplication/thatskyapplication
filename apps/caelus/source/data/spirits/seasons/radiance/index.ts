@@ -38,5 +38,7 @@ export default new Season({
 					{ rotation: 2, realm: RealmName.DaylightPrairie },
 					{ rotation: 2, realm: RealmName.HiddenForest },
 				],
+	doubleSeasonalLightEventStartDate: skyDate(2_025, 3, 17),
+	doubleSeasonalLightEventEndDate: skyDate(2_025, 3, 24),
 	patchNotesURL: String(new URL("p0280", LINK_REDIRECTOR_URL)),
 });
