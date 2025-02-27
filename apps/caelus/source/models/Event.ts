@@ -7,7 +7,6 @@ import {
 	type ItemRaw,
 	resolveAllCosmetics,
 	resolveOffer,
-	snakeCaseName,
 	wikiURL,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
@@ -138,7 +137,7 @@ export class Event {
 		this.allCosmetics = data.offer ? resolveAllCosmetics(this.offer) : [];
 
 		this.offerInfographicURL = data.offerInfographicURL
-			? String(new URL(`events/${this.start.year}/${snakeCaseName(this.name)}/offer.webp`, CDN_URL))
+			? String(new URL(`events/${data.id}/offer.webp`, CDN_URL))
 			: null;
 
 		this.wikiURL = wikiURL(this.name);
