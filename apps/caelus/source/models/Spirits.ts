@@ -28,15 +28,7 @@ import { Mixin } from "ts-mixer";
 import pino from "../pino.js";
 import { addCosts } from "../utility/catalogue.js";
 import { CDN_URL } from "../utility/constants.js";
-
-export interface TravellingSpiritsPacket {
-	visit: number;
-	entity: string;
-	start: Date;
-	end: Date;
-}
-
-export interface TravellingSpiritsDates {
+interface TravellingSpiritsDates {
 	start: DateTime;
 	end: DateTime;
 }
