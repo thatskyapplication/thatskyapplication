@@ -25,8 +25,9 @@ export const SeasonId = {
 	Radiance: 23,
 } as const satisfies Readonly<Record<string, number>>;
 
-export type SeasonIds = (typeof SeasonId)[keyof typeof SeasonId];
+const SEASON_ID_VALUES = Object.values(SeasonId);
+export type SeasonIds = (typeof SEASON_ID_VALUES)[number];
 
 export function isSeasonId(seasonId: number): seasonId is SeasonIds {
-	return Object.values(SeasonId).includes(seasonId as SeasonIds);
+	return SEASON_ID_VALUES.includes(seasonId as SeasonIds);
 }
