@@ -19,7 +19,7 @@
 		"@discordjs/collection": "^2.1.1",
 		"@discordjs/core": "^2.0.1",
 		"@discordjs/rest": "^2.4.3",
-		"@discordjs/ws": "^2.0.0",
+		"@discordjs/ws": "^2.0.1",
 		"@logtail/pino": "^0.4.22",
 		"@sapphire/snowflake": "^3.5.4",
 		"@thatskyapplication/utility": "workspace:^",
@@ -34,12 +34,12 @@
 		"pino": "^9.2.0",
 		"sharp": "^0.33.4",
 		"ts-mixer": "^6.0.4",
-		"undici": "^7.3.0"
+		"undici": "^7.4.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@types/luxon": "^3.4.2",
-		"knip": "^5.44.4",
+		"knip": "^5.45.0",
 		"pino-pretty": "^11.2.1",
 		"tsx": "^4.19.3",
 		"typescript": "5.7.3"

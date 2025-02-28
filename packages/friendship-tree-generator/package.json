@@ -13,7 +13,7 @@
 	"dependencies": {
 		"@napi-rs/canvas": "^0.1.56",
 		"@thatskyapplication/utility": "workspace:^",
-		"undici": "^7.3.0"
+		"undici": "^7.4.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",

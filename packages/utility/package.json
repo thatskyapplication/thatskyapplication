@@ -4,7 +4,9 @@
 	"type": "module",
 	"exports": "./distribution/index.js",
 	"types": "./distribution/index.d.ts",
-	"files": ["distribution"],
+	"files": [
+		"distribution"
+	],
 	"scripts": {
 		"build": "tsup",
 		"test": "tsc --noEmit",
@@ -21,8 +23,8 @@
 		"@biomejs/biome": "1.9.4",
 		"@types/luxon": "^3.4.2",
 		"@types/node": "^22.13.4",
-		"knip": "^5.44.4",
-		"tsup": "^8.3.6",
+		"knip": "^5.45.0",
+		"tsup": "^8.4.0",
 		"typescript": "5.7.3"
 	}
 }

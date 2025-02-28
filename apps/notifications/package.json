@@ -27,7 +27,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@types/luxon": "^3.4.2",
-		"knip": "^5.44.4",
+		"knip": "^5.45.0",
 		"pino-pretty": "^11.2.1",
 		"tsx": "^4.19.3",
 		"typescript": "5.7.3"
