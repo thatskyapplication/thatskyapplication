@@ -117,6 +117,9 @@ importers:
       croner:
         specifier: ^9.0.0
         version: 9.0.0
+      i18next:
+        specifier: ^23.11.5
+        version: 23.16.8
       knex:
         specifier: ^3.1.0
         version: 3.1.0(pg@8.13.3)
@@ -261,6 +264,9 @@ importers:
 
   packages/utility:
     dependencies:
+      '@discordjs/collection':
+        specifier: ^2.1.1
+        version: 2.1.1
       luxon:
         specifier: ^3.5.0
         version: 3.5.0

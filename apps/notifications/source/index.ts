@@ -1,4 +1,4 @@
-import { API, MessageFlags } from "@discordjs/core";
+import { API, Locale, MessageFlags } from "@discordjs/core";
 import { REST } from "@discordjs/rest";
 import {
 	INTERNATIONAL_SPACE_STATION_DATES,
@@ -7,21 +7,64 @@ import {
 	NotificationType,
 	type NotificationTypes,
 	TIME_ZONE,
+	TRAVELLING_DATES,
+	de,
+	enGB,
+	es419,
+	esES,
+	fr,
+	it,
+	ja,
+	ko,
+	ptBR,
+	ru,
 	shardEruption,
+	th,
+	vi,
+	zhCN,
+	zhTW,
 } from "@thatskyapplication/utility";
 import { Cron } from "croner";
+import { init, t } from "i18next";
 import { DateTime } from "luxon";
 import { pg } from "./pg.js";
 import pino from "./pino.js";
 import { DISCORD_TOKEN } from "./utility/configuration.js";
 import { NOTIFICATIONS_TABLE } from "./utility/constants.js";
-import { getLastTravellingSpirit } from "./utility/functions.js";
+
+void init({
+	fallbackLng: Locale.EnglishGB,
+	missingKeyHandler: (locale, namespace, key) =>
+		pino.warn(`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`),
+	ns: ["general", "commands", "features"],
+	resources: {
+		[Locale.German]: de,
+		[Locale.EnglishGB]: enGB,
+		[Locale.SpanishLATAM]: es419,
+		[Locale.SpanishES]: esES,
+		[Locale.French]: fr,
+		[Locale.Italian]: it,
+		[Locale.Japanese]: ja,
+		[Locale.Korean]: ko,
+		[Locale.PortugueseBR]: ptBR,
+		[Locale.Russian]: ru,
+		[Locale.Thai]: th,
+		[Locale.Vietnamese]: vi,
+		[Locale.ChineseCN]: zhCN,
+		[Locale.ChineseTW]: zhTW,
+	},
+	returnEmptyString: false,
+	saveMissing: true,
+	interpolation: {
+		escapeValue: false,
+	},
+});
 
 const client = new API(new REST({ version: "10" }).setToken(DISCORD_TOKEN));
+const travellingSpirit = TRAVELLING_DATES.last();
+const travellingSpiritStart = travellingSpirit?.start;
+const travellingSpiritEarliestNotificationTime = travellingSpiritStart?.minus(900000);
 let shardData = shardEruption();
-let travellingSpirit = await getLastTravellingSpirit();
-let travellingSpiritStart = travellingSpirit.start;
-let travellingSpiritEarliestNotificationTime = travellingSpiritStart.minus(900000);
 
 interface NotificationsData {
 	type: NotificationTypes;
@@ -38,13 +81,6 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 	if (hour === 0 && minute === 0) {
 		// Update the shard eruption.
 		shardData = shardEruption();
-
-		// Update the travelling spirit.
-		// It may seem unusual to do this every day, but it is not future-proof to check every 2 weeks only.
-		// For example, Saluting Protector at 09/12/2024 was out of the usual 2-week rotation.
-		travellingSpirit = await getLastTravellingSpirit();
-		travellingSpiritStart = travellingSpirit.start;
-		travellingSpiritEarliestNotificationTime = travellingSpiritStart.minus(900000);
 	}
 
 	if (shardData) {
@@ -130,7 +166,12 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		});
 	}
 
-	if (date >= travellingSpiritEarliestNotificationTime && date <= travellingSpiritStart) {
+	if (
+		travellingSpiritEarliestNotificationTime &&
+		travellingSpiritStart &&
+		date >= travellingSpiritEarliestNotificationTime &&
+		date <= travellingSpiritStart
+	) {
 		const timeUntilStart = travellingSpiritStart.diff(date, "minutes").minutes;
 
 		notifications.push({
@@ -138,8 +179,8 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 			timeUntilStart,
 			suffix:
 				timeUntilStart === 0
-					? `${travellingSpirit.entity} has arrived!`
-					: `${travellingSpirit.entity} will arrive <t:${travellingSpiritStart.toUnixInteger()}:R>!`,
+					? `${t(`spirits.${travellingSpirit.spiritId}`, { lng: Locale.EnglishGB, ns: "general" })} has arrived!`
+					: `${t(`spirits.${travellingSpirit.spiritId}`, { lng: Locale.EnglishGB, ns: "general" })} will arrive <t:${travellingSpiritStart.toUnixInteger()}:R>!`,
 		});
 	}
 

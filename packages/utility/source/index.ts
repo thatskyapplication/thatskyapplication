@@ -66,5 +66,6 @@ export {
 	type SpiritIds,
 	SpiritStance,
 	type SpiritType,
+	TRAVELLING_DATES,
 	isSpiritId,
 } from "./spirits.js";

@@ -15,6 +15,7 @@ import {
 	type SpiritIds,
 	type SpiritStance,
 	type SpiritType,
+	TRAVELLING_DATES,
 	resolveAllCosmetics,
 	resolveOffer,
 	skyDate,
@@ -24,7 +25,6 @@ import {
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
-import { TRAVELLING_DATES } from "../data/travelling-spirits.js";
 import pino from "../pino.js";
 import { addCosts } from "../utility/catalogue.js";
 import { CDN_URL } from "../utility/constants.js";
