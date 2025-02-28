@@ -8,14 +8,13 @@ import {
 import {
 	INTERNATIONAL_SPACE_STATION_DATES,
 	NotificationType,
+	TRAVELLING_DATES,
 	skyNow,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import { resolveTravellingSpirit } from "../data/spirits/seasons/index.js";
 import { client } from "../discord.js";
 import { DEFAULT_EMBED_COLOUR, PASSAGE_TRUNCATION_LIMIT } from "../utility/constants.js";
-import { INITIAL_TRAVELLING_SPIRIT_SEEK } from "../utility/dates.js";
 import { dailyGuidesEventData, dailyGuidesShardEruptionData } from "./daily-guides.js";
 
 function dailyResetTime(date: DateTime) {
@@ -27,27 +26,22 @@ function eyeOfEdenResetTime(date: DateTime) {
 }
 
 function travellingSpiritTime(now: DateTime, locale: Locale) {
-	const currentTravellingSpirit = resolveTravellingSpirit(now);
+	const travellingSpirit = TRAVELLING_DATES.find(({ start, end }) => now >= start && now < end);
 
-	if (currentTravellingSpirit) {
+	if (travellingSpirit) {
 		return t("schedule.travelling-spirit-today", { lng: locale, ns: "commands" });
 	}
 
-	let nextArrival: number;
+	const nextArrival = TRAVELLING_DATES.last()?.start.plus({ weeks: 2 }).toUnixInteger();
 
-	for (let start = INITIAL_TRAVELLING_SPIRIT_SEEK; ; start = start.plus({ weeks: 2 })) {
-		if (start < now) {
-			continue;
-		}
-
-		nextArrival = start.toUnixInteger();
-		break;
-	}
-
-	return `${t("schedule.travelling-spirit-none", { lng: locale, ns: "commands" })}\n_${t(
-		"schedule.travelling-spirit-next-visit",
-		{ lng: locale, ns: "commands" },
-	)} <t:${nextArrival}:d> (<t:${nextArrival}:R>)_`;
+	return `${t("schedule.travelling-spirit-none", { lng: locale, ns: "commands" })}\n_${
+		nextArrival
+			? `${t("schedule.travelling-spirit-next-visit", {
+					lng: locale,
+					ns: "commands",
+				})} <t:${nextArrival}:d> (<t:${nextArrival}:R>)_`
+			: ""
+	}`;
 }
 
 function scheduleTimes(date: DateTime) {
