@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { GuideSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -12,7 +12,7 @@ const heartEmoji = MISCELLANEOUS_EMOJIS.Heart;
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory15;
 
 export default new GuideSpirit({
-	name: SpiritName.AbyssGuide,
+	id: SpiritId.AbyssGuide,
 	seasonId: SeasonId.Abyss,
 	realm: RealmName.GoldenWasteland,
 	offer: {

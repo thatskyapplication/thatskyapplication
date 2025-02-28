@@ -106,7 +106,7 @@ interface ProfilePacket {
 	winged_light: number | null;
 	seasons: number[] | null;
 	platform: number[] | null;
-	spirit: string | null;
+	spirit: number | null;
 	spot: string | null;
 	catalogue_progression: boolean | null;
 	guess_rank: boolean | null;
@@ -142,7 +142,7 @@ export interface ProfileSetData {
 	winged_light?: number | null;
 	seasons?: SeasonIds[] | null;
 	platform?: PlatformIds[] | null;
-	spirit?: string | null;
+	spirit?: number | null;
 	spot?: string | null;
 	catalogue_progression?: boolean | null;
 	guess_rank?: boolean | null;
@@ -1948,10 +1948,10 @@ export default class Profile {
 			missing.push("- Set the winged light you have!");
 		}
 
-		if (spirit) {
+		if (typeof spirit === "number") {
 			fields.push({
 				name: "Favourite Spirit",
-				value: t(`spiritNames.${spirit}`, { lng: locale, ns: "general" }),
+				value: t(`spirits.${spirit}`, { lng: locale, ns: "general" }),
 				inline: true,
 			});
 		} else {

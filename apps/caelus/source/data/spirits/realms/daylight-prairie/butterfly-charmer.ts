@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SpiritEmote, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { StandardSpirit } from "../../../../models/Spirits.js";
 import { CAPE_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../utility/emojis.js";
 import { SpiritEmoteToEmoji } from "../../../../utility/spirits.js";
@@ -7,7 +7,7 @@ const emote = SpiritEmote.Butterfly;
 const emoteEmoji = SpiritEmoteToEmoji[emote];
 
 export default new StandardSpirit({
-	name: SpiritName.ButterflyCharmer,
+	id: SpiritId.ButterflyCharmer,
 	emote,
 	realm: RealmName.DaylightPrairie,
 	offer: {

@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SeasonId, SpiritCall, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritCall, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -19,7 +19,7 @@ const capeEmoji = CAPE_EMOJIS.Cape16;
 const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp15;
 
 export default new SeasonalSpirit({
-	name: SpiritName.CrabWhisperer,
+	id: SpiritId.CrabWhisperer,
 	seasonId: SeasonId.Lightseekers,
 	call,
 	realm: RealmName.GoldenWasteland,

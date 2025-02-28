@@ -1,4 +1,4 @@
-import { Cosmetic, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -20,7 +20,7 @@ const capeEmoji2 = CAPE_EMOJIS.Cape86;
 
 export default [
 	new SeasonalSpirit({
-		name: SpiritName.AncientLight1,
+		id: SpiritId.AncientLight1,
 		seasonId: SeasonId.Shattering,
 		offer: {
 			seasonal: [
@@ -112,7 +112,7 @@ export default [
 		},
 	}),
 	new SeasonalSpirit({
-		name: SpiritName.AncientLight2,
+		id: SpiritId.AncientLight2,
 		seasonId: SeasonId.Shattering,
 		offer: {
 			seasonal: [

@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	RealmName,
-	SeasonId,
-	SpiritEmote,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { GuideSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -24,7 +18,7 @@ const emote3 = SpiritEmote.Skipping;
 const emote3Emoji = SpiritEmoteToEmoji[emote3];
 
 export default new GuideSpirit({
-	name: SpiritName.AURORA,
+	id: SpiritId.AURORA,
 	seasonId: SeasonId.AURORA,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {

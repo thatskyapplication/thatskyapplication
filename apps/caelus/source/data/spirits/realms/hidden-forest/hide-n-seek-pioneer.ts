@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SpiritEmote, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { StandardSpirit } from "../../../../models/Spirits.js";
 import {
 	HAIR_EMOJIS,
@@ -12,7 +12,7 @@ const emote = SpiritEmote.HideAndSeek;
 const emoteEmoji = SpiritEmoteToEmoji[emote];
 
 export default new StandardSpirit({
-	name: SpiritName.HideNSeekPioneer,
+	id: SpiritId.HideNSeekPioneer,
 	emote,
 	realm: RealmName.HiddenForest,
 	offer: {

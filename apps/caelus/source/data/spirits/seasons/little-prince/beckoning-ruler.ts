@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	RealmName,
-	SeasonId,
-	SpiritEmote,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	HAIR_EMOJIS,
@@ -21,7 +15,7 @@ const maskEmoji = MASK_EMOJIS.Mask51;
 const hairEmoji = HAIR_EMOJIS.Hair88;
 
 export default new SeasonalSpirit({
-	name: SpiritName.BeckoningRuler,
+	id: SpiritId.BeckoningRuler,
 	seasonId: SeasonId.LittlePrince,
 	emote,
 	realm: RealmName.VaultOfKnowledge,

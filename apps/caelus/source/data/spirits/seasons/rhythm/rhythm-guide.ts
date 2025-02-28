@@ -1,9 +1,9 @@
-import { Cosmetic, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { GuideSpirit } from "../../../../models/Spirits.js";
 import { HAIR_EMOJIS, MASK_EMOJIS, NECKLACE_EMOJIS } from "../../../../utility/emojis.js";
 
 export default new GuideSpirit({
-	name: SpiritName.RhythmGuide,
+	id: SpiritId.RhythmGuide,
 	seasonId: SeasonId.Rhythm,
 	offer: {
 		current: [

@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	RealmName,
-	SeasonId,
-	SpiritEmote,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import { HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../utility/emojis.js";
 import { SpiritEmoteToEmoji } from "../../../../utility/spirits.js";
@@ -17,7 +11,7 @@ const maskEmoji = MASK_EMOJIS.Mask06;
 const hairEmoji = HAIR_EMOJIS.Hair38;
 
 export default new SeasonalSpirit({
-	name: SpiritName.ProvokingPerformer,
+	id: SpiritId.ProvokingPerformer,
 	seasonId: SeasonId.Gratitude,
 	emote,
 	realm: RealmName.HiddenForest,

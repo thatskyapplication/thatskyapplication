@@ -1,6 +1,13 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, type MetaFunction, useLoaderData } from "@remix-run/react";
-import { CountryToEmoji, WEBSITE_URL, isCountry, isPlatformId } from "@thatskyapplication/utility";
+import {
+	CountryToEmoji,
+	WEBSITE_URL,
+	enGB,
+	isCountry,
+	isPlatformId,
+	isSpiritId,
+} from "@thatskyapplication/utility";
 import { ChevronLeftIcon, LinkIcon, MapPinIcon } from "lucide-react";
 import { useState } from "react";
 import TopBar from "~/components/TopBar.js";
@@ -158,7 +165,7 @@ export default function SkyProfile() {
 						</div>
 					</div>
 				)}
-				{profile.spirit && (
+				{profile.spirit !== null && isSpiritId(profile.spirit) ? (
 					<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2">
 						<div
 							className="w-6 h-6 mr-2 bg-cover bg-center"
@@ -169,10 +176,10 @@ export default function SkyProfile() {
 						/>
 						<div className="flex-1">
 							<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Spirit</p>
-							<p className="my-0">{profile.spirit}</p>
+							<p className="my-0">{enGB.general.spirits[profile.spirit]}</p>
 						</div>
 					</div>
-				)}
+				) : null}
 				{profile.spot && (
 					<div
 						className={`group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 ${(profile.winged_light === null && profile.spirit === null) || (profile.winged_light !== null && profile.spirit) ? "md:col-span-2" : ""}`}

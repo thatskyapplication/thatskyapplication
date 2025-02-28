@@ -10,7 +10,7 @@ export interface ProfilePacket {
 	winged_light: number | null;
 	seasons: number[] | null;
 	platform: number[] | null;
-	spirit: string | null;
+	spirit: number | null;
 	spot: string | null;
 	catalogue_progression: boolean | null;
 	guess_rank: boolean | null;

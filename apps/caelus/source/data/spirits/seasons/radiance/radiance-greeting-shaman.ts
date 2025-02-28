@@ -1,4 +1,4 @@
-import { Cosmetic, SeasonId, SpiritEmote, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, SeasonId, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
@@ -17,7 +17,7 @@ const hairEmoji = HAIR_EMOJIS.Hair156;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory54;
 
 export default new SeasonalSpirit({
-	name: SpiritName.RadianceGreetingShaman,
+	id: SpiritId.RadianceGreetingShaman,
 	seasonId: SeasonId.Radiance,
 	emote,
 	offer: {

@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	RealmName,
-	SeasonId,
-	SpiritEmote,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -26,7 +20,7 @@ const hairEmoji = HAIR_EMOJIS.Hair100;
 const capeEmoji = CAPE_EMOJIS.Cape71;
 
 export default new SeasonalSpirit({
-	name: SpiritName.AnxiousAngler,
+	id: SpiritId.AnxiousAngler,
 	seasonId: SeasonId.Abyss,
 	emote,
 	realm: RealmName.GoldenWasteland,

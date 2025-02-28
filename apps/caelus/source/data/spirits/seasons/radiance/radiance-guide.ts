@@ -1,4 +1,4 @@
-import { Cosmetic, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { GuideSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -8,7 +8,7 @@ import {
 } from "../../../../utility/emojis.js";
 
 export default new GuideSpirit({
-	name: SpiritName.RadianceGuide,
+	id: SpiritId.RadianceGuide,
 	seasonId: SeasonId.Radiance,
 	offer: {
 		inProgress: true,

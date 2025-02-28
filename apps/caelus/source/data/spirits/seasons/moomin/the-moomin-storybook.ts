@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	RealmName,
-	SeasonId,
-	SpiritEmote,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { GuideSpirit } from "../../../../models/Spirits.js";
 import {
 	HELD_PROPS_EMOJIS,
@@ -19,7 +13,7 @@ const emote = SpiritEmote.Read;
 const emoteEmoji = SpiritEmoteToEmoji[emote];
 
 export default new GuideSpirit({
-	name: SpiritName.TheMoominStorybook,
+	id: SpiritId.TheMoominStorybook,
 	seasonId: SeasonId.Moomin,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {

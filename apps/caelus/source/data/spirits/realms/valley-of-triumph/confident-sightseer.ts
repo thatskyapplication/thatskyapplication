@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SpiritName, SpiritStance } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SpiritId, SpiritStance } from "@thatskyapplication/utility";
 import { StandardSpirit } from "../../../../models/Spirits.js";
 import { HAIR_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../utility/emojis.js";
 import { SpiritStanceToEmoji } from "../../../../utility/spirits.js";
@@ -7,7 +7,7 @@ const stance = SpiritStance.Confident;
 const stanceEmoji = SpiritStanceToEmoji[stance];
 
 export default new StandardSpirit({
-	name: SpiritName.ConfidentSightseer,
+	id: SpiritId.ConfidentSightseer,
 	stance,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {

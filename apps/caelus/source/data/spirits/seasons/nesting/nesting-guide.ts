@@ -1,4 +1,4 @@
-import { Cosmetic, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { GuideSpirit } from "../../../../models/Spirits.js";
 import {
 	MISCELLANEOUS_EMOJIS,
@@ -8,7 +8,7 @@ import {
 } from "../../../../utility/emojis.js";
 
 export default new GuideSpirit({
-	name: SpiritName.NestingGuide,
+	id: SpiritId.NestingGuide,
 	seasonId: SeasonId.Nesting,
 	offer: {
 		current: [

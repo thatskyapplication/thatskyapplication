@@ -1,4 +1,4 @@
-import { Cosmetic, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
@@ -7,7 +7,7 @@ import {
 } from "../../../../utility/emojis.js";
 
 export default new SeasonalSpirit({
-	name: SpiritName.CompassionateCellist,
+	id: SpiritId.CompassionateCellist,
 	seasonId: SeasonId.Duets,
 	offer: {
 		hasInfographic: false,

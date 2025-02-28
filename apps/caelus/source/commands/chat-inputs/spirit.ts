@@ -24,7 +24,7 @@ export default {
 	async autocomplete(interaction: APIApplicationCommandAutocompleteInteraction) {
 		await searchAutocomplete(
 			interaction,
-			new OptionResolver(interaction).getFocusedOption(ApplicationCommandOptionType.String),
+			new OptionResolver(interaction).getFocusedOption(ApplicationCommandOptionType.Integer),
 		);
 	},
 } as const;

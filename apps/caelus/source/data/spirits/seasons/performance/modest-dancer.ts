@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	FriendAction,
-	RealmName,
-	SeasonId,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, FriendAction, RealmName, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	HAIR_EMOJIS,
@@ -24,7 +18,7 @@ const maskEmoji = MASK_EMOJIS.Mask60;
 const hairEmoji = HAIR_EMOJIS.Hair104;
 
 export default new SeasonalSpirit({
-	name: SpiritName.ModestDancer,
+	id: SpiritId.ModestDancer,
 	seasonId: SeasonId.Performance,
 	action,
 	realm: RealmName.ValleyOfTriumph,

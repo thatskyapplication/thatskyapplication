@@ -1,9 +1,9 @@
-import { Cosmetic, RealmName, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SpiritId } from "@thatskyapplication/utility";
 import { ElderSpirit } from "../../../../models/Spirits.js";
 import { FACE_ACCESSORY_EMOJIS, HAIR_EMOJIS } from "../../../../utility/emojis.js";
 
 export default new ElderSpirit({
-	name: SpiritName.ElderOfThePrairie,
+	id: SpiritId.ElderOfThePrairie,
 	realm: RealmName.DaylightPrairie,
 	offer: {
 		current: [

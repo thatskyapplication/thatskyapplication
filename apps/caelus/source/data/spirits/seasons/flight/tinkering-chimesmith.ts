@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	RealmName,
-	SeasonId,
-	SpiritName,
-	SpiritStance,
-} from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritId, SpiritStance } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
@@ -26,7 +20,7 @@ const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory11;
 const heldProp = HELD_PROPS_EMOJIS.HeldProp24;
 
 export default new SeasonalSpirit({
-	name: SpiritName.TinkeringChimesmith,
+	id: SpiritId.TinkeringChimesmith,
 	seasonId: SeasonId.Flight,
 	stance,
 	realm: RealmName.HiddenForest,

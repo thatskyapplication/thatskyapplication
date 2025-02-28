@@ -81,11 +81,12 @@ function getAnswer(): [Snowflake, StandardSpirit | ElderSpirit | SeasonalSpirit 
 function getOptions(difficulty: GuessDifficultyLevel) {
 	// Get the answer.
 	const [emoji, spirit] = getAnswer();
+	pino.info({ emoji, spirit }, "options");
 	const foundAnswers = new Set<StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit>();
 
 	// Generate other answers.
 	if (difficulty === GuessDifficultyLevel.Original) {
-		const filtered = spirits().filter((original) => original.name !== spirit.name);
+		const filtered = spirits().filter((original) => original.id !== spirit.id);
 
 		while (foundAnswers.size < 2) {
 			const randomSpirit = getRandomElement(filtered)!;
@@ -97,13 +98,13 @@ function getOptions(difficulty: GuessDifficultyLevel) {
 		// Collect spirits from the same realm or season.
 		if (spirit.isStandardSpirit()) {
 			filtered = STANDARD_SPIRITS.filter(
-				(original) => original.name !== spirit.name && original.realm === spirit.realm,
+				(original) => original.id !== spirit.id && original.realm === spirit.realm,
 			);
 		} else if (spirit.isElderSpirit()) {
-			filtered = ELDER_SPIRITS.filter((original) => original.name !== spirit.name);
+			filtered = ELDER_SPIRITS.filter((original) => original.id !== spirit.id);
 		} else {
 			filtered = currentSeasonalSpirits().filter(
-				(original) => original.name !== spirit.name && original.seasonId === spirit.seasonId,
+				(original) => original.id !== spirit.id && original.seasonId === spirit.seasonId,
 			);
 		}
 
@@ -133,14 +134,14 @@ export async function guess(
 	// Create buttons from the answers.
 	const buttons: APIButtonComponentWithCustomId[] = options.map((option, index) => ({
 		type: ComponentType.Button,
-		custom_id: `${index === 0 ? GUESS_ANSWER_1 : index === 1 ? GUESS_ANSWER_2 : GUESS_ANSWER_3}§${answer.name}§${option.name}§${difficulty}§${streak}§${timeoutTimestamp}`,
-		label: t(`spiritNames.${option.name}`, { lng: interaction.locale, ns: "general" }),
+		custom_id: `${index === 0 ? GUESS_ANSWER_1 : index === 1 ? GUESS_ANSWER_2 : GUESS_ANSWER_3}§${answer.id}§${option.id}§${difficulty}§${streak}§${timeoutTimestamp}`,
+		label: t(`spirits.${option.id}`, { lng: interaction.locale, ns: "general" }),
 		style: ButtonStyle.Secondary,
 	}));
 
 	const endGameButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
-		custom_id: `${GUESS_END_GAME}§${answer.name}§null§${difficulty}§${streak}§${timeoutTimestamp}`,
+		custom_id: `${GUESS_END_GAME}§${answer.id}§null§${difficulty}§${streak}§${timeoutTimestamp}`,
 		label: "End Game",
 		style: ButtonStyle.Danger,
 	};
@@ -165,7 +166,7 @@ export async function guess(
 				components: [endGameButton],
 			},
 		],
-		content: "",
+		content: `...answer:${answer.id} ... difficulty: ${difficulty} streak: ${streak}`,
 		embeds: [
 			{
 				color: DEFAULT_EMBED_COLOUR,
@@ -284,7 +285,7 @@ async function endGame(
 	if (interaction.data.custom_id.startsWith(GUESS_END_GAME)) {
 		description = "Game ended.";
 	} else {
-		description = `Your guess: ${t(`spiritNames.${guess}`, {
+		description = `Your guess: ${t(`spirits.${guess}`, {
 			lng: locale,
 			ns: "general",
 		})} ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`;
@@ -293,7 +294,7 @@ async function endGame(
 	const embed = {
 		...message.embeds[0]!,
 		description,
-		title: t(`spiritNames.${answer}`, { lng: locale, ns: "general" }),
+		title: t(`spirits.${answer}`, { lng: locale, ns: "general" }),
 	};
 
 	const invoker = interactionInvoker(interaction);

@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -17,7 +17,7 @@ const heldPropEmoji = HELD_PROPS_EMOJIS.HeldProp48;
 const largePlaceablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp74;
 
 export default new SeasonalSpirit({
-	name: SpiritName.SpiritOfAdventure,
+	id: SpiritId.SpiritOfAdventure,
 	seasonId: SeasonId.Moomin,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {

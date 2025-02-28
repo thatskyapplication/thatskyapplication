@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SpiritEmote, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { StandardSpirit } from "../../../../models/Spirits.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
@@ -12,7 +12,7 @@ const emoteEmoji = SpiritEmoteToEmoji[emote];
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory03;
 
 export default new StandardSpirit({
-	name: SpiritName.ApologeticLumberjack,
+	id: SpiritId.ApologeticLumberjack,
 	emote,
 	realm: RealmName.HiddenForest,
 	offer: {

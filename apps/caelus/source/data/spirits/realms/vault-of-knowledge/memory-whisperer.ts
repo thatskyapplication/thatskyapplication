@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SpiritCall, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SpiritCall, SpiritId } from "@thatskyapplication/utility";
 import { StandardSpirit } from "../../../../models/Spirits.js";
 import { CAPE_EMOJIS, MISCELLANEOUS_EMOJIS, OUTFIT_EMOJIS } from "../../../../utility/emojis.js";
 import { SpiritCallToEmoji } from "../../../../utility/spirits.js";
@@ -7,7 +7,7 @@ const call = SpiritCall.CosmicManta;
 const callEmoji = SpiritCallToEmoji[call];
 
 export default new StandardSpirit({
-	name: SpiritName.MemoryWhisperer,
+	id: SpiritId.MemoryWhisperer,
 	call,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {

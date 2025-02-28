@@ -1,4 +1,4 @@
-import { skyNow } from "@thatskyapplication/utility";
+import { type SpiritIds, skyNow } from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
 import type { GuideSpirit, SeasonalSpirit } from "../../../models/Spirits.js";
 import Abyss from "./abyss/index.js";
@@ -72,9 +72,9 @@ export function skyUpcomingSeason(date: DateTime) {
 	return SEASONS.find(({ start }) => start > date) ?? null;
 }
 
-export function resolveSeasonalSpirit(spiritName: string) {
+export function resolveSeasonalSpirit(spiritId: SpiritIds) {
 	for (const season of skySeasons()) {
-		const spirit = season.spirits.find((spirit) => spirit.name === spiritName);
+		const spirit = season.spirits.find(({ id }) => id === spiritId);
 
 		if (spirit) {
 			return spirit;

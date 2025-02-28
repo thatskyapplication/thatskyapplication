@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	FriendAction,
-	RealmName,
-	SeasonId,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, FriendAction, RealmName, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -22,7 +16,7 @@ const hairEmoji = HAIR_EMOJIS.Hair42;
 const capeEmoji = CAPE_EMOJIS.Cape17;
 
 export default new SeasonalSpirit({
-	name: SpiritName.PiggybackLightseeker,
+	id: SpiritId.PiggybackLightseeker,
 	seasonId: SeasonId.Lightseekers,
 	action,
 	realm: RealmName.IslesOfDawn,

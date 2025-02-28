@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	RealmName,
-	SeasonId,
-	SpiritName,
-	SpiritStance,
-} from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritId, SpiritStance } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import { HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../utility/emojis.js";
 import { SpiritStanceToEmoji } from "../../../../utility/spirits.js";
@@ -16,7 +10,7 @@ const maskEmoji = MASK_EMOJIS.Mask11;
 const hairEmoji = HAIR_EMOJIS.Hair37;
 
 export default new SeasonalSpirit({
-	name: SpiritName.SassyDrifter,
+	id: SpiritId.SassyDrifter,
 	seasonId: SeasonId.Gratitude,
 	stance,
 	realm: RealmName.IslesOfDawn,

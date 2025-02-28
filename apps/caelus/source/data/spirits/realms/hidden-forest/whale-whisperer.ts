@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SpiritCall, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SpiritCall, SpiritId } from "@thatskyapplication/utility";
 import { StandardSpirit } from "../../../../models/Spirits.js";
 import { MISCELLANEOUS_EMOJIS } from "../../../../utility/emojis.js";
 import { SpiritCallToEmoji } from "../../../../utility/spirits.js";
@@ -7,7 +7,7 @@ const call = SpiritCall.Whale;
 const callEmoji = SpiritCallToEmoji[call];
 
 export default new StandardSpirit({
-	name: SpiritName.WhaleWhisperer,
+	id: SpiritId.WhaleWhisperer,
 	call,
 	realm: RealmName.HiddenForest,
 	offer: {

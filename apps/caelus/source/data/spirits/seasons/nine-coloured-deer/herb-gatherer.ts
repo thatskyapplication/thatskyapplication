@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	RealmName,
-	SeasonId,
-	SpiritEmote,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	HAIR_EMOJIS,
@@ -23,7 +17,7 @@ const hairEmoji = HAIR_EMOJIS.Hair137;
 const placeablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp34;
 
 export default new SeasonalSpirit({
-	name: SpiritName.HerbGatherer,
+	id: SpiritId.HerbGatherer,
 	seasonId: SeasonId.NineColouredDeer,
 	emote,
 	realm: RealmName.VaultOfKnowledge,

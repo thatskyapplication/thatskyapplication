@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	FriendAction,
-	RealmName,
-	SeasonId,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, FriendAction, RealmName, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { GuideSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -17,7 +11,7 @@ import {
 } from "../../../../utility/emojis.js";
 
 export default new GuideSpirit({
-	name: SpiritName.PerformanceGuide,
+	id: SpiritId.PerformanceGuide,
 	seasonId: SeasonId.Performance,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {

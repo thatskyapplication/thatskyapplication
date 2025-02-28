@@ -26,9 +26,10 @@ import {
 	type RealmName,
 	SeasonId,
 	type SeasonIds,
-	type SpiritName,
+	type SpiritIds,
 	formatEmoji,
 	isSeasonId,
+	isSpiritId,
 	resolveAllCosmetics,
 	skyNow,
 } from "@thatskyapplication/utility";
@@ -421,7 +422,7 @@ export class Catalogue {
 		const currentTravellingSpiritButton: APIButtonComponentWithCustomId = {
 			type: ComponentType.Button,
 			custom_id: currentTravellingSpirit
-				? `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${currentTravellingSpirit.name}`
+				? `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${currentTravellingSpirit.id}`
 				: // This would not happen, but it's here to satisfy the API.
 					`${CATALOGUE_VIEW_START_CUSTOM_ID}-travelling`,
 
@@ -661,8 +662,8 @@ export class Catalogue {
 			}
 
 			return {
-				label: `${t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" })}${percentage === null ? "" : ` (${percentage}%)`}`,
-				value: spirit.name,
+				label: `${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}${percentage === null ? "" : ` (${percentage}%)`}`,
+				value: String(spirit.id),
 			};
 		});
 
@@ -735,10 +736,10 @@ export class Catalogue {
 			}
 
 			return {
-				label: `${t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" })}${
+				label: `${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}${
 					percentage === null ? "" : ` (${percentage}%)`
 				}`,
-				value: spirit.name,
+				value: String(spirit.id),
 			};
 		});
 
@@ -870,14 +871,14 @@ export class Catalogue {
 		const spirits = [season.guide, ...season.spirits];
 
 		const options = spirits.map((spirit) => {
-			const { name } = spirit;
+			const { id } = spirit;
 			const percentage = catalogue.spiritProgress([spirit], true);
 
 			return {
-				label: `${t(`spiritNames.${name}`, { lng: locale, ns: "general" })}${
+				label: `${t(`spirits.${id}`, { lng: locale, ns: "general" })}${
 					percentage === null ? "" : ` (${percentage}%)`
 				}`,
-				value: name,
+				value: String(id),
 			};
 		});
 
@@ -1171,15 +1172,15 @@ export class Catalogue {
 		}
 
 		const options = spirits.map((spirit) => {
-			const { name } = spirit;
+			const { id } = spirit;
 			const percentage = catalogue.spiritProgress([spirit], true);
 
 			return {
 				emoji: SeasonIdToSeasonalEmoji[spirit.seasonId],
-				label: `${t(`spiritNames.${name}`, { lng: locale, ns: "general" })}${
+				label: `${t(`spirits.${id}`, { lng: locale, ns: "general" })}${
 					percentage === null ? "" : ` (${percentage}%)`
 				}`,
-				value: name,
+				value: String(id),
 			};
 		});
 
@@ -1217,11 +1218,23 @@ export class Catalogue {
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 
-		const parsedCustomId = isButton(interaction)
-			? interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1)
-			: interaction.data.values[0];
+		const spiritId = Number(
+			isButton(interaction)
+				? interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1)
+				: interaction.data.values[0]!,
+		);
 
-		const spirit = spirits().find(({ name }) => name === parsedCustomId);
+		if (!isSpiritId(spiritId)) {
+			pino.error(interaction, `Invalid spirit id: ${spiritId}`);
+			await client.api.interactions.updateMessage(
+				interaction.id,
+				interaction.token,
+				ERROR_RESPONSE,
+			);
+			return;
+		}
+
+		const spirit = spirits().find(({ id }) => id === spiritId);
 
 		if (!spirit) {
 			await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -1249,7 +1262,7 @@ export class Catalogue {
 		const offer = seasonalParsing ? spirit.seasonal : spirit.current;
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 		const embed = this.spiritEmbed([spirit], locale);
-		embed.title = t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" });
+		embed.title = t(`spirits.${spirit.id}`, { lng: locale, ns: "general" });
 		embed.url = spirit.wikiURL;
 		const description = embed.description ? [embed.description] : [];
 
@@ -1290,7 +1303,7 @@ export class Catalogue {
 		if (offer.length > 0) {
 			row1Components.push({
 				type: ComponentType.Button,
-				custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${spirit.name}`,
+				custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§spirit:${spirit.id}`,
 				disabled: this.spiritProgress([spirit]) === 100,
 				emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 				label: "I have everything!",
@@ -1322,7 +1335,7 @@ export class Catalogue {
 					components: [
 						{
 							type: ComponentType.StringSelect,
-							custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${spirit.name}`,
+							custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§spirit:${spirit.id}`,
 							max_values: itemSelectionOptionsMaximumLimit.length,
 							min_values: 0,
 							options: itemSelectionOptionsMaximumLimit,
@@ -1344,7 +1357,7 @@ export class Catalogue {
 					components: [
 						{
 							type: ComponentType.StringSelect,
-							custom_id: `${CATALOGUE_VIEW_OFFER_2_CUSTOM_ID}§${spirit.name}`,
+							custom_id: `${CATALOGUE_VIEW_OFFER_2_CUSTOM_ID}§spirit:${spirit.id}`,
 							max_values: itemSelectionOverflowOptionsMaximumLimit.length,
 							min_values: 0,
 							options: itemSelectionOverflowOptionsMaximumLimit,
@@ -1374,7 +1387,7 @@ export class Catalogue {
 		}
 
 		if (spirits) {
-			const index = spirits.findIndex(({ name }) => name === spirit.name);
+			const index = spirits.findIndex(({ id }) => id === spirit.id);
 			const before = spirits[index - 1];
 			const after = spirits[index + 1];
 
@@ -1383,7 +1396,7 @@ export class Catalogue {
 				components: [
 					{
 						type: ComponentType.Button,
-						custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${before?.name}`,
+						custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${before?.id}`,
 						disabled: !before,
 						emoji: { name: "⬅️" },
 						label: "Previous spirit",
@@ -1391,7 +1404,7 @@ export class Catalogue {
 					},
 					{
 						type: ComponentType.Button,
-						custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${after?.name}`,
+						custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${after?.id}`,
 						disabled: !after,
 						emoji: { name: "➡️" },
 						label: "Next spirit",
@@ -1988,11 +2001,15 @@ export class Catalogue {
 			interaction.data.custom_id.indexOf("§") + 1,
 		);
 
+		const resolvedCustomIdForSpirits = resolvedCustomId.startsWith("spirit:")
+			? Number(resolvedCustomId.slice(7))
+			: null;
+
 		const resolvedCustomIdNumberForEvents = resolvedCustomId.startsWith("event:")
 			? Number(resolvedCustomId.slice(6))
 			: null;
 
-		const spirit = spirits().find(({ name }) => name === resolvedCustomId);
+		const spirit = spirits().find(({ id }) => id === resolvedCustomIdForSpirits);
 
 		const event =
 			resolvedCustomIdNumberForEvents === null
@@ -2221,13 +2238,13 @@ export class Catalogue {
 			description.push(`-# [Patch Notes](${season.patchNotesURL})`);
 		}
 
-		const offers: [SpiritName | SeasonIds, readonly Item[]][] = [
-			[season.guide.name, season.guide.current],
-			...season.spirits.map<[SpiritName | SeasonIds, readonly Item[]]>((spirit) => [
-				spirit.name,
+		const offers: [SpiritIds | `season:${SeasonIds}`, readonly Item[]][] = [
+			[season.guide.id, season.guide.current],
+			...season.spirits.map<[SpiritIds | `season:${SeasonIds}`, readonly Item[]]>((spirit) => [
+				spirit.id,
 				spirit.items,
 			]),
-			[season.id, season.items],
+			[`season:${season.id}`, season.items],
 		];
 
 		for (const [index, offer] of offers) {
@@ -2240,9 +2257,9 @@ export class Catalogue {
 
 			offerDescriptions.push(
 				`__${
-					typeof index === "number" && isSeasonId(index)
-						? "Items"
-						: t(`spiritNames.${index}`, { lng: locale, ns: "general" })
+					typeof index === "number"
+						? t(`spirits.${index}`, { lng: locale, ns: "general" })
+						: "Items"
 				}__\n${offerDescription.join("\n")}`,
 			);
 		}
@@ -2302,7 +2319,7 @@ export class Catalogue {
 
 			description.push(
 				`${
-					multiple ? `__${t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" })}__\n` : ""
+					multiple ? `__${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}__\n` : ""
 				}${offerDescription.join("\n")}`,
 			);
 		}

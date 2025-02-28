@@ -1,4 +1,4 @@
-import { Cosmetic, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -14,7 +14,7 @@ const { LargePlaceableProp37, LargePlaceableProp38 } = LARGE_PLACEABLE_PROPS_EMO
 const { SmallPlaceableProp39 } = SMALL_PLACEABLE_PROPS_EMOJIS;
 
 export default new SeasonalSpirit({
-	name: SpiritName.NestingLoft,
+	id: SpiritId.NestingLoft,
 	seasonId: SeasonId.Nesting,
 	offer: {
 		hasInfographic: false,

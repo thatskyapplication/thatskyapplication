@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SpiritEmote, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { StandardSpirit } from "../../../../models/Spirits.js";
 import { HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../utility/emojis.js";
 import { SpiritEmoteToEmoji } from "../../../../utility/spirits.js";
@@ -7,7 +7,7 @@ const emote = SpiritEmote.Clap;
 const emoteEmoji = SpiritEmoteToEmoji[emote];
 
 export default new StandardSpirit({
-	name: SpiritName.ApplaudingBellmaker,
+	id: SpiritId.ApplaudingBellmaker,
 	emote,
 	realm: RealmName.DaylightPrairie,
 	offer: {

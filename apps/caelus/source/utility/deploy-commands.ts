@@ -989,7 +989,7 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						min_value: MINIMUM_WINGED_LIGHT,
 					},
 					{
-						type: ApplicationCommandOptionType.String,
+						type: ApplicationCommandOptionType.Integer,
 						name: t("sky-profile.edit.command-option-spirit-name", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
@@ -1184,7 +1184,7 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				description_localizations: localisations("spirit.search.command-description"),
 				options: [
 					{
-						type: ApplicationCommandOptionType.String,
+						type: ApplicationCommandOptionType.Integer,
 						name: t("spirit.search.command-option-query-name", {
 							lng: Locale.EnglishGB,
 							ns: "commands",

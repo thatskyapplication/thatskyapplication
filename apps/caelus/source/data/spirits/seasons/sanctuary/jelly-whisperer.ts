@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SeasonId, SpiritCall, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritCall, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	HAIR_EMOJIS,
@@ -18,7 +18,7 @@ const hairEmoji = HAIR_EMOJIS.Hair60;
 const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp21;
 
 export default new SeasonalSpirit({
-	name: SpiritName.JellyWhisperer,
+	id: SpiritId.JellyWhisperer,
 	seasonId: SeasonId.Sanctuary,
 	call,
 	realm: RealmName.DaylightPrairie,

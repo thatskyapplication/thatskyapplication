@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	FriendAction,
-	RealmName,
-	SeasonId,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, FriendAction, RealmName, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -26,7 +20,7 @@ const capeEmoji = CAPE_EMOJIS.Cape28;
 const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp20;
 
 export default new SeasonalSpirit({
-	name: SpiritName.PlayfightingHerbalist,
+	id: SpiritId.PlayfightingHerbalist,
 	seasonId: SeasonId.Enchantment,
 	action,
 	realm: RealmName.GoldenWasteland,

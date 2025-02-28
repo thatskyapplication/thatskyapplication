@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { GuideSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -11,7 +11,7 @@ import {
 } from "../../../../utility/emojis.js";
 
 export default new GuideSpirit({
-	name: SpiritName.SpiritOfMural,
+	id: SpiritId.SpiritOfMural,
 	seasonId: SeasonId.NineColouredDeer,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {

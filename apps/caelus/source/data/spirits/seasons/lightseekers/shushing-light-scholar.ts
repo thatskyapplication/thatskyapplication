@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	RealmName,
-	SeasonId,
-	SpiritEmote,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import { CAPE_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../utility/emojis.js";
 import { SpiritEmoteToEmoji } from "../../../../utility/spirits.js";
@@ -16,7 +10,7 @@ const maskEmoji = MASK_EMOJIS.Mask17;
 const capeEmoji = CAPE_EMOJIS.Cape18;
 
 export default new SeasonalSpirit({
-	name: SpiritName.ShushingLightScholar,
+	id: SpiritId.ShushingLightScholar,
 	seasonId: SeasonId.Lightseekers,
 	emote,
 	realm: RealmName.VaultOfKnowledge,

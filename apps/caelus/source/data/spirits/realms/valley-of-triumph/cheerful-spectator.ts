@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SpiritEmote, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { StandardSpirit } from "../../../../models/Spirits.js";
 import {
 	HAIR_EMOJIS,
@@ -11,7 +11,7 @@ const emote = SpiritEmote.Cheer;
 const emoteEmoji = SpiritEmoteToEmoji[emote];
 
 export default new StandardSpirit({
-	name: SpiritName.CheerfulSpectator,
+	id: SpiritId.CheerfulSpectator,
 	emote,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {

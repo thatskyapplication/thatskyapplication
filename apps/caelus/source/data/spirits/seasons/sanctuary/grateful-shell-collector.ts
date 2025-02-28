@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	RealmName,
-	SeasonId,
-	SpiritEmote,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -23,7 +17,7 @@ const capeEmoji = CAPE_EMOJIS.Cape32;
 const placeablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp17;
 
 export default new SeasonalSpirit({
-	name: SpiritName.GratefulShellCollector,
+	id: SpiritId.GratefulShellCollector,
 	seasonId: SeasonId.Sanctuary,
 	emote,
 	realm: RealmName.DaylightPrairie,

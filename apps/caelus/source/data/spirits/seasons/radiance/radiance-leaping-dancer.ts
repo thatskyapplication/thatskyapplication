@@ -1,4 +1,4 @@
-import { Cosmetic, SeasonId, SpiritEmote, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, SeasonId, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -21,7 +21,7 @@ const capeEmoji = CAPE_EMOJIS.Cape142;
 const largePlaceablePropEmoji = LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp79;
 
 export default new SeasonalSpirit({
-	name: SpiritName.RadianceLeapingDancer,
+	id: SpiritId.RadianceLeapingDancer,
 	seasonId: SeasonId.Radiance,
 	emote,
 	offer: {

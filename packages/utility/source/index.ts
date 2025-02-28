@@ -62,7 +62,9 @@ export {
 	SPIRIT_TYPE,
 	SpiritCall,
 	SpiritEmote,
-	SpiritName,
+	SpiritId,
+	type SpiritIds,
 	SpiritStance,
 	type SpiritType,
+	isSpiritId,
 } from "./spirits.js";

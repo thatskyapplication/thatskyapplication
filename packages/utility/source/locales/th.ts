@@ -1,7 +1,7 @@
 import { RealmName } from "../kingdom.js";
 import { DailyQuest } from "../quests.js";
 import { SeasonId } from "../season.js";
-import { SpiritName } from "../spirits.js";
+import { SpiritId } from "../spirits.js";
 
 export default {
 	general: {
@@ -46,16 +46,16 @@ export default {
 			[SeasonId.Moomin]: "ฤดูกาลแห่งมูมิน",
 			[SeasonId.Radiance]: "ฤดูกาลแสงเรื่องรอง",
 		},
-		spiritNames: {
-			[SpiritName.TheMoominStorybook]: "หนังสือนิทานมูมิน",
-			[SpiritName.ComfortOfKindness]: "ความใจดีที่ปลอบโยน",
-			[SpiritName.SenseOfSelf]: "ความตระหนักรู้ในตัวเอ",
-			[SpiritName.SpiritOfAdventure]: "สปิริตแห่งการผจญภัย",
-			[SpiritName.InspirationOfInclusion]: "แรงบันดาลใจแห่งความปร",
-			[SpiritName.RadianceGuide]: "ผูแนะนำแสงเรื่องรอง",
-			[SpiritName.RadianceLeapingDancer]: "นักกระโดดโลดเต้นแสงเร",
-			[SpiritName.RadianceProvokingPerformer]: "นักแสดงจอมยั่วยุแสงเร",
-			[SpiritName.RadianceGreetingShaman]: "ชาแมนผู้อ่วยพรแสงเรือง",
+		spirits: {
+			[SpiritId.TheMoominStorybook]: "หนังสือนิทานมูมิน",
+			[SpiritId.ComfortOfKindness]: "ความใจดีที่ปลอบโยน",
+			[SpiritId.SenseOfSelf]: "ความตระหนักรู้ในตัวเอ",
+			[SpiritId.SpiritOfAdventure]: "สปิริตแห่งการผจญภัย",
+			[SpiritId.InspirationOfInclusion]: "แรงบันดาลใจแห่งความปร",
+			[SpiritId.RadianceGuide]: "ผูแนะนำแสงเรื่องรอง",
+			[SpiritId.RadianceLeapingDancer]: "นักกระโดดโลดเต้นแสงเร",
+			[SpiritId.RadianceProvokingPerformer]: "นักแสดงจอมยั่วยุแสงเร",
+			[SpiritId.RadianceGreetingShaman]: "ชาแมนผู้อ่วยพรแสงเรือง",
 		},
 	},
 } as const;

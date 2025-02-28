@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	FriendAction,
-	RealmName,
-	SeasonId,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, FriendAction, RealmName, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { GuideSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -21,7 +15,7 @@ import {
 const heartEmoji = MISCELLANEOUS_EMOJIS.Heart;
 
 export default new GuideSpirit({
-	name: SpiritName.AssemblyGuide,
+	id: SpiritId.AssemblyGuide,
 	seasonId: SeasonId.Assembly,
 	realm: RealmName.HiddenForest,
 	offer: {

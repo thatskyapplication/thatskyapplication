@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	RealmName,
-	SeasonId,
-	SpiritEmote,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -26,7 +20,7 @@ const capeEmoji = CAPE_EMOJIS.Cape36;
 const placeablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp13;
 
 export default new SeasonalSpirit({
-	name: SpiritName.ProphetOfEarth,
+	id: SpiritId.ProphetOfEarth,
 	seasonId: SeasonId.Prophecy,
 	emote,
 	realm: RealmName.IslesOfDawn,

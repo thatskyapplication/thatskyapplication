@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SpiritName, SpiritStance } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SpiritId, SpiritStance } from "@thatskyapplication/utility";
 import { StandardSpirit } from "../../../../models/Spirits.js";
 import { CAPE_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../utility/emojis.js";
 import { SpiritStanceToEmoji } from "../../../../utility/spirits.js";
@@ -7,7 +7,7 @@ const stance = SpiritStance.Courageous;
 const stanceEmoji = SpiritStanceToEmoji[stance];
 
 export default new StandardSpirit({
-	name: SpiritName.CourageousSoldier,
+	id: SpiritId.CourageousSoldier,
 	stance,
 	realm: RealmName.GoldenWasteland,
 	offer: {

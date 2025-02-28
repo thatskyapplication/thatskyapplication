@@ -1,4 +1,4 @@
-import { Cosmetic, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	HELD_PROPS_EMOJIS,
@@ -13,7 +13,7 @@ const heldPropEmoji = HELD_PROPS_EMOJIS.HeldProp44;
 const smallPlaceablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp76;
 
 export default new SeasonalSpirit({
-	name: SpiritName.TheMusiciansLegacy,
+	id: SpiritId.TheMusiciansLegacy,
 	seasonId: SeasonId.Duets,
 	offer: {
 		hasInfographic: false,

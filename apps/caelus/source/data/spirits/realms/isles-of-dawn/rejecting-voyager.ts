@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SpiritEmote, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { StandardSpirit } from "../../../../models/Spirits.js";
 import {
 	FACE_ACCESSORY_EMOJIS,
@@ -12,7 +12,7 @@ const emoteEmoji = SpiritEmoteToEmoji[emote];
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory01;
 
 export default new StandardSpirit({
-	name: SpiritName.RejectingVoyager,
+	id: SpiritId.RejectingVoyager,
 	emote,
 	realm: RealmName.IslesOfDawn,
 	offer: {

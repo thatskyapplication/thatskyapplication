@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	RealmName,
-	SeasonId,
-	SpiritEmote,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	HELD_PROPS_EMOJIS,
@@ -20,7 +14,7 @@ const maskEmoji = MASK_EMOJIS.Mask07;
 const heldProp = HELD_PROPS_EMOJIS.HeldProp07;
 
 export default new SeasonalSpirit({
-	name: SpiritName.LeapingDancer,
+	id: SpiritId.LeapingDancer,
 	seasonId: SeasonId.Gratitude,
 	emote,
 	realm: RealmName.ValleyOfTriumph,

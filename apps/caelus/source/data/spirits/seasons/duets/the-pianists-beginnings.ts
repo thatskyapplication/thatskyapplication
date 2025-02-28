@@ -1,4 +1,4 @@
-import { Cosmetic, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	HAIR_EMOJIS,
@@ -14,7 +14,7 @@ const hairEmoji = HAIR_EMOJIS.Hair147;
 const { SmallPlaceableProp74, SmallPlaceableProp75 } = SMALL_PLACEABLE_PROPS_EMOJIS;
 
 export default new SeasonalSpirit({
-	name: SpiritName.ThePianistsBeginnings,
+	id: SpiritId.ThePianistsBeginnings,
 	seasonId: SeasonId.Duets,
 	offer: {
 		hasInfographic: false,

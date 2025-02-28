@@ -1,7 +1,7 @@
-import { SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { GuideSpirit } from "../../../../models/Spirits.js";
 
 export default new GuideSpirit({
-	name: SpiritName.LightseekerGuide,
+	id: SpiritId.LightseekerGuide,
 	seasonId: SeasonId.Lightseekers,
 });

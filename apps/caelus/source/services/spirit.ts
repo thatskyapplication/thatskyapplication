@@ -11,7 +11,7 @@ import {
 	type Locale,
 	MessageFlags,
 } from "@discordjs/core";
-import { SeasonId, TIME_ZONE, formatEmoji, skyNow } from "@thatskyapplication/utility";
+import { SeasonId, TIME_ZONE, formatEmoji, isSpiritId, skyNow } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { spirits } from "../data/spirits/index.js";
 import { resolveSeasonalSpirit } from "../data/spirits/seasons/index.js";
@@ -25,6 +25,7 @@ import type {
 	SeasonalSpiritVisitTravellingErrorData,
 	StandardSpirit,
 } from "../models/Spirits.js";
+import pino from "../pino.js";
 import {
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
@@ -32,7 +33,7 @@ import {
 	SeasonIdToSeasonalEmoji,
 	resolveCostToString,
 } from "../utility/catalogue.js";
-import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
+import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../utility/constants.js";
 import { isChatInputCommand } from "../utility/functions.js";
 import type { AutocompleteFocusedOption, OptionResolver } from "../utility/option-resolver.js";
 import {
@@ -45,7 +46,7 @@ import {
 
 export async function searchAutocomplete(
 	interaction: APIApplicationCommandAutocompleteInteraction,
-	option: AutocompleteFocusedOption<ApplicationCommandOptionType.String>,
+	option: AutocompleteFocusedOption<ApplicationCommandOptionType.Integer>,
 ) {
 	const { locale } = interaction;
 	const value = option.value.toUpperCase();
@@ -56,8 +57,8 @@ export async function searchAutocomplete(
 				? []
 				: spirits()
 						.filter((spirit) => {
-							const { name, keywords } = spirit;
-							const localisedName = t(`spiritNames.${name}`, { lng: locale, ns: "general" });
+							const { id, keywords } = spirit;
+							const localisedName = t(`spirits.${id}`, { lng: locale, ns: "general" });
 							let emote = null;
 							let stance = null;
 							let call = null;
@@ -86,9 +87,9 @@ export async function searchAutocomplete(
 								seasonName?.includes(value)
 							);
 						})
-						.map(({ name }) => ({
-							name: t(`spiritNames.${name}`, { lng: locale, ns: "general" }),
-							value: name,
+						.map(({ id }) => ({
+							name: t(`spirits.${id}`, { lng: locale, ns: "general" }),
+							value: id,
 						}))
 						.slice(0, 25),
 	});
@@ -98,8 +99,8 @@ export async function search(
 	interaction: APIChatInputApplicationCommandInteraction,
 	options: OptionResolver,
 ) {
-	const query = options.getString("query", true);
-	const spirit = spirits().find(({ name }) => name === query);
+	const query = options.getInteger("query", true);
+	const spirit = spirits().find(({ id }) => id === query);
 
 	if (!spirit) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -119,9 +120,16 @@ export async function search(
 
 export async function parseSpiritSwitch(interaction: APIMessageComponentButtonInteraction) {
 	const data = interaction.data.custom_id.split("§");
-	const name = data[1]!;
+	const spiritId = Number(data[1]!);
+
+	if (!isSpiritId(spiritId)) {
+		pino.error(interaction, `Invalid spirit id: ${spiritId}`);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
+		return;
+	}
+
 	const seasonalOffer = data[2] === "true";
-	const spirit = resolveSeasonalSpirit(name);
+	const spirit = resolveSeasonalSpirit(spiritId);
 
 	if (!spirit) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -195,7 +203,7 @@ async function searchResponse(
 
 	const embed: APIEmbed = {
 		color: DEFAULT_EMBED_COLOUR,
-		title: t(`spiritNames.${spirit.name}`, { lng: locale, ns: "general" }),
+		title: t(`spirits.${spirit.id}`, { lng: locale, ns: "general" }),
 		url: spirit.wikiURL,
 	};
 
@@ -284,7 +292,7 @@ async function searchResponse(
 				components: [
 					{
 						type: ComponentType.Button,
-						custom_id: `${SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID}§${spirit.name}§${seasonalOffer}`,
+						custom_id: `${SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID}§${spirit.id}§${seasonalOffer}`,
 						label: `${seasonalOffer ? "Current" : "Seasonal"} Friendship Tree`,
 						style: ButtonStyle.Primary,
 					},

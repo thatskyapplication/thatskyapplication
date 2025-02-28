@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	RealmName,
-	SeasonId,
-	SpiritEmote,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -23,7 +17,7 @@ const capeEmoji = CAPE_EMOJIS.Cape103;
 const heldProp = HELD_PROPS_EMOJIS.HeldProp34;
 
 export default new SeasonalSpirit({
-	name: SpiritName.OveractiveOverachiever,
+	id: SpiritId.OveractiveOverachiever,
 	seasonId: SeasonId.Passage,
 	emote,
 	realm: RealmName.IslesOfDawn,

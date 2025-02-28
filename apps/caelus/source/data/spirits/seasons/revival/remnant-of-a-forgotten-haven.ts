@@ -1,4 +1,4 @@
-import { Cosmetic, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -14,7 +14,7 @@ const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory31;
 const capeEmoji = CAPE_EMOJIS.Cape113;
 
 export default new SeasonalSpirit({
-	name: SpiritName.RemnantOfAForgottenHaven,
+	id: SpiritId.RemnantOfAForgottenHaven,
 	seasonId: SeasonId.Revival,
 	offer: {
 		hasInfographic: false,

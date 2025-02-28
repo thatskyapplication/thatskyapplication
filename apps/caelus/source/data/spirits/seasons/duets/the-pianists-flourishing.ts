@@ -1,4 +1,4 @@
-import { Cosmetic, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	MISCELLANEOUS_EMOJIS,
@@ -14,7 +14,7 @@ const shoeEmoji = SHOE_EMOJIS.Shoe15;
 const smallPlaceablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp79;
 
 export default new SeasonalSpirit({
-	name: SpiritName.ThePianistsFlourishing,
+	id: SpiritId.ThePianistsFlourishing,
 	seasonId: SeasonId.Duets,
 	offer: {
 		hasInfographic: false,

@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	RealmName,
-	SeasonId,
-	SpiritEmote,
-	SpiritName,
-} from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	MASK_EMOJIS,
@@ -22,7 +16,7 @@ const outfitEmoji = OUTFIT_EMOJIS.Outfit11;
 const maskEmoji = MASK_EMOJIS.Mask23;
 
 export default new SeasonalSpirit({
-	name: SpiritName.TroupeGreeter,
+	id: SpiritId.TroupeGreeter,
 	seasonId: SeasonId.Rhythm,
 	emote,
 	realm: RealmName.IslesOfDawn,

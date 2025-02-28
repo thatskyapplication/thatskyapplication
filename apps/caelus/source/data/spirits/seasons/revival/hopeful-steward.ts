@@ -1,4 +1,4 @@
-import { Cosmetic, FriendAction, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, FriendAction, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { GuideSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -9,7 +9,7 @@ import {
 } from "../../../../utility/emojis.js";
 
 export default new GuideSpirit({
-	name: SpiritName.HopefulSteward,
+	id: SpiritId.HopefulSteward,
 	seasonId: SeasonId.Revival,
 	offer: {
 		current: [

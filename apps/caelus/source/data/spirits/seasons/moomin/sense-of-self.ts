@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SeasonId, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	HAIR_ACCESSORY_EMOJIS,
@@ -15,7 +15,7 @@ const necklaceEmoji = NECKLACE_EMOJIS.Necklace44;
 const hairAccessoryEmoji = HAIR_ACCESSORY_EMOJIS.HairAccessory49;
 
 export default new SeasonalSpirit({
-	name: SpiritName.SenseOfSelf,
+	id: SpiritId.SenseOfSelf,
 	seasonId: SeasonId.Moomin,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {

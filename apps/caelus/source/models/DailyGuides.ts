@@ -2,6 +2,7 @@ import {
 	type APIAttachment,
 	FormattingPatterns,
 	type GatewayMessageCreateDispatchData,
+	Locale,
 	MessageFlags,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
@@ -12,10 +13,11 @@ import {
 	REALM_NAME_VALUES,
 	RealmName,
 	SkyMap,
-	SpiritName,
+	SpiritId,
 	type ValidRealmName,
 	skyToday,
 } from "@thatskyapplication/utility";
+import { t } from "i18next";
 import pQueue from "p-queue";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
@@ -37,7 +39,7 @@ import {
 	resolveMap,
 	resolveValidRealm,
 } from "../utility/functions.js";
-import { QUEST_SPIRITS, type QuestSpirits } from "../utility/spirits.js";
+import { QUEST_SPIRITS, type QuestSpirits, isQuestSpirit } from "../utility/spirits.js";
 
 export interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;
@@ -84,10 +86,6 @@ interface ResolveDailyGuideOptions {
 	pureContent: string;
 	realm: ValidRealmName | null;
 	skyMap: SkyMap | null;
-}
-
-function isQuestSpirit(spiritName: SpiritName): spiritName is QuestSpirits {
-	return QUEST_SPIRITS.includes(spiritName as QuestSpirits);
 }
 
 const CatchTheLightRealmToDailyQuest = {
@@ -152,83 +150,83 @@ const MeditateSkyMapToDailyQuest = {
 	[SkyMap.VaultSummit]: DailyQuest.MeditateAtTheVaultSummit,
 } as const satisfies Readonly<Record<Exclude<MeditationMaps, SkyMap.Citadel>, DailyQuests>>;
 
-const SpiritNameToDailyQuest = {
-	[SpiritName.ButterflyCharmer]: DailyQuest.ReliveTheButterflyCharmer,
-	[SpiritName.ApplaudingBellmaker]: DailyQuest.ReliveTheApplaudingBellmaker,
-	[SpiritName.WavingBellmaker]: DailyQuest.ReliveTheWavingBellmaker,
-	[SpiritName.SlumberingShipwright]: DailyQuest.ReliveTheSlumberingShipwright,
-	[SpiritName.LaughingLightCatcher]: DailyQuest.ReliveTheLaughingLightCatcher,
-	[SpiritName.BirdWhisperer]: DailyQuest.ReliveTheBirdWhisperer,
-	[SpiritName.ExhaustedDockWorker]: DailyQuest.ReliveTheExhaustedDockWorker,
-	[SpiritName.CeremonialWorshiper]: DailyQuest.ReliveTheCeremonialWorshiper,
-	[SpiritName.ShiveringTrailblazer]: DailyQuest.ReliveTheShiveringTrailblazer,
-	[SpiritName.BlushingProspector]: DailyQuest.ReliveTheBlushingProspector,
-	[SpiritName.HideNSeekPioneer]: DailyQuest.ReliveTheHideNSeekPioneer,
-	[SpiritName.PoutyPorter]: DailyQuest.ReliveThePoutyPorter,
-	[SpiritName.DismayedHunter]: DailyQuest.ReliveTheDismayedHunter,
-	[SpiritName.ApologeticLumberjack]: DailyQuest.ReliveTheApologeticLumberjack,
-	[SpiritName.TearfulLightMiner]: DailyQuest.ReliveTheTearfulLightMiner,
-	[SpiritName.WhaleWhisperer]: DailyQuest.ReliveTheWhaleWhisperer,
-	[SpiritName.ConfidentSightseer]: DailyQuest.ReliveTheConfidentSightseer,
-	[SpiritName.HandstandingThrillseeker]: DailyQuest.ReliveTheHandstandingThrillseeker,
-	[SpiritName.MantaWhisperer]: DailyQuest.ReliveTheMantaWhisperer,
-	[SpiritName.BackflippingChampion]: DailyQuest.ReliveTheBackflippingChampion,
-	[SpiritName.CheerfulSpectator]: DailyQuest.ReliveTheCheerfulSpectator,
-	[SpiritName.BowingMedalist]: DailyQuest.ReliveTheBowingMedalist,
-	[SpiritName.ProudVictor]: DailyQuest.ReliveTheProudVictor,
-	[SpiritName.FrightenedRefugee]: DailyQuest.ReliveTheFrightenedRefugee,
-	[SpiritName.FaintingWarrior]: DailyQuest.ReliveTheFaintingWarrior,
-	[SpiritName.CourageousSoldier]: DailyQuest.ReliveTheCourageousSoldier,
-	[SpiritName.StealthySurvivor]: DailyQuest.ReliveTheStealthySurvivor,
-	[SpiritName.SalutingCaptain]: DailyQuest.ReliveTheSalutingCaptain,
-	[SpiritName.LookoutScout]: DailyQuest.ReliveTheLookoutScout,
-	[SpiritName.PrayingAcolyte]: DailyQuest.ReliveThePrayingAcolyte,
-	[SpiritName.LevitatingAdept]: DailyQuest.ReliveTheLevitatingAdept,
-	[SpiritName.PoliteScholar]: DailyQuest.ReliveThePoliteScholar,
-	[SpiritName.MemoryWhisperer]: DailyQuest.ReliveTheMemoryWhisperer,
-	[SpiritName.MeditatingMonastic]: DailyQuest.ReliveTheMeditatingMonastic,
-	[SpiritName.StretchingGuru]: DailyQuest.ReliveTheStretchingGuru,
-	[SpiritName.ProvokingPerformer]: DailyQuest.ReliveTheProvokingPerformer,
-	[SpiritName.LeapingDancer]: DailyQuest.ReliveTheLeapingDancer,
-	[SpiritName.SalutingProtector]: DailyQuest.ReliveTheSalutingProtector,
-	[SpiritName.GreetingShaman]: DailyQuest.ReliveTheGreetingShaman,
-	[SpiritName.DoublefiveLightCatcher]: DailyQuest.ReliveTheDoublefiveLightCatcher,
-	[SpiritName.LaidbackPioneer]: DailyQuest.ReliveTheLaidbackPioneer,
-	[SpiritName.TwirlingChampion]: DailyQuest.ReliveTheTwirlingChampion,
-	[SpiritName.CrabWhisperer]: DailyQuest.ReliveTheCrabWhisperer,
-	[SpiritName.ShushingLightScholar]: DailyQuest.ReliveTheShushingLightScholar,
-	[SpiritName.ConfettiCousin]: DailyQuest.ReliveTheConfettiCousin,
-	[SpiritName.HairtousleTeen]: DailyQuest.ReliveTheHairtousleTeen,
-	[SpiritName.SparklerParent]: DailyQuest.ReliveTheSparklerParent,
-	[SpiritName.PleafulParent]: DailyQuest.ReliveThePleafulParent,
-	[SpiritName.WiseGrandparent]: DailyQuest.ReliveTheWiseGrandparent,
-	[SpiritName.FestivalSpinDancer]: DailyQuest.ReliveTheFestivalSpinDancer,
-	[SpiritName.AdmiringActor]: DailyQuest.ReliveTheAdmiringActor,
-	[SpiritName.TroupeJuggler]: DailyQuest.ReliveTheTroupeJuggler,
-	[SpiritName.RespectfulPianist]: DailyQuest.ReliveTheRespectfulPianist,
-	[SpiritName.ThoughtfulDirector]: DailyQuest.ReliveTheThoughtfulDirector,
-	[SpiritName.NoddingMuralist]: DailyQuest.ReliveTheNoddingMuralist,
-	[SpiritName.IndifferentAlchemist]: DailyQuest.ReliveTheIndifferentAlchemist,
-	[SpiritName.CrabWalker]: DailyQuest.ReliveTheCrabWalker,
-	[SpiritName.ScarecrowFarmer]: DailyQuest.ReliveTheScarecrowFarmer,
-	[SpiritName.SnoozingCarpenter]: DailyQuest.ReliveTheSnoozingCarpenter,
-	[SpiritName.PlayfightingHerbalist]: DailyQuest.ReliveThePlayfightingHerbalist,
-	[SpiritName.JellyWhisperer]: DailyQuest.ReliveTheJellyWhisperer,
-	[SpiritName.TimidBookworm]: DailyQuest.ReliveTheTimidBookworm,
-	[SpiritName.RallyingThrillseeker]: DailyQuest.ReliveTheRallyingThrillseeker,
-	[SpiritName.HikingGrouch]: DailyQuest.ReliveTheHikingGrouch,
-	[SpiritName.GratefulShellCollector]: DailyQuest.ReliveTheGratefulShellCollector,
-	[SpiritName.ChillSunbather]: DailyQuest.ReliveTheChillSunbather,
-	[SpiritName.SpinningMentor]: DailyQuest.ReliveTheSpinningMentor,
-	[SpiritName.DancingPerformer]: DailyQuest.ReliveTheDancingPerformer,
-	[SpiritName.PeekingPostman]: DailyQuest.ReliveThePeekingPostman,
-	[SpiritName.BearhugHermit]: DailyQuest.ReliveTheBearhugHermit,
-	[SpiritName.BaffledBotanist]: DailyQuest.ReliveTheBaffledBotanist,
-	[SpiritName.ScoldingStudent]: DailyQuest.ReliveTheScoldingStudent,
-	[SpiritName.ScaredyCadet]: DailyQuest.ReliveTheScaredyCadet,
-	[SpiritName.MarchingAdventurer]: DailyQuest.ReliveTheMarchingAdventurer,
-	[SpiritName.ChucklingScout]: DailyQuest.ReliveTheChucklingScout,
-	[SpiritName.DaydreamForester]: DailyQuest.ReliveTheDaydreamForester,
+const SpiritIdToDailyQuest = {
+	[SpiritId.ButterflyCharmer]: DailyQuest.ReliveTheButterflyCharmer,
+	[SpiritId.ApplaudingBellmaker]: DailyQuest.ReliveTheApplaudingBellmaker,
+	[SpiritId.WavingBellmaker]: DailyQuest.ReliveTheWavingBellmaker,
+	[SpiritId.SlumberingShipwright]: DailyQuest.ReliveTheSlumberingShipwright,
+	[SpiritId.LaughingLightCatcher]: DailyQuest.ReliveTheLaughingLightCatcher,
+	[SpiritId.BirdWhisperer]: DailyQuest.ReliveTheBirdWhisperer,
+	[SpiritId.ExhaustedDockWorker]: DailyQuest.ReliveTheExhaustedDockWorker,
+	[SpiritId.CeremonialWorshiper]: DailyQuest.ReliveTheCeremonialWorshiper,
+	[SpiritId.ShiveringTrailblazer]: DailyQuest.ReliveTheShiveringTrailblazer,
+	[SpiritId.BlushingProspector]: DailyQuest.ReliveTheBlushingProspector,
+	[SpiritId.HideNSeekPioneer]: DailyQuest.ReliveTheHideNSeekPioneer,
+	[SpiritId.PoutyPorter]: DailyQuest.ReliveThePoutyPorter,
+	[SpiritId.DismayedHunter]: DailyQuest.ReliveTheDismayedHunter,
+	[SpiritId.ApologeticLumberjack]: DailyQuest.ReliveTheApologeticLumberjack,
+	[SpiritId.TearfulLightMiner]: DailyQuest.ReliveTheTearfulLightMiner,
+	[SpiritId.WhaleWhisperer]: DailyQuest.ReliveTheWhaleWhisperer,
+	[SpiritId.ConfidentSightseer]: DailyQuest.ReliveTheConfidentSightseer,
+	[SpiritId.HandstandingThrillseeker]: DailyQuest.ReliveTheHandstandingThrillseeker,
+	[SpiritId.MantaWhisperer]: DailyQuest.ReliveTheMantaWhisperer,
+	[SpiritId.BackflippingChampion]: DailyQuest.ReliveTheBackflippingChampion,
+	[SpiritId.CheerfulSpectator]: DailyQuest.ReliveTheCheerfulSpectator,
+	[SpiritId.BowingMedalist]: DailyQuest.ReliveTheBowingMedalist,
+	[SpiritId.ProudVictor]: DailyQuest.ReliveTheProudVictor,
+	[SpiritId.FrightenedRefugee]: DailyQuest.ReliveTheFrightenedRefugee,
+	[SpiritId.FaintingWarrior]: DailyQuest.ReliveTheFaintingWarrior,
+	[SpiritId.CourageousSoldier]: DailyQuest.ReliveTheCourageousSoldier,
+	[SpiritId.StealthySurvivor]: DailyQuest.ReliveTheStealthySurvivor,
+	[SpiritId.SalutingCaptain]: DailyQuest.ReliveTheSalutingCaptain,
+	[SpiritId.LookoutScout]: DailyQuest.ReliveTheLookoutScout,
+	[SpiritId.PrayingAcolyte]: DailyQuest.ReliveThePrayingAcolyte,
+	[SpiritId.LevitatingAdept]: DailyQuest.ReliveTheLevitatingAdept,
+	[SpiritId.PoliteScholar]: DailyQuest.ReliveThePoliteScholar,
+	[SpiritId.MemoryWhisperer]: DailyQuest.ReliveTheMemoryWhisperer,
+	[SpiritId.MeditatingMonastic]: DailyQuest.ReliveTheMeditatingMonastic,
+	[SpiritId.StretchingGuru]: DailyQuest.ReliveTheStretchingGuru,
+	[SpiritId.ProvokingPerformer]: DailyQuest.ReliveTheProvokingPerformer,
+	[SpiritId.LeapingDancer]: DailyQuest.ReliveTheLeapingDancer,
+	[SpiritId.SalutingProtector]: DailyQuest.ReliveTheSalutingProtector,
+	[SpiritId.GreetingShaman]: DailyQuest.ReliveTheGreetingShaman,
+	[SpiritId.DoublefiveLightCatcher]: DailyQuest.ReliveTheDoublefiveLightCatcher,
+	[SpiritId.LaidbackPioneer]: DailyQuest.ReliveTheLaidbackPioneer,
+	[SpiritId.TwirlingChampion]: DailyQuest.ReliveTheTwirlingChampion,
+	[SpiritId.CrabWhisperer]: DailyQuest.ReliveTheCrabWhisperer,
+	[SpiritId.ShushingLightScholar]: DailyQuest.ReliveTheShushingLightScholar,
+	[SpiritId.ConfettiCousin]: DailyQuest.ReliveTheConfettiCousin,
+	[SpiritId.HairtousleTeen]: DailyQuest.ReliveTheHairtousleTeen,
+	[SpiritId.SparklerParent]: DailyQuest.ReliveTheSparklerParent,
+	[SpiritId.PleafulParent]: DailyQuest.ReliveThePleafulParent,
+	[SpiritId.WiseGrandparent]: DailyQuest.ReliveTheWiseGrandparent,
+	[SpiritId.FestivalSpinDancer]: DailyQuest.ReliveTheFestivalSpinDancer,
+	[SpiritId.AdmiringActor]: DailyQuest.ReliveTheAdmiringActor,
+	[SpiritId.TroupeJuggler]: DailyQuest.ReliveTheTroupeJuggler,
+	[SpiritId.RespectfulPianist]: DailyQuest.ReliveTheRespectfulPianist,
+	[SpiritId.ThoughtfulDirector]: DailyQuest.ReliveTheThoughtfulDirector,
+	[SpiritId.NoddingMuralist]: DailyQuest.ReliveTheNoddingMuralist,
+	[SpiritId.IndifferentAlchemist]: DailyQuest.ReliveTheIndifferentAlchemist,
+	[SpiritId.CrabWalker]: DailyQuest.ReliveTheCrabWalker,
+	[SpiritId.ScarecrowFarmer]: DailyQuest.ReliveTheScarecrowFarmer,
+	[SpiritId.SnoozingCarpenter]: DailyQuest.ReliveTheSnoozingCarpenter,
+	[SpiritId.PlayfightingHerbalist]: DailyQuest.ReliveThePlayfightingHerbalist,
+	[SpiritId.JellyWhisperer]: DailyQuest.ReliveTheJellyWhisperer,
+	[SpiritId.TimidBookworm]: DailyQuest.ReliveTheTimidBookworm,
+	[SpiritId.RallyingThrillseeker]: DailyQuest.ReliveTheRallyingThrillseeker,
+	[SpiritId.HikingGrouch]: DailyQuest.ReliveTheHikingGrouch,
+	[SpiritId.GratefulShellCollector]: DailyQuest.ReliveTheGratefulShellCollector,
+	[SpiritId.ChillSunbather]: DailyQuest.ReliveTheChillSunbather,
+	[SpiritId.SpinningMentor]: DailyQuest.ReliveTheSpinningMentor,
+	[SpiritId.DancingPerformer]: DailyQuest.ReliveTheDancingPerformer,
+	[SpiritId.PeekingPostman]: DailyQuest.ReliveThePeekingPostman,
+	[SpiritId.BearhugHermit]: DailyQuest.ReliveTheBearhugHermit,
+	[SpiritId.BaffledBotanist]: DailyQuest.ReliveTheBaffledBotanist,
+	[SpiritId.ScoldingStudent]: DailyQuest.ReliveTheScoldingStudent,
+	[SpiritId.ScaredyCadet]: DailyQuest.ReliveTheScaredyCadet,
+	[SpiritId.MarchingAdventurer]: DailyQuest.ReliveTheMarchingAdventurer,
+	[SpiritId.ChucklingScout]: DailyQuest.ReliveTheChucklingScout,
+	[SpiritId.DaydreamForester]: DailyQuest.ReliveTheDaydreamForester,
 } as const satisfies Readonly<Record<QuestSpirits, DailyQuests>>;
 
 const regularExpressionRealms = REALM_NAME_VALUES.join("|").replaceAll(" ", "\\s+");
@@ -535,13 +533,17 @@ export default new (class DailyGuides {
 
 		const sanitisedUpperPureContent = upperPureContent.replaceAll("’", "'");
 
-		for (const spiritName of QUEST_SPIRITS) {
-			if (sanitisedUpperPureContent.includes(spiritName.toUpperCase())) {
-				if (isQuestSpirit(spiritName)) {
-					return SpiritNameToDailyQuest[spiritName];
+		for (const spiritId of QUEST_SPIRITS) {
+			if (
+				sanitisedUpperPureContent.includes(
+					t(`spirits.${spiritId}`, { lng: Locale.EnglishGB, ns: "general" }).toUpperCase(),
+				)
+			) {
+				if (isQuestSpirit(spiritId)) {
+					return SpiritIdToDailyQuest[spiritId];
 				}
 
-				pino.error(options, `Failed to match a spirit for ${spiritName}.`);
+				pino.error(options, `Failed to match a spirit for ${spiritId}.`);
 				return null;
 			}
 		}

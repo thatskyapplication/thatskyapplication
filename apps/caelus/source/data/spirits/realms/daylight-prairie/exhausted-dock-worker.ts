@@ -1,4 +1,4 @@
-import { Cosmetic, RealmName, SpiritEmote, SpiritName } from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
 import { StandardSpirit } from "../../../../models/Spirits.js";
 import { FACE_ACCESSORY_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../utility/emojis.js";
 import { SpiritEmoteToEmoji } from "../../../../utility/spirits.js";
@@ -8,7 +8,7 @@ const emoteEmoji = SpiritEmoteToEmoji[emote];
 const faceAccessoryEmoji = FACE_ACCESSORY_EMOJIS.FaceAccessory02;
 
 export default new StandardSpirit({
-	name: SpiritName.ExhaustedDockWorker,
+	id: SpiritId.ExhaustedDockWorker,
 	emote,
 	realm: RealmName.DaylightPrairie,
 	offer: {

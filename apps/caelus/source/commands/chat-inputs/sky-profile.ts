@@ -13,7 +13,7 @@ import Profile, { AssetType, type ProfileSetData } from "../../models/Profile.js
 import { searchAutocomplete } from "../../services/spirit.js";
 import { APPLICATION_ID } from "../../utility/constants.js";
 import { validateAttachment } from "../../utility/functions.js";
-import { OptionResolver } from "../../utility/option-resolver.js";
+import { type AutocompleteFocusedOption, OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
 	name: t("sky-profile.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
@@ -53,23 +53,36 @@ export default {
 		interaction: APIApplicationCommandAutocompleteInteraction,
 		options: OptionResolver,
 	) {
-		const option = options.getFocusedOption(ApplicationCommandOptionType.String);
+		const option = options.getFocusedOption();
 
-		switch (option.name) {
-			case t("sky-profile.edit.command-option-country-name", {
-				lng: Locale.EnglishGB,
-				ns: "commands",
-			}): {
-				await Profile.editCountryAutocomplete(interaction, option);
-				return;
-			}
-			case t("sky-profile.edit.command-option-spirit-name", {
-				lng: Locale.EnglishGB,
-				ns: "commands",
-			}): {
-				await searchAutocomplete(interaction, option);
-				return;
-			}
+		if (
+			option.name ===
+				t("sky-profile.edit.command-option-country-name", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}) &&
+			option.type === ApplicationCommandOptionType.String
+		) {
+			await Profile.editCountryAutocomplete(
+				interaction,
+				option as AutocompleteFocusedOption<ApplicationCommandOptionType.String>,
+			);
+			return;
+		}
+
+		if (
+			option.name ===
+				t("sky-profile.edit.command-option-spirit-name", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}) &&
+			option.type === ApplicationCommandOptionType.Integer
+		) {
+			await searchAutocomplete(
+				interaction,
+				option as AutocompleteFocusedOption<ApplicationCommandOptionType.Integer>,
+			);
+			return;
 		}
 	},
 	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
@@ -78,7 +91,7 @@ export default {
 		const thumbnail = options.getAttachment("thumbnail");
 		const icon = options.getAttachment("icon");
 		const wingedLight = options.getInteger("winged-light");
-		const spirit = options.getString("spirit");
+		const spiritId = options.getInteger("spirit");
 		const country = options.getString("country");
 		const spot = options.getString("spot");
 		const catalogueProgression = options.getBoolean("catalogue-progression");
@@ -121,10 +134,10 @@ export default {
 				data.winged_light = wingedLight;
 			}
 
-			if (spirit) {
-				const resolvedSpirit = spirits().find(({ name }) => name === spirit);
+			if (spiritId !== null) {
+				const spirit = spirits().find(({ id }) => id === spiritId);
 
-				if (!resolvedSpirit) {
+				if (!spirit) {
 					await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
 						content: "Woah, it seems we have not encountered that spirit yet. How strange!",
 					});
@@ -132,7 +145,7 @@ export default {
 					return;
 				}
 
-				data.spirit = resolvedSpirit.name;
+				data.spirit = spirit.id;
 			}
 
 			if (country) {

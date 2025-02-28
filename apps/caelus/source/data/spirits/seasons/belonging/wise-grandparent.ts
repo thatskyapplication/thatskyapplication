@@ -1,10 +1,4 @@
-import {
-	Cosmetic,
-	RealmName,
-	SeasonId,
-	SpiritName,
-	SpiritStance,
-} from "@thatskyapplication/utility";
+import { Cosmetic, RealmName, SeasonId, SpiritId, SpiritStance } from "@thatskyapplication/utility";
 import { SeasonalSpirit } from "../../../../models/Spirits.js";
 import {
 	CAPE_EMOJIS,
@@ -25,7 +19,7 @@ const capeEmoji = CAPE_EMOJIS.Cape22;
 const placeablePropEmoji = SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp09;
 
 export default new SeasonalSpirit({
-	name: SpiritName.WiseGrandparent,
+	id: SpiritId.WiseGrandparent,
 	seasonId: SeasonId.Belonging,
 	stance,
 	realm: RealmName.VaultOfKnowledge,

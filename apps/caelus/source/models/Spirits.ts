@@ -1,6 +1,7 @@
 import process from "node:process";
 import { URL } from "node:url";
 import { Collection } from "@discordjs/collection";
+import { Locale } from "@discordjs/core";
 import {
 	type FriendAction,
 	type Item,
@@ -11,7 +12,7 @@ import {
 	type SeasonIds,
 	type SpiritCall,
 	type SpiritEmote,
-	type SpiritName,
+	type SpiritIds,
 	type SpiritStance,
 	type SpiritType,
 	resolveAllCosmetics,
@@ -20,6 +21,7 @@ import {
 	snakeCaseName,
 	wikiURL,
 } from "@thatskyapplication/utility";
+import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import { TRAVELLING_DATES } from "../data/travelling-spirits.js";
@@ -29,7 +31,7 @@ import { CDN_URL } from "../utility/constants.js";
 
 export interface TravellingSpiritsPacket {
 	visit: number;
-	entity: SpiritName;
+	entity: string;
 	start: Date;
 	end: Date;
 }
@@ -82,7 +84,7 @@ interface GuideFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
 }
 
 interface BaseFriendshipTreeData {
-	name: SpiritName;
+	id: SpiritIds;
 	offer?:
 		| StandardFriendshipTreeOfferData
 		| ElderFriendshipTreeOfferData
@@ -115,7 +117,7 @@ interface ExpressiveSpiritData {
 }
 
 interface BaseSpiritData {
-	name: SpiritName;
+	id: SpiritIds;
 	realm?: RealmName;
 	keywords?: readonly string[];
 }
@@ -162,6 +164,8 @@ interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
 }
 
 abstract class BaseFriendshipTree {
+	protected readonly name: string;
+
 	public readonly current: readonly Item[];
 
 	public readonly totalCost: Required<ItemCost> | null;
@@ -170,7 +174,8 @@ abstract class BaseFriendshipTree {
 
 	public imageURL: string | null;
 
-	public constructor({ name, offer }: BaseFriendshipTreeData) {
+	public constructor({ id, offer }: BaseFriendshipTreeData) {
+		this.name = t(`spirits.${id}`, { lng: Locale.EnglishGB, ns: "general" });
 		this.current = offer?.current ? resolveOffer(offer.current) : [];
 
 		this.totalCost = this.current
@@ -182,11 +187,11 @@ abstract class BaseFriendshipTree {
 		this.allCosmetics = offer?.current ? resolveAllCosmetics(this.current) : [];
 
 		this.imageURL = (offer ? (offer.hasInfographic ?? true) : false)
-			? this.resolveImageURL(name)
+			? this.resolveImageURL(this.name)
 			: null;
 	}
 
-	protected resolveImageURL(name: SpiritName, seasonal = false) {
+	protected resolveImageURL(name: string, seasonal = false) {
 		return String(
 			new URL(
 				`spirits/${snakeCaseName(name)}/friendship_tree/${seasonal ? "seasonal" : "current"}.webp`,
@@ -239,7 +244,7 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 
 		this.imageURLSeasonal =
 			(seasonalFriendshipTreeData.offer.hasInfographicSeasonal ?? true)
-				? this.resolveImageURL(seasonalFriendshipTreeData.name, true)
+				? this.resolveImageURL(this.name, true)
 				: null;
 	}
 }
@@ -274,7 +279,9 @@ abstract class ExpressiveSpirit {
 }
 
 abstract class BaseSpirit {
-	public readonly name: BaseSpiritData["name"];
+	public readonly id: BaseSpiritData["id"];
+
+	protected readonly name: string;
 
 	public readonly snakeCaseName: string;
 
@@ -287,12 +294,12 @@ abstract class BaseSpirit {
 	public readonly wikiURL: string;
 
 	public constructor(spirit: BaseSpiritData) {
-		this.name = spirit.name;
-		const { name } = this;
-		this.snakeCaseName = snakeCaseName(name);
+		this.id = spirit.id;
+		this.name = t(`spirits.${spirit.id}`, { lng: Locale.EnglishGB, ns: "general" });
+		this.snakeCaseName = snakeCaseName(this.name);
 		this.realm = spirit.realm ?? null;
 		this.keywords = spirit.keywords ?? [];
-		this.wikiURL = wikiURL(spirit.name);
+		this.wikiURL = wikiURL(this.name);
 	}
 
 	public isStandardSpirit(): this is StandardSpirit {
