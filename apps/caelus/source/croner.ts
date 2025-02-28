@@ -28,7 +28,7 @@ export default function croner() {
 				return;
 			}
 
-			await request("https://flight-check.jiralite.workers.dev", {
+			await request("https://flight-check.thatskyapplication.com", {
 				method: "GET",
 				headers: { Authorization: `Bearer ${FLIGHT_CHECK}` },
 			});
