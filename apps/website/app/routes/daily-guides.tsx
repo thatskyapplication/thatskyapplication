@@ -205,6 +205,7 @@ export default function DailyGuides() {
 				className={`bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow p-6 rounded-3xl w-full max-w-lg transition-all duration-300 ${
 					selectedImage && "lg:translate-x-[-25vw] translate-x-0 sm:block"
 				}`}
+				onKeyDown={(event) => event.key === "Escape" && setSelectedImage(null)}
 			>
 				<h1 className="text-xl mb-2">{todayString}</h1>
 				<hr />
