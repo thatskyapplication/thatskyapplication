@@ -1,5 +1,5 @@
 import { URL } from "node:url";
-import { Locale } from "@discordjs/core";
+import type { Locale } from "@discordjs/core";
 import {
 	type Emoji,
 	type Item,
@@ -85,8 +85,6 @@ interface SeasonData {
 export class Season {
 	public readonly id: SeasonIds;
 
-	private readonly snakeCaseName: string;
-
 	public readonly start: DateTime;
 
 	public readonly end: DateTime;
@@ -115,8 +113,6 @@ export class Season {
 
 	public constructor(data: SeasonData) {
 		this.id = data.id;
-		const seasonName = t(`seasons.${data.id}`, { lng: Locale.EnglishGB, ns: "general" });
-		this.snakeCaseName = snakeCaseName(seasonName);
 		this.start = data.start;
 		this.end = data.end;
 		this.guide = data.guide;
@@ -240,7 +236,7 @@ export class Season {
 	public seasonalCandlesRotationURL(realm: RealmName, rotation: RotationNumber) {
 		return String(
 			new URL(
-				`daily_guides/seasonal_candles/${this.snakeCaseName}/${snakeCaseName(realm)}/rotation_${rotation}.webp`,
+				`daily_guides/seasonal_candles/${this.id}/${snakeCaseName(realm)}/rotation_${rotation}.webp`,
 				CDN_URL,
 			),
 		);
