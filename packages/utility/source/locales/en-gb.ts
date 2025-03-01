@@ -590,6 +590,254 @@ export default {
 			[SpiritId.RadianceProvokingPerformer]: "Radiance Provoking Performer",
 			[SpiritId.RadianceGreetingShaman]: "Radiance Greeting Shaman",
 		} satisfies Record<SpiritIds, string>,
+		"spirit-wiki": {
+			[SpiritId.PointingCandlemaker]:
+				"https://sky-children-of-the-light.fandom.com/Pointing_Candlemaker",
+			[SpiritId.UsheringStargazer]:
+				"https://sky-children-of-the-light.fandom.com/Ushering_Stargazer",
+			[SpiritId.RejectingVoyager]: "https://sky-children-of-the-light.fandom.com/Rejecting_Voyager",
+			[SpiritId.ElderOfTheIsle]: "https://sky-children-of-the-light.fandom.com/Elder_of_the_Isle",
+			[SpiritId.ButterflyCharmer]: "https://sky-children-of-the-light.fandom.com/Butterfly_Charmer",
+			[SpiritId.ApplaudingBellmaker]:
+				"https://sky-children-of-the-light.fandom.com/Applauding_Bellmaker",
+			[SpiritId.WavingBellmaker]: "https://sky-children-of-the-light.fandom.com/Waving_Bellmaker",
+			[SpiritId.SlumberingShipwright]:
+				"https://sky-children-of-the-light.fandom.com/Slumbering_Shipwright",
+			[SpiritId.LaughingLightCatcher]:
+				"https://sky-children-of-the-light.fandom.com/Laughing_Light_Catcher",
+			[SpiritId.BirdWhisperer]: "https://sky-children-of-the-light.fandom.com/Bird_Whisperer",
+			[SpiritId.ExhaustedDockWorker]:
+				"https://sky-children-of-the-light.fandom.com/Exhausted_Dock_Worker",
+			[SpiritId.CeremonialWorshiper]:
+				"https://sky-children-of-the-light.fandom.com/Ceremonial_Worshiper",
+			[SpiritId.ElderOfThePrairie]:
+				"https://sky-children-of-the-light.fandom.com/Elder_of_the_Prairie",
+			[SpiritId.ShiveringTrailblazer]:
+				"https://sky-children-of-the-light.fandom.com/Shivering_Trailblazer",
+			[SpiritId.BlushingProspector]:
+				"https://sky-children-of-the-light.fandom.com/Blushing_Prospector",
+			[SpiritId.HideNSeekPioneer]:
+				"https://sky-children-of-the-light.fandom.com/Hide'n'Seek_Pioneer",
+			[SpiritId.PoutyPorter]: "https://sky-children-of-the-light.fandom.com/Pouty_Porter",
+			[SpiritId.DismayedHunter]: "https://sky-children-of-the-light.fandom.com/Dismayed_Hunter",
+			[SpiritId.ApologeticLumberjack]:
+				"https://sky-children-of-the-light.fandom.com/Apologetic_Lumberjack",
+			[SpiritId.TearfulLightMiner]:
+				"https://sky-children-of-the-light.fandom.com/Tearful_Light_Miner",
+			[SpiritId.WhaleWhisperer]: "https://sky-children-of-the-light.fandom.com/Whale_Whisperer",
+			[SpiritId.ElderOfTheForest]:
+				"https://sky-children-of-the-light.fandom.com/Elder_of_the_Forest",
+			[SpiritId.ConfidentSightseer]:
+				"https://sky-children-of-the-light.fandom.com/Confident_Sightseer",
+			[SpiritId.HandstandingThrillseeker]:
+				"https://sky-children-of-the-light.fandom.com/Handstanding_Thrillseeker",
+			[SpiritId.MantaWhisperer]: "https://sky-children-of-the-light.fandom.com/Manta_Whisperer",
+			[SpiritId.BackflippingChampion]:
+				"https://sky-children-of-the-light.fandom.com/Backflipping_Champion",
+			[SpiritId.CheerfulSpectator]:
+				"https://sky-children-of-the-light.fandom.com/Cheerful_Spectator",
+			[SpiritId.BowingMedalist]: "https://sky-children-of-the-light.fandom.com/Bowing_Medalist",
+			[SpiritId.ProudVictor]: "https://sky-children-of-the-light.fandom.com/Proud_Victor",
+			[SpiritId.ElderOfTheValley]:
+				"https://sky-children-of-the-light.fandom.com/Elder_of_the_Valley",
+			[SpiritId.FrightenedRefugee]:
+				"https://sky-children-of-the-light.fandom.com/Frightened_Refugee",
+			[SpiritId.FaintingWarrior]: "https://sky-children-of-the-light.fandom.com/Fainting_Warrior",
+			[SpiritId.CourageousSoldier]:
+				"https://sky-children-of-the-light.fandom.com/Courageous_Soldier",
+			[SpiritId.StealthySurvivor]: "https://sky-children-of-the-light.fandom.com/Stealthy_Survivor",
+			[SpiritId.SalutingCaptain]: "https://sky-children-of-the-light.fandom.com/Saluting_Captain",
+			[SpiritId.LookoutScout]: "https://sky-children-of-the-light.fandom.com/Lookout_Scout",
+			[SpiritId.ElderOfTheWasteland]:
+				"https://sky-children-of-the-light.fandom.com/Elder_of_the_Wasteland",
+			[SpiritId.PrayingAcolyte]: "https://sky-children-of-the-light.fandom.com/Praying_Acolyte",
+			[SpiritId.LevitatingAdept]: "https://sky-children-of-the-light.fandom.com/Levitating_Adept",
+			[SpiritId.PoliteScholar]: "https://sky-children-of-the-light.fandom.com/Polite_Scholar",
+			[SpiritId.MemoryWhisperer]: "https://sky-children-of-the-light.fandom.com/Memory_Whisperer",
+			[SpiritId.MeditatingMonastic]:
+				"https://sky-children-of-the-light.fandom.com/Meditating_Monastic",
+			[SpiritId.ElderOfTheVault]: "https://sky-children-of-the-light.fandom.com/Elder_of_the_Vault",
+			[SpiritId.GratitudeGuide]: "https://sky-children-of-the-light.fandom.com/Gratitude_Guide",
+			[SpiritId.SassyDrifter]: "https://sky-children-of-the-light.fandom.com/Sassy_Drifter",
+			[SpiritId.StretchingGuru]: "https://sky-children-of-the-light.fandom.com/Stretching_Guru",
+			[SpiritId.ProvokingPerformer]:
+				"https://sky-children-of-the-light.fandom.com/Provoking_Performer",
+			[SpiritId.LeapingDancer]: "https://sky-children-of-the-light.fandom.com/Leaping_Dancer",
+			[SpiritId.SalutingProtector]:
+				"https://sky-children-of-the-light.fandom.com/Saluting_Protector",
+			[SpiritId.GreetingShaman]: "https://sky-children-of-the-light.fandom.com/Greeting_Shaman",
+			[SpiritId.LightseekerGuide]: "https://sky-children-of-the-light.fandom.com/Lightseeker_Guide",
+			[SpiritId.PiggybackLightseeker]:
+				"https://sky-children-of-the-light.fandom.com/Piggyback_Lightseeker",
+			[SpiritId.DoublefiveLightCatcher]:
+				"https://sky-children-of-the-light.fandom.com/Doublefive_Light_Catcher",
+			[SpiritId.LaidbackPioneer]: "https://sky-children-of-the-light.fandom.com/Laidback_Pioneer",
+			[SpiritId.TwirlingChampion]: "https://sky-children-of-the-light.fandom.com/Twirling_Champion",
+			[SpiritId.CrabWhisperer]: "https://sky-children-of-the-light.fandom.com/Crab_Whisperer",
+			[SpiritId.ShushingLightScholar]:
+				"https://sky-children-of-the-light.fandom.com/Shushing_Light_Scholar",
+			[SpiritId.BelongingGuide]: "https://sky-children-of-the-light.fandom.com/Belonging_Guide",
+			[SpiritId.BoogieKid]: "https://sky-children-of-the-light.fandom.com/Boogie_Kid",
+			[SpiritId.ConfettiCousin]: "https://sky-children-of-the-light.fandom.com/Confetti_Cousin",
+			[SpiritId.HairtousleTeen]: "https://sky-children-of-the-light.fandom.com/Hairtousle_Teen",
+			[SpiritId.SparklerParent]: "https://sky-children-of-the-light.fandom.com/Sparkler_Parent",
+			[SpiritId.PleafulParent]: "https://sky-children-of-the-light.fandom.com/Pleaful_Parent",
+			[SpiritId.WiseGrandparent]: "https://sky-children-of-the-light.fandom.com/Wise_Grandparent",
+			[SpiritId.RhythmGuide]: "https://sky-children-of-the-light.fandom.com/Rhythm_Guide",
+			[SpiritId.TroupeGreeter]: "https://sky-children-of-the-light.fandom.com/Troupe_Greeter",
+			[SpiritId.FestivalSpinDancer]:
+				"https://sky-children-of-the-light.fandom.com/Festival_Spin_Dancer",
+			[SpiritId.AdmiringActor]: "https://sky-children-of-the-light.fandom.com/Admiring_Actor",
+			[SpiritId.TroupeJuggler]: "https://sky-children-of-the-light.fandom.com/Troupe_Juggler",
+			[SpiritId.RespectfulPianist]:
+				"https://sky-children-of-the-light.fandom.com/Respectful_Pianist",
+			[SpiritId.ThoughtfulDirector]:
+				"https://sky-children-of-the-light.fandom.com/Thoughtful_Director",
+			[SpiritId.EnchantmentGuide]: "https://sky-children-of-the-light.fandom.com/Enchantment_Guide",
+			[SpiritId.NoddingMuralist]: "https://sky-children-of-the-light.fandom.com/Nodding_Muralist",
+			[SpiritId.IndifferentAlchemist]:
+				"https://sky-children-of-the-light.fandom.com/Indifferent_Alchemist",
+			[SpiritId.CrabWalker]: "https://sky-children-of-the-light.fandom.com/Crab_Walker",
+			[SpiritId.ScarecrowFarmer]: "https://sky-children-of-the-light.fandom.com/Scarecrow_Farmer",
+			[SpiritId.SnoozingCarpenter]:
+				"https://sky-children-of-the-light.fandom.com/Snoozing_Carpenter",
+			[SpiritId.PlayfightingHerbalist]:
+				"https://sky-children-of-the-light.fandom.com/Playfighting_Herbalist",
+			[SpiritId.SanctuaryGuide]: "https://sky-children-of-the-light.fandom.com/Sanctuary_Guide",
+			[SpiritId.JellyWhisperer]: "https://sky-children-of-the-light.fandom.com/Jelly_Whisperer",
+			[SpiritId.TimidBookworm]: "https://sky-children-of-the-light.fandom.com/Timid_Bookworm",
+			[SpiritId.RallyingThrillseeker]:
+				"https://sky-children-of-the-light.fandom.com/Rallying_Thrillseeker",
+			[SpiritId.HikingGrouch]: "https://sky-children-of-the-light.fandom.com/Hiking_Grouch",
+			[SpiritId.GratefulShellCollector]:
+				"https://sky-children-of-the-light.fandom.com/Grateful_Shell_Collector",
+			[SpiritId.ChillSunbather]: "https://sky-children-of-the-light.fandom.com/Chill_Sunbather",
+			[SpiritId.ProphecyGuide]: "https://sky-children-of-the-light.fandom.com/Prophecy_Guide",
+			[SpiritId.ProphetOfWater]: "https://sky-children-of-the-light.fandom.com/Prophet_of_Water",
+			[SpiritId.ProphetOfEarth]: "https://sky-children-of-the-light.fandom.com/Prophet_of_Earth",
+			[SpiritId.ProphetOfAir]: "https://sky-children-of-the-light.fandom.com/Prophet_of_Air",
+			[SpiritId.ProphetOfFire]: "https://sky-children-of-the-light.fandom.com/Prophet_of_Fire",
+			[SpiritId.DreamsGuide]: "https://sky-children-of-the-light.fandom.com/Dreams_Guide",
+			[SpiritId.SpinningMentor]: "https://sky-children-of-the-light.fandom.com/Spinning_Mentor",
+			[SpiritId.DancingPerformer]: "https://sky-children-of-the-light.fandom.com/Dancing_Performer",
+			[SpiritId.PeekingPostman]: "https://sky-children-of-the-light.fandom.com/Peeking_Postman",
+			[SpiritId.BearhugHermit]: "https://sky-children-of-the-light.fandom.com/Bearhug_Hermit",
+			[SpiritId.AssemblyGuide]: "https://sky-children-of-the-light.fandom.com/Assembly_Guide",
+			[SpiritId.BaffledBotanist]: "https://sky-children-of-the-light.fandom.com/Baffled_Botanist",
+			[SpiritId.ScoldingStudent]: "https://sky-children-of-the-light.fandom.com/Scolding_Student",
+			[SpiritId.ScaredyCadet]: "https://sky-children-of-the-light.fandom.com/Scaredy_Cadet",
+			[SpiritId.MarchingAdventurer]:
+				"https://sky-children-of-the-light.fandom.com/Marching_Adventurer",
+			[SpiritId.ChucklingScout]: "https://sky-children-of-the-light.fandom.com/Chuckling_Scout",
+			[SpiritId.DaydreamForester]: "https://sky-children-of-the-light.fandom.com/Daydream_Forester",
+			[SpiritId.TheRose]: "https://sky-children-of-the-light.fandom.com/The_Rose",
+			[SpiritId.BeckoningRuler]: "https://sky-children-of-the-light.fandom.com/Beckoning_Ruler",
+			[SpiritId.GloatingNarcissist]:
+				"https://sky-children-of-the-light.fandom.com/Gloating_Narcissist",
+			[SpiritId.StretchingLamplighter]:
+				"https://sky-children-of-the-light.fandom.com/Stretching_Lamplighter",
+			[SpiritId.SlouchingSoldier]: "https://sky-children-of-the-light.fandom.com/Slouching_Soldier",
+			[SpiritId.SneezingGeographer]:
+				"https://sky-children-of-the-light.fandom.com/Sneezing_Geographer",
+			[SpiritId.StarCollector]: "https://sky-children-of-the-light.fandom.com/Star_Collector",
+			[SpiritId.FlightGuide]: "https://sky-children-of-the-light.fandom.com/Flight_Guide",
+			[SpiritId.LivelyNavigator]: "https://sky-children-of-the-light.fandom.com/Lively_Navigator",
+			[SpiritId.LightWhisperer]: "https://sky-children-of-the-light.fandom.com/Light_Whisperer",
+			[SpiritId.TinkeringChimesmith]:
+				"https://sky-children-of-the-light.fandom.com/Tinkering_Chimesmith",
+			[SpiritId.TalentedBuilder]: "https://sky-children-of-the-light.fandom.com/Talented_Builder",
+			[SpiritId.AbyssGuide]: "https://sky-children-of-the-light.fandom.com/Abyss_Guide",
+			[SpiritId.AnxiousAngler]: "https://sky-children-of-the-light.fandom.com/Anxious_Angler",
+			[SpiritId.CeasingCommodore]: "https://sky-children-of-the-light.fandom.com/Ceasing_Commodore",
+			[SpiritId.BumblingBoatswain]:
+				"https://sky-children-of-the-light.fandom.com/Bumbling_Boatswain",
+			[SpiritId.CacklingCannoneer]:
+				"https://sky-children-of-the-light.fandom.com/Cackling_Cannoneer",
+			[SpiritId.PerformanceGuide]: "https://sky-children-of-the-light.fandom.com/Performance_Guide",
+			[SpiritId.FranticStagehand]: "https://sky-children-of-the-light.fandom.com/Frantic_Stagehand",
+			[SpiritId.ForgetfulStoryteller]:
+				"https://sky-children-of-the-light.fandom.com/Forgetful_Storyteller",
+			[SpiritId.MellowMusician]: "https://sky-children-of-the-light.fandom.com/Mellow_Musician",
+			[SpiritId.ModestDancer]: "https://sky-children-of-the-light.fandom.com/Modest_Dancer",
+			[SpiritId.TheVoidOfShattering]:
+				"https://sky-children-of-the-light.fandom.com/The_Void_of_Shattering",
+			[SpiritId.AncientLight1]: "https://sky-children-of-the-light.fandom.com/Ancient_Light",
+			[SpiritId.AncientLight2]: "https://sky-children-of-the-light.fandom.com/Ancient_Light",
+			[SpiritId.AncientDarkness1]: "https://sky-children-of-the-light.fandom.com/Ancient_Darkness",
+			[SpiritId.AncientDarkness2]: "https://sky-children-of-the-light.fandom.com/Ancient_Darkness",
+			[SpiritId.AURORA]: "https://sky-children-of-the-light.fandom.com/AURORA",
+			[SpiritId.RunningWayfarer]: "https://sky-children-of-the-light.fandom.com/Running_Wayfarer",
+			[SpiritId.MindfulMiner]: "https://sky-children-of-the-light.fandom.com/Mindful_Miner",
+			[SpiritId.WarriorOfLove]: "https://sky-children-of-the-light.fandom.com/Warrior_of_Love",
+			[SpiritId.SeedOfHope]: "https://sky-children-of-the-light.fandom.com/Seed_of_Hope",
+			[SpiritId.RemembranceGuide]: "https://sky-children-of-the-light.fandom.com/Remembrance_Guide",
+			[SpiritId.BereftVeteran]: "https://sky-children-of-the-light.fandom.com/Bereft_Veteran",
+			[SpiritId.PleadingChild]: "https://sky-children-of-the-light.fandom.com/Pleading_Child",
+			[SpiritId.TiptoeingTeaBrewer]:
+				"https://sky-children-of-the-light.fandom.com/Tiptoeing_Tea-Brewer",
+			[SpiritId.WoundedWarrior]: "https://sky-children-of-the-light.fandom.com/Wounded_Warrior",
+			[SpiritId.PassageGuide]: "https://sky-children-of-the-light.fandom.com/Passage_Guide",
+			[SpiritId.OddballOutcast]: "https://sky-children-of-the-light.fandom.com/Oddball_Outcast",
+			[SpiritId.TumblingTroublemaker]:
+				"https://sky-children-of-the-light.fandom.com/Tumbling_Troublemaker",
+			[SpiritId.MelancholyMope]: "https://sky-children-of-the-light.fandom.com/Melancholy_Mope",
+			[SpiritId.OveractiveOverachiever]:
+				"https://sky-children-of-the-light.fandom.com/Overactive_Overachiever",
+			[SpiritId.MomentsGuide]: "https://sky-children-of-the-light.fandom.com/Moments_Guide",
+			[SpiritId.ReassuringRanger]: "https://sky-children-of-the-light.fandom.com/Reassuring_Ranger",
+			[SpiritId.NightbirdWhisperer]:
+				"https://sky-children-of-the-light.fandom.com/Nightbird_Whisperer",
+			[SpiritId.JollyGeologist]: "https://sky-children-of-the-light.fandom.com/Jolly_Geologist",
+			[SpiritId.AsceticMonk]: "https://sky-children-of-the-light.fandom.com/Ascetic_Monk",
+			[SpiritId.HopefulSteward]: "https://sky-children-of-the-light.fandom.com/Hopeful_Steward",
+			[SpiritId.VestigeOfADesertedOasis]:
+				"https://sky-children-of-the-light.fandom.com/Vestige_of_a_Deserted_Oasis",
+			[SpiritId.MemoryOfALostVillage]:
+				"https://sky-children-of-the-light.fandom.com/Memory_of_a_Lost_Village",
+			[SpiritId.EchoOfAnAbandonedRefuge]:
+				"https://sky-children-of-the-light.fandom.com/Echo_of_an_Abandoned_Refuge",
+			[SpiritId.RemnantOfAForgottenHaven]:
+				"https://sky-children-of-the-light.fandom.com/Remnant_of_a_Forgotten_Haven",
+			[SpiritId.SpiritOfMural]: "https://sky-children-of-the-light.fandom.com/Spirit_of_Mural",
+			[SpiritId.HerbGatherer]: "https://sky-children-of-the-light.fandom.com/Herb_Gatherer",
+			[SpiritId.Hunter]: "https://sky-children-of-the-light.fandom.com/Hunter",
+			[SpiritId.FeudalLord]: "https://sky-children-of-the-light.fandom.com/Feudal_Lord",
+			[SpiritId.Princess]: "https://sky-children-of-the-light.fandom.com/Princess",
+			[SpiritId.NestingGuide]: "https://sky-children-of-the-light.fandom.com/Nesting_Guide",
+			[SpiritId.NestingSolarium]: "https://sky-children-of-the-light.fandom.com/Nesting_Solarium",
+			[SpiritId.NestingLoft]: "https://sky-children-of-the-light.fandom.com/Nesting_Loft",
+			[SpiritId.NestingAtrium]: "https://sky-children-of-the-light.fandom.com/Nesting_Atrium",
+			[SpiritId.NestingNook]: "https://sky-children-of-the-light.fandom.com/Nesting_Nook",
+			[SpiritId.DuetsGuide]: "https://sky-children-of-the-light.fandom.com/Duets_Guide",
+			[SpiritId.TheCellistsBeginnings]:
+				"https://sky-children-of-the-light.fandom.com/The_Cellist's_Beginnings",
+			[SpiritId.ThePianistsBeginnings]:
+				"https://sky-children-of-the-light.fandom.com/The_Pianist's_Beginnings",
+			[SpiritId.TheMusiciansLegacy]:
+				"https://sky-children-of-the-light.fandom.com/The_Musicians'_Legacy",
+			[SpiritId.TheCellistsFlourishing]:
+				"https://sky-children-of-the-light.fandom.com/The_Cellist's_Flourishing",
+			[SpiritId.ThePianistsFlourishing]:
+				"https://sky-children-of-the-light.fandom.com/The_Pianist's_Flourishing",
+			[SpiritId.CompassionateCellist]:
+				"https://sky-children-of-the-light.fandom.com/Compassionate_Cellist",
+			[SpiritId.TheMoominStorybook]:
+				"https://sky-children-of-the-light.fandom.com/The_Moomin_Storybook",
+			[SpiritId.ComfortOfKindness]:
+				"https://sky-children-of-the-light.fandom.com/Comfort_of_Kindness",
+			[SpiritId.SenseOfSelf]: "https://sky-children-of-the-light.fandom.com/Sense_of_Self",
+			[SpiritId.SpiritOfAdventure]:
+				"https://sky-children-of-the-light.fandom.com/Spirit_of_Adventure",
+			[SpiritId.InspirationOfInclusion]:
+				"https://sky-children-of-the-light.fandom.com/Inspiration_of_Inclusion",
+			[SpiritId.RadianceGuide]: "https://sky-children-of-the-light.fandom.com/Radiance_Guide",
+			[SpiritId.RadianceLeapingDancer]:
+				"https://sky-children-of-the-light.fandom.com/Radiance_Leaping_Dancer",
+			[SpiritId.RadianceProvokingPerformer]:
+				"https://sky-children-of-the-light.fandom.com/Radiance_Provoking_Performer",
+			[SpiritId.RadianceGreetingShaman]:
+				"https://sky-children-of-the-light.fandom.com/Radiance_Greeting_Shaman",
+		} satisfies Record<SpiritIds, `https://${string}`>,
 		timestamps: "Timestamps",
 		view: "View",
 		countries: {

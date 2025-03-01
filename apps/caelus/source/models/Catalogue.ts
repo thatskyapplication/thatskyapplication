@@ -1263,7 +1263,7 @@ export class Catalogue {
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 		const embed = this.spiritEmbed([spirit], locale);
 		embed.title = t(`spirits.${spirit.id}`, { lng: locale, ns: "general" });
-		embed.url = spirit.wikiURL;
+		embed.url = t(`spirit-wiki.${spirit.id}`, { lng: locale, ns: "general" });
 		const description = embed.description ? [embed.description] : [];
 
 		if (imageURL) {

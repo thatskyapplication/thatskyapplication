@@ -204,7 +204,7 @@ async function searchResponse(
 	const embed: APIEmbed = {
 		color: DEFAULT_EMBED_COLOUR,
 		title: t(`spirits.${spirit.id}`, { lng: locale, ns: "general" }),
-		url: spirit.wikiURL,
+		url: t(`spirit-wiki.${spirit.id}`, { lng: locale, ns: "general" }),
 	};
 
 	const fields = [];

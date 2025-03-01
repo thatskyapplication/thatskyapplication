@@ -20,7 +20,6 @@ import {
 	resolveOffer,
 	skyDate,
 	snakeCaseName,
-	wikiURL,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
@@ -283,15 +282,12 @@ abstract class BaseSpirit {
 
 	public readonly keywords: NonNullable<BaseSpiritData["keywords"]>;
 
-	public readonly wikiURL: string;
-
 	public constructor(spirit: BaseSpiritData) {
 		this.id = spirit.id;
 		this.name = t(`spirits.${spirit.id}`, { lng: Locale.EnglishGB, ns: "general" });
 		this.snakeCaseName = snakeCaseName(this.name);
 		this.realm = spirit.realm ?? null;
 		this.keywords = spirit.keywords ?? [];
-		this.wikiURL = wikiURL(this.name);
 	}
 
 	public isStandardSpirit(): this is StandardSpirit {
