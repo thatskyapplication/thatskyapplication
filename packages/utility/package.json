@@ -4,9 +4,7 @@
 	"type": "module",
 	"exports": "./distribution/index.js",
 	"types": "./distribution/index.d.ts",
-	"files": [
-		"distribution"
-	],
+	"files": ["distribution"],
 	"scripts": {
 		"build": "tsup",
 		"test": "tsc --noEmit",
