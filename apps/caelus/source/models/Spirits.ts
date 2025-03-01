@@ -1,7 +1,6 @@
 import process from "node:process";
 import { URL } from "node:url";
 import { Collection } from "@discordjs/collection";
-import { Locale } from "@discordjs/core";
 import {
 	type FriendAction,
 	type Item,
@@ -19,9 +18,7 @@ import {
 	resolveAllCosmetics,
 	resolveOffer,
 	skyDate,
-	snakeCaseName,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import pino from "../pino.js";
@@ -155,8 +152,6 @@ interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
 }
 
 abstract class BaseFriendshipTree {
-	protected readonly name: string;
-
 	public readonly current: readonly Item[];
 
 	public readonly totalCost: Required<ItemCost> | null;
@@ -166,7 +161,6 @@ abstract class BaseFriendshipTree {
 	public imageURL: string | null;
 
 	public constructor({ id, offer }: BaseFriendshipTreeData) {
-		this.name = t(`spirits.${id}`, { lng: Locale.EnglishGB, ns: "general" });
 		this.current = offer?.current ? resolveOffer(offer.current) : [];
 
 		this.totalCost = this.current
@@ -178,14 +172,14 @@ abstract class BaseFriendshipTree {
 		this.allCosmetics = offer?.current ? resolveAllCosmetics(this.current) : [];
 
 		this.imageURL = (offer ? (offer.hasInfographic ?? true) : false)
-			? this.resolveImageURL(this.name)
+			? this.resolveImageURL(id)
 			: null;
 	}
 
-	protected resolveImageURL(name: string, seasonal = false) {
+	protected resolveImageURL(spiritId: SpiritIds, seasonal = false) {
 		return String(
 			new URL(
-				`spirits/${snakeCaseName(name)}/friendship_tree/${seasonal ? "seasonal" : "current"}.webp`,
+				`spirits/${spiritId}/friendship_tree/${seasonal ? "seasonal" : "current"}.webp`,
 				CDN_URL,
 			),
 		);
@@ -235,7 +229,7 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 
 		this.imageURLSeasonal =
 			(seasonalFriendshipTreeData.offer.hasInfographicSeasonal ?? true)
-				? this.resolveImageURL(this.name, true)
+				? this.resolveImageURL(seasonalFriendshipTreeData.id, true)
 				: null;
 	}
 }
@@ -272,10 +266,6 @@ abstract class ExpressiveSpirit {
 abstract class BaseSpirit {
 	public readonly id: BaseSpiritData["id"];
 
-	protected readonly name: string;
-
-	public readonly snakeCaseName: string;
-
 	public readonly type!: SpiritType;
 
 	public readonly realm: RealmName | null;
@@ -284,8 +274,6 @@ abstract class BaseSpirit {
 
 	public constructor(spirit: BaseSpiritData) {
 		this.id = spirit.id;
-		this.name = t(`spirits.${spirit.id}`, { lng: Locale.EnglishGB, ns: "general" });
-		this.snakeCaseName = snakeCaseName(this.name);
 		this.realm = spirit.realm ?? null;
 		this.keywords = spirit.keywords ?? [];
 	}
@@ -343,7 +331,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 		this.seasonId = spirit.seasonId;
 
 		this.marketingVideoURL = spirit.hasMarketingVideo
-			? String(new URL(`spirits/${this.snakeCaseName}/marketing_video.mp4`, CDN_URL))
+			? String(new URL(`spirits/${this.id}/marketing_video.mp4`, CDN_URL))
 			: null;
 
 		this.visits = {
@@ -353,7 +341,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 
 					if (!period) {
 						pino.fatal(
-							`${this.name} had a travelling index of ${travelling}, but there was no date for it.`,
+							`${this.id} had a travelling index of ${travelling}, but there was no date for it.`,
 						);
 
 						process.exit(1);
@@ -368,7 +356,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 
 					if (!period) {
 						pino.fatal(
-							`${this.name} had an travelling error index of ${travellingError}, but there was no date for it.`,
+							`${this.id} had an travelling error index of ${travellingError}, but there was no date for it.`,
 						);
 
 						process.exit(1);
@@ -382,7 +370,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 
 					if (!period) {
 						pino.fatal(
-							`${this.name} had a returning index of ${returning}, but there was no date for it.`,
+							`${this.id} had a returning index of ${returning}, but there was no date for it.`,
 						);
 
 						process.exit(1);
