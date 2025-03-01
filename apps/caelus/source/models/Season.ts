@@ -9,7 +9,6 @@ import {
 	resolveAllCosmetics,
 	resolveOffer,
 	snakeCaseName,
-	wikiURL,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
@@ -88,8 +87,6 @@ export class Season {
 
 	private readonly snakeCaseName: string;
 
-	public readonly wikiURL: string;
-
 	public readonly start: DateTime;
 
 	public readonly end: DateTime;
@@ -120,7 +117,6 @@ export class Season {
 		this.id = data.id;
 		const seasonName = t(`seasons.${data.id}`, { lng: Locale.EnglishGB, ns: "general" });
 		this.snakeCaseName = snakeCaseName(seasonName);
-		this.wikiURL = wikiURL(seasonName);
 		this.start = data.start;
 		this.end = data.end;
 		this.guide = data.guide;

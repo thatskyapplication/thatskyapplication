@@ -2278,7 +2278,7 @@ export class Catalogue {
 				lng: locale,
 				ns: "general",
 			})}`,
-			url: season.wikiURL,
+			url: t(`season-wiki.${season.id}`, { lng: locale, ns: "general" }),
 		};
 
 		if (description.length > 0) {
