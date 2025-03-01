@@ -1,4 +1,3 @@
-import { WIKI_URL } from "./constants.js";
 import type { EventIds } from "./event.js";
 import type { SeasonIds } from "./season.js";
 import type { Item, ItemRaw } from "./spirits.js";
@@ -11,15 +10,6 @@ export function snakeCaseName(name: string) {
 		.replaceAll(/[()]/g, "")
 		.replaceAll("×", "x")
 		.toLowerCase();
-}
-
-export function wikiURL(name: string) {
-	return String(
-		new URL(
-			(name.includes("(") ? name.slice(0, name.indexOf("(") - 1) : name).replaceAll(" ", "_"),
-			WIKI_URL,
-		),
-	);
 }
 
 export function resolveAllCosmetics(items: readonly Item[]) {

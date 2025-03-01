@@ -2,6 +2,7 @@ import { CDN_URL, DailyQuest, type DailyQuests, RealmName } from "@thatskyapplic
 
 export const DEFAULT_LOCALE = "en-GB" as const;
 export const APPLICATION_NAME = "Caelus" as const;
+export const WIKI_URL = "https://sky-children-of-the-light.fandom.com" as const;
 
 export const APPLICATION_DESCRIPTION =
 	`${APPLICATION_NAME} is a Discord application for Sky: Children of the Light. Comes equipped with fun, hugs, and smiles. Share the love with your community!` as const;

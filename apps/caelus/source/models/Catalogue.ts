@@ -1454,7 +1454,7 @@ export class Catalogue {
 		event: Event,
 	) {
 		const { locale } = interaction;
-		const { id, start, eventTickets, offer, offerInfographicURL, wikiURL } = event;
+		const { id, start, eventTickets, offer, offerInfographicURL } = event;
 
 		const embed: APIEmbed = {
 			color: DEFAULT_EMBED_COLOUR,
@@ -1462,7 +1462,7 @@ export class Catalogue {
 				lng: locale,
 				ns: "general",
 			})}`,
-			url: wikiURL,
+			url: t(`event-wiki.${id}`, { lng: locale, ns: "general" }),
 		};
 
 		const description = [];

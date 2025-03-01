@@ -1,6 +1,5 @@
-import { WIKI_URL } from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
-import { APPLICATION_NAME } from "~/utility/constants";
+import { APPLICATION_NAME, WIKI_URL } from "~/utility/constants";
 
 export default function Acknowledgements() {
 	return (

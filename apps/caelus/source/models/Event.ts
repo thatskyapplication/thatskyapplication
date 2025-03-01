@@ -7,7 +7,6 @@ import {
 	type ItemRaw,
 	resolveAllCosmetics,
 	resolveOffer,
-	wikiURL,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
@@ -111,8 +110,6 @@ export class Event {
 
 	public readonly offerInfographicURL: string | null;
 
-	public readonly wikiURL: string;
-
 	public readonly patchNotesURL: string | null;
 
 	public constructor(data: EventData) {
@@ -140,7 +137,6 @@ export class Event {
 			? String(new URL(`events/${data.id}/offer.webp`, CDN_URL))
 			: null;
 
-		this.wikiURL = wikiURL(this.name);
 		this.patchNotesURL = data.patchNotesURL ?? null;
 	}
 
