@@ -1,4 +1,4 @@
-import type { ElderSpirit, StandardSpirit, StandardSpiritRealm } from "./Spirits.js";
+import type { ElderSpirit, StandardSpirit, StandardSpiritRealm } from "@thatskyapplication/utility";
 
 interface RealmData {
 	name: StandardSpiritRealm;

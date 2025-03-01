@@ -1,5 +1,10 @@
-import { Cosmetic, RealmName, SpiritEmote, SpiritId } from "@thatskyapplication/utility";
-import { StandardSpirit } from "../../../../models/Spirits.js";
+import {
+	Cosmetic,
+	RealmName,
+	SpiritEmote,
+	SpiritId,
+	StandardSpirit,
+} from "@thatskyapplication/utility";
 import { HAIR_EMOJIS, MASK_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../utility/emojis.js";
 import { SpiritEmoteToEmoji } from "../../../../utility/spirits.js";
 

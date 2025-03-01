@@ -2,17 +2,18 @@ import { URL } from "node:url";
 import type { Locale } from "@discordjs/core";
 import {
 	type Emoji,
+	type GuideSpirit,
 	type Item,
 	type ItemRaw,
 	type RealmName,
 	type SeasonIds,
+	type SeasonalSpirit,
 	resolveAllCosmetics,
 	resolveOffer,
 	snakeCaseName,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import type { GuideSpirit, SeasonalSpirit } from "../models/Spirits.js";
 import {
 	type RotationNumber,
 	SEASONAL_CANDLES_PER_DAY,

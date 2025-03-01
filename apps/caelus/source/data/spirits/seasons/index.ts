@@ -1,6 +1,10 @@
-import { type SpiritIds, skyNow } from "@thatskyapplication/utility";
+import {
+	type GuideSpirit,
+	type SeasonalSpirit,
+	type SpiritIds,
+	skyNow,
+} from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
-import type { GuideSpirit, SeasonalSpirit } from "../../../models/Spirits.js";
 import Abyss from "./abyss/index.js";
 import Assembly from "./assembly/index.js";
 import AURORA from "./aurora/index.js";

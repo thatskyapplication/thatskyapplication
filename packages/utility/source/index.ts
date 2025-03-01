@@ -22,14 +22,24 @@ export { default as th } from "./locales/th.js";
 export { default as vi } from "./locales/vi.js";
 export { default as zhCN } from "./locales/zh-cn.js";
 export { default as zhTW } from "./locales/zh-tw.js";
+export {
+	ElderSpirit,
+	GuideSpirit,
+	SeasonalSpirit,
+	type SeasonalSpiritVisitReturningData,
+	type SeasonalSpiritVisitTravellingData,
+	type SeasonalSpiritVisitTravellingErrorData,
+	StandardSpirit,
+	type StandardSpiritRealm,
+} from "./models/spirits.js";
+export { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "./utility/constants.js";
+export { addCosts, resolveAllCosmetics, resolveOffer, snakeCaseName } from "./utility/functions.js";
 export { CDN_URL } from "./cdn.js";
-export { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "./constants.js";
 export { Cosmetic } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
 export { TIME_ZONE, isDuring, skyDate, skyNow, skyToday } from "./dates.js";
 export { type Emoji, emojis, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "./emojis.js";
 export { EventId, type EventIds } from "./event.js";
-export { resolveAllCosmetics, resolveOffer, snakeCaseName } from "./functions.js";
 export {
 	GUESS_DIFFICULTY_LEVEL_VALUES,
 	GuessDifficultyLevel,

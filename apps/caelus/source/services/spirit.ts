@@ -11,20 +11,24 @@ import {
 	type Locale,
 	MessageFlags,
 } from "@discordjs/core";
-import { SeasonId, TIME_ZONE, formatEmoji, isSpiritId, skyNow } from "@thatskyapplication/utility";
+import {
+	type ElderSpirit,
+	type GuideSpirit,
+	SeasonId,
+	type SeasonalSpirit,
+	type SeasonalSpiritVisitReturningData,
+	type SeasonalSpiritVisitTravellingData,
+	type SeasonalSpiritVisitTravellingErrorData,
+	type StandardSpirit,
+	TIME_ZONE,
+	formatEmoji,
+	isSpiritId,
+	skyNow,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { spirits } from "../data/spirits/index.js";
 import { resolveSeasonalSpirit } from "../data/spirits/seasons/index.js";
 import { client } from "../discord.js";
-import type {
-	ElderSpirit,
-	GuideSpirit,
-	SeasonalSpirit,
-	SeasonalSpiritVisitReturningData,
-	SeasonalSpiritVisitTravellingData,
-	SeasonalSpiritVisitTravellingErrorData,
-	StandardSpirit,
-} from "../models/Spirits.js";
 import pino from "../pino.js";
 import {
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,

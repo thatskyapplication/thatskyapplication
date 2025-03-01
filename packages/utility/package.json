@@ -15,7 +15,8 @@
 	},
 	"dependencies": {
 		"@discordjs/collection": "^2.1.1",
-		"luxon": "^3.5.0"
+		"luxon": "^3.5.0",
+		"ts-mixer": "^6.0.4"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",

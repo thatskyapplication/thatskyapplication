@@ -13,9 +13,13 @@ import {
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
+	type ElderSpirit,
 	GUESS_DIFFICULTY_LEVEL_VALUES,
 	GuessDifficultyLevel,
 	GuessDifficultyLevelToName,
+	type GuideSpirit,
+	type SeasonalSpirit,
+	type StandardSpirit,
 	formatEmoji,
 	formatEmojiURL,
 } from "@thatskyapplication/utility";
@@ -26,12 +30,6 @@ import { currentSeasonalSpirits } from "../data/spirits/seasons/index.js";
 import ModestDancer from "../data/spirits/seasons/performance/modest-dancer.js";
 import { client } from "../discord.js";
 import type { GuessPacket } from "../models/Guess.js";
-import type {
-	ElderSpirit,
-	GuideSpirit,
-	SeasonalSpirit,
-	StandardSpirit,
-} from "../models/Spirits.js";
 import type { Guild } from "../models/discord/guild.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";

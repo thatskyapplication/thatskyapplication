@@ -1,5 +1,4 @@
-import { Cosmetic, RealmName, SpiritId } from "@thatskyapplication/utility";
-import { ElderSpirit } from "../../../../models/Spirits.js";
+import { Cosmetic, ElderSpirit, RealmName, SpiritId } from "@thatskyapplication/utility";
 import { FACE_ACCESSORY_EMOJIS, HAIR_EMOJIS } from "../../../../utility/emojis.js";
 
 export default new ElderSpirit({

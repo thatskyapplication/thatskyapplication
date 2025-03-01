@@ -74,9 +74,6 @@ importers:
       sharp:
         specifier: ^0.33.4
         version: 0.33.5
-      ts-mixer:
-        specifier: ^6.0.4
-        version: 6.0.4
       undici:
         specifier: ^7.4.0
         version: 7.4.0
@@ -270,6 +267,9 @@ importers:
       luxon:
         specifier: ^3.5.0
         version: 3.5.0
+      ts-mixer:
+        specifier: ^6.0.4
+        version: 6.0.4
     devDependencies:
       '@biomejs/biome':
         specifier: 1.9.4

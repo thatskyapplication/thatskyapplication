@@ -1,29 +1,25 @@
-import process from "node:process";
-import { URL } from "node:url";
 import { Collection } from "@discordjs/collection";
+import type { DateTime } from "luxon";
+import { Mixin } from "ts-mixer";
+import { CDN_URL } from "../cdn.js";
+import { skyDate } from "../dates.js";
+import type { RealmName } from "../kingdom.js";
+import type { SeasonIds } from "../season.js";
 import {
 	type FriendAction,
 	type Item,
 	type ItemCost,
 	type ItemRaw,
-	type RealmName,
 	SPIRIT_TYPE,
-	type SeasonIds,
 	type SpiritCall,
 	type SpiritEmote,
 	type SpiritIds,
 	type SpiritStance,
 	type SpiritType,
 	TRAVELLING_DATES,
-	resolveAllCosmetics,
-	resolveOffer,
-	skyDate,
-} from "@thatskyapplication/utility";
-import type { DateTime } from "luxon";
-import { Mixin } from "ts-mixer";
-import pino from "../pino.js";
-import { addCosts } from "../utility/catalogue.js";
-import { CDN_URL } from "../utility/constants.js";
+} from "../spirits.js";
+import { addCosts, resolveAllCosmetics, resolveOffer } from "../utility/functions.js";
+
 interface TravellingSpiritsDates {
 	start: DateTime;
 	end: DateTime;
@@ -340,11 +336,9 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 					const period = TRAVELLING_DATES.get(travelling);
 
 					if (!period) {
-						pino.fatal(
+						throw new Error(
 							`${this.id} had a travelling index of ${travelling}, but there was no date for it.`,
 						);
-
-						process.exit(1);
 					}
 
 					return collection.set(travelling, period);
@@ -355,11 +349,9 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 					const period = TRAVELLING_ERROR_DATES.get(travellingError);
 
 					if (!period) {
-						pino.fatal(
+						throw new Error(
 							`${this.id} had an travelling error index of ${travellingError}, but there was no date for it.`,
 						);
-
-						process.exit(1);
 					}
 
 					return collection.set(travellingError, period);
@@ -369,11 +361,9 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 					const period = RETURNING_DATES.get(returning);
 
 					if (!period) {
-						pino.fatal(
+						throw new Error(
 							`${this.id} had a returning index of ${returning}, but there was no date for it.`,
 						);
-
-						process.exit(1);
 					}
 
 					return collection.set(returning, period);

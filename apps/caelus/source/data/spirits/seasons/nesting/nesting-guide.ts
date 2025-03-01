@@ -1,5 +1,4 @@
-import { Cosmetic, SeasonId, SpiritId } from "@thatskyapplication/utility";
-import { GuideSpirit } from "../../../../models/Spirits.js";
+import { Cosmetic, GuideSpirit, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import {
 	MISCELLANEOUS_EMOJIS,
 	NECKLACE_EMOJIS,

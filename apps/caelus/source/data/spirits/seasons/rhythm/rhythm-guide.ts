@@ -1,5 +1,4 @@
-import { Cosmetic, SeasonId, SpiritId } from "@thatskyapplication/utility";
-import { GuideSpirit } from "../../../../models/Spirits.js";
+import { Cosmetic, GuideSpirit, SeasonId, SpiritId } from "@thatskyapplication/utility";
 import { HAIR_EMOJIS, MASK_EMOJIS, NECKLACE_EMOJIS } from "../../../../utility/emojis.js";
 
 export default new GuideSpirit({

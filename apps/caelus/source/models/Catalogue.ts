@@ -21,12 +21,17 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import {
+	type ElderSpirit,
+	type GuideSpirit,
 	type Item,
 	type ItemCost,
 	type RealmName,
 	SeasonId,
 	type SeasonIds,
+	type SeasonalSpirit,
 	type SpiritIds,
+	type StandardSpirit,
+	addCosts,
 	formatEmoji,
 	isSeasonId,
 	isSpiritId,
@@ -56,12 +61,6 @@ import { STARTER_PACKS } from "../data/starter-packs.js";
 import { client } from "../discord.js";
 import type { Event } from "../models/Event.js";
 import type { Season } from "../models/Season.js";
-import type {
-	ElderSpirit,
-	GuideSpirit,
-	SeasonalSpirit,
-	StandardSpirit,
-} from "../models/Spirits.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
@@ -72,7 +71,6 @@ import {
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	SeasonIdToSeasonalEmoji,
-	addCosts,
 	resolveCostToString,
 } from "../utility/catalogue.js";
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../utility/constants.js";
