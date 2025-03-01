@@ -16,7 +16,7 @@ for (
 		date: start,
 		amount: 5,
 		infographicURL: String(
-			new URL("events/2023/aviarys_firework_festival/event_tickets.webp", CDN_URL),
+			new URL(`events/${EventId.AviarysFireworkFestival2023}/event_tickets.webp`, CDN_URL),
 		),
 	});
 }

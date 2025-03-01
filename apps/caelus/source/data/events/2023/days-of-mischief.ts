@@ -21,7 +21,9 @@ for (
 	eventTicketAmount.push({
 		date: start,
 		amount: 6,
-		infographicURL: String(new URL("events/2023/days_of_mischief/event_tickets.webp", CDN_URL)),
+		infographicURL: String(
+			new URL(`events/${EventId.DaysOfMischief2023}/event_tickets.webp`, CDN_URL),
+		),
 	});
 }
 

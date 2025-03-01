@@ -21,7 +21,7 @@ for (
 		date: start,
 		amount: 5,
 		infographicURL: String(
-			new URL("events/2024/sky_x_cinnamoroll_pop_up_cafe/event_tickets.webp", CDN_URL),
+			new URL(`events/${EventId.SkyXCinnamorollPopUpCafe2024}/event_tickets.webp`, CDN_URL),
 		),
 	});
 }

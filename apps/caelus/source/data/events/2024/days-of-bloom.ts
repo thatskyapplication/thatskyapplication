@@ -15,147 +15,147 @@ export default new Event({
 				amount: 5,
 				date: skyDate(2_024, 3, 25),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_1.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_1.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 3, 26),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_1.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_1.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 3, 27),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_1.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_1.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 3, 28),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_1.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_1.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 3, 29),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_1.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_1.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 3, 30),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_1.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_1.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 3, 31),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_1.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_1.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 4, 1),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_2.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_2.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 4, 2),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_2.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_2.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 4, 3),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_2.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_2.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 4, 4),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_2.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_2.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 4, 5),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_2.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_2.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 4, 6),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_2.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_2.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 4, 7),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_2.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_2.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 4, 8),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_3/day_1.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_3/day_1.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 4, 9),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_3/day_2.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_3/day_2.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 4, 10),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_3/day_3.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_3/day_3.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 4, 11),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_3/day_4.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_3/day_4.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 4, 12),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_3/day_5.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_3/day_5.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 4, 13),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_3/day_6.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_3/day_6.webp`, CDN_URL),
 				),
 			},
 			{
 				amount: 5,
 				date: skyDate(2_024, 4, 14),
 				infographicURL: String(
-					new URL("events/2024/days_of_bloom/event_tickets/week_3/day_7.webp", CDN_URL),
+					new URL(`events/${EventId.DaysOfBloom2024}/event_tickets/week_3/day_7.webp`, CDN_URL),
 				),
 			},
 		],
