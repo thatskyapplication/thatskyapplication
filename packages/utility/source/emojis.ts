@@ -577,6 +577,7 @@ const EVENT_EMOJIS_PRODUCTION = {
 	SkyFest: { id: "1313933383310770176", name: "sky_fest" },
 	TournamentOfTriumph: { id: "1313933385735082096", name: "tournament_of_triumph" },
 	Moonlight: { id: "1313933393368711248", name: "moonlight" },
+	Treasure: { id: "1345892771441147934", name: "treasure" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EVENT_EMOJIS_DEVELOPMENT = {
@@ -600,6 +601,7 @@ const EVENT_EMOJIS_DEVELOPMENT = {
 	SkyFest: { id: "1313869111054569512", name: "sky_fest" },
 	TournamentOfTriumph: { id: "1313869102766358528", name: "tournament_of_triumph" },
 	Moonlight: { id: "1313869106763530260", name: "moonlight" },
+	Treasure: { id: "1345892778781053009", name: "treasure" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_PRODUCTION = {
