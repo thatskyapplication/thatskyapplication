@@ -164,7 +164,7 @@ export async function guess(
 				components: [endGameButton],
 			},
 		],
-		content: `...answer:${answer.id} ... difficulty: ${difficulty} streak: ${streak}`,
+		content: "",
 		embeds: [
 			{
 				color: DEFAULT_EMBED_COLOUR,
