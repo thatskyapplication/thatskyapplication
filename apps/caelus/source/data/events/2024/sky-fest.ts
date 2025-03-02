@@ -2,13 +2,6 @@ import { URL } from "node:url";
 import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import {
-	CAPE_EMOJIS,
-	HAIR_ACCESSORY_EMOJIS,
-	HELD_PROPS_EMOJIS,
-	OUTFIT_EMOJIS,
-	SMALL_PLACEABLE_PROPS_EMOJIS,
-} from "../../../utility/emojis.js";
 
 const eventTicketAmount = [];
 
@@ -32,37 +25,31 @@ export default new Event({
 			name: "SkyFest Star Jar",
 			cosmetic: Cosmetic.SkyFestStarJar,
 			cost: { eventTickets: 15 },
-			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp70,
 		},
 		{
 			name: "SkyFest 5th Anniversary T-shirt",
 			cosmetic: Cosmetic.SkyFest5thAnniversaryTShirt,
 			cost: { eventTickets: 10 },
-			emoji: OUTFIT_EMOJIS.Outfit59,
 		},
 		{
 			name: "SkyFest 5th Anniversary Headband",
 			cosmetic: Cosmetic.SkyFest5thAnniversaryHeadband,
 			cost: { eventTickets: 3 },
-			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory42,
 		},
 		{
 			name: "SkyFest Jenova Fan",
 			cosmetic: Cosmetic.SkyFestJenovaFan,
 			cost: { eventTickets: 7 },
-			emoji: HELD_PROPS_EMOJIS.HeldProp43,
 		},
 		{
 			name: "SkyFest Oreo Headband",
 			cosmetic: Cosmetic.SkyFestOreoHeadband,
 			cost: { money: 4.99 },
-			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory43,
 		},
 		{
 			name: "SkyFest Wireframe Cape",
 			cosmetic: Cosmetic.SkyFestWireframeCape,
 			cost: { money: 19.99 },
-			emoji: CAPE_EMOJIS.Cape132,
 		},
 	],
 	patchNotesURL: String(new URL("p0260", LINK_REDIRECTOR_URL)),

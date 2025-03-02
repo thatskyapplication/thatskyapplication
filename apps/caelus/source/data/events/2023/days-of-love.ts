@@ -2,11 +2,6 @@ import { URL } from "node:url";
 import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import {
-	HELD_PROPS_EMOJIS,
-	LARGE_PLACEABLE_PROPS_EMOJIS,
-	NECKLACE_EMOJIS,
-} from "../../../utility/emojis.js";
 
 export default new Event({
 	id: EventId.DaysOfLove2023,
@@ -17,19 +12,16 @@ export default new Event({
 			name: "Days of Love Flowery Archway",
 			cosmetic: Cosmetic.DaysOfLoveFloweryArchway,
 			cost: { candles: 100 },
-			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp31,
 		},
 		{
 			name: "Days of Love Classy Cravat",
 			cosmetic: Cosmetic.DaysOfLoveClassyCravat,
 			cost: { money: 4.99 },
-			emoji: NECKLACE_EMOJIS.Necklace28,
 		},
 		{
 			name: "Days of Love Serendipitous Sceptre",
 			cosmetic: Cosmetic.DaysOfLoveSerendipitousSceptre,
 			cost: { money: 14.99 },
-			emoji: HELD_PROPS_EMOJIS.HeldProp33,
 		},
 	],
 	patchNotesURL: String(new URL("p0200", LINK_REDIRECTOR_URL)),

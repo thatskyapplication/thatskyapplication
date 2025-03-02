@@ -2,12 +2,6 @@ import { URL } from "node:url";
 import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import {
-	HAIR_ACCESSORY_EMOJIS,
-	HAIR_EMOJIS,
-	HELD_PROPS_EMOJIS,
-	OUTFIT_EMOJIS,
-} from "../../../utility/emojis.js";
 
 const eventTicketAmount = [];
 
@@ -45,25 +39,21 @@ export default new Event({
 			name: "Tournament Curls",
 			cosmetic: Cosmetic.TournamentCurls,
 			cost: { eventTickets: 25 },
-			emoji: HAIR_EMOJIS.Hair148,
 		},
 		{
 			name: "Tournament Torch",
 			cosmetic: Cosmetic.TournamentTorch,
 			cost: { eventTickets: 37 },
-			emoji: HELD_PROPS_EMOJIS.HeldProp45,
 		},
 		{
 			name: "Tournament Golden Garland",
 			cosmetic: Cosmetic.TournamentGoldenGarland,
 			cost: { money: 4.99 },
-			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory44,
 		},
 		{
 			name: "Tournament Tunic",
 			cosmetic: Cosmetic.TournamentTunic,
 			cost: { money: 9.99 },
-			emoji: OUTFIT_EMOJIS.Outfit64,
 		},
 	],
 	patchNotesURL: String(new URL("p0260", LINK_REDIRECTOR_URL)),

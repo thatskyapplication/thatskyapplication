@@ -2,7 +2,6 @@ import { URL } from "node:url";
 import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import { HAIR_ACCESSORY_EMOJIS, OUTFIT_EMOJIS } from "../../../utility/emojis.js";
 
 const eventTicketAmount = [];
 
@@ -29,13 +28,11 @@ export default new Event({
 			name: "Style Darkness Fascinator",
 			cosmetic: Cosmetic.StyleDarknessFascinator,
 			cost: { eventTickets: 15 },
-			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory46,
 		},
 		{
 			name: "Style Dazzling Dress",
 			cosmetic: Cosmetic.StyleDazzlingDress,
 			cost: { eventTickets: 34 },
-			emoji: OUTFIT_EMOJIS.Outfit67,
 		},
 		{
 			name: "Style Dapper Trio",
@@ -45,7 +42,6 @@ export default new Event({
 				Cosmetic.StyleDapperNecktie,
 			],
 			cost: { money: 14.99 },
-			emoji: OUTFIT_EMOJIS.Outfit68,
 		},
 	],
 	patchNotesURL: String(new URL("p0265", LINK_REDIRECTOR_URL)),

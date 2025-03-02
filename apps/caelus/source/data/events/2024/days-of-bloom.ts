@@ -3,7 +3,6 @@ import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import { CDN_URL } from "../../../utility/constants.js";
-import { CAPE_EMOJIS, HAIR_EMOJIS, HELD_PROPS_EMOJIS } from "../../../utility/emojis.js";
 
 export default new Event({
 	id: EventId.DaysOfBloom2024,
@@ -165,25 +164,21 @@ export default new Event({
 			name: "Bloom Arum Petal Hair",
 			cosmetic: Cosmetic.BloomArumPetalHair,
 			cost: { hearts: 25 },
-			emoji: HAIR_EMOJIS.Hair141,
 		},
 		{
 			name: "Bloom Spiky Sprig Hair",
 			cosmetic: Cosmetic.BloomSpikySprigHair,
 			cost: { eventTickets: 24 },
-			emoji: HAIR_EMOJIS.Hair140,
 		},
 		{
 			name: "Bloom Arum Petal Cape",
 			cosmetic: Cosmetic.BloomArumPetalCape,
 			cost: { eventTickets: 48 },
-			emoji: CAPE_EMOJIS.Cape128,
 		},
 		{
 			name: "Bloom Lilypad Umbrella",
 			cosmetic: Cosmetic.BloomLilypadUmbrella,
 			cost: { money: 14.99 },
-			emoji: HELD_PROPS_EMOJIS.HeldProp42,
 		},
 	],
 	patchNotesURL: String(new URL("p0245", LINK_REDIRECTOR_URL)),

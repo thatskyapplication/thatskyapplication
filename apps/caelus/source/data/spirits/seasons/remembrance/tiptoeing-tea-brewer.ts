@@ -6,21 +6,8 @@ import {
 	SpiritEmote,
 	SpiritId,
 } from "@thatskyapplication/utility";
-import {
-	CAPE_EMOJIS,
-	HAIR_EMOJIS,
-	MISCELLANEOUS_EMOJIS,
-	OUTFIT_EMOJIS,
-	SEASON_EMOJIS,
-} from "../../../../utility/emojis.js";
-import { SpiritEmoteToEmoji } from "../../../../utility/spirits.js";
 
 const emote = SpiritEmote.Tiptoeing;
-const emoteEmoji = SpiritEmoteToEmoji[emote];
-const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
-const outfitEmoji = OUTFIT_EMOJIS.Outfit42;
-const hairEmoji = HAIR_EMOJIS.Hair121;
-const capeEmoji = CAPE_EMOJIS.Cape100;
 
 export default new SeasonalSpirit({
 	id: SpiritId.TiptoeingTeaBrewer,
@@ -30,41 +17,36 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteTiptoeing1, emoji: emoteEmoji },
-			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteTiptoeing2, emoji: emoteEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteTiptoeing1 },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteTiptoeing2 },
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.TiptoeingTeaBrewerBlessing1,
 				cost: { seasonalCandles: 14 },
-				emoji: blessing3,
 			},
-			{ name: "Hair", cosmetic: Cosmetic.TiptoeingTeaBrewerHair, emoji: hairEmoji },
+			{ name: "Hair", cosmetic: Cosmetic.TiptoeingTeaBrewerHair },
 			{
 				name: `${emote} 3`,
 				cosmetic: Cosmetic.EmoteTiptoeing3,
 				cost: { seasonalCandles: 24 },
-				emoji: emoteEmoji,
 			},
-			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteTiptoeing4, emoji: emoteEmoji },
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteTiptoeing4 },
 			{
 				name: "Blessing 2",
 				cosmetic: Cosmetic.TiptoeingTeaBrewerBlessing2,
 				cost: { seasonalCandles: 34 },
-				emoji: blessing3,
 			},
-			{ name: "Outfit", cosmetic: Cosmetic.TiptoeingTeaBrewerOutfit, emoji: outfitEmoji },
+			{ name: "Outfit", cosmetic: Cosmetic.TiptoeingTeaBrewerOutfit },
 			{
 				name: "Cape",
 				cosmetic: Cosmetic.TiptoeingTeaBrewerCape,
 				cost: { seasonalCandles: 38 },
-				emoji: capeEmoji,
 			},
-			{ name: "Blessing 3", cosmetic: Cosmetic.TiptoeingTeaBrewerBlessing3, emoji: blessing3 },
+			{ name: "Blessing 3", cosmetic: Cosmetic.TiptoeingTeaBrewerBlessing3 },
 			{
 				name: "Seasonal heart",
 				cosmetic: Cosmetic.TiptoeingTeaBrewerSeasonalHeart,
 				cost: { seasonalCandles: 3 },
-				emoji: SEASON_EMOJIS.RemembranceHeart,
 			},
 		],
 	},

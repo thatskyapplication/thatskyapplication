@@ -2,7 +2,6 @@ import { URL } from "node:url";
 import { Cosmetic, RealmName, SeasonId, skyDate } from "@thatskyapplication/utility";
 import { Season } from "../../../../models/Season.js";
 import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
-import { CAPE_EMOJIS, FACE_ACCESSORY_EMOJIS } from "../../../../utility/emojis.js";
 import FeudalLord from "./feudal-lord.js";
 import HerbGatherer from "./herb-gatherer.js";
 import Hunter from "./hunter.js";
@@ -20,13 +19,11 @@ export default new Season({
 			name: "Gift of the Nine-Coloured Deer",
 			cosmetic: Cosmetic.GiftOfTheNineColouredDeer,
 			cost: { money: 14.99 },
-			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory34,
 		},
 		{
 			name: "Radiance of the Nine-Coloured Deer",
 			cosmetic: Cosmetic.RadianceOfTheNineColouredDeer,
 			cost: { money: 19.99 },
-			emoji: CAPE_EMOJIS.Cape125,
 		},
 	],
 	seasonalCandlesRotation: [

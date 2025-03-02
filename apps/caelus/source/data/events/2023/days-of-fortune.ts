@@ -2,7 +2,6 @@ import { URL } from "node:url";
 import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import { HELD_PROPS_EMOJIS, MASK_EMOJIS, OUTFIT_EMOJIS } from "../../../utility/emojis.js";
 
 export default new Event({
 	id: EventId.DaysOfFortune2023,
@@ -13,19 +12,16 @@ export default new Event({
 			name: "Days of Fortune Rabbit Mask",
 			cosmetic: Cosmetic.DaysOfFortuneRabbitMask,
 			cost: { candles: 62 },
-			emoji: MASK_EMOJIS.Mask75,
 		},
 		{
 			name: "Days of Fortune Muralist's Smock",
 			cosmetic: Cosmetic.DaysOfFortuneMuralistsSmock,
 			cost: { money: 9.99 },
-			emoji: OUTFIT_EMOJIS.Outfit43,
 		},
 		{
 			name: "Days of Fortune Enchanted Umbrella",
 			cosmetic: Cosmetic.DaysOfFortuneEnchantedUmbrella,
 			cost: { money: 14.99 },
-			emoji: HELD_PROPS_EMOJIS.HeldProp32,
 		},
 	],
 	patchNotesURL: String(new URL("p0200", LINK_REDIRECTOR_URL)),

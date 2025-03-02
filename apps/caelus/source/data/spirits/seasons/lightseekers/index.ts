@@ -1,6 +1,5 @@
 import { Cosmetic, SeasonId, skyDate } from "@thatskyapplication/utility";
 import { Season } from "../../../../models/Season.js";
-import { HELD_PROPS_EMOJIS, NECKLACE_EMOJIS } from "../../../../utility/emojis.js";
 import CrabWhisperer from "./crab-whisperer.js";
 import DoublefiveLightCatcher from "./doublefive-light-catcher.js";
 import LaidbackPioneer from "./laidback-pioneer.js";
@@ -23,11 +22,10 @@ export default new Season({
 		ShushingLightScholar,
 	],
 	items: [
-		{ name: "Pendant", cosmetic: Cosmetic.LightseekerPendant, emoji: NECKLACE_EMOJIS.Necklace02 },
+		{ name: "Pendant", cosmetic: Cosmetic.LightseekerPendant },
 		{
 			name: "Ultimate prop",
 			cosmetic: Cosmetic.LightseekerUltimateProp,
-			emoji: HELD_PROPS_EMOJIS.HeldProp12,
 		},
 	],
 	seasonalCandlesRotation: null,

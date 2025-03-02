@@ -6,24 +6,8 @@ import {
 	SpiritEmote,
 	SpiritId,
 } from "@thatskyapplication/utility";
-import {
-	CAPE_EMOJIS,
-	HAIR_EMOJIS,
-	MASK_EMOJIS,
-	MISCELLANEOUS_EMOJIS,
-	OUTFIT_EMOJIS,
-	SEASON_EMOJIS,
-} from "../../../../utility/emojis.js";
-import { SpiritEmoteToEmoji } from "../../../../utility/spirits.js";
 
 const emote = SpiritEmote.Anxious;
-const emoteEmoji = SpiritEmoteToEmoji[emote];
-const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
-const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
-const outfitEmoji = OUTFIT_EMOJIS.Outfit29;
-const maskEmoji = MASK_EMOJIS.Mask57;
-const hairEmoji = HAIR_EMOJIS.Hair100;
-const capeEmoji = CAPE_EMOJIS.Cape71;
 
 export default new SeasonalSpirit({
 	id: SpiritId.AnxiousAngler,
@@ -32,117 +16,100 @@ export default new SeasonalSpirit({
 	realm: RealmName.GoldenWasteland,
 	offer: {
 		seasonal: [
-			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteAnxious1, emoji: emoteEmoji },
-			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteAnxious2, emoji: emoteEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteAnxious1 },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteAnxious2 },
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.AnxiousAnglerBlessing1,
 				cost: { seasonalCandles: 8 },
-				emoji: blessing2,
 			},
-			{ name: "Mask", cosmetic: Cosmetic.AnxiousAnglerMask, emoji: maskEmoji },
+			{ name: "Mask", cosmetic: Cosmetic.AnxiousAnglerMask },
 			{
 				name: "Hair",
 				cosmetic: Cosmetic.AnxiousAnglerHair,
 				cost: { seasonalCandles: 14 },
-				emoji: hairEmoji,
 			},
-			{ name: "Blessing 2", cosmetic: Cosmetic.AnxiousAnglerBlessing2, emoji: blessing3 },
+			{ name: "Blessing 2", cosmetic: Cosmetic.AnxiousAnglerBlessing2 },
 			{
 				name: `${emote} 3`,
 				cosmetic: Cosmetic.EmoteAnxious3,
 				cost: { seasonalCandles: 18 },
-				emoji: emoteEmoji,
 			},
-			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteAnxious4, emoji: emoteEmoji },
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteAnxious4 },
 			{
 				name: "Blessing 3",
 				cosmetic: Cosmetic.AnxiousAnglerBlessing3,
 				cost: { seasonalCandles: 22 },
-				emoji: blessing3,
 			},
-			{ name: "Cape", cosmetic: Cosmetic.AnxiousAnglerCape, emoji: capeEmoji },
+			{ name: "Cape", cosmetic: Cosmetic.AnxiousAnglerCape },
 			{
 				name: "Outfit",
 				cosmetic: Cosmetic.AnxiousAnglerOutfit,
 				cost: { seasonalCandles: 38 },
-				emoji: outfitEmoji,
 			},
-			{ name: "Blessing 4", cosmetic: Cosmetic.AnxiousAnglerBlessing4, emoji: blessing3 },
+			{ name: "Blessing 4", cosmetic: Cosmetic.AnxiousAnglerBlessing4 },
 			{
 				name: "Seasonal heart",
 				cosmetic: Cosmetic.AnxiousAnglerSeasonalHeart,
 				cost: { seasonalCandles: 3 },
-				emoji: SEASON_EMOJIS.AbyssHeart,
 			},
 		],
 		current: [
-			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteAnxious1, emoji: emoteEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteAnxious1 },
 			{
 				name: `${emote} 2`,
 				cosmetic: Cosmetic.EmoteAnxious2,
 				cost: { hearts: 4 },
-				emoji: emoteEmoji,
 			},
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.AnxiousAnglerBlessing1,
 				cost: { candles: 5 },
-				emoji: blessing2,
 			},
 			{
 				name: "Hair",
 				cosmetic: Cosmetic.AnxiousAnglerHair,
 				cost: { candles: 45 },
-				emoji: hairEmoji,
 			},
 			{
 				name: "heart",
 				cosmetic: Cosmetic.AnxiousAnglerSeasonalHeart,
 				cost: { candles: 3 },
-				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
 			{
 				name: "Wing buff",
 				cosmetic: Cosmetic.AnxiousAnglerWingBuff,
 				cost: { ascendedCandles: 2 },
-				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
 			{
 				name: `${emote} 3`,
 				cosmetic: Cosmetic.EmoteAnxious3,
 				cost: { hearts: 3 },
-				emoji: emoteEmoji,
 			},
 			{
 				name: `${emote} 4`,
 				cosmetic: Cosmetic.EmoteAnxious4,
 				cost: { hearts: 6 },
-				emoji: emoteEmoji,
 			},
 			{
 				name: "Mask",
 				cosmetic: Cosmetic.AnxiousAnglerMask,
 				cost: { candles: 35 },
-				emoji: maskEmoji,
 			},
 			{
 				name: "Blessing 2",
 				cosmetic: Cosmetic.AnxiousAnglerBlessing2,
 				cost: { candles: 5 },
-				emoji: blessing3,
 			},
 			{
 				name: "Cape",
 				cosmetic: Cosmetic.AnxiousAnglerCape,
 				cost: { candles: 70 },
-				emoji: capeEmoji,
 			},
 			{
 				name: "Outfit",
 				cosmetic: Cosmetic.AnxiousAnglerOutfit,
 				cost: { candles: 65 },
-				emoji: outfitEmoji,
 			},
 		],
 	},

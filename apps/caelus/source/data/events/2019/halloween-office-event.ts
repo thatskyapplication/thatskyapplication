@@ -1,6 +1,5 @@
 import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
-import { CAPE_EMOJIS, HAIR_EMOJIS } from "../../../utility/emojis.js";
 
 export default new Event({
 	id: EventId.HalloweenOfficeEvent2019,
@@ -11,13 +10,11 @@ export default new Event({
 			name: "Spooky Bat Cape",
 			cosmetic: Cosmetic.SpookyBatCape,
 			cost: { money: 14.99 },
-			emoji: CAPE_EMOJIS.Cape19,
 		},
 		{
 			name: "Hungry Pumpkin Hat",
 			cosmetic: Cosmetic.HungryPumpkinHat,
 			cost: { money: 9.99 },
-			emoji: HAIR_EMOJIS.Hair45,
 		},
 	],
 	patchNotesURL: "https://sky-children-of-the-light.fandom.com/wiki/Update:Live_0.6.5_(142170)",

@@ -6,21 +6,8 @@ import {
 	SpiritEmote,
 	SpiritId,
 } from "@thatskyapplication/utility";
-import {
-	CAPE_EMOJIS,
-	HAIR_EMOJIS,
-	MASK_EMOJIS,
-	MISCELLANEOUS_EMOJIS,
-	SEASON_EMOJIS,
-} from "../../../../utility/emojis.js";
-import { SpiritEmoteToEmoji } from "../../../../utility/spirits.js";
 
 const emote = SpiritEmote.Scold;
-const emoteEmoji = SpiritEmoteToEmoji[emote];
-const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
-const maskEmoji = MASK_EMOJIS.Mask48;
-const hairEmoji = HAIR_EMOJIS.Hair81;
-const capeEmoji = CAPE_EMOJIS.Cape53;
 
 export default new SeasonalSpirit({
 	id: SpiritId.ScoldingStudent,
@@ -30,104 +17,89 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteScold1, emoji: emoteEmoji },
-			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteScold2, emoji: emoteEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteScold1 },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteScold2 },
 			{
 				name: "Mask",
 				cosmetic: Cosmetic.ScoldingStudentMask,
 				cost: { seasonalCandles: 10 },
-				emoji: maskEmoji,
 			},
-			{ name: "Blessing 1", cosmetic: Cosmetic.ScoldingStudentBlessing1, emoji: blessing2 },
+			{ name: "Blessing 1", cosmetic: Cosmetic.ScoldingStudentBlessing1 },
 			{
 				name: `${emote} 3`,
 				cosmetic: Cosmetic.EmoteScold3,
 				cost: { seasonalCandles: 16 },
-				emoji: emoteEmoji,
 			},
-			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteScold4, emoji: emoteEmoji },
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteScold4 },
 			{
 				name: "Hair",
 				cosmetic: Cosmetic.ScoldingStudentHair,
 				cost: { seasonalCandles: 18 },
-				emoji: hairEmoji,
 			},
-			{ name: "Blessing 2", cosmetic: Cosmetic.ScoldingStudentBlessing2, emoji: blessing2 },
+			{ name: "Blessing 2", cosmetic: Cosmetic.ScoldingStudentBlessing2 },
 			{
 				name: "Blessing 3",
 				cosmetic: Cosmetic.ScoldingStudentBlessing3,
 				cost: { seasonalCandles: 20 },
-				emoji: blessing2,
 			},
-			{ name: "Cape", cosmetic: Cosmetic.ScoldingStudentCape, emoji: capeEmoji },
+			{ name: "Cape", cosmetic: Cosmetic.ScoldingStudentCape },
 			{
 				name: "Seasonal heart",
 				cosmetic: Cosmetic.ScoldingStudentSeasonalHeart,
 				cost: { seasonalCandles: 3 },
-				emoji: SEASON_EMOJIS.AssemblyHeart,
 			},
 		],
 		current: [
-			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteScold1, emoji: emoteEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteScold1 },
 			{
 				name: `${emote} 2`,
 				cosmetic: Cosmetic.EmoteScold2,
 				cost: { hearts: 4 },
-				emoji: emoteEmoji,
 			},
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.ScoldingStudentBlessing1,
 				cost: { candles: 5 },
-				emoji: blessing2,
 			},
 			{
 				name: "Mask",
 				cosmetic: Cosmetic.ScoldingStudentMask,
 				cost: { candles: 24 },
-				emoji: maskEmoji,
 			},
 			{
 				name: "Heart",
 				cosmetic: Cosmetic.ScoldingStudentSeasonalHeart,
 				cost: { candles: 3 },
-				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
 			{
 				name: "Wing buff",
 				cosmetic: Cosmetic.ScoldingStudentWingBuff,
 				cost: { ascendedCandles: 2 },
-				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
 			{
 				name: `${emote} 3`,
 				cosmetic: Cosmetic.EmoteScold3,
 				cost: { hearts: 3 },
-				emoji: emoteEmoji,
 			},
 			{
 				name: `${emote} 4`,
 				cosmetic: Cosmetic.EmoteScold4,
 				cost: { hearts: 6 },
-				emoji: emoteEmoji,
 			},
 			{
 				name: "Blessing 2",
 				cosmetic: Cosmetic.ScoldingStudentBlessing2,
 				cost: { candles: 5 },
-				emoji: blessing2,
 			},
 			{
 				name: "Hair",
 				cosmetic: Cosmetic.ScoldingStudentHair,
 				cost: { candles: 50 },
-				emoji: hairEmoji,
 			},
 			{
 				name: "Cape",
 				cosmetic: Cosmetic.ScoldingStudentCape,
 				cost: { candles: 70 },
-				emoji: capeEmoji,
 			},
 		],
 	},

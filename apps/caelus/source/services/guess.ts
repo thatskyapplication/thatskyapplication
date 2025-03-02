@@ -47,7 +47,7 @@ import {
 	GUESS_TRY_AGAIN,
 	GuessDifficultyToStreakColumn,
 } from "../utility/constants.js";
-import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import { CosmeticToEmoji, FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { getRandomElement, interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 import { SPIRIT_COSMETIC_EMOJIS_ARRAY } from "../utility/guess.js";
 
@@ -69,7 +69,7 @@ function getAnswer(): [Snowflake, StandardSpirit | ElderSpirit | SeasonalSpirit 
 		spirit = spirits().find((spirit) =>
 			(spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
 				? spirit.current
-				: spirit.items)!.some((item) => item.emoji?.id === emoji),
+				: spirit.items)!.some((item) => CosmeticToEmoji[item.cosmetics[0]!]?.id === emoji),
 		)!;
 	}
 

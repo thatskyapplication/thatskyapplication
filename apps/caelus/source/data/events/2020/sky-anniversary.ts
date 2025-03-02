@@ -2,7 +2,6 @@ import { URL } from "node:url";
 import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import { HAIR_ACCESSORY_EMOJIS } from "../../../utility/emojis.js";
 
 export default new Event({
 	id: EventId.SkyAnniversary2020,
@@ -13,7 +12,6 @@ export default new Event({
 			name: "Hair accessory",
 			cosmetic: Cosmetic.SkyAnniversaryHairAccessory1,
 			cost: { hearts: 3 },
-			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory03,
 		},
 	],
 	patchNotesURL: String(new URL("p0100", LINK_REDIRECTOR_URL)),

@@ -2,7 +2,6 @@ import { URL } from "node:url";
 import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import { CAPE_EMOJIS, HAIR_EMOJIS, MASK_EMOJIS, NECKLACE_EMOJIS } from "../../../utility/emojis.js";
 
 const eventTicketAmount = [];
 
@@ -26,25 +25,21 @@ export default new Event({
 			name: "Ocean Mask",
 			cosmetic: Cosmetic.OceanMask,
 			cost: { eventTickets: 16 },
-			emoji: MASK_EMOJIS.Mask91,
 		},
 		{
 			name: "Ocean Blue Scarf",
 			cosmetic: Cosmetic.OceanBlueScarf,
 			cost: { eventTickets: 40 },
-			emoji: NECKLACE_EMOJIS.Necklace36,
 		},
 		{
 			name: "Nature Wave Pack",
 			cosmetic: Cosmetic.NatureWaveCape,
 			cost: { money: 19.99 },
-			emoji: CAPE_EMOJIS.Cape131,
 		},
 		{
 			name: "Nature Wave-Touched Hair",
 			cosmetic: Cosmetic.NatureWaveTouchedHair,
 			cost: { money: 6.99 },
-			emoji: HAIR_EMOJIS.Hair144,
 		},
 	],
 	patchNotesURL: String(new URL("p0255", LINK_REDIRECTOR_URL)),

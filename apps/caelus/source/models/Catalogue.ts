@@ -74,7 +74,7 @@ import {
 	resolveCostToString,
 } from "../utility/catalogue.js";
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../utility/constants.js";
-import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import { CosmeticToEmoji, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import {
 	interactedComponent,
 	interactionInvoker,
@@ -906,12 +906,14 @@ export class Catalogue {
 		];
 
 		if (season.items.length > 0) {
-			const itemsOptions = season.items.map(({ emoji, name, cosmetics }) => {
+			const itemsOptions = season.items.map(({ name, cosmetics }) => {
 				const stringSelectMenuOption: APISelectMenuOption = {
 					default: cosmetics.every((cosmetic) => catalogue.data.has(cosmetic)),
 					label: name,
 					value: JSON.stringify(cosmetics),
 				};
+
+				const emoji = CosmeticToEmoji[cosmetics[0]!];
 
 				if (emoji) {
 					stringSelectMenuOption.emoji = emoji;
@@ -1308,12 +1310,14 @@ export class Catalogue {
 				style: ButtonStyle.Success,
 			});
 
-			const itemSelectionOptions = offer.map(({ emoji, name, cosmetics }) => {
+			const itemSelectionOptions = offer.map(({ name, cosmetics }) => {
 				const stringSelectMenuOption: APISelectMenuOption = {
 					default: cosmetics.every((cosmetic) => this.data.has(cosmetic)),
 					label: name,
 					value: JSON.stringify(cosmetics),
 				};
+
+				const emoji = CosmeticToEmoji[cosmetics[0]!];
 
 				if (emoji) {
 					stringSelectMenuOption.emoji = emoji;
@@ -1509,12 +1513,14 @@ export class Catalogue {
 				style: ButtonStyle.Success,
 			});
 
-			const itemSelectionOptions = offer.map(({ emoji, name, cosmetics }) => {
+			const itemSelectionOptions = offer.map(({ name, cosmetics }) => {
 				const stringSelectMenuOption: APISelectMenuOption = {
 					default: cosmetics.every((cosmetic) => this.data.has(cosmetic)),
 					label: name,
 					value: JSON.stringify(cosmetics),
 				};
+
+				const emoji = CosmeticToEmoji[cosmetics[0]!];
 
 				if (emoji) {
 					stringSelectMenuOption.emoji = emoji;
@@ -1581,12 +1587,14 @@ export class Catalogue {
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 
-		const itemSelectionOptions = STARTER_PACKS.items.map(({ emoji, name, cosmetics }) => {
+		const itemSelectionOptions = STARTER_PACKS.items.map(({ name, cosmetics }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => catalogue.data.has(cosmetic)),
 				label: name,
 				value: JSON.stringify(cosmetics),
 			};
+
+			const emoji = CosmeticToEmoji[cosmetics[0]!];
 
 			if (emoji) {
 				stringSelectMenuOption.emoji = emoji;
@@ -1651,12 +1659,14 @@ export class Catalogue {
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 
-		const itemSelectionOptions = SECRET_AREA.items.map(({ emoji, name, cosmetics }) => {
+		const itemSelectionOptions = SECRET_AREA.items.map(({ name, cosmetics }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => catalogue.data.has(cosmetic)),
 				label: name,
 				value: JSON.stringify(cosmetics),
 			};
+
+			const emoji = CosmeticToEmoji[cosmetics[0]!];
 
 			if (emoji) {
 				stringSelectMenuOption.emoji = emoji;
@@ -1721,12 +1731,14 @@ export class Catalogue {
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 
-		const itemSelectionOptions = PERMANENT_EVENT_STORE.items.map(({ emoji, name, cosmetics }) => {
+		const itemSelectionOptions = PERMANENT_EVENT_STORE.items.map(({ name, cosmetics }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => catalogue.data.has(cosmetic)),
 				label: name,
 				value: JSON.stringify(cosmetics),
 			};
+
+			const emoji = CosmeticToEmoji[cosmetics[0]!];
 
 			if (emoji) {
 				stringSelectMenuOption.emoji = emoji;
@@ -1791,12 +1803,14 @@ export class Catalogue {
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 
-		const itemSelectionOptions = NESTING_WORKSHOP.items.map(({ emoji, name, cosmetics }) => {
+		const itemSelectionOptions = NESTING_WORKSHOP.items.map(({ name, cosmetics }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => catalogue.data.has(cosmetic)),
 				label: name,
 				value: JSON.stringify(cosmetics),
 			};
+
+			const emoji = CosmeticToEmoji[cosmetics[0]!];
 
 			if (emoji) {
 				stringSelectMenuOption.emoji = emoji;
@@ -2199,7 +2213,8 @@ export class Catalogue {
 		const owned = [];
 		const unowned = [];
 
-		for (const { name, cosmetics, emoji } of offer) {
+		for (const { name, cosmetics } of offer) {
+			const emoji = CosmeticToEmoji[cosmetics[0]!];
 			const toPush = emoji ? formatEmoji(emoji) : name;
 
 			if (cosmetics.every((cosmetic) => this.data.has(cosmetic))) {

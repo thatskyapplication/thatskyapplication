@@ -1,12 +1,10 @@
 import { Cosmetic, resolveAllCosmetics, resolveOffer } from "@thatskyapplication/utility";
-import { CAPE_EMOJIS } from "../utility/emojis.js";
 
 const items = resolveOffer([
 	{
 		name: "Starter Pack",
 		cosmetic: Cosmetic.MobileCape,
 		cost: { money: 4.99 },
-		emoji: CAPE_EMOJIS.Cape03,
 	},
 	{
 		name: "Nintendo Pack",
@@ -17,7 +15,6 @@ const items = resolveOffer([
 			Cosmetic.ElvishHairstyle,
 		],
 		cost: { money: 29.99 },
-		emoji: CAPE_EMOJIS.Cape57,
 	},
 ]);
 

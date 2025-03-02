@@ -31,7 +31,6 @@ export function resolveOffer(
 	return items.map((item) => ({
 		name: item.name,
 		cosmetics: Array.isArray(item.cosmetic) ? item.cosmetic : [item.cosmetic],
-		emoji: item.emoji ?? null,
 		cost: item.cost
 			? {
 					...item.cost,

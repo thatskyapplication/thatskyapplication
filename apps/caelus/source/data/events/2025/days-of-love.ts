@@ -2,12 +2,6 @@ import { URL } from "node:url";
 import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import {
-	HAIR_ACCESSORY_EMOJIS,
-	HAIR_EMOJIS,
-	MISCELLANEOUS_EMOJIS,
-	SMALL_PLACEABLE_PROPS_EMOJIS,
-} from "../../../utility/emojis.js";
 
 const eventTicketAmount = [];
 
@@ -41,31 +35,26 @@ export default new Event({
 			name: "Violet Crystal",
 			cosmetic: Cosmetic.DaysOfLoveVioletCrystal,
 			cost: { eventTickets: 14 },
-			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp87,
 		},
 		{
 			name: "Braids",
 			cosmetic: Cosmetic.DaysOfLoveBraids,
 			cost: { eventTickets: 35 },
-			emoji: HAIR_EMOJIS.Hair158,
 		},
 		{
 			name: "Purple dye",
 			cosmetic: Cosmetic.DaysOfLovePurpleDye,
 			cost: { eventTickets: 10 },
-			emoji: MISCELLANEOUS_EMOJIS.DyePurple,
 		},
 		{
 			name: "Amethyst Accessory",
 			cosmetic: Cosmetic.DaysOfLoveAmethystAccessory,
 			cost: { money: 2.99 },
-			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory55,
 		},
 		{
 			name: "Amethyst-Tipped Tails",
 			cosmetic: Cosmetic.DaysOfLoveAmethystTippedTails,
 			cost: { money: 6.99 },
-			emoji: HAIR_EMOJIS.Hair159,
 		},
 	],
 	patchNotesURL: String(new URL("p0280", LINK_REDIRECTOR_URL)),

@@ -2,7 +2,6 @@ import { URL } from "node:url";
 import { Cosmetic, SeasonId, skyDate } from "@thatskyapplication/utility";
 import { Season } from "../../../../models/Season.js";
 import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
-import { CAPE_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../../../utility/emojis.js";
 import BeckoningRuler from "./beckoning-ruler.js";
 import GloatingNarcissist from "./gloating-narcissist.js";
 import SlouchingSoldier from "./slouching-soldier.js";
@@ -29,19 +28,16 @@ export default new Season({
 			name: "Little Prince Scarf",
 			cosmetic: Cosmetic.LittlePrinceScarf,
 			cost: { money: 14.99 },
-			emoji: CAPE_EMOJIS.Cape63,
 		},
 		{
 			name: "Little Prince Fox",
 			cosmetic: Cosmetic.LittlePrinceFox,
 			cost: { money: 9.99 },
-			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp06,
 		},
 		{
 			name: "Little Prince Asteroid Jacket",
 			cosmetic: Cosmetic.LittlePrinceAsteroidJacket,
 			cost: { money: 24.99 },
-			emoji: CAPE_EMOJIS.Cape64,
 		},
 	],
 	seasonalCandlesRotation: null,

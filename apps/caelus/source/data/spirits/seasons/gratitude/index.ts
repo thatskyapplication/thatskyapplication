@@ -1,6 +1,5 @@
 import { Cosmetic, SeasonId, skyDate } from "@thatskyapplication/utility";
 import { Season } from "../../../../models/Season.js";
-import { MASK_EMOJIS, NECKLACE_EMOJIS } from "../../../../utility/emojis.js";
 import GratitudeGuide from "./gratitude-guide.js";
 import GreetingShaman from "./greeting-shaman.js";
 import LeapingDancer from "./leaping-dancer.js";
@@ -23,8 +22,8 @@ export default new Season({
 		GreetingShaman,
 	],
 	items: [
-		{ name: "Pendant", cosmetic: Cosmetic.GratitudePendant, emoji: NECKLACE_EMOJIS.Necklace01 },
-		{ name: "Ultimate mask", cosmetic: Cosmetic.GratitudeUltimateMask, emoji: MASK_EMOJIS.Mask10 },
+		{ name: "Pendant", cosmetic: Cosmetic.GratitudePendant },
+		{ name: "Ultimate mask", cosmetic: Cosmetic.GratitudeUltimateMask },
 	],
 	seasonalCandlesRotation: null,
 });

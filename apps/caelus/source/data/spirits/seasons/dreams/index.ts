@@ -2,7 +2,6 @@ import { URL } from "node:url";
 import { Cosmetic, SeasonId, skyDate } from "@thatskyapplication/utility";
 import { Season } from "../../../../models/Season.js";
 import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
-import { NECKLACE_EMOJIS } from "../../../../utility/emojis.js";
 import BearhugHermit from "./bearhug-hermit.js";
 import DancingPerformer from "./dancing-performer.js";
 import DreamsGuide from "./dreams-guide.js";
@@ -15,7 +14,7 @@ export default new Season({
 	end: skyDate(2_021, 3, 15),
 	guide: DreamsGuide,
 	spirits: [SpinningMentor, DancingPerformer, PeekingPostman, BearhugHermit],
-	items: [{ name: "Pendant", cosmetic: Cosmetic.DreamsPendant, emoji: NECKLACE_EMOJIS.Necklace10 }],
+	items: [{ name: "Pendant", cosmetic: Cosmetic.DreamsPendant }],
 	seasonalCandlesRotation: null,
 	patchNotesURL: String(new URL("p0120", LINK_REDIRECTOR_URL)),
 });

@@ -1,11 +1,4 @@
 import { Cosmetic, GuideSpirit, RealmName, SeasonId, SpiritId } from "@thatskyapplication/utility";
-import {
-	CAPE_EMOJIS,
-	MASK_EMOJIS,
-	MISCELLANEOUS_EMOJIS,
-	NECKLACE_EMOJIS,
-	SMALL_PLACEABLE_PROPS_EMOJIS,
-} from "../../../../utility/emojis.js";
 
 export default new GuideSpirit({
 	id: SpiritId.PassageGuide,
@@ -14,77 +7,66 @@ export default new GuideSpirit({
 	offer: {
 		hasInfographic: false,
 		current: [
-			{ name: "Quest 1", cosmetic: Cosmetic.PassageGuideQuest1, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Quest 1", cosmetic: Cosmetic.PassageGuideQuest1 },
 			{
 				name: "Heart 1",
 				cosmetic: Cosmetic.PassageGuideHeart1,
 				cost: { candles: 3 },
-				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
-			{ name: "Pendant", cosmetic: Cosmetic.PassagePendant, emoji: NECKLACE_EMOJIS.Necklace29 },
+			{ name: "Pendant", cosmetic: Cosmetic.PassagePendant },
 			{
 				name: "Ultimate mask",
 				cosmetic: Cosmetic.PassageGuideUltimateMask,
 				cost: { seasonalHearts: 2 },
-				emoji: MASK_EMOJIS.Mask76,
 			},
 			{
 				name: "Ultimate cape",
 				cosmetic: Cosmetic.PassageGuideUltimateCape,
 				cost: { seasonalHearts: 2 },
-				emoji: CAPE_EMOJIS.Cape104,
 			},
-			{ name: "Quest 2", cosmetic: Cosmetic.PassageGuideQuest2, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Quest 2", cosmetic: Cosmetic.PassageGuideQuest2 },
 			{
 				name: "Serow mask",
 				cosmetic: Cosmetic.PassageGuideSerowMask,
 				cost: { candles: 48 },
-				emoji: MASK_EMOJIS.Mask77,
 			},
-			{ name: "Quest 3", cosmetic: Cosmetic.PassageGuideQuest3, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Quest 3", cosmetic: Cosmetic.PassageGuideQuest3 },
 			{
 				name: "Heart 2",
 				cosmetic: Cosmetic.PassageGuideHeart2,
 				cost: { candles: 3 },
-				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
 			{
 				name: "Boar mask",
 				cosmetic: Cosmetic.PassageGuideBoarMask,
 				cost: { candles: 44 },
-				emoji: MASK_EMOJIS.Mask78,
 			},
-			{ name: "Quest 4", cosmetic: Cosmetic.PassageGuideQuest4, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Quest 4", cosmetic: Cosmetic.PassageGuideQuest4 },
 			{
 				name: "Heart 3",
 				cosmetic: Cosmetic.PassageGuideHeart3,
 				cost: { candles: 3 },
-				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
 			{
 				name: "Monkey mask",
 				cosmetic: Cosmetic.PassageGuideMonkeyMask,
 				cost: { candles: 46 },
-				emoji: MASK_EMOJIS.Mask79,
 			},
-			{ name: "Quest 5", cosmetic: Cosmetic.PassageGuideQuest5, emoji: MISCELLANEOUS_EMOJIS.Quest },
+			{ name: "Quest 5", cosmetic: Cosmetic.PassageGuideQuest5 },
 			{
 				name: "Heart 4",
 				cosmetic: Cosmetic.PassageGuideHeart4,
 				cost: { candles: 3 },
-				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
 			{
 				name: "Hacky sack",
 				cosmetic: Cosmetic.PassageGuideHackySack,
 				cost: { hearts: 39 },
-				emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp26,
 			},
 			{
 				name: "Racoon mask",
 				cosmetic: Cosmetic.PassageGuideRacoonMask,
 				cost: { candles: 52 },
-				emoji: MASK_EMOJIS.Mask80,
 			},
 		],
 	},

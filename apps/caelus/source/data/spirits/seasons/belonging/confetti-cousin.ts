@@ -6,20 +6,8 @@ import {
 	SpiritEmote,
 	SpiritId,
 } from "@thatskyapplication/utility";
-import {
-	CAPE_EMOJIS,
-	HAIR_EMOJIS,
-	MISCELLANEOUS_EMOJIS,
-	SEASON_EMOJIS,
-} from "../../../../utility/emojis.js";
-import { SpiritEmoteToEmoji } from "../../../../utility/spirits.js";
 
 const emote = SpiritEmote.Confetti;
-const emoteEmoji = SpiritEmoteToEmoji[emote];
-const blessing1 = MISCELLANEOUS_EMOJIS.Blessing1;
-const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
-const hairEmoji = HAIR_EMOJIS.Hair46;
-const capeEmoji = CAPE_EMOJIS.Cape20;
 
 export default new SeasonalSpirit({
 	id: SpiritId.ConfettiCousin,
@@ -28,91 +16,78 @@ export default new SeasonalSpirit({
 	realm: RealmName.DaylightPrairie,
 	offer: {
 		seasonal: [
-			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteConfetti1, emoji: emoteEmoji },
-			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteConfetti2, emoji: emoteEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteConfetti1 },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteConfetti2 },
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.ConfettiCousinBlessing1,
 				cost: { seasonalCandles: 8 },
-				emoji: blessing1,
 			},
-			{ name: "Blessing 2", cosmetic: Cosmetic.ConfettiCousinBlessing2, emoji: blessing2 },
+			{ name: "Blessing 2", cosmetic: Cosmetic.ConfettiCousinBlessing2 },
 			{
 				name: `${emote} 3`,
 				cosmetic: Cosmetic.EmoteConfetti3,
 				cost: { seasonalCandles: 10 },
-				emoji: emoteEmoji,
 			},
-			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteConfetti4, emoji: emoteEmoji },
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteConfetti4 },
 			{
 				name: "Cape",
 				cosmetic: Cosmetic.ConfettiCousinCape,
 				cost: { seasonalCandles: 12 },
-				emoji: capeEmoji,
 			},
-			{ name: "Hair", cosmetic: Cosmetic.ConfettiCousinHair, emoji: hairEmoji },
+			{ name: "Hair", cosmetic: Cosmetic.ConfettiCousinHair },
 			{
 				name: "Seasonal heart",
 				cosmetic: Cosmetic.ConfettiCousinSeasonalHeart,
 				cost: { seasonalCandles: 3 },
-				emoji: SEASON_EMOJIS.BelongingHeart,
 			},
 		],
 		current: [
-			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteConfetti1, emoji: emoteEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteConfetti1 },
 			{
 				name: `${emote} 2`,
 				cosmetic: Cosmetic.EmoteConfetti2,
 				cost: { hearts: 4 },
-				emoji: emoteEmoji,
 			},
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.ConfettiCousinBlessing1,
 				cost: { candles: 5 },
-				emoji: blessing2,
 			},
 			{
 				name: "Hair",
 				cosmetic: Cosmetic.ConfettiCousinHair,
 				cost: { candles: 42 },
-				emoji: hairEmoji,
 			},
 			{
 				name: "Heart",
 				cosmetic: Cosmetic.ConfettiCousinSeasonalHeart,
 				cost: { candles: 3 },
-				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
 			{
 				name: "Wing buff",
 				cosmetic: Cosmetic.ConfettiCousinWingBuff,
 				cost: { ascendedCandles: 2 },
-				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
 			{
 				name: `${emote} 3`,
 				cosmetic: Cosmetic.EmoteConfetti3,
 				cost: { hearts: 3 },
-				emoji: emoteEmoji,
 			},
 			{
 				name: `${emote} 4`,
 				cosmetic: Cosmetic.EmoteConfetti4,
 				cost: { hearts: 6 },
-				emoji: emoteEmoji,
 			},
 			{
 				name: "Blessing 2",
 				cosmetic: Cosmetic.ConfettiCousinBlessing2,
 				cost: { candles: 5 },
-				emoji: blessing2,
 			},
 			{
 				name: "Cape",
 				cosmetic: Cosmetic.ConfettiCousinCape,
 				cost: { candles: 60 },
-				emoji: capeEmoji,
 			},
 		],
 	},

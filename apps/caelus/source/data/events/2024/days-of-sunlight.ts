@@ -2,12 +2,6 @@ import { URL } from "node:url";
 import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import {
-	CAPE_EMOJIS,
-	FACE_ACCESSORY_EMOJIS,
-	LARGE_PLACEABLE_PROPS_EMOJIS,
-	OUTFIT_EMOJIS,
-} from "../../../utility/emojis.js";
 
 const eventTicketAmount = [];
 
@@ -34,25 +28,21 @@ export default new Event({
 			name: "Sunlight Manta Float",
 			cosmetic: Cosmetic.SunlightMantaFloat,
 			cost: { eventTickets: 20 },
-			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp71,
 		},
 		{
 			name: "Sunlight Beach Shorts",
 			cosmetic: Cosmetic.SunlightBeachShorts,
 			cost: { eventTickets: 30 },
-			emoji: OUTFIT_EMOJIS.Outfit65,
 		},
 		{
 			name: "Sunlight Helios Hoops",
 			cosmetic: Cosmetic.SunlightHeliosHoops,
 			cost: { money: 2.99 },
-			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory37,
 		},
 		{
 			name: "Sunlight Woven Wrap",
 			cosmetic: Cosmetic.SunlightWovenWrap,
 			cost: { money: 14.99 },
-			emoji: CAPE_EMOJIS.Cape135,
 		},
 	],
 	patchNotesURL: String(new URL("p0265", LINK_REDIRECTOR_URL)),

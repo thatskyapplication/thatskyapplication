@@ -1,6 +1,5 @@
 import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
-import { HAIR_ACCESSORY_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../../../utility/emojis.js";
 
 export default new Event({
 	id: EventId.SkyAnniversary2021,
@@ -11,13 +10,11 @@ export default new Event({
 			name: "Hair accessory",
 			cosmetic: Cosmetic.SkyAnniversaryHairAccessory2,
 			cost: { hearts: 3 },
-			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory06,
 		},
 		{
 			name: "Prop",
 			cosmetic: Cosmetic.SkyAnniversaryProp,
 			cost: { candles: 20 },
-			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp07,
 		},
 	],
 });

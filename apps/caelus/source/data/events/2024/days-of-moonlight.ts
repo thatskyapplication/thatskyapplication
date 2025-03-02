@@ -2,12 +2,6 @@ import { URL } from "node:url";
 import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import {
-	FACE_ACCESSORY_EMOJIS,
-	HAIR_ACCESSORY_EMOJIS,
-	LARGE_PLACEABLE_PROPS_EMOJIS,
-	OUTFIT_EMOJIS,
-} from "../../../utility/emojis.js";
 
 const eventTicketAmount = [];
 
@@ -34,25 +28,21 @@ export default new Event({
 			name: "Moonlight Blossom Accessory",
 			cosmetic: Cosmetic.MoonlightBlossomAccessory,
 			cost: { eventTickets: 17 },
-			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory45,
 		},
 		{
 			name: "Moonlight Lantern Decoration",
 			cosmetic: Cosmetic.MoonlightLanternDecoration,
 			cost: { eventTickets: 32 },
-			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp72,
 		},
 		{
 			name: "Moonlight Earrings",
 			cosmetic: Cosmetic.MoonlightEarrings,
 			cost: { money: 2.99 },
-			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory38,
 		},
 		{
 			name: "Moonlight Frock and Updo",
 			cosmetic: [Cosmetic.MoonlightFrock, Cosmetic.MoonlightUpdo],
 			cost: { money: 14.99 },
-			emoji: OUTFIT_EMOJIS.Outfit66,
 		},
 	],
 	patchNotesURL: String(new URL("p0265", LINK_REDIRECTOR_URL)),

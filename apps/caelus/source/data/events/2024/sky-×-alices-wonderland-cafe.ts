@@ -2,13 +2,6 @@ import { URL } from "node:url";
 import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import {
-	HAIR_ACCESSORY_EMOJIS,
-	HAIR_EMOJIS,
-	LARGE_PLACEABLE_PROPS_EMOJIS,
-	OUTFIT_EMOJIS,
-	SMALL_PLACEABLE_PROPS_EMOJIS,
-} from "../../../utility/emojis.js";
 
 const eventTicketAmount = [];
 
@@ -42,25 +35,21 @@ export default new Event({
 			name: "Wonderland Stacked Hat",
 			cosmetic: Cosmetic.WonderlandStackedHat,
 			cost: { eventTickets: 18 },
-			emoji: HAIR_ACCESSORY_EMOJIS.HairAccessory51,
 		},
 		{
 			name: "Wonderland Frantic Hair",
 			cosmetic: Cosmetic.WonderlandFranticHair,
 			cost: { eventTickets: 30 },
-			emoji: HAIR_EMOJIS.Hair153,
 		},
 		{
 			name: "Wonderland Teacup Bath",
 			cosmetic: Cosmetic.WonderlandTeacupBath,
 			cost: { eventTickets: 36 },
-			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp78,
 		},
 		{
 			name: "Wonderland Hare Hairstyle",
 			cosmetic: Cosmetic.WonderlandHareHairstyle,
 			cost: { candles: 150 },
-			emoji: HAIR_EMOJIS.Hair154,
 		},
 		{
 			name: "Wonderland Primrose Pinafore Set",
@@ -69,13 +58,11 @@ export default new Event({
 				Cosmetic.WonderlandPrimrosePinaforeHairAccessory,
 			],
 			cost: { money: 11.99 },
-			emoji: OUTFIT_EMOJIS.Outfit74,
 		},
 		{
 			name: "Wonderland Cafe Corridor",
 			cosmetic: Cosmetic.WonderlandCafeCorridor,
 			cost: { money: 11.99 },
-			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp86,
 		},
 	],
 	patchNotesURL: String(new URL("p0275", LINK_REDIRECTOR_URL)),

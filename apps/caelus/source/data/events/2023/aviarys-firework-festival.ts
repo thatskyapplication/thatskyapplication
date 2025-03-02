@@ -3,7 +3,6 @@ import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import { CDN_URL } from "../../../utility/constants.js";
-import { CAPE_EMOJIS, FACE_ACCESSORY_EMOJIS, HELD_PROPS_EMOJIS } from "../../../utility/emojis.js";
 
 const eventTicketAmount = [];
 
@@ -34,25 +33,21 @@ export default new Event({
 			name: "Festival Earrings",
 			cosmetic: Cosmetic.FestivalEarrings,
 			cost: { eventTickets: 15 },
-			emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory33,
 		},
 		{
 			name: "Festival Sceptre",
 			cosmetic: Cosmetic.FestivalSceptre,
 			cost: { eventTickets: 36 },
-			emoji: HELD_PROPS_EMOJIS.HeldProp39,
 		},
 		{
 			name: "Moth Appreciation Pack",
 			cosmetic: [Cosmetic.MothAppreciationCape, Cosmetic.MothAppreciationAntennae],
 			cost: { money: 9.99 },
-			emoji: CAPE_EMOJIS.Cape119,
 		},
 		{
 			name: "Sparrow Appreciation Pack",
 			cosmetic: [Cosmetic.SparrowAppreciationCape, Cosmetic.SparrowAppreciationMask],
 			cost: { money: 9.99 },
-			emoji: CAPE_EMOJIS.Cape118,
 		},
 	],
 	patchNotesURL: String(new URL("p0234", LINK_REDIRECTOR_URL)),

@@ -1,6 +1,5 @@
 import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
-import { HAIR_EMOJIS } from "../../../utility/emojis.js";
 
 export default new Event({
 	id: EventId.DaysOfFeast2019,
@@ -11,7 +10,6 @@ export default new Event({
 			name: "Days of Feast Pack",
 			cosmetic: Cosmetic.DaysOfFeastHat,
 			cost: { money: 6.99 },
-			emoji: HAIR_EMOJIS.Hair48,
 		},
 	],
 	patchNotesURL: "https://sky-children-of-the-light.fandom.com/wiki/Update:Live_0.7.5_(144142)",

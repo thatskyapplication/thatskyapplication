@@ -2,12 +2,6 @@ import { URL } from "node:url";
 import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import {
-	CAPE_EMOJIS,
-	LARGE_PLACEABLE_PROPS_EMOJIS,
-	OUTFIT_EMOJIS,
-	SMALL_PLACEABLE_PROPS_EMOJIS,
-} from "../../../utility/emojis.js";
 
 const eventTicketAmount = [];
 
@@ -41,25 +35,21 @@ export default new Event({
 			name: "Marching Band Cape",
 			cosmetic: Cosmetic.MarchingBandCape,
 			cost: { eventTickets: 50 },
-			emoji: CAPE_EMOJIS.Cape139,
 		},
 		{
 			name: "Music Marching Uniform",
 			cosmetic: Cosmetic.MusicMarchingUniform,
 			cost: { money: 9.99 },
-			emoji: OUTFIT_EMOJIS.Outfit72,
 		},
 		{
 			name: "Jam Station",
 			cosmetic: Cosmetic.JamStation,
 			cost: { candles: 250 },
-			emoji: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp77,
 		},
 		{
 			name: "Fledgling Upright Piano",
 			cosmetic: Cosmetic.FledglingUprightPiano,
 			cost: { money: 4.99 },
-			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp84,
 		},
 	],
 	patchNotesURL: String(new URL("p0275", LINK_REDIRECTOR_URL)),

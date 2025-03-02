@@ -3,11 +3,8 @@ import { SpiritEmote } from "@thatskyapplication/utility";
 import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import { SHOE_EMOJIS } from "../../../utility/emojis.js";
-import { SpiritEmoteToEmoji } from "../../../utility/spirits.js";
 
 const emote = SpiritEmote.CureForMeDance;
-const emoteEmoji = SpiritEmoteToEmoji[emote];
 
 export default new Event({
 	id: EventId.AURORAEncoreConcerts2023,
@@ -18,19 +15,16 @@ export default new Event({
 			name: `${emote} 1`,
 			cosmetic: Cosmetic.EmoteCureForMe1,
 			cost: { eventTickets: 12 },
-			emoji: emoteEmoji,
 		},
 		{
 			name: `${emote} 2`,
 			cosmetic: Cosmetic.EmoteCureForMe2,
 			cost: { eventTickets: 33 },
-			emoji: emoteEmoji,
 		},
 		{
 			name: "Musical Voyage Sneakers",
 			cosmetic: Cosmetic.MusicalVoyageSneakers,
 			cost: { money: 6.99 },
-			emoji: SHOE_EMOJIS.Shoe05,
 		},
 	],
 	patchNotesURL: String(new URL("p0225", LINK_REDIRECTOR_URL)),

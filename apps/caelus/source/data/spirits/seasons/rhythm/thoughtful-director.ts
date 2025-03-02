@@ -6,21 +6,8 @@ import {
 	SpiritEmote,
 	SpiritId,
 } from "@thatskyapplication/utility";
-import {
-	CAPE_EMOJIS,
-	HELD_PROPS_EMOJIS,
-	MASK_EMOJIS,
-	MISCELLANEOUS_EMOJIS,
-	SEASON_EMOJIS,
-} from "../../../../utility/emojis.js";
-import { SpiritEmoteToEmoji } from "../../../../utility/spirits.js";
 
 const emote = SpiritEmote.Thinking;
-const emoteEmoji = SpiritEmoteToEmoji[emote];
-const blessing2 = MISCELLANEOUS_EMOJIS.Blessing2;
-const maskEmoji = MASK_EMOJIS.Mask25;
-const capeEmoji = CAPE_EMOJIS.Cape24;
-const heldProp = HELD_PROPS_EMOJIS.HeldProp16;
 
 export default new SeasonalSpirit({
 	id: SpiritId.ThoughtfulDirector,
@@ -29,104 +16,89 @@ export default new SeasonalSpirit({
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		seasonal: [
-			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteThinking1, emoji: emoteEmoji },
-			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteThinking2, emoji: emoteEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteThinking1 },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteThinking2 },
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.ThoughtfulDirectorBlessing1,
 				cost: { seasonalCandles: 16 },
-				emoji: blessing2,
 			},
-			{ name: "Mask", cosmetic: Cosmetic.ThoughtfulDirectorMask, emoji: maskEmoji },
+			{ name: "Mask", cosmetic: Cosmetic.ThoughtfulDirectorMask },
 			{
 				name: `${emote} 3`,
 				cosmetic: Cosmetic.EmoteThinking3,
 				cost: { seasonalCandles: 18 },
-				emoji: emoteEmoji,
 			},
-			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteThinking4, emoji: emoteEmoji },
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteThinking4 },
 			{
 				name: "Xylophone",
 				cosmetic: Cosmetic.ThoughtfulDirectorXylophone,
 				cost: { seasonalCandles: 20 },
-				emoji: heldProp,
 			},
-			{ name: "Blessing 2", cosmetic: Cosmetic.ThoughtfulDirectorBlessing2, emoji: blessing2 },
+			{ name: "Blessing 2", cosmetic: Cosmetic.ThoughtfulDirectorBlessing2 },
 			{
 				name: "Blessing 3",
 				cosmetic: Cosmetic.ThoughtfulDirectorBlessing3,
 				cost: { seasonalCandles: 22 },
-				emoji: blessing2,
 			},
-			{ name: "Cape", cosmetic: Cosmetic.ThoughtfulDirectorCape, emoji: capeEmoji },
+			{ name: "Cape", cosmetic: Cosmetic.ThoughtfulDirectorCape },
 			{
 				name: "Seasonal heart",
 				cosmetic: Cosmetic.ThoughtfulDirectorSeasonalHeart,
 				cost: { seasonalCandles: 3 },
-				emoji: SEASON_EMOJIS.RhythmHeart,
 			},
 		],
 		current: [
-			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteThinking1, emoji: emoteEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteThinking1 },
 			{
 				name: `${emote} 2`,
 				cosmetic: Cosmetic.EmoteThinking2,
 				cost: { hearts: 4 },
-				emoji: emoteEmoji,
 			},
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.ThoughtfulDirectorBlessing1,
 				cost: { candles: 5 },
-				emoji: blessing2,
 			},
 			{
 				name: "Mask",
 				cosmetic: Cosmetic.ThoughtfulDirectorMask,
 				cost: { candles: 42 },
-				emoji: maskEmoji,
 			},
 			{
 				name: "Heart",
 				cosmetic: Cosmetic.ThoughtfulDirectorSeasonalHeart,
 				cost: { candles: 3 },
-				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
 			{
 				name: "Wing buff",
 				cosmetic: Cosmetic.ThoughtfulDirectorWingBuff,
 				cost: { ascendedCandles: 2 },
-				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
 			{
 				name: `${emote} 3`,
 				cosmetic: Cosmetic.EmoteThinking3,
 				cost: { hearts: 3 },
-				emoji: emoteEmoji,
 			},
 			{
 				name: `${emote} 4`,
 				cosmetic: Cosmetic.EmoteThinking4,
 				cost: { hearts: 6 },
-				emoji: emoteEmoji,
 			},
 			{
 				name: "Blessing 2",
 				cosmetic: Cosmetic.ThoughtfulDirectorBlessing2,
 				cost: { candles: 5 },
-				emoji: blessing2,
 			},
 			{
 				name: "Xylophone",
 				cosmetic: Cosmetic.ThoughtfulDirectorXylophone,
 				cost: { candles: 65 },
-				emoji: heldProp,
 			},
 			{
 				name: "Cape",
 				cosmetic: Cosmetic.ThoughtfulDirectorCape,
 				cost: { candles: 75 },
-				emoji: capeEmoji,
 			},
 		],
 	},

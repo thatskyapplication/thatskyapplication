@@ -1,5 +1,4 @@
 import { Cosmetic, ElderSpirit, RealmName, SpiritId } from "@thatskyapplication/utility";
-import { FACE_ACCESSORY_EMOJIS, HAIR_EMOJIS } from "../../../../utility/emojis.js";
 
 export default new ElderSpirit({
 	id: SpiritId.ElderOfTheForest,
@@ -10,13 +9,11 @@ export default new ElderSpirit({
 				name: "Hair",
 				cosmetic: Cosmetic.ElderOfTheForestHair,
 				cost: { ascendedCandles: 6 },
-				emoji: HAIR_EMOJIS.Hair32,
 			},
 			{
 				name: "Face accessory",
 				cosmetic: Cosmetic.ElderOfTheForestFaceAccessory,
 				cost: { ascendedCandles: 250 },
-				emoji: FACE_ACCESSORY_EMOJIS.FaceAccessory20,
 			},
 		],
 	},

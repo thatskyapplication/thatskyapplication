@@ -1,5 +1,4 @@
 import { Cosmetic, ElderSpirit, RealmName, SpiritId } from "@thatskyapplication/utility";
-import { HAIR_EMOJIS } from "../../../../utility/emojis.js";
 
 export default new ElderSpirit({
 	id: SpiritId.ElderOfTheWasteland,
@@ -10,7 +9,6 @@ export default new ElderSpirit({
 				name: "Hair",
 				cosmetic: Cosmetic.ElderOfTheWastelandHair,
 				cost: { ascendedCandles: 6 },
-				emoji: HAIR_EMOJIS.Hair35,
 			},
 		],
 	},

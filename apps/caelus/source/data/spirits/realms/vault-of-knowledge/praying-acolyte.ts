@@ -5,11 +5,8 @@ import {
 	SpiritId,
 	StandardSpirit,
 } from "@thatskyapplication/utility";
-import { CAPE_EMOJIS, HAIR_EMOJIS, MISCELLANEOUS_EMOJIS } from "../../../../utility/emojis.js";
-import { SpiritEmoteToEmoji } from "../../../../utility/spirits.js";
 
 const emote = SpiritEmote.Pray;
-const emoteEmoji = SpiritEmoteToEmoji[emote];
 
 export default new StandardSpirit({
 	id: SpiritId.PrayingAcolyte,
@@ -17,72 +14,61 @@ export default new StandardSpirit({
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		current: [
-			{ name: `${emote} 1`, cosmetic: Cosmetic.EmotePray1, emoji: emoteEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmotePray1 },
 			{
 				name: `${emote} 2`,
 				cosmetic: Cosmetic.EmotePray2,
 				cost: { candles: 3 },
-				emoji: emoteEmoji,
 			},
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.PrayingAcolyteBlessing1,
 				cost: { candles: 1 },
-				emoji: MISCELLANEOUS_EMOJIS.Blessing1,
 			},
 			{
 				name: "Hair",
 				cosmetic: Cosmetic.PrayingAcolyteHair,
 				cost: { hearts: 5 },
-				emoji: HAIR_EMOJIS.Hair26,
 			},
 			{
 				name: "Heart",
 				cosmetic: Cosmetic.PrayingAcolyteHeart,
 				cost: { candles: 3 },
-				emoji: MISCELLANEOUS_EMOJIS.Heart,
 			},
 			{
 				name: "Wing buff 1",
 				cosmetic: Cosmetic.PrayingAcolyteWingBuff1,
 				cost: { ascendedCandles: 3 },
-				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
 			{
 				name: `${emote} 3`,
 				cosmetic: Cosmetic.EmotePray3,
 				cost: { candles: 5 },
-				emoji: emoteEmoji,
 			},
 			{
 				name: `${emote} 4`,
 				cosmetic: Cosmetic.EmotePray4,
 				cost: { candles: 7 },
-				emoji: emoteEmoji,
 			},
 			{
 				name: "Blessing 2",
 				cosmetic: Cosmetic.PrayingAcolyteBlessing2,
 				cost: { candles: 5 },
-				emoji: MISCELLANEOUS_EMOJIS.Blessing2,
 			},
 			{
 				name: "Cape 1",
 				cosmetic: Cosmetic.PrayingAcolyteCape1,
 				cost: { hearts: 25 },
-				emoji: CAPE_EMOJIS.Cape11,
 			},
 			{
 				name: "Wing buff 2",
 				cosmetic: Cosmetic.PrayingAcolyteWingBuff2,
 				cost: { ascendedCandles: 9 },
-				emoji: MISCELLANEOUS_EMOJIS.WingBuff,
 			},
 			{
 				name: "Cape 2",
 				cosmetic: Cosmetic.PrayingAcolyteCape2,
 				cost: { hearts: 75 },
-				emoji: CAPE_EMOJIS.Cape48,
 			},
 		],
 	},

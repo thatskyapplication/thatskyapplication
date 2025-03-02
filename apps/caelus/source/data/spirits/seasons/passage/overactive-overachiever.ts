@@ -6,21 +6,8 @@ import {
 	SpiritEmote,
 	SpiritId,
 } from "@thatskyapplication/utility";
-import {
-	CAPE_EMOJIS,
-	HAIR_EMOJIS,
-	HELD_PROPS_EMOJIS,
-	MISCELLANEOUS_EMOJIS,
-	SEASON_EMOJIS,
-} from "../../../../utility/emojis.js";
-import { SpiritEmoteToEmoji } from "../../../../utility/spirits.js";
 
 const emote = SpiritEmote.PullUp;
-const emoteEmoji = SpiritEmoteToEmoji[emote];
-const blessing3 = MISCELLANEOUS_EMOJIS.Blessing3;
-const hairEmoji = HAIR_EMOJIS.Hair124;
-const capeEmoji = CAPE_EMOJIS.Cape103;
-const heldProp = HELD_PROPS_EMOJIS.HeldProp34;
 
 export default new SeasonalSpirit({
 	id: SpiritId.OveractiveOverachiever,
@@ -30,45 +17,39 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: `${emote} 1`, cosmetic: Cosmetic.EmotePullUp1, emoji: emoteEmoji },
-			{ name: `${emote} 2`, cosmetic: Cosmetic.EmotePullUp2, emoji: emoteEmoji },
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmotePullUp1 },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmotePullUp2 },
 			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.OveractiveOverachieverBlessing1,
 				cost: { seasonalCandles: 14 },
-				emoji: blessing3,
 			},
 			{
 				name: "Manta ocarina",
 				cosmetic: Cosmetic.OveractiveOverachieverMantaOcarina,
-				emoji: heldProp,
 			},
 			{
 				name: `${emote} 3`,
 				cosmetic: Cosmetic.EmotePullUp3,
 				cost: { seasonalCandles: 22 },
-				emoji: emoteEmoji,
 			},
-			{ name: `${emote} 4`, cosmetic: Cosmetic.EmotePullUp4, emoji: emoteEmoji },
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmotePullUp4 },
 			{
 				name: "Cape",
 				cosmetic: Cosmetic.OveractiveOverachieverCape,
 				cost: { seasonalCandles: 30 },
-				emoji: capeEmoji,
 			},
-			{ name: "Blessing 2", cosmetic: Cosmetic.OveractiveOverachieverBlessing2, emoji: blessing3 },
+			{ name: "Blessing 2", cosmetic: Cosmetic.OveractiveOverachieverBlessing2 },
 			{
 				name: "Blessing 3",
 				cosmetic: Cosmetic.OveractiveOverachieverBlessing3,
 				cost: { seasonalCandles: 32 },
-				emoji: blessing3,
 			},
-			{ name: "Hair", cosmetic: Cosmetic.OveractiveOverachieverHair, emoji: hairEmoji },
+			{ name: "Hair", cosmetic: Cosmetic.OveractiveOverachieverHair },
 			{
 				name: "Seasonal heart",
 				cosmetic: Cosmetic.OveractiveOverachieverSeasonalHeart,
 				cost: { seasonalCandles: 3 },
-				emoji: SEASON_EMOJIS.PassageHeart,
 			},
 		],
 	},
