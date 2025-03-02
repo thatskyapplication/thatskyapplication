@@ -2,7 +2,6 @@ import { Collection } from "@discordjs/collection";
 import type { DateTime } from "luxon";
 import type { Cosmetic } from "./cosmetics.js";
 import { skyDate } from "./dates.js";
-import type { Emoji } from "./emojis.js";
 import type { EventIds } from "./event.js";
 import type { SeasonIds } from "./season.js";
 
@@ -440,7 +439,6 @@ export interface ItemRaw {
 	name: string;
 	cosmetic: Cosmetic | Cosmetic[];
 	cost?: ItemCostRaw;
-	emoji?: Emoji;
 }
 
 interface ItemCostSeasonal {
@@ -466,7 +464,6 @@ export interface Item {
 	name: string;
 	cosmetics: Cosmetic[];
 	cost: ItemCost | null;
-	emoji: Emoji | null;
 }
 
 interface TravellingDatesData {

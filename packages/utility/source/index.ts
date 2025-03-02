@@ -38,7 +38,13 @@ export { CDN_URL } from "./cdn.js";
 export { Cosmetic } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
 export { TIME_ZONE, isDuring, skyDate, skyNow, skyToday } from "./dates.js";
-export { type Emoji, emojis, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "./emojis.js";
+export {
+	type Emoji,
+	emojiConstants,
+	formatEmoji,
+	formatEmojiURL,
+	resolveCurrencyEmoji,
+} from "./emojis.js";
 export { EventId, type EventIds } from "./event.js";
 export {
 	GUESS_DIFFICULTY_LEVEL_VALUES,

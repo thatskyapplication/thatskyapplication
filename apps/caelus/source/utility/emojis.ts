@@ -1,4 +1,4 @@
-import { emojis } from "@thatskyapplication/utility";
+import { emojiConstants } from "@thatskyapplication/utility";
 import { PRODUCTION } from "./constants.js";
 
 export const {
@@ -20,4 +20,5 @@ export const {
 	HELD_PROPS_EMOJIS,
 	LARGE_PLACEABLE_PROPS_EMOJIS,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
-} = emojis(PRODUCTION);
+	CosmeticToEmoji,
+} = emojiConstants(PRODUCTION);
