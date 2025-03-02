@@ -43,17 +43,12 @@ export default new Event({
 		{
 			name: "Treasure Seeker's Bounty",
 			cosmetic: [
-				Cosmetic.TreasureSeekersEyePatch,
+				Cosmetic.TreasureSeekersEyepatch,
 				Cosmetic.TreasureSeekersOutfit,
 				Cosmetic.TreasureSeekersBlackDye,
 				Cosmetic.TreasureSeekersWhiteDye,
 			],
 			cost: { money: 14.99 },
-		},
-		{
-			name: "Dye blessing",
-			cosmetic: [Cosmetic.TreasureDye],
-			cost: { eventTickets: 10 },
 		},
 	],
 	patchNotesURL: String(new URL("p0285", LINK_REDIRECTOR_URL)),

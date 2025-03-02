@@ -2881,13 +2881,12 @@ export enum Cosmetic {
 	MindfulMinerWingBuff = 2295,
 
 	// 03/03/2025 | Days of Treasure.
-	TreasureCavalierBoots,
-	TreasureShovel,
-	TreasureSeekersEyePatch,
-	TreasureSeekersOutfit,
-	TreasureSeekersBlackDye,
-	TreasureSeekersWhiteDye,
-	TreasureDye,
+	TreasureCavalierBoots = 2296,
+	TreasureShovel = 2297,
+	TreasureSeekersEyepatch = 2298,
+	TreasureSeekersOutfit = 2299,
+	TreasureSeekersBlackDye = 2300,
+	TreasureSeekersWhiteDye = 2301,
 
 	// 24/03/2025 | Days of Bloom.
 	BloomRoseJar,

@@ -917,6 +917,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Fortune Snake Outfit.
 	 */
 	Outfit78: { id: "1333204969163325482", name: "78_outfit" },
+	/**
+	 * Treasure Seeker's Outfit.
+	 */
+	Outfit79: { id: "1345901512416690260", name: "79_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -998,6 +1002,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit76: { id: "1330644931693248584", name: "76_outfit" },
 	Outfit77: { id: "1330666170403000430", name: "77_outfit" },
 	Outfit78: { id: "1333204981150515292", name: "78_outfit" },
+	Outfit79: { id: "1345901519869837345", name: "79_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -1073,6 +1078,10 @@ const SHOE_EMOJIS_PRODUCTION = {
 	 * Radiance Provoking Performer.
 	 */
 	Shoe18: { id: "1330646393114722365", name: "18_shoe" },
+	/**
+	 * Treasure Cavalier Boots.
+	 */
+	Shoe19: { id: "1345896918710095912", name: "19_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_DEVELOPMENT = {
@@ -1094,6 +1103,7 @@ const SHOE_EMOJIS_DEVELOPMENT = {
 	Shoe16: { id: "1313919693664288770", name: "16_shoe" },
 	Shoe17: { id: "1330515583351001182", name: "17_shoe" },
 	Shoe18: { id: "1330646401532559402", name: "18_shoe" },
+	Shoe19: { id: "1345896926830133379", name: "19_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_PRODUCTION = {
@@ -1477,6 +1487,10 @@ const MASK_EMOJIS_PRODUCTION = {
 	 * Fortune Snake Mask.
 	 */
 	Mask95: { id: "1333204436235059313", name: "95_mask" },
+	/**
+	 * Treasure Seeker's Eyepatch.
+	 */
+	Mask96: { id: "1345899392087101490", name: "96_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_DEVELOPMENT = {
@@ -1575,6 +1589,7 @@ const MASK_EMOJIS_DEVELOPMENT = {
 	Mask93: { id: "1313920383770169407", name: "93_mask" },
 	Mask94: { id: "1330484210611392535", name: "94_mask" },
 	Mask95: { id: "1333204546775679097", name: "95_mask" },
+	Mask96: { id: "1345899400043429998", name: "96_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -4032,6 +4047,10 @@ const HELD_PROPS_EMOJIS_PRODUCTION = {
 	 * Fortune Hand Fan.
 	 */
 	HeldProp51: { id: "1333206877915582495", name: "51_held_prop" },
+	/**
+	 * Treasure Shovel.
+	 */
+	HeldProp52: { id: "1345897425151332372", name: "52_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4086,6 +4105,7 @@ const HELD_PROPS_EMOJIS_DEVELOPMENT = {
 	HeldProp49: { id: "1313922919906283571", name: "49_held_prop" },
 	HeldProp50: { id: "1330644766781603994", name: "50_held_prop" },
 	HeldProp51: { id: "1333206885289168936", name: "51_held_prop" },
+	HeldProp52: { id: "1345897433070309387", name: "52_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -7299,13 +7319,12 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.RadianceGuideBlueDye]: emojis.MISCELLANEOUS_EMOJIS.DyeBlue,
 		[Cosmetic.RadianceGuidePurpleDye]: emojis.MISCELLANEOUS_EMOJIS.DyePurple,
 		[Cosmetic.MindfulMinerWingBuff]: emojis.MISCELLANEOUS_EMOJIS.WingBuff,
-		[Cosmetic.TreasureCavalierBoots]: null,
-		[Cosmetic.TreasureShovel]: null,
-		[Cosmetic.TreasureSeekersEyePatch]: null,
-		[Cosmetic.TreasureSeekersOutfit]: null,
-		[Cosmetic.TreasureSeekersBlackDye]: null,
-		[Cosmetic.TreasureSeekersWhiteDye]: null,
-		[Cosmetic.TreasureDye]: null,
+		[Cosmetic.TreasureCavalierBoots]: emojis.SHOE_EMOJIS.Shoe19,
+		[Cosmetic.TreasureShovel]: emojis.HELD_PROPS_EMOJIS.HeldProp52,
+		[Cosmetic.TreasureSeekersEyepatch]: emojis.MASK_EMOJIS.Mask96,
+		[Cosmetic.TreasureSeekersOutfit]: emojis.OUTFIT_EMOJIS.Outfit79,
+		[Cosmetic.TreasureSeekersBlackDye]: emojis.MISCELLANEOUS_EMOJIS.DyeBlack,
+		[Cosmetic.TreasureSeekersWhiteDye]: emojis.MISCELLANEOUS_EMOJIS.DyeWhite,
 		[Cosmetic.BloomRoseJar]: null,
 		[Cosmetic.BloomRoseBraidedHair]: null,
 		[Cosmetic.BloomRosePetalMask]: null,
