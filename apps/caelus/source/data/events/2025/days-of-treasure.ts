@@ -2,10 +2,15 @@ import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 
-const eventTicketAmount = [];
+const eventTicketAmount = [
+	{
+		date: skyDate(2_025, 3, 3),
+		amount: 6,
+	},
+];
 
 for (
-	let start = skyDate(2_025, 3, 3), end = skyDate(2_025, 3, 17);
+	let start = skyDate(2_025, 3, 4), end = skyDate(2_025, 3, 17);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
