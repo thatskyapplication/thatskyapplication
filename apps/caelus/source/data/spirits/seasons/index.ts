@@ -68,8 +68,7 @@ export function skySeasons(date = skyNow()) {
 export function currentSeasonalSpirits() {
 	return skySeasons().reduce((spirits, season) => {
 		spirits.set(season.guide.id, season.guide);
-		spirits.concat(season.spirits);
-		return spirits;
+		return spirits.concat(season.spirits);
 	}, new Collection<SpiritIds, GuideSpirit | SeasonalSpirit>());
 }
 

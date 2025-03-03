@@ -936,8 +936,8 @@ export class Catalogue {
 			});
 		}
 
-		const before = seasons.at(season.id - 1);
-		const after = seasons.at(season.id + 1);
+		const before = seasons.get((season.id - 1) as SeasonIds);
+		const after = seasons.get((season.id + 1) as SeasonIds);
 
 		components.push(
 			{
@@ -1224,15 +1224,17 @@ export class Catalogue {
 
 		if (!isSpiritId(spiritId)) {
 			pino.error(interaction, `Invalid spirit id: ${spiritId}`);
+
 			await client.api.interactions.updateMessage(
 				interaction.id,
 				interaction.token,
 				ERROR_RESPONSE,
 			);
+
 			return;
 		}
 
-		const spirit = spirits().find(({ id }) => id === spiritId);
+		const spirit = spirits().get(spiritId);
 
 		if (!spirit) {
 			await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -1384,14 +1386,15 @@ export class Catalogue {
 			const season = skySeasons().find(({ id }) => id === spirit.seasonId);
 
 			if (season) {
-				spirits = new Collection<SpiritIds, SeasonalSpirit | GuideSpirit>();
-				spirits.concat(season.spirits).set(season.guide.id, season.guide);
+				spirits = new Collection<SpiritIds, SeasonalSpirit | GuideSpirit>()
+					.set(season.guide.id, season.guide)
+					.concat(season.spirits);
 			}
 		}
 
 		if (spirits) {
-			const before = spirits.at(spirit.id - 1);
-			const after = spirits.at(spirit.id + 1);
+			const before = spirits.get((spirit.id - 1) as SpiritIds);
+			const after = spirits.get((spirit.id + 1) as SpiritIds);
 
 			components.push({
 				type: ComponentType.ActionRow,
