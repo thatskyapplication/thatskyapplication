@@ -79,7 +79,6 @@ function getAnswer(): [Snowflake, StandardSpirit | ElderSpirit | SeasonalSpirit 
 function getOptions(difficulty: GuessDifficultyLevel) {
 	// Get the answer.
 	const [emoji, spirit] = getAnswer();
-	pino.info({ emoji, spirit }, "options");
 	const foundAnswers = new Set<StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit>();
 
 	// Generate other answers.
