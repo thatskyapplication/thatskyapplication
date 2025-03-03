@@ -2024,7 +2024,7 @@ export class Catalogue {
 			? Number(resolvedCustomId.slice(6))
 			: null;
 
-		const spirit = spirits().find(({ id }) => id === resolvedCustomIdForSpirits);
+		const spirit = spirits().get(resolvedCustomIdForSpirits as SpiritIds);
 
 		const event =
 			resolvedCustomIdNumberForEvents === null

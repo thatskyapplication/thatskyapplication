@@ -5,7 +5,7 @@ import {
 	Locale,
 	MessageFlags,
 } from "@discordjs/core";
-import { isCountry } from "@thatskyapplication/utility";
+import { type SpiritIds, isCountry } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { spirits } from "../../data/spirits/index.js";
 import { client } from "../../discord.js";
@@ -135,7 +135,7 @@ export default {
 			}
 
 			if (spiritId !== null) {
-				const spirit = spirits().find(({ id }) => id === spiritId);
+				const spirit = spirits().get(spiritId as SpiritIds);
 
 				if (!spirit) {
 					await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {

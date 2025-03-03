@@ -19,6 +19,7 @@ import {
 	type SeasonalSpiritVisitReturningData,
 	type SeasonalSpiritVisitTravellingData,
 	type SeasonalSpiritVisitTravellingErrorData,
+	type SpiritIds,
 	type StandardSpirit,
 	TIME_ZONE,
 	formatEmoji,
@@ -104,7 +105,7 @@ export async function search(
 	options: OptionResolver,
 ) {
 	const query = options.getInteger("query", true);
-	const spirit = spirits().find(({ id }) => id === query);
+	const spirit = spirits().get(query as SpiritIds);
 
 	if (!spirit) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
