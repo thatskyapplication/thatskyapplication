@@ -7330,6 +7330,9 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.BloomRosePetalMask]: null,
 		[Cosmetic.BloomRoseEmbroideredCape]: null,
 		[Cosmetic.BloomDye]: null,
+		[Cosmetic.RadianceGuideQuest4]: emojis.MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.RadianceGuideWhiteDye]: emojis.MISCELLANEOUS_EMOJIS.DyeWhite,
+		[Cosmetic.RadianceGuideBlackDye]: emojis.MISCELLANEOUS_EMOJIS.DyeBlack,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	return { ...emojis, CosmeticToEmoji };

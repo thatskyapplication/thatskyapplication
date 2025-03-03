@@ -1,14 +1,16 @@
 import { SeasonId } from "@thatskyapplication/utility";
 import {
+	DYE_BLACK,
 	DYE_BLUE,
 	DYE_CYAN,
 	DYE_GREEN,
 	DYE_PURPLE,
 	DYE_RED,
+	DYE_WHITE,
 	DYE_YELLOW,
+	HEART_URL,
 	QUEST_URL,
 } from "../../constants.js";
-import { HEART_URL } from "../../constants.js";
 import type { FriendshipTreeData } from "../../nodes.js";
 
 const seasonId = SeasonId.Radiance;
@@ -76,6 +78,17 @@ export const CURRENT = [
 		},
 		{
 			icon: DYE_PURPLE,
+		},
+	],
+	[
+		{
+			icon: QUEST_URL,
+		},
+		{
+			icon: DYE_WHITE,
+		},
+		{
+			icon: DYE_BLACK,
 		},
 	],
 	[

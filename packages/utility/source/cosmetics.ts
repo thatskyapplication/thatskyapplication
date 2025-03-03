@@ -2888,6 +2888,11 @@ export enum Cosmetic {
 	TreasureSeekersBlackDye = 2300,
 	TreasureSeekersWhiteDye = 2301,
 
+	// 03/03/2025 | Season of Radiance Quest 4.
+	RadianceGuideQuest4 = 2302,
+	RadianceGuideWhiteDye = 2303,
+	RadianceGuideBlackDye = 2304,
+
 	// 24/03/2025 | Days of Bloom.
 	BloomRoseJar,
 	BloomRoseBraidedHair,

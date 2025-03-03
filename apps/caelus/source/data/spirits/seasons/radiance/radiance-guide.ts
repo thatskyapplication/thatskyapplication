@@ -68,6 +68,18 @@ export default new GuideSpirit({
 				name: "Purple dye",
 				cosmetic: Cosmetic.RadianceGuidePurpleDye,
 			},
+			{
+				name: "Quest 4",
+				cosmetic: Cosmetic.RadianceGuideQuest4,
+			},
+			{
+				name: "White dye",
+				cosmetic: Cosmetic.RadianceGuideWhiteDye,
+			},
+			{
+				name: "Black dye",
+				cosmetic: Cosmetic.RadianceGuideBlackDye,
+			},
 		],
 	},
 });
