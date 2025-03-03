@@ -1632,7 +1632,7 @@ export default class Profile {
 						{
 							type: ComponentType.StringSelect,
 							custom_id: SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID,
-							max_values: seasons.length,
+							max_values: seasons.size,
 							min_values: 0,
 							options: seasons.map((season) => ({
 								default: currentSeasons?.includes(season.id) ?? false,

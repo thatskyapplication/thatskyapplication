@@ -1,3 +1,4 @@
+import type { Collection } from "@discordjs/collection";
 import {
 	type APIButtonComponentWithCustomId,
 	type APIChatInputApplicationCommandGuildInteraction,
@@ -21,6 +22,7 @@ import {
 	type GuideSpirit,
 	STANDARD_SPIRITS,
 	type SeasonalSpirit,
+	type SpiritIds,
 	type StandardSpirit,
 	formatEmoji,
 	formatEmojiURL,
@@ -87,11 +89,14 @@ function getOptions(difficulty: GuessDifficultyLevel) {
 		const filtered = spirits().filter((original) => original.id !== spirit.id);
 
 		while (foundAnswers.size < 2) {
-			const randomSpirit = getRandomElement(filtered)!;
+			const randomSpirit = filtered.random()!;
 			foundAnswers.add(randomSpirit);
 		}
 	} else {
-		let filtered: (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[];
+		let filtered: Collection<
+			SpiritIds,
+			StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit
+		>;
 
 		// Collect spirits from the same realm or season.
 		if (spirit.isStandardSpirit()) {
@@ -107,7 +112,7 @@ function getOptions(difficulty: GuessDifficultyLevel) {
 		}
 
 		while (foundAnswers.size < 2) {
-			const randomSpirit = getRandomElement(filtered)!;
+			const randomSpirit = filtered.random()!;
 			foundAnswers.add(randomSpirit);
 		}
 	}

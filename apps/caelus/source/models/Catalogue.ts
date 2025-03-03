@@ -1,3 +1,4 @@
+import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import {
 	type APIActionRowComponent,
 	type APIButtonComponentWithCustomId,
@@ -306,8 +307,8 @@ export class Catalogue {
 	}
 
 	public allProgress(round?: boolean) {
-		const standardAndElderOwnedProgress = this.spiritOwnedProgress(REALM_SPIRITS);
-		const seasonalOwnedProgress = this.seasonOwnedProgress(skySeasons());
+		const standardAndElderOwnedProgress = this.spiritOwnedProgress([...REALM_SPIRITS.values()]);
+		const seasonalOwnedProgress = this.seasonOwnedProgress([...skySeasons().values()]);
 		const eventOwnedProgress = this.eventOwnedProgress(skyEvents());
 		const starterPackOwnedProgress = this.starterPackOwnedProgress();
 		const secretAreaOwnedProgress = this.secretAreaOwnedProgress();
@@ -354,9 +355,9 @@ export class Catalogue {
 			);
 		}
 
-		const standardProgress = catalogue.spiritProgress(STANDARD_SPIRITS, true);
-		const elderProgress = catalogue.spiritProgress(ELDER_SPIRITS, true);
-		const seasonalProgress = catalogue.seasonProgress(skySeasons(), true);
+		const standardProgress = catalogue.spiritProgress([...STANDARD_SPIRITS.values()], true);
+		const elderProgress = catalogue.spiritProgress([...ELDER_SPIRITS.values()], true);
+		const seasonalProgress = catalogue.seasonProgress([...skySeasons().values()], true);
 		const eventProgress = catalogue.eventProgress(skyEvents(), true);
 		const starterPackProgress = catalogue.starterPackProgress(true);
 		const secretAreaProgress = catalogue.secretAreaProgress(true);
@@ -445,11 +446,11 @@ export class Catalogue {
 
 		if (
 			currentReturningSpirits?.every(
-				(returningSpirit) => returningSpirit.seasonId === currentReturningSpirits[0]!.seasonId,
+				(returningSpirit) => returningSpirit.seasonId === currentReturningSpirits.first()!.seasonId,
 			)
 		) {
 			currentReturningSpiritsButton.emoji =
-				SeasonIdToSeasonalEmoji[currentReturningSpirits[0]!.seasonId];
+				SeasonIdToSeasonalEmoji[currentReturningSpirits.first()!.seasonId];
 		}
 
 		const response: Parameters<InteractionsAPI["reply"]>[2] = {
@@ -602,7 +603,7 @@ export class Catalogue {
 							min_values: 0,
 							options: REALMS.map((realm) => {
 								const { name } = realm;
-								const percentage = catalogue.spiritProgress(realm.spirits, true);
+								const percentage = catalogue.spiritProgress([...realm.spirits.values()], true);
 
 								return {
 									label: `${t(`realms.${name}`, { lng: locale, ns: "general" })}${
@@ -663,7 +664,7 @@ export class Catalogue {
 			};
 		});
 
-		const embed = catalogue.spiritEmbed(spirits, locale);
+		const embed = catalogue.spiritEmbed([...spirits.values()], locale);
 		embed.footer = { text: CATALOGUE_STANDARD_PERCENTAGE_NOTE };
 		embed.title = t(`realms.${realm}`, { lng: locale, ns: "general" });
 
@@ -739,7 +740,7 @@ export class Catalogue {
 			};
 		});
 
-		const embed = catalogue.spiritEmbed(ELDER_SPIRITS, locale);
+		const embed = catalogue.spiritEmbed([...ELDER_SPIRITS.values()], locale);
 		embed.title = "Elders";
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -864,7 +865,7 @@ export class Catalogue {
 		}
 
 		const catalogue = await this.fetch(invoker.id);
-		const spirits = [season.guide, ...season.spirits];
+		const spirits = [season.guide, ...season.spirits.values()];
 
 		const options = spirits.map((spirit) => {
 			const { id } = spirit;
@@ -935,9 +936,8 @@ export class Catalogue {
 			});
 		}
 
-		const index = seasons.indexOf(season);
-		const before = seasons[index - 1];
-		const after = seasons[index + 1];
+		const before = seasons.at(season.id - 1);
+		const after = seasons.at(season.id + 1);
 
 		components.push(
 			{
@@ -1182,7 +1182,7 @@ export class Catalogue {
 			};
 		});
 
-		const embed = catalogue.spiritEmbed(spirits, locale);
+		const embed = catalogue.spiritEmbed([...spirits.values()], locale);
 		embed.title = "Returning Spirits";
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -1371,7 +1371,9 @@ export class Catalogue {
 		components.push({ type: ComponentType.ActionRow, components: row1Components });
 
 		let spirits:
-			| readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[]
+			| ReadonlyCollection<SpiritIds, StandardSpirit>
+			| ReadonlyCollection<SpiritIds, ElderSpirit>
+			| ReadonlyCollection<SpiritIds, SeasonalSpirit | GuideSpirit>
 			| undefined;
 
 		if (isStandardSpirit) {
@@ -1382,14 +1384,14 @@ export class Catalogue {
 			const season = skySeasons().find(({ id }) => id === spirit.seasonId);
 
 			if (season) {
-				spirits = [season.guide, ...season.spirits];
+				spirits = new Collection<SpiritIds, SeasonalSpirit | GuideSpirit>();
+				spirits.concat(season.spirits).set(season.guide.id, season.guide);
 			}
 		}
 
 		if (spirits) {
-			const index = spirits.findIndex(({ id }) => id === spirit.id);
-			const before = spirits[index - 1];
-			const after = spirits[index + 1];
+			const before = spirits.at(spirit.id - 1);
+			const after = spirits.at(spirit.id + 1);
 
 			components.push({
 				type: ComponentType.ActionRow,
@@ -2437,7 +2439,7 @@ export class Catalogue {
 			backButtonCustomId = `${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${type}`;
 
 			embed = catalogue.spiritEmbed(
-				STANDARD_SPIRITS.filter((spirit) => spirit.realm === type),
+				[...STANDARD_SPIRITS.filter((spirit) => spirit.realm === type).values()],
 				locale,
 			);
 
@@ -2457,7 +2459,7 @@ export class Catalogue {
 			embed.title = `${formatEmoji(emoji)} ${t(`seasons.${type}`, { lng: locale, ns: "general" })} Progress`;
 		} else if (type === CATALOGUE_SHARE_ELDER_KEY) {
 			backButtonCustomId = CATALOGUE_VIEW_ELDERS_CUSTOM_ID;
-			embed = catalogue.spiritEmbed(ELDER_SPIRITS, locale);
+			embed = catalogue.spiritEmbed([...ELDER_SPIRITS.values()], locale);
 			embed.title = "Elders Progress";
 		}
 

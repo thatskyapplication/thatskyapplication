@@ -27,7 +27,7 @@ import {
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { spirits } from "../data/spirits/index.js";
-import { resolveSeasonalSpirit } from "../data/spirits/seasons/index.js";
+import { currentSeasonalSpirits } from "../data/spirits/seasons/index.js";
 import { client } from "../discord.js";
 import pino from "../pino.js";
 import {
@@ -133,7 +133,7 @@ export async function parseSpiritSwitch(interaction: APIMessageComponentButtonIn
 	}
 
 	const seasonalOffer = data[2] === "true";
-	const spirit = resolveSeasonalSpirit(spiritId);
+	const spirit = currentSeasonalSpirits().get(spiritId);
 
 	if (!spirit) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {

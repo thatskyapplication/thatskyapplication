@@ -1,10 +1,14 @@
+import { Collection } from "@discordjs/collection";
 import {
 	type GuideSpirit,
+	type SeasonIds,
 	type SeasonalSpirit,
 	type SpiritIds,
+	TRAVELLING_DATES,
 	skyNow,
 } from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
+import type { Season } from "../../../models/Season.js";
 import Abyss from "./abyss/index.js";
 import Assembly from "./assembly/index.js";
 import AURORA from "./aurora/index.js";
@@ -55,17 +59,18 @@ const SEASONS = [
 	Duets,
 	Moomin,
 	Radiance,
-] as const;
+].reduce((seasons, season) => seasons.set(season.id, season), new Collection<SeasonIds, Season>());
 
 export function skySeasons(date = skyNow()) {
 	return SEASONS.filter(({ start }) => date >= start);
 }
 
 export function currentSeasonalSpirits() {
-	return skySeasons().reduce<(GuideSpirit | SeasonalSpirit)[]>((seasonalSpirits, season) => {
-		seasonalSpirits.push(season.guide, ...season.spirits);
-		return seasonalSpirits;
-	}, []);
+	return skySeasons().reduce((spirits, season) => {
+		spirits.set(season.guide.id, season.guide);
+		spirits.concat(season.spirits);
+		return spirits;
+	}, new Collection<SpiritIds, GuideSpirit | SeasonalSpirit>());
 }
 
 export function skyCurrentSeason(date: DateTime) {
@@ -76,24 +81,11 @@ export function skyUpcomingSeason(date: DateTime) {
 	return SEASONS.find(({ start }) => start > date) ?? null;
 }
 
-export function resolveSeasonalSpirit(spiritId: SpiritIds) {
-	for (const season of skySeasons()) {
-		const spirit = season.spirits.find(({ id }) => id === spiritId);
-
-		if (spirit) {
-			return spirit;
-		}
-	}
-
-	return null;
-}
-
 export function resolveTravellingSpirit(date: DateTime) {
-	return (
-		currentSeasonalSpirits().find((spirit): spirit is SeasonalSpirit =>
-			spirit.isSeasonalSpirit() ? spirit.visit(date).current.travelling : false,
-		) ?? null
-	);
+	const travelling = TRAVELLING_DATES.findLast(({ start, end }) => date >= start && date < end);
+	return typeof travelling?.spiritId === "number"
+		? currentSeasonalSpirits().get(travelling.spiritId)
+		: null;
 }
 
 export function resolveReturningSpirits(date: DateTime) {
@@ -101,5 +93,5 @@ export function resolveReturningSpirits(date: DateTime) {
 		spirit.isSeasonalSpirit() ? spirit.visit(date).current.returning : false,
 	);
 
-	return returningSpirits.length === 0 ? null : returningSpirits;
+	return returningSpirits.size === 0 ? null : returningSpirits;
 }

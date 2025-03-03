@@ -79,7 +79,7 @@ function systemPromptContext(
 	const seasons = skySeasons(now);
 	const upcomingSeason = skyUpcomingSeason(now);
 
-	if (seasons.length > 0) {
+	if (seasons.size > 0) {
 		seasonsText.push(
 			`- The seasons in Sky are: ${JSON.stringify(seasons.map((season) => ({ name: t(`seasons.${season.id}`, { lng: Locale.EnglishGB, ns: "general" }), start: season.start.toISO(), end: season.end.toISO() })))}.`,
 		);

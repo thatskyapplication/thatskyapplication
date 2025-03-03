@@ -1,3 +1,6 @@
+import { Collection } from "@discordjs/collection";
+import type { ElderSpirit, StandardSpirit } from "../../models/spirits.js";
+import type { SpiritIds } from "../index.js";
 import DaylightPrairie from "./daylight-prairie/index.js";
 import GoldenWasteland from "./golden-wasteland/index.js";
 import HiddenForest from "./hidden-forest/index.js";
@@ -14,14 +17,13 @@ export const REALMS = [
 	VaultOfKnowledge,
 ] as const;
 
-export const STANDARD_SPIRITS = [
-	...IslesOfDawn.spirits,
-	...DaylightPrairie.spirits,
-	...HiddenForest.spirits,
-	...ValleyOfTriumph.spirits,
-	...GoldenWasteland.spirits,
-	...VaultOfKnowledge.spirits,
-] as const;
+export const STANDARD_SPIRITS = IslesOfDawn.spirits.concat(
+	DaylightPrairie.spirits,
+	HiddenForest.spirits,
+	ValleyOfTriumph.spirits,
+	GoldenWasteland.spirits,
+	VaultOfKnowledge.spirits,
+);
 
 export const ELDER_SPIRITS = [
 	IslesOfDawn.elder,
@@ -30,6 +32,16 @@ export const ELDER_SPIRITS = [
 	ValleyOfTriumph.elder,
 	GoldenWasteland.elder,
 	VaultOfKnowledge.elder,
-] as const;
+].reduce(
+	(spirits, spirit) => spirits.set(spirit.id, spirit),
+	new Collection<SpiritIds, ElderSpirit>(),
+);
 
-export const REALM_SPIRITS = [...STANDARD_SPIRITS, ...ELDER_SPIRITS] as const;
+export const REALM_SPIRITS = STANDARD_SPIRITS.merge<ElderSpirit, StandardSpirit | ElderSpirit>(
+	ELDER_SPIRITS,
+	(value) => ({ keep: true, value }),
+	(value) => ({ keep: true, value }),
+	() => {
+		throw new Error("Duplicate spirits detected.");
+	},
+);

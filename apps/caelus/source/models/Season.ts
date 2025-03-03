@@ -1,4 +1,5 @@
 import { URL } from "node:url";
+import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import type { Locale } from "@discordjs/core";
 import {
 	type Emoji,
@@ -8,6 +9,7 @@ import {
 	type RealmName,
 	type SeasonIds,
 	type SeasonalSpirit,
+	type SpiritIds,
 	resolveAllCosmetics,
 	resolveOffer,
 	snakeCaseName,
@@ -92,7 +94,7 @@ export class Season {
 
 	public readonly guide: GuideSpirit;
 
-	public readonly spirits: readonly SeasonalSpirit[];
+	public readonly spirits: ReadonlyCollection<SpiritIds, SeasonalSpirit>;
 
 	public readonly items: Item[];
 
@@ -117,7 +119,12 @@ export class Season {
 		this.start = data.start;
 		this.end = data.end;
 		this.guide = data.guide;
-		this.spirits = data.spirits;
+
+		this.spirits = data.spirits.reduce(
+			(spirits, spirit) => spirits.set(spirit.id, spirit),
+			new Collection<SpiritIds, SeasonalSpirit>(),
+		);
+
 		this.items = data.items ? resolveOffer(data.items) : [];
 		this.allCosmetics = data.items ? resolveAllCosmetics(this.items) : [];
 		this.emoji = SeasonIdToSeasonalEmoji[data.id];
