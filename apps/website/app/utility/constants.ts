@@ -334,9 +334,9 @@ export const SEASONAL_CANDLE_ICON = String(new URL("icons/seasonal_candle.webp",
 
 export const TREASURE_CANDLES_ROTATION = {
 	[RealmName.DaylightPrairie]: [
-		String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
 	],
 	[RealmName.HiddenForest]: [
 		String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
