@@ -1,5 +1,4 @@
-import { RealmName } from "@thatskyapplication/utility";
-import { Realm } from "../../../../models/Realm.js";
+import { Realm, RealmName } from "@thatskyapplication/utility";
 import ApologeticLumberjack from "./apologetic-lumberjack.js";
 import BlushingProspector from "./blushing-prospector.js";
 import DismayedHunter from "./dismayed-hunter.js";

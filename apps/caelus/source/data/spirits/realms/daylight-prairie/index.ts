@@ -1,5 +1,4 @@
-import { RealmName } from "@thatskyapplication/utility";
-import { Realm } from "../../../../models/Realm.js";
+import { Realm, RealmName } from "@thatskyapplication/utility";
 import ApplaudingBellmaker from "./applauding-bellmaker.js";
 import BirdWhisperer from "./bird-whisperer.js";
 import ButterflyCharmer from "./butterfly-charmer.js";

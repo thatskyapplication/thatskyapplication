@@ -1,5 +1,4 @@
-import { RealmName } from "@thatskyapplication/utility";
-import { Realm } from "../../../../models/Realm.js";
+import { Realm, RealmName } from "@thatskyapplication/utility";
 import CourageousSoldier from "./courageous-soldier.js";
 import ElderOfTheWasteland from "./elder-of-the-wasteland.js";
 import FaintingWarrior from "./fainting-warrior.js";

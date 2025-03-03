@@ -1,5 +1,4 @@
-import { RealmName } from "@thatskyapplication/utility";
-import { Realm } from "../../../../models/Realm.js";
+import { Realm, RealmName } from "@thatskyapplication/utility";
 import ElderOfTheIsles from "./elder-of-the-isles.js";
 import PointingCandlemaker from "./pointing-candlemaker.js";
 import RejectingVoyager from "./rejecting-voyager.js";

@@ -22,6 +22,7 @@ export { default as th } from "./locales/th.js";
 export { default as vi } from "./locales/vi.js";
 export { default as zhCN } from "./locales/zh-cn.js";
 export { default as zhTW } from "./locales/zh-tw.js";
+export { Realm } from "./models/realm.js";
 export {
 	ElderSpirit,
 	GuideSpirit,
