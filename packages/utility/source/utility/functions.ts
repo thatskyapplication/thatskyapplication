@@ -27,7 +27,7 @@ interface ResolveOfferOptions {
 export function resolveOffer(
 	items: readonly ItemRaw[],
 	{ seasonId, eventId }: ResolveOfferOptions = {},
-) {
+): Item[] {
 	return items.map((item) => ({
 		name: item.name,
 		cosmetics: Array.isArray(item.cosmetic) ? item.cosmetic : [item.cosmetic],

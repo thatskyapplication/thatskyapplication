@@ -913,7 +913,7 @@ export class Catalogue {
 					value: JSON.stringify(cosmetics),
 				};
 
-				const emoji = CosmeticToEmoji[cosmetics[0]!];
+				const emoji = CosmeticToEmoji[cosmetics[0]];
 
 				if (emoji) {
 					stringSelectMenuOption.emoji = emoji;
@@ -1317,7 +1317,7 @@ export class Catalogue {
 					value: JSON.stringify(cosmetics),
 				};
 
-				const emoji = CosmeticToEmoji[cosmetics[0]!];
+				const emoji = CosmeticToEmoji[cosmetics[0]];
 
 				if (emoji) {
 					stringSelectMenuOption.emoji = emoji;
@@ -1520,7 +1520,7 @@ export class Catalogue {
 					value: JSON.stringify(cosmetics),
 				};
 
-				const emoji = CosmeticToEmoji[cosmetics[0]!];
+				const emoji = CosmeticToEmoji[cosmetics[0]];
 
 				if (emoji) {
 					stringSelectMenuOption.emoji = emoji;
@@ -1594,7 +1594,7 @@ export class Catalogue {
 				value: JSON.stringify(cosmetics),
 			};
 
-			const emoji = CosmeticToEmoji[cosmetics[0]!];
+			const emoji = CosmeticToEmoji[cosmetics[0]];
 
 			if (emoji) {
 				stringSelectMenuOption.emoji = emoji;
@@ -1666,7 +1666,7 @@ export class Catalogue {
 				value: JSON.stringify(cosmetics),
 			};
 
-			const emoji = CosmeticToEmoji[cosmetics[0]!];
+			const emoji = CosmeticToEmoji[cosmetics[0]];
 
 			if (emoji) {
 				stringSelectMenuOption.emoji = emoji;
@@ -1738,7 +1738,7 @@ export class Catalogue {
 				value: JSON.stringify(cosmetics),
 			};
 
-			const emoji = CosmeticToEmoji[cosmetics[0]!];
+			const emoji = CosmeticToEmoji[cosmetics[0]];
 
 			if (emoji) {
 				stringSelectMenuOption.emoji = emoji;
@@ -1810,7 +1810,7 @@ export class Catalogue {
 				value: JSON.stringify(cosmetics),
 			};
 
-			const emoji = CosmeticToEmoji[cosmetics[0]!];
+			const emoji = CosmeticToEmoji[cosmetics[0]];
 
 			if (emoji) {
 				stringSelectMenuOption.emoji = emoji;
@@ -2214,7 +2214,7 @@ export class Catalogue {
 		const unowned = [];
 
 		for (const { name, cosmetics } of offer) {
-			const emoji = CosmeticToEmoji[cosmetics[0]!];
+			const emoji = CosmeticToEmoji[cosmetics[0]];
 			const toPush = emoji ? formatEmoji(emoji) : name;
 
 			if (cosmetics.every((cosmetic) => this.data.has(cosmetic))) {

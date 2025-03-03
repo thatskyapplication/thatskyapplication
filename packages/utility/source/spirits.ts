@@ -437,7 +437,7 @@ interface ItemCostRaw {
 
 export interface ItemRaw {
 	name: string;
-	cosmetic: Cosmetic | Cosmetic[];
+	cosmetic: Cosmetic | [Cosmetic, ...Cosmetic[]];
 	cost?: ItemCostRaw;
 }
 
@@ -462,7 +462,7 @@ export interface ItemCost {
 
 export interface Item {
 	name: string;
-	cosmetics: Cosmetic[];
+	cosmetics: [Cosmetic, ...Cosmetic[]];
 	cost: ItemCost | null;
 }
 

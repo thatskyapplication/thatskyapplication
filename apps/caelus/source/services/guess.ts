@@ -69,7 +69,7 @@ function getAnswer(): [Snowflake, StandardSpirit | ElderSpirit | SeasonalSpirit 
 		spirit = spirits().find((spirit) =>
 			(spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
 				? spirit.current
-				: spirit.items)!.some((item) => CosmeticToEmoji[item.cosmetics[0]!]?.id === emoji),
+				: spirit.items)!.some((item) => CosmeticToEmoji[item.cosmetics[0]]?.id === emoji),
 		)!;
 	}
 

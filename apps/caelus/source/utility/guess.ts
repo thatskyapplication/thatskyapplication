@@ -26,7 +26,7 @@ const SPIRIT_COSMETIC_EMOJIS = spirits()
 	)
 	.reduce((emojis, items) => {
 		for (const item of items) {
-			const emoji = CosmeticToEmoji[item.cosmetics[0]!];
+			const emoji = CosmeticToEmoji[item.cosmetics[0]];
 
 			if (
 				emoji &&
