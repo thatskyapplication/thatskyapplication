@@ -2,7 +2,7 @@ import { EventId } from "../event.js";
 import { RealmName, SkyMap } from "../kingdom.js";
 import { DailyQuest } from "../quests.js";
 import { SeasonId } from "../season.js";
-import { SpiritId } from "../spirits.js";
+import { SpiritId } from "../spirits/index.js";
 
 export default {
 	general: {

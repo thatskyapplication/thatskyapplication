@@ -1,4 +1,4 @@
-import { REALM_SPIRITS } from "./realms/index.js";
+import { REALM_SPIRITS } from "@thatskyapplication/utility";
 import { currentSeasonalSpirits } from "./seasons/index.js";
 
 export function spirits() {

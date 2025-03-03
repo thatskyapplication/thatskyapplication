@@ -33,6 +33,27 @@ export {
 	StandardSpirit,
 	type StandardSpiritRealm,
 } from "./models/spirits.js";
+export {
+	ELDER_SPIRITS,
+	REALMS,
+	REALM_SPIRITS,
+	STANDARD_SPIRITS,
+} from "./spirits/realms/index.js";
+export {
+	FriendAction,
+	type Item,
+	type ItemCost,
+	type ItemRaw,
+	SPIRIT_TYPE,
+	SpiritCall,
+	SpiritEmote,
+	SpiritId,
+	type SpiritIds,
+	SpiritStance,
+	type SpiritType,
+	TRAVELLING_DATES,
+	isSpiritId,
+} from "./spirits/index.js";
 export { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "./utility/constants.js";
 export { addCosts, resolveAllCosmetics, resolveOffer, snakeCaseName } from "./utility/functions.js";
 export { CDN_URL } from "./cdn.js";
@@ -71,18 +92,3 @@ export { PlatformId, PLATFORM_ID_VALUES, type PlatformIds, isPlatformId } from "
 export { DAILY_QUEST_VALUES, DailyQuest, type DailyQuests } from "./quests.js";
 export { SeasonId, type SeasonIds, isSeasonId } from "./season.js";
 export { type ShardEruptionData, shardEruption } from "./shard-eruption.js";
-export {
-	FriendAction,
-	type Item,
-	type ItemCost,
-	type ItemRaw,
-	SPIRIT_TYPE,
-	SpiritCall,
-	SpiritEmote,
-	SpiritId,
-	type SpiritIds,
-	SpiritStance,
-	type SpiritType,
-	TRAVELLING_DATES,
-	isSpiritId,
-} from "./spirits.js";

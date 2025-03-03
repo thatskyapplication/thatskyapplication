@@ -21,11 +21,15 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import {
+	ELDER_SPIRITS,
 	type ElderSpirit,
 	type GuideSpirit,
 	type Item,
 	type ItemCost,
+	REALMS,
+	REALM_SPIRITS,
 	type RealmName,
+	STANDARD_SPIRITS,
 	SeasonId,
 	type SeasonIds,
 	type SeasonalSpirit,
@@ -45,12 +49,6 @@ import { NESTING_WORKSHOP } from "../data/nesting-workshop.js";
 import { PERMANENT_EVENT_STORE } from "../data/permanent-event-store.js";
 import { SECRET_AREA } from "../data/secret-area.js";
 import { spirits } from "../data/spirits/index.js";
-import {
-	ELDER_SPIRITS,
-	REALMS,
-	REALM_SPIRITS,
-	STANDARD_SPIRITS,
-} from "../data/spirits/realms/index.js";
 import {
 	resolveReturningSpirits,
 	resolveTravellingSpirit,

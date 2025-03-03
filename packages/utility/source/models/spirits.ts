@@ -17,7 +17,7 @@ import {
 	type SpiritStance,
 	type SpiritType,
 	TRAVELLING_DATES,
-} from "../spirits.js";
+} from "../spirits/index.js";
 import { addCosts, resolveAllCosmetics, resolveOffer } from "../utility/functions.js";
 
 interface TravellingSpiritsDates {

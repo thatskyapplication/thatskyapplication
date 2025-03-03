@@ -1,6 +1,6 @@
 import type { EventIds } from "../event.js";
 import type { SeasonIds } from "../season.js";
-import type { Item, ItemCost, ItemRaw } from "../spirits.js";
+import type { Item, ItemCost, ItemRaw } from "../spirits/index.js";
 
 export function snakeCaseName(name: string) {
 	return name

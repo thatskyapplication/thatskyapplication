@@ -13,11 +13,13 @@ import {
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
+	ELDER_SPIRITS,
 	type ElderSpirit,
 	GUESS_DIFFICULTY_LEVEL_VALUES,
 	GuessDifficultyLevel,
 	GuessDifficultyLevelToName,
 	type GuideSpirit,
+	STANDARD_SPIRITS,
 	type SeasonalSpirit,
 	type StandardSpirit,
 	formatEmoji,
@@ -25,7 +27,6 @@ import {
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { spirits } from "../data/spirits/index.js";
-import { ELDER_SPIRITS, STANDARD_SPIRITS } from "../data/spirits/realms/index.js";
 import { currentSeasonalSpirits } from "../data/spirits/seasons/index.js";
 import ModestDancer from "../data/spirits/seasons/performance/modest-dancer.js";
 import { client } from "../discord.js";
