@@ -22,6 +22,7 @@ import {
 	type GuideSpirit,
 	STANDARD_SPIRITS,
 	type SeasonalSpirit,
+	SpiritId,
 	type SpiritIds,
 	type StandardSpirit,
 	formatEmoji,
@@ -30,7 +31,6 @@ import {
 import { t } from "i18next";
 import { spirits } from "../data/spirits/index.js";
 import { currentSeasonalSpirits } from "../data/spirits/seasons/index.js";
-import ModestDancer from "../data/spirits/seasons/performance/modest-dancer.js";
 import { client } from "../discord.js";
 import type { GuessPacket } from "../models/Guess.js";
 import type { Guild } from "../models/discord/guild.js";
@@ -58,41 +58,45 @@ export function isGuessDifficultyLevel(level: number): level is GuessDifficultyL
 	return GUESS_DIFFICULTY_LEVEL_VALUES.includes(level);
 }
 
-function getAnswer(): [Snowflake, StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit] {
+function getAnswer(): [Snowflake, SpiritIds] {
 	// Get a random emoji as the answer.
 	const emoji = getRandomElement(SPIRIT_COSMETIC_EMOJIS_ARRAY)!;
 
 	// Find what spirit uses this emoji.
-	let spirit: StandardSpirit | SeasonalSpirit | ElderSpirit | GuideSpirit;
+	let spiritId: SpiritIds;
 
 	if (emoji === FRIEND_ACTION_EMOJIS.DuetDance.id) {
 		// Early exit due to multiple sources.
-		spirit = ModestDancer;
+		spiritId = SpiritId.ModestDancer;
 	} else {
-		spirit = spirits().find((spirit) =>
+		spiritId = spirits().find((spirit) =>
 			(spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
 				? spirit.current
-				: spirit.items)!.some((item) => CosmeticToEmoji[item.cosmetics[0]]?.id === emoji),
-		)!;
+				: spirit.items
+			).some((item) => CosmeticToEmoji[item.cosmetics[0]]?.id === emoji),
+		)!.id;
 	}
 
-	return [emoji, spirit];
+	return [emoji, spiritId];
 }
 
 function getOptions(difficulty: GuessDifficultyLevel) {
 	// Get the answer.
-	const [emoji, spirit] = getAnswer();
-	const foundAnswers = new Set<StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit>();
+	const [emoji, spiritId] = getAnswer();
+	const foundAnswers = new Set<SpiritIds>();
 
 	// Generate other answers.
 	if (difficulty === GuessDifficultyLevel.Original) {
-		const filtered = spirits().filter((original) => original.id !== spirit.id);
+		const filtered = spirits().clone();
+		filtered.delete(spiritId);
 
 		while (foundAnswers.size < 2) {
 			const randomSpirit = filtered.random()!;
-			foundAnswers.add(randomSpirit);
+			foundAnswers.add(randomSpirit.id);
 		}
 	} else {
+		const spirit = spirits().get(spiritId)!;
+
 		let filtered: Collection<
 			SpiritIds,
 			StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit
@@ -113,14 +117,14 @@ function getOptions(difficulty: GuessDifficultyLevel) {
 
 		while (foundAnswers.size < 2) {
 			const randomSpirit = filtered.random()!;
-			foundAnswers.add(randomSpirit);
+			foundAnswers.add(randomSpirit.id);
 		}
 	}
 
 	return {
-		answer: spirit,
+		answer: spiritId,
 		emoji,
-		options: [spirit, ...foundAnswers].sort(() => Math.random() - 0.5),
+		options: [spiritId, ...foundAnswers].sort(() => Math.random() - 0.5),
 	};
 }
 
@@ -137,14 +141,14 @@ export async function guess(
 	// Create buttons from the answers.
 	const buttons: APIButtonComponentWithCustomId[] = options.map((option, index) => ({
 		type: ComponentType.Button,
-		custom_id: `${index === 0 ? GUESS_ANSWER_1 : index === 1 ? GUESS_ANSWER_2 : GUESS_ANSWER_3}§${answer.id}§${option.id}§${difficulty}§${streak}§${timeoutTimestamp}`,
-		label: t(`spirits.${option.id}`, { lng: interaction.locale, ns: "general" }),
+		custom_id: `${index === 0 ? GUESS_ANSWER_1 : index === 1 ? GUESS_ANSWER_2 : GUESS_ANSWER_3}§${answer}§${option}§${difficulty}§${streak}§${timeoutTimestamp}`,
+		label: t(`spirits.${option}`, { lng: interaction.locale, ns: "general" }),
 		style: ButtonStyle.Secondary,
 	}));
 
 	const endGameButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
-		custom_id: `${GUESS_END_GAME}§${answer.id}§null§${difficulty}§${streak}§${timeoutTimestamp}`,
+		custom_id: `${GUESS_END_GAME}§${answer}§null§${difficulty}§${streak}§${timeoutTimestamp}`,
 		label: "End Game",
 		style: ButtonStyle.Danger,
 	};
