@@ -304,6 +304,8 @@ export default {
 				"Meet up with Ascetic Monk in Prairie Village",
 			[DailyQuest.MeetUpWithNightbirdWhispererInPrairieVillage]:
 				"Meet up with Nightbird Whisperer in Prairie Village",
+			[DailyQuest.HelpAnxiousAnglerOrScoldingStudentFindTreasureInStarlightDesert]:
+				"Help Anxious Angler or Scolding Student find treasure in Starlight Desert",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
