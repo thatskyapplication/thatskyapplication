@@ -20,7 +20,6 @@ import TopBar from "~/components/TopBar";
 import pg from "~/pg.server";
 import {
 	DOUBLE_TREASURE_CANDLES_ROTATION,
-	DailyQuestToString,
 	SEASONAL_CANDLE_ICON,
 	TREASURE_CANDLES_ROTATION,
 	Table,
@@ -261,10 +260,10 @@ export default function DailyGuides() {
 											onClick={() => setSelectedImage(quest.url)}
 											className="regular-link text-sm text-left"
 										>
-											{DailyQuestToString[quest.id]}
+											{enGB.general.quests[quest.id]}
 										</button>
 									) : (
-										<span className="text-sm text-left">{DailyQuestToString[quest.id]}</span>
+										<span className="text-sm text-left">{enGB.general.quests[quest.id]}</span>
 									)}
 								</li>
 							))}
