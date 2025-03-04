@@ -5,9 +5,11 @@ import {
 	type RotationNumber,
 	TIME_ZONE,
 	VALID_REALM_NAME,
+	enGB,
 	isDailyQuest,
 	shardEruption,
 	skyCurrentSeason,
+	skyNotEndedEvents,
 	skyNow,
 	skyUpcomingSeason,
 } from "@thatskyapplication/utility";
@@ -27,10 +29,9 @@ import {
 	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
 	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	DOUBLE_TREASURE_CANDLES_DATES,
-	EVENT_DATES,
 	INITIAL_TREASURE_CANDLES_SEEK,
 } from "~/utility/dates";
-import { daysText, getLocaleFromRequest } from "~/utility/functions";
+import { getLocaleFromRequest } from "~/utility/functions";
 
 interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;
@@ -105,6 +106,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	}
 };
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 export default function DailyGuides() {
 	const { dailyGuides, todayString, shard } = useLoaderData<typeof loader>();
 	const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -140,12 +142,14 @@ export default function DailyGuides() {
 		const seasonalCandlesRotation = currentSeason.resolveSeasonalCandlesRotation(today);
 		let seasonalCandlesRotationText = null;
 		const daysLeft = Math.ceil(currentSeason.end.diff(now, "days").days) - 1;
+
 		const daysLeftText =
 			daysLeft === 0
 				? "The season ends today."
 				: daysLeft === 1
 					? "1 day left in the season."
 					: `${daysLeft} days left in the season.`;
+
 		daysCount.push(daysLeftText);
 
 		if (seasonalCandlesRotation) {
@@ -206,9 +210,32 @@ export default function DailyGuides() {
 		}
 	}
 
-	daysCount.push(
-		...EVENT_DATES.filter(({ end }) => now < end).map((event) => daysText(today, { event })),
-	);
+	for (const { id, start, end } of skyNotEndedEvents(today)) {
+		const daysUntilStart = start.diff(today, "days").days;
+		const name = enGB.general.events[id];
+
+		if (daysUntilStart > 0) {
+			daysCount.push(
+				daysUntilStart < 1
+					? `${name} starts today.`
+					: daysUntilStart >= 2
+						? `${name} starts in ${Math.floor(daysUntilStart)} days.`
+						: `${name} starts tomorrow.`,
+			);
+
+			continue;
+		}
+
+		const daysLeft = Math.ceil(end.diff(now, "days").days) - 1;
+
+		daysCount.push(
+			daysLeft === 0
+				? `${name} ends today.`
+				: daysLeft === 1
+					? `1 day left in ${name}.`
+					: `${daysLeft} days left in ${name}.`,
+		);
+	}
 
 	return (
 		<div className="min-h-screen flex items-center justify-center pt-20 lg:pt-0 pb-4 lg:pb-0 px-4">
