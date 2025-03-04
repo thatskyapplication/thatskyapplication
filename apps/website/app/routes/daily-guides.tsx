@@ -24,12 +24,7 @@ import {
 	TREASURE_CANDLES_ROTATION,
 	Table,
 } from "~/utility/constants";
-import {
-	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
-	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
-	DOUBLE_TREASURE_CANDLES_DATES,
-	INITIAL_TREASURE_CANDLES_SEEK,
-} from "~/utility/dates";
+import { DOUBLE_TREASURE_CANDLES_DATES, INITIAL_TREASURE_CANDLES_SEEK } from "~/utility/dates";
 import { getLocaleFromRequest } from "~/utility/functions";
 
 interface DailyGuidesPacket {
@@ -155,10 +150,7 @@ export default function DailyGuides() {
 			const { rotation, realm } = seasonalCandlesRotation;
 			let rotationNumber: RotationNumber = rotation;
 
-			if (
-				now >= DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE &&
-				now < DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE
-			) {
+			if (currentSeason.isDuringDoubleSeasonalLightEvent(today)) {
 				rotationNumber = 3;
 			}
 
