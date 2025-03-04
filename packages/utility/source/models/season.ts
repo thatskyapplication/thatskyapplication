@@ -131,9 +131,19 @@ export class Season {
 	}
 
 	public remainingSeasonalCandles(date: DateTime) {
-		const { start, end } = this;
+		const {
+			start,
+			end,
+			doubleSeasonalLightEventStartDate,
+			doubleSeasonalLightEventEndDate,
+			doubleSeasonalLightEventDaysDuration,
+		} = this;
 		const duration = Math.ceil(end.diff(this.start, "days").days);
-		const isDuringDoubleSeasonalLightEvent = this.isDuringDoubleSeasonalLightEvent(date);
+
+		const seasonalDoubleLightEvent =
+			doubleSeasonalLightEventStartDate &&
+			doubleSeasonalLightEventEndDate &&
+			doubleSeasonalLightEventDaysDuration;
 
 		// Calculate the total amount of seasonal candles.
 		let seasonalCandlesTotal = duration * SEASONAL_CANDLES_PER_DAY;
@@ -141,9 +151,9 @@ export class Season {
 		let seasonalCandlesTotalWithSeasonPass =
 			duration * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
 
-		if (isDuringDoubleSeasonalLightEvent) {
-			seasonalCandlesTotal += this.doubleSeasonalLightEventDaysDuration;
-			seasonalCandlesTotalWithSeasonPass += this.doubleSeasonalLightEventDaysDuration;
+		if (seasonalDoubleLightEvent) {
+			seasonalCandlesTotal += doubleSeasonalLightEventDaysDuration;
+			seasonalCandlesTotalWithSeasonPass += doubleSeasonalLightEventDaysDuration;
 		}
 
 		// Calculate the amount of seasonal candles so far.
@@ -154,19 +164,19 @@ export class Season {
 			daysSoFar * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
 
 		if (
-			isDuringDoubleSeasonalLightEvent &&
-			date.diff(this.doubleSeasonalLightEventStartDate, "days").days >= 0
+			seasonalDoubleLightEvent &&
+			date.diff(doubleSeasonalLightEventStartDate, "days").days >= 0
 		) {
-			const difference = date.diff(this.doubleSeasonalLightEventEndDate, "days").days;
+			const difference = date.diff(doubleSeasonalLightEventEndDate, "days").days;
 
 			const extraSeasonalCandles =
 				// The difference will be a negative number if the event is still ongoing.
 				difference > 0
-					? this.doubleSeasonalLightEventDaysDuration
-					: this.doubleSeasonalLightEventDaysDuration + difference;
+					? doubleSeasonalLightEventDaysDuration
+					: doubleSeasonalLightEventDaysDuration + difference;
 
-			seasonalCandlesSoFar += extraSeasonalCandles;
-			seasonalCandlesSoFarWithSeasonPass += extraSeasonalCandles;
+			seasonalCandlesSoFar += extraSeasonalCandles!;
+			seasonalCandlesSoFarWithSeasonPass += extraSeasonalCandles!;
 		}
 
 		// Calculate the amount of seasonal candles left.
