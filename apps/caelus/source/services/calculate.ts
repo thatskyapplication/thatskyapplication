@@ -227,7 +227,16 @@ export async function eventTickets(
 	};
 
 	const footer: APIEmbedFooter = {
-		text: events.map((event) => event.daysText(now, locale)).join("\n"),
+		text: events
+			.map(({ id, end }) =>
+				t("days-left.event", {
+					lng: locale,
+					ns: "general",
+					count: Math.ceil(end.diff(now, "days").days) - 1,
+					name: t(`events.${id}`, { lng: locale, ns: "general" }),
+				}),
+			)
+			.join("\n"),
 	};
 
 	const event0 = events[0];

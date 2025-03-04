@@ -1,5 +1,4 @@
 import { URL } from "node:url";
-import { Locale } from "@discordjs/core";
 import {
 	type EventIds,
 	type Item,
@@ -7,7 +6,6 @@ import {
 	resolveAllCosmetics,
 	resolveOffer,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { CDN_URL } from "../utility/constants.js";
 
@@ -88,8 +86,6 @@ interface EventTicketsPool {
 export class Event {
 	public readonly id: EventIds;
 
-	private readonly name: string;
-
 	public readonly start: DateTime;
 
 	public readonly end: DateTime;
@@ -106,7 +102,6 @@ export class Event {
 
 	public constructor(data: EventData) {
 		this.id = data.id;
-		this.name = t(`events.${data.id}`, { lng: Locale.EnglishGB, ns: "general" });
 		this.start = data.start;
 		this.end = data.end;
 
@@ -129,33 +124,6 @@ export class Event {
 			: null;
 
 		this.patchNotesURL = data.patchNotesURL ?? null;
-	}
-
-	public daysText(date: DateTime, locale: Locale) {
-		const { end, start, name } = this;
-		const daysLeft = end.diff(date, "days").days;
-		const daysUntilStart = start.diff(date, "days").days;
-
-		if (daysLeft <= 0) {
-			return daysLeft === 0
-				? `${name} ended ${Math.abs(daysLeft)} day ago.`
-				: `${name} ended ${Math.abs(daysLeft)} days ago.`;
-		}
-
-		if (daysUntilStart > 0) {
-			return daysUntilStart < 1
-				? `${name} starts today.`
-				: daysUntilStart >= 2
-					? `${name} starts in ${Math.floor(daysUntilStart)} days.`
-					: `${name} starts tomorrow.`;
-		}
-
-		return t("days-left.event", {
-			lng: locale,
-			ns: "general",
-			count: Math.ceil(daysLeft) - 1,
-			name,
-		});
 	}
 
 	public resolveInfographicURL(date: DateTime): string | null {

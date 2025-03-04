@@ -412,7 +412,26 @@ async function statusEmbed(guild: Guild, channelId: Snowflake | null) {
 
 export function dailyGuidesEventData(date: DateTime, locale: Locale) {
 	const events = skyCurrentEvents(date);
-	const eventEndText = skyNotEndedEvents(date).map((event) => event.daysText(date, locale));
+
+	const eventEndText = skyNotEndedEvents(date).map(({ id, start, end }) => {
+		const daysUntilStart = start.diff(date, "days").days;
+
+		if (daysUntilStart > 0) {
+			return daysUntilStart < 1
+				? `${t(`events.${id}`, { lng: locale, ns: "general" })} starts today.`
+				: daysUntilStart >= 2
+					? `${t(`events.${id}`, { lng: locale, ns: "general" })} starts in ${Math.floor(daysUntilStart)} days.`
+					: `${t(`events.${id}`, { lng: locale, ns: "general" })} starts tomorrow.`;
+		}
+
+		return t("days-left.event", {
+			lng: locale,
+			ns: "general",
+			count: Math.ceil(end.diff(date, "days").days) - 1,
+			name: t(`events.${id}`, { lng: locale, ns: "general" }),
+		});
+	});
+
 	const event0 = events[0];
 	let iconURL = null;
 
