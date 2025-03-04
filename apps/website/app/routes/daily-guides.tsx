@@ -79,7 +79,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 						...shard,
 						timestamps: shard.timestamps.map(({ start, end }) => ({
 							start: {
-								unix: start.toMillis(),
+								unix: start.toUnixInteger(),
 								format: new Intl.DateTimeFormat(locale, {
 									timeZone,
 									hour: "2-digit",
@@ -88,7 +88,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 								}).format(start.toMillis()),
 							},
 							end: {
-								unix: end.toMillis(),
+								unix: end.toUnixInteger(),
 								format: new Intl.DateTimeFormat(locale, {
 									timeZone,
 									hour: "2-digit",
