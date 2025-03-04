@@ -1,7 +1,7 @@
 import { Cosmetic } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { StandardSpirit } from "../../../models/spirits.js";
-import { SpiritEmote, SpiritId } from "../../index.js";
+import { SpiritEmote, SpiritId } from "../../../utility/spirits.js";
 
 const emote = SpiritEmote.Duck;
 

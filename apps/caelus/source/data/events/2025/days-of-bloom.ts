@@ -1,6 +1,5 @@
-import { Cosmetic, EventId, skyDate } from "@thatskyapplication/utility";
+import { Cosmetic, EventId, LINK_REDIRECTOR_URL, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
-import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 
 const eventTicketAmount = [];
 

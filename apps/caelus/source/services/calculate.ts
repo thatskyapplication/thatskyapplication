@@ -14,12 +14,12 @@ import {
 	isDuring,
 	resolveCurrencyEmoji,
 	shardEruption,
+	skyCurrentSeason,
 	skyNow,
 	skyToday,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { skyCurrentEvents } from "../data/events/index.js";
-import { skyCurrentSeason } from "../data/spirits/seasons/index.js";
 import { client } from "../discord.js";
 import type { Event } from "../models/Event.js";
 import {

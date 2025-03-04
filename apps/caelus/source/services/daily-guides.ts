@@ -20,14 +20,15 @@ import {
 	formatEmojiURL,
 	resolveCurrencyEmoji,
 	shardEruption,
+	skyCurrentSeason,
 	skyNow,
 	skyToday,
+	skyUpcomingSeason,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { skyCurrentEvents, skyNotEndedEvents } from "../data/events/index.js";
-import { skyCurrentSeason, skyUpcomingSeason } from "../data/spirits/seasons/index.js";
 import { client } from "../discord.js";
 import DailyGuides, { type DailyGuideQuest } from "../models/DailyGuides.js";
 import type {

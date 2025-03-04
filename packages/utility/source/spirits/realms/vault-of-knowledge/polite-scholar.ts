@@ -1,7 +1,7 @@
 import { Cosmetic } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { StandardSpirit } from "../../../models/spirits.js";
-import { SpiritId, SpiritStance } from "../../index.js";
+import { SpiritId, SpiritStance } from "../../../utility/spirits.js";
 
 const stance = SpiritStance.Polite;
 

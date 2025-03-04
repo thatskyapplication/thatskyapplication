@@ -5,6 +5,7 @@ import { CDN_URL } from "../cdn.js";
 import { skyDate } from "../dates.js";
 import type { RealmName } from "../kingdom.js";
 import type { SeasonIds } from "../season.js";
+import { addCosts, resolveAllCosmetics, resolveOffer } from "../utility/functions.js";
 import {
 	type FriendAction,
 	type Item,
@@ -17,8 +18,7 @@ import {
 	type SpiritStance,
 	type SpiritType,
 	TRAVELLING_DATES,
-} from "../spirits/index.js";
-import { addCosts, resolveAllCosmetics, resolveOffer } from "../utility/functions.js";
+} from "../utility/spirits.js";
 
 interface TravellingSpiritsDates {
 	start: DateTime;

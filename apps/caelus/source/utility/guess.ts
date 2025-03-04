@@ -1,5 +1,5 @@
 import type { Snowflake } from "@discordjs/core";
-import { spirits } from "../data/spirits/index.js";
+import { spirits } from "@thatskyapplication/utility";
 import {
 	CosmeticToEmoji,
 	FRIEND_ACTION_EMOJIS,

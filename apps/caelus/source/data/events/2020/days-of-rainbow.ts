@@ -1,7 +1,6 @@
 import { URL } from "node:url";
-import { EventId, skyDate } from "@thatskyapplication/utility";
+import { EventId, LINK_REDIRECTOR_URL, skyDate } from "@thatskyapplication/utility";
 import { Event } from "../../../models/Event.js";
-import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 
 export default new Event({
 	id: EventId.DaysOfRainbow2020,

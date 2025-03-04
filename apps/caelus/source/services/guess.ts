@@ -25,12 +25,12 @@ import {
 	SpiritId,
 	type SpiritIds,
 	type StandardSpirit,
+	currentSeasonalSpirits,
 	formatEmoji,
 	formatEmojiURL,
+	spirits,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import { spirits } from "../data/spirits/index.js";
-import { currentSeasonalSpirits } from "../data/spirits/seasons/index.js";
 import { client } from "../discord.js";
 import type { GuessPacket } from "../models/Guess.js";
 import type { Guild } from "../models/discord/guild.js";

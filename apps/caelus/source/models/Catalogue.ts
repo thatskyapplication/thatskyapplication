@@ -42,7 +42,12 @@ import {
 	isSeasonId,
 	isSpiritId,
 	resolveAllCosmetics,
+	resolveReturningSpirits,
+	resolveTravellingSpirit,
+	skyCurrentSeason,
 	skyNow,
+	skySeasons,
+	spirits,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
@@ -50,13 +55,6 @@ import { skyCurrentEvents, skyEventYears, skyEvents } from "../data/events/index
 import { NESTING_WORKSHOP } from "../data/nesting-workshop.js";
 import { PERMANENT_EVENT_STORE } from "../data/permanent-event-store.js";
 import { SECRET_AREA } from "../data/secret-area.js";
-import { spirits } from "../data/spirits/index.js";
-import {
-	resolveReturningSpirits,
-	resolveTravellingSpirit,
-	skyCurrentSeason,
-	skySeasons,
-} from "../data/spirits/seasons/index.js";
 import { STARTER_PACKS } from "../data/starter-packs.js";
 import { client } from "../discord.js";
 import type { Event } from "../models/Event.js";

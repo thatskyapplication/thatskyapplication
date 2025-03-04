@@ -47,13 +47,13 @@ import {
 	isCountry,
 	isPlatformId,
 	isSeasonId,
+	skySeasons,
 } from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import { t } from "i18next";
 import sharp from "sharp";
 import { COMMAND_CACHE } from "../caches/commands.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
-import { skySeasons } from "../data/spirits/seasons/index.js";
 import { client } from "../discord.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";

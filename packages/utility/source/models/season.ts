@@ -9,8 +9,8 @@ import {
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
 	type SeasonIds,
 } from "../season.js";
-import type { Item, ItemRaw, SpiritIds } from "../spirits/index.js";
 import { resolveAllCosmetics, resolveOffer, snakeCaseName } from "../utility/functions.js";
+import type { Item, ItemRaw, SpiritIds } from "../utility/spirits.js";
 import type { GuideSpirit, SeasonalSpirit } from "./spirits.js";
 
 type SeasonalCandlesRotation = Readonly<

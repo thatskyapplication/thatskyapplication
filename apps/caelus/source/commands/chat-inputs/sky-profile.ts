@@ -5,9 +5,8 @@ import {
 	Locale,
 	MessageFlags,
 } from "@discordjs/core";
-import { type SpiritIds, isCountry } from "@thatskyapplication/utility";
+import { type SpiritIds, isCountry, spirits } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import { spirits } from "../../data/spirits/index.js";
 import { client } from "../../discord.js";
 import Profile, { AssetType, type ProfileSetData } from "../../models/Profile.js";
 import { searchAutocomplete } from "../../services/spirit.js";

@@ -22,13 +22,13 @@ import {
 	type SpiritIds,
 	type StandardSpirit,
 	TIME_ZONE,
+	currentSeasonalSpirits,
 	formatEmoji,
 	isSpiritId,
 	skyNow,
+	spirits,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import { spirits } from "../data/spirits/index.js";
-import { currentSeasonalSpirits } from "../data/spirits/seasons/index.js";
 import { client } from "../discord.js";
 import pino from "../pino.js";
 import {

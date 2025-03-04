@@ -1,7 +1,7 @@
 import { Cosmetic } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { StandardSpirit } from "../../../models/spirits.js";
-import { SpiritCall, SpiritId } from "../../index.js";
+import { SpiritCall, SpiritId } from "../../../utility/spirits.js";
 
 const call = SpiritCall.Bird;
 

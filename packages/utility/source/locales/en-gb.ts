@@ -5,8 +5,8 @@ import { REALM_NAME_VALUES, SKY_MAP_VALUES } from "../kingdom.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { DailyQuest, type DailyQuests } from "../quests.js";
 import { SeasonId, type SeasonIds } from "../season.js";
-import { SpiritId, type SpiritIds } from "../spirits/index.js";
 import { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "../utility/constants.js";
+import { SpiritId, type SpiritIds } from "../utility/spirits.js";
 
 export default {
 	general: {

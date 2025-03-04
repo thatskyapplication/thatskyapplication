@@ -41,6 +41,26 @@ export {
 	STANDARD_SPIRITS,
 } from "./spirits/realms/index.js";
 export {
+	currentSeasonalSpirits,
+	resolveReturningSpirits,
+	resolveTravellingSpirit,
+	skyCurrentSeason,
+	skySeasons,
+	skyUpcomingSeason,
+} from "./spirits/seasons/index.js";
+export { spirits } from "./spirits/index.js";
+export {
+	LINK_REDIRECTOR_URL,
+	MAXIMUM_WINGED_LIGHT,
+	MINIMUM_WINGED_LIGHT,
+} from "./utility/constants.js";
+export {
+	addCosts,
+	resolveAllCosmetics,
+	resolveOffer,
+	snakeCaseName,
+} from "./utility/functions.js";
+export {
 	FriendAction,
 	type Item,
 	type ItemCost,
@@ -54,9 +74,7 @@ export {
 	type SpiritType,
 	TRAVELLING_DATES,
 	isSpiritId,
-} from "./spirits/index.js";
-export { MAXIMUM_WINGED_LIGHT, MINIMUM_WINGED_LIGHT } from "./utility/constants.js";
-export { addCosts, resolveAllCosmetics, resolveOffer, snakeCaseName } from "./utility/functions.js";
+} from "./utility/spirits.js";
 export { CDN_URL } from "./cdn.js";
 export { Cosmetic } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";

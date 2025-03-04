@@ -1,6 +1,6 @@
 import { Collection } from "@discordjs/collection";
 import type { ElderSpirit, StandardSpirit } from "../../models/spirits.js";
-import type { SpiritIds } from "../index.js";
+import type { SpiritIds } from "../../utility/spirits.js";
 import DaylightPrairie from "./daylight-prairie/index.js";
 import GoldenWasteland from "./golden-wasteland/index.js";
 import HiddenForest from "./hidden-forest/index.js";

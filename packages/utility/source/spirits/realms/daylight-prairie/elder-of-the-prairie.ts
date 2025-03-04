@@ -1,7 +1,7 @@
 import { Cosmetic } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { ElderSpirit } from "../../../models/spirits.js";
-import { SpiritId } from "../../index.js";
+import { SpiritId } from "../../../utility/spirits.js";
 
 export default new ElderSpirit({
 	id: SpiritId.ElderOfThePrairie,

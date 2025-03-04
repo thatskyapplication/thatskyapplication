@@ -1,5 +1,5 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
-import type { SpiritIds } from "../spirits/index.js";
+import type { SpiritIds } from "../utility/spirits.js";
 import type { ElderSpirit, StandardSpirit, StandardSpiritRealm } from "./spirits.js";
 
 interface RealmData {
