@@ -12,4 +12,5 @@ export const {
 	CosmeticToEmoji,
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
+	EventIdToEventTicketEmoji,
 } = emojiConstants(PRODUCTION);

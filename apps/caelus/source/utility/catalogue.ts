@@ -1,14 +1,12 @@
 import {
 	type Emoji,
-	EventId,
-	type EventIds,
 	type ItemCost,
 	SeasonId,
 	type SeasonIds,
 	resolveCurrencyEmoji,
 } from "@thatskyapplication/utility";
 import {
-	EVENT_EMOJIS,
+	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
 	SeasonIdToSeasonalCandleEmoji,
@@ -49,95 +47,6 @@ const SeasonIdToSeasonalHeartEmoji = {
 } as const satisfies Readonly<
 	Record<Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>, Emoji>
 >;
-
-export const EventIdToEventTicketEmoji = {
-	// 2019.
-	[EventId.HalloweenOfficeEvent2019]: null,
-	[EventId.DaysOfGiving2019]: null,
-	[EventId.DaysOfFeast2019]: null,
-
-	// 2020.
-	[EventId.LunarNewYear2020]: null,
-	[EventId.DaysOfLove2020]: null,
-	[EventId.DaysOfSpring2020]: null,
-	[EventId.DaysOfNature2020]: null,
-	[EventId.DaysOfHealing2020]: null,
-	[EventId.DaysOfRainbow2020]: null,
-	[EventId.SkyAnniversary2020]: null,
-	[EventId.DaysOfSummerLights2020]: null,
-	[EventId.DaysOfMischief2020]: null,
-	[EventId.DaysOfGiving2020]: null,
-	[EventId.DaysOfFeast2020]: null,
-
-	// 2021.
-	[EventId.DaysOfFortune2021]: null,
-	[EventId.DaysOfLove2021]: null,
-	[EventId.DaysOfBloom2021]: null,
-	[EventId.DaysOfNature2021]: null,
-	[EventId.ChildrensDay2021]: null,
-	[EventId.DaysOfRainbow2021]: null,
-	[EventId.SkyAnniversary2021]: null,
-	[EventId.DaysOfSummer2021]: null,
-	[EventId.DaysOfSummerLights2021]: null,
-	[EventId.DaysOfGiving2021]: null,
-	[EventId.DaysOfMischief2021]: null,
-	[EventId.DaysOfFeast2021]: null,
-
-	// 2022.
-	[EventId.DaysOfFortune2022]: null,
-	[EventId.DaysOfLove2022]: null,
-	[EventId.KizunaAI2022]: null,
-	[EventId.DaysOfBloom2022]: null,
-	[EventId.DaysOfNature2022]: null,
-	[EventId.HarmonyHallGrandOpening2022]: null,
-	[EventId.DaysOfRainbow2022]: null,
-	[EventId.SkyAnniversary2022]: null,
-	[EventId.DaysOfSunlight2022]: null,
-	[EventId.LazyDays2022]: null,
-	[EventId.DaysOfMischief2022]: null,
-	[EventId.DaysOfGiving2022]: null,
-	[EventId.DaysOfFeast2022]: null,
-
-	// 2023.
-	[EventId.DaysOfFortune2023]: null,
-	[EventId.DaysOfLove2023]: null,
-	[EventId.DaysOfBloom2023]: null,
-	[EventId.DaysOfNature2023]: null,
-	[EventId.DaysOfColour2023]: EVENT_EMOJIS.Colour,
-	[EventId.DaysOfMusic2023]: EVENT_EMOJIS.Music,
-	[EventId.SkyAnniversary2023]: EVENT_EMOJIS.SkyAnniversary,
-	[EventId.AURORAEncoreConcerts2023]: EVENT_EMOJIS.AURORAEncore,
-	[EventId.DaysOfSunlight2023]: EVENT_EMOJIS.Sunlight,
-	[EventId.DaysOfStyle2023]: EVENT_EMOJIS.Style,
-	[EventId.DaysOfMischief2023]: EVENT_EMOJIS.Mischief,
-	[EventId.DaysOfGiving2023]: null,
-	[EventId.AviarysFireworkFestival2023]: EVENT_EMOJIS.AviarysFireworkFestival,
-	[EventId.DaysOfFeast2023]: EVENT_EMOJIS.Feast,
-
-	// 2024.
-	[EventId.DaysOfFortune2024]: EVENT_EMOJIS.Fortune,
-	[EventId.DaysOfLove2024]: EVENT_EMOJIS.Love,
-	[EventId.SpringCamping2024]: null,
-	[EventId.DaysOfBloom2024]: EVENT_EMOJIS.Bloom,
-	[EventId.SkyXCinnamorollPopUpCafe2024]: EVENT_EMOJIS.SkyXCinnamorollPopUpCafe,
-	[EventId.DaysOfNature2024]: EVENT_EMOJIS.Nature,
-	[EventId.DaysOfColour2024]: EVENT_EMOJIS.Colour,
-	[EventId.SkyFest2024]: EVENT_EMOJIS.SkyFest,
-	[EventId.TournamentOfTriumph2024]: EVENT_EMOJIS.TournamentOfTriumph,
-	[EventId.DaysOfSunlight2024]: EVENT_EMOJIS.Sunlight,
-	[EventId.DaysOfMoonlight2024]: EVENT_EMOJIS.Moonlight,
-	[EventId.DaysOfStyle2024]: EVENT_EMOJIS.Style,
-	[EventId.DaysOfMischief2024]: EVENT_EMOJIS.Mischief,
-	[EventId.DaysOfMusic2024]: EVENT_EMOJIS.Music,
-	[EventId.DaysOfGiving2024]: null,
-	[EventId.SkyXAlicesWonderlandCafe2024]: EVENT_EMOJIS.Feast,
-
-	// 2025.
-	[EventId.DaysOfFortune2025]: EVENT_EMOJIS.Fortune,
-	[EventId.DaysOfLove2025]: EVENT_EMOJIS.Love,
-	[EventId.DaysOfTreasure2025]: EVENT_EMOJIS.Treasure,
-	[EventId.DaysOfBloom2025]: EVENT_EMOJIS.Bloom,
-} as const satisfies Readonly<Record<EventIds, Emoji | null>>;
 
 export function resolveCostToString(cost: ItemCost) {
 	const totalCost = [];

@@ -31,6 +31,7 @@ import {
 	WINGED_LIGHT_THRESHOLDS,
 } from "../utility/constants.js";
 import {
+	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
@@ -189,11 +190,13 @@ export async function eventTickets(
 	const amountRequired = goal - start;
 
 	const suffix = events
-		.map((event) =>
-			event.eventTickets.emoji
-				? formatEmoji(event.eventTickets.emoji)
-				: t(`events.${event.id}`, { lng: locale, ns: "general" }),
-		)
+		.map((event) => {
+			const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
+
+			return eventTicketEmoji
+				? formatEmoji(eventTicketEmoji)
+				: t(`events.${event.id}`, { lng: locale, ns: "general" });
+		})
 		.join("");
 
 	const startEmojis = `${start} ${suffix}`;
@@ -211,8 +214,9 @@ export async function eventTickets(
 		);
 
 		// Collect pools, if any.
+		const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
 		const pool = event.eventTickets.pool?.find((pool) => isDuring(pool.start, pool.end, today));
-		return `${event.eventTickets.emoji ? formatEmoji(event.eventTickets.emoji) : `${t(`events.${event.id}`, { lng: locale, ns: "general" })}: `} A total of ${dailyRemaining} remains daily.${pool ? ` There is currently a pool of ${pool.amount}!` : ""}`;
+		return `${eventTicketEmoji ? formatEmoji(eventTicketEmoji) : `${t(`events.${event.id}`, { lng: locale, ns: "general" })}: `} A total of ${dailyRemaining} remains daily.${pool ? ` There is currently a pool of ${pool.amount}!` : ""}`;
 	});
 
 	const embed: APIEmbed = {
@@ -228,8 +232,12 @@ export async function eventTickets(
 
 	const event0 = events[0];
 
-	if (events.length === 1 && event0?.eventTickets.emoji) {
-		footer.icon_url = formatEmojiURL(event0.eventTickets.emoji.id);
+	if (events.length === 1 && event0) {
+		const eventTicketEmoji = EventIdToEventTicketEmoji[event0.id];
+
+		if (eventTicketEmoji) {
+			footer.icon_url = formatEmojiURL(eventTicketEmoji.id);
+		}
 	}
 
 	embed.footer = footer;

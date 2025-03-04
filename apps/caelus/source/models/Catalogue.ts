@@ -72,6 +72,7 @@ import {
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../utility/constants.js";
 import {
 	CosmeticToEmoji,
+	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
@@ -403,8 +404,10 @@ export class Catalogue {
 							style: ButtonStyle.Success,
 						};
 
-						if (event.eventTickets?.emoji) {
-							button.emoji = event.eventTickets.emoji;
+						const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
+
+						if (eventTicketEmoji) {
+							button.emoji = eventTicketEmoji;
 						} else {
 							button.label = t(`events.${event.id}`, { lng: interaction.locale, ns: "general" });
 						}
@@ -1074,8 +1077,10 @@ export class Catalogue {
 				value: String(id),
 			};
 
-			if (event.eventTickets?.emoji) {
-				stringSelectMenuOption.emoji = event.eventTickets.emoji;
+			const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
+
+			if (eventTicketEmoji) {
+				stringSelectMenuOption.emoji = eventTicketEmoji;
 			}
 
 			return stringSelectMenuOption;
@@ -1460,11 +1465,12 @@ export class Catalogue {
 		event: Event,
 	) {
 		const { locale } = interaction;
-		const { id, start, eventTickets, offer, offerInfographicURL } = event;
+		const { id, start, offer, offerInfographicURL } = event;
+		const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
 
 		const embed: APIEmbed = {
 			color: DEFAULT_EMBED_COLOUR,
-			title: `${eventTickets?.emoji ? formatEmoji(eventTickets.emoji) : ""}${t(`events.${id}`, {
+			title: `${eventTicketEmoji ? formatEmoji(eventTicketEmoji) : ""}${t(`events.${id}`, {
 				lng: locale,
 				ns: "general",
 			})}`,

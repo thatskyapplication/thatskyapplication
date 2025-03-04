@@ -51,6 +51,7 @@ import {
 } from "../utility/constants.js";
 import { DOUBLE_TREASURE_CANDLES_DATES } from "../utility/dates.js";
 import {
+	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
@@ -413,10 +414,15 @@ export function dailyGuidesEventData(date: DateTime, locale: Locale) {
 	const events = skyCurrentEvents(date);
 	const eventEndText = skyNotEndedEvents(date).map((event) => event.daysText(date, locale));
 	const event0 = events[0];
+	let iconURL = null;
 
-	const iconURL = event0?.eventTickets?.emoji
-		? formatEmojiURL(event0.eventTickets?.emoji.id)
-		: null;
+	if (event0) {
+		const eventTicketEmoji = EventIdToEventTicketEmoji[event0.id];
+
+		if (eventTicketEmoji) {
+			iconURL = formatEmojiURL(eventTicketEmoji.id);
+		}
+	}
 
 	const currentEventsWithEventTickets = events.filter(
 		(event) =>
@@ -430,16 +436,14 @@ export function dailyGuidesEventData(date: DateTime, locale: Locale) {
 			? {
 					name: t("event-tickets", { lng: locale, ns: "general" }),
 					value: currentEventsWithEventTickets
-						.map(
-							(event) =>
-								`[${event.eventTickets?.emoji ? formatEmoji(event.eventTickets.emoji) : ""}${t(
-									"view",
-									{
-										lng: locale,
-										ns: "general",
-									},
-								)}](${event.resolveInfographicURL(date)!} "${t(`events.${event.id}`, { lng: locale, ns: "general" })}")`,
-						)
+						.map((event) => {
+							const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
+
+							return `[${eventTicketEmoji ? formatEmoji(eventTicketEmoji) : ""}${t("view", {
+								lng: locale,
+								ns: "general",
+							})}](${event.resolveInfographicURL(date)!} "${t(`events.${event.id}`, { lng: locale, ns: "general" })}")`;
+						})
 						.join(" | "),
 				}
 			: null;

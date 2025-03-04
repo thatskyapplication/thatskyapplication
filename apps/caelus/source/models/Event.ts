@@ -1,7 +1,6 @@
 import { URL } from "node:url";
 import { Locale } from "@discordjs/core";
 import {
-	type Emoji,
 	type EventIds,
 	type Item,
 	type ItemRaw,
@@ -10,7 +9,6 @@ import {
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
-import { EventIdToEventTicketEmoji } from "../utility/catalogue.js";
 import { CDN_URL } from "../utility/constants.js";
 
 // const EVENT_ROTATION_LETTER = ["A", "C", "B"] as const;
@@ -70,12 +68,6 @@ interface EventTicketsPoolData {
 }
 
 interface EventTickets {
-	/**
-	 * The emoji representing the event tickets.
-	 *
-	 * @remarks This is `null` for events that do not (yet) have an event ticket emoji.
-	 */
-	emoji: Emoji | null;
 	amount: readonly EventTicketsAmount[];
 	pool?: readonly EventTicketsPool[];
 	end: DateTime;
@@ -125,7 +117,6 @@ export class Event {
 						...amount,
 						infographicURL: amount.infographicURL ?? null,
 					})),
-					emoji: EventIdToEventTicketEmoji[data.id],
 					end: data.eventTickets.end ?? data.end,
 				}
 			: null;
