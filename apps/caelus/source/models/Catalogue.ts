@@ -182,7 +182,7 @@ export class Catalogue {
 		};
 	}
 
-	private progressPercentage(owned: number[], total: number, round?: boolean) {
+	private progressPercentage(owned: readonly number[], total: number, round?: boolean) {
 		if (total === 0) {
 			return null;
 		}
@@ -230,7 +230,7 @@ export class Catalogue {
 		return this.progressPercentage(owned, total, round);
 	}
 
-	private seasonOwnedProgress(seasons: Season[]) {
+	private seasonOwnedProgress(seasons: readonly Season[]) {
 		const totalOwned = [];
 		let total = 0;
 
@@ -251,7 +251,7 @@ export class Catalogue {
 		return { owned: totalOwned, total };
 	}
 
-	public seasonProgress(seasons: Season[], round?: boolean) {
+	public seasonProgress(seasons: readonly Season[], round?: boolean) {
 		const { owned, total } = this.seasonOwnedProgress(seasons);
 		return this.progressPercentage(owned, total, round);
 	}
