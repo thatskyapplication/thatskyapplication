@@ -53,7 +53,7 @@ interface DailyGuideQuest {
 	url: string | null;
 }
 
-export function treasureCandles(today: DateTime, double = false) {
+function treasureCandles(today: DateTime, double = false) {
 	const realmIndex = VALID_REALM_NAME.at(
 		(today.diff(INITIAL_TREASURE_CANDLES_SEEK, "days").days + 4) % 5,
 	)!;
