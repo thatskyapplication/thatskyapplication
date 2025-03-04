@@ -306,6 +306,8 @@ export default {
 				"Meet up with Nightbird Whisperer in Prairie Village",
 			[DailyQuest.HelpAnxiousAnglerOrScoldingStudentFindTreasureInStarlightDesert]:
 				"Help Anxious Angler or Scolding Student find treasure in Starlight Desert",
+			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
+				"Help Cackling Cannoneer or Chuckling Scout find treasure in Sanctuary Islands",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
