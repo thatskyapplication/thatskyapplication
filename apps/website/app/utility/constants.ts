@@ -1,4 +1,4 @@
-import { CDN_URL, RealmName } from "@thatskyapplication/utility";
+import { CDN_URL } from "@thatskyapplication/utility";
 
 export const DEFAULT_LOCALE = "en-GB" as const;
 export const APPLICATION_NAME = "Caelus" as const;
@@ -41,57 +41,4 @@ export enum Table {
 }
 
 export const SEASONAL_CANDLE_ICON = String(new URL("icons/seasonal_candle.webp", CDN_URL));
-
-export const TREASURE_CANDLES_ROTATION = {
-	[RealmName.DaylightPrairie]: [
-		String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
-	],
-	[RealmName.HiddenForest]: [
-		String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
-	],
-	[RealmName.ValleyOfTriumph]: [
-		String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
-	],
-	[RealmName.GoldenWasteland]: [
-		String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
-	],
-	[RealmName.VaultOfKnowledge]: [
-		String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
-	],
-} as const;
-
-export const DOUBLE_TREASURE_CANDLES_ROTATION = {
-	[RealmName.DaylightPrairie]: [
-		String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
-	],
-	[RealmName.HiddenForest]: [
-		String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
-	],
-	[RealmName.ValleyOfTriumph]: [
-		String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
-	],
-	[RealmName.GoldenWasteland]: [
-		String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
-	],
-	[RealmName.VaultOfKnowledge]: [
-		String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
-	],
-} as const;
-
 export const SKY_PROFILES_PAGE_LIMIT = 24 as const;

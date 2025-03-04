@@ -4,6 +4,10 @@ import {
 	type DailyQuests,
 	type RotationNumber,
 	TIME_ZONE,
+	TREASURE_CANDLES_DOUBLE_DATES,
+	TREASURE_CANDLES_DOUBLE_ROTATION,
+	TREASURE_CANDLES_INITIAL_SEEK,
+	TREASURE_CANDLES_ROTATION,
 	VALID_REALM_NAME,
 	enGB,
 	isDailyQuest,
@@ -18,13 +22,7 @@ import type { DateTime } from "luxon";
 import { useState } from "react";
 import TopBar from "~/components/TopBar";
 import pg from "~/pg.server";
-import {
-	DOUBLE_TREASURE_CANDLES_ROTATION,
-	SEASONAL_CANDLE_ICON,
-	TREASURE_CANDLES_ROTATION,
-	Table,
-} from "~/utility/constants";
-import { DOUBLE_TREASURE_CANDLES_DATES, INITIAL_TREASURE_CANDLES_SEEK } from "~/utility/dates";
+import { SEASONAL_CANDLE_ICON, Table } from "~/utility/constants";
 import { getLocaleFromRequest } from "~/utility/functions";
 
 interface DailyGuidesPacket {
@@ -42,7 +40,7 @@ interface DailyGuideQuest {
 
 function treasureCandles(today: DateTime, double = false) {
 	const realmIndex = VALID_REALM_NAME.at(
-		(today.diff(INITIAL_TREASURE_CANDLES_SEEK, "days").days + 4) % 5,
+		(today.diff(TREASURE_CANDLES_INITIAL_SEEK, "days").days + 4) % 5,
 	)!;
 
 	const realmRotation = TREASURE_CANDLES_ROTATION[realmIndex];
@@ -50,7 +48,7 @@ function treasureCandles(today: DateTime, double = false) {
 	const result = [realmRotation[realmRotationIndex]!];
 
 	if (double) {
-		result.push(DOUBLE_TREASURE_CANDLES_ROTATION[realmIndex][realmRotationIndex]!);
+		result.push(TREASURE_CANDLES_DOUBLE_ROTATION[realmIndex][realmRotationIndex]!);
 	}
 
 	return result;
@@ -118,7 +116,7 @@ export default function DailyGuides() {
 			quest !== null && isDailyQuest(quest.id),
 	);
 
-	const doubleTreasureCandles = DOUBLE_TREASURE_CANDLES_DATES.some(
+	const doubleTreasureCandles = TREASURE_CANDLES_DOUBLE_DATES.some(
 		({ start, end }) => now >= start && now < end,
 	);
 

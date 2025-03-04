@@ -16,6 +16,7 @@ import { DiscordAPIError } from "@discordjs/rest";
 import {
 	type RotationNumber,
 	TIME_ZONE,
+	TREASURE_CANDLES_DOUBLE_DATES,
 	formatEmoji,
 	formatEmojiURL,
 	resolveCurrencyEmoji,
@@ -50,7 +51,6 @@ import {
 	DEFAULT_EMBED_COLOUR,
 	NOT_IN_CACHED_GUILD_RESPONSE,
 } from "../utility/constants.js";
-import { DOUBLE_TREASURE_CANDLES_DATES } from "../utility/dates.js";
 import {
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
@@ -528,7 +528,7 @@ export function distributionEmbed(locale: Locale) {
 		});
 	}
 
-	const doubleTreasureCandles = DOUBLE_TREASURE_CANDLES_DATES.some(
+	const doubleTreasureCandles = TREASURE_CANDLES_DOUBLE_DATES.some(
 		({ start, end }) => now >= start && now < end,
 	);
 

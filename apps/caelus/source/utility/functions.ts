@@ -23,18 +23,15 @@ import {
 	REALM_NAME_VALUES,
 	type RealmName,
 	SkyMap,
+	TREASURE_CANDLES_DOUBLE_ROTATION,
+	TREASURE_CANDLES_INITIAL_SEEK,
+	TREASURE_CANDLES_ROTATION,
 	VALID_REALM_NAME,
 	VALID_REALM_NAME_VALUES,
 } from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
 import { client } from "../discord.js";
-import {
-	ANIMATED_HASH_PREFIX,
-	APPLICATION_ID,
-	DOUBLE_TREASURE_CANDLES_ROTATION,
-	MAXIMUM_ASSET_SIZE,
-	TREASURE_CANDLES_ROTATION,
-} from "./constants.js";
+import { ANIMATED_HASH_PREFIX, APPLICATION_ID, MAXIMUM_ASSET_SIZE } from "./constants.js";
 import {
 	INCONSISTENT_MAP,
 	MEDITATION_MAPS,
@@ -45,7 +42,6 @@ import {
 	type SocialLightAreaMaps,
 	inconsistentMapKeys,
 } from "./constants.js";
-import { INITIAL_TREASURE_CANDLES_SEEK } from "./dates.js";
 
 export function chatInputApplicationCommandMention(
 	id: Snowflake,
@@ -123,7 +119,7 @@ export function isRainbowAdmireMap(skyMap: SkyMap): skyMap is RainbowAdmireMaps 
 
 export function treasureCandles(today: DateTime, double = false) {
 	const realmIndex = VALID_REALM_NAME.at(
-		(today.diff(INITIAL_TREASURE_CANDLES_SEEK, "days").days + 4) % 5,
+		(today.diff(TREASURE_CANDLES_INITIAL_SEEK, "days").days + 4) % 5,
 	)!;
 
 	const realmRotation = TREASURE_CANDLES_ROTATION[realmIndex];
@@ -131,7 +127,7 @@ export function treasureCandles(today: DateTime, double = false) {
 	const result = [realmRotation[realmRotationIndex]!];
 
 	if (double) {
-		result.push(DOUBLE_TREASURE_CANDLES_ROTATION[realmIndex][realmRotationIndex]!);
+		result.push(TREASURE_CANDLES_DOUBLE_ROTATION[realmIndex][realmRotationIndex]!);
 	}
 
 	return result;
