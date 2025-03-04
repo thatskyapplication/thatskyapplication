@@ -4,6 +4,7 @@ import {
 	type DailyQuests,
 	TIME_ZONE,
 	VALID_REALM_NAME,
+	isDailyQuest,
 	isDuring,
 	shardEruption,
 	skyNow,
@@ -34,7 +35,6 @@ import {
 import {
 	daysText,
 	getLocaleFromRequest,
-	isDailyQuest,
 	remainingSeasonalCandles,
 	resolveSeasonalCandlesRotation,
 	seasonalCandlesRotationURL,

@@ -212,3 +212,7 @@ export const DailyQuest = {
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
 export type DailyQuests = (typeof DAILY_QUEST_VALUES)[number];
+
+export function isDailyQuest(dailyQuest: number): dailyQuest is DailyQuests {
+	return DAILY_QUEST_VALUES.includes(dailyQuest as DailyQuests);
+}

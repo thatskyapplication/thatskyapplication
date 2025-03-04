@@ -1,7 +1,5 @@
 import {
 	CDN_URL,
-	DAILY_QUEST_VALUES,
-	type DailyQuests,
 	MAXIMUM_HAIR_TOUSLE_GIF,
 	MAXIMUM_HIGH_FIVE_GIF,
 	MAXIMUM_KRILL_GIF,
@@ -71,10 +69,6 @@ export function timeString(locale: string | string[]) {
 	}).format(date);
 
 	return { lg, sm };
-}
-
-export function isDailyQuest(dailyQuest: number): dailyQuest is DailyQuests {
-	return DAILY_QUEST_VALUES.includes(dailyQuest as DailyQuests);
 }
 
 export function daysText(

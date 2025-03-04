@@ -13,7 +13,7 @@ import {
 	MessageFlags,
 	PresenceUpdateStatus,
 } from "@discordjs/core";
-import { DAILY_QUEST_VALUES } from "@thatskyapplication/utility";
+import { DAILY_QUEST_VALUES, isDailyQuest } from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import { t } from "i18next";
 import sharp from "sharp";
@@ -21,7 +21,7 @@ import { client } from "../discord.js";
 import type { InteractiveOptions } from "../models/Admin.js";
 import Configuration from "../models/Configuration.js";
 import type { QuestNumber } from "../models/DailyGuides.js";
-import DailyGuides, { isDailyQuest } from "../models/DailyGuides.js";
+import DailyGuides from "../models/DailyGuides.js";
 import S3Client from "../s3-client.js";
 import {
 	distribute as distributeDailyGuides,

@@ -7,7 +7,6 @@ import {
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
-	DAILY_QUEST_VALUES,
 	DailyQuest,
 	type DailyQuests,
 	REALM_NAME_VALUES,
@@ -77,10 +76,6 @@ const DAILY_GUIDES_RESET_DATA = {
 }>;
 
 export type QuestNumber = (typeof QUEST_NUMBER)[number];
-
-export function isDailyQuest(dailyQuest: number): dailyQuest is DailyQuests {
-	return DAILY_QUEST_VALUES.includes(dailyQuest as DailyQuests);
-}
 
 interface ResolveDailyGuideOptions {
 	pureContent: string;

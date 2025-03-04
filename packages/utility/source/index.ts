@@ -108,7 +108,7 @@ export {
 	type NotificationTypes,
 } from "./notifications.js";
 export { PlatformId, PLATFORM_ID_VALUES, type PlatformIds, isPlatformId } from "./platforms.js";
-export { DAILY_QUEST_VALUES, DailyQuest, type DailyQuests } from "./quests.js";
+export { DAILY_QUEST_VALUES, DailyQuest, type DailyQuests, isDailyQuest } from "./quests.js";
 export {
 	type RotationNumber,
 	SEASONAL_CANDLES_PER_DAY,
