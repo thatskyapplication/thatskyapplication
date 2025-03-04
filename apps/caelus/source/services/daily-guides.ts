@@ -519,10 +519,18 @@ export function distributionEmbed(locale: Locale) {
 	let iconURL = null;
 
 	if (season) {
-		const { candleEmoji, emoji } = season;
+		const { candleEmoji, emoji, end } = season;
 		const seasonalCandlesRotation = season.resolveSeasonalCandlesRotation(today);
 		const values = [];
-		footerText.push(season.daysText(now, locale));
+
+		footerText.push(
+			t("days-left.season", {
+				lng: locale,
+				ns: "general",
+				count: Math.ceil(end.diff(now, "days").days) - 1,
+			}),
+		);
+
 		iconURL = formatEmojiURL(emoji.id);
 
 		if (seasonalCandlesRotation) {
@@ -555,7 +563,15 @@ export function distributionEmbed(locale: Locale) {
 		const next = skyUpcomingSeason(today);
 
 		if (next) {
-			footerText.push(next.daysText(now, locale));
+			const daysUntilStart = next.start.diff(now, "days").days;
+
+			footerText.push(
+				daysUntilStart <= 1
+					? "The new season starts tomorrow."
+					: daysUntilStart >= 2
+						? `The new season starts in ${Math.floor(daysUntilStart)} days.`
+						: "The new season starts in 1 day.",
+			);
 		}
 	}
 

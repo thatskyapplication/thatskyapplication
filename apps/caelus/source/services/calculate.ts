@@ -319,8 +319,6 @@ export async function seasonalCandles(
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
 			season.remainingSeasonalCandles(today);
 
-		const daysLeft = season.daysText(today, locale);
-
 		fields.push({
 			name: t("calculate.seasonal-candles.season-calculations", { lng: locale, ns: "commands" }),
 			value: `${resolveCurrencyEmoji({
@@ -332,6 +330,12 @@ export async function seasonalCandles(
 					number: seasonalCandlesLeftWithSeasonPass,
 				},
 			)} ${t("calculate.seasonal-candles.remain-in-the-season-with-a-season-pass", { lng: locale, ns: "commands" })}`,
+		});
+
+		const daysLeft = t("days-left.season", {
+			lng: locale,
+			ns: "general",
+			count: season.end.diff(today, "days").days - 1,
 		});
 
 		embed.footer = { icon_url: formatEmojiURL(season.emoji.id), text: daysLeft };

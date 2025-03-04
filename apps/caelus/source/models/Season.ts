@@ -1,6 +1,5 @@
 import { URL } from "node:url";
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
-import type { Locale } from "@discordjs/core";
 import {
 	type Emoji,
 	type GuideSpirit,
@@ -14,7 +13,6 @@ import {
 	resolveOffer,
 	snakeCaseName,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import type { DateTime } from "luxon";
 import {
 	type RotationNumber,
@@ -147,30 +145,6 @@ export class Season {
 				: null;
 
 		this.patchNotesURL = data.patchNotesURL ?? null;
-	}
-
-	public daysText(date: DateTime, locale: Locale) {
-		const { end, start } = this;
-		const daysLeft = end.diff(date, "days").days;
-		const daysUntilStart = start.diff(date, "days").days;
-
-		if (daysLeft <= 0) {
-			return daysLeft === 0
-				? `The season ended ${Math.abs(daysLeft)} day ago.`
-				: `The season ended ${Math.abs(daysLeft)} days ago.`;
-		}
-
-		if (daysUntilStart > 0) {
-			return daysUntilStart < 1
-				? "The new season starts tomorrow."
-				: daysUntilStart >= 2
-					? `The new season starts in ${Math.floor(daysUntilStart)} days.`
-					: daysUntilStart <= 1
-						? "The new season starts tomorrow."
-						: "The new season starts in 1 day.";
-		}
-
-		return t("days-left.season", { lng: locale, ns: "general", count: Math.ceil(daysLeft) - 1 });
 	}
 
 	public remainingSeasonalCandles(date: DateTime) {
