@@ -15,6 +15,7 @@ import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	TIME_ZONE,
 	formatEmoji,
+	getRandomElement,
 	isDuring,
 	resolveCurrencyEmoji,
 	skyNow,
@@ -35,7 +36,7 @@ import {
 } from "../utility/constants.js";
 import { HEART_EXTRA_DATES } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import { getRandomElement, interactionInvoker, isChatInputCommand } from "../utility/functions.js";
+import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 import { cannotUseUserInstallable } from "../utility/permissions.js";
 
 async function totalGifted(userId: Snowflake) {

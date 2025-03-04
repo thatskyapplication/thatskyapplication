@@ -2,6 +2,10 @@ import type { EventIds } from "../event.js";
 import type { SeasonIds } from "../season.js";
 import type { Item, ItemCost, ItemRaw } from "./spirits.js";
 
+export function getRandomElement<const T>(array: readonly T[]) {
+	return array[Math.floor(Math.random() * array.length)];
+}
+
 export function snakeCaseName(name: string) {
 	return name
 		.replaceAll("'s", "s")

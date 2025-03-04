@@ -28,6 +28,7 @@ import {
 	currentSeasonalSpirits,
 	formatEmoji,
 	formatEmojiURL,
+	getRandomElement,
 	spirits,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
@@ -51,7 +52,7 @@ import {
 	GuessDifficultyToStreakColumn,
 } from "../utility/constants.js";
 import { CosmeticToEmoji, FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import { getRandomElement, interactionInvoker, isChatInputCommand } from "../utility/functions.js";
+import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 import { SPIRIT_COSMETIC_EMOJIS_ARRAY } from "../utility/guess.js";
 
 export function isGuessDifficultyLevel(level: number): level is GuessDifficultyLevel {

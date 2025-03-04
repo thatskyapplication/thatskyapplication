@@ -47,10 +47,6 @@ import {
 } from "./constants.js";
 import { INITIAL_TREASURE_CANDLES_SEEK } from "./dates.js";
 
-export function getRandomElement<const T>(array: readonly T[]) {
-	return array[Math.floor(Math.random() * array.length)];
-}
-
 export function chatInputApplicationCommandMention(
 	id: Snowflake,
 	commandName: string,

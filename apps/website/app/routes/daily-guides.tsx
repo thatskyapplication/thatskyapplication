@@ -2,12 +2,14 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import {
 	type DailyQuests,
+	type RotationNumber,
 	TIME_ZONE,
 	VALID_REALM_NAME,
 	isDailyQuest,
-	isDuring,
 	shardEruption,
+	skyCurrentSeason,
 	skyNow,
+	skyUpcomingSeason,
 } from "@thatskyapplication/utility";
 import { PanelRightClose, X } from "lucide-react";
 import type { DateTime } from "luxon";
@@ -17,7 +19,6 @@ import pg from "~/pg.server";
 import {
 	DOUBLE_TREASURE_CANDLES_ROTATION,
 	DailyQuestToString,
-	type RotationNumber,
 	SEASONAL_CANDLE_ICON,
 	TREASURE_CANDLES_ROTATION,
 	Table,
@@ -28,17 +29,8 @@ import {
 	DOUBLE_TREASURE_CANDLES_DATES,
 	EVENT_DATES,
 	INITIAL_TREASURE_CANDLES_SEEK,
-	NEXT_SEASON_START,
-	SEASON_END,
-	SEASON_START,
 } from "~/utility/dates";
-import {
-	daysText,
-	getLocaleFromRequest,
-	remainingSeasonalCandles,
-	resolveSeasonalCandlesRotation,
-	seasonalCandlesRotationURL,
-} from "~/utility/functions";
+import { daysText, getLocaleFromRequest } from "~/utility/functions";
 
 interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;
@@ -123,6 +115,7 @@ export default function DailyGuides() {
 	const quest3 = dailyGuides.quest3;
 	const quest4 = dailyGuides.quest4;
 	const travellingRock = dailyGuides.travelling_rock;
+	const currentSeason = skyCurrentSeason(now);
 
 	const quests = [quest1, quest2, quest3, quest4].filter(
 		(quest): quest is DailyGuideQuest & { id: DailyQuests } =>
@@ -143,10 +136,17 @@ export default function DailyGuides() {
 	let seasonalCandles = null;
 	const daysCount = [];
 
-	if (isDuring(SEASON_START, SEASON_END, now)) {
-		const seasonalCandlesRotation = resolveSeasonalCandlesRotation(today);
+	if (currentSeason) {
+		const seasonalCandlesRotation = currentSeason.resolveSeasonalCandlesRotation(today);
 		let seasonalCandlesRotationText = null;
-		daysCount.push(daysText(now));
+		const daysLeft = Math.ceil(currentSeason.end.diff(now, "days").days) - 1;
+		const daysLeftText =
+			daysLeft === 0
+				? "The season ends today."
+				: daysLeft === 1
+					? "1 day left in the season."
+					: `${daysLeft} days left in the season.`;
+		daysCount.push(daysLeftText);
 
 		if (seasonalCandlesRotation) {
 			const { rotation, realm } = seasonalCandlesRotation;
@@ -159,7 +159,7 @@ export default function DailyGuides() {
 				rotationNumber = 3;
 			}
 
-			const url = seasonalCandlesRotationURL(realm, rotationNumber);
+			const url = currentSeason.seasonalCandlesRotationURL(realm, rotationNumber);
 
 			seasonalCandlesRotationText = (
 				<button
@@ -173,7 +173,7 @@ export default function DailyGuides() {
 		}
 
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
-			remainingSeasonalCandles(today);
+			currentSeason.remainingSeasonalCandles(today);
 
 		seasonalCandles = (
 			<>
@@ -190,8 +190,20 @@ export default function DailyGuides() {
 				</p>
 			</>
 		);
-	} else if (NEXT_SEASON_START) {
-		daysCount.push(daysText(now, { next: true }));
+	} else {
+		const next = skyUpcomingSeason(today);
+
+		if (next) {
+			const daysUntilStart = next.start.diff(now, "days").days;
+
+			daysCount.push(
+				daysUntilStart <= 1
+					? "The new season starts tomorrow."
+					: daysUntilStart >= 2
+						? `The new season starts in ${Math.floor(daysUntilStart)} days.`
+						: "The new season starts in 1 day.",
+			);
+		}
 	}
 
 	daysCount.push(

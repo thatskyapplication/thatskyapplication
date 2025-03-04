@@ -4,24 +4,12 @@ import {
 	MAXIMUM_HIGH_FIVE_GIF,
 	MAXIMUM_KRILL_GIF,
 	MAXIMUM_PLAY_FIGHT_GIF,
-	type RealmName,
 	TIME_ZONE,
+	getRandomElement,
 } from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
+import { DEFAULT_LOCALE, HUGGING_GIFS } from "~/utility/constants";
 import {
-	DEFAULT_LOCALE,
-	HUGGING_GIFS,
-	REALM_NAME_TO_REALM_CDN_NAME,
-	type RotationNumber,
-	SEASONAL_CANDLES_PER_DAY,
-	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
-	SEASONAL_CANDLES_ROTATION,
-	SEASON_PASS_SEASONAL_CANDLES_BONUS,
-} from "~/utility/constants";
-import {
-	DOUBLE_SEASONAL_LIGHT_EVENT_DURATION,
-	DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE,
-	DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE,
 	type EVENT_DATES,
 	NEXT_SEASON_END,
 	NEXT_SEASON_START,
@@ -31,10 +19,6 @@ import {
 
 export function getBrowserTimeZone() {
 	return Intl.DateTimeFormat().resolvedOptions().timeZone;
-}
-
-function getRandomElement<const T>(array: readonly T[]) {
-	return array[Math.floor(Math.random() * array.length)];
 }
 
 export function getLocaleFromRequest(request: Request) {
@@ -123,72 +107,6 @@ export function daysText(
 	}
 
 	throw new Error("Invalid number of days left.");
-}
-
-export function remainingSeasonalCandles(date: DateTime) {
-	const start = SEASON_START;
-	const end = SEASON_END;
-	const duration = Math.ceil(end.diff(start, "days").days);
-
-	const seasonalDoubleLightEvent =
-		DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE >= start && DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE < end;
-
-	// Calculate the total amount of seasonal candles.
-	let seasonalCandlesTotal = duration * SEASONAL_CANDLES_PER_DAY;
-
-	let seasonalCandlesTotalWithSeasonPass =
-		duration * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
-
-	if (seasonalDoubleLightEvent) {
-		seasonalCandlesTotal += DOUBLE_SEASONAL_LIGHT_EVENT_DURATION;
-		seasonalCandlesTotalWithSeasonPass += DOUBLE_SEASONAL_LIGHT_EVENT_DURATION;
-	}
-
-	// Calculate the amount of seasonal candles so far.
-	const daysSoFar = date.diff(start, "days").days + 1;
-	let seasonalCandlesSoFar = daysSoFar * SEASONAL_CANDLES_PER_DAY;
-
-	let seasonalCandlesSoFarWithSeasonPass =
-		daysSoFar * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
-
-	if (
-		seasonalDoubleLightEvent &&
-		date.diff(DOUBLE_SEASONAL_LIGHT_EVENT_START_DATE, "days").days >= 0
-	) {
-		const difference = date.diff(DOUBLE_SEASONAL_LIGHT_EVENT_END_DATE, "days").days;
-
-		const extraSeasonalCandles =
-			// The difference will be a negative number if the event is still ongoing.
-			difference > 0
-				? DOUBLE_SEASONAL_LIGHT_EVENT_DURATION
-				: DOUBLE_SEASONAL_LIGHT_EVENT_DURATION + difference;
-
-		seasonalCandlesSoFar += extraSeasonalCandles;
-		seasonalCandlesSoFarWithSeasonPass += extraSeasonalCandles;
-	}
-
-	// Calculate the amount of seasonal candles left.
-	return {
-		seasonalCandlesLeft: seasonalCandlesTotal - seasonalCandlesSoFar,
-		seasonalCandlesLeftWithSeasonPass:
-			seasonalCandlesTotalWithSeasonPass - seasonalCandlesSoFarWithSeasonPass,
-	};
-}
-
-export function resolveSeasonalCandlesRotation(date: DateTime) {
-	return SEASONAL_CANDLES_ROTATION[date.diff(SEASON_START, "days").days % 10] ?? null;
-}
-
-export function seasonalCandlesRotationURL(
-	realm: Exclude<RealmName, RealmName.IslesOfDawn | RealmName.EyeOfEden>,
-	rotation: RotationNumber,
-) {
-	return String(
-		new URL(
-			`daily_guides/seasonal_candles/season_of_radiance/${REALM_NAME_TO_REALM_CDN_NAME[realm]}/rotation_${rotation}.webp`,
-			CDN_URL,
-		),
-	);
 }
 
 function hairTousleGIF() {

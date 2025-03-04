@@ -56,6 +56,7 @@ export {
 } from "./utility/constants.js";
 export {
 	addCosts,
+	getRandomElement,
 	resolveAllCosmetics,
 	resolveOffer,
 	snakeCaseName,

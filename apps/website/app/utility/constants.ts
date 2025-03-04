@@ -28,9 +28,6 @@ export const INVITE_APPLICATION_URL =
 	"https://discord.com/oauth2/authorize?client_id=982740693070012506" as const;
 
 export const INVITE_SUPPORT_SERVER_URL = "https://discord.gg/dFJms52NgB" as const;
-export const SEASONAL_CANDLES_PER_DAY = 5 as const;
-export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
-export const SEASON_PASS_SEASONAL_CANDLES_BONUS = 30 as const;
 
 // 1:1 only.
 export const HUGGING_GIFS = [
@@ -42,16 +39,6 @@ export enum Table {
 	DailyGuides = "daily_guides",
 	Profiles = "profiles",
 }
-
-export const REALM_NAME_TO_REALM_CDN_NAME = {
-	[RealmName.DaylightPrairie]: "daylight_prairie",
-	[RealmName.HiddenForest]: "hidden_forest",
-	[RealmName.ValleyOfTriumph]: "valley_of_triumph",
-	[RealmName.GoldenWasteland]: "golden_wasteland",
-	[RealmName.VaultOfKnowledge]: "vault_of_knowledge",
-} as const satisfies Readonly<
-	Record<Exclude<RealmName, RealmName.IslesOfDawn | RealmName.EyeOfEden>, string>
->;
 
 export const DailyQuestToString = {
 	[DailyQuest.Collect30PiecesOfLight]: "Collect 30 pieces of light",
@@ -316,21 +303,6 @@ export const DailyQuestToString = {
 	[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
 		"Help Cackling Cannoneer or Chuckling Scout find treasure in Sanctuary Islands",
 } as const satisfies Readonly<Record<DailyQuests, string>>;
-
-export type RotationNumber = 1 | 2 | 3;
-
-export const SEASONAL_CANDLES_ROTATION = [
-	{ rotation: 2, realm: RealmName.ValleyOfTriumph },
-	{ rotation: 2, realm: RealmName.GoldenWasteland },
-	{ rotation: 2, realm: RealmName.VaultOfKnowledge },
-	{ rotation: 1, realm: RealmName.DaylightPrairie },
-	{ rotation: 1, realm: RealmName.HiddenForest },
-	{ rotation: 1, realm: RealmName.ValleyOfTriumph },
-	{ rotation: 1, realm: RealmName.GoldenWasteland },
-	{ rotation: 1, realm: RealmName.VaultOfKnowledge },
-	{ rotation: 2, realm: RealmName.DaylightPrairie },
-	{ rotation: 2, realm: RealmName.HiddenForest },
-] as const;
 
 export const SEASONAL_CANDLE_ICON = String(new URL("icons/seasonal_candle.webp", CDN_URL));
 
