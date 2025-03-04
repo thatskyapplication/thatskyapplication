@@ -110,10 +110,10 @@ export const NOT_IN_CACHED_GUILD_RESPONSE = {
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 
 // Miscellaneous constants.
-const THATSKYGAME_URL = "https://thatskygame.com" as const;
-const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
-const PATREON_URL = "https://patreon.com/Jiralite" as const;
-const KO_FI_URL = "https://ko-fi.com/jiralite" as const;
+export const THATSKYGAME_URL = "https://thatskygame.com" as const;
+export const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
+export const PATREON_URL = "https://patreon.com/Jiralite" as const;
+export const KO_FI_URL = "https://ko-fi.com/jiralite" as const;
 export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
 export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
 export const DEFAULT_EMBED_COLOUR = 0x6f68c9 as const;
@@ -229,20 +229,6 @@ export const SKY_CREATOR_TROUPE = {
 		description: "Content creator on TikTok",
 	},
 } as const satisfies Readonly<Record<string, Record<string, string>>>;
-
-// About.
-export const ABOUT_DESCRIPTION =
-	`Welcome to the lovely Discord application for [Sky: Children of the Light](${THATSKYGAME_URL} "thatskygame")!
-
-So you'd like to know about me, huh? Well, I like long walks across the ${
-		SkyMap.SanctuaryIslands
-	}. Oh, and don't forget about gliding all over the ${SkyMap.StarlightDesert}. Also... JELLYFISH!
-
-In any case, you can invite me by opening up my profile or using the invite link below! If you need help, head on to the support server linked also below and we'll figure it out together!` as const;
-
-export const ABOUT_SPONSOR =
-	`Want to give support? There are ways you can do that! Thank you in advance!
-[Patreon](${PATREON_URL}) | [Ko-fi](${KO_FI_URL}) | [GitHub](${GITHUB_SPONSORS_URL})` as const;
 
 // Admin.
 export const DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID =

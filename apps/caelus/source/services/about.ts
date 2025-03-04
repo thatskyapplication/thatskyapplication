@@ -1,14 +1,21 @@
-import { type APIChatInputApplicationCommandInteraction, MessageFlags } from "@discordjs/core";
+import {
+	type APIChatInputApplicationCommandInteraction,
+	ComponentType,
+	MessageFlags,
+	SeparatorSpacingSize,
+} from "@discordjs/core";
 import { calculateUserDefaultAvatarIndex } from "@discordjs/rest";
-import { WEBSITE_URL } from "@thatskyapplication/utility";
+import { SkyMap, WEBSITE_URL } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import {
-	ABOUT_DESCRIPTION,
-	ABOUT_SPONSOR,
 	APPLICATION_INVITE_URL,
 	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
+	GITHUB_SPONSORS_URL,
+	KO_FI_URL,
+	PATREON_URL,
 	SUPPORT_SERVER_INVITE_URL,
+	THATSKYGAME_URL,
 } from "../utility/constants.js";
 import { interactionInvoker } from "../utility/functions.js";
 
@@ -25,40 +32,55 @@ export async function about(interaction: APIChatInputApplicationCommandInteracti
 		: client.rest.cdn.defaultAvatar(index);
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
-		embeds: [
+		components: [
 			{
-				color: DEFAULT_EMBED_COLOUR,
-				description: ABOUT_DESCRIPTION,
-				fields: [
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: [
 					{
-						name: "Website",
-						value: `[Link](${WEBSITE_URL})`,
-						inline: true,
+						type: ComponentType.TextDisplay,
+						content: `## [${currentUser.username}](${WEBSITE_URL})`,
 					},
 					{
-						name: "Invite",
-						value: `[Link](${APPLICATION_INVITE_URL})`,
-						inline: true,
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
 					},
 					{
-						name: "Support Server",
-						value: `[Link](${SUPPORT_SERVER_INVITE_URL})`,
-						inline: true,
+						type: ComponentType.Section,
+						accessory: {
+							type: ComponentType.Thumbnail,
+							media: {
+								url: iconURL,
+							},
+						},
+						components: [
+							{
+								type: ComponentType.TextDisplay,
+								content: `Welcome to the lovely Discord application for [Sky: Children of the Light](${THATSKYGAME_URL} "thatskygame")!\n\nSo you'd like to know about me, huh? Well, I like long walks across the ${SkyMap.SanctuaryIslands}. Oh, and don't forget about gliding all over the ${SkyMap.StarlightDesert}. Also... JELLYFISH!\n\nCheck out these useful links:`,
+							},
+							{
+								type: ComponentType.TextDisplay,
+								content: `- [Invite](${APPLICATION_INVITE_URL})\n- [Support](${SUPPORT_SERVER_INVITE_URL})\n- [Website](${WEBSITE_URL})`,
+							},
+						],
 					},
 					{
-						name: "Sponsor",
-						value: ABOUT_SPONSOR,
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
 					},
 					{
-						name: "Experiments",
-						value: `${interaction.guild_id ? (interaction.guild_id === DEVELOPER_GUILD_ID ? "This server has access to the experimental App Store updates experiment." : "This server does not have access to any experiments.") : ""}\n${interactionInvoker(interaction).username} does not have access to any experiments.`,
+						type: ComponentType.TextDisplay,
+						content: `Want to give support? There are ways you can do that! Thank you in advance!\n- [Patreon](${PATREON_URL})\n- [Ko-fi](${KO_FI_URL})\n- [GitHub](${GITHUB_SPONSORS_URL})`,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `### Experiments\n\n${interaction.guild_id ? (interaction.guild_id === DEVELOPER_GUILD_ID ? "This server has access to the experimental App Store updates experiment." : "This server does not have access to any experiments.") : ""}\n${interactionInvoker(interaction).username} does not have access to any experiments.`,
 					},
 				],
-				footer: { text: "thatskyapplication", icon_url: iconURL },
-				title: currentUser.username,
-				url: WEBSITE_URL,
 			},
 		],
-		flags: MessageFlags.Ephemeral,
+		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 	});
 }
