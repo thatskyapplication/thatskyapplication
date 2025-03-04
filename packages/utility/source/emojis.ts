@@ -7332,14 +7332,14 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.TreasureSeekersOutfit]: OUTFIT_EMOJIS.Outfit79,
 		[Cosmetic.TreasureSeekersBlackDye]: MISCELLANEOUS_EMOJIS.DyeBlack,
 		[Cosmetic.TreasureSeekersWhiteDye]: MISCELLANEOUS_EMOJIS.DyeWhite,
+		[Cosmetic.RadianceGuideQuest4]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.RadianceGuideWhiteDye]: MISCELLANEOUS_EMOJIS.DyeWhite,
+		[Cosmetic.RadianceGuideBlackDye]: MISCELLANEOUS_EMOJIS.DyeBlack,
 		[Cosmetic.BloomRoseJar]: null,
 		[Cosmetic.BloomRoseBraidedHair]: null,
 		[Cosmetic.BloomRosePetalMask]: null,
 		[Cosmetic.BloomRoseEmbroideredCape]: null,
 		[Cosmetic.BloomDye]: null,
-		[Cosmetic.RadianceGuideQuest4]: MISCELLANEOUS_EMOJIS.Quest,
-		[Cosmetic.RadianceGuideWhiteDye]: MISCELLANEOUS_EMOJIS.DyeWhite,
-		[Cosmetic.RadianceGuideBlackDye]: MISCELLANEOUS_EMOJIS.DyeBlack,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalCandleEmoji = {
