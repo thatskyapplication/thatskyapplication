@@ -7,10 +7,14 @@ const eventTicketAmount = [
 		date: skyDate(2_025, 3, 3),
 		amount: 6,
 	},
+	{
+		date: skyDate(2_025, 3, 4),
+		amount: 6,
+	},
 ];
 
 for (
-	let start = skyDate(2_025, 3, 4), end = skyDate(2_025, 3, 17);
+	let start = skyDate(2_025, 3, 5), end = skyDate(2_025, 3, 17);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
