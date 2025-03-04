@@ -1,6 +1,7 @@
 import { Collection } from "@discordjs/collection";
 import {
 	type GuideSpirit,
+	type Season,
 	type SeasonIds,
 	type SeasonalSpirit,
 	type SpiritIds,
@@ -8,7 +9,6 @@ import {
 	skyNow,
 } from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
-import type { Season } from "../../../models/Season.js";
 import Abyss from "./abyss/index.js";
 import Assembly from "./assembly/index.js";
 import AURORA from "./aurora/index.js";

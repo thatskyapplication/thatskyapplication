@@ -35,10 +35,10 @@ import {
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
-	SeasonIdToSeasonalEmoji,
 	resolveCostToString,
 } from "../utility/catalogue.js";
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../utility/constants.js";
+import { SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
 import { isChatInputCommand } from "../utility/functions.js";
 import type { AutocompleteFocusedOption, OptionResolver } from "../utility/option-resolver.js";
 import {

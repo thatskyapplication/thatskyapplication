@@ -7,12 +7,13 @@ import {
 	type SeasonIds,
 	resolveCurrencyEmoji,
 } from "@thatskyapplication/utility";
-import { EVENT_EMOJIS, MISCELLANEOUS_EMOJIS, SEASON_EMOJIS } from "./emojis.js";
+import {
+	EVENT_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	SEASON_EMOJIS,
+	SeasonIdToSeasonalCandleEmoji,
+} from "./emojis.js";
 
-export type RotationNumber = 1 | 2 | 3;
-export const SEASONAL_CANDLES_PER_DAY = 5 as const;
-export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
-export const SEASON_PASS_SEASONAL_CANDLES_BONUS = 30 as const;
 export const NO_FRIENDSHIP_TREE_TEXT = "This spirit does not have a friendship tree." as const;
 export const NO_FRIENDSHIP_TREE_YET_TEXT = "This spirit does not yet have an infographic." as const;
 
@@ -21,60 +22,6 @@ export const GUIDE_SPIRIT_IN_PROGRESS_TEXT =
 
 export const NO_EVENT_OFFER_TEXT = "There are no cosmetics for this event." as const;
 export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infographic." as const;
-
-export const SeasonIdToSeasonalEmoji = {
-	[SeasonId.Gratitude]: SEASON_EMOJIS.Gratitude,
-	[SeasonId.Lightseekers]: SEASON_EMOJIS.Lightseekers,
-	[SeasonId.Belonging]: SEASON_EMOJIS.Belonging,
-	[SeasonId.Rhythm]: SEASON_EMOJIS.Rhythm,
-	[SeasonId.Enchantment]: SEASON_EMOJIS.Enchantment,
-	[SeasonId.Sanctuary]: SEASON_EMOJIS.Sanctuary,
-	[SeasonId.Prophecy]: SEASON_EMOJIS.Prophecy,
-	[SeasonId.Dreams]: SEASON_EMOJIS.Dreams,
-	[SeasonId.Assembly]: SEASON_EMOJIS.Assembly,
-	[SeasonId.LittlePrince]: SEASON_EMOJIS.LittlePrince,
-	[SeasonId.Flight]: SEASON_EMOJIS.Flight,
-	[SeasonId.Abyss]: SEASON_EMOJIS.Abyss,
-	[SeasonId.Performance]: SEASON_EMOJIS.Performance,
-	[SeasonId.Shattering]: SEASON_EMOJIS.Shattering,
-	[SeasonId.AURORA]: SEASON_EMOJIS.Aurora,
-	[SeasonId.Remembrance]: SEASON_EMOJIS.Remembrance,
-	[SeasonId.Passage]: SEASON_EMOJIS.Passage,
-	[SeasonId.Moments]: SEASON_EMOJIS.Moments,
-	[SeasonId.Revival]: SEASON_EMOJIS.Revival,
-	[SeasonId.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeer,
-	[SeasonId.Nesting]: SEASON_EMOJIS.Nesting,
-	[SeasonId.Duets]: SEASON_EMOJIS.Duets,
-	[SeasonId.Moomin]: SEASON_EMOJIS.Moomin,
-	[SeasonId.Radiance]: SEASON_EMOJIS.Radiance,
-} as const satisfies Readonly<Record<SeasonIds, Emoji>>;
-
-export const SeasonIdToSeasonalCandleEmoji = {
-	[SeasonId.Gratitude]: SEASON_EMOJIS.GratitudeCandle,
-	[SeasonId.Lightseekers]: SEASON_EMOJIS.LightseekersCandle,
-	[SeasonId.Belonging]: SEASON_EMOJIS.BelongingCandle,
-	[SeasonId.Rhythm]: SEASON_EMOJIS.RhythmCandle,
-	[SeasonId.Enchantment]: SEASON_EMOJIS.EnchantmentCandle,
-	[SeasonId.Sanctuary]: SEASON_EMOJIS.SanctuaryCandle,
-	[SeasonId.Prophecy]: SEASON_EMOJIS.ProphecyCandle,
-	[SeasonId.Dreams]: SEASON_EMOJIS.DreamsCandle,
-	[SeasonId.Assembly]: SEASON_EMOJIS.AssemblyCandle,
-	[SeasonId.LittlePrince]: SEASON_EMOJIS.LittlePrinceCandle,
-	[SeasonId.Flight]: SEASON_EMOJIS.FlightCandle,
-	[SeasonId.Abyss]: SEASON_EMOJIS.AbyssCandle,
-	[SeasonId.Performance]: SEASON_EMOJIS.PerformanceCandle,
-	[SeasonId.Shattering]: SEASON_EMOJIS.ShatteringCandle,
-	[SeasonId.AURORA]: SEASON_EMOJIS.AuroraCandle,
-	[SeasonId.Remembrance]: SEASON_EMOJIS.RemembranceCandle,
-	[SeasonId.Passage]: SEASON_EMOJIS.PassageCandle,
-	[SeasonId.Moments]: SEASON_EMOJIS.MomentsCandle,
-	[SeasonId.Revival]: SEASON_EMOJIS.RevivalCandle,
-	[SeasonId.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeerCandle,
-	[SeasonId.Nesting]: SEASON_EMOJIS.NestingCandle,
-	[SeasonId.Duets]: SEASON_EMOJIS.DuetsCandle,
-	[SeasonId.Moomin]: SEASON_EMOJIS.MoominCandle,
-	[SeasonId.Radiance]: SEASON_EMOJIS.RadianceCandle,
-} as const satisfies Readonly<Record<SeasonIds, Emoji>>;
 
 const SeasonIdToSeasonalHeartEmoji = {
 	[SeasonId.Belonging]: SEASON_EMOJIS.BelongingHeart,

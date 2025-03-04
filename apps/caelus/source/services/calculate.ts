@@ -6,6 +6,8 @@ import {
 	MessageFlags,
 } from "@discordjs/core";
 import {
+	SEASONAL_CANDLES_PER_DAY,
+	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	SkyMap,
 	formatEmoji,
 	formatEmojiURL,
@@ -21,10 +23,6 @@ import { skyCurrentSeason } from "../data/spirits/seasons/index.js";
 import { client } from "../discord.js";
 import type { Event } from "../models/Event.js";
 import {
-	SEASONAL_CANDLES_PER_DAY,
-	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
-} from "../utility/catalogue.js";
-import {
 	APPLICATION_ID,
 	ASCENDED_CANDLES_PER_WEEK,
 	AreaToWingedLightCount,
@@ -32,7 +30,11 @@ import {
 	WINGED_LIGHT_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
 } from "../utility/constants.js";
-import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import {
+	MISCELLANEOUS_EMOJIS,
+	SeasonIdToSeasonalCandleEmoji,
+	SeasonIdToSeasonalEmoji,
+} from "../utility/emojis.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 
 export async function ascendedCandles(
@@ -253,7 +255,9 @@ export async function seasonalCandles(
 
 	const today = skyToday();
 	const season = skyCurrentSeason(today);
-	const emoji = season?.candleEmoji ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
+	const emoji = season
+		? SeasonIdToSeasonalCandleEmoji[season.id]
+		: MISCELLANEOUS_EMOJIS.SeasonalCandle;
 	const amountRequired = goal - start;
 	let result = 0;
 	let days = 0;
@@ -338,7 +342,10 @@ export async function seasonalCandles(
 			count: season.end.diff(today, "days").days - 1,
 		});
 
-		embed.footer = { icon_url: formatEmojiURL(season.emoji.id), text: daysLeft };
+		embed.footer = {
+			icon_url: formatEmojiURL(SeasonIdToSeasonalEmoji[season.id].id),
+			text: daysLeft,
+		};
 	}
 
 	if (includedDoubleLight) {

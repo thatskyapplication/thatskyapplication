@@ -1,5 +1,4 @@
-import { Cosmetic, SeasonId, skyDate } from "@thatskyapplication/utility";
-import { Season } from "../../../../models/Season.js";
+import { Cosmetic, Season, SeasonId, skyDate } from "@thatskyapplication/utility";
 import CrabWhisperer from "./crab-whisperer.js";
 import DoublefiveLightCatcher from "./doublefive-light-catcher.js";
 import LaidbackPioneer from "./laidback-pioneer.js";

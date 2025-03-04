@@ -1,6 +1,5 @@
 import { URL } from "node:url";
-import { Cosmetic, SeasonId, skyDate } from "@thatskyapplication/utility";
-import { Season } from "../../../../models/Season.js";
+import { Cosmetic, Season, SeasonId, skyDate } from "@thatskyapplication/utility";
 import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import BearhugHermit from "./bearhug-hermit.js";
 import DancingPerformer from "./dancing-performer.js";

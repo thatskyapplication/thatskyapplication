@@ -1,6 +1,5 @@
 import { URL } from "node:url";
-import { Cosmetic, RealmName, SeasonId, skyDate } from "@thatskyapplication/utility";
-import { Season } from "../../../../models/Season.js";
+import { Cosmetic, RealmName, Season, SeasonId, skyDate } from "@thatskyapplication/utility";
 import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import ComfortOfKindness from "./comfort-of-kindness.js";
 import InspirationOfInclusion from "./inspiration-of-inclusion.js";

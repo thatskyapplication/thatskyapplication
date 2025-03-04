@@ -23,6 +23,7 @@ export { default as vi } from "./locales/vi.js";
 export { default as zhCN } from "./locales/zh-cn.js";
 export { default as zhTW } from "./locales/zh-tw.js";
 export { Realm } from "./models/realm.js";
+export { Season } from "./models/season.js";
 export {
 	ElderSpirit,
 	GuideSpirit,
@@ -90,5 +91,13 @@ export {
 } from "./notifications.js";
 export { PlatformId, PLATFORM_ID_VALUES, type PlatformIds, isPlatformId } from "./platforms.js";
 export { DAILY_QUEST_VALUES, DailyQuest, type DailyQuests } from "./quests.js";
-export { SeasonId, type SeasonIds, isSeasonId } from "./season.js";
+export {
+	type RotationNumber,
+	SEASONAL_CANDLES_PER_DAY,
+	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
+	SEASON_PASS_SEASONAL_CANDLES_BONUS,
+	SeasonId,
+	type SeasonIds,
+	isSeasonId,
+} from "./season.js";
 export { type ShardEruptionData, shardEruption } from "./shard-eruption.js";

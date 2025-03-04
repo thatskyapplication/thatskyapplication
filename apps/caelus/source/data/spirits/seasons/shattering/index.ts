@@ -1,6 +1,5 @@
 import { URL } from "node:url";
-import { SeasonId, skyDate } from "@thatskyapplication/utility";
-import { Season } from "../../../../models/Season.js";
+import { Season, SeasonId, skyDate } from "@thatskyapplication/utility";
 import { LINK_REDIRECTOR_URL } from "../../../../utility/constants.js";
 import AncientDarkness from "./ancient-darkness.js";
 import AncientLight from "./ancient-light.js";

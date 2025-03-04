@@ -1,28 +1,17 @@
-import { URL } from "node:url";
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
-import {
-	type Emoji,
-	type GuideSpirit,
-	type Item,
-	type ItemRaw,
-	type RealmName,
-	type SeasonIds,
-	type SeasonalSpirit,
-	type SpiritIds,
-	resolveAllCosmetics,
-	resolveOffer,
-	snakeCaseName,
-} from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
+import { CDN_URL } from "../cdn.js";
+import type { RealmName } from "../kingdom.js";
 import {
 	type RotationNumber,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
-	SeasonIdToSeasonalCandleEmoji,
-	SeasonIdToSeasonalEmoji,
-} from "../utility/catalogue.js";
-import { CDN_URL } from "../utility/constants.js";
+	type SeasonIds,
+} from "../season.js";
+import type { Item, ItemRaw, SpiritIds } from "../spirits/index.js";
+import { resolveAllCosmetics, resolveOffer, snakeCaseName } from "../utility/functions.js";
+import type { GuideSpirit, SeasonalSpirit } from "./spirits.js";
 
 type SeasonalCandlesRotation = Readonly<
 	{ rotation: Exclude<RotationNumber, 3>; realm: RealmName }[]
@@ -98,10 +87,6 @@ export class Season {
 
 	public readonly allCosmetics: number[];
 
-	public readonly emoji: Emoji;
-
-	public readonly candleEmoji: Emoji;
-
 	private readonly seasonalCandlesRotation: ((now: DateTime) => SeasonalCandlesRotation) | null;
 
 	public readonly doubleSeasonalLightEventStartDate: DateTime | null;
@@ -125,8 +110,6 @@ export class Season {
 
 		this.items = data.items ? resolveOffer(data.items) : [];
 		this.allCosmetics = data.items ? resolveAllCosmetics(this.items) : [];
-		this.emoji = SeasonIdToSeasonalEmoji[data.id];
-		this.candleEmoji = SeasonIdToSeasonalCandleEmoji[data.id];
 
 		this.seasonalCandlesRotation =
 			typeof data.seasonalCandlesRotation === "function"

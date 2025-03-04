@@ -31,6 +31,7 @@ import {
 	REALM_SPIRITS,
 	type RealmName,
 	STANDARD_SPIRITS,
+	type Season,
 	SeasonId,
 	type SeasonIds,
 	type SeasonalSpirit,
@@ -59,7 +60,6 @@ import {
 import { STARTER_PACKS } from "../data/starter-packs.js";
 import { client } from "../discord.js";
 import type { Event } from "../models/Event.js";
-import type { Season } from "../models/Season.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
@@ -69,11 +69,14 @@ import {
 	NO_EVENT_OFFER_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
-	SeasonIdToSeasonalEmoji,
 	resolveCostToString,
 } from "../utility/catalogue.js";
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../utility/constants.js";
-import { CosmeticToEmoji, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import {
+	CosmeticToEmoji,
+	MISCELLANEOUS_EMOJIS,
+	SeasonIdToSeasonalEmoji,
+} from "../utility/emojis.js";
 import {
 	interactedComponent,
 	interactionInvoker,
@@ -381,7 +384,7 @@ export class Catalogue {
 		};
 
 		if (currentSeason) {
-			currentSeasonButton.emoji = currentSeason.emoji;
+			currentSeasonButton.emoji = SeasonIdToSeasonalEmoji[currentSeason.id];
 		}
 
 		const currentEventButtons: APIButtonComponentWithCustomId[] =

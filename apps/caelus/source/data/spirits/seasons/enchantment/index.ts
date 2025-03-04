@@ -1,5 +1,4 @@
-import { SeasonId, skyDate } from "@thatskyapplication/utility";
-import { Season } from "../../../../models/Season.js";
+import { Season, SeasonId, skyDate } from "@thatskyapplication/utility";
 import CrabWalker from "./crab-walker.js";
 import EnchantmentGuide from "./enchantment-guide.js";
 import IndifferentAlchemist from "./indifferent-alchemist.js";

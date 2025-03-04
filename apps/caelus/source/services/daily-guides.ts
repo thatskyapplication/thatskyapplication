@@ -14,6 +14,7 @@ import {
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import {
+	type RotationNumber,
 	TIME_ZONE,
 	formatEmoji,
 	formatEmojiURL,
@@ -40,7 +41,6 @@ import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/
 import pQueue from "../p-queue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
-import type { RotationNumber } from "../utility/catalogue.js";
 import {
 	CDN_URL,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
@@ -49,7 +49,11 @@ import {
 	NOT_IN_CACHED_GUILD_RESPONSE,
 } from "../utility/constants.js";
 import { DOUBLE_TREASURE_CANDLES_DATES } from "../utility/dates.js";
-import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import {
+	MISCELLANEOUS_EMOJIS,
+	SeasonIdToSeasonalCandleEmoji,
+	SeasonIdToSeasonalEmoji,
+} from "../utility/emojis.js";
 import { treasureCandles } from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
@@ -519,7 +523,6 @@ export function distributionEmbed(locale: Locale) {
 	let iconURL = null;
 
 	if (season) {
-		const { candleEmoji, emoji, end } = season;
 		const seasonalCandlesRotation = season.resolveSeasonalCandlesRotation(today);
 		const values = [];
 
@@ -527,11 +530,11 @@ export function distributionEmbed(locale: Locale) {
 			t("days-left.season", {
 				lng: locale,
 				ns: "general",
-				count: Math.ceil(end.diff(now, "days").days) - 1,
+				count: Math.ceil(season.end.diff(now, "days").days) - 1,
 			}),
 		);
 
-		iconURL = formatEmojiURL(emoji.id);
+		iconURL = formatEmojiURL(SeasonIdToSeasonalEmoji[season.id].id);
 
 		if (seasonalCandlesRotation) {
 			const { rotation, realm } = seasonalCandlesRotation;
@@ -547,6 +550,8 @@ export function distributionEmbed(locale: Locale) {
 
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
 			season.remainingSeasonalCandles(today);
+
+		const candleEmoji = SeasonIdToSeasonalCandleEmoji[season.id];
 
 		values.push(
 			`${resolveCurrencyEmoji({

@@ -60,7 +60,6 @@ import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import { findUser } from "../services/guess.js";
 import { totalReceived } from "../services/heart.js";
-import { SeasonIdToSeasonalEmoji } from "../utility/catalogue.js";
 import {
 	ANIMATED_HASH_PREFIX,
 	APPLICATION_ID,
@@ -82,7 +81,7 @@ import {
 	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	SKY_PROFILE_UNKNOWN_NAME,
 } from "../utility/constants.js";
-import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
 import {
 	chatInputApplicationCommandMention,
 	interactionInvoker,
@@ -1636,7 +1635,7 @@ export default class Profile {
 							min_values: 0,
 							options: seasons.map((season) => ({
 								default: currentSeasons?.includes(season.id) ?? false,
-								emoji: season.emoji,
+								emoji: SeasonIdToSeasonalEmoji[season.id],
 								label: t(`seasons.${season.id}`, { lng: locale, ns: "general" }),
 								value: String(season.id),
 							})),
