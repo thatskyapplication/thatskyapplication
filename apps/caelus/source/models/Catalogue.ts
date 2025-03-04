@@ -25,6 +25,7 @@ import {
 	ELDER_SPIRITS,
 	type ElderSpirit,
 	type Event,
+	type EventIds,
 	type GuideSpirit,
 	type Item,
 	type ItemCost,
@@ -255,7 +256,7 @@ export class Catalogue {
 		return this.progressPercentage(owned, total, round);
 	}
 
-	private eventOwnedProgress(events: Event[]) {
+	private eventOwnedProgress(events: readonly Event[]) {
 		const totalOwned = [];
 		let total = 0;
 
@@ -269,7 +270,7 @@ export class Catalogue {
 		return { owned: totalOwned, total };
 	}
 
-	public eventProgress(events: Event[], round?: boolean) {
+	public eventProgress(events: readonly Event[], round?: boolean) {
 		const { owned, total } = this.eventOwnedProgress(events);
 		return this.progressPercentage(owned, total, round);
 	}
@@ -313,7 +314,7 @@ export class Catalogue {
 	public allProgress(round?: boolean) {
 		const standardAndElderOwnedProgress = this.spiritOwnedProgress([...REALM_SPIRITS.values()]);
 		const seasonalOwnedProgress = this.seasonOwnedProgress([...skySeasons().values()]);
-		const eventOwnedProgress = this.eventOwnedProgress(skyEvents());
+		const eventOwnedProgress = this.eventOwnedProgress([...skyEvents().values()]);
 		const starterPackOwnedProgress = this.starterPackOwnedProgress();
 		const secretAreaOwnedProgress = this.secretAreaOwnedProgress();
 		const permanentEventStoreOwnedProgress = this.permanentEventStoreOwnedProgress();
@@ -362,7 +363,7 @@ export class Catalogue {
 		const standardProgress = catalogue.spiritProgress([...STANDARD_SPIRITS.values()], true);
 		const elderProgress = catalogue.spiritProgress([...ELDER_SPIRITS.values()], true);
 		const seasonalProgress = catalogue.seasonProgress([...skySeasons().values()], true);
-		const eventProgress = catalogue.eventProgress(skyEvents(), true);
+		const eventProgress = catalogue.eventProgress([...skyEvents().values()], true);
 		const starterPackProgress = catalogue.starterPackProgress(true);
 		const secretAreaProgress = catalogue.secretAreaProgress(true);
 		const permanentEventStoreProgress = catalogue.permanentEventStoreProgress(true);
@@ -389,7 +390,7 @@ export class Catalogue {
 		}
 
 		const currentEventButtons: APIButtonComponentWithCustomId[] =
-			events.length === 0
+			events.size === 0
 				? [
 						{
 							type: ComponentType.Button,
@@ -1023,7 +1024,11 @@ export class Catalogue {
 							min_values: 0,
 							options: skyEventYears().map((year) => {
 								const percentage = catalogue.eventProgress(
-									skyEvents().filter((event) => event.start.year === year),
+									[
+										...skyEvents()
+											.filter((event) => event.start.year === year)
+											.values(),
+									],
 									true,
 								);
 
@@ -1091,7 +1096,7 @@ export class Catalogue {
 		const embed: APIEmbed = { color: DEFAULT_EMBED_COLOUR, title: `Events ${year}` };
 		const fields = [];
 
-		for (const event of events) {
+		for (const event of events.values()) {
 			if (event.offer.length === 0) {
 				continue;
 			}
@@ -1446,7 +1451,7 @@ export class Catalogue {
 				: interaction.data.values[0],
 		);
 
-		const event = skyEvents().find(({ id }) => id === eventId);
+		const event = skyEvents().get(eventId as EventIds);
 
 		if (!event) {
 			await client.api.interactions.updateMessage(
@@ -1558,9 +1563,8 @@ export class Catalogue {
 
 		components.push({ type: ComponentType.ActionRow, components: row1Components });
 		const events = skyEvents().filter((event) => event.start.year === start.year);
-		const index = events.findIndex((event) => event.id === id);
-		const before = events[index - 1];
-		const after = events[index + 1];
+		const before = events.get((id - 1) as EventIds);
+		const after = events.get((id + 1) as EventIds);
 
 		// It is possible that for the first event of a year, the custom ids will be the same, leading to an error.
 		// We use the nullish coalescing operator to fallback to some default values to mitigate this.
@@ -2038,7 +2042,7 @@ export class Catalogue {
 		const event =
 			resolvedCustomIdNumberForEvents === null
 				? null
-				: skyEvents().find(({ id }) => id === resolvedCustomIdNumberForEvents);
+				: skyEvents().get(resolvedCustomIdNumberForEvents as EventIds);
 
 		if (spirit) {
 			await catalogue.setSpiritItems(interaction, spirit);

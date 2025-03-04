@@ -169,7 +169,7 @@ export async function eventTickets(
 			event.eventTickets !== null,
 	);
 
-	if (events.length === 0) {
+	if (events.size === 0) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "There is no event currently active with event tickets.",
 			flags: MessageFlags.Ephemeral,
@@ -239,10 +239,10 @@ export async function eventTickets(
 			.join("\n"),
 	};
 
-	const event0 = events[0];
+	const event1 = events.first();
 
-	if (events.length === 1 && event0) {
-		const eventTicketEmoji = EventIdToEventTicketEmoji[event0.id];
+	if (event1 && events.size === 1) {
+		const eventTicketEmoji = EventIdToEventTicketEmoji[event1.id];
 
 		if (eventTicketEmoji) {
 			footer.icon_url = formatEmojiURL(eventTicketEmoji.id);

@@ -199,7 +199,7 @@ export default function DailyGuides() {
 		}
 	}
 
-	for (const { id, start, end } of skyNotEndedEvents(today)) {
+	for (const { id, start, end } of skyNotEndedEvents(today).values()) {
 		const daysUntilStart = start.diff(today, "days").days;
 		const name = enGB.general.events[id];
 

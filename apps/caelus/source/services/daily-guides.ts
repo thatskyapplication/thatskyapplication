@@ -433,11 +433,11 @@ export function dailyGuidesEventData(date: DateTime, locale: Locale) {
 		});
 	});
 
-	const event0 = events[0];
+	const event1 = events.first();
 	let iconURL = null;
 
-	if (event0) {
-		const eventTicketEmoji = EventIdToEventTicketEmoji[event0.id];
+	if (event1) {
+		const eventTicketEmoji = EventIdToEventTicketEmoji[event1.id];
 
 		if (eventTicketEmoji) {
 			iconURL = formatEmojiURL(eventTicketEmoji.id);
@@ -452,7 +452,7 @@ export function dailyGuidesEventData(date: DateTime, locale: Locale) {
 	);
 
 	const eventTickets =
-		currentEventsWithEventTickets.length > 0
+		currentEventsWithEventTickets.size > 0
 			? {
 					name: t("event-tickets", { lng: locale, ns: "general" }),
 					value: currentEventsWithEventTickets

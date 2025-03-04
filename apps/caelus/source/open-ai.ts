@@ -97,13 +97,13 @@ function systemPromptContext(
 	const events = skyCurrentEvents(now);
 	const upcoming = skyUpcomingEvents(now);
 
-	if (events.length > 0) {
+	if (events.size > 0) {
 		eventText.push(
 			`- The current events in Sky are: ${JSON.stringify(events.map((event) => ({ name: t(`events.${event.id}`, { lng: Locale.EnglishGB, ns: "general" }), start: event.start.toISO(), end: event.end.toISO() })))}.`,
 		);
 	}
 
-	if (upcoming.length > 0) {
+	if (upcoming.size > 0) {
 		eventText.push(
 			`- The upcoming events in Sky are: ${JSON.stringify(upcoming.map((event) => ({ name: t(`events.${event.id}`, { lng: Locale.EnglishGB, ns: "general" }), start: event.start.toISO(), end: event.end.toISO() })))}.`,
 		);
