@@ -1,7 +1,7 @@
 import { type LoaderFunction, redirect } from "@remix-run/node";
+import type { ProfilePacket } from "@thatskyapplication/utility";
 import pg from "~/pg.server";
 import { Table } from "~/utility/constants";
-import type { ProfilePacket } from "~/utility/types.js";
 
 export const loader: LoaderFunction = async () => {
 	const countResult = await pg<ProfilePacket>(Table.Profiles)

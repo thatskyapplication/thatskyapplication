@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Form, Link, type MetaFunction, useLoaderData } from "@remix-run/react";
-import { WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
+import { type ProfilePacket, WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
 import {
 	ChevronLeftIcon,
 	ChevronRightIcon,
@@ -17,7 +17,6 @@ import {
 	Table,
 } from "~/utility/constants";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
-import type { ProfilePacket } from "~/utility/types.js";
 
 export const meta: MetaFunction = ({ location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));

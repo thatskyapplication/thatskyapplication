@@ -49,6 +49,8 @@ export {
 	skyUpcomingSeason,
 } from "./spirits/seasons/index.js";
 export { spirits } from "./spirits/index.js";
+export type { Snowflake } from "./types/index.js";
+export type { ProfilePacket } from "./types/profile.js";
 export {
 	LINK_REDIRECTOR_URL,
 	MAXIMUM_WINGED_LIGHT,

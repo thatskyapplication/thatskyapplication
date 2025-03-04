@@ -1,7 +1,6 @@
 import { Cosmetic } from "./cosmetics.js";
 import { SeasonId, type SeasonIds } from "./season.js";
-
-type Snowflake = `${bigint}`;
+import type { Snowflake } from "./types/index.js";
 
 export interface Emoji {
 	id: Snowflake;

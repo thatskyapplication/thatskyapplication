@@ -24,9 +24,9 @@ import {
 	InteractionType,
 	type InteractionsAPI,
 	Locale,
+	type Snowflake as LooseSnowflake,
 	MessageFlags,
 	PermissionFlagsBits,
-	type Snowflake,
 	TextInputStyle,
 } from "@discordjs/core";
 import {
@@ -41,7 +41,9 @@ import {
 	PLATFORM_ID_VALUES,
 	PlatformId,
 	type PlatformIds,
+	type ProfilePacket,
 	type SeasonIds,
+	type Snowflake,
 	formatEmoji,
 	formatEmojiURL,
 	isCountry,
@@ -95,25 +97,9 @@ import type { AutocompleteFocusedOption, OptionResolver } from "../utility/optio
 import { can } from "../utility/permissions.js";
 import { Catalogue } from "./Catalogue.js";
 
-interface ProfilePacket {
-	user_id: Snowflake;
-	name: string | null;
-	icon: string | null;
-	thumbnail: string | null;
-	description: string | null;
-	country: string | null;
-	winged_light: number | null;
-	seasons: number[] | null;
-	platform: number[] | null;
-	spirit: number | null;
-	spot: string | null;
-	catalogue_progression: boolean | null;
-	guess_rank: boolean | null;
-}
-
 interface SkyProfileLikesPacket {
-	user_id: Snowflake;
-	target_id: Snowflake;
+	user_id: LooseSnowflake;
+	target_id: LooseSnowflake;
 }
 
 interface ProfileData {
@@ -474,7 +460,7 @@ export default class Profile {
 		this.guessRank = data.guess_rank;
 	}
 
-	public static async fetch(userId: Snowflake) {
+	public static async fetch(userId: LooseSnowflake) {
 		const [profilePacket] = await pg<ProfilePacket>(Table.Profiles).where("user_id", userId);
 
 		if (!profilePacket) {
@@ -506,7 +492,7 @@ export default class Profile {
 			const [profilePacket] = await pg<ProfilePacket>(Table.Profiles).insert(
 				{
 					...data,
-					user_id: invoker.id,
+					user_id: invoker.id as Snowflake,
 				},
 				"*",
 			);
@@ -953,7 +939,7 @@ export default class Profile {
 			| APIMessageComponentButtonInteraction
 			| APIMessageComponentSelectMenuInteraction
 			| APIUserApplicationCommandInteraction,
-		userId: Snowflake,
+		userId: LooseSnowflake,
 	) {
 		const invoker = interactionInvoker(interaction);
 		const profile = await this.fetch(userId).catch(() => null);
@@ -1041,7 +1027,7 @@ export default class Profile {
 		}
 	}
 
-	private static async exploreProfilePreviousRow(name: string, userId: Snowflake) {
+	private static async exploreProfilePreviousRow(name: string, userId: LooseSnowflake) {
 		const [previous] = await pg<ProfilePacket>(Table.Profiles)
 			.where(function () {
 				this.where("name", "<", name).orWhere(function () {
@@ -1055,7 +1041,7 @@ export default class Profile {
 		return previous ? previous : null;
 	}
 
-	private static async exploreProfileNextRow(name: string, userId: Snowflake) {
+	private static async exploreProfileNextRow(name: string, userId: LooseSnowflake) {
 		const [next] = await pg<ProfilePacket>(Table.Profiles)
 			.where(function () {
 				this.where("name", ">", name).orWhere(function () {
@@ -1182,8 +1168,8 @@ export default class Profile {
 
 	private static async exploreLikedProfilePreviousRow(
 		name: string,
-		userId: Snowflake,
-		targetId: Snowflake,
+		userId: LooseSnowflake,
+		targetId: LooseSnowflake,
 	) {
 		const [previous] = await pg<ProfilePacket>(Table.SkyProfileLikes)
 			.join(Table.Profiles, `${Table.SkyProfileLikes}.target_id`, `${Table.Profiles}.user_id`)
@@ -1207,8 +1193,8 @@ export default class Profile {
 
 	private static async exploreLikedProfileNextRow(
 		name: string,
-		userId: Snowflake,
-		targetId: Snowflake,
+		userId: LooseSnowflake,
+		targetId: LooseSnowflake,
 	) {
 		const [next] = await pg<ProfilePacket>(Table.SkyProfileLikes)
 			.join(Table.Profiles, `${Table.SkyProfileLikes}.target_id`, `${Table.Profiles}.user_id`)
@@ -1761,11 +1747,11 @@ export default class Profile {
 		await Profile.set(interaction, { guess_rank: !profile?.guessRank });
 	}
 
-	public static iconRoute(userId: Snowflake, hash: string) {
+	public static iconRoute(userId: LooseSnowflake, hash: string) {
 		return `sky_profiles/icons/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
 	}
 
-	public static thumbnailRoute(userId: Snowflake, hash: string) {
+	public static thumbnailRoute(userId: LooseSnowflake, hash: string) {
 		return `sky_profiles/thumbnails/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
 	}
 

@@ -2,6 +2,8 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, type MetaFunction, useLoaderData } from "@remix-run/react";
 import {
 	CountryToEmoji,
+	type ProfilePacket,
+	type Snowflake,
 	WEBSITE_URL,
 	enGB,
 	isCountry,
@@ -14,7 +16,6 @@ import TopBar from "~/components/TopBar.js";
 import pg from "~/pg.server";
 import { APPLICATION_NAME, Table } from "~/utility/constants.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
-import type { ProfilePacket } from "~/utility/types.js";
 
 export const meta: MetaFunction = ({ data, location }) => {
 	const profilePacket = data as ProfilePacket;
@@ -58,7 +59,9 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 		throw new Response("User id not provided,", { status: 400 });
 	}
 
-	const profile = await pg<ProfilePacket>(Table.Profiles).where({ user_id: userId }).first();
+	const profile = await pg<ProfilePacket>(Table.Profiles)
+		.where({ user_id: userId as Snowflake })
+		.first();
 
 	if (!profile) {
 		throw new Response("Sky Profile not found.", { status: 404 });

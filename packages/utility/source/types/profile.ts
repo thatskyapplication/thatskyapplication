@@ -1,4 +1,4 @@
-import type { Snowflake } from "@discordjs/core/http-only";
+import type { Snowflake } from "./index.js";
 
 export interface ProfilePacket {
 	user_id: Snowflake;
