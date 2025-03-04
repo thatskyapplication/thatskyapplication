@@ -1,8 +1,0 @@
-import { EventId, skyDate } from "@thatskyapplication/utility";
-import { Event } from "../../../models/Event.js";
-
-export default new Event({
-	id: EventId.DaysOfGiving2022,
-	start: skyDate(2_022, 11, 22),
-	end: skyDate(2_022, 11, 29),
-});

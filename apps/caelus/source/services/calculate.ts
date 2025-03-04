@@ -6,6 +6,7 @@ import {
 	MessageFlags,
 } from "@discordjs/core";
 import {
+	type Event,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	SkyMap,
@@ -14,14 +15,13 @@ import {
 	isDuring,
 	resolveCurrencyEmoji,
 	shardEruption,
+	skyCurrentEvents,
 	skyCurrentSeason,
 	skyNow,
 	skyToday,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import { skyCurrentEvents } from "../data/events/index.js";
 import { client } from "../discord.js";
-import type { Event } from "../models/Event.js";
 import {
 	APPLICATION_ID,
 	ASCENDED_CANDLES_PER_WEEK,

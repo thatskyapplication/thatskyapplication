@@ -20,7 +20,9 @@ import {
 	formatEmojiURL,
 	resolveCurrencyEmoji,
 	shardEruption,
+	skyCurrentEvents,
 	skyCurrentSeason,
+	skyNotEndedEvents,
 	skyNow,
 	skyToday,
 	skyUpcomingSeason,
@@ -28,7 +30,6 @@ import {
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { GUILD_CACHE } from "../caches/guilds.js";
-import { skyCurrentEvents, skyNotEndedEvents } from "../data/events/index.js";
 import { client } from "../discord.js";
 import DailyGuides, { type DailyGuideQuest } from "../models/DailyGuides.js";
 import type {

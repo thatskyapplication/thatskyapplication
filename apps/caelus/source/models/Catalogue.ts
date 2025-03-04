@@ -24,6 +24,7 @@ import {
 import {
 	ELDER_SPIRITS,
 	type ElderSpirit,
+	type Event,
 	type GuideSpirit,
 	type Item,
 	type ItemCost,
@@ -44,20 +45,21 @@ import {
 	resolveAllCosmetics,
 	resolveReturningSpirits,
 	resolveTravellingSpirit,
+	skyCurrentEvents,
 	skyCurrentSeason,
+	skyEventYears,
+	skyEvents,
 	skyNow,
 	skySeasons,
 	spirits,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
-import { skyCurrentEvents, skyEventYears, skyEvents } from "../data/events/index.js";
 import { NESTING_WORKSHOP } from "../data/nesting-workshop.js";
 import { PERMANENT_EVENT_STORE } from "../data/permanent-event-store.js";
 import { SECRET_AREA } from "../data/secret-area.js";
 import { STARTER_PACKS } from "../data/starter-packs.js";
 import { client } from "../discord.js";
-import type { Event } from "../models/Event.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {

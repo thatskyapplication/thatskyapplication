@@ -8,6 +8,13 @@ export const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
 export const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [5, 13, 21, 29] as const;
 
 // biome-ignore lint/performance/noBarrelFile: This is fine.
+export {
+	skyCurrentEvents,
+	skyEventYears,
+	skyEvents,
+	skyNotEndedEvents,
+	skyUpcomingEvents,
+} from "./events/index.js";
 export { default as de } from "./locales/de.js";
 export { default as enGB } from "./locales/en-gb.js";
 export { default as es419 } from "./locales/es-419.js";
@@ -22,6 +29,7 @@ export { default as th } from "./locales/th.js";
 export { default as vi } from "./locales/vi.js";
 export { default as zhCN } from "./locales/zh-cn.js";
 export { default as zhTW } from "./locales/zh-tw.js";
+export { Event } from "./models/event.js";
 export { Realm } from "./models/realm.js";
 export { Season } from "./models/season.js";
 export {
@@ -56,6 +64,7 @@ export {
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
 } from "./utility/constants.js";
+export { EventId, type EventIds } from "./utility/event.js";
 export {
 	addCosts,
 	getRandomElement,
@@ -89,7 +98,6 @@ export {
 	formatEmojiURL,
 	resolveCurrencyEmoji,
 } from "./emojis.js";
-export { EventId, type EventIds } from "./event.js";
 export {
 	GUESS_DIFFICULTY_LEVEL_VALUES,
 	GuessDifficultyLevel,

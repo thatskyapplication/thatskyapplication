@@ -1,5 +1,5 @@
-import type { EventIds } from "../event.js";
 import type { SeasonIds } from "../season.js";
+import type { EventIds } from "./event.js";
 import type { Item, ItemCost, ItemRaw } from "./spirits.js";
 
 export function getRandomElement<const T>(array: readonly T[]) {

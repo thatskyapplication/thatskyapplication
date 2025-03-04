@@ -2,8 +2,8 @@ import { Collection } from "@discordjs/collection";
 import type { DateTime } from "luxon";
 import type { Cosmetic } from "../cosmetics.js";
 import { skyDate } from "../dates.js";
-import type { EventIds } from "../event.js";
 import type { SeasonIds } from "../season.js";
+import type { EventIds } from "./event.js";
 
 export const SpiritId = {
 	// Isles of Dawn.

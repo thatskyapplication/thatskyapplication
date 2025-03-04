@@ -10,8 +10,10 @@ import {
 	MAXIMUM_WINGED_LIGHT,
 	formatEmoji,
 	shardEruption,
+	skyCurrentEvents,
 	skyNow,
 	skySeasons,
+	skyUpcomingEvents,
 	skyUpcomingSeason,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
@@ -20,7 +22,6 @@ import { APIUserAbortError } from "openai/error.mjs";
 import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { GUILD_CACHE } from "./caches/guilds.js";
 import { MESSAGE_CACHE } from "./caches/messages.js";
-import { skyCurrentEvents, skyUpcomingEvents } from "./data/events/index.js";
 import { client } from "./discord.js";
 import type { Guild } from "./models/discord/guild.js";
 import pino from "./pino.js";
