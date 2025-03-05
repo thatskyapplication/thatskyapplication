@@ -24,24 +24,121 @@ export default {
 			[DailyQuest.FollowAFriend]: "Siga um amigo",
 			[DailyQuest.HugAFriend]: "Abraçar um amigo",
 			[DailyQuest.WaveToAFriend]: "Dar tchau para um amigo",
+			[DailyQuest.HoldAFriendsHand]: "Segurar a mão de um amigo",
 			[DailyQuest.SendAGiftToAFriend]: "Enviar um presente para um amigo",
 			[DailyQuest.MakeANewAcquaintance]: "Conhecer alguém novo",
+			[DailyQuest.HighFiveAFriend]: "Cumprimentar um amigo com um “toca aí”",
+			[DailyQuest.UseAnExpressionNearAFriend]: "Use uma expressão perto de um amigo",
+			[DailyQuest.SitOnABenchWithAStranger]: "Sentar em um banco ao lado de um estranho",
 			[DailyQuest.RechargeFromAJellyfish]: "Recarregar sua luz com uma água-viva",
+			[DailyQuest.RechargeFromALightBloom]: "Recarregar sua luz com um florescer luminoso",
 			[DailyQuest.RideWithAManta]: "Passeie com uma arraia",
 			[DailyQuest.ReliveASpiritsMemories]: "Reviver as memórias de um espírito",
+			[DailyQuest.ReliveASpiritsMemoriesInDaylightPrairie]:
+				"Reviva as memórias de um espírito na Campina da Aurora",
+			[DailyQuest.ReliveASpiritsMemoriesInHiddenForest]:
+				"Reviva as memórias de um espírito na Floresta Oculta",
+			[DailyQuest.ReliveASpiritsMemoriesInValleyOfTriumph]:
+				"Reviva as memórias de um espírito no Vale do Triunfo",
+			[DailyQuest.ReliveASpiritsMemoriesInGoldenWasteland]:
+				"Reviva as memórias de um espírito no Sertão Dourado",
 			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
 				"Reviva as memórias de um espírito no Relicário do Conhecimento",
+			[DailyQuest.FaceTheDarkDragon]: "Enfrentar o Dragão Sombrio",
 			[DailyQuest.KnockOver5DarkCrabs]: "Derrubar 5 caranguejos de criaturas da escuridão",
+			[DailyQuest.CatchTheLightInTheDaylightPrairie]: "Pegue a luz na Campina da Aurora",
+			[DailyQuest.CatchTheLightInTheHiddenForest]: "Pegue a luz na Floresta Oculta",
+			[DailyQuest.CatchTheLightInTheValleyOfTriumph]: "Pegue a luz no Vale do Triunfo",
+			[DailyQuest.CatchTheLightInTheGoldenWasteland]: "Pegue a luz nas Terras Abandonadas Douradas",
+			[DailyQuest.CatchTheLightInTheVaultOfKnowledge]: "Pegue a luz no Relicário do Conhecimento",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Visite o esconderijo aconchegante nas Cavernas da Campina",
+			[DailyQuest.VisitTheAncestorsTableOfBelongingInTheHiddenForest]:
+				"Visite a mesa do Ancestral do Pertencer na clareira elevada da Floresta",
+			[DailyQuest.VisitTheHotSpringInTheValleyOfTriumph]:
+				"Visite as águas termais na Aldeia dos Sonhos",
+			[DailyQuest.VisitTheBonfireAtTheGoldenWasteland]: "Visite a fogueira no Túmulo do Sertão",
+			[DailyQuest.AdmireTheSaplingInTheDaylightPrairie]:
+				"Admire o broto na Aurora's Campina por um curto período de tempo",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
 				"Admire o broto na Floresta Escondida por um curto período de tempo",
+			[DailyQuest.AdmireTheSaplingInTheValleyOfTriumph]:
+				"Admire o broto no Vale do Triunfo por um curto período de tempo",
+			[DailyQuest.AdmireTheSaplingInTheGoldenWasteland]:
+				"Admire o broto no Sertão Dourado por um curto período de tempo",
+			[DailyQuest.AdmireTheSaplingInTheVaultOfKnowledge]:
+				"Admire o broto no Reliquário do Conhecimento por um curto período de tempo",
+			[DailyQuest.VisitThePollutedGeyser]: "Visite o gêiser poluído nas Ilhas do Santuário",
+			[DailyQuest.RidTheSanctuaryVortexOfDarkness]: "Livre o Santuário do Vórtice das Trevas",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Econtre as velas no fim do arco-íris na Campina da Aurora",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
 				"Encontre as velas no fim do arco-íris na Floresta Oculta",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheValleyOfTriumph]:
+				"Encontre as velas no fim do arco-íris no Vale do Triunfo",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheGoldenWasteland]:
+				"Encontre as velas no fim do arco-íris no Sertão Dourado",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheVaultOfKnowledge]:
+				"Encontre as velas no fim do arco-íris no Relicário do Conhecimento",
+			[DailyQuest.AdmireTheRainbowInTheSanctuaryIslands]:
+				"Admire o arco-íris nas Ilhas do Santuário por um breve momento",
+			[DailyQuest.AdmireTheRainbowInTheWindPaths]:
+				"Admire o arco-íris nas Trilhas do Vento por um breve momento",
+			[DailyQuest.AdmireTheRainbowInTheHermitValley]:
+				"Admire o arco-íris no Desfiladeiro do Iéti por um breve momento",
+			[DailyQuest.AdmireTheRainbowInTheTreasureReef]:
+				"Admire o arco-íris no Recife do Tesouro por um breve momento",
+			[DailyQuest.AdmireTheRainbowInTheStarlightDesert]:
+				"Admire o arco-íris no Deserto da Luz Estelar por um breve momento",
+			[DailyQuest.MeditateAtTheBirdNest]: "Meditar no altar do ninho da Campina",
+			[DailyQuest.MeditateInTheButterflyFields]: "Meditar no campo de borboletas da Campina",
+			[DailyQuest.MeditateAtTheSanctuaryIslands]: "Meditar nas Ilhas do Santuário",
+			[DailyQuest.MeditateInTheCave]: "Meditar no altar da caverna da Campina",
+			[DailyQuest.MeditateByTheKoiPond]: "Meditar na lagoa de carpas da Campina",
+			[DailyQuest.MeditateAtTheForestClearing]: "Meditar na clareira da Floresta",
+			[DailyQuest.MeditateAtTheForestBrook]: "Medite sobre o riacho da floresta",
+			[DailyQuest.MeditateAtTheElevatedClearing]: "Meditar na clareira elevada da Floresta",
+			[DailyQuest.MeditateAtTheForestEnd]: "Meditar no fim da Floresta",
+			[DailyQuest.MeditateAtTheBoneyard]: "Meditar no ossário da Floresta",
+			[DailyQuest.MeditateByTheIceRink]: "Meditar perto da pista de gelo do Vale",
+			[DailyQuest.MeditateAboveTheCitadelsArch]: "Meditar sobre o arco da cidadela do Vale",
+			[DailyQuest.MeditateHighAboveTheCitadel]: "Meditar acima da cidadela do Vale",
+			[DailyQuest.MeditateAtTheColiseum]: "Medite no final da corrida",
+			[DailyQuest.MeditateInTheBrokenTemple]: "Meditar no templo em ruínas",
+			[DailyQuest.MeditateInTheForgottenArk]: "Meditar na Arca Esquecida",
+			[DailyQuest.MeditateInTheGraveyard]: "Meditar no cemitério",
+			[DailyQuest.MeditateOnTheBoat]: "Meditar no barco",
+			[DailyQuest.MeditateOnTheBattlefield]: "Meditar no campo de batalha",
+			[DailyQuest.MeditateAtTheVaultEntrance]: "Meditar na entrada do Relicário do Conhecimento",
+			[DailyQuest.MeditateInTheVaultSecondFloor]: "Meditar no segundo andar do Relicário",
+			[DailyQuest.MeditateAtTheVaultSummit]: "Meditar no cume do Relicário",
+			[DailyQuest.CollectGreenLight]: "Colete Luz Verde",
 			[DailyQuest.CollectOrangeLight]: "Colete Luz Laranja",
+			[DailyQuest.CollectBlueLight]: "Colete Luz Azul",
 			[DailyQuest.CollectRedLight]: "Colete Luz Vermelha",
+			[DailyQuest.CollectPurpleLight]: "Colete Luz Roxa",
+			[DailyQuest.PracticeWithTheSkater]: "Pratique com a Patinadora na Aldeia dos Sonhos",
+			[DailyQuest.RaceDownTheSlopesWithTheSkater]:
+				"Desça as ladeiras com a Patinadora na Aldeia dos Sonhos",
+			[DailyQuest.RaceDownTheMountainWithTheSkater]:
+				"Desça a montanha com a Patinadora na Aldeia do Ermitão",
+			[DailyQuest.RehearseForAPerformanceWithTheSkater]:
+				"Ensaie para uma apresentação com a Patinadora no Coliseu",
+			[DailyQuest.CompleteTheHoopScavengerHunt]: "Conclua a caça ao tesouro do aro",
+			[DailyQuest.ReliveTheButterflyCharmer]:
+				"Reviva as lembranças do Encantador de Borboletas na Campina da Aurora",
+			[DailyQuest.ReliveTheApplaudingBellmaker]:
+				"Reviva as lembranças da Sineira que Aplaude na Campina da Aurora",
+			[DailyQuest.ReliveTheWavingBellmaker]:
+				"Reviva as lembranças do Sineiro que Acena na Campina da Aurora",
+			[DailyQuest.ReliveTheSlumberingShipwright]:
+				"Reviva as lembranças do Fabricador de Barcos Sonolento na Campina da Aurora",
+			[DailyQuest.ReliveTheLaughingLightCatcher]:
+				"Reviva as lembranças da Caçadora de Luz Risonha na Campina da Aurora",
+			[DailyQuest.ReliveTheBirdWhisperer]:
+				"Reviva as lembranças do Encantador de Aves na Campina da Aurora",
+			[DailyQuest.ReliveTheExhaustedDockWorker]:
+				"Reviva as lembranças do Estivador Cansado na Campina da Aurora",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Reviva as lembranças do Encantador de Arraias no Vale do Triunfo",
 			[DailyQuest.ReliveTheStretchingGuru]:

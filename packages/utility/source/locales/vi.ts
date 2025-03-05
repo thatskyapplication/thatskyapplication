@@ -24,24 +24,122 @@ export default {
 			[DailyQuest.FollowAFriend]: "Đi theo một người bạn",
 			[DailyQuest.HugAFriend]: "Ôm một người bạn",
 			[DailyQuest.WaveToAFriend]: "Vẫy tay với một người bạn",
+			[DailyQuest.HoldAFriendsHand]: "Nắm tay một người bạn",
 			[DailyQuest.SendAGiftToAFriend]: "Tặng quà cho một người bạn",
 			[DailyQuest.MakeANewAcquaintance]: "Thêm bạn mới",
+			[DailyQuest.HighFiveAFriend]: "Đập tay một người bạn",
+			[DailyQuest.UseAnExpressionNearAFriend]: "Dùng biểu tượng cảm xúc với một người bạn",
+			[DailyQuest.SitOnABenchWithAStranger]: "Ngồi ở ghế dài với một người lạ",
 			[DailyQuest.RechargeFromAJellyfish]: "Nạp Ánh Sáng từ sứa",
+			[DailyQuest.RechargeFromALightBloom]: "Nạp Ánh Sáng từ đóa hoa",
 			[DailyQuest.RideWithAManta]: "Cưỡi cùng Cá Đuối",
 			[DailyQuest.ReliveASpiritsMemories]: "Hồi tưởng lại ký ức của một Tinh Linh",
+			[DailyQuest.ReliveASpiritsMemoriesInDaylightPrairie]:
+				"Hồi tưởng lại ký ức của một Tinh Linh ở Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveASpiritsMemoriesInHiddenForest]:
+				"Hồi tưởng lại ký ức của một Tinh Linh ở Rừng Mưa",
+			[DailyQuest.ReliveASpiritsMemoriesInValleyOfTriumph]:
+				"Hồi tưởng lại ký ức của một Tinh Linh ở Thung Lũng Vinh Quang",
+			[DailyQuest.ReliveASpiritsMemoriesInGoldenWasteland]:
+				"Hồi tưởng lại ký ức của một Tinh Linh ở Hoang Mạc Hoàng Kim",
 			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
 				"Hồi tưởng lại ký ức của một Tinh Linh ở Kho Tri Thức",
+			[DailyQuest.FaceTheDarkDragon]: "Đối mặt với Rồng Hắc Ám",
 			[DailyQuest.KnockOver5DarkCrabs]: "Lật ngửa 5 con Cua Bóng Đêm",
+			[DailyQuest.CatchTheLightInTheDaylightPrairie]: "Bắt lấy Ánh Sáng ở Thảo Nguyên Ánh Sáng",
+			[DailyQuest.CatchTheLightInTheHiddenForest]: "Bắt lấy Ánh Sáng ở Rừng Mưa",
+			[DailyQuest.CatchTheLightInTheValleyOfTriumph]: "Bắt lấy Ánh Sáng ở Thung Lũng Vinh Quang",
+			[DailyQuest.CatchTheLightInTheGoldenWasteland]: "Bắt lấy Ánh Sáng ở Hoang Mạc Hoàng Kim",
+			[DailyQuest.CatchTheLightInTheVaultOfKnowledge]: "Bắt lấy Ánh Sáng ở Kho Tri Thức",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Ghé thăm nơi ẩn náu ấm cúng ở Thảo Nguyên Ánh Sáng",
+			[DailyQuest.VisitTheAncestorsTableOfBelongingInTheHiddenForest]:
+				"Ghé thăm Bàn Sở Hữu của Tổ tiên ở nơi cao của Rừng Mưa",
+			[DailyQuest.VisitTheHotSpringInTheValleyOfTriumph]: "Ghé thăm Suối nước nóng ở Làng Giấc Mơ",
+			[DailyQuest.VisitTheBonfireAtTheGoldenWasteland]:
+				"Tham quan lửa trại tại nghĩa địa ở Hoang Mạc Hoàng Kim",
+			[DailyQuest.AdmireTheSaplingInTheDaylightPrairie]:
+				"Ngắm cây non ở Thảo Nguyên Ánh Sáng trong thời gian ngắn",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
 				"Ngắm cây non ở Rừng Mưa trong thời gian ngắn",
+			[DailyQuest.AdmireTheSaplingInTheValleyOfTriumph]:
+				"Ngắm cây non ở Thung Lũng Vinh Quang trong thời gian ngắn",
+			[DailyQuest.AdmireTheSaplingInTheGoldenWasteland]:
+				"Ngắm cây non ở Hoang Mạc Hoàng Kim trong thời gian ngắn",
+			[DailyQuest.AdmireTheSaplingInTheVaultOfKnowledge]:
+				"Ngắm cây non ở Kho Tri Thức trong thời gian ngắn",
+			[DailyQuest.VisitThePollutedGeyser]: "Ghé thăm mạch nước phun ô nhiễm ở Quần Đảo Thánh Địa",
+			[DailyQuest.RidTheSanctuaryVortexOfDarkness]: "Thoát khỏi Dòng Xoáy Bóng Tối của Thánh Địa",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Tìm những ngọn nến ở cuối cầu vồng ở Thảo Nguyên Ánh Sáng",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
 				"Tìm những ngọn nến ở cuối câu vồng ở Rừng Mưa",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheValleyOfTriumph]:
+				"Tìm những ngọn nến ở cuối cầu vồng ở Thung Lũng Vinh Quang",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheGoldenWasteland]:
+				"Tìm những ngọn nến ở cuối cầu vồng ở Hoang Mạc Hoàng Kim",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheVaultOfKnowledge]:
+				"Tìm những ngọn nến ở cuối cầu vồng ở Kho Tri Thức",
+			[DailyQuest.AdmireTheRainbowInTheSanctuaryIslands]:
+				"Chiêm ngưỡng cầu vồng ở Quần Đảo Thánh Địa trong giây lát",
+			[DailyQuest.AdmireTheRainbowInTheWindPaths]:
+				"Chiêm ngưỡng cầu vồng ở Con Đường Gió trong giây lát",
+			[DailyQuest.AdmireTheRainbowInTheHermitValley]:
+				"Chiêm ngưỡng cầu vồng ở Thung Lũng Ẩn Sĩ trong giây lát",
+			[DailyQuest.AdmireTheRainbowInTheTreasureReef]:
+				"Chiêm ngưỡng cầu vồng ở Rạn San Hô Kho Báu trong giây lát",
+			[DailyQuest.AdmireTheRainbowInTheStarlightDesert]:
+				"Chiêm ngưỡng cầu vồng ở Hoang Mạc Ánh Sao trong giây lát",
+			[DailyQuest.MeditateAtTheBirdNest]: "Ngồi thiền ở ngôi đền tổ chim trong Thảo Nguyên",
+			[DailyQuest.MeditateInTheButterflyFields]: "Ngồi thiền ở cánh đồng bướm trong Thảo Nguyên",
+			[DailyQuest.MeditateAtTheSanctuaryIslands]: "Ngồi thiền ở Quần Đảo Thánh Địa",
+			[DailyQuest.MeditateInTheCave]: "Ngồi thiền ở ngôi đền hang động trong Thảo Nguyên",
+			[DailyQuest.MeditateByTheKoiPond]: "Ngồi thiền ở hồ cá koi trong Thảo Nguyên",
+			[DailyQuest.MeditateAtTheForestClearing]: "Ngồi thiền ở khu đất trống trong Rừng Mưa",
+			[DailyQuest.MeditateAtTheForestBrook]: "Ngồi thiền ở cạnh suối trong Rừng Mưa",
+			[DailyQuest.MeditateAtTheElevatedClearing]: "Ngồi thiền ở chỗ cao trong Rừng Mưa Bí Ấn",
+			[DailyQuest.MeditateAtTheForestEnd]: "Ngồi thiền ở cuối Rừng Mưa",
+			[DailyQuest.MeditateAtTheBoneyard]: "Ngồi thiền ở khu chôn cất trong Rừng Mưa",
+			[DailyQuest.MeditateByTheIceRink]: "Ngồi thiền ở sân băng trong Thung Lũng",
+			[DailyQuest.MeditateAboveTheCitadelsArch]: "Ngồi thiền ở trên vòm lâu đài trong Thung Lũng",
+			[DailyQuest.MeditateHighAboveTheCitadel]:
+				"Ngồi thiền ở tầng cao của lâu đài trong Thung Lũng",
+			[DailyQuest.MeditateAtTheColiseum]: "Ngồi thiền ở điểm cuối cuộc đua",
+			[DailyQuest.MeditateInTheBrokenTemple]: "Ngồi thiền trong ngồi đền cũ",
+			[DailyQuest.MeditateInTheForgottenArk]: "Ngồi thiền trong Hòm Lãng Quên",
+			[DailyQuest.MeditateInTheGraveyard]: "Ngồi thiền trong nghĩa địa",
+			[DailyQuest.MeditateOnTheBoat]: "Ngồi thiền trên thuyền",
+			[DailyQuest.MeditateOnTheBattlefield]: "Ngồi thiền trên chiến trường",
+			[DailyQuest.MeditateAtTheVaultEntrance]: "Ngồi thiền ở lối vào Kho Tri Thức",
+			[DailyQuest.MeditateInTheVaultSecondFloor]: "Ngồi thiền ở tầng 2 Kho Tri Thức",
+			[DailyQuest.MeditateAtTheVaultSummit]: "Ngồi thiền ở tầng trên cùng Kho Tri Thức",
+			[DailyQuest.CollectGreenLight]: "Thu thập Ánh Sáng Lục",
 			[DailyQuest.CollectOrangeLight]: "Thu thập Ánh Sáng Cam",
+			[DailyQuest.CollectBlueLight]: "Thu thập Ánh Sáng Lam",
 			[DailyQuest.CollectRedLight]: "Thu thập Ánh Sáng Đỏ",
+			[DailyQuest.CollectPurpleLight]: "Thu thập Ánh Sáng Tím",
+			[DailyQuest.PracticeWithTheSkater]: "Luyện tập với vận động viên trượt băng ở Làng Giấc Mơ",
+			[DailyQuest.RaceDownTheSlopesWithTheSkater]:
+				"Đua xuống dốc với vận động viên trượt băng ở Làng Giấc Mơ",
+			[DailyQuest.RaceDownTheMountainWithTheSkater]:
+				"Đua xuống núi với vận động viên trượt băng ở Thung Lũng Hermit",
+			[DailyQuest.RehearseForAPerformanceWithTheSkater]:
+				"Tập dượt cho buổi biểu diễn với vận động viên trượt băng ở Đấu Trường",
+			[DailyQuest.CompleteTheHoopScavengerHunt]: "Hoàn thành cuộc tìm kiếm vòng gỗ",
+			[DailyQuest.ReliveTheButterflyCharmer]:
+				"Hồi tưởng lại ký ức của Người Dụ Bướm đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheApplaudingBellmaker]:
+				"Hồi tưởng lại ký ức của Thợ Đồng Hồ Vỗ Tay đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheWavingBellmaker]:
+				"Hồi tưởng lại ký ức của Thợ Chuông Vẫy Tay từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheSlumberingShipwright]:
+				"Hồi tưởng lại ký ức của Thợ Đóng Tàu Ngủ Gật ở Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheLaughingLightCatcher]:
+				"Hồi tưởng lại ký ức của Nông Dân Vui Vẻ đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheBirdWhisperer]:
+				"Hồi tưởng lại ký ức của Người Luyện Chim đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheExhaustedDockWorker]:
+				"Hồi tưởng lại ký ức của Người Đóng Tàu Mệt Mỏi đến từ Thảo Nguyên Ánh Sáng",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Hồi tưởng lại ký ức của Người Luyện Cá Đuối đến từ Thung Lũng Vinh Quang",
 			[DailyQuest.ReliveTheStretchingGuru]:

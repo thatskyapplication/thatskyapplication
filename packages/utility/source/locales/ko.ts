@@ -25,23 +25,111 @@ export default {
 			[DailyQuest.FollowAFriend]: "친구를 따라가기",
 			[DailyQuest.HugAFriend]: "친구와 포옹하기",
 			[DailyQuest.WaveToAFriend]: "친구에게 손 흔들기",
+			[DailyQuest.HoldAFriendsHand]: "친구와 손잡기",
 			[DailyQuest.SendAGiftToAFriend]: "친구에게 선물 보내기",
 			[DailyQuest.MakeANewAcquaintance]: "낯선 플레이어와 촛불을 맞대기",
+			[DailyQuest.HighFiveAFriend]: "친구와 하이파이브하기",
+			[DailyQuest.UseAnExpressionNearAFriend]: "친구 근처에서 제스처 사용하기",
+			[DailyQuest.SitOnABenchWithAStranger]: "낯선 사람과 함께 벤치에 앉기",
 			[DailyQuest.RechargeFromAJellyfish]: "해파리 위에서 빛 충전하기",
+			[DailyQuest.RechargeFromALightBloom]: "빛의 꽃에서 빛 충전하기",
 			[DailyQuest.RideWithAManta]: "만타가오리 위에 올라타기",
 			[DailyQuest.ReliveASpiritsMemories]: "영혼의 기억을 체험하기",
+			[DailyQuest.ReliveASpiritsMemoriesInDaylightPrairie]:
+				"햇빛 초원에서 영혼의 기억을 다시 체험하기",
+			[DailyQuest.ReliveASpiritsMemoriesInHiddenForest]:
+				"비밀의 숲에서 영혼의 기억을 다시 체험하기",
+			[DailyQuest.ReliveASpiritsMemoriesInValleyOfTriumph]:
+				"승리의 계곡에서 영혼의 기억을 다시 체험하기",
+			[DailyQuest.ReliveASpiritsMemoriesInGoldenWasteland]:
+				"황금 황무지에서 영혼의 기억을 다시 체험하기",
 			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
 				"지식의 도서관에서 영혼의 기억을 다시 체험하기",
+			[DailyQuest.FaceTheDarkDragon]: "다크 드래곤을 마주하기",
 			[DailyQuest.KnockOver5DarkCrabs]: "어둠의 게 5마리를 쓰러뜨리기",
+			[DailyQuest.CatchTheLightInTheDaylightPrairie]: "햇빛 초원에서 빛 잡기",
+			[DailyQuest.CatchTheLightInTheHiddenForest]: "비밀의 숲에서 빛 잡기",
+			[DailyQuest.CatchTheLightInTheValleyOfTriumph]: "승리의 계곡에서 빛 잡기",
+			[DailyQuest.CatchTheLightInTheGoldenWasteland]: "황금 황무지에서 빛 잡기",
+			[DailyQuest.CatchTheLightInTheVaultOfKnowledge]: "지식의 도서관에서 빛 잡기",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"초원의 동굴 속 안락한 아지트를 찾아가기",
+			[DailyQuest.VisitTheAncestorsTableOfBelongingInTheHiddenForest]:
+				"숲 속 높은 공터에 선조가 남긴 친밀의 테이블을 찾아가기",
+			[DailyQuest.VisitTheHotSpringInTheValleyOfTriumph]: "꿈의 마을 온천을 찾아가기",
+			[DailyQuest.VisitTheBonfireAtTheGoldenWasteland]: "황무지에서 묘지 구역의 모닥불 찾아가기",
+			[DailyQuest.AdmireTheSaplingInTheDaylightPrairie]: "햇빛 초원에서 어린 나무를 잠시 감상하기",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]: "비밀의 숲에서 어린 나무를 잠시 감상하기",
+			[DailyQuest.AdmireTheSaplingInTheValleyOfTriumph]:
+				"승리의 계곡에서 어린 나무를 잠시 감상하기",
+			[DailyQuest.AdmireTheSaplingInTheGoldenWasteland]:
+				"황금 황무지에서 어린 나무를 잠시 감상하기",
+			[DailyQuest.AdmireTheSaplingInTheVaultOfKnowledge]:
+				"지식의 도서관에서 어린 나무를 잠시 감상하기",
+			[DailyQuest.VisitThePollutedGeyser]: "낙원의 섬에서 오염된 간헐천을 찾아가기",
+			[DailyQuest.RidTheSanctuaryVortexOfDarkness]: "낙원의 소용돌이에서 어둠을 몰아내세요",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"햇빛 초원의 무지개 끝에서 양초를 찾기",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
 				"비밀의 숲의 무지개 끝에서 양초를 찾기",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheValleyOfTriumph]:
+				"승리의 계곡의 무지개 끝에서 양초를 찾기",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheGoldenWasteland]:
+				"황금 황무지의 무지개 끝에서 양초를 찾기",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheVaultOfKnowledge]:
+				"지식의 도서관의 무지개 끝에서 양초를 찾기",
+			[DailyQuest.AdmireTheRainbowInTheSanctuaryIslands]: "낙원의 섬에서 잠시 무지개를 감상하기",
+			[DailyQuest.AdmireTheRainbowInTheWindPaths]: "바람길에서 잠시 무지개를 감상하기",
+			[DailyQuest.AdmireTheRainbowInTheHermitValley]: "운둔자의 언덕에서 잠시 무지개를 감상하기",
+			[DailyQuest.AdmireTheRainbowInTheTreasureReef]: "보물섬에서 잠시 무지개를 감상하기",
+			[DailyQuest.AdmireTheRainbowInTheStarlightDesert]: "별빛 사막에서 잠시 무지개를 감상하기",
+			[DailyQuest.MeditateAtTheBirdNest]: "초원의 새 둥지 제단에서 명상하기",
+			[DailyQuest.MeditateInTheButterflyFields]: "초원의 나비 들판에서 명상하기",
+			[DailyQuest.MeditateAtTheSanctuaryIslands]: "낙원의 섬에서 명상하기",
+			[DailyQuest.MeditateInTheCave]: "초원의 동굴 제단에서 명상하기",
+			[DailyQuest.MeditateByTheKoiPond]: "초원의 잉어 연못에서 명상하기",
+			[DailyQuest.MeditateAtTheForestClearing]: "숲 속 공터에서 명상하기",
+			[DailyQuest.MeditateAtTheForestBrook]: "숲의 개울 위에서 명상하기",
+			[DailyQuest.MeditateAtTheElevatedClearing]: "숲 속 높은 공터에서 명상하기",
+			[DailyQuest.MeditateAtTheForestEnd]: "숲 끝에서 명상하기",
+			[DailyQuest.MeditateAtTheBoneyard]: "숲 속 묘지에서 명상하기",
+			[DailyQuest.MeditateByTheIceRink]: "계곡 아이스링크 옆에서 명상하기",
+			[DailyQuest.MeditateAboveTheCitadelsArch]: "계곡 요새 아치 위에서 명상하기",
+			[DailyQuest.MeditateHighAboveTheCitadel]: "계곡 요새 위에서 명상하기",
+			[DailyQuest.MeditateAtTheColiseum]: "레이스 끝에서 명상하기",
+			[DailyQuest.MeditateInTheBrokenTemple]: "부서진 사원에서 명상하기",
+			[DailyQuest.MeditateInTheForgottenArk]: "잊혀진 방주에서 명상하세요",
+			[DailyQuest.MeditateInTheGraveyard]: "묘지에서 명상하기",
+			[DailyQuest.MeditateOnTheBoat]: "배 위에서 명상하기",
+			[DailyQuest.MeditateOnTheBattlefield]: "전장에서 명상하기",
+			[DailyQuest.MeditateAtTheVaultEntrance]: "지식의 도서관 입구에서 명상하기",
+			[DailyQuest.MeditateInTheVaultSecondFloor]: "도서관 2층에서 명상하기",
+			[DailyQuest.MeditateAtTheVaultSummit]: "도서관 가장 위층에서 명상하기",
+			[DailyQuest.CollectGreenLight]: "녹색 빛 모으기",
 			[DailyQuest.CollectOrangeLight]: "주황색 빛 모으기",
+			[DailyQuest.CollectBlueLight]: "파란색 빛 모으기",
 			[DailyQuest.CollectRedLight]: "빨간색 빛 모으기",
+			[DailyQuest.CollectPurpleLight]: "보라색 빛 모으기",
+			[DailyQuest.PracticeWithTheSkater]: "꿈의 마을에서 스케이트 선수와 함께 연습하기",
+			[DailyQuest.RaceDownTheSlopesWithTheSkater]:
+				"꿈의 마을에서 스케이트 선수와 함께 경사로를 따라 질주하기",
+			[DailyQuest.RaceDownTheMountainWithTheSkater]:
+				"은둔자의 언덕에서 스케이트 선수와 함께 산을 따라 질주하기",
+			[DailyQuest.RehearseForAPerformanceWithTheSkater]:
+				"대경기장에서 스케이트 선수와 함께 공연 리허설 하기",
+			[DailyQuest.CompleteTheHoopScavengerHunt]: "곡예용 고리 아이템 보물찾기 게임을 완료하기",
+			[DailyQuest.ReliveTheButterflyCharmer]: "햇빛 초원에서 나비 조련사의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheApplaudingBellmaker]:
+				"햇빛 초원에서 박수 치는 종지기의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheWavingBellmaker]:
+				"햇빛 초원에서 손 흔드는 종지기의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheSlumberingShipwright]:
+				"햇빛 초원에서 졸린 배 장인의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheLaughingLightCatcher]:
+				"햇빛 초원에서 웃는 빛잡이의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheBirdWhisperer]: "햇빛 초원에서 새 소리꾼의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheExhaustedDockWorker]:
+				"햇빛 초원에서 기진맥진한 부두 일꾼의 기억을 다시 체험하기",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"승리의 계곡에서 만타가오리 소리꾼의 기억을 다시 체험하기",
 			[DailyQuest.ReliveTheStretchingGuru]: "햇빛 초원에서 체조하는 선생의 기억을 다시 체험하기",

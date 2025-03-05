@@ -24,23 +24,111 @@ export default {
 			[DailyQuest.FollowAFriend]: "Следуйте за другом",
 			[DailyQuest.HugAFriend]: "Обнимите друга",
 			[DailyQuest.WaveToAFriend]: "Помашите другу",
+			[DailyQuest.HoldAFriendsHand]: "Возьмите друга за руку",
 			[DailyQuest.SendAGiftToAFriend]: "Отправьте подарок другу",
 			[DailyQuest.MakeANewAcquaintance]: "Заведите новое знакомство",
+			[DailyQuest.HighFiveAFriend]: "Дайте «пять» другу",
+			[DailyQuest.UseAnExpressionNearAFriend]: "Используйте выражение рядом с другом",
+			[DailyQuest.SitOnABenchWithAStranger]: "Посидите на скамейке с незнакомцем",
 			[DailyQuest.RechargeFromAJellyfish]: "Зарядите свой свет от медузы",
+			[DailyQuest.RechargeFromALightBloom]: "Зарядите свой свет от ростка света",
 			[DailyQuest.RideWithAManta]: "Поездки с мантой",
 			[DailyQuest.ReliveASpiritsMemories]: "Проживите воспоминания этого Духа",
+			[DailyQuest.ReliveASpiritsMemoriesInDaylightPrairie]:
+				"Проживите воспоминания духа в Полуденной прерии",
+			[DailyQuest.ReliveASpiritsMemoriesInHiddenForest]:
+				"Проживите воспоминания духа в Тайном лесу",
+			[DailyQuest.ReliveASpiritsMemoriesInValleyOfTriumph]:
+				"Проживите воспоминания духа в Долине триумфа",
+			[DailyQuest.ReliveASpiritsMemoriesInGoldenWasteland]:
+				"Проживите воспоминания духа в Золотой пустоши",
 			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
 				"Проживите воспоминания духа в Хранилище знаний",
+			[DailyQuest.FaceTheDarkDragon]: "Узрите темного дракона",
 			[DailyQuest.KnockOver5DarkCrabs]: "Сбейте 5 темных крабов",
+			[DailyQuest.CatchTheLightInTheDaylightPrairie]: "Поймайте свет в Полуденной прерии",
+			[DailyQuest.CatchTheLightInTheHiddenForest]: "Поймайте свет в Тайном лесу",
+			[DailyQuest.CatchTheLightInTheValleyOfTriumph]: "Поймайте свет в Долине триумфа",
+			[DailyQuest.CatchTheLightInTheGoldenWasteland]: "Поймайте свет в Золотой пустоши",
+			[DailyQuest.CatchTheLightInTheVaultOfKnowledge]: "Поймайте свет в Хранилище знаний",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Найдите уютное укрытие в пещерах в прерии",
+			[DailyQuest.VisitTheAncestorsTableOfBelongingInTheHiddenForest]:
+				"Приходите к столу сопричастности на высокой поляне в Лесу",
+			[DailyQuest.VisitTheHotSpringInTheValleyOfTriumph]:
+				"Зайдите на горячий источник в Деревушке мечтаний",
+			[DailyQuest.VisitTheBonfireAtTheGoldenWasteland]: "Подойдите к костру на кладбище пустоши",
+			[DailyQuest.AdmireTheSaplingInTheDaylightPrairie]: "Полюбуйтесь деревцем в Полуденной прерии",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]: "Полюбуйтесь деревцем в Тайном лесу",
+			[DailyQuest.AdmireTheSaplingInTheValleyOfTriumph]: "Полюбуйтесь деревцем в Долине триумфа",
+			[DailyQuest.AdmireTheSaplingInTheGoldenWasteland]: "Полюбуйтесь деревцем в Золотой пустоши",
+			[DailyQuest.AdmireTheSaplingInTheVaultOfKnowledge]: "Полюбуйтесь деревцем в Хранилище знаний",
+			[DailyQuest.VisitThePollutedGeyser]: "Посетите загрязненный гейзер на Островах укрытия",
+			[DailyQuest.RidTheSanctuaryVortexOfDarkness]: "Избавьте Воронку Укрытия от тьмы",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Найдите свечи в конце радуги в Полуденной прерии",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
 				"Найдите свечи в конце радуги в Тайном лесу",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheValleyOfTriumph]:
+				"Найдите свечи в конце радуги в Долине триумфа",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheGoldenWasteland]:
+				"Найдите свечи в конце радуги в Золотой пустоши",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheVaultOfKnowledge]:
+				"Найдите свечи в конце радуги в Хранилище знаний",
+			[DailyQuest.AdmireTheRainbowInTheSanctuaryIslands]: "Полюбуйтесь радугой на Островах убежища",
+			[DailyQuest.AdmireTheRainbowInTheWindPaths]: "Полюбуйтесь радугой на Путях ветра",
+			[DailyQuest.AdmireTheRainbowInTheHermitValley]: "Полюбуйтесь радугой в Долине отшельника",
+			[DailyQuest.AdmireTheRainbowInTheTreasureReef]: "Полюбуйтесь радугой на Острове сокровищ",
+			[DailyQuest.AdmireTheRainbowInTheStarlightDesert]: "Полюбуйтесь радугой в Звездной пустыне",
+			[DailyQuest.MeditateAtTheBirdNest]: "Помедитируйте у птичьего гнезда в Прерии",
+			[DailyQuest.MeditateInTheButterflyFields]: "Помедитируйте на поле бабочек в Прерии",
+			[DailyQuest.MeditateAtTheSanctuaryIslands]: "Медитируйте на Островах укрытия",
+			[DailyQuest.MeditateInTheCave]: "Помедитируйте у пещерного алтаря в Прерии",
+			[DailyQuest.MeditateByTheKoiPond]: "Помедитируйте у пруда карпов в Прерии",
+			[DailyQuest.MeditateAtTheForestClearing]: "Помедитируйте на поляне в Лесу",
+			[DailyQuest.MeditateAtTheForestBrook]: "Медитируйте у Лесного ручья",
+			[DailyQuest.MeditateAtTheElevatedClearing]: "Помедитируйте на высокой поляне в Лесу",
+			[DailyQuest.MeditateAtTheForestEnd]: "Помедитируйте в дальнем конце Леса",
+			[DailyQuest.MeditateAtTheBoneyard]: "Помедитируйте на могильнике в Лесу",
+			[DailyQuest.MeditateByTheIceRink]: "Помедитируйте у катка Долины",
+			[DailyQuest.MeditateAboveTheCitadelsArch]: "Помедитируйте над аркой цитадели Долины",
+			[DailyQuest.MeditateHighAboveTheCitadel]: "Помедитируйте высоко над цитаделью Долины",
+			[DailyQuest.MeditateAtTheColiseum]: "Помедитируйте в конце гонки",
+			[DailyQuest.MeditateInTheBrokenTemple]: "Помедитируйте в развалинах храма",
+			[DailyQuest.MeditateInTheForgottenArk]: "Медитируйте в Забытом ковчеге",
+			[DailyQuest.MeditateInTheGraveyard]: "Помедитируйте на кладбище",
+			[DailyQuest.MeditateOnTheBoat]: "Помедитируйте на лодке",
+			[DailyQuest.MeditateOnTheBattlefield]: "Помедитируйте на поле боя",
+			[DailyQuest.MeditateAtTheVaultEntrance]: "Помедитируйте у входа в Хранилище знаний",
+			[DailyQuest.MeditateInTheVaultSecondFloor]: "Помедитируйте на втором этаже Хранилища",
+			[DailyQuest.MeditateAtTheVaultSummit]: "Помедитируйте на вершине Хранилища",
+			[DailyQuest.CollectGreenLight]: "Соберите зеленый свет",
 			[DailyQuest.CollectOrangeLight]: "Соберите оранжевый свет",
+			[DailyQuest.CollectBlueLight]: "Соберите синий свет",
 			[DailyQuest.CollectRedLight]: "Соберите красный свет",
+			[DailyQuest.CollectPurpleLight]: "Соберите пурпурный свет",
+			[DailyQuest.PracticeWithTheSkater]: "Попрактикуйтесь с конькобежцем в Деревушке мечтаний",
+			[DailyQuest.RaceDownTheSlopesWithTheSkater]:
+				"Прокатитесь с конькобежцем по холмам в Деревушке мечтаний",
+			[DailyQuest.RaceDownTheMountainWithTheSkater]:
+				"Прокатитесь с конькобежцем по горам в Долине Отшельника",
+			[DailyQuest.RehearseForAPerformanceWithTheSkater]:
+				"Отрепетируйте выступление в Колизее с конькобежцем",
+			[DailyQuest.CompleteTheHoopScavengerHunt]: "Отыщите все фрагменты обруча",
+			[DailyQuest.ReliveTheButterflyCharmer]:
+				"Переживите воспоминания Заклинателя бабочек из Полуденной прерии",
+			[DailyQuest.ReliveTheApplaudingBellmaker]:
+				"Переживите воспоминания Аплодирующего звонаря из Полуденной прерии",
+			[DailyQuest.ReliveTheWavingBellmaker]:
+				"Переживите воспоминания приветливого звонаря из Полуденной прерии",
+			[DailyQuest.ReliveTheSlumberingShipwright]:
+				"Переживите воспоминания Сонного корабела из Полуденной прерии",
+			[DailyQuest.ReliveTheLaughingLightCatcher]:
+				"Переживите воспоминания Смеющегося ловца света из Полуденной прерии",
+			[DailyQuest.ReliveTheBirdWhisperer]:
+				"Переживите воспоминания Голоса птицы из Полуденной прерии",
+			[DailyQuest.ReliveTheExhaustedDockWorker]:
+				"Переживите воспоминания Измученного грузчика из Полуденной прерии",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Переживите воспоминания Голоса манты из Долины триумфа",
 			[DailyQuest.ReliveTheStretchingGuru]:

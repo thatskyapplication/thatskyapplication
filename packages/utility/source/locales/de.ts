@@ -24,24 +24,123 @@ export default {
 			[DailyQuest.FollowAFriend]: "Folge einem Freund",
 			[DailyQuest.HugAFriend]: "Umarme einen Freund",
 			[DailyQuest.WaveToAFriend]: "Winke einem Freund zu",
+			[DailyQuest.HoldAFriendsHand]: "Halte die Hand eines Freundes",
 			[DailyQuest.SendAGiftToAFriend]: "Schicke einem Freund ein Geschenk",
 			[DailyQuest.MakeANewAcquaintance]: "Lerne eine neue Person kennen",
+			[DailyQuest.HighFiveAFriend]: "Gib einem Freund ein High Five",
+			[DailyQuest.UseAnExpressionNearAFriend]: "Verwende einen Ausdruck in der Nähe eines Freundes",
+			[DailyQuest.SitOnABenchWithAStranger]: "Sitze auf einer Bank mit einem Fremden",
 			[DailyQuest.RechargeFromAJellyfish]: "Lade dein Licht durch eine Qualle auf",
+			[DailyQuest.RechargeFromALightBloom]: "Lade dein Licht durch ein Lichtblühen auf",
 			[DailyQuest.RideWithAManta]: "Schwimme mit einem Riesenrochen",
 			[DailyQuest.ReliveASpiritsMemories]: "Erlebe die Erinnerungen eines Geistes",
+			[DailyQuest.ReliveASpiritsMemoriesInDaylightPrairie]:
+				"Erlebe die Erinnerungen eines Geistes in der Tageslichtprärie",
+			[DailyQuest.ReliveASpiritsMemoriesInHiddenForest]:
+				"Erlebe die Erinnerungen eines Geistes im Verborgenen Wald",
+			[DailyQuest.ReliveASpiritsMemoriesInValleyOfTriumph]:
+				"Erlebe die Erinnerungen eines Geistes im Tal des Triumphs",
+			[DailyQuest.ReliveASpiritsMemoriesInGoldenWasteland]:
+				"Erlebe die Erinnerungen eines Geistes in der Goldenen Ödnis",
 			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
 				"Erlebe die Erinnerungen eines Geistes im Tresor des Wissens",
+			[DailyQuest.FaceTheDarkDragon]: "Stell dich dem Dunkeldrachen",
 			[DailyQuest.KnockOver5DarkCrabs]: "Wirf 5 Dunkelkreaturen-Krebse um",
+			[DailyQuest.CatchTheLightInTheDaylightPrairie]: "Fange das Licht in der Tageslichtprärie",
+			[DailyQuest.CatchTheLightInTheHiddenForest]: "Fange das Licht im Verborgenen Wald",
+			[DailyQuest.CatchTheLightInTheValleyOfTriumph]: "Fange das Licht im Tal des Triumphs",
+			[DailyQuest.CatchTheLightInTheGoldenWasteland]: "Fange das Licht in der Goldenen Ödnis",
+			[DailyQuest.CatchTheLightInTheVaultOfKnowledge]: "Fange das Licht im Tresor des Wissens",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Besuche das gemütliche Versteck in den Präriehöhlen",
+			[DailyQuest.VisitTheAncestorsTableOfBelongingInTheHiddenForest]:
+				"Besuche in der erhabenen Waldlichtung den Vorfahrentisch des Zusammengehörens",
+			[DailyQuest.VisitTheHotSpringInTheValleyOfTriumph]:
+				"Besuche die heiße Quelle im Dorf der Träume",
+			[DailyQuest.VisitTheBonfireAtTheGoldenWasteland]: "Besuche das Lagerfeuer beim Ödnisfriedhof",
+			[DailyQuest.AdmireTheSaplingInTheDaylightPrairie]:
+				"Geh und bewundere das Bäumchen in der Tageslichtprärie für eine kurze Weile",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
 				"Geh und bewundere das Bäumchen im verborgenen Wald für eine kurze Weile",
+			[DailyQuest.AdmireTheSaplingInTheValleyOfTriumph]:
+				"Geh und bewundere das Bäumchen im Tal des Triumphs für eine kurze Weile",
+			[DailyQuest.AdmireTheSaplingInTheGoldenWasteland]:
+				"Geh und bewundere das Bäumchen in der goldenen Ödnis für eine kurze Weile",
+			[DailyQuest.AdmireTheSaplingInTheVaultOfKnowledge]:
+				"Geh und bewundere das Bäumchen im Tresor des Wissens für eine kurze Weile",
+			[DailyQuest.VisitThePollutedGeyser]:
+				"Besuche den verschmutzten Geysir auf den Zufluchtsinseln",
+			[DailyQuest.RidTheSanctuaryVortexOfDarkness]: "Erlöse den Zufluchtsvortex von der Finsternis",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Suche die Kerzen am Ende des Regenbogens in der Tageslichtprärie",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
 				"Suche die Kerzen am Ende des Regenbogens im verborgenen Wald",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheValleyOfTriumph]:
+				"Suche die Kerzen am Ende des Regenbogens im Tal des Triumphs",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheGoldenWasteland]:
+				"Suche die Kerzen am Ende des Regenbogens in der goldenen Ödnis",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheVaultOfKnowledge]:
+				"Suche die Kerzen am Ende des Regenbogens im Tresor des Wissens",
+			[DailyQuest.AdmireTheRainbowInTheSanctuaryIslands]:
+				"Bewundere den Regenbogen auf den Zufluchtsinseln für eine kurze Zeit",
+			[DailyQuest.AdmireTheRainbowInTheWindPaths]:
+				"Bewundere den Regenbogen in den Windpfaden für eine kurze Zeit",
+			[DailyQuest.AdmireTheRainbowInTheHermitValley]:
+				"Bewundere den Regenbogen im Einsiedlertal für eine kurze Zeit",
+			[DailyQuest.AdmireTheRainbowInTheTreasureReef]:
+				"Bewundere den Regenbogen im Schatzriff für eine kurze Zeit",
+			[DailyQuest.AdmireTheRainbowInTheStarlightDesert]:
+				"Bewundere den Regenbogen in der Sternenlichtwüste für eine kurze Zeit",
+			[DailyQuest.MeditateAtTheBirdNest]: "Meditiere im Vogelnestschrein der Prärie",
+			[DailyQuest.MeditateInTheButterflyFields]: "Meditiere im Schmetterlingsfeld der Prärie",
+			[DailyQuest.MeditateAtTheSanctuaryIslands]: "Meditiere auf den Zufluchtsinseln",
+			[DailyQuest.MeditateInTheCave]: "Meditiere im Höhlenschrein der Prärie",
+			[DailyQuest.MeditateByTheKoiPond]: "Meditiere am Koiteich der Prärie",
+			[DailyQuest.MeditateAtTheForestClearing]: "Meditiere auf der Lichtung im Wald",
+			[DailyQuest.MeditateAtTheForestBrook]: "Meditiere über dem Bach des Walds",
+			[DailyQuest.MeditateAtTheElevatedClearing]:
+				"Meditiere auf der höhergelegenen Lichtung im Wald",
+			[DailyQuest.MeditateAtTheForestEnd]: "Meditiere am Ende des Walds",
+			[DailyQuest.MeditateAtTheBoneyard]: "Meditiere auf dem Friedhof im Wald",
+			[DailyQuest.MeditateByTheIceRink]: "Meditiere an der Eisbahn des Tals",
+			[DailyQuest.MeditateAboveTheCitadelsArch]: "Meditiere über dem Zitadellenbogen des Tals",
+			[DailyQuest.MeditateHighAboveTheCitadel]: "Meditiere hoch über der Zitadelle des Tals",
+			[DailyQuest.MeditateAtTheColiseum]: "Meditiere am Ende des Rennens",
+			[DailyQuest.MeditateInTheBrokenTemple]: "Meditiere im kaputten Tempel",
+			[DailyQuest.MeditateInTheForgottenArk]: "Meditiere in der Vergessenen Arche",
+			[DailyQuest.MeditateInTheGraveyard]: "Meditiere auf dem Friedhof",
+			[DailyQuest.MeditateOnTheBoat]: "Meditiere auf dem Boot",
+			[DailyQuest.MeditateOnTheBattlefield]: "Meditiere auf dem Schlachtfeld",
+			[DailyQuest.MeditateAtTheVaultEntrance]: "Meditiere am Eingang des Tresor des Wissens",
+			[DailyQuest.MeditateInTheVaultSecondFloor]: "Meditiere im zweiten Stock des Tresors",
+			[DailyQuest.MeditateAtTheVaultSummit]: "Meditiere auf der Spitze des Tresors",
+			[DailyQuest.CollectGreenLight]: "Sammle Grünes Licht",
 			[DailyQuest.CollectOrangeLight]: "Sammle Oranges Licht",
+			[DailyQuest.CollectBlueLight]: "Sammle Blaues Licht",
 			[DailyQuest.CollectRedLight]: "Sammle Rotes Licht",
+			[DailyQuest.CollectPurpleLight]: "Sammle Lila Licht",
+			[DailyQuest.PracticeWithTheSkater]: "Übe mit der Skaterin im Dorf der Träume",
+			[DailyQuest.RaceDownTheSlopesWithTheSkater]:
+				"Rase mit der Skaterin die Hänge im Dorf der Träume hinab",
+			[DailyQuest.RaceDownTheMountainWithTheSkater]:
+				"Rase mit der Skaterin den Berg im Einsiedlertal hinab",
+			[DailyQuest.RehearseForAPerformanceWithTheSkater]:
+				"Probe einen Auftritt mit der Skaterin im Kolosseum",
+			[DailyQuest.CompleteTheHoopScavengerHunt]: "Schließe die Reifen-Schnitzeljagd ab",
+			[DailyQuest.ReliveTheButterflyCharmer]:
+				"Erlebe erneut die Erinnerung des Schmetterlingszähmers von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheApplaudingBellmaker]:
+				"Erlebe erneut die Erinnerung der Applaudierenden Glockenmacherin von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheWavingBellmaker]:
+				"Erlebe erneut die Erinnerung des Winkenden Glockenmachers von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheSlumberingShipwright]:
+				"Erlebe erneut die Erinnerung des Müden Bootsbauers von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheLaughingLightCatcher]:
+				"Erlebe erneut die Erinnerung der Lachenden Lichtfarmerin von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheBirdWhisperer]:
+				"Erlebe erneut die Erinnerung des Vogelsprechers von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheExhaustedDockWorker]:
+				"Erlebe erneut die Erinnerung des Erschöpften Dockarbeiters von der Tageslicht-Prärie",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Erlebe erneut die Erinnerung des Riesenrochensprechers vom Tal des Triumphs",
 			[DailyQuest.ReliveTheStretchingGuru]:

@@ -43,24 +43,129 @@ export default {
 			[DailyQuest.FollowAFriend]: "Suivez un ami",
 			[DailyQuest.HugAFriend]: "Faites un câlin à un ami",
 			[DailyQuest.WaveToAFriend]: "Faites signe à un ami",
+			[DailyQuest.HoldAFriendsHand]: "Tenez la main d'un ami",
 			[DailyQuest.SendAGiftToAFriend]: "Envoyez un cadeau a un ami",
 			[DailyQuest.MakeANewAcquaintance]: "Faites une nouvelle connaissance",
+			[DailyQuest.HighFiveAFriend]: "Topez-là avec un ami",
+			[DailyQuest.UseAnExpressionNearAFriend]: "Utilisez une expression à côté d'un ami",
+			[DailyQuest.SitOnABenchWithAStranger]: "Asseyez-vous sur un banc avec un étranger",
 			[DailyQuest.RechargeFromAJellyfish]: "Rechargez votre lumière auprès d'une méduse",
+			[DailyQuest.RechargeFromALightBloom]: "Rechargez votre lumière auprès d'une fleur de lumière",
 			[DailyQuest.RideWithAManta]: "Montez sur une raie manta",
 			[DailyQuest.ReliveASpiritsMemories]: "Revivez les souvenirs d'un esprit",
+			[DailyQuest.ReliveASpiritsMemoriesInDaylightPrairie]:
+				"Revivez les souvenirs d'un esprit dans la Prairie illuminée",
+			[DailyQuest.ReliveASpiritsMemoriesInHiddenForest]:
+				"Revivez les souvenirs d'un esprit dans la Forêt cachée",
+			[DailyQuest.ReliveASpiritsMemoriesInValleyOfTriumph]:
+				"Revivez les souvenirs d'un esprit dans la Vallée du triomphe",
+			[DailyQuest.ReliveASpiritsMemoriesInGoldenWasteland]:
+				"Revivez les souvenirs d'un esprit dans le Désert d'or",
 			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
 				"Revivez les souvenirs d'un esprit dans la Chambre forte de connaissance",
+			[DailyQuest.FaceTheDarkDragon]: "Affrontez le dragon sombre",
 			[DailyQuest.KnockOver5DarkCrabs]: "Renversez 5 crabes sombres",
+			[DailyQuest.CatchTheLightInTheDaylightPrairie]:
+				"Récupérez la lumière dans la Prairie illuminée",
+			[DailyQuest.CatchTheLightInTheHiddenForest]: "Récupérez la lumière dans la Forêt cachée",
+			[DailyQuest.CatchTheLightInTheValleyOfTriumph]:
+				"Récupérez la lumière dans la Vallée du triomphe",
+			[DailyQuest.CatchTheLightInTheGoldenWasteland]: "Récupérez la lumière dans le Désert d'or",
+			[DailyQuest.CatchTheLightInTheVaultOfKnowledge]:
+				"Récupérez la lumière dans la Chambre forte de connaissance",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Visitez le cachette confortable dans les grottes de la Prairie",
+			[DailyQuest.VisitTheAncestorsTableOfBelongingInTheHiddenForest]:
+				"Visitez la table de l'appartenance des ancêtres dans la clairière surélevée de la Forêt",
+			[DailyQuest.VisitTheHotSpringInTheValleyOfTriumph]:
+				"Visitez la source chaude du village des rêves",
+			[DailyQuest.VisitTheBonfireAtTheGoldenWasteland]:
+				"Visitez le feu de joie dans le cimetière du Désert",
+			[DailyQuest.AdmireTheSaplingInTheDaylightPrairie]:
+				"Appréciez le jeune arbre dans la Prairie illuminée pendant un petit moment",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
 				"Appréciez le jeune arbre dans la Forêt cachée pendant un petit moment",
+			[DailyQuest.AdmireTheSaplingInTheValleyOfTriumph]:
+				"Appréciez le jeune arbre dans la Vallée du triomphe pendant un petit moment",
+			[DailyQuest.AdmireTheSaplingInTheGoldenWasteland]:
+				"Appréciez le jeune arbre dans le Désert d'or pendant un petit moment",
+			[DailyQuest.AdmireTheSaplingInTheVaultOfKnowledge]:
+				"Appréciez le jeune arbre dans la Chambre forte de connaissance pendant un petit moment",
+			[DailyQuest.VisitThePollutedGeyser]: "Visitez le geyser pollué dans les îles du sanctuaire",
+			[DailyQuest.RidTheSanctuaryVortexOfDarkness]: "Éliminez les ténèbres du Vortex du sanctuaire",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Trouvez les bougies au bout de l'arc-en-ciel dans la Prairie illuminée",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
 				"Trouvez les bougies au bout de l'arc-en-ciel dans la Forêt cachée",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheValleyOfTriumph]:
+				"Trouvez les bougies au bout de l'arc-en-ciel dans la Vallée du triomphe",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheGoldenWasteland]:
+				"Trouvez les bougies au bout de l'arc-en-ciel dans le Désert d'or",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheVaultOfKnowledge]:
+				"Trouvez les bougies au bout de l'arc-en-ciel dans la Chambre forte de connaissance",
+			[DailyQuest.AdmireTheRainbowInTheSanctuaryIslands]:
+				"Admirez l'arc-en-ciel des îles du sanctuaire pendant un petit moment",
+			[DailyQuest.AdmireTheRainbowInTheWindPaths]:
+				"Admirez l'arc-en-ciel des chemins de vent pendant un petit moment",
+			[DailyQuest.AdmireTheRainbowInTheHermitValley]:
+				"Admirez l'arc-en-ciel de la vallée de l'ermite pendant un petit moment",
+			[DailyQuest.AdmireTheRainbowInTheTreasureReef]:
+				"Admirez l'arc-en-ciel du récif du trésor pendant un petit moment",
+			[DailyQuest.AdmireTheRainbowInTheStarlightDesert]:
+				"Admirez l'arc-en-ciel du désert stellaire pendant un petit moment",
+			[DailyQuest.MeditateAtTheBirdNest]: "Méditez dans le sanctuaire nid de la Prairie",
+			[DailyQuest.MeditateInTheButterflyFields]: "Méditez dans le champ de papillons de la Prairie",
+			[DailyQuest.MeditateAtTheSanctuaryIslands]: "Méditez dans les Îles du sanctuaire",
+			[DailyQuest.MeditateInTheCave]: "Méditez dans le sanctuaire de grotte dans la Prairie",
+			[DailyQuest.MeditateByTheKoiPond]: "Méditez à la mare des carpes koï de la Prairie",
+			[DailyQuest.MeditateAtTheForestClearing]: "Méditez dans la clairière de la Forêt",
+			[DailyQuest.MeditateAtTheForestBrook]: "Méditez au-dessus du ruisseau de la Forêt",
+			[DailyQuest.MeditateAtTheElevatedClearing]: "Méditez à la clairière élevée de la Forêt",
+			[DailyQuest.MeditateAtTheForestEnd]: "Méditez au bout de la Forêt",
+			[DailyQuest.MeditateAtTheBoneyard]: "Méditez au cimetière de la Forêt",
+			[DailyQuest.MeditateByTheIceRink]: "Méditez à côté de la patinoire de la Vallée",
+			[DailyQuest.MeditateAboveTheCitadelsArch]:
+				"Méditez au-dessus de l'arche de la citadelle de la Vallée",
+			[DailyQuest.MeditateHighAboveTheCitadel]:
+				"Méditez loin au-dessus de la citadelle de la Vallée",
+			[DailyQuest.MeditateAtTheColiseum]: "Méditez à la fin de la course",
+			[DailyQuest.MeditateInTheBrokenTemple]: "Méditez dans le temple brisé",
+			[DailyQuest.MeditateInTheForgottenArk]: "Méditez dans l'arche oubliée",
+			[DailyQuest.MeditateInTheGraveyard]: "Méditez dans le cimetière",
+			[DailyQuest.MeditateOnTheBoat]: "Méditez sur le bateau",
+			[DailyQuest.MeditateOnTheBattlefield]: "Méditez sur le champ de bataille",
+			[DailyQuest.MeditateAtTheVaultEntrance]:
+				"Méditez à l'entrée de la Chambre forte de connaissance",
+			[DailyQuest.MeditateInTheVaultSecondFloor]: "Méditez au premier étage de la Chambre forte",
+			[DailyQuest.MeditateAtTheVaultSummit]: "Méditez au sommet de la Chambre forte",
+			[DailyQuest.CollectGreenLight]: "Récupérez la lumière verte",
 			[DailyQuest.CollectOrangeLight]: "Récupérez la lumière orange",
+			[DailyQuest.CollectBlueLight]: "Récupérez la lumière bleue",
 			[DailyQuest.CollectRedLight]: "Récupérez la lumière rouge",
+			[DailyQuest.CollectPurpleLight]: "Récupérez la lumière violette",
+			[DailyQuest.PracticeWithTheSkater]:
+				"Entraînez-vous avec la patineuse dans le village des rêves",
+			[DailyQuest.RaceDownTheSlopesWithTheSkater]:
+				"Dévalez les pistes avec la patineuse dans le village des rêves",
+			[DailyQuest.RaceDownTheMountainWithTheSkater]:
+				"Dévalez la montagne avec la patineuse dans la vallée de l'ermite",
+			[DailyQuest.RehearseForAPerformanceWithTheSkater]:
+				"Répètez pour un spectacle avec la patineuse dans le colisée",
+			[DailyQuest.CompleteTheHoopScavengerHunt]: "Complétez la chasse au trésor du cerceau",
+			[DailyQuest.ReliveTheButterflyCharmer]:
+				"Revivez le souvenir du charmeur de papillon dans la Prairie illuminée",
+			[DailyQuest.ReliveTheApplaudingBellmaker]:
+				"Revivez le souvenir de la fabricante de cloches applaudissant dans la Prairie illuminée",
+			[DailyQuest.ReliveTheWavingBellmaker]:
+				"Revivez le souvenir de la fabricante de cloches disant adieu dans la Prairie illuminée",
+			[DailyQuest.ReliveTheSlumberingShipwright]:
+				"Revivez le souvenir du fabricant de bateaux somnolent dans la Prairie illuminée",
+			[DailyQuest.ReliveTheLaughingLightCatcher]:
+				"Revivez le souvenir de l'attrapeuse de lumière riant dans la Prairie illuminée",
+			[DailyQuest.ReliveTheBirdWhisperer]:
+				"Revivez le souvenir de l'orateur d'oiseaux dans la Prairie illuminée",
+			[DailyQuest.ReliveTheExhaustedDockWorker]:
+				"Revivez le souvenir du travailleur de quai épuisé dans la Prairie illuminée",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Revivez le souvenir de l'orateur Manta dans la Vallée du triomphe",
 			[DailyQuest.ReliveTheStretchingGuru]:
@@ -68,7 +173,7 @@ export default {
 			[DailyQuest.ReliveTheWiseGrandparent]:
 				"Revivez le souvenir du réalisateur réfléchi dans la Chambre forte de connaissance",
 			[DailyQuest.ReliveTheDaydreamForester]:
-				"Revivez le souvenir du forestier rêveur dans la Forêt cachée.",
+				"Revivez le souvenir du forestier rêveur dans la Forêt cachée",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Faites une farce au commodore commandant",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
@@ -249,12 +354,12 @@ export default {
 			[SpiritId.OveractiveOverachiever]: "Prodige performant",
 			[SpiritId.MomentsGuide]: "Guide des Instants",
 			[SpiritId.ReassuringRanger]: "Garde-forestier rassurant",
-			[SpiritId.NightbirdWhisperer]: "Charmeuse d’oiseaux de nuit",
+			[SpiritId.NightbirdWhisperer]: "Charmeuse d'oiseaux de nuit",
 			[SpiritId.JollyGeologist]: "Géologue joyeuse",
 			[SpiritId.AsceticMonk]: "Moine ascétique",
 			[SpiritId.HopefulSteward]: "Coordinateur optimiste",
 			[SpiritId.VestigeOfADesertedOasis]: "Vestige d'une oasis désertée",
-			[SpiritId.MemoryOfALostVillage]: "Souvenir d’un village perdu",
+			[SpiritId.MemoryOfALostVillage]: "Souvenir d'un village perdu",
 			[SpiritId.EchoOfAnAbandonedRefuge]: "Écho d'un refuge abandonné",
 			[SpiritId.RemnantOfAForgottenHaven]: "Vestige d'un havre oublié",
 			[SpiritId.SpiritOfMural]: "Esprit de la fresque",

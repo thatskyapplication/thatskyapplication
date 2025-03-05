@@ -24,24 +24,125 @@ export default {
 			[DailyQuest.FollowAFriend]: "Segui un amico",
 			[DailyQuest.HugAFriend]: "Abbraccia un amico",
 			[DailyQuest.WaveToAFriend]: "Saluta un amico",
+			[DailyQuest.HoldAFriendsHand]: "Tieni la mano a un amico",
 			[DailyQuest.SendAGiftToAFriend]: "Invia un regalo a un amico",
 			[DailyQuest.MakeANewAcquaintance]: "Fai una nuova conoscenza",
+			[DailyQuest.HighFiveAFriend]: "Batti il cinque a un amico",
+			[DailyQuest.UseAnExpressionNearAFriend]: "Usa un'espressione quando sei vicino a un amico",
+			[DailyQuest.SitOnABenchWithAStranger]: "Siediti su una panchina con un estraneo",
 			[DailyQuest.RechargeFromAJellyfish]: "Ricarica la tua luce da una medusa",
+			[DailyQuest.RechargeFromALightBloom]: "Ricarica la tua luce da una pianta di luce",
 			[DailyQuest.RideWithAManta]: "Cavalca una manta",
 			[DailyQuest.ReliveASpiritsMemories]: "Rivivi i ricordi di uno spirito",
+			[DailyQuest.ReliveASpiritsMemoriesInDaylightPrairie]:
+				"Rivivi i ricordi di uno spirito nella Prateria Diurna",
+			[DailyQuest.ReliveASpiritsMemoriesInHiddenForest]:
+				"Rivivi i ricordi di uno spirito nella Foresta Nascosta",
+			[DailyQuest.ReliveASpiritsMemoriesInValleyOfTriumph]:
+				"Rivivi i ricordi di uno spirito nella Valle del Trionfo",
+			[DailyQuest.ReliveASpiritsMemoriesInGoldenWasteland]:
+				"Rivivi i ricordi di uno spirito nel Deserto Dorato",
 			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
 				"Rivivi i ricordi di uno spirito nella Cupola della Conoscenza",
+			[DailyQuest.FaceTheDarkDragon]: "Affronta il Drago Oscuro",
 			[DailyQuest.KnockOver5DarkCrabs]: "Abbatti più di 5 granchi oscuri",
+			[DailyQuest.CatchTheLightInTheDaylightPrairie]: "Prendi la luce nella Prateria Diurna",
+			[DailyQuest.CatchTheLightInTheHiddenForest]: "Prendi la luce nella Foresta Nascosta",
+			[DailyQuest.CatchTheLightInTheValleyOfTriumph]: "Prendi la luce nella Valle del Trionfo",
+			[DailyQuest.CatchTheLightInTheGoldenWasteland]: "Prendi la luce nel Deserto Dorato",
+			[DailyQuest.CatchTheLightInTheVaultOfKnowledge]:
+				"Prendi la luce nella Cupola della Conoscenza",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Visita il nascondiglio accogliente nella grotte della Prateria",
+			[DailyQuest.VisitTheAncestorsTableOfBelongingInTheHiddenForest]:
+				"Visita il tavolo degli affetti dell'Antenata nella radura elevata della Foresta",
+			[DailyQuest.VisitTheHotSpringInTheValleyOfTriumph]:
+				"Visita la sorgente termale nel Villaggio dei Sogni",
+			[DailyQuest.VisitTheBonfireAtTheGoldenWasteland]: "Visita il falò al cimitero del Deserto",
+			[DailyQuest.AdmireTheSaplingInTheDaylightPrairie]:
+				"Apprezza l'alberello nella Prateria Diurna per un breve periodo",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
 				"Apprezza l'alberello nella Foresta Nascosta per un breve periodo",
+			[DailyQuest.AdmireTheSaplingInTheValleyOfTriumph]:
+				"Apprezza l'alberello nella Valle del Trionfo per un breve periodo",
+			[DailyQuest.AdmireTheSaplingInTheGoldenWasteland]:
+				"Apprezza l'alberello nel Deserto Dorato per un breve periodo",
+			[DailyQuest.AdmireTheSaplingInTheVaultOfKnowledge]:
+				"Apprezza l'alberello nella Cupola della Conoscenza",
+			[DailyQuest.VisitThePollutedGeyser]: "Visita il geyser inquinato nell'Arcipelago Paradiso",
+			[DailyQuest.RidTheSanctuaryVortexOfDarkness]: "Libera l'Arcipelago dal Vortice dell'Oscurità",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Trova le candele alla fine dell'arcobaleno nella Prateria Diurna",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
 				"Trova le candele alla fine dell'arcobaleno nella Foresta Nascosta",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheValleyOfTriumph]:
+				"Trova le candele alla fine dell'arcobaleno nella Valle del Trionfo",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheGoldenWasteland]:
+				"Trova le candele alla fine dell'arcobaleno nel Deserto Dorato",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheVaultOfKnowledge]:
+				"Trova le candele alla fine dell'arcobaleno nella Cupola della Conoscenza",
+			[DailyQuest.AdmireTheRainbowInTheSanctuaryIslands]:
+				"Ammira l'arcobaleno all'Arcipelago Paradiso per un breve periodo",
+			[DailyQuest.AdmireTheRainbowInTheWindPaths]:
+				"Ammira l'arcobaleno ai Sentieri del Vento per un breve periodo",
+			[DailyQuest.AdmireTheRainbowInTheHermitValley]:
+				"Ammira l'arcobaleno alla Valle dell'Eremita per un breve periodo",
+			[DailyQuest.AdmireTheRainbowInTheTreasureReef]:
+				"Ammira l'arcobaleno alla Scogliera del Tesoro per un breve periodo",
+			[DailyQuest.AdmireTheRainbowInTheStarlightDesert]:
+				"Ammira l'arcobaleno al Deserto Stellare per un breve periodo",
+			[DailyQuest.MeditateAtTheBirdNest]: "Medita al santuario del nido nella Prateria",
+			[DailyQuest.MeditateInTheButterflyFields]: "Medita nel campo di farfalle della Prateria",
+			[DailyQuest.MeditateAtTheSanctuaryIslands]: "Meditate alle Arcipelago del Paradiso",
+			[DailyQuest.MeditateInTheCave]: "Medita al santuario della grotta nella Prateria",
+			[DailyQuest.MeditateByTheKoiPond]: "Medita presso lo stagno della Prateria",
+			[DailyQuest.MeditateAtTheForestClearing]: "Medita nella radura della Foresta",
+			[DailyQuest.MeditateAtTheForestBrook]: "Medita in cima al torrente della foresta",
+			[DailyQuest.MeditateAtTheElevatedClearing]: "Medita nella radura della Foresta",
+			[DailyQuest.MeditateAtTheForestEnd]: "Medita al confine della Foresta",
+			[DailyQuest.MeditateAtTheBoneyard]: "Medita nel cimitero della Foresta",
+			[DailyQuest.MeditateByTheIceRink]:
+				"Medita vicino alla pista di pattinaggio sul ghiaccio della Valle",
+			[DailyQuest.MeditateAboveTheCitadelsArch]:
+				"Medita al di sopra dell'arco della cittadella della Valle",
+			[DailyQuest.MeditateHighAboveTheCitadel]: "Medita in cima alla cittadella della Valle",
+			[DailyQuest.MeditateAtTheColiseum]: "Medita al termine della gara",
+			[DailyQuest.MeditateInTheBrokenTemple]: "Medita nel tempio distrutto",
+			[DailyQuest.MeditateInTheForgottenArk]: "Medita nell'Arca Dimenticata",
+			[DailyQuest.MeditateInTheGraveyard]: "Medita nel cimitero",
+			[DailyQuest.MeditateOnTheBoat]: "Medita sulla barca",
+			[DailyQuest.MeditateOnTheBattlefield]: "Medita sul campo di battaglia",
+			[DailyQuest.MeditateAtTheVaultEntrance]:
+				"Meditare all'ingresso della Cupola della Conoscenza",
+			[DailyQuest.MeditateInTheVaultSecondFloor]: "Medita al secondo piano della Cupola",
+			[DailyQuest.MeditateAtTheVaultSummit]: "Medita in cima alla Cupola",
+			[DailyQuest.CollectGreenLight]: "Raccogli Luce Verde",
 			[DailyQuest.CollectOrangeLight]: "Raccogli Luce Arancione",
+			[DailyQuest.CollectBlueLight]: "Raccogli Luce Blu",
 			[DailyQuest.CollectRedLight]: "Raccogli Luce Rossa",
+			[DailyQuest.CollectPurpleLight]: "Raccogli Luce Viola",
+			[DailyQuest.PracticeWithTheSkater]: "Esercitati con la skater nel Villaggio dei Sogni",
+			[DailyQuest.RaceDownTheSlopesWithTheSkater]:
+				"Corri sulle piste con la skater nel Villaggio dei Sogni",
+			[DailyQuest.RaceDownTheMountainWithTheSkater]:
+				"Corri giù per la montagna con la skater nella Valle dell'Eremita",
+			[DailyQuest.RehearseForAPerformanceWithTheSkater]:
+				"Fai pratica per un'esibizione con la skater nel Colosseo",
+			[DailyQuest.CompleteTheHoopScavengerHunt]: "Completa la caccia al cerchio",
+			[DailyQuest.ReliveTheButterflyCharmer]:
+				"Rivivi il ricordo del Custode di farfalle nella Prateria Diurna",
+			[DailyQuest.ReliveTheApplaudingBellmaker]:
+				"Rivivi il ricordo della Campanara che applaude nella Prateria Diurna",
+			[DailyQuest.ReliveTheWavingBellmaker]:
+				"Rivivi il ricordo del Campanaro sventolante nella Prateria Diurna",
+			[DailyQuest.ReliveTheSlumberingShipwright]:
+				"Rivivi il ricordo del Barcaiolo sonnolento nella Prateria Diurna",
+			[DailyQuest.ReliveTheLaughingLightCatcher]:
+				"Rivivi il ricordo della Raccoglitrice ridente nella Prateria Diurna",
+			[DailyQuest.ReliveTheBirdWhisperer]:
+				"Rivivi il ricordo del Portavoce degli uccelli nella Prateria Diurna",
+			[DailyQuest.ReliveTheExhaustedDockWorker]:
+				"Rivivi il ricordo dello Scaricatore esausto nella Prateria Diurna",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Rivivi il ricordo del Portavoce della manta nella Valle del Trionfo",
 			[DailyQuest.ReliveTheStretchingGuru]:

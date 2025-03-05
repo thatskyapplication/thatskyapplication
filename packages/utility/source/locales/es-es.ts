@@ -33,24 +33,124 @@ export default {
 			[DailyQuest.FollowAFriend]: "Sigue a una amistad",
 			[DailyQuest.HugAFriend]: "Da un abrazo a un amigo",
 			[DailyQuest.WaveToAFriend]: "Saluda a un amigo",
+			[DailyQuest.HoldAFriendsHand]: "Toma la mano de un amigo",
 			[DailyQuest.SendAGiftToAFriend]: "Envía un regalo a un amigo",
 			[DailyQuest.MakeANewAcquaintance]: "Haz un conocido",
+			[DailyQuest.HighFiveAFriend]: "Chócalas con un amigo",
+			[DailyQuest.UseAnExpressionNearAFriend]: "Usa una expresión cerca de un amigo",
+			[DailyQuest.SitOnABenchWithAStranger]: "Siéntate en un banca a lado de un extraño",
 			[DailyQuest.RechargeFromAJellyfish]: "Recarga tu luz a partir de una medusa",
+			[DailyQuest.RechargeFromALightBloom]: "Recarga tu luz a partir de un resplandor de luz",
 			[DailyQuest.RideWithAManta]: "Vuela con una mantarraya",
 			[DailyQuest.ReliveASpiritsMemories]: "Revive las memorias de un espíritu",
+			[DailyQuest.ReliveASpiritsMemoriesInDaylightPrairie]:
+				"Revive los recuerdos de un espíritu en la Planicie Luz de Día",
+			[DailyQuest.ReliveASpiritsMemoriesInHiddenForest]:
+				"Revive los recuerdos de un espíritu en el Bosque Escondido",
+			[DailyQuest.ReliveASpiritsMemoriesInValleyOfTriumph]:
+				"Revive los recuerdos de un espíritu en el Valle del Triunfo",
+			[DailyQuest.ReliveASpiritsMemoriesInGoldenWasteland]:
+				"Revive los recuerdos de un espíritu en el Páramo Dorado",
 			[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]:
 				"Revive los recuerdos de un espíritu en la Bóveda de Conocimiento",
+			[DailyQuest.FaceTheDarkDragon]: "Enfrenta al Dragón oscuro",
 			[DailyQuest.KnockOver5DarkCrabs]: "Derriba 5 cangrejos oscuros",
+			[DailyQuest.CatchTheLightInTheDaylightPrairie]: "Atrapa la luz en la Planicie Luz de Día",
+			[DailyQuest.CatchTheLightInTheHiddenForest]: "Atrapa la luz en el Bosque Escondido",
+			[DailyQuest.CatchTheLightInTheValleyOfTriumph]: "Atrapa la luz en el Valle del Triunfo",
+			[DailyQuest.CatchTheLightInTheGoldenWasteland]: "Atrapa la luz en el Páramo Dorado",
+			[DailyQuest.CatchTheLightInTheVaultOfKnowledge]: "Atrapa la luz en la Bóveda de Conocimiento",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Visita el cómodo escondite en las cuevas de las planicies",
+			[DailyQuest.VisitTheAncestorsTableOfBelongingInTheHiddenForest]:
+				"Visita la mesa de la pertenencia de los ancestros en el claro elevado del bosque",
+			[DailyQuest.VisitTheHotSpringInTheValleyOfTriumph]:
+				"Visita las aguas termales en la Aldea de los sueños",
+			[DailyQuest.VisitTheBonfireAtTheGoldenWasteland]:
+				"Visita la fogata en el cementerio del páramo",
+			[DailyQuest.AdmireTheSaplingInTheDaylightPrairie]:
+				"Admira el árbol joven en la Planicie de la Luz del Día por un rato",
 			[DailyQuest.AdmireTheSaplingInTheHiddenForest]:
 				"Admira el árbol joven en el Bosque Escondido por un rato",
+			[DailyQuest.AdmireTheSaplingInTheValleyOfTriumph]:
+				"Admira el árbol joven en el Valle del Triunfo por un rato",
+			[DailyQuest.AdmireTheSaplingInTheGoldenWasteland]:
+				"Admira el árbol joven en el Páramo Dorado por un rato",
+			[DailyQuest.AdmireTheSaplingInTheVaultOfKnowledge]:
+				"Admira el árbol joven en la Bóveda del Conocimiento por un rato",
+			[DailyQuest.VisitThePollutedGeyser]: "Visita el géiser contaminado en las Islas Santuario",
+			[DailyQuest.RidTheSanctuaryVortexOfDarkness]:
+				"Elimina la oscuridad del vórtice del santuario",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheDaylightPrairie]:
 				"Encuentra las velas al final del arcoíris en la Planicie Luz de Día",
 			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheHiddenForest]:
 				"Encuentra las velas al final del arcoiris en el Bosque Escondido",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheValleyOfTriumph]:
+				"Encuentra las velas al final del arcoíris en el Valle del Triunfo",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheGoldenWasteland]:
+				"Encuentra las velas al final del arcoíris en el Páramo Dorado",
+			[DailyQuest.FindTheCandlesAtTheEndOfTheRainbowInTheVaultOfKnowledge]:
+				"Encuentra las velas al final del arcoíris en la Bóveda de Conocimiento",
+			[DailyQuest.AdmireTheRainbowInTheSanctuaryIslands]:
+				"Admira por un rato el arcoíris en las Islas Santuario",
+			[DailyQuest.AdmireTheRainbowInTheWindPaths]:
+				"Admira por un rato el arcoíris en Los Caminos del viento",
+			[DailyQuest.AdmireTheRainbowInTheHermitValley]:
+				"Admira por un rato el arcoíris en el Valle del ermitaño",
+			[DailyQuest.AdmireTheRainbowInTheTreasureReef]:
+				"Admira por un rato el arcoíris en el Coral del tesoro",
+			[DailyQuest.AdmireTheRainbowInTheStarlightDesert]:
+				"Admira por un rato el arcoíris en el Desierto luz de estrellas",
+			[DailyQuest.MeditateAtTheBirdNest]: "Medita en el altar del nido del ave de la Planicie",
+			[DailyQuest.MeditateInTheButterflyFields]: "Medita en el campo de mariposas de la Planicie",
+			[DailyQuest.MeditateAtTheSanctuaryIslands]: "Medita en las Islas Santuario",
+			[DailyQuest.MeditateInTheCave]: "Medita en el altar de la caverna de la Planicie",
+			[DailyQuest.MeditateByTheKoiPond]: "Medita en el estanque de kois de la Planicie",
+			[DailyQuest.MeditateAtTheForestClearing]: "Medita en el claro del bosque",
+			[DailyQuest.MeditateAtTheForestBrook]: "Medita sobre el arroyo del Bosque",
+			[DailyQuest.MeditateAtTheElevatedClearing]: "Medita en el claro elevado del Bosque",
+			[DailyQuest.MeditateAtTheForestEnd]: "Medita en el fin del bosque",
+			[DailyQuest.MeditateAtTheBoneyard]: "Medita en el deshuesadero del Bosque",
+			[DailyQuest.MeditateByTheIceRink]: "Medita por la pista de hielo del Valle",
+			[DailyQuest.MeditateAboveTheCitadelsArch]:
+				"Medita por encima del arco de la ciudadela del Valle",
+			[DailyQuest.MeditateHighAboveTheCitadel]: "Medita por encima de la ciudadela del Valle",
+			[DailyQuest.MeditateAtTheColiseum]: "Medita al final de la carrera",
+			[DailyQuest.MeditateInTheBrokenTemple]: "Medita en el templo destrozado",
+			[DailyQuest.MeditateInTheForgottenArk]: "Medita en el Arca olvidada",
+			[DailyQuest.MeditateInTheGraveyard]: "Medita en el cementerio",
+			[DailyQuest.MeditateOnTheBoat]: "Medita en el bote",
+			[DailyQuest.MeditateOnTheBattlefield]: "Medita en el campo de batalla",
+			[DailyQuest.MeditateAtTheVaultEntrance]: "Meditar en la entrada de Bóveda de Conocimiento",
+			[DailyQuest.MeditateInTheVaultSecondFloor]: "Medita en el segundo piso de la Bóveda",
+			[DailyQuest.MeditateAtTheVaultSummit]: "Medita en la cima de la Bóveda",
+			[DailyQuest.CollectGreenLight]: "Recoge Luz Verde",
 			[DailyQuest.CollectOrangeLight]: "Recoge Luz Naranja",
+			[DailyQuest.CollectBlueLight]: "Recoge Luz Azul",
 			[DailyQuest.CollectRedLight]: "Recoge Luz Roja",
+			[DailyQuest.CollectPurpleLight]: "Recoge Luz Púrpura",
+			[DailyQuest.PracticeWithTheSkater]: "Practica con la patinadora en la Aldea de los Sueños",
+			[DailyQuest.RaceDownTheSlopesWithTheSkater]:
+				"Corre cuesta abajo con la patinadora en la Aldea de los Sueños",
+			[DailyQuest.RaceDownTheMountainWithTheSkater]:
+				"Corre cuesta abajo de la montaña con la patinadora en el Valle del Ermitaño",
+			[DailyQuest.RehearseForAPerformanceWithTheSkater]:
+				"Ensaya para una presentación con la patinadora en el coliseo",
+			[DailyQuest.CompleteTheHoopScavengerHunt]: "Completa la búsqueda del tesoro del aro</b>",
+			[DailyQuest.ReliveTheButterflyCharmer]:
+				"Revive el recuerdo del Encantador de mariposas de la Planicie Luz de Día",
+			[DailyQuest.ReliveTheApplaudingBellmaker]:
+				"Revive el recuerdo de la Campanera que aplaude de la Planicie Luz de Día",
+			[DailyQuest.ReliveTheWavingBellmaker]:
+				"Revive el recuerdo del Campanero que saluda de la Planicie Luz de Día",
+			[DailyQuest.ReliveTheSlumberingShipwright]:
+				"Revive el recuerdo del Fabricante de barcos dormilón de la Planicie Luz de Día",
+			[DailyQuest.ReliveTheLaughingLightCatcher]:
+				"Revive el recuerdo de la Cazadora de luz risueña en la Planicie Luz de Día",
+			[DailyQuest.ReliveTheBirdWhisperer]:
+				"Revive el recuerdo del Susurrador de aves de la Planicie Luz de Día",
+			[DailyQuest.ReliveTheExhaustedDockWorker]:
+				"Revive el recuerdo del Estibador exhausto de la Planicie Luz de Día",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Revive el recuerdo del Susurrador de mantas del Valle del Triunfo",
 			[DailyQuest.ReliveTheStretchingGuru]:
