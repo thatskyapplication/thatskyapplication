@@ -166,18 +166,183 @@ export default {
 				"Revivez le souvenir de l'orateur d'oiseaux dans la Prairie illuminée",
 			[DailyQuest.ReliveTheExhaustedDockWorker]:
 				"Revivez le souvenir du travailleur de quai épuisé dans la Prairie illuminée",
+			[DailyQuest.ReliveTheShiveringTrailblazer]:
+				"Revivez le souvenir de la pionnière frissonnante dans la Forêt cachée",
+			[DailyQuest.ReliveTheBlushingProspector]:
+				"Revivez le souvenir de la prospectrice rougissante dans la Forêt cachée",
+			[DailyQuest.ReliveTheHideNSeekPioneer]:
+				"Revivez le souvenir du pionnier du cache-cache dans la Forêt cachée",
+			[DailyQuest.ReliveThePoutyPorter]:
+				"Revivez le souvenir du porteur boudeur dans la Forêt cachée",
+			[DailyQuest.ReliveTheDismayedHunter]:
+				"Revivez le souvenir de la chasseuse consternée dans la Forêt cachée",
+			[DailyQuest.ReliveTheApologeticLumberjack]:
+				"Revivez le souvenir du bûcheron désolé dans la Forêt cachée",
+			[DailyQuest.ReliveTheTearfulLightMiner]:
+				"Revivez le souvenir de la mineuse de lumière en larmes dans la Forêt cachée",
+			[DailyQuest.ReliveTheWhaleWhisperer]:
+				"Revivez le souvenir de l'orateur de baleines dans la Forêt cachée",
+			[DailyQuest.ReliveTheConfidentSightseer]:
+				"Revivez le souvenir du touriste confident dans la Vallée du triomphe",
+			[DailyQuest.ReliveTheHandstandingThrillseeker]:
+				"Revivez le souvenir de l'amateur d'adrénaline en équilibre dans la Vallée du triomphe",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Revivez le souvenir de l'orateur Manta dans la Vallée du triomphe",
+			[DailyQuest.ReliveTheBackflippingChampion]:
+				"Revivez le souvenir du champion du salto arrière dans la Vallée du triomphe",
+			[DailyQuest.ReliveTheCheerfulSpectator]:
+				"Revivez le souvenir du spectateur enthousiaste dans la Vallée du triomphe",
+			[DailyQuest.ReliveTheBowingMedalist]:
+				"Revivez le souvenir de la médaillée à l'arc dans la Vallée du triomphe",
+			[DailyQuest.ReliveTheProudVictor]:
+				"Revivez le souvenir de la vainqueuse fière dans la Vallée du triomphe",
+			[DailyQuest.ReliveTheFrightenedRefugee]:
+				"Revivez le souvenir de la réfugiée effrayée dans le Désert d'or",
+			[DailyQuest.ReliveTheFaintingWarrior]:
+				"Revivez le souvenir de la guerrière affaiblie dans le Désert d'or",
+			[DailyQuest.ReliveTheCourageousSoldier]:
+				"Revivez le souvenir du soldat courageux dans le Désert d'or",
+			[DailyQuest.ReliveTheStealthySurvivor]:
+				"Revivez le souvenir de la survivante furtive dans le Désert d'or",
+			[DailyQuest.ReliveTheSalutingCaptain]:
+				"Revivez le souvenir du capitaine saluant dans le Désert d'or",
+			[DailyQuest.ReliveTheLookoutScout]:
+				"Revivez le souvenir de l'éclaireur vigie dans le Désert d’or",
+			[DailyQuest.ReliveThePrayingAcolyte]:
+				"Revivez le souvenir de l'acolyte priant dans la Chambre forte de connaissance",
+			[DailyQuest.ReliveTheLevitatingAdept]:
+				"Revivez le souvenir de l'adepte lévitante dans la Chambre forte de connaissance",
+			[DailyQuest.ReliveThePoliteScholar]:
+				"Revivez le souvenir de l'érudite polie dans la Chambre forte de connaissance",
+			[DailyQuest.ReliveTheMemoryWhisperer]:
+				"Revivez le souvenir de l'orateur spirituel dans la Chambre forte de connaissance",
+			[DailyQuest.ReliveTheMeditatingMonastic]:
+				"Revivez le souvenir de l'érudit méditatif dans la Chambre forte de connaissance",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Revivez le souvenir du gourou en étirement dans la Prairie illuminée",
+			[DailyQuest.ReliveTheProvokingPerformer]:
+				"Revivez le souvenir de l'interprète provocateur dans la Forêt cachée",
+			[DailyQuest.ReliveTheLeapingDancer]:
+				"Revivez le souvenir du danseur bondissant dans la Vallée du triomphe",
+			[DailyQuest.ReliveTheSalutingProtector]:
+				"Revivez le souvenir du protecteur saluant dans le Désert d'or",
+			[DailyQuest.ReliveTheGreetingShaman]:
+				"Revivez le souvenir du shaman saluant dans la Chambre forte de connaissance",
+			[DailyQuest.ReliveTheDoublefiveLightCatcher]:
+				"Revivez le souvenir de l'attrapeur de lumière amical dans la Prairie illuminée",
+			[DailyQuest.ReliveTheLaidbackPioneer]:
+				"Revivez le souvenir du pionnier décontracté dans la Forêt cachée",
+			[DailyQuest.ReliveTheTwirlingChampion]:
+				"Revivez le souvenir du champion virevoltant dans la Vallée du triomphe",
+			[DailyQuest.ReliveTheCrabWhisperer]:
+				"Revivez le souvenir de la charmeuse de crabes dans le Désert d'or",
+			[DailyQuest.ReliveTheShushingLightScholar]:
+				"Revivez le souvenir de l'érudit de Lumière silencieux dans la Chambre forte de connaissance",
+			[DailyQuest.ReliveTheConfettiCousin]:
+				"Revivez le souvenir de la cousine des confettis dans la Prairie illuminée",
+			[DailyQuest.ReliveTheHairtousleTeen]:
+				"Revivez le souvenir de l'adolescent ébouriffé dans la Forêt cachée",
+			[DailyQuest.ReliveTheSparklerParent]:
+				"Revivez le souvenir de la parente étincelante dans la Vallée du triomphe",
+			[DailyQuest.ReliveThePleafulParent]:
+				"Revivez le souvenir du parent suppliant dans le Désert d'or",
 			[DailyQuest.ReliveTheWiseGrandparent]:
 				"Revivez le souvenir du réalisateur réfléchi dans la Chambre forte de connaissance",
+			[DailyQuest.ReliveTheFestivalSpinDancer]:
+				"Revivez le souvenir de la tournoyeuse de festival dans la Prairie illuminée",
+			[DailyQuest.ReliveTheAdmiringActor]:
+				"Revivez le souvenir de l'acteur admiratif dans la Forêt cachée",
+			[DailyQuest.ReliveTheTroupeJuggler]:
+				"Revivez le souvenir du jongleur de troupe dans la Vallée du triomphe",
+			[DailyQuest.ReliveTheRespectfulPianist]:
+				"Revivez le souvenir de la pianiste respectueuse dans le Désert d'or",
+			[DailyQuest.ReliveTheThoughtfulDirector]:
+				"Revivez le souvenir du réalisateur réfléchi dans la Chambre forte de connaissance",
+			[DailyQuest.ReliveTheNoddingMuralist]:
+				"Revivez le souvenir de la muraliste acquiesçant dans le Désert d'or",
+			[DailyQuest.ReliveTheIndifferentAlchemist]:
+				"Revivez le souvenir de l'alchimiste indifférent dans le Désert d’or",
+			[DailyQuest.ReliveTheCrabWalker]:
+				"Revivez le souvenir du marcheur de crabe dans le Désert d'or",
+			[DailyQuest.ReliveTheScarecrowFarmer]:
+				"Revivez le souvenir du fermier épouvantail dans le Désert d'or",
+			[DailyQuest.ReliveTheSnoozingCarpenter]:
+				"Revivez le souvenir de la charpentière ensommeillée dans le Désert d'or",
+			[DailyQuest.ReliveThePlayfightingHerbalist]:
+				"Revivez le souvenir de l'herboriste de combat dans le Désert d’or",
+			[DailyQuest.ReliveTheJellyWhisperer]:
+				"Revivez le souvenir du murmureur de méduse dans la Prairie illuminée",
+			[DailyQuest.ReliveTheTimidBookworm]:
+				"Revivez le souvenir du lecteur timide dans la Prairie illuminée",
+			[DailyQuest.ReliveTheRallyingThrillseeker]:
+				"Revivez le souvenir de l'amateur d'adrénaline motivant dans la Prairie illuminée",
+			[DailyQuest.ReliveTheHikingGrouch]:
+				"Revivez le souvenir du râleur de randonnée dans la Prairie illuminée",
+			[DailyQuest.ReliveTheGratefulShellCollector]:
+				"Revivez le souvenir de la collectionneuse de coquillages reconnaissante dans la Prairie illuminée",
+			[DailyQuest.ReliveTheChillSunbather]:
+				"Revivez le souvenir de l'adepte des bains de soleil tranquille dans la Prairie illuminée",
+			[DailyQuest.ReliveTheSpinningMentor]:
+				"Revivez le souvenir du mentor tournoyant dans la Vallée du triomphe",
+			[DailyQuest.ReliveTheDancingPerformer]:
+				"Revivez le souvenir de l'interprète de danse dans la Vallée du triomphe",
+			[DailyQuest.ReliveThePeekingPostman]:
+				"Revivez le souvenir de la factrice timide dans la Vallée du triomphe",
+			[DailyQuest.ReliveTheBearhugHermit]:
+				"Revivez le souvenir du yéti du câlin dans la Vallée du triomphe",
+			[DailyQuest.ReliveTheBaffledBotanist]:
+				"Revivez le souvenir du botaniste perplexe dans la Forêt cachée",
+			[DailyQuest.ReliveTheScoldingStudent]:
+				"Revivez le souvenir de l'étudiante moralisatrice dans la Forêt cachée",
+			[DailyQuest.ReliveTheScaredyCadet]:
+				"Revivez le souvenir du cadet effrayé dans la Forêt cachée",
+			[DailyQuest.ReliveTheMarchingAdventurer]:
+				"Revivez le souvenir de l'aventurière marchante dans la Forêt cachée",
+			[DailyQuest.ReliveTheChucklingScout]:
+				"Revivez le souvenir du scout ricanant dans la Forêt cachée",
 			[DailyQuest.ReliveTheDaydreamForester]:
 				"Revivez le souvenir du forestier rêveur dans la Forêt cachée",
+			[DailyQuest.VisitAShardOfDarknessFallenToTheKingdomOfSky]:
+				"Visitez un fragment des ténèbres tombé dans le royaume de Sky",
+			[DailyQuest.TakeASelfieWithHikingGrouchInPrairiePeaks]:
+				"Prenez un selfie avec le râleur de randonnée dans les pics de la Prairie",
+			[DailyQuest.TakeASelfieWithCrabWhispererInPrairiePeaks]:
+				"Prenez un selfie avec la charmeuse de crabes dans les pics de la Prairie",
+			[DailyQuest.TakeASelfieWithCacklingCannoneerInPrairiePeaks]:
+				"Prenez un selfie avec la canonnière caquetante dans les pics de la Prairie",
+			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]:
+				"Prenez un selfie avec l'hôte de troupe dans les pics de la Prairie",
+			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
+				"Rencontrez Cinnamoroll sur une colline du village volière.",
+			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
+				"Sentez les fleurs avec Cinnamoroll au village volière.",
+			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
+				"Trouvez Cinnamoroll quelque part dans le village volière.",
+			[DailyQuest.WakeUpCinnamorollInAviaryVillage]:
+				"Réveillez Cinnamoroll dans le village volière.",
+			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
+				"Volez jusqu'au clocher avec Cinnamoroll au village volière.",
+			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
+				"Plongez dans l'eau avec Cinnamoroll au village volière.",
+			[DailyQuest.PlayAnyTournamentSport]: "Participez à n'importe quel tournoi sportif",
+			[DailyQuest.ChangeYourHairstyle]: "Changez de coupe de cheveux",
+			[DailyQuest.ChangeYourNecklace]: "Changez de collier",
+			[DailyQuest.ChangeYourProp]: "Changez votre accessoire",
+			[DailyQuest.ChangeYourMask]: "Changez de masque",
+			[DailyQuest.ChangeYourCape]: "Changez de cape",
+			[DailyQuest.ChangeYourOutfit]: "Changez de pantalon",
+			[DailyQuest.ViewASharedMemoryAtAStyleRunwayShrine]:
+				"Regardez un souvenir partagé sur le podium d'un sanctuaire",
+			[DailyQuest.RecordASharedMemoryAtAStyleRunwayShrine]:
+				"Enregistrez un souvenir partagé sur le podium d'un sanctuaire",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Faites une farce au commodore commandant",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Retrouvez Pionnier du cache-cache à Cimetière de la Forêt",
+			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
+				"Aidez la Canonnière caquetante ou le <1>Scout ricanant</1> à trouver des trésors sur les Îles du Sanctuaire.",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
+				"Aidez le Maître d'équipage maladroit ou le <1>Guide du Rassemblement</1> à trouver des trésors dans la Forêt cachée.",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison de la gratitude",

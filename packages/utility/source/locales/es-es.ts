@@ -151,18 +151,182 @@ export default {
 				"Revive el recuerdo del Susurrador de aves de la Planicie Luz de Día",
 			[DailyQuest.ReliveTheExhaustedDockWorker]:
 				"Revive el recuerdo del Estibador exhausto de la Planicie Luz de Día",
+			[DailyQuest.ReliveTheShiveringTrailblazer]:
+				"Revive el recuerdo de la Pionera temblorosa del Bosque Escondido",
+			[DailyQuest.ReliveTheBlushingProspector]:
+				"Revive el recuerdo de la Buscadora de oro sonrojada del Bosque Escondido",
+			[DailyQuest.ReliveTheHideNSeekPioneer]:
+				"Revive el recuerdo del Pionero de las escondidas del Bosque Escondido",
+			[DailyQuest.ReliveThePoutyPorter]:
+				"Revive el recuerdo del Portero que hace puchero del Bosque Escondido",
+			[DailyQuest.ReliveTheDismayedHunter]:
+				"Revive el recuerdo de la Cazadora abatida del Bosque Escondido",
+			[DailyQuest.ReliveTheApologeticLumberjack]:
+				"Revive el recuerdo del Leñador arrepentido del Bosque Escondido",
+			[DailyQuest.ReliveTheTearfulLightMiner]:
+				"Revive el recuerdo de la Minera de luz llorona del Bosque Escondido",
+			[DailyQuest.ReliveTheWhaleWhisperer]:
+				"Revive el recuerdo del Susurrador de ballenas del Bosque Escondido",
+			[DailyQuest.ReliveTheConfidentSightseer]:
+				"Revive el recuerdo del Turista confidente del Valle del Triunfo",
+			[DailyQuest.ReliveTheHandstandingThrillseeker]:
+				"Revive el recuerdo del Amante de la adrenalina parado de manos del Valle del Triunfo",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Revive el recuerdo del Susurrador de mantas del Valle del Triunfo",
+			[DailyQuest.ReliveTheBackflippingChampion]:
+				"Revive el recuerdo del Campeón de Voltereta del Valle del Triunfo",
+			[DailyQuest.ReliveTheCheerfulSpectator]:
+				"Revive el recuerdo del Espectador alegre del Valle del Triunfo",
+			[DailyQuest.ReliveTheBowingMedalist]:
+				"Revive el recuerdo del Medallista reverencial del Valle del Triunfo",
+			[DailyQuest.ReliveTheProudVictor]:
+				"Revive el recuerdo de la Vencedora orgullosa del Valle del Triunfo",
+			[DailyQuest.ReliveTheFrightenedRefugee]:
+				"Revive el recuerdo de la Refugiada temerosa del Páramo Dorado",
+			[DailyQuest.ReliveTheFaintingWarrior]:
+				"Revive el recuerdo de la Guerrera desmayada del Páramo Dorado",
+			[DailyQuest.ReliveTheCourageousSoldier]:
+				"Revive el recuerdo del Soldado valiente del Páramo Dorado",
+			[DailyQuest.ReliveTheStealthySurvivor]:
+				"Revive el recuerdo de la Sobreviviente sigilosa del Páramo Dorado",
+			[DailyQuest.ReliveTheSalutingCaptain]:
+				"Revive el recuerdo del Capitán que saluda del Páramo Dorado",
+			[DailyQuest.ReliveTheLookoutScout]:
+				"Revive el recuerdo del Explorador vigía del Páramo Dorado",
+			[DailyQuest.ReliveThePrayingAcolyte]:
+				"Revive el recuerdo del Acólito orador de la Bóveda de Conocimiento",
+			[DailyQuest.ReliveTheLevitatingAdept]:
+				"Revive el recuerdo de la Adepta Levitante de la Bóveda de Conocimiento",
+			[DailyQuest.ReliveThePoliteScholar]:
+				"Revive el recuerdo de la Académica amable de la Bóveda de Conocimiento",
+			[DailyQuest.ReliveTheMemoryWhisperer]:
+				"Revive el recuerdo del Susurrador de los espíritus de la Bóveda de Conocimiento",
+			[DailyQuest.ReliveTheMeditatingMonastic]:
+				"Revive el recuerdo del Erudito Meditante de la Bóveda de Conocimiento",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Revive el recuerdo del Gurú estirando de la Planicie Luz de Día",
+			[DailyQuest.ReliveTheProvokingPerformer]:
+				"Revive el recuerdo del Artista provocador del Bosque Escondido",
+			[DailyQuest.ReliveTheLeapingDancer]:
+				"Revive el recuerdo del Bailarín saltarín del Valle del Triunfo",
+			[DailyQuest.ReliveTheSalutingProtector]:
+				"Revive el recuerdo del Protector que saluda del Páramo Dorado",
+			[DailyQuest.ReliveTheGreetingShaman]:
+				"Revive el recuerdo del Chamán amable de la Bóveda de Conocimiento",
+			[DailyQuest.ReliveTheDoublefiveLightCatcher]:
+				"Revive el recuerdo del Cazador de luz con chócalas en la Planicie Luz de Día",
+			[DailyQuest.ReliveTheLaidbackPioneer]:
+				"Revive el recuerdo del Pionero despreocupado del Bosque Escondido",
+			[DailyQuest.ReliveTheTwirlingChampion]:
+				"Revive el recuerdo del Campeón de piruetas del Valle del Triunfo",
+			[DailyQuest.ReliveTheCrabWhisperer]:
+				"Revive el recuerdo del Susurrador de cangrejos del Páramo Dorado",
+			[DailyQuest.ReliveTheShushingLightScholar]:
+				"Revive el recuerdo del Erudito de la luz que silencia de la Bóveda de Conocimiento",
+			[DailyQuest.ReliveTheConfettiCousin]:
+				"Revive el recuerdo de la Prima de Confeti de la Planicie Luz de Día",
+			[DailyQuest.ReliveTheHairtousleTeen]:
+				"Revive el recuerdo del Adolescente despeinado del Bosque Escondido",
+			[DailyQuest.ReliveTheSparklerParent]:
+				"Revive el recuerdo de la Madre iluminada del Valle del Triunfo",
+			[DailyQuest.ReliveThePleafulParent]:
+				"Revive el recuerdo del Padre suplicante del Páramo Dorado",
 			[DailyQuest.ReliveTheWiseGrandparent]:
 				"Revive el recuerdo del Director atento de la Bóveda de Conocimiento",
+			[DailyQuest.ReliveTheFestivalSpinDancer]:
+				"Revive el recuerdo de la Bailarina festiva de la Planicie Luz de Día",
+			[DailyQuest.ReliveTheAdmiringActor]:
+				"Revive el recuerdo del Actor admirado del Bosque Escondido",
+			[DailyQuest.ReliveTheTroupeJuggler]:
+				"Revive el recuerdo del Grupo de malabaristas del Valle del Triunfo",
+			[DailyQuest.ReliveTheRespectfulPianist]:
+				"Revive el recuerdo de la Pianista respetuosa del Páramo Dorado",
+			[DailyQuest.ReliveTheThoughtfulDirector]:
+				"Revive el recuerdo del Director atento de la Bóveda de Conocimiento",
+			[DailyQuest.ReliveTheNoddingMuralist]:
+				"Revive el recuerdo de Muralista que asiente del Páramo Dorado",
+			[DailyQuest.ReliveTheIndifferentAlchemist]:
+				"Revive el recuerdo de Alquimista indiferente del Páramo Dorado",
+			[DailyQuest.ReliveTheCrabWalker]:
+				"Revive el recuerdo del Caminador cangrejo del Páramo Dorado",
+			[DailyQuest.ReliveTheScarecrowFarmer]:
+				"Revive el recuerdo del Granjero espantapájaros del Páramo Dorado",
+			[DailyQuest.ReliveTheSnoozingCarpenter]:
+				"Revive el recuerdo de la Carpintera dormilona del Páramo Dorado",
+			[DailyQuest.ReliveThePlayfightingHerbalist]:
+				"Revive el recuerdo de la Herborista peleadora del Páramo Dorado",
+			[DailyQuest.ReliveTheJellyWhisperer]:
+				"Revive el recuerdo del Susurrador de medusas de la Planicie Luz de Día",
+			[DailyQuest.ReliveTheTimidBookworm]:
+				"Revive el recuerdo del Ratón de biblioteca tímido de la Planicie Luz de Día",
+			[DailyQuest.ReliveTheRallyingThrillseeker]:
+				"Revive el recuerdo del Buscador de la luz alentador de la Planicie Luz de Día",
+			[DailyQuest.ReliveTheHikingGrouch]:
+				"Revive el recuerdo del Gruñón alpinista de la Planicie Luz de Día",
+			[DailyQuest.ReliveTheGratefulShellCollector]:
+				"Revive el recuerdo de la Coleccionista de caracolas agradecida de la Planicie Luz de Día",
+			[DailyQuest.ReliveTheChillSunbather]:
+				"Revive el recuerdo del Tranquilo Bañista del Sol de la Planicie Luz de Día",
+			[DailyQuest.ReliveTheSpinningMentor]:
+				"Revive el recuerdo de la Mentora de volteretas del Valle del Triunfo",
+			[DailyQuest.ReliveTheDancingPerformer]:
+				"Revive el recuerdo del Bailarín del Valle del Triunfo",
+			[DailyQuest.ReliveThePeekingPostman]:
+				"Revive el recuerdo de la Cartera que espía del Valle del Triunfo",
+			[DailyQuest.ReliveTheBearhugHermit]:
+				"Revive el recuerdo del Yeti Abrazoso del Valle del Triunfo",
+			[DailyQuest.ReliveTheBaffledBotanist]:
+				"Revive el recuerdo de la Botánica perpleja del Bosque Escondido",
+			[DailyQuest.ReliveTheScoldingStudent]:
+				"Revive el recuerdo de la Estudiante gruñona del Bosque Escondido",
+			[DailyQuest.ReliveTheScaredyCadet]:
+				"Revive el recuerdo del Cadete miedoso del Bosque Escondido",
+			[DailyQuest.ReliveTheMarchingAdventurer]:
+				"Revive el recuerdo de la Aventurera en marcha del Bosque Escondido",
+			[DailyQuest.ReliveTheChucklingScout]:
+				"Revive el recuerdo del Explorador risueño del Bosque Escondido",
 			[DailyQuest.ReliveTheDaydreamForester]:
 				"Revive el recuerdo del Guardabosques soñador del Bosque Escondido",
+			[DailyQuest.VisitAShardOfDarknessFallenToTheKingdomOfSky]:
+				"Visita un fragmento de oscuridad que cayó sobre el reino de Sky",
+			[DailyQuest.TakeASelfieWithHikingGrouchInPrairiePeaks]:
+				"Tómate una selfi con el gruñón alpinista en las cumbres de la planicie",
+			[DailyQuest.TakeASelfieWithCrabWhispererInPrairiePeaks]:
+				"Tómate una selfi con la susurradora de cangrejos en las cumbres de la planicie",
+			[DailyQuest.TakeASelfieWithCacklingCannoneerInPrairiePeaks]:
+				"Tómate una selfi con el cañonero tentado en las cumbres de la planicie",
+			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]:
+				"Tómate una selfi con el saludador de la compañía en las cumbres de la planicie",
+			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
+				"Busca a Cinnamoroll en una colina de la aldea aviaria.",
+			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
+				"Huele flores con Cinnamoroll en la aldea aviaria.",
+			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
+				"Busca a Cinnamoroll en la aldea aviaria.",
+			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Despierta a Cinnamoroll en la aldea aviaria.",
+			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
+				"Vuela hasta la torre con Cinnamoroll en la aldea aviaria.",
+			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
+				"Chapotea en el agua con Cinnamoroll en la aldea aviaria.",
+			[DailyQuest.PlayAnyTournamentSport]: "Juega a cualquier deporte del torneo",
+			[DailyQuest.ChangeYourHairstyle]: "Cambia tu peinado",
+			[DailyQuest.ChangeYourNecklace]: "Cambia de collar",
+			[DailyQuest.ChangeYourProp]: "Cambia de utilería",
+			[DailyQuest.ChangeYourMask]: "Cambia tu máscara",
+			[DailyQuest.ChangeYourCape]: "Cambia tu capa",
+			[DailyQuest.ChangeYourOutfit]: "Cambia tus pantalones",
+			[DailyQuest.ViewASharedMemoryAtAStyleRunwayShrine]:
+				"Mira un recuerdo compartido en un altar de pasarela",
+			[DailyQuest.RecordASharedMemoryAtAStyleRunwayShrine]:
+				"Graba un recuerdo compartido en un altar de pasarela",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Hazle una broma al Capitán de navío cesante",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Reúnete con Pionero de las escondidas en Deshuesadero",
+			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
+				"Ayuda al Cañonero tentado o al <1>Explorador risueño</1> a buscar tesoros en las Islas Santuario.",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
+				"Ayuda al Contramaestre torpe o al <1>Guía del Ensamblaje</1> a buscar tesoros en el Bosque Escondido.",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Temporada de la gratitud",

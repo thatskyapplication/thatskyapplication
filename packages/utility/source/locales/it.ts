@@ -143,18 +143,183 @@ export default {
 				"Rivivi il ricordo del Portavoce degli uccelli nella Prateria Diurna",
 			[DailyQuest.ReliveTheExhaustedDockWorker]:
 				"Rivivi il ricordo dello Scaricatore esausto nella Prateria Diurna",
+			[DailyQuest.ReliveTheShiveringTrailblazer]:
+				"Rivivi il ricordo della Pioniera infreddolita nella Foresta Nascosta",
+			[DailyQuest.ReliveTheBlushingProspector]:
+				"Rivivi il ricordo della Prospettrice arrossita nella Foresta Nascosta",
+			[DailyQuest.ReliveTheHideNSeekPioneer]:
+				"Rivivi il ricordo del Pioniere nascosto nella Foresta Nascosta",
+			[DailyQuest.ReliveThePoutyPorter]:
+				"Rivivi il ricordo del Facchino imbronciato nella Foresta Nascosta",
+			[DailyQuest.ReliveTheDismayedHunter]:
+				"Rivivi il ricordo della Cacciatrice costernata nella Foresta Nascosta",
+			[DailyQuest.ReliveTheApologeticLumberjack]:
+				"Rivivi il ricordo del Taglialegna dispiaciuto nella Foresta Nascosta",
+			[DailyQuest.ReliveTheTearfulLightMiner]:
+				"Rivivi il ricordo della Minatrice della luce triste nella Foresta Nascosta",
+			[DailyQuest.ReliveTheWhaleWhisperer]:
+				"Rivivi il ricordo della Portavoce della balena nella Foresta Nascosta",
+			[DailyQuest.ReliveTheConfidentSightseer]:
+				"Rivivi il ricordo del Turista fiducioso nella Valle del Trionfo",
+			[DailyQuest.ReliveTheHandstandingThrillseeker]:
+				"Rivivi il ricordo dell'Amante del brivido in verticale nella Valle del Trionfo",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Rivivi il ricordo del Portavoce della manta nella Valle del Trionfo",
+			[DailyQuest.ReliveTheBackflippingChampion]:
+				"Rivivi il ricordo del Campione acrobatico nella Valle del Trionfo",
+			[DailyQuest.ReliveTheCheerfulSpectator]:
+				"Rivivi il ricordo dello Spettatore allegro nella Valle del Trionfo",
+			[DailyQuest.ReliveTheBowingMedalist]:
+				"Rivivi il ricordo della Vincitrice inchinata nella Valle del Trionfo",
+			[DailyQuest.ReliveTheProudVictor]:
+				"Rivivi il ricordo della Vincitrice orgogliosa nella Valle del Trionfo",
+			[DailyQuest.ReliveTheFrightenedRefugee]:
+				"Rivivi il ricordo della Profuga spaventata nel Deserto Dorato",
+			[DailyQuest.ReliveTheFaintingWarrior]:
+				"Rivivi il ricordo della Guerriera indebolita nel Deserto Dorato",
+			[DailyQuest.ReliveTheCourageousSoldier]:
+				"Rivivi il ricordo del Soldato coraggioso nel Deserto Dorato",
+			[DailyQuest.ReliveTheStealthySurvivor]:
+				"Rivivi il ricordo della Sopravvissuta circospetta nel Deserto Dorato",
+			[DailyQuest.ReliveTheSalutingCaptain]:
+				"Rivivi il ricordo del Capitano sull'attenti nel Deserto Dorato",
+			[DailyQuest.ReliveTheLookoutScout]:
+				"Rivivi il ricordo del Perlustratore scrutante nel Deserto Dorato",
+			[DailyQuest.ReliveThePrayingAcolyte]:
+				"Rivivi il ricordo dell'Accolito supplicante nella Cupola della Conoscenza",
+			[DailyQuest.ReliveTheLevitatingAdept]:
+				"Rivivi il ricordo dell'Adepta levitante nella Cupola della Conoscenza",
+			[DailyQuest.ReliveThePoliteScholar]:
+				"Rivivi il ricordo dell'Erudita cortese nella Cupola della Conoscenza",
+			[DailyQuest.ReliveTheMemoryWhisperer]:
+				"Rivivi il ricordo del Portavoce dello spirito nella Cupola della Conoscenza",
+			[DailyQuest.ReliveTheMeditatingMonastic]:
+				"Rivivi il ricordo dell'Erudito mendicante nella Cupola della Conoscenza",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Revivi il ricordo del Guru stiracchiante nella Prateria Diurna",
+			[DailyQuest.ReliveTheProvokingPerformer]:
+				"Rivivi il ricordo dell'Artista provocatorio nella Foresta Nascosta",
+			[DailyQuest.ReliveTheLeapingDancer]:
+				"Rivivi il ricordo del Ballerino guizzante nella Valle del Trionfo",
+			[DailyQuest.ReliveTheSalutingProtector]:
+				"Rivivi il ricordo del Protettore sull'attenti nel Deserto Dorato",
+			[DailyQuest.ReliveTheGreetingShaman]:
+				"Rivivi il ricordo dello Sciamano accogliente nella Cupola della Conoscenza",
+			[DailyQuest.ReliveTheDoublefiveLightCatcher]:
+				"Rivivi il ricordo del Raccoglitore della Luce amichevole nella Prateria Diurna",
+			[DailyQuest.ReliveTheLaidbackPioneer]:
+				"Rivivi il ricordo del Pioniere disinvolto nella Foresta Nascosta",
+			[DailyQuest.ReliveTheTwirlingChampion]:
+				"Rivivi il ricordo del Campione roteante nella Valle del Trionfo",
+			[DailyQuest.ReliveTheCrabWhisperer]:
+				"Rivivi il ricordo del Portavoce granchio nel Deserto Dorato",
+			[DailyQuest.ReliveTheShushingLightScholar]:
+				"Rivivi il ricordo dello Studioso della Luce che zittisce nella Cupola della Conoscenza",
+			[DailyQuest.ReliveTheConfettiCousin]:
+				"Rivivi il ricordo della Cugina festeggiante nella Prateria Diurna",
+			[DailyQuest.ReliveTheHairtousleTeen]:
+				"Rivivi il ricordo dell'Adolescente spettinato nella Foresta Nascosta",
+			[DailyQuest.ReliveTheSparklerParent]:
+				"Rivivi il ricordo della Madre scintillante nella Valle del Trionfo",
+			[DailyQuest.ReliveThePleafulParent]:
+				"Rivivi il ricordo della Genitore supplice nel Deserto Dorato",
 			[DailyQuest.ReliveTheWiseGrandparent]:
 				"Rivivi il ricordo del Direttore pensieroso nella Cupola della Conoscenza",
+			[DailyQuest.ReliveTheFestivalSpinDancer]:
+				"Rivivi il ricordo della Ballerina del festival nella Prateria Diurna",
+			[DailyQuest.ReliveTheAdmiringActor]:
+				"Rivivi il ricordo dell'Attore contemplante nella Foresta Nascosta",
+			[DailyQuest.ReliveTheTroupeJuggler]:
+				"Rivivi il ricordo del Giocoliere della troupe nella Valle del Trionfo",
+			[DailyQuest.ReliveTheRespectfulPianist]:
+				"Rivivi il ricordo della Pianista rispettosa nel Deserto Dorato",
+			[DailyQuest.ReliveTheThoughtfulDirector]:
+				"Rivivi il ricordo del Direttore pensieroso nella Cupola della Conoscenza",
+			[DailyQuest.ReliveTheNoddingMuralist]:
+				"Rivivi il ricordo della Muralista ciondolante nel Deserto Dorato",
+			[DailyQuest.ReliveTheIndifferentAlchemist]:
+				"Rivivi il ricordo dell'Alchimista indifferente nel Deserto Dorato",
+			[DailyQuest.ReliveTheCrabWalker]:
+				"Rivivi il ricordo del Camminatore granchio nel Deserto Dorato",
+			[DailyQuest.ReliveTheScarecrowFarmer]:
+				"Rivivi il ricordo dell'Agricoltore spaventapasseri nel Deserto Dorato",
+			[DailyQuest.ReliveTheSnoozingCarpenter]:
+				"Rivivi il ricordo dell'Operaia sonnecchiante nel Deserto Dorato",
+			[DailyQuest.ReliveThePlayfightingHerbalist]:
+				"Rivivi il ricordo dell'Erborista giocherellona nel Deserto Dorato",
+			[DailyQuest.ReliveTheJellyWhisperer]:
+				"Rivivi il ricordo del Sussurratore di meduse nella Prateria Diurna",
+			[DailyQuest.ReliveTheTimidBookworm]:
+				"Rivivi il ricordo del Lettore timido nella Prateria Diurna",
+			[DailyQuest.ReliveTheRallyingThrillseeker]:
+				"Rivivi il ricordo dell'Amante del brivido entusiasta nella Prateria Diurna",
+			[DailyQuest.ReliveTheHikingGrouch]:
+				"Rivivi il ricordo del Brontolone escursionista nella Prateria Diurna",
+			[DailyQuest.ReliveTheGratefulShellCollector]:
+				"Rivivi il ricordo della Collezionista di conchiglie grata nella Prateria Diurna",
+			[DailyQuest.ReliveTheChillSunbather]:
+				"Rivivi il ricordo del Bagnante rilassato nella Prateria Diurna",
+			[DailyQuest.ReliveTheSpinningMentor]:
+				"Rivivi il ricordo dell'Insegnante di giravolte nella Valle del Trionfo",
+			[DailyQuest.ReliveTheDancingPerformer]:
+				"Rivivi il ricordo del Ballerino nella Valle del Trionfo",
+			[DailyQuest.ReliveThePeekingPostman]:
+				"Rivivi il ricordo della Postina curiosa nella Valle del Trionfo",
+			[DailyQuest.ReliveTheBearhugHermit]:
+				"Rivivi il ricordo dello Yeti caldo abbraccio nella Valle del Trionfo",
+			[DailyQuest.ReliveTheBaffledBotanist]:
+				"Rivivi il ricordo della Botanica perplessa nella Foresta Nascosta",
+			[DailyQuest.ReliveTheScoldingStudent]:
+				"Rivivi il ricordo della Studentessa saccente nella Foresta Nascosta",
+			[DailyQuest.ReliveTheScaredyCadet]:
+				"Rivivi il ricordo del Cadetto spaventato nella Foresta Nascosta",
+			[DailyQuest.ReliveTheMarchingAdventurer]:
+				"Rivivi il ricordo dell'Avventuriera in marcia nella Foresta Nascosta",
+			[DailyQuest.ReliveTheChucklingScout]:
+				"Rivivi il ricordo dello Scout ridacchiante nella Foresta Nascosta",
 			[DailyQuest.ReliveTheDaydreamForester]:
 				"Rivivi il ricordo del Guardaboschi sognante nella Foresta Nascosta",
+			[DailyQuest.VisitAShardOfDarknessFallenToTheKingdomOfSky]:
+				"Raggiungi un frammento di oscurità caduto nel regno di Sky",
+			[DailyQuest.TakeASelfieWithHikingGrouchInPrairiePeaks]:
+				"Fai un selfie con il Brontolone escursionista sulle Vette della Prateria",
+			[DailyQuest.TakeASelfieWithCrabWhispererInPrairiePeaks]:
+				"Fai un selfie con l'Allevatrice di granchi sulle Vette della Prateria",
+			[DailyQuest.TakeASelfieWithCacklingCannoneerInPrairiePeaks]:
+				"Fai un selfie con la Cannoniera sghignazzante sulle Vette della Prateria",
+			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]:
+				"Fai un selfie con il Presentatore della troupe sulle Vette della Prateria",
+			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
+				"Incontra Cinnamoroll su una collina nel Villaggio degli Uccelli.",
+			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
+				"Annusa i fiori con Cinnamoroll nel Villaggio degli Uccelli.",
+			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
+				"Trova Cinnamoroll che gironzola nel Villaggio degli Uccelli.",
+			[DailyQuest.WakeUpCinnamorollInAviaryVillage]:
+				"Sveglia Cinnamoroll nel Villaggio degli Uccelli.",
+			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
+				"Vola sulla torre con Cinnamoroll nel Villaggio degli Uccelli.",
+			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
+				"Tuffati nell'acqua con Cinnamoroll nel Villaggio degli Uccelli.",
+			[DailyQuest.PlayAnyTournamentSport]: "Partecipa a uno sport del Torneo",
+			[DailyQuest.ChangeYourHairstyle]: "Cambia acconciatura",
+			[DailyQuest.ChangeYourNecklace]: "Cambia collana",
+			[DailyQuest.ChangeYourProp]: "Cambia oggetto",
+			[DailyQuest.ChangeYourMask]: "Cambia maschera",
+			[DailyQuest.ChangeYourCape]: "Cambia mantello",
+			[DailyQuest.ChangeYourOutfit]: "Cambia pantaloni",
+			[DailyQuest.ViewASharedMemoryAtAStyleRunwayShrine]:
+				"Visualizza un Ricordo condiviso in un santuario passerella",
+			[DailyQuest.RecordASharedMemoryAtAStyleRunwayShrine]:
+				"Registra un Ricordo condiviso in un santuario passerella",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Fai uno scherzo al Commodoro autorevole",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Incontra Pioniere nascosto presso Cimitero",
+			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
+				"Aiuta la Cannoniera sghignazzante o lo <1>Scout sghignazzante</1> a trovare il tesoro nell'Arcipelago Paradiso",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
+				"Aiuta il Nostromo goffo o la <1>guida della Costruzione</1> a trovare il tesoro nella Foresta Nascosta",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Stagione della Gratitudine",

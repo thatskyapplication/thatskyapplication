@@ -139,18 +139,181 @@ export default {
 				"Reviva as lembranças do Encantador de Aves na Campina da Aurora",
 			[DailyQuest.ReliveTheExhaustedDockWorker]:
 				"Reviva as lembranças do Estivador Cansado na Campina da Aurora",
+			[DailyQuest.ReliveTheShiveringTrailblazer]:
+				"Reviva as lembranças da Pioneira Tremendo na Floresta Oculta",
+			[DailyQuest.ReliveTheBlushingProspector]:
+				"Reviva as lembranças da Garimpeira Ruborizada na Floresta Oculta",
+			[DailyQuest.ReliveTheHideNSeekPioneer]:
+				"Reviva as lembranças do Pioneiro de Esconde-esconde na Floresta Oculta",
+			[DailyQuest.ReliveThePoutyPorter]:
+				"Reviva as lembranças do Porteiro Mal-humorado na Floresta Oculta",
+			[DailyQuest.ReliveTheDismayedHunter]:
+				"Reviva as lembranças da Caçadora Desmaiada na Floresta Oculta",
+			[DailyQuest.ReliveTheApologeticLumberjack]:
+				"Reviva as lembranças do Lenhador Apologético na Floresta Oculta",
+			[DailyQuest.ReliveTheTearfulLightMiner]:
+				"Reviva as lembranças da Mineradora de Luz Triste na Floresta Oculta",
+			[DailyQuest.ReliveTheWhaleWhisperer]:
+				"Reviva as lembranças do Encantador de Baleias na Floresta Oculta",
+			[DailyQuest.ReliveTheConfidentSightseer]:
+				"Reviva as lembranças do Turista Confidente no Vale do Triunfo",
+			[DailyQuest.ReliveTheHandstandingThrillseeker]:
+				"Reviva as lembranças do Amante da Adrenalina de Ponta Cabeça no Vale do Triunfo",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Reviva as lembranças do Encantador de Arraias no Vale do Triunfo",
+			[DailyQuest.ReliveTheBackflippingChampion]:
+				"Reviva as lembranças do Campeão dando Cambalhota no Vale do Triunfo",
+			[DailyQuest.ReliveTheCheerfulSpectator]:
+				"Reviva as lembranças do Espectador Vibrante no Vale do Triunfo",
+			[DailyQuest.ReliveTheBowingMedalist]:
+				"Reviva as lembranças do Medalhista Curvando-se no Vale do Triunfo",
+			[DailyQuest.ReliveTheProudVictor]:
+				"Reviva as lembranças da Vitoriosa Orgulhosa no Vale do Triunfo",
+			[DailyQuest.ReliveTheFrightenedRefugee]:
+				"Reviva as lembranças da Refugiada Assustada no Sertão Dourado",
+			[DailyQuest.ReliveTheFaintingWarrior]:
+				"Reviva as lembranças da Guerreira Desmaiada no Sertão Dourado",
+			[DailyQuest.ReliveTheCourageousSoldier]:
+				"Reviva as lembranças do Soldado Valente no Sertão Dourado",
+			[DailyQuest.ReliveTheStealthySurvivor]:
+				"Reviva as lembranças da Sobrevivente Furtiva no Sertão Dourado",
+			[DailyQuest.ReliveTheSalutingCaptain]:
+				"Reviva as lembranças do Capitão Saudoso no Sertão Dourado",
+			[DailyQuest.ReliveTheLookoutScout]: "Reviva as lembranças do Olheiro Vigia no Sertão Dourado",
+			[DailyQuest.ReliveThePrayingAcolyte]:
+				"Reviva as lembranças do Acólito que Reza no Relicário do Conhecimento",
+			[DailyQuest.ReliveTheLevitatingAdept]:
+				"Reviva as lembranças da Adepta Levitante no Relicário do Conhecimento",
+			[DailyQuest.ReliveThePoliteScholar]:
+				"Reviva as lembranças da Estudante Educada no Relicário do Conhecimento",
+			[DailyQuest.ReliveTheMemoryWhisperer]:
+				"Reviva as lembranças do Encantador de Espíritos no Relicário do Conhecimento",
+			[DailyQuest.ReliveTheMeditatingMonastic]:
+				"Reviva as lembranças do Intelectual Meditante no Relicário do Conhecimento",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Reviva as lembranças do Guru Alongando na Campina da Aurora",
+			[DailyQuest.ReliveTheProvokingPerformer]:
+				"Reviva as lembranças do Artista Provocante na Floresta Oculta",
+			[DailyQuest.ReliveTheLeapingDancer]:
+				"Reviva as lembranças do Dançarino Saltitante no Vale do Triunfo",
+			[DailyQuest.ReliveTheSalutingProtector]:
+				"Reviva as lembranças do Protetor Saudoso no Sertão Dourado",
+			[DailyQuest.ReliveTheGreetingShaman]:
+				"Reviva as lembranças do Xamã Acolhedor no Relicário do Conhecimento",
+			[DailyQuest.ReliveTheDoublefiveLightCatcher]:
+				"Reviva as lembranças do Caçador de Luz Celebrante na Campina da Aurora",
+			[DailyQuest.ReliveTheLaidbackPioneer]:
+				"Reviva as lembranças do Pioneiro Descontraído na Floresta Oculta",
+			[DailyQuest.ReliveTheTwirlingChampion]:
+				"Reviva as lembranças do Campeão de Giros no Vale do Triunfo",
+			[DailyQuest.ReliveTheCrabWhisperer]:
+				"Reviva as lembranças da Encantadora de Caranguejos no Sertão Dourado",
+			[DailyQuest.ReliveTheShushingLightScholar]:
+				"Reviva as lembranças do Estudioso da Luz Silenciador no Relicário do Conhecimento",
+			[DailyQuest.ReliveTheConfettiCousin]:
+				"Reviva as lembranças da Prima do Confete na Campina da Aurora",
+			[DailyQuest.ReliveTheHairtousleTeen]:
+				"Reviva as lembranças do Adolescente Desgrenhado na Floresta Oculta",
+			[DailyQuest.ReliveTheSparklerParent]:
+				"Reviva as lembranças da Mãe Cintilante no Vale do Triunfo",
+			[DailyQuest.ReliveThePleafulParent]:
+				"Reviva as lembranças do Pai Suplicante no Sertão Dourado",
 			[DailyQuest.ReliveTheWiseGrandparent]:
 				"Reviva as lembranças do Diretor Pensativo no Relicário do Conhecimento",
+			[DailyQuest.ReliveTheFestivalSpinDancer]:
+				"Reviva as lembranças da Dançarina Rodopiante de Festival na Campina da Aurora",
+			[DailyQuest.ReliveTheAdmiringActor]:
+				"Reviva as lembranças do Ator Admirado na Floresta Oculta",
+			[DailyQuest.ReliveTheTroupeJuggler]:
+				"Reviva as lembranças do Malabarista da Trupe no Vale do Triunfo",
+			[DailyQuest.ReliveTheRespectfulPianist]:
+				"Reviva as lembranças da Pianista Respeitosa no Sertão Dourado",
+			[DailyQuest.ReliveTheThoughtfulDirector]:
+				"Reviva as lembranças do Diretor Pensativo no Relicário do Conhecimento",
+			[DailyQuest.ReliveTheNoddingMuralist]:
+				"Reviva as lembranças da Muralista Concordante no Sertão Dourado",
+			[DailyQuest.ReliveTheIndifferentAlchemist]:
+				"Reviva as lembranças do Alquimista Indiferente no Sertão Dourado",
+			[DailyQuest.ReliveTheCrabWalker]:
+				"Reviva as lembranças do Caranguejo Andarilho no Sertão Dourado",
+			[DailyQuest.ReliveTheScarecrowFarmer]:
+				"Reviva as lembranças do Fazendeiro Espantalho no Sertão Dourado",
+			[DailyQuest.ReliveTheSnoozingCarpenter]:
+				"Reviva as lembranças da Carpinteira Dorminhoca no Sertão Dourado",
+			[DailyQuest.ReliveThePlayfightingHerbalist]:
+				"Reviva as lembranças da Herbalista Lutadora no Sertão Dourado",
+			[DailyQuest.ReliveTheJellyWhisperer]:
+				"Reviva as lembranças da Água-viva Sussurrante na Campina da Aurora",
+			[DailyQuest.ReliveTheTimidBookworm]:
+				"Reviva as lembranças do Bibliófilo Tímido na Campina da Aurora",
+			[DailyQuest.ReliveTheRallyingThrillseeker]:
+				"Reviva as lembranças do Amante da Adrenalina Motivador na Campina da Aurora",
+			[DailyQuest.ReliveTheHikingGrouch]:
+				"Reviva as lembranças do Caminhante Resmungão na Campina da Aurora",
+			[DailyQuest.ReliveTheGratefulShellCollector]:
+				"Reviva as lembranças da Colecionadora de Conchas Agradecida na Campina da Aurora",
+			[DailyQuest.ReliveTheChillSunbather]:
+				"Reviva as lembranças do Banhista Relaxado na Campina da Aurora",
+			[DailyQuest.ReliveTheSpinningMentor]:
+				"Reviva as lembranças da Mentora do Giro no Vale do Triunfo",
+			[DailyQuest.ReliveTheDancingPerformer]:
+				"Reviva as lembranças do Dançarino no Vale do Triunfo",
+			[DailyQuest.ReliveThePeekingPostman]:
+				"Reviva as lembranças da Carteira Tímida no Vale do Triunfo",
+			[DailyQuest.ReliveTheBearhugHermit]:
+				"Reviva as lembranças do Iéti do Abraço de Urso no Vale do Triunfo",
+			[DailyQuest.ReliveTheBaffledBotanist]:
+				"Reviva as lembranças do Botanista Boquiaberto na Floresta Oculta",
+			[DailyQuest.ReliveTheScoldingStudent]:
+				"Reviva as lembranças do Estudante Esbravejante na Floresta Oculta",
+			[DailyQuest.ReliveTheScaredyCadet]:
+				"Reviva as lembranças do Cadete Cauteloso na Floresta Oculta",
+			[DailyQuest.ReliveTheMarchingAdventurer]:
+				"Reviva as lembranças da Aventureira Marchante na Floresta Oculta",
+			[DailyQuest.ReliveTheChucklingScout]:
+				"Reviva as lembranças do Batedor Risonho na Floresta Oculta",
 			[DailyQuest.ReliveTheDaydreamForester]:
 				"Reviva as lembranças do Silvicultor Sonhador na Floresta Oculta",
+			[DailyQuest.VisitAShardOfDarknessFallenToTheKingdomOfSky]:
+				"Visite um fragmento da escuridão que caiu no Reino de Sky",
+			[DailyQuest.TakeASelfieWithHikingGrouchInPrairiePeaks]:
+				"Tire uma selfie com o Caminhante Resmungão nos Picos da Campina",
+			[DailyQuest.TakeASelfieWithCrabWhispererInPrairiePeaks]:
+				"Tire uma selfie com a Encantadora de Caranguejos nos Picos da Campina",
+			[DailyQuest.TakeASelfieWithCacklingCannoneerInPrairiePeaks]:
+				"Tire uma selfie com a Canhoneira Sorridente nos Picos da Campina",
+			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]:
+				"Tire uma selfie com o Cumprimentador da Trupe nos Picos da Campina",
+			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
+				"Encontre Cinnamoroll em uma colina na Aldeia Aviária.",
+			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
+				"Cheire flores com o Cinnamoroll na Aldeia Aviária.",
+			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
+				"Encontre Cinnamoroll explorand a Aldeia Aviária.",
+			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Acorde Cinnamoroll na Aldeia Aviária.",
+			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
+				"Voe até a torre com Cinnamoroll na Aldeia Aviária.",
+			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
+				"Pule na água com Cinnamoroll na Aldeia Aviária.",
+			[DailyQuest.PlayAnyTournamentSport]: "Jogue qualquer esporte do torneio",
+			[DailyQuest.ChangeYourHairstyle]: "Trocar de corte de cabelo",
+			[DailyQuest.ChangeYourNecklace]: "Troque o colar",
+			[DailyQuest.ChangeYourProp]: "Troque os apetrechos",
+			[DailyQuest.ChangeYourMask]: "Trocar de máscara",
+			[DailyQuest.ChangeYourCape]: "Trocar de capa",
+			[DailyQuest.ChangeYourOutfit]: "Trocar de calças",
+			[DailyQuest.ViewASharedMemoryAtAStyleRunwayShrine]:
+				"Veja uma memória compartilhada em um altar de passarela de moda",
+			[DailyQuest.RecordASharedMemoryAtAStyleRunwayShrine]:
+				"Grave uma memória compartilhada em um altar de passarela de moda",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Faça uma pegadinha com o Comodoro Abandonado",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Encontre-se com Pioneiro de esconde-esconde em Cemitério",
+			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
+				"Ajude a Canhoneira Sorridente ou o <1>Batedor Risonho</1> a encontrar tesouros nas Ilhas do Santuário",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
+				"Ajude o Contramestre Trapalhão ou o <1>Guia da União</1> a encontrar tesouros na Floresta Oculta",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Temporada da Gratidão",

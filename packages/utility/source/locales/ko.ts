@@ -130,15 +130,150 @@ export default {
 			[DailyQuest.ReliveTheBirdWhisperer]: "햇빛 초원에서 새 소리꾼의 기억을 다시 체험하기",
 			[DailyQuest.ReliveTheExhaustedDockWorker]:
 				"햇빛 초원에서 기진맥진한 부두 일꾼의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheShiveringTrailblazer]:
+				"비밀의 숲에서 덜덜 떠는 개척자의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheBlushingProspector]:
+				"비밀의 숲에서 수줍은 탐험가의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheHideNSeekPioneer]:
+				"비밀의 숲에서 숨바꼭질 개척자의 기억을 다시 체험하기",
+			[DailyQuest.ReliveThePoutyPorter]: "비밀의 숲에서 토라진 짐꾼의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheDismayedHunter]: "비밀의 숲에서 경악하는 사냥꾼의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheApologeticLumberjack]:
+				"비밀의 숲에서 사과하는 나무꾼의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheTearfulLightMiner]:
+				"비밀의 숲에서 눈물 흘리는 광부의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheWhaleWhisperer]: "비밀의 숲에서 고래 소리꾼의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheConfidentSightseer]:
+				"승리의 계곡에서 자신만만한 관람객의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheHandstandingThrillseeker]:
+				"승리의 계곡에서 물구나무 챔피언의 기억을 다시 체험하기",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"승리의 계곡에서 만타가오리 소리꾼의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheBackflippingChampion]:
+				"승리의 계곡에서 공중제비 챔피언의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheCheerfulSpectator]: "승리의 계곡에서 유쾌한 관중의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheBowingMedalist]:
+				"승리의 계곡에서 목례하는 메달리스트의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheProudVictor]: "승리의 계곡에서 뽐내는 승리자의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheFrightenedRefugee]: "황금 황무지에서 겁먹은 난민의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheFaintingWarrior]: "황금 황무지에서 기절하는 전사의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheCourageousSoldier]: "황금 황무지에서 용감한 병사의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheStealthySurvivor]:
+				"황금 황무지에서 은밀한 생존자의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheSalutingCaptain]: "황금 황무지에서 경례하는 선장의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheLookoutScout]: "황금 황무지에서 망보는 정찰자의 기억을 다시 체험하기",
+			[DailyQuest.ReliveThePrayingAcolyte]:
+				"지식의 도서관에서 기도하는 조수의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheLevitatingAdept]:
+				"지식의 도서관에서 염동력 전문가의 기억을 다시 체험하기",
+			[DailyQuest.ReliveThePoliteScholar]:
+				"지식의 도서관에서 예의 바른 학자의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheMemoryWhisperer]: "지식의 도서관에서 영혼 소리꾼의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheMeditatingMonastic]:
+				"지식의 도서관에서 명상하는 수도승의 기억을 다시 체험하기",
 			[DailyQuest.ReliveTheStretchingGuru]: "햇빛 초원에서 체조하는 선생의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheProvokingPerformer]:
+				"비밀의 숲에서 도발하는 곡예사의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheLeapingDancer]:
+				"승리의 계곡에서 팔짝 뛰는 무용수의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheSalutingProtector]:
+				"황금 황무지에서 경례하는 수호자의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheGreetingShaman]:
+				"지식의 도서관에서 인사하는 주술사의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheDoublefiveLightCatcher]:
+				"햇빛 초원에서 하이파이브하는 빛잡이의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheLaidbackPioneer]: "비밀의 숲에서 태평한 개척자의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheTwirlingChampion]:
+				"승리의 계곡에서 뱅뱅 도는 챔피언의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheCrabWhisperer]: "황금 황무지에서 게 소리꾼의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheShushingLightScholar]:
+				"지식의 도서관에서 쉿 하는 학자의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheConfettiCousin]: "햇빛 초원에서 꽃가루 사촌의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheHairtousleTeen]: "비밀의 숲에서 쓰다듬는 청년의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheSparklerParent]: "승리의 계곡에서 폭죽장이 부모의 기억을 다시 체험하기",
+			[DailyQuest.ReliveThePleafulParent]: "황금 황무지에서 애원하는 부모의 기억을 다시 체험하기",
 			[DailyQuest.ReliveTheWiseGrandparent]:
 				"지식의 도서관에서 고민하는 감독의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheFestivalSpinDancer]:
+				"햇빛 초원에서 축제 스핀 댄서의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheAdmiringActor]: "비밀의 숲에서 감탄하는 배우의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheTroupeJuggler]: "승리의 계곡에서 극단 저글러의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheRespectfulPianist]:
+				"황금 황무지에서 공손한 피아니스트의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheThoughtfulDirector]:
+				"지식의 도서관에서 고민하는 감독의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheNoddingMuralist]:
+				"황금 황무지에서 끄덕이는 벽화가의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheIndifferentAlchemist]:
+				"황금 황무지에서 무심한 연금술사의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheCrabWalker]: "황금 황무지에서 게 애호가의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheScarecrowFarmer]: "황금 황무지에서 허수아비 농부의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheSnoozingCarpenter]:
+				"황금 황무지에서 졸고 있는 목수의 기억을 다시 체험하기",
+			[DailyQuest.ReliveThePlayfightingHerbalist]:
+				"황금 황무지에서 장난치는 약초꾼의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheJellyWhisperer]: "햇빛 초원에서 해파리 소리꾼의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheTimidBookworm]: "햇빛 초원에서 소심한 책벌레의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheRallyingThrillseeker]:
+				"햇빛 초원에서 스릴 마니아의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheHikingGrouch]: "햇빛 초원에서 불평쟁이 등반가의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheGratefulShellCollector]:
+				"햇빛 초원에서 고마워하는 조개수집가의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheChillSunbather]: "햇빛 초원에서 일광욕 마니아의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheSpinningMentor]: "승리의 계곡에서 빙빙 도는 스승의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheDancingPerformer]:
+				"승리의 계곡에서 춤추는 안무가의 기억을 다시 체험하기",
+			[DailyQuest.ReliveThePeekingPostman]:
+				"승리의 계곡에서 기웃거리는 우체부의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheBearhugHermit]:
+				"승리의 계곡에서 안아 드는 은둔자의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheBaffledBotanist]:
+				"비밀의 숲에서 곤혹스러운 식물학자의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheScoldingStudent]: "비밀의 숲에서 야단치는 학생의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheScaredyCadet]: "비밀의 숲에서 겁쟁이 생도의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheMarchingAdventurer]:
+				"비밀의 숲에서 행진하는 모험가의 기억을 다시 체험하기",
+			[DailyQuest.ReliveTheChucklingScout]:
+				"비밀의 숲에서 키득거리는 스카우트의 기억을 다시 체험하기",
 			[DailyQuest.ReliveTheDaydreamForester]:
 				"비밀의 숲에서 몽상하는 숲지기의 기억을 다시 체험하기",
+			[DailyQuest.VisitAShardOfDarknessFallenToTheKingdomOfSky]:
+				"Sky 월드에 떨어진 어둠의 파편을 찾아가세요",
+			[DailyQuest.TakeASelfieWithHikingGrouchInPrairiePeaks]:
+				"초원 봉우리에서 하이킹하는 불평쟁이와 셀카 찍기",
+			[DailyQuest.TakeASelfieWithCrabWhispererInPrairiePeaks]:
+				"초원 봉우리에서 게 소리꾼과 셀카 찍기",
+			[DailyQuest.TakeASelfieWithCacklingCannoneerInPrairiePeaks]:
+				"초원 봉우리에서 낄낄 웃는 포수와 셀카 찍기",
+			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]:
+				"초원 봉우리에서 격한 인사 크리처와 셀카를 찍어보세요",
+			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
+				"새들의 정원 마을 언덕에서 시나모롤을 만나기",
+			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
+				"새들의 정원 마을에서 시나모롤과 함께 꽃향기를 맡기",
+			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
+				"새들의 정원 마을을 구경하는 시나모롤을 찾기",
+			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "새들의 정원 마을에서 시나모롤을 깨우기",
+			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
+				"새들의 정원 마을에서 시나모롤과 함께 탑 위로 날아오르기",
+			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
+				"새들의 정원 마을에서 시나모롤과 함께 물놀이를 즐기기",
+			[DailyQuest.PlayAnyTournamentSport]: "토너먼트 스포츠 한 가지에 참여하기",
+			[DailyQuest.ChangeYourHairstyle]: "헤어스타일 바꾸기",
+			[DailyQuest.ChangeYourNecklace]: "목걸이 바꾸기",
+			[DailyQuest.ChangeYourProp]: "소품 바꾸기",
+			[DailyQuest.ChangeYourMask]: "가면 바꾸기",
+			[DailyQuest.ChangeYourCape]: "망토 바꾸기",
+			[DailyQuest.ChangeYourOutfit]: "바지 바꾸기",
+			[DailyQuest.ViewASharedMemoryAtAStyleRunwayShrine]: "멋쟁이 패션쇼 제단에서 공유기억 보기",
+			[DailyQuest.RecordASharedMemoryAtAStyleRunwayShrine]:
+				"멋쟁이 패션쇼 제단에서 공유기억 녹화하기",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: "위풍당당 선장에게 장난을 치기",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: "뼈 무덤에서 숨바꼭질 개척자와(과) 만나기",
+			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
+				"낙원의 섬에서 낄낄 웃는 포수 또는 <1>키득거리는 스카우트</1>가 보물을 찾는 걸 도와주세요",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
+				"비밀의 숲에서 우왕좌왕 갑판장 또는 <1>협력의 안내자</1>가 보물을 찾는 걸 돕기",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "감사의 시즌",

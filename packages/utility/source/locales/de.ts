@@ -141,18 +141,182 @@ export default {
 				"Erlebe erneut die Erinnerung des Vogelsprechers von der Tageslicht-Prärie",
 			[DailyQuest.ReliveTheExhaustedDockWorker]:
 				"Erlebe erneut die Erinnerung des Erschöpften Dockarbeiters von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheShiveringTrailblazer]:
+				"Erlebe erneut die Erinnerung der Zitternden Wegbereiterin vom Verborgenen Wald",
+			[DailyQuest.ReliveTheBlushingProspector]:
+				"Erlebe erneut die Erinnerung der Errötenden Goldsucherin vom Verborgenen Wald",
+			[DailyQuest.ReliveTheHideNSeekPioneer]:
+				"Erlebe erneut die Erinnerung des Versteckspiel-Pioniers vom Verborgenen Wald",
+			[DailyQuest.ReliveThePoutyPorter]:
+				"Erlebe erneut die Erinnerung des Mürrischen Gepäckträgers vom Verborgenen Wald",
+			[DailyQuest.ReliveTheDismayedHunter]:
+				"Erlebe erneut die Erinnerung der Bestürzten Jägerin vom Verborgenen Wald",
+			[DailyQuest.ReliveTheApologeticLumberjack]:
+				"Erlebe erneut die Erinnerung des Sich entschuldigenden Baumfällers vom Verborgenen Wald",
+			[DailyQuest.ReliveTheTearfulLightMiner]:
+				"Erlebe erneut die Erinnerung der Weinerlichen Lichtabbauerin vom Verborgenen Wald",
+			[DailyQuest.ReliveTheWhaleWhisperer]:
+				"Erlebe erneut die Erinnerung des Walsprechers vom Verborgenen Wald",
+			[DailyQuest.ReliveTheConfidentSightseer]:
+				"Erlebe erneut die Erinnerung des Selbstbewussten Touristen vom Tal des Triumphs",
+			[DailyQuest.ReliveTheHandstandingThrillseeker]:
+				"Erlebe erneut die Erinnerung des Abenteuerlustigen Handstandmachers vom Tal des Triumphs",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Erlebe erneut die Erinnerung des Riesenrochensprechers vom Tal des Triumphs",
+			[DailyQuest.ReliveTheBackflippingChampion]:
+				"Erlebe erneut die Erinnerung des Rückwärtssalto-Champions vom Tal des Triumphs",
+			[DailyQuest.ReliveTheCheerfulSpectator]:
+				"Erlebe erneut die Erinnerung des Fröhlichen Zuschauers vom Tal des Triumphs",
+			[DailyQuest.ReliveTheBowingMedalist]:
+				"Erlebe erneut die Erinnerung der Sich verbeugenden Medaillengewinnerin vom Tal des Triumphs",
+			[DailyQuest.ReliveTheProudVictor]:
+				"Erlebe erneut die Erinnerung der Stolzen Siegerin vom Tal des Triumphs",
+			[DailyQuest.ReliveTheFrightenedRefugee]:
+				"Erlebe erneut die Erinnerung der Ängstlichen Flüchtlingsfrau von der Goldenen Einöde",
+			[DailyQuest.ReliveTheFaintingWarrior]:
+				"Erlebe erneut die Erinnerung der Ohnmächtigen Kriegerin von der Goldenen Einöde",
+			[DailyQuest.ReliveTheCourageousSoldier]:
+				"Erlebe erneut die Erinnerung des Mutigen Soldaten von der Goldenen Einöde",
+			[DailyQuest.ReliveTheStealthySurvivor]:
+				"Erlebe erneut die Erinnerung der Schleichenden Überlebenden von der Goldenen Einöde",
+			[DailyQuest.ReliveTheSalutingCaptain]:
+				"Erlebe erneut die Erinnerung des Grüßenden Kapitäns von der Goldenen Einöde",
+			[DailyQuest.ReliveTheLookoutScout]:
+				"Erlebe erneut die Erinnerung des Aussichtsspähers von der Goldenen Einöde",
+			[DailyQuest.ReliveThePrayingAcolyte]:
+				"Erlebe erneut die Erinnerung des Betenden Messdieners vom Tresor des Wissens",
+			[DailyQuest.ReliveTheLevitatingAdept]:
+				"Erlebe erneut die Erinnerung der Schwebenden Forscherin vom Tresor des Wissens",
+			[DailyQuest.ReliveThePoliteScholar]:
+				"Erlebe erneut die Erinnerung der Höflichen Gelehrten vom Tresor des Wissens",
+			[DailyQuest.ReliveTheMemoryWhisperer]:
+				"Erlebe erneut die Erinnerung des Geistersprechers vom Tresor des Wissens",
+			[DailyQuest.ReliveTheMeditatingMonastic]:
+				"Erlebe erneut die Erinnerung des Meditierenden Gelehrten vom Tresor des Wissens",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Erlebe erneut die Erinnerung des Stretchenden Gurus von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheProvokingPerformer]:
+				"Erlebe erneut die Erinnerung des Provozierenden Künstlers vom Verborgenen Wald",
+			[DailyQuest.ReliveTheLeapingDancer]:
+				"Erlebe erneut die Erinnerung des Springenden Tänzers vom Tal des Triumphs",
+			[DailyQuest.ReliveTheSalutingProtector]:
+				"Erlebe erneut die Erinnerung des Grüßenden Beschützers von der Goldenen Einöde",
+			[DailyQuest.ReliveTheGreetingShaman]:
+				"Erlebe erneut die Erinnerung des Grüßenden Schamanen vom Tresor des Wissens",
+			[DailyQuest.ReliveTheDoublefiveLightCatcher]:
+				"Erlebe erneut die Erinnerung des Doppel-Five-Lichtfängers von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheLaidbackPioneer]:
+				"Erlebe erneut die Erinnerung des Entspannten Pioniers vom Verborgenen Wald",
+			[DailyQuest.ReliveTheTwirlingChampion]:
+				"Erlebe erneut die Erinnerung des Wirbelnden Champions vom Tal des Triumphs",
+			[DailyQuest.ReliveTheCrabWhisperer]:
+				"Erlebe erneut die Erinnerung des Krabbensprechers von der Goldenen Einöde",
+			[DailyQuest.ReliveTheShushingLightScholar]:
+				"Erlebe erneut die Erinnerung des Beruhigenden Lichtwissenschaftlers vom Tresor des Wissens",
+			[DailyQuest.ReliveTheConfettiCousin]:
+				"Erlebe erneut die Erinnerung der Konfetti-Cousine von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheHairtousleTeen]:
+				"Erlebe erneut die Erinnerung des Haarwuschel-Teenagers vom Verborgenen Wald",
+			[DailyQuest.ReliveTheSparklerParent]:
+				"Erlebe erneut die Erinnerung der Wunderkerzen-Mutter vom Tal des Triumphs",
+			[DailyQuest.ReliveThePleafulParent]:
+				"Erlebe erneut die Erinnerung des Bittenden Vaters von der Goldenen Einöde",
 			[DailyQuest.ReliveTheWiseGrandparent]:
 				"Erlebe erneut die Erinnerung des Nachdenklichen Direktors vom Tresor des Wissens",
+			[DailyQuest.ReliveTheFestivalSpinDancer]:
+				"Erlebe erneut die Erinnerung der Festival-Drehtänzerin von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheAdmiringActor]:
+				"Erlebe erneut die Erinnerung des Bewundernden Schauspielers vom Verborgenen Wald",
+			[DailyQuest.ReliveTheTroupeJuggler]:
+				"Erlebe erneut die Erinnerung des Zirkusjonglierers vom Tal des Triumphs",
+			[DailyQuest.ReliveTheRespectfulPianist]:
+				"Erlebe erneut die Erinnerung des Respektvollen Klavierspielers von der Goldenen Einöde",
+			[DailyQuest.ReliveTheThoughtfulDirector]:
+				"Erlebe erneut die Erinnerung des Nachdenklichen Direktors vom Tresor des Wissens",
+			[DailyQuest.ReliveTheNoddingMuralist]:
+				"Erlebe erneut die Erinnerung der Nickenden Wandmalerin von der Goldenen Einöde",
+			[DailyQuest.ReliveTheIndifferentAlchemist]:
+				"Erlebe erneut die Erinnerung des Gleichgültigen Alchemisten von der Goldenen Einöde",
+			[DailyQuest.ReliveTheCrabWalker]:
+				"Erlebe erneut die Erinnerung des Krabbenläufers von der Goldenen Einöde",
+			[DailyQuest.ReliveTheScarecrowFarmer]:
+				"Erlebe erneut die Erinnerung des Vogelscheuchen-Farmers von der Goldenen Einöde",
+			[DailyQuest.ReliveTheSnoozingCarpenter]:
+				"Erlebe erneut die Erinnerung der Dösenden Schreinerin von der Goldenen Einöde",
+			[DailyQuest.ReliveThePlayfightingHerbalist]:
+				"Erlebe erneut die Erinnerung der Schaukampf-Kräuterkundlerin von der Goldenen Einöde",
+			[DailyQuest.ReliveTheJellyWhisperer]:
+				"Erlebe erneut die Erinnerung des Quallenflüsterers von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheTimidBookworm]:
+				"Erlebe erneut die Erinnerung des Schüchternen Bücherwurms von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheRallyingThrillseeker]:
+				"Erlebe erneut die Erinnerung des Motivierenden Abenteuerlustigen von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheHikingGrouch]:
+				"Erlebe erneut die Erinnerung des Wandernden Griesgrams von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheGratefulShellCollector]:
+				"Erlebe erneut die Erinnerung der Dankbaren Muschelsammlerin von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheChillSunbather]:
+				"Erlebe erneut die Erinnerung des Entspannten Sonnenbadenden von der Tageslicht-Prärie",
+			[DailyQuest.ReliveTheSpinningMentor]:
+				"Erlebe erneut die Erinnerung der Piourettina vom Tal des Triumphs",
+			[DailyQuest.ReliveTheDancingPerformer]:
+				"Erlebe erneut die Erinnerung des Tänzers vom Tal des Triumphs",
+			[DailyQuest.ReliveThePeekingPostman]:
+				"Erlebe erneut die Erinnerung des Guckenden Postboten vom Tal des Triumphs",
+			[DailyQuest.ReliveTheBearhugHermit]:
+				"Erlebe erneut die Erinnerung des Großen Yetis vom Tal des Triumphs",
+			[DailyQuest.ReliveTheBaffledBotanist]:
+				"Erlebe erneut die Erinnerung der Überraschten Botanikerin vom Verborgenen Wald",
+			[DailyQuest.ReliveTheScoldingStudent]:
+				"Erlebe erneut die Erinnerung der Schimpfenden Schülerin vom Verborgenen Wald",
+			[DailyQuest.ReliveTheScaredyCadet]:
+				"Erlebe erneut die Erinnerung des Verängstigten Kadetten vom Verborgenen Wald",
+			[DailyQuest.ReliveTheMarchingAdventurer]:
+				"Erlebe erneut die Erinnerung der Marschierenden Abenteurerin vom Verborgenen Wald",
+			[DailyQuest.ReliveTheChucklingScout]:
+				"Erlebe erneut die Erinnerung des Kichernden Pfadfinders vom Verborgenen Wald",
 			[DailyQuest.ReliveTheDaydreamForester]:
 				"Erlebe erneut die Erinnerung des Tagträumenden Försters vom Verborgenen Wald",
+			[DailyQuest.VisitAShardOfDarknessFallenToTheKingdomOfSky]:
+				"Besuche eine Scherbe der Finsternis, die in das Königreich von Sky gefallen ist.",
+			[DailyQuest.TakeASelfieWithHikingGrouchInPrairiePeaks]:
+				"Mache ein Selfie mit dem Wandernden Griesgram auf dem Präriegipfel",
+			[DailyQuest.TakeASelfieWithCrabWhispererInPrairiePeaks]:
+				"Mache ein Selfie mit der Krabbenflüsterin auf dem Präriegipfel",
+			[DailyQuest.TakeASelfieWithCacklingCannoneerInPrairiePeaks]:
+				"Mache ein Selfie mit der Kicher-Kanonierin auf dem Präriegipfel",
+			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]:
+				"Mache ein Selfie mit dem Zirkusbegrüßer auf dem Präriegipfel",
+			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
+				"Triff Cinnamoroll auf einem Hügel im Volieren-Dorf.",
+			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
+				"Rieche an Blumen mit Cinnamoroll im Volieren-Dorf.",
+			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
+				"Finde Cinnamoroll, während er sich im Volieren-Dorf umsieht.",
+			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Wecke Cinnamoroll im Volieren-Dorf auf.",
+			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
+				"Fliege mit Cinnamoroll zum Turm im Volieren-Dorf.",
+			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
+				"Plansche im Wasser mit Cinnamoroll im Volieren-Dorf.",
+			[DailyQuest.PlayAnyTournamentSport]: "Spiele einen beliebigen Turniersport",
+			[DailyQuest.ChangeYourHairstyle]: "Ändere deine Frisur",
+			[DailyQuest.ChangeYourNecklace]: "Ändere deine Halskette",
+			[DailyQuest.ChangeYourProp]: "Ändere deine Requisite",
+			[DailyQuest.ChangeYourMask]: "Ändere deine Maske",
+			[DailyQuest.ChangeYourCape]: "Ändere deinen Umhang",
+			[DailyQuest.ChangeYourOutfit]: "Ändere deine Hose",
+			[DailyQuest.ViewASharedMemoryAtAStyleRunwayShrine]:
+				"Sieh dir eine Geteilte Erinnerung bei einem Schrein des Stillaufstegs an",
+			[DailyQuest.RecordASharedMemoryAtAStyleRunwayShrine]:
+				"Sieh dir eine Geteilte Erinnerung bei einem Schrein des Stillaufstegs an",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Spiele dem Kommando-Kapitän einen Streich",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Triff dich mit Versteckspiel-Pionier in Friedhof im Wald",
+			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
+				"Hilf der Kicher-Kanonierin oder dem <1>Kichernden Pfadfinder</1> dabei, einen Schatz auf den Zufluchtsinseln zu finden",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
+				"Hilf dem Stümperhaften Schiffsjungen oder dem <1>Zusammenbauhelfer</1> dabei, einen Schatz im Verborgenen Wald zu finden",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison der Dankbarkeit",

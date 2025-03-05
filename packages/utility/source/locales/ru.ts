@@ -129,17 +129,177 @@ export default {
 				"Переживите воспоминания Голоса птицы из Полуденной прерии",
 			[DailyQuest.ReliveTheExhaustedDockWorker]:
 				"Переживите воспоминания Измученного грузчика из Полуденной прерии",
+			[DailyQuest.ReliveTheShiveringTrailblazer]:
+				"Переживите воспоминания Продрогшего первопроходца из Тайного леса",
+			[DailyQuest.ReliveTheBlushingProspector]:
+				"Переживите воспоминания Краснеющего старателя из Тайного леса",
+			[DailyQuest.ReliveTheHideNSeekPioneer]:
+				"Переживите воспоминания Первопроходца (прятки) из Тайного леса",
+			[DailyQuest.ReliveThePoutyPorter]:
+				"Переживите воспоминания Недовольного носильщика из Тайного леса",
+			[DailyQuest.ReliveTheDismayedHunter]:
+				"Переживите воспоминания Встревоженного охотника из Тайного леса",
+			[DailyQuest.ReliveTheApologeticLumberjack]:
+				"Переживите воспоминания Извиняющегося лесоруба из Тайного леса",
+			[DailyQuest.ReliveTheTearfulLightMiner]:
+				"Переживите воспоминания Слезливого сборщика света из Тайного леса",
+			[DailyQuest.ReliveTheWhaleWhisperer]: "Переживите воспоминания Голоса кита из Тайного леса",
+			[DailyQuest.ReliveTheConfidentSightseer]:
+				"Переживите воспоминания Уверенного туриста из Долины триумфа",
+			[DailyQuest.ReliveTheHandstandingThrillseeker]:
+				"Переживите воспоминания Акробата-трюкача из Долины триумфа",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Переживите воспоминания Голоса манты из Долины триумфа",
+			[DailyQuest.ReliveTheBackflippingChampion]:
+				"Переживите воспоминания Чемпиона по сальто из Долины триумфа",
+			[DailyQuest.ReliveTheCheerfulSpectator]:
+				"Переживите воспоминания Веселого зрителя из Долины триумфа",
+			[DailyQuest.ReliveTheBowingMedalist]:
+				"Переживите воспоминания Кланяющегося медалиста из Долины триумфа",
+			[DailyQuest.ReliveTheProudVictor]:
+				"Переживите воспоминания Гордого победителя из Долины триумфа",
+			[DailyQuest.ReliveTheFrightenedRefugee]:
+				"Переживите воспоминания Напуганного беженца из Золотой пустоши",
+			[DailyQuest.ReliveTheFaintingWarrior]:
+				"Переживите воспоминания Угасающего воина из Золотой пустоши",
+			[DailyQuest.ReliveTheCourageousSoldier]:
+				"Переживите воспоминания Храброго солдата из Золотой пустоши",
+			[DailyQuest.ReliveTheStealthySurvivor]:
+				"Переживите воспоминания Незаметного выжившего из Золотой пустоши",
+			[DailyQuest.ReliveTheSalutingCaptain]:
+				"Переживите воспоминания Морского волка из Золотой пустоши",
+			[DailyQuest.ReliveTheLookoutScout]: "Переживите воспоминания Наблюдателя из Золотой пустоши",
+			[DailyQuest.ReliveThePrayingAcolyte]:
+				"Переживите воспоминания Молящегося прислужника из Хранилища знаний",
+			[DailyQuest.ReliveTheLevitatingAdept]:
+				"Переживите воспоминания Левитирующего знатока из Хранилища знаний",
+			[DailyQuest.ReliveThePoliteScholar]:
+				"Переживите воспоминания Вежливого ученика из Хранилища знаний",
+			[DailyQuest.ReliveTheMemoryWhisperer]:
+				"Переживите воспоминания Говорящего с духами из Хранилища знаний",
+			[DailyQuest.ReliveTheMeditatingMonastic]:
+				"Переживите воспоминания Медитирующего ученика из Хранилища знаний",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Переживите воспоминания Растягивающегося гуру из Полуденной прерии",
+			[DailyQuest.ReliveTheProvokingPerformer]:
+				"Переживите воспоминания Исполнителя-провокатора из Тайного леса",
+			[DailyQuest.ReliveTheLeapingDancer]:
+				"Переживите воспоминания Скачущего танцора из Долины триумфа",
+			[DailyQuest.ReliveTheSalutingProtector]:
+				"Переживите воспоминания Салютующего защитника из Золотой пустоши",
+			[DailyQuest.ReliveTheGreetingShaman]:
+				"Переживите воспоминания Приветствующего шамана из Хранилища знаний",
+			[DailyQuest.ReliveTheDoublefiveLightCatcher]:
+				"Переживите воспоминания Ловца света «дай пять» из Полуденной прерии",
+			[DailyQuest.ReliveTheLaidbackPioneer]:
+				"Переживите воспоминания Расслабленного первопроходца из Тайного леса",
+			[DailyQuest.ReliveTheTwirlingChampion]:
+				"Переживите воспоминания Кружащегося чемпиона из Долины триумфа",
+			[DailyQuest.ReliveTheCrabWhisperer]:
+				"Переживите воспоминания Голоса краба из Золотой пустоши",
+			[DailyQuest.ReliveTheShushingLightScholar]:
+				"Переживите воспоминания Шикающего ученика света из Хранилища знаний",
+			[DailyQuest.ReliveTheConfettiCousin]:
+				"Переживите воспоминания Конфетти-кузена из Полуденной прерии",
+			[DailyQuest.ReliveTheHairtousleTeen]:
+				"Переживите воспоминания Косматого подростка из Тайного леса",
+			[DailyQuest.ReliveTheSparklerParent]:
+				"Переживите воспоминания Блестящего родителя из Долины триумфа",
+			[DailyQuest.ReliveThePleafulParent]:
+				"Переживите воспоминания Умоляющего родителя из Золотой пустоши",
 			[DailyQuest.ReliveTheWiseGrandparent]:
 				"Переживите воспоминания Задумчивого творца из Хранилища знаний",
+			[DailyQuest.ReliveTheFestivalSpinDancer]:
+				"Переживите воспоминания Праздничного танцовщика из Полуденной прерии",
+			[DailyQuest.ReliveTheAdmiringActor]:
+				"Переживите воспоминания Восхищенного актера из Тайного леса",
+			[DailyQuest.ReliveTheTroupeJuggler]:
+				"Переживите воспоминания Жонглера из труппы из Долины триумфа",
+			[DailyQuest.ReliveTheRespectfulPianist]:
+				"Переживите воспоминания Почтительного пианиста из Золотой пустоши",
+			[DailyQuest.ReliveTheThoughtfulDirector]:
+				"Переживите воспоминания Задумчивого творца из Хранилища знаний",
+			[DailyQuest.ReliveTheNoddingMuralist]:
+				"Переживите воспоминания Кивающего стенописца из Золотой пустоши",
+			[DailyQuest.ReliveTheIndifferentAlchemist]:
+				"Переживите воспоминания Безразличного алхимика из Золотой пустоши",
+			[DailyQuest.ReliveTheCrabWalker]: "Переживите воспоминания Крабохода из Золотой пустоши",
+			[DailyQuest.ReliveTheScarecrowFarmer]:
+				"Переживите воспоминания Фермера-пугала из Золотой пустоши",
+			[DailyQuest.ReliveTheSnoozingCarpenter]:
+				"Переживите воспоминания Засыпающего плотника из Золотой пустоши",
+			[DailyQuest.ReliveThePlayfightingHerbalist]:
+				"Переживите воспоминания Дурачащегося травника из Золотой пустоши",
+			[DailyQuest.ReliveTheJellyWhisperer]:
+				"Переживите воспоминания Шепчущего медузам из Полуденной прерии",
+			[DailyQuest.ReliveTheTimidBookworm]:
+				"Переживите воспоминания Робкого любителя книг из Полуденной прерии",
+			[DailyQuest.ReliveTheRallyingThrillseeker]:
+				"Переживите воспоминания Подбодряющего авантюриста из Полуденной прерии",
+			[DailyQuest.ReliveTheHikingGrouch]:
+				"Переживите воспоминания Странствующего ворчуна из Полуденной прерии",
+			[DailyQuest.ReliveTheGratefulShellCollector]:
+				"Переживите воспоминания Благодарного собирателя раковин из Полуденной прерии",
+			[DailyQuest.ReliveTheChillSunbather]:
+				"Переживите воспоминания Расслабленного пляжника из Полуденной прерии",
+			[DailyQuest.ReliveTheSpinningMentor]:
+				"Переживите воспоминания Учительницы трюков из Долины триумфа",
+			[DailyQuest.ReliveTheDancingPerformer]:
+				"Переживите воспоминания Учителя танцев из Долины триумфа",
+			[DailyQuest.ReliveThePeekingPostman]:
+				"Переживите воспоминания Робкой почтальонки из Долины триумфа",
+			[DailyQuest.ReliveTheBearhugHermit]:
+				"Переживите воспоминания Отшельника-обнимателя из Долины триумфа",
+			[DailyQuest.ReliveTheBaffledBotanist]:
+				"Переживите воспоминания Растерянной травницы из Тайного леса",
+			[DailyQuest.ReliveTheScoldingStudent]:
+				"Переживите воспоминания Ворчливой студентки из Тайного леса",
+			[DailyQuest.ReliveTheScaredyCadet]: "Переживите воспоминания Кадета-трусишки из Тайного леса",
+			[DailyQuest.ReliveTheMarchingAdventurer]:
+				"Переживите воспоминания Марширующей авантюристки из Тайного леса",
+			[DailyQuest.ReliveTheChucklingScout]:
+				"Переживите воспоминания Хихикающего скаута из Тайного леса",
 			[DailyQuest.ReliveTheDaydreamForester]:
 				"Переживите воспоминания Мечтательного лесовичка из Тайного леса",
+			[DailyQuest.VisitAShardOfDarknessFallenToTheKingdomOfSky]:
+				"Найдите осколок тьмы, упавший в мир Sky",
+			[DailyQuest.TakeASelfieWithHikingGrouchInPrairiePeaks]:
+				"Сделать селфи со Странствующим ворчуном в Степных вершинах",
+			[DailyQuest.TakeASelfieWithCrabWhispererInPrairiePeaks]:
+				"Сделать селфи с духом Голос краба в Степных вершинах",
+			[DailyQuest.TakeASelfieWithCacklingCannoneerInPrairiePeaks]:
+				"Сделать селфи с Хохотушкой с пушкой в Степных вершинах",
+			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]:
+				"Сделать селфи с Зазывалой из труппы в Степных вершинах",
+			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
+				"Встретьтесь с Синаморолом на холме Птичьей деревни.",
+			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
+				"Вместе с Синаморолом насладитесь ароматом цветов в Птичьей деревне.",
+			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
+				"Найдите Синаморола, который гуляет по Птичьей деревне.",
+			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Разбудите Синаморола в Птичьей деревне.",
+			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
+				"Вместе с Синаморолом взлетите на колокольню Птичьей деревни.",
+			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
+				"Отправляйтесь плескаться вместе с Синаморолом в Птичьей деревне.",
+			[DailyQuest.PlayAnyTournamentSport]: "Поучаствуйте в любом турнире",
+			[DailyQuest.ChangeYourHairstyle]: "Смените прическу",
+			[DailyQuest.ChangeYourNecklace]: "Смените ожерелье",
+			[DailyQuest.ChangeYourProp]: "Смените аксессуар",
+			[DailyQuest.ChangeYourMask]: "Смените маску",
+			[DailyQuest.ChangeYourCape]: "Смените накидку",
+			[DailyQuest.ChangeYourOutfit]: "Смените штаны",
+			[DailyQuest.ViewASharedMemoryAtAStyleRunwayShrine]:
+				"Посмотрите общее воспоминание в святилище подиума",
+			[DailyQuest.RecordASharedMemoryAtAStyleRunwayShrine]:
+				"Запишите общее воспоминание в святилище подиума",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: "Разыграйте Командора-начальника",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Соберите команду из игроков (Первопроходец (прятки)) в месте Могильник",
+			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
+				"Помогите Хохотушке с пушкой или <1>Хихикающему скауту</1> найти сокровище на Островах укрытия.",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
+				"Помогите Нерадивому боцману или <1>Проводнику Сезона собрания</1> найти сокровище в Тайном лесу.",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Сезон благодарности",

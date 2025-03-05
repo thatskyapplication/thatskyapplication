@@ -140,18 +140,182 @@ export default {
 				"Hồi tưởng lại ký ức của Người Luyện Chim đến từ Thảo Nguyên Ánh Sáng",
 			[DailyQuest.ReliveTheExhaustedDockWorker]:
 				"Hồi tưởng lại ký ức của Người Đóng Tàu Mệt Mỏi đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheShiveringTrailblazer]:
+				"Hồi tưởng lại ký ức của Người Khai Hoang Run Rẩy đến từ Rừng Mưa",
+			[DailyQuest.ReliveTheBlushingProspector]:
+				"Hồi tưởng lại ký ức của Người Khai Thác Nhút Nhát đến từ Rừng Mưa",
+			[DailyQuest.ReliveTheHideNSeekPioneer]:
+				"Hồi tưởng lại ký ức của Người Khai Hoang Trốn Tìm đến từ Rừng Mưa",
+			[DailyQuest.ReliveThePoutyPorter]:
+				"Hồi tưởng lại ký ức của Người Khuân Vác Ghen Tỵ đến từ Rừng Mưa",
+			[DailyQuest.ReliveTheDismayedHunter]:
+				"Hồi tưởng lại ký ức của Thợ Săn Thất Vọng đến từ Rừng Mưa",
+			[DailyQuest.ReliveTheApologeticLumberjack]:
+				"Hồi tưởng lại ký ức của Thợ Rừng Có Lỗi đến từ Rừng Mưa",
+			[DailyQuest.ReliveTheTearfulLightMiner]:
+				"Hồi tưởng lại ký ức của Thợ Mỏ Bi Thương đến từ Rừng Mưa",
+			[DailyQuest.ReliveTheWhaleWhisperer]:
+				"Hồi tưởng lại ký ức của Người Luyện Cá Voi đến từ Rừng Mưa",
+			[DailyQuest.ReliveTheConfidentSightseer]:
+				"Hồi tưởng lại ký ức của Người Ngắm Cảnh Tự Tin đến từ Thung Lũng Vinh Quang",
+			[DailyQuest.ReliveTheHandstandingThrillseeker]:
+				"Hồi tưởng lại ký ức của Vận Động Viên Lộn Ngược đến từ Thung Lũng Vinh Quang",
 			[DailyQuest.ReliveTheMantaWhisperer]:
 				"Hồi tưởng lại ký ức của Người Luyện Cá Đuối đến từ Thung Lũng Vinh Quang",
+			[DailyQuest.ReliveTheBackflippingChampion]:
+				"Hồi tưởng lại ký ức của Quán Quân Nhào Lộn đến từ Thung Lũng Vinh Quang",
+			[DailyQuest.ReliveTheCheerfulSpectator]:
+				"Hồi tưởng lại ký ức của Khán Giả Cổ Vũ đến từ Thung Lũng Vinh Quang",
+			[DailyQuest.ReliveTheBowingMedalist]:
+				"Hồi tưởng lại ký ức của Quý Quân Cúi Đầu đến từ Thung Lũng Vinh Quang",
+			[DailyQuest.ReliveTheProudVictor]:
+				"Hồi tưởng lại ký ức của Quán Quân Tự Hào đến từ Thung Lũng Vinh Quang",
+			[DailyQuest.ReliveTheFrightenedRefugee]:
+				"Hồi tưởng lại ký ức của Dân Tị Nạn Sợ Hãi đến từ Hoang Mạc Hoàng Kim",
+			[DailyQuest.ReliveTheFaintingWarrior]:
+				"Hồi tưởng lại ký ức của Chiến Sĩ Ngất Xỉu đến từ Hoang Mạc Hoàng Kim",
+			[DailyQuest.ReliveTheCourageousSoldier]:
+				"Hồi tưởng lại ký ức của Người Lính Dũng Cảm đến từ Hoang Mạc Hoàng Kim",
+			[DailyQuest.ReliveTheStealthySurvivor]:
+				"Hồi tưởng lại ký ức của Người Sống Sót Ẩn Dật đến từ Hoang Mạc Hoàng Kim",
+			[DailyQuest.ReliveTheSalutingCaptain]:
+				"Hồi tưởng lại ký ức của Thuyền Trưởng Cúi Chào đến từ Hoang Mạc Hoàng Kim",
+			[DailyQuest.ReliveTheLookoutScout]:
+				"Hồi tưởng lại ký ức của Hướng Đạo Sinh Nhìn Xa đến từ Hoang Mạc Hoàng Kim",
+			[DailyQuest.ReliveThePrayingAcolyte]:
+				"Hồi tưởng lại ký ức của Thánh Đồ Cầu Nguyện đến từ Kho Tri Thức",
+			[DailyQuest.ReliveTheLevitatingAdept]:
+				"Hồi tưởng lại ký ức của Cao Nhân Khí Công đến từ Kho Tri Thức",
+			[DailyQuest.ReliveThePoliteScholar]:
+				"Hồi tưởng lại ký ức của Học Giả Lịch Sự đến từ Kho Tri Thức",
+			[DailyQuest.ReliveTheMemoryWhisperer]:
+				"Hồi tưởng lại ký ức của Người Luyện Ký Ức đến từ Kho Tri Thức",
+			[DailyQuest.ReliveTheMeditatingMonastic]:
+				"Hồi tưởng lại ký ức của Viện Sĩ Thiền Tu đến từ Kho Tri Thức",
 			[DailyQuest.ReliveTheStretchingGuru]:
 				"Hồi tưởng lại ký ức của Sư Phụ Giãn Cơ đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheProvokingPerformer]:
+				"Hồi tưởng lại ký ức của Người Biểu Diễn Khiêu Khích đến từ Rừng Mưa",
+			[DailyQuest.ReliveTheLeapingDancer]:
+				"Hồi tưởng lại ký ức của Vũ Công Nhảy Nhót đến từ Thung Lũng Vinh Quang",
+			[DailyQuest.ReliveTheSalutingProtector]:
+				"Hồi tưởng lại ký ức của Hộ Vệ Cúi Chào đến từ Hoang Mạc Hoàng Kim",
+			[DailyQuest.ReliveTheGreetingShaman]:
+				"Hồi tưởng lại ký ức của Pháp Sư Chào Hỏi đến từ Kho Tri Thức",
+			[DailyQuest.ReliveTheDoublefiveLightCatcher]:
+				"Hồi tưởng lại ký ức của Nông Dân Đập Tay đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheLaidbackPioneer]:
+				"Hồi tưởng lại ký ức của Người Tiên Phong Ung Dung đến từ Rừng Mưa",
+			[DailyQuest.ReliveTheTwirlingChampion]:
+				"Hồi tưởng lại ký ức của Nhà Vô Địch Xoay Tròn đến từ Thung Lũng Vinh Quang",
+			[DailyQuest.ReliveTheCrabWhisperer]:
+				"Hồi tưởng lại ký ức của Người Luyện Cua đến từ Hoang Mạc Hoàng Kim",
+			[DailyQuest.ReliveTheShushingLightScholar]:
+				"Hồi tưởng lại ký ức của Học Giả Ánh Sáng đến từ Kho Tri Thức",
+			[DailyQuest.ReliveTheConfettiCousin]:
+				"Hồi tưởng lại ký ức của Em Họ Pháo Hoa Giấy đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheHairtousleTeen]:
+				"Hồi tưởng lại ký ức của Thanh Niên Tóc Bồng đến từ Rừng Mưa",
+			[DailyQuest.ReliveTheSparklerParent]:
+				"Hồi tưởng lại ký ức của Phụ Huynh Pháo Hoa đến từ Thung Lũng Vinh Quang",
+			[DailyQuest.ReliveThePleafulParent]:
+				"Hồi tưởng lại ký ức của Phụ Huynh Nài Nỉ đến từ Hoang Mạc Hoàng Kim",
 			[DailyQuest.ReliveTheWiseGrandparent]:
 				"Hồi tưởng lại ký ức của Biên Đạo Trầm Tư đến từ Kho Tri Thức",
+			[DailyQuest.ReliveTheFestivalSpinDancer]:
+				"Hồi tưởng lại ký ức của Vũ Công Xoay Tròn đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheAdmiringActor]:
+				"Hồi tưởng lại ký ức của Diễn Viên Đáng Ngưỡng Mộ đến từ Rừng Mưa",
+			[DailyQuest.ReliveTheTroupeJuggler]:
+				"Hồi tưởng lại ký ức của Người Tung Hứng Bóng đến từ Thung Lũng Vinh Quang",
+			[DailyQuest.ReliveTheRespectfulPianist]:
+				"Hồi tưởng lại ký ức của Nghệ Sĩ Piano Đáng Kính đến từ Hoang Mạc Hoàng Kim",
+			[DailyQuest.ReliveTheThoughtfulDirector]:
+				"Hồi tưởng lại ký ức của Biên Đạo Trầm Tư đến từ Kho Tri Thức",
+			[DailyQuest.ReliveTheNoddingMuralist]:
+				"Hồi tưởng lại ký ức của Nhà Bích Họa Gật Đầu đến từ Hoang Mạc Hoàng Kim",
+			[DailyQuest.ReliveTheIndifferentAlchemist]:
+				"Hồi tưởng lại ký ức của Thuật Sĩ Lạnh Lùng đến từ Hoang Mạc Hoàng Kim",
+			[DailyQuest.ReliveTheCrabWalker]:
+				"Hồi tưởng lại ký ức của Vũ Công Cua đến từ Hoang Mạc Hoàng Kim",
+			[DailyQuest.ReliveTheScarecrowFarmer]:
+				"Hồi tưởng lại ký ức của Nông Dân Bù Nhìn đến từ Hoang Mạc Hoàng Kim",
+			[DailyQuest.ReliveTheSnoozingCarpenter]:
+				"Hồi tưởng lại ký ức của Thợ Mộc Ngủ Gật đến từ Hoang Mạc Hoàng Kim",
+			[DailyQuest.ReliveThePlayfightingHerbalist]:
+				"Hồi tưởng lại ký ức của Nhà Thảo Dược Tâm Trạng đến từ Hoang Mạc Hoàng Kim",
+			[DailyQuest.ReliveTheJellyWhisperer]:
+				"Hồi tưởng lại ký ức của Người Luyện Sứa đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheTimidBookworm]:
+				"Hồi tưởng lại ký ức của Mọt Sách Nhút Nhát đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheRallyingThrillseeker]:
+				"Hồi tưởng lại ký ức của Vận Động Viên Nhiệt Huyết đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheHikingGrouch]:
+				"Hồi tưởng lại ký ức của Nhà Leo Núi Cố Chấp đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheGratefulShellCollector]:
+				"Hồi tưởng lại ký ức của Nhà Sưu Tầm Biết Ơn đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheChillSunbather]:
+				"Hồi tưởng lại ký ức của Người Tắm Nắng đến từ Thảo Nguyên Ánh Sáng",
+			[DailyQuest.ReliveTheSpinningMentor]:
+				"Hồi tưởng lại ký ức của Đại Sư Xoay Tròn đến từ Thung Lũng Vinh Quang",
+			[DailyQuest.ReliveTheDancingPerformer]:
+				"Hồi tưởng lại ký ức của Nghệ Nhân Khiêu Vũ đến từ Thung Lũng Vinh Quang",
+			[DailyQuest.ReliveThePeekingPostman]:
+				"Hồi tưởng lại ký ức của Người Đưa Thư Nhìn Trộm đến từ Thung Lũng Vinh Quang",
+			[DailyQuest.ReliveTheBearhugHermit]:
+				"Hồi tưởng lại ký ức của Tu Sĩ Gấu Ôm đến từ Thung Lũng Vinh Quang",
+			[DailyQuest.ReliveTheBaffledBotanist]:
+				"Hồi tưởng lại ký ức của Nhà Thực Vật Bàng Hoàng đến từ Rừng Mưa",
+			[DailyQuest.ReliveTheScoldingStudent]:
+				"Hồi tưởng lại ký ức của Đội Trưởng Quản Lý đến từ Rừng Mưa",
+			[DailyQuest.ReliveTheScaredyCadet]:
+				"Hồi tưởng lại ký ức của Học Viên Nhát Gan đến từ Rừng Mưa",
+			[DailyQuest.ReliveTheMarchingAdventurer]:
+				"Hồi tưởng lại ký ức của Nhà Mạo Hiểm Diễu Hành đến từ Rừng Mưa",
+			[DailyQuest.ReliveTheChucklingScout]:
+				"Hồi tưởng lại ký ức của Hướng Đạo Sinh Khúc Khích đến từ Rừng Mưa",
 			[DailyQuest.ReliveTheDaydreamForester]:
 				"Hồi tưởng lại ký ức của Người Đi Rừng Mộng Du đến từ Rừng Mưa",
+			[DailyQuest.VisitAShardOfDarknessFallenToTheKingdomOfSky]:
+				"Gặp một mảnh vỡ bóng tối rơi xuống Vương quốc Sky",
+			[DailyQuest.TakeASelfieWithHikingGrouchInPrairiePeaks]:
+				"Tự chụp hình với Nhà Leo Núi Cố Chấp ở Đỉnh Thảo Nguyên",
+			[DailyQuest.TakeASelfieWithCrabWhispererInPrairiePeaks]:
+				"Tự chụp hình với Người Luyện Cua ở Đỉnh Thảo Nguyên",
+			[DailyQuest.TakeASelfieWithCacklingCannoneerInPrairiePeaks]:
+				"Tự chụp hình với Xạ Thủ Vui Nhộn ở Đỉnh Thảo Nguyên",
+			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]:
+				"Tự chụp hình với Nhân Viên Đón Khách ở Đỉnh Thảo Nguyên",
+			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
+				"Gặp gỡ Cinnamoroll trên một ngọn đồi ở Làng Chuồng Chim.",
+			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
+				"Thưởng thức hương hoa cùng Cinnamoroll ở Làng Chuồng Chim.",
+			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
+				"Tìm Cinnamoroll đang ẩn quanh Làng Chuồng Chim.",
+			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Đánh thức Cinnamoroll ở Làng Chuồng Chim.",
+			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
+				"Bay lên tòa tháp cùng Cinnamoroll ở Làng Chuồng Chim.",
+			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
+				"Hãy té nước cùng Cinnamoroll tại Làng Chuồng Chim.",
+			[DailyQuest.PlayAnyTournamentSport]: "Tham gia bất kỳ trò chơi nào trong Giải đấu",
+			[DailyQuest.ChangeYourHairstyle]: "Thay kiểu tóc",
+			[DailyQuest.ChangeYourNecklace]: "Thay đổi vòng cổ của bạn",
+			[DailyQuest.ChangeYourProp]: "Thay đổi đạo cụ của bạn",
+			[DailyQuest.ChangeYourMask]: "Thay mặt nạ",
+			[DailyQuest.ChangeYourCape]: "Thay áo choàng",
+			[DailyQuest.ChangeYourOutfit]: "Thay quần",
+			[DailyQuest.ViewASharedMemoryAtAStyleRunwayShrine]:
+				"Xem Ký Ức Chung tại một ngôi đền thời trang",
+			[DailyQuest.RecordASharedMemoryAtAStyleRunwayShrine]:
+				"Ghi lại Ký Ức Chung tại một ngôi đền thời trang",
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]:
 				"Chơi một trò đùa với Thuyền Trưởng Uy Nghiêm",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Gặp gỡ Người Khai Hoang Trốn Tìm trong Nghĩa Địa",
+			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
+				"Giúp Xạ Thủ Vui Nhộn hoặc <1>Hướng Đạo Sinh Khúc Khích</1> tìm kho báu tại Quần Đảo Thánh Địa",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
+				"Giúp Thủy Thủ Hậu Đậu hoặc <1>Người Dẫn Đoàn</1> tìm kho báu tại Rừng Mưa.",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Mùa Tri Ân",
