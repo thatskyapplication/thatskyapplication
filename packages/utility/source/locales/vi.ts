@@ -18,6 +18,7 @@ export default {
 		quests: {
 			[DailyQuest.Collect30PiecesOfLight]: "Thu thập 30 Mảnh Ánh Sáng",
 			[DailyQuest.Light20Candles]: "Thắp 20 ngọn nến",
+			[DailyQuest.ForgeACandle]: "Ngưng tụ 1 cây nến",
 			[DailyQuest.BowAtAPlayer]: "Cúi chào mt người chơi",
 			[DailyQuest.WaveToAFriend]: "Vẫy tay với một người bạn",
 			[DailyQuest.SendAGiftToAFriend]: "Tặng quà cho một người bạn",

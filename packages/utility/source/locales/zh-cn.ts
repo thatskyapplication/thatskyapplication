@@ -18,6 +18,7 @@ export default {
 		quests: {
 			[DailyQuest.Collect30PiecesOfLight]: "收集30个蜡烛光",
 			[DailyQuest.Light20Candles]: "点亮20根蜡烛",
+			[DailyQuest.ForgeACandle]: "用烛光凝聚成一根蜡烛",
 			[DailyQuest.BowAtAPlayer]: "向一位玩家鞠躬",
 			[DailyQuest.WaveToAFriend]: "向一位朋友招手",
 			[DailyQuest.SendAGiftToAFriend]: "给一位朋友送礼",

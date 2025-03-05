@@ -17,6 +17,7 @@ export default {
 		quests: {
 			[DailyQuest.Collect30PiecesOfLight]: "เก็บแสง 30 ชิ้น",
 			[DailyQuest.Light20Candles]: "จุดเทียน 20 เล่ม",
+			[DailyQuest.ForgeACandle]: "หลอมเทียน",
 			[DailyQuest.BowAtAPlayer]: "คำนับผู้เล่น",
 			[DailyQuest.WaveToAFriend]: "โบกมือให้เพื่อน",
 			[DailyQuest.SendAGiftToAFriend]: "ส่งของขวัญให้เพื่อน",

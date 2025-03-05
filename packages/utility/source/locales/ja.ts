@@ -19,6 +19,7 @@ export default {
 		quests: {
 			[DailyQuest.Collect30PiecesOfLight]: "光のかけらを30個集める",
 			[DailyQuest.Light20Candles]: "20本のキャンドルに灯を点す",
+			[DailyQuest.ForgeACandle]: "キャンドルを精錬する",
 			[DailyQuest.BowAtAPlayer]: "プレイヤーにお辞儀をする",
 			[DailyQuest.WaveToAFriend]: "フレンドに手を振る",
 			[DailyQuest.SendAGiftToAFriend]: "フレンドにギフトを贈る",

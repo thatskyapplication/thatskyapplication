@@ -37,6 +37,7 @@ export default {
 		quests: {
 			[DailyQuest.Collect30PiecesOfLight]: "Récupérez 30 morceaux de lumière",
 			[DailyQuest.Light20Candles]: "Allumez 20 bougies",
+			[DailyQuest.ForgeACandle]: "Forgez une bougie",
 			[DailyQuest.BowAtAPlayer]: "Inclinez-vous face à un joueur",
 			[DailyQuest.WaveToAFriend]: "Faites signe à un ami",
 			[DailyQuest.SendAGiftToAFriend]: "Envoyez un cadeau a un ami",
