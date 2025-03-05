@@ -175,7 +175,6 @@ export const QUEST_SPIRITS = [
 	SpiritId.LaughingLightCatcher,
 	SpiritId.BirdWhisperer,
 	SpiritId.ExhaustedDockWorker,
-	SpiritId.CeremonialWorshiper,
 	SpiritId.ShiveringTrailblazer,
 	SpiritId.BlushingProspector,
 	SpiritId.HideNSeekPioneer,

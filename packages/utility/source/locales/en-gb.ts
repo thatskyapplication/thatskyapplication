@@ -149,7 +149,6 @@ export default {
 			[DailyQuest.ReliveTheLaughingLightCatcher]: "Relive the Laughing Light Catcher",
 			[DailyQuest.ReliveTheBirdWhisperer]: "Relive the Bird Whisperer",
 			[DailyQuest.ReliveTheExhaustedDockWorker]: "Relive the Exhausted Dock Worker",
-			[DailyQuest.ReliveTheCeremonialWorshiper]: "Relive the Ceremonial Worshiper",
 			[DailyQuest.ReliveTheShiveringTrailblazer]: "Relive the Shivering Trailblazer",
 			[DailyQuest.ReliveTheBlushingProspector]: "Relive the Blushing Prospector",
 			[DailyQuest.ReliveTheHideNSeekPioneer]: "Relive the Hide'n'Seek Pioneer",

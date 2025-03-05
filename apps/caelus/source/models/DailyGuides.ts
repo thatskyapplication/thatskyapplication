@@ -153,7 +153,6 @@ const SpiritIdToDailyQuest = {
 	[SpiritId.LaughingLightCatcher]: DailyQuest.ReliveTheLaughingLightCatcher,
 	[SpiritId.BirdWhisperer]: DailyQuest.ReliveTheBirdWhisperer,
 	[SpiritId.ExhaustedDockWorker]: DailyQuest.ReliveTheExhaustedDockWorker,
-	[SpiritId.CeremonialWorshiper]: DailyQuest.ReliveTheCeremonialWorshiper,
 	[SpiritId.ShiveringTrailblazer]: DailyQuest.ReliveTheShiveringTrailblazer,
 	[SpiritId.BlushingProspector]: DailyQuest.ReliveTheBlushingProspector,
 	[SpiritId.HideNSeekPioneer]: DailyQuest.ReliveTheHideNSeekPioneer,

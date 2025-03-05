@@ -794,10 +794,6 @@ export const DailyQuestToInfographicURL = {
 		"daily_guides/quests/spirits/exhausted_dock_worker.webp",
 		CDN_URL,
 	).toString(),
-	[DailyQuest.ReliveTheCeremonialWorshiper]: new URL(
-		"daily_guides/quests/spirits/ceremonial_worshiper.webp",
-		CDN_URL,
-	).toString(),
 	[DailyQuest.ReliveTheShiveringTrailblazer]: new URL(
 		"daily_guides/quests/spirits/shivering_trailblazer.webp",
 		CDN_URL,
