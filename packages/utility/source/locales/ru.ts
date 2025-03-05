@@ -22,6 +22,7 @@ export default {
 			[DailyQuest.Melt10Darkness]: "Растопите 10 ед. тьмы",
 			[DailyQuest.BowAtAPlayer]: "Поклонитесь игроку",
 			[DailyQuest.FollowAFriend]: "Следуйте за другом",
+			[DailyQuest.HugAFriend]: "Обнимите друга",
 			[DailyQuest.WaveToAFriend]: "Помашите другу",
 			[DailyQuest.SendAGiftToAFriend]: "Отправьте подарок другу",
 			[DailyQuest.MakeANewAcquaintance]: "Заведите новое знакомство",

@@ -23,6 +23,7 @@ export default {
 			[DailyQuest.Melt10Darkness]: "어둠 10개를 녹이기",
 			[DailyQuest.BowAtAPlayer]: "플레이어에게 고개 숙여 인사하기",
 			[DailyQuest.FollowAFriend]: "친구를 따라가기",
+			[DailyQuest.HugAFriend]: "친구와 포옹하기",
 			[DailyQuest.WaveToAFriend]: "친구에게 손 흔들기",
 			[DailyQuest.SendAGiftToAFriend]: "친구에게 선물 보내기",
 			[DailyQuest.MakeANewAcquaintance]: "낯선 플레이어와 촛불을 맞대기",

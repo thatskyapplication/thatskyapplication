@@ -31,6 +31,7 @@ export default {
 			[DailyQuest.Melt10Darkness]: "Derrite 10 oscuridades",
 			[DailyQuest.BowAtAPlayer]: "Inclínate ante un jugador",
 			[DailyQuest.FollowAFriend]: "Sigue a una amistad",
+			[DailyQuest.HugAFriend]: "Da un abrazo a un amigo",
 			[DailyQuest.WaveToAFriend]: "Saluda a un amigo",
 			[DailyQuest.SendAGiftToAFriend]: "Envía un regalo a un amigo",
 			[DailyQuest.MakeANewAcquaintance]: "Haz un conocido",

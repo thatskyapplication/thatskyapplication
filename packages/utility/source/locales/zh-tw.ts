@@ -22,6 +22,7 @@ export default {
 			[DailyQuest.Melt10Darkness]: "淨化10處黑暗腐蝕",
 			[DailyQuest.BowAtAPlayer]: "向一位玩家鞠躬",
 			[DailyQuest.FollowAFriend]: "跟隨一位朋友",
+			[DailyQuest.HugAFriend]: "和朋友擁抱",
 			[DailyQuest.WaveToAFriend]: "向一位朋友招手",
 			[DailyQuest.SendAGiftToAFriend]: "送禮給一位朋友",
 			[DailyQuest.MakeANewAcquaintance]: "交一個新朋友",

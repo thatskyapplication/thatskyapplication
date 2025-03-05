@@ -22,6 +22,7 @@ export default {
 			[DailyQuest.Melt10Darkness]: "Tịnh hóa 10 Bóng Tối",
 			[DailyQuest.BowAtAPlayer]: "Cúi chào mt người chơi",
 			[DailyQuest.FollowAFriend]: "Đi theo một người bạn",
+			[DailyQuest.HugAFriend]: "Ôm một người bạn",
 			[DailyQuest.WaveToAFriend]: "Vẫy tay với một người bạn",
 			[DailyQuest.SendAGiftToAFriend]: "Tặng quà cho một người bạn",
 			[DailyQuest.MakeANewAcquaintance]: "Thêm bạn mới",

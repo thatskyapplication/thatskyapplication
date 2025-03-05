@@ -22,6 +22,7 @@ export default {
 			[DailyQuest.Melt10Darkness]: "Dissipar 10 escuridões",
 			[DailyQuest.BowAtAPlayer]: "Curvar-se perante um jogador",
 			[DailyQuest.FollowAFriend]: "Siga um amigo",
+			[DailyQuest.HugAFriend]: "Abraçar um amigo",
 			[DailyQuest.WaveToAFriend]: "Dar tchau para um amigo",
 			[DailyQuest.SendAGiftToAFriend]: "Enviar um presente para um amigo",
 			[DailyQuest.MakeANewAcquaintance]: "Conhecer alguém novo",
