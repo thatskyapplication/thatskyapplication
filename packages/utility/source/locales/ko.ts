@@ -20,6 +20,7 @@ export default {
 			[DailyQuest.Collect30PiecesOfLight]: "빛 조각 30개 모으기",
 			[DailyQuest.Light20Candles]: "양초 20개에 불을 붙이기",
 			[DailyQuest.ForgeACandle]: "양초 한 개 만들기",
+			[DailyQuest.Melt10Darkness]: "어둠 10개를 녹이기",
 			[DailyQuest.BowAtAPlayer]: "플레이어에게 고개 숙여 인사하기",
 			[DailyQuest.WaveToAFriend]: "친구에게 손 흔들기",
 			[DailyQuest.SendAGiftToAFriend]: "친구에게 선물 보내기",

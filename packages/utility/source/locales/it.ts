@@ -19,6 +19,7 @@ export default {
 			[DailyQuest.Collect30PiecesOfLight]: "Raccogli 30 unità di luce",
 			[DailyQuest.Light20Candles]: "Accendi 20 candele",
 			[DailyQuest.ForgeACandle]: "Forgia una candela",
+			[DailyQuest.Melt10Darkness]: "Fai dissipare 10 tenebre",
 			[DailyQuest.BowAtAPlayer]: "Inchinati ad un giocatore",
 			[DailyQuest.WaveToAFriend]: "Saluta un amico",
 			[DailyQuest.SendAGiftToAFriend]: "Invia un regalo a un amico",

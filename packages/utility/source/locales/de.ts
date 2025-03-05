@@ -19,6 +19,7 @@ export default {
 			[DailyQuest.Collect30PiecesOfLight]: "Sammle 30 Lichtstücke",
 			[DailyQuest.Light20Candles]: "Zünde 20 Kerzen an",
 			[DailyQuest.ForgeACandle]: "Schmiede eine Kerze",
+			[DailyQuest.Melt10Darkness]: "Schmelze 10 Dunkelheit",
 			[DailyQuest.BowAtAPlayer]: "Verbeuge dich vor einem Spieler",
 			[DailyQuest.WaveToAFriend]: "Winke einem Freund zu",
 			[DailyQuest.SendAGiftToAFriend]: "Schicke einem Freund ein Geschenk",

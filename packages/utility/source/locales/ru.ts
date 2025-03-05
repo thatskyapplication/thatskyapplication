@@ -19,6 +19,7 @@ export default {
 			[DailyQuest.Collect30PiecesOfLight]: "Соберите 30 ед. света",
 			[DailyQuest.Light20Candles]: "Зажгите 20 свечей",
 			[DailyQuest.ForgeACandle]: "Изготовьте свечу",
+			[DailyQuest.Melt10Darkness]: "Растопите 10 ед. тьмы",
 			[DailyQuest.BowAtAPlayer]: "Поклонитесь игроку",
 			[DailyQuest.WaveToAFriend]: "Помашите другу",
 			[DailyQuest.SendAGiftToAFriend]: "Отправьте подарок другу",

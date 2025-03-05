@@ -19,6 +19,7 @@ export default {
 			[DailyQuest.Collect30PiecesOfLight]: "Obter 30 fragmentos de luz",
 			[DailyQuest.Light20Candles]: "Acender 20 velas",
 			[DailyQuest.ForgeACandle]: "Confeccionar uma vela",
+			[DailyQuest.Melt10Darkness]: "Dissipar 10 escuridões",
 			[DailyQuest.BowAtAPlayer]: "Curvar-se perante um jogador",
 			[DailyQuest.WaveToAFriend]: "Dar tchau para um amigo",
 			[DailyQuest.SendAGiftToAFriend]: "Enviar um presente para um amigo",
