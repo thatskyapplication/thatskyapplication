@@ -4,25 +4,17 @@ import { Event } from "../../models/event.js";
 import { LINK_REDIRECTOR_URL } from "../../utility/constants.js";
 import { EventId } from "../../utility/event.js";
 
-const eventTicketAmount = [
-	{
-		date: skyDate(2_025, 3, 3),
-		amount: 6,
-	},
-	{
-		date: skyDate(2_025, 3, 4),
-		amount: 6,
-	},
-];
+const eventTicketAmount = [];
 
 for (
-	let start = skyDate(2_025, 3, 5), end = skyDate(2_025, 3, 17);
+	let start = skyDate(2_025, 3, 3), end = skyDate(2_025, 3, 17);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
 	eventTicketAmount.push({
 		date: start,
-		amount: 5,
+		// https://x.com/thatskygame/status/1897100136662360408
+		amount: 6,
 	});
 }
 
