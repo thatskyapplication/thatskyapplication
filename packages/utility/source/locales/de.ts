@@ -21,6 +21,7 @@ export default {
 			[DailyQuest.ForgeACandle]: "Schmiede eine Kerze",
 			[DailyQuest.Melt10Darkness]: "Schmelze 10 Dunkelheit",
 			[DailyQuest.BowAtAPlayer]: "Verbeuge dich vor einem Spieler",
+			[DailyQuest.FollowAFriend]: "Folge einem Freund",
 			[DailyQuest.WaveToAFriend]: "Winke einem Freund zu",
 			[DailyQuest.SendAGiftToAFriend]: "Schicke einem Freund ein Geschenk",
 			[DailyQuest.MakeANewAcquaintance]: "Lerne eine neue Person kennen",

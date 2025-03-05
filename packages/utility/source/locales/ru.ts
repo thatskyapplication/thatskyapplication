@@ -21,6 +21,7 @@ export default {
 			[DailyQuest.ForgeACandle]: "Изготовьте свечу",
 			[DailyQuest.Melt10Darkness]: "Растопите 10 ед. тьмы",
 			[DailyQuest.BowAtAPlayer]: "Поклонитесь игроку",
+			[DailyQuest.FollowAFriend]: "Следуйте за другом",
 			[DailyQuest.WaveToAFriend]: "Помашите другу",
 			[DailyQuest.SendAGiftToAFriend]: "Отправьте подарок другу",
 			[DailyQuest.MakeANewAcquaintance]: "Заведите новое знакомство",

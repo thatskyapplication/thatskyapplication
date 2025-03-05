@@ -20,6 +20,7 @@ export default {
 			[DailyQuest.ForgeACandle]: "หลอมเทียน",
 			[DailyQuest.Melt10Darkness]: "ละลายความมืด 10 อัน",
 			[DailyQuest.BowAtAPlayer]: "คำนับผู้เล่น",
+			[DailyQuest.FollowAFriend]: "ติดตามเพื่อน",
 			[DailyQuest.WaveToAFriend]: "โบกมือให้เพื่อน",
 			[DailyQuest.SendAGiftToAFriend]: "ส่งของขวัญให้เพื่อน",
 			[DailyQuest.MakeANewAcquaintance]: "ผูกมิตรกับคนรู้จักใหม่",

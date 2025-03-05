@@ -22,6 +22,7 @@ export default {
 			[DailyQuest.ForgeACandle]: "キャンドルを精錬する",
 			[DailyQuest.Melt10Darkness]: "蝕む闇を10個 溶かす",
 			[DailyQuest.BowAtAPlayer]: "プレイヤーにお辞儀をする",
+			[DailyQuest.FollowAFriend]: "「フレンドについて行く」機能を使ってみる",
 			[DailyQuest.WaveToAFriend]: "フレンドに手を振る",
 			[DailyQuest.SendAGiftToAFriend]: "フレンドにギフトを贈る",
 			[DailyQuest.MakeANewAcquaintance]: "新たな知り合いを作る",
