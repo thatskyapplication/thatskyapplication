@@ -1280,12 +1280,9 @@ export default {
 				"command-option-shard-eruptions-name": "shard-eruptions",
 				"command-option-shard-eruptions-description":
 					"Whether to include shard eruptions in the calculation.",
-				"minimum-time-eye-of-eden-and-shard-eruptions":
-					"Minimum time derived by assuming all statues in the Eye of Eden were gifted winged light and all shard eruptions were cleansed.",
-				"minimum-time-eye-of-eden":
-					"Minimum time derived by assuming all statues in the Eye of Eden were gifted winged light.",
-				"minimum-time-shard-eruptions":
-					"Minimum time derived by assuming all shard eruptions were cleansed.",
+				"minimum-time-beginning": "Minimum time derived by:",
+				"minimum-time-eye-of-eden": "Eye of Eden statues",
+				"minimum-time-shard-eruptions": "Shard eruptions",
 			},
 			"event-tickets": {
 				"command-name": "event-tickets",

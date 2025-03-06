@@ -2,8 +2,10 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIEmbed,
 	type APIEmbedFooter,
+	ComponentType,
 	Locale,
 	MessageFlags,
+	SeparatorSpacingSize,
 } from "@discordjs/core";
 import {
 	type Event,
@@ -97,49 +99,52 @@ export async function ascendedCandles(
 	}
 
 	const timestamp = day.toUnixInteger();
-	let minimumTimeText: string;
-
-	if (eyeOfEden && shardEruptions) {
-		minimumTimeText = t("calculate.ascended-candles.minimum-time-eye-of-eden-and-shard-eruptions", {
-			lng: Locale.EnglishGB,
-			ns: "commands",
-		});
-	} else if (eyeOfEden) {
-		minimumTimeText = t("calculate.ascended-candles.minimum-time-eye-of-eden", {
-			lng: Locale.EnglishGB,
-			ns: "commands",
-		});
-	} else {
-		minimumTimeText = t("calculate.ascended-candles.minimum-time-shard-eruptions", {
-			lng: Locale.EnglishGB,
-			ns: "commands",
-		});
-	}
 
 	await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
-		embeds: [
+		components: [
 			{
-				color: DEFAULT_EMBED_COLOUR,
-				description: `Start: ${resolveCurrencyEmoji({
-					emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-					number: start,
-				})}\nGoal: ${resolveCurrencyEmoji({
-					emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-					number: goal,
-				})}\nRequired: ${resolveCurrencyEmoji({
-					emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-					number: amountRequired,
-				})}`,
-				fields: [
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: [
 					{
-						name: "Result",
-						value: `This goal is first achievable at <t:${timestamp}:D> (<t:${timestamp}:R>).`,
+						type: ComponentType.TextDisplay,
+						content: "## Ascended Candle Calculator",
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `Start: ${resolveCurrencyEmoji({
+							emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+							number: start,
+						})}\nGoal: ${resolveCurrencyEmoji({
+							emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+							number: goal,
+						})}\nRequired: ${resolveCurrencyEmoji({
+							emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+							number: amountRequired,
+						})}`,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `This goal is first achievable at <t:${timestamp}:D> (<t:${timestamp}:R>).`,
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `${t("calculate.ascended-candles.minimum-time-beginning", { lng: Locale.EnglishGB, ns: "commands" })}\n${eyeOfEden ? formatEmoji(MISCELLANEOUS_EMOJIS.Yes) : formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${t("calculate.ascended-candles.minimum-time-eye-of-eden", { lng: Locale.EnglishGB, ns: "commands" })}\n${shardEruptions ? formatEmoji(MISCELLANEOUS_EMOJIS.Yes) : formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${t("calculate.ascended-candles.minimum-time-shard-eruptions", { lng: Locale.EnglishGB, ns: "commands" })}`,
 					},
 				],
-				footer: { text: minimumTimeText },
-				title: "Ascended Candle Calculator",
 			},
 		],
+		flags: MessageFlags.IsComponentsV2,
 	});
 }
 
