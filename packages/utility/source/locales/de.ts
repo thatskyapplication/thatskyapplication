@@ -317,6 +317,8 @@ export default {
 				"Hilf der Kicher-Kanonierin oder dem Kichernden Pfadfinder dabei, einen Schatz auf den Zufluchtsinseln zu finden",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
 				"Hilf dem Stümperhaften Schiffsjungen oder dem Zusammenbauhelfer dabei, einen Schatz im Verborgenen Wald zu finden",
+			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
+				"Hilf dem Kommando-Kapitän oder dem Tagträumenden Förster dabei, einen Schatz im Dorf der Träume zu finden",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison der Dankbarkeit",

@@ -309,6 +309,8 @@ export default {
 				"Help Cackling Cannoneer or Chuckling Scout find treasure in Sanctuary Islands",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
 				"Help the Bumbling Boatswain or the Assembly Guide find treasure in Hidden Forest",
+			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
+				"Help Ceasing Commodore or Daydream Forester find treasure in Village of Dreams",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",

@@ -314,6 +314,8 @@ export default {
 				"Ajude a Canhoneira Sorridente ou o Batedor Risonho a encontrar tesouros nas Ilhas do Santuário",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
 				"Ajude o Contramestre Trapalhão ou o Guia da União a encontrar tesouros na Floresta Oculta",
+			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
+				"Ajude o Comodoro Abandonado ou o Silvicultor Sonhador a encontrar tesouros na Aldeia dos Sonhos",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Temporada da Gratidão",

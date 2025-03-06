@@ -320,6 +320,8 @@ export default {
 				"Aiuta la Cannoniera sghignazzante o lo Scout sghignazzante a trovare il tesoro nell'Arcipelago Paradiso",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
 				"Aiuta il Nostromo goffo o la guida della Costruzione a trovare il tesoro nella Foresta Nascosta",
+			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
+				"Aiuta il Commodoro autorevole o il Guardaboschi sognante a trovare il tesoro nel Villaggio dei Sogni",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Stagione della Gratitudine",

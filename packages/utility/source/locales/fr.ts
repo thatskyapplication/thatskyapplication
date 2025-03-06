@@ -343,6 +343,8 @@ export default {
 				"Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors sur les Îles du Sanctuaire",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
 				"Aidez le Maître d'équipage maladroit ou le Guide du Rassemblement à trouver des trésors dans la Forêt cachée",
+			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
+				"Aidez le Commodore commandant ou le Forestier rêveur à trouver des trésors dans le Village des Rêves",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison de la gratitude",

@@ -274,6 +274,8 @@ export default {
 				"낙원의 섬에서 낄낄 웃는 포수 또는 키득거리는 스카우트가 보물을 찾는 걸 도와주세요",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
 				"비밀의 숲에서 우왕좌왕 갑판장 또는 협력의 안내자가 보물을 찾는 걸 돕기",
+			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
+				"꿈의 마을에서 위풍당당 선장 또는 몽상하는 숲지기가 보물을 찾는 걸 도와주세요",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "감사의 시즌",

@@ -204,6 +204,8 @@ export default {
 				"帮助嬉笑炮手或傻笑童子军在圣域群岛寻宝",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
 				"帮助笨拙水手或重组向导在雨林寻宝",
+			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
+				"帮助威严舰长或白日梦森林人在圆梦村寻宝",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "感恩季",

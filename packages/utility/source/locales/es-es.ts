@@ -327,6 +327,8 @@ export default {
 				"Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en las Islas Santuario",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
 				"Ayuda al Contramaestre torpe o al Guía del Ensamblaje a buscar tesoros en el Bosque Escondido",
+			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
+				"Ayuda al Capitán de navío cesante o al Guardabosques soñador a buscar tesoros en la Aldea de los Sueños",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Temporada de la gratitud",

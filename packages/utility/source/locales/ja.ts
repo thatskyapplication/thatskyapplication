@@ -230,6 +230,8 @@ export default {
 				"楽園で宝を探す豪快に笑う砲手または含み笑いのスカウトを手伝いましょう",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
 				"雨林で宝を探すおっちょこちょいな水夫長または大樹の案内人を手伝いましょう",
+			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
+				"夢見の町で宝を探す動じない提督または夢見がちな森の民を手伝いましょう",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "感謝の季節",

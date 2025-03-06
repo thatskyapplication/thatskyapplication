@@ -300,6 +300,8 @@ export default {
 				"Помогите Хохотушке с пушкой или Хихикающему скауту найти сокровище на Островах укрытия",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
 				"Помогите Нерадивому боцману или Проводнику Сезона собрания найти сокровище в Тайном лесу",
+			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
+				"Помогите Командору-начальнику или Мечтательному лесовичку найти сокровище в Деревушке мечтаний",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Сезон благодарности",
