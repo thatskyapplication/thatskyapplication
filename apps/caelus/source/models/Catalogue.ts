@@ -19,6 +19,7 @@ import {
 	type Locale,
 	MessageFlags,
 	PermissionFlagsBits,
+	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
 import {
@@ -461,87 +462,107 @@ export class Catalogue {
 		}
 
 		const response: Parameters<InteractionsAPI["reply"]>[2] = {
-			content: "",
 			components: [
 				{
-					type: ComponentType.ActionRow,
+					type: ComponentType.Container,
+					accent_color: DEFAULT_EMBED_COLOUR,
 					components: [
 						{
-							type: ComponentType.StringSelect,
-							custom_id: CATALOGUE_VIEW_TYPE_CUSTOM_ID,
-							max_values: 1,
-							min_values: 0,
-							options: [
+							type: ComponentType.TextDisplay,
+							content: "## Catalogue",
+						},
+						{
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.TextDisplay,
+							content: `Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.\n\nTotal Progress: ${catalogue.allProgress(true)}%`,
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
 								{
-									label: `Standard Spirits${standardProgress === null ? "" : ` (${standardProgress}%)`}`,
-									value: String(CatalogueType.StandardSpirits),
-								},
-								{
-									label: `Elders${elderProgress === null ? "" : ` (${elderProgress}%)`}`,
-									value: String(CatalogueType.Elders),
-								},
-								{
-									label: `Seasons${seasonalProgress === null ? "" : ` (${seasonalProgress}%)`}`,
-									value: String(CatalogueType.SeasonalSpirits),
-								},
-								{
-									label: `Events${eventProgress === null ? "" : ` (${eventProgress}%)`}`,
-									value: String(CatalogueType.Events),
-								},
-								{
-									label: `Starter Packs${starterPackProgress === null ? "" : ` (${starterPackProgress}%)`}`,
-									value: String(CatalogueType.StarterPacks),
-								},
-								{
-									label: `Secret Area${secretAreaProgress === null ? "" : ` (${secretAreaProgress}%)`}`,
-									value: String(CatalogueType.SecretArea),
-								},
-								{
-									label: `Permanent Event Store${
-										permanentEventStoreProgress === null ? "" : ` (${permanentEventStoreProgress}%)`
-									}`,
-									value: String(CatalogueType.PermanentEventStore),
-								},
-								{
-									label: `Nesting Workshop${
-										nestingWorkshopProgress === null ? "" : ` (${nestingWorkshopProgress}%)`
-									}`,
-									value: String(CatalogueType.NestingWorkshop),
+									type: ComponentType.StringSelect,
+									custom_id: CATALOGUE_VIEW_TYPE_CUSTOM_ID,
+									max_values: 1,
+									min_values: 0,
+									options: [
+										{
+											label: `Standard Spirits${standardProgress === null ? "" : ` (${standardProgress}%)`}`,
+											value: String(CatalogueType.StandardSpirits),
+										},
+										{
+											label: `Elders${elderProgress === null ? "" : ` (${elderProgress}%)`}`,
+											value: String(CatalogueType.Elders),
+										},
+										{
+											label: `Seasons${seasonalProgress === null ? "" : ` (${seasonalProgress}%)`}`,
+											value: String(CatalogueType.SeasonalSpirits),
+										},
+										{
+											label: `Events${eventProgress === null ? "" : ` (${eventProgress}%)`}`,
+											value: String(CatalogueType.Events),
+										},
+										{
+											label: `Starter Packs${starterPackProgress === null ? "" : ` (${starterPackProgress}%)`}`,
+											value: String(CatalogueType.StarterPacks),
+										},
+										{
+											label: `Secret Area${secretAreaProgress === null ? "" : ` (${secretAreaProgress}%)`}`,
+											value: String(CatalogueType.SecretArea),
+										},
+										{
+											label: `Permanent Event Store${
+												permanentEventStoreProgress === null
+													? ""
+													: ` (${permanentEventStoreProgress}%)`
+											}`,
+											value: String(CatalogueType.PermanentEventStore),
+										},
+										{
+											label: `Nesting Workshop${
+												nestingWorkshopProgress === null ? "" : ` (${nestingWorkshopProgress}%)`
+											}`,
+											value: String(CatalogueType.NestingWorkshop),
+										},
+									],
+									placeholder: "What do you want to see?",
 								},
 							],
-							placeholder: "What do you want to see?",
 						},
-					],
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [backToStartButton(true)],
-				},
-				{
-					type: ComponentType.ActionRow,
-					// Limit the potential current event buttons to 4 to not exceed the limit.
-					components: [currentSeasonButton, ...currentEventButtons.slice(0, 4)],
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [currentTravellingSpiritButton, currentReturningSpiritsButton],
-				},
-			],
-			embeds: [
-				{
-					color: DEFAULT_EMBED_COLOUR,
-					description:
-						"Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.",
-					fields: [
 						{
-							name: "Total Progress",
-							value: `${catalogue.allProgress(true)}%`,
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.TextDisplay,
+							content: "### Quick access",
+						},
+						{
+							type: ComponentType.ActionRow,
+							// Limit the potential current event buttons to 4 to not exceed the limit.
+							components: [currentSeasonButton, ...currentEventButtons.slice(0, 4)],
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [currentTravellingSpiritButton, currentReturningSpiritsButton],
+						},
+						{
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [backToStartButton(true)],
 						},
 					],
-					title: "Catalogue",
 				},
 			],
-			flags: MessageFlags.Ephemeral,
+			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 		};
 
 		if (isChatInputCommand(interaction)) {
