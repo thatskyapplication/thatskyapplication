@@ -1,5 +1,6 @@
 import {
 	type APIChatInputApplicationCommandInteraction,
+	type APIComponentInContainer,
 	type APIEmbed,
 	ComponentType,
 	Locale,
@@ -290,9 +291,17 @@ export async function seasonalCandles(
 
 	const today = skyToday();
 	const season = skyCurrentSeason(today);
-	const emoji = season
-		? SeasonIdToSeasonalCandleEmoji[season.id]
-		: MISCELLANEOUS_EMOJIS.SeasonalCandle;
+
+	if (!season) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: t("calculate.seasonal-candles.no-season", { lng: locale, ns: "commands" }),
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	const emoji = SeasonIdToSeasonalCandleEmoji[season.id];
 	const amountRequired = goal - start;
 	let result = 0;
 	let days = 0;
@@ -315,86 +324,82 @@ export async function seasonalCandles(
 		}
 	}
 
-	const embed: APIEmbed = {
-		color: DEFAULT_EMBED_COLOUR,
-		description: `${t("calculate.seasonal-candles.start", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji(
-			{
-				emoji,
-				number: start,
-			},
-		)}\n${t("calculate.seasonal-candles.goal", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji(
-			{
-				emoji,
-				number: goal,
-			},
-		)}\n${t("calculate.seasonal-candles.required", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji(
-			{
-				emoji,
-				number: amountRequired,
-			},
-		)}`,
-		title: t("calculate.seasonal-candles.seasonal-candle-calculator", {
-			lng: locale,
-			ns: "commands",
-		}),
-	};
+	const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
+		season.remainingSeasonalCandles(today);
 
-	const fields = [
+	const containerComponents: APIComponentInContainer[] = [
 		{
-			name: t("calculate.seasonal-candles.result", { lng: locale, ns: "commands" }),
-			value: `${t("calculate.seasonal-candles.day", { lng: locale, ns: "commands", count: days })}${
-				days === daysWithSeasonPass
-					? ""
-					: ` ${t("calculate.seasonal-candles.day-season-pass", {
-							lng: locale,
-							ns: "commands",
-							count: daysWithSeasonPass,
-						})}`
-			}`,
+			type: ComponentType.TextDisplay,
+			content: `## ${t("calculate.seasonal-candles.seasonal-candle-calculator", { lng: locale, ns: "commands" })}`,
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Thumbnail,
+				media: {
+					url: formatEmojiURL(SeasonIdToSeasonalEmoji[season.id].id),
+				},
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `${t("calculate.seasonal-candles.start", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji({ emoji, number: start })}\n${t("calculate.seasonal-candles.goal", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji({ emoji, number: goal })}\n${t("calculate.seasonal-candles.required", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji({ emoji, number: amountRequired })}`,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: `${t("calculate.seasonal-candles.day", { lng: locale, ns: "commands", count: days })}${days === daysWithSeasonPass ? "" : ` ${t("calculate.seasonal-candles.day-season-pass", { lng: locale, ns: "commands", count: daysWithSeasonPass })}`}`,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: `${resolveCurrencyEmoji({
+						emoji,
+						number: seasonalCandlesLeft,
+					})} ${t("calculate.seasonal-candles.remain-in-the-season", { lng: locale, ns: "commands" })}\n${resolveCurrencyEmoji(
+						{
+							emoji,
+							number: seasonalCandlesLeftWithSeasonPass,
+						},
+					)} ${t("calculate.seasonal-candles.remain-in-the-season-with-a-season-pass", { lng: locale, ns: "commands" })}`,
+				},
+			],
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
 		},
 	];
 
-	if (season) {
-		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
-			season.remainingSeasonalCandles(today);
-
-		fields.push({
-			name: t("calculate.seasonal-candles.season-calculations", { lng: locale, ns: "commands" }),
-			value: `${resolveCurrencyEmoji({
-				emoji,
-				number: seasonalCandlesLeft,
-			})} ${t("calculate.seasonal-candles.remain-in-the-season", { lng: locale, ns: "commands" })}\n${resolveCurrencyEmoji(
-				{
-					emoji,
-					number: seasonalCandlesLeftWithSeasonPass,
-				},
-			)} ${t("calculate.seasonal-candles.remain-in-the-season-with-a-season-pass", { lng: locale, ns: "commands" })}`,
-		});
-
-		const daysLeft = t("days-left.season", {
-			lng: locale,
-			ns: "general",
-			count: season.end.diff(today, "days").days - 1,
-		});
-
-		embed.footer = {
-			icon_url: formatEmojiURL(SeasonIdToSeasonalEmoji[season.id].id),
-			text: daysLeft,
-		};
-	}
-
 	if (includedDoubleLight) {
-		fields.push({
-			name: t("calculate.seasonal-candles.notes", { lng: locale, ns: "commands" }),
-			value: `${t("calculate.seasonal-candles.double-seasonal-light-calculation", {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `${t("calculate.seasonal-candles.double-seasonal-light-calculation", {
 				lng: locale,
 				ns: "commands",
 			})}\n<t:${season!.doubleSeasonalLightEventStartDate!.toUnixInteger()}:d> - <t:${season!.doubleSeasonalLightEventEndDate!.toUnixInteger()}:d>`,
 		});
 	}
 
-	embed.fields = fields;
-	await client.api.interactions.reply(interaction.id, interaction.token, { embeds: [embed] });
+	containerComponents.push({
+		type: ComponentType.TextDisplay,
+		content: `${t("days-left.season", { lng: locale, ns: "general", count: season.end.diff(today, "days").days - 1 })}`,
+	});
+
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: containerComponents,
+			},
+		],
+		flags: MessageFlags.IsComponentsV2,
+	});
 }
 
 export async function wingedLight(
