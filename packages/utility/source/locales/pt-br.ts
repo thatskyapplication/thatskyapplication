@@ -285,16 +285,16 @@ export default {
 			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]:
 				"Tire uma selfie com o Cumprimentador da Trupe nos Picos da Campina",
 			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
-				"Encontre Cinnamoroll em uma colina na Aldeia Aviária.",
+				"Encontre Cinnamoroll em uma colina na Aldeia Aviária",
 			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
-				"Cheire flores com o Cinnamoroll na Aldeia Aviária.",
+				"Cheire flores com o Cinnamoroll na Aldeia Aviária",
 			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
-				"Encontre Cinnamoroll explorand a Aldeia Aviária.",
-			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Acorde Cinnamoroll na Aldeia Aviária.",
+				"Encontre Cinnamoroll explorand a Aldeia Aviária",
+			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Acorde Cinnamoroll na Aldeia Aviária",
 			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
-				"Voe até a torre com Cinnamoroll na Aldeia Aviária.",
+				"Voe até a torre com Cinnamoroll na Aldeia Aviária",
 			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
-				"Pule na água com Cinnamoroll na Aldeia Aviária.",
+				"Pule na água com Cinnamoroll na Aldeia Aviária",
 			[DailyQuest.PlayAnyTournamentSport]: "Jogue qualquer esporte do torneio",
 			[DailyQuest.ChangeYourHairstyle]: "Trocar de corte de cabelo",
 			[DailyQuest.ChangeYourNecklace]: "Troque o colar",
@@ -311,9 +311,9 @@ export default {
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Encontre-se com Pioneiro de esconde-esconde em Cemitério",
 			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
-				"Ajude a Canhoneira Sorridente ou o <1>Batedor Risonho</1> a encontrar tesouros nas Ilhas do Santuário",
+				"Ajude a Canhoneira Sorridente ou o Batedor Risonho a encontrar tesouros nas Ilhas do Santuário",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
-				"Ajude o Contramestre Trapalhão ou o <1>Guia da União</1> a encontrar tesouros na Floresta Oculta",
+				"Ajude o Contramestre Trapalhão ou o Guia da União a encontrar tesouros na Floresta Oculta",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Temporada da Gratidão",

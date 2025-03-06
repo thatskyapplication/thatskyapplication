@@ -272,16 +272,16 @@ export default {
 			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]:
 				"Сделать селфи с Зазывалой из труппы в Степных вершинах",
 			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
-				"Встретьтесь с Синаморолом на холме Птичьей деревни.",
+				"Встретьтесь с Синаморолом на холме Птичьей деревни",
 			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
-				"Вместе с Синаморолом насладитесь ароматом цветов в Птичьей деревне.",
+				"Вместе с Синаморолом насладитесь ароматом цветов в Птичьей деревне",
 			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
-				"Найдите Синаморола, который гуляет по Птичьей деревне.",
-			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Разбудите Синаморола в Птичьей деревне.",
+				"Найдите Синаморола, который гуляет по Птичьей деревне",
+			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Разбудите Синаморола в Птичьей деревне",
 			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
-				"Вместе с Синаморолом взлетите на колокольню Птичьей деревни.",
+				"Вместе с Синаморолом взлетите на колокольню Птичьей деревни",
 			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
-				"Отправляйтесь плескаться вместе с Синаморолом в Птичьей деревне.",
+				"Отправляйтесь плескаться вместе с Синаморолом в Птичьей деревне",
 			[DailyQuest.PlayAnyTournamentSport]: "Поучаствуйте в любом турнире",
 			[DailyQuest.ChangeYourHairstyle]: "Смените прическу",
 			[DailyQuest.ChangeYourNecklace]: "Смените ожерелье",
@@ -297,9 +297,9 @@ export default {
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Соберите команду из игроков (Первопроходец (прятки)) в месте Могильник",
 			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
-				"Помогите Хохотушке с пушкой или <1>Хихикающему скауту</1> найти сокровище на Островах укрытия.",
+				"Помогите Хохотушке с пушкой или Хихикающему скауту найти сокровище на Островах укрытия",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
-				"Помогите Нерадивому боцману или <1>Проводнику Сезона собрания</1> найти сокровище в Тайном лесу.",
+				"Помогите Нерадивому боцману или Проводнику Сезона собрания найти сокровище в Тайном лесу",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Сезон благодарности",

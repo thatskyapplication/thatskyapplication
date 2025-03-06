@@ -278,7 +278,7 @@ export default {
 			[DailyQuest.ReliveTheDaydreamForester]:
 				"Erlebe erneut die Erinnerung des Tagträumenden Försters vom Verborgenen Wald",
 			[DailyQuest.VisitAShardOfDarknessFallenToTheKingdomOfSky]:
-				"Besuche eine Scherbe der Finsternis, die in das Königreich von Sky gefallen ist.",
+				"Besuche eine Scherbe der Finsternis, die in das Königreich von Sky gefallen ist",
 			[DailyQuest.TakeASelfieWithHikingGrouchInPrairiePeaks]:
 				"Mache ein Selfie mit dem Wandernden Griesgram auf dem Präriegipfel",
 			[DailyQuest.TakeASelfieWithCrabWhispererInPrairiePeaks]:
@@ -288,16 +288,16 @@ export default {
 			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]:
 				"Mache ein Selfie mit dem Zirkusbegrüßer auf dem Präriegipfel",
 			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
-				"Triff Cinnamoroll auf einem Hügel im Volieren-Dorf.",
+				"Triff Cinnamoroll auf einem Hügel im Volieren-Dorf",
 			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
-				"Rieche an Blumen mit Cinnamoroll im Volieren-Dorf.",
+				"Rieche an Blumen mit Cinnamoroll im Volieren-Dorf",
 			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
-				"Finde Cinnamoroll, während er sich im Volieren-Dorf umsieht.",
-			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Wecke Cinnamoroll im Volieren-Dorf auf.",
+				"Finde Cinnamoroll, während er sich im Volieren-Dorf umsieht",
+			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Wecke Cinnamoroll im Volieren-Dorf auf",
 			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
-				"Fliege mit Cinnamoroll zum Turm im Volieren-Dorf.",
+				"Fliege mit Cinnamoroll zum Turm im Volieren-Dorf",
 			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
-				"Plansche im Wasser mit Cinnamoroll im Volieren-Dorf.",
+				"Plansche im Wasser mit Cinnamoroll im Volieren-Dorf",
 			[DailyQuest.PlayAnyTournamentSport]: "Spiele einen beliebigen Turniersport",
 			[DailyQuest.ChangeYourHairstyle]: "Ändere deine Frisur",
 			[DailyQuest.ChangeYourNecklace]: "Ändere deine Halskette",
@@ -314,9 +314,9 @@ export default {
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Triff dich mit Versteckspiel-Pionier in Friedhof im Wald",
 			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
-				"Hilf der Kicher-Kanonierin oder dem <1>Kichernden Pfadfinder</1> dabei, einen Schatz auf den Zufluchtsinseln zu finden",
+				"Hilf der Kicher-Kanonierin oder dem Kichernden Pfadfinder dabei, einen Schatz auf den Zufluchtsinseln zu finden",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
-				"Hilf dem Stümperhaften Schiffsjungen oder dem <1>Zusammenbauhelfer</1> dabei, einen Schatz im Verborgenen Wald zu finden",
+				"Hilf dem Stümperhaften Schiffsjungen oder dem Zusammenbauhelfer dabei, einen Schatz im Verborgenen Wald zu finden",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison der Dankbarkeit",

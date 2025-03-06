@@ -225,9 +225,9 @@ export default {
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: "เล่นหยอกล้อกับพลเรือผู้ผ่อนปรน",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: "พบกับ ผู้บุกเบิกเกมซ่อนหา ใน ทุ่งกระดูก",
 			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
-				"ช่วยพลปืนใหญ่ผู้ขบขัน หรือ<1>ผู้สอดแนมแอบหัวเราะ</1>ค้นหาสมบัติในผู้สอดแนมแอบหัวเราะ",
+				"ช่วยพลปืนใหญ่ผู้ขบขัน หรือผู้สอดแนมแอบหัวเราะค้นหาสมบัติในผู้สอดแนมแอบหัวเราะ",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
-				"ช่วยนักพายเรือบ่นพึมพำ หรือ<1>ผู้แนะนำการชุมนุม</1>ค้นหาสมบัติในป่าลับ",
+				"ช่วยนักพายเรือบ่นพึมพำ หรือผู้แนะนำการชุมนุมค้นหาสมบัติในป่าลับ",
 		},
 		seasons: {
 			[SeasonId.Moomin]: "ฤดูกาลแห่งมูมิน",

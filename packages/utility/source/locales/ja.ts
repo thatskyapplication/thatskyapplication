@@ -227,9 +227,9 @@ export default {
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"かくれんぼ提唱者に雨林の墓場で会いましょう",
 			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
-				"楽園で宝を探す豪快に笑う砲手または<1>含み笑いのスカウト</1>を手伝いましょう",
+				"楽園で宝を探す豪快に笑う砲手または含み笑いのスカウトを手伝いましょう",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
-				"雨林で宝を探すおっちょこちょいな水夫長または<1>大樹の案内人</1>を手伝いましょう",
+				"雨林で宝を探すおっちょこちょいな水夫長または大樹の案内人を手伝いましょう",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "感謝の季節",

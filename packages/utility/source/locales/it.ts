@@ -290,17 +290,17 @@ export default {
 			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]:
 				"Fai un selfie con il Presentatore della troupe sulle Vette della Prateria",
 			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
-				"Incontra Cinnamoroll su una collina nel Villaggio degli Uccelli.",
+				"Incontra Cinnamoroll su una collina nel Villaggio degli Uccelli",
 			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
-				"Annusa i fiori con Cinnamoroll nel Villaggio degli Uccelli.",
+				"Annusa i fiori con Cinnamoroll nel Villaggio degli Uccelli",
 			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
-				"Trova Cinnamoroll che gironzola nel Villaggio degli Uccelli.",
+				"Trova Cinnamoroll che gironzola nel Villaggio degli Uccelli",
 			[DailyQuest.WakeUpCinnamorollInAviaryVillage]:
-				"Sveglia Cinnamoroll nel Villaggio degli Uccelli.",
+				"Sveglia Cinnamoroll nel Villaggio degli Uccelli",
 			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
-				"Vola sulla torre con Cinnamoroll nel Villaggio degli Uccelli.",
+				"Vola sulla torre con Cinnamoroll nel Villaggio degli Uccelli",
 			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
-				"Tuffati nell'acqua con Cinnamoroll nel Villaggio degli Uccelli.",
+				"Tuffati nell'acqua con Cinnamoroll nel Villaggio degli Uccelli",
 			[DailyQuest.PlayAnyTournamentSport]: "Partecipa a uno sport del Torneo",
 			[DailyQuest.ChangeYourHairstyle]: "Cambia acconciatura",
 			[DailyQuest.ChangeYourNecklace]: "Cambia collana",
@@ -317,9 +317,9 @@ export default {
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Incontra Pioniere nascosto presso Cimitero",
 			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
-				"Aiuta la Cannoniera sghignazzante o lo <1>Scout sghignazzante</1> a trovare il tesoro nell'Arcipelago Paradiso",
+				"Aiuta la Cannoniera sghignazzante o lo Scout sghignazzante a trovare il tesoro nell'Arcipelago Paradiso",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
-				"Aiuta il Nostromo goffo o la <1>guida della Costruzione</1> a trovare il tesoro nella Foresta Nascosta",
+				"Aiuta il Nostromo goffo o la guida della Costruzione a trovare il tesoro nella Foresta Nascosta",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Stagione della Gratitudine",

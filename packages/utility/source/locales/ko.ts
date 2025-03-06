@@ -271,9 +271,9 @@ export default {
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: "위풍당당 선장에게 장난을 치기",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: "뼈 무덤에서 숨바꼭질 개척자와(과) 만나기",
 			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
-				"낙원의 섬에서 낄낄 웃는 포수 또는 <1>키득거리는 스카우트</1>가 보물을 찾는 걸 도와주세요",
+				"낙원의 섬에서 낄낄 웃는 포수 또는 키득거리는 스카우트가 보물을 찾는 걸 도와주세요",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
-				"비밀의 숲에서 우왕좌왕 갑판장 또는 <1>협력의 안내자</1>가 보물을 찾는 걸 돕기",
+				"비밀의 숲에서 우왕좌왕 갑판장 또는 협력의 안내자가 보물을 찾는 걸 돕기",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "감사의 시즌",

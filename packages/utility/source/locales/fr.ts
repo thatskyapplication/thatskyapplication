@@ -313,17 +313,17 @@ export default {
 			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]:
 				"Prenez un selfie avec l'hôte de troupe dans les pics de la Prairie",
 			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
-				"Rencontrez Cinnamoroll sur une colline du village volière.",
+				"Rencontrez Cinnamoroll sur une colline du village volière",
 			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
-				"Sentez les fleurs avec Cinnamoroll au village volière.",
+				"Sentez les fleurs avec Cinnamoroll au village volière",
 			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
-				"Trouvez Cinnamoroll quelque part dans le village volière.",
+				"Trouvez Cinnamoroll quelque part dans le village volière",
 			[DailyQuest.WakeUpCinnamorollInAviaryVillage]:
-				"Réveillez Cinnamoroll dans le village volière.",
+				"Réveillez Cinnamoroll dans le village volière",
 			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
-				"Volez jusqu'au clocher avec Cinnamoroll au village volière.",
+				"Volez jusqu'au clocher avec Cinnamoroll au village volière",
 			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
-				"Plongez dans l'eau avec Cinnamoroll au village volière.",
+				"Plongez dans l'eau avec Cinnamoroll au village volière",
 			[DailyQuest.PlayAnyTournamentSport]: "Participez à n'importe quel tournoi sportif",
 			[DailyQuest.ChangeYourHairstyle]: "Changez de coupe de cheveux",
 			[DailyQuest.ChangeYourNecklace]: "Changez de collier",
@@ -340,9 +340,9 @@ export default {
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Retrouvez Pionnier du cache-cache à Cimetière de la Forêt",
 			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
-				"Aidez la Canonnière caquetante ou le <1>Scout ricanant</1> à trouver des trésors sur les Îles du Sanctuaire.",
+				"Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors sur les Îles du Sanctuaire",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
-				"Aidez le Maître d'équipage maladroit ou le <1>Guide du Rassemblement</1> à trouver des trésors dans la Forêt cachée.",
+				"Aidez le Maître d'équipage maladroit ou le Guide du Rassemblement à trouver des trésors dans la Forêt cachée",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison de la gratitude",

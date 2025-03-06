@@ -287,16 +287,16 @@ export default {
 			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]:
 				"Tự chụp hình với Nhân Viên Đón Khách ở Đỉnh Thảo Nguyên",
 			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
-				"Gặp gỡ Cinnamoroll trên một ngọn đồi ở Làng Chuồng Chim.",
+				"Gặp gỡ Cinnamoroll trên một ngọn đồi ở Làng Chuồng Chim",
 			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
-				"Thưởng thức hương hoa cùng Cinnamoroll ở Làng Chuồng Chim.",
+				"Thưởng thức hương hoa cùng Cinnamoroll ở Làng Chuồng Chim",
 			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
-				"Tìm Cinnamoroll đang ẩn quanh Làng Chuồng Chim.",
-			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Đánh thức Cinnamoroll ở Làng Chuồng Chim.",
+				"Tìm Cinnamoroll đang ẩn quanh Làng Chuồng Chim",
+			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Đánh thức Cinnamoroll ở Làng Chuồng Chim",
 			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
-				"Bay lên tòa tháp cùng Cinnamoroll ở Làng Chuồng Chim.",
+				"Bay lên tòa tháp cùng Cinnamoroll ở Làng Chuồng Chim",
 			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
-				"Hãy té nước cùng Cinnamoroll tại Làng Chuồng Chim.",
+				"Hãy té nước cùng Cinnamoroll tại Làng Chuồng Chim",
 			[DailyQuest.PlayAnyTournamentSport]: "Tham gia bất kỳ trò chơi nào trong Giải đấu",
 			[DailyQuest.ChangeYourHairstyle]: "Thay kiểu tóc",
 			[DailyQuest.ChangeYourNecklace]: "Thay đổi vòng cổ của bạn",
@@ -313,9 +313,9 @@ export default {
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Gặp gỡ Người Khai Hoang Trốn Tìm trong Nghĩa Địa",
 			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
-				"Giúp Xạ Thủ Vui Nhộn hoặc <1>Hướng Đạo Sinh Khúc Khích</1> tìm kho báu tại Quần Đảo Thánh Địa",
+				"Giúp Xạ Thủ Vui Nhộn hoặc Hướng Đạo Sinh Khúc Khích tìm kho báu tại Quần Đảo Thánh Địa",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
-				"Giúp Thủy Thủ Hậu Đậu hoặc <1>Người Dẫn Đoàn</1> tìm kho báu tại Rừng Mưa.",
+				"Giúp Thủy Thủ Hậu Đậu hoặc Người Dẫn Đoàn tìm kho báu tại Rừng Mưa",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Mùa Tri Ân",

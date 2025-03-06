@@ -180,14 +180,14 @@ export default {
 			[DailyQuest.TakeASelfieWithCrabWhispererInPrairiePeaks]: "和蟹語者在雲野峻嶺自拍",
 			[DailyQuest.TakeASelfieWithCacklingCannoneerInPrairiePeaks]: "和嘎嘎大笑的炮手在雲野峻嶺自拍",
 			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]: "和迎賓侍者在雲野峻嶺自拍",
-			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]: "在雲巢的山丘上與 大耳狗喜拿 見面。",
-			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]: "在雲巢與 大耳狗喜拿 一起聞花香。",
-			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]: "在雲巢找到躲在角落的 大耳狗喜拿。",
-			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "在雲巢叫醒 大耳狗喜拿。",
+			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]: "在雲巢的山丘上與大耳狗喜拿見面。",
+			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]: "在雲巢與大耳狗喜拿一起聞花香。",
+			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]: "在雲巢找到躲在角落的大耳狗喜拿。",
+			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "在雲巢叫醒大耳狗喜拿。",
 			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
-				"與 大耳狗喜拿 一起飛到雲巢的塔上。",
+				"與大耳狗喜拿一起飛到雲巢的塔上。",
 			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
-				"在雲巢與 大耳狗喜拿 一起在水中嬉戲。",
+				"在雲巢與大耳狗喜拿一起在水中嬉戲。",
 			[DailyQuest.PlayAnyTournamentSport]: "參加任何一項錦標賽事",
 			[DailyQuest.ChangeYourHairstyle]: "更換你的髮型",
 			[DailyQuest.ChangeYourNecklace]: "更換你的項鍊",
@@ -200,9 +200,9 @@ export default {
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: "捉弄一下威嚴的艦長",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: "與躲貓貓拓荒者在埋骨之地見面",
 			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
-				"幫助嘎嘎大笑的炮手或<1>傻笑童子軍</1>在聖域群島尋找寶藏",
+				"幫助嘎嘎大笑的炮手或傻笑童子軍在聖域群島尋找寶藏",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
-				"幫助笨拙的水手長或<1>重組嚮導</1>在雨林尋寶",
+				"幫助笨拙的水手長或重組嚮導在雨林尋寶",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "感恩季",

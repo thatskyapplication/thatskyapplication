@@ -136,7 +136,7 @@ export default {
 				"Corre cuesta abajo de la montaña con la patinadora en el Valle del Ermitaño",
 			[DailyQuest.RehearseForAPerformanceWithTheSkater]:
 				"Ensaya para una presentación con la patinadora en el coliseo",
-			[DailyQuest.CompleteTheHoopScavengerHunt]: "Completa la búsqueda del tesoro del aro</b>",
+			[DailyQuest.CompleteTheHoopScavengerHunt]: "Completa la búsqueda del tesoro del aro",
 			[DailyQuest.ReliveTheButterflyCharmer]:
 				"Revive el recuerdo del Encantador de mariposas de la Planicie Luz de Día",
 			[DailyQuest.ReliveTheApplaudingBellmaker]:
@@ -298,16 +298,16 @@ export default {
 			[DailyQuest.TakeASelfieWithTroupeGreeterInPrairiePeaks]:
 				"Tómate una selfi con el saludador de la compañía en las cumbres de la planicie",
 			[DailyQuest.MeetCinnamorollOnAHillInAviaryVillage]:
-				"Busca a Cinnamoroll en una colina de la aldea aviaria.",
+				"Busca a Cinnamoroll en una colina de la aldea aviaria",
 			[DailyQuest.SmellFlowersWithCinnamorollInAviaryVillage]:
-				"Huele flores con Cinnamoroll en la aldea aviaria.",
+				"Huele flores con Cinnamoroll en la aldea aviaria",
 			[DailyQuest.FindCinnamorollPeekingAroundAviaryVillage]:
-				"Busca a Cinnamoroll en la aldea aviaria.",
-			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Despierta a Cinnamoroll en la aldea aviaria.",
+				"Busca a Cinnamoroll en la aldea aviaria",
+			[DailyQuest.WakeUpCinnamorollInAviaryVillage]: "Despierta a Cinnamoroll en la aldea aviaria",
 			[DailyQuest.FlyUpToTheTowerWithCinnamorollInAviaryVillage]:
-				"Vuela hasta la torre con Cinnamoroll en la aldea aviaria.",
+				"Vuela hasta la torre con Cinnamoroll en la aldea aviaria",
 			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
-				"Chapotea en el agua con Cinnamoroll en la aldea aviaria.",
+				"Chapotea en el agua con Cinnamoroll en la aldea aviaria",
 			[DailyQuest.PlayAnyTournamentSport]: "Juega a cualquier deporte del torneo",
 			[DailyQuest.ChangeYourHairstyle]: "Cambia tu peinado",
 			[DailyQuest.ChangeYourNecklace]: "Cambia de collar",
@@ -324,9 +324,9 @@ export default {
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]:
 				"Reúnete con Pionero de las escondidas en Deshuesadero",
 			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
-				"Ayuda al Cañonero tentado o al <1>Explorador risueño</1> a buscar tesoros en las Islas Santuario.",
+				"Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en las Islas Santuario",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
-				"Ayuda al Contramaestre torpe o al <1>Guía del Ensamblaje</1> a buscar tesoros en el Bosque Escondido.",
+				"Ayuda al Contramaestre torpe o al Guía del Ensamblaje a buscar tesoros en el Bosque Escondido",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Temporada de la gratitud",

@@ -201,9 +201,9 @@ export default {
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: "捉弄一下威严舰长",
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: "在埋骨之地与躲猫猫拓荒者相聚",
 			[DailyQuest.HelpCacklingCannoneerOrChucklingScoutFindTreasureInSanctuaryIslands]:
-				"帮助嬉笑炮手或<1>傻笑童子军</1>在圣域群岛寻宝",
+				"帮助嬉笑炮手或傻笑童子军在圣域群岛寻宝",
 			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInHiddenForest]:
-				"帮助笨拙水手或<1>重组向导</1>在雨林寻宝",
+				"帮助笨拙水手或重组向导在雨林寻宝",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "感恩季",
