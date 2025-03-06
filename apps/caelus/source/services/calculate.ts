@@ -1,7 +1,6 @@
 import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIEmbed,
-	type APIEmbedFooter,
 	ComponentType,
 	Locale,
 	MessageFlags,
@@ -224,38 +223,52 @@ export async function eventTickets(
 		return `${eventTicketEmoji ? formatEmoji(eventTicketEmoji) : `${t(`events.${event.id}`, { lng: locale, ns: "general" })}: `} A total of ${dailyRemaining} remains daily.${pool ? ` There is currently a pool of ${pool.amount}!` : ""}`;
 	});
 
-	const embed: APIEmbed = {
-		color: DEFAULT_EMBED_COLOUR,
-		description: `Start: ${startEmojis}\nGoal: ${goalEmojis}\nRequired: ${amountRequiredEmojis}`,
-		fields: [{ name: "Result", value: result.join("\n") }],
-		title: "Event Ticket Calculator",
-	};
-
-	const footer: APIEmbedFooter = {
-		text: events
-			.map(({ id, end }) =>
-				t("days-left.event", {
-					lng: locale,
-					ns: "general",
-					count: Math.ceil(end.diff(now, "days").days) - 1,
-					name: t(`events.${id}`, { lng: locale, ns: "general" }),
-				}),
-			)
-			.join("\n"),
-	};
-
-	const event1 = events.first();
-
-	if (event1 && events.size === 1) {
-		const eventTicketEmoji = EventIdToEventTicketEmoji[event1.id];
-
-		if (eventTicketEmoji) {
-			footer.icon_url = formatEmojiURL(eventTicketEmoji.id);
-		}
-	}
-
-	embed.footer = footer;
-	await client.api.interactions.reply(interaction.id, interaction.token, { embeds: [embed] });
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: "## Event Ticket Calculator",
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `Start: ${startEmojis}\nGoal: ${goalEmojis}\nRequired: ${amountRequiredEmojis}`,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: result.join("\n"),
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: events
+							.map(({ id, end }) =>
+								t("days-left.event", {
+									lng: locale,
+									ns: "general",
+									count: Math.ceil(end.diff(now, "days").days) - 1,
+									name: t(`events.${id}`, { lng: locale, ns: "general" }),
+								}),
+							)
+							.join("\n"),
+					},
+				],
+			},
+		],
+		flags: MessageFlags.IsComponentsV2,
+	});
 }
 
 export async function seasonalCandles(
