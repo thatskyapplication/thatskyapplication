@@ -839,55 +839,80 @@ export class Catalogue {
 			};
 		});
 
-		const embed = catalogue.spiritEmbed([...ELDER_SPIRITS.values()], locale);
-		embed.title = "Elders";
-
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			content: "",
 			components: [
 				{
-					type: ComponentType.ActionRow,
+					type: ComponentType.Container,
+					accent_color: DEFAULT_EMBED_COLOUR,
 					components: [
 						{
-							type: ComponentType.StringSelect,
-							custom_id: CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
-							max_values: 1,
-							min_values: 0,
-							options,
-							placeholder: "Select an elder!",
-						},
-					],
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						backToStartButton(),
-						{
-							type: ComponentType.Button,
-							custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-							emoji: { name: "⏪" },
-							label: "Back",
-							style: ButtonStyle.Primary,
+							type: ComponentType.TextDisplay,
+							content: "## Elders \n-# Catalogue",
 						},
 						{
-							type: ComponentType.Button,
-							custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${CATALOGUE_SHARE_ELDER_KEY}`,
-							emoji: { name: "🔗" },
-							label: "Share",
-							style: ButtonStyle.Primary,
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
 						},
 						{
-							type: ComponentType.Button,
-							custom_id: CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
-							disabled: hasEverything,
-							emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-							label: "I have everything!",
-							style: ButtonStyle.Success,
+							type: ComponentType.TextDisplay,
+							content: catalogue.spiritText([...ELDER_SPIRITS.values()], locale) ?? "",
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.StringSelect,
+									custom_id: CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
+									max_values: 1,
+									min_values: 0,
+									options,
+									placeholder: "Select an elder!",
+								},
+							],
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.Button,
+									custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${CATALOGUE_SHARE_ELDER_KEY}`,
+									emoji: { name: "🔗" },
+									label: "Share",
+									style: ButtonStyle.Secondary,
+								},
+							],
+						},
+						{
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								backToStartButton(),
+								{
+									type: ComponentType.Button,
+									custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+									emoji: { name: "⏪" },
+									label: "Back",
+									style: ButtonStyle.Secondary,
+								},
+								{
+									type: ComponentType.Button,
+									custom_id: CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
+									disabled: hasEverything,
+									emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+									label: "I have everything!",
+									style: ButtonStyle.Success,
+								},
+							],
 						},
 					],
 				},
 			],
-			embeds: [embed],
+			flags: MessageFlags.IsComponentsV2,
 		});
 	}
 
