@@ -148,7 +148,7 @@ function backToStartButton(disabled = false): APIButtonComponentWithCustomId {
 		disabled,
 		emoji: { name: "⏮️" },
 		label: "Start",
-		style: ButtonStyle.Primary,
+		style: ButtonStyle.Secondary,
 	};
 }
 
@@ -614,58 +614,100 @@ export class Catalogue {
 		const { locale } = interaction;
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
-		const embed = catalogue.realmsEmbed(locale);
-		embed.footer = { text: CATALOGUE_STANDARD_PERCENTAGE_NOTE };
-		embed.title = "Realms";
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			content: "",
 			components: [
 				{
-					type: ComponentType.ActionRow,
+					type: ComponentType.Container,
+					accent_color: DEFAULT_EMBED_COLOUR,
 					components: [
 						{
-							type: ComponentType.StringSelect,
-							custom_id: CATALOGUE_VIEW_REALM_CUSTOM_ID,
-							max_values: 1,
-							min_values: 0,
-							options: REALMS.map((realm) => {
-								const { name } = realm;
-								const percentage = catalogue.spiritProgress([...realm.spirits.values()], true);
+							type: ComponentType.TextDisplay,
+							content: "## Catalogue → Realms",
+						},
+						{
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.TextDisplay,
+							content: REALMS.map((realm) => {
+								const remainingCurrency = resolveCostToString(
+									realm.spirits.reduce(
+										(remainingCurrency, spirit) =>
+											addCosts([remainingCurrency, catalogue.remainingCurrency(spirit.current)]),
+										{},
+									),
+								);
 
-								return {
-									label: `${t(`realms.${name}`, { lng: locale, ns: "general" })}${
-										percentage === null ? "" : ` (${percentage}%)`
-									}`,
-									value: name,
-								};
-							}),
-							placeholder: "Select a realm!",
-						},
-					],
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						backToStartButton(),
-						{
-							type: ComponentType.Button,
-							custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-							emoji: { name: "⏪" },
-							label: "Back",
-							style: ButtonStyle.Primary,
+								return `__${t(`realms.${realm.name}`, { lng: locale, ns: "general" })}__\n${
+									remainingCurrency.length > 0
+										? remainingCurrency.join("")
+										: formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
+								}`;
+							}).join("\n\n"),
 						},
 						{
-							type: ComponentType.Button,
-							custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${CATALOGUE_SHARE_REALMS_KEY}`,
-							emoji: { name: "🔗" },
-							label: "Share",
-							style: ButtonStyle.Primary,
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.StringSelect,
+									custom_id: CATALOGUE_VIEW_REALM_CUSTOM_ID,
+									max_values: 1,
+									min_values: 0,
+									options: REALMS.map((realm) => {
+										const { name } = realm;
+										const percentage = catalogue.spiritProgress([...realm.spirits.values()], true);
+
+										return {
+											label: `${t(`realms.${name}`, { lng: locale, ns: "general" })}${
+												percentage === null ? "" : ` (${percentage}%)`
+											}`,
+											value: name,
+										};
+									}),
+									placeholder: "Select a realm!",
+								},
+							],
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.Button,
+									custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${CATALOGUE_SHARE_REALMS_KEY}`,
+									emoji: { name: "🔗" },
+									label: "Share progress",
+									style: ButtonStyle.Secondary,
+								},
+							],
+						},
+						{
+							type: ComponentType.TextDisplay,
+							content: `-# ${CATALOGUE_STANDARD_PERCENTAGE_NOTE}`,
+						},
+						{
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								backToStartButton(),
+								{
+									type: ComponentType.Button,
+									custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+									emoji: { name: "⏪" },
+									label: "Back",
+									style: ButtonStyle.Secondary,
+								},
+							],
 						},
 					],
 				},
 			],
-			embeds: [embed],
 		});
 	}
 
