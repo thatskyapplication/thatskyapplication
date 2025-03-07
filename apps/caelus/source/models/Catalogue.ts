@@ -623,7 +623,7 @@ export class Catalogue {
 					components: [
 						{
 							type: ComponentType.TextDisplay,
-							content: "## Catalogue → Realms",
+							content: "## Realms \n-# Catalogue",
 						},
 						{
 							type: ComponentType.Separator,
@@ -734,56 +734,85 @@ export class Catalogue {
 			};
 		});
 
-		const embed = catalogue.spiritEmbed([...spirits.values()], locale);
-		embed.footer = { text: CATALOGUE_STANDARD_PERCENTAGE_NOTE };
-		embed.title = t(`realms.${realm}`, { lng: locale, ns: "general" });
-
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			content: "",
 			components: [
 				{
-					type: ComponentType.ActionRow,
+					type: ComponentType.Container,
+					accent_color: DEFAULT_EMBED_COLOUR,
 					components: [
 						{
-							type: ComponentType.StringSelect,
-							custom_id: CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
-							max_values: 1,
-							min_values: 0,
-							options,
-							placeholder: "Select a spirit!",
-						},
-					],
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						backToStartButton(),
-						{
-							type: ComponentType.Button,
-							custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-							emoji: { name: "⏪" },
-							label: "Back",
-							style: ButtonStyle.Primary,
+							type: ComponentType.TextDisplay,
+							content: `## ${t(`realms.${realm}`, { lng: locale, ns: "general" })}\n-# Catalogue → Realms`,
 						},
 						{
-							type: ComponentType.Button,
-							custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${realm}`,
-							emoji: { name: "🔗" },
-							label: "Share",
-							style: ButtonStyle.Primary,
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
 						},
 						{
-							type: ComponentType.Button,
-							custom_id: `${CATALOGUE_REALM_EVERYTHING_CUSTOM_ID}§${realm}`,
-							disabled: hasEverything,
-							emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-							label: "I have everything!",
-							style: ButtonStyle.Success,
+							type: ComponentType.TextDisplay,
+							content: catalogue.spiritText([...spirits.values()], locale) ?? "",
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.StringSelect,
+									custom_id: CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
+									max_values: 1,
+									min_values: 0,
+									options,
+									placeholder: "Select a spirit!",
+								},
+							],
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.Button,
+									custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${realm}`,
+									emoji: { name: "🔗" },
+									label: "Share",
+									style: ButtonStyle.Secondary,
+								},
+							],
+						},
+						{
+							type: ComponentType.TextDisplay,
+							content: `-# ${CATALOGUE_STANDARD_PERCENTAGE_NOTE}`,
+						},
+						{
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								backToStartButton(),
+								{
+									type: ComponentType.Button,
+									custom_id: CATALOGUE_VIEW_REALMS_CUSTOM_ID,
+									emoji: { name: "⏪" },
+									label: "Back",
+									style: ButtonStyle.Secondary,
+								},
+
+								{
+									type: ComponentType.Button,
+									custom_id: `${CATALOGUE_REALM_EVERYTHING_CUSTOM_ID}§${realm}`,
+									disabled: hasEverything,
+									emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+									label: "I have everything!",
+									style: ButtonStyle.Success,
+								},
+							],
 						},
 					],
 				},
 			],
-			embeds: [embed],
+			flags: MessageFlags.IsComponentsV2,
 		});
 	}
 
@@ -2396,12 +2425,13 @@ export class Catalogue {
 		return embed;
 	}
 
-	private spiritEmbed(
+	private spiritText(
 		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
 		locale: Locale,
 	) {
 		const multiple = spirits.length > 1;
 		const description = [];
+		let descriptionString = null;
 		const remainingCurrencies = [];
 
 		for (const spirit of spirits) {
@@ -2431,22 +2461,20 @@ export class Catalogue {
 			}
 		}
 
-		const embed: APIEmbed = { color: DEFAULT_EMBED_COLOUR };
-
 		if (description.length > 0) {
-			let descriptionString = description.join("\n\n");
+			let descriptionJoined = description.join("\n\n");
 
 			// If the resulting description exceeds 4,096 characters, replace the yes and no emojis with Unicode variants.
-			if (descriptionString.length > 4_096) {
-				descriptionString = descriptionString
+			if (descriptionJoined.length > 4_096) {
+				descriptionJoined = descriptionJoined
 					.replaceAll(formatEmoji(MISCELLANEOUS_EMOJIS.Yes), "✅")
 					.replaceAll(formatEmoji(MISCELLANEOUS_EMOJIS.No), "❌");
 			}
 
-			embed.description = descriptionString;
+			descriptionString = descriptionJoined;
 		}
 
-		return embed;
+		return descriptionString;
 	}
 
 	public static async sharePrompt(interaction: APIMessageComponentButtonInteraction) {
