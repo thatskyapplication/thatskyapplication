@@ -1023,42 +1023,71 @@ export class Catalogue {
 		const catalogue = await this.fetch(invoker.id);
 		const spirits = [season.guide, ...season.spirits.values()];
 
-		const options = spirits.map((spirit) => {
-			const { id } = spirit;
-			const percentage = catalogue.spiritProgress([spirit], true);
-
-			return {
-				label: `${t(`spirits.${id}`, { lng: locale, ns: "general" })}${
-					percentage === null ? "" : ` (${percentage}%)`
-				}`,
-				value: String(id),
-			};
-		});
-
-		const components: APIActionRowComponent<
-			APIButtonComponentWithCustomId | APISelectMenuComponent
-		>[] = [
+		const containerComponents: APIComponentInContainer[] = [
 			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.StringSelect,
-						custom_id: CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
-						max_values: 1,
-						min_values: 0,
-						options,
-						placeholder:
-							seasonId === SeasonId.Shattering
-								? "Select an entity!"
-								: seasonId === SeasonId.Revival
-									? "Select a spirit or a shop!"
-									: seasonId === SeasonId.Nesting
-										? "Select a spirit or an entity!"
-										: "Select a spirit!",
-					},
-				],
+				type: ComponentType.TextDisplay,
+				content: `## ${formatEmoji(SeasonIdToSeasonalEmoji[season.id])} [${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}](${t(`season-wiki.${season.id}`, { lng: locale, ns: "general" })})\n-# Catalogue → Seasons`,
+			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
 			},
 		];
+
+		if (season.patchNotesURL) {
+			containerComponents.push({
+				type: ComponentType.Section,
+				accessory: {
+					type: ComponentType.Button,
+					label: "Patch notes",
+					style: ButtonStyle.Link,
+					url: season.patchNotesURL,
+				},
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: catalogue.seasonText(season, locale) ?? "",
+					},
+				],
+			});
+		} else {
+			containerComponents.push({
+				type: ComponentType.TextDisplay,
+				content: catalogue.seasonText(season, locale) ?? "",
+			});
+		}
+
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
+					max_values: 1,
+					min_values: 0,
+					options: spirits.map((spirit) => {
+						const { id } = spirit;
+						const percentage = catalogue.spiritProgress([spirit], true);
+
+						return {
+							label: `${t(`spirits.${id}`, { lng: locale, ns: "general" })}${
+								percentage === null ? "" : ` (${percentage}%)`
+							}`,
+							value: String(id),
+						};
+					}),
+					placeholder:
+						seasonId === SeasonId.Shattering
+							? "Select an entity!"
+							: seasonId === SeasonId.Revival
+								? "Select a spirit or a shop!"
+								: seasonId === SeasonId.Nesting
+									? "Select a spirit or an entity!"
+									: "Select a spirit!",
+				},
+			],
+		});
 
 		if (season.items.length > 0) {
 			const itemsOptions = season.items.map(({ name, cosmetics, cosmeticDisplay }) => {
@@ -1077,7 +1106,7 @@ export class Catalogue {
 				return stringSelectMenuOption;
 			});
 
-			components.push({
+			containerComponents.push({
 				type: ComponentType.ActionRow,
 				components: [
 					{
@@ -1095,24 +1124,16 @@ export class Catalogue {
 		const before = seasons.get((season.id - 1) as SeasonIds);
 		const after = seasons.get((season.id + 1) as SeasonIds);
 
-		components.push(
+		containerComponents.push(
 			{
 				type: ComponentType.ActionRow,
 				components: [
-					BACK_TO_START_BUTTON,
-					{
-						type: ComponentType.Button,
-						custom_id: CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
-						emoji: { name: "⏪" },
-						label: "Back",
-						style: ButtonStyle.Primary,
-					},
 					{
 						type: ComponentType.Button,
 						custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${seasonId}`,
 						emoji: { name: "🔗" },
 						label: "Share",
-						style: ButtonStyle.Primary,
+						style: ButtonStyle.Secondary,
 					},
 					{
 						type: ComponentType.Button,
@@ -1125,32 +1146,54 @@ export class Catalogue {
 				],
 			},
 			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
 				type: ComponentType.ActionRow,
 				components: [
 					{
 						type: ComponentType.Button,
 						custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${before?.id}`,
 						disabled: !before,
-						emoji: { name: "⬅️" },
+						emoji: before ? SeasonIdToSeasonalEmoji[before.id] : MISCELLANEOUS_EMOJIS.No,
 						label: "Previous season",
-						style: ButtonStyle.Primary,
+						style: ButtonStyle.Secondary,
 					},
 					{
 						type: ComponentType.Button,
 						custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${after?.id}`,
 						disabled: !after,
-						emoji: { name: "➡️" },
+						emoji: after ? SeasonIdToSeasonalEmoji[after.id] : MISCELLANEOUS_EMOJIS.No,
 						label: "Next season",
-						style: ButtonStyle.Primary,
+						style: ButtonStyle.Secondary,
+					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					BACK_TO_START_BUTTON,
+					{
+						type: ComponentType.Button,
+						custom_id: CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
+						emoji: { name: "⏪" },
+						label: "Back",
+						style: ButtonStyle.Secondary,
 					},
 				],
 			},
 		);
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			content: "",
-			components,
-			embeds: [catalogue.seasonEmbed(season, locale)],
+			components: [
+				{
+					type: ComponentType.Container,
+					accent_color: DEFAULT_EMBED_COLOUR,
+					components: containerComponents,
+				},
+			],
 		});
 	}
 
@@ -2416,14 +2459,11 @@ export class Catalogue {
 		return { remainingCurrency, offerDescription };
 	}
 
-	private seasonEmbed(season: Season, locale: Locale, share = false) {
+	private seasonText(season: Season, locale: Locale) {
 		const description = [];
+		let descriptionString = null;
 		const remainingCurrencies = [];
 		const offerDescriptions = [];
-
-		if (!share && season.patchNotesURL) {
-			description.push(`-# [Patch Notes](${season.patchNotesURL})`);
-		}
 
 		const offers: [SpiritIds | `season:${SeasonIds}`, readonly Item[]][] = [
 			[season.guide.id, season.guide.current],
@@ -2459,29 +2499,33 @@ export class Catalogue {
 
 		description.push(...offerDescriptions);
 
-		const embed: APIEmbed = {
-			color: DEFAULT_EMBED_COLOUR,
-			title: `${formatEmoji(SeasonIdToSeasonalEmoji[season.id])} ${t(`seasons.${season.id}`, {
-				lng: locale,
-				ns: "general",
-			})}`,
-			url: t(`season-wiki.${season.id}`, { lng: locale, ns: "general" }),
-		};
-
 		if (description.length > 0) {
-			let descriptionString = description.join("\n\n");
+			descriptionString = description.join("\n\n");
 
-			// If the resulting description exceeds 4,096 characters, replace the yes and no emojis with Unicode variants.
-			if (descriptionString.length > 4_096) {
-				descriptionString = descriptionString
-					.replaceAll(formatEmoji(MISCELLANEOUS_EMOJIS.Yes), "✅")
-					.replaceAll(formatEmoji(MISCELLANEOUS_EMOJIS.No), "❌");
+			// If the resulting description exceeds 4,096 characters, replace some emojis.
+			if (descriptionString.length > 4_000) {
+				descriptionString = descriptionString.replaceAll(
+					formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+					"✅",
+				);
 			}
 
-			embed.description = descriptionString;
+			if (descriptionString.length > 4_000) {
+				descriptionString = descriptionString.replaceAll(
+					formatEmoji(MISCELLANEOUS_EMOJIS.No),
+					"❌",
+				);
+			}
+
+			if (descriptionString.length > 4_000) {
+				descriptionString = descriptionString.replaceAll(
+					formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+					"🤍",
+				);
+			}
 		}
 
-		return embed;
+		return descriptionString;
 	}
 
 	private spiritText(
@@ -2521,16 +2565,29 @@ export class Catalogue {
 		}
 
 		if (description.length > 0) {
-			let descriptionJoined = description.join("\n\n");
+			descriptionString = description.join("\n\n");
 
-			// If the resulting description exceeds 4,096 characters, replace the yes and no emojis with Unicode variants.
-			if (descriptionJoined.length > 4_096) {
-				descriptionJoined = descriptionJoined
-					.replaceAll(formatEmoji(MISCELLANEOUS_EMOJIS.Yes), "✅")
-					.replaceAll(formatEmoji(MISCELLANEOUS_EMOJIS.No), "❌");
+			// If the resulting description exceeds 4,000 characters, replace some emojis.
+			if (descriptionString.length > 4_000) {
+				descriptionString = descriptionString.replaceAll(
+					formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+					"✅",
+				);
 			}
 
-			descriptionString = descriptionJoined;
+			if (descriptionString.length > 4_000) {
+				descriptionString = descriptionString.replaceAll(
+					formatEmoji(MISCELLANEOUS_EMOJIS.No),
+					"❌",
+				);
+			}
+
+			if (descriptionString.length > 4_000) {
+				descriptionString = descriptionString.replaceAll(
+					formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+					"🤍",
+				);
+			}
 		}
 
 		return descriptionString;
