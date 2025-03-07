@@ -316,6 +316,8 @@ export default {
 				"Ajude o Contramestre Trapalhão ou o Guia da União a encontrar tesouros na Floresta Oculta",
 			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
 				"Ajude o Comodoro Abandonado ou o Silvicultor Sonhador a encontrar tesouros na Aldeia dos Sonhos",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
+				"Ajude a Pescadora Ansiosa ou o Estudante Esbravejante a encontrar tesouros no Recife do Tesouro",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Temporada da Gratidão",

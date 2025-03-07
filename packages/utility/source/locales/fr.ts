@@ -345,6 +345,8 @@ export default {
 				"Aidez le Maître d'équipage maladroit ou le Guide du Rassemblement à trouver des trésors dans la Forêt cachée",
 			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
 				"Aidez le Commodore commandant ou le Forestier rêveur à trouver des trésors dans le Village des Rêves",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
+				"Aidez la Pêcheuse angoissée ou l'Étudiante moralisatrice à trouver des trésors sur le Récif du trésor",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison de la gratitude",

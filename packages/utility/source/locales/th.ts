@@ -230,6 +230,8 @@ export default {
 				"ช่วยนักพายเรือบ่นพึมพำ หรือผู้แนะนำการชุมนุมค้นหาสมบัติในป่าลับ",
 			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
 				"ช่วยพลเรือผู้ผ่อนปรน หรือผู้ดูแลป่าเพ้อฝันค้นหาสมบัติในหมู่บ้านแห่งความฝัน",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
+				"ช่วยนักตกปลาขี้กังวล หรือนักเรียนจอมตำหนิค้นหาสมบัติในแนวปะการังสมบัติ",
 		},
 		seasons: {
 			[SeasonId.Moomin]: "ฤดูกาลแห่งมูมิน",

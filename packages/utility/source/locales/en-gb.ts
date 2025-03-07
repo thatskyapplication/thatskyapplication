@@ -311,6 +311,8 @@ export default {
 				"Help the Bumbling Boatswain or the Assembly Guide find treasure in Hidden Forest",
 			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
 				"Help Ceasing Commodore or Daydream Forester find treasure in Village of Dreams",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
+				"Help the Anxious Angler or the Scolding Student find treasure in Treasure Reef",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",

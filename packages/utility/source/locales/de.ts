@@ -319,6 +319,8 @@ export default {
 				"Hilf dem Stümperhaften Schiffsjungen oder dem Zusammenbauhelfer dabei, einen Schatz im Verborgenen Wald zu finden",
 			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
 				"Hilf dem Kommando-Kapitän oder dem Tagträumenden Förster dabei, einen Schatz im Dorf der Träume zu finden",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
+				"Hilf der Ängstlichen Anglerin oder der Schimpfenden Schülerin dabei, einen Schatz im Schatzriff zu finden",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison der Dankbarkeit",

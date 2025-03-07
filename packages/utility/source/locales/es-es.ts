@@ -329,6 +329,8 @@ export default {
 				"Ayuda al Contramaestre torpe o al Guía del Ensamblaje a buscar tesoros en el Bosque Escondido",
 			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
 				"Ayuda al Capitán de navío cesante o al Guardabosques soñador a buscar tesoros en la Aldea de los Sueños",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
+				"Ayuda al Pescador ansioso o a la Estudiante gruñona a buscar tesoros en el Coral del tesoro",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Temporada de la gratitud",

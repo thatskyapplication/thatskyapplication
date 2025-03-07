@@ -322,6 +322,8 @@ export default {
 				"Aiuta il Nostromo goffo o la guida della Costruzione a trovare il tesoro nella Foresta Nascosta",
 			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
 				"Aiuta il Commodoro autorevole o il Guardaboschi sognante a trovare il tesoro nel Villaggio dei Sogni",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
+				"Aiuta la Pescatrice ansiosa o la Studentessa saccente a trovare il tesoro nella Scogliera del Tesoro",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Stagione della Gratitudine",

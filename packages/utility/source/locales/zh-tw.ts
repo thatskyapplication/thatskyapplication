@@ -205,6 +205,8 @@ export default {
 				"幫助笨拙的水手長或重組嚮導在雨林尋寶",
 			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
 				"幫助威嚴的艦長或白日夢森林人在圓夢村尋找寶藏",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
+				"幫助焦慮的垂釣者或管事小隊長在寶礁尋寶",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "感恩季",

@@ -302,6 +302,8 @@ export default {
 				"Помогите Нерадивому боцману или Проводнику Сезона собрания найти сокровище в Тайном лесу",
 			[DailyQuest.HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams]:
 				"Помогите Командору-начальнику или Мечтательному лесовичку найти сокровище в Деревушке мечтаний",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
+				"Помогите Беспокойной рыбачке или Ворчливой студентке найти сокровище на Острове сокровищ",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Сезон благодарности",
