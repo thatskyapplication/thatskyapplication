@@ -1006,7 +1006,7 @@ export class Catalogue {
 		const { locale } = interaction;
 		const invoker = interactionInvoker(interaction);
 		const seasons = skySeasons();
-		const season = seasons.find(({ id }) => id === seasonId);
+		const season = seasons.get(seasonId);
 
 		if (!season) {
 			pino.error(interaction, "Failed to view a season.");
@@ -1545,7 +1545,7 @@ export class Catalogue {
 		} else if (isElderSpirit) {
 			spirits = ELDER_SPIRITS;
 		} else if (isSeasonalSpirit || isGuideSpirit) {
-			const season = skySeasons().find(({ id }) => id === spirit.seasonId);
+			const season = skySeasons().get(spirit.seasonId);
 
 			if (season) {
 				spirits = new Collection<SpiritIds, SeasonalSpirit | GuideSpirit>()
@@ -2126,10 +2126,12 @@ export class Catalogue {
 	public static async setSeason(interaction: APIMessageComponentButtonInteraction) {
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
+
 		const parsedCustomId = Number(
 			interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1),
 		);
-		const season = skySeasons().find((season) => season.id === parsedCustomId);
+
+		const season = skySeasons().get(parsedCustomId as SeasonIds);
 
 		if (!season) {
 			pino.error(interaction, "Unknown season.");
@@ -2159,7 +2161,7 @@ export class Catalogue {
 		const parsedCustomId = Number(
 			interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1),
 		);
-		const season = skySeasons().find((season) => season.id === parsedCustomId);
+		const season = skySeasons().get(parsedCustomId as SeasonIds);
 
 		if (!season) {
 			pino.error(interaction, "Unknown season.");
@@ -2621,11 +2623,7 @@ export class Catalogue {
 			backButtonCustomId = `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${type}`;
 			backButtonEmoji = emoji;
 
-			embed = catalogue.seasonEmbed(
-				skySeasons().find((season) => season.id === seasonId)!,
-				locale,
-				true,
-			);
+			embed = catalogue.seasonEmbed(skySeasons().get(seasonId)!, locale, true);
 
 			embed.title = `${formatEmoji(emoji)} ${t(`seasons.${type}`, { lng: locale, ns: "general" })} Progress`;
 		} else if (type === CATALOGUE_SHARE_ELDER_KEY) {
