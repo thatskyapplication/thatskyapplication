@@ -800,7 +800,6 @@ export class Catalogue {
 					],
 				},
 			],
-			flags: MessageFlags.IsComponentsV2,
 		});
 	}
 
@@ -900,7 +899,6 @@ export class Catalogue {
 					],
 				},
 			],
-			flags: MessageFlags.IsComponentsV2,
 		});
 	}
 
