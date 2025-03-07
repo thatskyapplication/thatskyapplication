@@ -140,17 +140,14 @@ const CATALOGUE_MAXIMUM_OPTIONS_LIMIT = 25 as const;
 const CATALOGUE_STANDARD_PERCENTAGE_NOTE =
 	"Averages are calculated even beyond the second wing buff." as const;
 
-function backToStartButton(disabled = false): APIButtonComponentWithCustomId {
-	return {
-		type: ComponentType.Button,
-		// This custom id must differ to avoid duplicate custom ids.
-		custom_id: CATALOGUE_BACK_TO_START_CUSTOM_ID,
-		disabled,
-		emoji: { name: "⏮️" },
-		label: "Start",
-		style: ButtonStyle.Secondary,
-	};
-}
+const BACK_TO_START_BUTTON = {
+	type: ComponentType.Button,
+	// This custom id must differ to avoid duplicate custom ids.
+	custom_id: CATALOGUE_BACK_TO_START_CUSTOM_ID,
+	emoji: { name: "⏮️" },
+	label: "Start",
+	style: ButtonStyle.Secondary,
+} as const;
 
 export class Catalogue {
 	public readonly userId: CatalogueData["userId"];
@@ -550,15 +547,6 @@ export class Catalogue {
 							type: ComponentType.ActionRow,
 							components: [currentTravellingSpiritButton, currentReturningSpiritsButton],
 						},
-						{
-							type: ComponentType.Separator,
-							divider: true,
-							spacing: SeparatorSpacingSize.Small,
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [backToStartButton(true)],
-						},
 					],
 				},
 			],
@@ -695,7 +683,7 @@ export class Catalogue {
 						{
 							type: ComponentType.ActionRow,
 							components: [
-								backToStartButton(),
+								BACK_TO_START_BUTTON,
 								{
 									type: ComponentType.Button,
 									custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
@@ -790,7 +778,7 @@ export class Catalogue {
 						{
 							type: ComponentType.ActionRow,
 							components: [
-								backToStartButton(),
+								BACK_TO_START_BUTTON,
 								{
 									type: ComponentType.Button,
 									custom_id: CATALOGUE_VIEW_REALMS_CUSTOM_ID,
@@ -891,7 +879,7 @@ export class Catalogue {
 						{
 							type: ComponentType.ActionRow,
 							components: [
-								backToStartButton(),
+								BACK_TO_START_BUTTON,
 								{
 									type: ComponentType.Button,
 									custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
@@ -952,7 +940,7 @@ export class Catalogue {
 				{
 					type: ComponentType.ActionRow,
 					components: [
-						backToStartButton(),
+						BACK_TO_START_BUTTON,
 						{
 							type: ComponentType.Button,
 							custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
@@ -1067,7 +1055,7 @@ export class Catalogue {
 			{
 				type: ComponentType.ActionRow,
 				components: [
-					backToStartButton(),
+					BACK_TO_START_BUTTON,
 					{
 						type: ComponentType.Button,
 						custom_id: CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
@@ -1161,7 +1149,7 @@ export class Catalogue {
 				{
 					type: ComponentType.ActionRow,
 					components: [
-						backToStartButton(),
+						BACK_TO_START_BUTTON,
 						{
 							type: ComponentType.Button,
 							custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
@@ -1252,7 +1240,7 @@ export class Catalogue {
 				{
 					type: ComponentType.ActionRow,
 					components: [
-						backToStartButton(),
+						BACK_TO_START_BUTTON,
 						{
 							type: ComponentType.Button,
 							custom_id: CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
@@ -1333,7 +1321,7 @@ export class Catalogue {
 				},
 				{
 					type: ComponentType.ActionRow,
-					components: [backToStartButton()],
+					components: [BACK_TO_START_BUTTON],
 				},
 			],
 			embeds: [embed],
@@ -1413,7 +1401,7 @@ export class Catalogue {
 		>[] = [];
 
 		const row1Components: APIButtonComponentWithCustomId[] = [
-			backToStartButton(),
+			BACK_TO_START_BUTTON,
 			{
 				type: ComponentType.Button,
 				custom_id: isElderSpirit
@@ -1628,7 +1616,7 @@ export class Catalogue {
 		>[] = [];
 
 		const row1Components: APIButtonComponentWithCustomId[] = [
-			backToStartButton(),
+			BACK_TO_START_BUTTON,
 			{
 				type: ComponentType.Button,
 				custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${start.year}`,
@@ -1757,7 +1745,7 @@ export class Catalogue {
 				{
 					type: ComponentType.ActionRow,
 					components: [
-						backToStartButton(),
+						BACK_TO_START_BUTTON,
 						{
 							type: ComponentType.Button,
 							custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
@@ -1829,7 +1817,7 @@ export class Catalogue {
 				{
 					type: ComponentType.ActionRow,
 					components: [
-						backToStartButton(),
+						BACK_TO_START_BUTTON,
 						{
 							type: ComponentType.Button,
 							custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
@@ -1903,7 +1891,7 @@ export class Catalogue {
 				{
 					type: ComponentType.ActionRow,
 					components: [
-						backToStartButton(),
+						BACK_TO_START_BUTTON,
 						{
 							type: ComponentType.Button,
 							custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
@@ -2015,7 +2003,7 @@ export class Catalogue {
 				{
 					type: ComponentType.ActionRow,
 					components: [
-						backToStartButton(),
+						BACK_TO_START_BUTTON,
 						{
 							type: ComponentType.Button,
 							custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
