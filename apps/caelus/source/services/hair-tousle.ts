@@ -2,6 +2,7 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIInteractionDataResolvedGuildMember,
 	type APIUser,
+	ComponentType,
 	Locale,
 	MessageFlags,
 	PermissionFlagsBits,
@@ -76,19 +77,33 @@ export async function hairTousle(
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
 		allowed_mentions: { users: [user.id] },
-		content: `<@${user.id}>, <@${invoker.id}> tousled your hair!`,
-		embeds: [
+		components: [
 			{
-				color: DEFAULT_EMBED_COLOUR,
-				image: {
-					url: String(
-						new URL(
-							`hair_tousles/${Math.floor(Math.random() * MAXIMUM_HAIR_TOUSLE_GIF + 1)}.gif`,
-							CDN_URL,
-						),
-					),
-				},
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `<@${user.id}>, <@${invoker.id}> tousled your hair!`,
+					},
+					{
+						type: ComponentType.MediaGallery,
+						items: [
+							{
+								media: {
+									url: String(
+										new URL(
+											`hair_tousles/${Math.floor(Math.random() * MAXIMUM_HAIR_TOUSLE_GIF + 1)}.gif`,
+											CDN_URL,
+										),
+									),
+								},
+							},
+						],
+					},
+				],
 			},
 		],
+		flags: MessageFlags.IsComponentsV2,
 	});
 }
