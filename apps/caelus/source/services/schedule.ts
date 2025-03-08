@@ -15,7 +15,6 @@ import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import { DEFAULT_EMBED_COLOUR, PASSAGE_TRUNCATION_LIMIT } from "../utility/constants.js";
-import { dailyGuidesEventData, dailyGuidesShardEruptionData } from "./daily-guides.js";
 
 function dailyResetTime(date: DateTime) {
 	return date.plus({ day: 1 }).toUnixInteger();
@@ -241,14 +240,6 @@ export async function schedule(interaction: APIChatInputApplicationCommandIntera
 		},
 	];
 
-	const eventData = dailyGuidesEventData(now, locale);
-
-	if (eventData.eventTickets) {
-		fields.push(eventData.eventTickets);
-	}
-
-	const shardEruptionData = dailyGuidesShardEruptionData(locale);
-	fields.push(...shardEruptionData);
 	embed.fields = fields;
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
