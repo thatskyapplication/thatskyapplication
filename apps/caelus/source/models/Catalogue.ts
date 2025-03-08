@@ -1710,13 +1710,14 @@ export class Catalogue {
 		const event = skyEvents().get(eventId as EventIds);
 
 		if (!event) {
+			pino.error(interaction, "Could not parse an event for the catalogue.");
+
 			await client.api.interactions.updateMessage(
 				interaction.id,
 				interaction.token,
 				ERROR_RESPONSE,
 			);
 
-			pino.error(interaction, "Could not parse an event for the catalogue.");
 			return;
 		}
 
