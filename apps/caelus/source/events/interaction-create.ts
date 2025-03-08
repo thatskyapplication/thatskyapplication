@@ -525,7 +525,7 @@ export default {
 				}
 
 				if (isGuildButton(interaction)) {
-					if (customId === CATALOGUE_SHARE_SEND_CUSTOM_ID) {
+					if (customId.startsWith(CATALOGUE_SHARE_SEND_CUSTOM_ID)) {
 						await Catalogue.shareSend(interaction);
 						return;
 					}
