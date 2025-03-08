@@ -1503,7 +1503,6 @@ export class Catalogue {
 		const offer = seasonalParsing ? spirit.seasonal : spirit.current;
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 		const spiritText = this.spiritText([spirit], locale);
-		const description = spiritText ? [spiritText] : [];
 
 		let spirits:
 			| ReadonlyCollection<SpiritIds, StandardSpirit>
@@ -1539,19 +1538,28 @@ export class Catalogue {
 			},
 		];
 
-		if (!imageURL) {
-			description.push(offer.length > 0 ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
+		let description: string;
+
+		if (offer.length > 0) {
+			description = spiritText!;
+		} else {
+			description = NO_FRIENDSHIP_TREE_TEXT;
 		}
 
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: description.join("\n"),
+			content: description,
 		});
 
 		if (imageURL) {
 			containerComponents.push({
 				type: ComponentType.MediaGallery,
 				items: [{ media: { url: imageURL } }],
+			});
+		} else if (offer.length > 0) {
+			containerComponents.push({
+				type: ComponentType.TextDisplay,
+				content: `-# ${NO_FRIENDSHIP_TREE_YET_TEXT}`,
 			});
 		}
 
@@ -1742,7 +1750,7 @@ export class Catalogue {
 			},
 		];
 
-		let description = null;
+		let description: string;
 
 		if (offer.length > 0) {
 			const { offerDescription } = this.embedProgress(offer);
