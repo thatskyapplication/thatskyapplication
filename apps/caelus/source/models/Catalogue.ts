@@ -1301,81 +1301,93 @@ export class Catalogue {
 			return stringSelectMenuOption;
 		});
 
-		const embed: APIEmbed = { color: DEFAULT_EMBED_COLOUR, title: `Events ${year}` };
-		const fields = [];
-
-		for (const event of events.values()) {
-			if (event.offer.length === 0) {
-				continue;
-			}
-
-			const { offerDescription } = catalogue.embedProgress(event.offer);
-
-			fields.push({
-				name: t(`events.${event.id}`, { lng: locale, ns: "general" }),
-				value: offerDescription.join("\n"),
-				inline: true,
-			});
-		}
-
-		embed.fields = fields;
 		const eventsYears = skyEventYears();
 		const index = eventsYears.indexOf(year);
 		const before = eventsYears[index - 1];
 		const after = eventsYears[index + 1];
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			content: "",
 			components: [
 				{
-					type: ComponentType.ActionRow,
+					type: ComponentType.Container,
+					accent_color: DEFAULT_EMBED_COLOUR,
 					components: [
 						{
-							type: ComponentType.StringSelect,
-							custom_id: CATALOGUE_VIEW_EVENT_CUSTOM_ID,
-							max_values: 1,
-							min_values: 0,
-							options,
-							placeholder: "Select an event!",
-						},
-					],
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						BACK_TO_START_BUTTON,
-						{
-							type: ComponentType.Button,
-							custom_id: CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
-							emoji: { name: "⏪" },
-							label: "Back",
-							style: ButtonStyle.Primary,
-						},
-					],
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						{
-							type: ComponentType.Button,
-							custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${before}`,
-							disabled: !before,
-							emoji: { name: "⬅️" },
-							label: "Previous year",
-							style: ButtonStyle.Primary,
+							type: ComponentType.TextDisplay,
+							content: `## ${year}\n-# Catalogue → Events By Year`,
 						},
 						{
-							type: ComponentType.Button,
-							custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${after}`,
-							disabled: !after,
-							emoji: { name: "➡️" },
-							label: "Next year",
-							style: ButtonStyle.Primary,
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
 						},
-					],
+						{
+							type: ComponentType.TextDisplay,
+							content: events.reduce<string[]>((eventField, event) => {
+								if (event.offer.length === 0) {
+									return eventField;
+								}
+					
+								const { offerDescription } = catalogue.embedProgress(event.offer);
+								eventField.push(`__${t(`events.${event.id}`, { lng: locale, ns: "general" })}__\n${offerDescription.join("\n")}`);
+								return eventField;
+							}, []).join("\n\n"),
+						},
+						{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.StringSelect,
+								custom_id: CATALOGUE_VIEW_EVENT_CUSTOM_ID,
+								max_values: 1,
+								min_values: 0,
+								options,
+								placeholder: "Select an event!",
+							},
+						],
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.Button,
+								custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${before}`,
+								disabled: !before,
+								emoji: { name: "⬅️" },
+								label: "Previous year",
+								style: ButtonStyle.Secondary,
+							},
+							{
+								type: ComponentType.Button,
+								custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${after}`,
+								disabled: !after,
+								emoji: { name: "➡️" },
+								label: "Next year",
+								style: ButtonStyle.Secondary,
+							},
+						],
+					},
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							BACK_TO_START_BUTTON,
+							{
+								type: ComponentType.Button,
+								custom_id: CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
+								emoji: { name: "⏪" },
+								label: "Back",
+								style: ButtonStyle.Secondary,
+							},
+						],
+					},
+				],
 				},
 			],
-			embeds: [embed],
 		});
 	}
 
