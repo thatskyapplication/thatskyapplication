@@ -211,6 +211,14 @@ export const DailyQuest = {
 	HelpCeasingCommodoreOrDaydreamForesterFindTreasureInVillageOfDreams: 209,
 	HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef: 210,
 	HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert: 211,
+	HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInSanctuaryIslands: 212,
+	HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInHiddenForest: 213,
+	HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInVillageOfDreams: 214,
+	HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInTreasureReef: 215,
+	HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInStarlightDesert: 216,
+	HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInSanctuaryIslands: 217,
+	HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInHiddenForest: 218,
+	HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams: 219,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);

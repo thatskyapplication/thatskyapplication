@@ -332,7 +332,23 @@ export default {
 			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
 				"Ayuda al Pescador ansioso o a la Estudiante gruñona a buscar tesoros en el Coral del tesoro",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
-				"Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en el desierto Luz de Estrellas.",
+				"Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en el desierto Luz de Estrellas",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInSanctuaryIslands]:
+				"Ayuda al Contramaestre torpe o al Guía del ensamblaje a buscar tesoros en las Islas Santuario",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInHiddenForest]:
+				"Ayuda al Capitán de navío cesante o al Guardabosques soñador a buscar tesoros en el Bosque Escondido",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInVillageOfDreams]:
+				"Ayuda al Pescador ansioso o al Estudiante gruñona a buscar tesoros en la aldea de los sueños",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInTreasureReef]:
+				"Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en el Coral del tesoro",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInStarlightDesert]:
+				"Ayuda al Contramaestre torpe o al Guía del Ensamblaje a buscar tesoros en el desierto Luz de Estrellas",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInSanctuaryIslands]:
+				"Ayuda al Capitán de navío cesante o al Guardabosques soñador a buscar tesoros en las Islas Santuario",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInHiddenForest]:
+				"Ayuda al Pescador ansioso o al Estudiante gruñona a buscar tesoros en el Bosque Escondido",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
+				"Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en la aldea de los sueños",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Temporada de la gratitud",

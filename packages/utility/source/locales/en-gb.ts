@@ -315,6 +315,22 @@ export default {
 				"Help the Anxious Angler or the Scolding Student find treasure in Treasure Reef",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
 				"Help the Cackling Cannoneer or the Chuckling Scout find treasure in Starlight Desert",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInSanctuaryIslands]:
+				"Help the Bumbling Boatswain or the Assembly Guide find treasure in Sanctuary Islands",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInHiddenForest]:
+				"Help the Ceasing Commodore or the Daydream Forester find treasure in Hidden Forest",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInVillageOfDreams]:
+				"Help the Anxious Angler or the Scolding Student find treasure in Village of Dreams",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInTreasureReef]:
+				"Help the Cackling Cannoneer or the Chuckling Scout find treasure in Treasure Reef",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInStarlightDesert]:
+				"Help the Bumbling Boatswain or the Assembly Guide find treasure in Starlight Desert",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInSanctuaryIslands]:
+				"Help the Ceasing Commodore or the Daydream Forester find treasure in Sanctuary Islands",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInHiddenForest]:
+				"Help the Anxious Angler or the Scolding Student find treasure in Hidden Forest",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
+				"Help the Cackling Cannoneer or the Chuckling Scout find treasure in Village of Dreams",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",

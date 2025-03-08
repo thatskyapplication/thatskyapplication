@@ -234,6 +234,22 @@ export default {
 				"ช่วยนักตกปลาขี้กังวล หรือนักเรียนจอมตำหนิค้นหาสมบัติในแนวปะการังสมบัติ",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
 				"ช่วยพลปืนใหญ่ผู้ขบขัน หรือผู้สอดแนมแอบหัวเราะค้นหาสมบัติในทะเลทรายแสงดาว",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInSanctuaryIslands]:
+				"ช่วยนักพายเรือบ่นพึมพำ หรือผู้แนะนำการชุมนุมค้นหาสมบัติในเกาะสวรรค์",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInHiddenForest]:
+				"ช่วยพลเรือผู้ผ่อนปรน หรือผู้ดูแลป่าเพ้อฝันค้นหาสมบัติในป่าลับ",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInVillageOfDreams]:
+				"ช่วยนักตกปลาขี้กังวล หรือนักเรียนจอมตำหนิค้นหาสมบัติในหมู่บ้านแห่งความฝัน",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInTreasureReef]:
+				"ช่วยพลปืนใหญ่ผู้ขบขัน หรือผู้สอดแนมแอบหัวเราะค้นหาสมบัติในแนวปะการังสมบัติ",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInStarlightDesert]:
+				"ช่วยนักพายเรือบ่นพึมพำ หรือผู้แนะนำการชุมนุมค้นหาสมบัติในทะเลทรายแสงดาว",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInSanctuaryIslands]:
+				"ช่วยพลเรือผู้ผ่อนปรน หรือผู้ดูแลป่าเพ้อฝันค้นหาสมบัติในเกาะสวรรค์",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInHiddenForest]:
+				"ช่วยนักตกปลาขี้กังวล หรือนักเรียนจอมตำหนิค้นหาสมบัติในป่าลับ",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
+				"ช่วยพลปืนใหญ่ผู้ขบขัน หรือผู้สอดแนมแอบหัวเราะค้นหาสมบัติในหมู่บ้านแห่งความฝัน",
 		},
 		seasons: {
 			[SeasonId.Moomin]: "ฤดูกาลแห่งมูมิน",

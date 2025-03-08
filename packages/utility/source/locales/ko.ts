@@ -280,6 +280,22 @@ export default {
 				"보물섬에서 안절부절 낚시꾼 또는 야단치는 학생이 보물을 찾는 걸 돕기",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
 				"별빛사막에서 낄낄 웃는 포수 또는 키득거리는 스카우트가 보물을 찾는 걸 돕기",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInSanctuaryIslands]:
+				"낙원의 섬에서 우왕좌왕 갑판장 또는 협력의 안내자가 보물을 찾는 걸 돕기",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInHiddenForest]:
+				"비밀의 숲에서 위풍당당 선장 또는 몽상하는 숲지기가 보물을 찾는 걸 돕기",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInVillageOfDreams]:
+				"꿈의 마을에서 안절부절 낚시꾼 또는 야단치는 학생이 보물을 찾는 걸 돕기",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInTreasureReef]:
+				"보물섬에서 낄낄 웃는 포수 또는 키득거리는 스카우트가 보물을 찾는 걸 돕기",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInStarlightDesert]:
+				"별빛사막에서 우왕좌왕 갑판장 또는 협력의 안내자가 보물을 찾는 걸 돕기",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInSanctuaryIslands]:
+				"낙원의 섬에서 위풍당당 선장 또는 몽상하는 숲지기가 보물을 찾는 걸 돕기",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInHiddenForest]:
+				"비밀의 숲에서 안절부절 낚시꾼 또는 야단치는 학생이 보물을 찾는 걸 돕기",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
+				"꿈의 마을에서 낄낄 웃는 포수 또는 키득거리는 스카우트가 보물을 찾는 걸 돕기",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "감사의 시즌",

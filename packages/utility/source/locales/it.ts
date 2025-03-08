@@ -326,6 +326,22 @@ export default {
 				"Aiuta la Pescatrice ansiosa o la Studentessa saccente a trovare il tesoro nella Scogliera del Tesoro",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
 				"Aiuta la Cannoniera sghignazzante o lo Scout sghignazzante a trovare il tesoro nel Deserto Stellare",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInSanctuaryIslands]:
+				"Aiuta il Nostromo goffo o la guida della Costruzione a trovare il tesoro nell'Arcipelago Paradiso",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInHiddenForest]:
+				"Aiuta il Commodoro autorevole o il Guardaboschi sognante a trovare il tesoro nella Foresta Nascosta",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInVillageOfDreams]:
+				"Aiuta la Pescatrice ansiosa o la Studentessa saccente a trovare il tesoro nel Villaggio dei Sogni",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInTreasureReef]:
+				"Aiuta la Cannoniera sghignazzante o lo Scout sghignazzante a trovare il tesoro nella Scogliera del Tesoro",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInStarlightDesert]:
+				"Aiuta il Nostromo goffo o la guida della Costruzione a trovare il tesoro nel Deserto Stellare",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInSanctuaryIslands]:
+				"Aiuta il Commodoro autorevole o il Guardaboschi sognante a trovare il tesoro nell'Arcipelago Paradiso",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInHiddenForest]:
+				"Aiuta la Pescatrice ansiosa o la Studentessa saccente a trovare il tesoro nella Foresta Nascosta",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
+				"Aiuta la Cannoniera sghignazzante o lo Scout sghignazzante a trovare il tesoro nel Villaggio dei Sogni",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Stagione della Gratitudine",

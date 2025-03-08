@@ -320,6 +320,22 @@ export default {
 				"Ajude a Pescadora Ansiosa ou o Estudante Esbravejante a encontrar tesouros no Recife do Tesouro",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
 				"Ajude a Canhoneira Sorridente ou o Batedor Risonho a encontrar tesouros no Deserto da Luz Estelar",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInSanctuaryIslands]:
+				"Ajude o Contramestre Trapalhão ou o Guia da União a encontrar tesouros nas Ilhas do Santuário",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInHiddenForest]:
+				"Ajude o Comodoro Abandonado ou o Silvicultor Sonhador a encontrar tesouros na Floresta Oculta",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInVillageOfDreams]:
+				"Ajude a Pescadora Ansiosa ou o Estudante Esbravejante a encontrar tesouros na Aldeia dos Sonhos",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInTreasureReef]:
+				"Ajude a Canhoneira Sorridente ou o Batedor Risonho a encontrar tesouros no Recife do Tesouro",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInStarlightDesert]:
+				"Ajude o Contramestre Trapalhão ou o Guia da União a encontrar tesouros no Deserto da Luz Estelar",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInSanctuaryIslands]:
+				"Ajude o Comodoro Abandonado ou o Silvicultor Sonhador a encontrar tesouros nas Ilhas do Santuário",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInHiddenForest]:
+				"Ajude a Pescadora Ansiosa ou o Estudante Esbravejante a encontrar tesouros na Floresta Oculta",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
+				"Ajude a Canhoneira Sorridente ou o Batedor Risonho a encontrar tesouros na Aldeia dos Sonhos",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Temporada da Gratidão",

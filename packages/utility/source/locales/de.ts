@@ -328,6 +328,22 @@ export default {
 				"Hilf der Ängstlichen Anglerin oder der Schimpfenden Schülerin dabei, einen Schatz im Schatzriff zu finden",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
 				"Hilf der Kicher-Kanonierin oder dem Kichernden Pfadfinder dabei, einen Schatz in der Sternenlichtwüste zu finden",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInSanctuaryIslands]:
+				"Hilf dem Stümperhaften Schiffsjungen oder dem Zusammenbauhelfer dabei, einen Schatz auf den Zufluchtsinseln zu finden",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInHiddenForest]:
+				"Hilf dem Kommando-Kapitän oder dem Tagträumenden Förster dabei, einen Schatz im Verborgenen Wald zu finden",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInVillageOfDreams]:
+				"Hilf der Ängstlichen Anglerin oder der Schimpfenden Schülerin dabei, einen Schatz im Dorf der Träume zu finden",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInTreasureReef]:
+				"Hilf der Kicher-Kanonierin oder dem Kichernden Pfadfinder dabei, einen Schatz im Schatzriff zu finden",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInStarlightDesert]:
+				"Hilf dem Stümperhaften Schiffsjungen oder dem Zusammenbauhelfer dabei, einen Schatz in der Sternenlichtwüste zu finden",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInSanctuaryIslands]:
+				"Hilf dem Kommando-Kapitän oder dem Tagträumenden Förster dabei, einen Schatz auf den Zufluchtsinseln zu finden",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInHiddenForest]:
+				"Hilf der Ängstlichen Anglerin oder der Schimpfenden Schülerin dabei, einen Schatz im Verborgenen Wald zu finden",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
+				"Hilf der Kicher-Kanonierin oder dem Kichernden Pfadfinder dabei, einen Schatz im Dorf der Träume zu finden",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison der Dankbarkeit",

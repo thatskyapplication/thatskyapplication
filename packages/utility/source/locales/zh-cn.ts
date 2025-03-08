@@ -210,6 +210,22 @@ export default {
 				"帮助焦虑渔夫或管事小队长在宝礁寻宝",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
 				"帮助嬉笑炮手或傻笑童子军在星漠寻宝",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInSanctuaryIslands]:
+				"帮助笨拙水手或集结季向导在圣域群岛寻宝",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInHiddenForest]:
+				"帮助威严舰长或白日梦森林人在雨林寻宝",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInVillageOfDreams]:
+				"帮助焦虑渔夫或管事小队长在圆梦村寻宝",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInTreasureReef]:
+				"帮助嬉笑炮手或傻笑童子军在宝礁寻宝",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInStarlightDesert]:
+				"帮助笨拙水手或重组向导在星漠寻宝",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInSanctuaryIslands]:
+				"帮助威严舰长或白日梦森林人在圣域群岛寻宝",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInHiddenForest]:
+				"帮助焦虑渔夫或管事小队长在雨林寻宝",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
+				"帮助嬉笑炮手或傻笑童子军在圆梦村寻宝",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "感恩季",

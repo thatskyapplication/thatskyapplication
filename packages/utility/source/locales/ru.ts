@@ -305,7 +305,23 @@ export default {
 			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
 				"Помогите Беспокойной рыбачке или Ворчливой студентке найти сокровище на Острове сокровищ",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
-				"Помогите Хохотушке с пушкой или Хихикающему скауту найти сокровище в Звёздной пустыне.",
+				"Помогите Хохотушке с пушкой или Хихикающему скауту найти сокровище в Звёздной пустыне",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInSanctuaryIslands]:
+				"Помогите Нерадивому боцману или Проводнику Сезона собрания найти сокровище на Островах укрытия",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInHiddenForest]:
+				"Помогите Командору-начальнику или Мечтательному лесовичку найти сокровище в Тайном лесу",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInVillageOfDreams]:
+				"Помогите Беспокойной рыбачке или Ворчливой студентке найти сокровище в Деревушке мечтаний",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInTreasureReef]:
+				"Помогите Хохотушке с пушкой или Хихикающему скауту найти сокровище на Острове сокровищ",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInStarlightDesert]:
+				"Помогите Нерадивому боцману или Проводнику Сезона собрания найти сокровище в Звёздной пустыне",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInSanctuaryIslands]:
+				"Помогите Командору-начальнику или Мечтательному лесовичку найти сокровище на Островах укрытия",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInHiddenForest]:
+				"Помогите Беспокойной рыбачке или Ворчливой студентке найти сокровище в Тайном лесу",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
+				"Помогите Хохотушке с пушкой или Хихикающему скауту найти сокровище в Деревушке мечтаний",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Сезон благодарности",

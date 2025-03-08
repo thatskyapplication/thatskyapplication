@@ -348,7 +348,23 @@ export default {
 			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
 				"Aidez la Pêcheuse angoissée ou l'Étudiante moralisatrice à trouver des trésors sur le Récif du trésor",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
-				"Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors dans le Désert stellaire.",
+				"Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors dans le Désert stellaire",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInSanctuaryIslands]:
+				"Aidez le Maître d'équipage maladroit ou le Guide du Rassemblement à trouver des trésors sur les Îles du Sanctuaire",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInHiddenForest]:
+				"Aidez le Commodore commandant ou le Forestier rêveur à trouver des trésors dans la Forêt cachée",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInVillageOfDreams]:
+				"Aidez la Pêcheuse angoissée ou l'Étudiante moralisatrice à trouver des trésors dans le Village des Rêves",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInTreasureReef]:
+				"Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors sur le Récif du trésor",
+			[DailyQuest.HelpTheBumblingBoatswainOrTheAssemblyGuideFindTreasureInStarlightDesert]:
+				"Aidez le Maître d'équipage maladroit ou le Guide du Rassemblement à trouver des trésors dans le Désert stellaire",
+			[DailyQuest.HelpTheCeasingCommodoreOrTheDaydreamForesterFindTreasureInSanctuaryIslands]:
+				"Aidez le Commodore commandant ou le Forestier rêveur à trouver des trésors sur les Îles du Sanctuaire",
+			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInHiddenForest]:
+				"Aidez la Pêcheuse angoissée ou l'Étudiante moralisatrice à trouver des trésors dans la Forêt cachée",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
+				"Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors dans le Village des Rêves",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison de la gratitude",
