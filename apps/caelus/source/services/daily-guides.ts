@@ -413,7 +413,7 @@ async function statusEmbed(guild: Guild, channelId: Snowflake | null) {
 	};
 }
 
-export function dailyGuidesEventData(date: DateTime, locale: Locale) {
+function dailyGuidesEventData(date: DateTime, locale: Locale) {
 	const events = skyCurrentEvents(date);
 
 	const eventEndText = skyNotEndedEvents(date).map(({ id, start, end }) => {

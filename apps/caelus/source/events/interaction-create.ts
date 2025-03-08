@@ -90,7 +90,6 @@ import {
 import { history } from "../services/heart.js";
 import { finaliseSetup } from "../services/notification.js";
 import { browse, today } from "../services/shard-eruption.js";
-import { parseSpiritSwitch } from "../services/spirit.js";
 import {
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,
@@ -131,7 +130,6 @@ import {
 	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
 	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
 } from "../utility/shard-eruption.js";
-import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../utility/spirits.js";
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.InteractionCreate;
@@ -483,11 +481,6 @@ export default {
 
 				if (customId.startsWith(HEART_HISTORY_BACK) || customId.startsWith(HEART_HISTORY_NEXT)) {
 					await history(interaction);
-					return;
-				}
-
-				if (customId.startsWith(SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID)) {
-					await parseSpiritSwitch(interaction);
 					return;
 				}
 
