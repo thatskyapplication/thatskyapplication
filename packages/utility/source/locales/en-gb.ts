@@ -1495,7 +1495,7 @@ export default {
 			"travelling-spirit-none": "None",
 			"travelling-spirit-next-visit": "Next visit at",
 			"dreams-skater-days": "On Friday, Saturday, and Sunday",
-			"first-of-month": "_On the first of every month_",
+			"first-of-month": "On the first of every month",
 			"deer-0": "Appears",
 			"deer-120": "Walks",
 			"deer-600": "Mantas and jellyfish appear",

@@ -598,7 +598,7 @@ export default {
 			"travelling-spirit-today": "Aujourd'hui!",
 			"travelling-spirit-none": "Aucun",
 			"travelling-spirit-next-visit": "Prochaine visite le",
-			"first-of-month": "_Tout les premiers du mois_",
+			"first-of-month": "Tout les premiers du mois",
 			"times-are-relative": "Les heures correspondent a votre localisation.",
 			"schedule-today": "Planning d'aujourd'hui",
 		},
