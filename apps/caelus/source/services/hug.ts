@@ -114,5 +114,6 @@ export async function hug(
 				],
 			},
 		],
+		flags: MessageFlags.IsComponentsV2,
 	});
 }

@@ -103,5 +103,6 @@ export async function krill(
 				],
 			},
 		],
+		flags: MessageFlags.IsComponentsV2,
 	});
 }
