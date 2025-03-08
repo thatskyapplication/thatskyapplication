@@ -1,6 +1,5 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import {
-	type APIActionRowComponent,
 	type APIButtonComponentWithCustomId,
 	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
@@ -10,7 +9,6 @@ import {
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentEmoji,
 	type APIMessageComponentSelectMenuInteraction,
-	type APISelectMenuComponent,
 	type APISelectMenuOption,
 	type APIStringSelectComponent,
 	ButtonStyle,
@@ -1729,64 +1727,66 @@ export class Catalogue {
 		event: Event,
 	) {
 		const { locale } = interaction;
-		const { id, start, offer, offerInfographicURL } = event;
+		const { id, start, offer, offerInfographicURL, patchNotesURL } = event;
 		const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
 
-		const embed: APIEmbed = {
-			color: DEFAULT_EMBED_COLOUR,
-			title: `${eventTicketEmoji ? formatEmoji(eventTicketEmoji) : ""}${t(`events.${id}`, {
-				lng: locale,
-				ns: "general",
-			})}`,
-			url: t(`event-wiki.${id}`, { lng: locale, ns: "general" }),
-		};
-
-		const description = [];
-
-		if (event.patchNotesURL) {
-			description.push(`-# [Patch Notes](${event.patchNotesURL})`);
-		}
-
-		if (offer.length > 0) {
-			const { offerDescription } = this.embedProgress(offer);
-			description.push(offerDescription.join("\n"));
-		}
-
-		if (offerInfographicURL) {
-			embed.image = { url: offerInfographicURL };
-		} else {
-			description.push(offer.length > 0 ? NO_EVENT_INFOGRAPHIC_YET : NO_EVENT_OFFER_TEXT);
-		}
-
-		if (description.length > 0) {
-			embed.description = description.join("\n");
-		}
-
-		const components: APIActionRowComponent<
-			APIButtonComponentWithCustomId | APISelectMenuComponent
-		>[] = [];
-
-		const row1Components: APIButtonComponentWithCustomId[] = [
-			BACK_TO_START_BUTTON,
+		const containerComponents: APIComponentInContainer[] = [
 			{
-				type: ComponentType.Button,
-				custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${start.year}`,
-				emoji: { name: "⏪" },
-				label: "Back",
-				style: ButtonStyle.Primary,
+				type: ComponentType.TextDisplay,
+				content: `## [${eventTicketEmoji ? formatEmoji(eventTicketEmoji) : ""}${t(`events.${id}`, { lng: locale, ns: "general" })}](${t(`event-wiki.${id}`, { lng: locale, ns: "general" })})\n-# Catalogue → Events By Year → ${event.start.year}`,
+			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
 			},
 		];
 
-		if (offer.length > 0) {
-			row1Components.push({
-				type: ComponentType.Button,
-				custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§event:${id}`,
-				disabled: this.eventProgress([event]) === 100,
-				emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-				label: "I have everything!",
-				style: ButtonStyle.Success,
-			});
+		let description = null;
 
+		if (offer.length > 0) {
+			const { offerDescription } = this.embedProgress(offer);
+			description = offerDescription.join("\n");
+		} else {
+			description = NO_EVENT_OFFER_TEXT;
+		}
+
+		if (patchNotesURL) {
+			containerComponents.push({
+				type: ComponentType.Section,
+				accessory: {
+					type: ComponentType.Button,
+					label: "Patch notes",
+					style: ButtonStyle.Link,
+					url: patchNotesURL,
+				},
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: description,
+					},
+				],
+			});
+		} else {
+			containerComponents.push({
+				type: ComponentType.TextDisplay,
+				content: description,
+			});
+		}
+
+		if (offerInfographicURL) {
+			containerComponents.push({
+				type: ComponentType.MediaGallery,
+				items: [{ media: { url: offerInfographicURL } }],
+			});
+		} else if (offer.length > 0) {
+			containerComponents.push({
+				type: ComponentType.TextDisplay,
+				content: `-# ${NO_EVENT_INFOGRAPHIC_YET}`,
+			});
+		}
+
+		if (offer.length > 0) {
 			const itemSelectionOptions = offer.map(({ name, cosmetics, cosmeticDisplay }) => {
 				const stringSelectMenuOption: APISelectMenuOption = {
 					default: cosmetics.every((cosmetic) => this.data.has(cosmetic)),
@@ -1803,7 +1803,7 @@ export class Catalogue {
 				return stringSelectMenuOption;
 			});
 
-			components.push({
+			containerComponents.push({
 				type: ComponentType.ActionRow,
 				components: [
 					{
@@ -1818,39 +1818,70 @@ export class Catalogue {
 			});
 		}
 
-		components.push({ type: ComponentType.ActionRow, components: row1Components });
 		const events = skyEvents().filter((event) => event.start.year === start.year);
 		const before = events.get((id - 1) as EventIds);
 		const after = events.get((id + 1) as EventIds);
 
-		// It is possible that for the first event of a year, the custom ids will be the same, leading to an error.
-		// We use the nullish coalescing operator to fallback to some default values to mitigate this.
-		components.push({
-			type: ComponentType.ActionRow,
-			components: [
-				{
-					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${before?.id ?? "before"}`,
-					disabled: !before,
-					emoji: { name: "⬅️" },
-					label: "Previous event",
-					style: ButtonStyle.Primary,
-				},
-				{
-					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${after?.id ?? "after"}`,
-					disabled: !after,
-					emoji: { name: "➡️" },
-					label: "Next event",
-					style: ButtonStyle.Primary,
-				},
-			],
-		});
+		containerComponents.push(
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.ActionRow,
+				// It is possible that for the first event of a year, the custom ids will be the same, leading to an error.
+				// We use the nullish coalescing operator to fallback to some default values to mitigate this.
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${before?.id ?? "before"}`,
+						disabled: !before,
+						emoji: { name: "⬅️" },
+						label: "Previous event",
+						style: ButtonStyle.Secondary,
+					},
+					{
+						type: ComponentType.Button,
+						custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${after?.id ?? "after"}`,
+						disabled: !after,
+						emoji: { name: "➡️" },
+						label: "Next event",
+						style: ButtonStyle.Secondary,
+					},
+					{
+						type: ComponentType.Button,
+						custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§event:${id}`,
+						disabled: this.eventProgress([event]) === 100,
+						emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+						label: "I have everything!",
+						style: ButtonStyle.Success,
+					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					BACK_TO_START_BUTTON,
+					{
+						type: ComponentType.Button,
+						custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${start.year}`,
+						emoji: { name: "⏪" },
+						label: "Back",
+						style: ButtonStyle.Secondary,
+					},
+				],
+			},
+		);
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components,
-			content: "",
-			embeds: [embed],
+			components: [
+				{
+					type: ComponentType.Container,
+					accent_color: DEFAULT_EMBED_COLOUR,
+					components: containerComponents,
+				},
+			],
 		});
 	}
 
