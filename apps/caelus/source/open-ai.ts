@@ -4,6 +4,7 @@ import {
 	AllowedMentionsTypes,
 	type GatewayMessageCreateDispatchData,
 	Locale,
+	MessageFlags,
 	MessageReferenceType,
 	type Snowflake,
 } from "@discordjs/core";
@@ -26,7 +27,7 @@ import { MESSAGE_CACHE } from "./caches/messages.js";
 import { client } from "./discord.js";
 import type { Guild } from "./models/discord/guild.js";
 import pino from "./pino.js";
-import { todayEmbed } from "./services/shard-eruption.js";
+import { todayData } from "./services/shard-eruption.js";
 import {
 	AI_GATEWAY_TOKEN,
 	APPLICATION_ID,
@@ -493,8 +494,11 @@ export async function messageCreateResponse(
 				offset = index;
 			}
 
+			const components = todayData(guild.preferredLocale, offset);
+
 			await client.api.channels.createMessage(message.channel_id, {
-				...todayEmbed(guild.preferredLocale, offset),
+				components,
+				flags: MessageFlags.IsComponentsV2,
 				message_reference: {
 					type: MessageReferenceType.Default,
 					message_id: message.id,
