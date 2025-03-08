@@ -1325,7 +1325,8 @@ export class Catalogue {
 										return eventField;
 									}
 
-									const { offerDescription } = catalogue.embedProgress(event.offer);
+									const { offerDescription } = catalogue.progress(event.offer);
+
 									eventField.push(
 										`__${t(`events.${event.id}`, { lng: locale, ns: "general" })}__\n${offerDescription.join("\n")}`,
 									);
@@ -1752,7 +1753,7 @@ export class Catalogue {
 		let description: string;
 
 		if (offer.length > 0) {
-			const { offerDescription } = this.embedProgress(offer);
+			const { offerDescription } = this.progress(offer);
 			description = offerDescription.join("\n");
 		} else {
 			description = NO_EVENT_OFFER_TEXT;
@@ -1931,7 +1932,7 @@ export class Catalogue {
 						},
 						{
 							type: ComponentType.TextDisplay,
-							content: catalogue.embedProgress(STARTER_PACKS.items).offerDescription.join("\n"),
+							content: catalogue.progress(STARTER_PACKS.items).offerDescription.join("\n"),
 						},
 						{
 							type: ComponentType.ActionRow,
@@ -2017,7 +2018,7 @@ export class Catalogue {
 						},
 						{
 							type: ComponentType.TextDisplay,
-							content: catalogue.embedProgress(SECRET_AREA.items).offerDescription.join("\n"),
+							content: catalogue.progress(SECRET_AREA.items).offerDescription.join("\n"),
 						},
 						{
 							type: ComponentType.ActionRow,
@@ -2105,9 +2106,7 @@ export class Catalogue {
 						},
 						{
 							type: ComponentType.TextDisplay,
-							content: catalogue
-								.embedProgress(PERMANENT_EVENT_STORE.items)
-								.offerDescription.join("\n"),
+							content: catalogue.progress(PERMANENT_EVENT_STORE.items).offerDescription.join("\n"),
 						},
 						{
 							type: ComponentType.ActionRow,
@@ -2207,7 +2206,7 @@ export class Catalogue {
 						},
 						{
 							type: ComponentType.TextDisplay,
-							content: catalogue.embedProgress(NESTING_WORKSHOP.items).offerDescription.join("\n"),
+							content: catalogue.progress(NESTING_WORKSHOP.items).offerDescription.join("\n"),
 						},
 						{
 							type: ComponentType.ActionRow,
@@ -2571,7 +2570,7 @@ export class Catalogue {
 			.returning("*");
 	}
 
-	private embedProgress(offer: readonly Item[]) {
+	private progress(offer: readonly Item[]) {
 		const offerDescription = [];
 		const owned = [];
 		const unowned = [];
@@ -2627,7 +2626,7 @@ export class Catalogue {
 				continue;
 			}
 
-			const { remainingCurrency, offerDescription } = this.embedProgress(offer);
+			const { remainingCurrency, offerDescription } = this.progress(offer);
 			remainingCurrencies.push(remainingCurrency);
 
 			offerDescriptions.push(
@@ -2694,7 +2693,7 @@ export class Catalogue {
 				continue;
 			}
 
-			const { remainingCurrency, offerDescription } = this.embedProgress(offer);
+			const { remainingCurrency, offerDescription } = this.progress(offer);
 			remainingCurrencies.push(remainingCurrency);
 
 			description.push(
