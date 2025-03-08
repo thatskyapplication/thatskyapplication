@@ -2,6 +2,7 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIInteractionDataResolvedGuildMember,
 	type APIUser,
+	ComponentType,
 	Locale,
 	MessageFlags,
 	PermissionFlagsBits,
@@ -75,19 +76,33 @@ export async function playFight(
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
 		allowed_mentions: { users: [user.id] },
-		content: `<@${invoker.id}> is fighting <@${user.id}>!`,
-		embeds: [
+		components: [
 			{
-				color: DEFAULT_EMBED_COLOUR,
-				image: {
-					url: String(
-						new URL(
-							`play_fights/${Math.floor(Math.random() * MAXIMUM_PLAY_FIGHT_GIF + 1)}.gif`,
-							CDN_URL,
-						),
-					),
-				},
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `<@${invoker.id}> is fighting <@${user.id}>!`,
+					},
+					{
+						type: ComponentType.MediaGallery,
+						items: [
+							{
+								media: {
+									url: String(
+										new URL(
+											`play_fights/${Math.floor(Math.random() * MAXIMUM_PLAY_FIGHT_GIF + 1)}.gif`,
+											CDN_URL,
+										),
+									),
+								},
+							},
+						],
+					},
+				],
 			},
 		],
+		flags: MessageFlags.IsComponentsV2,
 	});
 }
