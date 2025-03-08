@@ -1915,51 +1915,65 @@ export class Catalogue {
 			return stringSelectMenuOption;
 		});
 
-		const { offerDescription } = catalogue.embedProgress(STARTER_PACKS.items);
-
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
 				{
-					type: ComponentType.ActionRow,
+					type: ComponentType.Container,
+					accent_color: DEFAULT_EMBED_COLOUR,
 					components: [
 						{
-							type: ComponentType.StringSelect,
-							custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.StarterPacks}`,
-							max_values: itemSelectionOptions.length,
-							min_values: 0,
-							options: itemSelectionOptions,
-							placeholder: "Select what you have!",
-						},
-					],
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						BACK_TO_START_BUTTON,
-						{
-							type: ComponentType.Button,
-							custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-							emoji: { name: "⏪" },
-							label: "Back",
-							style: ButtonStyle.Primary,
+							type: ComponentType.TextDisplay,
+							content: "## Starter Packs\n-# Catalogue",
 						},
 						{
-							type: ComponentType.Button,
-							custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.StarterPacks}`,
-							disabled: catalogue.starterPackProgress() === 100,
-							emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-							label: "I have everything!",
-							style: ButtonStyle.Success,
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.TextDisplay,
+							content: catalogue.embedProgress(STARTER_PACKS.items).offerDescription.join("\n"),
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.StringSelect,
+									custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.StarterPacks}`,
+									max_values: itemSelectionOptions.length,
+									min_values: 0,
+									options: itemSelectionOptions,
+									placeholder: "Select what you have!",
+								},
+							],
+						},
+						{
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								BACK_TO_START_BUTTON,
+								{
+									type: ComponentType.Button,
+									custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+									emoji: { name: "⏪" },
+									label: "Back",
+									style: ButtonStyle.Secondary,
+								},
+								{
+									type: ComponentType.Button,
+									custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.StarterPacks}`,
+									disabled: catalogue.starterPackProgress() === 100,
+									emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+									label: "I have everything!",
+									style: ButtonStyle.Success,
+								},
+							],
 						},
 					],
-				},
-			],
-			content: "",
-			embeds: [
-				{
-					color: DEFAULT_EMBED_COLOUR,
-					description: offerDescription.join("\n"),
-					title: "Starter Packs",
 				},
 			],
 		});
@@ -1987,51 +2001,65 @@ export class Catalogue {
 			return stringSelectMenuOption;
 		});
 
-		const { offerDescription } = catalogue.embedProgress(SECRET_AREA.items);
-
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
 				{
-					type: ComponentType.ActionRow,
+					type: ComponentType.Container,
+					accent_color: DEFAULT_EMBED_COLOUR,
 					components: [
 						{
-							type: ComponentType.StringSelect,
-							custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.SecretArea}`,
-							max_values: itemSelectionOptions.length,
-							min_values: 0,
-							options: itemSelectionOptions,
-							placeholder: "Select what you have!",
-						},
-					],
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						BACK_TO_START_BUTTON,
-						{
-							type: ComponentType.Button,
-							custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-							emoji: { name: "⏪" },
-							label: "Back",
-							style: ButtonStyle.Primary,
+							type: ComponentType.TextDisplay,
+							content: "## Secret Area\n-# Catalogue",
 						},
 						{
-							type: ComponentType.Button,
-							custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.SecretArea}`,
-							disabled: catalogue.secretAreaProgress() === 100,
-							emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-							label: "I have everything!",
-							style: ButtonStyle.Success,
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.TextDisplay,
+							content: catalogue.embedProgress(SECRET_AREA.items).offerDescription.join("\n"),
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.StringSelect,
+									custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.SecretArea}`,
+									max_values: itemSelectionOptions.length,
+									min_values: 0,
+									options: itemSelectionOptions,
+									placeholder: "Select what you have!",
+								},
+							],
+						},
+						{
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								BACK_TO_START_BUTTON,
+								{
+									type: ComponentType.Button,
+									custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+									emoji: { name: "⏪" },
+									label: "Back",
+									style: ButtonStyle.Secondary,
+								},
+								{
+									type: ComponentType.Button,
+									custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.SecretArea}`,
+									disabled: catalogue.secretAreaProgress() === 100,
+									emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+									label: "I have everything!",
+									style: ButtonStyle.Success,
+								},
+							],
 						},
 					],
-				},
-			],
-			content: "",
-			embeds: [
-				{
-					color: DEFAULT_EMBED_COLOUR,
-					description: offerDescription.join("\n"),
-					title: "Secret Area",
 				},
 			],
 		});
@@ -2061,51 +2089,67 @@ export class Catalogue {
 			},
 		);
 
-		const { offerDescription } = catalogue.embedProgress(PERMANENT_EVENT_STORE.items);
-
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
 				{
-					type: ComponentType.ActionRow,
+					type: ComponentType.Container,
+					accent_color: DEFAULT_EMBED_COLOUR,
 					components: [
 						{
-							type: ComponentType.StringSelect,
-							custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.PermanentEventStore}`,
-							max_values: itemSelectionOptions.length,
-							min_values: 0,
-							options: itemSelectionOptions,
-							placeholder: "Select what you have!",
-						},
-					],
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						BACK_TO_START_BUTTON,
-						{
-							type: ComponentType.Button,
-							custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-							emoji: { name: "⏪" },
-							label: "Back",
-							style: ButtonStyle.Primary,
+							type: ComponentType.TextDisplay,
+							content: "## Permanent Event Store\n-# Catalogue",
 						},
 						{
-							type: ComponentType.Button,
-							custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.PermanentEventStore}`,
-							disabled: catalogue.permanentEventStoreProgress() === 100,
-							emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-							label: "I have everything!",
-							style: ButtonStyle.Success,
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.TextDisplay,
+							content: catalogue
+								.embedProgress(PERMANENT_EVENT_STORE.items)
+								.offerDescription.join("\n"),
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.StringSelect,
+									custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.PermanentEventStore}`,
+									max_values: itemSelectionOptions.length,
+									min_values: 0,
+									options: itemSelectionOptions,
+									placeholder: "Select what you have!",
+								},
+							],
+						},
+						{
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								BACK_TO_START_BUTTON,
+								{
+									type: ComponentType.Button,
+									custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+									emoji: { name: "⏪" },
+									label: "Back",
+									style: ButtonStyle.Secondary,
+								},
+								{
+									type: ComponentType.Button,
+									custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.PermanentEventStore}`,
+									disabled: catalogue.permanentEventStoreProgress() === 100,
+									emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+									label: "I have everything!",
+									style: ButtonStyle.Success,
+								},
+							],
 						},
 					],
-				},
-			],
-			content: "",
-			embeds: [
-				{
-					color: DEFAULT_EMBED_COLOUR,
-					description: offerDescription.join("\n"),
-					title: "Permanent Event Store",
 				},
 			],
 		});
@@ -2147,77 +2191,91 @@ export class Catalogue {
 			CATALOGUE_MAXIMUM_OPTIONS_LIMIT * 3,
 		);
 
-		const { offerDescription } = catalogue.embedProgress(NESTING_WORKSHOP.items);
-
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
 				{
-					type: ComponentType.ActionRow,
+					type: ComponentType.Container,
+					accent_color: DEFAULT_EMBED_COLOUR,
 					components: [
 						{
-							type: ComponentType.StringSelect,
-							custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`,
-							max_values: itemSelectionOptions1.length,
-							min_values: 0,
-							options: itemSelectionOptions1,
-							placeholder: "Select what you have!",
-						},
-					],
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						{
-							type: ComponentType.StringSelect,
-							custom_id: `${CATALOGUE_VIEW_OFFER_2_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`,
-							max_values: itemSelectionOptions2.length,
-							min_values: 0,
-							options: itemSelectionOptions2,
-							placeholder: "Select what you have!",
-						},
-					],
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						{
-							type: ComponentType.StringSelect,
-							custom_id: `${CATALOGUE_VIEW_OFFER_3_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`,
-							max_values: itemSelectionOptions3.length,
-							min_values: 0,
-							options: itemSelectionOptions3,
-							placeholder: "Select what you have!",
-						},
-					],
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						BACK_TO_START_BUTTON,
-						{
-							type: ComponentType.Button,
-							custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-							emoji: { name: "⏪" },
-							label: "Back",
-							style: ButtonStyle.Primary,
+							type: ComponentType.TextDisplay,
+							content: "## Nesting Workshop\n-# Catalogue",
 						},
 						{
-							type: ComponentType.Button,
-							custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`,
-							disabled: catalogue.nestingWorkshopProgress() === 100,
-							emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-							label: "I have everything!",
-							style: ButtonStyle.Success,
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.TextDisplay,
+							content: catalogue.embedProgress(NESTING_WORKSHOP.items).offerDescription.join("\n"),
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.StringSelect,
+									custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`,
+									max_values: itemSelectionOptions1.length,
+									min_values: 0,
+									options: itemSelectionOptions1,
+									placeholder: "Select what you have!",
+								},
+							],
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.StringSelect,
+									custom_id: `${CATALOGUE_VIEW_OFFER_2_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`,
+									max_values: itemSelectionOptions2.length,
+									min_values: 0,
+									options: itemSelectionOptions2,
+									placeholder: "Select what you have!",
+								},
+							],
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.StringSelect,
+									custom_id: `${CATALOGUE_VIEW_OFFER_3_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`,
+									max_values: itemSelectionOptions3.length,
+									min_values: 0,
+									options: itemSelectionOptions3,
+									placeholder: "Select what you have!",
+								},
+							],
+						},
+						{
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								BACK_TO_START_BUTTON,
+								{
+									type: ComponentType.Button,
+									custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+									emoji: { name: "⏪" },
+									label: "Back",
+									style: ButtonStyle.Secondary,
+								},
+								{
+									type: ComponentType.Button,
+									custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`,
+									disabled: catalogue.nestingWorkshopProgress() === 100,
+									emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+									label: "I have everything!",
+									style: ButtonStyle.Success,
+								},
+							],
 						},
 					],
-				},
-			],
-			content: "",
-			embeds: [
-				{
-					color: DEFAULT_EMBED_COLOUR,
-					description: offerDescription.join("\n"),
-					title: "Nesting Workshop",
 				},
 			],
 		});
