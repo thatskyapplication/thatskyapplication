@@ -278,6 +278,8 @@ export default {
 				"꿈의 마을에서 위풍당당 선장 또는 몽상하는 숲지기가 보물을 찾는 걸 도와주세요",
 			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
 				"보물섬에서 안절부절 낚시꾼 또는 야단치는 학생이 보물을 찾는 걸 돕기",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
+				"별빛사막에서 낄낄 웃는 포수 또는 키득거리는 스카우트가 보물을 찾는 걸 돕기",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "감사의 시즌",

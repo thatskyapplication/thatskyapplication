@@ -232,6 +232,8 @@ export default {
 				"ช่วยพลเรือผู้ผ่อนปรน หรือผู้ดูแลป่าเพ้อฝันค้นหาสมบัติในหมู่บ้านแห่งความฝัน",
 			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
 				"ช่วยนักตกปลาขี้กังวล หรือนักเรียนจอมตำหนิค้นหาสมบัติในแนวปะการังสมบัติ",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
+				"ช่วยพลปืนใหญ่ผู้ขบขัน หรือผู้สอดแนมแอบหัวเราะค้นหาสมบัติในทะเลทรายแสงดาว",
 		},
 		seasons: {
 			[SeasonId.Moomin]: "ฤดูกาลแห่งมูมิน",

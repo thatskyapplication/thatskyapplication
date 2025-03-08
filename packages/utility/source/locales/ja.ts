@@ -234,6 +234,8 @@ export default {
 				"夢見の町で宝を探す動じない提督または夢見がちな森の民を手伝いましょう",
 			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
 				"秘宝の環礁で宝を探す繊細な漁師またはしたり顔の生徒を手伝いましょう",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
+				"星月夜の砂漠で宝を探す豪快に笑う砲手または含み笑いのスカウトを手伝いましょう",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "感謝の季節",

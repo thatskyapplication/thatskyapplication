@@ -320,6 +320,8 @@ export default {
 				"Giúp Thuyền Trưởng Uy Nghiêm hoặc Người Đi Rừng Mộng Du tìm kho báu tại Làng Giấc Mơ",
 			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
 				"Giúp Ngư Dân Lo Lắng hoặc Đội Trưởng Quản Lý tìm kho báu tại Rạn San Hô Kho Báu",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
+				"Giúp Xạ Thủ Vui Nhộn hoặc Hướng Đạo Sinh Khúc Khích tìm kho báu tại Sa Mạc Ánh Sao.",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Mùa Tri Ân",

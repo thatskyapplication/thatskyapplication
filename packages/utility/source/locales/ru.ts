@@ -304,6 +304,8 @@ export default {
 				"Помогите Командору-начальнику или Мечтательному лесовичку найти сокровище в Деревушке мечтаний",
 			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
 				"Помогите Беспокойной рыбачке или Ворчливой студентке найти сокровище на Острове сокровищ",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
+				"Помогите Хохотушке с пушкой или Хихикающему скауту найти сокровище в Звёздной пустыне.",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Сезон благодарности",

@@ -347,6 +347,8 @@ export default {
 				"Aidez le Commodore commandant ou le Forestier rêveur à trouver des trésors dans le Village des Rêves",
 			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
 				"Aidez la Pêcheuse angoissée ou l'Étudiante moralisatrice à trouver des trésors sur le Récif du trésor",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
+				"Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors dans le Désert stellaire.",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison de la gratitude",

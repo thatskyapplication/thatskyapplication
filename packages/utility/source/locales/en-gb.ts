@@ -313,6 +313,8 @@ export default {
 				"Help Ceasing Commodore or Daydream Forester find treasure in Village of Dreams",
 			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
 				"Help the Anxious Angler or the Scolding Student find treasure in Treasure Reef",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
+				"Help the Cackling Cannoneer or the Chuckling Scout find treasure in Starlight Desert",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",

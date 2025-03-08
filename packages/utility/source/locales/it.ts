@@ -324,6 +324,8 @@ export default {
 				"Aiuta il Commodoro autorevole o il Guardaboschi sognante a trovare il tesoro nel Villaggio dei Sogni",
 			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
 				"Aiuta la Pescatrice ansiosa o la Studentessa saccente a trovare il tesoro nella Scogliera del Tesoro",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
+				"Aiuta la Cannoniera sghignazzante o lo Scout sghignazzante a trovare il tesoro nel Deserto Stellare",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Stagione della Gratitudine",

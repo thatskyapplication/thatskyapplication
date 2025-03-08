@@ -208,6 +208,8 @@ export default {
 				"帮助威严舰长或白日梦森林人在圆梦村寻宝",
 			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
 				"帮助焦虑渔夫或管事小队长在宝礁寻宝",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
+				"帮助嬉笑炮手或傻笑童子军在星漠寻宝",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "感恩季",

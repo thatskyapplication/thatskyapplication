@@ -207,6 +207,8 @@ export default {
 				"幫助威嚴的艦長或白日夢森林人在圓夢村尋找寶藏",
 			[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInTreasureReef]:
 				"幫助焦慮的垂釣者或管事小隊長在寶礁尋寶",
+			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInStarlightDesert]:
+				"幫助嘎嘎大笑的炮手或傻笑童子軍在星漠尋寶",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "感恩季",
