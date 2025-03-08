@@ -1204,54 +1204,70 @@ export class Catalogue {
 		const catalogue = await this.fetch(invoker.id);
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			content: "",
 			components: [
 				{
-					type: ComponentType.ActionRow,
+					type: ComponentType.Container,
+					accent_color: DEFAULT_EMBED_COLOUR,
 					components: [
 						{
-							type: ComponentType.StringSelect,
-							custom_id: CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID,
-							max_values: 1,
-							min_values: 0,
-							options: skyEventYears().map((year) => {
-								const percentage = catalogue.eventProgress(
-									[
-										...skyEvents()
-											.filter((event) => event.start.year === year)
-											.values(),
-									],
-									true,
-								);
+							type: ComponentType.TextDisplay,
+							content: "## Events By Year\n-# Catalogue",
+						},
+						{
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.TextDisplay,
+							content: "Events are grouped by year.",
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.StringSelect,
+									custom_id: CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID,
+									max_values: 1,
+									min_values: 0,
+									options: skyEventYears().map((year) => {
+										const percentage = catalogue.eventProgress(
+											[
+												...skyEvents()
+													.filter((event) => event.start.year === year)
+													.values(),
+											],
+											true,
+										);
 
-								return {
-									label: `${year}${percentage === null ? "" : ` (${percentage}%)`}`,
-									value: String(year),
-								};
-							}),
-							placeholder: "Select a year!",
+										return {
+											label: `${year}${percentage === null ? "" : ` (${percentage}%)`}`,
+											value: String(year),
+										};
+									}),
+									placeholder: "Select a year!",
+								},
+							],
 						},
-					],
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						BACK_TO_START_BUTTON,
 						{
-							type: ComponentType.Button,
-							custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-							emoji: { name: "⏪" },
-							label: "Back",
-							style: ButtonStyle.Primary,
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								BACK_TO_START_BUTTON,
+								{
+									type: ComponentType.Button,
+									custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+									emoji: { name: "⏪" },
+									label: "Back",
+									style: ButtonStyle.Secondary,
+								},
+							],
 						},
 					],
-				},
-			],
-			embeds: [
-				{
-					color: DEFAULT_EMBED_COLOUR,
-					description: "Events are grouped by year.",
-					title: "Events By Year",
 				},
 			],
 		});
