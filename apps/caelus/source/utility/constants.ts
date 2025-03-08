@@ -1,6 +1,6 @@
 import process from "node:process";
 import { URL } from "node:url";
-import { ChannelType, Locale, MessageFlags } from "@discordjs/core";
+import { ChannelType, ComponentType, Locale, MessageFlags } from "@discordjs/core";
 import {
 	CDN_URL as CDN_URL_PRODUCTION,
 	DailyQuest,
@@ -94,10 +94,13 @@ export const SERVER_UPGRADE_SKU_ID = PRODUCTION
 
 // Error response.
 export const ERROR_RESPONSE = {
-	content: `Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server](${SUPPORT_SERVER_INVITE_URL}) and report this issue! 🩵`,
-	components: [],
-	embeds: [],
-	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
+	components: [
+		{
+			type: ComponentType.TextDisplay as const,
+			content: `Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server](${SUPPORT_SERVER_INVITE_URL}) and report this issue! 🩵`,
+		},
+	],
+	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 };
 
 // Not in cached guild response.
