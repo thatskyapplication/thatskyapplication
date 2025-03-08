@@ -80,7 +80,7 @@ export const SEASONAL = [
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/4/44/Season-of-Radiance-Seasonal-Heart-icon.png/revision/latest",
-			cost: { seasonalHearts: { cost: 3, season: seasonId } },
+			cost: { seasonalCandles: { cost: 3, season: seasonId } },
 			seasonIcon: seasonId,
 		},
 	],
