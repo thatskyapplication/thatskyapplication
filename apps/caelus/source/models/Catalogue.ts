@@ -10,7 +10,6 @@ import {
 	type APIMessageComponentEmoji,
 	type APIMessageComponentSelectMenuInteraction,
 	type APISelectMenuOption,
-	type APIStringSelectComponent,
 	ButtonStyle,
 	ChannelType,
 	ComponentType,
@@ -79,11 +78,11 @@ import {
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
 import {
-	interactedComponent,
 	interactionInvoker,
 	isButton,
 	isChatInputCommand,
 	isRealm,
+	resolveStringSelectMenu,
 } from "../utility/functions.js";
 import { cannotUsePermissions } from "../utility/permissions.js";
 import Profile from "./Profile.js";
@@ -2445,10 +2444,19 @@ export class Catalogue {
 		let cosmetics: number[];
 
 		if (isButton(interaction)) {
-			cosmetics = [...new Set([...this.data, ...allCosmetics])];
+			const combinedSet = new Set(this.data);
+
+			for (const cosmetic of allCosmetics) {
+				combinedSet.add(cosmetic);
+			}
+
+			cosmetics = [...combinedSet];
 		} else {
 			// Get the select menu where this interaction came from.
-			const component = interactedComponent(interaction) as APIStringSelectComponent;
+			const component = resolveStringSelectMenu(
+				interaction.message.components!,
+				interaction.data.custom_id,
+			)!;
 
 			// Retrieve all cosmetics in this select menu.
 			const selectMenuCosmetics = component.options.reduce((computedCosmetics, { value }) => {
