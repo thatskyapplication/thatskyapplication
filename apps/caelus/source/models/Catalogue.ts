@@ -1323,69 +1323,73 @@ export class Catalogue {
 						},
 						{
 							type: ComponentType.TextDisplay,
-							content: events.reduce<string[]>((eventField, event) => {
-								if (event.offer.length === 0) {
+							content: events
+								.reduce<string[]>((eventField, event) => {
+									if (event.offer.length === 0) {
+										return eventField;
+									}
+
+									const { offerDescription } = catalogue.embedProgress(event.offer);
+									eventField.push(
+										`__${t(`events.${event.id}`, { lng: locale, ns: "general" })}__\n${offerDescription.join("\n")}`,
+									);
 									return eventField;
-								}
-					
-								const { offerDescription } = catalogue.embedProgress(event.offer);
-								eventField.push(`__${t(`events.${event.id}`, { lng: locale, ns: "general" })}__\n${offerDescription.join("\n")}`);
-								return eventField;
-							}, []).join("\n\n"),
+								}, [])
+								.join("\n\n"),
 						},
 						{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.StringSelect,
-								custom_id: CATALOGUE_VIEW_EVENT_CUSTOM_ID,
-								max_values: 1,
-								min_values: 0,
-								options,
-								placeholder: "Select an event!",
-							},
-						],
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.Button,
-								custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${before}`,
-								disabled: !before,
-								emoji: { name: "⬅️" },
-								label: "Previous year",
-								style: ButtonStyle.Secondary,
-							},
-							{
-								type: ComponentType.Button,
-								custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${after}`,
-								disabled: !after,
-								emoji: { name: "➡️" },
-								label: "Next year",
-								style: ButtonStyle.Secondary,
-							},
-						],
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							BACK_TO_START_BUTTON,
-							{
-								type: ComponentType.Button,
-								custom_id: CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
-								emoji: { name: "⏪" },
-								label: "Back",
-								style: ButtonStyle.Secondary,
-							},
-						],
-					},
-				],
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.StringSelect,
+									custom_id: CATALOGUE_VIEW_EVENT_CUSTOM_ID,
+									max_values: 1,
+									min_values: 0,
+									options,
+									placeholder: "Select an event!",
+								},
+							],
+						},
+						{
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.Button,
+									custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${before}`,
+									disabled: !before,
+									emoji: { name: "⬅️" },
+									label: "Previous year",
+									style: ButtonStyle.Secondary,
+								},
+								{
+									type: ComponentType.Button,
+									custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${after}`,
+									disabled: !after,
+									emoji: { name: "➡️" },
+									label: "Next year",
+									style: ButtonStyle.Secondary,
+								},
+							],
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								BACK_TO_START_BUTTON,
+								{
+									type: ComponentType.Button,
+									custom_id: CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
+									emoji: { name: "⏪" },
+									label: "Back",
+									style: ButtonStyle.Secondary,
+								},
+							],
+						},
+					],
 				},
 			],
 		});
@@ -1402,44 +1406,61 @@ export class Catalogue {
 			return;
 		}
 
-		const options = spirits.map((spirit) => {
-			const { id } = spirit;
-			const percentage = catalogue.spiritProgress([spirit], true);
-
-			return {
-				emoji: SeasonIdToSeasonalEmoji[spirit.seasonId],
-				label: `${t(`spirits.${id}`, { lng: locale, ns: "general" })}${
-					percentage === null ? "" : ` (${percentage}%)`
-				}`,
-				value: String(id),
-			};
-		});
-
-		const embed = catalogue.spiritEmbed([...spirits.values()], locale);
-		embed.title = "Returning Spirits";
-
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			content: "",
 			components: [
 				{
-					type: ComponentType.ActionRow,
+					type: ComponentType.Container,
+					accent_color: DEFAULT_EMBED_COLOUR,
 					components: [
 						{
-							type: ComponentType.StringSelect,
-							custom_id: CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
-							max_values: 1,
-							min_values: 0,
-							options,
-							placeholder: "Select a spirit!",
+							type: ComponentType.TextDisplay,
+							content: "## Returning Spirits\n-# Catalogue",
+						},
+						{
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.TextDisplay,
+							content: catalogue.spiritText([...spirits.values()], locale)!,
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.StringSelect,
+									custom_id: CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
+									max_values: 1,
+									min_values: 0,
+									options: spirits.map((spirit) => {
+										const { id } = spirit;
+										const percentage = catalogue.spiritProgress([spirit], true);
+
+										return {
+											emoji: SeasonIdToSeasonalEmoji[spirit.seasonId],
+											label: `${t(`spirits.${id}`, { lng: locale, ns: "general" })}${
+												percentage === null ? "" : ` (${percentage}%)`
+											}`,
+											value: String(id),
+										};
+									}),
+									placeholder: "Select a spirit!",
+								},
+							],
+						},
+						{
+							type: ComponentType.Separator,
+							divider: true,
+							spacing: SeparatorSpacingSize.Small,
+						},
+						{
+							type: ComponentType.ActionRow,
+							components: [BACK_TO_START_BUTTON],
 						},
 					],
 				},
-				{
-					type: ComponentType.ActionRow,
-					components: [BACK_TO_START_BUTTON],
-				},
 			],
-			embeds: [embed],
 		});
 	}
 
