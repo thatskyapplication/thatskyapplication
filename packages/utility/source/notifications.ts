@@ -21,6 +21,7 @@ export const NotificationType = {
 	Passage: 10,
 	AviarysFireworkFestival: 11,
 	TravellingSpirit: 12,
+	DreamsSkater: 13,
 } as const satisfies Readonly<Record<string, number>>;
 
 export type NotificationTypes = (typeof NotificationType)[keyof typeof NotificationType];

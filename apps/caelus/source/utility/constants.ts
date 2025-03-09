@@ -1214,6 +1214,7 @@ export const NotificationOffsetToMaximumValues = {
 	[NotificationType.Passage]: 5,
 	[NotificationType.AviarysFireworkFestival]: 15,
 	[NotificationType.TravellingSpirit]: 15,
+	[NotificationType.DreamsSkater]: 10,
 } as const satisfies Readonly<Record<NotificationTypes, number>>;
 
 export const NOTIFICATION_SETUP_OFFSET_CUSTOM_ID = "NOTIFICATION_SETUP_OFFSET_CUSTOM_ID" as const;

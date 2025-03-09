@@ -50,6 +50,7 @@ function scheduleTimes(date: DateTime) {
 	const grandma = [];
 	const turtle = [];
 	const aurora = [];
+	const dreamsSkater = [];
 	const passage = [];
 
 	// 5 minutes is the least common denominator.
@@ -73,6 +74,8 @@ function scheduleTimes(date: DateTime) {
 			if (minute === 50) {
 				turtle.push(timeString);
 			}
+		} else if (minute === 0) {
+			dreamsSkater.push(timeString);
 		}
 
 		if (minute === 0 && hour % 2 === 0) {
@@ -80,7 +83,7 @@ function scheduleTimes(date: DateTime) {
 		}
 	}
 
-	return { pollutedGeyser, grandma, turtle, aurora, passage };
+	return { pollutedGeyser, grandma, turtle, aurora, dreamsSkater, passage };
 }
 
 function aviarysFireworkFestivalTime(date: DateTime) {
@@ -134,7 +137,8 @@ export async function schedule(interaction: APIChatInputApplicationCommandIntera
 	const { locale } = interaction;
 	const now = skyNow();
 	const startOfDay = now.startOf("day");
-	const { pollutedGeyser, grandma, turtle, passage, aurora } = scheduleTimes(startOfDay);
+	const { pollutedGeyser, grandma, turtle, passage, aurora, dreamsSkater } =
+		scheduleTimes(startOfDay);
 	const passageTimesStart = passage.slice(0, PASSAGE_TRUNCATION_LIMIT);
 	const passageTimesEnd = passage.slice(-PASSAGE_TRUNCATION_LIMIT);
 
@@ -200,6 +204,13 @@ export async function schedule(interaction: APIChatInputApplicationCommandIntera
 		{
 			name: t(`notification-types.${NotificationType.AURORA}`, { lng: locale, ns: "general" }),
 			value: aurora.join(" "),
+		},
+		{
+			name: t(`notification-types.${NotificationType.DreamsSkater}`, {
+				lng: locale,
+				ns: "general",
+			}),
+			value: dreamsSkater.join(" "),
 		},
 		{
 			name: t(`notification-types.${NotificationType.Passage}`, { lng: locale, ns: "general" }),

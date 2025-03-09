@@ -264,6 +264,23 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 	}
 
 	if (
+		((weekday === 5 || weekday === 6 || weekday === 7) && hour % 2 === 0 && minute >= 50) ||
+		(hour % 2 === 1 && minute === 0)
+	) {
+		const timeUntilStart = 60 - minute;
+		const startTime = date.plus({ minutes: timeUntilStart });
+
+		notifications.push({
+			type: NotificationType.DreamsSkater,
+			timeUntilStart,
+			suffix:
+				timeUntilStart === 0
+					? "The Dreams skater has begun practising!"
+					: `The Dreams skater will practise <t:${startTime.toUnixInteger()}:R>!`,
+		});
+	}
+
+	if (
 		(day === 1 && ((hour % 4 === 0 && minute === 0) || (hour % 4 === 3 && minute >= 45))) ||
 		(date.endOf("month").day === day && hour === 23 && minute >= 45)
 	) {
