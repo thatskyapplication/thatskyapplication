@@ -166,20 +166,30 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 
 	const timestamps: ShardEruptionTimestampsData[] = [];
 	let timestampLengthCheck = 3;
-	let startTime = date.plus({ milliseconds: offset });
+	let shardPointer = date.plus({ milliseconds: offset });
 
 	// Account for a shard eruption during DST change.
-	if (!date.isInDST && startTime.isInDST && startTime.hour === 3) {
-		startTime = startTime.plus({ hours: interval });
-		timestampLengthCheck = 2;
+	if (date.isInDST !== shardPointer.isInDST) {
+		const becameDST = shardPointer.isInDST;
+		shardPointer = shardPointer.plus({ hours: shardPointer.isInDST ? -1 : 1 });
+
+		if (becameDST && !shardPointer.isInDST && shardPointer.hour === 1) {
+			// The shard eruption will be skipped as it seems the hour is most important rather than the duration.
+			// This held true for 09/03/2025, where the first shard eruption did not happen as hour 2 was skipped.
+			shardPointer = shardPointer.plus({ hours: interval });
+			timestampLengthCheck--;
+		}
 	}
 
 	for (
 		;
 		timestamps.length < timestampLengthCheck;
-		startTime = startTime.plus({ hours: interval })
+		shardPointer = shardPointer.plus({ hours: interval })
 	) {
-		timestamps.push({ start: startTime.plus({ seconds: 520 }), end: startTime.plus({ hours: 4 }) });
+		timestamps.push({
+			start: shardPointer.plus({ seconds: 520 }),
+			end: shardPointer.plus({ hours: 4 }),
+		});
 	}
 
 	return { realm: VALID_REALM_NAME[realmIndex]!, skyMap, strong, reward, timestamps, url };
