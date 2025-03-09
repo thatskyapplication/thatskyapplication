@@ -47,11 +47,12 @@ const openAI = new OpenAI({
 });
 
 const AI_DEFAULT_RESPONSE = "Oh my gosh! Could you be the... the legendary Sky kid?" as const;
-const AI_DESCRIPTION_EMOJIS = "Respond with up to 3 emojis that represent this message." as const;
+const AI_DESCRIPTION_EMOJIS =
+	"Respond with up to 3 Unicode emojis that represent this message." as const;
+
 const AI_DESCRIPTION_STICKERS =
 	"Respond with an id of a sticker that represents this message." as const;
-const AI_DESCRIPTION_REACTION =
-	"Respond with up to 3 Unicode emojis that represent this message." as const;
+
 const OPEN_AI_ALLOWED_MEDIA_TYPES = ["image/png", "image/jpeg", "image/gif", "image/webp"] as const;
 
 function parseAIName(user: APIUser) {
@@ -169,8 +170,26 @@ export async function messageCreateEmojiResponse(message: GatewayMessageCreateDi
 						{ role: "system", content: AI_DESCRIPTION_EMOJIS },
 						{ content: message.content, name: parseAIName(message.author), role: "user" },
 					],
-					model: "gpt-3.5-turbo",
+					model: "gpt-4o-mini-2024-07-18",
 					user: message.author.id,
+					response_format: {
+						type: "json_schema",
+						json_schema: {
+							strict: true,
+							name: "emojis",
+							description: "Returns up to 3 Unicode emojis based on the message.",
+							schema: {
+								type: "array",
+								description: "List of Unicode emojis that represent the message.",
+								items: {
+									type: "string",
+									description: "A single Unicode emoji.",
+								},
+								minItems: 1,
+								maxItems: 3,
+							},
+						},
+					},
 				},
 				{
 					signal: abortController.signal,
@@ -179,9 +198,11 @@ export async function messageCreateEmojiResponse(message: GatewayMessageCreateDi
 			),
 		]);
 
+		const emojis = JSON.parse(completion.choices[0]!.message.content!) as string[];
+
 		await client.api.channels.createMessage(message.channel_id, {
 			allowed_mentions: { parse: [AllowedMentionsTypes.User], replied_user: false },
-			content: completion.choices[0]!.message.content ?? AI_DEFAULT_RESPONSE,
+			content: emojis.join(""),
 			message_reference: {
 				type: MessageReferenceType.Default,
 				message_id: message.id,
@@ -278,7 +299,7 @@ export async function messageCreateReactionResponse(message: GatewayMessageCreat
 				frequency_penalty: 1,
 				max_completion_tokens: 35,
 				messages: [
-					{ role: "system", content: AI_DESCRIPTION_REACTION },
+					{ role: "system", content: AI_DESCRIPTION_EMOJIS },
 					{ content: message.content, name: parseAIName(message.author), role: "user" },
 				],
 				model: "gpt-4o-mini-2024-07-18",
