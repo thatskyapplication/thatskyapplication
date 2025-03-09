@@ -9,6 +9,7 @@ export const gateway = new WebSocketManager({
 	intents:
 		GatewayIntentBits.Guilds |
 		GatewayIntentBits.GuildMembers |
+		GatewayIntentBits.GuildExpressions |
 		GatewayIntentBits.GuildMessages |
 		GatewayIntentBits.MessageContent,
 	rest,

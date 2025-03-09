@@ -23,6 +23,7 @@ import {
 	messageCreateEmojiResponse,
 	messageCreateReactionResponse,
 	messageCreateResponse,
+	messageCreateStickerResponse,
 } from "../open-ai.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
@@ -306,22 +307,32 @@ export default class AI {
 		}
 
 		if (entitlement) {
-			await (Math.random() < 0.1
-				? Math.random() < 0.5 &&
+			if (Math.random() < 0.1) {
+				const randomReply = Math.random();
+
+				if (
+					randomReply < 1 / 3 &&
 					can({
 						permission: PermissionFlagsBits.AddReactions,
 						guild,
 						member: me,
 						channel: resolvedChannelForPermission,
 					})
-					? messageCreateReactionResponse(message)
-					: messageCreateEmojiResponse(message)
-				: message.type === MessageType.Default ||
-						message.type === MessageType.Reply ||
-						message.type === MessageType.ChatInputCommand ||
-						message.type === MessageType.ContextMenuCommand
-					? messageCreateResponse(message, mentioned)
-					: undefined);
+				) {
+					await messageCreateReactionResponse(message);
+				} else if (randomReply < 2 / 3) {
+					await messageCreateEmojiResponse(message);
+				} else if (guild.stickers.some((sticker) => sticker.available)) {
+					await messageCreateStickerResponse(message, guild);
+				}
+			} else if (
+				message.type === MessageType.Default ||
+				message.type === MessageType.Reply ||
+				message.type === MessageType.ChatInputCommand ||
+				message.type === MessageType.ContextMenuCommand
+			) {
+				await messageCreateResponse(message, mentioned);
+			}
 		} else {
 			pino.info(message, "No entitlement found, so deleting from AI cache.");
 			await AI.delete(guild.id);

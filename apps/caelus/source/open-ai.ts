@@ -5,6 +5,7 @@ import {
 	type GatewayMessageCreateDispatchData,
 	Locale,
 	MessageReferenceType,
+	type Snowflake,
 } from "@discordjs/core";
 import {
 	MAXIMUM_WINGED_LIGHT,
@@ -47,6 +48,8 @@ const openAI = new OpenAI({
 
 const AI_DEFAULT_RESPONSE = "Oh my gosh! Could you be the... the legendary Sky kid?" as const;
 const AI_DESCRIPTION_EMOJIS = "Respond with up to 3 emojis that represent this message." as const;
+const AI_DESCRIPTION_STICKERS =
+	"Respond with an id of a sticker that represents this message." as const;
 const AI_DESCRIPTION_REACTION = `${AI_DESCRIPTION_EMOJIS} Put each emoji on a new line.` as const;
 const OPEN_AI_ALLOWED_MEDIA_TYPES = ["image/png", "image/jpeg", "image/gif", "image/webp"] as const;
 
@@ -178,6 +181,77 @@ export async function messageCreateEmojiResponse(message: GatewayMessageCreateDi
 		await client.api.channels.createMessage(message.channel_id, {
 			allowed_mentions: { parse: [AllowedMentionsTypes.User], replied_user: false },
 			content: completion.choices[0]!.message.content ?? AI_DEFAULT_RESPONSE,
+			message_reference: {
+				type: MessageReferenceType.Default,
+				message_id: message.id,
+				fail_if_not_exists: false,
+			},
+		});
+	} catch (error) {
+		if (!(error instanceof APIUserAbortError)) {
+			pino.error(error, "AI error.");
+		}
+	} finally {
+		clearTimeout(timeout);
+	}
+}
+
+export async function messageCreateStickerResponse(
+	message: GatewayMessageCreateDispatchData,
+	guild: Guild,
+) {
+	const abortController = new AbortController();
+	const timeout = setTimeout(() => abortController.abort(), 10_000);
+
+	const stickersJSONString = JSON.stringify([
+		...guild.stickers.filter((sticker) => sticker.available).values(),
+	]);
+
+	try {
+		const [, completion] = await Promise.all([
+			client.api.channels.showTyping(message.channel_id),
+			openAI.chat.completions.create(
+				{
+					frequency_penalty: 1,
+					max_completion_tokens: 35,
+					messages: [
+						{ role: "system", content: `${AI_DESCRIPTION_STICKERS}\n${stickersJSONString}` },
+						{ content: message.content, name: parseAIName(message.author), role: "user" },
+					],
+					model: "gpt-4o-2024-08-06",
+					user: message.author.id,
+					response_format: {
+						type: "json_schema",
+						json_schema: {
+							strict: true,
+							name: "stickers",
+							description: "Returns a sticker id based on the message.",
+							schema: {
+								type: "object",
+								properties: {
+									id: {
+										type: "string",
+										description: "The id of the sticker.",
+									},
+								},
+								required: ["id"],
+								additionalProperties: false,
+							},
+						},
+					},
+				},
+				{
+					signal: abortController.signal,
+					headers: { "cf-aig-metadata": JSON.stringify({ user: message.author.id }) },
+				},
+			),
+		]);
+
+		const stickerObject = JSON.parse(completion.choices[0]!.message.content!) as { id: Snowflake };
+
+		await client.api.channels.createMessage(message.channel_id, {
+			allowed_mentions: { parse: [AllowedMentionsTypes.User], replied_user: false },
+			sticker_ids: [stickerObject.id],
 			message_reference: {
 				type: MessageReferenceType.Default,
 				message_id: message.id,

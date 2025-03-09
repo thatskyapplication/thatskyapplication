@@ -12,6 +12,7 @@ import guildMemberUpdate from "./guild-member-update.js";
 import guildRoleCreate from "./guild-role-create.js";
 import guildRoleDelete from "./guild-role-delete.js";
 import guildRoleUpdate from "./guild-role-update.js";
+import guildStickersUpdate from "./guild-stickers-update.js";
 import guildUpdate from "./guild-update.js";
 import interactionCreate from "./interaction-create.js";
 import messageCreate from "./message-create.js";
@@ -43,6 +44,7 @@ export default [
 	guildRoleCreate,
 	guildRoleDelete,
 	guildRoleUpdate,
+	guildStickersUpdate,
 	guildUpdate,
 	interactionCreate,
 	messageCreate,
