@@ -1406,7 +1406,7 @@ export class Catalogue {
 		}
 
 		if (spirits) {
-			const index = [...spirits.values()].findIndex(({ id}) => id === spirit.id);
+			const index = [...spirits.values()].findIndex(({ id }) => id === spirit.id);
 			const before = spirits.at((index - 1) as SpiritIds);
 			const after = spirits.at((index + 1) as SpiritIds);
 
