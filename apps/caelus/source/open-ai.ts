@@ -179,14 +179,20 @@ export async function messageCreateEmojiResponse(message: GatewayMessageCreateDi
 							name: "emojis",
 							description: "Returns up to 3 Unicode emojis based on the message.",
 							schema: {
-								type: "array",
-								description: "List of Unicode emojis that represent the message.",
-								items: {
-									type: "string",
-									description: "A single Unicode emoji.",
+								type: "object",
+								properties: {
+									emojis: {
+										type: "array",
+										description: "List of Unicode emojis that represent the message.",
+										items: {
+											type: "string",
+											description: "A single Unicode emoji.",
+										},
+										minItems: 1,
+										maxItems: 3,
+									},
 								},
-								minItems: 1,
-								maxItems: 3,
+								required: ["emojis"],
 							},
 						},
 					},
@@ -198,7 +204,7 @@ export async function messageCreateEmojiResponse(message: GatewayMessageCreateDi
 			),
 		]);
 
-		const emojis = JSON.parse(completion.choices[0]!.message.content!) as string[];
+		const { emojis } = JSON.parse(completion.choices[0]!.message.content!) as { emojis: string[] };
 
 		await client.api.channels.createMessage(message.channel_id, {
 			allowed_mentions: { parse: [AllowedMentionsTypes.User], replied_user: false },
@@ -311,14 +317,20 @@ export async function messageCreateReactionResponse(message: GatewayMessageCreat
 						name: "emojis",
 						description: "Returns up to 3 Unicode emojis based on the message.",
 						schema: {
-							type: "array",
-							description: "List of Unicode emojis that represent the message.",
-							items: {
-								type: "string",
-								description: "A single Unicode emoji.",
+							type: "object",
+							properties: {
+								emojis: {
+									type: "array",
+									description: "List of Unicode emojis that represent the message.",
+									items: {
+										type: "string",
+										description: "A single Unicode emoji.",
+									},
+									minItems: 1,
+									maxItems: 3,
+								},
 							},
-							minItems: 1,
-							maxItems: 3,
+							required: ["emojis"],
 						},
 					},
 				},
@@ -329,7 +341,7 @@ export async function messageCreateReactionResponse(message: GatewayMessageCreat
 			},
 		);
 
-		const emojis = JSON.parse(completion.choices[0]!.message.content!) as string[];
+		const { emojis } = JSON.parse(completion.choices[0]!.message.content!) as { emojis: string[] };
 
 		await Promise.all(
 			emojis.map(async (emoji) =>
