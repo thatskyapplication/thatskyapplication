@@ -165,10 +165,18 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	}
 
 	const timestamps: ShardEruptionTimestampsData[] = [];
+	let timestampLengthCheck = 3;
+	let startTime = date.plus({ milliseconds: offset });
+
+	// Account for a shard eruption during DST change.
+	if (!date.isInDST && startTime.isInDST && startTime.hour === 3) {
+		startTime = startTime.plus({ hours: interval });
+		timestampLengthCheck = 2;
+	}
 
 	for (
-		let startTime = date.plus({ milliseconds: offset });
-		timestamps.length < 3;
+		;
+		timestamps.length < timestampLengthCheck;
 		startTime = startTime.plus({ hours: interval })
 	) {
 		timestamps.push({ start: startTime.plus({ seconds: 520 }), end: startTime.plus({ hours: 4 }) });
