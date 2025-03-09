@@ -50,7 +50,8 @@ const AI_DEFAULT_RESPONSE = "Oh my gosh! Could you be the... the legendary Sky k
 const AI_DESCRIPTION_EMOJIS = "Respond with up to 3 emojis that represent this message." as const;
 const AI_DESCRIPTION_STICKERS =
 	"Respond with an id of a sticker that represents this message." as const;
-const AI_DESCRIPTION_REACTION = `${AI_DESCRIPTION_EMOJIS} Put each emoji on a new line.` as const;
+const AI_DESCRIPTION_REACTION =
+	"Respond with up to 3 Unicode emojis that represent this message." as const;
 const OPEN_AI_ALLOWED_MEDIA_TYPES = ["image/png", "image/jpeg", "image/gif", "image/webp"] as const;
 
 function parseAIName(user: APIUser) {
@@ -282,6 +283,24 @@ export async function messageCreateReactionResponse(message: GatewayMessageCreat
 				],
 				model: "gpt-4o-mini-2024-07-18",
 				user: message.author.id,
+				response_format: {
+					type: "json_schema",
+					json_schema: {
+						strict: true,
+						name: "emojis",
+						description: "Returns up to 3 Unicode emojis based on the message.",
+						schema: {
+							type: "array",
+							description: "List of Unicode emojis that represent the message.",
+							items: {
+								type: "string",
+								description: "A single Unicode emoji.",
+							},
+							minItems: 1,
+							maxItems: 3,
+						},
+					},
+				},
 			},
 			{
 				signal: abortController.signal,
@@ -289,20 +308,11 @@ export async function messageCreateReactionResponse(message: GatewayMessageCreat
 			},
 		);
 
-		const emojis = completion.choices[0]!.message.content;
-
-		if (!emojis) {
-			return;
-		}
+		const emojis = JSON.parse(completion.choices[0]!.message.content!) as string[];
 
 		await Promise.all(
-			emojis.split("\n").map(async (emoji) =>
-				client.api.channels.addMessageReaction(
-					message.channel_id,
-					message.id,
-					// Responses uncommonly have a trailing space.
-					emoji.trim(),
-				),
+			emojis.map(async (emoji) =>
+				client.api.channels.addMessageReaction(message.channel_id, message.id, emoji),
 			),
 		);
 	} catch (error) {
