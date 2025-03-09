@@ -218,7 +218,7 @@ export async function messageCreateStickerResponse(
 						{ role: "system", content: `${AI_DESCRIPTION_STICKERS}\n${stickersJSONString}` },
 						{ content: message.content, name: parseAIName(message.author), role: "user" },
 					],
-					model: "gpt-4o-2024-08-06",
+					model: "gpt-4o-mini-2024-07-18",
 					user: message.author.id,
 					response_format: {
 						type: "json_schema",
@@ -280,7 +280,7 @@ export async function messageCreateReactionResponse(message: GatewayMessageCreat
 					{ role: "system", content: AI_DESCRIPTION_REACTION },
 					{ content: message.content, name: parseAIName(message.author), role: "user" },
 				],
-				model: "gpt-3.5-turbo",
+				model: "gpt-4o-mini-2024-07-18",
 				user: message.author.id,
 			},
 			{
@@ -381,7 +381,7 @@ export async function messageCreateResponse(
 					max_completion_tokens: 200,
 					messages: priorMessages,
 					modalities: ["text"],
-					model: "gpt-4o-2024-08-06",
+					model: "gpt-4o-mini-2024-07-18",
 					n: 1,
 					user: message.author.id,
 					temperature: 0.5,
