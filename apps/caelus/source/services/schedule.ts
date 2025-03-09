@@ -56,7 +56,7 @@ function scheduleTimes(date: DateTime) {
 	// 5 minutes is the least common denominator.
 	for (let start = date; start < tomorrow; start = start.plus({ minutes: 5 })) {
 		const timeString = `<t:${start.toUnixInteger()}:t>`;
-		const { minute, hour } = start;
+		const { minute, hour, weekday } = start;
 
 		if (minute % 15 === 0) {
 			passage.push(timeString);
@@ -74,8 +74,16 @@ function scheduleTimes(date: DateTime) {
 			if (minute === 50) {
 				turtle.push(timeString);
 			}
-		} else if (minute === 0) {
-			dreamsSkater.push(timeString);
+		} else {
+			let dreamsSkaterDate = start;
+
+			if (weekday !== 5 && weekday !== 6 && weekday !== 7) {
+				dreamsSkaterDate = start.plus({ days: 5 - start.weekday });
+			}
+
+			if (dreamsSkaterDate.minute === 0) {
+				dreamsSkater.push(`<t:${dreamsSkaterDate.toUnixInteger()}:t>`);
+			}
 		}
 
 		if (minute === 0 && hour % 2 === 0) {
@@ -210,7 +218,7 @@ export async function schedule(interaction: APIChatInputApplicationCommandIntera
 				lng: locale,
 				ns: "general",
 			}),
-			value: dreamsSkater.join(" "),
+			value: `_${t("schedule.dreams-skater-days", { lng: locale, ns: "commands" })}_\n${dreamsSkater.join(" ")}`,
 		},
 		{
 			name: t(`notification-types.${NotificationType.Passage}`, { lng: locale, ns: "general" }),

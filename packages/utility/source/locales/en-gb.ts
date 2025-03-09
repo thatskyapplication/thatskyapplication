@@ -1482,6 +1482,7 @@ export default {
 			"travelling-spirit-today": "Today!",
 			"travelling-spirit-none": "None",
 			"travelling-spirit-next-visit": "Next visit at",
+			"dreams-skater-days": "On Friday, Saturday, and Sunday",
 			"first-of-month": "_On the first of every month_",
 			"deer-0": "Appears",
 			"deer-120": "Walks",
