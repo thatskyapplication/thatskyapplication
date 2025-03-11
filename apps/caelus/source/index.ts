@@ -14,10 +14,12 @@ for (const event of events) {
 
 // Populate the command cache.
 const applicationCommands = await client.api.applicationCommands.getGlobalCommands(APPLICATION_ID);
+
 const skyProfileCommandName = t("sky-profile.command-name", {
 	lng: Locale.EnglishGB,
 	ns: "commands",
 });
+
 const skyProfileCommand = applicationCommands.find(
 	(command) => command.name === skyProfileCommandName,
 );
