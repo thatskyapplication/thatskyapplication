@@ -2,7 +2,6 @@ import { GatewayDispatchEvents } from "@discordjs/core";
 import { GUILD_CACHE, GUILD_IDS_FROM_READY } from "../caches/guilds.js";
 import { Guild } from "../models/discord/guild.js";
 import pino from "../pino.js";
-import { handleGuildCreate } from "../services/guess.js";
 import { startup } from "../services/startup.js";
 import type { Event } from "./index.js";
 
@@ -37,7 +36,5 @@ export default {
 
 			return;
 		}
-
-		await handleGuildCreate(data);
 	},
 } satisfies Event<typeof name>;

@@ -1,13 +1,11 @@
 import type { Collection } from "@discordjs/collection";
 import {
 	type APIButtonComponentWithCustomId,
-	type APIChatInputApplicationCommandGuildInteraction,
 	type APIChatInputApplicationCommandInteraction,
 	type APIEmbed,
 	type APIMessageComponentButtonInteraction,
 	ButtonStyle,
 	ComponentType,
-	type GatewayGuildCreateDispatchData,
 	type InteractionsAPI,
 	MessageFlags,
 	type Snowflake,
@@ -34,7 +32,6 @@ import {
 import { t } from "i18next";
 import { client } from "../discord.js";
 import type { GuessPacket } from "../models/Guess.js";
-import type { Guild } from "../models/discord/guild.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
@@ -231,7 +228,7 @@ export async function answer(interaction: APIMessageComponentButtonInteraction) 
 	}
 
 	if (Date.now() > parsedTimeoutTimestamp) {
-		await update(parsedDifficulty, invoker.id, parsedStreak, interaction.guild_id);
+		await update(parsedDifficulty, invoker.id, parsedStreak);
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
@@ -306,7 +303,7 @@ async function endGame(
 	};
 
 	const invoker = interactionInvoker(interaction);
-	await update(difficulty, invoker.id, streak, interaction.guild_id);
+	await update(difficulty, invoker.id, streak);
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -344,120 +341,18 @@ export async function tryAgain(interaction: APIMessageComponentButtonInteraction
 	await guess(interaction, difficulty, 0);
 }
 
-async function update(
-	difficulty: GuessDifficultyLevel,
-	userId: Snowflake,
-	streak: number,
-	guildId: Snowflake | undefined,
-) {
+async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, streak: number) {
 	const column = GuessDifficultyToStreakColumn[difficulty];
 
 	await pg<GuessPacket>(Table.Guess)
 		.insert({
 			user_id: userId,
 			[column]: streak,
-			// @ts-expect-error https://github.com/knex/knex/issues/5465
-			guild_ids: JSON.stringify(guildId ? [guildId] : []),
 		})
 		.onConflict("user_id")
-		.merge({
-			[column]: streak,
-			guild_ids: guildId
-				? pg.raw(
-						`
-							CASE
-								WHEN NOT EXISTS (
-									SELECT 1
-									FROM jsonb_array_elements_text(${Table.Guess}.guild_ids) AS element
-									WHERE element = ?
-								)
-								THEN ${Table.Guess}.guild_ids || ?::jsonb
-								ELSE ${Table.Guess}.guild_ids
-							END
-						`,
-						[guildId, JSON.stringify([guildId])],
-					)
-				: pg.raw(`${Table.Guess}.guild_ids`),
-		})
+		.merge({ [column]: streak })
 		.where(`${Table.Guess}.${[column]}`, "<", streak)
 		.orWhere(`${Table.Guess}.${[column]}`, "is", null);
-}
-
-export async function updateGuildIds(userId: Snowflake, guildId: Snowflake) {
-	await pg<GuessPacket>(Table.Guess)
-		.update({ guild_ids: pg.raw("guild_ids || ?::jsonb", [JSON.stringify(guildId)]) })
-		.where({ user_id: userId });
-}
-
-export async function removeGuildId(userId: Snowflake, guildId: Snowflake) {
-	await pg<GuessPacket>(Table.Guess)
-		.update({
-			guild_ids: pg.raw(
-				`COALESCE((SELECT jsonb_agg(element) FROM jsonb_array_elements(??) AS element WHERE element != to_jsonb(?::text)), '[]'::jsonb)`,
-				[`${Table.Guess}.guild_ids`, guildId],
-			),
-		})
-		.where({ user_id: userId });
-}
-
-export async function handleGuildCreate(guild: GatewayGuildCreateDispatchData) {
-	const userIds = (await pg<GuessPacket>(Table.Guess).select("user_id")).map((row) => row.user_id);
-
-	const requestedGuildMembers = await client.requestGuildMembers({
-		guild_id: guild.id,
-		user_ids: userIds,
-	});
-
-	const data = requestedGuildMembers.members.reduce<Record<Snowflake, Snowflake>>(
-		(data, member) => {
-			data[member.user.id] = guild.id;
-			return data;
-		},
-		{},
-	);
-
-	const userGuildData = Object.entries(data).map(([user_id, guild_id]) => ({
-		user_id,
-		guild_id,
-	}));
-
-	if (userGuildData.length === 0) {
-		return;
-	}
-
-	await pg.raw(`
-		WITH updated_data (user_id, guild_id) AS (
-			VALUES ${userGuildData.map(({ user_id, guild_id }) => `('${user_id}', '${guild_id}')`).join(", ")}
-		)
-		UPDATE ${Table.Guess}
-		SET guild_ids = guild_ids || to_jsonb(updated_data.guild_id::text)
-		FROM updated_data
-		WHERE ${Table.Guess}.user_id = updated_data.user_id;
-	`);
-}
-
-export async function handleGuildRemove(guildId: Snowflake) {
-	await pg.raw(
-		`
-		WITH affected_rows AS (
-			SELECT user_id, guild_ids
-			FROM ${Table.Guess}
-			WHERE guild_ids @> to_jsonb(?::text)
-		)
-		UPDATE ${Table.Guess}
-		SET guild_ids = COALESCE(
-			(
-				SELECT jsonb_agg(element)
-				FROM jsonb_array_elements_text(affected_rows.guild_ids) AS element
-				WHERE element != ?
-			),
-			'[]'::jsonb
-		)
-		FROM affected_rows
-		WHERE ${Table.Guess}.user_id = affected_rows.user_id
-		`,
-		[guildId, guildId],
-	);
 }
 
 export async function findUser(userId: Snowflake) {
@@ -595,44 +490,4 @@ export async function leaderboard(
 	} else {
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 	}
-}
-
-export async function guildLeaderboard(
-	interaction: APIChatInputApplicationCommandGuildInteraction,
-	guild: Guild,
-	difficulty: GuessDifficultyLevel,
-) {
-	const column = GuessDifficultyToStreakColumn[difficulty];
-
-	const results = await pg(Table.Guess)
-		.where(pg.raw("guild_ids @> ?", [JSON.stringify([guild.id])]))
-		.and.whereNotNull(column)
-		.orderBy(column, "desc");
-
-	if (results.length === 0) {
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "No one in this server has played this game yet!",
-		});
-
-		return;
-	}
-
-	const invokerId = interaction.member.user.id;
-	const you = results.findIndex((row) => row.user_id === invokerId);
-
-	await client.api.interactions.reply(interaction.id, interaction.token, {
-		embeds: [
-			{
-				description: results
-					.slice(0, 10)
-					.map((row, index) => `${index + 1}. <@${row.user_id}>: ${row[column]}`)
-					.join("\n"),
-				color: DEFAULT_EMBED_COLOUR,
-				footer: {
-					text: `${guild.name}${you === -1 ? "" : ` | You: #${you + 1} (${results[you]![column]})`}`,
-				},
-				title: `${GuessDifficultyLevelToName[difficulty]} Leaderboard`,
-			},
-		],
-	});
 }

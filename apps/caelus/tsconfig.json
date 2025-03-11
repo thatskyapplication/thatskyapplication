@@ -21,6 +21,5 @@
 		"lib": ["ESNext"],
 		"target": "ESNext",
 		"skipLibCheck": true
-	},
-	"exclude": ["scripts"]
+	}
 }

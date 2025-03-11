@@ -1386,8 +1386,6 @@ export default {
 						GuessDifficultyLevelToName[guessDifficultyLevel],
 					]),
 				),
-				"command-option-server-name": "server",
-				"command-option-server-description": "Scope the leaderboard to your server?",
 			},
 		},
 		"hair-tousle": {

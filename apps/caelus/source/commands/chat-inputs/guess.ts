@@ -1,16 +1,7 @@
-import {
-	type APIChatInputApplicationCommandInteraction,
-	InteractionContextType,
-	Locale,
-	MessageFlags,
-} from "@discordjs/core";
+import { type APIChatInputApplicationCommandInteraction, Locale } from "@discordjs/core";
 import { GuessDifficultyLevel } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import { GUILD_CACHE } from "../../caches/guilds.js";
-import { client } from "../../discord.js";
-import { guess, guildLeaderboard, leaderboard } from "../../services/guess.js";
-import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../utility/constants.js";
-import { isGuildChatInputCommand } from "../../utility/functions.js";
+import { guess, leaderboard } from "../../services/guess.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
@@ -36,34 +27,6 @@ export default {
 		interaction: APIChatInputApplicationCommandInteraction,
 		options: OptionResolver,
 	) {
-		const difficulty = options.getInteger("difficulty", true);
-		const server = options.getBoolean("server") ?? false;
-
-		if (server) {
-			if (interaction.context !== InteractionContextType.Guild) {
-				await client.api.interactions.reply(interaction.id, interaction.token, {
-					content: "Use this command in a server to see their narrowed leaderboard!",
-					flags: MessageFlags.Ephemeral,
-				});
-
-				return;
-			}
-
-			const guild = isGuildChatInputCommand(interaction) && GUILD_CACHE.get(interaction.guild_id);
-
-			if (!guild) {
-				await client.api.interactions.reply(
-					interaction.id,
-					interaction.token,
-					NOT_IN_CACHED_GUILD_RESPONSE,
-				);
-
-				return;
-			}
-
-			await guildLeaderboard(interaction, guild, difficulty);
-		} else {
-			await leaderboard(interaction, difficulty);
-		}
+		await leaderboard(interaction, options.getInteger("difficulty", true));
 	},
 } as const;

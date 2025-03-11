@@ -532,21 +532,6 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						})),
 						required: true,
 					},
-					{
-						type: ApplicationCommandOptionType.Boolean,
-						name: t("guess.leaderboard.command-option-server-name", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						name_localizations: localisations("guess.leaderboard.command-option-server-name"),
-						description: t("guess.leaderboard.command-option-server-description", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						description_localizations: localisations(
-							"guess.leaderboard.command-option-server-description",
-						),
-					},
 				],
 			},
 		],
