@@ -2,7 +2,10 @@ name: Deploy Caelus
 on:
   push:
     branches: main
-    paths: apps/caelus/**/*
+    paths:
+      - apps/caelus/**/*
+      # Ensure a change in travelling spirits triggers this workflow.
+      - packages/utility/source/utility/spirits
   workflow_dispatch:
 jobs:
   deploy:
