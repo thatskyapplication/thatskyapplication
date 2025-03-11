@@ -1,10 +1,10 @@
 import { Cosmetic } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
-import { Event } from "../../models/event.js";
+import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { LINK_REDIRECTOR_URL } from "../../utility/constants.js";
 import { EventId } from "../../utility/event.js";
 
-const eventTicketAmount = [];
+const eventTicketAmount: EventTicketsAmountData[] = [];
 
 for (
 	let start = skyDate(2_025, 3, 3), end = skyDate(2_025, 3, 17);
