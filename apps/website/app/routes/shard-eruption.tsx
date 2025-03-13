@@ -9,6 +9,7 @@ import {
 	skyToday,
 } from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
+import Pagination from "~/components/Pagination.js";
 import TopBar from "~/components/TopBar";
 import {
 	APPLICATION_NAME,
@@ -58,11 +59,17 @@ export const meta: MetaFunction = ({ location }) => {
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	try {
+		const url = new URL(request.url);
+		const pageParameter = url.searchParams.get("page");
 		const shards = [];
 		const locale = getLocaleFromRequest(request);
 		const timeZone = request.headers.get("cf-timezone") ?? TIME_ZONE;
+		const page = pageParameter ? Number(pageParameter) : 0;
+		const amount = page === 0 ? 31 : 30;
+		const startIndex = page * amount + (page <= 0 ? 0 : 1);
+		const endIndex = startIndex + amount;
 
-		for (let index = 0; index < 31; index++) {
+		for (let index = startIndex; index < endIndex; index++) {
 			const shard = shardEruption(index);
 
 			const todayFormat = new Intl.DateTimeFormat(locale, {
@@ -98,7 +105,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			});
 		}
 
-		return shards;
+		return { shards, page };
 	} catch {
 		throw new Response("Unable to fetch the shard eruption.", { status: 500 });
 	}
@@ -163,7 +170,7 @@ function shardEruptionCard({ shard, todayFormat }: ShardEruptionCardData, now: n
 }
 
 export default function ShardEruption() {
-	const shards = useLoaderData<typeof loader>();
+	const { shards, page } = useLoaderData<typeof loader>();
 	const now = skyNow();
 	const shardCards = shards.map((shard) => shardEruptionCard(shard, now.toUnixInteger()));
 	const [firstShard, ...restShards] = shardCards;
@@ -171,9 +178,18 @@ export default function ShardEruption() {
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center">
 			<TopBar />
-			<div className="flex flex-wrap pt-20 pb-4 px-4">
-				<div className="flex mb-3 w-full justify-center">{firstShard}</div>
-				<div className="gap-2 flex flex-wrap justify-center w-full max-w-full">{restShards}</div>
+			<div className="flex-wrap pt-20 pb-4 px-4">
+				{page === 0 ? (
+					<>
+						<div className="flex mb-3 w-full justify-center">{firstShard}</div>
+						<div className="gap-2 flex flex-wrap justify-center w-full max-w-full">
+							{restShards}
+						</div>
+					</>
+				) : (
+					<div className="gap-2 flex flex-wrap justify-center w-full max-w-full">{shardCards}</div>
+				)}
+				{<Pagination currentPage={page} />}
 			</div>
 		</div>
 	);
