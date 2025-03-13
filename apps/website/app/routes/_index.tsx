@@ -46,7 +46,7 @@ export default function Index() {
 					/>
 					<h2 className="font-medium text-lg">Shard Eruptions</h2>
 					<p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-						See today's shard eruption, and view a schedule of future shard eruptions.
+						See today's shard eruption, and view a schedule of shard eruptions.
 					</p>
 				</Link>
 				<Link
