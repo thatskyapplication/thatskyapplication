@@ -2893,6 +2893,9 @@ export enum Cosmetic {
 	RadianceGuideWhiteDye = 2303,
 	RadianceGuideBlackDye = 2304,
 
+	// 13/03/2025 | Travelling Spirit #136.
+	ChucklingScoutShoes = 2305,
+
 	// 24/03/2025 | Days of Bloom.
 	BloomRoseJar,
 	BloomRoseBraidedHair,

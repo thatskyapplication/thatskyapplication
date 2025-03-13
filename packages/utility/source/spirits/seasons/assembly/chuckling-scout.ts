@@ -86,12 +86,17 @@ export default new SeasonalSpirit({
 			{
 				name: "Outfit",
 				cosmetic: Cosmetic.ChucklingScoutOutfit,
-				cost: { candles: 65 },
+				cost: { candles: 46 },
 			},
 			{
 				name: "Blessing 2",
 				cosmetic: Cosmetic.ChucklingScoutBlessing2,
 				cost: { candles: 5 },
+			},
+			{
+				name: "Shoes",
+				cosmetic: Cosmetic.ChucklingScoutShoes,
+				cost: { candles: 32 },
 			},
 			{
 				name: "Prop",

@@ -7336,6 +7336,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.RadianceGuideQuest4]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.RadianceGuideWhiteDye]: MISCELLANEOUS_EMOJIS.DyeWhite,
 		[Cosmetic.RadianceGuideBlackDye]: MISCELLANEOUS_EMOJIS.DyeBlack,
+		[Cosmetic.ChucklingScoutShoes]: SHOE_EMOJIS.Shoe01,
 		[Cosmetic.BloomRoseJar]: null,
 		[Cosmetic.BloomRoseBraidedHair]: null,
 		[Cosmetic.BloomRosePetalMask]: null,
