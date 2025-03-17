@@ -2896,6 +2896,11 @@ export enum Cosmetic {
 	// 13/03/2025 | Travelling Spirit #136.
 	ChucklingScoutShoes = 2305,
 
+	// 17/03/2025 | Season of Radiance Quest 5.
+	RadianceGuideQuest5 = 2306,
+	RadianceGuideHeart4 = 2307,
+	RadianceGuideCape = 2308,
+
 	// 24/03/2025 | Days of Bloom.
 	BloomRoseJar,
 	BloomRoseBraidedHair,

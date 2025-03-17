@@ -7,7 +7,6 @@ export default new GuideSpirit({
 	id: SpiritId.RadianceGuide,
 	seasonId: SeasonId.Radiance,
 	offer: {
-		inProgress: true,
 		current: [
 			{
 				name: "Quest 1",
@@ -82,6 +81,19 @@ export default new GuideSpirit({
 			{
 				name: "Black dye",
 				cosmetic: Cosmetic.RadianceGuideBlackDye,
+			},
+			{
+				name: "Quest 5",
+				cosmetic: Cosmetic.RadianceGuideQuest5,
+			},
+			{
+				name: "Heart 4",
+				cosmetic: Cosmetic.RadianceGuideHeart4,
+			},
+			{
+				name: "Cape",
+				cosmetic: Cosmetic.RadianceGuideCape,
+				cost: { hearts: 12 },
 			},
 		],
 	},

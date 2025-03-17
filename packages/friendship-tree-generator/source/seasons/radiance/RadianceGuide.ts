@@ -93,7 +93,16 @@ export const CURRENT = [
 	],
 	[
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/60/Question-mark-Ray.png/revision/latest",
+			icon: QUEST_URL,
+		},
+		{
+			icon: HEART_URL,
+		},
+	],
+	[
+		{
+			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fd/Season-of-Radiance-additional-Cape-icon.png/revision/latest",
+			cost: { hearts: 12 },
 		},
 	],
 ] as const satisfies FriendshipTreeData;

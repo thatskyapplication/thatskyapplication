@@ -3694,6 +3694,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Fortune Snake Cloak.
 	 */
 	Cape144: { id: "1333207214017613927", name: "144_cape" },
+	/**
+	 * Radiance Guide (non-ultimate).
+	 */
+	Cape145: { id: "1351091440821997673", name: "144_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -3841,6 +3845,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape142: { id: "1330515305260253196", name: "142_cape" },
 	Cape143: { id: "1330645128993570826", name: "143_cape" },
 	Cape144: { id: "1333207221777207439", name: "144_cape" },
+	Cape145: { id: "1351091572149588010", name: "145_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -7337,6 +7342,9 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.RadianceGuideWhiteDye]: MISCELLANEOUS_EMOJIS.DyeWhite,
 		[Cosmetic.RadianceGuideBlackDye]: MISCELLANEOUS_EMOJIS.DyeBlack,
 		[Cosmetic.ChucklingScoutShoes]: SHOE_EMOJIS.Shoe01,
+		[Cosmetic.RadianceGuideQuest5]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.RadianceGuideHeart4]: MISCELLANEOUS_EMOJIS.Heart,
+		[Cosmetic.RadianceGuideCape]: CAPE_EMOJIS.Cape145,
 		[Cosmetic.BloomRoseJar]: null,
 		[Cosmetic.BloomRoseBraidedHair]: null,
 		[Cosmetic.BloomRosePetalMask]: null,
