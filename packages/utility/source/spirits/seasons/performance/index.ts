@@ -1,4 +1,3 @@
-import { URL } from "node:url";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
 import { SeasonId } from "../../../season.js";
