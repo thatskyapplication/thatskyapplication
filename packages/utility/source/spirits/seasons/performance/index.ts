@@ -1,6 +1,8 @@
+import { URL } from "node:url";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
 import { SeasonId } from "../../../season.js";
+import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import ForgetfulStoryteller from "./forgetful-storyteller.js";
 import FranticStagehand from "./frantic-stagehand.js";
 import MellowMusician from "./mellow-musician.js";
@@ -14,5 +16,5 @@ export default new Season({
 	guide: PerformanceGuide,
 	spirits: [FranticStagehand, ForgetfulStoryteller, MellowMusician, ModestDancer],
 	seasonalCandlesRotation: null,
-	patchNotesURL: "https://thatgamecompany.helpshift.com/hc/en/16/faq/890",
+	patchNotesURL: String(new URL("p0170", LINK_REDIRECTOR_URL)),
 });
