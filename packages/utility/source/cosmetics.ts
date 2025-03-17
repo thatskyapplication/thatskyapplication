@@ -2901,6 +2901,11 @@ export enum Cosmetic {
 	RadianceGuideHeart4 = 2307,
 	RadianceGuideCape = 2308,
 
+	// 17/03/2025 | Transcendent Journey Pack.
+	TranscendentJourneyCape = 2309,
+	TranscendentJourneyHood = 2310,
+	TranscendentJourneyMask = 2311,
+
 	// 24/03/2025 | Days of Bloom.
 	BloomRoseJar,
 	BloomRoseBraidedHair,
