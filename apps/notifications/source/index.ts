@@ -27,10 +27,13 @@ import {
 import { Cron } from "croner";
 import { init, t } from "i18next";
 import { DateTime } from "luxon";
+import { request } from "undici";
 import { pg } from "./pg.js";
 import pino from "./pino.js";
+import type { AppStoreAppResponse, VersionsPacket } from "./types.js";
 import { DISCORD_TOKEN } from "./utility/configuration.js";
-import { NOTIFICATIONS_TABLE } from "./utility/constants.js";
+import { APP_STORE_ID, NOTIFICATIONS_TABLE, VERSIONS_TABLE } from "./utility/constants.js";
+import { isAppStoreTokenExpired, updateAppStoreToken } from "./utility/functions.js";
 
 void init({
 	fallbackLng: Locale.EnglishGB,
@@ -310,6 +313,48 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 	// 				: `The dragon will appear <t:${startTime.toUnixInteger()}:R>!`,
 	// 	});
 	// }
+
+	const versionsPacket = (await pg<VersionsPacket>(VERSIONS_TABLE).first())!;
+
+	try {
+		const appStoreToken = isAppStoreTokenExpired(versionsPacket.app_store_token)
+			? await updateAppStoreToken()
+			: versionsPacket.app_store_token;
+
+		const json = (await (
+			await request(
+				`https://amp-api.apps.apple.com/v1/catalog/us/apps/${APP_STORE_ID}?platform=web&extend=versionHistory&additionalPlatforms=appletv,ipad,iphone,mac,realityDevice`,
+				{
+					headers: {
+						Origin: "https://apps.apple.com",
+						Authorization: `Bearer ${appStoreToken}`,
+					},
+				},
+			)
+		).body.json()) as AppStoreAppResponse;
+
+		const { versionHistory } = json.data[0]!.attributes.platformAttributes.ios;
+
+		const {
+			releaseNotes,
+			releaseTimestamp: releaseTimestampISO,
+			versionDisplay,
+		} = versionHistory[0]!;
+
+		if (versionDisplay !== versionsPacket.version) {
+			await pg<VersionsPacket>(VERSIONS_TABLE).update({ version: versionDisplay });
+			const releaseTimestamp = Date.parse(releaseTimestampISO);
+			const releaseTimestampSeconds = Math.floor(releaseTimestamp / 1000);
+
+			notifications.push({
+				type: NotificationType.AppUpdates,
+				timeUntilStart: 0,
+				suffix: `${versionDisplay} has been released at <t:${releaseTimestampSeconds}:F> (<t:${releaseTimestampSeconds}:R>)!\n>>> ${releaseNotes}`,
+			});
+		}
+	} catch (error) {
+		pino.error(error, "Error whilst fetching App Store data.");
+	}
 
 	for (const { type, timeUntilStart, suffix } of notifications) {
 		pino.info({ type: type, until: timeUntilStart }, "Queueing notification.");

@@ -12,6 +12,7 @@ import {
 import {
 	NOTIFICATION_TYPE_VALUES,
 	type NotificationPacket,
+	NotificationType,
 	type NotificationTypes,
 	formatEmoji,
 } from "@thatskyapplication/utility";
@@ -31,6 +32,7 @@ import {
 	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
 	NOT_IN_CACHED_GUILD_RESPONSE,
 	NotificationOffsetToMaximumValues,
+	SUPPORT_SERVER_INVITE_URL,
 } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
@@ -156,6 +158,15 @@ export async function setup(
 	if (notificationSendable.length > 0) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: notificationSendable.join("\n"),
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	if (notificationType === NotificationType.AppUpdates) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `This is an experimental feature that is not available in your server. Visit the [support server](${SUPPORT_SERVER_INVITE_URL}) for more information!`,
 			flags: MessageFlags.Ephemeral,
 		});
 
