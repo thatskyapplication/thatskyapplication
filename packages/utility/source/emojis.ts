@@ -7352,7 +7352,6 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.BloomRoseBraidedHair]: null,
 		[Cosmetic.BloomRosePetalMask]: null,
 		[Cosmetic.BloomRoseEmbroideredCape]: null,
-		[Cosmetic.BloomDye]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalCandleEmoji = {

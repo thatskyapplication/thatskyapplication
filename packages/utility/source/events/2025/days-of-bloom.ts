@@ -52,11 +52,6 @@ export default new Event({
 			cosmetic: Cosmetic.BloomRoseEmbroideredCape,
 			cost: { money: 14.99 },
 		},
-		{
-			name: "Dye blessing",
-			cosmetic: Cosmetic.BloomRoseJar,
-			cost: { eventTickets: 16 },
-		},
 	],
 	patchNotesURL: String(new URL("p0285", LINK_REDIRECTOR_URL)),
 });

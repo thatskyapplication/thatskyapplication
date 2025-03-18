@@ -2911,5 +2911,4 @@ export enum Cosmetic {
 	BloomRoseBraidedHair,
 	BloomRosePetalMask,
 	BloomRoseEmbroideredCape,
-	BloomDye,
 }
