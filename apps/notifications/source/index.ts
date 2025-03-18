@@ -345,12 +345,11 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 			await pg<VersionsPacket>(VERSIONS_TABLE).update({ version: versionDisplay });
 			const releaseTimestamp = Date.parse(releaseTimestampISO);
 			const releaseTimestampSeconds = Math.floor(releaseTimestamp / 1000);
-			const timestampMarkdown = `<t:${releaseTimestampSeconds}:F> (<t:${releaseTimestampSeconds}:R>)`;
 
 			notifications.push({
 				type: NotificationType.AppUpdates,
 				timeUntilStart: 0,
-				suffix: `${timestampMarkdown}\n>>> ${releaseNotes}`,
+				suffix: `${versionDisplay} has been released at <t:${releaseTimestampSeconds}:F> (<t:${releaseTimestampSeconds}:R>)!\n>>> ${releaseNotes}`,
 			});
 		}
 	} catch (error) {
