@@ -332,6 +332,8 @@ export default {
 				"Help the Anxious Angler or the Scolding Student find treasure in Hidden Forest",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
 				"Help the Cackling Cannoneer or the Chuckling Scout find treasure in Village of Dreams",
+			[DailyQuest.MeetUpWithPleadingChildInRepositoryOfRefuge]:
+				"Meet up with Pleading Child in Repository of Refuge",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
