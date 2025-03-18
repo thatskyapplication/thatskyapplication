@@ -38,6 +38,7 @@ export default {
 			[NotificationType.AviarysFireworkFestival]: "Aviary's Firework Festival",
 			[NotificationType.TravellingSpirit]: "Travelling Spirit",
 			[NotificationType.DreamsSkater]: "Dreams Skater",
+			[NotificationType.AppUpdates]: "App Updates",
 		} satisfies Record<NotificationTypes, string>,
 		quests: {
 			[DailyQuest.Collect30PiecesOfLight]: "Collect 30 pieces of light",
