@@ -1147,6 +1147,7 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.HelpTheAnxiousAnglerOrTheScoldingStudentFindTreasureInHiddenForest]: null,
 	[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]: null,
 	[DailyQuest.MeetUpWithPleadingChildInRepositoryOfRefuge]: null,
+	[DailyQuest.MeetUpWithAsceticMonkInPrairiePeaks]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
 // Daily guides distribution.

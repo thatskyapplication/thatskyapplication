@@ -335,6 +335,8 @@ export default {
 				"Help the Cackling Cannoneer or the Chuckling Scout find treasure in Village of Dreams",
 			[DailyQuest.MeetUpWithPleadingChildInRepositoryOfRefuge]:
 				"Meet up with Pleading Child in Repository of Refuge",
+			[DailyQuest.MeetUpWithAsceticMonkInPrairiePeaks]:
+				"Meet up with Ascetic Monk in Prairie Peaks",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
