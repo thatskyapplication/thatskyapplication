@@ -166,7 +166,7 @@ export async function setup(
 
 	if (notificationType === NotificationType.AppUpdates) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: `This is an experimental feature that is not available in your server. Visit the [support server](${SUPPORT_SERVER_INVITE_URL}) for more information!`,
+			content: `App Updates for Sky is an experimental feature that is not available in your server. Visit the [support server](${SUPPORT_SERVER_INVITE_URL}) for more information!`,
 			flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
 		});
 
