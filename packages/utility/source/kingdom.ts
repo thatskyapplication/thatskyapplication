@@ -139,6 +139,15 @@ const TREASURE_CANDLES_DOUBLE_ROTATION = {
 } as const;
 
 export function treasureCandles(today: DateTime) {
+	if (today.year === 2025 && today.month === 3 && today.day === 21) {
+		// 3 were available on this date.
+		return [
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
+		];
+	}
+
 	const realmIndex = VALID_REALM_NAME.at(
 		(today.diff(TREASURE_CANDLES_INITIAL_SEEK, "days").days + 4) % 5,
 	)!;
