@@ -9,6 +9,7 @@ import {
 	DEFAULT_EMBED_COLOUR,
 	SUPPORT_SERVER_INVITE_URL,
 } from "../utility/constants.js";
+import { interactionInvoker } from "../utility/functions.js";
 
 export async function about(interaction: APIChatInputApplicationCommandInteraction) {
 	const currentUser = await client.api.users.getCurrent();
@@ -46,6 +47,10 @@ export async function about(interaction: APIChatInputApplicationCommandInteracti
 					{
 						name: "Sponsor",
 						value: ABOUT_SPONSOR,
+					},
+					{
+						name: "Experiments",
+						value: `${interaction.guild_id ? "This server does not have access to any experiments.\n" : ""}${interactionInvoker(interaction).username} does not have access to any experiments.`,
 					},
 				],
 				footer: { text: "thatskyapplication", icon_url: iconURL },
