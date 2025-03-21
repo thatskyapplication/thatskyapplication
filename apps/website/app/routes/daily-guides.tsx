@@ -4,11 +4,6 @@ import {
 	type DailyQuests,
 	type RotationNumber,
 	TIME_ZONE,
-	TREASURE_CANDLES_DOUBLE_DATES,
-	TREASURE_CANDLES_DOUBLE_ROTATION,
-	TREASURE_CANDLES_INITIAL_SEEK,
-	TREASURE_CANDLES_ROTATION,
-	VALID_REALM_NAME,
 	enGB,
 	isDailyQuest,
 	shardEruption,
@@ -16,9 +11,9 @@ import {
 	skyNotEndedEvents,
 	skyNow,
 	skyUpcomingSeason,
+	treasureCandles,
 } from "@thatskyapplication/utility";
 import { PanelRightClose, X } from "lucide-react";
-import type { DateTime } from "luxon";
 import { useState } from "react";
 import TopBar from "~/components/TopBar";
 import pg from "~/pg.server";
@@ -36,22 +31,6 @@ interface DailyGuidesPacket {
 interface DailyGuideQuest {
 	id: number;
 	url: string | null;
-}
-
-function treasureCandles(today: DateTime, double = false) {
-	const realmIndex = VALID_REALM_NAME.at(
-		(today.diff(TREASURE_CANDLES_INITIAL_SEEK, "days").days + 4) % 5,
-	)!;
-
-	const realmRotation = TREASURE_CANDLES_ROTATION[realmIndex];
-	const realmRotationIndex = today.day % realmRotation.length;
-	const result = [realmRotation[realmRotationIndex]!];
-
-	if (double) {
-		result.push(TREASURE_CANDLES_DOUBLE_ROTATION[realmIndex][realmRotationIndex]!);
-	}
-
-	return result;
 }
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -116,11 +95,7 @@ export default function DailyGuides() {
 			quest !== null && isDailyQuest(quest.id),
 	);
 
-	const doubleTreasureCandles = TREASURE_CANDLES_DOUBLE_DATES.some(
-		({ start, end }) => now >= start && now < end,
-	);
-
-	const treasureCandleURLs = treasureCandles(today, doubleTreasureCandles);
+	const treasureCandleURLs = treasureCandles(today);
 
 	const treasureCandlesData = treasureCandleURLs.map((treasureCandleURL, index) => ({
 		text: `${index * 4 + 1} - ${index * 4 + 4}`,

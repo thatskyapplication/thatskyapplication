@@ -16,7 +16,6 @@ import { DiscordAPIError } from "@discordjs/rest";
 import {
 	type RotationNumber,
 	TIME_ZONE,
-	TREASURE_CANDLES_DOUBLE_DATES,
 	formatEmoji,
 	formatEmojiURL,
 	resolveCurrencyEmoji,
@@ -27,6 +26,7 @@ import {
 	skyNow,
 	skyToday,
 	skyUpcomingSeason,
+	treasureCandles,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
@@ -57,7 +57,6 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
-import { treasureCandles } from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import {
@@ -528,11 +527,7 @@ export function distributionEmbed(locale: Locale) {
 		});
 	}
 
-	const doubleTreasureCandles = TREASURE_CANDLES_DOUBLE_DATES.some(
-		({ start, end }) => now >= start && now < end,
-	);
-
-	const treasureCandleURLs = treasureCandles(today, doubleTreasureCandles);
+	const treasureCandleURLs = treasureCandles(today);
 
 	fields.push({
 		name: "Treasure Candles",

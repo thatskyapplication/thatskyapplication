@@ -1,3 +1,4 @@
+import type { DateTime } from "luxon";
 import { CDN_URL } from "./cdn.js";
 import { skyDate } from "./dates.js";
 
@@ -78,14 +79,14 @@ export enum SkyMap {
 export const SKY_MAP_VALUES = Object.values(SkyMap);
 
 // 01/01/2025 failed and is thus the first day of the cycle.
-export const TREASURE_CANDLES_INITIAL_SEEK = skyDate(2025, 1, 1);
+const TREASURE_CANDLES_INITIAL_SEEK = skyDate(2025, 1, 1);
 
-export const TREASURE_CANDLES_DOUBLE_DATES = [
+const TREASURE_CANDLES_DOUBLE_DATES = [
 	{ start: skyDate(2_024, 12, 9), end: skyDate(2_024, 12, 23) },
 	{ start: skyDate(2_025, 3, 17), end: skyDate(2_025, 3, 24) },
 ];
 
-export const TREASURE_CANDLES_ROTATION = {
+const TREASURE_CANDLES_ROTATION = {
 	[RealmName.DaylightPrairie]: [
 		String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
@@ -111,7 +112,7 @@ export const TREASURE_CANDLES_ROTATION = {
 	],
 } as const;
 
-export const TREASURE_CANDLES_DOUBLE_ROTATION = {
+const TREASURE_CANDLES_DOUBLE_ROTATION = {
 	[RealmName.DaylightPrairie]: [
 		String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
@@ -136,3 +137,19 @@ export const TREASURE_CANDLES_DOUBLE_ROTATION = {
 		String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
 	],
 } as const;
+
+export function treasureCandles(today: DateTime) {
+	const realmIndex = VALID_REALM_NAME.at(
+		(today.diff(TREASURE_CANDLES_INITIAL_SEEK, "days").days + 4) % 5,
+	)!;
+
+	const realmRotation = TREASURE_CANDLES_ROTATION[realmIndex];
+	const realmRotationIndex = today.day % realmRotation.length;
+	const result = [realmRotation[realmRotationIndex]!];
+
+	if (TREASURE_CANDLES_DOUBLE_DATES.some(({ start, end }) => today >= start && today < end)) {
+		result.push(TREASURE_CANDLES_DOUBLE_ROTATION[realmIndex][realmRotationIndex]!);
+	}
+
+	return result;
+}

@@ -23,13 +23,8 @@ import {
 	REALM_NAME_VALUES,
 	type RealmName,
 	SkyMap,
-	TREASURE_CANDLES_DOUBLE_ROTATION,
-	TREASURE_CANDLES_INITIAL_SEEK,
-	TREASURE_CANDLES_ROTATION,
-	VALID_REALM_NAME,
 	VALID_REALM_NAME_VALUES,
 } from "@thatskyapplication/utility";
-import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import { ANIMATED_HASH_PREFIX, APPLICATION_ID, MAXIMUM_ASSET_SIZE } from "./constants.js";
 import {
@@ -115,22 +110,6 @@ export function isSocialLightAreaMap(skyMap: SkyMap): skyMap is SocialLightAreaM
 
 export function isRainbowAdmireMap(skyMap: SkyMap): skyMap is RainbowAdmireMaps {
 	return RAINBOW_ADMIRE_MAPS.includes(skyMap as RainbowAdmireMaps);
-}
-
-export function treasureCandles(today: DateTime, double = false) {
-	const realmIndex = VALID_REALM_NAME.at(
-		(today.diff(TREASURE_CANDLES_INITIAL_SEEK, "days").days + 4) % 5,
-	)!;
-
-	const realmRotation = TREASURE_CANDLES_ROTATION[realmIndex];
-	const realmRotationIndex = today.day % realmRotation.length;
-	const result = [realmRotation[realmRotationIndex]!];
-
-	if (double) {
-		result.push(TREASURE_CANDLES_DOUBLE_ROTATION[realmIndex][realmRotationIndex]!);
-	}
-
-	return result;
 }
 
 export function isChatInputCommand(
