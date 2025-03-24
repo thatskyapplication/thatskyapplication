@@ -221,6 +221,7 @@ export const DailyQuest = {
 	HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams: 219,
 	MeetUpWithPleadingChildInRepositoryOfRefuge: 220,
 	MeetUpWithAsceticMonkInPrairiePeaks: 221,
+	MeetUpWithReassuringRangerInPrairiePeaks: 222,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);

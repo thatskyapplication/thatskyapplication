@@ -337,6 +337,8 @@ export default {
 				"Meet up with Pleading Child in Repository of Refuge",
 			[DailyQuest.MeetUpWithAsceticMonkInPrairiePeaks]:
 				"Meet up with Ascetic Monk in Prairie Peaks",
+			[DailyQuest.MeetUpWithReassuringRangerInPrairiePeaks]:
+				"Meet up with Reassuring Ranger in Prairie Peaks",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
