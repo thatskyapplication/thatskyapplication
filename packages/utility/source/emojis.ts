@@ -4458,10 +4458,6 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Fortune Plant.
 	 */
 	LargePlaceableProp82: { id: "1333206450998214696", name: "82_large_placeable_prop" },
-	/**
-	 * Bloom Rose Jar.
-	 */
-	LargePlaceableProp83: { id: "1353522647463624875", name: "83_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4547,7 +4543,6 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp80: { id: "1333205584824238080", name: "80_large_placeable_prop" },
 	LargePlaceableProp81: { id: "1333206114203865088", name: "81_large_placeable_prop" },
 	LargePlaceableProp82: { id: "1333206456794873928", name: "82_large_placeable_prop" },
-	LargePlaceableProp83: { id: "1353522656946819122", name: "83_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -4899,6 +4894,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Days of Love Violet Crystal.
 	 */
 	SmallPlaceableProp87: { id: "1338230430813520012", name: "87_small_placeable_prop" },
+	/**
+	 * Bloom Rose Jar.
+	 */
+	SmallPlaceableProp88: { id: "1353522647463624875", name: "88_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4989,6 +4988,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp85: { id: "1315723148133531738", name: "85_small_placeable_prop" },
 	SmallPlaceableProp86: { id: "1320566442755756102", name: "86_small_placeable_prop" },
 	SmallPlaceableProp87: { id: "1338230482931814540", name: "87_small_placeable_prop" },
+	SmallPlaceableProp88: { id: "1353522656946819122", name: "88_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojiConstants(production: boolean) {
@@ -7368,7 +7368,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.TranscendentJourneyCape]: null,
 		[Cosmetic.TranscendentJourneyHood]: null,
 		[Cosmetic.TranscendentJourneyMask]: null,
-		[Cosmetic.BloomRoseJar]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp83,
+		[Cosmetic.BloomRoseJar]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp88,
 		[Cosmetic.BloomRoseBraidedHair]: HAIR_EMOJIS.Hair160,
 		[Cosmetic.BloomRosePetalMask]: MASK_EMOJIS.Mask97,
 		[Cosmetic.BloomRoseEmbroideredCape]: CAPE_EMOJIS.Cape146,
