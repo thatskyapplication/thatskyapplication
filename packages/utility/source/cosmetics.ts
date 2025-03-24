@@ -2907,8 +2907,8 @@ export enum Cosmetic {
 	TranscendentJourneyMask = 2311,
 
 	// 24/03/2025 | Days of Bloom.
-	BloomRoseJar,
-	BloomRoseBraidedHair,
-	BloomRosePetalMask,
-	BloomRoseEmbroideredCape,
+	BloomRoseJar = 2312,
+	BloomRoseBraidedHair = 2313,
+	BloomRosePetalMask = 2314,
+	BloomRoseEmbroideredCape = 2315,
 }
