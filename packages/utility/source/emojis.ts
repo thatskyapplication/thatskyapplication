@@ -3697,7 +3697,7 @@ const CAPE_EMOJIS_PRODUCTION = {
 	/**
 	 * Radiance Guide (non-ultimate).
 	 */
-	Cape145: { id: "1351091440821997673", name: "144_cape" },
+	Cape145: { id: "1351091440821997673", name: "145_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
