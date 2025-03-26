@@ -1493,9 +1493,13 @@ const MASK_EMOJIS_PRODUCTION = {
 	 */
 	Mask96: { id: "1345899392087101490", name: "96_mask" },
 	/**
+	 * Transcendent Journey Mask.
+	 */
+	Mask97: { id: "1354390500983181312", name: "97_mask" },
+	/**
 	 * Bloom Rose Petal Mask.
 	 */
-	Mask97: { id: "1353522156822073415", name: "97_mask" },
+	Mask98: { id: "1353522156822073415", name: "98_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_DEVELOPMENT = {
@@ -1595,7 +1599,8 @@ const MASK_EMOJIS_DEVELOPMENT = {
 	Mask94: { id: "1330484210611392535", name: "94_mask" },
 	Mask95: { id: "1333204546775679097", name: "95_mask" },
 	Mask96: { id: "1345899400043429998", name: "96_mask" },
-	Mask97: { id: "1353522165378711623", name: "97_mask" },
+	Mask97: { id: "1354390516753760256", name: "97_mask" },
+	Mask98: { id: "1353522165378711623", name: "98_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -2678,9 +2683,13 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 */
 	Hair159: { id: "1338232780793839736", name: "159_hair" },
 	/**
+	 * Transcendent Journey Hood.
+	 */
+	Hair160: { id: "1354388513227014144", name: "160_hair" },
+	/**
 	 * Bloom Rose Braided Hair.
 	 */
-	Hair160: { id: "1353523208946450483", name: "160_hair" },
+	Hair161: { id: "1353523208946450483", name: "161_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_DEVELOPMENT = {
@@ -2843,7 +2852,8 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair157: { id: "1333207599063240724", name: "157_hair" },
 	Hair158: { id: "1338231111171571794", name: "158_hair" },
 	Hair159: { id: "1338232789127921704", name: "159_hair" },
-	Hair160: { id: "1353523218207608893", name: "160_hair" },
+	Hair160: { id: "1354388537121968289", name: "160_hair" },
+	Hair161: { id: "1353523218207608893", name: "161_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -3709,9 +3719,13 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 */
 	Cape145: { id: "1351091440821997673", name: "145_cape" },
 	/**
+	 * Transcendent Journey Cape.
+	 */
+	Cape146: { id: "1354387222064791583", name: "146_cape" },
+	/**
 	 * Bloom Rose Embroidered Cape.
 	 */
-	Cape146: { id: "1353521854467412101", name: "146_cape" },
+	Cape147: { id: "1353521854467412101", name: "147_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -3860,7 +3874,8 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape143: { id: "1330645128993570826", name: "143_cape" },
 	Cape144: { id: "1333207221777207439", name: "144_cape" },
 	Cape145: { id: "1351091572149588010", name: "145_cape" },
-	Cape146: { id: "1353521862545768468", name: "146_cape" },
+	Cape146: { id: "1354387232324063362", name: "146_cape" },
+	Cape147: { id: "1353521862545768468", name: "147_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -7365,13 +7380,13 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.RadianceGuideQuest5]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.RadianceGuideHeart4]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.RadianceGuideCape]: CAPE_EMOJIS.Cape145,
-		[Cosmetic.TranscendentJourneyCape]: null,
-		[Cosmetic.TranscendentJourneyHood]: null,
-		[Cosmetic.TranscendentJourneyMask]: null,
+		[Cosmetic.TranscendentJourneyCape]: CAPE_EMOJIS.Cape146,
+		[Cosmetic.TranscendentJourneyHood]: HAIR_EMOJIS.Hair160,
+		[Cosmetic.TranscendentJourneyMask]: MASK_EMOJIS.Mask97,
 		[Cosmetic.BloomRoseJar]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp88,
-		[Cosmetic.BloomRoseBraidedHair]: HAIR_EMOJIS.Hair160,
-		[Cosmetic.BloomRosePetalMask]: MASK_EMOJIS.Mask97,
-		[Cosmetic.BloomRoseEmbroideredCape]: CAPE_EMOJIS.Cape146,
+		[Cosmetic.BloomRoseBraidedHair]: HAIR_EMOJIS.Hair161,
+		[Cosmetic.BloomRosePetalMask]: MASK_EMOJIS.Mask98,
+		[Cosmetic.BloomRoseEmbroideredCape]: CAPE_EMOJIS.Cape147,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalCandleEmoji = {
