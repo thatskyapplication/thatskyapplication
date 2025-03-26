@@ -76,7 +76,7 @@ export async function about(interaction: APIChatInputApplicationCommandInteracti
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `### Experiments\n\n${interaction.guild_id ? (interaction.guild_id === DEVELOPER_GUILD_ID ? "This server has access to the experimental App Store updates experiment." : "This server does not have access to any experiments.") : ""}\n${interactionInvoker(interaction).username} does not have access to any experiments.`,
+						content: `### Experiments\n\n${interaction.guild_id ? (interaction.guild_id === DEVELOPER_GUILD_ID ? "This server has access to the App Store updates experiment." : "This server does not have access to any experiments.") : ""}\n${interactionInvoker(interaction).username} does not have access to any experiments.`,
 					},
 				],
 			},
