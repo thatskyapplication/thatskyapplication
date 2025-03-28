@@ -2234,14 +2234,16 @@ export class Catalogue {
 		const owned = [];
 		const unowned = [];
 
-		for (const { name, cosmetics, cosmeticDisplay } of offer) {
-			const emoji = CosmeticToEmoji[cosmeticDisplay];
-			const toPush = emoji ? formatEmoji(emoji) : name;
+		for (const { name, cosmetics } of offer) {
+			const emojis = cosmetics.map((cosmetic) => {
+				const emoji = CosmeticToEmoji[cosmetic];
+				return emoji ? formatEmoji(emoji) : name;
+			});
 
 			if (cosmetics.every((cosmetic) => this.data.has(cosmetic))) {
-				owned.push(toPush);
+				owned.push(...emojis);
 			} else {
-				unowned.push(toPush);
+				unowned.push(...emojis);
 			}
 		}
 
