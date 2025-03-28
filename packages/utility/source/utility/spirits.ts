@@ -435,11 +435,20 @@ interface ItemCostRaw {
 	eventTickets?: number;
 }
 
-export interface ItemRaw {
+interface ItemRawSingleCosmetic {
 	name: string;
-	cosmetic: Cosmetic | [Cosmetic, ...Cosmetic[]];
+	cosmetic: Cosmetic;
 	cost?: ItemCostRaw;
 }
+
+interface ItemRawMultipleCosmetics<TCosmetics extends Cosmetic = Cosmetic> {
+	name: string;
+	cosmetic: [TCosmetics, ...TCosmetics[]];
+	cosmeticDisplay: TCosmetics;
+	cost?: ItemCostRaw;
+}
+
+export type ItemRaw = ItemRawSingleCosmetic | ItemRawMultipleCosmetics;
 
 interface ItemCostSeasonal {
 	cost: number;
@@ -463,6 +472,7 @@ export interface ItemCost {
 export interface Item {
 	name: string;
 	cosmetics: [Cosmetic, ...Cosmetic[]];
+	cosmeticDisplay: Cosmetic;
 	cost: ItemCost | null;
 }
 

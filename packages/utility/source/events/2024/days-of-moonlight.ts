@@ -43,6 +43,7 @@ export default new Event({
 		{
 			name: "Moonlight Frock and Updo",
 			cosmetic: [Cosmetic.MoonlightFrock, Cosmetic.MoonlightUpdo],
+			cosmeticDisplay: Cosmetic.MoonlightFrock,
 			cost: { money: 14.99 },
 		},
 	],

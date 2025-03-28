@@ -27,6 +27,7 @@ export default new Event({
 		{
 			name: "Days of Fortune Pack",
 			cosmetic: [Cosmetic.DaysOfFortuneCape, Cosmetic.FortuneBlushingMask, Cosmetic.FortuneBunHair],
+			cosmeticDisplay: Cosmetic.DaysOfFortuneCape,
 			cost: { money: 24.99 },
 		},
 		{

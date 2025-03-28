@@ -12,6 +12,7 @@ export default new Event({
 		{
 			name: "Kizuna AI Pack",
 			cosmetic: [Cosmetic.KizunaAIHair, Cosmetic.KizunaAIBow, Cosmetic.KizunaAICape],
+			cosmeticDisplay: Cosmetic.KizunaAIHair,
 			cost: { money: 19.99 },
 		},
 	],

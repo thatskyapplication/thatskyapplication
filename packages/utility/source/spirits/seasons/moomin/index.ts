@@ -30,11 +30,13 @@ export default new Season({
 		{
 			name: "Roving Snufkin Robe Set",
 			cosmetic: [Cosmetic.RovingSnufkinRobe, Cosmetic.RovingSnufkinScarf],
+			cosmeticDisplay: Cosmetic.RovingSnufkinRobe,
 			cost: { money: 9.99 },
 		},
 		{
 			name: "Moomintroll Accessory Set",
 			cosmetic: [Cosmetic.MoomintrollEars, Cosmetic.MoomintrollTail],
+			cosmeticDisplay: Cosmetic.MoomintrollTail,
 			cost: { money: 11.99 },
 		},
 		{

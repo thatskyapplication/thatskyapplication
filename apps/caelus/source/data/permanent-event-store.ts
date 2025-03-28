@@ -4,6 +4,7 @@ const items = resolveOffer([
 	{
 		name: "Journey Pack",
 		cosmetic: [Cosmetic.JourneyCape, Cosmetic.JourneyHood, Cosmetic.JourneyMask],
+		cosmeticDisplay: Cosmetic.JourneyCape,
 		cost: { money: 24.99 },
 	},
 	{
@@ -18,6 +19,7 @@ const items = resolveOffer([
 			Cosmetic.TranscendentJourneyHood,
 			Cosmetic.TranscendentJourneyMask,
 		],
+		cosmeticDisplay: Cosmetic.TranscendentJourneyCape,
 		cost: { money: 24.99 },
 	},
 ]);

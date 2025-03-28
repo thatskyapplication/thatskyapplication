@@ -42,6 +42,7 @@ export default new Event({
 				Cosmetic.StyleDapperMonocle,
 				Cosmetic.StyleDapperNecktie,
 			],
+			cosmeticDisplay: Cosmetic.StyleDapperSuit,
 			cost: { money: 14.99 },
 		},
 	],

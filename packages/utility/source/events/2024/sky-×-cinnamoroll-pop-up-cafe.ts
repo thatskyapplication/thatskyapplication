@@ -45,6 +45,7 @@ export default new Event({
 				Cosmetic.CinnamorollPopUpCafeSwirledHair,
 				Cosmetic.CinnamorollPopUpCafeCinnamarollEars,
 			],
+			cosmeticDisplay: Cosmetic.CinnamorollPopUpCafeCinnamarollEars,
 			cost: { money: 14.99 },
 		},
 		{
@@ -60,6 +61,7 @@ export default new Event({
 		{
 			name: "Cinnamoroll Pop-Up Cafe Bowtie and Cloud Cape",
 			cosmetic: [Cosmetic.CinnamorollPopUpCafeBowtie, Cosmetic.CinnamorollPopUpCafeCloudCape],
+			cosmeticDisplay: Cosmetic.CinnamorollPopUpCafeCloudCape,
 			cost: { money: 14.99 },
 		},
 	],

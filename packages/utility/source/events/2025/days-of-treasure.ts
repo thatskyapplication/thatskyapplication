@@ -51,6 +51,7 @@ export default new Event({
 				Cosmetic.TreasureSeekersBlackDye,
 				Cosmetic.TreasureSeekersWhiteDye,
 			],
+			cosmeticDisplay: Cosmetic.TreasureSeekersOutfit,
 			cost: { money: 14.99 },
 		},
 	],

@@ -75,6 +75,7 @@ export default new Event({
 		{
 			name: "Fortune Snake Coif and Cloak",
 			cosmetic: [Cosmetic.FortuneSnakeCoif, Cosmetic.FortuneSnakeCloak],
+			cosmeticDisplay: Cosmetic.FortuneSnakeCloak,
 			cost: { money: 19.99 },
 		},
 	],

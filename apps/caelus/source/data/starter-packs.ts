@@ -14,6 +14,7 @@ const items = resolveOffer([
 			Cosmetic.VesselFlute,
 			Cosmetic.ElvishHairstyle,
 		],
+		cosmeticDisplay: Cosmetic.SwitchRedCape,
 		cost: { money: 29.99 },
 	},
 ]);

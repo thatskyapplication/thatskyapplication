@@ -22,6 +22,7 @@ export default new Event({
 		{
 			name: "Cat Costume Pack",
 			cosmetic: [Cosmetic.CatCostumeMask, Cosmetic.CatCostumeCape],
+			cosmeticDisplay: Cosmetic.CatCostumeCape,
 			cost: { money: 19.99 },
 		},
 	],

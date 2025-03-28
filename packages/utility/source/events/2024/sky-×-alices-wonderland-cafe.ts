@@ -58,6 +58,7 @@ export default new Event({
 				Cosmetic.WonderlandPrimrosePinaforeDress,
 				Cosmetic.WonderlandPrimrosePinaforeHairAccessory,
 			],
+			cosmeticDisplay: Cosmetic.WonderlandPrimrosePinaforeDress,
 			cost: { money: 11.99 },
 		},
 		{

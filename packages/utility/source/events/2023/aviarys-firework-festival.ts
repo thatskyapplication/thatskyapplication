@@ -43,11 +43,13 @@ export default new Event({
 		{
 			name: "Moth Appreciation Pack",
 			cosmetic: [Cosmetic.MothAppreciationCape, Cosmetic.MothAppreciationAntennae],
+			cosmeticDisplay: Cosmetic.MothAppreciationCape,
 			cost: { money: 9.99 },
 		},
 		{
 			name: "Sparrow Appreciation Pack",
 			cosmetic: [Cosmetic.SparrowAppreciationCape, Cosmetic.SparrowAppreciationMask],
+			cosmeticDisplay: Cosmetic.SparrowAppreciationCape,
 			cost: { money: 9.99 },
 		},
 	],
