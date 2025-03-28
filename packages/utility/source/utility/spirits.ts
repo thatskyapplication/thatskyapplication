@@ -441,10 +441,10 @@ interface ItemRawSingleCosmetic {
 	cost?: ItemCostRaw;
 }
 
-interface ItemRawMultipleCosmetics<TCosmetics extends Cosmetic = Cosmetic> {
+interface ItemRawMultipleCosmetics {
 	name: string;
-	cosmetic: [TCosmetics, ...TCosmetics[]];
-	cosmeticDisplay: TCosmetics;
+	cosmetic: [Cosmetic, ...Cosmetic[]];
+	cosmeticDisplay: Cosmetic;
 	cost?: ItemCostRaw;
 }
 
