@@ -1,7 +1,9 @@
 import type { DateTime } from "luxon";
 import { CDN_URL } from "./cdn.js";
 import { skyToday } from "./dates.js";
+import { skyCurrentEvents } from "./events/index.js";
 import { type RealmName, SkyMap, VALID_REALM_NAME } from "./kingdom.js";
+import { EventId } from "./utility/event.js";
 
 function resolveShardEruptionMapURL(skyMap: SkyMap) {
 	return `${CDN_URL}/daily_guides/shard_eruptions/${skyMap.toLowerCase().replaceAll(" ", "_")}.webp`;
@@ -153,13 +155,22 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 
 	const realmIndex = (dayOfMonth - 1) % 5;
 	const { skyMap, url, reward } = area[realmIndex]!;
+	const currentEvents = skyCurrentEvents(date);
 
 	// No shard eruption in Jellyfish Cove during Days of Love.
 	if (
-		date.year === 2025 &&
-		date.month === 2 &&
-		dayOfMonth === 15 &&
-		skyMap === SkyMap.JellyfishCove
+		skyMap === SkyMap.JellyfishCove &&
+		currentEvents.some(
+			(event) => event.id === EventId.DaysOfLove2024 || event.id === EventId.DaysOfLove2025,
+		)
+	) {
+		return null;
+	}
+
+	// No shard eruption in the Forgotten Ark during Days of Bloom.
+	if (
+		skyMap === SkyMap.ForgottenArk &&
+		currentEvents.some((event) => event.id === EventId.DaysOfBloom2025)
 	) {
 		return null;
 	}
