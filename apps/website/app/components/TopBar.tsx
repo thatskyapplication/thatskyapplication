@@ -7,8 +7,8 @@ import { INVITE_APPLICATION_URL, INVITE_SUPPORT_SERVER_URL } from "~/utility/con
 import { timeString } from "~/utility/functions";
 
 interface TopBarOptions {
-	back?: string;
-	hideBack?: boolean;
+	back?: string | undefined;
+	hideBack?: boolean | undefined;
 }
 
 export default function TopBar({ back, hideBack }: TopBarOptions) {

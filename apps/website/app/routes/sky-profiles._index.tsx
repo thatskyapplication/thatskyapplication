@@ -1,8 +1,8 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Form, Link, type MetaFunction, useLoaderData } from "@remix-run/react";
 import { type ProfilePacket, WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
+import Layout from "~/components/Layout.js";
 import Pagination from "~/components/Pagination.js";
-import TopBar from "~/components/TopBar";
 import pg from "~/pg.server";
 import {
 	APPLICATION_ICON_URL,
@@ -169,8 +169,7 @@ export default function SkyProfiles() {
 	const { profiles, query, currentPage, totalPages } = useLoaderData<typeof loader>();
 
 	return (
-		<div className="min-h-screen pt-20">
-			<TopBar />
+		<Layout>
 			<div className="container mx-auto px-4 m-4">
 				<div className="flex items-center mb-4">
 					<Form method="get" className="mr-4">
@@ -217,6 +216,6 @@ export default function SkyProfiles() {
 					<Pagination currentPage={currentPage ?? 0} totalPages={totalPages ?? 0} />
 				)}
 			</div>
-		</div>
+		</Layout>
 	);
 }

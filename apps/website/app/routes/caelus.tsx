@@ -1,7 +1,7 @@
 import { Link, Outlet, useLocation } from "@remix-run/react";
 import { MenuIcon, XIcon } from "lucide-react";
 import { useState } from "react";
-import TopBar from "~/components/TopBar";
+import PageLayout from "~/components/Layout.js";
 import { SKY_KID_ICON_URL } from "~/utility/constants.js";
 
 interface SidebarData {
@@ -67,8 +67,7 @@ export default function GuidesLayout() {
 	};
 
 	return (
-		<div className="min-h-screen flex pt-14">
-			<TopBar />
+		<PageLayout className="flex">
 			<nav className="hidden lg:block fixed left-0 top-0 pt-24 h-full w-64 bg-gray-100 dark:bg-gray-900 lg:border-r lg:border-gray-300 dark:lg:border-gray-700 p-4 overflow-y-auto">
 				<div className="space-y-1">
 					{renderCategory("Home", HOME, location)}
@@ -182,6 +181,6 @@ export default function GuidesLayout() {
 					<Outlet />
 				</div>
 			</div>
-		</div>
+		</PageLayout>
 	);
 }
