@@ -101,5 +101,6 @@ export default new SeasonalSpirit({
 	},
 	visits: {
 		travelling: [96],
+		returning: [8],
 	},
 });

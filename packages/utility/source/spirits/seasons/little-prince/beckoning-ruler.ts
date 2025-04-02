@@ -93,5 +93,6 @@ export default new SeasonalSpirit({
 	keywords: ["frog", "frog mask"],
 	visits: {
 		travelling: [71, 117],
+		returning: [8],
 	},
 });
