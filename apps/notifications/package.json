@@ -18,7 +18,7 @@
 		"@logtail/pino": "^0.5.2",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "^9.0.0",
-		"i18next": "^23.11.5",
+		"i18next": "^24.2.3",
 		"knex": "^3.1.0",
 		"luxon": "^3.6.1",
 		"pg": "^8.14.1",
