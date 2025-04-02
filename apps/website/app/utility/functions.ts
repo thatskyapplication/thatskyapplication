@@ -9,10 +9,6 @@ import {
 } from "@thatskyapplication/utility";
 import { DEFAULT_LOCALE, HUGGING_GIFS } from "~/utility/constants";
 
-export function getBrowserTimeZone() {
-	return Intl.DateTimeFormat().resolvedOptions().timeZone;
-}
-
 export function getLocaleFromRequest(request: Request) {
 	return (
 		request.headers
