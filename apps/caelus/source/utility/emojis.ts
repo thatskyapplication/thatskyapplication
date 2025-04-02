@@ -8,7 +8,6 @@ export const {
 	CALL_EMOJIS,
 	FRIEND_ACTION_EMOJIS,
 	SEASON_EMOJIS,
-	EVENT_EMOJIS,
 	CosmeticToEmoji,
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
