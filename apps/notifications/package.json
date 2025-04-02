@@ -15,22 +15,22 @@
 	"dependencies": {
 		"@discordjs/core": "^2.0.1",
 		"@discordjs/rest": "^2.4.3",
-		"@logtail/pino": "^0.4.22",
+		"@logtail/pino": "^0.5.2",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "^9.0.0",
 		"i18next": "^23.11.5",
 		"knex": "^3.1.0",
-		"luxon": "^3.5.0",
-		"pg": "^8.13.3",
+		"luxon": "^3.6.1",
+		"pg": "^8.14.1",
 		"pino": "^9.2.0",
-		"undici": "^7.4.0"
+		"undici": "^7.6.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@types/luxon": "^3.4.2",
-		"knip": "^5.45.0",
+		"@types/luxon": "^3.6.0",
+		"knip": "^5.46.4",
 		"pino-pretty": "^11.2.1",
 		"tsx": "^4.19.3",
-		"typescript": "5.7.3"
+		"typescript": "5.8.2"
 	}
 }

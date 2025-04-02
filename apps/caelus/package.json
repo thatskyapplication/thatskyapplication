@@ -20,27 +20,27 @@
 		"@discordjs/core": "^2.0.1",
 		"@discordjs/rest": "^2.4.3",
 		"@discordjs/ws": "^2.0.1",
-		"@logtail/pino": "^0.4.22",
+		"@logtail/pino": "^0.5.2",
 		"@sapphire/snowflake": "^3.5.4",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "^9.0.0",
 		"hasha": "^6.0.0",
 		"i18next": "^23.11.5",
 		"knex": "^3.1.0",
-		"luxon": "^3.4.4",
+		"luxon": "^3.6.1",
 		"openai": "^4.59.0",
-		"p-queue": "^8.0.1",
-		"pg": "^8.13.3",
+		"p-queue": "^8.1.0",
+		"pg": "^8.14.1",
 		"pino": "^9.2.0",
 		"sharp": "^0.33.4",
-		"undici": "^7.4.0"
+		"undici": "^7.6.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@types/luxon": "^3.4.2",
-		"knip": "^5.45.0",
+		"@types/luxon": "^3.6.0",
+		"knip": "^5.46.4",
 		"pino-pretty": "^11.2.1",
 		"tsx": "^4.19.3",
-		"typescript": "5.7.3"
+		"typescript": "5.8.2"
 	}
 }

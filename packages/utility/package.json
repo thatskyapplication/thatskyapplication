@@ -15,15 +15,15 @@
 	},
 	"dependencies": {
 		"@discordjs/collection": "^2.1.1",
-		"luxon": "^3.5.0",
+		"luxon": "^3.6.1",
 		"ts-mixer": "^6.0.4"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@types/luxon": "^3.4.2",
-		"@types/node": "^22.13.4",
-		"knip": "^5.45.0",
+		"@types/luxon": "^3.6.0",
+		"@types/node": "^22.13.17",
+		"knip": "^5.46.4",
 		"tsup": "^8.4.0",
-		"typescript": "5.7.3"
+		"typescript": "5.8.2"
 	}
 }
