@@ -1,8 +1,8 @@
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const MAXIMUM_HAIR_TOUSLE_GIF = 3 as const;
-export const MAXIMUM_HIGH_FIVE_GIF = 8 as const;
-export const MAXIMUM_HUG_GIF = 36 as const;
-export const MAXIMUM_PLAY_FIGHT_GIF = 7 as const;
+export const MAXIMUM_HIGH_FIVE_GIF = 9 as const;
+export const MAXIMUM_HUG_GIF = 40 as const;
+export const MAXIMUM_PLAY_FIGHT_GIF = 8 as const;
 export const MAXIMUM_KRILL_GIF = 11 as const;
 export const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
 export const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [5, 13, 21, 29] as const;
