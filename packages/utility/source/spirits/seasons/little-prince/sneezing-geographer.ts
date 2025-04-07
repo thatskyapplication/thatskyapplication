@@ -49,6 +49,11 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				name: "Heart",
+				cosmetic: Cosmetic.SneezingGeographerSeasonalHeart,
+				cost: { candles: 3 },
+			},
+			{
 				name: "Blessing 1",
 				cosmetic: Cosmetic.SneezingGeographerBlessing1,
 				cost: { candles: 5 },
@@ -57,11 +62,6 @@ export default new SeasonalSpirit({
 				name: "Hair",
 				cosmetic: Cosmetic.SneezingGeographerHair,
 				cost: { candles: 40 },
-			},
-			{
-				name: "Heart",
-				cosmetic: Cosmetic.SneezingGeographerSeasonalHeart,
-				cost: { candles: 3 },
 			},
 			{
 				name: "Wing buff",
