@@ -7414,6 +7414,8 @@ export function emojiConstants(production: boolean) {
 		[SeasonId.Duets]: SEASON_EMOJIS.DuetsCandle,
 		[SeasonId.Moomin]: SEASON_EMOJIS.MoominCandle,
 		[SeasonId.Radiance]: SEASON_EMOJIS.RadianceCandle,
+		// @ts-expect-error Not yet added.
+		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBirdCandle,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji>>;
 
 	const SeasonIdToSeasonalEmoji = {
@@ -7441,6 +7443,8 @@ export function emojiConstants(production: boolean) {
 		[SeasonId.Duets]: SEASON_EMOJIS.Duets,
 		[SeasonId.Moomin]: SEASON_EMOJIS.Moomin,
 		[SeasonId.Radiance]: SEASON_EMOJIS.Radiance,
+		// @ts-expect-error Not yet added.
+		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBird,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji>>;
 
 	const EventIdToEventTicketEmoji = {

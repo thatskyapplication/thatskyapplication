@@ -365,6 +365,7 @@ export default {
 			[SeasonId.Duets]: "Season of Duets",
 			[SeasonId.Moomin]: "Season of Moomin",
 			[SeasonId.Radiance]: "Season of Radiance",
+			[SeasonId.BlueBird]: "Season of the Blue Bird",
 		} satisfies Record<SeasonIds, string>,
 		"season-wiki": {
 			[SeasonId.Gratitude]: "https://sky-children-of-the-light.fandom.com/Season_of_Gratitude",
@@ -394,6 +395,7 @@ export default {
 			[SeasonId.Duets]: "https://sky-children-of-the-light.fandom.com/Season_of_Duets",
 			[SeasonId.Moomin]: "https://sky-children-of-the-light.fandom.com/Season_of_Moomin",
 			[SeasonId.Radiance]: "https://sky-children-of-the-light.fandom.com/Season_of_Radiance",
+			[SeasonId.BlueBird]: "https://sky-children-of-the-light.fandom.com/Season_of_the_Blue_Bird",
 		} satisfies Record<SeasonIds, `https://${string}`>,
 		events: {
 			[EventId.HalloweenOfficeEvent2019]: "Halloween Office Event",

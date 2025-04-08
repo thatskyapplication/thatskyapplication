@@ -9,6 +9,7 @@ import Abyss from "./abyss/index.js";
 import Assembly from "./assembly/index.js";
 import AURORA from "./aurora/index.js";
 import Belonging from "./belonging/index.js";
+import BlueBird from "./blue-bird/index.js";
 import Dreams from "./dreams/index.js";
 import Duets from "./duets/index.js";
 import Enchantment from "./enchantment/index.js";
@@ -55,6 +56,7 @@ const SEASONS = [
 	Duets,
 	Moomin,
 	Radiance,
+	BlueBird,
 ].reduce((seasons, season) => seasons.set(season.id, season), new Collection<SeasonIds, Season>());
 
 export function skySeasons(date = skyNow()) {
