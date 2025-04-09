@@ -464,4 +464,10 @@ export default {
 			[SpiritId.RadianceGreetingShaman]: "光に染まる礼を尽くす祈祷師",
 		},
 	},
+	commands: {
+		quest: {
+			"command-name": "クエスト",
+			"command-option-daily-name": "デイリー",
+		},
+	},
 } as const;

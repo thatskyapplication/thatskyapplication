@@ -1,6 +1,5 @@
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import {
-	type APIApplicationCommandAutocompleteInteraction,
 	type APIChatInputApplicationCommandGuildInteraction,
 	type APIGuildInteractionWrapper,
 	type APIInteractionResponseCallbackData,
@@ -13,9 +12,8 @@ import {
 	MessageFlags,
 	PresenceUpdateStatus,
 } from "@discordjs/core";
-import { DAILY_QUEST_VALUES, isDailyQuest } from "@thatskyapplication/utility";
+import { isDailyQuest } from "@thatskyapplication/utility";
 import { hash } from "hasha";
-import { t } from "i18next";
 import sharp from "sharp";
 import { client } from "../discord.js";
 import type { InteractiveOptions } from "../models/Admin.js";
@@ -156,30 +154,6 @@ export async function distribute(
 	});
 
 	await interactive(interaction, { content: "Distributed daily guides.", deferred: true, locale });
-}
-
-export async function setQuestAutocomplete(
-	interaction: APIApplicationCommandAutocompleteInteraction,
-	options: OptionResolver,
-) {
-	const { locale } = interaction;
-	const focused = options.getFocusedOption().value.toUpperCase();
-
-	await client.api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
-		choices:
-			focused === ""
-				? []
-				: DAILY_QUEST_VALUES.filter((dailyQuest) =>
-						t(`quests.${dailyQuest}`, { lng: locale, ns: "general" })
-							.toUpperCase()
-							.includes(focused),
-					)
-						.map((dailyQuest) => ({
-							name: t(`quests.${dailyQuest}`, { lng: locale, ns: "general" }),
-							value: dailyQuest,
-						}))
-						.slice(0, 25),
-	});
 }
 
 export async function setQuest(

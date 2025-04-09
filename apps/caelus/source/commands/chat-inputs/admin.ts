@@ -3,14 +3,15 @@ import type {
 	APIChatInputApplicationCommandGuildInteraction,
 	APIChatInputApplicationCommandInteraction,
 } from "@discordjs/core";
+import { client } from "../../discord.js";
 import {
 	ai,
 	customStatus,
 	interactive,
 	setQuest,
-	setQuestAutocomplete,
 	setTravellingRock,
 } from "../../services/admin.js";
+import { questAutocomplete } from "../../services/quests.js";
 import { isGuildChatInputCommand } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
@@ -21,7 +22,16 @@ export default {
 
 		switch (options.getSubcommand()) {
 			case "set-quest":
-				await setQuestAutocomplete(interaction, options);
+				await client.api.interactions.createAutocompleteResponse(
+					interaction.id,
+					interaction.token,
+					{
+						choices: questAutocomplete(
+							new OptionResolver(interaction).getFocusedOption().value,
+							interaction.locale,
+						),
+					},
+				);
 		}
 	},
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {

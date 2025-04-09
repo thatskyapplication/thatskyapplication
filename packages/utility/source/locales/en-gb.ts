@@ -1481,6 +1481,12 @@ export default {
 			"missing-external-apps-permission":
 				"You are missing the `Use External Apps` permission, so {{user}} would not be fought. Someone needs to adjust the permissions!",
 		},
+		quest: {
+			"command-name": "quest",
+			"command-description": "Bring up information about daily quests.",
+			"command-option-daily-name": "daily",
+			"command-option-daily-description": "Choose a daily quest!",
+		},
 		schedule: {
 			"command-name": "schedule",
 			"command-description": "Returns a schedule of events in Sky!",

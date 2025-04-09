@@ -15,6 +15,7 @@ import hug from "./chat-inputs/hug.js";
 import krill from "./chat-inputs/krill.js";
 import notifications from "./chat-inputs/notifications.js";
 import play_fight from "./chat-inputs/play-fight.js";
+import quest from "./chat-inputs/quest.js";
 import schedule from "./chat-inputs/schedule.js";
 import shard_eruption from "./chat-inputs/shard-eruption.js";
 import sky_profile_chat_input from "./chat-inputs/sky-profile.js";
@@ -40,6 +41,7 @@ export const CHAT_INPUT_COMMANDS = [
 	krill,
 	notifications,
 	play_fight,
+	quest,
 	schedule,
 	shard_eruption,
 	sky_profile_chat_input,

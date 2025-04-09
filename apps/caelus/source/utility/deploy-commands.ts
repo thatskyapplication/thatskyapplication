@@ -832,6 +832,35 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
 	},
 	{
+		name: t("quest.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: localisations("quest.command-name"),
+		description: t("quest.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: localisations("quest.command-description"),
+		options: [
+			{
+				type: ApplicationCommandOptionType.Integer,
+				name: t("quest.command-option-daily-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: localisations("quest.command-option-daily-name"),
+				description: t("quest.command-option-daily-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: localisations("quest.command-option-daily-description"),
+				autocomplete: true,
+				required: true,
+			},
+		],
+		integration_types: [
+			ApplicationIntegrationType.GuildInstall,
+			ApplicationIntegrationType.UserInstall,
+		],
+		contexts: [
+			InteractionContextType.Guild,
+			InteractionContextType.BotDM,
+			InteractionContextType.PrivateChannel,
+		],
+	},
+	{
 		name: t("schedule.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 		name_localizations: localisations("schedule.command-name"),
 		description: t("schedule.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
