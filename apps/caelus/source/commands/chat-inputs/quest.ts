@@ -8,7 +8,7 @@ import { isDailyQuest } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../../discord.js";
 import pino from "../../pino.js";
-import { questAutocomplete, questEmbed } from "../../services/quests.js";
+import { questAutocomplete, questResponse } from "../../services/quests.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
@@ -37,8 +37,8 @@ export default {
 		}
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			embeds: [questEmbed(daily, interaction.locale)],
-			flags: MessageFlags.Ephemeral,
+			components: questResponse(daily, interaction.locale),
+			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 		});
 	},
 } as const;
