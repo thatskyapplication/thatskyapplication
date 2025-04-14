@@ -697,13 +697,13 @@ export default class Profile {
 			profileDeleteData.push({ Key: Profile.thumbnailRoute(this.userId, this.thumbnail) });
 		}
 
-		promises.push(
-			S3Client.send(
-				new DeleteObjectsCommand({ Bucket: CDN_BUCKET, Delete: { Objects: profileDeleteData } }),
-			),
-		);
-
-		pino.info(profileDeleteData);
+		if (profileDeleteData.length > 0) {
+			promises.push(
+				S3Client.send(
+					new DeleteObjectsCommand({ Bucket: CDN_BUCKET, Delete: { Objects: profileDeleteData } }),
+				),
+			);
+		}
 
 		promises.push(pg<ProfilePacket>(Table.Profiles).delete().where({ user_id: this.userId }));
 		await Promise.all(promises);
