@@ -152,6 +152,55 @@ importers:
         specifier: 5.8.2
         version: 5.8.2
 
+  apps/servare:
+    dependencies:
+      '@discordjs/collection':
+        specifier: ^2.1.1
+        version: 2.1.1
+      '@discordjs/core':
+        specifier: ^2.0.1
+        version: 2.0.1
+      '@discordjs/rest':
+        specifier: ^2.4.3
+        version: 2.4.3
+      '@discordjs/ws':
+        specifier: ^2.0.1
+        version: 2.0.1
+      '@logtail/pino':
+        specifier: ^0.5.2
+        version: 0.5.2(pino@9.6.0)
+      '@sapphire/snowflake':
+        specifier: ^3.5.4
+        version: 3.5.5
+      '@sapphire/string-store':
+        specifier: ^2.0.0
+        version: 2.0.0
+      knex:
+        specifier: ^3.1.0
+        version: 3.1.0(pg@8.14.1)
+      pg:
+        specifier: ^8.14.1
+        version: 8.14.1
+      pino:
+        specifier: ^9.2.0
+        version: 9.6.0
+    devDependencies:
+      '@biomejs/biome':
+        specifier: 1.9.4
+        version: 1.9.4
+      knip:
+        specifier: ^5.46.4
+        version: 5.46.4(@types/node@22.13.17)(typescript@5.8.2)
+      pino-pretty:
+        specifier: ^11.2.1
+        version: 11.3.0
+      tsx:
+        specifier: ^4.19.3
+        version: 4.19.3
+      typescript:
+        specifier: 5.8.2
+        version: 5.8.2
+
   apps/website:
     dependencies:
       '@discordjs/core':
@@ -1647,6 +1696,10 @@ packages:
   '@sapphire/snowflake@3.5.5':
     resolution: {integrity: sha512-xzvBr1Q1c4lCe7i6sRnrofxeO1QTP/LKQ6A6qy0iB4x5yfiSfARMEQEghojzTNALDTcv8En04qYNIco9/K9eZQ==}
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
+
+  '@sapphire/string-store@2.0.0':
+    resolution: {integrity: sha512-Ba6HQqzvtTu+8Ye4Vmd51lU2+L9C3KAWbvtIbkJlVEC9iKC98hAvDronE/qOgMDZfYI8KgT9dsLXtGuA8sFneQ==}
+    engines: {node: '>=v20', npm: '>=10'}
 
   '@smithy/abort-controller@4.0.1':
     resolution: {integrity: sha512-fiUIYgIgRjMWznk6iLJz35K2YxSLHzLBA/RC6lBrKfQ8fHbPfvk7Pk9UvpKoHgJjI18MnbPuEju53zcVy6KF1g==}
@@ -6097,6 +6150,8 @@ snapshots:
   '@sapphire/async-queue@1.5.5': {}
 
   '@sapphire/snowflake@3.5.5': {}
+
+  '@sapphire/string-store@2.0.0': {}
 
   '@smithy/abort-controller@4.0.1':
     dependencies:

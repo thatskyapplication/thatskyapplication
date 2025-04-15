@@ -1,0 +1,36 @@
+{
+	"name": "@thatskyapplication/servare",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "tsc",
+		"test": "tsc --noEmit",
+		"format": "biome check --write",
+		"lint": "biome check",
+		"lint:ci": "biome ci --reporter github",
+		"dev": "tsx --env-file=.env.development source/index.ts | pino-pretty",
+		"start": "node --enable-source-maps distribution/index.js",
+		"deploy-commands-dev": "tsx --env-file=.env.development source/utility/deploy-commands.ts | pino-pretty",
+		"deploy-commands": "NODE_ENV=production tsx --env-file=.env.production source/utility/deploy-commands.ts | pino-pretty",
+		"knip": "knip"
+	},
+	"dependencies": {
+		"@discordjs/collection": "^2.1.1",
+		"@discordjs/core": "^2.0.1",
+		"@discordjs/rest": "^2.4.3",
+		"@discordjs/ws": "^2.0.1",
+		"@logtail/pino": "^0.5.2",
+		"@sapphire/snowflake": "^3.5.4",
+		"@sapphire/string-store": "^2.0.0",
+		"knex": "^3.1.0",
+		"pg": "^8.14.1",
+		"pino": "^9.2.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"knip": "^5.46.4",
+		"pino-pretty": "^11.2.1",
+		"tsx": "^4.19.3",
+		"typescript": "5.8.2"
+	}
+}
