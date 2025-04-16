@@ -122,6 +122,7 @@ export async function setupResponse(
 									},
 								]
 							: [],
+						max_values: 1,
 						min_values: 0,
 						placeholder: "Select a channel to use for the member log.",
 					},
