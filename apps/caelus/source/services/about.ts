@@ -7,6 +7,7 @@ import {
 	ABOUT_SPONSOR,
 	APPLICATION_INVITE_URL,
 	DEFAULT_EMBED_COLOUR,
+	DEVELOPER_GUILD_ID,
 	SUPPORT_SERVER_INVITE_URL,
 } from "../utility/constants.js";
 import { interactionInvoker } from "../utility/functions.js";
@@ -50,7 +51,7 @@ export async function about(interaction: APIChatInputApplicationCommandInteracti
 					},
 					{
 						name: "Experiments",
-						value: `${interaction.guild_id ? "This server does not have access to any experiments.\n" : ""}${interactionInvoker(interaction).username} does not have access to any experiments.`,
+						value: `${interaction.guild_id ? (interaction.guild_id === DEVELOPER_GUILD_ID ? "This server has access to the experimental App Store updates experiment." : "This server does not have access to any experiments.") : ""}\n${interactionInvoker(interaction).username} does not have access to any experiments.`,
 					},
 				],
 				footer: { text: "thatskyapplication", icon_url: iconURL },
