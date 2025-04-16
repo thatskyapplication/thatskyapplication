@@ -2911,4 +2911,11 @@ export enum Cosmetic {
 	BloomRoseBraidedHair = 2313,
 	BloomRosePetalMask = 2314,
 	BloomRoseEmbroideredCape = 2315,
+
+	// 28/04/2025 | Days of Nature.
+	OceanWavesOutfit,
+	OceanMantaHair,
+	OceanSeaFoamCape,
+	OceanSeaFoamBoots,
+	OceanWavesMask,
 }

@@ -85,6 +85,7 @@ export const EventId = {
 	DaysOfLove2025: 70,
 	DaysOfTreasure2025: 71,
 	DaysOfBloom2025: 72,
+	DaysOfNature2025: 73,
 } as const satisfies Readonly<Record<string, number>>;
 
 export type EventIds = (typeof EventId)[keyof typeof EventId];
