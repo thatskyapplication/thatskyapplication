@@ -30,5 +30,5 @@ export function isGuildChannelSelectMenu(
 }
 
 export function skyProfileWebsiteURL(userId: Snowflake) {
-	return `https://thatskyapplication.com/sky-profile/${userId}`;
+	return `https://thatskyapplication.com/sky-profiles/${userId}`;
 }
