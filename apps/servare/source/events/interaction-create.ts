@@ -45,7 +45,7 @@ export default {
 				const schemaData = schemaStore.deserialize(data.data.custom_id);
 
 				if (schemaData.id === CustomId.MemberLog) {
-					await handleChannelSelectMenu(data);
+					await handleChannelSelectMenu(data, guild);
 					return;
 				}
 			} catch (error) {

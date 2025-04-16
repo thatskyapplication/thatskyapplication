@@ -29,7 +29,7 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				name: "channel",
 				description: "The channel to use.",
 				channel_types: [...MEMBER_LOG_CHANNEL_TYPES],
-				required: true,
+				required: false,
 			},
 		],
 		default_member_permissions: PermissionFlagsBits.ManageGuild.toString(),

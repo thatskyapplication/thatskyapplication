@@ -1,13 +1,13 @@
 import {
-	type APIActionRowComponent,
 	type APIChannel,
-	type APIChannelSelectComponent,
 	type APIGuildInteractionWrapper,
 	type APIGuildMember,
+	type APIInteractionResponseCallbackData,
 	type APIMessageComponentSelectMenuInteraction,
 	ComponentType,
 	type GatewayGuildMemberAddDispatchData,
 	type GatewayGuildMemberRemoveDispatchData,
+	MessageFlags,
 	PermissionFlagsBits,
 	SelectMenuDefaultValueType,
 	type Snowflake,
@@ -19,7 +19,11 @@ import { client } from "../discord.js";
 import type { Guild } from "../models/discord/guild.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
-import { MEMBER_LOG_CHANNEL_TYPES, MEMBER_LOG_LEAVE_COLOUR } from "../utility/constants.js";
+import {
+	DEFAULT_EMBED_COLOUR,
+	MEMBER_LOG_CHANNEL_TYPES,
+	MEMBER_LOG_LEAVE_COLOUR,
+} from "../utility/constants.js";
 import { skyProfileWebsiteURL } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";
 import { CustomId, schemaStore } from "../utility/string-store.js";
@@ -92,48 +96,83 @@ export async function setup({ guildId, channelId }: MemberLogSetupOptions) {
 		.merge();
 }
 
-export async function setupComponentsResponse(
+export async function setupResponse(
 	guildId: Snowflake,
-): Promise<[APIActionRowComponent<APIChannelSelectComponent>]> {
+): Promise<APIInteractionResponseCallbackData> {
 	const memberLogPacket = await pg<GuildSettingsPacket>(Table.GuildSettings)
 		.select("member_log_channel_id")
 		.where({ guild_id: guildId })
 		.first();
 
-	return [
-		{
-			type: ComponentType.ActionRow,
-			components: [
-				{
-					type: ComponentType.ChannelSelect,
-					custom_id: schemaStore.serialize(CustomId.MemberLog, {}).toString(),
-					// @ts-expect-error The mutable array error is fine.
-					channel_types: MEMBER_LOG_CHANNEL_TYPES,
-					default_values: memberLogPacket?.member_log_channel_id
-						? [
-								{
-									id: memberLogPacket.member_log_channel_id,
-									type: SelectMenuDefaultValueType.Channel,
-								},
-							]
-						: [],
-					min_values: 0,
-					placeholder: "Select a channel to use for the member log.",
-				},
-			],
-		},
-	];
+	return {
+		components: [
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.ChannelSelect,
+						custom_id: schemaStore.serialize(CustomId.MemberLog, {}).toString(),
+						// @ts-expect-error The mutable array error is fine.
+						channel_types: MEMBER_LOG_CHANNEL_TYPES,
+						default_values: memberLogPacket?.member_log_channel_id
+							? [
+									{
+										id: memberLogPacket.member_log_channel_id,
+										type: SelectMenuDefaultValueType.Channel,
+									},
+								]
+							: [],
+						min_values: 0,
+						placeholder: "Select a channel to use for the member log.",
+					},
+				],
+			},
+		],
+		embeds: [
+			{
+				title: "Member Log",
+				description:
+					"Choose a channel to receive updates regarding accounts joining and leaving the server.\n\nYou can also click their username to view their Sky profile.",
+				color: DEFAULT_EMBED_COLOUR,
+			},
+		],
+		flags: MessageFlags.Ephemeral,
+	};
 }
 
 export async function handleChannelSelectMenu(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+	guild: Guild,
 ) {
 	const [channelId] = interaction.data.values;
+
+	if (channelId) {
+		const channel = guild.channels.get(channelId);
+
+		if (!(channel && isMemberLogChannel(channel))) {
+			pino.error(interaction, "Received an unknown channel type whilst setting up the member log.");
+			throw new Error("Received an unknown channel type whilst setting up the member log.");
+		}
+
+		const memberLogSendable = isMemberLogSendable(guild, channel, await guild.fetchMe(), true);
+
+		if (memberLogSendable.length > 0) {
+			await client.api.interactions.reply(interaction.id, interaction.token, {
+				content: memberLogSendable.join("\n"),
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+	}
+
 	await setup({ guildId: interaction.guild_id, channelId: channelId ?? null });
 
-	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-		components: await setupComponentsResponse(interaction.guild_id),
-	});
+	await client.api.interactions.updateMessage(
+		interaction.id,
+		interaction.token,
+		await setupResponse(interaction.guild_id),
+	);
 }
 
 function embedTintFactor(duration: number) {
