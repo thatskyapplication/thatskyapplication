@@ -7,7 +7,7 @@ const name = GatewayDispatchEvents.GuildRoleDelete;
 
 export default {
 	name,
-	async fire({ data }) {
+	fire({ data }) {
 		const guild = GUILD_CACHE.get(data.guild_id);
 
 		if (!guild) {

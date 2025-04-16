@@ -29,7 +29,7 @@ interface MemberLogPacket {
 	channel_id: Snowflake | null;
 }
 
-export type MemberLogAllowedChannel = Extract<
+type MemberLogAllowedChannel = Extract<
 	APIChannel,
 	{ type: (typeof MEMBER_LOG_CHANNEL_TYPES)[number] }
 >;
@@ -176,7 +176,7 @@ export async function sendJoinLeave(
 
 	const channel = guild.channels.get(memberLogPacket.channel_id);
 
-	if (!channel || !isMemberLogChannel(channel)) {
+	if (!(channel && isMemberLogChannel(channel))) {
 		pino.error({ member, leftTimestamp }, "Failed to find a channel to send a member log in.");
 		return;
 	}

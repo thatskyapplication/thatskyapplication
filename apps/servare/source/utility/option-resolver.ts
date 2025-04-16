@@ -21,7 +21,7 @@ import {
 } from "@discordjs/core";
 
 // https://github.com/discordjs/discord-api-types/issues/1175
-export interface AutocompleteFocusedOption<
+interface AutocompleteFocusedOption<
 	Type extends
 		| ApplicationCommandOptionType.String
 		| ApplicationCommandOptionType.Integer

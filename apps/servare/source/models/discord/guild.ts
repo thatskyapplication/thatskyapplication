@@ -13,7 +13,7 @@ import { DiscordSnowflake } from "@sapphire/snowflake";
 import { client } from "../../discord.js";
 import { APPLICATION_ID } from "../../utility/constants.js";
 
-export type GuildChannel = APIChannel & {
+type GuildChannel = APIChannel & {
 	type: Exclude<GuildChannelType, ThreadChannelType>;
 	guild_id: Snowflake;
 };
