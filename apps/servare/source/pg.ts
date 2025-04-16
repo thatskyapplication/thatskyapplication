@@ -2,7 +2,7 @@ import knex from "knex";
 import { DATABASE_URL } from "./utility/constants.js";
 
 export enum Table {
-	MemberLog = "member_log",
+	GuildSettings = "guild_settings",
 }
 
 export default knex({

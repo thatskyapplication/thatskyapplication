@@ -23,11 +23,7 @@ import { MEMBER_LOG_CHANNEL_TYPES, MEMBER_LOG_LEAVE_COLOUR } from "../utility/co
 import { skyProfileWebsiteURL } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";
 import { CustomId, schemaStore } from "../utility/string-store.js";
-
-interface MemberLogPacket {
-	guild_id: Snowflake;
-	channel_id: Snowflake | null;
-}
+import type { GuildSettingsPacket } from "./guild-settings.js";
 
 type MemberLogAllowedChannel = Extract<
 	APIChannel,
@@ -90,8 +86,8 @@ interface MemberLogSetupOptions {
 }
 
 export async function setup({ guildId, channelId }: MemberLogSetupOptions) {
-	await pg<MemberLogPacket>(Table.MemberLog)
-		.insert({ guild_id: guildId, channel_id: channelId })
+	await pg<GuildSettingsPacket>(Table.GuildSettings)
+		.insert({ guild_id: guildId, member_log_channel_id: channelId })
 		.onConflict("guild_id")
 		.merge();
 }
@@ -99,7 +95,8 @@ export async function setup({ guildId, channelId }: MemberLogSetupOptions) {
 export async function setupComponentsResponse(
 	guildId: Snowflake,
 ): Promise<[APIActionRowComponent<APIChannelSelectComponent>]> {
-	const memberLogPacket = await pg<MemberLogPacket>(Table.MemberLog)
+	const memberLogPacket = await pg<GuildSettingsPacket>(Table.GuildSettings)
+		.select("member_log_channel_id")
 		.where({ guild_id: guildId })
 		.first();
 
@@ -112,8 +109,13 @@ export async function setupComponentsResponse(
 					custom_id: schemaStore.serialize(CustomId.MemberLog, {}).toString(),
 					// @ts-expect-error The mutable array error is fine.
 					channel_types: MEMBER_LOG_CHANNEL_TYPES,
-					default_values: memberLogPacket?.channel_id
-						? [{ id: memberLogPacket.channel_id, type: SelectMenuDefaultValueType.Channel }]
+					default_values: memberLogPacket?.member_log_channel_id
+						? [
+								{
+									id: memberLogPacket.member_log_channel_id,
+									type: SelectMenuDefaultValueType.Channel,
+								},
+							]
 						: [],
 					min_values: 0,
 					placeholder: "Select a channel to use for the member log.",
@@ -159,11 +161,11 @@ export async function sendJoinLeave(
 	member: GatewayGuildMemberAddDispatchData | GatewayGuildMemberRemoveDispatchData,
 	leftTimestamp?: number,
 ) {
-	const memberLogPacket = await pg<MemberLogPacket>(Table.MemberLog)
+	const memberLogPacket = await pg<GuildSettingsPacket>(Table.GuildSettings)
 		.where({ guild_id: member.guild_id })
 		.first();
 
-	if (!memberLogPacket?.channel_id) {
+	if (!memberLogPacket?.member_log_channel_id) {
 		return;
 	}
 
@@ -174,7 +176,7 @@ export async function sendJoinLeave(
 		return;
 	}
 
-	const channel = guild.channels.get(memberLogPacket.channel_id);
+	const channel = guild.channels.get(memberLogPacket.member_log_channel_id);
 
 	if (!(channel && isMemberLogChannel(channel))) {
 		pino.error({ member, leftTimestamp }, "Failed to find a channel to send a member log in.");
@@ -217,7 +219,7 @@ export async function sendJoinLeave(
 		description.push(`Left <t:${left}:F> (<t:${left}:R>)`);
 	}
 
-	await client.api.channels.createMessage(memberLogPacket.channel_id, {
+	await client.api.channels.createMessage(memberLogPacket.member_log_channel_id, {
 		embeds: [
 			{
 				author: { name: user.username, icon_url: iconURL, url: skyProfileWebsiteURL(user.id) },
