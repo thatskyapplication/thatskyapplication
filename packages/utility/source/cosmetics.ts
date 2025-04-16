@@ -2918,4 +2918,10 @@ export enum Cosmetic {
 	OceanSeaFoamCape,
 	OceanSeaFoamBoots,
 	OceanWavesMask,
+
+	// 26/05/2025 | Days of Colour.
+	RainbowSmock,
+	RainbowHeadWrap,
+	RainbowRibbonShawl,
+	RainbowFacePaintMask,
 }

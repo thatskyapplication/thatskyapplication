@@ -472,6 +472,7 @@ export default {
 			[EventId.DaysOfTreasure2025]: "Days of Treasure",
 			[EventId.DaysOfBloom2025]: "Days of Bloom",
 			[EventId.DaysOfNature2025]: "Days of Nature",
+			[EventId.DaysOfColour2025]: "Days of Colour",
 		} satisfies Record<EventIds, string>,
 		"event-wiki": {
 			[EventId.HalloweenOfficeEvent2019]:
@@ -558,6 +559,7 @@ export default {
 			[EventId.DaysOfTreasure2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Treasure",
 			[EventId.DaysOfBloom2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Bloom",
 			[EventId.DaysOfNature2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Nature",
+			[EventId.DaysOfColour2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Colour",
 		} satisfies Record<EventIds, `https://${string}`>,
 		"shard-eruption": "Shard Eruption",
 		"shard-eruption-none": "None",

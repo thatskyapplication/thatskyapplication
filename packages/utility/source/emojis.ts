@@ -7392,6 +7392,10 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.OceanSeaFoamCape]: null,
 		[Cosmetic.OceanSeaFoamBoots]: null,
 		[Cosmetic.OceanWavesMask]: null,
+		[Cosmetic.RainbowSmock]: null,
+		[Cosmetic.RainbowHeadWrap]: null,
+		[Cosmetic.RainbowRibbonShawl]: null,
+		[Cosmetic.RainbowFacePaintMask]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalCandleEmoji = {
@@ -7540,6 +7544,7 @@ export function emojiConstants(production: boolean) {
 		[EventId.DaysOfTreasure2025]: EVENT_EMOJIS.Treasure,
 		[EventId.DaysOfBloom2025]: EVENT_EMOJIS.Bloom,
 		[EventId.DaysOfNature2025]: EVENT_EMOJIS.Nature,
+		[EventId.DaysOfColour2025]: EVENT_EMOJIS.Colour,
 	} as const satisfies Readonly<Record<EventIds, Emoji | null>>;
 
 	return {
