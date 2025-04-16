@@ -11,11 +11,6 @@ export const APPLICATION_ICON_URL = String(
 	new URL(`avatar_icons/${APPLICATION_NAME.toLowerCase()}.webp`, CDN_URL),
 );
 
-export const CONTENT_CREATORS_DESCRIPTION =
-	"View Sky: Children of the Light content creators here!";
-
-export const CONTENT_CREATORS_ICON_URL = String(new URL("assets/creator_troupe.webp", CDN_URL));
-
 export const SHARD_ERUPTION_DESCRIPTION =
 	"See today's shard eruption, and view a schedule of future shard eruptions." as const;
 
@@ -36,7 +31,6 @@ export const HUGGING_GIFS = [
 ] as const;
 
 export enum Table {
-	ContentCreators = "content_creators",
 	DailyGuides = "daily_guides",
 	Profiles = "profiles",
 }

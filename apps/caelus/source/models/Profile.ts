@@ -69,6 +69,7 @@ import {
 	CDN_URL,
 	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
+	SKY_PROFILES_URL,
 	SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH,
 	SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH,
 	SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
@@ -975,6 +976,17 @@ export default class Profile {
 					components: [
 						{
 							type: ComponentType.Button,
+							label: "View in browser",
+							url: `${SKY_PROFILES_URL}/${profile.userId}`,
+							style: ButtonStyle.Link,
+						},
+					],
+				},
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.Button,
 							custom_id: `${SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID}§${previous?.user_id}`,
 							disabled: !previous,
 							emoji: { name: "⬅️" },
@@ -1778,6 +1790,11 @@ export default class Profile {
 		const embedData = await profile?.embed(interaction);
 		const embed = embedData?.embed;
 		const missing = embedData?.missing;
+		let flags = MessageFlags.Ephemeral;
+
+		if (!embed) {
+			flags |= MessageFlags.SuppressEmbeds;
+		}
 
 		const baseReplyOptions:
 			| Parameters<InteractionsAPI["editReply"]>[2]
@@ -1787,16 +1804,24 @@ export default class Profile {
 				SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW,
 				{
 					type: ComponentType.ActionRow,
-					components: [SKY_PROFILE_EDIT_RESET_BUTTON],
+					components: [
+						{
+							type: ComponentType.Button,
+							label: "View in browser",
+							url: profile?.userId ? `${SKY_PROFILES_URL}/${profile?.userId}` : SKY_PROFILES_URL,
+							style: ButtonStyle.Link,
+						},
+						SKY_PROFILE_EDIT_RESET_BUTTON,
+					],
 				},
 			],
 			content: embed
 				? missing
 					? `${missing}`
 					: ""
-				: "You do not have a Sky profile yet. Build one!",
+				: `You do not have a Sky profile yet. Build one!\nSky profiles show up on ${SKY_PROFILES_URL} too!`,
 			embeds: embed ? [embed] : [],
-			flags: MessageFlags.Ephemeral,
+			flags,
 		};
 
 		await (isChatInputCommand(interaction)

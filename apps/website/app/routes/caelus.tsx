@@ -46,7 +46,7 @@ const renderCategory = (
 							{location.pathname === data.path && (
 								<img
 									src={SKY_KID_ICON_URL}
-									alt="Creator Troupe icon."
+									alt="You are here."
 									className="w-6 h-6 flex-shrink-0 ml-2"
 								/>
 							)}
@@ -116,7 +116,7 @@ export default function GuidesLayout() {
 											{location.pathname === home.path && (
 												<img
 													src={SKY_KID_ICON_URL}
-													alt="Creator Troupe icon."
+													alt="You are here."
 													className="w-6 h-6 flex-shrink-0 ml-2"
 												/>
 											)}
@@ -143,7 +143,7 @@ export default function GuidesLayout() {
 											{location.pathname === guide.path && (
 												<img
 													src={SKY_KID_ICON_URL}
-													alt="Creator Troupe icon."
+													alt="You are here."
 													className="w-6 h-6 flex-shrink-0 ml-2"
 												/>
 											)}

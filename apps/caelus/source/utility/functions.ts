@@ -8,7 +8,6 @@ import {
 	type APIInteraction,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
-	type APIModalSubmitGuildInteraction,
 	type APIModalSubmitInteraction,
 	type APISelectMenuComponent,
 	type APIUser,
@@ -176,12 +175,6 @@ export function isModalSubmit(
 	interaction: APIInteraction,
 ): interaction is APIModalSubmitInteraction {
 	return interaction.type === InteractionType.ModalSubmit;
-}
-
-export function isGuildModalSubmit(
-	interaction: APIInteraction,
-): interaction is APIModalSubmitGuildInteraction {
-	return isModalSubmit(interaction) && "guild_id" in interaction;
 }
 
 export async function validateAttachment(

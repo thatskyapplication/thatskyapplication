@@ -1,6 +1,6 @@
 import process from "node:process";
 import { URL } from "node:url";
-import { ChannelType, Locale, MessageFlags, type Snowflake } from "@discordjs/core";
+import { ChannelType, Locale, MessageFlags } from "@discordjs/core";
 import {
 	CDN_URL as CDN_URL_PRODUCTION,
 	DailyQuest,
@@ -70,11 +70,6 @@ export const DEVELOPER_GUILD_ID = PRODUCTION
 	? DEVELOPER_GUILD_ID_PRODUCTION
 	: DEVELOPER_GUILD_ID_DEVELOPMENT;
 
-export const SKY_CREATOR_TROUPE_GUILD_IDS = [
-	"796292367212609556", // Evinsky.
-	"1161438354244640838", // Moon.
-] as const;
-
 // Channel ids.
 export const DAILY_INFOGRAPHICS_CHANNEL_ID = "1041420071614042152" as const;
 export const MANUAL_DAILY_GUIDES_LOG_CHANNEL_ID = "1131896865378549832" as const;
@@ -85,9 +80,9 @@ export const MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT = 45 as const;
 // Website URLs.
 export const APPLICATION_INVITE_URL = String(new URL("invite", WEBSITE_URL));
 export const SUPPORT_SERVER_INVITE_URL = String(new URL("support", WEBSITE_URL));
-export const CONTENT_CREATORS_URL = String(new URL("content-creators", WEBSITE_URL));
 export const DAILY_GUIDES_URL = String(new URL("daily-guides", WEBSITE_URL));
 export const SHARD_ERUPTION_URL = String(new URL("shard-eruption", WEBSITE_URL));
+export const SKY_PROFILES_URL = String(new URL("sky-profiles", WEBSITE_URL));
 
 // SKU ids.
 const SERVER_UPGRADE_SKU_ID_DEVELOPMENT = "1270975828481806428" as const;
@@ -113,15 +108,6 @@ export const NOT_IN_CACHED_GUILD_RESPONSE = {
 
 // Quest numbers.
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
-
-// Sky Creator Troupe user ids.
-export const SKY_CREATOR_TROUPE_USER_IDS = new Set<Snowflake>([
-	"128298536726036480", // Maelstrom.
-	"290337478898876417", // Nastymold.
-	"588847442313609216", // Sterling Ivy.
-	"713002852909449236", // Evinsky.
-	"833943628502138940", // Moon.
-]);
 
 // Miscellaneous constants.
 const THATSKYGAME_URL = "https://thatskygame.com" as const;
@@ -434,16 +420,6 @@ export const BONKS = {
 		},
 	],
 } as const;
-
-// Content creators.
-export const CONTENT_CREATORS_DISPLAY_EDIT_CUSTOM_ID =
-	"CONTENT_CREATORS_DISPLAY_EDIT_CUSTOM_ID" as const;
-
-export const CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID =
-	"CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID" as const;
-
-export const CONTENT_CREATORS_EDIT_TEXT_INPUT_CUSTOM_ID =
-	"CONTENT_CREATORS_EDIT_TEXT_INPUT_CUSTOM_ID" as const;
 
 export const DailyQuestToInfographicURL = {
 	[DailyQuest.Collect30PiecesOfLight]: null,

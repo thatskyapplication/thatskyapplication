@@ -1,8 +1,8 @@
 import { SiDiscord } from "@icons-pack/react-simple-icons";
 import { Link } from "@remix-run/react";
-import { Clock, LinkIcon } from "lucide-react";
+import { Clock, LinkIcon, UsersIcon } from "lucide-react";
 import PageLayout from "~/components/Layout.js";
-import { APPLICATION_NAME, CONTENT_CREATORS_ICON_URL } from "~/utility/constants";
+import { APPLICATION_NAME } from "~/utility/constants";
 
 export default function Index() {
 	return (
@@ -49,13 +49,14 @@ export default function Index() {
 					</p>
 				</Link>
 				<Link
-					to="/creator-troupe"
+					to="/sky-profiles"
 					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(33.333%-1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
 				>
-					<img src={CONTENT_CREATORS_ICON_URL} alt="Creator Troupe icon." className="w-8 h-8" />
-					<h2 className="font-medium text-lg">Creator Troupe</h2>
+					<UsersIcon className="h-8 w-8 mb-4" />
+					<h2 className="font-medium text-lg">Sky Profiles</h2>
 					<p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-						A lovely place to view all the socials of the Sky Creator Troupe!
+						A lovely place to view all Sky profiles! You can also share a direct link to one! Have
+						fun exploring!
 					</p>
 				</Link>
 				<Link

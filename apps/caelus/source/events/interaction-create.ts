@@ -79,10 +79,6 @@ import Profile, {
 } from "../models/Profile.js";
 import pino from "../pino.js";
 import { distribute, interactive, questSwap } from "../services/admin.js";
-import {
-	contentCreatorsDisplayEdit,
-	contentCreatorsModalResponse,
-} from "../services/content-creators.js";
 import { deleteUserData } from "../services/data.js";
 import {
 	answer,
@@ -96,8 +92,6 @@ import { finaliseSetup } from "../services/notification.js";
 import { browse, today } from "../services/shard-eruption.js";
 import { parseSpiritSwitch } from "../services/spirit.js";
 import {
-	CONTENT_CREATORS_DISPLAY_EDIT_CUSTOM_ID,
-	CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID,
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
@@ -120,7 +114,6 @@ import {
 	isButton,
 	isChatInputCommand,
 	isGuildButton,
-	isGuildModalSubmit,
 	isGuildSelectMenu,
 	isModalSubmit,
 	isRealm,
@@ -661,11 +654,6 @@ export default {
 						return;
 					}
 
-					if (customId === CONTENT_CREATORS_DISPLAY_EDIT_CUSTOM_ID) {
-						await contentCreatorsDisplayEdit(interaction);
-						return;
-					}
-
 					if (customId === DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID) {
 						await questSwap(interaction);
 						return;
@@ -740,13 +728,6 @@ export default {
 				if (customId.startsWith(SKY_PROFILE_REPORT_MODAL_CUSTOM_ID)) {
 					await Profile.sendReport(interaction);
 					return;
-				}
-
-				if (isGuildModalSubmit(interaction)) {
-					if (customId.startsWith(CONTENT_CREATORS_EDIT_MODAL_CUSTOM_ID)) {
-						await contentCreatorsModalResponse(interaction);
-						return;
-					}
 				}
 			} catch (error) {
 				void recoverInteractionError(interaction, error);
