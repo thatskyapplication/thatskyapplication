@@ -12,7 +12,7 @@ import Profile, { AssetType, type ProfileSetData } from "../../models/Profile.js
 import { searchAutocomplete } from "../../services/spirit.js";
 import { APPLICATION_ID } from "../../utility/constants.js";
 import { validateAttachment } from "../../utility/functions.js";
-import { type AutocompleteFocusedOption, OptionResolver } from "../../utility/option-resolver.js";
+import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
 	name: t("sky-profile.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
@@ -62,10 +62,7 @@ export default {
 				}) &&
 			option.type === ApplicationCommandOptionType.String
 		) {
-			await Profile.editCountryAutocomplete(
-				interaction,
-				option as AutocompleteFocusedOption<ApplicationCommandOptionType.String>,
-			);
+			await Profile.editCountryAutocomplete(interaction, option);
 			return;
 		}
 
@@ -77,10 +74,7 @@ export default {
 				}) &&
 			option.type === ApplicationCommandOptionType.Integer
 		) {
-			await searchAutocomplete(
-				interaction,
-				option as AutocompleteFocusedOption<ApplicationCommandOptionType.Integer>,
-			);
+			await searchAutocomplete(interaction, option);
 			return;
 		}
 	},

@@ -1,11 +1,11 @@
 import {
 	type APIActionRowComponent,
 	type APIApplicationCommandAutocompleteInteraction,
+	type APIApplicationCommandInteractionDataIntegerOption,
 	type APIButtonComponent,
 	type APIChatInputApplicationCommandInteraction,
 	type APIEmbed,
 	type APIMessageComponentButtonInteraction,
-	type ApplicationCommandOptionType,
 	ButtonStyle,
 	ComponentType,
 	type Locale,
@@ -40,7 +40,7 @@ import {
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../utility/constants.js";
 import { SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
 import { isChatInputCommand } from "../utility/functions.js";
-import type { AutocompleteFocusedOption, OptionResolver } from "../utility/option-resolver.js";
+import type { OptionResolver } from "../utility/option-resolver.js";
 import {
 	FriendActionToEmoji,
 	SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID,
@@ -49,9 +49,11 @@ import {
 	SpiritStanceToEmoji,
 } from "../utility/spirits.js";
 
-export async function searchAutocomplete(
-	interaction: APIApplicationCommandAutocompleteInteraction,
-	option: AutocompleteFocusedOption<ApplicationCommandOptionType.Integer>,
+export async function searchAutocomplete<
+	Interaction extends APIApplicationCommandAutocompleteInteraction,
+>(
+	interaction: Interaction,
+	option: APIApplicationCommandInteractionDataIntegerOption<Interaction["type"]>,
 ) {
 	const { locale } = interaction;
 	const value = option.value.toUpperCase();

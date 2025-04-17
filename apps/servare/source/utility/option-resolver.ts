@@ -20,22 +20,6 @@ import {
 	InteractionType,
 } from "@discordjs/core";
 
-// https://github.com/discordjs/discord-api-types/issues/1175
-interface AutocompleteFocusedOption<
-	Type extends
-		| ApplicationCommandOptionType.String
-		| ApplicationCommandOptionType.Integer
-		| ApplicationCommandOptionType.Number =
-		| ApplicationCommandOptionType.String
-		| ApplicationCommandOptionType.Integer
-		| ApplicationCommandOptionType.Number,
-> {
-	type: Type;
-	name: string;
-	value: string;
-	focused: boolean;
-}
-
 function isBasicOptions(
 	options: APIApplicationCommandInteractionDataOption[],
 ): options is APIApplicationCommandInteractionDataBasicOption[] {
@@ -432,7 +416,12 @@ export class OptionResolver {
 			| ApplicationCommandOptionType.String
 			| ApplicationCommandOptionType.Integer
 			| ApplicationCommandOptionType.Number,
-	>(type?: Type): AutocompleteFocusedOption<Type> {
+	>(
+		type?: Type,
+	): Extract<
+		APIApplicationCommandInteractionDataOption<InteractionType.ApplicationCommandAutocomplete>,
+		{ type: Type }
+	> {
 		if (this.interaction.type !== InteractionType.ApplicationCommandAutocomplete) {
 			throw new Error("This method can only be used on autocomplete interactions.");
 		}
@@ -450,19 +439,26 @@ export class OptionResolver {
 			throw new Error("No focused option type found for autocomplete interaction.");
 		}
 
-		return focusedOption as AutocompleteFocusedOption<Type>;
+		return focusedOption as Extract<
+			APIApplicationCommandInteractionDataOption<InteractionType.ApplicationCommandAutocomplete>,
+			{ type: Type }
+		>;
 	}
 
 	private getTypedOption<
 		Option extends BasicApplicationCommandOptionType,
 		Required extends boolean = false,
-	>(name: string, type: Option, required: Required): RequiredIf<Required, TypeToOptionMap[Option]>;
+	>(
+		name: string,
+		type: Option,
+		required: Required,
+	): RequiredIf<Required, TypeToOptionMap<InteractionType.ApplicationCommand>[Option]>;
 
 	private getTypedOption<Option extends BasicApplicationCommandOptionType>(
 		name: string,
 		type: Option,
 		required: boolean,
-	): TypeToOptionMap[Option] | null {
+	): TypeToOptionMap<InteractionType.ApplicationCommand>[Option] | null {
 		const option = this.get(name, required);
 
 		if (!option) {
@@ -473,7 +469,7 @@ export class OptionResolver {
 			throw new Error(`Option with name "${name}" is not of the correct type`);
 		}
 
-		return option as TypeToOptionMap[Option];
+		return option as TypeToOptionMap<InteractionType.ApplicationCommand>[Option];
 	}
 
 	chatInputCommandText() {
@@ -491,14 +487,14 @@ export class OptionResolver {
 type BasicApplicationCommandOptionType = APIApplicationCommandInteractionDataBasicOption["type"];
 
 // This extra type is required because apparently just inlining what `_TypeToOptionMap` does into `TypeToOptionMap` does not behave the same
-type _TypeToOptionMap = {
-	[Option in BasicApplicationCommandOptionType]: APIApplicationCommandInteractionDataBasicOption & {
+type _TypeToOptionMap<Type extends InteractionType> = {
+	[Option in BasicApplicationCommandOptionType]: APIApplicationCommandInteractionDataBasicOption<Type> & {
 		type: Option;
 	};
 };
 
-type TypeToOptionMap = {
-	[Option in keyof _TypeToOptionMap]: _TypeToOptionMap[Option];
+type TypeToOptionMap<Type extends InteractionType> = {
+	[Option in keyof _TypeToOptionMap<Type>]: _TypeToOptionMap<Type>[Option];
 };
 
 type If<Value extends boolean, TrueResult, FalseResult> = Value extends true
