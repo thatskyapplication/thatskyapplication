@@ -38,7 +38,7 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
 	DEFAULT_EMBED_COLOUR,
-	ERROR_RESPONSE,
+	ERROR_RESPONSE_COMPONENTS_V2,
 	GUESS_ANSWER_1,
 	GUESS_ANSWER_2,
 	GUESS_ANSWER_3,
@@ -252,7 +252,11 @@ export async function answer(interaction: APIMessageComponentButtonInteraction) 
 
 	if (!isGuessDifficultyLevel(parsedDifficulty)) {
 		pino.warn(interaction, `Invalid guessing game difficulty level: ${difficulty}`);
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
+		await client.api.interactions.updateMessage(
+			interaction.id,
+			interaction.token,
+			ERROR_RESPONSE_COMPONENTS_V2,
+		);
 		return;
 	}
 
@@ -297,7 +301,11 @@ export async function parseEndGame(interaction: APIMessageComponentButtonInterac
 
 	if (!isGuessDifficultyLevel(difficulty)) {
 		pino.warn(interaction, `Invalid guessing game difficulty level: ${rawDifficulty}`);
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
+		await client.api.interactions.updateMessage(
+			interaction.id,
+			interaction.token,
+			ERROR_RESPONSE_COMPONENTS_V2,
+		);
 		return;
 	}
 
@@ -360,7 +368,11 @@ export async function tryAgain(interaction: APIMessageComponentButtonInteraction
 
 	if (!isGuessDifficultyLevel(difficulty)) {
 		pino.warn(interaction, `Invalid guessing game difficulty level: ${difficulty}`);
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
+		await client.api.interactions.updateMessage(
+			interaction.id,
+			interaction.token,
+			ERROR_RESPONSE_COMPONENTS_V2,
+		);
 		return;
 	}
 

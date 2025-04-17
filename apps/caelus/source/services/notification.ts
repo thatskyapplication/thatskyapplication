@@ -27,7 +27,7 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
 	DEFAULT_EMBED_COLOUR,
-	ERROR_RESPONSE,
+	ERROR_RESPONSE_COMPONENTS_V2,
 	NOTIFICATION_CHANNEL_TYPES,
 	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
 	NOT_IN_CACHED_GUILD_RESPONSE,
@@ -139,7 +139,11 @@ export async function setup(
 			"Received an unknown notification type whilst setting up notifications.",
 		);
 
-		await client.api.interactions.reply(interaction.id, interaction.token, ERROR_RESPONSE);
+		await client.api.interactions.reply(
+			interaction.id,
+			interaction.token,
+			ERROR_RESPONSE_COMPONENTS_V2,
+		);
 		return;
 	}
 
@@ -243,7 +247,11 @@ export async function finaliseSetup(
 			"Received an unknown notification type whilst setting up notifications.",
 		);
 
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
+		await client.api.interactions.updateMessage(
+			interaction.id,
+			interaction.token,
+			ERROR_RESPONSE_COMPONENTS_V2,
+		);
 		return;
 	}
 
@@ -296,7 +304,11 @@ export async function unset(
 			"Received an unknown notification type whilst setting up notifications.",
 		);
 
-		await client.api.interactions.reply(interaction.id, interaction.token, ERROR_RESPONSE);
+		await client.api.interactions.reply(
+			interaction.id,
+			interaction.token,
+			ERROR_RESPONSE_COMPONENTS_V2,
+		);
 		return;
 	}
 

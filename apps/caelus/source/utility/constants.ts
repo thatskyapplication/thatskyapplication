@@ -93,6 +93,14 @@ export const SERVER_UPGRADE_SKU_ID = PRODUCTION
 
 // Error response.
 export const ERROR_RESPONSE = {
+	content: `Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server](${SUPPORT_SERVER_INVITE_URL}) and report this issue! 🩵`,
+	components: [],
+	embeds: [],
+	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
+};
+
+// Error response for components v2.
+export const ERROR_RESPONSE_COMPONENTS_V2 = {
 	components: [
 		{
 			type: ComponentType.TextDisplay as const,

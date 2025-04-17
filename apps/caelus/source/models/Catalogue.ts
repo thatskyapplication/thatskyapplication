@@ -70,7 +70,7 @@ import {
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	resolveCostToString,
 } from "../utility/catalogue.js";
-import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../utility/constants.js";
+import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE_COMPONENTS_V2 } from "../utility/constants.js";
 import {
 	CosmeticToEmoji,
 	EventIdToEventTicketEmoji,
@@ -1010,7 +1010,7 @@ export class Catalogue {
 			await client.api.interactions.updateMessage(
 				interaction.id,
 				interaction.token,
-				ERROR_RESPONSE,
+				ERROR_RESPONSE_COMPONENTS_V2,
 			);
 
 			return;
@@ -1481,7 +1481,7 @@ export class Catalogue {
 			await client.api.interactions.updateMessage(
 				interaction.id,
 				interaction.token,
-				ERROR_RESPONSE,
+				ERROR_RESPONSE_COMPONENTS_V2,
 			);
 
 			return;
@@ -1721,7 +1721,7 @@ export class Catalogue {
 			await client.api.interactions.updateMessage(
 				interaction.id,
 				interaction.token,
-				ERROR_RESPONSE,
+				ERROR_RESPONSE_COMPONENTS_V2,
 			);
 
 			return;
@@ -2429,7 +2429,7 @@ export class Catalogue {
 					await client.api.interactions.updateMessage(
 						interaction.id,
 						interaction.token,
-						ERROR_RESPONSE,
+						ERROR_RESPONSE_COMPONENTS_V2,
 					);
 				}
 			}

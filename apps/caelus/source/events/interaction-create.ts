@@ -8,6 +8,7 @@ import {
 	GatewayDispatchEvents,
 	InteractionType,
 	type Locale,
+	MessageFlags,
 	RESTJSONErrorCodes,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
@@ -96,6 +97,7 @@ import {
 	DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
 	DATA_DELETION_CUSTOM_ID,
 	ERROR_RESPONSE,
+	ERROR_RESPONSE_COMPONENTS_V2,
 	GUESS_ANSWER_1,
 	GUESS_ANSWER_2,
 	GUESS_ANSWER_3,
@@ -245,7 +247,11 @@ export default {
 
 			if (!command) {
 				pino.warn(interaction, "Received an unknown chat input command interaction.");
-				await api.interactions.reply(interaction.id, interaction.token, ERROR_RESPONSE);
+				await api.interactions.reply(
+					interaction.id,
+					interaction.token,
+					ERROR_RESPONSE_COMPONENTS_V2,
+				);
 				return;
 			}
 
@@ -264,7 +270,11 @@ export default {
 
 			if (!command) {
 				pino.warn(interaction, "Received an unknown user context menu command interaction.");
-				await api.interactions.reply(interaction.id, interaction.token, ERROR_RESPONSE);
+				await api.interactions.reply(
+					interaction.id,
+					interaction.token,
+					ERROR_RESPONSE_COMPONENTS_V2,
+				);
 				return;
 			}
 
@@ -534,7 +544,15 @@ export default {
 			}
 
 			pino.warn(interaction, "Received an unknown button interaction.");
-			await api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
+
+			await api.interactions.updateMessage(
+				interaction.id,
+				interaction.token,
+				interaction.message.flags && (interaction.message.flags & MessageFlags.IsComponentsV2) === 0
+					? ERROR_RESPONSE
+					: ERROR_RESPONSE_COMPONENTS_V2,
+			);
+
 			return;
 		}
 
@@ -668,7 +686,15 @@ export default {
 			}
 
 			pino.warn(interaction, "Received an unknown select menu interaction.");
-			await api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
+
+			await api.interactions.updateMessage(
+				interaction.id,
+				interaction.token,
+				interaction.message.flags && (interaction.message.flags & MessageFlags.IsComponentsV2) === 0
+					? ERROR_RESPONSE
+					: ERROR_RESPONSE_COMPONENTS_V2,
+			);
+
 			return;
 		}
 
@@ -728,7 +754,7 @@ export default {
 			}
 
 			pino.warn(interaction, "Received an unknown modal interaction.");
-			await api.interactions.reply(interaction.id, interaction.token, ERROR_RESPONSE);
+			await api.interactions.reply(interaction.id, interaction.token, ERROR_RESPONSE_COMPONENTS_V2);
 		}
 	},
 } satisfies Event<typeof name>;
