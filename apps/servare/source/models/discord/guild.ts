@@ -1,19 +1,21 @@
 import { Collection } from "@discordjs/collection";
-import type {
-	APIChannel,
-	APIGuild,
-	APIGuildMember,
-	APIRole,
-	GatewayGuildCreateDispatchData,
-	GuildChannelType,
-	Snowflake,
-	ThreadChannelType,
+import {
+	type APIChannel,
+	type APIGuild,
+	type APIGuildMember,
+	type APIRole,
+	ChannelType,
+	type GatewayGuildCreateDispatchData,
+	type GuildChannelType,
+	type Snowflake,
+	type ThreadChannelType,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { client } from "../../discord.js";
 import { APPLICATION_ID } from "../../utility/constants.js";
+import { AnnouncementThread, PrivateThread, PublicThread } from "./thread.js";
 
-type GuildChannel = APIChannel & {
+export type GuildChannel = APIChannel & {
 	type: Exclude<GuildChannelType, ThreadChannelType>;
 	guild_id: Snowflake;
 };
@@ -38,6 +40,8 @@ export class Guild {
 	public me?: APIGuildMember;
 
 	public readonly channels: Collection<Snowflake, GuildChannel>;
+
+	public readonly threads: Collection<Snowflake, AnnouncementThread | PublicThread | PrivateThread>;
 
 	public constructor(data: GatewayGuildCreateDispatchData) {
 		this.id = data.id;
@@ -64,6 +68,17 @@ export class Guild {
 			(channels, channel) => channels.set(channel.id, { ...channel, guild_id: data.id }),
 			new Collection<Snowflake, GuildChannel>(),
 		);
+
+		this.threads = data.threads.reduce((threads, thread) => {
+			switch (thread.type) {
+				case ChannelType.AnnouncementThread:
+					return threads.set(thread.id, new AnnouncementThread({ ...thread, guild_id: data.id }));
+				case ChannelType.PublicThread:
+					return threads.set(thread.id, new PublicThread({ ...thread, guild_id: data.id }));
+				case ChannelType.PrivateThread:
+					return threads.set(thread.id, new PrivateThread({ ...thread, guild_id: data.id }));
+			}
+		}, new Collection<Snowflake, AnnouncementThread | PublicThread | PrivateThread>());
 
 		this.patch(data);
 	}

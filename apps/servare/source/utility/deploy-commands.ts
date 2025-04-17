@@ -36,6 +36,14 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		integration_types: [ApplicationIntegrationType.GuildInstall],
 		contexts: [InteractionContextType.Guild],
 	},
+	{
+		name: "message-log",
+		description: "Configure the message log for messages in the server.",
+		type: ApplicationCommandType.ChatInput,
+		default_member_permissions: PermissionFlagsBits.ManageGuild.toString(),
+		integration_types: [ApplicationIntegrationType.GuildInstall],
+		contexts: [InteractionContextType.Guild],
+	},
 ] as const;
 
 const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);

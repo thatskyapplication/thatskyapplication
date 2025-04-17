@@ -12,7 +12,15 @@ import guildRoleUpdate from "./events/guild-role-update.js";
 import guildUpdate from "./events/guild-update.js";
 import type { Event } from "./events/index.js";
 import interactionCreate from "./events/interaction-create.js";
+import messageCreate from "./events/message-create.js";
+import messageDeleteBulk from "./events/message-delete-bulk.js";
+import messageDelete from "./events/message-delete.js";
+import messageUpdate from "./events/message-update.js";
 import ready from "./events/ready.js";
+import threadCreate from "./events/thread-create.js";
+import threadDelete from "./events/thread-delete.js";
+import threadListSync from "./events/thread-list-sync.js";
+import threadUpdate from "./events/thread-update.js";
 
 for (const event of [
 	channelCreate,
@@ -27,7 +35,15 @@ for (const event of [
 	guildRoleUpdate,
 	guildUpdate,
 	interactionCreate,
+	messageCreate,
+	messageDeleteBulk,
+	messageDelete,
+	messageUpdate,
 	ready,
+	threadCreate,
+	threadDelete,
+	threadListSync,
+	threadUpdate,
 ]) {
 	const { name, once, fire }: Event = event;
 	client[once ? "once" : "on"](name, fire);

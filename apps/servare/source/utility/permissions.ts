@@ -4,7 +4,7 @@ import {
 	type GuildChannelType,
 	PermissionFlagsBits,
 } from "@discordjs/core";
-import type { Guild } from "../models/discord/guild.js";
+import type { Guild, GuildChannel } from "../models/discord/guild.js";
 
 const ALL_PERMISSIONS = Object.values(PermissionFlagsBits).reduce(
 	(bitField, permission) => bitField | permission,
@@ -131,3 +131,26 @@ export const can = ({
 	const permissions = computePermissions({ guild, member, channel });
 	return (permissions & permission) === permission;
 };
+
+export function isChannelPublic(guild: Guild, channel: GuildChannel) {
+	const basePermissionOverwrite = channel.permission_overwrites?.find(
+		(permissionOverwrite) => permissionOverwrite.id === guild.id,
+	);
+
+	const everyoneRole = guild.roles.get(guild.id);
+
+	if (!everyoneRole) {
+		throw new Error("No @everyone role found.");
+	}
+
+	const everyoneRoleCanViewChannel =
+		(BigInt(everyoneRole.permissions) & PermissionFlagsBits.ViewChannel) ===
+		PermissionFlagsBits.ViewChannel;
+
+	return basePermissionOverwrite
+		? (BigInt(basePermissionOverwrite.allow) & PermissionFlagsBits.ViewChannel) ===
+				PermissionFlagsBits.ViewChannel ||
+				((BigInt(basePermissionOverwrite.deny) & PermissionFlagsBits.ViewChannel) === 0n &&
+					everyoneRoleCanViewChannel)
+		: everyoneRoleCanViewChannel;
+}

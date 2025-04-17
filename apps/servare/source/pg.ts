@@ -3,6 +3,7 @@ import { DATABASE_URL } from "./utility/constants.js";
 
 export enum Table {
 	GuildSettings = "guild_settings",
+	Messages = "messages",
 }
 
 export default knex({

@@ -6,7 +6,11 @@ import { DISCORD_TOKEN } from "./utility/constants.js";
 const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
 
 export const gateway = new WebSocketManager({
-	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildMembers,
+	intents:
+		GatewayIntentBits.Guilds |
+		GatewayIntentBits.GuildMembers |
+		GatewayIntentBits.GuildMessages |
+		GatewayIntentBits.MessageContent,
 	rest,
 	token: DISCORD_TOKEN,
 });

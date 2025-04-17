@@ -34,3 +34,15 @@ export const NOT_IN_CACHED_GUILD_RESPONSE = {
 
 export const MEMBER_LOG_CHANNEL_TYPES = [ChannelType.GuildText] as const;
 export const MEMBER_LOG_LEAVE_COLOUR = 0x000000 as const;
+export const MESSAGE_LOG_CHANNEL_TYPES = [ChannelType.GuildText] as const;
+
+export const MESSAGE_LOG_IGNORE_ALLOW_CHANNEL_TYPES = [
+	ChannelType.GuildText,
+	ChannelType.GuildVoice,
+	ChannelType.GuildCategory,
+	ChannelType.GuildAnnouncement,
+	ChannelType.GuildStageVoice,
+] as const;
+
+export const MESSAGE_UPDATE_CODE_CHECK_REGULAR_EXPRESSION = /```.*?```/s;
+export const MESSAGE_UPDATE_REGULAR_EXPRESSION = /```(?:(\S+)\n)?\s*(.+?)\s*```/s;

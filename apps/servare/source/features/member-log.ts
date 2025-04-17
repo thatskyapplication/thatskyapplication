@@ -12,7 +12,6 @@ import {
 	SelectMenuDefaultValueType,
 	type Snowflake,
 } from "@discordjs/core";
-import { calculateUserDefaultAvatarIndex } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
@@ -24,7 +23,7 @@ import {
 	MEMBER_LOG_CHANNEL_TYPES,
 	MEMBER_LOG_LEAVE_COLOUR,
 } from "../utility/constants.js";
-import { skyProfileWebsiteURL } from "../utility/functions.js";
+import { avatarURL, skyProfileWebsiteURL, userTag } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";
 import { CustomId, schemaStore } from "../utility/string-store.js";
 import type { GuildSettingsPacket } from "./guild-settings.js";
@@ -229,21 +228,12 @@ export async function sendJoinLeave(
 
 	const { user } = member;
 
-	const index =
-		user.discriminator === "0"
-			? calculateUserDefaultAvatarIndex(user.id)
-			: Number(user.discriminator) % 5;
-
-	const iconURL = user.avatar
-		? client.rest.cdn.avatar(user.id, user.avatar)
-		: client.rest.cdn.defaultAvatar(index);
-
 	const createdTimestamp = Math.floor(
 		Number(DiscordSnowflake.deconstruct(user.id).timestamp / 1000n),
 	);
 
 	const description = [
-		`User: <@${user.id}> (${user.discriminator === "0" ? user.username : `${user.username}#${user.discriminator}`})`,
+		`User: <@${user.id}> (${userTag(user)})`,
 		`Created: <t:${createdTimestamp}:F> (<t:${createdTimestamp}:R>)`,
 	];
 
@@ -262,7 +252,11 @@ export async function sendJoinLeave(
 	await client.api.channels.createMessage(memberLogPacket.member_log_channel_id, {
 		embeds: [
 			{
-				author: { name: user.username, icon_url: iconURL, url: skyProfileWebsiteURL(user.id) },
+				author: {
+					name: user.username,
+					icon_url: avatarURL(user),
+					url: skyProfileWebsiteURL(user.id),
+				},
 				description: description.join("\n"),
 				color: leftTimestamp
 					? MEMBER_LOG_LEAVE_COLOUR
