@@ -9,6 +9,7 @@ import {
 	InteractionType,
 	type Locale,
 	MessageFlags,
+	PermissionFlagsBits,
 	RESTJSONErrorCodes,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
@@ -135,6 +136,38 @@ import {
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.InteractionCreate;
+
+async function isNotComponentsV2(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+) {
+	if (
+		interaction.message.flags &&
+		(interaction.message.flags & MessageFlags.IsComponentsV2) === MessageFlags.IsComponentsV2
+	) {
+		return false;
+	}
+
+	const promises = [];
+
+	if (
+		(BigInt(interaction.app_permissions) & PermissionFlagsBits.ViewChannel) ===
+		PermissionFlagsBits.ViewChannel
+	) {
+		promises.push(
+			client.api.channels.deleteMessage(interaction.channel.id, interaction.message.id),
+		);
+	}
+
+	promises.push(
+		client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "This response is too old. Use the command again!",
+			flags: MessageFlags.Ephemeral,
+		}),
+	);
+
+	await Promise.all(promises);
+	return true;
+}
 
 async function recoverInteractionError(interaction: APIInteraction, error: unknown) {
 	const invoker = interactionInvoker(interaction);
@@ -398,12 +431,19 @@ export default {
 					customId.startsWith(SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID) ||
 					customId.startsWith(SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID)
 				) {
-					await today(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
+					if (await isNotComponentsV2(interaction)) {
+						return;
+					}
 
+					await today(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
 					return;
 				}
 
 				if (customId === SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID) {
+					if (await isNotComponentsV2(interaction)) {
+						return;
+					}
+
 					await browse(interaction);
 					return;
 				}
@@ -413,8 +453,11 @@ export default {
 					customId.startsWith(SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID) ||
 					customId.startsWith(SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID)
 				) {
-					await browse(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
+					if (await isNotComponentsV2(interaction)) {
+						return;
+					}
 
+					await browse(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
 					return;
 				}
 
@@ -504,11 +547,19 @@ export default {
 				}
 
 				if (customId.startsWith(GUESS_END_GAME)) {
+					if (await isNotComponentsV2(interaction)) {
+						return;
+					}
+
 					await parseEndGame(interaction);
 					return;
 				}
 
 				if (customId.startsWith(GUESS_TRY_AGAIN)) {
+					if (await isNotComponentsV2(interaction)) {
+						return;
+					}
+
 					await tryAgain(interaction);
 					return;
 				}
@@ -517,6 +568,10 @@ export default {
 					customId.startsWith(GUESS_LEADERBOARD_BACK_CUSTOM_ID) ||
 					customId.startsWith(GUESS_LEADERBOARD_NEXT_CUSTOM_ID)
 				) {
+					if (await isNotComponentsV2(interaction)) {
+						return;
+					}
+
 					const guessDifficultyLevel = Number(
 						customId.slice(customId.indexOf("§") + 1, customId.lastIndexOf("§")),
 					);
@@ -617,6 +672,10 @@ export default {
 						customId as (typeof SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS)[number],
 					)
 				) {
+					if (await isNotComponentsV2(interaction)) {
+						return;
+					}
+
 					await today(interaction, Number(value0));
 					return;
 				}
