@@ -3,7 +3,9 @@ import { REST } from "@discordjs/rest";
 import { WebSocketManager } from "@discordjs/ws";
 import { DISCORD_TOKEN } from "./utility/constants.js";
 
-const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
+const rest = new REST({ version: "10", api: "https://canary.discord.com/api" }).setToken(
+	DISCORD_TOKEN,
+);
 
 export const gateway = new WebSocketManager({
 	intents:
