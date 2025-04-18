@@ -570,7 +570,7 @@ export function distributionData(locale: Locale): [APIMessageTopLevelComponent] 
 			const daysUntilStart = next.start.diff(now, "days").days;
 
 			footerText.push(
-				`${formatEmoji(SeasonIdToSeasonalEmoji[next.id])} ${daysUntilStart <= 1 ? "The new season starts tomorrow." : daysUntilStart >= 2 ? `The new season starts in ${Math.floor(daysUntilStart)} days.` : "The new season starts in 1 day."}`,
+				`${daysUntilStart <= 1 ? "The new season starts tomorrow." : daysUntilStart >= 2 ? `The new season starts in ${Math.floor(daysUntilStart)} days.` : "The new season starts in 1 day."}`,
 			);
 		}
 	}
