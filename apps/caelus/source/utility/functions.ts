@@ -1,15 +1,14 @@
 import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIAttachment,
-	type APIButtonComponent,
 	type APIChatInputApplicationCommandGuildInteraction,
 	type APIChatInputApplicationCommandInteraction,
 	type APIGuildInteractionWrapper,
 	type APIInteraction,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
+	type APIMessageTopLevelComponent,
 	type APIModalSubmitInteraction,
-	type APISelectMenuComponent,
 	type APIUser,
 	type APIUserApplicationCommandInteraction,
 	ApplicationCommandType,
@@ -52,22 +51,30 @@ export function interactionInvoker(interaction: APIInteraction) {
 	return interaction.member?.user ?? interaction.user!;
 }
 
-export function interactedComponent(
-	interaction: APIMessageComponentButtonInteraction,
-): APIButtonComponent & { custom_id: string };
-
-export function interactedComponent(
-	interaction: APIMessageComponentSelectMenuInteraction,
-): APISelectMenuComponent;
-
-export function interactedComponent(
-	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+export function resolveStringSelectMenu(
+	components: APIMessageTopLevelComponent[],
+	customId: string,
 ) {
-	return interaction.message
-		.components!.flatMap((actionRow) => actionRow.components)
-		.find(
-			(component) => "custom_id" in component && component.custom_id === interaction.data.custom_id,
-		)!;
+	for (const component of components) {
+		if (component.type === ComponentType.Container) {
+			return resolveStringSelectMenu(component.components, customId);
+		}
+
+		if (component.type !== ComponentType.ActionRow) {
+			continue;
+		}
+
+		for (const actionRowComponent of component.components) {
+			if (
+				actionRowComponent.type === ComponentType.StringSelect &&
+				actionRowComponent.custom_id === customId
+			) {
+				return actionRowComponent;
+			}
+		}
+	}
+
+	return null;
 }
 
 export function userLogFormat(user: APIUser) {

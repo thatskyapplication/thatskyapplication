@@ -1,15 +1,12 @@
 import {
-	type APIActionRowComponent,
 	type APIApplicationCommandAutocompleteInteraction,
-	type APIButtonComponent,
 	type APIChatInputApplicationCommandInteraction,
-	type APIEmbed,
-	type APIMessageComponentButtonInteraction,
+	type APIComponentInContainer,
 	type ApplicationCommandOptionType,
-	ButtonStyle,
 	ComponentType,
 	type Locale,
 	MessageFlags,
+	SeparatorSpacingSize,
 } from "@discordjs/core";
 import {
 	type ElderSpirit,
@@ -22,32 +19,16 @@ import {
 	type SpiritIds,
 	type StandardSpirit,
 	TIME_ZONE,
-	currentSeasonalSpirits,
 	formatEmoji,
-	isSpiritId,
 	skyNow,
 	spirits,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import pino from "../pino.js";
-import {
-	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
-	NO_FRIENDSHIP_TREE_TEXT,
-	NO_FRIENDSHIP_TREE_YET_TEXT,
-	resolveCostToString,
-} from "../utility/catalogue.js";
-import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE } from "../utility/constants.js";
+import { GUIDE_SPIRIT_IN_PROGRESS_TEXT, resolveCostToString } from "../utility/catalogue.js";
+import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
-import { isChatInputCommand } from "../utility/functions.js";
 import type { AutocompleteFocusedOption, OptionResolver } from "../utility/option-resolver.js";
-import {
-	FriendActionToEmoji,
-	SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID,
-	SpiritCallToEmoji,
-	SpiritEmoteToEmoji,
-	SpiritStanceToEmoji,
-} from "../utility/spirits.js";
 
 export async function searchAutocomplete(
 	interaction: APIApplicationCommandAutocompleteInteraction,
@@ -116,36 +97,7 @@ export async function search(
 		return;
 	}
 
-	await searchResponse(
-		interaction,
-		spirit,
-		spirit.isSeasonalSpirit() && spirit.current.length === 0,
-	);
-}
-
-export async function parseSpiritSwitch(interaction: APIMessageComponentButtonInteraction) {
-	const data = interaction.data.custom_id.split("§");
-	const spiritId = Number(data[1]!);
-
-	if (!isSpiritId(spiritId)) {
-		pino.error(interaction, `Invalid spirit id: ${spiritId}`);
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
-		return;
-	}
-
-	const seasonalOffer = data[2] === "true";
-	const spirit = currentSeasonalSpirits().get(spiritId);
-
-	if (!spirit) {
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "Woah, it seems we have not encountered that spirit yet. How strange!",
-			flags: MessageFlags.Ephemeral,
-		});
-
-		return;
-	}
-
-	await searchResponse(interaction, spirit, !seasonalOffer);
+	await searchResponse(interaction, spirit);
 }
 
 function visitField(
@@ -192,118 +144,38 @@ function visitErrorField(
 		.join("\n");
 }
 
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 async function searchResponse(
-	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
+	interaction: APIChatInputApplicationCommandInteraction,
 	spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
-	seasonalOffer = false,
 ) {
 	const { locale } = interaction;
 	const isSeasonalSpirit = spirit.isSeasonalSpirit();
 	const isGuideSpirit = spirit.isGuideSpirit();
-	const seasonalParsing = isSeasonalSpirit && seasonalOffer;
 	const spiritSeason = isSeasonalSpirit || isGuideSpirit ? spirit.seasonId : null;
-	const totalCost = seasonalParsing ? spirit.totalCostSeasonal : spirit.totalCost;
-	const totalOffer = totalCost ? resolveCostToString(totalCost).join("") : null;
-
-	const embed: APIEmbed = {
-		color: DEFAULT_EMBED_COLOUR,
-		title: t(`spirits.${spirit.id}`, { lng: locale, ns: "general" }),
-		url: t(`spirit-wiki.${spirit.id}`, { lng: locale, ns: "general" }),
-	};
-
-	const fields = [];
-
-	if (spirit.realm) {
-		fields.push({
-			name: "Realm",
-			value: t(`realms.${spirit.realm}`, { lng: locale, ns: "general" }),
-			inline: true,
-		});
-	}
-
-	if (spiritSeason !== null) {
-		fields.push({
-			name: "Season",
-			value: `${formatEmoji(SeasonIdToSeasonalEmoji[spiritSeason])}${t(`seasons.${spiritSeason}`, {
-				lng: locale,
-				ns: "general",
-			})}`,
-			inline: true,
-		});
-	}
-
-	if (spirit.isStandardSpirit() || isSeasonalSpirit) {
-		if (spirit.emote) {
-			fields.push({
-				name: "Emote",
-				value: formatEmoji(SpiritEmoteToEmoji[spirit.emote]),
-				inline: true,
-			});
-		}
-
-		if (spirit.stance) {
-			fields.push({
-				name: "Stance",
-				value: formatEmoji(SpiritStanceToEmoji[spirit.stance]),
-				inline: true,
-			});
-		}
-
-		if (spirit.call) {
-			fields.push({
-				name: "Call",
-				value: formatEmoji(SpiritCallToEmoji[spirit.call]),
-				inline: true,
-			});
-		}
-
-		if (spirit.action) {
-			fields.push({
-				name: "Action",
-				value: formatEmoji(FriendActionToEmoji[spirit.action]),
-				inline: true,
-			});
-		}
-	}
-
-	const components: APIActionRowComponent<APIButtonComponent>[] = [];
 	const description = [];
-	const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
+	const visits = [];
 
 	if (isSeasonalSpirit) {
 		const { travelling, travellingErrors, returning } = spirit.visits;
-		const travellingFieldValue = [];
+		const travellingValue = [];
 
 		if (travelling.size > 0) {
-			travellingFieldValue.push(visitField(travelling, locale));
+			travellingValue.push(visitField(travelling, locale));
 		}
 
 		if (travellingErrors.size > 0) {
-			travellingFieldValue.push(visitErrorField(travellingErrors, locale));
+			travellingValue.push(visitErrorField(travellingErrors, locale));
 		}
 
-		if (travellingFieldValue.length > 0) {
-			fields.push({ name: "Travelling", value: travellingFieldValue.join("\n") });
+		if (travellingValue.length > 0) {
+			visits.push(`### Travelling\n${travellingValue.join("\n")}`);
 		}
 
 		if (returning.size > 0) {
-			fields.push({ name: "Returning", value: visitField(returning, locale) });
+			visits.push(`### Returning\n${visitField(returning, locale)}`);
 		}
 
-		if (spirit.visit(skyNow()).visited) {
-			components.push({
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.Button,
-						custom_id: `${SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID}§${spirit.id}§${seasonalOffer}`,
-						label: `${seasonalOffer ? "Current" : "Seasonal"} Friendship Tree`,
-						style: ButtonStyle.Primary,
-					},
-				],
-			});
-		} else {
+		if (!spirit.visit(skyNow()).visited) {
 			description.push(
 				`⚠️ This ${
 					spiritSeason === SeasonId.Shattering || spiritSeason === SeasonId.Nesting
@@ -316,40 +188,76 @@ async function searchResponse(
 		}
 	}
 
-	if (totalOffer && totalOffer.length > 0) {
-		description.push(totalOffer);
+	const totalOffer = [];
+
+	if (isSeasonalSpirit) {
+		totalOffer.push(resolveCostToString(spirit.totalCostSeasonal).join(""));
 	}
 
-	if (imageURL) {
-		embed.image = { url: imageURL };
-	} else {
-		const offer = seasonalParsing ? spirit.seasonal : spirit.current;
-		description.push(offer.length > 0 ? NO_FRIENDSHIP_TREE_YET_TEXT : NO_FRIENDSHIP_TREE_TEXT);
+	if (spirit.totalCost) {
+		totalOffer.push(resolveCostToString(spirit.totalCost).join(""));
+	}
+
+	if (totalOffer.length > 0) {
+		description.push(totalOffer.join("\n"));
+	}
+
+	const containerComponents: APIComponentInContainer[] = [
+		{
+			type: ComponentType.TextDisplay,
+			content: `## ${spiritSeason !== null ? `${formatEmoji(SeasonIdToSeasonalEmoji[spiritSeason])} ` : ""}[${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}](${t(`spirit-wiki.${spirit.id}`, { lng: locale, ns: "general" })})`,
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+	];
+
+	if (description.length > 0) {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: description.join("\n"),
+		});
+	}
+
+	if (visits.length > 0) {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: visits.join("\n"),
+		});
+	}
+
+	const mediaItems = [
+		isSeasonalSpirit && spirit.imageURLSeasonal,
+		spirit.imageURL,
+		isSeasonalSpirit && spirit.marketingVideoURL,
+	]
+		.filter((url) => typeof url === "string")
+		.map((url) => ({ media: { url } }));
+
+	if (mediaItems.length > 0) {
+		containerComponents.push({
+			type: ComponentType.MediaGallery,
+			items: mediaItems,
+		});
 	}
 
 	if (isGuideSpirit && spirit.inProgress) {
-		embed.footer = { text: GUIDE_SPIRIT_IN_PROGRESS_TEXT };
-	}
-
-	if (isSeasonalSpirit && spirit.marketingVideoURL) {
-		description.push(`[Promotional Video](${spirit.marketingVideoURL})`);
-	}
-
-	if (description.length > 0) {
-		embed.description = description.join("\n");
-	}
-
-	embed.fields = fields;
-
-	if (isChatInputCommand(interaction)) {
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			components,
-			embeds: [embed],
-		});
-	} else {
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components,
-			embeds: [embed],
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `-# ${GUIDE_SPIRIT_IN_PROGRESS_TEXT}`,
 		});
 	}
+
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: containerComponents,
+			},
+		],
+		flags: MessageFlags.IsComponentsV2,
+	});
 }

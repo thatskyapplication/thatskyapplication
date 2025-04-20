@@ -1,9 +1,9 @@
 import {
 	type APIChatInputApplicationCommandInteraction,
-	type APIEmbed,
-	type APIEmbedField,
+	ComponentType,
 	type Locale,
 	MessageFlags,
+	SeparatorSpacingSize,
 } from "@discordjs/core";
 import {
 	INTERNATIONAL_SPACE_STATION_DATES,
@@ -15,7 +15,6 @@ import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import { DEFAULT_EMBED_COLOUR, PASSAGE_TRUNCATION_LIMIT } from "../utility/constants.js";
-import { dailyGuidesEventData, dailyGuidesShardEruptionData } from "./daily-guides.js";
 
 function dailyResetTime(date: DateTime) {
 	return date.plus({ day: 1 }).toUnixInteger();
@@ -155,104 +154,59 @@ export async function schedule(interaction: APIChatInputApplicationCommandIntera
 		ns: "commands",
 	})} ${passageTimesEnd.join(" ")}`;
 
-	const embed: APIEmbed = {
-		color: DEFAULT_EMBED_COLOUR,
-		footer: { text: t("schedule.times-are-relative", { lng: locale, ns: "commands" }) },
-		title: t("schedule.schedule-today", { lng: locale, ns: "commands" }),
-	};
-
-	const fields: APIEmbedField[] = [
-		{
-			name: t(`notification-types.${NotificationType.DailyReset}`, {
-				lng: locale,
-				ns: "general",
-			}),
-			value: `<t:${dailyResetTime(startOfDay)}:t> (<t:${dailyResetTime(startOfDay)}:R>)`,
-		},
-		{
-			name: t(`notification-types.${NotificationType.InternationalSpaceStation}`, {
-				lng: locale,
-				ns: "general",
-			}),
-			value: INTERNATIONAL_SPACE_STATION_DATES.filter(
-				(issDateAccessible) => issDateAccessible <= now.daysInMonth!,
-			)
-				.map((issDateAccessible) => {
-					const issDateUnix = startOfDay.set({ day: issDateAccessible }).toUnixInteger();
-					return `<t:${issDateUnix}:d> (<t:${issDateUnix}:R>)`;
-				})
-				.join("\n"),
-		},
-		{
-			name: t(`notification-types.${NotificationType.EyeOfEden}`, {
-				lng: locale,
-				ns: "general",
-			}),
-			value: `<t:${eyeOfEdenResetTime(startOfDay)}:t> (<t:${eyeOfEdenResetTime(startOfDay)}:R>)`,
-		},
-		{
-			name: t("schedule.travelling-spirit", { lng: locale, ns: "commands" }),
-			value: travellingSpiritTime(now, locale),
-		},
-		{
-			name: t(`notification-types.${NotificationType.PollutedGeyser}`, {
-				lng: locale,
-				ns: "general",
-			}),
-			value: pollutedGeyser.join(" "),
-		},
-		{
-			name: t(`notification-types.${NotificationType.Grandma}`, { lng: locale, ns: "general" }),
-			value: grandma.join(" "),
-		},
-		{
-			name: t(`notification-types.${NotificationType.Turtle}`, { lng: locale, ns: "general" }),
-			value: turtle.join(" "),
-		},
-		{
-			name: t(`notification-types.${NotificationType.AURORA}`, { lng: locale, ns: "general" }),
-			value: aurora.join(" "),
-		},
-		{
-			name: t(`notification-types.${NotificationType.DreamsSkater}`, {
-				lng: locale,
-				ns: "general",
-			}),
-			value: `_${t("schedule.dreams-skater-days", { lng: locale, ns: "commands" })}_\n${dreamsSkater.join(" ")}`,
-		},
-		{
-			name: t(`notification-types.${NotificationType.Passage}`, { lng: locale, ns: "general" }),
-			value: passageTimesString,
-		},
-		{
-			name: t(`notification-types.${NotificationType.AviarysFireworkFestival}`, {
-				lng: locale,
-				ns: "general",
-			}),
-			value: `${t("schedule.first-of-month", { lng: locale, ns: "commands" })}\n${aviarysFireworkFestivalTime(
-				startOfDay,
-			).join(" ")}`,
-		},
-		{
-			name: "Deer",
-			value: `${deer(locale)
-				.map(({ text, time }, index) => `${index + 1}. ${time} _(${text})_`)
-				.join("\n")}`,
-		},
-	];
-
-	const eventData = dailyGuidesEventData(now, locale);
-
-	if (eventData.eventTickets) {
-		fields.push(eventData.eventTickets);
-	}
-
-	const shardEruptionData = dailyGuidesShardEruptionData(locale);
-	fields.push(...shardEruptionData);
-	embed.fields = fields;
-
 	await client.api.interactions.reply(interaction.id, interaction.token, {
-		embeds: [embed],
-		flags: MessageFlags.Ephemeral,
+		components: [
+			{
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `## ${t("schedule.schedule-today", { lng: locale, ns: "commands" })}`,
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: [
+							`### ${t(`notification-types.${NotificationType.DailyReset}`, { lng: locale, ns: "general" })}\n<t:${dailyResetTime(startOfDay)}:t> (<t:${dailyResetTime(startOfDay)}:R>)`,
+							`### ${t(`notification-types.${NotificationType.InternationalSpaceStation}`, { lng: locale, ns: "general" })}\n${INTERNATIONAL_SPACE_STATION_DATES.filter(
+								(issDateAccessible) => issDateAccessible <= now.daysInMonth!,
+							)
+								.map((issDateAccessible) => {
+									const issDateUnix = startOfDay.set({ day: issDateAccessible }).toUnixInteger();
+									return `<t:${issDateUnix}:d> (<t:${issDateUnix}:R>)`;
+								})
+								.join("\n")}`,
+							`### ${t(`notification-types.${NotificationType.EyeOfEden}`, { lng: locale, ns: "general" })}\n<t:${eyeOfEdenResetTime(startOfDay)}:t> (<t:${eyeOfEdenResetTime(startOfDay)}:R>)`,
+							`### ${t("schedule.travelling-spirit", { lng: locale, ns: "commands" })}\n${travellingSpiritTime(now, locale)}`,
+							`### ${t(`notification-types.${NotificationType.PollutedGeyser}`, { lng: locale, ns: "general" })}\n${pollutedGeyser.join(" ")}`,
+							`### ${t(`notification-types.${NotificationType.Grandma}`, { lng: locale, ns: "general" })}\n${grandma.join(" ")}`,
+							`### ${t(`notification-types.${NotificationType.Turtle}`, { lng: locale, ns: "general" })}\n${turtle.join(" ")}`,
+							`### ${t(`notification-types.${NotificationType.AURORA}`, { lng: locale, ns: "general" })}\n${aurora.join(" ")}`,
+							`### ${t(`notification-types.${NotificationType.DreamsSkater}`, { lng: locale, ns: "general" })}\n_${t("schedule.dreams-skater-days", { lng: locale, ns: "commands" })}_\n${dreamsSkater.join(" ")}`,
+							`### ${t(`notification-types.${NotificationType.Passage}`, { lng: locale, ns: "general" })}\n${passageTimesString}`,
+							`### ${t(`notification-types.${NotificationType.AviarysFireworkFestival}`, { lng: locale, ns: "general" })}\n_${t("schedule.first-of-month", { lng: locale, ns: "commands" })}_\n${aviarysFireworkFestivalTime(startOfDay).join(" ")}`,
+							`### Deer\n${deer(locale)
+								.map(({ text, time }, index) => `${index + 1}. ${time} _(${text})_`)
+								.join("\n")}`,
+						].join("\n"),
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `-# ${t("schedule.times-are-relative", { lng: locale, ns: "commands" })}`,
+					},
+				],
+			},
+		],
+		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 	});
 }

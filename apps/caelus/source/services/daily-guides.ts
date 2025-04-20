@@ -1,15 +1,17 @@
 import {
 	type APIChannel,
 	type APIChatInputApplicationCommandGuildInteraction,
-	type APIEmbed,
-	type APIEmbedFooter,
+	type APIComponentInContainer,
+	type APIMessageTopLevelComponent,
 	type APINewsChannel,
 	type APITextChannel,
 	ChannelType,
+	ComponentType,
 	type Locale,
 	MessageFlags,
 	PermissionFlagsBits,
 	RESTJSONErrorCodes,
+	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
@@ -362,18 +364,19 @@ async function send(
 		return;
 	}
 
-	// Retrieve our embed.
-	const embed = distributionEmbed(guild.preferredLocale);
+	// Retrieve our data.
+	const components = distributionData(guild.preferredLocale);
 
 	// Update the embed if a message exists.
 	if (messageId) {
-		return client.api.channels.editMessage(channelId!, messageId, { embeds: [embed] });
+		return client.api.channels.editMessage(channelId!, messageId, { components });
 	}
 
 	// There is no existing message. Send one.
 	const { id } = await client.api.channels.createMessage(channelId!, {
-		embeds: [embed],
+		components,
 		enforce_nonce: enforceNonce,
+		flags: MessageFlags.IsComponentsV2,
 		nonce: guildId,
 	});
 
@@ -410,26 +413,29 @@ async function statusEmbed(guild: Guild, channelId: Snowflake | null) {
 	};
 }
 
-export function dailyGuidesEventData(date: DateTime, locale: Locale) {
+function dailyGuidesEventData(date: DateTime, locale: Locale) {
 	const events = skyCurrentEvents(date);
 
 	const eventEndText = skyNotEndedEvents(date).map(({ id, start, end }) => {
 		const daysUntilStart = start.diff(date, "days").days;
+		const eventTicketEmoji = EventIdToEventTicketEmoji[id];
 
 		if (daysUntilStart > 0) {
-			return daysUntilStart < 1
-				? `${t(`events.${id}`, { lng: locale, ns: "general" })} starts today.`
-				: daysUntilStart >= 2
-					? `${t(`events.${id}`, { lng: locale, ns: "general" })} starts in ${Math.floor(daysUntilStart)} days.`
-					: `${t(`events.${id}`, { lng: locale, ns: "general" })} starts tomorrow.`;
+			return `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${
+				daysUntilStart < 1
+					? `${t(`events.${id}`, { lng: locale, ns: "general" })} starts today.`
+					: daysUntilStart >= 2
+						? `${t(`events.${id}`, { lng: locale, ns: "general" })} starts in ${Math.floor(daysUntilStart)} days.`
+						: `${t(`events.${id}`, { lng: locale, ns: "general" })} starts tomorrow.`
+			}`;
 		}
 
-		return t("days-left.event", {
+		return `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t("days-left.event", {
 			lng: locale,
 			ns: "general",
 			count: Math.ceil(end.diff(date, "days").days) - 1,
 			name: t(`events.${id}`, { lng: locale, ns: "general" }),
-		});
+		})}`;
 	});
 
 	const event1 = events.first();
@@ -452,109 +458,79 @@ export function dailyGuidesEventData(date: DateTime, locale: Locale) {
 
 	const eventTickets =
 		currentEventsWithEventTickets.size > 0
-			? {
-					name: t("event-tickets", { lng: locale, ns: "general" }),
-					value: currentEventsWithEventTickets
-						.map((event) => {
-							const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
+			? currentEventsWithEventTickets
+					.map((event) => {
+						const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
 
-							return `[${eventTicketEmoji ? formatEmoji(eventTicketEmoji) : ""}${t("view", {
-								lng: locale,
-								ns: "general",
-							})}](${event.resolveInfographicURL(date)!} "${t(`events.${event.id}`, { lng: locale, ns: "general" })}")`;
-						})
-						.join(" | "),
-				}
+						return `[${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t("view", {
+							lng: locale,
+							ns: "general",
+						})}](${event.resolveInfographicURL(date)!} "${t(`events.${event.id}`, { lng: locale, ns: "general" })}")`;
+					})
+					.join(" | ")
 			: null;
 
 	return { eventEndText, iconURL, eventTickets };
 }
 
-export function dailyGuidesShardEruptionData(locale: Locale) {
-	const shard = shardEruption();
-
-	if (shard) {
-		return [
-			{
-				name: t("shard-eruption", { lng: locale, ns: "general" }),
-				value: shardEruptionInformationString(shard, true, locale),
-				inline: true,
-			},
-			{
-				name: t("timestamps", { lng: locale, ns: "general" }),
-				value: shardEruptionTimestampsString(shard),
-				inline: true,
-			},
-		];
-	}
-
-	return [
-		{
-			name: t("shard-eruption", { lng: locale, ns: "general" }),
-			value: t("shard-eruption-none", { lng: locale, ns: "general" }),
-		},
-	];
-}
-
-export function distributionEmbed(locale: Locale) {
+export function distributionData(locale: Locale): [APIMessageTopLevelComponent] {
 	const { quest1, quest2, quest3, quest4, travellingRock } = DailyGuides;
 	const today = skyToday();
 	const now = skyNow();
 
-	const embed: APIEmbed = {
-		color: DEFAULT_EMBED_COLOUR,
-		title: Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(
-			now.toMillis(),
-		),
-		url: DAILY_GUIDES_URL,
-	};
-
-	const fields = [];
+	const containerComponents: APIComponentInContainer[] = [
+		{
+			type: ComponentType.TextDisplay,
+			content: `## [${Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(now.toMillis())}](${DAILY_GUIDES_URL})`,
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+	];
 
 	const quests = [quest1, quest2, quest3, quest4].filter(
 		(quest): quest is DailyGuideQuest => quest !== null,
 	);
 
 	if (quests.length > 0) {
-		fields.push({
-			name: "Quests",
-			value: quests
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `### Quests\n${quests
 				.map(
 					({ id, url }, index) =>
 						`${index + 1}. ${url ? `[${t(`quests.${id}`, { lng: locale, ns: "general" })}](${url})` : t(`quests.${id}`, { lng: locale, ns: "general" })}`,
 				)
-				.join("\n"),
+				.join("\n")}`,
 		});
 	}
 
 	const treasureCandleURLs = treasureCandles(today);
 
-	fields.push({
-		name: "Treasure Candles",
-		value: treasureCandleURLs
+	containerComponents.push({
+		type: ComponentType.TextDisplay,
+		content: `### Treasure Candles\n${treasureCandleURLs
 			.map(
 				(treasureCandleURL, index) => `[${index * 4 + 1} - ${index * 4 + 4}](${treasureCandleURL})`,
 			)
-			.join(" | "),
+			.join(" | ")}`,
 	});
 
 	const season = skyCurrentSeason(today);
 	const footerText = [];
-	let iconURL = null;
 
 	if (season) {
 		const seasonalCandlesRotation = season.resolveSeasonalCandlesRotation(today);
 		const values = [];
 
 		footerText.push(
-			t("days-left.season", {
+			`${formatEmoji(SeasonIdToSeasonalEmoji[season.id])} ${t("days-left.season", {
 				lng: locale,
 				ns: "general",
 				count: Math.ceil(season.end.diff(now, "days").days) - 1,
-			}),
+			})}`,
 		);
-
-		iconURL = formatEmojiURL(SeasonIdToSeasonalEmoji[season.id].id);
 
 		if (seasonalCandlesRotation) {
 			const { rotation, realm } = seasonalCandlesRotation;
@@ -583,7 +559,10 @@ export function distributionEmbed(locale: Locale) {
 			})} remain in the season with a Season Pass.`,
 		);
 
-		fields.push({ name: "Seasonal Candles", value: values.join("\n") });
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `### Seasonal Candles\n${values.join("\n")}`,
+		});
 	} else {
 		const next = skyUpcomingSeason(today);
 
@@ -591,46 +570,63 @@ export function distributionEmbed(locale: Locale) {
 			const daysUntilStart = next.start.diff(now, "days").days;
 
 			footerText.push(
-				daysUntilStart <= 1
-					? "The new season starts tomorrow."
-					: daysUntilStart >= 2
-						? `The new season starts in ${Math.floor(daysUntilStart)} days.`
-						: "The new season starts in 1 day.",
+				`${daysUntilStart <= 1 ? "The new season starts tomorrow." : daysUntilStart >= 2 ? `The new season starts in ${Math.floor(daysUntilStart)} days.` : "The new season starts in 1 day."}`,
 			);
 		}
 	}
 
 	const eventData = dailyGuidesEventData(today, locale);
 	footerText.push(...eventData.eventEndText);
-	iconURL ??= eventData.iconURL;
-
-	if (footerText.length > 0) {
-		const footer: APIEmbedFooter = {
-			text: footerText.join("\n"),
-		};
-
-		if (iconURL) {
-			footer.icon_url = iconURL;
-		}
-
-		embed.footer = footer;
-	}
 
 	if (eventData.eventTickets) {
-		fields.push(eventData.eventTickets);
-	}
-
-	fields.push(...dailyGuidesShardEruptionData(locale));
-
-	if (travellingRock) {
-		fields.push({
-			name: "Travelling Rock",
-			value: `[View](${String(new URL(`daily_guides/travelling_rocks/${travellingRock}.webp`, CDN_URL))})`,
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `### ${t("event-tickets", { lng: locale, ns: "general" })}\n${eventData.eventTickets}`,
 		});
 	}
 
-	embed.fields = fields;
-	return embed;
+	const shard = shardEruption();
+
+	if (shard) {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `### ${t("shard-eruption", { lng: locale, ns: "general" })}\n${shardEruptionInformationString(shard, true, locale)}\n${shardEruptionTimestampsString(shard)}`,
+		});
+	} else {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `### ${t("shard-eruption", { lng: locale, ns: "general" })}\n${t("shard-eruption-none", { lng: locale, ns: "general" })}`,
+		});
+	}
+
+	if (travellingRock) {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `### Travelling Rock\n[View](${String(new URL(`daily_guides/travelling_rocks/${travellingRock}.webp`, CDN_URL))})`,
+		});
+	}
+
+	if (footerText.length > 0) {
+		containerComponents.push(
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.TextDisplay,
+				content: footerText.map((text) => `-# ${text}`).join("\n"),
+			},
+		);
+	}
+
+	return [
+		{
+			type: ComponentType.Container,
+			accent_color: DEFAULT_EMBED_COLOUR,
+			components: containerComponents,
+		},
+	];
 }
 
 export async function distribute() {

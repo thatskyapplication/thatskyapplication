@@ -1,9 +1,11 @@
 import {
 	type APIChatInputApplicationCommandInteraction,
+	type APIComponentInContainer,
 	type APIEmbed,
-	type APIEmbedFooter,
+	ComponentType,
 	Locale,
 	MessageFlags,
+	SeparatorSpacingSize,
 } from "@discordjs/core";
 import {
 	type Event,
@@ -97,49 +99,52 @@ export async function ascendedCandles(
 	}
 
 	const timestamp = day.toUnixInteger();
-	let minimumTimeText: string;
-
-	if (eyeOfEden && shardEruptions) {
-		minimumTimeText = t("calculate.ascended-candles.minimum-time-eye-of-eden-and-shard-eruptions", {
-			lng: Locale.EnglishGB,
-			ns: "commands",
-		});
-	} else if (eyeOfEden) {
-		minimumTimeText = t("calculate.ascended-candles.minimum-time-eye-of-eden", {
-			lng: Locale.EnglishGB,
-			ns: "commands",
-		});
-	} else {
-		minimumTimeText = t("calculate.ascended-candles.minimum-time-shard-eruptions", {
-			lng: Locale.EnglishGB,
-			ns: "commands",
-		});
-	}
 
 	await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
-		embeds: [
+		components: [
 			{
-				color: DEFAULT_EMBED_COLOUR,
-				description: `Start: ${resolveCurrencyEmoji({
-					emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-					number: start,
-				})}\nGoal: ${resolveCurrencyEmoji({
-					emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-					number: goal,
-				})}\nRequired: ${resolveCurrencyEmoji({
-					emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-					number: amountRequired,
-				})}`,
-				fields: [
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: [
 					{
-						name: "Result",
-						value: `This goal is first achievable at <t:${timestamp}:D> (<t:${timestamp}:R>).`,
+						type: ComponentType.TextDisplay,
+						content: "## Ascended Candle Calculator",
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `Start: ${resolveCurrencyEmoji({
+							emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+							number: start,
+						})}\nGoal: ${resolveCurrencyEmoji({
+							emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+							number: goal,
+						})}\nRequired: ${resolveCurrencyEmoji({
+							emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+							number: amountRequired,
+						})}`,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `This goal is first achievable at <t:${timestamp}:D> (<t:${timestamp}:R>).`,
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `${t("calculate.ascended-candles.minimum-time-beginning", { lng: Locale.EnglishGB, ns: "commands" })}\n${eyeOfEden ? formatEmoji(MISCELLANEOUS_EMOJIS.Yes) : formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${t("calculate.ascended-candles.minimum-time-eye-of-eden", { lng: Locale.EnglishGB, ns: "commands" })}\n${shardEruptions ? formatEmoji(MISCELLANEOUS_EMOJIS.Yes) : formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${t("calculate.ascended-candles.minimum-time-shard-eruptions", { lng: Locale.EnglishGB, ns: "commands" })}`,
 					},
 				],
-				footer: { text: minimumTimeText },
-				title: "Ascended Candle Calculator",
 			},
 		],
+		flags: MessageFlags.IsComponentsV2,
 	});
 }
 
@@ -219,38 +224,52 @@ export async function eventTickets(
 		return `${eventTicketEmoji ? formatEmoji(eventTicketEmoji) : `${t(`events.${event.id}`, { lng: locale, ns: "general" })}: `} A total of ${dailyRemaining} remains daily.${pool ? ` There is currently a pool of ${pool.amount}!` : ""}`;
 	});
 
-	const embed: APIEmbed = {
-		color: DEFAULT_EMBED_COLOUR,
-		description: `Start: ${startEmojis}\nGoal: ${goalEmojis}\nRequired: ${amountRequiredEmojis}`,
-		fields: [{ name: "Result", value: result.join("\n") }],
-		title: "Event Ticket Calculator",
-	};
-
-	const footer: APIEmbedFooter = {
-		text: events
-			.map(({ id, end }) =>
-				t("days-left.event", {
-					lng: locale,
-					ns: "general",
-					count: Math.ceil(end.diff(now, "days").days) - 1,
-					name: t(`events.${id}`, { lng: locale, ns: "general" }),
-				}),
-			)
-			.join("\n"),
-	};
-
-	const event1 = events.first();
-
-	if (event1 && events.size === 1) {
-		const eventTicketEmoji = EventIdToEventTicketEmoji[event1.id];
-
-		if (eventTicketEmoji) {
-			footer.icon_url = formatEmojiURL(eventTicketEmoji.id);
-		}
-	}
-
-	embed.footer = footer;
-	await client.api.interactions.reply(interaction.id, interaction.token, { embeds: [embed] });
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: "## Event Ticket Calculator",
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `Start: ${startEmojis}\nGoal: ${goalEmojis}\nRequired: ${amountRequiredEmojis}`,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: result.join("\n"),
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: events
+							.map(({ id, end }) =>
+								t("days-left.event", {
+									lng: locale,
+									ns: "general",
+									count: Math.ceil(end.diff(now, "days").days) - 1,
+									name: t(`events.${id}`, { lng: locale, ns: "general" }),
+								}),
+							)
+							.join("\n"),
+					},
+				],
+			},
+		],
+		flags: MessageFlags.IsComponentsV2,
+	});
 }
 
 export async function seasonalCandles(
@@ -272,9 +291,17 @@ export async function seasonalCandles(
 
 	const today = skyToday();
 	const season = skyCurrentSeason(today);
-	const emoji = season
-		? SeasonIdToSeasonalCandleEmoji[season.id]
-		: MISCELLANEOUS_EMOJIS.SeasonalCandle;
+
+	if (!season) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: t("calculate.seasonal-candles.no-season", { lng: locale, ns: "commands" }),
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	const emoji = SeasonIdToSeasonalCandleEmoji[season.id];
 	const amountRequired = goal - start;
 	let result = 0;
 	let days = 0;
@@ -297,86 +324,82 @@ export async function seasonalCandles(
 		}
 	}
 
-	const embed: APIEmbed = {
-		color: DEFAULT_EMBED_COLOUR,
-		description: `${t("calculate.seasonal-candles.start", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji(
-			{
-				emoji,
-				number: start,
-			},
-		)}\n${t("calculate.seasonal-candles.goal", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji(
-			{
-				emoji,
-				number: goal,
-			},
-		)}\n${t("calculate.seasonal-candles.required", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji(
-			{
-				emoji,
-				number: amountRequired,
-			},
-		)}`,
-		title: t("calculate.seasonal-candles.seasonal-candle-calculator", {
-			lng: locale,
-			ns: "commands",
-		}),
-	};
+	const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
+		season.remainingSeasonalCandles(today);
 
-	const fields = [
+	const containerComponents: APIComponentInContainer[] = [
 		{
-			name: t("calculate.seasonal-candles.result", { lng: locale, ns: "commands" }),
-			value: `${t("calculate.seasonal-candles.day", { lng: locale, ns: "commands", count: days })}${
-				days === daysWithSeasonPass
-					? ""
-					: ` ${t("calculate.seasonal-candles.day-season-pass", {
-							lng: locale,
-							ns: "commands",
-							count: daysWithSeasonPass,
-						})}`
-			}`,
+			type: ComponentType.TextDisplay,
+			content: `## ${t("calculate.seasonal-candles.seasonal-candle-calculator", { lng: locale, ns: "commands" })}`,
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Thumbnail,
+				media: {
+					url: formatEmojiURL(SeasonIdToSeasonalEmoji[season.id].id),
+				},
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `${t("calculate.seasonal-candles.start", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji({ emoji, number: start })}\n${t("calculate.seasonal-candles.goal", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji({ emoji, number: goal })}\n${t("calculate.seasonal-candles.required", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji({ emoji, number: amountRequired })}`,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: `${t("calculate.seasonal-candles.day", { lng: locale, ns: "commands", count: days })}${days === daysWithSeasonPass ? "" : ` ${t("calculate.seasonal-candles.day-season-pass", { lng: locale, ns: "commands", count: daysWithSeasonPass })}`}`,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: `${resolveCurrencyEmoji({
+						emoji,
+						number: seasonalCandlesLeft,
+					})} ${t("calculate.seasonal-candles.remain-in-the-season", { lng: locale, ns: "commands" })}\n${resolveCurrencyEmoji(
+						{
+							emoji,
+							number: seasonalCandlesLeftWithSeasonPass,
+						},
+					)} ${t("calculate.seasonal-candles.remain-in-the-season-with-a-season-pass", { lng: locale, ns: "commands" })}`,
+				},
+			],
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
 		},
 	];
 
-	if (season) {
-		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
-			season.remainingSeasonalCandles(today);
-
-		fields.push({
-			name: t("calculate.seasonal-candles.season-calculations", { lng: locale, ns: "commands" }),
-			value: `${resolveCurrencyEmoji({
-				emoji,
-				number: seasonalCandlesLeft,
-			})} ${t("calculate.seasonal-candles.remain-in-the-season", { lng: locale, ns: "commands" })}\n${resolveCurrencyEmoji(
-				{
-					emoji,
-					number: seasonalCandlesLeftWithSeasonPass,
-				},
-			)} ${t("calculate.seasonal-candles.remain-in-the-season-with-a-season-pass", { lng: locale, ns: "commands" })}`,
-		});
-
-		const daysLeft = t("days-left.season", {
-			lng: locale,
-			ns: "general",
-			count: season.end.diff(today, "days").days - 1,
-		});
-
-		embed.footer = {
-			icon_url: formatEmojiURL(SeasonIdToSeasonalEmoji[season.id].id),
-			text: daysLeft,
-		};
-	}
-
 	if (includedDoubleLight) {
-		fields.push({
-			name: t("calculate.seasonal-candles.notes", { lng: locale, ns: "commands" }),
-			value: `${t("calculate.seasonal-candles.double-seasonal-light-calculation", {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `${t("calculate.seasonal-candles.double-seasonal-light-calculation", {
 				lng: locale,
 				ns: "commands",
 			})}\n<t:${season!.doubleSeasonalLightEventStartDate!.toUnixInteger()}:d> - <t:${season!.doubleSeasonalLightEventEndDate!.toUnixInteger()}:d>`,
 		});
 	}
 
-	embed.fields = fields;
-	await client.api.interactions.reply(interaction.id, interaction.token, { embeds: [embed] });
+	containerComponents.push({
+		type: ComponentType.TextDisplay,
+		content: `${t("days-left.season", { lng: locale, ns: "general", count: season.end.diff(today, "days").days - 1 })}`,
+	});
+
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: containerComponents,
+			},
+		],
+		flags: MessageFlags.IsComponentsV2,
+	});
 }
 
 export async function wingedLight(

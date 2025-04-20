@@ -339,6 +339,8 @@ export default {
 				"Meet up with Ascetic Monk in Prairie Peaks",
 			[DailyQuest.MeetUpWithReassuringRangerInPrairiePeaks]:
 				"Meet up with Reassuring Ranger in Prairie Peaks",
+			[DailyQuest.MeetUpWithBlushingProspectorInValleyOfTriumph]:
+				"Meet up with Blushing Prospector in Valley of Triumph",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
@@ -1280,12 +1282,9 @@ export default {
 				"command-option-shard-eruptions-name": "shard-eruptions",
 				"command-option-shard-eruptions-description":
 					"Whether to include shard eruptions in the calculation.",
-				"minimum-time-eye-of-eden-and-shard-eruptions":
-					"Minimum time derived by assuming all statues in the Eye of Eden were gifted winged light and all shard eruptions were cleansed.",
-				"minimum-time-eye-of-eden":
-					"Minimum time derived by assuming all statues in the Eye of Eden were gifted winged light.",
-				"minimum-time-shard-eruptions":
-					"Minimum time derived by assuming all shard eruptions were cleansed.",
+				"minimum-time-beginning": "Minimum time derived by:",
+				"minimum-time-eye-of-eden": "Eye of Eden statues",
+				"minimum-time-shard-eruptions": "Shard eruptions",
 			},
 			"event-tickets": {
 				"command-name": "event-tickets",
@@ -1305,19 +1304,17 @@ export default {
 				"command-option-goal-name": "goal",
 				"command-option-goal-description": "The desired number of seasonal candles.",
 				"goal-achieved": "You have already achieved your goal!",
+				"no-season": "There is no season right now.",
 				start: "Start",
 				goal: "Goal",
 				required: "Required",
-				result: "Result",
-				day_one: "{{count}} day",
-				day_other: "{{count}} days",
+				day_one: "Result: {{count}} day",
+				day_other: "Result: {{count}} days",
 				"day-season-pass_one": "({{count}} day with a Season Pass).",
 				"day-season-pass_other": "({{count}} days with a Season Pass).",
 				"seasonal-candle-calculator": "Seasonal Candle Calculator",
-				"season-calculations": "Season Calculations",
 				"remain-in-the-season": "remain in the season.",
 				"remain-in-the-season-with-a-season-pass": "remain in the season with a Season Pass.",
-				notes: "Notes",
 				"double-seasonal-light-calculation": "Double Seasonal Light event included in calculation.",
 			},
 			"winged-light": {
@@ -1500,7 +1497,7 @@ export default {
 			"travelling-spirit-none": "None",
 			"travelling-spirit-next-visit": "Next visit at",
 			"dreams-skater-days": "On Friday, Saturday, and Sunday",
-			"first-of-month": "_On the first of every month_",
+			"first-of-month": "On the first of every month",
 			"deer-0": "Appears",
 			"deer-120": "Walks",
 			"deer-600": "Mantas and jellyfish appear",

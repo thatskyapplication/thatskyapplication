@@ -2,6 +2,7 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIInteractionDataResolvedGuildMember,
 	type APIUser,
+	ComponentType,
 	Locale,
 	MessageFlags,
 	PermissionFlagsBits,
@@ -75,16 +76,33 @@ export async function krill(
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
 		allowed_mentions: { users: [user.id] },
-		content: `<@${user.id}> has been krilled by <@${invoker.id}>!`,
-		embeds: [
+		components: [
 			{
-				color: DEFAULT_EMBED_COLOUR,
-				image: {
-					url: String(
-						new URL(`krills/${Math.floor(Math.random() * MAXIMUM_KRILL_GIF + 1)}.gif`, CDN_URL),
-					),
-				},
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `<@${user.id}> has been krilled by <@${invoker.id}>!`,
+					},
+					{
+						type: ComponentType.MediaGallery,
+						items: [
+							{
+								media: {
+									url: String(
+										new URL(
+											`krills/${Math.floor(Math.random() * MAXIMUM_KRILL_GIF + 1)}.gif`,
+											CDN_URL,
+										),
+									),
+								},
+							},
+						],
+					},
+				],
 			},
 		],
+		flags: MessageFlags.IsComponentsV2,
 	});
 }

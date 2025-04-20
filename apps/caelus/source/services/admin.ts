@@ -21,10 +21,7 @@ import Configuration from "../models/Configuration.js";
 import type { QuestNumber } from "../models/DailyGuides.js";
 import DailyGuides from "../models/DailyGuides.js";
 import S3Client from "../s3-client.js";
-import {
-	distribute as distributeDailyGuides,
-	distributionEmbed,
-} from "../services/daily-guides.js";
+import { distribute as distributeDailyGuides, distributionData } from "../services/daily-guides.js";
 import {
 	APPLICATION_ID,
 	CDN_BUCKET,
@@ -36,9 +33,8 @@ import {
 	QUEST_NUMBER,
 	QUEST_OPTIONS,
 } from "../utility/constants.js";
-import { isChatInputCommand, userLogFormat } from "../utility/functions.js";
+import { isChatInputCommand } from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
-import { log } from "./log.js";
 
 function isQuestNumber(questNumber: number): questNumber is QuestNumber {
 	return QUEST_NUMBER.includes(questNumber as QuestNumber);
@@ -84,12 +80,11 @@ export async function interactive(
 		| APIModalSubmitGuildInteraction,
 	options?: InteractiveOptions,
 ) {
-	const resolvedContent = options?.content ?? "";
 	const resolvedLocale = options?.locale ?? interaction.locale;
 
 	const response: APIInteractionResponseCallbackData = {
-		content: resolvedContent,
 		components: [
+			...distributionData(resolvedLocale),
 			{
 				type: ComponentType.ActionRow,
 				components: [
@@ -128,8 +123,7 @@ export async function interactive(
 				],
 			},
 		],
-		embeds: [distributionEmbed(resolvedLocale)],
-		flags: MessageFlags.Ephemeral,
+		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 	};
 
 	if (options?.deferred) {
@@ -147,13 +141,7 @@ export async function distribute(
 	const { locale } = interaction;
 	await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
 	await distributeDailyGuides();
-
-	void log({
-		content: `${userLogFormat(interaction.member.user)} manually distributed the daily guides.`,
-		embeds: [distributionEmbed(locale)],
-	});
-
-	await interactive(interaction, { content: "Distributed daily guides.", deferred: true, locale });
+	await interactive(interaction, { deferred: true, locale });
 }
 
 export async function setQuest(
@@ -192,8 +180,6 @@ export async function setQuest(
 		options.getString("url-4") ??
 		(quest4 !== undefined && isDailyQuest(quest4) ? DailyQuestToInfographicURL[quest4] : null);
 
-	const previousEmbed = distributionEmbed(locale);
-
 	await DailyGuides.updateQuests({
 		quest1: quest1 !== undefined ? { id: quest1, url: url1 } : null,
 		quest2: quest2 !== undefined ? { id: quest2, url: url2 } : null,
@@ -201,15 +187,7 @@ export async function setQuest(
 		quest4: quest4 !== undefined ? { id: quest4, url: url4 } : null,
 	});
 
-	void log({
-		content: `${userLogFormat(interaction.member.user)} manually updated the daily quests.`,
-		embeds: [previousEmbed, distributionEmbed(locale)],
-	});
-
-	await interactive(interaction, {
-		content: "Successfully updated the daily quests.",
-		locale,
-	});
+	await interactive(interaction, { locale });
 }
 
 export async function questSwap(
@@ -238,22 +216,12 @@ export async function questSwap(
 		return;
 	}
 
-	const previousEmbed = distributionEmbed(locale);
-
 	await DailyGuides.updateQuests({
 		[`quest${quest1}`]: DailyGuides[`quest${quest2}`],
 		[`quest${quest2}`]: DailyGuides[`quest${quest1}`],
 	});
 
-	void log({
-		content: `${userLogFormat(interaction.member.user)} manually swapped quests ${quest1} & ${quest2}.`,
-		embeds: [previousEmbed, distributionEmbed(locale)],
-	});
-
-	await interactive(interaction, {
-		content: `Successfully swapped quests ${quest1} & ${quest2}.`,
-		locale,
-	});
+	await interactive(interaction, { locale });
 }
 
 export async function setTravellingRock(
@@ -284,17 +252,7 @@ export async function setTravellingRock(
 		}),
 	);
 
-	const previousEmbed = distributionEmbed(locale);
 	await DailyGuides.updateTravellingRock(hashedBuffer);
 
-	void log({
-		content: `${userLogFormat(interaction.member.user)} manually updated the travelling rock.`,
-		embeds: [previousEmbed, distributionEmbed(locale)],
-	});
-
-	await interactive(interaction, {
-		content: "Successfully updated the travelling rock.",
-		deferred: true,
-		locale,
-	});
+	await interactive(interaction, { deferred: true, locale });
 }

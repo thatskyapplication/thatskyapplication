@@ -1,4 +1,4 @@
-import type { APIEmbed, Locale } from "@discordjs/core";
+import { type APIMessageTopLevelComponent, ComponentType, type Locale } from "@discordjs/core";
 import { DAILY_QUEST_VALUES, type DailyQuests } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { DEFAULT_EMBED_COLOUR, DailyQuestToInfographicURL } from "../utility/constants.js";
@@ -18,19 +18,25 @@ export function questAutocomplete(focused: string, locale: Locale) {
 				.slice(0, 25);
 }
 
-export function questEmbed(quest: DailyQuests, locale: Locale) {
+export function questResponse(quest: DailyQuests, locale: Locale): [APIMessageTopLevelComponent] {
 	const url = DailyQuestToInfographicURL[quest];
 
-	const embed: APIEmbed = {
-		title: t(`quests.${quest}`, { lng: locale, ns: "general" }),
-		color: DEFAULT_EMBED_COLOUR,
-	};
-
-	if (url) {
-		embed.image = { url };
-	} else {
-		embed.description = "This quest does not have an infographic.";
-	}
-
-	return embed;
+	return [
+		{
+			type: ComponentType.Container,
+			accent_color: DEFAULT_EMBED_COLOUR,
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `### ${t(`quests.${quest}`, { lng: locale, ns: "general" })}`,
+				},
+				url
+					? { type: ComponentType.MediaGallery, items: [{ media: { url } }] }
+					: {
+							type: ComponentType.TextDisplay,
+							content: "This quest does not have an infographic.",
+						},
+			],
+		},
+	];
 }

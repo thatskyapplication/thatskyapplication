@@ -8,6 +8,8 @@ import {
 	GatewayDispatchEvents,
 	InteractionType,
 	type Locale,
+	MessageFlags,
+	PermissionFlagsBits,
 	RESTJSONErrorCodes,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
@@ -90,13 +92,13 @@ import {
 import { history } from "../services/heart.js";
 import { finaliseSetup } from "../services/notification.js";
 import { browse, today } from "../services/shard-eruption.js";
-import { parseSpiritSwitch } from "../services/spirit.js";
 import {
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
 	DATA_DELETION_CUSTOM_ID,
 	ERROR_RESPONSE,
+	ERROR_RESPONSE_COMPONENTS_V2,
 	GUESS_ANSWER_1,
 	GUESS_ANSWER_2,
 	GUESS_ANSWER_3,
@@ -131,10 +133,41 @@ import {
 	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
 	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
 } from "../utility/shard-eruption.js";
-import { SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID } from "../utility/spirits.js";
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.InteractionCreate;
+
+async function isNotComponentsV2(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+) {
+	if (
+		interaction.message.flags &&
+		(interaction.message.flags & MessageFlags.IsComponentsV2) === MessageFlags.IsComponentsV2
+	) {
+		return false;
+	}
+
+	const promises = [];
+
+	if (
+		(BigInt(interaction.app_permissions) & PermissionFlagsBits.ViewChannel) ===
+		PermissionFlagsBits.ViewChannel
+	) {
+		promises.push(
+			client.api.channels.deleteMessage(interaction.channel.id, interaction.message.id),
+		);
+	}
+
+	promises.push(
+		client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "This response is too old. Use the command again!",
+			flags: MessageFlags.Ephemeral,
+		}),
+	);
+
+	await Promise.all(promises);
+	return true;
+}
 
 async function recoverInteractionError(interaction: APIInteraction, error: unknown) {
 	const invoker = interactionInvoker(interaction);
@@ -247,7 +280,11 @@ export default {
 
 			if (!command) {
 				pino.warn(interaction, "Received an unknown chat input command interaction.");
-				await api.interactions.reply(interaction.id, interaction.token, ERROR_RESPONSE);
+				await api.interactions.reply(
+					interaction.id,
+					interaction.token,
+					ERROR_RESPONSE_COMPONENTS_V2,
+				);
 				return;
 			}
 
@@ -266,7 +303,11 @@ export default {
 
 			if (!command) {
 				pino.warn(interaction, "Received an unknown user context menu command interaction.");
-				await api.interactions.reply(interaction.id, interaction.token, ERROR_RESPONSE);
+				await api.interactions.reply(
+					interaction.id,
+					interaction.token,
+					ERROR_RESPONSE_COMPONENTS_V2,
+				);
 				return;
 			}
 
@@ -390,12 +431,19 @@ export default {
 					customId.startsWith(SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID) ||
 					customId.startsWith(SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID)
 				) {
-					await today(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
+					if (await isNotComponentsV2(interaction)) {
+						return;
+					}
 
+					await today(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
 					return;
 				}
 
 				if (customId === SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID) {
+					if (await isNotComponentsV2(interaction)) {
+						return;
+					}
+
 					await browse(interaction);
 					return;
 				}
@@ -405,8 +453,11 @@ export default {
 					customId.startsWith(SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID) ||
 					customId.startsWith(SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID)
 				) {
-					await browse(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
+					if (await isNotComponentsV2(interaction)) {
+						return;
+					}
 
+					await browse(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
 					return;
 				}
 
@@ -486,11 +537,6 @@ export default {
 					return;
 				}
 
-				if (customId.startsWith(SPIRIT_SEASONAL_FRIENDSHIP_TREE_BUTTON_CUSTOM_ID)) {
-					await parseSpiritSwitch(interaction);
-					return;
-				}
-
 				if (
 					customId.startsWith(GUESS_ANSWER_1) ||
 					customId.startsWith(GUESS_ANSWER_2) ||
@@ -501,11 +547,19 @@ export default {
 				}
 
 				if (customId.startsWith(GUESS_END_GAME)) {
+					if (await isNotComponentsV2(interaction)) {
+						return;
+					}
+
 					await parseEndGame(interaction);
 					return;
 				}
 
 				if (customId.startsWith(GUESS_TRY_AGAIN)) {
+					if (await isNotComponentsV2(interaction)) {
+						return;
+					}
+
 					await tryAgain(interaction);
 					return;
 				}
@@ -514,6 +568,10 @@ export default {
 					customId.startsWith(GUESS_LEADERBOARD_BACK_CUSTOM_ID) ||
 					customId.startsWith(GUESS_LEADERBOARD_NEXT_CUSTOM_ID)
 				) {
+					if (await isNotComponentsV2(interaction)) {
+						return;
+					}
+
 					const guessDifficultyLevel = Number(
 						customId.slice(customId.indexOf("§") + 1, customId.lastIndexOf("§")),
 					);
@@ -525,7 +583,7 @@ export default {
 				}
 
 				if (isGuildButton(interaction)) {
-					if (customId === CATALOGUE_SHARE_SEND_CUSTOM_ID) {
+					if (customId.startsWith(CATALOGUE_SHARE_SEND_CUSTOM_ID)) {
 						await Catalogue.shareSend(interaction);
 						return;
 					}
@@ -541,7 +599,15 @@ export default {
 			}
 
 			pino.warn(interaction, "Received an unknown button interaction.");
-			await api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
+
+			await api.interactions.updateMessage(
+				interaction.id,
+				interaction.token,
+				interaction.message.flags && (interaction.message.flags & MessageFlags.IsComponentsV2) === 0
+					? ERROR_RESPONSE
+					: ERROR_RESPONSE_COMPONENTS_V2,
+			);
+
 			return;
 		}
 
@@ -606,6 +672,10 @@ export default {
 						customId as (typeof SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS)[number],
 					)
 				) {
+					if (await isNotComponentsV2(interaction)) {
+						return;
+					}
+
 					await today(interaction, Number(value0));
 					return;
 				}
@@ -675,7 +745,15 @@ export default {
 			}
 
 			pino.warn(interaction, "Received an unknown select menu interaction.");
-			await api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
+
+			await api.interactions.updateMessage(
+				interaction.id,
+				interaction.token,
+				interaction.message.flags && (interaction.message.flags & MessageFlags.IsComponentsV2) === 0
+					? ERROR_RESPONSE
+					: ERROR_RESPONSE_COMPONENTS_V2,
+			);
+
 			return;
 		}
 
@@ -735,7 +813,7 @@ export default {
 			}
 
 			pino.warn(interaction, "Received an unknown modal interaction.");
-			await api.interactions.reply(interaction.id, interaction.token, ERROR_RESPONSE);
+			await api.interactions.reply(interaction.id, interaction.token, ERROR_RESPONSE_COMPONENTS_V2);
 		}
 	},
 } satisfies Event<typeof name>;

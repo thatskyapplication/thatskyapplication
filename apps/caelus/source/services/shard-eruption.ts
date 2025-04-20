@@ -2,17 +2,18 @@ import {
 	type APIActionRowComponent,
 	type APIButtonComponentWithCustomId,
 	type APIChatInputApplicationCommandInteraction,
-	type APIEmbed,
+	type APIComponentInContainer,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentInteraction,
 	type APIMessageComponentSelectMenuInteraction,
+	type APIMessageTopLevelComponent,
 	type APISelectMenuComponent,
 	type APISelectMenuOption,
 	ButtonStyle,
 	ComponentType,
-	type InteractionsAPI,
 	Locale,
 	MessageFlags,
+	SeparatorSpacingSize,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { TIME_ZONE, shardEruption, skyNow, skyToday } from "@thatskyapplication/utility";
@@ -37,7 +38,7 @@ import {
 	shardEruptionTimestampsString,
 } from "../utility/shard-eruption.js";
 
-async function generateShardEruptionSelectMenuOptions(
+function generateShardEruptionSelectMenuOptions(
 	date: DateTime,
 	indexStart: number,
 	offset: number,
@@ -50,7 +51,7 @@ async function generateShardEruptionSelectMenuOptions(
 	const dateStyle = locale === Locale.Thai ? "long" : "full";
 
 	for (let index = indexStart; index < maximumIndex; index++) {
-		const shardNow = await shardEruption(index + offset);
+		const shardNow = shardEruption(index + offset);
 
 		const dateString = Intl.DateTimeFormat(locale, {
 			timeZone: TIME_ZONE,
@@ -76,6 +77,8 @@ async function generateShardEruptionSelectMenuOptions(
 
 async function hasExpired(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentInteraction,
+	fromToday: boolean,
+	offset: number,
 ) {
 	const today = skyToday();
 
@@ -84,29 +87,23 @@ async function hasExpired(
 	}
 
 	const { message } = interaction;
+
 	const expiresAt = DateTime.fromMillis(DiscordSnowflake.timestampFrom(message.id), {
 		zone: TIME_ZONE,
 	}).endOf("day");
 
 	if (today > expiresAt) {
-		const hasEmbeds = message.embeds.length > 0;
-		const expiryMessage = "This command has expired. Run it again!";
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+			components: fromToday
+				? todayData(interaction.locale, offset, false)
+				: browseData(interaction.locale, offset, false),
+			flags: MessageFlags.IsComponentsV2,
+		});
 
-		if (hasEmbeds) {
-			await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-				components: [],
-			});
-
-			await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
-				content: expiryMessage,
-				flags: MessageFlags.Ephemeral,
-			});
-		} else {
-			await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-				components: [],
-				content: expiryMessage,
-			});
-		}
+		await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
+			content: "This command has expired. Run it again!",
+			flags: MessageFlags.Ephemeral,
+		});
 
 		return true;
 	}
@@ -121,38 +118,37 @@ export async function today(
 		| APIMessageComponentSelectMenuInteraction,
 	offset = 0,
 ) {
-	if (await hasExpired(interaction)) {
+	if (await hasExpired(interaction, true, offset)) {
 		return;
 	}
 
-	const response = todayEmbed(interaction.locale, offset);
+	const components = todayData(interaction.locale, offset);
 
 	if (isChatInputCommand(interaction)) {
-		await client.api.interactions.reply(interaction.id, interaction.token, response);
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			components,
+			flags: MessageFlags.IsComponentsV2,
+		});
 	} else {
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, { components });
 	}
 }
 
-export function todayEmbed(locale: Locale, offset = 0) {
+export function todayData(
+	locale: Locale,
+	offset = 0,
+	navigation = true,
+): [APIMessageTopLevelComponent] {
 	const shardYesterday = shardEruption(offset - 1);
 	const shardToday = shardEruption(offset);
 	const shard = shardEruption();
 	const shardTomorrow = shardEruption(offset + 1);
 
-	const embed: APIEmbed = {
-		color: DEFAULT_EMBED_COLOUR,
-		title: Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(
-			skyNow().plus({ days: offset }).toMillis(),
-		),
-		url: SHARD_ERUPTION_URL,
-	};
-
 	const buttonYesterday: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		custom_id: `${SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID}§${offset - 1}`,
 		label: t("back", { lng: locale, ns: "general" }),
-		style: ButtonStyle.Primary,
+		style: ButtonStyle.Secondary,
 	};
 
 	const button: APIButtonComponentWithCustomId = {
@@ -160,37 +156,18 @@ export function todayEmbed(locale: Locale, offset = 0) {
 		custom_id: SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
 		disabled: offset === 0,
 		label: "Today",
-		style: ButtonStyle.Success,
+		style: ButtonStyle.Primary,
 	};
 
 	const buttonTomorrow: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		custom_id: `${SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID}§${offset + 1}`,
 		label: t("next", { lng: locale, ns: "general" }),
-		style: ButtonStyle.Primary,
+		style: ButtonStyle.Secondary,
 	};
 
 	if (shardYesterday) {
 		buttonYesterday.emoji = resolveShardEruptionEmoji(shardYesterday.strong);
-	}
-
-	if (shardToday) {
-		embed.fields = [
-			{
-				name: "Information",
-				value: shardEruptionInformationString(shardToday, false, locale),
-				inline: true,
-			},
-			{
-				name: "Timestamps",
-				value: shardEruptionTimestampsString(shardToday),
-				inline: true,
-			},
-		];
-
-		embed.image = { url: String(shardToday.url) };
-	} else {
-		embed.description = `There are no shard eruptions ${offset === 0 ? "today" : "on this day"}.`;
 	}
 
 	if (shard) {
@@ -201,81 +178,162 @@ export function todayEmbed(locale: Locale, offset = 0) {
 		buttonTomorrow.emoji = resolveShardEruptionEmoji(shardTomorrow.strong);
 	}
 
-	return {
-		components: [
+	const containerComponents: APIComponentInContainer[] = [
+		{
+			type: ComponentType.TextDisplay,
+			content: `## [${Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(skyNow().plus({ days: offset }).toMillis())}](${SHARD_ERUPTION_URL})`,
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+	];
+
+	if (shardToday) {
+		containerComponents.push(
 			{
-				type: ComponentType.ActionRow as const,
+				type: ComponentType.TextDisplay,
+				content: `${shardEruptionInformationString(shardToday, true, locale)}\n${shardEruptionTimestampsString(shardToday)}`,
+			},
+			{
+				type: ComponentType.MediaGallery,
+				items: [
+					{
+						media: {
+							url: shardToday.url,
+						},
+					},
+				],
+			},
+		);
+	} else {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `There are no shard eruptions ${offset === 0 ? "today" : "on this day"}.`,
+		});
+	}
+
+	if (navigation) {
+		containerComponents.push(
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.ActionRow,
 				components: [
 					buttonYesterday,
 					button,
 					buttonTomorrow,
 					{
-						type: ComponentType.Button as const,
+						type: ComponentType.Button,
 						custom_id: `${SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID}§${offset}`,
 						emoji: { name: "🌐" },
 						label: "Browse",
-						style: ButtonStyle.Secondary as const,
+						style: ButtonStyle.Secondary,
 					},
 				],
 			},
-		],
-		embeds: [embed],
-	};
+		);
+	}
+
+	return [
+		{
+			type: ComponentType.Container,
+			accent_color: DEFAULT_EMBED_COLOUR,
+			components: containerComponents,
+		},
+	];
 }
 
 export async function browse(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 	offset = 0,
 ) {
-	if (await hasExpired(interaction)) {
+	if (await hasExpired(interaction, false, offset)) {
 		return;
 	}
 
 	const { locale } = interaction;
+	const components = browseData(locale, offset, false);
+
+	if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			components,
+			flags: MessageFlags.IsComponentsV2,
+		});
+	} else {
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, { components });
+	}
+}
+
+export function browseData(
+	locale: Locale,
+	offset = 0,
+	navigation = true,
+): [APIMessageTopLevelComponent] {
 	const shardToday = skyToday().plus({ days: offset });
 
-	const response:
-		| Parameters<InteractionsAPI["reply"]>[2]
-		| Parameters<InteractionsAPI["updateMessage"]>[2] = {
-		components: [
-			...(await Promise.all(
-				SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.map(
-					async (customId, index): Promise<APIActionRowComponent<APISelectMenuComponent>> => {
-						const currentIndex = MAXIMUM_OPTION_NUMBER * index;
+	const containerComponents: APIComponentInContainer[] = [
+		{
+			type: ComponentType.TextDisplay,
+			content: "## Shard Eruptions",
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content:
+				"You're currently browsing shard eruptions. Open the select menus to quickly see information over a great period of time. Select a date to view more information.",
+		},
+		...SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.map(
+			(customId, index): APIActionRowComponent<APISelectMenuComponent> => {
+				const currentIndex = MAXIMUM_OPTION_NUMBER * index;
 
-						const placeholderStartDate = Intl.DateTimeFormat(locale, {
-							timeZone: TIME_ZONE,
-							dateStyle: "short",
-						}).format(shardToday.plus({ days: currentIndex }).toMillis());
+				const placeholderStartDate = Intl.DateTimeFormat(locale, {
+					timeZone: TIME_ZONE,
+					dateStyle: "short",
+				}).format(shardToday.plus({ days: currentIndex }).toMillis());
 
-						const placeholderEndDate = Intl.DateTimeFormat(locale, {
-							timeZone: TIME_ZONE,
-							dateStyle: "short",
-						}).format(
-							shardToday.plus({ days: MAXIMUM_OPTION_NUMBER * (index + 1) - 1 }).toMillis(),
-						);
+				const placeholderEndDate = Intl.DateTimeFormat(locale, {
+					timeZone: TIME_ZONE,
+					dateStyle: "short",
+				}).format(shardToday.plus({ days: MAXIMUM_OPTION_NUMBER * (index + 1) - 1 }).toMillis());
 
-						return {
-							type: ComponentType.ActionRow,
-							components: [
-								{
-									type: ComponentType.StringSelect,
-									custom_id: customId,
-									max_values: 1,
-									min_values: 1,
-									options: await generateShardEruptionSelectMenuOptions(
-										shardToday,
-										currentIndex,
-										offset,
-										locale,
-									),
-									placeholder: `${placeholderStartDate} - ${placeholderEndDate}`,
-								},
-							],
-						};
-					},
-				),
-			)),
+				return {
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.StringSelect,
+							custom_id: customId,
+							max_values: 1,
+							min_values: 1,
+							options: generateShardEruptionSelectMenuOptions(
+								shardToday,
+								currentIndex,
+								offset,
+								locale,
+							),
+							placeholder: `${placeholderStartDate} - ${placeholderEndDate}`,
+						},
+					],
+				};
+			},
+		),
+	];
+
+	if (navigation) {
+		containerComponents.push(
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
 			{
 				type: ComponentType.ActionRow,
 				components: [
@@ -285,14 +343,14 @@ export async function browse(
 							offset - MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH
 						}`,
 						label: t("back", { lng: locale, ns: "general" }),
-						style: ButtonStyle.Primary,
+						style: ButtonStyle.Secondary,
 					},
 					{
 						type: ComponentType.Button,
 						custom_id: SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
 						disabled: offset === 0,
 						label: "Today",
-						style: ButtonStyle.Success,
+						style: ButtonStyle.Primary,
 					},
 					{
 						type: ComponentType.Button,
@@ -300,17 +358,18 @@ export async function browse(
 							offset + MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH
 						}`,
 						label: t("next", { lng: locale, ns: "general" }),
-						style: ButtonStyle.Primary,
+						style: ButtonStyle.Secondary,
 					},
 				],
 			},
-		],
-		embeds: [],
-	};
-
-	if (isChatInputCommand(interaction)) {
-		await client.api.interactions.reply(interaction.id, interaction.token, response);
-	} else {
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+		);
 	}
+
+	return [
+		{
+			type: ComponentType.Container,
+			accent_color: DEFAULT_EMBED_COLOUR,
+			components: containerComponents,
+		},
+	];
 }

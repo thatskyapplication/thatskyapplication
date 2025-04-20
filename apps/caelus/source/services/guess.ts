@@ -2,12 +2,14 @@ import type { Collection } from "@discordjs/collection";
 import {
 	type APIButtonComponentWithCustomId,
 	type APIChatInputApplicationCommandInteraction,
-	type APIEmbed,
+	type APIComponentInContainer,
+	type APIContainerComponent,
 	type APIMessageComponentButtonInteraction,
+	type APIMessageTopLevelComponent,
 	ButtonStyle,
 	ComponentType,
-	type InteractionsAPI,
 	MessageFlags,
+	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
@@ -36,7 +38,7 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
 	DEFAULT_EMBED_COLOUR,
-	ERROR_RESPONSE,
+	ERROR_RESPONSE_COMPONENTS_V2,
 	GUESS_ANSWER_1,
 	GUESS_ANSWER_2,
 	GUESS_ANSWER_3,
@@ -158,37 +160,64 @@ export async function guess(
 	const streakString = highestStreak[0]?.[GuessDifficultyToStreakColumn[difficulty]] ?? 0;
 
 	// Respond.
-	const response:
-		| Parameters<InteractionsAPI["reply"]>[2]
-		| Parameters<InteractionsAPI["updateMessage"]>[2] = {
-		components: [
-			{
-				type: ComponentType.ActionRow,
-				components: buttons,
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [endGameButton],
-			},
-		],
-		content: "",
-		embeds: [
-			{
-				color: DEFAULT_EMBED_COLOUR,
-				description: `Guess <t:${Math.floor(timeoutTimestamp / 1_000)}:R>!`,
-				footer: {
-					text: `Difficulty: ${difficultyString} | Streak: ${streak} | Highest: ${streakString}`,
+	const components: [APIMessageTopLevelComponent] = [
+		{
+			type: ComponentType.Container,
+			accent_color: DEFAULT_EMBED_COLOUR,
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: "## Where does this come from?",
 				},
-				image: { url: formatEmojiURL(emoji as `${bigint}`) },
-				title: "Where does this come from?",
-			},
-		],
-	};
+				{
+					type: ComponentType.Separator,
+					divider: true,
+					spacing: SeparatorSpacingSize.Small,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: `Guess <t:${Math.floor(timeoutTimestamp / 1_000)}:R>!`,
+				},
+				{
+					type: ComponentType.MediaGallery,
+					items: [
+						{
+							media: {
+								url: formatEmojiURL(emoji as `${bigint}`),
+								height: 64,
+								width: 64,
+							},
+						},
+					],
+				},
+				{
+					type: ComponentType.ActionRow,
+					components: buttons,
+				},
+				{
+					type: ComponentType.ActionRow,
+					components: [endGameButton],
+				},
+				{
+					type: ComponentType.Separator,
+					divider: true,
+					spacing: SeparatorSpacingSize.Small,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: `-# Difficulty: ${difficultyString} | Streak: ${streak} | Highest: ${streakString}`,
+				},
+			],
+		},
+	];
 
 	if (isChatInputCommand(interaction)) {
-		await client.api.interactions.reply(interaction.id, interaction.token, response);
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			components,
+			flags: MessageFlags.IsComponentsV2,
+		});
 	} else {
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, { components });
 	}
 }
 
@@ -223,21 +252,24 @@ export async function answer(interaction: APIMessageComponentButtonInteraction) 
 
 	if (!isGuessDifficultyLevel(parsedDifficulty)) {
 		pino.warn(interaction, `Invalid guessing game difficulty level: ${difficulty}`);
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
+		await client.api.interactions.updateMessage(
+			interaction.id,
+			interaction.token,
+			ERROR_RESPONSE_COMPONENTS_V2,
+		);
 		return;
 	}
 
 	if (Date.now() > parsedTimeoutTimestamp) {
 		await update(parsedDifficulty, invoker.id, parsedStreak);
 
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components: [
-				{
-					type: ComponentType.ActionRow,
-					components: [tryAgainComponent(parsedDifficulty)],
-				},
-			],
+		(interaction.message.components![0]! as APIContainerComponent).components.splice(2, 1, {
+			type: ComponentType.TextDisplay,
 			content: "Too late!",
+		});
+
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+			components: interaction.message.components,
 		});
 
 		return;
@@ -269,7 +301,11 @@ export async function parseEndGame(interaction: APIMessageComponentButtonInterac
 
 	if (!isGuessDifficultyLevel(difficulty)) {
 		pino.warn(interaction, `Invalid guessing game difficulty level: ${rawDifficulty}`);
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
+		await client.api.interactions.updateMessage(
+			interaction.id,
+			interaction.token,
+			ERROR_RESPONSE_COMPONENTS_V2,
+		);
 		return;
 	}
 
@@ -284,7 +320,7 @@ async function endGame(
 	difficulty: GuessDifficultyLevel,
 	streak: number,
 ) {
-	const { locale, message } = interaction;
+	const { locale } = interaction;
 	let description: string;
 
 	if (interaction.data.custom_id.startsWith(GUESS_END_GAME)) {
@@ -296,23 +332,21 @@ async function endGame(
 		})} ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`;
 	}
 
-	const embed = {
-		...message.embeds[0]!,
-		description,
-		title: t(`spirits.${answer}`, { lng: locale, ns: "general" }),
-	};
-
 	const invoker = interactionInvoker(interaction);
 	await update(difficulty, invoker.id, streak);
 
+	(interaction.message.components![0]! as APIContainerComponent).components.splice(2, 1, {
+		type: ComponentType.TextDisplay,
+		content: `### ${t(`spirits.${answer}`, { lng: locale, ns: "general" })}\n${description}`,
+	});
+
+	(interaction.message.components![0]! as APIContainerComponent).components.splice(4, 2, {
+		type: ComponentType.ActionRow,
+		components: [tryAgainComponent(difficulty)],
+	});
+
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-		components: [
-			{
-				type: ComponentType.ActionRow,
-				components: [tryAgainComponent(difficulty)],
-			},
-		],
-		embeds: [embed],
+		components: interaction.message.components,
 	});
 }
 
@@ -334,7 +368,11 @@ export async function tryAgain(interaction: APIMessageComponentButtonInteraction
 
 	if (!isGuessDifficultyLevel(difficulty)) {
 		pino.warn(interaction, `Invalid guessing game difficulty level: ${difficulty}`);
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, ERROR_RESPONSE);
+		await client.api.interactions.updateMessage(
+			interaction.id,
+			interaction.token,
+			ERROR_RESPONSE_COMPONENTS_V2,
+		);
 		return;
 	}
 
@@ -442,52 +480,78 @@ export async function leaderboard(
 		guessPacketsLeaderboard.pop();
 	}
 
-	const embed: APIEmbed = {
-		color: DEFAULT_EMBED_COLOUR,
-		description: guessPacketsLeaderboard
-			.map((row) => `${row.rank}. <@${row.user_id}>: ${row[column]}`)
-			.join("\n"),
-		title: `${GuessDifficultyLevelToName[difficulty]} Leaderboard`,
-	};
+	const containerComponents: APIComponentInContainer[] = [
+		{
+			type: ComponentType.TextDisplay,
+			content: `## ${GuessDifficultyLevelToName[difficulty]} Leaderboard`,
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: guessPacketsLeaderboard
+				.map((row) => `${row.rank}. <@${row.user_id}>: ${row[column]}`)
+				.join("\n"),
+		},
+	];
 
 	if (guessPacketInvoker) {
-		embed.footer = {
-			text: `You: #${guessPacketInvoker[`${column}_rank`]} (${guessPacketInvoker[column]})`,
-		};
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `-# You: #${guessPacketInvoker[`${column}_rank`]} (${guessPacketInvoker[column]})`,
+		});
 	}
 
-	const response:
-		| Parameters<InteractionsAPI["reply"]>[2]
-		| Parameters<InteractionsAPI["updateMessage"]>[2] = {
-		components: [
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.Button,
-						custom_id: `${GUESS_LEADERBOARD_BACK_CUSTOM_ID}§${difficulty}§${page - 1}`,
-						disabled: !hasPreviousPage,
-						emoji: { name: "⬅️" },
-						label: "Back",
-						style: ButtonStyle.Secondary,
-					},
-					{
-						type: ComponentType.Button,
-						custom_id: `${GUESS_LEADERBOARD_NEXT_CUSTOM_ID}§${difficulty}§${page + 1}`,
-						disabled: !hasNextPage,
-						emoji: { name: "➡️" },
-						label: "Next",
-						style: ButtonStyle.Secondary,
-					},
-				],
-			},
-		],
-		embeds: [embed],
-	};
+	containerComponents.push(
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					custom_id: `${GUESS_LEADERBOARD_BACK_CUSTOM_ID}§${difficulty}§${page - 1}`,
+					disabled: !hasPreviousPage,
+					emoji: { name: "⬅️" },
+					label: "Back",
+					style: ButtonStyle.Secondary,
+				},
+				{
+					type: ComponentType.Button,
+					custom_id: `${GUESS_LEADERBOARD_NEXT_CUSTOM_ID}§${difficulty}§${page + 1}`,
+					disabled: !hasNextPage,
+					emoji: { name: "➡️" },
+					label: "Next",
+					style: ButtonStyle.Secondary,
+				},
+			],
+		},
+	);
+
+	const components: [APIMessageTopLevelComponent] = [
+		{
+			type: ComponentType.Container,
+			accent_color: DEFAULT_EMBED_COLOUR,
+			components: containerComponents,
+		},
+	];
 
 	if (isChatInput) {
-		await client.api.interactions.reply(interaction.id, interaction.token, response);
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			allowed_mentions: { parse: [] },
+			components,
+			flags: MessageFlags.IsComponentsV2,
+		});
 	} else {
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+			allowed_mentions: { parse: [] },
+			components,
+		});
 	}
 }
