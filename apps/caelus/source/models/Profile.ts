@@ -4,7 +4,6 @@ import { DeleteObjectCommand, DeleteObjectsCommand, PutObjectCommand } from "@aw
 import {
 	type APIActionRowComponent,
 	type APIApplicationCommandAutocompleteInteraction,
-	type APIApplicationCommandInteractionDataStringOption,
 	type APIAttachment,
 	type APIButtonComponent,
 	type APIChatInputApplicationCommandInteraction,
@@ -95,7 +94,7 @@ import {
 	userLogFormat,
 } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
-import type { OptionResolver } from "../utility/option-resolver.js";
+import type { AutocompleteFocusedOption, OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import { Catalogue } from "./Catalogue.js";
 
@@ -878,9 +877,10 @@ export default class Profile {
 		}
 	}
 
-	public static async editCountryAutocomplete<
-		Interaction extends APIApplicationCommandAutocompleteInteraction,
-	>(interaction: Interaction, option: APIApplicationCommandInteractionDataStringOption) {
+	public static async editCountryAutocomplete(
+		interaction: APIApplicationCommandAutocompleteInteraction,
+		option: AutocompleteFocusedOption<ApplicationCommandOptionType.String>,
+	) {
 		const { locale } = interaction;
 		const value = option.value.toUpperCase();
 
