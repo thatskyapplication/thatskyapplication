@@ -417,6 +417,9 @@ export const BONKS = {
 	],
 } as const;
 
+// Catalogue.
+export const NO_SPIRITS_WITH_OFFER_TEXT = "There are no spirits that offer anything." as const;
+
 export const DailyQuestToInfographicURL = {
 	[DailyQuest.Collect30PiecesOfLight]: null,
 	[DailyQuest.Light20Candles]: null,

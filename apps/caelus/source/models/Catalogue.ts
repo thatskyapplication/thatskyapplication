@@ -70,7 +70,11 @@ import {
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	resolveCostToString,
 } from "../utility/catalogue.js";
-import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE_COMPONENTS_V2 } from "../utility/constants.js";
+import {
+	DEFAULT_EMBED_COLOUR,
+	ERROR_RESPONSE_COMPONENTS_V2,
+	NO_SPIRITS_WITH_OFFER_TEXT,
+} from "../utility/constants.js";
 import {
 	CosmeticToEmoji,
 	EventIdToEventTicketEmoji,
@@ -1043,14 +1047,14 @@ export class Catalogue {
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: catalogue.seasonText(season, locale) ?? "",
+						content: catalogue.seasonText(season, locale) ?? NO_SPIRITS_WITH_OFFER_TEXT,
 					},
 				],
 			});
 		} else {
 			containerComponents.push({
 				type: ComponentType.TextDisplay,
-				content: catalogue.seasonText(season, locale) ?? "",
+				content: catalogue.seasonText(season, locale) ?? NO_SPIRITS_WITH_OFFER_TEXT,
 			});
 		}
 
