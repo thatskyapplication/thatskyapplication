@@ -44,7 +44,6 @@ const SeasonIdToSeasonalHeartEmoji = {
 	[SeasonId.Duets]: SEASON_EMOJIS.DuetsHeart,
 	[SeasonId.Moomin]: SEASON_EMOJIS.MoominHeart,
 	[SeasonId.Radiance]: SEASON_EMOJIS.RadianceHeart,
-	// @ts-expect-error Season of the Blue Bird not yet added.
 	[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBirdHeart,
 } as const satisfies Readonly<
 	Record<Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>, Emoji>

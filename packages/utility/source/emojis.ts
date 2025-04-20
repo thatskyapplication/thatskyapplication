@@ -482,6 +482,9 @@ const SEASON_EMOJIS_PRODUCTION = {
 	Radiance: { id: "1330471315458621490", name: "radiance" },
 	RadianceCandle: { id: "1330471900178153482", name: "radiance_candle" },
 	RadianceHeart: { id: "1330471918305939537", name: "radiance_heart" },
+	BlueBird: { id: "1363537580578050400", name: "blue_bird" },
+	BlueBirdCandle: { id: "1363538105067503846", name: "blue_bird_candle" },
+	BlueBirdHeart: { id: "1363538304288690226", name: "blue_bird_heart" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SEASON_EMOJIS_DEVELOPMENT = {
@@ -555,6 +558,9 @@ const SEASON_EMOJIS_DEVELOPMENT = {
 	Radiance: { id: "1330471300128571402", name: "radiance" },
 	RadianceCandle: { id: "1330471914988113940", name: "radiance_candle" },
 	RadianceHeart: { id: "1330471926933487686", name: "radiance_heart" },
+	BlueBird: { id: "1363537620289847437", name: "blue_bird" },
+	BlueBirdCandle: { id: "1363538114949414963", name: "blue_bird_candle" },
+	BlueBirdHeart: { id: "1363538311402094813", name: "blue_bird_heart" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EVENT_EMOJIS_PRODUCTION = {
@@ -7423,7 +7429,6 @@ export function emojiConstants(production: boolean) {
 		[SeasonId.Duets]: SEASON_EMOJIS.DuetsCandle,
 		[SeasonId.Moomin]: SEASON_EMOJIS.MoominCandle,
 		[SeasonId.Radiance]: SEASON_EMOJIS.RadianceCandle,
-		// @ts-expect-error Not yet added.
 		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBirdCandle,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji>>;
 
@@ -7452,7 +7457,6 @@ export function emojiConstants(production: boolean) {
 		[SeasonId.Duets]: SEASON_EMOJIS.Duets,
 		[SeasonId.Moomin]: SEASON_EMOJIS.Moomin,
 		[SeasonId.Radiance]: SEASON_EMOJIS.Radiance,
-		// @ts-expect-error Not yet added.
 		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBird,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji>>;
 
