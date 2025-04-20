@@ -1035,6 +1035,8 @@ export class Catalogue {
 			},
 		];
 
+		const seasonText = catalogue.seasonText(season, locale);
+
 		if (season.patchNotesURL) {
 			containerComponents.push({
 				type: ComponentType.Section,
@@ -1047,14 +1049,14 @@ export class Catalogue {
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: catalogue.seasonText(season, locale) ?? NO_SPIRITS_WITH_OFFER_TEXT,
+						content: seasonText ?? NO_SPIRITS_WITH_OFFER_TEXT,
 					},
 				],
 			});
 		} else {
 			containerComponents.push({
 				type: ComponentType.TextDisplay,
-				content: catalogue.seasonText(season, locale) ?? NO_SPIRITS_WITH_OFFER_TEXT,
+				content: seasonText ?? NO_SPIRITS_WITH_OFFER_TEXT,
 			});
 		}
 
@@ -1131,6 +1133,7 @@ export class Catalogue {
 					{
 						type: ComponentType.Button,
 						custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${seasonId}`,
+						disabled: seasonText === null,
 						emoji: { name: "🔗" },
 						label: "Share progress",
 						style: ButtonStyle.Secondary,
