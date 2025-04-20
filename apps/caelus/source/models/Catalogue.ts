@@ -1639,15 +1639,18 @@ export class Catalogue {
 
 		if (spirits) {
 			const index = [...spirits.values()].findIndex(({ id }) => id === spirit.id);
-			const before = spirits.at((index - 1) as SpiritIds);
-			const after = spirits.at((index + 1) as SpiritIds);
+			const beforeIndex = index - 1;
+			const before = beforeIndex >= 0 ? spirits.at(beforeIndex) : null;
+			const after = spirits.at(index + 1);
 
 			containerComponents.push({
 				type: ComponentType.ActionRow,
+				// It is possible that for 1 spirit, the custom ids will be the same, leading to an error.
+				// We use the nullish coalescing operator to fallback to some default values to mitigate this.
 				components: [
 					{
 						type: ComponentType.Button,
-						custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${before?.id}`,
+						custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${before?.id ?? "before"}`,
 						disabled: !before,
 						emoji: { name: "⬅️" },
 						label: "Previous spirit",
@@ -1655,7 +1658,7 @@ export class Catalogue {
 					},
 					{
 						type: ComponentType.Button,
-						custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${after?.id}`,
+						custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${after?.id ?? "after"}`,
 						disabled: !after,
 						emoji: { name: "➡️" },
 						label: "Next spirit",
