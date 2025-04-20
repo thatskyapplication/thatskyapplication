@@ -265,6 +265,12 @@ export default {
 			[SpiritId.RadianceLeapingDancer]: "นักกระโดดโลดเต้นแสงเร",
 			[SpiritId.RadianceProvokingPerformer]: "นักแสดงจอมยั่วยุแสงเร",
 			[SpiritId.RadianceGreetingShaman]: "ชาแมนผู้อ่วยพรแสงเรือง",
+			[SpiritId.BlueBirdGuide]: "ผู้แนะนำเจ้านกสีฟ้า",
+			[SpiritId.CostumedConfettiCousin]: "ญาตินักโปรยกระดาษในชุดการแสดง",
+			[SpiritId.DiviningWiseGrandparent]: "บรรพชนผู้ทรงปัญญาเลิศ",
+			[SpiritId.WoodcuttingPleafulParent]: "ผู้ดูแลแสนใจดีที่ชอบตัดไม้",
+			[SpiritId.NostalgicSparklerParent]: "ผู้ปกครองที่มีประกายแห่งความหลัง",
+			[SpiritId.RoyalHairtousleTeen]: "วัยรุ่นผมยุ่งแห่งราชวงศ์",
 		},
 	},
 } as const;

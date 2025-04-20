@@ -545,6 +545,12 @@ export default {
 			[SpiritId.RadianceLeapingDancer]: "Vũ Công Nhảy Nhót Rạng Rỡ",
 			[SpiritId.RadianceProvokingPerformer]: "Người Biểu Diễn Khiêu Khích Rạng Rỡ",
 			[SpiritId.RadianceGreetingShaman]: "Pháp Sư Chào Hỏi Rạng Rỡ",
+			[SpiritId.BlueBirdGuide]: "Chỉ Dẫn Chim Xanh",
+			[SpiritId.CostumedConfettiCousin]: "Anh Họ Pháo Hoa Hóa Trang",
+			[SpiritId.DiviningWiseGrandparent]: "Ông Bà Tiên Tri Minh Triết",
+			[SpiritId.WoodcuttingPleafulParent]: "Phụ Huynh Kêu Cầu Đốn Cây",
+			[SpiritId.NostalgicSparklerParent]: "Phụ Huynh Pháo Hoa Ký Ức",
+			[SpiritId.RoyalHairtousleTeen]: "Thiếu Niên Hoàng Tộc Tóc Rối",
 		},
 	},
 } as const;

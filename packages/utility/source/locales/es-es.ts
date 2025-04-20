@@ -556,6 +556,12 @@ export default {
 			[SpiritId.RadianceLeapingDancer]: "Bailarín saltarín de resplandor",
 			[SpiritId.RadianceProvokingPerformer]: "Artista provocador de resplandor",
 			[SpiritId.RadianceGreetingShaman]: "Chamán amable de resplandor",
+			[SpiritId.BlueBirdGuide]: "Guía del pájaro azul",
+			[SpiritId.CostumedConfettiCousin]: "Prima de confeti disfrazada",
+			[SpiritId.DiviningWiseGrandparent]: "Abuelo sabio adivinador",
+			[SpiritId.WoodcuttingPleafulParent]: "Padre suplicante talador",
+			[SpiritId.NostalgicSparklerParent]: "Madre iluminada nostálgica",
+			[SpiritId.RoyalHairtousleTeen]: "Adolescente despeinado de la realeza",
 		},
 	},
 	commands: {

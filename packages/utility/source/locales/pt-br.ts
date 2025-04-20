@@ -543,6 +543,12 @@ export default {
 			[SpiritId.RadianceLeapingDancer]: "Dançarino Saltitante do Resplendor",
 			[SpiritId.RadianceProvokingPerformer]: "Artista Provocante do Resplendor",
 			[SpiritId.RadianceGreetingShaman]: "Xamã Acolhedor do Resplendor",
+			[SpiritId.BlueBirdGuide]: "Guia do Pássaro Azul",
+			[SpiritId.CostumedConfettiCousin]: "Prima do Confete Fantasiada",
+			[SpiritId.DiviningWiseGrandparent]: "Avô Sábio Vidente",
+			[SpiritId.WoodcuttingPleafulParent]: "Pai Suplicante Lenhador",
+			[SpiritId.NostalgicSparklerParent]: "Mãe Cintilante Nostálgica",
+			[SpiritId.RoyalHairtousleTeen]: "Adolescente Desgrenhado Real",
 		},
 	},
 } as const;

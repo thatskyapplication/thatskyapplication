@@ -551,6 +551,12 @@ export default {
 			[SpiritId.RadianceLeapingDancer]: "Leuchtender Springender Tänzer",
 			[SpiritId.RadianceProvokingPerformer]: "Leuchtender Provozierender Künstler",
 			[SpiritId.RadianceGreetingShaman]: "Leuchtender Grüßender Schamane",
+			[SpiritId.BlueBirdGuide]: "Blauer-Vogel-Helferin",
+			[SpiritId.CostumedConfettiCousin]: "Verkleidete Konfetti-Cousine",
+			[SpiritId.DiviningWiseGrandparent]: "Hellseherischer weiser Großvater",
+			[SpiritId.WoodcuttingPleafulParent]: "Holzfällender bittender Vater",
+			[SpiritId.NostalgicSparklerParent]: "Nostalgische Wunderkerzen-Mutter",
+			[SpiritId.RoyalHairtousleTeen]: "Königlicher Haarwuschel-Teenager",
 		},
 	},
 	commands: {

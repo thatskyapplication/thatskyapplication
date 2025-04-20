@@ -549,6 +549,12 @@ export default {
 			[SpiritId.RadianceLeapingDancer]: "Ballerino guizzante dello Splendore",
 			[SpiritId.RadianceProvokingPerformer]: "Artista provocatorio dello Splendore",
 			[SpiritId.RadianceGreetingShaman]: "Sciamano accogliente dello Splendore",
+			[SpiritId.BlueBirdGuide]: "Guida dell'Uccello Azzurro",
+			[SpiritId.CostumedConfettiCousin]: "Cugina festeggiante mascherata",
+			[SpiritId.DiviningWiseGrandparent]: "Nonno saggio indovino",
+			[SpiritId.WoodcuttingPleafulParent]: "Genitore supplice taglialegna",
+			[SpiritId.NostalgicSparklerParent]: "Madre scintillante nostalgica",
+			[SpiritId.RoyalHairtousleTeen]: "Adolescente spettinato nobile",
 		},
 	},
 } as const;

@@ -432,6 +432,12 @@ export default {
 			[SpiritId.RadianceLeapingDancer]: "彩染跳躍舞者",
 			[SpiritId.RadianceProvokingPerformer]: "彩梁挑釁藝伎",
 			[SpiritId.RadianceGreetingShaman]: "彩染拳禮武僧",
+			[SpiritId.BlueBirdGuide]: "青羽嚮導",
+			[SpiritId.CostumedConfettiCousin]: "盛裝彩紙表親",
+			[SpiritId.DiviningWiseGrandparent]: "占卜智慧長者",
+			[SpiritId.WoodcuttingPleafulParent]: "伐木不捨家長",
+			[SpiritId.NostalgicSparklerParent]: "懷舊火花家長",
+			[SpiritId.RoyalHairtousleTeen]: "尊貴蓬頭青年",
 		},
 	},
 } as const;

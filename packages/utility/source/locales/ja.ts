@@ -462,6 +462,12 @@ export default {
 			[SpiritId.RadianceLeapingDancer]: "光に染まる飛び跳ねる舞踏家",
 			[SpiritId.RadianceProvokingPerformer]: "光に染まる挑戦的な表現者",
 			[SpiritId.RadianceGreetingShaman]: "光に染まる礼を尽くす祈祷師",
+			[SpiritId.BlueBirdGuide]: "青い鳥の案内人",
+			[SpiritId.CostumedConfettiCousin]: "衣装をまとう紙ふぶき好きのいとこ",
+			[SpiritId.DiviningWiseGrandparent]: "神聖な祖たる賢者",
+			[SpiritId.WoodcuttingPleafulParent]: "木こりの訴えかける親",
+			[SpiritId.NostalgicSparklerParent]: "懐かしむ煌きを放つ親",
+			[SpiritId.RoyalHairtousleTeen]: "高貴なぽんぽんする若者",
 		},
 	},
 	commands: {

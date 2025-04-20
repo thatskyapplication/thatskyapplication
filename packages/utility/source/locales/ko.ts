@@ -507,6 +507,12 @@ export default {
 			[SpiritId.RadianceLeapingDancer]: "광채의 팔짝 뛰는 무용수",
 			[SpiritId.RadianceProvokingPerformer]: "광채의 도발하는 곡예사",
 			[SpiritId.RadianceGreetingShaman]: "광채의 인사하는 주술사",
+			[SpiritId.BlueBirdGuide]: "파랑새의 안내자",
+			[SpiritId.CostumedConfettiCousin]: "분장한 꽃가루 사촌",
+			[SpiritId.DiviningWiseGrandparent]: "점치는 현명한 노인",
+			[SpiritId.WoodcuttingPleafulParent]: "나무 베는 애원하는 부모",
+			[SpiritId.NostalgicSparklerParent]: "그리워하는 폭죽장이 부모",
+			[SpiritId.RoyalHairtousleTeen]: "고귀한 쓰다듬는 청년",
 		},
 	},
 } as const;

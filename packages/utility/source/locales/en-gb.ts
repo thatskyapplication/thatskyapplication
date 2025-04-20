@@ -747,6 +747,11 @@ export default {
 			[SpiritId.RadianceProvokingPerformer]: "Radiance Provoking Performer",
 			[SpiritId.RadianceGreetingShaman]: "Radiance Greeting Shaman",
 			[SpiritId.BlueBirdGuide]: "Blue Bird Guide",
+			[SpiritId.CostumedConfettiCousin]: "Costumed Confetti Cousin",
+			[SpiritId.DiviningWiseGrandparent]: "Divining Wise Grandparent",
+			[SpiritId.WoodcuttingPleafulParent]: "Woodcutting Pleaful Parent",
+			[SpiritId.NostalgicSparklerParent]: "Nostalgic Sparkler Parent",
+			[SpiritId.RoyalHairtousleTeen]: "Royal Hairtousle Teen",
 		} satisfies Record<SpiritIds, string>,
 		"spirit-wiki": {
 			[SpiritId.PointingCandlemaker]:
@@ -996,6 +1001,16 @@ export default {
 			[SpiritId.RadianceGreetingShaman]:
 				"https://sky-children-of-the-light.fandom.com/Radiance_Greeting_Shaman",
 			[SpiritId.BlueBirdGuide]: "https://sky-children-of-the-light.fandom.com/Blue_Bird_Guide",
+			[SpiritId.CostumedConfettiCousin]:
+				"https://sky-children-of-the-light.fandom.com/Costumed_Confetti_Cousin",
+			[SpiritId.DiviningWiseGrandparent]:
+				"https://sky-children-of-the-light.fandom.com/Divining_Wise_Grandparent",
+			[SpiritId.WoodcuttingPleafulParent]:
+				"https://sky-children-of-the-light.fandom.com/Woodcutting_Pleaful_Parent",
+			[SpiritId.NostalgicSparklerParent]:
+				"https://sky-children-of-the-light.fandom.com/Nostalgic_Sparkler_Parent",
+			[SpiritId.RoyalHairtousleTeen]:
+				"https://sky-children-of-the-light.fandom.com/Royal_Hairtousle_Teen",
 		} satisfies Record<SpiritIds, `https://${string}`>,
 		timestamps: "Timestamps",
 		view: "View",

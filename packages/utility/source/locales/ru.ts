@@ -529,6 +529,12 @@ export default {
 			[SpiritId.RadianceLeapingDancer]: "Скачущий танцор сияния",
 			[SpiritId.RadianceProvokingPerformer]: "Исполнитель-провокатор сияния",
 			[SpiritId.RadianceGreetingShaman]: "Приветствующий шаман сияния",
+			[SpiritId.BlueBirdGuide]: "Проводник синей птицы",
+			[SpiritId.CostumedConfettiCousin]: "Наряженный Конфетти-кузен",
+			[SpiritId.DiviningWiseGrandparent]: "Предвидящий Мудрый дедушка",
+			[SpiritId.WoodcuttingPleafulParent]: "Рубящий лес Умоляющий родитель",
+			[SpiritId.NostalgicSparklerParent]: "Вспоминающий Блестящий родитель",
+			[SpiritId.RoyalHairtousleTeen]: "Королевский Косматый подросток",
 		},
 	},
 } as const;

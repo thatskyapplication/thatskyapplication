@@ -248,6 +248,11 @@ export const SpiritId = {
 
 	// Season of the Blue Bird.
 	BlueBirdGuide: 180,
+	CostumedConfettiCousin: 181,
+	DiviningWiseGrandparent: 182,
+	WoodcuttingPleafulParent: 183,
+	NostalgicSparklerParent: 184,
+	RoyalHairtousleTeen: 185,
 } as const satisfies Readonly<Record<string, number>>;
 
 const SPIRIT_ID_VALUES = Object.values(SpiritId);
