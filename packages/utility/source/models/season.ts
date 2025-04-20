@@ -52,7 +52,7 @@ interface SeasonData {
 	/**
 	 * The seasonal candles rotation.
 	 */
-	seasonalCandlesRotation:
+	seasonalCandlesRotation?:
 		| SeasonalCandlesRotation
 		| ((now: DateTime) => SeasonalCandlesRotation)
 		| null;

@@ -245,6 +245,9 @@ export const SpiritId = {
 	RadianceLeapingDancer: 177,
 	RadianceProvokingPerformer: 178,
 	RadianceGreetingShaman: 179,
+
+	// Season of the Blue Bird.
+	BlueBirdGuide: 180,
 } as const satisfies Readonly<Record<string, number>>;
 
 const SPIRIT_ID_VALUES = Object.values(SpiritId);

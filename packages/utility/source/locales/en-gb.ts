@@ -746,6 +746,7 @@ export default {
 			[SpiritId.RadianceLeapingDancer]: "Radiance Leaping Dancer",
 			[SpiritId.RadianceProvokingPerformer]: "Radiance Provoking Performer",
 			[SpiritId.RadianceGreetingShaman]: "Radiance Greeting Shaman",
+			[SpiritId.BlueBirdGuide]: "Blue Bird Guide",
 		} satisfies Record<SpiritIds, string>,
 		"spirit-wiki": {
 			[SpiritId.PointingCandlemaker]:
@@ -994,6 +995,7 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/Radiance_Provoking_Performer",
 			[SpiritId.RadianceGreetingShaman]:
 				"https://sky-children-of-the-light.fandom.com/Radiance_Greeting_Shaman",
+			[SpiritId.BlueBirdGuide]: "https://sky-children-of-the-light.fandom.com/Blue_Bird_Guide",
 		} satisfies Record<SpiritIds, `https://${string}`>,
 		timestamps: "Timestamps",
 		view: "View",
