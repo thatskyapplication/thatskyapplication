@@ -339,6 +339,8 @@ export default {
 				"Meet up with Ascetic Monk in Prairie Peaks",
 			[DailyQuest.MeetUpWithReassuringRangerInPrairiePeaks]:
 				"Meet up with Reassuring Ranger in Prairie Peaks",
+			[DailyQuest.MeetUpWithBlushingProspectorInValleyOfTriumph]:
+				"Meet up with Blushing Prospector in Valley of Triumph",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
