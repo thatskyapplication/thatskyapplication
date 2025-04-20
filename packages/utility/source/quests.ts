@@ -223,6 +223,14 @@ export const DailyQuest = {
 	MeetUpWithAsceticMonkInPrairiePeaks: 221,
 	MeetUpWithReassuringRangerInPrairiePeaks: 222,
 	MeetUpWithBlushingProspectorInValleyOfTriumph: 223,
+	InvestigateABlueBirdSightingInTheIceRink: 224,
+	InvestigateABlueBirdSightingInTheVaultRepository: 225,
+	InvestigateABlueBirdSightingInVillageTheatre: 226,
+	InvestigateABlueBirdSightingInTheForestClearing: 227,
+	FindAClueOfTheBlueBirdsWhereaboutsInTheIceRink: 228,
+	FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository: 229,
+	FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre: 230,
+	FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing: 231,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);

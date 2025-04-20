@@ -338,6 +338,22 @@ export default {
 				"Giúp Ngư Dân Lo Lắng hoặc Đội Trưởng Quản Lý tìm kho báu tại Rừng Mưa",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
 				"Giúp Xạ Thủ Vui Nhộn hoặc Hướng Đạo Sinh Khúc Khích tìm kho báu tại Làng Mộng Mơ",
+			[DailyQuest.InvestigateABlueBirdSightingInTheIceRink]:
+				"Điều tra một dấu vết Chim Xanh tại Sân Trượt Băng",
+			[DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository]:
+				"Điều tra một dấu vết Chim Xanh tại Kho Chứa",
+			[DailyQuest.InvestigateABlueBirdSightingInVillageTheatre]:
+				"Điều tra một dấu vết Chim Xanh tại Nhà Hát Làng",
+			[DailyQuest.InvestigateABlueBirdSightingInTheForestClearing]:
+				"Điều tra một dấu vết Chim Xanh tại Khu Rừng Trống",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheIceRink]:
+				"Tìm manh mối về tung tích của Chim Xanh tại Sân Trượt Băng",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository]:
+				"Tìm manh mối về tung tích của Chim Xanh tại Kho Chứa",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre]:
+				"Tìm manh mối về tung tích của Chim Xanh tại Nhà Hát Làng",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing]:
+				"Tìm manh mối về tung tích của Chim Xanh tại Khu Rừng Trống",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Mùa Tri Ân",

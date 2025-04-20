@@ -252,6 +252,22 @@ export default {
 				"雨林で宝を探す繊細な漁師またはしたり顔の生徒を手伝いましょう",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
 				"夢見の町で宝を探す豪快に笑う砲手または含み笑いのスカウトを手伝いましょう",
+			[DailyQuest.InvestigateABlueBirdSightingInTheIceRink]:
+				"アイスリンクで目撃された青い鳥を調査する",
+			[DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository]:
+				"君憶う保存庫で目撃された青い鳥を調査する",
+			[DailyQuest.InvestigateABlueBirdSightingInVillageTheatre]:
+				"夢見の劇場で目撃された青い鳥を調査する",
+			[DailyQuest.InvestigateABlueBirdSightingInTheForestClearing]:
+				"雨林の開拓地で目撃された青い鳥を調査する",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheIceRink]:
+				"アイスリンクで青い鳥がどこにいるかの手掛かりを見つける",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository]:
+				"君憶う保存庫で青い鳥がどこにいるかの手掛かりを見つける",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre]:
+				"夢見の劇場で青い鳥がどこにいるかの手掛かりを見つける",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing]:
+				"雨林の開拓地で青い鳥がどこにいるかの手掛かりを見つける",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "感謝の季節",

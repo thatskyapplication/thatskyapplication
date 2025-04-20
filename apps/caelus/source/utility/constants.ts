@@ -1125,6 +1125,14 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.MeetUpWithAsceticMonkInPrairiePeaks]: null,
 	[DailyQuest.MeetUpWithReassuringRangerInPrairiePeaks]: null,
 	[DailyQuest.MeetUpWithBlushingProspectorInValleyOfTriumph]: null,
+	[DailyQuest.InvestigateABlueBirdSightingInTheIceRink]: null,
+	[DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository]: null,
+	[DailyQuest.InvestigateABlueBirdSightingInVillageTheatre]: null,
+	[DailyQuest.InvestigateABlueBirdSightingInTheForestClearing]: null,
+	[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheIceRink]: null,
+	[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository]: null,
+	[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre]: null,
+	[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
 // Daily guides distribution.

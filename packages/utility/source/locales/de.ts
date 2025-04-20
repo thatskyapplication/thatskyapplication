@@ -344,6 +344,22 @@ export default {
 				"Hilf der Ängstlichen Anglerin oder der Schimpfenden Schülerin dabei, einen Schatz im Verborgenen Wald zu finden",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
 				"Hilf der Kicher-Kanonierin oder dem Kichernden Pfadfinder dabei, einen Schatz im Dorf der Träume zu finden",
+			[DailyQuest.InvestigateABlueBirdSightingInTheIceRink]:
+				"Untersuche eine Sichtung des blauen Vogels auf der Eisbahn",
+			[DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository]:
+				"Untersuche eine Sichtung des blauen Vogels im Archiv",
+			[DailyQuest.InvestigateABlueBirdSightingInVillageTheatre]:
+				"Untersuche eine Sichtung des blauen Vogels im Dorftheater",
+			[DailyQuest.InvestigateABlueBirdSightingInTheForestClearing]:
+				"Untersuche eine Sichtung des blauen Vogels auf der Waldlichtung",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheIceRink]:
+				"Finde einen Hinweis auf den Aufenthaltsort des blauen Vogels auf der Eisbahn",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository]:
+				"Finde einen Hinweis auf den Aufenthaltsort des blauen Vogels im Archiv",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre]:
+				"Finde einen Hinweis auf den Aufenthaltsort des blauen Vogels im Dorftheater",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing]:
+				"Finde einen Hinweis auf den Aufenthaltsort des blauen Vogels auf der Waldlichtung",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison der Dankbarkeit",

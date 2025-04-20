@@ -336,6 +336,22 @@ export default {
 				"Ajude a Pescadora Ansiosa ou o Estudante Esbravejante a encontrar tesouros na Floresta Oculta",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
 				"Ajude a Canhoneira Sorridente ou o Batedor Risonho a encontrar tesouros na Aldeia dos Sonhos",
+			[DailyQuest.InvestigateABlueBirdSightingInTheIceRink]:
+				"Investigue o avistamento de um pássaro azul no Ringue de Gelo",
+			[DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository]:
+				"Investigue o avistamento de um pássaro azul no Repositório do Relicário",
+			[DailyQuest.InvestigateABlueBirdSightingInVillageTheatre]:
+				"Investigue o avistamento de um pássaro azul no Teatro da Aldeia",
+			[DailyQuest.InvestigateABlueBirdSightingInTheForestClearing]:
+				"Investigue o avistamento de um pássaro azul na Clareira na Floresta",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheIceRink]:
+				"Encontre uma pista sobre o paradeiro do Pássaro Azul no Ringue de Gelo",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository]:
+				"Encontre uma pista sobre o paradeiro do Pássaro Azul no Repositório do Relicário",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre]:
+				"Encontre uma pista sobre o paradeiro do Pássaro Azul no Teatro da Aldeia",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing]:
+				"Encontre uma pista sobre o paradeiro do Pássaro Azul na Clareira na Floresta",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Temporada da Gratidão",

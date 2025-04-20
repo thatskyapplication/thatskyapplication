@@ -365,6 +365,22 @@ export default {
 				"Aidez la Pêcheuse angoissée ou l'Étudiante moralisatrice à trouver des trésors dans la Forêt cachée",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
 				"Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors dans le Village des Rêves",
+			[DailyQuest.InvestigateABlueBirdSightingInTheIceRink]:
+				"Menez l'enquête sur un oiseau bleu aperçu sur la patinoire",
+			[DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository]:
+				"Menez l'enquête sur un oiseau bleu aperçu au dépôt de la Chambre forte de connaissance",
+			[DailyQuest.InvestigateABlueBirdSightingInVillageTheatre]:
+				"Menez l'enquête sur un oiseau bleu aperçu au théâtre du village",
+			[DailyQuest.InvestigateABlueBirdSightingInTheForestClearing]:
+				"Menez l'enquête sur un oiseau bleu aperçu dans la Forêt cachée",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheIceRink]:
+				"Trouvez un indice sur l'emplacement de l'oiseau bleu, à la patinoire",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository]:
+				"Trouvez un indice sur l'emplacement de l'oiseau bleu, au dépôt de la Chambre forte de connaissance",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre]:
+				"Trouvez un indice sur l'emplacement de l'oiseau bleu, au théâtre du village",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing]:
+				"Trouvez un indice sur l'emplacement de l'oiseau bleu, dans la clairière",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Saison de la gratitude",

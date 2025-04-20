@@ -322,6 +322,22 @@ export default {
 				"Помогите Беспокойной рыбачке или Ворчливой студентке найти сокровище в Тайном лесу",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
 				"Помогите Хохотушке с пушкой или Хихикающему скауту найти сокровище в Деревушке мечтаний",
+			[DailyQuest.InvestigateABlueBirdSightingInTheIceRink]:
+				"Изучите появление синей птицы на катке",
+			[DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository]:
+				"Изучите появление синей птицы в тайнике",
+			[DailyQuest.InvestigateABlueBirdSightingInVillageTheatre]:
+				"Изучите появление синей птицы в деревенском театре",
+			[DailyQuest.InvestigateABlueBirdSightingInTheForestClearing]:
+				"Изучите появление синей птицы в Тайном лесу",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheIceRink]:
+				"Найдите подсказку о местонахождении синей птицы на катке",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository]:
+				"Найдите подсказку о местонахождении синей птицы в тайнике",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre]:
+				"Найдите подсказку о местонахождении синей птицы в деревенском театре",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing]:
+				"Найдите подсказку о местонахождении синей птицы в Тайном лесу",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Сезон благодарности",

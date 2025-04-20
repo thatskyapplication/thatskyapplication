@@ -226,6 +226,19 @@ export default {
 				"帮助焦虑渔夫或管事小队长在雨林寻宝",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
 				"帮助嬉笑炮手或傻笑童子军在圆梦村寻宝",
+			[DailyQuest.InvestigateABlueBirdSightingInTheIceRink]: "调查青色的鸟出没于溜冰场的传闻",
+			[DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository]:
+				"调查青色的鸟出没于禁阁知识库的传闻",
+			[DailyQuest.InvestigateABlueBirdSightingInVillageTheatre]: "调查青色的鸟出没于乡村剧院的传闻",
+			[DailyQuest.InvestigateABlueBirdSightingInTheForestClearing]:
+				"调查青色的鸟出没于雨林空地的传闻",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheIceRink]: "在溜冰场寻找青色的鸟行踪的线索",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository]:
+				"在禁阁知识库寻找青色的鸟行踪的线索",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre]:
+				"在乡村剧院寻找青色的鸟行踪的线索",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing]:
+				"在雨林空地寻找青色的鸟行踪的线索",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "感恩季",

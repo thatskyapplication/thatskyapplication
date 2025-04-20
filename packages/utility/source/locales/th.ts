@@ -250,6 +250,22 @@ export default {
 				"ช่วยนักตกปลาขี้กังวล หรือนักเรียนจอมตำหนิค้นหาสมบัติในป่าลับ",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
 				"ช่วยพลปืนใหญ่ผู้ขบขัน หรือผู้สอดแนมแอบหัวเราะค้นหาสมบัติในหมู่บ้านแห่งความฝัน",
+			[DailyQuest.InvestigateABlueBirdSightingInTheIceRink]:
+				"ตรวจสอบการพบเห็นเจ้านกสีฟ้าในลานสเก็ตน้ำแข็ง",
+			[DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository]:
+				"ตรวจสอบการพบเห็นเจ้านกสีฟ้าในโกดังกรุสมบัติ",
+			[DailyQuest.InvestigateABlueBirdSightingInVillageTheatre]:
+				"ตรวจสอบการพบเห็นเจ้านกสีฟ้าในโรงละครหมู่บ้าน",
+			[DailyQuest.InvestigateABlueBirdSightingInTheForestClearing]:
+				"ตรวจสอบการพบเห็นเจ้านกสีฟ้าในที่โล่งในป่า",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheIceRink]:
+				"ค้นหาเบาะแสของเจ้านกสีฟ้าที่อยู่ในลานสเก็ตน้ำแข็ง",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository]:
+				"ค้นหาเบาะแสของเจ้านกสีฟ้าที่อยู่ในโกดังกรุสมบัติ",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre]:
+				"ค้นหาเบาะแสของเจ้านกสีฟ้าที่อยู่ในโรงละครหมู่บ้าน",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing]:
+				"ค้นหาเบาะแสของเจ้านกสีฟ้าที่อยู่ในที่โล่งในป่า",
 		},
 		seasons: {
 			[SeasonId.Moomin]: "ฤดูกาลแห่งมูมิน",

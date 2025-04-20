@@ -341,6 +341,22 @@ export default {
 				"Meet up with Reassuring Ranger in Prairie Peaks",
 			[DailyQuest.MeetUpWithBlushingProspectorInValleyOfTriumph]:
 				"Meet up with Blushing Prospector in Valley of Triumph",
+			[DailyQuest.InvestigateABlueBirdSightingInTheIceRink]:
+				"Investigate a blue bird sighting in the Ice Rink",
+			[DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository]:
+				"Investigate a blue bird sighting in the Vault Repository",
+			[DailyQuest.InvestigateABlueBirdSightingInVillageTheatre]:
+				"Investigate a blue bird sighting in Village Theatre",
+			[DailyQuest.InvestigateABlueBirdSightingInTheForestClearing]:
+				"Investigate a blue bird sighting in the Forest Clearing",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheIceRink]:
+				"Find a clue of the Blue Bird's whereabouts in the Ice Rink",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository]:
+				"Find a clue of the Blue Bird's whereabouts in the Vault Repository",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre]:
+				"Find a clue of the Blue Bird's whereabouts in Village Theater",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing]:
+				"Find a clue of the Blue Bird's whereabouts in the Forest Clearing",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",

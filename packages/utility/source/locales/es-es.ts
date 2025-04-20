@@ -349,6 +349,22 @@ export default {
 				"Ayuda al Pescador ansioso o al Estudiante gruñona a buscar tesoros en el Bosque Escondido",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
 				"Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en la aldea de los sueños",
+			[DailyQuest.InvestigateABlueBirdSightingInTheIceRink]:
+				"Investiga un avistamiento del pájaro azul en la pista de hielo",
+			[DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository]:
+				"Investiga un avistamiento del pájaro azul en el depósito de la bóveda",
+			[DailyQuest.InvestigateABlueBirdSightingInVillageTheatre]:
+				"Investiga un avistamiento del pájaro azul en el teatro de la aldea",
+			[DailyQuest.InvestigateABlueBirdSightingInTheForestClearing]:
+				"Investiga un avistamiento del pájaro azul en el bosque escondido",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheIceRink]:
+				"Busca una pista sobre el paradero del pájaro azul en la pista de hielo",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository]:
+				"Busca una pista sobre el paradero del pájaro azul en el depósito de la bóveda",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre]:
+				"Busca una pista sobre el paradero del pájaro azul en el teatro de la aldea",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing]:
+				"Busca una pista sobre el paradero del pájaro azul en el bosque escondido",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Temporada de la gratitud",

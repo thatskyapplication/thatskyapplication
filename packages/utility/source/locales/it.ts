@@ -342,6 +342,22 @@ export default {
 				"Aiuta la Pescatrice ansiosa o la Studentessa saccente a trovare il tesoro nella Foresta Nascosta",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
 				"Aiuta la Cannoniera sghignazzante o lo Scout sghignazzante a trovare il tesoro nel Villaggio dei Sogni",
+			[DailyQuest.InvestigateABlueBirdSightingInTheIceRink]:
+				"Indaga sull'avvistamento dell'Uccello Azzurro sulla Pista di Pattinaggio",
+			[DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository]:
+				"Indaga sull'avvistamento dell'Uccello Azzurro nella Cripta",
+			[DailyQuest.InvestigateABlueBirdSightingInVillageTheatre]:
+				"Indaga sull'avvistamento dell'Uccello Azzurro nel Teatro del Villaggio",
+			[DailyQuest.InvestigateABlueBirdSightingInTheForestClearing]:
+				"Indaga sull'avvistamento dell'Uccello Azzurro nella radura della Foresta Nascosta",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheIceRink]:
+				"Trova un indizio sull'ubicazione dell'Uccello Azzurro sulla Pista di Pattinaggio",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository]:
+				"Trova un indizio sull'ubicazione dell'Uccello Azzurro nella Cripta",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre]:
+				"Trova un indizio sull'ubicazione dell'Uccello Azzurro nel Teatro del Villaggio",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing]:
+				"Trova un indizio sull'ubicazione dell'Uccello Azzurro nella radura della Foresta Nascosta",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "Stagione della Gratitudine",

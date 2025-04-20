@@ -296,6 +296,22 @@ export default {
 				"비밀의 숲에서 안절부절 낚시꾼 또는 야단치는 학생이 보물을 찾는 걸 돕기",
 			[DailyQuest.HelpTheCacklingCannoneerOrTheChucklingScoutFindTreasureInVillageOfDreams]:
 				"꿈의 마을에서 낄낄 웃는 포수 또는 키득거리는 스카우트가 보물을 찾는 걸 돕기",
+			[DailyQuest.InvestigateABlueBirdSightingInTheIceRink]:
+				"아이스링크에서 파랑새 목격담을 조사하기",
+			[DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository]:
+				"도서관 보관소에서 파랑새 목격담을 조사하기",
+			[DailyQuest.InvestigateABlueBirdSightingInVillageTheatre]:
+				"마을 극장에서 파랑새 목격담을 조사하기",
+			[DailyQuest.InvestigateABlueBirdSightingInTheForestClearing]:
+				"비밀의 숲에서 파랑새 목격담을 조사하기",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheIceRink]:
+				"아이스링크에서 파랑새의 행방에 대한 단서 찾기",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository]:
+				"도서관 보관소에서 파랑새의 행방에 대한 단서 찾기",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre]:
+				"마을 극장에서 파랑새의 행방에 대한 단서 찾기",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing]:
+				"비밀의 숲에서 파랑새의 행방에 대한 단서 찾기",
 		},
 		seasons: {
 			[SeasonId.Gratitude]: "감사의 시즌",
