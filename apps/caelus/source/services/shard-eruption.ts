@@ -97,6 +97,7 @@ async function hasExpired(
 			components: fromToday
 				? todayData(interaction.locale, offset, false)
 				: browseData(interaction.locale, offset, false),
+			flags: MessageFlags.IsComponentsV2,
 		});
 
 		await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
