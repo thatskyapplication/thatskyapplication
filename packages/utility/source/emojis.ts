@@ -212,6 +212,7 @@ const EMOTE_EMOJIS_PRODUCTION = {
 	Cartwheel: { id: "1330496618889482411", name: "cartwheel" },
 	HypeDance: { id: "1330568867986014218", name: "hype_dance" },
 	HeartGesture: { id: "1330656137174978560", name: "heart_gesture" },
+	Cough: { id: "1363812372510150676", name: "Cough" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS_DEVELOPMENT = {
@@ -321,6 +322,7 @@ const EMOTE_EMOJIS_DEVELOPMENT = {
 	Cartwheel: { id: "1330496633737318460", name: "cartwheel" },
 	HypeDance: { id: "1330568876974542949", name: "hype_dance" },
 	HeartGesture: { id: "1330656144921985115", name: "heart_gesture" },
+	Cough: { id: "1363812384329699408", name: "Cough" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const STANCE_EMOJIS_PRODUCTION = {
@@ -2000,6 +2002,10 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	 * Radiance Pendant.
 	 */
 	Necklace46: { id: "1330482500056911944", name: "necklace_46" },
+	/**
+	 * Blue Bird Pendant.
+	 */
+	Necklace47: { id: "1363811108015706123", name: "necklace_47" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_DEVELOPMENT = {
@@ -2049,6 +2055,7 @@ const NECKLACE_EMOJIS_DEVELOPMENT = {
 	Necklace44: { id: "1313920815838007378", name: "necklace_44" },
 	Necklace45: { id: "1313920862830989324", name: "necklace_45" },
 	Necklace46: { id: "1330482752545362080", name: "necklace_46" },
+	Necklace47: { id: "1363810875089096865", name: "necklace_47" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_PRODUCTION = {
@@ -7393,6 +7400,13 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.BloomRoseBraidedHair]: HAIR_EMOJIS.Hair161,
 		[Cosmetic.BloomRosePetalMask]: MASK_EMOJIS.Mask98,
 		[Cosmetic.BloomRoseEmbroideredCape]: CAPE_EMOJIS.Cape147,
+		[Cosmetic.BlueBirdGuideQuest1]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.BlueBirdGuideHeart1]: MISCELLANEOUS_EMOJIS.Heart,
+		[Cosmetic.BlueBirdPendant]: NECKLACE_EMOJIS.Necklace47,
+		[Cosmetic.BlueBirdGuideUltimateFaceAccessory]: null,
+		[Cosmetic.BlueBirdGuideUltimateCape]: null,
+		[Cosmetic.EmoteCough1]: EMOTE_EMOJIS.Cough,
+		[Cosmetic.EmoteCough2]: EMOTE_EMOJIS.Cough,
 		[Cosmetic.OceanWavesOutfit]: null,
 		[Cosmetic.OceanMantaHair]: null,
 		[Cosmetic.OceanSeaFoamCape]: null,

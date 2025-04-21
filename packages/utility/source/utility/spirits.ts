@@ -369,6 +369,7 @@ export enum SpiritEmote {
 	Cartwheel = "Cartwheel",
 	HypeDance = "Hype dance",
 	HeartGesture = "Heart gesture",
+	Cough = "Cough",
 }
 
 export enum SpiritStance {

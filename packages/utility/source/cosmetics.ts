@@ -2912,6 +2912,15 @@ export enum Cosmetic {
 	BloomRosePetalMask = 2314,
 	BloomRoseEmbroideredCape = 2315,
 
+	// 21/04/2025 | Season of the Blue Bird.
+	BlueBirdGuideQuest1 = 2316,
+	BlueBirdGuideHeart1 = 2317,
+	BlueBirdPendant = 2318,
+	BlueBirdGuideUltimateFaceAccessory = 2319,
+	BlueBirdGuideUltimateCape = 2320,
+	EmoteCough1 = 2321,
+	EmoteCough2 = 2322,
+
 	// 28/04/2025 | Days of Nature.
 	OceanWavesOutfit,
 	OceanMantaHair,
