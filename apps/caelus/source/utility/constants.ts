@@ -199,7 +199,7 @@ export const WINGED_LIGHT_THRESHOLDS = [
 export const AreaToWingedLightCount = {
 	[RealmName.IslesOfDawn]: 9,
 	[RealmName.DaylightPrairie]: 24,
-	[RealmName.HiddenForest]: 19,
+	[RealmName.HiddenForest]: 20,
 	[RealmName.ValleyOfTriumph]: 17,
 	[RealmName.GoldenWasteland]: 18,
 	[RealmName.VaultOfKnowledge]: 15,
