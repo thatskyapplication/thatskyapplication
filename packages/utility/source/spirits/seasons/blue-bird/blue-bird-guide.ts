@@ -1,3 +1,4 @@
+import { RealmName } from "../../../kingdom.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
@@ -5,4 +6,5 @@ import { SpiritId } from "../../../utility/spirits.js";
 export default new GuideSpirit({
 	id: SpiritId.BlueBirdGuide,
 	seasonId: SeasonId.BlueBird,
+	realm: RealmName.HiddenForest,
 });
