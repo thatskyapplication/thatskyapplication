@@ -1,4 +1,5 @@
 import { skyDate } from "../../../dates.js";
+import { RealmName } from "../../../kingdom.js";
 import { Season } from "../../../models/season.js";
 import { SeasonId } from "../../../season.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
@@ -20,6 +21,18 @@ export default new Season({
 		woodcuttingPleafulParent,
 		nostalgicSparklerParent,
 		royalHairtousleTeen,
+	],
+	seasonalCandlesRotation: [
+		{ rotation: 1, realm: RealmName.GoldenWasteland },
+		{ rotation: 1, realm: RealmName.VaultOfKnowledge },
+		{ rotation: 1, realm: RealmName.DaylightPrairie },
+		{ rotation: 1, realm: RealmName.HiddenForest },
+		{ rotation: 1, realm: RealmName.ValleyOfTriumph },
+		{ rotation: 2, realm: RealmName.GoldenWasteland },
+		{ rotation: 2, realm: RealmName.VaultOfKnowledge },
+		{ rotation: 2, realm: RealmName.DaylightPrairie },
+		{ rotation: 2, realm: RealmName.HiddenForest },
+		{ rotation: 2, realm: RealmName.ValleyOfTriumph },
 	],
 	patchNotesURL: String(new URL("p0290", LINK_REDIRECTOR_URL)),
 });
