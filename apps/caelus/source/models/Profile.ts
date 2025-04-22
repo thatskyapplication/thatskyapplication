@@ -1930,7 +1930,7 @@ export default class Profile {
 		}
 
 		if (name) {
-			const embedAuthorOptions: APIEmbedAuthor = { name };
+			const embedAuthorOptions: APIEmbedAuthor = { name, url: `${SKY_PROFILES_URL}/${userId}` };
 
 			if (iconURL) {
 				embedAuthorOptions.icon_url = iconURL;
