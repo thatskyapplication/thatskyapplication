@@ -7407,6 +7407,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.BlueBirdGuideUltimateCape]: null,
 		[Cosmetic.EmoteCough1]: EMOTE_EMOJIS.Cough,
 		[Cosmetic.EmoteCough2]: EMOTE_EMOJIS.Cough,
+		[Cosmetic.TumblingTroublemakerWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.OceanWavesOutfit]: null,
 		[Cosmetic.OceanMantaHair]: null,
 		[Cosmetic.OceanSeaFoamCape]: null,

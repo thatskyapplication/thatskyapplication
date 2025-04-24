@@ -2921,6 +2921,9 @@ export enum Cosmetic {
 	EmoteCough1 = 2321,
 	EmoteCough2 = 2322,
 
+	// 24/04/2025 | Travelling Spirit #139.
+	TumblingTroublemakerWingBuff = 2370,
+
 	// 28/04/2025 | Days of Nature.
 	OceanWavesOutfit,
 	OceanMantaHair,

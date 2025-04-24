@@ -12,7 +12,6 @@ export default new SeasonalSpirit({
 	emote,
 	realm: RealmName.IslesOfDawn,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteSomersault1 },
 			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteSomersault2 },
@@ -48,6 +47,43 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.TumblingTroublemakerSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 			},
+		],
+		current: [
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteSomersault1 },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteSomersault2, cost: { hearts: 4 } },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.TumblingTroublemakerBlessing1,
+				cost: { candles: 5 },
+			},
+			{ name: "Hair", cosmetic: Cosmetic.TumblingTroublemakerHair, cost: { candles: 40 } },
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.TumblingTroublemakerSeasonalHeart,
+				cost: { candles: 3 },
+			},
+			{
+				name: "Wing buff",
+				cosmetic: Cosmetic.TumblingTroublemakerWingBuff,
+				cost: { ascendedCandles: 2 },
+			},
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteSomersault3,
+				cost: { hearts: 3 },
+			},
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteSomersault4, cost: { hearts: 6 } },
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.TumblingTroublemakerBlessing2,
+				cost: { candles: 5 },
+			},
+			{
+				name: "Face accessory",
+				cosmetic: Cosmetic.TumblingTroublemakerFaceAccessory,
+				cost: { candles: 55 },
+			},
+			{ name: "Cape", cosmetic: Cosmetic.TumblingTroublemakerCape, cost: { candles: 80 } },
 		],
 	},
 	visits: {
