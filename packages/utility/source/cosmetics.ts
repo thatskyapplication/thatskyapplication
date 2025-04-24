@@ -2920,6 +2920,17 @@ export enum Cosmetic {
 	BlueBirdGuideUltimateCape = 2320,
 	EmoteCough1 = 2321,
 	EmoteCough2 = 2322,
+	CostumedConfettiCousinHairAccessory = 2323,
+	CostumedConfettiCousinBlessing1 = 2324,
+	CostumedConfettiCousinBlessing2 = 2325,
+	CostumedConfettiCousinMask = 2326,
+	CostumedConfettiCousinRedDye = 2327,
+	CostumedConfettiCousinYellowDye = 2328,
+	CostumedConfettiCousinBlessing3 = 2329,
+	CostumedConfettiCousinOutfit = 2330,
+	CostumedConfettiCousinHair = 2331,
+	CostumedConfettiCousinBlessing4 = 2332,
+	CostumedConfettiCousinSeasonalHeart = 2333,
 
 	// 24/04/2025 | Travelling Spirit #139.
 	TumblingTroublemakerWingBuff = 2370,
