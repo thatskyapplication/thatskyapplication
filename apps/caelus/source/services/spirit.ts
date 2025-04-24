@@ -1,8 +1,8 @@
 import {
 	type APIApplicationCommandAutocompleteInteraction,
+	type APIApplicationCommandInteractionDataIntegerOption,
 	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
-	type ApplicationCommandOptionType,
 	ComponentType,
 	type Locale,
 	MessageFlags,
@@ -28,11 +28,13 @@ import { client } from "../discord.js";
 import { GUIDE_SPIRIT_IN_PROGRESS_TEXT, resolveCostToString } from "../utility/catalogue.js";
 import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
-import type { AutocompleteFocusedOption, OptionResolver } from "../utility/option-resolver.js";
+import type { OptionResolver } from "../utility/option-resolver.js";
 
-export async function searchAutocomplete(
-	interaction: APIApplicationCommandAutocompleteInteraction,
-	option: AutocompleteFocusedOption<ApplicationCommandOptionType.Integer>,
+export async function searchAutocomplete<
+	Interaction extends APIApplicationCommandAutocompleteInteraction,
+>(
+	interaction: Interaction,
+	option: APIApplicationCommandInteractionDataIntegerOption<Interaction["type"]>,
 ) {
 	const { locale } = interaction;
 	const value = option.value.toUpperCase();
