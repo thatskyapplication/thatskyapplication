@@ -73,6 +73,7 @@ import {
 import {
 	DEFAULT_EMBED_COLOUR,
 	ERROR_RESPONSE_COMPONENTS_V2,
+	MAXIMUM_TEXT_DISPLAY_LENGTH,
 	NO_SPIRITS_WITH_OFFER_TEXT,
 } from "../utility/constants.js";
 import {
@@ -1022,11 +1023,12 @@ export class Catalogue {
 
 		const catalogue = await this.fetch(invoker.id);
 		const spirits = [season.guide, ...season.spirits.values()];
+		const heading = `## ${formatEmoji(SeasonIdToSeasonalEmoji[season.id])} [${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}](${t(`season-wiki.${season.id}`, { lng: locale, ns: "general" })})\n-# Catalogue → Seasons`;
 
 		const containerComponents: APIComponentInContainer[] = [
 			{
 				type: ComponentType.TextDisplay,
-				content: `## ${formatEmoji(SeasonIdToSeasonalEmoji[season.id])} [${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}](${t(`season-wiki.${season.id}`, { lng: locale, ns: "general" })})\n-# Catalogue → Seasons`,
+				content: heading,
 			},
 			{
 				type: ComponentType.Separator,
@@ -1035,7 +1037,11 @@ export class Catalogue {
 			},
 		];
 
-		const seasonText = catalogue.seasonText(season, locale);
+		const seasonText = catalogue.seasonText(
+			season,
+			locale,
+			MAXIMUM_TEXT_DISPLAY_LENGTH - heading.length,
+		);
 
 		if (season.patchNotesURL) {
 			containerComponents.push({
@@ -2616,7 +2622,7 @@ export class Catalogue {
 		return { remainingCurrency, offerDescription };
 	}
 
-	private seasonText(season: Season, locale: Locale) {
+	private seasonText(season: Season, locale: Locale, limit: number) {
 		const description = [];
 		let descriptionString = null;
 		const remainingCurrencies = [];
@@ -2659,22 +2665,22 @@ export class Catalogue {
 		if (description.length > 0) {
 			descriptionString = description.join("\n\n");
 
-			// If the resulting description exceeds 4,096 characters, replace some emojis.
-			if (descriptionString.length > 4_000) {
+			// If the resulting description exceeds the limit, replace some emojis.
+			if (descriptionString.length > limit) {
 				descriptionString = descriptionString.replaceAll(
 					formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 					"✅",
 				);
 			}
 
-			if (descriptionString.length > 4_000) {
+			if (descriptionString.length > limit) {
 				descriptionString = descriptionString.replaceAll(
 					formatEmoji(MISCELLANEOUS_EMOJIS.No),
 					"❌",
 				);
 			}
 
-			if (descriptionString.length > 4_000) {
+			if (descriptionString.length > limit) {
 				descriptionString = descriptionString.replaceAll(
 					formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
 					"🤍",
@@ -2795,8 +2801,14 @@ export class Catalogue {
 			const emoji = SeasonIdToSeasonalEmoji[seasonId];
 			backButtonCustomId = `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${type}`;
 			backButtonEmoji = emoji;
-			content = this.seasonText(skySeasons().get(seasonId)!, locale);
 			title = `${formatEmoji(emoji)} ${t(`seasons.${type}`, { lng: locale, ns: "general" })} Progress`;
+
+			content = this.seasonText(
+				skySeasons().get(seasonId)!,
+				locale,
+				// Take 100 away too for good measure.
+				MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - 100,
+			);
 		} else if (type === CATALOGUE_SHARE_ELDER_KEY) {
 			backButtonCustomId = CATALOGUE_VIEW_ELDERS_CUSTOM_ID;
 			content = this.spiritText([...ELDER_SPIRITS.values()], locale);
