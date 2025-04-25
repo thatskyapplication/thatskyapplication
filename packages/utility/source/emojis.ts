@@ -1785,9 +1785,13 @@ const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
 	 */
 	FaceAccessory40: { id: "1313935561022636072", name: "40_face_accessory" },
 	/**
+	 * Blue Bird Guide (ultimate).
+	 */
+	FaceAccessory41: { id: "1365253683805421631", name: "41_face_accessory" },
+	/**
 	 * Divining Wise Grandparent.
 	 */
-	FaceAccessory41: { id: "1365251455874895922", name: "41_face_accessory" },
+	FaceAccessory42: { id: "1365251455874895922", name: "42_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -1831,7 +1835,8 @@ const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	FaceAccessory38: { id: "1313920604939747450", name: "38_face_accessory" },
 	FaceAccessory39: { id: "1313920608677134378", name: "39_face_accessory" },
 	FaceAccessory40: { id: "1313920607028777020", name: "40_face_accessory" },
-	FaceAccessory41: { id: "1365251466738139169", name: "41_face_accessory" },
+	FaceAccessory41: { id: "1365253690675433542", name: "41_face_accessory" },
+	FaceAccessory42: { id: "1365251466738139169", name: "42_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_PRODUCTION = {
@@ -3767,9 +3772,13 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 */
 	Cape147: { id: "1353521854467412101", name: "147_cape" },
 	/**
+	 * Blue Bird Guide (ultimate).
+	 */
+	Cape148: { id: "1365253698946863104", name: "148_cape" },
+	/**
 	 * Divining Wise Grandparent.
 	 */
-	Cape148: { id: "1365251704605380669", name: "148_cape" },
+	Cape149: { id: "1365251704605380669", name: "149_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -3920,7 +3929,8 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape145: { id: "1351091572149588010", name: "145_cape" },
 	Cape146: { id: "1354387232324063362", name: "146_cape" },
 	Cape147: { id: "1353521862545768468", name: "147_cape" },
-	Cape148: { id: "1365251711626776667", name: "148_cape" },
+	Cape148: { id: "1365253705430995025", name: "148_cape" },
+	Cape149: { id: "1365251711626776667", name: "149_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -7435,8 +7445,8 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.BlueBirdGuideQuest1]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.BlueBirdGuideHeart1]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.BlueBirdPendant]: NECKLACE_EMOJIS.Necklace47,
-		[Cosmetic.BlueBirdGuideUltimateFaceAccessory]: null,
-		[Cosmetic.BlueBirdGuideUltimateCape]: null,
+		[Cosmetic.BlueBirdGuideUltimateFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory41,
+		[Cosmetic.BlueBirdGuideUltimateCape]: CAPE_EMOJIS.Cape148,
 		[Cosmetic.EmoteCough1]: EMOTE_EMOJIS.Cough,
 		[Cosmetic.EmoteCough2]: EMOTE_EMOJIS.Cough,
 		[Cosmetic.CostumedConfettiCousinHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory56,
@@ -7453,12 +7463,12 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.TumblingTroublemakerWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.DiviningWiseGrandparentDye1]: MISCELLANEOUS_EMOJIS.Dye,
 		[Cosmetic.DiviningWiseGrandparentBlackDye]: MISCELLANEOUS_EMOJIS.DyeBlack,
-		[Cosmetic.DiviningWiseGrandparentFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory41,
+		[Cosmetic.DiviningWiseGrandparentFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory42,
 		[Cosmetic.DiviningWiseGrandparentBlessing]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.DiviningWiseGrandparentBlueDye]: MISCELLANEOUS_EMOJIS.DyeBlue,
 		[Cosmetic.DiviningWiseGrandparentDye2]: MISCELLANEOUS_EMOJIS.Dye,
 		[Cosmetic.DiviningWiseGrandparentCyanDye]: MISCELLANEOUS_EMOJIS.DyeCyan,
-		[Cosmetic.DiviningWiseGrandparentCape]: CAPE_EMOJIS.Cape148,
+		[Cosmetic.DiviningWiseGrandparentCape]: CAPE_EMOJIS.Cape149,
 		[Cosmetic.DiviningWiseGrandparentSeasonalHeart]: SEASON_EMOJIS.BlueBirdHeart,
 		[Cosmetic.OceanWavesOutfit]: null,
 		[Cosmetic.OceanMantaHair]: null,
