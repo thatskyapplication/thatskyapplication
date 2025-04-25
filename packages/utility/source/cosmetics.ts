@@ -2931,6 +2931,15 @@ export enum Cosmetic {
 	CostumedConfettiCousinHair = 2331,
 	CostumedConfettiCousinBlessing4 = 2332,
 	CostumedConfettiCousinSeasonalHeart = 2333,
+	DiviningWiseGrandparentDye1 = 2334,
+	DiviningWiseGrandparentBlackDye = 2335,
+	DiviningWiseGrandparentFaceAccessory = 2336,
+	DiviningWiseGrandparentBlessing = 2337,
+	DiviningWiseGrandparentBlueDye = 2338,
+	DiviningWiseGrandparentDye2 = 2339,
+	DiviningWiseGrandparentCyanDye = 2340,
+	DiviningWiseGrandparentCape = 2341,
+	DiviningWiseGrandparentSeasonalHeart = 2342,
 
 	// 24/04/2025 | Travelling Spirit #139.
 	TumblingTroublemakerWingBuff = 2370,

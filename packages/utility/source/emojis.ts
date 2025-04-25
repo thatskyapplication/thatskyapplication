@@ -55,6 +55,7 @@ const MISCELLANEOUS_EMOJIS_PRODUCTION = {
 	DyePurple: { id: "1330476718288277618", name: "dye_purple" },
 	DyeBlack: { id: "1330476749988827166", name: "dye_black" },
 	DyeWhite: { id: "1330476771614916769", name: "dye_red" },
+	Dye: { id: "1365252158030745680", name: "dye" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
@@ -103,6 +104,7 @@ const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
 	DyePurple: { id: "1330476726274359316", name: "dye_purple" },
 	DyeBlack: { id: "1330476758964899861", name: "dye_black" },
 	DyeWhite: { id: "1330476779365859328", name: "dye_red" },
+	Dye: { id: "1365252165068656661", name: "dye" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS_PRODUCTION = {
@@ -1782,6 +1784,10 @@ const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Mischief Star Sticker.
 	 */
 	FaceAccessory40: { id: "1313935561022636072", name: "40_face_accessory" },
+	/**
+	 * Divining Wise Grandparent.
+	 */
+	FaceAccessory41: { id: "1365251455874895922", name: "41_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -1825,6 +1831,7 @@ const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	FaceAccessory38: { id: "1313920604939747450", name: "38_face_accessory" },
 	FaceAccessory39: { id: "1313920608677134378", name: "39_face_accessory" },
 	FaceAccessory40: { id: "1313920607028777020", name: "40_face_accessory" },
+	FaceAccessory41: { id: "1365251466738139169", name: "41_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_PRODUCTION = {
@@ -3759,6 +3766,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Bloom Rose Embroidered Cape.
 	 */
 	Cape147: { id: "1353521854467412101", name: "147_cape" },
+	/**
+	 * Divining Wise Grandparent.
+	 */
+	Cape148: { id: "1365251704605380669", name: "148_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -3909,6 +3920,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape145: { id: "1351091572149588010", name: "145_cape" },
 	Cape146: { id: "1354387232324063362", name: "146_cape" },
 	Cape147: { id: "1353521862545768468", name: "147_cape" },
+	Cape148: { id: "1365251711626776667", name: "148_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -7439,6 +7451,15 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.CostumedConfettiCousinBlessing4]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.CostumedConfettiCousinSeasonalHeart]: SEASON_EMOJIS.BlueBirdHeart,
 		[Cosmetic.TumblingTroublemakerWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
+		[Cosmetic.DiviningWiseGrandparentDye1]: MISCELLANEOUS_EMOJIS.Dye,
+		[Cosmetic.DiviningWiseGrandparentBlackDye]: MISCELLANEOUS_EMOJIS.DyeBlack,
+		[Cosmetic.DiviningWiseGrandparentFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory41,
+		[Cosmetic.DiviningWiseGrandparentBlessing]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.DiviningWiseGrandparentBlueDye]: MISCELLANEOUS_EMOJIS.DyeBlue,
+		[Cosmetic.DiviningWiseGrandparentDye2]: MISCELLANEOUS_EMOJIS.Dye,
+		[Cosmetic.DiviningWiseGrandparentCyanDye]: MISCELLANEOUS_EMOJIS.DyeCyan,
+		[Cosmetic.DiviningWiseGrandparentCape]: CAPE_EMOJIS.Cape148,
+		[Cosmetic.DiviningWiseGrandparentSeasonalHeart]: SEASON_EMOJIS.BlueBirdHeart,
 		[Cosmetic.OceanWavesOutfit]: null,
 		[Cosmetic.OceanMantaHair]: null,
 		[Cosmetic.OceanSeaFoamCape]: null,
