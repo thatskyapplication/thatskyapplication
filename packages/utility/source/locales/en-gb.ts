@@ -241,8 +241,8 @@ export default {
 			[DailyQuest.SplashInTheWaterWithCinnamorollInAviaryVillage]:
 				"Splash in the water with Cinnamoroll in Aviary Village",
 			[DailyQuest.PlayAnyTournamentSport]: "Play any Tournament sport",
-			[DailyQuest.ModestDancerNeedsHelpWithSomethingInVillageOfDreams]:
-				"Modest Dancer needs help with something in Village of Dreams",
+			[DailyQuest.MeetUpWithModestDancerInVillageOfDreams]:
+				"Meet up with Modest Dancer in Village of Dreams",
 			[DailyQuest.ForgetfulStorytellerNeedsHelpWithSomethingInVillageOfDreams]:
 				"Forgetful Storyteller needs help with something in Village of Dreams",
 			[DailyQuest.MeetUpWithFranticStagehandInVillageTheatre]:

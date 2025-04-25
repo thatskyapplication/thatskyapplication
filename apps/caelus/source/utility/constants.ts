@@ -1072,7 +1072,7 @@ export const DailyQuestToInfographicURL = {
 		CDN_URL,
 	).toString(),
 	[DailyQuest.PlayAnyTournamentSport]: null,
-	[DailyQuest.ModestDancerNeedsHelpWithSomethingInVillageOfDreams]: null,
+	[DailyQuest.MeetUpWithModestDancerInVillageOfDreams]: null,
 	[DailyQuest.ForgetfulStorytellerNeedsHelpWithSomethingInVillageOfDreams]: null,
 	[DailyQuest.MeetUpWithFranticStagehandInVillageTheatre]: null,
 	[DailyQuest.MellowMusicianNeedsHelpWithSomethingInVillageTheatre]: null,

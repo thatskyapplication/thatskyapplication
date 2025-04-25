@@ -169,7 +169,7 @@ export const DailyQuest = {
 	FlyUpToTheTowerWithCinnamorollInAviaryVillage: 167,
 	SplashInTheWaterWithCinnamorollInAviaryVillage: 168,
 	PlayAnyTournamentSport: 169,
-	ModestDancerNeedsHelpWithSomethingInVillageOfDreams: 170,
+	MeetUpWithModestDancerInVillageOfDreams: 170,
 	ForgetfulStorytellerNeedsHelpWithSomethingInVillageOfDreams: 171,
 	MeetUpWithFranticStagehandInVillageTheatre: 172,
 	MellowMusicianNeedsHelpWithSomethingInVillageTheatre: 173,
