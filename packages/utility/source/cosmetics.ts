@@ -2958,6 +2958,17 @@ export enum Cosmetic {
 	NostalgicSparklerParentDye3 = 2358,
 	NostalgicSparklerParentDye4 = 2359,
 	NostalgicSparklerParentSeasonalHeart = 2360,
+	EmoteAmazed1 = 2361,
+	EmoteAmazed2 = 2362,
+	RoyalHairtousleTeenBlessing1 = 2363,
+	RoyalHairtousleTeenHeadAccessory = 2364,
+	EmoteAmazed3 = 2365,
+	EmoteAmazed4 = 2366,
+	RoyalHairtousleTeenOutfit = 2367,
+	RoyalHairtousleTeenBlessing2 = 2368,
+	RoyalHairtousleTeenWhiteDye = 2369,
+	RoyalHairtousleTeenCape = 2370,
+	RoyalHairtousleTeenSeasonalHeart = 2371,
 
 	// 24/04/2025 | Travelling Spirit #139.
 	TumblingTroublemakerWingBuff = 2372,

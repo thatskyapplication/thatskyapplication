@@ -215,6 +215,7 @@ const EMOTE_EMOJIS_PRODUCTION = {
 	HypeDance: { id: "1330568867986014218", name: "hype_dance" },
 	HeartGesture: { id: "1330656137174978560", name: "heart_gesture" },
 	Cough: { id: "1363812372510150676", name: "Cough" },
+	Amazed: { id: "1365270363428360304", name: "Amazed" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS_DEVELOPMENT = {
@@ -325,6 +326,7 @@ const EMOTE_EMOJIS_DEVELOPMENT = {
 	HypeDance: { id: "1330568876974542949", name: "hype_dance" },
 	HeartGesture: { id: "1330656144921985115", name: "heart_gesture" },
 	Cough: { id: "1363812384329699408", name: "Cough" },
+	Amazed: { id: "1365270370436780152", name: "Amazed" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const STANCE_EMOJIS_PRODUCTION = {
@@ -940,6 +942,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Woodcutting Pleaful Parent.
 	 */
 	Outfit81: { id: "1365257960279900252", name: "81_outfit" },
+	/**
+	 * Royal Hairtousle Teen.
+	 */
+	Outfit82: { id: "1365271623120195704", name: "82_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1024,6 +1030,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit79: { id: "1345901519869837345", name: "79_outfit" },
 	Outfit80: { id: "1364902547592052737", name: "80_outfit" },
 	Outfit81: { id: "1365257968148283423", name: "81_outfit" },
+	Outfit82: { id: "1365271629558452224", name: "82_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -3135,6 +3142,10 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Nostalgic Sparkler Parent.
 	 */
 	HairAccessory57: { id: "1365260195114127390", name: "57_hair_accessory" },
+	/**
+	 * Royal Hairtousle Teen.
+	 */
+	HairAccessory58: { id: "1365271433810284564", name: "58_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3195,6 +3206,7 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory55: { id: "1338232448043057152", name: "55_hair_accessory" },
 	HairAccessory56: { id: "1364903137093226578", name: "56_hair_accessory" },
 	HairAccessory57: { id: "1365260201950711880", name: "57_hair_accessory" },
+	HairAccessory58: { id: "1365271440584212492", name: "58_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_PRODUCTION = {
@@ -3798,6 +3810,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Nostalgic Sparkler Parent.
 	 */
 	Cape150: { id: "1365260385577467904", name: "150_cape" },
+	/**
+	 * Royal Hairtousle Teen.
+	 */
+	Cape151: { id: "1365271212221005854", name: "151_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -3951,6 +3967,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape148: { id: "1365253705430995025", name: "148_cape" },
 	Cape149: { id: "1365251711626776667", name: "149_cape" },
 	Cape150: { id: "1365260392904790098", name: "150_cape" },
+	Cape151: { id: "1365271219129028608", name: "151_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -7508,6 +7525,17 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.NostalgicSparklerParentDye3]: MISCELLANEOUS_EMOJIS.Dye,
 		[Cosmetic.NostalgicSparklerParentDye4]: MISCELLANEOUS_EMOJIS.Dye,
 		[Cosmetic.NostalgicSparklerParentSeasonalHeart]: SEASON_EMOJIS.BlueBirdHeart,
+		[Cosmetic.EmoteAmazed1]: EMOTE_EMOJIS.Amazed,
+		[Cosmetic.EmoteAmazed2]: EMOTE_EMOJIS.Amazed,
+		[Cosmetic.RoyalHairtousleTeenBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.RoyalHairtousleTeenHeadAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory58,
+		[Cosmetic.EmoteAmazed3]: EMOTE_EMOJIS.Amazed,
+		[Cosmetic.EmoteAmazed4]: EMOTE_EMOJIS.Amazed,
+		[Cosmetic.RoyalHairtousleTeenOutfit]: OUTFIT_EMOJIS.Outfit82,
+		[Cosmetic.RoyalHairtousleTeenBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.RoyalHairtousleTeenWhiteDye]: MISCELLANEOUS_EMOJIS.DyeWhite,
+		[Cosmetic.RoyalHairtousleTeenCape]: CAPE_EMOJIS.Cape151,
+		[Cosmetic.RoyalHairtousleTeenSeasonalHeart]: SEASON_EMOJIS.BlueBirdHeart,
 		[Cosmetic.OceanWavesOutfit]: null,
 		[Cosmetic.OceanMantaHair]: null,
 		[Cosmetic.OceanSeaFoamCape]: null,
