@@ -2960,7 +2960,7 @@ export enum Cosmetic {
 	NostalgicSparklerParentSeasonalHeart = 2360,
 
 	// 24/04/2025 | Travelling Spirit #139.
-	TumblingTroublemakerWingBuff = 2370,
+	TumblingTroublemakerWingBuff = 2372,
 
 	// 28/04/2025 | Days of Nature.
 	OceanWavesOutfit,
