@@ -936,6 +936,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Costumed Confetti Cousin.
 	 */
 	Outfit80: { id: "1364902537895088128", name: "80_outfit" },
+	/**
+	 * Woodcutting Pleaful Parent.
+	 */
+	Outfit81: { id: "1365257960279900252", name: "81_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1019,6 +1023,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit78: { id: "1333204981150515292", name: "78_outfit" },
 	Outfit79: { id: "1345901519869837345", name: "79_outfit" },
 	Outfit80: { id: "1364902547592052737", name: "80_outfit" },
+	Outfit81: { id: "1365257968148283423", name: "81_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -1098,6 +1103,10 @@ const SHOE_EMOJIS_PRODUCTION = {
 	 * Treasure Cavalier Boots.
 	 */
 	Shoe19: { id: "1345896918710095912", name: "19_shoe" },
+	/**
+	 * Woodcutting Pleaful Parent.
+	 */
+	Shoe20: { id: "1365257777966092298", name: "20_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_DEVELOPMENT = {
@@ -1120,6 +1129,7 @@ const SHOE_EMOJIS_DEVELOPMENT = {
 	Shoe17: { id: "1330515583351001182", name: "17_shoe" },
 	Shoe18: { id: "1330646401532559402", name: "18_shoe" },
 	Shoe19: { id: "1345896926830133379", name: "19_shoe" },
+	Shoe20: { id: "1365257785629216768", name: "20_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_PRODUCTION = {
@@ -7470,6 +7480,15 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.DiviningWiseGrandparentCyanDye]: MISCELLANEOUS_EMOJIS.DyeCyan,
 		[Cosmetic.DiviningWiseGrandparentCape]: CAPE_EMOJIS.Cape149,
 		[Cosmetic.DiviningWiseGrandparentSeasonalHeart]: SEASON_EMOJIS.BlueBirdHeart,
+		[Cosmetic.WoodcuttingPleafulParentMusicSheet]: MISCELLANEOUS_EMOJIS.MusicSheet,
+		[Cosmetic.WoodcuttingPleafulParentBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.WoodcuttingPleafulParentBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.WoodcuttingPleafulParentShoes]: SHOE_EMOJIS.Shoe20,
+		[Cosmetic.WoodcuttingPleafulParentGreenDye1]: MISCELLANEOUS_EMOJIS.DyeGreen,
+		[Cosmetic.WoodcuttingPleafulParentGreenDye2]: MISCELLANEOUS_EMOJIS.DyeGreen,
+		[Cosmetic.WoodcuttingPleafulParentOutfit]: OUTFIT_EMOJIS.Outfit81,
+		[Cosmetic.WoodcuttingPleafulParentBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.WoodcuttingPleafulParentSeasonalHeart]: SEASON_EMOJIS.BlueBirdHeart,
 		[Cosmetic.OceanWavesOutfit]: null,
 		[Cosmetic.OceanMantaHair]: null,
 		[Cosmetic.OceanSeaFoamCape]: null,
