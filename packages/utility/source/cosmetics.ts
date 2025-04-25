@@ -2949,6 +2949,15 @@ export enum Cosmetic {
 	WoodcuttingPleafulParentOutfit = 2349,
 	WoodcuttingPleafulParentBlessing3 = 2350,
 	WoodcuttingPleafulParentSeasonalHeart = 2351,
+	NostalgicSparklerParentDye1 = 2352,
+	NostalgicSparklerParentHairAccessory = 2353,
+	NostalgicSparklerParentPurpleDye = 2354,
+	NostalgicSparklerParentCyanDye = 2355,
+	NostalgicSparklerParentCape = 2356,
+	NostalgicSparklerParentDye2 = 2357,
+	NostalgicSparklerParentDye3 = 2358,
+	NostalgicSparklerParentDye4 = 2359,
+	NostalgicSparklerParentSeasonalHeart = 2360,
 
 	// 24/04/2025 | Travelling Spirit #139.
 	TumblingTroublemakerWingBuff = 2370,

@@ -3131,6 +3131,10 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Costumed Confetti Cousin.
 	 */
 	HairAccessory56: { id: "1364903131032322112", name: "56_hair_accessory" },
+	/**
+	 * Nostalgic Sparkler Parent.
+	 */
+	HairAccessory57: { id: "1365260195114127390", name: "57_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3190,6 +3194,7 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory54: { id: "1330662833142239272", name: "54_hair_accessory" },
 	HairAccessory55: { id: "1338232448043057152", name: "55_hair_accessory" },
 	HairAccessory56: { id: "1364903137093226578", name: "56_hair_accessory" },
+	HairAccessory57: { id: "1365260201950711880", name: "57_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_PRODUCTION = {
@@ -3789,6 +3794,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Divining Wise Grandparent.
 	 */
 	Cape149: { id: "1365251704605380669", name: "149_cape" },
+	/**
+	 * Nostalgic Sparkler Parent.
+	 */
+	Cape150: { id: "1365260385577467904", name: "150_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -3941,6 +3950,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape147: { id: "1353521862545768468", name: "147_cape" },
 	Cape148: { id: "1365253705430995025", name: "148_cape" },
 	Cape149: { id: "1365251711626776667", name: "149_cape" },
+	Cape150: { id: "1365260392904790098", name: "150_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -7489,6 +7499,15 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.WoodcuttingPleafulParentOutfit]: OUTFIT_EMOJIS.Outfit81,
 		[Cosmetic.WoodcuttingPleafulParentBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.WoodcuttingPleafulParentSeasonalHeart]: SEASON_EMOJIS.BlueBirdHeart,
+		[Cosmetic.NostalgicSparklerParentDye1]: MISCELLANEOUS_EMOJIS.Dye,
+		[Cosmetic.NostalgicSparklerParentHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory57,
+		[Cosmetic.NostalgicSparklerParentPurpleDye]: MISCELLANEOUS_EMOJIS.DyePurple,
+		[Cosmetic.NostalgicSparklerParentCyanDye]: MISCELLANEOUS_EMOJIS.DyeCyan,
+		[Cosmetic.NostalgicSparklerParentCape]: CAPE_EMOJIS.Cape150,
+		[Cosmetic.NostalgicSparklerParentDye2]: MISCELLANEOUS_EMOJIS.Dye,
+		[Cosmetic.NostalgicSparklerParentDye3]: MISCELLANEOUS_EMOJIS.Dye,
+		[Cosmetic.NostalgicSparklerParentDye4]: MISCELLANEOUS_EMOJIS.Dye,
+		[Cosmetic.NostalgicSparklerParentSeasonalHeart]: SEASON_EMOJIS.BlueBirdHeart,
 		[Cosmetic.OceanWavesOutfit]: null,
 		[Cosmetic.OceanMantaHair]: null,
 		[Cosmetic.OceanSeaFoamCape]: null,
