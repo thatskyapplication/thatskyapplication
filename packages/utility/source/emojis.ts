@@ -6806,7 +6806,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.TumblingTroublemakerCape]: CAPE_EMOJIS.Cape102,
 		[Cosmetic.TumblingTroublemakerBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.TumblingTroublemakerFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory24,
-		[Cosmetic.TumblingTroublemakerSeasonalHeart]: SEASON_EMOJIS.PassageHeart,
+		[Cosmetic.TumblingTroublemakerSeasonalHeart]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.EmoteMoping1]: EMOTE_EMOJIS.Moping,
 		[Cosmetic.EmoteMoping2]: EMOTE_EMOJIS.Moping,
 		[Cosmetic.MelancholyMopeFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory23,
