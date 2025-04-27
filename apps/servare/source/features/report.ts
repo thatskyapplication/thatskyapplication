@@ -322,25 +322,32 @@ export async function confirmation(
 		throw new Error("Failed to fetch the reported user.");
 	}
 
-	let reportedMessageContent = settled[1].status === "fulfilled" ? settled[1].value?.content : null;
+	let reportedMessageContent: string;
 
-	if (!reportedMessageContent) {
+	if (settled[1].status === "fulfilled") {
+		const { value } = settled[1];
+
+		if (value === null) {
+			const databaseMessage = await pg<MessagesPacket>(Table.Messages)
+				.select("content")
+				.where({ message_id: messageId })
+				.first();
+
+			reportedMessageContent = databaseMessage?.content ?? "_Unknown_";
+		} else {
+			reportedMessageContent = value.content;
+		}
+	} else {
 		const databaseMessage = await pg<MessagesPacket>(Table.Messages)
 			.select("content")
 			.where({ message_id: messageId })
 			.first();
 
-		if (databaseMessage) {
-			reportedMessageContent = databaseMessage.content;
-		}
+		reportedMessageContent = databaseMessage?.content ?? "_Unknown_";
 	}
 
-	if (reportedMessageContent) {
-		if (reportedMessageContent.length > REPORT_MESSAGE_MAXIMUM_LENGTH) {
-			reportedMessageContent = `${reportedMessageContent.slice(0, REPORT_MESSAGE_MAXIMUM_LENGTH)}...`;
-		}
-	} else {
-		reportedMessageContent = reportedMessageContent === null ? "_Unknown_" : "_No content_";
+	if (reportedMessageContent.length > REPORT_MESSAGE_MAXIMUM_LENGTH) {
+		reportedMessageContent = `${reportedMessageContent.slice(0, REPORT_MESSAGE_MAXIMUM_LENGTH)}...`;
 	}
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
