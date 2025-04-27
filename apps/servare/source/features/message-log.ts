@@ -506,10 +506,11 @@ export async function upsert(
 		GuildSettingsPacket,
 		"message_log_ignore_channel_ids" | "message_log_allow_channel_ids"
 	>,
+	bypassLogCheck = false,
 ) {
 	const channel = guild.channels.get(message.channel_id) ?? guild.threads.get(message.channel_id);
 
-	if (!(channel && shouldLogMessage(guild, channel, guildSettingsPacket))) {
+	if (!channel || (!bypassLogCheck && shouldLogMessage(guild, channel, guildSettingsPacket))) {
 		return;
 	}
 

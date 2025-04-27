@@ -37,7 +37,7 @@ import { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import { CustomId, schemaStore } from "../utility/string-store.js";
 import type { GuildSettingsPacket } from "./guild-settings.js";
-import type { MessagesPacket } from "./message-log.js";
+import { type MessagesPacket, upsert } from "./message-log.js";
 
 export function isReportCreatableAndSendable(
 	guild: Guild,
@@ -217,7 +217,7 @@ export async function reportModalResponse(
 	guild: Guild,
 ) {
 	const guildSettingsPacket = await pg<GuildSettingsPacket>(Table.GuildSettings)
-		.select("report_channel_id")
+		.select("message_log_ignore_channel_ids", "message_log_allow_channel_ids", "report_channel_id")
 		.where({ guild_id: guild.id })
 		.first();
 
@@ -248,6 +248,9 @@ export async function reportModalResponse(
 	}
 
 	const message = new OptionResolver(interaction).getTargetMessage();
+
+	// Insert the message into the database in case of missing permissions to fetch the message later.
+	await upsert(message, guild, guildSettingsPacket, true);
 
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
 		title: "Report",
