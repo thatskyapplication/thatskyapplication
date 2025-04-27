@@ -473,7 +473,19 @@ export async function create(
 		return;
 	}
 
-	const reportChannelId = interaction.channel!.id;
+	const reportedChannel = guild.channels.get(interaction.channel!.id);
+
+	if (!reportedChannel) {
+		pino.error(interaction, "Failed to find the channel the report came from.");
+
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+			content: "Failed to create a report. Try to approach the moderators directly.",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
 	const files = [];
 
 	if (
@@ -481,13 +493,13 @@ export async function create(
 			permission: PermissionFlagsBits.ViewChannel | PermissionFlagsBits.ReadMessageHistory,
 			guild,
 			member: await guild.fetchMe(),
-			channel,
+			channel: reportedChannel,
 		})
 	) {
 		// Fetch messages around the message id for context.
 		files.push({
 			data: (
-				await client.api.channels.getMessages(reportChannelId, {
+				await client.api.channels.getMessages(reportedChannel.id, {
 					limit: 100,
 					around: messageId,
 				})
@@ -517,7 +529,7 @@ export async function create(
 							type: ComponentType.Button,
 							label: "View message",
 							style: ButtonStyle.Link,
-							url: messageLink(guild.id, reportChannelId, messageId),
+							url: messageLink(guild.id, reportedChannel.id, messageId),
 						},
 					],
 				},
