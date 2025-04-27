@@ -423,6 +423,10 @@ export default {
 				}
 
 				if (customId === SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID) {
+					if (await isNotComponentsV2(interaction)) {
+						return;
+					}
+
 					await today(interaction);
 					return;
 				}
