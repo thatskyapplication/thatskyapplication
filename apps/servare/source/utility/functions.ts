@@ -2,7 +2,10 @@ import {
 	type APIChatInputApplicationCommandGuildInteraction,
 	type APIGuildInteractionWrapper,
 	type APIInteraction,
+	type APIMessageApplicationCommandGuildInteraction,
+	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
+	type APIModalSubmitInteraction,
 	type APIUser,
 	ApplicationCommandType,
 	ChannelType,
@@ -25,6 +28,26 @@ export function isGuildChatInputCommand(
 	);
 }
 
+export function isGuildMessageContextMenuCommand(
+	interaction: APIInteraction,
+): interaction is APIMessageApplicationCommandGuildInteraction {
+	return (
+		interaction.type === InteractionType.ApplicationCommand &&
+		interaction.data.type === ApplicationCommandType.Message &&
+		"guild_id" in interaction
+	);
+}
+
+export function isGuildButton(
+	interaction: APIInteraction,
+): interaction is APIGuildInteractionWrapper<APIMessageComponentButtonInteraction> {
+	return (
+		interaction.type === InteractionType.MessageComponent &&
+		interaction.data.component_type === ComponentType.Button &&
+		"guild_id" in interaction
+	);
+}
+
 export function isGuildChannelSelectMenu(
 	interaction: APIInteraction,
 ): interaction is APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction> {
@@ -33,6 +56,12 @@ export function isGuildChannelSelectMenu(
 		interaction.data.component_type === ComponentType.ChannelSelect &&
 		"guild_id" in interaction
 	);
+}
+
+export function isGuildModalSubmit(
+	interaction: APIInteraction,
+): interaction is APIGuildInteractionWrapper<APIModalSubmitInteraction> {
+	return interaction.type === InteractionType.ModalSubmit && "guild_id" in interaction;
 }
 
 export function skyProfileWebsiteURL(userId: Snowflake) {
