@@ -48,3 +48,6 @@ export const MESSAGE_UPDATE_CODE_CHECK_REGULAR_EXPRESSION = /```.*?```/s;
 export const MESSAGE_UPDATE_REGULAR_EXPRESSION = /```(?:(\S+)\n)?\s*(.+?)\s*```/s;
 export const REPORT_CHANNEL_TYPE = ChannelType.GuildForum as const;
 export const REPORT_MESSAGE_COLOUR = 0xb81e1e as const;
+export const REPORT_MINIMUM_REASON_LENGTH = 4 as const;
+export const REPORT_MAXIMUM_REASON_LENGTH = 1000 as const;
+export const REPORT_MESSAGE_MAXIMUM_LENGTH = 2000 as const;

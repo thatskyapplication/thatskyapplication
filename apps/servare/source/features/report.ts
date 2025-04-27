@@ -25,7 +25,10 @@ import {
 	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,
 	REPORT_CHANNEL_TYPE,
+	REPORT_MAXIMUM_REASON_LENGTH,
 	REPORT_MESSAGE_COLOUR,
+	REPORT_MESSAGE_MAXIMUM_LENGTH,
+	REPORT_MINIMUM_REASON_LENGTH,
 } from "../utility/constants.js";
 import { avatarURL, messageLink, userTag } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
@@ -262,8 +265,8 @@ export async function reportModalResponse(
 						custom_id: schemaStore.serialize(CustomId.ReportModalResponseText, {}).toString(),
 						label: "Reason",
 						style: TextInputStyle.Paragraph,
-						min_length: 1,
-						max_length: 1000,
+						min_length: REPORT_MINIMUM_REASON_LENGTH,
+						max_length: REPORT_MAXIMUM_REASON_LENGTH,
 						placeholder: "Please provide a reason for the report.",
 						required: true,
 					},
@@ -344,8 +347,8 @@ export async function create(
 	let reportedMessageContent = reportedMessage?.content;
 
 	if (reportedMessageContent) {
-		if (reportedMessageContent.length > 2000) {
-			reportedMessageContent = `${reportedMessageContent.slice(0, 2000)}...`;
+		if (reportedMessageContent.length > REPORT_MESSAGE_MAXIMUM_LENGTH) {
+			reportedMessageContent = `${reportedMessageContent.slice(0, REPORT_MESSAGE_MAXIMUM_LENGTH)}...`;
 		}
 	} else {
 		reportedMessageContent = "_No content_";
