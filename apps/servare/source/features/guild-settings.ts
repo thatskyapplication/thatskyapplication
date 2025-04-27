@@ -6,6 +6,8 @@ export interface GuildSettingsPacket {
 	message_log_channel_id: Snowflake | null;
 	message_log_ignore_channel_ids: Snowflake[];
 	message_log_allow_channel_ids: Snowflake[];
+	report_channel_id: Snowflake | null;
+	report_command_id: Snowflake | null;
 }
 
 export type GuildSettingsUpdateMessageLog = Pick<GuildSettingsPacket, "guild_id"> &

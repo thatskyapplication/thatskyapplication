@@ -1,6 +1,6 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
 import { GUILD_CACHE } from "../caches/guilds.js";
-import { CHAT_INPUT_COMMANDS } from "../commands/index.js";
+import { CHAT_INPUT_COMMANDS, MESSAGE_CONTEXT_MENU_COMMANDS } from "../commands/index.js";
 import { client } from "../discord.js";
 import { handleChannelSelectMenu as handleMemberLogChannelSelectMenu } from "../features/member-log.js";
 import {
@@ -8,9 +8,18 @@ import {
 	handleMessageLogChannelSelectMenu,
 	handleMessageLogIgnoreChannelSelectMenu,
 } from "../features/message-log.js";
+import {
+	create,
+	handleChannelSelectMenu as handleReportChannelSelectMenu,
+} from "../features/report.js";
 import pino from "../pino.js";
 import { ERROR_RESPONSE, NOT_IN_CACHED_GUILD_RESPONSE } from "../utility/constants.js";
-import { isGuildChannelSelectMenu, isGuildChatInputCommand } from "../utility/functions.js";
+import {
+	isGuildChannelSelectMenu,
+	isGuildChatInputCommand,
+	isGuildMessageContextMenuCommand,
+	isGuildModalSubmit,
+} from "../utility/functions.js";
 import { CustomId, schemaStore } from "../utility/string-store.js";
 import type { Event } from "./index.js";
 
@@ -45,6 +54,24 @@ export default {
 			return;
 		}
 
+		if (isGuildMessageContextMenuCommand(data)) {
+			const command = MESSAGE_CONTEXT_MENU_COMMANDS.find(({ name }) => name === data.data.name);
+
+			if (!command) {
+				pino.warn(data, "Received an unknown message context menu command interaction.");
+				await client.api.interactions.reply(data.id, data.token, ERROR_RESPONSE);
+				return;
+			}
+
+			try {
+				await command.messageContextMenu(data, guild);
+			} catch (error) {
+				pino.error(error, "Error whilst executing message context menu command.");
+			}
+
+			return;
+		}
+
 		if (isGuildChannelSelectMenu(data)) {
 			try {
 				const schemaData = schemaStore.deserialize(data.data.custom_id);
@@ -68,6 +95,11 @@ export default {
 					await handleMessageLogAllowChannelSelectMenu(data, guild);
 					return;
 				}
+
+				if (schemaData.id === CustomId.ReportChannel) {
+					await handleReportChannelSelectMenu(data, guild);
+					return;
+				}
 			} catch (error) {
 				pino.error(error, "Error whilst executing channel select menu interaction.");
 				return;
@@ -76,6 +108,23 @@ export default {
 			pino.warn(data, "Received an unknown channel select menu interaction.");
 			await client.api.interactions.updateMessage(data.id, data.token, ERROR_RESPONSE);
 			return;
+		}
+
+		if (isGuildModalSubmit(data)) {
+			try {
+				const schemaData = schemaStore.deserialize(data.data.custom_id);
+
+				if (schemaData.id === CustomId.ReportModalResponse) {
+					await create(data, schemaData.data);
+					return;
+				}
+			} catch (error) {
+				pino.error(error, "Error whilst handling a modal submit interaction.");
+				return;
+			}
+
+			pino.warn(data, "Received an unknown modal submit interaction.");
+			await client.api.interactions.reply(data.id, data.token, ERROR_RESPONSE);
 		}
 	},
 } satisfies Event<typeof name>;
