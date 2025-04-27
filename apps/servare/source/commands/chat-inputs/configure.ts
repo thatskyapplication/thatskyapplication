@@ -29,16 +29,16 @@ export default {
 				throw new Error("Received an unknown channel type whilst setting up the report channel.");
 			}
 
-			const reportCreateableAndSendable = isReportCreatableAndSendable(
+			const reportCreatableAndSendable = isReportCreatableAndSendable(
 				guild,
 				cachedChannel,
 				await guild.fetchMe(),
 				true,
 			);
 
-			if (reportCreateableAndSendable.length > 0) {
+			if (reportCreatableAndSendable.length > 0) {
 				await client.api.interactions.reply(interaction.id, interaction.token, {
-					content: reportCreateableAndSendable.join("\n"),
+					content: reportCreatableAndSendable.join("\n"),
 					flags: MessageFlags.Ephemeral,
 				});
 
