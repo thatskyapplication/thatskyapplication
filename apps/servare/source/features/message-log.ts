@@ -39,7 +39,7 @@ import { can, isChannelPublic } from "../utility/permissions.js";
 import { CustomId, schemaStore } from "../utility/string-store.js";
 import type { GuildSettingsPacket, GuildSettingsUpdateMessageLog } from "./guild-settings.js";
 
-interface MessagesPacket {
+export interface MessagesPacket {
 	guild_id: Snowflake;
 	channel_id: Snowflake;
 	message_id: Snowflake;

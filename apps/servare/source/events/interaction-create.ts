@@ -141,7 +141,7 @@ export default {
 				const schemaData = schemaStore.deserialize(data.data.custom_id);
 
 				if (schemaData.id === CustomId.ReportModalResponse) {
-					await confirmation(data, schemaData.data);
+					await confirmation(data, guild, schemaData.data);
 					return;
 				}
 			} catch (error) {

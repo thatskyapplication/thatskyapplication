@@ -37,6 +37,7 @@ import { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import { CustomId, schemaStore } from "../utility/string-store.js";
 import type { GuildSettingsPacket } from "./guild-settings.js";
+import type { MessagesPacket } from "./message-log.js";
 
 export function isReportCreatableAndSendable(
 	guild: Guild,
@@ -287,6 +288,7 @@ interface ReportConfirmationOptions {
 
 export async function confirmation(
 	interaction: APIGuildInteractionWrapper<APIModalSubmitInteraction>,
+	guild: Guild,
 	{ username, commandId, userId, messageId }: ReportConfirmationOptions,
 ) {
 	const components = new ModalResolver(interaction.data.components);
@@ -294,6 +296,52 @@ export async function confirmation(
 	const reason = components.getTextInputValue(
 		schemaStore.serialize(CustomId.ReportModalResponseText, {}),
 	);
+
+	const channel = guild.channels.get(interaction.channel!.id);
+
+	if (!channel) {
+		throw new Error("Failed to find a channel to create a report from.");
+	}
+
+	const promises = [
+		client.api.users.get(userId),
+		can({
+			permission: PermissionFlagsBits.ViewChannel | PermissionFlagsBits.ReadMessageHistory,
+			guild,
+			member: await guild.fetchMe(),
+			channel,
+		})
+			? client.api.channels.getMessage(interaction.channel!.id, messageId)
+			: null,
+	] as const;
+
+	const settled = await Promise.allSettled(promises);
+	const reportedUser = settled[0].status === "fulfilled" ? settled[0].value : null;
+
+	if (!reportedUser) {
+		throw new Error("Failed to fetch the reported user.");
+	}
+
+	let reportedMessageContent = settled[1].status === "fulfilled" ? settled[1].value?.content : null;
+
+	if (!reportedMessageContent) {
+		const databaseMessage = await pg<MessagesPacket>(Table.Messages)
+			.select("content")
+			.where({ message_id: messageId })
+			.first();
+
+		if (databaseMessage) {
+			reportedMessageContent = databaseMessage.content;
+		}
+	}
+
+	if (reportedMessageContent) {
+		if (reportedMessageContent.length > REPORT_MESSAGE_MAXIMUM_LENGTH) {
+			reportedMessageContent = `${reportedMessageContent.slice(0, REPORT_MESSAGE_MAXIMUM_LENGTH)}...`;
+		}
+	} else {
+		reportedMessageContent = reportedMessageContent === null ? "_Unknown_" : "_No content_";
+	}
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
 		components: [
@@ -329,6 +377,12 @@ export async function confirmation(
 				},
 				color: DEFAULT_EMBED_COLOUR,
 				description: reason,
+			},
+			{
+				author: { name: `${userTag(reportedUser)} (${userId})`, icon_url: avatarURL(reportedUser) },
+				color: REPORT_MESSAGE_COLOUR,
+				description: reportedMessageContent,
+				timestamp: new Date(DiscordSnowflake.timestampFrom(messageId)).toISOString(),
 			},
 		],
 		flags: MessageFlags.Ephemeral,
@@ -420,50 +474,41 @@ export async function create(
 	}
 
 	const reportChannelId = interaction.channel!.id;
+	const files = [];
 
-	// Fetch messages around the message id for context.
-	const messages = (
-		await client.api.channels.getMessages(reportChannelId, {
-			limit: 100,
-			around: messageId,
+	if (
+		can({
+			permission: PermissionFlagsBits.ViewChannel | PermissionFlagsBits.ReadMessageHistory,
+			guild,
+			member: await guild.fetchMe(),
+			channel,
 		})
-	).reverse();
+	) {
+		// Fetch messages around the message id for context.
+		files.push({
+			data: (
+				await client.api.channels.getMessages(reportChannelId, {
+					limit: 100,
+					around: messageId,
+				})
+			)
+				.reduceRight<string[]>((content, message) => {
+					const createdAt = new Date(DiscordSnowflake.timestampFrom(message.id)).toISOString();
 
-	const reportedMessage = messages.find((message) => message.id === messageId);
-	let reportedMessageContent = reportedMessage?.content;
+					content.push(
+						`[${createdAt}] ${userTag(message.author)} (${message.author.id}): ${message.content}`,
+					);
 
-	if (reportedMessageContent) {
-		if (reportedMessageContent.length > REPORT_MESSAGE_MAXIMUM_LENGTH) {
-			reportedMessageContent = `${reportedMessageContent.slice(0, REPORT_MESSAGE_MAXIMUM_LENGTH)}...`;
-		}
-	} else {
-		reportedMessageContent = "_No content_";
+					return content;
+				}, [])
+				.join("\n"),
+			name: "messages.txt",
+		});
 	}
-
-	const reportedUser = reportedMessage?.author ?? (await client.api.users.get(userId));
 
 	await client.api.channels.createForumThread(channel.id, {
 		message: {
 			allowed_mentions: { parse: [] },
-			embeds: [
-				{
-					author: {
-						name: `${userTag(interaction.member.user)} (${interaction.member.user.id})`,
-						icon_url: avatarURL(interaction.member.user),
-					},
-					color: DEFAULT_EMBED_COLOUR,
-					description: reason,
-				},
-				{
-					author: {
-						name: `${userTag(reportedUser)} (${userId})`,
-						icon_url: avatarURL(reportedUser),
-					},
-					color: REPORT_MESSAGE_COLOUR,
-					description: reportedMessageContent,
-					timestamp: new Date(DiscordSnowflake.timestampFrom(messageId)).toISOString(),
-				},
-			],
 			components: [
 				{
 					type: ComponentType.ActionRow,
@@ -477,17 +522,9 @@ export async function create(
 					],
 				},
 			],
-			files: [
-				{
-					data: messages
-						.map((message) => {
-							const createdAt = new Date(DiscordSnowflake.timestampFrom(message.id)).toISOString();
-							return `[${createdAt}] ${userTag(message.author)} (${message.author.id}): ${message.content}`;
-						})
-						.join("\n"),
-					name: "messages.txt",
-				},
-			],
+			content: files.length > 0 ? "" : "⚠️ Missing permission to fetch messages.",
+			embeds: interaction.message.embeds,
+			files,
 		},
 		name: `Report for ${username} (${userId})`,
 	});
