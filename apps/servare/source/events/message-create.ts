@@ -18,7 +18,7 @@ export default {
 			return;
 		}
 
-		if (data.content === "") {
+		if (data.author.bot || data.content === "") {
 			return;
 		}
 
