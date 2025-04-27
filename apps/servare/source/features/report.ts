@@ -544,7 +544,7 @@ export async function create(
 					],
 				},
 			],
-			content: files.length > 0 ? "" : "⚠️ Missing permission to fetch messages.",
+			content: files.length > 0 ? "" : "⚠️ Missing permissions to fetch surrounding messages.",
 			embeds: interaction.message.embeds,
 			files,
 		},
