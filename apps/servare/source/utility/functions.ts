@@ -3,6 +3,7 @@ import {
 	type APIGuildInteractionWrapper,
 	type APIInteraction,
 	type APIMessageApplicationCommandGuildInteraction,
+	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIModalSubmitInteraction,
 	type APIUser,
@@ -33,6 +34,16 @@ export function isGuildMessageContextMenuCommand(
 	return (
 		interaction.type === InteractionType.ApplicationCommand &&
 		interaction.data.type === ApplicationCommandType.Message &&
+		"guild_id" in interaction
+	);
+}
+
+export function isGuildButton(
+	interaction: APIInteraction,
+): interaction is APIGuildInteractionWrapper<APIMessageComponentButtonInteraction> {
+	return (
+		interaction.type === InteractionType.MessageComponent &&
+		interaction.data.component_type === ComponentType.Button &&
 		"guild_id" in interaction
 	);
 }

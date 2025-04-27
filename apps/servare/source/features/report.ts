@@ -4,6 +4,7 @@ import {
 	type APIGuildMember,
 	type APIInteractionResponseCallbackData,
 	type APIMessageApplicationCommandGuildInteraction,
+	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIModalSubmitInteraction,
 	ApplicationCommandType,
@@ -180,6 +181,7 @@ export async function handleChannelSelectMenu(
 				interaction,
 				"Received an unknown channel type whilst setting up the report channel.",
 			);
+
 			throw new Error("Received an unknown channel type whilst setting up the report channel.");
 		}
 
@@ -276,7 +278,74 @@ export async function reportModalResponse(
 	});
 }
 
-interface CreateReportOptions {
+interface ReportConfirmationOptions {
+	username: string;
+	commandId: string;
+	userId: string;
+	messageId: string;
+}
+
+export async function confirmation(
+	interaction: APIGuildInteractionWrapper<APIModalSubmitInteraction>,
+	{ username, commandId, userId, messageId }: ReportConfirmationOptions,
+) {
+	const components = new ModalResolver(interaction.data.components);
+
+	const reason = components.getTextInputValue(
+		schemaStore.serialize(CustomId.ReportModalResponseText, {}),
+	);
+
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						label: "Confirm",
+						style: ButtonStyle.Primary,
+						custom_id: schemaStore.serialize(CustomId.ReportModalConfirmationConfirm, {
+							username,
+							commandId,
+							userId,
+							messageId,
+						}),
+					},
+					{
+						type: ComponentType.Button,
+						label: "Cancel",
+						style: ButtonStyle.Secondary,
+						custom_id: schemaStore.serialize(CustomId.ReportModalConfirmationCancel, {}),
+					},
+				],
+			},
+		],
+		content: "Is this okay?",
+		embeds: [
+			{
+				author: {
+					name: `${userTag(interaction.member.user)} (${interaction.member.user.id})`,
+					icon_url: avatarURL(interaction.member.user),
+				},
+				color: DEFAULT_EMBED_COLOUR,
+				description: reason,
+			},
+		],
+		flags: MessageFlags.Ephemeral,
+	});
+}
+
+export async function cancel(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+) {
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: [],
+		content: "Report cancelled.",
+		embeds: [],
+	});
+}
+
+interface ReportCreateOptions {
 	username: string;
 	commandId: string;
 	userId: string;
@@ -284,8 +353,8 @@ interface CreateReportOptions {
 }
 
 export async function create(
-	interaction: APIGuildInteractionWrapper<APIModalSubmitInteraction>,
-	{ username, commandId, userId, messageId }: CreateReportOptions,
+	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+	{ username, commandId, userId, messageId }: ReportCreateOptions,
 ) {
 	const guild = GUILD_CACHE.get(interaction.guild_id);
 
@@ -314,9 +383,8 @@ export async function create(
 
 		await client.api.applicationCommands.deleteGuildCommand(APPLICATION_ID, guild.id, commandId);
 
-		await client.api.interactions.reply(interaction.id, interaction.token, {
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			content: "This server does not have the report feature set up.",
-			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
@@ -330,6 +398,24 @@ export async function create(
 	}
 
 	if (!isReportCreatableAndSendable(guild, channel, await guild.fetchMe())) {
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+			content: "Failed to create a report. Try to approach the moderators directly.",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	const reason = interaction.message.embeds[0]?.description;
+
+	if (!reason) {
+		pino.error(interaction, "Failed to find a reason for the report.");
+
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+			content: "Failed to create a report. Try to approach the moderators directly.",
+			flags: MessageFlags.Ephemeral,
+		});
+
 		return;
 	}
 
@@ -355,11 +441,6 @@ export async function create(
 	}
 
 	const reportedUser = reportedMessage?.author ?? (await client.api.users.get(userId));
-	const components = new ModalResolver(interaction.data.components);
-
-	const reason = components.getTextInputValue(
-		schemaStore.serialize(CustomId.ReportModalResponseText, {}),
-	);
 
 	await client.api.channels.createForumThread(channel.id, {
 		message: {
@@ -411,8 +492,10 @@ export async function create(
 		name: `Report for ${username} (${userId})`,
 	});
 
-	await client.api.interactions.reply(interaction.id, interaction.token, {
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: [],
 		content: "Message reported. Thank you for keeping the server safe!",
+		embeds: [],
 		flags: MessageFlags.Ephemeral,
 	});
 }

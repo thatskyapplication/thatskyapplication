@@ -9,12 +9,15 @@ import {
 	handleMessageLogIgnoreChannelSelectMenu,
 } from "../features/message-log.js";
 import {
+	cancel,
+	confirmation,
 	create,
 	handleChannelSelectMenu as handleReportChannelSelectMenu,
 } from "../features/report.js";
 import pino from "../pino.js";
 import { ERROR_RESPONSE, NOT_IN_CACHED_GUILD_RESPONSE } from "../utility/constants.js";
 import {
+	isGuildButton,
 	isGuildChannelSelectMenu,
 	isGuildChatInputCommand,
 	isGuildMessageContextMenuCommand,
@@ -72,6 +75,29 @@ export default {
 			return;
 		}
 
+		if (isGuildButton(data)) {
+			try {
+				const schemaData = schemaStore.deserialize(data.data.custom_id);
+
+				if (schemaData.id === CustomId.ReportModalConfirmationConfirm) {
+					await create(data, schemaData.data);
+					return;
+				}
+
+				if (schemaData.id === CustomId.ReportModalConfirmationCancel) {
+					await cancel(data);
+					return;
+				}
+			} catch (error) {
+				pino.error(error, "Error whilst handling a button interaction.");
+				return;
+			}
+
+			pino.warn(data, "Received an unknown button interaction.");
+			await client.api.interactions.updateMessage(data.id, data.token, ERROR_RESPONSE);
+			return;
+		}
+
 		if (isGuildChannelSelectMenu(data)) {
 			try {
 				const schemaData = schemaStore.deserialize(data.data.custom_id);
@@ -115,7 +141,7 @@ export default {
 				const schemaData = schemaStore.deserialize(data.data.custom_id);
 
 				if (schemaData.id === CustomId.ReportModalResponse) {
-					await create(data, schemaData.data);
+					await confirmation(data, schemaData.data);
 					return;
 				}
 			} catch (error) {
