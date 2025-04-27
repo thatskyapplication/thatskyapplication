@@ -7,11 +7,11 @@ import {
 	type APIMessageComponentSelectMenuInteraction,
 	type APIModalSubmitInteraction,
 	ApplicationCommandType,
+	ButtonStyle,
 	ComponentType,
 	MessageFlags,
 	PermissionFlagsBits,
 	SelectMenuDefaultValueType,
-	SeparatorSpacingSize,
 	type Snowflake,
 	TextInputStyle,
 } from "@discordjs/core";
@@ -21,8 +21,13 @@ import { client } from "../discord.js";
 import type { Guild } from "../models/discord/guild.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
-import { APPLICATION_ID, DEFAULT_EMBED_COLOUR, REPORT_CHANNEL_TYPE } from "../utility/constants.js";
-import { userTag } from "../utility/functions.js";
+import {
+	APPLICATION_ID,
+	DEFAULT_EMBED_COLOUR,
+	REPORT_CHANNEL_TYPE,
+	REPORT_MESSAGE_COLOUR,
+} from "../utility/constants.js";
+import { avatarURL, messageLink, userTag } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
@@ -325,24 +330,28 @@ export async function create(
 		return;
 	}
 
+	const reportChannelId = interaction.channel!.id;
+
 	// Fetch messages around the message id for context.
 	const messages = (
-		await client.api.channels.getMessages(interaction.channel!.id, {
+		await client.api.channels.getMessages(reportChannelId, {
 			limit: 100,
 			around: messageId,
 		})
 	).reverse();
 
-	let reportedMessage = messages.find((message) => message.id === messageId)!.content;
+	const reportedMessage = messages.find((message) => message.id === messageId);
+	let reportedMessageContent = reportedMessage?.content;
 
-	if (reportedMessage) {
-		if (reportedMessage.length > 2000) {
-			reportedMessage = `${reportedMessage.slice(0, 2000)}...`;
+	if (reportedMessageContent) {
+		if (reportedMessageContent.length > 2000) {
+			reportedMessageContent = `${reportedMessageContent.slice(0, 2000)}...`;
 		}
 	} else {
-		reportedMessage = "_No content_";
+		reportedMessageContent = "_No content_";
 	}
 
+	const reportedUser = reportedMessage?.author ?? (await client.api.users.get(userId));
 	const components = new ModalResolver(interaction.data.components);
 
 	const reason = components.getTextInputValue(
@@ -352,39 +361,34 @@ export async function create(
 	await client.api.channels.createForumThread(channel.id, {
 		message: {
 			allowed_mentions: { parse: [] },
+			embeds: [
+				{
+					author: {
+						name: `${userTag(interaction.member.user)} (${interaction.member.user.id})`,
+						icon_url: avatarURL(interaction.member.user),
+					},
+					color: DEFAULT_EMBED_COLOUR,
+					description: reason,
+				},
+				{
+					author: {
+						name: `${userTag(reportedUser)} (${userId})`,
+						icon_url: avatarURL(reportedUser),
+					},
+					color: REPORT_MESSAGE_COLOUR,
+					description: reportedMessageContent,
+					timestamp: new Date(DiscordSnowflake.timestampFrom(messageId)).toISOString(),
+				},
+			],
 			components: [
 				{
-					type: ComponentType.Container,
-					accent_color: DEFAULT_EMBED_COLOUR,
+					type: ComponentType.ActionRow,
 					components: [
 						{
-							type: ComponentType.TextDisplay,
-							content: `## Report by <@${interaction.member.user.id}>`,
-						},
-						{
-							type: ComponentType.Separator,
-							divider: true,
-							spacing: SeparatorSpacingSize.Small,
-						},
-						{
-							type: ComponentType.TextDisplay,
-							content: `### Reason\n>>> ${reason}`,
-						},
-						{
-							type: ComponentType.TextDisplay,
-							content: "### Message",
-						},
-						{
-							type: ComponentType.TextDisplay,
-							content: reportedMessage,
-						},
-						{
-							type: ComponentType.TextDisplay,
-							content: "### Context",
-						},
-						{
-							type: ComponentType.File,
-							file: { url: "attachment://messages.txt" },
+							type: ComponentType.Button,
+							label: "View message",
+							style: ButtonStyle.Link,
+							url: messageLink(guild.id, reportChannelId, messageId),
 						},
 					],
 				},
@@ -400,7 +404,6 @@ export async function create(
 					name: "messages.txt",
 				},
 			],
-			flags: MessageFlags.IsComponentsV2,
 		},
 		name: `Report for ${username} (${userId})`,
 	});
