@@ -43,6 +43,7 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				],
 			},
 		],
+		default_member_permissions: PermissionFlagsBits.ManageGuild.toString(),
 		integration_types: [ApplicationIntegrationType.GuildInstall],
 		contexts: [InteractionContextType.Guild],
 	},
