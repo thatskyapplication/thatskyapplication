@@ -13,6 +13,7 @@ import {
 	confirmation,
 	create,
 	handleChannelSelectMenu as handleReportChannelSelectMenu,
+	handleStringSelectMenu as handleReportTagStringSelectMenu,
 } from "../features/report.js";
 import pino from "../pino.js";
 import { ERROR_RESPONSE, NOT_IN_CACHED_GUILD_RESPONSE } from "../utility/constants.js";
@@ -22,6 +23,7 @@ import {
 	isGuildChatInputCommand,
 	isGuildMessageContextMenuCommand,
 	isGuildModalSubmit,
+	isGuildStringSelectMenu,
 } from "../utility/functions.js";
 import { CustomId, schemaStore } from "../utility/string-store.js";
 import type { Event } from "./index.js";
@@ -94,6 +96,24 @@ export default {
 			}
 
 			pino.warn(data, "Received an unknown button interaction.");
+			await client.api.interactions.updateMessage(data.id, data.token, ERROR_RESPONSE);
+			return;
+		}
+
+		if (isGuildStringSelectMenu(data)) {
+			try {
+				const schemaData = schemaStore.deserialize(data.data.custom_id);
+
+				if (schemaData.id === CustomId.ReportTag) {
+					await handleReportTagStringSelectMenu(data, guild);
+					return;
+				}
+			} catch (error) {
+				pino.error(error, "Error whilst executing string select menu interaction.");
+				return;
+			}
+
+			pino.warn(data, "Received an unknown string select menu interaction.");
 			await client.api.interactions.updateMessage(data.id, data.token, ERROR_RESPONSE);
 			return;
 		}

@@ -48,6 +48,16 @@ export function isGuildButton(
 	);
 }
 
+export function isGuildStringSelectMenu(
+	interaction: APIInteraction,
+): interaction is APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction> {
+	return (
+		interaction.type === InteractionType.MessageComponent &&
+		interaction.data.component_type === ComponentType.StringSelect &&
+		"guild_id" in interaction
+	);
+}
+
 export function isGuildChannelSelectMenu(
 	interaction: APIInteraction,
 ): interaction is APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction> {

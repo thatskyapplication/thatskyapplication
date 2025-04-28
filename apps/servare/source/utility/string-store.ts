@@ -10,6 +10,7 @@ export enum CustomId {
 	ReportModalResponseText = 6,
 	ReportModalConfirmationConfirm = 7,
 	ReportModalConfirmationCancel = 8,
+	ReportTag = 9,
 }
 
 const memberLogSchema = new Schema(CustomId.MemberLog);
@@ -33,6 +34,7 @@ const reportModalConfirmationConfirmSchema = new Schema(CustomId.ReportModalConf
 	.string("messageId");
 
 const reportModalConfirmationCancelSchema = new Schema(CustomId.ReportModalConfirmationCancel);
+const reportTagSchema = new Schema(CustomId.ReportTag);
 
 export const schemaStore = new SchemaStore()
 	.add(memberLogSchema)
@@ -43,4 +45,5 @@ export const schemaStore = new SchemaStore()
 	.add(reportModalResponseSchema)
 	.add(reportModalResponseTextSchema)
 	.add(reportModalConfirmationConfirmSchema)
-	.add(reportModalConfirmationCancelSchema);
+	.add(reportModalConfirmationCancelSchema)
+	.add(reportTagSchema);

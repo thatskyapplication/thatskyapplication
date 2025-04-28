@@ -7,58 +7,16 @@ import {
 	setupResponse as setupResponseMemberLog,
 } from "../../features/member-log.js";
 import { setupResponse as setupResponseMessageLog } from "../../features/message-log.js";
-import {
-	isReportCreatableAndSendable,
-	setup as setupReport,
-	setupResponse as setupResponseReport,
-} from "../../features/report.js";
+import { setupResponse as setupResponseReport } from "../../features/report.js";
 import type { Guild } from "../../models/discord/guild.js";
 import pino from "../../pino.js";
-import { REPORT_CHANNEL_TYPE } from "../../utility/constants.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
-async function report(
-	interaction: APIChatInputApplicationCommandGuildInteraction,
-	guild: Guild,
-	options: OptionResolver,
-) {
-	const channel = options.getChannel("channel");
-
-	if (channel) {
-		const cachedChannel = guild.channels.get(channel.id);
-
-		if (cachedChannel?.type !== REPORT_CHANNEL_TYPE) {
-			pino.error(
-				interaction,
-				"Received an unknown channel type whilst setting up the report channel.",
-			);
-
-			throw new Error("Received an unknown channel type whilst setting up the report channel.");
-		}
-
-		const reportCreatableAndSendable = isReportCreatableAndSendable(
-			guild,
-			cachedChannel,
-			await guild.fetchMe(),
-			true,
-		);
-
-		if (reportCreatableAndSendable.length > 0) {
-			await client.api.interactions.reply(interaction.id, interaction.token, {
-				content: reportCreatableAndSendable.join("\n"),
-				flags: MessageFlags.Ephemeral,
-			});
-
-			return;
-		}
-
-		await setupReport({ guildId: guild.id, channelId: channel.id });
-	}
-
+async function report(interaction: APIChatInputApplicationCommandGuildInteraction, guild: Guild) {
 	await client.api.interactions.reply(
 		interaction.id,
 		interaction.token,
-		await setupResponseReport(guild.id),
+		await setupResponseReport(guild),
 	);
 }
 
@@ -119,7 +77,7 @@ export default {
 
 		switch (options.getSubcommand()) {
 			case "report": {
-				await report(interaction, guild, options);
+				await report(interaction, guild);
 				return;
 			}
 			case "member-log": {

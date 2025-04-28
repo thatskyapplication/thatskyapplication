@@ -9,12 +9,7 @@ import {
 } from "@discordjs/core";
 import { REST } from "@discordjs/rest";
 import pino from "../pino.js";
-import {
-	APPLICATION_ID,
-	DISCORD_TOKEN,
-	MEMBER_LOG_CHANNEL_TYPES,
-	REPORT_CHANNEL_TYPE,
-} from "./constants.js";
+import { APPLICATION_ID, DISCORD_TOKEN, MEMBER_LOG_CHANNEL_TYPES } from "./constants.js";
 
 const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	{
@@ -52,15 +47,6 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				type: ApplicationCommandOptionType.Subcommand,
 				name: "report",
 				description: "Configure reporting for the server.",
-				options: [
-					{
-						type: ApplicationCommandOptionType.Channel,
-						name: "channel",
-						description: "The channel to use.",
-						channel_types: [REPORT_CHANNEL_TYPE],
-						required: false,
-					},
-				],
 			},
 		],
 		default_member_permissions: PermissionFlagsBits.ManageGuild.toString(),

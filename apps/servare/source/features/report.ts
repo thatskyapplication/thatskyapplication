@@ -1,4 +1,5 @@
 import {
+	type APIComponentInContainer,
 	type APIGuildForumChannel,
 	type APIGuildInteractionWrapper,
 	type APIGuildMember,
@@ -9,6 +10,7 @@ import {
 	type APIModalSubmitInteraction,
 	ApplicationCommandType,
 	ButtonStyle,
+	ChannelType,
 	ComponentType,
 	MessageFlags,
 	PermissionFlagsBits,
@@ -36,7 +38,7 @@ import { ModalResolver } from "../utility/modal-resolver.js";
 import { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import { CustomId, schemaStore } from "../utility/string-store.js";
-import type { GuildSettingsPacket } from "./guild-settings.js";
+import type { GuildSettingsPacket, GuildSettingsSetupReportOptions } from "./guild-settings.js";
 import { type MessagesPacket, upsert } from "./message-log.js";
 
 export function isReportCreatableAndSendable(
@@ -85,87 +87,146 @@ export function isReportCreatableAndSendable(
 
 interface ReportSetupOptions {
 	guildId: Snowflake;
-	channelId: Snowflake | null;
+	channelId?: Snowflake | null;
+	tagId?: Snowflake | null;
 }
 
-export async function setup({ guildId, channelId }: ReportSetupOptions) {
-	let reportCommandId: Snowflake | null;
+export async function setup({ guildId, channelId, tagId }: ReportSetupOptions) {
+	let reportCommandId: Snowflake | null | undefined;
+	let reportTagId = tagId;
 
-	if (channelId) {
-		reportCommandId = (
-			await client.api.applicationCommands.createGuildCommand(APPLICATION_ID, guildId, {
-				name: "Report",
-				type: ApplicationCommandType.Message,
-			})
-		).id;
-	} else {
-		const guildSettingsPacket = await pg<GuildSettingsPacket>(Table.GuildSettings)
-			.select("report_command_id")
-			.where({ guild_id: guildId })
-			.first();
+	if (channelId !== undefined) {
+		reportTagId = null;
 
-		if (guildSettingsPacket?.report_command_id) {
-			await client.api.applicationCommands.deleteGuildCommand(
-				APPLICATION_ID,
-				guildId,
-				guildSettingsPacket.report_command_id,
-			);
+		if (channelId) {
+			reportCommandId = (
+				await client.api.applicationCommands.createGuildCommand(APPLICATION_ID, guildId, {
+					name: "Report",
+					type: ApplicationCommandType.Message,
+				})
+			).id;
+		} else {
+			const guildSettingsPacket = await pg<GuildSettingsPacket>(Table.GuildSettings)
+				.select("report_command_id")
+				.where({ guild_id: guildId })
+				.first();
+
+			if (guildSettingsPacket?.report_command_id) {
+				await client.api.applicationCommands.deleteGuildCommand(
+					APPLICATION_ID,
+					guildId,
+					guildSettingsPacket.report_command_id,
+				);
+
+				reportCommandId = null;
+			}
 		}
-
-		reportCommandId = null;
 	}
 
-	await pg<GuildSettingsPacket>(Table.GuildSettings)
-		.insert({ guild_id: guildId, report_channel_id: channelId, report_command_id: reportCommandId })
-		.onConflict("guild_id")
-		.merge();
+	const payload: GuildSettingsSetupReportOptions = { guild_id: guildId };
+
+	if (channelId !== undefined) {
+		payload.report_channel_id = channelId;
+	}
+
+	if (reportCommandId !== undefined) {
+		payload.report_command_id = reportCommandId;
+	}
+
+	if (reportTagId !== undefined) {
+		payload.report_tag_id = reportTagId;
+	}
+
+	await pg<GuildSettingsPacket>(Table.GuildSettings).insert(payload).onConflict("guild_id").merge();
 }
 
-export async function setupResponse(
-	guildId: Snowflake,
-): Promise<APIInteractionResponseCallbackData> {
+export async function setupResponse(guild: Guild): Promise<APIInteractionResponseCallbackData> {
 	const guildSettingsPacket = await pg<GuildSettingsPacket>(Table.GuildSettings)
-		.select("report_channel_id")
-		.where({ guild_id: guildId })
+		.select("report_channel_id", "report_tag_id")
+		.where({ guild_id: guild.id })
 		.first();
+
+	const reportChannelId = guildSettingsPacket?.report_channel_id;
+	const reportChannel = reportChannelId && guild.channels.get(reportChannelId);
+
+	const containerComponents: APIComponentInContainer[] = [
+		{
+			type: ComponentType.TextDisplay,
+			content:
+				'Choose a forum channel for reports to go in.\n\nWith a report channel, this server will have a "Report" message context menu command deployed and users will be able to report messages.\n\nYou may also choose a forum tag to be applied to reports.',
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.ChannelSelect,
+					custom_id: schemaStore.serialize(CustomId.ReportChannel, {}).toString(),
+					channel_types: [REPORT_CHANNEL_TYPE],
+					default_values: reportChannelId
+						? [
+								{
+									id: reportChannelId,
+									type: SelectMenuDefaultValueType.Channel,
+								},
+							]
+						: [],
+					max_values: 1,
+					min_values: 0,
+					placeholder: "Select a channel to use for reports.",
+				},
+			],
+		},
+	];
+
+	const reportChannelTagOptions =
+		reportChannel && reportChannel.type === ChannelType.GuildForum
+			? reportChannel.available_tags.map((availableTag) => ({
+					default: availableTag.id === guildSettingsPacket?.report_tag_id,
+					label: availableTag.name,
+					value: availableTag.id,
+				}))
+			: [];
+
+	if (reportChannelTagOptions.length > 0) {
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: schemaStore.serialize(CustomId.ReportTag, {}).toString(),
+					options: reportChannelTagOptions,
+					max_values: 1,
+					min_values: 0,
+					placeholder: "This tag will be applied to reports.",
+				},
+			],
+		});
+	}
 
 	return {
 		components: [
 			{
 				type: ComponentType.Container,
 				accent_color: DEFAULT_ACCENT_COLOUR,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content:
-							'Choose a forum channel for reports to go in.\n\nWith a report channel, this server will have a "Report" message context menu command deployed and users will be able to report messages.',
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.ChannelSelect,
-								custom_id: schemaStore.serialize(CustomId.ReportChannel, {}).toString(),
-								channel_types: [REPORT_CHANNEL_TYPE],
-								default_values: guildSettingsPacket?.report_channel_id
-									? [
-											{
-												id: guildSettingsPacket.report_channel_id,
-												type: SelectMenuDefaultValueType.Channel,
-											},
-										]
-									: [],
-								max_values: 1,
-								min_values: 0,
-								placeholder: "Select a channel to use for reports.",
-							},
-						],
-					},
-				],
+				components: containerComponents,
 			},
 		],
 		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 	};
+}
+
+export async function handleStringSelectMenu(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+	guild: Guild,
+) {
+	const [tagId] = interaction.data.values;
+	await setup({ guildId: guild.id, tagId: tagId ?? null });
+
+	await client.api.interactions.updateMessage(
+		interaction.id,
+		interaction.token,
+		await setupResponse(guild),
+	);
 }
 
 export async function handleChannelSelectMenu(
@@ -208,7 +269,7 @@ export async function handleChannelSelectMenu(
 	await client.api.interactions.updateMessage(
 		interaction.id,
 		interaction.token,
-		await setupResponse(interaction.guild_id),
+		await setupResponse(guild),
 	);
 }
 
@@ -429,7 +490,7 @@ export async function create(
 
 	// Get the report channel.
 	const guildSettingsPacket = await pg<GuildSettingsPacket>(Table.GuildSettings)
-		.select("report_channel_id")
+		.select("report_channel_id", "report_tag_id")
 		.where({ guild_id: guild.id })
 		.first();
 
@@ -529,6 +590,7 @@ export async function create(
 	}
 
 	await client.api.channels.createForumThread(channel.id, {
+		applied_tags: guildSettingsPacket.report_tag_id ? [guildSettingsPacket.report_tag_id] : [],
 		message: {
 			allowed_mentions: { parse: [] },
 			components: [
