@@ -41,21 +41,21 @@ import { CustomId, schemaStore } from "../utility/string-store.js";
 import type { GuildSettingsPacket, GuildSettingsSetupReportOptions } from "./guild-settings.js";
 import { type MessagesPacket, upsert } from "./message-log.js";
 
-export function isReportCreatableAndSendable(
+function isReportCreatableAndSendable(
 	guild: Guild,
 	channel: APIGuildForumChannel,
 	me: APIGuildMember,
 	returnErrors: true,
 ): string[];
 
-export function isReportCreatableAndSendable(
+function isReportCreatableAndSendable(
 	guild: Guild,
 	channel: APIGuildForumChannel,
 	me: APIGuildMember,
 	returnErrors?: false,
 ): boolean;
 
-export function isReportCreatableAndSendable(
+function isReportCreatableAndSendable(
 	guild: Guild,
 	channel: APIGuildForumChannel,
 	me: APIGuildMember,
@@ -91,7 +91,7 @@ interface ReportSetupOptions {
 	tagId?: Snowflake | null;
 }
 
-export async function setup({ guildId, channelId, tagId }: ReportSetupOptions) {
+async function setup({ guildId, channelId, tagId }: ReportSetupOptions) {
 	let reportCommandId: Snowflake | null | undefined;
 	let reportTagId = tagId;
 
