@@ -32,10 +32,12 @@ export default new Event({
 		{
 			name: "Ocean Waves Outfit",
 			cosmetic: Cosmetic.OceanWavesOutfit,
+			cost: { eventTickets: 49 },
 		},
 		{
 			name: "Ocean Manta Hair",
 			cosmetic: Cosmetic.OceanMantaHair,
+			cost: { eventTickets: 37 },
 		},
 		{
 			name: "Ocean Sea Foam Set",
