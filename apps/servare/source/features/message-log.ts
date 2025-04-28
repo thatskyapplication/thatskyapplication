@@ -22,7 +22,7 @@ import type { Guild, GuildChannel } from "../models/discord/guild.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
 import pg, { Table } from "../pg.js";
 import {
-	DEFAULT_EMBED_COLOUR,
+	DEFAULT_ACCENT_COLOUR,
 	MESSAGE_LOG_CHANNEL_TYPES,
 	MESSAGE_LOG_IGNORE_ALLOW_CHANNEL_TYPES,
 	MESSAGE_UPDATE_CODE_CHECK_REGULAR_EXPRESSION,
@@ -190,7 +190,7 @@ export async function setupResponse(
 				title: "Message Log",
 				description:
 					"As a base, messages will be logged in channels viewable by @everyone.\n\nThe first select menu denotes where the messages will be logged to.\nThe second select menu denotes channels that will be ignored.\nThe third select menu denotes channels that will be allowed.\n\nThe second and third select menus accept text-based channels and category channels. A category channel will consider all channels within it.\n\nThe embed author of these logs is a link to their Sky profile.",
-				color: DEFAULT_EMBED_COLOUR,
+				color: DEFAULT_ACCENT_COLOUR,
 			},
 		],
 		flags: MessageFlags.Ephemeral,
@@ -638,7 +638,7 @@ export async function handleMessageUpdate(
 					url: skyProfileWebsiteURL(message.author.id),
 				},
 				description: description.slice(0, 4000),
-				color: DEFAULT_EMBED_COLOUR,
+				color: DEFAULT_ACCENT_COLOUR,
 				fields: [
 					{
 						name: "",
@@ -710,7 +710,7 @@ export async function handleMessageDelete(
 					url: skyProfileWebsiteURL(user.id),
 				},
 				description: messagesPacket.content,
-				color: DEFAULT_EMBED_COLOUR,
+				color: DEFAULT_ACCENT_COLOUR,
 				fields: [
 					{
 						name: "",
@@ -768,7 +768,7 @@ export async function handleMessageDeleteBulk(
 		embeds: [
 			{
 				description: `${messagesPackets.length} messages attached.`,
-				color: DEFAULT_EMBED_COLOUR,
+				color: DEFAULT_ACCENT_COLOUR,
 				timestamp: new Date().toISOString(),
 				title: "Message Delete Bulk",
 			},

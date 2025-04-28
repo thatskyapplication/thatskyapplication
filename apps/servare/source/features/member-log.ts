@@ -19,7 +19,7 @@ import type { Guild } from "../models/discord/guild.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
-	DEFAULT_EMBED_COLOUR,
+	DEFAULT_ACCENT_COLOUR,
 	MEMBER_LOG_CHANNEL_TYPES,
 	MEMBER_LOG_LEAVE_COLOUR,
 } from "../utility/constants.js";
@@ -133,7 +133,7 @@ export async function setupResponse(
 				title: "Member Log",
 				description:
 					"Choose a channel to receive updates regarding accounts joining and leaving the server.\n\nYou can also click their username to view their Sky profile.",
-				color: DEFAULT_EMBED_COLOUR,
+				color: DEFAULT_ACCENT_COLOUR,
 			},
 		],
 		flags: MessageFlags.Ephemeral,

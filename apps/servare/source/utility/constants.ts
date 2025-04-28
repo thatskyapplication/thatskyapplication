@@ -17,7 +17,7 @@ export const APPLICATION_ID = process.env.APPLICATION_ID;
 export const DATABASE_URL = process.env.DATABASE_URL;
 export const BETTER_STACK_TOKEN = process.env.BETTER_STACK_TOKEN;
 export const BETTER_STACK_ENDPOINT_URL = process.env.BETTER_STACK_ENDPOINT_URL;
-export const DEFAULT_EMBED_COLOUR = 0xc0c0ba;
+export const DEFAULT_ACCENT_COLOUR = 0xc0c0ba;
 export const SUPPORT_SERVER_INVITE_URL = "https://thatskyapplication.com/support";
 
 export const ERROR_RESPONSE = {

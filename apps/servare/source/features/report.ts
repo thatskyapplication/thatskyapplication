@@ -24,7 +24,7 @@ import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
 	APPLICATION_ID,
-	DEFAULT_EMBED_COLOUR,
+	DEFAULT_ACCENT_COLOUR,
 	REPORT_CHANNEL_TYPE,
 	REPORT_MAXIMUM_REASON_LENGTH,
 	REPORT_MESSAGE_COLOUR,
@@ -133,7 +133,7 @@ export async function setupResponse(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
+				accent_color: DEFAULT_ACCENT_COLOUR,
 				components: [
 					{
 						type: ComponentType.TextDisplay,
@@ -385,7 +385,7 @@ export async function confirmation(
 					name: `${userTag(interaction.member.user)} (${interaction.member.user.id})`,
 					icon_url: avatarURL(interaction.member.user),
 				},
-				color: DEFAULT_EMBED_COLOUR,
+				color: DEFAULT_ACCENT_COLOUR,
 				description: reason,
 			},
 			{
