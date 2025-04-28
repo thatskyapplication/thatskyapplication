@@ -138,7 +138,7 @@ export async function setupResponse(
 					{
 						type: ComponentType.TextDisplay,
 						content:
-							'Choose a forum channel for reports to go in.\n\nWith a report channel, this server will have a "Report" message context command deployed and users will be able to report messages.',
+							'Choose a forum channel for reports to go in.\n\nWith a report channel, this server will have a "Report" message context menu command deployed and users will be able to report messages.',
 					},
 					{
 						type: ComponentType.ActionRow,
