@@ -31,6 +31,25 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
+				name: "member-log",
+				description: "Configure the member log for accounts joining and leaving.",
+				options: [
+					{
+						type: ApplicationCommandOptionType.Channel,
+						name: "channel",
+						description: "The channel to use.",
+						channel_types: [...MEMBER_LOG_CHANNEL_TYPES],
+						required: false,
+					},
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "message-log",
+				description: "Configure the message log for messages in the server.",
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
 				name: "report",
 				description: "Configure reporting for the server.",
 				options: [
@@ -39,35 +58,11 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						name: "channel",
 						description: "The channel to use.",
 						channel_types: [REPORT_CHANNEL_TYPE],
+						required: false,
 					},
 				],
 			},
 		],
-		default_member_permissions: PermissionFlagsBits.ManageGuild.toString(),
-		integration_types: [ApplicationIntegrationType.GuildInstall],
-		contexts: [InteractionContextType.Guild],
-	},
-	{
-		name: "member-log",
-		description: "Configure the member log for accounts joining and leaving.",
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.Channel,
-				name: "channel",
-				description: "The channel to use.",
-				channel_types: [...MEMBER_LOG_CHANNEL_TYPES],
-				required: false,
-			},
-		],
-		default_member_permissions: PermissionFlagsBits.ManageGuild.toString(),
-		integration_types: [ApplicationIntegrationType.GuildInstall],
-		contexts: [InteractionContextType.Guild],
-	},
-	{
-		name: "message-log",
-		description: "Configure the message log for messages in the server.",
-		type: ApplicationCommandType.ChatInput,
 		default_member_permissions: PermissionFlagsBits.ManageGuild.toString(),
 		integration_types: [ApplicationIntegrationType.GuildInstall],
 		contexts: [InteractionContextType.Guild],
