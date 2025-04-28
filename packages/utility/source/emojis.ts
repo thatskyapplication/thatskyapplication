@@ -946,6 +946,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Royal Hairtousle Teen.
 	 */
 	Outfit82: { id: "1365271623120195704", name: "82_outfit" },
+	/**
+	 * Ocean Waves Outfit.
+	 */
+	Outfit83: { id: "1366370362606223451", name: "83_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1031,6 +1035,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit80: { id: "1364902547592052737", name: "80_outfit" },
 	Outfit81: { id: "1365257968148283423", name: "81_outfit" },
 	Outfit82: { id: "1365271629558452224", name: "82_outfit" },
+	Outfit83: { id: "1366370369044484119", name: "83_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -1114,6 +1119,10 @@ const SHOE_EMOJIS_PRODUCTION = {
 	 * Woodcutting Pleaful Parent.
 	 */
 	Shoe20: { id: "1365257777966092298", name: "20_shoe" },
+	/**
+	 * Ocean Sea Foam Boots.
+	 */
+	Shoe21: { id: "1366371889743921182", name: "21_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_DEVELOPMENT = {
@@ -1137,6 +1146,7 @@ const SHOE_EMOJIS_DEVELOPMENT = {
 	Shoe18: { id: "1330646401532559402", name: "18_shoe" },
 	Shoe19: { id: "1345896926830133379", name: "19_shoe" },
 	Shoe20: { id: "1365257785629216768", name: "20_shoe" },
+	Shoe21: { id: "1366371897792532620", name: "21_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_PRODUCTION = {
@@ -1536,6 +1546,10 @@ const MASK_EMOJIS_PRODUCTION = {
 	 * Costumed Confetti Cousin.
 	 */
 	Mask99: { id: "1364902300765917325", name: "99_mask" },
+	/**
+	 * Ocean Waves Mask.
+	 */
+	Mask100: { id: "1366372066298695720", name: "100_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_DEVELOPMENT = {
@@ -1638,6 +1652,7 @@ const MASK_EMOJIS_DEVELOPMENT = {
 	Mask97: { id: "1354390516753760256", name: "97_mask" },
 	Mask98: { id: "1353522165378711623", name: "98_mask" },
 	Mask99: { id: "1364902309586407479", name: "99_mask" },
+	Mask100: { id: "1366372071566999633", name: "100_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -2746,6 +2761,10 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 * Costumed Confetti Cousin.
 	 */
 	Hair162: { id: "1364902000491495454", name: "162_hair" },
+	/**
+	 * Ocean Manta Hair.
+	 */
+	Hair163: { id: "1366371276943261798", name: "163_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_DEVELOPMENT = {
@@ -2911,6 +2930,7 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair160: { id: "1354388537121968289", name: "160_hair" },
 	Hair161: { id: "1353523218207608893", name: "161_hair" },
 	Hair162: { id: "1364902007327948911", name: "162_hair" },
+	Hair163: { id: "1366371285243789403", name: "163_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -3814,6 +3834,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Royal Hairtousle Teen.
 	 */
 	Cape151: { id: "1365271212221005854", name: "151_cape" },
+	/**
+	 * Ocean Sea Form Cape.
+	 */
+	Cape152: { id: "1366371481830817815", name: "152_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -3968,6 +3992,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape149: { id: "1365251711626776667", name: "149_cape" },
 	Cape150: { id: "1365260392904790098", name: "150_cape" },
 	Cape151: { id: "1365271219129028608", name: "151_cape" },
+	Cape152: { id: "1366371491746283520", name: "152_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -7536,11 +7561,11 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.RoyalHairtousleTeenWhiteDye]: MISCELLANEOUS_EMOJIS.DyeWhite,
 		[Cosmetic.RoyalHairtousleTeenCape]: CAPE_EMOJIS.Cape151,
 		[Cosmetic.RoyalHairtousleTeenSeasonalHeart]: SEASON_EMOJIS.BlueBirdHeart,
-		[Cosmetic.OceanWavesOutfit]: null,
-		[Cosmetic.OceanMantaHair]: null,
-		[Cosmetic.OceanSeaFoamCape]: null,
-		[Cosmetic.OceanSeaFoamBoots]: null,
-		[Cosmetic.OceanWavesMask]: null,
+		[Cosmetic.OceanWavesOutfit]: OUTFIT_EMOJIS.Outfit83,
+		[Cosmetic.OceanMantaHair]: HAIR_EMOJIS.Hair163,
+		[Cosmetic.OceanSeaFoamCape]: CAPE_EMOJIS.Cape152,
+		[Cosmetic.OceanSeaFoamBoots]: SHOE_EMOJIS.Shoe21,
+		[Cosmetic.OceanWavesMask]: MASK_EMOJIS.Mask100,
 		[Cosmetic.RainbowSmock]: null,
 		[Cosmetic.RainbowHeadWrap]: null,
 		[Cosmetic.RainbowRibbonShawl]: null,

@@ -2974,11 +2974,11 @@ export enum Cosmetic {
 	TumblingTroublemakerWingBuff = 2372,
 
 	// 28/04/2025 | Days of Nature.
-	OceanWavesOutfit,
-	OceanMantaHair,
-	OceanSeaFoamCape,
-	OceanSeaFoamBoots,
-	OceanWavesMask,
+	OceanWavesOutfit = 2373,
+	OceanMantaHair = 2374,
+	OceanSeaFoamCape = 2375,
+	OceanSeaFoamBoots = 2376,
+	OceanWavesMask = 2377,
 
 	// 26/05/2025 | Days of Colour.
 	RainbowSmock,
