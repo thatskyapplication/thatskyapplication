@@ -2816,7 +2816,6 @@ export class Catalogue {
 		}
 
 		if (!(title && content && backButtonCustomId)) {
-			pino.error("Failed to parse spirits from a catalogue share prompt.");
 			throw new Error("Failed to parse spirits from a catalogue share prompt.");
 		}
 
@@ -2846,18 +2845,20 @@ export class Catalogue {
 		];
 
 		if (!send) {
-			containerComponents.push({
-				type: ComponentType.TextDisplay,
-				content: "This will share your progress in this channel. Is this okay?",
-			});
+			containerComponents.push(
+				{
+					type: ComponentType.TextDisplay,
+					content: "This will share your progress in this channel. Is this okay?",
+				},
+				{
+					type: ComponentType.Separator,
+					divider: true,
+					spacing: SeparatorSpacingSize.Small,
+				},
+			);
 		}
 
 		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
 			profile?.iconURL
 				? {
 						type: ComponentType.Section,
@@ -2891,7 +2892,7 @@ export class Catalogue {
 						backButton,
 						{
 							type: ComponentType.Button,
-							custom_id: `${CATALOGUE_SHARE_SEND_CUSTOM_ID}${type}`,
+							custom_id: `${CATALOGUE_SHARE_SEND_CUSTOM_ID}§${type}`,
 							emoji: { name: "🔗" },
 							label: "Send",
 							style: ButtonStyle.Success,
