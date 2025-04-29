@@ -110,7 +110,7 @@ export async function setupResponse(
 				components: [
 					{
 						type: ComponentType.ChannelSelect,
-						custom_id: schemaStore.serialize(CustomId.MemberLog, {}).toString(),
+						custom_id: schemaStore.serialize(CustomId.MemberLog, {}),
 						// @ts-expect-error The mutable array error is fine.
 						channel_types: MEMBER_LOG_CHANNEL_TYPES,
 						default_values: memberLogPacket?.member_log_channel_id

@@ -127,7 +127,7 @@ export async function setupResponse(
 				components: [
 					{
 						type: ComponentType.ChannelSelect,
-						custom_id: schemaStore.serialize(CustomId.MessageLogChannelId, {}).toString(),
+						custom_id: schemaStore.serialize(CustomId.MessageLogChannelId, {}),
 						// @ts-expect-error The mutable array error is fine.
 						channel_types: MESSAGE_LOG_CHANNEL_TYPES,
 						default_values: guildSettingsPacket?.message_log_channel_id
@@ -149,7 +149,7 @@ export async function setupResponse(
 				components: [
 					{
 						type: ComponentType.ChannelSelect,
-						custom_id: schemaStore.serialize(CustomId.MessageLogIgnoreChannelIds, {}).toString(),
+						custom_id: schemaStore.serialize(CustomId.MessageLogIgnoreChannelIds, {}),
 						// @ts-expect-error The mutable array error is fine.
 						channel_types: MESSAGE_LOG_IGNORE_ALLOW_CHANNEL_TYPES,
 						default_values: guildSettingsPacket?.message_log_ignore_channel_ids.map(
@@ -169,7 +169,7 @@ export async function setupResponse(
 				components: [
 					{
 						type: ComponentType.ChannelSelect,
-						custom_id: schemaStore.serialize(CustomId.MessageLogAllowChannelIds, {}).toString(),
+						custom_id: schemaStore.serialize(CustomId.MessageLogAllowChannelIds, {}),
 						// @ts-expect-error The mutable array error is fine.
 						channel_types: MESSAGE_LOG_IGNORE_ALLOW_CHANNEL_TYPES,
 						default_values: guildSettingsPacket?.message_log_allow_channel_ids.map(

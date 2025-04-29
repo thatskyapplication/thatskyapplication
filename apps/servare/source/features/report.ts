@@ -160,7 +160,7 @@ export async function setupResponse(guild: Guild): Promise<APIInteractionRespons
 			components: [
 				{
 					type: ComponentType.ChannelSelect,
-					custom_id: schemaStore.serialize(CustomId.ReportChannel, {}).toString(),
+					custom_id: schemaStore.serialize(CustomId.ReportChannel, {}),
 					channel_types: [REPORT_CHANNEL_TYPE],
 					default_values: reportChannelId
 						? [
@@ -193,7 +193,7 @@ export async function setupResponse(guild: Guild): Promise<APIInteractionRespons
 			components: [
 				{
 					type: ComponentType.StringSelect,
-					custom_id: schemaStore.serialize(CustomId.ReportTag, {}).toString(),
+					custom_id: schemaStore.serialize(CustomId.ReportTag, {}),
 					options: reportChannelTagOptions,
 					max_values: 1,
 					min_values: 0,
@@ -315,21 +315,19 @@ export async function reportModalResponse(
 
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
 		title: "Report",
-		custom_id: schemaStore
-			.serialize(CustomId.ReportModalResponse, {
-				commandId: interaction.data.id,
-				username: message.author.username,
-				userId: message.author.id,
-				messageId: message.id,
-			})
-			.toString(),
+		custom_id: schemaStore.serialize(CustomId.ReportModalResponse, {
+			commandId: interaction.data.id,
+			username: message.author.username,
+			userId: message.author.id,
+			messageId: message.id,
+		}),
 		components: [
 			{
 				type: ComponentType.ActionRow,
 				components: [
 					{
 						type: ComponentType.TextInput,
-						custom_id: schemaStore.serialize(CustomId.ReportModalResponseText, {}).toString(),
+						custom_id: schemaStore.serialize(CustomId.ReportModalResponseText, {}),
 						label: "Reason",
 						style: TextInputStyle.Paragraph,
 						min_length: REPORT_MINIMUM_REASON_LENGTH,
