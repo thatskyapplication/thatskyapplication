@@ -8,6 +8,8 @@ Dockerfile
 test.js
 test.ts
 .env
+.env.production
+.env.development
 
 # Miscellaneous
 .DS_Store
