@@ -16,7 +16,7 @@ import {
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import {
-	type RotationNumber,
+	RotationIdentifier,
 	TIME_ZONE,
 	formatEmoji,
 	formatEmojiURL,
@@ -534,14 +534,14 @@ export function distributionData(locale: Locale): [APIMessageTopLevelComponent] 
 
 		if (seasonalCandlesRotation) {
 			const { rotation, realm } = seasonalCandlesRotation;
-			let rotationNumber: RotationNumber = rotation;
+			let rotationIdentifier: RotationIdentifier = rotation;
 
 			if (season.isDuringDoubleSeasonalLightEvent(today)) {
-				rotationNumber = 3;
+				rotationIdentifier = RotationIdentifier.Double;
 			}
 
-			const url = season.seasonalCandlesRotationURL(realm, rotationNumber);
-			values.push(`[Rotation ${rotationNumber}](${url})`);
+			const url = season.seasonalCandlesRotationURL(realm, rotationIdentifier);
+			values.push(`[Rotation ${rotationIdentifier}](${url})`);
 		}
 
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =

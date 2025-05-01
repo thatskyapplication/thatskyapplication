@@ -122,7 +122,7 @@ export {
 export { PlatformId, PLATFORM_ID_VALUES, type PlatformIds, isPlatformId } from "./platforms.js";
 export { DAILY_QUEST_VALUES, DailyQuest, type DailyQuests, isDailyQuest } from "./quests.js";
 export {
-	type RotationNumber,
+	RotationIdentifier,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,

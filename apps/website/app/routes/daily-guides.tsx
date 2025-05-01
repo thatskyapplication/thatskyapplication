@@ -2,7 +2,7 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import {
 	type DailyQuests,
-	type RotationNumber,
+	RotationIdentifier,
 	TIME_ZONE,
 	enGB,
 	isDailyQuest,
@@ -121,13 +121,13 @@ export default function DailyGuides() {
 
 		if (seasonalCandlesRotation) {
 			const { rotation, realm } = seasonalCandlesRotation;
-			let rotationNumber: RotationNumber = rotation;
+			let rotationIdentifier: RotationIdentifier = rotation;
 
 			if (currentSeason.isDuringDoubleSeasonalLightEvent(today)) {
-				rotationNumber = 3;
+				rotationIdentifier = RotationIdentifier.Double;
 			}
 
-			const url = currentSeason.seasonalCandlesRotationURL(realm, rotationNumber);
+			const url = currentSeason.seasonalCandlesRotationURL(realm, rotationIdentifier);
 
 			seasonalCandlesRotationText = (
 				<button
@@ -135,7 +135,7 @@ export default function DailyGuides() {
 					onClick={() => setSelectedImage(url)}
 					className="regular-link text-sm"
 				>
-					{`Rotation ${rotationNumber}`}
+					{`Rotation ${rotationIdentifier}`}
 				</button>
 			);
 		}

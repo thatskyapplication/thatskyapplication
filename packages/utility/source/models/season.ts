@@ -3,7 +3,7 @@ import type { DateTime } from "luxon";
 import { CDN_URL } from "../cdn.js";
 import type { RealmName } from "../kingdom.js";
 import {
-	type RotationNumber,
+	type RotationIdentifier,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
@@ -14,7 +14,7 @@ import type { Item, ItemRaw, SpiritIds } from "../utility/spirits.js";
 import type { GuideSpirit, SeasonalSpirit } from "./spirits.js";
 
 type SeasonalCandlesRotation = Readonly<
-	{ rotation: Exclude<RotationNumber, 3>; realm: RealmName }[]
+	{ rotation: Exclude<RotationIdentifier, RotationIdentifier.Double>; realm: RealmName }[]
 >;
 
 /**
@@ -208,10 +208,10 @@ export class Season {
 		return this.seasonalCandlesRotation?.(date)[date.diff(this.start, "days").days % 10] ?? null;
 	}
 
-	public seasonalCandlesRotationURL(realm: RealmName, rotation: RotationNumber) {
+	public seasonalCandlesRotationURL(realm: RealmName, identifier: RotationIdentifier) {
 		return String(
 			new URL(
-				`daily_guides/seasonal_candles/${this.id}/${snakeCaseName(realm)}/rotation_${rotation}.webp`,
+				`daily_guides/seasonal_candles/${this.id}/${snakeCaseName(realm)}/${identifier}.webp`,
 				CDN_URL,
 			),
 		);

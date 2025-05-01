@@ -2,7 +2,7 @@ import { Cosmetic } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { RealmName } from "../../../kingdom.js";
 import { Season } from "../../../models/season.js";
-import { SeasonId } from "../../../season.js";
+import { RotationIdentifier, SeasonId } from "../../../season.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import NestingAtrium from "./nesting-atrium.js";
 import NestingGuide from "./nesting-guide.js";
@@ -23,16 +23,16 @@ export default new Season({
 		},
 	],
 	seasonalCandlesRotation: [
-		{ rotation: 1, realm: RealmName.ValleyOfTriumph },
-		{ rotation: 1, realm: RealmName.GoldenWasteland },
-		{ rotation: 1, realm: RealmName.VaultOfKnowledge },
-		{ rotation: 1, realm: RealmName.DaylightPrairie },
-		{ rotation: 1, realm: RealmName.HiddenForest },
-		{ rotation: 2, realm: RealmName.ValleyOfTriumph },
-		{ rotation: 2, realm: RealmName.GoldenWasteland },
-		{ rotation: 2, realm: RealmName.VaultOfKnowledge },
-		{ rotation: 2, realm: RealmName.DaylightPrairie },
-		{ rotation: 2, realm: RealmName.HiddenForest },
+		{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
+		{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
+		{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
+		{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
+		{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
+		{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
+		{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
+		{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
+		{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
+		{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 	],
 	patchNotesURL: String(new URL("p0250", LINK_REDIRECTOR_URL)),
 });

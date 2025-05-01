@@ -1,4 +1,10 @@
-export type RotationNumber = 1 | 2 | 3;
+export enum RotationIdentifier {
+	One = "1",
+	Two = "2",
+	Three = "3",
+	Double = "double",
+}
+
 export const SEASONAL_CANDLES_PER_DAY = 5 as const;
 export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
 export const SEASON_PASS_SEASONAL_CANDLES_BONUS = 30 as const;
