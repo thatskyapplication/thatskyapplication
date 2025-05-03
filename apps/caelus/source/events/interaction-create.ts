@@ -20,6 +20,12 @@ import {
 	USER_CONTEXT_MENU_COMMANDS,
 } from "../commands/index.js";
 import { client } from "../discord.js";
+import {
+	SHOP_SUGGESTION_MODAL_CUSTOM_ID,
+	SHOP_SUGGEST_CUSTOM_ID,
+	shopSuggestionModal,
+	shopSuggestionSubmission,
+} from "../features/shop.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import {
 	CATALOGUE_BACK_TO_START_CUSTOM_ID,
@@ -586,6 +592,11 @@ export default {
 					}
 				}
 
+				if (customId === SHOP_SUGGEST_CUSTOM_ID) {
+					await shopSuggestionModal(interaction);
+					return;
+				}
+
 				if (isGuildButton(interaction)) {
 					if (customId.startsWith(CATALOGUE_SHARE_SEND_CUSTOM_ID)) {
 						await Catalogue.shareSend(interaction);
@@ -809,6 +820,11 @@ export default {
 
 				if (customId.startsWith(SKY_PROFILE_REPORT_MODAL_CUSTOM_ID)) {
 					await Profile.sendReport(interaction);
+					return;
+				}
+
+				if (customId === SHOP_SUGGESTION_MODAL_CUSTOM_ID) {
+					await shopSuggestionSubmission(interaction);
 					return;
 				}
 			} catch (error) {

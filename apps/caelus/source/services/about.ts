@@ -4,7 +4,6 @@ import {
 	MessageFlags,
 	SeparatorSpacingSize,
 } from "@discordjs/core";
-import { calculateUserDefaultAvatarIndex } from "@discordjs/rest";
 import { SkyMap, WEBSITE_URL } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import {
@@ -17,19 +16,10 @@ import {
 	SUPPORT_SERVER_INVITE_URL,
 	THATSKYGAME_URL,
 } from "../utility/constants.js";
-import { interactionInvoker } from "../utility/functions.js";
+import { avatarURL, interactionInvoker } from "../utility/functions.js";
 
 export async function about(interaction: APIChatInputApplicationCommandInteraction) {
 	const currentUser = await client.api.users.getCurrent();
-
-	const index =
-		currentUser.discriminator === "0"
-			? calculateUserDefaultAvatarIndex(currentUser.id)
-			: Number(currentUser.discriminator) % 5;
-
-	const iconURL = currentUser.avatar
-		? client.rest.cdn.avatar(currentUser.id, currentUser.avatar)
-		: client.rest.cdn.defaultAvatar(index);
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
 		components: [
@@ -50,9 +40,7 @@ export async function about(interaction: APIChatInputApplicationCommandInteracti
 						type: ComponentType.Section,
 						accessory: {
 							type: ComponentType.Thumbnail,
-							media: {
-								url: iconURL,
-							},
+							media: { url: avatarURL(currentUser) },
 						},
 						components: [
 							{

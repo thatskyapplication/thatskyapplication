@@ -17,6 +17,7 @@ import play_fight from "./chat-inputs/play-fight.js";
 import quest from "./chat-inputs/quest.js";
 import schedule from "./chat-inputs/schedule.js";
 import shard_eruption from "./chat-inputs/shard-eruption.js";
+import shop from "./chat-inputs/shop.js";
 import sky_profile_chat_input from "./chat-inputs/sky-profile.js";
 import spirit from "./chat-inputs/spirit.js";
 import gift_heart from "./user-context-menus/gift-heart.js";
@@ -42,6 +43,7 @@ export const CHAT_INPUT_COMMANDS = [
 	quest,
 	schedule,
 	shard_eruption,
+	shop,
 	sky_profile_chat_input,
 	spirit,
 ] as const;

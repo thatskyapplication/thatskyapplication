@@ -29,7 +29,8 @@ if (
 		process.env.S3_ACCESS_KEY_ID &&
 		process.env.S3_ACCOUNT_ID &&
 		process.env.S3_SECRET_ACCESS_KEY &&
-		process.env.SKY_PROFILE_REPORTS_CHANNEL_ID
+		process.env.SKY_PROFILE_REPORTS_CHANNEL_ID &&
+		process.env.SHOP_SUGGESTIONS_CHANNEL_ID
 	) ||
 	(PRODUCTION && !(process.env.BETTER_STACK_TOKEN && process.env.FLIGHT_CHECK))
 ) {
@@ -47,6 +48,7 @@ export const S3_SECRET_ACCESS_KEY = process.env.S3_SECRET_ACCESS_KEY;
 export const SKY_PROFILE_REPORTS_CHANNEL_ID = process.env.SKY_PROFILE_REPORTS_CHANNEL_ID;
 export const BETTER_STACK_TOKEN = process.env.BETTER_STACK_TOKEN;
 export const FLIGHT_CHECK = process.env.FLIGHT_CHECK;
+export const SHOP_SUGGESTIONS_CHANNEL_ID = process.env.SHOP_SUGGESTIONS_CHANNEL_ID;
 
 // Application ids.
 const APPLICATION_ID_DEVELOPMENT = "1071822091814441000" as const;

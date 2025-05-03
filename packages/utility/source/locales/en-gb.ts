@@ -1548,6 +1548,10 @@ export default {
 			"command-option-today-name": "today",
 			"command-option-today-description": "View the shard eruption today.",
 		},
+		shop: {
+			"command-name": "shop",
+			"command-description": "View the shop.",
+		},
 		"sky-profile": {
 			"command-name": "sky-profile",
 			"command-description": "Build a Sky profile for you and others to see!",

@@ -917,6 +917,22 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		],
 	},
 	{
+		name: t("shop.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: localisations("shop.command-name"),
+		description: t("shop.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: localisations("shop.command-description"),
+		type: ApplicationCommandType.ChatInput,
+		integration_types: [
+			ApplicationIntegrationType.GuildInstall,
+			ApplicationIntegrationType.UserInstall,
+		],
+		contexts: [
+			InteractionContextType.Guild,
+			InteractionContextType.BotDM,
+			InteractionContextType.PrivateChannel,
+		],
+	},
+	{
 		name: t("sky-profile.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 		name_localizations: localisations("sky-profile.command-name"),
 		description: t("sky-profile.command-description", { lng: Locale.EnglishGB, ns: "commands" }),

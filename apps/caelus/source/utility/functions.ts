@@ -16,7 +16,7 @@ import {
 	InteractionType,
 	type Snowflake,
 } from "@discordjs/core";
-import { ALLOWED_EXTENSIONS } from "@discordjs/rest";
+import { ALLOWED_EXTENSIONS, calculateUserDefaultAvatarIndex } from "@discordjs/rest";
 import {
 	REALM_NAME_VALUES,
 	type RealmName,
@@ -78,7 +78,7 @@ export function resolveStringSelectMenu(
 }
 
 export function userLogFormat(user: APIUser) {
-	return `<@${user.id}> (${user.username}${user.discriminator === "0" ? "" : `#${user.discriminator}`})`;
+	return `<@${user.id}> (${userTag(user)})`;
 }
 
 export function isRealm(realm: string): realm is RealmName {
@@ -206,4 +206,19 @@ export async function validateAttachment(
 
 export function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${string}` {
 	return hash.startsWith(ANIMATED_HASH_PREFIX);
+}
+
+export function userTag(user: APIUser) {
+	return user.discriminator === "0" ? user.username : `${user.username}#${user.discriminator}`;
+}
+
+export function avatarURL(user: APIUser) {
+	const index =
+		user.discriminator === "0"
+			? calculateUserDefaultAvatarIndex(user.id)
+			: Number(user.discriminator) % 5;
+
+	return user.avatar
+		? client.rest.cdn.avatar(user.id, user.avatar)
+		: client.rest.cdn.defaultAvatar(index);
 }
