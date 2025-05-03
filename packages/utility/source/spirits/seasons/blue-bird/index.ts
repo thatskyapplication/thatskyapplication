@@ -27,7 +27,7 @@ export default new Season({
 			? [
 					{ rotation: RotationIdentifier.Three, realm: RealmName.GoldenWasteland },
 					{ rotation: RotationIdentifier.Three, realm: RealmName.VaultOfKnowledge },
-					{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
+					{ rotation: RotationIdentifier.Three, realm: RealmName.DaylightPrairie },
 					{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
 					{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
 					{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
