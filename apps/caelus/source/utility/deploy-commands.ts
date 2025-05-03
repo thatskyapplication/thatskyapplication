@@ -4,7 +4,6 @@ import {
 	APPLICATION_ID,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DEVELOPER_GUILD_ID,
-	DISCORD_TOKEN,
 	LOCALES,
 	MAXIMUM_WING_BUFFS,
 	NOTIFICATION_CHANNEL_TYPES,
@@ -33,6 +32,7 @@ import {
 	MINIMUM_WINGED_LIGHT,
 	NOTIFICATION_TYPE_VALUES,
 } from "@thatskyapplication/utility";
+import { DISCORD_TOKEN } from "./configuration.js";
 
 function localisations(name: string, ns = "commands") {
 	return Object.fromEntries(LOCALES.map((locale) => [locale, t(name, { lng: locale, ns })]));

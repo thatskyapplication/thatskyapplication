@@ -28,13 +28,11 @@ import { client } from "./discord.js";
 import type { Guild } from "./models/discord/guild.js";
 import pino from "./pino.js";
 import { todayData } from "./services/shard-eruption.js";
+import { AI_GATEWAY_TOKEN, OPENAI_API_KEY, OPENAI_BASE_URL } from "./utility/configuration.js";
 import {
-	AI_GATEWAY_TOKEN,
 	APPLICATION_ID,
 	AreaToWingedLightCount,
 	MAXIMUM_WING_BUFFS,
-	OPENAI_API_KEY,
-	OPENAI_BASE_URL,
 	SKY_CREATOR_TROUPE,
 	WINGED_LIGHT_IN_AREAS,
 	WINGED_LIGHT_THRESHOLDS,

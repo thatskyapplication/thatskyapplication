@@ -63,6 +63,7 @@ import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import { findUser } from "../services/guess.js";
 import { totalReceived } from "../services/heart.js";
+import { SKY_PROFILE_REPORTS_CHANNEL_ID } from "../utility/configuration.js";
 import {
 	ANIMATED_HASH_PREFIX,
 	APPLICATION_ID,
@@ -80,7 +81,6 @@ import {
 	SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH,
 	SKY_PROFILE_MINIMUM_SPOT_LENGTH,
 	SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH,
-	SKY_PROFILE_REPORTS_CHANNEL_ID,
 	SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
 	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	SKY_PROFILE_UNKNOWN_NAME,

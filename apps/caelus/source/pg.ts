@@ -1,5 +1,5 @@
 import knex from "knex";
-import { DATABASE_URL } from "./utility/constants.js";
+import { DATABASE_URL } from "./utility/configuration.js";
 
 export enum Table {
 	AI = "ai",

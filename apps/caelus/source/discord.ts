@@ -1,7 +1,7 @@
 import { Client, GatewayIntentBits } from "@discordjs/core";
 import { REST } from "@discordjs/rest";
 import { WebSocketManager } from "@discordjs/ws";
-import { DISCORD_TOKEN } from "./utility/constants.js";
+import { DISCORD_TOKEN } from "./utility/configuration.js";
 
 const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
 

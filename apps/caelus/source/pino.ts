@@ -1,5 +1,5 @@
 import pino from "pino";
-import { BETTER_STACK_TOKEN, PRODUCTION } from "./utility/constants.js";
+import { BETTER_STACK_TOKEN, PRODUCTION } from "./utility/configuration.js";
 
 const options: Parameters<(typeof pino)["default"]>[0] = {};
 

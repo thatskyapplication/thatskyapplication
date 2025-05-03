@@ -14,10 +14,10 @@ import { formatEmoji } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import pino from "../pino.js";
+import { SHOP_SUGGESTIONS_CHANNEL_ID } from "../utility/configuration.js";
 import {
 	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
-	SHOP_SUGGESTIONS_CHANNEL_ID,
 	SKY_PROFILES_URL,
 } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";

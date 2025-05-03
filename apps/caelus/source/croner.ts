@@ -6,7 +6,7 @@ import DailyGuides from "./models/DailyGuides.js";
 import pg from "./pg.js";
 import pino from "./pino.js";
 import { distribute, reset } from "./services/daily-guides.js";
-import { FLIGHT_CHECK, PRODUCTION } from "./utility/constants.js";
+import { FLIGHT_CHECK, PRODUCTION } from "./utility/configuration.js";
 
 export default function croner() {
 	new Cron("0 0 0 * * *", { timezone: TIME_ZONE }, async () => {
