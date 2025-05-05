@@ -74,9 +74,11 @@ import {
 	DEFAULT_EMBED_COLOUR,
 	ERROR_RESPONSE_COMPONENTS_V2,
 	MAXIMUM_TEXT_DISPLAY_LENGTH,
+	NO_EVENTS_WITH_OFFER_TEXT,
 	NO_SPIRITS_WITH_OFFER_TEXT,
 } from "../utility/constants.js";
 import {
+	CUSTOM_EMOJI_REPLACEMENTS,
 	CosmeticToEmoji,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
@@ -1314,6 +1316,13 @@ export class Catalogue {
 		const index = eventsYears.indexOf(year);
 		const before = eventsYears[index - 1];
 		const after = eventsYears[index + 1];
+		const title = `## ${year}\n-# Catalogue → Events By Year`;
+
+		const eventsText = catalogue.eventsText(
+			events,
+			locale,
+			MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
+		);
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
@@ -1323,7 +1332,7 @@ export class Catalogue {
 					components: [
 						{
 							type: ComponentType.TextDisplay,
-							content: `## ${year}\n-# Catalogue → Events By Year`,
+							content: title,
 						},
 						{
 							type: ComponentType.Separator,
@@ -1332,20 +1341,7 @@ export class Catalogue {
 						},
 						{
 							type: ComponentType.TextDisplay,
-							content: events
-								.reduce<string[]>((eventField, event) => {
-									if (event.offer.length === 0) {
-										return eventField;
-									}
-
-									const { offerDescription } = catalogue.progress(event.offer);
-
-									eventField.push(
-										`__${t(`events.${event.id}`, { lng: locale, ns: "general" })}__\n${offerDescription.join("\n")}`,
-									);
-									return eventField;
-								}, [])
-								.join("\n\n"),
+							content: eventsText ?? NO_EVENTS_WITH_OFFER_TEXT,
 						},
 						{
 							type: ComponentType.ActionRow,
@@ -2666,25 +2662,12 @@ export class Catalogue {
 			descriptionString = description.join("\n\n");
 
 			// If the resulting description exceeds the limit, replace some emojis.
-			if (descriptionString.length > limit) {
-				descriptionString = descriptionString.replaceAll(
-					formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-					"✅",
-				);
-			}
+			for (const { from, to } of CUSTOM_EMOJI_REPLACEMENTS) {
+				if (descriptionString.length <= limit) {
+					break;
+				}
 
-			if (descriptionString.length > limit) {
-				descriptionString = descriptionString.replaceAll(
-					formatEmoji(MISCELLANEOUS_EMOJIS.No),
-					"❌",
-				);
-			}
-
-			if (descriptionString.length > limit) {
-				descriptionString = descriptionString.replaceAll(
-					formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
-					"🤍",
-				);
+				descriptionString = descriptionString.replaceAll(from, to);
 			}
 		}
 
@@ -2730,30 +2713,50 @@ export class Catalogue {
 		if (description.length > 0) {
 			descriptionString = description.join("\n\n");
 
-			// If the resulting description exceeds 4,000 characters, replace some emojis.
-			if (descriptionString.length > 4_000) {
-				descriptionString = descriptionString.replaceAll(
-					formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-					"✅",
-				);
-			}
+			// If the resulting description exceeds the limit, replace some emojis.
+			for (const { from, to } of CUSTOM_EMOJI_REPLACEMENTS) {
+				if (descriptionString.length <= MAXIMUM_TEXT_DISPLAY_LENGTH) {
+					break;
+				}
 
-			if (descriptionString.length > 4_000) {
-				descriptionString = descriptionString.replaceAll(
-					formatEmoji(MISCELLANEOUS_EMOJIS.No),
-					"❌",
-				);
-			}
-
-			if (descriptionString.length > 4_000) {
-				descriptionString = descriptionString.replaceAll(
-					formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
-					"🤍",
-				);
+				descriptionString = descriptionString.replaceAll(from, to);
 			}
 		}
 
 		return descriptionString;
+	}
+
+	private eventsText(events: ReadonlyCollection<EventIds, Event>, locale: Locale, limit: number) {
+		let offers = events
+			.reduce<string[]>((eventField, event) => {
+				if (event.offer.length === 0) {
+					return eventField;
+				}
+
+				const { offerDescription } = this.progress(event.offer);
+
+				eventField.push(
+					`__${t(`events.${event.id}`, { lng: locale, ns: "general" })}__\n${offerDescription.join("\n")}`,
+				);
+
+				return eventField;
+			}, [])
+			.join("\n\n");
+
+		if (offers.length > 0) {
+			// If the resulting description exceeds the limit, replace some emojis.
+			for (const { from, to } of CUSTOM_EMOJI_REPLACEMENTS) {
+				if (offers.length <= limit) {
+					break;
+				}
+
+				offers = offers.replaceAll(from, to);
+			}
+
+			return offers;
+		}
+
+		return null;
 	}
 
 	private async sharePayload(

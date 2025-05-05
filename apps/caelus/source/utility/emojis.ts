@@ -1,4 +1,4 @@
-import { emojiConstants } from "@thatskyapplication/utility";
+import { emojiConstants, formatEmoji } from "@thatskyapplication/utility";
 import { PRODUCTION } from "./configuration.js";
 
 export const {
@@ -10,3 +10,9 @@ export const {
 	SeasonIdToSeasonalEmoji,
 	EventIdToEventTicketEmoji,
 } = emojiConstants(PRODUCTION);
+
+export const CUSTOM_EMOJI_REPLACEMENTS = [
+	{ from: formatEmoji(MISCELLANEOUS_EMOJIS.Yes), to: "✅" },
+	{ from: formatEmoji(MISCELLANEOUS_EMOJIS.No), to: "❌" },
+	{ from: formatEmoji(MISCELLANEOUS_EMOJIS.Heart), to: "🤍" },
+] as const;
