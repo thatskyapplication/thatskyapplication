@@ -14,8 +14,8 @@ export default new GuideSpirit({
 		inProgress: true,
 		hasInfographic: false,
 		current: [
-			{ name: "Quest", cosmetic: Cosmetic.BlueBirdGuideQuest1 },
-			{ name: "Heart", cosmetic: Cosmetic.BlueBirdGuideHeart1 },
+			{ name: "Quest 1", cosmetic: Cosmetic.BlueBirdGuideQuest1 },
+			{ name: "Heart 1", cosmetic: Cosmetic.BlueBirdGuideHeart1 },
 			{ name: "Pendant", cosmetic: Cosmetic.BlueBirdPendant },
 			{
 				name: "Ultimate face accessory",
@@ -35,6 +35,17 @@ export default new GuideSpirit({
 				name: `${emote} 2`,
 				cosmetic: Cosmetic.EmoteCough2,
 				cost: { hearts: 3 },
+			},
+			{ name: "Quest 2", cosmetic: Cosmetic.BlueBirdGuideQuest2 },
+			{ name: "Heart 2", cosmetic: Cosmetic.BlueBirdGuideHeart2 },
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteCough3,
+			},
+			{
+				name: `${emote} 4`,
+				cosmetic: Cosmetic.EmoteCough4,
+				cost: { hearts: 5 },
 			},
 		],
 	},

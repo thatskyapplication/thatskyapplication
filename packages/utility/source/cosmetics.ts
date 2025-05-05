@@ -2980,6 +2980,12 @@ export enum Cosmetic {
 	OceanSeaFoamBoots = 2376,
 	OceanWavesMask = 2377,
 
+	// 05/05/2025 | Season of the Blue Bird Quest 2.
+	BlueBirdGuideQuest2 = 2378,
+	BlueBirdGuideHeart2 = 2379,
+	EmoteCough3 = 2380,
+	EmoteCough4 = 2381,
+
 	// 26/05/2025 | Days of Colour.
 	RainbowSmock,
 	RainbowHeadWrap,
