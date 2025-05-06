@@ -1,10 +1,18 @@
-import { type APIChatInputApplicationCommandInteraction, Locale } from "@discordjs/core";
+import {
+	type APIChatInputApplicationCommandInteraction,
+	Locale,
+	MessageFlags,
+} from "@discordjs/core";
 import { t } from "i18next";
-import { about } from "../../services/about.js";
+import { client } from "../../discord.js";
+import { about } from "../../features/about.js";
 
 export default {
 	name: t("about.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
-		await about(interaction);
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			components: await about(),
+			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+		});
 	},
 } as const;
