@@ -1187,4 +1187,9 @@ export const TRAVELLING_DATES = new Collection<number, TravellingDatesData>()
 		spiritId: SpiritId.TumblingTroublemaker,
 		start: skyDate(2025, 4, 24),
 		end: skyDate(2025, 4, 28),
+	})
+	.set(140, {
+		spiritId: SpiritId.LivelyNavigator,
+		start: skyDate(2025, 5, 8),
+		end: skyDate(2025, 5, 12),
 	});
