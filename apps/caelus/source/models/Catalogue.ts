@@ -726,6 +726,9 @@ export class Catalogue {
 			};
 		});
 
+		const title = `## ${t(`realms.${realm}`, { lng: locale, ns: "general" })}\n-# Catalogue → Realms`;
+		const percentageNote = `-# ${CATALOGUE_STANDARD_PERCENTAGE_NOTE}`;
+
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
 				{
@@ -734,7 +737,7 @@ export class Catalogue {
 					components: [
 						{
 							type: ComponentType.TextDisplay,
-							content: `## ${t(`realms.${realm}`, { lng: locale, ns: "general" })}\n-# Catalogue → Realms`,
+							content: title,
 						},
 						{
 							type: ComponentType.Separator,
@@ -743,7 +746,12 @@ export class Catalogue {
 						},
 						{
 							type: ComponentType.TextDisplay,
-							content: catalogue.spiritText([...spirits.values()], locale) ?? "",
+							content:
+								catalogue.spiritText(
+									[...spirits.values()],
+									locale,
+									MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - percentageNote.length,
+								) ?? "",
 						},
 						{
 							type: ComponentType.ActionRow,
@@ -772,7 +780,7 @@ export class Catalogue {
 						},
 						{
 							type: ComponentType.TextDisplay,
-							content: `-# ${CATALOGUE_STANDARD_PERCENTAGE_NOTE}`,
+							content: percentageNote,
 						},
 						{
 							type: ComponentType.Separator,
@@ -830,6 +838,8 @@ export class Catalogue {
 			};
 		});
 
+		const title = "## Elders \n-# Catalogue";
+
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
 				{
@@ -838,7 +848,7 @@ export class Catalogue {
 					components: [
 						{
 							type: ComponentType.TextDisplay,
-							content: "## Elders \n-# Catalogue",
+							content: title,
 						},
 						{
 							type: ComponentType.Separator,
@@ -847,7 +857,12 @@ export class Catalogue {
 						},
 						{
 							type: ComponentType.TextDisplay,
-							content: catalogue.spiritText([...ELDER_SPIRITS.values()], locale) ?? "",
+							content:
+								catalogue.spiritText(
+									[...ELDER_SPIRITS.values()],
+									locale,
+									MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
+								) ?? "",
 						},
 						{
 							type: ComponentType.ActionRow,
@@ -1412,6 +1427,8 @@ export class Catalogue {
 			return;
 		}
 
+		const title = "## Returning Spirits\n-# Catalogue";
+
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
 				{
@@ -1420,7 +1437,7 @@ export class Catalogue {
 					components: [
 						{
 							type: ComponentType.TextDisplay,
-							content: "## Returning Spirits\n-# Catalogue",
+							content: title,
 						},
 						{
 							type: ComponentType.Separator,
@@ -1429,7 +1446,11 @@ export class Catalogue {
 						},
 						{
 							type: ComponentType.TextDisplay,
-							content: catalogue.spiritText([...spirits.values()], locale)!,
+							content: catalogue.spiritText(
+								[...spirits.values()],
+								locale,
+								MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
+							)!,
 						},
 						{
 							type: ComponentType.ActionRow,
@@ -1511,7 +1532,7 @@ export class Catalogue {
 		const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
 		const offer = seasonalParsing ? spirit.seasonal : spirit.current;
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
-		const spiritText = this.spiritText([spirit], locale);
+		const spiritText = this.spiritText([spirit], locale, MAXIMUM_TEXT_DISPLAY_LENGTH);
 
 		let spirits:
 			| ReadonlyCollection<SpiritIds, StandardSpirit>
@@ -1547,17 +1568,9 @@ export class Catalogue {
 			},
 		];
 
-		let description: string;
-
-		if (offer.length > 0) {
-			description = spiritText!;
-		} else {
-			description = NO_FRIENDSHIP_TREE_TEXT;
-		}
-
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: description,
+			content: offer.length > 0 ? spiritText! : NO_FRIENDSHIP_TREE_TEXT,
 		});
 
 		if (imageURL) {
@@ -2677,6 +2690,7 @@ export class Catalogue {
 	private spiritText(
 		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
 		locale: Locale,
+		limit: number,
 	) {
 		const multiple = spirits.length > 1;
 		const description = [];
@@ -2715,7 +2729,7 @@ export class Catalogue {
 
 			// If the resulting description exceeds the limit, replace some emojis.
 			for (const { from, to } of CUSTOM_EMOJI_REPLACEMENTS) {
-				if (descriptionString.length <= MAXIMUM_TEXT_DISPLAY_LENGTH) {
+				if (descriptionString.length <= limit) {
 					break;
 				}
 
@@ -2792,13 +2806,14 @@ export class Catalogue {
 			title = "Realms Progress";
 		} else if (isRealm(type)) {
 			backButtonCustomId = `${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${type}`;
+			title = `${type} Progress`;
 
 			content = this.spiritText(
 				[...STANDARD_SPIRITS.filter((spirit) => spirit.realm === type).values()],
 				locale,
+				// Take 100 away too for good measure.
+				MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - 100,
 			);
-
-			title = `${type} Progress`;
 		} else if (isSeasonId(Number(type))) {
 			const seasonId = Number(type) as SeasonIds;
 			const emoji = SeasonIdToSeasonalEmoji[seasonId];
@@ -2814,7 +2829,7 @@ export class Catalogue {
 			);
 		} else if (type === CATALOGUE_SHARE_ELDER_KEY) {
 			backButtonCustomId = CATALOGUE_VIEW_ELDERS_CUSTOM_ID;
-			content = this.spiritText([...ELDER_SPIRITS.values()], locale);
+			content = this.spiritText([...ELDER_SPIRITS.values()], locale, MAXIMUM_TEXT_DISPLAY_LENGTH);
 			title = "Elders Progress";
 		}
 
