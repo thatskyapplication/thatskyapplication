@@ -97,6 +97,9 @@ export const DEFAULT_EMBED_COLOUR = 0x6f68c9 as const;
 export const ANIMATED_HASH_PREFIX = "a_" as const;
 export const MAXIMUM_ASSET_SIZE = 5_000_000 as const;
 export const MAXIMUM_TEXT_DISPLAY_LENGTH = 4000 as const;
+export const MAXIMUM_FEEDBACK_DESCRIPTION_LENGTH = 1000 as const;
+export const MAXIMUM_FEEDBACK_TITLE_LENGTH = 100 as const;
+export const MINIMUM_FEEDBACK_TITLE_LENGTH = 4 as const;
 
 export const MEDITATION_MAPS = [
 	SkyMap.BirdNest,

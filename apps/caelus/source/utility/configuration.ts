@@ -7,8 +7,11 @@ export const PRODUCTION = process.env.NODE_ENV === "production";
 if (
 	!(
 		process.env.DISCORD_TOKEN &&
+		process.env.FEEDBACK_CHANNEL_ID &&
 		process.env.SKY_PROFILE_REPORTS_CHANNEL_ID &&
 		process.env.SHOP_SUGGESTIONS_CHANNEL_ID &&
+		process.env.IDEA_TAG_ID &&
+		process.env.ISSUE_TAG_ID &&
 		process.env.DATABASE_URL &&
 		process.env.OPENAI_API_KEY &&
 		process.env.OPENAI_BASE_URL &&
@@ -23,8 +26,11 @@ if (
 }
 
 export const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
+export const FEEDBACK_CHANNEL_ID = process.env.FEEDBACK_CHANNEL_ID;
 export const SKY_PROFILE_REPORTS_CHANNEL_ID = process.env.SKY_PROFILE_REPORTS_CHANNEL_ID;
 export const SHOP_SUGGESTIONS_CHANNEL_ID = process.env.SHOP_SUGGESTIONS_CHANNEL_ID;
+export const IDEA_TAG_ID = process.env.IDEA_TAG_ID;
+export const ISSUE_TAG_ID = process.env.ISSUE_TAG_ID;
 export const DATABASE_URL = process.env.DATABASE_URL;
 export const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 export const OPENAI_BASE_URL = process.env.OPENAI_BASE_URL;

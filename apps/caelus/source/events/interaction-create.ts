@@ -21,6 +21,16 @@ import {
 } from "../commands/index.js";
 import { client } from "../discord.js";
 import {
+	ABOUT_FEEDBACK_CUSTOM_ID,
+	ABOUT_ISSUE_CUSTOM_ID,
+	FEEDBACK_MODAL_CUSTOM_ID,
+	ISSUE_MODAL_CUSTOM_ID,
+	feedbackModalResponse,
+	feedbackSubmission,
+	issueModalResponse,
+	issueSubmission,
+} from "../features/about.js";
+import {
 	SHOP_SUGGESTION_MODAL_CUSTOM_ID,
 	SHOP_SUGGEST_CUSTOM_ID,
 	shopSuggestionModal,
@@ -333,6 +343,16 @@ export default {
 			try {
 				if (customId === DATA_DELETION_CUSTOM_ID) {
 					await deleteUserData(interaction);
+					return;
+				}
+
+				if (customId === ABOUT_FEEDBACK_CUSTOM_ID) {
+					await feedbackModalResponse(interaction);
+					return;
+				}
+
+				if (customId === ABOUT_ISSUE_CUSTOM_ID) {
+					await issueModalResponse(interaction);
 					return;
 				}
 
@@ -798,6 +818,16 @@ export default {
 			const customId = interaction.data.custom_id;
 
 			try {
+				if (customId === FEEDBACK_MODAL_CUSTOM_ID) {
+					await feedbackSubmission(interaction);
+					return;
+				}
+
+				if (customId === ISSUE_MODAL_CUSTOM_ID) {
+					await issueSubmission(interaction);
+					return;
+				}
+
 				if (customId === SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID) {
 					await Profile.setName(interaction);
 					return;

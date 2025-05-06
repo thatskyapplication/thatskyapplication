@@ -3,6 +3,7 @@ import { PRODUCTION } from "./configuration.js";
 
 export const {
 	MISCELLANEOUS_EMOJIS,
+	EMOTE_EMOJIS,
 	FRIEND_ACTION_EMOJIS,
 	SEASON_EMOJIS,
 	CosmeticToEmoji,
