@@ -44,7 +44,7 @@ export const DAILY_INFOGRAPHICS_CHANNEL_ID = "1041420071614042152" as const;
 export const MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT = 45 as const;
 
 // Website URLs.
-export const APPLICATION_INVITE_URL = String(new URL("invite", WEBSITE_URL));
+export const APPLICATION_INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${APPLICATION_ID}`;
 export const SUPPORT_SERVER_INVITE_URL = String(new URL("support", WEBSITE_URL));
 export const DAILY_GUIDES_URL = String(new URL("daily-guides", WEBSITE_URL));
 export const SHARD_ERUPTION_URL = String(new URL("shard-eruption", WEBSITE_URL));
