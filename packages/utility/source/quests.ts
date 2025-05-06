@@ -231,6 +231,7 @@ export const DailyQuest = {
 	FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository: 229,
 	FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre: 230,
 	FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing: 231,
+	MeetUpWithBumblingBoatswainInTreasureReef: 232,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);

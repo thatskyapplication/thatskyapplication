@@ -357,6 +357,8 @@ export default {
 				"Find a clue of the Blue Bird's whereabouts in Village Theater",
 			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheForestClearing]:
 				"Find a clue of the Blue Bird's whereabouts in the Forest Clearing",
+			[DailyQuest.MeetUpWithBumblingBoatswainInTreasureReef]:
+				"Meet up with Bumbling Boatswain in Treasure Reef",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
