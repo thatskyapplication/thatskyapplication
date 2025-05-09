@@ -580,9 +580,11 @@ export default {
 			"command-name": "über-mich",
 			"command-description": "Infos über mich, den kleinen wunderbaren Helfer für Sky!",
 		},
-		ai: {
-			"command-name": "ai",
-			"command-description": "Konfiguriere die AI.",
+		configure: {
+			ai: {
+				"command-name": "ai",
+				"command-description": "Konfiguriere die AI.",
+			},
 		},
 	},
 } as const;

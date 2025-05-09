@@ -149,7 +149,7 @@ export async function setup(
 
 	if (role.id === interaction.guild_id) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: t("notifications.setup.no-everyone", { lng: locale, ns: "commands" }),
+			content: t("notification.no-everyone", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 

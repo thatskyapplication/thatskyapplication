@@ -1290,10 +1290,6 @@ export default {
 			"command-name": "about",
 			"command-description": "About me, the wondrous little Sky helper!",
 		},
-		ai: {
-			"command-name": "ai",
-			"command-description": "Configure the AI.",
-		},
 		bonk: {
 			"command-name": "bonk",
 			"command-description": "Bonk someone!",
@@ -1372,22 +1368,54 @@ export default {
 			"command-name": "catalogue",
 			"command-description": "Your very own Sky catalogue.",
 		},
-		"daily-guides": {
-			"command-name": "daily-guides",
-			"command-description": "The command to set up daily guides in the server.",
-			setup: {
-				"command-name": "setup",
-				"command-description": "Sets up the daily guides in the server.",
-				"command-option-channel-name": "channel",
-				"command-option-channel-description": "The channel to send daily guides in.",
+		configure: {
+			"command-name": "configure",
+			"command-description": "Configure settings for the server.",
+			ai: {
+				"command-name": "ai",
+				"command-description": "Configure the AI.",
 			},
-			status: {
-				"command-name": "status",
-				"command-description": "Displays the status of daily guides in this server.",
+			"daily-guides": {
+				"command-name": "daily-guides",
+				"command-description": "The command to set up daily guides in the server.",
+				setup: {
+					"command-name": "setup",
+					"command-description": "Sets up the daily guides in the server.",
+					"command-option-channel-name": "channel",
+					"command-option-channel-description": "The channel to send daily guides in.",
+				},
+				status: {
+					"command-name": "status",
+					"command-description": "Displays the status of daily guides in this server.",
+				},
+				unset: {
+					"command-name": "unset",
+					"command-description": "Unsets daily guides in the server.",
+				},
 			},
-			unset: {
-				"command-name": "unset",
-				"command-description": "Unsets daily guides in the server.",
+			notifications: {
+				"command-name": "notifications",
+				"command-description": "The command to set up notifications for events.",
+				setup: {
+					"command-name": "setup",
+					"command-description": "Sets up notifications in the server.",
+					"command-option-notification-name": "notification",
+					"command-option-notification-description": "The notification to set.",
+					"command-option-channel-name": "channel",
+					"command-option-channel-description": "The channel to send notifications in.",
+					"command-option-role-name": "role",
+					"command-option-role-description": "The role to mention.",
+				},
+				status: {
+					"command-name": "status",
+					"command-description": "Displays the status of notifications in this server.",
+				},
+				unset: {
+					"command-name": "unset",
+					"command-description": "Unsets notifications in the server.",
+					"command-option-notification-name": "notification",
+					"command-option-notification-description": "The notification to unset.",
+				},
 			},
 		},
 		data: {
@@ -1483,31 +1511,6 @@ export default {
 			"command-option-user-description": "The individual to be krilled.",
 			"missing-external-apps-permission":
 				"You are missing the `Use External Apps` permission, so {{user}} would not be krilled. Someone needs to adjust the permissions!",
-		},
-		notifications: {
-			"command-name": "notifications",
-			"command-description": "The command to set up notifications for events.",
-			setup: {
-				"command-name": "setup",
-				"command-description": "Sets up notifications in the server.",
-				"command-option-notification-name": "notification",
-				"command-option-notification-description": "The notification to set.",
-				"command-option-channel-name": "channel",
-				"command-option-channel-description": "The channel to send notifications in.",
-				"command-option-role-name": "role",
-				"command-option-role-description": "The role to mention.",
-				"no-everyone": "Woah there! Let's pick another role. Not sure we want to do that!",
-			},
-			status: {
-				"command-name": "status",
-				"command-description": "Displays the status of notifications in this server.",
-			},
-			unset: {
-				"command-name": "unset",
-				"command-description": "Unsets notifications in the server.",
-				"command-option-notification-name": "notification",
-				"command-option-notification-description": "The notification to unset.",
-			},
 		},
 		"play-fight": {
 			"command-name": "play-fight",
@@ -1617,6 +1620,9 @@ export default {
 		heart: {
 			"missing-external-apps-permission":
 				"You are missing the `Use External Apps` permission, so {{user}} would not receive your heart. Someone needs to adjust the permissions!",
+		},
+		notification: {
+			"no-everyone": "Woah there! Let's pick another role. Not sure we want to do that!",
 		},
 	},
 } as const;

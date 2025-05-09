@@ -61,16 +61,6 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		],
 	},
 	{
-		name: t("ai.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: localisations("ai.command-name"),
-		description: t("ai.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: localisations("ai.command-description"),
-		type: ApplicationCommandType.ChatInput,
-		default_member_permissions: String(PermissionFlagsBits.ManageGuild),
-		integration_types: [ApplicationIntegrationType.GuildInstall],
-		contexts: [InteractionContextType.Guild],
-	},
-	{
 		name: t("bonk.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 		name_localizations: localisations("bonk.command-name"),
 		description: t("bonk.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
@@ -357,60 +347,241 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		],
 	},
 	{
-		name: t("daily-guides.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: localisations("daily-guides.command-name"),
-		description: t("daily-guides.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: localisations("daily-guides.command-description"),
+		name: t("configure.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: localisations("configure.command-name"),
+		description: t("configure.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: localisations("configure.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: t("daily-guides.setup.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: localisations("daily-guides.setup.command-name"),
-				description: t("daily-guides.setup.command-description", {
+				name: t("configure.ai.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: localisations("configure.ai.command-name"),
+				description: t("configure.ai.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: localisations("daily-guides.setup.command-description"),
+				description_localizations: localisations("configure.ai.command-description"),
+			},
+			{
+				type: ApplicationCommandOptionType.SubcommandGroup,
+				name: t("configure.daily-guides.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: localisations("configure.daily-guides.command-name"),
+				description: t("configure.daily-guides.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: localisations("configure.daily-guides.command-description"),
 				options: [
 					{
-						type: ApplicationCommandOptionType.Channel,
-						name: t("daily-guides.setup.command-option-channel-name", {
+						type: ApplicationCommandOptionType.Subcommand,
+						name: t("configure.daily-guides.setup.command-name", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: localisations("daily-guides.setup.command-option-channel-name"),
-						description: t("daily-guides.setup.command-option-channel-description", {
+						name_localizations: localisations("configure.daily-guides.setup.command-name"),
+						description: t("configure.daily-guides.setup.command-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
 						description_localizations: localisations(
-							"daily-guides.setup.command-option-channel-description",
+							"configure.daily-guides.setup.command-description",
 						),
-						required: true,
-						channel_types: [...DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES],
+						options: [
+							{
+								type: ApplicationCommandOptionType.Channel,
+								name: t("configure.daily-guides.setup.command-option-channel-name", {
+									lng: Locale.EnglishGB,
+									ns: "commands",
+								}),
+								name_localizations: localisations(
+									"configure.daily-guides.setup.command-option-channel-name",
+								),
+								description: t("configure.daily-guides.setup.command-option-channel-description", {
+									lng: Locale.EnglishGB,
+									ns: "commands",
+								}),
+								description_localizations: localisations(
+									"configure.daily-guides.setup.command-option-channel-description",
+								),
+								required: true,
+								channel_types: [...DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES],
+							},
+						],
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: t("configure.daily-guides.status.command-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: localisations("configure.daily-guides.status.command-name"),
+						description: t("configure.daily-guides.status.command-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: localisations(
+							"configure.daily-guides.status.command-description",
+						),
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: t("configure.daily-guides.unset.command-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: localisations("configure.daily-guides.unset.command-name"),
+						description: t("configure.daily-guides.unset.command-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: localisations(
+							"configure.daily-guides.unset.command-description",
+						),
 					},
 				],
 			},
 			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: t("daily-guides.status.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: localisations("daily-guides.status.command-name"),
-				description: t("daily-guides.status.command-description", {
+				type: ApplicationCommandOptionType.SubcommandGroup,
+				name: t("configure.notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: localisations("configure.notifications.command-name"),
+				description: t("configure.notifications.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: localisations("daily-guides.status.command-description"),
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: t("daily-guides.unset.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: localisations("daily-guides.unset.command-name"),
-				description: t("daily-guides.unset.command-description", {
-					lng: Locale.EnglishGB,
-					ns: "commands",
-				}),
-				description_localizations: localisations("daily-guides.unset.command-description"),
+				description_localizations: localisations("configure.notifications.command-description"),
+				options: [
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: t("configure.notifications.setup.command-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: localisations("configure.notifications.setup.command-name"),
+						description: t("configure.notifications.setup.command-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: localisations(
+							"configure.notifications.setup.command-description",
+						),
+						options: [
+							{
+								type: ApplicationCommandOptionType.Integer,
+								name: t("configure.notifications.setup.command-option-notification-name", {
+									lng: Locale.EnglishGB,
+									ns: "commands",
+								}),
+								name_localizations: localisations(
+									"configure.notifications.setup.command-option-notification-name",
+								),
+								description: t(
+									"configure.notifications.setup.command-option-notification-description",
+									{
+										lng: Locale.EnglishGB,
+										ns: "commands",
+									},
+								),
+								description_localizations: localisations(
+									"configure.notifications.setup.command-option-notification-description",
+								),
+								required: true,
+								choices: notificationEventChoices,
+							},
+							{
+								type: ApplicationCommandOptionType.Channel,
+								name: t("configure.notifications.setup.command-option-channel-name", {
+									lng: Locale.EnglishGB,
+									ns: "commands",
+								}),
+								name_localizations: localisations(
+									"configure.notifications.setup.command-option-channel-name",
+								),
+								description: t("configure.notifications.setup.command-option-channel-description", {
+									lng: Locale.EnglishGB,
+									ns: "commands",
+								}),
+								description_localizations: localisations(
+									"configure.notifications.setup.command-option-channel-description",
+								),
+								required: true,
+								channel_types: [...NOTIFICATION_CHANNEL_TYPES],
+							},
+							{
+								type: ApplicationCommandOptionType.Role,
+								name: t("configure.notifications.setup.command-option-role-name", {
+									lng: Locale.EnglishGB,
+									ns: "commands",
+								}),
+								name_localizations: localisations(
+									"configure.notifications.setup.command-option-role-name",
+								),
+								description: t("configure.notifications.setup.command-option-role-description", {
+									lng: Locale.EnglishGB,
+									ns: "commands",
+								}),
+								description_localizations: localisations(
+									"configure.notifications.setup.command-option-role-description",
+								),
+								required: true,
+							},
+						],
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: t("configure.notifications.status.command-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: localisations("configure.notifications.status.command-name"),
+						description: t("configure.notifications.status.command-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: localisations(
+							"configure.notifications.status.command-description",
+						),
+					},
+					{
+						type: ApplicationCommandOptionType.Subcommand,
+						name: t("configure.notifications.unset.command-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: localisations("configure.notifications.unset.command-name"),
+						description: t("configure.notifications.unset.command-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: localisations(
+							"configure.notifications.unset.command-description",
+						),
+						options: [
+							{
+								type: ApplicationCommandOptionType.Integer,
+								name: t("configure.notifications.unset.command-option-notification-name", {
+									lng: Locale.EnglishGB,
+									ns: "commands",
+								}),
+								name_localizations: localisations(
+									"configure.notifications.unset.command-option-notification-name",
+								),
+								description: t(
+									"configure.notifications.unset.command-option-notification-description",
+									{
+										lng: Locale.EnglishGB,
+										ns: "commands",
+									},
+								),
+								description_localizations: localisations(
+									"configure.notifications.unset.command-option-notification-description",
+								),
+								required: true,
+								choices: notificationEventChoices,
+							},
+						],
+					},
+				],
 			},
 		],
 		default_member_permissions: String(PermissionFlagsBits.ManageGuild),
@@ -682,123 +853,6 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			ApplicationIntegrationType.UserInstall,
 		],
 		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
-	},
-	{
-		name: t("notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: localisations("notifications.command-name"),
-		description: t("notifications.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: localisations("notifications.command-description"),
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: t("notifications.setup.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: localisations("notifications.setup.command-name"),
-				description: t("notifications.setup.command-description", {
-					lng: Locale.EnglishGB,
-					ns: "commands",
-				}),
-				description_localizations: localisations("notifications.setup.command-description"),
-				options: [
-					{
-						type: ApplicationCommandOptionType.Integer,
-						name: t("notifications.setup.command-option-notification-name", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						name_localizations: localisations(
-							"notifications.setup.command-option-notification-name",
-						),
-						description: t("notifications.setup.command-option-notification-description", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						description_localizations: localisations(
-							"notifications.setup.command-option-notification-description",
-						),
-						required: true,
-						choices: notificationEventChoices,
-					},
-					{
-						type: ApplicationCommandOptionType.Channel,
-						name: t("notifications.setup.command-option-channel-name", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						name_localizations: localisations("notifications.setup.command-option-channel-name"),
-						description: t("notifications.setup.command-option-channel-description", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						description_localizations: localisations(
-							"notifications.setup.command-option-channel-description",
-						),
-						required: true,
-						channel_types: [...NOTIFICATION_CHANNEL_TYPES],
-					},
-					{
-						type: ApplicationCommandOptionType.Role,
-						name: t("notifications.setup.command-option-role-name", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						name_localizations: localisations("notifications.setup.command-option-role-name"),
-						description: t("notifications.setup.command-option-role-description", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						description_localizations: localisations(
-							"notifications.setup.command-option-role-description",
-						),
-						required: true,
-					},
-				],
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: t("notifications.status.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: localisations("notifications.status.command-name"),
-				description: t("notifications.status.command-description", {
-					lng: Locale.EnglishGB,
-					ns: "commands",
-				}),
-				description_localizations: localisations("notifications.status.command-description"),
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: t("notifications.unset.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: localisations("notifications.unset.command-name"),
-				description: t("notifications.unset.command-description", {
-					lng: Locale.EnglishGB,
-					ns: "commands",
-				}),
-				description_localizations: localisations("notifications.unset.command-description"),
-				options: [
-					{
-						type: ApplicationCommandOptionType.Integer,
-						name: t("notifications.unset.command-option-notification-name", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						name_localizations: localisations(
-							"notifications.unset.command-option-notification-name",
-						),
-						description: t("notifications.unset.command-option-notification-description", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						description_localizations: localisations(
-							"notifications.unset.command-option-notification-description",
-						),
-						required: true,
-						choices: notificationEventChoices,
-					},
-				],
-			},
-		],
-		default_member_permissions: String(PermissionFlagsBits.ManageGuild),
-		integration_types: [ApplicationIntegrationType.GuildInstall],
-		contexts: [InteractionContextType.Guild],
 	},
 	{
 		name: t("play-fight.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
